@@ -3532,3 +3532,11 @@ extern "C" unsigned char text_padding_0040e76b[] = {
     0xcc, 0xcc, 0xcc, 0xcc, 0xcc,
 };
 #pragma data_seg()
+
+// Retail INT3 padding on either side of the recovered ECL loader adapter.
+#pragma data_seg(".d403077")
+extern "C" unsigned char text_padding_00403077[] = { 0xcc, 0xcc, 0xcc, 0xcc, 0xcc, 0xcc, 0xcc, 0xcc, 0xcc };
+#pragma data_seg()
+#pragma data_seg(".d40308b")
+extern "C" unsigned char text_padding_0040308b[] = { 0xcc, 0xcc, 0xcc, 0xcc, 0xcc };
+#pragma data_seg()

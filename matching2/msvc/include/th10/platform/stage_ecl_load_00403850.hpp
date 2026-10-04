@@ -22,5 +22,6 @@ struct StageEclLoader_00403850 {
     char* original;
     int file_size;
     __declspec(noinline) int Load(const char* name);
+    __declspec(noinline) int LoadNormalized(const char* name);
 };
 #endif

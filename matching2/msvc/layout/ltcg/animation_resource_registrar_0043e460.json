@@ -19,6 +19,15 @@
       "source": "src/game/music_requests_00420a90.cpp"
     },
     {
+      "name": "Music_Play",
+      "symbol": "?Music_Play@@YGHHH@Z",
+      "section": ".text$00c1play",
+      "address": "0x00420B10",
+      "size": 73,
+      "actual_abi": "track and heard index on the stack; RET 8",
+      "source": "src/game/music_requests_00420a90.cpp"
+    },
+    {
       "name": "Music_Stop",
       "symbol": "?Music_Stop@@YGHXZ",
       "section": ".text$00d_stop",
@@ -86,7 +95,7 @@
     "symbol": "_RegistrarContext_0043e460@20",
     "section": ".text$03context",
     "address": "0x0043E4E0",
-    "size": 143,
+    "size": 158,
     "description": "Synthetic array-walking compiler context, never selected as recovered game code."
   },
   "gaps": [
@@ -98,7 +107,12 @@
     {
       "section": ".text$00c",
       "address": "0x00420B08",
-      "size": 120
+      "size": 8
+    },
+    {
+      "section": ".text$00c3",
+      "address": "0x00420B59",
+      "size": 39
     },
     {
       "section": ".text$00c7",

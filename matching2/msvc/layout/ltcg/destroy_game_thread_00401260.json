@@ -1,0 +1,202 @@
+{
+  "schema_version": 1,
+  "name": "destroy_game_thread_00401260",
+  "source": "src/game/destroy_game_thread_00401260.cpp",
+  "driver": "layout/ltcg/destroy_game_thread_00401260/context.cpp",
+  "included_sources": [
+    "layout/ltcg/game_state_anchor_00402160.cpp"
+  ],
+  "headers": [
+    "include/th10/game/game_thread.hpp",
+    "include/th10/game/scheduler.hpp",
+    "include/th10/game/manager_teardown_helpers.hpp",
+    "include/th10/game/enemy_manager_dependencies_0040d530.hpp",
+    "include/th10/render/animation_resource_removal.hpp",
+    "include/th10/platform/thread_sync.hpp"
+  ],
+  "image_base": "0x00400000",
+  "exceptions": true,
+  "constants": [],
+  "description": "GameThread destructor with both slot unwind funclets and its EH handler, compiled with the scheduler-removal and bank-release callees that fix its register conventions.",
+  "functions": [
+    {
+      "name": "GameThread_Destructor",
+      "symbol": "??1GameThread@@QAE@XZ",
+      "section": ".text$01dtor",
+      "address": "0x00401260",
+      "size": 467,
+      "actual_abi": "this on stack, RET4"
+    },
+    {
+      "name": "GameThreadDestructorUnwindSlot0",
+      "symbol": "_GameThreadDestructorUnwindSlot0_004652e0",
+      "section": ".text$x",
+      "address": "0x004652E0",
+      "size": 11,
+      "actual_abi": "destroys the slot at +0x14",
+      "generated": true,
+      "native_symbol_pattern": "\\$L[0-9]+"
+    },
+    {
+      "name": "GameThreadDestructorUnwindSlot1",
+      "symbol": "_GameThreadDestructorUnwindSlot1_004652eb",
+      "section": ".text$x",
+      "address": "0x004652EB",
+      "size": 14,
+      "actual_abi": "destroys the slot at +0x3C0",
+      "generated": true,
+      "native_symbol_pattern": "\\$L[0-9]+"
+    },
+    {
+      "name": "GameThreadDestructorHandler",
+      "symbol": "__ehhandler$??1GameThread@@QAE@XZ",
+      "section": ".text$x",
+      "address": "0x004652F9",
+      "size": 10,
+      "actual_abi": "compiler-generated EH handler",
+      "generated": true
+    }
+  ],
+  "anchors": [
+    {
+      "name": "SlotDestructor",
+      "symbol": "??1GameThreadSlot@@QAE@XZ",
+      "section": ".text$04slot",
+      "address": "0x00401FF0",
+      "size": 34
+    },
+    {
+      "name": "Release",
+      "symbol": "?Release@AnimationResource_00447810@@QAEXXZ",
+      "section": ".text$07release",
+      "address": "0x00447810",
+      "size": 242
+    },
+    {
+      "name": "SchedulerRemove",
+      "symbol": "_Scheduler_Remove@8",
+      "section": ".text$13remove",
+      "address": "0x00449F60",
+      "size": 114
+    }
+  ],
+  "context": {
+    "symbol": "_DestroyGameThreadContext_00401260@4",
+    "section": ".text$02context",
+    "address": "0x00401440",
+    "size": 5,
+    "description": "Compiler-only destroying caller."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x401000",
+      "size": 608
+    },
+    {
+      "section": ".text$03layout",
+      "address": "0x401445",
+      "size": 2987
+    },
+    {
+      "section": ".text$05layout",
+      "address": "0x402012",
+      "size": 284670
+    },
+    {
+      "section": ".text$07z",
+      "address": "0x447902",
+      "size": 9822
+    },
+    {
+      "section": ".text$14layout",
+      "address": "0x449fd2",
+      "size": 111374
+    },
+    {
+      "section": ".rdata$0before",
+      "address": "0x466000",
+      "size": 45888
+    }
+  ],
+  "native_data": [
+    {
+      "section": ".xdata$x",
+      "address": "0x00471340",
+      "bytes": "ffffffffe052460000000000eb52460020059319020000004013470000000000000000000000000000000000",
+      "description": "Unwind map and FuncInfo of the destructor; validation only"
+    }
+  ],
+  "data_aliases": [
+    {
+      "symbol": "??_7GameThread@@6B@",
+      "address": "0x0046CB14",
+      "bytes": "901c4000"
+    }
+  ],
+  "absolute_symbols": [
+    {
+      "symbol": "?ObjectSize@GameThread@@UAEHXZ",
+      "address": "0x401c90",
+      "kind": "data"
+    },
+    {
+      "symbol": "??3@YAXPAX@Z",
+      "address": "0x4524a1",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_entry_free_00452422",
+      "address": "0x452422",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?MarkResourceForRemoval@AnimationManager@@QAEXPAX@Z",
+      "address": "0x4493e0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "___CxxFrameHandler",
+      "address": "0x46276d",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__except_list",
+      "address": "0x0",
+      "kind": "metadata"
+    },
+    {
+      "symbol": "_data_004776e0",
+      "address": "0x4776e0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491be4",
+      "address": "0x491be4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491c10",
+      "address": "0x491c10",
+      "kind": "data"
+    },
+    {
+      "symbol": "?g_thread_synchronization@@3UThreadSynchronization@@A",
+      "address": "0x492274",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__EnterCriticalSection@4",
+      "address": "0x4660b0",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__LeaveCriticalSection@4",
+      "address": "0x4660b4",
+      "kind": "data"
+    }
+  ],
+  "additional_sources": [
+    "layout/ltcg/destroy_game_thread_00401260/anchors.cpp"
+  ]
+}

@@ -1,0 +1,752 @@
+{
+  "removed": [
+    {
+      "source": "src/game/spell_card_end.cpp",
+      "symbol": "asm_FUN_00409c00_00409c00",
+      "address": "0x00409C00",
+      "owner": "src/game/spell_card_end_00409c00.cpp"
+    },
+    {
+      "source": "src/game/ascii_format_shadowed_retail_00447ae0.cpp",
+      "symbol": "asm_Ascii_FormatShadowedRetail_00447ae0",
+      "address": "0x00447AE0",
+      "owner": "src/game/recovery_right_aligned_text_00447ae0.cpp"
+    },
+    {
+      "source": "src/game/fun_00406060_00406060.cpp",
+      "symbol": "asm_FUN_00406060_00406060",
+      "address": "0x00406060",
+      "owner": "src/game/bullet_manager_create_00406060.cpp"
+    },
+    {
+      "source": "src/game/stage_manager_create_retail_004296f0.cpp",
+      "symbol": "asm_StageManager_CreateRetail_004296f0",
+      "address": "0x004296F0",
+      "owner": "src/game/replay_manager_create_004296f0.cpp"
+    },
+    {
+      "source": "src/game/fun_00429610_00429610.cpp",
+      "symbol": "asm_FUN_00429610_00429610",
+      "address": "0x00429610",
+      "owner": "src/game/replay_manager_create_00429610.cpp"
+    },
+    {
+      "source": "src/game/fun_0041aed0_0041aed0.cpp",
+      "symbol": "asm_FUN_0041aed0_0041aed0",
+      "address": "0x0041AED0",
+      "owner": "src/game/native_effect_manager_create_0041aed0.cpp"
+    },
+    {
+      "source": "src/game/item_manager_create_retail_00414830.cpp",
+      "symbol": "asm_ItemManager_CreateRetail_00414830",
+      "address": "0x00414830",
+      "owner": "src/game/item_manager_create_00414830.cpp"
+    },
+    {
+      "source": "src/game/player_manager_create_retail_00408c90.cpp",
+      "symbol": "asm_PlayerManager_CreateRetail_00408c90",
+      "address": "0x00408C90",
+      "owner": "src/game/player_manager_create_00408c90.cpp"
+    },
+    {
+      "source": "src/game/fun_004294a0_004294a0.cpp",
+      "symbol": "asm_FUN_004294a0_004294a0",
+      "address": "0x004294A0",
+      "owner": "src/game/replay_manager_teardown_004294a0.cpp"
+    },
+    {
+      "source": "src/game/fun_004145f0_004145f0.cpp",
+      "symbol": "asm_FUN_004145f0_004145f0",
+      "address": "0x004145F0",
+      "owner": "src/game/item_manager_teardown_004145f0.cpp"
+    },
+    {
+      "source": "src/game/fun_00409f90_00409f90.cpp",
+      "symbol": "asm_FUN_00409f90_00409f90",
+      "address": "0x00409F90",
+      "owner": "src/game/enemy_manager_clear_00409f90.cpp"
+    },
+    {
+      "source": "src/game/recovery_mark_log_state_00447a50.cpp",
+      "symbol": "asm_Recovery_MarkLogState_00447a50",
+      "address": "0x00447A50",
+      "owner": "src/game/recovery_mark_text_and_dispatcher_004479d0.cpp"
+    },
+    {
+      "source": "src/game/recovery_clear_animation_slot_0042c6d0.cpp",
+      "symbol": "asm_Recovery_ClearAnimationSlot_0042c6d0",
+      "address": "0x0042C6D0",
+      "owner": "src/game/recovery_animation_slot_frames_0042c6d0.cpp"
+    },
+    {
+      "source": "src/game/fun_00415db0_00415db0.cpp",
+      "symbol": "asm_FUN_00415db0_00415db0",
+      "address": "0x00415DB0",
+      "owner": "src/game/item_score_display_create_00415db0.cpp"
+    },
+    {
+      "source": "src/game/entity.cpp",
+      "symbol": "asm_FUN_00405d00_00405d00",
+      "address": "0x00405D00",
+      "owner": "src/game/bullet_slot_construct_00405d00.cpp"
+    },
+    {
+      "source": "src/game/manager_factories.cpp",
+      "symbol": "asm_PlayerManager_ConstructRetail_00408910",
+      "address": "0x00408910",
+      "owner": "src/game/player_manager_construct_00408910.cpp"
+    },
+    {
+      "source": "src/game/manager_factories.cpp",
+      "symbol": "asm_FUN_00413810_00413810",
+      "address": "0x00413810",
+      "owner": "src/game/item_manager_construct_00413810.cpp"
+    },
+    {
+      "source": "src/game/manager_teardown.cpp",
+      "symbol": "asm_FUN_00408af0_00408af0",
+      "address": "0x00408AF0",
+      "owner": "src/game/player_manager_teardown_00408af0.cpp"
+    },
+    {
+      "source": "src/game/recovery_initialize_interface_array_0044ce80.cpp",
+      "symbol": "asm_Recovery_InitializeInterfaceArray_0044ce80",
+      "address": "0x0044CE80",
+      "owner": "src/platform/sound_stream_construct_0044ce80.cpp"
+    },
+    {
+      "source": "src/platform/sound_play_random_voice_retail_00420c30.cpp",
+      "symbol": "asm_Sound_PlayRandomVoiceRetail_00420c30",
+      "address": "0x00420C30",
+      "owner": "src/game/music_requests_00420a90.cpp"
+    },
+    {
+      "source": "src/platform/fun_0044cf20_0044cf20.cpp",
+      "symbol": "asm_FUN_0044cf20_0044cf20",
+      "address": "0x0044CF20",
+      "owner": "src/platform/sound_stream_recreate_buffers_0044cf20.cpp"
+    },
+    {
+      "source": "src/render/fun_0042c770_0042c770.cpp",
+      "symbol": "asm_FUN_0042c770_0042c770",
+      "address": "0x0042C770",
+      "owner": "src/game/recovery_animation_slot_frames_0042c6d0.cpp"
+    },
+    {
+      "source": "src/unidentified/FUN_0040a1a0_0040a1a0.cpp",
+      "symbol": "asm_FUN_0040a1a0_0040a1a0",
+      "address": "0x0040A1A0",
+      "owner": "src/game/sprite_viewer_teardown_0040a1a0.cpp"
+    },
+    {
+      "source": "src/unidentified/FUN_0040a450_0040a450.cpp",
+      "symbol": "asm_FUN_0040a450_0040a450",
+      "address": "0x0040A450",
+      "owner": "src/game/sprite_viewer_update_0040a450.cpp"
+    },
+    {
+      "source": "src/unidentified/Unwind_00465250_00465250.cpp",
+      "symbol": "asm_Unwind_00465250_00465250",
+      "address": "0x00465250",
+      "owner": "src/game/replay_manager_teardown_004294a0.cpp"
+    },
+    {
+      "source": "src/unidentified/Unwind_00465430_00465430.cpp",
+      "symbol": "asm_Unwind_00465430_00465430",
+      "address": "0x00465430",
+      "owner": "src/game/item_manager_construct_00413810.cpp"
+    },
+    {
+      "source": "src/unidentified/Unwind_00465449_00465449.cpp",
+      "symbol": "asm_Unwind_00465449_00465449",
+      "address": "0x00465449",
+      "owner": "src/game/item_manager_construct_00413810.cpp"
+    },
+    {
+      "source": "src/unidentified/Unwind_00465464_00465464.cpp",
+      "symbol": "asm_Unwind_00465464_00465464",
+      "address": "0x00465464",
+      "owner": "src/game/item_manager_construct_00413810.cpp"
+    },
+    {
+      "source": "src/unidentified/Unwind_0046547f_0046547f.cpp",
+      "symbol": "asm_Unwind_0046547f_0046547f",
+      "address": "0x0046547F",
+      "owner": "src/game/item_manager_construct_00413810.cpp"
+    },
+    {
+      "source": "src/unidentified/Unwind_0046549a_0046549a.cpp",
+      "symbol": "asm_Unwind_0046549a_0046549a",
+      "address": "0x0046549A",
+      "owner": "src/game/item_manager_construct_00413810.cpp"
+    },
+    {
+      "source": "src/unidentified/Unwind_004654e0_004654e0.cpp",
+      "symbol": "asm_Unwind_004654e0_004654e0",
+      "address": "0x004654E0",
+      "owner": "src/game/player_manager_construct_00408910.cpp"
+    },
+    {
+      "source": "src/unidentified/Unwind_004654f9_004654f9.cpp",
+      "symbol": "asm_Unwind_004654f9_004654f9",
+      "address": "0x004654F9",
+      "owner": "src/game/player_manager_construct_00408910.cpp"
+    },
+    {
+      "source": "src/unidentified/Unwind_004655c0_004655c0.cpp",
+      "symbol": "asm_Unwind_004655c0_004655c0",
+      "address": "0x004655C0",
+      "owner": "src/game/player_manager_teardown_00408af0.cpp"
+    },
+    {
+      "source": "src/unidentified/Unwind_004655d9_004655d9.cpp",
+      "symbol": "asm_Unwind_004655d9_004655d9",
+      "address": "0x004655D9",
+      "owner": "src/game/player_manager_teardown_00408af0.cpp"
+    },
+    {
+      "source": "src/unidentified/Unwind_004655f4_004655f4.cpp",
+      "symbol": "asm_Unwind_004655f4_004655f4",
+      "address": "0x004655F4",
+      "owner": "src/game/player_manager_teardown_00408af0.cpp"
+    },
+    {
+      "source": "src/unidentified/Unwind_00465640_00465640.cpp",
+      "symbol": "asm_Unwind_00465640_00465640",
+      "address": "0x00465640",
+      "owner": "src/game/replay_manager_create_004296f0.cpp"
+    },
+    {
+      "source": "src/unidentified/Unwind_00465660_00465660.cpp",
+      "symbol": "asm_Unwind_00465660_00465660",
+      "address": "0x00465660",
+      "owner": "src/game/replay_manager_create_00429610.cpp"
+    },
+    {
+      "source": "src/unidentified/Unwind_004656a0_004656a0.cpp",
+      "symbol": "asm_Unwind_004656a0_004656a0",
+      "address": "0x004656A0",
+      "owner": "src/game/item_manager_teardown_004145f0.cpp"
+    },
+    {
+      "source": "src/unidentified/Unwind_004656b9_004656b9.cpp",
+      "symbol": "asm_Unwind_004656b9_004656b9",
+      "address": "0x004656B9",
+      "owner": "src/game/item_manager_teardown_004145f0.cpp"
+    },
+    {
+      "source": "src/unidentified/Unwind_004656d4_004656d4.cpp",
+      "symbol": "asm_Unwind_004656d4_004656d4",
+      "address": "0x004656D4",
+      "owner": "src/game/item_manager_teardown_004145f0.cpp"
+    },
+    {
+      "source": "src/unidentified/Unwind_004656ef_004656ef.cpp",
+      "symbol": "asm_Unwind_004656ef_004656ef",
+      "address": "0x004656EF",
+      "owner": "src/game/item_manager_teardown_004145f0.cpp"
+    },
+    {
+      "source": "src/unidentified/Unwind_0046570a_0046570a.cpp",
+      "symbol": "asm_Unwind_0046570a_0046570a",
+      "address": "0x0046570A",
+      "owner": "src/game/item_manager_teardown_004145f0.cpp"
+    },
+    {
+      "source": "src/unidentified/Unwind_00465725_00465725.cpp",
+      "symbol": "asm_Unwind_00465725_00465725",
+      "address": "0x00465725",
+      "owner": "src/game/item_manager_teardown_004145f0.cpp"
+    },
+    {
+      "source": "src/unidentified/Unwind_00465740_00465740.cpp",
+      "symbol": "asm_Unwind_00465740_00465740",
+      "address": "0x00465740",
+      "owner": "src/game/item_manager_teardown_004145f0.cpp"
+    },
+    {
+      "source": "src/unidentified/Unwind_004657d0_004657d0.cpp",
+      "symbol": "asm_Unwind_004657d0_004657d0",
+      "address": "0x004657D0",
+      "owner": "src/game/sprite_viewer_teardown_0040a1a0.cpp"
+    },
+    {
+      "source": "src/unidentified/Unwind_004657db_004657db.cpp",
+      "symbol": "asm_Unwind_004657db_004657db",
+      "address": "0x004657DB",
+      "owner": "src/game/sprite_viewer_teardown_0040a1a0.cpp"
+    },
+    {
+      "source": "src/unidentified/Unwind_00465800_00465800.cpp",
+      "symbol": "asm_Unwind_00465800_00465800",
+      "address": "0x00465800",
+      "owner": "src/game/native_effect_manager_create_0041aed0.cpp"
+    },
+    {
+      "source": "src/unidentified/Unwind_00465820_00465820.cpp",
+      "symbol": "asm_Unwind_00465820_00465820",
+      "address": "0x00465820",
+      "owner": "src/game/item_score_display_create_00415db0.cpp"
+    },
+    {
+      "source": "src/unidentified/Unwind_00465840_00465840.cpp",
+      "symbol": "asm_Unwind_00465840_00465840",
+      "address": "0x00465840",
+      "owner": "src/game/item_manager_create_00414830.cpp"
+    },
+    {
+      "source": "src/unidentified/Unwind_00465860_00465860.cpp",
+      "symbol": "asm_Unwind_00465860_00465860",
+      "address": "0x00465860",
+      "owner": "src/game/player_manager_create_00408c90.cpp"
+    },
+    {
+      "source": "src/unidentified/Unwind_004658a0_004658a0.cpp",
+      "symbol": "asm_Unwind_004658a0_004658a0",
+      "address": "0x004658A0",
+      "owner": "src/game/bullet_manager_create_00406060.cpp"
+    },
+    {
+      "source": "src/unidentified/unassigned_004020b0.cpp",
+      "symbol": "asm_unassigned_004020b0",
+      "address": "0x004020B0",
+      "owner": "src/unidentified/record_write_runs_b_0040.cpp"
+    },
+    {
+      "source": "src/unidentified/unassigned_00404ca0.cpp",
+      "symbol": "asm_unassigned_00404ca0",
+      "address": "0x00404CA0",
+      "owner": "src/unidentified/timer_arm_record_00404ca0.cpp"
+    },
+    {
+      "source": "src/unidentified/unassigned_00405450.cpp",
+      "symbol": "asm_unassigned_00405450",
+      "address": "0x00405450",
+      "owner": "src/unidentified/timer_arm_float_00405450.cpp"
+    },
+    {
+      "source": "src/unidentified/unassigned_0040ada0.cpp",
+      "symbol": "asm_unassigned_0040ada0",
+      "address": "0x0040ADA0",
+      "owner": "src/unidentified/publish_index_0040ada0.cpp"
+    },
+    {
+      "source": "src/unidentified/unassigned_0041fd90.cpp",
+      "symbol": "asm_unassigned_0041fd90",
+      "address": "0x0041FD90",
+      "owner": "src/unidentified/flag_broadcast_0041fd90.cpp"
+    },
+    {
+      "source": "src/unidentified/unassigned_00420b60.cpp",
+      "symbol": "asm_unassigned_00420b60",
+      "address": "0x00420B60",
+      "owner": "src/app/game_state_byte_test_00420b60.cpp"
+    },
+    {
+      "source": "src/unidentified/unassigned_00420dc0.cpp",
+      "symbol": "asm_unassigned_00420dc0",
+      "address": "0x00420DC0",
+      "owner": "src/unidentified/empty_bodies_00420dc0.cpp"
+    },
+    {
+      "source": "src/unidentified/unassigned_00421410.cpp",
+      "symbol": "asm_unassigned_00421410",
+      "address": "0x00421410",
+      "owner": "src/unidentified/empty_bodies_00420dc0.cpp"
+    },
+    {
+      "source": "src/unidentified/unassigned_00421be0.cpp",
+      "symbol": "asm_unassigned_00421be0",
+      "address": "0x00421BE0",
+      "owner": "src/app/tan_pair_00421be0.cpp"
+    },
+    {
+      "source": "src/unidentified/unassigned_00421bf0.cpp",
+      "symbol": "asm_unassigned_00421bf0",
+      "address": "0x00421BF0",
+      "owner": "src/app/tan_pair_00421be0.cpp"
+    },
+    {
+      "source": "src/unidentified/unassigned_00421ca0.cpp",
+      "symbol": "asm_unassigned_00421ca0",
+      "address": "0x00421CA0",
+      "owner": "src/unidentified/unassigned_00421c90.cpp"
+    },
+    {
+      "source": "src/unidentified/unassigned_00421cb0.cpp",
+      "symbol": "asm_unassigned_00421cb0",
+      "address": "0x00421CB0",
+      "owner": "src/unidentified/unassigned_00421c90.cpp"
+    },
+    {
+      "source": "src/unidentified/unassigned_00421cc0.cpp",
+      "symbol": "asm_unassigned_00421cc0",
+      "address": "0x00421CC0",
+      "owner": "src/unidentified/unassigned_00421c90.cpp"
+    },
+    {
+      "source": "src/unidentified/unassigned_00421cd0.cpp",
+      "symbol": "asm_unassigned_00421cd0",
+      "address": "0x00421CD0",
+      "owner": "src/unidentified/unassigned_00421c90.cpp"
+    },
+    {
+      "source": "src/unidentified/unassigned_00421ce0.cpp",
+      "symbol": "asm_unassigned_00421ce0",
+      "address": "0x00421CE0",
+      "owner": "src/unidentified/unassigned_00421c90.cpp"
+    },
+    {
+      "source": "src/unidentified/unassigned_00421cf0.cpp",
+      "symbol": "asm_unassigned_00421cf0",
+      "address": "0x00421CF0",
+      "owner": "src/unidentified/unassigned_00421c90.cpp"
+    },
+    {
+      "source": "src/unidentified/unassigned_00421d40.cpp",
+      "symbol": "asm_unassigned_00421d40",
+      "address": "0x00421D40",
+      "owner": "src/unidentified/empty_bodies_00420dc0.cpp"
+    },
+    {
+      "source": "src/unidentified/unassigned_004221e0.cpp",
+      "symbol": "asm_unassigned_004221e0",
+      "address": "0x004221E0",
+      "owner": "src/unidentified/zero_returns_004221e0.cpp"
+    },
+    {
+      "source": "src/unidentified/unassigned_004221f0.cpp",
+      "symbol": "asm_unassigned_004221f0",
+      "address": "0x004221F0",
+      "owner": "src/unidentified/zero_returns_004221e0.cpp"
+    },
+    {
+      "source": "src/unidentified/unassigned_004245f0.cpp",
+      "symbol": "asm_unassigned_004245f0",
+      "address": "0x004245F0",
+      "owner": "src/unidentified/empty_bodies_00420dc0.cpp"
+    },
+    {
+      "source": "src/unidentified/unassigned_00424eb0.cpp",
+      "symbol": "asm_unassigned_00424eb0",
+      "address": "0x00424EB0",
+      "owner": "src/unidentified/zero_returns_004221e0.cpp"
+    },
+    {
+      "source": "src/unidentified/unassigned_00424ec0.cpp",
+      "symbol": "asm_unassigned_00424ec0",
+      "address": "0x00424EC0",
+      "owner": "src/unidentified/zero_returns_004221e0.cpp"
+    },
+    {
+      "source": "src/unidentified/unassigned_00427e00.cpp",
+      "symbol": "asm_unassigned_00427e00",
+      "address": "0x00427E00",
+      "owner": "src/unidentified/empty_bodies_00420dc0.cpp"
+    },
+    {
+      "source": "src/unidentified/unassigned_0042aae0.cpp",
+      "symbol": "asm_unassigned_0042aae0",
+      "address": "0x0042AAE0",
+      "owner": "src/unidentified/record_links_0042.cpp"
+    },
+    {
+      "source": "src/unidentified/unassigned_0042abd0.cpp",
+      "symbol": "asm_unassigned_0042abd0",
+      "address": "0x0042ABD0",
+      "owner": "src/unidentified/record_links_0042.cpp"
+    },
+    {
+      "source": "src/unidentified/unassigned_0042ac10.cpp",
+      "symbol": "asm_unassigned_0042ac10",
+      "address": "0x0042AC10",
+      "owner": "src/unidentified/empty_bodies_00420dc0.cpp"
+    },
+    {
+      "source": "src/unidentified/unassigned_0042b420.cpp",
+      "symbol": "asm_unassigned_0042b420",
+      "address": "0x0042B420",
+      "owner": "src/unidentified/empty_bodies_00420dc0.cpp"
+    },
+    {
+      "source": "src/unidentified/unassigned_0042bab0.cpp",
+      "symbol": "asm_unassigned_0042bab0",
+      "address": "0x0042BAB0",
+      "owner": "src/unidentified/empty_bodies_00420dc0.cpp"
+    },
+    {
+      "source": "src/unidentified/unassigned_0042c5a0.cpp",
+      "symbol": "asm_unassigned_0042c5a0",
+      "address": "0x0042C5A0",
+      "owner": "src/unidentified/empty_bodies_00420dc0.cpp"
+    },
+    {
+      "source": "src/unidentified/unassigned_0043bc20.cpp",
+      "symbol": "asm_unassigned_0043bc20",
+      "address": "0x0043BC20",
+      "owner": "src/unidentified/record_links_0042.cpp"
+    },
+    {
+      "source": "src/unidentified/unassigned_0043c930.cpp",
+      "symbol": "asm_unassigned_0043c930",
+      "address": "0x0043C930",
+      "owner": "src/unidentified/timer_arm_record_00404ca0.cpp"
+    },
+    {
+      "source": "src/unidentified/unassigned_00442010.cpp",
+      "symbol": "asm_unassigned_00442010",
+      "address": "0x00442010",
+      "owner": "src/unidentified/unassigned_members_b_0044.cpp"
+    },
+    {
+      "source": "src/unidentified/unassigned_00442130.cpp",
+      "symbol": "asm_unassigned_00442130",
+      "address": "0x00442130",
+      "owner": "src/unidentified/unassigned_records_0044.cpp"
+    },
+    {
+      "source": "src/unidentified/unassigned_00442150.cpp",
+      "symbol": "asm_unassigned_00442150",
+      "address": "0x00442150",
+      "owner": "src/unidentified/unassigned_records_0044.cpp"
+    },
+    {
+      "source": "src/unidentified/unassigned_00442180.cpp",
+      "symbol": "asm_unassigned_00442180",
+      "address": "0x00442180",
+      "owner": "src/unidentified/holder_copy_00442180.cpp"
+    },
+    {
+      "source": "src/unidentified/unassigned_004421c0.cpp",
+      "symbol": "asm_unassigned_004421c0",
+      "address": "0x004421C0",
+      "owner": "src/unidentified/unassigned_records_0044.cpp"
+    },
+    {
+      "source": "src/unidentified/unassigned_004421e0.cpp",
+      "symbol": "asm_unassigned_004421e0",
+      "address": "0x004421E0",
+      "owner": "src/unidentified/unassigned_members_b_0044.cpp"
+    },
+    {
+      "source": "src/unidentified/unassigned_00443680.cpp",
+      "symbol": "asm_unassigned_00443680",
+      "address": "0x00443680",
+      "owner": "src/unidentified/unassigned_members_b_0044.cpp"
+    },
+    {
+      "source": "src/unidentified/unassigned_004452a0.cpp",
+      "symbol": "asm_unassigned_004452a0",
+      "address": "0x004452A0",
+      "owner": "src/unidentified/unassigned_members_b_0044.cpp"
+    },
+    {
+      "source": "src/unidentified/unassigned_004452e0.cpp",
+      "symbol": "asm_unassigned_004452e0",
+      "address": "0x004452E0",
+      "owner": "src/unidentified/unassigned_members_0044.cpp"
+    },
+    {
+      "source": "src/unidentified/unassigned_004494c0.cpp",
+      "symbol": "asm_unassigned_004494c0",
+      "address": "0x004494C0",
+      "owner": "src/render/animation_handle_set_stop_frame_and_run_004494c0.cpp"
+    },
+    {
+      "source": "src/unidentified/unassigned_00449650.cpp",
+      "symbol": "asm_unassigned_00449650",
+      "address": "0x00449650",
+      "owner": "src/unidentified/unassigned_anim_setters_00449.cpp"
+    },
+    {
+      "source": "src/unidentified/unassigned_00449660.cpp",
+      "symbol": "asm_unassigned_00449660",
+      "address": "0x00449660",
+      "owner": "src/unidentified/unassigned_anim_setters_00449.cpp"
+    },
+    {
+      "source": "src/unidentified/unassigned_0044bf20.cpp",
+      "symbol": "asm_unassigned_0044bf20",
+      "address": "0x0044BF20",
+      "owner": "src/unidentified/unassigned_members_0044.cpp"
+    },
+    {
+      "source": "src/unidentified/unassigned_0044bff0.cpp",
+      "symbol": "asm_unassigned_0044bff0",
+      "address": "0x0044BFF0",
+      "owner": "src/unidentified/unassigned_members_b_0044.cpp"
+    },
+    {
+      "source": "src/unidentified/unassigned_0044c0e0.cpp",
+      "symbol": "asm_unassigned_0044c0e0",
+      "address": "0x0044C0E0",
+      "owner": "src/unidentified/record_write_runs_b_0040.cpp"
+    },
+    {
+      "source": "src/unidentified/unassigned_0044c240.cpp",
+      "symbol": "asm_unassigned_0044c240",
+      "address": "0x0044C240",
+      "owner": "src/unidentified/unassigned_members_b_0044.cpp"
+    },
+    {
+      "source": "src/unidentified/unassigned_0044c250.cpp",
+      "symbol": "asm_unassigned_0044c250",
+      "address": "0x0044C250",
+      "owner": "src/unidentified/unassigned_members_0044.cpp"
+    },
+    {
+      "source": "src/unidentified/unassigned_0044c5f0.cpp",
+      "symbol": "asm_unassigned_0044c5f0",
+      "address": "0x0044C5F0",
+      "owner": "src/unidentified/unassigned_members_b_0044.cpp"
+    },
+    {
+      "source": "src/unidentified/unassigned_0044c600.cpp",
+      "symbol": "asm_unassigned_0044c600",
+      "address": "0x0044C600",
+      "owner": "src/unidentified/unassigned_members_0044.cpp"
+    },
+    {
+      "source": "src/unidentified/unassigned_0044c640.cpp",
+      "symbol": "asm_unassigned_0044c640",
+      "address": "0x0044C640",
+      "owner": "src/unidentified/unassigned_members_0044.cpp"
+    },
+    {
+      "source": "src/unidentified/unassigned_0044c6b0.cpp",
+      "symbol": "asm_unassigned_0044c6b0",
+      "address": "0x0044C6B0",
+      "owner": "src/unidentified/unassigned_members_b_0044.cpp"
+    },
+    {
+      "source": "src/unidentified/unassigned_0044c6d0.cpp",
+      "symbol": "asm_unassigned_0044c6d0",
+      "address": "0x0044C6D0",
+      "owner": "src/unidentified/unassigned_members_b_0044.cpp"
+    },
+    {
+      "source": "src/unidentified/unassigned_0044c760.cpp",
+      "symbol": "asm_unassigned_0044c760",
+      "address": "0x0044C760",
+      "owner": "src/unidentified/unassigned_members_0044.cpp"
+    },
+    {
+      "source": "src/unidentified/unassigned_0044dbb0.cpp",
+      "symbol": "asm_unassigned_0044dbb0",
+      "address": "0x0044DBB0",
+      "owner": "src/unidentified/unassigned_members_b_0044.cpp"
+    },
+    {
+      "source": "src/unidentified/unassigned_0044dbd0.cpp",
+      "symbol": "asm_unassigned_0044dbd0",
+      "address": "0x0044DBD0",
+      "owner": "src/game/archive_cursor_reset_0044dbd0.cpp"
+    }
+  ],
+  "deleted": [
+    "src/game/spell_card_end.cpp",
+    "src/game/ascii_format_shadowed_retail_00447ae0.cpp",
+    "src/game/fun_00406060_00406060.cpp",
+    "src/game/stage_manager_create_retail_004296f0.cpp",
+    "src/game/fun_00429610_00429610.cpp",
+    "src/game/fun_0041aed0_0041aed0.cpp",
+    "src/game/item_manager_create_retail_00414830.cpp",
+    "src/game/player_manager_create_retail_00408c90.cpp",
+    "src/game/fun_004294a0_004294a0.cpp",
+    "src/game/fun_004145f0_004145f0.cpp",
+    "src/game/fun_00409f90_00409f90.cpp",
+    "src/game/recovery_mark_log_state_00447a50.cpp",
+    "src/game/recovery_clear_animation_slot_0042c6d0.cpp",
+    "src/game/fun_00415db0_00415db0.cpp",
+    "src/game/recovery_initialize_interface_array_0044ce80.cpp",
+    "src/platform/sound_play_random_voice_retail_00420c30.cpp",
+    "src/platform/fun_0044cf20_0044cf20.cpp",
+    "src/unidentified/FUN_0040a1a0_0040a1a0.cpp",
+    "src/unidentified/FUN_0040a450_0040a450.cpp",
+    "src/unidentified/Unwind_00465250_00465250.cpp",
+    "src/unidentified/Unwind_00465430_00465430.cpp",
+    "src/unidentified/Unwind_00465449_00465449.cpp",
+    "src/unidentified/Unwind_00465464_00465464.cpp",
+    "src/unidentified/Unwind_0046547f_0046547f.cpp",
+    "src/unidentified/Unwind_0046549a_0046549a.cpp",
+    "src/unidentified/Unwind_004654e0_004654e0.cpp",
+    "src/unidentified/Unwind_004654f9_004654f9.cpp",
+    "src/unidentified/Unwind_004655c0_004655c0.cpp",
+    "src/unidentified/Unwind_004655d9_004655d9.cpp",
+    "src/unidentified/Unwind_004655f4_004655f4.cpp",
+    "src/unidentified/Unwind_00465640_00465640.cpp",
+    "src/unidentified/Unwind_00465660_00465660.cpp",
+    "src/unidentified/Unwind_004656a0_004656a0.cpp",
+    "src/unidentified/Unwind_004656b9_004656b9.cpp",
+    "src/unidentified/Unwind_004656d4_004656d4.cpp",
+    "src/unidentified/Unwind_004656ef_004656ef.cpp",
+    "src/unidentified/Unwind_0046570a_0046570a.cpp",
+    "src/unidentified/Unwind_00465725_00465725.cpp",
+    "src/unidentified/Unwind_00465740_00465740.cpp",
+    "src/unidentified/Unwind_004657d0_004657d0.cpp",
+    "src/unidentified/Unwind_004657db_004657db.cpp",
+    "src/unidentified/Unwind_00465800_00465800.cpp",
+    "src/unidentified/Unwind_00465820_00465820.cpp",
+    "src/unidentified/Unwind_00465840_00465840.cpp",
+    "src/unidentified/Unwind_00465860_00465860.cpp",
+    "src/unidentified/Unwind_004658a0_004658a0.cpp",
+    "src/unidentified/unassigned_004020b0.cpp",
+    "src/unidentified/unassigned_00404ca0.cpp",
+    "src/unidentified/unassigned_00405450.cpp",
+    "src/unidentified/unassigned_0040ada0.cpp",
+    "src/unidentified/unassigned_0041fd90.cpp",
+    "src/unidentified/unassigned_00420b60.cpp",
+    "src/unidentified/unassigned_00420dc0.cpp",
+    "src/unidentified/unassigned_00421410.cpp",
+    "src/unidentified/unassigned_00421be0.cpp",
+    "src/unidentified/unassigned_00421bf0.cpp",
+    "src/unidentified/unassigned_00421ca0.cpp",
+    "src/unidentified/unassigned_00421cb0.cpp",
+    "src/unidentified/unassigned_00421cc0.cpp",
+    "src/unidentified/unassigned_00421cd0.cpp",
+    "src/unidentified/unassigned_00421ce0.cpp",
+    "src/unidentified/unassigned_00421cf0.cpp",
+    "src/unidentified/unassigned_00421d40.cpp",
+    "src/unidentified/unassigned_004221e0.cpp",
+    "src/unidentified/unassigned_004221f0.cpp",
+    "src/unidentified/unassigned_004245f0.cpp",
+    "src/unidentified/unassigned_00424eb0.cpp",
+    "src/unidentified/unassigned_00424ec0.cpp",
+    "src/unidentified/unassigned_00427e00.cpp",
+    "src/unidentified/unassigned_0042aae0.cpp",
+    "src/unidentified/unassigned_0042abd0.cpp",
+    "src/unidentified/unassigned_0042ac10.cpp",
+    "src/unidentified/unassigned_0042b420.cpp",
+    "src/unidentified/unassigned_0042bab0.cpp",
+    "src/unidentified/unassigned_0042c5a0.cpp",
+    "src/unidentified/unassigned_0043bc20.cpp",
+    "src/unidentified/unassigned_0043c930.cpp",
+    "src/unidentified/unassigned_00442010.cpp",
+    "src/unidentified/unassigned_00442130.cpp",
+    "src/unidentified/unassigned_00442150.cpp",
+    "src/unidentified/unassigned_00442180.cpp",
+    "src/unidentified/unassigned_004421c0.cpp",
+    "src/unidentified/unassigned_004421e0.cpp",
+    "src/unidentified/unassigned_00443680.cpp",
+    "src/unidentified/unassigned_004452a0.cpp",
+    "src/unidentified/unassigned_004452e0.cpp",
+    "src/unidentified/unassigned_004494c0.cpp",
+    "src/unidentified/unassigned_00449650.cpp",
+    "src/unidentified/unassigned_00449660.cpp",
+    "src/unidentified/unassigned_0044bf20.cpp",
+    "src/unidentified/unassigned_0044bff0.cpp",
+    "src/unidentified/unassigned_0044c0e0.cpp",
+    "src/unidentified/unassigned_0044c240.cpp",
+    "src/unidentified/unassigned_0044c250.cpp",
+    "src/unidentified/unassigned_0044c5f0.cpp",
+    "src/unidentified/unassigned_0044c600.cpp",
+    "src/unidentified/unassigned_0044c640.cpp",
+    "src/unidentified/unassigned_0044c6b0.cpp",
+    "src/unidentified/unassigned_0044c6d0.cpp",
+    "src/unidentified/unassigned_0044c760.cpp",
+    "src/unidentified/unassigned_0044dbb0.cpp",
+    "src/unidentified/unassigned_0044dbd0.cpp",
+    "src/render/fun_0042c770_0042c770.cpp"
+  ],
+  "retained_empty": []
+}

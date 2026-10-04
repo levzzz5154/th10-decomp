@@ -1,0 +1,32 @@
+[
+  {
+    "variant": "full_script_menu",
+    "dispatcher_extent": 1092,
+    "ending_extent": 284,
+    "main_menu_extent": 1272,
+    "history_extent": null,
+    "exact": false,
+    "compiler_exit": 0,
+    "linker_exit": 0
+  },
+  {
+    "variant": "full_script_menu_history",
+    "dispatcher_extent": 1092,
+    "ending_extent": 284,
+    "main_menu_extent": 1272,
+    "history_extent": null,
+    "exact": false,
+    "compiler_exit": 0,
+    "linker_exit": 0
+  },
+  {
+    "variant": "full_script_menu_push",
+    "dispatcher_extent": 1092,
+    "ending_extent": 284,
+    "main_menu_extent": 1272,
+    "history_extent": 66,
+    "exact": false,
+    "compiler_exit": 0,
+    "linker_exit": 0
+  }
+]

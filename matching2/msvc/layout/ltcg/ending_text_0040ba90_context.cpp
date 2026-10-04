@@ -1,0 +1,5 @@
+#include "../../src/game/ending_text_constructor_0040ba90.cpp"
+inline void* __cdecl operator new(unsigned int, void* memory) { return memory; }
+#pragma code_seg(".text$03context")
+extern "C" EndingText* __stdcall EndingTextContext(EndingText* storage, void* script) { return new(storage) EndingText(script); }
+#pragma code_seg()

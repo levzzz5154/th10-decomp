@@ -1,0 +1,11 @@
+{
+  "address": "0x0042D2E0",
+  "size": 7,
+  "bytes_hex": "8bc1e909fbffff",
+  "sha256": "b6f8146034bff80a9d7731d3d0b39fc79b778baa7661c603229a5bd8638c2079",
+  "retail_equal": true,
+  "instruction_bytes_changed": 0,
+  "masked_bytes": 0,
+  "reference_bytes_used_for_build": false,
+  "cluster": "layout/ltcg/title_dispatch_callback_0042d2e0.json"
+}

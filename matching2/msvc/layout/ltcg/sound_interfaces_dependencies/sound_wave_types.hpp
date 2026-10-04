@@ -117,6 +117,7 @@ struct MusicReadCursor {
     void* file;                            // +0x8c
     MusicTrackRecord* record;              // +0x90
 
+    int Open(const char*, MusicTrackRecord*, unsigned int); // caller model for 0x0044DBF0
     int SelectRecord(MusicTrackRecord*);             // maintained 0x0044DCA0
 };
 
@@ -140,6 +141,7 @@ struct SoundStream {
     int RewindBuffers();                            // maintained 0x0044D600
     int SetVolume(int volume);                      // maintained 0x0044D4E0
     int StopAndRewind();                            // maintained 0x0044D550
+    int Aggregate();                                // 0x0044D550: stop and rewind every buffer
     int ResumeConfigured();                         // maintained 0x0044D5D0
 };
 
@@ -154,6 +156,23 @@ struct SoundStreamingState : SoundStream {
     unsigned int segment_bytes;                     // +0x6c
     void* notification_event;                        // +0x70
     unsigned int servicing;                 // +0x74
+};
+
+// The object that owns the DirectSound device and creates streams on it. The
+// stream factories are its members: the pass passes the output slot in ECX,
+// the creation flags in EDX and the owner itself on the stack.
+struct SoundDeviceOwner {
+    WaveDirectSoundDevice* device;
+
+    // 0x0044C8F0: open a stream over a track of the music file.
+    __declspec(noinline) int CreateFileStream(SoundStreamingState** output, unsigned int flags,
+        const char* name, WaveGuidImage algorithm, unsigned int segment_count,
+        unsigned int segment_bytes, void* notification_event, MusicTrackRecord* record);
+    // 0x0044CBF0: open a stream over a track held in memory.
+    __declspec(noinline) int CreateMemoryStream(SoundStreamingState** output, unsigned char* pcm,
+        unsigned int pcm_bytes, MusicTrackRecord* record, unsigned int flags,
+        WaveGuidImage algorithm, unsigned int segment_count, unsigned int segment_bytes,
+        void* notification_event);
 };
 
 struct MusicCommand {
@@ -202,19 +221,20 @@ struct WaveSoundManager {
     int preload_stop_requested;             // +0x5224
     unsigned char unknown_5228[8];
     unsigned char* pending_wave[37];        // +0x5230
-    unsigned int volume_a;                          // +0x52c4
+    int volume_a;                                   // +0x52c4
     unsigned int volume_b;                          // +0x52c8
     int volume_attenuation;                         // +0x52cc
 
+    int LaunchMusic(const char* name);              // caller model for 0x0043D690
+    void StopMusicWorker();                        // caller model for 0x0043DAB0
+    __declspec(noinline) int InitializeEffects();    // 0x0043DB60
+    __declspec(noinline) int CacheMusic(int slot, const char* name); // 0x0043D7D0
+    __declspec(noinline) int PlayCachedMusic(int slot); // 0x0043D950
+    __declspec(noinline) unsigned int ProcessCommands(); // 0x0043DDF0
     int Initialize(void* window);
 };
 
-struct TextLog_0044b810 {
-    char text[0x2000];
-    char* cursor;
-    unsigned char dirty;
-    char* Append(char* format, ...);
-};
+#include "th10/platform/text_log.hpp"
 
 typedef char WaveFormatMustBe18Bytes[sizeof(WaveFormatImage) == 18 ? 1 : -1];
 typedef char WaveDescriptionMustBe36Bytes[sizeof(WaveBufferDescription) == 36 ? 1 : -1];

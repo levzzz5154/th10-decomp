@@ -58,9 +58,11 @@ def load_candidate(path, config, requested_symbol="Lzss_Compress_004359B0", extr
                    code_address=CANDIDATE):
     symbol, raw, _ = read_coff_function(path, requested_symbol)
     bindings = region_directory(config, config["regions"])
-    cluster = json.loads((ROOT / "matching2/msvc/layout/ltcg/compression_tree.json").read_text())
+    cluster = json.loads((ROOT / "matching2/msvc/layout/ltcg/lzss.json").read_text())
     bindings.update({row["symbol"]: int(row["address"], 0)
                      for row in cluster["absolute_symbols"]})
+    # The archived candidates still name the match tree as one object.
+    bindings["?g_compression_tree@@3UCompressionTree@@A"] = bindings["?g_LzssTree@@3PAULzssNode@@A"]
     bindings.update(extra_bindings or {})
     code = bytearray(raw)
     for offset, name, kind, local in relocation_table(path, symbol):

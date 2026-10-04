@@ -9,18 +9,23 @@
     "src/unidentified/FUN_0043c460_0043c460.cpp",
     "src/game/recovery_decay_counter_00418a00.cpp",
     "src/game/replay_progress.cpp",
-    "src/game/stage_sequence_schedule.cpp"
+    "src/game/stage_sequence_schedule.cpp",
+    "src/game/screen_effect_envelope_shake.cpp"
   ],
   "driver": "layout/ltcg/frame_timer_context.cpp",
   "roots": [
     "?Tick@AnimationCursor_0043bd40@@QAEHXZ",
     "?Tick@AnimationCursor_0043c230@@QAEHXZ",
-    "?Tick@AnimationCursor_0043c460@@QAEHXZ"
+    "?Tick@AnimationCursor_0043c460@@QAEHXZ",
+    "?UpdateEnvelopeShake@ScreenEffectController_0043c970@@QAEHXZ"
   ],
   "headers": [
     "include/th10/game/score.hpp",
     "include/th10/math/timer.hpp",
-    "include/th10/game/stage_schedule.hpp"
+    "include/th10/game/stage_schedule.hpp",
+    "include/th10/math/rng.hpp",
+    "include/th10/game/runtime_selector_0043c970.hpp",
+    "include/th10/game/scheduler.hpp"
   ],
   "image_base": "0x00400000",
   "description": "FrameTimer methods, the three animation cursors, the scheduler store, the gauge-timer clamp and the stage sequence schedule compiled as ordinary C++ with a synthetic caller under native LTCG; the scheduler receiver stays in EAX, the score state whose gauge timer is clamped in EDI and the embedded timers in ESI. Compiler context and layout gaps are never selected as game code.",
@@ -120,13 +125,31 @@
       "address": "0x004281D0",
       "size": 174,
       "actual_abi": "this in EAX; plain RET"
+    },
+    {
+      "name": "ScreenEffectController_UpdateEnvelopeShake",
+      "source": "src/game/screen_effect_envelope_shake.cpp",
+      "symbol": "?UpdateEnvelopeShake@ScreenEffectController_0043c970@@QAEHXZ",
+      "section": ".text$12b_shake",
+      "address": "0x0043C710",
+      "size": 349,
+      "actual_abi": "controller in ECX; nested FrameTimer receiver in ESI; RNG state in ECX and modulus in EDI; plain RET"
+    },
+    {
+      "name": "EntityScriptRng_NextRandomModulo",
+      "source": "src/game/screen_effect_envelope_shake.cpp",
+      "symbol": "?NextRandomModulo@EntityScriptRng_0043cb80@@QAEII@Z",
+      "section": ".text$12d_rng",
+      "address": "0x0043CB80",
+      "size": 88,
+      "actual_abi": "state in ECX; modulus in EDI; result in EAX; plain RET"
     }
   ],
   "context": {
-    "symbol": "AnimationTimerSchedulerCompilerContext@36",
+    "symbol": "AnimationTimerSchedulerCompilerContext@40",
     "section": ".text$15context",
     "address": "0x0044BFA0",
-    "size": 192,
+    "size": 296,
     "description": "Synthetic caller roots every cursor, timer, gauge and scheduler edge; not recovered game code."
   },
   "gaps": [
@@ -171,19 +194,14 @@
       "size": 427
     },
     {
-      "section": ".text$12layout",
-      "address": "0x0043C4FA",
-      "size": 64070
-    },
-    {
       "section": ".text$14layout",
       "address": "0x0044BF98",
       "size": 8
     },
     {
       "section": ".text$16layout",
-      "address": "0x0044C060",
-      "size": 147360
+      "address": "0x0044C0C8",
+      "size": 147256
     },
     {
       "section": ".rdata",
@@ -199,6 +217,21 @@
       "section": ".text$04zzn_updatez",
       "address": "0x0042827E",
       "size": 2898
+    },
+    {
+      "section": ".text$12a_layout",
+      "address": "0x0043C4FA",
+      "size": 534
+    },
+    {
+      "section": ".text$12c_layout",
+      "address": "0x0043C86D",
+      "size": 787
+    },
+    {
+      "section": ".text$12e_layout",
+      "address": "0x0043CBD8",
+      "size": 62312
     }
   ],
   "constants": [
@@ -269,6 +302,21 @@
     {
       "symbol": "_data_00474e5c",
       "address": "0x00474E5C",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004918b0",
+      "address": "0x004918B0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491e64",
+      "address": "0x00491E64",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491e68",
+      "address": "0x00491E68",
       "kind": "data"
     }
   ]

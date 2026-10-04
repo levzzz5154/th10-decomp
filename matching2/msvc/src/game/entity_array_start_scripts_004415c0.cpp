@@ -7,8 +7,8 @@
 #include "th10/game/entity_script_start.hpp"
 
 struct AnimationResource_0043e710;
-void __stdcall Entity_StartScript_00404f30(Entity* entity,
-                                           AnimationResource_0043e710* resource, int script);
+void __stdcall Entity_StartScript_00404f30(AnimationResource_0043e710* resource,
+                                           Entity* entity, int script);
 
 // +0x388: the sprite index the entity's script started with.
 inline int16_t& EntityInitialSprite_004415c0(Entity* entity) {
@@ -19,7 +19,7 @@ inline int16_t& EntityInitialSprite_004415c0(Entity* entity) {
 __declspec(noinline) void __stdcall EntityArray_StartScripts_004415c0(
         Entity* entities, int script, int count, AnimationResource_0043e710* resource) {
     for (; count != 0; --count) {
-        Entity_StartScript_00404f30(entities, resource, script);
+        Entity_StartScript_00404f30(resource, entities, script);
         EntityInitialSprite_004415c0(entities) = entities->SpriteIndex();
         ++script;
         ++entities;

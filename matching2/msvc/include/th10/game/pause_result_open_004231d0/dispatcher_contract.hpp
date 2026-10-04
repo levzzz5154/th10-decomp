@@ -16,6 +16,21 @@ struct DispatcherRef {
     __declspec(noinline) void SelectCurrentSprite(int index);
     __declspec(noinline) void SelectResourceSprite(AnimationResource_00449870*, int index);
 };
+// The animation manager's primary list tail registration (0x004489D0). The
+// returned four-byte reference has a genuine compiler-generated return home.
+struct DispatcherPrimaryLists {
+    unsigned char reserved_000[0x72DAD4];
+    AnimationManagerNodeOpen* primary_head;
+    AnimationManagerNodeOpen* primary_tail;
+    unsigned char reserved_72dadc[0x732454 - 0x72DADC];
+    int next_id;
+    __declspec(noinline) DispatcherRef RegisterPrimaryBack(Entity* object);
+};
+typedef char DispatcherPrimaryHeadOffset[
+    offsetof(DispatcherPrimaryLists, primary_head)==0x72DAD4?1:-1];
+typedef char DispatcherPrimaryIdOffset[
+    offsetof(DispatcherPrimaryLists, next_id)==0x732454?1:-1];
+
 struct DispatcherHandle {
     AnimationScriptId id;
     __declspec(noinline) void StopAtFrame1();

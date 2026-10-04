@@ -1,0 +1,329 @@
+{
+  "schema_version": 1,
+  "image_base": "0x00400000",
+  "constants": [],
+  "exceptions": true,
+  "name": "create_game_state_00402640",
+  "source": "src/game/create_game_state_00402640.cpp",
+  "driver": "layout/ltcg/create_game_state_00402640_context.cpp",
+  "headers": [
+    "include/th10/game/entity.hpp",
+    "include/th10/game/game_state.hpp",
+    "include/th10/game/scheduler.hpp",
+    "include/th10/math/timer.hpp",
+    "include/th10/platform/archive_file.hpp",
+    "include/th10/platform/stage_ecl_load_00403850.hpp",
+    "include/th10/platform/thread_sync.hpp",
+    "include/th10/render/camera_batch.hpp",
+    "include/th10/render/quad_batch.hpp",
+    "include/th10/types.hpp"
+  ],
+  "included_sources": [
+    "src/game/initialize_game_state_00402230.cpp",
+    "layout/ltcg/log_anchor_00402230.cpp",
+    "layout/ltcg/scheduler_anchor_00402230.cpp",
+    "layout/ltcg/stage_anchor_00402230.cpp"
+  ],
+  "description": "GameState factory with its new-expression cleanup funclet and EH handler, compiled with the real constructor, initializer and destructor so each call uses its retail convention.",
+  "functions": [
+    {
+      "name": "CreateGameState",
+      "symbol": "?CreateGameState_00402640@@YGPAUGameState_00402230@@PBDH@Z",
+      "section": ".text$02factory",
+      "address": "0x00402640",
+      "size": 151,
+      "actual_abi": "stdcall RET8"
+    },
+    {
+      "name": "CreateGameStateUnwind",
+      "symbol": "_CreateGameStateUnwind_00465880",
+      "section": ".text$x",
+      "address": "0x00465880",
+      "size": 11,
+      "actual_abi": "frees the block when the constructor throws",
+      "generated": true,
+      "native_symbol_pattern": "\\$L[0-9]+"
+    },
+    {
+      "name": "CreateGameStateHandler",
+      "symbol": "__ehhandler$?CreateGameState_00402640@@YGPAUGameState_00402230@@PBDH@Z",
+      "section": ".text$x",
+      "address": "0x0046588B",
+      "size": 10,
+      "actual_abi": "compiler-generated EH handler",
+      "generated": true
+    }
+  ],
+  "anchors": [
+    {
+      "name": "Constructor",
+      "symbol": "??0GameState_00402230@@QAE@XZ",
+      "section": ".text$01ctor",
+      "address": "0x00402160",
+      "size": 138
+    },
+    {
+      "name": "Initialize",
+      "symbol": "_InitializeGameState_00402230@12",
+      "section": ".text$01init",
+      "address": "0x00402230",
+      "size": 522
+    },
+    {
+      "name": "Destructor",
+      "symbol": "??1GameState_00402230@@QAE@XZ",
+      "section": ".text$02dtor",
+      "address": "0x00402440",
+      "size": 127
+    },
+    {
+      "name": "StageLoad",
+      "symbol": "?Load@StageEclLoader_00403850@@QAEHPBD@Z",
+      "section": ".text$03stage",
+      "address": "0x00403850",
+      "size": 308
+    },
+    {
+      "name": "RegisterPrimary",
+      "symbol": "_Scheduler_RegisterPrimary@12",
+      "section": ".text$08primary",
+      "address": "0x00449AE0",
+      "size": 131
+    },
+    {
+      "name": "RegisterSecondary",
+      "symbol": "_Scheduler_RegisterSecondary@12",
+      "section": ".text$09secondary",
+      "address": "0x00449B70",
+      "size": 131
+    },
+    {
+      "name": "SchedulerRemove",
+      "symbol": "_Scheduler_Remove@8",
+      "section": ".text$13remove",
+      "address": "0x00449F60",
+      "size": 114
+    },
+    {
+      "name": "AppendLine",
+      "symbol": "?AppendLine@TextLog_0044b8e0@@QAAPADPADZZ",
+      "section": ".text$15log",
+      "address": "0x0044B8E0",
+      "size": 201
+    }
+  ],
+  "context": {
+    "symbol": "_CreateGameStateContext_00402640@8",
+    "section": ".text$17context",
+    "address": "0x0044B9B0",
+    "size": 5,
+    "description": "Compiler-only forwarding caller."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x401000",
+      "size": 4448
+    },
+    {
+      "section": ".text$01gap",
+      "address": "0x4021ea",
+      "size": 70
+    },
+    {
+      "section": ".text$02f",
+      "address": "0x4024bf",
+      "size": 385
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x4026d7",
+      "size": 4473
+    },
+    {
+      "section": ".text$04layout",
+      "address": "0x403984",
+      "size": 287068
+    },
+    {
+      "section": ".text$08z",
+      "address": "0x449b63",
+      "size": 13
+    },
+    {
+      "section": ".text$10layout",
+      "address": "0x449bf3",
+      "size": 877
+    },
+    {
+      "section": ".text$14layout",
+      "address": "0x449fd2",
+      "size": 6414
+    },
+    {
+      "section": ".text$16layout",
+      "address": "0x44b9a9",
+      "size": 7
+    },
+    {
+      "section": ".text$18layout",
+      "address": "0x44b9b5",
+      "size": 106187
+    },
+    {
+      "section": ".rdata$0before",
+      "address": "0x466000",
+      "size": 47216
+    }
+  ],
+  "native_data": [
+    {
+      "section": ".xdata$x",
+      "address": "0x00471870",
+      "bytes": "ffffffff8058460020059319010000007018470000000000000000000000000000000000",
+      "description": "Unwind map and FuncInfo of the factory; validation only"
+    }
+  ],
+  "absolute_symbols": [
+    {
+      "symbol": "_data_004776e4",
+      "address": "0x4776e4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004776e8",
+      "address": "0x4776e8",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00474c7c",
+      "address": "0x474c7c",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491d7c",
+      "address": "0x491d7c",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00476f78",
+      "address": "0x476f78",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491be4",
+      "address": "0x491be4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_SchedulerCallback_Create_00449ed0@4",
+      "address": "0x449ed0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_00497c38",
+      "address": "0x497c38",
+      "kind": "data"
+    },
+    {
+      "symbol": "___security_cookie",
+      "address": "0x473660",
+      "kind": "data"
+    },
+    {
+      "symbol": "@__security_check_cookie@4",
+      "address": "0x458ea5",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__fltused",
+      "address": "0x0",
+      "kind": "metadata"
+    },
+    {
+      "symbol": "_asm_vsprintf_004524a6",
+      "address": "0x4524a6",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_004922bc",
+      "address": "0x4922bc",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0049231f",
+      "address": "0x49231f",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__EnterCriticalSection@4",
+      "address": "0x4660b0",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__LeaveCriticalSection@4",
+      "address": "0x4660b4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491c10",
+      "address": "0x491c10",
+      "kind": "data"
+    },
+    {
+      "symbol": "@LoadCachedResource_00447280@12",
+      "address": "0x447280",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_malloc",
+      "address": "0x452706",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?g_thread_synchronization@@3UThreadSynchronization@@A",
+      "address": "0x492274",
+      "kind": "data"
+    },
+    {
+      "symbol": "_Archive_LoadFile@12",
+      "address": "0x0044B360",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?Append@TextLog_0044b810@@QAAPADPADZZ",
+      "address": "0x0044B810",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "??2@YAPAXI@Z",
+      "address": "0x452493",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "??3@YAXPAX@Z",
+      "address": "0x4524a1",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "___CxxFrameHandler",
+      "address": "0x46276d",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__except_list",
+      "address": "0x0",
+      "kind": "metadata"
+    },
+    {
+      "symbol": "?GameStateStandIn_MayThrow@@YGXPAX@Z",
+      "address": "0x401000",
+      "kind": "relative_code"
+    }
+  ],
+  "additional_sources": [
+    "layout/ltcg/create_game_state_00402640/stage_anchor_00402230.cpp",
+    "layout/ltcg/create_game_state_00402640/log_anchor_00402230.cpp",
+    "layout/ltcg/create_game_state_00402640/scheduler_anchor_00402230.cpp"
+  ]
+}

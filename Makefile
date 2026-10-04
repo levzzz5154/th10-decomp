@@ -1,6 +1,10 @@
 .DEFAULT_GOAL := build
 PYTHON ?= python3
 MSVC_ARGS ?=
+# EXACT=1 builds equivalent regions from their assembly: the bit-identical executable.
+ifdef EXACT
+MSVC_ARGS += --exact
+endif
 LTCG_ARGS ?=
 
 .PHONY: build rebuild verify progress ltcg-proof

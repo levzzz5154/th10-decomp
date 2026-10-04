@@ -27,6 +27,7 @@ struct ScreenEffectController_0043c970 {
 
     __declspec(noinline) void Configure(int priority, int mode, int duration_or_strength,
         int parameter20, int parameter24, int parameter28);
+    __declspec(noinline) int UpdateEnvelopeShake();
 };
 typedef char RuntimeSelectorOwner_size[sizeof(ScreenEffectController_0043c970)==0x44 ? 1:-1];
 typedef char RuntimeSelectorOwner_timer_offset[offsetof(ScreenEffectController_0043c970,timer)==0x30 ? 1:-1];

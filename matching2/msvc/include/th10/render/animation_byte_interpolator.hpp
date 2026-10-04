@@ -68,11 +68,17 @@ struct AnimationInterpolatedObject {
     __declspec(noinline) void StartColor1BC(const unsigned char* initial, const unsigned char* goal,
                                             int end_time, unsigned char mode);
 
+    // 0x00442300
+    __declspec(noinline) void StartChannel108(int end_time, unsigned char mode,
+                                              unsigned char initial, unsigned char goal);
+
     // 0x00441F50
     __declspec(noinline) void StartChannel208(int end_time, unsigned char mode,
                                               unsigned char initial, unsigned char goal);
 };
 
 typedef char AnimationIntInterpolatorSize[sizeof(AnimationIntInterpolator) == 0x2C ? 1 : -1];
+typedef char AnimationInterpolated108[
+    offsetof(AnimationInterpolatedObject, channel_108) == 0x108 ? 1 : -1];
 typedef char AnimationInterpolated208[
     offsetof(AnimationInterpolatedObject, channel_208) == 0x208 ? 1 : -1];

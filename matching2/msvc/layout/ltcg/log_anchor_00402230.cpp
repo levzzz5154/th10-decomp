@@ -32,7 +32,7 @@ struct TextLog_0044b8e0 {
     char* AppendLine(char* format, ...);
 };
 
-#pragma code_seg(".text$09log")
+#pragma code_seg(".text$15log")
 __declspec(noinline) char* TextLog_0044b8e0::AppendLine(char* format, ...) {
     char buffer[512];
     va_list va;

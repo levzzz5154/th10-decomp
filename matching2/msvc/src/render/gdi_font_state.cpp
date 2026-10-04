@@ -1,7 +1,7 @@
 #include "th10/render/gdi_font_state.hpp"
 
-// Native LTCG keeps the destination on the stack for the exception cleanup.
-// If AssignRange throws, C++ destroys the already constructed face member.
+// 0x00436890. If AssignRange throws, the already constructed face member is
+// destroyed; that cleanup is the reason the object is addressed on the stack.
 #pragma code_seg(".text$01font")
 GdiFontState::GdiFontState() {
     handle = 0;

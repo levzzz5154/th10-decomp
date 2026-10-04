@@ -4,10 +4,8 @@
 // recovered from), always under the placeholder track name "dummy".
 //
 // When the streamed-music option (bit 4 of the configuration flags) is on,
-// command 4 is queued: before starting a new track (Music_Play at 0x00420B10,
-// still assembly: see reference/semantic_candidates/music_play_ltcg_00420b10.cpp,
-// exact except for the base/index register order of its final store) and in
-// place of command 3 when stopping.
+// command 4 is queued: before starting a new track and in place of command 3
+// when stopping.
 //
 // The insert takes the table in EAX and the name in EDX, so the body is
 // compiled in the cluster layout/ltcg/animation_resource_registrar_0043e460.json.
@@ -49,6 +47,19 @@ __declspec(noinline) int __stdcall Music_Load(int slot, const char* file_name) {
     extension[3] = 'v';
     g_music_requests.RegisterResource(path, kMusicCommandLoad, slot);
     return 1;
+}
+#pragma code_seg()
+
+// 0x00420B10: start `track` and remember that `heard_index` has been played
+// (for the music room). The progress pointer is loaded before the index
+// only when the link sees a direct caller, which the cluster context supplies.
+#pragma code_seg(".text$00c1play")
+__declspec(noinline) int __stdcall Music_Play(int track, int heard_index) {
+    if (g_config_flags & kConfigStreamedMusic)
+        g_music_requests.RegisterResource("dummy", kMusicCommandStreamedReset, 0);
+    g_music_requests.RegisterResource("dummy", kMusicCommandPlay, track);
+    g_music_progress->track_heard[heard_index] = 1;
+    return 0;
 }
 #pragma code_seg()
 

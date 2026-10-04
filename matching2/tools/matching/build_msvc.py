@@ -1,5 +1,12 @@
 #!/usr/bin/env python3
-"""Compile the complete C++ project and require an exact independently linked PE."""
+"""Compile the complete C++ project into an independently linked PE.
+
+Every region is first linked from its exact source and the .text image is
+required to match retail byte for byte.  Regions registered as equivalent
+recoveries are then rebuilt from their C++ source, which must differ from the
+exact bytes only by the differences its layout records.  ``--exact`` keeps
+the assembly for those regions and produces the bit-identical executable.
+"""
 
 import sys
 from pathlib import Path
@@ -23,7 +30,8 @@ from matching2.tools.common.coff import read_coff_function
 from matching2.tools.common.library import is_library_source, read_library_member
 from matching2.tools.matching.pack_asm_pe import build_image
 from matching2.tools.common.wine import DEFAULT_TOOLKIT, compiler_environment, toolchain_hashes, winpath
-from matching2.tools.matching.progress import summarize
+from matching2.tools.matching.progress import recovered, summarize
+from matching2.tools.matching.equivalence import apply_bodies, describe, verify_all
 from matching2.tools.matching.mismatch import describe_mismatch
 from matching2.tools.matching.ltcg_cluster import build_cluster, load_clusters
 from matching2.tools.matching.gcc_llvm_backend import (
@@ -307,6 +315,8 @@ def main():
     parser.add_argument('--output', type=Path, default=ROOT / 'matching2/build/msvc')
     parser.add_argument('--verify', type=Path, help='optional post-build comparison with retail')
     parser.add_argument('--jobs', type=int, default=4)
+    parser.add_argument('--exact', action='store_true',
+                        help='build equivalent regions from their assembly: the bit-identical executable')
     parser.add_argument('--no-cache', action='store_true',
                         help='recompile every unit instead of reusing unchanged ones')
     args = parser.parse_args()
@@ -381,6 +391,11 @@ def main():
     run(command, output / 'link.log', output)
     raw = verify_linked(output / 'linked.exe', config, oracle)
     (output / 'text.bin').write_bytes(raw)
+    equivalent, bodies = verify_all(project, config, regions, toolkit, raw, output)
+    packed = output / 'text.bin'
+    if bodies and not args.exact:
+        packed = output / 'text-equivalent.bin'
+        packed.write_bytes(apply_bodies(raw, regions, bodies))
     dos_code = bytearray()
     for region in sorted(dos_regions, key=lambda r: int(r['address'], 0)):
         item = selected[region['symbol']]
@@ -388,24 +403,36 @@ def main():
             raise ValueError('DOS payload must have no relocations')
         _, payload, _ = read_coff_function(item['object'], region['symbol'])
         dos_code.extend(payload)
-    package = build_image(project / 'pe_layout.json', output / 'text.bin', output / 'th10.exe',
-                          args.verify.resolve() if args.verify else None, dos_code=bytes(dos_code))
-    summary = summarize(regions)
+    package = build_image(project / 'pe_layout.json', packed, output / 'th10.exe',
+                          args.verify.resolve() if args.verify else None, dos_code=bytes(dos_code),
+                          exact=packed == output / 'text.bin')
+    summary = summarize(regions, config.get('equivalent_recoveries', ()))
     report = {'compiler': banner.stdout + banner.stderr,
         'compiler_sha256': toolchain_hashes(toolkit, ('cl.exe', 'c1.dll', 'c1xx.dll', 'c2.dll')),
         'translation_unit_count': sum(unit.get('compiler_translation_unit_count', 1) for unit in compiled),
         'maintained_source_count': len(units), 'compiled_units': compiled, 'summary': summary,
+        'equivalent_recoveries': equivalent,
         'source_sha256': {str(path.relative_to(project)): sha(path.read_bytes())
                           for path in sorted(project.rglob('*')) if path.is_file()},
         'link_command': command, 'package': package, 'masked_bytes': 0,
         'retail_executable_used_for_build': False,
-        'note': 'Exact output from maintained C++ sources using the recorded compilers, including inline-assembly scaffolding. Only semantic regions count as ordinary C++ recovery.'}
+        'equivalent_regions_built_from': 'assembly' if package['exact'] else 'c++',
+        'note': 'Built from maintained C++ sources using the recorded compilers, including inline-assembly scaffolding. The link from exact sources is required to match retail byte for byte. Unless --exact is given, each equivalent region is then built from its C++ source, which is checked to differ from the exact bytes only by its recorded differences.'}
     (output / 'port-report.json').write_text(json.dumps(report, indent=2) + '\n')
-    print(f"Whole EXE exact: {package['size']:,} bytes.")
+    if package['exact']:
+        print(f"Whole EXE exact: {package['size']:,} bytes.")
+    else:
+        print(f"EXE exact outside {len(bodies)} equivalent regions built from C++ "
+              f"({sum(map(len, bodies.values())):,} bytes): {package['size']:,} bytes. "
+              "Use --exact for the bit-identical image.")
     print(f"Ordinary C++: {summary['regions'].get('semantic', 0):,} regions / {summary['bytes']['semantic']:,} bytes.")
+    print(f"Equivalent C++: {summary['regions']['equivalent']:,} regions / {summary['bytes']['equivalent']:,} bytes.")
+    for item in equivalent:
+        print('  ' + describe(item))
     print(f"Remaining assembly: {summary['regions'].get('asm', 0):,} regions / {summary['bytes']['asm']:,} bytes.")
     print(f"Toolkit runtime library: {summary['regions']['library']:,} regions / {summary['bytes']['library']:,} bytes.")
     print(f"Embedded .text data: {summary['bytes']['data']:,} bytes; padding: {summary['bytes']['padding']:,} bytes.")
+    print(recovered(summary))
     print(output / 'th10.exe')
 
 

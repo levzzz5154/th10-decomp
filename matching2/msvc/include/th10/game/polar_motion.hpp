@@ -4,8 +4,6 @@
 #include <math.h>
 
 extern "C" float __stdcall Angle_Normalize_0044bc70(float value);
-extern "C" float data_00470b44;  // 100.0f
-extern "C" float data_00470b00;  // 0.01f
 
 struct PolarVec3 {
     float x;
@@ -16,8 +14,15 @@ struct PolarVec3 {
     PolarVec3* SetPolar(float angle, float radius);
 
     void SnapToHundredths() {
-        x = (float)floor(x * data_00470b44) * data_00470b00;
-        y = (float)floor(y * data_00470b44) * data_00470b00;
+        x = (float)floor(x * 100.0f) * 0.01f;
+        y = (float)floor(y * 100.0f) * 0.01f;
+    }
+
+    PolarVec3& operator+=(const PolarVec3& other) {
+        x += other.x;
+        y += other.y;
+        z += other.z;
+        return *this;
     }
 
     PolarVec3 operator+(const PolarVec3& other) const {

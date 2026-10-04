@@ -8,8 +8,8 @@
 #include "th10/game/entity_script_start.hpp"
 
 struct AnimationResource_0043e710;
-void __stdcall Entity_StartScript_00404f30(Entity* entity, AnimationResource_0043e710* resource,
-                                           int script);
+void __stdcall Entity_StartScript_00404f30(AnimationResource_0043e710* resource,
+                                           Entity* entity, int script);
 extern "C" int __stdcall asm_FUN_0043ee30_0043ee30(Entity* entity);
 
 struct LaserAnimationBank_0041e5c0 {
@@ -60,7 +60,7 @@ __declspec(noinline) int Laser_0041e5c0::Initialize(const LaserParams_0041e5c0* 
     params = *init;
     state = 3;
     Entity* animation = &beam;
-    Entity_StartScript_00404f30(animation, data_0047781c->laser_animation,
+    Entity_StartScript_00404f30(data_0047781c->laser_animation, animation,
                                 params.script + data_00474170[params.colour]);
     beam.StopFrame() = 2;
     asm_FUN_0043ee30_0043ee30(animation);
@@ -68,7 +68,7 @@ __declspec(noinline) int Laser_0041e5c0::Initialize(const LaserParams_0041e5c0* 
         animation->AnimationFlags() = (animation->AnimationFlags() & ~0x20) | 0x10;
     beam.AnimationFlags() = (beam.AnimationFlags() & 0xFC63FFFF) | 0x600000;
     animation = &flare;
-    Entity_StartScript_00404f30(animation, data_0047781c->laser_animation, params.script + 0x103);
+    Entity_StartScript_00404f30(data_0047781c->laser_animation, animation, params.script + 0x103);
     flare.StopFrame() = 2;
     asm_FUN_0043ee30_0043ee30(animation);
     animation->AnimationFlags() = (animation->AnimationFlags() & ~0x20) | 0x10;

@@ -1,0 +1,40 @@
+[
+  {
+    "variant": "opaque",
+    "sections": [
+      {
+        "section": ".text$0042cdf0_fn",
+        "address": "0x401000",
+        "extent": 1072
+      },
+      {
+        "section": ".text$0042d300_fn",
+        "address": "0x401430",
+        "extent": 264
+      }
+    ],
+    "exe_sha256": "20994bd985a37c121f6207c7a9d14083dfd983316e71796ddcefdf5edcdef552",
+    "compiler_exit": 0,
+    "linker_exit": 0,
+    "exact": false
+  },
+  {
+    "variant": "leaves",
+    "sections": [
+      {
+        "section": ".text$0042cdf0_fn",
+        "address": "0x4011b0",
+        "extent": 1096
+      },
+      {
+        "section": ".text$0042d300_fn",
+        "address": "0x401600",
+        "extent": 288
+      }
+    ],
+    "exe_sha256": "d6caa18db2ab87bc1ab8e32eb2947055f6ab1df417904e6a7fee312bffdcd03c",
+    "compiler_exit": 0,
+    "linker_exit": 0,
+    "exact": false
+  }
+]

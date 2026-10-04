@@ -18,10 +18,11 @@
     "include/th10/game/marktext_dispatcher_context/entity_movement_slot_0041ab70.hpp",
     "include/th10/game/marktext_dispatcher_context/recovery_script_executor_text_sibling_anchors.hpp",
     "include/th10/game/marktext_dispatcher_context/recovery_script_executor_caller_00433ef0.hpp",
-    "include/th10/game/marktext_dispatcher_context/menu_cursor.hpp"
+    "include/th10/game/marktext_dispatcher_context/menu_cursor.hpp",
+    "include/th10/game/indicator_animation_lookup_00419120.hpp"
   ],
   "image_base": "0x00400000",
-  "description": "Whole127-byte dispatcher and whole141-byte MarkText, complete genuine full caller/dependency context; only268 original bytes selected. Existing148 slot pair and unmatched executor/callers remain unselected context.",
+  "description": "Whole127-byte dispatcher and whole141-byte MarkText, complete genuine full caller/dependency context; only268 original bytes selected. Existing148 slot pair and unmatched executor/callers remain unselected context. The floating text manager update at 0x00419650 and its scheduler callback at 0x004198A0 are selected too, as is the pending-text drain at 0x00419120.",
   "functions": [
     {
       "name": "RecoveryDispatchText_004479d0",
@@ -40,6 +41,33 @@
       "size": 141,
       "actual_abi": "Retail: VM ESI, manager/color/format fixed stack homes plus variadic payload; plain RET",
       "source": "src/game/recovery_mark_text_and_dispatcher_004479d0.cpp"
+    },
+    {
+      "name": "RecoveryIndicatorState_00419120::Update",
+      "symbol": "?Update@RecoveryIndicatorState_00419120@@QAEHXZ",
+      "section": ".text$00419650_fn",
+      "address": "0x00419650",
+      "size": 571,
+      "actual_abi": "Retail: manager EBX; EAX=1; plain RET",
+      "source": "src/game/stage_focus_fade.cpp"
+    },
+    {
+      "name": "RecoveryIndicator_UpdateCallback_004198a0",
+      "symbol": "?RecoveryIndicator_UpdateCallback_004198a0@@YIHPAURecoveryIndicatorState_00419120@@@Z",
+      "section": ".text$004198a0_fn",
+      "address": "0x004198A0",
+      "size": 10,
+      "actual_abi": "__fastcall: manager ECX; plain RET",
+      "source": "src/game/recovery_invoke_void_004198a0.cpp"
+    },
+    {
+      "name": "RecoveryIndicatorLink_00419120::Drain",
+      "symbol": "?Drain@RecoveryIndicatorLink_00419120@@QAEHPAURecoveryIndicatorState_00419120@@H@Z",
+      "section": ".text$00419120_fn",
+      "address": "0x00419120",
+      "size": 1317,
+      "actual_abi": "Retail: queue head EAX; manager and release flag on the stack; RET 8",
+      "source": "src/game/effect_indicator_queue.cpp"
     }
   ],
   "anchors": [
@@ -352,13 +380,6 @@
       "size": 1500
     },
     {
-      "name": "RecoveryIndicatorLink_Drain",
-      "symbol": "?Drain@RecoveryIndicatorLink_00419120@@QAEHPAURecoveryIndicatorState_00419120@@H@Z",
-      "section": ".text$00419120_fn",
-      "address": "0x00419120",
-      "size": 1343
-    },
-    {
       "name": "RecoveryMusicRoom_Update_00433ef0",
       "symbol": "_RecoveryMusicRoom_Update_00433ef0@4",
       "section": ".text$00433ef0_fn",
@@ -439,9 +460,19 @@
       "size": 8423
     },
     {
-      "section": ".text$0041965f_gap",
-      "address": "0x0041965F",
-      "size": 5393
+      "section": ".text$00419645_gap",
+      "address": "0x00419645",
+      "size": 11
+    },
+    {
+      "section": ".text$0041988b_gap",
+      "address": "0x0041988B",
+      "size": 21
+    },
+    {
+      "section": ".text$004198aa_gap",
+      "address": "0x004198AA",
+      "size": 4806
     },
     {
       "section": ".text$0041abf8_gap",
@@ -640,7 +671,63 @@
     }
   ],
   "constants": [],
-  "constant_aliases": [],
+  "constant_aliases": [
+    {
+      "symbol": "__real@43600000",
+      "address": "0x00470B4C",
+      "value": 224.0
+    },
+    {
+      "symbol": "__real@41800000",
+      "address": "0x00470B48",
+      "value": 16.0
+    },
+    {
+      "symbol": "__real@3f000000",
+      "address": "0x00470B0C",
+      "value": 0.5
+    },
+    {
+      "symbol": "__real@42000000",
+      "address": "0x00470BCC",
+      "value": 32.0
+    },
+    {
+      "symbol": "__real@3d000000",
+      "address": "0x00470D20",
+      "value": 0.03125
+    },
+    {
+      "symbol": "__real@41000000",
+      "address": "0x00470BD0",
+      "value": 8.0
+    },
+    {
+      "symbol": "__real@3f800000",
+      "address": "0x00470AFC",
+      "value": 1.0
+    },
+    {
+      "symbol": "__real@40000000",
+      "address": "0x00470B08",
+      "value": 2.0
+    },
+    {
+      "symbol": "__real@3f400000",
+      "address": "0x00470CE4",
+      "value": 0.75
+    },
+    {
+      "symbol": "__real@3fc00000",
+      "address": "0x00470CA8",
+      "value": 1.5
+    },
+    {
+      "symbol": "__real@41700000",
+      "address": "0x00470C08",
+      "value": 15.0
+    }
+  ],
   "absolute_symbols": [
     {
       "symbol": "_recovery_decoded_path_00497d40",
@@ -1341,6 +1428,11 @@
       "symbol": "_recovery_music_preview_table_00476fd8",
       "address": "0x00476FD8",
       "kind": "data"
+    },
+    {
+      "symbol": "_data_00474c7c",
+      "address": "0x00474C7C",
+      "kind": "data"
     }
   ],
   "additional_sources": [
@@ -1357,13 +1449,17 @@
     "layout/ltcg/marktext_dispatcher_context/recovery_script_executor_anchor_0044c150.cpp",
     "layout/ltcg/marktext_dispatcher_context/recovery_script_executor_anchor_0044b360.cpp",
     "layout/ltcg/marktext_dispatcher_context/recovery_script_executor_creation_anchors.cpp",
-    "layout/ltcg/marktext_dispatcher_context/recovery_script_executor_caller_00419120.cpp",
+    "src/game/effect_indicator_queue.cpp",
     "layout/ltcg/marktext_dispatcher_context/recovery_script_executor_indicator_anchors.cpp",
     "layout/ltcg/marktext_dispatcher_context/recovery_script_executor_text_sibling_anchors.cpp",
     "layout/ltcg/marktext_dispatcher_context/recovery_script_executor_caller_00433ef0.cpp",
     "layout/ltcg/marktext_dispatcher_context/recovery_script_executor_0040bd80.cpp",
     "layout/ltcg/marktext_dispatcher_context/recovery_animation_slot_frames_0042c6d0.cpp",
-    "layout/ltcg/marktext_dispatcher_context/recovery_script_executor_text_anchors.cpp"
+    "layout/ltcg/marktext_dispatcher_context/recovery_script_executor_text_anchors.cpp",
+    "src/game/stage_focus_fade.cpp",
+    "src/game/recovery_invoke_void_004198a0.cpp"
   ],
-  "roots": []
+  "roots": [
+    "?RecoveryIndicator_UpdateCallback_004198a0@@YIHPAURecoveryIndicatorState_00419120@@@Z"
+  ]
 }

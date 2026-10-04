@@ -9,6 +9,9 @@
 #include "../../src/math/frame_timer.cpp"
 #include "th10/game/score.hpp"
 #include "th10/game/stage_schedule.hpp"
+#pragma code_seg(".text$12d_rng")
+#include "th10/math/rng.hpp"
+#pragma code_seg()
 
 struct PlayerSchedulerRecord {
     void SetSchedulerValue(int value);
@@ -24,7 +27,8 @@ extern "C" void __stdcall AnimationTimerSchedulerCompilerContext(
         AnimationCursor_0043c230* cursor_c230,
         AnimationCursor_0043c460* cursor_c460,
         PlayerSchedulerRecord* scheduler,
-        ScoreState* scores, StageSequence* sequence) {
+        ScoreState* scores, StageSequence* sequence,
+        EntityScriptRng_0043cb80* rng) {
     for (int index = 0; index < count; ++index) {
         timers[index].Tick();
         timers[index].Advance(float(delta));
@@ -48,5 +52,9 @@ extern "C" void __stdcall AnimationTimerSchedulerCompilerContext(
     }
     if (sequence != 0)
         sequence->Update();
+    if (rng != 0) {
+        for (int index = 0; index < count; ++index)
+            rng[index].NextRandomModulo(delta + index);
+    }
 }
 #pragma code_seg()

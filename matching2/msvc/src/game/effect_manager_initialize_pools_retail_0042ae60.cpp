@@ -22,8 +22,6 @@ ScoreArchiveManager_0042ae60::ScoreArchiveManager_0042ae60() {
 
 // Complete original allocating caller and private compiler-visible helpers.
 #include "../../layout/ltcg/score_manager_factory_context.cpp"
-#include "../../layout/ltcg/score_manager_dependencies/defaults.cpp"
 
-#include "../../layout/ltcg/score_manager_dependencies/load_sections.cpp"
 #include "../../layout/ltcg/score_manager_dependencies/decrypt.cpp"
 #include "../../layout/ltcg/score_manager_dependencies/archive_load.cpp"

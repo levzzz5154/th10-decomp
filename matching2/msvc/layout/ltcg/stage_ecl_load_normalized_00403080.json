@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "name": "stage_ecl_load_normalized_00403080",
+  "source": "src/script/stage_ecl_load_normalized_00403080.cpp",
+  "driver": "layout/ltcg/stage_ecl_load_normalized_00403080_context.cpp",
+  "headers": [
+    "include/th10/platform/stage_ecl_load_00403850.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Normalize stage loader result via public thiscall Load; private filename in EAX.",
+  "functions": [
+    {
+      "name": "StageEclLoader_LoadNormalized",
+      "symbol": "?LoadNormalized@StageEclLoader_00403850@@QAEHPBD@Z",
+      "section": ".text$01forward",
+      "address": "0x00403080",
+      "size": 11,
+      "actual_abi": "receiver ECX, filename EAX; result EAX; RET"
+    }
+  ],
+  "context": {
+    "symbol": "_StageEclLoadNormalizedContext@12",
+    "section": ".text$03context",
+    "address": "0x00403090",
+    "size": 59,
+    "description": "Unselected array caller."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 8320
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x0040308B",
+      "size": 5
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "?Load@StageEclLoader_00403850@@QAEHPBD@Z",
+      "address": "0x00403850",
+      "kind": "relative_code"
+    }
+  ]
+}

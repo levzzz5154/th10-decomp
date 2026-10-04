@@ -1,0 +1,147 @@
+{
+  "schema_version": 1,
+  "name": "player_hud_start_spell_00409280",
+  "region": "asm_FUN_00409280_00409280",
+  "sources": [
+    "equivalent/game/player_hud_start_spell_00409280_context.cpp",
+    "equivalent/game/player_hud_start_spell_dependency_00.cpp",
+    "equivalent/game/player_hud_start_spell_dependency_01.cpp",
+    "equivalent/game/player_hud_start_spell_dependency_02.cpp",
+    "equivalent/game/player_hud_start_spell_dependency_03.cpp",
+    "equivalent/game/player_hud_start_spell_dependency_04.cpp",
+    "equivalent/game/player_hud_start_spell_dependency_05.cpp",
+    "equivalent/game/player_hud_start_spell_dependency_06.cpp"
+  ],
+  "entry_symbol": "?PlayerHudStartSpellContext@@YGXPAPAUPlayerHud_00408d60@@PAPBDHPAPAUGameSelection_00409280@@@Z",
+  "function": "?StartSpell@PlayerHud_00408d60@@QAEXHPBDH@Z",
+  "code_bytes": 2404,
+  "absolute_symbols": {
+    "__fltused": {
+      "address": "0x0",
+      "kind": "data"
+    },
+    "?InitializeObject@AnimationResource_00449870@@QAEXPAUEntity@@H@Z": {
+      "address": "0x449870",
+      "kind": "code"
+    },
+    "_g_selection": {
+      "address": "0x474c68",
+      "kind": "data"
+    },
+    "??2@YAPAXI@Z": {
+      "address": "0x452493",
+      "kind": "code"
+    },
+    "?Entity_Constructor@@YIPAUEntity@@PAU1@@Z": {
+      "address": "0x402050",
+      "kind": "code"
+    },
+    "?Entity_Init@@YGXPAUEntity@@@Z": {
+      "address": "0x401de0",
+      "kind": "code"
+    },
+    "?g_score_default_speed@@3MA": {
+      "address": "0x476f78",
+      "kind": "data"
+    },
+    "_EntityInitTail_00404f30": {
+      "address": "0x401ef1",
+      "kind": "code"
+    },
+    "_asm_FUN_0043ee30_0043ee30@4": {
+      "address": "0x43ee30",
+      "kind": "code"
+    },
+    "_data_004749ce": {
+      "address": "0x4749ce",
+      "kind": "data"
+    },
+    "_data_00474c4c": {
+      "address": "0x474c4c",
+      "kind": "data"
+    },
+    "_data_00474c7c": {
+      "address": "0x474c7c",
+      "kind": "data"
+    },
+    "_data_00474c84": {
+      "address": "0x474c84",
+      "kind": "data"
+    },
+    "_data_00476f78": {
+      "address": "0x476f78",
+      "kind": "data"
+    },
+    "_data_004776e0": {
+      "address": "0x4776e0",
+      "kind": "data"
+    },
+    "_data_004776f0": {
+      "address": "0x4776f0",
+      "kind": "data"
+    },
+    "_data_00477704": {
+      "address": "0x477704",
+      "kind": "data"
+    },
+    "_data_0047770c": {
+      "address": "0x47770c",
+      "kind": "data"
+    },
+    "_data_00477838": {
+      "address": "0x477838",
+      "kind": "data"
+    },
+    "_data_0047783c": {
+      "address": "0x47783c",
+      "kind": "data"
+    },
+    "_data_00491c10": {
+      "address": "0x491c10",
+      "kind": "data"
+    },
+    "_data_00492590": {
+      "address": "0x492590",
+      "kind": "data"
+    },
+    "_recovery_draw_shadowed_00437db0@24": {
+      "address": "0x437db0",
+      "kind": "code"
+    },
+    "_recovery_draw_unshadowed_00437fe0@24": {
+      "address": "0x437fe0",
+      "kind": "code"
+    },
+    "_recovery_vsprintf_004524a6": {
+      "address": "0x4524a6",
+      "kind": "code"
+    },
+    "@__security_check_cookie@4": {
+      "address": "0x458ea5",
+      "kind": "code"
+    },
+    "___security_cookie": {
+      "address": "0x473660",
+      "kind": "data"
+    },
+    "__ftol2": {
+      "address": "0x463b2c",
+      "kind": "code"
+    }
+  },
+  "bindings": {
+    "?Entity_Init@@YIXPAXPAUEntity@@@Z": "0x00401DE0",
+    "?Entity_StartScript_00404f30@@YGXPAUAnimationResource_0043e710@@PAUEntity@@H@Z": "0x00404F30",
+    "?Queue@SoundQueue@@QAEHHH@Z": "0x0043DC90",
+    "_LoadScript_0043e710@12": "0x0043E710",
+    "?RecoveryDispatchText_004479d0@@YGXPAURecoveryTextResource_004479d0@@PAXHHIPBDH@Z": "0x004479D0",
+    "?FormatRightAligned@RecoveryIndicatorVm_00419120@@QAAXPAXZZ": "0x00447AE0",
+    "?Find@PositionManager_004492f0@@QAIPAXPAUPositionLookupContext_004492f0@@UPositionScriptId_004492f0@@@Z": "0x004491C0",
+    "?SetAnimationTranslatedPosition_00449350@@YIXPBUPositionVector_004492f0@@PAUPositionLookupContext_004492f0@@UPositionScriptId_004492f0@@@Z": "0x00449350",
+    "?Allocate@AnimationPool@@QAEPAUEntity@@XZ": "0x00449950",
+    "?RegisterPrimaryBack@AnimationLists@@QAE?AUAnimationRef@@PAUEntity@@@Z": "0x004489D0"
+  },
+  "base_index_order": 1,
+  "differences": [],
+  "note": "reference/recovery_notes/player_hud_start_spell_00409280_2026_10_04.md"
+}

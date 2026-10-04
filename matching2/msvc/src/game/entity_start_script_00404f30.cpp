@@ -14,7 +14,7 @@ extern "C" void __stdcall LoadScript_0043e710(AnimationResource_0043e710* resour
 
 #pragma code_seg(".text$00p_start")
 __declspec(noinline) void __stdcall Entity_StartScript_00404f30(
-        Entity* entity, AnimationResource_0043e710* resource, int script) {
+        AnimationResource_0043e710* resource, Entity* entity, int script) {
     Entity_Init(0, entity);
     entity->Position() = Vector3Value(0.0f, 0.0f, 0.0f);
     entity->BasePosition() = Vector3Value(0.0f, 0.0f, 0.0f);

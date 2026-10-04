@@ -1,10 +1,9 @@
-#include "asm_symbols.hpp"
+// 0x00401510 - scheduler callback that prints the game thread's main text
+// queue: the task's context arrives in ECX and is handed on the stack to the
+// draw at 0x00401760.
+struct GameThreadText;
+int __stdcall GameThreadText_DrawRecords_00401760(GameThreadText* thread);
 
-// 0x00401510..0x00401516: FUN_00401510
-// Forwards the caller's object to the worker at 0x00401760, which takes it as
-// its only stack argument.
-typedef int (__stdcall* FUN_00401760_fn)(void*);
-
-void __fastcall FUN_00401510(void* self) {
-    ((FUN_00401760_fn)asm_FUN_00401760_00401760)(self);
+int __fastcall FUN_00401510(GameThreadText* thread) {
+    return GameThreadText_DrawRecords_00401760(thread);
 }

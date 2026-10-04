@@ -1,7 +1,10 @@
 #include <string.h>
 #include "th10/game/entity.hpp"
 
-#pragma code_seg(".text$00init")
+#ifndef TH10_ANM_MANAGER_ENTITY_INIT_SECTION
+#define TH10_ANM_MANAGER_ENTITY_INIT_SECTION ".text$00init"
+#endif
+#pragma code_seg(TH10_ANM_MANAGER_ENTITY_INIT_SECTION)
 __declspec(noinline) void __stdcall Entity_Init(Entity* entity) {
     Vector3 position = entity->position;
     int32_t bucket = entity->render_bucket;

@@ -6,7 +6,8 @@
     "include/th10/render/quad_batch.hpp",
     "include/th10/render/camera_batch.hpp",
     "include/th10/math/angle.hpp",
-    "include/th10/game/score_runtime_state_004091c0.hpp"
+    "include/th10/game/score_runtime_state_004091c0.hpp",
+    "include/th10/game/game_thread_text.hpp"
   ],
   "image_base": "0x00400000",
   "description": "Native-LTCG render batch with compiler-visible camera application, state synchronization, quad appending, and primitive callers. RenderCamera::ApplyDefault and RenderStageState_00405300::SelectDefaultStage are co-compiled so the whole-program pass gives both private conventions; no ABI anchor remains. The existing public entries, three AsciiOverlay callbacks, and paired BossOverlay draw callbacks are rooted to retain their public ECX receivers. The array-loop context establishes private conventions and contributes zero recovered game-code bytes.",
@@ -451,13 +452,64 @@
       "size": 32,
       "actual_abi": "__stdcall (stage, state, value); saves ESI for 0x00442F50 and tail-jumps to IDirect3DDevice9::SetRenderState",
       "source": "src/platform/fun_00439390_00439390.cpp"
+    },
+    {
+      "name": "GameThreadText_DrawRecords_00401760",
+      "symbol": "?GameThreadText_DrawRecords_00401760@@YGHPAUGameThreadText@@@Z",
+      "section": ".text$000m1records",
+      "address": "0x00401760",
+      "size": 738,
+      "actual_abi": "__stdcall: thread on the stack; manager ESI to 0x00442F50, camera EDI to 0x004215A0, glyph ESI to 0x00443080; RET 4",
+      "source": "src/game/fun_00401760_00401760.cpp"
+    },
+    {
+      "name": "GameThreadText_DrawLateTask_00401520",
+      "symbol": "?GameThreadText_DrawLateTask_00401520@@YIHPAUGameThreadText@@@Z",
+      "section": ".text$000lb1task",
+      "address": "0x00401520",
+      "size": 10,
+      "actual_abi": "__fastcall: thread ECX; saves EBX and passes the thread in EBX to 0x00401A50; plain RET",
+      "source": "src/game/game_thread_run_queue_leaf_00401520.cpp"
+    },
+    {
+      "name": "GameThreadText_DrawLateRecords",
+      "symbol": "?DrawLateRecords@GameThreadText@@QAEHXZ",
+      "section": ".text$000m3late",
+      "address": "0x00401A50",
+      "size": 570,
+      "actual_abi": "thread in EBX; manager ESI to 0x00442F50, camera EDI to 0x004215A0; EAX=1; plain RET",
+      "source": "src/game/fun_00401a50_00401a50.cpp"
+    },
+    {
+      "name": "RenderStageState_BeginFrame_00420000",
+      "symbol": "?BeginFrame@RenderStageState_00420000@@QAEHXZ",
+      "section": ".text$001z3gapa0frame",
+      "address": "0x00420000",
+      "size": 177,
+      "actual_abi": "state in ECX; camera in EDI to 0x004215A0; returns 1; plain RET",
+      "source": "src/app/app_begin_frame_00420000.cpp"
     }
   ],
   "gaps": [
     {
       "section": ".text$000layout",
       "address": "0x401000",
-      "size": 3360
+      "size": 1312
+    },
+    {
+      "section": ".text$000lb2gap",
+      "address": "0x40152a",
+      "size": 566
+    },
+    {
+      "section": ".text$000m2gap",
+      "address": "0x401a42",
+      "size": 14
+    },
+    {
+      "section": ".text$000m4gap",
+      "address": "0x401c8a",
+      "size": 150
     },
     {
       "section": ".text$000zlayout",
@@ -473,6 +525,66 @@
       "section": ".text$001arraysz",
       "address": "0x40921f",
       "size": 17
+    },
+    {
+      "section": ".text$001releasez",
+      "address": "0x409262",
+      "size": 14
+    },
+    {
+      "section": ".text$001releasezd",
+      "address": "0x40927a",
+      "size": 50566
+    },
+    {
+      "section": ".text$001soverlayz",
+      "address": "0x415ad4",
+      "size": 31980
+    },
+    {
+      "section": ".text$001z1gap",
+      "address": "0x41d86d",
+      "size": 4563
+    },
+    {
+      "section": ".text$001z3gap",
+      "address": "0x41eaed",
+      "size": 5395
+    },
+    {
+      "section": ".text$001z3gapa1",
+      "address": "0x004200B1",
+      "size": 31
+    },
+    {
+      "section": ".text$001z3gapbz",
+      "address": "0x004200F7",
+      "size": 2969
+    },
+    {
+      "section": ".text$00a420c90z",
+      "address": "0x00420CC4",
+      "size": 12
+    },
+    {
+      "section": ".text$00a420cd0z",
+      "address": "0x00420D05",
+      "size": 11
+    },
+    {
+      "section": ".text$00a420d10z",
+      "address": "0x00420D44",
+      "size": 12
+    },
+    {
+      "section": ".text$00a420d50z",
+      "address": "0x00420D85",
+      "size": 11
+    },
+    {
+      "section": ".text$00a420d90z",
+      "address": "0x00420DB0",
+      "size": 1744
     },
     {
       "section": ".text$00adefaultz",
@@ -508,6 +620,26 @@
       "section": ".text$02zlayout",
       "address": "0x43c195",
       "size": 11
+    },
+    {
+      "section": ".text$03w0layout",
+      "address": "0x43c226",
+      "size": 154
+    },
+    {
+      "section": ".text$03w2layout",
+      "address": "0x43c304",
+      "size": 188
+    },
+    {
+      "section": ".text$03w4layout",
+      "address": "0x43c404",
+      "size": 12
+    },
+    {
+      "section": ".text$04alayout",
+      "address": "0x43c454",
+      "size": 24428
     },
     {
       "section": ".text$04an",
@@ -630,6 +762,11 @@
       "size": 1144
     },
     {
+      "section": ".text$07contextzbz",
+      "address": "0x00445899",
+      "size": 11655
+    },
+    {
       "section": ".text$08layer3z",
       "address": "0x448693",
       "size": 221
@@ -653,86 +790,6 @@
       "section": ".text$09bucketz",
       "address": "0x4489c2",
       "size": 14222
-    },
-    {
-      "section": ".text$03w0layout",
-      "address": "0x43c226",
-      "size": 154
-    },
-    {
-      "section": ".text$03w2layout",
-      "address": "0x43c304",
-      "size": 188
-    },
-    {
-      "section": ".text$03w4layout",
-      "address": "0x43c404",
-      "size": 12
-    },
-    {
-      "section": ".text$04alayout",
-      "address": "0x43c454",
-      "size": 24428
-    },
-    {
-      "section": ".text$001releasez",
-      "address": "0x409262",
-      "size": 14
-    },
-    {
-      "section": ".text$001soverlayz",
-      "address": "0x415ad4",
-      "size": 31980
-    },
-    {
-      "section": ".text$001z1gap",
-      "address": "0x41d86d",
-      "size": 4563
-    },
-    {
-      "section": ".text$001z3gap",
-      "address": "0x41eaed",
-      "size": 5603
-    },
-    {
-      "section": ".text$001releasezd",
-      "address": "0x40927a",
-      "size": 50566
-    },
-    {
-      "section": ".text$07contextzbz",
-      "address": "0x00445899",
-      "size": 11655
-    },
-    {
-      "section": ".text$001z3gapbz",
-      "address": "0x004200F7",
-      "size": 2969
-    },
-    {
-      "section": ".text$00a420c90z",
-      "address": "0x00420CC4",
-      "size": 12
-    },
-    {
-      "section": ".text$00a420cd0z",
-      "address": "0x00420D05",
-      "size": 11
-    },
-    {
-      "section": ".text$00a420d10z",
-      "address": "0x00420D44",
-      "size": 12
-    },
-    {
-      "section": ".text$00a420d50z",
-      "address": "0x00420D85",
-      "size": 11
-    },
-    {
-      "section": ".text$00a420d90z",
-      "address": "0x00420DB0",
-      "size": 1744
     }
   ],
   "constants": [],
@@ -1010,7 +1067,11 @@
     "src/unidentified/FUN_00448810_00448810.cpp",
     "src/unidentified/unassigned_00444dc0.cpp",
     "src/unidentified/unassigned_00444e60.cpp",
-    "src/unidentified/unassigned_00444fa0.cpp"
+    "src/unidentified/unassigned_00444fa0.cpp",
+    "src/game/fun_00401760_00401760.cpp",
+    "src/game/fun_00401a50_00401a50.cpp",
+    "src/game/game_thread_run_queue_leaf_00401520.cpp",
+    "src/app/app_begin_frame_00420000.cpp"
   ],
   "roots": [
     "?ApplyDefaultViewport@@YGHI@Z",
@@ -1029,7 +1090,10 @@
     "?RunArrayReleaseCallback@ScoreRuntimeState_004091c0@@QAEHXZ",
     "?DrawFan33@RenderEntity@@QAEHXZ",
     "?Run@FlushCallback_004200d0@@QAEHXZ",
-    "?RenderStageState_SetRenderState@@YGHPAURenderStageState_00439390@@II@Z"
+    "?RenderStageState_SetRenderState@@YGHPAURenderStageState_00439390@@II@Z",
+    "?GameThreadText_DrawRecords_00401760@@YGHPAUGameThreadText@@@Z",
+    "?GameThreadText_DrawLateTask_00401520@@YIHPAUGameThreadText@@@Z",
+    "?BeginFrame@RenderStageState_00420000@@QAEHXZ"
   ],
   "driver": "layout/ltcg/render_batch_context.cpp",
   "context": {
@@ -1099,6 +1163,16 @@
       "symbol": "__real@42200000",
       "address": "0x00470C64",
       "value": 40.0
+    },
+    {
+      "symbol": "__real@40000000",
+      "address": "0x00470B08",
+      "value": 2.0
+    },
+    {
+      "symbol": "__real@41600000",
+      "address": "0x00470C88",
+      "value": 14.0
     }
   ],
   "anchors": [

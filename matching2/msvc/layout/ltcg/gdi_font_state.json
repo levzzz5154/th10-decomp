@@ -5,11 +5,12 @@
   "driver": "layout/ltcg/gdi_font_state_context.cpp",
   "headers": [
     "include/th10/render/gdi_font_state.hpp",
+    "include/th10/render/gdi_surface.hpp",
     "include/th10/util/heap.hpp",
     "include/th10/types.hpp"
   ],
   "image_base": "0x00400000",
-  "description": "Native GDI font-state constructor with its complete C++ generated unwind contribution and exception table. The placement caller and loader record are compiler context only.",
+  "description": "GDI font state and surface text output compiled together with native LTCG and C++ exceptions: the font-state constructor with its unwind contribution, the unreferenced sized-text wrapper and the text draw routine. The context caller and loader record are compiler context only.",
   "exceptions": true,
   "functions": [
     {
@@ -38,13 +39,39 @@
       "size": 10,
       "actual_abi": "compiler C++ EH handler; FuncInfo in EAX; tail-call ___CxxFrameHandler",
       "generated": true
+    },
+    {
+      "name": "GdiSurface_DrawTextSized",
+      "symbol": "?DrawTextSized@GdiSurface@@QAE_NPBDHHHKK@Z",
+      "section": ".text$05sized",
+      "address": "0x004372A0",
+      "size": 222,
+      "actual_abi": "text in ECX; surface in ESI; x, y, size, color and shadow on the stack; result in AL; RET 20",
+      "source": "src/render/gdi_surface_text.cpp"
+    },
+    {
+      "name": "GdiSurface_DrawText",
+      "symbol": "?DrawText@GdiSurface@@QAE_NPBDHHPAXKK@Z",
+      "section": ".text$07draw",
+      "address": "0x00437380",
+      "size": 525,
+      "actual_abi": "surface in EAX; text in EDI; x, y, font, color and shadow on the stack; result in AL; RET 20",
+      "source": "src/render/gdi_surface_text.cpp"
+    },
+    {
+      "name": "GdiFontFaceName_Destroy",
+      "symbol": "??1GdiFontFaceName@@QAE@XZ",
+      "section": ".text$09tidy",
+      "address": "0x004381F0",
+      "size": 38,
+      "actual_abi": "string in ECX; plain RET"
     }
   ],
   "context": {
-    "symbol": "_GdiFontStateCompilerContext@4",
+    "symbol": "_GdiFontStateCompilerContext@12",
     "section": ".text$03context",
     "address": "0x00436900",
-    "size": 22,
+    "size": 44,
     "description": "Unselected placement-construction caller; keeps the real constructor destination on the stack."
   },
   "gaps": [
@@ -60,8 +87,23 @@
     },
     {
       "section": ".text$04layout",
-      "address": "0x00436916",
-      "size": 191594
+      "address": "0x0043692C",
+      "size": 2420
+    },
+    {
+      "section": ".text$06layout",
+      "address": "0x0043737E",
+      "size": 2
+    },
+    {
+      "section": ".text$08layout",
+      "address": "0x0043758D",
+      "size": 3171
+    },
+    {
+      "section": ".text$10layout",
+      "address": "0x00438216",
+      "size": 185194
     },
     {
       "section": ".rdata$01layout",
@@ -74,11 +116,6 @@
     {
       "symbol": "?AssignRange@LegacyString@@QAEPAU1@PBDI@Z",
       "address": "0x00438420",
-      "kind": "relative_code"
-    },
-    {
-      "symbol": "??1GdiFontFaceName@@QAE@XZ",
-      "address": "0x004381F0",
       "kind": "relative_code"
     },
     {
@@ -95,6 +132,51 @@
       "symbol": "__except_list",
       "address": "0x00000000",
       "kind": "metadata"
+    },
+    {
+      "symbol": "??3@YAXPAX@Z",
+      "address": "0x004524A1",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "@__security_check_cookie@4",
+      "address": "0x00458EA5",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "___security_cookie",
+      "address": "0x00473660",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__SetTextColor@8",
+      "address": "0x00466018",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__SetBkMode@8",
+      "address": "0x0046601C",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__SelectObject@8",
+      "address": "0x0046602C",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__DeleteObject@4",
+      "address": "0x00466030",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__CreateFontA@56",
+      "address": "0x00466034",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__DrawTextA@20",
+      "address": "0x00466268",
+      "kind": "data"
     }
   ],
   "native_data": [
@@ -110,5 +192,11 @@
       "bytes": "ffffffff805546002005931901000000f415470000000000000000000000000000000000",
       "description": "Compiler-generated unwind map and FuncInfo; must equal the preserved final-image metadata."
     }
+  ],
+  "additional_sources": [
+    "src/render/gdi_surface_text.cpp"
+  ],
+  "roots": [
+    "??1GdiFontFaceName@@QAE@XZ"
   ]
 }

@@ -1,10 +1,12 @@
 // Compiler context only. Its caller and loader metadata are not game code.
+#pragma code_seg(".text$09tidy")
 #include "../../src/render/gdi_font_state.cpp"
-#include <new>
+#include "th10/render/gdi_surface.hpp"
 
 #pragma code_seg(".text$03context")
-extern "C" GdiFontState* __stdcall GdiFontStateCompilerContext(GdiFontState* storage) {
-    return new (storage) GdiFontState;
+extern "C" int __stdcall GdiFontStateCompilerContext(GdiSurface* surface, const char* text,
+                                                     const int* values) {
+    return surface->DrawTextSized(text, values[0], values[1], values[2], values[3], values[4]);
 }
 #pragma code_seg()
 

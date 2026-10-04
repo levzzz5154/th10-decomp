@@ -6,20 +6,10 @@ extern Win32TimerVtable g_win32_timer_vtable;
 extern "C" {
 __declspec(dllimport) unsigned int __stdcall timeGetDevCaps(Win32TimerCaps*, unsigned int);
 __declspec(dllimport) unsigned int __stdcall timeBeginPeriod(unsigned int);
-__declspec(dllimport) unsigned int __stdcall timeEndPeriod(unsigned int);
-__declspec(dllimport) unsigned int __stdcall timeKillEvent(unsigned int);
 __declspec(dllimport) unsigned int __stdcall timeSetEvent(unsigned int, unsigned int,
                                                         Win32TimerCallback, unsigned int,
                                                         unsigned int);
 void __cdecl free(void*);
-}
-
-__forceinline void Win32Timer::Cancel() {
-    if (timer_id) {
-        timeKillEvent(timer_id);
-    }
-    timeEndPeriod(caps.minimum_period);
-    timer_id = 0;
 }
 
 __forceinline void Win32Timer::Finish() {

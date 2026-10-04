@@ -1,0 +1,37 @@
+Codex handoff — 2026-10-04
+
+Work paused at the user's request. Goal: readable, byte-matching C++ decompilation of th10.exe without inline assembly. Preserve the existing dirty worktree; no commit or broad reset was performed.
+
+Verified production state
+2192 exact ordinary-C++ regions / 162140 bytes; 3 equivalent regions / 31400 bytes; 126 assembly regions / 127448 bytes. Application total: 320988 bytes across 2321 regions. Exact C++ covers 50.5% of application bytes; including equivalent regions, 60.3% of bytes and 94.6% of regions.
+Both make -j2 and make EXACT=1 -j2 passed after the latest production changes. The EXACT build's 487936-byte executable independently matched the retail executable with cmp. EXACT still uses assembly fallbacks for the three equivalent interpreters: the overall C++ objective remains incomplete. Subsequent changes were unselected experiments and notes only.
+
+Latest production recovery
+The seven-byte title-dispatch callback at 0x42D2E0 is exact ordinary C++, naturally emitting mov EAX,ECX followed by a tail jump to 0x42CDF0.
+Source: matching2/msvc/src/game/title_dispatch_callback_0042d2e0.cpp
+Header: matching2/msvc/include/th10/game/title_dispatch_callback_0042d2e0.hpp
+Cluster: matching2/msvc/layout/ltcg/title_dispatch_callback_0042d2e0.json
+Evidence and explanation: title_dispatch_callback_0042d2e0_2026_10_04.md and title_dispatch_callback_0042d2e0_evidence.json in this directory.
+Exact probe archived under matching2/build/experiments/title_dispatch_callback_recovered_2026_10_04.
+The cluster contains complete, unselected title/ending/music caller anchors; they are not recovered ownership. Its unique installer include-wrapper avoids conflicting translation-unit ownership.
+Also corrected the complete unselected title dispatcher: 0x44BE20 is MenuCursor::PushSelection, with a receiver, rather than the former no-argument TitleSaveInputHistory declaration. All three calls and the cluster absolute symbol were corrected. Both builds above passed afterward.
+
+Current unfinished target
+Title main menu 0x42D420 and ending screen 0x42D300 remain assembly. Complete readable candidate models, reproducible probes, and trace scripts live in:
+matching2/reference/semantic_candidates/ending_screen_0042d300/
+Read title_main_menu_0042d420_native_baseline_2026_10_04.md and title_runtime_handlers_0042d300_0042d420_private_abi_blocker.md before repeating experiments.
+
+Useful findings / controls already run
+Full original ECL/script/indicator caller context resolves ending's incoming room in EBX without a saved/moved EBX, and restores the installer's stack-room/EDI-index ABI. Ending is still 284 bytes versus retail 288 and wrongly caches zero in ESI throughout, whereas retail saves ESI only in phase 2.
+Main menu with complete real progress, stop-frame, secondary dispatch, and lookup leaves is 1268 bytes. Its room remains on the stack/in EBP and cursor in EBX; target allocation differs.
+Natural member declaration emitted identical main-menu bytes. Disabling global optimization enlarged it to 1632 bytes. Explicit cursor temporary gave 1264 bytes without fixing room allocation. Using the maintained bounded-counter algorithm removed the early cached constant-two load but left 1268 bytes and wrong allocation. Removing the exit boolean in favor of a shared exit label changed bytes but retained 1268 bytes. Full PushSelection visibility did not fix allocation. None of these handlers was promoted.
+Probe variants and output summaries record these controls; avoid repeating the same matrix. Full-script context is a compiler experiment rig, not a newly recovered retail caller.
+
+Allocator diagnostics
+trace_allocation.py successfully traced the original MSVC 13.10 linker/compiler in the full_script_menu_clamp graph. 2279 spill-cost groups and 485 physical-register choices were captured. All 14332 .text bytes matched the ordinary diagnostic link exactly (SHA256 e2fe3d7c155de5b8c4d248f43342e4aa85eb1aa7e8e441b423a5ea6e3a43550c). Evidence lives under:
+matching2/build/experiments/ending_screen_caller_full_script_menu_clamp_2026_10_04/allocator_trace/
+The trace does not yet identify room/cursor symbols or reliably map events to procedures, so it does not establish the cause of the allocation mismatch.
+The subsequent trace_symbols.py pointer-chain/name experiment FAILED before tracing: allocator_symbols/gdb.log reports unmatched ')' in generated trace.gdb.py line 38. It was stopped at pause; do not treat its output as valid evidence.
+
+Suggested continuation
+First read the existing recovery notes and inspect current status. If pursuing allocation, fix the diagnostic script syntax and map function/SYMB identities before interpreting register choices. Alternatively select another remaining assembly region rather than rerunning exhausted source variants. Keep complete native anchors and compiler tables; do not truncate anchors, mask differences, patch bytes, or introduce assembly. Run full ordinary and EXACT builds when production ownership or implementation changes; candidate-only experiments need their focused probes.

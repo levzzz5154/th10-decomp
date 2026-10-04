@@ -30,10 +30,25 @@ struct Win32Timer {
     __declspec(noinline) int Stop();
     __declspec(noinline) Win32Timer* Delete(unsigned int flags);
 
-private:
+    // Kill the pending event, if any, and give the timer period back.
     __forceinline void Cancel();
+
+private:
     __forceinline void Finish();
 };
+
+extern "C" {
+__declspec(dllimport) unsigned int __stdcall timeEndPeriod(unsigned int);
+__declspec(dllimport) unsigned int __stdcall timeKillEvent(unsigned int);
+}
+
+__forceinline void Win32Timer::Cancel() {
+    if (timer_id) {
+        timeKillEvent(timer_id);
+    }
+    timeEndPeriod(caps.minimum_period);
+    timer_id = 0;
+}
 
 typedef char Win32Timer_size_must_be_16[sizeof(Win32Timer) == 16 ? 1 : -1];
 typedef char Win32Timer_id_offset_must_be_4[offsetof(Win32Timer, timer_id) == 4 ? 1 : -1];

@@ -49,7 +49,8 @@
     "layout/ltcg/pause_open_004231d0/registrar.cpp",
     "layout/ltcg/pause_open_004231d0/secondary_back.cpp",
     "layout/ltcg/pause_open_004231d0/animation_object_configure_from_resource_0043e5a0.cpp",
-    "layout/ltcg/pause_open_004231d0/frame_timer.cpp"
+    "layout/ltcg/pause_open_004231d0/frame_timer.cpp",
+    "src/game/polar_motion_advance.cpp"
   ],
   "image_base": "0x400000",
   "description": "Full PauseOpen411 through complete genuine Player3112 context and full ordinary private helper graph. No synthetic entry or fake inputs.",
@@ -273,7 +274,7 @@
       "symbol": "?Advance@PolarMotion@@QAEXXZ",
       "section": ".text$0044c2a0_fn",
       "address": "0x0044C2A0",
-      "size": 168
+      "size": 171
     },
     {
       "name": "FrameTimer_Tick",

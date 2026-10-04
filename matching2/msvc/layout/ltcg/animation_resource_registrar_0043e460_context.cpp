@@ -2,6 +2,7 @@
 #include "../../src/render/animation_manager_register_resource_0043e460.cpp"
 
 int __stdcall Music_Load(int slot, const char* file_name);
+int __stdcall Music_Play(int track, int heard_index);
 int __stdcall Music_Stop();
 int __stdcall Music_PlayFile(int heard_index, const char* file_name);
 void __stdcall MusicRequests_Unpause(AnimationManager_0043e460* requests);
@@ -17,6 +18,9 @@ extern "C" __declspec(noinline) int __stdcall RegistrarContext_0043e460(
     *(int (__stdcall**)(int, const char*))managers[count] = Music_Load;
     *(int (__stdcall**)())managers[count + 1] = Music_Stop;
     *(int (__stdcall**)(float))managers[count + 2] = Music_FadeOut;
+    // Music_Play has direct callers in retail; reaching it only by address
+    // changes the order of the loads feeding its final store.
+    total += Music_Play(resource, parameter);
     for (int index = 0; index < count; ++index) {
         total += Music_PlayFile(index, name);
         total += Music_PlayFile(index, name);

@@ -1,377 +1,329 @@
-// 2026-09-26: the revised semantic candidate is compiled and behavior-tested
-// against retail; see reference/recovery_notes/lzss_decoder_00435dc0.md.
-// It is not yet an MSVC byte match. The historical recovery note below
-// describes the earlier probe, not the current candidate's validation state.
-// BLOCKED (D3202): closest_byte_count=475/475; first_diff=none (retail
-// assembly baseline only; no readable candidate retained).
-// residual_class=global 0x0048F868 dictionary state, bit-reader carry/mask
-// lifetime across three nested loops, output-size allocation ABI, and MSVC
-// byte/word promotion plus loop-shape scheduling. Live Ghidra topology:
-// callers 0x00434EC2, 0x0042A317, 0x0042B08C, 0x0043505E; sole callee
-// _malloc; dictionary writes wrap at 0x1FFF with sentinel offset zero.
-// variants_tested=Ghidra complete decompilation, xrefs/callers/callees,
-// disassembly, variable/storage/dataflow audit, and legacy LZSS decoder model;
-// no compiler-readable candidate was byte-measured or retained.
-// next_lever=plain MSVC 13.10 source recovery with an explicitly modelled
-// shared dictionary and one-bit reader, then caller-inclusive probes over all
-// four decompression call sites to preserve RET 10h and byte/word carry flow.
+// 0x004359B0..0x00436360: the LZSS codec.
+//
+// The functions were compiled as one unit with link-time code generation,
+// which is what gives the tree helpers their register conventions and lets
+// the compressor inline one level of Lzss_DeleteString. Each function sits in
+// its own section only so the build can place it at its retail address.
+#include <string.h>
+#include "th10/archive/lzss.hpp"
 
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+extern "C" void* __cdecl asm_malloc_00452706(unsigned int size);
 
-// 0x00435DC0..0x00435F9A: DecompressDatLzss
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_DecompressDatLzss_00435dc0() {
-    __asm {
-    L_00435dc0:
-        sub esp,0Ch
-    L_00435dc3:
-        mov eax,dword ptr [esp+18h]
-    L_00435dc7:
-        push ebx
-    L_00435dc8:
-        push ebp
-    L_00435dc9:
-        xor ebp,ebp
-    L_00435dcb:
-        cmp eax,ebp
-    L_00435dcd:
-        mov bl,80h
-    L_00435dcf:
-        mov dword ptr [esp+8],ebp
-    L_00435dd3:
-        jne short L_00435df4
-    L_00435dd5:
-        mov eax,dword ptr [esp+24h]
-    L_00435dd9:
-        push eax
-    L_00435dda:
-        call asm_malloc_00452706
-    L_00435ddf:
-        add esp,4
-    L_00435de2:
-        cmp eax,ebp
-    L_00435de4:
-        mov dword ptr [esp+20h],eax
-    L_00435de8:
-        jne short L_00435df4
-    L_00435dea:
-        pop ebp
-    L_00435deb:
-        xor eax,eax
-    L_00435ded:
-        pop ebx
-    L_00435dee:
-        add esp,0Ch
-    L_00435df1:
-        ret 10h
-    L_00435df4:
-        mov edx,dword ptr [esp+18h]
-    L_00435df8:
-        mov ecx,dword ptr [esp+20h]
-    L_00435dfc:
-        push esi
-    L_00435dfd:
-        push edi
-    L_00435dfe:
-        mov edi,edx
-    L_00435e00:
-        mov dword ptr [esp+2Ch],ecx
-    L_00435e04:
-        mov dword ptr [esp+14h],1
-    L_00435e0c:
-        jmp short L_00435e14
-    L_00435e0e:
-        xor ebp,ebp
-    L_00435e10:
-        mov edx,dword ptr [esp+20h]
-    L_00435e14:
-        cmp bl,80h
-    L_00435e17:
-        jne short L_00435e33
-    L_00435e19:
-        movzx eax,byte ptr [edi]
-    L_00435e1c:
-        mov ecx,edi
-    L_00435e1e:
-        mov dword ptr [esp+10h],eax
-    L_00435e22:
-        mov eax,dword ptr [esp+24h]
-    L_00435e26:
-        sub ecx,edx
-    L_00435e28:
-        cmp ecx,eax
-    L_00435e2a:
-        jl short L_00435e32
-    L_00435e2c:
-        mov dword ptr [esp+10h],ebp
-    L_00435e30:
-        jmp short L_00435e33
-    L_00435e32:
-        inc edi
-    L_00435e33:
-        mov eax,dword ptr [esp+10h]
-    L_00435e37:
-        movzx ecx,bl
-    L_00435e3a:
-        shr bl,1
-    L_00435e3c:
-        and ecx,eax
-    L_00435e3e:
-        test bl,bl
-    L_00435e40:
-        jne short L_00435e44
-    L_00435e42:
-        mov bl,80h
-    L_00435e44:
-        cmp ecx,ebp
-    L_00435e46:
-        mov ecx,edi
-    L_00435e48:
-        je short L_00435eaa
-    L_00435e4a:
-        xor eax,eax
-    L_00435e4c:
-        mov esi,80h
-    L_00435e51:
-        sub ecx,edx
-    L_00435e53:
-        cmp bl,80h
-    L_00435e56:
-        jne short L_00435e6d
-    L_00435e58:
-        movzx edx,byte ptr [edi]
-    L_00435e5b:
-        mov dword ptr [esp+10h],edx
-    L_00435e5f:
-        cmp ecx,dword ptr [esp+24h]
-    L_00435e63:
-        jl short L_00435e6b
-    L_00435e65:
-        mov dword ptr [esp+10h],ebp
-    L_00435e69:
-        jmp short L_00435e6d
-    L_00435e6b:
-        inc edi
-    L_00435e6c:
-        inc ecx
-    L_00435e6d:
-        mov dl,byte ptr [esp+10h]
-    L_00435e71:
-        test bl,dl
-    L_00435e73:
-        je short L_00435e77
-    L_00435e75:
-        or eax,esi
-    L_00435e77:
-        shr bl,1
-    L_00435e79:
-        shr esi,1
-    L_00435e7b:
-        test bl,bl
-    L_00435e7d:
-        jne short L_00435e81
-    L_00435e7f:
-        mov bl,80h
-    L_00435e81:
-        cmp esi,ebp
-    L_00435e83:
-        jne short L_00435e53
-    L_00435e85:
-        mov ecx,dword ptr [esp+2Ch]
-    L_00435e89:
-        mov byte ptr [ecx],al
-    L_00435e8b:
-        inc ecx
-    L_00435e8c:
-        mov dword ptr [esp+2Ch],ecx
-    L_00435e90:
-        mov ecx,dword ptr [esp+14h]
-    L_00435e94:
-        mov byte ptr [ecx+48F868h],al
-    L_00435e9a:
-        inc ecx
-    L_00435e9b:
-        and ecx,1FFFh
-    L_00435ea1:
-        mov dword ptr [esp+14h],ecx
-    L_00435ea5:
-        jmp asm_target_00435e10
-    L_00435eaa:
-        mov esi,1000h
-    L_00435eaf:
-        sub ecx,edx
-    L_00435eb1:
-        cmp bl,80h
-    L_00435eb4:
-        jne short L_00435ecf
-    L_00435eb6:
-        movzx eax,byte ptr [edi]
-    L_00435eb9:
-        mov dword ptr [esp+10h],eax
-    L_00435ebd:
-        cmp ecx,dword ptr [esp+24h]
-    L_00435ec1:
-        jl short L_00435ecd
-    L_00435ec3:
-        mov dword ptr [esp+10h],0
-    L_00435ecb:
-        jmp short L_00435ecf
-    L_00435ecd:
-        inc edi
-    L_00435ece:
-        inc ecx
-    L_00435ecf:
-        mov al,byte ptr [esp+10h]
-    L_00435ed3:
-        test bl,al
-    L_00435ed5:
-        je short L_00435ed9
-    L_00435ed7:
-        or ebp,esi
-    L_00435ed9:
-        shr bl,1
-    L_00435edb:
-        shr esi,1
-    L_00435edd:
-        test bl,bl
-    L_00435edf:
-        jne short L_00435ee3
-    L_00435ee1:
-        mov bl,80h
-    L_00435ee3:
-        test esi,esi
-    L_00435ee5:
-        jne short L_00435eb1
-    L_00435ee7:
-        xor eax,eax
-    L_00435ee9:
-        cmp ebp,eax
-    L_00435eeb:
-        mov dword ptr [esp+18h],ebp
-    L_00435eef:
-        je asm_target_00435f7d
-    L_00435ef5:
-        mov ecx,edi
-    L_00435ef7:
-        xor ebp,ebp
-    L_00435ef9:
-        mov esi,8
-    L_00435efe:
-        sub ecx,edx
-    L_00435f00:
-        cmp bl,80h
-    L_00435f03:
-        jne short L_00435f1a
-    L_00435f05:
-        movzx edx,byte ptr [edi]
-    L_00435f08:
-        mov dword ptr [esp+10h],edx
-    L_00435f0c:
-        cmp ecx,dword ptr [esp+24h]
-    L_00435f10:
-        jl short L_00435f18
-    L_00435f12:
-        mov dword ptr [esp+10h],eax
-    L_00435f16:
-        jmp short L_00435f1a
-    L_00435f18:
-        inc edi
-    L_00435f19:
-        inc ecx
-    L_00435f1a:
-        mov dl,byte ptr [esp+10h]
-    L_00435f1e:
-        test bl,dl
-    L_00435f20:
-        je short L_00435f24
-    L_00435f22:
-        or ebp,esi
-    L_00435f24:
-        shr bl,1
-    L_00435f26:
-        shr esi,1
-    L_00435f28:
-        test bl,bl
-    L_00435f2a:
-        jne short L_00435f2e
-    L_00435f2c:
-        mov bl,80h
-    L_00435f2e:
-        cmp esi,eax
-    L_00435f30:
-        jne short L_00435f00
-    L_00435f32:
-        lea esi,[ebp+2]
-    L_00435f35:
-        xor ecx,ecx
-    L_00435f37:
-        cmp esi,eax
-    L_00435f39:
-        jl asm_target_00435e0e
-    L_00435f3f:
-        nop
-    L_00435f40:
-        mov eax,dword ptr [esp+18h]
-    L_00435f44:
-        lea edx,[ecx+eax]
-    L_00435f47:
-        mov eax,dword ptr [esp+2Ch]
-    L_00435f4b:
-        and edx,1FFFh
-    L_00435f51:
-        movzx edx,byte ptr [edx+48F868h]
-    L_00435f58:
-        mov byte ptr [eax],dl
-    L_00435f5a:
-        inc eax
-    L_00435f5b:
-        mov dword ptr [esp+2Ch],eax
-    L_00435f5f:
-        mov eax,dword ptr [esp+14h]
-    L_00435f63:
-        mov byte ptr [eax+48F868h],dl
-    L_00435f69:
-        inc eax
-    L_00435f6a:
-        and eax,1FFFh
-    L_00435f6f:
-        inc ecx
-    L_00435f70:
-        cmp ecx,esi
-    L_00435f72:
-        mov dword ptr [esp+14h],eax
-    L_00435f76:
-        jle short L_00435f40
-    L_00435f78:
-        jmp asm_target_00435e0e
-    L_00435f7d:
-        cmp bl,80h
-    L_00435f80:
-        pop edi
-    L_00435f81:
-        pop esi
-    L_00435f82:
-        je short L_00435f8f
-    L_00435f84:
-        shr bl,1
-    L_00435f86:
-        test bl,bl
-    L_00435f88:
-        je short L_00435f8f
-    L_00435f8a:
-        cmp bl,80h
-    L_00435f8d:
-        jne short L_00435f84
-    L_00435f8f:
-        mov eax,dword ptr [esp+20h]
-    L_00435f93:
-        pop ebp
-    L_00435f94:
-        pop ebx
-    L_00435f95:
-        add esp,0Ch
-    L_00435f98:
-        ret 10h
+// ---------------------------------------------------------------------------
+// Compressor
+
+// Appends one bit to the output; `rack` collects the bits of the current byte
+// and `mask` is the next bit to fill.
+#define LZSS_OUTPUT_BIT(bit)                                                   \
+    if (bit)                                                                   \
+        rack |= mask;                                                          \
+    mask >>= 1;                                                                \
+    if (mask == 0) {                                                           \
+        *outCursor++ = (unsigned char)rack;                                    \
+        rack = 0;                                                              \
+        mask = 0x80;                                                           \
+    }
+
+// Appends the bits of `code` from `topBit` downwards.
+#define LZSS_OUTPUT_BITS(code, topBit)                                         \
+    bits = (topBit);                                                           \
+    while (bits != 0) {                                                        \
+        LZSS_OUTPUT_BIT((code) & bits)                                         \
+        bits >>= 1;                                                            \
+    }
+
+// Next input byte, or -1 at the end of the input.
+#define LZSS_GETC(c)                                                           \
+    if (inCursor - in < inSize)                                                \
+        c = *inCursor++;                                                       \
+    else                                                                       \
+        c = -1;
+
+#pragma code_seg(".text$lzss01_compress")
+unsigned char* __stdcall Lzss_Compress(const unsigned char* in, int inSize, int* outSize) {
+    unsigned char mask = 0x80;
+    unsigned int rack = 0;
+    unsigned char* outCursor;
+    const unsigned char* inCursor;
+    int i;
+    int c;
+    int look_ahead_bytes;
+    int current_position;
+    int replace_count;
+    int match_length;
+    int match_position;
+    unsigned int bits;
+    unsigned char* out;
+
+    out = (unsigned char*)asm_malloc_00452706(inSize * 2);
+    if (out == 0)
+        return 0;
+    inCursor = in;
+    *outSize = 0;
+    outCursor = out;
+    Lzss_InitEncoder();
+    current_position = 1;
+    for (i = 0; i < LZSS_LOOK_AHEAD_SIZE; i++) {
+        LZSS_GETC(c)
+        if (c == -1)
+            break;
+        g_LzssWindow[current_position + i] = (unsigned char)c;
+    }
+    look_ahead_bytes = i;
+    Lzss_InitTree(current_position);
+    match_length = 0;
+    match_position = 0;
+    while (look_ahead_bytes > 0) {
+        if (match_length > look_ahead_bytes)
+            match_length = look_ahead_bytes;
+        if (match_length <= LZSS_BREAK_EVEN) {
+            replace_count = 1;
+            LZSS_OUTPUT_BIT(1)
+            LZSS_OUTPUT_BITS(g_LzssWindow[current_position], 0x80)
+        } else {
+            LZSS_OUTPUT_BIT(0)
+            LZSS_OUTPUT_BITS(match_position, 1 << (LZSS_INDEX_BIT_COUNT - 1))
+            LZSS_OUTPUT_BITS(match_length - (LZSS_BREAK_EVEN + 1), 1 << (LZSS_LENGTH_BIT_COUNT - 1))
+            replace_count = match_length;
+        }
+        // Slide the window over the bytes just encoded.
+        for (i = 0; i < replace_count; i++) {
+            Lzss_DeleteString(LZSS_MOD_WINDOW(current_position + LZSS_LOOK_AHEAD_SIZE));
+            LZSS_GETC(c)
+            if (c == -1)
+                look_ahead_bytes--;
+            else
+                g_LzssWindow[LZSS_MOD_WINDOW(current_position + LZSS_LOOK_AHEAD_SIZE)] = (unsigned char)c;
+            current_position = LZSS_MOD_WINDOW(current_position + 1);
+            if (look_ahead_bytes)
+                match_length = Lzss_AddString(current_position, &match_position);
+        }
+    }
+    // The bits of the last, partial byte are never written; the decoder reads
+    // zero bits past the end of its input, which is the terminator anyway.
+    LZSS_OUTPUT_BIT(0)
+    LZSS_OUTPUT_BITS(LZSS_END_OF_STREAM, 1 << (LZSS_INDEX_BIT_COUNT - 1))
+    *outSize = outCursor - out;
+    return out;
+}
+
+// ---------------------------------------------------------------------------
+// Decompressor
+//
+// A set flag bit is followed by an eight-bit literal, a clear one by a window
+// position and a match length. Reading past `inSize` yields zero bits without
+// advancing. The window is not cleared between calls.
+
+// Loads the next input byte once the previous one has been used up.
+#define LZSS_REFILL()                                                          \
+    if (inBitMask == 0x80) {                                                   \
+        currByte = *inCursor;                                                  \
+        if (inCursor - in >= inSize)                                           \
+            currByte = 0;                                                      \
+        else                                                                   \
+            inCursor++;                                                        \
+    }
+
+#define LZSS_NEXT_BIT()                                                        \
+    inBitMask >>= 1;                                                           \
+    if (inBitMask == 0)                                                        \
+        inBitMask = 0x80;
+
+// Accumulates the bits from `topBit` downwards into `value`.
+#define LZSS_INPUT_BITS(value, topBit)                                         \
+    inBits = (topBit);                                                         \
+    while (inBits != 0) {                                                      \
+        LZSS_REFILL()                                                          \
+        if (currByte & inBitMask)                                              \
+            value |= inBits;                                                   \
+        inBits >>= 1;                                                          \
+        LZSS_NEXT_BIT()                                                        \
+    }
+
+#pragma code_seg(".text$lzss03_decompress")
+extern "C" unsigned char* __stdcall DecompressDatLzss_00435dc0(
+    const unsigned char* in, int inSize, unsigned char* out, unsigned int outSize) {
+    const unsigned char* inCursor;
+    unsigned char* outCursor;
+    unsigned char inBitMask = 0x80;
+    unsigned int currByte = 0;
+    unsigned int current_position;
+    unsigned int inBits;
+    unsigned int c;
+    unsigned int match_position;
+    int match_length;
+    int i;
+    unsigned int bits;
+
+    if (out == 0) {
+        out = (unsigned char*)asm_malloc_00452706(outSize);
+        if (out == 0)
+            return 0;
+    }
+    inCursor = in;
+    outCursor = out;
+    current_position = 1;
+    for (;;) {
+        LZSS_REFILL()
+        unsigned int isLiteral = currByte & inBitMask;
+        LZSS_NEXT_BIT()
+        if (isLiteral != 0) {
+            c = 0;
+            LZSS_INPUT_BITS(c, 0x80)
+            *outCursor++ = (unsigned char)c;
+            g_LzssWindow[current_position] = (unsigned char)c;
+            current_position = LZSS_MOD_WINDOW(current_position + 1);
+        } else {
+            bits = 0;
+            LZSS_INPUT_BITS(bits, 1 << (LZSS_INDEX_BIT_COUNT - 1))
+            match_position = bits;
+            if (match_position == LZSS_END_OF_STREAM)
+                break;
+            bits = 0;
+            LZSS_INPUT_BITS(bits, 1 << (LZSS_LENGTH_BIT_COUNT - 1))
+            match_length = bits + LZSS_BREAK_EVEN;
+            for (i = 0; i <= match_length; i++) {
+                c = g_LzssWindow[LZSS_MOD_WINDOW(match_position + i)];
+                *outCursor++ = (unsigned char)c;
+                g_LzssWindow[current_position] = (unsigned char)c;
+                current_position = LZSS_MOD_WINDOW(current_position + 1);
+            }
+        }
+    }
+    // Skip the unused bits of the final byte.
+    while (inBitMask != 0x80) {
+        inBitMask >>= 1;
+        if (inBitMask == 0)
+            break;
+    }
+    return out;
+}
+
+// ---------------------------------------------------------------------------
+// Match tree
+
+// Makes window position `r` the tree's only string.
+#pragma code_seg(".text$lzss05_inittree")
+void Lzss_InitTree(int r) {
+    g_LzssTree[LZSS_TREE_ROOT].larger_child = r;
+    g_LzssTree[r].parent = LZSS_TREE_ROOT;
+    g_LzssTree[r].larger_child = LZSS_UNUSED;
+    g_LzssTree[r].smaller_child = LZSS_UNUSED;
+}
+
+// Clears the window and detaches every tree node.
+#pragma code_seg(".text$lzss07_initencoder")
+void Lzss_InitEncoder() {
+    int i;
+
+    memset(g_LzssWindow, 0, sizeof(g_LzssWindow));
+    for (i = 0; i < LZSS_WINDOW_SIZE + 1; i++) {
+        g_LzssTree[i].parent = LZSS_UNUSED;
+        g_LzssTree[i].smaller_child = LZSS_UNUSED;
+        g_LzssTree[i].larger_child = LZSS_UNUSED;
     }
 }
+
+// Inserts the string at window position `new_node` and returns the length of
+// the longest match met on the way down, with its position in
+// *match_position. A full-length duplicate is replaced by the new string so
+// the tree never holds two equal strings.
+#pragma code_seg(".text$lzss09_addstring")
+int Lzss_AddString(int new_node, int* match_position) {
+    int i;
+    int test_node;
+    int delta;
+    int match_length;
+    int* child;
+
+    if (new_node == LZSS_END_OF_STREAM)
+        return 0;
+    test_node = g_LzssTree[LZSS_TREE_ROOT].larger_child;
+    match_length = 0;
+    for (;;) {
+        for (i = 0; i < LZSS_LOOK_AHEAD_SIZE; i++) {
+            delta = g_LzssWindow[LZSS_MOD_WINDOW(new_node + i)] -
+                    g_LzssWindow[LZSS_MOD_WINDOW(test_node + i)];
+            if (delta != 0)
+                break;
+        }
+        if (i >= match_length) {
+            match_length = i;
+            *match_position = test_node;
+            if (match_length >= LZSS_LOOK_AHEAD_SIZE) {
+                Lzss_ReplaceNode(test_node, new_node);
+                return match_length;
+            }
+        }
+        if (delta >= 0)
+            child = &g_LzssTree[test_node].larger_child;
+        else
+            child = &g_LzssTree[test_node].smaller_child;
+        if (*child == LZSS_UNUSED) {
+            *child = new_node;
+            g_LzssTree[new_node].parent = test_node;
+            g_LzssTree[new_node].larger_child = LZSS_UNUSED;
+            g_LzssTree[new_node].smaller_child = LZSS_UNUSED;
+            return match_length;
+        }
+        test_node = *child;
+    }
+}
+
+// Removes the string at window position `p` from the tree.
+#pragma code_seg(".text$lzss11_deletestring")
+void __fastcall Lzss_DeleteString(int p) {
+    int replacement;
+
+    if (g_LzssTree[p].parent == LZSS_UNUSED)
+        return;
+    if (g_LzssTree[p].larger_child == LZSS_UNUSED)
+        Lzss_ContractNode(p, g_LzssTree[p].smaller_child);
+    else if (g_LzssTree[p].smaller_child == LZSS_UNUSED)
+        Lzss_ContractNode(p, g_LzssTree[p].larger_child);
+    else {
+        replacement = Lzss_FindNextNode(p);
+        Lzss_DeleteString(replacement);
+        Lzss_ReplaceNode(p, replacement);
+    }
+}
+
+// Links `new_node`, the only child of `old_node`, to old_node's parent.
+#pragma code_seg(".text$lzss12_contractnode")
+void Lzss_ContractNode(int old_node, int new_node) {
+    g_LzssTree[new_node].parent = g_LzssTree[old_node].parent;
+    if (g_LzssTree[g_LzssTree[old_node].parent].larger_child == old_node)
+        g_LzssTree[g_LzssTree[old_node].parent].larger_child = new_node;
+    else
+        g_LzssTree[g_LzssTree[old_node].parent].smaller_child = new_node;
+    g_LzssTree[old_node].parent = LZSS_UNUSED;
+}
+
+// Puts `new_node`, which is not in the tree, in the place of `old_node`.
+#pragma code_seg(".text$lzss14_replacenode")
+void Lzss_ReplaceNode(int old_node, int new_node) {
+    int parent;
+
+    parent = g_LzssTree[old_node].parent;
+    if (g_LzssTree[parent].smaller_child == old_node)
+        g_LzssTree[parent].smaller_child = new_node;
+    else
+        g_LzssTree[parent].larger_child = new_node;
+    g_LzssTree[new_node] = g_LzssTree[old_node];
+    g_LzssTree[g_LzssTree[new_node].smaller_child].parent = new_node;
+    g_LzssTree[g_LzssTree[new_node].larger_child].parent = new_node;
+    g_LzssTree[old_node].parent = LZSS_UNUSED;
+}
+
+// The largest string smaller than `node`'s: the rightmost node of its smaller
+// subtree.
+#pragma code_seg(".text$lzss16_findnextnode")
+int Lzss_FindNextNode(int node) {
+    int next;
+
+    next = g_LzssTree[node].smaller_child;
+    while (g_LzssTree[next].larger_child != LZSS_UNUSED)
+        next = g_LzssTree[next].larger_child;
+    return next;
+}
+#pragma code_seg()

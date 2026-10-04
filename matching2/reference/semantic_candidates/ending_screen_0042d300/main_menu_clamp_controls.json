@@ -1,0 +1,18 @@
+[
+  {
+    "variant": "full_script_menu_clamp",
+    "main_menu_extent": 1268,
+    "body_sha256": "595edac400958f3bb7ae71c0ef18e14298996ffa07ad2c44c3520a20878bccaf",
+    "ending_extent": 284,
+    "dispatcher_extent": 1092,
+    "exact": false
+  },
+  {
+    "variant": "full_script_menu_direct_exit",
+    "main_menu_extent": 1268,
+    "body_sha256": "6f6ca835aabb4f2114fe9e057f1171992f3ef7ca5eea0e9722fc082ff22eb069",
+    "ending_extent": 284,
+    "dispatcher_extent": 1092,
+    "exact": false
+  }
+]

@@ -5,7 +5,6 @@
   "driver": "layout/ltcg/title_teardown_0041fb50_context.cpp",
   "included_sources": [
     "layout/ltcg/title_teardown_0041fb50/message_teardown_helpers.cpp",
-    "layout/ltcg/title_teardown_0041fb50/title_score.cpp",
     "layout/ltcg/title_teardown_0041fb50/title_encrypt.cpp",
     "layout/ltcg/title_teardown_0041fb50/manager_remove.cpp",
     "layout/ltcg/title_teardown_0041fb50/manager_entity_init.cpp"
@@ -23,7 +22,8 @@
     "include/th10/render/native_render_targets.hpp",
     "include/th10/render/animation_resource_removal.hpp",
     "include/th10/game/score_file.hpp",
-    "include/th10/render/anm_manager_lists.hpp"
+    "include/th10/render/anm_manager_lists.hpp",
+    "include/th10/game/score_archive_0042b1e0.hpp"
   ],
   "image_base": "0x00400000",
   "description": "Complete genuine title/global teardown graph plus independently reachable one-receiver ordinary array-manager owner. The ordinary manager193/private-retail206 ABI difference is unselected compiler context. Its real member-array CRT callbacks take the Entity destructor address, yielding exact public-ECX Entity34 and selected Title417/EH32. All emitted unwind groups and exact44/52-byte metadata islands are validated; only Title417/EH32 exported.",
@@ -65,6 +65,15 @@
       "size": 10,
       "actual_abi": "Complete native title destructor EH handler",
       "generated": true
+    },
+    {
+      "name": "ScoreManager_Save",
+      "symbol": "?Save@ScoreArchive_0042B1E0@@QAEHXZ",
+      "section": ".text$06score",
+      "address": "0x0042B1E0",
+      "size": 564,
+      "actual_abi": "manager in EBX; result in EAX; plain RET",
+      "source": "src/game/score_manager_save.cpp"
     }
   ],
   "anchors": [
@@ -81,13 +90,6 @@
       "section": ".text$02pair",
       "address": "0x0041F930",
       "size": 91
-    },
-    {
-      "name": "ScoreArchiveSave",
-      "symbol": "?Save@ScoreArchive_0042B1E0@@QAEHXZ",
-      "section": ".text$06score",
-      "address": "0x0042B1E0",
-      "size": 566
     },
     {
       "name": "AnimationResourceRelease",
@@ -233,8 +235,8 @@
     },
     {
       "section": ".text$06scorez",
-      "address": "0x42b416",
-      "size": 110090
+      "address": "0x42b414",
+      "size": 110092
     },
     {
       "section": ".text$06zmanagerz",
@@ -508,6 +510,11 @@
       "symbol": "??_M@YGXPAXIHP6EX0@Z@Z",
       "address": "0x004525ff",
       "kind": "relative_code"
+    },
+    {
+      "symbol": "__imp__WriteFile@20",
+      "address": "0x4660d4",
+      "kind": "data"
     }
   ],
   "roots": [],
@@ -550,5 +557,8 @@
   ],
   "anchor_roots": [
     "??1AnimationManagerStorage_00446220@@QAE@XZ"
+  ],
+  "additional_sources": [
+    "src/game/score_manager_save.cpp"
   ]
 }

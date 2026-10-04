@@ -1,0 +1,91 @@
+{
+  "status": "exact production recovery",
+  "address": "0x448a50",
+  "size": 112,
+  "body_sha256": "ebc30f4e726f66c3b89223c86c48bbd3abdcf283271acd985df59c596a99f30d",
+  "report": "matching2/build/experiments/registrar_siblings_2026_10_04/front_production_probe_0/clusters/animation_register_primary_front_00448a50/report.json",
+  "native_executable": "/home/levzzz/Games/th10Decomp/matching2/build/experiments/registrar_siblings_2026_10_04/front_production_probe_0/clusters/animation_register_primary_front_00448a50/native-cmvfc7pk/cluster.exe",
+  "masked_bytes": 0,
+  "instruction_bytes_changed": 0,
+  "reference_bytes_used_for_build": false,
+  "inputs": {
+    "layout/ltcg/animation_register_primary_front_00448a50.json": "b031dd2a22dfde692e48876a6d45e805037124f20e2186ca6c1e77c5523bcfc4",
+    "src/render/animation_manager_register_primary_front_00448a50.cpp": "df14f678d13dba81aba20ff9d3886a3631cad8e92a316263991d5e5043e97d3b",
+    "layout/ltcg/animation_register_primary_front_00448a50_context.cpp": "406ff0d2657b921446aa9fac3f7c396bd9b76697764c54e3d41aed0444ed1399",
+    "include/th10/game/player_hud_animations.hpp": "a273bc8c28587ca8864e5eea205fba8ed474cd17f753278234e8c1203fd0698f",
+    "include/th10/game/entity.hpp": "5947ee3d028eb94daa460db1e5dd592b30bb8ffda2fb85311a864f0a84f641ad",
+    "include/th10/game/pause_result_open_004231d0/open_animation.hpp": "83b3bb63bd1894900bb44d2677fcc642024fe245077f23b26f0db6a2f4b0824f",
+    "include/th10/types.hpp": "16f441397e5c33f60de63af3bc2cd4ccd6935ef11acb3f7744b678c667d79957",
+    "layout/ltcg/animation_register_primary_front_00448a50_body.cpp": "e0a024ffc692cc361a576e65e1cd242191e17783cde24d32b53ebd1049b68298",
+    "layout/ltcg/animation_register_primary_front_00448a50_allocate.cpp": "64af56abbf82fd93c5994025eb1b940ca8d329367f3ce81990c49f16d0bd302e",
+    "layout/ltcg/result_open_00423370/allocate.cpp": "b7e9504b2e838c2695bd09a6c96d61e74cf86dde1960979a3aca58695be9a8aa"
+  },
+  "ordinary_verification": {
+    "0x409280": {
+      "size": 2432,
+      "sha256": "0a83aa9fdaa2f24183fe8bbb08caee04a6978631c0afba823a2dfcba7acf493e",
+      "exact": true,
+      "masked_bytes": 0
+    },
+    "0x4489d0": {
+      "size": 118,
+      "sha256": "39e1aaf20ccc6f0c90ef9a2ae5bac14f89797203148cadca4365fa49502f9c22",
+      "exact": true,
+      "masked_bytes": 0
+    },
+    "0x448ac0": {
+      "size": 118,
+      "sha256": "0512a9bede2b3412516870f0479ced33557a8785c354dbe3ec32245186fd0bb6",
+      "exact": true,
+      "masked_bytes": 0
+    },
+    "0x448a50": {
+      "size": 112,
+      "sha256": "ebc30f4e726f66c3b89223c86c48bbd3abdcf283271acd985df59c596a99f30d",
+      "exact": true,
+      "masked_bytes": 0
+    },
+    "0x448b40": {
+      "size": 112,
+      "sha256": "281e7b13dac50ecadfce65b87e4b2027cdf5c151d8d0ac09abfeb8da60b03268",
+      "exact": true,
+      "masked_bytes": 0
+    },
+    "executable_sha256": "434af58e62cfd012f81dc466ffbd8db757beaed2a3cbda8fc61c6b90eee8df08",
+    "whole_executable_equal": false
+  },
+  "exact_verification": {
+    "0x409280": {
+      "size": 2432,
+      "sha256": "0a83aa9fdaa2f24183fe8bbb08caee04a6978631c0afba823a2dfcba7acf493e",
+      "exact": true,
+      "masked_bytes": 0
+    },
+    "0x4489d0": {
+      "size": 118,
+      "sha256": "39e1aaf20ccc6f0c90ef9a2ae5bac14f89797203148cadca4365fa49502f9c22",
+      "exact": true,
+      "masked_bytes": 0
+    },
+    "0x448ac0": {
+      "size": 118,
+      "sha256": "0512a9bede2b3412516870f0479ced33557a8785c354dbe3ec32245186fd0bb6",
+      "exact": true,
+      "masked_bytes": 0
+    },
+    "0x448a50": {
+      "size": 112,
+      "sha256": "ebc30f4e726f66c3b89223c86c48bbd3abdcf283271acd985df59c596a99f30d",
+      "exact": true,
+      "masked_bytes": 0
+    },
+    "0x448b40": {
+      "size": 112,
+      "sha256": "281e7b13dac50ecadfce65b87e4b2027cdf5c151d8d0ac09abfeb8da60b03268",
+      "exact": true,
+      "masked_bytes": 0
+    },
+    "executable_sha256": "2f14760b6fbbf57549541583283badb9a19a4222b90f0a146d5aa17f01dc9040",
+    "whole_executable_equal": true
+  }
+}

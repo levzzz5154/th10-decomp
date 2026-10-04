@@ -123,59 +123,6 @@ int __fastcall Platform_DeletingDestructorNoReturn(void* pair) {
 }
 
 
-// 0x00442300..0x00442381: RecoveryState_Configure42300
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_RecoveryState_Configure42300_00442300() {
-    __asm {
-    L_00442300:
-        mov dword ptr [eax+12Ch],ecx
-    L_00442306:
-        movzx ecx,byte ptr [esp+4]
-    L_0044230b:
-        mov dword ptr [eax+130h],ecx
-    L_00442311:
-        movzx ecx,byte ptr [esp+8]
-    L_00442316:
-        mov dword ptr [eax+108h],ecx
-    L_0044231c:
-        movzx ecx,byte ptr [esp+0Ch]
-    L_00442321:
-        xor edx,edx
-    L_00442323:
-        mov dword ptr [eax+110h],edx
-    L_00442329:
-        mov dword ptr [eax+114h],edx
-    L_0044232f:
-        mov dword ptr [eax+10Ch],ecx
-    L_00442335:
-        mov ecx,dword ptr [eax+128h]
-    L_0044233b:
-        test cl,1
-    L_0044233e:
-        jne short L_00442369
-    L_00442340:
-        or ecx,1
-    L_00442343:
-        mov dword ptr [eax+11Ch],edx
-    L_00442349:
-        mov dword ptr [eax+118h],0FFF0BDC1h
-    L_00442353:
-        mov dword ptr [eax+120h],edx
-    L_00442359:
-        mov dword ptr [eax+124h],476F78h
-    L_00442363:
-        mov dword ptr [eax+128h],ecx
-    L_00442369:
-        mov dword ptr [eax+11Ch],edx
-    L_0044236f:
-        mov dword ptr [eax+120h],edx
-    L_00442375:
-        mov dword ptr [eax+118h],0FFFFFFFFh
-    L_0044237f:
-        ret 0Ch
-    }
-}
-
 // 0x00447280..0x004472D1: Recovery_LoadCachedResource
 // Return the resource cached for the given index, loading it through 0x004470C0
 // when the slot is still empty. The load runs on a worker thread: the entry is

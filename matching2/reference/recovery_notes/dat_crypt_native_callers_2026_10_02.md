@@ -93,3 +93,14 @@ outer loop. ABI discovery, signedness sweeps, and the failed helper variants
 need not be repeated. Any new source-lifetime hypothesis must preserve the
 full real cipher behavior and pass the entire 323-/307-byte contributions
 before a proposal or incremental whole-image integration is warranted.
+
+## Resolved 2026-10-04
+
+Both functions are byte-exact from `src/archive/crypt.cpp` through
+`layout/ltcg/dat_crypt.json`. The missing lever was variable identity, not
+loop shape: there is no separate descending pointer. Decryption walks the
+output cursor itself backwards (`out = end - 1; ... out -= 2;`, then
+`out = end - 2; ...`) and restores it with `out = end` after both passes;
+encryption does the same with the snapshot cursor `in`. That makes the block
+end the value that lives in EDI and is spilled around the second pass, which
+is the retail store/reload pair at `[ESP+10h]`/`[ESP+14h]`.

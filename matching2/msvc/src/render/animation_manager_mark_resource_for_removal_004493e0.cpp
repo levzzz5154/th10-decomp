@@ -3,7 +3,10 @@
 
 #include "th10/render/animation_resource_removal.hpp"
 
-#pragma code_seg(".text$20helper")
+#ifndef TH10_ANIMATION_RESOURCE_MARK_SECTION
+#define TH10_ANIMATION_RESOURCE_MARK_SECTION ".text$20helper"
+#endif
+#pragma code_seg(TH10_ANIMATION_RESOURCE_MARK_SECTION)
 __declspec(noinline) void AnimationManager::MarkResourceForRemoval(void* resource) {
     unsigned char* bytes = reinterpret_cast<unsigned char*>(this);
 

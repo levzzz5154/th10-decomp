@@ -1,20 +1,6 @@
 #include "th10/game/pause_result_open_004231d0/dispatcher_contract.hpp"
 
-// Full primary-back list registration corresponding to 0x004489D0. The
-// returned four-byte reference has a genuine compiler-generated return home.
-struct DispatcherPrimaryLists {
-    unsigned char reserved_000[0x72DAD4];
-    AnimationManagerNodeOpen* primary_head;
-    AnimationManagerNodeOpen* primary_tail;
-    unsigned char reserved_72dadc[0x732454 - 0x72DADC];
-    int next_id;
-    __declspec(noinline) DispatcherRef RegisterPrimaryBack(Entity* object);
-};
-typedef char DispatcherPrimaryHeadOffset[
-    offsetof(DispatcherPrimaryLists, primary_head)==0x72DAD4?1:-1];
-typedef char DispatcherPrimaryIdOffset[
-    offsetof(DispatcherPrimaryLists, next_id)==0x732454?1:-1];
-
+// Full primary-back list registration corresponding to 0x004489D0.
 #pragma code_seg(".text$004489d0_fn")
 DispatcherRef DispatcherPrimaryLists::RegisterPrimaryBack(Entity* object) {
     AnimationManagerNodeOpen* node = reinterpret_cast<AnimationManagerNodeOpen*>(

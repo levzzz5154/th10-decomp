@@ -18,3 +18,17 @@ null-UI path owns the trailing `mov eax, 1; ret`.
 
 So retail needs the null block placed after the function's exit label, which
 no source ordering tried produces.
+
+## 2026-10-03 addendum
+
+A `_ReadWriteBarrier()` placed at the join of an if/else that assigns `result`
+(`if (ui->flags & 4) result = 1; else { result = 1; if (...) result = 6; }`
+then barrier, `return result;`, with the null path as a trailing `return 1;`)
+reproduces retail exactly. So retail kept the join block alive until after the
+exit jump became `ret`; without the barrier the empty join is coalesced into the
+exit label. goto / do-while-break / switch joins are all coalesced too. The
+missing piece is what natural code keeps that join non-empty that late.
+
+## Result value-type controls, 2026-10-04
+
+Fresh ordinary fastcall probes show copied and constructed result assignments still emit 68 bytes with the same failure-branch target residual; early result construction emits 63 bytes. See `replay_frame_step_result_controls_2026_10_04.md` and the preserved isolated probe logs. No replacement was promoted.

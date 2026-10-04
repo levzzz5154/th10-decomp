@@ -39,7 +39,7 @@
     },
     {
       "name": "Entity_StartScript_anchor",
-      "symbol": "?Entity_StartScript_00404f30@@YGXPAUEntity@@PAUAnimationResource_0043e710@@H@Z",
+      "symbol": "?Entity_StartScript_00404f30@@YGXPAUAnimationResource_0043e710@@PAUEntity@@H@Z",
       "section": ".text$00p_start",
       "address": "0x00404F30",
       "size": 202

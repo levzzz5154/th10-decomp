@@ -166,11 +166,12 @@ extern "C" unsigned char text_padding_00465325[] = {
 };
 #pragma data_seg()
 
-// padding: 0x00465346..0x0046534F
-// padding 00465346..0046534f: ["text_range_map candidate_pattern=repeated_CC/00 or inspected INT3 run"]
+// padding: 0x00465345..0x0046534F
+// The sound factory EH handler ends at 0x00465345; its former final INT3
+// belongs to this contiguous alignment run.
 #pragma data_seg(".d001966")
-extern "C" unsigned char text_padding_00465346[] = {
-    0xcc, 0xcc, 0xcc, 0xcc, 0xcc, 0xcc, 0xcc, 0xcc, 0xcc, 0xcc,
+extern "C" unsigned char text_padding_00465345[] = {
+    0xcc, 0xcc, 0xcc, 0xcc, 0xcc, 0xcc, 0xcc, 0xcc, 0xcc, 0xcc, 0xcc,
 };
 #pragma data_seg()
 

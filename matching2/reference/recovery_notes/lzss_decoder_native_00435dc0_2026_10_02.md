@@ -69,3 +69,13 @@ Compiler commands, object files, disassembly, compiler-flag controls,
 native LTCG PE/MAP files, and the private probe project are retained under
 `matching2/build/lzss-decoder-recovery-20261002/`. The source and probing
 proposal are `candidate.cpp` and `proposal.json` in that directory.
+
+## Resolved 2026-10-04
+
+Byte-exact as ordinary C++ in `msvc/src/archive/lzss.cpp`. The lever was the
+accumulator's scope, not the reader state: one `bits` variable is zeroed
+*inside* the match branch before each of the offset and length reads and then
+copied to `matchOffset`/`matchLen`, while the literal accumulates into `data`
+directly. Zeroing it at function entry and after the copy loop (the 503-byte
+scalar model) makes the compiler keep `in` in EBP; separate offset/length
+variables give 488-489 bytes. `inBitMask` must be declared before `currByte`.

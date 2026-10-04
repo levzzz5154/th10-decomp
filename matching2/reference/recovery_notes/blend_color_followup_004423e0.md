@@ -1,3 +1,5 @@
+Resolved on 2026-10-04: all 440 native bytes now match through the packed-color union byte-channel view. The ordinary and EXACT builds pass, and the whole EXACT executable equals retail. See `blend_color_004423e0_2026_10_04.md` and its evidence JSON. Historical diagnostics follow.
+
 # Blend/color helper follow-up at 0x004423E0
 
 The render cluster expansion makes this helper's private EAX manager / EBX entity

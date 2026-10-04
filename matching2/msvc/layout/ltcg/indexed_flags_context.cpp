@@ -4,6 +4,7 @@ extern "C" __declspec(noinline) int __stdcall IndexedFlagsContext(const signed c
  int result=0;
  while(count--) {
   result += ReadSignedByteFlag(*indices,table,output,bit);
+  result += ReadSignedMaskFlag(*indices,mask,output,bit);
   ++indices;
  }
  return result;

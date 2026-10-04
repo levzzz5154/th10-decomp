@@ -1,0 +1,18 @@
+[
+  {
+    "variant": "full_script",
+    "ending_address": "0x402480",
+    "ending_extent": 284,
+    "slot_install_extent": 95,
+    "slot_frame_extent": 65,
+    "dispatcher_extent": 1092
+  },
+  {
+    "variant": "full_script_count",
+    "ending_address": "0x402480",
+    "ending_extent": 288,
+    "slot_install_extent": 95,
+    "slot_frame_extent": 65,
+    "dispatcher_extent": 1092
+  }
+]

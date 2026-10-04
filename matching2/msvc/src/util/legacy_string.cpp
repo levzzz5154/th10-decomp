@@ -158,14 +158,8 @@ LegacyString* LegacyString::Assign(const char* text) {
     return AssignRange(text, strlen(text));
 }
 
-// 0x004381F0 - Release owned heap storage and restore an empty inline string.
-void __fastcall LegacyString_Clear(LegacyString* string) {
-    if (string->capacity >= 16)
-        entry_free_004524a1(string->storage.heap_data);
-    string->capacity = 15;
-    string->length = 0;
-    string->storage.inline_data[0] = 0;
-}
+// 0x004381F0, the string destructor, is the out-of-line copy of
+// GdiFontFaceName::~GdiFontFaceName (th10/render/gdi_font_state.hpp).
 
 uint32_t LegacyString::Length() const {
     return length;

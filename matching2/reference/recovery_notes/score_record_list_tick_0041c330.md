@@ -109,3 +109,7 @@ Reproducible source, disassembly and unmasked byte evidence are retained in
 `matching2/build/experiments/score_tick_resume_20261002/final_evidence.json`.
 The register allocation around the two early virtual calls still differs;
 these failed candidates receive no recovery credit.
+
+## Fresh type/control-flow controls, 2026-10-04
+
+The current-tree replay reproduces 272 bytes. Typed retirement count: 276; typed state: 272; state switch: 206. Explicit `__thiscall` callback pointers are rejected with C4234. Complete native controls are preserved under `matching2/build/experiments/score_tick_2026_10_04/`; see `score_tick_type_controls_2026_10_04.md`. No production candidate was promoted.

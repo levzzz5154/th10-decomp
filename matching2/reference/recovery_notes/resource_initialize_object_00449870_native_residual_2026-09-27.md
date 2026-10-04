@@ -1,3 +1,5 @@
+Resolved on 2026-10-04: the full initializer is now exact ordinary C++. The copied flags value type resolves the ESI/EDI allocation and store-order residual. See `animation_resource_initialize_object_00449870_2026_10_04.md` and its evidence JSON. Historical diagnostics follow.
+
 # Resource object initializer — 0x00449870
 
 Date: 2026-09-27

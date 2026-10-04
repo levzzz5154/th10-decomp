@@ -31,8 +31,8 @@ extern "C" int __stdcall EntityStartScriptContext_00404f30(EntityPairOwner_00404
                                                 int count) {
     for (int i = 0; i < count; ++i) {
         EntityPairOwner_00404f30* owner = owners[i];
-        Entity_StartScript_00404f30(&owner->first, resources[i], 12);
-        Entity_StartScript_00404f30(&owner->second, resources[i], 11);
+        Entity_StartScript_00404f30(resources[i], &owner->first, 12);
+        Entity_StartScript_00404f30(resources[i], &owner->second, 11);
     }
     for (int slot = 0; slot < count; ++slot)
         LoadScript_0043e710(resources[0], objects[slot], slot);

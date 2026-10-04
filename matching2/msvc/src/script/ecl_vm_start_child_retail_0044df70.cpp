@@ -1,12 +1,15 @@
-// BLOCKED (D2101): the linked retail wrapper is exact (550/550 bytes), but
-// there is no byte-measured readable candidate. Ghidra confirms a private
+// The retail wrapper remains exact (550/550 bytes). The complete readable
+// candidate in ecl_child_pair.cpp emits 549 bytes with 416 differing bytes
+// including extent; it is an unselected anchor, not a recovered implementation.
+// Its 142-byte SpawnChild caller is recovered and byte exact. Ghidra confirms a private
 // EAX VM receiver, two stack arguments (source VM/frame and operand index),
 // and RET 8. The real callers are the 0x0044E1A0 dispatcher and
 // 0x004500D0 SpawnChild; the latter creates the child VM/list node and passes
 // that new VM in EAX. The function reads typed operands from the source
 // operand table, initializes the child value stack, and resolves its script
 // label. See ecl_vm_start_child_0044df70_cluster.md for caller and helper ABI
-// evidence and the proposed cluster. Keep the exact wrapper until the full
+// evidence; ecl_child_home_controls_0044df70_2026_10_04.md records later
+// parameter-home and branch controls. Keep the exact wrapper until the full
 // caller/resolver cluster yields a byte-exact readable body.
 
 #include "asm_encoding.hpp"

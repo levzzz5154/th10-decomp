@@ -133,3 +133,29 @@ two complete disassemblies saved under
 The stdcall return and real helper call targets are already correct. Do not
 promote the model until all 1029 bytes and relocation targets pass the normal
 probe and the complete executable gate.
+
+## Resolved 2026-10-04: the whole codec from one natural source
+
+`src/archive/lzss.cpp` now holds the compressor, the decompressor and the seven
+tree helpers (0x004359B0..0x00436360) as plain C++, all byte-exact through the
+`layout/ltcg/lzss.json` cluster. It replaces the per-helper sources, the
+`compression_tree` and `lzss_tree_initialize_root` clusters and the hand-shaped
+`Lzss_InsertString_00436000`.
+
+What was actually wrong with every earlier attempt:
+
+- The source is Mark Nelson's LZSS (`InitTree`, `AddString`, `DeleteString`,
+  `ContractNode`, `ReplaceNode`, `FindNextNode`, bit output with `rack`/`mask`)
+  nearly verbatim; no shaping is needed.
+- The compressor cannot be matched by a stand-alone `/O2` compile, nor by an
+  LTCG link in which its callees are opaque externs. With the callee *bodies*
+  in the same LTCG scope the register assignment (mask in BL, rack in memory)
+  and the one-level inline of `DeleteString` come out on their own.
+- `DeleteString` is recursive, so LTCG keeps its declared convention; it has to
+  be `__fastcall` (node in ECX). The non-recursive helpers get private
+  conventions from their real callers.
+- `InitTree` and `InitEncoder` have no out-of-line callers in retail (both are
+  inlined into the compressor). `InitEncoder` and the decompressor can be
+  `/INCLUDE` roots; rooting `InitTree` forces the stack convention, so the
+  context calls it directly, which yields retail's EAX argument.
+- Definition order in the source equals retail's address order.

@@ -4,7 +4,8 @@
   "source": "src/game/game_thread.cpp",
   "driver": "layout/ltcg/game_thread_context.cpp",
   "headers": [
-    "include/th10/game/game_thread.hpp"
+    "include/th10/game/game_thread.hpp",
+    "include/th10/game/scheduler.hpp"
   ],
   "image_base": "0x00400000",
   "description": "GameThread in-place constructor compiled with native LTCG so the object pointer arrives in ESI and is returned in EAX.",
@@ -35,11 +36,6 @@
   "constants": [],
   "absolute_symbols": [
     {
-      "symbol": "_data_0046cb14",
-      "address": "0x0046CB14",
-      "kind": "data"
-    },
-    {
       "symbol": "_data_004776e0",
       "address": "0x004776E0",
       "kind": "data"
@@ -48,6 +44,23 @@
       "symbol": "__fltused",
       "address": "0x0",
       "kind": "metadata"
+    },
+    {
+      "symbol": "?ObjectSize@GameThread@@UAEHXZ",
+      "address": "0x401c90",
+      "kind": "data"
+    },
+    {
+      "symbol": "_entry_free_00452422",
+      "address": "0x452422",
+      "kind": "relative_code"
+    }
+  ],
+  "data_aliases": [
+    {
+      "symbol": "??_7GameThread@@6B@",
+      "address": "0x0046CB14",
+      "bytes": "901c4000"
     }
   ]
 }

@@ -222,8 +222,13 @@ def _validate_layout(layout: Mapping[str, Any]) -> list[Mapping[str, Any]]:
 
 def build_image(layout_path: Path, text_path: Path, output_path: Path,
                 verify_path: Path | None = None, *,
-                dos_code: bytes) -> dict[str, Any]:
-    """Build and validate an image, returning a small reproducibility report."""
+                dos_code: bytes, exact: bool = True) -> dict[str, Any]:
+    """Build and validate an image, returning a small reproducibility report.
+
+    With ``exact`` false the caller has already verified the .text image by
+    other means (exact outside its equivalent regions); the headers and every
+    other section are still required to match the reference.
+    """
 
     layout = _load_layout(layout_path)
     sections = _validate_layout(layout)
@@ -237,7 +242,7 @@ def build_image(layout_path: Path, text_path: Path, output_path: Path,
         raise PackError(f"compiled .text has {len(text)} bytes; expected {expected_text_size}")
     expected_text_hash = str(reference["text_section_sha256"])
     actual_text_hash = _sha256(text)
-    if actual_text_hash != expected_text_hash:
+    if exact and actual_text_hash != expected_text_hash:
         raise PackError(f"compiled .text hash mismatch: expected {expected_text_hash}, got {actual_text_hash}")
 
     dos_spec = layout["dos_prefix"]
@@ -269,10 +274,10 @@ def build_image(layout_path: Path, text_path: Path, output_path: Path,
 
     actual_image_hash = _sha256(image)
     expected_image_hash = str(reference["executable_sha256"])
-    if actual_image_hash != expected_image_hash:
+    if exact and actual_image_hash != expected_image_hash:
         raise PackError(f"packed image hash mismatch: expected {expected_image_hash}, got {actual_image_hash}")
 
-    if verify_path is not None:
+    if exact and verify_path is not None:
         try:
             oracle = verify_path.read_bytes()
         except OSError as exc:
@@ -293,5 +298,6 @@ def build_image(layout_path: Path, text_path: Path, output_path: Path,
         "text_bytes": len(text),
         "sections": [{"name": section["name"], "raw_offset": section["raw_offset"],
                       "raw_size": section["raw_size"]} for section in sections],
-        "verified_against_oracle": verify_path is not None,
+        "exact": exact and actual_image_hash == expected_image_hash,
+        "verified_against_oracle": exact and verify_path is not None,
     }

@@ -13,14 +13,22 @@
       "address": "0x44a130",
       "size": 37,
       "actual_abi": "signed index AX, byte table ECX, output word EDX, selected bit SI; result EAX, plain RET"
+    },
+    {
+      "name": "ReadSignedMaskFlag",
+      "symbol": "_ReadSignedMaskFlag@16",
+      "section": ".text$03mask",
+      "address": "0x0044A160",
+      "size": 43,
+      "actual_abi": "index CX; output EDX; selected bit SI; mask stack; EAX result; RET4"
     }
   ],
   "context": {
     "symbol": "_IndexedFlagsContext@24",
     "section": ".text$05context",
     "address": "0x44a200",
-    "size": 72,
-    "description": "Array walker, unselected compiler context."
+    "size": 87,
+    "description": "Unselected array walker calling both indexed readers; not recovered game code."
   },
   "gaps": [
     {
@@ -29,12 +37,17 @@
       "size": 299312
     },
     {
-      "section": ".text$04layout",
+      "section": ".text$02layout",
       "address": "0x0044A155",
-      "size": 171
+      "size": 11
+    },
+    {
+      "section": ".text$04layout",
+      "address": "0x0044A18B",
+      "size": 117
     }
   ],
   "constants": [],
   "absolute_symbols": [],
-  "description": "Complete signed-index byte-table flag reader, recovered with its native private register ABI. Unselected context supplies compiler scope."
+  "description": "Complete signed-index byte-table and bit-mask flag readers with native private register ABIs. Unselected array-walking context supplies compiler scope."
 }

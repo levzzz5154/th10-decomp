@@ -5,10 +5,28 @@ Development happens on `main`. The project currently combines recovered C++
 with inline assembly that still needs to be replaced.
 
 ```sh
-make             # Compile what changed and require exact .text and whole-executable hashes
+make             # Compile what changed; exact everywhere except equivalent regions, built from C++
+make EXACT=1     # The same with equivalent regions from their assembly: the bit-identical executable
 make rebuild     # The same, recompiling every unit from scratch
 make progress    # Show C++ and remaining assembly counts
 ```
+
+A few functions have C++ that compiles to the retail instructions except for
+compiler tie-breaks the binary does not record, such as which of two registers
+is encoded as base and which as index. These are *equivalent recoveries*:
+`equivalent_recoveries` in `regions.json` names a layout under
+`matching2/msvc/layout/equivalent/` for the C++ in
+`matching2/msvc/equivalent/`. Every `make` first links the whole image from
+exact sources (the region's inline assembly included) and requires the retail
+`.text` hash, then compiles the C++, relocates it to the region's address, and
+compares it with the exact bytes instruction by instruction. The executable
+`make` produces contains the C++ build of these regions; `make EXACT=1` keeps
+the assembly and produces the bit-identical image. Base/index swaps are accepted
+by rule and counted; every other difference must be listed verbatim in the
+layout with a reviewed class, and any drift fails the build. Progress reports
+them on their own line and gives the byte-exact share separately.
+`python3 matching2/tools/matching/equivalence.py --record` prints the current
+differences when preparing a layout.
 
 The build is incremental by default. Each compiled unit is kept in a
 content-addressed cache under `matching2/build/msvc/cache/`, keyed by the

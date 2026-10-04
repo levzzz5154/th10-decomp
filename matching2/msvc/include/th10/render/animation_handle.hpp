@@ -9,6 +9,7 @@
 
 struct AnimationHandle {
     unsigned int value;
+    __declspec(noinline) int Validate();
     __declspec(noinline) void StopAtFrame1();
     __declspec(noinline) void StopAtFrame2();
     __declspec(noinline) void StopAtFrame3();

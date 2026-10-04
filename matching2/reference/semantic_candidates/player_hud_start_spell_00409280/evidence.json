@@ -1,0 +1,152 @@
+{
+  "status": "complete: exact ordinary C++ production ownership",
+  "recovery_class": "semantic",
+  "functions": [
+    {
+      "name": "PlayerHud_StartSpell",
+      "symbol": "?StartSpell@PlayerHud_00408d60@@QAEXHPBDH@Z",
+      "address": "0x00409280",
+      "size": 2432,
+      "sha256": "0a83aa9fdaa2f24183fe8bbb08caee04a6978631c0afba823a2dfcba7acf493e",
+      "map_origin": "cluster.obj"
+    },
+    {
+      "name": "register",
+      "symbol": "?RegisterPrimaryBack@AnimationLists@@QAE?AUAnimationRef@@PAUEntity@@@Z",
+      "address": "0x004489D0",
+      "size": 118,
+      "sha256": "39e1aaf20ccc6f0c90ef9a2ae5bac14f89797203148cadca4365fa49502f9c22",
+      "map_origin": "source_003.obj"
+    }
+  ],
+  "native_report": "matching2/build/experiments/spell_goal_2026_10_04/exact_production_probe/clusters/player_hud_start_spell_00409280/report.json",
+  "native_executable": "/home/levzzz/Games/th10Decomp/matching2/build/experiments/spell_goal_2026_10_04/exact_archive_after_promotion/probe/clusters/player_hud_start_spell_00409280/native-ctvjsmfp/cluster.exe",
+  "native_map": "/home/levzzz/Games/th10Decomp/matching2/build/experiments/spell_goal_2026_10_04/exact_archive_after_promotion/probe/clusters/player_hud_start_spell_00409280/native-ctvjsmfp/cluster.map",
+  "input_sha256": {
+    "/home/levzzz/Games/th10Decomp/matching2/build/experiments/spell_goal_2026_10_04/exact_archive_after_promotion/project/layout/ltcg/player_hud_start_spell_00409280.json": "112faa63205a34470b5820da52a108dda18bb25a436b4c89141a23263d144325",
+    "/home/levzzz/Games/th10Decomp/matching2/build/experiments/spell_goal_2026_10_04/exact_archive_after_promotion/project/src/game/player_hud_start_spell_00409280.cpp": "4eed4e8ec3c56e3641094fe69618b90ca48ad318c306ea1fa72c0b19d7eb3f78",
+    "/home/levzzz/Games/th10Decomp/matching2/build/experiments/spell_goal_2026_10_04/exact_archive_after_promotion/project/layout/ltcg/player_hud_start_spell_dependencies/start_script.cpp": "e3667c10becde0dd660e8b0659b1c3548f4887eba02d31ebeeb7f7eea0b64cff",
+    "/home/levzzz/Games/th10Decomp/matching2/build/experiments/spell_goal_2026_10_04/exact_archive_after_promotion/project/layout/ltcg/player_hud_start_spell_dependencies/queue.cpp": "06c2740e73527c43e41b5a06375f303cc02aa290c775e3a79eab4cf805f3f410",
+    "/home/levzzz/Games/th10Decomp/matching2/build/experiments/spell_goal_2026_10_04/exact_archive_after_promotion/project/layout/ltcg/player_hud_start_spell_dependencies/load_script.cpp": "dbbf9711aac4521d09b25bfef504ce8dea063ea57b041dc6c6cb483c7d56a83e",
+    "/home/levzzz/Games/th10Decomp/matching2/build/experiments/spell_goal_2026_10_04/exact_archive_after_promotion/project/src/render/animation_manager_register_primary_back_004489d0.cpp": "a99a883d7337ae5f945b99b2eec5f1b9ea7f4c77d39cf05f357e38706dddba78",
+    "/home/levzzz/Games/th10Decomp/matching2/build/experiments/spell_goal_2026_10_04/exact_archive_after_promotion/project/layout/ltcg/player_hud_start_spell_dependencies/find.cpp": "40b63050516dd226a7ccda040aea9d5759f5b774e015f8267a186e10391b60d8",
+    "/home/levzzz/Games/th10Decomp/matching2/build/experiments/spell_goal_2026_10_04/exact_archive_after_promotion/project/layout/ltcg/player_hud_start_spell_dependencies/translated.cpp": "46f9050e45369beb43f5f210754d051893d32b621d1e5e011e9b5e511373df87",
+    "/home/levzzz/Games/th10Decomp/matching2/build/experiments/spell_goal_2026_10_04/exact_archive_after_promotion/project/layout/ltcg/player_hud_start_spell_dependencies/allocate.cpp": "dc400af29a3e8521da41a64b1a0557174ad8c02f06e8f4811c16fbb9ce30ecb8",
+    "/home/levzzz/Games/th10Decomp/matching2/build/experiments/spell_goal_2026_10_04/exact_archive_after_promotion/project/layout/ltcg/player_hud_start_spell_dependencies/format.cpp": "b13c33a31564bf49fc1db81408978a86670c029409d180317e7f2b43dece94d3",
+    "/home/levzzz/Games/th10Decomp/matching2/build/experiments/spell_goal_2026_10_04/exact_archive_after_promotion/project/src/game/entity_start_script_00404f30.cpp": "e531d2108253e0c50aa899805b5062da5a0fe65b08d3bfed49f6cdae78be1a42",
+    "/home/levzzz/Games/th10Decomp/matching2/build/experiments/spell_goal_2026_10_04/exact_archive_after_promotion/project/src/render/animation_manager_queue_resource_0043dc90.cpp": "c09963b092d3f2a12ea836b478639ae36dd650c7c08026c0850b092101be53d3",
+    "/home/levzzz/Games/th10Decomp/matching2/build/experiments/spell_goal_2026_10_04/exact_archive_after_promotion/project/src/render/animation_object_load_script_0043e710.cpp": "21891ca48f2fe3a3baba6e4b9b9d911e0849b66c44fe44c5fd602b8614e327ac",
+    "/home/levzzz/Games/th10Decomp/matching2/build/experiments/spell_goal_2026_10_04/exact_archive_after_promotion/project/layout/ltcg/position_setter_find_anchor.cpp": "32b0f662b7d66dd2d421395fdbe9071a015c7016274fcead6a768d5fb585b4af",
+    "/home/levzzz/Games/th10Decomp/matching2/build/experiments/spell_goal_2026_10_04/exact_archive_after_promotion/project/src/render/animation_manager_set_translated_position_00449350.cpp": "936c6fe229e43133eb951b73fc33e784d11e3dc2e8c123842767ebfa232f2e5f",
+    "/home/levzzz/Games/th10Decomp/matching2/build/experiments/spell_goal_2026_10_04/exact_archive_after_promotion/project/layout/ltcg/result_open_00423370/allocate.cpp": "b7e9504b2e838c2695bd09a6c96d61e74cf86dde1960979a3aca58695be9a8aa",
+    "/home/levzzz/Games/th10Decomp/matching2/build/experiments/spell_goal_2026_10_04/exact_archive_after_promotion/project/src/game/recovery_right_aligned_text_00447ae0.cpp": "58f7afa20af1c192ad2ac218147f07c88c87f775fff7b525876606c9c42bac55",
+    "/home/levzzz/Games/th10Decomp/matching2/build/experiments/spell_goal_2026_10_04/exact_archive_after_promotion/project/layout/ltcg/right_aligned_text_context/exact_text_dispatcher_anchor.cpp": "2baa4e2eae91dee0c150ff881ee85ddf7cd3ed001a987e63d4c7a103f205c224",
+    "/home/levzzz/Games/th10Decomp/matching2/build/experiments/spell_goal_2026_10_04/exact_archive_after_promotion/project/include/th10/game/player_hud_00408d60.hpp": "e45c05d5365a000a8fe7caa70d11f20be4b3152e546c914e7632df3dc54410aa",
+    "/home/levzzz/Games/th10Decomp/matching2/build/experiments/spell_goal_2026_10_04/exact_archive_after_promotion/project/include/th10/game/player_hud_animations.hpp": "410584fcce338e7fb3f74d30ad0ff58cb0510541ebe75a167afc2d68b3dcc995",
+    "/home/levzzz/Games/th10Decomp/matching2/build/experiments/spell_goal_2026_10_04/exact_archive_after_promotion/project/include/th10/math/timer.hpp": "bbde8a2fa579bfc12bf024bd76793b319a32bf1620119789fdda13fd66950888",
+    "/home/levzzz/Games/th10Decomp/matching2/build/experiments/spell_goal_2026_10_04/exact_archive_after_promotion/project/include/th10/math/vector.hpp": "1d30a7fe01139d6ab285e8eeeb0710f4948ec3d9eaf47e0b6c9c589623670267",
+    "/home/levzzz/Games/th10Decomp/matching2/build/experiments/spell_goal_2026_10_04/exact_archive_after_promotion/project/include/th10/render/animation_object_0043e5a0.hpp": "a8b40335f364f4c00f0e737cff03f5ee80943f6d53cb60e0cc0cace1dd5c1082",
+    "/home/levzzz/Games/th10Decomp/matching2/build/experiments/spell_goal_2026_10_04/exact_archive_after_promotion/project/include/th10/render/animation_stop_frame_handle.hpp": "480762e8e7c54ea40ff36f27e330c4a1f788aa733303bd8219c0b17866111edd",
+    "/home/levzzz/Games/th10Decomp/matching2/build/experiments/spell_goal_2026_10_04/exact_archive_after_promotion/project/include/th10/render/position_setter_pair.hpp": "eb462d021722eecee79335b9370f8ba2de1a6e7e626b2f91a6fec0f82a582e7c",
+    "/home/levzzz/Games/th10Decomp/matching2/build/experiments/spell_goal_2026_10_04/exact_archive_after_promotion/project/include/th10/game/entity.hpp": "5947ee3d028eb94daa460db1e5dd592b30bb8ffda2fb85311a864f0a84f641ad",
+    "/home/levzzz/Games/th10Decomp/matching2/build/experiments/spell_goal_2026_10_04/exact_archive_after_promotion/project/include/th10/platform/sound_queue.hpp": "53371e889c2941c9dbfca259233419e6b4fba3b963a41cbe2f478fa6ddf55eab",
+    "/home/levzzz/Games/th10Decomp/matching2/build/experiments/spell_goal_2026_10_04/exact_archive_after_promotion/project/include/th10/types.hpp": "16f441397e5c33f60de63af3bc2cd4ccd6935ef11acb3f7744b678c667d79957",
+    "/home/levzzz/Games/th10Decomp/matching2/build/experiments/spell_goal_2026_10_04/exact_archive_after_promotion/project/include/th10/game/entity_script_start.hpp": "64469b0c8d20fd01ce4778dfcc4d42fc28f8ea46fa8320f34ff9ca5ce46e1cf1",
+    "/home/levzzz/Games/th10Decomp/matching2/build/experiments/spell_goal_2026_10_04/exact_archive_after_promotion/project/include/th10/game/pause_result_open_004231d0/open_animation.hpp": "83b3bb63bd1894900bb44d2677fcc642024fe245077f23b26f0db6a2f4b0824f",
+    "/home/levzzz/Games/th10Decomp/matching2/build/experiments/spell_goal_2026_10_04/exact_archive_after_promotion/project/include/th10/game/right_aligned_text_context/recovery_script_executor_text_sibling_anchors.hpp": "522d071bea2ab6641fadd6a664c7d696e4b6991702aabc77af896b7f5e20e777",
+    "/home/levzzz/Games/th10Decomp/matching2/build/experiments/spell_goal_2026_10_04/exact_archive_after_promotion/project/include/th10/game/right_aligned_text_context/recovery_script_executor_caller_00419120.hpp": "29be4d3bac3e72d2f8b1f348d975f918a9ab064144b99899e2c7fe218e25e499",
+    "/home/levzzz/Games/th10Decomp/matching2/build/experiments/spell_goal_2026_10_04/exact_archive_after_promotion/project/include/th10/game/right_aligned_text_context/recovery_script_executor_0040bd80.hpp": "d27b5d05c2172b60f455d2f611f8c07506da6bc45a1f900a48cddb086c8b8d9c",
+    "/home/levzzz/Games/th10Decomp/matching2/build/experiments/spell_goal_2026_10_04/exact_archive_after_promotion/project/include/th10/game/right_aligned_text_context/worker.hpp": "b8ea4b5c50a94faa06326c779c9d5c7e6e6e9adb5dceb5ce0c4b7810feee5c5b",
+    "/home/levzzz/Games/th10Decomp/matching2/build/experiments/spell_goal_2026_10_04/exact_archive_after_promotion/project/include/th10/game/right_aligned_text_context/archive_callers.hpp": "ad6c46ccb08574560394056d1ba997abe3bc65503587e2414bbc7e3ace7f86ab",
+    "/home/levzzz/Games/th10Decomp/matching2/build/experiments/spell_goal_2026_10_04/exact_archive_after_promotion/project/include/th10/game/right_aligned_text_context/archive_file.hpp": "b99aaefe57a5b511bc87fb8f631f925c90bcdf0ce8afa5e95a1bef479bc9b386",
+    "/home/levzzz/Games/th10Decomp/matching2/build/experiments/spell_goal_2026_10_04/exact_archive_after_promotion/project/include/th10/game/right_aligned_text_context/sound_queue.hpp": "17a23b8f667394d8b7e67a9942e55d87115f7680af2f5b6044097fe7e80c871b",
+    "/home/levzzz/Games/th10Decomp/matching2/build/experiments/spell_goal_2026_10_04/exact_archive_after_promotion/project/include/th10/game/right_aligned_text_context/recovery_mark_text_and_dispatcher_004479d0.hpp": "656bec7d4f1481002fbe12c6ebe06a54f5a761d8b157ff5bb7c7037ab41cd3da",
+    "/home/levzzz/Games/th10Decomp/matching2/build/experiments/spell_goal_2026_10_04/exact_archive_after_promotion/project/include/th10/game/right_aligned_text_context/recovery_script_executor_ascii_anchors.hpp": "2e65defe418dd1bcf1bfb177e5ef08ada21c64dd55c06b3778d2c447efa76084",
+    "/home/levzzz/Games/th10Decomp/matching2/build/experiments/spell_goal_2026_10_04/exact_archive_after_promotion/project/include/th10/game/right_aligned_text_context/scheduler.hpp": "67644756b02188c32921baa8204a6a7173ab4017b5ff858f3d02a7e2b06114ae",
+    "/home/levzzz/Games/th10Decomp/matching2/build/experiments/spell_goal_2026_10_04/exact_archive_after_promotion/project/include/th10/game/right_aligned_text_context/timer.hpp": "98665d138942ca1c159b9c445ae64fc3765ec87e6e95ce40a97fa72f625db2b0",
+    "/home/levzzz/Games/th10Decomp/matching2/build/experiments/spell_goal_2026_10_04/exact_archive_after_promotion/project/include/th10/game/right_aligned_text_context/entity_movement_slot_0041ab70.hpp": "3fa5bb53ec94dd759ebddb96bf35255419c72917b12f09c2af9b00b2ded0f224",
+    "/home/levzzz/Games/th10Decomp/matching2/build/experiments/spell_goal_2026_10_04/exact_archive_after_promotion/project/include/th10/game/score_file.hpp": "a2cecc4ee40fbd35670fb3f677a99f5ed95cb01ebdb40c3e0f7b943a041e6497",
+    "/home/levzzz/Games/th10Decomp/matching2/build/experiments/spell_goal_2026_10_04/exact_archive_after_promotion/project/layout/ltcg/player_hud_start_spell_00409280_context.cpp": "513b7a3d215b7533114cb4b561ce6be3dfb576a0e81f508ba79f790a478460b6"
+  },
+  "tool_sha256": {
+    "bin/cl.exe": "333254d73ee602f6ec14b00e9bf40f533a1b181429943e3634971642af00c9f7",
+    "bin/link.exe": "3e6526234cce5ce962d22f267f84f01d3c540b8ee9129c53f127c5e124fa2b20",
+    "bin/c1.dll": "a47ff094f591ac85777f568c44f2d0c9e94295184faa1fb785bbc6f89d887f07",
+    "bin/c1xx.dll": "42fd57f25e0b536b0b7a817f4ab3ec0aa23fcc5f8e52104ad6f12de167ad2cfa",
+    "bin/c2.dll": "7a6f6d8e4da7b518384ff78f2c41028805d3a1d1a40dc2cc857c391ec81763f5"
+  },
+  "instruction_bytes_changed": 0,
+  "masked_bytes": 0,
+  "reference_bytes_used_for_build": false,
+  "production_regions": [
+    {
+      "name": "PlayerHud_StartSpell_00409280",
+      "source": "src/game/player_hud_start_spell_00409280.cpp",
+      "symbol": "?StartSpell@PlayerHud_00408d60@@QAEXHPBDH@Z",
+      "address": "0x00409280",
+      "size": 2432,
+      "kind": "semantic",
+      "owner": "player_hud_start_spell_00409280"
+    },
+    {
+      "name": "AnimationLists_RegisterPrimaryBack_004489d0",
+      "source": "src/render/animation_manager_register_primary_back_004489d0.cpp",
+      "symbol": "?RegisterPrimaryBack@AnimationLists@@QAE?AUAnimationRef@@PAUEntity@@@Z",
+      "address": "0x004489D0",
+      "size": 118,
+      "kind": "semantic",
+      "owner": "player_hud_start_spell_00409280"
+    }
+  ],
+  "equivalent_entry_removed": true,
+  "build_verification": "matching2/build/experiments/spell_goal_2026_10_04/exact_completion/build_verification.json",
+  "builds": {
+    "normal_build": {
+      "command": "make -j2",
+      "exit_code": 0,
+      "executable": "matching2/build/experiments/spell_goal_2026_10_04/exact_completion/normal.exe",
+      "sha256": "434af58e62cfd012f81dc466ffbd8db757beaed2a3cbda8fc61c6b90eee8df08",
+      "target_contributions": [
+        {
+          "address": "0x409280",
+          "size": 2432,
+          "sha256": "0a83aa9fdaa2f24183fe8bbb08caee04a6978631c0afba823a2dfcba7acf493e",
+          "all_bytes_equal_retail": true
+        },
+        {
+          "address": "0x4489d0",
+          "size": 118,
+          "sha256": "39e1aaf20ccc6f0c90ef9a2ae5bac14f89797203148cadca4365fa49502f9c22",
+          "all_bytes_equal_retail": true
+        }
+      ],
+      "other_equivalent_regions": 3
+    },
+    "exact_build": {
+      "command": "make EXACT=1 -j2",
+      "exit_code": 0,
+      "independent_comparison": "cmp matching2/build/msvc/th10.exe matching2/build/oracle/th10.exe",
+      "comparison_exit_code": 0,
+      "bytes": 487936,
+      "sha256": "2f14760b6fbbf57549541583283badb9a19a4222b90f0a146d5aa17f01dc9040",
+      "all_executable_bytes_equal_retail": true
+    }
+  },
+  "exact_byte_gate": "passed for complete 2432-byte StartSpell and 118-byte registrar",
+  "coverage": {
+    "ordinary_cpp_regions": 2202,
+    "ordinary_cpp_bytes": 168711,
+    "equivalent_regions": 3,
+    "equivalent_bytes": 31400,
+    "remaining_assembly_regions": 116,
+    "remaining_assembly_bytes": 120877
+  },
+  "report": "matching2/build/experiments/spell_goal_2026_10_04/exact_archive_after_promotion/probe/clusters/player_hud_start_spell_00409280/report.json",
+  "address": "0x00409280",
+  "size": 2432,
+  "different_bytes": 0,
+  "first_difference": null,
+  "candidate_sha256": "0a83aa9fdaa2f24183fe8bbb08caee04a6978631c0afba823a2dfcba7acf493e",
+  "retail_sha256": "0a83aa9fdaa2f24183fe8bbb08caee04a6978631c0afba823a2dfcba7acf493e",
+  "probe_exit": 0
+}

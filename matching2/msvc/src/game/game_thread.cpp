@@ -8,8 +8,6 @@
 
 #include <string.h>
 
-// Type marker installed at +0x00 (the object's method table in retail).
-extern "C" unsigned char data_0046cb14[];
 // Global pointer to the constructed thread.
 extern "C" void* data_004776e0;
 
@@ -22,8 +20,7 @@ extern "C" void* data_004776e0;
     do { unsigned* flag_ = (address); *flag_ &= ~1u; } while (0)
 
 GameThread::GameThread() {
-    this->type = data_0046cb14;
-    GameThreadSlot* slot = &this->slots[0];
+    GameThreadSlot* slot = &this->slots_0014;
     GameThread_ClearSlotFlag(&slot->field_06C);
     GameThread_ClearSlotFlag(&slot->field_0B0);
     GameThread_ClearSlotFlag(&slot->field_0FC);
@@ -35,7 +32,7 @@ GameThread::GameThread() {
     GameThread_ClearSlotFlag(&slot->field_378);
     memset(slot, 0, sizeof(*slot));
     slot->field_384 = 0xFFFF;
-    slot = &this->slots[1];
+    slot = &this->slots_03c0;
     GameThread_ClearSlotFlag(&slot->field_06C);
     GameThread_ClearSlotFlag(&slot->field_0B0);
     GameThread_ClearSlotFlag(&slot->field_0FC);

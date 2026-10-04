@@ -9,7 +9,11 @@
     "include/th10/render/camera_batch.hpp",
     "include/th10/render/quad_batch.hpp",
     "include/th10/platform/archive_file.hpp",
-    "include/th10/platform/thread_sync.hpp"
+    "include/th10/platform/thread_sync.hpp",
+    "include/th10/game/game_state.hpp",
+    "include/th10/game/entity.hpp",
+    "include/th10/types.hpp",
+    "include/th10/math/timer.hpp"
   ],
   "description": "Complete initializer with actual recovered loader, logger, and scheduler bodies as compiler-only ABI anchors. Only the initializer is selected as game code.",
   "image_base": "0x00400000",
@@ -34,28 +38,28 @@
     {
       "name": "RegisterPrimary",
       "symbol": "_Scheduler_RegisterPrimary@12",
-      "section": ".text$05primary",
+      "section": ".text$08primary",
       "address": "0x00449AE0",
       "size": 131
     },
     {
       "name": "RegisterSecondary",
       "symbol": "_Scheduler_RegisterSecondary@12",
-      "section": ".text$07secondary",
+      "section": ".text$09secondary",
       "address": "0x00449B70",
       "size": 131
     },
     {
       "name": "AppendLine",
       "symbol": "?AppendLine@TextLog_0044b8e0@@QAAPADPADZZ",
-      "section": ".text$09log",
+      "section": ".text$15log",
       "address": "0x0044B8E0",
       "size": 201
     }
   ],
   "context": {
     "symbol": "_InitializeGameStateContext_00402230@12",
-    "section": ".text$11context",
+    "section": ".text$17context",
     "address": "0x0044B9B0",
     "size": 21,
     "description": "Compiler-only forwarding caller."
@@ -77,17 +81,17 @@
       "size": 287068
     },
     {
-      "section": ".text$06layout",
+      "section": ".text$08z",
       "address": "0x449b63",
       "size": 13
     },
     {
-      "section": ".text$08layout",
+      "section": ".text$10layout",
       "address": "0x449bf3",
       "size": 7405
     },
     {
-      "section": ".text$10layout",
+      "section": ".text$16layout",
       "address": "0x44b9a9",
       "size": 7
     }

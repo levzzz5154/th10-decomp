@@ -135,36 +135,40 @@ done_secondary:
 // The retail allocator is the project's recovered global operator new.
 void* __cdecl operator new(unsigned int size);
 
-extern "C" int* __stdcall SchedulerCallback_Create_00449ed0(
-    int callback) {
-    int* result;
-    int final_flags;
-    result = (int*)
-        ::operator new(0x24);
-    if (result) {
-        __asm {
-            mov edx, dword ptr [eax+4]
-        }
-        *(volatile int*)&result[2] = 0;
-        *(volatile int*)&result[3] = 0;
-        *(volatile int*)&result[4] = 0;
-        *(volatile int*)&result[0] = 0;
-        __asm {
-            and edx, 0FFFFFFFEh
-            mov dword ptr [eax+4], edx
-        }
-        result[5] = (int)result;
-        result[6] = 0;
-        result[7] = 0;
-    } else {
-        result = 0;
+inline void InitializeCallbackLink(TaskLink& link, SchedulerTask* task) {
+    link.task = task;
+    link.next = 0;
+    link.previous = 0;
+}
+// Allocation view of SchedulerTask with direct access to the whole flag word.
+struct CallbackTask {
+    int priority;
+    unsigned int flags;
+    TaskRoutine on_tick;
+    TaskRoutine on_register;
+    TaskRoutine on_remove;
+    TaskLink link;
+    void* context;
+    CallbackTask() {
+        on_tick = 0;
+        on_register = 0;
+        on_remove = 0;
+        priority = 0;
+        flags &= ~1u;
+        InitializeCallbackLink(link, reinterpret_cast<SchedulerTask*>(this));
     }
-    result[3] = 0;
-    result[4] = 0;
-    final_flags = *(volatile int*)&result[1] | 1;
-    result[2] = callback;
-    result[1] = final_flags;
-    return result;
+};
+typedef char CallbackTask_size_must_match[sizeof(CallbackTask) == sizeof(SchedulerTask) ? 1 : -1];
+
+extern "C" int* __stdcall SchedulerCallback_Create_00449ed0(int callback) {
+    CallbackTask* task = new CallbackTask;
+    task->on_register = 0;
+    task->on_remove = 0;
+    // Read the initialized flags before publishing the callback and owned bit.
+    unsigned int final_flags = *(volatile unsigned int*)&task->flags | 1u;
+    task->on_tick = (TaskRoutine)callback;
+    task->flags = final_flags;
+    return reinterpret_cast<int*>(task);
 }
 
 // 0x0044A000: recovered in src/game/scheduler_create_and_register_0044a000.cpp.

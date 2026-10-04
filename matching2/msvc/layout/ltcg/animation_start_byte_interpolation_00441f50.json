@@ -33,13 +33,21 @@
       "address": "0x00442220",
       "size": 208,
       "actual_abi": "object EAX; initial EDX; goal ECX; duration and mode on the stack; RET 8"
+    },
+    {
+      "name": "AnimationInterpolatedObject_StartChannel108",
+      "symbol": "?StartChannel108@AnimationInterpolatedObject@@QAEXHEEE@Z",
+      "section": ".text$07channel108",
+      "address": "0x00442300",
+      "size": 130,
+      "actual_abi": "object EAX; duration ECX; three bytes on stack; RET12"
     }
   ],
   "context": {
     "symbol": "_AnimationStartByteInterpolationContext_00441f50@12",
-    "section": ".text$07context",
-    "address": "0x00442300",
-    "size": 128,
+    "section": ".text$09context",
+    "address": "0x00442390",
+    "size": 157,
     "description": "Synthetic array caller; not recovered game code."
   },
   "gaps": [
@@ -62,6 +70,11 @@
       "section": ".text$06layout",
       "address": "0x004422F0",
       "size": 16
+    },
+    {
+      "section": ".text$08layout",
+      "address": "0x00442382",
+      "size": 14
     }
   ],
   "constants": [],

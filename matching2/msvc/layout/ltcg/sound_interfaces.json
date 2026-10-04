@@ -11,7 +11,8 @@
   ],
   "headers": [
     "layout/ltcg/sound_interfaces_dependencies/sound_wave_types.hpp",
-    "layout/ltcg/sound_interfaces_dependencies/sound_memory_words.hpp"
+    "layout/ltcg/sound_interfaces_dependencies/sound_memory_words.hpp",
+    "include/th10/platform/text_log.hpp"
   ],
   "description": "Real initializer caller and native refill closure; no fabricated context.",
   "image_base": "0x00400000",

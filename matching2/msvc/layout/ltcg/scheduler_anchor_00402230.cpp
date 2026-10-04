@@ -3,7 +3,7 @@
 
 void __cdecl operator delete(void*);
 
-#pragma code_seg(".text$05primary")
+#pragma code_seg(".text$08primary")
 extern "C" __declspec(noinline) int __stdcall Scheduler_RegisterPrimary(
         Scheduler* scheduler, SchedulerTask* task, int priority) {
     int result = 0;
@@ -22,7 +22,7 @@ extern "C" __declspec(noinline) int __stdcall Scheduler_RegisterPrimary(
     --g_thread_synchronization.scheduler_lock_depth;
     return result;
 }
-#pragma code_seg(".text$07secondary")
+#pragma code_seg(".text$09secondary")
 extern "C" __declspec(noinline) int __stdcall Scheduler_RegisterSecondary(
         Scheduler* scheduler, SchedulerTask* task, int priority) {
     int result = 0;

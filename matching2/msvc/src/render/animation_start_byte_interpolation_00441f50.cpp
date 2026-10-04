@@ -50,3 +50,17 @@ void AnimationInterpolatedObject::StartColor0BC(const unsigned char* initial,
     FrameTimer_Restart(&color_0bc.timer);
 }
 #pragma code_seg()
+
+// 0x00442300: start the primary alpha channel, clearing both controls.
+#pragma code_seg(".text$07channel108")
+void AnimationInterpolatedObject::StartChannel108(int end_time, unsigned char mode,
+                                                  unsigned char initial, unsigned char goal) {
+    channel_108.control_1 = 0;
+    channel_108.control_2 = 0;
+    channel_108.end_time = end_time;
+    channel_108.mode = mode;
+    channel_108.initial = initial;
+    channel_108.goal = goal;
+    FrameTimer_Restart(&channel_108.timer);
+}
+#pragma code_seg()

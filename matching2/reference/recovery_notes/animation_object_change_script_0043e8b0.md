@@ -112,3 +112,46 @@ same body (three of them also break the 0x004496D0 caller), and neither a
 split early return, a re-read of `scripts[index]`, dropping the `flags` local,
 a chained base/cursor store nor a `short` copy of the index moves either
 register. The tree was restored; the region stays assembly.
+
+## c2 trace (2026-10-03): why script and flags swap ESI/EDI
+
+Traced `Spillcosts` and `ChoosePhysReg` in c2.dll for the anchor model in the
+`script_change` cluster. The register order is decided by candidate priority,
+and the model loses by two points:
+
+| candidate | priority | register (model) | register (retail) |
+| --- | --- | --- | --- |
+| flags | 44 | ESI | EDI |
+| script | 42 | EDI | ESI |
+
+`Spillcosts` walks the blocks. For each block it computes `K` = the number of
+candidates referenced or flagged live in it (immediates used twice count as
+candidates too), then adds `refs * K * weight` to every candidate referenced
+there and subtracts `K` from every candidate that is live through the block
+without a reference. For the model:
+
+- script = 4*5 (entry) - 2 - 5 - 3 (three blocks it only lives through) + 4*8 (stores) = 42
+- flags  = 4*5 (load and test) + 8*3 (or, xor, store) = 44
+
+The immediate `0x200`, shared by the test and the xor, is itself a candidate
+(number 2) and raises `K` in both flags blocks. Writing the update as
+`(flags | 8) & ~0x200u` removes that candidate, gives script 44 against flags
+32, and the body then matches 64 of 66 instructions with every register right;
+the only difference left is `and edi,0FFFFFDFFh` where retail has
+`xor edi,200h` (and its position relative to the `fmul`). So retail needs a
+source that keeps the xor but is worth three more points to script (or three
+fewer to flags).
+
+Forms that leave the priorities at 44/42: every spelling of the test and the
+xor (shifts, `1u << 9`, split statements, a second local, bitfield test), no
+`flags` local, `*=` for the scale, inline helpers taking the object, a `short`
+or `int` copy of the index, a `scripts` local, a pointer to the slot. Bitfield
+toggles (`flip ^= 1`, `flip = !flip`) expand to five instructions.
+
+Trace recipe: break at 0x107A98EE (`Spillcosts`, EAX = K, `[esp+0x24]` = block
+weight, EBX and ESI head the two candidate lists, chained through +0x14; number
+at +0x1C, per-block refs at +0x18, priority at +0x0C).
+
+## Ordinary-type follow-up, 2026-10-04
+
+Eight new controls rule out copied/constructed flag value types, script pointer records and reference-returning flag operators: all five ordinary 287-byte bodies are identical and remain 32 bytes from retail after removing the old volatile scale read. Boolean predicates and typed index parameters change extent or ABI. See `script_change_ordinary_type_controls_2026_10_04.md` and the preserved native measurements. No replacement was promoted.
