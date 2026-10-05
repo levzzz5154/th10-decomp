@@ -15,8 +15,8 @@ static unsigned int NextPoolIndex_00449950(unsigned int index) {
 }
 
 #pragma code_seg(".text$00449950_fn")
-extern "C" __declspec(noinline) void* __cdecl asm_FUN_00449950_00449950(void* manager) {
-    unsigned char* bytes = (unsigned char*)manager;
+AnimationNode_0040b070* AnimationPool_0040b070::Allocate() {
+    unsigned char* bytes = (unsigned char*)this;
     unsigned int index = *(unsigned int*)(bytes + 0x3AD068);
     if (bytes[0x3AC068 + index] != 0) {
         index = NextPoolIndex_00449950(index);
@@ -28,14 +28,14 @@ extern "C" __declspec(noinline) void* __cdecl asm_FUN_00449950_00449950(void* ma
             Entity_Init_00401de0(0, allocated);
             *(unsigned int*)(bytes + 0x3AD068) =
                 NextPoolIndex_00449950(*(unsigned int*)(bytes + 0x3AD068));
-            return allocated;
+            return (AnimationNode_0040b070*)allocated;
         }
     }
     unsigned char* slot = bytes + 0x68 + index * 0x3AC;
     bytes[0x3AC068 + index] = 1;
     *(unsigned int*)(bytes + 0x3AD068) =
         NextPoolIndex_00449950(*(unsigned int*)(bytes + 0x3AD068));
-    return slot;
+    return (AnimationNode_0040b070*)slot;
 }
 
 #pragma code_seg(".text$004489d0_fn")

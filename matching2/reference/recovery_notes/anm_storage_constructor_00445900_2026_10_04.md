@@ -70,3 +70,23 @@ the same 273-byte helper and 2,296-byte constructor as the earlier nonvolatile
 baseline (probe 12). No constructor, helper, manifest or ABI changes from these
 experiments were promoted. The next source lever must distinguish native input
 argument allocation from the optimizer's register-preservation knowledge.
+
+## Recovered 2026-10-05
+
+`src/app/anm_storage_construct_00445900.cpp` now compiles to the retail 2,315
+bytes, the three unwind functions and the frame handler in the
+`anm_storage_construct_00445900` cluster. `make` and `make EXACT=1` pass.
+
+The missing fact was the linkage of the callee, not the loop: Entity_Init
+(0x00401DE0) is a header-inline function. None of its ten retail call sites
+relies on EDX surviving the call, although the body never writes EDX. Declared
+`inline` (COMDAT, defined in every unit that uses it) instead of out-of-line
+`noinline`, the compiler-context copy keeps its 273 bytes and its EDX argument,
+and the constructor's loop keeps the pool pointer in EDI, copies it to EDX per
+iteration and spills the plain `int remaining` counter to the stack - no
+`volatile` needed. A callee stand-in that really clobbers EDX is not an
+alternative: LTCG then moves the argument to ECX.
+
+The compiler context is a placement-new caller (22 bytes, with the null
+branch). The handler at 0x004657A5 was previously labelled as a libcpmt
+`time_get` handler; it belongs to this constructor.

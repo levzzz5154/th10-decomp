@@ -12,7 +12,6 @@
   ],
   "included_sources": [
     "layout/ltcg/item_spawn_caller_allocator_2026_09_28.cpp",
-    "layout/ltcg/item_spawn_caller_e260_2026_09_28.cpp",
     "layout/ltcg/item_spawn_0041bb00_dependencies.cpp",
     "layout/ltcg/item_spawn_0041bb00_loader.cpp",
     "layout/ltcg/item_spawn_0041bb00_configure.cpp",
@@ -27,6 +26,15 @@
       "section": ".text$50boundedsegments",
       "address": "0x0041F400",
       "size": 623,
+      "actual_abi": "public this ECX; spawn-items flag stack; RET4, integer count EAX"
+    },
+    {
+      "name": "LineEffect_CreateAllSegments",
+      "symbol": "?CreateAllSegments@LineEffectSweep_0041e260@@QAEHH@Z",
+      "section": ".text$45allsegments",
+      "address": "0x0041E260",
+      "size": 609,
+      "source": "src/game/line_effect_create_all_segments_0041e260.cpp",
       "actual_abi": "public this ECX; spawn-items flag stack; RET4, integer count EAX"
     }
   ],
@@ -78,21 +86,21 @@
       "symbol": "?Spawn@ItemSpawnManager_0041bb00@@QAEHPBMHHMM@Z",
       "section": ".text$30spawn",
       "address": "0x0041BB00",
-      "size": 823
+      "size": 819
     },
     {
-      "name": "CompilerContext_LineEffect_CreateAllSegments",
-      "symbol": "?CreateAllSegments@LineEffectSweep_0041e260@@QAEHH@Z",
-      "section": ".text$45allsegments",
-      "address": "0x0041E260",
-      "size": 601
+      "name": "ItemPolarVelocity",
+      "symbol": "?SetPolar@ItemPolarVelocity_0041bb00@@QAEPAU1@MM@Z",
+      "section": ".text$35itempolar",
+      "address": "0x0041BEB0",
+      "size": 30
     }
   ],
   "context": {
     "symbol": "_PublishPolarCompilerContext_2026_09_28@32",
     "section": ".text$99context",
     "address": "0x00449A20",
-    "size": 56,
+    "size": 63,
     "description": "Synthetic typed publication of full line polar and all-segment method addresses plus runtime allocator invocation; compiler context only."
   },
   "gaps": [
@@ -107,14 +115,19 @@
       "size": 92932
     },
     {
+      "section": ".text$31gap",
+      "address": "0x0041BE33",
+      "size": 125
+    },
+    {
       "section": ".text$39gap",
-      "address": "0x0041BE37",
-      "size": 9257
+      "address": "0x0041BECE",
+      "size": 9106
     },
     {
       "section": ".text$49gap",
-      "address": "0x0041E4B9",
-      "size": 3911
+      "address": "0x0041E4C1",
+      "size": 3903
     },
     {
       "section": ".text$54gap",
@@ -290,14 +303,11 @@
       "symbol": "_data_00470b38",
       "address": "0x00470B38",
       "kind": "data"
-    },
-    {
-      "symbol": "?SetPolar@ItemPolarVelocity_0041bb00@@QAEPAU1@MM@Z",
-      "address": "0x0041BEB0",
-      "kind": "relative_code"
     }
   ],
-  "additional_sources": [],
+  "additional_sources": [
+    "src/game/line_effect_create_all_segments_0041e260.cpp"
+  ],
   "roots": [
     "?CreateSegmentsInBounds@LineEffectSweep_0041e260@@QAEHH@Z"
   ]

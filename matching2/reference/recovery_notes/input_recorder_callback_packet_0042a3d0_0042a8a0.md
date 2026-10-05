@@ -34,3 +34,14 @@ The remaining live-prefix difference is the compiler's natural register/scheduli
 Fresh maintained probing and the incremental whole-EXE gate both pass. The rebuilt executable is literally identical across all 487,936 bytes, SHA256 `2f14760b6fbbf57549541583283badb9a19a4222b90f0a146d5aa17f01dc9040`. This batch adds 392 asm-free bytes: initializer382 and callback10; Packet85 cleanup adds zero credit. Verified asm-free totals are 2,108 selected regions / 139,352 bytes (43.1255% of 323,131 project-owned bytes). Six mixed semantic bodies still contain 4,525 assembly bytes and are excluded from that total. The build reused 1,605 units, compiled four, and extracted 150 library members. Full current input hashes and complete native contributions are independently checked in `whole_verification.json` in both experiment directories.
 
 The final one-source maintained probe is `matching2/build/experiments/input_recorder_2026_10_02/maintained_probe.json`; it checks both selected bodies and avoids the earlier two-source report-path overwrite. Its native artifacts and all current input hashes match the independent full-contribution comparison.
+
+## Update at 0x004297D0 resolved 2026-10-05
+
+`InputRecorder_004297D0::Update` is byte-exact (596 bytes), lives in
+`src/game/input_recorder_update_004297d0.cpp` and is selected in this cluster;
+`make` and `make EXACT=1` pass. The earlier candidate had the masked key word
+in EAX and the configuration flags in ECX (retail: ECX and EAX). The hold
+counter is incremented through a named local
+(`unsigned short frames = held_frames + 1; held_frames = frames; if (frames >= 8)`),
+which makes the counter a register candidate that outranks the key word and
+takes EAX. The two float literals are bound to 0x00470B0C and 0x00470C34.

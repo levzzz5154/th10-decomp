@@ -42,6 +42,8 @@ struct RenderStageState_00439390 {
     __declspec(noinline) int DisableDepthWrite();
 };
 
+extern "C" __declspec(noinline) int EntityDrawMirrored_00443480(RenderEntity* entity,
+                                                               AnimationManager_00442F50* manager);
 #pragma code_seg(".text$07context")
 int __stdcall RenderBatchContext(const ScreenRect** rects, const unsigned int* colors, int count,
                                   const RenderEntity** entities, const void** vertices, RenderCamera** cameras) {
@@ -54,6 +56,7 @@ int __stdcall RenderBatchContext(const ScreenRect** rects, const unsigned int* c
         data_00491c10->DrawSolidFan(entities[i], vertices[i], colors[i]);
         data_00491c10->SubmitSpriteQuad(entities[i], colors[i]);
         data_00491c10->SubmitSpriteQuadMirrored(entities[i], colors[i]);
+        EntityDrawMirrored_00443480((RenderEntity*)entities[i], data_00491c10);
         cameras[i]->Apply();
         cameras[i]->ApplyDefault();
         GameFrameAdvance_00439390(&data_004924f0);

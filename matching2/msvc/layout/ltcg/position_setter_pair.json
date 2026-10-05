@@ -18,7 +18,7 @@
   "functions": [
     {
       "name": "SetAnimationPosition_004492f0",
-      "symbol": "?SetAnimationPosition_004492f0@@YIXPBUPositionVector_004492f0@@PAUPositionLookupContext_004492f0@@UPositionScriptId_004492f0@@@Z",
+      "symbol": "?SetAnimationPosition_004492f0@@YIXPAUPositionLookupContext_004492f0@@PBUPositionVector_004492f0@@UPositionScriptId_004492f0@@@Z",
       "section": ".text$30position",
       "address": "0x004492F0",
       "size": 90,

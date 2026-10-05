@@ -3,10 +3,21 @@
   "name": "score_records_advance_frame_0041c480",
   "source": "src/unidentified/FUN_0041c480_0041c480.cpp",
   "driver": "layout/ltcg/score_records_advance_frame_0041c480_context.cpp",
-  "headers": [],
+  "headers": [
+    "include/th10/game/score_record_list.hpp"
+  ],
   "image_base": "0x00400000",
-  "description": "The score display's per-frame record advance compiled with native LTCG so the records object arrives in ECX and the 0x0041C330 call receives it in EDI. The .text$01callee section is a compiled ABI anchor for the assembly region at 0x0041C330 whose bytes are never selected; it is declared through the layout's anchors list.",
+  "description": "The score display's per-frame record advance and the record list tick it calls, compiled with native LTCG so the records object arrives in ECX and the 0x0041C330 call receives it in EDI.",
   "functions": [
+    {
+      "name": "ScoreRecords_Tick",
+      "symbol": "_ScoreRecords_Tick_0041c330",
+      "source": "src/game/score_records_tick_0041c330.cpp",
+      "section": ".text$01callee",
+      "address": "0x0041C330",
+      "size": 274,
+      "actual_abi": "records in EDI; returns 1 in EAX; plain RET"
+    },
     {
       "name": "ScoreRecords_0041c480_AdvanceFrame",
       "symbol": "?AdvanceFrame@ScoreRecords_0041c480@@QAEHXZ",
@@ -18,15 +29,6 @@
   ],
   "roots": [
     "?AdvanceFrame@ScoreRecords_0041c480@@QAEHXZ"
-  ],
-  "anchors": [
-    {
-      "name": "FUN_0041c330_abi_anchor",
-      "symbol": "_asm_FUN_0041c330_0041c330",
-      "section": ".text$01callee",
-      "address": "0x0041C330",
-      "size": 48
-    }
   ],
   "context": {
     "symbol": "?ScoreRecordsAdvanceFrameCompilerContext@@YGHXZ",
@@ -43,8 +45,8 @@
     },
     {
       "section": ".text$02layout",
-      "address": "0x0041C360",
-      "size": 288
+      "address": "0x0041C442",
+      "size": 62
     },
     {
       "section": ".text$04layout",
@@ -78,6 +80,31 @@
       "symbol": "_data_00476f78",
       "address": "0x00476F78",
       "kind": "data"
+    },
+    {
+      "symbol": "_data_00470b68",
+      "address": "0x00470B68",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00470b64",
+      "address": "0x00470B64",
+      "kind": "data"
+    },
+    {
+      "symbol": "__ftol2",
+      "address": "0x00463B2C",
+      "kind": "relative_code"
+    }
+  ],
+  "additional_sources": [
+    "src/game/score_records_tick_0041c330.cpp"
+  ],
+  "constant_aliases": [
+    {
+      "symbol": "__real@3f800000",
+      "address": "0x00470AFC",
+      "value": 1.0
     }
   ]
 }

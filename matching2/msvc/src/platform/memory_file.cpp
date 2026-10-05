@@ -48,3 +48,37 @@ DWORD BufferFile::Tell() const {
 DWORD BufferFile::GetSize() const {
     return size_;
 }
+
+// 0x004364F0..0x0043655A: move the read position.  Origin 0 is the start of
+// the buffer, 1 the current position and 2 the end (distance <= 0).  A target
+// outside the owned bytes fails and leaves the position alone.
+//
+// Two shapes are load-bearing (recovery_notes/buffer_file_seek_004364f0_wave16.md):
+// the start-origin range check is the inline Contains() helper, and the other
+// origins leave through one `fail:` label while every origin shares `return 1`.
+BYTE BufferFile::Seek(LONG distance, DWORD origin) {
+    switch (origin) {
+    case 0:
+        if (!Contains(distance))
+            return 0;
+        position_ = data_ + distance;
+        break;
+    case 1:
+        if ((LONG)((data_ + size_) - position_) <= distance)
+            goto fail;
+        position_ += distance;
+        break;
+    case 2:
+        if (distance > 0)
+            goto fail;
+        if ((DWORD)(distance < 0 ? -distance : distance) >= size_)
+            goto fail;
+        position_ = data_ + size_ + distance;
+        break;
+    default:
+        goto fail;
+    }
+    return 1;
+fail:
+    return 0;
+}

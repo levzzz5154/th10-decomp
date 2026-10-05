@@ -6,6 +6,7 @@
 extern "C" int __stdcall ResourceSurfaceLoadingContext(AnimationManagerIndexed_00447f70** managers,int count,const char* name) {
     for(int index=0;index<count;++index) {
         AnimationLoadMemory_00447ec0(index,managers[index],name);
+        AnimationLoadSurface_00447c80(managers[index],name,count-index);
     }
     return count;
 }

@@ -4,5 +4,8 @@
 #include "../../src/game/ending_text_constructor_0040ba90.cpp"
 #include "../../src/game/message_manager_initialize_0040b560.cpp"
 #pragma code_seg(".text$03context")
-extern "C" int __stdcall MessageManagerContext(MessageManager* state) { return state->Initialize(); }
+extern "C" int __stdcall MessageManagerContext(MessageManager* state, GameCounters_0040b560** counters) {
+    *counters = &data_00474c44;
+    return state->Initialize();
+}
 #pragma code_seg()

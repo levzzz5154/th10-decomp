@@ -1,0 +1,458 @@
+{
+  "schema_version": 1,
+  "name": "anm_storage_construct_00445900",
+  "source": "src/app/anm_storage_construct_00445900.cpp",
+  "driver": "layout/ltcg/anm_storage_construct_00445900_context.cpp",
+  "included_sources": [
+    "layout/ltcg/anm_storage_construct_entity.cpp",
+    "layout/ltcg/scheduler_anchor_00402230.cpp"
+  ],
+  "headers": [
+    "include/th10/game/entity.hpp",
+    "include/th10/types.hpp",
+    "include/th10/game/scheduler.hpp",
+    "include/th10/platform/thread_sync.hpp"
+  ],
+  "image_base": "0x00400000",
+  "exceptions": true,
+  "constants": [],
+  "description": "Animation storage constructor with natural sprite array ownership; Entity_Init is a header-inline (COMDAT) callee",
+  "functions": [
+    {
+      "name": "AnmStorageConstructor",
+      "symbol": "??0AnmStorageConstruct_00445900@@QAE@XZ",
+      "section": ".text$01construct",
+      "address": "0x00445900",
+      "size": 2315,
+      "actual_abi": "storage stack; EAX storage result; RET4"
+    },
+    {
+      "name": "ConstructorManagerPoolUnwind",
+      "symbol": "_AnmStorageConstructPoolUnwind_00465760",
+      "section": ".text$x",
+      "address": "0x00465760",
+      "size": 28,
+      "generated": true,
+      "native_symbol_pattern": "\\$L[0-9]+",
+      "actual_abi": "destroys the 4096 pool sprites"
+    },
+    {
+      "name": "ConstructorManagerMiddleUnwind",
+      "symbol": "_AnmStorageConstructMiddleUnwind_0046577c",
+      "section": ".text$x",
+      "address": "0x0046577C",
+      "size": 14,
+      "generated": true,
+      "native_symbol_pattern": "\\$L[0-9]+",
+      "actual_abi": "destroys the middle sprite"
+    },
+    {
+      "name": "ConstructorManagerLayersUnwind",
+      "symbol": "_AnmStorageConstructLayersUnwind_0046578a",
+      "section": ".text$x",
+      "address": "0x0046578A",
+      "size": 27,
+      "generated": true,
+      "native_symbol_pattern": "\\$L[0-9]+",
+      "actual_abi": "destroys the 20 layer sprites"
+    },
+    {
+      "name": "ConstructorManagerDestructorHandler",
+      "symbol": "__ehhandler$??0AnmStorageConstruct_00445900@@QAE@XZ",
+      "section": ".text$x",
+      "address": "0x004657A5",
+      "size": 10,
+      "generated": true,
+      "actual_abi": "compiler generated frame handler"
+    }
+  ],
+  "anchors": [
+    {
+      "name": "EntityInit",
+      "symbol": "?Entity_Init@@YIXPAXPAUEntity@@@Z",
+      "section": ".text$00a_init",
+      "address": "0x00401DE0",
+      "size": 273
+    },
+    {
+      "name": "SpriteDestructor",
+      "symbol": "??1AnmConstructedSprite@@QAE@XZ",
+      "section": ".text$00d_dtor",
+      "address": "0x00401FF0",
+      "size": 34
+    },
+    {
+      "name": "SpriteConstructor",
+      "symbol": "??0AnmConstructedSprite@@QAE@XZ",
+      "section": ".text$00f_ctor",
+      "address": "0x00402050",
+      "size": 88
+    },
+    {
+      "name": "RegisterPrimary",
+      "symbol": "_Scheduler_RegisterPrimary@12",
+      "section": ".text$08primary",
+      "address": "0x00449AE0",
+      "size": 131
+    },
+    {
+      "name": "RegisterSecondary",
+      "symbol": "_Scheduler_RegisterSecondary@12",
+      "section": ".text$09secondary",
+      "address": "0x00449B70",
+      "size": 131
+    }
+  ],
+  "context": {
+    "symbol": "_ConstructAnmStorageContext@4",
+    "section": ".text$02context",
+    "address": "0x00446210",
+    "size": 22,
+    "description": "Compiler-only placement-new caller."
+  },
+  "gaps": [
+    {
+      "section": ".text$00_0layout",
+      "address": "0x00401000",
+      "size": 3552
+    },
+    {
+      "section": ".text$00b_layout",
+      "address": "0x00401EF1",
+      "size": 255
+    },
+    {
+      "section": ".text$00e_layout",
+      "address": "0x00402012",
+      "size": 62
+    },
+    {
+      "section": ".text$00zlayout",
+      "address": "0x004020A8",
+      "size": 276568
+    },
+    {
+      "section": ".text$01zlayout",
+      "address": "0x0044620B",
+      "size": 5
+    },
+    {
+      "section": ".text$03layout",
+      "address": "0x00446226",
+      "size": 14522
+    },
+    {
+      "section": ".text$08zlayout",
+      "address": "0x00449B63",
+      "size": 13
+    },
+    {
+      "section": ".text$10layout",
+      "address": "0x00449BF3",
+      "size": 113517
+    },
+    {
+      "section": ".rdata$0before",
+      "address": "0x00466000",
+      "size": 46940
+    }
+  ],
+  "native_data": [
+    {
+      "section": ".xdata$x",
+      "address": "0x0047175C",
+      "bytes": "ffffffff60574600000000007c574600010000008a57460020059319030000005c17470000000000000000000000000000000000",
+      "description": "Constructor unwind map and FuncInfo validation"
+    }
+  ],
+  "absolute_symbols": [
+    {
+      "symbol": "_entry_free_00452422",
+      "address": "0x452422",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "??3@YAXPAX@Z",
+      "address": "0x4524a1",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "___CxxFrameHandler",
+      "address": "0x46276d",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__except_list",
+      "address": "0x0",
+      "kind": "metadata"
+    },
+    {
+      "symbol": "??_M@YGXPAXIHP6EX0@Z@Z",
+      "address": "0x004525ff",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__fltused",
+      "address": "0x0",
+      "kind": "metadata"
+    },
+    {
+      "symbol": "??2@YAPAXI@Z",
+      "address": "0x00452493",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "??_L@YGXPAXIHP6EX0@Z1@Z",
+      "address": "0x0045252D",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_00491be4",
+      "address": "0x00491BE4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491c30",
+      "address": "0x00491C30",
+      "kind": "data"
+    },
+    {
+      "symbol": "_matrix_004978b4",
+      "address": "0x4978b4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_matrix_0049789c",
+      "address": "0x49789c",
+      "kind": "data"
+    },
+    {
+      "symbol": "_matrix_00497884",
+      "address": "0x497884",
+      "kind": "data"
+    },
+    {
+      "symbol": "_matrix_0049786c",
+      "address": "0x49786c",
+      "kind": "data"
+    },
+    {
+      "symbol": "_matrix_00497870",
+      "address": "0x497870",
+      "kind": "data"
+    },
+    {
+      "symbol": "_matrix_00497874",
+      "address": "0x497874",
+      "kind": "data"
+    },
+    {
+      "symbol": "_matrix_00497888",
+      "address": "0x497888",
+      "kind": "data"
+    },
+    {
+      "symbol": "_matrix_0049788c",
+      "address": "0x49788c",
+      "kind": "data"
+    },
+    {
+      "symbol": "_matrix_004978a0",
+      "address": "0x4978a0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_matrix_004978a4",
+      "address": "0x4978a4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_matrix_004978b8",
+      "address": "0x4978b8",
+      "kind": "data"
+    },
+    {
+      "symbol": "_matrix_004978bc",
+      "address": "0x4978bc",
+      "kind": "data"
+    },
+    {
+      "symbol": "_matrix_00497920",
+      "address": "0x497920",
+      "kind": "data"
+    },
+    {
+      "symbol": "_matrix_00497904",
+      "address": "0x497904",
+      "kind": "data"
+    },
+    {
+      "symbol": "_matrix_004978e8",
+      "address": "0x4978e8",
+      "kind": "data"
+    },
+    {
+      "symbol": "_matrix_004978cc",
+      "address": "0x4978cc",
+      "kind": "data"
+    },
+    {
+      "symbol": "_matrix_004978d4",
+      "address": "0x4978d4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_matrix_004978d8",
+      "address": "0x4978d8",
+      "kind": "data"
+    },
+    {
+      "symbol": "_matrix_004978f0",
+      "address": "0x4978f0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_matrix_004978f4",
+      "address": "0x4978f4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_matrix_0049790c",
+      "address": "0x49790c",
+      "kind": "data"
+    },
+    {
+      "symbol": "_matrix_00497910",
+      "address": "0x497910",
+      "kind": "data"
+    },
+    {
+      "symbol": "_matrix_00497928",
+      "address": "0x497928",
+      "kind": "data"
+    },
+    {
+      "symbol": "_matrix_0049792c",
+      "address": "0x49792c",
+      "kind": "data"
+    },
+    {
+      "symbol": "@AnmCallback_004485d0@4",
+      "address": "0x4485d0",
+      "kind": "data"
+    },
+    {
+      "symbol": "@AnmCallback_004485e0@4",
+      "address": "0x4485e0",
+      "kind": "data"
+    },
+    {
+      "symbol": "@AnmCallback_004485f0@4",
+      "address": "0x4485f0",
+      "kind": "data"
+    },
+    {
+      "symbol": "@AnmCallback_00448600@4",
+      "address": "0x448600",
+      "kind": "data"
+    },
+    {
+      "symbol": "@AnmCallback_00448610@4",
+      "address": "0x448610",
+      "kind": "data"
+    },
+    {
+      "symbol": "@AnmCallback_00448620@4",
+      "address": "0x448620",
+      "kind": "data"
+    },
+    {
+      "symbol": "@AnmCallback_004486a0@4",
+      "address": "0x4486a0",
+      "kind": "data"
+    },
+    {
+      "symbol": "@AnmCallback_004486b0@4",
+      "address": "0x4486b0",
+      "kind": "data"
+    },
+    {
+      "symbol": "@AnmCallback_004486c0@4",
+      "address": "0x4486c0",
+      "kind": "data"
+    },
+    {
+      "symbol": "@AnmCallback_004486d0@4",
+      "address": "0x4486d0",
+      "kind": "data"
+    },
+    {
+      "symbol": "@AnmCallback_004486e0@4",
+      "address": "0x4486e0",
+      "kind": "data"
+    },
+    {
+      "symbol": "@AnmCallback_004486f0@4",
+      "address": "0x4486f0",
+      "kind": "data"
+    },
+    {
+      "symbol": "@AnmCallback_00448700@4",
+      "address": "0x448700",
+      "kind": "data"
+    },
+    {
+      "symbol": "@AnmCallback_00448710@4",
+      "address": "0x448710",
+      "kind": "data"
+    },
+    {
+      "symbol": "@AnmCallback_00448720@4",
+      "address": "0x448720",
+      "kind": "data"
+    },
+    {
+      "symbol": "@AnmCallback_00448730@4",
+      "address": "0x448730",
+      "kind": "data"
+    },
+    {
+      "symbol": "@AnmCallback_00448740@4",
+      "address": "0x448740",
+      "kind": "data"
+    },
+    {
+      "symbol": "@AnmCallback_00448770@4",
+      "address": "0x448770",
+      "kind": "data"
+    },
+    {
+      "symbol": "@AnmCallback_004487c0@4",
+      "address": "0x4487c0",
+      "kind": "data"
+    },
+    {
+      "symbol": "@AnmCallback_00448810@4",
+      "address": "0x448810",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__EnterCriticalSection@4",
+      "address": "0x4660b0",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__LeaveCriticalSection@4",
+      "address": "0x4660b4",
+      "kind": "data"
+    },
+    {
+      "symbol": "?g_thread_synchronization@@3UThreadSynchronization@@A",
+      "address": "0x492274",
+      "kind": "data"
+    }
+  ],
+  "additional_sources": [
+    "layout/ltcg/anm_storage_construct_00445900_anchors.cpp"
+  ]
+}

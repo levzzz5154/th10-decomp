@@ -1,3 +1,7 @@
+// Historical, nonmatching candidate; superseded by the byte-exact implementation
+// in msvc/src/script/ecl_float_value_00412350.cpp. Do not use as a semantic oracle:
+// its IsUnordered cases are wrong (retail tests equality), and its angle helper
+// is inlined where retail calls the recovered 0x00426660 helper.
 #include <math.h>
 
 #include "th10/math/rng.hpp"

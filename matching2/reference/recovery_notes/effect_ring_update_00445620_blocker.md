@@ -61,3 +61,7 @@ fact once the callee stays assembly. The model is preserved at
 `matching2/build/recovery-lab/effect-ring/` and is worth re-running the moment
 either `0x004458B0` becomes expressible or the batch machinery grows a way to
 record a callee's preserved set.
+
+## Resolved 2026-10-05
+
+Recovered byte-exact; see `effect_ring_update_00445620_2026_10_05.md`.

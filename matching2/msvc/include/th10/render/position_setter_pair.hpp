@@ -22,8 +22,10 @@ public:
     __declspec(noinline) void* __fastcall Find(PositionLookupContext_004492f0* context,
                                              PositionScriptId_004492f0 id);
 };
+// The context comes first: callers evaluate the position pointer before the
+// context load, which is the order retail's 0x00405750 needs.
 __declspec(noinline) void __fastcall SetAnimationPosition_004492f0(
-    const PositionVector_004492f0* position, PositionLookupContext_004492f0* context,
+    PositionLookupContext_004492f0* context, const PositionVector_004492f0* position,
     PositionScriptId_004492f0 id);
 __declspec(noinline) void __fastcall SetAnimationTranslatedPosition_00449350(
     const PositionVector_004492f0* position, PositionLookupContext_004492f0* context,

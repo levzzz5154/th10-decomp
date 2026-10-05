@@ -1,5 +1,4 @@
-// Real Update and scheduler callback only; no synthetic callers.
-#include "player_update_callback10_dependencies/player_update_callback_context.cpp"
+// Scheduler callback only; Update is compiled from its own source.
 #include "../../src/unidentified/FUN_00405840_00405840.cpp"
 // Actual secondary callback installed alongside the primary callback.
 #pragma code_seg(".text$037secondary")

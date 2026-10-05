@@ -8,8 +8,16 @@
     "include/th10/platform/text_log.hpp"
   ],
   "image_base": "0x00400000",
-  "description": "Native allocation cleanup and handler generated from the complete typed file-stream factory and its actual stream constructor. Factory and launch bodies remain complete unselected anchors.",
+  "description": "File-stream factory of the sound device owner with its allocation cleanup and EH handler, compiled with its real stream constructor and a complete unselected launcher as direct caller.",
   "functions": [
+    {
+      "name": "SoundStreamCreateFile",
+      "symbol": "?CreateFileStream@SoundDeviceOwner@@QAEHPAPAUSoundStreamingState@@IPBDUWaveGuidImage@@IIPAXPAUMusicTrackRecord@@@Z",
+      "section": ".text$02factory",
+      "address": "0x0044C8F0",
+      "size": 702,
+      "actual_abi": "output slot in ECX, flags in EDX, owner and the rest on the stack; RET 0x28"
+    },
     {
       "name": "SoundStreamCreateFileUnwind",
       "symbol": "_SoundStreamCreateFileUnwind_00465330",
@@ -22,7 +30,7 @@
     },
     {
       "name": "SoundStreamCreateFileHandler",
-      "symbol": "__ehhandler$?SoundStream_CreateFile_0044c8f0@@YIHPAPAUSoundStreamingState@@IPAPAUWaveDirectSoundDevice@@PBDUWaveGuidImage@@IIPAXPAUMusicTrackRecord@@@Z",
+      "symbol": "__ehhandler$?CreateFileStream@SoundDeviceOwner@@QAEHPAPAUSoundStreamingState@@IPBDUWaveGuidImage@@IIPAXPAUMusicTrackRecord@@@Z",
       "section": ".text$x",
       "address": "0x0046533B",
       "actual_abi": "compiler-generated EH handler",
@@ -55,8 +63,8 @@
     },
     {
       "section": ".text$02factoryz",
-      "address": 4508580,
-      "size": 1388
+      "address": 4508590,
+      "size": 1378
     },
     {
       "section": ".text$03fillz",
@@ -287,13 +295,6 @@
       "section": ".text$00launch",
       "address": "0x0043D690",
       "size": 241
-    },
-    {
-      "name": "SoundStreamCreateFile",
-      "symbol": "?SoundStream_CreateFile_0044c8f0@@YIHPAPAUSoundStreamingState@@IPAPAUWaveDirectSoundDevice@@PBDUWaveGuidImage@@IIPAXPAUMusicTrackRecord@@@Z",
-      "section": ".text$02factory",
-      "address": "0x0044C8F0",
-      "size": 692
     }
   ],
   "included_sources": [

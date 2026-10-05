@@ -1,0 +1,167 @@
+{
+  "schema_version": 1,
+  "name": "stage_score_display_00415b00",
+  "source": "src/game/stage_score_display_00415b00.cpp",
+  "driver": "layout/ltcg/stage_score_display_00415b00_context.cpp",
+  "headers": [
+    "include/th10/game/entity.hpp",
+    "include/th10/game/entity_script_start.hpp",
+    "include/th10/game/pause_result_open_004231d0/open_animation.hpp",
+    "include/th10/game/stage_score_display_00415b00.hpp",
+    "include/th10/types.hpp"
+  ],
+  "included_sources": [
+    "layout/ltcg/result_open_00423370/allocate.cpp",
+    "layout/ltcg/result_open_00423370/find.cpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Complete score-display constructor compiled beside genuine pool, primary-registration, lookup and collision-activation implementations; only the constructor is selected.",
+  "functions": [
+    {
+      "name": "StageScoreDisplay_Construct",
+      "symbol": "??0StageScoreDisplay@@QAE@PBX@Z",
+      "section": ".text$00415b00_fn",
+      "address": "0x00415B00",
+      "size": 683,
+      "actual_abi": "Native private convention: receiver and script on stack; EAX returns receiver; RET 8."
+    }
+  ],
+  "context": {
+    "symbol": "_entry@8",
+    "section": ".text$00401000_context",
+    "address": "0x00401000",
+    "size": 22,
+    "description": "Placement construction caller; compiler context only."
+  },
+  "anchors": [
+    {
+      "name": "Activate",
+      "symbol": "?Activate@StageCollisionRecord@@QAEHXZ",
+      "address": "0x408030",
+      "section": ".text$00408030_fn",
+      "size": 201
+    },
+    {
+      "name": "RegisterPrimaryBack",
+      "symbol": "?RegisterPrimaryBack@SlotLists@@QAE?AUSlotRef@@PAUEntity@@@Z",
+      "address": "0x4489d0",
+      "section": ".text$004489d0_fn",
+      "size": 117
+    },
+    {
+      "name": "Find",
+      "symbol": "?AnimationManager_Find_004491c0@@YIPAXPAUAnimationLookupContext@@UAnimationScriptId@@@Z",
+      "address": "0x4491c0",
+      "section": ".text$004491c0_fn",
+      "size": 73
+    },
+    {
+      "name": "Allocate",
+      "symbol": "?Allocate@AnimationPool@@QAEPAUEntity@@XZ",
+      "address": "0x449950",
+      "section": ".text$00449950_fn",
+      "size": 159
+    }
+  ],
+  "gaps": [
+    {
+      "section": ".text$00401000_contextz",
+      "address": "0x401016",
+      "size": 28698
+    },
+    {
+      "section": ".text$00408030_fnz",
+      "address": "0x4080f9",
+      "size": 55815
+    },
+    {
+      "section": ".text$00415b00_fnz",
+      "address": "0x415dab",
+      "size": 207909
+    },
+    {
+      "section": ".text$004489d0_fnz",
+      "address": "0x448a45",
+      "size": 1915
+    },
+    {
+      "section": ".text$004491c0_fnz",
+      "address": "0x449209",
+      "size": 1863
+    }
+  ],
+  "constants": [],
+  "constant_aliases": [],
+  "absolute_symbols": [
+    {
+      "symbol": "??2@YAPAXI@Z",
+      "address": "0x452493",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?Entity_Init@@YGXPAUEntity@@@Z",
+      "address": "0x401de0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?Entity_Constructor@@YIPAUEntity@@PAU1@@Z",
+      "address": "0x402050",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?OutsideBounds@PlayfieldPoint@@QBEHMM@Z",
+      "address": "0x4086b0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_SweepDeaths@4",
+      "address": "0x40e6a0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?ItemAnimation_CreateOffset_00448db0@@YGPAPAXPAXPAPAXHPBUVector3@@@Z",
+      "address": "0x448db0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?InitializeObject@AnimationResource_00449870@@QAEXPAUEntity@@H@Z",
+      "address": "0x449870",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_004776e0",
+      "address": "0x4776e0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004776f0",
+      "address": "0x4776f0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0047781c",
+      "address": "0x47781c",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00477704",
+      "address": "0x477704",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491c10",
+      "address": "0x491c10",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00476f78",
+      "address": "0x476f78",
+      "kind": "data"
+    },
+    {
+      "symbol": "__fltused",
+      "address": "0x0",
+      "kind": "metadata"
+    }
+  ]
+}

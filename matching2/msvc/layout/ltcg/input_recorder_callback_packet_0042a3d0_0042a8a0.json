@@ -3,7 +3,8 @@
   "name": "input_recorder_callback_packet_0042a3d0_0042a8a0",
   "source": "src/unidentified/FUN_0042a3d0_0042a3d0.cpp",
   "additional_sources": [
-    "src/game/recovery_append_packet_0042a8a0.cpp"
+    "src/game/recovery_append_packet_0042a8a0.cpp",
+    "src/game/input_recorder_update_004297d0.cpp"
   ],
   "included_sources": [
     "layout/ltcg/input_recorder_helpers.cpp"
@@ -13,7 +14,7 @@
     "layout/ltcg/input_recorder_dependencies.hpp"
   ],
   "image_base": "0x00400000",
-  "description": "Genuine registered ECX InputRecorder scheduler callback and ordinary typed packet serialization compiled with the complete real recorder context, KeyRepeat and linked-pool helpers. Main596 remains unselected; existing helper owners unchanged. No synthetic caller, volatile, ASM, barriers, byte patches or masks.",
+  "description": "Input recorder update, its registered ECX scheduler callback and the typed packet serialization, compiled with the KeyRepeat and linked-pool helpers.",
   "roots": [
     "?InputRecorder_Tick_0042A3D0@@YIHPAUInputRecorder_004297D0@@@Z"
   ],
@@ -34,6 +35,15 @@
       "size": 85,
       "source": "src/game/recovery_append_packet_0042a8a0.cpp",
       "actual_abi": "Genuine recorder caller supplies receiver in EAX, first word in DX, two stack words; result in EAX, RET 8"
+    },
+    {
+      "name": "InputRecorderUpdate",
+      "symbol": "?Update@InputRecorder_004297D0@@QAEHXZ",
+      "section": ".text$03update",
+      "address": "0x004297D0",
+      "size": 596,
+      "source": "src/game/input_recorder_update_004297d0.cpp",
+      "actual_abi": "recorder in EDI"
     }
   ],
   "anchors": [
@@ -43,13 +53,6 @@
       "section": ".text$01key",
       "address": "0x0040AC20",
       "size": 109
-    },
-    {
-      "name": "InputRecorderUpdate",
-      "symbol": "?Update@InputRecorder_004297D0@@QAEHXZ",
-      "section": ".text$03update",
-      "address": "0x004297D0",
-      "size": 596
     },
     {
       "name": "AppendPage",
@@ -137,5 +140,17 @@
     "address": "0x004200C0",
     "size": 6,
     "description": "Complete actual independent no-op scheduler callback registered by App creation; task context in ECX, returns1 EAX and plainRET. No call edge to recorder or synthetic input/pressure."
-  }
+  },
+  "data_aliases": [
+    {
+      "symbol": "__real@3f000000",
+      "address": "0x00470B0C",
+      "bytes": "0000003f"
+    },
+    {
+      "symbol": "__real@43800000",
+      "address": "0x00470C34",
+      "bytes": "00008043"
+    }
+  ]
 }

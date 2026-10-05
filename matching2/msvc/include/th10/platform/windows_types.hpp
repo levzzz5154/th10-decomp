@@ -112,13 +112,13 @@ extern "C" {
     BOOL    __stdcall SystemParametersInfoA(UINT, UINT, void*, UINT);
     BOOL    __stdcall QueryPerformanceFrequency(long long*);
     BOOL    __stdcall QueryPerformanceCounter(long long*);
-    HGDIOBJ __stdcall GetStockObject(int);
-    HCURSOR __stdcall LoadCursorA(HINSTANCE, LPCSTR);
-    ATOM    __stdcall RegisterClassA(const WNDCLASSA*);
-    HWND    __stdcall CreateWindowExA(DWORD, LPCSTR, LPCSTR, DWORD, int, int, int, int, HWND, HMENU, HINSTANCE, LPVOID);
+    __declspec(dllimport) HGDIOBJ __stdcall GetStockObject(int);
+    __declspec(dllimport) HCURSOR __stdcall LoadCursorA(HINSTANCE, LPCSTR);
+    __declspec(dllimport) ATOM    __stdcall RegisterClassA(const WNDCLASSA*);
+    __declspec(dllimport) HWND    __stdcall CreateWindowExA(DWORD, LPCSTR, LPCSTR, DWORD, int, int, int, int, HWND, HMENU, HINSTANCE, LPVOID);
     __declspec(dllimport) void* __stdcall SendMessageA(HWND, UINT, DWORD, DWORD);
-    void    __stdcall Sleep(DWORD);
-    int     __stdcall GetSystemMetrics(int);
+    __declspec(dllimport) void    __stdcall Sleep(DWORD);
+    __declspec(dllimport) int     __stdcall GetSystemMetrics(int);
     void*   __stdcall Direct3DCreate9(UINT);
     BOOL    __stdcall CreateProcessA(LPCSTR, LPSTR, LPSECURITY_ATTRIBUTES,
                                     LPSECURITY_ATTRIBUTES, BOOL, DWORD, LPVOID,

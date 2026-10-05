@@ -1,0 +1,562 @@
+{
+  "schema_version": 1,
+  "name": "font_atlas_draw_text_00437fe0",
+  "region": "asm_FUN_00437fe0_00437fe0",
+  "sources": [
+    "equivalent/platform/font_atlas_draw_text_00437fe0.cpp"
+  ],
+  "entry_symbol": "?FontAtlas_DrawPlainText_00437fe0@@YGXPBUFontAtlasRect_00437fe0@@HHIPBDPAUFontTexture_00437fe0@@@Z",
+  "function": "?FontAtlas_DrawPlainText_00437fe0@@YGXPBUFontAtlasRect_00437fe0@@HHIPBDPAUFontTexture_00437fe0@@@Z",
+  "code_bytes": 509,
+  "absolute_symbols": {
+    "__fltused": {
+      "address": "0x00000000",
+      "kind": "data"
+    },
+    "_data_00474cb0": {
+      "address": "0x00474CB0",
+      "kind": "data"
+    },
+    "__imp__SelectObject@8": {
+      "address": "0x0046602C",
+      "kind": "data"
+    },
+    "__imp__SetBkMode@8": {
+      "address": "0x0046601C",
+      "kind": "data"
+    },
+    "__imp__SetTextColor@8": {
+      "address": "0x00466018",
+      "kind": "data"
+    },
+    "__imp__TextOutA@20": {
+      "address": "0x00466014",
+      "kind": "data"
+    },
+    "?InvertAlpha@FontAtlas_00437fe0@@QAEDH@Z": {
+      "address": "0x00437160",
+      "kind": "code"
+    },
+    "_FontAtlas_Convert_00436da0@8": {
+      "address": "0x00436DA0",
+      "kind": "code"
+    },
+    "_D3DXLoadSurfaceFromMemory_004521a6@40": {
+      "address": "0x004521A6",
+      "kind": "code"
+    },
+    "_data_00491868": {
+      "address": "0x00491868",
+      "kind": "data"
+    },
+    "_data_0049186c": {
+      "address": "0x0049186C",
+      "kind": "data"
+    },
+    "_data_00491870": {
+      "address": "0x00491870",
+      "kind": "data"
+    },
+    "_data_00491874": {
+      "address": "0x00491874",
+      "kind": "data"
+    },
+    "_data_00491878": {
+      "address": "0x00491878",
+      "kind": "data"
+    },
+    "_data_0049187c": {
+      "address": "0x0049187C",
+      "kind": "data"
+    },
+    "_data_00491880": {
+      "address": "0x00491880",
+      "kind": "data"
+    },
+    "_data_00491884": {
+      "address": "0x00491884",
+      "kind": "data"
+    },
+    "_data_00491888": {
+      "address": "0x00491888",
+      "kind": "data"
+    },
+    "_data_0049188c": {
+      "address": "0x0049188C",
+      "kind": "data"
+    },
+    "_data_00491890": {
+      "address": "0x00491890",
+      "kind": "data"
+    },
+    "_data_00491894": {
+      "address": "0x00491894",
+      "kind": "data"
+    },
+    "_data_00491898": {
+      "address": "0x00491898",
+      "kind": "data"
+    },
+    "_data_0049189c": {
+      "address": "0x0049189C",
+      "kind": "data"
+    },
+    "_data_004918a0": {
+      "address": "0x004918A0",
+      "kind": "data"
+    }
+  },
+  "bindings": {
+    "?FillRgb444_00436ca0@@YGXPAUSurface_00436ca0@@I@Z": "0x00436CA0"
+  },
+  "base_index_order": 0,
+  "differences": [
+    {
+      "class": "register-choice",
+      "offset": "0x5",
+      "retail": [
+        "mov ebp,DWORD PTR [esp+0x28]",
+        "cmp ebp,0x11"
+      ],
+      "model": []
+    },
+    {
+      "class": "register-choice",
+      "offset": "0xe",
+      "retail": [],
+      "model": [
+        "mov edi,DWORD PTR [esp+0x30]",
+        "cmp edi,0x11"
+      ]
+    },
+    {
+      "class": "register-choice",
+      "offset": "0x10",
+      "retail": [
+        "mov edi,DWORD PTR ds:0x4918a0"
+      ],
+      "model": [
+        "mov ebx,DWORD PTR ds:0x4918a0"
+      ]
+    },
+    {
+      "class": "register-choice",
+      "offset": "0x1b",
+      "retail": [
+        "cmp ebp,0x12"
+      ],
+      "model": [
+        "cmp edi,0x12"
+      ]
+    },
+    {
+      "class": "register-choice",
+      "offset": "0x20",
+      "retail": [
+        "mov edi,DWORD PTR ds:0x49189c"
+      ],
+      "model": [
+        "mov ebx,DWORD PTR ds:0x49189c"
+      ]
+    },
+    {
+      "class": "register-choice",
+      "offset": "0x2b",
+      "retail": [
+        "cmp ebp,0x13"
+      ],
+      "model": [
+        "cmp edi,0x13"
+      ]
+    },
+    {
+      "class": "register-choice",
+      "offset": "0x30",
+      "retail": [
+        "mov edi,DWORD PTR ds:0x491898"
+      ],
+      "model": [
+        "mov ebx,DWORD PTR ds:0x491898"
+      ]
+    },
+    {
+      "class": "register-choice",
+      "offset": "0x3b",
+      "retail": [
+        "cmp ebp,0x14"
+      ],
+      "model": [
+        "cmp edi,0x14"
+      ]
+    },
+    {
+      "class": "register-choice",
+      "offset": "0x40",
+      "retail": [
+        "mov edi,DWORD PTR ds:0x491894"
+      ],
+      "model": [
+        "mov ebx,DWORD PTR ds:0x491894"
+      ]
+    },
+    {
+      "class": "register-choice",
+      "offset": "0x4b",
+      "retail": [
+        "cmp ebp,0x15"
+      ],
+      "model": [
+        "cmp edi,0x15"
+      ]
+    },
+    {
+      "class": "register-choice",
+      "offset": "0x50",
+      "retail": [
+        "mov edi,DWORD PTR ds:0x491890"
+      ],
+      "model": [
+        "mov ebx,DWORD PTR ds:0x491890"
+      ]
+    },
+    {
+      "class": "register-choice",
+      "offset": "0x58",
+      "retail": [
+        "cmp ebp,0x16"
+      ],
+      "model": [
+        "cmp edi,0x16"
+      ]
+    },
+    {
+      "class": "register-choice",
+      "offset": "0x5d",
+      "retail": [
+        "mov edi,DWORD PTR ds:0x49188c"
+      ],
+      "model": [
+        "mov ebx,DWORD PTR ds:0x49188c"
+      ]
+    },
+    {
+      "class": "register-choice",
+      "offset": "0x65",
+      "retail": [
+        "cmp ebp,0x17"
+      ],
+      "model": [
+        "cmp edi,0x17"
+      ]
+    },
+    {
+      "class": "register-choice",
+      "offset": "0x6a",
+      "retail": [
+        "mov edi,DWORD PTR ds:0x491888"
+      ],
+      "model": [
+        "mov ebx,DWORD PTR ds:0x491888"
+      ]
+    },
+    {
+      "class": "register-choice",
+      "offset": "0x72",
+      "retail": [
+        "cmp ebp,0x18"
+      ],
+      "model": [
+        "cmp edi,0x18"
+      ]
+    },
+    {
+      "class": "register-choice",
+      "offset": "0x77",
+      "retail": [
+        "mov edi,DWORD PTR ds:0x491884"
+      ],
+      "model": [
+        "mov ebx,DWORD PTR ds:0x491884"
+      ]
+    },
+    {
+      "class": "register-choice",
+      "offset": "0x7f",
+      "retail": [
+        "cmp ebp,0x19"
+      ],
+      "model": [
+        "cmp edi,0x19"
+      ]
+    },
+    {
+      "class": "register-choice",
+      "offset": "0x84",
+      "retail": [
+        "mov edi,DWORD PTR ds:0x491880"
+      ],
+      "model": [
+        "mov ebx,DWORD PTR ds:0x491880"
+      ]
+    },
+    {
+      "class": "register-choice",
+      "offset": "0x8c",
+      "retail": [
+        "cmp ebp,0x1a"
+      ],
+      "model": [
+        "cmp edi,0x1a"
+      ]
+    },
+    {
+      "class": "register-choice",
+      "offset": "0x91",
+      "retail": [
+        "mov edi,DWORD PTR ds:0x49187c"
+      ],
+      "model": [
+        "mov ebx,DWORD PTR ds:0x49187c"
+      ]
+    },
+    {
+      "class": "register-choice",
+      "offset": "0x99",
+      "retail": [
+        "cmp ebp,0x1b"
+      ],
+      "model": [
+        "cmp edi,0x1b"
+      ]
+    },
+    {
+      "class": "register-choice",
+      "offset": "0x9e",
+      "retail": [
+        "mov edi,DWORD PTR ds:0x491878"
+      ],
+      "model": [
+        "mov ebx,DWORD PTR ds:0x491878"
+      ]
+    },
+    {
+      "class": "register-choice",
+      "offset": "0xa6",
+      "retail": [
+        "cmp ebp,0x1c"
+      ],
+      "model": [
+        "cmp edi,0x1c"
+      ]
+    },
+    {
+      "class": "register-choice",
+      "offset": "0xab",
+      "retail": [
+        "mov edi,DWORD PTR ds:0x491874"
+      ],
+      "model": [
+        "mov ebx,DWORD PTR ds:0x491874"
+      ]
+    },
+    {
+      "class": "register-choice",
+      "offset": "0xb3",
+      "retail": [
+        "cmp ebp,0x1d"
+      ],
+      "model": [
+        "cmp edi,0x1d"
+      ]
+    },
+    {
+      "class": "register-choice",
+      "offset": "0xb8",
+      "retail": [
+        "mov edi,DWORD PTR ds:0x491870"
+      ],
+      "model": [
+        "mov ebx,DWORD PTR ds:0x491870"
+      ]
+    },
+    {
+      "class": "register-choice",
+      "offset": "0xc0",
+      "retail": [
+        "cmp ebp,0x1e",
+        "mov edi,DWORD PTR ds:0x49186c"
+      ],
+      "model": [
+        "cmp edi,0x1e",
+        "mov ebx,DWORD PTR ds:0x49186c"
+      ]
+    },
+    {
+      "class": "register-choice",
+      "offset": "0xcb",
+      "retail": [
+        "mov edi,DWORD PTR ds:0x491868",
+        "cmp ebp,0x11"
+      ],
+      "model": [
+        "mov ebx,DWORD PTR ds:0x491868",
+        "cmp edi,0x11"
+      ]
+    },
+    {
+      "class": "code-shape",
+      "offset": "0xd6",
+      "retail": [
+        "mov ebp,0x11"
+      ],
+      "model": [
+        "mov DWORD PTR [esp+0x30],0x11",
+        "mov edi,DWORD PTR [esp+0x30]"
+      ]
+    },
+    {
+      "class": "register-choice",
+      "offset": "0xef",
+      "retail": [
+        "mov ebx,DWORD PTR ds:0x46602c",
+        "push edi"
+      ],
+      "model": [
+        "mov ebp,DWORD PTR ds:0x46602c",
+        "push ebx"
+      ]
+    },
+    {
+      "class": "register-choice",
+      "offset": "0xf7",
+      "retail": [
+        "call ebx",
+        "lea edi,[ebp+ebp*1+0x6]"
+      ],
+      "model": [
+        "call ebp",
+        "lea edi,[edi+edi*1+0x6]"
+      ]
+    },
+    {
+      "class": "register-choice",
+      "offset": "0x103",
+      "retail": [
+        "mov DWORD PTR [esp+0x34],eax"
+      ],
+      "model": [
+        "mov ebx,eax"
+      ]
+    },
+    {
+      "class": "alignment-padding",
+      "offset": "0x11c",
+      "retail": [
+        "lea esp,[esp+0x0]"
+      ],
+      "model": []
+    },
+    {
+      "class": "register-choice",
+      "offset": "0x154",
+      "retail": [
+        "mov edx,DWORD PTR [esp+0x30]",
+        "push edx"
+      ],
+      "model": [
+        "push ebx"
+      ]
+    },
+    {
+      "class": "register-choice",
+      "offset": "0x15a",
+      "retail": [
+        "call ebx"
+      ],
+      "model": [
+        "call ebp"
+      ]
+    },
+    {
+      "class": "register-choice",
+      "offset": "0x172",
+      "retail": [
+        "mov eax,DWORD PTR [esp+0x30]",
+        "push eax"
+      ],
+      "model": [
+        "push ebx"
+      ]
+    },
+    {
+      "class": "register-choice",
+      "offset": "0x178",
+      "retail": [
+        "call ebx"
+      ],
+      "model": [
+        "call ebp"
+      ]
+    },
+    {
+      "class": "evaluation-order",
+      "offset": "0x17e",
+      "retail": [],
+      "model": [
+        "mov edx,DWORD PTR [esi]"
+      ]
+    },
+    {
+      "class": "evaluation-order",
+      "offset": "0x181",
+      "retail": [
+        "sub eax,DWORD PTR [esi]"
+      ],
+      "model": [
+        "sub eax,edx",
+        "mov edx,DWORD PTR [esp+0x30]"
+      ]
+    },
+    {
+      "class": "register-choice",
+      "offset": "0x18e",
+      "retail": [
+        "lea ecx,[ebp+ebp*1+0x2]"
+      ],
+      "model": [
+        "lea ecx,[edx+edx*1+0x2]"
+      ]
+    },
+    {
+      "class": "stack-slot-order",
+      "offset": "0x1b2",
+      "retail": [
+        "lea ecx,[esp+0x34]"
+      ],
+      "model": [
+        "lea ecx,[esp+0x30]"
+      ]
+    },
+    {
+      "class": "stack-slot-order",
+      "offset": "0x1d7",
+      "retail": [
+        "mov eax,DWORD PTR [esp+0x48]"
+      ],
+      "model": [
+        "mov eax,DWORD PTR [esp+0x44]"
+      ]
+    },
+    {
+      "class": "stack-slot-order",
+      "offset": "0x1e5",
+      "retail": [
+        "mov eax,DWORD PTR [esp+0x34]"
+      ],
+      "model": [
+        "mov eax,DWORD PTR [esp+0x30]"
+      ]
+    }
+  ],
+  "note": "reference/recovery_notes/font_atlas_draw_plain_text_equivalent_2026_10_05.md"
+}

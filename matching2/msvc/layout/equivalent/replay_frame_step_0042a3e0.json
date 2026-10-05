@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "name": "replay_frame_step_0042a3e0",
+  "region": "asm_FUN_0042a3e0_0042a3e0",
+  "sources": [
+    "equivalent/game/replay_frame_step_0042a3e0.cpp"
+  ],
+  "entry_symbol": "?Check@ReplayFrameStep@@QAEHXZ",
+  "function": "?Check@ReplayFrameStep@@QAEHXZ",
+  "code_bytes": 68,
+  "absolute_symbols": {
+    "_data_00477810": {
+      "address": "0x00477810",
+      "kind": "data"
+    },
+    "_data_00474e30": {
+      "address": "0x00474E30",
+      "kind": "data"
+    }
+  },
+  "bindings": {},
+  "base_index_order": 0,
+  "differences": [],
+  "note": "reference/recovery_notes/replay_frame_step_equivalent_2026_10_05.md"
+}

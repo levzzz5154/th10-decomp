@@ -38,8 +38,15 @@ struct AnimationLists_0040b070 {
     __declspec(noinline) AnimationNode_0040b070* Find(AnimationHandle_0040b070 handle);
 };
 
+// The animation manager's object pool.
+struct AnimationPool_0040b070 {
+    // 0x00449950: take a free animation object (heap-allocated when the pool
+    // is full). It has to be a member: the callee-cleans-stack call is what
+    // orders the entry of 0x0040B110.
+    __declspec(noinline) AnimationNode_0040b070* Allocate();
+};
+
 extern "C" AnimationLists_0040b070* data_00491c10;
-extern "C" void* __cdecl asm_FUN_00449950_00449950(void* manager);
 extern "C" void** __cdecl asm_AnimationManager_RegisterPrimaryBack_004489d0(
     void* manager, void** out, void* entity);
 
@@ -62,5 +69,9 @@ struct EffectFileOwner_0040b070 {
     // 0x0040B070: start an effect of a kind from the owner's file.
     AnimationHandle_0040b070 __stdcall SpawnEffect(void* argument, int kind);
 };
+
+// 0x0040B110: the same for an animation file given directly.
+AnimationHandle_0040b070 __stdcall SpawnEffectFromFile(
+    int kind, AnimationResource_00449870* file, void* argument);
 
 #endif

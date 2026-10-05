@@ -7,7 +7,7 @@
     "include/th10/game/effect_kind_spawn_0040b070.hpp"
   ],
   "image_base": "0x00400000",
-  "description": "The owner effect spawner compiled with native LTCG beside models of the animation allocate, register and find callees and a synthetic caller.",
+  "description": "The two effect spawners compiled with native LTCG beside models of the animation allocate, register and find callees and a synthetic caller.",
   "functions": [
     {
       "name": "EffectKind_SpawnFromOwner",
@@ -16,13 +16,21 @@
       "address": "0x0040B070",
       "size": 159,
       "actual_abi": "kind in EAX; owner, hidden result and argument on the stack; RET 12"
+    },
+    {
+      "name": "EffectKind_SpawnFromFile",
+      "symbol": "?SpawnEffectFromFile@@YG?AUAnimationHandle_0040b070@@HPAUAnimationResource_00449870@@PAX@Z",
+      "section": ".text$0040b110_fn",
+      "address": "0x0040B110",
+      "size": 148,
+      "actual_abi": "kind in EAX; file, hidden result and argument on the stack; RET 12"
     }
   ],
   "context": {
     "symbol": "_EffectKindSpawnContext@20",
     "section": ".text$0040a000_context",
     "address": "0x0040A000",
-    "size": 88,
+    "size": 116,
     "description": "Synthetic caller compiled with inlining off; not recovered game code."
   },
   "anchors": [
@@ -42,7 +50,7 @@
     },
     {
       "name": "AnimationPool_Allocate",
-      "symbol": "_asm_FUN_00449950_00449950",
+      "symbol": "?Allocate@AnimationPool_0040b070@@QAEPAUAnimationNode_0040b070@@XZ",
       "section": ".text$00449950_fn",
       "address": "0x00449950",
       "size": 171
@@ -55,14 +63,19 @@
       "size": 36864
     },
     {
-      "section": ".text$0040a058_gap",
-      "address": "0x0040A058",
-      "size": 4120
+      "section": ".text$0040a074_gap",
+      "address": "0x0040A074",
+      "size": 4092
     },
     {
       "section": ".text$0040b10f_gap",
       "address": "0x0040B10F",
-      "size": 252097
+      "size": 1
+    },
+    {
+      "section": ".text$0040b1a4_gap",
+      "address": "0x0040B1A4",
+      "size": 251948
     },
     {
       "section": ".text$00448a45_gap",

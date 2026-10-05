@@ -6,6 +6,10 @@ struct TipNode {
     Tip* owner;        // +0x00
     TipNode* next;     // +0x04
     TipNode* previous; // +0x08
+    void Unlink() {
+        next = 0;
+        previous = 0;
+    }
     __declspec(noinline) void Append(TipNode* node);
 };
 // Retail 0x88-byte allocation used by the complete parser compiler context.
@@ -19,6 +23,7 @@ struct Tip {
     unsigned int reserved074[2];           // +0x74..+0x7B
     float scale, width;                    // +0x7C, +0x80
     unsigned char blue, green, red, alpha; // +0x84, +0x85, +0x86, +0x87
+    Tip();
 };
 struct TipManager {
     unsigned char reserved000[0x18]; // Task and runtime slots, +0x00..+0x17
@@ -29,9 +34,8 @@ typedef char TipExtent[sizeof(Tip) == 0x88 ? 1 : -1];
 typedef char TipNameOffset[offsetof(Tip, name) == 0x1c ? 1 : -1];
 typedef char TipListsOffset[offsetof(TipManager, lists) == 0x18 ? 1 : -1];
 char* __stdcall TrimWhitespace_0041a0a0(char* text);
-extern "C" char* __stdcall SplitResourcePath_0041a050(char*, char*, char*);
+extern "C" void __stdcall SplitResourcePath_0041a050(char* key, char* value, char* line);
 extern "C" char* __stdcall ReadLine(char*, char*, int*, unsigned int);
-extern "C" Tip* __fastcall StageTip_Initialize(void*, Tip*);
 extern "C" char* __cdecl asm_FUN_00452730_00452730(const char*, int);
 extern "C" long __cdecl parser_atol(const char*);
 extern "C" double __cdecl parser_atof(const char*);
@@ -44,5 +48,5 @@ struct NamedValue {
     const char* key;
     unsigned int value;
 };
-extern "C" unsigned int __fastcall FindName(void*, const char*, const NamedValue*, int);
+int FindNamedValue(const char* name, const NamedValue* table, int count);
 extern "C" int __stdcall ParseStageTips(TipManager*, const char*, int);

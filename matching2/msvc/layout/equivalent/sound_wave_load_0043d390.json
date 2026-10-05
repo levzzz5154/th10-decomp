@@ -1,0 +1,103 @@
+{
+  "schema_version": 1,
+  "name": "sound_wave_load_0043d390",
+  "region": "asm_FUN_0043d390_0043d390",
+  "sources": [
+    "equivalent/platform/sound_wave_load_0043d390.cpp"
+  ],
+  "entry_symbol": "_WaveLoadEntry@12",
+  "function": "@SoundWave_LoadPending_0043d390@12",
+  "code_bytes": 684,
+  "absolute_symbols": {
+    "_entry_free_00452422": {
+      "address": "0x452422",
+      "kind": "code"
+    },
+    "_strncmp": {
+      "address": "0x452f80",
+      "kind": "code"
+    },
+    "_g_sound_sleep": {
+      "address": "0x4660ac",
+      "kind": "data"
+    },
+    "_g_sound_shutdown_state": {
+      "address": "0x4977b4",
+      "kind": "data"
+    },
+    "_g_wave_error_log": {
+      "address": "0x474f70",
+      "kind": "data"
+    },
+    "_g_wave_invalid_riff_message": {
+      "address": "0x46fd88",
+      "kind": "data"
+    },
+    "_g_wave_invalid_format_message": {
+      "address": "0x46fd64",
+      "kind": "data"
+    },
+    "_g_wave_riff_tag": {
+      "address": "0x46fda4",
+      "kind": "data"
+    },
+    "_g_wave_wave_tag": {
+      "address": "0x46fd80",
+      "kind": "data"
+    },
+    "_g_wave_format_tag": {
+      "address": "0x46fd5c",
+      "kind": "data"
+    },
+    "_g_wave_data_tag": {
+      "address": "0x46fd54",
+      "kind": "data"
+    },
+    "__imp__EnterCriticalSection@4": {
+      "address": "0x004660B0",
+      "kind": "data"
+    },
+    "__imp__LeaveCriticalSection@4": {
+      "address": "0x004660B4",
+      "kind": "data"
+    },
+    "_asm_vsprintf_004524a6": {
+      "address": "0x004524A6",
+      "kind": "code"
+    },
+    "__chkstk": {
+      "address": "0x00458EC0",
+      "kind": "code"
+    },
+    "___security_cookie": {
+      "address": "0x00473660",
+      "kind": "data"
+    },
+    "@__security_check_cookie@4": {
+      "address": "0x00458EA5",
+      "kind": "code"
+    },
+    "?g_thread_synchronization@@3UThreadSynchronization@@A": {
+      "address": "0x00492274",
+      "kind": "data"
+    }
+  },
+  "bindings": {
+    "?FindWaveChunk@@YGPBEPBEPAIIQBD@Z": "0x0043D250",
+    "?Append@TextLog_0044b810@@QAAPADPADZZ": "0x0044B810"
+  },
+  "base_index_order": 0,
+  "differences": [
+    {
+      "class": "code-shape",
+      "offset": "0x11a",
+      "retail": [
+        "add ebp,0xfffffff4"
+      ],
+      "model": [
+        "sub ebp,0xc"
+      ]
+    }
+  ],
+  "note": "reference/recovery_notes/sound_wave_load_equivalent_2026_10_05.md"
+}

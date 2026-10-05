@@ -13,6 +13,7 @@ struct PlayerUpdateState_00405750 {
     float collision_radius;
     __declspec(noinline) int Update();
     __declspec(noinline) int Draw();
+    void Step();
 };
 struct PlayerMotionGlobals_00405750 {
     unsigned char reserved_000[0x3788];

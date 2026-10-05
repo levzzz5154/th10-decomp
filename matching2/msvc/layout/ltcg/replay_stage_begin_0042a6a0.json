@@ -1,0 +1,99 @@
+{
+  "schema_version": 1,
+  "name": "replay_stage_begin_0042a6a0",
+  "source": "src/game/replay_stage_begin_0042a6a0.cpp",
+  "driver": "layout/ltcg/replay_stage_begin_0042a6a0_context.cpp",
+  "headers": [
+    "include/th10/game/replay_stage_begin_0042a6a0.hpp",
+    "include/th10/math/rng.hpp",
+    "include/th10/math/timer.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "The replay manager's stage start compiled with native LTCG beside a synthetic caller that keeps the manager live, so it arrives in EBX.",
+  "functions": [
+    {
+      "name": "ReplayManager_BeginStage",
+      "symbol": "?BeginStage@ReplayManager_0042a6a0@@QAEXXZ",
+      "section": ".text$0042a6a0_fn",
+      "address": "0x0042A6A0",
+      "size": 356,
+      "actual_abi": "manager in EBX; plain RET"
+    }
+  ],
+  "context": {
+    "symbol": "_ReplayStageBeginContext@8",
+    "section": ".text$0040a000_context",
+    "address": "0x0040A000",
+    "size": 114,
+    "description": "Synthetic caller compiled with inlining off; not recovered game code."
+  },
+  "anchors": [
+    {
+      "name": "GameState_SetGauge",
+      "symbol": "?SetGauge@GameState_0042a6a0@@QAEXH@Z",
+      "section": ".text$00418b80_fn",
+      "address": "0x00418B80",
+      "size": 73
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_data_00474c40",
+      "address": "0x00474C40",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004918b0",
+      "address": "0x004918B0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491fc4",
+      "address": "0x00491FC4",
+      "kind": "data"
+    },
+    {
+      "symbol": "?g_score_default_speed@@3MA",
+      "address": "0x00476F78",
+      "kind": "data"
+    },
+    {
+      "symbol": "??2@YAPAXI@Z",
+      "address": "0x00452493",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_ReplayStageBeginEscape",
+      "address": "0x004524A1",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__fltused",
+      "address": "0x00000000",
+      "kind": "metadata"
+    }
+  ],
+  "roots": [],
+  "gaps": [
+    {
+      "section": ".text$00401000_gap",
+      "address": "0x00401000",
+      "size": 36864
+    },
+    {
+      "section": ".text$0040a072_gap",
+      "address": "0x0040A072",
+      "size": 60174
+    },
+    {
+      "section": ".text$00418bc9_gap",
+      "address": "0x00418BC9",
+      "size": 72407
+    }
+  ],
+  "additional_sources": [
+    "layout/ltcg/replay_stage_begin_0042a6a0_anchors.cpp"
+  ],
+  "included_sources": []
+}

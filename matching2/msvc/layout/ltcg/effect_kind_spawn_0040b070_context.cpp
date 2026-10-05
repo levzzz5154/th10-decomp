@@ -9,6 +9,7 @@ extern "C" int __stdcall EffectKindSpawnContext(
         void** arguments, int count) {
     for (int index = 0; index < count; ++index) {
         outs[index] = owners[index]->SpawnEffect(arguments[index], kinds[index]);
+        outs[index] = SpawnEffectFromFile(kinds[index], owners[index]->file, arguments[index]);
     }
     return count;
 }

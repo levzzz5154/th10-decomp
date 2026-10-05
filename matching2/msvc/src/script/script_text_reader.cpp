@@ -39,16 +39,18 @@ ReadLine(char* cursor, char* out, int* remaining, unsigned int capacity) {
     return cursor;
 }
 #pragma code_seg(".text$p05split")
-extern "C" __declspec(noinline) char* __stdcall
-SplitResourcePath_0041a050(char* line, char* value, char* key) {
+extern "C" void __stdcall
+SplitResourcePath_0041a050(char* key, char* value, char* line) {
     strcpy(key, line);
     char* colon = asm_FUN_00452730_00452730(key, ':');
-    if (!colon)
-        return TrimWhitespace_0041a0a0(key);
+    if (!colon) {
+        TrimWhitespace_0041a0a0(key);
+        return;
+    }
     strcpy(value, colon + 1);
     *colon = 0;
     TrimWhitespace_0041a0a0(key);
-    return TrimWhitespace_0041a0a0(value);
+    TrimWhitespace_0041a0a0(value);
 }
 #pragma code_seg(".text$p07trim")
 __declspec(noinline) char* __stdcall TrimWhitespace_0041a0a0(char* text) {

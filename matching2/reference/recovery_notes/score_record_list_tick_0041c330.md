@@ -113,3 +113,27 @@ these failed candidates receive no recovery credit.
 ## Fresh type/control-flow controls, 2026-10-04
 
 The current-tree replay reproduces 272 bytes. Typed retirement count: 276; typed state: 272; state switch: 206. Explicit `__thiscall` callback pointers are rejected with C4234. Complete native controls are preserved under `matching2/build/experiments/score_tick_2026_10_04/`; see `score_tick_type_controls_2026_10_04.md`. No production candidate was promoted.
+
+## 2026-10-05: recovered
+
+`src/game/score_records_tick_0041c330.cpp` compiles to the retail 274 bytes in the
+`score_records_advance_frame_0041c480` cluster (the tick is now a selected function
+there instead of a 48-byte anchor; probe EXACT for both functions, `make` and
+`make EXACT=1` pass). The asm file is gone.
+
+What retail's shape meant: the dispatch setup `mov eax,[esi]; mov ecx,esi` in front
+of `jne update` is a *head merge* of the state-1 removal and the update call, and
+the retirement path's own copy followed by `jmp` into the state-1 removal is a
+*late tail merge* of two identical removals. Both merges are done by c2's late flow
+pass on machine code, so the source has three full copies of the removal that the
+optimiser must not merge earlier.
+
+The source that does this is a `for (node = head; node; node = next)` loop in which
+each of the three conditions runs one `__forceinline` removal helper and then
+`continue`s, followed by the timer step. `while` + `else if` chains, a shared `goto`
+label and an inline bool for the first two conditions all let the optimiser combine
+the first two removals before dispatch setup (272 bytes) or all three (206).
+The different load order of the two unlink tails falls out by itself.
+
+Rig: `build/experiments/score_tick_claude` (`run.py name...` from the repo root;
+variant `a1` is the promoted one).

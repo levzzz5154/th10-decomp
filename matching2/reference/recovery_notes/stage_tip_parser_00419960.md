@@ -1,5 +1,44 @@
 # Stage-tip parser recovery note: 0x00419960
 
+## Current checkpoint: 2026-10-05
+
+The parser remains assembly in production. The resumed work and Claude's
+previously temporary improved model are now preserved in
+[`../semantic_candidates/stage_tip_parser_00419960/`](../semantic_candidates/stage_tip_parser_00419960/README.md),
+with a script that reconstructs the experiment in a disposable project.
+The historical sections below predate this checkpoint.
+
+The new candidate emits exactly 1498 bytes, binds its string/float constants
+to retail addresses, and is selected alongside the reader in a schema-2
+cluster so the ordinary probe checks both complete bodies. It is **NOT
+EXACT**: 571 parser bytes differ, beginning at `0x00419963` (`push edi`
+instead of `push esi`). The adjacent 260-byte `_ReadLine@16` is exact.
+The candidate's scale comparison sequence and duplicate-node repair have
+been improved; reversed copy walks and resulting allocation differences
+remain. No parser promotion or equivalence exemption was made.
+
+The four original `sp_improved*` files are preserved unchanged. Their saved
+layout still claims a 1486-byte context even though their parser compiles to
+1499 bytes, so they cannot be used as a passing probe without further work.
+See the candidate README for tested variants and the remaining uncertainty
+about compiler temporary reuse.
+
+Both outstanding production gates were rerun successfully after the two
+sound-stream factory promotions:
+
+```text
+make          PASS: exact outside the 3 existing equivalent regions
+make EXACT=1  PASS: whole EXE exact, 487936 bytes
+Recovered: 215994 / 321074 bytes (67.3%), 2242 / 2322 regions (96.6%)
+Remaining assembly: 80 regions / 105080 bytes
+```
+
+Only reference candidates, this note, and the isolated reproduction script
+were added during this continuation; production sources, region ownership,
+compiler settings, and byte-comparison tooling were not changed.
+
+## Historical checkpoint: 2026-09-12
+
 Date: 2026-09-12
 
 Status: semantic recovery not integrated this pass. The production source and

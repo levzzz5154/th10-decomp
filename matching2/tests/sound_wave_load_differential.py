@@ -2,8 +2,9 @@
 """Compare the pending WAVE loader and compiled chunk walker with retail.
 
 DirectSound calls, Sleep, logging and free are scripted. Both runs execute
-the real CRT strncmp; candidate chunk traversal uses maintained C++ source.
-No audio device, Windows dispatch or native MSVC byte match is claimed.
+the real CRT strncmp. The default fixture uses Clang and a C++ chunk walker;
+--native-equivalent checks the maintained MSVC body with the retail walker.
+No audio device or Windows exception dispatch is exercised.
 """
 
 import argparse
@@ -383,12 +384,27 @@ def verify_observations(case, result):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--oracle", type=Path, default=ROOT / "matching2/build/oracle/th10.exe")
+    parser.add_argument("--native-equivalent", action="store_true",
+                        help="execute the maintained MSVC equivalent body with retail helpers")
+    parser.add_argument("--project", type=Path, default=ROOT / "matching2/msvc")
     options = parser.parse_args()
-    config = load_manifest(ROOT / "matching2/msvc/regions.json")
-    load_oracle(options.oracle, config)
+    project = options.project.resolve()
+    config = load_manifest(project / "regions.json")
+    text = load_oracle(options.oracle, config)
     image = PEImage(options.oracle.read_bytes())
     with tempfile.TemporaryDirectory(prefix="th10-wave-load-") as temporary:
-        compiled = compile_candidates(Path(temporary), config)
+        if options.native_equivalent:
+            from matching2.tools.matching.equivalence import load_recoveries, verify_recovery
+            from matching2.tools.common.wine import DEFAULT_TOOLKIT
+            recovery, = [item for item in load_recoveries(project, config, config["regions"])
+                         if item["name"] == "sound_wave_load_0043d390"]
+            report, body = verify_recovery(recovery, project, DEFAULT_TOOLKIT,
+                                           config["flags"], text, Path(temporary))
+            assert report["code_bytes"] == 684
+            # Same address and ABI as retail; retain its actual chunk/CRT bodies.
+            compiled = (None, {0x43D390: body})
+        else:
+            compiled = compile_candidates(Path(temporary), config)
         comparisons = faults = 0
         for index, case in enumerate(cases()):
             expected = execute(image, None, case)
@@ -399,9 +415,14 @@ def main():
             verify_observations(case, actual)
             comparisons += 1
             faults += bool(expected["faults"])
-        print(f"PASS: {comparisons} pending-WAVE loader comparisons, including {faults} matching faults; "
-              f"{len(compiled[0].data)} candidate module bytes and {len(compiled[1][CHUNK])} chunk-walker bytes. "
-              "Native MSVC frame/byte matching and live audio remain unverified.")
+        if options.native_equivalent:
+            print(f"PASS: {comparisons} native MSVC pending-WAVE loader comparisons, "
+                  f"including {faults} matching faults; strict equivalence gate passed. "
+                  "DirectSound and other external collaborators are scripted.")
+        else:
+            print(f"PASS: {comparisons} pending-WAVE loader comparisons, including {faults} matching faults; "
+                  f"{len(compiled[0].data)} candidate module bytes and {len(compiled[1][CHUNK])} chunk-walker bytes. "
+                  "This Clang fixture does not verify native MSVC frame/bytes or live audio.")
 
 
 if __name__ == "__main__":

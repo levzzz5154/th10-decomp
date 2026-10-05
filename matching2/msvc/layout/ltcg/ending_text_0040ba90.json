@@ -20,8 +20,16 @@
   ],
   "image_base": "0x00400000",
   "exceptions": true,
-  "description": "Ending-text worker cleanup generated from the complete typed constructor candidate. Its 641-byte constructor is an unselected anchor; retail constructor remains pending.",
+  "description": "Ending-text constructor and the worker cleanup generated from it.",
   "functions": [
+    {
+      "name": "EndingTextConstructor",
+      "symbol": "??0EndingText@@QAE@PAX@Z",
+      "section": ".text$01ctor",
+      "address": "0x0040BA90",
+      "size": 648,
+      "actual_abi": "storage and script on the stack; RET 8"
+    },
     {
       "name": "EndingWorkerUnwind",
       "symbol": "_EndingWorkerUnwind",
@@ -43,13 +51,6 @@
     }
   ],
   "anchors": [
-    {
-      "name": "EndingTextConstructorCandidate",
-      "symbol": "??0EndingText@@QAE@PAX@Z",
-      "section": ".text$01ctor",
-      "address": "0x0040BA90",
-      "size": 641
-    },
     {
       "name": "Entity_Init",
       "symbol": "?Entity_Init@@YIXPAXPAUEntity@@@Z",
@@ -106,8 +107,8 @@
     },
     {
       "section": ".text$02layout",
-      "address": "0x0040BD11",
-      "size": 15
+      "address": "0x0040BD18",
+      "size": 8
     },
     {
       "section": ".text$04layout",

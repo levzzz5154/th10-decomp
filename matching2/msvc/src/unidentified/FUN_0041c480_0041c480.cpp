@@ -20,8 +20,8 @@
 // Retail reaches the body with the records object in ECX and hands it to
 // 0x0041C330 in EDI; EDI is not the parameter register of any declaration, so
 // the body is compiled in the native-LTCG cluster
-// layout/ltcg/score_records_advance_frame_0041c480.json, whose driver carries
-// the compiled ABI anchor for that callee.
+// layout/ltcg/score_records_advance_frame_0041c480.json together with that
+// callee (src/game/score_records_tick_0041c330.cpp).
 #include <stddef.h>
 
 // The frame state at data_00477810; only the flag word this region reads is
@@ -40,37 +40,14 @@ struct FrameState_0041c480 {
     FrameFlagBits_0041c480 flags_58;    // +0x58
 };
 
-// One node of the linked record list: the shape the landed 0x0041C4E0,
-// 0x0041C7D0, 0x0041C800 and 0x00417770 regions walk - the predecessor link at
-// +0x04 (the container itself for the head node), the successor link at +0x08
-// and the state word at +0x0C that marks a retired record.
-struct ScoreLinkedRecord_0041c480 {
-    unsigned char reserved_000[0x04];
-    ScoreLinkedRecord_0041c480* prev;   // +0x04
-    ScoreLinkedRecord_0041c480* next;   // +0x08
-    int state;                          // +0x0C
-};
-
-struct ScoreRecords_0041c480 {
-    unsigned char pad_000[0x18];
-    ScoreLinkedRecord_0041c480* head;   // +0x18
-
-    __declspec(noinline) int AdvanceFrame();
-};
-
-typedef char ScoreRecords_0041c480_head_must_be_18[
-    (offsetof(ScoreRecords_0041c480, head) == 0x18) ? 1 : -1];
-typedef char ScoreLinkedRecord_0041c480_next_must_be_8[
-    (offsetof(ScoreLinkedRecord_0041c480, next) == 0x08) ? 1 : -1];
-typedef char ScoreLinkedRecord_0041c480_state_must_be_c[
-    (offsetof(ScoreLinkedRecord_0041c480, state) == 0x0C) ? 1 : -1];
+#include "th10/game/score_record_list.hpp"
 
 extern "C" FrameState_0041c480* data_00477810;
 extern "C" float data_00476f78;
 
-// 0x0041C330.  Its records object arrives in EDI (this region, its only caller,
-// sets it there); the cluster's driver carries the compiled ABI anchor for it.
-extern "C" int __cdecl asm_FUN_0041c330_0041c330(ScoreRecords_0041c480* records);
+// 0x0041C330 (src/game/score_records_tick_0041c330.cpp).  Its records object
+// arrives in EDI: this region, its only caller, sets it there.
+extern "C" int __cdecl ScoreRecords_Tick_0041c330(ScoreRecords_0041c480* records);
 
 #pragma code_seg(".text$03advance")
 int ScoreRecords_0041c480::AdvanceFrame() {
@@ -81,10 +58,10 @@ int ScoreRecords_0041c480::AdvanceFrame() {
     if (data_00477810->flags_58.frozen) {
         float saved = data_00476f78;
         data_00476f78 = 0.0f;
-        int result = asm_FUN_0041c330_0041c330(this);
+        int result = ScoreRecords_Tick_0041c330(this);
         data_00476f78 = saved;
         return result;
     }
-    return asm_FUN_0041c330_0041c330(this);
+    return ScoreRecords_Tick_0041c330(this);
 }
 #pragma code_seg()

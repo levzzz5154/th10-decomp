@@ -1,0 +1,143 @@
+{
+  "schema_version": 1,
+  "name": "side_panel_contents_release_00414370",
+  "source": "src/game/side_panel_contents_release_00414370.cpp",
+  "driver": "layout/ltcg/side_panel_contents_release_00414370_context.cpp",
+  "headers": [
+    "include/th10/game/side_panel_contents_release_00414370.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Side panel contents release compiled with native LTCG beside stand-ins for the two release routines, the bodies of the animation lookup, flag setter and resource marker, and a synthetic caller.",
+  "functions": [
+    {
+      "name": "SidePanel_ReleaseContents",
+      "symbol": "?SidePanel_ReleaseContents_00414370@@YGXPAUSidePanel_00414370@@@Z",
+      "section": ".text$00414370_fn",
+      "address": "0x00414370",
+      "size": 476,
+      "actual_abi": "panel on the stack; RET 4"
+    }
+  ],
+  "context": {
+    "symbol": "_SidePanelContentsContext@4",
+    "section": ".text$0040a000_context",
+    "address": "0x0040A000",
+    "size": 53,
+    "description": "Synthetic caller compiled with inlining off; not recovered game code."
+  },
+  "anchors": [
+    {
+      "name": "PanelSlot_Release",
+      "symbol": "?Release@PanelSlot_00414370@@QAEXXZ",
+      "section": ".text$004136c0_fn",
+      "address": "0x004136C0",
+      "size": 16
+    },
+    {
+      "name": "PanelResource_Release",
+      "symbol": "?Release@PanelResource_00414370@@QAEXXZ",
+      "section": ".text$00447810_fn",
+      "address": "0x00447810",
+      "size": 35
+    },
+    {
+      "name": "PanelAnimation_Find",
+      "symbol": "?PanelAnimation_Find_004491c0@@YIPAUPanelAnimationEntry_00414370@@PAUPanelAnimationManager_00414370@@UPanelAnimationId_00414370@@@Z",
+      "section": ".text$004491c0_fn",
+      "address": "0x004491C0",
+      "size": 73
+    },
+    {
+      "name": "PanelAnimation_SetFlag",
+      "symbol": "?PanelAnimation_SetFlag_004492a0@@YIPAUPanelAnimationEntry_00414370@@PAUPanelAnimationManager_00414370@@UPanelAnimationId_00414370@@@Z",
+      "section": ".text$004492a0_fn",
+      "address": "0x004492A0",
+      "size": 66
+    },
+    {
+      "name": "PanelAnimationManager_MarkResourceForRemoval",
+      "symbol": "?MarkResourceForRemoval@PanelAnimationManager_00414370@@QAEXPAX@Z",
+      "section": ".text$004493e0_fn",
+      "address": "0x004493E0",
+      "size": 92
+    }
+  ],
+  "gaps": [
+    {
+      "section": ".text$00401000_gap",
+      "address": "0x00401000",
+      "size": 36864
+    },
+    {
+      "section": ".text$0040a035_gap",
+      "address": "0x0040A035",
+      "size": 38539
+    },
+    {
+      "section": ".text$004136d0_gap",
+      "address": "0x004136D0",
+      "size": 3232
+    },
+    {
+      "section": ".text$0041454c_gap",
+      "address": "0x0041454C",
+      "size": 209604
+    },
+    {
+      "section": ".text$00447833_gap",
+      "address": "0x00447833",
+      "size": 6541
+    },
+    {
+      "section": ".text$00449209_gap",
+      "address": "0x00449209",
+      "size": 151
+    },
+    {
+      "section": ".text$004492e2_gap",
+      "address": "0x004492E2",
+      "size": 254
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_data_00491c10",
+      "address": "0x00491C10",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0047770c",
+      "address": "0x0047770C",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00474c40",
+      "address": "0x00474C40",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491be8",
+      "address": "0x00491BE8",
+      "kind": "data"
+    },
+    {
+      "symbol": "??3@YAXPAX@Z",
+      "address": "0x004524A1",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_entry_free_00452422",
+      "address": "0x00452422",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_SidePanelContentsBarrier",
+      "address": "0x00449000",
+      "kind": "relative_code"
+    }
+  ],
+  "roots": [],
+  "additional_sources": [],
+  "included_sources": []
+}

@@ -2,7 +2,9 @@
   "schema_version": 1,
   "name": "resource_surface_loading",
   "source": "src/unidentified/FUN_00447ec0_00447ec0.cpp",
-  "additional_sources": [],
+  "additional_sources": [
+    "src/render/animation_load_surface_00447c80.cpp"
+  ],
   "included_sources": [
     "layout/ltcg/resource_surface_loading_clear.cpp",
     "layout/ltcg/resource_surface_loading_archive.cpp",
@@ -25,6 +27,15 @@
       "size": 169,
       "source": "src/unidentified/FUN_00447ec0_00447ec0.cpp",
       "actual_abi": "index ECX; manager EDX; filename EBX; plain RET"
+    },
+    {
+      "name": "AnimationLoadSurface",
+      "symbol": "@AnimationLoadSurface_00447c80@12",
+      "section": ".text$02surface",
+      "address": "0x00447C80",
+      "size": 576,
+      "source": "src/render/animation_load_surface_00447c80.cpp",
+      "actual_abi": "manager in ECX; name in EDX; index on the stack; RET 4"
     }
   ],
   "anchors": [
@@ -54,7 +65,7 @@
   "context": {
     "section": ".text$11context",
     "address": "0x0044B9B0",
-    "size": 57,
+    "size": 72,
     "symbol": "_ResourceSurfaceLoadingContext@12",
     "description": "Synthetic repeated-name memory loader caller."
   },
@@ -62,7 +73,7 @@
     {
       "section": ".text$00gap",
       "address": "0x401000",
-      "size": 290496
+      "size": 289920
     },
     {
       "section": ".text$04gap",

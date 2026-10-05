@@ -1,0 +1,138 @@
+{
+  "schema_version": 1,
+  "name": "score_table_insert_00421fa0",
+  "source": "src/game/score_table_insert_00421fa0.cpp",
+  "driver": "layout/ltcg/score_table_insert_00421fa0_context.cpp",
+  "headers": [
+    "include/th10/game/menu_cursor.hpp",
+    "include/th10/game/name_entry_prepare_00423570.hpp",
+    "include/th10/game/score_table_insert_00421fa0.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "The high-score insertion and the name entry preparation that calls it (table in EDI), compiled with native LTCG beside a synthetic caller that lets the game counters' address escape.",
+  "functions": [
+    {
+      "name": "ScoreTable_InsertScore",
+      "symbol": "?InsertScore@ScoreTable_00421fa0@@QAEHXZ",
+      "section": ".text$00421fa0_fn",
+      "address": "0x00421FA0",
+      "size": 316,
+      "actual_abi": "table in EDI; rank in EAX; plain RET"
+    },
+    {
+      "name": "NameEntry_Prepare",
+      "symbol": "?PrepareNameEntry_00423570@@YGXPAUNameEntryMenu_00423570@@@Z",
+      "source": "src/game/name_entry_prepare_00423570.cpp",
+      "section": ".text$00423570_fn",
+      "address": "0x00423570",
+      "size": 377,
+      "actual_abi": "menu at [ESP+4]; RET 4; passes the score table to 0x00421FA0 in EDI and the grid cursor to 0x0044BEA0 in EAX"
+    }
+  ],
+  "context": {
+    "symbol": "_ScoreTableInsertContext@12",
+    "section": ".text$0040a000_context",
+    "address": "0x0040A000",
+    "size": 92,
+    "description": "Synthetic caller compiled with inlining off; not recovered game code."
+  },
+  "anchors": [
+    {
+      "name": "MenuCursor_Advance",
+      "symbol": "?Advance@MenuCursor@@QAEHH@Z",
+      "section": ".text$0044bea0_fn",
+      "address": "0x0044BEA0",
+      "size": 128
+    }
+  ],
+  "constants": [],
+  "constant_aliases": [
+    {
+      "symbol": "__real@42c80000",
+      "address": "0x00470B44",
+      "value": 100.0
+    }
+  ],
+  "data_aliases": [
+    {
+      "symbol": "??_C@_08GGFKNFHG@?5?5?5?5?5?5?5?5?$AA@",
+      "address": "0x0046E354",
+      "bytes": "202020202020202000"
+    }
+  ],
+  "absolute_symbols": [
+    {
+      "symbol": "_data_00474c44",
+      "address": "0x00474C44",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00477708",
+      "address": "0x00477708",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004746d8",
+      "address": "0x004746D8",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00477848",
+      "address": "0x00477848",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00474788",
+      "address": "0x00474788",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0047783c",
+      "address": "0x0047783C",
+      "kind": "data"
+    },
+    {
+      "symbol": "_time_00452b71",
+      "address": "0x00452B71",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_ScoreTableInsertEscape",
+      "address": "0x004524A1",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__fltused",
+      "address": "0x00000000",
+      "kind": "metadata"
+    }
+  ],
+  "roots": [],
+  "gaps": [
+    {
+      "section": ".text$00401000_gap",
+      "address": "0x00401000",
+      "size": 36864
+    },
+    {
+      "section": ".text$0040a05c_gap",
+      "address": "0x0040A05C",
+      "size": 98112
+    },
+    {
+      "section": ".text$004220dc_gap",
+      "address": "0x004220DC",
+      "size": 5268
+    },
+    {
+      "section": ".text$004236e9_gap",
+      "address": "0x004236E9",
+      "size": 165815
+    }
+  ],
+  "additional_sources": [
+    "src/game/name_entry_prepare_00423570.cpp",
+    "layout/ltcg/score_table_insert_00421fa0_anchors.cpp"
+  ],
+  "included_sources": []
+}

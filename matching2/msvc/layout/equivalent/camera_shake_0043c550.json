@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "name": "camera_shake_0043c550",
+  "region": "asm_FUN_0043c550_0043c550",
+  "sources": [
+    "equivalent/platform/camera_shake_0043c550.cpp"
+  ],
+  "entry_symbol": "_CameraShakeEntry@4",
+  "function": "@LinearShakeUpdate_0043c550@4",
+  "code_bytes": 439,
+  "absolute_symbols": {
+    "__fltused": {
+      "address": "0x00000000",
+      "kind": "data"
+    },
+    "?g_shake_cancel@@3IA": {
+      "address": "0x4918a4",
+      "kind": "data"
+    },
+    "?g_camera_shake_rng@@3UShakeRngStorage@@A": {
+      "address": "0x4918b0",
+      "kind": "data"
+    },
+    "?g_camera_shake_x@@3MA": {
+      "address": "0x491e64",
+      "kind": "data"
+    },
+    "?g_camera_shake_y@@3MA": {
+      "address": "0x491e68",
+      "kind": "data"
+    },
+    "?g_timer_unit_low@@3MA": {
+      "address": "0x470b68",
+      "kind": "data"
+    },
+    "?g_timer_unit_high@@3MA": {
+      "address": "0x470b64",
+      "kind": "data"
+    },
+    "__ftol2": {
+      "address": "0x463b2c",
+      "kind": "code"
+    }
+  },
+  "bindings": {
+    "__real@3f800000": "0x00470AFC"
+  },
+  "base_index_order": 0,
+  "differences": [
+    {
+      "class": "evaluation-order",
+      "offset": "0xb6",
+      "retail": [],
+      "model": [
+        "fidiv DWORD PTR [esp+0x8]"
+      ]
+    },
+    {
+      "class": "evaluation-order",
+      "offset": "0xce",
+      "retail": [
+        "fidiv DWORD PTR [esp+0x8]"
+      ],
+      "model": []
+    }
+  ],
+  "note": "reference/recovery_notes/camera_shake_equivalent_2026_10_05.md"
+}

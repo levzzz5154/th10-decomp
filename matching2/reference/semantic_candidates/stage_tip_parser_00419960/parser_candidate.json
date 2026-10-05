@@ -1,0 +1,378 @@
+{
+  "schema_version": 2,
+  "name": "stage_reader_parser",
+  "source": "layout/ltcg/stage_reader_parser_context.cpp",
+  "headers": [
+    "include/stage_parser_model.hpp",
+    "include/th10/platform/archive_file.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Unmatched stage-tip parser experiment. Used only in an isolated project by reproduce.py; not a production recovery.",
+  "functions": [
+    {
+      "name": "ReadLine",
+      "symbol": "_ReadLine@16",
+      "section": ".text$p03reader",
+      "address": "0x00419f40",
+      "size": 260,
+      "actual_abi": "cursor in EAX; output, remaining and capacity on stack; RET 12"
+    },
+    {
+      "name": "ParseStageTips",
+      "symbol": "_ParseStageTips@12",
+      "section": ".text$p01parser",
+      "address": "0x00419960",
+      "size": 1498,
+      "actual_abi": "stdcall manager, filename, noDuplicate; RET 12"
+    }
+  ],
+  "anchors": [
+    {
+      "name": "Clear",
+      "symbol": "?Clear@TipManager@@QAEXXZ",
+      "section": ".text$p00clear",
+      "address": "0x419040",
+      "size": 79
+    },
+    {
+      "name": "Splitter",
+      "symbol": "_SplitResourcePath_0041a050@12",
+      "section": ".text$p05split",
+      "address": "0x41a050",
+      "size": 75
+    },
+    {
+      "name": "Trimmer",
+      "symbol": "?TrimWhitespace_0041a0a0@@YGPADPAD@Z",
+      "section": ".text$p07trim",
+      "address": "0x41a0a0",
+      "size": 114
+    },
+    {
+      "name": "Append",
+      "symbol": "?Append@TipNode@@QAEXPAU1@@Z",
+      "section": ".text$p09append",
+      "address": "0x41ab10",
+      "size": 52
+    },
+    {
+      "name": "Loader",
+      "symbol": "_Archive_LoadFile@12",
+      "section": ".text$p11load",
+      "address": "0x44b360",
+      "size": 360
+    },
+    {
+      "name": "TipCtor",
+      "symbol": "??0Tip@@QAE@XZ",
+      "section": ".text$p00b_ctor",
+      "address": "0x418d00",
+      "size": 51
+    },
+    {
+      "name": "FindNamedValue",
+      "symbol": "?FindNamedValue@@YGHPBDPBUNamedValue@@H@Z",
+      "section": ".text$p00zfind",
+      "address": "0x4198c0",
+      "size": 98
+    }
+  ],
+  "gaps": [
+    {
+      "section": ".text$p00aclear",
+      "address": "0x401000",
+      "size": 97536
+    },
+    {
+      "section": ".text$p00bz",
+      "address": "0x418d33",
+      "size": 781
+    },
+    {
+      "section": ".text$p00zclear",
+      "address": "0x41908f",
+      "size": 2097
+    },
+    {
+      "section": ".text$p00zgap",
+      "address": "0x419922",
+      "size": 62
+    },
+    {
+      "section": ".text$p02gap",
+      "address": "0x419f3a",
+      "size": 6
+    },
+    {
+      "section": ".text$p04gap",
+      "address": "0x41a044",
+      "size": 12
+    },
+    {
+      "section": ".text$p06gap",
+      "address": "0x41a09b",
+      "size": 5
+    },
+    {
+      "section": ".text$p08gap",
+      "address": "0x41a112",
+      "size": 2558
+    },
+    {
+      "section": ".text$p10gap",
+      "address": "0x41ab44",
+      "size": 198684
+    }
+  ],
+  "constants": [],
+  "constant_aliases": [
+    {
+      "symbol": "__real@40f00000",
+      "address": "0x470c5c",
+      "value": 7.5
+    },
+    {
+      "symbol": "__real@4f800000",
+      "address": "0x470b98",
+      "value": 4294967296.0
+    },
+    {
+      "symbol": "__real@40800000",
+      "address": "0x470c40",
+      "value": 4.0
+    },
+    {
+      "symbol": "__real@c0800000",
+      "address": "0x470c60",
+      "value": -4.0
+    }
+  ],
+  "data_aliases": [
+    {
+      "symbol": "??_C@_03DBKJMAGF@End?$AA@",
+      "address": "0x46d5c4",
+      "bytes": "456e6400",
+      "reference_scope": "compiled_graph"
+    },
+    {
+      "symbol": "??_C@_05IHOGHNDL@Alpha?$AA@",
+      "address": "0x46d5c8",
+      "bytes": "416c70686100",
+      "reference_scope": "compiled_graph"
+    },
+    {
+      "symbol": "??_C@_05PDOBBJNA@Color?$AA@",
+      "address": "0x46d5d0",
+      "bytes": "436f6c6f7200",
+      "reference_scope": "compiled_graph"
+    },
+    {
+      "symbol": "??_C@_05MAGIBEFI@Scale?$AA@",
+      "address": "0x46d5d8",
+      "bytes": "5363616c6500",
+      "reference_scope": "compiled_graph"
+    },
+    {
+      "symbol": "??_C@_06NAKANDOK@Remain?$AA@",
+      "address": "0x46d5e0",
+      "bytes": "52656d61696e00",
+      "reference_scope": "compiled_graph"
+    },
+    {
+      "symbol": "??_C@_05CGDDDONM@Align?$AA@",
+      "address": "0x46d5e8",
+      "bytes": "416c69676e00",
+      "reference_scope": "compiled_graph"
+    },
+    {
+      "symbol": "??_C@_04NGEJNKEG@Base?$AA@",
+      "address": "0x46d5f0",
+      "bytes": "4261736500",
+      "reference_scope": "compiled_graph"
+    },
+    {
+      "symbol": "??_C@_04OKOFBOPB@Time?$AA@",
+      "address": "0x46d5f8",
+      "bytes": "54696d6500",
+      "reference_scope": "compiled_graph"
+    },
+    {
+      "symbol": "??_C@_05IJGIMMHE@Count?$AA@",
+      "address": "0x46d600",
+      "bytes": "436f756e7400",
+      "reference_scope": "compiled_graph"
+    },
+    {
+      "symbol": "??_C@_04OJAHODMC@Text?$AA@",
+      "address": "0x46d608",
+      "bytes": "5465787400",
+      "reference_scope": "compiled_graph"
+    },
+    {
+      "symbol": "??_C@_03FCCPIJGJ@Pos?$AA@",
+      "address": "0x46d610",
+      "bytes": "506f7300",
+      "reference_scope": "compiled_graph"
+    },
+    {
+      "symbol": "??_C@_04OCIDJLAF@Tips?$AA@",
+      "address": "0x46d638",
+      "bytes": "5469707300",
+      "reference_scope": "compiled_graph"
+    },
+    {
+      "symbol": "??_C@_08PMMDGJIA@StageEnd?$AA@",
+      "address": "0x46d640",
+      "bytes": "5374616765456e6400",
+      "reference_scope": "compiled_graph"
+    },
+    {
+      "symbol": "??_C@_05BOPNLACL@Stage?$AA@",
+      "address": "0x46d64c",
+      "bytes": "537461676500",
+      "reference_scope": "compiled_graph"
+    },
+    {
+      "symbol": "??_C@_03MDAFIFFL@0?40?$AA@",
+      "address": "0x46d654",
+      "bytes": "302e3000",
+      "reference_scope": "compiled_graph"
+    },
+    {
+      "symbol": "??_C@_07NGFJPNPN@Version?$AA@",
+      "address": "0x46d658",
+      "bytes": "56657273696f6e00",
+      "reference_scope": "compiled_graph"
+    }
+  ],
+  "absolute_symbols": [
+    {
+      "symbol": "__fltused",
+      "address": "0x0",
+      "kind": "metadata"
+    },
+    {
+      "symbol": "_asm_FUN_00452730_00452730",
+      "address": "0x452730",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_parser_atol",
+      "address": "0x452876",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_parser_atof",
+      "address": "0x452a84",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_parser_strrchr",
+      "address": "0x452930",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_parser_strncpy",
+      "address": "0x452960",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_parser_free",
+      "address": "0x452422",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_entry_free_004524a1",
+      "address": "0x4524a1",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_asm_malloc_00452706",
+      "address": "0x452706",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "??2@YAPAXI@Z",
+      "address": "0x452493",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_asm_strrchr_00452930",
+      "address": "0x452930",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_asm_stricmp_0046054e",
+      "address": "0x46054e",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?Read@ArchiveReader@@QAEPADPBXPAD@Z",
+      "address": "0x00434DD0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_00497990",
+      "address": "0x497990",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00497994",
+      "address": "0x497994",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0049231e",
+      "address": "0x49231e",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004922a4",
+      "address": "0x4922a4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004660b0",
+      "address": "0x4660b0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004660b4",
+      "address": "0x4660b4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004660c4",
+      "address": "0x4660c4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004660cc",
+      "address": "0x4660cc",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004660d0",
+      "address": "0x4660d0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004660d8",
+      "address": "0x4660d8",
+      "kind": "data"
+    }
+  ],
+  "included_sources": [
+    "layout/ltcg/stage_archive_loader.cpp",
+    "src/script/script_text_reader.cpp"
+  ],
+  "entry": "_ParseStageTips@12",
+  "calls": [
+    {
+      "caller": "_ParseStageTips@12",
+      "callee": "_ReadLine@16",
+      "address": "0x4199fd",
+      "instruction": "call"
+    }
+  ]
+}

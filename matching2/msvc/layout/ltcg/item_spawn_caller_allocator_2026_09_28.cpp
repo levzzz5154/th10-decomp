@@ -39,42 +39,43 @@ static __forceinline void ResetSpawnTimer_0041bb00(SpawnItem_0041bb00* item) {
     _ReadWriteBarrier();
 }
 #pragma code_seg(".text$30spawn")
+struct ItemVector_0041bb00 {
+    float x,y,z;
+};
 __declspec(noinline) int ItemSpawnManager_0041bb00::Spawn(
         const float* position,int kind,int identifier,float angle,float speed) {
-    ItemSpawnManager_0041bb00* manager=this;
     // Ordinary drops scan the first 150 entries. A full pool silently drops
     // the request, and every exit returns zero.
     if (kind != 8) {
-        SpawnItem_0041bb00* item=manager->normal;
+        SpawnItem_0041bb00* item=normal;
         int slot=0;
-        while (item->state!=0) {
+        do {
+            if (item->state==0) goto found;
             ++slot;
             ++item;
-            if (slot>=150) return 0;
-        }
+        } while (slot<150);
+        return 0;
+    found:
         item->state=1;
-        float* location=item->position;
-        location[0]=position[0];
-        location[1]=position[1];
-        location[2]=position[2];
-        if (location[0]<=-192.0f) location[0]=-192.0f;
-        else if (location[0]>=192.0f) location[0]=192.0f;
+        ItemVector_0041bb00* location=reinterpret_cast<ItemVector_0041bb00*>(item->position);
+        *location=*reinterpret_cast<const ItemVector_0041bb00*>(position);
+        if (location->x<=-192.0f) location->x=-192.0f;
+        else if (location->x>=192.0f) location->x=192.0f;
         item->velocity.SetPolar(angle,speed);
         ResetSpawnTimer_0041bb00(item);
-        int mapped_kind=kind;
         if (data_00474c48>=100) {
-            switch(mapped_kind) {
-            case 1: case 4: mapped_kind=9; break;
-            case 10: case 11: mapped_kind=5; break;
+            switch(kind) {
+            case 10: case 11: kind=5; break;
+            case 1: case 4: kind=9; break;
             }
         }
         if (item->kind==3)
             ItemAnimation_CreateOffset_00448db0(data_004776f0->item_animation,
                 reinterpret_cast<void**>(&speed),393,
                 reinterpret_cast<const Vector3*>(location));
-        item->kind=mapped_kind;
-        item->display_kind=mapped_kind;
-        if (mapped_kind==10) {
+        item->kind=kind;
+        item->display_kind=kind;
+        if (kind==10) {
             item->display_kind=1;
             ConfigureResource_00404f30 resource={data_004776f0->item_animation};
             reinterpret_cast<ItemConfiguredEntity_00404f30*>(item)->Configure(375,resource);
@@ -82,18 +83,18 @@ __declspec(noinline) int ItemSpawnManager_0041bb00::Spawn(
             return 0;
         }
         int script;
-        if (mapped_kind==11) { item->display_kind=4; script=378; }
-        else script=mapped_kind+374;
-        ConfigureResource_00404f30 resource={data_004776f0->item_animation};
-        reinterpret_cast<ItemConfiguredEntity_00404f30*>(item)->Configure(script,resource);
+        if (kind==11) { item->display_kind=4; script=378; }
+        else script=kind+374;
+        reinterpret_cast<ItemConfiguredEntity_00404f30*>(item)->Configure(script,
+            *reinterpret_cast<ConfigureResource_00404f30*>(&data_004776f0->item_animation));
         item->identifier=identifier;
         return 0;
     }
     // Kind 8 uses a 2048-entry ring; its count rises even when this ring slot
     // is occupied. Signed remainders preserve retail's cursor arithmetic.
-    int cursor=manager->special_cursor;
-    SpawnItem_0041bb00* item=&manager->special[cursor];
-    int count=++manager->special_count;
+    int cursor=special_cursor;
+    SpawnItem_0041bb00* item=&special[cursor];
+    int count=++special_count;
     if (item->state==0) {
         int variant;
         if (count>=1024) variant=cursor%32+16;
@@ -104,13 +105,11 @@ __declspec(noinline) int ItemSpawnManager_0041bb00::Spawn(
         item->kind=8;
         item->display_kind=8;
         item->state=5;
-        item->position[0]=position[0];
-        item->position[1]=position[1];
-        item->position[2]=position[2];
+        *reinterpret_cast<ItemVector_0041bb00*>(item->position)=*reinterpret_cast<const ItemVector_0041bb00*>(position);
         item->velocity.SetPolar(angle,speed);
         ResetSpawnTimer_0041bb00(item);
     }
-    manager->special_cursor=(manager->special_cursor+1)%2048;
+    special_cursor=(special_cursor+1)%2048;
     return 0;
 }
 #pragma code_seg()

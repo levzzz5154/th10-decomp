@@ -102,3 +102,22 @@ All edits are confined to the unique experiment and this recovery note.
 No maintained inputs or shared manifest were edited. No inline assembly, naked
 body, encoded instruction, instruction/address rewrite, comparison mask, or
 reference instruction appears in the candidate build.
+
+## 2026-10-05: recovered
+
+`src/game/score_table_insert_00421fa0.cpp` is byte-exact (316 bytes) in the new
+cluster `layout/ltcg/score_table_insert_00421fa0.json`; `make` and
+`make EXACT=1` pass. No `volatile`, no barriers.
+
+The reloads of the difficulty and score that the earlier candidate forced with
+`volatile` come from aliasing: the game counters at 0x00474C44 are one object
+whose address is taken, so each store through the table makes c2 reload them.
+Declared as lone `extern int` globals, LTCG knows they cannot be aliased and
+hoists everything (262 bytes). Declared as fields of one struct whose address
+escapes in the cluster (the context passes `&data_00474c44` to an external
+function), the plain source — every statement written as
+`records[difficulty][rank].field = ...`, the shift as a struct assignment, the
+name as `strcpy` of eight blanks — gives retail's bytes, including the copy
+order, the late `add esp,4` and the pops before the last x87 steps.
+
+Rig: `build/experiments/score_insert_421fa0_claude` (`run.py c`).

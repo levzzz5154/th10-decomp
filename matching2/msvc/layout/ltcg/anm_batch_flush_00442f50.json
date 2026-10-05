@@ -193,6 +193,15 @@
       "actual_abi": "entity in EAX; manager on the stack; RET 4"
     },
     {
+      "name": "BuildAnchoredQuadMirrored_00443480",
+      "source": "src/render/anchored_quad_build_mirrored_00443480.cpp",
+      "symbol": "_EntityDrawMirrored_00443480@8",
+      "section": ".text$06b02z02mirror",
+      "address": "0x443480",
+      "size": 505,
+      "actual_abi": "entity in EAX; manager on the stack; RET 4"
+    },
+    {
       "name": "BuildRotatedQuad_004436c0",
       "source": "src/render/quad_build_rotated.cpp",
       "symbol": "_BuildRotatedQuad_004436c0@8",
@@ -684,7 +693,12 @@
     {
       "section": ".text$06b02z00buildz",
       "address": "0x443476",
-      "size": 586
+      "size": 10
+    },
+    {
+      "section": ".text$06b02z02mirrorz",
+      "address": "0x443679",
+      "size": 71
     },
     {
       "section": ".text$06b03rotquadz",
@@ -758,8 +772,8 @@
     },
     {
       "section": ".text$07contextz",
-      "address": "0x00445408",
-      "size": 1144
+      "address": "0x00445416",
+      "size": 1130
     },
     {
       "section": ".text$07contextzbz",
@@ -1071,7 +1085,8 @@
     "src/game/fun_00401760_00401760.cpp",
     "src/game/fun_00401a50_00401a50.cpp",
     "src/game/game_thread_run_queue_leaf_00401520.cpp",
-    "src/app/app_begin_frame_00420000.cpp"
+    "src/app/app_begin_frame_00420000.cpp",
+    "src/render/anchored_quad_build_mirrored_00443480.cpp"
   ],
   "roots": [
     "?ApplyDefaultViewport@@YGHI@Z",
@@ -1100,7 +1115,7 @@
     "symbol": "?RenderBatchContext@@YGHPAPBUScreenRect@@PBIHPAPBURenderEntity@@PAPBXPAPAURenderCamera@@@Z",
     "section": ".text$07context",
     "address": "0x4452a0",
-    "size": 360,
+    "size": 374,
     "description": "Synthetic caller of gradient, entity primitive draws, sprite quad submission, and camera application; not recovered game code."
   },
   "constant_aliases": [

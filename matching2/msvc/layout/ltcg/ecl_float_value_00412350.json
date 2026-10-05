@@ -1,0 +1,132 @@
+{
+  "schema_version": 1,
+  "name": "ecl_float_value_00412350",
+  "source": "src/script/ecl_float_value_00412350.cpp",
+  "driver": "layout/ltcg/ecl_float_value_00412350_context.cpp",
+  "headers": [
+    "include/th10/math/rng.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Floating-point ECL value dispatcher with its complete native switch table and genuine angle-helper context.",
+  "functions": [
+    {
+      "name": "EclFloatSource_ResolveFloatValue",
+      "symbol": "?ResolveFloatValue@EclFloatSource_00412350@@QBEMH@Z",
+      "section": ".text$02dispatch",
+      "address": "0x00412350",
+      "size": 884,
+      "actual_abi": "ECX receiver; stack selector; x87 ST(0) result; RET 4. Includes one alignment byte and compiler-generated 51-entry jump table."
+    }
+  ],
+  "context": {
+    "symbol": "_EclFloatContext@8",
+    "section": ".text$00context",
+    "address": "0x00401000",
+    "size": 17,
+    "description": "Compiler-only public member call."
+  },
+  "anchors": [
+    {
+      "name": "Entity_AngleFromPoint",
+      "symbol": "?AngleFromPoint@EntityAngleFromPoint_00426660@@QAEMPBM@Z",
+      "section": ".text$04angle",
+      "address": "0x00426660",
+      "size": 67
+    }
+  ],
+  "gaps": [
+    {
+      "section": ".text$01gap",
+      "address": "0x401011",
+      "size": 70463
+    },
+    {
+      "section": ".text$03gap",
+      "address": "0x4126c4",
+      "size": 81820
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "?Rng_NextU32@@YIIPAURngState@@@Z",
+      "address": "0x44b9e0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?Rng_NextFloat@@YIMPAURngState@@@Z",
+      "address": "0x44bb20",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?Rng_NextFloatSigned@@YIMPAURngState@@@Z",
+      "address": "0x44bb90",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__fltused",
+      "address": "0x0",
+      "kind": "metadata"
+    },
+    {
+      "symbol": "_data_00477834",
+      "address": "0x477834",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00477704",
+      "address": "0x477704",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00474c74",
+      "address": "0x474c74",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00474c98",
+      "address": "0x474c98",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00470afc",
+      "address": "0x470afc",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00470b04",
+      "address": "0x470b04",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00470b08",
+      "address": "0x470b08",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00470b18",
+      "address": "0x470b18",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00470b94",
+      "address": "0x470b94",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00470bd4",
+      "address": "0x470bd4",
+      "kind": "data"
+    }
+  ],
+  "roots": [
+    "?ResolveFloatValue@EclFloatSource_00412350@@QBEMH@Z"
+  ],
+  "constant_aliases": [
+    {
+      "symbol": "__real@4f800000",
+      "address": "0x00470B98",
+      "value": 4294967296.0
+    }
+  ]
+}

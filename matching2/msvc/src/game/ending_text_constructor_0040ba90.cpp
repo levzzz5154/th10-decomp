@@ -1,7 +1,5 @@
-// Native model for the ending-text constructor and its worker ownership.
-// The constructor candidate emits 641 bytes; the 648-byte retail constructor
-// remains in ending_text.cpp. Only the complete generated unwind at 0x4654C0
-// and its handler at 0x4654CE are selected from this model.
+// Ending-text constructor at 0x0040BA90 with its worker ownership; the
+// generated unwind at 0x004654C0 and handler at 0x004654CE come from it.
 #include <string.h>
 #include "th10/render/animation_public_callers.hpp"
 #include "th10/render/animation_byte_interpolator.hpp"
@@ -65,8 +63,7 @@ typedef char EndingWorkerOffset[offsetof(EndingText,worker) == 0xD0 ? 1 : -1];
 EndingText::EndingText(void* script_data) {
     AnimationLookupContext* manager = (AnimationLookupContext*)data_00491c10;
     memset(this, 0, sizeof(*this));
-    int* handle = handles;
-    for (unsigned int i = 0; i < 5; ++i, ++handle) {
+    for (unsigned int i = 0; i < 5; ++i) {
         AnimationResource_00449870* bank = *(AnimationResource_00449870**)((char*)data_004776e0 + 0x899C);
         EndingGlyph* glyph = (EndingGlyph*)((AnimationPool*)manager)->Allocate();
         unsigned int old_flags = glyph->flags;
@@ -76,10 +73,10 @@ EndingText::EndingText(void* script_data) {
         manager = (AnimationLookupContext*)data_00491c10;
         int id;
         asm_AnimationManager_RegisterPrimaryBack_004489d0(manager, (void**)&id, glyph);
-        *handle = id;
-        ResolveEndingGlyph(manager, *handle)->width = 16;
-        ResolveEndingGlyph(manager, *handle)->height = 16;
-        ResolveEndingGlyph(manager, *handle)->text_flags |= 2u;
+        handles[i] = id;
+        ResolveEndingGlyph(manager, handles[i])->width = 16;
+        ResolveEndingGlyph(manager, handles[i])->height = 16;
+        ResolveEndingGlyph(manager, handles[i])->text_flags |= 2u;
     }
     script = script_data;
     FrameTimer_Restart(&timer_004);

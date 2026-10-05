@@ -70,3 +70,13 @@ assembly is 130 regions / 127,488 bytes. The full objective remains incomplete.
 
 The exact-mode full build passes too. Independent cmp confirms the complete
 487,936-byte resulting executable matches retail byte for byte.
+
+## Constructor resolved 2026-10-05
+
+The constructor is byte-exact (648 bytes) and selected; `make` and
+`make EXACT=1` pass. The loop indexes the member array (`handles[i]`) instead
+of walking a separate `int* handle`. The stack-homed handle pointer in retail
+is the compiler's own induction variable derived from `i`: it is initialised
+after `i`, and the first id copy keeps the value in EAX while the lookup key
+is copied to ECX. A source-level pointer gave the opposite store order and a
+direct ECX load, seven bytes shorter.

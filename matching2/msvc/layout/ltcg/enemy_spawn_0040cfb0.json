@@ -1,0 +1,91 @@
+{
+  "schema_version": 1,
+  "name": "enemy_spawn_0040cfb0",
+  "source": "src/game/enemy_spawn_0040cfb0.cpp",
+  "driver": "layout/ltcg/enemy_spawn_0040cfb0_context.cpp",
+  "headers": [
+    "include/th10/game/enemy_spawn_0040cfb0.hpp",
+    "include/th10/math/timer.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Enemy creation compiled with native LTCG beside a stand-in for the record initialiser and a synthetic caller.",
+  "functions": [
+    {
+      "name": "EnemySpawn_Create",
+      "symbol": "?Create@EnemySpawn_0040cfb0@@QAEPAUEnemy_0040cfb0@@PAUEnemyManager_0040cfb0@@PBD@Z",
+      "section": ".text$0040cfb0_fn",
+      "address": "0x0040CFB0",
+      "size": 577,
+      "actual_abi": "spawn description in EAX; manager and entry name on the stack; result in EAX; RET 8; switch tables follow the body"
+    }
+  ],
+  "context": {
+    "symbol": "_EnemySpawnContext@16",
+    "section": ".text$0040a000_context",
+    "address": "0x0040A000",
+    "size": 119,
+    "description": "Synthetic caller compiled with inlining off; not recovered game code."
+  },
+  "anchors": [
+    {
+      "name": "Enemy_Construct",
+      "symbol": "??0Enemy_0040cfb0@@QAE@PBD@Z",
+      "section": ".text$0040d830_fn",
+      "address": "0x0040D830",
+      "size": 36
+    }
+  ],
+  "gaps": [
+    {
+      "section": ".text$00401000_gap",
+      "address": "0x00401000",
+      "size": 36864
+    },
+    {
+      "section": ".text$0040a077_gap",
+      "address": "0x0040A077",
+      "size": 12089
+    },
+    {
+      "section": ".text$0040d1f1_gap",
+      "address": "0x0040D1F1",
+      "size": 1599
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "__fltused",
+      "address": "0x00000000",
+      "kind": "metadata"
+    },
+    {
+      "symbol": "??2@YAPAXI@Z",
+      "address": "0x00452493",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_EnemyData_Start_0040dc80@4",
+      "address": "0x0040DC80",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_00474c40",
+      "address": "0x00474C40",
+      "kind": "data"
+    },
+    {
+      "symbol": "?g_score_default_speed@@3MA",
+      "address": "0x00476F78",
+      "kind": "data"
+    },
+    {
+      "symbol": "_EnemySpawnEscape",
+      "address": "0x004524A1",
+      "kind": "relative_code"
+    }
+  ],
+  "roots": [],
+  "additional_sources": [],
+  "included_sources": []
+}

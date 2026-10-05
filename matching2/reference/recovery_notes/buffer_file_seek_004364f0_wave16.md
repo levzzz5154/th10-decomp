@@ -233,3 +233,113 @@ python3 matching2/tools/matching/probe.py --source src/platform/memory_file.cpp 
 
 `build_msvc.validate_project` was deliberately not run: nothing was promoted, so
 there is no manifest change to validate.
+
+## 2026-10-05: structure found, one shrink-wrap decision left (not recovered)
+
+Rig: `build/experiments/seek_4364f0_claude` (`run.py name...` compiles
+`v/<name>.cpp` with plain `/O2` and diffs the disassembly; `ltcg.py` does the
+same through a minimal `/GL` + `/LTCG` link). Tracers:
+`reference/compiler_traces/flowgraph/trace_lateflow_cl.py` and
+`trace_points_cl.py`, `shrinkwrap/trace_shrinkwrap.py <source.cpp>`.
+
+### What the retail layout means
+
+c2 lays blocks out in reverse post-order (branch target visited first), and
+re-threads them the same way inside `MscShrinkWrap`. A join block therefore
+always follows all of its predecessors. Retail has the shared store after
+case 2 but *before* case 1, and the fail block before case 0, so neither was a
+join when the blocks were ordered:
+
+* every case owns its `position_ = ...; return 1;`;
+* case 1 and case 2 (and the default) fail through one `fail:` block, which
+  reverse post-order puts right after case 1;
+* case 0 fails with its own `return 0`.
+
+The shared tails are then made by the late flow pass
+(`FgDoLateFlowOptsOnce`, mode 2): `FgDoCommonTailMerge` refuses tails shorter
+than 20 bytes when optimising for speed, *except* through
+`FgTailMergeWithoutCheck`, which accepts a tail that is a whole block after an
+unconditional jump, or a tail of the form `jcc L; <tail>; L:` where `L` runs
+straight into the epilogue. Case 1's `jle fail; add; store; mov al,1` followed
+by `fail:` is exactly the second form, which is why it becomes
+`jg <case 2's tail>` and falls into `fail`.
+
+### Best model (variant `q1`, 47 instructions, all of retail's except three)
+
+```cpp
+BYTE BufferFile::Seek(LONG distance, DWORD origin) {
+    switch (origin) {
+    case 0:
+        if (distance < 0 || (DWORD)distance >= size_)
+            return 0;
+        position_ = data_ + distance;
+        return 1;
+    case 1:
+        if ((LONG)((data_ + size_) - position_) <= distance)
+            goto fail;
+        position_ += distance;
+        return 1;
+    case 2:
+        if (distance > 0)
+            goto fail;
+        if ((DWORD)(distance < 0 ? -distance : distance) >= size_)
+            goto fail;
+        position_ = data_ + size_ + distance;
+        return 1;
+    }
+fail:
+    return 0;
+}
+```
+
+Case 2, the shared store, case 1 (`jg` back into case 2), the fail block and
+case 0's instructions are retail's. The one remaining difference: c2
+shrink-wraps `push esi` to after `je case0`, so case 0 returns without
+`pop esi` and keeps a private `xor al,al; ret 8`. Retail pushes ESI in the
+entry block; case 0's own fail block is then identical to `fail` and is merged
+into it.
+
+### What does not move the push
+
+Case order, `return`/`goto`/`break` exit styles (48 combinations), a shared
+`ok:` label, spelling of case 0, locals cached before the switch, an emitted
+vtable, and a `/GL` + `/LTCG` build all leave the push after the first branch.
+Sharing the fail block with case 0 moves it to the entry but makes the fail
+block a join of case 0, which puts it last (the 118-byte shape).
+
+For the Riscify scratch register of case 0's `cmp eax,[ecx+4]` to be ESI (the
+only way found for case 0 to touch ESI before shrink-wrapping) EDX would have
+to be live across that compare; `GetReg` picks EDX there with live set
+{EAX, ECX}. Open question: what keeps ESI (or EDX) busy on case 0's path in
+retail.
+
+## 2026-10-05 (later): recovered
+
+`BufferFile::Seek` is now ordinary C++ in `src/platform/memory_file.cpp`
+(107 bytes, probe EXACT, `make` and `make EXACT=1` pass). The asm file is gone.
+
+Two source facts close the gap left above:
+
+1. **All origins share `return 1`** (each case ends in `break`). The restore
+   of ESI then has a common successor with case 0, so `MscShrinkWrap` keeps
+   `push esi` in the entry block. The late flow pass copies the shared return
+   back into each case, so the bytes show three separate `mov al,1` tails.
+2. **Case 0's range check is an inline `bool` helper**
+   (`Contains(offset)`: `offset >= 0 && (DWORD)offset < size_`) and its
+   failure is a plain `return 0`, not `goto fail`.
+
+Why 2 matters (traced with `trace_lateflow_cl.py`): with the check written
+inline, the block list before the late flow pass is
+`case 2, case 1, fail, case-1 store, case 0, return 1, fail0, EXIT`.
+`FgTryTailMerge` compares the code before a `jmp EXIT` with the code that
+falls into `EXIT`; `fail0` falls into `EXIT`, so `fail` is deleted, its
+references move to the end and case 1 loses the `jcc L; tail; L:` shape that
+lets its store merge into case 2's. Retail keeps `fail` in the middle, so the
+block falling into `EXIT` was not a `return 0`. Branch polarity in the source
+(`&&`, `||`, nesting, `goto`) is normalised away and never changes this; the
+inlined helper does (interpretation: its boolean result makes the success
+path the first one reached from case 0 when blocks are ordered, so case 0's
+failure block is no longer last).
+
+Variants `h1`, `h4`, `h5`, `h7` in the rig all match; `h7` is the same thing
+with a local `bool ok`. The helper form was promoted as the most natural.

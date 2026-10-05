@@ -1,8 +1,6 @@
-// Complete unselected caller model; retail launch remains assembly-owned.
-// 0x0043D690: start streaming a track of the music file. Stops the previous
-// stream and its worker, creates the notification event and the worker
-// thread, then opens the track as a stream of sixteen quarter-second segments.
-// Native LTCG passes the manager in EAX.
+// Compiler context only: an unselected copy of the music launcher 0x0043D690
+// (recovered in sound_music_launch.cpp) that gives the file-stream factory its
+// direct caller. Native LTCG passes the manager in EAX.
 #include "../../layout/ltcg/sound_interfaces_dependencies/sound_wave_types.hpp"
 #include <string.h>
 #pragma intrinsic(strcpy)
@@ -17,11 +15,6 @@ extern "C" {
     extern WaveGuidImage data_0046a67c;
     unsigned int __stdcall SoundStream_Worker_0043e3a0(void*);
 }
-int __fastcall SoundStream_CreateFile_0044c8f0(SoundStreamingState** output, unsigned int flags,
-    WaveDirectSoundDevice** owner, const char* name, WaveGuidImage algorithm,
-    unsigned int segment_count, unsigned int segment_bytes, void* notification_event,
-    MusicTrackRecord* record);
-
 #pragma code_seg(".text$00launch")
 int WaveSoundManager::LaunchMusic(const char* name) {
     strcpy(music_file_name, name);
@@ -38,9 +31,9 @@ int WaveSoundManager::LaunchMusic(const char* name) {
     music_thread = data_00466118(0, 0, SoundStream_Worker_0043e3a0, data_00491c70, 0,
         &music_thread_id);
     segment_bytes -= segment_bytes % align;
-    if (SoundStream_CreateFile_0044c8f0(reinterpret_cast<SoundStreamingState**>(&music_stream),
-            0x10100, device_owner, name, data_0046a67c, 16, segment_bytes,
-            music_worker_event, record) < 0)
+    if (reinterpret_cast<SoundDeviceOwner*>(device_owner)->CreateFileStream(
+            reinterpret_cast<SoundStreamingState**>(&music_stream), 0x10100, name, data_0046a67c,
+            16, segment_bytes, music_worker_event, record) < 0)
         return -1;
     return 0;
 }

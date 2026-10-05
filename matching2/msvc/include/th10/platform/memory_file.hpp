@@ -17,6 +17,11 @@ public:
     virtual BYTE Seek(LONG distance, DWORD origin);
 
 protected:
+    // True when `offset` names one of the owned bytes.
+    bool Contains(LONG offset) const {
+        return offset >= 0 && (DWORD)offset < size_;
+    }
+
     // Retail x86 layout: vptr +0x00, total size 0x10.
     DWORD size_;       // +0x04: number of owned bytes
     BYTE* position_;   // +0x08: next byte to read

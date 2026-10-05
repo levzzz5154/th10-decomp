@@ -144,7 +144,7 @@
     },
     {
       "name": "PositionSetter",
-      "symbol": "?SetAnimationPosition_004492f0@@YIXPBUPositionVector_004492f0@@PAUPositionLookupContext_004492f0@@UPositionScriptId_004492f0@@@Z",
+      "symbol": "?SetAnimationPosition_004492f0@@YIXPAUPositionLookupContext_004492f0@@PBUPositionVector_004492f0@@UPositionScriptId_004492f0@@@Z",
       "address": "0x4492f0",
       "size": 90,
       "section": ".text$140position"
@@ -202,7 +202,7 @@
       "name": "PlayerUpdate",
       "symbol": "?Update@PlayerUpdateState_00405750@@QAEHXZ",
       "address": "0x405750",
-      "size": 218,
+      "size": 223,
       "section": ".text$030update"
     },
     {
@@ -478,8 +478,8 @@
     },
     {
       "section": ".text$039gap",
-      "address": "0x40582a",
-      "size": 662
+      "address": "0x40582f",
+      "size": 657
     },
     {
       "section": ".text$049gap",
@@ -578,7 +578,8 @@
     "layout/ltcg/update_player_dependencies/item_spawn_0041bb00_configure.cpp",
     "layout/ltcg/update_player_dependencies/item_spawn_0041bb00_create.cpp",
     "layout/ltcg/update_player_dependencies/item_spawn_0041bb00_dependencies.cpp",
-    "layout/ltcg/update_player_dependencies/player_update.cpp"
+    "layout/ltcg/update_player_dependencies/player_update.cpp",
+    "src/game/update_player_00405750.cpp"
   ],
   "constant_aliases": [],
   "data_aliases": [

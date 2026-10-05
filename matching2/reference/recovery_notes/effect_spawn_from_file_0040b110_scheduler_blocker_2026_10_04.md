@@ -48,3 +48,25 @@ register sets can supply that: an anti edge push esi -> call would exist if the 
 
 What makes retail's call to 0x00449950 carry an extra dependency from `push esi`. The
 matched sibling 0x0040B070 is insensitive to that edge, so it gives no evidence either way.
+
+## 2026-10-05: recovered
+
+0x0040B110 is now `SpawnEffectFromFile` in `src/game/effect_kind_spawn_0040b070.cpp`,
+second function of the `effect_kind_spawn_0040b070` cluster (probe EXACT for both,
+`make` and `make EXACT=1` pass). The asm file is gone.
+
+The missing dependency was not an ESI kill. In the scheduler graph a `push` gets an
+edge to every later instruction that defines ESP in the block. `push ebx` had three
+successors, `push ebp` three, `push esi` two (`push edi` and the ESI load). A call
+that defines ESP adds one to each, which gives `push esi` priority 33, a tie with
+`shl eax,4` that the lower sequence number wins.
+
+A call defines ESP when the callee uses a callee-cleans-stack convention. The pool
+allocator 0x00449950 had been modelled as `extern "C" void* __cdecl f(void* manager)`;
+declared as the member function it is (`AnimationPool::Allocate()`, thiscall, `this`
+still passed in ESI by the LTCG pass) the entry block schedules as in retail.
+0x0040B070 is unaffected (its `shl` has a longer path either way).
+
+Lesson for other parked "one scheduling swap next to a call" residuals: check
+whether the callee model is `__cdecl` where the real function is a member or
+`__stdcall`.
