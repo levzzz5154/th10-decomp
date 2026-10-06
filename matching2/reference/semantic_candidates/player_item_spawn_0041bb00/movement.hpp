@@ -43,7 +43,7 @@ struct MovementState {
     unsigned char reserved_000[0x10];
     AnimationResource_0043e710* resource;               // +010
     Entity animation;                                  // +014..3BF
-    volatile Vector3 position;                                  // +3C0
+    Vector3 position;                                  // +3C0
     MovementPoint integer_position;                    // +3CC
     int normal_speed;                                  // +3D4
     int slow_speed;                                    // +3D8
