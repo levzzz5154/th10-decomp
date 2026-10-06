@@ -1,5 +1,8 @@
 # Trigger activation 0x00426CF0: live Ghidra ABI audit
 
+The ABI blocker below is superseded by [the complete byte-exact C++ recovery](trigger_activation_exact_00426cf0_2026_10_06.md).
+The original audit remains as boundary and behavior evidence.
+
 ## Boundary and entry contract
 
 Live Ghidra analysis of `th10.exe` identifies `FUN_00426cf0` at `0x00426CF0`

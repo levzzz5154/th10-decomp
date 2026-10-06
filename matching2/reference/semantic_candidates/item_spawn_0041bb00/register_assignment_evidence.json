@@ -1,0 +1,109 @@
+{
+  "function": "0x0041BB00",
+  "source_before_cleanup": {
+    "all.cpp": "88da612351eada650d9873e352ebee41d63c07cf0765474cbfef854c906c8cb6",
+    "allocator.cpp": "de92d0b60260470337ad9a155f3c02d8dd975c877e2af7aded8d7a41048cfc54",
+    "bounded.cpp": "e1e7cde205f3efdad8cb34d1cedb9f63f31a091d7f6df02dbeb92dd5af75f203",
+    "configure.cpp": "8a52e80a17539918f30081e289dfeb20bbbdc5e38cb8d7fc3d6c2b958be5c15c",
+    "context.cpp": "4fe2a6b9c5c87047401f6d1661c49caa650e09551f896db8e163d040dfb01e53",
+    "create.cpp": "89b547d0ae7fb9abc1bcf6625e542f16f443e0e242043b00e2dd7b7128571cd4",
+    "dependencies.cpp": "d30b0b18c8e17e8290c2e44466c0b97761c0e8555c250fa51ea9359af9df68d2",
+    "include/th10/game/item_spawn_0041bb00.hpp": "273405214449b8403a4a32849efb1c3361e428f586eaadcf51fa1ef083ac4484",
+    "include/th10/game/line_effect_sweeps_0041e260_0041f400.hpp": "273e904d5a3e3b07c73b06ccdc06077d488d82fbb52b8955505ff5f62b3b9910",
+    "layout.json": "52900ab82164eee563f82cf3b77bd461acaedab23cc0cb9566c99881525b21bb",
+    "loader.cpp": "726a5481b43ee6e04c6a956bf9d1a8d5f6225e7fe3f875d39d95b158e8922759",
+    "measure.py": "7b5987191c78543387f8b562ddbe8595b2b7e6aa2288348e863294724f15f68a"
+  },
+  "complete_native_extent": 819,
+  "traced_native_body_equals_uninstrumented_after_cleanup": true,
+  "native_body_sha256": "bddbf419dd5e9c6860a1fd5599e023c763da8718e2c18cac59ba4e87b21243f5",
+  "normalized_body_sha256": "1ba0bada9dffd3ce25cb561034d153ccf279cb6415e90425d8b7e3aabd4f1263",
+  "compiler_instruction_or_register_modifications": 0,
+  "remaining_different_bytes": 2,
+  "first_identifier_temporary": {
+    "instruction": "0x03620B10",
+    "temporary": "0x189",
+    "assigned_register": "ECX",
+    "eax_occupied": false,
+    "eax_interference_bit": false,
+    "first_candidate_scanned": "ECX",
+    "candidate_scan_cursor": "0x108AB744",
+    "first_candidate_accepted": true
+  },
+  "second_identifier_temporary": {
+    "instruction": "0x035FB258",
+    "temporary": "0x188",
+    "assigned_register": "EAX",
+    "first_candidate_scanned": "EAX",
+    "candidate_scan_cursor": "0x108AB740",
+    "first_candidate_accepted": true
+  },
+  "present_at_riscify_entry": true,
+  "unchanged_at_riscify_exit": true,
+  "trace_paths": [
+    "matching2/build/experiments/item_spawn_register_2026_10_06/registers_detailed.txt",
+    "matching2/build/experiments/item_spawn_register_2026_10_06/registers_conflicts.txt",
+    "matching2/build/experiments/item_spawn_register_2026_10_06/registers_scan.txt"
+  ],
+  "tool_sha256": {
+    "cl.exe": "333254d73ee602f6ec14b00e9bf40f533a1b181429943e3634971642af00c9f7",
+    "link.exe": "3e6526234cce5ce962d22f267f84f01d3c540b8ee9129c53f127c5e124fa2b20",
+    "c2.dll": "7a6f6d8e4da7b518384ff78f2c41028805d3a1d1a40dc2cc857c391ec81763f5"
+  },
+  "cursor_reset_followup": {
+    "source_sha256": {
+      "all.cpp": "88da612351eada650d9873e352ebee41d63c07cf0765474cbfef854c906c8cb6",
+      "allocator.cpp": "0cd2a208262a803df1074b405cc0f696dc286c59b369245d4b8e22a2135fc3e4",
+      "bounded.cpp": "e1e7cde205f3efdad8cb34d1cedb9f63f31a091d7f6df02dbeb92dd5af75f203",
+      "configure.cpp": "8a52e80a17539918f30081e289dfeb20bbbdc5e38cb8d7fc3d6c2b958be5c15c",
+      "context.cpp": "4fe2a6b9c5c87047401f6d1661c49caa650e09551f896db8e163d040dfb01e53",
+      "create.cpp": "89b547d0ae7fb9abc1bcf6625e542f16f443e0e242043b00e2dd7b7128571cd4",
+      "dependencies.cpp": "310a0338f7753f3fb20a31f7692d5daf665d67fcac21e3078d66e66a819fa1e7",
+      "include/th10/game/item_spawn_0041bb00.hpp": "1093407cc6d39230d3558e780abaf3f51788d68ab027cabf89615bb08e75c438",
+      "include/th10/game/line_effect_sweeps_0041e260_0041f400.hpp": "273e904d5a3e3b07c73b06ccdc06077d488d82fbb52b8955505ff5f62b3b9910",
+      "layout.json": "52900ab82164eee563f82cf3b77bd461acaedab23cc0cb9566c99881525b21bb",
+      "loader.cpp": "726a5481b43ee6e04c6a956bf9d1a8d5f6225e7fe3f875d39d95b158e8922759",
+      "measure.py": "7b5987191c78543387f8b562ddbe8595b2b7e6aa2288348e863294724f15f68a"
+    },
+    "full_native_body_equals_untraced": true,
+    "native_body_sha256": "bddbf419dd5e9c6860a1fd5599e023c763da8718e2c18cac59ba4e87b21243f5",
+    "function_start_resets_observed": 1,
+    "marker_resets_observed": 0,
+    "marker_reset_flag": 0,
+    "function_reset_instruction": "0x1079BDF3",
+    "conditional_marker_reset_instruction": "0x107E1763",
+    "next_integer_cursor_global": "0x108A9D0C",
+    "initial_cursor": "0x108AB740",
+    "trace_script": "matching2/reference/compiler_traces/regalloc/trace_temporary_cursor.py",
+    "trace_script_sha256": "3323a74fc18c8af0277683915c478b3ef2dcaeec56193e8369c37dce5b31b126",
+    "commands_path": "matching2/build/experiments/item_spawn_flow_2026_10_06/timer_recovery/commands.json",
+    "trace_events_path": "matching2/build/experiments/item_spawn_cursor_2026_10_06/maintained_trace/events.jsonl",
+    "trace_events_sha256": "3b6dc86fd4e2820cf342f2bd2f139256ac83987507723b6e105d18b8b20ddeca",
+    "identifier_temporary_choices": [
+      {
+        "event": "RegAssign_entry",
+        "function": "?Spawn@ItemSpawnManager_0041bb00@@QAEHPBUVector3@@HHMM@Z",
+        "next_int_pos": "0x108ab744",
+        "marker_reset_flag": 0,
+        "instruction": "0x3620bbc",
+        "temporary": "0x1a9",
+        "following_store_displacements": [
+          "0x2fc"
+        ],
+        "assigned_register": "ECX"
+      },
+      {
+        "event": "RegAssign_entry",
+        "function": "?Spawn@ItemSpawnManager_0041bb00@@QAEHPBUVector3@@HHMM@Z",
+        "next_int_pos": "0x108ab740",
+        "marker_reset_flag": 0,
+        "instruction": "0x365ce60",
+        "temporary": "0x1a8",
+        "following_store_displacements": [
+          "0x2fc"
+        ],
+        "assigned_register": "EAX"
+      }
+    ]
+  }
+}

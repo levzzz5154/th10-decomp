@@ -1,0 +1,15 @@
+{
+  "passed": true,
+  "cases": 236,
+  "native_pe_sha256": "dafdc3163468571b76123100588a28f8e083f4b4ce451dbff75afad640f5c99a",
+  "fixture_sha256": "7ce64af773c26a1cb57010934d4ac36aeb32b8f1e4363371bb3a073865af7b59",
+  "instruction_patches": 0,
+  "execution_image_base": "0x100000",
+  "calls": {
+    "item": 347,
+    "effect": 715,
+    "laser": 38
+  },
+  "observation_sha256": "4468c70ca4dde20fe6655f8f99dfb62f0c5f401a774569846b2be5ad9bf85b4f",
+  "scope": "Complete circular trim with fully visible typed creator, complete supporting native graph, and unchanged maintained fixtures and scripted shared boundaries. Bounded execution evidence only; extent is still one byte short."
+}

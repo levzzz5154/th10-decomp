@@ -1,0 +1,151 @@
+{
+  "sources": [
+    "effect_update.cpp"
+  ],
+  "entry_symbol": "_EffectPoolUpdate@4",
+  "absolute_symbols": {
+    "_data_00491c10": {
+      "address": "0x491c10",
+      "kind": "data"
+    },
+    "_data_0047770c": {
+      "address": "0x47770c",
+      "kind": "data"
+    },
+    "_data_00477704": {
+      "address": "0x477704",
+      "kind": "data"
+    },
+    "_data_00470b4c": {
+      "address": "0x470b4c",
+      "kind": "data"
+    },
+    "_data_00470b48": {
+      "address": "0x470b48",
+      "kind": "data"
+    },
+    "_data_00470afc": {
+      "address": "0x470afc",
+      "kind": "data"
+    },
+    "_data_00470b64": {
+      "address": "0x470b64",
+      "kind": "data"
+    },
+    "_data_00470b68": {
+      "address": "0x470b68",
+      "kind": "data"
+    },
+    "_data_00470b44": {
+      "address": "0x470b44",
+      "kind": "data"
+    },
+    "_data_00470b00": {
+      "address": "0x470b00",
+      "kind": "data"
+    },
+    "?SetPolar@Vec3@@QAEPAU1@MM@Z": {
+      "address": "0x44c5d0",
+      "kind": "code"
+    },
+    "_NormalizeAngle@4": {
+      "address": "0x44bc70",
+      "kind": "code"
+    },
+    "_floor": {
+      "address": "0x452ff0",
+      "kind": "code"
+    },
+    "__ftol2": {
+      "address": "0x463b2c",
+      "kind": "code"
+    },
+    "__fltused": {
+      "address": "0x0",
+      "kind": "data"
+    },
+    "_data_00470b40": {
+      "address": "0x00470b40",
+      "kind": "data"
+    },
+    "_data_00470b3c": {
+      "address": "0x00470b3c",
+      "kind": "data"
+    },
+    "_data_00470b04": {
+      "address": "0x00470b04",
+      "kind": "data"
+    },
+    "_data_00470b38": {
+      "address": "0x00470b38",
+      "kind": "data"
+    },
+    "?g_frame_timer_normal_lower@@3MA": {
+      "address": "0x470B68",
+      "kind": "data"
+    },
+    "?g_frame_timer_normal_upper@@3MA": {
+      "address": "0x470B64",
+      "kind": "data"
+    }
+  },
+  "bindings": {
+    "?StopAtFrame1@Handle@@QAEXXZ": "0x409e50",
+    "?StopAtFrame3@Handle@@QAEXXZ": "0x40c4d0",
+    "_EffectPoolUpdate@4": "0x428280",
+    "?FindAnimation@@YIPAUAnimationObject@@PAUAnimationContext@@UAnimationId@@@Z": "0x4491c0",
+    "?FlagAnimation@@YIPAXPAUAnimationContext@@UAnimationId@@@Z": "0x4492a0",
+    "?Advance@Motion@@QAEXXZ": "0x44c2a0",
+    "__real@42c80000": "0x470B44",
+    "__real@3c23d70a": "0x470B00",
+    "?OutsideViewport@Vec3@@QBEHMM@Z": "0x428D70",
+    "__real@3f800000": "0x470AFC",
+    "__real@43600000": "0x470B4C",
+    "__real@41800000": "0x470B48"
+  },
+  "functions": [
+    [
+      "?StopAtFrame1@Handle@@QAEXXZ",
+      ".text$a10stop1",
+      4234832,
+      65
+    ],
+    [
+      "?StopAtFrame3@Handle@@QAEXXZ",
+      ".text$a20stop3",
+      4244688,
+      65
+    ],
+    [
+      "_EffectPoolUpdate@4",
+      ".text$a30update",
+      4358784,
+      876
+    ],
+    [
+      "?FindAnimation@@YIPAUAnimationObject@@PAUAnimationContext@@UAnimationId@@@Z",
+      ".text$a40find",
+      4493760,
+      73
+    ],
+    [
+      "?FlagAnimation@@YIPAXPAUAnimationContext@@UAnimationId@@@Z",
+      ".text$a50flag",
+      4493984,
+      66
+    ],
+    [
+      "?Advance@Motion@@QAEXXZ",
+      ".text$a60motion",
+      4506272,
+      171
+    ],
+    [
+      "?OutsideViewport@Vec3@@QBEHMM@Z",
+      ".text$a70bounds",
+      4361584,
+      91
+    ]
+  ],
+  "description": "Complete unselected player-effect update and six complete ordinary helpers. Require full raw byte equality before production selection. No synthetic caller, partial helper, or accepted difference."
+}

@@ -1,5 +1,13 @@
 # Animation object script change at `0x0043E8B0`
 
+The 2026-10-06 ordinary-literal refinement replaces the compiler anchor's
+volatile scale read and reduces the current equivalent body's differences
+from 32 to 22 bytes. The exact 36-byte caller and 73-byte lookup still pass;
+the changer remains nonexact. See
+`animation_change_script_equivalent_2026_10_05.md` for the current proof and
+`build/experiments/script_change_exact_2026_10_06/maintained_anchor_audit.json`
+for the complete native body comparisons.
+
 ## 2026-10-01 caller recovery
 
 The real handle wrapper at `0x004496D0` is now ordinary C++ in

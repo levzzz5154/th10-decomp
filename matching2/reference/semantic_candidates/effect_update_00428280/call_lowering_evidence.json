@@ -1,0 +1,64 @@
+{
+  "region": "0x00428280",
+  "source_sha256": {
+    "effect_update.cpp": "d76dc16da19ac8ee9fcd307a2f78c15895743a405f3e552dfeedcda4259de9d1",
+    "effect_update.hpp": "eb13801db5392a645c6b84319037b98d0101d3e75938ed81a36792845d318ded",
+    "layout.json": "cbbc20f764c52fb9b3b530beb70f34cd27dfad1a32c4f22e01da97edcde4e396",
+    "measure.py": "f4b32afd404f38d55dc6d8577f518d65a6937f8e9523c3bf0d1d9f28cb6b36b1"
+  },
+  "compiler_program_data_or_register_writes": false,
+  "forced_choices": false,
+  "all_seven_replay_bodies_equal_measured": true,
+  "trace_completed": true,
+  "LoLowerCall_events": 12,
+  "LoMbArg_events": 0,
+  "ID_load_candidate_correlations": [
+    {
+      "source_offset": "0x28",
+      "source_symbol": "0x36b3c7c",
+      "declaration_number": "0x4cb",
+      "candidate_number": 54,
+      "priority": 36,
+      "assigned_register": 1
+    },
+    {
+      "source_offset": "0x24",
+      "source_symbol": "0x3641d64",
+      "declaration_number": "0x6",
+      "candidate_number": 14,
+      "priority": 44,
+      "assigned_register": 2
+    },
+    {
+      "source_offset": "0x28",
+      "source_symbol": "0x3641e24",
+      "declaration_number": "0x8",
+      "candidate_number": 16,
+      "priority": 28,
+      "assigned_register": 2
+    },
+    {
+      "source_offset": "0x24",
+      "source_symbol": "0x3641f44",
+      "declaration_number": "0xb",
+      "candidate_number": 19,
+      "priority": 32,
+      "assigned_register": 1
+    },
+    {
+      "source_offset": "0x28",
+      "source_symbol": "0x3641fa4",
+      "declaration_number": "0xc",
+      "candidate_number": 20,
+      "priority": 56,
+      "assigned_register": 1
+    }
+  ],
+  "conclusion": "The culling-call ID (declaration 0xb, candidate 19, priority 32) and late secondary snapshot (declaration 0xc, candidate 20, priority 56) are global values assigned EAX before Riscify. The earlier inlined IDs (declarations 6 and 8) receive ECX. LoMbArg was not reached for this owner. The extra retail ID copy is not reproduced by this tested lowered graph.",
+  "trace_artifact_sha256": {
+    "events.jsonl": "c35d74091c22d774827338d9c1400f935b82b01124ad2618a9b6085d9ea1ec2e",
+    "trace.gdb.py": "5dca54a6412fb4998728772b03d8e55375f42f4a682fa3280dab2b6dff267a2e",
+    "trace.exe": "59d47b2939bd1b43ff2f9141796e506bc34f180e37037bda3ffb287312c5cd0f",
+    "trace.map": "1c7f6a704bd9cb77d6fb583a0d4370c41e5f543191445c1504172655d59c2ba5"
+  }
+}

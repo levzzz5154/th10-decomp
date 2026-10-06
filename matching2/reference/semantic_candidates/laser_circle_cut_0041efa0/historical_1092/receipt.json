@@ -1,0 +1,32 @@
+{
+  "address": "0x0041EFA0",
+  "retail_extent": 1108,
+  "candidate_extent": 1092,
+  "diagnostic_hunks": 48,
+  "diagnostic_overlapping_different_bytes": 788,
+  "behavioral_cases": 186,
+  "native_fixed_address_gate_passed": false,
+  "raw_equal": false,
+  "promotion": false,
+  "new_recovered_code_bytes": 0,
+  "source_graph_inline_assembly_free": true,
+  "current_source_sha256": {
+    "matching2/reference/semantic_candidates/laser_circle_cut_0041efa0/types.hpp": "4be715f2829e90c604b14800638b7a008e2132151675ff3cf974248d8e3b6e92",
+    "matching2/reference/semantic_candidates/laser_circle_cut_0041efa0/laser.cpp": "1443532ce0f1442d971afc1e36b99734d45c0f966215c3bd0b7f7678b1bcebf6",
+    "matching2/reference/semantic_candidates/laser_circle_cut_0041efa0/allocator.cpp": "0cd2a208262a803df1074b405cc0f696dc286c59b369245d4b8e22a2135fc3e4",
+    "matching2/reference/semantic_candidates/laser_circle_cut_0041efa0/configure.cpp": "8a52e80a17539918f30081e289dfeb20bbbdc5e38cb8d7fc3d6c2b958be5c15c",
+    "matching2/reference/semantic_candidates/laser_circle_cut_0041efa0/dependencies.cpp": "310a0338f7753f3fb20a31f7692d5daf665d67fcac21e3078d66e66a819fa1e7",
+    "matching2/reference/semantic_candidates/laser_circle_cut_0041efa0/loader.cpp": "726a5481b43ee6e04c6a956bf9d1a8d5f6225e7fe3f875d39d95b158e8922759",
+    "matching2/reference/semantic_candidates/laser_circle_cut_0041efa0/create.cpp": "d86e8561d148b9fc35c3b9a6a767429f08b42d0763dff162b95c538b1ed661a5",
+    "matching2/reference/semantic_candidates/laser_circle_cut_0041efa0/polar.cpp": "3c54d6616fa0da39dc34aad2b9a808cda80107b4c9b7f1000c09ab413b820193",
+    "matching2/reference/semantic_candidates/laser_circle_cut_0041efa0/spawn_laser.cpp": "c390101d35f74f7a05c7d102cd98d9400cc17beae1628dcbed56f93c333580a4",
+    "matching2/reference/semantic_candidates/laser_circle_cut_0041efa0/base_laser.cpp": "8973fef5104e09d4b28d235d26a27c9784b5a701ad720d2a4d55c847a55da628",
+    "matching2/reference/semantic_candidates/laser_circle_cut_0041efa0/include/th10/game/item_spawn_0041bb00.hpp": "1093407cc6d39230d3558e780abaf3f51788d68ab027cabf89615bb08e75c438",
+    "matching2/reference/semantic_candidates/laser_circle_cut_0041efa0/include/th10/game/line_effect_sweeps_0041e260_0041f400.hpp": "273e904d5a3e3b07c73b06ccdc06077d488d82fbb52b8955505ff5f62b3b9910",
+    "matching2/reference/semantic_candidates/laser_circle_cut_0041efa0/include/th10/game/laser_spawn_0041c510.hpp": "67fc78f3c81b6db6d837c4b2dc42cb73b04d7bc3dac2b577bb12008348ece91a"
+  },
+  "description": "Complete unselected ordinary C++ circular laser cutter and genuine supporting callee graph. Behavioral evidence is bounded; full raw byte gate remains mandatory.",
+  "maintained_source_rebuild_matches_saved_candidate_body": true,
+  "diagnostic_body_sha256": "1420f5db8b48e42d9809c687255f79e6bb2ce1ece20c6a112de309c84d0d879f",
+  "maintained_behavioral_report": "evidence/differential_report.json"
+}

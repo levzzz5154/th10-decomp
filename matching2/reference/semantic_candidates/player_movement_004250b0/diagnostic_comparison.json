@@ -1,0 +1,261 @@
+{
+  "functions": [
+    {
+      "symbol": "?PlayerMovement_004250b0@@YGHPAUMovementState@@@Z",
+      "extent": 1656,
+      "required": 1656,
+      "exact": false,
+      "different_overlapping_bytes": 363,
+      "base_index_swaps": 0,
+      "hunks": [
+        {
+          "offset": "0xd5",
+          "retail": [],
+          "model": [
+            "mov ecx,DWORD PTR ds:0x474c6c"
+          ]
+        },
+        {
+          "offset": "0xe5",
+          "retail": [
+            "mov ecx,DWORD PTR ds:0x474c6c"
+          ],
+          "model": []
+        },
+        {
+          "offset": "0x1ab",
+          "retail": [
+            "jmp DWORD PTR [eax*4+L+0x638]"
+          ],
+          "model": [
+            "jmp DWORD PTR [eax*4+L+0x638]"
+          ]
+        },
+        {
+          "offset": "0x262",
+          "retail": [
+            "jmp DWORD PTR [eax*4+L+0x658]"
+          ],
+          "model": [
+            "jmp DWORD PTR [eax*4+L+0x658]"
+          ]
+        },
+        {
+          "offset": "0x2c9",
+          "retail": [
+            "jge L+0x300"
+          ],
+          "model": [
+            "jge L+0x2eb"
+          ]
+        },
+        {
+          "offset": "0x2d3",
+          "retail": [
+            "jl L+0x2fe"
+          ],
+          "model": [
+            "jl L+0x2e9"
+          ]
+        },
+        {
+          "offset": "0x2eb",
+          "retail": [
+            "jle L+0x324"
+          ],
+          "model": [
+            "jle L+0x2fe"
+          ]
+        },
+        {
+          "offset": "0x2f5",
+          "retail": [
+            "jg L+0x322"
+          ],
+          "model": [
+            "jg L+0x2fe"
+          ]
+        },
+        {
+          "offset": "0x300",
+          "retail": [
+            "jne L+0x2e9"
+          ],
+          "model": [
+            "jne L+0x33e"
+          ]
+        },
+        {
+          "offset": "0x31c",
+          "retail": [],
+          "model": [
+            "mov eax,DWORD PTR [edi+0x44c]"
+          ]
+        },
+        {
+          "offset": "0x320",
+          "retail": [
+            "jmp L+0x326",
+            "test ebp,ebp",
+            "jne L+0x344",
+            "mov eax,DWORD PTR [edi+0x44c]"
+          ],
+          "model": []
+        },
+        {
+          "offset": "0x3f4",
+          "retail": [],
+          "model": [
+            "mov eax,DWORD PTR [edi+0x329c]"
+          ]
+        },
+        {
+          "offset": "0x3fa",
+          "retail": [],
+          "model": [
+            "push eax"
+          ]
+        },
+        {
+          "offset": "0x418",
+          "retail": [
+            "mov eax,DWORD PTR [edi+0x329c]",
+            "push eax"
+          ],
+          "model": []
+        },
+        {
+          "offset": "0x436",
+          "retail": [],
+          "model": [
+            "mov ecx,DWORD PTR [edi+0x3c8]",
+            "fadd DWORD PTR ds:0x470b4c"
+          ]
+        },
+        {
+          "offset": "0x43c",
+          "retail": [
+            "fadd DWORD PTR ds:0x470b4c",
+            "mov ecx,DWORD PTR [edi+0x3c8]"
+          ],
+          "model": []
+        },
+        {
+          "offset": "0x49a",
+          "retail": [
+            "lea ebx,[ebx+0x0]"
+          ],
+          "model": [
+            "jmp L+0x4a0",
+            "lea esp,[esp+0x0]",
+            "lea ecx,[ecx+0x0]"
+          ]
+        },
+        {
+          "offset": "0x5eb",
+          "retail": [],
+          "model": [
+            "mov edx,ebp"
+          ]
+        },
+        {
+          "offset": "0x5ef",
+          "retail": [
+            "mov edx,ebp"
+          ],
+          "model": []
+        }
+      ]
+    },
+    {
+      "symbol": "?Allocate@AnimationPool@@QAEPAUEntity@@XZ",
+      "extent": 161,
+      "required": 161,
+      "exact": true,
+      "different_overlapping_bytes": 0,
+      "base_index_swaps": 0,
+      "hunks": []
+    },
+    {
+      "symbol": "?InitializeObject@AnimationResource_00449870@@QAEXPAUEntity@@H@Z",
+      "extent": 217,
+      "required": 217,
+      "exact": true,
+      "different_overlapping_bytes": 0,
+      "base_index_swaps": 0,
+      "hunks": []
+    },
+    {
+      "symbol": "?RegisterPrimaryBack@MovementPrimaryLists@@QAE?AUMovementRegisteredId@@PAUEntity@@@Z",
+      "extent": 118,
+      "required": 118,
+      "exact": true,
+      "different_overlapping_bytes": 0,
+      "base_index_swaps": 0,
+      "hunks": []
+    },
+    {
+      "symbol": "?Entity_Init@@YGXPAUEntity@@@Z",
+      "extent": 273,
+      "required": 273,
+      "exact": true,
+      "different_overlapping_bytes": 0,
+      "base_index_swaps": 0,
+      "hunks": []
+    },
+    {
+      "symbol": "?InitializePreservingLoader_0043e7e0@@YGPAXPAUAnimationResource_0043e7e0@@PAUAnimationObject_0043e7e0@@H@Z",
+      "extent": 194,
+      "required": 194,
+      "exact": true,
+      "different_overlapping_bytes": 0,
+      "base_index_swaps": 0,
+      "hunks": []
+    },
+    {
+      "symbol": "?MovementLoadScript@@YGPAXHPAUAnimationResource_00449870@@PAUEntity@@@Z",
+      "extent": 203,
+      "required": 203,
+      "exact": true,
+      "different_overlapping_bytes": 0,
+      "base_index_swaps": 0,
+      "hunks": []
+    },
+    {
+      "symbol": "?AnimationManager_Find_004491c0@@YIPAXPAUAnimationLookupContext@@UAnimationScriptId@@@Z",
+      "extent": 73,
+      "required": 73,
+      "exact": true,
+      "different_overlapping_bytes": 0,
+      "base_index_swaps": 0,
+      "hunks": []
+    },
+    {
+      "symbol": "?MovementStopFrame_00449210@@YIXGPAUAnimationLookupContext@@UAnimationScriptId@@@Z",
+      "extent": 54,
+      "required": 54,
+      "exact": true,
+      "different_overlapping_bytes": 0,
+      "base_index_swaps": 0,
+      "hunks": []
+    },
+    {
+      "symbol": "?MovementSetPosition_004492f0@@YIXPBUVector3@@PAUAnimationLookupContext@@UAnimationScriptId@@@Z",
+      "extent": 90,
+      "required": 90,
+      "exact": true,
+      "different_overlapping_bytes": 0,
+      "base_index_swaps": 0,
+      "hunks": []
+    },
+    {
+      "symbol": "?MovementSetTranslatedPosition_00449350@@YIXPBUVector3@@PAUAnimationLookupContext@@UAnimationScriptId@@@Z",
+      "extent": 111,
+      "required": 111,
+      "exact": true,
+      "different_overlapping_bytes": 0,
+      "base_index_swaps": 0,
+      "hunks": []
+    }
+  ]
+}

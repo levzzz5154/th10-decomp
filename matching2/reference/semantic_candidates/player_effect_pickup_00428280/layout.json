@@ -1,0 +1,284 @@
+{
+  "entry_symbol": "?Sweep@PickupSweepResult@@QAEHPAUPlayerState@@PBUPickupPoint@@1@Z",
+  "sources": [
+    "runtime.cpp",
+    "creation.cpp"
+  ],
+  "roots": [
+    "?Sweep@PickupSweepResult@@QAEHPAUPlayerState@@PBUPickupPoint@@1@Z",
+    "_EffectPoolUpdate@4",
+    "?InitializeObject@AnimationResource_00449870@@QAEXPAUEntity@@H@Z"
+  ],
+  "absolute_symbols": {
+    "_data_004776ec": {
+      "address": "0x4776ec",
+      "kind": "data"
+    },
+    "_data_004776f4": {
+      "address": "0x4776f4",
+      "kind": "data"
+    },
+    "_data_00477704": {
+      "address": "0x477704",
+      "kind": "data"
+    },
+    "_data_00474c68": {
+      "address": "0x474c68",
+      "kind": "data"
+    },
+    "_data_00474c44": {
+      "address": "0x474c44",
+      "kind": "data"
+    },
+    "_data_00491c10": {
+      "address": "0x491c10",
+      "kind": "data"
+    },
+    "_data_00476f78": {
+      "address": "0x476f78",
+      "kind": "data"
+    },
+    "__fltused": {
+      "address": "0x0",
+      "kind": "data"
+    },
+    "??2@YAPAXI@Z": {
+      "address": "0x452493",
+      "kind": "code"
+    },
+    "?Entity_Constructor@@YIPAUEntity@@PAU1@@Z": {
+      "address": "0x402050",
+      "kind": "code"
+    },
+    "_asm_FUN_0043ee30_0043ee30@4": {
+      "address": "0x43ee30",
+      "kind": "code"
+    },
+    "_data_0047770c": {
+      "address": "0x47770c",
+      "kind": "data"
+    },
+    "_data_00470b4c": {
+      "address": "0x470b4c",
+      "kind": "data"
+    },
+    "_data_00470b48": {
+      "address": "0x470b48",
+      "kind": "data"
+    },
+    "_data_00470afc": {
+      "address": "0x470afc",
+      "kind": "data"
+    },
+    "_data_00470b64": {
+      "address": "0x470b64",
+      "kind": "data"
+    },
+    "_data_00470b68": {
+      "address": "0x470b68",
+      "kind": "data"
+    },
+    "_data_00470b44": {
+      "address": "0x470b44",
+      "kind": "data"
+    },
+    "_data_00470b00": {
+      "address": "0x470b00",
+      "kind": "data"
+    },
+    "?SetPolar@Vec3@@QAEPAU1@MM@Z": {
+      "address": "0x44c5d0",
+      "kind": "code"
+    },
+    "_NormalizeAngle@4": {
+      "address": "0x44bc70",
+      "kind": "code"
+    },
+    "_floor": {
+      "address": "0x452ff0",
+      "kind": "code"
+    },
+    "__ftol2": {
+      "address": "0x463b2c",
+      "kind": "code"
+    },
+    "_data_00470b40": {
+      "address": "0x00470b40",
+      "kind": "data"
+    },
+    "_data_00470b3c": {
+      "address": "0x00470b3c",
+      "kind": "data"
+    },
+    "_data_00470b04": {
+      "address": "0x00470b04",
+      "kind": "data"
+    },
+    "_data_00470b38": {
+      "address": "0x00470b38",
+      "kind": "data"
+    },
+    "?g_frame_timer_normal_lower@@3MA": {
+      "address": "0x470B68",
+      "kind": "data"
+    },
+    "?g_frame_timer_normal_upper@@3MA": {
+      "address": "0x470B64",
+      "kind": "data"
+    }
+  },
+  "bindings": {
+    "?HitTest@PickupPlayer@@QAEHPBUPickupPoint@@@Z": "0x4059f0",
+    "?Sweep@PickupSweepResult@@QAEHPAUPlayerState@@PBUPickupPoint@@1@Z": "0x428630",
+    "?AtInterval@FrameTimer@@QAEHH@Z": "0x427c70",
+    "?Find@PickupAnimationLists@@QAEPAUPickupAnimation@@UAnimationRef@@@Z": "0x4491c0",
+    "?StopAtFrame2@PickupHandle@@QAEXXZ": "0x40c480",
+    "?Validate@PickupHandle@@QAEPAUPickupAnimation@@XZ": "0x449450",
+    "?Retire@PickupHandle@@QAEXXZ": "0x449630",
+    "@Pickup_AllocateIndicator@28": "0x427b50",
+    "__real@3f000000": "0x470b0c",
+    "__real@bf000000": "0x470b78",
+    "__real@3e000000": "0x470b90",
+    "__real@00000000": "0x470b04",
+    "?Pickup_CreatePrimaryBack@@YG?AUAnimationRef@@PAXHH@Z": "0x448d00",
+    "?Allocate@AnimationPool@@QAEPAUEntity@@XZ": "0x449950",
+    "?InitializeObject@AnimationResource_00449870@@QAEXPAUEntity@@H@Z": "0x449870",
+    "?LoadScriptPreservingState_0043e7e0@@YGXPAUAnimationResource_0043e7e0@@PAUAnimationObject_0043e7e0@@H@Z": "0x43e7e0",
+    "?Entity_Init@@YGXPAUEntity@@@Z": "0x401de0",
+    "__real@3f800000": "0x470AFC",
+    "?MarkForRemoval@PickupAnimationLists@@QAEPAXUAnimationRef@@@Z": "0x4492a0",
+    "?StopAtFrame1@PickupHandle@@QAEXXZ": "0x409e50",
+    "?StopAtFrame3@PickupHandle@@QAEXXZ": "0x40c4d0",
+    "_EffectPoolUpdate@4": "0x428280",
+    "?Advance@Motion@@QAEXXZ": "0x44c2a0",
+    "?OutsideViewport@Vec3@@QBEHMM@Z": "0x428d70",
+    "__real@42c80000": "0x470B44",
+    "__real@3c23d70a": "0x470B00",
+    "__real@43600000": "0x470B4C",
+    "__real@41800000": "0x470B48",
+    "?RegisterPrimaryBack@AnimationLists@@QAE?AUAnimationRef@@PAUEntity@@@Z": "0x4489d0"
+  },
+  "functions": [
+    [
+      "?HitTest@PickupPlayer@@QAEHPBUPickupPoint@@@Z",
+      ".text$10hit",
+      4217328,
+      202
+    ],
+    [
+      "?Sweep@PickupSweepResult@@QAEHPAUPlayerState@@PBUPickupPoint@@1@Z",
+      ".text$20sweep",
+      4359728,
+      1170
+    ],
+    [
+      "?AtInterval@FrameTimer@@QAEHH@Z",
+      ".text$30interval",
+      4357232,
+      29
+    ],
+    [
+      "?Find@PickupAnimationLists@@QAEPAUPickupAnimation@@UAnimationRef@@@Z",
+      ".text$40find",
+      4493760,
+      73
+    ],
+    [
+      "?MarkForRemoval@PickupAnimationLists@@QAEPAXUAnimationRef@@@Z",
+      ".text$50mark",
+      4493984,
+      66
+    ],
+    [
+      "?StopAtFrame2@PickupHandle@@QAEXXZ",
+      ".text$60stop",
+      4244608,
+      65
+    ],
+    [
+      "?Validate@PickupHandle@@QAEPAUPickupAnimation@@XZ",
+      ".text$70validate",
+      4494416,
+      21
+    ],
+    [
+      "?Retire@PickupHandle@@QAEXXZ",
+      ".text$80retire",
+      4494896,
+      21
+    ],
+    [
+      "@Pickup_AllocateIndicator@28",
+      ".text$90indicator",
+      4356944,
+      181
+    ],
+    [
+      "?Pickup_CreatePrimaryBack@@YG?AUAnimationRef@@PAXHH@Z",
+      ".text$126primary",
+      4492544,
+      73
+    ],
+    [
+      "?RegisterPrimaryBack@AnimationLists@@QAE?AUAnimationRef@@PAUEntity@@@Z",
+      ".text$70register",
+      4491728,
+      118
+    ],
+    [
+      "?Allocate@AnimationPool@@QAEPAUEntity@@XZ",
+      ".text$90allocate",
+      4495696,
+      161
+    ],
+    [
+      "?InitializeObject@AnimationResource_00449870@@QAEXPAUEntity@@H@Z",
+      ".text$127initialize",
+      4495472,
+      217
+    ],
+    [
+      "?LoadScriptPreservingState_0043e7e0@@YGXPAUAnimationResource_0043e7e0@@PAUAnimationObject_0043e7e0@@H@Z",
+      ".text$128preserve",
+      4450272,
+      194
+    ],
+    [
+      "?Entity_Init@@YGXPAUEntity@@@Z",
+      ".text$130entityinit",
+      4201952,
+      273
+    ],
+    [
+      "?StopAtFrame1@PickupHandle@@QAEXXZ",
+      ".text$a10stop1",
+      4234832,
+      65
+    ],
+    [
+      "?StopAtFrame3@PickupHandle@@QAEXXZ",
+      ".text$a20stop3",
+      4244688,
+      65
+    ],
+    [
+      "_EffectPoolUpdate@4",
+      ".text$a30update",
+      4358784,
+      876
+    ],
+    [
+      "?Advance@Motion@@QAEXXZ",
+      ".text$a60motion",
+      4506272,
+      171
+    ],
+    [
+      "?OutsideViewport@Vec3@@QBEHMM@Z",
+      ".text$a70bounds",
+      4361584,
+      91
+    ]
+  ],
+  "description": "Complete genuine effect/pickup graph uses the same recovered four-byte AnimationRef for registered values and all lookup/removal snapshots. Three actual public entries, twenty complete functions, no synthetic caller."
+}

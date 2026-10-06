@@ -24,6 +24,7 @@
 *.pdb
 *.ilk
 *.cod
+/matching2/reference/semantic_candidates/*/evidence/
 
 # Python cache
 __pycache__/

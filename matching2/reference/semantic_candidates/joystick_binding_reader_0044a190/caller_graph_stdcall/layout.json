@@ -1,0 +1,84 @@
+{
+  "sources": [
+    "joystick_reader.cpp",
+    "binding_refresh.cpp",
+    "keyboard_refresh.cpp"
+  ],
+  "entry_symbol": "@RefreshBindingSet@4",
+  "absolute_symbols": {
+    "_data_00466280": {
+      "address": "0x466280",
+      "kind": "data"
+    },
+    "_data_00491ff4": {
+      "address": "0x491ff4",
+      "kind": "data"
+    },
+    "_data_00474e30": {
+      "address": "0x474e30",
+      "kind": "data"
+    },
+    "_data_004918b8": {
+      "address": "0x4918b8",
+      "kind": "data"
+    },
+    "_data_00491c3c": {
+      "address": "0x491c3c",
+      "kind": "data"
+    },
+    "_data_00491d5e": {
+      "address": "0x491d5e",
+      "kind": "data"
+    },
+    "_data_00491d60": {
+      "address": "0x491d60",
+      "kind": "data"
+    },
+    "___security_cookie": {
+      "address": "0x473660",
+      "kind": "data"
+    },
+    "@__security_check_cookie@4": {
+      "address": "0x458ea5",
+      "kind": "code"
+    },
+    "__imp__GetKeyboardState@4": {
+      "address": "0x466208",
+      "kind": "data"
+    },
+    "_data_004924fc": {
+      "address": "0x4924fc",
+      "kind": "data"
+    },
+    "_data_00491c38": {
+      "address": "0x491c38",
+      "kind": "data"
+    }
+  },
+  "bindings": {
+    "_JoystickReadBindings@12": "0x44a190",
+    "@RefreshBindingSet@4": "0x44a5f0",
+    "@RefreshKeyboardBindingSet@4": "0x44a9d0"
+  },
+  "functions": [
+    [
+      "_JoystickReadBindings@12",
+      ".text$a10joystick",
+      4497808,
+      833
+    ],
+    [
+      "@RefreshBindingSet@4",
+      ".text$a20bindingrefresh",
+      4498928,
+      850
+    ],
+    [
+      "@RefreshKeyboardBindingSet@4",
+      ".text$a30keyboardrefresh",
+      4499920,
+      850
+    ]
+  ],
+  "description": "Unselected complete native graph: real 44A5F0 and 44A9D0 callers plus joystick reader; scalar stdcall ABI control; no synthetic callers or unused inputs."
+}

@@ -107,3 +107,10 @@ pointer and relevant ESI/x87 instructions. The prior shared-RNG destination
 boundary gives 439/197; the return-value boundary gives 433 and fails the complete
 extent. This duplicate lane is exhausted by concrete existing evidence. No new
 compiler probe or maintained implementation change was made during the revisit.
+
+## Native scheduler evidence, 2026-10-06
+
+[The scheduler trace](camera_shake_scheduler_trace_0043c550_2026_10_06.md)
+locates the model's early FIDIV in the native list-scheduler picks and records
+its ready cycle and pairing with the second seed load. The residual remains;
+no exact callback promotion is claimed.

@@ -1,0 +1,1190 @@
+{
+  "selected": false,
+  "diagnostic_only": true,
+  "experiments": [
+    {
+      "experiment": "baseline",
+      "extent": 819,
+      "unequal_overlapping_bytes": 28,
+      "reported_groups": 4,
+      "exact": false
+    },
+    {
+      "experiment": "no_barrier",
+      "extent": 819,
+      "unequal_overlapping_bytes": 85,
+      "reported_groups": 10,
+      "exact": false
+    },
+    {
+      "experiment": "volatile_bank",
+      "extent": 819,
+      "unequal_overlapping_bytes": 4,
+      "reported_groups": 5,
+      "exact": false
+    },
+    {
+      "experiment": "volatile_argument",
+      "extent": 819,
+      "unequal_overlapping_bytes": 28,
+      "reported_groups": 4,
+      "exact": false
+    },
+    {
+      "experiment": "volatile_condition",
+      "extent": 819,
+      "unequal_overlapping_bytes": 4,
+      "reported_groups": 5,
+      "exact": false
+    },
+    {
+      "experiment": "bank_value_class",
+      "extent": 819,
+      "unequal_overlapping_bytes": 4,
+      "reported_groups": 5,
+      "exact": false
+    },
+    {
+      "experiment": "resource_ctor",
+      "extent": 819,
+      "unequal_overlapping_bytes": 4,
+      "reported_groups": 5,
+      "exact": false
+    },
+    {
+      "experiment": "resource_copy",
+      "extent": 819,
+      "unequal_overlapping_bytes": 451,
+      "reported_groups": 16,
+      "exact": false
+    },
+    {
+      "experiment": "resource_assign",
+      "extent": 819,
+      "unequal_overlapping_bytes": 4,
+      "reported_groups": 5,
+      "exact": false
+    },
+    {
+      "experiment": "bank_reference",
+      "extent": 819,
+      "unequal_overlapping_bytes": 4,
+      "reported_groups": 5,
+      "exact": false
+    },
+    {
+      "experiment": "typed_items",
+      "extent": 819,
+      "unequal_overlapping_bytes": 4,
+      "reported_groups": 5,
+      "exact": false
+    },
+    {
+      "experiment": "true_configure",
+      "extent": 819,
+      "unequal_overlapping_bytes": 2,
+      "reported_groups": 4,
+      "exact": false
+    },
+    {
+      "experiment": "aggregate_configure",
+      "extent": 819,
+      "unequal_overlapping_bytes": 4,
+      "reported_groups": 5,
+      "exact": false
+    },
+    {
+      "experiment": "visible_initializer",
+      "extent": 823,
+      "unequal_overlapping_bytes": 425,
+      "reported_groups": 6,
+      "exact": false
+    },
+    {
+      "experiment": "identifier_long",
+      "extent": 819,
+      "unequal_overlapping_bytes": 2,
+      "reported_groups": 4,
+      "exact": false
+    },
+    {
+      "experiment": "identifier_unsigned",
+      "extent": 819,
+      "unequal_overlapping_bytes": 2,
+      "reported_groups": 4,
+      "exact": false
+    },
+    {
+      "experiment": "identifier_value",
+      "extent": 819,
+      "unequal_overlapping_bytes": 2,
+      "reported_groups": 4,
+      "exact": false
+    },
+    {
+      "experiment": "loader_result",
+      "extent": 819,
+      "unequal_overlapping_bytes": 2,
+      "reported_groups": 4,
+      "exact": false
+    },
+    {
+      "experiment": "finish_both",
+      "extent": 819,
+      "unequal_overlapping_bytes": 2,
+      "reported_groups": 4,
+      "exact": false
+    },
+    {
+      "experiment": "finish_first",
+      "extent": 819,
+      "unequal_overlapping_bytes": 2,
+      "reported_groups": 4,
+      "exact": false
+    },
+    {
+      "experiment": "resource_direct",
+      "extent": 819,
+      "unequal_overlapping_bytes": 2,
+      "reported_groups": 4,
+      "exact": false
+    },
+    {
+      "experiment": "order_entity_resource_script",
+      "extent": 819,
+      "unequal_overlapping_bytes": 2,
+      "reported_groups": 4,
+      "exact": false
+    },
+    {
+      "experiment": "order_entity_script_resource",
+      "extent": 819,
+      "unequal_overlapping_bytes": 2,
+      "reported_groups": 4,
+      "exact": false
+    },
+    {
+      "experiment": "order_resource_script_entity",
+      "extent": 819,
+      "unequal_overlapping_bytes": 2,
+      "reported_groups": 4,
+      "exact": false
+    },
+    {
+      "experiment": "order_script_entity_resource",
+      "extent": 819,
+      "unequal_overlapping_bytes": 2,
+      "reported_groups": 4,
+      "exact": false
+    },
+    {
+      "experiment": "order_script_resource_entity",
+      "extent": 819,
+      "unequal_overlapping_bytes": 2,
+      "reported_groups": 4,
+      "exact": false
+    },
+    {
+      "experiment": "configure_result",
+      "extent": 819,
+      "unequal_overlapping_bytes": 2,
+      "reported_groups": 4,
+      "exact": false
+    },
+    {
+      "experiment": "retired_handle_local",
+      "extent": 819,
+      "unequal_overlapping_bytes": 2,
+      "reported_groups": 4,
+      "exact": false
+    },
+    {
+      "experiment": "retired_handle_outer",
+      "extent": 819,
+      "unequal_overlapping_bytes": 2,
+      "reported_groups": 4,
+      "exact": false
+    },
+    {
+      "experiment": "registrar_output_copy",
+      "extent": 819,
+      "unequal_overlapping_bytes": 2,
+      "reported_groups": 4,
+      "exact": false
+    },
+    {
+      "experiment": "identifier_copy_first",
+      "extent": 819,
+      "unequal_overlapping_bytes": 2,
+      "reported_groups": 4,
+      "exact": false
+    },
+    {
+      "experiment": "identifier_copy_both",
+      "extent": 819,
+      "unequal_overlapping_bytes": 2,
+      "reported_groups": 4,
+      "exact": false
+    },
+    {
+      "experiment": "cursor_aggregate_assign",
+      "extent": 819,
+      "unequal_overlapping_bytes": 4,
+      "reported_groups": 5,
+      "exact": false,
+      "representation_retained": false
+    },
+    {
+      "experiment": "cursor_aggregate_copy",
+      "extent": 787,
+      "unequal_overlapping_bytes": 421,
+      "reported_groups": 14,
+      "exact": false,
+      "representation_retained": false
+    },
+    {
+      "experiment": "cursor_aggregate_pointer",
+      "extent": 819,
+      "unequal_overlapping_bytes": 4,
+      "reported_groups": 5,
+      "exact": false,
+      "representation_retained": false
+    },
+    {
+      "experiment": "cursor_aggregate_second_early",
+      "extent": 839,
+      "unequal_overlapping_bytes": 392,
+      "reported_groups": 9,
+      "exact": false,
+      "representation_retained": false
+    },
+    {
+      "experiment": "cursor_aggregate_second_local",
+      "extent": 819,
+      "unequal_overlapping_bytes": 4,
+      "reported_groups": 5,
+      "exact": false,
+      "representation_retained": false
+    },
+    {
+      "experiment": "cursor_aggregate_second_local_copy",
+      "extent": 827,
+      "unequal_overlapping_bytes": 444,
+      "reported_groups": 13,
+      "exact": false,
+      "representation_retained": false
+    },
+    {
+      "experiment": "cursor_clamp_conditional",
+      "extent": 823,
+      "unequal_overlapping_bytes": 579,
+      "reported_groups": 9,
+      "exact": false,
+      "representation_retained": false
+    },
+    {
+      "experiment": "cursor_configure_cdecl",
+      "extent": 823,
+      "unequal_overlapping_bytes": 372,
+      "reported_groups": 6,
+      "exact": false,
+      "representation_retained": false
+    },
+    {
+      "experiment": "cursor_configure_fastcall",
+      "extent": 819,
+      "unequal_overlapping_bytes": 2,
+      "reported_groups": 4,
+      "exact": false,
+      "representation_retained": false
+    },
+    {
+      "experiment": "cursor_embedded_timer",
+      "extent": 819,
+      "unequal_overlapping_bytes": 2,
+      "reported_groups": 4,
+      "exact": false,
+      "representation_retained": true
+    },
+    {
+      "experiment": "cursor_entity_reference",
+      "extent": 819,
+      "unequal_overlapping_bytes": 2,
+      "reported_groups": 4,
+      "exact": false,
+      "representation_retained": false
+    },
+    {
+      "experiment": "cursor_first_bank_snapshot",
+      "extent": 819,
+      "unequal_overlapping_bytes": 2,
+      "reported_groups": 4,
+      "exact": false,
+      "representation_retained": false
+    },
+    {
+      "experiment": "cursor_identifier_setter",
+      "extent": 819,
+      "unequal_overlapping_bytes": 2,
+      "reported_groups": 4,
+      "exact": false,
+      "representation_retained": false
+    },
+    {
+      "experiment": "cursor_identifier_shared",
+      "extent": 819,
+      "unequal_overlapping_bytes": 6,
+      "reported_groups": 7,
+      "exact": false,
+      "representation_retained": false
+    },
+    {
+      "experiment": "cursor_kind10_switch",
+      "extent": 811,
+      "unequal_overlapping_bytes": 409,
+      "reported_groups": 9,
+      "exact": false,
+      "representation_retained": false
+    },
+    {
+      "experiment": "cursor_kind11_conditional",
+      "extent": 819,
+      "unequal_overlapping_bytes": 2,
+      "reported_groups": 4,
+      "exact": false,
+      "representation_retained": false
+    },
+    {
+      "experiment": "cursor_kind11_switch",
+      "extent": 819,
+      "unequal_overlapping_bytes": 21,
+      "reported_groups": 6,
+      "exact": false,
+      "representation_retained": false
+    },
+    {
+      "experiment": "cursor_kind_assign_chain",
+      "extent": 819,
+      "unequal_overlapping_bytes": 2,
+      "reported_groups": 4,
+      "exact": false,
+      "representation_retained": false
+    },
+    {
+      "experiment": "cursor_position_components",
+      "extent": 811,
+      "unequal_overlapping_bytes": 685,
+      "reported_groups": 18,
+      "exact": false,
+      "representation_retained": false
+    },
+    {
+      "experiment": "cursor_position_components_both",
+      "extent": 815,
+      "unequal_overlapping_bytes": 690,
+      "reported_groups": 21,
+      "exact": false,
+      "representation_retained": false
+    },
+    {
+      "experiment": "cursor_position_memcpy",
+      "extent": 819,
+      "unequal_overlapping_bytes": 2,
+      "reported_groups": 4,
+      "exact": false,
+      "representation_retained": false
+    },
+    {
+      "experiment": "cursor_resource_handle",
+      "extent": 819,
+      "unequal_overlapping_bytes": 2,
+      "reported_groups": 4,
+      "exact": false,
+      "representation_retained": false
+    },
+    {
+      "experiment": "cursor_resource_handle_copy",
+      "extent": 819,
+      "unequal_overlapping_bytes": 2,
+      "reported_groups": 4,
+      "exact": false,
+      "representation_retained": false
+    },
+    {
+      "experiment": "cursor_resource_reference",
+      "extent": 835,
+      "unequal_overlapping_bytes": 411,
+      "reported_groups": 7,
+      "exact": false,
+      "representation_retained": false
+    },
+    {
+      "experiment": "cursor_timer_set",
+      "extent": 819,
+      "unequal_overlapping_bytes": 28,
+      "reported_groups": 8,
+      "exact": false,
+      "representation_retained": false
+    },
+    {
+      "experiment": "cursor_volatile_bank_free",
+      "extent": 819,
+      "unequal_overlapping_bytes": 2,
+      "reported_groups": 4,
+      "exact": false,
+      "representation_retained": false
+    },
+    {
+      "experiment": "cursor_volatile_power",
+      "extent": 819,
+      "unequal_overlapping_bytes": 2,
+      "reported_groups": 4,
+      "exact": false,
+      "representation_retained": false
+    },
+    {
+      "experiment": "cursor_volatile_resource_field",
+      "extent": 819,
+      "unequal_overlapping_bytes": 2,
+      "reported_groups": 4,
+      "exact": false,
+      "representation_retained": false
+    },
+    {
+      "experiment": "cursor_volatile_timer_flags",
+      "extent": 819,
+      "unequal_overlapping_bytes": 2,
+      "reported_groups": 4,
+      "exact": false,
+      "representation_retained": false
+    },
+    {
+      "experiment": "genuine_no_entry",
+      "extent": 815,
+      "unequal_overlapping_bytes": 735,
+      "reported_groups": 41,
+      "exact": false,
+      "comparison_sha256": "d43b909527b03cffd4b907f13c8771be0bd350345fc4a4d60b2a705893afc999",
+      "complete_supporting_functions": [
+        {
+          "symbol": "?Entity_StartScript_00404f30@@YGXPAUAnimationResource_0043e710@@PAUEntity@@H@Z",
+          "extent": 204,
+          "required": 202,
+          "exact": false,
+          "different_overlapping_bytes": 178,
+          "base_index_swaps": 0
+        },
+        {
+          "symbol": "_LoadScript_0043e710@12",
+          "extent": 203,
+          "required": 203,
+          "exact": true,
+          "different_overlapping_bytes": 0,
+          "base_index_swaps": 0
+        },
+        {
+          "symbol": "_asm_AnimationManager_RegisterPrimaryBack_004489d0",
+          "extent": 114,
+          "required": 118,
+          "exact": false,
+          "different_overlapping_bytes": 68,
+          "base_index_swaps": 0
+        },
+        {
+          "symbol": "?ItemAnimation_CreateOffset_00448db0@@YGPAPAXPAXPAPAXHPBUVector3@@@Z",
+          "extent": 111,
+          "required": 118,
+          "exact": false,
+          "different_overlapping_bytes": 86,
+          "base_index_swaps": 0
+        },
+        {
+          "symbol": "?Allocate@AnimationPool@@QAEPAUEntity@@XZ",
+          "extent": 165,
+          "required": 161,
+          "exact": false,
+          "different_overlapping_bytes": 63,
+          "base_index_swaps": 0
+        },
+        {
+          "symbol": "?SetPolar@LinePolarVelocity_0041f800@@QAEPAU1@MM@Z",
+          "extent": 28,
+          "required": 30,
+          "exact": false,
+          "different_overlapping_bytes": 28,
+          "base_index_swaps": 0
+        },
+        {
+          "symbol": "?SetPolar@ItemPolarVelocity_0041bb00@@QAEPAU1@MM@Z",
+          "extent": 28,
+          "required": 30,
+          "exact": false,
+          "different_overlapping_bytes": 28,
+          "base_index_swaps": 0
+        },
+        {
+          "symbol": "?CreateSegmentsInBounds@LineEffectSweep_0041e260@@QAEHH@Z",
+          "extent": 625,
+          "required": 623,
+          "exact": false,
+          "different_overlapping_bytes": 151,
+          "base_index_swaps": 0
+        },
+        {
+          "symbol": "?CreateAllSegments@LineEffectSweep_0041e260@@QAEHH@Z",
+          "extent": 626,
+          "required": 609,
+          "exact": false,
+          "different_overlapping_bytes": 563,
+          "base_index_swaps": 0
+        }
+      ],
+      "compiled_source_snapshot_sha256": {
+        "all.cpp": "88da612351eada650d9873e352ebee41d63c07cf0765474cbfef854c906c8cb6",
+        "allocator.cpp": "0cd2a208262a803df1074b405cc0f696dc286c59b369245d4b8e22a2135fc3e4",
+        "bounded.cpp": "e1e7cde205f3efdad8cb34d1cedb9f63f31a091d7f6df02dbeb92dd5af75f203",
+        "configure.cpp": "8a52e80a17539918f30081e289dfeb20bbbdc5e38cb8d7fc3d6c2b958be5c15c",
+        "context.cpp": "ee7e0655656cf4f96d18950d8ddcaaf982c2ff099b1461d3968f4eca653ed129",
+        "create.cpp": "89b547d0ae7fb9abc1bcf6625e542f16f443e0e242043b00e2dd7b7128571cd4",
+        "dependencies.cpp": "310a0338f7753f3fb20a31f7692d5daf665d67fcac21e3078d66e66a819fa1e7",
+        "loader.cpp": "726a5481b43ee6e04c6a956bf9d1a8d5f6225e7fe3f875d39d95b158e8922759"
+      },
+      "current_layout_sha256": "0b5e7158df65a9edd0535daff63a924473a743fb7138d4cb8511f9164ee03ff9"
+    },
+    {
+      "experiment": "genuine_imported_polar",
+      "extent": 811,
+      "unequal_overlapping_bytes": 733,
+      "reported_groups": 39,
+      "exact": false,
+      "comparison_sha256": "c8689998c11d5557c46eef4bd22408601d956c955b3384edf6a5e40ade72431f",
+      "complete_supporting_functions": [
+        {
+          "symbol": "?Entity_StartScript_00404f30@@YGXPAUAnimationResource_0043e710@@PAUEntity@@H@Z",
+          "extent": 204,
+          "required": 202,
+          "exact": false,
+          "different_overlapping_bytes": 178,
+          "base_index_swaps": 0
+        },
+        {
+          "symbol": "_LoadScript_0043e710@12",
+          "extent": 203,
+          "required": 203,
+          "exact": true,
+          "different_overlapping_bytes": 0,
+          "base_index_swaps": 0
+        },
+        {
+          "symbol": "_asm_AnimationManager_RegisterPrimaryBack_004489d0",
+          "extent": 114,
+          "required": 118,
+          "exact": false,
+          "different_overlapping_bytes": 68,
+          "base_index_swaps": 0
+        },
+        {
+          "symbol": "?ItemAnimation_CreateOffset_00448db0@@YGPAPAXPAXPAPAXHPBUVector3@@@Z",
+          "extent": 111,
+          "required": 118,
+          "exact": false,
+          "different_overlapping_bytes": 86,
+          "base_index_swaps": 0
+        },
+        {
+          "symbol": "?Allocate@AnimationPool@@QAEPAUEntity@@XZ",
+          "extent": 165,
+          "required": 161,
+          "exact": false,
+          "different_overlapping_bytes": 63,
+          "base_index_swaps": 0
+        },
+        {
+          "symbol": "?CreateSegmentsInBounds@LineEffectSweep_0041e260@@QAEHH@Z",
+          "extent": 626,
+          "required": 623,
+          "exact": false,
+          "different_overlapping_bytes": 318,
+          "base_index_swaps": 0
+        },
+        {
+          "symbol": "?CreateAllSegments@LineEffectSweep_0041e260@@QAEHH@Z",
+          "extent": 630,
+          "required": 609,
+          "exact": false,
+          "different_overlapping_bytes": 577,
+          "base_index_swaps": 0
+        }
+      ],
+      "compiled_source_snapshot_sha256": {
+        "all.cpp": "53bdb9fc6e70844854f7378a36ac70376c968d305d2f854bde0e79d63a37a2f1",
+        "allocator.cpp": "0cd2a208262a803df1074b405cc0f696dc286c59b369245d4b8e22a2135fc3e4",
+        "bounded.cpp": "e1e7cde205f3efdad8cb34d1cedb9f63f31a091d7f6df02dbeb92dd5af75f203",
+        "configure.cpp": "8a52e80a17539918f30081e289dfeb20bbbdc5e38cb8d7fc3d6c2b958be5c15c",
+        "context.cpp": "09211f0b1c6e72543a0701bd2b9644fbcaa8edb226e944276a2fea64f4cb661a",
+        "create.cpp": "89b547d0ae7fb9abc1bcf6625e542f16f443e0e242043b00e2dd7b7128571cd4",
+        "dependencies.cpp": "310a0338f7753f3fb20a31f7692d5daf665d67fcac21e3078d66e66a819fa1e7",
+        "loader.cpp": "726a5481b43ee6e04c6a956bf9d1a8d5f6225e7fe3f875d39d95b158e8922759"
+      },
+      "current_layout_sha256": "cf64f39d1ee717d99b059b4c0a41296e303d2145ee858d37f30c6dfeba722ff4"
+    },
+    {
+      "experiment": "genuine_only_line_calls",
+      "extent": 819,
+      "unequal_overlapping_bytes": 76,
+      "reported_groups": 21,
+      "exact": false,
+      "comparison_sha256": "5a40c0fa8d1c6848c409222bf853702d46a0645b1f02bb41e44e392a20cbac2c",
+      "complete_supporting_functions": [
+        {
+          "symbol": "?Entity_StartScript_00404f30@@YGXPAUAnimationResource_0043e710@@PAUEntity@@H@Z",
+          "extent": 204,
+          "required": 202,
+          "exact": false,
+          "different_overlapping_bytes": 178,
+          "base_index_swaps": 0
+        },
+        {
+          "symbol": "_LoadScript_0043e710@12",
+          "extent": 203,
+          "required": 203,
+          "exact": true,
+          "different_overlapping_bytes": 0,
+          "base_index_swaps": 0
+        },
+        {
+          "symbol": "_asm_AnimationManager_RegisterPrimaryBack_004489d0",
+          "extent": 114,
+          "required": 118,
+          "exact": false,
+          "different_overlapping_bytes": 68,
+          "base_index_swaps": 0
+        },
+        {
+          "symbol": "?ItemAnimation_CreateOffset_00448db0@@YGPAPAXPAXPAPAXHPBUVector3@@@Z",
+          "extent": 111,
+          "required": 118,
+          "exact": false,
+          "different_overlapping_bytes": 86,
+          "base_index_swaps": 0
+        },
+        {
+          "symbol": "?Allocate@AnimationPool@@QAEPAUEntity@@XZ",
+          "extent": 165,
+          "required": 161,
+          "exact": false,
+          "different_overlapping_bytes": 63,
+          "base_index_swaps": 0
+        },
+        {
+          "symbol": "?CreateSegmentsInBounds@LineEffectSweep_0041e260@@QAEHH@Z",
+          "extent": 624,
+          "required": 623,
+          "exact": false,
+          "different_overlapping_bytes": 194,
+          "base_index_swaps": 0
+        },
+        {
+          "symbol": "?CreateAllSegments@LineEffectSweep_0041e260@@QAEHH@Z",
+          "extent": 628,
+          "required": 609,
+          "exact": false,
+          "different_overlapping_bytes": 570,
+          "base_index_swaps": 0
+        }
+      ],
+      "compiled_source_snapshot_sha256": {
+        "all.cpp": "53bdb9fc6e70844854f7378a36ac70376c968d305d2f854bde0e79d63a37a2f1",
+        "allocator.cpp": "0cd2a208262a803df1074b405cc0f696dc286c59b369245d4b8e22a2135fc3e4",
+        "bounded.cpp": "e1e7cde205f3efdad8cb34d1cedb9f63f31a091d7f6df02dbeb92dd5af75f203",
+        "configure.cpp": "8a52e80a17539918f30081e289dfeb20bbbdc5e38cb8d7fc3d6c2b958be5c15c",
+        "context.cpp": "09211f0b1c6e72543a0701bd2b9644fbcaa8edb226e944276a2fea64f4cb661a",
+        "create.cpp": "89b547d0ae7fb9abc1bcf6625e542f16f443e0e242043b00e2dd7b7128571cd4",
+        "dependencies.cpp": "310a0338f7753f3fb20a31f7692d5daf665d67fcac21e3078d66e66a819fa1e7",
+        "loader.cpp": "726a5481b43ee6e04c6a956bf9d1a8d5f6225e7fe3f875d39d95b158e8922759"
+      },
+      "current_layout_sha256": "6a2541dfffa5b6e22fc59490df5d9accd610b3c114b6e7518d620f4bd531a05b"
+    },
+    {
+      "experiment": "genuine_public_polar_roots",
+      "extent": 819,
+      "unequal_overlapping_bytes": 2,
+      "reported_groups": 4,
+      "exact": false,
+      "comparison_sha256": "08ed639996e65cf71c693bac27d6ae215a2b9d85ec63cf338a990038d444c2b4",
+      "complete_supporting_functions": [
+        {
+          "symbol": "?Entity_StartScript_00404f30@@YGXPAUAnimationResource_0043e710@@PAUEntity@@H@Z",
+          "extent": 204,
+          "required": 202,
+          "exact": false,
+          "different_overlapping_bytes": 178,
+          "base_index_swaps": 0
+        },
+        {
+          "symbol": "_LoadScript_0043e710@12",
+          "extent": 203,
+          "required": 203,
+          "exact": true,
+          "different_overlapping_bytes": 0,
+          "base_index_swaps": 0
+        },
+        {
+          "symbol": "_asm_AnimationManager_RegisterPrimaryBack_004489d0",
+          "extent": 114,
+          "required": 118,
+          "exact": false,
+          "different_overlapping_bytes": 68,
+          "base_index_swaps": 0
+        },
+        {
+          "symbol": "?ItemAnimation_CreateOffset_00448db0@@YGPAPAXPAXPAPAXHPBUVector3@@@Z",
+          "extent": 111,
+          "required": 118,
+          "exact": false,
+          "different_overlapping_bytes": 86,
+          "base_index_swaps": 0
+        },
+        {
+          "symbol": "?Allocate@AnimationPool@@QAEPAUEntity@@XZ",
+          "extent": 165,
+          "required": 161,
+          "exact": false,
+          "different_overlapping_bytes": 63,
+          "base_index_swaps": 0
+        },
+        {
+          "symbol": "?SetPolar@LinePolarVelocity_0041f800@@QAEPAU1@MM@Z",
+          "extent": 30,
+          "required": 30,
+          "exact": false,
+          "different_overlapping_bytes": 26,
+          "base_index_swaps": 0
+        },
+        {
+          "symbol": "?SetPolar@ItemPolarVelocity_0041bb00@@QAEPAU1@MM@Z",
+          "extent": 30,
+          "required": 30,
+          "exact": false,
+          "different_overlapping_bytes": 26,
+          "base_index_swaps": 0
+        },
+        {
+          "symbol": "?CreateSegmentsInBounds@LineEffectSweep_0041e260@@QAEHH@Z",
+          "extent": 623,
+          "required": 623,
+          "exact": true,
+          "different_overlapping_bytes": 0,
+          "base_index_swaps": 0
+        },
+        {
+          "symbol": "?CreateAllSegments@LineEffectSweep_0041e260@@QAEHH@Z",
+          "extent": 609,
+          "required": 609,
+          "exact": false,
+          "different_overlapping_bytes": 37,
+          "base_index_swaps": 0
+        }
+      ],
+      "compiled_source_snapshot_sha256": {
+        "all.cpp": "53bdb9fc6e70844854f7378a36ac70376c968d305d2f854bde0e79d63a37a2f1",
+        "allocator.cpp": "0cd2a208262a803df1074b405cc0f696dc286c59b369245d4b8e22a2135fc3e4",
+        "bounded.cpp": "e1e7cde205f3efdad8cb34d1cedb9f63f31a091d7f6df02dbeb92dd5af75f203",
+        "configure.cpp": "8a52e80a17539918f30081e289dfeb20bbbdc5e38cb8d7fc3d6c2b958be5c15c",
+        "context.cpp": "ee7e0655656cf4f96d18950d8ddcaaf982c2ff099b1461d3968f4eca653ed129",
+        "create.cpp": "89b547d0ae7fb9abc1bcf6625e542f16f443e0e242043b00e2dd7b7128571cd4",
+        "dependencies.cpp": "310a0338f7753f3fb20a31f7692d5daf665d67fcac21e3078d66e66a819fa1e7",
+        "loader.cpp": "726a5481b43ee6e04c6a956bf9d1a8d5f6225e7fe3f875d39d95b158e8922759"
+      },
+      "current_layout_sha256": "6440702e540d83364c021e908bbc60e5dce0ca5413dfa5b8ff5f3a33607c0a08"
+    },
+    {
+      "experiment": "genuine_typed_position_cursor",
+      "extent": 819,
+      "unequal_overlapping_bytes": 2,
+      "reported_groups": 4,
+      "exact": false,
+      "comparison_sha256": "1581d0a46b5885dbb8e87de5b0a040773dcdd02a3b2ab3297fa737af57ea10b2",
+      "complete_supporting_functions": [
+        {
+          "symbol": "?Entity_StartScript_00404f30@@YGXPAUAnimationResource_0043e710@@PAUEntity@@H@Z",
+          "extent": 204,
+          "required": 202,
+          "exact": false,
+          "different_overlapping_bytes": 178,
+          "base_index_swaps": 0
+        },
+        {
+          "symbol": "_LoadScript_0043e710@12",
+          "extent": 203,
+          "required": 203,
+          "exact": true,
+          "different_overlapping_bytes": 0,
+          "base_index_swaps": 0
+        },
+        {
+          "symbol": "_asm_AnimationManager_RegisterPrimaryBack_004489d0",
+          "extent": 114,
+          "required": 118,
+          "exact": false,
+          "different_overlapping_bytes": 68,
+          "base_index_swaps": 0
+        },
+        {
+          "symbol": "?ItemAnimation_CreateOffset_00448db0@@YGPAPAXPAXPAPAXHPBUVector3@@@Z",
+          "extent": 111,
+          "required": 118,
+          "exact": false,
+          "different_overlapping_bytes": 86,
+          "base_index_swaps": 0
+        },
+        {
+          "symbol": "?Allocate@AnimationPool@@QAEPAUEntity@@XZ",
+          "extent": 165,
+          "required": 161,
+          "exact": false,
+          "different_overlapping_bytes": 63,
+          "base_index_swaps": 0
+        },
+        {
+          "symbol": "?SetPolar@LinePolarVelocity_0041f800@@QAEPAU1@MM@Z",
+          "extent": 30,
+          "required": 30,
+          "exact": false,
+          "different_overlapping_bytes": 26,
+          "base_index_swaps": 0
+        },
+        {
+          "symbol": "?SetPolar@ItemPolarVelocity_0041bb00@@QAEPAU1@MM@Z",
+          "extent": 30,
+          "required": 30,
+          "exact": false,
+          "different_overlapping_bytes": 26,
+          "base_index_swaps": 0
+        },
+        {
+          "symbol": "?CreateSegmentsInBounds@LineEffectSweep_0041e260@@QAEHH@Z",
+          "extent": 623,
+          "required": 623,
+          "exact": true,
+          "different_overlapping_bytes": 0,
+          "base_index_swaps": 0
+        },
+        {
+          "symbol": "?CreateAllSegments@LineEffectSweep_0041e260@@QAEHH@Z",
+          "extent": 609,
+          "required": 609,
+          "exact": true,
+          "different_overlapping_bytes": 0,
+          "base_index_swaps": 0
+        }
+      ],
+      "compiled_source_snapshot_sha256": {
+        "all.cpp": "ec54cacc06b3586cde9e0cf7acbbf184701c7979407f97eedee64b6596c27c79",
+        "allocator.cpp": "0cd2a208262a803df1074b405cc0f696dc286c59b369245d4b8e22a2135fc3e4",
+        "bounded.cpp": "e1e7cde205f3efdad8cb34d1cedb9f63f31a091d7f6df02dbeb92dd5af75f203",
+        "configure.cpp": "8a52e80a17539918f30081e289dfeb20bbbdc5e38cb8d7fc3d6c2b958be5c15c",
+        "context.cpp": "ee7e0655656cf4f96d18950d8ddcaaf982c2ff099b1461d3968f4eca653ed129",
+        "create.cpp": "89b547d0ae7fb9abc1bcf6625e542f16f443e0e242043b00e2dd7b7128571cd4",
+        "dependencies.cpp": "310a0338f7753f3fb20a31f7692d5daf665d67fcac21e3078d66e66a819fa1e7",
+        "loader.cpp": "726a5481b43ee6e04c6a956bf9d1a8d5f6225e7fe3f875d39d95b158e8922759"
+      },
+      "current_layout_sha256": "6440702e540d83364c021e908bbc60e5dce0ca5413dfa5b8ff5f3a33607c0a08"
+    },
+    {
+      "experiment": "genuine_opaque_resource_formal",
+      "extent": 819,
+      "unequal_overlapping_bytes": 2,
+      "reported_groups": 4,
+      "exact": false,
+      "comparison_sha256": "7720770272bba4bcf2d72152cad7a8d3e7a94085d6edcd3825731287fd015369",
+      "complete_supporting_functions": [
+        {
+          "symbol": "?Entity_StartScript_00404f30@@YGXPAXPAUEntity@@H@Z",
+          "extent": 204,
+          "required": 202,
+          "exact": false,
+          "different_overlapping_bytes": 178,
+          "base_index_swaps": 0
+        },
+        {
+          "symbol": "_LoadScript_0043e710@12",
+          "extent": 203,
+          "required": 203,
+          "exact": true,
+          "different_overlapping_bytes": 0,
+          "base_index_swaps": 0
+        },
+        {
+          "symbol": "_asm_AnimationManager_RegisterPrimaryBack_004489d0",
+          "extent": 114,
+          "required": 118,
+          "exact": false,
+          "different_overlapping_bytes": 68,
+          "base_index_swaps": 0
+        },
+        {
+          "symbol": "?ItemAnimation_CreateOffset_00448db0@@YGPAPAXPAXPAPAXHPBUVector3@@@Z",
+          "extent": 111,
+          "required": 118,
+          "exact": false,
+          "different_overlapping_bytes": 86,
+          "base_index_swaps": 0
+        },
+        {
+          "symbol": "?Allocate@AnimationPool@@QAEPAUEntity@@XZ",
+          "extent": 165,
+          "required": 161,
+          "exact": false,
+          "different_overlapping_bytes": 63,
+          "base_index_swaps": 0
+        },
+        {
+          "symbol": "?SetPolar@LinePolarVelocity_0041f800@@QAEPAU1@MM@Z",
+          "extent": 30,
+          "required": 30,
+          "exact": false,
+          "different_overlapping_bytes": 26,
+          "base_index_swaps": 0
+        },
+        {
+          "symbol": "?SetPolar@ItemPolarVelocity_0041bb00@@QAEPAU1@MM@Z",
+          "extent": 30,
+          "required": 30,
+          "exact": false,
+          "different_overlapping_bytes": 26,
+          "base_index_swaps": 0
+        },
+        {
+          "symbol": "?CreateSegmentsInBounds@LineEffectSweep_0041e260@@QAEHH@Z",
+          "extent": 623,
+          "required": 623,
+          "exact": true,
+          "different_overlapping_bytes": 0,
+          "base_index_swaps": 0
+        },
+        {
+          "symbol": "?CreateAllSegments@LineEffectSweep_0041e260@@QAEHH@Z",
+          "extent": 609,
+          "required": 609,
+          "exact": true,
+          "different_overlapping_bytes": 0,
+          "base_index_swaps": 0
+        }
+      ],
+      "compiled_source_snapshot_sha256": {
+        "all.cpp": "ec54cacc06b3586cde9e0cf7acbbf184701c7979407f97eedee64b6596c27c79",
+        "allocator.cpp": "0cd2a208262a803df1074b405cc0f696dc286c59b369245d4b8e22a2135fc3e4",
+        "bounded.cpp": "e1e7cde205f3efdad8cb34d1cedb9f63f31a091d7f6df02dbeb92dd5af75f203",
+        "configure.cpp": "c2d71d20d47755492048db1d0dcc96414e72781f1562660443ffd328cce4a1ba",
+        "create.cpp": "89b547d0ae7fb9abc1bcf6625e542f16f443e0e242043b00e2dd7b7128571cd4",
+        "dependencies.cpp": "310a0338f7753f3fb20a31f7692d5daf665d67fcac21e3078d66e66a819fa1e7",
+        "loader.cpp": "726a5481b43ee6e04c6a956bf9d1a8d5f6225e7fe3f875d39d95b158e8922759",
+        "runtime_graph.cpp": "ee7e0655656cf4f96d18950d8ddcaaf982c2ff099b1461d3968f4eca653ed129"
+      },
+      "current_layout_sha256": "32f6193e9422ed0da6c8022be2f004ae6a11a1cbe77bc21025f47e24d668fe54"
+    },
+    {
+      "experiment": "genuine_resource_value_formal",
+      "extent": 819,
+      "unequal_overlapping_bytes": 4,
+      "reported_groups": 5,
+      "exact": false,
+      "comparison_sha256": "1b22873903f64fcfa32f5d2eae6e89173c2236c722c43e1680b53a42ffa69881",
+      "complete_supporting_functions": [
+        {
+          "symbol": "?Entity_StartScript_00404f30@@YGXUItemScriptResource@@PAUEntity@@H@Z",
+          "extent": 204,
+          "required": 202,
+          "exact": false,
+          "different_overlapping_bytes": 178,
+          "base_index_swaps": 0
+        },
+        {
+          "symbol": "_LoadScript_0043e710@12",
+          "extent": 203,
+          "required": 203,
+          "exact": true,
+          "different_overlapping_bytes": 0,
+          "base_index_swaps": 0
+        },
+        {
+          "symbol": "_asm_AnimationManager_RegisterPrimaryBack_004489d0",
+          "extent": 114,
+          "required": 118,
+          "exact": false,
+          "different_overlapping_bytes": 68,
+          "base_index_swaps": 0
+        },
+        {
+          "symbol": "?ItemAnimation_CreateOffset_00448db0@@YGPAPAXPAXPAPAXHPBUVector3@@@Z",
+          "extent": 111,
+          "required": 118,
+          "exact": false,
+          "different_overlapping_bytes": 86,
+          "base_index_swaps": 0
+        },
+        {
+          "symbol": "?Allocate@AnimationPool@@QAEPAUEntity@@XZ",
+          "extent": 165,
+          "required": 161,
+          "exact": false,
+          "different_overlapping_bytes": 63,
+          "base_index_swaps": 0
+        },
+        {
+          "symbol": "?SetPolar@LinePolarVelocity_0041f800@@QAEPAU1@MM@Z",
+          "extent": 30,
+          "required": 30,
+          "exact": false,
+          "different_overlapping_bytes": 26,
+          "base_index_swaps": 0
+        },
+        {
+          "symbol": "?SetPolar@ItemPolarVelocity_0041bb00@@QAEPAU1@MM@Z",
+          "extent": 30,
+          "required": 30,
+          "exact": false,
+          "different_overlapping_bytes": 26,
+          "base_index_swaps": 0
+        },
+        {
+          "symbol": "?CreateSegmentsInBounds@LineEffectSweep_0041e260@@QAEHH@Z",
+          "extent": 623,
+          "required": 623,
+          "exact": true,
+          "different_overlapping_bytes": 0,
+          "base_index_swaps": 0
+        },
+        {
+          "symbol": "?CreateAllSegments@LineEffectSweep_0041e260@@QAEHH@Z",
+          "extent": 609,
+          "required": 609,
+          "exact": true,
+          "different_overlapping_bytes": 0,
+          "base_index_swaps": 0
+        }
+      ],
+      "compiled_source_snapshot_sha256": {
+        "all.cpp": "ec54cacc06b3586cde9e0cf7acbbf184701c7979407f97eedee64b6596c27c79",
+        "allocator.cpp": "d78e29eefbd045a6e6e3a0bcf1eaa0756fd722f791f3b88ce1c9324a1bd5a1b0",
+        "bounded.cpp": "e1e7cde205f3efdad8cb34d1cedb9f63f31a091d7f6df02dbeb92dd5af75f203",
+        "configure.cpp": "14331c2821ec79ff3b8b51ff4dcc814802439f0d911b839f5951fd0d99eba864",
+        "create.cpp": "89b547d0ae7fb9abc1bcf6625e542f16f443e0e242043b00e2dd7b7128571cd4",
+        "dependencies.cpp": "310a0338f7753f3fb20a31f7692d5daf665d67fcac21e3078d66e66a819fa1e7",
+        "include/th10/game/item_spawn_0041bb00.hpp": "f4a7aad3bcd868d49ee49445d7dbeef4e82085b8f996f9b952adbc84e04a3cd7",
+        "include/th10/game/line_effect_sweeps_0041e260_0041f400.hpp": "273e904d5a3e3b07c73b06ccdc06077d488d82fbb52b8955505ff5f62b3b9910",
+        "loader.cpp": "726a5481b43ee6e04c6a956bf9d1a8d5f6225e7fe3f875d39d95b158e8922759",
+        "runtime_graph.cpp": "42721eb8b91843d6e37fc699e5c64b9415172dd8e9d26422898ead0e0f56ace5"
+      },
+      "current_layout_sha256": "ba2be2a9fac5b3b57f7c5f9ca22a13dacc9dc4d048c52d25c3846f43bc8c7312",
+      "evidence": "evidence/resource_graph_followup/proof.json"
+    },
+    {
+      "experiment": "genuine_complete_convert_public_root",
+      "extent": 819,
+      "unequal_overlapping_bytes": 2,
+      "reported_groups": 4,
+      "exact": false,
+      "comparison_sha256": "1c80565411e7a0cb49c45dff48e1bd3e9a87ecf351bf2512280e5a82e958696f",
+      "complete_supporting_functions": [
+        {
+          "symbol": "?Entity_StartScript_00404f30@@YGXPAUAnimationResource_0043e710@@PAUEntity@@H@Z",
+          "extent": 204,
+          "required": 202,
+          "exact": false,
+          "different_overlapping_bytes": 178,
+          "base_index_swaps": 0
+        },
+        {
+          "symbol": "_LoadScript_0043e710@12",
+          "extent": 203,
+          "required": 203,
+          "exact": true,
+          "different_overlapping_bytes": 0,
+          "base_index_swaps": 0
+        },
+        {
+          "symbol": "_asm_AnimationManager_RegisterPrimaryBack_004489d0",
+          "extent": 114,
+          "required": 118,
+          "exact": false,
+          "different_overlapping_bytes": 68,
+          "base_index_swaps": 0
+        },
+        {
+          "symbol": "?ItemAnimation_CreateOffset_00448db0@@YGPAPAXPAXPAPAXHPBUVector3@@@Z",
+          "extent": 111,
+          "required": 118,
+          "exact": false,
+          "different_overlapping_bytes": 86,
+          "base_index_swaps": 0
+        },
+        {
+          "symbol": "?Allocate@AnimationPool@@QAEPAUEntity@@XZ",
+          "extent": 165,
+          "required": 161,
+          "exact": false,
+          "different_overlapping_bytes": 63,
+          "base_index_swaps": 0
+        },
+        {
+          "symbol": "?SetPolar@LinePolarVelocity_0041f800@@QAEPAU1@MM@Z",
+          "extent": 30,
+          "required": 30,
+          "exact": false,
+          "different_overlapping_bytes": 26,
+          "base_index_swaps": 0
+        },
+        {
+          "symbol": "?SetPolar@ItemPolarVelocity_0041bb00@@QAEPAU1@MM@Z",
+          "extent": 30,
+          "required": 30,
+          "exact": false,
+          "different_overlapping_bytes": 26,
+          "base_index_swaps": 0
+        },
+        {
+          "symbol": "?CreateSegmentsInBounds@LineEffectSweep_0041e260@@QAEHH@Z",
+          "extent": 623,
+          "required": 623,
+          "exact": true,
+          "different_overlapping_bytes": 0,
+          "base_index_swaps": 0
+        },
+        {
+          "symbol": "?CreateAllSegments@LineEffectSweep_0041e260@@QAEHH@Z",
+          "extent": 609,
+          "required": 609,
+          "exact": true,
+          "different_overlapping_bytes": 0,
+          "base_index_swaps": 0
+        },
+        {
+          "symbol": "?ConvertItems@ItemSpawnManager_0041bb00@@QAEHXZ",
+          "extent": 167,
+          "required": 165,
+          "exact": false,
+          "different_overlapping_bytes": 153,
+          "base_index_swaps": 0
+        }
+      ],
+      "compiled_source_snapshot_sha256": {
+        "all.cpp": "ec54cacc06b3586cde9e0cf7acbbf184701c7979407f97eedee64b6596c27c79",
+        "allocator.cpp": "0cd2a208262a803df1074b405cc0f696dc286c59b369245d4b8e22a2135fc3e4",
+        "bounded.cpp": "e1e7cde205f3efdad8cb34d1cedb9f63f31a091d7f6df02dbeb92dd5af75f203",
+        "configure.cpp": "8a52e80a17539918f30081e289dfeb20bbbdc5e38cb8d7fc3d6c2b958be5c15c",
+        "convert.cpp": "6b074fd401f2a399cdc8d5f7dcd984d97479f0627727f98a723f231f417afaf4",
+        "create.cpp": "89b547d0ae7fb9abc1bcf6625e542f16f443e0e242043b00e2dd7b7128571cd4",
+        "dependencies.cpp": "310a0338f7753f3fb20a31f7692d5daf665d67fcac21e3078d66e66a819fa1e7",
+        "include/th10/game/item_spawn_0041bb00.hpp": "1093407cc6d39230d3558e780abaf3f51788d68ab027cabf89615bb08e75c438",
+        "include/th10/game/line_effect_sweeps_0041e260_0041f400.hpp": "273e904d5a3e3b07c73b06ccdc06077d488d82fbb52b8955505ff5f62b3b9910",
+        "loader.cpp": "726a5481b43ee6e04c6a956bf9d1a8d5f6225e7fe3f875d39d95b158e8922759",
+        "runtime_graph.cpp": "4a44f664e5866c0ccb8a1e5ec98fd90cba64541f39f32251cbc80a41682d95c4"
+      },
+      "current_layout_sha256": "bfbc6635aa7952d7016bfc5d48569ad15dec1402609bf43112493920952dc501",
+      "evidence": "evidence/resource_graph_followup/proof.json",
+      "abi_limitation": "ConvertItems is a diagnostic public root; its own 167-byte body does not reproduce retail private ESI entry."
+    }
+  ]
+}

@@ -1,0 +1,84 @@
+{
+  "compiler": "MSVC 13.10.6030",
+  "trace_completed": true,
+  "choices": [
+    {
+      "event": "ChoosePhysReg",
+      "function": "?CutCircle@CutLaser@@QAEHPBUCutVector@@MH@Z",
+      "candidate": {
+        "number": 7,
+        "priority": 69,
+        "refs": 0,
+        "source": "0x38cfcac",
+        "source_words": [
+          "0x38cef7c",
+          "0x20020904",
+          "0x38cfcac",
+          "0x0",
+          "0x1004",
+          "0x0",
+          "0x0",
+          "0x9",
+          "0x4",
+          "0x0",
+          "0x0",
+          "0x3",
+          "0x38cfc4c",
+          "0x364f148",
+          "0x0",
+          "0x0",
+          "0x0",
+          "0x0",
+          "0x0",
+          "0x0",
+          "0x0",
+          "0x0",
+          "0x0",
+          "0x0"
+        ],
+        "names": [
+          "_count"
+        ],
+        "available": [
+          8
+        ],
+        "words": [
+          "0x38cfcac",
+          "0x12c02",
+          "0x364eea8",
+          "0x45",
+          "0x0",
+          "0x38c7288",
+          "0x0",
+          "0x7",
+          "0x36cd7d0",
+          "0xd",
+          "0x3889224",
+          "0x3603c60",
+          "0x0",
+          "0x1",
+          "0x0",
+          "0x38ca440",
+          "0x2c",
+          "0xc0",
+          "0x8",
+          "0x0",
+          "0x0",
+          "0x364ef08",
+          "0x388d9a8",
+          "0x1"
+        ]
+      },
+      "chosen_register": 8,
+      "costs": {
+        "8": 1900
+      }
+    }
+  ],
+  "physical_register_8": "EDI",
+  "trace_candidate_code_unchanged": true,
+  "candidate_code_sha256": "65e79b6c052e9082b328d36e23c1e1f2b53804c7e78d3ed218cc031d8565597d",
+  "allocation_data_writes": 0,
+  "forced_register_decisions": 0,
+  "retail_observation": "Retail keeps the index in EDX within the sampling loop and spills/reloads it around callbacks; the candidate keeps it in EDI."
+}

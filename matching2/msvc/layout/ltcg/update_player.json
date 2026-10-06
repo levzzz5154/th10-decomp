@@ -36,7 +36,7 @@
     "include/th10/platform/sound_queue.hpp"
   ],
   "image_base": "0x00400000",
-  "description": "Complete original Draw124 and Collision260 selected together. Full native Update218/activation200/spawn823 and all genuine animation/helper operations remain unselected context. A private context header avoids changing any existing shared header.",
+  "description": "Existing player Draw, activation-all, drop flush/scatter and enemy death release/sweep remain selected in this legacy compiler context. Collision check/record activation are unselected complete ABI anchors here; their selected production bodies use the genuine full player-state/item-spawn graph.",
   "functions": [
     {
       "name": "PlayerDraw",
@@ -46,24 +46,6 @@
       "section": ".text$040draw",
       "actual_abi": "player ESI, position EBX, zero EAX return, plain RET",
       "source": "src/game/player_draw_00405ac0.cpp"
-    },
-    {
-      "name": "CollisionCheck",
-      "symbol": "?Check@CollisionEngine_00408100@@QAEHPBUPositionVector_004492f0@@MHH@Z",
-      "address": "0x408100",
-      "size": 260,
-      "section": ".text$060collision",
-      "actual_abi": "EAX collision owner, EBX point, radius/spawn/filter stack, RET12, zero EAX result",
-      "source": "src/game/fun_00408100_00408100.cpp"
-    },
-    {
-      "name": "CollisionActivate",
-      "symbol": "?Activate@CollisionRecord_00408100@@QAEHXZ",
-      "address": "0x408030",
-      "size": 199,
-      "section": ".text$050activate",
-      "actual_abi": "record in ESI; plain RET",
-      "source": "src/game/collision_record_activate_00408030.cpp"
     },
     {
       "name": "CollisionActivateAll",
@@ -109,15 +91,6 @@
       "size": 182,
       "actual_abi": "manager on the stack; RET 4",
       "source": "src/game/enemy_manager_sweep_deaths_0040e6a0.cpp"
-    },
-    {
-      "name": "ItemConvertSweep",
-      "symbol": "?ConvertItems@ItemSpawnManager_0041bb00@@QAEHXZ",
-      "section": ".text$079zz_convert",
-      "address": "0x41ba50",
-      "size": 165,
-      "actual_abi": "manager in ESI; plain RET",
-      "source": "src/game/item_convert_sweep_0041ba50.cpp"
     }
   ],
   "anchors": [
@@ -225,6 +198,27 @@
       "section": ".text$099p_pan",
       "address": "0x43dd10",
       "size": 149
+    },
+    {
+      "name": "ItemConvertSweep",
+      "symbol": "?ConvertItems@ItemSpawnManager_0041bb00@@QAEHXZ",
+      "section": ".text$079zz_convert",
+      "address": "0x41ba50",
+      "size": 165
+    },
+    {
+      "name": "CollisionCheck",
+      "symbol": "?Check@CollisionEngine_00408100@@QAEHPBUPositionVector_004492f0@@MHH@Z",
+      "section": ".text$060collision",
+      "address": "0x408100",
+      "size": 260
+    },
+    {
+      "name": "CollisionActivate",
+      "symbol": "?Activate@CollisionRecord_00408100@@QAEHXZ",
+      "section": ".text$050activate",
+      "address": "0x408030",
+      "size": 199
     }
   ],
   "driver": "layout/ltcg/update_player_context.cpp",

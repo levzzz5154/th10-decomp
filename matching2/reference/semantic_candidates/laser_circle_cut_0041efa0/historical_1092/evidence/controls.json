@@ -1,0 +1,83 @@
+[
+  {
+    "name": "bool_mask",
+    "extent": 1092,
+    "required": 1108,
+    "exact": false,
+    "different_overlapping_bytes": 788,
+    "base_index_swaps": 0,
+    "hunks": 48
+  },
+  {
+    "name": "unsigned_mask",
+    "extent": 1092,
+    "required": 1108,
+    "exact": false,
+    "different_overlapping_bytes": 788,
+    "base_index_swaps": 0,
+    "hunks": 48
+  },
+  {
+    "name": "chained_lengths",
+    "extent": 1092,
+    "required": 1108,
+    "exact": false,
+    "different_overlapping_bytes": 788,
+    "base_index_swaps": 0,
+    "hunks": 48
+  },
+  {
+    "name": "prefix_block",
+    "extent": 1092,
+    "required": 1108,
+    "exact": false,
+    "different_overlapping_bytes": 788,
+    "base_index_swaps": 0,
+    "hunks": 48
+  },
+  {
+    "name": "count_after_point",
+    "extent": 1092,
+    "required": 1108,
+    "exact": false,
+    "different_overlapping_bytes": 788,
+    "base_index_swaps": 0,
+    "hunks": 48
+  },
+  {
+    "name": "origin_constructor",
+    "extent": 1072,
+    "required": 1108,
+    "exact": false,
+    "different_overlapping_bytes": 970,
+    "base_index_swaps": 0,
+    "hunks": 49
+  },
+  {
+    "name": "position_then_delta",
+    "extent": 1092,
+    "required": 1108,
+    "exact": false,
+    "different_overlapping_bytes": 788,
+    "base_index_swaps": 0,
+    "hunks": 48
+  },
+  {
+    "name": "copy_integer_words",
+    "extent": 1092,
+    "required": 1108,
+    "exact": false,
+    "different_overlapping_bytes": 788,
+    "base_index_swaps": 0,
+    "hunks": 48
+  },
+  {
+    "name": "point_assignment_ref",
+    "extent": 1124,
+    "required": 1108,
+    "exact": false,
+    "different_overlapping_bytes": 813,
+    "base_index_swaps": 0,
+    "hunks": 48
+  }
+]

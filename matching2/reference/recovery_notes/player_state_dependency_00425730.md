@@ -1,5 +1,10 @@
 # Player-state dependency `0x00425730`
 
+Historical checkpoint. The later [complete genuine player-state graph](player_state_genuine_00425730_2026_10_06.md)
+reconstructs the entire owner at 3,024/3,112 bytes and passes 947 owner cases.
+It also provides a complete raw-exact 174-byte sequence updater through the
+real caller. The larger owner remains assembly-owned.
+
 ## Disposition
 
 No semantic promotion was retained. The production owner

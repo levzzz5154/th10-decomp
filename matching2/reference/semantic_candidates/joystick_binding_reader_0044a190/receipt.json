@@ -1,0 +1,84 @@
+{
+  "region": "0x0044A190",
+  "source_kind": "complete ordinary C++ candidate",
+  "selected": false,
+  "exact": false,
+  "native_extent": 832,
+  "retail_extent": 833,
+  "reported_instruction_groups": 49,
+  "different_overlapping_bytes_after_diagnostic_address_normalization": 705,
+  "missing_tail_bytes": 1,
+  "normalized_full_body_sha256": "f3e013202c75921bb381b1555e329b743d244f1800dde31522dd6b89804d844e",
+  "retail_full_body_sha256": "d6c563e2da06c84e64efe7b6485615df286cf86cd042ccae9403cbb0c61ba500",
+  "native_pe_sha256": "d0d826885a6b030341c0fe1ec196ee5186c0810405d2e253f10865cd5067f2b8",
+  "source_sha256": {
+    "joystick_reader.cpp": "8a0d3da09e6434ff57ee5a8c25cc267a7debde9119afdba16a35f7fa27637042",
+    "joystick_reader.hpp": "71256eea3fc2f655a83ff9cf4a1eba0a9d9d52ddafb963a67bc3ef01971ccc71",
+    "layout.json": "212ac6bbcc42b5eab67a5b8dde363764cdf38f501679239828f8d31239b1c8d4",
+    "measure.py": "203c209de8f825dac8950de55e742cc9c717727da2220aeff40ad7674b5b2cbd",
+    "differential.py": "c73f3cf49b9ddb9a1d0c8295067471db057804c5ec2536185b13a08c4affed52"
+  },
+  "evidence_sha256": {
+    "evidence/compiler_allocation_events.jsonl": "3bf16880f051bf2989c25f022957129d8d6ea32131f5df1a358c9982eaeab157",
+    "evidence/compiler_allocation_summary.json": "95134e8318b3a9681412ca258737530a7561a1f576b08ca6fb7b1ea475129057",
+    "evidence/ghidra_44a190.c": "404d74f5ac263e20fc9768651037214772583947df19040a39863c623238a1af",
+    "evidence/ghidra_44a5f0.c": "a002dfa3011f43abad3adf0b55e33d22505f9e53598d323eea1fabc1228a4456",
+    "evidence/ghidra_44a9d0_lookup.json": "84a3601177295e1eb4dfab5ff5a2661d1fe1a3ffa8f6c97581dc8a47360f8601",
+    "evidence/ghidra_xrefs_44a190.json": "d5229097011b9344f265a0d59b21a027e201fc5daf0a59babc0b07ea539d91d5",
+    "differential_receipt.json": "9cc30722dfed7ef561b0406aa0bb2adc0390848ff43e5c46f0339a77b5f1bb41",
+    "source_controls.json": "251f5c7fce4e862a5abef5822ae50eef3183e65b6c39d4e601d253fc66a58c6d",
+    "diagnostic_comparison.json": "777831e17a25d4e6a153129012c99a7680969727db60d8acd22ee9267e83ebc9"
+  },
+  "tool_sha256": {
+    "cl.exe": "333254d73ee602f6ec14b00e9bf40f533a1b181429943e3634971642af00c9f7",
+    "link.exe": "3e6526234cce5ce962d22f267f84f01d3c540b8ee9129c53f127c5e124fa2b20",
+    "c2.dll": "7a6f6d8e4da7b518384ff78f2c41028805d3a1d1a40dc2cc857c391ec81763f5"
+  },
+  "build_mode": "ordinary /O2 compile; no-entry native DLL module retains only the real root",
+  "public_abi": {
+    "flags_register": "ECX",
+    "stack_arguments": [
+      "binding_set",
+      "device"
+    ],
+    "stack_argument_bytes": 8,
+    "return": "AX",
+    "cleanup": "RET 8",
+    "synthetic_unused_inputs": 0
+  },
+  "semantic_recovery": {
+    "WinMM_import_calling_convention": "stdcall",
+    "WinMM_buffer_zeroed_bytes": 52,
+    "DirectInput_buffer_zeroed_bytes": 272,
+    "DirectInput_button_array_offset": 48,
+    "DirectInput_button_test": "high bit of each bound button byte",
+    "DirectInput_axes": "signed strict outside thresholds",
+    "maximum_acquisition_calls": 401,
+    "device_object_reloaded_after_API_calls": true
+  },
+  "differential_cases": 718,
+  "reference_bytes_used_for_build": false,
+  "comparison_masks": 0,
+  "accepted_differences": 0,
+  "instruction_patches": 0,
+  "production_source_or_manifest_changed": false,
+  "measured_controls": 51,
+  "production_audit": {
+    "whole_executable_bytes": 487936,
+    "equal_to_retail": true,
+    "sha256": "2f14760b6fbbf57549541583283badb9a19a4222b90f0a146d5aa17f01dc9040"
+  },
+  "caller_graph_control_sha256": {
+    "caller_graph_stdcall/binding_refresh.cpp": "1f92fc5bc86bad1501b7661d295d424b982b46261d099715c3636db0673d96e3",
+    "caller_graph_stdcall/joystick_reader.cpp": "e78be6f248344bbf627409c2a1b6ee98d8583e8394c5782abe7b57b88d6a0d16",
+    "caller_graph_stdcall/joystick_reader.hpp": "cb0efd6d8fd382da2608f0ca783ad89dced0b154c1b7310e931b1e5a27fbf566",
+    "caller_graph_stdcall/keyboard_refresh.cpp": "0b0c23dfbac9ab6327cdede448cb421289874760011d3a6afe5c1c38fc2c0fd9",
+    "caller_graph_stdcall/layout.json": "fb3360b6325566d4f9a286643c738087fa2041b2ef8e9146d43656e3c79dea02",
+    "caller_graph_stdcall/measure.py": "b8c6ca47d6c78068d12028eca88500d0451358b264b3af87175262d36d72ebd1"
+  },
+  "compiler_trace_tool_sha256": {
+    "reference/compiler_traces/regalloc/trace_joystick_globals.py": "756a46ffd37eea6691b76181eadb8fafd3f1e430f8df6d75b22188509110322c"
+  },
+  "action_naming_evidence": "Keyboard callers use Escape for bit 0x008 and Control for bit 0x100.",
+  "genuine_caller_graph_control": "Scalar stdcall three-input reader with both actual complete callers; /GL changes private ABI to binding index in ECX. All three bodies remain unequal."
+}

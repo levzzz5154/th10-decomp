@@ -3,7 +3,7 @@
 
 DirectSound calls, Sleep, logging and free are scripted. Both runs execute
 the real CRT strncmp. The default fixture uses Clang and a C++ chunk walker;
---native-equivalent checks the maintained MSVC body with the retail walker.
+--native checks the byte-exact maintained MSVC body with the retail walker.
 No audio device or Windows exception dispatch is exercised.
 """
 
@@ -384,8 +384,8 @@ def verify_observations(case, result):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--oracle", type=Path, default=ROOT / "matching2/build/oracle/th10.exe")
-    parser.add_argument("--native-equivalent", action="store_true",
-                        help="execute the maintained MSVC equivalent body with retail helpers")
+    parser.add_argument("--native", "--native-equivalent", dest="native", action="store_true",
+                        help="execute the byte-exact maintained MSVC body with retail helpers")
     parser.add_argument("--project", type=Path, default=ROOT / "matching2/msvc")
     options = parser.parse_args()
     project = options.project.resolve()
@@ -393,14 +393,15 @@ def main():
     text = load_oracle(options.oracle, config)
     image = PEImage(options.oracle.read_bytes())
     with tempfile.TemporaryDirectory(prefix="th10-wave-load-") as temporary:
-        if options.native_equivalent:
-            from matching2.tools.matching.equivalence import load_recoveries, verify_recovery
+        if options.native:
+            from matching2.tools.matching.ltcg_cluster import load_clusters, build_cluster
             from matching2.tools.common.wine import DEFAULT_TOOLKIT
-            recovery, = [item for item in load_recoveries(project, config, config["regions"])
-                         if item["name"] == "sound_wave_load_0043d390"]
-            report, body = verify_recovery(recovery, project, DEFAULT_TOOLKIT,
-                                           config["flags"], text, Path(temporary))
-            assert report["code_bytes"] == 684
+            cluster, = [item for item in load_clusters(project, config, config["regions"])
+                        if item["name"] == "sound_wave_load"]
+            unit = build_cluster(cluster, DEFAULT_TOOLKIT, Path(temporary), config["flags"])
+            native = PEImage(Path(unit["native_build"]["native_executable"]).read_bytes())
+            body = native.read(0x43D390, 684)
+            assert body == text[0x43D390 - 0x401000:0x43D390 - 0x401000 + 684]
             # Same address and ABI as retail; retain its actual chunk/CRT bodies.
             compiled = (None, {0x43D390: body})
         else:
@@ -415,9 +416,9 @@ def main():
             verify_observations(case, actual)
             comparisons += 1
             faults += bool(expected["faults"])
-        if options.native_equivalent:
+        if options.native:
             print(f"PASS: {comparisons} native MSVC pending-WAVE loader comparisons, "
-                  f"including {faults} matching faults; strict equivalence gate passed. "
+                  f"including {faults} matching faults; strict byte gate passed. "
                   "DirectSound and other external collaborators are scripted.")
         else:
             print(f"PASS: {comparisons} pending-WAVE loader comparisons, including {faults} matching faults; "

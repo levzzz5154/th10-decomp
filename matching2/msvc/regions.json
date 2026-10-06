@@ -3597,13 +3597,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_Player_HitTestRetail_004059f0",
-      "source": "src/game/player.cpp",
-      "symbol": "_asm_Player_HitTestRetail_004059f0",
+      "name": "semantic_Player_HitTestRetail_004059f0",
+      "source": "src/game/player_hit_test_004059f0.cpp",
+      "symbol": "?HitTest@PickupPlayer@@QAEHPBUPickupPoint@@@Z",
       "address": "0x004059F0",
       "size": 202,
-      "kind": "asm",
-      "owner": "0x004059F0"
+      "kind": "semantic",
+      "owner": "animation_resource_initialize_object_00449870",
+      "previous_record": {
+        "name": "asm_Player_HitTestRetail_004059f0",
+        "source": "src/game/player.cpp",
+        "symbol": "_asm_Player_HitTestRetail_004059f0",
+        "address": "0x004059F0",
+        "size": 202,
+        "kind": "asm",
+        "owner": "0x004059F0"
+      }
     },
     {
       "name": "text_padding_00405aba",
@@ -4720,8 +4729,8 @@
     },
     {
       "name": "semantic_CollisionRecord_Activate_00408030",
-      "source": "src/game/collision_record_activate_00408030.cpp",
-      "symbol": "?Activate@CollisionRecord_00408100@@QAEHXZ",
+      "source": "src/game/player_collision_00408030_00408100.cpp",
+      "symbol": "?Activate@PlayerCollisionRecord@@QAEHXZ",
       "address": "0x00408030",
       "size": 199,
       "kind": "semantic",
@@ -4734,7 +4743,8 @@
         "size": 199,
         "kind": "asm",
         "owner": "0x00408030"
-      }
+      },
+      "section": ".text$f00408030F"
     },
     {
       "name": "text_padding_004080f7",
@@ -4746,8 +4756,8 @@
     },
     {
       "name": "semantic_CollisionCheck_00408100",
-      "source": "src/game/fun_00408100_00408100.cpp",
-      "symbol": "?Check@CollisionEngine_00408100@@QAEHPBUPositionVector_004492f0@@MHH@Z",
+      "source": "src/game/player_collision_00408030_00408100.cpp",
+      "symbol": "?Check@PlayerCollisionEngine@@QAEHPBUVec3@@MHH@Z",
       "address": "0x00408100",
       "size": 260,
       "kind": "semantic",
@@ -4760,7 +4770,8 @@
         "size": 260,
         "kind": "asm",
         "owner": "0x00408100"
-      }
+      },
+      "section": ".text$f00408100F"
     },
     {
       "name": "text_padding_00408204",
@@ -13410,13 +13421,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00413bc0_00413bc0",
-      "source": "src/game/player_front_runtime.cpp",
-      "symbol": "_asm_FUN_00413bc0_00413bc0",
+      "name": "semantic_Front_Initialize_00413bc0",
+      "source": "src/game/front_initialize_00413bc0.cpp",
+      "symbol": "?Initialize@FrontInitialization_00413bc0@@QAEXXZ",
       "address": "0x00413BC0",
       "size": 1965,
-      "kind": "asm",
-      "owner": "0x00413BC0"
+      "kind": "semantic",
+      "owner": "0x00413BC0",
+      "previous_record": {
+        "name": "asm_FUN_00413bc0_00413bc0",
+        "source": "src/game/player_front_runtime.cpp",
+        "symbol": "_asm_FUN_00413bc0_00413bc0",
+        "address": "0x00413BC0",
+        "size": 1965,
+        "kind": "asm",
+        "owner": "0x00413BC0"
+      }
     },
     {
       "name": "text_padding_0041436d",
@@ -13799,13 +13819,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00417040_00417040",
+      "name": "semantic_ScoreHud_Update_00417040",
       "source": "src/game/score_hud_update.cpp",
-      "symbol": "_asm_FUN_00417040_00417040",
+      "symbol": "?Update@ScoreHud_00417040@@QAEXXZ",
       "address": "0x00417040",
       "size": 671,
-      "kind": "asm",
-      "owner": "0x00417040"
+      "kind": "semantic",
+      "owner": "0x00417040",
+      "previous_record": {
+        "name": "asm_FUN_00417040_00417040",
+        "source": "src/game/score_hud_update.cpp",
+        "symbol": "_asm_FUN_00417040_00417040",
+        "address": "0x00417040",
+        "size": 671,
+        "kind": "asm",
+        "owner": "0x00417040"
+      }
     },
     {
       "name": "text_padding_004172df",
@@ -13816,13 +13845,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_004172e0_004172e0",
+      "name": "semantic_ResultOverlay_SetMode_004172e0",
       "source": "src/game/result_overlay.cpp",
-      "symbol": "_asm_FUN_004172e0_004172e0",
+      "symbol": "?ResultOverlay_SetMode@@YGXHPAUResultOverlayState_004172e0@@H@Z",
       "address": "0x004172E0",
       "size": 668,
-      "kind": "asm",
-      "owner": "0x004172E0"
+      "kind": "semantic",
+      "owner": "0x004172E0",
+      "previous_record": {
+        "name": "asm_FUN_004172e0_004172e0",
+        "source": "src/game/result_overlay.cpp",
+        "symbol": "_asm_FUN_004172e0_004172e0",
+        "address": "0x004172E0",
+        "size": 668,
+        "kind": "asm",
+        "owner": "0x004172E0"
+      }
     },
     {
       "name": "text_padding_0041757c",
@@ -14602,13 +14640,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00417870_00417870",
+      "name": "semantic_StageStartup_00417870",
       "source": "src/game/stage_entry.cpp",
-      "symbol": "_asm_FUN_00417870_00417870",
+      "symbol": "_StageStartup@4",
       "address": "0x00417870",
       "size": 1009,
-      "kind": "asm",
-      "owner": "0x00417870"
+      "kind": "semantic",
+      "owner": "0x00417870",
+      "previous_record": {
+        "name": "asm_FUN_00417870_00417870",
+        "source": "src/game/stage_entry.cpp",
+        "symbol": "_asm_FUN_00417870_00417870",
+        "address": "0x00417870",
+        "size": 1009,
+        "kind": "asm",
+        "owner": "0x00417870"
+      }
     },
     {
       "name": "text_padding_00417c61",
@@ -14740,13 +14787,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00418190_00418190",
+      "name": "semantic_StageUpdate_00418190",
       "source": "src/game/stage_update.cpp",
-      "symbol": "_asm_FUN_00418190_00418190",
+      "symbol": "_StageUpdate@4",
       "address": "0x00418190",
       "size": 1544,
-      "kind": "asm",
-      "owner": "0x00418190"
+      "kind": "semantic",
+      "owner": "0x00418190",
+      "previous_record": {
+        "name": "asm_FUN_00418190_00418190",
+        "source": "src/game/stage_update.cpp",
+        "symbol": "_asm_FUN_00418190_00418190",
+        "address": "0x00418190",
+        "size": 1544,
+        "kind": "asm",
+        "owner": "0x00418190"
+      }
     },
     {
       "name": "text_padding_00418798",
@@ -14906,8 +14962,8 @@
     },
     {
       "name": "semantic_RunCounters_AddLives_004188a0",
-      "source": "src/game/life_stock_add_004188a0.cpp",
-      "symbol": "?AddLives@RunCounters_004188a0@@QAEXH@Z",
+      "source": "src/game/item_collection_genuine_0041afd0.cpp",
+      "symbol": "?AddLives@ItemRunState@@QAEXH@Z",
       "address": "0x004188A0",
       "size": 141,
       "kind": "semantic",
@@ -14932,8 +14988,8 @@
     },
     {
       "name": "semantic_RunCounters_AddPower_00418930",
-      "source": "src/game/life_stock_add_004188a0.cpp",
-      "symbol": "?AddPower@RunCounters_004188a0@@QAEHH@Z",
+      "source": "src/game/item_collection_genuine_0041afd0.cpp",
+      "symbol": "?AddPower@ItemRunState@@QAEHH@Z",
       "address": "0x00418930",
       "size": 166,
       "kind": "semantic",
@@ -16741,7 +16797,7 @@
     },
     {
       "name": "semantic_ItemSpawnManager_ConvertItems_0041ba50",
-      "source": "src/game/item_convert_sweep_0041ba50.cpp",
+      "source": "src/game/item_collection_genuine_0041afd0.cpp",
       "symbol": "?ConvertItems@ItemSpawnManager_0041bb00@@QAEHXZ",
       "address": "0x0041BA50",
       "size": 165,
@@ -17867,8 +17923,8 @@
     },
     {
       "name": "semantic_ScoreRecords_0041c800_CopyVectorAndEvaluate_0041c800",
-      "source": "src/game/score_records_copy_vector_and_evaluate_0041c800.cpp",
-      "symbol": "?CopyVectorAndEvaluate@ScoreRecords_0041c800@@QAEHPBMMH@Z",
+      "source": "src/game/player_bullet_animation_0041c800_0041c850_00449210_004492f0.cpp",
+      "symbol": "?Evaluate@PlayerBulletManager@@QAEHPBUVec3@@MH@Z",
       "address": "0x0041C800",
       "size": 76,
       "kind": "semantic",
@@ -17881,7 +17937,8 @@
         "size": 76,
         "kind": "asm",
         "owner": "0x0041C800"
-      }
+      },
+      "section": ".text$f0041c800F"
     },
     {
       "name": "semantic_unassigned_0041c84c",
@@ -17894,8 +17951,8 @@
     },
     {
       "name": "semantic_ScoreCleanupOwner_0041c850_Cleanup_0041c850",
-      "source": "src/game/score_cleanup.cpp",
-      "symbol": "?Cleanup@ScoreCleanupOwner_0041c850@@QAEHH@Z",
+      "source": "src/game/player_bullet_animation_0041c800_0041c850_00449210_004492f0.cpp",
+      "symbol": "?Reset@PlayerBulletManager@@QAEHH@Z",
       "address": "0x0041C850",
       "size": 44,
       "kind": "semantic",
@@ -17908,7 +17965,8 @@
         "size": 44,
         "kind": "asm",
         "owner": "0x0041C850"
-      }
+      },
+      "section": ".text$f0041c850F"
     },
     {
       "name": "text_padding_0041c87c",
@@ -18065,13 +18123,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0041d3d0_0041d3d0",
+      "name": "semantic_LineLaser_Update_0041d3d0",
       "source": "src/game/laser_line.cpp",
-      "symbol": "_asm_FUN_0041d3d0_0041d3d0",
+      "symbol": "?Update@LineLaser@@UAEHXZ",
       "address": "0x0041D3D0",
       "size": 1001,
-      "kind": "asm",
-      "owner": "0x0041D3D0"
+      "kind": "semantic",
+      "owner": "0x0041D3D0",
+      "previous_record": {
+        "name": "asm_FUN_0041d3d0_0041d3d0",
+        "source": "src/game/laser_line.cpp",
+        "symbol": "_asm_FUN_0041d3d0_0041d3d0",
+        "address": "0x0041D3D0",
+        "size": 1001,
+        "kind": "asm",
+        "owner": "0x0041D3D0"
+      }
     },
     {
       "name": "text_padding_0041d7b9",
@@ -18246,13 +18313,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0041e700_0041e700",
+      "name": "semantic_GrowLaser_Update_0041e700",
       "source": "src/game/laser_grow_update.cpp",
-      "symbol": "_asm_FUN_0041e700_0041e700",
+      "symbol": "?Update@GrowLaser@@QAEHXZ",
       "address": "0x0041E700",
       "size": 832,
-      "kind": "asm",
-      "owner": "0x0041E700"
+      "kind": "semantic",
+      "owner": "0x0041E700",
+      "previous_record": {
+        "name": "asm_FUN_0041e700_0041e700",
+        "source": "src/game/laser_grow_update.cpp",
+        "symbol": "_asm_FUN_0041e700_0041e700",
+        "address": "0x0041E700",
+        "size": 832,
+        "kind": "asm",
+        "owner": "0x0041E700"
+      }
     },
     {
       "name": "semantic_BossOverlay_0041EA40_Draw_0041ea40",
@@ -22397,13 +22473,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_004269d0_004269d0",
+      "name": "semantic_SpellTimeout_004269d0",
       "source": "src/game/spell_timeout.cpp",
-      "symbol": "_asm_FUN_004269d0_004269d0",
+      "symbol": "_SpellTimeout_004269d0@4",
       "address": "0x004269D0",
       "size": 796,
-      "kind": "asm",
-      "owner": "0x004269D0"
+      "kind": "semantic",
+      "owner": "0x004269D0",
+      "previous_record": {
+        "name": "asm_FUN_004269d0_004269d0",
+        "source": "src/game/spell_timeout.cpp",
+        "symbol": "_asm_FUN_004269d0_004269d0",
+        "address": "0x004269D0",
+        "size": 796,
+        "kind": "asm",
+        "owner": "0x004269D0"
+      }
     },
     {
       "name": "text_padding_00426cec",
@@ -22414,12 +22499,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00426cf0_00426cf0",
+      "name": "ActivateField_00426cf0",
       "source": "src/game/trigger_activation.cpp",
-      "symbol": "_asm_FUN_00426cf0_00426cf0",
+      "symbol": "_ActivateField_00426cf0@4",
       "address": "0x00426CF0",
       "size": 627,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x00426CF0"
     },
     {
@@ -33216,13 +33301,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0043cd30_0043cd30",
+      "name": "semantic_SoundDeviceInitialize_0043cd30",
       "source": "src/platform/sound_device_init.cpp",
-      "symbol": "_asm_FUN_0043cd30_0043cd30",
+      "symbol": "?Initialize@WaveSoundManager@@QAEHPAX@Z",
       "address": "0x0043CD30",
       "size": 786,
-      "kind": "asm",
-      "owner": "0x0043CD30"
+      "kind": "semantic",
+      "owner": "0x0043CD30",
+      "previous_record": {
+        "name": "asm_FUN_0043cd30_0043cd30",
+        "source": "src/platform/sound_device_init.cpp",
+        "symbol": "_asm_FUN_0043cd30_0043cd30",
+        "address": "0x0043CD30",
+        "size": 786,
+        "kind": "asm",
+        "owner": "0x0043CD30"
+      }
     },
     {
       "name": "text_padding_0043d042",
@@ -33380,12 +33474,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0043d390_0043d390",
-      "source": "src/platform/fun_0043d390_0043d390.cpp",
-      "symbol": "_asm_FUN_0043d390_0043d390",
+      "name": "SoundWaveLoad",
+      "source": "src/platform/sound_wave_load_0043d390.cpp",
+      "symbol": "@SoundWave_LoadPending_0043d390@12",
       "address": "0x0043D390",
       "size": 684,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x0043D390"
     },
     {
@@ -38174,8 +38268,8 @@
     },
     {
       "name": "semantic_AnimationManager_SetStopFrame_00449210",
-      "source": "src/render/animation_manager_set_stop_frame_00449210.cpp",
-      "symbol": "?AnimationManager_SetStopFrame@@YIXGPAUAnimationLookupContext@@UAnimationScriptId@@@Z",
+      "source": "src/game/player_bullet_animation_0041c800_0041c850_00449210_004492f0.cpp",
+      "symbol": "?MovementStopFrame_00449210@@YIXGPAUPickupAnimationLists@@UAnimationRef@@@Z",
       "address": "0x00449210",
       "size": 54,
       "kind": "semantic",
@@ -38188,7 +38282,8 @@
         "size": 54,
         "kind": "asm",
         "owner": "0x00449210"
-      }
+      },
+      "section": ".text$f00449210F"
     },
     {
       "name": "text_padding_00449246",
@@ -38252,8 +38347,8 @@
     },
     {
       "name": "semantic_AnimationManager_SetPosition_004492f0",
-      "source": "src/render/animation_manager_set_position_004492f0.cpp",
-      "symbol": "?SetAnimationPosition_004492f0@@YIXPAUPositionLookupContext_004492f0@@PBUPositionVector_004492f0@@UPositionScriptId_004492f0@@@Z",
+      "source": "src/game/player_bullet_animation_0041c800_0041c850_00449210_004492f0.cpp",
+      "symbol": "?MovementSetPosition_004492f0@@YIXPBUVector3@@PAUPickupAnimationLists@@UAnimationRef@@@Z",
       "address": "0x004492F0",
       "size": 90,
       "kind": "semantic",
@@ -38266,7 +38361,8 @@
         "size": 90,
         "kind": "asm",
         "owner": "0x004492F0"
-      }
+      },
+      "section": ".text$f004492f0F"
     },
     {
       "name": "text_padding_0044934a",
@@ -59944,7 +60040,12 @@
     "?EndingScreen_Update_0042d300@@YGHPAURecoveryMusicRoom_00433ef0@@@Z": "0x0042D300",
     "?ResolveIntegerValue@EclIntegerSource@@QBEHH@Z": "0x00411FC0",
     "?ResolveFloatValue@EclFloatSource_00412350@@QBEMH@Z": "0x00412350",
-    "??0StageScoreDisplay@@QAE@PBX@Z": "0x00415B00"
+    "??0StageScoreDisplay@@QAE@PBX@Z": "0x00415B00",
+    "_SpellTimeout_004269d0@4": "0x004269D0",
+    "?Initialize@WaveSoundManager@@QAEHPAX@Z": "0x0043CD30",
+    "_StageStartup@4": "0x00417870",
+    "?ResultOverlay_SetMode@@YGXHPAUResultOverlayState_004172e0@@H@Z": "0x004172E0",
+    "?HitTest@PickupPlayer@@QAEHPBUPickupPoint@@@Z": "0x004059F0"
   },
   "translation_units": [
     "lib/libc.lib/build/intel/st_obj/a_cmp.obj",
@@ -60091,17 +60192,17 @@
     "lib/libcpmt.lib/build/intel/mt_obj/cerr.obj",
     "lib/libcpmt.lib/build/intel/mt_obj/ios.obj",
     "lib/libcpmt.lib/build/intel/mt_obj/string.obj",
+    "src/app/anm_storage_construct_00445900.cpp",
     "src/app/app_begin_frame_00420000.cpp",
     "src/app/app_register_tasks_00420470.cpp",
     "src/app/app_shutdown_00420270.cpp",
+    "src/app/config_load_00420870.cpp",
     "src/app/data_version_load_00420100.cpp",
     "src/app/fps_counter.cpp",
     "src/app/frame_clock.cpp",
-    "src/app/screenshot_capture_00420670.cpp",
-    "src/app/config_load_00420870.cpp",
     "src/app/game_state_byte_test_00420b60.cpp",
-    "src/app/anm_storage_construct_00445900.cpp",
     "src/app/main_task_tick_wave18.cpp",
+    "src/app/screenshot_capture_00420670.cpp",
     "src/app/tan_pair_00421be0.cpp",
     "src/archive/crypt.cpp",
     "src/archive/dat.cpp",
@@ -60160,7 +60261,6 @@
     "src/game/cached_com_slot_release_retail_00421d20.cpp",
     "src/game/cell_pair_scale_00427d80.cpp",
     "src/game/collision_engine_activate_all_00408460.cpp",
-    "src/game/collision_record_activate_00408030.cpp",
     "src/game/create_game_state_00402640.cpp",
     "src/game/destroy_entity_list_00438a30.cpp",
     "src/game/destroy_game_thread_00401260.cpp",
@@ -60192,6 +60292,7 @@
     "src/game/enemy_motion_steps.cpp",
     "src/game/enemy_projectile_spawn.cpp",
     "src/game/enemy_slot_create_and_init_retail_0041fd00.cpp",
+    "src/game/enemy_spawn_0040cfb0.cpp",
     "src/game/enemy_timer_sweep_retail_0040d750.cpp",
     "src/game/entity.cpp",
     "src/game/entity_angle_from_point_00426660.cpp",
@@ -60204,6 +60305,7 @@
     "src/game/field_contact_004266b0.cpp",
     "src/game/floating_text_draw.cpp",
     "src/game/frame_counter.cpp",
+    "src/game/front_initialize_00413bc0.cpp",
     "src/game/fun_00401760_00401760.cpp",
     "src/game/fun_00401a50_00401a50.cpp",
     "src/game/fun_00402ca0_00402ca0.cpp",
@@ -60213,23 +60315,16 @@
     "src/game/fun_00407780_00407780.cpp",
     "src/game/fun_00407a30_00407a30.cpp",
     "src/game/fun_00407be0_00407be0.cpp",
-    "src/game/fun_00408100_00408100.cpp",
     "src/game/fun_004089c0_004089c0.cpp",
-    "src/game/player_hud_start_spell_00409280.cpp",
     "src/game/fun_0040b7b0_0040b7b0.cpp",
-    "src/game/enemy_spawn_0040cfb0.cpp",
     "src/game/fun_0040d830_0040d830.cpp",
-    "src/game/side_panel_contents_release_00414370.cpp",
     "src/game/fun_00414900_00414900.cpp",
     "src/game/fun_00415e90_00415e90.cpp",
-    "src/game/score_records_tick_0041c330.cpp",
-    "src/game/score_table_insert_00421fa0.cpp",
     "src/game/fun_0041f400_0041f400.cpp",
     "src/game/fun_0041fb50_0041fb50.cpp",
     "src/game/fun_004223f0_004223f0.cpp",
     "src/game/fun_004224c0_004224c0.cpp",
     "src/game/fun_00422ab0_00422ab0.cpp",
-    "src/game/name_entry_prepare_00423570.cpp",
     "src/game/fun_00425730_00425730.cpp",
     "src/game/fun_00427960_00427960.cpp",
     "src/game/fun_00427e90_00427e90.cpp",
@@ -60265,7 +60360,6 @@
     "src/game/input_pattern_count.cpp",
     "src/game/input_poll_joystick_buttons_0044a4e0.cpp",
     "src/game/input_recorder_update_004297d0.cpp",
-    "src/game/item_convert_sweep_0041ba50.cpp",
     "src/game/item_drops_flush_0040c9a0.cpp",
     "src/game/item_enter_state_2_0041be40.cpp",
     "src/game/item_manager_construct_00413810.cpp",
@@ -60280,7 +60374,6 @@
     "src/game/laser_line.cpp",
     "src/game/laser_segment_cut.cpp",
     "src/game/laser_spawn_0041c510.cpp",
-    "src/game/life_stock_add_004188a0.cpp",
     "src/game/line_effect_create_all_segments_0041e260.cpp",
     "src/game/line_laser_initialize_0041c8c0.cpp",
     "src/game/linked_pool_append_0042aa50.cpp",
@@ -60299,6 +60392,7 @@
     "src/game/music_requests_00420a90.cpp",
     "src/game/music_room.cpp",
     "src/game/name_entry.cpp",
+    "src/game/name_entry_prepare_00423570.cpp",
     "src/game/named_value_lookup_004198c0.cpp",
     "src/game/native_effect_manager_create_0041aed0.cpp",
     "src/game/native_stage_tip.cpp",
@@ -60318,7 +60412,7 @@
     "src/game/platform_select_stream_record_0044dca0.cpp",
     "src/game/platform_set_operation_deadline_0044d4e0.cpp",
     "src/game/playback_state_on_switch_00427ad0.cpp",
-    "src/game/player.cpp",
+    "src/game/player_hit_test_004059f0.cpp",
     "src/game/player_adjustpower_00405b60.cpp",
     "src/game/player_animation_advance_frame_004074b0.cpp",
     "src/game/player_clear_expired_flags_00405500.cpp",
@@ -60327,6 +60421,8 @@
     "src/game/player_draw_sprites_00409190.cpp",
     "src/game/player_front_runtime.cpp",
     "src/game/player_homing_00407ef0.cpp",
+    "src/game/player_hud_start_spell_00409280.cpp",
+    "src/game/player_hud_update_00408d60.cpp",
     "src/game/player_manager_construct_00408910.cpp",
     "src/game/player_manager_create_00408c90.cpp",
     "src/game/player_manager_start_mode_004045b0.cpp",
@@ -60398,6 +60494,8 @@
     "src/game/replay_progress.cpp",
     "src/game/replay_runtime_bootstrap.cpp",
     "src/game/replay_spell_list.cpp",
+    "src/game/replay_stage_begin_0042a6a0.cpp",
+    "src/game/replay_stage_finish_0042a450.cpp",
     "src/game/resource_manager_cleanup_00418ee0.cpp",
     "src/game/result_menu_open.cpp",
     "src/game/result_overlay.cpp",
@@ -60410,7 +60508,6 @@
     "src/game/scheduler_tasks.cpp",
     "src/game/score.cpp",
     "src/game/score_bookkeeping.cpp",
-    "src/game/score_cleanup.cpp",
     "src/game/score_display_register_tasks_retail_0041c120.cpp",
     "src/game/score_extended_object_destroy_0041c1c0.cpp",
     "src/game/score_file.cpp",
@@ -60420,11 +60517,12 @@
     "src/game/score_manager_save.cpp",
     "src/game/score_object_initialize_0041c030.cpp",
     "src/game/score_owned_destroy_0040b9d0.cpp",
-    "src/game/score_records_copy_vector_and_evaluate_0041c800.cpp",
     "src/game/score_records_mark_eligible_0041c7d0.cpp",
+    "src/game/score_records_tick_0041c330.cpp",
     "src/game/score_retire_callbacks_00409e20.cpp",
     "src/game/score_set_mode_00412ed0.cpp",
     "src/game/score_settings_initialize_defaults_0042add0.cpp",
+    "src/game/score_table_insert_00421fa0.cpp",
     "src/game/score_tasks.cpp",
     "src/game/score_timer_leaves.cpp",
     "src/game/screen_effect_envelope_shake.cpp",
@@ -60435,11 +60533,10 @@
     "src/game/script_viewer_update_0042bfc0.cpp",
     "src/game/set_input_mode_0040ac90.cpp",
     "src/game/shot_practice_menu.cpp",
+    "src/game/side_panel_contents_release_00414370.cpp",
     "src/game/side_panel_release_00414570.cpp",
     "src/game/slot_lock_leaves.cpp",
-    "src/game/replay_stage_finish_0042a450.cpp",
     "src/game/sound_stream_fill_model.cpp",
-    "src/game/replay_stage_begin_0042a6a0.cpp",
     "src/game/spell_card_end_00409c00.cpp",
     "src/game/spell_timeout.cpp",
     "src/game/spell_timer.cpp",
@@ -60451,6 +60548,7 @@
     "src/game/stage_entry.cpp",
     "src/game/stage_focus_fade.cpp",
     "src/game/stage_manager_destructor_00424ed0.cpp",
+    "src/game/stage_score_display_00415b00.cpp",
     "src/game/stage_sequence_schedule.cpp",
     "src/game/stage_start_quad_scripts_00404450.cpp",
     "src/game/stage_state_update_00402720.cpp",
@@ -60521,16 +60619,11 @@
     "src/platform/fun_00437fe0_00437fe0.cpp",
     "src/platform/fun_004390e0_004390e0.cpp",
     "src/platform/fun_00439390_00439390.cpp",
-    "src/platform/window_create_00439730.cpp",
     "src/platform/fun_00439ff0_00439ff0.cpp",
     "src/platform/fun_0043a290_0043a290.cpp",
     "src/platform/fun_0043a910_0043a910.cpp",
     "src/platform/fun_0043ae20_0043ae20.cpp",
     "src/platform/fun_0043aeb0_0043aeb0.cpp",
-    "src/platform/fun_0043d390_0043d390.cpp",
-    "src/platform/sound_music_cache.cpp",
-    "src/platform/sound_music_play_cached.cpp",
-    "src/platform/sound_stream_create_memory_0044cbf0.cpp",
     "src/platform/gdi_font_cache.cpp",
     "src/platform/joystick_poll.cpp",
     "src/platform/joystick_probe.cpp",
@@ -60557,7 +60650,6 @@
     "src/platform/resource_file.cpp",
     "src/platform/resource_lifetime.cpp",
     "src/platform/sound_cleanup_0043d120.cpp",
-    "src/platform/sound_music_commands.cpp",
     "src/platform/sound_device_init.cpp",
     "src/platform/sound_effect_buffers.cpp",
     "src/platform/sound_fade_steps_0044d740.cpp",
@@ -60565,15 +60657,20 @@
     "src/platform/sound_float_forward.cpp",
     "src/platform/sound_leaves.cpp",
     "src/platform/sound_load_pending_slot_0043d640.cpp",
+    "src/platform/sound_music_cache.cpp",
+    "src/platform/sound_music_commands.cpp",
+    "src/platform/sound_music_launch.cpp",
+    "src/platform/sound_music_play_cached.cpp",
     "src/platform/sound_preload_worker_0043d080.cpp",
     "src/platform/sound_queue_pan_0043dd10.cpp",
     "src/platform/sound_start_music_command_0043da80.cpp",
     "src/platform/sound_stream_construct_0044ce80.cpp",
     "src/platform/sound_stream_create_file_0044c8f0.cpp",
+    "src/platform/sound_stream_create_memory_0044cbf0.cpp",
     "src/platform/sound_stream_recreate_buffers_0044cf20.cpp",
     "src/platform/sound_stream_service.cpp",
     "src/platform/sound_stream_start.cpp",
-    "src/platform/sound_music_launch.cpp",
+    "src/platform/sound_wave_load_0043d390.cpp",
     "src/platform/sound_worker.cpp",
     "src/platform/startup_dialog.cpp",
     "src/platform/streamer_restart_retail_0044dad0.cpp",
@@ -60582,8 +60679,10 @@
     "src/platform/text_log_write_to_file_00438950.cpp",
     "src/platform/win32_timer.cpp",
     "src/platform/window.cpp",
+    "src/platform/window_create_00439730.cpp",
     "src/platform/worker_start.cpp",
     "src/render/anchored_quad_build_00443290.cpp",
+    "src/render/anchored_quad_build_mirrored_00443480.cpp",
     "src/render/animation_array_tick_00441590.cpp",
     "src/render/animation_bucket_tasks.cpp",
     "src/render/animation_color_multiply_channel_004423c0.cpp",
@@ -60591,7 +60690,9 @@
     "src/render/animation_handle_change_script_004496d0.cpp",
     "src/render/animation_handle_set_stop_frame_and_run_004494c0.cpp",
     "src/render/animation_handle_validate_00427dd0.cpp",
+    "src/render/animation_load_surface_00447c80.cpp",
     "src/render/animation_manager.cpp",
+    "src/render/animation_manager_apply_blend_color_004423e0.cpp",
     "src/render/animation_manager_clear_flag_004495e0.cpp",
     "src/render/animation_manager_clear_resource_slot_004477d0.cpp",
     "src/render/animation_manager_copy_position_record_00447940.cpp",
@@ -60615,8 +60716,6 @@
     "src/render/animation_manager_select_sprite_from_current_resource_00449670.cpp",
     "src/render/animation_manager_select_sprite_from_resource_004496a0.cpp",
     "src/render/animation_manager_set_flag_bit1_00449590.cpp",
-    "src/render/animation_manager_set_position_004492f0.cpp",
-    "src/render/animation_manager_set_stop_frame_00449210.cpp",
     "src/render/animation_manager_set_stop_frame_and_run_00449250.cpp",
     "src/render/animation_manager_set_stop_frame_from_handle_retail_00449470.cpp",
     "src/render/animation_manager_set_translated_position_00449350.cpp",
@@ -60628,12 +60727,12 @@
     "src/render/animation_object_load_script_preserving_state_0043e7e0.cpp",
     "src/render/animation_object_resolve_float_variable_0043ed00.cpp",
     "src/render/animation_object_resolve_integer_variable_0043eda0.cpp",
+    "src/render/animation_resource_initialize_object_00449870.cpp",
     "src/render/animation_slot_release_004136c0.cpp",
     "src/render/animation_start_byte_interpolation_00441f50.cpp",
     "src/render/animation_texture_create_00447050.cpp",
     "src/render/animation_texture_surface_copy.cpp",
     "src/render/anm_batch_flush.cpp",
-    "src/render/animation_manager_apply_blend_color_004423e0.cpp",
     "src/render/anm_distance_color.cpp",
     "src/render/anm_file_load_entry_00447470.cpp",
     "src/render/anm_file_preload_entry_image_004472e0.cpp",
@@ -60676,7 +60775,6 @@
     "src/render/fun_00444240_00444240.cpp",
     "src/render/fun_00444580_00444580.cpp",
     "src/render/fun_00447810_00447810.cpp",
-    "src/render/animation_resource_initialize_object_00449870.cpp",
     "src/render/gdi_font_state.cpp",
     "src/render/gdi_surface_text.cpp",
     "src/render/image_alpha_transform.cpp",
@@ -60702,6 +60800,8 @@
     "src/script/ecl_child_pair.cpp",
     "src/script/ecl_core_interpreter.cpp",
     "src/script/ecl_find_variable_00450160.cpp",
+    "src/script/ecl_float_value_00412350.cpp",
+    "src/script/ecl_integer_value_00411fc0.cpp",
     "src/script/ecl_name_table.cpp",
     "src/script/ecl_pop_scratch_value_004506d0.cpp",
     "src/script/ecl_push_scratch_value_00450690.cpp",
@@ -60802,7 +60902,6 @@
     "src/unidentified/FUN_004087d0_004087d0.cpp",
     "src/unidentified/FUN_00408830_00408830.cpp",
     "src/unidentified/FUN_004088b0_004088b0.cpp",
-    "src/game/player_hud_update_00408d60.cpp",
     "src/unidentified/FUN_00409dc0_00409dc0.cpp",
     "src/unidentified/FUN_00409dd0_00409dd0.cpp",
     "src/unidentified/FUN_00409de0_00409de0.cpp",
@@ -61080,7 +61179,6 @@
     "src/unidentified/FUN_004458f0_004458f0.cpp",
     "src/unidentified/FUN_00446210_00446210.cpp",
     "src/unidentified/FUN_00446500_00446500.cpp",
-    "src/render/animation_load_surface_00447c80.cpp",
     "src/unidentified/FUN_00447ec0_00447ec0.cpp",
     "src/unidentified/FUN_00448600_00448600.cpp",
     "src/unidentified/FUN_00448620_00448620.cpp",
@@ -61764,7 +61862,6 @@
     "src/unidentified/unassigned_00441f30.cpp",
     "src/unidentified/unassigned_00441f40.cpp",
     "src/unidentified/unassigned_004423b0.cpp",
-    "src/render/anchored_quad_build_mirrored_00443480.cpp",
     "src/unidentified/unassigned_00444cb0.cpp",
     "src/unidentified/unassigned_00444dc0.cpp",
     "src/unidentified/unassigned_00444e60.cpp",
@@ -61882,9 +61979,9 @@
     "src/util/legacy_string.cpp",
     "src/util/legacy_string_duplicate_00435220.cpp",
     "src/util/runtime_pool.cpp",
-    "src/script/ecl_integer_value_00411fc0.cpp",
-    "src/script/ecl_float_value_00412350.cpp",
-    "src/game/stage_score_display_00415b00.cpp"
+    "src/game/item_collection_genuine_0041afd0.cpp",
+    "src/game/player_collision_00408030_00408100.cpp",
+    "src/game/player_bullet_animation_0041c800_0041c850_00449210_004492f0.cpp"
   ],
   "notes": [
     "Every executable body is compiled from C++; unported bodies use MSVC inline assembly.",
@@ -62174,7 +62271,6 @@
     "layout/ltcg/ecl_resolve_int_destination_00412a10.json",
     "layout/ltcg/recovery_linked_cleanup_00417770.json",
     "layout/ltcg/animation_set_active_count_00413790.json",
-    "layout/ltcg/score_records_copy_vector_and_evaluate_0041c800.json",
     "layout/ltcg/split_resource_path_0041a050.json",
     "layout/ltcg/stage_tip_create_0041a120.json",
     "layout/ltcg/homing_shot_update_00428b10.json",
@@ -62517,7 +62613,6 @@
     "layout/ltcg/unassigned_00424610_m2902.json",
     "layout/ltcg/c6d0_eax.json",
     "layout/ltcg/c840_eax.json",
-    "layout/ltcg/score_cleanup_0041c850.json",
     "layout/ltcg/h3001_0041c880.json",
     "layout/ltcg/h3001_00436d30.json",
     "layout/ltcg/h3001_00446500.json",
@@ -62798,7 +62893,6 @@
     "layout/ltcg/polar_motion_step_0040b320.json",
     "layout/ltcg/stage_anm_reload_0040c3c0.json",
     "layout/ltcg/linked_pool_append_0042aa50.json",
-    "layout/ltcg/life_stock_add_004188a0.json",
     "layout/ltcg/sprite_region_bind_00424480.json",
     "layout/ltcg/laser_spawn_0041c510.json",
     "layout/ltcg/side_panel_release_00414570.json",
@@ -62859,7 +62953,21 @@
     "layout/ltcg/blend_color_004423e0.json",
     "layout/ltcg/ecl_integer_value_00411fc0.json",
     "layout/ltcg/ecl_float_value_00412350.json",
-    "layout/ltcg/stage_score_display_00415b00.json"
+    "layout/ltcg/stage_score_display_00415b00.json",
+    "layout/ltcg/sound_wave_load.json",
+    "layout/ltcg/trigger_activation_00426cf0.json",
+    "layout/ltcg/spell_timeout_004269d0.json",
+    "layout/ltcg/sound_device_init_0043cd30.json",
+    "layout/ltcg/stage_startup_00417870.json",
+    "layout/ltcg/result_overlay_004172e0.json",
+    "layout/ltcg/score_hud_00417040.json",
+    "layout/ltcg/front_initialize_00413bc0.json",
+    "layout/ltcg/stage_update_00418190.json",
+    "layout/ltcg/laser_grow_0041e700.json",
+    "layout/ltcg/laser_line_0041d3d0.json",
+    "layout/ltcg/item_collection_genuine_0041afd0.json",
+    "layout/ltcg/player_state_collision_genuine_00408030_00408100.json",
+    "layout/ltcg/player_bullet_animation_genuine_0041c800_0041c850_00449210_004492f0.json"
   ],
   "coff_aliases": {
     "lib/libcmt.lib/build/intel/mt_obj/exsup3.obj": {
@@ -63868,10 +63976,6 @@
     {
       "region": "asm_FUN_00437fe0_00437fe0",
       "layout": "layout/equivalent/font_atlas_draw_text_00437fe0.json"
-    },
-    {
-      "region": "asm_FUN_0043d390_0043d390",
-      "layout": "layout/equivalent/sound_wave_load_0043d390.json"
     }
   ]
 }

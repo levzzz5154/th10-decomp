@@ -1,0 +1,201 @@
+{
+  "schema_version": 1,
+  "name": "spell_timeout_004269d0",
+  "source": "src/game/spell_timeout.cpp",
+  "driver": "layout/ltcg/spell_timeout_004269d0/context.cpp",
+  "included_sources": [
+    "layout/ltcg/spell_timeout_004269d0/set_active_count.cpp",
+    "src/render/animation_object_load_script_0043e710.cpp",
+    "src/game/stage_tip_create_retail_0041a120.cpp",
+    "src/game/stage_tip_create_urgent_00424650.cpp"
+  ],
+  "headers": [
+    "include/th10/game/entity.hpp",
+    "include/th10/game/pause_result_open_004231d0/descriptor.hpp",
+    "include/th10/game/pause_result_open_004231d0/music.hpp",
+    "include/th10/game/pause_result_open_004231d0/open_animation.hpp",
+    "include/th10/game/pause_result_open_004231d0/open_state.hpp",
+    "include/th10/game/spell_timeout.hpp",
+    "include/th10/game/stage_tip_create.hpp",
+    "include/th10/game/stage_tips.hpp",
+    "include/th10/render/resource_registrar_0043e460.hpp",
+    "include/th10/types.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Complete spell timeout with native active-count, script-loader and urgent-tip compiler contexts; only the timeout is selected.",
+  "functions": [
+    {
+      "name": "SpellTimeout_004269d0",
+      "symbol": "_SpellTimeout_004269d0@4",
+      "section": ".text$004269d0_fn",
+      "address": "0x004269D0",
+      "size": 796,
+      "actual_abi": "one field pointer on the stack; RET 4"
+    }
+  ],
+  "context": {
+    "symbol": "_TimeoutContext@4",
+    "section": ".text$0044ba00_context",
+    "address": "0x0044BA00",
+    "size": 18,
+    "description": "Direct compiler caller; the selected stdcall entry is explicitly rooted."
+  },
+  "anchors": [
+    {
+      "name": "SetActiveCount",
+      "symbol": "?SetActiveCount@AnimationManager_00413790@@QAEXH@Z",
+      "section": ".text$00413790_fn",
+      "address": "0x00413790",
+      "size": 77
+    },
+    {
+      "name": "StageTip_Create",
+      "symbol": "?StageTip_Create_0041a120@@YGPAUStageTip@@PAUStageTipManager@@PBDPBUStageTipPosition@@@Z",
+      "section": ".text$0041a120_fn",
+      "address": "0x0041A120",
+      "size": 220
+    },
+    {
+      "name": "StageTip_CreateUrgent",
+      "symbol": "?StageTip_CreateUrgent_00424650@@YGPAUStageTip@@PAUStageTipManager@@PBDPBUStageTipPosition@@@Z",
+      "section": ".text$00424650_fn",
+      "address": "0x00424650",
+      "size": 104
+    },
+    {
+      "name": "LoadScript",
+      "symbol": "_LoadScript_0043e710@12",
+      "section": ".text$0043e710_fn",
+      "address": "0x0043E710",
+      "size": 203
+    }
+  ],
+  "gaps": [
+    {
+      "section": ".text$00401000_gap",
+      "address": "0x401000",
+      "size": 75664
+    },
+    {
+      "section": ".text$004137dd_gap",
+      "address": "0x4137dd",
+      "size": 26947
+    },
+    {
+      "section": ".text$0041a1fc_gap",
+      "address": "0x41a1fc",
+      "size": 42068
+    },
+    {
+      "section": ".text$004246b8_gap",
+      "address": "0x4246b8",
+      "size": 8984
+    },
+    {
+      "section": ".text$00426cec_gap",
+      "address": "0x426cec",
+      "size": 96804
+    },
+    {
+      "section": ".text$0043e7db_gap",
+      "address": "0x43e7db",
+      "size": 53797
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "??2@YAPAXI@Z",
+      "address": "0x00452493",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__fltused",
+      "address": "0x00000000",
+      "kind": "metadata"
+    },
+    {
+      "symbol": "_data_00476f78",
+      "address": "0x476f78",
+      "kind": "data"
+    },
+    {
+      "symbol": "_asm_FUN_0043ee30_0043ee30@4",
+      "address": "0x43ee30",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_memset",
+      "address": "0x0045BED0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?Entity_Init@@YIXPAXPAUEntity@@@Z",
+      "address": "0x401de0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_00474c4c",
+      "address": "0x474c4c",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00474c70",
+      "address": "0x474c70",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00474c98",
+      "address": "0x474c98",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00474c68",
+      "address": "0x474c68",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491c10",
+      "address": "0x491c10",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00477838",
+      "address": "0x477838",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00477814",
+      "address": "0x477814",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0047770c",
+      "address": "0x47770c",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004776f4",
+      "address": "0x4776f4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_timeout_load_manager",
+      "address": "0x491c10",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_timeout_caution",
+      "address": "0x46e360",
+      "kind": "data"
+    },
+    {
+      "symbol": "_strncpy",
+      "address": "0x452960",
+      "kind": "relative_code"
+    }
+  ],
+  "roots": [
+    "_SpellTimeout_004269d0@4"
+  ]
+}

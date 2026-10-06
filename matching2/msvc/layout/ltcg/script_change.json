@@ -67,9 +67,20 @@
       "section": ".text$06layout",
       "address": "0x004496F4",
       "size": 12
+    },
+    {
+      "section": ".rdata",
+      "address": "0x0044A000",
+      "size": 158560
     }
   ],
-  "constants": [],
+  "constants": [
+    {
+      "symbol": "__real@bf800000",
+      "address": "0x00470B60",
+      "value": -1.0
+    }
+  ],
   "absolute_symbols": [
     {
       "symbol": "_data_00491c10",

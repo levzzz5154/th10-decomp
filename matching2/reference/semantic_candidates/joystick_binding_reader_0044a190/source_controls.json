@@ -1,0 +1,922 @@
+{
+  "diagnostic_only": true,
+  "selected": false,
+  "experiments": [
+    {
+      "experiment": "axis_commuted_division",
+      "extent": 832,
+      "reported_instruction_groups": 49,
+      "different_overlapping_bytes": 705,
+      "exact": false,
+      "normalized_full_body_sha256": "f3e013202c75921bb381b1555e329b743d244f1800dde31522dd6b89804d844e",
+      "comparison_sha256": "777831e17a25d4e6a153129012c99a7680969727db60d8acd22ee9267e83ebc9",
+      "mode": "ordinary",
+      "source_snapshot_sha256": {
+        "layout.json": "212ac6bbcc42b5eab67a5b8dde363764cdf38f501679239828f8d31239b1c8d4",
+        "joystick_reader.cpp": "e0d0fa107a5ac6765addc9f571b0317e656cfa38a38cdeb7c2c0272ea42f55a8",
+        "joystick_reader.hpp": "556e25a554f7a0c44341c5ffeef0419ba9695c9af8d2a45b6132272b1ae91f70"
+      }
+    },
+    {
+      "experiment": "axis_division",
+      "extent": 832,
+      "reported_instruction_groups": 49,
+      "different_overlapping_bytes": 705,
+      "exact": false,
+      "normalized_full_body_sha256": "f3e013202c75921bb381b1555e329b743d244f1800dde31522dd6b89804d844e",
+      "comparison_sha256": "777831e17a25d4e6a153129012c99a7680969727db60d8acd22ee9267e83ebc9",
+      "mode": "ordinary",
+      "source_snapshot_sha256": {
+        "layout.json": "212ac6bbcc42b5eab67a5b8dde363764cdf38f501679239828f8d31239b1c8d4",
+        "joystick_reader.cpp": "ee69f2bb9d487729045080f042865ba0de9425f5cf256832d7e7ca9a77160d3c",
+        "joystick_reader.hpp": "556e25a554f7a0c44341c5ffeef0419ba9695c9af8d2a45b6132272b1ae91f70"
+      }
+    },
+    {
+      "experiment": "axis_sum_dword",
+      "extent": 832,
+      "reported_instruction_groups": 49,
+      "different_overlapping_bytes": 705,
+      "exact": false,
+      "normalized_full_body_sha256": "f3e013202c75921bb381b1555e329b743d244f1800dde31522dd6b89804d844e",
+      "comparison_sha256": "777831e17a25d4e6a153129012c99a7680969727db60d8acd22ee9267e83ebc9",
+      "mode": "ordinary",
+      "source_snapshot_sha256": {
+        "layout.json": "212ac6bbcc42b5eab67a5b8dde363764cdf38f501679239828f8d31239b1c8d4",
+        "joystick_reader.cpp": "ccd5482fa92ac70814881daaf34cfc8dcd0bb87179cad1a7573327b50a282b5b",
+        "joystick_reader.hpp": "556e25a554f7a0c44341c5ffeef0419ba9695c9af8d2a45b6132272b1ae91f70"
+      }
+    },
+    {
+      "experiment": "axis_terms_local",
+      "extent": 817,
+      "reported_instruction_groups": 53,
+      "different_overlapping_bytes": 624,
+      "exact": false,
+      "comparison_sha256": "474bf888c65e9f631d0456694a35c164e225a620d90db541fac7c8bb2d929416",
+      "source_snapshot_sha256": {
+        "joystick_reader.hpp": "e26bfec95e4c7fc3f2b09ba282af51609f7699891c4616d63d1b2556da7a1bd3",
+        "joystick_reader.cpp": "bb252cc00522d7b4eb8aa00feec7c7c668c54d099836d23b2913ebe541a3f637",
+        "layout.json": "212ac6bbcc42b5eab67a5b8dde363764cdf38f501679239828f8d31239b1c8d4",
+        "measure.py": "260455740b0de6a4bb6260985b6658c865f0aadc51d240b012d9a0b0b3654ac9"
+      }
+    },
+    {
+      "experiment": "baseline_ltcg",
+      "extent": 816,
+      "reported_instruction_groups": 36,
+      "different_overlapping_bytes": 774,
+      "exact": false,
+      "comparison_sha256": "5448c5984b7ee9622940631d1b68bb544c73735e4b85eebd697abcdb592519f7"
+    },
+    {
+      "experiment": "baseline_plain",
+      "extent": 816,
+      "reported_instruction_groups": 36,
+      "different_overlapping_bytes": 774,
+      "exact": false,
+      "comparison_sha256": "5448c5984b7ee9622940631d1b68bb544c73735e4b85eebd697abcdb592519f7"
+    },
+    {
+      "experiment": "caps_array_axis_statements",
+      "extent": 819,
+      "reported_instruction_groups": 54,
+      "different_overlapping_bytes": 785,
+      "exact": false,
+      "comparison_sha256": "72536387dd4d61da512834028a602d41d48c5cfb3991499472345f0367966d28",
+      "source_snapshot_sha256": {
+        "joystick_reader.hpp": "e26bfec95e4c7fc3f2b09ba282af51609f7699891c4616d63d1b2556da7a1bd3",
+        "joystick_reader.cpp": "582cea895c61409017bcbed3782b2a2422accb34b14fe38d685eb897568bbc8b",
+        "layout.json": "212ac6bbcc42b5eab67a5b8dde363764cdf38f501679239828f8d31239b1c8d4",
+        "measure.py": "260455740b0de6a4bb6260985b6658c865f0aadc51d240b012d9a0b0b3654ac9"
+      }
+    },
+    {
+      "experiment": "caps_array_commuted",
+      "extent": 819,
+      "reported_instruction_groups": 54,
+      "different_overlapping_bytes": 785,
+      "exact": false,
+      "comparison_sha256": "72536387dd4d61da512834028a602d41d48c5cfb3991499472345f0367966d28",
+      "source_snapshot_sha256": {
+        "joystick_reader.hpp": "e26bfec95e4c7fc3f2b09ba282af51609f7699891c4616d63d1b2556da7a1bd3",
+        "joystick_reader.cpp": "2dc12084f05aa9ef61030c22fe34326ec0cb92441cce6a1725e39228eca08a64",
+        "layout.json": "212ac6bbcc42b5eab67a5b8dde363764cdf38f501679239828f8d31239b1c8d4",
+        "measure.py": "260455740b0de6a4bb6260985b6658c865f0aadc51d240b012d9a0b0b3654ac9"
+      }
+    },
+    {
+      "experiment": "caps_ordered_array_fields",
+      "extent": 898,
+      "reported_instruction_groups": 55,
+      "different_overlapping_bytes": 806,
+      "exact": false,
+      "normalized_full_body_sha256": "4acc50aea9b2ac0c015d59204072f47f46feea804b8925f3245cfc75b4d13cca",
+      "comparison_sha256": "03bbbd0adb25be2dc378534efae51dc79c0ec85cdd4bce10233b0d2684c23479",
+      "mode": "ordinary",
+      "source_snapshot_sha256": {
+        "layout.json": "212ac6bbcc42b5eab67a5b8dde363764cdf38f501679239828f8d31239b1c8d4",
+        "joystick_reader.cpp": "c34e675531bac109476e141d11eec282798f1f23118a62bd2922af3f6b9896f9",
+        "joystick_reader.hpp": "b9126216a8527b4e6703228e49ae2cf4697f50c04098a9ee0878a272e7b203bb"
+      }
+    },
+    {
+      "experiment": "caps_ordered_snapshots",
+      "extent": 885,
+      "reported_instruction_groups": 54,
+      "different_overlapping_bytes": 807,
+      "exact": false,
+      "normalized_full_body_sha256": "3501d50d9db0282f754ecff8462d333de5e2c806d51e3fabf3f8701a62c9dde3",
+      "comparison_sha256": "fa87329cc3098108aa5f4ff7487026c7746c2b8f48704f5402562b10019d9294",
+      "mode": "ordinary",
+      "source_snapshot_sha256": {
+        "layout.json": "212ac6bbcc42b5eab67a5b8dde363764cdf38f501679239828f8d31239b1c8d4",
+        "joystick_reader.cpp": "ea4be743fddc94dc1a80aaa2d7646bce4d09700d43b1924cfc74249250bf78fa",
+        "joystick_reader.hpp": "b9126216a8527b4e6703228e49ae2cf4697f50c04098a9ee0878a272e7b203bb"
+      }
+    },
+    {
+      "experiment": "caps_read_order",
+      "extent": 833,
+      "reported_instruction_groups": 53,
+      "different_overlapping_bytes": 781,
+      "exact": false,
+      "comparison_sha256": "72d1ef038612ed7f05568659e3740b12990eb16949bf704655c7e94a1e729b44",
+      "source_snapshot_sha256": {
+        "joystick_reader.hpp": "29372a2d34e4ee1feb40c3a9c0bae8ac3f6df12be366113accb6b946bba8bca3",
+        "joystick_reader.cpp": "0ff8c437e292a539936db634946330695172d395b3577828b900f3cd46e3b25d",
+        "layout.json": "212ac6bbcc42b5eab67a5b8dde363764cdf38f501679239828f8d31239b1c8d4",
+        "measure.py": "260455740b0de6a4bb6260985b6658c865f0aadc51d240b012d9a0b0b3654ac9"
+      }
+    },
+    {
+      "experiment": "caps_reference",
+      "extent": 832,
+      "reported_instruction_groups": 49,
+      "different_overlapping_bytes": 705,
+      "exact": false,
+      "normalized_full_body_sha256": "f3e013202c75921bb381b1555e329b743d244f1800dde31522dd6b89804d844e",
+      "comparison_sha256": "777831e17a25d4e6a153129012c99a7680969727db60d8acd22ee9267e83ebc9",
+      "mode": "ordinary",
+      "source_snapshot_sha256": {
+        "layout.json": "212ac6bbcc42b5eab67a5b8dde363764cdf38f501679239828f8d31239b1c8d4",
+        "joystick_reader.cpp": "b6cb8d03bbde277a06d9f76dc9b45e3a1a38cd987d10cd84fdcf4b684024ea84",
+        "joystick_reader.hpp": "556e25a554f7a0c44341c5ffeef0419ba9695c9af8d2a45b6132272b1ae91f70"
+      }
+    },
+    {
+      "experiment": "direct_axis_predicates",
+      "extent": 817,
+      "reported_instruction_groups": 53,
+      "different_overlapping_bytes": 624,
+      "exact": false,
+      "comparison_sha256": "474bf888c65e9f631d0456694a35c164e225a620d90db541fac7c8bb2d929416",
+      "source_snapshot_sha256": {
+        "joystick_reader.hpp": "e26bfec95e4c7fc3f2b09ba282af51609f7699891c4616d63d1b2556da7a1bd3",
+        "joystick_reader.cpp": "5a62611d3c6ff7d2ff58f59388ed7f9df2f4c9df4c73094caf3045249c9b265c",
+        "layout.json": "212ac6bbcc42b5eab67a5b8dde363764cdf38f501679239828f8d31239b1c8d4",
+        "measure.py": "260455740b0de6a4bb6260985b6658c865f0aadc51d240b012d9a0b0b3654ac9"
+      }
+    },
+    {
+      "experiment": "explicit_byte_values",
+      "extent": 817,
+      "reported_instruction_groups": 53,
+      "different_overlapping_bytes": 624,
+      "exact": false,
+      "comparison_sha256": "474bf888c65e9f631d0456694a35c164e225a620d90db541fac7c8bb2d929416",
+      "source_snapshot_sha256": {
+        "joystick_reader.hpp": "e26bfec95e4c7fc3f2b09ba282af51609f7699891c4616d63d1b2556da7a1bd3",
+        "joystick_reader.cpp": "c31497d06e981f89ab8a4256bfbfb1360b73f722583f5b87f96f3a03a2d735c9",
+        "layout.json": "212ac6bbcc42b5eab67a5b8dde363764cdf38f501679239828f8d31239b1c8d4",
+        "measure.py": "260455740b0de6a4bb6260985b6658c865f0aadc51d240b012d9a0b0b3654ac9"
+      }
+    },
+    {
+      "experiment": "genuine_callers_record",
+      "extent": 852,
+      "reported_instruction_groups": 56,
+      "different_overlapping_bytes": 785,
+      "exact": false,
+      "normalized_full_body_sha256": "b1ceff6a46b5a93fbbfd454412af7df260cc1a16777998da495234ae4f707bde",
+      "comparison_sha256": "e2714ac9a233d8bd7655101dada9fd19d7f2e8ef765172aeaafc9d4aa0b2ea7e",
+      "mode": "ltcg",
+      "source_snapshot_sha256": {
+        "layout.json": "65ee60dfceb948d31a8abb9cb86d2da2c250a1d8100ea75d00a0bcb452ab4c86",
+        "joystick_reader.cpp": "01df613d8fb9f906883c1c1fa258b950c0237dea553347f1cbf031df32d44069",
+        "binding_refresh.cpp": "e1451637c886041acc92952c74bb720697ba2822a87c47f77a489276c30756f8",
+        "keyboard_refresh.cpp": "88412bcbc07d65641b808d990ed9b27ca43dc92e27d08b18b7b022cd38d7a0ce",
+        "joystick_reader.hpp": "d34cc9f12e3b3347118ecb00a50646a622ef56b33a24c68dea199eaee6d75d18"
+      },
+      "complete_graph_functions": [
+        {
+          "symbol": "@JoystickReadBindings@12",
+          "extent": 852,
+          "required": 833,
+          "exact": false,
+          "different_overlapping_bytes": 785,
+          "normalized_full_body_sha256": "b1ceff6a46b5a93fbbfd454412af7df260cc1a16777998da495234ae4f707bde",
+          "retail_full_body_sha256": "d6c563e2da06c84e64efe7b6485615df286cf86cd042ccae9403cbb0c61ba500",
+          "base_index_swaps": 0,
+          "reported_instruction_groups": 56
+        },
+        {
+          "symbol": "@RefreshBindingSet@4",
+          "extent": 867,
+          "required": 850,
+          "exact": false,
+          "different_overlapping_bytes": 188,
+          "normalized_full_body_sha256": "1a3ea2f3d1d55019947b0955f6570c95a4a90f0611796dbbc0d0900ec6b7c5e7",
+          "retail_full_body_sha256": "7f6809a48f413b845a94abf4a9a5417002bdbdce45cb9f6b94b4efc82f4d43b4",
+          "base_index_swaps": 0,
+          "reported_instruction_groups": 46
+        },
+        {
+          "symbol": "@RefreshKeyboardBindingSet@4",
+          "extent": 856,
+          "required": 850,
+          "exact": false,
+          "different_overlapping_bytes": 222,
+          "normalized_full_body_sha256": "01ffaf00c86a3dbd1757cb0b128aeec1b117bbc4de29ebdc03a5430427f6e3c1",
+          "retail_full_body_sha256": "54f164c2acdcce74a547b5cb58caf8001962cee675484ba14a2a183ca9311f0e",
+          "base_index_swaps": 0,
+          "reported_instruction_groups": 47
+        }
+      ]
+    },
+    {
+      "experiment": "genuine_callers_record_plain",
+      "extent": 832,
+      "reported_instruction_groups": 49,
+      "different_overlapping_bytes": 705,
+      "exact": false,
+      "normalized_full_body_sha256": "f3e013202c75921bb381b1555e329b743d244f1800dde31522dd6b89804d844e",
+      "comparison_sha256": "2c316175179c4c6f0ae47372724b20c25bea33c714f6f42a332e185e76e9cc47",
+      "mode": "ordinary",
+      "source_snapshot_sha256": {
+        "layout.json": "65ee60dfceb948d31a8abb9cb86d2da2c250a1d8100ea75d00a0bcb452ab4c86",
+        "joystick_reader.cpp": "01df613d8fb9f906883c1c1fa258b950c0237dea553347f1cbf031df32d44069",
+        "binding_refresh.cpp": "e1451637c886041acc92952c74bb720697ba2822a87c47f77a489276c30756f8",
+        "keyboard_refresh.cpp": "88412bcbc07d65641b808d990ed9b27ca43dc92e27d08b18b7b022cd38d7a0ce",
+        "joystick_reader.hpp": "d34cc9f12e3b3347118ecb00a50646a622ef56b33a24c68dea199eaee6d75d18"
+      },
+      "complete_graph_functions": [
+        {
+          "symbol": "@JoystickReadBindings@12",
+          "extent": 832,
+          "required": 833,
+          "exact": false,
+          "different_overlapping_bytes": 705,
+          "normalized_full_body_sha256": "f3e013202c75921bb381b1555e329b743d244f1800dde31522dd6b89804d844e",
+          "retail_full_body_sha256": "d6c563e2da06c84e64efe7b6485615df286cf86cd042ccae9403cbb0c61ba500",
+          "base_index_swaps": 0,
+          "reported_instruction_groups": 49
+        },
+        {
+          "symbol": "@RefreshBindingSet@4",
+          "extent": 867,
+          "required": 850,
+          "exact": false,
+          "different_overlapping_bytes": 189,
+          "normalized_full_body_sha256": "2d089fea0786565a5052445436b39ff72934aab1ea0caf73d87865f9c1763ae1",
+          "retail_full_body_sha256": "7f6809a48f413b845a94abf4a9a5417002bdbdce45cb9f6b94b4efc82f4d43b4",
+          "base_index_swaps": 0,
+          "reported_instruction_groups": 46
+        },
+        {
+          "symbol": "@RefreshKeyboardBindingSet@4",
+          "extent": 855,
+          "required": 850,
+          "exact": false,
+          "different_overlapping_bytes": 221,
+          "normalized_full_body_sha256": "dbee39943b4d9e7d29662d0f6d449db66303f76ee39f25b2aa0fc124310e19c5",
+          "retail_full_body_sha256": "54f164c2acdcce74a547b5cb58caf8001962cee675484ba14a2a183ca9311f0e",
+          "base_index_swaps": 0,
+          "reported_instruction_groups": 48
+        }
+      ]
+    },
+    {
+      "experiment": "genuine_callers_stdcall",
+      "extent": 852,
+      "reported_instruction_groups": 56,
+      "different_overlapping_bytes": 785,
+      "exact": false,
+      "normalized_full_body_sha256": "9b3d4a5389251512e940b966074aaa1050cb9197b3bd5b2f7473e9dbfae5dcd7",
+      "comparison_sha256": "dae827072799dc704423344a743f9dbb91da251c5d744f1305d93d3df1c5250e",
+      "mode": "ltcg",
+      "source_snapshot_sha256": {
+        "layout.json": "46e10026074c1644e9fab4a5cdabf38cc05289e2e0655c4a7bc01083c11e1faa",
+        "joystick_reader.cpp": "eea6fa3c0d4a6fe354b3a5470cd25bbe2e47788ef5681ee0e01125b1fecb34aa",
+        "binding_refresh.cpp": "f09357d70d82481c5ce41b6c36ccae4fdecfceb659d7cc66ce9df063e6d6a524",
+        "keyboard_refresh.cpp": "cd85ee36b2ab5b5737aed4fd8e10fc612b001163cf794d87760f82aa194c80e7",
+        "joystick_reader.hpp": "4e8ebe1985bd2797a5f6cc298854fa7c20554cf0b42d561b8fa35e0511951ca3"
+      },
+      "complete_graph_functions": [
+        {
+          "symbol": "_JoystickReadBindings@12",
+          "extent": 852,
+          "required": 833,
+          "exact": false,
+          "different_overlapping_bytes": 785,
+          "normalized_full_body_sha256": "9b3d4a5389251512e940b966074aaa1050cb9197b3bd5b2f7473e9dbfae5dcd7",
+          "retail_full_body_sha256": "d6c563e2da06c84e64efe7b6485615df286cf86cd042ccae9403cbb0c61ba500",
+          "base_index_swaps": 0,
+          "reported_instruction_groups": 56
+        },
+        {
+          "symbol": "@RefreshBindingSet@4",
+          "extent": 853,
+          "required": 850,
+          "exact": false,
+          "different_overlapping_bytes": 141,
+          "normalized_full_body_sha256": "482b0022397f6832beda055b8fb27d6ed4764cbead5e7ef401c312d26555e4ee",
+          "retail_full_body_sha256": "7f6809a48f413b845a94abf4a9a5417002bdbdce45cb9f6b94b4efc82f4d43b4",
+          "base_index_swaps": 0,
+          "reported_instruction_groups": 6
+        },
+        {
+          "symbol": "@RefreshKeyboardBindingSet@4",
+          "extent": 850,
+          "required": 850,
+          "exact": false,
+          "different_overlapping_bytes": 77,
+          "normalized_full_body_sha256": "e1fa4cd66b43690022943a9ce9e5cce9c42da6e3acf5b3d7b78f17ef2c653b60",
+          "retail_full_body_sha256": "54f164c2acdcce74a547b5cb58caf8001962cee675484ba14a2a183ca9311f0e",
+          "base_index_swaps": 0,
+          "reported_instruction_groups": 10
+        }
+      ]
+    },
+    {
+      "experiment": "genuine_callers_stdcall_void",
+      "extent": 852,
+      "reported_instruction_groups": 56,
+      "different_overlapping_bytes": 785,
+      "exact": false,
+      "normalized_full_body_sha256": "9b3d4a5389251512e940b966074aaa1050cb9197b3bd5b2f7473e9dbfae5dcd7",
+      "comparison_sha256": "9e21e3c83d5c0470233d02f3c08e25ee3fd99e8d3a7199d347664be372e92627",
+      "mode": "ltcg",
+      "source_snapshot_sha256": {
+        "layout.json": "46e10026074c1644e9fab4a5cdabf38cc05289e2e0655c4a7bc01083c11e1faa",
+        "joystick_reader.cpp": "eea6fa3c0d4a6fe354b3a5470cd25bbe2e47788ef5681ee0e01125b1fecb34aa",
+        "binding_refresh.cpp": "51b3dea6f53945d9feee8d873e6e0708f8210660cabdfe075c6b4a6e67bc6799",
+        "keyboard_refresh.cpp": "067f1439aefa7600f16aa8beb891d10e5413cf26b950d03eacb34842fd50b799",
+        "joystick_reader.hpp": "4e8ebe1985bd2797a5f6cc298854fa7c20554cf0b42d561b8fa35e0511951ca3"
+      },
+      "complete_graph_functions": [
+        {
+          "symbol": "_JoystickReadBindings@12",
+          "extent": 852,
+          "required": 833,
+          "exact": false,
+          "different_overlapping_bytes": 785,
+          "normalized_full_body_sha256": "9b3d4a5389251512e940b966074aaa1050cb9197b3bd5b2f7473e9dbfae5dcd7",
+          "retail_full_body_sha256": "d6c563e2da06c84e64efe7b6485615df286cf86cd042ccae9403cbb0c61ba500",
+          "base_index_swaps": 0,
+          "reported_instruction_groups": 56
+        },
+        {
+          "symbol": "@RefreshBindingSet@4",
+          "extent": 853,
+          "required": 850,
+          "exact": false,
+          "different_overlapping_bytes": 139,
+          "normalized_full_body_sha256": "659973b83ce22d53c28719b7310ee3f6a5c95582947d3cf66999bcf6fc89f270",
+          "retail_full_body_sha256": "7f6809a48f413b845a94abf4a9a5417002bdbdce45cb9f6b94b4efc82f4d43b4",
+          "base_index_swaps": 0,
+          "reported_instruction_groups": 10
+        },
+        {
+          "symbol": "@RefreshKeyboardBindingSet@4",
+          "extent": 850,
+          "required": 850,
+          "exact": false,
+          "different_overlapping_bytes": 118,
+          "normalized_full_body_sha256": "6efdf076dd977d5a638a187a2306c37600d23bdf786d673eb696dee367ff1988",
+          "retail_full_body_sha256": "54f164c2acdcce74a547b5cb58caf8001962cee675484ba14a2a183ca9311f0e",
+          "base_index_swaps": 0,
+          "reported_instruction_groups": 16
+        }
+      ]
+    },
+    {
+      "experiment": "global_opt_off",
+      "extent": 1537,
+      "reported_instruction_groups": 29,
+      "different_overlapping_bytes": 776,
+      "exact": false,
+      "normalized_full_body_sha256": "961c4b109d6fdf8faa172f6d0221571920759fa5e5541c748100802ba83005e9",
+      "comparison_sha256": "38cb0fc8c016b3a4bb075ec17bc39b5b99ca2984224651445140f74be5514af3",
+      "mode": "ordinary",
+      "source_snapshot_sha256": {
+        "layout.json": "212ac6bbcc42b5eab67a5b8dde363764cdf38f501679239828f8d31239b1c8d4",
+        "joystick_reader.cpp": "6cd34858cb6e6c3a603dfb213fb3168877fb835877e79209f436ca7db2c5cb0b",
+        "joystick_reader.hpp": "556e25a554f7a0c44341c5ffeef0419ba9695c9af8d2a45b6132272b1ae91f70"
+      }
+    },
+    {
+      "experiment": "global_size_off",
+      "extent": 1537,
+      "reported_instruction_groups": 29,
+      "different_overlapping_bytes": 776,
+      "exact": false,
+      "normalized_full_body_sha256": "961c4b109d6fdf8faa172f6d0221571920759fa5e5541c748100802ba83005e9",
+      "comparison_sha256": "38cb0fc8c016b3a4bb075ec17bc39b5b99ca2984224651445140f74be5514af3",
+      "mode": "ordinary",
+      "source_snapshot_sha256": {
+        "layout.json": "212ac6bbcc42b5eab67a5b8dde363764cdf38f501679239828f8d31239b1c8d4",
+        "joystick_reader.cpp": "bacd782bd93b48fa5e455bc969a74bbf67490073860d78f2ac89e0d957876966",
+        "joystick_reader.hpp": "556e25a554f7a0c44341c5ffeef0419ba9695c9af8d2a45b6132272b1ae91f70"
+      }
+    },
+    {
+      "experiment": "inline_axis_range",
+      "extent": 832,
+      "reported_instruction_groups": 49,
+      "different_overlapping_bytes": 705,
+      "exact": false,
+      "normalized_full_body_sha256": "f3e013202c75921bb381b1555e329b743d244f1800dde31522dd6b89804d844e",
+      "comparison_sha256": "777831e17a25d4e6a153129012c99a7680969727db60d8acd22ee9267e83ebc9",
+      "mode": "ordinary",
+      "source_snapshot_sha256": {
+        "layout.json": "212ac6bbcc42b5eab67a5b8dde363764cdf38f501679239828f8d31239b1c8d4",
+        "joystick_reader.cpp": "4cb3ed66d6734f3d824c60c7448e6d7e464bd020ea0d84293957fef7121381ec",
+        "joystick_reader.hpp": "2e912a3c8f93ef12dbeaf61f64af4da240bd9e0dfd9e0912452416406623c7df"
+      }
+    },
+    {
+      "experiment": "inline_caps_axes",
+      "extent": 832,
+      "reported_instruction_groups": 49,
+      "different_overlapping_bytes": 705,
+      "exact": false,
+      "normalized_full_body_sha256": "f3e013202c75921bb381b1555e329b743d244f1800dde31522dd6b89804d844e",
+      "comparison_sha256": "777831e17a25d4e6a153129012c99a7680969727db60d8acd22ee9267e83ebc9",
+      "mode": "ordinary",
+      "source_snapshot_sha256": {
+        "layout.json": "212ac6bbcc42b5eab67a5b8dde363764cdf38f501679239828f8d31239b1c8d4",
+        "joystick_reader.cpp": "c62431eb8c3e14895ec56624235cbe399e7e404213d7cfaaba6173742d11e58b",
+        "joystick_reader.hpp": "e0414d5470c6ea6af822ba305a4b49866a7a1766f22a21b53b1cbe1087d72633"
+      }
+    },
+    {
+      "experiment": "inline_caps_axes_force",
+      "extent": 832,
+      "reported_instruction_groups": 49,
+      "different_overlapping_bytes": 705,
+      "exact": false,
+      "normalized_full_body_sha256": "f3e013202c75921bb381b1555e329b743d244f1800dde31522dd6b89804d844e",
+      "comparison_sha256": "777831e17a25d4e6a153129012c99a7680969727db60d8acd22ee9267e83ebc9",
+      "mode": "ordinary",
+      "source_snapshot_sha256": {
+        "layout.json": "212ac6bbcc42b5eab67a5b8dde363764cdf38f501679239828f8d31239b1c8d4",
+        "joystick_reader.cpp": "c62431eb8c3e14895ec56624235cbe399e7e404213d7cfaaba6173742d11e58b",
+        "joystick_reader.hpp": "bb89fc596d54de1057cdd36911757257bec03eeb6d31dab27dc9ffe38fd80e98"
+      }
+    },
+    {
+      "experiment": "integer_condition_masks",
+      "extent": 817,
+      "reported_instruction_groups": 53,
+      "different_overlapping_bytes": 624,
+      "exact": false,
+      "comparison_sha256": "474bf888c65e9f631d0456694a35c164e225a620d90db541fac7c8bb2d929416",
+      "source_snapshot_sha256": {
+        "joystick_reader.hpp": "e26bfec95e4c7fc3f2b09ba282af51609f7699891c4616d63d1b2556da7a1bd3",
+        "joystick_reader.cpp": "fdf58525005b4b200df365d113cfbec17e7268d2137c529ef1c79cabc75e56a5",
+        "layout.json": "212ac6bbcc42b5eab67a5b8dde363764cdf38f501679239828f8d31239b1c8d4",
+        "measure.py": "260455740b0de6a4bb6260985b6658c865f0aadc51d240b012d9a0b0b3654ac9"
+      }
+    },
+    {
+      "experiment": "local_flags",
+      "extent": 823,
+      "reported_instruction_groups": 54,
+      "different_overlapping_bytes": 705,
+      "exact": false,
+      "comparison_sha256": "74f4b9c1e9a3aacddae122e532a04f2d3f0deba71a4fe96d87266952d43e37b0",
+      "source_snapshot_sha256": {
+        "joystick_reader.hpp": "e26bfec95e4c7fc3f2b09ba282af51609f7699891c4616d63d1b2556da7a1bd3",
+        "joystick_reader.cpp": "d827acb02db64b37f0432e8c76cb5ad9687aa15762bea4a8e06f730ecc3b61ab",
+        "layout.json": "212ac6bbcc42b5eab67a5b8dde363764cdf38f501679239828f8d31239b1c8d4",
+        "measure.py": "260455740b0de6a4bb6260985b6658c865f0aadc51d240b012d9a0b0b3654ac9"
+      }
+    },
+    {
+      "experiment": "native_module",
+      "extent": 817,
+      "reported_instruction_groups": 53,
+      "different_overlapping_bytes": 624,
+      "exact": false,
+      "comparison_sha256": "474bf888c65e9f631d0456694a35c164e225a620d90db541fac7c8bb2d929416",
+      "source_snapshot_sha256": {
+        "joystick_reader.hpp": "e26bfec95e4c7fc3f2b09ba282af51609f7699891c4616d63d1b2556da7a1bd3",
+        "joystick_reader.cpp": "5a62611d3c6ff7d2ff58f59388ed7f9df2f4c9df4c73094caf3045249c9b265c",
+        "layout.json": "212ac6bbcc42b5eab67a5b8dde363764cdf38f501679239828f8d31239b1c8d4",
+        "measure.py": "92bb6059179e0c043fdc422216face23314c4103ce2c7c80d0df10f42c983da2"
+      }
+    },
+    {
+      "experiment": "native_winmm_import",
+      "extent": 832,
+      "reported_instruction_groups": 49,
+      "different_overlapping_bytes": 705,
+      "exact": false,
+      "normalized_full_body_sha256": "f3e013202c75921bb381b1555e329b743d244f1800dde31522dd6b89804d844e",
+      "comparison_sha256": "777831e17a25d4e6a153129012c99a7680969727db60d8acd22ee9267e83ebc9",
+      "mode": "ordinary",
+      "source_snapshot_sha256": {
+        "layout.json": "600f717172140357164486ae9af02574ab2d85d4accb00fea80fbc4169f6ea51",
+        "joystick_reader.cpp": "cfa4d65adf374131d861584bab7e78791118660033d3610501f8d9d4eb4028bc",
+        "joystick_reader.hpp": "64f271b8357b52286f98a47e2e14d1cd0ed649225b8f5304a8a81ec0c825f4ca"
+      }
+    },
+    {
+      "experiment": "readable_names",
+      "extent": 832,
+      "reported_instruction_groups": 49,
+      "different_overlapping_bytes": 705,
+      "exact": false,
+      "normalized_full_body_sha256": "f3e013202c75921bb381b1555e329b743d244f1800dde31522dd6b89804d844e",
+      "comparison_sha256": "777831e17a25d4e6a153129012c99a7680969727db60d8acd22ee9267e83ebc9",
+      "mode": "ordinary",
+      "source_snapshot_sha256": {
+        "layout.json": "212ac6bbcc42b5eab67a5b8dde363764cdf38f501679239828f8d31239b1c8d4",
+        "joystick_reader.cpp": "8af4874a3607b742e8adf365bff1ea9659b3c039b6f83e8d73b44c363885cb8d",
+        "joystick_reader.hpp": "153629d8c673650fdf744b7de3dad5b6d929d52f36915394afdadf750a6286c3"
+      }
+    },
+    {
+      "experiment": "retail_control_flow",
+      "extent": 832,
+      "reported_instruction_groups": 49,
+      "different_overlapping_bytes": 705,
+      "exact": false,
+      "comparison_sha256": "d69e8693bf479799ebf8ea04b4c627115d3b266ba47110573180f5086f462013",
+      "source_snapshot_sha256": {
+        "joystick_reader.hpp": "e26bfec95e4c7fc3f2b09ba282af51609f7699891c4616d63d1b2556da7a1bd3",
+        "joystick_reader.cpp": "2d63058a2308f202ab3685fd99c64b6afd8e2e90303f47978b9f8282bde7fd99",
+        "layout.json": "212ac6bbcc42b5eab67a5b8dde363764cdf38f501679239828f8d31239b1c8d4",
+        "measure.py": "92bb6059179e0c043fdc422216face23314c4103ce2c7c80d0df10f42c983da2"
+      }
+    },
+    {
+      "experiment": "retail_flow_caps_array",
+      "extent": 834,
+      "reported_instruction_groups": 49,
+      "different_overlapping_bytes": 795,
+      "exact": false,
+      "comparison_sha256": "4ccb11b532e09919214d30430fd010c7fbadd0d6131f3cb40e19e31c03672eb3",
+      "source_snapshot_sha256": {
+        "joystick_reader.hpp": "e26bfec95e4c7fc3f2b09ba282af51609f7699891c4616d63d1b2556da7a1bd3",
+        "joystick_reader.cpp": "a62c09c1eb89b0b4b5339f8dc1ac06e705278126d3256c6a326957356d71ca24",
+        "layout.json": "212ac6bbcc42b5eab67a5b8dde363764cdf38f501679239828f8d31239b1c8d4",
+        "measure.py": "92bb6059179e0c043fdc422216face23314c4103ce2c7c80d0df10f42c983da2"
+      }
+    },
+    {
+      "experiment": "retail_flow_windows_types",
+      "extent": 832,
+      "reported_instruction_groups": 49,
+      "different_overlapping_bytes": 705,
+      "exact": false,
+      "comparison_sha256": "d69e8693bf479799ebf8ea04b4c627115d3b266ba47110573180f5086f462013",
+      "source_snapshot_sha256": {
+        "joystick_reader.hpp": "12df7895b22a0d766184048484e4fc47d425952dd6ac550743f6f579f738da8b",
+        "joystick_reader.cpp": "2d63058a2308f202ab3685fd99c64b6afd8e2e90303f47978b9f8282bde7fd99",
+        "layout.json": "212ac6bbcc42b5eab67a5b8dde363764cdf38f501679239828f8d31239b1c8d4",
+        "measure.py": "92bb6059179e0c043fdc422216face23314c4103ce2c7c80d0df10f42c983da2"
+      }
+    },
+    {
+      "experiment": "retail_flow_word_flags",
+      "extent": 841,
+      "reported_instruction_groups": 46,
+      "different_overlapping_bytes": 794,
+      "exact": false,
+      "comparison_sha256": "a8021fdb2d591aea8deb5f9851de793a1c4cddff669cac894838a4a8e1945b43",
+      "source_snapshot_sha256": {
+        "joystick_reader.hpp": "5d04129c6256d5f24460e18f30ce3eed1ba813bba4a404342d203c05e1e595de",
+        "joystick_reader.cpp": "728f03da4b1975b180d145b70b5b08df2e60f316ef6e7153f18aab04c802b88a",
+        "layout.json": "212ac6bbcc42b5eab67a5b8dde363764cdf38f501679239828f8d31239b1c8d4",
+        "measure.py": "92bb6059179e0c043fdc422216face23314c4103ce2c7c80d0df10f42c983da2"
+      }
+    },
+    {
+      "experiment": "retained_genuine_callers_stdcall",
+      "extent": 852,
+      "reported_instruction_groups": 56,
+      "different_overlapping_bytes": 785,
+      "exact": false,
+      "normalized_full_body_sha256": "9b3d4a5389251512e940b966074aaa1050cb9197b3bd5b2f7473e9dbfae5dcd7",
+      "comparison_sha256": "dae827072799dc704423344a743f9dbb91da251c5d744f1305d93d3df1c5250e",
+      "mode": "ltcg",
+      "source_snapshot_sha256": {
+        "layout.json": "fb3360b6325566d4f9a286643c738087fa2041b2ef8e9146d43656e3c79dea02",
+        "joystick_reader.cpp": "e78be6f248344bbf627409c2a1b6ee98d8583e8394c5782abe7b57b88d6a0d16",
+        "binding_refresh.cpp": "1f92fc5bc86bad1501b7661d295d424b982b46261d099715c3636db0673d96e3",
+        "keyboard_refresh.cpp": "0b0c23dfbac9ab6327cdede448cb421289874760011d3a6afe5c1c38fc2c0fd9",
+        "joystick_reader.hpp": "cb0efd6d8fd382da2608f0ca783ad89dced0b154c1b7310e931b1e5a27fbf566"
+      },
+      "complete_graph_functions": [
+        {
+          "symbol": "_JoystickReadBindings@12",
+          "extent": 852,
+          "required": 833,
+          "exact": false,
+          "different_overlapping_bytes": 785,
+          "normalized_full_body_sha256": "9b3d4a5389251512e940b966074aaa1050cb9197b3bd5b2f7473e9dbfae5dcd7",
+          "retail_full_body_sha256": "d6c563e2da06c84e64efe7b6485615df286cf86cd042ccae9403cbb0c61ba500",
+          "base_index_swaps": 0,
+          "reported_instruction_groups": 56
+        },
+        {
+          "symbol": "@RefreshBindingSet@4",
+          "extent": 853,
+          "required": 850,
+          "exact": false,
+          "different_overlapping_bytes": 141,
+          "normalized_full_body_sha256": "482b0022397f6832beda055b8fb27d6ed4764cbead5e7ef401c312d26555e4ee",
+          "retail_full_body_sha256": "7f6809a48f413b845a94abf4a9a5417002bdbdce45cb9f6b94b4efc82f4d43b4",
+          "base_index_swaps": 0,
+          "reported_instruction_groups": 6
+        },
+        {
+          "symbol": "@RefreshKeyboardBindingSet@4",
+          "extent": 850,
+          "required": 850,
+          "exact": false,
+          "different_overlapping_bytes": 77,
+          "normalized_full_body_sha256": "e1fa4cd66b43690022943a9ce9e5cce9c42da6e3acf5b3d7b78f17ef2c653b60",
+          "retail_full_body_sha256": "54f164c2acdcce74a547b5cb58caf8001962cee675484ba14a2a183ca9311f0e",
+          "base_index_swaps": 0,
+          "reported_instruction_groups": 10
+        }
+      ]
+    },
+    {
+      "experiment": "saved_candidate",
+      "extent": 832,
+      "reported_instruction_groups": 49,
+      "different_overlapping_bytes": 705,
+      "exact": false,
+      "comparison_sha256": "777831e17a25d4e6a153129012c99a7680969727db60d8acd22ee9267e83ebc9"
+    },
+    {
+      "experiment": "separate_axis_units",
+      "extent": 832,
+      "reported_instruction_groups": 49,
+      "different_overlapping_bytes": 705,
+      "exact": false,
+      "normalized_full_body_sha256": "f3e013202c75921bb381b1555e329b743d244f1800dde31522dd6b89804d844e",
+      "comparison_sha256": "58ae17a1fda5b775c53b8e343828be896c1cb9bea9b89a54be10d664c240b443",
+      "mode": "ltcg",
+      "source_snapshot_sha256": {
+        "layout.json": "9b8e338bfef3a4776cddd809d1499b0820f6918ee3ab6a7d9fa89a699071e095",
+        "joystick_reader.cpp": "c62431eb8c3e14895ec56624235cbe399e7e404213d7cfaaba6173742d11e58b",
+        "caps_axes.cpp": "6e7d6e3f8e9bb2c94868756fe99251eeeaa0141460aa184ccfe23c161cb3ff2b",
+        "joystick_reader.hpp": "8966cf30100700850c2a5b9cd12e2c1381715765bbbb862f821d856630f13486"
+      }
+    },
+    {
+      "experiment": "separate_index_records",
+      "extent": 817,
+      "reported_instruction_groups": 53,
+      "different_overlapping_bytes": 624,
+      "exact": false,
+      "comparison_sha256": "474bf888c65e9f631d0456694a35c164e225a620d90db541fac7c8bb2d929416",
+      "source_snapshot_sha256": {
+        "joystick_reader.hpp": "caf8c3e44d90fd14d868c6735ab98e49326d5120bf87a2bd7481a449dc7d154c",
+        "joystick_reader.cpp": "a438ffd97128da8cf7af066e9536dc110160db6a1937c2775e107299678f1fa6",
+        "layout.json": "212ac6bbcc42b5eab67a5b8dde363764cdf38f501679239828f8d31239b1c8d4",
+        "measure.py": "260455740b0de6a4bb6260985b6658c865f0aadc51d240b012d9a0b0b3654ac9"
+      }
+    },
+    {
+      "experiment": "signed_axis_ternaries",
+      "extent": 832,
+      "reported_instruction_groups": 49,
+      "different_overlapping_bytes": 705,
+      "exact": false,
+      "normalized_full_body_sha256": "f3e013202c75921bb381b1555e329b743d244f1800dde31522dd6b89804d844e",
+      "comparison_sha256": "777831e17a25d4e6a153129012c99a7680969727db60d8acd22ee9267e83ebc9",
+      "mode": "ordinary",
+      "source_snapshot_sha256": {
+        "layout.json": "212ac6bbcc42b5eab67a5b8dde363764cdf38f501679239828f8d31239b1c8d4",
+        "joystick_reader.cpp": "c410d4730e09eb17c01dd5fc7fd0baa76a4ad75a6b47278c27a575780fcd3c84",
+        "joystick_reader.hpp": "556e25a554f7a0c44341c5ffeef0419ba9695c9af8d2a45b6132272b1ae91f70"
+      }
+    },
+    {
+      "experiment": "size_opt",
+      "extent": 736,
+      "reported_instruction_groups": 46,
+      "different_overlapping_bytes": 688,
+      "exact": false,
+      "normalized_full_body_sha256": "7e7bf6e39f4d6a09a805b3fa95b806934e169e0a62e53e49c7e642d45601c897",
+      "comparison_sha256": "965b0686e1c0d5c929ec721f029268dd75f5b78dbd3511ca71560d8698e99b90",
+      "mode": "ordinary",
+      "source_snapshot_sha256": {
+        "layout.json": "212ac6bbcc42b5eab67a5b8dde363764cdf38f501679239828f8d31239b1c8d4",
+        "joystick_reader.cpp": "1187541efbdae030f6dfdaa6cdbdb4ed114c982d30acbdb4e69195b761385885",
+        "joystick_reader.hpp": "556e25a554f7a0c44341c5ffeef0419ba9695c9af8d2a45b6132272b1ae91f70"
+      }
+    },
+    {
+      "experiment": "snapshot_bindings",
+      "extent": 832,
+      "reported_instruction_groups": 49,
+      "different_overlapping_bytes": 705,
+      "exact": false,
+      "normalized_full_body_sha256": "f3e013202c75921bb381b1555e329b743d244f1800dde31522dd6b89804d844e",
+      "comparison_sha256": "777831e17a25d4e6a153129012c99a7680969727db60d8acd22ee9267e83ebc9",
+      "mode": "ordinary",
+      "source_snapshot_sha256": {
+        "layout.json": "212ac6bbcc42b5eab67a5b8dde363764cdf38f501679239828f8d31239b1c8d4",
+        "joystick_reader.cpp": "2e2ffeb4e51fce18d9e4e2ce8212cb2137f45f7dd6d5c03bea0395e581f46d08",
+        "joystick_reader.hpp": "556e25a554f7a0c44341c5ffeef0419ba9695c9af8d2a45b6132272b1ae91f70"
+      }
+    },
+    {
+      "experiment": "speed_opt",
+      "extent": 832,
+      "reported_instruction_groups": 49,
+      "different_overlapping_bytes": 705,
+      "exact": false,
+      "normalized_full_body_sha256": "f3e013202c75921bb381b1555e329b743d244f1800dde31522dd6b89804d844e",
+      "comparison_sha256": "777831e17a25d4e6a153129012c99a7680969727db60d8acd22ee9267e83ebc9",
+      "mode": "ordinary",
+      "source_snapshot_sha256": {
+        "layout.json": "212ac6bbcc42b5eab67a5b8dde363764cdf38f501679239828f8d31239b1c8d4",
+        "joystick_reader.cpp": "b339e25bf5903ff668cffc7f547f0189d3927190f034ea4dd8e1e43b88166cf9",
+        "joystick_reader.hpp": "556e25a554f7a0c44341c5ffeef0419ba9695c9af8d2a45b6132272b1ae91f70"
+      }
+    },
+    {
+      "experiment": "volatile_device",
+      "extent": 839,
+      "reported_instruction_groups": 52,
+      "different_overlapping_bytes": 792,
+      "exact": false,
+      "comparison_sha256": "d552b370aa9e75689e57f7d19ffa49273e70a16998f998fac3462db1fba915f9",
+      "source_snapshot_sha256": {
+        "joystick_reader.hpp": "e26bfec95e4c7fc3f2b09ba282af51609f7699891c4616d63d1b2556da7a1bd3",
+        "joystick_reader.cpp": "398b324da710ed9d5b47978ef318effe834e897dbfa95bca6ac6d4bc70049ecb",
+        "layout.json": "212ac6bbcc42b5eab67a5b8dde363764cdf38f501679239828f8d31239b1c8d4",
+        "measure.py": "260455740b0de6a4bb6260985b6658c865f0aadc51d240b012d9a0b0b3654ac9"
+      }
+    },
+    {
+      "experiment": "volatile_device_memset",
+      "extent": 831,
+      "reported_instruction_groups": 50,
+      "different_overlapping_bytes": 793,
+      "exact": false,
+      "comparison_sha256": "eba395de26ad0afa7096caa72edac5968b70356d47f719885d3a326034916c02",
+      "source_snapshot_sha256": {
+        "joystick_reader.hpp": "e26bfec95e4c7fc3f2b09ba282af51609f7699891c4616d63d1b2556da7a1bd3",
+        "joystick_reader.cpp": "b6134ac6bd3d53219807fcb14a536ca99c25cc753fa3de4af9c3fa3ff99205ef",
+        "layout.json": "212ac6bbcc42b5eab67a5b8dde363764cdf38f501679239828f8d31239b1c8d4",
+        "measure.py": "260455740b0de6a4bb6260985b6658c865f0aadc51d240b012d9a0b0b3654ac9"
+      }
+    },
+    {
+      "experiment": "volatile_global_devices",
+      "extent": 862,
+      "reported_instruction_groups": 34,
+      "different_overlapping_bytes": 797,
+      "exact": false,
+      "comparison_sha256": "4107ef9dc407ac8a0f1207035a13509f43e1b465373cf423b989c39720aecc35",
+      "source_snapshot_sha256": {
+        "joystick_reader.hpp": "35981d482fbe415a46eec0fa213bdab7ee7fbdc169ff04fc219738f80039b515",
+        "joystick_reader.cpp": "5a62611d3c6ff7d2ff58f59388ed7f9df2f4c9df4c73094caf3045249c9b265c",
+        "layout.json": "212ac6bbcc42b5eab67a5b8dde363764cdf38f501679239828f8d31239b1c8d4",
+        "measure.py": "260455740b0de6a4bb6260985b6658c865f0aadc51d240b012d9a0b0b3654ac9"
+      }
+    },
+    {
+      "experiment": "volatile_selection",
+      "extent": 817,
+      "reported_instruction_groups": 53,
+      "different_overlapping_bytes": 622,
+      "exact": false,
+      "comparison_sha256": "b6870b64f92bc5273808e410c80450b6b55b01a90f00c60f4f7c65c17c1bca89",
+      "source_snapshot_sha256": {
+        "joystick_reader.hpp": "c9ab5774c621cceaee74318cde7c376bed380bc5cd3818a64471aa9d71795f9d",
+        "joystick_reader.cpp": "305e4489527379228f615b6a5a9194478c8915dba363d4644e4bf6023cf1a129",
+        "layout.json": "212ac6bbcc42b5eab67a5b8dde363764cdf38f501679239828f8d31239b1c8d4",
+        "measure.py": "260455740b0de6a4bb6260985b6658c865f0aadc51d240b012d9a0b0b3654ac9"
+      }
+    },
+    {
+      "experiment": "volatile_snapshot_bindings",
+      "extent": 832,
+      "reported_instruction_groups": 49,
+      "different_overlapping_bytes": 705,
+      "exact": false,
+      "normalized_full_body_sha256": "f3e013202c75921bb381b1555e329b743d244f1800dde31522dd6b89804d844e",
+      "comparison_sha256": "777831e17a25d4e6a153129012c99a7680969727db60d8acd22ee9267e83ebc9",
+      "mode": "ordinary",
+      "source_snapshot_sha256": {
+        "layout.json": "212ac6bbcc42b5eab67a5b8dde363764cdf38f501679239828f8d31239b1c8d4",
+        "joystick_reader.cpp": "2e2ffeb4e51fce18d9e4e2ce8212cb2137f45f7dd6d5c03bea0395e581f46d08",
+        "joystick_reader.hpp": "8880d42e35deb9d22f2931ac2770650ac2a62a171ba173e2a36bf84671ec7067"
+      }
+    },
+    {
+      "experiment": "volatile_thresholds",
+      "extent": 828,
+      "reported_instruction_groups": 49,
+      "different_overlapping_bytes": 801,
+      "exact": false,
+      "comparison_sha256": "ede90d07c3b16306bbed0a9244d1d7fbb19acb799c0b5848e8d022518f1b6324",
+      "source_snapshot_sha256": {
+        "joystick_reader.hpp": "745660eeee91f4aa7eb9aba19bda70bb13f4d1cbe64bbb79e9338179afc462dd",
+        "joystick_reader.cpp": "5a62611d3c6ff7d2ff58f59388ed7f9df2f4c9df4c73094caf3045249c9b265c",
+        "layout.json": "212ac6bbcc42b5eab67a5b8dde363764cdf38f501679239828f8d31239b1c8d4",
+        "measure.py": "260455740b0de6a4bb6260985b6658c865f0aadc51d240b012d9a0b0b3654ac9"
+      }
+    },
+    {
+      "experiment": "volatile_x_threshold",
+      "extent": 829,
+      "reported_instruction_groups": 48,
+      "different_overlapping_bytes": 736,
+      "exact": false,
+      "normalized_full_body_sha256": "d04ce371731f7866deb41229dc945f87cf14c6bbc743b07cc07fa97d487eaac0",
+      "comparison_sha256": "d714a09f9f36c6ab2ef5d1417a01483ba1a4e83d32f0e0bffb79f450d059d1b1",
+      "mode": "ordinary",
+      "source_snapshot_sha256": {
+        "layout.json": "212ac6bbcc42b5eab67a5b8dde363764cdf38f501679239828f8d31239b1c8d4",
+        "joystick_reader.cpp": "1a8cd01b630166fb13d112e7088bd3d33f7d306b654c6604ab0b5e15e33fbc19",
+        "joystick_reader.hpp": "de29c0751a412d3346bd326b87b6995aa1be98fed2d09d77e79c79125f4aa799"
+      }
+    },
+    {
+      "experiment": "windows_state_types",
+      "extent": 817,
+      "reported_instruction_groups": 53,
+      "different_overlapping_bytes": 624,
+      "exact": false,
+      "comparison_sha256": "474bf888c65e9f631d0456694a35c164e225a620d90db541fac7c8bb2d929416",
+      "source_snapshot_sha256": {
+        "joystick_reader.hpp": "12df7895b22a0d766184048484e4fc47d425952dd6ac550743f6f579f738da8b",
+        "joystick_reader.cpp": "5a62611d3c6ff7d2ff58f59388ed7f9df2f4c9df4c73094caf3045249c9b265c",
+        "layout.json": "212ac6bbcc42b5eab67a5b8dde363764cdf38f501679239828f8d31239b1c8d4",
+        "measure.py": "92bb6059179e0c043fdc422216face23314c4103ce2c7c80d0df10f42c983da2"
+      }
+    },
+    {
+      "experiment": "word_axis_terms",
+      "extent": 832,
+      "reported_instruction_groups": 49,
+      "different_overlapping_bytes": 705,
+      "exact": false,
+      "normalized_full_body_sha256": "f3e013202c75921bb381b1555e329b743d244f1800dde31522dd6b89804d844e",
+      "comparison_sha256": "777831e17a25d4e6a153129012c99a7680969727db60d8acd22ee9267e83ebc9",
+      "mode": "ordinary",
+      "source_snapshot_sha256": {
+        "layout.json": "212ac6bbcc42b5eab67a5b8dde363764cdf38f501679239828f8d31239b1c8d4",
+        "joystick_reader.cpp": "5708c6259b6f7816cbda153d923bb94b6de379b10d6098cfddd2031d7710fc8d",
+        "joystick_reader.hpp": "556e25a554f7a0c44341c5ffeef0419ba9695c9af8d2a45b6132272b1ae91f70"
+      }
+    },
+    {
+      "experiment": "word_flags",
+      "extent": 821,
+      "reported_instruction_groups": 49,
+      "different_overlapping_bytes": 700,
+      "exact": false,
+      "comparison_sha256": "89bdd391b1bd2a8043c23afb2f724657df4b605fdc016753f31d5fd7b5cbcba5",
+      "source_snapshot_sha256": {
+        "joystick_reader.hpp": "5d04129c6256d5f24460e18f30ce3eed1ba813bba4a404342d203c05e1e595de",
+        "joystick_reader.cpp": "3a28628280d8a8c5353714d4cce04308db4aec549dae95d935c8c850f3bda6bb",
+        "layout.json": "212ac6bbcc42b5eab67a5b8dde363764cdf38f501679239828f8d31239b1c8d4",
+        "measure.py": "260455740b0de6a4bb6260985b6658c865f0aadc51d240b012d9a0b0b3654ac9"
+      }
+    },
+    {
+      "experiment": "word_local_flags",
+      "extent": 847,
+      "reported_instruction_groups": 46,
+      "different_overlapping_bytes": 800,
+      "exact": false,
+      "normalized_full_body_sha256": "e694ef3f22d2f52c27a75b475c2d16ab4706697575105451535aa482c7ca3f80",
+      "comparison_sha256": "5f3ab2398a644072a76813802bacce784830ca46d09e2d7a4a0d6775b3aeb58f",
+      "mode": "ordinary",
+      "source_snapshot_sha256": {
+        "layout.json": "212ac6bbcc42b5eab67a5b8dde363764cdf38f501679239828f8d31239b1c8d4",
+        "joystick_reader.cpp": "2dc595d94eb86090d60da7085aa4106f423d56f27405e374af85079f38c327f7",
+        "joystick_reader.hpp": "556e25a554f7a0c44341c5ffeef0419ba9695c9af8d2a45b6132272b1ae91f70"
+      }
+    }
+  ],
+  "failed_compiler_controls": [
+    {
+      "experiment": "free_thiscall",
+      "byte_measurement_produced": false,
+      "reason": "MSVC C4234: __thiscall is reserved for future use on free functions."
+    }
+  ]
+}

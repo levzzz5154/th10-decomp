@@ -1,4 +1,7 @@
-# Pending WAVE loader C++ equivalence recovery, 2026-10-05
+# WAVE loader C++ equivalence recovery, 2026-10-05
+
+Superseded by [the byte-exact promotion](sound_wave_load_exact_2026_10_06.md).
+The source and layout paths below describe the former equivalent checkpoint.
 
 The complete 684-byte loader at `0x0043D390` is now selected by
 `layout/equivalent/sound_wave_load_0043d390.json`. The default build uses

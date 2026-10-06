@@ -1,5 +1,10 @@
 # Player pickup sweep recovery note: 0x00428630
 
+Historical experiments below are superseded by the complete genuine graph in
+[the 2026-10-06 follow-up](player_hit_pickup_genuine_2026_10_06.md).
+The corrected record/clock offsets are reflected here; the old temporary
+compiler attempts below remain historical. Both target regions remain ASM.
+
 Status: the production region remains the exact 1170-byte retail assembly
 body in `msvc/src/game/player_pickup_sweep.cpp`.  A readable semantic
 candidate and one task-local native-LTCG/custom-ABI cluster were probed and
@@ -23,8 +28,8 @@ The manager layout needed by this routine is:
 
 ```text
 +0x0010  animation resource
-+0x049c  pickup frame counter {previous, current}
-+0x04e0  128 pickup slots, stride 0x5c
++0x049c  128 pickup records, stride 0x5c; each starts with its own frame pair
++0x04e0  first record's handle column, not the beginning of the records
 +0x350c  32 score/collision regions, stride 0x6c
 ```
 
@@ -39,13 +44,13 @@ The slot sweep rejects state `0` and state `2`, then tests the pickup box
 against the player box.  Type 3 uses the player's lower edge for the zero
 playfield boundary; all other types use the pickup's upper edge.  There is no
 descriptor-null guard after the state test in the retail body.  An optional
-descriptor filter is called with the manager in `ECX`, the manager pickup-clock
-record (`manager + 0x49c`) in `EDX`, and the player center on the stack; a
+descriptor filter is called with the manager in `ECX`, the current pickup's
+clock/record address (`manager + 0x49c + index*0x5c`) in `EDX`, and the player center on the stack; a
 nonzero result rejects the pickup.
 
 Accepted pickups are marked collected.  The first accepted, uninitialized
 slot stops its current animation and marks itself initialized.  Type 3 adds
-its signed descriptor value only when the manager pickup counter is at
+its signed descriptor value only when that pickup's own counter is at
 interval 4.  Other types add the value, retire the current animation, create
 `collected_script + 5` on layer 15, preserve the old animation field at
 record `+0x2c`, set animation flag bit `0x4`, set transition scale to `0.1`,
@@ -70,7 +75,7 @@ billion.  The raw total is returned.
 The archived semantic source supplies the high-level behavior; IDA/Ghidra and
 the caller establish the exact fields and custom call arguments above.  The
 archived public structs were not used verbatim:
-the live disassembly shows the pickup clock at `+0x49c`, slots at `+0x4e0`,
+the live disassembly shows the first pickup/clock at `+0x49c`, its handle at `+0x4e0`,
 and the region records at `+0x350c`; the older 1520-byte coverage record is
 stale relative to the live 1170-byte manifest region.
 

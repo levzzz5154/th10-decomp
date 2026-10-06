@@ -2,7 +2,7 @@
 // units along it and, when asked, drop a kind-8 item for each segment inside
 // the inner screen rectangle. The animation list registration is the
 // registrar at 0x004489D0 expanded in place.
-#include "th10/game/line_effect_sweeps_0041e260_0041f400.hpp"
+#include "../../layout/ltcg/item_line_runtime_0041e260/types/line_sweeps.hpp"
 #pragma code_seg(".text$45allsegments")
 struct LineRef_0041e260 {
     unsigned int value;
@@ -47,12 +47,12 @@ __declspec(noinline) int LineEffectSweep_0041e260::CreateAllSegments(int spawn_i
     int count=0;
     progress=6.0f;
     LineSweepStep_0041e260 step;
-    reinterpret_cast<LinePolarVelocity_0041f800*>(&step)->SetPolar(angle,6.0f);
+    step.velocity.SetPolar(angle,6.0f);
     LineSweepVector_0041e260 point;
-    point=LineSweepVector_0041e260(step.x+position.x,step.y+position.y,position.z);
+    point=LineSweepVector_0041e260(step.velocity.x+position.x,step.velocity.y+position.y,position.z);
     step.z=0.0f;
-    step.x+=step.x;
-    step.y+=step.y;
+    step.velocity.x+=step.velocity.x;
+    step.velocity.y+=step.velocity.y;
     if (12.0f<length) {
     do {
         ++count;
@@ -62,10 +62,10 @@ __declspec(noinline) int LineEffectSweep_0041e260::CreateAllSegments(int spawn_i
         unsigned int flags=object->flags_35C;
         object->flags_35C=flags|0x40000000u;
         object->render_bucket=0;
-        float* out=&object->position.x;
-        out[0]=point.x+224.0f;
-        out[2]=point.z;
-        out[1]=point.y+16.0f;
+        Vector3* out=&object->position;
+        out->x=point.x+224.0f;
+        out->z=point.z;
+        out->y=point.y+16.0f;
         LoadScript_0043e710(static_cast<AnimationResource_0043e710*>(resource),
             reinterpret_cast<AnimationObject_0043e710*>(object),index);
         static_cast<LineLists_0041e260*>(data_00491c10)->RegisterPrimaryBack(object);
@@ -74,10 +74,10 @@ __declspec(noinline) int LineEffectSweep_0041e260::CreateAllSegments(int spawn_i
             !(point.x-32.0f>=192.0f) &&
             !(point.y+32.0f<=data_00470b04) &&
             !(point.y-32.0f>=448.0f)) {
-            data_00477818->Spawn(&point.x,8,-1,-1.5707963705062866f,0.6f);
+            data_00477818->Spawn(&point,8,-1,-1.5707963705062866f,0.6f);
         }
-        point.x+=step.x;
-        point.y+=step.y;
+        point.x+=step.velocity.x;
+        point.y+=step.velocity.y;
         volatile float& point_z=point.z;
         point_z=point_z+step.z;
         progress+=12.0f;

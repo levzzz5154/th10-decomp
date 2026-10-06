@@ -30,7 +30,9 @@
       "kind": "data"
     }
   },
-  "bindings": {},
+  "bindings": {
+    "__real@bf800000": "0x00470B60"
+  },
   "base_index_order": 0,
   "differences": [
     {
@@ -79,19 +81,23 @@
       ]
     },
     {
-      "class": "operand-order",
-      "offset": "0x3f",
+      "class": "register-choice",
+      "offset": "0x42",
       "retail": [
-        "fld DWORD PTR [eax+0x3c]",
-        "or edi,0x8",
-        "fmul DWORD PTR ds:0x470b60",
+        "or edi,0x8"
+      ],
+      "model": [
+        "or esi,0x8"
+      ]
+    },
+    {
+      "class": "register-choice",
+      "offset": "0x4b",
+      "retail": [
         "xor edi,0x200",
         "mov DWORD PTR [eax+0x35c],edi"
       ],
       "model": [
-        "fld DWORD PTR ds:0x470b60",
-        "or esi,0x8",
-        "fmul DWORD PTR [eax+0x3c]",
         "xor esi,0x200",
         "mov DWORD PTR [eax+0x35c],esi"
       ]

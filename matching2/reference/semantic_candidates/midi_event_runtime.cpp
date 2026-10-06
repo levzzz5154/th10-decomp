@@ -1,6 +1,8 @@
 // Unverified candidate, outside the production translation-unit inventory.
-// Current retail audit: recovery_notes/midi_event_parser_followup_2026-09-30.md.
+// Native measurements: recovery_notes/midi_event_parser_native_2026_10_06.md.
+// Retail audit: recovery_notes/midi_event_parser_followup_2026-09-30.md.
 #include "asm_symbols.hpp"
+#include <string.h>
 #include "th10/platform/midi_sequencer.hpp"
 
 // This is the Win32 layout used by midiOutPrepareHeader and midiOutLongMsg.
@@ -37,15 +39,15 @@ typedef unsigned int (__stdcall *MidiOutLongMsgCall)(void*, MidiEventHeader*, un
 typedef unsigned int (__stdcall *MidiOutShortMsgCall)(void*, unsigned int);
 
 static __forceinline MidiOutPrepareHeaderCall MidiOutPrepareHeaderAtRetail() {
-    return *reinterpret_cast<volatile MidiOutPrepareHeaderCall*>(&data_004662a0);
+    return *reinterpret_cast<MidiOutPrepareHeaderCall*>(&data_004662a0);
 }
 
 static __forceinline MidiOutLongMsgCall MidiOutLongMsgAtRetail() {
-    return *reinterpret_cast<volatile MidiOutLongMsgCall*>(&data_0046629c);
+    return *reinterpret_cast<MidiOutLongMsgCall*>(&data_0046629c);
 }
 
 static __forceinline MidiOutShortMsgCall MidiOutShortMsgAtRetail() {
-    return *reinterpret_cast<volatile MidiOutShortMsgCall*>(&data_00466298);
+    return *reinterpret_cast<MidiOutShortMsgCall*>(&data_00466298);
 }
 
 static __forceinline unsigned int ReadMidiEventValue(const unsigned char*& cursor) {
@@ -93,28 +95,34 @@ extern "C" __declspec(noinline) void __stdcall ProcessMidiEvent_0043B110(
 
     const unsigned char channel = status & 0x0f;
     const unsigned char messageType = status & 0xf0;
-    if (messageType == 0x80 || messageType == 0x90 ||
-        messageType == 0xa0 || messageType == 0xb0 ||
-        messageType == 0xe0) {
+    switch (messageType) {
+    case 0x80:
+    case 0x90:
+    case 0xa0:
+    case 0xb0:
+    case 0xe0: {
         data1 = *track->cursor++;
         data2 = *track->cursor++;
-    } else if (messageType == 0xc0 || messageType == 0xd0) {
+        break;
+    }
+    case 0xc0:
+    case 0xd0: {
         data1 = *track->cursor++;
-    } else if (messageType == 0xf0) {
+        break;
+    }
+    case 0xf0: {
         if (status == 0xf0) {
             if (sequencer->midi_headers[sequencer->midi_header_index] != 0)
                 CompleteMidiHeader_0043aeb0(sequencer,
                     sequencer->midi_headers[sequencer->midi_header_index]);
 
-            MidiEventHeader* header = static_cast<MidiEventHeader*>(asm_malloc_00452706(0x40));
             sequencer->midi_headers[sequencer->midi_header_index] =
-                reinterpret_cast<midihdr_tag*>(header);
+                static_cast<midihdr_tag*>(asm_malloc_00452706(0x40));
+            MidiEventHeader* header = reinterpret_cast<MidiEventHeader*>(
+                sequencer->midi_headers[sequencer->midi_header_index]);
             const int sysexLength = ReadMidiVariableLength(track->cursor);
 
-            unsigned int* headerWords = reinterpret_cast<unsigned int*>(header);
-            int word;
-            for (word = 0; word < 16; ++word)
-                headerWords[word] = 0;
+            memset(header, 0, sizeof(*header));
 
             header->lpData = static_cast<char*>(asm_malloc_00452706(
                 static_cast<unsigned int>(sysexLength) + 1));
@@ -165,31 +173,38 @@ extern "C" __declspec(noinline) void __stdcall ProcessMidiEvent_0043B110(
         }
     }
 
+    }
+
     unsigned char* state = reinterpret_cast<unsigned char*>(sequencer);
-    unsigned char* channelState = state + 0x154 + channel * 0x17;
-    if (messageType == 0x90 && data2 != 0) {
+    switch (messageType) {
+    case 0x90:
+    if (data2 != 0) {
         const signed char transpose = *reinterpret_cast<signed char*>(state + 0x2c4);
         data1 = static_cast<unsigned char>(data1 + transpose);
         const unsigned char note = data1;
-        unsigned char* noteBits = channelState + (note >> 3);
+        unsigned char* noteBits = (state + 0x154 + channel * 0x17) + (note >> 3);
         *noteBits |= static_cast<unsigned char>(1u << (note & 7));
-    } else if (messageType == 0x80 || messageType == 0x90) {
+        break;
+    }
+    case 0x80: {
         const signed char transpose = *reinterpret_cast<signed char*>(state + 0x2c4);
         data1 = static_cast<unsigned char>(data1 + transpose);
         const unsigned char note = data1;
-        unsigned char* noteBits = channelState + (note >> 3);
+        unsigned char* noteBits = (state + 0x154 + channel * 0x17) + (note >> 3);
         *noteBits &= static_cast<unsigned char>(~(1u << (note & 7)));
-    } else if (messageType == 0xb0) {
+        break;
+    }
+    case 0xb0: {
         switch (data1) {
         case 0:
-            channelState[0x11] = data2;
+            (state + 0x154 + channel * 0x17)[0x11] = data2;
             break;
         case 2: {
+            MidiTrack* saved_track = sequencer->tracks;
             int index;
-            for (index = 0; index < sequencer->track_count; ++index) {
-                sequencer->tracks[index].loop_cursor = sequencer->tracks[index].cursor;
-                sequencer->tracks[index].saved_loop_time =
-                    sequencer->tracks[index].next_event_time;
+            for (index = 0; index < sequencer->track_count; ++index, ++saved_track) {
+                saved_track->loop_cursor = saved_track->cursor;
+                saved_track->saved_loop_time = saved_track->next_event_time;
             }
             MidiLoopClock& savedClock = *reinterpret_cast<MidiLoopClock*>(state + 0x2ec);
             savedClock.tempo_microseconds = sequencer->tempo_microseconds;
@@ -198,11 +213,11 @@ extern "C" __declspec(noinline) void __stdcall ProcessMidiEvent_0043B110(
             break;
         }
         case 4: {
+            MidiTrack* saved_track = sequencer->tracks;
             int index;
-            for (index = 0; index < sequencer->track_count; ++index) {
-                sequencer->tracks[index].cursor = sequencer->tracks[index].loop_cursor;
-                sequencer->tracks[index].next_event_time =
-                    sequencer->tracks[index].saved_loop_time;
+            for (index = 0; index < sequencer->track_count; ++index, ++saved_track) {
+                saved_track->cursor = saved_track->loop_cursor;
+                saved_track->next_event_time = saved_track->saved_loop_time;
             }
             const MidiLoopClock& savedClock = *reinterpret_cast<const MidiLoopClock*>(state + 0x2ec);
             sequencer->tempo_microseconds = savedClock.tempo_microseconds;
@@ -211,33 +226,37 @@ extern "C" __declspec(noinline) void __stdcall ProcessMidiEvent_0043B110(
             break;
         }
         case 7: {
-            channelState[0x15] = data2;
+            (state + 0x154 + channel * 0x17)[0x15] = data2;
             message_storage = data2;
             int volume = static_cast<int>(static_cast<__int64>(
                 static_cast<float>(data2) * sequencer->fade_volume));
             if (volume < 0) {
-                channelState[0x16] = 0;
+                (state + 0x154 + channel * 0x17)[0x16] = 0;
                 data2 = 0;
             } else {
                 if (volume > 0x7f)
                     volume = 0x7f;
-                channelState[0x16] = static_cast<unsigned char>(volume);
+                (state + 0x154 + channel * 0x17)[0x16] = static_cast<unsigned char>(volume);
                 data2 = static_cast<unsigned char>(volume);
             }
             break;
         }
         case 10:
-            channelState[0x12] = data2;
+            (state + 0x154 + channel * 0x17)[0x12] = data2;
             break;
         case 0x5b:
-            channelState[0x13] = data2;
+            (state + 0x154 + channel * 0x17)[0x13] = data2;
             break;
         case 0x5d:
-            channelState[0x14] = data2;
+            (state + 0x154 + channel * 0x17)[0x14] = data2;
             break;
         }
-    } else if (messageType == 0xc0) {
-        channelState[0x10] = data1;
+        break;
+    }
+    case 0xc0: {
+        (state + 0x154 + channel * 0x17)[0x10] = data1;
+    }
+
     }
 
     void* output = *reinterpret_cast<void**>(state + 0x13c);

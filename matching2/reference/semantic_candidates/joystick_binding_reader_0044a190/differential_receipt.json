@@ -1,0 +1,16 @@
+{
+  "cases": 718,
+  "passed": true,
+  "instruction_patches": 0,
+  "native_pe_sha256": "d0d826885a6b030341c0fe1ec196ee5186c0810405d2e253f10865cd5067f2b8",
+  "retail_body_sha256": "d6c563e2da06c84e64efe7b6485615df286cf86cd042ccae9403cbb0c61ba500",
+  "observation_sha256": "2518b5fe39301eda839739bf57648844c526d41ce490a8c2e456e36eaaef84f6",
+  "scripted_boundaries": [
+    "joyGetPosEx",
+    "Poll",
+    "Acquire",
+    "GetDeviceState",
+    "security_check_cookie"
+  ],
+  "scope": "Returned flags, API receivers and order, initialization, retry limit, stack cleanup and callee-saved registers."
+}

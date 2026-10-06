@@ -112,6 +112,7 @@ struct TitleMenu_00431410 {
     __declspec(noinline) int DrawOverlay();
     __declspec(noinline) int DrawPracticeRows();
     __declspec(noinline) int DrawScoreRows();
+    __declspec(noinline) int BuildSpellList();
 };
 
 extern "C" {

@@ -1,0 +1,838 @@
+{
+  "selected": false,
+  "diagnostic_only": true,
+  "experiments": [
+    {
+      "experiment": "animation_position_method",
+      "extent": 874,
+      "reported_groups": 4,
+      "unequal_overlapping_bytes": 203,
+      "exact": false,
+      "supporting_helpers_exact": 6,
+      "comparison_sha256": "7bcb16c1a7f7de3b1c1caca01f4d0ddcdc78d7d76c3fce41c4b560d4cfe30f48",
+      "source_snapshot_sha256": {
+        "effect_update.cpp": "fff73d20391519ced2d52ff91e67a37552411fbf9c3b7e4af53d1ea35efd0770",
+        "effect_update.hpp": "ad10b1b7def473c38922b7f39f342c8aaee0a687552835cc5b08441734c59324",
+        "layout.json": "cbbc20f764c52fb9b3b530beb70f34cd27dfad1a32c4f22e01da97edcde4e396",
+        "measure.py": "f4b32afd404f38d55dc6d8577f518d65a6937f8e9523c3bf0d1d9f28cb6b36b1"
+      }
+    },
+    {
+      "experiment": "array_byte_cursor",
+      "extent": 838,
+      "reported_groups": 88,
+      "unequal_overlapping_bytes": 818,
+      "exact": false,
+      "supporting_helpers_exact": 5,
+      "source_rejection": "Unretained first cursor spelling advances beyond the effects-array object; corrected by whole_object_cursor before any source retention."
+    },
+    {
+      "experiment": "baseline",
+      "extent": 832,
+      "reported_groups": 79,
+      "unequal_overlapping_bytes": 797,
+      "exact": false,
+      "supporting_helpers_exact": 3
+    },
+    {
+      "experiment": "both_nodes",
+      "extent": 858,
+      "reported_groups": 62,
+      "unequal_overlapping_bytes": 802,
+      "exact": false,
+      "supporting_helpers_exact": 6
+    },
+    {
+      "experiment": "complete_bounds",
+      "extent": 858,
+      "reported_groups": 57,
+      "unequal_overlapping_bytes": 802,
+      "exact": false,
+      "supporting_helpers_exact": 6
+    },
+    {
+      "experiment": "const_constants",
+      "extent": 858,
+      "reported_groups": 56,
+      "unequal_overlapping_bytes": 802,
+      "exact": false,
+      "supporting_helpers_exact": 6
+    },
+    {
+      "experiment": "cull_switch",
+      "extent": 874,
+      "reported_groups": 3,
+      "unequal_overlapping_bytes": 205,
+      "exact": false,
+      "supporting_helpers_exact": 6,
+      "source_snapshot_sha256": {
+        "effect_update.cpp": "2d6e4fef7e40b858c942c6d5b09d334921ff86f63dcf0e8b6c3b74e71c49863f",
+        "effect_update.hpp": "eb13801db5392a645c6b84319037b98d0101d3e75938ed81a36792845d318ded",
+        "layout.json": "cbbc20f764c52fb9b3b530beb70f34cd27dfad1a32c4f22e01da97edcde4e396",
+        "measure.py": "f4b32afd404f38d55dc6d8577f518d65a6937f8e9523c3bf0d1d9f28cb6b36b1"
+      }
+    },
+    {
+      "experiment": "culling_id_bitcopy",
+      "extent": 874,
+      "reported_groups": 3,
+      "unequal_overlapping_bytes": 205,
+      "exact": false,
+      "supporting_helpers_exact": 6,
+      "comparison_sha256": "e01f03042ce38e6a47e4a908489469bfd7b574d17a930b11e5344af84a68b91d",
+      "source_snapshot_sha256": {
+        "effect_update.cpp": "0c8f2db69ee4cf7b027b593ecaf17c2e3c7584c297f12dbca761169f8165490a",
+        "effect_update.hpp": "eb13801db5392a645c6b84319037b98d0101d3e75938ed81a36792845d318ded",
+        "layout.json": "cbbc20f764c52fb9b3b530beb70f34cd27dfad1a32c4f22e01da97edcde4e396",
+        "measure.py": "f4b32afd404f38d55dc6d8577f518d65a6937f8e9523c3bf0d1d9f28cb6b36b1"
+      }
+    },
+    {
+      "experiment": "early_effect_tail",
+      "extent": 874,
+      "reported_groups": 3,
+      "unequal_overlapping_bytes": 205,
+      "exact": false,
+      "supporting_helpers_exact": 6,
+      "normalized_full_body_sha256": "4f214c78d2f046668f4aa431ffb634224a3398eae253c8b554b3b515360beaa9",
+      "source_snapshot_sha256": {
+        "effect_update.cpp": "47e19865e950cc9b5a90eec6ad6ded7527cefb99fb435080d97c6c01c66981fa",
+        "effect_update.hpp": "4361dd6a0d37b8dbbf65f98bc758d39cf8cd12081c35abaa1de3e36065ba9a7f",
+        "layout.json": "cbbc20f764c52fb9b3b530beb70f34cd27dfad1a32c4f22e01da97edcde4e396",
+        "measure.py": "f4b32afd404f38d55dc6d8577f518d65a6937f8e9523c3bf0d1d9f28cb6b36b1"
+      }
+    },
+    {
+      "experiment": "effect_method",
+      "extent": 858,
+      "reported_groups": 57,
+      "unequal_overlapping_bytes": 802,
+      "exact": false,
+      "supporting_helpers_exact": 6
+    },
+    {
+      "experiment": "effect_method_timer",
+      "extent": 858,
+      "reported_groups": 56,
+      "unequal_overlapping_bytes": 802,
+      "exact": false,
+      "supporting_helpers_exact": 6
+    },
+    {
+      "experiment": "explicit_context_members",
+      "extent": 874,
+      "reported_groups": 3,
+      "unequal_overlapping_bytes": 205,
+      "exact": false,
+      "supporting_helpers_exact": 6,
+      "normalized_full_body_sha256": "4f214c78d2f046668f4aa431ffb634224a3398eae253c8b554b3b515360beaa9",
+      "source_snapshot_sha256": {
+        "effect_update.cpp": "da0347e04944af703674cbe4cb57b5ce660416515efe21d1c93ea2d23d494da3",
+        "effect_update.hpp": "2828892087c285e3d0084a8808bdb9ef642c40dacdcd0f1a3e61c10d9243eeda",
+        "layout.json": "78f633a486c1492b8427a49c7237a8b1299babbb4ee8a1fc51828e255bc4fcd4",
+        "measure.py": "f4b32afd404f38d55dc6d8577f518d65a6937f8e9523c3bf0d1d9f28cb6b36b1"
+      }
+    },
+    {
+      "experiment": "find_stdcall",
+      "extent": 858,
+      "reported_groups": 52,
+      "unequal_overlapping_bytes": 803,
+      "exact": false,
+      "supporting_helpers_exact": 6
+    },
+    {
+      "experiment": "find_stdcall_snapshot",
+      "extent": 874,
+      "reported_groups": 3,
+      "unequal_overlapping_bytes": 205,
+      "exact": false,
+      "supporting_helpers_exact": 6,
+      "normalized_full_body_sha256": "4f214c78d2f046668f4aa431ffb634224a3398eae253c8b554b3b515360beaa9",
+      "source_snapshot_sha256": {
+        "effect_update.cpp": "eab1636d228316608cd358d8b2fc23b066c35760a1cb6e2929eb4e363d9150da",
+        "effect_update.hpp": "4361dd6a0d37b8dbbf65f98bc758d39cf8cd12081c35abaa1de3e36065ba9a7f",
+        "layout.json": "c94f7fe334b9d3ba800c2324cd029d465fb80603b01734d27863d53a97636755",
+        "measure.py": "f4b32afd404f38d55dc6d8577f518d65a6937f8e9523c3bf0d1d9f28cb6b36b1"
+      }
+    },
+    {
+      "experiment": "flag_integer_member",
+      "extent": 873,
+      "reported_groups": 3,
+      "unequal_overlapping_bytes": 255,
+      "exact": false,
+      "supporting_helpers_exact": 5,
+      "normalized_full_body_sha256": "5260eeed50bf42ce5e9d1941b882cc5c1da0a92535e38ef2ded6d3419ae7c0bc",
+      "source_snapshot_sha256": {
+        "effect_update.cpp": "a68c2b36969d89e12075e8d9380bb24cb18f68ebfe8d59e4c8fedbf0d98904ae",
+        "effect_update.hpp": "a6d924c3db6323946e21678e1b70c2d050b82c408365b7b028e4862528b53910",
+        "layout.json": "274c64b0ad4d5de8c1974e11178ee0f40a0c19be203c73e508cf0424914aab07",
+        "measure.py": "f4b32afd404f38d55dc6d8577f518d65a6937f8e9523c3bf0d1d9f28cb6b36b1"
+      },
+      "rejection": "The integer-ID member form changes the complete Flag helper from 66 to 64 bytes and does not match the owner."
+    },
+    {
+      "experiment": "flag_stdcall",
+      "extent": 858,
+      "reported_groups": 52,
+      "unequal_overlapping_bytes": 803,
+      "exact": false,
+      "supporting_helpers_exact": 6
+    },
+    {
+      "experiment": "frame_timer",
+      "extent": 858,
+      "reported_groups": 54,
+      "unequal_overlapping_bytes": 802,
+      "exact": false,
+      "supporting_helpers_exact": 6
+    },
+    {
+      "experiment": "handle_release",
+      "extent": 861,
+      "reported_groups": 61,
+      "unequal_overlapping_bytes": 808,
+      "exact": false,
+      "supporting_helpers_exact": 6
+    },
+    {
+      "experiment": "handle_snapshots",
+      "extent": 874,
+      "reported_groups": 4,
+      "unequal_overlapping_bytes": 203,
+      "exact": false,
+      "supporting_helpers_exact": 6,
+      "normalized_full_body_sha256": "6acc8832f59d60746870c6f8cc6d145ddb7fe78e64fab0b25811d3f896ef5dd2",
+      "source_snapshot_sha256": {
+        "effect_update.cpp": "e0fdd91847ab5f33eee1d8be78ae45744aa838e65baf96573658cf50b6cb6d8c",
+        "effect_update.hpp": "4d85f3983fe948b323c318cf8e04f5024f3e2baecf5e164e6f10f986c84a1f5b",
+        "layout.json": "cbbc20f764c52fb9b3b530beb70f34cd27dfad1a32c4f22e01da97edcde4e396",
+        "measure.py": "f4b32afd404f38d55dc6d8577f518d65a6937f8e9523c3bf0d1d9f28cb6b36b1"
+      }
+    },
+    {
+      "experiment": "helpers_corrected",
+      "extent": 832,
+      "reported_groups": 79,
+      "unequal_overlapping_bytes": 797,
+      "exact": false,
+      "supporting_helpers_exact": 5
+    },
+    {
+      "experiment": "id_copy_constructor",
+      "extent": 882,
+      "reported_groups": 6,
+      "unequal_overlapping_bytes": 261,
+      "exact": false,
+      "supporting_helpers_exact": 3,
+      "normalized_full_body_sha256": "7402789a9d71af08d773cf4ed5eb7d7f7235cc8137988b5fefac605b7fc61b50",
+      "source_snapshot_sha256": {
+        "effect_update.cpp": "ee397eded3206255d34a574819e783dcb0381cfb177c4ff30af5d948420f464f",
+        "effect_update.hpp": "d85b4fdb5545b80ac2bfad73c68dd802237692aef20a55aaa56b64e12a274dad",
+        "layout.json": "cbbc20f764c52fb9b3b530beb70f34cd27dfad1a32c4f22e01da97edcde4e396",
+        "measure.py": "f4b32afd404f38d55dc6d8577f518d65a6937f8e9523c3bf0d1d9f28cb6b36b1"
+      }
+    },
+    {
+      "experiment": "id_first_lookup",
+      "extent": 874,
+      "reported_groups": 3,
+      "unequal_overlapping_bytes": 205,
+      "exact": false,
+      "supporting_helpers_exact": 6,
+      "source_snapshot_sha256": {
+        "effect_update.cpp": "098fe763599f2b89f3bedb08212ef0a4e72b4467b92c67735f8bc5dbb29e58f3",
+        "effect_update.hpp": "eb13801db5392a645c6b84319037b98d0101d3e75938ed81a36792845d318ded",
+        "layout.json": "42f820b69d3f73c74243cc6a78f66a64e74ec3df7493f0152f99dade542b86dd",
+        "measure.py": "f4b32afd404f38d55dc6d8577f518d65a6937f8e9523c3bf0d1d9f28cb6b36b1"
+      }
+    },
+    {
+      "experiment": "id_member_assignment",
+      "extent": 874,
+      "reported_groups": 3,
+      "unequal_overlapping_bytes": 205,
+      "exact": false,
+      "supporting_helpers_exact": 6,
+      "normalized_full_body_sha256": "4f214c78d2f046668f4aa431ffb634224a3398eae253c8b554b3b515360beaa9",
+      "source_snapshot_sha256": {
+        "effect_update.cpp": "111b1f73e71a5b0902b2ccc1a257c45bda2ee93f998f6711b191f083c9a546e9",
+        "effect_update.hpp": "4361dd6a0d37b8dbbf65f98bc758d39cf8cd12081c35abaa1de3e36065ba9a7f",
+        "layout.json": "cbbc20f764c52fb9b3b530beb70f34cd27dfad1a32c4f22e01da97edcde4e396",
+        "measure.py": "f4b32afd404f38d55dc6d8577f518d65a6937f8e9523c3bf0d1d9f28cb6b36b1"
+      }
+    },
+    {
+      "experiment": "id_scalar_assignment",
+      "extent": 874,
+      "reported_groups": 3,
+      "unequal_overlapping_bytes": 205,
+      "exact": false,
+      "supporting_helpers_exact": 6,
+      "normalized_full_body_sha256": "4f214c78d2f046668f4aa431ffb634224a3398eae253c8b554b3b515360beaa9",
+      "source_snapshot_sha256": {
+        "effect_update.cpp": "f2db89795119f128ab1970958b175e8ad9faabb518d15116591f011625a15d9a",
+        "effect_update.hpp": "1f9414e4ab0194c7ed61b7bac9fad1eea16edbe4ade22dbd23fcd269def8caa4",
+        "layout.json": "cbbc20f764c52fb9b3b530beb70f34cd27dfad1a32c4f22e01da97edcde4e396",
+        "measure.py": "f4b32afd404f38d55dc6d8577f518d65a6937f8e9523c3bf0d1d9f28cb6b36b1"
+      }
+    },
+    {
+      "experiment": "id_value_constructor",
+      "extent": 874,
+      "reported_groups": 3,
+      "unequal_overlapping_bytes": 205,
+      "exact": false,
+      "supporting_helpers_exact": 6,
+      "normalized_full_body_sha256": "4f214c78d2f046668f4aa431ffb634224a3398eae253c8b554b3b515360beaa9",
+      "source_snapshot_sha256": {
+        "effect_update.cpp": "ee397eded3206255d34a574819e783dcb0381cfb177c4ff30af5d948420f464f",
+        "effect_update.hpp": "cf1c4cac1354e33c8b753f5104586574dc156c8dd772edf78c8a2b742ceca721",
+        "layout.json": "cbbc20f764c52fb9b3b530beb70f34cd27dfad1a32c4f22e01da97edcde4e396",
+        "measure.py": "f4b32afd404f38d55dc6d8577f518d65a6937f8e9523c3bf0d1d9f28cb6b36b1"
+      }
+    },
+    {
+      "experiment": "id_word_bitfield",
+      "extent": 874,
+      "reported_groups": 3,
+      "unequal_overlapping_bytes": 205,
+      "exact": false,
+      "supporting_helpers_exact": 6,
+      "source_snapshot_sha256": {
+        "effect_update.cpp": "d76dc16da19ac8ee9fcd307a2f78c15895743a405f3e552dfeedcda4259de9d1",
+        "effect_update.hpp": "dea66ec98279b9b899219902c3ca882ba1d036f0b766cae0ca7ab8470e344971",
+        "layout.json": "cbbc20f764c52fb9b3b530beb70f34cd27dfad1a32c4f22e01da97edcde4e396",
+        "measure.py": "f4b32afd404f38d55dc6d8577f518d65a6937f8e9523c3bf0d1d9f28cb6b36b1"
+      }
+    },
+    {
+      "experiment": "immutable_id_word",
+      "extent": 874,
+      "reported_groups": 3,
+      "unequal_overlapping_bytes": 205,
+      "exact": false,
+      "supporting_helpers_exact": 6,
+      "source_snapshot_sha256": {
+        "effect_update.cpp": "d76dc16da19ac8ee9fcd307a2f78c15895743a405f3e552dfeedcda4259de9d1",
+        "effect_update.hpp": "b50c92837cd518612e6bb063724927e9f6adac7c2d47fce2684289c8e1ae70e4",
+        "layout.json": "cbbc20f764c52fb9b3b530beb70f34cd27dfad1a32c4f22e01da97edcde4e396",
+        "measure.py": "f4b32afd404f38d55dc6d8577f518d65a6937f8e9523c3bf0d1d9f28cb6b36b1"
+      }
+    },
+    {
+      "experiment": "implicit_handle_id",
+      "extent": 874,
+      "reported_groups": 4,
+      "unequal_overlapping_bytes": 203,
+      "exact": false,
+      "supporting_helpers_exact": 6,
+      "comparison_sha256": "7bcb16c1a7f7de3b1c1caca01f4d0ddcdc78d7d76c3fce41c4b560d4cfe30f48",
+      "source_snapshot_sha256": {
+        "effect_update.cpp": "100ddef612aee6b686fffcd100f800d7b3ce675fd6de6c76abdbf5fb5ecaf673",
+        "effect_update.hpp": "31aceae57a26d5835b8cd24c878417b97fa04996921089561172126747952182",
+        "layout.json": "cbbc20f764c52fb9b3b530beb70f34cd27dfad1a32c4f22e01da97edcde4e396",
+        "measure.py": "f4b32afd404f38d55dc6d8577f518d65a6937f8e9523c3bf0d1d9f28cb6b36b1"
+      }
+    },
+    {
+      "experiment": "inactive_goto",
+      "extent": 858,
+      "reported_groups": 56,
+      "unequal_overlapping_bytes": 802,
+      "exact": false,
+      "supporting_helpers_exact": 6
+    },
+    {
+      "experiment": "inline_both",
+      "extent": 832,
+      "reported_groups": 79,
+      "unequal_overlapping_bytes": 797,
+      "exact": false,
+      "supporting_helpers_exact": 5
+    },
+    {
+      "experiment": "inline_both_current",
+      "extent": 858,
+      "reported_groups": 52,
+      "unequal_overlapping_bytes": 803,
+      "exact": false,
+      "supporting_helpers_exact": 6,
+      "normalized_full_body_sha256": "ead1a8e1c77dff5257e60437cca3349985b0b5d43597ae0a59b112b9e01061f8",
+      "source_snapshot_sha256": {
+        "effect_update.cpp": "13b0eeddb7a71596e1406c9a5c3e6be4bc369eb1ccb1ff31b9d5be0b75d3ae5d",
+        "effect_update.hpp": "ecdd05030635a3dbb26eab809632058d667680ab36bb8ea2efd612eb88fa81ac",
+        "layout.json": "cbbc20f764c52fb9b3b530beb70f34cd27dfad1a32c4f22e01da97edcde4e396",
+        "measure.py": "f4b32afd404f38d55dc6d8577f518d65a6937f8e9523c3bf0d1d9f28cb6b36b1"
+      }
+    },
+    {
+      "experiment": "inline_primary",
+      "extent": 832,
+      "reported_groups": 79,
+      "unequal_overlapping_bytes": 797,
+      "exact": false,
+      "supporting_helpers_exact": 5
+    },
+    {
+      "experiment": "inline_primary_current",
+      "extent": 858,
+      "reported_groups": 53,
+      "unequal_overlapping_bytes": 803,
+      "exact": false,
+      "supporting_helpers_exact": 6,
+      "normalized_full_body_sha256": "9df9938989a9b7df61a6129b6da651930882484d6d92eb3a91a961a62ba59eb9",
+      "source_snapshot_sha256": {
+        "effect_update.cpp": "550d5fc18d2a71ec13f681b4ce0e31b8306e1884f85255c98c5c36388dc99265",
+        "effect_update.hpp": "ecdd05030635a3dbb26eab809632058d667680ab36bb8ea2efd612eb88fa81ac",
+        "layout.json": "cbbc20f764c52fb9b3b530beb70f34cd27dfad1a32c4f22e01da97edcde4e396",
+        "measure.py": "f4b32afd404f38d55dc6d8577f518d65a6937f8e9523c3bf0d1d9f28cb6b36b1"
+      }
+    },
+    {
+      "experiment": "intrusive_node_roles",
+      "extent": 858,
+      "reported_groups": 52,
+      "unequal_overlapping_bytes": 803,
+      "exact": false,
+      "supporting_helpers_exact": 6
+    },
+    {
+      "experiment": "late_id_record_snapshot",
+      "extent": 874,
+      "reported_groups": 4,
+      "unequal_overlapping_bytes": 203,
+      "exact": false,
+      "supporting_helpers_exact": 6,
+      "comparison_sha256": "7bcb16c1a7f7de3b1c1caca01f4d0ddcdc78d7d76c3fce41c4b560d4cfe30f48",
+      "source_snapshot_sha256": {
+        "effect_update.cpp": "a36937816cbd001f2cb6aa24cd5c3dceeb27add00fabbcdd230eb87fd43f3a39",
+        "effect_update.hpp": "eb13801db5392a645c6b84319037b98d0101d3e75938ed81a36792845d318ded",
+        "layout.json": "cbbc20f764c52fb9b3b530beb70f34cd27dfad1a32c4f22e01da97edcde4e396",
+        "measure.py": "f4b32afd404f38d55dc6d8577f518d65a6937f8e9523c3bf0d1d9f28cb6b36b1"
+      }
+    },
+    {
+      "experiment": "literal_render_offsets",
+      "extent": 858,
+      "reported_groups": 52,
+      "unequal_overlapping_bytes": 803,
+      "exact": false,
+      "supporting_helpers_exact": 6
+    },
+    {
+      "experiment": "lookup_members",
+      "extent": 874,
+      "reported_groups": 3,
+      "unequal_overlapping_bytes": 205,
+      "exact": false,
+      "supporting_helpers_exact": 6,
+      "normalized_full_body_sha256": "4f214c78d2f046668f4aa431ffb634224a3398eae253c8b554b3b515360beaa9",
+      "source_snapshot_sha256": {
+        "effect_update.cpp": "20ff83df7d0c8b077b50930db490ff7e0b94fa8d8ad6a16772e17b4ab506c68d",
+        "effect_update.hpp": "97724ee542e9e6cf070a33201d7c6fe67310944c8b93ecc9094ef00437cd99d5",
+        "layout.json": "c827a975092e1555012d5bf221d8755fec659189f316e24faaf7f570fea2d433",
+        "measure.py": "f4b32afd404f38d55dc6d8577f518d65a6937f8e9523c3bf0d1d9f28cb6b36b1"
+      }
+    },
+    {
+      "experiment": "lookup_stdcall",
+      "extent": 858,
+      "reported_groups": 52,
+      "unequal_overlapping_bytes": 803,
+      "exact": false,
+      "supporting_helpers_exact": 6
+    },
+    {
+      "experiment": "loop_for",
+      "extent": 858,
+      "reported_groups": 56,
+      "unequal_overlapping_bytes": 802,
+      "exact": false,
+      "supporting_helpers_exact": 6
+    },
+    {
+      "experiment": "loop_for_decrement",
+      "extent": 858,
+      "reported_groups": 56,
+      "unequal_overlapping_bytes": 802,
+      "exact": false,
+      "supporting_helpers_exact": 6
+    },
+    {
+      "experiment": "loop_for_nonzero",
+      "extent": 858,
+      "reported_groups": 56,
+      "unequal_overlapping_bytes": 802,
+      "exact": false,
+      "supporting_helpers_exact": 6
+    },
+    {
+      "experiment": "loop_while",
+      "extent": 858,
+      "reported_groups": 56,
+      "unequal_overlapping_bytes": 802,
+      "exact": false,
+      "supporting_helpers_exact": 6
+    },
+    {
+      "experiment": "motion_update",
+      "extent": 865,
+      "reported_groups": 46,
+      "unequal_overlapping_bytes": 782,
+      "exact": false,
+      "supporting_helpers_exact": 5
+    },
+    {
+      "experiment": "outside_result_local",
+      "extent": 874,
+      "reported_groups": 5,
+      "unequal_overlapping_bytes": 205,
+      "exact": false,
+      "supporting_helpers_exact": 6,
+      "source_snapshot_sha256": {
+        "effect_update.cpp": "8657531518165467ed1a5e6aea93076593489a3f5a8676b1024122db6f3b0765",
+        "effect_update.hpp": "eb13801db5392a645c6b84319037b98d0101d3e75938ed81a36792845d318ded",
+        "layout.json": "cbbc20f764c52fb9b3b530beb70f34cd27dfad1a32c4f22e01da97edcde4e396",
+        "measure.py": "f4b32afd404f38d55dc6d8577f518d65a6937f8e9523c3bf0d1d9f28cb6b36b1"
+      }
+    },
+    {
+      "experiment": "owner_timer_layout",
+      "extent": 858,
+      "reported_groups": 52,
+      "unequal_overlapping_bytes": 803,
+      "exact": false,
+      "supporting_helpers_exact": 6
+    },
+    {
+      "experiment": "primary_branch_missing",
+      "extent": 866,
+      "reported_groups": 48,
+      "unequal_overlapping_bytes": 815,
+      "exact": false,
+      "supporting_helpers_exact": 6,
+      "normalized_full_body_sha256": "88301604bddfdba5c9832e76f6e7aed48d478d25b2b5f51b5701bbd27372787f",
+      "source_snapshot_sha256": {
+        "effect_update.cpp": "04e3999c88607bffbbab9d6fa06b336cc1fd9a62487b9f97f8c08be562d73983",
+        "effect_update.hpp": "ecdd05030635a3dbb26eab809632058d667680ab36bb8ea2efd612eb88fa81ac",
+        "layout.json": "cbbc20f764c52fb9b3b530beb70f34cd27dfad1a32c4f22e01da97edcde4e396",
+        "measure.py": "f4b32afd404f38d55dc6d8577f518d65a6937f8e9523c3bf0d1d9f28cb6b36b1"
+      }
+    },
+    {
+      "experiment": "primary_node",
+      "extent": 858,
+      "reported_groups": 56,
+      "unequal_overlapping_bytes": 802,
+      "exact": false,
+      "supporting_helpers_exact": 6
+    },
+    {
+      "experiment": "primary_z_bitcopy",
+      "extent": 874,
+      "reported_groups": 3,
+      "unequal_overlapping_bytes": 205,
+      "exact": false,
+      "supporting_helpers_exact": 6,
+      "comparison_sha256": "e01f03042ce38e6a47e4a908489469bfd7b574d17a930b11e5344af84a68b91d",
+      "source_snapshot_sha256": {
+        "effect_update.cpp": "b1ab7939a975e9296dee7dc75bce2a65073408109e9d0148d53ae0f02bb3dfab",
+        "effect_update.hpp": "eb13801db5392a645c6b84319037b98d0101d3e75938ed81a36792845d318ded",
+        "layout.json": "cbbc20f764c52fb9b3b530beb70f34cd27dfad1a32c4f22e01da97edcde4e396",
+        "measure.py": "f4b32afd404f38d55dc6d8577f518d65a6937f8e9523c3bf0d1d9f28cb6b36b1"
+      }
+    },
+    {
+      "experiment": "primary_z_volatile_read",
+      "extent": 874,
+      "reported_groups": 4,
+      "unequal_overlapping_bytes": 203,
+      "exact": false,
+      "supporting_helpers_exact": 6,
+      "comparison_sha256": "7bcb16c1a7f7de3b1c1caca01f4d0ddcdc78d7d76c3fce41c4b560d4cfe30f48",
+      "source_snapshot_sha256": {
+        "effect_update.cpp": "cd52caf7f0bf746d5c2b0e25520c149574d58b952fcc9fa9bfacdd57182255ad",
+        "effect_update.hpp": "eb13801db5392a645c6b84319037b98d0101d3e75938ed81a36792845d318ded",
+        "layout.json": "cbbc20f764c52fb9b3b530beb70f34cd27dfad1a32c4f22e01da97edcde4e396",
+        "measure.py": "f4b32afd404f38d55dc6d8577f518d65a6937f8e9523c3bf0d1d9f28cb6b36b1"
+      }
+    },
+    {
+      "experiment": "render_position_copy",
+      "extent": 926,
+      "reported_groups": 21,
+      "unequal_overlapping_bytes": 811,
+      "exact": false,
+      "supporting_helpers_exact": 6,
+      "source_snapshot_sha256": {
+        "effect_update.cpp": "5d06a8aa3593ba1998b4e647c692d9eb55223bb1a4d409a7d75137f5213ea68b",
+        "effect_update.hpp": "eb13801db5392a645c6b84319037b98d0101d3e75938ed81a36792845d318ded",
+        "layout.json": "cbbc20f764c52fb9b3b530beb70f34cd27dfad1a32c4f22e01da97edcde4e396",
+        "measure.py": "f4b32afd404f38d55dc6d8577f518d65a6937f8e9523c3bf0d1d9f28cb6b36b1"
+      }
+    },
+    {
+      "experiment": "reuse_lookup_ids",
+      "extent": 874,
+      "reported_groups": 3,
+      "unequal_overlapping_bytes": 205,
+      "exact": false,
+      "supporting_helpers_exact": 6,
+      "source_snapshot_sha256": {
+        "effect_update.cpp": "99266ab0a2004770501d3fb2d7fba293739c641c24e83e36771a71e72f93b603",
+        "effect_update.hpp": "eb13801db5392a645c6b84319037b98d0101d3e75938ed81a36792845d318ded",
+        "layout.json": "cbbc20f764c52fb9b3b530beb70f34cd27dfad1a32c4f22e01da97edcde4e396",
+        "measure.py": "f4b32afd404f38d55dc6d8577f518d65a6937f8e9523c3bf0d1d9f28cb6b36b1"
+      }
+    },
+    {
+      "experiment": "saved_candidate",
+      "extent": 874,
+      "reported_groups": 3,
+      "unequal_overlapping_bytes": 205,
+      "exact": false,
+      "supporting_helpers_exact": 6,
+      "normalized_full_body_sha256": "4f214c78d2f046668f4aa431ffb634224a3398eae253c8b554b3b515360beaa9",
+      "source_snapshot_sha256": {
+        "effect_update.cpp": "d76dc16da19ac8ee9fcd307a2f78c15895743a405f3e552dfeedcda4259de9d1",
+        "effect_update.hpp": "eb13801db5392a645c6b84319037b98d0101d3e75938ed81a36792845d318ded",
+        "layout.json": "cbbc20f764c52fb9b3b530beb70f34cd27dfad1a32c4f22e01da97edcde4e396",
+        "measure.py": "f4b32afd404f38d55dc6d8577f518d65a6937f8e9523c3bf0d1d9f28cb6b36b1"
+      }
+    },
+    {
+      "experiment": "saved_nonvolatile_858",
+      "extent": 858,
+      "reported_groups": 52,
+      "unequal_overlapping_bytes": 803,
+      "exact": false,
+      "supporting_helpers_exact": 6
+    },
+    {
+      "experiment": "screen_position_components",
+      "extent": 874,
+      "reported_groups": 9,
+      "unequal_overlapping_bytes": 232,
+      "exact": false,
+      "supporting_helpers_exact": 6,
+      "normalized_full_body_sha256": "51b9243be86a3dba9926bde789b78b2ff9239d308c379eddc01900b44ed7e50e",
+      "source_snapshot_sha256": {
+        "effect_update.cpp": "39d04d8acbbace9ec4ec7ea80316810833b7128c78eae4c2f973bd0217d16f67",
+        "effect_update.hpp": "1566b3d89bc6c84de7a6a4dafe2dac05e350272c79b323afad636d9ff20c373f",
+        "layout.json": "cbbc20f764c52fb9b3b530beb70f34cd27dfad1a32c4f22e01da97edcde4e396",
+        "measure.py": "f4b32afd404f38d55dc6d8577f518d65a6937f8e9523c3bf0d1d9f28cb6b36b1"
+      }
+    },
+    {
+      "experiment": "screen_position_member",
+      "extent": 874,
+      "reported_groups": 4,
+      "unequal_overlapping_bytes": 203,
+      "exact": false,
+      "supporting_helpers_exact": 6,
+      "normalized_full_body_sha256": "6acc8832f59d60746870c6f8cc6d145ddb7fe78e64fab0b25811d3f896ef5dd2",
+      "source_snapshot_sha256": {
+        "effect_update.cpp": "e376dfd8980dc2a13323f35333ede3be7b839a75af10d4d1797eb3f83653617b",
+        "effect_update.hpp": "35142efb2e3c3ca554c222ca4ce73267c583e091ce45729b2482e2e55db66012",
+        "layout.json": "cbbc20f764c52fb9b3b530beb70f34cd27dfad1a32c4f22e01da97edcde4e396",
+        "measure.py": "f4b32afd404f38d55dc6d8577f518d65a6937f8e9523c3bf0d1d9f28cb6b36b1"
+      }
+    },
+    {
+      "experiment": "screen_value_result",
+      "extent": 913,
+      "reported_groups": 16,
+      "unequal_overlapping_bytes": 248,
+      "exact": false,
+      "supporting_helpers_exact": 6,
+      "comparison_sha256": "8ab462bf7c2f9609842916e9c254a6c1c43c2ba2e01a0c88e8ff0b69e4ac5281",
+      "source_snapshot_sha256": {
+        "effect_update.cpp": "ede5d42feec1ba5f7a6c155d61d65033c9cb1162d953b6af256bf3db68639148",
+        "effect_update.hpp": "7fb1bf6322e9a043e2fbf93eda7080376e1494fd2c0cc4537744a766b7f59895",
+        "layout.json": "cbbc20f764c52fb9b3b530beb70f34cd27dfad1a32c4f22e01da97edcde4e396",
+        "measure.py": "f4b32afd404f38d55dc6d8577f518d65a6937f8e9523c3bf0d1d9f28cb6b36b1"
+      }
+    },
+    {
+      "experiment": "shared_lookup_body",
+      "extent": 874,
+      "reported_groups": 3,
+      "unequal_overlapping_bytes": 205,
+      "exact": false,
+      "supporting_helpers_exact": 6,
+      "normalized_full_body_sha256": "4f214c78d2f046668f4aa431ffb634224a3398eae253c8b554b3b515360beaa9",
+      "source_snapshot_sha256": {
+        "effect_update.cpp": "b352fee548c95d2b209b3f27098741530e1af6904570b2ee258ac76b4590cbd9",
+        "effect_update.hpp": "4361dd6a0d37b8dbbf65f98bc758d39cf8cd12081c35abaa1de3e36065ba9a7f",
+        "layout.json": "cbbc20f764c52fb9b3b530beb70f34cd27dfad1a32c4f22e01da97edcde4e396",
+        "measure.py": "f4b32afd404f38d55dc6d8577f518d65a6937f8e9523c3bf0d1d9f28cb6b36b1"
+      }
+    },
+    {
+      "experiment": "temporary_call_ids",
+      "extent": 874,
+      "reported_groups": 3,
+      "unequal_overlapping_bytes": 205,
+      "exact": false,
+      "supporting_helpers_exact": 6,
+      "source_snapshot_sha256": {
+        "effect_update.cpp": "944cf3705d93346b2ba9ea5501f8926a0e2decbdc938c9c57565e2d0aa0230da",
+        "effect_update.hpp": "cf1c4cac1354e33c8b753f5104586574dc156c8dd772edf78c8a2b742ceca721",
+        "layout.json": "cbbc20f764c52fb9b3b530beb70f34cd27dfad1a32c4f22e01da97edcde4e396",
+        "measure.py": "f4b32afd404f38d55dc6d8577f518d65a6937f8e9523c3bf0d1d9f28cb6b36b1"
+      }
+    },
+    {
+      "experiment": "timer_inline",
+      "extent": 858,
+      "reported_groups": 56,
+      "unequal_overlapping_bytes": 802,
+      "exact": false,
+      "supporting_helpers_exact": 6
+    },
+    {
+      "experiment": "typed_handle_snapshot",
+      "extent": 874,
+      "reported_groups": 4,
+      "unequal_overlapping_bytes": 203,
+      "exact": false,
+      "supporting_helpers_exact": 6,
+      "comparison_sha256": "7bcb16c1a7f7de3b1c1caca01f4d0ddcdc78d7d76c3fce41c4b560d4cfe30f48",
+      "source_snapshot_sha256": {
+        "effect_update.cpp": "2aa1532d15815bfc0c8480a254bd9a592c3da3856277a08bfa70eab66c60de88",
+        "effect_update.hpp": "b430973aee1c27f6feb1806e34f4dc1bf599ca020e44e369081029c466aef96f",
+        "layout.json": "cbbc20f764c52fb9b3b530beb70f34cd27dfad1a32c4f22e01da97edcde4e396",
+        "measure.py": "f4b32afd404f38d55dc6d8577f518d65a6937f8e9523c3bf0d1d9f28cb6b36b1"
+      }
+    },
+    {
+      "experiment": "unsigned_handle",
+      "extent": 858,
+      "reported_groups": 56,
+      "unequal_overlapping_bytes": 802,
+      "exact": false,
+      "supporting_helpers_exact": 6
+    },
+    {
+      "experiment": "unsigned_id_word",
+      "extent": 874,
+      "reported_groups": 3,
+      "unequal_overlapping_bytes": 205,
+      "exact": false,
+      "supporting_helpers_exact": 6,
+      "source_snapshot_sha256": {
+        "effect_update.cpp": "d76dc16da19ac8ee9fcd307a2f78c15895743a405f3e552dfeedcda4259de9d1",
+        "effect_update.hpp": "07bf8bfc40e29758c194ae64196cc76ba1ae81b5e5bde8f4b3fee4155f1d409f",
+        "layout.json": "cbbc20f764c52fb9b3b530beb70f34cd27dfad1a32c4f22e01da97edcde4e396",
+        "measure.py": "f4b32afd404f38d55dc6d8577f518d65a6937f8e9523c3bf0d1d9f28cb6b36b1"
+      }
+    },
+    {
+      "experiment": "velocity_pointer",
+      "extent": 861,
+      "reported_groups": 64,
+      "unequal_overlapping_bytes": 797,
+      "exact": false,
+      "supporting_helpers_exact": 5
+    },
+    {
+      "experiment": "void_flag_result",
+      "extent": 874,
+      "reported_groups": 3,
+      "unequal_overlapping_bytes": 205,
+      "exact": false,
+      "supporting_helpers_exact": 6,
+      "source_snapshot_sha256": {
+        "effect_update.cpp": "9fdb3eb85f9e66db5d550730e9b609ef302eb60aad9b4af17439cbf500e46e56",
+        "effect_update.hpp": "eb13801db5392a645c6b84319037b98d0101d3e75938ed81a36792845d318ded",
+        "layout.json": "de99beafafccbb81da6893b5f36593304643829f59b91b8a158cc68966063564",
+        "measure.py": "f4b32afd404f38d55dc6d8577f518d65a6937f8e9523c3bf0d1d9f28cb6b36b1"
+      }
+    },
+    {
+      "experiment": "volatile_flag_integer_member",
+      "extent": 873,
+      "reported_groups": 3,
+      "unequal_overlapping_bytes": 255,
+      "exact": false,
+      "supporting_helpers_exact": 5,
+      "source_snapshot_sha256": {
+        "effect_update.cpp": "230d57c314d2a49d9782f4fa7247a6dc091091c2532353a1171908c91834f394",
+        "effect_update.hpp": "f45ae913559b29e050dd343493db58250c3a17ee282ba7453d40845282dca07c",
+        "layout.json": "274c64b0ad4d5de8c1974e11178ee0f40a0c19be203c73e508cf0424914aab07",
+        "measure.py": "f4b32afd404f38d55dc6d8577f518d65a6937f8e9523c3bf0d1d9f28cb6b36b1"
+      },
+      "rejection": "Flag helper is 64 instead of 66 bytes and fails its diagnostic byte comparison."
+    },
+    {
+      "experiment": "volatile_handle_snapshot",
+      "extent": 874,
+      "reported_groups": 5,
+      "unequal_overlapping_bytes": 213,
+      "exact": false,
+      "supporting_helpers_exact": 6,
+      "normalized_full_body_sha256": "2dfbe5b14817a0594bd2596185c7bdaf5af5614947191f92f0f367d4104366c2",
+      "source_snapshot_sha256": {
+        "effect_update.cpp": "f33855868c7068a13d83adc39dadaaa63348f2f2e86f63ec4075e9dcf2fa722e",
+        "effect_update.hpp": "4c10bf26ebae261309f0e209a9157128738928eadbaa5874bec6fea4737bb8b1",
+        "layout.json": "cbbc20f764c52fb9b3b530beb70f34cd27dfad1a32c4f22e01da97edcde4e396",
+        "measure.py": "f4b32afd404f38d55dc6d8577f518d65a6937f8e9523c3bf0d1d9f28cb6b36b1"
+      }
+    },
+    {
+      "experiment": "volatile_handle_values",
+      "extent": 875,
+      "reported_groups": 6,
+      "unequal_overlapping_bytes": 212,
+      "exact": false,
+      "supporting_helpers_exact": 6,
+      "normalized_full_body_sha256": "3f873c1c7304037408c8c3a5739b2604e166734ac21c25b83cae1ac9ab232363",
+      "source_snapshot_sha256": {
+        "effect_update.cpp": "13b0eeddb7a71596e1406c9a5c3e6be4bc369eb1ccb1ff31b9d5be0b75d3ae5d",
+        "effect_update.hpp": "4c10bf26ebae261309f0e209a9157128738928eadbaa5874bec6fea4737bb8b1",
+        "layout.json": "cbbc20f764c52fb9b3b530beb70f34cd27dfad1a32c4f22e01da97edcde4e396",
+        "measure.py": "f4b32afd404f38d55dc6d8577f518d65a6937f8e9523c3bf0d1d9f28cb6b36b1"
+      }
+    },
+    {
+      "experiment": "volatile_state_handle_snapshot",
+      "extent": 874,
+      "reported_groups": 3,
+      "unequal_overlapping_bytes": 205,
+      "exact": false,
+      "supporting_helpers_exact": 6,
+      "normalized_full_body_sha256": "4f214c78d2f046668f4aa431ffb634224a3398eae253c8b554b3b515360beaa9",
+      "source_snapshot_sha256": {
+        "effect_update.cpp": "e18d1933df4f6a91df39867f9fd61b1a8d9f12965de1545e86bc606dcda7ae09",
+        "effect_update.hpp": "4361dd6a0d37b8dbbf65f98bc758d39cf8cd12081c35abaa1de3e36065ba9a7f",
+        "layout.json": "cbbc20f764c52fb9b3b530beb70f34cd27dfad1a32c4f22e01da97edcde4e396",
+        "measure.py": "f4b32afd404f38d55dc6d8577f518d65a6937f8e9523c3bf0d1d9f28cb6b36b1"
+      }
+    },
+    {
+      "experiment": "volatile_state_snapshot",
+      "extent": 875,
+      "reported_groups": 4,
+      "unequal_overlapping_bytes": 204,
+      "exact": false,
+      "supporting_helpers_exact": 6,
+      "normalized_full_body_sha256": "2717a59279a62843f02f2784f439993d728ce5883423d64c325f0703a5a02a74",
+      "source_snapshot_sha256": {
+        "effect_update.cpp": "5660720904a332e239156fcc3a9cb38dc82dc4cb1910f9c8f77793c43f385c79",
+        "effect_update.hpp": "4361dd6a0d37b8dbbf65f98bc758d39cf8cd12081c35abaa1de3e36065ba9a7f",
+        "layout.json": "cbbc20f764c52fb9b3b530beb70f34cd27dfad1a32c4f22e01da97edcde4e396",
+        "measure.py": "f4b32afd404f38d55dc6d8577f518d65a6937f8e9523c3bf0d1d9f28cb6b36b1"
+      }
+    },
+    {
+      "experiment": "whole_object_cursor",
+      "extent": 838,
+      "reported_groups": 88,
+      "unequal_overlapping_bytes": 818,
+      "exact": false,
+      "supporting_helpers_exact": 5
+    }
+  ]
+}

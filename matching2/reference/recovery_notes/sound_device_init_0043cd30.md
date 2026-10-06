@@ -1,5 +1,10 @@
 # Sound initialization and preload
 
+The maintained [native C++ recovery](sound_device_init_exact_0043cd30_2026_10_06.md)
+now matches the complete 786-byte initializer and every helper body in its
+compiler context. The behavioral work below remains useful; its native-byte
+limitation and assembly disposition are historical.
+
 2026-09-26. The complete 786-byte initializer at `0x0043CD30` is recovered in
 `semantic_candidates/sound_device_init.cpp`. It passes **354 individual retail
 comparisons, including eight matching faults**, and **30 integrated startup

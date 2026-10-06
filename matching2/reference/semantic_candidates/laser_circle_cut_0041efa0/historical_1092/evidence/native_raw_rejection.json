@@ -1,0 +1,12 @@
+{
+  "native_executable": "matching2/build/experiments/laser_circle_cut_native_2026_10_06/native_gate/native-xrb_pu6b/cluster.exe",
+  "raw_full_extent": 1108,
+  "raw_exact": false,
+  "raw_overlapping_different_bytes": 802,
+  "native_extent_sha256": "88999d9e2ca0a0c8ca10f8eed510f5c83434904e35b96f22bbf1dfff20aad59f",
+  "retail_extent_sha256": "06d97cb8369d484fed1cc7a91a5abcabe56e123a5210169d0c6edf082e9222d1",
+  "instruction_bytes_changed": 0,
+  "masked_bytes": 0,
+  "reference_bytes_used_for_build": false,
+  "promotion": false
+}

@@ -1,4 +1,14 @@
-# Regions blocked by the toolkit, not by the source
+# Historical toolkit blocker investigations (superseded)
+
+Current disposition, 2026-10-06: all five addresses named below are ordinary
+C++ semantic regions in the maintained manifest: 0x00401110, 0x00405620,
+0x0040D530, 0x0040A040 and 0x0043CD30. The last is proved by the [complete
+DirectSound initializer recovery](sound_device_init_exact_0043cd30_2026_10_06.md).
+The historical experiments remain observations of their tested source shapes,
+not proof of a universal toolkit limitation or instructions to stop recovery.
+In particular, a complete native helper graph with different logical parameter
+orders preserves the original register homes and the formerly blocked copy
+order. Read the following sections as the 2026-09-19 investigation record.
 
 2026-09-19. Two classes of residual are now settled to the toolkit, so a future
 wave should read this before re-attempting any of them. Each entry names the note
@@ -6,7 +16,7 @@ holding the full evidence.
 
 ## 1. Argument copy order (register pairs and the immediate form)
 
-Blocked regions: `0x00401110` (330 B, 4 bytes), `0x00405620` (137 B, 4 bytes),
+Historical blocked regions: `0x00401110` (330 B, 4 bytes), `0x00405620` (137 B, 4 bytes),
 `0x0040D530` (300 B, 4 bytes), `0x0043CD30` (786 B, 7 bytes at its one site).
 
 Retail emits a call's two register-home argument copies in **ascending**
@@ -50,7 +60,7 @@ a one-minute acceptance test: retail's order means the first copy is
 
 ## 2. Mutually exclusive scheduler regions
 
-Blocked region: `0x0040A040` (234 B, 14 bytes).
+Historical blocked region: `0x0040A040` (234 B, 14 bytes).
 
 The residual is an 11-byte clear-block prologue order plus a 3-byte `pop edi`
 position. The load/mask register pair comes out as retail's only when the pool

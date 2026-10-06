@@ -1,5 +1,72 @@
 # Unintegrated semantic source candidates
 
+The [genuine linked-record/player-state graph](player_bullet_state_0041c800/)
+contains 42 complete real functions and passes 9,812 bounded comparisons.
+Four existing selected helpers / 264 bytes now use this real context; two
+synthetic manager layouts are retired. Executing cleanup corrects the owner's
+state-3 mode argument to 1. Both full builds pass; exact output equals retail.
+No new recovery credit is claimed. See the [manager closure note](../recovery_notes/player_bullet_genuine_2026_10_06.md).
+
+The [genuine movement/player-state graph](player_movement_state_004250b0/)
+contains 40 complete real functions and passes 9,270 bounded cases. The complete
+54-byte stop-frame and 90-byte position helpers now use this genuine production
+context. Full normal and exact builds pass; exact output still equals retail.
+Movement remains 1,640/1,656 and the owner 3,044/3,112, unselected. No new recovery
+credit is claimed. See the [movement closure note](../recovery_notes/player_movement_genuine_2026_10_06.md).
+
+The [genuine item-spawn/player-state graph](player_item_spawn_0041bb00/)
+contains 36 complete real functions and passes 7,084 bounded cases. The complete
+199-byte activation and 260-byte collision check now use this genuine graph as
+their selected production context. Full normal and exact builds pass; the
+exact executable still equals retail. Item Spawn remains 823/819 and the full
+player owner 3,060/3,112, unselected. No new recovery credit is claimed. See the
+[item-spawn closure note](../recovery_notes/player_item_spawn_genuine_2026_10_06.md).
+
+The [genuine player-state collision graph](player_collision_state_00425730/)
+contains 33 complete real functions and passes 5,510 bounded cases. Its full
+owner measures 3,060/3,112 bytes. Collision, activation, bounds and animation
+creation/loading execute as genuine C++ callees. The complete 199-byte activation
+body is raw-exact through the real owner and collision loop; 23 complete bodies
+are raw-exact in the isolated fixed graph. Production is unchanged and no new
+recovery credit is claimed. See the
+[collision graph note](../recovery_notes/player_collision_state_00425730_2026_10_06.md).
+
+The [complete player-state owner](player_state_00425730/) extends the shared
+graph to 28 genuine functions and passes 3,953 bounded cases. Its source covers
+the full 3,112-byte owner and currently measures 3,024 bytes. The real caller
+naturally makes sequence Update raw-exact for all 174 bytes at its retail
+address. This isolated proof adds no production recovery credit. See the
+[player-state graph note](../recovery_notes/player_state_genuine_00425730_2026_10_06.md).
+
+The [scheduled effect creator](scheduled_effect_00427e90/) extends the shared
+graph to 27 genuine functions and passes 3,006 bounded cases. Its full extent
+is now 717/717, with 61 differing diagnostic bytes in nine instruction groups.
+It remains assembly-owned. The existing 20 diagnostic bodies are unchanged;
+23 functions in the larger graph are diagnostic-exact, including the complete
+schedule walker through its genuine sequence-update caller. See the
+[scheduled creation note](../recovery_notes/scheduled_effect_native_00427e90_2026_10_06.md).
+
+The [shared effect/pickup graph](player_effect_pickup_00428280/) contains both
+complete genuine callers and 20 complete bodies with one animation lookup and
+removal implementation. Both callers now use one verified player/record/timer/
+motion/descriptor layout. Creation, registration and lookup share the recovered
+four-byte AnimationRef value interface. All 2508
+bounded comparisons pass, including 328 sequences on shared records and lists.
+Eighteen complete functions are diagnostic
+exact; effect update remains 874/876 and sweep 1171/1170. The 202-byte hit-test
+now passes the complete fixed-address gate and is selected as ordinary C++.
+Effect update and sweep remain assembly-owned. The already selected initializer now
+uses this genuine graph as its production compiler context. See the
+[hit-test recovery note](../recovery_notes/player_hit_test_exact_2026_10_06.md).
+
+The historical [player hit-test/pickup graph](player_hit_pickup_004059f0/) contains the
+complete actual 128-pickup/32-region sweep and 15 genuine bodies. Its 1837
+bounded comparisons pass with the corrected record/clock layout, binary32
+edge stores, animation angle type and intrusive child links. The leaf naturally
+gets ECX/EAX, but remains 203 / 202 bytes; the sweep is 1171 / 1170 and now
+has retail's 64-byte frame. That checkpoint has zero recovery credit; the
+selected 202-byte hit-test comes from the larger shared graph above. See the [frame and type note](../recovery_notes/player_pickup_frame_00428630_2026_10_06.md).
+
 These `.cpp` files preserve readable source models for regions with remaining
 ABI, frame, or byte-matching differences. They are intentionally outside
 `matching2/msvc/regions.json` and the maintained `translation_units` list; the
@@ -151,3 +218,20 @@ allocation, or frame shape). Each is the unit's source as it stood when
 removed; for a unit that also holds matching functions, the file keeps only the
 rejected declarations. The mapped sources and their manifest records are back
 on the exact assembly.
+
+The four laser cutters have complete maintained candidate graphs in
+`laser_rectangle_cut_0041eb00/`, `laser_circle_cut_0041efa0/`,
+`laser_rectangle_trim_0041d880/` and `laser_circle_trim_0041dd80/`.
+Their receipts distinguish native structural checks, complete raw equality
+and bounded execution evidence. The rectangle trim is down to 13 differing
+bytes; none of these four candidates has been promoted. See
+`recovery_notes/laser_trim_native_0041d880_0041dd80_2026_10_06.md` for the
+complete copied parameter records, rounding correction, actual virtual
+interfaces and current reproduction commands.
+
+- [`laser_cutter_family/`](laser_cutter_family/): coherent complete native graph of all four line-trim/beam-split cutters, with shared faithful virtual interfaces and genuine helpers. All 870 bounded observations are preserved; raw residues remain 13 / 876 / 27 / 433 differing overlap bytes, and the circle trim is one byte short. No promotion or recovered-byte credit. Includes reproducible linker-based execution-address separation and actual compiler include receipts; [follow-up](../recovery_notes/laser_cutter_family_followup_2026_10_06.md).
+  The [splitter spilling follow-up](../recovery_notes/laser_rectangle_split_spilling_2026_10_06.md) records live operand widths, byte-only immediate replacements, five rejected counter-record controls and a full-family `/G5` no-op proof. The retained candidate and production ownership are unchanged.
+
+- [`item_spawn_0041bb00/`](item_spawn_0041bb00/): complete 819-byte native candidate with two literal diagnostic differences. The [resource-lowering follow-up](../recovery_notes/item_spawn_resource_lowering_2026_10_06.md) compares pointer/value temporary allocation on the genuine graph, retains a complete real-caller control, and verifies build-6030 Rich-header evidence. No promotion or recovered-byte credit.
+
+- [`item_update_0041afd0/`](item_update_0041afd0/): complete 2,198-slot update and 32-function genuine graph; 473 bounded retail/native comparisons pass, including 38 initializer and 16 heap-fallback cases. It supplies production's existing raw-exact conversion (165), power-add (166), and life-add (141) recoveries. An independent gate also proves the allocator's 161 bytes; its genuine player-initialization owner is retained. Update remains unselected at 2,232 / 2,320 bytes; spawn is 823 / 819. See the [motion follow-up](../recovery_notes/item_update_motion_0041afd0_2026_10_06.md) and historical [initializer note](../recovery_notes/item_update_initializer_0041afd0_2026_10_06.md) and archived [collaborator checkpoint](../recovery_notes/item_update_collaborators_0041afd0_2026_10_06.md); no new recovered-byte credit.

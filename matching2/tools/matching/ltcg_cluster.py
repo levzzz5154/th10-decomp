@@ -340,9 +340,13 @@ def load_cluster(project: Path, manifest_path: str, regions: Sequence[Mapping[st
         raise LTCGClusterError('anchor roots must be distinct')
     for symbol in anchor_roots:
         matches = [item for item in anchors if item['symbol'] == symbol
-                   and '_source' in item and not item.get('generated')]
+                   and not item.get('generated')]
         if len(matches) != 1:
-            raise LTCGClusterError('anchor root must be a declared ordinary non-generated function')
+            raise LTCGClusterError('anchor root must be a declared complete non-generated function')
+        # A /GL helper can have a public entry just like an ordinary EH helper.
+        # Rooting it preserves that boundary without selecting it as new code.
+        # Native validation still checks its compiler origin, fixed address and
+        # entire dedicated CODE contribution before any selected body is used.
     taken_symbols = {item['symbol'] for item in functions} | ({context['symbol']} if context else set())
     taken_sections = {item['section'] for item in functions} | ({context['section']} if context else set())
     if any(item['symbol'] in taken_symbols or item['section'] in taken_sections for item in anchors):
@@ -899,6 +903,8 @@ def validate_native_output(spec: Mapping[str, Any], executable: Path, map_path: 
             matches = [symbol for symbol in link_map.symbols if symbol.name == anchor['symbol']]
             if len(matches) != 1 or matches[0].address != anchor['address'] or 'f' not in matches[0].flags:
                 raise LTCGClusterError('native ABI anchor address/origin differs: ' + anchor['symbol'])
+            if anchor['symbol'] in spec['anchor_roots'] and matches[0].origin not in allowed_origins:
+                raise LTCGClusterError('rooted ABI anchor is not from a compiled input: ' + anchor['symbol'])
             contributions = [item for item in link_map.contributions if item.name == anchor['section']]
             if (len(contributions) != 1 or contributions[0].section_class != 'CODE'
                     or contributions[0].segment != matches[0].segment

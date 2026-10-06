@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "cases": 186,
+  "native_pe_sha256": "4abac6a138fc9ffbb9035c7e1a8afbbb3f91f618e9d773a24d5013de8ece5885",
+  "retail_body_sha256": "06d97cb8369d484fed1cc7a91a5abcabe56e123a5210169d0c6edf082e9222d1",
+  "instruction_patches": 0,
+  "scope": "Full cutter, real native item/spawn/constructor/loader/registrar/allocator bodies; complete owner, item, animation, manager and heap state; effect/item/laser order and complete 476-byte spawn parameters; return, RET12, preserved registers and x87 balance. Script initialization and animation VM/laser Initialize callbacks are scripted shared boundaries. Raw retail SetPolar and cookie check execute. This is bounded behavioral evidence, not a raw byte match.",
+  "calls": {
+    "item": 211,
+    "effect": 637,
+    "laser": 43
+  },
+  "observation_sha256": "c180e96973ed192bb97c9b2c856a085ffcf215bd87d344dfcf272e202b601431"
+}

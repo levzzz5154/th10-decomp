@@ -1,0 +1,31 @@
+{
+  "cases": 215,
+  "passed": true,
+  "instruction_patches": 0,
+  "native_pe_sha256": "19a09327359df9c3a094990c225fa5bdb42b391d77699402925e061576eaaab5",
+  "retail_body_sha256": "d40ddc6aa7a51a4c660ed7b9cba608bd14869a555ab00f1310eba6a707b50c24",
+  "observation_sha256": "1f091d18da1ecbc57e05c5acbe30bf5a1aa562e25195622211d9fd88f1f01fa8",
+  "scope": "Complete player/pool state, callback ABI/order, six native helpers, return, callee-saved registers, RET4 and x87 stack balance.",
+  "shared_raw_retail_boundaries": [
+    "SetPolar",
+    "NormalizeAngle",
+    "floor",
+    "_ftol2"
+  ],
+  "scripted_boundaries": [
+    "descriptor callback"
+  ],
+  "limited_run": false,
+  "executed_helper_calls": {
+    "?StopAtFrame1@Handle@@QAEXXZ": 64,
+    "?StopAtFrame3@Handle@@QAEXXZ": 1,
+    "?FindAnimation@@YIPAUAnimationObject@@PAUAnimationContext@@UAnimationId@@@Z": 396,
+    "?FlagAnimation@@YIPAXPAUAnimationContext@@UAnimationId@@@Z": 7,
+    "?Advance@Motion@@QAEXXZ": 565,
+    "?OutsideViewport@Vec3@@QBEHMM@Z": 227,
+    "SetPolar": 565,
+    "NormalizeAngle": 38,
+    "floor": 1130,
+    "_ftol2": 33
+  }
+}

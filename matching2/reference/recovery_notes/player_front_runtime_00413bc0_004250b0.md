@@ -1,5 +1,12 @@
 # Player/front runtime pair: `0x00413BC0` and `0x004250B0`
 
+
+**Current status, 2026-10-06:** the 0x00413BC0 initializer is now promoted as
+byte-exact ordinary C++, all 1,965 bytes. The 0x004250B0 movement routine
+remains unpromoted. The failed paired experiments below are historical; see
+[the initializer's exact receipt](front_initialize_exact_00413bc0_2026_10_06.md)
+for the complete helper graph, public initializer boundary and full-build proof.
+
 ## Result
 
 Neither region passed the independent exact extent-and-byte gate. The live
@@ -94,3 +101,14 @@ prove the `EDI` incoming-object convention and preserve the helper register
 edges before source-level tuning. The `0x004250B0` layout also needs a verified
 carve/placement for the compiler-generated switch table inside the live
 manifest extent.
+
+## Initializer dependency resolved, 2026-10-06
+
+The complete allocator, registration, resource initialization, script loader
+and configuration graph now reproduces the initializer's private EDI receiver
+and all native loop alignment. Its typed source preserves the unassigned
+second persistent handle and the final reuse of the first difficulty ID.
+The existing exact movement body is retained separately. Both full build modes
+pass and the exact executable remains identical to retail. The next movement
+attempt can reuse these complete bodies with the existing complete position
+helpers; it still needs its full directional and orbit source plus switch table.

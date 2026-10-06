@@ -28,7 +28,7 @@
     "include/th10/game/playback_state.hpp"
   ],
   "image_base": "0x00400000",
-  "description": "Animation lookup and stop-frame propagation with complete stop-and-run helper, two genuine slot callers, and a handle wrapper that forwards the inherited DI frame. Native LTCG derives the private registers; all selected contributions are complete functions. Playback-state switching co-compiles its genuine stop-frame callee and derives the EDI receiver convention.",
+  "description": "Animation lookup and stop-frame propagation with complete stop-and-run helper, two genuine slot callers, and a handle wrapper that forwards the inherited DI frame. Native LTCG derives the private registers; all selected contributions are complete functions. Playback-state switching co-compiles its genuine stop-frame callee and derives the EDI receiver convention. Selected ownership of the movement helper moved to the genuine 40-function player graph. Its original complete body remains an unselected anchor here; the remaining legacy compiler context is unchanged.",
   "functions": [
     {
       "name": "AnimationManager_StopAtFrame1",
@@ -83,15 +83,6 @@
       "address": "0x00423510",
       "size": 89,
       "actual_abi": "record in ESI; plain RET"
-    },
-    {
-      "name": "AnimationManager_SetStopFrame",
-      "symbol": "?AnimationManager_SetStopFrame@@YIXGPAUAnimationLookupContext@@UAnimationScriptId@@@Z",
-      "section": ".text$60layoutb",
-      "address": "0x00449210",
-      "size": 54,
-      "actual_abi": "context in EDX; script id on the stack; frame in SI; RET 4",
-      "source": "src/render/animation_manager_set_stop_frame_00449210.cpp"
     },
     {
       "name": "StopAtFrame6_004243f0",
@@ -313,5 +304,14 @@
   ],
   "roots": [
     "?PlaybackState_OnSwitch_00427ad0@@YIHPAUPlaybackState@@@Z"
+  ],
+  "anchors": [
+    {
+      "name": "AnimationManager_SetStopFrame",
+      "symbol": "?AnimationManager_SetStopFrame@@YIXGPAUAnimationLookupContext@@UAnimationScriptId@@@Z",
+      "section": ".text$60layoutb",
+      "address": "0x00449210",
+      "size": 54
+    }
   ]
 }

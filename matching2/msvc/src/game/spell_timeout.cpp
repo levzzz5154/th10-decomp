@@ -1,438 +1,187 @@
-// BLOCKED (D3407): closest_byte_count=0/796; first_diff=extent (bounded readable timeout model emitted 257 bytes vs retail 796 before byte comparison);
-// residual_class=source-shape/private-ABI; the retail body combines fixed-point arithmetic, repeated linked-list
-// traversals, packed animation setup, and a nested four-entry cleanup loop under a private register context.
-// variants_tested=retail naked baseline (796/796 exact), bounded readable timeout model (257 bytes),
-// live Ghidra FUN_004269D0 decompile, and exact probe;
-// next_lever=derive the animation/object/list declarations and compile the complete routine with its real caller cluster.
+// 0x004269D0: enter the spell timeout transition and retire its animation pairs.
+#include "th10/game/pause_result_open_004231d0/open_state.hpp"
+#include "th10/game/stage_tip_create.hpp"
+#include "th10/game/spell_timeout.hpp"
 
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+struct AnimationRecord_00413790 {
+    unsigned int flags_0000;             // +0x000
+    unsigned char pad_0004[0x3AC - 4];
+};
 
-// 0x004269D0..0x00426CEB: FUN_004269d0
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_004269d0_004269d0() {
-    __asm {
-    L_004269d0:
-        push ecx
-    L_004269d1:
-        push ebx
-    L_004269d2:
-        push ebp
-    L_004269d3:
-        push esi
-    L_004269d4:
-        mov esi,dword ptr [data_00474c4c]
-    L_004269da:
-        push edi
-    L_004269db:
-        lea edi,[esi-1388h]
-    L_004269e1:
-        mov eax,55555555h
-    L_004269e6:
-        imul edi
-    L_004269e8:
-        sub edx,edi
-    L_004269ea:
-        sar edx,1
-    L_004269ec:
-        mov ecx,dword ptr [data_00474c70]
-    L_004269f2:
-        mov eax,edx
-    L_004269f4:
-        shr eax,1Fh
-    L_004269f7:
-        add eax,edx
-    L_004269f9:
-        mov ebp,dword ptr [esp+18h]
-    L_004269fd:
-        lea edx,[eax+eax*4]
-    L_00426a00:
-        shl edx,1
-    L_00426a02:
-        mov eax,66666667h
-    L_00426a07:
-        imul edx
-    L_00426a09:
-        sar edx,2
-    L_00426a0c:
-        mov eax,edx
-    L_00426a0e:
-        shr eax,1Fh
-    L_00426a11:
-        add eax,edx
-    L_00426a13:
-        add esi,eax
-    L_00426a15:
-        dec ecx
-    L_00426a16:
-        cmp esi,1388h
-    L_00426a1c:
-        mov dword ptr [data_00474c70],ecx
-    L_00426a22:
-        mov dword ptr [data_00474c4c],esi
-    L_00426a28:
-        jge short L_00426a34
-    L_00426a2a:
-        mov dword ptr [data_00474c4c],1388h
-    L_00426a34:
-        xor edi,edi
-    L_00426a36:
-        cmp ecx,edi
-    L_00426a38:
-        jl short L_00426a44
-    L_00426a3a:
-        mov eax,dword ptr [data_0047770c]
-    L_00426a3f:
-        call asm_Animation_SetActiveCount_00413790
-    L_00426a44:
-        mov dword ptr [ebp+458h],2
-    L_00426a4e:
-        mov eax,dword ptr [ebp+484h]
-    L_00426a54:
-        test al,1
-    L_00426a56:
-        mov edx,0FFF0BDC1h
-    L_00426a5b:
-        mov ecx,476F78h
-    L_00426a60:
-        jne short L_00426a83
-    L_00426a62:
-        or eax,1
-    L_00426a65:
-        mov dword ptr [ebp+478h],edi
-    L_00426a6b:
-        mov dword ptr [ebp+474h],edx
-    L_00426a71:
-        mov dword ptr [ebp+47Ch],edi
-    L_00426a77:
-        mov dword ptr [ebp+480h],ecx
-    L_00426a7d:
-        mov dword ptr [ebp+484h],eax
-    L_00426a83:
-        mov dword ptr [ebp+478h],edi
-    L_00426a89:
-        mov dword ptr [ebp+47Ch],edi
-    L_00426a8f:
-        mov dword ptr [ebp+474h],0FFFFFFFFh
-    L_00426a99:
-        mov eax,dword ptr [ebp+431Ch]
-    L_00426a9f:
-        test al,1
-    L_00426aa1:
-        jne short L_00426ac4
-    L_00426aa3:
-        or eax,1
-    L_00426aa6:
-        mov dword ptr [ebp+4310h],edi
-    L_00426aac:
-        mov dword ptr [ebp+430Ch],edx
-    L_00426ab2:
-        mov dword ptr [ebp+4314h],edi
-    L_00426ab8:
-        mov dword ptr [ebp+4318h],ecx
-    L_00426abe:
-        mov dword ptr [ebp+431Ch],eax
-    L_00426ac4:
-        mov dword ptr [ebp+4310h],0B4h
-    L_00426ace:
-        mov dword ptr [ebp+4314h],43340000h
-    L_00426ad8:
-        mov dword ptr [ebp+430Ch],0B3h
-    L_00426ae2:
-        mov ecx,dword ptr [ebp+10h]
-    L_00426ae5:
-        lea eax,[ebp+14h]
-    L_00426ae8:
-        xor ebx,ebx
-    L_00426aea:
-        call asm_AnimationObject_LoadScript_0043e710
-    L_00426aef:
-        mov esi,dword ptr [data_00491c10]
-    L_00426af5:
-        lea ebx,[ebp+3308h]
-    L_00426afb:
-        mov dword ptr [esp+18h],ebx
-    L_00426aff:
-        mov dword ptr [esp+10h],4
-    L_00426b07:
-        mov ecx,dword ptr [ebx]
-    L_00426b09:
-        cmp ecx,edi
-    L_00426b0b:
-        mov dword ptr [ebx-68h],edi
-    L_00426b0e:
-        je short L_00426b44
-    L_00426b10:
-        mov eax,dword ptr [esi+72DAD4h]
-    L_00426b16:
-        cmp eax,edi
-    L_00426b18:
-        je short L_00426b2d
-    L_00426b1a:
-        lea ebx,[ebx+force_disp32_zero]
-    L_00426b20:
-        mov edx,dword ptr [eax]
-    L_00426b22:
-        cmp dword ptr [edx],ecx
-    L_00426b24:
-        je short L_00426b86
-    L_00426b26:
-        mov eax,dword ptr [eax+4]
-    L_00426b29:
-        cmp eax,edi
-    L_00426b2b:
-        jne short L_00426b20
-    L_00426b2d:
-        mov eax,dword ptr [esi+72DADCh]
-    L_00426b33:
-        cmp eax,edi
-    L_00426b35:
-        je short L_00426b44
-    L_00426b37:
-        mov edx,dword ptr [eax]
-    L_00426b39:
-        cmp dword ptr [edx],ecx
-    L_00426b3b:
-        je short L_00426b86
-    L_00426b3d:
-        mov eax,dword ptr [eax+4]
-    L_00426b40:
-        cmp eax,edi
-    L_00426b42:
-        jne short L_00426b37
-    L_00426b44:
-        mov edx,1
-    L_00426b49:
-        mov ecx,dword ptr [ebx+4]
-    L_00426b4c:
-        cmp ecx,edi
-    L_00426b4e:
-        je asm_target_00426be0
-    L_00426b54:
-        mov eax,dword ptr [esi+72DAD4h]
-    L_00426b5a:
-        cmp eax,edi
-    L_00426b5c:
-        je short L_00426b6d
-    L_00426b5e:
-        mov edi,edi
-    L_00426b60:
-        mov ebx,dword ptr [eax]
-    L_00426b62:
-        cmp dword ptr [ebx],ecx
-    L_00426b64:
-        je short L_00426bb6
-    L_00426b66:
-        mov eax,dword ptr [eax+4]
-    L_00426b69:
-        cmp eax,edi
-    L_00426b6b:
-        jne short L_00426b60
-    L_00426b6d:
-        mov eax,dword ptr [esi+72DADCh]
-    L_00426b73:
-        cmp eax,edi
-    L_00426b75:
-        je short L_00426be0
-    L_00426b77:
-        mov ebx,dword ptr [eax]
-    L_00426b79:
-        cmp dword ptr [ebx],ecx
-    L_00426b7b:
-        je short L_00426bb6
-    L_00426b7d:
-        mov eax,dword ptr [eax+4]
-    L_00426b80:
-        cmp eax,edi
-    L_00426b82:
-        jne short L_00426b77
-    L_00426b84:
-        jmp short L_00426be0
-    L_00426b86:
-        mov eax,dword ptr [eax]
-    L_00426b88:
-        cmp eax,edi
-    L_00426b8a:
-        je short L_00426b44
-    L_00426b8c:
-        cmp dword ptr [eax+18h],edi
-    L_00426b8f:
-        mov edx,1
-    L_00426b94:
-        mov word ptr [eax+304h],dx
-    L_00426b9b:
-        jne short L_00426b49
-    L_00426b9d:
-        mov eax,dword ptr [eax+14h]
-    L_00426ba0:
-        cmp eax,edi
-    L_00426ba2:
-        je short L_00426b49
-    L_00426ba4:
-        mov ecx,dword ptr [eax]
-    L_00426ba6:
-        mov word ptr [ecx+304h],dx
-    L_00426bad:
-        mov eax,dword ptr [eax+4]
-    L_00426bb0:
-        cmp eax,edi
-    L_00426bb2:
-        jne short L_00426ba4
-    L_00426bb4:
-        jmp short L_00426b49
-    L_00426bb6:
-        mov eax,dword ptr [eax]
-    L_00426bb8:
-        cmp eax,edi
-    L_00426bba:
-        je short L_00426be0
-    L_00426bbc:
-        cmp dword ptr [eax+18h],edi
-    L_00426bbf:
-        mov word ptr [eax+304h],dx
-    L_00426bc6:
-        jne short L_00426be0
-    L_00426bc8:
-        mov eax,dword ptr [eax+14h]
-    L_00426bcb:
-        cmp eax,edi
-    L_00426bcd:
-        je short L_00426be0
-    L_00426bcf:
-        nop
-    L_00426bd0:
-        mov ecx,dword ptr [eax]
-    L_00426bd2:
-        mov word ptr [ecx+304h],dx
-    L_00426bd9:
-        mov eax,dword ptr [eax+4]
-    L_00426bdc:
-        cmp eax,edi
-    L_00426bde:
-        jne short L_00426bd0
-    L_00426be0:
-        mov ebx,dword ptr [esp+18h]
-    L_00426be4:
-        mov eax,dword ptr [esp+10h]
-    L_00426be8:
-        add ebx,98h
-    L_00426bee:
-        dec eax
-    L_00426bef:
-        mov dword ptr [esp+18h],ebx
-    L_00426bf3:
-        mov dword ptr [esp+10h],eax
-    L_00426bf7:
-        jne asm_target_00426b07
-    L_00426bfd:
-        mov edx,dword ptr [data_00477838]
-    L_00426c03:
-        mov dword ptr [ebp+3500h],edi
-    L_00426c09:
-        cmp dword ptr [edx+10h],1
-    L_00426c0d:
-        je short L_00426c26
-    L_00426c0f:
-        mov esi,dword ptr [data_00477814]
-    L_00426c15:
-        add ebp,3C0h
-    L_00426c1b:
-        push ebp
-    L_00426c1c:
-        push 46E360h
-    L_00426c21:
-        call asm_StageTip_CreateUrgent_00424650
-    L_00426c26:
-        mov eax,dword ptr [data_004776f4]
-    L_00426c2b:
-        cmp dword ptr [eax+3738h],3Ch
-    L_00426c32:
-        jl short L_00426caf
-    L_00426c34:
-        mov dword ptr [eax+3790h],edi
-    L_00426c3a:
-        mov edi,dword ptr [eax+378Ch]
-    L_00426c40:
-        mov ecx,0FFFFFFFDh
-    L_00426c45:
-        and edi,ecx
-    L_00426c47:
-        mov dword ptr [eax+378Ch],edi
-    L_00426c4d:
-        mov esi,dword ptr [eax+0AD4h]
-    L_00426c53:
-        mov edx,dword ptr [eax+0E80h]
-    L_00426c59:
-        mov ebp,dword ptr [eax+15D8h]
-    L_00426c5f:
-        mov ebx,dword ptr [eax+1984h]
-    L_00426c65:
-        mov edi,dword ptr [eax+1D30h]
-    L_00426c6b:
-        and esi,ecx
-    L_00426c6d:
-        and edx,ecx
-    L_00426c6f:
-        mov dword ptr [eax+0AD4h],esi
-    L_00426c75:
-        mov esi,dword ptr [eax+20DCh]
-    L_00426c7b:
-        mov dword ptr [eax+0E80h],edx
-    L_00426c81:
-        mov edx,dword ptr [eax+2488h]
-    L_00426c87:
-        and ebp,ecx
-    L_00426c89:
-        and ebx,ecx
-    L_00426c8b:
-        and edi,ecx
-    L_00426c8d:
-        and esi,ecx
-    L_00426c8f:
-        and edx,ecx
-    L_00426c91:
-        mov dword ptr [eax+15D8h],ebp
-    L_00426c97:
-        mov dword ptr [eax+1984h],ebx
-    L_00426c9d:
-        mov dword ptr [eax+1D30h],edi
-    L_00426ca3:
-        mov dword ptr [eax+20DCh],esi
-    L_00426ca9:
-        mov dword ptr [eax+2488h],edx
-    L_00426caf:
-        mov eax,dword ptr [data_00474c98]
-    L_00426cb4:
-        pop edi
-    L_00426cb5:
-        pop esi
-    L_00426cb6:
-        sub eax,400h
-    L_00426cbb:
-        cmp eax,400h
-    L_00426cc0:
-        pop ebp
-    L_00426cc1:
-        mov dword ptr [data_00474c98],eax
-    L_00426cc6:
-        pop ebx
-    L_00426cc7:
-        jle short L_00426cd7
-    L_00426cc9:
-        mov dword ptr [data_00474c98],400h
-    L_00426cd3:
-        pop ecx
-    L_00426cd4:
-        ret 4
-    L_00426cd7:
-        cmp eax,0FFFFFC00h
-    L_00426cdc:
-        jge short L_00426ce8
-    L_00426cde:
-        mov dword ptr [data_00474c98],0FFFFFC00h
-    L_00426ce8:
-        pop ecx
-    L_00426ce9:
-        ret 4
+struct AnimationManager_00413790 {
+    unsigned char pad_0000[0x4CDC];
+    AnimationRecord_00413790 records_4cdc[9];
+    __declspec(noinline) void SetActiveCount(int count);
+};
+
+struct TimeoutAnimation;
+struct TimeoutAnimationLink {
+    TimeoutAnimation* object;
+    TimeoutAnimationLink* next;
+};
+struct TimeoutAnimation {
+    int id;
+    unsigned char reserved004[0x14 - 4];
+    TimeoutAnimationLink* children;
+    int children_flagged;
+    unsigned char reserved01c[0x304 - 0x1c];
+    short stop_frame;
+};
+struct TimeoutAnimationManager {
+    unsigned char reserved000[0x72dad4];
+    TimeoutAnimationLink* primary;
+    int reserved72dad8;
+    TimeoutAnimationLink* secondary;
+    __forceinline TimeoutAnimation* Find(int id) {
+        if (!id)
+            return 0;
+        for (TimeoutAnimationLink* node = primary; node; node = node->next)
+            if (node->object->id == id)
+                return node->object;
+        for (TimeoutAnimationLink* node = secondary; node; node = node->next)
+            if (node->object->id == id)
+                return node->object;
+        return 0;
     }
+};
+struct TimeoutHandle {
+    int value;
+    static __forceinline void StopAtFrame1(int value, TimeoutAnimationManager* manager) {
+        TimeoutAnimation* object = manager->Find(value);
+        if (object) {
+            object->stop_frame = 1;
+            if (!object->children_flagged)
+                for (TimeoutAnimationLink* child = object->children; child; child = child->next)
+                    child->object->stop_frame = 1;
+        }
+    }
+};
+struct TimeoutSlot {
+    int state;
+    unsigned char reserved004[0x68 - 4];
+    TimeoutHandle first, second;
+    unsigned char reserved070[0x98 - 0x70];
+};
+struct TimeoutField {
+    unsigned char reserved000[0x10];
+    AnimationResource_00449870* resource;
+    Entity animation;
+    StageTipPosition position;
+    unsigned char reserved3cc[0x458 - 0x3cc];
+    int mode;
+    unsigned char reserved45c[0x474 - 0x45c];
+    OpenTimer timer;
+    unsigned char reserved488[0x32a0 - 0x488];
+    TimeoutSlot slots[4];
+    int active_slots;
+    unsigned char reserved3504[0x430c - 0x3504];
+    OpenTimer activation_timer;
+};
+struct TimeoutPlayerEntity {
+    unsigned char reserved000[0x378];
+    unsigned int flags;
+    unsigned char reserved37c[0x3ac - 0x37c];
+};
+struct TimeoutPlayer {
+    unsigned char reserved000[0x75c];
+    TimeoutPlayerEntity entities[8];
+    unsigned char reserved24bc[0x3738 - 0x24bc];
+    int elapsed_frames;
+    unsigned char reserved373c[0x378c - 0x373c];
+    unsigned int flags;
+    int pending_state;
+};
+struct TimeoutMode {
+    unsigned char reserved000[0x10];
+    int mode;
+};
+extern "C" {
+    extern int data_00474c4c;
+    extern int data_00474c70;
+    extern int data_00474c98;
+    extern TimeoutMode* data_00477838;
+    extern StageTipManager* data_00477814;
+    extern TimeoutPlayer* data_004776f4;
+    extern const char g_timeout_caution[];
 }
+struct AnimationResource_0043e710;
+struct AnimationObject_0043e710;
+extern "C" void __stdcall LoadScript_0043e710(AnimationResource_0043e710*,AnimationObject_0043e710*, int);
+
+typedef char TimeoutCountRecordSize[sizeof(AnimationRecord_00413790) == 0x3AC ? 1 : -1];
+typedef char TimeoutCountRecordsOffset[offsetof(AnimationManager_00413790, records_4cdc) == 0x4CDC ? 1 : -1];
+typedef char TimeoutAnimationChildren[offsetof(TimeoutAnimation, children) == 0x14 ? 1 : -1];
+typedef char TimeoutAnimationChildrenFlag[offsetof(TimeoutAnimation, children_flagged) == 0x18 ? 1 : -1];
+typedef char TimeoutAnimationStopFrame[offsetof(TimeoutAnimation, stop_frame) == 0x304 ? 1 : -1];
+typedef char TimeoutPrimaryList[offsetof(TimeoutAnimationManager, primary) == 0x72DAD4 ? 1 : -1];
+typedef char TimeoutSecondaryList[offsetof(TimeoutAnimationManager, secondary) == 0x72DADC ? 1 : -1];
+typedef char TimeoutSlotSize[sizeof(TimeoutSlot) == 0x98 ? 1 : -1];
+typedef char TimeoutSlotFirst[offsetof(TimeoutSlot, first) == 0x68 ? 1 : -1];
+typedef char TimeoutSlotSecond[offsetof(TimeoutSlot, second) == 0x6C ? 1 : -1];
+typedef char TimeoutFieldResource[offsetof(TimeoutField, resource) == 0x10 ? 1 : -1];
+typedef char TimeoutFieldAnimation[offsetof(TimeoutField, animation) == 0x14 ? 1 : -1];
+typedef char TimeoutFieldPosition[offsetof(TimeoutField, position) == 0x3C0 ? 1 : -1];
+typedef char TimeoutFieldMode[offsetof(TimeoutField, mode) == 0x458 ? 1 : -1];
+typedef char TimeoutFieldFirstTimer[offsetof(TimeoutField, timer) == 0x474 ? 1 : -1];
+typedef char TimeoutFieldSlots[offsetof(TimeoutField, slots) == 0x32A0 ? 1 : -1];
+typedef char TimeoutFieldActiveSlots[offsetof(TimeoutField, active_slots) == 0x3500 ? 1 : -1];
+typedef char TimeoutFieldTimer[offsetof(TimeoutField, activation_timer) == 0x430C ? 1 : -1];
+typedef char TimeoutPlayerEntitySize[sizeof(TimeoutPlayerEntity) == 0x3AC ? 1 : -1];
+typedef char TimeoutPlayerEntityFlags[offsetof(TimeoutPlayerEntity, flags) == 0x378 ? 1 : -1];
+typedef char TimeoutPlayerEntities[offsetof(TimeoutPlayer, entities) == 0x75C ? 1 : -1];
+typedef char TimeoutPlayerFrames[offsetof(TimeoutPlayer, elapsed_frames) == 0x3738 ? 1 : -1];
+typedef char TimeoutPlayerFlags[offsetof(TimeoutPlayer, flags) == 0x378C ? 1 : -1];
+typedef char TimeoutPlayerState[offsetof(TimeoutPlayer, pending_state) == 0x3790 ? 1 : -1];
+
+#pragma code_seg(".text$004269d0_fn")
+extern "C" __declspec(noinline) void __stdcall SpellTimeout_004269d0(TimeoutField* field) {
+    // Retain the slot-array base across the arithmetic and helper calls.
+    TimeoutSlot* slots = field->slots;
+    int power = data_00474c4c;
+    int remaining = data_00474c70 - 1;
+    // Preserve the signed fixed-point intermediate: multiplying and dividing
+    // by ten cannot be cancelled for values whose intermediate wraps.
+    power += ((power - 5000) / -3 * 10) / 10;
+    data_00474c70 = remaining;
+    data_00474c4c = power;
+    if (power < 5000)
+        data_00474c4c = 5000;
+    if (remaining >= 0)
+        reinterpret_cast<AnimationManager_00413790*>(data_0047770c)->SetActiveCount(remaining);
+    field->mode = 2;
+    field->timer.Set(0);
+    field->activation_timer.Set(180);
+    LoadScript_0043e710(reinterpret_cast<AnimationResource_0043e710*>(field->resource),
+        reinterpret_cast<AnimationObject_0043e710*>(&field->animation), 0);
+    TimeoutAnimationManager* manager =
+        reinterpret_cast<TimeoutAnimationManager*>(data_00491c10);
+    TimeoutHandle* handles = &slots[0].first;
+    for (int i = 0; i < 4; ++i) {
+        TimeoutSlot* slot = reinterpret_cast<TimeoutSlot*>(
+            reinterpret_cast<char*>(handles) - offsetof(TimeoutSlot, first));
+        // Capture the first handle before clearing the slot state.
+        int first = handles[0].value;
+        slot->state = 0;
+        TimeoutHandle::StopAtFrame1(first, manager);
+        TimeoutHandle::StopAtFrame1(handles[1].value, manager);
+        handles = reinterpret_cast<TimeoutHandle*>(
+            reinterpret_cast<char*>(handles) + sizeof(TimeoutSlot));
+    }
+    field->active_slots = 0;
+    if (data_00477838->mode != 1)
+        StageTip_CreateUrgent_00424650(data_00477814, g_timeout_caution, &field->position);
+    TimeoutPlayer* player = data_004776f4;
+    if (player->elapsed_frames >= 60) {
+        player->pending_state = 0;
+        player->flags &= ~2u;
+        for (int i = 0; i < 8; ++i)
+            if (i != 2)
+                player->entities[i].flags &= ~2u;
+    }
+    data_00474c98 -= 1024;
+    if (data_00474c98 > 1024)
+        data_00474c98 = 1024;
+    else if (data_00474c98 < -1024)
+        data_00474c98 = -1024;
+}
+#pragma code_seg()

@@ -1,0 +1,11 @@
+{
+  "gate_passed": false,
+  "exception": "LTCGSemanticError",
+  "reason": "function ?CutCircle@CutLaser@@QAEHPBUCutVector@@MH@Z extent is outside a MAP CODE contribution",
+  "traceback": "Traceback (most recent call last):\n  File \"/home/levzzz/Games/th10Decomp/matching2/build/experiments/laser_circle_cut_native_2026_10_06/native_gate.py\", line 52, in <module>\n    spec=load_cluster(p,rel,m['regions']);result=build_cluster(spec,DEFAULT_TOOLKIT,r/'native_gate',BASE_FLAGS);record={'gate_passed':True,'result':result}\n                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/levzzz/Games/th10Decomp/matching2/tools/matching/ltcg_cluster.py\", line 1194, in build_cluster\n    functions, native = validate_native_output(\n                        ^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/levzzz/Games/th10Decomp/matching2/tools/matching/ltcg_cluster.py\", line 814, in validate_native_output\n    reports = extract_functions([{'name': function['name'], 'symbol': map_symbol,\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/levzzz/Games/th10Decomp/matching2/tools/matching/ltcg_semantic.py\", line 412, in extract_functions\n    raise LTCGSemanticError(\nmatching2.tools.matching.ltcg_semantic.LTCGSemanticError: function ?CutCircle@CutLaser@@QAEHPBUCutVector@@MH@Z extent is outside a MAP CODE contribution\n",
+  "production_mutated": false,
+  "promotion": false,
+  "instruction_patches": 0,
+  "masked_bytes": 0,
+  "reference_bytes_used_for_build": false
+}

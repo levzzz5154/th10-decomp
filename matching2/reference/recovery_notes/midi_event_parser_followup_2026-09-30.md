@@ -1,5 +1,10 @@
 # MIDI event parser retail audit, 2026-09-30
 
+The native compilation follow-up is recorded in
+`midi_event_parser_native_2026_10_06.md`. It preserves exact helper bodies
+and all three dispatch byte tables, but the parser remains nonexact. The
+no-rebuild restriction and progress counts below describe this older audit.
+
 Reworked the archived ordinary-C++ candidate at
 `reference/semantic_candidates/midi_event_runtime.cpp` against fresh Ghidra
 disassembly and all three retail dispatch tables. The complete target body is

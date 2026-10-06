@@ -1,0 +1,113 @@
+{
+  "selected_region": "0x0041BB00",
+  "source_kind": "complete ordinary C++ candidate, unselected",
+  "exact": false,
+  "native_extent": 819,
+  "retail_extent": 819,
+  "different_bytes_after_diagnostic_address_normalization": 2,
+  "literal_differences": [
+    {
+      "offset": "0x17a",
+      "native_byte": "0x4c",
+      "retail_byte": "0x44"
+    },
+    {
+      "offset": "0x17f",
+      "native_byte": "0x8e",
+      "retail_byte": "0x86"
+    }
+  ],
+  "switch_table_bytes": 23,
+  "switch_tables_exact_after_diagnostic_address_normalization": true,
+  "normalized_full_body_sha256": "1ba0bada9dffd3ce25cb561034d153ccf279cb6415e90425d8b7e3aabd4f1263",
+  "native_pe_sha256": "a70337f5c2ad81e7866d9e676b754c6e19d0a4944a26e5e05a096f16fa8abde1",
+  "exact_supporting_functions_after_diagnostic_normalization": [
+    "_LoadScript_0043e710@12",
+    "?CreateSegmentsInBounds@LineEffectSweep_0041e260@@QAEHH@Z",
+    "?CreateAllSegments@LineEffectSweep_0041e260@@QAEHH@Z"
+  ],
+  "production_source_or_manifest_changed": false,
+  "source_sha256": {
+    "all.cpp": "ec54cacc06b3586cde9e0cf7acbbf184701c7979407f97eedee64b6596c27c79",
+    "allocator.cpp": "0cd2a208262a803df1074b405cc0f696dc286c59b369245d4b8e22a2135fc3e4",
+    "bounded.cpp": "e1e7cde205f3efdad8cb34d1cedb9f63f31a091d7f6df02dbeb92dd5af75f203",
+    "configure.cpp": "8a52e80a17539918f30081e289dfeb20bbbdc5e38cb8d7fc3d6c2b958be5c15c",
+    "create.cpp": "89b547d0ae7fb9abc1bcf6625e542f16f443e0e242043b00e2dd7b7128571cd4",
+    "dependencies.cpp": "310a0338f7753f3fb20a31f7692d5daf665d67fcac21e3078d66e66a819fa1e7",
+    "loader.cpp": "726a5481b43ee6e04c6a956bf9d1a8d5f6225e7fe3f875d39d95b158e8922759",
+    "runtime_graph.cpp": "42721eb8b91843d6e37fc699e5c64b9415172dd8e9d26422898ead0e0f56ace5",
+    "include/th10/game/item_spawn_0041bb00.hpp": "1093407cc6d39230d3558e780abaf3f51788d68ab027cabf89615bb08e75c438",
+    "include/th10/game/line_effect_sweeps_0041e260_0041f400.hpp": "273e904d5a3e3b07c73b06ccdc06077d488d82fbb52b8955505ff5f62b3b9910",
+    "layout.json": "e327c5b33d0acc9e676c7f75fff03df50d29fe845690df4a3eebf8fe8404f760",
+    "measure.py": "aca38bcba421f5688edac22582ba598cf242e00ea6b585c97906f215bacf32f8"
+  },
+  "source_corrections": [
+    "Real local discarded animation handle; compiler chooses its stack home.",
+    "Byte-copy registrar output into its declared pointer storage.",
+    "Actual embedded FrameTimer at +0x3C8; its named fields preserve the full native contribution.",
+    "Removed synthetic PublishPolarCompilerContext; retain actual public line and polar methods in a /DLL /NOENTRY native module.",
+    "All-segment position writes use an actual Vector3 cursor and named fields, preserving full native bytes."
+  ],
+  "project_header_sha256": {
+    "include/th10/game/entity.hpp": "5947ee3d028eb94daa460db1e5dd592b30bb8ffda2fb85311a864f0a84f641ad",
+    "include/th10/math/timer.hpp": "bbde8a2fa579bfc12bf024bd76793b319a32bf1620119789fdda13fd66950888",
+    "include/th10/types.hpp": "16f441397e5c33f60de63af3bc2cd4ccd6935ef11acb3f7744b678c667d79957"
+  },
+  "prior_source_sha256_before_genuine_graph": {
+    "all.cpp": "88da612351eada650d9873e352ebee41d63c07cf0765474cbfef854c906c8cb6",
+    "allocator.cpp": "0cd2a208262a803df1074b405cc0f696dc286c59b369245d4b8e22a2135fc3e4",
+    "bounded.cpp": "e1e7cde205f3efdad8cb34d1cedb9f63f31a091d7f6df02dbeb92dd5af75f203",
+    "configure.cpp": "8a52e80a17539918f30081e289dfeb20bbbdc5e38cb8d7fc3d6c2b958be5c15c",
+    "context.cpp": "4fe2a6b9c5c87047401f6d1661c49caa650e09551f896db8e163d040dfb01e53",
+    "create.cpp": "89b547d0ae7fb9abc1bcf6625e542f16f443e0e242043b00e2dd7b7128571cd4",
+    "dependencies.cpp": "310a0338f7753f3fb20a31f7692d5daf665d67fcac21e3078d66e66a819fa1e7",
+    "include/th10/game/item_spawn_0041bb00.hpp": "1093407cc6d39230d3558e780abaf3f51788d68ab027cabf89615bb08e75c438",
+    "include/th10/game/line_effect_sweeps_0041e260_0041f400.hpp": "273e904d5a3e3b07c73b06ccdc06077d488d82fbb52b8955505ff5f62b3b9910",
+    "layout.json": "52900ab82164eee563f82cf3b77bd461acaedab23cc0cb9566c99881525b21bb",
+    "loader.cpp": "726a5481b43ee6e04c6a956bf9d1a8d5f6225e7fe3f875d39d95b158e8922759",
+    "measure.py": "7b5987191c78543387f8b562ddbe8595b2b7e6aa2288348e863294724f15f68a"
+  },
+  "native_module": {
+    "no_entry": true,
+    "entry_rva": 0,
+    "synthetic_compiler_entry": false,
+    "synthetic_callers": 0,
+    "roots": [
+      "?CreateAllSegments@LineEffectSweep_0041e260@@QAEHH@Z",
+      "?CreateSegmentsInBounds@LineEffectSweep_0041e260@@QAEHH@Z",
+      "?SetPolar@LinePolarVelocity_0041f800@@QAEPAU1@MM@Z",
+      "?SetPolar@ItemPolarVelocity_0041bb00@@QAEPAU1@MM@Z"
+    ],
+    "root_abi": {
+      "manager": "EAX",
+      "position": "ECX",
+      "stack_arguments": [
+        "kind",
+        "identifier",
+        "angle",
+        "speed"
+      ],
+      "cleanup": "RET16",
+      "return": "EAX zero"
+    }
+  },
+  "evidence_sha256": {
+    "diagnostic_comparison.json": "1581d0a46b5885dbb8e87de5b0a040773dcdd02a3b2ab3297fa737af57ea10b2",
+    "rejected_variants.json": "532d00c84124f240b7a36dc685d5649973c629346573ab8b9f61f530dcb99752",
+    "evidence/ghidra_xrefs_41bb00.json": "f431ba7b9286f9e93f48d6fed6aae37a297c90988ab32592db7874dfde223ee9",
+    "evidence/ghidra_41ba50.c": "9f52e1b7ed184d70dabe6a9edb2da9ac3d33f2fa942bf7acf123020d2d495607",
+    "evidence/genuine_graph_register_trace.json": "05dfa3d18fa53a6a2028f00ad6efbbea87e9780e885f561d4f1b381013c56519",
+    "evidence/genuine_graph_register_events.jsonl": "8e4eb6ada0424f14226b898db906dcdf4413be90ec915dc13b9126768af8891e",
+    "evidence/resource_graph_followup/proof.json": "a6cbb271e678b4cb679fe3ea73d99e6ef39bbdbb851a85255d422c1262dfcd7f",
+    "evidence/resource_graph_followup/receipt.json": "e37230e140faf591c39b8088ab9cda3eeb30706033118590be4511a9e0aca2c8"
+  },
+  "measured_controls": 69,
+  "comparison_masks": 0,
+  "instruction_patches": 0,
+  "accepted_differences": 0,
+  "reference_bytes_used_for_build": false,
+  "compiler_trace_tool_sha256": {
+    "reference/compiler_traces/regalloc/trace_temporary_cursor.py": "a9b626c91e0066fc197bc616404fd5c0c9584db96de0b31b58ee222fffc8d5a3"
+  },
+  "current_graph_trace_reproduces_complete_native_text": true
+}

@@ -1,0 +1,180 @@
+{
+  "entry_symbol": "_MovementCompilerContext@0",
+  "sources": [
+    "movement.cpp",
+    "context.cpp",
+    "allocate.cpp",
+    "register.cpp",
+    "initialize.cpp",
+    "entity_init.cpp",
+    "loader.cpp",
+    "load_script.cpp",
+    "find.cpp",
+    "position_helpers.cpp"
+  ],
+  "absolute_symbols": {
+    "_data_00491c10": {
+      "address": "0x491c10",
+      "kind": "data"
+    },
+    "_data_00476f78": {
+      "address": "0x476f78",
+      "kind": "data"
+    },
+    "_data_00492590": {
+      "address": "0x492590",
+      "kind": "data"
+    },
+    "_movement_player": {
+      "address": "0x477834",
+      "kind": "data"
+    },
+    "?g_movement_character@@3HA": {
+      "address": "0x474c68",
+      "kind": "data"
+    },
+    "?g_movement_shot_type@@3HA": {
+      "address": "0x474c6c",
+      "kind": "data"
+    },
+    "?g_movement_gate@@3PAUMovementGate@@A": {
+      "address": "0x477704",
+      "kind": "data"
+    },
+    "?g_movement_resources@@3PAUMovementResources@@A": {
+      "address": "0x4776f0",
+      "kind": "data"
+    },
+    "__fltused": {
+      "address": "0x0",
+      "kind": "data"
+    },
+    "??2@YAPAXI@Z": {
+      "address": "0x452493",
+      "kind": "code"
+    },
+    "?Entity_Constructor@@YIPAUEntity@@PAU1@@Z": {
+      "address": "0x402050",
+      "kind": "code"
+    },
+    "?Entity_Init@@YIXPAXPAUEntity@@@Z": {
+      "address": "0x401de0",
+      "kind": "code"
+    },
+    "_asm_FUN_0043ee30_0043ee30@4": {
+      "address": "0x43ee30",
+      "kind": "code"
+    },
+    "_RunAnimationVm_0043ee30@4": {
+      "address": "0x43ee30",
+      "kind": "code"
+    },
+    "__ftol2": {
+      "address": "0x463b2c",
+      "kind": "code"
+    },
+    "?g_movement_input@@3UMovementInput@@C": {
+      "address": "0x474e5c",
+      "kind": "data"
+    },
+    "?g_movement_position_scale@@3MB": {
+      "address": "0x470b00",
+      "kind": "data"
+    },
+    "?g_movement_render_x@@3MB": {
+      "address": "0x470b4c",
+      "kind": "data"
+    },
+    "?g_movement_render_y@@3MB": {
+      "address": "0x470b48",
+      "kind": "data"
+    }
+  },
+  "functions": [
+    [
+      "?PlayerMovement_004250b0@@YGHPAUMovementState@@@Z",
+      ".text$004250b0_fn",
+      4346032,
+      1656
+    ],
+    [
+      "?Allocate@AnimationPool@@QAEPAUEntity@@XZ",
+      ".text$00449950_fn",
+      4495696,
+      161
+    ],
+    [
+      "?InitializeObject@AnimationResource_00449870@@QAEXPAUEntity@@H@Z",
+      ".text$00449870_fn",
+      4495472,
+      217
+    ],
+    [
+      "?RegisterPrimaryBack@MovementPrimaryLists@@QAE?AUMovementRegisteredId@@PAUEntity@@@Z",
+      ".text$004489d0_fn",
+      4491728,
+      118
+    ],
+    [
+      "?Entity_Init@@YGXPAUEntity@@@Z",
+      ".text$00401de0_fn",
+      4201952,
+      273
+    ],
+    [
+      "?InitializePreservingLoader_0043e7e0@@YGPAXPAUAnimationResource_0043e7e0@@PAUAnimationObject_0043e7e0@@H@Z",
+      ".text$0043e7e0_fn",
+      4450272,
+      194
+    ],
+    [
+      "?MovementLoadScript@@YGPAXHPAUAnimationResource_00449870@@PAUEntity@@@Z",
+      ".text$0043e710_fn",
+      4450064,
+      203
+    ],
+    [
+      "?AnimationManager_Find_004491c0@@YIPAXPAUAnimationLookupContext@@UAnimationScriptId@@@Z",
+      ".text$004491c0_fn",
+      4493760,
+      73
+    ],
+    [
+      "?MovementStopFrame_00449210@@YIXGPAUAnimationLookupContext@@UAnimationScriptId@@@Z",
+      ".text$00449210_fn",
+      4493840,
+      54
+    ],
+    [
+      "?MovementSetPosition_004492f0@@YIXPBUVector3@@PAUAnimationLookupContext@@UAnimationScriptId@@@Z",
+      ".text$004492f0_fn",
+      4494064,
+      90
+    ],
+    [
+      "?MovementSetTranslatedPosition_00449350@@YIXPBUVector3@@PAUAnimationLookupContext@@UAnimationScriptId@@@Z",
+      ".text$00449350_fn",
+      4494160,
+      111
+    ]
+  ],
+  "bindings": {
+    "?PlayerMovement_004250b0@@YGHPAUMovementState@@@Z": "0x4250b0",
+    "?Allocate@AnimationPool@@QAEPAUEntity@@XZ": "0x449950",
+    "?InitializeObject@AnimationResource_00449870@@QAEXPAUEntity@@H@Z": "0x449870",
+    "?Entity_Init@@YGXPAUEntity@@@Z": "0x401de0",
+    "?InitializePreservingLoader_0043e7e0@@YGPAXPAUAnimationResource_0043e7e0@@PAUAnimationObject_0043e7e0@@H@Z": "0x43e7e0",
+    "?AnimationManager_Find_004491c0@@YIPAXPAUAnimationLookupContext@@UAnimationScriptId@@@Z": "0x4491c0",
+    "?MovementStopFrame_00449210@@YIXGPAUAnimationLookupContext@@UAnimationScriptId@@@Z": "0x449210",
+    "?MovementSetPosition_004492f0@@YIXPBUVector3@@PAUAnimationLookupContext@@UAnimationScriptId@@@Z": "0x4492f0",
+    "?MovementSetTranslatedPosition_00449350@@YIXPBUVector3@@PAUAnimationLookupContext@@UAnimationScriptId@@@Z": "0x449350",
+    "__real@3b800000": "0x470b7c",
+    "__real@43600000": "0x470b4c",
+    "__real@41800000": "0x470b48",
+    "?RegisterPrimaryBack@MovementPrimaryLists@@QAE?AUMovementRegisteredId@@PAUEntity@@@Z": "0x4489d0",
+    "?MovementLoadScript@@YGPAXHPAUAnimationResource_00449870@@PAUEntity@@@Z": "0x43e710"
+  },
+  "roots": [
+    "?InitializeObject@AnimationResource_00449870@@QAEXPAUEntity@@H@Z"
+  ]
+}

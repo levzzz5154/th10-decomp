@@ -2,11 +2,14 @@
 
 ## Status
 
-Not promoted. The production target remains the original naked assembly unit
-`matching2/msvc/src/game/stage_update.cpp`, and its manifest record remains
-`asm_FUN_00418190_00418190`, `0x00418190`, size `1544`, kind `asm`. No target
-LTCG entry was added. Existing unrelated edits in `regions.json`, source
-files, and shared matching tools were preserved.
+Promoted on 2026-10-06: the complete 1,544-byte callback is ordinary,
+inline-assembly-free C++ in `matching2/msvc/src/game/stage_update.cpp`.
+The current native cluster reproduces every byte directly at the retail
+address, and both full build modes pass. See
+[the exact recovery note](stage_update_exact_00418190_2026_10_06.md).
+
+The experiment descriptions below are historical and predate the complete
+native helper graph and both recovered HUD routines.
 
 The archived `function_registry.json` is stale for this target: it describes a
 semantic function of size `1664`, while the supported retail image and current
@@ -106,3 +109,19 @@ first the `00409E50` timer-state calls and `0040CFB0` local-state call, then
 the `EAX`/`ESI`/`EBX` stage helpers. It must validate the complete target
 contribution and the compiler context with a clean MAP parser before any
 manifest entry or source replacement is considered.
+
+## Dependency update, 2026-10-06
+
+Two private HUD edges in the dependency table above now have complete exact
+ordinary C++ owners: score update 0x00417040 (671 bytes, ESI) and front
+initialization 0x00413BC0 (1,965 bytes, EDI). The latter includes complete
+allocation, registration, sprite configuration and both script-loader bodies,
+with a verified public entity-initializer alias. Its emitted boundary matches
+both front calls in StageUpdate. See [the initializer receipt](front_initialize_exact_00413bc0_2026_10_06.md)
+and [the HUD receipt](score_hud_exact_00417040_2026_10_06.md).
+
+StageUpdate itself is still the exact assembly owner. A fresh full caller graph
+can now include both real HUD methods; the old opaque-helper and register-bridge
+experiments remain unsuitable. Other private edges in the table still need
+complete compiler-visible bodies and measured native conventions. No progress
+credit is assigned to StageUpdate by this dependency recovery.

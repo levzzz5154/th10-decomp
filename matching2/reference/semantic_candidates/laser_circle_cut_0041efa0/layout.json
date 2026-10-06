@@ -1,0 +1,233 @@
+{
+  "entry_symbol": "?CutCircle@CutLaser@@QAEHPBUCutVector@@MH@Z",
+  "sources": [
+    "laser.cpp",
+    "allocator.cpp",
+    "configure.cpp",
+    "dependencies.cpp",
+    "loader.cpp",
+    "create.cpp",
+    "polar.cpp",
+    "spawn_laser.cpp",
+    "base_laser.cpp"
+  ],
+  "absolute_symbols": {
+    "_data_00474c48": {
+      "address": "0x00474C48",
+      "kind": "data"
+    },
+    "_data_00476f78": {
+      "address": "0x00476F78",
+      "kind": "data"
+    },
+    "_data_004776f0": {
+      "address": "0x004776F0",
+      "kind": "data"
+    },
+    "_data_00491c10": {
+      "address": "0x00491C10",
+      "kind": "data"
+    },
+    "_data_00470b4c": {
+      "address": "0x00470B4C",
+      "kind": "data"
+    },
+    "_data_00470b48": {
+      "address": "0x00470B48",
+      "kind": "data"
+    },
+    "??2@YAPAXI@Z": {
+      "address": "0x00452493",
+      "kind": "code"
+    },
+    "?Entity_Constructor@@YIPAUEntity@@PAU1@@Z": {
+      "address": "0x00402050",
+      "kind": "code"
+    },
+    "__fltused": {
+      "address": "0x00000000",
+      "kind": "data"
+    },
+    "_asm_FUN_0043ee30_0043ee30@4": {
+      "address": "0x0043EE30",
+      "kind": "code"
+    },
+    "?Entity_Init@@YIXPAXPAUEntity@@@Z": {
+      "address": "0x00401DE0",
+      "kind": "code"
+    },
+    "_data_00477818": {
+      "address": "0x00477818",
+      "kind": "data"
+    },
+    "_data_0047781c": {
+      "address": "0x0047781C",
+      "kind": "data"
+    },
+    "_data_00470cd8": {
+      "address": "0x00470CD8",
+      "kind": "data"
+    },
+    "_data_00470d1c": {
+      "address": "0x00470D1C",
+      "kind": "data"
+    },
+    "_data_00470bcc": {
+      "address": "0x00470BCC",
+      "kind": "data"
+    },
+    "_data_00470b40": {
+      "address": "0x00470B40",
+      "kind": "data"
+    },
+    "_data_00470b3c": {
+      "address": "0x00470B3C",
+      "kind": "data"
+    },
+    "_data_00470b04": {
+      "address": "0x00470B04",
+      "kind": "data"
+    },
+    "_data_00470b38": {
+      "address": "0x00470B38",
+      "kind": "data"
+    },
+    "?SetPolar@CutVector@@QAEPAU1@MM@Z": {
+      "address": "0x41f800",
+      "kind": "code"
+    },
+    "_data_00473660": {
+      "address": "0x473660",
+      "kind": "data"
+    },
+    "_data_0046da60": {
+      "address": "0x46da60",
+      "kind": "data"
+    },
+    "_data_0046da10": {
+      "address": "0x46da10",
+      "kind": "data"
+    },
+    "_data_0046dab0": {
+      "address": "0x46dab0",
+      "kind": "data"
+    },
+    "___security_check_cookie": {
+      "address": "0x458ea5",
+      "kind": "code"
+    },
+    "___security_cookie": {
+      "address": "0x473660",
+      "kind": "data"
+    },
+    "@__security_check_cookie@4": {
+      "address": "0x458ea5",
+      "kind": "code"
+    }
+  },
+  "bindings": {
+    "_LoadScript_0043e710@12": "0x43e710",
+    "?Allocate@AnimationPool@@QAEPAUEntity@@XZ": "0x449950",
+    "?SetPolar@LinePolarVelocity_0041f800@@QAEPAU1@MM@Z": "0x41f800",
+    "?SetPolar@ItemPolarVelocity_0041bb00@@QAEPAU1@MM@Z": "0x41beb0",
+    "?CreateSegmentsInBounds@LineEffectSweep_0041e260@@QAEHH@Z": "0x41f400",
+    "?CreateAllSegments@LineEffectSweep_0041e260@@QAEHH@Z": "0x41e260",
+    "__real@c3400000": "0x00470B40",
+    "__real@43400000": "0x00470B3C",
+    "__real@41400000": "0x00470CD8",
+    "__real@40c00000": "0x00470D1C",
+    "__real@43600000": "0x00470B4C",
+    "__real@41800000": "0x00470B48",
+    "__real@42000000": "0x00470BCC",
+    "__real@43e00000": "0x00470B38",
+    "?Spawn@ItemSpawnManager_0041bb00@@QAEHPBUVector3@@HHMM@Z": "0x41bb00",
+    "?Entity_StartScript_00404f30@@YGXPAUAnimationResource_0043e710@@PAUEntity@@H@Z": "0x404f30",
+    "?CutCircle@CutLaser@@QAEHPBUCutVector@@MH@Z": "0x41efa0",
+    "?SpawnIn@LaserSpawnParameters_0041c510@@QBEHPAULaserManager_0041c510@@H@Z": "0x41c510",
+    "?LineLaser_Construct_0041c5b0@@YIPAULineLaser_0041c5b0@@PAU1@@Z": "0x41c5b0",
+    "?BeamLaser_Construct_0041c680@@YIPAULaserBase_0041c680@@PAU1@@Z": "0x41c680",
+    "?LaserBase_Construct_0041c030@@YIPAULaserBase_0041c030@@PAXPAU1@@Z": "0x41c030",
+    "?BeamLaser_Construct_0041c680@@YIPAUBeamLaser_0041c680@@PAU1@@Z": "0x41c680",
+    "?RegisterPrimaryBack@CutAnimationLists@@QAE?AUCutAnimationId@@PAUEntity@@@Z": "0x4489d0",
+    "?CreateOffset@CutAnimationResource@@QAE?AUCutAnimationId@@HPBUVector3@@@Z": "0x448db0"
+  },
+  "roots": [
+    "?CutCircle@CutLaser@@QAEHPBUCutVector@@MH@Z",
+    "?SetPolar@ItemPolarVelocity_0041bb00@@QAEPAU1@MM@Z"
+  ],
+  "functions": [
+    [
+      "?CutCircle@CutLaser@@QAEHPBUCutVector@@MH@Z",
+      ".text$45circlecut",
+      4321184,
+      1108
+    ],
+    [
+      "?Spawn@ItemSpawnManager_0041bb00@@QAEHPBUVector3@@HHMM@Z",
+      ".text$30spawn",
+      4307712,
+      819
+    ],
+    [
+      "?Entity_StartScript_00404f30@@YGXPAUAnimationResource_0043e710@@PAUEntity@@H@Z",
+      ".text$20configure",
+      4214576,
+      202
+    ],
+    [
+      "_LoadScript_0043e710@12",
+      ".text$60loader",
+      4450064,
+      203
+    ],
+    [
+      "?RegisterPrimaryBack@CutAnimationLists@@QAE?AUCutAnimationId@@PAUEntity@@@Z",
+      ".text$70register",
+      4491728,
+      118
+    ],
+    [
+      "?CreateOffset@CutAnimationResource@@QAE?AUCutAnimationId@@HPBUVector3@@@Z",
+      ".text$80create",
+      4492720,
+      118
+    ],
+    [
+      "?Allocate@AnimationPool@@QAEPAUEntity@@XZ",
+      ".text$90allocate",
+      4495696,
+      161
+    ],
+    [
+      "?SetPolar@ItemPolarVelocity_0041bb00@@QAEPAU1@MM@Z",
+      ".text$35itempolar",
+      4308656,
+      30
+    ],
+    [
+      "?SpawnIn@LaserSpawnParameters_0041c510@@QBEHPAULaserManager_0041c510@@H@Z",
+      ".text$0041c510_fn",
+      4310288,
+      153
+    ],
+    [
+      "?LineLaser_Construct_0041c5b0@@YIPAULineLaser_0041c5b0@@PAU1@@Z",
+      ".text$0041c5b0_fn",
+      4310448,
+      202
+    ],
+    [
+      "?BeamLaser_Construct_0041c680@@YIPAUBeamLaser_0041c680@@PAU1@@Z",
+      ".text$0041c680_fn",
+      4310656,
+      219
+    ],
+    [
+      "?LaserBase_Construct_0041c030@@YIPAULaserBase_0041c030@@PAXPAU1@@Z",
+      ".text$37laserbase",
+      4309040,
+      98
+    ]
+  ],
+  "description": "Complete circular cutter and complete real item, laser-spawn and animation callees. No synthetic caller or helper body."
+}

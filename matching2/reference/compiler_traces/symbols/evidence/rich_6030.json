@@ -1,0 +1,179 @@
+{
+  "headers": [
+    {
+      "path": "matching2/build/oracle/th10.exe",
+      "sha256": "2f14760b6fbbf57549541583283badb9a19a4222b90f0a146d5aa17f01dc9040",
+      "dans_offset": "0x80",
+      "rich_offset": "0x108",
+      "key": "0x3152a748",
+      "checksum": "0x3152a748",
+      "checksum_valid": true,
+      "records": [
+        {
+          "product_id": 96,
+          "build": 6030,
+          "count": 15
+        },
+        {
+          "product_id": 105,
+          "build": 2067,
+          "count": 3
+        },
+        {
+          "product_id": 15,
+          "build": 6030,
+          "count": 33
+        },
+        {
+          "product_id": 95,
+          "build": 6030,
+          "count": 131
+        },
+        {
+          "product_id": 95,
+          "build": 2179,
+          "count": 2
+        },
+        {
+          "product_id": 28,
+          "build": 9178,
+          "count": 1
+        },
+        {
+          "product_id": 93,
+          "build": 2067,
+          "count": 2
+        },
+        {
+          "product_id": 96,
+          "build": 4035,
+          "count": 1
+        },
+        {
+          "product_id": 93,
+          "build": 2179,
+          "count": 8
+        },
+        {
+          "product_id": 1,
+          "build": 0,
+          "count": 187
+        },
+        {
+          "product_id": 93,
+          "build": 4035,
+          "count": 9
+        },
+        {
+          "product_id": 95,
+          "build": 4035,
+          "count": 2
+        },
+        {
+          "product_id": 100,
+          "build": 6030,
+          "count": 52
+        },
+        {
+          "product_id": 94,
+          "build": 3052,
+          "count": 1
+        },
+        {
+          "product_id": 90,
+          "build": 6030,
+          "count": 1
+        }
+      ]
+    },
+    {
+      "path": "matching2/build/experiments/laser_circle_cut_native_2026_10_06/rectangle_current/model.exe",
+      "sha256": "bbc62502123bf60f3d2c6d4e95ed253744cd40a02b913744cb2559e19735cda3",
+      "dans_offset": "0x80",
+      "rich_offset": "0xa8",
+      "key": "0x19619b3e",
+      "checksum": "0x19619b3e",
+      "checksum_valid": true,
+      "records": [
+        {
+          "product_id": 100,
+          "build": 6030,
+          "count": 10
+        },
+        {
+          "product_id": 0,
+          "build": 0,
+          "count": 1
+        },
+        {
+          "product_id": 90,
+          "build": 6030,
+          "count": 1
+        }
+      ]
+    }
+  ],
+  "installed_toolchain": {
+    "path": "/home/levzzz/.local/share/th10-toolchains/msvc-13.10.6030",
+    "files": {
+      "cl.exe": {
+        "sha256": "333254d73ee602f6ec14b00e9bf40f533a1b181429943e3634971642af00c9f7",
+        "fixed_file_version": "13.10.6030.0"
+      },
+      "c1xx.dll": {
+        "sha256": "42fd57f25e0b536b0b7a817f4ab3ec0aa23fcc5f8e52104ad6f12de167ad2cfa",
+        "fixed_file_version": "13.10.6030.0"
+      },
+      "c2.dll": {
+        "sha256": "7a6f6d8e4da7b518384ff78f2c41028805d3a1d1a40dc2cc857c391ec81763f5",
+        "fixed_file_version": "13.10.6030.0"
+      },
+      "link.exe": {
+        "sha256": "3e6526234cce5ce962d22f267f84f01d3c540b8ee9129c53f127c5e124fa2b20",
+        "fixed_file_version": "7.10.6030.0"
+      }
+    },
+    "installation_record": {
+      "source": "https://ftp.zx.net.nz/pub/Patches/microsoft-dev-tools/VisualStudio_2003/VS7.1sp1-KB918007-X86.exe",
+      "sha256": "8c8659339772ba01cc67786a9da1d5cf3ba83767e1ce17629d51ab66c22547c4",
+      "authenticode": "Verified Microsoft Corporation signature, file digest, and timestamp using signify legacy trust roots",
+      "base": "/home/levzzz/.wine/drive_c/Program Files (x86)/Microsoft Visual C++ Toolkit 2003",
+      "updated_files": [
+        "bin/c1.dll",
+        "bin/c1xx.dll",
+        "bin/c2.dll",
+        "bin/cl.exe",
+        "bin/link.exe",
+        "bin/msobj71.dll",
+        "bin/mspdb71.dll",
+        "bin/msvcp71.dll",
+        "bin/msvcr71.dll",
+        "include/vector",
+        "lib/libc.lib",
+        "lib/libcd.lib",
+        "lib/libcd.pdb",
+        "lib/libcmt.lib",
+        "lib/libcp.lib",
+        "lib/libcpd.lib",
+        "lib/libcpd.pdb",
+        "lib/libcpmt.lib"
+      ]
+    },
+    "installation_record_sha256": "35ffc77ff7b1fe986d131f1578184c56053cbfb28dadf29b2c8e19f682ff158f"
+  },
+  "calibration": {
+    "native_example": "complete ordinary C++ rectangle cutter graph, compiled /GL and linked /LTCG with installed tools",
+    "shared_product_build_pairs": [
+      [
+        100,
+        6030
+      ],
+      [
+        90,
+        6030
+      ]
+    ],
+    "claim": "The oracle and known native build share these build-6030 records. This supports the pinned compiler/linker revision. It does not prove an identical original backend binary or identify every original translation unit."
+  },
+  "reader_sha256": "bdd53a8bd9396b706f38cfee8dc05775e50fc89afccab1b263c3ce2e47b6ec84"
+}

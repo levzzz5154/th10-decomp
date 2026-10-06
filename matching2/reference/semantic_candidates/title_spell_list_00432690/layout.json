@@ -1,0 +1,62 @@
+{
+  "entry_symbol": "?BuildSpellList@TitleMenu_00431410@@QAEHXZ",
+  "function": "?BuildSpellList@TitleMenu_00431410@@QAEHXZ",
+  "absolute_symbols": {
+    "_data_00491c10": {
+      "address": "0x491c10",
+      "kind": "data"
+    },
+    "_data_0047783c": {
+      "address": "0x47783c",
+      "kind": "data"
+    },
+    "_g_spell_difficulty": {
+      "address": "0x4743c0",
+      "kind": "data"
+    },
+    "_NamedCardFormat": {
+      "address": "0x46eef8",
+      "kind": "data"
+    },
+    "_MaskedCardFormat": {
+      "address": "0x46eebc",
+      "kind": "data"
+    },
+    "_EmptyCardText": {
+      "address": "0x46cfd4",
+      "kind": "data"
+    },
+    "___security_cookie": {
+      "address": "0x473660",
+      "kind": "data"
+    },
+    "@__security_check_cookie@4": {
+      "address": "0x458ea5",
+      "kind": "code"
+    },
+    "_recovery_vsprintf_004524a6": {
+      "address": "0x4524a6",
+      "kind": "code"
+    },
+    "_recovery_draw_shadowed_00437db0@24": {
+      "address": "0x437db0",
+      "kind": "code"
+    },
+    "_recovery_draw_unshadowed_00437fe0@24": {
+      "address": "0x437fe0",
+      "kind": "code"
+    },
+    "__ftol2": {
+      "address": "0x463b2c",
+      "kind": "code"
+    },
+    "__fltused": {
+      "address": "0",
+      "kind": "data"
+    }
+  },
+  "bindings": {
+    "?FormatCentered@RecoveryIndicatorVm_00419120@@QAAXPAXZZ": "0x447bb0",
+    "?RecoveryDispatchText_004479d0@@YGXPAURecoveryTextResource_004479d0@@PAXHHIPBDH@Z": "0x4479d0"
+  }
+}

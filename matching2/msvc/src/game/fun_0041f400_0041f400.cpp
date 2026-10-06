@@ -1,7 +1,7 @@
 // Full 0041F400..0041F66E (623 bytes) C++ recovery model.
 // This routine is distinct from 0041E260: it conditionally creates an
 // animation after an outer rectangle check and calls the outlined registrar.
-#include "th10/game/line_effect_sweeps_0041e260_0041f400.hpp"
+#include "../../layout/ltcg/item_line_runtime_0041e260/types/line_sweeps.hpp"
 extern "C" void _ReadWriteBarrier();
 #pragma intrinsic(_ReadWriteBarrier)
 
@@ -11,17 +11,17 @@ __declspec(noinline) int LineEffectSweep_0041e260::CreateSegmentsInBounds(int sp
     int count = 0;
     distance = 6.0f;
     LineSweepStep_0041e260 step;
-    reinterpret_cast<LinePolarVelocity_0041f800*>(&step)->SetPolar(angle, 6.0f);
+    step.velocity.SetPolar(angle, 6.0f);
 
     // Retail retains a three-word initial-position temporary, then copies it
     // into the point that advances along the line.  Z starts at the owner's Z
     // and the step's Z is zero, so every iteration preserves that coordinate.
     LineSweepVector_0041e260 point;
-    point = LineSweepVector_0041e260(step.x + position.x,
-        step.y + position.y, position.z);
+    point = LineSweepVector_0041e260(step.velocity.x + position.x,
+        step.velocity.y + position.y, position.z);
     step.z = 0.0f;
-    step.x = step.x + step.x;
-    step.y = step.y + step.y;
+    step.velocity.x = step.velocity.x + step.velocity.x;
+    step.velocity.y = step.velocity.y + step.velocity.y;
     if (12.0f < length) {
     do {
         ++count;
@@ -39,10 +39,10 @@ __declspec(noinline) int LineEffectSweep_0041e260::CreateSegmentsInBounds(int sp
                 unsigned int flags = animation->flags_35C;
                 animation->flags_35C = flags | 0x40000000u;
                 animation->render_bucket = 0;
-                float* position_output = &animation->position.x;
-                position_output[0] = point.x + 224.0f;
-                position_output[1] = animation_y;
-                position_output[2] = point.z;
+                Vector3* position_output = &animation->position;
+                position_output->x = point.x + 224.0f;
+                position_output->y = animation_y;
+                position_output->z = point.z;
                 LoadScript_0043e710(
                     static_cast<AnimationResource_0043e710*>(resource),
                     reinterpret_cast<AnimationObject_0043e710*>(animation), script);
@@ -58,13 +58,13 @@ __declspec(noinline) int LineEffectSweep_0041e260::CreateSegmentsInBounds(int sp
                     !(point.y + 32.0f <= data_00470b04) &&
                     !(point.y - 32.0f >= 448.0f)) {
                     data_00477818->Spawn(
-                        &point.x, 8, -1, -1.57079637050628662109375f,
+                        &point, 8, -1, -1.57079637050628662109375f,
                         0.60000002384185791015625f);
                 }
             }
         }
-        point.x = point.x + step.x;
-        point.y = point.y + step.y;
+        point.x = point.x + step.velocity.x;
+        point.y = point.y + step.velocity.y;
         // Preserve both floating-point reads when advancing Z.
         volatile float& point_z = point.z;
         point_z = point_z + step.z;

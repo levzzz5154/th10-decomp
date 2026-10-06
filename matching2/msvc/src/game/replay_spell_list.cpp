@@ -1,13 +1,11 @@
-// BLOCKED (D3406): closest_byte_count=0/850; first_diff=unmeasured;
-// residual_class=__thiscall ESI receiver selection, GS cookie/0xC0-byte
-// frame layout, nested replay-list loops, and the private formatting/helper
-// ABI at 0x00447BB0 with byte-wise string padding and list traversal.
-// variants_tested=live Ghidra complete decompilation with callers/callees,
-// disassembly and variable audit; no compiler-readable candidate was
-// byte-measured, so the exact naked overlay remains intact.
-// next_lever=native-LTCG schema2 cluster over the real 0x00431EE0 caller,
-// this body, FUN_00447BB0, and the replay record/list layouts, preserving
-// the ESI entry convention and security-cookie epilogue.
+// NOT EXACT: the ordinary member candidate emits 834/850 bytes in a native
+// LTCG graph with the complete centred formatter (194/194 exact) and text
+// dispatcher (127/127 exact). The first non-branch difference is the blank
+// loop's counter register at +0xAE; the named-card path keeps the lookup
+// result in ESI instead of EAX. Loading the manager before the terminator
+// gives 850 bytes but moves the menu to EBX and still does not match.
+// See reference/recovery_notes/title_spell_list_native_2026_10_06.md and
+// reference/semantic_candidates/title_spell_list_00432690/probe.py.
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 

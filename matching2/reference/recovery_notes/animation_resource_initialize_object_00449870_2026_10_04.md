@@ -17,3 +17,5 @@ Replay:
 ```sh
 python3 matching2/tools/matching/probe.py --source src/render/animation_resource_initialize_object_00449870.cpp --output matching2/build/experiments/animation_resource_initialize_object_00449870_replay
 ```
+
+The [2026-10-06 genuine graph follow-up](animation_resource_initialize_object_genuine_2026_10_06.md) replaces the synthetic driver with complete actual effect/pickup callers while preserving all 217 selected bytes. The synthetic context described above is historical.

@@ -1,0 +1,344 @@
+{
+  "functions": [
+    {
+      "symbol": "?Spawn@ItemSpawnManager_0041bb00@@QAEHPBUVector3@@HHMM@Z",
+      "extent": 819,
+      "required": 819,
+      "exact": false,
+      "different_overlapping_bytes": 2,
+      "base_index_swaps": 0,
+      "hunks": [
+        {
+          "offset": "0x109",
+          "retail": [
+            "movzx ecx,BYTE PTR [eax+L+0x328]"
+          ],
+          "model": [
+            "movzx ecx,BYTE PTR [eax+L+0x328]"
+          ]
+        },
+        {
+          "offset": "0x110",
+          "retail": [
+            "jmp DWORD PTR [ecx*4+L+0x31c]"
+          ],
+          "model": [
+            "jmp DWORD PTR [ecx*4+L+0x31c]"
+          ]
+        },
+        {
+          "offset": "0x179",
+          "retail": [
+            "mov eax,DWORD PTR [esp+0x18]"
+          ],
+          "model": [
+            "mov ecx,DWORD PTR [esp+0x18]"
+          ]
+        },
+        {
+          "offset": "0x17e",
+          "retail": [
+            "mov DWORD PTR [esi+0x2fc],eax"
+          ],
+          "model": [
+            "mov DWORD PTR [esi+0x2fc],ecx"
+          ]
+        }
+      ]
+    },
+    {
+      "symbol": "?Entity_StartScript_00404f30@@YGXPAUAnimationResource_0043e710@@PAUEntity@@H@Z",
+      "extent": 204,
+      "required": 202,
+      "exact": false,
+      "different_overlapping_bytes": 178,
+      "base_index_swaps": 0,
+      "hunks": [
+        {
+          "offset": "0x6",
+          "retail": [],
+          "model": [
+            "xor ecx,ecx"
+          ]
+        }
+      ]
+    },
+    {
+      "symbol": "_LoadScript_0043e710@12",
+      "extent": 203,
+      "required": 203,
+      "exact": true,
+      "different_overlapping_bytes": 0,
+      "base_index_swaps": 0,
+      "hunks": []
+    },
+    {
+      "symbol": "_asm_AnimationManager_RegisterPrimaryBack_004489d0",
+      "extent": 114,
+      "required": 118,
+      "exact": false,
+      "different_overlapping_bytes": 68,
+      "base_index_swaps": 0,
+      "hunks": [
+        {
+          "offset": "0x26",
+          "retail": [
+            "mov esi,DWORD PTR [edx+0x72dad8]"
+          ],
+          "model": []
+        },
+        {
+          "offset": "0x2d",
+          "retail": [
+            "mov edi,DWORD PTR [esi+0x4]",
+            "test edi,edi"
+          ],
+          "model": [
+            "mov edi,DWORD PTR [edx+0x72dad8]",
+            "mov esi,DWORD PTR [edi+0x4]",
+            "test esi,esi"
+          ]
+        },
+        {
+          "offset": "0x32",
+          "retail": [
+            "je L+0x3d"
+          ],
+          "model": [
+            "je L+0x3a"
+          ]
+        },
+        {
+          "offset": "0x34",
+          "retail": [
+            "mov DWORD PTR [ecx+0x4],edi",
+            "mov edi,DWORD PTR [esi+0x4]",
+            "mov DWORD PTR [edi+0x8],ecx",
+            "mov DWORD PTR [esi+0x4],ecx",
+            "mov DWORD PTR [ecx+0x8],esi"
+          ],
+          "model": [
+            "mov DWORD PTR [ecx+0x4],esi",
+            "mov DWORD PTR [esi+0x8],ecx",
+            "mov DWORD PTR [edi+0x4],ecx",
+            "mov DWORD PTR [ecx+0x8],edi"
+          ]
+        },
+        {
+          "offset": "0x4a",
+          "retail": [
+            "mov esi,DWORD PTR [edx+0x732454]",
+            "inc esi",
+            "mov ecx,esi",
+            "test ecx,ecx",
+            "mov DWORD PTR [edx+0x732454],esi"
+          ],
+          "model": [
+            "mov ecx,DWORD PTR [edx+0x732454]",
+            "inc ecx"
+          ]
+        },
+        {
+          "offset": "0x5c",
+          "retail": [],
+          "model": [
+            "mov DWORD PTR [edx+0x732454],ecx"
+          ]
+        },
+        {
+          "offset": "0x5e",
+          "retail": [
+            "inc ecx",
+            "mov DWORD PTR [edx+0x732454],ecx"
+          ],
+          "model": [
+            "mov DWORD PTR [edx+0x732454],0x1"
+          ]
+        }
+      ]
+    },
+    {
+      "symbol": "?ItemAnimation_CreateOffset_00448db0@@YGPAPAXPAXPAPAXHPBUVector3@@@Z",
+      "extent": 111,
+      "required": 118,
+      "exact": false,
+      "different_overlapping_bytes": 86,
+      "base_index_swaps": 0,
+      "hunks": [
+        {
+          "offset": "0x12",
+          "retail": [
+            "mov esi,eax",
+            "mov eax,DWORD PTR [esi+0x35c]"
+          ],
+          "model": [
+            "fld DWORD PTR ds:0x470b4c"
+          ]
+        },
+        {
+          "offset": "0x22",
+          "retail": [],
+          "model": [
+            "mov esi,eax",
+            "or DWORD PTR [esi+0x35c],0x40000000"
+          ]
+        },
+        {
+          "offset": "0x29",
+          "retail": [
+            "or eax,0x40000000",
+            "mov DWORD PTR [esi+0x35c],eax",
+            "fld DWORD PTR [edi]",
+            "fadd DWORD PTR ds:0x470b4c"
+          ],
+          "model": [
+            "fadd DWORD PTR [edi]"
+          ]
+        },
+        {
+          "offset": "0x42",
+          "retail": [
+            "fld DWORD PTR [edi+0x4]",
+            "fadd DWORD PTR ds:0x470b48"
+          ],
+          "model": [
+            "fld DWORD PTR ds:0x470b48",
+            "fadd DWORD PTR [edi+0x4]"
+          ]
+        }
+      ]
+    },
+    {
+      "symbol": "?Allocate@AnimationPool@@QAEPAUEntity@@XZ",
+      "extent": 165,
+      "required": 161,
+      "exact": false,
+      "different_overlapping_bytes": 63,
+      "base_index_swaps": 0,
+      "hunks": [
+        {
+          "offset": "0x64",
+          "retail": [],
+          "model": [
+            "xor ecx,ecx"
+          ]
+        },
+        {
+          "offset": "0x71",
+          "retail": [],
+          "model": [
+            "xor ecx,ecx"
+          ]
+        }
+      ]
+    },
+    {
+      "symbol": "?SetPolar@LinePolarVelocity_0041f800@@QAEPAU1@MM@Z",
+      "extent": 30,
+      "required": 30,
+      "exact": false,
+      "different_overlapping_bytes": 26,
+      "base_index_swaps": 0,
+      "hunks": [
+        {
+          "offset": "0x0",
+          "retail": [
+            "push ecx",
+            "mov DWORD PTR [esp],ecx",
+            "mov eax,DWORD PTR [esp]",
+            "fld DWORD PTR [esp+0x8]",
+            "fsincos",
+            "fmul DWORD PTR [esp+0xc]"
+          ],
+          "model": [
+            "fld DWORD PTR [esp+0x4]",
+            "mov eax,ecx",
+            "fcos",
+            "fmul DWORD PTR [esp+0x8]"
+          ]
+        },
+        {
+          "offset": "0x13",
+          "retail": [
+            "fmul DWORD PTR [esp+0xc]"
+          ],
+          "model": [
+            "fld DWORD PTR [esp+0x4]",
+            "fsin",
+            "fmul DWORD PTR [esp+0x8]"
+          ]
+        },
+        {
+          "offset": "0x1a",
+          "retail": [
+            "pop ecx"
+          ],
+          "model": []
+        }
+      ]
+    },
+    {
+      "symbol": "?SetPolar@ItemPolarVelocity_0041bb00@@QAEPAU1@MM@Z",
+      "extent": 30,
+      "required": 30,
+      "exact": false,
+      "different_overlapping_bytes": 26,
+      "base_index_swaps": 0,
+      "hunks": [
+        {
+          "offset": "0x0",
+          "retail": [
+            "push ecx",
+            "mov DWORD PTR [esp],ecx",
+            "mov eax,DWORD PTR [esp]",
+            "fld DWORD PTR [esp+0x8]",
+            "fsincos",
+            "fmul DWORD PTR [esp+0xc]"
+          ],
+          "model": [
+            "fld DWORD PTR [esp+0x4]",
+            "mov eax,ecx",
+            "fcos",
+            "fmul DWORD PTR [esp+0x8]"
+          ]
+        },
+        {
+          "offset": "0x13",
+          "retail": [
+            "fmul DWORD PTR [esp+0xc]"
+          ],
+          "model": [
+            "fld DWORD PTR [esp+0x4]",
+            "fsin",
+            "fmul DWORD PTR [esp+0x8]"
+          ]
+        },
+        {
+          "offset": "0x1a",
+          "retail": [
+            "pop ecx"
+          ],
+          "model": []
+        }
+      ]
+    },
+    {
+      "symbol": "?CreateSegmentsInBounds@LineEffectSweep_0041e260@@QAEHH@Z",
+      "extent": 623,
+      "required": 623,
+      "exact": true,
+      "different_overlapping_bytes": 0,
+      "base_index_swaps": 0,
+      "hunks": []
+    },
+    {
+      "symbol": "?CreateAllSegments@LineEffectSweep_0041e260@@QAEHH@Z",
+      "extent": 609,
+      "required": 609,
+      "exact": true,
+      "different_overlapping_bytes": 0,
+      "base_index_swaps": 0,
+      "hunks": []
+    }
+  ]
+}

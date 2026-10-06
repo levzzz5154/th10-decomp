@@ -1,0 +1,56 @@
+{
+  "sources": [
+    "joystick_reader.cpp"
+  ],
+  "entry_symbol": "@JoystickReadBindings@12",
+  "absolute_symbols": {
+    "_data_00466280": {
+      "address": "0x466280",
+      "kind": "data"
+    },
+    "_data_00491ff4": {
+      "address": "0x491ff4",
+      "kind": "data"
+    },
+    "_data_00474e30": {
+      "address": "0x474e30",
+      "kind": "data"
+    },
+    "_data_004918b8": {
+      "address": "0x4918b8",
+      "kind": "data"
+    },
+    "_data_00491c3c": {
+      "address": "0x491c3c",
+      "kind": "data"
+    },
+    "_data_00491d5e": {
+      "address": "0x491d5e",
+      "kind": "data"
+    },
+    "_data_00491d60": {
+      "address": "0x491d60",
+      "kind": "data"
+    },
+    "___security_cookie": {
+      "address": "0x473660",
+      "kind": "data"
+    },
+    "@__security_check_cookie@4": {
+      "address": "0x458ea5",
+      "kind": "code"
+    }
+  },
+  "bindings": {
+    "@JoystickReadBindings@12": "0x44a190"
+  },
+  "functions": [
+    [
+      "@JoystickReadBindings@12",
+      ".text$a10joystick",
+      4497808,
+      833
+    ]
+  ],
+  "description": "Complete unselected ordinary joystick binding reader. Full raw fixed-layout equality required before production selection."
+}

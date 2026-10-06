@@ -2,23 +2,25 @@
   "schema_version": 1,
   "name": "item_line_bounded_0041f400_2026_09_28",
   "source": "src/game/fun_0041f400_0041f400.cpp",
-  "driver": "layout/ltcg/item_line_bounded_0041f400_2026_09_28_context.cpp",
+  "driver": "layout/ltcg/item_line_runtime_0041e260/driver.cpp",
   "headers": [
-    "include/th10/game/item_spawn_0041bb00.hpp",
     "include/th10/game/entity.hpp",
     "include/th10/types.hpp",
     "include/th10/render/animation_public_callers.hpp",
-    "include/th10/game/line_effect_sweeps_0041e260_0041f400.hpp"
+    "layout/ltcg/item_line_runtime_0041e260/types/item_spawn.hpp",
+    "layout/ltcg/item_line_runtime_0041e260/types/line_sweeps.hpp",
+    "include/th10/game/entity_script_start.hpp",
+    "include/th10/math/timer.hpp"
   ],
   "included_sources": [
-    "layout/ltcg/item_spawn_caller_allocator_2026_09_28.cpp",
-    "layout/ltcg/item_spawn_0041bb00_dependencies.cpp",
-    "layout/ltcg/item_spawn_0041bb00_loader.cpp",
-    "layout/ltcg/item_spawn_0041bb00_configure.cpp",
-    "layout/ltcg/item_spawn_0041bb00_create.cpp"
+    "layout/ltcg/item_line_runtime_0041e260/allocator.cpp",
+    "layout/ltcg/item_line_runtime_0041e260/dependencies.cpp",
+    "layout/ltcg/item_line_runtime_0041e260/loader.cpp",
+    "layout/ltcg/item_line_runtime_0041e260/configure.cpp",
+    "layout/ltcg/item_line_runtime_0041e260/create.cpp"
   ],
   "image_base": "0x00400000",
-  "description": "Full original623-byte bounded sweep is selected; complete allocator823 and all-segment601 caller remain genuine unselected ABI anchors. No original contribution is truncated.",
+  "description": "Two complete exact line sweeps with actual typed vector/polar storage and their full native allocator/animation dependency graph. Actual 41BEB0 public polar method is the unselected link entry. No synthetic entry, caller or method-address publisher.",
   "functions": [
     {
       "name": "LineEffect_CreateSegmentsInBounds",
@@ -40,8 +42,8 @@
   ],
   "anchors": [
     {
-      "name": "ConfigureItemAnimation",
-      "symbol": "?Configure@ItemConfiguredEntity_00404f30@@QAEXHUConfigureResource_00404f30@@@Z",
+      "name": "StartItemAnimationScript",
+      "symbol": "?Entity_StartScript_00404f30@@YGXPAUAnimationResource_0043e710@@PAUEntity@@H@Z",
       "section": ".text$20configure",
       "address": "0x00404F30",
       "size": 204
@@ -82,26 +84,19 @@
       "size": 30
     },
     {
-      "name": "CompilerContext_ItemManager_Spawn",
-      "symbol": "?Spawn@ItemSpawnManager_0041bb00@@QAEHPBMHHMM@Z",
+      "name": "ItemManager_Spawn",
+      "symbol": "?Spawn@ItemSpawnManager_0041bb00@@QAEHPBUVector3@@HHMM@Z",
       "section": ".text$30spawn",
       "address": "0x0041BB00",
       "size": 819
-    },
-    {
-      "name": "ItemPolarVelocity",
-      "symbol": "?SetPolar@ItemPolarVelocity_0041bb00@@QAEPAU1@MM@Z",
-      "section": ".text$35itempolar",
-      "address": "0x0041BEB0",
-      "size": 30
     }
   ],
   "context": {
-    "symbol": "_PublishPolarCompilerContext_2026_09_28@32",
-    "section": ".text$99context",
-    "address": "0x00449A20",
-    "size": 63,
-    "description": "Synthetic typed publication of full line polar and all-segment method addresses plus runtime allocator invocation; compiler context only."
+    "symbol": "?SetPolar@ItemPolarVelocity_0041bb00@@QAEPAU1@MM@Z",
+    "section": ".text$35itempolar",
+    "address": "0x0041BEB0",
+    "size": 30,
+    "description": "Complete actual public ItemPolarVelocity::SetPolar method at 41BEB0; unselected dependency and native link entry, not synthetic game code."
   },
   "gaps": [
     {
@@ -153,11 +148,6 @@
       "section": ".text$89gap",
       "address": "0x00448E1F",
       "size": 2865
-    },
-    {
-      "section": ".text$98gap",
-      "address": "0x004499F5",
-      "size": 43
     }
   ],
   "constants": [],
@@ -309,6 +299,10 @@
     "src/game/line_effect_create_all_segments_0041e260.cpp"
   ],
   "roots": [
-    "?CreateSegmentsInBounds@LineEffectSweep_0041e260@@QAEHH@Z"
+    "?CreateSegmentsInBounds@LineEffectSweep_0041e260@@QAEHH@Z",
+    "?CreateAllSegments@LineEffectSweep_0041e260@@QAEHH@Z"
+  ],
+  "anchor_roots": [
+    "?SetPolar@LinePolarVelocity_0041f800@@QAEPAU1@MM@Z"
   ]
 }

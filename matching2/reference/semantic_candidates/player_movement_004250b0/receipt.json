@@ -1,0 +1,39 @@
+{
+  "selected_region": "0x004250B0",
+  "source_kind": "complete ordinary C++ candidate, unselected",
+  "native_extent": 1656,
+  "retail_extent": 1656,
+  "exact": false,
+  "instruction_difference_groups": 19,
+  "different_overlapping_bytes": 363,
+  "helpers_exact_after_diagnostic_address_normalization": 10,
+  "production_source_or_manifest_changed": false,
+  "source_sha256": {
+    "types.hpp": "7dd1bb8db6cef4152bca4f65d9426f653dcd2c2f078ad4a6edad650cf16d06e9",
+    "layout.json": "9e8d1e80402a79f2d8813d8e6a8785623b4385df0a113ec4ebd73f19e62f2cce",
+    "movement.cpp": "34055a8ff6c6a8cb8c81b5b34193a25d7f55f01d5e888f418b72723766dd1e43",
+    "context.cpp": "0d841dee52954545156f5413dfbc867e4d0ac832726ffd2a79bbf6badf0fe569",
+    "allocate.cpp": "0a2663899556c357649426fcbbe20dddea88041cb0e2fe151eebe1ea8b5cc1bd",
+    "register.cpp": "d142bf8d38cb2e062a20bb3e9ad9e816f51be2aec44bdd05b9bd3039b5ea6c27",
+    "initialize.cpp": "8ab5c8bb38cc6b874d6fc682f1b3238714156f07ca502c0421b91c9587f02071",
+    "entity_init.cpp": "ade1ae50e514c07b4a9a7f39d66f01311df6a4fb91a656f9be5c0ebc413f84bc",
+    "loader.cpp": "79c7fd48250d9d9e249813b66429d3c5a9b95b68ec801be07bab04732ddd3b36",
+    "load_script.cpp": "587686ed6e7005f57328c405dcdb0a7d09bd1f7789b881cb2f518d2c7836315b",
+    "find.cpp": "436f6685215234254645d30613e4dd76ea9bca09ecd97869f5ddb5a24875c1ee",
+    "position_helpers.cpp": "acaae79ed075daccc8f0285b9d11f7588e57a67c5c2b5e57f3bc956be8029a64",
+    "measure.py": "1f07b91577088f4e546786f1679fb54a0ef4528b47115e4687f4f7b7742a4588"
+  },
+  "native_pe_sha256": "582bc37b899b1b62f9aba42e7b7a8581166edd6a2e25f538865b18a8bd02dc71",
+  "normalized_movement_sha256": "0dff114940012b47cdd7ef24377a38ef2db170a494c40973d4f75cb42a95c07d",
+  "verified_semantic_layout": {
+    "direction_bytes": 4,
+    "auxiliary_timer": "0x488",
+    "auxiliary_current_frame": "0x48C",
+    "constant_float_bindings": [
+      "0x470B00",
+      "0x470B4C",
+      "0x470B48"
+    ]
+  },
+  "normalized_movement_code_sha256": "76624e6f788f627d40e2c1e9ea95c9b1ee69509d6a03db377fa7db472dc0dae4"
+}

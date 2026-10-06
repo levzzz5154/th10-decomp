@@ -1,13 +1,13 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
-// BLOCKED (D2802): closest_byte_count=1156/1170; first_diff=0x00428630;
-// residual_class=source-shape/private-callee cluster: the readable candidate
-// had a different entry stack layout and the native-LTCG attempt remained
-// short at 1107 bytes, with both variants diverging at entry.
-// variants_tested=readable typed sweep model and native-LTCG context attempt;
-// next_lever=resolve 0x0040C480, 0x00448D00, 0x00449450, and 0x00449630
-// caller/callee register contracts before another source round.
+// Unrecovered: complete ordinary-C++ sweep with 15 genuine LTCG bodies is
+// 1171/1170 bytes, first difference 0x00428647 (total's stack slot). The frame
+// now matches retail's 64 bytes. The hit-test,
+// handle and creation conventions now arise from genuine caller/callee code.
+// Corrected record offsets and three binary32 edge stores are maintained in
+// reference/semantic_candidates/player_hit_pickup_004059f0; see the genuine
+// frame note dated 2026-10-06. No complete raw fixed-address proof or selection.
 // 0x00428630..0x00428AC1: FUN_00428630
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_FUN_00428630_00428630() {

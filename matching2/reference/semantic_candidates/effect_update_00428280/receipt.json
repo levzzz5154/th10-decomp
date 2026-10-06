@@ -1,0 +1,122 @@
+{
+  "region": "0x00428280",
+  "selected": false,
+  "source_kind": "complete ordinary C++ candidate with six complete ordinary helpers",
+  "exact": false,
+  "native_extent": 874,
+  "retail_extent": 876,
+  "different_overlapping_bytes_after_diagnostic_address_normalization": 205,
+  "missing_tail_bytes": 2,
+  "reported_instruction_groups": 3,
+  "normalized_full_body_sha256": "4f214c78d2f046668f4aa431ffb634224a3398eae253c8b554b3b515360beaa9",
+  "retail_full_body_sha256": "d40ddc6aa7a51a4c660ed7b9cba608bd14869a555ab00f1310eba6a707b50c24",
+  "native_pe_sha256": "19a09327359df9c3a094990c225fa5bdb42b391d77699402925e061576eaaab5",
+  "all_supporting_helpers_exact_after_diagnostic_address_normalization": true,
+  "supporting_helpers": [
+    {
+      "symbol": "?StopAtFrame1@Handle@@QAEXXZ",
+      "extent": 65,
+      "exact": true
+    },
+    {
+      "symbol": "?StopAtFrame3@Handle@@QAEXXZ",
+      "extent": 65,
+      "exact": true
+    },
+    {
+      "symbol": "?FindAnimation@@YIPAUAnimationObject@@PAUAnimationContext@@UAnimationId@@@Z",
+      "extent": 73,
+      "exact": true
+    },
+    {
+      "symbol": "?FlagAnimation@@YIPAXPAUAnimationContext@@UAnimationId@@@Z",
+      "extent": 66,
+      "exact": true
+    },
+    {
+      "symbol": "?Advance@Motion@@QAEXXZ",
+      "extent": 171,
+      "exact": true
+    },
+    {
+      "symbol": "?OutsideViewport@Vec3@@QBEHMM@Z",
+      "extent": 91,
+      "exact": true
+    }
+  ],
+  "source_sha256": {
+    "effect_update.cpp": "feb824791874c1dfbf5db1e227358dda576d779ebea5d4c82e0d9b34dbe46efb",
+    "effect_update.hpp": "8ee789a9d962d5bd630bbf433cde3f6805ca0084d245271191eee3a6ffbb21fa",
+    "layout.json": "cbbc20f764c52fb9b3b530beb70f34cd27dfad1a32c4f22e01da97edcde4e396",
+    "measure.py": "f4b32afd404f38d55dc6d8577f518d65a6937f8e9523c3bf0d1d9f28cb6b36b1",
+    "differential.py": "f2963d9e95815f4b21fa87e28c6b665ff88b1d8b43e4196bc6d9d51d20b99910"
+  },
+  "project_header_sha256": {
+    "include/th10/math/timer.hpp": "bbde8a2fa579bfc12bf024bd76793b319a32bf1620119789fdda13fd66950888"
+  },
+  "tool_sha256": {
+    "cl.exe": "333254d73ee602f6ec14b00e9bf40f533a1b181429943e3634971642af00c9f7",
+    "link.exe": "3e6526234cce5ce962d22f267f84f01d3c540b8ee9129c53f127c5e124fa2b20",
+    "c2.dll": "7a6f6d8e4da7b518384ff78f2c41028805d3a1d1a40dc2cc857c391ec81763f5"
+  },
+  "evidence_sha256": {
+    "evidence/ghidra_428280.c": "138def4a9d03eb8b5447d1171b68872308481197cf1460ea0df1c845ae5beab1",
+    "evidence/ghidra_4492a0.c": "3078036b9ff6fc074990ddc2e9c99960db398026cdfe6b71a5d86f8bdd0f935b",
+    "differential_receipt.json": "c72e93bacf92b3f15cb404f6a3c03389348d87161f2a73e1c651c72d05b0327a",
+    "diagnostic_comparison.json": "e01f03042ce38e6a47e4a908489469bfd7b574d17a930b11e5344af84a68b91d"
+  },
+  "reference_bytes_used_for_build": false,
+  "comparison_masks": 0,
+  "accepted_differences": 0,
+  "production_source_or_manifest_changed": false,
+  "structural_sources_sha256": {
+    "include/th10/game/entity.hpp": "5947ee3d028eb94daa460db1e5dd592b30bb8ffda2fb85311a864f0a84f641ad",
+    "include/th10/game/pause_result_open_004231d0/player/player_state.hpp": "7e94caf46785a6ca84a1ae85eb1c80647e8cab2946d60b26864b82ec93ed0bd8"
+  },
+  "prior_saved_result": {
+    "native_extent": 858,
+    "retail_extent": 876,
+    "different_overlapping_bytes_after_diagnostic_address_normalization": 803,
+    "missing_tail_bytes": 18,
+    "reported_instruction_groups": 52,
+    "normalized_full_body_sha256": "ead1a8e1c77dff5257e60437cca3349985b0b5d43597ae0a59b112b9e01061f8"
+  },
+  "access_order_recovery": {
+    "handle_word_storage": "volatile int",
+    "effect_state_storage": "volatile int",
+    "initial_state_reads": 1,
+    "late_secondary_handle_reads": 1,
+    "lookup_body_shared_between_inline_and_outlined_paths": true,
+    "retail_repeated_handle_clears_preserved": true
+  },
+  "trace_evidence_sha256": "37688db259d9ed3eb058e4ae691fda5579874f0beaadf37f344cb45e16ece9fd",
+  "trace_tool_sha256": {
+    "reference/compiler_traces/regalloc/trace_temporary_cursor.py": "a9b626c91e0066fc197bc616404fd5c0c9584db96de0b31b58ee222fffc8d5a3"
+  },
+  "all_seven_traced_bodies_equal_saved_measurement": true,
+  "call_lowering_evidence_sha256": "1e68aa5e045979806ba41801d91a00119292c1bc640ce6929581437308772ed4",
+  "measured_source_controls": 70,
+  "source_controls_sha256": "07b05920b822894cecd23fd7fad2380780e91f9ac7bec7b7ec7a4db2c482923b",
+  "differential_cases": 215,
+  "differential_scope": "Complete raw native owner with six raw native supporting helpers. Both runs execute raw retail polar/angle/CRT routines. Only real descriptor callbacks are scripted. Full player/pool state, callback ABI/order, result, callee-saved registers, RET4 and x87 stack balance compared.",
+  "prior_source_sha256_before_readability_format": {
+    "effect_update.cpp": "d76dc16da19ac8ee9fcd307a2f78c15895743a405f3e552dfeedcda4259de9d1",
+    "effect_update.hpp": "eb13801db5392a645c6b84319037b98d0101d3e75938ed81a36792845d318ded"
+  },
+  "readability_format_validation": {
+    "all_seven_complete_diagnostic_bodies_unchanged": true,
+    "body_sha256": {
+      ".text$a10stop1_body.bin": "0a35ed9851dc77170b5cf52b1c71ef867c11085930210c8d53bf64bc49b0d669",
+      ".text$a20stop3_body.bin": "a76f94561df0ba1eb7d970f8fd05a6ad8166e93bd65742df41dd7463c21df038",
+      ".text$a30update_body.bin": "4f214c78d2f046668f4aa431ffb634224a3398eae253c8b554b3b515360beaa9",
+      ".text$a40find_body.bin": "fc3dd480f30c27aa9dcf4168de57e19933d0125f22f6df88a09cc2d792ad69e9",
+      ".text$a50flag_body.bin": "9668434bd5037d2784407a0c27a697d5ca2ff03d8dff1d8cfe112ae02b584e36",
+      ".text$a60motion_body.bin": "9c40c6d9b39e51be36a5b49f37d7eaa9e251a0e38783645399e8bdb056432a9f",
+      ".text$a70bounds_body.bin": "138e273667d43985d74702f1b4fd6e5a32b2948df8cc12acb780c30e2ce4b9ce"
+    },
+    "native_text_raw_bytes": 1536,
+    "native_text_sha256": "69ff6b28b7c408569b32915b55c5c8d4937726631e7bb61957957b212c8b492a",
+    "native_text_equals_independent_primary_z_bitcopy_control": true,
+    "historical_traces_reference_prior_source_spelling": true
+  }
+}

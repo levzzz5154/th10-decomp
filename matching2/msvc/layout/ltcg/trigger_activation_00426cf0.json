@@ -1,0 +1,233 @@
+{
+  "schema_version": 1,
+  "name": "trigger_activation_00426cf0",
+  "source": "src/game/trigger_activation.cpp",
+  "driver": "layout/ltcg/trigger_activation_00426cf0/context.cpp",
+  "included_sources": [
+    "layout/ltcg/result_open_00423370/find.cpp",
+    "layout/ltcg/result_open_00423370/allocate.cpp",
+    "layout/ltcg/result_open_00423370/dispatcher_animation_helpers.cpp",
+    "layout/ltcg/trigger_activation_00426cf0/set_position.cpp",
+    "layout/ltcg/result_open_00423370/animation_manager_queue_resource_0043dc90.cpp",
+    "src/render/animation_object_load_script_0043e710.cpp"
+  ],
+  "headers": [
+    "include/th10/game/entity.hpp",
+    "include/th10/game/pause_result_open_004231d0/descriptor.hpp",
+    "include/th10/game/pause_result_open_004231d0/dispatcher_contract.hpp",
+    "include/th10/game/pause_result_open_004231d0/music.hpp",
+    "include/th10/game/pause_result_open_004231d0/open_animation.hpp",
+    "include/th10/game/pause_result_open_004231d0/open_state.hpp",
+    "include/th10/game/recovery_mark_text_and_dispatcher_004479d0.hpp",
+    "include/th10/game/runtime_selector_0043c970.hpp",
+    "include/th10/game/scheduler.hpp",
+    "include/th10/game/score.hpp",
+    "include/th10/math/timer.hpp",
+    "include/th10/platform/sound_queue.hpp",
+    "include/th10/render/resource_registrar_0043e460.hpp",
+    "include/th10/types.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Complete trigger activation with native allocation, list, position, sound-queue and script-loader contexts; only the activation is selected.",
+  "functions": [
+    {
+      "name": "ActivateField_00426cf0",
+      "symbol": "_ActivateField_00426cf0@4",
+      "section": ".text$00426cf0_fn",
+      "address": "0x00426CF0",
+      "size": 627,
+      "actual_abi": "one field pointer on the stack; RET 4"
+    }
+  ],
+  "context": {
+    "symbol": "_TriggerActivationContext@4",
+    "section": ".text$0044ba00_context",
+    "address": "0x0044BA00",
+    "size": 18,
+    "description": "Direct compiler caller; the selected stdcall entry is explicitly rooted to retain its public boundary."
+  },
+  "anchors": [
+    {
+      "name": "RegisterPrimaryBack",
+      "symbol": "?RegisterPrimaryBack@DispatcherPrimaryLists@@QAE?AUDispatcherRef@@PAUEntity@@@Z",
+      "section": ".text$004489d0_fn",
+      "address": "0x004489D0",
+      "size": 117
+    },
+    {
+      "name": "AnimationManager_Find",
+      "symbol": "?AnimationManager_Find_004491c0@@YIPAXPAUAnimationLookupContext@@UAnimationScriptId@@@Z",
+      "section": ".text$004491c0_fn",
+      "address": "0x004491C0",
+      "size": 73
+    },
+    {
+      "name": "DispatcherSetPosition",
+      "symbol": "?DispatcherSetPosition@@YGXPAUAnimationLookupContext@@PBUDispatcherVec3@@UAnimationScriptId@@@Z",
+      "section": ".text$004492f0_fn",
+      "address": "0x004492F0",
+      "size": 90
+    },
+    {
+      "name": "AnimationPool_Allocate",
+      "symbol": "?Allocate@AnimationPool@@QAEPAUEntity@@XZ",
+      "section": ".text$00449950_fn",
+      "address": "0x00449950",
+      "size": 159
+    },
+    {
+      "name": "SoundQueue_Queue",
+      "symbol": "?Queue@SoundQueue@@QAEHHH@Z",
+      "section": ".text$0043dc90_fn",
+      "address": "0x0043DC90",
+      "size": 123
+    },
+    {
+      "name": "LoadScript",
+      "symbol": "_LoadScript_0043e710@12",
+      "section": ".text$0043e710_fn",
+      "address": "0x0043E710",
+      "size": 203
+    }
+  ],
+  "gaps": [
+    {
+      "section": ".text$00401000_gap",
+      "address": "0x401000",
+      "size": 154864
+    },
+    {
+      "section": ".text$00426f63_gap",
+      "address": "0x426f63",
+      "size": 93485
+    },
+    {
+      "section": ".text$0043dd0b_gap",
+      "address": "0x43dd0b",
+      "size": 2565
+    },
+    {
+      "section": ".text$0043e7db_gap",
+      "address": "0x43e7db",
+      "size": 41461
+    },
+    {
+      "section": ".text$00448a45_gap",
+      "address": "0x448a45",
+      "size": 1915
+    },
+    {
+      "section": ".text$00449209_gap",
+      "address": "0x449209",
+      "size": 231
+    },
+    {
+      "section": ".text$0044934a_gap",
+      "address": "0x44934a",
+      "size": 1542
+    },
+    {
+      "section": ".text$004499ef_gap",
+      "address": "0x4499ef",
+      "size": 8209
+    }
+  ],
+  "constants": [],
+  "constant_aliases": [
+    {
+      "symbol": "__real@43600000",
+      "address": "0x00470B4C",
+      "value": 224.0
+    },
+    {
+      "symbol": "__real@41800000",
+      "address": "0x00470B48",
+      "value": 16.0
+    }
+  ],
+  "absolute_symbols": [
+    {
+      "symbol": "_data_00491c10",
+      "address": "0x00491C10",
+      "kind": "data"
+    },
+    {
+      "symbol": "?Entity_Constructor@@YIPAUEntity@@PAU1@@Z",
+      "address": "0x00402050",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?Entity_Init@@YGXPAUEntity@@@Z",
+      "address": "0x00401DE0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "??2@YAPAXI@Z",
+      "address": "0x00452493",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?InitializeObject@AnimationResource_00449870@@QAEXPAUEntity@@H@Z",
+      "address": "0x00449870",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__fltused",
+      "address": "0x00000000",
+      "kind": "metadata"
+    },
+    {
+      "symbol": "_data_004776f0",
+      "address": "0x4776f0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004776f4",
+      "address": "0x4776f4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00477810",
+      "address": "0x477810",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00492590",
+      "address": "0x492590",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004749ce",
+      "address": "0x4749ce",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_trigger_load_manager",
+      "address": "0x491c10",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00476f78",
+      "address": "0x476f78",
+      "kind": "data"
+    },
+    {
+      "symbol": "_asm_FUN_0043ee30_0043ee30@4",
+      "address": "0x43ee30",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_memset",
+      "address": "0x0045BED0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?Entity_Init@@YIXPAXPAUEntity@@@Z",
+      "address": "0x401de0",
+      "kind": "relative_code"
+    }
+  ],
+  "roots": [
+    "_ActivateField_00426cf0@4"
+  ]
+}

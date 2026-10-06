@@ -1,0 +1,171 @@
+{
+  "entry_symbol": "?Sweep@PickupSweepResult@@QAEHPAUPickupManager@@PBUPickupPoint@@1@Z",
+  "sources": [
+    "runtime.cpp",
+    "creation.cpp"
+  ],
+  "roots": [
+    "?Sweep@PickupSweepResult@@QAEHPAUPickupManager@@PBUPickupPoint@@1@Z"
+  ],
+  "absolute_symbols": {
+    "_data_004776ec": {
+      "address": "0x4776ec",
+      "kind": "data"
+    },
+    "_data_004776f4": {
+      "address": "0x4776f4",
+      "kind": "data"
+    },
+    "_data_00477704": {
+      "address": "0x477704",
+      "kind": "data"
+    },
+    "_data_00474c68": {
+      "address": "0x474c68",
+      "kind": "data"
+    },
+    "_data_00474c44": {
+      "address": "0x474c44",
+      "kind": "data"
+    },
+    "_data_00491c10": {
+      "address": "0x491c10",
+      "kind": "data"
+    },
+    "_data_00476f78": {
+      "address": "0x476f78",
+      "kind": "data"
+    },
+    "__fltused": {
+      "address": "0x0",
+      "kind": "data"
+    },
+    "??2@YAPAXI@Z": {
+      "address": "0x452493",
+      "kind": "code"
+    },
+    "?Entity_Constructor@@YIPAUEntity@@PAU1@@Z": {
+      "address": "0x402050",
+      "kind": "code"
+    },
+    "_asm_FUN_0043ee30_0043ee30@4": {
+      "address": "0x43ee30",
+      "kind": "code"
+    }
+  },
+  "bindings": {
+    "?HitTest@PickupPlayer@@QAEHPBUPickupPoint@@@Z": "0x4059f0",
+    "?Sweep@PickupSweepResult@@QAEHPAUPickupManager@@PBUPickupPoint@@1@Z": "0x428630",
+    "?AtInterval@PickupClock@@QAEHH@Z": "0x427c70",
+    "?Find@PickupAnimationLists@@QAEPAUPickupAnimation@@UPickupHandle@@@Z": "0x4491c0",
+    "?StopAtFrame2@PickupHandle@@QAEXXZ": "0x40c480",
+    "?Validate@PickupHandle@@QAEPAUPickupAnimation@@XZ": "0x449450",
+    "?Retire@PickupHandle@@QAEXXZ": "0x449630",
+    "@Pickup_AllocateIndicator@28": "0x427b50",
+    "__real@3f000000": "0x470b0c",
+    "__real@bf000000": "0x470b78",
+    "__real@3e000000": "0x470b90",
+    "__real@00000000": "0x470b04",
+    "?Pickup_CreatePrimaryBack@@YGPAUPickupHandle@@PAXPAU1@HH@Z": "0x448d00",
+    "_asm_AnimationManager_RegisterPrimaryBack_004489d0": "0x4489d0",
+    "?Allocate@AnimationPool@@QAEPAUEntity@@XZ": "0x449950",
+    "?InitializeObject@AnimationResource_00449870@@QAEXPAUEntity@@H@Z": "0x449870",
+    "?LoadScriptPreservingState_0043e7e0@@YGXPAUAnimationResource_0043e7e0@@PAUAnimationObject_0043e7e0@@H@Z": "0x43e7e0",
+    "?Entity_Init@@YGXPAUEntity@@@Z": "0x401de0",
+    "__real@3f800000": "0x470afc",
+    "?MarkForRemoval@PickupAnimationLists@@QAEPAXUPickupHandle@@@Z": "0x4492a0"
+  },
+  "functions": [
+    [
+      "?HitTest@PickupPlayer@@QAEHPBUPickupPoint@@@Z",
+      ".text$10hit",
+      4217328,
+      202
+    ],
+    [
+      "?Sweep@PickupSweepResult@@QAEHPAUPickupManager@@PBUPickupPoint@@1@Z",
+      ".text$20sweep",
+      4359728,
+      1170
+    ],
+    [
+      "?AtInterval@PickupClock@@QAEHH@Z",
+      ".text$30interval",
+      4357232,
+      29
+    ],
+    [
+      "?Find@PickupAnimationLists@@QAEPAUPickupAnimation@@UPickupHandle@@@Z",
+      ".text$40find",
+      4493760,
+      73
+    ],
+    [
+      "?MarkForRemoval@PickupAnimationLists@@QAEPAXUPickupHandle@@@Z",
+      ".text$50mark",
+      4493984,
+      66
+    ],
+    [
+      "?StopAtFrame2@PickupHandle@@QAEXXZ",
+      ".text$60stop",
+      4244608,
+      65
+    ],
+    [
+      "?Validate@PickupHandle@@QAEPAUPickupAnimation@@XZ",
+      ".text$70validate",
+      4494416,
+      21
+    ],
+    [
+      "?Retire@PickupHandle@@QAEXXZ",
+      ".text$80retire",
+      4494896,
+      21
+    ],
+    [
+      "@Pickup_AllocateIndicator@28",
+      ".text$90indicator",
+      4356944,
+      181
+    ],
+    [
+      "?Pickup_CreatePrimaryBack@@YGPAUPickupHandle@@PAXPAU1@HH@Z",
+      ".text$126primary",
+      4492544,
+      73
+    ],
+    [
+      "_asm_AnimationManager_RegisterPrimaryBack_004489d0",
+      ".text$70register",
+      4491728,
+      118
+    ],
+    [
+      "?Allocate@AnimationPool@@QAEPAUEntity@@XZ",
+      ".text$90allocate",
+      4495696,
+      161
+    ],
+    [
+      "?InitializeObject@AnimationResource_00449870@@QAEXPAUEntity@@H@Z",
+      ".text$127initialize",
+      4495472,
+      217
+    ],
+    [
+      "?LoadScriptPreservingState_0043e7e0@@YGXPAUAnimationResource_0043e7e0@@PAUAnimationObject_0043e7e0@@H@Z",
+      ".text$128preserve",
+      4450272,
+      194
+    ],
+    [
+      "?Entity_Init@@YGXPAUEntity@@@Z",
+      ".text$130entityinit",
+      4201952,
+      273
+    ]
+  ],
+  "description": "Unselected full real pickup sweep, hit-test, lookup/removal, indicator, creation, allocation and initialization graph. VM/operator new remain opaque; constructor uses recovered original public declaration."
+}

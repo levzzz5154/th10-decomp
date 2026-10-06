@@ -1,0 +1,100 @@
+{
+  "functions": [
+    {
+      "symbol": "?StopAtFrame1@Handle@@QAEXXZ",
+      "extent": 65,
+      "required": 65,
+      "exact": true,
+      "different_overlapping_bytes": 0,
+      "base_index_swaps": 0,
+      "hunks": []
+    },
+    {
+      "symbol": "?StopAtFrame3@Handle@@QAEXXZ",
+      "extent": 65,
+      "required": 65,
+      "exact": true,
+      "different_overlapping_bytes": 0,
+      "base_index_swaps": 0,
+      "hunks": []
+    },
+    {
+      "symbol": "_EffectPoolUpdate@4",
+      "extent": 874,
+      "required": 876,
+      "exact": false,
+      "different_overlapping_bytes": 205,
+      "base_index_swaps": 0,
+      "hunks": [
+        {
+          "offset": "0x263",
+          "retail": [
+            "mov ecx,DWORD PTR [edi+0x24]",
+            "push ecx"
+          ],
+          "model": [
+            "mov eax,DWORD PTR [edi+0x24]",
+            "push eax"
+          ]
+        },
+        {
+          "offset": "0x294",
+          "retail": [
+            "mov eax,DWORD PTR [edi-0x4]",
+            "mov DWORD PTR [ebp+0x348],eax"
+          ],
+          "model": [
+            "mov ecx,DWORD PTR [edi-0x4]",
+            "mov DWORD PTR [ebp+0x348],ecx"
+          ]
+        },
+        {
+          "offset": "0x2a4",
+          "retail": [
+            "mov ecx,eax",
+            "push ecx"
+          ],
+          "model": [
+            "push eax"
+          ]
+        }
+      ]
+    },
+    {
+      "symbol": "?FindAnimation@@YIPAUAnimationObject@@PAUAnimationContext@@UAnimationId@@@Z",
+      "extent": 73,
+      "required": 73,
+      "exact": true,
+      "different_overlapping_bytes": 0,
+      "base_index_swaps": 0,
+      "hunks": []
+    },
+    {
+      "symbol": "?FlagAnimation@@YIPAXPAUAnimationContext@@UAnimationId@@@Z",
+      "extent": 66,
+      "required": 66,
+      "exact": true,
+      "different_overlapping_bytes": 0,
+      "base_index_swaps": 0,
+      "hunks": []
+    },
+    {
+      "symbol": "?Advance@Motion@@QAEXXZ",
+      "extent": 171,
+      "required": 171,
+      "exact": true,
+      "different_overlapping_bytes": 0,
+      "base_index_swaps": 0,
+      "hunks": []
+    },
+    {
+      "symbol": "?OutsideViewport@Vec3@@QBEHMM@Z",
+      "extent": 91,
+      "required": 91,
+      "exact": true,
+      "different_overlapping_bytes": 0,
+      "base_index_swaps": 0,
+      "hunks": []
+    }
+  ]
+}

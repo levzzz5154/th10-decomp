@@ -1,491 +1,145 @@
-// Complete behavioral recovery: reference/semantic_candidates/sound_device_init.cpp.
-// 354 individual comparisons and 30 integrated startup scenarios pass. See
-// recovery_notes/sound_device_init_0043cd30.md; native frame/bytes remain pending.
-// The old DirectInput terminology below predates the typed DirectSound recovery.
-// BLOCKED (H2701): closest_byte_count=786; first_diff=unmeasured;
-// residual_class=abi/source_shape: live Ghidra identifies the startup worker
-// caller FUN_0043CCF0 (xref 0x0043CCFB), with callees Ordinal_11,
-// FUN_0044B810, FUN_0043D390, operator_new/free, FUN_0044C7E0, SetTimer,
-// and the security-cookie helper. Retail keeps ECX as the device object,
-// HWND on the stack (RET 4), and a 0x2000-dword clear beside fixed stack
-// structs and DirectInput vtable calls.
-// variants_tested=exact retail naked wrapper, readable DirectInput/device-init
-// reconstruction, explicit zeroed-buffer/vtable model, and the StartAddress
-// caller cluster shape; MSVC 13.10 baseline probe is exact (786/786), but no
-// compiler-readable candidate was linked.
-// next_lever=co-compile the real FUN_0043CCF0 startup caller, DirectInput
-// interfaces, and device state layout in one native-LTCG cluster while
-// retaining RET 4 and the cookie failure exits.
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+// Behavioral recovery of the 786-byte initializer at 0x0043CD30. This typed
+// method retains its ECX receiver and one stack window argument (RET 4).
+#include "th10/platform/sound_wave_load.hpp"
+#include <string.h>
 
-// 0x0043CD30..0x0043CF56: FUN_0043cd30
-// Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_0043cd30_0043cd30() {
-    __asm {
-    L_0043cd30:
-        sub esp,4Ch
-    L_0043cd33:
-        mov eax,dword ptr [data_00473660]
-    L_0043cd38:
-        xor eax,esp
-    L_0043cd3a:
-        mov dword ptr [esp+48h],eax
-    L_0043cd3e:
-        or eax,0FFFFFFFFh
-    L_0043cd41:
-        push ebp
-    L_0043cd42:
-        push esi
-    L_0043cd43:
-        mov esi,ecx
-    L_0043cd45:
-        mov ebp,dword ptr [esp+58h]
-    L_0043cd49:
-        push edi
-    L_0043cd4a:
-        lea edi,[esi+408h]
-    L_0043cd50:
-        mov ecx,80h
-    L_0043cd55:
-        rep stosd
-    L_0043cd57:
-        or eax,0FFFFFFFFh
-    L_0043cd5a:
-        mov dword ptr [esi+620h],eax
-    L_0043cd60:
-        mov dword ptr [esi+624h],eax
-    L_0043cd66:
-        mov dword ptr [esi+628h],eax
-    L_0043cd6c:
-        mov dword ptr [esi+62Ch],eax
-    L_0043cd72:
-        mov dword ptr [esi+630h],eax
-    L_0043cd78:
-        mov dword ptr [esi+634h],eax
-    L_0043cd7e:
-        mov dword ptr [esi+638h],eax
-    L_0043cd84:
-        mov dword ptr [esi+63Ch],eax
-    L_0043cd8a:
-        mov dword ptr [esi+640h],eax
-    L_0043cd90:
-        mov dword ptr [esi+644h],eax
-    L_0043cd96:
-        mov dword ptr [esi+648h],eax
-    L_0043cd9c:
-        push 4
-    L_0043cd9e:
-        mov dword ptr [esi+64Ch],eax
-    L_0043cda4:
-        call asm_operator_new_00452493
-    L_0043cda9:
-        add esp,4
-    L_0043cdac:
-        test eax,eax
-    L_0043cdae:
-        je short L_0043cdba
-    L_0043cdb0:
-        mov dword ptr [eax],0
-    L_0043cdb6:
-        mov edi,eax
-    L_0043cdb8:
-        jmp short L_0043cdbc
-    L_0043cdba:
-        xor edi,edi
-    L_0043cdbc:
-        mov dword ptr [esi+610h],edi
-    L_0043cdc2:
-        mov eax,dword ptr [edi]
-    L_0043cdc4:
-        test eax,eax
-    L_0043cdc6:
-        je short L_0043cdd4
-    L_0043cdc8:
-        mov ecx,dword ptr [eax]
-    L_0043cdca:
-        push eax
-    L_0043cdcb:
-        call dword ptr [ecx+8]
-    L_0043cdce:
-        mov dword ptr [edi],0
-    L_0043cdd4:
-        push 0
-    L_0043cdd6:
-        push edi
-    L_0043cdd7:
-        push 0
-    L_0043cdd9:
-        call asm_Ordinal_11_00452170
-    L_0043cdde:
-        test eax,eax
-    L_0043cde0:
-        jl asm_target_0043cfb8
-    L_0043cde6:
-        mov eax,dword ptr [edi]
-    L_0043cde8:
-        mov edx,dword ptr [eax]
-    L_0043cdea:
-        push 2
-    L_0043cdec:
-        push ebp
-    L_0043cded:
-        push eax
-    L_0043cdee:
-        call dword ptr [edx+18h]
-    L_0043cdf1:
-        test eax,eax
-    L_0043cdf3:
-        jl asm_target_0043cfb8
-    L_0043cdf9:
-        push ebx
-    L_0043cdfa:
-        push edi
-    L_0043cdfb:
-        mov ecx,10h
-    L_0043ce00:
-        mov edi,0AC44h
-    L_0043ce05:
-        mov ebx,2
-    L_0043ce0a:
-        call asm_Input_SetJoystickPropertyRetail_0044c7e0
-    L_0043ce0f:
-        mov edx,dword ptr [esi+610h]
-    L_0043ce15:
-        mov eax,dword ptr [edx]
-    L_0043ce17:
-        xor ecx,ecx
-    L_0043ce19:
-        mov dword ptr [esp+34h],ecx
-    L_0043ce1d:
-        mov dword ptr [esp+38h],ecx
-    L_0043ce21:
-        mov dword ptr [esp+3Ch],ecx
-    L_0043ce25:
-        xor edx,edx
-    L_0043ce27:
-        mov dword ptr [esp+14h],edx
-    L_0043ce2b:
-        mov dword ptr [esp+40h],ecx
-    L_0043ce2f:
-        mov dword ptr [esp+18h],edx
-    L_0043ce33:
-        mov dword ptr [esp+44h],ecx
-    L_0043ce37:
-        mov dword ptr [esp+1Ch],edx
-    L_0043ce3b:
-        mov dword ptr [esp+20h],edx
-    L_0043ce3f:
-        xor edi,edi
-    L_0043ce41:
-        mov dword ptr [esp+48h],ecx
-    L_0043ce45:
-        mov dword ptr [esi],eax
-    L_0043ce47:
-        mov word ptr [esp+16h],bx
-    L_0043ce4c:
-        push edi
-    L_0043ce4d:
-        mov word ptr [esp+28h],dx
-    L_0043ce52:
-        mov dword ptr [esp+50h],ecx
-    L_0043ce56:
-        lea eax,[esp+18h]
-    L_0043ce5a:
-        lea ebx,[esi+608h]
-    L_0043ce60:
-        push ebx
-    L_0043ce61:
-        mov dword ptr [esp+58h],ecx
-    L_0043ce65:
-        mov dword ptr [esp+4Ch],eax
-    L_0043ce69:
-        mov eax,dword ptr [esi]
-    L_0043ce6b:
-        lea edx,[esp+3Ch]
-    L_0043ce6f:
-        push edx
-    L_0043ce70:
-        mov dword ptr [esi+618h],edi
-    L_0043ce76:
-        mov dword ptr [esp+60h],ecx
-    L_0043ce7a:
-        mov dword ptr [esp+40h],24h
-    L_0043ce82:
-        mov dword ptr [esp+44h],8008h
-    L_0043ce8a:
-        mov dword ptr [esp+48h],8000h
-    L_0043ce92:
-        mov word ptr [esp+30h],di
-    L_0043ce97:
-        mov word ptr [esp+20h],1
-    L_0043ce9e:
-        mov dword ptr [esp+24h],0AC44h
-    L_0043cea6:
-        mov dword ptr [esp+28h],2B110h
-    L_0043ceae:
-        mov word ptr [esp+2Ch],4
-    L_0043ceb5:
-        mov word ptr [esp+2Eh],10h
-    L_0043cebc:
-        mov ecx,dword ptr [eax]
-    L_0043cebe:
-        push eax
-    L_0043cebf:
-        call dword ptr [ecx+0Ch]
-    L_0043cec2:
-        test eax,eax
-    L_0043cec4:
-        jl asm_target_0043d02a
-    L_0043ceca:
-        mov eax,dword ptr [ebx]
-    L_0043cecc:
-        mov ecx,dword ptr [eax]
-    L_0043cece:
-        push edi
-    L_0043cecf:
-        lea edx,[esp+30h]
-    L_0043ced3:
-        push edx
-    L_0043ced4:
-        lea edx,[esp+30h]
-    L_0043ced8:
-        push edx
-    L_0043ced9:
-        lea edx,[esp+3Ch]
-    L_0043cedd:
-        push edx
-    L_0043cede:
-        lea edx,[esp+20h]
-    L_0043cee2:
-        push edx
-    L_0043cee3:
-        push 8000h
-    L_0043cee8:
-        push edi
-    L_0043cee9:
-        push eax
-    L_0043ceea:
-        call dword ptr [ecx+2Ch]
-    L_0043ceed:
-        test eax,eax
-    L_0043ceef:
-        jl asm_target_0043d02a
-    L_0043cef5:
-        mov edi,dword ptr [esp+10h]
-    L_0043cef9:
-        xor eax,eax
-    L_0043cefb:
-        mov ecx,2000h
-    L_0043cf00:
-        rep stosd
-    L_0043cf02:
-        mov edx,dword ptr [esp+2Ch]
-    L_0043cf06:
-        mov eax,dword ptr [ebx]
-    L_0043cf08:
-        mov ecx,dword ptr [eax]
-    L_0043cf0a:
-        push edx
-    L_0043cf0b:
-        mov edx,dword ptr [esp+2Ch]
-    L_0043cf0f:
-        push edx
-    L_0043cf10:
-        mov edx,dword ptr [esp+38h]
-    L_0043cf14:
-        push edx
-    L_0043cf15:
-        mov edx,dword ptr [esp+1Ch]
-    L_0043cf19:
-        push edx
-    L_0043cf1a:
-        push eax
-    L_0043cf1b:
-        call dword ptr [ecx+4Ch]
-    L_0043cf1e:
-        mov ebx,dword ptr [ebx]
-    L_0043cf20:
-        mov eax,dword ptr [ebx]
-    L_0043cf22:
-        push 1
-    L_0043cf24:
-        push 0
-    L_0043cf26:
-        push 0
-    L_0043cf28:
-        push ebx
-    L_0043cf29:
-        call dword ptr [eax+30h]
-    L_0043cf2c:
-        push 0
-    L_0043cf2e:
-        push 0FAh
-    L_0043cf33:
-        mov eax,64h
-    L_0043cf38:
-        push 0
-    L_0043cf3a:
-        push ebp
-    L_0043cf3b:
-        mov dword ptr [esi+52C4h],eax
-    L_0043cf41:
-        mov dword ptr [esi+52C8h],eax
-    L_0043cf47:
-        call dword ptr [data_00466218]
-    L_0043cf4d:
-        mov dword ptr [esi+60Ch],ebp
-    L_0043cf53:
-        xor esi,esi
-    L_0043cf55:
-        TH10_REL8(0xeb, 0x0043cf55, VA_asm_FUN_0043cd30_part_0043cf60)
-        _emit 0x8d
-        _emit 0xa4
-        _emit 0x24
-        _emit 0x00
-        _emit 0x00
-        _emit 0x00
-        _emit 0x00
-        _emit 0x8b
-        _emit 0xff
+typedef unsigned int (__stdcall* SoundSetTimer)(void* window, unsigned int id,
+    unsigned int milliseconds, void* callback);
 
-    L_0043cf60:
-        cmp dword ptr [data_004977b4],2
-    L_0043cf67:
-        je asm_target_0043d02a
-    L_0043cf6d:
-        mov ecx,dword ptr [esi*4+474B40h]
-    L_0043cf74:
-        push ecx
-    L_0043cf75:
-        mov ecx,esi
-    L_0043cf77:
-        mov edx,492590h
-    L_0043cf7c:
-        call asm_FUN_0043d390_0043d390
-    L_0043cf81:
-        test eax,eax
-    L_0043cf83:
-        jne asm_target_0043d010
-    L_0043cf89:
-        inc esi
-    L_0043cf8a:
-        cmp esi,25h
-    L_0043cf8d:
-        jl short L_0043cf60
-    L_0043cf8f:
-        push 46FDACh
-    L_0043cf94:
-        mov ecx,474F70h
-    L_0043cf99:
-        call asm_TextLog_Append_0044b810
-    L_0043cf9e:
-        add esp,4
-    L_0043cfa1:
-        pop ebx
-    L_0043cfa2:
-        pop edi
-    L_0043cfa3:
-        pop esi
-    L_0043cfa4:
-        xor eax,eax
-    L_0043cfa6:
-        pop ebp
-    L_0043cfa7:
-        mov ecx,dword ptr [esp+48h]
-    L_0043cfab:
-        xor ecx,esp
-    L_0043cfad:
-        call asm_security_check_cookie_00458ea5
-    L_0043cfb2:
-        add esp,4Ch
-    L_0043cfb5:
-        ret 4
-    L_0043cfb8:
-        push 46FE0Ch
-    L_0043cfbd:
-        mov ecx,474F70h
-    L_0043cfc2:
-        call asm_TextLog_Append_0044b810
-    L_0043cfc7:
-        mov edi,dword ptr [esi+610h]
-    L_0043cfcd:
-        add esp,4
-    L_0043cfd0:
-        test edi,edi
-    L_0043cfd2:
-        je short L_0043cff9
-    L_0043cfd4:
-        mov eax,dword ptr [edi]
-    L_0043cfd6:
-        test eax,eax
-    L_0043cfd8:
-        je short L_0043cfe6
-    L_0043cfda:
-        mov ecx,dword ptr [eax]
-    L_0043cfdc:
-        push eax
-    L_0043cfdd:
-        call dword ptr [ecx+8]
-    L_0043cfe0:
-        mov dword ptr [edi],0
-    L_0043cfe6:
-        push edi
-    L_0043cfe7:
-        call asm_free_004524a1
-    L_0043cfec:
-        add esp,4
-    L_0043cfef:
-        mov dword ptr [esi+610h],0
-    L_0043cff9:
-        pop edi
-    L_0043cffa:
-        pop esi
-    L_0043cffb:
-        or eax,0FFFFFFFFh
-    L_0043cffe:
-        pop ebp
-    L_0043cfff:
-        mov ecx,dword ptr [esp+48h]
-    L_0043d003:
-        xor ecx,esp
-    L_0043d005:
-        call asm_security_check_cookie_00458ea5
-    L_0043d00a:
-        add esp,4Ch
-    L_0043d00d:
-        ret 4
-    L_0043d010:
-        mov edx,dword ptr [esi*4+474B40h]
-    L_0043d017:
-        push edx
-    L_0043d018:
-        push 46FDD4h
-    L_0043d01d:
-        mov ecx,474F70h
-    L_0043d022:
-        call asm_TextLog_Append_0044b810
-    L_0043d027:
-        add esp,8
-    L_0043d02a:
-        mov ecx,dword ptr [esp+58h]
-    L_0043d02e:
-        pop ebx
-    L_0043d02f:
-        pop edi
-    L_0043d030:
-        pop esi
-    L_0043d031:
-        pop ebp
-    L_0043d032:
-        xor ecx,esp
-    L_0043d034:
-        or eax,0FFFFFFFFh
-    L_0043d037:
-        call asm_security_check_cookie_00458ea5
-    L_0043d03c:
-        add esp,4Ch
-    L_0043d03f:
-        ret 4
-    }
+extern "C" {
+    void __cdecl asm_free_004524a1(void* memory);
+    int __stdcall Ordinal_11_00452170(const void* device_id,
+        WaveDirectSoundDevice** output, void* outer);
+    __declspec(noinline) int __stdcall Sound_SetPrimaryFormat_0044c7e0(unsigned short channels,
+        unsigned int rate, unsigned short bits, WaveDirectSoundDevice** owner);
+    extern SoundSetTimer g_sound_set_timer;
+    extern WaveSoundManager g_wave_sound_manager;
+    extern const char* g_sound_preload_names[37];
+    extern char g_sound_initialize_error[];
+    extern char g_sound_initialize_ready[];
+    extern char g_sound_preload_error[];
 }
+
+extern "C" __declspec(noinline) int __stdcall NativeWave_LoadPending(WaveSoundManager*, int, const char*);
+
+struct SoundDeviceOwner {
+    WaveDirectSoundDevice* device;
+    SoundDeviceOwner() : device(0) {}
+    __forceinline int Configure(void* target_window, unsigned int level,
+            unsigned short bits, unsigned short channels, unsigned int rate) {
+        WaveDirectSoundDevice* current = device;
+        if (current) {
+            current->methods->release(current);
+            device = 0;
+        }
+        int result = Ordinal_11_00452170(0, &device, 0);
+        if (result >= 0) {
+            current = device;
+            result = current->methods->set_cooperative_level(current, target_window, level);
+            if (result >= 0) {
+                Sound_SetPrimaryFormat_0044c7e0(channels, rate, bits, &device);
+                result = 0;
+            }
+        }
+        return result;
+    }
+};
+
+typedef char SoundDeviceOwnerSize[sizeof(SoundDeviceOwner) == 0x4 ? 1 : -1];
+typedef char SoundDeviceOwnerDevice[offsetof(SoundDeviceOwner, device) == 0x0 ? 1 : -1];
+typedef char SoundInitHandles[offsetof(WaveSoundManager, sound_handles) == 0x408 ? 1 : -1];
+typedef char SoundInitStreamBuffer[offsetof(WaveSoundManager, stream_buffer) == 0x608 ? 1 : -1];
+typedef char SoundInitWindow[offsetof(WaveSoundManager, window) == 0x60C ? 1 : -1];
+typedef char SoundInitDeviceOwner[offsetof(WaveSoundManager, device_owner) == 0x610 ? 1 : -1];
+typedef char SoundInitCursor[offsetof(WaveSoundManager, stream_cursor) == 0x618 ? 1 : -1];
+typedef char SoundInitMusicHandles[offsetof(WaveSoundManager, music_handles) == 0x620 ? 1 : -1];
+typedef char SoundInitVolumeA[offsetof(WaveSoundManager, volume_a) == 0x52C4 ? 1 : -1];
+typedef char SoundInitVolumeB[offsetof(WaveSoundManager, volume_b) == 0x52C8 ? 1 : -1];
+typedef char SoundInitCooperativeSlot[offsetof(WaveDeviceMethods, set_cooperative_level) == 0x18 ? 1 : -1];
+typedef char SoundInitCreateBufferSlot[offsetof(WaveDeviceMethods, create_buffer) == 0xC ? 1 : -1];
+typedef char SoundInitLockSlot[offsetof(WaveBufferMethods, lock) == 0x2C ? 1 : -1];
+typedef char SoundInitPlaySlot[offsetof(WaveBufferMethods, play) == 0x30 ? 1 : -1];
+typedef char SoundInitUnlockSlot[offsetof(WaveBufferMethods, unlock) == 0x4C ? 1 : -1];
+
+#pragma code_seg(".text$0043cd30_fn")
+__declspec(noinline) int WaveSoundManager::Initialize(void* target_window) {
+    for (unsigned int index = 0; index < 128; ++index)
+        sound_handles[index] = -1;
+    for (unsigned int index = 0; index < 12; ++index)
+        music_handles[index] = -1;
+
+    SoundDeviceOwner* allocated = new SoundDeviceOwner;
+    WaveDirectSoundDevice** owner = reinterpret_cast<WaveDirectSoundDevice**>(allocated);
+    device_owner = owner;
+    // Retail dereferences the newly allocated cell even if allocation failed.
+    if (allocated->Configure(target_window, 2, 16, 2, 44100) < 0) {
+        g_wave_error_log.Append(g_sound_initialize_error);
+        // Logging may replace the manager's owner cell. Cleanup uses its
+        // current cell, then clears the manager after freeing that cell.
+        owner = device_owner;
+        if (owner) {
+            WaveDirectSoundDevice* owned_device = *owner;
+            if (owned_device) {
+                owned_device->methods->release(owned_device);
+                *owner = 0;
+            }
+            asm_free_004524a1(owner);
+            device_owner = 0;
+        }
+        return -1;
+    }
+
+    device = *device_owner;
+    stream_cursor = 0;
+    WaveBufferDescription description = {};
+    WaveFormatImage format = {};
+    description.size = sizeof description;
+    description.flags = 0x8008;
+    description.bytes = 0x8000;
+    description.format = &format;
+    format.extra_bytes = 0;
+    format.tag = 1;
+    format.channels = 2;
+    format.sample_rate = 44100;
+    format.average_bytes_per_second = 176400;
+    format.block_alignment = 4;
+    format.bits_per_sample = 16;
+    WaveDirectSoundDevice* stream_device = device;
+    if (stream_device->methods->create_buffer(stream_device, &description, &stream_buffer, 0) < 0)
+        return -1;
+
+    unsigned char* first;
+    unsigned char* second;
+    unsigned int first_bytes;
+    unsigned int second_bytes;
+    WaveSecondaryBuffer* buffer = stream_buffer;
+    if (buffer->methods->lock(buffer, 0, 0x8000, &first, &first_bytes, &second, &second_bytes, 0) < 0)
+        return -1;
+
+    // The first span always receives 0x2000 dword stores. Reported lock
+    // lengths and a possible second span do not change this clear.
+    memset(first, 0, 0x8000);
+    buffer = stream_buffer;
+    buffer->methods->unlock(buffer, first, first_bytes, second, second_bytes);
+    buffer = stream_buffer;
+    buffer->methods->play(buffer, 0, 0, 1);
+    volume_a = 100;
+    volume_b = 100;
+    g_sound_set_timer(target_window, 0, 250, 0);
+    window = target_window;
+
+    for (int index = 0; index < 37; ++index) {
+        if (g_sound_shutdown_state == 2)
+            return -1;
+        // This call intentionally uses the global manager, not this receiver.
+        if (NativeWave_LoadPending(&g_wave_sound_manager, index,
+                                   g_sound_preload_names[index])) {
+            g_wave_error_log.Append(g_sound_preload_error, g_sound_preload_names[index]);
+            return -1;
+        }
+    }
+    g_wave_error_log.Append(g_sound_initialize_ready);
+    return 0;
+}
+
+#pragma code_seg()

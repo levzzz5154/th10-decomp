@@ -1,29 +1,22 @@
 {
   "schema_version": 1,
   "name": "position_setter_pair",
-  "source": "src/render/animation_manager_set_position_004492f0.cpp",
+  "source": "src/render/animation_manager_set_translated_position_00449350.cpp",
   "additional_sources": [
-    "src/render/animation_manager_set_translated_position_00449350.cpp",
+    "layout/ltcg/position_setter_translated_unit.cpp",
     "src/unidentified/unassigned_anim_setters_00449.cpp"
   ],
   "included_sources": [
-    "layout/ltcg/position_setter_find_anchor.cpp"
+    "layout/ltcg/position_setter_find_anchor.cpp",
+    "src/render/animation_manager_set_position_004492f0.cpp"
   ],
   "driver": "layout/ltcg/position_setter_pair_context.cpp",
   "headers": [
     "include/th10/render/position_setter_pair.hpp"
   ],
   "image_base": "0x00400000",
-  "description": "Position setters with compiler-visible animation lookup and a shared long-lived position context.",
+  "description": "Position setters with compiler-visible animation lookup and a shared long-lived position context. Selected ownership of the movement helper moved to the genuine 40-function player graph. Its original complete body remains an unselected anchor here; the remaining legacy compiler context is unchanged.",
   "functions": [
-    {
-      "name": "SetAnimationPosition_004492f0",
-      "symbol": "?SetAnimationPosition_004492f0@@YIXPAUPositionLookupContext_004492f0@@PBUPositionVector_004492f0@@UPositionScriptId_004492f0@@@Z",
-      "section": ".text$30position",
-      "address": "0x004492F0",
-      "size": 90,
-      "actual_abi": "position in ESI; context in EDX; aggregate id on stack; RET4"
-    },
     {
       "name": "SetAnimationTranslatedPosition_00449350",
       "source": "src/render/animation_manager_set_translated_position_00449350.cpp",
@@ -66,6 +59,13 @@
       "section": ".text$10find",
       "address": "0x004491C0",
       "size": 73
+    },
+    {
+      "name": "SetAnimationPosition_004492f0",
+      "symbol": "?SetAnimationPosition_004492f0@@YIXPAUPositionLookupContext_004492f0@@PBUPositionVector_004492f0@@UPositionScriptId_004492f0@@@Z",
+      "section": ".text$30position",
+      "address": "0x004492F0",
+      "size": 90
     }
   ],
   "gaps": [

@@ -38,3 +38,12 @@ the named-card branch allocates registers differently.
   argument, and retail pushes it.
 
 The candidate source is kept in `reference/semantic_candidates/title_spell_list_00432690.cpp`.
+
+2026-10-06: a new complete three-unit native graph measures the retained
+candidate at 834/850 bytes, and the earlier-manager order at 850/850 with
+register and stack-home differences. The formatter and dispatcher both
+match exactly. The smaller graph also changes the blank-loop counter and
+masked path, so the branch-level observations above describe the earlier
+larger cluster only. The shared header's missing member declaration has
+been repaired. See `title_spell_list_native_2026_10_06.md` and the tracked
+`reference/semantic_candidates/title_spell_list_00432690/probe.py`.

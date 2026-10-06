@@ -1,0 +1,694 @@
+{
+  "diagnostic_only": true,
+  "mode": "ordinary",
+  "reference_bytes_used_for_build": false,
+  "functions": [
+    {
+      "symbol": "@JoystickReadBindings@12",
+      "extent": 832,
+      "required": 833,
+      "exact": false,
+      "different_overlapping_bytes": 705,
+      "normalized_full_body_sha256": "f3e013202c75921bb381b1555e329b743d244f1800dde31522dd6b89804d844e",
+      "retail_full_body_sha256": "d6c563e2da06c84e64efe7b6485615df286cf86cd042ccae9403cbb0c61ba500",
+      "base_index_swaps": 0,
+      "hunks": [
+        {
+          "offset": "0x11",
+          "retail": [],
+          "model": [
+            "push ebx",
+            "push esi",
+            "mov esi,DWORD PTR [ebp+0x8]",
+            "imul esi,esi,0x6a"
+          ]
+        },
+        {
+          "offset": "0x13",
+          "retail": [
+            "mov DWORD PTR [esp+0x150],eax",
+            "mov eax,DWORD PTR [ebp+0x8]",
+            "imul eax,eax,0x6a",
+            "add eax,0x474e30",
+            "push ebx",
+            "mov ebx,eax"
+          ],
+          "model": [
+            "mov DWORD PTR [esp+0x158],eax"
+          ]
+        },
+        {
+          "offset": "0x2d",
+          "retail": [],
+          "model": [
+            "mov ebx,ecx",
+            "add esi,0x474e30"
+          ]
+        },
+        {
+          "offset": "0x30",
+          "retail": [
+            "push esi"
+          ],
+          "model": []
+        },
+        {
+          "offset": "0x32",
+          "retail": [
+            "mov esi,ecx"
+          ],
+          "model": [
+            "mov DWORD PTR [esp+0x10],ebx"
+          ]
+        },
+        {
+          "offset": "0x47",
+          "retail": [
+            "mov edi,DWORD PTR [ebp+0xc]",
+            "xor ecx,ecx",
+            "test edi,edi",
+            "setne cl",
+            "lea eax,[esp+0x14]",
+            "push eax"
+          ],
+          "model": [
+            "mov eax,DWORD PTR [ebp+0xc]",
+            "xor edx,edx",
+            "test eax,eax",
+            "setne dl",
+            "lea ecx,[esp+0x14]",
+            "push ecx"
+          ]
+        },
+        {
+          "offset": "0x66",
+          "retail": [
+            "push ecx"
+          ],
+          "model": [
+            "push edx"
+          ]
+        },
+        {
+          "offset": "0x6f",
+          "retail": [
+            "jne L+0x232"
+          ],
+          "model": [
+            "jne L+0x1fd"
+          ]
+        },
+        {
+          "offset": "0x75",
+          "retail": [
+            "mov cx,WORD PTR [ebx+0x58]"
+          ],
+          "model": [
+            "mov cx,WORD PTR [esi+0x58]"
+          ]
+        },
+        {
+          "offset": "0x7c",
+          "retail": [
+            "mov edx,DWORD PTR [esp+0x34]"
+          ],
+          "model": [
+            "mov eax,DWORD PTR [esp+0x34]"
+          ]
+        },
+        {
+          "offset": "0x80",
+          "retail": [
+            "jl L+0x93"
+          ],
+          "model": [
+            "jl L+0x9a"
+          ]
+        },
+        {
+          "offset": "0x82",
+          "retail": [
+            "mov eax,0x1",
+            "shl eax,cl",
+            "and eax,edx",
+            "neg eax",
+            "sbb eax,eax",
+            "neg eax",
+            "or esi,eax",
+            "mov cx,WORD PTR [ebx+0x5a]"
+          ],
+          "model": [
+            "mov edx,0x1",
+            "shl edx,cl",
+            "and edx,eax",
+            "neg edx",
+            "sbb edx,edx",
+            "neg edx",
+            "or ebx,edx",
+            "mov DWORD PTR [esp+0x10],ebx",
+            "mov cx,WORD PTR [esi+0x5a]"
+          ]
+        },
+        {
+          "offset": "0x9a",
+          "retail": [
+            "jl L+0xae"
+          ],
+          "model": [
+            "jl L+0xb9"
+          ]
+        },
+        {
+          "offset": "0x9c",
+          "retail": [
+            "mov eax,0x1",
+            "shl eax,cl",
+            "and eax,edx",
+            "neg eax",
+            "sbb eax,eax",
+            "and eax,0x2",
+            "or esi,eax",
+            "mov cx,WORD PTR [ebx+0x5e]"
+          ],
+          "model": [
+            "mov edx,0x1",
+            "shl edx,cl",
+            "and edx,eax",
+            "neg edx",
+            "sbb edx,edx",
+            "and edx,0x2",
+            "or ebx,edx",
+            "mov DWORD PTR [esp+0x10],ebx",
+            "mov cx,WORD PTR [esi+0x5e]"
+          ]
+        },
+        {
+          "offset": "0xb5",
+          "retail": [
+            "jl L+0xc9"
+          ],
+          "model": [
+            "jl L+0xd8"
+          ]
+        },
+        {
+          "offset": "0xb7",
+          "retail": [
+            "mov eax,0x1",
+            "shl eax,cl",
+            "and eax,edx",
+            "neg eax",
+            "sbb eax,eax",
+            "and eax,0x8",
+            "or esi,eax",
+            "mov cx,WORD PTR [ebx+0x5c]"
+          ],
+          "model": [
+            "mov edx,0x1",
+            "shl edx,cl",
+            "and edx,eax",
+            "neg edx",
+            "sbb edx,edx",
+            "and edx,0x8",
+            "or ebx,edx",
+            "mov DWORD PTR [esp+0x10],ebx",
+            "mov cx,WORD PTR [esi+0x5c]"
+          ]
+        },
+        {
+          "offset": "0xd0",
+          "retail": [
+            "jl L+0xe4"
+          ],
+          "model": [
+            "jl L+0xf7"
+          ]
+        },
+        {
+          "offset": "0xd2",
+          "retail": [
+            "mov eax,0x1",
+            "shl eax,cl",
+            "and eax,edx",
+            "neg eax",
+            "sbb eax,eax",
+            "and eax,0x4",
+            "or esi,eax",
+            "mov bx,WORD PTR [ebx+0x68]",
+            "test bx,bx"
+          ],
+          "model": [
+            "mov edx,0x1",
+            "shl edx,cl",
+            "and edx,eax",
+            "neg edx",
+            "sbb edx,edx",
+            "and edx,0x4",
+            "or ebx,edx",
+            "mov DWORD PTR [esp+0x10],ebx",
+            "mov cx,WORD PTR [esi+0x68]",
+            "test cx,cx"
+          ]
+        },
+        {
+          "offset": "0xed",
+          "retail": [
+            "mov eax,0x1",
+            "mov cl,bl",
+            "shl eax,cl",
+            "and eax,edx",
+            "neg eax",
+            "sbb eax,eax",
+            "and eax,0x100",
+            "or esi,eax"
+          ],
+          "model": [
+            "mov edx,0x1",
+            "shl edx,cl",
+            "and edx,eax",
+            "neg edx",
+            "sbb edx,edx",
+            "and edx,0x100",
+            "or ebx,edx",
+            "mov DWORD PTR [esp+0x10],ebx"
+          ]
+        },
+        {
+          "offset": "0x10c",
+          "retail": [
+            "mov edx,DWORD PTR [eax+0x4918e0]",
+            "mov edi,DWORD PTR [eax+0x4918dc]",
+            "mov ebx,DWORD PTR [eax+0x4918e0]",
+            "mov ecx,edx",
+            "sub ecx,edi",
+            "add edi,edx",
+            "mov edx,DWORD PTR [esp+0x1c]"
+          ],
+          "model": [
+            "add eax,0x4918b8",
+            "mov edi,DWORD PTR [eax+0x28]",
+            "mov ebx,DWORD PTR [eax+0x24]",
+            "mov esi,DWORD PTR [eax+0x30]",
+            "mov eax,DWORD PTR [eax+0x2c]",
+            "mov ecx,edi",
+            "sub ecx,ebx",
+            "add edi,ebx",
+            "mov ebx,DWORD PTR [esp+0x1c]",
+            "shr ecx,0x2"
+          ]
+        },
+        {
+          "offset": "0x12a",
+          "retail": [
+            "shr ecx,0x2",
+            "add edi,ecx",
+            "cmp edi,edx"
+          ],
+          "model": [
+            "mov edx,esi",
+            "sub edx,eax",
+            "add esi,eax",
+            "lea eax,[edi+ecx*1]",
+            "shr edx,0x2",
+            "shr esi,1",
+            "cmp eax,ebx",
+            "sbb eax,eax",
+            "sub edi,ecx",
+            "and eax,0x80",
+            "mov ecx,ebx",
+            "cmp ecx,edi",
+            "sbb ecx,ecx",
+            "and ecx,0x40",
+            "or eax,ecx",
+            "mov ecx,DWORD PTR [esp+0x20]",
+            "lea edi,[esi+edx*1]",
+            "cmp edi,ecx"
+          ]
+        },
+        {
+          "offset": "0x133",
+          "retail": [
+            "add ebx,DWORD PTR [eax+0x4918dc]",
+            "and edi,0x80",
+            "shr ebx,1",
+            "sub ebx,ecx",
+            "cmp edx,ebx"
+          ],
+          "model": [
+            "and edi,0x20",
+            "sub esi,edx",
+            "or eax,edi",
+            "cmp ecx,esi",
+            "mov ecx,DWORD PTR [esp+0x10]"
+          ]
+        },
+        {
+          "offset": "0x147",
+          "retail": [
+            "and edx,0x40",
+            "or edi,edx",
+            "mov edx,DWORD PTR [eax+0x4918e8]",
+            "or esi,edi",
+            "mov edi,DWORD PTR [eax+0x4918e4]",
+            "mov ebx,edi",
+            "add ebx,edx",
+            "mov ecx,edx",
+            "sub ecx,edi",
+            "shr ecx,0x2",
+            "shr ebx,1",
+            "sub ebx,ecx",
+            "mov eax,ebx",
+            "mov ebx,DWORD PTR [esp+0x20]",
+            "cmp ebx,eax",
+            "sbb eax,eax",
+            "add edi,edx",
+            "shr edi,1",
+            "add edi,ecx",
+            "and eax,0x10",
+            "cmp edi,ebx",
+            "sbb ecx,ecx",
+            "and ecx,0x20"
+          ],
+          "model": [
+            "and edx,0x10",
+            "or eax,edx"
+          ]
+        },
+        {
+          "offset": "0x185",
+          "retail": [
+            "or eax,esi"
+          ],
+          "model": []
+        },
+        {
+          "offset": "0x19e",
+          "retail": [
+            "mov edx,DWORD PTR [ebp+0xc]",
+            "mov eax,DWORD PTR [edx*4+0x491c3c]"
+          ],
+          "model": [
+            "mov eax,DWORD PTR [ebp+0xc]",
+            "mov eax,DWORD PTR [eax*4+0x491c3c]"
+          ]
+        },
+        {
+          "offset": "0x1b2",
+          "retail": [
+            "mov ebx,DWORD PTR [ebp+0xc]",
+            "mov eax,DWORD PTR [ebx*4+0x491c3c]"
+          ],
+          "model": [
+            "mov edi,DWORD PTR [ebp+0xc]",
+            "mov eax,DWORD PTR [edi*4+0x491c3c]"
+          ]
+        },
+        {
+          "offset": "0x1bf",
+          "retail": [
+            "xor edi,edi"
+          ],
+          "model": []
+        },
+        {
+          "offset": "0x1c9",
+          "retail": [
+            "jne L+0x232"
+          ],
+          "model": [
+            "jne L+0x1fd"
+          ]
+        },
+        {
+          "offset": "0x1cb",
+          "retail": [
+            "jmp L+0x1d0",
+            "lea ecx,[ecx+0x0]",
+            "mov eax,DWORD PTR [ebx*4+0x491c3c]"
+          ],
+          "model": [
+            "mov eax,DWORD PTR [edi*4+0x491c3c]"
+          ]
+        },
+        {
+          "offset": "0x1dd",
+          "retail": [
+            "inc edi",
+            "cmp edi,0x190",
+            "jge L+0x232"
+          ],
+          "model": [
+            "mov esi,0x1",
+            "jmp L+0x1e0",
+            "lea ecx,[ecx+0x0]"
+          ]
+        },
+        {
+          "offset": "0x1eb",
+          "retail": [
+            "je L+0x1d0",
+            "mov ax,si"
+          ],
+          "model": [
+            "jne L+0x1fd",
+            "mov eax,DWORD PTR [edi*4+0x491c3c]",
+            "mov edx,DWORD PTR [eax]",
+            "push eax",
+            "call DWORD PTR [edx+0x1c]",
+            "inc esi",
+            "cmp esi,0x190",
+            "jl L+0x1e0",
+            "mov ax,bx"
+          ]
+        },
+        {
+          "offset": "0x230",
+          "retail": [
+            "jge L+0x24c",
+            "mov ax,si",
+            "pop edi",
+            "pop esi",
+            "pop ebx",
+            "mov ecx,DWORD PTR [esp+0x150]",
+            "xor ecx,ebp",
+            "call 0x458ea5",
+            "mov esp,ebp",
+            "pop ebp",
+            "ret 0x8",
+            "mov ax,WORD PTR [ebx+0x58]"
+          ],
+          "model": [
+            "jl L+0x1fd",
+            "mov ax,WORD PTR [esi+0x58]"
+          ]
+        },
+        {
+          "offset": "0x253",
+          "retail": [
+            "jl L+0x262"
+          ],
+          "model": [
+            "jl L+0x258"
+          ]
+        },
+        {
+          "offset": "0x258",
+          "retail": [
+            "movzx eax,BYTE PTR [esp+eax*1+0x78]",
+            "shr eax,0x7",
+            "or esi,eax",
+            "mov ax,WORD PTR [ebx+0x5a]"
+          ],
+          "model": [
+            "movzx ecx,BYTE PTR [esp+eax*1+0x78]",
+            "shr ecx,0x7",
+            "or ebx,ecx",
+            "mov ax,WORD PTR [esi+0x5a]",
+            "test ax,ax",
+            "jl L+0x272",
+            "movsx edx,ax",
+            "xor eax,eax",
+            "mov al,BYTE PTR [esp+edx*1+0x78]",
+            "shr eax,0x6",
+            "and eax,0x2",
+            "or ebx,eax",
+            "mov ax,WORD PTR [esi+0x5e]"
+          ]
+        },
+        {
+          "offset": "0x269",
+          "retail": [
+            "jl L+0x27b"
+          ],
+          "model": [
+            "jl L+0x28c"
+          ]
+        },
+        {
+          "offset": "0x26e",
+          "retail": [
+            "movzx eax,BYTE PTR [esp+ecx*1+0x78]",
+            "shr eax,0x6",
+            "and eax,0x2",
+            "or esi,eax",
+            "mov ax,WORD PTR [ebx+0x5e]",
+            "test ax,ax",
+            "jl L+0x294",
+            "movsx edx,ax",
+            "movzx eax,BYTE PTR [esp+edx*1+0x78]",
+            "shr eax,0x4",
+            "and eax,0x8",
+            "or esi,eax",
+            "mov ax,WORD PTR [ebx+0x5c]"
+          ],
+          "model": [
+            "xor edx,edx",
+            "mov dl,BYTE PTR [esp+ecx*1+0x78]",
+            "shr edx,0x4",
+            "and edx,0x8",
+            "or ebx,edx",
+            "mov ax,WORD PTR [esi+0x5c]"
+          ]
+        },
+        {
+          "offset": "0x29b",
+          "retail": [
+            "jl L+0x2ad"
+          ],
+          "model": [
+            "jl L+0x2a6"
+          ]
+        },
+        {
+          "offset": "0x2a0",
+          "retail": [
+            "movzx eax,BYTE PTR [esp+eax*1+0x78]",
+            "shr eax,0x5",
+            "and eax,0x4",
+            "or esi,eax",
+            "mov bx,WORD PTR [ebx+0x68]",
+            "test bx,bx"
+          ],
+          "model": [
+            "xor ecx,ecx",
+            "mov cl,BYTE PTR [esp+eax*1+0x78]",
+            "shr ecx,0x5",
+            "and ecx,0x4",
+            "or ebx,ecx",
+            "mov si,WORD PTR [esi+0x68]",
+            "test si,si"
+          ]
+        },
+        {
+          "offset": "0x2b6",
+          "retail": [
+            "movsx ecx,bx",
+            "movzx eax,BYTE PTR [esp+ecx*1+0x78]"
+          ],
+          "model": [
+            "movsx edx,si",
+            "xor eax,eax",
+            "mov al,BYTE PTR [esp+edx*1+0x78]"
+          ]
+        },
+        {
+          "offset": "0x2c5",
+          "retail": [
+            "or esi,eax",
+            "movsx ecx,WORD PTR ds:0x491d5e",
+            "mov ebx,DWORD PTR [esp+0x48]"
+          ],
+          "model": [
+            "or ebx,eax",
+            "movsx esi,WORD PTR ds:0x491d5e",
+            "mov edi,DWORD PTR [esp+0x48]"
+          ]
+        },
+        {
+          "offset": "0x2d9",
+          "retail": [],
+          "model": [
+            "xor edx,edx",
+            "mov ecx,esi",
+            "neg ecx",
+            "cmp edi,ecx"
+          ]
+        },
+        {
+          "offset": "0x2dd",
+          "retail": [
+            "neg ecx",
+            "xor edx,edx",
+            "cmp ebx,ecx"
+          ],
+          "model": []
+        },
+        {
+          "offset": "0x2e6",
+          "retail": [],
+          "model": [
+            "mov DWORD PTR [esp+0x10],ebx"
+          ]
+        },
+        {
+          "offset": "0x2f2",
+          "retail": [
+            "movsx edi,WORD PTR ds:0x491d5e"
+          ],
+          "model": [
+            "mov edi,DWORD PTR [esp+0x48]"
+          ]
+        },
+        {
+          "offset": "0x304",
+          "retail": [
+            "cmp DWORD PTR [esp+0x48],edi",
+            "mov edi,DWORD PTR [esp+0x4c]"
+          ],
+          "model": [
+            "cmp edi,esi",
+            "mov esi,DWORD PTR [esp+0x4c]"
+          ]
+        },
+        {
+          "offset": "0x30f",
+          "retail": [],
+          "model": [
+            "mov ebx,DWORD PTR [esp+0x10]",
+            "pop edi"
+          ]
+        },
+        {
+          "offset": "0x31a",
+          "retail": [
+            "cmp edi,eax"
+          ],
+          "model": [
+            "cmp esi,eax"
+          ]
+        },
+        {
+          "offset": "0x31f",
+          "retail": [
+            "pop edi"
+          ],
+          "model": [
+            "pop esi"
+          ]
+        },
+        {
+          "offset": "0x326",
+          "retail": [
+            "mov ecx,DWORD PTR [esp+0x158]",
+            "or edx,esi",
+            "pop esi"
+          ],
+          "model": [
+            "mov ecx,DWORD PTR [esp+0x154]",
+            "or edx,ebx"
+          ]
+        }
+      ]
+    }
+  ]
+}

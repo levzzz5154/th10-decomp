@@ -1,0 +1,158 @@
+{
+  "selected": false,
+  "diagnostic_only": true,
+  "experiments": [
+    {
+      "experiment": "signature_cdecl",
+      "report": "matching2/build/experiments/player_movement_native_2026_10_06/signature_cdecl/native/comparison.json",
+      "extent": 1672,
+      "different_overlapping_bytes": 974,
+      "instruction_difference_groups": 24,
+      "exact_helpers": 10
+    },
+    {
+      "experiment": "signature_fastcall",
+      "report": "matching2/build/experiments/player_movement_native_2026_10_06/signature_fastcall/native/comparison.json",
+      "extent": 1672,
+      "different_overlapping_bytes": 974,
+      "instruction_difference_groups": 24,
+      "exact_helpers": 10
+    },
+    {
+      "experiment": "signature_member_index_first",
+      "report": "matching2/build/experiments/player_movement_native_2026_10_06/signature_member_index_first/native/comparison.json",
+      "extent": 1672,
+      "different_overlapping_bytes": 974,
+      "instruction_difference_groups": 24,
+      "exact_helpers": 10
+    },
+    {
+      "experiment": "typed_configuration",
+      "report": "matching2/build/experiments/player_movement_native_2026_10_06/typed_configuration/native/comparison.json",
+      "extent": 1656,
+      "different_overlapping_bytes": 363,
+      "instruction_difference_groups": 19,
+      "exact_helpers": 10
+    },
+    {
+      "experiment": "precision_p",
+      "report": "matching2/build/experiments/player_movement_native_2026_10_06/precision_p/native/comparison.json",
+      "extent": 1704,
+      "different_overlapping_bytes": 833,
+      "instruction_difference_groups": 28,
+      "exact_helpers": 10
+    },
+    {
+      "experiment": "trail_do",
+      "report": "matching2/build/experiments/player_movement_native_2026_10_06/trail_do/native/comparison.json",
+      "extent": 1664,
+      "different_overlapping_bytes": 758,
+      "instruction_difference_groups": 27,
+      "exact_helpers": 10
+    },
+    {
+      "experiment": "outer_facing",
+      "report": "matching2/build/experiments/player_movement_native_2026_10_06/outer_facing/native/comparison.json",
+      "extent": 1656,
+      "different_overlapping_bytes": 785,
+      "instruction_difference_groups": 29,
+      "exact_helpers": 10
+    },
+    {
+      "experiment": "coordinate_class",
+      "report": "matching2/build/experiments/player_movement_native_2026_10_06/coordinate_class/native/comparison.json",
+      "extent": 1656,
+      "different_overlapping_bytes": 363,
+      "instruction_difference_groups": 19,
+      "exact_helpers": 10
+    },
+    {
+      "experiment": "observed_configuration",
+      "report": "matching2/build/experiments/player_movement_native_2026_10_06/observed_configuration/native/comparison.json",
+      "extent": 1656,
+      "different_overlapping_bytes": 816,
+      "instruction_difference_groups": 31,
+      "exact_helpers": 10
+    },
+    {
+      "experiment": "observed_handle",
+      "report": "matching2/build/experiments/player_movement_native_2026_10_06/observed_handle/native/comparison.json",
+      "extent": 1656,
+      "different_overlapping_bytes": 362,
+      "instruction_difference_groups": 20,
+      "exact_helpers": 10
+    },
+    {
+      "experiment": "configuration_direct",
+      "report": "matching2/build/experiments/player_movement_native_2026_10_06/configuration_direct/native/comparison.json",
+      "extent": 1656,
+      "different_overlapping_bytes": 811,
+      "instruction_difference_groups": 30,
+      "exact_helpers": 10
+    },
+    {
+      "experiment": "coordinate_comparisons",
+      "report": "matching2/build/experiments/player_movement_native_2026_10_06/coordinate_comparisons/native/comparison.json",
+      "extent": 1656,
+      "different_overlapping_bytes": 363,
+      "instruction_difference_groups": 19,
+      "exact_helpers": 10
+    },
+    {
+      "experiment": "condition_relations",
+      "report": "matching2/build/experiments/player_movement_native_2026_10_06/condition_relations/native/comparison.json",
+      "extent": 1656,
+      "different_overlapping_bytes": 464,
+      "instruction_difference_groups": 19,
+      "exact_helpers": 10
+    },
+    {
+      "experiment": "movement_fastcall",
+      "report": "matching2/build/experiments/player_movement_native_2026_10_06/movement_fastcall/native/comparison.json",
+      "extent": 1656,
+      "different_overlapping_bytes": 363,
+      "instruction_difference_groups": 19,
+      "exact_helpers": 10
+    },
+    {
+      "experiment": "movement_member",
+      "report": "matching2/build/experiments/player_movement_native_2026_10_06/movement_member/native/comparison.json",
+      "extent": 1656,
+      "different_overlapping_bytes": 363,
+      "instruction_difference_groups": 19,
+      "exact_helpers": 10
+    },
+    {
+      "experiment": "real_timer",
+      "report": "matching2/build/experiments/player_movement_native_2026_10_06/real_timer/native/comparison.json",
+      "extent": 1656,
+      "different_overlapping_bytes": 363,
+      "instruction_difference_groups": 19,
+      "exact_helpers": 10
+    },
+    {
+      "experiment": "constant_declarations",
+      "report": "matching2/build/experiments/player_movement_native_2026_10_06/constant_declarations/native/comparison.json",
+      "extent": 1656,
+      "different_overlapping_bytes": 363,
+      "instruction_difference_groups": 19,
+      "exact_helpers": 10
+    },
+    {
+      "experiment": "constant_render_offsets",
+      "report": "matching2/build/experiments/player_movement_native_2026_10_06/constant_render_offsets/native/comparison.json",
+      "extent": 1656,
+      "different_overlapping_bytes": 363,
+      "instruction_difference_groups": 19,
+      "exact_helpers": 10
+    },
+    {
+      "experiment": "named_directions",
+      "report": "matching2/build/experiments/player_movement_native_2026_10_06/named_directions/native/comparison.json",
+      "extent": 1656,
+      "different_overlapping_bytes": 363,
+      "instruction_difference_groups": 19,
+      "exact_helpers": 10
+    }
+  ]
+}

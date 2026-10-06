@@ -14,11 +14,12 @@
 #include "th10/game/title_menu_draw.hpp"
 
 extern "C" void* data_00491c10;
-
-// Twenty-one full-width question marks (Shift-JIS).
-#define MASKED_NAME \
-    "\x81H\x81H\x81H\x81H\x81H\x81H\x81H\x81H\x81H\x81H\x81H" \
-    "\x81H\x81H\x81H\x81H\x81H\x81H\x81H\x81H\x81H\x81H"
+// Existing retail strings; the diagnostic layout binds their original addresses.
+// Named: "No.%3d %s %4d/%4d". Masked: "No.%3d ", twenty-one full-width
+// question marks in Shift-JIS, then " %4d/%4d". Empty: one space.
+extern "C" const char NamedCardFormat[];
+extern "C" const char MaskedCardFormat[];
+extern "C" const char EmptyCardText[];
 
 static inline ScoreManager* Scores() { return reinterpret_cast<ScoreManager*>(data_0047783c); }
 
@@ -54,7 +55,7 @@ int TitleMenu_00431410::BuildSpellList() {
                 RecoveryIndicatorVm_00419120* text = FindAnimation(manager, spell_lines[line]);
                 if (text == 0)
                     spell_lines[line] = 0;
-                text->FormatCentered(manager, 0xFFFFFFFF, " ");
+                text->FormatCentered(manager, 0xFFFFFFFF, EmptyCardText);
             }
             break;
         }
@@ -73,7 +74,7 @@ int TitleMenu_00431410::BuildSpellList() {
             if (text == 0)
                 spell_lines[line] = 0;
             text->FormatCentered(manager, record->spells[spell].captures != 0 ? 0xFFFF80 : 0xEFEFEF,
-                                 "No.%3d %s %4d/%4d", spell + 1, name,
+                                 NamedCardFormat, spell + 1, name,
                                  record->spells[spell].captures, record->spells[spell].attempts);
             ++spell;
         } else {
@@ -84,7 +85,7 @@ int TitleMenu_00431410::BuildSpellList() {
                 spell_lines[line] = 0;
             text->FormatCentered(
                 manager, 0x808080,
-                "No.%3d " MASKED_NAME " %4d/%4d", spell + 1, record->spells[spell].captures, record->spells[spell].attempts);
+                MaskedCardFormat, spell + 1, record->spells[spell].captures, record->spells[spell].attempts);
             ++spell;
         }
         ++listed_spells;

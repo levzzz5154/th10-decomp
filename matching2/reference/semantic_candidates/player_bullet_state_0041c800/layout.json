@@ -1,0 +1,560 @@
+{
+  "entry_symbol": "?Sweep@PickupSweepResult@@QAEHPAUPlayerState@@PBUPickupPoint@@1@Z",
+  "sources": [
+    "runtime.cpp",
+    "creation.cpp"
+  ],
+  "roots": [
+    "?Sweep@PickupSweepResult@@QAEHPAUPlayerState@@PBUPickupPoint@@1@Z",
+    "_EffectPoolUpdate@4",
+    "?InitializeObject@AnimationResource_00449870@@QAEXPAUEntity@@H@Z",
+    "_StageSchedule_Fire_00427e90@12",
+    "_PlayerState_Update_00425730@4",
+    "?SetPolar@ItemPolarVelocity_0041bb00@@QAEPAU1@MM@Z"
+  ],
+  "absolute_symbols": {
+    "_data_004776ec": {
+      "address": "0x4776ec",
+      "kind": "data"
+    },
+    "_data_004776f4": {
+      "address": "0x4776f4",
+      "kind": "data"
+    },
+    "_data_00477704": {
+      "address": "0x477704",
+      "kind": "data"
+    },
+    "_data_00474c68": {
+      "address": "0x474c68",
+      "kind": "data"
+    },
+    "_data_00474c44": {
+      "address": "0x474c44",
+      "kind": "data"
+    },
+    "_data_00491c10": {
+      "address": "0x491c10",
+      "kind": "data"
+    },
+    "_data_00476f78": {
+      "address": "0x476f78",
+      "kind": "data"
+    },
+    "__fltused": {
+      "address": "0x0",
+      "kind": "data"
+    },
+    "??2@YAPAXI@Z": {
+      "address": "0x452493",
+      "kind": "code"
+    },
+    "?Entity_Constructor@@YIPAUEntity@@PAU1@@Z": {
+      "address": "0x402050",
+      "kind": "code"
+    },
+    "_asm_FUN_0043ee30_0043ee30@4": {
+      "address": "0x43ee30",
+      "kind": "code"
+    },
+    "_data_0047770c": {
+      "address": "0x47770c",
+      "kind": "data"
+    },
+    "_data_00470b4c": {
+      "address": "0x470b4c",
+      "kind": "data"
+    },
+    "_data_00470b48": {
+      "address": "0x470b48",
+      "kind": "data"
+    },
+    "_data_00470afc": {
+      "address": "0x470afc",
+      "kind": "data"
+    },
+    "_data_00470b64": {
+      "address": "0x470b64",
+      "kind": "data"
+    },
+    "_data_00470b68": {
+      "address": "0x470b68",
+      "kind": "data"
+    },
+    "_data_00470b44": {
+      "address": "0x470b44",
+      "kind": "data"
+    },
+    "_data_00470b00": {
+      "address": "0x470b00",
+      "kind": "data"
+    },
+    "?SetPolar@Vec3@@QAEPAU1@MM@Z": {
+      "address": "0x44c5d0",
+      "kind": "code"
+    },
+    "_NormalizeAngle@4": {
+      "address": "0x44bc70",
+      "kind": "code"
+    },
+    "_floor": {
+      "address": "0x452ff0",
+      "kind": "code"
+    },
+    "__ftol2": {
+      "address": "0x463b2c",
+      "kind": "code"
+    },
+    "_data_00470b40": {
+      "address": "0x00470b40",
+      "kind": "data"
+    },
+    "_data_00470b3c": {
+      "address": "0x00470b3c",
+      "kind": "data"
+    },
+    "_data_00470b04": {
+      "address": "0x00470b04",
+      "kind": "data"
+    },
+    "_data_00470b38": {
+      "address": "0x00470b38",
+      "kind": "data"
+    },
+    "?g_frame_timer_normal_lower@@3MA": {
+      "address": "0x470B68",
+      "kind": "data"
+    },
+    "?g_frame_timer_normal_upper@@3MA": {
+      "address": "0x470B64",
+      "kind": "data"
+    },
+    "_data_00474c48": {
+      "address": "0x474c48",
+      "kind": "data"
+    },
+    "_data_004749ce": {
+      "address": "0x4749ce",
+      "kind": "data"
+    },
+    "_data_00492590": {
+      "address": "0x492590",
+      "kind": "data"
+    },
+    "?g_score_default_speed@@3MA": {
+      "address": "0x476f78",
+      "kind": "data"
+    },
+    "_data_00474e5c": {
+      "address": "0x474e5c",
+      "kind": "data"
+    },
+    "?Set@PlayerInputMode@@QAEHH@Z": {
+      "address": "0x40ac90",
+      "kind": "code"
+    },
+    "?Open@PlayerDeathScene@@QAEHXZ": {
+      "address": "0x4231d0",
+      "kind": "code"
+    },
+    "?AddWithMinimum@PlayerScoreGauge@@QAEXH@Z": {
+      "address": "0x412e70",
+      "kind": "code"
+    },
+    "?SetPowerDigits@FrontScript@@QAEXHH@Z": {
+      "address": "0x4054b0",
+      "kind": "code"
+    },
+    "_InitializePlayer_00405860@4": {
+      "address": "0x405860",
+      "kind": "code"
+    },
+    "_RefreshFamiliars_00426f70@4": {
+      "address": "0x426f70",
+      "kind": "code"
+    },
+    "_UpdateContact_004269d0@4": {
+      "address": "0x4269d0",
+      "kind": "code"
+    },
+    "_data_004776f0": {
+      "address": "0x4776f0",
+      "kind": "data"
+    },
+    "_data_0047781c": {
+      "address": "0x47781c",
+      "kind": "data"
+    },
+    "_data_00477818": {
+      "address": "0x477818",
+      "kind": "data"
+    },
+    "_data_00477830": {
+      "address": "0x477830",
+      "kind": "data"
+    },
+    "_data_00477838": {
+      "address": "0x477838",
+      "kind": "data"
+    },
+    "_data_00491c28": {
+      "address": "0x491c28",
+      "kind": "data"
+    },
+    "_data_00474c40": {
+      "address": "0x474c40",
+      "kind": "data"
+    },
+    "_data_00474c70": {
+      "address": "0x474c70",
+      "kind": "data"
+    },
+    "_data_00474c98": {
+      "address": "0x474c98",
+      "kind": "data"
+    },
+    "_data_00470d44": {
+      "address": "0x470d44",
+      "kind": "data"
+    },
+    "_data_00470bc8": {
+      "address": "0x470bc8",
+      "kind": "data"
+    },
+    "_data_00470d40": {
+      "address": "0x470d40",
+      "kind": "data"
+    },
+    "_data_00470d3c": {
+      "address": "0x470d3c",
+      "kind": "data"
+    },
+    "_data_00470d38": {
+      "address": "0x470d38",
+      "kind": "data"
+    },
+    "_Entity_AngleToPoint_00426610@8": {
+      "address": "0x426610",
+      "kind": "code"
+    },
+    "_data_00470b0c": {
+      "address": "0x470b0c",
+      "kind": "data"
+    },
+    "_data_00474c6c": {
+      "address": "0x474c6c",
+      "kind": "data"
+    }
+  },
+  "bindings": {
+    "?HitTest@PickupPlayer@@QAEHPBUPickupPoint@@@Z": "0x4059f0",
+    "?Sweep@PickupSweepResult@@QAEHPAUPlayerState@@PBUPickupPoint@@1@Z": "0x428630",
+    "?AtInterval@FrameTimer@@QAEHH@Z": "0x427c70",
+    "?Find@PickupAnimationLists@@QAEPAUPickupAnimation@@UAnimationRef@@@Z": "0x4491c0",
+    "?StopAtFrame2@PickupHandle@@QAEXXZ": "0x40c480",
+    "?Validate@PickupHandle@@QAEPAUPickupAnimation@@XZ": "0x449450",
+    "?Retire@PickupHandle@@QAEXXZ": "0x449630",
+    "@Pickup_AllocateIndicator@28": "0x427b50",
+    "__real@3f000000": "0x470b0c",
+    "__real@bf000000": "0x470b78",
+    "__real@3e000000": "0x470b90",
+    "__real@00000000": "0x470b04",
+    "?Pickup_CreatePrimaryBack@@YG?AUAnimationRef@@PAXHH@Z": "0x448d00",
+    "?Allocate@AnimationPool@@QAEPAUEntity@@XZ": "0x449950",
+    "?InitializeObject@AnimationResource_00449870@@QAEXPAUEntity@@H@Z": "0x449870",
+    "?LoadScriptPreservingState_0043e7e0@@YGXPAUAnimationResource_0043e7e0@@PAUAnimationObject_0043e7e0@@H@Z": "0x43e7e0",
+    "?Entity_Init@@YGXPAUEntity@@@Z": "0x401de0",
+    "__real@3f800000": "0x470AFC",
+    "?MarkForRemoval@PickupAnimationLists@@QAEPAXUAnimationRef@@@Z": "0x4492a0",
+    "?StopAtFrame1@PickupHandle@@QAEXXZ": "0x409e50",
+    "?StopAtFrame3@PickupHandle@@QAEXXZ": "0x40c4d0",
+    "_EffectPoolUpdate@4": "0x428280",
+    "?Advance@Motion@@QAEXXZ": "0x44c2a0",
+    "?OutsideViewport@Vec3@@QBEHMM@Z": "0x428d70",
+    "__real@42c80000": "0x470B44",
+    "__real@3c23d70a": "0x470B00",
+    "__real@43600000": "0x470B4C",
+    "__real@41800000": "0x470B48",
+    "?RegisterPrimaryBack@AnimationLists@@QAE?AUAnimationRef@@PAUEntity@@@Z": "0x4489d0",
+    "_StageSchedule_Fire_00427e90@12": "0x427e90",
+    "?Dispatch@PlayerState@@QAEHH@Z": "0x428160",
+    "?QueuePan@SoundQueue@@QAEXHM@Z": "0x43dd10",
+    "__real@40a6aaab": "0x00470B20",
+    "?UpdateSequence@PlayerState@@QAEHXZ": "0x4281d0",
+    "?SetSchedulerValue@PlayerSchedulerRecord@@QAEXH@Z": "0x405410",
+    "?Tick@FrameTimer@@QAEXXZ": "0x404ed0",
+    "?Advance@FrameTimer@@QAEXM@Z": "0x44bf40",
+    "_PlayerState_Update_00425730@4": "0x425730",
+    "?Activate@PlayerCollisionRecord@@QAEHXZ": "0x408030",
+    "?Check@PlayerCollisionEngine@@QAEHPBUVec3@@MHH@Z": "0x408100",
+    "?OutsideBounds@PlayfieldPoint@@QBEHMM@Z": "0x4086b0",
+    "?CreateOffset@AnimationResource_0043e710@@QAE?AUAnimationRef@@HPBUVector3@@@Z": "0x448db0",
+    "?LoadScript@AnimationResource_0043e710@@QAEPAXPAUEntity@@H@Z": "0x43e710",
+    "?Spawn@PlayerItemManager@@QAEHPBUVector3@@HHMM@Z": "0x41bb00",
+    "?Entity_StartScript_00404f30@@YGXPAUAnimationResource_0043e710@@PAUEntity@@H@Z": "0x404f30",
+    "?SetPolar@ItemPolarVelocity_0041bb00@@QAEPAU1@MM@Z": "0x41beb0",
+    "__real@c3400000": "0x470b40",
+    "__real@43400000": "0x470b3c",
+    "?Move@PlayerState@@QAEHXZ": "0x4250b0",
+    "?MovementStopFrame_00449210@@YIXGPAUPickupAnimationLists@@UAnimationRef@@@Z": "0x449210",
+    "?MovementSetPosition_004492f0@@YIXPBUVector3@@PAUPickupAnimationLists@@UAnimationRef@@@Z": "0x4492f0",
+    "?MovementSetTranslatedPosition_00449350@@YIXPBUVector3@@PAUPickupAnimationLists@@UAnimationRef@@@Z": "0x449350",
+    "?Evaluate@PlayerBulletManager@@QAEHPBUVec3@@MH@Z": "0x41c800",
+    "?Reset@PlayerBulletManager@@QAEHH@Z": "0x41c850"
+  },
+  "functions": [
+    [
+      "?HitTest@PickupPlayer@@QAEHPBUPickupPoint@@@Z",
+      ".text$10hit",
+      4217328,
+      202
+    ],
+    [
+      "?Sweep@PickupSweepResult@@QAEHPAUPlayerState@@PBUPickupPoint@@1@Z",
+      ".text$20sweep",
+      4359728,
+      1170
+    ],
+    [
+      "?AtInterval@FrameTimer@@QAEHH@Z",
+      ".text$30interval",
+      4357232,
+      29
+    ],
+    [
+      "?Find@PickupAnimationLists@@QAEPAUPickupAnimation@@UAnimationRef@@@Z",
+      ".text$40find",
+      4493760,
+      73
+    ],
+    [
+      "?MarkForRemoval@PickupAnimationLists@@QAEPAXUAnimationRef@@@Z",
+      ".text$50mark",
+      4493984,
+      66
+    ],
+    [
+      "?StopAtFrame2@PickupHandle@@QAEXXZ",
+      ".text$60stop",
+      4244608,
+      65
+    ],
+    [
+      "?Validate@PickupHandle@@QAEPAUPickupAnimation@@XZ",
+      ".text$70validate",
+      4494416,
+      21
+    ],
+    [
+      "?Retire@PickupHandle@@QAEXXZ",
+      ".text$80retire",
+      4494896,
+      21
+    ],
+    [
+      "@Pickup_AllocateIndicator@28",
+      ".text$90indicator",
+      4356944,
+      181
+    ],
+    [
+      "?Pickup_CreatePrimaryBack@@YG?AUAnimationRef@@PAXHH@Z",
+      ".text$126primary",
+      4492544,
+      73
+    ],
+    [
+      "?RegisterPrimaryBack@AnimationLists@@QAE?AUAnimationRef@@PAUEntity@@@Z",
+      ".text$70register",
+      4491728,
+      118
+    ],
+    [
+      "?Allocate@AnimationPool@@QAEPAUEntity@@XZ",
+      ".text$90allocate",
+      4495696,
+      161
+    ],
+    [
+      "?InitializeObject@AnimationResource_00449870@@QAEXPAUEntity@@H@Z",
+      ".text$127initialize",
+      4495472,
+      217
+    ],
+    [
+      "?LoadScriptPreservingState_0043e7e0@@YGXPAUAnimationResource_0043e7e0@@PAUAnimationObject_0043e7e0@@H@Z",
+      ".text$128preserve",
+      4450272,
+      194
+    ],
+    [
+      "?Entity_Init@@YGXPAUEntity@@@Z",
+      ".text$130entityinit",
+      4201952,
+      273
+    ],
+    [
+      "?StopAtFrame1@PickupHandle@@QAEXXZ",
+      ".text$a10stop1",
+      4234832,
+      65
+    ],
+    [
+      "?StopAtFrame3@PickupHandle@@QAEXXZ",
+      ".text$a20stop3",
+      4244688,
+      65
+    ],
+    [
+      "_EffectPoolUpdate@4",
+      ".text$a30update",
+      4358784,
+      876
+    ],
+    [
+      "?Advance@Motion@@QAEXXZ",
+      ".text$a60motion",
+      4506272,
+      171
+    ],
+    [
+      "?OutsideViewport@Vec3@@QBEHMM@Z",
+      ".text$a70bounds",
+      4361584,
+      91
+    ],
+    [
+      "_StageSchedule_Fire_00427e90@12",
+      ".text$b00spawn",
+      4357776,
+      717
+    ],
+    [
+      "?Dispatch@PlayerState@@QAEHH@Z",
+      ".text$b10dispatch",
+      4358496,
+      105
+    ],
+    [
+      "?QueuePan@SoundQueue@@QAEXHM@Z",
+      ".text$b20pan",
+      4447504,
+      149
+    ],
+    [
+      "?UpdateSequence@PlayerState@@QAEHXZ",
+      ".text$b30sequence",
+      4358608,
+      174
+    ],
+    [
+      "?SetSchedulerValue@PlayerSchedulerRecord@@QAEXH@Z",
+      ".text$b40scheduler",
+      4215824,
+      57
+    ],
+    [
+      "?Tick@FrameTimer@@QAEXXZ",
+      ".text$b50tick",
+      4214480,
+      72
+    ],
+    [
+      "?Advance@FrameTimer@@QAEXM@Z",
+      ".text$b60advance",
+      4505408,
+      88
+    ],
+    [
+      "_PlayerState_Update_00425730@4",
+      ".text$c00playerstate",
+      4347696,
+      3112
+    ],
+    [
+      "?Activate@PlayerCollisionRecord@@QAEHXZ",
+      ".text$c10activate",
+      4227120,
+      199
+    ],
+    [
+      "?Check@PlayerCollisionEngine@@QAEHPBUVec3@@MHH@Z",
+      ".text$c20collision",
+      4227328,
+      260
+    ],
+    [
+      "?OutsideBounds@PlayfieldPoint@@QBEHMM@Z",
+      ".text$c30collisionbounds",
+      4228784,
+      91
+    ],
+    [
+      "?LoadScript@AnimationResource_0043e710@@QAEPAXPAUEntity@@H@Z",
+      ".text$c40loader",
+      4450064,
+      203
+    ],
+    [
+      "?CreateOffset@AnimationResource_0043e710@@QAE?AUAnimationRef@@HPBUVector3@@@Z",
+      ".text$c50offsetcreate",
+      4492720,
+      118
+    ],
+    [
+      "?Spawn@PlayerItemManager@@QAEHPBUVector3@@HHMM@Z",
+      ".text$d00itemspawn",
+      4307712,
+      819
+    ],
+    [
+      "?Entity_StartScript_00404f30@@YGXPAUAnimationResource_0043e710@@PAUEntity@@H@Z",
+      ".text$d10startscript",
+      4214576,
+      202
+    ],
+    [
+      "?SetPolar@ItemPolarVelocity_0041bb00@@QAEPAU1@MM@Z",
+      ".text$d20itempolar",
+      4308656,
+      30
+    ],
+    [
+      "?Move@PlayerState@@QAEHXZ",
+      ".text$004250b0_fn",
+      4346032,
+      1656
+    ],
+    [
+      "?MovementStopFrame_00449210@@YIXGPAUPickupAnimationLists@@UAnimationRef@@@Z",
+      ".text$00449210_fn",
+      4493840,
+      54
+    ],
+    [
+      "?MovementSetPosition_004492f0@@YIXPBUVector3@@PAUPickupAnimationLists@@UAnimationRef@@@Z",
+      ".text$004492f0_fn",
+      4494064,
+      90
+    ],
+    [
+      "?MovementSetTranslatedPosition_00449350@@YIXPBUVector3@@PAUPickupAnimationLists@@UAnimationRef@@@Z",
+      ".text$00449350_fn",
+      4494160,
+      111
+    ],
+    [
+      "?Evaluate@PlayerBulletManager@@QAEHPBUVec3@@MH@Z",
+      ".text$e00bulletevaluate",
+      4311040,
+      76
+    ],
+    [
+      "?Reset@PlayerBulletManager@@QAEHH@Z",
+      ".text$e10bulletreset",
+      4311120,
+      44
+    ]
+  ],
+  "description": "Complete genuine player-state, movement, collision, animation, item and linked-record manager graph: 42 complete functions and six real roots."
+}

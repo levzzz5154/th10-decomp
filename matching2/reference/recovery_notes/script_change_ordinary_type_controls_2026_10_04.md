@@ -1,5 +1,11 @@
 # Script-change ordinary-type controls, 2026-10-04
 
+The 2026-10-06 refinement in
+`animation_change_script_equivalent_2026_10_05.md` uses the known -1.0f
+literal. It removes the operand-order mismatch without a volatile read,
+leaving 22 differing bytes and the unresolved ESI/EDI allocation. The
+global-scalar and type-wrapper results below remain historical evidence.
+
 The complete 287-byte script changer at `0x0043E8B0` remains assembly. Eight fresh isolated controls were compiled against the current production project and measured directly from their native PE/MAP contributions. No candidate passed; production source, headers, manifest and ownership were unchanged.
 
 The previous anchor uses a volatile scale read to force `fld object.scale_x; fmul global_factor`. Removing that volatile read, for either multiplication operand order, produces `fld global_factor; fmul object.scale_x`. The multiplier at `0x00470B60` is exactly -1.0f. The ordinary candidate has 32 differing bytes rather than the old volatile anchor's 22, but retains the 287-byte extent and its already-exact 36-byte handle caller.

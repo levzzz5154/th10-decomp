@@ -1,0 +1,851 @@
+{
+  "schema_version": 1,
+  "name": "player_movement_animation_genuine_00449210_004492f0",
+  "source": "src/render/player_movement_animation_00449210_004492f0.cpp",
+  "driver": "layout/ltcg/player_movement_runtime/runtime.cpp",
+  "additional_sources": [
+    "layout/ltcg/player_movement_runtime/creation.cpp"
+  ],
+  "included_sources": [
+    "layout/ltcg/player_movement_runtime/hit.cpp",
+    "layout/ltcg/player_movement_runtime/helpers.cpp",
+    "layout/ltcg/player_movement_runtime/sweep.cpp",
+    "layout/ltcg/player_movement_runtime/dependencies.cpp",
+    "layout/ltcg/player_movement_runtime/entity_initialize.cpp",
+    "layout/ltcg/player_movement_runtime/initialize.cpp",
+    "layout/ltcg/player_movement_runtime/preserve.cpp",
+    "layout/ltcg/player_movement_runtime/effect_update.cpp",
+    "layout/ltcg/player_movement_runtime/sound_queue.cpp",
+    "layout/ltcg/player_movement_runtime/scheduled_effect.cpp",
+    "layout/ltcg/player_movement_runtime/schedule_dispatch.cpp",
+    "layout/ltcg/player_movement_runtime/scheduler_store.cpp",
+    "layout/ltcg/player_movement_runtime/sequence_timers.cpp",
+    "layout/ltcg/player_movement_runtime/schedule_update.cpp",
+    "layout/ltcg/player_movement_runtime/player_state.cpp",
+    "layout/ltcg/player_movement_runtime/collision_activate.cpp",
+    "layout/ltcg/player_movement_runtime/collision_check.cpp",
+    "layout/ltcg/player_movement_runtime/collision_bounds.cpp",
+    "layout/ltcg/player_movement_runtime/collision_loader.cpp",
+    "layout/ltcg/player_movement_runtime/collision_create.cpp",
+    "layout/ltcg/player_movement_runtime/item_spawn.cpp",
+    "layout/ltcg/player_movement_runtime/item_start_script.cpp",
+    "layout/ltcg/player_movement_runtime/item_polar.cpp",
+    "layout/ltcg/player_movement_runtime/movement.cpp"
+  ],
+  "headers": [
+    "layout/ltcg/player_movement_runtime/runtime.hpp",
+    "layout/ltcg/player_movement_runtime/effect_update.hpp",
+    "layout/ltcg/player_movement_runtime/registration.hpp",
+    "layout/ltcg/player_movement_runtime/sound_queue.hpp",
+    "layout/ltcg/player_movement_runtime/collision.hpp",
+    "layout/ltcg/player_movement_runtime/item_spawn.hpp",
+    "layout/ltcg/player_movement_runtime/movement.hpp",
+    "layout/ltcg/player_movement_runtime/movement_input.hpp",
+    "layout/ltcg/player_movement_runtime/timer.hpp",
+    "layout/ltcg/player_movement_runtime/animation_public_callers.hpp",
+    "include/th10/game/entity.hpp",
+    "include/th10/types.hpp",
+    "include/th10/game/entity_script_start.hpp"
+  ],
+  "image_base": "0x400000",
+  "functions": [
+    {
+      "name": "function_00449210",
+      "symbol": "?MovementStopFrame_00449210@@YIXGPAUPickupAnimationLists@@UAnimationRef@@@Z",
+      "section": ".text$f00449210F",
+      "address": "0x449210",
+      "size": 54,
+      "actual_abi": "private SI frame / EDX manager / stack handle / RET4"
+    },
+    {
+      "name": "function_004492f0",
+      "symbol": "?MovementSetPosition_004492f0@@YIXPBUVector3@@PAUPickupAnimationLists@@UAnimationRef@@@Z",
+      "section": ".text$f004492f0F",
+      "address": "0x4492f0",
+      "size": 90,
+      "actual_abi": "private ESI position / EDX manager / stack handle / RET4"
+    }
+  ],
+  "context": {
+    "symbol": "_PlayerState_Update_00425730@4",
+    "section": ".text$f00425730F",
+    "address": "0x425730",
+    "size": 3044,
+    "description": "Complete player-state owner; unmatched unselected context; movement executes as its real callee."
+  },
+  "anchors": [
+    {
+      "name": "function_004059f0",
+      "symbol": "?HitTest@PickupPlayer@@QAEHPBUPickupPoint@@@Z",
+      "section": ".text$f004059f0F",
+      "address": "0x4059f0",
+      "size": 202
+    },
+    {
+      "name": "function_00428630",
+      "symbol": "?Sweep@PickupSweepResult@@QAEHPAUPlayerState@@PBUPickupPoint@@1@Z",
+      "section": ".text$f00428630F",
+      "address": "0x428630",
+      "size": 1171
+    },
+    {
+      "name": "function_00427c70",
+      "symbol": "?AtInterval@FrameTimer@@QAEHH@Z",
+      "section": ".text$f00427c70F",
+      "address": "0x427c70",
+      "size": 29
+    },
+    {
+      "name": "function_004491c0",
+      "symbol": "?Find@PickupAnimationLists@@QAEPAUPickupAnimation@@UAnimationRef@@@Z",
+      "section": ".text$f004491c0F",
+      "address": "0x4491c0",
+      "size": 73
+    },
+    {
+      "name": "function_004492a0",
+      "symbol": "?MarkForRemoval@PickupAnimationLists@@QAEPAXUAnimationRef@@@Z",
+      "section": ".text$f004492a0F",
+      "address": "0x4492a0",
+      "size": 66
+    },
+    {
+      "name": "function_0040c480",
+      "symbol": "?StopAtFrame2@PickupHandle@@QAEXXZ",
+      "section": ".text$f0040c480F",
+      "address": "0x40c480",
+      "size": 65
+    },
+    {
+      "name": "function_00449450",
+      "symbol": "?Validate@PickupHandle@@QAEPAUPickupAnimation@@XZ",
+      "section": ".text$f00449450F",
+      "address": "0x449450",
+      "size": 21
+    },
+    {
+      "name": "function_00449630",
+      "symbol": "?Retire@PickupHandle@@QAEXXZ",
+      "section": ".text$f00449630F",
+      "address": "0x449630",
+      "size": 21
+    },
+    {
+      "name": "function_00427b50",
+      "symbol": "@Pickup_AllocateIndicator@28",
+      "section": ".text$f00427b50F",
+      "address": "0x427b50",
+      "size": 181
+    },
+    {
+      "name": "function_00448d00",
+      "symbol": "?Pickup_CreatePrimaryBack@@YG?AUAnimationRef@@PAXHH@Z",
+      "section": ".text$f00448d00F",
+      "address": "0x448d00",
+      "size": 73
+    },
+    {
+      "name": "function_004489d0",
+      "symbol": "?RegisterPrimaryBack@AnimationLists@@QAE?AUAnimationRef@@PAUEntity@@@Z",
+      "section": ".text$f004489d0F",
+      "address": "0x4489d0",
+      "size": 118
+    },
+    {
+      "name": "function_00449950",
+      "symbol": "?Allocate@AnimationPool@@QAEPAUEntity@@XZ",
+      "section": ".text$f00449950F",
+      "address": "0x449950",
+      "size": 161
+    },
+    {
+      "name": "function_00449870",
+      "symbol": "?InitializeObject@AnimationResource_00449870@@QAEXPAUEntity@@H@Z",
+      "section": ".text$f00449870F",
+      "address": "0x449870",
+      "size": 217
+    },
+    {
+      "name": "function_0043e7e0",
+      "symbol": "?LoadScriptPreservingState_0043e7e0@@YGXPAUAnimationResource_0043e7e0@@PAUAnimationObject_0043e7e0@@H@Z",
+      "section": ".text$f0043e7e0F",
+      "address": "0x43e7e0",
+      "size": 194
+    },
+    {
+      "name": "function_00401de0",
+      "symbol": "?Entity_Init@@YGXPAUEntity@@@Z",
+      "section": ".text$f00401de0F",
+      "address": "0x401de0",
+      "size": 273
+    },
+    {
+      "name": "function_00409e50",
+      "symbol": "?StopAtFrame1@PickupHandle@@QAEXXZ",
+      "section": ".text$f00409e50F",
+      "address": "0x409e50",
+      "size": 65
+    },
+    {
+      "name": "function_0040c4d0",
+      "symbol": "?StopAtFrame3@PickupHandle@@QAEXXZ",
+      "section": ".text$f0040c4d0F",
+      "address": "0x40c4d0",
+      "size": 65
+    },
+    {
+      "name": "function_00428280",
+      "symbol": "_EffectPoolUpdate@4",
+      "section": ".text$f00428280F",
+      "address": "0x428280",
+      "size": 874
+    },
+    {
+      "name": "function_0044c2a0",
+      "symbol": "?Advance@Motion@@QAEXXZ",
+      "section": ".text$f0044c2a0F",
+      "address": "0x44c2a0",
+      "size": 171
+    },
+    {
+      "name": "function_00428d70",
+      "symbol": "?OutsideViewport@Vec3@@QBEHMM@Z",
+      "section": ".text$f00428d70F",
+      "address": "0x428d70",
+      "size": 91
+    },
+    {
+      "name": "function_00427e90",
+      "symbol": "_StageSchedule_Fire_00427e90@12",
+      "section": ".text$f00427e90F",
+      "address": "0x427e90",
+      "size": 717
+    },
+    {
+      "name": "function_00428160",
+      "symbol": "?Dispatch@PlayerState@@QAEHH@Z",
+      "section": ".text$f00428160F",
+      "address": "0x428160",
+      "size": 105
+    },
+    {
+      "name": "function_0043dd10",
+      "symbol": "?QueuePan@SoundQueue@@QAEXHM@Z",
+      "section": ".text$f0043dd10F",
+      "address": "0x43dd10",
+      "size": 149
+    },
+    {
+      "name": "function_004281d0",
+      "symbol": "?UpdateSequence@PlayerState@@QAEHXZ",
+      "section": ".text$f004281d0F",
+      "address": "0x4281d0",
+      "size": 174
+    },
+    {
+      "name": "function_00405410",
+      "symbol": "?SetSchedulerValue@PlayerSchedulerRecord@@QAEXH@Z",
+      "section": ".text$f00405410F",
+      "address": "0x405410",
+      "size": 57
+    },
+    {
+      "name": "function_00404ed0",
+      "symbol": "?Tick@FrameTimer@@QAEXXZ",
+      "section": ".text$f00404ed0F",
+      "address": "0x404ed0",
+      "size": 72
+    },
+    {
+      "name": "function_0044bf40",
+      "symbol": "?Advance@FrameTimer@@QAEXM@Z",
+      "section": ".text$f0044bf40F",
+      "address": "0x44bf40",
+      "size": 88
+    },
+    {
+      "name": "function_00408030",
+      "symbol": "?Activate@PlayerCollisionRecord@@QAEHXZ",
+      "section": ".text$f00408030F",
+      "address": "0x408030",
+      "size": 199
+    },
+    {
+      "name": "function_00408100",
+      "symbol": "?Check@PlayerCollisionEngine@@QAEHPBUVec3@@MHH@Z",
+      "section": ".text$f00408100F",
+      "address": "0x408100",
+      "size": 260
+    },
+    {
+      "name": "function_004086b0",
+      "symbol": "?OutsideBounds@PlayfieldPoint@@QBEHMM@Z",
+      "section": ".text$f004086b0F",
+      "address": "0x4086b0",
+      "size": 91
+    },
+    {
+      "name": "function_0043e710",
+      "symbol": "?LoadScript@AnimationResource_0043e710@@QAEPAXPAUEntity@@H@Z",
+      "section": ".text$f0043e710F",
+      "address": "0x43e710",
+      "size": 197
+    },
+    {
+      "name": "function_00448db0",
+      "symbol": "?CreateOffset@AnimationResource_0043e710@@QAE?AUAnimationRef@@HPBUVector3@@@Z",
+      "section": ".text$f00448db0F",
+      "address": "0x448db0",
+      "size": 116
+    },
+    {
+      "name": "function_0041bb00",
+      "symbol": "?Spawn@PlayerItemManager@@QAEHPBUVector3@@HHMM@Z",
+      "section": ".text$f0041bb00F",
+      "address": "0x41bb00",
+      "size": 823
+    },
+    {
+      "name": "function_00404f30",
+      "symbol": "?Entity_StartScript_00404f30@@YGXPAUAnimationResource_0043e710@@PAUEntity@@H@Z",
+      "section": ".text$f00404f30F",
+      "address": "0x404f30",
+      "size": 200
+    },
+    {
+      "name": "function_0041beb0",
+      "symbol": "?SetPolar@ItemPolarVelocity_0041bb00@@QAEPAU1@MM@Z",
+      "section": ".text$f0041beb0F",
+      "address": "0x41beb0",
+      "size": 30
+    },
+    {
+      "name": "function_004250b0",
+      "symbol": "?Move@PlayerState@@QAEHXZ",
+      "section": ".text$f004250b0F",
+      "address": "0x4250b0",
+      "size": 1640
+    },
+    {
+      "name": "function_00449350",
+      "symbol": "?MovementSetTranslatedPosition_00449350@@YIXPBUVector3@@PAUPickupAnimationLists@@UAnimationRef@@@Z",
+      "section": ".text$f00449350F",
+      "address": "0x449350",
+      "size": 111
+    }
+  ],
+  "anchor_roots": [
+    "?Sweep@PickupSweepResult@@QAEHPAUPlayerState@@PBUPickupPoint@@1@Z",
+    "_EffectPoolUpdate@4",
+    "?InitializeObject@AnimationResource_00449870@@QAEXPAUEntity@@H@Z",
+    "_StageSchedule_Fire_00427e90@12",
+    "?SetPolar@ItemPolarVelocity_0041bb00@@QAEPAU1@MM@Z"
+  ],
+  "roots": [],
+  "gaps": [
+    {
+      "section": ".text$f00401de0A",
+      "address": "0x401000",
+      "size": 3552
+    },
+    {
+      "section": ".text$f00404ed0A",
+      "address": "0x401ef1",
+      "size": 12255
+    },
+    {
+      "section": ".text$f00404f30A",
+      "address": "0x404f18",
+      "size": 24
+    },
+    {
+      "section": ".text$f00405410A",
+      "address": "0x404ff8",
+      "size": 1048
+    },
+    {
+      "section": ".text$f004059f0A",
+      "address": "0x405449",
+      "size": 1447
+    },
+    {
+      "section": ".text$f00408030A",
+      "address": "0x405aba",
+      "size": 9590
+    },
+    {
+      "section": ".text$f00408100A",
+      "address": "0x4080f7",
+      "size": 9
+    },
+    {
+      "section": ".text$f004086b0A",
+      "address": "0x408204",
+      "size": 1196
+    },
+    {
+      "section": ".text$f00409e50A",
+      "address": "0x40870b",
+      "size": 5957
+    },
+    {
+      "section": ".text$f0040c480A",
+      "address": "0x409e91",
+      "size": 9711
+    },
+    {
+      "section": ".text$f0040c4d0A",
+      "address": "0x40c4c1",
+      "size": 15
+    },
+    {
+      "section": ".text$f0041bb00A",
+      "address": "0x40c511",
+      "size": 62959
+    },
+    {
+      "section": ".text$f0041beb0A",
+      "address": "0x41be37",
+      "size": 121
+    },
+    {
+      "section": ".text$f004250b0A",
+      "address": "0x41bece",
+      "size": 37346
+    },
+    {
+      "section": ".text$f00425730A",
+      "address": "0x425718",
+      "size": 24
+    },
+    {
+      "section": ".text$f00427b50A",
+      "address": "0x426314",
+      "size": 6204
+    },
+    {
+      "section": ".text$f00427c70A",
+      "address": "0x427c05",
+      "size": 107
+    },
+    {
+      "section": ".text$f00427e90A",
+      "address": "0x427c8d",
+      "size": 515
+    },
+    {
+      "section": ".text$f00428160A",
+      "address": "0x42815d",
+      "size": 3
+    },
+    {
+      "section": ".text$f004281d0A",
+      "address": "0x4281c9",
+      "size": 7
+    },
+    {
+      "section": ".text$f00428280A",
+      "address": "0x42827e",
+      "size": 2
+    },
+    {
+      "section": ".text$f00428630A",
+      "address": "0x4285ea",
+      "size": 70
+    },
+    {
+      "section": ".text$f00428d70A",
+      "address": "0x428ac3",
+      "size": 685
+    },
+    {
+      "section": ".text$f0043dd10A",
+      "address": "0x428dcb",
+      "size": 85829
+    },
+    {
+      "section": ".text$f0043e710A",
+      "address": "0x43dda5",
+      "size": 2411
+    },
+    {
+      "section": ".text$f0043e7e0A",
+      "address": "0x43e7d5",
+      "size": 11
+    },
+    {
+      "section": ".text$f004489d0A",
+      "address": "0x43e8a2",
+      "size": 41262
+    },
+    {
+      "section": ".text$f00448d00A",
+      "address": "0x448a46",
+      "size": 698
+    },
+    {
+      "section": ".text$f00448db0A",
+      "address": "0x448d49",
+      "size": 103
+    },
+    {
+      "section": ".text$f004491c0A",
+      "address": "0x448e24",
+      "size": 924
+    },
+    {
+      "section": ".text$f00449210A",
+      "address": "0x449209",
+      "size": 7
+    },
+    {
+      "section": ".text$f004492a0A",
+      "address": "0x449246",
+      "size": 90
+    },
+    {
+      "section": ".text$f004492f0A",
+      "address": "0x4492e2",
+      "size": 14
+    },
+    {
+      "section": ".text$f00449350A",
+      "address": "0x44934a",
+      "size": 6
+    },
+    {
+      "section": ".text$f00449450A",
+      "address": "0x4493bf",
+      "size": 145
+    },
+    {
+      "section": ".text$f00449630A",
+      "address": "0x449465",
+      "size": 459
+    },
+    {
+      "section": ".text$f00449870A",
+      "address": "0x449645",
+      "size": 555
+    },
+    {
+      "section": ".text$f00449950A",
+      "address": "0x449949",
+      "size": 7
+    },
+    {
+      "section": ".text$f0044bf40A",
+      "address": "0x4499f1",
+      "size": 9551
+    },
+    {
+      "section": ".text$f0044c2a0A",
+      "address": "0x44bf98",
+      "size": 776
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_data_004776ec",
+      "address": "0x4776ec",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004776f4",
+      "address": "0x4776f4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00477704",
+      "address": "0x477704",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00474c68",
+      "address": "0x474c68",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00474c44",
+      "address": "0x474c44",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491c10",
+      "address": "0x491c10",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00476f78",
+      "address": "0x476f78",
+      "kind": "data"
+    },
+    {
+      "symbol": "__fltused",
+      "address": "0x0",
+      "kind": "metadata"
+    },
+    {
+      "symbol": "??2@YAPAXI@Z",
+      "address": "0x452493",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?Entity_Constructor@@YIPAUEntity@@PAU1@@Z",
+      "address": "0x402050",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_asm_FUN_0043ee30_0043ee30@4",
+      "address": "0x43ee30",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_0047770c",
+      "address": "0x47770c",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00470b4c",
+      "address": "0x470b4c",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00470b48",
+      "address": "0x470b48",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00470afc",
+      "address": "0x470afc",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00470b64",
+      "address": "0x470b64",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00470b68",
+      "address": "0x470b68",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00470b44",
+      "address": "0x470b44",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00470b00",
+      "address": "0x470b00",
+      "kind": "data"
+    },
+    {
+      "symbol": "?SetPolar@Vec3@@QAEPAU1@MM@Z",
+      "address": "0x44c5d0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_NormalizeAngle@4",
+      "address": "0x44bc70",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_floor",
+      "address": "0x452ff0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__ftol2",
+      "address": "0x463b2c",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_00470b40",
+      "address": "0x00470b40",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00470b3c",
+      "address": "0x00470b3c",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00470b04",
+      "address": "0x00470b04",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00470b38",
+      "address": "0x00470b38",
+      "kind": "data"
+    },
+    {
+      "symbol": "?g_frame_timer_normal_lower@@3MA",
+      "address": "0x470B68",
+      "kind": "data"
+    },
+    {
+      "symbol": "?g_frame_timer_normal_upper@@3MA",
+      "address": "0x470B64",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00474c48",
+      "address": "0x474c48",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004749ce",
+      "address": "0x4749ce",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00492590",
+      "address": "0x492590",
+      "kind": "data"
+    },
+    {
+      "symbol": "?g_score_default_speed@@3MA",
+      "address": "0x476f78",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00474e5c",
+      "address": "0x474e5c",
+      "kind": "data"
+    },
+    {
+      "symbol": "?Evaluate@PlayerBulletManager@@QAEHPBUVec3@@MH@Z",
+      "address": "0x41c800",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?Reset@PlayerBulletManager@@QAEHXZ",
+      "address": "0x41c850",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?Set@PlayerInputMode@@QAEHH@Z",
+      "address": "0x40ac90",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?Open@PlayerDeathScene@@QAEHXZ",
+      "address": "0x4231d0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?AddWithMinimum@PlayerScoreGauge@@QAEXH@Z",
+      "address": "0x412e70",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?SetPowerDigits@FrontScript@@QAEXHH@Z",
+      "address": "0x4054b0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_InitializePlayer_00405860@4",
+      "address": "0x405860",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_RefreshFamiliars_00426f70@4",
+      "address": "0x426f70",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_UpdateContact_004269d0@4",
+      "address": "0x4269d0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_004776f0",
+      "address": "0x4776f0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0047781c",
+      "address": "0x47781c",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00477818",
+      "address": "0x477818",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00477830",
+      "address": "0x477830",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00477838",
+      "address": "0x477838",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491c28",
+      "address": "0x491c28",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00474c40",
+      "address": "0x474c40",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00474c70",
+      "address": "0x474c70",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00474c98",
+      "address": "0x474c98",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00470d44",
+      "address": "0x470d44",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00470bc8",
+      "address": "0x470bc8",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00470d40",
+      "address": "0x470d40",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00470d3c",
+      "address": "0x470d3c",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00470d38",
+      "address": "0x470d38",
+      "kind": "data"
+    },
+    {
+      "symbol": "_Entity_AngleToPoint_00426610@8",
+      "address": "0x426610",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_00470b0c",
+      "address": "0x470b0c",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00474c6c",
+      "address": "0x474c6c",
+      "kind": "data"
+    }
+  ],
+  "description": "Complete genuine 40-function graph derives the selected stop-frame and position helpers through full movement and player-state callers; no synthetic caller, aliases or instruction edits. Movement and other unmatched bodies are whole unselected context."
+}
