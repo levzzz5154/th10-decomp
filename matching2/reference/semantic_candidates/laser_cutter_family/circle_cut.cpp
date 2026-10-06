@@ -8,7 +8,7 @@ int CutLaser::CutCircle(const CutVector* center,float radius,int spawn_items) {
  memset(cut,0,sizeof(cut));
  int hit_count=0;
  int count=0;
- volatile float progress=6.0f;
+ float progress=6.0f;
  CutVector step;
  step.z=0.0f;
  step.SetPolar(angle,6.0f);
@@ -17,8 +17,8 @@ int CutLaser::CutCircle(const CutVector* center,float radius,int spawn_items) {
  point.z=0.0f;
  step*=2.0f;
  radius*=radius;
- if (12.0f<length) {
-  do {
+ {
+  while (progress+6.0f<length) {
    float dy=center->y-point.y;
    float dx=center->x-point.x;
    if (!(dx*dx+dy*dy>radius)) {
@@ -42,10 +42,10 @@ int CutLaser::CutCircle(const CutVector* center,float radius,int spawn_items) {
         reinterpret_cast<AnimationObject_0043e710*>(object),index);
     static_cast<CutAnimationLists*>(data_00491c10)->RegisterPrimaryBack(object);
    }
-   ++count;
    point+=step;
    progress+=12.0f;
-  } while (progress+6.0f<length);
+   ++count;
+  }
   if (hit_count) {
    int cursor=0;
 

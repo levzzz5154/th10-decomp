@@ -8,7 +8,7 @@ int CutLaser::CutRectangle(const CutVector* center,const CutVector* size,int spa
  memset(cut,0,sizeof(cut));
  int hit_count=0;
  int count=0;
- volatile float progress=6.0f;
+ float progress=6.0f;
  CutVector high;high=(*size)*0.5f;
  CutVector low;low=(*center)-high;
  high=high+(*center);
@@ -20,8 +20,8 @@ int CutLaser::CutRectangle(const CutVector* center,const CutVector* size,int spa
  point.z=0.0f;
  step*=2.0f;
 
- if (12.0f<length) {
-  do {
+ {
+  while (progress+6.0f<length) {
    if (!(point.x<low.x) && !(point.x>high.x) &&
        !(point.y<low.y) && !(point.y>high.y)) {
     cut[count]=1;
@@ -34,10 +34,10 @@ int CutLaser::CutRectangle(const CutVector* center,const CutVector* size,int spa
     void* resource=static_cast<CutAnimationBank*>(data_0047781c)->line_animation;
     reinterpret_cast<CutAnimationResource*>(resource)->CreateOffset(index,&point);
    }
-   ++count;
    point+=step;
    progress+=12.0f;
-  } while (progress+6.0f<length);
+   ++count;
+  }
   if (hit_count) {
    int cursor=0;
 

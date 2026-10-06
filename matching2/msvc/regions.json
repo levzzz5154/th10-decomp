@@ -18211,13 +18211,23 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0041d880_0041d880",
-      "source": "src/game/laser_segment_cut.cpp",
-      "symbol": "_asm_FUN_0041d880_0041d880",
+      "name": "semantic_TrimLaser_TrimRectangle_0041d880",
+      "source": "src/game/laser_rectangle_trim.cpp",
+      "symbol": "?TrimRectangle@TrimLaser@@UAEHPBUCutVector@@0H@Z",
       "address": "0x0041D880",
       "size": 1269,
-      "kind": "asm",
-      "owner": "0x0041D880"
+      "kind": "semantic",
+      "owner": "0x0041D880",
+      "previous_record": {
+        "name": "asm_FUN_0041d880_0041d880",
+        "source": "src/game/laser_segment_cut.cpp",
+        "symbol": "_asm_FUN_0041d880_0041d880",
+        "address": "0x0041D880",
+        "size": 1269,
+        "kind": "asm",
+        "owner": "0x0041D880"
+      },
+      "section": ".text$f0041d880F"
     },
     {
       "name": "text_padding_0041dd75",
@@ -60100,7 +60110,8 @@
     "_EffectPoolUpdate@4": "0x00428280",
     "?Sweep@PickupSweepResult@@QAEHPAUPlayerState@@PBUPickupPoint@@1@Z": "0x00428630",
     "?Spawn@PlayerItemManager@@QAEHPBUVector3@@HHMM@Z": "0x0041BB00",
-    "_PlayerState_Update_00425730@4": "0x00425730"
+    "_PlayerState_Update_00425730@4": "0x00425730",
+    "?TrimRectangle@TrimLaser@@UAEHPBUCutVector@@0H@Z": "0x0041D880"
   },
   "translation_units": [
     "lib/libc.lib/build/intel/st_obj/a_cmp.obj",
@@ -60428,6 +60439,7 @@
     "src/game/laser_initialize_0041e5c0.cpp",
     "src/game/laser_line.cpp",
     "src/game/laser_segment_cut.cpp",
+    "src/game/laser_rectangle_trim.cpp",
     "src/game/laser_spawn_0041c510.cpp",
     "src/game/line_effect_create_all_segments_0041e260.cpp",
     "src/game/line_laser_initialize_0041c8c0.cpp",
@@ -63022,7 +63034,8 @@
     "layout/ltcg/laser_line_0041d3d0.json",
     "layout/ltcg/item_collection_genuine_0041afd0.json",
     "layout/ltcg/player_state_collision_genuine_00408030_00408100.json",
-    "layout/ltcg/player_bullet_animation_genuine_0041c800_0041c850_00449210_004492f0.json"
+    "layout/ltcg/player_bullet_animation_genuine_0041c800_0041c850_00449210_004492f0.json",
+    "layout/ltcg/laser_cut.json"
   ],
   "coff_aliases": {
     "lib/libcmt.lib/build/intel/mt_obj/exsup3.obj": {
