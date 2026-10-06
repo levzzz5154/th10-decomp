@@ -28,7 +28,6 @@
     "layout/ltcg/player_state_collision_runtime/collision_bounds.cpp",
     "layout/ltcg/player_state_collision_runtime/collision_loader.cpp",
     "layout/ltcg/player_state_collision_runtime/collision_create.cpp",
-    "layout/ltcg/player_state_collision_runtime/item_spawn_context.cpp",
     "layout/ltcg/player_state_collision_runtime/item_start_script.cpp",
     "layout/ltcg/player_state_collision_runtime/item_polar.cpp"
   ],
@@ -317,20 +316,12 @@
       "section": ".text$f0040dc80F",
       "address": "0x40dc80",
       "size": 32
-    },
-    {
-      "name": "item_spawn_context",
-      "symbol": "_ItemSpawnContext@4",
-      "section": ".text$f0040dca0F",
-      "address": "0x40dca0",
-      "size": 13
     }
   ],
   "anchor_roots": [
     "_PickupSweepCaller@4",
     "?InitializeObject@AnimationResource_00449870@@QAEXPAUEntity@@H@Z",
-    "?SetPolar@ItemPolarVelocity_0041bb00@@QAEPAU1@MM@Z",
-    "_ItemSpawnContext@4"
+    "?SetPolar@ItemPolarVelocity_0041bb00@@QAEPAU1@MM@Z"
   ],
   "roots": [
     "_StageSchedule_Fire_00427e90@12",
@@ -399,8 +390,8 @@
     },
     {
       "section": ".text$f0041bb00A",
-      "address": "0x40dcad",
-      "size": 56915
+      "address": "0x40dca0",
+      "size": 56928
     },
     {
       "section": ".text$f0041beb0A",
@@ -834,11 +825,6 @@
       "symbol": "_EntityInitTail_00404f30",
       "address": "0x401ef1",
       "kind": "relative_code"
-    },
-    {
-      "symbol": "_g_item_counters",
-      "address": "0x474c44",
-      "kind": "data"
     }
   ],
   "description": "Complete real player-state/collision/item-spawn graph, 36 whole functions and six actual roots. Collision activation 199 and check 260 are selected; all other complete graph bodies are unselected context. No synthetic caller, forced register choice, byte mask or constant alias.",

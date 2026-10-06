@@ -24,7 +24,17 @@ struct PlayerBulletManager {
 struct PlayerInputMode { __declspec(noinline) int Set(int mode); };
 struct PlayerDeathScene { __declspec(noinline) int Open(); };
 struct PlayerPracticeState { unsigned char reserved_00[0x10]; int mode; };
-struct PlayerScoreGauge { __declspec(noinline) void AddWithMinimum(int amount); };
+// The game counters at 0x00474C40.
+struct PlayerScoreGauge {
+    int high_score;
+    int score;
+    short power;
+    unsigned char reserved_0a[0x30 - 0x0a];
+    int lives;
+    unsigned char reserved_34[0x58 - 0x34];
+    int field_58;
+    __declspec(noinline) void AddWithMinimum(int amount);
+};
 extern "C" {
 extern PlayerCollisionEngine* data_004776f0;
 extern PlayerBulletManager* data_0047781c;
@@ -33,8 +43,6 @@ extern PlayerDeathScene* data_00477830;
 extern PlayerPracticeState* data_00477838;
 extern PlayerInputMode data_00491c28;
 extern PlayerScoreGauge data_00474c40;
-extern unsigned short data_00474c48;
-extern int data_00474c70, data_00474c98;
 extern const float data_00470d44, data_00470bc8, data_00470d40;
 extern const float data_00470d3c, data_00470d38, data_00470b4c;
 __declspec(noinline) int __stdcall InitializePlayer_00405860(PickupPlayer* player);
@@ -58,15 +66,25 @@ static inline void ResetPlayerTimer(FrameTimer& timer, int frame) {
     timer.elapsed = float(frame);
     timer.previous = frame - 1;
 }
-static inline void DecrementPlayerTimer(int& previous, int& current,
-        float& elapsed, const float* speed) {
-    previous = current;
-    if (*speed > g_frame_timer_normal_lower && *speed < g_frame_timer_normal_upper)
-        elapsed -= 1.0f;
+template <class Timer>
+static __forceinline void DecrementPlayerTimer(Timer* timer, int count) {
+    timer->previous = timer->current;
+    if (*timer->speed > g_frame_timer_normal_lower && *timer->speed < g_frame_timer_normal_upper)
+        timer->elapsed -= float(count);
     else
-        elapsed -= *speed;
-    current = int(elapsed);
+        timer->elapsed -= *timer->speed * float(count);
+    timer->current = int(timer->elapsed);
 }
+static __forceinline Vec3 operator-(const Vec3& a, const Vec3& b) {
+    Vec3 r; r.x = a.x - b.x; r.y = a.y - b.y; r.z = a.z - b.z; return r;
+}
+struct ScaledVec3 : Vec3 {
+    ScaledVec3(float x_, float y_, float z_) { x = x_; y = y_; z = z_; }
+};
+static __forceinline ScaledVec3 operator*(const Vec3& a, float f) {
+    return ScaledVec3(a.x * f, a.y * f, a.z * f);
+}
+static __forceinline void ShowFamiliar(ScheduledFamiliar* familiar) { familiar->active = 1; }
 static inline void ActivatePlayerCollisions(bool idle_only) {
     PlayerCollisionRecord* record = data_004776f0->records;
     for (int remaining = 2000; remaining; --remaining, ++record)
@@ -80,30 +98,30 @@ extern "C" __declspec(noinline) int __stdcall PlayerState_Update_00425730(Player
     case 0: {
         player->fixed_y = 48000 - player->state_timer.current * 8000 / 60;
         player->spawn_origin.y = float(player->fixed_y) * 0.01f;
-        for (int familiar_index = 0; familiar_index < 4; ++familiar_index) player->familiars[familiar_index].active = 1;
-        int history_index = 32;
-        while (player->familiar_level * 8 < history_index) {
+        ShowFamiliar(&player->familiars[0]);
+        ShowFamiliar(&player->familiars[1]);
+        ShowFamiliar(&player->familiars[2]);
+        ShowFamiliar(&player->familiars[3]);
+        int history_index;
+        for (history_index = 32; player->familiar_level * 8 < history_index; --history_index)
             player->history[history_index] = player->history[player->familiar_level * 8];
-            --history_index;
-        }
-        while (history_index > 0) {
+        for (; history_index > 0; --history_index)
             player->history[history_index] = player->history[history_index - 1];
-            --history_index;
-        }
-        player->history[0].x = player->fixed_x;
-        player->history[0].y = player->fixed_y;
-        if (player->state_timer.current < 30) {
-            float radius = float(player->state_timer.current) * data_00470d44 + data_00470bc8;
-            data_004776f0->Check(&player->previous_position, radius, 0, 1);
-            data_004776f0->Check(&player->previous_position, radius * data_00470d40, 0, 0);
-            data_0047781c->Evaluate(&player->previous_position, radius, 0);
-        } else {
+        PlayerState::HistoryPoint* head = player->history;
+        head->x = player->fixed_x;
+        head->y = player->fixed_y;
+        if (player->state_timer.current >= 30) {
             ActivatePlayerCollisions(true);
             for (PlayerBullet* bullet = data_0047781c->first; bullet;) {
                 PlayerBullet* next = bullet->next;
                 if (bullet->state != 1) bullet->Retire(0);
                 bullet = next;
             }
+        } else {
+            float radius = float(player->state_timer.current) * data_00470d44 + data_00470bc8;
+            data_004776f0->Check(&player->previous_position, radius, 0, 1);
+            data_004776f0->Check(&player->previous_position, data_00470d40 * radius, 0, 0);
+            data_0047781c->Evaluate(&player->previous_position, radius, 0);
         }
         if (player->state_timer.current < 60) break;
         player->phase = 1;
@@ -112,14 +130,14 @@ extern "C" __declspec(noinline) int __stdcall PlayerState_Update_00425730(Player
     }
     case 1:
         if (data_0047770c && !data_0047770c->script && data_004776ec &&
-                !data_004776ec->active && static_cast<short>(data_00474c48) / 20 != 0 &&
+                !data_004776ec->active && static_cast<short>(data_00474c40.power / 20) != 0 &&
                 data_00474e5c.revive) {
             reinterpret_cast<PlayerSchedulerRecord*>(&player->invulnerability_timer)->SetSchedulerValue(270);
             InitializePlayer_00405860(data_004776ec);
-            data_00474c48 -= 20;
+            data_00474c40.power -= 20;
             RefreshFamiliars_00426f70(player);
             {
-                int power = static_cast<short>(data_00474c48);
+                int power = data_00474c40.power;
                 data_0047770c->SetPowerDigits(power / 20, (power % 20) * 100 / 20);
             }
             data_00474c40.AddWithMinimum(3000);
@@ -135,43 +153,44 @@ extern "C" __declspec(noinline) int __stdcall PlayerState_Update_00425730(Player
         player->Move();
         break;
     case 4:
-        if (player->state_timer.current < 8) {
+        if (player->state_timer.current >= 8) {
+            UpdateContact_004269d0(player);
+            // Once contact has been updated, state 4 shares the full death path.
+        } else {
             if (data_004776ec && !data_004776ec->active &&
-                    static_cast<short>(data_00474c48) / 20 != 0 && data_00474e5c.revive) {
+                    static_cast<short>(data_00474c40.power / 20) != 0 && data_00474e5c.revive) {
                 reinterpret_cast<PlayerSchedulerRecord*>(&player->state_timer)->SetSchedulerValue(60);
                 reinterpret_cast<PlayerSchedulerRecord*>(&player->invulnerability_timer)->SetSchedulerValue(200);
                 InitializePlayer_00405860(data_004776ec);
-                data_00474c48 -= 20;
+                data_00474c40.power -= 20;
                 RefreshFamiliars_00426f70(player);
                 {
-                int power = static_cast<short>(data_00474c48);
+                int power = data_00474c40.power;
                 data_0047770c->SetPowerDigits(power / 20, (power % 20) * 100 / 20);
             }
                 player->phase = 1;
             }
             break;
         }
-        UpdateContact_004269d0(player);
-        // Once contact has been updated, state 4 shares the full death path.
     case 2:
         if (player->state_timer.current == 3) {
-            data_00474c48 -= 64;
-            if (static_cast<short>(data_00474c48) < 0) data_00474c48 = 0;
+            data_00474c40.power -= 64;
+            if (data_00474c40.power < 0) data_00474c40.power = 0;
             {
-                int power = static_cast<short>(data_00474c48);
+                int power = data_00474c40.power;
                 data_0047770c->SetPowerDigits(power / 20, (power % 20) * 100 / 20);
             }
             Vec3 target = {0.0f, player->spawn_origin.y - data_00470b4c, 0.0f};
             float angle = float(Entity_AngleToPoint_00426610(player, &target));
             for (int fan_index = 0; fan_index < 7; ++fan_index) {
-                int kind = fan_index == 1 || fan_index == 3 || fan_index == 5 ? 4 : 1;
                 float direction = (float(fan_index) * data_00470d3c + angle) - data_00470d38;
+                int kind = fan_index == 1 || fan_index == 3 || fan_index == 5 ? 4 : 1;
                 data_00477818->Spawn(reinterpret_cast<const Vector3*>(&player->spawn_origin), kind, 0xffffff, direction, 3.0f);
             }
             RefreshFamiliars_00426f70(player);
         }
         if (player->state_timer.current >= 30) {
-            if (data_00474c70 < 0) {
+            if (data_00474c40.lives < 0) {
                 if (data_00477838->mode == 1) data_00491c28.Set(4);
                 else data_00477830->Open();
             } else {
@@ -196,22 +215,22 @@ extern "C" __declspec(noinline) int __stdcall PlayerState_Update_00425730(Player
         break;
     }
 
-    for (int region_index = 0; region_index < 32; ++region_index) {
-        PickupRegion& region = player->regions[region_index];
+    PickupRegion* circle = player->regions;
+    PickupRegion* table = circle;
+    for (int region_index = 0; region_index < 32; ++circle, ++region_index) {
+        PickupRegion& region = table[region_index];
         if (region.flags & 1) {
             region.motion.Update();
             region.motion.Advance();
-            region.radius += region.speed;
+            circle->radius += region.speed;
             region.angle += region.angle_step;
-            DecrementPlayerTimer(region.timer.previous, region.timer.current,
-                region.timer.elapsed, region.timer.speed);
+            DecrementPlayerTimer(&region.timer, 1);
             if (region.timer.current <= 0) region.flags &= ~1u;
         }
     }
     FrameTimer& invulnerability = player->invulnerability_timer;
     if (invulnerability.current > 0) {
-        DecrementPlayerTimer(invulnerability.previous, invulnerability.current,
-            invulnerability.elapsed, invulnerability.speed);
+        DecrementPlayerTimer(&invulnerability, 1);
         if (player->state_timer.current != player->state_timer.previous && player->state_timer.current % 3 == 0) {
             player->animation.secondary_color = 0xff0000ff;
             player->animation.flags_35C |= 0x8000;
@@ -219,34 +238,22 @@ extern "C" __declspec(noinline) int __stdcall PlayerState_Update_00425730(Player
     } else player->animation.flags_35C &= ~0x8000u;
     asm_FUN_0043ee30_0043ee30(&player->animation);
 
-    Vec3 position = player->spawn_origin;
-    Vec3 half = player->primary_half;
-    Vec3 minimum = {position.x - half.x, position.y - half.y, position.z - half.z};
-    Vec3 maximum = {half.x + position.x, half.y + position.y, half.z + position.z};
-    player->primary_min = minimum;
-    player->primary_max = maximum;
-    Vec3 full = player->full_size;
-    Vec3 inner_min = {position.x - full.x * 0.5f, position.y - full.y * 0.5f, position.z - full.z * 0.5f};
-    Vec3 inner_max = {full.x * 0.5f + position.x, full.y * 0.5f + position.y, full.z * 0.5f + position.z};
-    player->secondary_half_min = inner_min;
-    player->secondary_half_max = inner_max;
-    Vec3 outer = player->outer_half;
-    Vec3 outer_min = {position.x - outer.x, position.y - outer.y, position.z - outer.z};
-    Vec3 outer_max = {outer.x + position.x, outer.y + position.y, outer.z + position.z};
-    player->secondary_min = outer_min;
-    player->secondary_max = outer_max;
-    Vec3 size_min = {position.x - full.x, position.y - full.y, position.z - full.z};
-    Vec3 size_max = {full.x + position.x, full.y + position.y, full.z + position.z};
-    player->size_min = size_min;
-    player->size_max = size_max;
+    player->primary_min = player->spawn_origin - player->primary_half;
+    player->primary_max = player->spawn_origin + player->primary_half;
+    player->secondary_half_min = player->spawn_origin - player->full_size * 0.5f;
+    player->secondary_half_max = player->full_size * 0.5f + player->spawn_origin;
+    player->secondary_min = player->spawn_origin - player->outer_half;
+    player->secondary_max = player->spawn_origin + player->outer_half;
+    player->size_min = player->spawn_origin - player->full_size;
+    player->size_max = player->spawn_origin + player->full_size;
     player->state_timer.TickInline();
     player->auxiliary_timer.TickInline();
 
     if (!data_0047770c->script && data_00477704 && data_00477704->enabled &&
             player->state_timer.current % 60 == 0) {
-        ++data_00474c98;
-        if (data_00474c98 > 1024) data_00474c98 = 1024;
-        else if (data_00474c98 < -1024) data_00474c98 = -1024;
+        ++data_00474c40.field_58;
+        if (data_00474c40.field_58 > 1024) data_00474c40.field_58 = 1024;
+        else if (data_00474c40.field_58 < -1024) data_00474c40.field_58 = -1024;
     }
     if (!data_0047770c->script && data_00477704 && data_00477704->enabled)
         player->UpdateSequence();

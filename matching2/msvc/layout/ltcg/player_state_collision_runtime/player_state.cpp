@@ -24,7 +24,6 @@ struct PlayerBulletManager {
 struct PlayerInputMode { __declspec(noinline) int Set(int mode); };
 struct PlayerDeathScene { __declspec(noinline) int Open(); };
 struct PlayerPracticeState { unsigned char reserved_00[0x10]; int mode; };
-struct PlayerScoreGauge { __declspec(noinline) void AddWithMinimum(int amount); };
 extern "C" {
 extern PlayerCollisionEngine* data_004776f0;
 extern PlayerBulletManager* data_0047781c;
@@ -32,7 +31,6 @@ extern PlayerItemManager* data_00477818;
 extern PlayerDeathScene* data_00477830;
 extern PlayerPracticeState* data_00477838;
 extern PlayerInputMode data_00491c28;
-extern PlayerScoreGauge data_00474c40;
 extern unsigned short data_00474c48;
 extern int data_00474c70, data_00474c98;
 extern const float data_00470d44, data_00470bc8, data_00470d40;

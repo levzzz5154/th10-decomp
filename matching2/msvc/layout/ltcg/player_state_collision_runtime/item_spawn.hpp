@@ -41,3 +41,13 @@ typedef char ItemCursorOffsetCheck_0041bb00[offsetof(PlayerItemManager,special_c
 typedef char SpawnItemAnimationOffset[offsetof(SpawnItem_0041bb00,animation)==0?1:-1];
 typedef char SpawnItemPositionOffset[offsetof(SpawnItem_0041bb00,position)==0x3AC?1:-1];
 typedef char SpawnItemTimerOffset[offsetof(SpawnItem_0041bb00,timer)==0x3C8?1:-1];
+
+// The game counters at 0x00474C40. The player update passes the object to
+// its gauge routine, so its fields are re-read after unrelated stores.
+struct PlayerScoreGauge {
+    int high_score;
+    int score;
+    short power;
+    __declspec(noinline) void AddWithMinimum(int amount);
+};
+extern "C" PlayerScoreGauge data_00474c40;

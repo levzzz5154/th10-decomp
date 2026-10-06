@@ -2,14 +2,6 @@
 #include "../../layout/ltcg/player_state_collision_runtime/runtime.hpp"
 #include "../../layout/ltcg/player_state_collision_runtime/item_spawn.hpp"
 
-// The game counters live in one object whose address is visible elsewhere,
-// so the power read follows the item stores.
-struct ItemGameCounters {
-    int score;          // 0x00474C44
-    short power_units;  // 0x00474C48
-};
-extern "C" ItemGameCounters g_item_counters;
-
 static __forceinline void ResetTimer(FrameTimer* timer) {
     unsigned int flags = timer->flags;
     if (!(flags & 1u)) {
@@ -58,7 +50,7 @@ __declspec(noinline) int PlayerItemManager::Spawn(
         item->velocity.SetPolar(angle, speed);
         ResetMotion(item);
         // At full power, power items turn into point-value ones.
-        if (g_item_counters.power_units >= 100) {
+        if (data_00474c40.power >= 100) {
             switch (kind) {
             case 10: case 11: kind = 5; break;
             case 1: case 4: kind = 9; break;
