@@ -10,7 +10,8 @@
     "?InitializeObject@AnimationResource_00449870@@QAEXPAUEntity@@H@Z",
     "_StageSchedule_Fire_00427e90@12",
     "_PlayerState_Update_00425730@4",
-    "?SetPolar@ItemPolarVelocity_0041bb00@@QAEPAU1@MM@Z"
+    "?SetPolar@ItemPolarVelocity_0041bb00@@QAEPAU1@MM@Z",
+    "_ItemSpawnContext@4"
   ],
   "absolute_symbols": {
     "_data_004776ec": {
@@ -252,6 +253,14 @@
     "_data_00470b0c": {
       "address": "0x470b0c",
       "kind": "data"
+    },
+    "_EntityInitTail_00404f30": {
+      "address": "0x401ef1",
+      "kind": "code"
+    },
+    "_g_item_counters": {
+      "address": "0x474c44",
+      "kind": "data"
     }
   },
   "bindings": {
@@ -271,7 +280,7 @@
     "?Allocate@AnimationPool@@QAEPAUEntity@@XZ": "0x449950",
     "?InitializeObject@AnimationResource_00449870@@QAEXPAUEntity@@H@Z": "0x449870",
     "?LoadScriptPreservingState_0043e7e0@@YGXPAUAnimationResource_0043e7e0@@PAUAnimationObject_0043e7e0@@H@Z": "0x43e7e0",
-    "?Entity_Init@@YGXPAUEntity@@@Z": "0x401de0",
+    "?Entity_Init@@YIXPAXPAUEntity@@@Z": "0x401de0",
     "__real@3f800000": "0x470AFC",
     "?MarkForRemoval@PickupAnimationLists@@QAEPAXUAnimationRef@@@Z": "0x4492a0",
     "?StopAtFrame1@PickupHandle@@QAEXXZ": "0x409e50",
@@ -390,7 +399,7 @@
       194
     ],
     [
-      "?Entity_Init@@YGXPAUEntity@@@Z",
+      "?Entity_Init@@YIXPAXPAUEntity@@@Z",
       ".text$130entityinit",
       4201952,
       273

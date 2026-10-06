@@ -2,7 +2,7 @@
 // animation headers describe the same manager/entity storage used by the
 // collision sweep's named views. No ABI wrapper or synthetic caller is used.
 #include "th10/render/animation_public_callers.hpp"
-__declspec(noinline) void __stdcall Entity_Init(Entity* entity);
+__declspec(noinline) void __fastcall Entity_Init(void* unused, Entity* entity);
 #include "entity_initialize.cpp"
 #include "dependencies.cpp"
 #include "preserve.cpp"

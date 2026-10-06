@@ -16822,13 +16822,23 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0041bb00_0041bb00",
+      "name": "semantic_PlayerItemSpawn_0041bb00",
       "source": "src/game/item_spawn.cpp",
-      "symbol": "_asm_FUN_0041bb00_0041bb00",
+      "symbol": "?Spawn@PlayerItemManager@@QAEHPBUVector3@@HHMM@Z",
       "address": "0x0041BB00",
       "size": 819,
-      "kind": "asm",
-      "owner": "0x0041BB00"
+      "kind": "semantic",
+      "owner": "0x0041BB00",
+      "previous_record": {
+        "name": "asm_FUN_0041bb00_0041bb00",
+        "source": "src/game/item_spawn.cpp",
+        "symbol": "_asm_FUN_0041bb00_0041bb00",
+        "address": "0x0041BB00",
+        "size": 819,
+        "kind": "asm",
+        "owner": "0x0041BB00"
+      },
+      "section": ".text$f0041bb00F"
     },
     {
       "name": "text_padding_0041be33",
@@ -60078,7 +60088,8 @@
     "?HitTest@PickupPlayer@@QAEHPBUPickupPoint@@@Z": "0x004059F0",
     "_StageSchedule_Fire_00427e90@12": "0x00427E90",
     "_EffectPoolUpdate@4": "0x00428280",
-    "?Sweep@PickupSweepResult@@QAEHPAUPlayerState@@PBUPickupPoint@@1@Z": "0x00428630"
+    "?Sweep@PickupSweepResult@@QAEHPAUPlayerState@@PBUPickupPoint@@1@Z": "0x00428630",
+    "?Spawn@PlayerItemManager@@QAEHPBUVector3@@HHMM@Z": "0x0041BB00"
   },
   "translation_units": [
     "lib/libc.lib/build/intel/st_obj/a_cmp.obj",

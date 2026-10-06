@@ -16,7 +16,7 @@ void* AnimationResource_0043e710::LoadScript(Entity* object, int index) {
         memset(object, 0, sizeof(Entity));
         return 0;
     }
-    Entity_Init(object);
+    Entity_Init(0, object);
     uint32_t mask = object->AnimationFlags() & 0xFFFFF9FFu;
     object->ScriptIndex() = static_cast<int16_t>(index);
     object->ScriptResourceId() = this->id;

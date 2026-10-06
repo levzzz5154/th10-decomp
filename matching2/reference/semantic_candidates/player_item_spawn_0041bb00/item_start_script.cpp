@@ -5,7 +5,7 @@
 #pragma code_seg(".text$d10startscript")
 __declspec(noinline) void __stdcall Entity_StartScript_00404f30(
         AnimationResource_0043e710* resource, Entity* entity, int script) {
-    Entity_Init(entity);
+    Entity_Init(0, entity);
     entity->Position() = Vector3Value(0.0f, 0.0f, 0.0f);
     entity->BasePosition() = Vector3Value(0.0f, 0.0f, 0.0f);
     entity->RenderOffset() = Vector3Value(0.0f, 0.0f, 0.0f);

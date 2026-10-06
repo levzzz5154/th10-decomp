@@ -7,7 +7,8 @@
     "layout/ltcg/player_state_collision_runtime/creation.cpp",
     "src/game/scheduled_effect_create_00427e90.cpp",
     "src/game/effect_pool_update.cpp",
-    "src/game/player_pickup_sweep.cpp"
+    "src/game/player_pickup_sweep.cpp",
+    "src/game/item_spawn.cpp"
   ],
   "included_sources": [
     "layout/ltcg/player_state_collision_runtime/hit.cpp",
@@ -27,7 +28,7 @@
     "layout/ltcg/player_state_collision_runtime/collision_bounds.cpp",
     "layout/ltcg/player_state_collision_runtime/collision_loader.cpp",
     "layout/ltcg/player_state_collision_runtime/collision_create.cpp",
-    "layout/ltcg/player_state_collision_runtime/item_spawn.cpp",
+    "layout/ltcg/player_state_collision_runtime/item_spawn_context.cpp",
     "layout/ltcg/player_state_collision_runtime/item_start_script.cpp",
     "layout/ltcg/player_state_collision_runtime/item_polar.cpp"
   ],
@@ -88,6 +89,15 @@
       "size": 1170,
       "actual_abi": "optional result record in ECX; manager, center and size on the stack; RET12",
       "source": "src/game/player_pickup_sweep.cpp"
+    },
+    {
+      "name": "function_0041bb00",
+      "symbol": "?Spawn@PlayerItemManager@@QAEHPBUVector3@@HHMM@Z",
+      "section": ".text$f0041bb00F",
+      "address": "0x41bb00",
+      "size": 819,
+      "actual_abi": "private EAX manager; position, kind, identifier, angle and speed on the stack; RET16",
+      "source": "src/game/item_spawn.cpp"
     }
   ],
   "context": {
@@ -191,10 +201,10 @@
     },
     {
       "name": "function_00401de0",
-      "symbol": "?Entity_Init@@YGXPAUEntity@@@Z",
+      "symbol": "?Entity_Init@@YIXPAXPAUEntity@@@Z",
       "section": ".text$f00401de0F",
       "address": "0x401de0",
-      "size": 273
+      "size": 23
     },
     {
       "name": "function_00409e50",
@@ -278,28 +288,21 @@
       "symbol": "?LoadScript@AnimationResource_0043e710@@QAEPAXPAUEntity@@H@Z",
       "section": ".text$f0043e710F",
       "address": "0x43e710",
-      "size": 197
+      "size": 203
     },
     {
       "name": "function_00448db0",
       "symbol": "?CreateOffset@AnimationResource_0043e710@@QAE?AUAnimationRef@@HPBUVector3@@@Z",
       "section": ".text$f00448db0F",
       "address": "0x448db0",
-      "size": 116
-    },
-    {
-      "name": "function_0041bb00",
-      "symbol": "?Spawn@PlayerItemManager@@QAEHPBUVector3@@HHMM@Z",
-      "section": ".text$f0041bb00F",
-      "address": "0x41bb00",
-      "size": 823
+      "size": 111
     },
     {
       "name": "function_00404f30",
       "symbol": "?Entity_StartScript_00404f30@@YGXPAUAnimationResource_0043e710@@PAUEntity@@H@Z",
       "section": ".text$f00404f30F",
       "address": "0x404f30",
-      "size": 200
+      "size": 202
     },
     {
       "name": "function_0041beb0",
@@ -314,12 +317,20 @@
       "section": ".text$f0040dc80F",
       "address": "0x40dc80",
       "size": 32
+    },
+    {
+      "name": "item_spawn_context",
+      "symbol": "_ItemSpawnContext@4",
+      "section": ".text$f0040dca0F",
+      "address": "0x40dca0",
+      "size": 13
     }
   ],
   "anchor_roots": [
     "_PickupSweepCaller@4",
     "?InitializeObject@AnimationResource_00449870@@QAEXPAUEntity@@H@Z",
-    "?SetPolar@ItemPolarVelocity_0041bb00@@QAEPAU1@MM@Z"
+    "?SetPolar@ItemPolarVelocity_0041bb00@@QAEPAU1@MM@Z",
+    "_ItemSpawnContext@4"
   ],
   "roots": [
     "_StageSchedule_Fire_00427e90@12",
@@ -333,8 +344,8 @@
     },
     {
       "section": ".text$f00404ed0A",
-      "address": "0x401ef1",
-      "size": 12255
+      "address": "0x401df7",
+      "size": 12505
     },
     {
       "section": ".text$f00404f30A",
@@ -343,8 +354,8 @@
     },
     {
       "section": ".text$f00405410A",
-      "address": "0x404ff8",
-      "size": 1048
+      "address": "0x404ffa",
+      "size": 1046
     },
     {
       "section": ".text$f004059f0A",
@@ -388,13 +399,13 @@
     },
     {
       "section": ".text$f0041bb00A",
-      "address": "0x40dca0",
-      "size": 56928
+      "address": "0x40dcad",
+      "size": 56915
     },
     {
       "section": ".text$f0041beb0A",
-      "address": "0x41be37",
-      "size": 121
+      "address": "0x41be33",
+      "size": 125
     },
     {
       "section": ".text$f00425730A",
@@ -453,8 +464,8 @@
     },
     {
       "section": ".text$f0043e7e0A",
-      "address": "0x43e7d5",
-      "size": 11
+      "address": "0x43e7db",
+      "size": 5
     },
     {
       "section": ".text$f004489d0A",
@@ -473,8 +484,8 @@
     },
     {
       "section": ".text$f004491c0A",
-      "address": "0x448e24",
-      "size": 924
+      "address": "0x448e1f",
+      "size": 929
     },
     {
       "section": ".text$f004492a0A",
@@ -818,6 +829,16 @@
       "symbol": "_data_00477834",
       "address": "0x477834",
       "kind": "data"
+    },
+    {
+      "symbol": "_EntityInitTail_00404f30",
+      "address": "0x401ef1",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_g_item_counters",
+      "address": "0x474c44",
+      "kind": "data"
     }
   ],
   "description": "Complete real player-state/collision/item-spawn graph, 36 whole functions and six actual roots. Collision activation 199 and check 260 are selected; all other complete graph bodies are unselected context. No synthetic caller, forced register choice, byte mask or constant alias.",
@@ -861,6 +882,16 @@
       "symbol": "__real@bf000000",
       "address": "0x00470B78",
       "value": -0.5
+    },
+    {
+      "symbol": "__real@c3400000",
+      "address": "0x00470B40",
+      "value": -192.0
+    },
+    {
+      "symbol": "__real@43400000",
+      "address": "0x00470B3C",
+      "value": 192.0
     }
   ]
 }

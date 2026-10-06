@@ -16,5 +16,5 @@
 #include "../../../src/game/player_collision_00408030_00408100.cpp"
 #include "collision_bounds.cpp"
 
-#include "item_spawn.cpp"
+#include "item_spawn_context.cpp"
 #include "item_polar.cpp"

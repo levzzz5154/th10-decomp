@@ -45,7 +45,7 @@ Entity* AnimationPool::Allocate() {
             Entity* block = (Entity*)operator new(sizeof(Entity));
             Entity* created = block != 0 ? Entity_Constructor(block) : (Entity*)0;
             object = created;
-            Entity_Init(created);
+            Entity_Init(0, created);
         } else {
             occupied[slot] = 1;
         }
