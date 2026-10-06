@@ -4,7 +4,8 @@
   "source": "src/game/player_collision_00408030_00408100.cpp",
   "driver": "layout/ltcg/player_state_collision_runtime/runtime.cpp",
   "additional_sources": [
-    "layout/ltcg/player_state_collision_runtime/creation.cpp"
+    "layout/ltcg/player_state_collision_runtime/creation.cpp",
+    "src/game/scheduled_effect_create_00427e90.cpp"
   ],
   "included_sources": [
     "layout/ltcg/player_state_collision_runtime/hit.cpp",
@@ -16,7 +17,6 @@
     "layout/ltcg/player_state_collision_runtime/preserve.cpp",
     "layout/ltcg/player_state_collision_runtime/effect_update.cpp",
     "layout/ltcg/player_state_collision_runtime/sound_queue.cpp",
-    "layout/ltcg/player_state_collision_runtime/scheduled_effect.cpp",
     "layout/ltcg/player_state_collision_runtime/schedule_dispatch.cpp",
     "layout/ltcg/player_state_collision_runtime/scheduler_store.cpp",
     "layout/ltcg/player_state_collision_runtime/sequence_timers.cpp",
@@ -59,6 +59,15 @@
       "address": "0x408100",
       "size": 260,
       "actual_abi": "private EAX engine / EBX point / three stack words / RET12 derived through full real owner and item-spawn graph"
+    },
+    {
+      "name": "function_00427e90",
+      "symbol": "_StageSchedule_Fire_00427e90@12",
+      "section": ".text$f00427e90F",
+      "address": "0x427e90",
+      "size": 717,
+      "actual_abi": "stdcall: player, descriptor and frame on the stack; RET12",
+      "source": "src/game/scheduled_effect_create_00427e90.cpp"
     }
   ],
   "context": {
@@ -210,13 +219,6 @@
       "size": 91
     },
     {
-      "name": "function_00427e90",
-      "symbol": "_StageSchedule_Fire_00427e90@12",
-      "section": ".text$f00427e90F",
-      "address": "0x427e90",
-      "size": 717
-    },
-    {
       "name": "function_00428160",
       "symbol": "?Dispatch@PlayerState@@QAEHH@Z",
       "section": ".text$f00428160F",
@@ -305,10 +307,11 @@
     "?Sweep@PickupSweepResult@@QAEHPAUPlayerState@@PBUPickupPoint@@1@Z",
     "_EffectPoolUpdate@4",
     "?InitializeObject@AnimationResource_00449870@@QAEXPAUEntity@@H@Z",
-    "_StageSchedule_Fire_00427e90@12",
     "?SetPolar@ItemPolarVelocity_0041bb00@@QAEPAU1@MM@Z"
   ],
-  "roots": [],
+  "roots": [
+    "_StageSchedule_Fire_00427e90@12"
+  ],
   "gaps": [
     {
       "section": ".text$f00401de0A",
@@ -794,5 +797,12 @@
       "kind": "data"
     }
   ],
-  "description": "Complete real player-state/collision/item-spawn graph, 36 whole functions and six actual roots. Collision activation 199 and check 260 are selected; all other complete graph bodies are unselected context. No synthetic caller, forced register choice, byte mask or constant alias."
+  "description": "Complete real player-state/collision/item-spawn graph, 36 whole functions and six actual roots. Collision activation 199 and check 260 are selected; all other complete graph bodies are unselected context. No synthetic caller, forced register choice, byte mask or constant alias.",
+  "constant_aliases": [
+    {
+      "symbol": "__real@3c23d70a",
+      "address": "0x00470B00",
+      "value": 0.009999999776482582
+    }
+  ]
 }

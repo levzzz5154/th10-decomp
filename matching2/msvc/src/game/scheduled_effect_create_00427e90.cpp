@@ -1,6 +1,14 @@
-#include "effect_update.hpp"
-#include "animation_public_callers.hpp"
-#include "sound_queue.hpp"
+#include "../../layout/ltcg/player_state_collision_runtime/effect_update.hpp"
+#include "../../layout/ltcg/player_state_collision_runtime/animation_public_callers.hpp"
+#include "../../layout/ltcg/player_state_collision_runtime/sound_queue.hpp"
+
+// Looks an animation up by handle and clears a stale handle.
+static __forceinline AnimationObject* ResolveOrClear(unsigned int* handle) {
+    unsigned int value = *handle;
+    AnimationObject* object = static_cast<AnimationContext*>(data_00491c10)->FindInBuckets(value);
+    if (!object) *handle = 0;
+    return object;
+}
 
 #pragma code_seg(".text$f00427e90F")
 extern "C" __declspec(noinline) int __stdcall StageSchedule_Fire_00427e90(
@@ -45,9 +53,9 @@ extern "C" __declspec(noinline) int __stdcall StageSchedule_Fire_00427e90(
             static_cast<AnimationResource_00449870*>(resource)
                 ->InitializeObject(object, script);
             AnimationRef id = static_cast<AnimationLists*>(data_00491c10)->RegisterPrimaryBack(object);
-            effect->handle.value = id.value;
-            AnimationObject* primary = static_cast<AnimationContext*>(data_00491c10)->FindInBuckets(id);
-            if (!primary) effect->handle.value = 0;
+            // The shared record declares its handles volatile for the effect update.
+            const_cast<unsigned int&>(effect->handle.value) = id.value;
+            AnimationObject* primary = ResolveOrClear(const_cast<unsigned int*>(&effect->handle.value));
             if (primary->flags & 0x8000000) {
                 primary->angle = descriptor->spawn_angle;
                 primary->flags |= 4;

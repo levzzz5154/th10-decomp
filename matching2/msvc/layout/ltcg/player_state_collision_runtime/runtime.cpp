@@ -5,7 +5,6 @@
 
 #include "effect_update.cpp"
 
-#include "scheduled_effect.cpp"
 #include "schedule_dispatch.cpp"
 #include "sound_queue.cpp"
 

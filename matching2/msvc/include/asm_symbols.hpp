@@ -873,8 +873,6 @@ extern "C" void __cdecl asm_FUN_00427960_00427960();
 #define VA_asm_FUN_00427960_00427960 0x00427960
 extern "C" void __cdecl asm_FUN_00427960_part_00427a10();
 #define VA_asm_FUN_00427960_part_00427a10 0x00427a10
-extern "C" void __cdecl asm_FUN_00427e90_00427e90();
-#define VA_asm_FUN_00427e90_00427e90 0x00427e90
 extern "C" void __cdecl asm_FUN_00428280_00428280();
 #define VA_asm_FUN_00428280_00428280 0x00428280
 extern "C" void __cdecl asm_FUN_00428280_part_004282b0();

@@ -23207,13 +23207,23 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00427e90_00427e90",
-      "source": "src/game/fun_00427e90_00427e90.cpp",
-      "symbol": "_asm_FUN_00427e90_00427e90",
+      "name": "semantic_ScheduledEffect_Create_00427e90",
+      "source": "src/game/scheduled_effect_create_00427e90.cpp",
+      "symbol": "_StageSchedule_Fire_00427e90@12",
       "address": "0x00427E90",
       "size": 717,
-      "kind": "asm",
-      "owner": "0x00427E90"
+      "kind": "semantic",
+      "owner": "0x00427E90",
+      "previous_record": {
+        "name": "asm_FUN_00427e90_00427e90",
+        "source": "src/game/fun_00427e90_00427e90.cpp",
+        "symbol": "_asm_FUN_00427e90_00427e90",
+        "address": "0x00427E90",
+        "size": 717,
+        "kind": "asm",
+        "owner": "0x00427E90"
+      },
+      "section": ".text$f00427e90F"
     },
     {
       "name": "text_padding_0042815d",
@@ -60045,7 +60055,8 @@
     "?Initialize@WaveSoundManager@@QAEHPAX@Z": "0x0043CD30",
     "_StageStartup@4": "0x00417870",
     "?ResultOverlay_SetMode@@YGXHPAUResultOverlayState_004172e0@@H@Z": "0x004172E0",
-    "?HitTest@PickupPlayer@@QAEHPBUPickupPoint@@@Z": "0x004059F0"
+    "?HitTest@PickupPlayer@@QAEHPBUPickupPoint@@@Z": "0x004059F0",
+    "_StageSchedule_Fire_00427e90@12": "0x00427E90"
   },
   "translation_units": [
     "lib/libc.lib/build/intel/st_obj/a_cmp.obj",
@@ -60327,7 +60338,7 @@
     "src/game/fun_00422ab0_00422ab0.cpp",
     "src/game/fun_00425730_00425730.cpp",
     "src/game/fun_00427960_00427960.cpp",
-    "src/game/fun_00427e90_00427e90.cpp",
+    "src/game/scheduled_effect_create_00427e90.cpp",
     "src/game/fun_00428e10_00428e10.cpp",
     "src/game/fun_0042e5a0_0042e5a0.cpp",
     "src/game/fun_0042f8b0_0042f8b0.cpp",
