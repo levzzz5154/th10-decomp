@@ -6,12 +6,13 @@
   "additional_sources": [
     "layout/ltcg/player_state_collision_runtime/creation.cpp",
     "src/game/scheduled_effect_create_00427e90.cpp",
-    "src/game/effect_pool_update.cpp"
+    "src/game/effect_pool_update.cpp",
+    "src/game/player_pickup_sweep.cpp"
   ],
   "included_sources": [
     "layout/ltcg/player_state_collision_runtime/hit.cpp",
     "layout/ltcg/player_state_collision_runtime/helpers.cpp",
-    "layout/ltcg/player_state_collision_runtime/sweep.cpp",
+    "layout/ltcg/player_state_collision_runtime/sweep_caller.cpp",
     "layout/ltcg/player_state_collision_runtime/dependencies.cpp",
     "layout/ltcg/player_state_collision_runtime/entity_initialize.cpp",
     "layout/ltcg/player_state_collision_runtime/initialize.cpp",
@@ -78,6 +79,15 @@
       "size": 876,
       "actual_abi": "stdcall: player on the stack; RET4",
       "source": "src/game/effect_pool_update.cpp"
+    },
+    {
+      "name": "function_00428630",
+      "symbol": "?Sweep@PickupSweepResult@@QAEHPAUPlayerState@@PBUPickupPoint@@1@Z",
+      "section": ".text$f00428630F",
+      "address": "0x428630",
+      "size": 1170,
+      "actual_abi": "optional result record in ECX; manager, center and size on the stack; RET12",
+      "source": "src/game/player_pickup_sweep.cpp"
     }
   ],
   "context": {
@@ -94,13 +104,6 @@
       "section": ".text$f004059f0F",
       "address": "0x4059f0",
       "size": 202
-    },
-    {
-      "name": "function_00428630",
-      "symbol": "?Sweep@PickupSweepResult@@QAEHPAUPlayerState@@PBUPickupPoint@@1@Z",
-      "section": ".text$f00428630F",
-      "address": "0x428630",
-      "size": 1171
     },
     {
       "name": "function_00427c70",
@@ -304,10 +307,17 @@
       "section": ".text$f0041beb0F",
       "address": "0x41beb0",
       "size": 30
+    },
+    {
+      "name": "function_0040dc80",
+      "symbol": "_PickupSweepCaller@4",
+      "section": ".text$f0040dc80F",
+      "address": "0x40dc80",
+      "size": 32
     }
   ],
   "anchor_roots": [
-    "?Sweep@PickupSweepResult@@QAEHPAUPlayerState@@PBUPickupPoint@@1@Z",
+    "_PickupSweepCaller@4",
     "?InitializeObject@AnimationResource_00449870@@QAEXPAUEntity@@H@Z",
     "?SetPolar@ItemPolarVelocity_0041bb00@@QAEPAU1@MM@Z"
   ],
@@ -372,9 +382,14 @@
       "size": 15
     },
     {
-      "section": ".text$f0041bb00A",
+      "section": ".text$f0040dc80A",
       "address": "0x40c511",
-      "size": 62959
+      "size": 5999
+    },
+    {
+      "section": ".text$f0041bb00A",
+      "address": "0x40dca0",
+      "size": 56928
     },
     {
       "section": ".text$f0041beb0A",
@@ -423,8 +438,8 @@
     },
     {
       "section": ".text$f00428d70A",
-      "address": "0x428ac3",
-      "size": 685
+      "address": "0x428ac2",
+      "size": 686
     },
     {
       "section": ".text$f0043dd10A",
@@ -798,6 +813,11 @@
       "symbol": "_data_00470b0c",
       "address": "0x470b0c",
       "kind": "data"
+    },
+    {
+      "symbol": "_data_00477834",
+      "address": "0x477834",
+      "kind": "data"
     }
   ],
   "description": "Complete real player-state/collision/item-spawn graph, 36 whole functions and six actual roots. Collision activation 199 and check 260 are selected; all other complete graph bodies are unselected context. No synthetic caller, forced register choice, byte mask or constant alias.",
@@ -821,6 +841,26 @@
       "symbol": "__real@3f800000",
       "address": "0x00470AFC",
       "value": 1.0
+    },
+    {
+      "symbol": "__real@3f000000",
+      "address": "0x00470B0C",
+      "value": 0.5
+    },
+    {
+      "symbol": "__real@00000000",
+      "address": "0x00470B04",
+      "value": 0.0
+    },
+    {
+      "symbol": "__real@3e000000",
+      "address": "0x00470B90",
+      "value": 0.125
+    },
+    {
+      "symbol": "__real@bf000000",
+      "address": "0x00470B78",
+      "value": -0.5
     }
   ]
 }

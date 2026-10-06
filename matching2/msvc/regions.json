@@ -23339,13 +23339,23 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00428630_00428630",
+      "name": "semantic_PickupSweep_00428630",
       "source": "src/game/player_pickup_sweep.cpp",
-      "symbol": "_asm_FUN_00428630_00428630",
+      "symbol": "?Sweep@PickupSweepResult@@QAEHPAUPlayerState@@PBUPickupPoint@@1@Z",
       "address": "0x00428630",
       "size": 1170,
-      "kind": "asm",
-      "owner": "0x00428630"
+      "kind": "semantic",
+      "owner": "0x00428630",
+      "previous_record": {
+        "name": "asm_FUN_00428630_00428630",
+        "source": "src/game/player_pickup_sweep.cpp",
+        "symbol": "_asm_FUN_00428630_00428630",
+        "address": "0x00428630",
+        "size": 1170,
+        "kind": "asm",
+        "owner": "0x00428630"
+      },
+      "section": ".text$f00428630F"
     },
     {
       "name": "text_padding_00428ac2",
@@ -60067,7 +60077,8 @@
     "?ResultOverlay_SetMode@@YGXHPAUResultOverlayState_004172e0@@H@Z": "0x004172E0",
     "?HitTest@PickupPlayer@@QAEHPBUPickupPoint@@@Z": "0x004059F0",
     "_StageSchedule_Fire_00427e90@12": "0x00427E90",
-    "_EffectPoolUpdate@4": "0x00428280"
+    "_EffectPoolUpdate@4": "0x00428280",
+    "?Sweep@PickupSweepResult@@QAEHPAUPlayerState@@PBUPickupPoint@@1@Z": "0x00428630"
   },
   "translation_units": [
     "lib/libc.lib/build/intel/st_obj/a_cmp.obj",

@@ -5,11 +5,11 @@
     "creation.cpp"
   ],
   "roots": [
-    "?Sweep@PickupSweepResult@@QAEHPAUPlayerState@@PBUPickupPoint@@1@Z",
     "_EffectPoolUpdate@4",
     "?InitializeObject@AnimationResource_00449870@@QAEXPAUEntity@@H@Z",
     "_StageSchedule_Fire_00427e90@12",
-    "?UpdateSequence@PlayerState@@QAEHXZ"
+    "?UpdateSequence@PlayerState@@QAEHXZ",
+    "_PickupSweepCaller@4"
   ],
   "absolute_symbols": {
     "_data_004776ec": {
@@ -146,6 +146,10 @@
     },
     "_data_00474e5c": {
       "address": "0x474e5c",
+      "kind": "data"
+    },
+    "_data_00477834": {
+      "address": "0x477834",
       "kind": "data"
     }
   },

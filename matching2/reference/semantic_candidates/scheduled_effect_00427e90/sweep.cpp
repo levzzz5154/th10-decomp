@@ -2,40 +2,38 @@
 #include <math.h>
 #pragma intrinsic(sin,cos)
 
+template <class Center, class Size>
+static __forceinline void GetBounds(const Center* center, const Size* size,
+                                    Vec3* minimum, Vec3* maximum) {
+    minimum->x = center->x - size->x * 0.5f;
+    minimum->y = center->y - size->y * 0.5f;
+    maximum->x = center->x + size->x * 0.5f;
+    maximum->y = center->y + size->y * 0.5f;
+}
+
 #pragma code_seg(".text$20sweep")
 int PickupSweepResult::Sweep(PickupManager* manager, const PickupPoint* center,
                             const PickupPoint* size) {
-    int total=0;
+    int total = 0;
     if (manager->state_timer.current == manager->state_timer.previous) return 0;
-    float half_x = size->x * 0.5f, half_y = size->y * 0.5f;
-    PickupPosition minimum;
-    minimum.x=center->x-half_x; minimum.y=center->y-half_y;
-    PickupPosition maximum;
-    maximum.x=center->x+half_x; maximum.y=center->y+half_y;
-    if (this) value = 0;
     PickupRecord* pickup = manager->pickups;
-    // Retail reuses this maximum corner for the rotated region point.
-    PickupPosition working_point;
+
+    Vec3 minimum, maximum, working_point;
+    GetBounds(center, size, &minimum, &maximum);
+    if (this) value = 0;
     for (int count = 128; count != 0; --count, ++pickup) {
         int state=pickup->state;
         if (state == 0 || state == 2) continue;
         PickupDescriptor* descriptor = pickup->descriptor;
-        double width = descriptor->width * 0.5f;
-        // Retail stores these three edges as binary32 before comparing them.
-        // Maximum Y stays in x87 precision until its lower-bound comparison.
-        volatile PickupPosition pickup_minimum;
-        pickup_minimum.x=static_cast<float>(pickup->motion.position.x-width);
-        double height = descriptor->height * 0.5f;
-        pickup_minimum.y=static_cast<float>(pickup->motion.position.y-height);
-        volatile float& rounded_right=working_point.x;
-        rounded_right=static_cast<float>(pickup->motion.position.x+width);
-        // This ordinary member stays extended in the measured native body.
-        working_point.y=static_cast<float>(pickup->motion.position.y+height);
-        if (pickup_minimum.y > maximum.y || pickup_minimum.x > maximum.x || working_point.y < minimum.y || rounded_right < minimum.x)
+        Vec3 pickup_minimum;
+        GetBounds(&pickup->motion.position,
+                  reinterpret_cast<const PickupPoint*>(&descriptor->width),
+                  &pickup_minimum, &working_point);
+        if (pickup_minimum.y > maximum.y || pickup_minimum.x > maximum.x ||
+            working_point.y < minimum.y || working_point.x < minimum.x)
             continue;
-        if (descriptor->type != 3) {
-            if (pickup_minimum.y < 0.0f) continue;
-        } else if (maximum.y < 0.0f) continue;
+        if (descriptor->type != 3 && pickup_minimum.y < 0.0f) continue;
+        if (descriptor->type == 3 && maximum.y < 0.0f) continue;
         if (descriptor->filter && descriptor->filter(manager,pickup,center)) continue;
         if (!pickup->initialized) {
             pickup->handle.StopAtFrame2();
@@ -43,15 +41,12 @@ int PickupSweepResult::Sweep(PickupManager* manager, const PickupPoint* center,
         }
         descriptor = pickup->descriptor;
         pickup->collected = 1;
-        unsigned char type = descriptor->type;
-        if (type != 3 || pickup->clock.AtInterval(4)) total += descriptor->value;
-        if (type != 3) {
+        if (descriptor->type != 3 || pickup->clock.AtInterval(4)) total += descriptor->value;
+        if (descriptor->type != 3) {
             float saved_angle = pickup->handle.Validate()->angle;
             pickup->handle.Retire();
-            descriptor = pickup->descriptor;
-            AnimationRef created=Pickup_CreatePrimaryBack(manager->animation_resource,
-                                                       descriptor->collected_script+5,15);
-            pickup->handle.value=created.value;
+            pickup->handle.value = Pickup_CreatePrimaryBack(
+                manager->animation_resource, pickup->descriptor->collected_script + 5, 15).value;
             PickupAnimation* object = pickup->handle.Validate();
             object->angle = saved_angle;
             object->flags |= 4u;
@@ -67,43 +62,62 @@ int PickupSweepResult::Sweep(PickupManager* manager, const PickupPoint* center,
         }
     }
     total += data_004776ec->HitTest(center);
-    PickupRegion* region = manager->regions;
-    for (int count = 32; count != 0; --count, ++region) {
+    PickupRegion* circle = manager->regions;
+    PickupRegion* table = circle;
+    for (int index = 0; index < 32; ++circle, ++index) {
+        PickupRegion* region = &table[index];
         if (!(region->flags & 1u)) continue;
         if (region->timer.current != region->timer.previous &&
             region->timer.current % region->interval == 0) continue;
-        if (region->flags & 2u) {
-            double dy = static_cast<double>(region->center.y)-center->y;
-            double dx = static_cast<double>(region->center.x)-center->x;
-            if (static_cast<double>(region->radius)*region->radius < dx*dx+dy*dy) continue;
-        } else if (region->angle == 0.0f) {
-            double width = region->width*0.5f;
-            if (region->center.x-width > maximum.x || region->center.x+width < minimum.x) continue;
-            double height = region->height*0.5f;
-            if (region->center.y-height > maximum.y || region->center.y+height < minimum.y) continue;
+        if (!(region->flags & 2u)) {
+            if (region->angle == 0.0f) {
+                float half_width = region->width * 0.5f;
+                if (region->center.x - half_width > maximum.x ||
+                    region->center.x + half_width < minimum.x) continue;
+                float half_height = region->height * 0.5f;
+                if (region->center.y - half_height > maximum.y ||
+                    region->center.y + half_height < minimum.y) continue;
+            } else {
+                double dx = center->x - region->center.x;
+                double dy = center->y - region->center.y;
+                float sine = sinf(-region->angle);
+                double cosine = cos(-region->angle);
+                working_point.x = cosine * dx - sine * dy;
+                working_point.y = sine * dx + cosine * dy;
+                float half_x = size->x * 0.5f;
+                if (region->width * -0.5f > half_x + working_point.x ||
+                    region->width * 0.5f < working_point.x - half_x) continue;
+                float half_y = size->y * 0.5f;
+                if (region->height * -0.5f > half_y + working_point.y ||
+                    region->height * 0.5f < working_point.y - half_y) continue;
+            }
         } else {
-            double dx = static_cast<double>(center->x)-region->center.x;
-            double dy = static_cast<double>(center->y)-region->center.y;
-            float sine = static_cast<float>(sin(-region->angle));
-            double cosine = cos(-region->angle);
-            volatile float& rotated_x=working_point.x;
-            volatile float& rotated_y=working_point.y;
-            rotated_x = static_cast<float>(cosine*dx-sine*dy);
-            rotated_y = static_cast<float>(sine*dx+cosine*dy);
-            double hx = size->x*0.5f;
-            if (rotated_x+hx < region->width*-0.5f || rotated_x-hx > region->width*0.5f) continue;
-            double hy = size->y*0.5f;
-            if (rotated_y+hy < region->height*-0.5f || rotated_y-hy > region->height*0.5f) continue;
+            float radius = circle->radius;
+            float dy = region->center.y - center->y;
+            float dx = region->center.x - center->x;
+            if (radius * radius < dx * dx + dy * dy) continue;
         }
-        int contribution = region->value;
-        total += contribution;
-        region->accumulated += contribution;
-        if (region->accumulated >= region->limit) region->value = 0;
+        total += region->value;
+        region->accumulated += region->value;
+        if (region->limit <= region->accumulated) region->value = 0;
     }
     if (total != 0) {
         data_00474c44 += (total/10+10)/10;
         if (data_00474c44 >= 1000000000) data_00474c44 = 999999999;
     }
     return total;
+}
+#pragma code_seg()
+
+struct SweepCallerEnemy {
+    unsigned char reserved_00[0x2c];
+    PickupPoint position;
+    unsigned char reserved_34[0xb0 - 0x34];
+    PickupPoint size;
+};
+extern "C" PlayerState* data_00477834;
+#pragma code_seg(".text$zz_sweep_caller")
+extern "C" __declspec(noinline) int __stdcall PickupSweepCaller(SweepCallerEnemy* enemy) {
+    return static_cast<PickupSweepResult*>(0)->Sweep(data_00477834, &enemy->position, &enemy->size);
 }
 #pragma code_seg()
