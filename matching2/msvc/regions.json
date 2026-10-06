@@ -23286,13 +23286,23 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00428280_00428280",
+      "name": "semantic_EffectPool_Update_00428280",
       "source": "src/game/effect_pool_update.cpp",
-      "symbol": "_asm_FUN_00428280_00428280",
+      "symbol": "_EffectPoolUpdate@4",
       "address": "0x00428280",
       "size": 876,
-      "kind": "asm",
-      "owner": "0x00428280"
+      "kind": "semantic",
+      "owner": "0x00428280",
+      "previous_record": {
+        "name": "asm_FUN_00428280_00428280",
+        "source": "src/game/effect_pool_update.cpp",
+        "symbol": "_asm_FUN_00428280_00428280",
+        "address": "0x00428280",
+        "size": 876,
+        "kind": "asm",
+        "owner": "0x00428280"
+      },
+      "section": ".text$f00428280F"
     },
     {
       "name": "text_padding_004285ec",
@@ -60056,7 +60066,8 @@
     "_StageStartup@4": "0x00417870",
     "?ResultOverlay_SetMode@@YGXHPAUResultOverlayState_004172e0@@H@Z": "0x004172E0",
     "?HitTest@PickupPlayer@@QAEHPBUPickupPoint@@@Z": "0x004059F0",
-    "_StageSchedule_Fire_00427e90@12": "0x00427E90"
+    "_StageSchedule_Fire_00427e90@12": "0x00427E90",
+    "_EffectPoolUpdate@4": "0x00428280"
   },
   "translation_units": [
     "lib/libc.lib/build/intel/st_obj/a_cmp.obj",

@@ -5,7 +5,8 @@
   "driver": "layout/ltcg/player_state_collision_runtime/runtime.cpp",
   "additional_sources": [
     "layout/ltcg/player_state_collision_runtime/creation.cpp",
-    "src/game/scheduled_effect_create_00427e90.cpp"
+    "src/game/scheduled_effect_create_00427e90.cpp",
+    "src/game/effect_pool_update.cpp"
   ],
   "included_sources": [
     "layout/ltcg/player_state_collision_runtime/hit.cpp",
@@ -68,6 +69,15 @@
       "size": 717,
       "actual_abi": "stdcall: player, descriptor and frame on the stack; RET12",
       "source": "src/game/scheduled_effect_create_00427e90.cpp"
+    },
+    {
+      "name": "function_00428280",
+      "symbol": "_EffectPoolUpdate@4",
+      "section": ".text$f00428280F",
+      "address": "0x428280",
+      "size": 876,
+      "actual_abi": "stdcall: player on the stack; RET4",
+      "source": "src/game/effect_pool_update.cpp"
     }
   ],
   "context": {
@@ -198,13 +208,6 @@
       "size": 65
     },
     {
-      "name": "function_00428280",
-      "symbol": "_EffectPoolUpdate@4",
-      "section": ".text$f00428280F",
-      "address": "0x428280",
-      "size": 874
-    },
-    {
       "name": "function_0044c2a0",
       "symbol": "?Advance@Motion@@QAEXXZ",
       "section": ".text$f0044c2a0F",
@@ -305,12 +308,12 @@
   ],
   "anchor_roots": [
     "?Sweep@PickupSweepResult@@QAEHPAUPlayerState@@PBUPickupPoint@@1@Z",
-    "_EffectPoolUpdate@4",
     "?InitializeObject@AnimationResource_00449870@@QAEXPAUEntity@@H@Z",
     "?SetPolar@ItemPolarVelocity_0041bb00@@QAEPAU1@MM@Z"
   ],
   "roots": [
-    "_StageSchedule_Fire_00427e90@12"
+    "_StageSchedule_Fire_00427e90@12",
+    "_EffectPoolUpdate@4"
   ],
   "gaps": [
     {
@@ -415,8 +418,8 @@
     },
     {
       "section": ".text$f00428630A",
-      "address": "0x4285ea",
-      "size": 70
+      "address": "0x4285ec",
+      "size": 68
     },
     {
       "section": ".text$f00428d70A",
@@ -803,6 +806,21 @@
       "symbol": "__real@3c23d70a",
       "address": "0x00470B00",
       "value": 0.009999999776482582
+    },
+    {
+      "symbol": "__real@43600000",
+      "address": "0x00470B4C",
+      "value": 224.0
+    },
+    {
+      "symbol": "__real@41800000",
+      "address": "0x00470B48",
+      "value": 16.0
+    },
+    {
+      "symbol": "__real@3f800000",
+      "address": "0x00470AFC",
+      "value": 1.0
     }
   ]
 }
