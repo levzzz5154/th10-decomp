@@ -24,23 +24,13 @@ int TrimLaser::TrimCircle(const CutVector* center,float radius,int spawn_items) 
    if (!(dx*dx+dy*dy>radius)) {
     cut[count]=1;
     ++hit_count;
-    if (spawn_items && !(point.x+32.0f<=-192.0f) &&
-        !(point.x-32.0f>=192.0f) && !(point.y+32.0f<=data_00470b04) &&
-        !(point.y-32.0f>=448.0f)) {
-     data_00477818->Spawn(&point,8,-1,-1.5707963705062866f,0.6f);
+    CutVector* sample_position=&point;
+    if (spawn_items && !sample_position->IsPartiallyOutside(32.0f,32.0f)) {
+     data_00477818->Spawn(sample_position,8,-1,-1.5707963705062866f,0.6f);
     }
     int index=parameters.script*2+17;
     void* resource=static_cast<CutAnimationBank*>(data_0047781c)->line_animation;
-    Entity* object=static_cast<AnimationPool*>(data_00491c10)->Allocate();
-    unsigned int flags=object->flags_35C;
-    object->flags_35C=flags|0x40000000u;
-    object->render_bucket=0;
-    object->position.x=point.x+224.0f;
-    object->position.z=point.z;
-    object->position.y=point.y+16.0f;
-    LoadScript_0043e710(static_cast<AnimationResource_0043e710*>(resource),
-        reinterpret_cast<AnimationObject_0043e710*>(object),index);
-    static_cast<CutAnimationLists*>(data_00491c10)->RegisterPrimaryBack(object);
+    reinterpret_cast<CutAnimationResource*>(resource)->CreateOffset(index,&point);
    }
    point+=step;
    progress+=12.0f;

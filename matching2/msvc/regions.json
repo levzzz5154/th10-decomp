@@ -26989,13 +26989,23 @@
       "owner": "0x00431EE0"
     },
     {
-      "name": "asm_FUN_00432690_00432690",
-      "source": "src/game/replay_spell_list.cpp",
-      "symbol": "_asm_FUN_00432690_00432690",
+      "name": "semantic_TitleMenu_BuildSpellList_00432690",
+      "source": "src/game/title_spell_list.cpp",
+      "symbol": "?BuildSpellList@TitleMenu_00431410@@QAEHXZ",
       "address": "0x00432690",
       "size": 850,
-      "kind": "asm",
-      "owner": "0x00432690"
+      "kind": "semantic",
+      "owner": "0x00432690",
+      "previous_record": {
+        "name": "asm_FUN_00432690_00432690",
+        "source": "src/game/replay_spell_list.cpp",
+        "symbol": "_asm_FUN_00432690_00432690",
+        "address": "0x00432690",
+        "size": 850,
+        "kind": "asm",
+        "owner": "0x00432690"
+      },
+      "section": ".text$f00432690F"
     },
     {
       "name": "text_padding_004329e2",
@@ -60111,7 +60121,8 @@
     "?Sweep@PickupSweepResult@@QAEHPAUPlayerState@@PBUPickupPoint@@1@Z": "0x00428630",
     "?Spawn@PlayerItemManager@@QAEHPBUVector3@@HHMM@Z": "0x0041BB00",
     "_PlayerState_Update_00425730@4": "0x00425730",
-    "?TrimRectangle@TrimLaser@@UAEHPBUCutVector@@0H@Z": "0x0041D880"
+    "?TrimRectangle@TrimLaser@@UAEHPBUCutVector@@0H@Z": "0x0041D880",
+    "?BuildSpellList@TitleMenu_00431410@@QAEHXZ": "0x00432690"
   },
   "translation_units": [
     "lib/libc.lib/build/intel/st_obj/a_cmp.obj",
@@ -60560,7 +60571,7 @@
     "src/game/replay_menu_runtime.cpp",
     "src/game/replay_progress.cpp",
     "src/game/replay_runtime_bootstrap.cpp",
-    "src/game/replay_spell_list.cpp",
+    "src/game/title_spell_list.cpp",
     "src/game/replay_stage_begin_0042a6a0.cpp",
     "src/game/replay_stage_finish_0042a450.cpp",
     "src/game/resource_manager_cleanup_00418ee0.cpp",
@@ -63035,7 +63046,8 @@
     "layout/ltcg/item_collection_genuine_0041afd0.json",
     "layout/ltcg/player_state_collision_genuine_00408030_00408100.json",
     "layout/ltcg/player_bullet_animation_genuine_0041c800_0041c850_00449210_004492f0.json",
-    "layout/ltcg/laser_cut.json"
+    "layout/ltcg/laser_cut.json",
+    "layout/ltcg/title_spell_list_00432690.json"
   ],
   "coff_aliases": {
     "lib/libcmt.lib/build/intel/mt_obj/exsup3.obj": {

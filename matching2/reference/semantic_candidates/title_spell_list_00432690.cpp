@@ -75,7 +75,7 @@ int TitleMenu_00431410::BuildSpellList() {
                 spell_lines[line] = 0;
             text->FormatCentered(manager, record->spells[spell].captures != 0 ? 0xFFFF80 : 0xEFEFEF,
                                  NamedCardFormat, spell + 1, name,
-                                 record->spells[spell].captures, record->spells[spell].attempts);
+                                 record->spells[spell].counts);
             ++spell;
         } else {
             ScoreRecordSection* record = &Scores()->records[cursor];
@@ -85,7 +85,7 @@ int TitleMenu_00431410::BuildSpellList() {
                 spell_lines[line] = 0;
             text->FormatCentered(
                 manager, 0x808080,
-                MaskedCardFormat, spell + 1, record->spells[spell].captures, record->spells[spell].attempts);
+                MaskedCardFormat, spell + 1, record->spells[spell].counts);
             ++spell;
         }
         ++listed_spells;

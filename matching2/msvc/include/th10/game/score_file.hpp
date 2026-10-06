@@ -42,10 +42,22 @@ struct ScoreRankEntry {
     float slowdown;                     // +0x14
 };
 
+// A card's capture and attempt counts. The title's spell list hands the pair
+// to its text formatter as one by-value object.
+struct ScoreSpellCounts {
+    int captures;
+    int attempts;
+};
+
 struct ScoreSpellRecord {
     char name[0x80];                    // +0x00
-    int captures;                       // +0x80
-    int attempts;                       // +0x84
+    union {
+        struct {
+            int captures;               // +0x80
+            int attempts;               // +0x84
+        };
+        ScoreSpellCounts counts;        // +0x80
+    };
     int spell_id;                       // +0x88
     int difficulty;                     // +0x8C
 };
