@@ -32238,29 +32238,40 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0043b110_0043b110",
-      "source": "src/platform/midi_event_runtime.cpp",
-      "symbol": "_asm_FUN_0043b110_0043b110",
+      "name": "semantic_ProcessMidiEvent_0043b110",
+      "source": "src/platform/midi_event_parser.cpp",
+      "symbol": "_ProcessMidiEvent_0043B110@8",
       "address": "0x0043B110",
-      "size": 1323,
-      "kind": "asm",
-      "owner": "0x0043B110"
-    },
-    {
-      "name": "text_padding_0043b63b",
-      "source": "src/data/text_0043.cpp",
-      "symbol": "_text_padding_0043b63b",
-      "address": "0x0043B63B",
-      "size": 1,
-      "kind": "padding"
-    },
-    {
-      "name": "text_data_0043b63c",
-      "source": "src/data/text_0043.cpp",
-      "symbol": "_text_data_0043b63c",
-      "address": "0x0043B63C",
-      "size": 346,
-      "kind": "data"
+      "size": 1670,
+      "kind": "semantic",
+      "owner": "0x0043B110",
+      "previous_record": {
+        "name": "asm_FUN_0043b110_0043b110",
+        "source": "src/platform/midi_event_runtime.cpp",
+        "symbol": "_asm_FUN_0043b110_0043b110",
+        "address": "0x0043B110",
+        "size": 1323,
+        "kind": "asm",
+        "owner": "0x0043B110"
+      },
+      "merged_records": [
+        {
+          "name": "text_padding_0043b63b",
+          "source": "src/data/text_0043.cpp",
+          "symbol": "_text_padding_0043b63b",
+          "address": "0x0043B63B",
+          "size": 1,
+          "kind": "padding"
+        },
+        {
+          "name": "text_data_0043b63c",
+          "source": "src/data/text_0043.cpp",
+          "symbol": "_text_data_0043b63c",
+          "address": "0x0043B63C",
+          "size": 346,
+          "kind": "data"
+        }
+      ]
     },
     {
       "name": "text_padding_0043b796",
@@ -60710,7 +60721,7 @@
     "src/platform/launch_process_00436570.cpp",
     "src/platform/memory_file.cpp",
     "src/platform/midi_channel_volumes.cpp",
-    "src/platform/midi_event_runtime.cpp",
+    "src/platform/midi_event_parser.cpp",
     "src/platform/midi_file.cpp",
     "src/platform/midi_reverse_dword_bytes_0043a700.cpp",
     "src/platform/midi_sequencer.cpp",
@@ -63047,7 +63058,8 @@
     "layout/ltcg/player_state_collision_genuine_00408030_00408100.json",
     "layout/ltcg/player_bullet_animation_genuine_0041c800_0041c850_00449210_004492f0.json",
     "layout/ltcg/laser_cut.json",
-    "layout/ltcg/title_spell_list_00432690.json"
+    "layout/ltcg/title_spell_list_00432690.json",
+    "layout/ltcg/midi_event_parser_0043b110.json"
   ],
   "coff_aliases": {
     "lib/libcmt.lib/build/intel/mt_obj/exsup3.obj": {

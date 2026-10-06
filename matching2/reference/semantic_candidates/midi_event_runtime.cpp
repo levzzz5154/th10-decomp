@@ -1,6 +1,5 @@
-// Unverified candidate, outside the production translation-unit inventory.
-// Native measurements: recovery_notes/midi_event_parser_native_2026_10_06.md.
-// Retail audit: recovery_notes/midi_event_parser_followup_2026-09-30.md.
+// Superseded: the parser is recovered in msvc/src/platform/midi_event_parser.cpp.
+// This earlier candidate is kept only because the dated notes refer to it.
 #include "asm_symbols.hpp"
 #include <string.h>
 #include "th10/platform/midi_sequencer.hpp"
