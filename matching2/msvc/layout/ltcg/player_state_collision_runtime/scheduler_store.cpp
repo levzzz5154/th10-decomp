@@ -25,15 +25,7 @@
 // setter is compiled as a native LTCG cluster.
 // Carved out of src/game/player.cpp (asm_Player_SetSchedulerValue_00405410).
 
-struct PlayerSchedulerRecord {
-    int field_00;    // 0x00 value, stored one below the raw value
-    int field_04;    // 0x04 value
-    float field_08;  // 0x08 value converted to float
-    int field_0C;    // 0x0C default marker
-    int flags_10;    // 0x10 initialised flag
-
-    __declspec(noinline) void SetSchedulerValue(int value);
-};
+#include "player_state.hpp"
 
 #pragma code_seg(".text$f00405410F")
 void PlayerSchedulerRecord::SetSchedulerValue(int value) {

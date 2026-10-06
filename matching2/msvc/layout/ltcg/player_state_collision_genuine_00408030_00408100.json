@@ -8,7 +8,8 @@
     "src/game/scheduled_effect_create_00427e90.cpp",
     "src/game/effect_pool_update.cpp",
     "src/game/player_pickup_sweep.cpp",
-    "src/game/item_spawn.cpp"
+    "src/game/item_spawn.cpp",
+    "src/game/player_state_update.cpp"
   ],
   "included_sources": [
     "layout/ltcg/player_state_collision_runtime/hit.cpp",
@@ -24,12 +25,14 @@
     "layout/ltcg/player_state_collision_runtime/scheduler_store.cpp",
     "layout/ltcg/player_state_collision_runtime/sequence_timers.cpp",
     "layout/ltcg/player_state_collision_runtime/schedule_update.cpp",
-    "layout/ltcg/player_state_collision_runtime/player_state.cpp",
     "layout/ltcg/player_state_collision_runtime/collision_bounds.cpp",
     "layout/ltcg/player_state_collision_runtime/collision_loader.cpp",
     "layout/ltcg/player_state_collision_runtime/collision_create.cpp",
     "layout/ltcg/player_state_collision_runtime/item_start_script.cpp",
-    "layout/ltcg/player_state_collision_runtime/item_polar.cpp"
+    "layout/ltcg/player_state_collision_runtime/item_polar.cpp",
+    "layout/ltcg/player_state_collision_runtime/player_state_callees.cpp",
+    "layout/ltcg/player_state_collision_runtime/movement.cpp",
+    "layout/ltcg/player_state_collision_runtime/movement_helpers.cpp"
   ],
   "headers": [
     "layout/ltcg/player_state_collision_runtime/runtime.hpp",
@@ -42,7 +45,12 @@
     "layout/ltcg/player_state_collision_runtime/animation_public_callers.hpp",
     "include/th10/game/entity.hpp",
     "include/th10/types.hpp",
-    "include/th10/game/entity_script_start.hpp"
+    "include/th10/game/entity_script_start.hpp",
+    "layout/ltcg/player_state_collision_runtime/player_state.hpp",
+    "layout/ltcg/player_state_collision_runtime/movement.hpp",
+    "layout/ltcg/player_state_collision_runtime/movement_input.hpp",
+    "include/th10/game/power_display_004054b0.hpp",
+    "include/th10/render/animation_object_0043e5a0.hpp"
   ],
   "image_base": "0x400000",
   "functions": [
@@ -97,14 +105,23 @@
       "size": 819,
       "actual_abi": "private EAX manager; position, kind, identifier, angle and speed on the stack; RET16",
       "source": "src/game/item_spawn.cpp"
+    },
+    {
+      "name": "function_00425730",
+      "symbol": "_PlayerState_Update_00425730@4",
+      "section": ".text$f00425730F",
+      "address": "0x425730",
+      "size": 3112,
+      "actual_abi": "stdcall: player on the stack; RET4",
+      "source": "src/game/player_state_update.cpp"
     }
   ],
   "context": {
-    "symbol": "_PlayerState_Update_00425730@4",
-    "section": ".text$f00425730F",
-    "address": "0x425730",
-    "size": 3060,
-    "description": "Complete ordinary C++ player state owner; unmatched unselected context; no synthetic caller."
+    "symbol": "_PickupSweepCaller@4",
+    "section": ".text$f0040dc80F",
+    "address": "0x40dc80",
+    "size": 32,
+    "description": "Stand-in for the enemy update's call of the pickup sweep; compiler context only, not recovered code."
   },
   "anchors": [
     {
@@ -311,21 +328,91 @@
       "size": 30
     },
     {
-      "name": "function_0040dc80",
-      "symbol": "_PickupSweepCaller@4",
-      "section": ".text$f0040dc80F",
-      "address": "0x40dc80",
-      "size": 32
+      "name": "function_004250b0",
+      "symbol": "?Move@PlayerState@@QAEHXZ",
+      "section": ".text$f004250b0F",
+      "address": "0x4250b0",
+      "size": 1656
+    },
+    {
+      "name": "function_00449210",
+      "symbol": "?MovementStopFrame_00449210@@YIXGPAUPickupAnimationLists@@UAnimationRef@@@Z",
+      "section": ".text$f00449210F",
+      "address": "0x449210",
+      "size": 54
+    },
+    {
+      "name": "function_004492f0",
+      "symbol": "?MovementSetPosition_004492f0@@YIXPBUVector3@@PAUPickupAnimationLists@@UAnimationRef@@@Z",
+      "section": ".text$f004492f0F",
+      "address": "0x4492f0",
+      "size": 90
+    },
+    {
+      "name": "function_00449350",
+      "symbol": "?MovementSetTranslatedPosition_00449350@@YIXPBUVector3@@PAUPickupAnimationLists@@UAnimationRef@@@Z",
+      "section": ".text$f00449350F",
+      "address": "0x449350",
+      "size": 111
+    },
+    {
+      "name": "function_0041c800",
+      "symbol": "?Evaluate@PlayerBulletManager@@QAEHPBUVec3@@MH@Z",
+      "section": ".text$f0041c800F",
+      "address": "0x41c800",
+      "size": 76
+    },
+    {
+      "name": "function_0041c850",
+      "symbol": "?Reset@PlayerBulletManager@@QAEHH@Z",
+      "section": ".text$f0041c850F",
+      "address": "0x41c850",
+      "size": 44
+    },
+    {
+      "name": "function_0040ac90",
+      "symbol": "?Set@PlayerInputMode@@QAEXH@Z",
+      "section": ".text$f0040ac90F",
+      "address": "0x40ac90",
+      "size": 37
+    },
+    {
+      "name": "function_00426610",
+      "symbol": "_Entity_AngleToPoint_00426610@8",
+      "section": ".text$f00426610F",
+      "address": "0x426610",
+      "size": 67
+    },
+    {
+      "name": "function_004054b0",
+      "symbol": "?SetPowerDigits@PowerDisplayOwner_004054b0@@QAEXHH@Z",
+      "section": ".text$f004054b0F",
+      "address": "0x4054b0",
+      "size": 79
+    },
+    {
+      "name": "function_0043e5a0",
+      "symbol": "?ConfigureObject@Resource_0043e5a0@@QAEHPAUAnimationObject_0043e5a0@@H@Z",
+      "section": ".text$f0043e5a0F",
+      "address": "0x43e5a0",
+      "size": 356
+    },
+    {
+      "name": "function_004231d0",
+      "symbol": "?Open@PlayerDeathScene@@QAEHXZ",
+      "section": ".text$f004231d0F",
+      "address": "0x4231d0",
+      "size": 182
     }
   ],
   "anchor_roots": [
-    "_PickupSweepCaller@4",
     "?InitializeObject@AnimationResource_00449870@@QAEXPAUEntity@@H@Z",
     "?SetPolar@ItemPolarVelocity_0041bb00@@QAEPAU1@MM@Z"
   ],
   "roots": [
     "_StageSchedule_Fire_00427e90@12",
-    "_EffectPoolUpdate@4"
+    "_EffectPoolUpdate@4",
+    "_PlayerState_Update_00425730@4"
   ],
   "gaps": [
     {
@@ -349,9 +436,14 @@
       "size": 1046
     },
     {
-      "section": ".text$f004059f0A",
+      "section": ".text$f004054b0A",
       "address": "0x405449",
-      "size": 1447
+      "size": 103
+    },
+    {
+      "section": ".text$f004059f0A",
+      "address": "0x4054ff",
+      "size": 1265
     },
     {
       "section": ".text$f00408030A",
@@ -374,9 +466,14 @@
       "size": 5957
     },
     {
-      "section": ".text$f0040c480A",
+      "section": ".text$f0040ac90A",
       "address": "0x409e91",
-      "size": 9711
+      "size": 3583
+    },
+    {
+      "section": ".text$f0040c480A",
+      "address": "0x40acb5",
+      "size": 6091
     },
     {
       "section": ".text$f0040c4d0A",
@@ -399,14 +496,39 @@
       "size": 125
     },
     {
-      "section": ".text$f00425730A",
+      "section": ".text$f0041c800A",
       "address": "0x41bece",
-      "size": 39010
+      "size": 2354
+    },
+    {
+      "section": ".text$f0041c850A",
+      "address": "0x41c84c",
+      "size": 4
+    },
+    {
+      "section": ".text$f004231d0A",
+      "address": "0x41c87c",
+      "size": 26964
+    },
+    {
+      "section": ".text$f004250b0A",
+      "address": "0x423286",
+      "size": 7722
+    },
+    {
+      "section": ".text$f00425730A",
+      "address": "0x425728",
+      "size": 8
+    },
+    {
+      "section": ".text$f00426610A",
+      "address": "0x426358",
+      "size": 696
     },
     {
       "section": ".text$f00427b50A",
-      "address": "0x426324",
-      "size": 6188
+      "address": "0x426653",
+      "size": 5373
     },
     {
       "section": ".text$f00427c70A",
@@ -449,9 +571,14 @@
       "size": 85829
     },
     {
-      "section": ".text$f0043e710A",
+      "section": ".text$f0043e5a0A",
       "address": "0x43dda5",
-      "size": 2411
+      "size": 2043
+    },
+    {
+      "section": ".text$f0043e710A",
+      "address": "0x43e704",
+      "size": 12
     },
     {
       "section": ".text$f0043e7e0A",
@@ -479,14 +606,29 @@
       "size": 929
     },
     {
-      "section": ".text$f004492a0A",
+      "section": ".text$f00449210A",
       "address": "0x449209",
-      "size": 151
+      "size": 7
+    },
+    {
+      "section": ".text$f004492a0A",
+      "address": "0x449246",
+      "size": 90
+    },
+    {
+      "section": ".text$f004492f0A",
+      "address": "0x4492e2",
+      "size": 14
+    },
+    {
+      "section": ".text$f00449350A",
+      "address": "0x44934a",
+      "size": 6
     },
     {
       "section": ".text$f00449450A",
-      "address": "0x4492e2",
-      "size": 366
+      "address": "0x4493bf",
+      "size": 145
     },
     {
       "section": ".text$f00449630A",
@@ -687,38 +829,8 @@
       "kind": "data"
     },
     {
-      "symbol": "?Move@PlayerState@@QAEHXZ",
-      "address": "0x4250b0",
-      "kind": "relative_code"
-    },
-    {
-      "symbol": "?Evaluate@PlayerBulletManager@@QAEHPBUVec3@@MH@Z",
-      "address": "0x41c800",
-      "kind": "relative_code"
-    },
-    {
-      "symbol": "?Reset@PlayerBulletManager@@QAEHXZ",
-      "address": "0x41c850",
-      "kind": "relative_code"
-    },
-    {
-      "symbol": "?Set@PlayerInputMode@@QAEHH@Z",
-      "address": "0x40ac90",
-      "kind": "relative_code"
-    },
-    {
-      "symbol": "?Open@PlayerDeathScene@@QAEHXZ",
-      "address": "0x4231d0",
-      "kind": "relative_code"
-    },
-    {
       "symbol": "?AddWithMinimum@PlayerScoreGauge@@QAEXH@Z",
       "address": "0x412e70",
-      "kind": "relative_code"
-    },
-    {
-      "symbol": "?SetPowerDigits@FrontScript@@QAEXHH@Z",
-      "address": "0x4054b0",
       "kind": "relative_code"
     },
     {
@@ -807,11 +919,6 @@
       "kind": "data"
     },
     {
-      "symbol": "_Entity_AngleToPoint_00426610@8",
-      "address": "0x426610",
-      "kind": "relative_code"
-    },
-    {
       "symbol": "_data_00470b0c",
       "address": "0x470b0c",
       "kind": "data"
@@ -825,6 +932,41 @@
       "symbol": "_EntityInitTail_00404f30",
       "address": "0x401ef1",
       "kind": "relative_code"
+    },
+    {
+      "symbol": "_OpenInitialize_00420a90@12",
+      "address": "0x420a90",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_OpenRegister_0043e460@8",
+      "address": "0x43e460",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_00477810",
+      "address": "0x477810",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491fb8",
+      "address": "0x491fb8",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004776e0",
+      "address": "0x4776e0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00470b94",
+      "address": "0x470b94",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00474c6c",
+      "address": "0x474c6c",
+      "kind": "data"
     }
   ],
   "description": "Complete real player-state/collision/item-spawn graph, 36 whole functions and six actual roots. Collision activation 199 and check 260 are selected; all other complete graph bodies are unselected context. No synthetic caller, forced register choice, byte mask or constant alias.",
@@ -878,6 +1020,31 @@
       "symbol": "__real@43400000",
       "address": "0x00470B3C",
       "value": 192.0
+    },
+    {
+      "symbol": "__real@41888889",
+      "address": "0x00470D44",
+      "value": 17.066667556762695
+    },
+    {
+      "symbol": "__real@42800000",
+      "address": "0x00470BC8",
+      "value": 64.0
+    },
+    {
+      "symbol": "__real@3e800000",
+      "address": "0x00470D40",
+      "value": 0.25
+    },
+    {
+      "symbol": "__real@3de5c8fa",
+      "address": "0x00470D3C",
+      "value": 0.11219973862171173
+    },
+    {
+      "symbol": "__real@3ec90fdb",
+      "address": "0x00470D38",
+      "value": 0.39269909262657166
     }
   ]
 }

@@ -2,7 +2,7 @@
 // supplies the private EAX receiver naturally in this graph.
 #include "runtime.hpp"
 #include "scheduler_store.cpp"
-extern "C" struct { unsigned int repeat : 1; unsigned int revive : 1; } data_00474e5c;
+#include "movement_input.hpp"
 // True on the first update of a new frame.
 static inline bool TimerChanged(const FrameTimer& stage_timer) {
     return stage_timer.current != stage_timer.previous;

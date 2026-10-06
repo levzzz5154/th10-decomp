@@ -182,7 +182,10 @@ struct PlayerState {
     Vec3 secondary_half_min, secondary_half_max;
     Vec3 secondary_min, secondary_max;
     Vec3 size_min, size_max;
-    struct HistoryPoint { int x, y; } history[33];
+    struct HistoryPoint {
+        int x, y;
+        HistoryPoint& operator=(const HistoryPoint& other) { x = other.x; y = other.y; return *this; }
+    } history[33];
     int alternate;
     __declspec(noinline) int Dispatch(int frame);
     __declspec(noinline) int UpdateSequence();

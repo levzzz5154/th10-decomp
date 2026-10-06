@@ -39,16 +39,6 @@ void Motion::Advance() {
 }
 #pragma code_seg()
 
-inline void Motion::Update() {
-    if (!(flags & 1)) {
-        velocity.SetPolar(angle, speed);
-        velocity.z = 0.0f;
-    } else {
-        radius += radius_step;
-        angle = NormalizeAngle(speed + angle);
-    }
-}
-
 extern "C" const float data_00470b40, data_00470b3c, data_00470b04, data_00470b38;
 #pragma code_seg(".text$f00428d70F")
 int Vec3::OutsideViewport(float horizontal_margin, float vertical_margin) const {

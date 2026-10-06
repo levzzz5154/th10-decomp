@@ -48,6 +48,10 @@ struct PlayerScoreGauge {
     int high_score;
     int score;
     short power;
+    unsigned char reserved_0a[0x30 - 0x0a];
+    int lives;
+    unsigned char reserved_34[0x58 - 0x34];
+    int field_58;
     __declspec(noinline) void AddWithMinimum(int amount);
 };
 extern "C" PlayerScoreGauge data_00474c40;

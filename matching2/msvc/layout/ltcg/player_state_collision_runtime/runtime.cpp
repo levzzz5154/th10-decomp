@@ -11,9 +11,12 @@
 #include "schedule_update.cpp"
 #include "sequence_timers.cpp"
 
-#include "player_state.cpp"
+#include "player_state_callees.cpp"
 
 #include "../../../src/game/player_collision_00408030_00408100.cpp"
 #include "collision_bounds.cpp"
 
 #include "item_polar.cpp"
+
+#include "movement.cpp"
+#include "movement_helpers.cpp"

@@ -1,3 +1,4 @@
+#include "movement_input.hpp"
 // Complete pickup collision and effect update callers share the rendering helpers.
 #include "hit.cpp"
 #include "helpers.cpp"
@@ -20,3 +21,6 @@
 
 #include "item_spawn.cpp"
 #include "item_polar.cpp"
+
+#include "movement.cpp"
+#include "movement_helpers.cpp"
