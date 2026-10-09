@@ -64159,6 +64159,10 @@
     {
       "region": "asm_FUN_0041eb00_0041eb00",
       "layout": "layout/equivalent/laser_rectangle_split_0041eb00.json"
+    },
+    {
+      "region": "asm_FUN_004084a0_004084a0",
+      "layout": "layout/equivalent/projectile_point_count_004084a0.json"
     }
   ]
 }
