@@ -95,7 +95,7 @@
       "symbol": "?CreateOffset@CutAnimationResource@@QAE?AUCutAnimationId@@HPBUVector3@@@Z",
       "section": ".text$f00448db0F",
       "address": "0x448db0",
-      "size": 111
+      "size": 118
     },
     {
       "name": "function_00449950",
@@ -233,8 +233,8 @@
     },
     {
       "section": ".text$f00449950A",
-      "address": "0x448e1f",
-      "size": 2865
+      "address": "0x448e26",
+      "size": 2858
     }
   ],
   "constants": [],

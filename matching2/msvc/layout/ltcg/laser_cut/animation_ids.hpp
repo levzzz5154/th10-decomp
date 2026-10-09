@@ -17,5 +17,5 @@ struct CutAnimationLists {
  __declspec(noinline) CutAnimationId RegisterPrimaryBack(Entity* object);
 };
 struct CutAnimationResource {
- __declspec(noinline) CutAnimationId CreateOffset(int index,const Vector3* point);
+ CutAnimationId CreateOffset(int index,const Vector3* point);
 };

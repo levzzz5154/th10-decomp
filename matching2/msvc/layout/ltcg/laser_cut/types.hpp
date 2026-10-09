@@ -8,7 +8,7 @@ struct CutVector : Vector3 {
  CutVector() {}
  CutVector(float px,float py,float pz) {x=px;y=py;z=pz;}
  __declspec(noinline) CutVector* SetPolar(float angle,float speed);
- __declspec(noinline) int IsPartiallyOutside(float horizontal,float vertical) const;
+ int IsPartiallyOutside(float horizontal,float vertical) const;
  CutVector operator-(const CutVector& rhs) const {return CutVector(x-rhs.x,y-rhs.y,z-rhs.z);}
  CutVector operator+(const CutVector& rhs) const {return CutVector(x+rhs.x,y+rhs.y,z+rhs.z);}
  CutVector operator*(float factor) const {return CutVector(x*factor,y*factor,z*factor);}
