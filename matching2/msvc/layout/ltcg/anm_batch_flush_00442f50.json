@@ -9,7 +9,10 @@
     "include/th10/game/score_runtime_state_004091c0.hpp",
     "include/th10/game/game_thread_text.hpp",
     "include/th10/render/stage_objects.hpp",
-    "include/th10/math/timer.hpp"
+    "include/th10/math/timer.hpp",
+    "include/th10/game/runtime_selector_0043c970.hpp",
+    "include/th10/game/scheduler.hpp",
+    "include/th10/platform/thread_sync.hpp"
   ],
   "image_base": "0x00400000",
   "description": "Native-LTCG render batch with compiler-visible camera application, state synchronization, quad appending, and primitive callers. RenderCamera::ApplyDefault and RenderStageState_00405300::SelectDefaultStage are co-compiled so the whole-program pass gives both private conventions; no ABI anchor remains. The existing public entries, three AsciiOverlay callbacks, and paired BossOverlay draw callbacks are rooted to retain their public ECX receivers. The array-loop context establishes private conventions and contributes zero recovered game-code bytes.",
@@ -526,6 +529,15 @@
       "address": "0x00402CA0",
       "size": 929,
       "actual_abi": "__stdcall: stage on the stack; RET 4"
+    },
+    {
+      "name": "StageObjects_DrawBackground_00402850",
+      "source": "src/render/stage_background_task.cpp",
+      "symbol": "?StageObjects_DrawBackground@@YGHPAUStageObjects@@@Z",
+      "section": ".text$000pl_stagebg",
+      "address": "0x00402850",
+      "size": 1099,
+      "actual_abi": "__stdcall: stage on the stack; RET 4"
     }
   ],
   "gaps": [
@@ -552,7 +564,12 @@
     {
       "section": ".text$000pk_gap",
       "address": "0x401d5c",
-      "size": 3908
+      "size": 2804
+    },
+    {
+      "section": ".text$000plz_gap",
+      "address": "0x402c9b",
+      "size": 5
     },
     {
       "section": ".text$000pz_gap",
@@ -572,7 +589,12 @@
     {
       "section": ".text$000zselectz",
       "address": "0x40533c",
-      "size": 16004
+      "size": 212
+    },
+    {
+      "section": ".text$000zu_gap",
+      "address": "0x405449",
+      "size": 15735
     },
     {
       "section": ".text$001arraysz",
@@ -690,9 +712,19 @@
       "size": 12
     },
     {
-      "section": ".text$04alayout",
+      "section": ".text$03w5layout",
       "address": "0x43c454",
-      "size": 24428
+      "size": 1116
+    },
+    {
+      "section": ".text$03w7layout",
+      "address": "0x43c902",
+      "size": 110
+    },
+    {
+      "section": ".text$04alayout",
+      "address": "0x43cafc",
+      "size": 22724
     },
     {
       "section": ".text$04an",
@@ -847,7 +879,27 @@
     {
       "section": ".text$09bucketk_gap",
       "address": "0x4489c2",
-      "size": 13694
+      "size": 4382
+    },
+    {
+      "section": ".text$09bucketkb_gap",
+      "address": "0x449b63",
+      "size": 13
+    },
+    {
+      "section": ".text$09bucketkd_gap",
+      "address": "0x449bf3",
+      "size": 1037
+    },
+    {
+      "section": ".text$09bucketkf_gap",
+      "address": "0x44a02b",
+      "size": 5
+    },
+    {
+      "section": ".text$09bucketkh_gap",
+      "address": "0x44a05b",
+      "size": 7909
     },
     {
       "section": ".text$09bucketp_gap",
@@ -1106,6 +1158,101 @@
       "symbol": "?g_frame_timer_normal_upper@@3MA",
       "address": "0x00470B64",
       "kind": "data"
+    },
+    {
+      "symbol": "_data_00476f78",
+      "address": "0x476f78",
+      "kind": "data"
+    },
+    {
+      "symbol": "??2@YAPAXI@Z",
+      "address": "0x452493",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_SchedulerCallback_Create_00449ed0@4",
+      "address": "0x449ed0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_memset",
+      "address": "0x45bed0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?g_thread_synchronization@@3UThreadSynchronization@@A",
+      "address": "0x492274",
+      "kind": "data"
+    },
+    {
+      "symbol": "@FadeOutUpdate_0043bd40@4",
+      "address": "0x43bd40",
+      "kind": "data"
+    },
+    {
+      "symbol": "@ViewportOverlayDraw_0043c1a0@4",
+      "address": "0x43c1a0",
+      "kind": "data"
+    },
+    {
+      "symbol": "@FadeInUpdate_0043c230@4",
+      "address": "0x43c230",
+      "kind": "data"
+    },
+    {
+      "symbol": "@PlayfieldOverlayDraw_0043c2c0@4",
+      "address": "0x43c2c0",
+      "kind": "data"
+    },
+    {
+      "symbol": "@HalfOpacityFadeUpdate_0043c310@4",
+      "address": "0x43c310",
+      "kind": "data"
+    },
+    {
+      "symbol": "@ScreenOverlayDraw_0043c3c0@4",
+      "address": "0x43c3c0",
+      "kind": "data"
+    },
+    {
+      "symbol": "@PlayfieldHalfOpacityDraw_0043c410@4",
+      "address": "0x43c410",
+      "kind": "data"
+    },
+    {
+      "symbol": "@ColorPulseUpdate_0043c460@4",
+      "address": "0x43c460",
+      "kind": "data"
+    },
+    {
+      "symbol": "@ColorPulseDraw_0043c500@4",
+      "address": "0x43c500",
+      "kind": "data"
+    },
+    {
+      "symbol": "@LinearShakeUpdate_0043c550@4",
+      "address": "0x43c550",
+      "kind": "data"
+    },
+    {
+      "symbol": "@EnvelopeShakeUpdate_0043c710@4",
+      "address": "0x43c710",
+      "kind": "data"
+    },
+    {
+      "symbol": "@ScreenEffectRemove_0043c870@4",
+      "address": "0x43c870",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__LeaveCriticalSection@4",
+      "address": "0x4660b4",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__EnterCriticalSection@4",
+      "address": "0x4660b0",
+      "kind": "data"
     }
   ],
   "additional_sources": [
@@ -1158,7 +1305,13 @@
     "src/render/anchored_quad_build_mirrored_00443480.cpp",
     "src/render/stage_objects_draw.cpp",
     "src/render/stage_draw_task.cpp",
-    "layout/ltcg/render_batch_frame_timer_anchor.cpp"
+    "layout/ltcg/render_batch_frame_timer_anchor.cpp",
+    "src/render/stage_background_task.cpp",
+    "layout/ltcg/render_batch_stage_anchors.cpp",
+    "layout/ltcg/render_batch/scheduler_register.cpp",
+    "layout/ltcg/render_batch/scheduler_create.cpp",
+    "layout/ltcg/render_batch/screen_effect_configure.cpp",
+    "layout/ltcg/render_batch/screen_effect_create.cpp"
   ],
   "roots": [
     "?ApplyDefaultViewport@@YGHI@Z",
@@ -1182,7 +1335,8 @@
     "?GameThreadText_DrawLateTask_00401520@@YIHPAUGameThreadText@@@Z",
     "?BeginFrame@RenderStageState_00420000@@QAEHXZ",
     "?StageObjects_DrawLayer@@YGHPAUStageObjects@@H@Z",
-    "?StageObjects_Draw@@YGHPAUStageObjects@@@Z"
+    "?StageObjects_Draw@@YGHPAUStageObjects@@@Z",
+    "?StageObjects_DrawBackground@@YGHPAUStageObjects@@@Z"
   ],
   "driver": "layout/ltcg/render_batch_context.cpp",
   "context": {
@@ -1355,6 +1509,55 @@
       "section": ".text$09bucketm_timer",
       "address": "0x0044BF40",
       "size": 88
+    },
+    {
+      "name": "FrameTimer_Set_00405410_abi_anchor",
+      "symbol": "?SetSchedulerValue@PlayerSchedulerRecord@@QAEXH@Z",
+      "section": ".text$000zt_timerset",
+      "address": "0x00405410",
+      "size": 57
+    },
+    {
+      "name": "CreateScreenEffect_0043c8b0_abi_anchor",
+      "symbol": "?CreateScreenEffect_0043c8b0@@YGPAUScreenEffectController_0043c970@@HHHHHH@Z",
+      "section": ".text$03w6effect",
+      "address": "0x0043C8B0",
+      "size": 82
+    },
+    {
+      "name": "ScreenEffect_Configure_0043c970_abi_anchor",
+      "symbol": "?Configure@ScreenEffectController_0043c970@@QAEXHHHHHH@Z",
+      "section": ".text$03w8configure",
+      "address": "0x0043C970",
+      "size": 396
+    },
+    {
+      "name": "Scheduler_RegisterPrimary_00449ae0_abi_anchor",
+      "symbol": "_Scheduler_RegisterPrimary@12",
+      "section": ".text$09bucketka_regp",
+      "address": "0x00449AE0",
+      "size": 131
+    },
+    {
+      "name": "Scheduler_RegisterSecondary_00449b70_abi_anchor",
+      "symbol": "_Scheduler_RegisterSecondary@12",
+      "section": ".text$09bucketkc_regs",
+      "address": "0x00449B70",
+      "size": 131
+    },
+    {
+      "name": "CreateEffectPrimary_0044a000_abi_anchor",
+      "symbol": "?CreateEffectPrimary@@YGPAUSchedulerTask@@PAXH0@Z",
+      "section": ".text$09bucketke_prim",
+      "address": "0x0044A000",
+      "size": 43
+    },
+    {
+      "name": "CreateEffectSecondary_0044a030_abi_anchor",
+      "symbol": "?CreateEffectSecondary@@YGPAUSchedulerTask@@PAXH0@Z",
+      "section": ".text$09bucketkg_sec",
+      "address": "0x0044A030",
+      "size": 43
     }
   ],
   "data_aliases": [

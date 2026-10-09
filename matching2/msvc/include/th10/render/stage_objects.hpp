@@ -63,9 +63,9 @@ struct StageObjects {
     StageInstance* instances;              // +0x18
     unsigned char reserved_001c[0x17C - 0x1C];
     StageEntity* entities;                 // +0x17C
-    unsigned char reserved_0180[0x1EE0 - 0x180];
+    StageEntity sprites[8];                // +0x180, drawn flat behind the objects
     float max_distance_squared;            // +0x1EE0
-    int reserved_1ee4;
+    int sprite_frames;                     // +0x1EE4, counts frames once it is nonzero
     unsigned int fade_color;               // +0x1EE8, alpha in the top byte
     int dimmed;                            // +0x1EEC, draw the sprites darkened
     unsigned char reserved_1ef0[0x2A0C - 0x1EF0];
@@ -74,7 +74,8 @@ struct StageObjects {
     int drawn_quads;                       // +0x2A14
     unsigned int flags;                    // +0x2A18: 1 objects, 2 hide after the fade, 4 fading, 8 hidden
     FrameTimer fade_timer;                 // +0x2A1C
-    unsigned char reserved_2a30[0x2A4C - 0x2A30];
+    FrameTimer clear_timer;                // +0x2A30
+    unsigned char reserved_2a44[0x2A4C - 0x2A44];
     GameThreadRenderStage view;            // +0x2A4C, the stage camera and fog
 };
 typedef char StageObjectsView[(offsetof(StageObjects, view) == 0x2A4C) ? 1 : -1];
@@ -112,4 +113,5 @@ inline void StageSetFog(int enabled) {
 
 __declspec(noinline) int __stdcall StageObjects_DrawLayer(StageObjects* stage, int layer);
 __declspec(noinline) int __stdcall StageObjects_Draw(StageObjects* stage);
+__declspec(noinline) int __stdcall StageObjects_DrawBackground(StageObjects* stage);
 #endif

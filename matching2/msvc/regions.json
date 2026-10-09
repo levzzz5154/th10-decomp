@@ -1524,13 +1524,23 @@
       }
     },
     {
-      "name": "asm_FUN_00402850_00402850",
-      "source": "src/game/game_state.cpp",
-      "symbol": "_asm_FUN_00402850_00402850",
+      "name": "semantic_StageObjects_DrawBackground_00402850",
+      "symbol": "?StageObjects_DrawBackground@@YGHPAUStageObjects@@@Z",
       "address": "0x00402850",
       "size": 1099,
-      "kind": "asm",
-      "owner": "0x00402850"
+      "source": "src/render/stage_background_task.cpp",
+      "kind": "semantic",
+      "owner": "0x00402850",
+      "section": ".text$000pl_stagebg",
+      "previous_record": {
+        "name": "asm_FUN_00402850_00402850",
+        "source": "src/game/game_state.cpp",
+        "symbol": "_asm_FUN_00402850_00402850",
+        "address": "0x00402850",
+        "size": 1099,
+        "kind": "asm",
+        "owner": "0x00402850"
+      }
     },
     {
       "name": "text_padding_00402c9b",
@@ -60466,7 +60476,6 @@
     "src/game/game_config_defaults.cpp",
     "src/game/game_mode_switch.cpp",
     "src/game/game_progress_unlock_all_stages_0042c8c0.cpp",
-    "src/game/game_state.cpp",
     "src/game/game_state_constructor_00402160.cpp",
     "src/game/game_state_destructor_00402440.cpp",
     "src/game/game_state_dispatch_animation_slot_0042c730.cpp",
@@ -62110,7 +62119,8 @@
     "src/game/player_collision_00408030_00408100.cpp",
     "src/game/player_bullet_animation_0041c800_0041c850_00449210_004492f0.cpp",
     "src/render/stage_objects_draw.cpp",
-    "src/render/stage_draw_task.cpp"
+    "src/render/stage_draw_task.cpp",
+    "src/render/stage_background_task.cpp"
   ],
   "notes": [
     "Every executable body is compiled from C++; unported bodies use MSVC inline assembly.",
