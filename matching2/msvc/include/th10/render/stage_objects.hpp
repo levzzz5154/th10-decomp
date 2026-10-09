@@ -2,6 +2,7 @@
 #define TH10_STAGE_OBJECTS_HPP
 #include <stddef.h>
 #include "th10/game/game_thread_text.hpp"
+#include "th10/math/timer.hpp"
 
 // A position with the arithmetic the stage code uses.
 struct StageVector : RenderVec3 {
@@ -64,11 +65,20 @@ struct StageObjects {
     StageEntity* entities;                 // +0x17C
     unsigned char reserved_0180[0x1EE0 - 0x180];
     float max_distance_squared;            // +0x1EE0
-    unsigned char reserved_1ee4[0x2A0C - 0x1EE4];
+    int reserved_1ee4;
+    unsigned int fade_color;               // +0x1EE8, alpha in the top byte
+    int dimmed;                            // +0x1EEC, draw the sprites darkened
+    unsigned char reserved_1ef0[0x2A0C - 0x1EF0];
     int drawn_objects;                     // +0x2A0C
     int culled_objects;                    // +0x2A10
     int drawn_quads;                       // +0x2A14
+    unsigned int flags;                    // +0x2A18: 1 objects, 2 hide after the fade, 4 fading, 8 hidden
+    FrameTimer fade_timer;                 // +0x2A1C
+    unsigned char reserved_2a30[0x2A4C - 0x2A30];
+    GameThreadRenderStage view;            // +0x2A4C, the stage camera and fog
 };
+typedef char StageObjectsView[(offsetof(StageObjects, view) == 0x2A4C) ? 1 : -1];
+typedef char StageObjectsTimer[(offsetof(StageObjects, fade_timer) == 0x2A1C) ? 1 : -1];
 typedef char StageObjectQuads[(offsetof(StageObject, quads) == 0x1C) ? 1 : -1];
 typedef char StageQuadSize[(sizeof(StageQuad) == 0x1C) ? 1 : -1];
 typedef char StageInstanceSize[(sizeof(StageInstance) == 0x10) ? 1 : -1];
@@ -83,5 +93,23 @@ extern "C" RenderVec3* __stdcall D3DXVec3ProjectArray(
     const unsigned int* viewport, const CameraMatrix* projection, const CameraMatrix* view,
     const CameraMatrix* world, unsigned int count);
 
+extern "C" __declspec(noinline) int __cdecl asm_AnimationManager_RenderBucket_00448980(
+    void* manager, int index);
+
+// Flush the sprite batch, then change one device render state.
+inline void StageSetRenderState(unsigned int state, unsigned int value) {
+    data_00491c10->Flush();
+    data_00491c30->State(state, value);
+}
+// Switch device fog (render state 0x1C) unless it already has that setting.
+inline void StageSetFog(int enabled) {
+    if (data_00491c28.fog_enabled != enabled) {
+        data_00491c10->Flush();
+        data_00491c28.fog_enabled = enabled;
+        data_00491c30->State(0x1C, enabled);
+    }
+}
+
 __declspec(noinline) int __stdcall StageObjects_DrawLayer(StageObjects* stage, int layer);
+__declspec(noinline) int __stdcall StageObjects_Draw(StageObjects* stage);
 #endif

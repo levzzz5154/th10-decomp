@@ -94,17 +94,8 @@ int __stdcall StageObjects_DrawLayer(StageObjects* stage, int layer) {
                     entity->flags |= 8;
                 }
             }
-            if ((entity->flags & 0x03C00000) == 0x02000000) {
-                if (data_00491c28.fog_enabled != 1) {
-                    data_00491c10->Flush();
-                    data_00491c28.fog_enabled = 1;
-                    data_00491c30->State(0x1C, 1);
-                }
-            } else if (data_00491c28.fog_enabled != 0) {
-                data_00491c10->Flush();
-                data_00491c28.fog_enabled = 0;
-                data_00491c30->State(0x1C, 0);
-            }
+            if ((entity->flags & 0x03C00000) == 0x02000000) StageSetFog(1);
+            else StageSetFog(0);
             asm_FUN_004451c0_004451c0(data_00491c10, entity);
             ++stage->drawn_quads;
         }

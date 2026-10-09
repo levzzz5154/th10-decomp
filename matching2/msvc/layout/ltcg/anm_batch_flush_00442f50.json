@@ -8,7 +8,8 @@
     "include/th10/math/angle.hpp",
     "include/th10/game/score_runtime_state_004091c0.hpp",
     "include/th10/game/game_thread_text.hpp",
-    "include/th10/render/stage_objects.hpp"
+    "include/th10/render/stage_objects.hpp",
+    "include/th10/math/timer.hpp"
   ],
   "image_base": "0x00400000",
   "description": "Native-LTCG render batch with compiler-visible camera application, state synchronization, quad appending, and primitive callers. RenderCamera::ApplyDefault and RenderStageState_00405300::SelectDefaultStage are co-compiled so the whole-program pass gives both private conventions; no ABI anchor remains. The existing public entries, three AsciiOverlay callbacks, and paired BossOverlay draw callbacks are rooted to retain their public ECX receivers. The array-loop context establishes private conventions and contributes zero recovered game-code bytes.",
@@ -516,6 +517,15 @@
       "address": "0x00403A30",
       "size": 592,
       "actual_abi": "__stdcall: stage and layer on the stack; RET 8"
+    },
+    {
+      "name": "StageObjects_Draw_00402ca0",
+      "source": "src/render/stage_draw_task.cpp",
+      "symbol": "?StageObjects_Draw@@YGHPAUStageObjects@@@Z",
+      "section": ".text$000pm_stagedraw",
+      "address": "0x00402CA0",
+      "size": 929,
+      "actual_abi": "__stdcall: stage on the stack; RET 4"
     }
   ],
   "gaps": [
@@ -540,9 +550,14 @@
       "size": 150
     },
     {
-      "section": ".text$000q0gap",
+      "section": ".text$000pk_gap",
       "address": "0x401d5c",
-      "size": 4916
+      "size": 3908
+    },
+    {
+      "section": ".text$000pz_gap",
+      "address": "0x403041",
+      "size": 79
     },
     {
       "section": ".text$000q2gap",
@@ -830,9 +845,14 @@
       "size": 296
     },
     {
-      "section": ".text$09bucketz",
+      "section": ".text$09bucketk_gap",
       "address": "0x4489c2",
-      "size": 14222
+      "size": 13694
+    },
+    {
+      "section": ".text$09bucketp_gap",
+      "address": "0x44bf98",
+      "size": 440
     }
   ],
   "constants": [],
@@ -1076,6 +1096,16 @@
       "symbol": "_D3DXVec3ProjectArray@36",
       "address": "0x00452188",
       "kind": "relative_code"
+    },
+    {
+      "symbol": "?g_frame_timer_normal_lower@@3MA",
+      "address": "0x00470B68",
+      "kind": "data"
+    },
+    {
+      "symbol": "?g_frame_timer_normal_upper@@3MA",
+      "address": "0x00470B64",
+      "kind": "data"
     }
   ],
   "additional_sources": [
@@ -1126,7 +1156,9 @@
     "src/game/game_thread_run_queue_leaf_00401520.cpp",
     "src/app/app_begin_frame_00420000.cpp",
     "src/render/anchored_quad_build_mirrored_00443480.cpp",
-    "src/render/stage_objects_draw.cpp"
+    "src/render/stage_objects_draw.cpp",
+    "src/render/stage_draw_task.cpp",
+    "layout/ltcg/render_batch_frame_timer_anchor.cpp"
   ],
   "roots": [
     "?ApplyDefaultViewport@@YGHI@Z",
@@ -1149,7 +1181,8 @@
     "?GameThreadText_DrawRecords_00401760@@YGHPAUGameThreadText@@@Z",
     "?GameThreadText_DrawLateTask_00401520@@YIHPAUGameThreadText@@@Z",
     "?BeginFrame@RenderStageState_00420000@@QAEHXZ",
-    "?StageObjects_DrawLayer@@YGHPAUStageObjects@@H@Z"
+    "?StageObjects_DrawLayer@@YGHPAUStageObjects@@H@Z",
+    "?StageObjects_Draw@@YGHPAUStageObjects@@@Z"
   ],
   "driver": "layout/ltcg/render_batch_context.cpp",
   "context": {
@@ -1315,6 +1348,13 @@
       "section": ".text$04ap",
       "address": "0x4423E0",
       "size": 65
+    },
+    {
+      "name": "FrameTimer_Advance_0044bf40_abi_anchor",
+      "symbol": "?Advance@FrameTimer@@QAEXM@Z",
+      "section": ".text$09bucketm_timer",
+      "address": "0x0044BF40",
+      "size": 88
     }
   ],
   "data_aliases": [

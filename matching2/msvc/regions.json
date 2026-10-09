@@ -1541,13 +1541,23 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00402ca0_00402ca0",
-      "source": "src/game/fun_00402ca0_00402ca0.cpp",
-      "symbol": "_asm_FUN_00402ca0_00402ca0",
+      "name": "semantic_StageObjects_Draw_00402ca0",
+      "symbol": "?StageObjects_Draw@@YGHPAUStageObjects@@@Z",
       "address": "0x00402CA0",
       "size": 929,
-      "kind": "asm",
-      "owner": "0x00402CA0"
+      "source": "src/render/stage_draw_task.cpp",
+      "kind": "semantic",
+      "owner": "0x00402CA0",
+      "section": ".text$000pm_stagedraw",
+      "previous_record": {
+        "name": "asm_FUN_00402ca0_00402ca0",
+        "source": "src/game/fun_00402ca0_00402ca0.cpp",
+        "symbol": "_asm_FUN_00402ca0_00402ca0",
+        "address": "0x00402CA0",
+        "size": 929,
+        "kind": "asm",
+        "owner": "0x00402CA0"
+      }
     },
     {
       "name": "text_padding_00403041",
@@ -60427,7 +60437,6 @@
     "src/game/front_initialize_00413bc0.cpp",
     "src/game/fun_00401760_00401760.cpp",
     "src/game/fun_00401a50_00401a50.cpp",
-    "src/game/fun_00402ca0_00402ca0.cpp",
     "src/game/fun_00404530_00404530.cpp",
     "src/game/fun_00405300_00405300.cpp",
     "src/game/fun_004065c0_004065c0.cpp",
@@ -62100,7 +62109,8 @@
     "src/game/item_collection_genuine_0041afd0.cpp",
     "src/game/player_collision_00408030_00408100.cpp",
     "src/game/player_bullet_animation_0041c800_0041c850_00449210_004492f0.cpp",
-    "src/render/stage_objects_draw.cpp"
+    "src/render/stage_objects_draw.cpp",
+    "src/render/stage_draw_task.cpp"
   ],
   "notes": [
     "Every executable body is compiled from C++; unported bodies use MSVC inline assembly.",

@@ -60,8 +60,13 @@ typedef char GameThreadFontSpriteSize[(sizeof(GameThreadFontSprite) == 0x44) ? 1
 // records (a camera padded to 0x118 bytes), and which of them is active.
 struct GameThreadRenderStage {
     RenderCamera camera;
-    unsigned char reserved_0F0[0x118 - sizeof(RenderCamera)];
+    unsigned char reserved_0F0[0xFC - sizeof(RenderCamera)];
+    unsigned int fog_start;                 // +0FC, float bits for the device
+    unsigned int fog_end;                   // +100
+    unsigned char reserved_104[0x114 - 0x104];
+    unsigned int fog_color;                 // +114
 };
+typedef char GameThreadRenderStageSize[(sizeof(GameThreadRenderStage) == 0x118) ? 1 : -1];
 struct GameThreadRenderState {
     unsigned char reserved_000[0x08];
     RenderDevice* device;                   // +008
