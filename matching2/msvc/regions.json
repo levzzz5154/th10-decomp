@@ -1945,13 +1945,23 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_004049a0_004049a0",
-      "source": "src/math/math_utils.cpp",
-      "symbol": "_asm_FUN_004049a0_004049a0",
+      "name": "Interpolator_StageFog_Step",
+      "symbol": "?Step@?$Interpolator@UStageFog@@@@QAE?AUStageFog@@XZ",
       "address": "0x004049A0",
       "size": 688,
-      "kind": "asm",
-      "owner": "0x004049A0"
+      "source": "src/render/stage_fog_interpolator.cpp",
+      "kind": "semantic",
+      "owner": "0x004049A0",
+      "section": ".text$004049a0_fn",
+      "previous_record": {
+        "name": "asm_FUN_004049a0_004049a0",
+        "source": "src/math/math_utils.cpp",
+        "symbol": "_asm_FUN_004049a0_004049a0",
+        "address": "0x004049A0",
+        "size": 688,
+        "kind": "asm",
+        "owner": "0x004049A0"
+      }
     },
     {
       "name": "semantic_Field88Holder_SetField88_00404c50",
@@ -2144,13 +2154,23 @@
       "kind": "padding"
     },
     {
-      "name": "semantic_Vec_Subtract_00404d40",
-      "source": "src/math/vec_subtract_00404d40.cpp",
-      "symbol": "?Vec_Subtract@@YGPAUVecSubtractResult@@PBUVecSubtractOperand@@0PAU1@@Z",
+      "name": "StageFog_Subtract",
+      "symbol": "??GStageFog@@QBE?AU0@ABU0@@Z",
       "address": "0x00404D40",
       "size": 92,
+      "source": "src/render/stage_fog.cpp",
       "kind": "semantic",
-      "owner": "0x00404D40"
+      "owner": "0x00404D40",
+      "section": ".text$00404d40_fn",
+      "previous_record": {
+        "name": "semantic_Vec_Subtract_00404d40",
+        "source": "src/math/vec_subtract_00404d40.cpp",
+        "symbol": "?Vec_Subtract@@YGPAUVecSubtractResult@@PBUVecSubtractOperand@@0PAU1@@Z",
+        "address": "0x00404D40",
+        "size": 92,
+        "kind": "semantic",
+        "owner": "0x00404D40"
+      }
     },
     {
       "name": "text_padding_00404d9c",
@@ -2161,13 +2181,23 @@
       "kind": "padding"
     },
     {
-      "name": "semantic_RecoveryScaleColor_Scale_00404da0",
-      "source": "src/game/recovery_scale_color_00404da0.cpp",
-      "symbol": "?RecoveryScaleColor_Scale@@YGPAURecoveryScaleColorResult@@PBURecoveryScaleColorSource@@PAU1@M@Z",
+      "name": "StageFog_Scale",
+      "symbol": "??DStageFog@@QBE?AU0@M@Z",
       "address": "0x00404DA0",
       "size": 101,
+      "source": "src/render/stage_fog.cpp",
       "kind": "semantic",
-      "owner": "0x00404DA0"
+      "owner": "0x00404DA0",
+      "section": ".text$00404da0_fn",
+      "previous_record": {
+        "name": "semantic_RecoveryScaleColor_Scale_00404da0",
+        "source": "src/game/recovery_scale_color_00404da0.cpp",
+        "symbol": "?RecoveryScaleColor_Scale@@YGPAURecoveryScaleColorResult@@PBURecoveryScaleColorSource@@PAU1@M@Z",
+        "address": "0x00404DA0",
+        "size": 101,
+        "kind": "semantic",
+        "owner": "0x00404DA0"
+      }
     },
     {
       "name": "text_padding_00404e05",
@@ -2178,20 +2208,21 @@
       "kind": "padding"
     },
     {
-      "name": "semantic_ParticleSeed_Combine_00404e10",
-      "source": "src/game/particle_seed.cpp",
-      "symbol": "?Combine@ParticleSeed@@QBEPAU1@PBU1@PAU1@@Z",
+      "name": "StageFog_Add",
+      "symbol": "??HStageFog@@QBE?AU0@ABU0@@Z",
       "address": "0x00404E10",
       "size": 92,
+      "source": "src/render/stage_fog.cpp",
       "kind": "semantic",
       "owner": "0x00404E10",
+      "section": ".text$00404e10_fn",
       "previous_record": {
-        "name": "asm_ParticleSeed_Combine_00404e10",
+        "name": "semantic_ParticleSeed_Combine_00404e10",
         "source": "src/game/particle_seed.cpp",
-        "symbol": "_asm_ParticleSeed_Combine_00404e10",
+        "symbol": "?Combine@ParticleSeed@@QBEPAU1@PBU1@PAU1@@Z",
         "address": "0x00404E10",
         "size": 92,
-        "kind": "asm",
+        "kind": "semantic",
         "owner": "0x00404E10"
       }
     },
@@ -60535,7 +60566,6 @@
     "src/game/native_effect_manager_create_0041aed0.cpp",
     "src/game/native_stage_tip.cpp",
     "src/game/object_factories.cpp",
-    "src/game/particle_seed.cpp",
     "src/game/path_state_reset_00417800.cpp",
     "src/game/pause_choice_update_00422c80.cpp",
     "src/game/pause_menu_reset.cpp",
@@ -60611,7 +60641,6 @@
     "src/game/recovery_release_raw_pair_and_reset_00405620.cpp",
     "src/game/recovery_reset_device_streams_0043bc40.cpp",
     "src/game/recovery_right_aligned_text_00447ae0.cpp",
-    "src/game/recovery_scale_color_00404da0.cpp",
     "src/game/recovery_select_archive_entry_0043d790.cpp",
     "src/game/recovery_split_resource_path_0041a050.cpp",
     "src/game/recovery_start_worker_0041fac0.cpp",
@@ -60730,7 +60759,6 @@
     "src/math/int2_add_00427dc0.cpp",
     "src/math/int_interpolator.cpp",
     "src/math/interpolators.cpp",
-    "src/math/math_utils.cpp",
     "src/math/oriented_rect.cpp",
     "src/math/random_vector.cpp",
     "src/math/rng.cpp",
@@ -60738,7 +60766,6 @@
     "src/math/timer_return.cpp",
     "src/math/vec2_interpolator.cpp",
     "src/math/vec3_interpolator.cpp",
-    "src/math/vec_subtract_00404d40.cpp",
     "src/math/vector3_cross.cpp",
     "src/math/x87_polar_setters.cpp",
     "src/platform/buffer_file_open.cpp",
@@ -62120,7 +62147,9 @@
     "src/game/player_bullet_animation_0041c800_0041c850_00449210_004492f0.cpp",
     "src/render/stage_objects_draw.cpp",
     "src/render/stage_draw_task.cpp",
-    "src/render/stage_background_task.cpp"
+    "src/render/stage_background_task.cpp",
+    "src/render/stage_fog_interpolator.cpp",
+    "src/render/stage_fog.cpp"
   ],
   "notes": [
     "Every executable body is compiled from C++; unported bodies use MSVC inline assembly.",
@@ -62186,8 +62215,6 @@
     "layout/ltcg/fun_004053b0.json",
     "layout/ltcg/fun_00405730.json",
     "layout/ltcg/player_manager_start_mode_004045b0.json",
-    "layout/ltcg/recovery_scale_color_00404da0.json",
-    "layout/ltcg/vec_subtract_00404d40.json",
     "layout/ltcg/read_field44.json",
     "layout/ltcg/set_field88.json",
     "layout/ltcg/set_field84.json",
@@ -62400,7 +62427,6 @@
     "layout/ltcg/matrix_identity_00401f00.json",
     "layout/ltcg/bounds_from_center_004285f0.json",
     "layout/ltcg/worker_start_0044c1c0.json",
-    "layout/ltcg/particle_seed_combine_00404e10.json",
     "layout/ltcg/word_color_00405040.json",
     "layout/ltcg/word_color_channels_004050a0.json",
     "layout/ltcg/bullet_manager_load_scripts_0040ae70.json",

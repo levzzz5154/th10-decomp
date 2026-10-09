@@ -4,6 +4,7 @@
 #include "th10/math/vector.hpp"
 #include "th10/math/trajectory_vector.hpp"
 #include "th10/math/int3.hpp"
+#include "th10/render/stage_fog.hpp"
 
 struct InterpolatorSet {
     Interpolator<int> scalar;
@@ -11,6 +12,7 @@ struct InterpolatorSet {
     Interpolator<Vec3> spatial;
     Interpolator<Int3> colour;
     Interpolator<TrajectoryVec2> trajectory;
+    Interpolator<StageFog> fog;
 };
 
 #pragma code_seg(".text$03context")
@@ -26,6 +28,7 @@ float __stdcall EvaluateCurveCompilerContext(const unsigned int* modes,
         total += sets[index].spatial.Step().x;
         total += sets[index].colour.Step().x;
         total += sets[index].trajectory.Step().x;
+        total += sets[index].fog.Step().start;
     }
     while (count--)
         total += EvaluateCurve_0044c350(*modes++, *numerators++, *denominators++);

@@ -9,7 +9,8 @@
     "include/th10/math/timer.hpp",
     "include/th10/math/vector.hpp",
     "include/th10/math/int3.hpp",
-    "include/th10/math/trajectory_vector.hpp"
+    "include/th10/math/trajectory_vector.hpp",
+    "include/th10/render/stage_fog.hpp"
   ],
   "image_base": "0x00400000",
   "description": "Animation easing switch and the interpolators that call it, compiled with native LTCG: the mode selector stays in EAX and each interpolator instance picks its own registers.",
@@ -66,13 +67,49 @@
       "address": "0x00412AC0",
       "size": 652,
       "actual_abi": "receiver ESI; result pointer EDI, returned in EAX; RET"
+    },
+    {
+      "name": "Interpolator_StageFog_Step",
+      "source": "src/render/stage_fog_interpolator.cpp",
+      "symbol": "?Step@?$Interpolator@UStageFog@@@@QAE?AUStageFog@@XZ",
+      "section": ".text$004049a0_fn",
+      "address": "0x004049A0",
+      "size": 688,
+      "actual_abi": "interpolator in EBX; result pointer on the stack, returned in EAX; RET 4"
+    },
+    {
+      "name": "StageFog_Subtract",
+      "source": "src/render/stage_fog.cpp",
+      "symbol": "??GStageFog@@QBE?AU0@ABU0@@Z",
+      "section": ".text$00404d40_fn",
+      "address": "0x00404D40",
+      "size": 92,
+      "actual_abi": "left in ECX; right in EAX; result pointer in ESI, returned in EAX; plain RET"
+    },
+    {
+      "name": "StageFog_Scale",
+      "source": "src/render/stage_fog.cpp",
+      "symbol": "??DStageFog@@QBE?AU0@M@Z",
+      "section": ".text$00404da0_fn",
+      "address": "0x00404DA0",
+      "size": 101,
+      "actual_abi": "record in EAX; result pointer in ESI, returned in EAX; factor on the stack; RET 4"
+    },
+    {
+      "name": "StageFog_Add",
+      "source": "src/render/stage_fog.cpp",
+      "symbol": "??HStageFog@@QBE?AU0@ABU0@@Z",
+      "section": ".text$00404e10_fn",
+      "address": "0x00404E10",
+      "size": 92,
+      "actual_abi": "left in ECX; right in EAX; result pointer in ESI, returned in EAX; plain RET"
     }
   ],
   "context": {
     "symbol": "?EvaluateCurveCompilerContext@@YGMPBIPBM1HPAUInterpolatorSet@@@Z",
     "section": ".text$03context",
     "address": "0x0044C5A0",
-    "size": 262,
+    "size": 302,
     "description": "Synthetic array-walking caller that establishes the private selector register; not recovered game code."
   },
   "gaps": [
@@ -84,7 +121,27 @@
     {
       "section": ".text$00404987_gap",
       "address": "0x00404987",
-      "size": 57657
+      "size": 25
+    },
+    {
+      "section": ".text$00404c50_gap",
+      "address": "0x00404C50",
+      "size": 240
+    },
+    {
+      "section": ".text$00404d9c_gap",
+      "address": "0x00404D9C",
+      "size": 4
+    },
+    {
+      "section": ".text$00404e05_gap",
+      "address": "0x00404E05",
+      "size": 11
+    },
+    {
+      "section": ".text$00404e6c_gap",
+      "address": "0x00404E6C",
+      "size": 56404
     },
     {
       "section": ".text$00412d4c_gap",
@@ -178,7 +235,9 @@
     "src/math/vec2_interpolator.cpp",
     "src/math/vec3_interpolator.cpp",
     "src/math/interpolators.cpp",
-    "src/game/trajectory_interpolator.cpp"
+    "src/game/trajectory_interpolator.cpp",
+    "src/render/stage_fog_interpolator.cpp",
+    "src/render/stage_fog.cpp"
   ],
   "anchors": [
     {
