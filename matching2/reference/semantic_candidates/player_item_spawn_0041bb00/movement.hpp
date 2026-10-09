@@ -100,4 +100,4 @@ __declspec(noinline) void __fastcall MovementStopFrame_00449210(
 __declspec(noinline) void __fastcall MovementSetPosition_004492f0(
  const Vector3* position, PickupAnimationLists* context, AnimationRef id);
 __declspec(noinline) void __fastcall MovementSetTranslatedPosition_00449350(
- const Vector3* position, PickupAnimationLists* context, AnimationRef id);
+ PickupAnimationLists* context, const Vector3* position, AnimationRef id);

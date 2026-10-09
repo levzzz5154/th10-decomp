@@ -37,7 +37,7 @@ void __fastcall MovementSetPosition_004492f0(
 }
 #pragma code_seg(".text$00449350_fn")
 void __fastcall MovementSetTranslatedPosition_00449350(
-    const Vector3* position, PickupAnimationLists* context, AnimationRef id) {
+    PickupAnimationLists* context, const Vector3* position, AnimationRef id) {
     Entity* object = reinterpret_cast<Entity*>(context->Find(id));
     if (object != 0) {
         object->position.x = position->x + 224.0f;

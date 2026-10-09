@@ -18,5 +18,4 @@
 
 #include "item_polar.cpp"
 
-#include "movement.cpp"
 #include "movement_helpers.cpp"

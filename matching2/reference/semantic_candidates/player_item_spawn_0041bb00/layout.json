@@ -331,7 +331,7 @@
     "?Move@PlayerState@@QAEHXZ": "0x4250b0",
     "?MovementStopFrame_00449210@@YIXGPAUPickupAnimationLists@@UAnimationRef@@@Z": "0x449210",
     "?MovementSetPosition_004492f0@@YIXPBUVector3@@PAUPickupAnimationLists@@UAnimationRef@@@Z": "0x4492f0",
-    "?MovementSetTranslatedPosition_00449350@@YIXPBUVector3@@PAUPickupAnimationLists@@UAnimationRef@@@Z": "0x449350",
+    "?MovementSetTranslatedPosition_00449350@@YIXPAUPickupAnimationLists@@PBUVector3@@UAnimationRef@@@Z": "0x449350",
     "?Open@PlayerDeathScene@@QAEHXZ": "0x4231d0"
   },
   "functions": [
@@ -606,7 +606,7 @@
       90
     ],
     [
-      "?MovementSetTranslatedPosition_00449350@@YIXPBUVector3@@PAUPickupAnimationLists@@UAnimationRef@@@Z",
+      "?MovementSetTranslatedPosition_00449350@@YIXPAUPickupAnimationLists@@PBUVector3@@UAnimationRef@@@Z",
       ".text$00449350_fn",
       4494160,
       111

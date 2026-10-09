@@ -9,7 +9,8 @@
     "src/game/effect_pool_update.cpp",
     "src/game/player_pickup_sweep.cpp",
     "src/game/item_spawn.cpp",
-    "src/game/player_state_update.cpp"
+    "src/game/player_state_update.cpp",
+    "src/game/player_movement.cpp"
   ],
   "included_sources": [
     "layout/ltcg/player_state_collision_runtime/hit.cpp",
@@ -31,7 +32,6 @@
     "layout/ltcg/player_state_collision_runtime/item_start_script.cpp",
     "layout/ltcg/player_state_collision_runtime/item_polar.cpp",
     "layout/ltcg/player_state_collision_runtime/player_state_callees.cpp",
-    "layout/ltcg/player_state_collision_runtime/movement.cpp",
     "layout/ltcg/player_state_collision_runtime/movement_helpers.cpp"
   ],
   "headers": [
@@ -114,6 +114,15 @@
       "size": 3112,
       "actual_abi": "stdcall: player on the stack; RET4",
       "source": "src/game/player_state_update.cpp"
+    },
+    {
+      "name": "function_004250b0",
+      "symbol": "?Move@PlayerState@@QAEHXZ",
+      "section": ".text$f004250b0F",
+      "address": "0x4250b0",
+      "size": 1656,
+      "actual_abi": "private EDI receiver; RET0",
+      "source": "src/game/player_movement.cpp"
     }
   ],
   "context": {
@@ -328,13 +337,6 @@
       "size": 30
     },
     {
-      "name": "function_004250b0",
-      "symbol": "?Move@PlayerState@@QAEHXZ",
-      "section": ".text$f004250b0F",
-      "address": "0x4250b0",
-      "size": 1656
-    },
-    {
       "name": "function_00449210",
       "symbol": "?MovementStopFrame_00449210@@YIXGPAUPickupAnimationLists@@UAnimationRef@@@Z",
       "section": ".text$f00449210F",
@@ -350,7 +352,7 @@
     },
     {
       "name": "function_00449350",
-      "symbol": "?MovementSetTranslatedPosition_00449350@@YIXPBUVector3@@PAUPickupAnimationLists@@UAnimationRef@@@Z",
+      "symbol": "?MovementSetTranslatedPosition_00449350@@YIXPAUPickupAnimationLists@@PBUVector3@@UAnimationRef@@@Z",
       "section": ".text$f00449350F",
       "address": "0x449350",
       "size": 111

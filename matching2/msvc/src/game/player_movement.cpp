@@ -1,6 +1,10 @@
-// Complete movement update at 0x004250B0, an unselected candidate.
-// The native graph derives the actual EDI receiver and uses no extra input. The complete player-state owner is its caller.
-#include "movement.hpp"
+// 0x004250B0: the player's per-frame movement: the held direction, focus and
+// its marker animation, the lean scripts, the clamped position, the trail and
+// the four option orbits.
+#include "../../layout/ltcg/player_state_collision_runtime/runtime.hpp"
+#include "../../layout/ltcg/player_state_collision_runtime/item_spawn.hpp"
+#include "../../layout/ltcg/player_state_collision_runtime/animation_public_callers.hpp"
+#include "../../layout/ltcg/player_state_collision_runtime/movement.hpp"
 
 #pragma code_seg(".text$f004250b0F")
 int PlayerState::Move() {
@@ -22,7 +26,7 @@ int PlayerState::Move() {
     if (data_00477704 != 0 && data_00477704->enabled != 0 &&
         player->auxiliary_timer.current >= 4) {
         player->slow = (movement_input.word >> 2) & 1;
-        if (data_00474c68 * 3 + data_00474c6c == 5) {
+        if (data_00474c40.character * 3 + data_00474c40.shot_type == 5) {
             if (movement_input.bytes[0] & 4)
                 player->slow_transition_age = 0;
             else if (player->slow_transition_age < 30)
@@ -40,8 +44,8 @@ int PlayerState::Move() {
             object->render_bucket = 9;
             object->flags_35C |= 0x40000000u;
             resource->InitializeObject(object, 0x160);
-            player->slow_animation =
-                reinterpret_cast<AnimationLists*>(data_00491c10)->RegisterPrimaryBack(object);
+            AnimationRef assigned = reinterpret_cast<AnimationLists*>(data_00491c10)->RegisterPrimaryBack(object);
+            player->slow_animation = assigned;
         }
         switch (player->direction) {
         case MovementRight: move_x = player->slow_speed; break;
@@ -57,7 +61,8 @@ int PlayerState::Move() {
         PickupAnimationLists* context = reinterpret_cast<PickupAnimationLists*>(data_00491c10);
         if (context->Find(player->slow_animation) != 0)
             MovementStopFrame_00449210(1, context, player->slow_animation);
-        player->slow_animation = AnimationRef(0);
+        AnimationRef* handle = &player->slow_animation;
+        handle->value = 0;
         switch (player->direction) {
         case MovementRight: move_x = player->normal_speed; break;
         case MovementLeft: move_x = -player->normal_speed; break;
@@ -70,20 +75,12 @@ int PlayerState::Move() {
         }
     }
 
-    int facing_script;
-    if (move_x < 0 && player->previous_movement.x >= 0)
-        player->resource->LoadScript(&player->animation, 1);
-    if (move_x > 0 && player->previous_movement.x <= 0) {
-        facing_script = 3;
-        goto apply_facing_script;
-    }
-    if (move_x == 0 && player->previous_movement.x < 0)
-        player->resource->LoadScript(&player->animation, 2);
-    if (move_x == 0 && player->previous_movement.x > 0) {
-        facing_script = 4;
-apply_facing_script:
-        player->resource->LoadScript(&player->animation, facing_script);
-    }
+    // Lean into a turn and straighten out of it.
+    // Lean into a turn and straighten out of it.
+    if (move_x < 0 && player->previous_movement.x >= 0) player->resource->LoadScript(&player->animation, 1);
+    else if (move_x == 0 && player->previous_movement.x < 0) player->resource->LoadScript(&player->animation, 2);
+    if (move_x > 0 && player->previous_movement.x <= 0) player->resource->LoadScript(&player->animation, 3);
+    else if (move_x == 0 && player->previous_movement.x > 0) player->resource->LoadScript(&player->animation, 4);
     player->previous_movement.x = move_x;
     player->previous_movement.y = move_y;
     player->velocity.x = static_cast<int>(static_cast<float>(move_x) * data_00476f78);
@@ -94,16 +91,17 @@ apply_facing_script:
     else if (player->integer_position.x > 18400) player->integer_position.x = 18400;
     if (player->integer_position.y < 3200) player->integer_position.y = 3200;
     else if (player->integer_position.y > 43200) player->integer_position.y = 43200;
-    player->position.x = static_cast<float>(player->integer_position.x) * data_00470b00;
-    player->position.y = static_cast<float>(player->integer_position.y) * data_00470b00;
+    Vector3* world = &player->position;
+    world->x = static_cast<float>(player->integer_position.x) * 0.01f;
+    world->y = static_cast<float>(player->integer_position.y) * 0.01f;
     PickupAnimationLists* context = reinterpret_cast<PickupAnimationLists*>(data_00491c10);
     if (context->Find(player->slow_animation) == 0) {
         player->slow_animation = AnimationRef(0);
     } else {
         Vector3 position;
-        position.x = player->position.x + data_00470b4c;
+        position.x = player->position.x + 224.0f;
         position.z = player->position.z;
-        position.y = player->position.y + data_00470b48;
+        position.y = player->position.y + 16.0f;
         MovementSetPosition_004492f0(&position, context, player->slow_animation);
     }
 
@@ -123,8 +121,7 @@ apply_facing_script:
     for (int index = 0; index < 4; ++index) {
         MovementOrbit* orbit = &player->orbits[index];
         if (orbit->active != 0) {
-            const MovementPoint* offset = player->slow ? &orbit->slow_offset : &orbit->normal_offset;
-            orbit->desired = *offset + player->integer_position;
+            orbit->desired = *(player->slow ? &orbit->slow_offset : &orbit->normal_offset) + player->integer_position;
             if (orbit->update != 0)
                 orbit->update(orbit);
             if (orbit->reset_position == 0) {
@@ -140,11 +137,11 @@ apply_facing_script:
                 orbit->current = orbit->desired;
             }
             Vector3 position = {
-                static_cast<float>(orbit->current.x) * data_00470b00,
-                static_cast<float>(orbit->current.y) * data_00470b00, 0.0f };
+                static_cast<float>(orbit->current.x) * 0.01f,
+                static_cast<float>(orbit->current.y) * 0.01f, 0.0f };
             context = reinterpret_cast<PickupAnimationLists*>(data_00491c10);
-            MovementSetTranslatedPosition_00449350(&position, context, orbit->first_animation);
-            MovementSetTranslatedPosition_00449350(&position, context, orbit->second_animation);
+            MovementSetTranslatedPosition_00449350(context, &position, orbit->first_animation);
+            MovementSetTranslatedPosition_00449350(context, &position, orbit->second_animation);
         }
     }
     return 0;

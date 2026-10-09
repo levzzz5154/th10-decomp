@@ -22260,13 +22260,23 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_004250b0_004250b0",
-      "source": "src/game/player_front_runtime.cpp",
-      "symbol": "_asm_FUN_004250b0_004250b0",
+      "name": "semantic_PlayerMove_004250b0",
+      "source": "src/game/player_movement.cpp",
+      "symbol": "?Move@PlayerState@@QAEHXZ",
       "address": "0x004250B0",
       "size": 1656,
-      "kind": "asm",
-      "owner": "0x004250B0"
+      "kind": "semantic",
+      "owner": "0x004250B0",
+      "previous_record": {
+        "name": "asm_FUN_004250b0_004250b0",
+        "source": "src/game/player_front_runtime.cpp",
+        "symbol": "_asm_FUN_004250b0_004250b0",
+        "address": "0x004250B0",
+        "size": 1656,
+        "kind": "asm",
+        "owner": "0x004250B0"
+      },
+      "section": ".text$f004250b0F"
     },
     {
       "name": "text_padding_00425728",
@@ -60132,6 +60142,7 @@
     "?Sweep@PickupSweepResult@@QAEHPAUPlayerState@@PBUPickupPoint@@1@Z": "0x00428630",
     "?Spawn@PlayerItemManager@@QAEHPBUVector3@@HHMM@Z": "0x0041BB00",
     "_PlayerState_Update_00425730@4": "0x00425730",
+    "?Move@PlayerState@@QAEHXZ": "0x004250B0",
     "?TrimRectangle@TrimLaser@@UAEHPBUCutVector@@0H@Z": "0x0041D880",
     "?BuildSpellList@TitleMenu_00431410@@QAEHXZ": "0x00432690"
   },
@@ -60508,7 +60519,7 @@
     "src/game/player_death_shrink_004076a0.cpp",
     "src/game/player_draw_00405ac0.cpp",
     "src/game/player_draw_sprites_00409190.cpp",
-    "src/game/player_front_runtime.cpp",
+    "src/game/player_movement.cpp",
     "src/game/player_homing_00407ef0.cpp",
     "src/game/player_hud_start_spell_00409280.cpp",
     "src/game/player_hud_update_00408d60.cpp",

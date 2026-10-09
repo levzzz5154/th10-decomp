@@ -72,12 +72,11 @@ int PlayerState::Move() {
     }
 
     // Lean into a turn and straighten out of it.
+    // Lean into a turn and straighten out of it.
     if (move_x < 0 && player->previous_movement.x >= 0) player->resource->LoadScript(&player->animation, 1);
+    else if (move_x == 0 && player->previous_movement.x < 0) player->resource->LoadScript(&player->animation, 2);
     if (move_x > 0 && player->previous_movement.x <= 0) player->resource->LoadScript(&player->animation, 3);
-    else if (move_x == 0) {
-        if (player->previous_movement.x < 0) player->resource->LoadScript(&player->animation, 2);
-        if (player->previous_movement.x > 0) player->resource->LoadScript(&player->animation, 4);
-    }
+    else if (move_x == 0 && player->previous_movement.x > 0) player->resource->LoadScript(&player->animation, 4);
     player->previous_movement.x = move_x;
     player->previous_movement.y = move_y;
     player->velocity.x = static_cast<int>(static_cast<float>(move_x) * data_00476f78);
@@ -118,8 +117,7 @@ int PlayerState::Move() {
     for (int index = 0; index < 4; ++index) {
         MovementOrbit* orbit = &player->orbits[index];
         if (orbit->active != 0) {
-            const MovementPoint* offset = player->slow ? &orbit->slow_offset : &orbit->normal_offset;
-            orbit->desired = *offset + player->integer_position;
+            orbit->desired = *(player->slow ? &orbit->slow_offset : &orbit->normal_offset) + player->integer_position;
             if (orbit->update != 0)
                 orbit->update(orbit);
             if (orbit->reset_position == 0) {
@@ -138,8 +136,8 @@ int PlayerState::Move() {
                 static_cast<float>(orbit->current.x) * 0.01f,
                 static_cast<float>(orbit->current.y) * 0.01f, 0.0f };
             context = reinterpret_cast<PickupAnimationLists*>(data_00491c10);
-            MovementSetTranslatedPosition_00449350(&position, context, orbit->first_animation);
-            MovementSetTranslatedPosition_00449350(&position, context, orbit->second_animation);
+            MovementSetTranslatedPosition_00449350(context, &position, orbit->first_animation);
+            MovementSetTranslatedPosition_00449350(context, &position, orbit->second_animation);
         }
     }
     return 0;

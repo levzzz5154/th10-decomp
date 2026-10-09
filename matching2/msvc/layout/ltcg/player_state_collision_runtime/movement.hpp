@@ -43,7 +43,7 @@ struct MovementState {
     unsigned char reserved_000[0x10];
     AnimationResource_0043e710* resource;               // +010
     Entity animation;                                  // +014..3BF
-    volatile Vector3 position;                                  // +3C0
+    Vector3 position;                                  // +3C0
     MovementPoint integer_position;                    // +3CC
     int normal_speed;                                  // +3D4
     int slow_speed;                                    // +3D8
@@ -100,4 +100,4 @@ __declspec(noinline) void __fastcall MovementStopFrame_00449210(
 __declspec(noinline) void __fastcall MovementSetPosition_004492f0(
  const Vector3* position, PickupAnimationLists* context, AnimationRef id);
 __declspec(noinline) void __fastcall MovementSetTranslatedPosition_00449350(
- const Vector3* position, PickupAnimationLists* context, AnimationRef id);
+ PickupAnimationLists* context, const Vector3* position, AnimationRef id);

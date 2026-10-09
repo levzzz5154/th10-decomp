@@ -48,7 +48,9 @@ struct PlayerScoreGauge {
     int high_score;
     int score;
     short power;
-    unsigned char reserved_0a[0x30 - 0x0a];
+    unsigned char reserved_0a[0x28 - 0x0a];
+    int character;
+    int shot_type;
     int lives;
     unsigned char reserved_34[0x58 - 0x34];
     int field_58;
