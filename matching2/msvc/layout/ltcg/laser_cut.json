@@ -20,7 +20,7 @@
     "layout/ltcg/laser_cut/spawn_laser.cpp",
     "layout/ltcg/laser_cut/base_laser.cpp",
     "layout/ltcg/laser_cut/bounds.cpp",
-    "layout/ltcg/laser_cut/rectangle_cut.cpp",
+    "equivalent/game/laser_rectangle_split_0041eb00.cpp",
     "layout/ltcg/laser_cut/circle_trim.cpp",
     "layout/ltcg/laser_cut/circle_cut.cpp"
   ],

@@ -112,7 +112,7 @@ def load_recoveries(project, config, regions):
             raise EquivalenceError('malformed frame shift in ' + entry['layout'])
         if layout.get('listed_branch_targets', True) is not True:
             raise EquivalenceError('listed_branch_targets is true or absent in ' + entry['layout'])
-        if set(layout) - {'frame_shift', 'listed_branch_targets', 'context_cluster'} != required or layout['schema_version'] != 1 or layout['region'] != entry['region']:
+        if set(layout) - {'frame_shift', 'listed_branch_targets', 'context_cluster', 'roots'} != required or layout['schema_version'] != 1 or layout['region'] != entry['region']:
             raise EquivalenceError('malformed equivalent layout: ' + entry['layout'])
         if not 0 < layout['code_bytes'] <= region['size']:
             raise EquivalenceError('code extent exceeds the region: ' + entry['layout'])
@@ -123,7 +123,7 @@ def load_recoveries(project, config, regions):
                 raise EquivalenceError('model sources live under equivalent/: ' + source)
             sources.append(source_path)
         if 'context_cluster' in layout:
-            sources.extend(cluster_context(project, layout['context_cluster'], sources, entry['layout']))
+            sources = cluster_context(project, layout['context_cluster'], sources, entry['layout'])
         for item in layout['differences']:
             if set(item) != {'class', 'offset', 'retail', 'model'} or item['class'] not in LISTED_CLASSES:
                 raise EquivalenceError('malformed recorded difference in ' + entry['layout'])
@@ -133,7 +133,12 @@ def load_recoveries(project, config, regions):
 
 
 def cluster_context(project, name, models, where):
-    """The driver and context sources of a whole-program cluster, less the model sources themselves."""
+    """The model sources with the driver and context sources of a whole-program cluster, in cluster order.
+
+    The compiler's choices depend on the order its inputs are given in, so the
+    model sources keep the position the cluster gives them; any the cluster
+    does not name come first.
+    """
     path = (project / name).resolve()
     if not path.is_relative_to(project / 'layout/ltcg') or path.suffix != '.json':
         raise EquivalenceError('context cluster must be a layout/ltcg JSON file: ' + where)
@@ -143,9 +148,8 @@ def cluster_context(project, name, models, where):
         source_path = (project / source).resolve()
         if not source_path.is_relative_to(project) or source_path.suffix != '.cpp':
             raise EquivalenceError('context cluster source must be a project C++ file: ' + source)
-        if source_path not in models:
-            context.append(source_path)
-    return context
+        context.append(source_path)
+    return [model for model in models if model not in context] + context
 
 
 def build_model(recovery, project, toolkit, flags, work):
@@ -172,7 +176,9 @@ def build_model(recovery, project, toolkit, flags, work):
                    f'/BASE:{base:#x}', '/SUBSYSTEM:WINDOWS', '/ENTRY:' + (entry[1:] if entry.startswith('_') else entry),
                    '/FIXED', '/INCREMENTAL:NO', '/NODEFAULTLIB', '/OPT:REF', '/OPT:NOICF',
                    '/OUT:' + winpath(executable), '/MAP:' + winpath(map_path),
-                   *[winpath(obj) for obj in objects], winpath(work / 'bindings.obj')]
+                   *[winpath(obj) for obj in objects], winpath(work / 'bindings.obj'),
+                   # Functions the link keeps besides the entry, so that shared callees see every caller.
+                   *['/INCLUDE:' + root for root in recovery.get('roots', [])]]
         result = subprocess.run(command, env=env, cwd=work, capture_output=True, text=True, timeout=300)
         if result.returncode or not executable.is_file():
             raise EquivalenceError('model link failed:\n' + (result.stdout + result.stderr)[-3000:])

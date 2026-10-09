@@ -64079,6 +64079,10 @@
     {
       "region": "asm_FUN_00437fe0_00437fe0",
       "layout": "layout/equivalent/font_atlas_draw_text_00437fe0.json"
+    },
+    {
+      "region": "asm_FUN_0041eb00_0041eb00",
+      "layout": "layout/equivalent/laser_rectangle_split_0041eb00.json"
     }
   ]
 }

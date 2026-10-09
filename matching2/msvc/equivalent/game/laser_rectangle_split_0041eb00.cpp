@@ -1,5 +1,5 @@
 // 0041EB00: remove rectangularly selected samples and spawn each surviving run.
-#include "types.hpp"
+#include "../../layout/ltcg/laser_cut/types.hpp"
 #include <string.h>
 #pragma code_seg(".text$f0041eb00F")
 int CutLaser::CutRectangle(const CutVector* center,const CutVector* size,int spawn_items) {
