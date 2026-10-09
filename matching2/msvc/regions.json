@@ -1646,13 +1646,23 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00403090_00403090",
-      "source": "src/render/fun_00403090_00403090.cpp",
-      "symbol": "_asm_FUN_00403090_00403090",
+      "name": "semantic_StageObject_IsOutsideView_00403090",
+      "symbol": "?IsOutsideView@StageObject@@QBEHPBUStageVector@@PBURenderCamera@@M@Z",
       "address": "0x00403090",
       "size": 1984,
-      "kind": "asm",
-      "owner": "0x00403090"
+      "source": "src/render/stage_objects_draw.cpp",
+      "kind": "semantic",
+      "owner": "0x00403090",
+      "section": ".text$000q1cull",
+      "previous_record": {
+        "name": "asm_FUN_00403090_00403090",
+        "source": "src/render/fun_00403090_00403090.cpp",
+        "symbol": "_asm_FUN_00403090_00403090",
+        "address": "0x00403090",
+        "size": 1984,
+        "kind": "asm",
+        "owner": "0x00403090"
+      }
     },
     {
       "name": "semantic_StageEclLoader_00403850_Load_00403850",
@@ -1707,13 +1717,23 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00403a30_00403a30",
-      "source": "src/render/anm_record_walk.cpp",
-      "symbol": "_asm_FUN_00403a30_00403a30",
+      "name": "semantic_StageObjects_DrawLayer_00403a30",
+      "symbol": "?StageObjects_DrawLayer@@YGHPAUStageObjects@@H@Z",
       "address": "0x00403A30",
       "size": 592,
-      "kind": "asm",
-      "owner": "0x00403A30"
+      "source": "src/render/stage_objects_draw.cpp",
+      "kind": "semantic",
+      "owner": "0x00403A30",
+      "section": ".text$000q3draw",
+      "previous_record": {
+        "name": "asm_FUN_00403a30_00403a30",
+        "source": "src/render/anm_record_walk.cpp",
+        "symbol": "_asm_FUN_00403a30_00403a30",
+        "address": "0x00403A30",
+        "size": 592,
+        "kind": "asm",
+        "owner": "0x00403A30"
+      }
     },
     {
       "name": "asm_FUN_00403c80_00403c80",
@@ -60843,7 +60863,6 @@
     "src/render/anm_manager_service_pending_00447700.cpp",
     "src/render/anm_manager_update.cpp",
     "src/render/anm_propagate.cpp",
-    "src/render/anm_record_walk.cpp",
     "src/render/anm_script_table_sweep.cpp",
     "src/render/anm_storage_destructor_00446220.cpp",
     "src/render/anm_texture_create_and_upload_00446f40.cpp",
@@ -60870,7 +60889,6 @@
     "src/render/empty_callback_00420db0.cpp",
     "src/render/entity_submit_projected_00443f80.cpp",
     "src/render/faded_quad_draw.cpp",
-    "src/render/fun_00403090_00403090.cpp",
     "src/render/fun_0043c500_0043c500.cpp",
     "src/render/fun_00444240_00444240.cpp",
     "src/render/fun_00444580_00444580.cpp",
@@ -62081,7 +62099,8 @@
     "src/util/runtime_pool.cpp",
     "src/game/item_collection_genuine_0041afd0.cpp",
     "src/game/player_collision_00408030_00408100.cpp",
-    "src/game/player_bullet_animation_0041c800_0041c850_00449210_004492f0.cpp"
+    "src/game/player_bullet_animation_0041c800_0041c850_00449210_004492f0.cpp",
+    "src/render/stage_objects_draw.cpp"
   ],
   "notes": [
     "Every executable body is compiled from C++; unported bodies use MSVC inline assembly.",

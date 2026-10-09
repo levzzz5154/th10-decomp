@@ -1,0 +1,87 @@
+#ifndef TH10_STAGE_OBJECTS_HPP
+#define TH10_STAGE_OBJECTS_HPP
+#include <stddef.h>
+#include "th10/game/game_thread_text.hpp"
+
+// A position with the arithmetic the stage code uses.
+struct StageVector : RenderVec3 {
+    StageVector() {}
+    StageVector(float px, float py, float pz) { x = px; y = py; z = pz; }
+    StageVector operator+(const StageVector& rhs) const { return StageVector(x + rhs.x, y + rhs.y, z + rhs.z); }
+    StageVector operator-(const StageVector& rhs) const { return StageVector(x - rhs.x, y - rhs.y, z - rhs.z); }
+    StageVector operator*(float factor) const { return StageVector(x * factor, y * factor, z * factor); }
+};
+inline void WorldIdentity(CameraMatrix* matrix) {
+    matrix->m[1] = matrix->m[2] = matrix->m[3] = matrix->m[4] = matrix->m[6] = matrix->m[7] =
+        matrix->m[8] = matrix->m[9] = matrix->m[11] = matrix->m[12] = matrix->m[13] = matrix->m[14] = 0.0f;
+    matrix->m[0] = matrix->m[5] = matrix->m[10] = matrix->m[15] = 1.0f;
+}
+// One quad of a stage background object. The list ends at a negative type,
+// and each record gives its own byte size.
+struct StageQuad {
+    short type;
+    short size;
+    short script;
+    short entity;                          // index of the animation entity that draws it
+    RenderVec3 position;                   // relative to the instance
+    float width;                           // 0 keeps the sprite's own size
+    float height;
+};
+// A stage background object: a bounding box and the quads inside it.
+struct StageObject {
+    short id;
+    signed char layer;
+    unsigned char flags;                   // bit 1: drawn this frame
+    StageVector center;
+    StageVector size;
+    StageQuad quads[1];
+
+    // 0x00403090: 1 when the box, moved by `offset`, is too far from the
+    // camera or projects outside the playfield.
+    __declspec(noinline) int IsOutsideView(const StageVector* offset, const RenderCamera* camera,
+                                           float max_distance_squared) const;
+};
+// One placement of an object in the stage. The list ends at a negative object.
+struct StageInstance {
+    short object;
+    short reserved;
+    StageVector position;
+};
+struct StageSprite {
+    unsigned char reserved_00[0x30];
+    float height;
+    float width;
+};
+// The animation entities the quads draw with, 0x3AC bytes each.
+struct StageEntity : RenderEntity {
+    unsigned char reserved_398[0x3AC - sizeof(RenderEntity)];
+};
+struct StageObjects {
+    unsigned char reserved_0000[0x14];
+    StageObject** objects;                 // +0x14
+    StageInstance* instances;              // +0x18
+    unsigned char reserved_001c[0x17C - 0x1C];
+    StageEntity* entities;                 // +0x17C
+    unsigned char reserved_0180[0x1EE0 - 0x180];
+    float max_distance_squared;            // +0x1EE0
+    unsigned char reserved_1ee4[0x2A0C - 0x1EE4];
+    int drawn_objects;                     // +0x2A0C
+    int culled_objects;                    // +0x2A10
+    int drawn_quads;                       // +0x2A14
+};
+typedef char StageObjectQuads[(offsetof(StageObject, quads) == 0x1C) ? 1 : -1];
+typedef char StageQuadSize[(sizeof(StageQuad) == 0x1C) ? 1 : -1];
+typedef char StageInstanceSize[(sizeof(StageInstance) == 0x10) ? 1 : -1];
+typedef char StageObjectsCounters[(offsetof(StageObjects, drawn_quads) == 0x2A14) ? 1 : -1];
+typedef char StageEntitySize[(sizeof(StageEntity) == 0x3AC) ? 1 : -1];
+
+extern "C" __declspec(noinline) int __cdecl asm_FUN_004451c0_004451c0(
+    AnimationManager_00442F50*, RenderEntity*);
+extern "C" CameraMatrix* __stdcall D3DXMatrixTranslation(CameraMatrix*, float, float, float);
+extern "C" RenderVec3* __stdcall D3DXVec3ProjectArray(
+    RenderVec3* out, unsigned int out_stride, const RenderVec3* in, unsigned int in_stride,
+    const unsigned int* viewport, const CameraMatrix* projection, const CameraMatrix* view,
+    const CameraMatrix* world, unsigned int count);
+
+__declspec(noinline) int __stdcall StageObjects_DrawLayer(StageObjects* stage, int layer);
+#endif

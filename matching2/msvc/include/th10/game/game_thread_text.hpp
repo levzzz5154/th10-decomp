@@ -69,6 +69,8 @@ struct GameThreadRenderState {
     GameThreadRenderStage stages[2];        // +154
     GameThreadRenderStage* active_stage;    // +384
     int stage_index;                        // +388
+    unsigned char reserved_38C[0x750 - 0x38C];
+    int fog_enabled;                        // +750, the device's cached fog switch
 
     __forceinline void SelectStage(int index) {
         active_stage = &stages[index];

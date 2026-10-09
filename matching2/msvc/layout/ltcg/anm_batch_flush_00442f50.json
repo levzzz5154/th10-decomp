@@ -7,7 +7,8 @@
     "include/th10/render/camera_batch.hpp",
     "include/th10/math/angle.hpp",
     "include/th10/game/score_runtime_state_004091c0.hpp",
-    "include/th10/game/game_thread_text.hpp"
+    "include/th10/game/game_thread_text.hpp",
+    "include/th10/render/stage_objects.hpp"
   ],
   "image_base": "0x00400000",
   "description": "Native-LTCG render batch with compiler-visible camera application, state synchronization, quad appending, and primitive callers. RenderCamera::ApplyDefault and RenderStageState_00405300::SelectDefaultStage are co-compiled so the whole-program pass gives both private conventions; no ABI anchor remains. The existing public entries, three AsciiOverlay callbacks, and paired BossOverlay draw callbacks are rooted to retain their public ECX receivers. The array-loop context establishes private conventions and contributes zero recovered game-code bytes.",
@@ -497,6 +498,24 @@
       "size": 177,
       "actual_abi": "state in ECX; camera in EDI to 0x004215A0; returns 1; plain RET",
       "source": "src/app/app_begin_frame_00420000.cpp"
+    },
+    {
+      "name": "StageObject_IsOutsideView_00403090",
+      "source": "src/render/stage_objects_draw.cpp",
+      "symbol": "?IsOutsideView@StageObject@@QBEHPBUStageVector@@PBURenderCamera@@M@Z",
+      "section": ".text$000q1cull",
+      "address": "0x00403090",
+      "size": 1984,
+      "actual_abi": "object in ECX; instance position in EDX; camera in EAX; distance on the stack; RET 4"
+    },
+    {
+      "name": "StageObjects_DrawLayer_00403a30",
+      "source": "src/render/stage_objects_draw.cpp",
+      "symbol": "?StageObjects_DrawLayer@@YGHPAUStageObjects@@H@Z",
+      "section": ".text$000q3draw",
+      "address": "0x00403A30",
+      "size": 592,
+      "actual_abi": "__stdcall: stage and layer on the stack; RET 8"
     }
   ],
   "gaps": [
@@ -521,9 +540,19 @@
       "size": 150
     },
     {
-      "section": ".text$000zlayout",
+      "section": ".text$000q0gap",
       "address": "0x401d5c",
-      "size": 13732
+      "size": 4916
+    },
+    {
+      "section": ".text$000q2gap",
+      "address": "0x403850",
+      "size": 480
+    },
+    {
+      "section": ".text$000q4gap",
+      "address": "0x403c80",
+      "size": 5760
     },
     {
       "section": ".text$000zselectz",
@@ -1037,6 +1066,16 @@
       "symbol": "_data_00491e68",
       "address": "0x00491E68",
       "kind": "data"
+    },
+    {
+      "symbol": "_D3DXMatrixTranslation@16",
+      "address": "0x00452182",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_D3DXVec3ProjectArray@36",
+      "address": "0x00452188",
+      "kind": "relative_code"
     }
   ],
   "additional_sources": [
@@ -1086,7 +1125,8 @@
     "src/game/fun_00401a50_00401a50.cpp",
     "src/game/game_thread_run_queue_leaf_00401520.cpp",
     "src/app/app_begin_frame_00420000.cpp",
-    "src/render/anchored_quad_build_mirrored_00443480.cpp"
+    "src/render/anchored_quad_build_mirrored_00443480.cpp",
+    "src/render/stage_objects_draw.cpp"
   ],
   "roots": [
     "?ApplyDefaultViewport@@YGHI@Z",
@@ -1108,7 +1148,8 @@
     "?RenderStageState_SetRenderState@@YGHPAURenderStageState_00439390@@II@Z",
     "?GameThreadText_DrawRecords_00401760@@YGHPAUGameThreadText@@@Z",
     "?GameThreadText_DrawLateTask_00401520@@YIHPAUGameThreadText@@@Z",
-    "?BeginFrame@RenderStageState_00420000@@QAEHXZ"
+    "?BeginFrame@RenderStageState_00420000@@QAEHXZ",
+    "?StageObjects_DrawLayer@@YGHPAUStageObjects@@H@Z"
   ],
   "driver": "layout/ltcg/render_batch_context.cpp",
   "context": {
@@ -1188,6 +1229,41 @@
       "symbol": "__real@41600000",
       "address": "0x00470C88",
       "value": 14.0
+    },
+    {
+      "symbol": "__real@41c00000",
+      "address": "0x00470BE8",
+      "value": 24.0
+    },
+    {
+      "symbol": "__real@43d40000",
+      "address": "0x00470BE4",
+      "value": 424.0
+    },
+    {
+      "symbol": "__real@43ec0000",
+      "address": "0x00470BE0",
+      "value": 472.0
+    },
+    {
+      "symbol": "__real@41000000",
+      "address": "0x00470BD0",
+      "value": 8.0
+    },
+    {
+      "symbol": "__real@42000000",
+      "address": "0x00470BCC",
+      "value": 32.0
+    },
+    {
+      "symbol": "__real@43d00000",
+      "address": "0x00470BDC",
+      "value": 416.0
+    },
+    {
+      "symbol": "__real@43e80000",
+      "address": "0x00470BD8",
+      "value": 464.0
     }
   ],
   "anchors": [
