@@ -21,11 +21,17 @@ struct FrameTimer {
     // inlined float return is what keeps later integer operands apart.
     float Elapsed() const { return elapsed; }
 
+    // Frames added per tick: 1.0 normally, less while the game is slowed.
+    float Speed() const { return *speed; }
+
     // Retail expands the tick in some callers and calls it in others; the
     // callers that expand it use this copy.
+    // The upper bound reads the speed through the accessor and the lower
+    // bound does not: that one extra temporary is what orders the x87
+    // operands of the slowed-down add in every expansion.
     void TickInline() {
         previous = current;
-        if (*speed > g_frame_timer_normal_lower && *speed < g_frame_timer_normal_upper) {
+        if (*speed > g_frame_timer_normal_lower && Speed() < g_frame_timer_normal_upper) {
             ++current;
             elapsed += 1.0f;
         } else {
@@ -34,7 +40,10 @@ struct FrameTimer {
     }
 
     // Jump to a frame, initialising the timer on first use.
-    void Set(int frame) {
+    void Set(int frame);
+
+    // Back to frame zero, initialising the timer on first use.
+    void Reset() {
         if (!(flags & 1)) {
             current = 0;
             previous = -999999;
@@ -42,15 +51,31 @@ struct FrameTimer {
             speed = &g_score_default_speed;
             flags |= 1;
         }
-        current = frame;
-        previous = frame - 1;
-        elapsed = (float)frame;
+        current = 0;
+        elapsed = 0.0f;
+        previous = -1;
     }
 
     __declspec(noinline) void Tick();
     __declspec(noinline) void Advance(float delta);
     __declspec(noinline) void Decrement(int count);
 };
+
+// 0x00405410 is this function where retail did not expand it in place.
+#pragma code_seg(push, ".text$00405410_fn")
+inline void FrameTimer::Set(int frame) {
+    if (!(flags & 1)) {
+        current = 0;
+        previous = -999999;
+        elapsed = 0.0f;
+        speed = &g_score_default_speed;
+        flags |= 1;
+    }
+    current = frame;
+    previous = frame - 1;
+    elapsed = (float)frame;
+}
+#pragma code_seg(pop)
 
 typedef char FrameTimer_size_must_be_20[sizeof(FrameTimer) == 20 ? 1 : -1];
 typedef char FrameTimer_elapsed_offset_must_be_8[offsetof(FrameTimer, elapsed) == 8 ? 1 : -1];

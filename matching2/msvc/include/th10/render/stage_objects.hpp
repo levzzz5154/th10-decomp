@@ -2,7 +2,10 @@
 #define TH10_STAGE_OBJECTS_HPP
 #include <stddef.h>
 #include "th10/game/game_thread_text.hpp"
+#include "th10/math/interpolator.hpp"
 #include "th10/math/timer.hpp"
+#include "th10/math/vector.hpp"
+#include "th10/render/stage_fog.hpp"
 
 // A position with the arithmetic the stage code uses.
 struct StageVector : RenderVec3 {
@@ -57,11 +60,36 @@ struct StageSprite {
 struct StageEntity : RenderEntity {
     unsigned char reserved_398[0x3AC - sizeof(RenderEntity)];
 };
+// One timed command of a stage script.
+union StageArgument {
+    int i;
+    unsigned int u;
+    float f;
+    struct {
+        unsigned char b0, b1, b2, b3;
+    };
+};
+struct StageInstruction {
+    int time;                              // frame it runs on
+    short opcode;
+    short size;                            // bytes to the next instruction
+    StageArgument args[11];
+};
+
 struct StageObjects {
     unsigned char reserved_0000[0x14];
     StageObject** objects;                 // +0x14
     StageInstance* instances;              // +0x18
-    unsigned char reserved_001c[0x17C - 0x1C];
+    char* script;                          // +0x1C, jump offsets count from here
+    unsigned char sway_mode;               // +0x20, 1 swings the camera sideways
+    FrameTimer sway_timer;                 // +0x24
+    FrameTimer script_timer;               // +0x38
+    StageInstruction* instruction;         // +0x4C, next to run
+    Interpolator<Vec3> direction_move;     // +0x50
+    Interpolator<Vec3> position_move;      // +0x9C
+    Interpolator<StageFog> fog_move;       // +0xE8
+    int reserved_0174;
+    void* animations;                      // +0x178, scripts of the backdrop sprites
     StageEntity* entities;                 // +0x17C
     StageEntity sprites[8];                // +0x180, drawn flat behind the objects
     float max_distance_squared;            // +0x1EE0
@@ -77,7 +105,17 @@ struct StageObjects {
     FrameTimer clear_timer;                // +0x2A30
     unsigned char reserved_2a44[0x2A4C - 0x2A44];
     GameThreadRenderStage view;            // +0x2A4C, the stage camera and fog
+
+    // The camera vectors and the fog as the script's interpolators type them.
+    Vec3& Position() { return *reinterpret_cast<Vec3*>(&view.camera.position); }
+    Vec3& Direction() { return *reinterpret_cast<Vec3*>(&view.camera.direction); }
+    Vec3& Up() { return *reinterpret_cast<Vec3*>(&view.camera.up); }
+    Vec3& Travel() { return *reinterpret_cast<Vec3*>(view.reserved_0F0); }
+    StageFog& Fog() { return *reinterpret_cast<StageFog*>(&view.fog_start); }
 };
+typedef char StageObjectsInstruction[(offsetof(StageObjects, instruction) == 0x4C) ? 1 : -1];
+typedef char StageObjectsFogMove[(offsetof(StageObjects, fog_move) == 0xE8) ? 1 : -1];
+typedef char StageObjectsEntities[(offsetof(StageObjects, entities) == 0x17C) ? 1 : -1];
 typedef char StageObjectsView[(offsetof(StageObjects, view) == 0x2A4C) ? 1 : -1];
 typedef char StageObjectsTimer[(offsetof(StageObjects, fade_timer) == 0x2A1C) ? 1 : -1];
 typedef char StageObjectQuads[(offsetof(StageObject, quads) == 0x1C) ? 1 : -1];
@@ -114,4 +152,5 @@ inline void StageSetFog(int enabled) {
 __declspec(noinline) int __stdcall StageObjects_DrawLayer(StageObjects* stage, int layer);
 __declspec(noinline) int __stdcall StageObjects_Draw(StageObjects* stage);
 __declspec(noinline) int __stdcall StageObjects_DrawBackground(StageObjects* stage);
+__declspec(noinline) int __stdcall StageObjects_RunScript(StageObjects* stage);
 #endif

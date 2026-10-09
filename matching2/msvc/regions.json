@@ -1756,13 +1756,23 @@
       }
     },
     {
-      "name": "asm_FUN_00403c80_00403c80",
-      "source": "src/game/event_script_runtime.cpp",
-      "symbol": "_asm_FUN_00403c80_00403c80",
+      "name": "StageObjects_RunScript",
+      "symbol": "?StageObjects_RunScript@@YGHPAUStageObjects@@@Z",
       "address": "0x00403C80",
       "size": 1868,
-      "kind": "asm",
-      "owner": "0x00403C80"
+      "source": "src/render/stage_script.cpp",
+      "kind": "semantic",
+      "owner": "0x00403C80",
+      "section": ".text$00403c80_fn",
+      "previous_record": {
+        "name": "asm_FUN_00403c80_00403c80",
+        "source": "src/game/event_script_runtime.cpp",
+        "symbol": "_asm_FUN_00403c80_00403c80",
+        "address": "0x00403C80",
+        "size": 1868,
+        "kind": "asm",
+        "owner": "0x00403C80"
+      }
     },
     {
       "name": "text_padding_004043cc",
@@ -62149,7 +62159,8 @@
     "src/render/stage_draw_task.cpp",
     "src/render/stage_background_task.cpp",
     "src/render/stage_fog_interpolator.cpp",
-    "src/render/stage_fog.cpp"
+    "src/render/stage_fog.cpp",
+    "src/render/stage_script.cpp"
   ],
   "notes": [
     "Every executable body is compiled from C++; unported bodies use MSVC inline assembly.",
