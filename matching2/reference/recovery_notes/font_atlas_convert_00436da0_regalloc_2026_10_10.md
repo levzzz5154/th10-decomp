@@ -194,6 +194,12 @@ blue first, `n++` first, the left block as `+=`, moving the right block after
 the other neighbours (it is still the one that differs), or one shared
 `Pixel4444` copy for the four neighbours (worse, 147).
 
+Zero order matters: `n = 0; sum[2] = 0; sum[1] = 0; sum[0] = 0;` in the 4-bit
+path (or `memset(sum, 0, sizeof(sum))`) gives exactly 946 bytes and 316
+instructions, moves the width into EDX as in retail and the 32-bit path to 114
+of 140, but the column then takes ESI (4-bit path 89 of 176; count EDI, pointer
+EBP, atlas EBX). Reversing the left neighbour's three assignments is worse.
+
 ## Tried on the scalar model, no change
 
 Declaration order; initialisers at function scope with a reset after the
