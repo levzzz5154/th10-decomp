@@ -179,6 +179,21 @@ because the atlas holds EBX. Retail also computes the second pointer
 induction pointer the compiler made from indexed accesses, not a source
 variable; the model's explicit `c = q - 2` is computed once.
 
+### What pushes that temporary out of EAX
+
+Deleting `sum[2] += p[1].b` from the right-neighbour block (a diagnostic, not a
+candidate) puts the temporary back in EAX and also fixes most of the 32-bit
+path (114 of 140), because the atlas then gets ESI. So the blue element's
+live piece running from the left block's store to the right block's update is
+what excludes EAX and EDX. The above/below blocks are immune because their
+pixel word is loaded through a pointer that is already in EAX. With three
+scalar sums the right block is allocated like the others.
+
+No change from: the right block written with a named pointer, nested `if`s,
+blue first, `n++` first, the left block as `+=`, moving the right block after
+the other neighbours (it is still the one that differs), or one shared
+`Pixel4444` copy for the four neighbours (worse, 147).
+
 ## Tried on the scalar model, no change
 
 Declaration order; initialisers at function scope with a reset after the
