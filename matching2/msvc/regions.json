@@ -64184,6 +64184,10 @@
     {
       "region": "asm_FUN_004084a0_004084a0",
       "layout": "layout/equivalent/projectile_point_count_004084a0.json"
+    },
+    {
+      "region": "asm_FUN_00437750_00437750",
+      "layout": "layout/equivalent/font_atlas_blend_00437750.json"
     }
   ]
 }
