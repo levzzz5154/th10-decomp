@@ -259,3 +259,19 @@ the 32-bit zero register and row pointer).
 
 0x004465B0 (`src/render/transparent_pixel_fill_locked.cpp`) looks like the
 same fill on a locked texture; start it from this source.
+
+### Evidence from the sibling 0x004465B0
+
+Its A4R4G4B4 and A1R5G5B5 kernels do not halve. They mask the sums in place
+(`and cl,0Fh; movzx cx,cl`), read blue with `mov al,[esp+2Ch]`, and their
+right-neighbour temporary *is* in ESI with the count in EDI and the pointer in
+EBP: exactly what the `(unsigned char)sum[k]` model gives. So the casts are
+the source form, and in 0x00436DA0 it is the halving that keeps blue from
+being a byte-flagged candidate over the loop body.
+
+`p->r = (unsigned char)(sum[0] >>= 1);` (same for g, b) gives retail's packing
+sequence instruction for instruction (`shr ecx,1; and cl,0Fh; movzx ax,cl`,
+result in EAX), but blue is then an ordinary candidate of the count's
+priority, takes ESI and is never stored. Retail has that form with blue in
+memory (`shr edx,1; mov [esp+20h],edx; mov cl,[esp+20h]`). Mixing the forms per
+channel, `/= 2`, and `>> 1` inside the cast do not get there.
