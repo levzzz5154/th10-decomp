@@ -4863,13 +4863,23 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00408210_00408210",
-      "source": "src/game/entity_region_sweep.cpp",
-      "symbol": "_asm_FUN_00408210_00408210",
+      "name": "ProjectileManager_ClearRegion",
+      "symbol": "?ProjectileManager_ClearRegion@@YGHPAUProjectileManager@@H@Z",
       "address": "0x00408210",
       "size": 585,
-      "kind": "asm",
-      "owner": "0x00408210"
+      "source": "src/game/projectile_clear_region.cpp",
+      "kind": "semantic",
+      "owner": "0x00408210",
+      "section": ".text$f00408210F",
+      "previous_record": {
+        "name": "asm_FUN_00408210_00408210",
+        "source": "src/game/entity_region_sweep.cpp",
+        "symbol": "_asm_FUN_00408210_00408210",
+        "address": "0x00408210",
+        "size": 585,
+        "kind": "asm",
+        "owner": "0x00408210"
+      }
     },
     {
       "name": "text_padding_00408459",
@@ -60479,7 +60489,7 @@
     "src/game/entity_angle_to_point_00426610.cpp",
     "src/game/entity_array_start_scripts_004415c0.cpp",
     "src/game/entity_movement_slot.cpp",
-    "src/game/entity_region_sweep.cpp",
+    "src/game/projectile_clear_region.cpp",
     "src/game/entity_start_script_00404f30.cpp",
     "src/game/event_script_runtime.cpp",
     "src/game/field_contact_004266b0.cpp",
@@ -62184,6 +62194,7 @@
     }
   ],
   "ltcg_clusters": [
+    "layout/ltcg/projectile_clear_region_00408210.json",
     "layout/ltcg/effect_ring_build_004452f0.json",
     "layout/ltcg/effect_ring_update_00445620.json",
     "layout/ltcg/anm_storage_construct_00445900.json",
