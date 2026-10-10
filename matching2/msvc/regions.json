@@ -64188,6 +64188,10 @@
     {
       "region": "asm_FUN_00437750_00437750",
       "layout": "layout/equivalent/font_atlas_blend_00437750.json"
+    },
+    {
+      "region": "asm_FUN_00436da0_00436da0",
+      "layout": "layout/equivalent/font_atlas_fill_transparent_00436da0.json"
     }
   ]
 }

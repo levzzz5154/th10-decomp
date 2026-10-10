@@ -207,3 +207,55 @@ stores; the accumulation as a `__forceinline` helper with reference or pointer
 parameters; `p->r = (unsigned char)(r >>= 1)` and similar; order and spelling
 of the neighbour blocks. The regalloc tracers work on a plain compile: put the
 `cl.exe` command line in a one-entry `cmds.json`.
+
+## Later the same day: why the right-neighbour temporary left EAX, and the equivalent recovery
+
+Traced with `compiler_traces/regalloc/trace_byte_register_pressure.py`.
+
+Before a candidate gets its register, c2 walks the tuples of its lifetime. At
+a tuple that names another candidate which has no register yet and carries the
+byte-register flag, it compares `need` (byte-flagged candidates already in a
+register at that point, plus that operand) with the four byte registers. When
+`need == 4 - 1` the candidate being placed is restricted to ESI/EDI/EBP.
+
+In the model with `(unsigned char)` casts on the 4-bit stores:
+
+- red and green hold ECX and EBX (flagged, in a register: 2);
+- blue lost ECX/EBX and was re-queued over the whole pixel body with EAX/EDX
+  as its registers, still flagged because the casts read it as a byte;
+- the right-neighbour block contains `blue += temporary`, so `need` is 3 and
+  the temporary is pushed to ESI. The left block only *assigns* blue (a move,
+  which the check skips) and the above/below blocks follow a `cdq`, where the
+  re-queued blue has a hole and a local unflagged piece. That is why only the
+  right neighbour was affected.
+
+Without the casts (`p->r = sum[0];`) the re-queued blue is not flagged, the
+temporary takes EAX, and the count, pointer, column, atlas and width all land
+in retail's registers: the 4-bit loop body is identical to retail. The zero
+order is then `sum[0] = sum[1] = sum[2] = 0; n = 0;`.
+
+What is left in the 4-bit path is the nibble packing at the end. Retail masks
+the halved sums as bytes (`and cl,0Fh; movzx ax,cl`) and reads blue back from
+its slot as a byte after storing the shifted value (`shr edx,1; mov
+[esp+20h],edx; ... mov cl,[esp+20h]`). Every spelling that reads a sum as a
+byte (`(unsigned char)sum[k]`, `*(unsigned char*)&sum[k]`, a byte local, `&
+0x0F` on the cast) flags blue again and brings the ESI temporary back. Reading
+blue through a *named* pointer (`unsigned char* bytes = (unsigned char*)sum;
+... bytes[8]`, or `unsigned int* s = sum; (unsigned char)s[2]`) does give
+retail's store-then-byte-load tail, but blue then becomes an ordinary
+candidate, wins ESI and the frame grows to 0x18. `(unsigned char)(sum[k] >>
+1)` without the separate shift also removes the ECX/EBX restriction.
+
+32-bit path, still open: retail keeps zero in EBX (it doubles as red's reset)
+and computes the trailing pointer `pixel - 2` at the top of every row.
+Declaring the second pointer inside the row loop gives the per-row `lea` but
+costs 20 instructions in the 4-bit path. The single-pointer struct form
+(`p[-1].r`) shares the zero in EBX like retail but has no second pointer.
+
+Registered as an equivalent recovery
+(`equivalent/platform/font_atlas_fill_transparent_00436da0.cpp`): 284 of 316
+instructions identical, 16 recorded differences (the 4-bit nibble packing and
+the 32-bit zero register and row pointer).
+
+0x004465B0 (`src/render/transparent_pixel_fill_locked.cpp`) looks like the
+same fill on a locked texture; start it from this source.

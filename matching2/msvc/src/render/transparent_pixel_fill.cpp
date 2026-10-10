@@ -1,13 +1,12 @@
-// BLOCKED (near miss, 2026-09-28): stdcall (surface, rows) -> true.  For the
-// A4R4G4B4 (0x1A) and A8R8G8B8 (0x15) formats every texel with zero alpha
-// takes the average colour of its opaque left/right/up/down neighbours (the
-// 4444 branch also halves each channel).  A switch with case 0x1A first,
-// per-channel bitfield stores through (unsigned char) casts, and function-scope
-// accumulators reproduce the control flow and the store sequence exactly; the
-// remaining difference is register allocation (retail keeps the surface in ESI
-// and spills the blue sum, the model spills the width).  Declaration order,
-// a __stdcall member form and per-format __forceinline helpers all compile to
-// the same allocation.
+// 0x00436DA0: fill the transparent pixels of the font atlas from their opaque
+// neighbours.  stdcall (atlas, rows) -> true.
+//
+// Equivalent recovery in the default build:
+// equivalent/platform/font_atlas_fill_transparent_00436da0.cpp (284 of 316
+// instructions identical).  This assembly is used by `make EXACT=1` only.  The
+// open differences are the byte-wide nibble packing at the end of the 4-bit
+// path and the zero register and per-row pointer of the 32-bit path; see
+// reference/recovery_notes/font_atlas_convert_00436da0_regalloc_2026_10_10.md.
 
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
