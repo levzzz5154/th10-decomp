@@ -1,6 +1,7 @@
 // Only the complete142-byte SpawnChild at0x004500D0 is selected for recovery.
-// The complete StartChild model supplies compiler scope; its549 emitted bytes
-// remain nonexact against the550-byte retail callee at0x0044DF70.
+// The complete StartChild model supplies compiler scope; its 557 emitted bytes
+// remain nonexact against the 550-byte retail callee at 0x0044DF70 (see
+// reference/recovery_notes/ecl_start_child_0044df70_parked_2026_10_11.md).
 #include <stddef.h>
 #include "th10/script/ecl_children.hpp"
 #include "th10/script/ecl_float_values.hpp"
@@ -21,75 +22,74 @@ struct EclCompleteChild {
 typedef char ChildExtent[sizeof(EclCompleteChild) == 0x1024 ? 1 : -1];
 typedef char ChildMaskOffset[offsetof(EclCompleteChild, mask) == 0x101C ? 1 : -1];
 
-static void PushChildWord(EclCompleteChild* child, int value) {
-    int cursor = child->stack.cursor;
-    if (cursor + 4 < 0x1000) {
-        *(int*)&child->stack.data[cursor] = value;
-        child->stack.cursor += 4;
+static __forceinline void PushWord(EclTaggedStack* stack, const void* in) {
+    if (stack->cursor + 4 < 0x1000) {
+        *(int*)&stack->data[stack->cursor] = *(const int*)in;
+        stack->cursor += 4;
+    }
+}
+static __forceinline void PopWord(EclTaggedStack* stack, int* out) {
+    if (stack->cursor - 4 >= 0) {
+        stack->cursor -= 4;
+        *out = *(int*)&stack->data[stack->cursor];
     }
 }
 
+template <class T> static __forceinline T& Deref(T* p) { return *p; }
 #pragma code_seg(".text$01start")
 extern "C" __declspec(noinline) int __stdcall EclStartChild(
         EclCompleteChild* child, EclCompleteChild* volatile source, int index) {
     EclFloatOperandTable** instruction = &source->instruction;
     int descriptor = *(int*)&(*instruction)->values[0] + 4 + index * 4;
-    int popped = 0;
+    int saved_base = 0;
     int original_cursor = child->stack.cursor;
     int arguments_offset = original_cursor + 8;
     if (original_cursor == 0) {
-        PushChildWord(child, 0);
+        PushWord(&child->stack, &saved_base);
         arguments_offset = 12;
     }
+    int* destination = (int*)&child->stack.data[arguments_offset];
+    unsigned int operand_offset = descriptor + 4;
     int selector = index + 1;
-    if (selector < ((unsigned char*)(*instruction))[0xB]) {
-        int* destination = (int*)&child->stack.data[arguments_offset];
-        unsigned int operand_offset = descriptor + 4;
-        do {
-            unsigned char* packed = (unsigned char*)*instruction + 0x10;
-            char source_type = packed[descriptor];
-            if (source_type == 'f' || source_type == 'g') {
-                float value = reinterpret_cast<EclFloatVm*>(source)->ResolveFloatValue(
-                        selector, (*instruction)->values[operand_offset >> 2]);
-                if (((unsigned char*)*instruction)[0x11 + descriptor] == 'f')
-                    *(float*)destination = value;
-                else
-                    *destination = (int)value;
-            } else {
-                int value = ECL_ResolveIntValue_0044ff00(0, (EclFrame*)source,
-                        selector, *(int*)&(*instruction)->values[operand_offset >> 2]);
-                if (((unsigned char*)*instruction)[0x11 + descriptor] == 'f')
-                    *(float*)destination = (float)value;
-                else
-                    *destination = value;
-            }
-            ++destination;
-            ++selector;
-            operand_offset += 8;
-            descriptor += 8;
-        } while (selector < ((unsigned char*)*instruction)[0xB]);
+    while (selector < ((unsigned char*)(*instruction))[0xB]) {
+        char source_type = ((char*)*instruction)[0x10 + descriptor];
+        if (source_type == 'f' || source_type == 'g') {
+            float value = reinterpret_cast<EclFloatVm*>(source)->ResolveFloatValue(
+                    selector, (*instruction)->values[operand_offset >> 2]);
+            if (((char*)*instruction)[0x11 + descriptor] == 'f')
+                *(float*)destination = value;
+            else
+                *destination = (int)value;
+        } else {
+            int value = ECL_ResolveIntValue_0044ff00(0, (EclFrame*)source,
+                    selector, *(int*)&(*instruction)->values[operand_offset >> 2]);
+            if (((char*)*instruction)[0x11 + descriptor] == 'f')
+                *(float*)destination = (float)value;
+            else
+                *destination = value;
+        }
+        ++destination;
+        ++selector;
+        operand_offset += 8;
+        descriptor += 8;
     }
     if (original_cursor != 0) {
-        int cursor = child->stack.cursor - 4;
-        if (cursor >= 0) {
-            child->stack.cursor = cursor;
-            popped = *(int*)&child->stack.data[cursor];
-        }
+        PopWord(&child->stack, &saved_base);
         child->stack.cursor = original_cursor;
-        *(int*)&child->stack.data[original_cursor - 4] = popped;
-        PushChildWord(child, source->time);
-        PushChildWord(child, (int)*instruction);
+        *(int*)&child->stack.data[original_cursor - 4] = saved_base;
+        PushWord(&child->stack, &source->time);
+        PushWord(&child->stack, instruction);
     } else {
+        int zero = 0;
         child->stack.cursor = 4;
-        PushChildWord(child, 0);
-        PushChildWord(child, 0);
+        PushWord(&child->stack, &zero);
+        PushWord(&child->stack, &zero);
     }
     EclChildOwner* owner = (EclChildOwner*)source->stack.context;
     EclChildState* previous = owner->active;
     owner->active = (EclChildState*)child;
     owner = (EclChildOwner*)source->stack.context;
-    EclCompleteChild* active = (EclCompleteChild*)owner->active;
-    active->instruction = (EclFloatOperandTable*)((ScriptTable_00450470*)owner->script)->Resolve(
+    ((EclCompleteChild*)owner->active)->instruction = (EclFloatOperandTable*)((ScriptTable_00450470*)owner->script)->Resolve(
             (const char*)*instruction + 0x14);
     ((EclCompleteChild*)owner->active)->time = 0;
     if (!((EclCompleteChild*)owner->active)->instruction) {

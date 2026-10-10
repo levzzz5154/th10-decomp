@@ -9,7 +9,7 @@
     "include/script_resolver_00450470.hpp"
   ],
   "image_base": "0x00400000",
-  "description": "Complete142-byte ECL child spawn with genuine full C++ callee scope. StartChild549 is unselected and nonexact versus retail550; real int124, float171, and script136 bodies are unselected exact anchors.",
+  "description": "Complete142-byte ECL child spawn with genuine full C++ callee scope. StartChild557 is unselected and nonexact versus retail550; real int124, float171, and script136 bodies are unselected exact anchors.",
   "functions": [
     {
       "name": "SpawnChild",
@@ -34,8 +34,8 @@
       "section": ".text$00layout"
     },
     {
-      "address": 4514197,
-      "size": 7531,
+      "address": 4514205,
+      "size": 7523,
       "section": ".text$02layout"
     },
     {
@@ -102,7 +102,7 @@
       "symbol": "_EclStartChild@12",
       "section": ".text$01start",
       "address": 4513648,
-      "size": 549,
+      "size": 557,
       "name": "EclStartChild_full_unselected_candidate"
     },
     {

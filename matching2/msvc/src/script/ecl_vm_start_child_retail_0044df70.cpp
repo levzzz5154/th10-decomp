@@ -1,6 +1,8 @@
 // The retail wrapper remains exact (550/550 bytes). The complete readable
-// candidate in ecl_child_pair.cpp emits 549 bytes with 416 differing bytes
-// including extent; it is an unselected anchor, not a recovered implementation.
+// candidate in ecl_child_pair.cpp emits 557 bytes, about 82 of 165 instructions
+// differing; it is an unselected anchor, not a recovered implementation. See
+// ecl_start_child_0044df70_parked_2026_10_11.md for what the remaining
+// differences come from.
 // Its 142-byte SpawnChild caller is recovered and byte exact. Ghidra confirms a private
 // EAX VM receiver, two stack arguments (source VM/frame and operand index),
 // and RET 8. The real callers are the 0x0044E1A0 dispatcher and
