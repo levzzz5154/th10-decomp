@@ -1,4 +1,5 @@
 // Full original private lifetime leaves used by the real mode update.
+#include "th10/app/main_task_mode.hpp"
 extern "C" void __stdcall ModeDestroyUiWave18(void*);
 extern "C" void __stdcall ModeDestroyScriptWave18(void*);
 extern "C" void __stdcall ModeDestroySmallWave18(void*);

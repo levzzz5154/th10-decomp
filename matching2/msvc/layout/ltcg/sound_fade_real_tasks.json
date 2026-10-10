@@ -2,11 +2,15 @@
   "schema_version": 2,
   "name": "sound_fade_real_tasks",
   "headers": [
+    "include/th10/app/main_task_mode.hpp",
+    "include/th10/game/stage_startup_00417870.hpp",
+    "include/th10/math/rng.hpp",
+    "include/th10/math/timer.hpp",
     "include/th10/platform/sound_fade_0044d4e0.hpp",
     "include/th10/platform/sound_fade_manager_wave18.hpp"
   ],
   "image_base": "0x00400000",
-  "description": "Complete real MainTasks113 and inlined sound fades225 with all old deadline/fade helper owners retained. Full genuine mode686 and lifetime leaves are unselected anchors, explicitly non-exact and earning zero credit. No synthetic context.",
+  "description": "Complete real MainTasks113, the mode update666 and inlined sound fades225 with all old deadline/fade helper owners retained. The lifetime leaves are unselected anchors. No synthetic context.",
   "constants": [
     {
       "symbol": "__real@3f800000",
@@ -126,16 +130,6 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00474c80",
-      "address": "0x00474C80",
-      "kind": "data"
-    },
-    {
-      "symbol": "_data_00474c7c",
-      "address": "0x00474C7C",
-      "kind": "data"
-    },
-    {
       "symbol": "_data_00474788",
       "address": "0x00474788",
       "kind": "data"
@@ -154,10 +148,16 @@
       "symbol": "_data_004660b4",
       "address": "0x004660B4",
       "kind": "data"
+    },
+    {
+      "symbol": "_data_00474c40",
+      "address": "0x00474C40",
+      "kind": "data"
     }
   ],
   "source": "src/app/main_task_tick_wave18.cpp",
   "additional_sources": [
+    "src/app/main_task_update_mode.cpp",
     "src/platform/sound_fade_tick_wave18.cpp",
     "src/game/platform_set_operation_deadline_0044d4e0.cpp",
     "src/platform/sound_fade_steps_0044d740.cpp"
@@ -172,6 +172,15 @@
       "size": 113,
       "actual_abi": "owner ECX; no stack arguments; plain RET",
       "source": "src/app/main_task_tick_wave18.cpp"
+    },
+    {
+      "name": "MainTaskUpdateMode",
+      "symbol": "?UpdateMode@MainTaskStateWave18@@QAEHXZ",
+      "section": ".text$00c_mode",
+      "address": "0x004218D0",
+      "size": 666,
+      "actual_abi": "owner EAX; result in EAX; plain RET; switch tables follow the body",
+      "source": "src/app/main_task_update_mode.cpp"
     },
     {
       "name": "SoundFadeTick",
@@ -257,8 +266,8 @@
     },
     {
       "section": ".text$00c_mode_gap",
-      "address": "0x00421B7E",
-      "size": 210
+      "address": "0x00421B6A",
+      "size": 230
     },
     {
       "section": ".text$00d_leave_gap",
@@ -339,8 +348,7 @@
     }
   ],
   "included_sources": [
-    "layout/ltcg/sound_fade_wave18_dependencies.cpp",
-    "layout/ltcg/sound_fade_wave18_mode.cpp"
+    "layout/ltcg/sound_fade_wave18_dependencies.cpp"
   ],
   "anchors": [
     {
@@ -370,13 +378,6 @@
       "section": ".text$00f_script_destroy",
       "address": "0x0042CDB0",
       "size": 18
-    },
-    {
-      "name": "MainTaskMode",
-      "symbol": "?UpdateMode@MainTaskStateWave18@@QAEHXZ",
-      "section": ".text$00c_mode",
-      "address": "0x004218D0",
-      "size": 686
     }
   ]
 }

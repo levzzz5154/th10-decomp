@@ -20147,13 +20147,23 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_004218d0_004218d0",
-      "source": "src/game/game_mode_switch.cpp",
-      "symbol": "_asm_FUN_004218d0_004218d0",
+      "name": "MainTask_UpdateMode",
+      "symbol": "?UpdateMode@MainTaskStateWave18@@QAEHXZ",
       "address": "0x004218D0",
       "size": 666,
-      "kind": "asm",
-      "owner": "0x004218D0"
+      "source": "src/app/main_task_update_mode.cpp",
+      "kind": "semantic",
+      "owner": "0x004218D0",
+      "section": ".text$00c_mode",
+      "previous_record": {
+        "name": "asm_FUN_004218d0_004218d0",
+        "source": "src/game/game_mode_switch.cpp",
+        "symbol": "_asm_FUN_004218d0_004218d0",
+        "address": "0x004218D0",
+        "size": 666,
+        "kind": "asm",
+        "owner": "0x004218D0"
+      }
     },
     {
       "name": "text_padding_00421b6a",
@@ -60525,7 +60535,7 @@
     "src/game/fun_0043c970_0043c970.cpp",
     "src/game/fun_0044c350_0044c350.cpp",
     "src/game/game_config_defaults.cpp",
-    "src/game/game_mode_switch.cpp",
+    "src/app/main_task_update_mode.cpp",
     "src/game/game_progress_unlock_all_stages_0042c8c0.cpp",
     "src/game/game_state_constructor_00402160.cpp",
     "src/game/game_state_destructor_00402440.cpp",

@@ -1,0 +1,41 @@
+#ifndef TH10_APP_MAIN_TASK_MODE_HPP
+#define TH10_APP_MAIN_TASK_MODE_HPP
+#include "th10/platform/sound_fade_manager_wave18.hpp"
+
+// Objects owned by one mode of the main task; each is created when its mode
+// is entered and destroyed when the next mode replaces it.
+struct OwnedObject_00418150;   // the menu screen (argument at +0x5C)
+struct OwnedObject_0042cdb0;   // the running game
+struct ScoreOwnedObject;       // the result screen
+
+extern "C" OwnedObject_00418150* data_00477810;
+extern "C" OwnedObject_0042cdb0* data_0047784c;
+extern "C" ScoreOwnedObject* data_00477700;
+extern "C" int data_00491c00;
+
+// One row of the stage table at 0x00474788.
+struct StageRouteWave18 {
+    unsigned char bytes[0x30];
+};
+extern "C" StageRouteWave18 data_00474788[];
+extern "C" StageRouteWave18* data_00477848;   // the current stage's row
+
+// The menu screen keeps the argument it was created with.
+struct GameUiArgumentWave18 {
+    unsigned char reserved[0x5C];
+    unsigned int argument;
+};
+
+extern "C" void (__stdcall *data_004660b0)(void*);   // EnterCriticalSection
+extern "C" void (__stdcall *data_004660b4)(void*);   // LeaveCriticalSection
+
+extern "C" void* __cdecl ModeCreateStateWave18();
+extern "C" void __stdcall ModeReleaseGlobalsWave18();
+extern "C" void* __cdecl ModeCreateProgressWave18();
+extern "C" void* __stdcall ModeCreateUiWave18(unsigned int);
+extern "C" void* __stdcall ModeCreateSmallWave18();
+__declspec(noinline) void DestroyOwned_00418150(OwnedObject_00418150*);
+__declspec(noinline) void DestroyOwned_0042cdb0(OwnedObject_0042cdb0*);
+__declspec(noinline) void ScoreOwnedObject_Destroy(ScoreOwnedObject*);
+
+#endif

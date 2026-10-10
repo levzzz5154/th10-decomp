@@ -1,0 +1,112 @@
+// 0x004218D0: switch the main task to the mode requested in next_mode.
+// Destroys what the previous mode owned, creates what the new one needs and
+// returns 1; returns 4 once the application has to quit.
+#include "th10/app/main_task_mode.hpp"
+#include "th10/game/stage_startup_00417870.hpp"
+
+inline StageRunState_00417870* GameState() { return &data_00474c40; }
+
+#pragma code_seg(".text$00c_mode")
+int MainTaskStateWave18::UpdateMode() {
+    if (current_mode != next_mode) {
+        data_004660b0(critical_sections[5]);
+        int previous = current_mode;
+        ++lock_depth[5];
+        previous_mode = previous;
+        overlay_color = 0xFF000000;
+        switch (next_mode) {
+        case 0:
+            // Start-up: without the shared state the application quits.
+            next_mode = 1;
+            created_state = ModeCreateStateWave18();
+            if (created_state) break;
+            next_mode = 3;
+            goto quit;
+        case 4:
+            // Start the game.
+            switch (previous) {
+            case 7:
+                DestroyOwned_00418150(data_00477810);
+            case 1:
+            case 2:
+                ModeCreateProgressWave18();
+                break;
+            case 14:
+                ScoreOwnedObject_Destroy(data_00477700);
+                ModeCreateProgressWave18();
+                break;
+            }
+            break;
+        case 15:
+            // Start the game from its third entry point.
+            switch (previous) {
+            case 2:
+                break;
+            case 14:
+                ScoreOwnedObject_Destroy(data_00477700);
+                break;
+            case 7:
+                DestroyOwned_00418150(data_00477810);
+                break;
+            default:
+                goto done;
+            }
+            next_mode = 4;
+            data_00491c00 = 3;
+            ModeCreateProgressWave18();
+            break;
+        case 7:
+            // Open the menu screen.
+            if (previous == 4) DestroyOwned_0042cdb0(data_0047784c);
+            ui_mode = 1;
+            ModeCreateUiWave18(0);
+            break;
+        case 12:
+            if (previous == 4) DestroyOwned_0042cdb0(data_0047784c);
+            next_mode = 7;
+            ui_mode = 1;
+            ModeCreateUiWave18(1);
+            break;
+        case 11: {
+            // Reopen the menu screen with the argument it had.
+            unsigned int argument = reinterpret_cast<GameUiArgumentWave18*>(data_00477810)->argument;
+            ui_mode = 0;
+            if (previous == 7) DestroyOwned_00418150(data_00477810);
+            next_mode = 7;
+            ModeCreateUiWave18(argument);
+            break;
+        }
+        case 10:
+            // Reopen the menu screen for the stage shown last.
+            DestroyOwned_00418150(data_00477810);
+            ui_mode = 1;
+            next_mode = 7;
+            GameState()->stage = GameState()->stage_shown;
+            data_00477848 = data_00474788 + GameState()->stage_shown;
+            ModeCreateUiWave18(0);
+            break;
+        case 13:
+            DestroyOwned_00418150(data_00477810);
+            ui_mode = 1;
+            next_mode = 7;
+            ModeCreateUiWave18(0);
+            break;
+        case 14:
+            // Open the result screen.
+            if (previous == 7) DestroyOwned_00418150(data_00477810);
+            ModeCreateSmallWave18();
+            break;
+        case 3:
+        quit:
+            ModeReleaseGlobalsWave18();
+            LeaveSlot(5);
+            return 4;
+        }
+    done:
+        current_mode = next_mode;
+        data_004660b4(critical_sections[5]);
+        --lock_depth[5];
+    }
+    return 1;
+}
+#pragma code_seg()

@@ -19,5 +19,5 @@ __declspec(noinline) int __fastcall MainTaskTickWave18(MainTaskStateWave18* stat
 }
 #pragma code_seg()
 
-// The complete real private mode callee is retained without recovery credit.
-#include "../../layout/ltcg/sound_fade_wave18_mode.cpp"
+// The mode update's private callees.
+#include "../../layout/ltcg/sound_fade_wave18_dependencies.cpp"
