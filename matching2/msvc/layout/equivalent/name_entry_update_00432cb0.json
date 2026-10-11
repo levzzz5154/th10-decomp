@@ -567,10 +567,6 @@
       "address": "0x00470AFC",
       "kind": "data"
     },
-    "?TitleOptions_0042d920@@YGHPAURecoveryMusicRoom_00433ef0@@@Z": {
-      "address": "0x0042D920",
-      "kind": "code"
-    },
     "?TitleDispatchGame_00420c00@@YGXXZ": {
       "address": "0x00420C00",
       "kind": "code"
@@ -826,6 +822,34 @@
     "_EmptyCardText": {
       "address": "0x0046CFD4",
       "kind": "data"
+    },
+    "_application_state_00491c00": {
+      "address": "0x00491C00",
+      "kind": "data"
+    },
+    "_data_0046ece8": {
+      "address": "0x0046ECE8",
+      "kind": "data"
+    },
+    "_data_00497854": {
+      "address": "0x00497854",
+      "kind": "data"
+    },
+    "_data_00497858": {
+      "address": "0x00497858",
+      "kind": "data"
+    },
+    "_data_0049785c": {
+      "address": "0x0049785C",
+      "kind": "data"
+    },
+    "?SelectResourceSprite_0043e5a0@@YIXPAXH@Z": {
+      "address": "0x0043E5A0",
+      "kind": "code"
+    },
+    "?AtInterval@FrameCounterPair@@QAEHH@Z": {
+      "address": "0x00427C70",
+      "kind": "code"
     }
   },
   "bindings": {
