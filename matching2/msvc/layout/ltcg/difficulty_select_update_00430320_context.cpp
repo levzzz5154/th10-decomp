@@ -7,7 +7,7 @@
 #include "../../src/game/difficulty_select_update_00430320.cpp"
 #include "../../src/game/ending_screen.cpp"
 #include "../../src/game/recovery_animation_slot_frames_0042c6d0.cpp"
-#include "th10/game/practice_stage_select_update_00430ff0.hpp"
+#include "th10/game/replay_select_update_004315c0.hpp"
 #include "th10/game/recovery_script_executor_caller_00419120.hpp"
 #include "th10/game/recovery_script_executor_caller_00433ef0.hpp"
 // 0x0042CDF0, a separate translation unit of this link.
@@ -27,6 +27,7 @@ extern "C" int __stdcall DifficultySelectUpdateCompilerContext(
     objects[5] = &data_00491c08;
     objects[6] = &data_00474cac;
     objects[7] = data_00497aa8;
+    objects[8] = &data_00491fb8;
     return RecoveryScript_Execute_0040bd80(script) + head->Drain(indicator, release)
         + RecoveryMusicRoom_Update_00433ef0(music_room)
         + TitleDispatcher_Update_0042cdf0(music_room);

@@ -18,7 +18,7 @@ void MenuCursor::PushSelection() {
     disabled_count = 0;
 }
 #pragma code_seg(".text$0040ad20_fn")
-unsigned int __fastcall UpdateBoundedCounter(
+__declspec(noinline) unsigned int __fastcall UpdateBoundedCounter(
         unsigned int requested, unsigned int* counter) {
     unsigned int value = counter[2];
     if (value) {

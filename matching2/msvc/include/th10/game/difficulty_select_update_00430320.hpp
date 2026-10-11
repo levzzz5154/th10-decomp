@@ -55,7 +55,10 @@ extern GameThread_0040c540* data_004776e0;
 void __fastcall AnimationManager_SetStopFrameAndRun(
     unsigned short frame, RecoveryLookupContext_0040bd80* context, RecoveryScriptId_0040bd80 id);
 // 0x0040AD20: store the requested value in a counter, clamped to its bound.
-unsigned int __fastcall UpdateBoundedCounter(unsigned int requested, unsigned int* counter);
+// Never expanded in the image, not even where the inliner's own score would
+// accept it (0x00431602); the one inline clamp, in 0x00430FF0, has another
+// shape.
+__declspec(noinline) unsigned int __fastcall UpdateBoundedCounter(unsigned int requested, unsigned int* counter);
 // 0x00448D00.
 __declspec(noinline) void** __stdcall AnimationManager_CreatePrimaryBack_00448d00(
     void* resource, void** handle, int script, int layer);

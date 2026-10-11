@@ -138,3 +138,32 @@ stand-in shrank by 4 bytes, anchor size 1088). First model was two diffs off:
   and every cluster that uses the header stayed exact.
   Trace helper: scratch `tipr.py` logic = hardware breakpoints at 0x107B1491
   (EAX = function, `[EAX]` = symbol, name at `[sym+4]`) and 0x107B14E7.
+
+## 0x004315C0 replay selection (exact, same cluster)
+
+Source `src/game/replay_select_update_004315c0.cpp`. What decided the last
+differences:
+
+- **Case order is layout order.** Retail places phase 4 before phase 3; the
+  `case` labels are written in that order.
+- **The stage loop is `do { } while (stage < 7)`.** A `for` with the constant
+  trip count 7 and this small body is fully unrolled.
+- **0x0040AD20 is called, never inlined.** The LTCG inline score of the
+  bounded counter (28 bytes, final 79 at a six-case block weight, limit 89)
+  accepts it, yet retail calls it at all nine sites of these handlers. The
+  stand-in definition and its declaration carry `__declspec(noinline)`; on
+  the declaration alone it has no effect.
+- **Inlined SetTimerTarget in phase 1 stores the phase before reading the
+  timer flags** only when the timer reset is a helper taking the timer by
+  pointer (`ResetTimer(&room->timer)`), as 0x0042C620 itself is written. With
+  the fields written directly through the room the store sinks below the
+  flag test.
+- **`mode = 12` right after the Music_FadeOut call** needs the mode global
+  0x00491FB8 to be address-taken in the context driver; as a lone extern the
+  store is scheduled after the two loads of the replay path.
+- String literals of the handler need `data_aliases` entries in the cluster
+  JSON (symbol names from `cluster.map`); the import pointers of
+  FindFirstFileA/FindNextFileA/FindClose are absolute symbols.
+- `regions.json`: a source that keeps another asm function
+  (`replay_menu_runtime.cpp`, 0x00433570) stays in `translation_units` next
+  to the new one.
