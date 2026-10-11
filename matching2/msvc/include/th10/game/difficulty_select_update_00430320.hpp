@@ -42,6 +42,8 @@ struct AnimationSlotOwner_0042c750 {
     unsigned char reserved_000[0x2C4];
     RecoveryScriptId_0040bd80 slots[195];
     __declspec(noinline) void RestartSlot(int slot);
+    // 0x0042C730: the same at frame 2.
+    __declspec(noinline) void StopSlot(int slot);
 };
 
 extern "C" {

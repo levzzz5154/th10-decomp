@@ -10,6 +10,7 @@
     "include/th10/game/entity_movement_slot_0041ab70.hpp",
     "include/th10/game/game_thread_queue_native.hpp",
     "include/th10/game/menu_cursor.hpp",
+    "include/th10/game/options_update_0042d920.hpp",
     "include/th10/game/practice_stage_select_update_00430ff0.hpp",
     "include/th10/game/recovery_script_executor_0040bd80.hpp",
     "include/th10/game/recovery_script_executor_ascii_anchors.hpp",
@@ -111,6 +112,15 @@
       "address": "0x00431EE0",
       "size": 1968,
       "source": "src/game/spell_record_update_00431ee0.cpp",
+      "actual_abi": "room on the stack from the title dispatcher 0x0042CDF0; integer result EAX, RET 4"
+    },
+    {
+      "name": "Options_Update",
+      "symbol": "?TitleOptions_0042d920@@YGHPAURecoveryMusicRoom_00433ef0@@@Z",
+      "section": ".text$0042d920_fn",
+      "address": "0x0042D920",
+      "size": 3188,
+      "source": "src/game/options_update_0042d920.cpp",
       "actual_abi": "room on the stack from the title dispatcher 0x0042CDF0; integer result EAX, RET 4"
     }
   ],
@@ -569,13 +579,34 @@
       "address": "0x00432690",
       "size": 850,
       "section": ".text$00432690_fn"
+    },
+    {
+      "name": "StopSlot",
+      "symbol": "?StopSlot@AnimationSlotOwner_0042c750@@QAEXH@Z",
+      "address": "0x0042C730",
+      "size": 27,
+      "section": ".text$0042c730_fn"
+    },
+    {
+      "name": "SelectSprite",
+      "symbol": "?SelectSprite@SpriteHandle_00449670@@QAEXH@Z",
+      "address": "0x00449670",
+      "size": 36,
+      "section": ".text$00449670_fn"
+    },
+    {
+      "name": "RefreshOptions",
+      "symbol": "?RefreshOptions_0042e5a0@@YGXPAURecoveryMusicRoom_00433ef0@@@Z",
+      "address": "0x0042E5A0",
+      "size": 53,
+      "section": ".text$0042e5a0_fn"
     }
   ],
   "context": {
     "symbol": "_DifficultySelectUpdateCompilerContext@24",
     "section": ".text$0040a000_context",
     "address": "0x0040A000",
-    "size": 127,
+    "size": 134,
     "description": "Synthetic unselected compiler context invoking the executor, indicator drain, music-room update and title dispatcher, and taking the address of the difficulty, character and key state objects."
   },
   "gaps": [
@@ -600,9 +631,9 @@
       "size": 367
     },
     {
-      "section": ".text$0040a07f_gap",
-      "address": "0x0040A07F",
-      "size": 3169
+      "section": ".text$0040a086_gap",
+      "address": "0x0040A086",
+      "size": 3162
     },
     {
       "section": ".text$0040ad01_gap",
@@ -667,7 +698,12 @@
     {
       "section": ".text$0042c723_gap",
       "address": "0x0042C723",
-      "size": 45
+      "size": 13
+    },
+    {
+      "section": ".text$0042c74b_gap",
+      "address": "0x0042C74B",
+      "size": 5
     },
     {
       "section": ".text$0042c76b_gap",
@@ -695,9 +731,14 @@
       "size": 208
     },
     {
-      "section": ".text$0042d920_gap",
-      "address": "0x0042D920",
-      "size": 10752
+      "section": ".text$0042e594_gap",
+      "address": "0x0042E594",
+      "size": 12
+    },
+    {
+      "section": ".text$0042e5d5_gap",
+      "address": "0x0042E5D5",
+      "size": 7499
     },
     {
       "section": ".text$00430698_gap",
@@ -857,7 +898,12 @@
     {
       "section": ".text$00449645_gap",
       "address": "0x00449645",
-      "size": 395
+      "size": 43
+    },
+    {
+      "section": ".text$00449694_gap",
+      "address": "0x00449694",
+      "size": 316
     },
     {
       "section": ".text$00449816_gap",
@@ -1624,11 +1670,6 @@
       "address": 4655868
     },
     {
-      "symbol": "?TitleOptions_0042d920@@YGHPAURecoveryMusicRoom_00433ef0@@@Z",
-      "kind": "relative_code",
-      "address": 4380960
-    },
-    {
       "symbol": "?TitleDispatchGame_00420c00@@YGXXZ",
       "kind": "relative_code",
       "address": 4328448
@@ -1724,8 +1765,8 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_data_00491d4c",
-      "address": "0x00491D4C",
+      "symbol": "_application_state_00491c00",
+      "address": "0x00491C00",
       "kind": "data"
     },
     {
@@ -1947,6 +1988,51 @@
       "symbol": "_EmptyCardText",
       "address": "0x46cfd4",
       "kind": "data"
+    },
+    {
+      "symbol": "?AtInterval@FrameCounterPair@@QAEHH@Z",
+      "address": "0x00427C70",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?SelectResourceSprite_0043e5a0@@YIXPAXH@Z",
+      "address": "0x0043E5A0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?RegisterResource_0043e460_eax@@YIXHPBD@Z",
+      "address": "0x0043E460",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_00497854",
+      "address": "0x00497854",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0049785c",
+      "address": "0x0049785C",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00497858",
+      "address": "0x00497858",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0046ece8",
+      "address": "0x0046ECE8",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491d68",
+      "address": "0x00491D68",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491d69",
+      "address": "0x00491D69",
+      "kind": "data"
     }
   ],
   "additional_sources": [
@@ -1985,7 +2071,9 @@
     "src/game/replay_select_update_004315c0.cpp",
     "layout/ltcg/difficulty_select_update_dependencies/spell_record_anchors.cpp",
     "src/game/spell_record_update_00431ee0.cpp",
-    "layout/ltcg/difficulty_select_update_dependencies/spell_list_anchor.cpp"
+    "layout/ltcg/difficulty_select_update_dependencies/spell_list_anchor.cpp",
+    "layout/ltcg/difficulty_select_update_dependencies/options_anchors.cpp",
+    "src/game/options_update_0042d920.cpp"
   ],
   "roots": [],
   "included_sources": [
