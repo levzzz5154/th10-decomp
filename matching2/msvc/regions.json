@@ -64192,6 +64192,10 @@
     {
       "region": "asm_FUN_00436da0_00436da0",
       "layout": "layout/equivalent/font_atlas_fill_transparent_00436da0.json"
+    },
+    {
+      "region": "asm_FUN_00450220_00450220",
+      "layout": "layout/equivalent/ecl_name_table_00450220.json"
     }
   ]
 }
