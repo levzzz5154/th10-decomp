@@ -4,6 +4,7 @@
   "source": "src/game/difficulty_select_update_00430320.cpp",
   "driver": "layout/ltcg/difficulty_select_update_00430320_context.cpp",
   "headers": [
+    "include/th10/game/character_select_update_004306a0.hpp",
     "include/th10/game/difficulty_select_update_00430320.hpp",
     "include/th10/game/ending_screen_0042d300.hpp",
     "include/th10/game/entity_movement_slot_0041ab70.hpp",
@@ -26,7 +27,7 @@
     "include/th10/render/animation_stop_run.hpp"
   ],
   "image_base": "0x00400000",
-  "description": "Difficulty selection screen 0x00430320 (865 bytes and its phase table) with its real title dispatcher caller, the animation-slot leaf context of the ending screen cluster and the real animation, cursor and input leaves; only the screen handler is selected.",
+  "description": "Difficulty selection screen 0x00430320 and character selection screen 0x004306A0 (with their phase tables) with their real title dispatcher caller, the animation-slot leaf context of the ending screen cluster and the real animation, cursor and input leaves; only the two screen handlers are selected.",
   "functions": [
     {
       "name": "DifficultySelect_Update",
@@ -34,6 +35,16 @@
       "section": ".text$00430320_fn",
       "address": "0x00430320",
       "size": 888,
+      "actual_abi": "room on the stack from the title dispatcher 0x0042CDF0; integer result EAX, RET 4",
+      "source": "src/game/difficulty_select_update_00430320.cpp"
+    },
+    {
+      "name": "CharacterSelect_Update",
+      "symbol": "?TitleMode7_004306a0@@YGHPAURecoveryMusicRoom_00433ef0@@@Z",
+      "section": ".text$004306a0_fn",
+      "address": "0x004306A0",
+      "size": 956,
+      "source": "src/game/character_select_update_004306a0.cpp",
       "actual_abi": "room on the stack from the title dispatcher 0x0042CDF0; integer result EAX, RET 4"
     }
   ],
@@ -456,7 +467,7 @@
     "symbol": "_DifficultySelectUpdateCompilerContext@24",
     "section": ".text$0040a000_context",
     "address": "0x0040A000",
-    "size": 92,
+    "size": 99,
     "description": "Synthetic unselected compiler context invoking the executor, indicator drain, music-room update and title dispatcher, and taking the address of the difficulty, character and key state objects."
   },
   "gaps": [
@@ -476,9 +487,9 @@
       "size": 367
     },
     {
-      "section": ".text$0040a05c_gap",
-      "address": "0x0040A05C",
-      "size": 3204
+      "section": ".text$0040a063_gap",
+      "address": "0x0040A063",
+      "size": 3197
     },
     {
       "section": ".text$0040ad01_gap",
@@ -568,7 +579,12 @@
     {
       "section": ".text$00430698_gap",
       "address": "0x00430698",
-      "size": 14424
+      "size": 8
+    },
+    {
+      "section": ".text$00430a5c_gap",
+      "address": "0x00430A5C",
+      "size": 13460
     },
     {
       "section": ".text$004349bc_gap",
@@ -1490,11 +1506,6 @@
       "address": 4393568
     },
     {
-      "symbol": "?TitleMode7_004306a0@@YGHPAURecoveryMusicRoom_00433ef0@@@Z",
-      "kind": "relative_code",
-      "address": 4392608
-    },
-    {
       "symbol": "?TitleOptions_0042d920@@YGHPAURecoveryMusicRoom_00433ef0@@@Z",
       "kind": "relative_code",
       "address": 4380960
@@ -1643,6 +1654,11 @@
       "symbol": "?TitleMenuFlow_0042f540@@YGHPAURecoveryMusicRoom_00433ef0@@@Z",
       "address": "0x0042F540",
       "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_0047783c",
+      "address": "0x0047783C",
+      "kind": "data"
     }
   ],
   "additional_sources": [
@@ -1670,7 +1686,8 @@
     "layout/ltcg/difficulty_select_update_dependencies/animation_run_anchors.cpp",
     "layout/ltcg/difficulty_select_update_dependencies/animation_stop_frame_anchor.cpp",
     "layout/ltcg/difficulty_select_update_dependencies/animation_find_child_anchor.cpp",
-    "layout/ltcg/difficulty_select_update_dependencies/input_and_cursor_anchors.cpp"
+    "layout/ltcg/difficulty_select_update_dependencies/input_and_cursor_anchors.cpp",
+    "src/game/character_select_update_004306a0.cpp"
   ],
   "roots": [],
   "included_sources": [

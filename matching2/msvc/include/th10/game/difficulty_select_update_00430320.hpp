@@ -7,8 +7,10 @@ struct KeyRepeatState {
     unsigned char  unknown_00[4];
     unsigned short pressed;     // +0x04
     unsigned short unknown_06;  // +0x06
-    // 0x0040ACE0: a key of the mask was pressed or is repeating.
-    __declspec(noinline) int InputMaskActive(unsigned short mask);
+    // 0x0040ACE0: a key of the mask was pressed or is repeating.  Left to
+    // the compiler: the difficulty selection calls it, the character
+    // selection inlines it.
+    int InputMaskActive(unsigned short mask);
 };
 
 // A reference to a child animation, as 0x004497D0 returns it.

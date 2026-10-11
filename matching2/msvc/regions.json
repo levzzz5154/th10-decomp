@@ -26997,13 +26997,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_004306a0_004306a0",
-      "source": "src/game/fun_004306a0_004306a0.cpp",
-      "symbol": "_asm_FUN_004306a0_004306a0",
+      "name": "semantic_CharacterSelect_Update_004306a0",
+      "source": "src/game/character_select_update_004306a0.cpp",
+      "symbol": "?TitleMode7_004306a0@@YGHPAURecoveryMusicRoom_00433ef0@@@Z",
       "address": "0x004306A0",
       "size": 956,
-      "kind": "asm",
-      "owner": "0x004306A0"
+      "kind": "semantic",
+      "owner": "0x004306A0",
+      "previous_record": {
+        "name": "asm_FUN_004306a0_004306a0",
+        "source": "src/game/character_select_update_004306a0.cpp",
+        "symbol": "_asm_FUN_004306a0_004306a0",
+        "address": "0x004306A0",
+        "size": 956,
+        "kind": "asm",
+        "owner": "0x004306A0"
+      }
     },
     {
       "name": "text_padding_00430a5c",
@@ -60550,7 +60559,7 @@
     "src/game/fun_0042e5a0_0042e5a0.cpp",
     "src/game/fun_0042f8b0_0042f8b0.cpp",
     "src/game/difficulty_select_update_00430320.cpp",
-    "src/game/fun_004306a0_004306a0.cpp",
+    "src/game/character_select_update_004306a0.cpp",
     "src/game/fun_0043c970_0043c970.cpp",
     "src/game/fun_0044c350_0044c350.cpp",
     "src/game/game_config_defaults.cpp",

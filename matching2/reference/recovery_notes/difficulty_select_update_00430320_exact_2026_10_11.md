@@ -58,3 +58,24 @@ share the stack slot, and the merged tail starts at the `lea`. Variants:
   (92 here); the map is under `build/probe/clusters/<name>/native-*`.
 - The rig diff normalises jump targets, so a tail merged at a different
   instruction looks exact there; check the probe.
+
+## Character selection screen 0x004306A0 (same day, same cluster)
+
+`src/game/character_select_update_004306a0.cpp`, 956 bytes with its phase
+table, a second selected function of the cluster (its source is an
+`additional_sources` entry, i.e. its own translation unit; the context size
+grew to 0x63 with the extra escaped object).
+
+- The key test 0x0040ACE0 is inlined here (`mov cl,[pressed]; mov al,0x40;
+  test al,cl`) and called in 0x00430320. That is the compiler's own decision
+  once the function is not `noinline`: the same `(short)state.InputMaskActive
+  (mask)` source gives both.
+- Four children stopped in a row, all through one stack slot with
+  `lea edi,[child]; call search; mov esi,frame; mov eax,edi`: each is a named
+  local in its own block in the handler. Temporaries get four slots and pass
+  the returned pointer; an inlined helper inlines the search (entry weight).
+- Constant selections are an inlined select helper with one store per path
+  (`cond ? count - 1 : index`); the bounded select 0x0040AD20 inlined by the
+  compiler merges the stores. The computed selection calls 0x0040AD20.
+- The shared zero register of phase 0 (`xor edx,edx; cmp al,dl; cmp [m],dl`)
+  appeared by itself once the select helper had its per-path stores.
