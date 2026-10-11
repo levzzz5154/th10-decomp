@@ -373,7 +373,7 @@
     },
     {
       "name": "RecoveryMusicRoom_SetSlotFrame",
-      "symbol": "?SetSlotFrame@RecoveryMusicRoom_00433ef0@@QAEXHG@Z",
+      "symbol": "?SetSlotFrame@RecoveryMusicRoom_00433ef0@@QAEXHF@Z",
       "section": ".text$0042c770_fn",
       "address": "0x0042C770",
       "size": 65

@@ -70,7 +70,7 @@ struct RecoveryMusicRoom_00433ef0 {
     __declspec(noinline) void SetTimerTarget(int target);
     __declspec(noinline) void DisableTimerWithOwner(int owner);
     __declspec(noinline) void ClearAnimationSlot(int index);
-    __declspec(noinline) void SetSlotFrame(int index, unsigned short frame);
+    __declspec(noinline) void SetSlotFrame(int index, short frame);
 };
 
 struct RecoveryMusicResourceQueue_0043e460 {

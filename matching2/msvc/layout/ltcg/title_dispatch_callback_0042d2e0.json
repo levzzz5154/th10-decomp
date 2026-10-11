@@ -81,8 +81,8 @@
       "size": 83
     },
     {
-      "name": "?SetSlotFrame@RecoveryMusicRoom_00433ef0@@QAEXHG@Z",
-      "symbol": "?SetSlotFrame@RecoveryMusicRoom_00433ef0@@QAEXHG@Z",
+      "name": "?SetSlotFrame@RecoveryMusicRoom_00433ef0@@QAEXHF@Z",
+      "symbol": "?SetSlotFrame@RecoveryMusicRoom_00433ef0@@QAEXHF@Z",
       "section": ".text$0042c770_fn",
       "address": 4198928,
       "size": 65

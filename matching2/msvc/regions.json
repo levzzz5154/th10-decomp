@@ -26356,7 +26356,7 @@
     {
       "name": "semantic_RecoveryMusicRoom_SetSlotFrame_0042c770",
       "source": "src/game/recovery_animation_slot_frames_0042c6d0.cpp",
-      "symbol": "?SetSlotFrame@RecoveryMusicRoom_00433ef0@@QAEXHG@Z",
+      "symbol": "?SetSlotFrame@RecoveryMusicRoom_00433ef0@@QAEXHF@Z",
       "address": "0x0042C770",
       "size": 65,
       "kind": "semantic",
@@ -26971,13 +26971,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00430320_00430320",
-      "source": "src/game/fun_00430320_00430320.cpp",
-      "symbol": "_asm_FUN_00430320_00430320",
+      "name": "semantic_DifficultySelect_Update_00430320",
+      "source": "src/game/difficulty_select_update_00430320.cpp",
+      "symbol": "?TitleMode6_00430320@@YGHPAURecoveryMusicRoom_00433ef0@@@Z",
       "address": "0x00430320",
       "size": 888,
-      "kind": "asm",
-      "owner": "0x00430320"
+      "kind": "semantic",
+      "owner": "0x00430320",
+      "previous_record": {
+        "name": "asm_FUN_00430320_00430320",
+        "source": "src/game/difficulty_select_update_00430320.cpp",
+        "symbol": "_asm_FUN_00430320_00430320",
+        "address": "0x00430320",
+        "size": 888,
+        "kind": "asm",
+        "owner": "0x00430320"
+      }
     },
     {
       "name": "text_padding_00430698",
@@ -60540,7 +60549,7 @@
     "src/game/fun_00428e10_00428e10.cpp",
     "src/game/fun_0042e5a0_0042e5a0.cpp",
     "src/game/fun_0042f8b0_0042f8b0.cpp",
-    "src/game/fun_00430320_00430320.cpp",
+    "src/game/difficulty_select_update_00430320.cpp",
     "src/game/fun_004306a0_004306a0.cpp",
     "src/game/fun_0043c970_0043c970.cpp",
     "src/game/fun_0044c350_0044c350.cpp",
@@ -62907,6 +62916,7 @@
     "layout/ltcg/recovery_animation_slot_frames_0042c6d0.json",
     "layout/ltcg/ending_screen_0042d300.json",
     "layout/ltcg/key_config_update_0042f540.json",
+    "layout/ltcg/difficulty_select_update_00430320.json",
     "layout/ltcg/recovery_mark_text_and_dispatcher_004479d0.json",
     "layout/ltcg/right_aligned_text_00447ae0.json",
     "layout/ltcg/animation_bucket_tasks.json",

@@ -27,7 +27,7 @@ void RecoveryMusicRoom_00433ef0::ClearAnimationSlot(int index) {
     animation_slots[index] = 0;
 }
 #pragma code_seg(".text$0042c770_fn")
-void RecoveryMusicRoom_00433ef0::SetSlotFrame(int index, unsigned short frame) {
+void RecoveryMusicRoom_00433ef0::SetSlotFrame(int index, short frame) {
     SetAnimationTreeFrame(FindAnimationSlot(animation_slots[index]), frame);
 }
 #pragma code_seg()
