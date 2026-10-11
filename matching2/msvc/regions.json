@@ -26901,13 +26901,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0042f540_0042f540",
+      "name": "semantic_KeyConfig_Update_0042f540",
       "source": "src/game/menu_flow_updates.cpp",
-      "symbol": "_asm_FUN_0042f540_0042f540",
+      "symbol": "?TitleMenuFlow_0042f540@@YGHPAURecoveryMusicRoom_00433ef0@@@Z",
       "address": "0x0042F540",
       "size": 880,
-      "kind": "asm",
-      "owner": "0x0042F540"
+      "kind": "semantic",
+      "owner": "0x0042F540",
+      "previous_record": {
+        "name": "asm_FUN_0042f540_0042f540",
+        "source": "src/game/menu_flow_updates.cpp",
+        "symbol": "_asm_FUN_0042f540_0042f540",
+        "address": "0x0042F540",
+        "size": 880,
+        "kind": "asm",
+        "owner": "0x0042F540"
+      }
     },
     {
       "name": "semantic_KeyConfig_RefreshBindingLabels_0042f8b0",
@@ -60230,6 +60239,7 @@
     "?LegacyString_Clear@@YIXPAULegacyString@@@Z": "0x004381F0",
     "?Update@PlayerUpdateState_00405750@@QAEHXZ": "0x00405750",
     "?EndingScreen_Update_0042d300@@YGHPAURecoveryMusicRoom_00433ef0@@@Z": "0x0042D300",
+    "?TitleMenuFlow_0042f540@@YGHPAURecoveryMusicRoom_00433ef0@@@Z": "0x0042F540",
     "?ResolveIntegerValue@EclIntegerSource@@QBEHH@Z": "0x00411FC0",
     "?ResolveFloatValue@EclFloatSource_00412350@@QBEMH@Z": "0x00412350",
     "??0StageScoreDisplay@@QAE@PBX@Z": "0x00415B00",
@@ -62896,6 +62906,7 @@
     "layout/ltcg/replay_pool_release_0042ab20.json",
     "layout/ltcg/recovery_animation_slot_frames_0042c6d0.json",
     "layout/ltcg/ending_screen_0042d300.json",
+    "layout/ltcg/key_config_update_0042f540.json",
     "layout/ltcg/recovery_mark_text_and_dispatcher_004479d0.json",
     "layout/ltcg/right_aligned_text_00447ae0.json",
     "layout/ltcg/animation_bucket_tasks.json",
