@@ -479,8 +479,15 @@ def verify_recovery(recovery, project, toolkit, flags, text, output, *, record=F
                 continue
         tables = [value for value in (struct.unpack('<I', match[1])[0] for match in TABLE_JUMP.finditer(window))
                   if model_start < value <= model_start + size + 0x400]
-        model_code = min(tables) - model_start if tables else code_bytes
         tail = size - code_bytes
+        # The slack window can reach the code that follows this function in the
+        # link.  When the retail region has no jump-table instruction and no
+        # separate tail, the model cannot have one either -- the same function is
+        # being compiled -- so every pattern in the window belongs to another
+        # function and must not be taken as this one's table.
+        if tail == 0 and not TABLE_JUMP.search(retail):
+            tables = []
+        model_code = min(tables) - model_start if tables else code_bytes
         if model_code + tail > size:
             raise EquivalenceError(f'{recovery["name"]}: the C++ body needs {model_code + tail} bytes; '
                                    f'the region has {size}')
