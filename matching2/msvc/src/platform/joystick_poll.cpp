@@ -1,4 +1,7 @@
-// BLOCKED (H2501): closest_byte_count=800/833; first_diff=unmeasured;
+// BLOCKED (H2501): see reference/recovery_notes/
+// joystick_binding_reader_0044a190_allocator_findings_2026_10_11.md for the
+// current models and what is settled. Older summary:
+// closest_byte_count=800/833; first_diff=unmeasured;
 // residual_class=MSVC register allocation and reload selection: retail keeps
 // the binding pointer in EBX and flags in ESI, then rematerializes the device
 // argument across joyGetPosEx, while the candidate unifies the loads;
