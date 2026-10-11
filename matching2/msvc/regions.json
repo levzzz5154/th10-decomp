@@ -26858,13 +26858,22 @@
       }
     },
     {
-      "name": "asm_FUN_0042d420_0042d420",
-      "source": "src/game/title_main_menu.cpp",
-      "symbol": "_asm_FUN_0042d420_0042d420",
+      "name": "semantic_TitleMainMenu_Update_0042d420",
+      "source": "src/game/title_main_menu_update_0042d420.cpp",
+      "symbol": "?TitleMainMenu_0042d420@@YGHPAURecoveryMusicRoom_00433ef0@@@Z",
       "address": "0x0042D420",
       "size": 1280,
-      "kind": "asm",
-      "owner": "0x0042D420"
+      "kind": "semantic",
+      "owner": "0x0042D420",
+      "previous_record": {
+        "name": "asm_FUN_0042d420_0042d420",
+        "source": "src/game/title_main_menu_update_0042d420.cpp",
+        "symbol": "_asm_FUN_0042d420_0042d420",
+        "address": "0x0042D420",
+        "size": 1280,
+        "kind": "asm",
+        "owner": "0x0042D420"
+      }
     },
     {
       "name": "asm_FUN_0042d920_0042d920",
@@ -60811,7 +60820,7 @@
     "src/game/title_assets.cpp",
     "src/game/title_dispatch_callback_0042d2e0.cpp",
     "src/game/title_load_thread_0042c9f0.cpp",
-    "src/game/title_main_menu.cpp",
+    "src/game/title_main_menu_update_0042d420.cpp",
     "src/game/title_menu_draw_0042d260.cpp",
     "src/game/title_menu_runtime.cpp",
     "src/game/title_options_menu.cpp",

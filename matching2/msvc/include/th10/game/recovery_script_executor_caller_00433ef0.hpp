@@ -38,6 +38,9 @@ struct RecoveryMusicVm_00433ef0 {
         const RecoveryMusicVector_00433ef0* target, int mode, unsigned char flag);
 };
 
+extern "C" float data_00476f78;
+
+#pragma code_seg(push, ".text$0042c620_fn")
 // This view ends at the last word used by the complete music-room handler.
 // The 20 row-handle slots and 32 text records follow the retail offsets; the
 // handler's parser and loops deliberately have no additional bounds guards.
@@ -67,11 +70,28 @@ struct RecoveryMusicRoom_00433ef0 {
     unsigned char reserved_58dc[0x5AAC - 0x58DC];
     char* file_buffer;
 
-    __declspec(noinline) void SetTimerTarget(int target);
+    // 0x0042C620.  Defined in the class, as in the image: the compiler keeps
+    // no register summary for the out-of-line copy of an in-class member, so
+    // callers reload the room after it (0x0042D6DF).
+    __declspec(noinline) void SetTimerTarget(int target) {
+        phase = target;
+        if (!(timer.flags & 1u)) {
+            timer.current = 0;
+            timer.previous = -999999;
+            timer.elapsed = 0;
+            timer.speed = &data_00476f78;
+            timer.flags |= 1u;
+        }
+        timer.current = 0;
+        timer.elapsed = 0;
+        timer.previous = -1;
+    }
     __declspec(noinline) void DisableTimerWithOwner(int owner);
     __declspec(noinline) void ClearAnimationSlot(int index);
     __declspec(noinline) void SetSlotFrame(int index, short frame);
 };
+
+#pragma code_seg(pop)
 
 struct RecoveryMusicResourceQueue_0043e460 {
     __declspec(noinline) char* RegisterResource(const char* name, int kind, int parameter);

@@ -112,3 +112,29 @@ What it needed beyond the sibling recipe:
 - Tracer with full hashes: `reference/compiler_traces/operandsort/trace_operand_sort_full.py`
   (re-capture the link commands after each source change; the probe's
   objects are what the replay links).
+
+## 0x0042D420 title main menu (same cluster, same day)
+
+Fifth handler (`src/game/title_main_menu_update_0042d420.cpp`). The room
+arrives in EBX here; the convention appeared by itself next to the stack
+handlers once the handler was a real function of the link (the dispatcher
+stand-in shrank by 4 bytes, anchor size 1088). First model was two diffs off:
+
+- **Cancel on "quit"** shares the quit case of the confirm switch
+  (`goto quit;` into the case). Written as its own `Queue; SetTimerTarget;
+  break`, the common `Queue(11, 0)` head of both branches is hoisted above the
+  `selection == 7` test.
+- **`mov eax,ebx` repeated after `call 0x0042C620`** (0x0042D6E4) although the
+  callee only touches ECX/EDX. c2 records the registers a compiled function
+  uses in `MscRecordInterProcRegInfo` (0x107B1491; set stored at symbol+0xAD,
+  read by `LoAddCallScratchRegs` 0x107A163C). It skips the recording when
+  `(sym+0x37 & 0x1E0) == 0xA0`, `sym+0x20 & 0x20` and `[sym+0xC]+0x5B == 2`,
+  which in the trace is exactly the out-of-line copy of a member function
+  defined inside its class (constructors, `TaskLink::InsertAfter`); static
+  `__forceinline` helpers and out-of-line members are recorded. A caller of an
+  unrecorded function assumes EAX/ECX/EDX are lost. So 0x0042C620 is an
+  in-class member: `RecoveryMusicRoom_00433ef0::SetTimerTarget` is now defined
+  in the class (section set by `#pragma code_seg(push/pop)` around the struct),
+  and every cluster that uses the header stayed exact.
+  Trace helper: scratch `tipr.py` logic = hardware breakpoints at 0x107B1491
+  (EAX = function, `[EAX]` = symbol, name at `[sym+4]`) and 0x107B14E7.

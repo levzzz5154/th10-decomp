@@ -18,6 +18,7 @@
     "include/th10/game/recovery_script_executor_text_sibling_anchors.hpp",
     "include/th10/game/scheduler.hpp",
     "include/th10/game/shot_type_select_update_00430a60.hpp",
+    "include/th10/game/title_main_menu_update_0042d420.hpp",
     "include/th10/math/timer.hpp",
     "include/th10/platform/archive_callers.hpp",
     "include/th10/platform/archive_file.hpp",
@@ -66,6 +67,15 @@
       "address": "0x00430FF0",
       "size": 1052,
       "source": "src/game/practice_stage_select_update_00430ff0.cpp",
+      "actual_abi": "room on the stack from the title dispatcher 0x0042CDF0; integer result EAX, RET 4"
+    },
+    {
+      "name": "TitleMainMenu_Update",
+      "symbol": "?TitleMainMenu_0042d420@@YGHPAURecoveryMusicRoom_00433ef0@@@Z",
+      "section": ".text$0042d420_fn",
+      "address": "0x0042D420",
+      "size": 1280,
+      "source": "src/game/title_main_menu_update_0042d420.cpp",
       "actual_abi": "room on the stack from the title dispatcher 0x0042CDF0; integer result EAX, RET 4"
     }
   ],
@@ -425,7 +435,7 @@
       "symbol": "?TitleDispatcher_Update_0042cdf0@@YGHPAURecoveryMusicRoom_00433ef0@@@Z",
       "section": ".text$0042cdf0_fn",
       "address": 4378096,
-      "size": 1092
+      "size": 1088
     },
     {
       "name": "EndingScreen_Update",
@@ -496,6 +506,13 @@
       "address": "0x0044B010",
       "size": 103,
       "section": ".text$0044b010_fn"
+    },
+    {
+      "name": "ScoreFile_HasAnyClear",
+      "symbol": "?HasAnyClear@ScoreFileProgress_0042c850@@QAEHXZ",
+      "address": "0x0042C850",
+      "size": 69,
+      "section": ".text$0042c850_fn"
     }
   ],
   "context": {
@@ -599,17 +616,22 @@
     {
       "section": ".text$0042c7b1_gap",
       "address": "0x0042C7B1",
-      "size": 1599
+      "size": 159
     },
     {
-      "section": ".text$0042d234_gap",
-      "address": "0x0042D234",
-      "size": 204
+      "section": ".text$0042c895_gap",
+      "address": "0x0042C895",
+      "size": 1371
     },
     {
-      "section": ".text$0042d420_gap",
-      "address": "0x0042D420",
-      "size": 12032
+      "section": ".text$0042d230_gap",
+      "address": "0x0042D230",
+      "size": 208
+    },
+    {
+      "section": ".text$0042d920_gap",
+      "address": "0x0042D920",
+      "size": 10752
     },
     {
       "section": ".text$00430698_gap",
@@ -1566,11 +1588,6 @@
       "address": 4396480
     },
     {
-      "symbol": "?TitleMainMenu_0042d420@@YGHPAURecoveryMusicRoom_00433ef0@@@Z",
-      "kind": "relative_code",
-      "address": 4379680
-    },
-    {
       "symbol": "?TitlePlayMusic_00420b10@@YGXHH@Z",
       "kind": "relative_code",
       "address": 4328208
@@ -1771,7 +1788,9 @@
     "layout/ltcg/difficulty_select_update_dependencies/animation_clear_flag_anchor.cpp",
     "src/game/shot_type_select_update_00430a60.cpp",
     "layout/ltcg/difficulty_select_update_dependencies/keyboard_state_anchor.cpp",
-    "src/game/practice_stage_select_update_00430ff0.cpp"
+    "src/game/practice_stage_select_update_00430ff0.cpp",
+    "layout/ltcg/difficulty_select_update_dependencies/score_progress_anchor.cpp",
+    "src/game/title_main_menu_update_0042d420.cpp"
   ],
   "roots": [],
   "included_sources": [
