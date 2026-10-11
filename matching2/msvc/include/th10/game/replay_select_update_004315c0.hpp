@@ -5,10 +5,13 @@
 
 // The replay file header as far as the screen reads it.
 struct ReplayFileHeader_004315c0 {
-    unsigned char reserved_00[0x50];
+    unsigned char reserved_00[0xC];
+    int date;           // +0x0C, time() of the save
+    unsigned char reserved_10[0x50 - 0x10];
     int character;      // +0x50
     int shot_type;      // +0x54
     int difficulty;     // +0x58
+    int stage;          // +0x5C, 8 for a whole game
 };
 // One stage of an opened replay.
 struct ReplayFileStage_004315c0 {

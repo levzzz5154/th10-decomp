@@ -19,7 +19,9 @@ struct ShotScore_00430a60 {
 };
 struct ScoreFile_00430a60 {
     ShotScore_00430a60 shots[2][3];
-    unsigned char reserved_194e8[0x1D888 - 0x194E8];
+    unsigned char reserved_194e8[0x1D878 - 0x194E8];
+    char last_name[9];          // +0x1D878: the name entered last time
+    unsigned char reserved_1d881[7];
     unsigned char cleared[2][3];
 };
 typedef char ScoreFileClearedOffset_00430a60[offsetof(ScoreFile_00430a60, cleared) == 0x1D888 ? 1 : -1];

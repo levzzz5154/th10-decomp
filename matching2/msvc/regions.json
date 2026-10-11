@@ -64263,6 +64263,10 @@
     {
       "region": "asm_FUN_00450220_00450220",
       "layout": "layout/equivalent/ecl_name_table_00450220.json"
+    },
+    {
+      "region": "asm_FUN_00433570_00433570",
+      "layout": "layout/equivalent/replay_save_update_00433570.json"
     }
   ]
 }

@@ -16,6 +16,7 @@
     "include/th10/game/recovery_script_executor_caller_00433ef0.hpp",
     "include/th10/game/recovery_script_executor_text_anchors.hpp",
     "include/th10/game/recovery_script_executor_text_sibling_anchors.hpp",
+    "include/th10/game/replay_save_update_00433570.hpp",
     "include/th10/game/replay_select_update_004315c0.hpp",
     "include/th10/game/scheduler.hpp",
     "include/th10/game/shot_type_select_update_00430a60.hpp",
@@ -1563,11 +1564,6 @@
       "address": 4655868
     },
     {
-      "symbol": "?TitleMode16_00433570@@YGHPAURecoveryMusicRoom_00433ef0@@@Z",
-      "kind": "relative_code",
-      "address": 4404592
-    },
-    {
       "symbol": "?TitleMode11_00431ee0@@YGHPAURecoveryMusicRoom_00433ef0@@@Z",
       "kind": "relative_code",
       "address": 4398816
@@ -1806,6 +1802,41 @@
       "symbol": "?ReplayFile_Destroy_004294a0@@YGXPAUReplayFile_004315c0@@@Z",
       "address": "0x004294A0",
       "kind": "relative_code"
+    },
+    {
+      "symbol": "_time_00452b71",
+      "address": "0x00452B71",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?ReplayFile_Save_00429b60@@YIXPAUReplayFile_004315c0@@PBD1@Z",
+      "address": "0x00429B60",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?Music_Load_00420a90@@YGHHPBD@Z",
+      "address": "0x00420A90",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?Music_Play_00420b10@@YGHHH@Z",
+      "address": "0x00420B10",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_00477838",
+      "address": "0x00477838",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004746d8",
+      "address": "0x004746D8",
+      "kind": "data"
+    },
+    {
+      "symbol": "?TitleMode16_00433570@@YGHPAURecoveryMusicRoom_00433ef0@@@Z",
+      "address": "0x00433570",
+      "kind": "relative_code"
     }
   ],
   "additional_sources": [
@@ -1834,13 +1865,13 @@
     "layout/ltcg/difficulty_select_update_dependencies/animation_stop_frame_anchor.cpp",
     "layout/ltcg/difficulty_select_update_dependencies/animation_find_child_anchor.cpp",
     "layout/ltcg/difficulty_select_update_dependencies/input_and_cursor_anchors.cpp",
-    "src/game/character_select_update_004306a0.cpp",
     "layout/ltcg/difficulty_select_update_dependencies/animation_clear_flag_anchor.cpp",
-    "src/game/shot_type_select_update_00430a60.cpp",
     "layout/ltcg/difficulty_select_update_dependencies/keyboard_state_anchor.cpp",
-    "src/game/practice_stage_select_update_00430ff0.cpp",
     "layout/ltcg/difficulty_select_update_dependencies/score_progress_anchor.cpp",
     "src/game/title_main_menu_update_0042d420.cpp",
+    "src/game/character_select_update_004306a0.cpp",
+    "src/game/shot_type_select_update_00430a60.cpp",
+    "src/game/practice_stage_select_update_00430ff0.cpp",
     "src/game/replay_select_update_004315c0.cpp"
   ],
   "roots": [],
