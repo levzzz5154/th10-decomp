@@ -6,10 +6,16 @@
 // The score file seen by the shot type selection: the record of each
 // character and shot type with its clear count per difficulty, and whether
 // each character has cleared the game with each shot type.
+struct PracticeScore_00430a60 {
+    unsigned char reserved_00[5];
+    unsigned char unlocked;     // the stage has been reached in a normal game
+    unsigned char reserved_06[2];
+};
 struct ShotScore_00430a60 {
     unsigned char reserved_0000[0x4D0];
     int clears[5];
-    unsigned char reserved_04e4[0x437C - 0x4E4];
+    PracticeScore_00430a60 practice[5][6];  // per difficulty and stage
+    unsigned char reserved_05d4[0x437C - 0x5D4];
 };
 struct ScoreFile_00430a60 {
     ShotScore_00430a60 shots[2][3];

@@ -9,6 +9,7 @@
     "include/th10/game/ending_screen_0042d300.hpp",
     "include/th10/game/entity_movement_slot_0041ab70.hpp",
     "include/th10/game/menu_cursor.hpp",
+    "include/th10/game/practice_stage_select_update_00430ff0.hpp",
     "include/th10/game/recovery_script_executor_0040bd80.hpp",
     "include/th10/game/recovery_script_executor_ascii_anchors.hpp",
     "include/th10/game/recovery_script_executor_caller_00419120.hpp",
@@ -22,6 +23,7 @@
     "include/th10/platform/archive_file.hpp",
     "include/th10/platform/sound_queue.hpp",
     "include/th10/platform/thread_sync.hpp",
+    "include/th10/platform/windows_types.hpp",
     "include/th10/platform/worker.hpp",
     "include/th10/render/animation_resource_removal.hpp",
     "include/th10/render/animation_stop_frame_handle.hpp",
@@ -55,6 +57,15 @@
       "address": "0x00430A60",
       "size": 1424,
       "source": "src/game/shot_type_select_update_00430a60.cpp",
+      "actual_abi": "room on the stack from the title dispatcher 0x0042CDF0; integer result EAX, RET 4"
+    },
+    {
+      "name": "PracticeStageSelect_Update",
+      "symbol": "?TitleMode9_00430ff0@@YGHPAURecoveryMusicRoom_00433ef0@@@Z",
+      "section": ".text$00430ff0_fn",
+      "address": "0x00430FF0",
+      "size": 1052,
+      "source": "src/game/practice_stage_select_update_00430ff0.cpp",
       "actual_abi": "room on the stack from the title dispatcher 0x0042CDF0; integer result EAX, RET 4"
     }
   ],
@@ -478,13 +489,20 @@
       "address": "0x004495E0",
       "size": 67,
       "section": ".text$004495e0_fn"
+    },
+    {
+      "name": "Input_UpdateKeyboardState",
+      "symbol": "?Input_UpdateKeyboardState@@YGHPAE@Z",
+      "address": "0x0044B010",
+      "size": 103,
+      "section": ".text$0044b010_fn"
     }
   ],
   "context": {
     "symbol": "_DifficultySelectUpdateCompilerContext@24",
     "section": ".text$0040a000_context",
     "address": "0x0040A000",
-    "size": 99,
+    "size": 120,
     "description": "Synthetic unselected compiler context invoking the executor, indicator drain, music-room update and title dispatcher, and taking the address of the difficulty, character and key state objects."
   },
   "gaps": [
@@ -504,9 +522,9 @@
       "size": 367
     },
     {
-      "section": ".text$0040a063_gap",
-      "address": "0x0040A063",
-      "size": 3197
+      "section": ".text$0040a078_gap",
+      "address": "0x0040A078",
+      "size": 3176
     },
     {
       "section": ".text$0040ad01_gap",
@@ -604,9 +622,9 @@
       "size": 4
     },
     {
-      "section": ".text$00430ff0_gap",
-      "address": "0x00430FF0",
-      "size": 12032
+      "section": ".text$0043140c_gap",
+      "address": "0x0043140C",
+      "size": 10980
     },
     {
       "section": ".text$004349bc_gap",
@@ -771,7 +789,12 @@
     {
       "section": ".text$0044a05b_gap",
       "address": "0x0044A05B",
-      "size": 4869
+      "size": 4021
+    },
+    {
+      "section": ".text$0044b077_gap",
+      "address": "0x0044B077",
+      "size": 745
     },
     {
       "section": ".text$0044b4c8_gap",
@@ -1523,11 +1546,6 @@
       "address": 4398816
     },
     {
-      "symbol": "?TitleMode9_00430ff0@@YGHPAURecoveryMusicRoom_00433ef0@@@Z",
-      "kind": "relative_code",
-      "address": 4394992
-    },
-    {
       "symbol": "?TitleOptions_0042d920@@YGHPAURecoveryMusicRoom_00433ef0@@@Z",
       "kind": "relative_code",
       "address": 4380960
@@ -1686,6 +1704,41 @@
       "symbol": "?Music_FadeOut@@YGHM@Z",
       "address": "0x00420C30",
       "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_00491c08",
+      "address": "0x00491C08",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00474cac",
+      "address": "0x00474CAC",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00497aa8",
+      "address": "0x00497AA8",
+      "kind": "data"
+    },
+    {
+      "symbol": "?g_input_enabled@@3HA",
+      "address": "0x004924FC",
+      "kind": "data"
+    },
+    {
+      "symbol": "?g_input_mode@@3IA",
+      "address": "0x00491FF4",
+      "kind": "data"
+    },
+    {
+      "symbol": "?g_keyboard_device@@3PAUKeyboardDevice@@A",
+      "address": "0x00491C38",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__GetKeyboardState@4",
+      "address": "0x00466208",
+      "kind": "data"
     }
   ],
   "additional_sources": [
@@ -1716,7 +1769,9 @@
     "layout/ltcg/difficulty_select_update_dependencies/input_and_cursor_anchors.cpp",
     "src/game/character_select_update_004306a0.cpp",
     "layout/ltcg/difficulty_select_update_dependencies/animation_clear_flag_anchor.cpp",
-    "src/game/shot_type_select_update_00430a60.cpp"
+    "src/game/shot_type_select_update_00430a60.cpp",
+    "layout/ltcg/difficulty_select_update_dependencies/keyboard_state_anchor.cpp",
+    "src/game/practice_stage_select_update_00430ff0.cpp"
   ],
   "roots": [],
   "included_sources": [

@@ -79,3 +79,36 @@ grew to 0x63 with the extra escaped object).
   compiler merges the stores. The computed selection calls 0x0040AD20.
 - The shared zero register of phase 0 (`xor edx,edx; cmp al,dl; cmp [m],dl`)
   appeared by itself once the select helper had its per-path stores.
+
+## 0x00430FF0 practice stage selection (same cluster, same day)
+
+Fourth handler of the cluster (`src/game/practice_stage_select_update_00430ff0.cpp`).
+What it needed beyond the sibling recipe:
+
+- **Phase 0 select is inlined with one store per outcome pair.** Retail has
+  the bounded select for `data_00491c08` inline with `dec eax; jmp` and a
+  shared store. A helper shaped
+  `count ? (index >= count ? count - 1 : ((index < 0) - 1) & index) : index`
+  with one assignment per `if` arm gives it; the per-path helper of the
+  siblings and a call of 0x0040AD20 do not. Changing the body of the
+  cluster's 0x0040AD20 copy instead gave that function a private convention
+  (requested value in EAX, 30 bytes) and broke 0x00430320.
+- **0x0044B010 is called with EDX only**, so the stand-in is
+  `int __stdcall Input_UpdateKeyboardState(BYTE*)`
+  (`keyboard_state_anchor.cpp`); the maintained two-parameter fastcall form
+  loads a dead ECX.
+- **Unlock test operand order** (`mov eax,[difficulty]; mov edx,[esi]` first
+  in retail, character and shot first in every model). The address is one
+  flattened sum sorted by node hash (larger first): add = `a + 2*b + 0x2e`,
+  mul = `a + 2*c + 0x30`, global = `id << 5`, load through a local =
+  `8 + ((local number & 7) << 13)`. With the cursor pointer as local 2 the
+  index term hashed 0x85DA against 0x95AC for the record term; as local 3
+  it is 0xC5DA and sorts first. Spellings, accessors, extern order and a
+  function-scope local do nothing because locals are numbered at first use
+  in the function. One named local used in phase 0
+  (`int character_slot = data_00474c68 + 107;` at its use) moves the cursor
+  to number 3. A pointer local in phase 0 is wrong: it lets the item count 6
+  propagate into the select.
+- Tracer with full hashes: `reference/compiler_traces/operandsort/trace_operand_sort_full.py`
+  (re-capture the link commands after each source change; the probe's
+  objects are what the replay links).

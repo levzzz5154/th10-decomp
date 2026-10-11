@@ -27041,13 +27041,22 @@
       }
     },
     {
-      "name": "asm_FUN_00430ff0_00430ff0",
-      "source": "src/game/practice_stage_menu.cpp",
-      "symbol": "_asm_FUN_00430ff0_00430ff0",
+      "name": "semantic_PracticeStageSelect_Update_00430ff0",
+      "source": "src/game/practice_stage_select_update_00430ff0.cpp",
+      "symbol": "?TitleMode9_00430ff0@@YGHPAURecoveryMusicRoom_00433ef0@@@Z",
       "address": "0x00430FF0",
       "size": 1052,
-      "kind": "asm",
-      "owner": "0x00430FF0"
+      "kind": "semantic",
+      "owner": "0x00430FF0",
+      "previous_record": {
+        "name": "asm_FUN_00430ff0_00430ff0",
+        "source": "src/game/practice_stage_select_update_00430ff0.cpp",
+        "symbol": "_asm_FUN_00430ff0_00430ff0",
+        "address": "0x00430FF0",
+        "size": 1052,
+        "kind": "asm",
+        "owner": "0x00430FF0"
+      }
     },
     {
       "name": "text_padding_0043140c",
@@ -60673,7 +60682,7 @@
     "src/game/polar_motion_advance.cpp",
     "src/game/polar_motion_step_0040b320.cpp",
     "src/game/power_display_set_digits_004054b0.cpp",
-    "src/game/practice_stage_menu.cpp",
+    "src/game/practice_stage_select_update_00430ff0.cpp",
     "src/game/progress.cpp",
     "src/game/progress_worker.cpp",
     "src/game/progress_worker_construct_0042c920.cpp",
