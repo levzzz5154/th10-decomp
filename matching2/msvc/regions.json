@@ -27023,13 +27023,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00430a60_00430a60",
-      "source": "src/game/shot_practice_menu.cpp",
-      "symbol": "_asm_FUN_00430a60_00430a60",
+      "name": "semantic_ShotTypeSelect_Update_00430a60",
+      "source": "src/game/shot_type_select_update_00430a60.cpp",
+      "symbol": "?TitleMode8_00430a60@@YGHPAURecoveryMusicRoom_00433ef0@@@Z",
       "address": "0x00430A60",
       "size": 1424,
-      "kind": "asm",
-      "owner": "0x00430A60"
+      "kind": "semantic",
+      "owner": "0x00430A60",
+      "previous_record": {
+        "name": "asm_FUN_00430a60_00430a60",
+        "source": "src/game/shot_type_select_update_00430a60.cpp",
+        "symbol": "_asm_FUN_00430a60_00430a60",
+        "address": "0x00430A60",
+        "size": 1424,
+        "kind": "asm",
+        "owner": "0x00430A60"
+      }
     },
     {
       "name": "asm_FUN_00430ff0_00430ff0",
@@ -60757,7 +60766,7 @@
     "src/game/script_viewer_teardown_0042bc30.cpp",
     "src/game/script_viewer_update_0042bfc0.cpp",
     "src/game/set_input_mode_0040ac90.cpp",
-    "src/game/shot_practice_menu.cpp",
+    "src/game/shot_type_select_update_00430a60.cpp",
     "src/game/side_panel_contents_release_00414370.cpp",
     "src/game/side_panel_release_00414570.cpp",
     "src/game/slot_lock_leaves.cpp",
