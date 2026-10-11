@@ -58,3 +58,31 @@ same goto-convergence shape that fixed the caller.
 * Or make the title cluster compile the ConfigureObject body in-context
   (registrar.cpp-style anchor like pause_open_004231d0 does) so the real
   function can become a selected region and the ABI matches naturally.
+
+## Session addendum (same day): extent probe fixed, deeper blocker found
+
+The equivalence tool's table heuristic was fixed (a tail-zero region whose
+retail bytes contain no `ff /24` jump-table instruction cannot gain one from
+the model; foreign tables in the slack window are now ignored — commit
+1ef091c3).  With that guard the comparison runs, and a worse blocker
+surfaces:
+
+* The model body is 3445 bytes — 554 SHORTER than the 3999-byte region.
+  Retail spends the difference on per-block alignment pads, the merged
+  child-walk thunks (`mov eax,[eax]; mov eax,[eax]; jmp`) and a denser
+  schedule.  The equivalence machinery compares code against code at equal
+  extent and a jump-table tail; a 554-byte structural shortfall cannot be
+  recorded as instruction differences.
+* Reproducing retail's extent requires c2 to make the same tail-merge and
+  scheduling decisions, which reduces to the same register-ABI question as
+  before (the ConfigureObject calls must use the ECX/EAX/DX form with ESI
+  live across them).  c2 chooses that form only with the caller shape it saw
+  in the retail build; the single-caller model link does not reproduce it.
+
+Verdict: the region stays `asm`.  The model remains useful as the readable
+documentation of the function's semantics.  A future lever would be a
+schema-2 cluster that compiles this function together with a Configure-
+Object body whose callers match retail's shapes closely enough for c2 to
+pick the register convention, or an equivalence-tool extension that compares
+an explicitly declared model extent against a same-length retail prefix
+(the tail would then need per-byte justification).

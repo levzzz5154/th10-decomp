@@ -9,8 +9,9 @@
 // region is kind=asm and native-LTCG selection rejects non-semantic ownership.
 // next_lever=equivalent recovery drafted 2026-10-12 (model, layout and
 // findings: reference/recovery_notes/options_label_refresh_0042e5a0_equivalent_
-// 2026_10_12.md); blocked on the equivalence tool's table detection and the
-// ConfigureObject ABI, see the note.
+// 2026_10_12.md); the model body is 554 bytes shorter than retail because c2
+// does not reproduce retail's tail merges and register ABI for the
+// ConfigureObject calls, so the region stays asm; see the note.
 
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
