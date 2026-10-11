@@ -7,8 +7,10 @@
 // (0x0042D920; 0x0043E460, 0x0043E5A0, 0x004491C0, 0x00463B2C);
 // standalone readable conversion was not retained because the current
 // region is kind=asm and native-LTCG selection rejects non-semantic ownership.
-// next_lever=schema2 native-LTCG cluster over 0x0042D920 and this member,
-// with AnimationManager_Find/ConfigureFromResource/RegisterResource visible.
+// next_lever=equivalent recovery drafted 2026-10-12 (model, layout and
+// findings: reference/recovery_notes/options_label_refresh_0042e5a0_equivalent_
+// 2026_10_12.md); blocked on the equivalence tool's table detection and the
+// ConfigureObject ABI, see the note.
 
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
