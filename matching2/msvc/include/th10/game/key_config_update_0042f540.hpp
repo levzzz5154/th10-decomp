@@ -24,6 +24,9 @@ struct KeyState_0042f540 {
     unsigned char reserved_02[2];
     unsigned short held;           // +0x04
     unsigned short pressed;        // +0x06
+
+    // 0x0040ACE0, inlined here: a key of the mask was pressed or is repeating.
+    int Active(unsigned short mask) { return (mask & pressed) != 0 || (mask & held) != 0; }
 };
 
 struct AnimationLookupContext;

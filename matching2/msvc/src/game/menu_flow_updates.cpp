@@ -61,9 +61,9 @@ static __forceinline void RunCursorSlot_0042f540(RecoveryMusicRoom_00433ef0* roo
 static __forceinline void HandleInput_0042f540(RecoveryMusicRoom_00433ef0* room) {
     MenuCursor* cursor = &room->cursor;
     cursor->previous_selection = cursor->selection;
-    if ((data_00474e30.pressed & 0x10) || (data_00474e30.held & 0x10))
+    if (data_00474e30.Active(0x10))
         cursor->Advance(-1);
-    if ((data_00474e30.pressed & 0x20) || (data_00474e30.held & 0x20))
+    if (data_00474e30.Active(0x20))
         cursor->Advance(1);
     if (cursor->previous_selection != cursor->selection) {
         data_00492590.Queue(12, 0);
