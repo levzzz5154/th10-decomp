@@ -21,16 +21,21 @@ extern "C" const char data_0046ece8[];  // "bgm/th10_02.wav"
 
 extern "C" int __ftol2(void);
 
+// The retail curve constants, pooled at their retail addresses.
+extern "C" const float data_00470afc;   // 1.0
+extern "C" const float data_00470b00;   // 0.01
+extern "C" const float data_00470b80;   // -5000.0
+
 extern "C" int __ftol2(void);
 
 // The music DSP attenuation is -5000 - (int)((1 - x^4) * -5000) with
 // x = 1 - music/100, and a fixed full attenuation while the music is off.
 static int MusicAttenuation(int music) {
-    float fraction = music * 0.01f;
-    float complement = 1.0f - fraction;
+    float fraction = music * data_00470b00;
+    float complement = data_00470afc - fraction;
     float squared = complement * complement;
-    float fourth = 1.0f - squared * squared;
-    return -5000 - static_cast<int>(fourth * -5000.0f);
+    float fourth = data_00470afc - squared * squared;
+    return data_00470b80 - static_cast<int>(fourth * data_00470b80);
 }
 
 // The room's second animation slot holds the label parent.  A missing parent

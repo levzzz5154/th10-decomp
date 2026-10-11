@@ -21,7 +21,9 @@ struct SpriteHandle_00449670 {
 // An animation and the list of its children, as the label search walks them.
 struct LabelAnimation_0042d920 {
     unsigned int id;                    // +0x000
-    unsigned char reserved_004[0x386];
+    unsigned char reserved_004[0x358];
+    unsigned int flags_35c;             // +0x35C, bit 1 set = label visible
+    unsigned char reserved_360[0x2A];
     short script;                       // +0x38A
 };
 struct LabelLink_0042d920 {
