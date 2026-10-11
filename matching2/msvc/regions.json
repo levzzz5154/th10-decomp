@@ -27154,13 +27154,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00431ee0_00431ee0",
-      "source": "src/game/replay_large_runtime.cpp",
-      "symbol": "_asm_FUN_00431ee0_00431ee0",
+      "name": "semantic_SpellRecord_Update_00431ee0",
+      "source": "src/game/spell_record_update_00431ee0.cpp",
+      "symbol": "?TitleMode11_00431ee0@@YGHPAURecoveryMusicRoom_00433ef0@@@Z",
       "address": "0x00431EE0",
       "size": 1968,
-      "kind": "asm",
-      "owner": "0x00431EE0"
+      "kind": "semantic",
+      "owner": "0x00431EE0",
+      "previous_record": {
+        "name": "asm_FUN_00431ee0_00431ee0",
+        "source": "src/game/replay_large_runtime.cpp",
+        "symbol": "_asm_FUN_00431ee0_00431ee0",
+        "address": "0x00431EE0",
+        "size": 1968,
+        "kind": "asm",
+        "owner": "0x00431EE0"
+      }
     },
     {
       "name": "semantic_TitleMenu_BuildSpellList_00432690",
@@ -60748,6 +60757,7 @@
     "src/game/release_flagged_entity_arrays_score_runtime_state_004091c0.cpp",
     "src/game/replay_file_load_0042a200.cpp",
     "src/game/replay_large_runtime.cpp",
+    "src/game/spell_record_update_00431ee0.cpp",
     "src/game/replay_manager_create_00429610.cpp",
     "src/game/replay_manager_create_004296f0.cpp",
     "src/game/replay_manager_teardown_004294a0.cpp",

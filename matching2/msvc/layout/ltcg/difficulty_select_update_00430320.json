@@ -8,6 +8,7 @@
     "include/th10/game/difficulty_select_update_00430320.hpp",
     "include/th10/game/ending_screen_0042d300.hpp",
     "include/th10/game/entity_movement_slot_0041ab70.hpp",
+    "include/th10/game/game_thread_queue_native.hpp",
     "include/th10/game/menu_cursor.hpp",
     "include/th10/game/practice_stage_select_update_00430ff0.hpp",
     "include/th10/game/recovery_script_executor_0040bd80.hpp",
@@ -18,9 +19,23 @@
     "include/th10/game/recovery_script_executor_text_sibling_anchors.hpp",
     "include/th10/game/replay_save_update_00433570.hpp",
     "include/th10/game/replay_select_update_004315c0.hpp",
+    "include/th10/game/right_aligned_text_context/archive_callers.hpp",
+    "include/th10/game/right_aligned_text_context/archive_file.hpp",
+    "include/th10/game/right_aligned_text_context/entity_movement_slot_0041ab70.hpp",
+    "include/th10/game/right_aligned_text_context/recovery_mark_text_and_dispatcher_004479d0.hpp",
+    "include/th10/game/right_aligned_text_context/recovery_script_executor_0040bd80.hpp",
+    "include/th10/game/right_aligned_text_context/recovery_script_executor_ascii_anchors.hpp",
+    "include/th10/game/right_aligned_text_context/recovery_script_executor_caller_00419120.hpp",
+    "include/th10/game/right_aligned_text_context/scheduler.hpp",
+    "include/th10/game/right_aligned_text_context/sound_queue.hpp",
+    "include/th10/game/right_aligned_text_context/timer.hpp",
+    "include/th10/game/right_aligned_text_context/worker.hpp",
     "include/th10/game/scheduler.hpp",
+    "include/th10/game/score_file.hpp",
     "include/th10/game/shot_type_select_update_00430a60.hpp",
+    "include/th10/game/spell_record_update_00431ee0.hpp",
     "include/th10/game/title_main_menu_update_0042d420.hpp",
+    "include/th10/game/title_menu_draw.hpp",
     "include/th10/math/timer.hpp",
     "include/th10/platform/archive_callers.hpp",
     "include/th10/platform/archive_file.hpp",
@@ -87,6 +102,15 @@
       "address": "0x004315C0",
       "size": 1492,
       "source": "src/game/replay_select_update_004315c0.cpp",
+      "actual_abi": "room on the stack from the title dispatcher 0x0042CDF0; integer result EAX, RET 4"
+    },
+    {
+      "name": "SpellRecord_Update",
+      "symbol": "?TitleMode11_00431ee0@@YGHPAURecoveryMusicRoom_00433ef0@@@Z",
+      "section": ".text$00431ee0_fn",
+      "address": "0x00431EE0",
+      "size": 1968,
+      "source": "src/game/spell_record_update_00431ee0.cpp",
       "actual_abi": "room on the stack from the title dispatcher 0x0042CDF0; integer result EAX, RET 4"
     }
   ],
@@ -524,6 +548,27 @@
       "address": "0x0042C850",
       "size": 69,
       "section": ".text$0042c850_fn"
+    },
+    {
+      "name": "CountOfDifficulty",
+      "symbol": "?SpellCards_CountOfDifficulty_004088c0@@YGHH@Z",
+      "address": "0x004088C0",
+      "size": 75,
+      "section": ".text$004088c0_fn"
+    },
+    {
+      "name": "UnlockAllStages",
+      "symbol": "?UnlockAllStages_0042c8c0@@YGXPAUGameProgress_0042c8c0@@@Z",
+      "address": "0x0042C8C0",
+      "size": 93,
+      "section": ".text$0042c8c0_fn"
+    },
+    {
+      "name": "BuildSpellList",
+      "symbol": "?BuildSpellList@TitleMenu_00431410@@QAEHXZ",
+      "address": "0x00432690",
+      "size": 850,
+      "section": ".text$00432690_fn"
     }
   ],
   "context": {
@@ -542,7 +587,12 @@
     {
       "section": ".text$00405449_gap",
       "address": "0x00405449",
-      "size": 18951
+      "size": 13431
+    },
+    {
+      "section": ".text$0040890b_gap",
+      "address": "0x0040890B",
+      "size": 5445
     },
     {
       "section": ".text$00409e91_gap",
@@ -632,7 +682,12 @@
     {
       "section": ".text$0042c895_gap",
       "address": "0x0042C895",
-      "size": 1371
+      "size": 43
+    },
+    {
+      "section": ".text$0042c91d_gap",
+      "address": "0x0042C91D",
+      "size": 1235
     },
     {
       "section": ".text$0042d230_gap",
@@ -662,7 +717,12 @@
     {
       "section": ".text$00431b94_gap",
       "address": "0x00431B94",
-      "size": 9052
+      "size": 844
+    },
+    {
+      "section": ".text$004329e2_gap",
+      "address": "0x004329E2",
+      "size": 5390
     },
     {
       "section": ".text$004349bc_gap",
@@ -1564,11 +1624,6 @@
       "address": 4655868
     },
     {
-      "symbol": "?TitleMode11_00431ee0@@YGHPAURecoveryMusicRoom_00433ef0@@@Z",
-      "kind": "relative_code",
-      "address": 4398816
-    },
-    {
       "symbol": "?TitleOptions_0042d920@@YGHPAURecoveryMusicRoom_00433ef0@@@Z",
       "kind": "relative_code",
       "address": 4380960
@@ -1837,6 +1892,61 @@
       "symbol": "?TitleMode16_00433570@@YGHPAURecoveryMusicRoom_00433ef0@@@Z",
       "address": "0x00433570",
       "kind": "relative_code"
+    },
+    {
+      "symbol": "?g_spell_difficulty@@3QBCB",
+      "address": "0x004743C0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_spell_difficulty",
+      "address": "0x004743C0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00497e90",
+      "address": "0x00497E90",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00497d90",
+      "address": "0x00497D90",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004979a8",
+      "address": "0x004979A8",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004979a4",
+      "address": "0x004979A4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004979a0",
+      "address": "0x004979A0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0046ef10",
+      "address": "0x0046EF10",
+      "kind": "data"
+    },
+    {
+      "symbol": "_NamedCardFormat",
+      "address": "0x46eef8",
+      "kind": "data"
+    },
+    {
+      "symbol": "_MaskedCardFormat",
+      "address": "0x46eebc",
+      "kind": "data"
+    },
+    {
+      "symbol": "_EmptyCardText",
+      "address": "0x46cfd4",
+      "kind": "data"
     }
   ],
   "additional_sources": [
@@ -1872,7 +1982,10 @@
     "src/game/character_select_update_004306a0.cpp",
     "src/game/shot_type_select_update_00430a60.cpp",
     "src/game/practice_stage_select_update_00430ff0.cpp",
-    "src/game/replay_select_update_004315c0.cpp"
+    "src/game/replay_select_update_004315c0.cpp",
+    "layout/ltcg/difficulty_select_update_dependencies/spell_record_anchors.cpp",
+    "src/game/spell_record_update_00431ee0.cpp",
+    "layout/ltcg/difficulty_select_update_dependencies/spell_list_anchor.cpp"
   ],
   "roots": [],
   "included_sources": [
@@ -1896,10 +2009,12 @@
     "layout/ltcg/recovery_script_executor_text_anchors.cpp",
     "layout/ltcg/recovery_script_executor_text_sibling_anchors.cpp",
     "src/game/ending_screen.cpp",
+    "src/game/game_progress_unlock_all_stages_0042c8c0.cpp",
     "src/game/input_mask_active_0040ace0.cpp",
     "src/game/recovery_animation_slot_frames_0042c6d0.cpp",
     "src/game/recovery_install_animation_slot_0042c670.cpp",
     "src/game/recovery_script_executor_0040bd80.cpp",
+    "src/game/title_spell_list.cpp",
     "src/render/animation_manager_find_child_by_script_index_004497d0.cpp",
     "src/render/animation_manager_set_stop_frame_and_run_00449250.cpp",
     "src/render/animation_manager_set_stop_frame_from_handle_retail_00449470.cpp"

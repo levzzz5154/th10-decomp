@@ -567,10 +567,6 @@
       "address": "0x00470AFC",
       "kind": "data"
     },
-    "?TitleMode11_00431ee0@@YGHPAURecoveryMusicRoom_00433ef0@@@Z": {
-      "address": "0x00431EE0",
-      "kind": "code"
-    },
     "?TitleOptions_0042d920@@YGHPAURecoveryMusicRoom_00433ef0@@@Z": {
       "address": "0x0042D920",
       "kind": "code"
@@ -782,6 +778,50 @@
     "_data_004746d8": {
       "address": "0x004746D8",
       "kind": "data"
+    },
+    "?g_spell_difficulty@@3QBCB": {
+      "address": "0x004743C0",
+      "kind": "data"
+    },
+    "_g_spell_difficulty": {
+      "address": "0x004743C0",
+      "kind": "data"
+    },
+    "_data_00497e90": {
+      "address": "0x00497E90",
+      "kind": "data"
+    },
+    "_data_00497d90": {
+      "address": "0x00497D90",
+      "kind": "data"
+    },
+    "_data_004979a8": {
+      "address": "0x004979A8",
+      "kind": "data"
+    },
+    "_data_004979a4": {
+      "address": "0x004979A4",
+      "kind": "data"
+    },
+    "_data_004979a0": {
+      "address": "0x004979A0",
+      "kind": "data"
+    },
+    "_data_0046ef10": {
+      "address": "0x0046EF10",
+      "kind": "data"
+    },
+    "_NamedCardFormat": {
+      "address": "0x0046EEF8",
+      "kind": "data"
+    },
+    "_MaskedCardFormat": {
+      "address": "0x0046EEBC",
+      "kind": "data"
+    },
+    "_EmptyCardText": {
+      "address": "0x0046CFD4",
+      "kind": "data"
     }
   },
   "bindings": {
@@ -859,7 +899,11 @@
     "??_C@_0BA@KODLGIPH@th10_ud?$DP?$DP?$DP?$DP?4rpy?$AA@": "0x0046EFEC",
     "??_C@_06HOJHLELG@replay?$AA@": "0x0046E650",
     "??_C@_0O@PLEGECMF@th10_?$CF?42d?4rpy?$AA@": "0x0046E0C8",
-    "??_C@_08GGFKNFHG@?5?5?5?5?5?5?5?5?$AA@": "0x0046E354"
+    "??_C@_08GGFKNFHG@?5?5?5?5?5?5?5?5?$AA@": "0x0046E354",
+    "?TitleMode11_00431ee0@@YGHPAURecoveryMusicRoom_00433ef0@@@Z": "0x00431EE0",
+    "?SpellCards_CountOfDifficulty_004088c0@@YGHH@Z": "0x004088C0",
+    "?UnlockAllStages_0042c8c0@@YGXPAUGameProgress_0042c8c0@@@Z": "0x0042C8C0",
+    "?BuildSpellList@TitleMenu_00431410@@QAEHXZ": "0x00432690"
   },
   "base_index_order": 2,
   "differences": [],

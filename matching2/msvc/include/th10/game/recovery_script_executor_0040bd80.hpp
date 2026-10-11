@@ -50,7 +50,9 @@ struct RecoveryLookup_0040bd80 {
 struct GameThread_0040c540 {
     unsigned char reserved_0000[0x8994];
     void* animation_resource;
-    unsigned char reserved_8998[0x89A4 - 0x8998];
+    unsigned int reserved_8998;
+    void* text_resource;                // +0x899C
+    unsigned int reserved_89a0;
     void* animation_handle;
     __declspec(noinline) void* EnsureAnimationResource(float x, float y);
 };
