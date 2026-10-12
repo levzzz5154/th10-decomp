@@ -208,13 +208,15 @@ extern "C" __declspec(noinline) int __stdcall EnemyDataStart_0040dc80(
         m->heading_c[0] = value.x;
         m->heading_c[1] = value.y;
     }
-    // The base position: the Vec3 interpolator or the polar pair.
+    // The base position: the Vec3 interpolator at +0x138 or the polar
+    // pair; the delta lands at +0x64.
     if (m->base_interp_enabled != 0) {
-        Vec3Step* step = reinterpret_cast<Vec3Step*>(m->base_interp + 4);
+        Vec3Step* step = reinterpret_cast<Vec3Step*>(
+            reinterpret_cast<unsigned char*>(enemy) + 0x13C);
         Vec3* value = step->Step();
-        m->delta_a[0] = value->x - m->base_position[0];
-        m->delta_a[1] = value->y - m->base_position[1];
-        m->delta_a[2] = value->z - m->base_position[2];
+        m->base_polar[0] = value->x - m->base_position[0];
+        m->base_polar[1] = value->y - m->base_position[1];
+        m->base_polar[2] = value->z - m->base_position[2];
     } else if (!(m->mode_flags & 1)) {
         // SetPolar(angle at +0x70, radius at +0x74) on the base polar at
         // +0x64; the z home is cleared.
@@ -228,13 +230,15 @@ extern "C" __declspec(noinline) int __stdcall EnemyDataStart_0040dc80(
         m->heading[1] = Angle_Normalize_0044bc70(
             m->heading[1] + m->heading[0]);
     }
-    // The drift position: the same treatment plus the scroll.
+    // The drift position: the Vec3 interpolator at +0x188 or the polar
+    // pair; the delta lands at +0x90.
     if (m->drift_interp_enabled != 0) {
-        Vec3Step* step = reinterpret_cast<Vec3Step*>(m->base_interp + 4);
+        Vec3Step* step = reinterpret_cast<Vec3Step*>(
+            reinterpret_cast<unsigned char*>(enemy) + 0x188);
         Vec3* value = step->Step();
-        m->position_b[0] = value->x - m->base_position[0];
-        m->position_b[1] = value->y - m->base_position[1];
-        m->position_b[2] = value->z - m->base_position[2];
+        m->polar_b[0] = value->x - m->base_position[0];
+        m->polar_b[1] = value->y - m->base_position[1];
+        m->polar_b[2] = value->z - m->base_position[2];
     } else if (!(m->mode_flags & 1)) {
         // The drift polar at +0x90 with the angle/radius pair at
         // +0x9C/+0xA0; the +0xA4 home cleared.

@@ -212,3 +212,17 @@ argument details. Also learned: the CIL pools any float literal — every
 constant the model reads (the 300/900 thresholds aside, which are
 immediates) must come from a bound home; the pool copies surface as
 unbound 0x4020xx references.
+
+## Growth iteration (2026-10-12, fourth)
+
+The interpolation offsets corrected: the base motion's Vec3 interpolator
+lives at +0x138 (its Step in EAX, the delta target +0x64), the drift's at
++0x188 (delta target +0x90); the draft had invented +0x180/+0x184. The
+retail ordering was also confirmed: the base path runs before the drift
+path, the scroll offset applies to the drift position between the two
+Advance calls. Body: 2,128 (the interp fix moved code without net growth).
+
+Remaining ~284 bytes: the x87 clamp chains (124 B — the model expresses
+the clamp with float compares where retail uses the fild/fmul/fcom
+sequences), the script-change retry details (89 B), the div-5 (43 B),
+and the sweep-result handling (68 B) — all control-flow-shape work.
