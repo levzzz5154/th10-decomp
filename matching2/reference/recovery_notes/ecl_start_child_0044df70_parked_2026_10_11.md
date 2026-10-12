@@ -71,3 +71,24 @@ The two-assignment shape is longer in this context, contradicting the
 standalone-rig expectations of item 1; the per-block source reloads add more
 than the forwarded-pointer form saves.  The register contest (item 3) and
 the exported resolver (item 4) remain the open levers.
+
+
+## Why the dummy resolver argument cannot be dropped (2026-10-12)
+
+The `xor ecx,ecx` before the resolver call costs 3 of the 7 excess bytes.
+The dummy first parameter is dead in the callee body, but it cannot be
+removed:
+
+* The 4-argument `__fastcall` ABI is what places `frame` in EDX; a 3-arg
+  form would place `frame` in ECX, contradicting the retail body (which
+  reads the frame from `[edx+4]`).
+* The semantic region 0x0044FF00 is exact at 124 bytes with the same 4-arg
+  body; changing its signature would break it.
+* c2's IPCG does not drop the dead first argument across the `code_seg`
+  pragma boundary that pins the anchor body to 0x0044FF00.
+
+With the zero-store variant (557→553) and the mandatory 3-byte xor, the
+model lands at exactly 553 — 3 bytes over the 550-byte retail extent.  The
+equivalence machinery compares code at equal extent, so the region stays
+assembly until a source shape makes the model 3 bytes shorter (or the
+register contest of item 3 shifts the scheduling enough to close the gap).
