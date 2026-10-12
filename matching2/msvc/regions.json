@@ -64298,6 +64298,10 @@
     {
       "region": "asm_FUN_0041dd80_0041dd80",
       "layout": "layout/equivalent/laser_circle_trim_0041dd80.json"
+    },
+    {
+      "region": "asm_FUN_0042cdf0_0042cdf0",
+      "layout": "layout/equivalent/title_dispatcher_0042cdf0.json"
     }
   ]
 }
