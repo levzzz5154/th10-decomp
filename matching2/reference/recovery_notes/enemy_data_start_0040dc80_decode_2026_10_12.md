@@ -127,3 +127,24 @@ Extending that cluster with ECL-VM convention thunks plus the 671-instruction
 model is the remaining work; the struct extension and decode above are
 complete, so the next session starts from the call-site analysis, not the
 semantics.
+
+## 2026-10-12 (second session): the working model draft
+
+`msvc/equivalent/game/enemy_data_start_0040dc80.cpp` (with the motion
+view `msvc/include/th10/game/enemy_data_start_0040dc80.hpp`) is the
+working draft: the snapshot, the four trajectory steps, both polar/vector
+motions, the clamp and off-screen paths, the script change, the
+interpreter tick, the pickup/score block, the spell-timer advance, the
+off-screen state machine, the eight animation positions, the blink
+counter and the wait bookkeeping are all expressed. The register
+conventions resolve through the `ecl_tick_children` cluster context
+(TickChildren 0x44FD10 compiled in-cluster with its EDI ABI; c2 adapts
+the call site under /GL).
+
+What remains before the equivalence run compiles clean: the EnemyRecord
+view the body reaches through the 0x14D8 ScriptVm pointer needs its
+actual shape (the +0x2404 frame counter belongs to the outer record), the
+item-drop score arithmetic needs the +0x1420 pause guard decoded, and the
+call-argument details of the two `FieldContact`/`PickupSweep` pairs need
+their stack layouts verified against the recovered bodies. None of these
+require new decodes — the disassembly in the first section answers each.
