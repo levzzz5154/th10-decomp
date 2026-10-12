@@ -195,3 +195,20 @@ Remaining: the row-draw loop (269 B), the blink/off-screen machine
 the model reads must be extern-bound homes — the CIL pools private copies
 of any literal (1.0f/60.0f) and the equivalence tool then flags the pooled
 addresses.
+
+## Growth iteration (2026-10-12, third)
+
+The blink/off-screen machine is now expressed faithfully: the countdown
+clear path (flags &= ~0x8000, the outer +0x9DA4 mirror, the decrement),
+the highlight path (flags |= 0x8000, the 0xFF0000FF color at +0x300, the
+alarm decision from the game flags at [0x4776F4]+0x378C and the VM frame
+counter at +0x2404 with the 300/900 thresholds, sounds 0x23/0x13), and
+the two FrameTimer::Advance calls. The script rebind uses the VM's
+`ScriptTable::Resolve` + the current-frame store (retail 0x0040E2A2).
+Body: 1,952 → 2,128.
+
+Remaining: the row-draw loop (~269 B) and the small pickup/field-contact
+argument details. Also learned: the CIL pools any float literal — every
+constant the model reads (the 300/900 thresholds aside, which are
+immediates) must come from a bound home; the pool copies surface as
+unbound 0x4020xx references.

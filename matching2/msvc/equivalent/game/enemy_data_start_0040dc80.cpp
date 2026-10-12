@@ -16,12 +16,11 @@
 #include "th10/game/enemy_data_start_0040dc80.hpp"
 #include "th10/game/polar_motion.hpp"
 #include "th10/math/trajectory_vector.hpp"
-#include "th10/render/animation_script_change.hpp"
 #include "th10/game/recovery_script_executor_0040bd80.hpp"
 #include "th10/script/ecl_children.hpp"
+#include "th10/game/options_update_0042d920.hpp"
 
 extern "C" {
-extern void* data_004776e0;              // the game thread (cursor resource)
 extern void* data_00477834;              // the player state
 extern void* data_004776f4;              // the play-mode flags
 extern void* data_0047770c;              // the result overlay state
@@ -52,6 +51,8 @@ struct Vec3Step {
     __declspec(noinline) Vec3* Step();
 };
 extern "C" float __stdcall Angle_Normalize_0044bc70(float value);
+// 0x0044BF40: FrameTimer::Advance (this in ESI, delta on the stack).
+extern "C" void __stdcall FrameTimer_Advance_0044bf40(void* timer, float delta);
 
 // The polar setter (0x0044C5D0, thiscall) and PolarMotion::Advance
 // (0x0044C2A0): the recovered members the two motions call.
@@ -82,6 +83,10 @@ struct ScriptFrame_00450560 {
     int instruction;
     int time;
 };
+struct ScriptVmFrames_00450560 {
+    unsigned char reserved[0x2404];
+    int frames_alive;                    // +0x2404
+};
 struct ScriptVm_00450560 {
     ScriptTable_00450470* table;
     ScriptFrame_00450560* current;
@@ -98,7 +103,14 @@ extern "C" void __fastcall GameConfig_Defaults_00418c40(void* config);
 extern "C" void __fastcall ScoreState_Add_00418b80(unsigned* state, int amount);
 // 0x0042A930: restore the score gauge.
 extern "C" void __fastcall ScoreGauge_Restore_0042a930(unsigned* state, int value);
-// 0x00450700: bind the named subroutine.
+// 0x004496D0: the script change (id on the stack, index after it) —
+// declared locally; the animation_script_change header conflicts with the
+// ending-screen view of the animation manager.
+struct RecoveryScriptIdLocal { int value; };
+struct ScriptChangeHandleLocal {
+    RecoveryScriptIdLocal id;
+    __declspec(noinline) void ChangeScript(int index);
+};
 extern "C" int __fastcall BindName_00450700(const char* name, ScriptVm_00450560* vm);
 // 0x00452422, 0x004524A1: the frees.
 extern "C" void __cdecl free_00452422(void* memory);
@@ -285,21 +297,19 @@ extern "C" __declspec(noinline) int __stdcall EnemyDataStart_0040dc80(
     }
     // The script change (0x100000) and the device-lost reset (0x200000).
     if (raw_flags & 0x100000) {
-        void** outer = static_cast<void**>(data_004776e0);
+        void** outer = reinterpret_cast<void**>(data_004776e0);
         if (outer[5] != 0) {
             if (!(raw_flags & 0x200000)) {
                 m->off_screen_state = m->script_change_a;
-                ScriptChangeHandle handle;
-                *reinterpret_cast<RecoveryScriptId_0040bd80*>(&handle) =
-                    *reinterpret_cast<RecoveryScriptId_0040bd80*>(&m->animation_handles[0]);
+                ScriptChangeHandleLocal handle;
+                handle.id.value = *reinterpret_cast<int*>(&m->animation_handles[0]);
                 handle.ChangeScript(m->script_change_a);
                 *reinterpret_cast<unsigned int*>(&flags) |= 0x200001u;
             }
         } else if (m->script_change_b != 0) {
             m->off_screen_state = m->script_change_b;
-            ScriptChangeHandle handle;
-            *reinterpret_cast<RecoveryScriptId_0040bd80*>(&handle) =
-                *reinterpret_cast<RecoveryScriptId_0040bd80*>(&m->animation_handles[0]);
+            ScriptChangeHandleLocal handle;
+            handle.id.value = *reinterpret_cast<int*>(&m->animation_handles[0]);
             handle.ChangeScript(m->script_change_b);
             *reinterpret_cast<unsigned int*>(&flags) &= ~0x200001u;
         }
@@ -378,9 +388,8 @@ extern "C" __declspec(noinline) int __stdcall EnemyDataStart_0040dc80(
             else
                 step = (state != 1) ? 4 : 1;
             m->off_screen_previous = state;
-            ScriptChangeHandle handle;
-            *reinterpret_cast<RecoveryScriptId_0040bd80*>(&handle) =
-                *reinterpret_cast<RecoveryScriptId_0040bd80*>(&m->animation_handles[0]);
+            ScriptChangeHandleLocal handle;
+            handle.id.value = *reinterpret_cast<int*>(&m->animation_handles[0]);
             handle.ChangeScript(m->script_change_a + step);
         }
     }
@@ -396,23 +405,56 @@ extern "C" __declspec(noinline) int __stdcall EnemyDataStart_0040dc80(
                     reinterpret_cast<const void*>(&enemy->position), *handles);
         }
     }
-    // The blink counter and the highlight sound.
-    if (*reinterpret_cast<int*>(&enemy->death_callback) == 0) {
-        void* object = AnimationManager_Find_004491c0(reinterpret_cast<void*>(data_00491c10),
-            *reinterpret_cast<unsigned*>(&m->animation_handles[0]));
-        if (object == 0)
+    // The blink counter and the invulnerable highlight sound.
+    {
+        LabelAnimation_0042d920* found = static_cast<LabelAnimation_0042d920*>(
+            AnimationManager_Find_004491c0(
+                data_00491c10,
+                *reinterpret_cast<unsigned*>(&m->animation_handles[0])));
+        if (found == 0)
             m->animation_handles[0] = 0;
-        if (raw_flags & 0x2000) {
-            // The invulnerable highlight: color + flags + the countdown.
+        if (m->blink_countdown != 0) {
+            found->flags_35c &= ~0x8000u;
+            if (static_cast<int>(raw_flags) < 0)
+                *reinterpret_cast<unsigned int*>(
+                    static_cast<unsigned char*>(data_0047770c) + 0x9DA4) &= ~0x8000u;
+            m->blink_countdown -= 1;
+        } else if (raw_flags & 0x200000) {
+            found->flags_35c |= 0x8000u;
+            *reinterpret_cast<unsigned int*>(
+                reinterpret_cast<unsigned char*>(found) + 0x300) = 0xFF0000FFu;
+            found->flags_35c |= 0x8000u;
             m->blink_countdown = 4;
             if (raw_flags & 0x8000) {
-                SoundQueue_0043dd10* queue = reinterpret_cast<SoundQueue_0043dd10*>(0x492590);
-                queue->QueuePan(0x23, 0.0f);
+                unsigned game_flags =
+                    *reinterpret_cast<unsigned*>(
+                        static_cast<unsigned char*>(data_004776f4) + 0x378C);
+                ScriptVmFrames_00450560* frames =
+                    static_cast<ScriptVmFrames_00450560*>(m->script_vm);
+                int play_alarm = 0;
+                if (game_flags == 0) {
+                    play_alarm = 1;
+                } else if (!(game_flags & 1) || !(game_flags & 8)) {
+                    if (frames->frames_alive < 0x12C)
+                        play_alarm = 1;
+                    else if (frames->frames_alive < 0x384)
+                        play_alarm = 1;
+                }
+                SoundQueue_0043dd10* queue =
+                    reinterpret_cast<SoundQueue_0043dd10*>(0x492590);
+                if (play_alarm)
+                    queue->QueuePan(0x23, enemy->position.x);
+                else
+                    queue->QueuePan(0x13, enemy->position.x);
             }
         }
-    } else {
-        m->blink_countdown -= 1;
     }
+    // The two tick timers (-1.0f per frame while their counters run).
+    if (enemy->invulnerable_timer.current > 0)
+        FrameTimer_Advance_0044bf40(&enemy->invulnerable_timer, -1.0f);
+    if (*reinterpret_cast<int*>(&enemy->death_effect) > 0)
+        FrameTimer_Advance_0044bf40(
+            reinterpret_cast<void*>(&enemy->death_effect), -1.0f);
     // The wait bookkeeping: the fractional and integer frame counts.
     {
         float frames = *m->wait_frames;
