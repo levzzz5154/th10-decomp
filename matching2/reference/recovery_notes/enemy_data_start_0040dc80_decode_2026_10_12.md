@@ -292,3 +292,16 @@ the duplicated `mov ds:0x474C50,1` on both paths (0x0040E261 sets the
 0x2000 flag first, then 0x0040E26B writes the marker; the skip path
 writes the marker alone at 0x0040E26B). Restored to the 2,144-byte form;
 the remaining 268 bytes are c2 block placement within the same content.
+
+## Trace analysis (2026-10-12, first pass)
+
+The captured Riscify trace holds 129 blocks against retail's ~57 basic
+blocks (55 conditional branch targets). Riscify is the pre-layout phase:
+c2 holds finer blocks there and the final branch layout merges and
+orders them. Locating the exact divergence therefore needs the
+tuple-to-instruction mapping per block (each traced block's op sequence
+against the retail instruction sequence), which is a dedicated session's
+work. The trace artifacts and the tooling replay (commands.json, the
+bindings.obj construction with data coff_values unshifted, and the
+ENTRY stub under the CIL's double-underscore decoration) are all saved
+for it.
