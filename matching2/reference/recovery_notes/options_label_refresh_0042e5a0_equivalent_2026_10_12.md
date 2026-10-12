@@ -97,3 +97,15 @@ as differences. The gap concentrates in the ConfigureFromResource caller
 blocks (the model's include covers the callee, but the retail interleaves
 its label-setup blocks with the volume walks differently). Next lever:
 grow the model with the retail block order before re-measuring.
+
+## Block-level finding (2026-10-12, second pass)
+
+The 527-byte shortfall decomposes cleanly: retail inlines the child walk
+of `FindLabel` (the `mov eax,[eax]; cmp word [edx+0x38A],cx` search by
+script id, ~35 bytes) at **every one of the 15 label sites**, while c2
+outlined that walk into a single shared 153-byte copy in the model build
+and calls it. The per-site difference (~35 B × 15 − 153 ≈ 372 B) plus the
+two-Find fallback shape accounts for the gap. The lever is forcing the
+inliner to keep the walk per site — e.g. splitting `FindLabel` so the walk
+loop is small enough for c2's inline budget, or matching retail's exact
+two-Find structure (the fallback `Find(manager, {0})` after the loop).
