@@ -136,3 +136,18 @@ ecx,ecx` for the resolver's dead first argument cannot be removed (the
 retail puts it in ESI).  Both levers require c2 to make the same
 interprocedural register-ABI and allocation choices it made in the retail
 whole-program build; the single-caller model link does not reproduce them.
+
+
+## Definitive conclusion: the 3-byte excess is structural (2026-10-12, final)
+
+The resolver's first `__fastcall` parameter (the dummy) is what places the
+frame in EDX.  A 3-argument form would place `frame` in ECX, contradicting
+the retail body (which reads the frame from `[edx+4]`).  c2's IPCG cannot
+drop the dead first argument without changing which register the frame lands
+in.  The 3-byte `xor ecx,ecx` (or `mov ecx,<value>`) at the call site is
+therefore mandatory — the model cannot fit the 550-byte extent.
+
+The resolver-call fix (passing the operand value as the first argument, as
+retail does) narrows the instruction differences from 889 to ~509 bytes and
+is the correct readable semantics; it is committed in the parked candidate
+source.  The region stays assembly.
