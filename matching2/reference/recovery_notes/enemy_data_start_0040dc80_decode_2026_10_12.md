@@ -305,3 +305,16 @@ work. The trace artifacts and the tooling replay (commands.json, the
 bindings.obj construction with data coff_values unshifted, and the
 ENTRY stub under the CIL's double-underscore decoration) are all saved
 for it.
+
+## Trace analysis (2026-10-12, second pass): the trace format is a dead end for block order
+
+The Riscify trace's tuple stream does not correspond 1:1 to the emitted
+instructions — a greedy merge of the 129 traced blocks against the 87
+emitted blocks mismatches at 79 of 87 positions (the trace holds c2's
+internal per-block data structures, not the final instruction list).
+The block-order question must be answered from the emitted code instead:
+the model .exe disassembly vs the retail bytes, which is the byte diff
+already recorded. The remaining 268 bytes are c2 layout decisions driven
+by register-allocation differences; the levers are the allocator traces
+(`trace_choose_physreg.py`, the StartChild ChoosePhysReg path), not the
+flowgraph captures.
