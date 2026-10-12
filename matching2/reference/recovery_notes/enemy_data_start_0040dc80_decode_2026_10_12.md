@@ -258,3 +258,14 @@ without net growth — the blocks were already the right size).
 Remaining ~284 bytes: the script-change retry details (89 B), the sweep
 argument layout (68 B), and the row-loop structure (127 B) — all
 control-flow shapes, every callee/binding/convention in place.
+
+## Growth iteration (2026-10-12, seventh)
+
+The script-change nesting corrected: the +0x200000 flag gates the
++0x144C retry inside the `script_change_b != 0` branch (the draft ran it
+unconditionally). Body: 2,128 → 2,144.
+
+Remaining ~268 bytes: the row-loop structure (~127 B), the sweep argument
+layout (68 B), and small desync details. Every callee, binding and
+convention is in place; the work is pure control-flow expression in the
+established measure loop.

@@ -300,7 +300,10 @@ extern "C" __declspec(noinline) int __stdcall EnemyDataStart_0040dc80(
                 *reinterpret_cast<unsigned int*>(&flags) |= 0x100u;
         }
     }
-    // The script change (0x100000) and the device-lost reset (0x200000).
+    // The script change (flag 0x100000) and the device-lost reset
+    // (flag 0x200000): the outer state at [0x4776EC]+0x28 decides between
+    // the +0x1448 and the +0x144C script ids; the change handle is the
+    // animation handle at +0xC0 and the chosen id lands in +0xF4.
     if (raw_flags & 0x100000) {
         void** outer = reinterpret_cast<void**>(data_004776e0);
         if (outer[5] != 0) {
@@ -312,11 +315,13 @@ extern "C" __declspec(noinline) int __stdcall EnemyDataStart_0040dc80(
                 *reinterpret_cast<unsigned int*>(&flags) |= 0x200001u;
             }
         } else if (m->script_change_b != 0) {
-            m->off_screen_state = m->script_change_b;
-            ScriptChangeHandleLocal handle;
-            handle.id.value = *reinterpret_cast<int*>(&m->animation_handles[0]);
-            handle.ChangeScript(m->script_change_b);
-            *reinterpret_cast<unsigned int*>(&flags) &= ~0x200001u;
+            if (raw_flags & 0x200000) {
+                m->off_screen_state = m->script_change_b;
+                ScriptChangeHandleLocal handle;
+                handle.id.value = *reinterpret_cast<int*>(&m->animation_handles[0]);
+                handle.ChangeScript(m->script_change_b);
+                *reinterpret_cast<unsigned int*>(&flags) &= ~0x200001u;
+            }
         }
     }
     // The interpreter tick; nonzero ends the enemy with an error.
