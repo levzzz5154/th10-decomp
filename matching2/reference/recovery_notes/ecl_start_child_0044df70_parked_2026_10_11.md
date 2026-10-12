@@ -52,3 +52,22 @@ exact. The function is still assembly-owned.
 Tools: `reference/compiler_traces/scheduler/capture_link.py` plus
 `regalloc/trace_choose_physreg.py` on the cluster link; StartChild is the
 function with 30 blocks whose first choices are ESI 188 and EDI 158.
+
+
+## Second-assignment experiments (2026-10-12)
+
+Measured with the real cluster build (the anchor sizes are hard constraints:
+SpawnChild must stay at its retail address, so StartChild must be exactly 550
+bytes):
+
+* second `instruction = &source->instruction;` at the top of the argument
+  loop: 582 bytes (+32) — the reload form is longer, not shorter.
+* the same assignment at the end of the loop body: 566 bytes (+16).
+* shrinking the `.text$06layout` filler by the growth lets the cluster link,
+  but the function itself still overshoots its retail extent, and the anchor
+  mechanism pins it at 0x44DF70 — the overlap is fatal.
+
+The two-assignment shape is longer in this context, contradicting the
+standalone-rig expectations of item 1; the per-block source reloads add more
+than the forwarded-pointer form saves.  The register contest (item 3) and
+the exported resolver (item 4) remain the open levers.
