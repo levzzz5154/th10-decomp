@@ -53,7 +53,7 @@ static __forceinline LabelAnimation_0042d920* FindLabel(
         slot->value = 0;
     for (LabelLink_0042d920* link = &parent->children; link != 0; link = link->next)
         if (link->object->script == script)
-            break;
+            return link->object;
     RecoveryScriptId_0040bd80 none = { 0 };
     return static_cast<LabelAnimation_0042d920*>(
         reinterpret_cast<RecoveryLookup_0040bd80*>(manager)->Find(manager, none));
@@ -81,8 +81,6 @@ static __forceinline void ShowDigit(
         RecoveryLookupContext_0040bd80* manager, RecoveryMusicRoom_00433ef0* room,
         int script, bool visible) {
     LabelAnimation_0042d920* label = FindLabel(manager, room, script);
-    if (label == 0)
-        return;
     if (visible)
         label->flags_35c |= 2;
     else
@@ -139,17 +137,17 @@ __declspec(noinline) void __stdcall OptionsLabelRefresh_0042e5a0(
     if (music < 10) {
         ShowDigit(manager, room, 0x25, false);
         ShowDigit(manager, room, 0x26, false);
-        ShowDigit(manager, room, 0x29, false);
+        ShowDigit(manager, room, 0x27, false);
         ShowDigit(manager, room, 0x2A, false);
     } else if (music >= 100) {
         ShowDigit(manager, room, 0x25, true);
         ShowDigit(manager, room, 0x26, true);
-        ShowDigit(manager, room, 0x29, true);
+        ShowDigit(manager, room, 0x27, true);
         ShowDigit(manager, room, 0x2A, true);
     } else {
         ShowDigit(manager, room, 0x25, false);
         ShowDigit(manager, room, 0x26, true);
-        ShowDigit(manager, room, 0x29, false);
+        ShowDigit(manager, room, 0x27, false);
         ShowDigit(manager, room, 0x2A, true);
     }
     if (sound < 10) {

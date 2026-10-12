@@ -109,3 +109,15 @@ two-Find fallback shape accounts for the gap. The lever is forcing the
 inliner to keep the walk per site — e.g. splitting `FindLabel` so the walk
 loop is small enough for c2's inline budget, or matching retail's exact
 two-Find structure (the fallback `Find(manager, {0})` after the loop).
+
+## Third pass (2026-10-12): 3,904 of 3,999 bytes
+
+Two real decode fixes landed: `FindLabel` returns the found child (the
+retail walk's result feeds the per-label block), and the music show/hide
+ids corrected (0x27 for the ones digit, not 0x29). The model is now 95
+bytes short. The remainder is the case ordering: retail compares the
+volume byte against 0x64 and the <100 path clears the hundreds label
+through the `Find({0})` fallback, then walks 0x26/0x2A per case — the
+model's if/else-if ladder orders these differently. The 32 label-touch
+sites (2 readouts × ~5 labels × 3 cases, `cmp al,0x64` at 0x42EDB3) map
+1:1; the block order between them is what remains.
