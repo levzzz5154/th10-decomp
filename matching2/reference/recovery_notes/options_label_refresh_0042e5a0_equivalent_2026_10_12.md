@@ -86,3 +86,14 @@ Object body whose callers match retail's shapes closely enough for c2 to
 pick the register convention, or an equivalence-tool extension that compares
 an explicitly declared model extent against a same-length retail prefix
 (the tail would then need per-byte justification).
+
+## 2026-10-12: current state re-measured
+
+The drafted model now compiles to 3,472 bytes against the 3,999-byte
+region — 527 short (the earlier 3-byte overflow state came from a
+different model revision). The equivalence tool compares the model body
+across the full region extent, so a 527-byte shortfall cannot be recorded
+as differences. The gap concentrates in the ConfigureFromResource caller
+blocks (the model's include covers the callee, but the retail interleaves
+its label-setup blocks with the volume walks differently). Next lever:
+grow the model with the retail block order before re-measuring.
