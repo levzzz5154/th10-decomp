@@ -133,3 +133,14 @@ Removing the 0x27 show/hide sites shrank the model to 3,520 (wrong —
 retail's ladder does touch three music labels), confirming the sites are
 right and only their order differs. This is the c2 block-ordering class;
 the lever is the same allocator/trace tooling used for StartChild.
+
+## Fifth pass (2026-10-12): nesting experiment ruled out
+
+Restructuring the flat else-if ladder into retail's nested
+`if (<10) {...} else { if (>=100) {...} else {...} }` shape compiled to
+3,632 bytes — worse than the flat 3,904. Removing the 0x27 sites from the
+ladder also shrank the body (3,632), confirming those sites contribute
+needed bytes even though the ladder-only walk sites in retail show three
+music labels. The 3,904-byte flat form is the best source-level shape
+found; the residual 95 bytes are c2 block ordering only reachable through
+the allocator/trace tooling.
