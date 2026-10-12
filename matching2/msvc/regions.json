@@ -64310,6 +64310,10 @@
     {
       "region": "asm_GameMain_00438ad0",
       "layout": "layout/equivalent/game_main_00438ad0.json"
+    },
+    {
+      "region": "asm_FUN_00439890_00439890",
+      "layout": "layout/equivalent/d3d_initialize_00439890.json"
     }
   ]
 }
