@@ -121,3 +121,15 @@ through the `Find({0})` fallback, then walks 0x26/0x2A per case — the
 model's if/else-if ladder orders these differently. The 32 label-touch
 sites (2 readouts × ~5 labels × 3 cases, `cmp al,0x64` at 0x42EDB3) map
 1:1; the block order between them is what remains.
+
+## Fourth pass (2026-10-12): 3,904 bytes, 95 short
+
+With the FindLabel result fix and the corrected music label ids, the model
+compiles to 3,904 bytes. The remaining 95 bytes are block order, not
+missing code: the branch at +0xB9 reaches +0x783 where retail reaches
++0x77D (a 6-byte block-order delta at one site), and the rest is the
+ladder's if/else-if ordering against retail's `cmp al,0x64` dispatcher.
+Removing the 0x27 show/hide sites shrank the model to 3,520 (wrong —
+retail's ladder does touch three music labels), confirming the sites are
+right and only their order differs. This is the c2 block-ordering class;
+the lever is the same allocator/trace tooling used for StartChild.
