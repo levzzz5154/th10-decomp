@@ -281,3 +281,14 @@ for the last two), the `div 5` gate's second pass (the model clamps
 before the imul where retail recomputes after), and small desync details.
 The next lever remains the c2 block-order trace: with the content
 complete, the remaining 268 bytes are placement, not semantics.
+
+## Experiment (2026-10-12): flow reorder tried and reverted
+
+Restructuring the model to retail's exact guard flow ([0x474C50] written
+after both paths, the spell timer outside the item guard, the field
+contact after the spell timer) compiled to 2,112 bytes — 32 SHORTER than
+the guard-internal arrangement at 2,144. The retail byte count includes
+the duplicated `mov ds:0x474C50,1` on both paths (0x0040E261 sets the
+0x2000 flag first, then 0x0040E26B writes the marker; the skip path
+writes the marker alone at 0x0040E26B). Restored to the 2,144-byte form;
+the remaining 268 bytes are c2 block placement within the same content.
