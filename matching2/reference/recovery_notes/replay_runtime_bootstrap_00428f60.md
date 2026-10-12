@@ -92,3 +92,25 @@ explicit register bridge or caller-inclusive native-LTCG integration.
 - Focused decompilations of `0x0042A200`, `0x0042AB20`, `0x0042AA50`,
   `0x00418C40`, `0x00418B80`, `0x0042A930`, `0x00449AE0`, and `0x00449B70`
   support the helper roles and buffer/list/task observations above.
+
+## 2026-10-12: the model path and its blocker
+
+The full body is decoded (mode 0 record / mode 1 restore / mode 2
+validate) and every callee is recovered except the 0x24-byte scheduler
+node construction, which is expressible. The structs exist:
+`ReplayManager_004296f0` (0x2D4) with mode+0x10, header+0x14, summary+0x18,
+stage_data[8]+0x1C, pool page+0x9C, stages[8]+0xA0, tasks+0x8/+0xC,
+trailing task+0x1CC, active stage+0x1D0; the 0x24-byte SchedulerTask with
+the priority/heap-flag/callback/link/context init the body performs; the
+stage snapshot fields at +0x00/0x02/0x0C/0x10/0x18/0x1C/0x24/0x28/0x1B4
+and the profile copy from `data_00477810`+0x24 (13 dwords at +0x14).
+
+The blocker: the model's natural form is
+`ReplayManager_004296f0::Start(int, const char*)` with the receiver in
+EBX — but the `replay_manager_create_00429610` cluster's context already
+defines a stand-in `ReplayManager_004296f0::Start` shaped for the caller's
+register setup, and the two definitions collide. Landing the model
+requires retargeting that cluster's `.text$01startz` gap extent from the
+stand-in to the real body (or moving the stand-in), then registering the
+equivalent recovery against it. The draft header survives at
+`msvc/include/th10/game/replay_runtime_start_00428f60.hpp`.
