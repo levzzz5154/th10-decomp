@@ -1,7 +1,17 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
-// 0x0041CA80..0x0041CF77: unassigned code fragment
+// Laser script command interpreter (CutLaser's first virtual, vtable 0x46DA60).
+// Reads the laser script program counter at +0x400, dispatches commands through
+// the jump table at 0x41CF78/0x41CF8C (0x41CF8C has the per-opcode byte → table
+// index mapping).  Five SetSchedulerValue calls (scheduler task priorities),
+// two QueueResource calls (animation + sound), Entity_Configure, AngleFromPoint
+// and SetPolar for the movement commands.  The script commands include: flag
+// set/clear, scheduler priority changes, resource queuing, movement (polar
+// velocity + angle), and entity configuration.
+
+// 0x0041CA80..0x0041CF77: laser script command interpreter
+// (CutLaser::RunScript — first virtual in vtable 0x46DA60).
 // Naked body preserves the retail register/stack ABI.
 extern "C" __declspec(naked) void __cdecl asm_unassigned_0041ca80() {
     __asm {
