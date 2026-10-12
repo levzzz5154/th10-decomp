@@ -9,6 +9,8 @@ int TrimLaser::TrimCircle(const CutVector* center,float radius,int spawn_items) 
  int hit_count=0;
  int count=0;
  float progress=6.0f;
+ CutVector align_a;
+ CutVector align_b;
  CutVector step;
  step.z=0.0f;
  step.SetPolar(angle,6.0f);
