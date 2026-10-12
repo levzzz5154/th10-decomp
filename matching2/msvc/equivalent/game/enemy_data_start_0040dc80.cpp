@@ -28,9 +28,15 @@ extern void* data_0047770c;              // the result overlay state
 extern void* data_00474c50;              // the enemy-drop marker
 extern unsigned int data_00474e36;       // the input mask
 extern float data_00470b0c;              // the clamp scale
-extern float data_00470b40, data_00470b3c, data_00470b04, data_00470b38;
+// The off-screen bounds: read through the recovery-named homes so the
+// CIL module cannot pool private copies.
+extern "C" float bounds_high_x_00470b40;
+extern "C" float bounds_low_x_00470b3c;
+extern "C" float bounds_high_y_00470b04;
+extern "C" float bounds_low_y_00470b38;
 extern float data_00470d30, data_00470c18;
 extern float data_00470b68, data_00470b64, data_00470afc;
+extern float data_00491e6c, data_00491e70, data_00491e74;  // scroll drift
 extern void* data_00477810;              // the front-end game state
 extern unsigned int data_00491ff4;
 extern unsigned int enemy_dropped_marker_00474c50;
@@ -72,8 +78,14 @@ struct ScriptTable_00450470 {
     int Resolve(const char* name);
 };
 
-struct EnemyScriptVm_00450560 {
+struct ScriptFrame_00450560 {
+    int instruction;
+    int time;
+};
+struct ScriptVm_00450560 {
     ScriptTable_00450470* table;
+    ScriptFrame_00450560* current;
+    char name[0x100];                    // +0x08: the entry being run
 };
 
 // 0x0042AB20: free the stage pools (runtime in ECX, stage in EAX).
@@ -192,12 +204,17 @@ extern "C" __declspec(noinline) int __stdcall EnemyDataStart_0040dc80(
         m->delta_a[1] = value->y - m->base_position[1];
         m->delta_a[2] = value->z - m->base_position[2];
     } else if (!(m->mode_flags & 1)) {
+        // SetPolar(angle at +0x70, radius at +0x74) on the base polar at
+        // +0x64; the z home is cleared.
         reinterpret_cast<RecoveryPolarVector*>(m->base_polar)->SetPolar(
             m->heading[0], m->heading[1]);
         m->base_polar[2] = 0.0f;
     } else {
-        m->heading[0] += m->heading_rate[1];
-        m->heading[1] = Angle_Normalize_0044bc70(m->heading[0]);
+        // The orbit path: the heading accumulates the rate and the speed
+        // angle is renormalized.
+        m->heading_rate[0] += m->heading_rate[1];
+        m->heading[1] = Angle_Normalize_0044bc70(
+            m->heading[1] + m->heading[0]);
     }
     // The drift position: the same treatment plus the scroll.
     if (m->drift_interp_enabled != 0) {
@@ -207,36 +224,50 @@ extern "C" __declspec(noinline) int __stdcall EnemyDataStart_0040dc80(
         m->position_b[1] = value->y - m->base_position[1];
         m->position_b[2] = value->z - m->base_position[2];
     } else if (!(m->mode_flags & 1)) {
+        // The drift polar at +0x90 with the angle/radius pair at
+        // +0x9C/+0xA0; the +0xA4 home cleared.
         reinterpret_cast<RecoveryPolarVector*>(m->polar_b)->SetPolar(
             m->heading_b[0], m->heading_b[1]);
         m->polar_b[2] = 0.0f;
     } else {
-        m->heading_b[0] += m->heading_c[0];
-        m->heading_b[1] = Angle_Normalize_0044bc70(m->heading_b[0]);
+        m->heading_b[1] += m->heading_c[0];
+        m->heading_b[0] = Angle_Normalize_0044bc70(
+            m->heading_b[0] + m->heading_c[1]);
     }
-    // PolarMotion::Advance on both homes, the scroll offset, then the
-    // field delta.
-    {
-        float scroll_x = 0.0f, scroll_y = 0.0f, scroll_z = 0.0f;
-        (void)scroll_x; (void)scroll_y; (void)scroll_z;
-        m->delta_a[0] = m->position_b[0] + m->base_position[0]
-            - reinterpret_cast<float*>(enemy)[11];
-        m->delta_a[1] = m->position_b[1] + m->base_position[1]
-            - reinterpret_cast<float*>(enemy)[12];
-        m->delta_a[2] = m->position_b[2] + m->base_position[2]
-            - reinterpret_cast<float*>(enemy)[13];
+    // PolarMotion::Advance on the base home, the scroll offset on the
+    // drift position, Advance on the drift home, then the field delta.
+    m->base_position[0] += m->base_polar[0];
+    m->base_position[1] += m->base_polar[1];
+    m->base_position[2] += m->base_polar[2];
+    if (raw_flags & 0x40000) {
+        m->position_b[0] += data_00491e6c;
+        m->position_b[1] += data_00491e70;
+        m->position_b[2] += data_00491e74;
     }
-    // The clamp path when the origin-relative motion flag is set.
+    m->position_b[0] += m->base_position[0];
+    m->position_b[1] += m->base_position[1];
+    m->position_b[2] += m->base_position[2];
+    m->delta_a[0] = m->position_b[0] - reinterpret_cast<float*>(enemy)[11];
+    m->delta_a[1] = m->position_b[1] - reinterpret_cast<float*>(enemy)[12];
+    m->delta_a[2] = m->position_b[2] - reinterpret_cast<float*>(enemy)[13];
+    // The clamp path (flag 0x200): pull the drift x into
+    // [0x13AC ± 0x13B4·scale] and the drift y into [0x13B0 ± 0x13B8·scale]
+    // when the enemy moves relative to the scroll origin; the base
+    // position recomputes from the clamped drift.
     if (raw_flags & 0x200) {
         float reach = m->clamp_rate_x * data_00470b0c;
         float low = m->clamp_x - reach;
         float high = m->clamp_x + reach;
-        if (m->position_b[0] >= low && m->position_b[0] <= high)
+        if (m->position_b[0] < low || m->position_b[0] > high)
+            m->position_b[0] = (m->position_b[0] < low) ? low : high;
+        else
             m->position_b[0] = m->clamp_x;
         reach = m->clamp_rate_y * data_00470b0c;
         low = m->clamp_y - reach;
         high = m->clamp_y + reach;
-        if (m->position_b[1] >= low && m->position_b[1] <= high)
+        if (m->position_b[1] < low || m->position_b[1] > high)
+            m->position_b[1] = (m->position_b[1] < low) ? low : high;
+        else
             m->position_b[1] = m->clamp_y;
         m->base_position[0] = m->position_b[0] - m->delta_a[0];
         m->base_position[1] = m->position_b[1] - m->delta_a[1];
@@ -246,8 +277,8 @@ extern "C" __declspec(noinline) int __stdcall EnemyDataStart_0040dc80(
     {
         float x = m->position_b[0] + m->clamp_x * data_00470b0c;
         float y = m->position_b[1] + m->clamp_y * data_00470b0c;
-        if (x < data_00470b3c || x > data_00470b40
-                || y < data_00470b38 || y > data_00470b04) {
+        if (x < bounds_low_x_00470b3c || x > bounds_high_x_00470b40
+                || y < bounds_low_y_00470b38 || y > bounds_high_y_00470b04) {
             if (!(raw_flags & 0x200))
                 *reinterpret_cast<unsigned int*>(&flags) |= 0x100u;
         }
@@ -313,7 +344,16 @@ extern "C" __declspec(noinline) int __stdcall EnemyDataStart_0040dc80(
         if (slot != 0) {
             BulletEntity_ClearResourceList_0040c6e0(enemy);
             EclRecord_Reset_0040c730(enemy);
-            BindName_00450700("", static_cast<ScriptVm_00450560*>(m->script_vm));
+            // Rebind the script entry: resolve the name the VM owns and
+            // store it into the current frame (retail 0x0040E2A2).
+            {
+                ScriptVm_00450560* vm =
+                    static_cast<ScriptVm_00450560*>(m->script_vm);
+                ScriptTable_00450470* table = vm->table;
+                int resolved = table->Resolve(vm->name);
+                vm->current->instruction = resolved;
+                vm->current->time = 0;
+            }
             if (EclVm_TickChildren(static_cast<EclChildOwner*>(m->script_vm),
                                    *m->wait_frames) != 0)
                 return -1;
@@ -376,7 +416,7 @@ extern "C" __declspec(noinline) int __stdcall EnemyDataStart_0040dc80(
     // The wait bookkeeping: the fractional and integer frame counts.
     {
         float frames = *m->wait_frames;
-        if (frames >= 1.0f && frames <= 60.0f) {
+        if (frames >= data_00470b68 && frames <= data_00470b64) {
             m->wait_fraction += data_00470afc;
             m->wait_count += 1;
         } else {

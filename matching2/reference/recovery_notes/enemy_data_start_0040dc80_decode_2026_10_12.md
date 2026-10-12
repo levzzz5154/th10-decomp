@@ -179,3 +179,19 @@ expression of the decode's sections:
 
 All are source-level expression work against the decode; the bindings and
 conventions are already in place.
+
+## Growth iteration (2026-10-12, second)
+
+Three fixes landed: the motion paths use the real SetPolar/normalize
+shapes (the orbit path accumulates the rate into the angle and
+renormalizes the speed), the scroll drift reads the three floats at
+0x00491E6C..74, and the wait bookkeeping compares against the bound
+bounds (0x00470B68/0x00470B64) instead of pooled 1.0/60.0 literals. The
+BindName call was replaced with the retail Resolve sequence (resolve the
+VM-owned name, store into the current frame). Body: 1,712 → 1,952.
+
+Remaining: the row-draw loop (269 B), the blink/off-screen machine
+(351 B), and the pickup/score details (111 B). Also: all float constants
+the model reads must be extern-bound homes — the CIL pools private copies
+of any literal (1.0f/60.0f) and the equivalence tool then flags the pooled
+addresses.
