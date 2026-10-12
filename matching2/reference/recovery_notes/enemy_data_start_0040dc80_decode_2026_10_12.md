@@ -110,3 +110,20 @@ establishes the entry ABI) or a caller-inclusive cluster over
 `EnemySpawn_Create_0040cfb0`. The x87 chains (steps 6–8) and the two
 `__ftol2` sites are the parts the compiler will not reorder cheaply; the
 rest is straight-line.
+
+## 2026-10-12: the model-blocking convention detail
+
+The ECL VM callees the body invokes use private register conventions that
+only a native-LTCG context can reproduce: TickChildren 0x44FD10 receives
+the owner in EDI (per `msvc/include/th10/script/ecl_children.hpp`), the
+interpreter 0x44E1A0 enters in EAX, and BindName 0x450700 is reached with
+the VM in ECX and no visible name argument at the call site (0x0040E1EB) —
+the name comes from the VM's own state. A plain C++ model calling the
+recovered `__stdcall` declarations would pass arguments on the stack and
+crash at runtime; the `cl_0040dc70` cluster has no thunks establishing
+those conventions yet.
+
+Extending that cluster with ECL-VM convention thunks plus the 671-instruction
+model is the remaining work; the struct extension and decode above are
+complete, so the next session starts from the call-site analysis, not the
+semantics.
