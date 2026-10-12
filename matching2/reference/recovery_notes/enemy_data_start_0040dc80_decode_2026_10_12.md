@@ -269,3 +269,15 @@ Remaining ~268 bytes: the row-loop structure (~127 B), the sweep argument
 layout (68 B), and small desync details. Every callee, binding and
 convention is in place; the work is pure control-flow expression in the
 established measure loop.
+
+## State close-out (2026-10-12, model at 2,144/2,412)
+
+The LCS diff at this state shows the model contains all the retail
+content but laid out in a different block order — the +264/-152 style
+opcodes are moved blocks, not missing code. The genuinely missing pieces
+are the sweep argument layout (the retail call pushes the result buffer,
+center and manager with ECX = 0 before the sweep; the model passes 0, 0
+for the last two), the `div 5` gate's second pass (the model clamps
+before the imul where retail recomputes after), and small desync details.
+The next lever remains the c2 block-order trace: with the content
+complete, the remaining 268 bytes are placement, not semantics.
