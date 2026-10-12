@@ -335,3 +335,15 @@ but block placement driven by the basic-block order c2 chose before
 allocation. The next lever is comparing the basic-block ORDER (BLOCK
 sequence in this trace) against retail's, which is a structural read of
 the trace, not an allocator change.
+
+## Allocator trace analysis (2026-10-12, second)
+
+The allocator's homes align with retail's (ESI = the ScriptVm load at
+priority 139, EBX = the mode word at priority 42, EDI collecting the
+short-lived candidates) — the 268-byte gap is NOT register
+misassignment. The decisive count: the model emits **87 basic blocks**
+against retail's **57** — the model splits ~30 blocks. The splits come
+from the source-level structure (the extra conditionals in the helper
+expressions and the guard-internal arrangements). Merging those 30 block
+pairs in the source is the concrete lever; each merged pair is a small
+structural edit verified by re-measuring.
