@@ -368,10 +368,10 @@ shutdown:
         data_00474f70.Append(const_cast<char*>(kLogSeparator));
         if (data_00476f74 != 0)
             data_00466234(0, data_00474f70.text, kLogTitle, 0x10);
-        const char* text = data_00474f70.text;
-        const char* end = text;
+        const char* end = data_00474f70.text + 1;
         while (*end != 0) ++end;
-        File_WriteWholeFile_0044b540(kLogPath, text, end - text);
+        File_WriteWholeFile_0044b540(
+            kLogPath, data_00474f70.text, end - data_00474f70.text);
     }
     {
         unsigned char* section = data_00492274[0];
