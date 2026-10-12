@@ -115,3 +115,24 @@ gets ESI(6).  The trace is saved at
 With the zero-store variant the model compiles to 553 bytes — still 3 over
 the 550-byte extent (the mandatory 3-byte `xor ecx,ecx` for the resolver
 dummy).  Both levers must land together.
+
+
+## Source-lever exhaustion (2026-10-12, final)
+
+All candidate source shapes measured against the 550-byte extent:
+
+| variant | bytes | note |
+| --- | --- | --- |
+| original (PushWord zero) | 557 | +7 |
+| zero-store (direct store) | **553** | +3, best |
+| 2nd assign at loop top | 582 | +32 |
+| 2nd assign at loop end | 566 | +16 |
+| index-based store (no dest ptr) | 566 | +16 |
+
+The zero-store variant at 553 is the floor: the mandatory 3-byte `xor
+ecx,ecx` for the resolver's dead first argument cannot be removed (the
+4-arg `__fastcall` ABI places `frame` in EDX as retail requires), and the
+300-cost EBX limitation persists (the descriptor is forced to EBX while
+retail puts it in ESI).  Both levers require c2 to make the same
+interprocedural register-ABI and allocation choices it made in the retail
+whole-program build; the single-caller model link does not reproduce them.
