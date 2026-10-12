@@ -792,7 +792,7 @@
       "model": []
     },
     {
-      "class": "evaluation-order",
+      "class": "block-order",
       "offset": "0x1942",
       "retail": [],
       "model": [
@@ -1436,7 +1436,7 @@
       ]
     },
     {
-      "class": "evaluation-order",
+      "class": "code-shape",
       "offset": "0x271c",
       "retail": [],
       "model": [
@@ -1456,7 +1456,7 @@
       ]
     },
     {
-      "class": "evaluation-order",
+      "class": "code-shape",
       "offset": "0x2720",
       "retail": [
         "jle L+0x2758",

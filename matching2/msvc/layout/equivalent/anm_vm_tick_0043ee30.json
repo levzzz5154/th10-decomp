@@ -238,7 +238,7 @@
       "model": []
     },
     {
-      "class": "evaluation-order",
+      "class": "code-shape",
       "offset": "0xf5f",
       "retail": [
         "mov esi,eax",

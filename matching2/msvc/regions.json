@@ -64292,20 +64292,8 @@
       "layout": "layout/equivalent/name_entry_update_00432cb0.json"
     },
     {
-      "region": "asm_FUN_0041efa0_0041efa0",
-      "layout": "layout/equivalent/laser_circle_split_0041efa0.json"
-    },
-    {
-      "region": "asm_FUN_0041dd80_0041dd80",
-      "layout": "layout/equivalent/laser_circle_trim_0041dd80.json"
-    },
-    {
-      "region": "asm_FUN_0042cdf0_0042cdf0",
-      "layout": "layout/equivalent/title_dispatcher_0042cdf0.json"
-    },
-    {
-      "region": "asm_FUN_00433ef0_00433ef0",
-      "layout": "layout/equivalent/ui_final_runtime_00433ef0.json"
+      "region": "asm_FUN_0040dc80_0040dc80",
+      "layout": "layout/equivalent/enemy_data_start_0040dc80.json"
     },
     {
       "region": "asm_GameMain_00438ad0",
@@ -64314,6 +64302,22 @@
     {
       "region": "asm_FUN_00439890_00439890",
       "layout": "layout/equivalent/d3d_initialize_00439890.json"
+    },
+    {
+      "region": "asm_FUN_00433ef0_00433ef0",
+      "layout": "layout/equivalent/ui_final_runtime_00433ef0.json"
+    },
+    {
+      "region": "asm_FUN_0042cdf0_0042cdf0",
+      "layout": "layout/equivalent/title_dispatcher_0042cdf0.json"
+    },
+    {
+      "region": "asm_FUN_0041efa0_0041efa0",
+      "layout": "layout/equivalent/laser_circle_split_0041efa0.json"
+    },
+    {
+      "region": "asm_FUN_0041dd80_0041dd80",
+      "layout": "layout/equivalent/laser_circle_trim_0041dd80.json"
     }
   ]
 }

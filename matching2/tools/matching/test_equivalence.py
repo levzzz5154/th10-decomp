@@ -1,7 +1,8 @@
 import unittest
 
 from matching2.tools.matching.equivalence import (
-    EquivalenceError, absolute_sites, apply_bodies, canonical_sib, compare_tail, find_differences, normalize)
+    CODE_SHIFT, EquivalenceError, absolute_sites, apply_bodies, canonical_sib, compare_tail, find_differences, gate,
+    normalize)
 from matching2.tools.matching.progress import recovered, summarize
 
 
@@ -89,10 +90,44 @@ class EquivalenceTests(unittest.TestCase):
         delta = 0x0fc00000
         first = b'\xa1' + (0x406030).to_bytes(4, 'little') + b'\xe8' + (0x1000).to_bytes(4, 'little') + b'\xc3'
         second = (b'\xa1' + (0x406030 + delta).to_bytes(4, 'little')
-                  + b'\xe8' + ((0x1000 - delta) & 0xffffffff).to_bytes(4, 'little') + b'\xc3')
-        self.assertEqual(absolute_sites(first, second, delta), [1])
+                  + b'\xe8' + ((0x1000 + CODE_SHIFT - delta) & 0xffffffff).to_bytes(4, 'little') + b'\xc3')
+        self.assertEqual(absolute_sites(first, second, delta), ([1], []))
         with self.assertRaises(EquivalenceError):
             absolute_sites(first, first[:1] + (0x406031 + delta).to_bytes(4, 'little') + first[5:], delta)
+
+    def test_stored_address_of_a_bound_function_is_told_from_a_call_to_it(self):
+        delta = 0x0fc00000
+        first = b'\x68' + (0x3a3a0).to_bytes(4, 'little') + b'\xc3'
+        second = b'\x68' + (0x3a3a0 + CODE_SHIFT).to_bytes(4, 'little') + b'\xc3'
+        self.assertEqual(absolute_sites(first, second, delta), ([], [1]))
+
+    def test_gate_rejects_other_callees_and_addresses_whatever_is_listed(self):
+        retail = rows(0x401000, (5, 'call 0x44b8e0'), (5, 'push 0x43a3a0'), (1, 'ret'))
+        self.assertEqual(gate({}, retail, retail, [], []), [])
+        model = rows(0x401000, (5, 'call 0x44b810'), (5, 'push 0x3a3a0'), (1, 'ret'))
+        hunk = {'offset': '0x0', 'retail': ['call 0x44b8e0'], 'model': ['call 0x44b810']}
+        reasons = '\n'.join(gate({}, retail, model, [hunk], ['code-shape']))
+        self.assertIn('the model calls what retail does not: 0x44b810', reasons)
+        self.assertIn('retail calls what the model does not: 0x44b8e0', reasons)
+        self.assertIn('retail names what the model does not: 0x43a3a0', reasons)
+        self.assertIn('replaces 0x44b8e0 by 0x44b810', reasons)
+
+    def test_gate_holds_tie_break_classes_to_the_same_flow_and_all_classes_to_a_budget(self):
+        body = [(2, 'mov eax,ecx')] * 30
+        retail = rows(0x401000, (2, 'call ebx'), *body, (1, 'ret'))
+        model = rows(0x401000, (2, 'call ebp'), *body, (1, 'ret'))
+        renamed = {'offset': '0x0', 'retail': ['call ebx'], 'model': ['call ebp']}
+        self.assertEqual(gate({}, retail, model, [renamed], ['register-choice']), [])
+        dropped = {'offset': '0x0', 'retail': ['call ebx'], 'model': []}
+        self.assertIn('changes calls or branches', gate({}, retail, model, [dropped], ['evaluation-order'])[0])
+        wide = {'offset': '0x2', 'retail': ['mov eax,ecx'] * 5, 'model': ['mov eax,edx'] * 5}
+        self.assertEqual(gate({}, retail, model, [wide], ['register-choice']), [])
+        self.assertIn('structural differences cover 5 of 32', gate({}, retail, model, [wide], ['code-shape'])[0])
+        # Unclassified differences, as when recording, count as structural.
+        self.assertIn('structural differences', gate({}, retail, model, [wide], None)[0])
+        self.assertIn('recorded differences cover 11 of 32',
+                      '\n'.join(gate({}, retail, model, [dict(wide, retail=wide['retail'] * 2 + ['nop'])],
+                                     ['register-choice'])))
 
     def test_bodies_replace_only_their_regions(self):
         regions = [{'name': 'a', 'address': '0x401000', 'size': 2}, {'name': 'b', 'address': '0x401002', 'size': 3}]

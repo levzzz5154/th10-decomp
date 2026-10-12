@@ -23,7 +23,22 @@ compares it with the exact bytes instruction by instruction. The executable
 `make` produces contains the C++ build of these regions; `make EXACT=1` keeps
 the assembly and produces the bit-identical image. Base/index swaps are accepted
 by rule and counted; every other difference must be listed verbatim in the
-layout with a reviewed class, and any drift fails the build. Progress reports
+layout with a reviewed class, and any drift fails the build. Listing a
+difference does not make it acceptable: whatever the layout records, the build
+fails when the C++ calls a function or names an image address that retail does
+not (or the reverse), when a difference swaps one callee for another, when a
+difference of a tie-break class changes calls or branches, or when the
+differences exceed their budget (structural classes, `block-order`,
+`branch-target` and `code-shape`, over an eighth of the region's instructions;
+all classes over a third). A model outside those limits is a draft: its layout
+stays under `layout/equivalent/` without an `equivalent_recoveries` entry, it is
+not built into the executable and not counted, and
+`python3 matching2/tools/matching/equivalence.py --layout layout/equivalent/<name>.json`
+prints its differences and what keeps it out. The gate does not prove that a
+call site loads the registers its callee expects, so a model's link context
+must carry the callee bodies that give retail's private conventions, and a
+recorded difference that touches the instructions feeding a call needs a
+reviewer's eye. Progress reports
 them on their own line and gives the byte-exact share separately.
 `python3 matching2/tools/matching/equivalence.py --record` prints the current
 differences when preparing a layout.

@@ -1,5 +1,14 @@
 # Circle laser trim 0x0041DD80: equivalent recovery (2026-10-12)
 
+**Status (2026-10-12, later the same day): registered equivalent recovery, 260 of 345 instructions identical.**
+The model itself is unchanged (it is the `laser_cut` cluster's context body, which exact
+clusters depend on). What changed is the review of its 57 differences hunk by hunk instead of
+counting every one as structural: 20 register-choice, 13 evaluation-order, 10 stack-slot-order,
+1 operand-order, and 13 structural (11 code-shape, 2 branch-target), which is within the 12.5%
+budget. No call, callee or named address differs. This is the weakest of the registered
+recoveries and the first candidate for a rewrite in its own source like the circle split.
+Everything below this paragraph describes the earlier parked draft.
+
 The in-cluster candidate (`layout/ltcg/laser_cut/circle_trim.cpp`, already an
 anchor body of the `laser_cut` cluster) is now a registered equivalent
 recovery (`layout/equivalent/laser_circle_trim_0041dd80.json`): 1,238 of

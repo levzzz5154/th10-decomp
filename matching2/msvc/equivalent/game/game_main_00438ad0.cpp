@@ -1,400 +1,346 @@
-// 0x00438AD0..0x0043900C: the game's WinMain. Everything here is one
-// straight line per phase; the frame loop in the middle owns the window
-// message pump, the device-lost recovery and the three exits (restart,
-// in-game quit, error).
+// 0x00438AD0: the game's WinMain.
 //
-// Equivalent recovery: the COM-style device calls and the two x87 timing
-// stores compile to the retail shapes; the allocator null checks and the
-// crash-log branches are recorded differences.
+// Start-up (replay table, critical sections, single-instance check, the
+// configuration and the start-up dialog), then one pass per program run:
+// Direct3D, the window, the sound thread, the device, the animation manager
+// and the frame loop, followed by that pass's teardown. A pass that ends with
+// exit code 2 (an option that needs a restart was changed) pumps messages for
+// sixty rounds and runs again; any other exit writes the configuration and
+// the log and leaves.
+//
+// Written from the retail instructions block by block. It is linked against
+// the recovered sources of the routines it calls (the layout's
+// context_sources), because the whole-program link passes most of their
+// arguments in registers it picks from their bodies.
 #include "th10/game/game_main_00438ad0.hpp"
 #include "th10/platform/text_log.hpp"
-
-
+#include "th10/platform/thread_sync.hpp"
+#include "th10/render/d3d_destroy_00438880.hpp"
+#include <string.h>
 
 extern "C" {
-// KERNEL32 slots.
-extern void* (__stdcall* data_004660b8)(void* section);          // InitializeCriticalSection
-extern void* (__stdcall* data_004660bc)(void* section);          // DeleteCriticalSection
-// KERNEL32 slots (continued).
-extern void* (__stdcall* data_00466118)(void* security, unsigned stack,
-    unsigned (__stdcall* entry)(void*), void* parameter, unsigned flags, unsigned* thread_id);
-// USER32 slots.
-extern int   (__stdcall* data_004661f0)(void* window);           // SetForegroundWindow
-extern int   (__stdcall* data_004661f4)(void* window, int x, int y, int w, int h, int repaint);
-extern int   (__stdcall* data_00466220)(void* window);           // DestroyWindow
-extern void* (__stdcall* data_00466224)(void* cursor);           // SetCursor
-extern int   (__stdcall* data_0046622c)(const void* message);    // TranslateMessage
-extern int   (__stdcall* data_00466230)(int show);               // ShowCursor
-extern int   (__stdcall* data_00466234)(void* window, const char* text,
-                                         const char* caption, unsigned type);
-extern int   (__stdcall* data_0046623c)(void* message, void* window,
-                                        unsigned low, unsigned high, unsigned remove);
-extern int   (__stdcall* data_0046624c)(void* window, int command);
-extern int   (__stdcall* data_00466254)(const void* message);    // DispatchMessageA
-extern unsigned int (__stdcall* data_00466258)(unsigned action, void* parameter,
-                                               void* ini_file, unsigned update);
-extern int (__stdcall* data_00466264)(void* instance, const char* template_name,
-                                      void* window, void* dialog_proc, void* parameter);
+__declspec(dllimport) void __stdcall InitializeCriticalSection(CriticalSection*);
+__declspec(dllimport) void __stdcall DeleteCriticalSection(CriticalSection*);
+__declspec(dllimport) void* __stdcall CreateThread(void* security, unsigned int stack_size,
+    unsigned long (__stdcall* entry)(void*), void* parameter, unsigned int flags,
+    unsigned int* thread_id);
+__declspec(dllimport) int __stdcall DialogBoxParamA(void* instance, const char* dialog,
+    void* parent, int (__stdcall* procedure)(void*, unsigned int, unsigned int, long),
+    long parameter);
+__declspec(dllimport) int __stdcall PeekMessageA(Message_00438ad0* message, void* window,
+    unsigned int first, unsigned int last, unsigned int remove);
+__declspec(dllimport) int __stdcall TranslateMessage(const Message_00438ad0* message);
+__declspec(dllimport) long __stdcall DispatchMessageA(const Message_00438ad0* message);
+__declspec(dllimport) int __stdcall SetForegroundWindow(void* window);
+__declspec(dllimport) int __stdcall ShowWindow(void* window, int command);
+__declspec(dllimport) int __stdcall MoveWindow(void* window, int x, int y, int width,
+    int height, int repaint);
+__declspec(dllimport) int __stdcall DestroyWindow(void* window);
+__declspec(dllimport) int __stdcall ShowCursor(int show);
+__declspec(dllimport) void* __stdcall SetCursor(void* cursor);
+__declspec(dllimport) int __stdcall MessageBoxA(void* window, const char* text,
+    const char* caption, unsigned int type);
+__declspec(dllimport) int __stdcall SystemParametersInfoA(unsigned int action,
+    unsigned int parameter, void* data, unsigned int update);
 
-// The globals the body reads or writes.
-extern void* data_004924f0;                 // the game window
-extern unsigned int data_004924f4;          // quit requested
-extern void* data_004924f8;                 // the instance copy
-extern void* data_00491be0;                 // the replay buffer (0xA004 dwords)
-extern void* data_00491be4;                 // the D3D resource manager
-extern void* data_00491c10;                 // the animation manager storage
-extern void* data_00491c28;                 // the instance copy
-extern void* data_00491c2c;                 // the Direct3D object
-extern void* data_00491c30;                 // the Direct3D device
-extern void* data_00491d0c;                 // the device reset parameters
-extern unsigned char data_00491d65;         // the startup dialog ran
-extern unsigned int data_00491d78;          // configuration flags
-extern void* data_00491fd4;                 // the application mode
-extern unsigned int data_00491fe8;          // the MIDI handle
-extern unsigned int data_00491ff4;          // runtime flags (0x10: device lost)
-extern unsigned int data_0049251c;          // the system mouse speed 1
-extern unsigned int data_00492520;          // the system mouse speed 2
-extern unsigned int data_00492524;          // the system mouse speed 3
-extern double data_00492528;                // the frame-time doubles
-extern double data_00492530;
-extern double data_00492538;
-extern double data_00492540;
-extern unsigned char data_00492504;         // the cursor-clip marker
-extern void* data_004977a8;                 // the music thread handle
-extern void* data_004977b4;                 // the sound worker stage
-extern void* data_004977b8;                 // the sound manager owner
-extern void* data_004977b0;                 // the sound thread parameter block
-extern TextLog_0044b810 data_00474f70;      // the 8 KiB diagnostic log
-extern void* data_00476f70;                 // the log-owning module marker
-extern unsigned char data_00476f74;         // log to the file too
-extern void* data_00491d48;                 // the 0x34-byte config tail
-extern void* data_00491c70;                 // the music worker parameter
+void __cdecl free(void* block);
+int __stdcall asm_WINNLSEnableIME_0045232c(void* window, int enable);
+void* __stdcall Direct3DCreate9_00452176(unsigned int sdk_version);
+int __cdecl Startup_InstanceCheck_00439ff0();
+int __stdcall asm_FUN_00439890_00439890();          // create the Direct3D device
+double __cdecl FrameTimer_GetDelta(void);
+int __stdcall App_RegisterTasks_00420470();
+int __stdcall ShutdownMidi_0043ae20(MidiSequencer* sequencer);
+void __stdcall CleanupMidi_0043a910(MidiSequencer* sequencer);
+
+// Log lines (Shift-JIS).
+extern char data_0046f77c[];    // "Touhou action log ------ ..."
+extern char data_0046f6a0[];    // "the Direct3D object could not be created for some reason"
+extern char data_0046f6f0[];    // "an option that needs a restart was changed, restarting"
+extern char data_0046f7cc[];    // "------ ..."
 }
 
-// 0x00420470: register the application tasks.
-extern "C" int __stdcall App_RegisterTasks_00420470();
-// 0x00439390: one frame; 0x00439890: the D3D device init.
-extern "C" int __stdcall GameFrameAdvance_00439390(void* window_slot);
-extern "C" int __stdcall D3DInitialize_00439890();
-// 0x00439540: the frame clock delta; 0x00439D20: apply device defaults.
-extern "C" double __cdecl FrameTimer_GetDelta_00439540();
-extern "C" void __stdcall Renderer_ApplyDeviceDefaults_00439d20();
-// 0x004392E0, 0x00439730: the settings and the window.
-extern "C" int __stdcall SaveSystemSettingsRetail_004392e0(void);
-extern "C" int __fastcall CreateGameWindow_00439730(
-    void* instance, void* edx_dummy);
-// 0x00439FF0: the single-instance mutex check; 0x0043A1C0: the checksum.
-extern "C" int __stdcall Startup_InstanceCheck_00439ff0();
-extern "C" int __stdcall ComputeExecutableChecksum_0043a1c0();
-// 0x0043CCF0: the sound stream worker the music thread runs; the thread
-// entry ignores its parameter and reads the manager globals.
-extern "C" void __stdcall StartAddress_0043ccf0();
-// MIDI teardown.
-extern "C" int __stdcall ShutdownMidi_0043ae20(int handle);
-extern "C" int __stdcall CleanupMidi_0043a910(int handle);
-// The sound worker pair and the wave manager.
-extern "C" void __stdcall SoundWorker_Stop_0043cc40();
-extern "C" void __stdcall WaveSoundManager_Cleanup_0043d120();
-extern "C" int __stdcall WaveSoundManager_ProcessCommands_0043ddf0(void* manager);
-// The animation manager storage and the D3D resource manager.
-// 0x00445900: the animation storage constructor, this in ECX. The model
-// reaches it through the __fastcall this-shim so no C++ object machinery
-// (and no exception cleanup table) wraps the call.
-extern "C" void __fastcall AnmStorage_Construct_00445900(void* storage);
-// 0x00446220: the animation storage destructor, this in ECX.
-extern "C" void __fastcall AnmStorage_Destroy_00446220(void* storage);
+int __stdcall SaveSystemSettingsRetail_004392e0();
+int __stdcall ComputeExecutableChecksum();
+int __stdcall StartupDialog_Procedure(void* dialog, unsigned int message,
+                                      unsigned int parameter, long detail);
+void __stdcall StartAddress();                       // the sound thread
+short __stdcall Joystick_Probe_0044a0c0();
+void __stdcall Input_NormalizeKeyboardState();
+int __stdcall GameFrameAdvance_00439390(GameFrame_00439390* frame);
+void __stdcall ReleaseAll_00438a30(Holder_00438a30* holder);
+extern "C" SpriteStateCache* __cdecl Renderer_ApplyDeviceDefaults(void);
 
-// 0x00438880: the D3D resource manager destructor (this in ECX).
-struct D3DResourceManager_00438880 {
-    ~D3DResourceManager_00438880();
+int __fastcall CreateGameWindow_00439730(void* instance);
+int __stdcall File_WriteWholeFile(const char* path, const void* buffer, unsigned long size);
+
+struct GameApp_00420870 {
+    __declspec(noinline) int LoadConfig(const char* path);
 };
-extern "C" void* __stdcall D3DResourceManager_Initialize_00449aa0();
-extern "C" void* __stdcall Direct3DCreate9_00452176(unsigned sdk_version);
-// Input probes.
-extern "C" unsigned short __stdcall Joystick_Probe_0044a0c0();
-extern "C" void __stdcall Input_NormalizeKeyboardState_0044b080();
-// Files and logs.
-extern "C" int __stdcall File_WriteWholeFile_0044b540(
-    const char* path, const void* data, unsigned length);
-extern "C" void __stdcall WINNLSEnableIME_0045232c(void* window, int enabled);
-extern "C" void* __cdecl operator_new_00452493(unsigned size);
-extern "C" void __cdecl free_004524a1(void* memory);
-// 0x00438A30: release every entity list of the animation manager.
-extern "C" void __stdcall ReleaseAll_00438a30(void* holder);
-// 0x00420870: the configuration; 0x00420270: the application shutdown.
-extern "C" int __stdcall GameApp_LoadConfig_00420870(const char* path);
-// 0x00420270: the application shutdown (this in ECX = 0x491C28).
+// The two diagnostic-log writers keep their own view of the log object.
+struct TextLog_0044b8e0 {
+    char text[0x2000];
+    char* cursor;
+    unsigned char dirty;
+    char* AppendLine(char* format, ...);
+};
+// The routines that build and tear down the two managers, likewise.
+struct D3DResourceManager_00449AA0 {
+    unsigned char lists[0x48];
+    __declspec(noinline) void Initialize();
+};
+struct AnimationManagerStorage_00446220 {
+    __declspec(noinline) ~AnimationManagerStorage_00446220();
+};
+// The animation manager: built by 0x00445900, torn down by 0x00446220.
+struct AnmStorageConstruct_00445900 {
+    unsigned char storage[0x732460];
+    AnmStorageConstruct_00445900();
+    ~AnmStorageConstruct_00445900() {
+        reinterpret_cast<AnimationManagerStorage_00446220*>(this)->
+            ~AnimationManagerStorage_00446220();
+    }
+};
+typedef AnmStorageConstruct_00445900 AnimationManager_00438ad0;
 struct App_00420270 {
-    int Shutdown();
+    __declspec(noinline) int Shutdown();
+};
+struct SoundWorkerPair_0043cc40 {
+    __declspec(noinline) int Stop();
+};
+struct WaveSoundManager {
+    __declspec(noinline) unsigned int ProcessCommands();
+    __declspec(noinline) int Cleanup();
 };
 
-// The startup dialog (resource 0xCB) and its four-argument procedure.
-struct StartupDialogArgs_00438ad0;
-extern "C" void* __stdcall StartupDialog_Procedure(
-    void* window, unsigned message, unsigned parameter, long detail);
+// The table of loaded replays: 0x2800 entries and whether any is in use.
+struct ReplayTable_00438ad0 {
+    void* entries[0x2800];
+    int in_use;
 
-struct MSG_00438ad0 {
-    void* window;
-    unsigned message;
-    unsigned w_param;
-    unsigned l_param;
-    unsigned time;
-    int point_x;
-    int point_y;
+    ReplayTable_00438ad0() {
+        memset(this, 0, sizeof(*this));
+        in_use = 0;
+    }
+    ~ReplayTable_00438ad0() {
+        if (in_use != 0) {
+            for (int index = 0; index < 0x2800; ++index) {
+                if (entries[index] != 0)
+                    free(entries[index]);
+            }
+        }
+    }
 };
 
-// The retail string constants (bound to their addresses in the layout).
-extern "C" const char kReplayLogBanner[];
-extern "C" const char kD3dCreateFailed[];
-extern "C" const char kRestartRequired[];
-extern "C" const char kLogSeparator[];
-extern "C" const char kLogPath[];
-extern "C" const char kLogTitle[];
-extern "C" const char kConfigPath[];
-
-// The Direct3D device slots the body calls: 3 TestCooperativeLevel,
-// 8 Release, 16 Reset (offset 0x40).
-struct DeviceVtable_00438ad0 {
-    void* slots_000[3];
-    long (__stdcall* test_cooperative_level)(void* device);
-    void* slots_010[4];
-    unsigned long (__stdcall* release)(void* device);
-    void* slots_020[6];
-    long (__stdcall* reset)(void* device, void* parameters);
+struct D3DResourceManager_00438ad0 {
+    unsigned char lists[0x48];
+    D3DResourceManager_00438ad0() {
+        reinterpret_cast<D3DResourceManager_00449AA0*>(this)->Initialize();
+    }
+    ~D3DResourceManager_00438ad0() {
+        reinterpret_cast<D3DResourceManager_Destroy_00438880*>(this)->
+            ~D3DResourceManager_Destroy_00438880();
+    }
 };
 
-// The seven one-shot subsystem objects (0x492274 + 0x18·i) the main loop
-// enters and leaves critical sections on; the retail image owns them.
-extern "C" unsigned char data_00492274[7][0x18];
+struct MidiOwner_00438ad0 {
+    ~MidiOwner_00438ad0() { CleanupMidi_0043a910(reinterpret_cast<MidiSequencer*>(this)); }
+};
+
+// The sound manager at 0x00492590, as far as start-up reaches it.
+struct SoundManager_00438ad0 {
+    unsigned char reserved_0000[0x5218];
+    void* thread;                   // +0x5218
+    void* second_thread;            // +0x521C
+    unsigned int thread_id;         // +0x5220
+    int stop_stage;                 // +0x5224
+    void* window;                   // +0x5228
+    unsigned char reserved_522c[0x52D0 - 0x522C];
+
+    void Start(void* owner) {
+        memset(this, 0, sizeof(*this));
+        window = owner;
+        thread = CreateThread(0, 0,
+            reinterpret_cast<unsigned long (__stdcall*)(void*)>(&StartAddress),
+            this, 0, &thread_id);
+    }
+    void Stop() {
+        stop_stage = 2;
+        reinterpret_cast<SoundWorkerPair_0043cc40*>(this)->Stop();
+        reinterpret_cast<WaveSoundManager*>(this)->Cleanup();
+    }
+};
+typedef char SoundManagerSize_00438ad0[sizeof(SoundManager_00438ad0) == 0x52D0 ? 1 : -1];
+
+extern "C" {
+extern ReplayTable_00438ad0* data_00491be0;
+extern D3DResourceManager_00438ad0* data_00491be4;
+extern AnimationManager_00438ad0* data_00491c10;
+extern Application data_00491c28;
+extern MainWindow data_004924f0;
+extern SoundManager_00438ad0 data_00492590;
+extern TextLog_0044b810 data_00474f70;
+extern ThreadSynchronization data_00492274;
+}
+
+static inline void PumpMessage(Message_00438ad0* message) {
+    TranslateMessage(message);
+    DispatchMessageA(message);
+}
 
 #pragma code_seg(".text$00438ad0_fn")
 __declspec(noinline) int __stdcall GameMain_00438ad0(
         void* instance, void* previous, char* command_line, int show) {
-    MSG_00438ad0 message;
-    unsigned exit_code = 0;
-    data_004924f8 = instance;
-    // The replay buffer: 0xA000 entry slots plus the length guard.
-    void* replay_buffer = operator_new_00452493(0xA004);
-    if (replay_buffer != 0) {
-        unsigned int* fill = static_cast<unsigned int*>(replay_buffer);
-        for (int words = 0x2801; words != 0; --words)
-            *fill++ = 0;
-        static_cast<unsigned int*>(replay_buffer)[0xA000] = 0;
-    } else {
-        replay_buffer = 0;
-    }
-    data_00491be0 = replay_buffer;
-    {
-        void* (__stdcall* initialize)(void*) = data_004660b8;
-        unsigned char* section = data_00492274[0];
-        for (int count = 7; count != 0; --count, section += 0x18)
-            initialize(section);
-    }
-    data_00474f70.Append(const_cast<char*>(kReplayLogBanner));
-restart_window:
+    Message_00438ad0 message;
+    int exit_code = 0;
+    int index;
+    CriticalSection* section;
+
+    data_004924f0.instance = instance;
+    ReplayTable_00438ad0* replays = new ReplayTable_00438ad0;
+    data_00491be0 = replays;
+    for (section = data_00492274.critical_sections, index = 7; index != 0; --index, ++section)
+        InitializeCriticalSection(section);
+    data_00474f70.Append(data_0046f77c);
+
     if (Startup_InstanceCheck_00439ff0() == -1)
-        goto shutdown;
-    data_00491c28 = instance;
+        goto close_pass;
+    data_00491c28.instance = instance;
     SaveSystemSettingsRetail_004392e0();
-    if (GameApp_LoadConfig_00420870(kConfigPath) != 0) {
-        exit_code = 1;
-        goto shutdown;
+    if (reinterpret_cast<GameApp_00420870*>(&data_00491c28)->LoadConfig("th10.cfg") != 0)
+        goto close_pass;
+    if (data_00491c28.config.flags & 0x100) {
+        // The start-up dialog: "run full screen?"; 6 is its Yes button.
+        data_00491c28.config.field_1d = DialogBoxParamA(instance,
+            reinterpret_cast<const char*>(0xCB), 0, &StartupDialog_Procedure, 0) != 6;
     }
-    if (data_00491d78 & 0x100) {
-        if (data_00466264(instance,
-                reinterpret_cast<const char*>(0xCB), 0,
-                reinterpret_cast<void*>(&StartupDialog_Procedure), 0) != 6)
-            data_00491d65 = 1;
-    }
-    ComputeExecutableChecksum_0043a1c0();
-    // The D3D resource manager and the Direct3D object.
-    {
-        void* d3d_manager = operator_new_00452493(0x48);
-        data_00491be4 = (d3d_manager != 0)
-            ? D3DResourceManager_Initialize_00449aa0() : 0;
-        void* d3d_object = Direct3DCreate9_00452176(0x20);
-        data_00491c2c = d3d_object;
-        if (d3d_object == 0) {
-            data_00474f70.Append(const_cast<char*>(kD3dCreateFailed));
-            goto shutdown;
+    ComputeExecutableChecksum();
+
+    for (;;) {
+        D3DResourceManager_00438ad0* resources = new D3DResourceManager_00438ad0;
+        data_00491be4 = resources;
+        data_00491c28.direct3d = static_cast<Direct3D*>(Direct3DCreate9_00452176(0x20));
+        if (data_00491c28.direct3d == 0) {
+            reinterpret_cast<TextLog_0044b8e0*>(&data_00474f70)->AppendLine(data_0046f6a0);
+            goto close_pass;
         }
-        if (CreateGameWindow_00439730(instance, 0) != 0) {
-            exit_code = 1;
-            goto shutdown;
-        }
-    }
-    {
-        // The sound subsystem: a zeroed 0x14B4 manager at 0x492590, its
-        // owner word, and the streaming thread.
-        unsigned int* sound = reinterpret_cast<unsigned int*>(0x492590);
-        for (int words = 0x14B4 / 4; words != 0; --words) *sound++ = 0;
-        data_004977b8 = data_004924f0;
-        data_004977a8 = data_00466118(0, 0,
-            reinterpret_cast<unsigned (__stdcall*)(void*)>(&StartAddress_0043ccf0),
-            data_00491c70, 0, reinterpret_cast<unsigned*>(&data_004977b0));
-        if (D3DInitialize_00439890() != 0) {
-            exit_code = 1;
-            goto shutdown;
-        }
+        if (CreateGameWindow_00439730(instance) != 0)
+            goto close_pass;
+        data_00492590.Start(data_004924f0.window);
+        if (asm_FUN_00439890_00439890() != 0)
+            goto close_pass;
         Joystick_Probe_0044a0c0();
-        Input_NormalizeKeyboardState_0044b080();
-        // The animation manager storage.
-        void* storage = operator_new_00452493(0x732460);
-        if (storage != 0) {
-            AnmStorage_Construct_00445900(storage);
-            data_00491c10 = storage;
-        } else {
-            data_00491c10 = 0;
+        Input_NormalizeKeyboardState();
+        AnimationManager_00438ad0* animations = new AnimationManager_00438ad0;
+        data_00491c10 = animations;
+        if (!data_00491c28.config.field_1d) {
+            asm_WINNLSEnableIME_0045232c(0, 0);
+            ShowCursor(0);
+            SetCursor(0);
         }
-        if (data_00491d65 == 0) {
-            WINNLSEnableIME_0045232c(0, 0);
-            data_00466230(0);
-            data_00466224(0);
-        }
-        // The frame-time doubles: the default delta first, then the
-        // clock's delta stored to all four homes from the x87 return.
-        data_00492540 = *reinterpret_cast<const double*>(0x470B70);
-        data_00492540 = data_00492538 = data_00492530 = data_00492528 =
-            FrameTimer_GetDelta_00439540();
-        data_004661f0(data_004924f0);
-        int registered = App_RegisterTasks_00420470();
-        if (registered != 0) {
-            if (registered != -1)
+        data_004924f0.previous_time = 0.0;
+        data_004924f0.start_time = data_004924f0.target_time =
+            data_004924f0.frame_time = data_004924f0.previous_time = FrameTimer_GetDelta();
+        SetForegroundWindow(data_004924f0.window);
+
+        exit_code = App_RegisterTasks_00420470();
+        if (exit_code != 0) {
+            if (exit_code != -1)
                 exit_code = 2;
-            goto leave;
-        }
-        data_00492504 = 0xFC;
-        for (;;) {
-            if (data_0046623c(&message, 0, 0, 0, 1) != 0) {
-                data_0046622c(&message);
-                data_00466254(&message);
-            } else {
-                // One game frame; the device-loss recovery on the side.
-                void** device_object = static_cast<void**>(data_00491c30);
-                int frame = (device_object != 0)
-                    ? reinterpret_cast<long (__stdcall**)(void*)>(device_object)[3](data_00491c30)
-                    : 0;
-                if (frame == 0) {
-                    int advanced = GameFrameAdvance_00439390(&data_004924f0);
-                    exit_code = static_cast<unsigned>(advanced);
-                    if (advanced != 0) {
-                        data_00491ff4 &= ~0x10u;
-                        goto leave;
-                    }
-                } else if (frame == 0x88760869 /* D3DERR_DEVICELOST */) {
-                    ReleaseAll_00438a30(data_00491c10);
-                    DeviceVtable_00438ad0* vtable =
-                        *reinterpret_cast<DeviceVtable_00438ad0**>(data_00491c30);
-                    if (vtable->reset(data_00491c30, &data_00491d0c) == 0) {
-                        Renderer_ApplyDeviceDefaults_00439d20();
-                        data_00491fd4 = reinterpret_cast<void*>(3);
-                        data_00491ff4 |= 0x10u;
-                    }
+        } else {
+            exit_code = 0;
+            data_004924f0.cursor_state = 0xFC;
+            while (!data_004924f0.quit) {
+                if (PeekMessageA(&message, 0, 0, 0, 1)) {
+                    PumpMessage(&message);
+                    continue;
+                }
+                long state = data_00491c28.device->TestCooperativeLevel();
+                if (state == 0) {
+                    exit_code = GameFrameAdvance_00439390(
+                        reinterpret_cast<GameFrame_00439390*>(&data_004924f0));
+                    if (exit_code != 0)
+                        break;
+                    data_00491c28.flags &= ~0x10u;
+                } else if (state == 0x88760869) {
+                    // D3DERR_DEVICENOTRESET
+                    ReleaseAll_00438a30(reinterpret_cast<Holder_00438a30*>(data_00491c10));
+                    if (data_00491c28.device->Reset(&data_00491c28.present_parameters) != 0)
+                        break;
+                    Renderer_ApplyDeviceDefaults();
+                    data_00491c28.mode = 3;
+                    data_00491c28.flags |= 0x10;
                 }
             }
-            if (data_004924f4 != 0)
-                break;
         }
-    }
-leave:
-    // Not the restart exit: write the settings tail.
-    if (exit_code != 2)
-        File_WriteWholeFile_0044b540(kConfigPath, &data_00491d48, 0x34);
-shutdown:
-    reinterpret_cast<App_00420270*>(data_00491c28)->Shutdown();
-    if (data_00491be4 != 0) {
-        reinterpret_cast<D3DResourceManager_00438880*>(data_00491be4)->
-            ~D3DResourceManager_00438880();
-        free_004524a1(data_00491be4);
-    }
-    data_00491be4 = 0;
-    while (WaveSoundManager_ProcessCommands_0043ddf0(
-            reinterpret_cast<void*>(0x492590)) == 0) {}
-    SoundWorker_Stop_0043cc40();
-    WaveSoundManager_Cleanup_0043d120();
-    if (data_00491c10 != 0) {
-        AnmStorage_Destroy_00446220(data_00491c10);
-        free_004524a1(data_00491c10);
-    }
-    data_00491c10 = 0;
-    if (data_00491c30 != 0) {
-        DeviceVtable_00438ad0* vtable =
-            *reinterpret_cast<DeviceVtable_00438ad0**>(data_00491c30);
-        vtable->reset(data_00491c30, &data_00491d0c);
-        if (data_00491c30 != 0) {
-            vtable = *reinterpret_cast<DeviceVtable_00438ad0**>(data_00491c30);
-            vtable->release(data_00491c30);
+
+        reinterpret_cast<App_00420270*>(&data_00491c28)->Shutdown();
+        delete data_00491be4;
+        data_00491be4 = 0;
+        while (reinterpret_cast<WaveSoundManager*>(&data_00492590)->ProcessCommands() != 0) {
         }
-        data_00491c30 = 0;
-    }
-    if (data_00491c2c != 0) {
-        DeviceVtable_00438ad0* vtable =
-            *reinterpret_cast<DeviceVtable_00438ad0**>(data_00491c2c);
-        vtable->release(data_00491c2c);
-        data_00491c2c = 0;
-    }
-    if (data_004924f0 != 0) {
-        data_0046624c(data_004924f0, 0);
-        data_004661f4(data_004924f0, 0, 0, 0, 0, 0);
-        data_00466220(data_004924f0);
-        data_004924f0 = 0;
-    }
-    data_00466230(1);
-    if (exit_code == 2) {
-        // The restart-required exit: a fresh log, IME back on if the
-        // dialog never ran, and a 60-frame message pump before the
-        // window pass restarts.
-        data_00476f70 = &data_00474f70;
-        data_00474f70.text[0] = 0;
-        data_00474f70.Append(const_cast<char*>(kRestartRequired));
-        if (data_00491d65 == 0)
-            WINNLSEnableIME_0045232c(0, 1);
-        for (int frames = 0x3C; frames != 0; --frames) {
-            if (data_0046623c(&message, 0, 0, 0, 1) != 0) {
-                data_0046622c(&message);
-                data_00466254(&message);
+close_pass:
+        data_00492590.Stop();
+        delete data_00491c10;
+        data_00491c10 = 0;
+        if (data_00491c28.device != 0) {
+            data_00491c28.device->Reset(&data_00491c28.present_parameters);
+            if (data_00491c28.device != 0) {
+                data_00491c28.device->Release();
+                data_00491c28.device = 0;
             }
         }
-        goto restart_window;
-    }
-    File_WriteWholeFile_0044b540(kConfigPath, &data_00491d48, 0x34);
-    if (data_00491fe8 != 0) {
-        ShutdownMidi_0043ae20(data_00491fe8);
-        if (data_00491fe8 != 0)
-            CleanupMidi_0043a910(data_00491fe8);
-        data_00491fe8 = 0;
-    }
-    if (data_00476f70 != &data_00474f70) {
-        data_00474f70.Append(const_cast<char*>(kLogSeparator));
-        if (data_00476f74 != 0)
-            data_00466234(0, data_00474f70.text, kLogTitle, 0x10);
-        const char* end = data_00474f70.text + 1;
-        while (*end != 0) ++end;
-        File_WriteWholeFile_0044b540(
-            kLogPath, data_00474f70.text, end - data_00474f70.text);
-    }
-    {
-        unsigned char* section = data_00492274[0];
-        for (int count = 7; count != 0; --count, section += 0x18)
-            data_004660bc(section);
-    }
-    // The system mouse speeds and the IME state as the dialog left them.
-    unsigned int (__stdcall* set_parameter)(unsigned, void*, void*, unsigned) =
-        data_00466258;
-    set_parameter(0x11, &data_0049251c, 0, 2);
-    set_parameter(0x55, &data_00492520, 0, 2);
-    set_parameter(0x56, &data_00492524, 0, 2);
-    WINNLSEnableIME_0045232c(0, 1);
-    // The replay buffer and its entries.
-    if (data_00491be0 != 0) {
-        unsigned int count = static_cast<unsigned int*>(data_00491be0)[0xA000];
-        unsigned int** entries = reinterpret_cast<unsigned int**>(data_00491be0);
-        for (unsigned int index = 0; index < 0x2800; ++index) {
-            if (entries[index] != 0)
-                free_004524a1(entries[index]);
+        if (data_00491c28.direct3d != 0) {
+            data_00491c28.direct3d->Release();
+            data_00491c28.direct3d = 0;
         }
-        free_004524a1(data_00491be0);
+        if (data_004924f0.window != 0) {
+            ShowWindow(data_004924f0.window, 0);
+            MoveWindow(data_004924f0.window, 0, 0, 0, 0, 0);
+            DestroyWindow(data_004924f0.window);
+            data_004924f0.window = 0;
+        }
+        ShowCursor(1);
+        if (exit_code != 2)
+            break;
+
+        // Start the log over for the next run.
+        TextLog_0044b810* log = &data_00474f70;
+        log->cursor = log->text;
+        log->text[0] = 0;
+        log->Append(data_0046f6f0);
+        if (!data_00491c28.config.field_1d)
+            asm_WINNLSEnableIME_0045232c(0, 1);
+        for (index = 0; index < 60; ++index) {
+            if (PeekMessageA(&message, 0, 0, 0, 1))
+                PumpMessage(&message);
+        }
     }
+
+    File_WriteWholeFile("th10.cfg", &data_00491c28.config, 0x34);
+    if (data_00491c28.midi != 0) {
+        ShutdownMidi_0043ae20(reinterpret_cast<MidiSequencer*>(data_00491c28.midi));
+        delete data_00491c28.midi;
+        data_00491c28.midi = 0;
+    }
+    if (data_00474f70.cursor != data_00474f70.text) {
+        data_00474f70.Append(data_0046f7cc);
+        if (data_00474f70.dirty)
+            MessageBoxA(0, data_00474f70.text, "log", 0x10);
+        File_WriteWholeFile("./log.txt", data_00474f70.text, strlen(data_00474f70.text));
+    }
+    for (section = data_00492274.critical_sections, index = 7; index != 0; --index, ++section)
+        DeleteCriticalSection(section);
+    SystemParametersInfoA(0x11, data_004924f0.saved_parameters[0], 0, 2);
+    SystemParametersInfoA(0x55, data_004924f0.saved_parameters[1], 0, 2);
+    SystemParametersInfoA(0x56, data_004924f0.saved_parameters[2], 0, 2);
+    asm_WINNLSEnableIME_0045232c(0, 1);
+    delete data_00491be0;
     return 0;
 }
 #pragma code_seg()
+
+// The link's entry: the one caller the whole-program link sees.
+extern "C" int __stdcall RigEntry(void* instance, int show) {
+    return GameMain_00438ad0(instance, 0, 0, show);
+}

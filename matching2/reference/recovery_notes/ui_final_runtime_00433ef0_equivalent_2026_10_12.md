@@ -1,5 +1,14 @@
 # The music room 0x00433EF0 as an equivalent C++ model (2026-10-12)
 
+**Status (2026-10-12, later the same day): registered equivalent recovery, 694 of 741 instructions identical.**
+The model is a rewrite from the retail disassembly on top of the title cluster's helpers, linked
+with the real stage-text and animation-registrar sources (`context_sources`). The 47 remaining
+instructions are in 31 recorded differences: 14 register choices, 9 evaluation-order swaps,
+3 alignment fillers, 4 code-shape hunks (a split read-modify-write of the sprite flags, a jump
+over loop padding, two copies through another register) and one loop branch whose target moves
+with that padding (both ends were compared by hand: the same loop head). No call, callee or
+named address differs. Everything below this paragraph describes the earlier parked draft.
+
 Region: 0x00433EF0..0x004349DB (2796 bytes; 2780 code + 16-byte phase table
 at 0x004349CC whose fifth entry sits in the padding at 0x004349DC). The
 equivalent model lives in `msvc/equivalent/game/ui_final_runtime_00433ef0.cpp`

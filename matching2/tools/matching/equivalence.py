@@ -21,6 +21,24 @@ them with the exact region instruction by instruction, and accepts only:
   an insertion with the same text, each closed by a jump or return) is still
   listed, but its instructions are paired so branches into it are followed.
 
+Listing a difference does not make it acceptable.  Whatever the layout records,
+a model fails when
+
+* it calls a function retail does not call from this region, or the reverse;
+* it names an image address (a global, a constant, a function pointer) retail
+  does not name, or the reverse;
+* a recorded difference replaces calls by the same number of calls to other
+  functions;
+* a difference of a tie-break class (every class outside ``STRUCTURAL_CLASSES``)
+  adds or removes a call, a branch or a return;
+* the structural differences cover more than ``STRUCTURAL_BUDGET`` of the
+  region's instructions, or all differences more than ``TOTAL_BUDGET``.
+
+A model outside these limits is a draft: its layout may stay under
+``layout/equivalent/`` for ``--layout`` measurements, but it is not registered
+in ``equivalent_recoveries``, is not built into the executable, and is not
+counted as recovered.
+
 A branch or jump-table entry must reach the instruction its counterpart
 reaches.  Where the two compilations merged identical tails differently, the
 targets are also accepted when the code from each runs the same instructions
@@ -59,6 +77,15 @@ DEFAULT_OUTPUT = ROOT / 'matching2/build/msvc'
 TEXT_START, IMAGE_BASE = 0x401000, 0x400000
 # The model is linked a second time here; the fields that move with it are its absolute references.
 SECOND_BASE = 0x10000000
+# Bound code symbols are shifted by this much in the second link, which tells a function's address stored as
+# data (it moves by the shift alone) from a relative call to it and from an address inside the image.
+CODE_SHIFT = 0x00100000
+# Share of the region's instructions that recorded differences may cover (see the module text).
+STRUCTURAL_CLASSES = {'block-order', 'branch-target', 'code-shape'}
+STRUCTURAL_BUDGET = 0.125
+TOTAL_BUDGET = 1 / 3
+# Addresses a model may only name where retail names them: everything the image maps above its headers.
+IMAGE_END = 0x01000000
 LISTED_CLASSES = {
     'stack-slot-order': 'two locals occupy each other\'s frame slots',
     'operand-order': 'a commutative sum is evaluated in another order',
@@ -73,6 +100,9 @@ LISTED_CLASSES = {
 TABLE_JUMP = re.compile(rb'\xff\x24[\x85\x8d\x95\x9d\xad\xb5\xbd](....)', re.DOTALL)
 SIB = re.compile(r'\[(e[a-z]{2})\+(e[a-z]{2})\*1((?:[+-]0x[0-9a-f]+)?)\]')
 HEX = re.compile(r'0x[0-9a-f]+')
+CALL = re.compile(r'call (0x[0-9a-f]+)$')
+FLOW = re.compile(r'(?:call|ret|j[a-z]+)\b')
+REGISTER = re.compile(r'\be(?:[abcd]x|[sd]i|bp)\b')
 ESP_SLOT = re.compile(r'\[esp(?:\+(0x[0-9a-f]+))?\]')
 BRANCH = re.compile(r'(?:call|j[a-z]+) 0x([0-9a-f]+)$')
 MAP_SYMBOL = re.compile(r'^\s*[0-9a-f]{4}:[0-9a-f]{8}\s+(\S+)\s+([0-9a-f]{8})\s+(?:f\s+)?(?:i\s+)?(\S+)', re.MULTILINE)
@@ -112,7 +142,7 @@ def load_recoveries(project, config, regions):
             raise EquivalenceError('malformed frame shift in ' + entry['layout'])
         if layout.get('listed_branch_targets', True) is not True:
             raise EquivalenceError('listed_branch_targets is true or absent in ' + entry['layout'])
-        if set(layout) - {'frame_shift', 'listed_branch_targets', 'context_cluster', 'roots'} != required or layout['schema_version'] != 1 or layout['region'] != entry['region']:
+        if set(layout) - {'frame_shift', 'listed_branch_targets', 'context_cluster', 'context_sources', 'roots'} != required or layout['schema_version'] != 1 or layout['region'] != entry['region']:
             raise EquivalenceError('malformed equivalent layout: ' + entry['layout'])
         if not 0 < layout['code_bytes'] <= region['size']:
             raise EquivalenceError('code extent exceeds the region: ' + entry['layout'])
@@ -122,12 +152,28 @@ def load_recoveries(project, config, regions):
             if not source_path.is_relative_to(project / 'equivalent') or source_path.suffix != '.cpp':
                 raise EquivalenceError('model sources live under equivalent/: ' + source)
             sources.append(source_path)
+        # Recovered sources of the callees, linked in so that the whole-program link derives the
+        # register conventions retail has for them. They are context only; nothing of theirs is compared.
+        # A source that needs more than the project flags (exception handling) is written
+        # {"source": ..., "flags": [...]}.
+        extra_flags = {}
+        for item in layout.get('context_sources', []):
+            source = item['source'] if isinstance(item, dict) else item
+            source_path = (project / source).resolve()
+            if not source_path.is_relative_to(project) or source_path.suffix != '.cpp':
+                raise EquivalenceError('context sources are project C++ files: ' + source)
+            if isinstance(item, dict):
+                if set(item) != {'source', 'flags'} or not all(isinstance(flag, str) for flag in item['flags']):
+                    raise EquivalenceError('malformed context source in ' + entry['layout'])
+                extra_flags[source_path] = item['flags']
+            sources.append(source_path)
         if 'context_cluster' in layout:
             sources = cluster_context(project, layout['context_cluster'], sources, entry['layout'])
         for item in layout['differences']:
             if set(item) != {'class', 'offset', 'retail', 'model'} or item['class'] not in LISTED_CLASSES:
                 raise EquivalenceError('malformed recorded difference in ' + entry['layout'])
-        recoveries.append({**layout, 'path': path, 'source_paths': sources, 'region_record': region,
+        recoveries.append({**layout, 'path': path, 'source_paths': sources, 'source_flags': extra_flags,
+                           'region_record': region,
                            'address': int(region['address'], 0), 'size': region['size']})
     return recoveries
 
@@ -158,16 +204,18 @@ def build_model(recovery, project, toolkit, flags, work):
     objects = []
     for index, source in enumerate(recovery['source_paths']):
         obj = work / f'model_{index:02d}.obj'
-        command = ['wine', str(toolkit / 'bin/cl.exe'), *flags, '/GL', '/I' + winpath(project / 'include'),
+        command = ['wine', str(toolkit / 'bin/cl.exe'), *flags, *recovery.get('source_flags', {}).get(source, []),
+                   '/GL', '/I' + winpath(project / 'include'),
                    '/Fo' + winpath(obj), winpath(source)]
         result = subprocess.run(command, env=env, cwd=work, capture_output=True, text=True, timeout=180)
         if result.returncode or not obj.is_file():
             raise EquivalenceError(f'model compilation failed for {source.name}:\n{result.stdout[-2000:]}')
         objects.append(obj)
-    _absolute_object(work / 'bindings.obj', [
-        {'symbol': name, 'kind': 'relative_code' if item['kind'] == 'code' else 'data',
-         'coff_value': int(item['address'], 0) - (IMAGE_BASE if item['kind'] == 'code' else 0)}
-        for name, item in sorted(recovery['absolute_symbols'].items())])
+    for stem, shift in (('model', 0), ('moved', CODE_SHIFT)):
+        _absolute_object(work / (stem + '_bindings.obj'), [
+            {'symbol': name, 'kind': 'relative_code' if item['kind'] == 'code' else 'data',
+             'coff_value': int(item['address'], 0) - (IMAGE_BASE - shift if item['kind'] == 'code' else 0)}
+            for name, item in sorted(recovery['absolute_symbols'].items())])
     entry = recovery['entry_symbol']
     images = []
     for base, stem in ((IMAGE_BASE, 'model'), (SECOND_BASE, 'moved')):
@@ -175,8 +223,10 @@ def build_model(recovery, project, toolkit, flags, work):
         command = ['wine', str(toolkit / 'bin/link.exe'), '/nologo', '/LTCG', '/MACHINE:X86',
                    f'/BASE:{base:#x}', '/SUBSYSTEM:WINDOWS', '/ENTRY:' + (entry[1:] if entry.startswith('_') else entry),
                    '/FIXED', '/INCREMENTAL:NO', '/NODEFAULTLIB', '/OPT:REF', '/OPT:NOICF',
+                   # Context sources built with exception handling carry handler tables.
+                   *(['/SAFESEH:NO'] if recovery.get('source_flags') else []),
                    '/OUT:' + winpath(executable), '/MAP:' + winpath(map_path),
-                   *[winpath(obj) for obj in objects], winpath(work / 'bindings.obj'),
+                   *[winpath(obj) for obj in objects], winpath(work / (stem + '_bindings.obj')),
                    # Functions the link keeps besides the entry, so that shared callees see every caller.
                    *['/INCLUDE:' + root for root in recovery.get('roots', [])]]
         result = subprocess.run(command, env=env, cwd=work, capture_output=True, text=True, timeout=300)
@@ -367,10 +417,14 @@ def find_differences(retail_rows, model_rows, frame_deltas=(), counts=None, list
 
 
 def absolute_sites(first, second, delta):
-    """Offsets of the 32-bit fields that follow the image when it is linked at another base."""
+    """Offsets of the 32-bit fields that follow the image when it is linked at another base.
+
+    Returns them with the offsets of the fields holding the address of a bound
+    code symbol, which the first link wrote without the image base.
+    """
     if len(first) != len(second):
         raise EquivalenceError('the model links to different sizes at different bases')
-    sites, cursor = [], 0
+    sites, code_sites, cursor = [], [], 0
     while cursor < len(first):
         if first[cursor] == second[cursor]:
             cursor += 1
@@ -382,10 +436,12 @@ def absolute_sites(first, second, delta):
         moved = (struct.unpack_from('<I', second, site)[0] - struct.unpack_from('<I', first, site)[0]) & 0xffffffff
         if moved == delta:
             sites.append(site)
-        elif moved != (-delta) & 0xffffffff:  # a relative branch to an absolute symbol
+        elif moved == CODE_SHIFT:
+            code_sites.append(site)
+        elif moved != (CODE_SHIFT - delta) & 0xffffffff:  # a relative branch to a bound code symbol
             raise EquivalenceError('unexplained difference between the two model links')
         cursor = site + 4
-    return sites
+    return sites, code_sites
 
 
 def relocate(pe, moved, rows, model_start, model_code, tail, start, bound, own):
@@ -413,8 +469,11 @@ def relocate(pe, moved, rows, model_start, model_code, tail, start, bound, own):
         return value
 
     delta = SECOND_BASE - IMAGE_BASE
-    for offset in absolute_sites(body, moved.read(model_start + delta, total), delta):
+    sites, code_sites = absolute_sites(body, moved.read(model_start + delta, total), delta)
+    for offset in sites:
         struct.pack_into('<I', body, offset, retail_address(struct.unpack_from('<I', body, offset)[0]))
+    for offset in code_sites:
+        struct.pack_into('<I', body, offset, struct.unpack_from('<I', body, offset)[0] + IMAGE_BASE)
     for index, (offset, text) in enumerate(rows):
         match = BRANCH.match(text)
         if not match:
@@ -427,6 +486,54 @@ def relocate(pe, moved, rows, model_start, model_code, tail, start, bound, own):
             raise EquivalenceError(f'short branch leaves the function at +{offset:#x}')
         struct.pack_into('<i', body, offset + length - 4, retail_address(target) - (start + offset + length))
     return bytes(body)
+
+
+def external_references(rows):
+    """Return (functions called, image addresses named) outside the region, from normalised instructions."""
+    calls, addresses = set(), set()
+    for _, text, _ in rows:
+        match = CALL.search(text)
+        for spelling in HEX.findall(text):
+            if TEXT_START <= int(spelling, 16) < IMAGE_END:
+                (calls if match and match[1] == spelling else addresses).add(spelling)
+    return calls, addresses
+
+
+def gate(recovery, retail_rows, model_rows, hunks, classes):
+    """Return the reasons the model is not an equivalent recovery, whatever its layout records.
+
+    ``classes`` gives the reviewed class of each hunk, or None while recording;
+    unclassified hunks are held to the structural budget.
+    """
+    reasons = []
+    for what, retail, model in zip(('calls', 'names'), external_references(retail_rows),
+                                   external_references(model_rows)):
+        if model - retail:
+            reasons.append(f'the model {what} what retail does not: ' + ', '.join(sorted(model - retail)))
+        if retail - model:
+            reasons.append(f'retail {what} what the model does not: ' + ', '.join(sorted(retail - model)))
+    structural = total = 0
+    for index, hunk in enumerate(hunks):
+        sides = [sorted(match[1] for match in map(CALL.search, hunk[side]) if match) for side in ('retail', 'model')]
+        if sides[0] != sides[1] and len(sides[0]) == len(sides[1]):
+            reasons.append(f'the difference at {hunk["offset"]} replaces {", ".join(sides[0])} by {", ".join(sides[1])}')
+        kind = classes[index] if classes else 'code-shape'
+        # An indirect call through another register is still the same call.
+        flow = [sorted(REGISTER.sub('R', re.sub(r'L\+0x[0-9a-f]+', 'L', text)) for text in hunk[side] if FLOW.match(text))
+                for side in ('retail', 'model')]
+        if kind not in STRUCTURAL_CLASSES and flow[0] != flow[1]:
+            reasons.append(f'the {kind} difference at {hunk["offset"]} changes calls or branches')
+        weight = max(len(hunk['retail']), len(hunk['model']))
+        total += weight
+        structural += weight if kind in STRUCTURAL_CLASSES else 0
+    count = len(retail_rows)
+    if structural > STRUCTURAL_BUDGET * count:
+        reasons.append(f'structural differences cover {structural} of {count} instructions '
+                       f'({100 * structural / count:.1f}%, budget {100 * STRUCTURAL_BUDGET:.1f}%)')
+    if total > TOTAL_BUDGET * count:
+        reasons.append(f'recorded differences cover {total} of {count} instructions '
+                       f'({100 * total / count:.1f}%, budget {100 * TOTAL_BUDGET:.1f}%)')
+    return reasons
 
 
 def compare_tail(retail, model, retail_start, model_start, code_bytes, mapping, unproven=None):
@@ -488,7 +595,8 @@ def verify_recovery(recovery, project, toolkit, flags, text, output, *, record=F
         if tail == 0 and not TABLE_JUMP.search(retail):
             tables = []
         model_code = min(tables) - model_start if tables else code_bytes
-        if model_code + tail > size:
+        # A draft may be measured while it is still too long; it cannot be built in.
+        if model_code + tail > size and not record:
             raise EquivalenceError(f'{recovery["name"]}: the C++ body needs {model_code + tail} bytes; '
                                    f'the region has {size}')
         bound = {}
@@ -521,6 +629,9 @@ def verify_recovery(recovery, project, toolkit, flags, text, output, *, record=F
     report['code_bytes'] = model_code + tail
     if record:
         report['differences'] = hunks
+        report['not_equivalent'] = gate(recovery, retail_rows, model_rows, hunks, None)
+        if report['code_bytes'] > size:
+            report['not_equivalent'].append(f'the C++ body needs {report["code_bytes"]} bytes; the region has {size}')
         return report, body
     if hunks != listed:
         raise EquivalenceError(
@@ -533,6 +644,9 @@ def verify_recovery(recovery, project, toolkit, flags, text, output, *, record=F
     if swaps != recovery['base_index_order']:
         raise EquivalenceError(f'{recovery["name"]}: {swaps} base/index swaps, layout records '
                                f'{recovery["base_index_order"]}')
+    reasons = gate(recovery, retail_rows, model_rows, hunks, [item['class'] for item in recovery['differences']])
+    if reasons:
+        raise EquivalenceError(f'{recovery["name"]} is a draft, not an equivalent recovery:\n  ' + '\n  '.join(reasons))
     return report, body
 
 
@@ -598,6 +712,8 @@ def main():
     parser.add_argument('--toolkit', type=Path, default=DEFAULT_TOOLKIT)
     parser.add_argument('--output', type=Path, default=DEFAULT_OUTPUT)
     parser.add_argument('--name', help='verify only this recovery')
+    parser.add_argument('--layout', help='measure a draft: a layout under layout/equivalent/ that is not registered '
+                                         '(implies --record)')
     parser.add_argument('--record', action='store_true',
                         help='print the current differences for review instead of checking them')
     args = parser.parse_args()
@@ -609,6 +725,10 @@ def main():
     text = text_path.read_bytes()
     if sha(text) != config['text_sha256']:
         parser.error('built .text image is not the exact one')
+    if args.layout:
+        layout = json.loads((project / args.layout).read_text())
+        config = {**config, 'equivalent_recoveries': [{'region': layout['region'], 'layout': args.layout}]}
+        args.record = True
     recoveries = load_recoveries(project, config, config['regions'])
     if args.name:
         recoveries = [item for item in recoveries if item['name'] == args.name]

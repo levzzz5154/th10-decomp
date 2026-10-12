@@ -1,349 +1,110 @@
-# EnemyData_Start 0x0040DC80: full decode (2026-10-12)
+# The enemy tick 0x0040DC80 as an equivalent C++ recovery (2026-10-12)
 
-Region: 0x0040DC80..0x0040E5EB, 2412 bytes, 671 instructions. This is the
-enemy script-start tick (the prototype `EnemyData_Start_0040dc80` in
-`msvc/include/th10/game/enemy_spawn_0040cfb0.hpp`); the enemy arrives on the
-stack (RET 4). All 22 callees are recovered semantic regions except
-`__ftol2` (0x463B2C). Three callers are recovered semantics
-(`EnemySpawn_Create_0040cfb0`, `EnemyTimerSweep_0040d750`, `Run_0040dc70`).
-The synthetic caller cluster `layout/ltcg/cl_0040dc70.json` already binds
-`_target_0040dc80@4`.
+Region: 0x0040DC80..0x0040E5EB, 2412 bytes, 671 instructions. The model is
+`msvc/equivalent/game/enemy_data_start_0040dc80.cpp` with the view
+`msvc/include/th10/game/enemy_data_start_0040dc80.hpp`, its link context
+`msvc/equivalent/game/enemy_data_start_0040dc80_context.{hpp,cpp}`, and the
+layout `msvc/layout/equivalent/enemy_data_start_0040dc80.json`.
 
-The struct view is `EnemyData_0040cfb0` (0x14DC bytes); the fields the body
-touches beyond the current view are listed at the end.
+Result: 2,412 of 2,412 bytes, 668 of 671 instructions identical. The three
+recorded differences are one register choice: the spell-slot entry name
+returned by 0x004127A0 at 0x0040E1C2 lives in EDI where retail holds it in
+ESI (and reuses ESI for the record once the name has moved to ECX). Five
+spellings of that block left the choice unchanged.
 
-## Control flow (in order)
+The name is historical: the function is the per-frame tick of an enemy, not
+a "start". It returns 0 to keep the enemy, 1 when it died, -1 when it left
+the field or its script ended.
 
-1. Entry: `sub esp,0x18`; `ebp = enemy`. If `flags & 0x400` (the
-   "script started" latch) is already set: return 0. Otherwise set
-   `flags |= 0x400`.
-2. Copy 11 dwords from +0x2C to +0x00 (the position snapshot the deltas
-   are computed against later).
-3. Four trajectory-interpolator steps (Interpolator<TrajectoryVec2>::Step
-   0x412AC0 into a stack pair, then Angle_Normalize 0x44BC70):
-   +0x1D4 → (+0x70 angle, +0x74); +0x24C → (+0x78, +0x7C);
-   +0x210 → (+0x9C, +0xA0); +0x288 → (+0xA4, +0xA8). Each guarded by its
-   own enable dword (+0x208, +0x280, +0x244, +0x2BC).
-4. Base motion at +0x64..0x6C: if +0x180 (a Vec3 interpolator) is set:
-   Step 0x404610, delta = result − (+0x58..0x60) → +0x64..0x6C.
-   Else if !(+0x80 & 1): SetPolarEffective 0x44C5D0(+0x64, +0x70, +0x74)
-   with +0x6C = 0. Else: +0x78 += +0x7C (angular velocity); normalize
-   (+0x70, +0x74) via 0x44BC70.
-5. The same treatment for +0x84..0x90 (from the +0x188 Vec3 interpolator or
-   the polar triple at +0x90..0x9C): SetPolar 0x44C5D0(+0x84...)/normalize
-   +0x8C.
-6. PolarMotion::Advance 0x44C2A0 on +0x58 (the base position), then, when
-   `flags & 0x40000` (scroll with the field), add the three floats at
-   0x491E6C..0x491E74 to +0x84..0x8C, then Advance on +0x84. The delta
-   +0x38..0x40 = (+0x84 + +0x58) − (+0x2C snapshot). Advance on +0x38.
-7. `flags & 0x200` (move by the origin delta): clamp +0x84.x into
-   [0x13AC − k·0x13B4, 0x13AC + k·0x13B4] and +0x84.y into
-   [0x13B0 − k·0x13B8, 0x13B0 + k·0x13B8] with k = the float at 0x470B0C;
-   then +0x58 = +0x84 − +0x38 (recompute the base delta).
-8. Off-screen check (unless `flags & 0x200`): position vs the field bounds
-   scaled by 0x13A4/0x13A8 (constants at 0x470B40/0x470B3C/0x470B04/
-   0x470B38). Out of bounds → `flags |= 0x100` (the despawn flag).
-9. Script change (if `flags & 0x100000`): the outer world at 0x4776EC →
-   +0x28 decides between +0x1448 and +0x144C; ScriptChangeHandle 0x4496D0
-   with +0xC0; `flags = (flags & ~0x200000) | 0x1` or `&= ~0x200001`.
-10. TickChildren 0x44FD10(vm at +0x14D8, arg=[+0x128][0]). Nonzero →
-    return −1 (the interpreter error propagates).
-11. `flags &= ~0x200`. If `flags & 0x11` → step 14 (no item handling).
-12. Item drop: PickupSweep::Sweep 0x428630(player 0x477834, position,
-    result at +0xB0); `div 5` on the returned count (imul 0x66666667);
-    when the game thread at 0x4776F4 → +0x378C bit 0 is set and
-    `flags` negative, the count is clamped to ≥ 1; if `!(flags & 8)` and
-    +0x1420 ≤ 0, +0x13C0 (score) −= count. AdvanceSlots 0x4127A0; nonzero →
-    ClearResourceList 0x40C6E0, EclRecord::Reset 0x40C730, BindName
-    0x450700, TickChildren again → return −1 on error. If
-    `+0x13C0 <= 0` and `!(flags & 0x200)`: AddScore 0x409D90(0x474C40,
-    +0x13BC = life); Enemy_ReleaseOnDeath 0x40E5F0 → return 1 when it
-    released. Otherwise `flags |= 0x2000`; [0x474C50] = 1.
-13. Field contact (unless `flags & 0x12` or +0x1434 > 0):
-    FieldContact004266B0(0x477834, +0xB8, +0x2C).
-14. `flags & 0x1000` (off-screen state tracking): compare +0x38.x with
-    0x470D30/0x470C18 into a −1/0/1 state, keep [0xF8] as the previous
-    state, and on a change ScriptChangeHandle 0x4496D0 with
-    [0xF4] ± 1/2/3/4 (the four-step transition table).
-15. Animation positions: 8 handles at +0xC0..0xE0 through
-    SetAnimationTranslatedPosition 0x49350, or MovementSetPosition 0x492F0
-    when `flags & 0x40000`. Find 0x4491C0 on [0xC0]; a dead handle is
-    blanked.
-16. Invulnerability [+0x1414]: when 0 and `flags & 0x2000`: set the
-    animation's 0x8000 flag and color 0xFF0000FF, [+0x1414] = 4; if
-    `flags & 0x8000` also, queue the blink sound (QueuePan 0x43DD10,
-    sound 0x23 or 0x13 — 0x23 while [0x2404] < 300/900 per the game
-    thread flags, else 0x13). When nonzero: clear 0x8000 (and the outer
-    world's +0x9DA4 bit when `flags` is negative), decrement.
-17. FrameTimer::Advance 0x44BF40(−1.0f) on +0x141C (while +0x1420 > 0) and
-    +0x1430 (while +0x1434 > 0).
-18. Script wait bookkeeping: [0x11C] = [0x120]. If `[+0x128][0]` (the
-    current wait frame count) lies inside [0x470B64, 0x470B68]:
-    +0x124 += the float at 0x470AFC and ++[0x120] (fractional wait), return 0.
-    Otherwise +0x124 += the wait value, `__ftol2`, [0x120] = the integer
-    part, return 0.
+## What the function does (in retail order)
 
-## Fields the current EnemyData_0040cfb0 view does not name
+1. 0x0040DC80: return 0 if `flags & 0x400` (already ticked this frame), else
+   set it. `previous = final` (the 0x2C-byte motion record at +0x2C copied to
+   +0x00).
+2. 0x0040DCA9: four `Interpolator<TrajectoryVec2>` (0x00412AC0, receiver ESI,
+   result through EDI), each run only while its `duration` is nonzero:
+   +0x1D4 → relative angle (normalised, 0x0044BC70) and speed; +0x24C →
+   relative radius and radius step; +0x210 and +0x288 the same for the
+   absolute motion.
+3. 0x0040DD69: for the relative motion (+0x58) and then the absolute one
+   (+0x84): while its `Interpolator<Vec3>` path (+0x13C, +0x188; 0x00404610,
+   receiver EAX, result through EDI) runs, `velocity = path.Step() -
+   position`; otherwise the inlined `PolarMotion::Update`.
+4. 0x0040DE87: `relative.Advance()` (0x0044C2A0, receiver ESI); with
+   `flags & 0x40000` the scroll vector at 0x00491E6C is added to the absolute
+   position; `absolute.Advance()`; `final.velocity = relative.position +
+   absolute.position - final.position`; `final.Advance()`.
+5. 0x0040DF13: with `flags & 0x200` the final position is clamped into
+   `limit_center ± limit_size / 2` (+0x13AC.., +0x13B4..) and the relative
+   position recomputed as `final - absolute`.
+6. 0x0040DFDA: the visibility box (`visible_size / 2` around the position)
+   against the field (-192..192, 0..448). Outside: return -1 if the enemy
+   was seen (`flags & 0x100`) and may be removed (`!(flags & 4)`). Inside:
+   set 0x100.
+7. 0x0040E050: with `flags & 0x100000`, the animation script follows the
+   stage flag at [0x004776EC]+0x28: set and not yet swapped → script +0x1448,
+   flags |= 0x200001; clear and swapped → script +0x144C, flags &= ~0x200001.
+   The flag is read through an inline accessor twice; that is what keeps
+   retail's redundant `test eax,eax` at 0x0040E0B4.
+8. 0x0040E0E9: `EclVm_TickChildren(record, *clock.speed)` (0x0044FD10, owner
+   EDI); nonzero returns -1.
+9. 0x0040E107: `flags &= ~0x2000`. Unless `flags & 0x11`: the player's shots
+   (0x00428630, null receiver) give the damage, divided by 5 in shot modes 0
+   and 2 and again for a boss (`flags & 0x8000`) while the game flag bit 0 is
+   set, at least 1; health (+0x13C0) drops unless `flags & 8` or the
+   invulnerable timer runs; a spell slot that came due (0x004127A0) restarts
+   the script (0x0040C6E0, 0x0040C730, 0x00450700) and ticks it again; at
+   `health <= 0` without `flags & 0x40` the bonus (+0x13BC) is scored and
+   0x0040E5F0 may end the enemy (return 1); `flags |= 0x2000`. The marker at
+   0x00474C50 is set whenever the enemy was open to shots.
+10. 0x0040E275: the same spell-slot restart without the extra tick, the name
+    lookup (0x00450470, table in EAX) expanded in place.
+11. 0x0040E2BD: contact with the player (0x004266B0: position ECX, player
+    EDX, size EAX) unless `flags & 0x12` or the contact timer runs.
+12. 0x0040E2E4: with `flags & 0x1000`, the facing (-1/0/1 from the final
+    x velocity against ±0.1) selects one of four turning scripts when it
+    changes.
+13. 0x0040E379: the eight animations are placed at the final position
+    (0x00449350, or 0x004492F0 with `flags & 0x40000`; manager EDX, position
+    ESI, handle on the stack).
+14. 0x0040E3DB: unless `flags & 0x11` or `flags & 0xC0000`, the enemy is
+    offered as the homing target ([0x00477834]+0x3504/+0x3508).
+15. 0x0040E43E: the hit flash: while `flash_frames` (+0x1414) runs it is
+    counted down and the flash bit cleared; otherwise a hit (`flags &
+    0x2000`) starts four frames of it and queues sound 0x23 or 0x13
+    (0x0043DD10: id EBX, queue ESI, pan on the stack).
+16. 0x0040E53E: the invulnerable and contact timers step back by one
+    (0x0044BF40, receiver ESI) and the enemy's clock ticks (expanded in
+    place).
 
-+0x00..0x2C (the 11-dword snapshot target), +0x38/+0x40/+0x48 (motion
-deltas), +0x58/+0x60 (base position), +0x64..0x70 (base polar),
-+0x70..0x80 (trajectory angle pairs), +0x80..0xAC (the second polar), +0xB0
-/+0xB8 (pickup sweep results), +0xC0..0xE0 (8 animation handles), +0xF4/
-0xF8 (the off-screen transition state), +0x11C..0x130 (script wait
-bookkeeping), +0x128 (the script wait pointer), +0x180/+0x188 (the two Vec3
-interpolators), +0x1CC/+0x1D4/+0x208, +0x244/+0x210, +0x280/+0x24C,
-+0x2BC/+0x288 (the four trajectory interpolators and enables), +0x13A4/
-0x13A8/0x13AC/0x13B0/0x13B4/0x13B8 (the field clamp and off-screen scale),
-+0x1414 (the invulnerability countdown), +0x1420/+0x141C and +0x1434/+0x1430
-(the two FrameTimers), +0x1444 (flags, already in the view as bit fields —
-the body uses raw bits 0x1/0x2/0x4/0x8/0x11/0x100/0x400/0x1000/0x2000/
-0x40000/0x100000/0x200000), +0x1448/+0x144C (the script change indices),
-+0x14D8 (the ScriptVm, past the 0x14DC view — it is at +0x4A0 of the outer
-Enemy_0040cfb0 record, NOT inside EnemyData; the body receives the outer
-record on the stack, so the view needs the 0x14D8 offset resolved against
-Enemy_0040cfb0's layout).
+## How it was recovered, and what the earlier draft got wrong
 
-## Recommended route
+The first draft of this model was grown toward the region's byte count
+(2,144 of 2,412 bytes) and its note concluded that all content was present
+and the rest was block placement. That was wrong: the draft tested the
+0x400 latch backwards, replaced the three `Advance` calls by inline sums,
+ran the clamp and the off-screen test on the wrong fields, misplaced the
+death check, and called every helper with the standard conventions, so no
+call site could match. Byte count is not a measure of progress; the
+instruction diff is (`equivalence.py --layout <layout>` prints it for a
+model that is not registered).
 
-The equivalent route through `cl_0040dc70.json` (its context already
-establishes the entry ABI) or a caller-inclusive cluster over
-`EnemySpawn_Create_0040cfb0`. The x87 chains (steps 6–8) and the two
-`__ftol2` sites are the parts the compiler will not reorder cheaply; the
-rest is straight-line.
+The present model was written block by block from the disassembly with the
+project's own types (`PolarMotion`, `Interpolator<T>`, `FrameTimer`), and the
+context file carries the recovered bodies of the fourteen helpers whose
+private register conventions the call sites depend on. Its first measurement
+was 559 of 671 instructions identical at exactly 2,412 bytes. The levers that
+closed the rest:
 
-## 2026-10-12: the model-blocking convention detail
-
-The ECL VM callees the body invokes use private register conventions that
-only a native-LTCG context can reproduce: TickChildren 0x44FD10 receives
-the owner in EDI (per `msvc/include/th10/script/ecl_children.hpp`), the
-interpreter 0x44E1A0 enters in EAX, and BindName 0x450700 is reached with
-the VM in ECX and no visible name argument at the call site (0x0040E1EB) —
-the name comes from the VM's own state. A plain C++ model calling the
-recovered `__stdcall` declarations would pass arguments on the stack and
-crash at runtime; the `cl_0040dc70` cluster has no thunks establishing
-those conventions yet.
-
-Extending that cluster with ECL-VM convention thunks plus the 671-instruction
-model is the remaining work; the struct extension and decode above are
-complete, so the next session starts from the call-site analysis, not the
-semantics.
-
-## 2026-10-12 (second session): the working model draft
-
-`msvc/equivalent/game/enemy_data_start_0040dc80.cpp` (with the motion
-view `msvc/include/th10/game/enemy_data_start_0040dc80.hpp`) is the
-working draft: the snapshot, the four trajectory steps, both polar/vector
-motions, the clamp and off-screen paths, the script change, the
-interpreter tick, the pickup/score block, the spell-timer advance, the
-off-screen state machine, the eight animation positions, the blink
-counter and the wait bookkeeping are all expressed. The register
-conventions resolve through the `ecl_tick_children` cluster context
-(TickChildren 0x44FD10 compiled in-cluster with its EDI ABI; c2 adapts
-the call site under /GL).
-
-What remains before the equivalence run compiles clean: the EnemyRecord
-view the body reaches through the 0x14D8 ScriptVm pointer needs its
-actual shape (the +0x2404 frame counter belongs to the outer record), the
-item-drop score arithmetic needs the +0x1420 pause guard decoded, and the
-call-argument details of the two `FieldContact`/`PickupSweep` pairs need
-their stack layouts verified against the recovered bodies. None of these
-require new decodes — the disassembly in the first section answers each.
-
-## Model state (2026-10-12, end of session)
-
-The draft compiles and links clean (all 40 absolute bindings resolve; the
-ECL TickChildren EDI convention resolves through the ecl_tick_children
-cluster). The compiled body is 1,712 bytes against the retail 2,412 —
-700 short. The missing mass: the two PolarMotion/SetPolar member calls
-(the draft inlines raw float math where retail calls 0x0044C5D0/0x0044C2A0
-per motion), the exact trajectory-step call shapes, the pickup sweep's
-real argument layout, and the field-contact pair. Each is a source-level
-expression change against the decode in the first section; no new
-decodes are needed.
-
-## Gap breakdown (2026-10-12, block diff at 1,728/2,412)
-
-The 684 missing bytes decompose into eight blocks, each a faithful
-expression of the decode's sections:
-
-| retail block | bytes | decode section |
-|---|---|---|
-| 0x40DD69-0x40DDF5 + the row loop | 269 | base motion (the full per-row draw state) |
-| 0x40DFA8-0x40E012 | 124 | the x87 clamp chains (fild/fmul/fcom per axis) |
-| 0x40E044-0x40E0E9 | 89 | the script-change retry details |
-| 0x40E14E-0x40E16F | 43 | the score div-by-5 (imul 0x66666667) |
-| 0x40E107-0x40E141 | 68 | the pickup sweep result handling |
-| 0x40E261-0x40E2BD | 82 | the spell-timer advance |
-| 0x40E38B-0x40E3DB | 70 | the eight-position setter loop |
-| 0x40E43E-0x40E5C7 | 351 | the blink/queue and off-screen machine |
-
-All are source-level expression work against the decode; the bindings and
-conventions are already in place.
-
-## Growth iteration (2026-10-12, second)
-
-Three fixes landed: the motion paths use the real SetPolar/normalize
-shapes (the orbit path accumulates the rate into the angle and
-renormalizes the speed), the scroll drift reads the three floats at
-0x00491E6C..74, and the wait bookkeeping compares against the bound
-bounds (0x00470B68/0x00470B64) instead of pooled 1.0/60.0 literals. The
-BindName call was replaced with the retail Resolve sequence (resolve the
-VM-owned name, store into the current frame). Body: 1,712 → 1,952.
-
-Remaining: the row-draw loop (269 B), the blink/off-screen machine
-(351 B), and the pickup/score details (111 B). Also: all float constants
-the model reads must be extern-bound homes — the CIL pools private copies
-of any literal (1.0f/60.0f) and the equivalence tool then flags the pooled
-addresses.
-
-## Growth iteration (2026-10-12, third)
-
-The blink/off-screen machine is now expressed faithfully: the countdown
-clear path (flags &= ~0x8000, the outer +0x9DA4 mirror, the decrement),
-the highlight path (flags |= 0x8000, the 0xFF0000FF color at +0x300, the
-alarm decision from the game flags at [0x4776F4]+0x378C and the VM frame
-counter at +0x2404 with the 300/900 thresholds, sounds 0x23/0x13), and
-the two FrameTimer::Advance calls. The script rebind uses the VM's
-`ScriptTable::Resolve` + the current-frame store (retail 0x0040E2A2).
-Body: 1,952 → 2,128.
-
-Remaining: the row-draw loop (~269 B) and the small pickup/field-contact
-argument details. Also learned: the CIL pools any float literal — every
-constant the model reads (the 300/900 thresholds aside, which are
-immediates) must come from a bound home; the pool copies surface as
-unbound 0x4020xx references.
-
-## Growth iteration (2026-10-12, fourth)
-
-The interpolation offsets corrected: the base motion's Vec3 interpolator
-lives at +0x138 (its Step in EAX, the delta target +0x64), the drift's at
-+0x188 (delta target +0x90); the draft had invented +0x180/+0x184. The
-retail ordering was also confirmed: the base path runs before the drift
-path, the scroll offset applies to the drift position between the two
-Advance calls. Body: 2,128 (the interp fix moved code without net growth).
-
-Remaining ~284 bytes: the x87 clamp chains (124 B — the model expresses
-the clamp with float compares where retail uses the fild/fmul/fcom
-sequences), the script-change retry details (89 B), the div-5 (43 B),
-and the sweep-result handling (68 B) — all control-flow-shape work.
-
-## Growth iteration (2026-10-12, fifth)
-
-The sweep/score block now carries retail's exact control flow: the
-stage-mode test ([0x477834]+0x458 == 0 or 2 gates the division), the
-constant div-5 (dropped / 5, which c2 emits as the imul 0x66666667 magic),
-the practice clamp (the game flags bit 0/8 interaction with the negative
-enemy flags recomputing and clamping the count to ≥ 1), and the null
-receiver on the Sweep call. Body: 2,128 → 2,160.
-
-Note: expressing the magic multiply as a 64-bit literal drags in the CRT
-__allmul helper; the plain `/ 5` is what makes c2 emit retail's imul.
-
-Remaining ~252 bytes: the x87 clamp chains (124 B — the model expresses
-the clamp with float compares where retail uses the fild/fmul/fcom
-sequences), the script-change retry details (89 B), and the sweep
-argument layout (the retail call pushes the result buffer, center and
-manager with ECX = 0).
-
-## Growth iteration (2026-10-12, sixth)
-
-The clamp semantics corrected: the drift x pulls into
-[0x13AC ± 0x13B4·scale] (below → low, at-or-above high → high) and the y
-likewise against [0x13B0 ± 0x13B8·scale]; the base position recomputes
-from the clamped drift (the delta target +0x58, confirmed by the
-mov [edi],edx at 0x40DFCA with edi=+0x58). The scroll/delta block was
-rewritten to the same shape. Body: 2,128 (the corrections moved code
-without net growth — the blocks were already the right size).
-
-Remaining ~284 bytes: the script-change retry details (89 B), the sweep
-argument layout (68 B), and the row-loop structure (127 B) — all
-control-flow shapes, every callee/binding/convention in place.
-
-## Growth iteration (2026-10-12, seventh)
-
-The script-change nesting corrected: the +0x200000 flag gates the
-+0x144C retry inside the `script_change_b != 0` branch (the draft ran it
-unconditionally). Body: 2,128 → 2,144.
-
-Remaining ~268 bytes: the row-loop structure (~127 B), the sweep argument
-layout (68 B), and small desync details. Every callee, binding and
-convention is in place; the work is pure control-flow expression in the
-established measure loop.
-
-## State close-out (2026-10-12, model at 2,144/2,412)
-
-The LCS diff at this state shows the model contains all the retail
-content but laid out in a different block order — the +264/-152 style
-opcodes are moved blocks, not missing code. The genuinely missing pieces
-are the sweep argument layout (the retail call pushes the result buffer,
-center and manager with ECX = 0 before the sweep; the model passes 0, 0
-for the last two), the `div 5` gate's second pass (the model clamps
-before the imul where retail recomputes after), and small desync details.
-The next lever remains the c2 block-order trace: with the content
-complete, the remaining 268 bytes are placement, not semantics.
-
-## Experiment (2026-10-12): flow reorder tried and reverted
-
-Restructuring the model to retail's exact guard flow ([0x474C50] written
-after both paths, the spell timer outside the item guard, the field
-contact after the spell timer) compiled to 2,112 bytes — 32 SHORTER than
-the guard-internal arrangement at 2,144. The retail byte count includes
-the duplicated `mov ds:0x474C50,1` on both paths (0x0040E261 sets the
-0x2000 flag first, then 0x0040E26B writes the marker; the skip path
-writes the marker alone at 0x0040E26B). Restored to the 2,144-byte form;
-the remaining 268 bytes are c2 block placement within the same content.
-
-## Trace analysis (2026-10-12, first pass)
-
-The captured Riscify trace holds 129 blocks against retail's ~57 basic
-blocks (55 conditional branch targets). Riscify is the pre-layout phase:
-c2 holds finer blocks there and the final branch layout merges and
-orders them. Locating the exact divergence therefore needs the
-tuple-to-instruction mapping per block (each traced block's op sequence
-against the retail instruction sequence), which is a dedicated session's
-work. The trace artifacts and the tooling replay (commands.json, the
-bindings.obj construction with data coff_values unshifted, and the
-ENTRY stub under the CIL's double-underscore decoration) are all saved
-for it.
-
-## Trace analysis (2026-10-12, second pass): the trace format is a dead end for block order
-
-The Riscify trace's tuple stream does not correspond 1:1 to the emitted
-instructions — a greedy merge of the 129 traced blocks against the 87
-emitted blocks mismatches at 79 of 87 positions (the trace holds c2's
-internal per-block data structures, not the final instruction list).
-The block-order question must be answered from the emitted code instead:
-the model .exe disassembly vs the retail bytes, which is the byte diff
-already recorded. The remaining 268 bytes are c2 layout decisions driven
-by register-allocation differences; the levers are the allocator traces
-(`trace_choose_physreg.py`, the StartChild ChoosePhysReg path), not the
-flowgraph captures.
-
-## Allocator trace (2026-10-12)
-
-`trace_choose_physreg.py` captured the full ChoosePhysReg sequence (54
-decisions, 2,156 lines) for the model — saved at
-`reference/compiler_traces/regalloc/enemy_data_start_trace.txt`. Key
-readings: ESI is taken early by the priority-139 candidate (the +0x14D8
-ScriptVm load, f40=44), EBX goes to the priority-42 candidate (the mode
-word), and EDI collects six shorter-lived candidates — matching retail's
-EBX/ESI/EDI homes for the three long-lived objects. The 4400/3800/800
-cost entries mark the candidates pinned by the calls across which the
-retail homes stay live; the allocator's decisions align with retail's
-homes, which means the remaining 268 bytes are NOT register misassignment
-but block placement driven by the basic-block order c2 chose before
-allocation. The next lever is comparing the basic-block ORDER (BLOCK
-sequence in this trace) against retail's, which is a structural read of
-the trace, not an allocator change.
-
-## Allocator trace analysis (2026-10-12, second)
-
-The allocator's homes align with retail's (ESI = the ScriptVm load at
-priority 139, EBX = the mode word at priority 42, EDI collecting the
-short-lived candidates) — the 268-byte gap is NOT register
-misassignment. The decisive count: the model emits **87 basic blocks**
-against retail's **57** — the model splits ~30 blocks. The splits come
-from the source-level structure (the extra conditionals in the helper
-expressions and the guard-internal arrangements). Merging those 30 block
-pairs in the source is the concrete lever; each merged pair is a small
-structural edit verified by re-measuring.
+- the orbit results copied field by field from a named local (retail reads
+  the stack temporary, not the returned pointer);
+- `Vec3`'s constructor-style operators for the final velocity, with the
+  relative position as the left operand;
+- the stage flag through an inline accessor called in both conditions;
+- `flash_frames == 0` as the first branch, so the countdown block is placed
+  last;
+- the animation finder as a member that ignores its receiver, and the two
+  position setters declared `(manager, position, id)`: the callee's
+  parameter order sets the caller's load order;
+- the sound queue from its real header, which gives the id in EBX;
+- the player passed to the sweep straight from the global, no named local.

@@ -1,5 +1,16 @@
 # Circle laser split 0x0041EFA0: equivalent recovery (2026-10-12)
 
+**Status (2026-10-12, later the same day): registered equivalent recovery, 241 of 302 instructions identical.**
+The model now has its own source (`equivalent/game/laser_circle_split_0041efa0.cpp`, a member of
+a view struct derived from the cluster's `CutLaser`) with the shape of the rectangle split
+sibling; the two dummy vectors and the frame shift are gone. Of the 61 remaining instructions,
+most follow from one register contest: retail keeps the line-animation resource in EDI across
+the creation call and the sample count in its stack slot (EDX between calls); the model keeps
+the count in EDI and spills the resource. Declaration order, named locals and a `for` loop do
+not change it. Recorded classes: 31 register-choice, 8 evaluation-order, 5 code-shape,
+1 stack-slot-order, 1 operand-order, 1 alignment-padding; structural hunks stay under the
+12.5% budget. Everything below this paragraph describes the earlier parked draft.
+
 The parked candidate (`layout/ltcg/laser_cut/circle_cut.cpp`) is now a
 registered equivalent recovery (`layout/equivalent/laser_circle_split_
 0041efa0.json`): 1,108 of 1,108 bytes used, 229 of 302 instructions

@@ -5,1082 +5,150 @@
   "sources": [
     "equivalent/game/d3d_initialize_00439890.cpp"
   ],
-  "context_cluster": "layout/ltcg/cl_0040dc70.json",
-  "entry_symbol": "?RunContext_0040dc70@@YGHPAPAUOuter_0040dc70@@H@Z",
+  "entry_symbol": "_RigEntry@8",
   "function": "?D3DInitialize_00439890@@YGHXZ",
   "code_bytes": 1159,
   "absolute_symbols": {
-    "_Renderer_ApplyDeviceDefaults_00439d20@0": {
-      "address": "0x00439D20",
+    "__fltused": {
+      "address": "0x00000000",
+      "kind": "data"
+    },
+    "__chkstk": {
+      "address": "0x00458EC0",
       "kind": "code"
     },
-    "_ApplyDefaultViewport_0043bcd0@4": {
+    "@__security_check_cookie@4": {
+      "address": "0x00458EA5",
+      "kind": "code"
+    },
+    "___security_cookie": {
+      "address": "0x00473660",
+      "kind": "data"
+    },
+    "?ApplyDefaultViewport@@YGHI@Z": {
       "address": "0x0043BCD0",
       "kind": "code"
     },
-    "_D3DXMatrixLookAtLH_00452194@16": {
+    "?g_thread_synchronization@@3UThreadSynchronization@@A": {
+      "address": "0x00401000",
+      "kind": "code"
+    },
+    "_Renderer_ApplyDeviceDefaults": {
+      "address": "0x00439D20",
+      "kind": "code"
+    },
+    "__imp__EnterCriticalSection@4": {
+      "address": "0x004660B0",
+      "kind": "data"
+    },
+    "__imp__LeaveCriticalSection@4": {
+      "address": "0x004660B4",
+      "kind": "data"
+    },
+    "_asm_D3DXMatrixLookAtLH_00452194@16": {
       "address": "0x00452194",
       "kind": "code"
     },
-    "_D3DXMatrixPerspectiveFovLH_0045219a@20": {
+    "_asm_D3DXMatrixPerspectiveFovLH_0045219a@20": {
       "address": "0x0045219A",
       "kind": "code"
     },
-    "?Append@TextLog_0044b810@@QAAPADPADZZ": {
-      "address": "0x0044B810",
+    "_asm_vsprintf_004524a6": {
+      "address": "0x004524A6",
       "kind": "code"
     },
-    "_data_00491c2c": {
-      "address": "0x00491C2C",
+    "_data_0046f3c0": {
+      "address": "0x0046F3C0",
       "kind": "data"
     },
-    "_data_00491c30": {
-      "address": "0x00491C30",
+    "_data_0046f408": {
+      "address": "0x0046F408",
       "kind": "data"
     },
-    "_data_00491d62": {
-      "address": "0x00491D62",
+    "_data_0046f458": {
+      "address": "0x0046F458",
       "kind": "data"
     },
-    "_data_00491d65": {
-      "address": "0x00491D65",
+    "_data_0046f4a8": {
+      "address": "0x0046F4A8",
       "kind": "data"
     },
-    "_data_00491d78": {
-      "address": "0x00491D78",
+    "_data_0046f4c4": {
+      "address": "0x0046F4C4",
       "kind": "data"
     },
-    "_data_00491fdc": {
-      "address": "0x00491FDC",
+    "_data_0046f4d8": {
+      "address": "0x0046F4D8",
       "kind": "data"
     },
-    "_data_00492518": {
-      "address": "0x00492518",
+    "_data_0046f514": {
+      "address": "0x0046F514",
       "kind": "data"
     },
-    "_data_00491fe0": {
-      "address": "0x00491FE0",
+    "_data_0046f54c": {
+      "address": "0x0046F54C",
       "kind": "data"
     },
-    "_data_00491ff4": {
-      "address": "0x00491FF4",
+    "_data_0046f584": {
+      "address": "0x0046F584",
       "kind": "data"
     },
-    "_data_00491c74": {
-      "address": "0x00491C74",
+    "_data_0046f5ac": {
+      "address": "0x0046F5AC",
       "kind": "data"
     },
-    "_data_00491cb4": {
-      "address": "0x00491CB4",
+    "_data_0046f5cc": {
+      "address": "0x0046F5CC",
       "kind": "data"
     },
-    "_data_00491cf4": {
-      "address": "0x00491CF4",
+    "_data_0046f5f0": {
+      "address": "0x0046F5F0",
       "kind": "data"
     },
-    "_data_00492000": {
-      "address": "0x00492000",
+    "_data_0046f614": {
+      "address": "0x0046F614",
       "kind": "data"
     },
-    "_data_00492090": {
-      "address": "0x00492090",
-      "kind": "data"
-    },
-    "_data_00492058": {
-      "address": "0x00492058",
-      "kind": "data"
-    },
-    "_data_004924f0": {
-      "address": "0x004924F0",
-      "kind": "data"
-    },
-    "_data_004924f4": {
-      "address": "0x004924F4",
-      "kind": "data"
-    },
-    "_data_00491fe4": {
-      "address": "0x00491FE4",
+    "_data_0046f640": {
+      "address": "0x0046F640",
       "kind": "data"
     },
     "_data_00474f70": {
       "address": "0x00474F70",
       "kind": "data"
     },
-    "_kFirstBoot32": {
-      "address": "0x0046F640",
+    "_data_00491c28": {
+      "address": "0x00491C28",
       "kind": "data"
     },
-    "_kTryRefresh60": {
-      "address": "0x0046F614",
+    "_data_004922bc": {
+      "address": "0x004922BC",
       "kind": "data"
     },
-    "_kTryVSyncAsync": {
-      "address": "0x0046F5F0",
+    "_data_0049231f": {
+      "address": "0x0049231F",
       "kind": "data"
     },
-    "_kNoTnlHal": {
-      "address": "0x0046F5CC",
+    "_data_004924f0": {
+      "address": "0x004924F0",
       "kind": "data"
-    },
-    "_kRefreshFailed": {
-      "address": "0x0046F584",
-      "kind": "data"
-    },
-    "_kAsyncFailed": {
-      "address": "0x0046F54C",
-      "kind": "data"
-    },
-    "_kD3dInitFailed": {
-      "address": "0x0046F514",
-      "kind": "data"
-    },
-    "_kRunningRef": {
-      "address": "0x0046F4D8",
-      "kind": "data"
-    },
-    "_kRunningHal": {
-      "address": "0x0046F4C4",
-      "kind": "data"
-    },
-    "_kRunningTnlHal": {
-      "address": "0x0046F4A8",
-      "kind": "data"
-    },
-    "_kNoAddBlending": {
-      "address": "0x0046F458",
-      "kind": "data"
-    },
-    "_kNoLargeTextures": {
-      "address": "0x0046F408",
-      "kind": "data"
-    },
-    "_kNoA8R8G8B8": {
-      "address": "0x0046F3C0",
-      "kind": "data"
-    },
-    "_target_0040dc80@4": {
-      "address": "0x0040DC80",
-      "kind": "code"
-    },
-    "__fltused": {
-      "address": "0x00000000",
-      "kind": "metadata"
     }
   },
-  "bindings": {},
+  "bindings": {
+    "?Append@TextLog_0044b810@@QAAPADPADZZ": "0x0044B810",
+    "?AppendLine@TextLog_0044b8e0@@QAAPADPADZZ": "0x0044B8E0",
+    "__real@3fd0c15240000000": "0x00470C00",
+    "__real@43700000": "0x00470BFC"
+  },
   "base_index_order": 0,
-  "differences": [
-    {
-      "offset": "0x0",
-      "retail": [
-        "sub esp,0x70"
-      ],
-      "model": [
-        "sub esp,0x54",
-        "mov dl,BYTE PTR ds:0x491d65"
-      ],
-      "class": "code-shape"
-    },
-    {
-      "offset": "0x5",
-      "retail": [],
-      "model": [
-        "xor eax,eax"
-      ],
-      "class": "code-shape"
-    },
-    {
-      "offset": "0x6",
-      "retail": [],
-      "model": [
-        "xor ebx,ebx",
-        "xor esi,esi",
-        "cmp dl,bl",
-        "setne al"
-      ],
-      "class": "code-shape"
-    },
-    {
-      "offset": "0x7",
-      "retail": [
-        "xor eax,eax",
-        "lea edx,[esp+0x38]",
-        "push edx",
-        "mov ecx,0xe",
-        "lea edi,[esp+0x4c]",
-        "rep stos DWORD PTR es:[edi],eax",
-        "mov eax,ds:0x491c2c",
-        "mov ecx,DWORD PTR [eax]",
-        "xor ebx,ebx",
-        "push ebx",
-        "push eax",
-        "mov BYTE PTR [esp+0x1f],0x1",
-        "call DWORD PTR [ecx+0x20]",
-        "cmp BYTE PTR ds:0x491d65,bl",
-        "mov edi,0x80000000",
-        "jne L+0x101",
-        "test BYTE PTR ds:0x491d78,0x1",
-        "je L+0x57",
-        "mov DWORD PTR [esp+0x50],0x17",
-        "mov BYTE PTR ds:0x491d62,0x1",
-        "jmp L+0x90"
-      ],
-      "model": [
-        "mov edi,DWORD PTR ds:0x491c2c",
-        "mov ebp,0x80000000",
-        "mov DWORD PTR [esp+0x10],eax"
-      ],
-      "class": "branch-target"
-    },
-    {
-      "offset": "0x65",
-      "retail": [
-        "mov ecx,0x474f70",
-        "mov DWORD PTR [esp+0x54],0x16"
-      ],
-      "model": [
-        "push 0x474f70",
-        "call 0x44b810",
-        "add esp,0x8",
-        "mov DWORD PTR [esp+0x34],0x16"
-      ],
-      "class": "code-shape"
-    },
-    {
-      "offset": "0x78",
-      "retail": [
-        "call 0x44b810",
-        "add esp,0x4"
-      ],
-      "model": [],
-      "class": "code-shape"
-    },
-    {
-      "offset": "0x8c",
-      "retail": [
-        "mov DWORD PTR [esp+0x50],ecx"
-      ],
-      "model": [
-        "mov DWORD PTR [esp+0x34],ecx"
-      ],
-      "class": "register-choice"
-    },
-    {
-      "offset": "0x96",
-      "retail": [
-        "je L+0xa5"
-      ],
-      "model": [
-        "je L+0x75"
-      ],
-      "class": "branch-target"
-    },
-    {
-      "offset": "0x98",
-      "retail": [
-        "mov ebp,0x1",
-        "mov DWORD PTR ds:0x491fdc,ebp"
-      ],
-      "model": [
-        "mov esi,0x1",
-        "mov DWORD PTR ds:0x491fdc,esi",
-        "jmp L+0xbb",
-        "cmp DWORD PTR ds:0x491fdc,ebx",
-        "je L+0x9e",
-        "push 0x46f614",
-        "push 0x474f70",
-        "call 0x44b810",
-        "add esp,0x8",
-        "mov ebp,0x3c",
-        "mov DWORD PTR [esp+0x60],0x1",
-        "jmp L+0xbb",
-        "push 0x46f5f0",
-        "push 0x474f70",
-        "mov esi,0x1",
-        "call 0x44b810",
-        "add esp,0x8",
-        "xor ebp,ebp",
-        "mov DWORD PTR [esp+0x60],ebx",
-        "mov ecx,DWORD PTR ds:0x491ff4",
-        "mov al,ds:0x491d78",
-        "or ecx,0x2",
-        "test al,0x2",
-        "mov DWORD PTR ds:0x491ff4,ecx",
-        "mov DWORD PTR [esp+0x2c],0x280",
-        "mov DWORD PTR [esp+0x30],0x1e0",
-        "mov DWORD PTR [esp+0x4c],esi",
-        "mov DWORD PTR [esp+0x44],0x50",
-        "mov DWORD PTR [esp+0x58],esi",
-        "mov DWORD PTR ds:0x491fe0,esi",
-        "jne L+0x1ac",
-        "mov ecx,DWORD PTR ds:0x4924f0",
-        "mov edx,DWORD PTR [edi]",
-        "push 0x491c30",
-        "lea eax,[esp+0x30]",
-        "push eax",
-        "push 0x40",
-        "push ecx",
-        "push esi",
-        "push ebx",
-        "push edi",
-        "call DWORD PTR [edx+0x40]",
-        "test eax,eax",
-        "jl L+0x140",
-        "push 0x46f4a8",
-        "push 0x474f70",
-        "call 0x44b810",
-        "mov eax,ds:0x491ff4",
-        "add esp,0x8",
-        "or eax,0x1",
-        "mov ds:0x491ff4,eax",
-        "jmp L+0x292",
-        "mov ecx,DWORD PTR ds:0x4924f0",
-        "mov edx,DWORD PTR [edi]",
-        "push 0x491c30",
-        "lea eax,[esp+0x30]",
-        "push eax",
-        "push 0x20",
-        "push ecx",
-        "push esi",
-        "push ebx",
-        "push edi",
-        "call DWORD PTR [edx+0x40]",
-        "test eax,eax",
-        "jl L+0x183",
-        "push 0x46f4c4",
-        "push 0x474f70",
-        "call 0x44b810",
-        "mov eax,ds:0x491ff4",
-        "add esp,0x8",
-        "and eax,0xfffffffe",
-        "mov ds:0x491ff4,eax"
-      ],
-      "class": "branch-target"
-    },
-    {
-      "offset": "0xa3",
-      "retail": [
-        "jmp L+0xde"
-      ],
-      "model": [
-        "jmp L+0x292"
-      ],
-      "class": "branch-target"
-    },
-    {
-      "offset": "0xab",
-      "retail": [
-        "jne L+0xd9"
-      ],
-      "model": [
-        "jne L+0x1f8"
-      ],
-      "class": "branch-target"
-    },
-    {
-      "offset": "0xad",
-      "retail": [],
-      "model": [
-        "push 0x46f584",
-        "push 0x474f70",
-        "call 0x44b810",
-        "add esp,0x8",
-        "mov DWORD PTR [esp+0x58],ebx",
-        "mov DWORD PTR ds:0x491fe0,ebx"
-      ],
-      "class": "code-shape"
-    },
-    {
-      "offset": "0xb2",
-      "retail": [
-        "push 0x46f614",
-        "mov ecx,0x474f70",
-        "mov DWORD PTR [esp+0x7c],0x3c",
-        "mov DWORD PTR [esp+0x80],esi",
-        "call 0x44b810",
-        "add esp,0x4",
-        "mov DWORD PTR [esp+0x60],esi",
-        "jmp L+0x116",
-        "mov ebp,0x1",
-        "push 0x46f5f0",
-        "mov ecx,0x474f70",
-        "mov DWORD PTR [esp+0x7c],ebx",
-        "mov DWORD PTR [esp+0x64],ebp",
-        "mov DWORD PTR [esp+0x80],edi",
-        "call 0x44b810",
-        "add esp,0x4",
-        "jmp L+0x11b",
-        "mov edx,DWORD PTR [esp+0x44]",
-        "mov eax,0x1",
-        "mov DWORD PTR [esp+0x50],edx",
-        "mov DWORD PTR [esp+0x60],eax",
-        "mov DWORD PTR [esp+0x68],eax",
-        "mov ebp,0x1",
-        "mov eax,ds:0x491ff4",
-        "or eax,0x2",
-        "mov DWORD PTR [esp+0x48],0x280",
-        "mov DWORD PTR [esp+0x4c],0x1e0",
-        "mov DWORD PTR [esp+0x6c],ebp",
-        "mov DWORD PTR [esp+0x70],0x50",
-        "mov DWORD PTR [esp+0x74],ebp",
-        "mov ds:0x491ff4,eax",
-        "mov DWORD PTR ds:0x491fe0,ebp",
-        "xor esi,esi",
-        "test BYTE PTR ds:0x491d78,0x2",
-        "jne L+0x1d5",
-        "mov eax,ds:0x491c2c",
-        "mov ecx,DWORD PTR [eax]"
-      ],
-      "model": [
-        "mov edx,DWORD PTR ds:0x4924f0",
-        "mov eax,DWORD PTR [edi]"
-      ],
-      "class": "branch-target"
-    },
-    {
-      "offset": "0x165",
-      "retail": [
-        "lea edx,[esp+0x4c]",
-        "push edx",
-        "mov edx,DWORD PTR ds:0x4924f0",
-        "push 0x40",
-        "push edx",
-        "push ebp",
-        "push ebx",
-        "push eax",
-        "call DWORD PTR [ecx+0x40]",
-        "test eax,eax",
-        "jge L+0x2bf",
-        "cmp esi,ebx",
-        "je L+0x197",
-        "push 0x46f5cc",
-        "mov ecx,0x474f70",
-        "call 0x44b810",
-        "add esp,0x4",
-        "mov eax,ds:0x491c2c",
-        "mov ecx,DWORD PTR [eax]",
-        "push 0x491c30",
-        "lea edx,[esp+0x4c]",
-        "push edx",
-        "mov edx,DWORD PTR ds:0x4924f0",
-        "push 0x20",
-        "push edx",
-        "push ebp",
-        "push ebx",
-        "push eax",
-        "call DWORD PTR [ecx+0x40]",
-        "test eax,eax",
-        "jge L+0x2a3",
-        "cmp esi,ebx",
-        "je L+0x1d5",
-        "push 0x46f5ac",
-        "mov ecx,0x474f70",
-        "call 0x44b810",
-        "add esp,0x4",
-        "mov eax,ds:0x491c2c",
-        "mov ecx,DWORD PTR [eax]",
-        "push 0x491c30",
-        "lea edx,[esp+0x4c]",
-        "push edx",
-        "mov edx,DWORD PTR ds:0x4924f0"
-      ],
-      "model": [
-        "lea ecx,[esp+0x30]",
-        "push ecx"
-      ],
-      "class": "branch-target"
-    },
-    {
-      "offset": "0x1f2",
-      "retail": [
-        "push eax",
-        "call DWORD PTR [ecx+0x40]"
-      ],
-      "model": [
-        "push edi",
-        "call DWORD PTR [eax+0x40]"
-      ],
-      "class": "register-choice"
-    },
-    {
-      "offset": "0x1f8",
-      "retail": [
-        "jge L+0x283"
-      ],
-      "model": [
-        "jge L+0x292"
-      ],
-      "class": "branch-target"
-    },
-    {
-      "offset": "0x204",
-      "retail": [
-        "jne L+0x229"
-      ],
-      "model": [
-        "jne L+0x246"
-      ],
-      "class": "branch-target"
-    },
-    {
-      "offset": "0x20b",
-      "retail": [
-        "mov ecx,0x474f70"
-      ],
-      "model": [
-        "push 0x474f70"
-      ],
-      "class": "code-shape"
-    },
-    {
-      "offset": "0x215",
-      "retail": [
-        "add esp,0x4",
-        "mov DWORD PTR [esp+0x78],ebx"
-      ],
-      "model": [
-        "mov DWORD PTR [esp+0x60],ebx"
-      ],
-      "class": "code-shape"
-    },
-    {
-      "offset": "0x222",
-      "retail": [
-        "mov esi,ebp"
-      ],
-      "model": [
-        "mov esi,0x1"
-      ],
-      "class": "code-shape"
-    },
-    {
-      "offset": "0x224",
-      "retail": [
-        "jmp L+0x150"
-      ],
-      "model": [
-        "jmp L+0x26b"
-      ],
-      "class": "branch-target"
-    },
-    {
-      "offset": "0x229",
-      "retail": [
-        "cmp DWORD PTR [esp+0x7c],edi"
-      ],
-      "model": [
-        "cmp ebp,0x80000000"
-      ],
-      "class": "code-shape"
-    },
-    {
-      "offset": "0x234",
-      "retail": [
-        "mov ecx,0x474f70"
-      ],
-      "model": [
-        "push 0x474f70"
-      ],
-      "class": "code-shape"
-    },
-    {
-      "offset": "0x23e",
-      "retail": [
-        "add esp,0x4",
-        "mov DWORD PTR [esp+0x7c],ebp",
-        "mov DWORD PTR [esp+0x60],0x3"
-      ],
-      "model": [
-        "add esp,0x8",
-        "mov ebp,esi",
-        "mov DWORD PTR [esp+0x34],0x3"
-      ],
-      "class": "code-shape"
-    },
-    {
-      "offset": "0x24d",
-      "retail": [
-        "jmp L+0x150"
-      ],
-      "model": [
-        "jmp L+0x1ac"
-      ],
-      "class": "branch-target"
-    },
-    {
-      "offset": "0x257",
-      "retail": [
-        "mov edi,0x474f70",
-        "call 0x44b8e0",
-        "mov eax,ds:0x491c2c",
-        "add esp,0x4",
-        "cmp eax,ebx"
-      ],
-      "model": [
-        "push 0x474f70",
-        "call 0x44b810",
-        "mov edx,DWORD PTR [edi]",
-        "add esp,0x8",
-        "push edi",
-        "call DWORD PTR [edx+0x8]",
-        "pop edi",
-        "mov eax,esi",
-        "pop esi",
-        "pop ebp",
-        "mov DWORD PTR ds:0x491c2c,ebx",
-        "pop ebx",
-        "add esp,0x54",
-        "ret",
-        "cmp ebp,0x80000000",
-        "jne L+0x409",
-        "push 0x46f54c",
-        "push 0x474f70",
-        "call 0x44b810",
-        "mov ebp,esi",
-        "mov DWORD PTR [esp+0x3c],0x3",
-        "mov edx,DWORD PTR ds:0x4924f0",
-        "mov eax,DWORD PTR [edi]",
-        "add esp,0x8",
-        "push 0x491c30",
-        "lea ecx,[esp+0x30]",
-        "push ecx",
-        "push 0x20",
-        "push edx",
-        "push 0x2",
-        "push ebx",
-        "push edi",
-        "call DWORD PTR [eax+0x40]",
-        "test eax,eax",
-        "jl L+0x1d0",
-        "cmp DWORD PTR ds:0x491c30,ebx"
-      ],
-      "class": "branch-target"
-    },
-    {
-      "offset": "0x26b",
-      "retail": [
-        "je L+0x279"
-      ],
-      "model": [
-        "je L+0x3ff"
-      ],
-      "class": "branch-target"
-    },
-    {
-      "offset": "0x26d",
-      "retail": [
-        "mov ecx,DWORD PTR [eax]"
-      ],
-      "model": [
-        "lea eax,[esp+0x20]"
-      ],
-      "class": "code-shape"
-    },
-    {
-      "offset": "0x270",
-      "retail": [
-        "call DWORD PTR [ecx+0x8]",
-        "mov DWORD PTR ds:0x491c2c,ebx",
-        "pop edi",
-        "pop esi",
-        "mov eax,ebp",
-        "pop ebp",
-        "pop ebx",
-        "add esp,0x70",
-        "ret",
-        "push 0x46f4d8",
-        "mov ecx,0x474f70",
-        "call 0x44b810",
-        "mov eax,ds:0x491ff4",
-        "add esp,0x4",
-        "and eax,0xfffffffe",
-        "mov BYTE PTR [esp+0x13],bl",
-        "jmp L+0x2d8",
-        "push 0x46f4c4",
-        "mov ecx,0x474f70",
-        "call 0x44b810",
-        "mov eax,ds:0x491ff4",
-        "add esp,0x4",
-        "and eax,0xfffffffe",
-        "jmp L+0x2d8",
-        "push 0x46f4a8",
-        "mov ecx,0x474f70",
-        "call 0x44b810",
-        "mov eax,ds:0x491ff4",
-        "add esp,0x4",
-        "or eax,ebp",
-        "fld QWORD PTR ds:0x470c00",
-        "mov ds:0x491ff4,eax",
-        "fptan",
-        "lea edx,[esp+0x14]"
-      ],
-      "model": [
-        "mov eax,ds:0x491c74",
-        "lea ecx,[esp+0x18]",
-        "push ecx",
-        "mov edx,ecx"
-      ],
-      "class": "branch-target"
-    },
-    {
-      "offset": "0x2ea",
-      "retail": [
-        "mov ecx,0xe",
-        "lea esi,[esp+0x4c]",
-        "mov edi,0x491d0c",
-        "lea eax,[esp+0x24]",
-        "rep movs DWORD PTR es:[edi],DWORD PTR ds:[esi]"
-      ],
-      "model": [],
-      "class": "code-shape"
-    },
-    {
-      "offset": "0x2ff",
-      "retail": [
-        "lea ecx,[esp+0x34]",
-        "push ecx",
-        "push 0x491c74",
-        "mov DWORD PTR [esp+0x3c],0x43a00000",
-        "mov DWORD PTR [esp+0x40],0xc3700000",
-        "mov DWORD PTR [esp+0x30],0x43a00000",
-        "mov DWORD PTR [esp+0x34],0xc3700000"
-      ],
-      "model": [
-        "mov DWORD PTR [esp+0x24],0x43a00000",
-        "mov DWORD PTR [esp+0x28],0xc3700000",
-        "mov DWORD PTR [esp+0x2c],0x0",
-        "mov DWORD PTR [esp+0x30],0x0",
-        "mov DWORD PTR [esp+0x34],0x3f800000"
-      ],
-      "class": "code-shape"
-    },
-    {
-      "offset": "0x331",
-      "retail": [
-        "mov DWORD PTR [esp+0x24],0x0",
-        "mov DWORD PTR [esp+0x28],0x3f800000",
-        "mov DWORD PTR [esp+0x2c],0x0",
-        "fstp st(0)",
-        "fdivr DWORD PTR ds:0x470bfc",
-        "fchs",
-        "fstp DWORD PTR [esp+0x44]"
-      ],
-      "model": [],
-      "class": "code-shape"
-    },
-    {
-      "offset": "0x35c",
-      "retail": [],
-      "model": [
-        "mov ecx,DWORD PTR ds:0x491cb4"
-      ],
-      "class": "code-shape"
-    },
-    {
-      "offset": "0x370",
-      "retail": [
-        "push 0x491cb4"
-      ],
-      "model": [
-        "push ecx"
-      ],
-      "class": "code-shape"
-    },
-    {
-      "offset": "0x37a",
-      "retail": [
-        "mov eax,ds:0x491c30",
-        "mov edx,DWORD PTR [eax]",
-        "push 0x491c74"
-      ],
-      "model": [
-        "mov eax,ds:0x491c74",
-        "mov edi,DWORD PTR ds:0x491c30",
-        "mov edx,DWORD PTR [edi]",
-        "push eax"
-      ],
-      "class": "code-shape"
-    },
-    {
-      "offset": "0x388",
-      "retail": [],
-      "model": [
-        "push edi",
-        "call DWORD PTR [edx+0xb0]",
-        "mov edx,DWORD PTR ds:0x491cb4",
-        "mov ecx,DWORD PTR [edi]",
-        "push edx",
-        "push 0x3",
-        "push edi",
-        "call DWORD PTR [ecx+0xb0]",
-        "mov ecx,DWORD PTR ds:0x491cf4",
-        "mov eax,DWORD PTR [edi]",
-        "push ecx",
-        "push edi",
-        "call DWORD PTR [eax+0xc0]",
-        "mov eax,ds:0x492000",
-        "mov edx,DWORD PTR [edi]"
-      ],
-      "class": "code-shape"
-    },
-    {
-      "offset": "0x389",
-      "retail": [
-        "call DWORD PTR [edx+0xb0]",
-        "mov eax,ds:0x491c30",
-        "mov ecx,DWORD PTR [eax]",
-        "push 0x491cb4",
-        "push 0x3",
-        "push eax",
-        "call DWORD PTR [ecx+0xb0]",
-        "mov eax,ds:0x491c30",
-        "mov edx,DWORD PTR [eax]",
-        "push 0x491cf4",
-        "push eax",
-        "call DWORD PTR [edx+0xc0]",
-        "mov eax,ds:0x491c30",
-        "mov ecx,DWORD PTR [eax]",
-        "push 0x492000",
-        "push eax",
-        "call DWORD PTR [ecx+0x1c]"
-      ],
-      "model": [
-        "push edi",
-        "call DWORD PTR [edx+0x1c]"
-      ],
-      "class": "code-shape"
-    },
-    {
-      "offset": "0x3d5",
-      "retail": [
-        "mov ecx,0x474f70"
-      ],
-      "model": [
-        "push 0x474f70"
-      ],
-      "class": "code-shape"
-    },
-    {
-      "offset": "0x3df",
-      "retail": [
-        "add esp,0x4"
-      ],
-      "model": [
-        "add esp,0x8"
-      ],
-      "class": "register-choice"
-    },
-    {
-      "offset": "0x3f3",
-      "retail": [
-        "mov ecx,0x474f70"
-      ],
-      "model": [
-        "push 0x474f70"
-      ],
-      "class": "code-shape"
-    },
-    {
-      "offset": "0x3fd",
-      "retail": [
-        "add esp,0x4"
-      ],
-      "model": [
-        "add esp,0x8"
-      ],
-      "class": "register-choice"
-    },
-    {
-      "offset": "0x407",
-      "retail": [
-        "jne L+0x462",
-        "cmp BYTE PTR [esp+0x13],bl"
-      ],
-      "model": [],
-      "class": "branch-target"
-    },
-    {
-      "offset": "0x40f",
-      "retail": [
-        "mov ecx,DWORD PTR [esp+0x50]"
-      ],
-      "model": [
-        "cmp DWORD PTR [esp+0x10],ebx",
-        "je L+0x3e4",
-        "mov edx,DWORD PTR [esp+0x34]"
-      ],
-      "class": "branch-target"
-    },
-    {
-      "offset": "0x418",
-      "retail": [
-        "mov edx,DWORD PTR [eax]"
-      ],
-      "model": [
-        "mov ecx,DWORD PTR [eax]"
-      ],
-      "class": "register-choice"
-    },
-    {
-      "offset": "0x41c",
-      "retail": [
-        "push 0x3",
-        "push ebx",
-        "push ecx",
-        "push ebp"
-      ],
-      "model": [
-        "push edx",
-        "push esi"
-      ],
-      "class": "code-shape"
-    },
-    {
-      "offset": "0x423",
-      "retail": [
-        "call DWORD PTR [edx+0x28]"
-      ],
-      "model": [
-        "call DWORD PTR [ecx+0x28]"
-      ],
-      "class": "register-choice"
-    },
-    {
-      "offset": "0x433",
-      "retail": [
-        "mov esi,DWORD PTR ds:0x491ff4",
-        "mov edx,DWORD PTR ds:0x491d78",
-        "or edx,ebp",
-        "and esi,0xfffffffb"
-      ],
-      "model": [
-        "mov edi,DWORD PTR ds:0x491ff4",
-        "mov esi,DWORD PTR ds:0x491d78"
-      ],
-      "class": "code-shape"
-    },
-    {
-      "offset": "0x449",
-      "retail": [
-        "mov ecx,0x474f70",
-        "mov DWORD PTR ds:0x491ff4,esi",
-        "mov DWORD PTR ds:0x491d78,edx"
-      ],
-      "model": [
-        "and edi,0xfffffffb",
-        "or esi,0x1",
-        "push 0x474f70",
-        "mov DWORD PTR ds:0x491ff4,edi",
-        "mov DWORD PTR ds:0x491d78,esi"
-      ],
-      "class": "code-shape"
-    },
-    {
-      "offset": "0x45f",
-      "retail": [
-        "add esp,0x4"
-      ],
-      "model": [
-        "add esp,0x8"
-      ],
-      "class": "register-choice"
-    },
-    {
-      "offset": "0x471",
-      "retail": [],
-      "model": [
-        "mov DWORD PTR ds:0x4924f4,ebx",
-        "mov DWORD PTR ds:0x491fe4,ebx"
-      ],
-      "class": "code-shape"
-    },
-    {
-      "offset": "0x474",
-      "retail": [
-        "mov DWORD PTR ds:0x4924f4,ebx",
-        "mov DWORD PTR ds:0x491fe4,ebx"
-      ],
-      "model": [],
-      "class": "code-shape"
-    },
-    {
-      "offset": "0x483",
-      "retail": [
-        "add esp,0x70"
-      ],
-      "model": [
-        "add esp,0x54"
-      ],
-      "class": "register-choice"
-    },
-    {
-      "offset": "0x486",
-      "retail": [],
-      "model": [
-        "push 0x46f514",
-        "push 0x474f70",
-        "call 0x44b810",
-        "mov eax,DWORD PTR [edi]",
-        "add esp,0x8",
-        "push edi",
-        "call DWORD PTR [eax+0x8]",
-        "pop edi",
-        "mov eax,esi",
-        "pop esi",
-        "pop ebp",
-        "mov DWORD PTR ds:0x491c2c,ebx",
-        "pop ebx",
-        "add esp,0x54",
-        "ret",
-        "int3",
-        "int3",
-        "int3",
-        "int3",
-        "int3",
-        "int3",
-        "int3",
-        "int3",
-        "int3",
-        "int3",
-        "int3",
-        "int3",
-        "int3",
-        "int3",
-        "int3",
-        "add eax,0x103c",
-        "push eax",
-        "call 0x40dc80",
-        "ret",
-        "int3",
-        "int3",
-        "int3",
-        "int3",
-        "push ebx",
-        "mov ebx,DWORD PTR [esp+0xc]",
-        "push edi",
-        "xor edi,edi",
-        "test ebx,ebx",
-        "jle L+0x471",
-        "push esi",
-        "mov esi,DWORD PTR [esp+0x10]",
-        "mov eax,DWORD PTR [esi]",
-        "add esi,0x4",
-        "call L+0x440",
-        "add edi,eax",
-        "dec ebx",
-        "jne L+0x461",
-        "pop esi",
-        "mov eax,edi",
-        "pop edi",
-        "pop ebx",
-        "ret 0x8"
-      ],
-      "class": "branch-target"
-    }
-  ],
+  "differences": [],
   "note": "reference/recovery_notes/d3d_initialize_00439890_equivalent_2026_10_12.md",
   "roots": [
     "?D3DInitialize_00439890@@YGHXZ"
   ],
-  "listed_branch_targets": true
+  "listed_branch_targets": true,
+  "context_sources": [
+    "src/platform/text_log.cpp",
+    "src/platform/text_log_append_line_0044b8e0.cpp"
+  ]
 }

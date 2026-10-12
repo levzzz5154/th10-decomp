@@ -1,5 +1,13 @@
 # GameMain 0x00438AD0 as an equivalent C++ model (2026-10-12)
 
+**Status (2026-10-12, later the same day): registered equivalent recovery, 404 of 404 instructions identical.**
+The model was rewritten from the retail disassembly as plain C++ (`new`/`delete`, the critical-section
+loops, the restart log reset) and is linked against the real recovered callee sources
+(`context_sources` in the layout: text log, config load, D3D manager, window creation, sound,
+MIDI shutdown), so the compiler derives the callees' private register conventions by itself.
+The function is listed in `roots` because the C runtime calls it by the standard convention.
+Everything below this paragraph describes the earlier parked draft.
+
 Region: 0x00438AD0..0x0043900C (1389 bytes). The model lives in
 `msvc/equivalent/game/game_main_00438ad0.cpp` with the header
 `msvc/include/th10/game/game_main_00438ad0.hpp`, compiled in the

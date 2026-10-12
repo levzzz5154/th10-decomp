@@ -1,71 +1,130 @@
 #ifndef TH10_GAME_ENEMY_DATA_START_0040DC80_HPP
 #define TH10_GAME_ENEMY_DATA_START_0040DC80_HPP
-#include "th10/game/enemy_spawn_0040cfb0.hpp"
+#include <stddef.h>
+#include "th10/game/polar_motion.hpp"
+#include "th10/math/interpolator.hpp"
+#include "th10/math/trajectory_vector.hpp"
+#include "th10/math/vector.hpp"
+#include "th10/script/ecl_children.hpp"
 
-// The EnemyData fields the start tick touches beyond the shared view.
-struct EnemyDataMotion_0040dc80 {
-    unsigned char reserved_000[0x38];
-    float delta_a[3];                    // +0x38
-    unsigned char reserved_044[0x58 - 0x44];
-    float base_position[3];              // +0x58
-    float base_polar[3];                 // +0x64
-    float heading[2];                    // +0x70
-    float heading_rate[2];               // +0x78
-    unsigned char mode_flags;            // +0x80
-    unsigned char reserved_081[3];
-    float position_b[3];                 // +0x84
-    float polar_b[3];                    // +0x90
-    float heading_b[2];                  // +0x9C
-    float heading_c[2];                  // +0xA4
-    unsigned char reserved_0ac[0xB0 - 0xAC];
-    void* pickup_result_a;               // +0xB0
-    void* pickup_result_b;               // +0xB8
-    unsigned char reserved_0c0[0xC0 - 0xB8];
-    void* animation_handles[8];          // +0xC0
-    unsigned char reserved_0e0[0xF4 - 0xE0];
-    int off_screen_state;                // +0xF4
-    int off_screen_previous;             // +0xF8
-    unsigned char reserved_0fc[0x11C - 0xFC];
-    int wait_last;                       // +0x11C
-    int wait_count;                      // +0x120
-    float wait_fraction;                 // +0x124
-    float* wait_frames;                  // +0x128 (pointer into the script)
-    unsigned char reserved_12c[0x180 - 0x12C];
-    int base_interp_enabled;             // +0x180
-    unsigned char base_interp[8];        // +0x184
-    unsigned char reserved_18c[0x1CC - 0x18C];
-    int drift_interp_enabled;            // +0x1CC
-    unsigned char reserved_1d0[0x1D4 - 0x1D0];
-    unsigned char trajectory_a[0x34];    // +0x1D4
-    unsigned char reserved_208[8];
-    unsigned char trajectory_b[0x34];    // +0x210
-    unsigned char reserved_244[8];
-    unsigned char trajectory_c[0x34];    // +0x24C
-    unsigned char reserved_280[8];
-    unsigned char trajectory_d[0x34];    // +0x288
-    unsigned char reserved_2bc[8];
-    unsigned char trajectory_e[0x34];    // +0x2BC
-    unsigned char reserved_2f0[0x13A4 - 0x2F0];
-    float scroll_scale_x;                // +0x13A4
-    float scroll_scale_y;                // +0x13A8
-    float clamp_x;                       // +0x13AC
-    float clamp_y;                       // +0x13B0
-    float clamp_rate_x;                  // +0x13B4
-    float clamp_rate_y;                  // +0x13B8
-    unsigned char reserved_13bc[0x1414 - 0x13BC];
-    int blink_countdown;                 // +0x1414
-    unsigned char reserved_1418[0x141C - 0x1418];
-    unsigned char reserved_1430[0x1430 - 0x1418 - 8];
-    float blink_timer;                   // +0x1430 (FrameTimer view)
-    unsigned char reserved_1434[0x1444 - 0x1434];
-    int script_change_a;                 // +0x1448
-    int script_change_b;                 // +0x144C
-    unsigned char reserved_1450[0x14D8 - 0x1450];
-    void* script_vm;                     // +0x14D8
+// The motion records subtract as vectors; the interpolators hand back Vec3.
+inline PolarVec3 operator-(const Vec3& a, const PolarVec3& b) {
+    PolarVec3 difference;
+    difference.x = a.x - b.x;
+    difference.y = a.y - b.y;
+    difference.z = a.z - b.z;
+    return difference;
+}
+inline PolarVec3 operator-(const PolarVec3& a, const PolarVec3& b) {
+    PolarVec3 difference;
+    difference.x = a.x - b.x;
+    difference.y = a.y - b.y;
+    difference.z = a.z - b.z;
+    return difference;
+}
+
+// 0x004496D0: restart the animation a handle names with another script.
+struct ScriptChangeHandle {
+    int id;
+    __declspec(noinline) void ChangeScript(int index);
 };
 
-// 0x0040DC80: run the enemy's script up to its first wait. Nonzero when
-// the enemy finished (released or a script error).
-extern "C" __declspec(noinline) int __stdcall EnemyDataStart_0040dc80(
-    EnemyData_0040cfb0* enemy);
+struct EnemyRecord_0040dc80;
+
+// The enemy proper as the per-frame tick at 0x0040DC80 reads it (0x14DC
+// bytes at +0x103C of the record).
+struct EnemyTick_0040dc80 {
+    PolarMotion previous;                         // +0x0000: last frame's `final`
+    PolarMotion final;                            // +0x002C: where the enemy is drawn and hit
+    PolarMotion relative;                         // +0x0058: offset motion, added to `absolute`
+    PolarMotion absolute;                         // +0x0084
+    Vec2 hit_size;                                // +0x00B0: against the player's shots
+    Vec2 contact_size;                            // +0x00B8: against the player
+    ScriptChangeHandle animations[8];             // +0x00C0
+    unsigned char reserved_00e0[0xF4 - 0xE0];
+    int animation_script;                         // +0x00F4: base script of animations[0]
+    int facing;                                   // +0x00F8: -1 left, 0 idle, 1 right
+    unsigned char reserved_00fc[0x11C - 0xFC];
+    FrameTimer clock;                             // +0x011C
+    unsigned char reserved_0130[0x13C - 0x130];
+    Interpolator<Vec3> relative_path;             // +0x013C
+    Interpolator<Vec3> absolute_path;             // +0x0188
+    Interpolator<TrajectoryVec2> relative_heading;   // +0x01D4: angle, speed
+    Interpolator<TrajectoryVec2> absolute_heading;   // +0x0210
+    Interpolator<TrajectoryVec2> relative_orbit;     // +0x024C: radius, radius step
+    Interpolator<TrajectoryVec2> absolute_orbit;     // +0x0288
+    unsigned char reserved_02c4[0x13A4 - 0x2C4];
+    Vec2 visible_size;                            // +0x13A4: kept while this overlaps the field
+    Vec2 limit_center;                            // +0x13AC
+    Vec2 limit_size;                              // +0x13B4
+    int bonus;                                    // +0x13BC: added to the score on death
+    int health;                                   // +0x13C0
+    unsigned char reserved_13c4[4];
+    int spell_delta;                              // +0x13C8 (+0x2404 of the record), see spell_timer.cpp
+    unsigned char reserved_13cc[0x1414 - 0x13CC];
+    int flash_frames;                             // +0x1414
+    unsigned char reserved_1418[4];
+    FrameTimer invulnerable_timer;                // +0x141C
+    FrameTimer contact_timer;                     // +0x1430: no contact damage while running
+    unsigned int flags;                           // +0x1444
+    int covered_script;                           // +0x1448: while the stage flag at +0x28 is set
+    int uncovered_script;                         // +0x144C
+    unsigned char reserved_1450[0x14D8 - 0x1450];
+    EnemyRecord_0040dc80* record;                 // +0x14D8
+};
+typedef char EnemyTickFacing_0040dc80[offsetof(EnemyTick_0040dc80, facing) == 0xF8 ? 1 : -1];
+typedef char EnemyTickClock_0040dc80[offsetof(EnemyTick_0040dc80, clock) == 0x11C ? 1 : -1];
+typedef char EnemyTickPath_0040dc80[offsetof(EnemyTick_0040dc80, absolute_path) == 0x188 ? 1 : -1];
+typedef char EnemyTickOrbit_0040dc80[offsetof(EnemyTick_0040dc80, absolute_orbit) == 0x288 ? 1 : -1];
+typedef char EnemyTickVisible_0040dc80[offsetof(EnemyTick_0040dc80, visible_size) == 0x13A4 ? 1 : -1];
+typedef char EnemyTickFlash_0040dc80[offsetof(EnemyTick_0040dc80, flash_frames) == 0x1414 ? 1 : -1];
+typedef char EnemyTickFlags_0040dc80[offsetof(EnemyTick_0040dc80, flags) == 0x1444 ? 1 : -1];
+typedef char EnemyTickSize_0040dc80[sizeof(EnemyTick_0040dc80) == 0x14DC ? 1 : -1];
+
+// EnemyTick_0040dc80::flags.
+enum {
+    ENEMY_NO_HIT = 0x1,
+    ENEMY_NO_CONTACT = 0x2,
+    ENEMY_KEEP_OFFSCREEN = 0x4,
+    ENEMY_NO_DAMAGE = 0x8,
+    ENEMY_INTANGIBLE = 0x10,
+    ENEMY_INVINCIBLE = 0x40,
+    ENEMY_SEEN = 0x100,
+    ENEMY_LIMITED = 0x200,
+    ENEMY_TICKED = 0x400,
+    ENEMY_FACES = 0x1000,
+    ENEMY_HIT = 0x2000,
+    ENEMY_BOSS = 0x8000,
+    ENEMY_UNSCROLLED = 0x40000,
+    ENEMY_UNTARGETED = 0x80000,
+    ENEMY_SWAPS_SCRIPT = 0x100000,
+    ENEMY_SCRIPT_SWAPPED = 0x200000
+};
+
+// 0x0040DC80: one frame of an enemy: motion, the off-screen test, its
+// script, damage from the player's shots, contact, animation and timers.
+// 0 to keep the enemy, 1 when it died, -1 when it left or its script ended.
+// The 0x2518-byte enemy record: the script interpreter, then the enemy.
+struct ScriptTable_00450470;
+struct ScriptFrame_0040dc80 {
+    int time;
+    int instruction;
+};
+struct EnemyRecord_0040dc80 {
+    void* vtable;
+    ScriptFrame_0040dc80* current;                // +0x0004
+    unsigned char reserved_0008[0x102C - 8];
+    ScriptTable_00450470* table;                  // +0x102C
+    unsigned char reserved_1030[0x103C - 0x1030];
+    EnemyTick_0040dc80 data;                      // +0x103C
+
+    // 0x004127A0: the script entry of a spell slot that has come due, or 0.
+    __declspec(noinline) const char* AdvanceSlots();
+    // 0x0040C6E0, 0x0040C730: drop what the running script owns.
+    __declspec(noinline) void ClearResourceList();
+    __declspec(noinline) void ResetScript();
+};
+typedef char EnemyRecordSize_0040dc80[sizeof(EnemyRecord_0040dc80) == 0x2518 ? 1 : -1];
+
+extern "C" __declspec(noinline) int __stdcall EnemyDataStart_0040dc80(EnemyTick_0040dc80* enemy);
 #endif

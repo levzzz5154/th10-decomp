@@ -1,300 +1,368 @@
-// 0x00433EF0..0x004349DB: the music room of the title menu (and its
-// four-entry phase table), reached from the main menu.
+// 0x00433EF0: the music room of the title menu.
 //
-// Phase 0 loads musiccmt.txt on the first frame and parses it into 32 track
-// titles, comments and eight preview lines each; the title rows slide in
-// while the timer runs.  Phase 1 reveals the comment of the selected track
-// two characters per even frame.  Phase 2 moves the cursor over the tracks;
-// confirm starts the preview of the selected track (with an extra
-// acknowledgement when its comment is a spoiler warning), cancel leaves
-// through phase 3, which removes the screen and returns to the main menu.
+// Phase 0 loads musiccmt.txt on its first frame, parses it into the track
+// files, titles and eight comment lines each, and slides two title rows in
+// per frame. Phase 1 reveals the comment of the chosen track, one line every
+// other frame. Phase 2 does the same and moves the cursor over the tracks;
+// confirm plays the chosen track (a track not heard yet first shows a
+// spoiler warning and wants a second confirm), cancel leaves through phase 3,
+// which removes the screen and returns to the main menu.
 //
-// The room is a stack argument; the handler is linked with the title
-// dispatcher and the real bodies of its leaves
-// (layout/ltcg/difficulty_select_update_00430320.json).
-//
-// Equivalent recovery: the x87 row positions, the vararg title drawing and
-// the inlined parser keep source-level shapes the image does not record
-// (reference/recovery_notes/ui_final_runtime_00433ef0_equivalent_2026_10_12.md).
-#include "th10/game/ui_final_runtime_00433ef0.hpp"
+// Written from the retail instructions block by block; linked with the
+// title-menu cluster (layout/ltcg/difficulty_select_update_00430320.json)
+// for the bodies of the routines it calls.
+#include "th10/game/recovery_script_executor_caller_00433ef0.hpp"
 #include "th10/game/difficulty_select_update_00430320.hpp"
-#include "th10/game/game_thread.hpp"
-#include "th10/platform/sound_queue.hpp"
 #include "th10/render/resource_registrar_0043e460.hpp"
+#include <math.h>
 
-// The per-track "heard" flags live behind the progress pointer at +0x1D892.
-struct MusicProgressHeard_00433ef0 {
-    unsigned char reserved_00000[0x1D892];
-    unsigned char track_heard[32];
+extern "C" void* data_00491c10;
+extern "C" GameThread_0040c540* data_004776e0;
+extern "C" SoundQueue data_00492590;
+extern "C" unsigned int data_00474e36;
+extern "C" unsigned short recovery_music_repeat_00474e34;
+extern "C" unsigned char* recovery_music_player_0047783c;
+extern "C" unsigned char recovery_music_mode_00491d78;
+extern "C" void* recovery_music_preview_resource_00491fec;
+extern "C" float data_00476f78;
+extern "C" RecoveryMusicVector_00433ef0 recovery_music_defaults_00491c14;
+extern "C" const char recovery_music_locked_format_0046ecf4[];
+extern "C" const char recovery_music_comment_file_0046ed14[];
+extern "C" const char recovery_music_dummy_0046df98[];
+extern "C" const char recovery_music_restore_bgm_0046f018[];
+extern "C" const char* recovery_music_preview_table_00476fd8[8];
+extern "C" void __cdecl entry_free_00452422(void* memory);
+extern "C" void* __cdecl asm_FUN_00449950_00449950(void* manager);
+extern "C" void** __cdecl asm_AnimationManager_RegisterPrimaryBack_004489d0(
+    void* manager, void** out, void* object);
+struct AnimationResource_00449870 {
+    __declspec(noinline) void* InitializeObject(void* object, int index);
 };
+extern "C" int __stdcall recovery_replace_extension_00420a90(int selector, const char* path);
+extern "C" int __stdcall recovery_play_dummy_00420b10(int selector, int slot);
 
-extern "C" {
-extern char* __stdcall StageText_SkipLine(char* cursor, int* remaining);
-extern char* __stdcall StageText_ExtractLine(char* cursor, char* destination,
-                                             int* remaining);
-extern const char data_0046ecf4[];               // "No.%d  ？？？？？？？？？？？"
-extern AnimationManager_0043e460 g_music_requests;  // 0x00492590
-extern unsigned char g_config_flags;             // 0x00491D78
-extern MusicProgressHeard_00433ef0* g_music_progress;  // 0x0047783C
-extern const float data_00470ca0;                // 20.0: the row pitch
-extern const double data_00470c98;               // 4.0: the selected row's y offset
-extern const float data_00470c64;                // 40.0: the slide-in threshold
-extern const char data_0046df98[];               // "dummy": the request placeholder
-extern const float data_00470c80;                // 96.0: the first row's y
+static __forceinline RecoveryMusicVm_00433ef0* MusicFind(unsigned int handle) {
+    RecoveryScriptId_0040bd80 id = { static_cast<int>(handle) };
+    return static_cast<RecoveryMusicVm_00433ef0*>(
+        reinterpret_cast<RecoveryLookup_0040bd80*>(data_00491c10)->Find(
+            reinterpret_cast<RecoveryLookupContext_0040bd80*>(data_00491c10), id));
+}
+
+static __forceinline void MusicSetTreeFrame(RecoveryMusicVm_00433ef0* object, unsigned short frame) {
+    if (object != 0) {
+        object->stop_frame = frame;
+        if (object->children_flagged == 0) {
+            for (RecoveryMusicChild_00433ef0* child = object->children;
+                 child != 0; child = child->next)
+                child->object->stop_frame = frame;
+        }
+    }
+}
+
+static __forceinline void MusicResetTimer(RecoveryTimer_0040bd80* timer) {
+    if (!(timer->flags & 1u)) {
+        timer->current = 0;
+        timer->previous = -999999;
+        timer->elapsed = 0;
+        timer->speed = &data_00476f78;
+        timer->flags |= 1u;
+    }
+    timer->current = 0;
+    timer->elapsed = 0;
+    timer->previous = -1;
 }
 
 // Select an item, clamped to the last one when the menu has items.
-static __forceinline void SelectItem_00433ef0(MenuCursor& cursor, int index) {
+static __forceinline void MusicSelect(MenuCursor& cursor, int index) {
     if (cursor.item_count != 0)
         cursor.selection = index >= cursor.item_count ? cursor.item_count - 1 : index;
     else
         cursor.selection = index;
 }
 
-// The animation a handle refers to (0x00449450): look it up through the
-// manager's Find and blank the slot when nothing answers.
-static __forceinline RecoveryMusicVm_00433ef0* ValidateHandle_00433ef0(
-        RecoveryHandle_0040bd80* slot) {
-    RecoveryMusicVm_00433ef0* found = reinterpret_cast<RecoveryMusicVm_00433ef0*>(
+// 0x0042C670, 0x004349E0, 0x00434A20: defined in their own sources.
+void __stdcall RecoveryMusicInstallSlot_0042c670(RecoveryMusicRoom_00433ef0* room, int index);
+char* __stdcall StageText_SkipLine(char* cursor, int* remaining);
+char* __stdcall StageText_ExtractLine(char* cursor, char* destination, int* remaining);
+void __stdcall RecoveryMusicStopHandle_00409e50(RecoveryHandle_0040bd80* handle);
+
+// The body of 0x00448D00, where the whole-program link expanded it in place.
+static __forceinline void** MusicCreateInPlace(void* resource, void** out, int script, int bucket) {
+    RecoveryMusicVm_00433ef0* object = static_cast<RecoveryMusicVm_00433ef0*>(
+        asm_FUN_00449950_00449950(data_00491c10));
+    unsigned int flags = object->flags;
+    object->render_bucket = bucket;
+    object->flags = flags | 0x40000000u;
+    static_cast<AnimationResource_00449870*>(resource)->InitializeObject(object, script);
+    asm_AnimationManager_RegisterPrimaryBack_004489d0(data_00491c10, out, object);
+    return out;
+}
+// The body of 0x00449450, likewise.
+static __forceinline RecoveryMusicVm_00433ef0* MusicValidateInPlace(RecoveryHandle_0040bd80* handle) {
+    RecoveryScriptId_0040bd80 id = { static_cast<int>(handle->value) };
+    RecoveryMusicVm_00433ef0* object = static_cast<RecoveryMusicVm_00433ef0*>(
         reinterpret_cast<RecoveryLookup_0040bd80*>(data_00491c10)->Find(
-            reinterpret_cast<RecoveryLookupContext_0040bd80*>(data_00491c10),
-            *reinterpret_cast<RecoveryScriptId_0040bd80*>(slot)));
-    if (found == 0)
-        slot->value = 0;
-    return found;
+            reinterpret_cast<RecoveryLookupContext_0040bd80*>(data_00491c10), id));
+    if (object == 0)
+        handle->value = 0;
+    return object;
 }
 
-// Stop an animation and its children at a frame.
-static __forceinline void SetTreeFrame_00433ef0(RecoveryMusicVm_00433ef0* object, unsigned short frame) {
-    if (object != 0) {
-        object->stop_frame = frame;
-        if (object->children_flagged == 0) {
-            for (RecoveryMusicChild_00433ef0* child = object->children; child != 0; child = child->next)
-                child->object->stop_frame = frame;
-        }
+static __forceinline unsigned int MusicRegisterObject(void* resource, int script) {
+    RecoveryMusicVm_00433ef0* object = static_cast<RecoveryMusicVm_00433ef0*>(
+        asm_FUN_00449950_00449950(data_00491c10));
+    object->flags |= 0x40000000u;
+    object->render_bucket = 15;
+    static_cast<AnimationResource_00449870*>(resource)->InitializeObject(object, script);
+    void* handle;
+    asm_AnimationManager_RegisterPrimaryBack_004489d0(data_00491c10, &handle, object);
+    return reinterpret_cast<unsigned int>(handle);
+}
+
+// The body of 0x004491C0: the object registered under an id, in the primary
+// list and then the secondary one.
+static __forceinline RecoveryMusicVm_00433ef0* MusicFindInPlace(
+        RecoveryLookupContext_0040bd80* context, unsigned int id) {
+    RecoveryLookupNode_0040bd80* node;
+    if (!id)
+        return 0;
+    for (node = context->primary; node != 0; node = node->next)
+        if (reinterpret_cast<RecoveryMusicVm_00433ef0*>(node->object)->id == id)
+            return reinterpret_cast<RecoveryMusicVm_00433ef0*>(node->object);
+    for (node = context->secondary; node != 0; node = node->next)
+        if (reinterpret_cast<RecoveryMusicVm_00433ef0*>(node->object)->id == id)
+            return reinterpret_cast<RecoveryMusicVm_00433ef0*>(node->object);
+    return 0;
+}
+
+// 0x00449450: the object a handle names; a stale handle is cleared.
+__declspec(noinline) RecoveryMusicVm_00433ef0* __stdcall MusicValidate_00449450(
+    RecoveryHandle_0040bd80* handle);
+
+// Show the next line of the chosen track's comment, every other frame. A
+// track that has not been heard shows the spoiler warning instead, until the
+// player confirms a second time.
+static __forceinline void MusicRevealLine(RecoveryMusicRoom_00433ef0* room) {
+    if (room->timer.current % 2 == 0 && room->preview_cursor < 8) {
+        RecoveryMusicVm_00433ef0* object =
+            MusicValidate_00449450(&room->preview_handles[room->preview_cursor]);
+        RecoveryTextVm_00447a50* text = reinterpret_cast<RecoveryTextVm_00447a50*>(object);
+        if (!recovery_music_player_0047783c[0x1D892 + room->displayed_track] && room->preview_armed)
+            text->MarkText(data_00491c10, 0x8080FFu,
+                           recovery_music_preview_table_00476fd8[room->preview_cursor]);
+        else
+            text->MarkText(data_00491c10, 0xFFFFFFu, static_cast<const char*>(
+                room->preview_lines[room->displayed_track][room->preview_cursor]));
+        object->stop_frame = 2;
+        ++room->preview_cursor;
     }
 }
 
-// Flag (or clear) the "sliding" bit of an animation and its children.
-static __forceinline void SetTreeFlag_00433ef0(RecoveryMusicVm_00433ef0* object, unsigned int mask, int on) {
-    if (object != 0) {
-        object->flags = on ? object->flags | mask : object->flags & ~mask;
-        if (object->children_flagged == 0) {
-            for (RecoveryMusicChild_00433ef0* child = object->children; child != 0; child = child->next)
-                child->object->flags =
-                    on ? child->object->flags | mask : child->object->flags & ~mask;
-        }
-    }
-}
-
-// The music test resource requests (0x0043E460, "dummy" commands).
-static __forceinline void MusicCommand_00433ef0(int command) {
-    g_music_requests.RegisterResource(data_0046df98, command, 0);
-}
-
-
-
-#pragma code_seg(".text$00433ef0_fn")
+#pragma code_seg(".text$00433ef0_model")
 __declspec(noinline) int __stdcall TitleMusicRoom_00433ef0(RecoveryMusicRoom_00433ef0* room) {
-    MusicRoom_00433ef0* music = reinterpret_cast<MusicRoom_00433ef0*>(room);
-    char* cursor;
+    RecoveryMusicVector_00433ef0 position;
+    void* handle;
     int remaining;
+    int index;
+    AnimationManager_0043e460* requests;
+
     switch (room->phase) {
     case 0:
         if (room->timer.current == 1) {
             room->cursor.item_count = 6;
-            SelectItem_00433ef0(room->cursor, 0);
-            if (ValidateHandle_00433ef0(reinterpret_cast<RecoveryHandle_0040bd80*>(&room->animation_slots[95])) == 0) {
+            MusicSelect(room->cursor, 0);
+            if (MusicFind(room->animation_slots[95]) == 0) {
                 RecoveryMusicInstallSlot_0042c670(room, 95);
-                void* resource = data_004776e0->animation_resource;
-                void* handle;
-                void** result = AnimationManager_CreatePrimaryBack_00448d00(resource, &handle, 8, 15);
-                room->fallback_handle.value = reinterpret_cast<unsigned int>(*result);
+                room->fallback_handle.value = reinterpret_cast<unsigned int>(
+                    *AnimationManager_CreatePrimaryBack_00448d00(
+                        data_004776e0->animation_resource, &handle, 8, 15));
             }
             RecoveryMusicInstallSlot_0042c670(room, 103);
-            music->file_buffer = Archive_LoadFile("musiccmt.txt", &remaining, 0);
-            if (music->file_buffer == 0)
-                goto cancel;
-            cursor = music->file_buffer;
-            int parsed;
-            parsed = 0;
+            int tracks = 0;
+            char* text = Archive_LoadFile(recovery_music_comment_file_0046ed14, &remaining, 0);
+            room->file_buffer = text;
+            if (text == 0)
+                goto leave_room;
             while (remaining > 0) {
-                char c = *cursor;
-                if (c != '#' && c != '@') {
-                    cursor = StageText_SkipLine(cursor, &remaining);
-                    continue;
+                if (*text == '#' || *text != '@') {
+                    text = StageText_SkipLine(text, &remaining);
+                } else {
+                    text = StageText_ExtractLine(text + 1, room->titles[tracks], &remaining);
+                    text = StageText_ExtractLine(text, room->comments[tracks], &remaining);
+                    for (int row = 0; row < 8; ++row)
+                        text = StageText_ExtractLine(text, room->preview_lines[tracks][row],
+                                                     &remaining);
+                    ++tracks;
                 }
-                cursor = StageText_ExtractLine(cursor + 1, music->titles[parsed], &remaining);
-                cursor = StageText_ExtractLine(cursor, music->comments[parsed], &remaining);
-                for (int line = 0; line < 8; ++line)
-                    cursor = StageText_ExtractLine(
-                        cursor, music->preview_lines[parsed][line], &remaining);
-                ++parsed;
             }
-            music->parsed_track_count = parsed;
-            SelectItem_00433ef0(room->cursor, 0);
-            music->scroll_origin = 0;
-            music->preview_cursor = 0;
-            music->displayed_track = 0;
-            music->preview_armed = 0;
+            room->cursor.item_count = tracks;
+            MusicSelect(room->cursor, 0);
+            room->scroll_origin = 0;
+            room->parsed_track_count = tracks;
+            for (int row = 0; row < 8; ++row)
+                room->preview_handles[row].value =
+                    MusicRegisterObject(recovery_music_preview_resource_00491fec, row + 39);
+            room->preview_cursor = 0;
+            room->displayed_track = 0;
+            room->preview_armed = 0;
+        }
+        if (room->timer.current < 10) {
+            // Two more title rows slide in each frame.
+            position.x = 64.0f;
+            position.z = 0;
+            position.y = 96.0f
+                - static_cast<float>(room->scroll_origin) * 20.0f
+                + static_cast<float>(room->timer.current * 40 - 40);
+            for (index = room->timer.current * 2 - 2; index < room->timer.current * 2; ++index) {
+                if (index >= room->parsed_track_count)
+                    break;
+                void* created;
+                room->row_handles[index].value = reinterpret_cast<unsigned int>(
+                    *MusicCreateInPlace(room->animation_resource, &created, index + 173, 15));
+                RecoveryMusicVm_00433ef0* object = MusicValidateInPlace(&room->row_handles[index]);
+                RecoveryTextVm_00447a50* text = reinterpret_cast<RecoveryTextVm_00447a50*>(object);
+                if (recovery_music_player_0047783c[0x1D892 + index])
+                    text->MarkText(data_00491c10, 0xFFFFFFu,
+                                   static_cast<const char*>(room->comments[index]));
+                else
+                    text->MarkText(data_00491c10, 0xFFFFFFu,
+                                   recovery_music_locked_format_0046ecf4, index + 1);
+                if (index < room->scroll_origin || index >= room->scroll_origin + 10)
+                    object->flags &= ~2u;
+                else
+                    object->flags |= 2u;
+                if (index == room->cursor.selection)
+                    position.x = static_cast<float>(position.x - 4.0);
+                object->InitializeTransition(&object->position, &position, 4, 0);
+                if (index == room->cursor.selection)
+                    position.x = static_cast<float>(position.x + 4.0);
+                position.y = position.y + 20.0f;
+                object->stop_frame = static_cast<unsigned short>(2 + (index != room->cursor.selection));
+            }
         }
         if (room->timer.current >= 10) {
-            room->SetTimerTarget(1);
-            break;
-        }
-        {
-            // Slide the next two rows in and draw the revealed ones.
-            float y = data_00470c80
-                - static_cast<float>(music->scroll_origin) * data_00470ca0
-                + static_cast<float>(room->timer.current * 40 - 40);
-            float position_y = 64.0f;
-            for (int i = room->timer.current * 2 - 2;
-                 i < room->timer.current * 2 && i < music->parsed_track_count; ++i) {
-                RecoveryMusicVm_00433ef0* row = ValidateHandle_00433ef0(&room->row_handles[i]);
-                row->flags |= 0x40000000u;
-                row->render_bucket = 15;
-                if (g_music_progress->track_heard[i] != 0)
-                    reinterpret_cast<RecoveryTextVm_00447a50*>(row)->MarkText(
-                        data_00491c10, 0x00FFFFFFu, static_cast<const char*>(music->comments[i]));
-                else
-                    reinterpret_cast<RecoveryTextVm_00447a50*>(row)->MarkText(
-                        data_00491c10, 0x00FFFFFFu, "No.%d", i + 1);
-                SetTreeFlag_00433ef0(row, 2u, music->scroll_origin <= i && i < music->scroll_origin + 10);
-                if (i == room->cursor.selection)
-                    position_y -= static_cast<float>(data_00470c98);
-                StageTextVector_00434a80 position = {position_y, y, 0.0f};
-                reinterpret_cast<StageText_00434a80*>(row)->Initialize(
-                    reinterpret_cast<const StageTextVector_00434a80*>(&row->position),
-                    &position, 4, 0);
-                if (i == room->cursor.selection)
-                    position_y += static_cast<float>(data_00470c98);
-                y += data_00470ca0;
-                row->flags = (row->flags & ~0xFFFFu) | (i != room->cursor.selection ? 4u : 2u);
-            }
+            room->phase = 1;
+            MusicResetTimer(&room->timer);
         }
         break;
     case 1:
-        if (room->timer.current % 2 == 0 && music->preview_cursor < 8) {
-            RecoveryMusicVm_00433ef0* line = ValidateHandle_00433ef0(
-                &room->preview_handles[music->preview_cursor]);
-            reinterpret_cast<RecoveryTextVm_00447a50*>(line)->MarkText(
-                data_00491c10,
-                g_music_progress->track_heard[music->displayed_track] != 0
-                        && music->preview_armed != 0
-                    ? 0x8080FFu : 0x00FFFFFFu,
-                static_cast<const char*>(music->preview_lines[music->displayed_track]
-                                                             [music->preview_cursor]));
-            line->flags = (line->flags & ~0xFFFFu) | 2u;
-            ++music->preview_cursor;
-        }
+        MusicRevealLine(room);
         if (room->timer.current > 4)
             room->SetTimerTarget(2);
         break;
     case 2: {
-        if (room->timer.current % 2 == 0 && music->preview_cursor < 8) {
-            RecoveryMusicVm_00433ef0* line = ValidateHandle_00433ef0(
-                &room->preview_handles[music->preview_cursor]);
-            reinterpret_cast<RecoveryTextVm_00447a50*>(line)->MarkText(
-                data_00491c10,
-                g_music_progress->track_heard[music->displayed_track] != 0
-                        && music->preview_armed != 0
-                    ? 0x8080FFu : 0x00FFFFFFu,
-                static_cast<const char*>(music->preview_lines[music->displayed_track]
-                                                             [music->preview_cursor]));
-            line->flags = (line->flags & ~0xFFFFu) | 2u;
-            ++music->preview_cursor;
-        }
-        room->cursor.previous_selection = room->cursor.selection;
-        if ((short)data_00474e30.InputMaskActive(0x10)) room->cursor.Advance(-1);
-        if ((short)data_00474e30.InputMaskActive(0x20)) room->cursor.Advance(1);
-        if (room->cursor.previous_selection != room->cursor.selection) {
+        MusicRevealLine(room);
+        MenuCursor* cursor = &room->cursor;
+        cursor->previous_selection = cursor->selection;
+        if (data_00474e30.InputMaskActive(0x10))
+            cursor->Advance(-1);
+        if (data_00474e30.InputMaskActive(0x20))
+            cursor->Advance(1);
+        if (cursor->previous_selection != cursor->selection) {
             data_00492590.Queue(12, 0);
-            int selection = room->cursor.selection;
-            if (selection >= music->scroll_origin) {
-                if (selection >= music->scroll_origin + 10)
-                    selection += -9;
+            // Keep the cursor inside the ten visible rows.
+            int scroll = room->scroll_origin;
+            int selection = cursor->selection;
+            if (selection < scroll)
+                room->scroll_origin = selection;
+            else if (selection >= scroll + 10)
+                room->scroll_origin = selection - 9;
+            position.x = 64.0f;
+            position.z = 0;
+            position.y = 96.0f
+                - static_cast<float>(room->scroll_origin) * 20.0f;
+            for (index = 0; index < room->parsed_track_count; ++index) {
+                RecoveryMusicVm_00433ef0* object = MusicValidateInPlace(&room->row_handles[index]);
+                if (index < room->scroll_origin || index >= room->scroll_origin + 10)
+                    object->flags &= ~2u;
+                else
+                    object->flags |= 2u;
+                if (index == room->cursor.selection)
+                    position.x = static_cast<float>(position.x - 4.0);
+                // A row that is near its place slides to it; one far away jumps.
+                if (fabs(object->position.y - position.y) < 40.0f)
+                    object->InitializeTransition(&object->position, &position, 4, 0);
+                else
+                    object->position = position;
+                if (index == room->cursor.selection)
+                    position.x = static_cast<float>(position.x + 4.0);
+                position.y = position.y + 20.0f;
+                object->stop_frame = static_cast<unsigned short>(2 + (index != room->cursor.selection));
             }
-            music->scroll_origin = selection;
-            float y = data_00470c80 - static_cast<float>(music->scroll_origin) * data_00470ca0;
-            float position_y = 64.0f;
-            for (int i = 0; i < music->parsed_track_count; ++i) {
-                RecoveryMusicVm_00433ef0* row = ValidateHandle_00433ef0(&room->row_handles[i]);
-                SetTreeFlag_00433ef0(row, 2u, music->scroll_origin <= i && i < music->scroll_origin + 10);
-                if (i == room->cursor.selection)
-                    position_y -= static_cast<float>(data_00470c98);
-                if (data_00470c64 <= row->position.y - y && row->position.y - y <= data_00470c64) {
-                    StageTextVector_00434a80 position = {position_y, y, 0.0f};
-                    reinterpret_cast<StageText_00434a80*>(row)->Initialize(
-                        reinterpret_cast<const StageTextVector_00434a80*>(&row->position),
-                        &position, 4, 0);
-                } else {
-                    row->position.x = position_y;
-                    row->position.y = y;
-                    row->position.z = 0.0f;
-                }
-                if (i == room->cursor.selection)
-                    position_y += static_cast<float>(data_00470c98);
-                y += data_00470ca0;
-                row->flags = (row->flags & ~0xFFFFu) | (i != room->cursor.selection ? 4u : 2u);
-            }
-            music->preview_armed = 0;
+            room->preview_armed = 0;
         }
-        if ((data_00474e36 & 0x1001) != 0) {
-            // Confirm: stop the row text objects and start the preview.
-            for (int i = 0; i < 8; ++i)
-                SetTreeFrame_00433ef0(
-                    ValidateHandle_00433ef0(&room->preview_handles[i]), 3);
-            music->displayed_track = room->cursor.selection;
-            music->preview_cursor = 0;
-            room->SetTimerTarget(1);
-            if (g_music_progress->track_heard[music->displayed_track] == 0
-                    && music->preview_armed == 0) {
-                // Spoiler warning: require a second confirm.
-                MusicCommand_00433ef0(g_config_flags & 0x10 ? 4 : 3);
-                music->preview_armed = 1;
-                return 0;
+        if (data_00474e36 & 0x1001u) {
+            // Confirm: clear the comment lines and play the track.
+            for (int row = 0; row < 8; ++row)
+                MusicSetTreeFrame(MusicFind(room->preview_handles[row].value), 3);
+            room->displayed_track = room->cursor.selection;
+            room->preview_cursor = 0;
+            MusicResetTimer(&room->timer);
+            requests = reinterpret_cast<AnimationManager_0043e460*>(&data_00492590);
+            if (!recovery_music_player_0047783c[0x1D892 + room->displayed_track]
+                    && !room->preview_armed) {
+                if (recovery_music_mode_00491d78 & 0x10u)
+                    requests->RegisterResource(recovery_music_dummy_0046df98, 4, 0);
+                else
+                    requests->RegisterResource(recovery_music_dummy_0046df98, 3, 0);
+                room->preview_armed = 1;
+                break;
             }
-            Music_Load_00420a90(0, music->preview_lines[music->displayed_track][0]);
-            if (g_config_flags & 0x10)
-                MusicCommand_00433ef0(4);
-            MusicCommand_00433ef0(2);
-            g_music_progress->track_heard[music->displayed_track] = 1;
-            music->preview_armed = 0;
-            return 0;
+            recovery_replace_extension_00420a90(0, room->titles[room->cursor.selection]);
+            if (recovery_music_mode_00491d78 & 0x10u)
+                requests->RegisterResource(recovery_music_dummy_0046df98, 4, 0);
+            requests->RegisterResource(recovery_music_dummy_0046df98, 2, 0);
+            recovery_music_player_0047783c[0x1D892] = 1;
+            room->preview_armed = 0;
+            break;
         }
-        if ((data_00474e36 & 0xA) != 0) {
-cancel:
-            // Cancel: release the file and leave through phase 3.
-            if (music->file_buffer != 0) {
-                entry_free_00452422(music->file_buffer);
-                music->file_buffer = 0;
-            }
-            room->cursor.PopSelection();
-            for (int i = 0; i < music->parsed_track_count; ++i)
-                RecoveryMusicStopHandle_00409e50(&room->row_handles[i]);
-            for (int i = 0; i < 8; ++i)
-                SetTreeFlag_00433ef0(
-                    ValidateHandle_00433ef0(&room->preview_handles[i]), 1u, 1);
-            data_00492590.Queue(11, 0);
-            room->SetTimerTarget(3);
-            return 0;
+        if (!(data_00474e36 & 0xAu))
+            break;
+leave_room:
+        // Cancel, or no comment file: drop the screen and go to phase 3.
+        if (room->file_buffer != 0) {
+            entry_free_00452422(room->file_buffer);
+            room->file_buffer = 0;
         }
+        room->file_buffer = 0;
+        room->cursor.PopSelection();
+        for (int row = 0; row < room->parsed_track_count; ++row)
+            RecoveryMusicStopHandle_00409e50(&room->row_handles[row]);
+        // 0x00409E50 on each comment line, the search of 0x004491C0 expanded in place.
+        for (int row = 0; row < 8; ++row)
+            MusicSetTreeFrame(MusicFindInPlace(
+                reinterpret_cast<RecoveryLookupContext_0040bd80*>(data_00491c10),
+                room->preview_handles[row].value), 1);
+        data_00492590.Queue(11, 0);
+        room->phase = 3;
+        MusicResetTimer(&room->timer);
         break;
     }
     case 3:
         if (room->timer.current >= 10) {
             room->ClearAnimationSlot(103);
-            reinterpret_cast<AnimationSlotOwner_0042c750*>(room)->StopSlot(90);
-            reinterpret_cast<AnimationSlotOwner_0042c750*>(room)->StopSlot(91);
+            room->SetSlotFrame(90, 8);
+            room->SetSlotFrame(91, 8);
             room->ClearAnimationSlot(95);
             RecoveryMusicStopHandle_00409e50(&room->fallback_handle);
             room->DisableTimerWithOwner(2);
-            Music_Load_00420a90(0, "bgm/th10_02.wav");
-            Music_Play_00420b10(0, 0);
+            recovery_replace_extension_00420a90(0, recovery_music_restore_bgm_0046f018);
+            recovery_play_dummy_00420b10(0, 0);
             room->cursor.PopSelection();
         }
         break;
     }
     return 0;
+}
+
+// Context for the checking link: stand-in for 0x00449450, which the
+// whole-program link passes its handle in ESI.
+#pragma code_seg(".text$00449450_model")
+__declspec(noinline) RecoveryMusicVm_00433ef0* __stdcall MusicValidate_00449450(
+        RecoveryHandle_0040bd80* handle) {
+    RecoveryMusicVm_00433ef0* object = MusicFind(handle->value);
+    if (object == 0)
+        handle->value = 0;
+    return object;
 }
 #pragma code_seg()
