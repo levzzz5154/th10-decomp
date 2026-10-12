@@ -92,3 +92,26 @@ model lands at exactly 553 — 3 bytes over the 550-byte retail extent.  The
 equivalence machinery compares code at equal extent, so the region stays
 assembly until a source shape makes the model 3 bytes shorter (or the
 register contest of item 3 shifts the scheduling enough to close the gap).
+
+
+## c2 trace with the zero-store variant (2026-10-12)
+
+The zero-store variant (direct zero store instead of `PushWord(&saved_base)`)
+removes the address-taken zero candidate but the 300-cost EBX limitation
+persists — `CHOOSE reg=6 num=16 prio=113 avail=[4, 6] costs=4:300 6:0`.
+Something else is limited to EBX with cost 300 (the cursor + 4 temporary of
+the second `PushWord`, or the destination pointer chain).
+
+The descriptor (num=10, prio 112) is forced to EBX: its available set narrows
+from [4, 6, 7, 8] to [4] across the walk blocks because the chained f38
+references (the other candidates' neighbours) consume ESI/EDI.  The
+selector+index (num=16, prio 113 > 112) picks first and takes ESI(6).
+
+For retail's assignment (descriptor in ESI, selector+index split), the 300-cost
+EBX limitation must be lifted so selector+index takes EBX(4) and descriptor
+gets ESI(6).  The trace is saved at
+`reference/compiler_traces/regalloc/ecl_start_child_zerostore_trace.txt`.
+
+With the zero-store variant the model compiles to 553 bytes — still 3 over
+the 550-byte extent (the mandatory 3-byte `xor ecx,ecx` for the resolver
+dummy).  Both levers must land together.

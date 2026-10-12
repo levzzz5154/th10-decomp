@@ -1,0 +1,1164 @@
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+SPILL num=3 prio=-90 [034fe5c4 00000d02 034f7d10 ffffffa6 00000000 034f7cb0 00000000 00000003 034fad5c 00000001 034f4238 034f780c 00000000 00000000 00000000 034fe6b4 ffffffff 00000000 00000004 00000000] bt: c2+107a9da4 < c2+107ab323 < c2+107a54dd < c2+107994ca < c2+1070ad88 < c2+107b98d0
+CHOOSE reg=2 num=16 prio=108 avail=[1, 2, 3, 4, 6, 7, 8] costs=1:1 2:0 3:0 4:0 6:0 7:0 8:0 [035006d4 00000c02 034f8250 0000006c 00000000 034f8208 00000000 00000010 034fbb30 00000005 034f6eac 034f71cc 00000000 00000000 00000000 034f2398 0000001c 0000002b 00000000 00000000]
+    cand num=4 prio=14 f40=2 f38=0 avail=[1, 2, 3, 4, 6, 7, 8] sym=034ecb94 flags=00000c02
+    cand num=5 prio=-56 f40=2 f38=0 avail=[2, 4, 6, 7, 8] sym=034ecbf4 flags=00000c02
+    cand num=6 prio=6 f40=18 f38=0 avail=[2, 4, 6, 7, 8] sym=034ecc54 flags=00000c02
+    cand num=7 prio=-2 f40=18 f38=34fce90 avail=[2, 4, 6, 7, 8] sym=034eccb4 flags=00000c02
+    cand num=8 prio=-46 f40=8 f38=0 avail=[2, 4, 6, 7, 8] sym=034ecd14 flags=00000402
+    cand num=9 prio=92 f40=30 f38=34fce9c avail=[1, 2, 3, 4, 6, 7, 8] sym=034ecd74 flags=00000c02
+    cand num=12 prio=48 f40=24 f38=0 avail=[1, 2, 3, 4, 6, 7, 8] sym=03500074 flags=00000c02
+    cand num=13 prio=64 f40=16 f38=0 avail=[1, 2, 3, 4] sym=03500254 flags=00028c02
+    cand num=14 prio=40 f40=16 f38=0 avail=[1, 2, 3, 4] sym=035004f4 flags=00028c02
+    cand num=15 prio=108 f40=28 f38=0 avail=[1, 2, 3, 4, 6, 7, 8] sym=03500674 flags=00000c02
+    cand num=16 prio=108 f40=28 f38=0 avail=[1, 2, 3, 4, 6, 7, 8] sym=035006d4 flags=00000c02
+CHOOSE reg=7 num=15 prio=108 avail=[6, 7, 8] costs=6:0 7:0 8:0 [03500674 00000c02 034f8208 0000006c 00000000 034f8058 00000000 0000000f 034fbb6c 00000005 034f6eac 034f71cc 00000000 00000000 00000000 034f2428 0000001c 0000002a 035006d4 00000c02]
+    cand num=1 prio=-58 f40=-1 f38=0 avail=[4] sym=034fe504 flags=00028c02
+    cand num=4 prio=14 f40=2 f38=0 avail=[1, 2, 3, 4, 6, 7, 8] sym=034ecb94 flags=00000c02
+    cand num=5 prio=-56 f40=2 f38=34fcea8 avail=[4, 6, 7, 8] sym=034ecbf4 flags=00000c02
+    cand num=6 prio=6 f40=18 f38=0 avail=[4, 6, 7, 8] sym=034ecc54 flags=00000c02
+    cand num=7 prio=-2 f40=18 f38=34fce90 avail=[4, 6, 7, 8] sym=034eccb4 flags=00000c02
+    cand num=8 prio=-46 f40=8 f38=0 avail=[4, 6, 7, 8] sym=034ecd14 flags=00000402
+    cand num=9 prio=92 f40=30 f38=34fce9c avail=[1, 3, 4, 6, 7, 8] sym=034ecd74 flags=00000c02
+    cand num=12 prio=48 f40=24 f38=0 avail=[1, 2, 3, 4, 6, 7, 8] sym=03500074 flags=00000c02
+    cand num=13 prio=64 f40=16 f38=0 avail=[1, 3, 4] sym=03500254 flags=00028c02
+    cand num=14 prio=40 f40=16 f38=0 avail=[1, 3, 4] sym=035004f4 flags=00028c02
+    cand num=15 prio=108 f40=28 f38=0 avail=[6, 7, 8] sym=03500674 flags=00000c02
+    cand num=16 prio=108 f40=28 f38=0 avail=[] sym=035006d4 flags=00000c02
+CHOOSE reg=8 num=9 prio=92 avail=[6, 8] costs=6:0 8:0 [034ecd74 00000c02 034f8058 0000005c 00000000 034f8178 00000000 00000009 034fb104 00000009 034f6eac 034f78d4 00000000 00000000 034fce9c 034f3948 0000001e 00000011 00000000 00000000]
+    cand num=1 prio=-58 f40=-1 f38=0 avail=[4] sym=034fe504 flags=00028c02
+    cand num=4 prio=14 f40=2 f38=0 avail=[1, 2, 3, 4, 6, 7, 8] sym=034ecb94 flags=00000c02
+    cand num=5 prio=-56 f40=2 f38=34fcea8 avail=[4, 6, 8] sym=034ecbf4 flags=00000c02
+    cand num=6 prio=6 f40=18 f38=0 avail=[4, 6, 8] sym=034ecc54 flags=00000c02
+    cand num=7 prio=-2 f40=18 f38=34fce90 avail=[4, 6, 8] sym=034eccb4 flags=00000c02
+    cand num=8 prio=-46 f40=8 f38=0 avail=[4, 6, 8] sym=034ecd14 flags=00000402
+    cand num=9 prio=92 f40=30 f38=34fce9c avail=[6, 8] sym=034ecd74 flags=00000c02
+    cand num=12 prio=48 f40=24 f38=0 avail=[1, 2, 3, 4, 6, 7, 8] sym=03500074 flags=00000c02
+    cand num=13 prio=64 f40=16 f38=0 avail=[1, 3, 4] sym=03500254 flags=00028c02
+    cand num=14 prio=40 f40=16 f38=0 avail=[1, 3, 4] sym=035004f4 flags=00028c02
+    cand num=15 prio=108 f40=28 f38=0 avail=[] sym=03500674 flags=00000c02
+    cand num=16 prio=108 f40=28 f38=0 avail=[] sym=035006d4 flags=00000c02
+CHOOSE reg=1 num=13 prio=64 avail=[1, 3, 4] costs=1:0 3:0 4:0 [03500254 00028c02 034f8178 00000040 00000000 034f8130 00000000 0000000d 034fbab8 00000002 034f7104 034f71cc 00000000 00000000 00000000 034f20a8 00000010 00000025 035004f4 00028c02]
+    cand num=1 prio=-58 f40=-1 f38=0 avail=[4] sym=034fe504 flags=00028c02
+    cand num=4 prio=14 f40=2 f38=0 avail=[1, 2, 3, 4, 6, 7, 8] sym=034ecb94 flags=00000c02
+    cand num=5 prio=-56 f40=2 f38=34fcea8 avail=[4, 6] sym=034ecbf4 flags=00000c02
+    cand num=6 prio=6 f40=18 f38=0 avail=[4, 6] sym=034ecc54 flags=00000c02
+    cand num=7 prio=-2 f40=18 f38=34fce90 avail=[4, 6] sym=034eccb4 flags=00000c02
+    cand num=8 prio=-46 f40=8 f38=0 avail=[4, 6] sym=034ecd14 flags=00000402
+    cand num=9 prio=92 f40=30 f38=34fce9c avail=[] sym=034ecd74 flags=00000c02
+    cand num=12 prio=48 f40=24 f38=0 avail=[1, 2, 3, 4, 6, 7] sym=03500074 flags=00000c02
+    cand num=13 prio=64 f40=16 f38=0 avail=[1, 3, 4] sym=03500254 flags=00028c02
+    cand num=14 prio=40 f40=16 f38=0 avail=[1, 3, 4] sym=035004f4 flags=00028c02
+    cand num=15 prio=108 f40=28 f38=0 avail=[] sym=03500674 flags=00000c02
+    cand num=16 prio=108 f40=28 f38=0 avail=[] sym=035006d4 flags=00000c02
+CHOOSE reg=1 num=12 prio=48 avail=[1, 2, 3, 4, 6, 7] costs=1:0 2:0 3:0 4:0 6:0 7:0 [03500074 00000c02 034f8130 00000030 00000000 034f81c0 00000000 0000000c 034fbaa0 00000006 034f7294 034f74ec 00000000 00000000 00000000 034fe34c 00000018 0000002e 03500254 00028c02]
+    cand num=1 prio=-58 f40=-1 f38=0 avail=[4] sym=034fe504 flags=00028c02
+    cand num=4 prio=14 f40=2 f38=0 avail=[1, 2, 3, 4, 6, 7, 8] sym=034ecb94 flags=00000c02
+    cand num=5 prio=-56 f40=2 f38=34fcea8 avail=[4, 6] sym=034ecbf4 flags=00000c02
+    cand num=6 prio=6 f40=18 f38=0 avail=[4, 6] sym=034ecc54 flags=00000c02
+    cand num=7 prio=-2 f40=18 f38=34fce90 avail=[4, 6] sym=034eccb4 flags=00000c02
+    cand num=8 prio=-46 f40=8 f38=0 avail=[4, 6] sym=034ecd14 flags=00000402
+    cand num=9 prio=92 f40=30 f38=34fce9c avail=[] sym=034ecd74 flags=00000c02
+    cand num=12 prio=48 f40=24 f38=0 avail=[1, 2, 3, 4, 6, 7] sym=03500074 flags=00000c02
+    cand num=13 prio=64 f40=16 f38=0 avail=[] sym=03500254 flags=00028c02
+    cand num=14 prio=40 f40=16 f38=0 avail=[1, 3, 4] sym=035004f4 flags=00028c02
+    cand num=15 prio=108 f40=28 f38=0 avail=[] sym=03500674 flags=00000c02
+    cand num=16 prio=108 f40=28 f38=0 avail=[] sym=035006d4 flags=00000c02
+CHOOSE reg=1 num=14 prio=40 avail=[1, 3, 4] costs=1:0 3:0 4:0 [035004f4 00028c02 034f81c0 00000028 00000000 034f7d70 00000000 0000000e 034fbb48 00000002 034f6f74 034f703c 00000000 00000000 00000000 034f25d8 00000010 0000001d 03500674 00000c02]
+    cand num=1 prio=-58 f40=-1 f38=34fceb4 avail=[4] sym=034fe504 flags=00028c02
+    cand num=4 prio=14 f40=2 f38=0 avail=[1, 2, 3, 4, 6, 7, 8] sym=034ecb94 flags=00000c02
+    cand num=5 prio=-56 f40=2 f38=34fcea8 avail=[4, 6] sym=034ecbf4 flags=00000c02
+    cand num=6 prio=6 f40=18 f38=0 avail=[4, 6] sym=034ecc54 flags=00000c02
+    cand num=7 prio=-2 f40=18 f38=34fce90 avail=[4, 6] sym=034eccb4 flags=00000c02
+    cand num=8 prio=-46 f40=8 f38=0 avail=[4, 6] sym=034ecd14 flags=00000402
+    cand num=9 prio=92 f40=30 f38=34fce9c avail=[] sym=034ecd74 flags=00000c02
+    cand num=12 prio=48 f40=24 f38=0 avail=[] sym=03500074 flags=00000c02
+    cand num=13 prio=64 f40=16 f38=0 avail=[] sym=03500254 flags=00028c02
+    cand num=14 prio=40 f40=16 f38=0 avail=[1, 3, 4] sym=035004f4 flags=00028c02
+    cand num=15 prio=108 f40=28 f38=0 avail=[] sym=03500674 flags=00000c02
+    cand num=16 prio=108 f40=28 f38=0 avail=[] sym=035006d4 flags=00000c02
+CHOOSE reg=1 num=4 prio=14 avail=[1, 2, 3, 4, 6, 7, 8] costs=1:0 2:0 3:0 4:0 6:0 7:0 8:0 [034ecb94 00000c02 034f7d70 0000000e 00000000 034f7f80 00000000 00000004 034fad68 00000002 034f6d1c 034f6de4 00000000 00000000 00000000 034f349c 00000002 00000007 00000005 00000000]
+    cand num=1 prio=-58 f40=-1 f38=34fceb4 avail=[4] sym=034fe504 flags=00028c02
+    cand num=4 prio=14 f40=2 f38=0 avail=[1, 2, 3, 4, 6, 7, 8] sym=034ecb94 flags=00000c02
+    cand num=5 prio=-56 f40=2 f38=34fcea8 avail=[4, 6] sym=034ecbf4 flags=00000c02
+    cand num=6 prio=6 f40=18 f38=0 avail=[4, 6] sym=034ecc54 flags=00000c02
+    cand num=7 prio=-2 f40=18 f38=34fce90 avail=[4, 6] sym=034eccb4 flags=00000c02
+    cand num=8 prio=-46 f40=8 f38=0 avail=[4, 6] sym=034ecd14 flags=00000402
+    cand num=9 prio=92 f40=30 f38=34fce9c avail=[] sym=034ecd74 flags=00000c02
+    cand num=12 prio=48 f40=24 f38=0 avail=[] sym=03500074 flags=00000c02
+    cand num=13 prio=64 f40=16 f38=0 avail=[] sym=03500254 flags=00028c02
+    cand num=14 prio=40 f40=16 f38=0 avail=[] sym=035004f4 flags=00028c02
+    cand num=15 prio=108 f40=28 f38=0 avail=[] sym=03500674 flags=00000c02
+    cand num=16 prio=108 f40=28 f38=0 avail=[] sym=035006d4 flags=00000c02
+CHOOSE reg=6 num=6 prio=6 avail=[6] costs=6:0 [034ecc54 00000c02 034f7f80 00000006 00000000 034f7fc8 00000000 00000006 034fb038 00000005 034f6d1c 034f780c 00000000 00000000 00000000 034f55bc 00000012 00000039 034eccb4 00000c02]
+    cand num=1 prio=-58 f40=-1 f38=34fceb4 avail=[4] sym=034fe504 flags=00028c02
+    cand num=4 prio=14 f40=2 f38=0 avail=[] sym=034ecb94 flags=00000c02
+    cand num=5 prio=-56 f40=2 f38=34fcea8 avail=[4, 6] sym=034ecbf4 flags=00000c02
+    cand num=6 prio=6 f40=18 f38=0 avail=[6] sym=034ecc54 flags=00000c02
+    cand num=7 prio=-2 f40=18 f38=34fce90 avail=[4, 6] sym=034eccb4 flags=00000c02
+    cand num=8 prio=-46 f40=8 f38=34fcec0 avail=[4, 6] sym=034ecd14 flags=00000402
+    cand num=9 prio=92 f40=30 f38=34fce9c avail=[] sym=034ecd74 flags=00000c02
+    cand num=12 prio=48 f40=24 f38=0 avail=[] sym=03500074 flags=00000c02
+    cand num=13 prio=64 f40=16 f38=0 avail=[] sym=03500254 flags=00028c02
+    cand num=14 prio=40 f40=16 f38=0 avail=[] sym=035004f4 flags=00028c02
+    cand num=15 prio=108 f40=28 f38=0 avail=[] sym=03500674 flags=00000c02
+    cand num=16 prio=108 f40=28 f38=0 avail=[] sym=035006d4 flags=00000c02
+CHOOSE reg=4 num=7 prio=-2 avail=[4] costs=4:1000 [034eccb4 00000c02 034f7fc8 fffffffe 00000000 034f8010 00000000 00000007 034fb0bc 00000006 034f6d1c 034f780c 00000000 00000000 034fce90 034f53e0 00000012 00000037 034ecd14 00020402]
+    cand num=1 prio=-58 f40=-1 f38=34fcecc avail=[4] sym=034fe504 flags=00028c02
+    cand num=2 prio=-74 f40=-1 f38=0 avail=[4] sym=034fe564 flags=00020c02
+    cand num=4 prio=14 f40=2 f38=0 avail=[] sym=034ecb94 flags=00000c02
+    cand num=5 prio=-56 f40=2 f38=34fcea8 avail=[4] sym=034ecbf4 flags=00020c02
+    cand num=6 prio=6 f40=18 f38=0 avail=[] sym=034ecc54 flags=00000c02
+    cand num=7 prio=-2 f40=18 f38=34fce90 avail=[4] sym=034eccb4 flags=00000c02
+    cand num=8 prio=-46 f40=8 f38=34fcec0 avail=[4] sym=034ecd14 flags=00020402
+    cand num=9 prio=92 f40=30 f38=34fce9c avail=[] sym=034ecd74 flags=00000c02
+    cand num=12 prio=48 f40=24 f38=0 avail=[] sym=03500074 flags=00000c02
+    cand num=13 prio=64 f40=16 f38=0 avail=[] sym=03500254 flags=00028c02
+    cand num=14 prio=40 f40=16 f38=0 avail=[] sym=035004f4 flags=00028c02
+    cand num=15 prio=108 f40=28 f38=0 avail=[] sym=03500674 flags=00000c02
+    cand num=16 prio=108 f40=28 f38=0 avail=[] sym=035006d4 flags=00000c02
+SPILLIMM num=1 prio=-58 [034fe504 00028c02 034f7c50 ffffffc6 00000000 034f7cb0 034f7f38 00000001 034face4 00000006 034f6d1c 034f780c 00000000 00000000 034fcecc 034fe6e4 ffffffff 00000000 00000002 00000000] bt: c2+107646bc < c2+107a9efe < c2+107a54dd < c2+107994ca < c2+1070ad88 < c2+107b98d0
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+SPILL num=8 prio=4 [034ecd14 00000d02 034f8010 00000004 00000000 034f7d70 00000000 00000008 034fad50 00000001 034f6de4 034f6de4 00000000 00000001 034fd2ac 034f3704 00000000 00000009 034ecd74 00000c02] bt: c2+107a9da4 < c2+107634b7 < c2+107a54dd < c2+107994ca < c2+1070ad88 < c2+107b98d0
+SPILL num=11 prio=0 [034fe564 00006c02 034f80e8 00000000 00000000 034f7d10 00000000 0000000b 034fb110 00000002 034f71cc 034f71cc 00000000 00000000 00000000 034fe6e4 fffffffc 00000000 03500074 00000c02] bt: c2+107b3f4f < c2+107b3ed5 < c2+107a54dd < c2+107994ca < c2+1070ad88 < c2+107b98d0
+BLOCK
+BLOCK
+BLOCK
+SPILL num=8 prio=0 [034fe504 00000d02 034f8010 00000000 00000000 00000000 00000000 00000008 034face4 00000001 034f7294 034f7294 00000000 00000000 034fd2b8 034fe6b4 fffffffe 00000000 034ecd74 00000c02] bt: c2+107a9da4 < c2+107634b7 < c2+107a54dd < c2+107994ca < c2+1070ad88 < c2+107b98d0
+SPILL num=11 prio=0 [034fe504 00002c02 034f80e8 00000000 00000000 00000000 00000000 0000000b 034fb0e0 00000002 034f7424 034f74ec 00000000 00000000 00000000 034f560c fffffffe 00000000 03500074 00000c02] bt: c2+107b3f4f < c2+107b3ed5 < c2+107a54dd < c2+107994ca < c2+1070ad88 < c2+107b98d0
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+SPILL num=1 prio=4 [034f7d64 00000d02 03508e10 00000004 00000000 00000000 00000000 00000001 034fb53c 00000001 034edc3c 034edc3c 00000000 00000000 03507130 034f4c10 00000000 00000009 00000002 00000000] bt: c2+107a9da4 < c2+107ab323 < c2+107a54dd < c2+107994ca < c2+1070ad88 < c2+107b98d0
+CHOOSE reg=7 num=4 prio=50 avail=[4, 6, 7, 8] costs=4:0 6:0 7:0 8:0 [034f7ca4 00000c02 03508f30 00000032 00000000 03509128 00000000 00000004 034fad68 00000009 034edc3c 034ee27c 00000000 00000000 00000000 03500624 00000010 00000008 00000005 00000000]
+    cand num=2 prio=18 f40=6 f38=0 avail=[1, 2, 3, 4] sym=034f7e84 flags=00028402
+    cand num=4 prio=50 f40=16 f38=0 avail=[4, 6, 7, 8] sym=034f7ca4 flags=00000c02
+    cand num=6 prio=36 f40=10 f38=0 avail=[1, 2, 3, 4, 6, 7, 8] sym=034f4670 flags=00000402
+    cand num=7 prio=12 f40=6 f38=350713c avail=[4, 6, 7, 8] sym=035052d8 flags=00000402
+    cand num=8 prio=24 f40=6 f38=0 avail=[1, 2, 3, 4, 6, 7, 8] sym=035061bc flags=00000402
+    cand num=9 prio=12 f40=4 f38=0 avail=[1, 2, 3, 4, 6, 7, 8] sym=035063fc flags=00000402
+CHOOSE reg=1 num=6 prio=36 avail=[1, 2, 3, 4, 6, 8] costs=1:0 2:0 3:0 4:0 6:0 8:0 [034f4670 00000402 03509128 00000024 00000000 035091b8 00000000 00000006 034fb5a8 00000005 034edf5c 034ee024 00000000 00000001 00000000 034f4fd4 0000000a 0000001f 035052d8 00000402]
+    cand num=2 prio=18 f40=6 f38=3507148 avail=[1, 2, 3, 4] sym=034f7e84 flags=00028402
+    cand num=4 prio=50 f40=16 f38=0 avail=[] sym=034f7ca4 flags=00000c02
+    cand num=6 prio=36 f40=10 f38=0 avail=[1, 2, 3, 4, 6, 8] sym=034f4670 flags=00000402
+    cand num=7 prio=12 f40=6 f38=3507154 avail=[4, 6, 7, 8] sym=035052d8 flags=00000402
+    cand num=8 prio=24 f40=6 f38=0 avail=[1, 2, 3, 4, 6, 8] sym=035061bc flags=00000402
+    cand num=9 prio=12 f40=4 f38=0 avail=[1, 2, 3, 4, 6, 8] sym=035063fc flags=00000402
+CHOOSE reg=1 num=8 prio=24 avail=[1, 2, 3, 4, 6, 8] costs=1:0 2:0 3:0 4:0 6:0 8:0 [035061bc 00000402 035091b8 00000018 00000000 03508e70 00000000 00000008 034fb530 00000003 034ee024 034ee024 00000000 00000001 00000000 034f58d0 00000006 00000026 035063fc 00000402]
+    cand num=2 prio=18 f40=6 f38=3507148 avail=[1, 2, 3, 4] sym=034f7e84 flags=00028402
+    cand num=4 prio=50 f40=16 f38=0 avail=[] sym=034f7ca4 flags=00000c02
+    cand num=6 prio=36 f40=10 f38=0 avail=[] sym=034f4670 flags=00000402
+    cand num=7 prio=12 f40=6 f38=3507154 avail=[4, 6, 7, 8] sym=035052d8 flags=00000402
+    cand num=8 prio=24 f40=6 f38=0 avail=[1, 2, 3, 4, 6, 8] sym=035061bc flags=00000402
+    cand num=9 prio=12 f40=4 f38=0 avail=[1, 2, 3, 4, 6, 8] sym=035063fc flags=00000402
+CHOOSE reg=1 num=2 prio=18 avail=[1, 2, 3, 4] costs=1:-1 2:0 3:0 4:0 [034f7e84 00028402 03508e70 00000012 00000000 03509170 00000000 00000002 034fb62c 00000003 034ee024 034ee0ec 00000000 00000000 03507160 034f39d4 00000006 00000024 00000003 00000000]
+    cand num=2 prio=18 f40=6 f38=3507160 avail=[1, 2, 3, 4] sym=034f7e84 flags=00028402
+    cand num=4 prio=50 f40=16 f38=0 avail=[] sym=034f7ca4 flags=00000c02
+    cand num=6 prio=36 f40=10 f38=0 avail=[] sym=034f4670 flags=00000402
+    cand num=7 prio=12 f40=6 f38=3507154 avail=[4, 6, 7, 8] sym=035052d8 flags=00000402
+    cand num=8 prio=24 f40=6 f38=0 avail=[] sym=035061bc flags=00000402
+    cand num=9 prio=12 f40=4 f38=0 avail=[1, 2, 3, 4, 6, 8] sym=035063fc flags=00000402
+CHOOSE reg=7 num=7 prio=12 avail=[4, 6, 7, 8] costs=4:0 6:0 7:-1 8:0 [035052d8 00000402 03509170 0000000c 00000000 03509200 00000000 00000007 034fb5b4 00000003 034ee27c 034ee27c 00000000 00000000 03507154 034eff38 00000006 00000037 035061bc 00000402]
+    cand num=2 prio=18 f40=6 f38=3507160 avail=[] sym=034f7e84 flags=00028402
+    cand num=4 prio=50 f40=16 f38=0 avail=[] sym=034f7ca4 flags=00000c02
+    cand num=6 prio=36 f40=10 f38=0 avail=[] sym=034f4670 flags=00000402
+    cand num=7 prio=12 f40=6 f38=3507154 avail=[4, 6, 7, 8] sym=035052d8 flags=00000402
+    cand num=8 prio=24 f40=6 f38=0 avail=[] sym=035061bc flags=00000402
+    cand num=9 prio=12 f40=4 f38=0 avail=[1, 2, 3, 4, 6, 8] sym=035063fc flags=00000402
+CHOOSE reg=1 num=9 prio=12 avail=[1, 2, 3, 4, 6, 8] costs=1:0 2:0 3:0 4:0 6:0 8:0 [035063fc 00000402 03509200 0000000c 00000000 00000000 00000000 00000009 034fb590 00000002 034edf5c 034edf5c 00000000 00000000 00000000 034f54b8 00000004 00000020 00000000 00000000]
+    cand num=2 prio=18 f40=6 f38=3507160 avail=[] sym=034f7e84 flags=00028402
+    cand num=4 prio=50 f40=16 f38=0 avail=[] sym=034f7ca4 flags=00000c02
+    cand num=6 prio=36 f40=10 f38=0 avail=[] sym=034f4670 flags=00000402
+    cand num=7 prio=12 f40=6 f38=3507154 avail=[] sym=035052d8 flags=00000402
+    cand num=8 prio=24 f40=6 f38=0 avail=[] sym=035061bc flags=00000402
+    cand num=9 prio=12 f40=4 f38=0 avail=[1, 2, 3, 4, 6, 8] sym=035063fc flags=00000402
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+CHOOSE reg=3 num=4 prio=61 avail=[1, 3, 4, 6, 7, 8] costs=1:3 3:-1 4:0 6:0 7:0 8:0 [03508f24 00000c02 03506f00 0000003d 00000000 035072f0 00000000 00000004 034f7538 00000009 034f2cbc 034f32fc 00000000 00000000 034ffed0 034f1d54 00000012 0000000a 00000005 00000000]
+    cand num=3 prio=22 f40=10 f38=34fff18 avail=[1, 3, 4, 6, 7, 8] sym=03508e64 flags=00000c02
+    cand num=4 prio=61 f40=18 f38=34ffed0 avail=[1, 3, 4, 6, 7, 8] sym=03508f24 flags=00000c02
+    cand num=5 prio=4 f40=4 f38=34ffee8 avail=[1, 2, 3, 4, 6, 7, 8] sym=035090a4 flags=00000c02
+    cand num=7 prio=16 f40=4 f38=34fff0c avail=[1, 2, 3, 4, 6, 7, 8] sym=035090a4 flags=00000c02
+    cand num=9 prio=24 f40=6 f38=0 avail=[1, 2, 3, 4, 6, 7, 8] sym=03509104 flags=00000402
+    cand num=10 prio=10 f40=2 f38=34ffef4 avail=[1, 2, 3, 4, 6, 7, 8] sym=03509164 flags=00000c02
+    cand num=12 prio=40 f40=10 f38=0 avail=[1, 2, 3, 4, 6, 7, 8] sym=034f84e4 flags=00000402
+    cand num=13 prio=24 f40=6 f38=34fff00 avail=[1, 2, 3, 4, 6, 7, 8] sym=034fde04 flags=00000402
+    cand num=14 prio=24 f40=6 f38=0 avail=[1, 2, 3, 4, 6, 7, 8] sym=034fee1c flags=00000402
+    cand num=15 prio=16 f40=4 f38=0 avail=[1, 2, 3, 4, 6, 7, 8] sym=034ff71c flags=00000402
+CHOOSE reg=2 num=12 prio=40 avail=[1, 2, 4, 6, 7, 8] costs=1:3 2:0 4:0 6:0 7:0 8:0 [034f84e4 00000402 035072f0 00000028 00000000 03507338 00000000 0000000c 034f75c8 00000005 034f2fdc 034f30a4 00000000 00000001 00000000 034f42e8 0000000a 0000001b 034fde04 00000402]
+    cand num=3 prio=22 f40=10 f38=34fff18 avail=[1, 4, 6, 7, 8] sym=03508e64 flags=00000c02
+    cand num=4 prio=61 f40=18 f38=34ffed0 avail=[] sym=03508f24 flags=00000c02
+    cand num=5 prio=4 f40=4 f38=34ffee8 avail=[1, 2, 3, 4, 6, 7, 8] sym=035090a4 flags=00000c02
+    cand num=7 prio=16 f40=4 f38=34fff0c avail=[1, 2, 3, 4, 6, 7, 8] sym=035090a4 flags=00000c02
+    cand num=9 prio=24 f40=6 f38=0 avail=[1, 2, 3, 4, 6, 7, 8] sym=03509104 flags=00000402
+    cand num=10 prio=10 f40=2 f38=34ffef4 avail=[1, 2, 4, 6, 7, 8] sym=03509164 flags=00000c02
+    cand num=12 prio=40 f40=10 f38=0 avail=[1, 2, 4, 6, 7, 8] sym=034f84e4 flags=00000402
+    cand num=13 prio=24 f40=6 f38=34fff24 avail=[1, 2, 3, 4, 6, 7, 8] sym=034fde04 flags=00000402
+    cand num=14 prio=24 f40=6 f38=0 avail=[1, 2, 4, 6, 7, 8] sym=034fee1c flags=00000402
+    cand num=15 prio=16 f40=4 f38=0 avail=[1, 2, 4, 6, 7, 8] sym=034ff71c flags=00000402
+CHOOSE reg=2 num=13 prio=24 avail=[1, 2, 3, 4, 6, 7, 8] costs=1:2 2:-1 3:-1 4:0 6:0 7:0 8:0 [034fde04 00000402 03507338 00000018 00000000 03507380 00000000 0000000d 034f75d4 00000003 034f32fc 034f32fc 00000000 00000000 034fff24 034f0220 00000006 00000037 034fee1c 00000402]
+    cand num=3 prio=22 f40=10 f38=34fff18 avail=[1, 4, 6, 7, 8] sym=03508e64 flags=00000c02
+    cand num=4 prio=61 f40=18 f38=34ffed0 avail=[] sym=03508f24 flags=00000c02
+    cand num=5 prio=4 f40=4 f38=34ffee8 avail=[1, 2, 3, 4, 6, 7, 8] sym=035090a4 flags=00000c02
+    cand num=7 prio=16 f40=4 f38=34fff0c avail=[1, 2, 3, 4, 6, 7, 8] sym=035090a4 flags=00000c02
+    cand num=9 prio=24 f40=6 f38=0 avail=[1, 2, 3, 4, 6, 7, 8] sym=03509104 flags=00000402
+    cand num=10 prio=10 f40=2 f38=34ffef4 avail=[1, 4, 6, 7, 8] sym=03509164 flags=00000c02
+    cand num=12 prio=40 f40=10 f38=0 avail=[] sym=034f84e4 flags=00000402
+    cand num=13 prio=24 f40=6 f38=34fff24 avail=[1, 2, 3, 4, 6, 7, 8] sym=034fde04 flags=00000402
+    cand num=14 prio=24 f40=6 f38=0 avail=[1, 2, 4, 6, 7, 8] sym=034fee1c flags=00000402
+    cand num=15 prio=16 f40=4 f38=0 avail=[1, 2, 4, 6, 7, 8] sym=034ff71c flags=00000402
+CHOOSE reg=2 num=14 prio=24 avail=[1, 2, 4, 6, 7, 8] costs=1:1 2:0 4:0 6:0 7:0 8:0 [034fee1c 00000402 03507380 00000018 00000000 03507218 00000000 0000000e 034f752c 00000003 034f30a4 034f30a4 00000000 00000001 00000000 034f1ba8 00000006 00000021 034ff71c 00000402]
+    cand num=3 prio=22 f40=10 f38=34fff18 avail=[1, 4, 6, 7, 8] sym=03508e64 flags=00000c02
+    cand num=4 prio=61 f40=18 f38=34ffed0 avail=[] sym=03508f24 flags=00000c02
+    cand num=5 prio=4 f40=4 f38=34ffee8 avail=[1, 2, 3, 4, 6, 7, 8] sym=035090a4 flags=00000c02
+    cand num=7 prio=16 f40=4 f38=34fff0c avail=[1, 2, 3, 4, 6, 7, 8] sym=035090a4 flags=00000c02
+    cand num=9 prio=24 f40=6 f38=0 avail=[1, 2, 3, 4, 6, 7, 8] sym=03509104 flags=00000402
+    cand num=10 prio=10 f40=2 f38=34ffef4 avail=[1, 4, 6, 7, 8] sym=03509164 flags=00000c02
+    cand num=12 prio=40 f40=10 f38=0 avail=[] sym=034f84e4 flags=00000402
+    cand num=13 prio=24 f40=6 f38=34fff24 avail=[] sym=034fde04 flags=00000402
+    cand num=14 prio=24 f40=6 f38=0 avail=[1, 2, 4, 6, 7, 8] sym=034fee1c flags=00000402
+    cand num=15 prio=16 f40=4 f38=0 avail=[1, 2, 4, 6, 7, 8] sym=034ff71c flags=00000402
+CHOOSE reg=2 num=9 prio=24 avail=[1, 2, 3, 4, 6, 7, 8] costs=1:2 2:0 3:0 4:0 6:0 7:0 8:0 [03509104 00000402 03507218 00000018 00000000 03506ea0 00000000 00000009 034f7028 00000003 034f2e4c 034f2e4c 00000000 00000001 00000000 034d5050 00000006 00000015 03509164 00000c02]
+    cand num=3 prio=22 f40=10 f38=34fff18 avail=[1, 4, 6, 7, 8] sym=03508e64 flags=00000c02
+    cand num=4 prio=61 f40=18 f38=34ffed0 avail=[] sym=03508f24 flags=00000c02
+    cand num=5 prio=4 f40=4 f38=34ffee8 avail=[1, 2, 3, 4, 6, 7, 8] sym=035090a4 flags=00000c02
+    cand num=7 prio=16 f40=4 f38=34fff0c avail=[1, 2, 3, 4, 6, 7, 8] sym=035090a4 flags=00000c02
+    cand num=9 prio=24 f40=6 f38=0 avail=[1, 2, 3, 4, 6, 7, 8] sym=03509104 flags=00000402
+    cand num=10 prio=10 f40=2 f38=34ffef4 avail=[1, 4, 6, 7, 8] sym=03509164 flags=00000c02
+    cand num=12 prio=40 f40=10 f38=0 avail=[] sym=034f84e4 flags=00000402
+    cand num=13 prio=24 f40=6 f38=34fff24 avail=[] sym=034fde04 flags=00000402
+    cand num=14 prio=24 f40=6 f38=0 avail=[] sym=034fee1c flags=00000402
+    cand num=15 prio=16 f40=4 f38=0 avail=[1, 2, 4, 6, 7, 8] sym=034ff71c flags=00000402
+CHOOSE reg=1 num=3 prio=22 avail=[1, 4, 6, 7, 8] costs=1:-2 4:0 6:0 7:0 8:0 [03508e64 00000c02 03506ea0 00000016 00000000 03507188 00000000 00000003 034f6cec 00000006 034f2cbc 034f38c4 00000000 00000000 034fff18 034f525c 0000000a 00000009 00000004 00000000]
+    cand num=3 prio=22 f40=10 f38=34fff18 avail=[1, 4, 6, 7, 8] sym=03508e64 flags=00000c02
+    cand num=4 prio=61 f40=18 f38=34ffed0 avail=[] sym=03508f24 flags=00000c02
+    cand num=5 prio=4 f40=4 f38=34ffee8 avail=[1, 2, 3, 4, 6, 7, 8] sym=035090a4 flags=00000c02
+    cand num=7 prio=16 f40=4 f38=34fff0c avail=[1, 2, 3, 4, 6, 7, 8] sym=035090a4 flags=00000c02
+    cand num=9 prio=24 f40=6 f38=0 avail=[] sym=03509104 flags=00000402
+    cand num=10 prio=10 f40=2 f38=34ffef4 avail=[1, 4, 6, 7, 8] sym=03509164 flags=00000c02
+    cand num=12 prio=40 f40=10 f38=0 avail=[] sym=034f84e4 flags=00000402
+    cand num=13 prio=24 f40=6 f38=34fff24 avail=[] sym=034fde04 flags=00000402
+    cand num=14 prio=24 f40=6 f38=0 avail=[] sym=034fee1c flags=00000402
+    cand num=15 prio=16 f40=4 f38=0 avail=[1, 2, 4, 6, 7, 8] sym=034ff71c flags=00000402
+CHOOSE reg=1 num=7 prio=16 avail=[1, 2, 3, 4, 6, 7, 8] costs=1:-2 2:0 3:0 4:0 6:0 7:0 8:0 [035090a4 00000c02 03507188 00000010 00000000 035073c8 00000000 00000007 034f7568 00000002 034f32fc 034f32fc 00000000 00000000 034fff0c 034f0634 00000004 00000032 00000000 00000000]
+    cand num=3 prio=22 f40=10 f38=34fff18 avail=[] sym=03508e64 flags=00000c02
+    cand num=4 prio=61 f40=18 f38=34ffed0 avail=[] sym=03508f24 flags=00000c02
+    cand num=5 prio=4 f40=4 f38=34ffee8 avail=[1, 2, 3, 4, 6, 7, 8] sym=035090a4 flags=00000c02
+    cand num=7 prio=16 f40=4 f38=34fff0c avail=[1, 2, 3, 4, 6, 7, 8] sym=035090a4 flags=00000c02
+    cand num=9 prio=24 f40=6 f38=0 avail=[] sym=03509104 flags=00000402
+    cand num=10 prio=10 f40=2 f38=34ffef4 avail=[1, 4, 6, 7, 8] sym=03509164 flags=00000c02
+    cand num=12 prio=40 f40=10 f38=0 avail=[] sym=034f84e4 flags=00000402
+    cand num=13 prio=24 f40=6 f38=34fff24 avail=[] sym=034fde04 flags=00000402
+    cand num=14 prio=24 f40=6 f38=0 avail=[] sym=034fee1c flags=00000402
+    cand num=15 prio=16 f40=4 f38=0 avail=[2, 4, 6, 7, 8] sym=034ff71c flags=00000402
+CHOOSE reg=2 num=15 prio=16 avail=[2, 4, 6, 7, 8] costs=2:0 4:0 6:0 7:0 8:0 [034ff71c 00000402 035073c8 00000010 00000000 03507260 00000000 0000000f 034f75b0 00000002 034f2fdc 034f2fdc 00000000 00000000 00000000 034f47cc 00000004 0000001c 00000000 00000000]
+    cand num=3 prio=22 f40=10 f38=34fff18 avail=[] sym=03508e64 flags=00000c02
+    cand num=4 prio=61 f40=18 f38=34ffed0 avail=[] sym=03508f24 flags=00000c02
+    cand num=5 prio=4 f40=4 f38=34ffee8 avail=[1, 2, 3, 4, 6, 7, 8] sym=035090a4 flags=00000c02
+    cand num=7 prio=16 f40=4 f38=34fff0c avail=[] sym=035090a4 flags=00000c02
+    cand num=9 prio=24 f40=6 f38=0 avail=[] sym=03509104 flags=00000402
+    cand num=10 prio=10 f40=2 f38=34ffef4 avail=[1, 4, 6, 7, 8] sym=03509164 flags=00000c02
+    cand num=12 prio=40 f40=10 f38=0 avail=[] sym=034f84e4 flags=00000402
+    cand num=13 prio=24 f40=6 f38=34fff24 avail=[] sym=034fde04 flags=00000402
+    cand num=14 prio=24 f40=6 f38=0 avail=[] sym=034fee1c flags=00000402
+    cand num=15 prio=16 f40=4 f38=0 avail=[2, 4, 6, 7, 8] sym=034ff71c flags=00000402
+CHOOSE reg=1 num=10 prio=10 avail=[1, 4, 6, 7, 8] costs=1:-1 4:0 6:0 7:0 8:0 [03509164 00000c02 03507260 0000000a 00000000 035070f8 00000000 0000000a 034f7634 00000002 034f30a4 034f3234 00000000 00000001 034ffef4 034f49b4 00000002 00000022 00000000 00000000]
+    cand num=3 prio=22 f40=10 f38=34fff18 avail=[] sym=03508e64 flags=00000c02
+    cand num=4 prio=61 f40=18 f38=34ffed0 avail=[] sym=03508f24 flags=00000c02
+    cand num=5 prio=4 f40=4 f38=34ffee8 avail=[1, 2, 3, 4, 6, 7, 8] sym=035090a4 flags=00000c02
+    cand num=7 prio=16 f40=4 f38=34fff0c avail=[] sym=035090a4 flags=00000c02
+    cand num=9 prio=24 f40=6 f38=0 avail=[] sym=03509104 flags=00000402
+    cand num=10 prio=10 f40=2 f38=34ffef4 avail=[1, 4, 6, 7, 8] sym=03509164 flags=00000c02
+    cand num=12 prio=40 f40=10 f38=0 avail=[] sym=034f84e4 flags=00000402
+    cand num=13 prio=24 f40=6 f38=34fff24 avail=[] sym=034fde04 flags=00000402
+    cand num=14 prio=24 f40=6 f38=0 avail=[] sym=034fee1c flags=00000402
+    cand num=15 prio=16 f40=4 f38=0 avail=[] sym=034ff71c flags=00000402
+CHOOSE reg=1 num=5 prio=4 avail=[1, 2, 3, 4, 6, 7, 8] costs=1:-2 2:0 3:0 4:0 6:0 7:0 8:0 [035090a4 00000c02 035070f8 00000004 00000000 03506e40 00000000 00000005 034f761c 00000002 034f316c 034f316c 00000000 00000000 034ffee8 034efd9c 00000004 00000027 00000000 00000000]
+    cand num=3 prio=22 f40=10 f38=34fff18 avail=[] sym=03508e64 flags=00000c02
+    cand num=4 prio=61 f40=18 f38=34ffed0 avail=[] sym=03508f24 flags=00000c02
+    cand num=5 prio=4 f40=4 f38=34ffee8 avail=[1, 2, 3, 4, 6, 7, 8] sym=035090a4 flags=00000c02
+    cand num=7 prio=16 f40=4 f38=34fff0c avail=[] sym=035090a4 flags=00000c02
+    cand num=9 prio=24 f40=6 f38=0 avail=[] sym=03509104 flags=00000402
+    cand num=10 prio=10 f40=2 f38=34ffef4 avail=[] sym=03509164 flags=00000c02
+    cand num=12 prio=40 f40=10 f38=0 avail=[] sym=034f84e4 flags=00000402
+    cand num=13 prio=24 f40=6 f38=34fff24 avail=[] sym=034fde04 flags=00000402
+    cand num=14 prio=24 f40=6 f38=0 avail=[] sym=034fee1c flags=00000402
+    cand num=15 prio=16 f40=4 f38=0 avail=[] sym=034ff71c flags=00000402
+SPILL num=2 prio=-1 [03503de0 00000c02 03506e40 ffffffff 00000000 00000000 00000000 00000002 034f6ce0 00000002 034f2d84 034f2fdc 00000000 00000000 00000000 034f518c ffffffff 00000000 00000003 00000000] bt: c2+107b3f4f < c2+107b3ed5 < c2+107a54dd < c2+107994ca < c2+1070ad88 < c2+107b98d0
+BLOCK
+BLOCK
+SPILL num=1 prio=6 [03506e34 00000d02 034efb88 00000006 00000000 034efc78 00000000 00000001 034f7c8c 00000001 034fddd4 034fde9c 00000000 00000000 00000000 034d4530 00000000 00000007 00000002 00000000] bt: c2+107a9da4 < c2+107ab323 < c2+107a54dd < c2+107994ca < c2+1070ad88 < c2+107b98d0
+CHOOSE reg=1 num=4 prio=28 avail=[1, 2, 3, 4, 6, 7, 8] costs=1:0 2:0 3:0 4:0 6:0 7:0 8:0 [034f3d04 00000402 034efd08 0000001c 00000000 034efc78 00000000 00000004 034f7f38 00000004 034fddd4 034fde9c 00000000 00000001 00000000 034fcee8 00000008 00000003 034f4424 00000402]
+    cand num=2 prio=20 f40=4 f38=0 avail=[1, 2, 3, 4, 6, 7, 8] sym=03506e94 flags=00000c02
+    cand num=4 prio=28 f40=8 f38=0 avail=[1, 2, 3, 4, 6, 7, 8] sym=034f3d04 flags=00000402
+    cand num=5 prio=16 f40=4 f38=0 avail=[1, 2, 3, 4, 6, 7, 8] sym=034f4424 flags=00000402
+CHOOSE reg=2 num=2 prio=20 avail=[2, 3, 4, 6, 7, 8] costs=2:0 3:0 4:0 6:0 7:0 8:0 [03506e94 00000c02 034efc78 00000014 00000000 034efd50 00000000 00000002 034f7e00 00000003 034fddd4 034fde9c 00000000 00000000 00000000 034fd638 00000004 00000006 00000000 00000000]
+    cand num=2 prio=20 f40=4 f38=0 avail=[2, 3, 4, 6, 7, 8] sym=03506e94 flags=00000c02
+    cand num=4 prio=28 f40=8 f38=0 avail=[] sym=034f3d04 flags=00000402
+    cand num=5 prio=16 f40=4 f38=0 avail=[1, 2, 3, 4, 6, 7, 8] sym=034f4424 flags=00000402
+CHOOSE reg=1 num=5 prio=16 avail=[1, 3, 4, 6, 7, 8] costs=1:0 3:0 4:0 6:0 7:0 8:0 [034f4424 00000402 034efd50 00000010 00000000 00000000 00000000 00000005 034f7f14 00000002 034fddd4 034fddd4 00000000 00000000 00000000 034fd4e0 00000004 00000004 00000000 00000000]
+    cand num=2 prio=20 f40=4 f38=0 avail=[] sym=03506e94 flags=00000c02
+    cand num=4 prio=28 f40=8 f38=0 avail=[] sym=034f3d04 flags=00000402
+    cand num=5 prio=16 f40=4 f38=0 avail=[1, 3, 4, 6, 7, 8] sym=034f4424 flags=00000402
+BLOCK
+BLOCK
+SPILL num=2 prio=6 [034efbdc 00000d02 0350ef18 00000006 00000000 00000000 00000000 00000002 03506e88 00000001 034f2cbc 034f2d84 00000000 00000000 00000000 03504644 00000000 00000007 00000003 00000000] bt: c2+107a9da4 < c2+107ab323 < c2+107a54dd < c2+107994ca < c2+1070ad88 < c2+107b98d0
+CHOOSE reg=1 num=1 prio=24 avail=[1, 2, 3, 4, 6, 7, 8] costs=1:0 2:0 3:0 4:0 6:0 7:0 8:0 [034efc3c 00000c02 0350eeb8 00000018 00000000 0350f038 00000000 00000001 03507134 00000004 034f2cbc 034f2d84 00000000 00000001 00000000 035045b8 00000006 00000006 00000002 00000000]
+    cand num=1 prio=24 f40=6 f38=0 avail=[1, 2, 3, 4, 6, 7, 8] sym=034efc3c flags=00000c02
+    cand num=4 prio=18 f40=6 f38=0 avail=[1, 2, 3, 4, 6, 7, 8] sym=034f1c74 flags=00000402
+CHOOSE reg=2 num=4 prio=18 avail=[2, 3, 4, 6, 7, 8] costs=2:0 3:0 4:0 6:0 7:0 8:0 [034f1c74 00000402 0350f038 00000012 00000000 00000000 00000000 00000004 03506f9c 00000003 034f2cbc 034f2d84 00000000 00000000 00000000 035046d4 00000006 00000004 00000000 00000000]
+    cand num=1 prio=24 f40=6 f38=0 avail=[] sym=034efc3c flags=00000c02
+    cand num=4 prio=18 f40=6 f38=0 avail=[2, 3, 4, 6, 7, 8] sym=034f1c74 flags=00000402
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+SPILL num=6 prio=-60 [03538dc8 00008d02 03529378 ffffffc4 00000000 03529318 00000000 00000006 035374d0 00000001 034f5c64 034f7744 00000000 00000000 00000000 03508b64 ffffffff 00000000 00000007 00000000] bt: c2+107a9da4 < c2+107ab323 < c2+107a54dd < c2+107994ca < c2+1070ad88 < c2+107b98d0
+CHOOSE reg=7 num=8 prio=180 avail=[4, 6, 7, 8] costs=4:300 6:0 7:0 8:0 [0350efcc 00000c02 03529438 000000b4 00000000 035292b8 00000000 00000008 0353c3c4 0000001c 034f6d1c 034d4540 00000000 00000005 00000000 03509a8c 00000036 00000013 00000009 00000000]
+    cand num=1 prio=-61 f40=5 f38=0 avail=[4, 6, 7, 8] sym=03538be8 flags=00000c02
+    cand num=2 prio=-93 f40=2 f38=0 avail=[4, 6, 7, 8] sym=03538c48 flags=00000c02
+    cand num=4 prio=159 f40=32 f38=0 avail=[4, 6, 7, 8] sym=0350f02c flags=00000c02
+    cand num=5 prio=-2 f40=3 f38=0 avail=[4] sym=03538d68 flags=00028c02
+    cand num=8 prio=180 f40=54 f38=0 avail=[4, 6, 7, 8] sym=0350efcc flags=00000c02
+    cand num=9 prio=29 f40=2 f38=0 avail=[1, 2, 3, 4, 6, 7, 8] sym=0350ef0c flags=00000c02
+    cand num=10 prio=112 f40=20 f38=0 avail=[4, 6, 7, 8] sym=0350f08c flags=00000c02
+    cand num=11 prio=-50 f40=6 f38=0 avail=[4, 6, 7, 8] sym=0350f0ec flags=00000c02
+    cand num=13 prio=38 f40=6 f38=0 avail=[1, 2, 3, 4, 6, 7, 8] sym=0350f1ac flags=00000c02
+    cand num=14 prio=21 f40=22 f38=0 avail=[4, 6, 7, 8] sym=0350f20c flags=00000c02
+    cand num=15 prio=69 f40=14 f38=0 avail=[4, 6, 7, 8] sym=0350f26c flags=00000c02
+    cand num=16 prio=113 f40=20 f38=35249b4 avail=[4, 6, 7, 8] sym=0350f2cc flags=00000c02
+    cand num=17 prio=48 f40=12 f38=0 avail=[1, 2, 3, 4] sym=0350f32c flags=00028402
+    cand num=19 prio=36 f40=4 f38=35249a8 avail=[1, 2, 3, 4, 6, 7, 8] sym=0350f3ec flags=00000c02
+    cand num=20 prio=36 f40=6 f38=0 avail=[1, 2, 3, 4, 6, 7, 8] sym=0350f4ac flags=00000c02
+    cand num=21 prio=60 f40=10 f38=0 avail=[4, 6, 7, 8] sym=0350f4ac flags=00000c02
+    cand num=22 prio=14 f40=4 f38=0 avail=[4, 6, 7, 8] sym=0350f50c flags=00000402
+    cand num=23 prio=20 f40=4 f38=0 avail=[1, 2, 3, 4, 6, 7, 8] sym=0350f56c flags=00000402
+    cand num=29 prio=88 f40=16 f38=0 avail=[1, 2, 3, 4, 6, 7, 8] sym=0351e134 flags=00000402
+    cand num=31 prio=17 f40=16 f38=0 avail=[4, 6, 7, 8] sym=0351e494 flags=00000402
+    cand num=35 prio=28 f40=8 f38=0 avail=[1, 2, 3, 4, 6, 7, 8] sym=0352f3ec flags=00000402
+    cand num=37 prio=32 f40=6 f38=0 avail=[1, 2, 3, 4, 6, 7, 8] sym=0352f7ac flags=00000402
+    cand num=39 prio=20 f40=6 f38=0 avail=[1, 2, 3, 4, 6, 7, 8] sym=0352fb0c flags=00000402
+    cand num=41 prio=24 f40=6 f38=0 avail=[1, 2, 3, 4, 6, 7, 8] sym=0352fdac flags=00000402
+    cand num=43 prio=20 f40=6 f38=0 avail=[1, 2, 3, 4, 6, 7, 8] sym=0352c404 flags=00000402
+    cand num=46 prio=16 f40=4 f38=0 avail=[1, 2, 3, 4, 6, 7, 8] sym=035356bc flags=00000402
+CHOOSE reg=8 num=4 prio=159 avail=[4, 6, 8] costs=4:300 6:0 8:0 [0350f02c 00000c02 035292b8 0000009f 00000000 03529a98 00000000 00000004 03537884 0000000c 034f6d1c 034d4608 00000000 00000000 00000000 03504a9c 00000020 0000000f 00000005 00000000]
+    cand num=1 prio=-61 f40=5 f38=0 avail=[4, 6, 8] sym=03538be8 flags=00000c02
+    cand num=2 prio=-93 f40=2 f38=0 avail=[4, 6, 8] sym=03538c48 flags=00000c02
+    cand num=4 prio=159 f40=32 f38=0 avail=[4, 6, 8] sym=0350f02c flags=00000c02
+    cand num=5 prio=-2 f40=3 f38=0 avail=[4] sym=03538d68 flags=00028c02
+    cand num=8 prio=180 f40=54 f38=0 avail=[] sym=0350efcc flags=00000c02
+    cand num=9 prio=29 f40=2 f38=0 avail=[1, 2, 3, 4, 6, 8] sym=0350ef0c flags=00000c02
+    cand num=10 prio=112 f40=20 f38=0 avail=[4, 6, 8] sym=0350f08c flags=00000c02
+    cand num=11 prio=-50 f40=6 f38=0 avail=[4, 6, 8] sym=0350f0ec flags=00000c02
+    cand num=13 prio=38 f40=6 f38=0 avail=[1, 2, 3, 4, 6, 8] sym=0350f1ac flags=00000c02
+    cand num=14 prio=21 f40=22 f38=0 avail=[4, 6, 8] sym=0350f20c flags=00000c02
+    cand num=15 prio=69 f40=14 f38=0 avail=[4, 6, 8] sym=0350f26c flags=00000c02
+    cand num=16 prio=113 f40=20 f38=35249b4 avail=[4, 6, 8] sym=0350f2cc flags=00000c02
+    cand num=17 prio=48 f40=12 f38=0 avail=[1, 2, 3, 4] sym=0350f32c flags=00028402
+    cand num=19 prio=36 f40=4 f38=35249a8 avail=[1, 2, 3, 4, 6, 8] sym=0350f3ec flags=00000c02
+    cand num=20 prio=36 f40=6 f38=0 avail=[1, 2, 3, 4, 6, 8] sym=0350f4ac flags=00000c02
+    cand num=21 prio=60 f40=10 f38=0 avail=[4, 6, 7, 8] sym=0350f4ac flags=00000c02
+    cand num=22 prio=14 f40=4 f38=0 avail=[4, 6, 8] sym=0350f50c flags=00000402
+    cand num=23 prio=20 f40=4 f38=0 avail=[1, 2, 3, 4, 6, 8] sym=0350f56c flags=00000402
+    cand num=29 prio=88 f40=16 f38=0 avail=[1, 2, 3, 4, 6, 8] sym=0351e134 flags=00000402
+    cand num=31 prio=17 f40=16 f38=0 avail=[4, 6, 8] sym=0351e494 flags=00000402
+    cand num=35 prio=28 f40=8 f38=0 avail=[1, 2, 3, 4, 6, 8] sym=0352f3ec flags=00000402
+    cand num=37 prio=32 f40=6 f38=0 avail=[1, 2, 3, 4, 6, 8] sym=0352f7ac flags=00000402
+    cand num=39 prio=20 f40=6 f38=0 avail=[1, 2, 3, 4, 6, 8] sym=0352fb0c flags=00000402
+    cand num=41 prio=24 f40=6 f38=0 avail=[1, 2, 3, 4, 6, 8] sym=0352fdac flags=00000402
+    cand num=43 prio=20 f40=6 f38=0 avail=[1, 2, 3, 4, 6, 8] sym=0352c404 flags=00000402
+    cand num=46 prio=16 f40=4 f38=0 avail=[1, 2, 3, 4, 6, 8] sym=035356bc flags=00000402
+CHOOSE reg=6 num=16 prio=113 avail=[4, 6] costs=4:300 6:0 [0350f2cc 00000c02 03529a98 00000071 00000000 035298e8 00000000 00000010 0353c280 00000007 034f703c 034f7744 00000000 00000001 035249b4 034f8b1c 00000014 00000057 0350f32c 00028402]
+    cand num=1 prio=-61 f40=5 f38=0 avail=[4, 6] sym=03538be8 flags=00000c02
+    cand num=2 prio=-93 f40=2 f38=0 avail=[4, 6] sym=03538c48 flags=00000c02
+    cand num=4 prio=159 f40=32 f38=0 avail=[] sym=0350f02c flags=00000c02
+    cand num=5 prio=-2 f40=3 f38=0 avail=[4] sym=03538d68 flags=00028c02
+    cand num=8 prio=180 f40=54 f38=0 avail=[] sym=0350efcc flags=00000c02
+    cand num=9 prio=29 f40=2 f38=0 avail=[1, 2, 3, 4, 6] sym=0350ef0c flags=00000c02
+    cand num=10 prio=112 f40=20 f38=0 avail=[4, 6] sym=0350f08c flags=00000c02
+    cand num=11 prio=-50 f40=6 f38=0 avail=[4, 6] sym=0350f0ec flags=00000c02
+    cand num=13 prio=38 f40=6 f38=0 avail=[1, 2, 3, 4, 6] sym=0350f1ac flags=00000c02
+    cand num=14 prio=21 f40=22 f38=0 avail=[4, 6] sym=0350f20c flags=00000c02
+    cand num=15 prio=69 f40=14 f38=0 avail=[4, 6] sym=0350f26c flags=00000c02
+    cand num=16 prio=113 f40=20 f38=35249b4 avail=[4, 6] sym=0350f2cc flags=00000c02
+    cand num=17 prio=48 f40=12 f38=0 avail=[1, 2, 3, 4] sym=0350f32c flags=00028402
+    cand num=19 prio=36 f40=4 f38=35249a8 avail=[1, 2, 3, 4, 6] sym=0350f3ec flags=00000c02
+    cand num=20 prio=36 f40=6 f38=0 avail=[1, 2, 3, 4, 6] sym=0350f4ac flags=00000c02
+    cand num=21 prio=60 f40=10 f38=0 avail=[4, 6, 7] sym=0350f4ac flags=00000c02
+    cand num=22 prio=14 f40=4 f38=0 avail=[4, 6] sym=0350f50c flags=00000402
+    cand num=23 prio=20 f40=4 f38=0 avail=[1, 2, 3, 4, 6] sym=0350f56c flags=00000402
+    cand num=29 prio=88 f40=16 f38=0 avail=[1, 2, 3, 4, 6] sym=0351e134 flags=00000402
+    cand num=31 prio=17 f40=16 f38=0 avail=[4, 6] sym=0351e494 flags=00000402
+    cand num=35 prio=28 f40=8 f38=0 avail=[1, 2, 3, 4, 6] sym=0352f3ec flags=00000402
+    cand num=37 prio=32 f40=6 f38=0 avail=[1, 2, 3, 4, 6] sym=0352f7ac flags=00000402
+    cand num=39 prio=20 f40=6 f38=0 avail=[1, 2, 3, 4, 6] sym=0352fb0c flags=00000402
+    cand num=41 prio=24 f40=6 f38=0 avail=[1, 2, 3, 4, 6] sym=0352fdac flags=00000402
+    cand num=43 prio=20 f40=6 f38=0 avail=[1, 2, 3, 4, 6] sym=0352c404 flags=00000402
+    cand num=46 prio=16 f40=4 f38=0 avail=[1, 2, 3, 4, 6] sym=035356bc flags=00000402
+CHOOSE reg=4 num=10 prio=112 avail=[4] costs=4:6800 [0350f08c 00000c02 035298e8 00000070 00000000 03529e40 00000000 0000000a 03537734 00000007 034f6d1c 034f7744 00000000 00000000 00000000 03504e98 00000014 00000055 0350f0ec 00000c02]
+    cand num=1 prio=-61 f40=5 f38=0 avail=[4] sym=03538be8 flags=00000c02
+    cand num=2 prio=-93 f40=2 f38=0 avail=[4] sym=03538c48 flags=00000c02
+    cand num=3 prio=-97 f40=-1 f38=0 avail=[4] sym=03538ca8 flags=00000c02
+    cand num=4 prio=159 f40=32 f38=0 avail=[] sym=0350f02c flags=00000c02
+    cand num=5 prio=-2 f40=3 f38=0 avail=[4] sym=03538d68 flags=00028c02
+    cand num=7 prio=-50 f40=-1 f38=0 avail=[4] sym=03538e28 flags=00000c02
+    cand num=8 prio=180 f40=54 f38=0 avail=[] sym=0350efcc flags=00000c02
+    cand num=9 prio=29 f40=2 f38=0 avail=[1, 2, 3, 4, 6] sym=0350ef0c flags=00000c02
+    cand num=10 prio=112 f40=20 f38=0 avail=[4] sym=0350f08c flags=00000c02
+    cand num=11 prio=-50 f40=6 f38=0 avail=[4] sym=0350f0ec flags=00000c02
+    cand num=13 prio=38 f40=6 f38=0 avail=[1, 2, 3, 4, 6] sym=0350f1ac flags=00000c02
+    cand num=14 prio=21 f40=22 f38=0 avail=[4] sym=0350f20c flags=00000c02
+    cand num=15 prio=69 f40=14 f38=0 avail=[4] sym=0350f26c flags=00000c02
+    cand num=16 prio=113 f40=20 f38=35249b4 avail=[] sym=0350f2cc flags=00000c02
+    cand num=17 prio=48 f40=12 f38=0 avail=[1, 2, 3, 4] sym=0350f32c flags=00028402
+    cand num=19 prio=36 f40=4 f38=35249a8 avail=[1, 2, 3, 4] sym=0350f3ec flags=00000c02
+    cand num=20 prio=36 f40=6 f38=0 avail=[1, 2, 3, 4, 6] sym=0350f4ac flags=00000c02
+    cand num=21 prio=60 f40=10 f38=0 avail=[4, 6, 7] sym=0350f4ac flags=00000c02
+    cand num=22 prio=14 f40=4 f38=0 avail=[4, 6] sym=0350f50c flags=00000402
+    cand num=23 prio=20 f40=4 f38=0 avail=[1, 2, 3, 4, 6] sym=0350f56c flags=00000402
+    cand num=29 prio=88 f40=16 f38=0 avail=[1, 2, 3, 4] sym=0351e134 flags=00000402
+    cand num=31 prio=17 f40=16 f38=0 avail=[4] sym=0351e494 flags=00000402
+    cand num=35 prio=28 f40=8 f38=0 avail=[1, 2, 3, 4, 6] sym=0352f3ec flags=00000402
+    cand num=37 prio=32 f40=6 f38=0 avail=[1, 2, 3, 4, 6] sym=0352f7ac flags=00000402
+    cand num=39 prio=20 f40=6 f38=0 avail=[1, 2, 3, 4, 6] sym=0352fb0c flags=00000402
+    cand num=41 prio=24 f40=6 f38=0 avail=[1, 2, 3, 4, 6] sym=0352fdac flags=00000402
+    cand num=43 prio=20 f40=6 f38=0 avail=[1, 2, 3, 4, 6] sym=0352c404 flags=00000402
+    cand num=46 prio=16 f40=4 f38=0 avail=[1, 2, 3, 4, 6] sym=035356bc flags=00000402
+SPILLIMM num=5 prio=-2 [03538d68 00028c02 03529318 fffffffe 00000000 03529930 03529c48 00000005 035374c4 00000003 034f5c64 034f7744 00000000 00000000 00000000 034fb6bc 00000003 00000000 00000006 00000000] bt: c2+107646bc < c2+107a9efe < c2+107a54dd < c2+107994ca < c2+1070ad88 < c2+107b98d0
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+CHOOSE reg=1 num=29 prio=88 avail=[1, 2, 3] costs=1:0 2:0 3:0 [0351e134 00000402 03529e40 00000058 00000000 0352a038 00000000 0000001d 03537bcc 00000004 034f7104 034f74ec 00000000 00000000 03524f94 035000e8 00000010 0000002b 00000000 00000000]
+    cand num=4 prio=159 f40=32 f38=0 avail=[] sym=0350f02c flags=00000c02
+    cand num=6 prio=-8 f40=4 f38=0 avail=[1, 2, 3] sym=03538be8 flags=00012c02
+    cand num=8 prio=180 f40=54 f38=0 avail=[] sym=0350efcc flags=00000c02
+    cand num=9 prio=29 f40=2 f38=3524f88 avail=[1, 2, 3, 6] sym=0350ef0c flags=00000c02
+    cand num=10 prio=112 f40=20 f38=0 avail=[] sym=0350f08c flags=00000c02
+    cand num=13 prio=38 f40=6 f38=0 avail=[1, 2, 3, 6] sym=0350f1ac flags=00000c02
+    cand num=16 prio=113 f40=20 f38=35249b4 avail=[] sym=0350f2cc flags=00000c02
+    cand num=17 prio=48 f40=12 f38=3524fa0 avail=[1, 2, 3] sym=0350f32c flags=00028402
+    cand num=19 prio=36 f40=4 f38=35249a8 avail=[1, 2, 3] sym=0350f3ec flags=00000c02
+    cand num=20 prio=36 f40=6 f38=0 avail=[1, 2, 3, 4, 6] sym=0350f4ac flags=00000c02
+    cand num=21 prio=60 f40=10 f38=0 avail=[4, 6, 7] sym=0350f4ac flags=00000c02
+    cand num=22 prio=14 f40=4 f38=0 avail=[4, 6] sym=0350f50c flags=00000402
+    cand num=23 prio=20 f40=4 f38=0 avail=[1, 2, 3, 4, 6] sym=0350f56c flags=00000402
+    cand num=29 prio=88 f40=16 f38=3524f94 avail=[1, 2, 3] sym=0351e134 flags=00000402
+    cand num=35 prio=28 f40=8 f38=0 avail=[1, 2, 3, 4, 6] sym=0352f3ec flags=00000402
+    cand num=36 prio=78 f40=12 f38=3524f70 avail=[1, 2, 3] sym=0351e494 flags=00012c02
+    cand num=37 prio=32 f40=6 f38=3524fb8 avail=[1, 2, 3, 4, 6] sym=0352f7ac flags=00000402
+    cand num=38 prio=48 f40=4 f38=3524f7c avail=[1, 2, 3] sym=0350f26c flags=00012c02
+    cand num=39 prio=20 f40=6 f38=3524fc4 avail=[1, 2, 3, 4, 6] sym=0352fb0c flags=00000402
+    cand num=41 prio=24 f40=6 f38=3524fd0 avail=[1, 2, 3, 4, 6] sym=0352fdac flags=00000402
+    cand num=43 prio=20 f40=6 f38=3524fdc avail=[1, 2, 3, 4, 6] sym=0352c404 flags=00000402
+    cand num=45 prio=-6 f40=1 f38=0 avail=[1, 2, 3] sym=03538c48 flags=00012c02
+    cand num=46 prio=16 f40=4 f38=3524fac avail=[1, 2, 3, 4, 6] sym=035356bc flags=00000402
+CHOOSE reg=1 num=36 prio=78 avail=[1, 2, 3] costs=1:0 2:0 3:0 [0351e494 00012c02 0352a038 0000004e 00000000 03529c00 00000000 00000024 03537ec0 00000008 034f6d1c 034f7a64 00000000 00000001 03524f70 034fb01c 0000000c 00000007 0352f7ac 00000402]
+    cand num=4 prio=159 f40=32 f38=0 avail=[] sym=0350f02c flags=00000c02
+    cand num=6 prio=-8 f40=4 f38=0 avail=[1, 2, 3] sym=03538be8 flags=00012c02
+    cand num=8 prio=180 f40=54 f38=0 avail=[] sym=0350efcc flags=00000c02
+    cand num=9 prio=29 f40=2 f38=3524f88 avail=[1, 2, 3, 6] sym=0350ef0c flags=00000c02
+    cand num=10 prio=112 f40=20 f38=0 avail=[] sym=0350f08c flags=00000c02
+    cand num=13 prio=38 f40=6 f38=0 avail=[1, 2, 3, 6] sym=0350f1ac flags=00000c02
+    cand num=16 prio=113 f40=20 f38=35249b4 avail=[] sym=0350f2cc flags=00000c02
+    cand num=17 prio=48 f40=12 f38=3524fa0 avail=[2, 3] sym=0350f32c flags=00028402
+    cand num=19 prio=36 f40=4 f38=35249a8 avail=[1, 2, 3] sym=0350f3ec flags=00000c02
+    cand num=20 prio=36 f40=6 f38=0 avail=[1, 2, 3, 4, 6] sym=0350f4ac flags=00000c02
+    cand num=21 prio=60 f40=10 f38=0 avail=[4, 6, 7] sym=0350f4ac flags=00000c02
+    cand num=22 prio=14 f40=4 f38=0 avail=[4, 6] sym=0350f50c flags=00000402
+    cand num=23 prio=20 f40=4 f38=0 avail=[1, 2, 3, 4, 6] sym=0350f56c flags=00000402
+    cand num=29 prio=88 f40=16 f38=3524f94 avail=[] sym=0351e134 flags=00000402
+    cand num=35 prio=28 f40=8 f38=0 avail=[1, 2, 3, 4, 6] sym=0352f3ec flags=00000402
+    cand num=36 prio=78 f40=12 f38=3524f70 avail=[1, 2, 3] sym=0351e494 flags=00012c02
+    cand num=37 prio=32 f40=6 f38=3524fb8 avail=[1, 2, 3, 4, 6] sym=0352f7ac flags=00000402
+    cand num=38 prio=48 f40=4 f38=3524f7c avail=[2, 3] sym=0350f26c flags=00012c02
+    cand num=39 prio=20 f40=6 f38=3524fc4 avail=[1, 2, 3, 4, 6] sym=0352fb0c flags=00000402
+    cand num=41 prio=24 f40=6 f38=3524fd0 avail=[1, 2, 3, 4, 6] sym=0352fdac flags=00000402
+    cand num=43 prio=20 f40=6 f38=3524fdc avail=[1, 2, 3, 4, 6] sym=0352c404 flags=00000402
+    cand num=45 prio=-6 f40=1 f38=0 avail=[1, 2, 3] sym=03538c48 flags=00012c02
+    cand num=46 prio=16 f40=4 f38=3524fac avail=[1, 2, 3, 4, 6] sym=035356bc flags=00000402
+CHOOSE reg=7 num=21 prio=60 avail=[4, 6, 7] costs=4:0 6:0 7:0 [0350f4ac 00000c02 03529c00 0000003c 00000000 0352a0c8 00000000 00000015 0353792c 00000005 034d4540 034d4540 00000000 00000000 00000000 035088cc 0000000a 00000099 0350f50c 00000402]
+    cand num=4 prio=159 f40=32 f38=0 avail=[] sym=0350f02c flags=00000c02
+    cand num=6 prio=-8 f40=4 f38=0 avail=[2, 3] sym=03538be8 flags=00012c02
+    cand num=8 prio=180 f40=54 f38=0 avail=[] sym=0350efcc flags=00000c02
+    cand num=9 prio=29 f40=2 f38=3524f88 avail=[2, 3, 6] sym=0350ef0c flags=00000c02
+    cand num=10 prio=112 f40=20 f38=0 avail=[] sym=0350f08c flags=00000c02
+    cand num=13 prio=38 f40=6 f38=0 avail=[2, 3, 6] sym=0350f1ac flags=00000c02
+    cand num=16 prio=113 f40=20 f38=35249b4 avail=[] sym=0350f2cc flags=00000c02
+    cand num=17 prio=48 f40=12 f38=3524fa0 avail=[2, 3] sym=0350f32c flags=00028402
+    cand num=19 prio=36 f40=4 f38=35249a8 avail=[1, 2, 3] sym=0350f3ec flags=00000c02
+    cand num=20 prio=36 f40=6 f38=0 avail=[1, 2, 3, 4, 6] sym=0350f4ac flags=00000c02
+    cand num=21 prio=60 f40=10 f38=0 avail=[4, 6, 7] sym=0350f4ac flags=00000c02
+    cand num=22 prio=14 f40=4 f38=0 avail=[4, 6] sym=0350f50c flags=00000402
+    cand num=23 prio=20 f40=4 f38=0 avail=[1, 2, 3, 4, 6] sym=0350f56c flags=00000402
+    cand num=29 prio=88 f40=16 f38=3524f94 avail=[] sym=0351e134 flags=00000402
+    cand num=35 prio=28 f40=8 f38=0 avail=[2, 3, 4, 6] sym=0352f3ec flags=00000402
+    cand num=36 prio=78 f40=12 f38=3524f70 avail=[] sym=0351e494 flags=00012c02
+    cand num=37 prio=32 f40=6 f38=3524fb8 avail=[1, 2, 3, 4, 6] sym=0352f7ac flags=00000402
+    cand num=38 prio=48 f40=4 f38=3524f7c avail=[2, 3] sym=0350f26c flags=00012c02
+    cand num=39 prio=20 f40=6 f38=3524fc4 avail=[1, 2, 3, 4, 6] sym=0352fb0c flags=00000402
+    cand num=41 prio=24 f40=6 f38=3524fd0 avail=[1, 2, 3, 4, 6] sym=0352fdac flags=00000402
+    cand num=43 prio=20 f40=6 f38=3524fdc avail=[1, 2, 3, 4, 6] sym=0352c404 flags=00000402
+    cand num=45 prio=-6 f40=1 f38=0 avail=[2, 3] sym=03538c48 flags=00012c02
+    cand num=46 prio=16 f40=4 f38=3524fac avail=[2, 3, 4, 6] sym=035356bc flags=00000402
+CHOOSE reg=2 num=38 prio=48 avail=[2, 3] costs=2:0 3:0 [0350f26c 00012c02 0352a0c8 00000030 00000000 03529ae0 00000000 00000026 0353b9c8 00000003 034f703c 034f74ec 00000000 00000001 03524f7c 0351c14c 00000004 00000056 0352fb0c 00000402]
+    cand num=4 prio=159 f40=32 f38=0 avail=[] sym=0350f02c flags=00000c02
+    cand num=6 prio=-8 f40=4 f38=0 avail=[2, 3] sym=03538be8 flags=00012c02
+    cand num=8 prio=180 f40=54 f38=0 avail=[] sym=0350efcc flags=00000c02
+    cand num=9 prio=29 f40=2 f38=3524f88 avail=[2, 3, 6] sym=0350ef0c flags=00000c02
+    cand num=10 prio=112 f40=20 f38=0 avail=[] sym=0350f08c flags=00000c02
+    cand num=13 prio=38 f40=6 f38=0 avail=[2, 3, 6] sym=0350f1ac flags=00000c02
+    cand num=16 prio=113 f40=20 f38=35249b4 avail=[] sym=0350f2cc flags=00000c02
+    cand num=17 prio=48 f40=12 f38=3524fa0 avail=[2, 3] sym=0350f32c flags=00028402
+    cand num=19 prio=36 f40=4 f38=35249a8 avail=[1, 2, 3] sym=0350f3ec flags=00000c02
+    cand num=20 prio=36 f40=6 f38=0 avail=[1, 2, 3, 4, 6] sym=0350f4ac flags=00000c02
+    cand num=21 prio=60 f40=10 f38=0 avail=[] sym=0350f4ac flags=00000c02
+    cand num=22 prio=14 f40=4 f38=0 avail=[4, 6] sym=0350f50c flags=00000402
+    cand num=23 prio=20 f40=4 f38=0 avail=[1, 2, 3, 4, 6] sym=0350f56c flags=00000402
+    cand num=29 prio=88 f40=16 f38=3524f94 avail=[] sym=0351e134 flags=00000402
+    cand num=35 prio=28 f40=8 f38=0 avail=[2, 3, 4, 6] sym=0352f3ec flags=00000402
+    cand num=36 prio=78 f40=12 f38=3524f70 avail=[] sym=0351e494 flags=00012c02
+    cand num=37 prio=32 f40=6 f38=3524fb8 avail=[1, 2, 3, 4, 6] sym=0352f7ac flags=00000402
+    cand num=38 prio=48 f40=4 f38=3524f7c avail=[2, 3] sym=0350f26c flags=00012c02
+    cand num=39 prio=20 f40=6 f38=3524fc4 avail=[1, 2, 3, 4, 6] sym=0352fb0c flags=00000402
+    cand num=41 prio=24 f40=6 f38=3524fd0 avail=[1, 2, 3, 4, 6] sym=0352fdac flags=00000402
+    cand num=43 prio=20 f40=6 f38=3524fdc avail=[1, 2, 3, 4, 6] sym=0352c404 flags=00000402
+    cand num=45 prio=-6 f40=1 f38=0 avail=[2, 3] sym=03538c48 flags=00012c02
+    cand num=46 prio=16 f40=4 f38=3524fac avail=[2, 3, 4, 6] sym=035356bc flags=00000402
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+SPILL num=2 prio=0 [03538ca8 00000d02 035291f8 00000000 00000000 0352a038 00000000 00000002 035374c4 00000001 034f6de4 034f6de4 00000000 00000000 00000000 034fbc00 ffffffff 00000000 00000003 00000000] bt: c2+107a9da4 < c2+107634b7 < c2+107a54dd < c2+107994ca < c2+1070ad88 < c2+107b98d0
+SPILL num=3 prio=18 [0350f0ec 00000d02 03529258 00000012 00000000 035298e8 00000000 00000003 03537bcc 00000001 034f6d1c 034f6d1c 00000000 00000001 00000000 034fade0 00000000 00000062 00000004 00000000] bt: c2+107a9da4 < c2+107634b7 < c2+107a54dd < c2+107994ca < c2+1070ad88 < c2+107b98d0
+SPILL num=14 prio=6 [0350f0ec 00010d02 03529a08 00000006 00000000 03529438 00000000 0000000e 03537f74 00000001 034f5d54 034f7a64 00000000 00000000 00000000 03505bd8 fffffffc 00000062 03538be8 00000d02] bt: c2+107a9da4 < c2+107634b7 < c2+107a54dd < c2+107994ca < c2+1070ad88 < c2+107b98d0
+CHOOSE reg=3 num=17 prio=48 avail=[3] costs=3:0 [0350f32c 00028402 03529ae0 00000030 00000000 035299c0 00000000 00000011 0353c28c 00000003 034f7104 034f71cc 00000000 00000000 03524fa0 034ff4ac 0000000c 0000002a 03538c48 00002c02]
+    cand num=4 prio=159 f40=32 f38=0 avail=[] sym=0350f02c flags=00000c02
+    cand num=5 prio=2 f40=1 f38=0 avail=[2, 3, 6] sym=03538c48 flags=00002c02
+    cand num=8 prio=180 f40=54 f38=0 avail=[] sym=0350efcc flags=00000c02
+    cand num=9 prio=29 f40=2 f38=3524f88 avail=[3, 6] sym=0350ef0c flags=00000c02
+    cand num=10 prio=112 f40=20 f38=0 avail=[] sym=0350f08c flags=00000c02
+    cand num=13 prio=38 f40=6 f38=3524fe8 avail=[2, 3, 6] sym=0350f1ac flags=00000c02
+    cand num=16 prio=113 f40=20 f38=35249b4 avail=[] sym=0350f2cc flags=00000c02
+    cand num=17 prio=48 f40=12 f38=3524fa0 avail=[3] sym=0350f32c flags=00028402
+    cand num=19 prio=36 f40=4 f38=35249a8 avail=[1, 2, 3] sym=0350f3ec flags=00000c02
+    cand num=20 prio=36 f40=6 f38=0 avail=[1, 2, 3, 4, 6] sym=0350f4ac flags=00000c02
+    cand num=21 prio=60 f40=10 f38=0 avail=[] sym=0350f4ac flags=00000c02
+    cand num=22 prio=14 f40=4 f38=0 avail=[4, 6] sym=0350f50c flags=00000402
+    cand num=23 prio=20 f40=4 f38=0 avail=[1, 2, 3, 4, 6] sym=0350f56c flags=00000402
+    cand num=29 prio=88 f40=16 f38=3524f94 avail=[] sym=0351e134 flags=00000402
+    cand num=31 prio=-1 f40=3 f38=0 avail=[2, 3, 4, 6] sym=03538be8 flags=00012c02
+    cand num=35 prio=28 f40=8 f38=0 avail=[2, 3, 4, 6] sym=0352f3ec flags=00000402
+    cand num=36 prio=78 f40=12 f38=3524f70 avail=[] sym=0351e494 flags=00012c02
+    cand num=37 prio=32 f40=6 f38=3524fb8 avail=[1, 2, 3, 4, 6] sym=0352f7ac flags=00000402
+    cand num=38 prio=48 f40=4 f38=3524f7c avail=[] sym=0350f26c flags=00012c02
+    cand num=39 prio=20 f40=6 f38=3524fc4 avail=[1, 2, 3, 4, 6] sym=0352fb0c flags=00000402
+    cand num=41 prio=24 f40=6 f38=3524fd0 avail=[1, 2, 3, 4, 6] sym=0352fdac flags=00000402
+    cand num=43 prio=20 f40=6 f38=3524fdc avail=[1, 2, 3, 4, 6] sym=0352c404 flags=00000402
+    cand num=46 prio=16 f40=4 f38=3524fac avail=[2, 3, 4, 6] sym=035356bc flags=00000402
+CHOOSE reg=2 num=13 prio=38 avail=[2, 3, 6] costs=2:0 3:0 6:1 [0350f1ac 00000c02 035299c0 00000026 00000000 03529bb8 00000000 0000000d 0353c1a8 00000003 034f6d1c 034f703c 00000000 00000001 03524fe8 034fbaf0 00000006 0000001a 00000000 00000000]
+    cand num=4 prio=159 f40=32 f38=0 avail=[] sym=0350f02c flags=00000c02
+    cand num=5 prio=2 f40=1 f38=0 avail=[2, 3, 6] sym=03538c48 flags=00002c02
+    cand num=8 prio=180 f40=54 f38=0 avail=[] sym=0350efcc flags=00000c02
+    cand num=9 prio=29 f40=2 f38=3524f88 avail=[3, 6] sym=0350ef0c flags=00000c02
+    cand num=10 prio=112 f40=20 f38=0 avail=[] sym=0350f08c flags=00000c02
+    cand num=13 prio=38 f40=6 f38=3524fe8 avail=[2, 3, 6] sym=0350f1ac flags=00000c02
+    cand num=16 prio=113 f40=20 f38=35249b4 avail=[] sym=0350f2cc flags=00000c02
+    cand num=17 prio=48 f40=12 f38=3524fa0 avail=[] sym=0350f32c flags=00028402
+    cand num=19 prio=36 f40=4 f38=35249a8 avail=[1, 2, 3] sym=0350f3ec flags=00000c02
+    cand num=20 prio=36 f40=6 f38=0 avail=[1, 2, 3, 4, 6] sym=0350f4ac flags=00000c02
+    cand num=21 prio=60 f40=10 f38=0 avail=[] sym=0350f4ac flags=00000c02
+    cand num=22 prio=14 f40=4 f38=0 avail=[4, 6] sym=0350f50c flags=00000402
+    cand num=23 prio=20 f40=4 f38=0 avail=[1, 2, 3, 4, 6] sym=0350f56c flags=00000402
+    cand num=29 prio=88 f40=16 f38=3524f94 avail=[] sym=0351e134 flags=00000402
+    cand num=31 prio=-1 f40=3 f38=0 avail=[2, 3, 4, 6] sym=03538be8 flags=00012c02
+    cand num=35 prio=28 f40=8 f38=0 avail=[2, 3, 4, 6] sym=0352f3ec flags=00000402
+    cand num=36 prio=78 f40=12 f38=3524f70 avail=[] sym=0351e494 flags=00012c02
+    cand num=37 prio=32 f40=6 f38=3524fb8 avail=[1, 2, 3, 4, 6] sym=0352f7ac flags=00000402
+    cand num=38 prio=48 f40=4 f38=3524f7c avail=[] sym=0350f26c flags=00012c02
+    cand num=39 prio=20 f40=6 f38=3524fc4 avail=[1, 2, 3, 4, 6] sym=0352fb0c flags=00000402
+    cand num=41 prio=24 f40=6 f38=3524fd0 avail=[1, 2, 3, 4, 6] sym=0352fdac flags=00000402
+    cand num=43 prio=20 f40=6 f38=3524fdc avail=[1, 2, 3, 4, 6] sym=0352c404 flags=00000402
+    cand num=46 prio=16 f40=4 f38=3524fac avail=[2, 3, 4, 6] sym=035356bc flags=00000402
+CHOOSE reg=1 num=20 prio=36 avail=[1, 2, 3, 4, 6] costs=1:0 2:0 3:0 4:0 6:0 [0350f4ac 00000c02 03529bb8 00000024 00000000 03529b70 00000000 00000014 0353c340 00000003 034d4540 034d4540 00000000 00000000 00000000 03508518 00000006 0000009e 0350f4ac 00000c02]
+    cand num=4 prio=159 f40=32 f38=0 avail=[] sym=0350f02c flags=00000c02
+    cand num=5 prio=2 f40=1 f38=0 avail=[3, 6] sym=03538c48 flags=00002c02
+    cand num=8 prio=180 f40=54 f38=0 avail=[] sym=0350efcc flags=00000c02
+    cand num=9 prio=29 f40=2 f38=3524f88 avail=[3, 6] sym=0350ef0c flags=00000c02
+    cand num=10 prio=112 f40=20 f38=0 avail=[] sym=0350f08c flags=00000c02
+    cand num=13 prio=38 f40=6 f38=3524fe8 avail=[] sym=0350f1ac flags=00000c02
+    cand num=16 prio=113 f40=20 f38=35249b4 avail=[] sym=0350f2cc flags=00000c02
+    cand num=17 prio=48 f40=12 f38=3524fa0 avail=[] sym=0350f32c flags=00028402
+    cand num=19 prio=36 f40=4 f38=35249a8 avail=[1, 2, 3] sym=0350f3ec flags=00000c02
+    cand num=20 prio=36 f40=6 f38=0 avail=[1, 2, 3, 4, 6] sym=0350f4ac flags=00000c02
+    cand num=21 prio=60 f40=10 f38=0 avail=[] sym=0350f4ac flags=00000c02
+    cand num=22 prio=14 f40=4 f38=0 avail=[4, 6] sym=0350f50c flags=00000402
+    cand num=23 prio=20 f40=4 f38=0 avail=[1, 2, 3, 4, 6] sym=0350f56c flags=00000402
+    cand num=29 prio=88 f40=16 f38=3524f94 avail=[] sym=0351e134 flags=00000402
+    cand num=31 prio=-1 f40=3 f38=0 avail=[2, 3, 4, 6] sym=03538be8 flags=00012c02
+    cand num=35 prio=28 f40=8 f38=0 avail=[2, 3, 4, 6] sym=0352f3ec flags=00000402
+    cand num=36 prio=78 f40=12 f38=3524f70 avail=[] sym=0351e494 flags=00012c02
+    cand num=37 prio=32 f40=6 f38=3524fb8 avail=[1, 2, 3, 4, 6] sym=0352f7ac flags=00000402
+    cand num=38 prio=48 f40=4 f38=3524f7c avail=[] sym=0350f26c flags=00012c02
+    cand num=39 prio=20 f40=6 f38=3524fc4 avail=[1, 2, 3, 4, 6] sym=0352fb0c flags=00000402
+    cand num=41 prio=24 f40=6 f38=3524fd0 avail=[1, 2, 3, 4, 6] sym=0352fdac flags=00000402
+    cand num=43 prio=20 f40=6 f38=3524fdc avail=[1, 2, 3, 4, 6] sym=0352c404 flags=00000402
+    cand num=46 prio=16 f40=4 f38=3524fac avail=[2, 3, 4, 6] sym=035356bc flags=00000402
+CHOOSE reg=1 num=19 prio=36 avail=[1, 2, 3] costs=1:-2 2:0 3:0 [0350f3ec 00000c02 03529b70 00000024 00000000 0352a080 00000000 00000013 0353c2d4 00000002 034f7294 034f7424 00000000 00000001 035249a8 034fe7f0 00000004 00000031 0350f4ac 00000c02]
+    cand num=4 prio=159 f40=32 f38=0 avail=[] sym=0350f02c flags=00000c02
+    cand num=5 prio=2 f40=1 f38=0 avail=[3, 6] sym=03538c48 flags=00002c02
+    cand num=8 prio=180 f40=54 f38=0 avail=[] sym=0350efcc flags=00000c02
+    cand num=9 prio=29 f40=2 f38=3524f88 avail=[3, 6] sym=0350ef0c flags=00000c02
+    cand num=10 prio=112 f40=20 f38=0 avail=[] sym=0350f08c flags=00000c02
+    cand num=13 prio=38 f40=6 f38=3524fe8 avail=[] sym=0350f1ac flags=00000c02
+    cand num=16 prio=113 f40=20 f38=35249b4 avail=[] sym=0350f2cc flags=00000c02
+    cand num=17 prio=48 f40=12 f38=3524fa0 avail=[] sym=0350f32c flags=00028402
+    cand num=19 prio=36 f40=4 f38=35249a8 avail=[1, 2, 3] sym=0350f3ec flags=00000c02
+    cand num=20 prio=36 f40=6 f38=0 avail=[] sym=0350f4ac flags=00000c02
+    cand num=21 prio=60 f40=10 f38=0 avail=[] sym=0350f4ac flags=00000c02
+    cand num=22 prio=14 f40=4 f38=0 avail=[4, 6] sym=0350f50c flags=00000402
+    cand num=23 prio=20 f40=4 f38=0 avail=[1, 2, 3, 4, 6] sym=0350f56c flags=00000402
+    cand num=29 prio=88 f40=16 f38=3524f94 avail=[] sym=0351e134 flags=00000402
+    cand num=31 prio=-1 f40=3 f38=0 avail=[2, 3, 4, 6] sym=03538be8 flags=00012c02
+    cand num=35 prio=28 f40=8 f38=0 avail=[2, 3, 4, 6] sym=0352f3ec flags=00000402
+    cand num=36 prio=78 f40=12 f38=3524f70 avail=[] sym=0351e494 flags=00012c02
+    cand num=37 prio=32 f40=6 f38=3524fb8 avail=[1, 2, 3, 4, 6] sym=0352f7ac flags=00000402
+    cand num=38 prio=48 f40=4 f38=3524f7c avail=[] sym=0350f26c flags=00012c02
+    cand num=39 prio=20 f40=6 f38=3524fc4 avail=[1, 2, 3, 4, 6] sym=0352fb0c flags=00000402
+    cand num=41 prio=24 f40=6 f38=3524fd0 avail=[1, 2, 3, 4, 6] sym=0352fdac flags=00000402
+    cand num=43 prio=20 f40=6 f38=3524fdc avail=[1, 2, 3, 4, 6] sym=0352c404 flags=00000402
+    cand num=46 prio=16 f40=4 f38=3524fac avail=[2, 3, 4, 6] sym=035356bc flags=00000402
+CHOOSE reg=1 num=37 prio=32 avail=[1, 2, 3, 4, 6] costs=1:0 2:0 3:0 4:0 6:0 [0352f7ac 00000402 0352a080 00000020 00000000 03529498 00000000 00000025 0353c160 00000003 034f7a64 034f7b2c 00000000 00000000 03524fb8 03509c6c 00000006 00000067 0350f26c 00012c02]
+    cand num=4 prio=159 f40=32 f38=0 avail=[] sym=0350f02c flags=00000c02
+    cand num=5 prio=2 f40=1 f38=0 avail=[3, 6] sym=03538c48 flags=00002c02
+    cand num=8 prio=180 f40=54 f38=0 avail=[] sym=0350efcc flags=00000c02
+    cand num=9 prio=29 f40=2 f38=3524f88 avail=[3, 6] sym=0350ef0c flags=00000c02
+    cand num=10 prio=112 f40=20 f38=0 avail=[] sym=0350f08c flags=00000c02
+    cand num=13 prio=38 f40=6 f38=3524fe8 avail=[] sym=0350f1ac flags=00000c02
+    cand num=16 prio=113 f40=20 f38=35249b4 avail=[] sym=0350f2cc flags=00000c02
+    cand num=17 prio=48 f40=12 f38=3524fa0 avail=[] sym=0350f32c flags=00028402
+    cand num=19 prio=36 f40=4 f38=35249a8 avail=[] sym=0350f3ec flags=00000c02
+    cand num=20 prio=36 f40=6 f38=0 avail=[] sym=0350f4ac flags=00000c02
+    cand num=21 prio=60 f40=10 f38=0 avail=[] sym=0350f4ac flags=00000c02
+    cand num=22 prio=14 f40=4 f38=0 avail=[4, 6] sym=0350f50c flags=00000402
+    cand num=23 prio=20 f40=4 f38=0 avail=[1, 2, 3, 4, 6] sym=0350f56c flags=00000402
+    cand num=29 prio=88 f40=16 f38=3524f94 avail=[] sym=0351e134 flags=00000402
+    cand num=31 prio=-1 f40=3 f38=0 avail=[2, 3, 4, 6] sym=03538be8 flags=00012c02
+    cand num=35 prio=28 f40=8 f38=0 avail=[2, 3, 4, 6] sym=0352f3ec flags=00000402
+    cand num=36 prio=78 f40=12 f38=3524f70 avail=[] sym=0351e494 flags=00012c02
+    cand num=37 prio=32 f40=6 f38=3524fb8 avail=[1, 2, 3, 4, 6] sym=0352f7ac flags=00000402
+    cand num=38 prio=48 f40=4 f38=3524f7c avail=[] sym=0350f26c flags=00012c02
+    cand num=39 prio=20 f40=6 f38=3524fc4 avail=[1, 2, 3, 4, 6] sym=0352fb0c flags=00000402
+    cand num=41 prio=24 f40=6 f38=3524fd0 avail=[1, 2, 3, 4, 6] sym=0352fdac flags=00000402
+    cand num=43 prio=20 f40=6 f38=3524fdc avail=[1, 2, 3, 4, 6] sym=0352c404 flags=00000402
+    cand num=46 prio=16 f40=4 f38=3524fac avail=[2, 3, 4, 6] sym=035356bc flags=00000402
+CHOOSE reg=6 num=9 prio=29 avail=[3, 6] costs=3:0 6:-1 [0350ef0c 00000c02 03529498 0000001d 00000000 03529ff0 00000000 00000009 03537554 00000002 034f6d1c 034f703c 00000000 00000000 03524f88 03509c3c 00000002 00000014 0000000a 00000000]
+    cand num=4 prio=159 f40=32 f38=0 avail=[] sym=0350f02c flags=00000c02
+    cand num=5 prio=2 f40=1 f38=0 avail=[3, 6] sym=03538c48 flags=00002c02
+    cand num=8 prio=180 f40=54 f38=0 avail=[] sym=0350efcc flags=00000c02
+    cand num=9 prio=29 f40=2 f38=3524f88 avail=[3, 6] sym=0350ef0c flags=00000c02
+    cand num=10 prio=112 f40=20 f38=0 avail=[] sym=0350f08c flags=00000c02
+    cand num=13 prio=38 f40=6 f38=3524fe8 avail=[] sym=0350f1ac flags=00000c02
+    cand num=16 prio=113 f40=20 f38=35249b4 avail=[] sym=0350f2cc flags=00000c02
+    cand num=17 prio=48 f40=12 f38=3524fa0 avail=[] sym=0350f32c flags=00028402
+    cand num=19 prio=36 f40=4 f38=35249a8 avail=[] sym=0350f3ec flags=00000c02
+    cand num=20 prio=36 f40=6 f38=0 avail=[] sym=0350f4ac flags=00000c02
+    cand num=21 prio=60 f40=10 f38=0 avail=[] sym=0350f4ac flags=00000c02
+    cand num=22 prio=14 f40=4 f38=0 avail=[4, 6] sym=0350f50c flags=00000402
+    cand num=23 prio=20 f40=4 f38=0 avail=[2, 3, 4, 6] sym=0350f56c flags=00000402
+    cand num=29 prio=88 f40=16 f38=3524f94 avail=[] sym=0351e134 flags=00000402
+    cand num=31 prio=-1 f40=3 f38=0 avail=[2, 3, 4, 6] sym=03538be8 flags=00012c02
+    cand num=35 prio=28 f40=8 f38=0 avail=[2, 3, 4, 6] sym=0352f3ec flags=00000402
+    cand num=36 prio=78 f40=12 f38=3524f70 avail=[] sym=0351e494 flags=00012c02
+    cand num=37 prio=32 f40=6 f38=3524fb8 avail=[] sym=0352f7ac flags=00000402
+    cand num=38 prio=48 f40=4 f38=3524f7c avail=[] sym=0350f26c flags=00012c02
+    cand num=39 prio=20 f40=6 f38=3524fc4 avail=[1, 2, 3, 4, 6] sym=0352fb0c flags=00000402
+    cand num=41 prio=24 f40=6 f38=3524fd0 avail=[1, 2, 3, 4, 6] sym=0352fdac flags=00000402
+    cand num=43 prio=20 f40=6 f38=3524fdc avail=[1, 2, 3, 4, 6] sym=0352c404 flags=00000402
+    cand num=46 prio=16 f40=4 f38=3524fac avail=[2, 3, 4, 6] sym=035356bc flags=00000402
+CHOOSE reg=2 num=35 prio=28 avail=[2, 3, 4, 6] costs=2:0 3:0 4:0 6:0 [0352f3ec 00000402 03529ff0 0000001c 00000000 0353a428 00000000 00000023 0353c1fc 00000004 034f78d4 034f799c 00000000 00000001 00000000 034efaa0 00000008 0000005d 0351e494 00012c02]
+    cand num=4 prio=159 f40=32 f38=0 avail=[] sym=0350f02c flags=00000c02
+    cand num=5 prio=2 f40=1 f38=0 avail=[3] sym=03538c48 flags=00002c02
+    cand num=8 prio=180 f40=54 f38=0 avail=[] sym=0350efcc flags=00000c02
+    cand num=9 prio=29 f40=2 f38=3524f88 avail=[] sym=0350ef0c flags=00000c02
+    cand num=10 prio=112 f40=20 f38=0 avail=[] sym=0350f08c flags=00000c02
+    cand num=13 prio=38 f40=6 f38=3524fe8 avail=[] sym=0350f1ac flags=00000c02
+    cand num=15 prio=2 f40=0 f38=0 avail=[3] sym=03538be8 flags=00002c02
+    cand num=16 prio=113 f40=20 f38=35249b4 avail=[] sym=0350f2cc flags=00000c02
+    cand num=17 prio=48 f40=12 f38=3524fa0 avail=[] sym=0350f32c flags=00028402
+    cand num=19 prio=36 f40=4 f38=35249a8 avail=[] sym=0350f3ec flags=00000c02
+    cand num=20 prio=36 f40=6 f38=0 avail=[] sym=0350f4ac flags=00000c02
+    cand num=21 prio=60 f40=10 f38=0 avail=[] sym=0350f4ac flags=00000c02
+    cand num=22 prio=14 f40=4 f38=0 avail=[4, 6] sym=0350f50c flags=00000402
+    cand num=23 prio=20 f40=4 f38=0 avail=[2, 3, 4, 6] sym=0350f56c flags=00000402
+    cand num=29 prio=88 f40=16 f38=3524f94 avail=[] sym=0351e134 flags=00000402
+    cand num=31 prio=-1 f40=3 f38=0 avail=[2, 3, 4, 6] sym=03538be8 flags=00012c02
+    cand num=35 prio=28 f40=8 f38=0 avail=[2, 3, 4, 6] sym=0352f3ec flags=00000402
+    cand num=36 prio=78 f40=12 f38=3524f70 avail=[] sym=0351e494 flags=00012c02
+    cand num=37 prio=32 f40=6 f38=3524fb8 avail=[] sym=0352f7ac flags=00000402
+    cand num=38 prio=48 f40=4 f38=3524f7c avail=[] sym=0350f26c flags=00012c02
+    cand num=39 prio=20 f40=6 f38=3524fc4 avail=[1, 2, 3, 4, 6] sym=0352fb0c flags=00000402
+    cand num=41 prio=24 f40=6 f38=3524fd0 avail=[1, 2, 3, 4, 6] sym=0352fdac flags=00000402
+    cand num=43 prio=20 f40=6 f38=3524fdc avail=[1, 2, 3, 4, 6] sym=0352c404 flags=00000402
+    cand num=46 prio=16 f40=4 f38=3524fac avail=[2, 3, 4, 6] sym=035356bc flags=00000402
+CHOOSE reg=1 num=41 prio=24 avail=[1, 2, 3, 4, 6] costs=1:0 2:0 3:0 4:0 6:0 [0352fdac 00000402 0353a470 00000018 00000000 03529fa8 00000000 00000029 03537e24 00000003 034d4220 034d42e8 00000000 00000000 03524fd0 035230f0 00000006 0000007d 00000000 00000000]
+    cand num=4 prio=159 f40=32 f38=0 avail=[] sym=0350f02c flags=00000c02
+    cand num=5 prio=2 f40=1 f38=0 avail=[3] sym=03538c48 flags=00002c02
+    cand num=8 prio=180 f40=54 f38=0 avail=[] sym=0350efcc flags=00000c02
+    cand num=9 prio=29 f40=2 f38=3524f88 avail=[] sym=0350ef0c flags=00000c02
+    cand num=10 prio=112 f40=20 f38=0 avail=[] sym=0350f08c flags=00000c02
+    cand num=13 prio=38 f40=6 f38=3524fe8 avail=[] sym=0350f1ac flags=00000c02
+    cand num=15 prio=2 f40=0 f38=0 avail=[3] sym=03538be8 flags=00002c02
+    cand num=16 prio=113 f40=20 f38=35249b4 avail=[] sym=0350f2cc flags=00000c02
+    cand num=17 prio=48 f40=12 f38=3524fa0 avail=[] sym=0350f32c flags=00028402
+    cand num=19 prio=36 f40=4 f38=35249a8 avail=[] sym=0350f3ec flags=00000c02
+    cand num=20 prio=36 f40=6 f38=0 avail=[] sym=0350f4ac flags=00000c02
+    cand num=21 prio=60 f40=10 f38=0 avail=[] sym=0350f4ac flags=00000c02
+    cand num=22 prio=14 f40=4 f38=0 avail=[4, 6] sym=0350f50c flags=00000402
+    cand num=23 prio=20 f40=4 f38=0 avail=[2, 3, 4, 6] sym=0350f56c flags=00000402
+    cand num=29 prio=88 f40=16 f38=3524f94 avail=[] sym=0351e134 flags=00000402
+    cand num=31 prio=-1 f40=3 f38=0 avail=[3, 4, 6] sym=03538be8 flags=00012c02
+    cand num=35 prio=28 f40=8 f38=0 avail=[] sym=0352f3ec flags=00000402
+    cand num=36 prio=78 f40=12 f38=3524f70 avail=[] sym=0351e494 flags=00012c02
+    cand num=37 prio=32 f40=6 f38=3524fb8 avail=[] sym=0352f7ac flags=00000402
+    cand num=38 prio=48 f40=4 f38=3524f7c avail=[] sym=0350f26c flags=00012c02
+    cand num=39 prio=20 f40=6 f38=3524fc4 avail=[1, 2, 3, 4, 6] sym=0352fb0c flags=00000402
+    cand num=41 prio=24 f40=6 f38=3524fd0 avail=[1, 2, 3, 4, 6] sym=0352fdac flags=00000402
+    cand num=43 prio=20 f40=6 f38=3524fdc avail=[1, 2, 3, 4, 6] sym=0352c404 flags=00000402
+    cand num=46 prio=16 f40=4 f38=3524fac avail=[2, 3, 4, 6] sym=035356bc flags=00000402
+CHOOSE reg=1 num=43 prio=20 avail=[1, 2, 3, 4, 6] costs=1:0 2:0 3:0 4:0 6:0 [0352c404 00000402 0353a500 00000014 00000000 0352a110 00000000 0000002b 03537b24 00000003 034d43b0 034d4478 00000000 00000000 03524fdc 03523180 00000006 00000087 00000000 00000000]
+    cand num=4 prio=159 f40=32 f38=0 avail=[] sym=0350f02c flags=00000c02
+    cand num=5 prio=2 f40=1 f38=0 avail=[3] sym=03538c48 flags=00002c02
+    cand num=8 prio=180 f40=54 f38=0 avail=[] sym=0350efcc flags=00000c02
+    cand num=9 prio=29 f40=2 f38=3524f88 avail=[] sym=0350ef0c flags=00000c02
+    cand num=10 prio=112 f40=20 f38=0 avail=[] sym=0350f08c flags=00000c02
+    cand num=13 prio=38 f40=6 f38=3524fe8 avail=[] sym=0350f1ac flags=00000c02
+    cand num=15 prio=2 f40=0 f38=0 avail=[3] sym=03538be8 flags=00002c02
+    cand num=16 prio=113 f40=20 f38=35249b4 avail=[] sym=0350f2cc flags=00000c02
+    cand num=17 prio=48 f40=12 f38=3524fa0 avail=[] sym=0350f32c flags=00028402
+    cand num=19 prio=36 f40=4 f38=35249a8 avail=[] sym=0350f3ec flags=00000c02
+    cand num=20 prio=36 f40=6 f38=0 avail=[] sym=0350f4ac flags=00000c02
+    cand num=21 prio=60 f40=10 f38=0 avail=[] sym=0350f4ac flags=00000c02
+    cand num=22 prio=14 f40=4 f38=0 avail=[4, 6] sym=0350f50c flags=00000402
+    cand num=23 prio=20 f40=4 f38=0 avail=[2, 3, 4, 6] sym=0350f56c flags=00000402
+    cand num=29 prio=88 f40=16 f38=3524f94 avail=[] sym=0351e134 flags=00000402
+    cand num=31 prio=-1 f40=3 f38=0 avail=[3, 4, 6] sym=03538be8 flags=00012c02
+    cand num=35 prio=28 f40=8 f38=0 avail=[] sym=0352f3ec flags=00000402
+    cand num=36 prio=78 f40=12 f38=3524f70 avail=[] sym=0351e494 flags=00012c02
+    cand num=37 prio=32 f40=6 f38=3524fb8 avail=[] sym=0352f7ac flags=00000402
+    cand num=38 prio=48 f40=4 f38=3524f7c avail=[] sym=0350f26c flags=00012c02
+    cand num=39 prio=20 f40=6 f38=3524fc4 avail=[1, 2, 3, 4, 6] sym=0352fb0c flags=00000402
+    cand num=41 prio=24 f40=6 f38=3524fd0 avail=[] sym=0352fdac flags=00000402
+    cand num=43 prio=20 f40=6 f38=3524fdc avail=[1, 2, 3, 4, 6] sym=0352c404 flags=00000402
+    cand num=46 prio=16 f40=4 f38=3524fac avail=[2, 3, 4, 6] sym=035356bc flags=00000402
+CHOOSE reg=1 num=39 prio=20 avail=[1, 2, 3, 4, 6] costs=1:0 2:0 3:0 4:0 6:0 [0352fb0c 00000402 0352a110 00000014 00000000 03529c90 00000000 00000027 0353c100 00000003 034d4090 034d4158 00000000 00000000 03524fc4 03509d2c 00000006 00000073 00000000 00000000]
+    cand num=4 prio=159 f40=32 f38=0 avail=[] sym=0350f02c flags=00000c02
+    cand num=5 prio=2 f40=1 f38=0 avail=[3] sym=03538c48 flags=00002c02
+    cand num=8 prio=180 f40=54 f38=0 avail=[] sym=0350efcc flags=00000c02
+    cand num=9 prio=29 f40=2 f38=3524f88 avail=[] sym=0350ef0c flags=00000c02
+    cand num=10 prio=112 f40=20 f38=0 avail=[] sym=0350f08c flags=00000c02
+    cand num=13 prio=38 f40=6 f38=3524fe8 avail=[] sym=0350f1ac flags=00000c02
+    cand num=15 prio=2 f40=0 f38=0 avail=[3] sym=03538be8 flags=00002c02
+    cand num=16 prio=113 f40=20 f38=35249b4 avail=[] sym=0350f2cc flags=00000c02
+    cand num=17 prio=48 f40=12 f38=3524fa0 avail=[] sym=0350f32c flags=00028402
+    cand num=19 prio=36 f40=4 f38=35249a8 avail=[] sym=0350f3ec flags=00000c02
+    cand num=20 prio=36 f40=6 f38=0 avail=[] sym=0350f4ac flags=00000c02
+    cand num=21 prio=60 f40=10 f38=0 avail=[] sym=0350f4ac flags=00000c02
+    cand num=22 prio=14 f40=4 f38=0 avail=[4, 6] sym=0350f50c flags=00000402
+    cand num=23 prio=20 f40=4 f38=0 avail=[2, 3, 4, 6] sym=0350f56c flags=00000402
+    cand num=29 prio=88 f40=16 f38=3524f94 avail=[] sym=0351e134 flags=00000402
+    cand num=31 prio=-1 f40=3 f38=0 avail=[3, 4, 6] sym=03538be8 flags=00012c02
+    cand num=35 prio=28 f40=8 f38=0 avail=[] sym=0352f3ec flags=00000402
+    cand num=36 prio=78 f40=12 f38=3524f70 avail=[] sym=0351e494 flags=00012c02
+    cand num=37 prio=32 f40=6 f38=3524fb8 avail=[] sym=0352f7ac flags=00000402
+    cand num=38 prio=48 f40=4 f38=3524f7c avail=[] sym=0350f26c flags=00012c02
+    cand num=39 prio=20 f40=6 f38=3524fc4 avail=[1, 2, 3, 4, 6] sym=0352fb0c flags=00000402
+    cand num=41 prio=24 f40=6 f38=3524fd0 avail=[] sym=0352fdac flags=00000402
+    cand num=43 prio=20 f40=6 f38=3524fdc avail=[] sym=0352c404 flags=00000402
+    cand num=46 prio=16 f40=4 f38=3524fac avail=[2, 3, 4, 6] sym=035356bc flags=00000402
+CHOOSE reg=2 num=23 prio=20 avail=[2, 3, 4, 6] costs=2:0 3:0 4:0 6:0 [0350f56c 00000402 03529c90 00000014 00000000 0353a5d8 00000000 00000017 035376c8 00000002 034f7a64 034f7b2c 00000000 00000000 00000000 035058e8 00000004 0000006a 00000000 00000000]
+    cand num=4 prio=159 f40=32 f38=0 avail=[] sym=0350f02c flags=00000c02
+    cand num=5 prio=2 f40=1 f38=0 avail=[3] sym=03538c48 flags=00002c02
+    cand num=8 prio=180 f40=54 f38=0 avail=[] sym=0350efcc flags=00000c02
+    cand num=9 prio=29 f40=2 f38=3524f88 avail=[] sym=0350ef0c flags=00000c02
+    cand num=10 prio=112 f40=20 f38=0 avail=[] sym=0350f08c flags=00000c02
+    cand num=13 prio=38 f40=6 f38=3524fe8 avail=[] sym=0350f1ac flags=00000c02
+    cand num=15 prio=2 f40=0 f38=0 avail=[3] sym=03538be8 flags=00002c02
+    cand num=16 prio=113 f40=20 f38=35249b4 avail=[] sym=0350f2cc flags=00000c02
+    cand num=17 prio=48 f40=12 f38=3524fa0 avail=[] sym=0350f32c flags=00028402
+    cand num=19 prio=36 f40=4 f38=35249a8 avail=[] sym=0350f3ec flags=00000c02
+    cand num=20 prio=36 f40=6 f38=0 avail=[] sym=0350f4ac flags=00000c02
+    cand num=21 prio=60 f40=10 f38=0 avail=[] sym=0350f4ac flags=00000c02
+    cand num=22 prio=14 f40=4 f38=0 avail=[4, 6] sym=0350f50c flags=00000402
+    cand num=23 prio=20 f40=4 f38=0 avail=[2, 3, 4, 6] sym=0350f56c flags=00000402
+    cand num=29 prio=88 f40=16 f38=3524f94 avail=[] sym=0351e134 flags=00000402
+    cand num=31 prio=-1 f40=3 f38=0 avail=[3, 4, 6] sym=03538be8 flags=00012c02
+    cand num=35 prio=28 f40=8 f38=0 avail=[] sym=0352f3ec flags=00000402
+    cand num=36 prio=78 f40=12 f38=3524f70 avail=[] sym=0351e494 flags=00012c02
+    cand num=37 prio=32 f40=6 f38=3524fb8 avail=[] sym=0352f7ac flags=00000402
+    cand num=38 prio=48 f40=4 f38=3524f7c avail=[] sym=0350f26c flags=00012c02
+    cand num=39 prio=20 f40=6 f38=3524fc4 avail=[] sym=0352fb0c flags=00000402
+    cand num=41 prio=24 f40=6 f38=3524fd0 avail=[] sym=0352fdac flags=00000402
+    cand num=43 prio=20 f40=6 f38=3524fdc avail=[] sym=0352c404 flags=00000402
+    cand num=46 prio=16 f40=4 f38=3524fac avail=[2, 3, 4, 6] sym=035356bc flags=00000402
+CHOOSE reg=2 num=46 prio=16 avail=[2, 3, 4, 6] costs=2:0 3:0 4:0 6:0 [035356bc 00000402 0353a5d8 00000010 00000000 03529c48 00000000 0000002e 035377dc 00000002 034f78d4 034f78d4 00000000 00000000 03524fac 0350d3c8 00000004 0000005e 00000000 00000000]
+    cand num=4 prio=159 f40=32 f38=0 avail=[] sym=0350f02c flags=00000c02
+    cand num=5 prio=2 f40=1 f38=0 avail=[3] sym=03538c48 flags=00002c02
+    cand num=8 prio=180 f40=54 f38=0 avail=[] sym=0350efcc flags=00000c02
+    cand num=9 prio=29 f40=2 f38=3524f88 avail=[] sym=0350ef0c flags=00000c02
+    cand num=10 prio=112 f40=20 f38=0 avail=[] sym=0350f08c flags=00000c02
+    cand num=13 prio=38 f40=6 f38=3524fe8 avail=[] sym=0350f1ac flags=00000c02
+    cand num=15 prio=2 f40=0 f38=0 avail=[3] sym=03538be8 flags=00002c02
+    cand num=16 prio=113 f40=20 f38=35249b4 avail=[] sym=0350f2cc flags=00000c02
+    cand num=17 prio=48 f40=12 f38=3524fa0 avail=[] sym=0350f32c flags=00028402
+    cand num=19 prio=36 f40=4 f38=35249a8 avail=[] sym=0350f3ec flags=00000c02
+    cand num=20 prio=36 f40=6 f38=0 avail=[] sym=0350f4ac flags=00000c02
+    cand num=21 prio=60 f40=10 f38=0 avail=[] sym=0350f4ac flags=00000c02
+    cand num=22 prio=14 f40=4 f38=0 avail=[4, 6] sym=0350f50c flags=00000402
+    cand num=23 prio=20 f40=4 f38=0 avail=[] sym=0350f56c flags=00000402
+    cand num=29 prio=88 f40=16 f38=3524f94 avail=[] sym=0351e134 flags=00000402
+    cand num=31 prio=-1 f40=3 f38=0 avail=[3, 4, 6] sym=03538be8 flags=00012c02
+    cand num=35 prio=28 f40=8 f38=0 avail=[] sym=0352f3ec flags=00000402
+    cand num=36 prio=78 f40=12 f38=3524f70 avail=[] sym=0351e494 flags=00012c02
+    cand num=37 prio=32 f40=6 f38=3524fb8 avail=[] sym=0352f7ac flags=00000402
+    cand num=38 prio=48 f40=4 f38=3524f7c avail=[] sym=0350f26c flags=00012c02
+    cand num=39 prio=20 f40=6 f38=3524fc4 avail=[] sym=0352fb0c flags=00000402
+    cand num=41 prio=24 f40=6 f38=3524fd0 avail=[] sym=0352fdac flags=00000402
+    cand num=43 prio=20 f40=6 f38=3524fdc avail=[] sym=0352c404 flags=00000402
+    cand num=46 prio=16 f40=4 f38=3524fac avail=[2, 3, 4, 6] sym=035356bc flags=00000402
+CHOOSE reg=4 num=22 prio=14 avail=[4, 6] costs=4:0 6:0 [0350f50c 00000402 03529c48 0000000e 00000000 03529a50 00000000 00000016 03537860 00000002 034d4540 034d46d0 00000000 00000000 00000000 03508634 00000004 0000009c 0350f56c 00000402]
+    cand num=4 prio=159 f40=32 f38=0 avail=[] sym=0350f02c flags=00000c02
+    cand num=5 prio=2 f40=1 f38=0 avail=[3] sym=03538c48 flags=00002c02
+    cand num=8 prio=180 f40=54 f38=0 avail=[] sym=0350efcc flags=00000c02
+    cand num=9 prio=29 f40=2 f38=3524f88 avail=[] sym=0350ef0c flags=00000c02
+    cand num=10 prio=112 f40=20 f38=0 avail=[] sym=0350f08c flags=00000c02
+    cand num=13 prio=38 f40=6 f38=3524fe8 avail=[] sym=0350f1ac flags=00000c02
+    cand num=15 prio=2 f40=0 f38=0 avail=[3] sym=03538be8 flags=00002c02
+    cand num=16 prio=113 f40=20 f38=35249b4 avail=[] sym=0350f2cc flags=00000c02
+    cand num=17 prio=48 f40=12 f38=3524fa0 avail=[] sym=0350f32c flags=00028402
+    cand num=19 prio=36 f40=4 f38=35249a8 avail=[] sym=0350f3ec flags=00000c02
+    cand num=20 prio=36 f40=6 f38=0 avail=[] sym=0350f4ac flags=00000c02
+    cand num=21 prio=60 f40=10 f38=0 avail=[] sym=0350f4ac flags=00000c02
+    cand num=22 prio=14 f40=4 f38=0 avail=[4, 6] sym=0350f50c flags=00000402
+    cand num=23 prio=20 f40=4 f38=0 avail=[] sym=0350f56c flags=00000402
+    cand num=29 prio=88 f40=16 f38=3524f94 avail=[] sym=0351e134 flags=00000402
+    cand num=31 prio=-1 f40=3 f38=0 avail=[3, 4, 6] sym=03538be8 flags=00012c02
+    cand num=35 prio=28 f40=8 f38=0 avail=[] sym=0352f3ec flags=00000402
+    cand num=36 prio=78 f40=12 f38=3524f70 avail=[] sym=0351e494 flags=00012c02
+    cand num=37 prio=32 f40=6 f38=3524fb8 avail=[] sym=0352f7ac flags=00000402
+    cand num=38 prio=48 f40=4 f38=3524f7c avail=[] sym=0350f26c flags=00012c02
+    cand num=39 prio=20 f40=6 f38=3524fc4 avail=[] sym=0352fb0c flags=00000402
+    cand num=41 prio=24 f40=6 f38=3524fd0 avail=[] sym=0352fdac flags=00000402
+    cand num=43 prio=20 f40=6 f38=3524fdc avail=[] sym=0352c404 flags=00000402
+    cand num=46 prio=16 f40=4 f38=3524fac avail=[] sym=035356bc flags=00000402
+CHOOSE reg=3 num=5 prio=2 avail=[3] costs=3:0 [03538c48 00002c02 03529318 00000002 00000000 035293d8 00000000 00000005 0353c268 00000003 034f6d1c 034f6eac 00000000 00000000 00000000 0350893c 00000001 00000000 00000006 00000000]
+    cand num=4 prio=159 f40=32 f38=0 avail=[] sym=0350f02c flags=00000c02
+    cand num=5 prio=2 f40=1 f38=0 avail=[3] sym=03538c48 flags=00002c02
+    cand num=8 prio=180 f40=54 f38=0 avail=[] sym=0350efcc flags=00000c02
+    cand num=9 prio=29 f40=2 f38=3524f88 avail=[] sym=0350ef0c flags=00000c02
+    cand num=10 prio=112 f40=20 f38=0 avail=[] sym=0350f08c flags=00000c02
+    cand num=13 prio=38 f40=6 f38=3524fe8 avail=[] sym=0350f1ac flags=00000c02
+    cand num=15 prio=-17 f40=0 f38=0 avail=[3] sym=03538be8 flags=00006c02
+    cand num=16 prio=113 f40=20 f38=35249b4 avail=[] sym=0350f2cc flags=00000c02
+    cand num=17 prio=48 f40=12 f38=3524fa0 avail=[] sym=0350f32c flags=00028402
+    cand num=19 prio=36 f40=4 f38=35249a8 avail=[] sym=0350f3ec flags=00000c02
+    cand num=20 prio=36 f40=6 f38=0 avail=[] sym=0350f4ac flags=00000c02
+    cand num=21 prio=60 f40=10 f38=0 avail=[] sym=0350f4ac flags=00000c02
+    cand num=22 prio=14 f40=4 f38=0 avail=[] sym=0350f50c flags=00000402
+    cand num=23 prio=20 f40=4 f38=0 avail=[] sym=0350f56c flags=00000402
+    cand num=29 prio=88 f40=16 f38=3524f94 avail=[] sym=0351e134 flags=00000402
+    cand num=31 prio=-1 f40=3 f38=0 avail=[3, 4, 6] sym=03538be8 flags=00012c02
+    cand num=35 prio=28 f40=8 f38=0 avail=[] sym=0352f3ec flags=00000402
+    cand num=36 prio=78 f40=12 f38=3524f70 avail=[] sym=0351e494 flags=00012c02
+    cand num=37 prio=32 f40=6 f38=3524fb8 avail=[] sym=0352f7ac flags=00000402
+    cand num=38 prio=48 f40=4 f38=3524f7c avail=[] sym=0350f26c flags=00012c02
+    cand num=39 prio=20 f40=6 f38=3524fc4 avail=[] sym=0352fb0c flags=00000402
+    cand num=41 prio=24 f40=6 f38=3524fd0 avail=[] sym=0352fdac flags=00000402
+    cand num=43 prio=20 f40=6 f38=3524fdc avail=[] sym=0352c404 flags=00000402
+    cand num=46 prio=16 f40=4 f38=3524fac avail=[] sym=035356bc flags=00000402
+CHOOSE reg=3 num=31 prio=-1 avail=[3, 4, 6] costs=3:0 4:0 6:0 [03538be8 00012c02 03529ed0 ffffffff 00000000 03529930 00000000 0000001f 035374dc 00000005 034f5d54 034d4478 00000000 00000000 00000000 034ffbe4 00000003 00000000 00000000 00000000]
+    cand num=4 prio=159 f40=32 f38=0 avail=[] sym=0350f02c flags=00000c02
+    cand num=5 prio=2 f40=1 f38=0 avail=[] sym=03538c48 flags=00002c02
+    cand num=8 prio=180 f40=54 f38=0 avail=[] sym=0350efcc flags=00000c02
+    cand num=9 prio=29 f40=2 f38=3524f88 avail=[] sym=0350ef0c flags=00000c02
+    cand num=10 prio=112 f40=20 f38=0 avail=[] sym=0350f08c flags=00000c02
+    cand num=13 prio=38 f40=6 f38=3524fe8 avail=[] sym=0350f1ac flags=00000c02
+    cand num=16 prio=113 f40=20 f38=35249b4 avail=[] sym=0350f2cc flags=00000c02
+    cand num=17 prio=48 f40=12 f38=3524fa0 avail=[] sym=0350f32c flags=00028402
+    cand num=19 prio=36 f40=4 f38=35249a8 avail=[] sym=0350f3ec flags=00000c02
+    cand num=20 prio=36 f40=6 f38=0 avail=[] sym=0350f4ac flags=00000c02
+    cand num=21 prio=60 f40=10 f38=0 avail=[] sym=0350f4ac flags=00000c02
+    cand num=22 prio=14 f40=4 f38=0 avail=[] sym=0350f50c flags=00000402
+    cand num=23 prio=20 f40=4 f38=0 avail=[] sym=0350f56c flags=00000402
+    cand num=29 prio=88 f40=16 f38=3524f94 avail=[] sym=0351e134 flags=00000402
+    cand num=31 prio=-1 f40=3 f38=0 avail=[3, 4, 6] sym=03538be8 flags=00012c02
+    cand num=35 prio=28 f40=8 f38=0 avail=[] sym=0352f3ec flags=00000402
+    cand num=36 prio=78 f40=12 f38=3524f70 avail=[] sym=0351e494 flags=00012c02
+    cand num=37 prio=32 f40=6 f38=3524fb8 avail=[] sym=0352f7ac flags=00000402
+    cand num=38 prio=48 f40=4 f38=3524f7c avail=[] sym=0350f26c flags=00012c02
+    cand num=39 prio=20 f40=6 f38=3524fc4 avail=[] sym=0352fb0c flags=00000402
+    cand num=41 prio=24 f40=6 f38=3524fd0 avail=[] sym=0352fdac flags=00000402
+    cand num=43 prio=20 f40=6 f38=3524fdc avail=[] sym=0352c404 flags=00000402
+    cand num=46 prio=16 f40=4 f38=3524fac avail=[] sym=035356bc flags=00000402
+BLOCK
+BLOCK
+SPILL num=15 prio=4 [0350f20c 00000d02 03529a50 00000004 00000000 00000000 00000000 0000000f 035374dc 00000001 034f735c 034f735c 00000000 00000000 00000000 0351a3b0 00000000 00000058 0350f2cc 00000c02] bt: c2+107a9da4 < c2+107634b7 < c2+107a54dd < c2+107994ca < c2+1070ad88 < c2+107b98d0
+SPILL num=14 prio=-17 [0350f20c 00006c02 03529a08 ffffffef 00000000 03529fa8 00000000 0000000e 03537860 00000002 034f7744 034f7744 00000000 00000001 00000000 034fb994 fffffffc 00000058 00000000 00000000] bt: c2+107b3f4f < c2+107b3ed5 < c2+107a54dd < c2+107994ca < c2+1070ad88 < c2+107b98d0
+SPILL num=34 prio=-17 [0350f26c 00006c02 03529fa8 ffffffef 00000000 035293d8 00000000 00000022 0353b9bc 00000002 034f7744 034f7744 00000000 00000001 00000000 03504d98 fffffffc 00000056 0352f3ec 00000402] bt: c2+107b3f4f < c2+107b3ed5 < c2+107a54dd < c2+107994ca < c2+1070ad88 < c2+107b98d0
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+CHOOSE reg=4 num=34 prio=1 avail=[4, 6] costs=4:0 6:0 [03538c48 00002c02 03529fa8 00000001 00000000 03529a50 00000000 00000022 0353c1fc 00000004 034f780c 034d4478 00000000 00000000 00000000 034ff708 00000001 00000000 0352f3ec 00000402]
+    cand num=4 prio=159 f40=32 f38=0 avail=[] sym=0350f02c flags=00000c02
+    cand num=5 prio=2 f40=1 f38=0 avail=[] sym=03538c48 flags=00002c02
+    cand num=8 prio=180 f40=54 f38=0 avail=[] sym=0350efcc flags=00000c02
+    cand num=9 prio=29 f40=2 f38=3524f88 avail=[] sym=0350ef0c flags=00000c02
+    cand num=10 prio=112 f40=20 f38=0 avail=[] sym=0350f08c flags=00000c02
+    cand num=13 prio=38 f40=6 f38=3524fe8 avail=[] sym=0350f1ac flags=00000c02
+    cand num=16 prio=113 f40=20 f38=35249b4 avail=[] sym=0350f2cc flags=00000c02
+    cand num=17 prio=48 f40=12 f38=3524fa0 avail=[] sym=0350f32c flags=00028402
+    cand num=19 prio=36 f40=4 f38=35249a8 avail=[] sym=0350f3ec flags=00000c02
+    cand num=20 prio=36 f40=6 f38=0 avail=[] sym=0350f4ac flags=00000c02
+    cand num=21 prio=60 f40=10 f38=0 avail=[] sym=0350f4ac flags=00000c02
+    cand num=22 prio=14 f40=4 f38=0 avail=[] sym=0350f50c flags=00000402
+    cand num=23 prio=20 f40=4 f38=0 avail=[] sym=0350f56c flags=00000402
+    cand num=29 prio=88 f40=16 f38=3524f94 avail=[] sym=0351e134 flags=00000402
+    cand num=31 prio=-1 f40=3 f38=0 avail=[] sym=03538be8 flags=00012c02
+    cand num=34 prio=1 f40=1 f38=0 avail=[4, 6] sym=03538c48 flags=00002c02
+    cand num=35 prio=28 f40=8 f38=0 avail=[] sym=0352f3ec flags=00000402
+    cand num=36 prio=78 f40=12 f38=3524f70 avail=[] sym=0351e494 flags=00012c02
+    cand num=37 prio=32 f40=6 f38=3524fb8 avail=[] sym=0352f7ac flags=00000402
+    cand num=38 prio=48 f40=4 f38=3524f7c avail=[] sym=0350f26c flags=00012c02
+    cand num=39 prio=20 f40=6 f38=3524fc4 avail=[] sym=0352fb0c flags=00000402
+    cand num=41 prio=24 f40=6 f38=3524fd0 avail=[] sym=0352fdac flags=00000402
+    cand num=43 prio=20 f40=6 f38=3524fdc avail=[] sym=0352c404 flags=00000402
+    cand num=46 prio=16 f40=4 f38=3524fac avail=[] sym=035356bc flags=00000402
+SPILL num=33 prio=-17 [03538e28 00006c02 03529f60 ffffffef 00000000 03529b28 00000000 00000021 03537c50 00000002 034f7744 034f7744 00000000 00000000 00000000 034fee60 00000000 00000000 03538c48 00002c02] bt: c2+107b3f4f < c2+107b3ed5 < c2+107a54dd < c2+107994ca < c2+1070ad88 < c2+107b98d0
+SPILL num=18 prio=-17 [03538c48 00006c02 03529b28 ffffffef 00000000 03529a50 00000000 00000012 03537f50 00000003 034d4540 034d4608 00000000 00000000 00000000 0350810c ffffffff 00000000 0350f3ec 00000c02] bt: c2+107b3f4f < c2+107b3ed5 < c2+107a54dd < c2+107994ca < c2+1070ad88 < c2+107b98d0
+SPILL num=15 prio=-17 [03538ca8 00006c02 03529a50 ffffffef 00000000 03529a08 00000000 0000000f 0353b9bc 00000002 034f7a64 034d4090 00000000 00000000 00000000 03505420 ffffffff 00000000 0350f2cc 00000c02] bt: c2+107b3f4f < c2+107b3ed5 < c2+107a54dd < c2+107994ca < c2+1070ad88 < c2+107b98d0
+SPILL num=14 prio=-17 [03538ca8 00006c02 03529a08 ffffffef 00000000 00000000 00000000 0000000e 0353c160 00000002 034d4220 034d43b0 00000000 00000000 00000000 0350831c ffffffff 00000000 00000000 00000000] bt: c2+107b3f4f < c2+107b3ed5 < c2+107a54dd < c2+107994ca < c2+1070ad88 < c2+107b98d0
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+SPILL num=1 prio=-5 [0353c4c4 00000d02 0352c2f0 fffffffb 00000000 0352c620 00000000 00000001 0352d344 00000001 03530434 0353081c 00000000 00000000 00000000 0353dc08 00000000 0000000a 00000002 00000000] bt: c2+107a9da4 < c2+107ab323 < c2+107a54dd < c2+107994ca < c2+1070ad88 < c2+107b98d0
+SPILL num=3 prio=9 [0353c524 00000d02 0352c3b0 00000009 00000000 00000000 00000000 00000003 0352d4ac 00000001 03530434 0353068c 00000000 00000000 00000000 0353e21c 00000000 00000009 00000004 00000000] bt: c2+107a9da4 < c2+107ab323 < c2+107a54dd < c2+107994ca < c2+1070ad88 < c2+107b98d0
+CHOOSE reg=7 num=6 prio=101 avail=[4, 6, 7, 8] costs=4:0 6:0 7:0 8:0 [0353c644 00000c02 0352c5d8 00000065 00000000 0352c620 00000000 00000006 0352d968 00000009 035304fc 0353081c 00000000 00000000 0352f47c 0353dfcc 00000012 0000000f 0353c6a4 00000c02]
+    cand num=2 prio=27 f40=4 f38=0 avail=[4, 6, 7, 8] sym=03509780 flags=00000c02
+    cand num=4 prio=44 f40=6 f38=0 avail=[4, 6, 7, 8] sym=0353c584 flags=00000c02
+    cand num=5 prio=38 f40=10 f38=352f464 avail=[1, 2, 3, 4, 6, 7, 8] sym=0353c5e4 flags=00000c02
+    cand num=6 prio=101 f40=18 f38=352f47c avail=[4, 6, 7, 8] sym=0353c644 flags=00000c02
+    cand num=7 prio=88 f40=16 f38=352f470 avail=[1, 2, 3, 4, 6, 7, 8] sym=0353c6a4 flags=00000c02
+    cand num=8 prio=54 f40=10 f38=0 avail=[1, 2, 3, 4, 6, 7, 8] sym=0353c704 flags=00000402
+    cand num=13 prio=34 f40=6 f38=0 avail=[1, 2, 3, 4, 6, 7, 8] sym=03523b7c flags=00000402
+CHOOSE reg=1 num=7 prio=88 avail=[1, 2, 3, 4, 6, 8] costs=1:-1 2:0 3:0 4:0 6:0 8:0 [0353c6a4 00000c02 0352c620 00000058 00000000 0352c668 00000000 00000007 0352d404 00000008 0353068c 0353081c 00000000 00000000 0352f470 0353e18c 00000010 00000023 0353c704 00000402]
+    cand num=2 prio=27 f40=4 f38=0 avail=[4, 6, 8] sym=03509780 flags=00000c02
+    cand num=4 prio=44 f40=6 f38=0 avail=[4, 6, 8] sym=0353c584 flags=00000c02
+    cand num=5 prio=38 f40=10 f38=352f488 avail=[1, 2, 3, 4, 6, 7, 8] sym=0353c5e4 flags=00000c02
+    cand num=6 prio=101 f40=18 f38=352f47c avail=[] sym=0353c644 flags=00000c02
+    cand num=7 prio=88 f40=16 f38=352f470 avail=[1, 2, 3, 4, 6, 8] sym=0353c6a4 flags=00000c02
+    cand num=8 prio=54 f40=10 f38=0 avail=[1, 2, 3, 4, 6, 8] sym=0353c704 flags=00000402
+    cand num=13 prio=34 f40=6 f38=0 avail=[1, 2, 3, 4, 6, 8] sym=03523b7c flags=00000402
+CHOOSE reg=2 num=8 prio=54 avail=[2, 3, 4, 6, 8] costs=2:0 3:0 4:0 6:0 8:0 [0353c704 00000402 0352c668 00000036 00000000 0352c548 00000000 00000008 0352d578 00000005 0353068c 0353081c 00000000 00000001 00000000 03534bd8 0000000a 00000014 00000000 00000000]
+    cand num=2 prio=27 f40=4 f38=0 avail=[4, 6, 8] sym=03509780 flags=00000c02
+    cand num=4 prio=44 f40=6 f38=0 avail=[4, 6, 8] sym=0353c584 flags=00000c02
+    cand num=5 prio=38 f40=10 f38=352f488 avail=[1, 2, 3, 4, 6, 7, 8] sym=0353c5e4 flags=00000c02
+    cand num=6 prio=101 f40=18 f38=352f47c avail=[] sym=0353c644 flags=00000c02
+    cand num=7 prio=88 f40=16 f38=352f470 avail=[] sym=0353c6a4 flags=00000c02
+    cand num=8 prio=54 f40=10 f38=0 avail=[2, 3, 4, 6, 8] sym=0353c704 flags=00000402
+    cand num=13 prio=34 f40=6 f38=0 avail=[2, 3, 4, 6, 8] sym=03523b7c flags=00000402
+CHOOSE reg=8 num=4 prio=44 avail=[4, 6, 8] costs=4:0 6:0 8:0 [0353c584 00000c02 0352c548 0000002c 00000000 0352c590 00000000 00000004 0352d920 00000004 03530434 0353081c 00000000 00000000 00000000 0353471c 00000006 00000008 0353c5e4 00000c02]
+    cand num=2 prio=27 f40=4 f38=0 avail=[4, 6, 8] sym=03509780 flags=00000c02
+    cand num=4 prio=44 f40=6 f38=0 avail=[4, 6, 8] sym=0353c584 flags=00000c02
+    cand num=5 prio=38 f40=10 f38=352f488 avail=[1, 2, 3, 4, 6, 7, 8] sym=0353c5e4 flags=00000c02
+    cand num=6 prio=101 f40=18 f38=352f47c avail=[] sym=0353c644 flags=00000c02
+    cand num=7 prio=88 f40=16 f38=352f470 avail=[] sym=0353c6a4 flags=00000c02
+    cand num=8 prio=54 f40=10 f38=0 avail=[] sym=0353c704 flags=00000402
+    cand num=13 prio=34 f40=6 f38=0 avail=[3, 4, 6, 8] sym=03523b7c flags=00000402
+CHOOSE reg=1 num=5 prio=38 avail=[1, 2, 3, 4, 6, 7] costs=1:-1 2:0 3:0 4:0 6:0 7:-1 [0353c5e4 00000c02 0352c590 00000026 00000000 0352c7d0 00000000 00000005 0352d914 00000005 03530434 035304fc 00000000 00000000 0352f488 0353d9bc 0000000a 00000004 0353c644 00000c02]
+    cand num=2 prio=27 f40=4 f38=0 avail=[4, 6] sym=03509780 flags=00000c02
+    cand num=4 prio=44 f40=6 f38=0 avail=[] sym=0353c584 flags=00000c02
+    cand num=5 prio=38 f40=10 f38=352f488 avail=[1, 2, 3, 4, 6, 7] sym=0353c5e4 flags=00000c02
+    cand num=6 prio=101 f40=18 f38=352f47c avail=[] sym=0353c644 flags=00000c02
+    cand num=7 prio=88 f40=16 f38=352f470 avail=[] sym=0353c6a4 flags=00000c02
+    cand num=8 prio=54 f40=10 f38=0 avail=[] sym=0353c704 flags=00000402
+    cand num=13 prio=34 f40=6 f38=0 avail=[3, 4, 6] sym=03523b7c flags=00000402
+CHOOSE reg=3 num=13 prio=34 avail=[3, 4, 6] costs=3:0 4:0 6:0 [03523b7c 00000402 0352c7d0 00000022 00000000 0352c350 00000000 0000000d 0352d59c 00000003 0353068c 03530754 00000000 00000000 00000000 035320c4 00000006 00000012 00000000 00000000]
+    cand num=2 prio=27 f40=4 f38=0 avail=[4, 6] sym=03509780 flags=00000c02
+    cand num=4 prio=44 f40=6 f38=0 avail=[] sym=0353c584 flags=00000c02
+    cand num=5 prio=38 f40=10 f38=352f488 avail=[] sym=0353c5e4 flags=00000c02
+    cand num=6 prio=101 f40=18 f38=352f47c avail=[] sym=0353c644 flags=00000c02
+    cand num=7 prio=88 f40=16 f38=352f470 avail=[] sym=0353c6a4 flags=00000c02
+    cand num=8 prio=54 f40=10 f38=0 avail=[] sym=0353c704 flags=00000402
+    cand num=13 prio=34 f40=6 f38=0 avail=[3, 4, 6] sym=03523b7c flags=00000402
+CHOOSE reg=4 num=2 prio=27 avail=[4, 6] costs=4:0 6:0 [03509780 00000c02 0352c350 0000001b 00000000 00000000 00000000 00000002 0352d3b0 00000009 03530434 0353068c 00000000 00000000 00000000 03535908 00000004 00000000 00000003 00000000]
+    cand num=2 prio=27 f40=4 f38=0 avail=[4, 6] sym=03509780 flags=00000c02
+    cand num=4 prio=44 f40=6 f38=0 avail=[] sym=0353c584 flags=00000c02
+    cand num=5 prio=38 f40=10 f38=352f488 avail=[] sym=0353c5e4 flags=00000c02
+    cand num=6 prio=101 f40=18 f38=352f47c avail=[] sym=0353c644 flags=00000c02
+    cand num=7 prio=88 f40=16 f38=352f470 avail=[] sym=0353c6a4 flags=00000c02
+    cand num=8 prio=54 f40=10 f38=0 avail=[] sym=0353c704 flags=00000402
+    cand num=13 prio=34 f40=6 f38=0 avail=[] sym=03523b7c flags=00000402
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+BLOCK
+SPILL num=2 prio=0 [0353d538 00000d02 035313c8 00000000 00000000 03531728 00000000 00000002 034f6ce0 00000001 03535a58 0353563c 00000000 00000000 00000000 0352eca4 ffffffff 00000000 00000003 00000000] bt: c2+107a9da4 < c2+107ab323 < c2+107a54dd < c2+107994ca < c2+1070ad88 < c2+107b98d0
+CHOOSE reg=7 num=8 prio=128 avail=[4, 6, 7] costs=4:0 6:0 7:0 [0352c524 00000402 03531698 00000080 00000000 03531650 00000000 00000008 034f6df4 00000004 0353563c 0353563c 00000000 00000000 03533480 0352ebf4 00000010 00000019 0352c584 00000402]
+    cand num=3 prio=10 f40=2 f38=0 avail=[1, 2, 3, 4, 6, 7, 8] sym=0352c344 flags=00000c02
+    cand num=4 prio=64 f40=6 f38=0 avail=[4, 6, 7] sym=0352c3a4 flags=00000c02
+    cand num=5 prio=32 f40=2 f38=0 avail=[4, 6, 7] sym=0352c404 flags=00000c02
+    cand num=6 prio=64 f40=6 f38=0 avail=[4, 6, 7] sym=0352c464 flags=00010c02
+    cand num=7 prio=68 f40=14 f38=353348c avail=[4, 6, 7] sym=0352c4c4 flags=00000c02
+    cand num=8 prio=128 f40=16 f38=3533480 avail=[4, 6, 7] sym=0352c524 flags=00000402
+    cand num=9 prio=64 f40=8 f38=3533474 avail=[1, 2, 3, 4, 6, 7, 8] sym=0352c584 flags=00000402
+    cand num=10 prio=32 f40=6 f38=0 avail=[4, 6, 7] sym=03530ca4 flags=00000c02
+CHOOSE reg=4 num=7 prio=68 avail=[4, 6] costs=4:0 6:0 [0352c4c4 00000c02 03531650 00000044 00000000 03531608 00000000 00000007 034f7214 00000007 035354ac 03535c38 00000000 00000000 0353348c 0352eff0 0000000e 00000012 0352c524 00000402]
+    cand num=3 prio=10 f40=2 f38=0 avail=[1, 2, 3, 4, 6, 7, 8] sym=0352c344 flags=00000c02
+    cand num=4 prio=64 f40=6 f38=0 avail=[4, 6] sym=0352c3a4 flags=00000c02
+    cand num=5 prio=32 f40=2 f38=0 avail=[4, 6] sym=0352c404 flags=00000c02
+    cand num=6 prio=64 f40=6 f38=0 avail=[4, 6] sym=0352c464 flags=00010c02
+    cand num=7 prio=68 f40=14 f38=353348c avail=[4, 6] sym=0352c4c4 flags=00000c02
+    cand num=8 prio=128 f40=16 f38=3533480 avail=[] sym=0352c524 flags=00000402
+    cand num=9 prio=64 f40=8 f38=3533474 avail=[1, 2, 3, 4, 6, 8] sym=0352c584 flags=00000402
+    cand num=10 prio=32 f40=6 f38=0 avail=[4, 6] sym=03530ca4 flags=00000c02
+CHOOSE reg=6 num=6 prio=64 avail=[6] costs=6:1400 [0352c464 00010c02 03531608 00000040 00000000 035316e0 00000000 00000006 034f7208 00000003 03535a58 0353563c 00000000 00000000 00000000 0352e968 00000006 00000018 0352c4c4 00000c02]
+    cand num=3 prio=10 f40=2 f38=0 avail=[1, 2, 3, 6, 7, 8] sym=0352c344 flags=00000c02
+    cand num=4 prio=64 f40=6 f38=0 avail=[6] sym=0352c3a4 flags=00000c02
+    cand num=5 prio=32 f40=2 f38=0 avail=[6] sym=0352c404 flags=00000c02
+    cand num=6 prio=64 f40=6 f38=0 avail=[6] sym=0352c464 flags=00010c02
+    cand num=7 prio=68 f40=14 f38=353348c avail=[] sym=0352c4c4 flags=00000c02
+    cand num=8 prio=128 f40=16 f38=3533480 avail=[] sym=0352c524 flags=00000402
+    cand num=9 prio=64 f40=8 f38=3533474 avail=[1, 2, 3, 6, 8] sym=0352c584 flags=00000402
+    cand num=10 prio=32 f40=6 f38=0 avail=[6] sym=03530ca4 flags=00000c02
+BLOCK
+CHOOSE reg=8 num=9 prio=64 avail=[1, 2, 3, 8] costs=1:0 2:0 3:0 8:-1 [0352c584 00000402 035316e0 00000040 00000000 035313c8 00000000 00000009 034f722c 00000002 0353563c 0353563c 00000000 00000000 03533530 0352ed50 00000008 00000017 00000000 00000000]
+    cand num=3 prio=10 f40=2 f38=0 avail=[1, 2, 3, 6, 7, 8] sym=0352c344 flags=00000c02
+    cand num=6 prio=64 f40=6 f38=0 avail=[] sym=0352c464 flags=00010c02
+    cand num=7 prio=68 f40=14 f38=353348c avail=[] sym=0352c4c4 flags=00000c02
+    cand num=8 prio=128 f40=16 f38=3533480 avail=[] sym=0352c524 flags=00000402
+    cand num=9 prio=64 f40=8 f38=3533530 avail=[1, 2, 3, 8] sym=0352c584 flags=00000402
+CHOOSE reg=1 num=3 prio=10 avail=[1, 2, 3, 6, 7, 8] costs=1:0 2:0 3:0 6:0 7:0 8:0 [0352c344 00000c02 03531530 0000000a 00000000 03531368 00000000 00000003 034f6cf8 00000002 035354ac 03535574 00000000 00000000 00000000 0352eb88 00000002 00000003 00000000 00000000]
+    cand num=3 prio=10 f40=2 f38=0 avail=[1, 2, 3, 6, 7, 8] sym=0352c344 flags=00000c02
+    cand num=6 prio=64 f40=6 f38=0 avail=[] sym=0352c464 flags=00010c02
+    cand num=7 prio=68 f40=14 f38=353348c avail=[] sym=0352c4c4 flags=00000c02
+    cand num=8 prio=128 f40=16 f38=3533480 avail=[] sym=0352c524 flags=00000402
+    cand num=9 prio=64 f40=8 f38=3533530 avail=[] sym=0352c584 flags=00000402
+SPILL num=2 prio=0 [03530ca4 00006c02 035313c8 00000000 00000000 03531368 00000000 00000002 034f7094 00000002 0353563c 0353563c 00000000 00000001 00000000 03509dc0 fffffffc 0000000c 00000003 00000000] bt: c2+107b3f4f < c2+107b3ed5 < c2+107a54dd < c2+107994ca < c2+1070ad88 < c2+107b98d0
+SPILL num=1 prio=0 [0353d4d8 00004c02 03531368 00000000 00000000 00000000 00000000 00000001 034f6c74 00000002 035354ac 035354ac 00000000 00000000 03533498 0352f060 ffffffff 00000000 00000002 00000000] bt: c2+107b3f4f < c2+107b3ed5 < c2+107a54dd < c2+107994ca < c2+1070ad88 < c2+107b98d0
+ERR No registers.
