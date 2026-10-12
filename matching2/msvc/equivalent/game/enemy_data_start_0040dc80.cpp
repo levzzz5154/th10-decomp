@@ -331,8 +331,10 @@ extern "C" __declspec(noinline) int __stdcall EnemyDataStart_0040dc80(
     *reinterpret_cast<unsigned int*>(&flags) &= ~0x200u;
     if ((raw_flags & 0x11) == 0) {
         // The item drop: sweep, divide by five, the score bookkeeping.
-        int dropped = reinterpret_cast<PickupSweepResult_00428630*>(
-            0)->Sweep(data_00477834, 0, 0);
+        int dropped = reinterpret_cast<PickupSweepResult_00428630*>(0)->Sweep(
+            data_00477834,
+            reinterpret_cast<const void*>(&enemy->position),
+            reinterpret_cast<const void*>(&m->pickup_result_a));
         // The stage-select test: div 5 only when the mode is 0 or 2.
         {
             unsigned stage_mode = *reinterpret_cast<unsigned*>(
