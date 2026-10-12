@@ -318,3 +318,20 @@ already recorded. The remaining 268 bytes are c2 layout decisions driven
 by register-allocation differences; the levers are the allocator traces
 (`trace_choose_physreg.py`, the StartChild ChoosePhysReg path), not the
 flowgraph captures.
+
+## Allocator trace (2026-10-12)
+
+`trace_choose_physreg.py` captured the full ChoosePhysReg sequence (54
+decisions, 2,156 lines) for the model — saved at
+`reference/compiler_traces/regalloc/enemy_data_start_trace.txt`. Key
+readings: ESI is taken early by the priority-139 candidate (the +0x14D8
+ScriptVm load, f40=44), EBX goes to the priority-42 candidate (the mode
+word), and EDI collects six shorter-lived candidates — matching retail's
+EBX/ESI/EDI homes for the three long-lived objects. The 4400/3800/800
+cost entries mark the candidates pinned by the calls across which the
+retail homes stay live; the allocator's decisions align with retail's
+homes, which means the remaining 268 bytes are NOT register misassignment
+but block placement driven by the basic-block order c2 chose before
+allocation. The next lever is comparing the basic-block ORDER (BLOCK
+sequence in this trace) against retail's, which is a structural read of
+the trace, not an allocator change.
