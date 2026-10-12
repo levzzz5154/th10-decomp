@@ -84,3 +84,14 @@ The axis arithmetic was also checked in isolation: limits read through the
 global array are shared inside one ternary and reloaded in the next, named
 band locals are shared across both, and sums of register locals are merged
 across ternaries.
+
+## 2026-10-12: the axis-term split alone does not move the allocator
+
+A variant of `inline_helper_int_mask.cpp` that finishes the X pair, ORs it
+into the mask, computes the Y pair separately and returns `(y | mask)` —
+the literal retail order from the note's item 1 — compiles to the same
+367-line diff (of 282 instructions) as the saved 181-diff-line-count
+helper model: standalone `cl /O2 /Gz /MT /Gy /G6 /GF /GS /Zl` re-folds the
+two OR chains into one because the mask is a parameter, so the split point
+must be forced by aliasing or a 16-bit boundary that also keeps the
+DirectInput path intact. Items 2–4 of the list above remain.
