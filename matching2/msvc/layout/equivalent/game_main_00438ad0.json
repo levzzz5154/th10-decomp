@@ -1,0 +1,393 @@
+{
+  "schema_version": 1,
+  "name": "game_main_00438ad0",
+  "region": "asm_GameMain_00438ad0",
+  "sources": [
+    "equivalent/game/game_main_00438ad0.cpp"
+  ],
+  "context_cluster": "layout/ltcg/cl_0040dc70.json",
+  "entry_symbol": "?RunContext_0040dc70@@YGHPAPAUOuter_0040dc70@@H@Z",
+  "function": "?GameMain_00438ad0@@YGHPAX0PADH@Z",
+  "code_bytes": 1389,
+  "absolute_symbols": {
+    "_data_004660b8": {
+      "address": "0x004660B8",
+      "kind": "data"
+    },
+    "_data_004660bc": {
+      "address": "0x004660BC",
+      "kind": "data"
+    },
+    "_data_00466118": {
+      "address": "0x00466118",
+      "kind": "data"
+    },
+    "_data_004661f0": {
+      "address": "0x004661F0",
+      "kind": "data"
+    },
+    "_data_004661f4": {
+      "address": "0x004661F4",
+      "kind": "data"
+    },
+    "_data_00466220": {
+      "address": "0x00466220",
+      "kind": "data"
+    },
+    "_data_00466224": {
+      "address": "0x00466224",
+      "kind": "data"
+    },
+    "_data_0046622c": {
+      "address": "0x0046622C",
+      "kind": "data"
+    },
+    "_data_00466230": {
+      "address": "0x00466230",
+      "kind": "data"
+    },
+    "_data_00466234": {
+      "address": "0x00466234",
+      "kind": "data"
+    },
+    "_data_0046623c": {
+      "address": "0x0046623C",
+      "kind": "data"
+    },
+    "_data_0046624c": {
+      "address": "0x0046624C",
+      "kind": "data"
+    },
+    "_data_00466254": {
+      "address": "0x00466254",
+      "kind": "data"
+    },
+    "_data_00466258": {
+      "address": "0x00466258",
+      "kind": "data"
+    },
+    "_data_00466264": {
+      "address": "0x00466264",
+      "kind": "data"
+    },
+    "_data_004924f0": {
+      "address": "0x004924F0",
+      "kind": "data"
+    },
+    "_data_004924f4": {
+      "address": "0x004924F4",
+      "kind": "data"
+    },
+    "_data_004924f8": {
+      "address": "0x004924F8",
+      "kind": "data"
+    },
+    "_data_00491be0": {
+      "address": "0x00491BE0",
+      "kind": "data"
+    },
+    "_data_00491be4": {
+      "address": "0x00491BE4",
+      "kind": "data"
+    },
+    "_data_00491c10": {
+      "address": "0x00491C10",
+      "kind": "data"
+    },
+    "_data_00491c28": {
+      "address": "0x00491C28",
+      "kind": "data"
+    },
+    "_data_00491c2c": {
+      "address": "0x00491C2C",
+      "kind": "data"
+    },
+    "_data_00491c30": {
+      "address": "0x00491C30",
+      "kind": "data"
+    },
+    "_data_00491d0c": {
+      "address": "0x00491D0C",
+      "kind": "data"
+    },
+    "_data_00491d65": {
+      "address": "0x00491D65",
+      "kind": "data"
+    },
+    "_data_00491d78": {
+      "address": "0x00491D78",
+      "kind": "data"
+    },
+    "_data_00491fd4": {
+      "address": "0x00491FD4",
+      "kind": "data"
+    },
+    "_data_00491fe8": {
+      "address": "0x00491FE8",
+      "kind": "data"
+    },
+    "_data_00491ff4": {
+      "address": "0x00491FF4",
+      "kind": "data"
+    },
+    "_data_0049251c": {
+      "address": "0x0049251C",
+      "kind": "data"
+    },
+    "_data_00492520": {
+      "address": "0x00492520",
+      "kind": "data"
+    },
+    "_data_00492524": {
+      "address": "0x00492524",
+      "kind": "data"
+    },
+    "_data_00492528": {
+      "address": "0x00492528",
+      "kind": "data"
+    },
+    "_data_00492530": {
+      "address": "0x00492530",
+      "kind": "data"
+    },
+    "_data_00492538": {
+      "address": "0x00492538",
+      "kind": "data"
+    },
+    "_data_00492540": {
+      "address": "0x00492540",
+      "kind": "data"
+    },
+    "_data_00492504": {
+      "address": "0x00492504",
+      "kind": "data"
+    },
+    "_data_004977a8": {
+      "address": "0x004977A8",
+      "kind": "data"
+    },
+    "_data_004977b4": {
+      "address": "0x004977B4",
+      "kind": "data"
+    },
+    "_data_004977b8": {
+      "address": "0x004977B8",
+      "kind": "data"
+    },
+    "_data_004977b0": {
+      "address": "0x004977B0",
+      "kind": "data"
+    },
+    "_data_00474f70": {
+      "address": "0x00474F70",
+      "kind": "data"
+    },
+    "_data_00476f70": {
+      "address": "0x00476F70",
+      "kind": "data"
+    },
+    "_data_00476f74": {
+      "address": "0x00476F74",
+      "kind": "data"
+    },
+    "_data_00491d48": {
+      "address": "0x00491D48",
+      "kind": "data"
+    },
+    "_data_00491c70": {
+      "address": "0x00491C70",
+      "kind": "data"
+    },
+    "_data_00492274": {
+      "address": "0x00492274",
+      "kind": "data"
+    },
+    "_data_00470b70": {
+      "address": "0x00470B70",
+      "kind": "data"
+    },
+    "_App_RegisterTasks_00420470@0": {
+      "address": "0x00420470",
+      "kind": "code"
+    },
+    "_GameFrameAdvance_00439390@4": {
+      "address": "0x00439390",
+      "kind": "code"
+    },
+    "_D3DInitialize_00439890@0": {
+      "address": "0x00439890",
+      "kind": "code"
+    },
+    "_Renderer_ApplyDeviceDefaults_00439d20@0": {
+      "address": "0x00439D20",
+      "kind": "code"
+    },
+    "_Startup_InstanceCheck_00439ff0@0": {
+      "address": "0x00439FF0",
+      "kind": "code"
+    },
+    "_ComputeExecutableChecksum_0043a1c0@0": {
+      "address": "0x0043A1C0",
+      "kind": "code"
+    },
+    "_ShutdownMidi_0043ae20@4": {
+      "address": "0x0043AE20",
+      "kind": "code"
+    },
+    "_CleanupMidi_0043a910@4": {
+      "address": "0x0043A910",
+      "kind": "code"
+    },
+    "_SoundWorker_Stop_0043cc40@0": {
+      "address": "0x0043CC40",
+      "kind": "code"
+    },
+    "_WaveSoundManager_Cleanup_0043d120@0": {
+      "address": "0x0043D120",
+      "kind": "code"
+    },
+    "_WaveSoundManager_ProcessCommands_0043ddf0@4": {
+      "address": "0x0043DDF0",
+      "kind": "code"
+    },
+    "_AnmStorage_Destroy_00446220@4": {
+      "address": "0x00446220",
+      "kind": "code"
+    },
+    "_D3DResourceManager_Initialize_00449aa0@0": {
+      "address": "0x00449AA0",
+      "kind": "code"
+    },
+    "_Joystick_Probe_0044a0c0@0": {
+      "address": "0x0044A0C0",
+      "kind": "code"
+    },
+    "_Input_NormalizeKeyboardState_0044b080@0": {
+      "address": "0x0044B080",
+      "kind": "code"
+    },
+    "_File_WriteWholeFile_0044b540@12": {
+      "address": "0x0044B540",
+      "kind": "code"
+    },
+    "_WINNLSEnableIME_0045232c@8": {
+      "address": "0x0045232C",
+      "kind": "code"
+    },
+    "_operator_new_00452493": {
+      "address": "0x00452493",
+      "kind": "code"
+    },
+    "_free_004524a1": {
+      "address": "0x004524A1",
+      "kind": "code"
+    },
+    "_ReleaseAll_00438a30@4": {
+      "address": "0x00438A30",
+      "kind": "code"
+    },
+    "_GameApp_LoadConfig_00420870@4": {
+      "address": "0x00420870",
+      "kind": "code"
+    },
+    "_Direct3DCreate9_00452176@4": {
+      "address": "0x00452176",
+      "kind": "code"
+    },
+    "_StartAddress_0043ccf0@0": {
+      "address": "0x0043CCF0",
+      "kind": "code"
+    },
+    "?Shutdown@App_00420270@@QAEHXZ": {
+      "address": "0x00420270",
+      "kind": "code"
+    },
+    "_asm_WINNLSEnableIME_0045232c@8": {
+      "address": "0x0045232C",
+      "kind": "code"
+    },
+    "?Append@TextLog_0044b810@@QAAPADPADZZ": {
+      "address": "0x0044B810",
+      "kind": "code"
+    },
+    "?SaveSystemSettingsRetail_004392e0@@YGHXZ": {
+      "address": "0x004392E0",
+      "kind": "code"
+    },
+    "??1D3DResourceManager_00438880@@QAE@XZ": {
+      "address": "0x00438880",
+      "kind": "code"
+    },
+    "@CreateGameWindow_00439730@8": {
+      "address": "0x00439730",
+      "kind": "code"
+    },
+    "_SaveSystemSettingsRetail_004392e0@0": {
+      "address": "0x004392E0",
+      "kind": "code"
+    },
+    "_target_0040dc80@4": {
+      "address": "0x0040DC80",
+      "kind": "code"
+    },
+    "_StartupDialog_Procedure@16": {
+      "address": "0x0043A3A0",
+      "kind": "code"
+    },
+    "__fltused": {
+      "address": "0x00000000",
+      "kind": "metadata"
+    },
+    "@AnmStorage_Construct_00445900@4": {
+      "address": "0x00445900",
+      "kind": "code"
+    },
+    "@AnmStorage_Destroy_00446220@4": {
+      "address": "0x00446220",
+      "kind": "code"
+    },
+    "??3@YAXPAX@Z": {
+      "address": "0x004524A1",
+      "kind": "code"
+    },
+    "_kReplayLogBanner": {
+      "address": "0x0046F77C",
+      "kind": "data"
+    },
+    "_kD3dCreateFailed": {
+      "address": "0x0046F6A0",
+      "kind": "data"
+    },
+    "_kRestartRequired": {
+      "address": "0x0046F6F0",
+      "kind": "data"
+    },
+    "_kLogSeparator": {
+      "address": "0x0046F7CC",
+      "kind": "data"
+    },
+    "_kLogPath": {
+      "address": "0x0046F7BC",
+      "kind": "data"
+    },
+    "_kLogTitle": {
+      "address": "0x0046F7C8",
+      "kind": "data"
+    },
+    "_kConfigPath": {
+      "address": "0x0046F770",
+      "kind": "data"
+    },
+    "_FrameTimer_GetDelta_00439540": {
+      "address": "0x00439540",
+      "kind": "code"
+    }
+  },
+  "bindings": {},
+  "base_index_order": 0,
+  "differences": [],
+  "note": "reference/recovery_notes/game_main_00438ad0_equivalent_2026_10_12.md",
+  "roots": [
+    "?GameMain_00438ad0@@YGHPAX0PADH@Z"
+  ]
+}
