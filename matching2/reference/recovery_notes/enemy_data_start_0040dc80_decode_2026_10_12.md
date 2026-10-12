@@ -148,3 +148,15 @@ item-drop score arithmetic needs the +0x1420 pause guard decoded, and the
 call-argument details of the two `FieldContact`/`PickupSweep` pairs need
 their stack layouts verified against the recovered bodies. None of these
 require new decodes — the disassembly in the first section answers each.
+
+## Model state (2026-10-12, end of session)
+
+The draft compiles and links clean (all 40 absolute bindings resolve; the
+ECL TickChildren EDI convention resolves through the ecl_tick_children
+cluster). The compiled body is 1,712 bytes against the retail 2,412 —
+700 short. The missing mass: the two PolarMotion/SetPolar member calls
+(the draft inlines raw float math where retail calls 0x0044C5D0/0x0044C2A0
+per motion), the exact trajectory-step call shapes, the pickup sweep's
+real argument layout, and the field-contact pair. Each is a source-level
+expression change against the decode in the first section; no new
+decodes are needed.

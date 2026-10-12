@@ -17,6 +17,8 @@
 #include "th10/game/polar_motion.hpp"
 #include "th10/math/trajectory_vector.hpp"
 #include "th10/render/animation_script_change.hpp"
+#include "th10/game/recovery_script_executor_0040bd80.hpp"
+#include "th10/script/ecl_children.hpp"
 
 extern "C" {
 extern void* data_004776e0;              // the game thread (cursor resource)
@@ -24,7 +26,6 @@ extern void* data_00477834;              // the player state
 extern void* data_004776f4;              // the play-mode flags
 extern void* data_0047770c;              // the result overlay state
 extern void* data_00474c50;              // the enemy-drop marker
-extern void* data_00491c10;              // the animation manager
 extern unsigned int data_00474e36;       // the input mask
 extern float data_00470b0c;              // the clamp scale
 extern float data_00470b40, data_00470b3c, data_00470b04, data_00470b38;
@@ -32,6 +33,7 @@ extern float data_00470d30, data_00470c18;
 extern float data_00470b68, data_00470b64, data_00470afc;
 extern void* data_00477810;              // the front-end game state
 extern unsigned int data_00491ff4;
+extern unsigned int enemy_dropped_marker_00474c50;
 }
 
 // The trajectory interpolator step (0x00412AC0) and the Vec3 one
@@ -59,16 +61,7 @@ struct ScriptVm_00450560;
 struct ScriptTable_00450470 {
     int Resolve(const char* name);
 };
-struct EnemyRecord_00428f60 {
-    unsigned char reserved_000[0x1024];
-    unsigned char difficulty_mask;
-    unsigned char reserved_1025[0x103C - 0x1025];
-    EnemyData_0040cfb0 data;
-    unsigned char reserved_14dc[0x14D8 - 0x14DC];
-    void* script_vm;                     // the interpreter state at +0x14D8
-    unsigned char reserved_14e0[0x2404 - 0x14E0];
-    int frames_alive;                    // +0x2404
-};
+
 struct EnemyScriptVm_00450560 {
     ScriptTable_00450470* table;
 };
@@ -138,7 +131,7 @@ struct Scheduler_0040dc80 {
 }
 
 #pragma code_seg(".text$0040dc80_fn")
-__declspec(noinline) int __stdcall EnemyData_Start_0040dc80(
+extern "C" __declspec(noinline) int __stdcall EnemyDataStart_0040dc80(
     EnemyData_0040cfb0* enemy) {
     EnemyDataMotion_0040dc80* m = reinterpret_cast<EnemyDataMotion_0040dc80*>(enemy);
     EnemyFlags_0040cfb0& flags = enemy->flags;
@@ -256,52 +249,49 @@ __declspec(noinline) int __stdcall EnemyData_Start_0040dc80(
         void** outer = static_cast<void**>(data_004776e0);
         if (outer[5] != 0) {
             if (!(raw_flags & 0x200000)) {
-                m->off_screen_state = enemy->script_change_a;
+                m->off_screen_state = m->script_change_a;
                 ScriptChangeHandle handle;
                 *reinterpret_cast<RecoveryScriptId_0040bd80*>(&handle) =
-                    *reinterpret_cast<RecoveryScriptId_0040bd80*>(&enemy->animation_handles[0]);
-                handle.ChangeScript(enemy->script_change_a);
+                    *reinterpret_cast<RecoveryScriptId_0040bd80*>(&m->animation_handles[0]);
+                handle.ChangeScript(m->script_change_a);
                 *reinterpret_cast<unsigned int*>(&flags) |= 0x200001u;
             }
-        } else if (enemy->script_change_b != 0) {
-            m->off_screen_state = enemy->script_change_b;
+        } else if (m->script_change_b != 0) {
+            m->off_screen_state = m->script_change_b;
             ScriptChangeHandle handle;
             *reinterpret_cast<RecoveryScriptId_0040bd80*>(&handle) =
-                *reinterpret_cast<RecoveryScriptId_0040bd80*>(&enemy->animation_handles[0]);
-            handle.ChangeScript(enemy->script_change_b);
+                *reinterpret_cast<RecoveryScriptId_0040bd80*>(&m->animation_handles[0]);
+            handle.ChangeScript(m->script_change_b);
             *reinterpret_cast<unsigned int*>(&flags) &= ~0x200001u;
         }
     }
     // The interpreter tick; nonzero ends the enemy with an error.
-    {
-        EnemyRecord_00428f60* record = reinterpret_cast<EnemyRecord_00428f60*>(
-            reinterpret_cast<unsigned char*>(enemy) - 0x103C);
-        EclChildOwner* vm = static_cast<EclChildOwner*>(m->script_vm);
-        if (EclVm_TickChildren(vm, *m->wait_frames) != 0)
-            return -1;
-        (void)record;
-    }
+    if (EclVm_TickChildren(static_cast<EclChildOwner*>(m->script_vm),
+                           *m->wait_frames) != 0)
+        return -1;
     *reinterpret_cast<unsigned int*>(&flags) &= ~0x200u;
     if ((raw_flags & 0x11) == 0) {
         // The item drop: sweep, divide by five, the score bookkeeping.
         int dropped = reinterpret_cast<PickupSweepResult_00428630*>(
-            &m->pickup_result_a)->Sweep(data_00477834, nullptr, nullptr);
+            &m->pickup_result_a)->Sweep(data_00477834, 0, 0);
         if (dropped != 0) {
             dropped /= 5;
-            void** game_thread = static_cast<void**>(data_004776f4);
-            if (*reinterpret_cast<unsigned char*>(static_cast<unsigned char*>(game_thread) + 0x378C) & 1) {
-                if (*reinterpret_cast<unsigned int*>(&flags) >> 24) {
-                    /* flags negative */
-                } else if (dropped <= 0) dropped = 1;
+            unsigned char* game_thread =
+                static_cast<unsigned char*>(data_004776f4);
+            if (game_thread[0x378C] & 1) {
+                if (static_cast<int>(*reinterpret_cast<unsigned int*>(&flags)) >= 0) {
+                    if (dropped <= 0) dropped = 1;
+                }
             }
-            if (!(raw_flags & 8) && enemy->reserved_13c4[0] == 0) {
-                // +0x1420 is the pause guard; the score decrement.
-            }
-            ScoreState_Add_00418b80(&data_00474c40, enemy->life);
+            // +0x1420 is the invulnerable timer's current frame: the
+            // score only drains while it is not running.
+            if (!(raw_flags & 8) && enemy->invulnerable_timer.current <= 0)
+                enemy->score -= dropped;
+            enemy_dropped_marker_00474c50 = 1;
+            ScoreState_Add_00418b80(reinterpret_cast<unsigned*>(&data_00474c40), enemy->life);
             if (Enemy_ReleaseOnDeath_0040e5f0(enemy) != 0)
                 return 1;
             *reinterpret_cast<unsigned int*>(&flags) |= 0x2000u;
-            data_00474c50 = data_00474c50;
         }
         if (!(m->mode_flags & 0x12) && enemy->death_effect <= 0)
             FieldContact_004266b0(data_00477834, &m->pickup_result_b,
@@ -342,8 +332,8 @@ __declspec(noinline) int __stdcall EnemyData_Start_0040dc80(
             m->off_screen_previous = state;
             ScriptChangeHandle handle;
             *reinterpret_cast<RecoveryScriptId_0040bd80*>(&handle) =
-                *reinterpret_cast<RecoveryScriptId_0040bd80*>(&enemy->animation_handles[0]);
-            handle.ChangeScript(enemy->script_change_a + step);
+                *reinterpret_cast<RecoveryScriptId_0040bd80*>(&m->animation_handles[0]);
+            handle.ChangeScript(m->script_change_a + step);
         }
     }
     // The eight animation positions.
@@ -360,20 +350,20 @@ __declspec(noinline) int __stdcall EnemyData_Start_0040dc80(
     }
     // The blink counter and the highlight sound.
     if (*reinterpret_cast<int*>(&enemy->death_callback) == 0) {
-        void* object = AnimationManager_Find_004491c0(data_00491c10,
-            *reinterpret_cast<unsigned*>(&enemy->animation_handles[0]));
+        void* object = AnimationManager_Find_004491c0(reinterpret_cast<void*>(data_00491c10),
+            *reinterpret_cast<unsigned*>(&m->animation_handles[0]));
         if (object == 0)
-            enemy->animation_handles[0] = 0;
+            m->animation_handles[0] = 0;
         if (raw_flags & 0x2000) {
             // The invulnerable highlight: color + flags + the countdown.
-            enemy->blink_countdown = 4;
+            m->blink_countdown = 4;
             if (raw_flags & 0x8000) {
                 SoundQueue_0043dd10* queue = reinterpret_cast<SoundQueue_0043dd10*>(0x492590);
                 queue->QueuePan(0x23, 0.0f);
             }
         }
     } else {
-        enemy->blink_countdown -= 1;
+        m->blink_countdown -= 1;
     }
     // The wait bookkeeping: the fractional and integer frame counts.
     {

@@ -9,7 +9,6 @@ struct EnemyDataMotion_0040dc80 {
     unsigned char reserved_044[0x58 - 0x44];
     float base_position[3];              // +0x58
     float base_polar[3];                 // +0x64
-    unsigned char reserved_070[0x70 - 0x70];
     float heading[2];                    // +0x70
     float heading_rate[2];               // +0x78
     unsigned char mode_flags;            // +0x80
@@ -67,6 +66,6 @@ struct EnemyDataMotion_0040dc80 {
 
 // 0x0040DC80: run the enemy's script up to its first wait. Nonzero when
 // the enemy finished (released or a script error).
-__declspec(noinline) int __stdcall EnemyData_Start_0040dc80(
+extern "C" __declspec(noinline) int __stdcall EnemyDataStart_0040dc80(
     EnemyData_0040cfb0* enemy);
 #endif
