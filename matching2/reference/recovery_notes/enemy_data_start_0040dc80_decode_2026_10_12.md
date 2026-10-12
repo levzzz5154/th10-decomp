@@ -226,3 +226,21 @@ Remaining ~284 bytes: the x87 clamp chains (124 B — the model expresses
 the clamp with float compares where retail uses the fild/fmul/fcom
 sequences), the script-change retry details (89 B), the div-5 (43 B),
 and the sweep-result handling (68 B) — all control-flow-shape work.
+
+## Growth iteration (2026-10-12, fifth)
+
+The sweep/score block now carries retail's exact control flow: the
+stage-mode test ([0x477834]+0x458 == 0 or 2 gates the division), the
+constant div-5 (dropped / 5, which c2 emits as the imul 0x66666667 magic),
+the practice clamp (the game flags bit 0/8 interaction with the negative
+enemy flags recomputing and clamping the count to ≥ 1), and the null
+receiver on the Sweep call. Body: 2,128 → 2,160.
+
+Note: expressing the magic multiply as a 64-bit literal drags in the CRT
+__allmul helper; the plain `/ 5` is what makes c2 emit retail's imul.
+
+Remaining ~252 bytes: the x87 clamp chains (124 B — the model expresses
+the clamp with float compares where retail uses the fild/fmul/fcom
+sequences), the script-change retry details (89 B), and the sweep
+argument layout (the retail call pushes the result buffer, center and
+manager with ECX = 0).

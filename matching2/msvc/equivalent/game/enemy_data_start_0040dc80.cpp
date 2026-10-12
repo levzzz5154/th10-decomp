@@ -326,14 +326,26 @@ extern "C" __declspec(noinline) int __stdcall EnemyDataStart_0040dc80(
     if ((raw_flags & 0x11) == 0) {
         // The item drop: sweep, divide by five, the score bookkeeping.
         int dropped = reinterpret_cast<PickupSweepResult_00428630*>(
-            &m->pickup_result_a)->Sweep(data_00477834, 0, 0);
+            0)->Sweep(data_00477834, 0, 0);
+        // The stage-select test: div 5 only when the mode is 0 or 2.
+        {
+            unsigned stage_mode = *reinterpret_cast<unsigned*>(
+                static_cast<unsigned char*>(data_00477834) + 0x458);
+            if (stage_mode == 2 || stage_mode == 0)
+                dropped /= 5;
+        }
         if (dropped != 0) {
-            dropped /= 5;
             unsigned char* game_thread =
                 static_cast<unsigned char*>(data_004776f4);
+            // The practice-flag clamp: keep at least one drop when the
+            // stage is a practice run on a negative-flagged enemy.
             if (game_thread[0x378C] & 1) {
-                if (static_cast<int>(*reinterpret_cast<unsigned int*>(&flags)) >= 0) {
-                    if (dropped <= 0) dropped = 1;
+                if (static_cast<int>(raw_flags) < 0) {
+                    int recalculated = dropped / 5;
+                    if (recalculated <= 0)
+                        dropped = 1;
+                    else
+                        dropped = recalculated;
                 }
             }
             // +0x1420 is the invulnerable timer's current frame: the
