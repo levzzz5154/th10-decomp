@@ -244,3 +244,17 @@ the clamp with float compares where retail uses the fild/fmul/fcom
 sequences), the script-change retry details (89 B), and the sweep
 argument layout (the retail call pushes the result buffer, center and
 manager with ECX = 0).
+
+## Growth iteration (2026-10-12, sixth)
+
+The clamp semantics corrected: the drift x pulls into
+[0x13AC ± 0x13B4·scale] (below → low, at-or-above high → high) and the y
+likewise against [0x13B0 ± 0x13B8·scale]; the base position recomputes
+from the clamped drift (the delta target +0x58, confirmed by the
+mov [edi],edx at 0x40DFCA with edi=+0x58). The scroll/delta block was
+rewritten to the same shape. Body: 2,128 (the corrections moved code
+without net growth — the blocks were already the right size).
+
+Remaining ~284 bytes: the script-change retry details (89 B), the sweep
+argument layout (68 B), and the row-loop structure (127 B) — all
+control-flow shapes, every callee/binding/convention in place.

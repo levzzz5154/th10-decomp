@@ -251,7 +251,8 @@ extern "C" __declspec(noinline) int __stdcall EnemyDataStart_0040dc80(
             m->heading_b[0] + m->heading_c[1]);
     }
     // PolarMotion::Advance on the base home, the scroll offset on the
-    // drift position, Advance on the drift home, then the field delta.
+    // drift position, Advance on the drift home, then the field delta
+    // (+0x58 = drift + base - snapshot).
     m->base_position[0] += m->base_polar[0];
     m->base_position[1] += m->base_polar[1];
     m->base_position[2] += m->base_polar[2];
@@ -263,9 +264,9 @@ extern "C" __declspec(noinline) int __stdcall EnemyDataStart_0040dc80(
     m->position_b[0] += m->base_position[0];
     m->position_b[1] += m->base_position[1];
     m->position_b[2] += m->base_position[2];
-    m->delta_a[0] = m->position_b[0] - reinterpret_cast<float*>(enemy)[11];
-    m->delta_a[1] = m->position_b[1] - reinterpret_cast<float*>(enemy)[12];
-    m->delta_a[2] = m->position_b[2] - reinterpret_cast<float*>(enemy)[13];
+    m->base_position[0] = m->position_b[0] - reinterpret_cast<float*>(enemy)[11];
+    m->base_position[1] = m->position_b[1] - reinterpret_cast<float*>(enemy)[12];
+    m->base_position[2] = m->position_b[2] - reinterpret_cast<float*>(enemy)[13];
     // The clamp path (flag 0x200): pull the drift x into
     // [0x13AC ± 0x13B4·scale] and the drift y into [0x13B0 ± 0x13B8·scale]
     // when the enemy moves relative to the scroll origin; the base
@@ -274,17 +275,17 @@ extern "C" __declspec(noinline) int __stdcall EnemyDataStart_0040dc80(
         float reach = m->clamp_rate_x * data_00470b0c;
         float low = m->clamp_x - reach;
         float high = m->clamp_x + reach;
-        if (m->position_b[0] < low || m->position_b[0] > high)
-            m->position_b[0] = (m->position_b[0] < low) ? low : high;
-        else
-            m->position_b[0] = m->clamp_x;
+        if (m->position_b[0] < low)
+            m->position_b[0] = low;
+        else if (m->position_b[0] >= high)
+            m->position_b[0] = high;
         reach = m->clamp_rate_y * data_00470b0c;
         low = m->clamp_y - reach;
         high = m->clamp_y + reach;
-        if (m->position_b[1] < low || m->position_b[1] > high)
-            m->position_b[1] = (m->position_b[1] < low) ? low : high;
-        else
-            m->position_b[1] = m->clamp_y;
+        if (m->position_b[1] < low)
+            m->position_b[1] = low;
+        else if (m->position_b[1] >= high)
+            m->position_b[1] = high;
         m->base_position[0] = m->position_b[0] - m->delta_a[0];
         m->base_position[1] = m->position_b[1] - m->delta_a[1];
         m->base_position[2] = m->position_b[2] - m->delta_a[2];
