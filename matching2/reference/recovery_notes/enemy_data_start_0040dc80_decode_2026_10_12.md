@@ -160,3 +160,22 @@ per motion), the exact trajectory-step call shapes, the pickup sweep's
 real argument layout, and the field-contact pair. Each is a source-level
 expression change against the decode in the first section; no new
 decodes are needed.
+
+## Gap breakdown (2026-10-12, block diff at 1,728/2,412)
+
+The 684 missing bytes decompose into eight blocks, each a faithful
+expression of the decode's sections:
+
+| retail block | bytes | decode section |
+|---|---|---|
+| 0x40DD69-0x40DDF5 + the row loop | 269 | base motion (the full per-row draw state) |
+| 0x40DFA8-0x40E012 | 124 | the x87 clamp chains (fild/fmul/fcom per axis) |
+| 0x40E044-0x40E0E9 | 89 | the script-change retry details |
+| 0x40E14E-0x40E16F | 43 | the score div-by-5 (imul 0x66666667) |
+| 0x40E107-0x40E141 | 68 | the pickup sweep result handling |
+| 0x40E261-0x40E2BD | 82 | the spell-timer advance |
+| 0x40E38B-0x40E3DB | 70 | the eight-position setter loop |
+| 0x40E43E-0x40E5C7 | 351 | the blink/queue and off-screen machine |
+
+All are source-level expression work against the decode; the bindings and
+conventions are already in place.

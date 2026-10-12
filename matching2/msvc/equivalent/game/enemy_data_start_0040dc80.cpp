@@ -47,6 +47,16 @@ struct Vec3Step {
 };
 extern "C" float __stdcall Angle_Normalize_0044bc70(float value);
 
+// The polar setter (0x0044C5D0, thiscall) and PolarMotion::Advance
+// (0x0044C2A0): the recovered members the two motions call.
+struct RecoveryPolarVector {
+    float x, y;
+    __declspec(noinline) RecoveryPolarVector* SetPolar(float angle, float radius);
+};
+struct PolarMotionAdv {
+    void Advance();
+};
+
 // 0x0042A3D0/0x0042A3E0/0x0042A430 are the scheduler callbacks; the node
 // initialization writes them directly.
 
@@ -182,14 +192,12 @@ extern "C" __declspec(noinline) int __stdcall EnemyDataStart_0040dc80(
         m->delta_a[1] = value->y - m->base_position[1];
         m->delta_a[2] = value->z - m->base_position[2];
     } else if (!(m->mode_flags & 1)) {
-        // SetPolar on the base position with zero z.
-        float angle = m->heading[0];
-        float speed = m->heading[1];
-        m->base_polar[0] = m->base_position[0];
-        (void)angle; (void)speed;
+        reinterpret_cast<RecoveryPolarVector*>(m->base_polar)->SetPolar(
+            m->heading[0], m->heading[1]);
+        m->base_polar[2] = 0.0f;
     } else {
-        m->heading_rate[0] += m->heading_rate[1];
-        m->heading[1] = Angle_Normalize_0044bc70(m->heading[0] + m->heading_rate[1]);
+        m->heading[0] += m->heading_rate[1];
+        m->heading[1] = Angle_Normalize_0044bc70(m->heading[0]);
     }
     // The drift position: the same treatment plus the scroll.
     if (m->drift_interp_enabled != 0) {
@@ -199,12 +207,12 @@ extern "C" __declspec(noinline) int __stdcall EnemyDataStart_0040dc80(
         m->position_b[1] = value->y - m->base_position[1];
         m->position_b[2] = value->z - m->base_position[2];
     } else if (!(m->mode_flags & 1)) {
-        float angle = m->heading_b[0];
-        float speed = m->heading_b[1];
-        (void)angle; (void)speed;
+        reinterpret_cast<RecoveryPolarVector*>(m->polar_b)->SetPolar(
+            m->heading_b[0], m->heading_b[1]);
+        m->polar_b[2] = 0.0f;
     } else {
-        m->polar_b[0] += m->heading_c[0];
-        m->heading_b[1] = Angle_Normalize_0044bc70(m->heading_b[0] + m->heading_c[1]);
+        m->heading_b[0] += m->heading_c[0];
+        m->heading_b[1] = Angle_Normalize_0044bc70(m->heading_b[0]);
     }
     // PolarMotion::Advance on both homes, the scroll offset, then the
     // field delta.
