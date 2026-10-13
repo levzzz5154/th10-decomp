@@ -36,8 +36,8 @@ complete lever history.
 
 | Region | Model state | Single remaining blocker |
 | --- | --- | --- |
-| 0x004067D0 Spawn (1,472B) | prologue byte-identical; -8 extent | loop-bottom epilogue merge (retail duplicates it) |
-| 0x00406D90 Tick (1,604B, approved extent) | size gate green | receiver in EBX vs retail EBP cascade |
+| 0x004067D0 Spawn (1,472B) | 1,476/1,472 (+4); frame 0x14 matches retail; one hoisted load; 394 diff lines | second hoisted load (the entry shape is composition-dependent on Tick's IL); the epilogue tail-merge; the register-assignment cascade |
+| 0x00406D90 Tick (1,604B, approved extent) | 1,564/1,604 (-40); the retail-matching head (the volatile guard + the commands-index read pinning the non-rotated form), the bottom polarity (jl back-edge), the verified int field stores, the sign carried across the ScanCells call, the prewritten shared pattern buffer | receiver-in-EBX vs retail EBP — traced to C2's frame-spill heuristic (the frame's +360 epilogue grant displaces the receiver's faster-decaying priority; retail's IL tipped the entry spill, mine doesn't); c2-level tooling territory |
 | 0x0044DF70 StartChild (550B) | 547 bytes, SpawnChild EXACT | selector/descriptor allocation order — proven not source-steerable (note Rounds 2–7, incl. priority trajectories + scope ladder) |
 | 0x0044A190 joystick poll (833B) | 833/833 bytes, 126/282 identical | parameter-lowering memory home (live-across-call AND written-after) — proven semantic, no spelling avoids it |
 | 0x0041CA80 laser script Run (1,272B) | full cluster, everything exact but one rename | pc/opcode ECX-EDX swap; contest gap 5332 quantified, flip needs the original's unseen construct |

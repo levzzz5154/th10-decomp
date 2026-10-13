@@ -81,6 +81,10 @@ __forceinline static float SpawnCommand_AimAngle(ProjectileSpawnRecord& record,
 #pragma code_seg(".text$00406d90_fn")
 void ProjectileCommandRuntime::Tick() {
     ProjectileSpawnRecord& record = *reinterpret_cast<ProjectileSpawnRecord*>(this);
+    SpawnCommandRecord* const commands_base = &record.commands[0];
+    __declspec(align(8)) unsigned int pattern_words[132];
+    unsigned int* const pattern_base = pattern_words;
+    pattern_words[0] = 0;
     if (*reinterpret_cast<volatile int*>(&record.command_index) >= 18)
         return;
     for (;;) {
@@ -188,10 +192,9 @@ void ProjectileCommandRuntime::Tick() {
             data_00492590.QueuePan(command.value_c, record.position.x);
             goto bottom;
         case 0x400000: {
-            __declspec(align(8)) unsigned int pattern_words[132];
-            memset(pattern_words, 0, 0x210);
+            memset(pattern_base, 0, 0x210);
             SpawnScanPattern& pattern =
-                *reinterpret_cast<SpawnScanPattern*>(pattern_words);
+                *reinterpret_cast<SpawnScanPattern*>(pattern_base);
             const SpawnCommandRecord& next = (&command)[1];
             const SpawnCommandRecord* current = &command;
             pattern.x = record.position.x;

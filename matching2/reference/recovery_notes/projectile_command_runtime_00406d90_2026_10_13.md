@@ -484,3 +484,200 @@ loop stops the process, so use `break` BEFORE the c2 load by breaking on
 the LoadLibrary path or accept the sub-second window with a fast script).
 Alternatively trace the COMPILE phase (the allocator may also run there
 for non-/GL TUs) with a big multi-file compile to widen the window.
+
+## 2026-10-14 addendum 11: THE TRACER WORKS — the receiver-keystone mechanism captured
+
+The window-widening solved it: 60 unity copies of the tick source compiled in
+ONE cl invocation (~7.4s) widened the c2 window enough for the gdb+winedbg--gdb
+tracer to capture 4000 events; then the REAL tick source's single compile gave
+2486 events (the full priority walk). The breakpoint addresses
+(0x107A991C/0x107A997E) are CONFIRMED on the compile path — the earlier misses
+were the sub-second single-TU window racing the breakpoint arming.
+
+The candidate-struct decode at the breakpoint (c2 RVA 0xA991C is the
+live-range bookkeeping: [a+0xc] += [a+0x18] * edx, the priority accumulator):
+- num ([a+0x1c]) = the variable id (not the register)
+- f18 ([a+0x18]) = the per-event increment (weight × loop factor)
+- w ([a+0x40]) = the candidate's loop-depth weight
+- prio ([a+0xc]) = the running priority
+- ADD = priority grants; SUB = the per-block decay
+
+THE MECHANISM (the two whole-function candidates):
+- var 31 (w=12 — the deeper/loop-weighted candidate = the RECEIVER): 88 SUB
+  decays vs 15 ADDs, ending at prio=-182 → it LOSES the register race.
+- var 40 (w=8 — the shallower candidate = the ALIGNED FRAME POINTER): 37 SUBs
+  + a final ADD with w=144 prio=+360 — a huge epilogue grant (the `mov ebp,esp`
+  frame restore USE) → it WINS and holds EBP.
+Retail's compiler SPILLS the aligned frame pointer to the stack at entry (the
+second `push ebp`): the frame value lives in a stack slot, the register
+candidate DIES (no exit grant), and the receiver — despite its faster decay —
+takes EBP. My model's lower entry pressure leaves the frame in a register,
+whose epilogue use grants +360 and displaces the receiver to EBX.
+
+THE SPELLING TARGET (now precise): raise the entry pressure so the compiler
+spills the aligned frame pointer at entry (retail's `push ebp` form) — the
+exit's frame use then reads the stack, no grant happens, and the receiver
+takes EBP. The observable: the exit form `pop edi,esi,ebp,ebx; mov esp,ebp`
+(the spill form) instead of `pop edi,esi,ebx; mov ebp,esp`.
+
+## 2026-10-14 addendum 12: the grant-stability experiments (all null)
+
+Three spellings aimed at the var-40 frame grant all left the allocator's
+scoring byte-identical (var 31: 3260 ADD-grants → prio -182; var 40: 2518 →
+the +360 epilogue grant):
+- an early 5th entry value (the pre-computed commands base) — folded into
+  the loop-head lea;
+- the commands reads routed through the base local — the compiler
+  propagates the const (it equals receiver+0x464);
+- the receiver-probe delta test — the scores are config-level, not
+  use-count-level.
+
+The mechanism is now fully mapped: the frame's EBP residency is fixed by
+the `mov ebp,esp` prologue convention; the allocator's second-push spill
+(the retail form) fires when it judges the frame not worth a register —
+in retail's IL the judgment differed, in mine it doesn't, and no source
+spelling tested moved it. The var-40/var-31 grant data from the tracer is
+the definitive map of the remaining delta.
+
+FINAL PAIR STATE: Spawn 1476/1472 (+4, frame 0x14, one hoist); Tick
+1596/1604 (-8, the retail-matching bottom polarity, the int stores, the
+sign carry, 420/421 instructions). The keystone residual is the allocator's
+frame-worth judgment, observable but not source-controllable with the
+spellings tested.
+
+## 2026-10-14 addendum 13: the entry-pressure tests and the buffer hoist
+
+- The entry-scoped case reads (the 0x400000 case's opening values) were DCE'd
+  as dead code — no pressure change.
+- The pattern buffer hoisted to entry scope (one allocation shared by the
+  0x400000 case instead of a per-case frame slot): Tick 1596→1592 (-4) — the
+  frame slot merged. The prologue is unchanged (still no spill form).
+- The record spelled as a pointer local: folded into the receiver (same
+  value), 1592 unchanged.
+
+Retail's EBX census (from the retail disassembly): EBX is NOT a fifth
+whole-function value — it carries the SIGN (and $0x80000000; test %ebx,%ebx)
+across the ScanCells call, case-local. Retail's register budget: ebp=receiver,
+esi=command, edi=zero, ebx=sign(case-local), frame=SPILLED. The spill fired
+with only two whole-function candidates — the receiver's priority at its
+defining copy must have exceeded the frame's in retail's IL. My tracer shows
+both at 48 at the copy with the frame later recharged +360 at its epilogue
+use. The initial-grant weight (w=12 vs the frame's w=8) already favors the
+receiver; the missing differential is inside C2's assignment order, which the
+spellings tested do not reach.
+
+STATE: Tick 1592/1604 (-12), Spawn 1476/1472 (+4).
+
+## 2026-10-14 addendum 14: the creation-order lever, the buffer write, and the link-trace boundary
+
+The frame-first write (pattern_words[0] = 0 before the guard) moved the
+prologue's schedule (the receiver copy now sits AFTER the push esi — the
+eager-saves shape emerging) and merged 28 more bytes (1592→1564). The
+compile-side grants are invariant (var 31 → -182, var 40 → +360) — the
+scoring is an IL property, fixed before allocation.
+
+The link-phase trace attempt: the direct link under winedbg --gdb ran ONCE
+for 11.3s (the window exists) but the first stop reads pc=0 through the
+remote stub and subsequent runs die at launch (~2.2s, "The program is not
+being run") — link.exe's /LTCG backend appears to run in a child process
+the debugger session loses, or the killed first run poisoned the state.
+
+THE STRUCTURAL BOUNDARY: the compile-side trace measures the per-function
+priority data correctly (the same c2, the same struct), but the receiver-
+in-EBP decision happens at the LINK, where the anchors are INLINED into
+Tick's IL — the link's Tick body has more pressure than the compile-side
+IL shows. The compile-tuned spellings cannot observe the link-side IL.
+
+FINAL STATE: Spawn 1476/1472 (+4); Tick 1564/1604 (-40 — the buffer write
++ the hoist + the polarity + the rotation pins). The prologue now shows the
+emerging eager-saves order. The keystone (receiver-in-EBP) requires the
+link-phase IL — tracer-blocked by the child-process flake, or reachable by
+reproducing the anchor-inlined IL at compile time (manually inlining the
+anchors into the tick source and re-tracing — the next session's opening
+move).
+
+## 2026-10-14 addendum 15: the unity-inlined-TU attempt (blocked) and the closing state
+
+The link-side IL reproduction attempt: a single TU with the anchors first,
+then the spawn, then the tick — so /O2's inliner sees the anchor bodies
+before their call sites (reproducing what the /LTCG link does). Three
+rounds of assembly fixes (the tick-source duplicate in additional_sources
+— the manifest lists the selected function as its own context; the
+struct-redefinition dedup; the helper dedup) hit a hard blocker: the
+recovery headers DECLARE functions with type modifiers that conflict with
+the source definitions when both appear in one TU (SpawnPatternCell_004067d0
+declared __stdcall in enemy_grid_scan_004073e0.hpp vs the source's
+declaration). The unity TU needs the header contracts aligned — a
+structural cleanup beyond this session's scope.
+
+The manifest fact discovered: additional_sources contains the SELECTED
+function's own source (projectile_command_runtime.cpp lists itself as
+context) — the schema-2 mechanism; the unity assembler must dedupe it.
+
+CLOSING STATE: Spawn 1476/1472 (+4); Tick 1564/1604 (-40) with the
+retail-matching bottom polarity, the int stores, the sign carry, the
+prewritten shared pattern buffer, and the emerging eager-saves prologue.
+The tracer (gdb + winedbg --gdb + the window widening) and the full
+priority-walk mechanism are delivered and reusable; the link-phase IL
+remains observable only at the link (the child-process flake) or via the
+unity TU after the header-contract cleanup.
+
+## 2026-10-14 addendum 16: the unity TU compiles — the inlined-IL invariance
+
+The header-contract alignment (enemy_grid_scan_004073e0.hpp's
+SpawnPatternCell declaration aligned to the source's form — the __stdcall
+qualifier removed; the header copy is manifest-local and the source
+definitions are what compile) unblocked the unity TU: it compiles clean
+(rc=0, 12641 bytes after the struct dedup).
+
+The traced unity compile (the anchors inlined before their call sites —
+the link-side IL proxy): 2486 events, and the priority structure is
+IDENTICAL to the plain tick trace (var 31 → -182, var 40 → +360, the same
+grant pattern). THE ANCHOR INLINING DOES NOT CHANGE THE PRIORITY WALK —
+the frame-worth judgment is invariant under the inlined IL.
+
+Closing characterization: the receiver-vs-frame decision in retail's link
+was made from the same priority data my compile shows; the divergence is
+in C2's frame-spill heuristic interacting with the and-alignment epilogue
+form — not in the priority data, not in the block layout, not in the
+inlined-IL pressure. The heuristic is the last unexplored internal; the
+tracer data and the recipes are delivered for whoever attacks it with a
+c2-level tool.
+
+FINAL SESSION STATE: Spawn 1476/1472 (+4); Tick 1564/1604 (-40) with the
+retail-matching structure everywhere except the receiver register and the
+frame slot.
+
+## Continuation recipe index (complete)
+
+1. **Iteration loop**: scratch/projectile/{spawn_golf.cpp,tick_golf.cpp} are
+   the working models; `cp tick_golf.cpp scratch/projectile/msvc/src/game/
+   projectile_command_runtime.cpp` (spawn likewise) then
+   `PYTHONPATH=. python3 matching2/tools/matching/probe.py --project
+   scratch/projectile/msvc --source src/game/<src>.cpp --output
+   matching2/build/probe-spawn`. NOTE: sync.sh does NOT copy tick_golf.cpp —
+   the tick sync is manual.
+2. **Compile tracer** (works, validated): launch
+   `winedbg --gdb --no-start cl.exe <args>`; parse the port from stdout;
+   run the gdb script (/tmp/gdb_single2.gdb.py is the working template:
+   hbreak *0x107a991c / *0x107a997e, continue-loop, read
+   [a+0x1c]=num [a+0x18]=f18 [a+0x40]=w [a+0xc]=prio). For short compiles
+   widen the window: N unity copies of the source compiled in ONE cl
+   invocation (~7.4s for 60) — /tmp/gdb_bulk.gdb.py.
+3. **Link tracer** (blocked): the direct link under winedbg --gdb ran once
+   for 11.3s then died consistently — the /LTCG backend appears to fork a
+   child the session loses. The batch-file route also dies. Retry with a
+   fresh process state or a child-following debugger.
+4. **Unity-inlined TU** (the link-side IL proxy at compile time): the
+   assembler dedup rules — (a) remove the selected function's own source
+   from additional_sources (the manifest lists it as its own context);
+   (b) skip duplicate struct/class blocks; (c) skip the duplicate
+   SpawnCommand_AimAngle helper; (d) hoist all #includes to the top. The
+   header-contract alignment: enemy_grid_scan_004073e0.hpp's
+   SpawnPatternCell declaration must match the source's form (no __stdcall) —
+   the manifest-local header copies are editable.
+5. **The proven spelling levers** (in effect in the current models): the
+   volatile guard + the volatile commands-index read (the rotation pins),
+   the bottom-check polarity inversion (goto top), the goto-bottom case
+   exits, the prewritten shared pattern buffer, the entry-copy lever on
+   Spawn, the int field types in the header.

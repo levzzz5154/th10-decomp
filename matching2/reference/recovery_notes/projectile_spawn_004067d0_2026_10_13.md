@@ -274,3 +274,14 @@ is updated (field_6d8/6dc/7dc/6a4/6f8/710/turn_420 → int). Size consequence:
 the Tick allocation GREW +24 (1608→1628) — the whole-program allocator
 reshuffled; the case-order convergence (the shared timer-reset jump target)
 is the next lever to recover the bytes.
+
+## 2026-10-14 addendum: the volatile fold-defeater on the epilogue merge (negative)
+
+Making the loop-bottom fail path's return value a distinct volatile expression
+(`volatile int failed_loop = 1; return failed_loop;`) grew Spawn 1476→1496
+(+20 over the pre-test state): the volatile forces a memory round-trip that
+outweighs any epilogue-merge differentiation. The tail-merge differentiation
+lever is closed for this function — the two fail paths' value producers are
+already distinguishable to the allocator (both `return 1` constants fold into
+the same epilogue because C2's tail-merge fires on the BLOCK equality, not the
+value provenance, and the volatile defeat costs more than the merge saves).
