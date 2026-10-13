@@ -40,4 +40,4 @@ full:
 // Whole-program context: the panned sound queue anchor whose body the /GL
 // pass needs to derive the retail register state at the call above. None of
 // these bytes are exported as recovered code.
-#include "../../layout/ltcg/projectile_spawn_runtime/queue_pan.cpp"
+
