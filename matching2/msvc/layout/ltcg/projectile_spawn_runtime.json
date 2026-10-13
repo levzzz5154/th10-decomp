@@ -1,19 +1,19 @@
 {
-  "schema_version": 2,
+  "schema_version": 1,
   "name": "projectile_spawn_runtime",
   "source": "src/game/enemy_projectile_spawn.cpp",
   "additional_sources": [
-    "src/game/enemy_grid_scan.cpp",
     "src/game/projectile_command_runtime.cpp"
   ],
   "included_sources": [
     "layout/ltcg/projectile_spawn_runtime/start_script.cpp",
     "layout/ltcg/projectile_spawn_runtime/polar_set.cpp",
-    "layout/ltcg/projectile_spawn_runtime/queue_pan.cpp",
     "layout/ltcg/projectile_spawn_runtime/scheduler_set.cpp",
     "layout/ltcg/projectile_spawn_runtime/activate.cpp",
     "layout/ltcg/projectile_spawn_runtime/angle_from_point.cpp",
-    "layout/ltcg/projectile_spawn_runtime/queue.cpp"
+    "layout/ltcg/projectile_spawn_runtime/queue.cpp",
+    "src/game/enemy_grid_scan.cpp",
+    "layout/ltcg/projectile_spawn_runtime/queue_pan.cpp"
   ],
   "headers": [
     "include/th10/game/projectile_spawn_runtime_004067d0.hpp",
@@ -28,8 +28,7 @@
     "include/th10/platform/sound_queue.hpp"
   ],
   "image_base": "0x400000",
-  "description": "The projectile spawn graph as one whole-program link: the grid scanner 0x004073E0 (entry), the cell spawner 0x004067D0 whose blueprint retail keeps in EBX, and the command interpreter 0x00406D90 whose retail section includes its two dispatch tables (region extended to the complete 1604-byte contribution), plus the scheduler setter (EAX receiver), score polar setter, aim-angle helper, vanish activation and sound queue pair as ABI anchors with the retail register states.",
-  "entry": "?EnemyGrid_ScanCells_004073e0@@YGHPAUProjectilePattern_004073e0@@PAUProjectileManager_004073e0@@@Z",
+  "description": "The projectile spawn graph as one whole-program link: the command interpreter 0x00406D90 (link entry; every function is reachable from its loop), the cell spawner 0x004067D0 whose blueprint retail keeps in EBX, and the command interpreter 0x00406D90 whose retail section includes its two dispatch tables (region extended to the complete 1604-byte contribution), plus the scheduler setter (EAX receiver), score polar setter, aim-angle helper, vanish activation and sound queue pair as ABI anchors with the retail register states.",
   "functions": [
     {
       "name": "SpawnPatternCell_004067d0",
@@ -40,15 +39,6 @@
       "actual_abi": "blueprint in EBX; manager, column, row and aim on the stack; RET 16"
     },
     {
-      "name": "EnemyGrid_ScanCells_004073e0",
-      "source": "src/game/enemy_grid_scan.cpp",
-      "symbol": "?EnemyGrid_ScanCells_004073e0@@YGHPAUProjectilePattern_004073e0@@PAUProjectileManager_004073e0@@@Z",
-      "section": ".text$004073e0_fn",
-      "address": "0x004073E0",
-      "size": 194,
-      "actual_abi": "pattern in EAX; manager on the stack; RET 4"
-    },
-    {
       "name": "ProjectileCommandRuntime_Tick_00406d90",
       "source": "src/game/projectile_command_runtime.cpp",
       "symbol": "?Tick@ProjectileCommandRuntime@@QAEXXZ",
@@ -56,20 +46,6 @@
       "address": "0x00406D90",
       "size": 1604,
       "actual_abi": "record in ECX; realigned frame with compiler tables in-section; plain RET"
-    }
-  ],
-  "calls": [
-    {
-      "caller": "?EnemyGrid_ScanCells_004073e0@@YGHPAUProjectilePattern_004073e0@@PAUProjectileManager_004073e0@@@Z",
-      "callee": "?SpawnPatternCell_004067d0@@YGHPAUProjectilePattern_004073e0@@PAUProjectileManager_004073e0@@HHM@Z",
-      "address": "0x00407458",
-      "instruction": "call"
-    },
-    {
-      "caller": "?SpawnPatternCell_004067d0@@YGHPAUProjectilePattern_004073e0@@PAUProjectileManager_004073e0@@HHM@Z",
-      "callee": "?Tick@ProjectileCommandRuntime@@QAEXXZ",
-      "address": "0x00406D10",
-      "instruction": "call"
     }
   ],
   "anchors": [
@@ -147,8 +123,8 @@
     },
     {
       "section": ".text$004074a2_a",
-      "address": "0x004074A2",
-      "size": 2958
+      "address": "0x004074B2",
+      "size": 2942
     },
     {
       "section": ".text$004080fa_a",
@@ -166,9 +142,9 @@
       "size": 95725
     },
     {
-      "section": ".text$0043dd0d_a",
-      "address": "0x0043DD0D",
-      "size": 3
+      "section": ".text$0043dd0b_a",
+      "address": "0x0043DD0B",
+      "size": 5
     },
     {
       "section": ".text$0043dd9a_a",
@@ -345,5 +321,13 @@
       "address": "0x0",
       "kind": "metadata"
     }
-  ]
+  ],
+  "driver": "layout/ltcg/projectile_spawn_runtime/driver.cpp",
+  "context": {
+    "symbol": "?EnemyGrid_ScanCells_004073e0@@YGHPAUProjectilePattern_004073e0@@PAUProjectileManager_004073e0@@@Z",
+    "section": ".text$004073e0_fn",
+    "address": "0x004073E0",
+    "size": 210,
+    "description": "The verbatim grid scanner compiled inside the driver TU beside the real cell spawner; placed at the retail scanner address so the interpreter's call displacement bakes correctly, but never selected as recovered code (the outer link takes the scanner's bytes from the registered enemy_grid_scan cluster)."
+  }
 }

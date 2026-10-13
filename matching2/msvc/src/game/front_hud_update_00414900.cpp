@@ -13,75 +13,68 @@
 
 namespace {
 
-// The play-state record behind 0x00477834: gauge thresholds live at +0x3C0
-// and the score-driven gauge numerator/denominator at +0x23FC/+0x2400.
+// The play-state record behind 0x00477834.
 struct PlayState_00477834 {
     unsigned char pad_0000[0x10];
-    int field_10;                            // +0x10
+    int field_10;
     unsigned char pad_0014[0x3C0 - 0x14];
-    float field_3C0;                         // +0x3C0
-    float field_3C4;                         // +0x3C4
+    float field_3C0;
+    float field_3C4;
     unsigned char pad_03c8[0x23FC - 0x3C8];
-    int field_23FC;                          // +0x23FC gauge numerator
-    int field_2400;                          // +0x2400 gauge denominator
+    int field_23FC;
+    int field_2400;
 };
 
-// The sequence record behind 0x00477704; +0x10 names the active script body.
+// The sequence record behind 0x00477704.
 struct SequenceRecord_00477704 {
     unsigned char pad_0000[0x10];
-    unsigned char* field_10;                 // +0x10 script body
+    unsigned char* field_10;
     unsigned char pad_0014[0x38 - 0x14];
-    int field_38;                            // +0x38
+    int field_38;
 };
 
 // The script body the sequence record points at.
 struct ScriptBody {
     unsigned char pad_0000[0x1068];
-    float boss_y_1068;                       // +0x1068 boss anchor height
+    float boss_y_1068;
     unsigned char pad_106c[0x23FC - 0x106C];
-    int gauge_value_23fc;                    // +0x23FC gauge numerator
-    int gauge_range_2400;                    // +0x2400 gauge denominator
-    int gate_frame_2404;                     // +0x2404 banner gate frame
+    int gauge_value_23fc;
+    int gauge_range_2400;
+    int gate_frame_2404;
     unsigned char pad_2408[0x2480 - 0x2408];
-    unsigned int flags_2480;                 // +0x2480 banner mode bits
+    unsigned int flags_2480;
 };
 
-// The animation runtime sub-record the sequence handle (front+0x9EB8) names:
-// a frame ramp at +0x04 (previous/current/elapsed/speed) and the six release
-// slots at +0x40..+0x54.
+// The animation runtime sub-record at front+0x9EB8.
 struct SequenceRuntime {
     unsigned char pad_0000[4];
-    int ramp_previous;                       // +0x04
-    int ramp_current;                        // +0x08
-    float ramp_elapsed;                      // +0x0C
-    const float* ramp_speed;                 // +0x10
+    int ramp_previous;
+    int ramp_current;
+    float ramp_elapsed;
+    const float* ramp_speed;
     unsigned char pad_0014[0x40 - 0x14];
-    unsigned int slots[6];                   // +0x40
+    unsigned int slots[6];
 };
 
-// The two-list animation registration the fresh objects go through; the node
-// overlays the entity's manager bookkeeping (entity+0x04).
+// The two-list animation registration.
 struct AnimationListNode {
-    Entity* object;                          // +0x00 (entity handle word)
-    AnimationListNode* next;                 // +0x04
-    AnimationListNode* previous;             // +0x08
+    Entity* object;
+    AnimationListNode* next;
+    AnimationListNode* previous;
 };
 
 struct AnimationLists {
     unsigned char reserved[0x72DAD4];
-    AnimationListNode* primary_head;         // +0x72DAD4
-    AnimationListNode* primary_tail;         // +0x72DAD8
-    AnimationListNode* secondary_head;       // +0x72DADC
+    AnimationListNode* primary_head;
+    AnimationListNode* primary_tail;
+    AnimationListNode* secondary_head;
     unsigned char reserved_72dae0[0x732454 - 0x72DAE0];
-    unsigned int next_id;                    // +0x732454
+    unsigned int next_id;
 };
 
-// The lookup walk the retail body inlines at every user: the primary bucket
-// and then the secondary bucket of the animation manager.
+// The lookup walk the retail body inlines at every user.
 __forceinline AnimationTreeNode* FindTree(unsigned int handle) {
-    if (handle == 0) {
-        return 0;
-    }
+    if (handle == 0) return 0;
     AnimationLists* lists = (AnimationLists*)data_00491c10;
     for (AnimationListNode* node = lists->primary_head; node != 0; node = node->next)
         if (*(int*)node->object == (int)handle)
@@ -92,22 +85,7 @@ __forceinline AnimationTreeNode* FindTree(unsigned int handle) {
     return 0;
 }
 
-// Flag one animation tree (and its unflagged children) for removal.
-__forceinline void FlagTreeFlags(unsigned int handle) {
-    AnimationTreeNode* node = FindTree(handle);
-    if (node != 0) {
-        *(unsigned int*)((char*)node + 0x35C) |= 0x4000000u;
-        if (!node->children_flagged) {
-            for (AnimationTreeNode* child = node->children;
-                 child != 0; child = child->next)
-                *(unsigned int*)((char*)child->object + 0x35C) |= 0x4000000u;
-        }
-    }
-}
-
-// Flag one animation tree's stop frame; the three constants get their own
-// complete expansions so the frame value rematerializes at each store like
-// retail instead of being hoisted into a callee-saved register.
+// Flag one animation tree's stop frame.
 __forceinline void FlagStopFrame1(unsigned int handle) {
     AnimationTreeNode* node = FindTree(handle);
     if (node != 0) {
@@ -144,8 +122,20 @@ __forceinline void FlagStopFrame3(unsigned int handle) {
     }
 }
 
-// Register one fresh object and return its new handle (the inlined list
-// insertion and id counter the retail body repeats).
+// Flag one animation tree (and its unflagged children) for removal.
+__forceinline void FlagTreeFlags(unsigned int handle) {
+    AnimationTreeNode* node = FindTree(handle);
+    if (node != 0) {
+        *(unsigned int*)((char*)node + 0x35C) |= 0x4000000u;
+        if (!node->children_flagged) {
+            for (AnimationTreeNode* child = node->children;
+                 child != 0; child = child->next)
+                *(unsigned int*)((char*)child->object + 0x35C) |= 0x4000000u;
+        }
+    }
+}
+
+// Register one fresh object and return its new handle.
 inline unsigned int RegisterFreshObject(Entity* object, FrontHudRuntime* front) {
     AnimationListNode* node = (AnimationListNode*)&object->manager_node_animation;
     node->object = object;
@@ -165,8 +155,11 @@ inline unsigned int RegisterFreshObject(Entity* object, FrontHudRuntime* front) 
         node->previous = tail;
     }
     lists->primary_tail = node;
-    if (++lists->next_id == 0) {
-        ++lists->next_id;
+    unsigned int id = lists->next_id + 1;
+    lists->next_id = id;
+    if (id == 0) {
+        id = 1;
+        lists->next_id = id;
     }
     object->animation_handle = (int)lists->next_id;
     return lists->next_id;

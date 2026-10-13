@@ -280,8 +280,104 @@
       "address": "0x0",
       "kind": "data"
     },
+    "?AddScore@ScoreState@@QAEXH@Z": {
+      "address": "0x00409D90",
+      "kind": "code"
+    },
+    "?Advance@FrameTimer@@QAEXM@Z": {
+      "address": "0x0044BF40",
+      "kind": "code"
+    },
+    "?AdvanceLevel@DispatcherRankState@@QAEXXZ": {
+      "address": "0x004175E0",
+      "kind": "code"
+    },
+    "?Allocate@AnimationPool@@QAEPAUEntity@@XZ": {
+      "address": "0x449950",
+      "kind": "code"
+    },
+    "?AnimationManager_Find_004491c0@@YIPAXPAUAnimationLookupContext@@UAnimationScriptId@@@Z": {
+      "address": "0x4491c0",
+      "kind": "code"
+    },
+    "?ConfigureObject@Resource_0043e5a0@@QAEHPAUAnimationObject_0043e5a0@@H@Z": {
+      "address": "0x0043E5A0",
+      "kind": "code"
+    },
+    "?CreateScreenEffect_0043c8b0@@YGPAUScreenEffectController_0043c970@@HHHHHH@Z": {
+      "address": "0x0043C8B0",
+      "kind": "code"
+    },
+    "?DispatcherCreateAnimation@@YG?AUDispatcherRef@@PAUAnimationResource_00449870@@HH@Z": {
+      "address": "0x00448D00",
+      "kind": "code"
+    },
+    "?DispatcherRemoveAnimation@@YIPAXPAUAnimationLookupContext@@UAnimationScriptId@@@Z": {
+      "address": "0x004492A0",
+      "kind": "code"
+    },
+    "?DispatcherSetPosition@@YGXPBUDispatcherVec3@@PAUAnimationLookupContext@@UAnimationScriptId@@@Z": {
+      "address": "0x004492F0",
+      "kind": "code"
+    },
+    "?FindChildRef@DispatcherHandle@@QAE?AUDispatcherRef@@H@Z": {
+      "address": "0x004497D0",
+      "kind": "code"
+    },
     "?InitializeObject@AnimationResource_00449870@@QAEXPAUEntity@@H@Z": {
       "address": "0x449870",
+      "kind": "code"
+    },
+    "?MarkText@RecoveryTextVm_00447a50@@QAAXPAXZZ": {
+      "address": "0x00447A50",
+      "kind": "code"
+    },
+    "?OpenResult@PauseOpenState@@QAEXXZ": {
+      "address": "0x00423370",
+      "kind": "code"
+    },
+    "?Path_DecodeXor@@YGPADPBD@Z": {
+      "address": "0x00417010",
+      "kind": "code"
+    },
+    "?Queue@SoundQueue@@QAEHHH@Z": {
+      "address": "0x0043DC90",
+      "kind": "code"
+    },
+    "?SelectCurrentSprite@DispatcherRef@@QAEXH@Z": {
+      "address": "0x00449670",
+      "kind": "code"
+    },
+    "?SelectResourceSprite@DispatcherRef@@QAEXPAUAnimationResource_00449870@@H@Z": {
+      "address": "0x004496A0",
+      "kind": "code"
+    },
+    "?SetInputMode@@YGXPAUDispatcherInputState@@H@Z": {
+      "address": "0x0040AC90",
+      "kind": "code"
+    },
+    "?SetSchedulerValue@DispatcherWaitTimer@@QAEXH@Z": {
+      "address": "0x00405410",
+      "kind": "code"
+    },
+    "?SetStopFrame@DispatcherHandle@@QAEXF@Z": {
+      "address": "0x00449470",
+      "kind": "code"
+    },
+    "?StopAtFrame1@DispatcherHandle@@QAEXXZ": {
+      "address": "0x00409E50",
+      "kind": "code"
+    },
+    "?StopAtFrame2@DispatcherHandle@@QAEXXZ": {
+      "address": "0x0040C480",
+      "kind": "code"
+    },
+    "?StopAtFrame3@DispatcherHandle@@QAEXXZ": {
+      "address": "0x0040C4D0",
+      "kind": "code"
+    },
+    "?Tick@FrameTimer@@QAEXXZ": {
+      "address": "0x00404ED0",
       "kind": "code"
     },
     "_AnmVm_Run_0043ee30@4": {
@@ -364,16 +460,8 @@
       "address": "0x00474C4C",
       "kind": "data"
     },
-    "_data_004776e0": {
-      "address": "0x004776E0",
-      "kind": "data"
-    },
     "_data_004776f4": {
       "address": "0x004776F4",
-      "kind": "data"
-    },
-    "_data_00477810": {
-      "address": "0x00477810",
       "kind": "data"
     },
     "_data_00491fb8": {
@@ -485,7 +573,7 @@
     "?RecoveryDispatchText_004479d0@@YGXPAURecoveryTextResource_004479d0@@PAXHHIPBDH@Z": "0x004479D0",
     "?MarkText@RecoveryTextVm_00447a50@@QAAXPAXZZ": "0x00447A50",
     "?Configure@ScreenEffectController_0043c970@@QAEXHHHHHH@Z": "0x0043C970",
-    "?CreateScreenEffect_0043c8b0@@YGPAUScreenEffectController_0043c970@@HHHHHH@Z": "0x43c8b0",
+    "?CreateScreenEffect_0043c8b0@@YGPAUScreenEffectController_0043c970@@HHHHHH@Z": "0x0043C8B0",
     "_Scheduler_RegisterPrimary@12": "0x449ae0",
     "_Scheduler_RegisterSecondary@12": "0x449b70",
     "?CreateEffectPrimary@@YGPAUSchedulerTask@@PAXH0@Z": "0x44a000",
@@ -516,9 +604,7 @@
     "_data_00470d10": "0x00470D10",
     "_data_00474c40": "0x00474C40",
     "_data_00474c4c": "0x00474C4C",
-    "_data_004776e0": "0x004776E0",
     "_data_004776f4": "0x004776F4",
-    "_data_00477810": "0x00477810",
     "_data_00491fb8": "0x00491FB8",
     "_data_00491ff4": "0x00491FF4"
   },

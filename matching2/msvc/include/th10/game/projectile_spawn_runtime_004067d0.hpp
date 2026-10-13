@@ -153,7 +153,7 @@ struct ProjectileBlueprint_004067d0 {
     unsigned char reserved_1d0[0x1F4 - 0x1D0];
     short columns;                              // 0x1F4
     short rows;                                 // 0x1F6
-    short layout;                               // 0x1F8
+    unsigned short layout;                      // 0x1F8, zero-extended by the switch
     unsigned char reserved_1fa[2];
     unsigned int flags;                         // 0x1FC
     int sound;                                  // 0x200

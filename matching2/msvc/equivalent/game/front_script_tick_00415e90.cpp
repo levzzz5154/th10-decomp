@@ -183,118 +183,117 @@ ResultDispatcher_00415e90(ResultDispatcherState* state) {
                 break;
             case 13: {
                 unsigned int mode = data_00474c68;
-                AnimationResource_00449870* resource = data_00477704->resource;
                 switch (data_00474c7c) {
                 case 1:
                     if (mode == 1) {
                         state->right_portrait.FindChildRef(24).SelectResourceSprite(
-                            resource, state->command->first_operand + 0xf);
+                            data_00477704->resource, state->command->first_operand + 0xf);
                         state->right_portrait.FindChildRef(27).SelectResourceSprite(
-                            resource, state->command->first_operand + 0x17);
+                            data_00477704->resource, state->command->first_operand + 0x17);
                     }
                     if (mode == 1) {
                         state->right_portrait.FindChildRef(24).SelectResourceSprite(
-                            resource, state->command->first_operand + 0xf);
+                            data_00477704->resource, state->command->first_operand + 0xf);
                         state->right_portrait.FindChildRef(27).SelectResourceSprite(
-                            resource, state->command->first_operand + 0x17);
+                            data_00477704->resource, state->command->first_operand + 0x17);
                     }
                     break;
                 case 2:
                     if (mode == 0) {
                         state->right_portrait.FindChildRef(24).SelectResourceSprite(
-                            resource, state->command->first_operand + 0x15);
+                            data_00477704->resource, state->command->first_operand + 0x15);
                         state->right_portrait.FindChildRef(27).SelectResourceSprite(
-                            resource, state->command->first_operand + 0x1e);
+                            data_00477704->resource, state->command->first_operand + 0x1e);
                     }
                     if (mode == 0) {
                         state->right_portrait.FindChildRef(24).SelectResourceSprite(
-                            resource, state->command->first_operand + 0x15);
+                            data_00477704->resource, state->command->first_operand + 0x15);
                         state->right_portrait.FindChildRef(27).SelectResourceSprite(
-                            resource, state->command->first_operand + 0x1e);
+                            data_00477704->resource, state->command->first_operand + 0x1e);
                     }
                     break;
                 case 3:
                     if (mode == 1) {
                         state->right_portrait.FindChildRef(24).SelectResourceSprite(
-                            resource, state->command->first_operand + 0x22);
+                            data_00477704->resource, state->command->first_operand + 0x22);
                         state->right_portrait.FindChildRef(27).SelectResourceSprite(
-                            resource, state->command->first_operand + 0x2b);
+                            data_00477704->resource, state->command->first_operand + 0x2b);
                     }
                     if (mode == 0) {
                         state->right_portrait.FindChildRef(24).SelectResourceSprite(
-                            resource, state->command->first_operand + 0x22);
+                            data_00477704->resource, state->command->first_operand + 0x22);
                         state->right_portrait.FindChildRef(27).SelectResourceSprite(
-                            resource, state->command->first_operand + 0x2b);
+                            data_00477704->resource, state->command->first_operand + 0x2b);
                     }
                     break;
                 case 4:
                     if (mode == 1) {
                         state->right_portrait.FindChildRef(24).SelectResourceSprite(
-                            resource, state->command->first_operand + 0x25);
+                            data_00477704->resource, state->command->first_operand + 0x25);
                         state->right_portrait.FindChildRef(27).SelectResourceSprite(
-                            resource, state->command->first_operand + 0x2e);
+                            data_00477704->resource, state->command->first_operand + 0x2e);
                     }
                     if (mode == 0) {
                         state->right_portrait.FindChildRef(24).SelectResourceSprite(
-                            resource, state->command->first_operand + 0x25);
+                            data_00477704->resource, state->command->first_operand + 0x25);
                         state->right_portrait.FindChildRef(27).SelectResourceSprite(
-                            resource, state->command->first_operand + 0x2e);
+                            data_00477704->resource, state->command->first_operand + 0x2e);
                     }
                     break;
                 case 5:
                     if (mode == 1) {
                         state->right_portrait.FindChildRef(24).SelectResourceSprite(
-                            resource, state->command->first_operand + 0x16);
+                            data_00477704->resource, state->command->first_operand + 0x16);
                         state->right_portrait.FindChildRef(27).SelectResourceSprite(
-                            resource, state->command->first_operand + 0x1f);
+                            data_00477704->resource, state->command->first_operand + 0x1f);
                     }
                     if (mode == 0) {
                         state->right_portrait.FindChildRef(24).SelectResourceSprite(
-                            resource, state->command->first_operand + 0x16);
+                            data_00477704->resource, state->command->first_operand + 0x16);
                         state->right_portrait.FindChildRef(27).SelectResourceSprite(
-                            resource, state->command->first_operand + 0x1f);
+                            data_00477704->resource, state->command->first_operand + 0x1f);
                     }
                     break;
                 case 6:
                     if (mode == 1) {
                         state->right_portrait.FindChildRef(28).SelectResourceSprite(
-                            resource, state->command->first_operand + 0x30);
+                            data_00477704->resource, state->command->first_operand + 0x30);
                         state->right_portrait.FindChildRef(31).SelectResourceSprite(
-                            resource, state->command->first_operand + 0x39);
+                            data_00477704->resource, state->command->first_operand + 0x39);
                     }
                     if (mode == 0) {
                         state->right_portrait.FindChildRef(28).SelectResourceSprite(
-                            resource, state->command->first_operand + 0x30);
+                            data_00477704->resource, state->command->first_operand + 0x30);
                         state->right_portrait.FindChildRef(31).SelectResourceSprite(
-                            resource, state->command->first_operand + 0x39);
+                            data_00477704->resource, state->command->first_operand + 0x39);
                     }
                     break;
                 case 7:
                     if (state->variant < 1) {
                         if (mode == 1) {
                         state->right_portrait.FindChildRef(33).SelectResourceSprite(
-                            resource, state->command->first_operand + 0x44);
+                            data_00477704->resource, state->command->first_operand + 0x44);
                         state->right_portrait.FindChildRef(36).SelectResourceSprite(
-                            resource, state->command->first_operand + 0x4d);
+                            data_00477704->resource, state->command->first_operand + 0x4d);
                         }
                         if (mode == 0) {
                         state->right_portrait.FindChildRef(33).SelectResourceSprite(
-                            resource, state->command->first_operand + 0x44);
+                            data_00477704->resource, state->command->first_operand + 0x44);
                         state->right_portrait.FindChildRef(36).SelectResourceSprite(
-                            resource, state->command->first_operand + 0x4d);
+                            data_00477704->resource, state->command->first_operand + 0x4d);
                         }
                     } else {
                         if (mode == 1) {
                         state->right_portrait.FindChildRef(24).SelectResourceSprite(
-                            resource, state->command->first_operand + 0x2e);
+                            data_00477704->resource, state->command->first_operand + 0x2e);
                         state->right_portrait.FindChildRef(27).SelectResourceSprite(
-                            resource, state->command->first_operand + 0x37);
+                            data_00477704->resource, state->command->first_operand + 0x37);
                         }
                         if (mode == 0) {
                         state->right_portrait.FindChildRef(24).SelectResourceSprite(
-                            resource, state->command->first_operand + 0x2e);
+                            data_00477704->resource, state->command->first_operand + 0x2e);
                         state->right_portrait.FindChildRef(27).SelectResourceSprite(
-                            resource, state->command->first_operand + 0x37);
+                            data_00477704->resource, state->command->first_operand + 0x37);
                         }
                     }
                     break;
@@ -324,23 +323,18 @@ ResultDispatcher_00415e90(ResultDispatcherState* state) {
                 DispatcherCreateAnimation(StageState()->effect_resource, 2, 15);
                 break;
             case 19: {
-                int script = 0x0D;
-                bool have_script = true;
-                int difficulty = data_00474c7c - 1;
-                switch (difficulty) {
-                case 0: script = 0x0D; break;
-                case 1: script = 0x10; break;
-                case 2: script = 0x14; break;
-                case 3: script = 0x15; break;
-                case 4: script = 0x0E; break;
-                case 5: script = 0x23; break;
-                case 6: script = 0x1D; break;
-                default: have_script = false; break;
+                int script;
+                switch (data_00474c7c) {
+                case 1: script = 0x0D; break;
+                case 2: script = 0x10; break;
+                case 3: script = 0x14; break;
+                case 4: script = 0x15; break;
+                case 5: script = 0x0E; break;
+                case 6: script = 0x23; break;
+                case 7: script = 0x1D; break;
+                default: goto next_command;
                 }
-                if (have_script) {
-                    DispatcherRef created = DispatcherCreateAnimation(data_00477704->resource, script, 15);
-                    state->stage_title.id.value = created.value;
-                }
+                { DispatcherRef created = DispatcherCreateAnimation(data_00477704->resource, script, 15); state->stage_title.id.value = created.value; }
                 break;
             }
             case 20: {
@@ -358,7 +352,6 @@ ResultDispatcher_00415e90(ResultDispatcherState* state) {
                 if (data_00474c7c == 6) {
                     StageState()->flags |= 0x20;
                     data_00474c40.AddScore(data_00474c4c * 1000);
-                    if (data_00474c74 <= 4) {
                     switch (data_00474c74) {
                     case 0:
                         data_00474c40.AddScore(data_00474c70 * 20000000);
@@ -380,7 +373,6 @@ ResultDispatcher_00415e90(ResultDispatcherState* state) {
                         data_00474c40.AddScore(data_00474c70 * 40000000);
                         data_00474c40.AddScore(data_00474c48 * 400000);
                         break;
-                    }
                     }
                     if (data_00477838->replay_mode == 1) {
                         SetInputMode(&data_00491c28, 4);

@@ -56,6 +56,8 @@ struct SpawnScanPattern {
     int field_208;                              // +0x208
 };
 
+
+
 // Whole-program context: the ABI anchors whose bodies the /GL pass needs to
 // derive the retail register states at the command interpreter's call sites.
 #include "../../layout/ltcg/projectile_spawn_runtime/scheduler_set.cpp"
@@ -75,7 +77,6 @@ __forceinline static float SpawnCommand_AimAngle(ProjectileSpawnRecord& record,
     return reinterpret_cast<EntityAngleFromPoint_00426660*>(data_00477834)
         ->AngleFromPoint(reinterpret_cast<const float*>(&record.position));
 }
-
 
 #pragma code_seg(".text$00406d90_fn")
 void ProjectileCommandRuntime::Tick() {
@@ -167,7 +168,7 @@ void ProjectileCommandRuntime::Tick() {
             goto bottom;
         case 0x4000: {
             ProjectileSpawnManager* manager =
-                reinterpret_cast<ProjectileSpawnManager*>(data_004776f0);
+                reinterpret_cast<ProjectileSpawnManager*>(this);
             Entity_StartScript_00404f30(
                 reinterpret_cast<AnimationResource_0043e710*>(manager->animations),
                 &record.sprite,
@@ -190,11 +191,11 @@ void ProjectileCommandRuntime::Tick() {
             memset(pattern_words, 0, 0x210);
             SpawnScanPattern& pattern =
                 *reinterpret_cast<SpawnScanPattern*>(pattern_words);
-            const int raw_c = command.value_c;
             const SpawnCommandRecord& next = (&command)[1];
+            const SpawnCommandRecord* current = &command;
             pattern.x = record.position.x;
             pattern.y = record.position.y;
-            pattern.field_0c = raw_c;
+            pattern.field_0c = command.value_c;
             pattern.field_10 = next.value_a;
             pattern.field_14 = next.value_b;
             pattern.field_18 = command.value_a;
@@ -203,14 +204,14 @@ void ProjectileCommandRuntime::Tick() {
             pattern.rows = (short)next.value_c;
             pattern.flags = (unsigned int)next.value_d;
             pattern.field_204 = -1;
-            pattern.field_208 = raw_c & 0xFF;
-            pattern.field_02 = (short)(signed char)(raw_c >> 8);
+            pattern.field_208 = command.value_c & 0xFF;
+            pattern.field_02 = (short)(signed char)(command.value_c >> 8);
             record.command_index = index + 1;
             memcpy(pattern_words + 8, record.commands, 432);
             EnemyGrid_ScanCells_004073e0(
                 reinterpret_cast<ProjectilePattern_004073e0*>(pattern_words),
                 reinterpret_cast<ProjectileManager_004073e0*>(data_004776f0));
-            if (!(raw_c & 0x80000000))
+            if (!(command.value_c & 0x80000000))
                 goto bottom;
             reinterpret_cast<PlayerCollisionRecord*>(this)->Activate();
             break;

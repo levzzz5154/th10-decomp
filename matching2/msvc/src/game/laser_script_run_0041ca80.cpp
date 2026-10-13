@@ -41,6 +41,10 @@ void LaserScriptRun_0041ca80::Run() {
             return;
         if (cmd.gate == 0 && flags_404 != 0)
             return;
+        if (cmd.opcode == 0x80000000u) {
+            ++pc_400;
+            continue;
+        }
         switch (cmd.opcode) {
         case 1u:
             flags_404 |= 1u;
@@ -122,7 +126,6 @@ void LaserScriptRun_0041ca80::Run() {
         case 0x200000u:
             flags_404 |= cmd.opcode;
             reinterpret_cast<PlayerSchedulerRecord*>(&timer_190)->SetSchedulerValue(cmd.param2.i);
-            ++pc_400;
             break;
         case 0x1000000u:
             id_54 = cmd.param2.i;
@@ -156,7 +159,6 @@ void LaserScriptRun_0041ca80::Run() {
             ++pc_400;
             break;
         default:
-            ++pc_400;
             break;
         }
     }

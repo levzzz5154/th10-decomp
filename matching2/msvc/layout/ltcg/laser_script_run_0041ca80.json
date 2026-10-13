@@ -34,7 +34,7 @@
    "symbol": "?Run@LaserScriptRun_0041ca80@@QAEXXZ",
    "section": ".text$0041ca80_fn",
    "address": "0x0041CA80",
-   "size": 1356,
+   "size": 1328,
    "actual_abi": "laser in ECX; plain RET"
   }
  ],
@@ -104,12 +104,12 @@
   },
   {
    "section": ".text$00401de0_fnz",
-   "address": "0x401DF7",
+   "address": "0x401df7",
    "size": 12601
   },
   {
    "section": ".text$00404f30_fnz",
-   "address": "0x404FFA",
+   "address": "0x404ffa",
    "size": 1046
   },
   {
@@ -119,27 +119,27 @@
   },
   {
    "section": ".text$0041ca80_fnz",
-   "address": "0x41CFCC",
-   "size": 38628
+   "address": "0x41cf60",
+   "size": 38656
   },
   {
    "section": ".text$00426660_fnz",
-   "address": "0x4266A3",
+   "address": "0x4266a3",
    "size": 95725
   },
   {
    "section": ".text$0043dc90_fnz",
-   "address": "0x43DD0B",
+   "address": "0x43dd0b",
    "size": 5
   },
   {
    "section": ".text$0043dd10_fnz",
-   "address": "0x43DDA5",
+   "address": "0x43dda5",
    "size": 2411
   },
   {
    "section": ".text$0043e710_fnz",
-   "address": "0x43E7DB",
+   "address": "0x43e7db",
    "size": 63781
   }
  ],
