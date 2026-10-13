@@ -54,7 +54,36 @@ in `layout/ltcg/projectile_spawn_runtime/scheduler_set.cpp`),
 (`polar_set.cpp`), `?Entity_StartScript_00404f30@@...` (object ESI, script EAX —
 `start_script.cpp`).
 
-## Main-approved extent change (2026-10-13, later session state)
+## Schema-1 composition (latest working state — first ALIGNED-WINDOW verdicts)
+
+With the schema-1 switch, the re-extended Tick region and the restored gap
+tiling, the probe reaches the byte comparison for BOTH functions for the first
+time: Spawn 0x004067D0 (1472 bytes, extent gate green) and Tick 0x00406D90
+(1604 bytes, extent gate green) both DIFFERENT — Tick's first difference is
+0x00406D96 (`sub esp,0x214` vs retail `0x210`, and the prologue register
+cascade `push ebx; mov ebx,ecx` vs retail `push ebx; push ebp; push esi;
+push edi; mov ebp,ecx`); the receiver-in-EBP trigger and the Spawn manager
+register remain the open items.
+
+Main's TU-placement hypothesis was tested by converting the manifest to
+schema 1: the driver TU textually includes the VERBATIM scan source (plus the
+queue_pan anchor and the real Spawn source), the scan compiles as the cluster
+CONTEXT at 0x004073E0 (declared size 210 - its drifted size; it is never
+exported, and the outer link keeps taking ScanCells' exact 194 bytes from the
+registered enemy_grid_scan cluster whose call displacement bakes to 0x004067D0
+= the real Spawn), and the selected functions are Spawn (1472, exact extent)
+and Tick. Result: Spawn's selected size gate stayed green (1472) across
+the schema-1 switch, but the scan context is
+STILL 210 bytes in the driver TU - the TU placement does not reproduce the
+old cluster's 194-byte promotion either. The remaining delta: Tick's code is
+1600 bytes vs the 1604-byte contribution (4 short; reverting the field-store
+reorder per Main did not change it - the 4 bytes moved with an earlier edit in
+the raw_c/anchor-include era, not with the reorder). The promotion
+therefore depends on the CALLEE body (stand-in vs real Spawn) through the
+whole-program inlining analysis, not on TU placement - the stand-in era and
+the real-body era are different allocator states for the same scan source.
+
+## Main-approved extent change (2026-10-13, earlier session state)
 
 Main approved re-extending the region to 1604 bytes (0x406D90..0x4073D4,
 absorbing text_data_00407340 + text_padding_0040733e) once the model reaches
@@ -75,11 +104,32 @@ coupled Spawn drift (Spawn's section is +12, so its death-switch table sits at
 were applied and probed: naming the raw command word (`const int raw_c`) and
 re-spelling the spawn entry (manager local first) changed neither the Tick
 receiver register (still EBX; retail EBP with the anchor prologue) nor the
-spawn entry (manager still loaded after the pushes into EDI; retail EAX at
-entry). The receiver trigger is not reachable from statement order or value
-naming in this body; the next attempt should treat the allocator's
-callee-saved assignment as the primary unknown (what retail's source held in
-EBX across the ScanCells call such that `this` was pushed to EBP).
+spawn entry. Additional probes: the 0x400000 pattern-field store order was
+re-sequenced to retail's order (no allocator change), a BulletRuntimeTick
+co-compile was attempted and abandoned (its source belongs to the
+bullet_runtime_caller cluster - clusters must have distinct maintained
+sources), a synthetic hot-loop caller anchor did not trigger the missing
+ScanCells pattern→EAX promotion, and the cluster entry was moved to Tick
+(workable; kept). The receiver trigger is not reachable from statement order
+or value naming in this body. Verified from the retail bytes: the value EBX
+holds across the ScanCells call IS the case-0x400000 sign (value_c &
+0x80000000, loaded at 0x0040718F, masked at 0x004071CC, tested at 0x00407233).
+Every spelling of that value (int local, bool, early/late mask, retail-order
+field stores) still spilled it - the compiler can always re-read
+command.value_c through the still-valid command pointer. A verbatim-copy
+co-compile of BulletRuntimeTick (Main's suggestion) is blocked by the
+distinct-sources rule (its source owns five functions in
+bullet_runtime_caller.json). A ScanCells pattern-use split (Main's other
+suggestion) changed its codegen to 226 bytes without triggering the missing
+pattern->EAX promotion and was reverted; a TU-merge test (textually including
+the scan source into the spawn TU) is blocked by the schema-2 rule that every
+selected function's source must be a compiled source path. The promotion that
+the old enemy_grid_scan cluster achieved for the identical ScanCells source
+remains unexplained - the difference is that the old link was schema 1 with
+the scan textually inside its driver TU and a 170-byte stand-in callee, while
+this link compiles the scan as its own /GL object beside the real 1472-byte
+callee - and is the single blocker for ScanCells' 194 bytes (its source is
+untouched and exact under the old cluster).
 
 ## Verified this session
 
@@ -105,3 +155,40 @@ push ebx; push ebp; push esi; push edi; mov ebp,ecx`) — the model must keep th
 receiver in EBP, which requires the same callee/register pressure as retail;
 the whole-program cluster for the caller `0x004067D0` (see
 projectile_spawn_004067d0_2026_10_13.md) is the sibling effort.
+
+## 2026-10-13 addendum: the priority law applied to the receiver question
+
+The joystick allocator law (priority = covered-block weight sums minus one
+`edx` decay per uncovered block; per-reference weights 4 ordinary / 2 base /
+loop-depth+1 loop) explains why the model's case-0x400000 sign value spills:
+the sign's live range covers only the 0x400000 case's blocks, so it decays by
+`edx` in every other block of the walk - under the law as written it should
+never earn a callee-saved register, yet retail keeps it in EBX across the
+ScanCells call. Two readings are possible and both are testable next session:
+
+1. the allocator scopes the walk per region (the 0x400000 case is its own
+   region: the sign covers all of it and wins EBX there, while `this` covers
+   the whole walk and takes EBP via the anchor prologue);
+2. the decay only applies from a candidate's birth block onward.
+
+Either way the source lever is the same shape: the sign value's live range
+must be a computed intermediate whose every re-derivation is more expensive
+than the register (retail's `and ebx,0x80000000` at 0x004071CC, three blocks
+before the test at 0x00407233), and `this` must cover the same blocks. The
+model already satisfies the second half; the first half needs a spelling
+whose recomputation the compiler cannot hoist (the command pointer advancing
+past the current record before the mask, making the reload address
+unrecoverable, is the untried candidate - `command` must move on BEFORE the
+mask and the record base must not be restorable, e.g. by consuming the
+command reference through the pattern build).
+
+## 2026-10-13 addendum: the zero-candidate experiment
+
+Naming the zero constant (`const int zero = 0` used in the loop-head checks)
+to create a cross-block zero candidate did not tip the receiver: the C2
+constant-propagation folds the named local back to immediates before register
+allocation, so no zero candidate materializes. The receiver-in-EBP keystone
+requires either the allocator's per-region walk scoping (which would give the
+sign value a fair priority comparison within the 0x400000 case) or a source
+spelling that creates a genuine 4th cross-call callee-saved candidate with
+higher priority than the receiver.

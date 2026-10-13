@@ -2,9 +2,13 @@
 
 Status: not yet EXACT. Closest result: the whole-program schema-2 cluster
 `layout/ltcg/projectile_spawn_runtime.json` builds and places the compiled body
-at `0x004067D0` with the retail `sub esp,0x14` frame; the compiled contribution
-is 1484 bytes against the fixed 1472-byte retail extent, with 355 of ~770
-disassembly diff lines remaining (both sides counted). See also
+at `0x004067D0` with the EXACT 1472-byte retail extent (the section-size gate
+passes; the loop-head alignment pad `jmp +9; lea esp,[esp]` appears at the same
+address as retail). 1159 of 1472 bytes differ - the remaining divergence is
+register assignment (manager in EDI loaded after the pushes vs retail EAX at
+entry; zero/attempts in ESI/EDX vs retail EDI/ESI) and per-block ordering.
+The `continue`-based loop bottom (attempts < 2000 → continue; return 1) was
+what fixed the frame and produced the pad. See also
 projectile_runtime_004067d0_00406d90.md for the earlier failed attempts this
 session supersedes (the EBX demotion now works).
 
@@ -75,14 +79,27 @@ Continue the byte-golf loop in `scratch/projectile/msvc` (working copy
    `edx`=5, manager in `EAX` loaded at entry; model: `edx`/`esi`/`eax`, manager
    in `EDI` loaded after the pushes) and the loop-head alignment pad
    (`jmp +9; lea esp,[esp]; mov edi,edi`).
-4. Spawn's death switch lowered to a 3-entry jump table (12 bytes at the
-   section tail, targets inside the body) where retail has the cmp/ja +
-   5-entry form at 0x00406D7C - the 5 dense cases must lower as retail's
-   single table; check the switch spelling against the retail shape.
-5. The compiled caller `0x004073E0` co-evolves: its contribution drifted to 209
-   bytes (retail 194) because the pair's joint demotion picked different
-   registers (model caller holds manager in `EBP`, aim in `EAX`; retail the
-   reverse). The pair must reach the fixed point together.
+4. RESOLVED: Spawn's section now compiles to the EXACT 1472-byte extent (the
+   `continue`-based loop bottom - `attempts < 2000` → continue, then
+   `return 1` - produced the retail frame, loop-head alignment pad and
+   short-loop-back shape). The remaining 1472-byte content diff is register
+   assignment only: manager in EDI (loaded after the pushes) vs retail EAX
+   (hoisted at entry); zero/attempts in ESI/EDX vs retail EDI/ESI. Ten source
+   spellings of the manager lifetime (long local, disjoint fresh reads,
+   exit-only re-reads) did not move the allocator.
+5. Main's priority-law coverage reduction was also probed: caching the records
+   base in a local (so the manager pointer's remaining reads are the entry
+   pair plus the exit store) grew the body to 1476 and left the manager in
+   ESI with an immediate-compare zero - the allocator still did not hand the
+   manager EAX at entry. The scan's zero constant also became an immediate
+   (`cmpw $0x0`) in that variant, removing the zero register entirely.
+6. The ScanCells drift (210 vs 194) is the coupled pair allocation: the /GL
+   pass promoted Spawn's pattern→EBX but did NOT promote ScanCells'
+   pattern→EAX (my compiled ScanCells re-loads the pattern from its stack
+   slot and RETs 8). A synthetic hot-loop caller anchor (the old context
+   trick) did not trigger the promotion. The entry function choice (Tick
+   instead of ScanCells) also did not.
+
 5. Working state (all preserved in-tree):
    `scratch/projectile/spawn_golf.cpp` (Spawn model),
    `scratch/projectile/tick_golf.cpp` (Tick model),
@@ -94,3 +111,52 @@ Continue the byte-golf loop in `scratch/projectile/msvc` (working copy
    scratch/projectile/msvc --source src/game/enemy_projectile_spawn.cpp
    --output matching2/build/probe-<name>`. The real tree keeps the assembly
    regions until the gate passes.
+
+## 2026-10-13 addendum 2: THE VOLATILE-PARAMETER BREAKTHROUGH
+
+The manager-EAX hoist is SOLVED: declare the manager parameter
+`volatile` (`ProjectileManager_004073e0* volatile manager`) and split its
+reads into three disjoint clusters:
+
+1. one non-volatile copy at entry (`spawn_manager = (…)manager`) covering the
+   record load and the five scan wraps - one candidate, no calls in range,
+   hoisted to EAX at entry (the compiler now emits retail's exact
+   `mov eax,[esp+4]; mov ecx,[esp+8]` two-hoisted-loads prologue, `push ebp;
+   mov ebp,[eax+10h]; push esi; push edi; xor edi,edi; xor esi,esi` - byte
+   identical through the alignment pad);
+2. a fresh volatile read for the StartScript animations argument;
+3. a fresh volatile read for the exit cursor store.
+
+Volatile reads cannot be CSE-merged, so the exit read is a separate short
+candidate (retail's `[esp+24h]` reload) instead of stretching the entry
+candidate across four calls. With this spelling the prologue is byte-identical
+to retail and the diff fell to 272/~770 lines (from 355). The residual is
+branch-form tie-breaks in the scan tail: the model emits `jge return-block`
+(6 bytes) where retail has `jl body(2) + jmp return(2)` at the two
+attempts-check sites, plus the loop rotation direction (the model rotated the
+scan loop; retail's back-edge is `jl 0x4067F0` to the state check).
+
+## 2026-10-13 addendum: the manager reference census
+
+Reference counts through the manager pointer inside the scan (the candidate's
+covered blocks are identical in both):
+
+| use | retail (EAX) | model (EDI) |
+| --- | ---: | ---: |
+| record load at entry | 1 (`mov ebp,[eax+10h]`) | 1 |
+| scan wraps (`lea ebp,[eax+60h]`) | 5 | 5 |
+| exit cursor store | 0 in-range (re-reads `[esp+24h]` - a fresh candidate) | 2-3 (CSE'd into the entry candidate's range) |
+| StartScript animations | 0 in-range (fresh read after the call) | 1 |
+
+The in-scan counts MATCH (6 = 6). The difference is that the model's exit and
+StartScript reads were CSE-merged into the entry candidate, stretching its
+live range across three calls (Angle_NormalizeSum, Entity_StartScript, Tick,
+RunAnimationVm) - which is exactly why it earned a callee-saved register.
+Retail's compiler kept the exit read as a separate short candidate. Four
+spellings of the exit read (fresh parameter reads, disjoint ranges, the
+records_base cache) all got CSE-merged anyway; the CSE across the calls is
+legal (the stack argument cannot be modified by callees) and the compiler
+exercises it. The remaining unknown is what made retail's compiler split the
+candidate - possibly that the retail source's exit went through a different
+expression shape than the entry (e.g. the manager re-derived from the record
+pointer rather than re-read from the argument).

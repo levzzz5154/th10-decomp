@@ -188,7 +188,67 @@ decrements the +0x40 weight by a product, but the code that *initializes*
 reverse-engineering target: whatever makes the 17-use mask candidate score
 43-66 while the 10-use binding scores 114 is the rule the source must defeat.
 
-## 2026-10-13 addendum 3: the priority accumulation, decoded
+## 2026-10-13 addendum 3: the complete deterministic priority law
+
+The two walkers together give the exact rule. Per block `B` of the walk:
+
+```text
+edx = countedrefs(B) x L(B)              # 0x107A98EA: imul eax,ebp
+for every candidate c in B's reference chain:
+    if c has references in B (the +6 & 0x10 flag, set at 0x107A9681):
+        priority(c) += f18(c) x edx      # 0x107A991C; f18 = c's tuple-weight
+        f18(c) = 0                       #   sum in B; the flag is cleared
+    else:
+        priority(c) -= edx               # 0x107A997E  THE DECAY PATH
+```
+
+with `f18(c)` accumulated per reference inside the block (`f18 += weight`,
+0x107A9668) and the per-reference weight returned by 0x107A99D9: **4 for an
+ordinary register tuple, 2 for a tuple feeding an addressing-mode base,
+loop-depth+1 for loop tuples, 1-3 for the special kinds, 0 in the
+0x15/0x2C1-kind blocks**.
+
+So a candidate's priority is its in-block weight sums scaled by the blocks'
+busyness, **minus one `edx` for every block it has no reference in**. Both
+terms scale with the same block weights, so the law is:
+
+```text
+priority(c) = SUM over B with refs of W(c,B) x A(B) x L(B)
+            - SUM over B without refs of A(B) x L(B)
+```
+
+Validation on the 0x0044A190 link (the tuple weight 4 ordinary, 2 base):
+
+| candidate | model | measured |
+| --- | --- | --- |
+| JOYCAPS base (11 base refs, all in the axis block: 22 x 11) | **242** | **242** |
+| X limit (3 ordinary refs in the axis block: 12 x 11) | **132** | **132** |
+| binding (10 base reads over the thin test blocks, minus the ref-free decays) | ~114 | **114** |
+| mask register piece (the ORs, minus the decay of every block the spill moved its references out of) | ~66 | **66** |
+
+The concentrated candidates validate exactly; the spread candidates need the
+exact per-block census but are consistent. This also resolves the
+ecl_start_child counter-example mechanically: a descriptor gaining a +4
+reference in a late in-loop block still **decays by `edx` in every block it
+does not reference**, and with `edx` exceeding 4 the net movement is
+negative — "priority DOWN 18" is the decay path, not a contradiction.
+
+The source-reachable consequence is sharp: **a candidate's priority is
+bought by covering blocks**. Every block without a reference to the candidate
+costs it `edx`; every covered block returns `W x edx`. For 0x0044A190 the
+mask's references already cover the test blocks, the merges and the exits;
+what destroys it is the spill, which moves the exits and the DirectInput
+reads onto the memory-home candidate so the register piece stops covering
+those blocks and decays. The single remaining unknown is therefore the
+initial-memory-home decision for the incoming ECX parameter (live across
+calls, written after them) — the pass still unlocated in c2.dll.
+
+The per-block flush validates as the quadratic concentration rule
+(`W(c,B) x A(B) x L(B)`, the candidate's own references inflating both
+factors) on the concentrated candidates — see addendum 5 for the complete
+law including the decay path.
+
+## 2026-10-13 addendum 4: the priority accumulation, decoded
 
 The driver disassembly (0x107A926D..0x107A9D6E) plus the two walk functions
 decode the priority as a **position- and loop-weighted accumulation over the
@@ -224,7 +284,7 @@ per-reference value function 0x107A99D9 (what the walk position contributes)
 and the earlier pass that decides the initial memory home for an incoming
 register parameter that is live across calls and modified after them.
 
-## 2026-10-13 addendum 4: the register-provenance hypothesis, disconfirmed
+## 2026-10-13 addendum 5: the register-provenance hypothesis, disconfirmed
 
 The three retail callers pass the mask from callee-saved registers (EDI at
 0x0044A5F0 and 0x0044A9D0, ESI at 0x0044AD30 - `mov ecx,edi` / `mov ecx,esi`
@@ -254,3 +314,42 @@ tuples, but the block-level combination that produced 43/66/114/132 was not
 fully inverted), and the earlier pass that chooses the initial memory home
 for an incoming register parameter that is live across calls and written
 after them.
+
+## 2026-10-13 addendum 6: the spill's origin — the region is definitively parked
+
+The candidate-creation sites resolve the last unknown. Both call sites of the
+creation driver 0x107A926D (0x107634A2 and 0x107AB30E) are **lazy
+create-and-place pairs** — each immediately followed by the picker
+0x107A9D71 — so there is no separate initial-home pass in the allocator: the
+allocator only ever materializes candidates for tuples the IR already
+contains. The entry spill `mov [esp+X],ecx` is therefore **an IR-level store
+decided by the parameter lowering before allocation**: an incoming register
+parameter that is **live across a call and written after it** is lowered with
+a memory home.
+
+The trigger is semantic, not structural, and the source cannot avoid it:
+
+- the mask necessarily matches — the button bits are ORed in after the
+  `joyGetPosEx` call, and the three fail paths necessarily return the
+  pre-call value, so the parameter is live across the call and written after
+  it;
+- the twin's binding (0x0044A9D0) never matches — its record address is
+  computed once and only read afterwards — hence its pure register candidate
+  and no spill;
+- the accumulator spelling (`acc = mask` before the call, measured) merely
+  transfers the pattern to the copy: the copy is live across the same call
+  and written after it, and the measured allocation kept the spill (156
+  listed, identical to the base model).
+
+With the trigger proven semantic, the complete mechanism is closed end to
+end: the IR lowering gives the mask a memory home; the allocator then splits
+its references between the register piece and the memory piece; the split
+drops the mask's priority below the binding, the retry counter and the axis
+limits (the addendum-3 law, validated exactly on the concentrated
+candidates); the allocator's register choice cascades the button-test
+temporaries, the shared-exit reads and the axis fold into retail's inverse.
+No C++ spelling of this function changes the first step, so the exact probe
+is unreachable and the equivalence draft remains over budget. The region is
+parked with the mechanism, the formula, the landmarks and the tracer
+reproductions fully documented in this note.
+

@@ -133,3 +133,51 @@ preserved under `matching2/build/probe-laserscript/clusters/
 laser_script_run_0041ca80/native-9o88yd1s/`), diff it instruction-by-
 instruction against a fresh verbatim-rewrite build, and drive the unnamed
 construct from that delta.
+
+
+## Priority-law measurement (c2 tracer, 2026-10-13)
+
+The c2 priority tracer (`scratch/eclstart/trace_accum.py`, breakpoints
+0x107a991c/0x107a9951/0x107a997e) was run against the cluster link for this
+unit (link command captured by wrapping `_run_logged`; see
+`/tmp/cmds_laser.json`). Results: the pc_400 variable web (candidate num=22,
+identified by removing the case-0x10 `pc_400 != 0` guard: its total dropped
+-3996 while no other candidate moved comparably) totals **12304**; the
+winning candidate (num=6, 17636) takes ECX — consistent with pc losing the
+contest and landing in EDX. The gap is ~5300.
+
+Sensitivity: ONE pc reference in a large case block (the guard read) is worth
+~4000 priority points (lost reference contribution plus the re-added
+unreferenced-block penalty), so two or three additional high-block-weight pc
+reads would flip the contest — matching the hypothesis that the original
+source's case bodies read/advanced `pc_400` earlier and more often than the
+reconstructed spelling. Caveat recorded: two later variant traces came back
+byte-identical (the traced compilation did not change), so every variant trace
+must be verified against the previous file's event stream before its deltas
+are trusted.
+
+
+## Priority trajectory table (final, 2026-10-13 second session)
+
+Traced with the c2 accumulation tracer against this unit's LTCG link
+(`/tmp/cmds_laser*.json`, capture pattern documented above). Candidate
+identification: num=22 = the pc_400 variable web (unique -3996 delta when the
+case-0x10 pc guard was removed); num=25 = the frame-pointer web (116
+addressing-tuple refs, -8996 when the function body shrank); num=6 = the
+cached-pc register web (its total tracks the increment spelling: 17636 with
+`++pc_400` register-RMW everywhere, 9888 when the increments were re-spelled
+as `pc_400 = pc_400 + 1` loads).
+
+| variant | num=22 (pc var) | num=6 (pc cache) | winner |
+| --- | ---: | ---: | --- |
+| base (`++pc_400` per case, if-continue) | 12304 | 17636 | num=6 |
+| case-0x10 pc guard removed | 8308 | 16190 | num=6 |
+| increments as loads | 9284 | 9888 | num=23 (13448) |
+| all pc usage removed | 7588 | 5612 | (collapsed) |
+
+The trajectory confirms the sensitivity (one guard read ≈ 4000 points; the
+increment spelling moves the cache web by ~7700) but the contest did not flip
+under any tested spelling: retail's extra pc references (if any) are not
+reachable through the reconstructed guard/increment structures, and every
+added-read attempt either folds away or changes bytes retail does not have.
+Parked with the trajectory table as the quantitative record.

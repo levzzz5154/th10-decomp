@@ -293,3 +293,204 @@ Standing best: `scratch/eclstart/best_ecl_child_pair_vH.cpp` — 547 bytes,
 498 differing bytes, weight 59 (budget 55), SpawnChild EXACT. The three
 structural residuals and their single root cause (selector/descriptor
 priority order) are documented above.
+
+## Round 5 (2026-10-13, option a completed): the accumulation fully decoded for 0x0044DF70
+
+Instrumented the decoded accumulation directly (`trace_accum.py` at
+0x107a991c/0x107a9951/0x107a997e, `trace_refs.py` at the per-reference walk
+0x107a9659) on the best draft's link:
+
+* **Dynamics confirmed**: per block, every live candidate with references in
+  that block gains `f18 × (block_refcount × block_weight)` (f18 = the sum of
+  the block's per-reference values, reset per block); every live candidate
+  with NO references in the block loses `block_weight` (the subtract path,
+  0x107a997e). The trace shows both candidates' priorities rising and
+  falling across the walk (the selector's dropped 68 → 15 mid-walk).
+* **Per-reference values are symmetric**: in the captured window both the
+  descriptor and the selector accumulate 8 references of value 2 each — the
+  references are the same tuple type. No reference-class lever exists.
+* **The selector's edge is structural**: its preheader pair
+  (home-load + inc, or entry-load + inc) and its tail pair (inc + compare)
+  are two-reference blocks (f18=4) at the highest block weights — one
+  captured add was `f18=4 × w=20 = 80`. The descriptor has exactly one
+  reference per block everywhere (entry LEA, preheader operand-LEA, head
+  type load, two kind loads, tail increment). Both shapes are identical in
+  retail's own body (`inc ebx; cmp ebx,ecx` tail pair is retail's).
+* Every spelling that would give the descriptor a second same-block
+  reference folds (`descriptor += 4; += 4`, `+ 2 + 2`, split init) and every
+  one that adds a real reference restructures the loop (hoisted kind byte:
+  581 bytes, full re-plan, selector moved to EDI) or extends the live range
+  into subtract-weighted blocks (the earlier derivations).
+
+**Conclusion**: under the decoded formula the two candidates' reference
+structures are symmetric in value and per-block count except for the
+selector's two intrinsic two-reference blocks, which retail's own body also
+has. The retail flip therefore cannot be produced by the reference
+structure available to a semantically equivalent source; it must come from
+a c2-internal component outside the decoded accumulation (block-weight
+assignment or the initial-home pass), consistent with the joystick note's
+open unknowns. Bounded effort spent; parking again with the mechanism fully
+mapped.
+
+## Round 6 (2026-10-13): scope-size probe — harness built, first data point
+
+`scope_probe.py` grows the cluster's `additional_sources` with verbatim
+copies of real semantic sources (copies under `layout/ltcg/scope/`, manifest
+headers recomputed per attempt, link-failing sources dropped automatically
+across up to 6 attempts). Pool pre-filters: no `asm_*` externals, no float
+literals (`__real@` pooling duplicates across modules), no
+relative-escaping or unresolvable includes.
+
+First data points:
+
+| scope | extras live | StartChild size | loop regs |
+| --- | --- | --- | --- |
+| 0 | 0 | 547 | selector EBP (swapped) |
+| 20 script | 9 | 547 | selector EBP (swapped) |
+
+No movement at +9 co-compiled TUs. The game-area 50-source run was consumed
+by source hygiene (per-function headers living outside `include/`,
+duplicate pooled-literal modules, relative-escaping includes) and its retry
+budget expired before a measurement — the harness now handles each of
+those; a future session can raise the retry cap and re-run at 50/100+.
+If later measurements also show no movement, the allocator wall is
+scope-independent and the mega-cluster endgame is dead; if the size or the
+loop registers move as scope grows, it changes the endgame for every parked
+region.
+
+## Round 6 status (end of run): ladder blocked on harness convergence, not on c2
+
+**Final debugging state (second end-of-run pass).** The /showIncludes
+pre-pass is implemented and works (per-TU union == 49 headers, matching the
+probe's own reports), but the 50-exit probe still fails
+`compiler did not report every declared implementation/header include`
+with 26 surviving extras, 33 compile logs present, only 16 containing
+include notes, and even common headers (`include/th10/types.hpp`)
+unreported — while the same TUs' /showIncludes pre-pass reports them fine.
+The quirk is inside `_verify_includes`'s view of the merged include logs
+(33 logs, 16 with notes — most extra-TU compiles in the probe run appear to
+produce no include output at all), not in the header computation.
+`scope_probe.py` now has: 12 attempts, mixed-area pool, auto-declaration of
+address-embedded `_data_*`/`asm_*` unresolved symbols, source drops by
+object index for any fatal error, per-run header relearning from compile
+logs, and the winpath `/Fo` fix for the pre-pass. Ladder table unchanged:
+
+| scope extras | StartChild size | loop regs |
+| --- | --- | --- |
+| 0 | 547 | selector EBP (swapped) |
+| 9 | 547 | selector EBP (swapped) |
+
+Next session: debug `_verify_includes` with the saved diag logs
+(`matching2/build/probe-eclstart-m50d9/`) — check which include_reports the
+merged log actually contains for the extra TUs (the per-TU .obj.log files
+there have the reports; the failure says the merged view does not) — then
+run the 50/100+ rungs and apply the decision rule. Everything else in this
+note stands.
+
+**Sharp final observation for that session**: at 50 extras the per-TU
+`.obj.log` files themselves are truncated — e.g. `source_010.obj.log`
+(scope_014) contains the source banner and exactly ONE `Note: including
+file:` line, `source_020.obj.log` two lines, where the same TUs at 9 extras
+(or run standalone via the pre-pass with identical flags) emit dozens. The
+compiles succeed and the objects are fresh, so this is an output-capture
+truncation of cl's /showIncludes stream at larger TU counts (wine stdout
+pipe interaction), not a compiler or header-set problem. `_run_logged`
+(`ltcg_semantic.py:472`) does a plain `subprocess.run(capture_output=True)`
+with no cap, so the truncation happens inside wine's console emulation —
+the pre-pass (which invokes cl the same way one TU at a time and captured
+complete reports) is the workaround template: if `_run_logged`'s capture is
+replaced by an explicit file redirect for the compile step (cl writes
+/showIncludes to stdout; redirecting via a shell or reading the log file cl
+itself writes with `/Fs`-style options is not available, so a small
+`cmd /c cl ... > log 2>&1` wrapper under wine is the likely fix), the
+50/100+ rungs measure directly.
+
+**Redirect experiment result (final)**: the file-redirect wrapper (probe run
+in-process with `_run_logged` patched to `subprocess.run(stdout=open(log))`)
+was implemented and tested — the truncation PERSISTS with the redirect, so
+it happens inside wine/cl's own emission at larger TU counts, not in the
+Python capture path. The wrapper also regressed the previously-passing
+9-extras control (through accumulated cross-run drop state), so it was
+reverted; the scope harness is back to its last-working pipe-capture form
+with pristine manifest, empty scope dir and cleared state. The scratch tree
+is restored to the verified best draft (547/498, SpawnChild EXACT, whole
+probe EXACT). The scope ladder stands at: 0 and 9 extras measured (no
+movement); 50+ requires either solving the wine /GL /showIncludes emission
+truncation at scale (e.g. running the probe's compiles with the toolchain's
+console allocation changed, or batching extras into fewer, larger TUs so
+the TU count stays small) or accepting the two-point evidence as
+inconclusive on scope dependence.
+
+## Round 7 (2026-10-13): batch mode built (Main's option a), convergence in progress
+
+`scope_batch.py` implements the batching: 100 mixed sources → 10 combined
+TUs (unique includes hoisted to the top, source bodies concatenated with
+`// ==== <name>` section markers, literal-pool/asm/relative-include
+pre-filters), per-TU /showIncludes pre-pass for the exact header set, and a
+convergence loop that parses each failed attempt and drops the offending
+sources: header redefinition collisions (C2371 naming a header → drop a
+late includer), batch-body errors (mapped back to their source section by
+line), unresolved address-embedded symbols (auto-declared), unresolvable
+C++ symbols and pooled-literal duplicates (source dropped). Link errors at
+the first batched attempt collapsed to 13 (vs 91 unbatched) — batching
+itself works.
+
+**Current blocker (exact)**: the convergence loop's failure classes are
+handled but their ORDERING lets a stale link.log shadow the compile-error
+branch: after the compile-error/collision branch finds nothing in the
+per-TU logs it did scan, the link branch re-globs `link.log` and can match
+a stale phase-b log, printing `no actionable failures` and stopping.
+Additionally the C1083 class (per-function files outside `include/`, e.g.
+`score_manager_factory_context.cpp` — its pool filter is now added) and the
+C2371 header-collision class (e.g. `data_00491be4` defined in
+`manager_teardown_native_0041adf0.hpp`, `ending_screen_0042d300.hpp` and
+`scheduler_remove_locked.hpp` — its pool filter is now added) are handled
+but each attempt only surfaces the first few, so convergence takes several
+persisted runs. Fix for next session (small): in the no-map branch, always
+parse the per-TU source logs of the CURRENT attempt first (both fatal and
+C-error classes, mapping batch lines to sections), and only treat a
+non-empty CURRENT link.log as a link failure; delete the stale phase-b
+output dir (`probe-eclstart-scope_<tag>b`) alongside phase-a each attempt.
+
+Standing result: StartChild best draft 547 bytes (+3), SpawnChild EXACT,
+whole probe EXACT, region still assembly — re-verified after the restore.
+
+**Final batch-convergence finding**: after pragma-once/guard fixes and
+filter hardening, the remaining 100-source blocker is cross-cluster
+context-header collisions — the per-cluster context headers that other
+clusters copy into `include/` define the same struct/function names
+(`struct TaskLink`/`Scheduler` in
+`marktext_dispatcher_context/scheduler.hpp`,
+`right_aligned_text_context/scheduler.hpp` and `th10/game/scheduler.hpp`;
+`data_00491be4`/`data_00491c10` in three manager headers), and a batch TU
+that pulls two of them collides. These headers reach the batch TUs
+transitively (no batch source includes them directly), so the drop loop
+cannot attribute them to a source without walking the header include graph.
+Next session's options: (a) walk the transitive header graph to find and
+drop the includer sources; (b) rename/guard the colliding scratch-header
+definitions (scratch-only); or (c) restrict the batch pool to sources whose
+headers are collision-free. The batch harness itself (scope_batch.py) is
+complete: batching, per-TU header pre-pass, auto-declaration, per-class
+drop handling, persisted state, and the relearn path — re-verified working
+through to real link stages (link errors collapsed 91 → 13 → a handful).
+
+**Option (b) result (final)**: the namespace wrap was implemented (headers
+wrapped with includes hoisted outside the namespace to avoid a `size_t`
+ambiguity) and worked until a second-order ambiguity surfaced: a TU that
+includes BOTH wrapped headers hits `using namespace` ambiguity on the
+shared type names when a nested header uses them unqualified
+(`recovery_script_executor_ascii_anchors.hpp` on `SchedulerTask`). Removing
+the md header's using-directive fixed that class; the next divergence was
+the manifest header set itself: per-TU pre-pass reports match the probe's
+per-TU reports exactly (verified batch-by-batch, pre==post for all 7 TUs),
+but the manifest's declared set retains headers from earlier attempts' TUs
+(`ending_screen_0042d300.hpp`, `item_0041b8e0.hpp`, … — 12 stale entries)
+because apply_manifest is not re-invoked between the drop and the re-probe
+in every path, and the relearn-from-logs path re-persists a union. The fix
+is to make scope_batch's header/manifest management stateless: derive
+`headers` inside the attempt loop from the pre-pass over the CURRENT extras
+immediately before each probe call, and never persist them in the manifest
+file (pass them via the same apply_manifest call that writes
+additional_sources). With that, the b100 rung measures directly: the
+compiles are clean, the link runs, and the remaining verdict is the byte
+comparison. Scratch restored to the verified best state after this run.
