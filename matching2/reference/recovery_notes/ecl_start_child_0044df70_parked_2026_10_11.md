@@ -474,6 +474,25 @@ complete: batching, per-TU header pre-pass, auto-declaration, per-class
 drop handling, persisted state, and the relearn path — re-verified working
 through to real link stages (link errors collapsed 91 → 13 → a handful).
 
+**Final batch-convergence finding**: after pragma-once/guard fixes and
+filter hardening, the remaining 100-source blocker is cross-cluster
+context-header collisions — the per-cluster context headers that other
+clusters copy into `include/` define the same struct/function names
+(`struct TaskLink`/`Scheduler` in
+`marktext_dispatcher_context/scheduler.hpp`,
+`right_aligned_text_context/scheduler.hpp` and `th10/game/scheduler.hpp`;
+`data_00491be4`/`data_00491c10` in three manager headers), and a batch TU
+that pulls two of them collides. These headers reach the batch TUs
+transitively (no batch source includes them directly), so the drop loop
+cannot attribute them to a source without walking the header include graph.
+Next session's options: (a) walk the transitive header graph to find and
+drop the includer sources; (b) rename/guard the colliding scratch-header
+definitions (scratch-only); or (c) restrict the batch pool to sources whose
+headers are collision-free. The batch harness itself (scope_batch.py) is
+complete: batching, per-TU header pre-pass, auto-declaration, per-class
+drop handling, persisted state, and the relearn path — re-verified working
+through to real link stages (link errors collapsed 91 → 13 → a handful).
+
 **Option (b) result (final)**: the namespace wrap was implemented (headers
 wrapped with includes hoisted outside the namespace to avoid a `size_t`
 ambiguity) and worked until a second-order ambiguity surfaced: a TU that
@@ -494,3 +513,15 @@ file (pass them via the same apply_manifest call that writes
 additional_sources). With that, the b100 rung measures directly: the
 compiles are clean, the link runs, and the remaining verdict is the byte
 comparison. Scratch restored to the verified best state after this run.
+
+**Stateless refactor applied (final state)**: apply_manifest(extras) now
+runs at the top of every attempt (line-verified: calls at script start, loop
+top, and both drop paths), deriving headers from the /showIncludes pre-pass
+over the current TUs with no persistence. Residual: one diagnostic pass
+showed the manifest still lagging a drop iteration in the final converged
+state (10 headers of dropped TUs declared while absent from the current
+TUs' reports) — the next session should add a one-line guard that asserts
+`declared == ORIGINAL ∪ per-TU pre-pass union` right before the probe call
+and re-derives on mismatch. With that asserted, the b100 rung produces its
+first clean measurement and the ladder decision rule applies. The verified
+best state (547/498, SpawnChild EXACT, whole probe EXACT) is restored.
