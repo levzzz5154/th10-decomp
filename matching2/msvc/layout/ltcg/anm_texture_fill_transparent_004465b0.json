@@ -1,0 +1,624 @@
+{
+  "schema_version": 1,
+  "name": "anm_texture_fill_transparent_004465b0",
+  "source": "src/render/anm_texture_upload_00446c70.cpp",
+  "driver": "layout/ltcg/anm_texture_fill_transparent_004465b0_context.cpp",
+  "headers": [
+    "include/th10/render/anm_texture_00446c70.hpp",
+    "include/th10/platform/archive_file.hpp",
+    "layout/ltcg/native_archive_read/archive.hpp",
+    "include/th10/archive/dat_archive_types.hpp",
+    "include/th10/platform/file.hpp",
+    "include/th10/platform/windows_types.hpp",
+    "include/th10/render/anm_file_004470c0.hpp",
+    "layout/ltcg/resource_surface_loading_log.hpp",
+    "include/th10/render/animation_position_record_00447940.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Context-only copy of the anm_texture_upload cluster (same sources, stand-in-free driver) backing the equivalent recovery of 0x004465B0; never registered in ltcg_clusters.",
+  "functions": [
+    {
+      "name": "AnmTexture_LoadFile_00446b70",
+      "source": "src/render/anm_texture_load_file_00446b70.cpp",
+      "symbol": "?LoadFile@AnmTexture_00446c70@@QAEHHPAXPBDI@Z",
+      "section": ".text$01loadfile",
+      "address": "0x00446B70",
+      "size": 245,
+      "actual_abi": "texture ESI; format ECX; three stack arguments; RET 12"
+    },
+    {
+      "name": "AnmTexture_Upload_00446c70",
+      "symbol": "?Upload@AnmTexture_00446c70@@QAEHUAnmUploadTag_00446c70@@HPBXHH@Z",
+      "section": ".text$01upload",
+      "address": "0x00446C70",
+      "size": 243,
+      "actual_abi": "texture EDI; format EAX; data ESI; size EBX; two stack arguments; RET 8",
+      "source": "src/render/anm_texture_upload_00446c70.cpp"
+    },
+    {
+      "name": "AnmTexture_UploadAt_00446d70",
+      "source": "src/render/anm_texture_upload_at_00446d70.cpp",
+      "symbol": "?AnmTexture_UploadAt_00446d70@@YGHUAnmUploadTag_00446c70@@PAUAnmTexture_00446c70@@HPBXHHH@Z",
+      "section": ".text$03uploadat",
+      "address": "0x00446D70",
+      "size": 320,
+      "actual_abi": "format EAX; row offset ECX; data EDI; four stack arguments; RET 16"
+    },
+    {
+      "name": "AnmTexture_CreateFromMemory_00446eb0",
+      "source": "src/render/anm_texture_create_from_memory_00446eb0.cpp",
+      "symbol": "?AnmTexture_CreateFromMemory_00446eb0@@YGHUAnmUploadTag_00446c70@@PAUAnmTexture_00446c70@@HIHH@Z",
+      "section": ".text$04create",
+      "address": "0x00446EB0",
+      "size": 132,
+      "actual_abi": "texture ESI; format EAX; height EDX; three stack arguments; RET 12"
+    },
+    {
+      "name": "AnmTexture_CreateAndUpload_00446f40",
+      "source": "src/render/anm_texture_create_and_upload_00446f40.cpp",
+      "symbol": "?AnmTexture_CreateAndUpload_00446f40@@YGHPAUAnmTexture_00446c70@@PBUAnmThtxHeader_00446c70@@HHH@Z",
+      "section": ".text$04upload",
+      "address": "0x00446F40",
+      "size": 264,
+      "actual_abi": "texture EBX; format EAX; THTX block ECX; two stack arguments; RET 8"
+    },
+    {
+      "name": "AnmFile_PreloadEntryImage_004472e0",
+      "source": "src/render/anm_file_preload_entry_image_004472e0.cpp",
+      "symbol": "?AnmFile_PreloadEntryImage_004472e0@@YGHPAUAnmFile_004470c0@@PBUAnmEntryHeader_00446c70@@H@Z",
+      "section": ".text$05preload",
+      "address": "0x004472E0",
+      "size": 214,
+      "actual_abi": "index ECX; file EDX; entry on the stack; RET 4"
+    },
+    {
+      "name": "AnmManager_LoadFile_004470c0",
+      "source": "src/render/anm_manager_load_file_004470c0.cpp",
+      "symbol": "?AnmManager_LoadFile_004470c0@@YGPAUAnmFile_004470c0@@PAUAnmManager_004470c0@@HPBD@Z",
+      "section": ".text$04zaload",
+      "address": "0x004470C0",
+      "size": 433,
+      "actual_abi": "three stack arguments; RET 12"
+    },
+    {
+      "name": "AnmFile_LoadEntry_00447470",
+      "source": "src/render/anm_file_load_entry_00447470.cpp",
+      "symbol": "?AnmFile_LoadEntry_00447470@@YGHUAnmUploadTag_00446c70@@PAUAnmFile_004470c0@@HHPBUAnmEntryHeader_00446c70@@H@Z",
+      "section": ".text$05r3entry",
+      "address": "0x00447470",
+      "size": 650,
+      "actual_abi": "entry index EAX; five stack arguments; RET 20"
+    },
+    {
+      "name": "AnmManager_LoadNextEntry_004473c0",
+      "source": "src/render/anm_manager_load_next_entry_004473c0.cpp",
+      "symbol": "?AnmManager_LoadNextEntry_004473c0@@YGPAUAnmFile_004470c0@@UAnmUploadTag_00446c70@@PAU1@@Z",
+      "section": ".text$05r1next",
+      "address": "0x004473C0",
+      "size": 174,
+      "actual_abi": "two stack arguments; RET 8"
+    },
+    {
+      "name": "AnmManager_LoadFileNow_00447080",
+      "source": "src/render/anm_manager_load_file_now_00447080.cpp",
+      "symbol": "?AnmManager_LoadFileNow_00447080@@YGPAUAnmFile_004470c0@@PAUAnmManager_004470c0@@HPBD@Z",
+      "section": ".text$04xnow",
+      "address": "0x00447080",
+      "size": 50,
+      "actual_abi": "manager ESI; slot ECX; name EAX; plain RET"
+    }
+  ],
+  "anchors": [
+    {
+      "name": "AnmTexture_FillTransparentPixels_standin",
+      "symbol": "?FillTransparentPixels@AnmTexture_00446c70@@QAEXXZ",
+      "section": ".text$00fill",
+      "address": "0x004465B0",
+      "size": 13
+    },
+    {
+      "name": "ArchiveRead",
+      "symbol": "_DatArchiveRead@12",
+      "address": "0x434dd0",
+      "size": 279,
+      "section": ".text$00bread"
+    },
+    {
+      "name": "ArchiveFind",
+      "symbol": "_ArchiveFind@8",
+      "address": "0x434f30",
+      "size": 53,
+      "section": ".text$00dfind"
+    },
+    {
+      "name": "DatDecrypt",
+      "symbol": "_DatDecrypt@24",
+      "address": "0x44b0d0",
+      "size": 323,
+      "section": ".text$06decrypt"
+    },
+    {
+      "name": "ArchiveLoadFile",
+      "symbol": "_Archive_LoadFile@12",
+      "address": "0x44b360",
+      "size": 360,
+      "section": ".text$07load"
+    },
+    {
+      "name": "TextLog",
+      "symbol": "?AppendLine@TextLog_0044b8e0@@QAAPADPADZZ",
+      "section": ".text$09log",
+      "address": "0x0044B8E0",
+      "size": 201
+    },
+    {
+      "name": "AnimationTextureCreate",
+      "symbol": "?AnimationTextureCreate_00447050@@YGHHHPAXH@Z",
+      "section": ".text$04wanim",
+      "address": "0x00447050",
+      "size": 41
+    },
+    {
+      "name": "CopyPositionRecord",
+      "symbol": "?CopyPositionRecord_00447940@@YGXHPAUAnimationPositionManager_00447940@@PBUAnimationPositionRecord_00447940@@@Z",
+      "section": ".text$05r5copy",
+      "address": "0x00447940",
+      "size": 143
+    }
+  ],
+  "context": {
+    "symbol": "_AnmTextureUploadContext_00446c70@12",
+    "section": ".text$05scontext",
+    "address": "0x00448000",
+    "size": 487,
+    "description": "Synthetic array caller; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00alayout",
+      "address": "0x401000",
+      "size": 212432
+    },
+    {
+      "section": ".text$00clayout",
+      "address": "0x434ee7",
+      "size": 73
+    },
+    {
+      "section": ".text$00elayout",
+      "address": "0x434f65",
+      "size": 71243
+    },
+    {
+      "section": ".text$00zlayout",
+      "address": "0x4465bd",
+      "size": 1459
+    },
+    {
+      "section": ".text$01lzgap",
+      "address": "0x446c65",
+      "size": 11
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x446d63",
+      "size": 13
+    },
+    {
+      "section": ".text$04dgap",
+      "address": "0x446f34",
+      "size": 12
+    },
+    {
+      "section": ".text$04v",
+      "address": "0x447048",
+      "size": 8
+    },
+    {
+      "section": ".text$04wz",
+      "address": "0x447079",
+      "size": 7
+    },
+    {
+      "section": ".text$04xz",
+      "address": "0x4470b2",
+      "size": 14
+    },
+    {
+      "section": ".text$04zlayout",
+      "address": "0x447271",
+      "size": 111
+    },
+    {
+      "section": ".text$05r0",
+      "address": "0x4473b6",
+      "size": 10
+    },
+    {
+      "section": ".text$05r2",
+      "address": "0x44746e",
+      "size": 2
+    },
+    {
+      "section": ".text$05r4",
+      "address": "0x4476fa",
+      "size": 582
+    },
+    {
+      "section": ".text$05r6",
+      "address": "0x4479cf",
+      "size": 1585
+    },
+    {
+      "section": ".text$05zlayout",
+      "address": "0x4481e7",
+      "size": 12009
+    },
+    {
+      "section": ".text$06zlayout",
+      "address": "0x44b213",
+      "size": 333
+    },
+    {
+      "section": ".text$08layout",
+      "address": "0x44b4c8",
+      "size": 1048
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "__fltused",
+      "address": "0x00000000",
+      "kind": "metadata"
+    },
+    {
+      "symbol": "_data_00491d78",
+      "address": "0x00491D78",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0046f288",
+      "address": "0x0046F288",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0046f2a0",
+      "address": "0x0046F2A0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_asm_D3DXLoadSurfaceFromFileInMemory_004521d0@36",
+      "address": "0x004521D0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_asm_D3DXLoadSurfaceFromMemory_004521a6@40",
+      "address": "0x004521A6",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_entry_external_00446c70@8",
+      "address": "0x00452000",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_00491c30",
+      "address": "0x00491C30",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0046e1c8",
+      "address": "0x0046E1C8",
+      "kind": "data"
+    },
+    {
+      "symbol": "_sprintf",
+      "address": "0x00452AE8",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_entry_free_00452422",
+      "address": "0x00452422",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_asm_D3DXCreateTextureFromFileInMemoryEx_004521ca@60",
+      "address": "0x004521CA",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "___security_cookie",
+      "address": "0x00473660",
+      "kind": "data"
+    },
+    {
+      "symbol": "@__security_check_cookie@4",
+      "address": "0x00458EA5",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_00497990",
+      "address": "0x00497990",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0049231e",
+      "address": "0x0049231e",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004922a4",
+      "address": "0x004922a4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004660b0",
+      "address": "0x004660b0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004660b4",
+      "address": "0x004660b4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004660c4",
+      "address": "0x004660c4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004660cc",
+      "address": "0x004660cc",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004660d0",
+      "address": "0x004660d0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004660d8",
+      "address": "0x004660d8",
+      "kind": "data"
+    },
+    {
+      "symbol": "_asm_strrchr_00452930",
+      "address": "0x00452930",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_asm_stricmp_0046054e",
+      "address": "0x0046054e",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_asm_malloc_00452706",
+      "address": "0x00452706",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_00497c38",
+      "address": "0x00497C38",
+      "kind": "data"
+    },
+    {
+      "symbol": "?Parse@ScriptFileLoader@@QAEHPAD@Z",
+      "address": "0x00450220",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_004660dc",
+      "address": "0x004660DC",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00492380",
+      "address": "0x00492380",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00492384",
+      "address": "0x00492384",
+      "kind": "data"
+    },
+    {
+      "symbol": "_ProbeFileExists@4",
+      "address": "0x0044B4D0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_00470c50",
+      "address": "0x00470C50",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0047476c",
+      "address": "0x0047476C",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00474778",
+      "address": "0x00474778",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491bf4",
+      "address": "0x00491BF4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491bf8",
+      "address": "0x00491BF8",
+      "kind": "data"
+    },
+    {
+      "symbol": "_asm_vsprintf_004524a6",
+      "address": "0x004524A6",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__chkstk",
+      "address": "0x00458EC0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_004922bc",
+      "address": "0x004922BC",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0049231f",
+      "address": "0x0049231F",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__EnterCriticalSection@4",
+      "address": "0x004660B0",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__LeaveCriticalSection@4",
+      "address": "0x004660B4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491c10",
+      "address": "0x00491c10",
+      "kind": "data"
+    },
+    {
+      "symbol": "@LoadCachedResource_00447280@12",
+      "address": "0x00447280",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_malloc",
+      "address": "0x00452706",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_00477848",
+      "address": "0x00477848",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00474c44",
+      "address": "0x00474C44",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00474c68",
+      "address": "0x00474C68",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491be8",
+      "address": "0x00491BE8",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00476f78",
+      "address": "0x00476F78",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00474f70",
+      "address": "0x00474F70",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0046cb68",
+      "address": "0x0046CB68",
+      "kind": "data"
+    },
+    {
+      "symbol": "_asm_free_00452422",
+      "address": "0x452422",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_DecompressDatLzss_00435dc0@16",
+      "address": "0x435dc0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_g_dat_read_crypt_parameters",
+      "address": "0x474bd8",
+      "kind": "data"
+    },
+    {
+      "symbol": "_asm_D3DXCreateTexture_004521a0@32",
+      "address": "0x004521A0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_00470210",
+      "address": "0x00470210",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00470254",
+      "address": "0x00470254",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00470274",
+      "address": "0x00470274",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00470384",
+      "address": "0x00470384",
+      "kind": "data"
+    },
+    {
+      "symbol": "??2@YAPAXI@Z",
+      "address": "0x00452493",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_memset",
+      "address": "0x00452000",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_0047016c",
+      "address": "0x0047016c",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004701b0",
+      "address": "0x004701b0",
+      "kind": "data"
+    }
+  ],
+  "roots": [],
+  "additional_sources": [
+    "src/render/anm_texture_load_file_00446b70.cpp",
+    "src/render/anm_texture_upload_at_00446d70.cpp",
+    "src/render/anm_texture_create_from_memory_00446eb0.cpp",
+    "src/render/anm_texture_create_and_upload_00446f40.cpp",
+    "src/render/anm_file_preload_entry_image_004472e0.cpp",
+    "src/render/anm_manager_load_file_004470c0.cpp",
+    "src/render/anm_file_load_entry_00447470.cpp",
+    "src/render/anm_manager_load_next_entry_004473c0.cpp",
+    "src/render/anm_manager_load_file_now_00447080.cpp"
+  ],
+  "included_sources": [
+    "layout/ltcg/native_archive_read/read.cpp",
+    "layout/ltcg/native_archive_read/find.cpp",
+    "layout/ltcg/native_archive_read/decrypt.cpp",
+    "layout/ltcg/native_archive_read/load.cpp",
+    "layout/ltcg/resource_surface_loading_log.cpp",
+    "src/render/animation_texture_create_00447050.cpp",
+    "src/render/animation_manager_copy_position_record_00447940.cpp"
+  ],
+  "constant_aliases": [
+    {
+      "symbol": "__real@4f800000",
+      "address": "0x00470B98",
+      "value": 4294967296.0
+    }
+  ]
+}

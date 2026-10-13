@@ -64330,6 +64330,26 @@
     {
       "region": "asm_FUN_0041afd0_0041afd0",
       "layout": "layout/equivalent/item_update_0041afd0.json"
+    },
+    {
+      "region": "asm_FUN_00422660_00422660",
+      "layout": "layout/equivalent/result_rows_00422660.json"
+    },
+    {
+      "region": "asm_FUN_00428f60_00428f60",
+      "layout": "layout/equivalent/replay_runtime_bootstrap_00428f60.json"
+    },
+    {
+      "region": "asm_FUN_004465b0_004465b0",
+      "layout": "layout/equivalent/anm_texture_fill_transparent_004465b0.json"
+    },
+    {
+      "region": "asm_FUN_00417c80_00417c80",
+      "layout": "layout/equivalent/manager_teardown_00417c80.json"
+    },
+    {
+      "region": "asm_FUN_00429b60_00429b60",
+      "layout": "layout/equivalent/replay_save_00429b60.json"
     }
   ]
 }

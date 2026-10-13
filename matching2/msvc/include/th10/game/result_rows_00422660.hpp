@@ -1,0 +1,56 @@
+#ifndef TH10_GAME_RESULT_ROWS_00422660_HPP
+#define TH10_GAME_RESULT_ROWS_00422660_HPP
+
+#include <stddef.h>
+#include <time.h>
+
+#include "th10/game/game_thread_queue_native.hpp"
+#include "th10/game/title_menu_draw.hpp"
+
+// The result screen's menu state: the same object the name entry at
+// 0x00423570 prepares. Its phase word picks which of the three row views
+// this callback draws, and the replay slots it lists are the ones the run
+// just filled.
+struct ResultMenu_00422660 {
+    unsigned char reserved_00[0x04];
+    int phase;                          // +0x04
+    unsigned char reserved_08[0x14 - 0x08];
+    int timer;                          // +0x14: frames since the view opened
+    unsigned char reserved_18[0x24 - 0x18];
+    int cursor;                         // +0x24: the selected row
+    unsigned char reserved_28[0x1E8 - 0x28];
+    int no_entry;                       // +0x1E8: the final score missed the table
+    ReplayFile_00431ba0* records[25];   // +0x1EC: the 25 replay slots
+};
+
+// 0x00422660: draw the result screen's rows.
+extern "C" int __stdcall ResultScreen_DrawRows_00422660(ResultMenu_00422660* state);
+
+// 0x004224C0: the name entry overlay (state, position by value; RET16).
+extern "C" void __stdcall DrawNameEntry_004224c0(
+    ResultMenu_00422660* state, Vec3_00401530 position);
+
+extern "C" {
+extern int data_00474c74;             // the difficulty the run was played on
+extern int data_00474c7c;             // the stage the run ended on
+extern const char* data_00474708[];   // "E", "N", "H", "L", "X": difficulty initials
+extern const char data_0046e0e8[];    // "%2d %s %.9ld%d --/--/-- Stage -"
+extern const char data_0046e108[];    // "%2d %s %.9ld%d %.2d/%.2d/%.2d %s"
+extern const char data_0046e12c[];    // "            Score Ranking!!"
+extern const char data_0046e148[];    // "No.%.2d          %.2d/%.2d/%.2d %s %s %s"
+extern const char data_0046e174[];    // "No.%.2d -------- --/--/-- ------- - St-"
+extern const char data_0046e19c[];    // "No.%.2d %s %.2d/%.2d/%.2d %s %s %s"
+}
+
+// Plain-int views of the run's selection words; reading them as ints keeps
+// the retail load order against the color store of the ranking loop.
+extern "C" int data_00474c68_shot;    // 0x00474C68
+extern "C" int data_00474c68_char;    // 0x00474C6C
+
+typedef char ResultMenu_phase_is_04[offsetof(ResultMenu_00422660, phase) == 0x04 ? 1 : -1];
+typedef char ResultMenu_timer_is_14[offsetof(ResultMenu_00422660, timer) == 0x14 ? 1 : -1];
+typedef char ResultMenu_cursor_is_24[offsetof(ResultMenu_00422660, cursor) == 0x24 ? 1 : -1];
+typedef char ResultMenu_no_entry_is_1e8[offsetof(ResultMenu_00422660, no_entry) == 0x1E8 ? 1 : -1];
+typedef char ResultMenu_records_is_1ec[offsetof(ResultMenu_00422660, records) == 0x1EC ? 1 : -1];
+
+#endif

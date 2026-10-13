@@ -4,6 +4,14 @@
 // variants_tested=retail naked baseline (1463/1463 exact), bounded readable surface loop (90 bytes),
 // live Ghidra FUN_004465B0 decompile, and exact probe;
 // next_lever=derive the original pixel-record and surface interfaces, then compile the full body in a native-LTCG renderer cluster.
+//
+// RESOLVED AS EQUIVALENT (2026-10-13): a readable model compiled against the
+// anm_texture_upload_00446c70 cluster context (which supplies the EAX receiver)
+// is accepted as an equivalent recovery; see
+// equivalent/render/anm_texture_fill_transparent_pixels_004465b0.cpp,
+// layout/equivalent/anm_texture_fill_transparent_004465b0.json and
+// reference/recovery_notes/anm_texture_fill_transparent_004465b0_equivalent_2026_10_13.md.
+// This naked body remains the built bytes of the region.
 
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
