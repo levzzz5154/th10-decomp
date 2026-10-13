@@ -96,6 +96,9 @@ LISTED_CLASSES = {
     'code-shape': 'the same values reach the same places through another instruction sequence: a copy through an integer '
                   'or an x87 register, a read-modify-write folded or split, a shared tail duplicated or merged',
     'alignment-padding': 'loop-alignment filler of another length, a consequence of the other differences',
+    'call-target-rebind': 'a call to a bound callee whose model copy sits inside the recovered '
+                          'extent; the displacement is rewritten to the callee\'s retail address, '
+                          'authorized by an explicit binding and a byte-exact semantic region',
 }
 TABLE_JUMP = re.compile(rb'\xff\x24[\x85\x8d\x95\x9d\xad\xb5\xbd](....)', re.DOTALL)
 SIB = re.compile(r'\[(e[a-z]{2})\+(e[a-z]{2})\*1((?:[+-]0x[0-9a-f]+)?)\]')
@@ -172,8 +175,15 @@ def load_recoveries(project, config, regions):
         for item in layout['differences']:
             if set(item) != {'class', 'offset', 'retail', 'model'} or item['class'] not in LISTED_CLASSES:
                 raise EquivalenceError('malformed recorded difference in ' + entry['layout'])
+        rebase_regions = {}
+        for name in layout['bindings']:
+            matches = [r for r in regions
+                       if r.get('kind') == 'semantic' and r.get('symbol') == name]
+            if matches:
+                rebase_regions[name] = [(int(str(r['address']), 0), r['name'])
+                                        for r in matches]
         recoveries.append({**layout, 'path': path, 'source_paths': sources, 'source_flags': extra_flags,
-                           'region_record': region,
+                           'region_record': region, 'rebase_regions': rebase_regions,
                            'address': int(region['address'], 0), 'size': region['size']})
     return recoveries
 
@@ -444,7 +454,66 @@ def absolute_sites(first, second, delta):
     return sites, code_sites
 
 
-def relocate(pe, moved, rows, model_start, model_code, tail, start, bound, own):
+def rebase_map(bindings, symbols, model_start, model_code, region_start, region_size,
+               rebase_regions, recovery_name):
+    """Build {model address: retail address} for authorized call-target rebases.
+
+    A call target inside the compared function may be rebased only when its
+    model address is a `bindings` entry whose retail address lies outside the
+    region and a semantic (maintained, byte-exact) region carries the same
+    symbol at that address.  A bound callee whose model copy lands inside the
+    compared extent without such a verified region refuses.
+    """
+    rebind, refused, verified = {}, [], []
+    for name, spelling in bindings.items():
+        retail = int(spelling, 0)
+        if region_start <= retail < region_start + region_size:
+            continue
+        model_addr = symbols.get(name)
+        if model_addr is None or not model_start <= model_addr < model_start + model_code:
+            continue
+        region_name = next((entry[1] for entry in rebase_regions.get(name, [])
+                            if entry[0] == retail), None)
+        if region_name is None:
+            refused.append({'symbol': name, 'retail': hex(retail)})
+            continue
+        rebind[model_addr] = retail
+        verified.append({'symbol': name, 'model': hex(model_addr), 'retail': hex(retail),
+                         'verified': f'semantic region {region_name} (byte-exact elsewhere)'})
+    if refused:
+        raise EquivalenceError(
+            f'{recovery_name}: bound callee without a verified semantic region: '
+            + ', '.join(f"{item['symbol']} at {item['retail']}" for item in refused))
+    return rebind, verified
+
+
+def rebase_bound_calls(rows, body, start, rebind):
+    """Rewrite near calls whose in-function target is a rebind key to its retail address.
+
+    Returns one record per rewritten call.  A call qualifies only when it is a
+    5-byte near call whose target is a key of ``rebind`` (the model address of
+    a bound callee verified byte-exact elsewhere); every other row is left
+    untouched.
+    """
+    rebased = []
+    for index, (offset, text) in enumerate(rows):
+        match = BRANCH.match(text)
+        if not match or not text.startswith('call'):
+            continue
+        target = int(match[1], 16)
+        retail_target = rebind.get(target)
+        if retail_target is None:
+            continue
+        end = rows[index + 1][0] if index + 1 < len(rows) else offset + 5
+        if end - offset != 5:
+            continue
+        struct.pack_into('<i', body, offset + 1, retail_target - (start + offset + 5))
+        rebased.append({'offset': f'{offset:#x}', 'model': f'call {target:#x}',
+                        'retail': f'call {retail_target:#x}'})
+    return rebased
+
+
+def relocate(pe, moved, rows, model_start, model_code, tail, start, bound, own, rebind=None):
     """Return the model function's bytes as they must read at the retail address.
 
     Addresses inside the function move with it; bound model symbols become
@@ -485,7 +554,8 @@ def relocate(pe, moved, rows, model_start, model_code, tail, start, bound, own):
         if length < 5:
             raise EquivalenceError(f'short branch leaves the function at +{offset:#x}')
         struct.pack_into('<i', body, offset + length - 4, retail_address(target) - (start + offset + length))
-    return bytes(body)
+    rebased = rebase_bound_calls(rows, body, start, rebind or {})
+    return bytes(body), rebased
 
 
 def external_references(rows):
@@ -604,9 +674,11 @@ def verify_recovery(recovery, project, toolkit, flags, text, output, *, record=F
             if name not in symbols:
                 raise EquivalenceError('bound model symbol is absent from the link map: ' + name)
             bound[symbols[name]] = int(address, 0)
-        body = relocate(PEImage(image), PEImage(moved), disassemble(PEImage(image).read(model_start, model_code),
+        rebind, rebase_verified = rebase_map(recovery['bindings'], symbols, model_start, model_code,
+                                             start, size, recovery['rebase_regions'], recovery['name'])
+        body, rebased_rows = relocate(PEImage(image), PEImage(moved), disassemble(PEImage(image).read(model_start, model_code),
                                                     model_start, work, 'model'),
-                        model_start, model_code, tail, start, bound, own)
+                        model_start, model_code, tail, start, bound, own, rebind)
         identity = lambda value, spelling: spelling
         retail_rows = normalize(disassemble(retail[:code_bytes], start, work, 'retail'),
                                 start, code_bytes, size, identity)
@@ -623,8 +695,10 @@ def verify_recovery(recovery, project, toolkit, flags, text, output, *, record=F
         shutil.rmtree(work, ignore_errors=True)
     listed = [{key: item[key] for key in ('offset', 'retail', 'model')} for item in recovery['differences']]
     changed = sum(len(hunk['retail']) for hunk in hunks)
+    verified_names = sorted({item['verified'] for item in rebase_verified}) if rebase_verified else []
     report = {'name': recovery['name'], 'region': recovery['region'], 'bytes': size,
               'instructions': len(retail_rows), 'identical': len(retail_rows) - swaps - changed - counts['frame'],
+              'rebased_calls': {'count': len(rebased_rows), 'verified': verified_names, 'rows': rebased_rows},
               'base_index_order': swaps, 'frame_offset': counts['frame'], 'listed_differences': len(hunks), 'listed_instructions': changed}
     report['code_bytes'] = model_code + tail
     if record:

@@ -2,7 +2,7 @@ import unittest
 
 from matching2.tools.matching.equivalence import (
     CODE_SHIFT, EquivalenceError, absolute_sites, apply_bodies, canonical_sib, compare_tail, find_differences, gate,
-    normalize)
+    normalize, rebase_bound_calls, rebase_map)
 from matching2.tools.matching.progress import recovered, summarize
 
 
@@ -128,6 +128,53 @@ class EquivalenceTests(unittest.TestCase):
         self.assertIn('recorded differences cover 11 of 32',
                       '\n'.join(gate({}, retail, model, [dict(wide, retail=wide['retail'] * 2 + ['nop'])],
                                      ['register-choice'])))
+
+    def test_rebase_bound_calls_rewrites_an_authorized_in_window_call(self):
+        rows = [(0, 'call 0x2000'), (5, 'ret')]
+        body = bytearray(b'\xe8\xfb\xff\xff\xff\xc3')
+        rebased = rebase_bound_calls(rows, body, 0x1000, {0x2000: 0x9000})
+        self.assertEqual(rebased, [{'offset': '0x0', 'model': 'call 0x2000',
+                                    'retail': 'call 0x9000'}])
+        self.assertEqual(bytes(body), b'\xe8\xfb\x7f\x00\x00\xc3')
+
+    def test_rebase_bound_calls_leaves_unbound_calls_alone(self):
+        rows = [(0, 'call 0x2000'), (5, 'ret')]
+        body = bytearray(b'\xe8\xfb\xff\xff\xff\xc3')
+        rebased = rebase_bound_calls(rows, body, 0x1000, {0x3000: 0x9000})
+        self.assertEqual(rebased, [])
+        self.assertEqual(bytes(body), b'\xe8\xfb\xff\xff\xff\xc3')
+
+    def test_rebase_bound_calls_skips_calls_of_other_lengths(self):
+        rows = [(0, 'jmp 0x2000'), (2, 'ret')]
+        body = bytearray(b'\xe9\xfb\x00\x00\x00\xc3')
+        rebased = rebase_bound_calls(rows, body, 0x1000, {0x2000: 0x9000})
+        self.assertEqual(rebased, [])
+        self.assertEqual(bytes(body), b'\xe9\xfb\x00\x00\x00\xc3')
+
+    def test_rebase_map_authorizes_an_outside_region_semantic_callee(self):
+        regions = [{'kind': 'semantic', 'symbol': '?WriteShared@@YGHPBXI@Z',
+                    'address': '0x9000', 'name': 'semantic_WriteShared', 'size': 76}]
+        rebind = rebase_map({'?WriteShared@@YGHPBXI@Z': '0x9000'},
+                            {'?WriteShared@@YGHPBXI@Z': 0x1400}, 0x1000, 0x800,
+                            0x1000, 0x800, {'?WriteShared@@YGHPBXI@Z': [(0x9000, 'semantic_WriteShared')]},
+                            'probe')
+        self.assertEqual(rebind, ({0x1400: 0x9000},
+                                  [{'symbol': '?WriteShared@@YGHPBXI@Z', 'model': '0x1400',
+                                    'retail': '0x9000',
+                                    'verified': 'semantic region semantic_WriteShared (byte-exact elsewhere)'}]))
+
+    def test_rebase_map_refuses_an_unverified_in_window_callee(self):
+        with self.assertRaises(EquivalenceError) as caught:
+            rebase_map({'?Callee@@YGHPBXI@Z': '0x9000'},
+                       {'?Callee@@YGHPBXI@Z': 0x1400}, 0x1000, 0x800,
+                       0x1000, 0x800, {}, 'probe')
+        self.assertIn('without a verified semantic region', str(caught.exception))
+
+    def test_rebase_map_skips_bindings_inside_the_region(self):
+        rebind = rebase_map({'?Inside@@YGHPBXI@Z': '0x1400'},
+                            {'?Inside@@YGHPBXI@Z': 0x2000}, 0x1000, 0x800,
+                            0x1000, 0x800, {}, 'probe')
+        self.assertEqual(rebind, ({}, []))
 
     def test_bodies_replace_only_their_regions(self):
         regions = [{'name': 'a', 'address': '0x401000', 'size': 2}, {'name': 'b', 'address': '0x401002', 'size': 3}]
