@@ -150,4 +150,146 @@ therefore mandatory — the model cannot fit the 550-byte extent.
 The resolver-call fix (passing the operand value as the first argument, as
 retail does) narrows the instruction differences from 889 to ~509 bytes and
 is the correct readable semantics; it is committed in the parked candidate
-source.  The region stays assembly.
+source. The region stays assembly.
+
+## Cluster probe round 2 (2026-10-13)
+
+Iterated in `scratch/eclstart` (reflink copy; StartChild promoted from anchor
+to selected function in the scratch manifest, scratch regions.json region
+converted to semantic). Measurement: probe the cluster, read the true size
+from `cluster.map` (`.text$01start`), re-probe with the anchor size set, then
+byte-diff the built PE at 0x44DF70 against retail.
+
+| variant | bytes | note |
+| --- | --- | --- |
+| tree parked candidate (dummy 0, zero-store) | 557 | +7 |
+| + operand passed as resolver arg 1 (`xor ecx,ecx` → `mov ecx,reg`) | 555 | +5; the note's "committed fix" was **not** in the tree file |
+| + `src = source` non-volatile copy after the loop, tail reads via it | 547 | +3, best; tail re-reads of the volatile pointer collapse |
+| + non-volatile source (no volatile) | 534 | −16 but ABI drifts: source becomes an ESI live-in, wrong for the asm dispatcher caller |
+| + loop-tail `operand_offset = descriptor + 4` derivation (or `descriptor + 12` before the increment) | 528/534 | flips the register contest but re-plans the whole ABI (`mov ecx,esi` appears in SpawnChild's call), SpawnChild goes nonexact — unusable |
+| + fused `++selector < limit` / split `descriptor += 4; += 4` / inline `(descriptor+4)>>2` at both loads | 547/547/557 | no contest change |
+
+Probe verdicts (scratch): SpawnChild EXACT 142/142 throughout; StartChild
+best draft 547 bytes, 498 differing bytes in the 550-byte overlap.
+
+### Register-contest mechanism, now proven
+
+The c2 choose order for StartChild is: child→ESI (prio 188), pc→EDI (164),
+selector+index→**EBP** (117), descriptor→**EBX** (115, avail forced to [4]).
+Retail has selector in EBX and descriptor in EBP. Two decisive traces:
+
+* The 300-cost on EBX comes from a rematerializable immediate candidate
+  (`num=5`, prio 0, `SpillImmedBytes`, avail=[4]) — patching the EBX cost to 0
+  in memory at the selector's choose (gdb, mid-link) does **not** flip the
+  pick: with costs tied, c2's class order still prefers EBP over EBX.
+* Therefore retail's selector only gets EBX because EBP is already taken:
+  the **descriptor must allocate first**, i.e. its priority must exceed the
+  selector's. Priority tracks the creation weight (`prio = w + const` for
+  both: w 88 vs 90, prio 115 vs 117); the selector's +2 comes from its two
+  resolver-call argument references. Adding in-loop descriptor references
+  via dataflow changes flips the priority but also re-plans the calling
+  convention, so the flip must come from a spelling that adds references
+  without touching the loop dataflow. That spelling was not found.
+
+### Byte decomposition of the remaining +3 (547 vs 550)
+
+All residual differences hang off the same allocation:
+
+* entry `mov [esp+0x14],0` (8 B) vs retail `xor edx,edx; mov [esp+0x14],edx`
+  (6 B): +2 — the zero never becomes a register candidate because the first
+  push folds EAX (cursor==0);
+* tail `xor ebx,ebx; cmp eax,ebx` (5 B) vs `test eax,eax` (2 B): +3, and the
+  PopWord guard `cmp/jl` (5 B) vs `js` (2 B): +3 — both because EBX is free
+  at tail entry in the model while retail has the hoisted `mov ebx,0x4`;
+* source preloaded to EDX before the `je` in retail (−6 for the model, whose
+  `src` copy lands in EBX later);
+* retail's 7-byte `lea esp,[esp]` loop-head alignment nop is absent in the
+  model (−7): the model's loop head sits 9 bytes past a 16-boundary, just
+  past c2's alignment window.
+
+Net +2+3+3−6+... ≈ +5 before the src-caching win; 547 is where it lands.
+
+Instruction-level (register-normalised) diff of the best draft: 135 of 165
+instructions shape-identical, 59 differing-instruction weight against the
+equivalence budget of 55 (TOTAL_BUDGET 1/3) — four instructions over, all of
+class register-choice/evaluation-order around the swap and the zero forms.
+
+Next lever (unchanged conclusion, sharper): find a zero-dataflow spelling
+that raises the descriptor candidate's creation weight by 3 (or lowers the
+selector's) — e.g. any additional in-loop descriptor use c2 does not CSE
+away and that does not restructure the loop tail. Everything else follows
+from it: the swap, the zero forms, the source preload, and then the extent
+(nominal retail shape) plus, plausibly, the 7-byte loop alignment.
+
+Draft sources and harness: `scratch/eclstart/` (`measure.py`, `run.sh`,
+`diff_exe.py`, `best_ecl_child_pair_vH.cpp`, `trace_weights.py`,
+`trace_patch.py`). The scratch manifest pins the anchor at 547 with gap
+`.text$02layout` recomputed; the real tree is untouched.
+
+## Round 3 (2026-10-13, continued): the remaining levers are closed
+
+* Loop-head alignment: the head's absolute position is fixed by the region
+  address (0x44DF70) plus the function's own byte layout — the preceding
+  gap/anchor sizes cannot shift it. The model's head sits at +0x77 (9 bytes
+  short of the 16-boundary that retail's head reaches via the 7-byte nop).
+  Matching retail's head position requires +2 net bytes before the head and
+  −2 after; c2 re-folds every spelling tried (`descriptor` init split into
+  two statements re-folds to the single LEA), so the window cannot be
+  entered deliberately.
+* Zero-candidate forms: the tail's `xor ebx,ebx; cmp eax,ebx` exists because
+  the ==0-path push zeros hoist a zero candidate above the branch and the
+  compare consumes it; retail compares with `test` and materializes its push
+  zero (`xor ecx,ecx`) inside the path. Decoupling the pushes (`PushValue`
+  immediate helper, `cursor >= 4` guard spelling) measured 543/497 — the
+  zero candidate is still created and hoisted; c2 unifies all zeros of the
+  function into one candidate regardless of spelling.
+* Ref-neutral spelling exhaustion: `unsigned descriptor`, commuted init
+  order, pointer-arithmetic byte loads — all compile to the identical
+  547/498 body. c2's IL canonicalization erases every such variation, so
+  the descriptor weight (88 vs the selector's 90) cannot be moved by
+  spelling alone.
+
+Best verified draft (scratch probe): StartChild 547 bytes (+3), SpawnChild
+`EXACT` 142/142, whole-probe `EXACT` with the region still asm. Weight 59
+against the 55 budget. The next session's options are (a) c2-internal
+weight archaeology — watch candidate+0x44 writes from function start to
+recover the per-reference weight formula, then design a spelling that adds
+exactly 3 weighted descriptor references without a dataflow change — or
+(b) a schema-2 cluster with `calls` over the resolver edges to see whether
+whole-graph compilation shifts the allocation; both untried.
+
+## Round 4 (2026-10-13, option a executed): weight responds to refs, priority does not follow weight alone
+
+Candidate weights dumped at StartChild's first choose across variants:
+
+| variant | descriptor w | selector w | descriptor prio | selector prio |
+| --- | --- | --- | --- | --- |
+| best draft (vH) | 88 | 90 | 115 | 117 |
+| inline `(descriptor+4)>>2` at both loads (vP) | **92** (+4) | n/a (renumbered, w 93) | **97** (−18) | 107 |
+
+Two results:
+
+1. **Creation weight does respond to references**: the inline derivation
+   added exactly +4 to the descriptor's weight (one extra non-loop-class
+   reference), confirming w is a per-reference sum (~20 per in-loop ref,
+   ~4 per non-loop ref, ~+3 per call-argument ref — fits vH's 88/90 split).
+2. **Priority is not w + const**: with the descriptor's weight UP 4, its
+   priority went DOWN 18 (115 → 97) and still lost to the selector (107).
+   The choose priority has components beyond the creation weight — the
+   115 = 88+27 / 117 = 90+27 pairing in the base draft was coincidence.
+   The extra component reacts to the dataflow shape (the derivation moved
+   the descriptor's (descriptor+4) partner into the loop), which is exactly
+   the restructuring that also re-plans the ABI.
+
+Consequence: option (a) in its simple form is dead — adding weighted
+references is possible, but the priority's non-weight component punishes
+the dataflow shapes that add them. Recovering the full priority formula
+requires deeper c2 internals (the prio field at candidate+0xc is computed
+outside ChoosePhysReg; its writer was not located among the +0x44 store
+sites). Option (b) remains the only untried lever; expected value is low
+because IPCG specializes call edges, not callee-internal allocation.
+
+Standing best: `scratch/eclstart/best_ecl_child_pair_vH.cpp` — 547 bytes,
+498 differing bytes, weight 59 (budget 55), SpawnChild EXACT. The three
+structural residuals and their single root cause (selector/descriptor
+priority order) are documented above.

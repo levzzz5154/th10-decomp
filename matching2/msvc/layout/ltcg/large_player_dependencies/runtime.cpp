@@ -5,7 +5,10 @@
 struct CachedResource;
 CachedResource* __fastcall Recovery_LoadCachedResource(int,void*,const char*);
 extern "C" {
-    extern unsigned int data_00474c68,data_00474c6c;
+    // The selection words are fields of one game-state struct other code
+    // reaches through its address, so field loads are never folded.
+    struct GameSelectionView { int shot_type, character, unknown_08, difficulty; };
+    extern GameSelectionView data_00474c68;
     extern void* data_00491c10;
     extern ParameterFile* data_00491bf0;
     extern Scheduler* data_00491be4;
@@ -27,15 +30,20 @@ static __forceinline void InitializeTimer(PlayerTimerRecord14* timer) {
     }
 }
 #pragma code_seg(".text$a07body")
+// Three float lanes staged through one local, the way the retail build moves
+// every computed bound through its reserved frame window before the copy.
+struct PlayerBounds3 { float x, y, z; };
+
 int PlayerResetBlock::Initialize() {
-    const char* name=data_00474c68 ? data_0046e420:data_0046e42c;
+    const char* name;
+    if (!data_00474c68.shot_type) name=data_0046e42c; else name=data_0046e420;
     CachedResource* resource=Recovery_LoadCachedResource(8,data_00491c10,name);
     Word(0x10)=(unsigned int)resource;
     if (!resource) { data_00474f70.Append(data_0046e3ec); return -1; }
     if (data_00491bf0) {
         Word(0x45c)=(unsigned int)data_00491bf0;data_00491bf0=0;
     } else {
-        const char* parameter_name=data_00476fc0[data_00474c6c+3*data_00474c68];
+        const char* parameter_name=data_00476fc0[data_00474c68.character+3*data_00474c68.shot_type];
         if (((ParameterLoader*)this)->Load(parameter_name)) {
             data_00474f70.Append(data_0046e3ec);return -1;
         }
@@ -55,30 +63,55 @@ int PlayerResetBlock::Initialize() {
     Word(0x3d8)=(int)(parameters->height*data_00470b44);
     Word(0x3dc)=(int)(parameters->projected_width*data_00470b44);
     Word(0x3e0)=(int)(parameters->projected_height*data_00470b44);
+    unsigned int* indicator=(unsigned int*)((char*)this+0x436c);
     for (int i=0;i<33;++i) {
-        Word(0x436c+i*8)=Word(0x3cc);Word(0x4370+i*8)=Word(0x3d0);
+        indicator[0]=Word(0x3cc);indicator[1]=Word(0x3d0);indicator+=2;
     }
     InitializeTimer(&timer_460);timer_460.elapsed=-1;timer_460.previous=-2;timer_460.current=-1;
     // Character tables initialize the three leading parameter words at +4,+C,+8.
-    *(float*)((char*)Word(0x45c)+4)=data_00476fb8[data_00474c68];
-    *(float*)((char*)Word(0x45c)+12)=data_00476fb0[data_00474c68];
-    *(float*)((char*)Word(0x45c)+8)=data_00476fa0[data_00474c68];
+    // The parameter words are dword slots; the tables hold float bit patterns.
+    *(unsigned int*)((char*)Word(0x45c)+4)=reinterpret_cast<const unsigned int&>(data_00476fb8[data_00474c68.shot_type]);
+    *(unsigned int*)((char*)Word(0x45c)+12)=reinterpret_cast<const unsigned int&>(data_00476fb0[data_00474c68.shot_type]);
+    *(unsigned int*)((char*)Word(0x45c)+8)=reinterpret_cast<const unsigned int&>(data_00476fa0[data_00474c68.shot_type]);
     float half=*(float*)((char*)Word(0x45c)+4)*data_00470b0c;
     Float(0x424)=5;Float(0x420)=half;Float(0x41c)=half;
-    half=data_00476fb0[data_00474c68]*data_00470b0c;
+    half=data_00476fb0[data_00474c68.shot_type]*data_00470b0c;
     Float(0x430)=5;Float(0x42c)=half;Float(0x428)=half;
-    half=data_00476fa8[data_00474c68]*data_00470b0c;
+    half=data_00476fa8[data_00474c68.shot_type]*data_00470b0c;
     Float(0x43c)=5;Float(0x438)=half;Float(0x434)=half;
-#define LARGE_BOUNDS(base,extent) \
-    Float(base)=Float(0x3c0)-Float(extent); \
-    Float(base+4)=Float(0x3c4)-Float(extent+4); \
-    Float(base+8)=Float(0x3c8)-Float(extent+8); \
-    Float(base+12)=Float(extent)+Float(0x3c0); \
-    Float(base+16)=Float(extent+4)+Float(0x3c4); \
-    Float(base+20)=Float(extent+8)+Float(0x3c8)
-    LARGE_BOUNDS(0x404,0x41c);LARGE_BOUNDS(0x4324,0x428);
-    LARGE_BOUNDS(0x433c,0x434);LARGE_BOUNDS(0x4354,0x434);
-#undef LARGE_BOUNDS
+    PlayerBounds3 bounds;
+    bounds.x=Float(0x3c0)-Float(0x41c);
+    bounds.y=Float(0x3c4)-Float(0x420);
+    bounds.z=Float(0x3c8)-Float(0x424);
+    *(PlayerBounds3*)((char*)this+0x404)=bounds;
+    bounds.x=Float(0x41c)+Float(0x3c0);
+    bounds.y=Float(0x420)+Float(0x3c4);
+    bounds.z=Float(0x424)+Float(0x3c8);
+    *(PlayerBounds3*)((char*)this+0x410)=bounds;
+    bounds.x=Float(0x3c0)-Float(0x428);
+    bounds.y=Float(0x3c4)-Float(0x42c);
+    bounds.z=Float(0x3c8)-Float(0x430);
+    *(PlayerBounds3*)((char*)this+0x4324)=bounds;
+    bounds.x=Float(0x428)+Float(0x3c0);
+    bounds.y=Float(0x42c)+Float(0x3c4);
+    bounds.z=Float(0x430)+Float(0x3c8);
+    *(PlayerBounds3*)((char*)this+0x4330)=bounds;
+    bounds.x=Float(0x3c0)-Float(0x434);
+    bounds.y=Float(0x3c4)-Float(0x438);
+    bounds.z=Float(0x3c8)-Float(0x43c);
+    *(PlayerBounds3*)((char*)this+0x433c)=bounds;
+    bounds.x=Float(0x434)+Float(0x3c0);
+    bounds.y=Float(0x438)+Float(0x3c4);
+    bounds.z=Float(0x43c)+Float(0x3c8);
+    *(PlayerBounds3*)((char*)this+0x4348)=bounds;
+    bounds.x=Float(0x3c0)-Float(0x434);
+    bounds.y=Float(0x3c4)-Float(0x438);
+    bounds.z=Float(0x3c8)-Float(0x43c);
+    *(PlayerBounds3*)((char*)this+0x4354)=bounds;
+    bounds.x=Float(0x434)+Float(0x3c0);
+    bounds.y=Float(0x438)+Float(0x3c4);
+    bounds.z=Float(0x43c)+Float(0x3c8);
+    *(PlayerBounds3*)((char*)this+0x4360)=bounds;
     InitializeTimer(&timer_474);timer_474.current=0;timer_474.elapsed=0;timer_474.previous=-1;
     InitializeTimer(&final_timer);final_timer.current=120;final_timer.elapsed=120;final_timer.previous=119;
     Word(0x4308)=30;LargePlayerRefresh(this);return 0;

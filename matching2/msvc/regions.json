@@ -64318,6 +64318,18 @@
     {
       "region": "asm_FUN_0041dd80_0041dd80",
       "layout": "layout/equivalent/laser_circle_trim_0041dd80.json"
+    },
+    {
+      "region": "asm_FUN_004247f0_004247f0",
+      "layout": "layout/equivalent/player_reset_block_initialize_004247f0.json"
+    },
+    {
+      "region": "asm_FUN_0042e5a0_0042e5a0",
+      "layout": "layout/equivalent/options_label_refresh_0042e5a0.json"
+    },
+    {
+      "region": "asm_FUN_0041afd0_0041afd0",
+      "layout": "layout/equivalent/item_update_0041afd0.json"
     }
   ]
 }

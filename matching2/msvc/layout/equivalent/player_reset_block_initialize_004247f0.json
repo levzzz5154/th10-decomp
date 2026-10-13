@@ -898,20 +898,12 @@
       "address": "0x424ed0",
       "kind": "relative_code"
     },
-    "_LargePlayerRefresh@4": {
-      "address": "0x426f70",
-      "kind": "relative_code"
-    },
     "@LargePlayerTick@4": {
       "address": "0x426500",
       "kind": "relative_code"
     },
     "@LargePlayerDraw@4": {
       "address": "0x426510",
-      "kind": "relative_code"
-    },
-    "?Recovery_LoadCachedResource@@YIPAUCachedResource@@HPAXPBD@Z": {
-      "address": "0x447280",
       "kind": "relative_code"
     },
     "??3@YAXPAX@Z": {
@@ -969,6 +961,14 @@
     "?Entity_Init@@YIXPAXPAUEntity@@@Z": {
       "address": "0x401de0",
       "kind": "relative_code"
+    },
+    "?Recovery_LoadCachedResource@@YIPAUCachedResource@@HPAXPBD@Z": {
+      "address": "0x00447280",
+      "kind": "code"
+    },
+    "_LargePlayerRefresh@4": {
+      "address": "0x00426F70",
+      "kind": "code"
     }
   },
   "bindings": {
@@ -978,9 +978,254 @@
     "_Scheduler_RegisterSecondary@12": "0x449b70",
     "?Configure@ItemConfiguredEntity_00404f30@@QAEXHUConfigureResource_00404f30@@@Z": "0x404f30",
     "??0PlayerResetBlock@@QAE@XZ": "0x401140",
-    "_Archive_LoadFile@12": "0x44b360"
+    "_Archive_LoadFile@12": "0x44b360",
+    "?Load@ParameterLoader@@QAEHPBD@Z": "0x426520"
   },
   "base_index_order": 0,
-  "differences": [],
-  "note": "reference/recovery_notes/player_reset_block_initialize_004247f0_equivalent_2026_10_12.md"
+  "differences": [
+    {
+      "class": "evaluation-order",
+      "offset": "0xb5",
+      "retail": [
+        "mov edx,DWORD PTR [ebx+0x10]"
+      ],
+      "model": []
+    },
+    {
+      "class": "register-choice",
+      "offset": "0xbb",
+      "retail": [],
+      "model": [
+        "mov eax,DWORD PTR [ebx+0x10]",
+        "push eax"
+      ]
+    },
+    {
+      "class": "register-choice",
+      "offset": "0xbe",
+      "retail": [
+        "push edx"
+      ],
+      "model": []
+    },
+    {
+      "class": "evaluation-order",
+      "offset": "0xc6",
+      "retail": [
+        "mov esi,DWORD PTR [ebx+0x45c]"
+      ],
+      "model": [
+        "fld DWORD PTR ds:0x470b44"
+      ]
+    },
+    {
+      "class": "operand-order",
+      "offset": "0xec",
+      "retail": [
+        "fld DWORD PTR [esi+0x10]",
+        "fmul DWORD PTR ds:0x470b44"
+      ],
+      "model": [
+        "mov esi,DWORD PTR [ebx+0x45c]",
+        "fmul DWORD PTR [esi+0x10]"
+      ]
+    },
+    {
+      "class": "evaluation-order",
+      "offset": "0xfa",
+      "retail": [],
+      "model": [
+        "fld DWORD PTR ds:0x470b44"
+      ]
+    },
+    {
+      "class": "operand-order",
+      "offset": "0x100",
+      "retail": [
+        "fld DWORD PTR [esi+0x14]",
+        "fmul DWORD PTR ds:0x470b44"
+      ],
+      "model": [
+        "fmul DWORD PTR [esi+0x14]"
+      ]
+    },
+    {
+      "class": "evaluation-order",
+      "offset": "0x10e",
+      "retail": [],
+      "model": [
+        "fld DWORD PTR ds:0x470b44"
+      ]
+    },
+    {
+      "class": "operand-order",
+      "offset": "0x114",
+      "retail": [
+        "fld DWORD PTR [esi+0x18]",
+        "fmul DWORD PTR ds:0x470b44"
+      ],
+      "model": [
+        "fmul DWORD PTR [esi+0x18]"
+      ]
+    },
+    {
+      "class": "evaluation-order",
+      "offset": "0x122",
+      "retail": [],
+      "model": [
+        "fld DWORD PTR ds:0x470b44"
+      ]
+    },
+    {
+      "class": "operand-order",
+      "offset": "0x128",
+      "retail": [
+        "fld DWORD PTR [esi+0x1c]",
+        "fmul DWORD PTR ds:0x470b44"
+      ],
+      "model": [
+        "fmul DWORD PTR [esi+0x1c]"
+      ]
+    },
+    {
+      "class": "evaluation-order",
+      "offset": "0x1a6",
+      "retail": [],
+      "model": [
+        "fld DWORD PTR ds:0x470b0c"
+      ]
+    },
+    {
+      "class": "evaluation-order",
+      "offset": "0x201",
+      "retail": [
+        "fld DWORD PTR [eax+0x4]"
+      ],
+      "model": [
+        "fmul DWORD PTR [eax+0x4]"
+      ]
+    },
+    {
+      "class": "evaluation-order",
+      "offset": "0x209",
+      "retail": [
+        "fmul DWORD PTR ds:0x470b0c"
+      ],
+      "model": []
+    },
+    {
+      "class": "evaluation-order",
+      "offset": "0x227",
+      "retail": [
+        "fld DWORD PTR [edi*4+0x476fb0]"
+      ],
+      "model": [
+        "fld DWORD PTR ds:0x470b0c",
+        "fmul DWORD PTR [edi*4+0x476fb0]"
+      ]
+    },
+    {
+      "class": "evaluation-order",
+      "offset": "0x234",
+      "retail": [
+        "fmul DWORD PTR ds:0x470b0c"
+      ],
+      "model": []
+    },
+    {
+      "class": "evaluation-order",
+      "offset": "0x24c",
+      "retail": [
+        "fld DWORD PTR [edi*4+0x476fa8]"
+      ],
+      "model": [
+        "fld DWORD PTR ds:0x470b0c",
+        "fmul DWORD PTR [edi*4+0x476fa8]"
+      ]
+    },
+    {
+      "class": "evaluation-order",
+      "offset": "0x259",
+      "retail": [
+        "fmul DWORD PTR ds:0x470b0c"
+      ],
+      "model": []
+    },
+    {
+      "class": "operand-order",
+      "offset": "0x349",
+      "retail": [
+        "fld DWORD PTR [ebx+0x428]",
+        "fadd DWORD PTR [ebx+0x3c0]"
+      ],
+      "model": [
+        "fld DWORD PTR [ebx+0x3c0]",
+        "fadd DWORD PTR [ebx+0x428]"
+      ]
+    },
+    {
+      "class": "operand-order",
+      "offset": "0x373",
+      "retail": [
+        "fld DWORD PTR [ebx+0x430]",
+        "fadd DWORD PTR [ebx+0x3c8]"
+      ],
+      "model": [
+        "fld DWORD PTR [ebx+0x3c8]",
+        "fadd DWORD PTR [ebx+0x430]"
+      ]
+    },
+    {
+      "class": "operand-order",
+      "offset": "0x3dd",
+      "retail": [
+        "fld DWORD PTR [ebx+0x434]",
+        "fadd DWORD PTR [ebx+0x3c0]"
+      ],
+      "model": [
+        "fld DWORD PTR [ebx+0x3c0]",
+        "fadd DWORD PTR [ebx+0x434]"
+      ]
+    },
+    {
+      "class": "operand-order",
+      "offset": "0x3f7",
+      "retail": [
+        "fld DWORD PTR [ebx+0x438]",
+        "fadd DWORD PTR [ebx+0x3c4]"
+      ],
+      "model": [
+        "fld DWORD PTR [ebx+0x3c4]",
+        "fadd DWORD PTR [ebx+0x438]"
+      ]
+    },
+    {
+      "class": "operand-order",
+      "offset": "0x471",
+      "retail": [
+        "fld DWORD PTR [ebx+0x434]",
+        "fadd DWORD PTR [ebx+0x3c0]"
+      ],
+      "model": [
+        "fld DWORD PTR [ebx+0x3c0]",
+        "fadd DWORD PTR [ebx+0x434]"
+      ]
+    },
+    {
+      "class": "operand-order",
+      "offset": "0x48b",
+      "retail": [
+        "fld DWORD PTR [ebx+0x438]",
+        "fadd DWORD PTR [ebx+0x3c4]"
+      ],
+      "model": [
+        "fld DWORD PTR [ebx+0x3c4]",
+        "fadd DWORD PTR [ebx+0x438]"
+      ]
+    }
+  ],
+  "note": "reference/recovery_notes/player_reset_block_initialize_004247f0_equivalent_2026_10_12.md",
+  "roots": [
+    "_SelectionStateRef_00474c68@0"
+  ]
 }

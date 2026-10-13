@@ -116,7 +116,7 @@
       "name": "Initialize",
       "symbol": "?Initialize@PlayerResetBlock@@QAEHXZ",
       "address": "0x4247f0",
-      "size": 1234,
+      "size": 1415,
       "section": ".text$a07body"
     }
   ],
@@ -150,8 +150,8 @@
     },
     {
       "section": ".text$a08gap",
-      "address": "0x424cc2",
-      "size": 862
+      "address": "0x424d77",
+      "size": 681
     },
     {
       "section": ".text$a10gap",

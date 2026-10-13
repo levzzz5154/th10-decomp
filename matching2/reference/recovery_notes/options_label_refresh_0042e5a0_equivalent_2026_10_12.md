@@ -144,3 +144,55 @@ needed bytes even though the ladder-only walk sites in retail show three
 music labels. The 3,904-byte flat form is the best source-level shape
 found; the residual 95 bytes are c2 block ordering only reachable through
 the allocator/trace tooling.
+
+## Sixth pass (2026-10-13): accepted — 1,174 of 1,204 instructions identical
+
+The draft was rebuilt around four decode corrections; after them the model
+compiles to the full 3,999-byte extent and the recorded differences shrink to
+30 instructions in 40 hunks (12 `alignment-padding`, 28 `code-shape`), with
+`equivalence.py --layout` reporting an empty `not_equivalent`.
+
+1. **The walk result feeds `Find` as an id.**  Retail's found-tails are the
+   two-deref thunks (`mov eax,[eax]; mov eax,[eax]`): the walk takes the
+   matching child's *own id* (`LabelAnimation_0042d920::id`, offset 0) and
+   looks *that* up in the manager; the loop-exit path looks up id 0.  The
+   earlier "returns the found child" reading was wrong.  Spelling the id as
+   two separate branches (`if (match != 0) id = match->object->id; else
+   id = 0;`, `match` assigned inside the loop) reproduces the out-of-line
+   found-thunks and the hoisted `mov ecx,<script>` — +416 bytes over the
+   shared-default shape.
+2. **The ladder scripts are 0x25/0x26/0x29/0x2A (music) and
+   0x2D/0x2E/0x31/0x32 (sound).**  0x27 never appears: the visibility tree
+   hides/shows the hundreds and tens digits of *both* fonts, never the ones
+   digits.  The fifth pass's 0x27 sites and the nesting experiment were
+   chasing the wrong set; the flat `if (<10) else if (<100) else` ladder with
+   the correct scripts matches retail's block order exactly.
+3. **The custom-register leaves use the cluster's `YIX` spellings.**
+   `SelectResourceSprite_0043e5a0` (`__fastcall`, resource in ECX, sprite in
+   EDX) replaces the `__thiscall` ConfigureObject include, and
+   `RegisterResource_0043e460_eax` (`__fastcall`, queue, name, resource,
+   parameter) replaces the queue method call; the layout's bindings/absolute
+   symbols were updated accordingly.  Retail's extra EAX state (the object,
+   the queue) stays a recorded `code-shape` difference per site — but the
+   walk registers (script in ECX, object in EDX, manager in ESI, room in EDI,
+   zero in EBX) now match retail exactly.
+4. **The flag update is spelled through a pointer variable**
+   (`unsigned int* flags = &label->flags_35c; ...`).  A direct
+   `label->flags_35c &= ~2u` folds into `and [mem],imm`; the pointer form
+   reproduces retail's split `mov ecx,[eax+0x35c]; add eax,0x35c;
+   and ecx,imm; mov [eax],ecx` at every ladder site, with the shared final
+   store and the epilogue woven into the last one.
+
+The manager lookup is hoisted to the function top and passed down (retail
+keeps it in ESI; per-site re-reads made c2 reload it after every call).  The
+remaining recorded differences are the private EDI receiver edges (the model
+takes the room on the stack: `push edi`/`mov edi,[esp+0x14]`, `ret 0x4`
+against retail's bare `ret`), the queue call's ECX/EAX edge, the resource
+load scheduled before the digit magic at six of the twelve configure sites,
+one redundant two-byte `jmp` at +0x209, and the window-end truncation of the
+model's last shared thunk (the body is two bytes past the 3,999-byte extent,
+so its final `jmp` is cut by the compared window; retail's completes).
+
+Regions.json delta for the orchestrator: append to `equivalent_recoveries`:
+`{"region": "asm_FUN_0042e5a0_0042e5a0", "layout":
+"layout/equivalent/options_label_refresh_0042e5a0.json"}`.
