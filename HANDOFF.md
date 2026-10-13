@@ -65,10 +65,16 @@ complete lever history.
 5. **Volatile on storage forces retail's x87 operand order** (frame_timer
    precedent, reused by familiar refresh).
 6. Scope-size ladder (does a bigger /GL scope reproduce retail's
-   choices?): **inconclusive** — measured at 0/9 extras with no movement;
-   50/100+ rungs are built (batched 10-source TUs) but blocked on
-   scratch-header collisions and a wine /showIncludes truncation; the
-   harnesses are turnkey in `scratch/eclstart/`.
+   choices?): **final verdict delivered** — no movement at 0/9 extras;
+   the 100+/150 rungs are unmeasurable under this wine (cl's
+   /showIncludes emission truncates nondeterministically as TU count
+   grows, even with file redirection). Combined with the decoded-formula
+   proof (priority is a fixed function of the reference structure,
+   identical between draft and retail), retail's flip must come from a
+   c2-internal component outside the decoded accumulation — the two
+   remaining RE targets are the block-weight assignment and the
+   initial-home pass. Batched-ladder harness is turnkey in
+   `scratch/eclstart/` for a future wine upgrade.
 
 ## How to continue
 

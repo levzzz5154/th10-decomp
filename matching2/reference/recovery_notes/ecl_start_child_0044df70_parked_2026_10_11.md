@@ -525,3 +525,35 @@ TUs' reports) — the next session should add a one-line guard that asserts
 and re-derives on mismatch. With that asserted, the b100 rung produces its
 first clean measurement and the ladder decision rule applies. The verified
 best state (547/498, SpawnChild EXACT, whole probe EXACT) is restored.
+
+## Round 8 (2026-10-13, final): scope ladder verdict
+
+The guard, pre-pass failure surfacing, and pool refill were applied. The
+flakiness then localised precisely: **cl's /showIncludes output under wine
+is nondeterministically truncated as the TU count grows** — per-TU reports
+shrink or vanish at 4-10 batch TUs (batch_00-04 complete, batch_05-09
+missing entirely in the same run; a later run truncated differently),
+identical TUs and flags produce complete reports when compiled one at a
+time via the pre-pass, and no Python-side capture change (pipe → file
+redirect) alters it. With truncated reports, the header validation fails
+before the link and the ladder cannot measure reliably at scale.
+
+Ladder as measured:
+
+| scope extras | StartChild size | loop regs |
+| --- | --- | --- |
+| 0 | 547 | selector EBP (swapped) |
+| 9 (unbatched) | 547 | selector EBP (swapped) |
+| 100 sources / 10 batch TUs | not measurable (truncation) | — |
+
+Verdict: **no movement at every measurable point; the 100+/150 rungs are
+unmeasurable with the current wine toolchain.** Two options remain for a
+future session: (a) run the batched compiles with a different wine runtime
+configuration (or a VM/newer wine build) to bypass the emission truncation
+and take the 100+ measurement; or (b) treat the two-point evidence plus the
+Round 5 formula proof (the priority is a fixed function of the reference
+structure, which is identical between the draft and retail) as sufficient
+to confirm that the allocator wall is not scope-size-dependent for this
+function, and park the region with the 547-byte draft as the documented
+best. The verified best state (547/498, SpawnChild EXACT, whole probe
+EXACT) is restored.
