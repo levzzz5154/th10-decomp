@@ -10,11 +10,6 @@
 // loop the WriteFile/CloseHandle/LeaveCriticalSection body of that helper is
 // spelled out at every site, each with its own written-count slot, exactly as
 // retail lays them out.
-//
-// Equivalent recovery: the walk cursor doubles as the time-scratch home, so
-// the compiler packs both roles into the frame slot the cursor shares with
-// nothing else; retail's homes for the cursor and the slot pointer sit in
-// each other's slots (recorded as stack-slot-order).
 #include "th10/archive/hint_save_0041a200.hpp"
 #include <string.h>
 
@@ -22,8 +17,8 @@
 
 // The inline retail write: WriteFile through the kernel slot, and on a short
 // write close the shared file, leave the file critical section and unwind the
-// lock depth. This mirrors the WriteShared body, which the retail compiler
-// inlined at the loop sites with the buffer and length arriving in EDI/ESI.
+// lock depth. The handle is read once for the guarded call and re-read after
+// WriteFile, as retail does across the call boundary.
 __forceinline int WriteHintLine(const char* buffer, unsigned int length) {
     unsigned int written;
     if (data_00474c38 == (void*)-1)
@@ -59,7 +54,7 @@ extern "C" __declspec(noinline) int __stdcall SaveHints(Manager_00419040* manage
     int stage;
     int rows;
     Bucket_00419040* slot;
-    ChainNode_00419040* next;                            // walk cursor and time scratch
+    ChainNode_00419040* next = 0;
     char* buffer = (char*)asm_malloc_00452706(0x1000);
     asm_FUN_00452abc_00452abc(data_0046d574);            // make sure "hint" exists
     if (asm_File_OpenSharedWrite_0044b620(path) == 0) {
@@ -75,9 +70,10 @@ extern "C" __declspec(noinline) int __stdcall SaveHints(Manager_00419040* manage
         WriteShared_0044b740(buffer, strlen(buffer));
         asm_sprintf_00452ae8(buffer, data_0046d50c);
         WriteShared_0044b740(buffer, strlen(buffer));
-        time_00452b71(reinterpret_cast<int*>(&next));
         {
-            tm* stamp = localtime(reinterpret_cast<const time_t*>(&next));
+            time_t aclock;
+            time_00452b71(reinterpret_cast<int*>(&aclock));
+            tm* stamp = localtime(&aclock);
             asm_sprintf_00452ae8(buffer, data_0046d440,
                                  stamp->tm_year + 1900, stamp->tm_mon + 1,
                                  stamp->tm_mday, stamp->tm_hour, stamp->tm_min);
@@ -95,8 +91,8 @@ extern "C" __declspec(noinline) int __stdcall SaveHints(Manager_00419040* manage
             rows = 0;
             if (entry != 0) {
                 do {
-                    StageTip* tip = static_cast<StageTip*>(entry->block);
                     next = entry->next;
+                    StageTip* tip = static_cast<StageTip*>(entry->block);
                     if (tip->selection != 0) {
                         if (rows == 0)
                             asm_sprintf_00452ae8(buffer, data_0046d3f8);

@@ -64354,6 +64354,10 @@
     {
       "region": "asm_FUN_004236f0_004236f0",
       "layout": "layout/equivalent/replay_submenu_004236f0.json"
+    },
+    {
+      "region": "asm_FUN_0041a200_0041a200",
+      "layout": "layout/equivalent/hint_save_0041a200.json"
     }
   ]
 }
