@@ -1,0 +1,131 @@
+{
+  "schema_version": 1,
+  "name": "projectile_command_runtime_00406d90",
+  "region": "asm_FUN_00406d90_00406d90",
+  "sources": [
+    "equivalent/game/projectile_command_runtime_00406d90.cpp"
+  ],
+  "entry_symbol": "?Tick@ProjectileCommandRuntime@@QAEXXZ",
+  "function": "?Tick@ProjectileCommandRuntime@@QAEXXZ",
+  "code_bytes": 1454,
+  "absolute_symbols": {
+    "__ftol2": {
+      "address": "0x00463B2C",
+      "kind": "code"
+    },
+    "__fltused": {
+      "address": "0x00000000",
+      "kind": "data"
+    },
+    "_data_00477834": {
+      "address": "0x00477834",
+      "kind": "data"
+    },
+    "_data_004776f0": {
+      "address": "0x004776F0",
+      "kind": "data"
+    },
+    "_data_00492590": {
+      "address": "0x00492590",
+      "kind": "data"
+    },
+    "_data_00474170": {
+      "address": "0x00474170",
+      "kind": "data"
+    },
+    "_data_00470b50": {
+      "address": "0x00470B50",
+      "kind": "data"
+    },
+    "_data_00470ccc": {
+      "address": "0x00470CCC",
+      "kind": "data"
+    },
+    "_data_00470cc8": {
+      "address": "0x00470CC8",
+      "kind": "data"
+    },
+    "_data_00476f78": {
+      "address": "0x00476F78",
+      "kind": "data"
+    },
+    "_data_00470b0c": {
+      "address": "0x00470B0C",
+      "kind": "data"
+    },
+    "_data_00470b14": {
+      "address": "0x00470B14",
+      "kind": "data"
+    },
+    "_data_00470b18": {
+      "address": "0x00470B18",
+      "kind": "data"
+    },
+    "_data_00470c40": {
+      "address": "0x00470C40",
+      "kind": "data"
+    },
+    "_data_004918b0": {
+      "address": "0x004918B0",
+      "kind": "data"
+    },
+    "_LoadScript_0043e710@12": {
+      "address": "0x00401000",
+      "kind": "code"
+    },
+    "?Entity_Init@@YIXPAXPAUEntity@@@Z": {
+      "address": "0x00401000",
+      "kind": "code"
+    },
+    "?OutsideBounds@PlayfieldPoint@@QBEHMM@Z": {
+      "address": "0x00401000",
+      "kind": "code"
+    },
+    "?CreateOffset@AnimationResource_0043e710@@QAE?AUAnimationRef@@HPBUVector3@@@Z": {
+      "address": "0x00401000",
+      "kind": "code"
+    },
+    "_data_00470b04": {
+      "address": "0x00470B04",
+      "kind": "data"
+    },
+    "_data_00470b94": {
+      "address": "0x00470B94",
+      "kind": "data"
+    },
+    "_data_004749ce": {
+      "address": "0x004749CE",
+      "kind": "data"
+    },
+    "_data_00470b20": {
+      "address": "0x00470B20",
+      "kind": "data"
+    },
+    "?EnemyGrid_ScanCells_004073e0@@YGHPAUProjectilePattern_004073e0@@PAUProjectileManager_004073e0@@@Z": {
+      "address": "0x004073E0",
+      "kind": "code"
+    }
+  },
+  "bindings": {
+    "?SetSchedulerValue@PlayerSchedulerRecord@@QAEXH@Z": "0x00405410",
+    "?AngleFromPoint@EntityAngleFromPoint_00426660@@QAEMPBM@Z": "0x00426660",
+    "?SetScorePolar@ScoreGameplayPolarVector@@QAEPAU1@MM@Z": "0x00408750",
+    "?Queue@SoundQueue@@QAEHHH@Z": "0x0043DC90",
+    "?QueuePan@SoundQueue@@QAEXHM@Z": "0x0043DD10",
+    "?Entity_StartScript_00404f30@@YGXPAUAnimationResource_0043e710@@PAUEntity@@H@Z": "0x00404F30",
+    "?Activate@PlayerCollisionRecord@@QAEHXZ": "0x00408030",
+    "?EnemyGrid_ScanCells_004073e0@@YGHPAUProjectilePattern_004073e0@@PAUProjectileManager_004073e0@@@Z": "0x004073E0"
+  },
+  "base_index_order": 0,
+  "differences": [],
+  "context_sources": [
+    "layout/ltcg/projectile_spawn_runtime/start_script.cpp",
+    "layout/ltcg/projectile_spawn_runtime/scheduler_set.cpp",
+    "layout/ltcg/projectile_spawn_runtime/activate.cpp",
+    "layout/ltcg/projectile_spawn_runtime/polar_set.cpp",
+    "layout/ltcg/projectile_spawn_runtime/angle_from_point.cpp",
+    "layout/ltcg/projectile_spawn_runtime/queue.cpp",
+    "layout/ltcg/projectile_spawn_runtime/queue_pan.cpp"
+  ],
+  "note": "reference/recovery_notes/projectile_command_runtime_00406d90_2026_10_13.md"
+}

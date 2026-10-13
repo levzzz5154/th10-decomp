@@ -1,0 +1,231 @@
+{
+ "schema_version": 2,
+ "name": "familiar_refresh_00426f70",
+ "source": "src/game/familiar_refresh_00426f70.cpp",
+ "additional_sources": [
+  "layout/ltcg/familiar_refresh_00426f70_dependencies/allocate.cpp",
+  "layout/ltcg/familiar_refresh_00426f70_dependencies/register_primary_back.cpp",
+  "layout/ltcg/familiar_refresh_00426f70_dependencies/create_primary_front.cpp",
+  "layout/ltcg/familiar_refresh_00426f70_dependencies/find.cpp",
+  "layout/ltcg/familiar_refresh_00426f70_dependencies/set_stop_frame.cpp"
+ ],
+ "headers": [
+  "include/th10/game/familiar_refresh_00426f70.hpp",
+  "include/th10/game/player_hud_animations.hpp",
+  "include/th10/game/entity.hpp",
+  "include/th10/types.hpp",
+  "include/th10/render/animation_stop_frame_handle.hpp"
+ ],
+ "image_base": "0x00400000",
+ "description": "Familiar/orbit refresh co-compiled under native LTCG with verbatim copies of the real animation-manager callee sources: the 4096-slot pool allocator (with the genuine one-pointer Entity_Init), primary registration back and front, the create wrapper, the script-id lookup and the stop-frame helper. The real refresh is the whole-program entry; the pass derives the private register edges (allocator manager in ESI, registrar manager EDX / object EBX / sret EAX, create out slot in EDI, stop-frame handle EAX / frame SI) and, hopefully, the retail prologue entry copy.",
+ "entry": "_PlayerFamiliarRefresh_00426f70@4",
+ "functions": [
+  {
+   "name": "PlayerFamiliarRefresh",
+   "source": "src/game/familiar_refresh_00426f70.cpp",
+   "symbol": "_PlayerFamiliarRefresh_00426f70@4",
+   "section": ".text$00426f70_fn",
+   "address": "0x00426F70",
+   "size": 2520,
+   "actual_abi": "one player pointer on the stack; RET 4"
+  },
+  {
+   "name": "AnimationPool_Allocate",
+   "source": "layout/ltcg/familiar_refresh_00426f70_dependencies/allocate.cpp",
+   "symbol": "?Allocate@AnimationPool@@QAEPAUEntity@@XZ",
+   "section": ".text$00449950_allocate",
+   "address": "0x00449950",
+   "size": 161,
+   "actual_abi": "manager in ESI; Entity* result EAX; plain RET"
+  },
+  {
+   "name": "AnimationLists_RegisterPrimaryBack",
+   "source": "layout/ltcg/familiar_refresh_00426f70_dependencies/register_primary_back.cpp",
+   "symbol": "?RegisterPrimaryBack@AnimationLists@@QAE?AUAnimationRef@@PAUEntity@@@Z",
+   "section": ".text$004489d0_fn",
+   "address": "0x004489D0",
+   "size": 118,
+   "actual_abi": "manager EDX, object EBX, output EAX; plain RET"
+  },
+  {
+   "name": "AnimationManager_CreatePrimaryFront",
+   "source": "layout/ltcg/familiar_refresh_00426f70_dependencies/create_primary_front.cpp",
+   "symbol": "?AnimationManager_CreatePrimaryFront_00448e30@@YGPAPAXPAXPAPAXHH@Z",
+   "section": ".text$00448e30_create",
+   "address": "0x00448E30",
+   "size": 73,
+   "actual_abi": "out slot in EDI; resource, index and render bucket on the stack; out returned in EAX; RET 0xC"
+  },
+  {
+   "name": "AnimationManager_Find",
+   "source": "layout/ltcg/familiar_refresh_00426f70_dependencies/find.cpp",
+   "symbol": "?Find@AnimationManager@@QAIPAXPAUAnimationLookupContext@@UAnimationScriptId@@@Z",
+   "section": ".text$004491c0_find",
+   "address": "0x004491C0",
+   "size": 73,
+   "actual_abi": "context in EDX; script id on the stack; RET 4"
+  },
+  {
+   "name": "AnimationHandle_SetStopFrame",
+   "source": "layout/ltcg/familiar_refresh_00426f70_dependencies/set_stop_frame.cpp",
+   "symbol": "?SetStopFrame@AnimationHandle_00449470@@QAEXG@Z",
+   "section": ".text$00449470_stop",
+   "address": "0x00449470",
+   "size": 65,
+   "actual_abi": "handle in EAX; frame value in SI; plain RET"
+  }
+ ],
+ "calls": [
+  {
+   "caller": "?AnimationManager_CreatePrimaryFront_00448e30@@YGPAPAXPAXPAPAXHH@Z",
+   "callee": "?Allocate@AnimationPool@@QAEPAUEntity@@XZ",
+   "address": "0x00448E38",
+   "instruction": "call"
+  },
+  {
+   "caller": "?SetStopFrame@AnimationHandle_00449470@@QAEXG@Z",
+   "callee": "?Find@AnimationManager@@QAIPAXPAUAnimationLookupContext@@UAnimationScriptId@@@Z",
+   "address": "0x00449479",
+   "instruction": "call"
+  }
+ ],
+ "anchors": [
+  {
+   "name": "EntityInitModel",
+   "symbol": "?Entity_Init@@YGXPAUEntity@@@Z",
+   "section": ".text$00401de0_init",
+   "address": "0x00401DE0",
+   "size": 113
+  },
+  {
+   "name": "RegistrarThunk",
+   "symbol": "_asm_AnimationManager_RegisterPrimaryFront_00448a50",
+   "section": ".text$00448a50_front",
+   "address": "0x00448A50",
+   "size": 112
+  }
+ ],
+ "gaps": [
+  {
+   "section": ".text$00401000_gap",
+   "address": "0x401000",
+   "size": 3552
+  },
+  {
+   "section": ".text$00401ef1_gap",
+   "address": "0x401ef1",
+   "size": 151679
+  },
+  {
+   "section": ".text$00427948_gap",
+   "address": "0x427948",
+   "size": 135304
+  },
+  {
+   "section": ".text$00448a4a_gap",
+   "address": "0x448a4a",
+   "size": 6
+  },
+  {
+   "section": ".text$00448ac2_gap",
+   "address": "0x448ac2",
+   "size": 878
+  },
+  {
+   "section": ".text$00448e79_gap",
+   "address": "0x448e79",
+   "size": 839
+  },
+  {
+   "section": ".text$00449209_gap",
+   "address": "0x449209",
+   "size": 615
+  },
+  {
+   "section": ".text$004494b1_gap",
+   "address": "0x4494b1",
+   "size": 1183
+  },
+  {
+   "section": ".text$004499f1_gap",
+   "address": "0x4499f1",
+   "size": 114832
+  }
+ ],
+ "constants": [],
+ "absolute_symbols": [
+  {
+   "symbol": "_data_00491c10",
+   "address": "0x00491C10",
+   "kind": "data"
+  },
+  {
+   "symbol": "_data_00474c48",
+   "address": "0x00474C48",
+   "kind": "data"
+  },
+  {
+   "symbol": "_data_00474c68",
+   "address": "0x00474C68",
+   "kind": "data"
+  },
+  {
+   "symbol": "_data_00474c6c",
+   "address": "0x00474C6C",
+   "kind": "data"
+  },
+  {
+   "symbol": "_data_00476f7c",
+   "address": "0x00476F7C",
+   "kind": "data"
+  },
+  {
+   "symbol": "_data_00477834",
+   "address": "0x00477834",
+   "kind": "data"
+  },
+  {
+   "symbol": "_data_00470b44",
+   "address": "0x00470B44",
+   "kind": "data"
+  },
+  {
+   "symbol": "?InitializeObject@AnimationResource_00449870@@QAEXPAUEntity@@H@Z",
+   "address": "0x00449870",
+   "kind": "relative_code"
+  },
+  {
+   "symbol": "__ftol2",
+   "address": "0x00463B2C",
+   "kind": "relative_code"
+  },
+  {
+   "symbol": "??2@YAPAXI@Z",
+   "address": "0x00452493",
+   "kind": "relative_code"
+  },
+  {
+   "symbol": "?Entity_Constructor@@YIPAUEntity@@PAU1@@Z",
+   "address": "0x00402050",
+   "kind": "relative_code"
+  },
+  {
+   "symbol": "?TrailSpriteUpdateCallback_00427950@@YIHPAUTrailSprite_00427960@@@Z",
+   "address": "0x00427950",
+   "kind": "relative_code"
+  },
+  {
+   "symbol": "?PlaybackState_OnSwitch_00427ad0@@YIHPAUPlaybackState@@@Z",
+   "address": "0x00427AD0",
+   "kind": "relative_code"
+  },
+  {
+   "symbol": "__fltused",
+   "address": "0x00000000",
+   "kind": "metadata"
+  }
+ ],
+ "included_sources": [
+  "layout/ltcg/player_initialize_00405860_dependencies/entity_init.cpp"
+ ]
+}

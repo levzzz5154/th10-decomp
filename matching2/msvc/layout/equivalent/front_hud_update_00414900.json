@@ -1,0 +1,532 @@
+{
+  "schema_version": 1,
+  "name": "front_hud_update_00414900",
+  "region": "asm_FUN_00414900_00414900",
+  "sources": [
+    "equivalent/game/front_hud_update_00414900.cpp"
+  ],
+  "context_sources": [
+    "src/game/front_script_tick_00415e90.cpp"
+  ],
+  "entry_symbol": "?FrontHudUpdate_00414900@@YGHPAUFrontHudRuntime@@@Z",
+  "function": "?FrontHudUpdate_00414900@@YGHPAUFrontHudRuntime@@@Z",
+  "code_bytes": 3808,
+  "absolute_symbols": {
+    "_data_00491ff4": {
+      "address": "0x00491FF4",
+      "kind": "data"
+    },
+    "_data_00491fb8": {
+      "address": "0x00491FB8",
+      "kind": "data"
+    },
+    "_data_00477834": {
+      "address": "0x00477834",
+      "kind": "data"
+    },
+    "_data_00474c4c": {
+      "address": "0x00474C4C",
+      "kind": "data"
+    },
+    "_data_00477704": {
+      "address": "0x00477704",
+      "kind": "data"
+    },
+    "_data_00491c10": {
+      "address": "0x00491C10",
+      "kind": "data"
+    },
+    "_data_004776f4": {
+      "address": "0x004776F4",
+      "kind": "data"
+    },
+    "_data_00492590": {
+      "address": "0x00492590",
+      "kind": "data"
+    },
+    "_AnmVm_Run_0043ee30@4": {
+      "address": "0x0043EE30",
+      "kind": "code"
+    },
+    "_FrontFree_004524a1": {
+      "address": "0x004524A1",
+      "kind": "code"
+    },
+    "__ftol2": {
+      "address": "0x00463B2C",
+      "kind": "code"
+    },
+    "__fltused": {
+      "address": "0x0",
+      "kind": "data"
+    },
+    "___security_cookie": {
+      "address": "0x00473660",
+      "kind": "data"
+    },
+    "@__security_check_cookie@4": {
+      "address": "0x00458EA5",
+      "kind": "code"
+    },
+    "??2@YAPAXI@Z": {
+      "address": "0x00452493",
+      "kind": "code"
+    },
+    "?Entity_Constructor@@YIPAUEntity@@PAU1@@Z": {
+      "address": "0x402050",
+      "kind": "code"
+    },
+    "?InitializeObject@AnimationResource_00449870@@QAEXPAUEntity@@H@Z": {
+      "address": "0x449870",
+      "kind": "code"
+    },
+    "?g_decoded_text_00497d40@@3PADA": {
+      "address": "0x00497D40",
+      "kind": "data"
+    },
+    "?g_frame_timer_normal_lower@@3MA": {
+      "address": "0x00470B68",
+      "kind": "data"
+    },
+    "?g_frame_timer_normal_upper@@3MA": {
+      "address": "0x00470B64",
+      "kind": "data"
+    },
+    "?g_music_requests@@3UAnimationManager_0043e460@@A": {
+      "address": "0x492590",
+      "kind": "data"
+    },
+    "?g_thread_synchronization@@3UThreadSynchronization@@A": {
+      "address": "0x00492274",
+      "kind": "data"
+    },
+    "@ColorPulseDraw_0043c500@4": {
+      "address": "0x43c500",
+      "kind": "code"
+    },
+    "@ColorPulseUpdate_0043c460@4": {
+      "address": "0x43c460",
+      "kind": "code"
+    },
+    "@EnvelopeShakeUpdate_0043c710@4": {
+      "address": "0x43c710",
+      "kind": "code"
+    },
+    "@FadeInUpdate_0043c230@4": {
+      "address": "0x43c230",
+      "kind": "code"
+    },
+    "@FadeOutUpdate_0043bd40@4": {
+      "address": "0x43bd40",
+      "kind": "code"
+    },
+    "@HalfOpacityFadeUpdate_0043c310@4": {
+      "address": "0x43c310",
+      "kind": "code"
+    },
+    "@LinearShakeUpdate_0043c550@4": {
+      "address": "0x43c550",
+      "kind": "code"
+    },
+    "@PlayfieldHalfOpacityDraw_0043c410@4": {
+      "address": "0x43c410",
+      "kind": "code"
+    },
+    "@PlayfieldOverlayDraw_0043c2c0@4": {
+      "address": "0x43c2c0",
+      "kind": "code"
+    },
+    "@ScreenEffectRemove_0043c870@4": {
+      "address": "0x43c870",
+      "kind": "code"
+    },
+    "@ScreenOverlayDraw_0043c3c0@4": {
+      "address": "0x43c3c0",
+      "kind": "code"
+    },
+    "@ViewportOverlayDraw_0043c1a0@4": {
+      "address": "0x43c1a0",
+      "kind": "code"
+    },
+    "_SchedulerCallback_Create_00449ed0@4": {
+      "address": "0x00449ED0",
+      "kind": "code"
+    },
+    "__imp__EnterCriticalSection@4": {
+      "address": "0x004660B0",
+      "kind": "code"
+    },
+    "__imp__LeaveCriticalSection@4": {
+      "address": "0x004660B4",
+      "kind": "code"
+    },
+    "_asm_Sound_PlayDummyRetail_00420b10@8": {
+      "address": "0x00420B10",
+      "kind": "code"
+    },
+    "_asm_Sound_PlayRandomVoiceRetail_00420c30@4": {
+      "address": "0x00420C30",
+      "kind": "code"
+    },
+    "_data_0046df98": {
+      "address": "0x0046DF98",
+      "kind": "code"
+    },
+    "_data_0046e0d8": {
+      "address": "0x0046E0D8",
+      "kind": "code"
+    },
+    "_data_00470b04": {
+      "address": "0x00470B04",
+      "kind": "data"
+    },
+    "_data_00470b3c": {
+      "address": "0x00470B3C",
+      "kind": "data"
+    },
+    "_data_00470b40": {
+      "address": "0x00470B40",
+      "kind": "data"
+    },
+    "_data_00470b4c": {
+      "address": "0x00470B4C",
+      "kind": "data"
+    },
+    "_data_00470b5c": {
+      "address": "0x00470B5C",
+      "kind": "data"
+    },
+    "_data_00470b64": {
+      "address": "0x00470B64",
+      "kind": "data"
+    },
+    "_data_00470b68": {
+      "address": "0x00470B68",
+      "kind": "data"
+    },
+    "_data_00470bc8": {
+      "address": "0x00470BC8",
+      "kind": "data"
+    },
+    "_data_00470bdc": {
+      "address": "0x00470BDC",
+      "kind": "data"
+    },
+    "_data_00470c28": {
+      "address": "0x00470C28",
+      "kind": "data"
+    },
+    "_data_00470ce8": {
+      "address": "0x00470CE8",
+      "kind": "data"
+    },
+    "_data_00470cf0": {
+      "address": "0x00470CF0",
+      "kind": "data"
+    },
+    "_data_00470cf8": {
+      "address": "0x00470CF8",
+      "kind": "data"
+    },
+    "_data_00470d00": {
+      "address": "0x00470D00",
+      "kind": "data"
+    },
+    "_data_00470d08": {
+      "address": "0x00470D08",
+      "kind": "data"
+    },
+    "_data_00470d10": {
+      "address": "0x00470D10",
+      "kind": "data"
+    },
+    "_data_00474788": {
+      "address": "0x00474788",
+      "kind": "data"
+    },
+    "_data_004749ce": {
+      "address": "0x004749CE",
+      "kind": "data"
+    },
+    "_data_00474c40": {
+      "address": "0x00474C40",
+      "kind": "data"
+    },
+    "_data_00474c48": {
+      "address": "0x00474C48",
+      "kind": "data"
+    },
+    "_data_00474c68": {
+      "address": "0x00474C68",
+      "kind": "data"
+    },
+    "_data_00474c6c": {
+      "address": "0x00474C6C",
+      "kind": "data"
+    },
+    "_data_00474c70": {
+      "address": "0x00474C70",
+      "kind": "data"
+    },
+    "_data_00474c74": {
+      "address": "0x00474C74",
+      "kind": "data"
+    },
+    "_data_00474c7c": {
+      "address": "0x00474C7C",
+      "kind": "data"
+    },
+    "_data_00474c84": {
+      "address": "0x00474C84",
+      "kind": "data"
+    },
+    "_data_00474c8c": {
+      "address": "0x00474C8C",
+      "kind": "data"
+    },
+    "_data_00474ca0": {
+      "address": "0x00474CA0",
+      "kind": "data"
+    },
+    "_data_00474e5c": {
+      "address": "0x00474E5C",
+      "kind": "data"
+    },
+    "_data_00474e62": {
+      "address": "0x00474E62",
+      "kind": "data"
+    },
+    "_data_00476f78": {
+      "address": "0x00476F78",
+      "kind": "data"
+    },
+    "_data_004776e0": {
+      "address": "0x004776E0",
+      "kind": "data"
+    },
+    "_data_0047770c": {
+      "address": "0x0047770C",
+      "kind": "data"
+    },
+    "_data_00477810": {
+      "address": "0x00477810",
+      "kind": "data"
+    },
+    "_data_00477830": {
+      "address": "0x00477830",
+      "kind": "data"
+    },
+    "_data_00477838": {
+      "address": "0x00477838",
+      "kind": "data"
+    },
+    "_data_0047783c": {
+      "address": "0x0047783C",
+      "kind": "data"
+    },
+    "_data_00477848": {
+      "address": "0x00477848",
+      "kind": "data"
+    },
+    "_data_00491be4": {
+      "address": "0x00491BE4",
+      "kind": "data"
+    },
+    "_data_00491c28": {
+      "address": "0x00491C28",
+      "kind": "data"
+    },
+    "_data_00491d78": {
+      "address": "0x00491D78",
+      "kind": "data"
+    },
+    "_recovery_draw_shadowed_00437db0@24": {
+      "address": "0x00437DB0",
+      "kind": "code"
+    },
+    "_recovery_draw_unshadowed_00437fe0@24": {
+      "address": "0x00437FE0",
+      "kind": "code"
+    },
+    "_recovery_vsprintf_004524a6": {
+      "address": "0x004524A6",
+      "kind": "code"
+    },
+    "_strrchr": {
+      "address": "0x452930",
+      "kind": "code"
+    }
+  },
+  "bindings": {
+    "_data_00491ff4": "0x00491FF4",
+    "_data_00491fb8": "0x00491FB8",
+    "_data_00477834": "0x00477834",
+    "_data_00474c4c": "0x00474C4C",
+    "_data_00477704": "0x00477704",
+    "_data_00491c10": "0x00491C10",
+    "_data_004776f4": "0x004776F4",
+    "_data_00492590": "0x00492590",
+    "_AnmVm_Run_0043ee30@4": "0x0043EE30",
+    "_FrontFree_004524a1": "0x004524A1",
+    "__ftol2": "0x00463B2C",
+    "__fltused": "0x0",
+    "___security_cookie": "0x00473660",
+    "@__security_check_cookie@4": "0x00458EA5",
+    "__real@3f800000": "0x00470AFC",
+    "__real@3b800000": "0x0044C000",
+    "??_C@_01CLKCMJKC@?5?$AA@": "0x0046CFD4",
+    "?OpenResult@PauseOpenState@@QAEXXZ": "0x00423370",
+    "?Entity_Init@@YGXPAUEntity@@@Z": "0x401de0",
+    "?Music_Load@@YGHHPBD@Z": "0x420a90",
+    "?BindToAnimation@SpriteRegion_00424480@@QAEHUAnimationHandle_00424480@@HHHH@Z": "0x424480",
+    "?RegisterResource@AnimationManager_0043e460@@QAEPADPBDHH@Z": "0x43e460",
+    "?RegisterSecondaryBack@AnimationListsOpen@@QAE?AUAnimationScriptId@@PAUEntity@@@Z": "0x448ac0",
+    "?AnimationManager_Find_004491c0@@YIPAXPAUAnimationLookupContext@@UAnimationScriptId@@@Z": "0x4491c0",
+    "?Allocate@AnimationPool@@QAEPAUEntity@@XZ": "0x449950",
+    "?SetSchedulerValue@DispatcherWaitTimer@@QAEXH@Z": "0x00405410",
+    "?AdvanceLevel@DispatcherRankState@@QAEXXZ": "0x004175E0",
+    "?StopAtFrame1@DispatcherHandle@@QAEXXZ": "0x00409E50",
+    "?StopAtFrame2@DispatcherHandle@@QAEXXZ": "0x0040C480",
+    "?StopAtFrame3@DispatcherHandle@@QAEXXZ": "0x0040C4D0",
+    "?SetStopFrame@DispatcherHandle@@QAEXF@Z": "0x00449470",
+    "?FindChildRef@DispatcherHandle@@QAE?AUDispatcherRef@@H@Z": "0x004497D0",
+    "?SelectCurrentSprite@DispatcherRef@@QAEXH@Z": "0x00449670",
+    "?SelectResourceSprite@DispatcherRef@@QAEXPAUAnimationResource_00449870@@H@Z": "0x004496A0",
+    "?RegisterPrimaryBack@DispatcherPrimaryLists@@QAE?AUDispatcherRef@@PAUEntity@@@Z": "0x004489D0",
+    "?DispatcherCreateAnimation@@YG?AUDispatcherRef@@PAUAnimationResource_00449870@@HH@Z": "0x00448D00",
+    "?DispatcherRemoveAnimation@@YIPAXPAUAnimationLookupContext@@UAnimationScriptId@@@Z": "0x004492A0",
+    "?DispatcherSetPosition@@YGXPBUDispatcherVec3@@PAUAnimationLookupContext@@UAnimationScriptId@@@Z": "0x004492F0",
+    "?SetInputMode@@YGXPAUDispatcherInputState@@H@Z": "0x0040AC90",
+    "?Tick@FrameTimer@@QAEXXZ": "0x00404ED0",
+    "?Advance@FrameTimer@@QAEXM@Z": "0x0044BF40",
+    "?Path_DecodeXor@@YGPADPBD@Z": "0x00417010",
+    "?AddScore@ScoreState@@QAEXH@Z": "0x00409D90",
+    "?RecoveryDispatchText_004479d0@@YGXPAURecoveryTextResource_004479d0@@PAXHHIPBDH@Z": "0x004479D0",
+    "?MarkText@RecoveryTextVm_00447a50@@QAAXPAXZZ": "0x00447A50",
+    "?Configure@ScreenEffectController_0043c970@@QAEXHHHHHH@Z": "0x0043C970",
+    "?CreateScreenEffect_0043c8b0@@YGPAUScreenEffectController_0043c970@@HHHHHH@Z": "0x43c8b0",
+    "_Scheduler_RegisterPrimary@12": "0x449ae0",
+    "_Scheduler_RegisterSecondary@12": "0x449b70",
+    "?CreateEffectPrimary@@YGPAUSchedulerTask@@PAXH0@Z": "0x44a000",
+    "?CreateEffectSecondary@@YGPAUSchedulerTask@@PAXH0@Z": "0x44a030",
+    "?Queue@SoundQueue@@QAEHHH@Z": "0x0043DC90",
+    "?ConfigureObject@Resource_0043e5a0@@QAEHPAUAnimationObject_0043e5a0@@H@Z": "0x0043E5A0",
+    "@FrontHudCallback_00415ae0@4": "0x00415AE0",
+    "?FrontHudUpdate_00414900@@YGHPAUFrontHudRuntime@@@Z": "0x00414900",
+    "_ResultDispatcher_00415e90@4": "0x00415E90",
+    "??2@YAPAXI@Z": "0x00452493",
+    "?Entity_Constructor@@YIPAUEntity@@PAU1@@Z": "0x402050",
+    "?InitializeObject@AnimationResource_00449870@@QAEXPAUEntity@@H@Z": "0x449870",
+    "?g_decoded_text_00497d40@@3PADA": "0x00497D40",
+    "?g_frame_timer_normal_lower@@3MA": "0x00470B68",
+    "?g_frame_timer_normal_upper@@3MA": "0x00470B64",
+    "?g_music_requests@@3UAnimationManager_0043e460@@A": "0x492590",
+    "?g_thread_synchronization@@3UThreadSynchronization@@A": "0x00492274",
+    "@ColorPulseDraw_0043c500@4": "0x43c500",
+    "@ColorPulseUpdate_0043c460@4": "0x43c460",
+    "@EnvelopeShakeUpdate_0043c710@4": "0x43c710",
+    "@FadeInUpdate_0043c230@4": "0x43c230",
+    "@FadeOutUpdate_0043bd40@4": "0x43bd40",
+    "@HalfOpacityFadeUpdate_0043c310@4": "0x43c310",
+    "@LinearShakeUpdate_0043c550@4": "0x43c550",
+    "@PlayfieldHalfOpacityDraw_0043c410@4": "0x43c410",
+    "@PlayfieldOverlayDraw_0043c2c0@4": "0x43c2c0",
+    "@ScreenEffectRemove_0043c870@4": "0x43c870",
+    "@ScreenOverlayDraw_0043c3c0@4": "0x43c3c0",
+    "@ViewportOverlayDraw_0043c1a0@4": "0x43c1a0",
+    "_SchedulerCallback_Create_00449ed0@4": "0x00449ED0",
+    "__imp__EnterCriticalSection@4": "0x004660B0",
+    "__imp__LeaveCriticalSection@4": "0x004660B4",
+    "_asm_Sound_PlayDummyRetail_00420b10@8": "0x00420B10",
+    "_asm_Sound_PlayRandomVoiceRetail_00420c30@4": "0x00420C30",
+    "_data_0046df98": "0x0046DF98",
+    "_data_0046e0d8": "0x0046E0D8",
+    "_data_00470b04": "0x00470B04",
+    "_data_00470b3c": "0x00470B3C",
+    "_data_00470b40": "0x00470B40",
+    "_data_00470b4c": "0x00470B4C",
+    "_data_00470b5c": "0x00470B5C",
+    "_data_00470b64": "0x00470B64",
+    "_data_00470b68": "0x00470B68",
+    "_data_00470bc8": "0x00470BC8",
+    "_data_00470bdc": "0x00470BDC",
+    "_data_00470c28": "0x00470C28",
+    "_data_00470ce8": "0x00470CE8",
+    "_data_00470cf0": "0x00470CF0",
+    "_data_00470cf8": "0x00470CF8",
+    "_data_00470d00": "0x00470D00",
+    "_data_00470d08": "0x00470D08",
+    "_data_00470d10": "0x00470D10",
+    "_data_00474788": "0x00474788",
+    "_data_004749ce": "0x004749CE",
+    "_data_00474c40": "0x00474C40",
+    "_data_00474c48": "0x00474C48",
+    "_data_00474c68": "0x00474C68",
+    "_data_00474c6c": "0x00474C6C",
+    "_data_00474c70": "0x00474C70",
+    "_data_00474c74": "0x00474C74",
+    "_data_00474c7c": "0x00474C7C",
+    "_data_00474c84": "0x00474C84",
+    "_data_00474c8c": "0x00474C8C",
+    "_data_00474ca0": "0x00474CA0",
+    "_data_00474e5c": "0x00474E5C",
+    "_data_00474e62": "0x00474E62",
+    "_data_00476f78": "0x00476F78",
+    "_data_004776e0": "0x004776E0",
+    "_data_0047770c": "0x0047770C",
+    "_data_00477810": "0x00477810",
+    "_data_00477830": "0x00477830",
+    "_data_00477838": "0x00477838",
+    "_data_0047783c": "0x0047783C",
+    "_data_00477848": "0x00477848",
+    "_data_00491be4": "0x00491BE4",
+    "_data_00491c28": "0x00491C28",
+    "_data_00491d78": "0x00491D78",
+    "_recovery_draw_shadowed_00437db0@24": "0x00437DB0",
+    "_recovery_draw_unshadowed_00437fe0@24": "0x00437FE0",
+    "_recovery_vsprintf_004524a6": "0x004524A6",
+    "_strrchr": "0x452930"
+  },
+  "base_index_order": 0,
+  "differences": [],
+  "note": "reference/recovery_notes/front_hud_pair_00414900_equivalent_2026_10_13.md",
+  "listed_branch_targets": true,
+  "roots": [
+    "?Entity_Init@@YGXPAUEntity@@@Z",
+    "?Music_Load@@YGHHPBD@Z",
+    "?BindToAnimation@SpriteRegion_00424480@@QAEHUAnimationHandle_00424480@@HHHH@Z",
+    "?RegisterResource@AnimationManager_0043e460@@QAEPADPBDHH@Z",
+    "?RegisterSecondaryBack@AnimationListsOpen@@QAE?AUAnimationScriptId@@PAUEntity@@@Z",
+    "?AnimationManager_Find_004491c0@@YIPAXPAUAnimationLookupContext@@UAnimationScriptId@@@Z",
+    "?Allocate@AnimationPool@@QAEPAUEntity@@XZ",
+    "?SetSchedulerValue@DispatcherWaitTimer@@QAEXH@Z",
+    "?AdvanceLevel@DispatcherRankState@@QAEXXZ",
+    "?StopAtFrame1@DispatcherHandle@@QAEXXZ",
+    "?StopAtFrame2@DispatcherHandle@@QAEXXZ",
+    "?StopAtFrame3@DispatcherHandle@@QAEXXZ",
+    "?SetStopFrame@DispatcherHandle@@QAEXF@Z",
+    "?FindChildRef@DispatcherHandle@@QAE?AUDispatcherRef@@H@Z",
+    "?SelectCurrentSprite@DispatcherRef@@QAEXH@Z",
+    "?SelectResourceSprite@DispatcherRef@@QAEXPAUAnimationResource_00449870@@H@Z",
+    "?RegisterPrimaryBack@DispatcherPrimaryLists@@QAE?AUDispatcherRef@@PAUEntity@@@Z",
+    "?DispatcherCreateAnimation@@YG?AUDispatcherRef@@PAUAnimationResource_00449870@@HH@Z",
+    "?DispatcherRemoveAnimation@@YIPAXPAUAnimationLookupContext@@UAnimationScriptId@@@Z",
+    "?DispatcherSetPosition@@YGXPBUDispatcherVec3@@PAUAnimationLookupContext@@UAnimationScriptId@@@Z",
+    "?SetInputMode@@YGXPAUDispatcherInputState@@H@Z",
+    "?Tick@FrameTimer@@QAEXXZ",
+    "?Advance@FrameTimer@@QAEXM@Z",
+    "?Path_DecodeXor@@YGPADPBD@Z",
+    "?AddScore@ScoreState@@QAEXH@Z",
+    "?RecoveryDispatchText_004479d0@@YGXPAURecoveryTextResource_004479d0@@PAXHHIPBDH@Z",
+    "?MarkText@RecoveryTextVm_00447a50@@QAAXPAXZZ",
+    "?Configure@ScreenEffectController_0043c970@@QAEXHHHHHH@Z",
+    "?CreateScreenEffect_0043c8b0@@YGPAUScreenEffectController_0043c970@@HHHHHH@Z",
+    "_Scheduler_RegisterPrimary@12",
+    "_Scheduler_RegisterSecondary@12",
+    "?CreateEffectPrimary@@YGPAUSchedulerTask@@PAXH0@Z",
+    "?CreateEffectSecondary@@YGPAUSchedulerTask@@PAXH0@Z",
+    "?Queue@SoundQueue@@QAEHHH@Z",
+    "?ConfigureObject@Resource_0043e5a0@@QAEHPAUAnimationObject_0043e5a0@@H@Z",
+    "@FrontHudCallback_00415ae0@4"
+  ]
+}

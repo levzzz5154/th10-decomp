@@ -1,0 +1,63 @@
+{
+ "schema_version": 1,
+ "name": "joystick_poll_0044a190",
+ "region": "asm_FUN_0044a190_0044a190",
+ "sources": [
+  "equivalent/platform/joystick_poll_0044a190.cpp"
+ ],
+ "entry_symbol": "_JoystickPollEntry@0",
+ "function": "?ReadPad@@YIGIHHH@Z",
+ "code_bytes": 833,
+ "absolute_symbols": {
+  "_data_00474e30": {
+   "address": "0x00474E30",
+   "kind": "data"
+  },
+  "_data_004918b8": {
+   "address": "0x004918B8",
+   "kind": "data"
+  },
+  "_data_00491c3c": {
+   "address": "0x00491C3C",
+   "kind": "data"
+  },
+  "_data_00491d5e": {
+   "address": "0x00491D5E",
+   "kind": "data"
+  },
+  "_data_00491d60": {
+   "address": "0x00491D60",
+   "kind": "data"
+  },
+  "_data_00491ff4": {
+   "address": "0x00491FF4",
+   "kind": "data"
+  },
+  "__imp__joyGetPosEx@8": {
+   "address": "0x00466280",
+   "kind": "data"
+  },
+  "___security_cookie": {
+   "address": "0x00473660",
+   "kind": "data"
+  },
+  "@__security_check_cookie@4": {
+   "address": "0x00458EA5",
+   "kind": "code"
+  }
+ },
+ "bindings": {},
+ "base_index_order": 0,
+ "differences": [],
+ "note": "reference/recovery_notes/joystick_binding_reader_0044a190_equivalent_2026_10_13.md",
+ "roots": [
+  "?ReadPad@@YIGIHHH@Z"
+ ],
+ "listed_branch_targets": true,
+ "frame_shift": {
+  "deltas": [
+   -8
+  ],
+  "count": 11
+ }
+}

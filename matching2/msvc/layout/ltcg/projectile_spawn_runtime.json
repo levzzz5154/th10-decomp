@@ -1,0 +1,349 @@
+{
+  "schema_version": 2,
+  "name": "projectile_spawn_runtime",
+  "source": "src/game/enemy_projectile_spawn.cpp",
+  "additional_sources": [
+    "src/game/enemy_grid_scan.cpp",
+    "src/game/projectile_command_runtime.cpp"
+  ],
+  "included_sources": [
+    "layout/ltcg/projectile_spawn_runtime/start_script.cpp",
+    "layout/ltcg/projectile_spawn_runtime/polar_set.cpp",
+    "layout/ltcg/projectile_spawn_runtime/queue_pan.cpp",
+    "layout/ltcg/projectile_spawn_runtime/scheduler_set.cpp",
+    "layout/ltcg/projectile_spawn_runtime/activate.cpp",
+    "layout/ltcg/projectile_spawn_runtime/angle_from_point.cpp",
+    "layout/ltcg/projectile_spawn_runtime/queue.cpp"
+  ],
+  "headers": [
+    "include/th10/game/projectile_spawn_runtime_004067d0.hpp",
+    "include/th10/game/enemy_grid_scan_004073e0.hpp",
+    "include/th10/game/entity.hpp",
+    "include/th10/game/entity_script_start.hpp",
+    "include/th10/math/timer.hpp",
+    "include/th10/math/vector.hpp",
+    "include/th10/math/rng.hpp",
+    "include/th10/math/angle.hpp",
+    "include/th10/types.hpp",
+    "include/th10/platform/sound_queue.hpp"
+  ],
+  "image_base": "0x400000",
+  "description": "The projectile spawn graph as one whole-program link: the grid scanner 0x004073E0 (entry), the cell spawner 0x004067D0 whose blueprint retail keeps in EBX, and the command interpreter 0x00406D90 whose retail section includes its two dispatch tables (region extended to the complete 1604-byte contribution), plus the scheduler setter (EAX receiver), score polar setter, aim-angle helper, vanish activation and sound queue pair as ABI anchors with the retail register states.",
+  "entry": "?EnemyGrid_ScanCells_004073e0@@YGHPAUProjectilePattern_004073e0@@PAUProjectileManager_004073e0@@@Z",
+  "functions": [
+    {
+      "name": "SpawnPatternCell_004067d0",
+      "symbol": "?SpawnPatternCell_004067d0@@YGHPAUProjectilePattern_004073e0@@PAUProjectileManager_004073e0@@HHM@Z",
+      "section": ".text$004067d0_fn",
+      "address": "0x004067D0",
+      "size": 1472,
+      "actual_abi": "blueprint in EBX; manager, column, row and aim on the stack; RET 16"
+    },
+    {
+      "name": "EnemyGrid_ScanCells_004073e0",
+      "source": "src/game/enemy_grid_scan.cpp",
+      "symbol": "?EnemyGrid_ScanCells_004073e0@@YGHPAUProjectilePattern_004073e0@@PAUProjectileManager_004073e0@@@Z",
+      "section": ".text$004073e0_fn",
+      "address": "0x004073E0",
+      "size": 194,
+      "actual_abi": "pattern in EAX; manager on the stack; RET 4"
+    },
+    {
+      "name": "ProjectileCommandRuntime_Tick_00406d90",
+      "source": "src/game/projectile_command_runtime.cpp",
+      "symbol": "?Tick@ProjectileCommandRuntime@@QAEXXZ",
+      "section": ".text$00406d90_fn",
+      "address": "0x00406D90",
+      "size": 1604,
+      "actual_abi": "record in ECX; realigned frame with compiler tables in-section; plain RET"
+    }
+  ],
+  "calls": [
+    {
+      "caller": "?EnemyGrid_ScanCells_004073e0@@YGHPAUProjectilePattern_004073e0@@PAUProjectileManager_004073e0@@@Z",
+      "callee": "?SpawnPatternCell_004067d0@@YGHPAUProjectilePattern_004073e0@@PAUProjectileManager_004073e0@@HHM@Z",
+      "address": "0x00407458",
+      "instruction": "call"
+    },
+    {
+      "caller": "?SpawnPatternCell_004067d0@@YGHPAUProjectilePattern_004073e0@@PAUProjectileManager_004073e0@@HHM@Z",
+      "callee": "?Tick@ProjectileCommandRuntime@@QAEXXZ",
+      "address": "0x00406D10",
+      "instruction": "call"
+    }
+  ],
+  "anchors": [
+    {
+      "name": "Entity_StartScript_00404f30",
+      "symbol": "?Entity_StartScript_00404f30@@YGXPAUAnimationResource_0043e710@@PAUEntity@@H@Z",
+      "section": ".text$00404f30_s",
+      "address": "0x00404F30",
+      "size": 195
+    },
+    {
+      "name": "PlayerSchedulerRecord_SetSchedulerValue",
+      "symbol": "?SetSchedulerValue@PlayerSchedulerRecord@@QAEXH@Z",
+      "section": ".text$00405410_s",
+      "address": "0x00405410",
+      "size": 57
+    },
+    {
+      "name": "PlayerCollisionRecord_Activate",
+      "symbol": "?Activate@PlayerCollisionRecord@@QAEHXZ",
+      "section": ".text$00408030_s",
+      "address": "0x00408030",
+      "size": 202
+    },
+    {
+      "name": "ScoreGameplayPolarVector_SetScorePolar",
+      "symbol": "?SetScorePolar@ScoreGameplayPolarVector@@QAEPAU1@MM@Z",
+      "section": ".text$00408750_s",
+      "address": "0x00408750",
+      "size": 24
+    },
+    {
+      "name": "EntityAngleFromPoint_AngleFromPoint",
+      "symbol": "?AngleFromPoint@EntityAngleFromPoint_00426660@@QAEMPBM@Z",
+      "section": ".text$00426660_s",
+      "address": "0x00426660",
+      "size": 67
+    },
+    {
+      "name": "SoundQueue_Queue",
+      "symbol": "?Queue@SoundQueue@@QAEHHH@Z",
+      "section": ".text$0043dc90_s",
+      "address": "0x0043DC90",
+      "size": 123
+    },
+    {
+      "name": "SoundQueue_QueuePan",
+      "symbol": "?QueuePan@SoundQueue@@QAEXHM@Z",
+      "section": ".text$0043dd10_s",
+      "address": "0x0043DD10",
+      "size": 138
+    }
+  ],
+  "roots": [],
+  "gaps": [
+    {
+      "section": ".text$00401000_a",
+      "address": "0x00401000",
+      "size": 16176
+    },
+    {
+      "section": ".text$00404ff3_a",
+      "address": "0x00404FF3",
+      "size": 1053
+    },
+    {
+      "section": ".text$00405449_a",
+      "address": "0x00405449",
+      "size": 4999
+    },
+    {
+      "section": ".text$004073d4_a",
+      "address": "0x004073D4",
+      "size": 12
+    },
+    {
+      "section": ".text$004074a2_a",
+      "address": "0x004074A2",
+      "size": 2958
+    },
+    {
+      "section": ".text$004080fa_a",
+      "address": "0x004080FA",
+      "size": 1622
+    },
+    {
+      "section": ".text$00408768_a",
+      "address": "0x00408768",
+      "size": 122616
+    },
+    {
+      "section": ".text$004266a3_a",
+      "address": "0x004266A3",
+      "size": 95725
+    },
+    {
+      "section": ".text$0043dd0d_a",
+      "address": "0x0043DD0D",
+      "size": 3
+    },
+    {
+      "section": ".text$0043dd9a_a",
+      "address": "0x0043DD9A",
+      "size": 207206
+    }
+  ],
+  "constants": [],
+  "constant_aliases": [
+    {
+      "symbol": "__real@3f800000",
+      "address": "0x00476F78",
+      "value": 1.0
+    }
+  ],
+  "absolute_symbols": [
+    {
+      "symbol": "_data_00474170",
+      "address": "0x00474170",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004741e0",
+      "address": "0x004741E0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00474250",
+      "address": "0x00474250",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004742c0",
+      "address": "0x004742C0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0047432c",
+      "address": "0x0047432C",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00470b0c",
+      "address": "0x00470B0C",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00470b14",
+      "address": "0x00470B14",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00470b18",
+      "address": "0x00470B18",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00470b50",
+      "address": "0x00470B50",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00470b60",
+      "address": "0x00470B60",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00470b20",
+      "address": "0x00470B20",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00470b04",
+      "address": "0x00470B04",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00470b94",
+      "address": "0x00470B94",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00470c40",
+      "address": "0x00470C40",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00470cc8",
+      "address": "0x00470CC8",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00470ccc",
+      "address": "0x00470CCC",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00476f78",
+      "address": "0x00476F78",
+      "kind": "data"
+    },
+    {
+      "symbol": "?data_00476f78@@3MA",
+      "address": "0x00476F78",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004918b0",
+      "address": "0x004918B0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00492590",
+      "address": "0x00492590",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00477834",
+      "address": "0x00477834",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004776f0",
+      "address": "0x004776F0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004749ce",
+      "address": "0x004749CE",
+      "kind": "data"
+    },
+    {
+      "symbol": "?Rng_NextFloat@@YIMPAURngState@@@Z",
+      "address": "0x0044BB20",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?Angle_NormalizeSum@@YGMMM@Z",
+      "address": "0x0044BC10",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_RunAnimationVm@4",
+      "address": "0x0043EE30",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_LoadScript_0043e710@12",
+      "address": "0x0043E710",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?Entity_Init@@YIXPAXPAUEntity@@@Z",
+      "address": "0x00401DE0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?OutsideBounds@PlayfieldPoint@@QBEHMM@Z",
+      "address": "0x004086B0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?CreateOffset@AnimationResource_0043e710@@QAE?AUAnimationRef@@HPBUVector3@@@Z",
+      "address": "0x00448DB0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__ftol2",
+      "address": "0x00463B2C",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__fltused",
+      "address": "0x0",
+      "kind": "metadata"
+    }
+  ]
+}
