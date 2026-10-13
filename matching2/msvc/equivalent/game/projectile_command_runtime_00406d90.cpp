@@ -81,11 +81,12 @@ __forceinline static float SpawnCommand_AimAngle(ProjectileSpawnRecord& record,
 #pragma code_seg(".text$00406d90_fn")
 void ProjectileCommandRuntime::Tick() {
     ProjectileSpawnRecord& record = *reinterpret_cast<ProjectileSpawnRecord*>(this);
-    if (record.command_index >= 18)
+    if (*reinterpret_cast<volatile int*>(&record.command_index) >= 18)
         return;
     for (;;) {
-        const int index = record.command_index;
-        SpawnCommandRecord& command = record.commands[index];
+    top:
+        SpawnCommandRecord& command = record.commands[
+            *reinterpret_cast<volatile int*>(&record.command_index)];
         const int cmd = command.command;
         if (cmd == 0)
             return;
@@ -93,7 +94,7 @@ void ProjectileCommandRuntime::Tick() {
             return;
         int next_index;
         if (cmd == -1) {
-            record.command_index = index + 1;
+            record.command_index = record.command_index + 1;
             goto bottom;
         }
         switch (cmd) {
@@ -102,7 +103,7 @@ void ProjectileCommandRuntime::Tick() {
             record.scheduler_614.SetSchedulerValue(0);
             record.motion_flags = flags;
             record.field_638 = 0;
-            break;
+            goto bottom;
         }
         case 0x10: {
             record.motion_flags |= 0x10u;
@@ -114,7 +115,7 @@ void ProjectileCommandRuntime::Tick() {
             record.polar_664.SetScorePolar(record.field_660, record.field_65c);
             if (record.command_index != 0 && record.field_458 >= 0)
                 data_00492590.Queue(record.field_458, 0);
-            break;
+            goto bottom;
         }
         case 0x20: {
             record.motion_flags |= 0x20u;
@@ -124,7 +125,7 @@ void ProjectileCommandRuntime::Tick() {
             record.field_6a4 = command.value_c;
             if (record.command_index != 0 && record.field_458 >= 0)
                 data_00492590.Queue(record.field_458, 0);
-            break;
+            goto bottom;
         }
         case 0x40:
         case 0x80:
@@ -148,7 +149,7 @@ void ProjectileCommandRuntime::Tick() {
             record.field_6d8 = command.value_c;
             record.field_6dc = command.value_d;
             record.field_6e0 = 0;
-            break;
+            goto bottom;
         }
         case 0x400:
         case 0x800:
@@ -157,35 +158,35 @@ void ProjectileCommandRuntime::Tick() {
             record.field_6f8 = command.value_a;
             record.field_710 = command.value_c;
             record.field_70c = 0;
-            break;
+            goto bottom;
         }
         case 0x1000:
             record.countdown = command.value_c;
-            break;
+            goto bottom;
         case 0x2000:
             record.bounds_grace = command.value_c;
-            record.command_index = index + 1;
+            record.command_index = record.command_index + 1;
             goto bottom;
         case 0x4000: {
-            ProjectileSpawnManager* manager =
-                reinterpret_cast<ProjectileSpawnManager*>(this);
             Entity_StartScript_00404f30(
-                reinterpret_cast<AnimationResource_0043e710*>(manager->animations),
+                reinterpret_cast<AnimationResource_0043e710*>(
+                    reinterpret_cast<ProjectileSpawnManager*>(
+                        &record)->animations),
                 &record.sprite,
                 data_00474170[command.value_c] + command.value_d);
-            break;
+            goto bottom;
         }
         case 0x8000:
             record.motion_flags |= (unsigned int)cmd;
             reinterpret_cast<PlayerSchedulerRecord*>(&record.immunity_timer)
                 ->SetSchedulerValue(command.value_c);
-            break;
+            goto bottom;
         case 0x10000:
             reinterpret_cast<PlayerCollisionRecord*>(this)->Activate();
-            break;
+            goto bottom;
         case 0x20000:
             data_00492590.QueuePan(command.value_c, record.position.x);
-            break;
+            goto bottom;
         case 0x400000: {
             __declspec(align(8)) unsigned int pattern_words[132];
             memset(pattern_words, 0, 0x210);
@@ -206,46 +207,48 @@ void ProjectileCommandRuntime::Tick() {
             pattern.field_204 = -1;
             pattern.field_208 = command.value_c & 0xFF;
             pattern.field_02 = (short)(signed char)(command.value_c >> 8);
-            record.command_index = index + 1;
+            record.command_index = record.command_index + 1;
             memcpy(pattern_words + 8, record.commands, 432);
+            const int sign = command.value_c >> 31;
             EnemyGrid_ScanCells_004073e0(
                 reinterpret_cast<ProjectilePattern_004073e0*>(pattern_words),
                 reinterpret_cast<ProjectileManager_004073e0*>(data_004776f0));
-            if (!(command.value_c & 0x80000000))
+            if (sign >= 0)
                 goto bottom;
             reinterpret_cast<PlayerCollisionRecord*>(this)->Activate();
-            break;
+            goto bottom;
         }
         case 0x100000:
             record.motion_flags |= 0x100000u;
             reinterpret_cast<PlayerSchedulerRecord*>(&record.scheduler_74c)
                 ->SetSchedulerValue(command.value_c);
-            break;
+            goto bottom;
         case 0x200000:
             record.motion_flags |= 0x200000u;
             reinterpret_cast<PlayerSchedulerRecord*>(&record.scheduler_780)
                 ->SetSchedulerValue(command.value_c);
-            break;
+            goto bottom;
         case 0x4000000: {
             record.motion_flags |= 0x4000000u;
             record.field_7c8 = command.value_a;
             record.field_7cc = command.value_b;
-            if (!(record.timer_7b4.flags & 1u)) {
+            const unsigned int init7 = record.timer_7b4.flags;
+            if (!(init7 & 1u)) {
                 record.timer_7b4.current = 0;
                 record.timer_7b4.previous = -999999;
                 record.timer_7b4.elapsed = 0.0f;
                 record.timer_7b4.speed = &data_00476f78;
-                record.timer_7b4.flags |= 1u;
+                record.timer_7b4.flags = init7 | 1u;
             }
-            record.timer_7b4.current = 0;
             record.timer_7b4.elapsed = 0.0f;
+            record.timer_7b4.current = 0;
             record.timer_7b4.previous = -1;
             record.field_7dc = command.value_c;
-            break;
+            goto bottom;
         }
         case 0x1000000:
             record.turn_420 = command.value_c;
-            record.command_index = index + 1;
+            record.command_index = record.command_index + 1;
             goto bottom;
         case 0x2000000:
             next_index = command.value_c;
@@ -255,8 +258,9 @@ void ProjectileCommandRuntime::Tick() {
     store:
         record.command_index = next_index;
     bottom:
-        if (record.command_index >= 18)
-            return;
+        if (record.command_index < 18)
+            goto top;
+        return;
     }
 }
 #pragma code_seg()

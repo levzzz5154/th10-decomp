@@ -43,8 +43,8 @@ complete lever history.
 | 0x0041CA80 laser script Run (1,272B) | full cluster, everything exact but one rename | pc/opcode ECX-EDX swap; contest gap 5332 quantified, flip needs the original's unseen construct |
 | 0x0040BD80 script executor (1,568B) | head byte-exact through 0x40BDD3 | ring-loop ESI/EDI swap + per-case IPSA coloring |
 | 0x00426F70 familiar refresh (2,520B) | 6 of 7 cluster functions byte-exact | desired/counter arg-home decision (9 rounds documented) |
-| 0x00414900 front HUD update (3,836B) | 553/1124 rows identical | whole-link shrink-wrap + front-pointer choice (5 bisect directions negative) |
-| 0x00415E90 result dispatcher (4,480B) | 602/1225 rows identical | same wall; jump tables and call sets all match |
+| 0x00414900 front HUD update (3,836B) | 579/1124 rows identical | C2 whole-program scheduling (allocate block, block positions), volatile-frame merge trade-offs; FlagStopFrame helper merge defeated (sessions 1-20) |
+| 0x00415E90 result dispatcher (4,480B) | 733/1225 rows identical | frame exactly 0xD8, 17/18 create sites with homes aligned; residual = C2 fold decisions (0x20 pair), guard-form trade-offs, partial-TU-set register-threading context (sessions 1-20) |
 
 ## What was learned about the compiler (the reusable assets)
 

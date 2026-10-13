@@ -59,7 +59,7 @@ struct ProjectileSpawnRecord {
     float height_3f4;                       // 0x3F4
     FrameTimer timer_3f8;                   // 0x3F8
     FrameTimer timer_40c;                   // 0x40C
-    float turn_420;                         // 0x420
+    int turn_420;                           // 0x420
     unsigned char reserved_424[0x434 - 0x424];
     int bounds_grace;                       // 0x434
     int death_animation;                    // 0x438
@@ -89,20 +89,20 @@ struct ProjectileSpawnRecord {
     float field_690;                        // 0x690
     float field_694;                        // 0x694
     unsigned char reserved_698[0x6A4 - 0x698];
-    float field_6a4;                        // 0x6A4
+    int field_6a4;                          // 0x6A4
     unsigned char reserved_6a8[0x6B0 - 0x6A8];
     FrameTimer timer_6b0;                   // 0x6B0
     float field_6c4;                        // 0x6C4
     float field_6c8;                        // 0x6C8
     unsigned char reserved_6cc[0x6D8 - 0x6CC];
-    float field_6d8;                        // 0x6D8
-    float field_6dc;                        // 0x6DC
+    int field_6d8;                          // 0x6D8
+    int field_6dc;                          // 0x6DC
     unsigned int field_6e0;                 // 0x6E0
     unsigned char reserved_6e4[0x6F8 - 0x6E4];
-    float field_6f8;                        // 0x6F8
+    int field_6f8;                          // 0x6F8
     unsigned char reserved_6fc[0x70C - 0x6FC];
     unsigned int field_70c;                 // 0x70C
-    float field_710;                        // 0x710
+    int field_710;                          // 0x710
     unsigned char reserved_714[0x718 - 0x714];
     FrameTimer immunity_timer;              // 0x718
     unsigned char reserved_72c[0x74C - 0x72C];
@@ -114,7 +114,7 @@ struct ProjectileSpawnRecord {
     float field_7c8;                        // 0x7C8
     float field_7cc;                        // 0x7CC
     unsigned char reserved_7d0[0x7DC - 0x7D0];
-    float field_7dc;                        // 0x7DC
+    int field_7dc;                          // 0x7DC
     unsigned char reserved_7e0[0x7EA - 0x7E0];
     short field_7ea;                        // 0x7EA
     short field_7ec;                        // 0x7EC

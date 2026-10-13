@@ -89,7 +89,8 @@ __forceinline AnimationTreeNode* FindTree(unsigned int handle) {
 __forceinline void FlagStopFrame1(unsigned int handle) {
     AnimationTreeNode* node = FindTree(handle);
     if (node != 0) {
-        node->stop_frame = 1;
+        volatile int frame = 1;
+        node->stop_frame = (unsigned short)frame;
         if (!node->children_flagged) {
             for (AnimationTreeNode* child = node->children;
                  child != 0; child = child->next)
@@ -101,7 +102,8 @@ __forceinline void FlagStopFrame1(unsigned int handle) {
 __forceinline void FlagStopFrame2(unsigned int handle) {
     AnimationTreeNode* node = FindTree(handle);
     if (node != 0) {
-        node->stop_frame = 2;
+        volatile int frame = 2;
+        node->stop_frame = (unsigned short)frame;
         if (!node->children_flagged) {
             for (AnimationTreeNode* child = node->children;
                  child != 0; child = child->next)
@@ -113,7 +115,8 @@ __forceinline void FlagStopFrame2(unsigned int handle) {
 __forceinline void FlagStopFrame3(unsigned int handle) {
     AnimationTreeNode* node = FindTree(handle);
     if (node != 0) {
-        node->stop_frame = 3;
+        volatile int frame = 3;
+        node->stop_frame = (unsigned short)frame;
         if (!node->children_flagged) {
             for (AnimationTreeNode* child = node->children;
                  child != 0; child = child->next)
@@ -315,8 +318,8 @@ __declspec(noinline) int __stdcall FrontHudUpdate_00414900(
                 AnimationPool* pool = (AnimationPool*)data_00491c10;
                 Entity* object = pool->Allocate();
                 unsigned int flags = object->flags_35C;
-                object->render_bucket = 15;
                 object->flags_35C = flags | 0x40000000u;
+                object->render_bucket = 15;
                 ((AnimationResource_00449870*)front->resource_9ec8)
                     ->InitializeObject(object, script);
                 front->pending_id_9e24 = (int)RegisterFreshObject(object, front);
@@ -345,8 +348,8 @@ __declspec(noinline) int __stdcall FrontHudUpdate_00414900(
                 AnimationPool* pool = (AnimationPool*)data_00491c10;
                 Entity* object = pool->Allocate();
                 unsigned int flags = object->flags_35C;
-                object->render_bucket = 15;
                 object->flags_35C = flags | 0x40000000u;
+                object->render_bucket = 15;
                 ((AnimationResource_00449870*)front->resource_9ec8)
                     ->InitializeObject(object, 0x5B + i);
                 *slot = (int)RegisterFreshObject(object, front);

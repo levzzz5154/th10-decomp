@@ -1,9 +1,10 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "name": "projectile_spawn_runtime",
   "source": "src/game/enemy_projectile_spawn.cpp",
   "additional_sources": [
-    "src/game/projectile_command_runtime.cpp"
+    "src/game/projectile_command_runtime.cpp",
+    "src/game/enemy_grid_scan.cpp"
   ],
   "included_sources": [
     "layout/ltcg/projectile_spawn_runtime/start_script.cpp",
@@ -12,7 +13,6 @@
     "layout/ltcg/projectile_spawn_runtime/activate.cpp",
     "layout/ltcg/projectile_spawn_runtime/angle_from_point.cpp",
     "layout/ltcg/projectile_spawn_runtime/queue.cpp",
-    "src/game/enemy_grid_scan.cpp",
     "layout/ltcg/projectile_spawn_runtime/queue_pan.cpp"
   ],
   "headers": [
@@ -46,6 +46,15 @@
       "address": "0x00406D90",
       "size": 1604,
       "actual_abi": "record in ECX; realigned frame with compiler tables in-section; plain RET"
+    },
+    {
+      "name": "EnemyGrid_ScanCells_004073e0",
+      "source": "src/game/enemy_grid_scan.cpp",
+      "symbol": "?EnemyGrid_ScanCells_004073e0@@YGHPAUProjectilePattern_004073e0@@PAUProjectileManager_004073e0@@@Z",
+      "section": ".text$004073e0_fn",
+      "address": "0x004073E0",
+      "size": 194,
+      "actual_abi": "pattern in EAX; manager on the stack; RET 4"
     }
   ],
   "anchors": [
@@ -123,8 +132,8 @@
     },
     {
       "section": ".text$004074a2_a",
-      "address": "0x004074B2",
-      "size": 2942
+      "address": "0x004074A2",
+      "size": 2958
     },
     {
       "section": ".text$004080fa_a",
@@ -322,12 +331,19 @@
       "kind": "metadata"
     }
   ],
-  "driver": "layout/ltcg/projectile_spawn_runtime/driver.cpp",
-  "context": {
-    "symbol": "?EnemyGrid_ScanCells_004073e0@@YGHPAUProjectilePattern_004073e0@@PAUProjectileManager_004073e0@@@Z",
-    "section": ".text$004073e0_fn",
-    "address": "0x004073E0",
-    "size": 210,
-    "description": "The verbatim grid scanner compiled inside the driver TU beside the real cell spawner; placed at the retail scanner address so the interpreter's call displacement bakes correctly, but never selected as recovered code (the outer link takes the scanner's bytes from the registered enemy_grid_scan cluster)."
-  }
+  "entry": "?Tick@ProjectileCommandRuntime@@QAEXXZ",
+  "calls": [
+    {
+      "caller": "?EnemyGrid_ScanCells_004073e0@@YGHPAUProjectilePattern_004073e0@@PAUProjectileManager_004073e0@@@Z",
+      "callee": "?SpawnPatternCell_004067d0@@YGHPAUProjectilePattern_004073e0@@PAUProjectileManager_004073e0@@HHM@Z",
+      "address": "0x00407458",
+      "instruction": "call"
+    },
+    {
+      "caller": "?SpawnPatternCell_004067d0@@YGHPAUProjectilePattern_004073e0@@PAUProjectileManager_004073e0@@HHM@Z",
+      "callee": "?Tick@ProjectileCommandRuntime@@QAEXXZ",
+      "address": "0x00406D10",
+      "instruction": "call"
+    }
+  ]
 }

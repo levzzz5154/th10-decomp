@@ -192,3 +192,295 @@ requires either the allocator's per-region walk scoping (which would give the
 sign value a fair priority comparison within the 0x400000 case) or a source
 spelling that creates a genuine 4th cross-call callee-saved candidate with
 higher priority than the receiver.
+
+## 2026-10-13 addendum: the tracer infrastructure assessment
+
+The winedbg+gdb tracer (adapted from the joystick agent's trace_accum.py) was
+attempted for the /LTCG link phase. The hardware breakpoints at the c2.dll
+allocator addresses (0x107A991C/0x107A997E) were armed but never hit — the
+c2.dll load address in the Wine WoW64 environment could not be verified (the
+32-bit address space is not visible in /proc/PID/maps for WoW64 processes, and
+gdb's `info sharedlibrary` does not show Wine-internal DLLs). The winedbg
+native mode (`attach PID; info share`) also failed to produce the module list.
+
+The tracer approach requires either:
+1. a Wine debug build with 32-bit process map exposure, or
+2. winedbg's native interactive mode (which the joystick agent may have used
+   interactively rather than through the scripted --gdb interface), or
+3. the c2.dll base address to be determined through the /LTCG pass's own
+   initialization code (a deeper reverse-engineering effort).
+
+The priority-law framework is fully documented and the per-block coverage
+census can be computed analytically from the disassembly once the tracer is
+available or the law is extended to cover the per-region walk hypothesis.
+
+## 2026-10-14 addendum: the tie-break law and the receiver keystone
+
+The c2.dll candidate-priority tie-break was read DIRECTLY from the disassembly
+(no tracer needed — image base 0x10700000, .text maps 1:1 to file offsets):
+- The insertion walk at RVA 0x000A9E2B stops (inserts earlier) when the current
+  node's +0xc priority EXCEEDS the new candidate's — the ready list is
+  descending by +0xc, so the highest priority pops first.
+- On priority ties, the walk continues while current->+0x44 < new->+0x44 —
+  the list is also descending by +0x44, so among equal-priority candidates the
+  LARGER +0x44 pops first. +0x44 is written at candidate creation
+  (sequence-like) → ties favor the LATER-created candidate.
+
+Consequence for the receiver keystone: the receiver (this) candidate is created
+at entry (earliest), so it CANNOT win ties against later candidates — retail's
+EBP receiver must come from a strictly higher +0xc priority. The priority is
+live-range driven; unifying the receiver's derivations (routing the manager
+access through the bound `record` reference instead of re-casting `this`) did
+not change the compiled prologue (still `sub esp,0x214` + `mov ebx,ecx`), so
+the remaining lever is the +0xc priority itself — observable only through the
+tracer, which remains blocked by the WoW64 address-space invisibility.
+
+The Spawn-side entry-copy lever (documented in the sibling note) recovered the
+retail frame (sub esp,0x14) with one hoisted load: 1476/1472 bytes. The pair's
+composition coupling persists: Spawn's prologue shape depends on Tick's IL,
+which depends on the receiver keystone — the two converge only through the
+priority data.
+
+## 2026-10-14 addendum 2: the reference-count experiment
+
+Per the priority law (per-reference values accumulate), the model's cached
+`const int index = record.command_index` reduced the receiver's +0x45C reads
+to 10 vs retail's 13. Un-caching (`record.commands[record.command_index]` +
+`record.command_index = record.command_index + 1` at the four increment sites)
+restored per-site re-reads. Resulting receiver-ref census:
+- retail: 82 receiver refs, 44 distinct offsets, 13x +0x45C, 12x +0x43C
+- model:  87 receiver refs, 48 distinct offsets, 10x +0x45C, 12x +0x43C
+
+The compiled prologue did NOT change (still `sub esp,0x214` + `mov ebx,ecx`),
+so the receiver keystone is not the reference count alone. The structural
+prologue difference that remains: retail pushes ALL callee saves eagerly
+(push ebx; push ebp AGAIN as the frame-pointer spill; push esi; push edi) then
+overwrites EBP with the receiver (mov ebp,ecx) — the frame lives in ESP after
+the and-alignment. The model pushes ebx only before the first compare and
+defers esi/edi past it, keeping the frame pointer in EBP and the receiver in
+EBX. The receiver-vs-frame-pointer priority decision is what the tracer must
+observe; the deferral shape suggests the model's entry block has lower register
+pressure than retail's, which may itself be the priority symptom.
+
+## 2026-10-14 addendum 3: the loop-fusion break (volatile guard) — structure matches, size overflows
+
+A `volatile` guard read (`*reinterpret_cast<volatile int*>(&record.command_index) >= 18`)
+broke the loop-rotation fusion and produced retail's EXACT two-load structure:
+```
+cmpl $0x12,0x45c(%ebx)   ; the guard's memory-form compare (retail: cmp [ebp+45Ch],12h)
+push %esi / push %edi
+jge  exit
+mov  0x45c(%ebx),%edx    ; the loop-top re-read (retail: mov edx,[ebp+45Ch] at L_00406db0)
+```
+Cost: +4 bytes (1608 vs the approved 1604 extent — the extent is a hard gate),
+so the spelling was reverted pending a -4 compensation. The fused form (one
+load serving guard + loop head) is what keeps the frame slot at 0x214 vs
+retail's 0x210 — the two structures differ by exactly one 4-byte slot plus
+one load. Finding the -4/-8 of legitimate body content with the volatile guard
+in place is the next Spawn-side-style lever for Tick.
+
+The exit order difference stands as the receiver-keystone signature:
+retail pops edi,esi,ebp,ebx then mov esp,ebp; pop ebp (the frame-pointer SPILL
+form) vs the model's pop edi,esi,ebx; mov ebp,esp; pop ebp. Retail's form only
+arises when the allocator spills the frame pointer to free EBP for the receiver
+— i.e. the receiver wins only when the body's register pressure forces the
+spill. The model's lower entry pressure (deferred esi/edi saves) and the fused
+guard are two faces of the same deficit: retail's body keeps one more value
+live at the loop head.
+
+## 2026-10-14 addendum 4: the full structural map (volatile guard form, 1608)
+
+The volatile-guard form was re-applied and diffed structurally against the
+retail bytes (extracted from decompiled/ghidra_augmented/memory.hex at
+0x406D90, 1604 bytes). Retail: 421 instructions; model: 426. The structural
+deltas beyond the known receiver/frame/prologue items:
+
+1. The volatile guard's +4 is exactly the loop-head re-read (mov edx,[45Ch])
+   minus the memory-form compare saving (-2): the fused form reused the
+   guard's EDX for the commands lea; retail re-reads. Retail is structurally
+   IDENTICAL at the head — the -4 must come from the body.
+
+2. The model INLINES duplicated case bodies where retail jump-threads them:
+   the timer-reset store sequence (6d8/6dc/6e0 and 7dc/7e0/7e4) appears once
+   in retail (a shared jump target at 0x40731C) but twice in the model (once
+   inline per case). The link uses /OPT:NOICF, so retail's sharing is the
+   COMPILER's jump threading, not ICF. The model's case ordering blocked the
+   threading — the jump table base differs (retail movzbl 0x407354, model
+   0x407368) and the case bodies land in a different order.
+
+3. The copy-loop block (the rep movsl at the 0x40000 case) is byte-similar in
+   both; the volatile guard did not shift it.
+
+4. The bottom-of-loop: retail's loop bottom ends with
+   mov eax,[45Ch]; inc; mov [45Ch]; cmpl $0x12,[45Ch]; jl 0x406DB0 —
+   the increment re-reads and the check is the memory form. The model's
+   bottom inline-handles the next-iteration head (the rotation) —
+   reproducing retail's flat jump-back requires the bottom check to be the
+   memory form WITHOUT the head inline.
+
+The -4 candidates in priority order: (a) recover retail's jump-threaded
+shared timer-reset block (saves ~10 bytes, then re-balance), (b) merge one
+of the duplicated fildl/fstps float-store pairs, (c) the case-table order
+convergence. All are switch-lowering shapes driven by the source case order
+and the goto structure inside the switch — not by register assignment.
+
+## 2026-10-14 addendum 5: the retype verification and the case-order check
+
+### Retail store-form verification (all confirmed)
++0x6D8 mov ecx / +0x6DC mov edx,[esi+0xC] / +0x6E0 mov edi / +0x7DC mov ecx /
++0x6A4 mov eax / +0x420 mov ecx / +0x6F8 mov edx / +0x710 mov eax — all plain
+int moves; +0x660 and +0x6C8 stay float (fstps, the AngleFromPoint results).
+The int retype of the seven fields is verified correct against the retail
+encoding.
+
+### The jump-table check
+Retail's byte map (128 bytes at 0x407354) and the model's match — the
+meaningful entries ([0]=00, [15]=01, [31]=02, [63]=03, [127]=03) align after
+correcting a 4-byte table-base extraction artifact. The case COVERAGE and the
+dispatch tree pivots (both trees open with the cmp $0x1000) are equivalent;
+the source case order does not need reordering.
+
+### The remaining structural delta
+The case-body EMISSION layout: retail's previous case ends with an explicit
+jmp to the loop bottom (0x40731C) and the next case's body follows; the model
+falls through differently, inlining what retail shares. The tail-coincidence
+that drives C2's jump threading is a fallthrough-structure property the
+source influences only weakly. The 6d8/6dc/6e0 duplication itself FOLDED
+after the int retype (the float conversions had made the two copies
+non-identical) — the remaining layout deltas are block ORDER, not
+duplication.
+
+## 2026-10-14 addendum 6: the goto-bottom re-spell and the final state
+
+Re-spelling all 14 switch-case `break;` as explicit `goto bottom;` recovered
+-4 bytes (1628→1624): every case now ends with the same explicit jump to the
+loop bottom, matching retail's explicit jmp-to-bottom-between-bodies layout.
+
+The receiver keystone is unchanged by every applied lever (the int retype,
+the volatile guard, the goto re-spell): the model still compiles with
+`sub esp,0x214` + receiver-in-EBX + the `pop edi,esi,ebx; mov ebp,esp; pop ebp`
+exit, vs retail's `sub esp,0x210` + receiver-in-EBP + the
+`pop edi,esi,ebp,ebx; mov esp,ebp; pop ebp` exit (the frame-pointer spill
+form). The remaining 10-line instruction-count delta is block order.
+
+The per-region walk hypothesis test requires the tracer (the walk order is
+runtime data). The tracer remains blocked by the WoW64 address-space
+invisibility — see the addendum in the sibling note.
+
+FINAL PAIR STATE (this session):
+- Spawn 0x004067D0: 1476/1472 bytes (+4), frame 0x14 ✓, one hoisted load,
+  394 diff lines.
+- Tick 0x00406D90: 1624/1604 bytes (+20), the retail-matching head structure
+  (the memory-form guard cmp + the loop-top re-read), the verified int field
+  stores, 431 vs 421 instructions.
+Both functions' structures converge; the byte gates remain open on the
+allocator-composition residuals (the receiver keystone + the frame slot).
+
+## 2026-10-14 addendum 7: the loop-rotation break at the commands binding
+
+Adding the volatile qualifier to the COMMANDS BINDING's index read (the
+`record.commands[*reinterpret_cast<volatile int*>(&record.command_index)]`
+form — the same loop-rotation break as the guard's) collapsed the bottom
+rotation: Tick dropped 1624→1580 bytes (-44) and the instruction count hit
+420 vs retail's 421 — the closest structural convergence of the session.
+The head now shows the retail form (the guard cmp + the loop-top re-read +
+the lea), and the 0xc(%esp) spill/reload of the command pointer remains
+(4 refs) — the model's allocator still spills ESI across the guard branch
+where retail carries it.
+
+The loop-rotation control emerged as the dominant structural lever: retail's
+Tick does NOT rotate the command loop (the back-edge re-executes the full
+head at L_00406DB0); the model's compiler rotated it (the back-edge skipped
+the head, requiring the spill/reload). Both volatile reads (the guard + the
+commands index) are required to pin the non-rotated form.
+
+Remaining after this lever: the receiver keystone (EBX vs EBP, the frame
+0x214 vs 0x210, the exit form) and the -24 byte gap (the model now shares
+MORE than retail — the duplicated per-case exit work retail performs is not
+reproduced).
+
+## 2026-10-14 addendum 8: the branch-polarity fix — retail's loop bottom reproduced
+
+Inverting the bottom check's polarity (`if (record.command_index < 18) goto top; return;`
+with a `top:` label at the loop head) produced retail's EXACT bottom:
+```
+cmpl $0x12,0x45c(%ebx)   ; (retail: [ebp+45Ch])
+jl   0x406db0            ; the hot path jumps BACK to the head (retail: identical)
+pop  %edi / pop %esi / pop %ebx   ; the exit falls through
+```
+The tail-duplicated head copy at the bottom is GONE — the model's back-edge
+now re-executes the head like retail's. The command pointer's spill/reload
+dropped from 4 refs to 2 (one store in the head + one reload after the
+EnemyGrid_ScanCells call, where the call legitimately clobbers ESI).
+
+State: 1592 bytes (12 UNDER retail's 1604), 420/421 instructions, the bottom
+polarity and the head structure retail-matching. The receiver keystone
+(EBX vs EBP, the frame 0x214 vs 0x210, the pop edi,esi,ebp,ebx exit form)
+is the single remaining structural delta plus the -12 byte gap.
+
+## 2026-10-14 addendum 9: the sign hoist and the final session state
+
+The sign value's cross-call carry was spelled as Main's pressure test
+requested: `const int sign = command.value_c >> 31;` before the ScanCells
+call, tested after (`if (sign >= 0) goto bottom;`) — reproducing retail's
+`test %ebx,%ebx` before the call / the sign test after. Result: 1596 bytes
+(-8 from retail's 1604), the entry guard now jumps FORWARD on the hot path
+(jl — the polarity propagated to the entry), but the receiver keystone did
+not tip: still `sub esp,0x214` + receiver-in-EBX + the pop edi,esi,ebx exit.
+
+The timer-reset tail-merge hypothesis was tested and disproved: both timer
+blocks are unmerged in the model (the constants appear twice in both
+binaries). The -12 gap is alignment/padding plus small encoding deltas.
+
+FINAL SESSION STATE:
+- Spawn 0x004067D0: 1476/1472 (+4), frame 0x14 ✓, one hoisted load.
+- Tick 0x00406D90: 1596/1604 (-8), the retail-matching bottom polarity
+  (jl back-edge), the retail-matching head, the int field stores, the
+  sign carried across the ScanCells call.
+The receiver keystone (EBX vs EBP, the frame 0x214 vs 0x210, the exit pop
+order) is the single remaining structural delta on Tick; Spawn's residual
+is the second hoisted load (the entry shape) and the register-assignment
+cascade. Both require the tracer for the allocator's +0xc priority data.
+
+## 2026-10-14 addendum 10: the tracer campaign — what works and the exact gap
+
+The tracer was pursued through four mechanisms; the findings are concrete:
+
+WORKS:
+- winedbg NATIVE (--command "info proc"/"info share"): lists all Wine
+  processes with hex Windows pids and the loaded PE modules with bases.
+  Attaching by Windows pid works (the earlier failure used a stale Linux
+  pid; attach needs the hex Windows pid from info proc).
+- winedbg --gdb + gdb: the remote protocol works; gdb RECOGNIZES c2.dll
+  as a shared library (it reports the load/unload: "Temporarily disabling
+  breakpoints for unloaded shared library c2.dll"), and hardware breakpoints
+  set at the PE-preferred base (0x10700000, verified in c2.dll's PE header —
+  file offsets map 1:1 through .text) are re-armed at load time by gdb.
+- The c2.dll decode: the tie-break at RVA 0xA9E2B (the descending +0xc /
+  +0x44 list insert) was read statically from the file — no process needed.
+
+DOES NOT WORK (the exact gap):
+- The link phase under winedbg is ~1.5-2s wall (the cluster is small); the
+  c2.dll load-to-unload window inside the /LTCG phase is well under 1s.
+  Every attach mechanism missed it: the winedbg attach/detach poll cycle
+  costs ~0.3-0.5s per cycle; the /proc maps scan shows NO file-backed
+  mappings for the 32-bit DLLs (new-WOW64 maps them anonymously — no
+  'c2.dll' path appears); the direct link re-runs hit stale-cluster-dir
+  argument issues (the probe regenerates the dir per run).
+- The breakpoints at 0x107A991C/0x107A997E were armed correctly through a
+  full compile and a full link and NEVER HIT — those addresses (from the
+  joystick agent's session) do not execute in this environment's runs,
+  despite being valid c2.dll code. They may be hit only under specific
+  allocator states (or the joystick addresses were from a different
+  c2.dll build than this toolkit's — the toolkit is the same, but their
+  trace was of a /GL compile, where the backend may exercise different
+  entry paths than the /LTCG link).
+
+The working recipe for the next session: launch the probe, get the link's
+Windows pid from `wine winedbg --command "info proc"` (verified: the link
+appears at ~0.87s), attach winedbg NATIVE to that pid (verified working),
+and poll `info share` in-process (a single persistent attach — the command
+loop stops the process, so use `break` BEFORE the c2 load by breaking on
+the LoadLibrary path or accept the sub-second window with a fast script).
+Alternatively trace the COMPILE phase (the allocator may also run there
+for non-/GL TUs) with a big multi-file compile to widen the window.

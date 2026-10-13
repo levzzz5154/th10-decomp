@@ -160,3 +160,117 @@ exercises it. The remaining unknown is what made retail's compiler split the
 candidate - possibly that the retail source's exit went through a different
 expression shape than the entry (e.g. the manager re-derived from the record
 pointer rather than re-read from the argument).
+
+## 2026-10-13 addendum: the schema-1 composition effect
+
+The 276-line state was achieved in the schema-2 composition (Spawn and Tick
+co-compiled with the scan as a separate selected function). After switching to
+schema 1 (the driver TU textually including the verbatim scan + Spawn, Tick as
+an additional source), the whole-program allocator state changed and the
+Spawn prologue's two-hoisted-loads shape (mov eax,[esp+4]; mov ecx,[esp+8])
+is no longer produced — the allocator instead spills both arguments to the
+frame (sub 0x18; mov eax,[esp+1c]; mov ecx,[esp+20]). The volatile-parameter
+and three-cluster spellings that fixed the prologue in the schema-2
+composition do not reproduce in schema 1 because the /GL allocator's
+candidate set depends on the whole-program IL shape (the scan as a selected
+function vs a context body changes the callee-reachable set).
+
+The 421-line schema-1 state is the current best: the extent is 1500 bytes
+(28 over the 1472 retail) with the prologue/scan structure matching but the
+entry shape and the volatile-parameter mechanics differing. The path forward:
+either (a) return to schema 2 with Tick included (the 276-line state was
+green on the size gate there) and find the ScanCells promotion fix in that
+composition, or (b) stay in schema 1 and find a source spelling that
+reproduces the two-hoisted-loads entry under the changed allocator state.
+
+## 2026-10-13 final addendum: the composition dependence
+
+The two-hoisted-loads prologue (mov eax,[esp+4]; mov ecx,[esp+8]) is COMPOSITION-
+DEPENDENT: it appears in the schema-2 link with 3 selected functions when the
+volatile parameter forces the eager load, but NOT in the schema-1 link with the
+scan as a context body, and NOT in the schema-2 link without the volatile
+parameter. The /GL allocator's block walk and candidate priority depend on the
+entire link's IL shape, making single-function source spelling insufficient to
+control the entry shape deterministically. The volatile-parameter spelling is
+the only source-level mechanism that produces the eager load — but it also
+causes per-wrap re-reads (+16 bytes) because the compiler re-reads the volatile
+parameter at each use instead of caching the dereferenced result.
+
+The continuation requires either:
+1. a source spelling that combines the volatile-forced eager load with
+   non-volatile cached wraps (the const_cast intermediate was tried but the
+   compiler tracks through it);
+2. the tracer-based deterministic approach (winedbg+gdb on link.exe's c2.dll
+   during the /LTCG phase) to identify the exact coverage-set difference;
+3. accepting the 1464-1488 byte compiled size and finding the remaining -8/+16
+   bytes of legitimate body content to compensate.
+
+## 2026-10-14 addendum: the entry-copy lever and the tie-break law
+
+### The priority tie-break (read from c2.dll disassembly, NOT traced)
+The candidate insertion at c2 RVA 0x000A9E2B-0x000A9E42 (image base 0x10700000,
+file offsets map 1:1 through the .text section):
+```
+a9e2b: mov 0xc(%edi),%ecx     ; current node's priority
+a9e2f: mov 0xc(%eax),%esi     ; new candidate's priority
+a9e32: cmp %ecx,%esi
+a9e34: jg  insert             ; higher priority inserts EARLIER (list is
+                              ; descending by priority; the head pops first)
+a9e36: je  tie
+a9e38: (walk) mov %edi,%ecx
+tie:
+a9e3c: mov 0x44(%eax),%ecx
+a9e3f: cmp 0x44(%edi),%ecx
+a9e42: jb  walk               ; walk while current->0x44 < new->0x44 → the list
+                              ; is descending by +0x44 too: the LARGER +0x44 pops
+                              ; first. +0x44 is set at candidate creation
+                              ; (sequence/index-like) → on ties the LATER-created
+                              ; candidate wins the allocation.
+```
+Implication for the Tick receiver keystone: the receiver's candidate must have
+strictly HIGHER priority (+0xc) than the sign constant to keep EBP — ties favor
+the later-created candidate, and the receiver is created first. The priority is
+live-range/loop-depth driven; the receiver's whole-function range should already
+beat a block-local constant, so the EBP loss in the model points at a SPLIT
+receiver live range (per-use re-derivation through the record reference), not at
+the tie law.
+
+### The entry-copy lever (new)
+`sub $0x14` (the retail frame) was recovered with an entry-local volatile-style
+copy of the manager parameter:
+```cpp
+ProjectileSpawnManager* const entry_manager =
+    *reinterpret_cast<ProjectileSpawnManager* const*>(&manager);
+```
+This forces the manager load BEFORE the frame push (hoisted to ECX) and yields
+frame 0x14 + one hoisted load — 1476 bytes (vs 1496 with the volatile parameter,
+vs 1464 with the eager animations local). The pattern's matching entry copy did
+not hoist (the compiler keeps the pattern read behind the pushes in ESI).
+Retail's two-hoisted shape needs BOTH args hoisted; the second hoist (mov
+eax,[esp+4]) did not appear in this composition — the whole-program allocator
+still couples Spawn's prologue to Tick's IL (the 19:23 composition with the
+older Tick IL produced the one-hoist shape at 1472 with 296 diff lines; the
+current Tick IL gives 1476 at 394).
+
+### Best current pair state (both sizes green or near)
+- Spawn: 1476/1472 (+4), frame 0x14 ✓, one hoist, 394 diff lines
+- Tick: 1604/1604 ✓ (the approved extent), receiver-in-EBX (retail: EBP)
+
+## 2026-10-14 addendum: the record field types corrected by retail's encoding
+
+Retail's Tick encoding proves these ProjectileSpawnRecord fields are INT
+(plain `mov` stores from the command values), not float as first modeled:
+- +0x6D8, +0x6DC (the case-0x40 timer-companion stores: mov ecx→6d8,
+  mov edx,[esi+0xC]→6dc)
+- +0x7DC (the case-0x2000 store)
+- +0x6A4, +0x420 (turn_420), +0x6F8, +0x710 (the motion-flag case stores)
+The float typing had forced fildl/fstps conversion pairs at every site —
+8 conversion ops total. After the retype the model reproduces retail's int
+moves; the remaining float sites (0x660, 0x6C8 — the AngleFromPoint results)
+match retail's fstps.
+
+The header matching2/msvc/include/th10/game/projectile_spawn_runtime_004067d0.hpp
+is updated (field_6d8/6dc/7dc/6a4/6f8/710/turn_420 → int). Size consequence:
+the Tick allocation GREW +24 (1608→1628) — the whole-program allocator
+reshuffled; the case-order convergence (the shared timer-reset jump target)
+is the next lever to recover the bytes.

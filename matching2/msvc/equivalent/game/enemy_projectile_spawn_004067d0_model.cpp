@@ -34,37 +34,40 @@ struct ProjectileCommandRuntime {
 
 #pragma code_seg(".text$004067d0_fn")
 int SpawnPatternCell_004067d0(ProjectilePattern_004073e0* pattern,
-                              ProjectileManager_004073e0* volatile manager,
+                              ProjectileManager_004073e0* manager,
                               int column, int row, float aim) {
-    ProjectileSpawnManager* const spawn_manager = const_cast<
-        ProjectileSpawnManager*>(reinterpret_cast<
-        ProjectileSpawnManager* volatile>(manager));
-    ProjectileSpawnRecord* record = spawn_manager->current;
+    ProjectilePattern_004073e0* const entry_pattern =
+        *reinterpret_cast<ProjectilePattern_004073e0* const*>(&pattern);
+    ProjectileSpawnManager* const entry_manager =
+        *reinterpret_cast<ProjectileSpawnManager* const*>(&manager);
+    ProjectileSpawnRecord* record = entry_manager->current;
+    ProjectileSpawnRecord* const records_base =
+        reinterpret_cast<ProjectileSpawnManager*>(manager)->records;
     ProjectileBlueprint_004067d0* blueprint =
-        reinterpret_cast<ProjectileBlueprint_004067d0*>(pattern);
+        reinterpret_cast<ProjectileBlueprint_004067d0*>(entry_pattern);
     int attempts = 0;
     for (;;) {
         if (record->state == 0)
             break;
         ++record;
         if (record->state == 5)
-            record = spawn_manager->records;
+            record = reinterpret_cast<ProjectileSpawnManager*>(manager)->records;
         if (record->state == 0) { ++attempts; break; }
         ++record;
         if (record->state == 5)
-            record = spawn_manager->records;
+            record = reinterpret_cast<ProjectileSpawnManager*>(manager)->records;
         if (record->state == 0) { attempts += 2; break; }
         ++record;
         if (record->state == 5)
-            record = spawn_manager->records;
+            record = reinterpret_cast<ProjectileSpawnManager*>(manager)->records;
         if (record->state == 0) { attempts += 3; break; }
         ++record;
         if (record->state == 5)
-            record = spawn_manager->records;
+            record = reinterpret_cast<ProjectileSpawnManager*>(manager)->records;
         if (record->state == 0) { attempts += 4; break; }
         ++record;
         if (record->state == 5)
-            record = spawn_manager->records;
+            record = reinterpret_cast<ProjectileSpawnManager*>(manager)->records;
         attempts += 5;
         if (attempts < 2000)
             continue;
@@ -214,12 +217,11 @@ int SpawnPatternCell_004067d0(ProjectilePattern_004073e0* pattern,
     reinterpret_cast<ProjectileCommandRuntime*>(record)->Tick();
     RunAnimationVm(&record->sprite);
     ++record;
-    ProjectileSpawnManager* exiting =
-        reinterpret_cast<ProjectileSpawnManager* volatile>(manager);
+    ++record;
     if (record->state == 5)
-        exiting->current = exiting->records;
+        reinterpret_cast<ProjectileSpawnManager*>(manager)->current = records_base;
     else
-        exiting->current = record;
+        reinterpret_cast<ProjectileSpawnManager*>(manager)->current = record;
     return 0;
 }
 #pragma code_seg()

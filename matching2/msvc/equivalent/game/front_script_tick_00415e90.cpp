@@ -102,19 +102,12 @@ ResultDispatcher_00415e90(ResultDispatcherState* state) {
                     if (data_00474c68 == 1)
                         { DispatcherRef created = DispatcherCreateAnimation(data_00477704->resource, 0x20, 15); state->right_portrait.id.value = created.value; }
                     else if (data_00474c68 == 1)
-                        { DispatcherRef created = DispatcherCreateAnimation(data_00477704->resource, 0x20, 15); state->right_portrait.id.value = created.value; }
-                } else if (data_00474c7c == 7) {
-                    if (state->variant < 1) {
-                        if (data_00474c68 == 0)
-                            { DispatcherRef created = DispatcherCreateAnimation(data_00477704->resource, 0x25, 15); state->right_portrait.id.value = created.value; }
-                        else if (data_00474c68 == 1)
-                            { DispatcherRef created = DispatcherCreateAnimation(data_00477704->resource, 0x25, 15); state->right_portrait.id.value = created.value; }
-                    } else {
-                        if (data_00474c68 == 0)
-                            { DispatcherRef created = DispatcherCreateAnimation(data_00477834->resource, 0x1E, 15); state->right_portrait.id.value = created.value; }
-                        else if (data_00474c68 == 1)
-                            { DispatcherRef created = DispatcherCreateAnimation(data_00477834->resource, 0x1E, 15); state->right_portrait.id.value = created.value; }
-                    }
+                        { DispatcherRef created2 = DispatcherCreateAnimation(data_00477704->resource, 0x20, 15); state->right_portrait.id.value = created2.value; }
+                } else if (data_00474c7c == 7 && state->variant < 1) {
+                    if (data_00474c68 == 0)
+                        { DispatcherRef created = DispatcherCreateAnimation(data_00477704->resource, 0x25, 15); state->right_portrait.id.value = created.value; }
+                    else if (data_00474c68 == 1)
+                        { DispatcherRef created = DispatcherCreateAnimation(data_00477704->resource, 0x25, 15); state->right_portrait.id.value = created.value; }
                 } else {
                     if (data_00474c68 == 0)
                         { DispatcherRef created = DispatcherCreateAnimation(data_00477834->resource, 0x1E, 15); state->right_portrait.id.value = created.value; }
@@ -183,117 +176,86 @@ ResultDispatcher_00415e90(ResultDispatcherState* state) {
                 break;
             case 13: {
                 unsigned int mode = data_00474c68;
+                volatile int* mode_addr = &data_00474c68;
                 switch (data_00474c7c) {
                 case 1:
                     if (mode == 1) {
-                        state->right_portrait.FindChildRef(24).SelectResourceSprite(
-                            data_00477704->resource, state->command->first_operand + 0xf);
-                        state->right_portrait.FindChildRef(27).SelectResourceSprite(
-                            data_00477704->resource, state->command->first_operand + 0x17);
+                        state->right_portrait.FindChildRef(24).SelectResourceSprite(data_00477704->resource, state->command->first_operand + 0xf);
+                        state->right_portrait.FindChildRef(27).SelectResourceSprite(data_00477704->resource, state->command->first_operand + 0x17);
                     }
-                    if (mode == 1) {
-                        state->right_portrait.FindChildRef(24).SelectResourceSprite(
-                            data_00477704->resource, state->command->first_operand + 0xf);
-                        state->right_portrait.FindChildRef(27).SelectResourceSprite(
-                            data_00477704->resource, state->command->first_operand + 0x17);
+                    if (*mode_addr == 1) {
+                        state->right_portrait.FindChildRef(24).SelectResourceSprite(data_00477704->resource, state->command->first_operand + 0xf);
+                        state->right_portrait.FindChildRef(27).SelectResourceSprite(data_00477704->resource, state->command->first_operand + 0x17);
                     }
                     break;
                 case 2:
                     if (mode == 0) {
-                        state->right_portrait.FindChildRef(24).SelectResourceSprite(
-                            data_00477704->resource, state->command->first_operand + 0x15);
-                        state->right_portrait.FindChildRef(27).SelectResourceSprite(
-                            data_00477704->resource, state->command->first_operand + 0x1e);
+                        state->right_portrait.FindChildRef(24).SelectResourceSprite(data_00477704->resource, state->command->first_operand + 0x15);
+                        state->right_portrait.FindChildRef(27).SelectResourceSprite(data_00477704->resource, state->command->first_operand + 0x1e);
                     }
-                    if (mode == 0) {
-                        state->right_portrait.FindChildRef(24).SelectResourceSprite(
-                            data_00477704->resource, state->command->first_operand + 0x15);
-                        state->right_portrait.FindChildRef(27).SelectResourceSprite(
-                            data_00477704->resource, state->command->first_operand + 0x1e);
+                    if (*mode_addr == 0) {
+                        state->right_portrait.FindChildRef(24).SelectResourceSprite(data_00477704->resource, state->command->first_operand + 0x15);
+                        state->right_portrait.FindChildRef(27).SelectResourceSprite(data_00477704->resource, state->command->first_operand + 0x1e);
                     }
                     break;
                 case 3:
                     if (mode == 1) {
-                        state->right_portrait.FindChildRef(24).SelectResourceSprite(
-                            data_00477704->resource, state->command->first_operand + 0x22);
-                        state->right_portrait.FindChildRef(27).SelectResourceSprite(
-                            data_00477704->resource, state->command->first_operand + 0x2b);
+                        state->right_portrait.FindChildRef(24).SelectResourceSprite(data_00477704->resource, state->command->first_operand + 0x22);
+                        state->right_portrait.FindChildRef(27).SelectResourceSprite(data_00477704->resource, state->command->first_operand + 0x2b);
                     }
-                    if (mode == 0) {
-                        state->right_portrait.FindChildRef(24).SelectResourceSprite(
-                            data_00477704->resource, state->command->first_operand + 0x22);
-                        state->right_portrait.FindChildRef(27).SelectResourceSprite(
-                            data_00477704->resource, state->command->first_operand + 0x2b);
+                    if (*mode_addr == 0) {
+                        state->right_portrait.FindChildRef(24).SelectResourceSprite(data_00477704->resource, state->command->first_operand + 0x22);
+                        state->right_portrait.FindChildRef(27).SelectResourceSprite(data_00477704->resource, state->command->first_operand + 0x2b);
                     }
                     break;
                 case 4:
                     if (mode == 1) {
-                        state->right_portrait.FindChildRef(24).SelectResourceSprite(
-                            data_00477704->resource, state->command->first_operand + 0x25);
-                        state->right_portrait.FindChildRef(27).SelectResourceSprite(
-                            data_00477704->resource, state->command->first_operand + 0x2e);
+                        state->right_portrait.FindChildRef(24).SelectResourceSprite(data_00477704->resource, state->command->first_operand + 0x25);
+                        state->right_portrait.FindChildRef(27).SelectResourceSprite(data_00477704->resource, state->command->first_operand + 0x2e);
                     }
-                    if (mode == 0) {
-                        state->right_portrait.FindChildRef(24).SelectResourceSprite(
-                            data_00477704->resource, state->command->first_operand + 0x25);
-                        state->right_portrait.FindChildRef(27).SelectResourceSprite(
-                            data_00477704->resource, state->command->first_operand + 0x2e);
+                    if (*mode_addr == 0) {
+                        state->right_portrait.FindChildRef(24).SelectResourceSprite(data_00477704->resource, state->command->first_operand + 0x25);
+                        state->right_portrait.FindChildRef(27).SelectResourceSprite(data_00477704->resource, state->command->first_operand + 0x2e);
                     }
                     break;
                 case 5:
                     if (mode == 1) {
-                        state->right_portrait.FindChildRef(24).SelectResourceSprite(
-                            data_00477704->resource, state->command->first_operand + 0x16);
-                        state->right_portrait.FindChildRef(27).SelectResourceSprite(
-                            data_00477704->resource, state->command->first_operand + 0x1f);
+                        state->right_portrait.FindChildRef(24).SelectResourceSprite(data_00477704->resource, state->command->first_operand + 0x16);
+                        state->right_portrait.FindChildRef(27).SelectResourceSprite(data_00477704->resource, state->command->first_operand + 0x1f);
                     }
-                    if (mode == 0) {
-                        state->right_portrait.FindChildRef(24).SelectResourceSprite(
-                            data_00477704->resource, state->command->first_operand + 0x16);
-                        state->right_portrait.FindChildRef(27).SelectResourceSprite(
-                            data_00477704->resource, state->command->first_operand + 0x1f);
+                    if (*mode_addr == 0) {
+                        state->right_portrait.FindChildRef(24).SelectResourceSprite(data_00477704->resource, state->command->first_operand + 0x16);
+                        state->right_portrait.FindChildRef(27).SelectResourceSprite(data_00477704->resource, state->command->first_operand + 0x1f);
                     }
                     break;
                 case 6:
                     if (mode == 1) {
-                        state->right_portrait.FindChildRef(28).SelectResourceSprite(
-                            data_00477704->resource, state->command->first_operand + 0x30);
-                        state->right_portrait.FindChildRef(31).SelectResourceSprite(
-                            data_00477704->resource, state->command->first_operand + 0x39);
+                        state->right_portrait.FindChildRef(28).SelectResourceSprite(data_00477704->resource, state->command->first_operand + 0x30);
+                        state->right_portrait.FindChildRef(31).SelectResourceSprite(data_00477704->resource, state->command->first_operand + 0x39);
                     }
-                    if (mode == 0) {
-                        state->right_portrait.FindChildRef(28).SelectResourceSprite(
-                            data_00477704->resource, state->command->first_operand + 0x30);
-                        state->right_portrait.FindChildRef(31).SelectResourceSprite(
-                            data_00477704->resource, state->command->first_operand + 0x39);
+                    if (*mode_addr == 0) {
+                        state->right_portrait.FindChildRef(28).SelectResourceSprite(data_00477704->resource, state->command->first_operand + 0x30);
+                        state->right_portrait.FindChildRef(31).SelectResourceSprite(data_00477704->resource, state->command->first_operand + 0x39);
                     }
                     break;
                 case 7:
                     if (state->variant < 1) {
                         if (mode == 1) {
-                        state->right_portrait.FindChildRef(33).SelectResourceSprite(
-                            data_00477704->resource, state->command->first_operand + 0x44);
-                        state->right_portrait.FindChildRef(36).SelectResourceSprite(
-                            data_00477704->resource, state->command->first_operand + 0x4d);
+                        state->right_portrait.FindChildRef(33).SelectResourceSprite(data_00477704->resource, state->command->first_operand + 0x44);
+                        state->right_portrait.FindChildRef(36).SelectResourceSprite(data_00477704->resource, state->command->first_operand + 0x4d);
                         }
-                        if (mode == 0) {
-                        state->right_portrait.FindChildRef(33).SelectResourceSprite(
-                            data_00477704->resource, state->command->first_operand + 0x44);
-                        state->right_portrait.FindChildRef(36).SelectResourceSprite(
-                            data_00477704->resource, state->command->first_operand + 0x4d);
+                        if (*mode_addr == 0) {
+                        state->right_portrait.FindChildRef(33).SelectResourceSprite(data_00477704->resource, state->command->first_operand + 0x44);
+                        state->right_portrait.FindChildRef(36).SelectResourceSprite(data_00477704->resource, state->command->first_operand + 0x4d);
                         }
                     } else {
                         if (mode == 1) {
-                        state->right_portrait.FindChildRef(24).SelectResourceSprite(
-                            data_00477704->resource, state->command->first_operand + 0x2e);
-                        state->right_portrait.FindChildRef(27).SelectResourceSprite(
-                            data_00477704->resource, state->command->first_operand + 0x37);
+                        state->right_portrait.FindChildRef(24).SelectResourceSprite(data_00477704->resource, state->command->first_operand + 0x2e);
+                        state->right_portrait.FindChildRef(27).SelectResourceSprite(data_00477704->resource, state->command->first_operand + 0x37);
                         }
-                        if (mode == 0) {
-                        state->right_portrait.FindChildRef(24).SelectResourceSprite(
-                            data_00477704->resource, state->command->first_operand + 0x2e);
-                        state->right_portrait.FindChildRef(27).SelectResourceSprite(
-                            data_00477704->resource, state->command->first_operand + 0x37);
+                        if (*mode_addr == 0) {
+                        state->right_portrait.FindChildRef(24).SelectResourceSprite(data_00477704->resource, state->command->first_operand + 0x2e);
+                        state->right_portrait.FindChildRef(27).SelectResourceSprite(data_00477704->resource, state->command->first_operand + 0x37);
                         }
                     }
                     break;
@@ -322,28 +284,54 @@ ResultDispatcher_00415e90(ResultDispatcherState* state) {
                 asm_Sound_PlayDummyRetail_00420b10(1, MusicRecord()->music_slot);
                 DispatcherCreateAnimation(StageState()->effect_resource, 2, 15);
                 break;
-            case 19: {
-                int script;
+            case 19:
                 switch (data_00474c7c) {
-                case 1: script = 0x0D; break;
-                case 2: script = 0x10; break;
-                case 3: script = 0x14; break;
-                case 4: script = 0x15; break;
-                case 5: script = 0x0E; break;
-                case 6: script = 0x23; break;
-                case 7: script = 0x1D; break;
+                case 1: {
+                    state->stage_title.id.value =
+                        DispatcherCreateAnimation(data_00477704->resource, 0x0D, 15).value;
+                    break;
+                }
+                case 2: {
+                    state->stage_title.id.value =
+                        DispatcherCreateAnimation(data_00477704->resource, 0x10, 15).value;
+                    break;
+                }
+                case 3: {
+                    state->stage_title.id.value =
+                        DispatcherCreateAnimation(data_00477704->resource, 0x14, 15).value;
+                    break;
+                }
+                case 4: {
+                    state->stage_title.id.value =
+                        DispatcherCreateAnimation(data_00477704->resource, 0x15, 15).value;
+                    break;
+                }
+                case 5: {
+                    state->stage_title.id.value =
+                        DispatcherCreateAnimation(data_00477704->resource, 0x0E, 15).value;
+                    break;
+                }
+                case 6: {
+                    state->stage_title.id.value =
+                        DispatcherCreateAnimation(data_00477704->resource, 0x23, 15).value;
+                    break;
+                }
+                case 7: {
+                    state->stage_title.id.value =
+                        DispatcherCreateAnimation(data_00477704->resource, 0x1D, 15).value;
+                    break;
+                }
                 default: goto next_command;
                 }
-                { DispatcherRef created = DispatcherCreateAnimation(data_00477704->resource, script, 15); state->stage_title.id.value = created.value; }
                 break;
-            }
             case 20: {
                 if (data_00474c74 != 4) {
                     unsigned char* progress = ProgressBytes();
                     int route = (data_00474c6c + data_00474c68 * 3) * 0x437C;
-                    progress[route + 0x4E1 + (data_00474c7c + data_00474c74 * 6) * 8] = 1;
+                    int stage = data_00474c7c;
+                    progress[route + 0x4E1 + (stage + data_00474c74 * 6) * 8] = 1;
                     route = (data_00474c6c + data_00474c68 * 3) * 0x437C;
-                    progress[route + (data_00474c7c + (data_00474c74 * 3 + 0x4E) * 2) * 8] = 1;
+                    progress[route + (stage + (data_00474c74 * 3 + 0x4E) * 2) * 8] = 1;
                 }
                 if (data_00474ca0 & 0x10) {
                     data_00477830->OpenResult();
