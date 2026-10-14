@@ -16,6 +16,15 @@ static DispatcherMusicRecord* MusicRecord();
 extern "C" DispatcherMusicRecord* data_00477848;
 static DispatcherMusicRecord* MusicRecord() { return data_00477848; }
 
+
+// The pool creation 0x00448D00 as this walker calls it: the reference comes
+// back through the record the caller supplies (EDI), and the caller reads it
+// through the returned pointer.
+__declspec(noinline) int* __stdcall DispatcherCreateAt(
+    AnimationResource_00449870* resource, int* out, int script_index, int render_bucket);
+#define CREATE_INTO(target, resource, script) \
+    { int created; target = *DispatcherCreateAt(resource, &created, script, 15); }
+
 // Preserve the manager and resolved animation across the decode call, as the
 // actual caller does. A failed lookup clears the handle, but SetText is still
 // invoked with its null result; the callee owns that behavior.
@@ -89,30 +98,30 @@ ResultDispatcher_00415e90(ResultDispatcherState* state) {
                 state->second_text.StopAtFrame3();
                 break;
             case 3:
-                { DispatcherRef created = DispatcherCreateAnimation(StageState()->resource, 0x5A, 15); state->background.id.value = created.value; }
+                CREATE_INTO(state->background.id.value, StageState()->resource, 0x5A)
                 break;
             case 1:
-                if (data_00474c68 == 1)
-                    { DispatcherRef created = DispatcherCreateAnimation(data_00477834->resource, 0x1D, 15); state->left_portrait.id.value = created.value; }
-                else if (data_00474c68 == 0)
-                    { DispatcherRef created = DispatcherCreateAnimation(data_00477834->resource, 0x1D, 15); state->left_portrait.id.value = created.value; }
+                switch (data_00474c68) {
+                case 0: CREATE_INTO(state->left_portrait.id.value, data_00477834->resource, 0x1D) break;
+                case 1: CREATE_INTO(state->left_portrait.id.value, data_00477834->resource, 0x1D) break;
+                }
                 break;
             case 2:
                 if (data_00474c7c == 6) {
                     if (data_00474c68 == 1)
-                        { DispatcherRef created = DispatcherCreateAnimation(data_00477704->resource, 0x20, 15); state->right_portrait.id.value = created.value; }
+                        CREATE_INTO(state->right_portrait.id.value, data_00477704->resource, 0x20)
                     else if (data_00474c68 == 1)
-                        { DispatcherRef created2 = DispatcherCreateAnimation(data_00477704->resource, 0x20, 15); state->right_portrait.id.value = created2.value; }
+                        CREATE_INTO(state->right_portrait.id.value, data_00477704->resource, 0x20)
                 } else if (data_00474c7c == 7 && state->variant < 1) {
                     if (data_00474c68 == 0)
-                        { DispatcherRef created = DispatcherCreateAnimation(data_00477704->resource, 0x25, 15); state->right_portrait.id.value = created.value; }
+                        CREATE_INTO(state->right_portrait.id.value, data_00477704->resource, 0x25)
                     else if (data_00474c68 == 1)
-                        { DispatcherRef created = DispatcherCreateAnimation(data_00477704->resource, 0x25, 15); state->right_portrait.id.value = created.value; }
+                        CREATE_INTO(state->right_portrait.id.value, data_00477704->resource, 0x25)
                 } else {
                     if (data_00474c68 == 0)
-                        { DispatcherRef created = DispatcherCreateAnimation(data_00477834->resource, 0x1E, 15); state->right_portrait.id.value = created.value; }
+                        CREATE_INTO(state->right_portrait.id.value, data_00477834->resource, 0x1E)
                     else if (data_00474c68 == 1)
-                        { DispatcherRef created = DispatcherCreateAnimation(data_00477834->resource, 0x1E, 15); state->right_portrait.id.value = created.value; }
+                        CREATE_INTO(state->right_portrait.id.value, data_00477834->resource, 0x1E)
                 }
                 break;
             case 22:
@@ -121,7 +130,7 @@ ResultDispatcher_00415e90(ResultDispatcherState* state) {
             case 23:
                 state->right_portrait.SetStopFrame(7);
                 break;
-                        case 4:
+            case 4:
                 state->left_portrait.StopAtFrame1();
                 state->left_portrait.id.value = 0;
                 break;
@@ -161,7 +170,7 @@ ResultDispatcher_00415e90(ResultDispatcherState* state) {
                 state->flags ^= (static_cast<unsigned char>(state->command->first_operand) ^
                     state->flags) & 1;
                 break;
-            case 10:
+            case 12:
                 if (data_00474c68 == 0) {
                     state->left_portrait.FindChildRef(0x17).SelectCurrentSprite(
                         state->command->first_operand + 0x34);
@@ -262,7 +271,7 @@ ResultDispatcher_00415e90(ResultDispatcherState* state) {
                 }
                 break;
             }
-            case 11:
+            case 10:
                 if (state->wait.current < 1)
                     state->wait.SetSchedulerValue(state->command->first_operand);
                 reinterpret_cast<FrameTimer*>(&state->wait)->Advance(-1.0f);
@@ -277,48 +286,41 @@ ResultDispatcher_00415e90(ResultDispatcherState* state) {
                     state->alternate_text = 0;
                 }
                 break;
-            case 12:
+            case 11:
                 state->countdown = 1;
                 break;
             case 18:
                 asm_Sound_PlayDummyRetail_00420b10(1, MusicRecord()->music_slot);
-                DispatcherCreateAnimation(StageState()->effect_resource, 2, 15);
+                { int created; DispatcherCreateAt(StageState()->effect_resource, &created, 2, 15); }
                 break;
             case 19:
                 switch (data_00474c7c) {
                 case 1: {
-                    state->stage_title.id.value =
-                        DispatcherCreateAnimation(data_00477704->resource, 0x0D, 15).value;
+                    CREATE_INTO(state->stage_title.id.value, data_00477704->resource, 0x0D)
                     break;
                 }
                 case 2: {
-                    state->stage_title.id.value =
-                        DispatcherCreateAnimation(data_00477704->resource, 0x10, 15).value;
+                    CREATE_INTO(state->stage_title.id.value, data_00477704->resource, 0x10)
                     break;
                 }
                 case 3: {
-                    state->stage_title.id.value =
-                        DispatcherCreateAnimation(data_00477704->resource, 0x14, 15).value;
+                    CREATE_INTO(state->stage_title.id.value, data_00477704->resource, 0x14)
                     break;
                 }
                 case 4: {
-                    state->stage_title.id.value =
-                        DispatcherCreateAnimation(data_00477704->resource, 0x15, 15).value;
+                    CREATE_INTO(state->stage_title.id.value, data_00477704->resource, 0x15)
                     break;
                 }
                 case 5: {
-                    state->stage_title.id.value =
-                        DispatcherCreateAnimation(data_00477704->resource, 0x0E, 15).value;
+                    CREATE_INTO(state->stage_title.id.value, data_00477704->resource, 0x0E)
                     break;
                 }
                 case 6: {
-                    state->stage_title.id.value =
-                        DispatcherCreateAnimation(data_00477704->resource, 0x23, 15).value;
+                    CREATE_INTO(state->stage_title.id.value, data_00477704->resource, 0x23)
                     break;
                 }
                 case 7: {
-                    state->stage_title.id.value =
-                        DispatcherCreateAnimation(data_00477704->resource, 0x1D, 15).value;
+                    CREATE_INTO(state->stage_title.id.value, data_00477704->resource, 0x1D)
                     break;
                 }
                 default: goto next_command;
@@ -391,8 +393,7 @@ ResultDispatcher_00415e90(ResultDispatcherState* state) {
                     DispatcherRemoveAnimation(reinterpret_cast<AnimationLookupContext*>(data_00491c10),
                         stage->transition_animation);
                     stage->transition_animation.value = 0;
-                    stage->transition_animation.value =
-                        DispatcherCreateAnimation(stage->resource, 0x4C, 15).value;
+                    CREATE_INTO(stage->transition_animation.value, stage->resource, 0x4C)
                     SetInputMode(&data_00491c28, 11);
                     reinterpret_cast<DispatcherRankState*>(&data_00474c40)->AdvanceLevel();
                 }
