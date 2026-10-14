@@ -64380,6 +64380,10 @@
     {
       "region": "asm_FUN_00415e90_00415e90",
       "layout": "layout/equivalent/front_script_tick_00415e90.json"
+    },
+    {
+      "region": "asm_FUN_00414900_00414900",
+      "layout": "layout/equivalent/front_hud_update_00414900.json"
     }
   ]
 }

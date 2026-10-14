@@ -26,12 +26,13 @@ what remains as inline assembly.
 | 0x00426F70 familiar refresh (2026-10-14) | 2,520 | 641/643 identical, 1 operand-order hunk |
 | 0x0040BD80 script executor (2026-10-14) | 1,568 | 400/444 identical, 28 classified hunks |
 | 0x00415E90 result dispatcher (2026-10-14) | 4,480 | 873/1147 identical, 138 classified hunks (structural 121/143); see front_script_tick_00415e90_accepted note |
+| 0x00414900 front HUD update (2026-10-14) | 3,836 | 1064/1089 identical, 22 classified hunks (structural 25) |
 
 Tooling added: `equivalence.py` audited call-target rebases (explicit
 bindings only, verified callee bytes only, recorded, 6 new gate tests,
 full suite green, all registered recoveries re-verified unchanged).
 
-## The 3 regions still as inline assembly — all parked with complete analysis
+## The 2 regions still as inline assembly — all parked with complete analysis
 
 Every one is blocked on the same wall: **whole-program /GL register
 assignment that cluster-scale links do not reproduce**. Each has a
@@ -43,7 +44,6 @@ complete lever history.
 | --- | --- | --- |
 | 0x004067D0 Spawn (1,472B) | 1,476/1,472 (+4); frame 0x14 matches retail; one hoisted load; 394 diff lines | second hoisted load (the entry shape is composition-dependent on Tick's IL); the epilogue tail-merge; the register-assignment cascade |
 | 0x00406D90 Tick (1,604B, approved extent) | 1,564/1,604 (-40); the retail-matching head (the volatile guard + the commands-index read pinning the non-rotated form), the bottom polarity (jl back-edge), the verified int field stores, the sign carried across the ScanCells call, the prewritten shared pattern buffer | receiver-in-EBX vs retail EBP — traced to C2's frame-spill heuristic (the frame's +360 epilogue grant displaces the receiver's faster-decaying priority; retail's IL tipped the entry spill, mine doesn't); c2-level tooling territory |
-| 0x00414900 front HUD update (3,836B) | 579/1124 rows identical | C2 whole-program scheduling (allocate block, block positions), volatile-frame merge trade-offs; FlagStopFrame helper merge defeated (sessions 1-20) |
 
 ## What was learned about the compiler (the reusable assets)
 

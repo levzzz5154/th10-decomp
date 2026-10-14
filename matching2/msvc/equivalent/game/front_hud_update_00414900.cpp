@@ -89,12 +89,12 @@ __forceinline AnimationTreeNode* FindTree(unsigned int handle) {
 __forceinline void FlagStopFrame1(unsigned int handle) {
     AnimationTreeNode* node = FindTree(handle);
     if (node != 0) {
-        volatile int frame = 1;
-        node->stop_frame = (unsigned short)frame;
+        unsigned short frame = 1;
+        node->stop_frame = frame;
         if (!node->children_flagged) {
             for (AnimationTreeNode* child = node->children;
                  child != 0; child = child->next)
-                child->object->stop_frame = 1;
+                child->object->stop_frame = frame;
         }
     }
 }
@@ -102,12 +102,12 @@ __forceinline void FlagStopFrame1(unsigned int handle) {
 __forceinline void FlagStopFrame2(unsigned int handle) {
     AnimationTreeNode* node = FindTree(handle);
     if (node != 0) {
-        volatile int frame = 2;
-        node->stop_frame = (unsigned short)frame;
+        unsigned short frame = 2;
+        node->stop_frame = frame;
         if (!node->children_flagged) {
             for (AnimationTreeNode* child = node->children;
                  child != 0; child = child->next)
-                child->object->stop_frame = 2;
+                child->object->stop_frame = frame;
         }
     }
 }
@@ -115,12 +115,12 @@ __forceinline void FlagStopFrame2(unsigned int handle) {
 __forceinline void FlagStopFrame3(unsigned int handle) {
     AnimationTreeNode* node = FindTree(handle);
     if (node != 0) {
-        volatile int frame = 3;
-        node->stop_frame = (unsigned short)frame;
+        unsigned short frame = 3;
+        node->stop_frame = frame;
         if (!node->children_flagged) {
             for (AnimationTreeNode* child = node->children;
                  child != 0; child = child->next)
-                child->object->stop_frame = 3;
+                child->object->stop_frame = frame;
         }
     }
 }
@@ -152,7 +152,7 @@ inline unsigned int RegisterFreshObject(Entity* object, FrontHudRuntime* front) 
         AnimationListNode* next = tail->next;
         if (next != 0) {
             node->next = next;
-            next->previous = node;
+            tail->next->previous = node;
         }
         tail->next = node;
         node->previous = tail;
@@ -161,7 +161,7 @@ inline unsigned int RegisterFreshObject(Entity* object, FrontHudRuntime* front) 
     unsigned int id = lists->next_id + 1;
     lists->next_id = id;
     if (id == 0) {
-        id = 1;
+        ++id;
         lists->next_id = id;
     }
     object->animation_handle = (int)lists->next_id;
@@ -245,16 +245,27 @@ __declspec(noinline) int __stdcall FrontHudUpdate_00414900(
         ScriptBody* body = (ScriptBody*)seq->field_10;
         int gauge_value = body->gauge_value_23fc;
         front->gauge_value_9e8c = gauge_value;
-        float ratio = (float)gauge_value / (float)body->gauge_range_2400;
-        front->gauge_ratio_9e88 = ratio;
-        if (ratio > front->gauge_disp_9e84) {
-            front->gauge_disp_9e84 += data_00470cf8;
+        front->gauge_ratio_9e88 = (float)gauge_value / (float)body->gauge_range_2400;
+        if (front->gauge_ratio_9e88 > front->gauge_disp_9e84) {
+            front->gauge_disp_9e84 = front->gauge_disp_9e84 + data_00470cf8;
         }
         if (front->gauge_disp_9e84 > front->gauge_ratio_9e88) {
             *(int*)&front->gauge_disp_9e84 = *(int*)&front->gauge_ratio_9e88;
         }
         PlayState_00477834* play = (PlayState_00477834*)data_00477834;
-        if ((front->flags_9eb4 & 8) == 0) {
+        if (front->flags_9eb4 & 8) {
+            if (play->field_3C4 >= data_00470c28 || play->field_3C0 > data_00470b04) {
+                for (int i = 0; i < front->boss_id_count_9e90; ++i) {
+                    if (front->boss_ids_9e28[i] != 0) {
+                        FlagStopFrame2(front->boss_ids_9e28[i]);
+                    }
+                }
+                if (front->pending_id_9e24 != 0) {
+                    FlagStopFrame2(front->pending_id_9e24);
+                }
+                front->flags_9eb4 &= ~8u;
+            }
+        } else {
             if (play->field_3C4 <= data_00470bc8 && play->field_3C0 < data_00470b5c) {
                 for (int i = 0; i < front->boss_id_count_9e90; ++i) {
                     if (front->boss_ids_9e28[i] != 0) {
@@ -266,41 +277,26 @@ __declspec(noinline) int __stdcall FrontHudUpdate_00414900(
                 }
                 front->flags_9eb4 |= 8;
             }
-        } else {
-            if (play->field_3C4 >= data_00470c28 || play->field_3C0 > data_00470b04) {
-                for (int i = 0; i < front->boss_id_count_9e90; ++i) {
-                    if (front->boss_ids_9e28[i] != 0) {
-                        FlagStopFrame2(front->boss_ids_9e28[i]);
-                    }
-                }
-                int pending = front->pending_id_9e24;
-                if (pending == 0) {
-                    front->flags_9eb4 &= ~8u;
-                } else {
-                    FlagStopFrame2(pending);
-                    front->flags_9eb4 &= ~8u;
-                }
-            }
         }
         if (front->pending_id_9e24 == 0) {
             int script = 0x85;
             switch (data_00474c7c) {
             case 1:
-                if (data_00474c84 >= 0x18)
+                if ((int)data_00474c84 >= 0x18)
                     script = 0x86;
                 break;
             case 2:
-                if (data_00474c84 < 0x18)
+                if ((int)data_00474c84 < 0x18)
                     goto have_script;
                 script = 0x87;
                 break;
             case 3:
-                if (data_00474c84 < 0x18)
+                if ((int)data_00474c84 < 0x18)
                     goto have_script;
                 script = 0x88;
                 break;
             case 4:
-                script = (data_00474c84 >= 0x18 ? 1 : 0) + 0x89;
+                script = ((int)data_00474c84 >= 0x18 ? 1 : 0) + 0x89;
                 break;
             case 5:
                 script = 0x8B;
@@ -309,21 +305,45 @@ __declspec(noinline) int __stdcall FrontHudUpdate_00414900(
                 script = 0x8C;
                 break;
             case 7:
-                script = (data_00474c84 >= 0x18 ? 1 : 0) + 0x8C;
+                script = ((int)data_00474c84 >= 0x18 ? 1 : 0) + 0x8C;
                 break;
             }
             {
+                AnimationResource_00449870* resource =
+                    (AnimationResource_00449870*)front->resource_9ec8;
                 AnimationPool* pool = (AnimationPool*)data_00491c10;
                 Entity* object = pool->Allocate();
                 unsigned int flags = object->flags_35C;
                 object->flags_35C = flags | 0x40000000u;
                 object->render_bucket = 15;
-                ((AnimationResource_00449870*)front->resource_9ec8)
-                    ->InitializeObject(object, script);
+                resource->InitializeObject(object, script);
                 front->pending_id_9e24 = (int)RegisterFreshObject(object, front);
             }
         }
-    have_script:;
+    have_script:
+        // Ten one-shot notice slots: create the missing ones, flag the live ones
+        // and clear them after the walk.
+        {
+            for (unsigned int i = 0; i < 10; ++i) {
+                int* slot = &front->boss_ids_9e28[i];
+                if ((int)i < front->boss_id_count_9e90) {
+                    if (*slot != 0)
+                        continue;
+                    AnimationResource_00449870* resource =
+                        (AnimationResource_00449870*)front->resource_9ec8;
+                    AnimationPool* pool = (AnimationPool*)data_00491c10;
+                    Entity* object = pool->Allocate();
+                    unsigned int flags = object->flags_35C;
+                    object->flags_35C = flags | 0x40000000u;
+                    object->render_bucket = 15;
+                    resource->InitializeObject(object, 0x5B + i);
+                    *slot = (int)RegisterFreshObject(object, front);
+                } else if (*slot != 0) {
+                    FlagStopFrame1(*slot);
+                    *slot = 0;
+                }
+            }
+        }
     } else {
         if (front->pending_id_9e24 != 0) {
             FlagStopFrame1(front->pending_id_9e24);
@@ -336,32 +356,9 @@ __declspec(noinline) int __stdcall FrontHudUpdate_00414900(
         *(int*)((char*)&front->gauge_disp_9e84 + 0x28) = 0;
     }
 
-    // Ten one-shot notice slots: create the missing ones, flag the live ones
-    // and clear them after the walk.
-    {
-        for (int i = 0; i < 10; ++i) {
-            int* slot = &front->boss_ids_9e28[i];
-            if (i < front->boss_id_count_9e90) {
-                if (*slot != 0)
-                    continue;
-                AnimationPool* pool = (AnimationPool*)data_00491c10;
-                Entity* object = pool->Allocate();
-                unsigned int flags = object->flags_35C;
-                object->flags_35C = flags | 0x40000000u;
-                object->render_bucket = 15;
-                ((AnimationResource_00449870*)front->resource_9ec8)
-                    ->InitializeObject(object, 0x5B + i);
-                *slot = (int)RegisterFreshObject(object, front);
-            } else if (*slot != 0) {
-                FlagStopFrame1(*slot);
-                *slot = 0;
-            }
-        }
-    }
-
     SequenceRuntime* runtime = (SequenceRuntime*)front->sequence_9eb8;
     if (runtime != 0) {
-        int finished = ResultDispatcher_00415e90((ResultDispatcherState*)front);
+        int finished = ResultDispatcher_00415e90((ResultDispatcherState*)runtime);
         if (finished == 0) {
             // The inlined frame-ramp tick on the sub-record.
             runtime->ramp_previous = runtime->ramp_current;
@@ -427,11 +424,11 @@ __declspec(noinline) int __stdcall FrontHudUpdate_00414900(
         if (body != 0) {
             // The difficulty gate adjusts the boss name display word.
             unsigned int gate_flags = body->flags_2480;
-            if (((~gate_flags >> 4) & 1) != 0 && (~gate_flags & 1) != 0) {
+            if ((~(gate_flags >> 4) & 1) != 0 && (~gate_flags & 1) != 0) {
                 unsigned char* state = (unsigned char*)data_004776f4;
                 unsigned int flags = front->flags_9eb4;
-                unsigned int lane = (flags >> 1) & 3;
                 if (state[0x378C] & 1) {
+                    unsigned int lane = (flags >> 1) & 3;
                     if (lane == 0) {
                         if (body->gate_frame_2404 < 0x7D0) {
                             front->objects[22].stop_frame = 7;
@@ -454,6 +451,7 @@ __declspec(noinline) int __stdcall FrontHudUpdate_00414900(
                         }
                     }
                 } else {
+                    unsigned int lane = (flags >> 1) & 3;
                     if (lane == 0) {
                         if (body->gate_frame_2404 < 0x2BC) {
                             front->objects[22].stop_frame = 7;
@@ -482,11 +480,11 @@ __declspec(noinline) int __stdcall FrontHudUpdate_00414900(
                 front->objects[22].y_340 = body->boss_y_1068 + data_00470b4c;
                 float offset = (float)fabs(
                     body->boss_y_1068 - ((PlayState_00477834*)data_00477834)->field_3C0);
-                if (offset < data_00470cf0) {
+                if (offset >= data_00470cf0) {
+                    front->objects[22].alpha_2ff = 0xFF;
+                } else {
                     front->objects[22].alpha_2ff =
                         (unsigned char)(0x40 - (int)(offset * data_00470ce8));
-                } else {
-                    front->objects[22].alpha_2ff = 0xFF;
                 }
                 if (body->boss_y_1068 < data_00470b40 ||
                     body->boss_y_1068 > data_00470b3c) {
