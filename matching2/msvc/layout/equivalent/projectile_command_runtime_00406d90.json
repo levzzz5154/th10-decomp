@@ -7,7 +7,7 @@
   ],
   "entry_symbol": "?Tick@ProjectileCommandRuntime@@QAEXXZ",
   "function": "?Tick@ProjectileCommandRuntime@@QAEXXZ",
-  "code_bytes": 1454,
+  "code_bytes": 1456,
   "absolute_symbols": {
     "__ftol2": {
       "address": "0x00463B2C",
@@ -120,12 +120,9 @@
   "differences": [],
   "context_sources": [
     "layout/ltcg/projectile_spawn_runtime/start_script.cpp",
-    "layout/ltcg/projectile_spawn_runtime/scheduler_set.cpp",
-    "layout/ltcg/projectile_spawn_runtime/activate.cpp",
     "layout/ltcg/projectile_spawn_runtime/polar_set.cpp",
-    "layout/ltcg/projectile_spawn_runtime/angle_from_point.cpp",
-    "layout/ltcg/projectile_spawn_runtime/queue.cpp",
     "layout/ltcg/projectile_spawn_runtime/queue_pan.cpp"
   ],
-  "note": "reference/recovery_notes/projectile_command_runtime_00406d90_2026_10_13.md"
+  "note": "reference/recovery_notes/projectile_command_runtime_00406d90_2026_10_13.md",
+  "listed_branch_targets": true
 }
