@@ -64362,6 +64362,10 @@
     {
       "region": "asm_EclVm_StartChildRetail_0044df70",
       "layout": "layout/equivalent/ecl_start_child_0044df70.json"
+    },
+    {
+      "region": "asm_FUN_0044a190_0044a190",
+      "layout": "layout/equivalent/joystick_poll_0044a190.json"
     }
   ]
 }
