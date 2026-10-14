@@ -521,5 +521,8 @@
   "base_index_order": 0,
   "differences": [],
   "note": "reference/recovery_notes/front_hud_pair_00414900_equivalent_2026_10_13.md",
-  "listed_branch_targets": true
+  "listed_branch_targets": true,
+  "roots": [
+    "_FrontScriptTickEscape@4"
+  ]
 }

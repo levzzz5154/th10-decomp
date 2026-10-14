@@ -40,3 +40,20 @@ int* __stdcall DispatcherCreateAt(
     return out;
 }
 #pragma code_seg()
+
+// The game counters around 0x00474C68 are address-taken elsewhere in the
+// program, so stores through pointers force their reloads.
+#pragma code_seg(".text$02entry")
+extern "C" void* __stdcall FrontScriptTickEscape(int which) {
+    switch (which) {
+    case 0: return &data_00474c68;
+    case 1: return &data_00474c6c;
+    case 2: return &data_00474c74;
+    case 3: return &data_00474c7c;
+    case 4: return &data_00474c70;
+    case 5: return &data_00474c4c;
+    case 6: return &data_00474c48;
+    default: return &data_00474c84;
+    }
+}
+#pragma code_seg()
