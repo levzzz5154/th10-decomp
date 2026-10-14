@@ -8,7 +8,7 @@ MSVC_ARGS += --exact
 endif
 LTCG_ARGS ?=
 
-.PHONY: build rebuild verify behavior-check progress ltcg-proof
+.PHONY: build rebuild verify abi-check behavior-check progress ltcg-proof
 build:
 	./matching2/build_msvc.sh $(MSVC_ARGS)
 
@@ -18,8 +18,12 @@ rebuild:
 
 verify: build
 
+# Requires capstone; checks that equivalent models pass retail callees their register arguments.
+abi-check: build
+	$(PYTHON) matching2/tools/matching/callsite_abi.py
+
 # Requires Unicorn; checks the installed item body with real retail callees.
-behavior-check: build
+behavior-check: abi-check
 	$(BEHAVIOR_PYTHON) matching2/tests/item_update_shipped_differential.py
 	$(BEHAVIOR_PYTHON) matching2/tests/replay_submenu_shipped_differential.py
 

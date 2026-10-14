@@ -1,0 +1,30 @@
+{
+  "_comment": "Call-site provenance mismatches reviewed by hand and found to pass the same values. Key: model name -> callee address -> reason. Any other mismatch fails callsite_abi.py.",
+  "enemy_execute_0040e770": {
+    "0x40e6a0": "tail merge: retail has two call sites, the model one shared tail",
+    "0x412a10": "call blocks start after a ret; EAX/ECX come from the block's predecessor, as in retail",
+    "0x44fdb0": "duplicated/merged tails change the call-site count; same argument provenance",
+    "0x44fe40": "duplicated/merged tails change the call-site count; same argument provenance",
+    "0x458ea5": "duplicated/merged tails change the call-site count; same argument provenance"
+  },
+  "front_script_tick_00415e90": {
+    "0x409d90": "ECX = 0x474C40 carried across a previous 0x409D90 call, which preserves ECX",
+    "0x40ac90": "one shared retail tail duplicated in the model; each copy loads EAX = 0x491C28"
+  },
+  "item_update_0041afd0": {
+    "0x412ff0": "EDI copied from ECX/EAX = 0x474C40 after 0x41BE80/0x409D90 (preserve ECX) and 0x405B60 (preserves EAX)",
+    "0x409d90": "ECX = 0x474C40 copied from EAX after 0x405B60 (preserves EAX) or from EDI after 0x412FF0 (never writes EDI)"
+  },
+  "laser_circle_split_0041efa0": {
+    "0x43e710": "resource [[0x47781C]+0x458] spilled to [esp+0x2c] and reloaded into ECX; retail keeps it in EDI"
+  },
+  "laser_circle_trim_0041dd80": {
+    "0x43e710": "resource [[0x47781C]+0x458] spilled to a stack slot and reloaded into ECX; retail keeps it in EDI"
+  },
+  "manager_teardown_00417c80": {
+    "0x43e460": "both load EAX = 0x492590; retail's load sits before a branch the scan does not follow"
+  },
+  "replay_submenu_004236f0": {
+    "0x43dc90": "EDI = 0xA: retail copies it from EBX, which holds the constant 0xA (cf. its `test [0x474e36], bl`); the model loads the immediate"
+  }
+}

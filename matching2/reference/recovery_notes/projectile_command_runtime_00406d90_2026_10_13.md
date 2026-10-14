@@ -681,3 +681,24 @@ frame slot.
    the bottom-check polarity inversion (goto top), the goto-bottom case
    exits, the prewritten shared pattern buffer, the entry-copy lever on
    Spawn, the int field types in the header.
+
+## Runtime fix, 2026-10-14: StartScript call convention
+
+The accepted model crashed the default build ~5,766 frames into replay `th10_05`
+(Stage 1): access violation at 0x0043E71D in the script loader, reached from
+the model's command 0x4000 through the installed retail StartScript 0x00404F30.
+Retail passes the script pointer (`data_00474170[value_c] + value_d`) in EAX;
+the model passed it in EDI and left the manager pointer `[0x004776F0]` in EAX.
+
+Cause: the cluster's stand-in `layout/ltcg/projectile_spawn_runtime/start_script.cpp`
+calls a bodiless `LoadScript_0043e710`, so the pass parked the script in EDI and
+made EDI the stand-in's private register parameter. The layout listed the hunk
+as a reviewed difference. Fix: the Tick cluster now uses the spawner's proven
+context `equivalent/game/context/projectile_spawn_cell_start_script_00404f30.cpp`,
+which compiles the real loader (index in EBX), so the starter takes the index
+in EAX like retail. The call site is now identical to retail; the model went
+from 302 to 323 of 337 identical instructions (17 recorded differences, one
+new: two independent stores to the scratch vector in the other order).
+
+`tools/matching/callsite_abi.py` (`make abi-check`) now checks every model's
+calls into retail code for this class of mismatch.

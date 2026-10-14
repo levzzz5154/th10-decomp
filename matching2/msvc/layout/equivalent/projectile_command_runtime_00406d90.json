@@ -69,14 +69,6 @@
       "address": "0x004918B0",
       "kind": "data"
     },
-    "_LoadScript_0043e710@12": {
-      "address": "0x00401000",
-      "kind": "code"
-    },
-    "?Entity_Init@@YIXPAXPAUEntity@@@Z": {
-      "address": "0x00401000",
-      "kind": "code"
-    },
     "?OutsideBounds@PlayfieldPoint@@QBEHMM@Z": {
       "address": "0x00401000",
       "kind": "code"
@@ -107,6 +99,18 @@
     },
     "?SetScorePolar@ScoreGameplayPolarVector@@QAEPAU1@MM@Z": {
       "address": "0x00408750",
+      "kind": "code"
+    },
+    "_EntityInitTail_00404f30": {
+      "address": "0x00401EF1",
+      "kind": "code"
+    },
+    "_data_00491c10": {
+      "address": "0x00491C10",
+      "kind": "data"
+    },
+    "_asm_FUN_0043ee30_0043ee30@4": {
+      "address": "0x0043EE30",
       "kind": "code"
     }
   },
@@ -157,107 +161,10 @@
     },
     {
       "class": "evaluation-order",
-      "offset": "0x2fc",
-      "retail": [
-        "mov eax,DWORD PTR [edx*4+0x474170]",
-        "mov edx,DWORD PTR [esi+0xc]",
-        "mov ecx,DWORD PTR ds:0x4776f0",
-        "add eax,edx",
-        "mov edx,DWORD PTR [ecx+0x3e0b50]"
-      ],
+      "offset": "0x3f2",
+      "retail": [],
       "model": [
-        "mov ecx,DWORD PTR [esi+0xc]",
-        "mov edi,DWORD PTR [edx*4+0x474170]",
-        "mov eax,ds:0x4776f0",
-        "add edi,ecx",
-        "mov ecx,DWORD PTR [eax+0x3e0b50]"
-      ]
-    },
-    {
-      "class": "register-choice",
-      "offset": "0x317",
-      "retail": [
-        "push edx"
-      ],
-      "model": [
-        "push ecx"
-      ]
-    },
-    {
-      "class": "register-choice",
-      "offset": "0x360",
-      "retail": [
-        "mov eax,DWORD PTR [esi+0x8]",
-        "push eax"
-      ],
-      "model": [
-        "mov edx,DWORD PTR [esi+0x8]",
-        "push edx"
-      ]
-    },
-    {
-      "class": "register-choice",
-      "offset": "0x374",
-      "retail": [
-        "mov ecx,DWORD PTR [ebp+0x3b4]"
-      ],
-      "model": [
-        "mov eax,DWORD PTR [ebp+0x3b4]"
-      ]
-    },
-    {
-      "class": "register-choice",
-      "offset": "0x37d",
-      "retail": [
-        "push ecx"
-      ],
-      "model": [
-        "push eax"
-      ]
-    },
-    {
-      "class": "register-choice",
-      "offset": "0x3a5",
-      "retail": [
-        "mov edx,DWORD PTR [esi+0x8]",
-        "push edx"
-      ],
-      "model": [
-        "mov ecx,DWORD PTR [esi+0x8]",
-        "push ecx"
-      ]
-    },
-    {
-      "class": "register-choice",
-      "offset": "0x3bf",
-      "retail": [
-        "mov eax,DWORD PTR [esi+0x8]",
-        "push eax"
-      ],
-      "model": [
-        "mov edx,DWORD PTR [esi+0x8]",
-        "push edx"
-      ]
-    },
-    {
-      "class": "code-shape",
-      "offset": "0x3e0",
-      "retail": [
-        "lea ecx,[ebp+0x3b4]",
-        "mov eax,DWORD PTR [ecx]",
-        "mov DWORD PTR [esp+0x14],eax",
-        "mov eax,DWORD PTR [ecx+0x4]",
-        "mov ecx,DWORD PTR [ecx+0x8]",
-        "mov DWORD PTR [esp+0x18],eax"
-      ],
-      "model": [
-        "lea eax,[ebp+0x3b4]",
-        "mov ecx,DWORD PTR [eax]",
-        "mov DWORD PTR [esp+0x14],ecx",
-        "mov ecx,DWORD PTR [eax+0x4]",
-        "mov eax,DWORD PTR [eax+0x8]",
-        "mov DWORD PTR [esp+0x18],ecx",
-        "mov DWORD PTR [esp+0x1c],eax"
+        "mov DWORD PTR [esp+0x1c],ecx"
       ]
     },
     {
@@ -370,20 +277,10 @@
         "mov DWORD PTR [ebp+0x7c4],eax"
       ],
       "model": []
-    },
-    {
-      "class": "alignment-padding",
-      "offset": "0x5ae",
-      "retail": [
-        "mov edi,edi"
-      ],
-      "model": [
-        "lea ecx,[ecx+0x0]"
-      ]
     }
   ],
   "context_sources": [
-    "layout/ltcg/projectile_spawn_runtime/start_script.cpp",
+    "equivalent/game/context/projectile_spawn_cell_start_script_00404f30.cpp",
     "equivalent/game/context/projectile_command_scan_cells_004073e0.cpp"
   ],
   "note": "reference/recovery_notes/projectile_command_runtime_00406d90_2026_10_13.md",
