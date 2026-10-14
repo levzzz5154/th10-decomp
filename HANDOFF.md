@@ -3,7 +3,7 @@
 ## Where the project stands
 
 `make` is green. `make EXACT=1` produces the bit-identical executable.
-Progress: **94.8% of .text bytes recovered (305,228 of 321,830), 2,315 of
+Progress: **95.2% of .text bytes recovered (306,584 of 321,914), 2,316 of
 2,322 regions**; the executable's C++/equivalent share is at parity with
 what remains as inline assembly.
 
@@ -28,7 +28,7 @@ Tooling added: `equivalence.py` audited call-target rebases (explicit
 bindings only, verified callee bytes only, recorded, 6 new gate tests,
 full suite green, all registered recoveries re-verified unchanged).
 
-## The 7 regions still as inline assembly — all parked with complete analysis
+## The 6 regions still as inline assembly — all parked with complete analysis
 
 Every one is blocked on the same wall: **whole-program /GL register
 assignment that cluster-scale links do not reproduce**. Each has a
@@ -40,7 +40,6 @@ complete lever history.
 | --- | --- | --- |
 | 0x004067D0 Spawn (1,472B) | 1,476/1,472 (+4); frame 0x14 matches retail; one hoisted load; 394 diff lines | second hoisted load (the entry shape is composition-dependent on Tick's IL); the epilogue tail-merge; the register-assignment cascade |
 | 0x00406D90 Tick (1,604B, approved extent) | 1,564/1,604 (-40); the retail-matching head (the volatile guard + the commands-index read pinning the non-rotated form), the bottom polarity (jl back-edge), the verified int field stores, the sign carried across the ScanCells call, the prewritten shared pattern buffer | receiver-in-EBX vs retail EBP — traced to C2's frame-spill heuristic (the frame's +360 epilogue grant displaces the receiver's faster-decaying priority; retail's IL tipped the entry spill, mine doesn't); c2-level tooling territory |
-| 0x0041CA80 laser script Run (1,272B) | full cluster, everything exact but one rename | pc/opcode ECX-EDX swap; contest gap 5332 quantified, flip needs the original's unseen construct |
 | 0x0040BD80 script executor (1,568B) | head byte-exact through 0x40BDD3 | ring-loop ESI/EDI swap + per-case IPSA coloring |
 | 0x00426F70 familiar refresh (2,520B) | 6 of 7 cluster functions byte-exact | desired/counter arg-home decision (9 rounds documented) |
 | 0x00414900 front HUD update (3,836B) | 579/1124 rows identical | C2 whole-program scheduling (allocate block, block positions), volatile-frame merge trade-offs; FlagStopFrame helper merge defeated (sessions 1-20) |
@@ -85,14 +84,16 @@ complete lever history.
 - Workflow, gates, conventions: repo README + the playbook.
 - Gate measurements of the existing drafts (real `equivalence.py --layout`,
   2026-10-14; older cluster-probe diff counts did not match the gate):
-  laser 195/294 (needs the
-  1356-byte merged region); front HUD 875/1089; front_script_tick and the
+  front HUD 875/1089; front_script_tick and the
   projectile layouts do not link. StartChild went 76 -> 21 through source
   shape (in-loop strength-reduced IVs, volatile re-read of a split param,
   post-loop param copy); see its 2026-10-14 note for the method.
   The joystick reader went 156 -> 16 by writing it in the decompiled th06
   controller's shape (button helpers through `&buttons`): check sibling
   Touhou decomps for a function's original shape before tracing c2.
+  The laser interpreter 0x0041CA80 went byte-exact once its model was made
+  semantically right (a missing case, a reversed ternary, a shared `++pc`):
+  verify a parked model's semantics against retail before blaming c2.
 - Treat "proven not source-steerable" verdicts as "not found yet": earlier
   "impossible" allocator residuals were closed by changing cluster context
   (real callee bodies, escaped-global structs, callee parameter order/convention),

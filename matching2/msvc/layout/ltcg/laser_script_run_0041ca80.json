@@ -34,7 +34,7 @@
    "symbol": "?Run@LaserScriptRun_0041ca80@@QAEXXZ",
    "section": ".text$0041ca80_fn",
    "address": "0x0041CA80",
-   "size": 1328,
+   "size": 1356,
    "actual_abi": "laser in ECX; plain RET"
   }
  ],
@@ -119,8 +119,8 @@
   },
   {
    "section": ".text$0041ca80_fnz",
-   "address": "0x41cf60",
-   "size": 38656
+   "address": "0x41cfcc",
+   "size": 38548
   },
   {
    "section": ".text$00426660_fnz",

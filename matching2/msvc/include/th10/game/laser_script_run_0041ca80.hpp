@@ -32,8 +32,8 @@ struct LaserScriptTimer_0041ca80 {
         if (!(flags & 1u))
             InitDefaults();
         current = value;
-        previous = value - 1;
         elapsed = static_cast<float>(value);
+        previous = value - 1;
     }
 };
 

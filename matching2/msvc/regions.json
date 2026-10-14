@@ -18130,21 +18130,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_unassigned_0041ca80",
-      "source": "src/unidentified/unassigned_0041ca80.cpp",
-      "symbol": "_asm_unassigned_0041ca80",
+      "name": "semantic_LaserScriptRun_0041ca80",
+      "source": "src/game/laser_script_run_0041ca80.cpp",
+      "symbol": "?Run@LaserScriptRun_0041ca80@@QAEXXZ",
       "address": "0x0041CA80",
-      "size": 1272,
-      "kind": "asm",
-      "owner": null
-    },
-    {
-      "name": "text_data_0041cf78",
-      "source": "src/data/text_0041.cpp",
-      "symbol": "_text_data_0041cf78",
-      "address": "0x0041CF78",
-      "size": 84,
-      "kind": "data"
+      "size": 1356,
+      "kind": "semantic",
+      "owner": "0x0041CA80",
+      "previous_record": {
+        "name": "asm_unassigned_0041ca80",
+        "source": "src/unidentified/unassigned_0041ca80.cpp",
+        "symbol": "_asm_unassigned_0041ca80",
+        "address": "0x0041CA80",
+        "size": 1272,
+        "kind": "asm",
+        "owner": null
+      }
     },
     {
       "name": "text_padding_0041cfcc",
@@ -61956,7 +61957,7 @@
     "src/unidentified/unassigned_0041c310.cpp",
     "src/unidentified/unassigned_0041c450.cpp",
     "src/unidentified/unassigned_0041c84c.cpp",
-    "src/unidentified/unassigned_0041ca80.cpp",
+    "src/game/laser_script_run_0041ca80.cpp",
     "src/unidentified/unassigned_0041f760.cpp",
     "src/unidentified/unassigned_0041f780.cpp",
     "src/unidentified/unassigned_0041f820.cpp",
@@ -62288,6 +62289,7 @@
     }
   ],
   "ltcg_clusters": [
+    "layout/ltcg/laser_script_run_0041ca80.json",
     "layout/ltcg/projectile_clear_region_00408210.json",
     "layout/ltcg/effect_ring_build_004452f0.json",
     "layout/ltcg/effect_ring_update_00445620.json",

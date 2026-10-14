@@ -181,3 +181,29 @@ under any tested spelling: retail's extra pc references (if any) are not
 reachable through the reconstructed guard/increment structures, and every
 added-read attempt either folds away or changes bytes retail does not have.
 Parked with the trajectory table as the quantitative record.
+
+
+## Recovered byte-exact (2026-10-14)
+
+The "register swap" was never an allocator quirk: the model was not the
+retail function. Measured through `equivalence.py` (a stub layout with
+`context_cluster` = this cluster and the region widened to 1356), five source
+corrections took it from 144/294 to 294/294 identical:
+
+1. **`case 0x2000000` was missing** (`pc = param2`), so the switch tree had a
+   different case count (root 0x4000 instead of retail's 0x8000).
+2. **Every ordinary case ends in `break` to one `++pc_400` after the switch**;
+   the default and 0x200000 advance too. Retail's per-case
+   `mov eax,[pc]; inc eax; jmp store` are tail-duplicated copies of that
+   shared increment, which is why they reload pc from memory. Only 0x1000000
+   (`++pc_400; continue;`, cached register) and the end marker do their own.
+3. The width command keeps `param1` when it is **above** the threshold
+   (`param1 > [00470CC8] ? param1 : width_48`); the old model had it reversed.
+4. The width/move timers are the inlined `SetSchedulerValue(0)`, whose stores
+   run current, elapsed, previous (header order fixed).
+5. The aim angle tests `param1 <= [00470B50]` first (angle_3C), then the
+   player-aim threshold.
+
+With those, the pc/opcode ECX/EDX assignment, the inline end-marker test and
+the tree all came out as retail. The region now absorbs the jump table
+(1356 bytes, `text_data_0041cf78` removed) and is built from the cluster.
