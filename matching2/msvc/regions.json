@@ -64358,6 +64358,10 @@
     {
       "region": "asm_FUN_0041a200_0041a200",
       "layout": "layout/equivalent/hint_save_0041a200.json"
+    },
+    {
+      "region": "asm_EclVm_StartChildRetail_0044df70",
+      "layout": "layout/equivalent/ecl_start_child_0044df70.json"
     }
   ]
 }

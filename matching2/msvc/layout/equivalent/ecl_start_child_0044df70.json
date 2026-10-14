@@ -1,0 +1,250 @@
+{
+ "schema_version": 1,
+ "name": "ecl_start_child_0044df70",
+ "region": "asm_EclVm_StartChildRetail_0044df70",
+ "sources": [
+  "equivalent/script/ecl_start_child_0044df70.cpp"
+ ],
+ "context_sources": [
+  "layout/ltcg/ecl_child_int_anchor.cpp",
+  "layout/ltcg/ecl_child_float_anchor.cpp",
+  "layout/ltcg/ecl_child_script_anchor.cpp"
+ ],
+ "entry_symbol": "_EclChildPairContext@16",
+ "function": "_EclStartChild@12",
+ "code_bytes": 550,
+ "absolute_symbols": {
+  "__ftol2": {
+   "address": "0x00463B2C",
+   "kind": "code"
+  },
+  "__fltused": {
+   "address": "0x00009876",
+   "kind": "data"
+  },
+  "_data_00470b04": {
+   "address": "0x00470B04",
+   "kind": "data"
+  },
+  "_data_00470b60": {
+   "address": "0x00470B60",
+   "kind": "data"
+  },
+  "__real@00000000": {
+   "address": "0x00470B04",
+   "kind": "data"
+  },
+  "_operator_new_child": {
+   "address": "0x00452493",
+   "kind": "code"
+  }
+ },
+ "bindings": {
+  "?ECL_ResolveIntValue_0044ff00@@YIHHPAUEclFrame@@HH@Z": "0x44FF00",
+  "?ResolveFloatValue@EclFloatVm@@QAEMHM@Z": "0x44FF80",
+  "?Resolve@ScriptTable_00450470@@QAEHPBD@Z": "0x450470"
+ },
+ "base_index_order": 0,
+ "differences": [
+  {
+   "class": "code-shape",
+   "offset": "0x25",
+   "retail": [
+    "test eax,eax"
+   ],
+   "model": [
+    "cmp eax,edx"
+   ]
+  },
+  {
+   "class": "evaluation-order",
+   "offset": "0x64",
+   "retail": [],
+   "model": [
+    "lea edx,[ebp+0x4]"
+   ]
+  },
+  {
+   "class": "evaluation-order",
+   "offset": "0x68",
+   "retail": [],
+   "model": [
+    "mov DWORD PTR [esp+0x10],edx"
+   ]
+  },
+  {
+   "class": "evaluation-order",
+   "offset": "0x6c",
+   "retail": [
+    "lea eax,[ebp+0x4]",
+    "mov DWORD PTR [esp+0x10],eax"
+   ],
+   "model": []
+  },
+  {
+   "class": "register-choice",
+   "offset": "0x75",
+   "retail": [
+    "mov eax,DWORD PTR [esp+0x10]"
+   ],
+   "model": [
+    "mov edx,DWORD PTR [esp+0x10]"
+   ]
+  },
+  {
+   "class": "register-choice",
+   "offset": "0x80",
+   "retail": [
+    "mov ecx,DWORD PTR [edi]",
+    "mov dl,BYTE PTR [ecx+ebp*1+0x10]",
+    "cmp dl,0x66"
+   ],
+   "model": [
+    "mov eax,DWORD PTR [edi]",
+    "mov cl,BYTE PTR [eax+ebp*1+0x10]",
+    "cmp cl,0x66"
+   ]
+  },
+  {
+   "class": "register-choice",
+   "offset": "0x8b",
+   "retail": [
+    "cmp dl,0x67"
+   ],
+   "model": [
+    "cmp cl,0x67"
+   ]
+  },
+  {
+   "class": "register-choice",
+   "offset": "0x90",
+   "retail": [],
+   "model": [
+    "shr edx,0x2",
+    "mov ecx,DWORD PTR [eax+edx*4+0x10]"
+   ]
+  },
+  {
+   "class": "register-choice",
+   "offset": "0x94",
+   "retail": [
+    "shr eax,0x2",
+    "mov ecx,DWORD PTR [ecx+eax*4+0x10]"
+   ],
+   "model": []
+  },
+  {
+   "class": "register-choice",
+   "offset": "0xa2",
+   "retail": [
+    "mov edx,DWORD PTR [edi]",
+    "cmp BYTE PTR [edx+ebp*1+0x11],0x66"
+   ],
+   "model": [
+    "mov ecx,DWORD PTR [edi]",
+    "cmp BYTE PTR [ecx+ebp*1+0x11],0x66"
+   ]
+  },
+  {
+   "class": "register-choice",
+   "offset": "0xb3",
+   "retail": [
+    "mov eax,DWORD PTR [esp+0x28]",
+    "fstp DWORD PTR [eax]"
+   ],
+   "model": [
+    "mov edx,DWORD PTR [esp+0x28]",
+    "fstp DWORD PTR [edx]"
+   ]
+  },
+  {
+   "class": "register-choice",
+   "offset": "0xc3",
+   "retail": [
+    "shr eax,0x2",
+    "mov edx,DWORD PTR [ecx+eax*4+0x10]"
+   ],
+   "model": [
+    "shr edx,0x2",
+    "mov edx,DWORD PTR [eax+edx*4+0x10]"
+   ]
+  },
+  {
+   "class": "evaluation-order",
+   "offset": "0xf6",
+   "retail": [],
+   "model": [
+    "mov edx,DWORD PTR [esp+0x10]"
+   ]
+  },
+  {
+   "class": "evaluation-order",
+   "offset": "0xf8",
+   "retail": [
+    "mov edx,DWORD PTR [esp+0x10]"
+   ],
+   "model": []
+  },
+  {
+   "class": "evaluation-order",
+   "offset": "0x107",
+   "retail": [
+    "inc ebx"
+   ],
+   "model": []
+  },
+  {
+   "class": "evaluation-order",
+   "offset": "0x10e",
+   "retail": [],
+   "model": [
+    "inc ebx"
+   ]
+  },
+  {
+   "class": "code-shape",
+   "offset": "0x11e",
+   "retail": [
+    "test eax,eax"
+   ],
+   "model": []
+  },
+  {
+   "class": "code-shape",
+   "offset": "0x124",
+   "retail": [],
+   "model": [
+    "xor ecx,ecx",
+    "cmp eax,ecx"
+   ]
+  },
+  {
+   "class": "code-shape",
+   "offset": "0x131",
+   "retail": [
+    "add ecx,0xfffffffc"
+   ],
+   "model": [
+    "sub ecx,ebx"
+   ]
+  },
+  {
+   "class": "code-shape",
+   "offset": "0x189",
+   "retail": [
+    "xor ecx,ecx"
+   ],
+   "model": []
+  },
+  {
+   "class": "alignment-padding",
+   "offset": "0x223",
+   "retail": [],
+   "model": [
+    "int3"
+   ]
+  }
+ ],
+ "note": "reference/recovery_notes/ecl_start_child_0044df70_equivalent_2026_10_14.md",
+ "listed_branch_targets": true
+}
