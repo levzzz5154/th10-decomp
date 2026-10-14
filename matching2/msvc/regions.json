@@ -64372,6 +64372,10 @@
     {
       "region": "asm_FUN_00406d90_00406d90",
       "layout": "layout/equivalent/projectile_command_runtime_00406d90.json"
+    },
+    {
+      "region": "asm_FUN_004067d0_004067d0",
+      "layout": "layout/equivalent/projectile_spawn_cell_004067d0.json"
     }
   ]
 }

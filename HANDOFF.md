@@ -3,10 +3,13 @@
 ## Where the project stands
 
 `make` is green. `make EXACT=1` produces the bit-identical executable.
-Progress: **99.5% of .text bytes recovered (320,592 of 322,064), 2,321 of
-2,322 regions**; only Spawn 0x004067D0 remains as inline assembly.
+Progress: **100.0% of .text bytes recovered (322,064 of 322,064), 2,322 of
+2,322 regions; zero inline-assembly regions in the default build.** 72.7% of
+the bytes are byte-exact C++; the rest are gated equivalent recoveries
+(`equivalence.py`). `make EXACT=1` still rebuilds the bit-identical executable
+from the retail assembly of those regions.
 
-### Accepted this campaign (10 regions, all equivalent recoveries)
+### Accepted this campaign (all equivalent recoveries)
 
 | Region | Bytes | Verdict |
 | --- | ---: | --- |
@@ -26,23 +29,18 @@ Progress: **99.5% of .text bytes recovered (320,592 of 322,064), 2,321 of
 | 0x0040BD80 script executor (2026-10-14) | 1,568 | 400/444 identical, 28 classified hunks |
 | 0x00415E90 result dispatcher (2026-10-14) | 4,480 | 873/1147 identical, 138 classified hunks (structural 121/143); see front_script_tick_00415e90_accepted note |
 | 0x00414900 front HUD update (2026-10-14) | 3,836 | 1064/1089 identical, 22 classified hunks (structural 25) |
+| 0x004067D0 projectile cell spawner (2026-10-14) | 1,472 | 327/354 identical, 17 classified hunks (structural 24); two semantic fixes (lit step only for shaped bullets, one-record cursor advance) |
 | 0x00406D90 projectile command Tick (2026-10-14) | 1,604 | 302/337 identical, 25 classified hunks (structural 12); region re-extended over its switch tables; `align(8)` was reserving EBX in callees, see accepted note |
 
 Tooling added: `equivalence.py` audited call-target rebases (explicit
 bindings only, verified callee bytes only, recorded, 6 new gate tests,
 full suite green, all registered recoveries re-verified unchanged).
 
-## The region still as inline assembly
+## Inline assembly
 
-Every one is blocked on the same wall: **whole-program /GL register
-assignment that cluster-scale links do not reproduce**. Each has a
-readable C++ model, a working LTCG cluster (or equivalent draft), a
-reproducible one-command probe loop, and a recovery note with the
-complete lever history.
-
-| Region | Model state | Single remaining blocker |
-| --- | --- | --- |
-| 0x004067D0 Spawn (1,472B) | 1,476/1,472 (+4); frame 0x14 matches retail; one hoisted load; 394 diff lines | second hoisted load (the entry shape is composition-dependent on Tick's IL); the epilogue tail-merge; the register-assignment cascade |
+None left in the default build. The next step towards byte-exactness is
+turning equivalent recoveries into exact ones: each has a recovery note with
+its recorded differences.
 
 ## What was learned about the compiler (the reusable assets)
 
