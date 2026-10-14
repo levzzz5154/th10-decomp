@@ -137,7 +137,7 @@ construct from that delta.
 
 ## Priority-law measurement (c2 tracer, 2026-10-13)
 
-The c2 priority tracer (`scratch/eclstart/trace_accum.py`, breakpoints
+The c2 priority tracer (`matching2/reference/compiler_traces/regalloc/trace_accum.py`, breakpoints
 0x107a991c/0x107a9951/0x107a997e) was run against the cluster link for this
 unit (link command captured by wrapping `_run_logged`; see
 `/tmp/cmds_laser.json`). Results: the pc_400 variable web (candidate num=22,

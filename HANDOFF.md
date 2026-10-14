@@ -51,7 +51,7 @@ complete lever history.
 1. **The c2 priority law is decoded and validated** (joystick note,
    addenda 3–6): priority = Σ covered-block W×A×L − Σ uncovered-block
    A×L; W = 4 ordinary / 2 addressing-base / loop-depth+1 loop tuples.
-   Live tracers: `scratch/eclstart/trace_accum.py`, `trace_refs.py`;
+   Live tracers: `matching2/reference/compiler_traces/regalloc/trace_accum.py`, `trace_refs.py`;
    landmarks: ChoosePhysReg 0x107AAB62, driver 0x107A926D, picker
    0x107A9D71, per-reference value 0x107A99D9.
 2. **Parameter-lowering rule**: an incoming register parameter that is
@@ -83,6 +83,15 @@ complete lever history.
   projects (`scratch/<name>/msvc/`) hold the working probe loops —
   reflink-copy per the playbook (`local://th10-conversion-playbook.md`).
 - Workflow, gates, conventions: repo README + the playbook.
+- Closest to the equivalence gate (an equivalent recovery only needs the
+  extent to fit and differences under `TOTAL_BUDGET = 1/3`): StartChild
+  0x0044DF70 is 59 vs 55 budget weight, 3 bytes over extent; the joystick
+  reader 0x0044A190 already fits 833/833 and fails only the difference count.
+  These are likely cheaper than the exact-match levers below.
+- Treat "proven not source-steerable" verdicts as "not found yet": earlier
+  "impossible" allocator residuals were closed by changing cluster context
+  (real callee bodies, escaped-global structs, callee parameter order/convention),
+  not the function body.
 - The two most promising continuations: (a) the projectile pair — 4 of 6
   structural blockers solved in the last two sessions, both extents green,
   the byte gate is close; (b) finishing the scope ladder (fix the batched
@@ -90,3 +99,7 @@ complete lever history.
   region's allocation, the mega-cluster endgame opens for all of them.
 - Scratch trees are disposable; everything needed to resume is in the
   real tree (models, manifests, notes) plus the documented probe commands.
+  The c2 tracers live in `matching2/reference/compiler_traces/regalloc/`
+  (usage line at the top of each). The HUD pair probe scripts
+  (`tools_hudpair_*.py`, `prologue_test.py`) are in `scratch/hudpair/` and
+  run from the repo root.

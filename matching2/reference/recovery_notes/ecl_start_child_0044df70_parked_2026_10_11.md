@@ -222,8 +222,8 @@ from it: the swap, the zero forms, the source preload, and then the extent
 (nominal retail shape) plus, plausibly, the 7-byte loop alignment.
 
 Draft sources and harness: `scratch/eclstart/` (`measure.py`, `run.sh`,
-`diff_exe.py`, `best_ecl_child_pair_vH.cpp`, `trace_weights.py`,
-`trace_patch.py`). The scratch manifest pins the anchor at 547 with gap
+`diff_exe.py`, `best_ecl_child_pair_vH.cpp`; tracers `trace_weights.py`,
+`trace_patch.py` now in `matching2/reference/compiler_traces/regalloc/`). The scratch manifest pins the anchor at 547 with gap
 `.text$02layout` recomputed; the real tree is untouched.
 
 ## Round 3 (2026-10-13, continued): the remaining levers are closed

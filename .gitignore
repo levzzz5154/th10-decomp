@@ -29,3 +29,6 @@
 # Python cache
 __pycache__/
 *.py[cod]
+
+# Per-region probe loops and draft clusters (disposable; see HANDOFF.md)
+/scratch/
