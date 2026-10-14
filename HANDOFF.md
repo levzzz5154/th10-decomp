@@ -3,7 +3,7 @@
 ## Where the project stands
 
 `make` is green. `make EXACT=1` produces the bit-identical executable.
-Progress: **95.2% of .text bytes recovered (306,584 of 321,914), 2,316 of
+Progress: **96.0% of .text bytes recovered (309,104 of 321,914), 2,317 of
 2,322 regions**; the executable's C++/equivalent share is at parity with
 what remains as inline assembly.
 
@@ -23,12 +23,13 @@ what remains as inline assembly.
 | 0x0041A200 SaveHints | 2,247 | 693/741 identical, 9 audited rebases |
 | 0x0044DF70 StartChild (2026-10-14) | 550 | 144/165 identical, 21 classified |
 | 0x0044A190 joystick binding reader (2026-10-14) | 833 | 251/282 identical, th06-style `&buttons` helpers |
+| 0x00426F70 familiar refresh (2026-10-14) | 2,520 | 641/643 identical, 1 operand-order hunk |
 
 Tooling added: `equivalence.py` audited call-target rebases (explicit
 bindings only, verified callee bytes only, recorded, 6 new gate tests,
 full suite green, all registered recoveries re-verified unchanged).
 
-## The 6 regions still as inline assembly — all parked with complete analysis
+## The 5 regions still as inline assembly — all parked with complete analysis
 
 Every one is blocked on the same wall: **whole-program /GL register
 assignment that cluster-scale links do not reproduce**. Each has a
@@ -41,7 +42,6 @@ complete lever history.
 | 0x004067D0 Spawn (1,472B) | 1,476/1,472 (+4); frame 0x14 matches retail; one hoisted load; 394 diff lines | second hoisted load (the entry shape is composition-dependent on Tick's IL); the epilogue tail-merge; the register-assignment cascade |
 | 0x00406D90 Tick (1,604B, approved extent) | 1,564/1,604 (-40); the retail-matching head (the volatile guard + the commands-index read pinning the non-rotated form), the bottom polarity (jl back-edge), the verified int field stores, the sign carried across the ScanCells call, the prewritten shared pattern buffer | receiver-in-EBX vs retail EBP — traced to C2's frame-spill heuristic (the frame's +360 epilogue grant displaces the receiver's faster-decaying priority; retail's IL tipped the entry spill, mine doesn't); c2-level tooling territory |
 | 0x0040BD80 script executor (1,568B) | head byte-exact through 0x40BDD3 | ring-loop ESI/EDI swap + per-case IPSA coloring |
-| 0x00426F70 familiar refresh (2,520B) | 6 of 7 cluster functions byte-exact | desired/counter arg-home decision (9 rounds documented) |
 | 0x00414900 front HUD update (3,836B) | 579/1124 rows identical | C2 whole-program scheduling (allocate block, block positions), volatile-frame merge trade-offs; FlagStopFrame helper merge defeated (sessions 1-20) |
 | 0x00415E90 result dispatcher (4,480B) | 733/1225 rows identical | frame exactly 0xD8, 17/18 create sites with homes aligned; residual = C2 fold decisions (0x20 pair), guard-form trade-offs, partial-TU-set register-threading context (sessions 1-20) |
 
@@ -94,6 +94,11 @@ complete lever history.
   The laser interpreter 0x0041CA80 went byte-exact once its model was made
   semantically right (a missing case, a reversed ternary, a shared `++pc`):
   verify a parked model's semantics against retail before blaming c2.
+  The familiar refresh 0x00426F70 went 309 -> 641/643 the same way
+  (re-transcribed: wrong count field, if-chains that were switches, the
+  record view at the true 0x98 base +0x32A0) plus the escaped game-counters
+  struct; see its 2026-10-14 accepted note. Only one commutative-add operand
+  order separates it from byte-exact.
 - Treat "proven not source-steerable" verdicts as "not found yet": earlier
   "impossible" allocator residuals were closed by changing cluster context
   (real callee bodies, escaped-global structs, callee parameter order/convention),

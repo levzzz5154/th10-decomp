@@ -64368,6 +64368,10 @@
     {
       "region": "asm_FUN_0044a190_0044a190",
       "layout": "layout/equivalent/joystick_poll_0044a190.json"
+    },
+    {
+      "region": "asm_FUN_00426f70_00426f70",
+      "layout": "layout/equivalent/familiar_refresh_00426f70.json"
     }
   ]
 }
