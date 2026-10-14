@@ -4503,25 +4503,9 @@
       "source": "src/game/projectile_command_runtime.cpp",
       "symbol": "_asm_FUN_00406d90_00406d90",
       "address": "0x00406D90",
-      "size": 1454,
+      "size": 1604,
       "kind": "asm",
       "owner": "0x00406D90"
-    },
-    {
-      "name": "text_padding_0040733e",
-      "source": "src/data/text_0040.cpp",
-      "symbol": "_text_padding_0040733e",
-      "address": "0x0040733E",
-      "size": 2,
-      "kind": "padding"
-    },
-    {
-      "name": "text_data_00407340",
-      "source": "src/data/text_0040.cpp",
-      "symbol": "_text_data_00407340",
-      "address": "0x00407340",
-      "size": 148,
-      "kind": "data"
     },
     {
       "name": "text_padding_004073d4",
@@ -64384,6 +64368,10 @@
     {
       "region": "asm_FUN_00414900_00414900",
       "layout": "layout/equivalent/front_hud_update_00414900.json"
+    },
+    {
+      "region": "asm_FUN_00406d90_00406d90",
+      "layout": "layout/equivalent/projectile_command_runtime_00406d90.json"
     }
   ]
 }

@@ -99,7 +99,7 @@ struct ProjectileSpawnRecord {
     int field_6dc;                          // 0x6DC
     unsigned int field_6e0;                 // 0x6E0
     unsigned char reserved_6e4[0x6F8 - 0x6E4];
-    int field_6f8;                          // 0x6F8
+    float field_6f8;                        // 0x6F8
     unsigned char reserved_6fc[0x70C - 0x6FC];
     unsigned int field_70c;                 // 0x70C
     int field_710;                          // 0x710
