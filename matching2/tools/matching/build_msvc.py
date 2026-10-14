@@ -392,6 +392,9 @@ def main():
     raw = verify_linked(output / 'linked.exe', config, oracle)
     (output / 'text.bin').write_bytes(raw)
     equivalent, bodies = verify_all(project, config, regions, toolkit, raw, output)
+    region_offsets = {region['name']: int(region['address'], 0) - 0x401000 for region in regions}
+    identical_bodies = {name: len(body) for name, body in bodies.items()
+                        if raw[region_offsets[name]:region_offsets[name] + len(body)] == body}
     packed = output / 'text.bin'
     if bodies and not args.exact:
         packed = output / 'text-equivalent.bin'
@@ -412,6 +415,7 @@ def main():
         'translation_unit_count': sum(unit.get('compiler_translation_unit_count', 1) for unit in compiled),
         'maintained_source_count': len(units), 'compiled_units': compiled, 'summary': summary,
         'equivalent_recoveries': equivalent,
+        'equivalent_bodies_identical_to_retail': sorted(identical_bodies),
         'source_sha256': {str(path.relative_to(project)): sha(path.read_bytes())
                           for path in sorted(project.rglob('*')) if path.is_file()},
         'link_command': command, 'package': package, 'masked_bytes': 0,
@@ -425,6 +429,9 @@ def main():
         print(f"EXE exact outside {len(bodies)} equivalent regions built from C++ "
               f"({sum(map(len, bodies.values())):,} bytes): {package['size']:,} bytes. "
               "Use --exact for the bit-identical image.")
+        print(f"Equivalent C++ bodies already byte-identical to retail: {len(identical_bodies):,} of "
+              f"{len(bodies):,} regions / {sum(identical_bodies.values()):,} of "
+              f"{sum(map(len, bodies.values())):,} bytes.")
     print(f"Ordinary C++: {summary['regions'].get('semantic', 0):,} regions / {summary['bytes']['semantic']:,} bytes.")
     print(f"Equivalent C++: {summary['regions']['equivalent']:,} regions / {summary['bytes']['equivalent']:,} bytes.")
     for item in equivalent:

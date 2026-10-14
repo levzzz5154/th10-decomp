@@ -11,35 +11,6 @@
   "absolute_symbols": {},
   "bindings": {},
   "base_index_order": 0,
-  "differences": [
-    {
-      "class": "code-shape",
-      "offset": "0xfb",
-      "retail": [
-        "add al,dl",
-        "shl al,0x4"
-      ],
-      "model": [
-        "add eax,edx",
-        "shl eax,0x4"
-      ]
-    },
-    {
-      "class": "evaluation-order",
-      "offset": "0x106",
-      "retail": [],
-      "model": [
-        "and eax,0xf"
-      ]
-    },
-    {
-      "class": "evaluation-order",
-      "offset": "0x108",
-      "retail": [
-        "and eax,0xf"
-      ],
-      "model": []
-    }
-  ],
+  "differences": [],
   "note": "reference/recovery_notes/font_atlas_blend_equivalent_2026_10_10.md"
 }

@@ -5,9 +5,9 @@
 // private register convention (row in EAX, atlas in EDX, column in ECX) is
 // reproduced with a direct caller.
 //
-// Equivalent recovery: in the 4-bit path retail adds and shifts the high
-// nibble as a byte (`add al,dl; shl al,4`) where this compiles to the same
-// operations on the whole register. The stored byte is identical.
+// Byte-identical to retail. In the 4-bit path the high nibble is stored first
+// and the low nibble is blended against the stored byte (whose low nibble is
+// zero), reusing the `high` variable; this keeps retail's byte-wide add/shift.
 
 struct FontSurface_00437750;
 struct FontSurfaceMethods_00437750 {
@@ -121,10 +121,9 @@ char FontAtlas_BlendToSurface_00437750(FontAtlas_00437750* atlas, int column, in
                     for (x = 0; x < width; ++x) {
                         int alpha = src[1] >> 4;
                         int high = d[0] >> 4;
-                        int nibble = ((((src[0] >> 4) - high) * alpha >> 4) + high) * 16;
-                        d[0] = nibble;
-                        nibble &= 0x0F;
-                        d[0] |= (((src[0] & 0x0F) - nibble) * alpha >> 4) + nibble;
+                        d[0] = ((((src[0] >> 4) - high) * alpha >> 4) + high) << 4;
+                        high = d[0] & 0x0F;
+                        d[0] |= (((src[0] & 0x0F) - high) * alpha >> 4) + high;
                         int green = d[1] & 0x0F;
                         int alpha_out = ((d[1] >> 2) & 0x3C) + alpha;
                         int source = src[1] & 0x0F;
