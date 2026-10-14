@@ -1,9 +1,9 @@
-# th10 decompilation handoff — 2026-10-13
+# th10 decompilation handoff — 2026-10-14
 
 ## Where the project stands
 
 `make` is green. `make EXACT=1` produces the bit-identical executable.
-Progress: **94.4% of .text bytes recovered (303,845 of 321,830), 2,313 of
+Progress: **94.6% of .text bytes recovered (304,395 of 321,830), 2,314 of
 2,322 regions**; the executable's C++/equivalent share is at parity with
 what remains as inline assembly.
 
@@ -21,12 +21,13 @@ what remains as inline assembly.
 | 0x00429B60 replay save/serialize | 1,681 | 408/535 identical, classified |
 | 0x004236F0 replay submenu | 3,260 | 751/923 identical, 80 hunks |
 | 0x0041A200 SaveHints | 2,247 | 693/741 identical, 9 audited rebases |
+| 0x0044DF70 StartChild (2026-10-14) | 550 | 144/165 identical, 21 classified |
 
 Tooling added: `equivalence.py` audited call-target rebases (explicit
 bindings only, verified callee bytes only, recorded, 6 new gate tests,
 full suite green, all registered recoveries re-verified unchanged).
 
-## The 9 regions still as inline assembly — all parked with complete analysis
+## The 8 regions still as inline assembly — all parked with complete analysis
 
 Every one is blocked on the same wall: **whole-program /GL register
 assignment that cluster-scale links do not reproduce**. Each has a
@@ -38,7 +39,6 @@ complete lever history.
 | --- | --- | --- |
 | 0x004067D0 Spawn (1,472B) | 1,476/1,472 (+4); frame 0x14 matches retail; one hoisted load; 394 diff lines | second hoisted load (the entry shape is composition-dependent on Tick's IL); the epilogue tail-merge; the register-assignment cascade |
 | 0x00406D90 Tick (1,604B, approved extent) | 1,564/1,604 (-40); the retail-matching head (the volatile guard + the commands-index read pinning the non-rotated form), the bottom polarity (jl back-edge), the verified int field stores, the sign carried across the ScanCells call, the prewritten shared pattern buffer | receiver-in-EBX vs retail EBP — traced to C2's frame-spill heuristic (the frame's +360 epilogue grant displaces the receiver's faster-decaying priority; retail's IL tipped the entry spill, mine doesn't); c2-level tooling territory |
-| 0x0044DF70 StartChild (550B) | 547 bytes, SpawnChild EXACT | selector/descriptor allocation order — proven not source-steerable (note Rounds 2–7, incl. priority trajectories + scope ladder) |
 | 0x0044A190 joystick poll (833B) | 833/833 bytes, 126/282 identical | parameter-lowering memory home (live-across-call AND written-after) — proven semantic, no spelling avoids it |
 | 0x0041CA80 laser script Run (1,272B) | full cluster, everything exact but one rename | pc/opcode ECX-EDX swap; contest gap 5332 quantified, flip needs the original's unseen construct |
 | 0x0040BD80 script executor (1,568B) | head byte-exact through 0x40BDD3 | ring-loop ESI/EDI swap + per-case IPSA coloring |
@@ -83,11 +83,13 @@ complete lever history.
   projects (`scratch/<name>/msvc/`) hold the working probe loops —
   reflink-copy per the playbook (`local://th10-conversion-playbook.md`).
 - Workflow, gates, conventions: repo README + the playbook.
-- Closest to the equivalence gate (an equivalent recovery only needs the
-  extent to fit and differences under `TOTAL_BUDGET = 1/3`): StartChild
-  0x0044DF70 is 59 vs 55 budget weight, 3 bytes over extent; the joystick
-  reader 0x0044A190 already fits 833/833 and fails only the difference count.
-  These are likely cheaper than the exact-match levers below.
+- Gate measurements of the existing drafts (real `equivalence.py --layout`,
+  2026-10-14; older cluster-probe diff counts did not match the gate):
+  joystick 156/282 differing (limit 94); laser 195/294 (needs the
+  1356-byte merged region); front HUD 875/1089; front_script_tick and the
+  projectile layouts do not link. StartChild went 76 -> 21 through source
+  shape (in-loop strength-reduced IVs, volatile re-read of a split param,
+  post-loop param copy); see its 2026-10-14 note for the method.
 - Treat "proven not source-steerable" verdicts as "not found yet": earlier
   "impossible" allocator residuals were closed by changing cluster context
   (real callee bodies, escaped-global structs, callee parameter order/convention),
