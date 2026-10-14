@@ -108,20 +108,20 @@ ResultDispatcher_00415e90(ResultDispatcherState* state) {
                 break;
             case 2:
                 if (data_00474c7c == 6) {
-                    if (data_00474c68 == 1)
-                        CREATE_INTO(state->right_portrait.id.value, data_00477704->resource, 0x20)
-                    else if (data_00474c68 == 1)
-                        CREATE_INTO(state->right_portrait.id.value, data_00477704->resource, 0x20)
+                    switch (data_00474c68) {
+                    case 0: CREATE_INTO(state->right_portrait.id.value, data_00477704->resource, 0x20) break;
+                    case 1: CREATE_INTO(state->right_portrait.id.value, data_00477704->resource, 0x20) break;
+                    }
                 } else if (data_00474c7c == 7 && state->variant < 1) {
-                    if (data_00474c68 == 0)
-                        CREATE_INTO(state->right_portrait.id.value, data_00477704->resource, 0x25)
-                    else if (data_00474c68 == 1)
-                        CREATE_INTO(state->right_portrait.id.value, data_00477704->resource, 0x25)
+                    switch (data_00474c68) {
+                    case 0: CREATE_INTO(state->right_portrait.id.value, data_00477704->resource, 0x25) break;
+                    case 1: CREATE_INTO(state->right_portrait.id.value, data_00477704->resource, 0x25) break;
+                    }
                 } else {
-                    if (data_00474c68 == 0)
-                        CREATE_INTO(state->right_portrait.id.value, data_00477834->resource, 0x1E)
-                    else if (data_00474c68 == 1)
-                        CREATE_INTO(state->right_portrait.id.value, data_00477834->resource, 0x1E)
+                    switch (data_00474c68) {
+                    case 0: CREATE_INTO(state->right_portrait.id.value, data_00477834->resource, 0x1E) break;
+                    case 1: CREATE_INTO(state->right_portrait.id.value, data_00477834->resource, 0x1E) break;
+                    }
                 }
                 break;
             case 22:
@@ -272,7 +272,7 @@ ResultDispatcher_00415e90(ResultDispatcherState* state) {
                 }
                 break;
             case 10:
-                if (state->wait.current < 1)
+                if (state->wait.current <= 0)
                     state->wait.SetSchedulerValue(state->command->first_operand);
                 reinterpret_cast<FrameTimer*>(&state->wait)->Advance(-1.0f);
                 if (!(data_00474e62 & 0x1001) && state->wait.current > 0) {
@@ -398,7 +398,10 @@ ResultDispatcher_00415e90(ResultDispatcherState* state) {
                 break;
             }
             case 21:
-                asm_Sound_PlayRandomVoiceRetail_00420c30(data_00474c7c == 6 ? 8.0f : 2.0f);
+                if (data_00474c7c != 6)
+                    asm_Sound_PlayRandomVoiceRetail_00420c30(2.0f);
+                else
+                    asm_Sound_PlayRandomVoiceRetail_00420c30(8.0f);
                 break;
             case 0:
                 if (data_00474c84)
