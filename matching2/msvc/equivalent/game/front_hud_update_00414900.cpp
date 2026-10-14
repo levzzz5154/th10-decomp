@@ -250,14 +250,13 @@ __declspec(noinline) int __stdcall FrontHudUpdate_00414900(
         if (ratio > front->gauge_disp_9e84) {
             front->gauge_disp_9e84 += data_00470cf8;
         }
-        if (front->gauge_disp_9e84 > ratio) {
-            front->gauge_disp_9e84 = ratio;
+        if (front->gauge_disp_9e84 > front->gauge_ratio_9e88) {
+            *(int*)&front->gauge_disp_9e84 = *(int*)&front->gauge_ratio_9e88;
         }
         PlayState_00477834* play = (PlayState_00477834*)data_00477834;
         if ((front->flags_9eb4 & 8) == 0) {
             if (play->field_3C4 <= data_00470bc8 && play->field_3C0 < data_00470b5c) {
-                int count = front->boss_id_count_9e90;
-                for (int i = 0; i < count; ++i) {
+                for (int i = 0; i < front->boss_id_count_9e90; ++i) {
                     if (front->boss_ids_9e28[i] != 0) {
                         FlagStopFrame3(front->boss_ids_9e28[i]);
                     }
@@ -269,8 +268,7 @@ __declspec(noinline) int __stdcall FrontHudUpdate_00414900(
             }
         } else {
             if (play->field_3C4 >= data_00470c28 || play->field_3C0 > data_00470b04) {
-                int count = front->boss_id_count_9e90;
-                for (int i = 0; i < count; ++i) {
+                for (int i = 0; i < front->boss_id_count_9e90; ++i) {
                     if (front->boss_ids_9e28[i] != 0) {
                         FlagStopFrame2(front->boss_ids_9e28[i]);
                     }
@@ -341,10 +339,11 @@ __declspec(noinline) int __stdcall FrontHudUpdate_00414900(
     // Ten one-shot notice slots: create the missing ones, flag the live ones
     // and clear them after the walk.
     {
-        int count = front->boss_id_count_9e90;
         for (int i = 0; i < 10; ++i) {
             int* slot = &front->boss_ids_9e28[i];
-            if (i < count && *slot == 0) {
+            if (i < front->boss_id_count_9e90) {
+                if (*slot != 0)
+                    continue;
                 AnimationPool* pool = (AnimationPool*)data_00491c10;
                 Entity* object = pool->Allocate();
                 unsigned int flags = object->flags_35C;
@@ -353,8 +352,7 @@ __declspec(noinline) int __stdcall FrontHudUpdate_00414900(
                 ((AnimationResource_00449870*)front->resource_9ec8)
                     ->InitializeObject(object, 0x5B + i);
                 *slot = (int)RegisterFreshObject(object, front);
-            }
-            if (*slot != 0) {
+            } else if (*slot != 0) {
                 FlagStopFrame1(*slot);
                 *slot = 0;
             }
@@ -376,6 +374,8 @@ __declspec(noinline) int __stdcall FrontHudUpdate_00414900(
                     (int)(runtime->ramp_elapsed += *runtime->ramp_speed);
             }
         } else {
+          runtime = (SequenceRuntime*)front->sequence_9eb8;
+          if (runtime != 0) {
             FlagTreeFlags(runtime->slots[0]);
             runtime->slots[0] = 0;
             FlagTreeFlags(runtime->slots[1]);
@@ -388,7 +388,8 @@ __declspec(noinline) int __stdcall FrontHudUpdate_00414900(
             runtime->slots[4] = 0;
             FlagTreeFlags(runtime->slots[5]);
             runtime->slots[5] = 0;
-            FrontFree_004524a1(front->sequence_9eb8);
+            FrontFree_004524a1(runtime);
+          }
             front->sequence_9eb8 = 0;
         }
     }
@@ -396,98 +397,100 @@ __declspec(noinline) int __stdcall FrontHudUpdate_00414900(
     seq = (SequenceRecord_00477704*)data_00477704;
     if (seq != 0) {
         int position = front->script_pos_9ec0;
-        if (position >= 0) {
-            ScriptBody* body = (ScriptBody*)seq->field_10;
-            if (body != 0 && front->sequence_9eb8 == 0) {
-                if (position < front->script_marked_9ec4) {
-                    if (position <= 5) {
-                        front->objects[13].stop_frame = 9;
-                        front->objects[14].stop_frame = 9;
-                        data_00492590.Queue(0x24, 0);
-                    } else if (position <= 0xA) {
-                        front->objects[13].stop_frame = 8;
-                        front->objects[14].stop_frame = 8;
-                        data_00492590.Queue(0x1B, 0);
-                    }
-                } else if (position > front->script_marked_9ec4) {
-                    front->objects[13].stop_frame = 7;
-                    front->objects[14].stop_frame = 7;
+        if (position >= 0 && seq->field_10 != 0 && front->sequence_9eb8 == 0) {
+            if (position < front->script_marked_9ec4) {
+                if (position <= 5) {
+                    front->objects[13].stop_frame = 9;
+                    front->objects[14].stop_frame = 9;
+                    data_00492590.Queue(0x24, 0);
+                } else if (position <= 0xA) {
+                    front->objects[13].stop_frame = 8;
+                    front->objects[14].stop_frame = 8;
+                    data_00492590.Queue(0x1B, 0);
                 }
-                if (front->script_pos_9ec0 != front->script_marked_9ec4) {
-                    int shown = front->script_pos_9ec0;
-                    ((Resource_0043e5a0*)front->resource_9ec8)->ConfigureObject(
-                        (AnimationObject_0043e5a0*)&front->objects[13],
-                        shown / 10 + 8);
-                    ((Resource_0043e5a0*)front->resource_9ec8)->ConfigureObject(
-                        (AnimationObject_0043e5a0*)&front->objects[14],
-                        shown % 10 + 8);
+            } else if (position > front->script_marked_9ec4) {
+                front->objects[13].stop_frame = 7;
+                front->objects[14].stop_frame = 7;
+            }
+            if (front->script_pos_9ec0 != front->script_marked_9ec4) {
+                ((Resource_0043e5a0*)front->resource_9ec8)->ConfigureObject(
+                    (AnimationObject_0043e5a0*)&front->objects[13],
+                    front->script_pos_9ec0 / 10 + 8);
+                ((Resource_0043e5a0*)front->resource_9ec8)->ConfigureObject(
+                    (AnimationObject_0043e5a0*)&front->objects[14],
+                    front->script_pos_9ec0 % 10 + 8);
+            }
+            front->script_marked_9ec4 = front->script_pos_9ec0;
+            seq = (SequenceRecord_00477704*)data_00477704;
+        }
+        ScriptBody* body = (ScriptBody*)seq->field_10;
+        if (body != 0) {
+            // The difficulty gate adjusts the boss name display word.
+            unsigned int gate_flags = body->flags_2480;
+            if (((~gate_flags >> 4) & 1) != 0 && (~gate_flags & 1) != 0) {
+                unsigned char* state = (unsigned char*)data_004776f4;
+                unsigned int flags = front->flags_9eb4;
+                unsigned int lane = (flags >> 1) & 3;
+                if (state[0x378C] & 1) {
+                    if (lane == 0) {
+                        if (body->gate_frame_2404 < 0x7D0) {
+                            front->objects[22].stop_frame = 7;
+                            front->flags_9eb4 = (flags & ~4u) | 2;
+                        }
+                    } else if (lane == 1) {
+                        if (body->gate_frame_2404 < 0x3E8) {
+                            front->objects[22].stop_frame = 8;
+                            front->flags_9eb4 = (flags & ~2u) | 4;
+                        }
+                    } else if (lane == 2) {
+                        if (body->gate_frame_2404 < 0x190) {
+                            front->objects[22].stop_frame = 9;
+                            front->flags_9eb4 = flags | 6;
+                        }
+                    } else if (lane == 3) {
+                        if (body->gate_frame_2404 > 0x190) {
+                            front->objects[22].stop_frame = 0xA;
+                            front->flags_9eb4 = flags & ~6u;
+                        }
+                    }
+                } else {
+                    if (lane == 0) {
+                        if (body->gate_frame_2404 < 0x2BC) {
+                            front->objects[22].stop_frame = 7;
+                            front->flags_9eb4 = (flags & ~4u) | 2;
+                        }
+                    } else if (lane == 1) {
+                        if (body->gate_frame_2404 < 0x190) {
+                            front->objects[22].stop_frame = 8;
+                            front->flags_9eb4 = (flags & ~2u) | 4;
+                        }
+                    } else if (lane == 2) {
+                        if (body->gate_frame_2404 < 0xC8) {
+                            front->objects[22].stop_frame = 9;
+                            front->flags_9eb4 = flags | 6;
+                        }
+                    } else if (lane == 3) {
+                        if (body->gate_frame_2404 > 0xC8) {
+                            front->objects[22].stop_frame = 0xA;
+                            front->flags_9eb4 = flags & ~6u;
+                        }
+                    }
                 }
-                front->script_marked_9ec4 = front->script_pos_9ec0;
-                // The difficulty gate adjusts the boss name display word.
-                unsigned int flags = body->flags_2480;
-                if (((~flags >> 4) & 1) != 0 && (~flags & 1) != 0) {
-                    unsigned char* state = (unsigned char*)data_004776f4;
-                    unsigned int lane = (front->flags_9eb4 >> 1) & 3;
-                    int gate = body->gate_frame_2404;
-                    int show;
-                    unsigned short word;
-                    if (state[0x378C] & 1) {
-                        if (lane == 0) {
-                            show = gate < 0x7D0;
-                            word = 7;
-                        } else if (lane == 1) {
-                            show = gate < 0x3E8;
-                            word = 8;
-                        } else if (lane == 2) {
-                            show = gate < 0x190;
-                            word = 9;
-                        } else {
-                            show = gate > 0x190;
-                            word = 0xA;
-                        }
-                    } else {
-                        if (lane == 0) {
-                            show = gate < 0x2BC;
-                            word = 7;
-                        } else if (lane == 1) {
-                            show = gate < 0x190;
-                            word = 8;
-                        } else if (lane == 2) {
-                            show = gate < 0xC8;
-                            word = 9;
-                        } else {
-                            show = gate > 0xC8;
-                            word = 0xA;
-                        }
-                    }
-                    if (show) {
-                        front->objects[22].stop_frame = word;
-                        if (lane == 0) {
-                            front->flags_9eb4 = (front->flags_9eb4 & ~4u) | 2;
-                        } else if (lane == 1) {
-                            front->flags_9eb4 = (front->flags_9eb4 & ~2u) | 4;
-                        } else if (lane == 2) {
-                            front->flags_9eb4 |= 6;
-                        } else {
-                            front->flags_9eb4 &= ~6u;
-                        }
-                    }
-                    // The boss bank tick and its fade-in window.
-                    AnmVm_Run_0043ee30(&front->objects[22]);
-                    front->objects[22].height_344 = 480.0f;
-                    front->objects[22].y_340 = body->boss_y_1068 + data_00470b4c;
-                    float offset =
-                        body->boss_y_1068 - ((PlayState_00477834*)data_00477834)->field_3C0;
-                    if (fabs(offset) < data_00470cf0) {
-                        front->objects[22].alpha_2ff =
-                            (unsigned char)(0x40 - (int)(fabs(offset) * data_00470ce8));
-                    } else {
-                        front->objects[22].alpha_2ff = 0xFF;
-                    }
-                    if (body->boss_y_1068 < data_00470b40 ||
-                        body->boss_y_1068 > data_00470b3c) {
-                        front->objects[22].alpha_2ff = 0;
-                    }
+                // The boss bank tick and its fade-in window.
+                AnmVm_Run_0043ee30(&front->objects[22]);
+                front->objects[22].height_344 = 480.0f;
+                front->objects[22].y_340 = body->boss_y_1068 + data_00470b4c;
+                float offset = (float)fabs(
+                    body->boss_y_1068 - ((PlayState_00477834*)data_00477834)->field_3C0);
+                if (offset < data_00470cf0) {
+                    front->objects[22].alpha_2ff =
+                        (unsigned char)(0x40 - (int)(offset * data_00470ce8));
+                } else {
+                    front->objects[22].alpha_2ff = 0xFF;
+                }
+                if (body->boss_y_1068 < data_00470b40 ||
+                    body->boss_y_1068 > data_00470b3c) {
+                    front->objects[22].alpha_2ff = 0;
                 }
             }
         }
