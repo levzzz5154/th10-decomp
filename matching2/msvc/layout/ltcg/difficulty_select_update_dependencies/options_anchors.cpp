@@ -30,6 +30,7 @@ void SpriteHandle_00449670::SelectSprite(int sprite) {
         SelectResourceSprite_0043e5a0(vm->resource, sprite);
 }
 #pragma code_seg(".text$0042e5a0_fn")
+#ifndef TH10_FULL_OPTIONS_REFRESH
 void __stdcall RefreshOptions_0042e5a0(RecoveryMusicRoom_00433ef0* room) {
     data_00497854 = data_00491d4c.music_volume;
     for (int kind = 8; kind < 12; ++kind) {
@@ -38,4 +39,5 @@ void __stdcall RefreshOptions_0042e5a0(RecoveryMusicRoom_00433ef0* room) {
         room->animation_slots[2] = 0;
     }
 }
+#endif
 #pragma code_seg()

@@ -109,6 +109,7 @@ REGISTER = re.compile(r'\be(?:[abcd]x|[sd]i|bp)\b')
 ESP_SLOT = re.compile(r'\[esp(?:\+(0x[0-9a-f]+))?\]')
 BRANCH = re.compile(r'(?:call|j[a-z]+) 0x([0-9a-f]+)$')
 MAP_SYMBOL = re.compile(r'^\s*[0-9a-f]{4}:[0-9a-f]{8}\s+(\S+)\s+([0-9a-f]{8})\s+(?:f\s+)?(?:i\s+)?(\S+)', re.MULTILINE)
+MAP_FUNCTION = re.compile(r'^\s*[0-9a-f]{4}:[0-9a-f]{8}\s+\S+\s+([0-9a-f]{8})\s+f\s+', re.MULTILINE)
 
 
 class EquivalenceError(ValueError):
@@ -260,6 +261,22 @@ def disassemble(data, address, work, name):
         if match:
             rows.append((int(match[1], 16) - address, re.sub(r'\s+', ' ', match[2].strip())))
     return rows
+
+
+def cap_function_extent(link_map, start, extent):
+    """Do not include the next compiled function in a shorter code window."""
+    following = [int(value, 16) for value in MAP_FUNCTION.findall(link_map)
+                 if int(value, 16) > start]
+    return min(extent, min(following) - start) if following else extent
+
+
+def validate_code_extent(code, start, extent):
+    """A region's code extent must end before its first embedded jump table."""
+    tables = [struct.unpack('<I', match[1])[0] - start for match in TABLE_JUMP.finditer(code)
+              if start < struct.unpack('<I', match[1])[0] < start + len(code)]
+    if tables and extent != min(tables):
+        raise EquivalenceError(f'code extent {extent} does not end at the first jump table '
+                               f'({min(tables)}); the declared tail would omit or misalign table entries')
 
 
 def normalize(rows, start, code_bytes, size, rebind):
@@ -576,6 +593,18 @@ def gate(recovery, retail_rows, model_rows, hunks, classes):
     unclassified hunks are held to the structural budget.
     """
     reasons = []
+    # A recorded structural hunk is not permission to lose a function's
+    # return or change its stack cleanup. In particular, a too-short extraction
+    # window can drop RET while still passing every difference budget. Allow
+    # repeated equivalent return sites to merge, but retain each return form.
+    returns = [{text for _, text, _ in side if re.match(r'^ret(?:\s|$)', text)}
+               for side in (retail_rows, model_rows)]
+    if returns[0] != returns[1]:
+        reasons.append('return instructions or stack cleanup differ: retail '
+                       + repr(sorted(returns[0])) + ', model ' + repr(sorted(returns[1])))
+    for offset, text, _ in model_rows:
+        if text.startswith('.byte') or '(bad)' in text or text in {'data16', 'addr16', 'repz', 'repnz', 'lock'}:
+            reasons.append(f'the model has an incomplete or invalid instruction at {offset:#x}: {text}')
     for what, retail, model in zip(('calls', 'names'), external_references(retail_rows),
                                    external_references(model_rows)):
         if model - retail:
@@ -636,6 +665,7 @@ def verify_recovery(recovery, project, toolkit, flags, text, output, *, record=F
     """Build one model and compare it with the built region; return a report."""
     start, size, code_bytes = recovery['address'], recovery['size'], recovery['code_bytes']
     retail = text[start - TEXT_START:start - TEXT_START + size]
+    validate_code_extent(retail, start, code_bytes)
     work_root = output / 'equivalent'
     work_root.mkdir(parents=True, exist_ok=True)
     work = Path(tempfile.mkdtemp(prefix=recovery['name'] + '-', dir=work_root))
@@ -665,6 +695,11 @@ def verify_recovery(recovery, project, toolkit, flags, text, output, *, record=F
         if tail == 0 and not TABLE_JUMP.search(retail):
             tables = []
         model_code = min(tables) - model_start if tables else code_bytes
+        if tail == 0 and not tables:
+            # A shorter function must not borrow instructions from the next
+            # compiled callee just to fill the retail extent. Besides copying
+            # unrelated code, that can cut a neighbour's instruction in half.
+            model_code = cap_function_extent(link_map, model_start, model_code)
         # A draft may be measured while it is still too long; it cannot be built in.
         if model_code + tail > size and not record:
             raise EquivalenceError(f'{recovery["name"]}: the C++ body needs {model_code + tail} bytes; '

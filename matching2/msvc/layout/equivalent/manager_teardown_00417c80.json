@@ -480,44 +480,6 @@
         "add ecx,0x3",
         "push ecx"
       ]
-    },
-    {
-      "class": "register-choice",
-      "offset": "0x427",
-      "retail": [
-        "mov eax,ds:0x474ca0",
-        "and al,0x1",
-        "neg al"
-      ],
-      "model": [
-        "mov dl,BYTE PTR ds:0x474ca0",
-        "and dl,0x1",
-        "neg dl"
-      ]
-    },
-    {
-      "class": "register-choice",
-      "offset": "0x43a",
-      "retail": [
-        "sbb eax,eax",
-        "and eax,0x1000000",
-        "add eax,0xff000000",
-        "mov ds:0x4923a8,eax"
-      ],
-      "model": [
-        "sbb edx,edx",
-        "and edx,0x1000000",
-        "add edx,0xff000000",
-        "mov DWORD PTR ds:0x4923a8,edx"
-      ]
-    },
-    {
-      "class": "code-shape",
-      "offset": "0x44e",
-      "retail": [
-        "ret 0x4"
-      ],
-      "model": []
     }
   ],
   "note": "reference/recovery_notes/manager_teardown_00417c80_equivalent_2026_10_13.md",

@@ -36,8 +36,6 @@
 #include <string.h>
 
 extern "C" void __cdecl entry_free_004524a1(void* memory);
-// Byte view of the run flags' low byte at 0x00474CA0.
-extern "C" unsigned char flags_byte_00474ca0;
 
 // The stack-argument destroy callees, each spelled with its fixed retail
 // prototype (receiver at [ESP+4], RET 4).
@@ -279,8 +277,10 @@ void __stdcall ReleaseGlobalManager_00417c80(ManagerState_00417c80* state) {
     }
 
     // The frame gate opens for the next scene and the mode bias records
-    // whether the stage-end flag was still set (the low byte of the run flags).
+    // whether the stage-end flag was still set. Keep the dword view: the
+    // narrower byte load makes the emitted epilogue exceed the region and
+    // previously caused the return instruction to be cut off.
     data_004918a4 = 1;
-    data_004923a8 = (flags_byte_00474ca0 & 1) ? 0 : -0x1000000;
+    data_004923a8 = (data_00474ca0 & 1) ? 0 : -0x1000000;
 }
 #pragma code_seg()

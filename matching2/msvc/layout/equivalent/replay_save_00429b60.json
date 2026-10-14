@@ -985,19 +985,6 @@
    "model": [
     "add esp,0x12c"
    ]
-  },
-  {
-   "class": "alignment-padding",
-   "offset": "0x68e",
-   "retail": [],
-   "model": [
-    "mov eax,ecx",
-    "imul eax,eax,0x52504a45",
-    "mov edx,ecx",
-    "imul edx,edx,0x7",
-    "xor eax,edx",
-    "mov edx,ecx"
-   ]
   }
  ],
  "note": "reference/recovery_notes/replay_save_00429b60_equivalent_2026_10_13.md",

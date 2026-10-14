@@ -30,12 +30,11 @@ typedef char MotionYTimerOffset[(offsetof(ItemMotionY_0041afd0,timer)==0x18)?1:-
 typedef char MotionYVariantOffset[(offsetof(ItemMotionY_0041afd0,variant)==0x3c)?1:-1];
 
 static __forceinline void IntegrateItem(ItemMotionY_0041afd0* motion) {
-    float dx=data_00476f78*motion->velocity.x;
-    float dy=data_00476f78*motion->velocity.y;
-    float dz=data_00476f78*motion->velocity.z;
-    motion->position().x+=dx;
-    motion->position().y+=dy;
-    motion->position().z+=dz;
+    Vector3Value displacement(data_00476f78*motion->velocity.x,
+        data_00476f78*motion->velocity.y,data_00476f78*motion->velocity.z);
+    motion->position().x+=displacement.x;
+    motion->position().y+=displacement.y;
+    motion->position().z+=displacement.z;
 }
 
 // Express rejection tests, so unordered coordinates follow the same branch
@@ -104,7 +103,8 @@ extern "C" __declspec(noinline) int __stdcall ItemManager_UpdateItems(ItemSpawnM
                 motion->state=3;
                 goto seek_player;
             }
-            if (motion->position().y>data_00470be0) {
+            const volatile float& stored_y=motion->position_y;
+            if (stored_y>data_00470be0) {
                 motion->state=idle;
                 data_00474c40.AdjustPower(-4);
                 goto step;

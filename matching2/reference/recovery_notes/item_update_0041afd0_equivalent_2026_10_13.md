@@ -1,5 +1,7 @@
 # ItemUpdate 0x0041AFD0 as an equivalent C++ model (2026-10-13)
 
+**Current status (2026-10-14): C++ repaired and registered; combined runtime validation is in progress.** The historical measurements below are superseded by [the execution investigation](equivalent_runtime_failures_2026_10_14.md).
+
 **Status: accepted equivalent-recovery draft.** `equivalence.py` verifies the model with no
 gate reasons: 448 of 601 instructions identical, 2,284 of 2,320 bytes used, 0 base/index
 swaps, 22 frame-offset instructions, 131 instructions in 84 recorded differences

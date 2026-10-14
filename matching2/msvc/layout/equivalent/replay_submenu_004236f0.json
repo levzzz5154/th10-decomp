@@ -8,7 +8,7 @@
  "context_cluster": "layout/ltcg/replay_submenu_004236f0_context.json",
  "entry_symbol": "_SubmenuUpdate_004236f0@4",
  "function": "_SubmenuUpdate_004236f0@4",
- "code_bytes": 3256,
+ "code_bytes": 3228,
  "absolute_symbols": {
   "_data_00474e30": {
    "address": "0x474E30",
@@ -155,16 +155,6 @@
  },
  "base_index_order": 1,
  "differences": [
-  {
-   "class": "branch-target",
-   "offset": "0x25",
-   "retail": [
-    "jmp DWORD PTR [eax*4+L+0xc9c]"
-   ],
-   "model": [
-    "jmp DWORD PTR [eax*4+T+0x0]"
-   ]
-  },
   {
    "class": "register-choice",
    "offset": "0x226",
@@ -1056,38 +1046,13 @@
    ]
   },
   {
-   "class": "branch-target",
+   "class": "alignment-padding",
    "offset": "0xc9b",
    "retail": [
-    "nop",
-    "sbb al,0x37",
-    "inc edx",
-    "add BYTE PTR [esi+0x37],bh",
-    "inc edx",
-    "add BYTE PTR [ebx+0x76004238],bl",
-    "inc ebx",
-    "inc edx",
-    "add BYTE PTR [edi+0x3a],bh",
-    "inc edx",
-    "add bh,bl",
-    "cmp al,0x42",
-    ".byte 0",
-    "xchg ebx,eax",
-    "aas",
-    "inc edx"
+    "nop"
    ],
    "model": [
     "mov edi,edi"
-   ]
-  },
-  {
-   "class": "branch-target",
-   "offset": "table+0x0",
-   "retail": [
-    "L+0xc2d"
-   ],
-   "model": [
-    "L+0x2c"
    ]
   }
  ],

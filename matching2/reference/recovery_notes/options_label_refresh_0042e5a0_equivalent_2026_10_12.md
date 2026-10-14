@@ -1,5 +1,7 @@
 # Options label refresh 0x0042E5A0 — equivalent-model session 2026-10-12
 
+**Current status (2026-10-14): C++ repaired and registered; combined runtime validation is in progress.** The historical measurements below are superseded by [the execution investigation](equivalent_runtime_failures_2026_10_14.md).
+
 Status: model and layout drafted, not yet registered.  The exact build is
 unaffected (the asm region stays; the model files sit unregistered in the
 tree until the blockers below are cleared).

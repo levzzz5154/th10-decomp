@@ -6,8 +6,7 @@
     "equivalent/game/options_label_refresh_0042e5a0.cpp"
   ],
   "entry_symbol": "_DifficultySelectUpdateCompilerContext@24",
-  "function": "?OptionsLabelRefresh_0042e5a0@@YGXPAURecoveryMusicRoom_00433ef0@@@Z",
-  "context_cluster": "layout/ltcg/difficulty_select_update_00430320.json",
+  "function": "?RefreshOptions_0042e5a0@@YGXPAURecoveryMusicRoom_00433ef0@@@Z",
   "code_bytes": 3999,
   "absolute_symbols": {
     "__ftol2": {
@@ -869,365 +868,70 @@
   },
   "bindings": {
     "?Find@RecoveryLookup_0040bd80@@QAIPAXPAURecoveryLookupContext_0040bd80@@URecoveryScriptId_0040bd80@@@Z": "0x004491C0",
-    "?SelectResourceSprite_0043e5a0@@YIXPAXH@Z": "0x0043E5A0",
-    "?RegisterResource_0043e460_eax@@YIXHPBDHH@Z": "0x0043E460",
-    "?RegisterResource@RecoveryMusicResourceQueue_0043e460@@QAEPADPBDHH@Z": "0x0043E460"
+    "?RegisterResource@RecoveryMusicResourceQueue_0043e460@@QAEPADPBDHH@Z": "0x0043E460",
+    "?ConfigureObject@Resource_0043e5a0@@QAEHPAUAnimationObject_0043e5a0@@H@Z": "0x0043E5A0",
+    "?RegisterResource@AnimationManager_0043e460@@QAEPADPBDHH@Z": "0x0043E460"
   },
   "base_index_order": 0,
   "differences": [
     {
-      "class": "code-shape",
+      "class": "evaluation-order",
       "offset": "0xa",
       "retail": [],
       "model": [
-        "mov esi,DWORD PTR ds:0x491c10",
-        "push edi"
+        "mov esi,DWORD PTR ds:0x491c10"
       ]
     },
     {
-      "class": "code-shape",
-      "offset": "0xd",
-      "retail": [
-        "mov ds:0x497854,eax"
-      ],
-      "model": []
-    },
-    {
-      "class": "code-shape",
-      "offset": "0x19",
-      "retail": [
-        "mov eax,0x492590"
-      ],
-      "model": [
-        "mov ecx,0x492590",
-        "mov ds:0x497854,eax"
-      ]
-    },
-    {
-      "class": "code-shape",
-      "offset": "0x79",
-      "retail": [],
-      "model": [
-        "mov edi,DWORD PTR [esp+0x14]"
-      ]
-    },
-    {
-      "class": "code-shape",
+      "class": "evaluation-order",
       "offset": "0x7f",
       "retail": [
         "mov esi,DWORD PTR ds:0x491c10"
       ],
       "model": []
-    },
-    {
-      "class": "alignment-padding",
-      "offset": "0xa5",
-      "retail": [
-        "lea esp,[esp+0x0]",
-        "lea esp,[esp+0x0]"
-      ],
-      "model": [
-        "lea ebx,[ebx+0x0]"
-      ]
-    },
-    {
-      "class": "code-shape",
-      "offset": "0xdd",
-      "retail": [],
-      "model": [
-        "mov ecx,DWORD PTR [ecx+0x308]"
-      ]
-    },
-    {
-      "class": "code-shape",
-      "offset": "0xf0",
-      "retail": [
-        "mov eax,ecx",
-        "mov ecx,DWORD PTR [ecx+0x308]"
-      ],
-      "model": []
-    },
-    {
-      "class": "alignment-padding",
-      "offset": "0x121",
-      "retail": [],
-      "model": [
-        "nop"
-      ]
-    },
-    {
-      "class": "code-shape",
-      "offset": "0x167",
-      "retail": [
-        "mov eax,ecx"
-      ],
-      "model": []
-    },
-    {
-      "class": "alignment-padding",
-      "offset": "0x19d",
-      "retail": [
-        "lea ecx,[ecx+0x0]"
-      ],
-      "model": [
-        "lea ebx,[ebx+0x0]"
-      ]
-    },
-    {
-      "class": "code-shape",
-      "offset": "0x1d5",
-      "retail": [
-        "mov eax,ecx"
-      ],
-      "model": []
-    },
-    {
-      "class": "code-shape",
-      "offset": "0x209",
-      "retail": [],
-      "model": [
-        "jmp L+0x210"
-      ]
-    },
-    {
-      "class": "code-shape",
-      "offset": "0x23d",
-      "retail": [],
-      "model": [
-        "mov ecx,DWORD PTR [ecx+0x308]"
-      ]
-    },
-    {
-      "class": "code-shape",
-      "offset": "0x250",
-      "retail": [
-        "mov eax,ecx",
-        "mov ecx,DWORD PTR [ecx+0x308]"
-      ],
-      "model": []
-    },
-    {
-      "class": "alignment-padding",
-      "offset": "0x281",
-      "retail": [],
-      "model": [
-        "nop"
-      ]
-    },
-    {
-      "class": "code-shape",
-      "offset": "0x2c7",
-      "retail": [
-        "mov eax,ecx"
-      ],
-      "model": []
-    },
-    {
-      "class": "alignment-padding",
-      "offset": "0x300",
-      "retail": [],
-      "model": [
-        "lea ecx,[ecx+0x0]"
-      ]
-    },
-    {
-      "class": "code-shape",
-      "offset": "0x335",
-      "retail": [
-        "mov eax,ecx"
-      ],
-      "model": []
-    },
-    {
-      "class": "alignment-padding",
-      "offset": "0x36e",
-      "retail": [
-        "mov edi,edi"
-      ],
-      "model": [
-        "lea esp,[esp+0x0]"
-      ]
-    },
-    {
-      "class": "code-shape",
-      "offset": "0x39d",
-      "retail": [],
-      "model": [
-        "mov ecx,DWORD PTR [ecx+0x308]"
-      ]
-    },
-    {
-      "class": "code-shape",
-      "offset": "0x3b0",
-      "retail": [
-        "mov eax,ecx",
-        "mov ecx,DWORD PTR [ecx+0x308]"
-      ],
-      "model": []
-    },
-    {
-      "class": "alignment-padding",
-      "offset": "0x3e1",
-      "retail": [],
-      "model": [
-        "nop"
-      ]
-    },
-    {
-      "class": "code-shape",
-      "offset": "0x427",
-      "retail": [
-        "mov eax,ecx"
-      ],
-      "model": []
-    },
-    {
-      "class": "alignment-padding",
-      "offset": "0x460",
-      "retail": [],
-      "model": [
-        "lea ecx,[ecx+0x0]"
-      ]
-    },
-    {
-      "class": "code-shape",
-      "offset": "0x495",
-      "retail": [
-        "mov eax,ecx"
-      ],
-      "model": []
-    },
-    {
-      "class": "alignment-padding",
-      "offset": "0x4ce",
-      "retail": [
-        "mov edi,edi"
-      ],
-      "model": [
-        "lea esp,[esp+0x0]"
-      ]
-    },
-    {
-      "class": "code-shape",
-      "offset": "0x4fd",
-      "retail": [],
-      "model": [
-        "mov ecx,DWORD PTR [ecx+0x308]"
-      ]
-    },
-    {
-      "class": "code-shape",
-      "offset": "0x510",
-      "retail": [
-        "mov eax,ecx",
-        "mov ecx,DWORD PTR [ecx+0x308]"
-      ],
-      "model": []
-    },
-    {
-      "class": "alignment-padding",
-      "offset": "0x541",
-      "retail": [],
-      "model": [
-        "nop"
-      ]
-    },
-    {
-      "class": "code-shape",
-      "offset": "0x587",
-      "retail": [
-        "mov eax,ecx"
-      ],
-      "model": []
-    },
-    {
-      "class": "alignment-padding",
-      "offset": "0x5c0",
-      "retail": [],
-      "model": [
-        "lea ecx,[ecx+0x0]"
-      ]
-    },
-    {
-      "class": "code-shape",
-      "offset": "0x5f5",
-      "retail": [
-        "mov eax,ecx"
-      ],
-      "model": []
-    },
-    {
-      "class": "code-shape",
-      "offset": "0x63b",
-      "retail": [
-        "jmp L+0x640",
-        "lea ecx,[ecx+0x0]"
-      ],
-      "model": [
-        "lea esp,[esp+0x0]"
-      ]
-    },
-    {
-      "class": "code-shape",
-      "offset": "0xc4b",
-      "retail": [],
-      "model": [
-        "pop edi"
-      ]
-    },
-    {
-      "class": "code-shape",
-      "offset": "0xc53",
-      "retail": [
-        "ret"
-      ],
-      "model": [
-        "ret 0x4"
-      ]
-    },
-    {
-      "class": "alignment-padding",
-      "offset": "0xcbc",
-      "retail": [
-        "lea esp,[esp+0x0]"
-      ],
-      "model": [
-        "nop"
-      ]
-    },
-    {
-      "class": "code-shape",
-      "offset": "0xf76",
-      "retail": [],
-      "model": [
-        "pop edi"
-      ]
-    },
-    {
-      "class": "code-shape",
-      "offset": "0xf83",
-      "retail": [
-        "ret"
-      ],
-      "model": [
-        "ret 0x4"
-      ]
-    },
-    {
-      "class": "code-shape",
-      "offset": "0xf9a",
-      "retail": [
-        "jmp L+0xf08"
-      ],
-      "model": [
-        ".byte 0xe9",
-        "data16"
-      ]
     }
   ],
   "note": "reference/recovery_notes/options_label_refresh_0042e5a0_equivalent_2026_10_12.md",
-  "roots": [
-    "?OptionsLabelRefresh_0042e5a0@@YGXPAURecoveryMusicRoom_00433ef0@@@Z"
-  ],
-  "listed_branch_targets": true
+  "listed_branch_targets": true,
+  "context_sources": [
+    "layout/ltcg/difficulty_select_update_00430320_context.cpp",
+    "layout/ltcg/difficulty_select_update_dependencies/recovery_script_executor_text_anchors.cpp",
+    "layout/ltcg/difficulty_select_update_dependencies/recovery_script_executor_core_anchors.cpp",
+    "layout/ltcg/difficulty_select_update_dependencies/recovery_script_executor_ascii_anchors.cpp",
+    "layout/ltcg/difficulty_select_update_dependencies/recovery_script_executor_anchor_0040b480.cpp",
+    "layout/ltcg/difficulty_select_update_dependencies/recovery_script_executor_anchor_0040c540.cpp",
+    "layout/ltcg/difficulty_select_update_dependencies/recovery_script_executor_anchor_004477d0.cpp",
+    "layout/ltcg/difficulty_select_update_dependencies/recovery_script_executor_anchor_00447810.cpp",
+    "layout/ltcg/difficulty_select_update_dependencies/recovery_script_executor_anchor_004493e0.cpp",
+    "layout/ltcg/difficulty_select_update_dependencies/recovery_script_executor_anchor_00448d00.cpp",
+    "layout/ltcg/difficulty_select_update_dependencies/recovery_script_executor_anchor_0043dc90.cpp",
+    "layout/ltcg/difficulty_select_update_dependencies/recovery_script_executor_anchor_0044c1c0.cpp",
+    "layout/ltcg/difficulty_select_update_dependencies/recovery_script_executor_anchor_0044c150.cpp",
+    "layout/ltcg/difficulty_select_update_dependencies/recovery_script_executor_anchor_0044b360.cpp",
+    "layout/ltcg/difficulty_select_update_dependencies/recovery_script_executor_creation_anchors.cpp",
+    "layout/ltcg/difficulty_select_update_dependencies/recovery_script_executor_caller_00419120.cpp",
+    "layout/ltcg/difficulty_select_update_dependencies/recovery_script_executor_indicator_anchors.cpp",
+    "layout/ltcg/difficulty_select_update_dependencies/recovery_script_executor_text_sibling_anchors.cpp",
+    "layout/ltcg/difficulty_select_update_dependencies/recovery_script_executor_caller_00433ef0.cpp",
+    "layout/ltcg/difficulty_select_update_dependencies/script_executor.cpp",
+    "layout/ltcg/difficulty_select_update_dependencies/install_slot.cpp",
+    "layout/ltcg/difficulty_select_update_dependencies/title_dispatcher.cpp",
+    "layout/ltcg/difficulty_select_update_dependencies/animation_run_anchors.cpp",
+    "layout/ltcg/difficulty_select_update_dependencies/animation_stop_frame_anchor.cpp",
+    "layout/ltcg/difficulty_select_update_dependencies/animation_find_child_anchor.cpp",
+    "layout/ltcg/difficulty_select_update_dependencies/input_and_cursor_anchors.cpp",
+    "layout/ltcg/difficulty_select_update_dependencies/animation_clear_flag_anchor.cpp",
+    "layout/ltcg/difficulty_select_update_dependencies/keyboard_state_anchor.cpp",
+    "layout/ltcg/difficulty_select_update_dependencies/score_progress_anchor.cpp",
+    "src/game/title_main_menu_update_0042d420.cpp",
+    "src/game/character_select_update_004306a0.cpp",
+    "src/game/shot_type_select_update_00430a60.cpp",
+    "src/game/practice_stage_select_update_00430ff0.cpp",
+    "src/game/replay_select_update_004315c0.cpp",
+    "layout/ltcg/difficulty_select_update_dependencies/spell_record_anchors.cpp",
+    "src/game/spell_record_update_00431ee0.cpp",
+    "layout/ltcg/difficulty_select_update_dependencies/spell_list_anchor.cpp",
+    "src/game/options_update_0042d920.cpp",
+    "equivalent/game/options_label_refresh_0042e5a0_context.cpp"
+  ]
 }

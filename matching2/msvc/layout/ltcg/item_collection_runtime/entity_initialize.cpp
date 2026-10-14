@@ -5,6 +5,9 @@
 #include "th10/game/entity.hpp"
 
 #pragma code_seg(".text$f00401de0F")
+#ifdef TH10_ITEM_CONTEXT_PUBLIC_INIT
+__declspec(dllexport)
+#endif
 __declspec(noinline) void __stdcall Entity_Init(Entity* entity) {
     Vector3 position = entity->position;
     int32_t bucket = entity->render_bucket;

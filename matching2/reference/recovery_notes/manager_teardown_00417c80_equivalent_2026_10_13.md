@@ -1,5 +1,7 @@
 # Manager-state teardown 0x00417C80: equivalent recovery
 
+**Current status (2026-10-14): C++ repaired and registered; combined runtime validation is in progress.** The historical measurements below are superseded by [the execution investigation](equivalent_runtime_failures_2026_10_14.md).
+
 Date: 2026-10-13
 
 ## Scope and result

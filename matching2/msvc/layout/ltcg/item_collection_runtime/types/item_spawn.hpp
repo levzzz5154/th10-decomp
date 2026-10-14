@@ -6,6 +6,9 @@ struct AnimationResource_0043e710;
 __declspec(noinline) void __stdcall Entity_StartScript_00404f30(AnimationResource_0043e710* resource, Entity* entity, int script);
 struct ItemPolarVelocity_0041bb00 {
     float x, y, z;
+#ifdef TH10_ITEM_POLAR_CONTEXT_EXPORT
+    TH10_ITEM_POLAR_CONTEXT_EXPORT
+#endif
     __declspec(noinline) ItemPolarVelocity_0041bb00* SetPolar(float angle, float speed);
 };
 // Position, velocity and collection state follow the embedded animation.

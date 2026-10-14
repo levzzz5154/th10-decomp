@@ -6,8 +6,9 @@
 // structure below does not reproduce byte-for-byte (see the layout's recorded
 // differences).
 //
-// The ConfigureFromResource body is included so the model link sees the callee
-// in the same translation unit, the way the retail compiler did.
+// The complete refresh is linked with its genuine options callers and the
+// real resource-configuration and registration bodies. That lets LTCG derive
+// retail's EDI room receiver, EAX object/queue receivers and plain RET.
 //
 // Per label the retail code walks slot 1's children for the script id, takes
 // the found child's own id (or 0 when the walk fails) and looks that id up in
@@ -15,15 +16,8 @@
 // every site, which is why the helpers below take the volume as a reference
 // instead of a cached copy.
 
-// The sprite selection and queue registration leaves, bound to their retail
-// addresses.  The retail image passes extra state in registers the declares
-// below cannot name (the object for 0x0043E5A0, the queue for 0x0043E460 in
-// EAX); the recorded code-shape differences cover those edge instructions.
-void __fastcall SelectResourceSprite_0043e5a0(void* resource, int sprite);
-void __fastcall RegisterResource_0043e460_eax(
-    int queue, const char* name, int resource, int parameter);
-
 #include "th10/game/options_label_refresh_0042e5a0.hpp"
+#include "th10/render/resource_registrar_0043e460.hpp"
 
 extern "C" int data_00497854;   // music volume copy for the sound thread
 extern "C" int data_00497858;   // sound volume copy
@@ -87,8 +81,8 @@ static __forceinline void ConfigureHundreds(
     LabelAnimation_0042d920* label = FindLabel(manager, room, script);
     if (label == 0)
         return;
-    SelectResourceSprite_0043e5a0(
-        reinterpret_cast<AnimationObject_0043e5a0*>(label)->resource, volume / 100 + font);
+    AnimationObject_0043e5a0* object = reinterpret_cast<AnimationObject_0043e5a0*>(label);
+    object->resource->ConfigureObject(object, volume / 100 + font);
 }
 
 static __forceinline void ConfigureTens(
@@ -97,8 +91,8 @@ static __forceinline void ConfigureTens(
     LabelAnimation_0042d920* label = FindLabel(manager, room, script);
     if (label == 0)
         return;
-    SelectResourceSprite_0043e5a0(
-        reinterpret_cast<AnimationObject_0043e5a0*>(label)->resource, volume / 10 % 10 + font);
+    AnimationObject_0043e5a0* object = reinterpret_cast<AnimationObject_0043e5a0*>(label);
+    object->resource->ConfigureObject(object, volume / 10 % 10 + font);
 }
 
 static __forceinline void ConfigureOnes(
@@ -107,8 +101,8 @@ static __forceinline void ConfigureOnes(
     LabelAnimation_0042d920* label = FindLabel(manager, room, script);
     if (label == 0)
         return;
-    SelectResourceSprite_0043e5a0(
-        reinterpret_cast<AnimationObject_0043e5a0*>(label)->resource, volume % 10 + font);
+    AnimationObject_0043e5a0* object = reinterpret_cast<AnimationObject_0043e5a0*>(label);
+    object->resource->ConfigureObject(object, volume % 10 + font);
 }
 
 // Show or hide one digit label through animation flag bit 1.  Like the retail
@@ -127,7 +121,7 @@ static __forceinline void ShowDigit(
 }
 
 #pragma code_seg(".text$0042e5a0_fn")
-__declspec(noinline) void __stdcall OptionsLabelRefresh_0042e5a0(
+__declspec(noinline) void __stdcall RefreshOptions_0042e5a0(
     RecoveryMusicRoom_00433ef0* room) {
     RecoveryLookupContext_0040bd80* manager =
         reinterpret_cast<RecoveryLookupContext_0040bd80*>(data_00491c10);
@@ -135,7 +129,7 @@ __declspec(noinline) void __stdcall OptionsLabelRefresh_0042e5a0(
 
     // The request queue records "bgm/th10_02.wav" for resource 8; the retail
     // form passes the queue in a register (EAX) and the name in EDX.
-    RegisterResource_0043e460_eax(0x00492590, data_0046ece8, 8, 0);
+    reinterpret_cast<AnimationManager_0043e460*>(&data_00492590)->RegisterResource(data_0046ece8, 8, 0);
 
     int sound = data_00491d4c.sound_volume;
     data_00497858 = sound;

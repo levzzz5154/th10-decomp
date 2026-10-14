@@ -11,9 +11,29 @@ make rebuild     # The same, recompiling every unit from scratch
 make progress    # Show C++ and remaining assembly counts
 ```
 
-A few functions have C++ that compiles to the retail instructions except for
-compiler tie-breaks the binary does not record, such as which of two registers
-is encoded as base and which as index. These are *equivalent recoveries*:
+The instruction comparison for equivalent recoveries is a structural check,
+not proof of gameplay equivalence. On 2026-10-14, execution tests found an
+incorrect helper ABI in item update, a missing return in manager teardown,
+and truncated instructions in options-label refresh and hint-save. The C++ repairs preserve the helper ABIs, complete the teardown return,
+and keep extraction inside the compiled function. These replacements remain
+C++ in the default build.
+See [the investigation](matching2/reference/recovery_notes/equivalent_runtime_failures_2026_10_14.md).
+
+The bounded item test executes the installed replacement against real retail
+collaborators, rather than the separately compiled context models. Run it with:
+
+```sh
+python3 -m venv matching2/build/behavior-venv
+matching2/build/behavior-venv/bin/pip install unicorn==2.1.4
+make behavior-check BEHAVIOR_PYTHON=matching2/build/behavior-venv/bin/python
+```
+
+Its fixture scripts animation ticking and a few other boundaries, so passing
+this test does not establish replay or complete-game equivalence.
+
+Some functions have C++ accepted with recorded instruction differences,
+including compiler choices such as which of two registers is encoded as base
+and which as index. These are called *equivalent recoveries*:
 `equivalent_recoveries` in `regions.json` names a layout under
 `matching2/msvc/layout/equivalent/` for the C++ in
 `matching2/msvc/equivalent/`. Every `make` first links the whole image from

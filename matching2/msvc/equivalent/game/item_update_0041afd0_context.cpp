@@ -4,6 +4,13 @@
 // the whole-program link derives each helper's retail register convention
 // (the item script index in EAX, the HUD owner in ESI, the run counters in
 // EAX, the converting manager in ESI, the collection angle point in EAX).
+// SetPolar must retain its public thiscall receiver in ECX. Giving the
+// initializer a public entry also prevents the compiler from keeping the
+// StartScript entity in a scratch register across initialization; the bound
+// retail StartScript receives that entity in ESI. These exports exist only
+// in the verifying context link, never in the installed game executable.
+#define TH10_ITEM_POLAR_CONTEXT_EXPORT __declspec(dllexport)
+#define TH10_ITEM_CONTEXT_PUBLIC_INIT
 #include "../../layout/ltcg/item_collection_runtime/allocator.cpp"
 #include "../../layout/ltcg/item_collection_runtime/bounded.cpp"
 #include "../../layout/ltcg/item_collection_runtime/types/line_sweeps.hpp"
@@ -22,7 +29,7 @@
 #include <math.h>
 #pragma intrinsic(cos,sin)
 #pragma code_seg(".text$00context")
-__declspec(noinline) ItemPolarVelocity_0041bb00* ItemPolarVelocity_0041bb00::SetPolar(float angle,float speed) {
+__declspec(dllexport) __declspec(noinline) ItemPolarVelocity_0041bb00* ItemPolarVelocity_0041bb00::SetPolar(float angle,float speed) {
     x=static_cast<float>(cos(angle)*speed);
     y=static_cast<float>(sin(angle)*speed);
     return this;

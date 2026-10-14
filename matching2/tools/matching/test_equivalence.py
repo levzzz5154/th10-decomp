@@ -1,8 +1,8 @@
 import unittest
 
 from matching2.tools.matching.equivalence import (
-    CODE_SHIFT, EquivalenceError, absolute_sites, apply_bodies, canonical_sib, compare_tail, find_differences, gate,
-    normalize, rebase_bound_calls, rebase_map)
+    CODE_SHIFT, EquivalenceError, absolute_sites, apply_bodies, canonical_sib, cap_function_extent, compare_tail, find_differences, gate,
+    normalize, rebase_bound_calls, rebase_map, validate_code_extent)
 from matching2.tools.matching.progress import recovered, summarize
 
 
@@ -15,6 +15,27 @@ def rows(start, *instructions):
 
 
 class EquivalenceTests(unittest.TestCase):
+    def test_declared_tail_must_include_the_complete_jump_table(self):
+        start = 0x4236f0
+        code = b'\xff\x24\x85' + (start + 16).to_bytes(4, 'little') + b'\x90' * 9
+        code += (start + 7).to_bytes(4, 'little') * 8
+        validate_code_extent(code, start, 16)
+        # The old replay-submenu layout included seven entries as code and
+        # copied only four bytes of tail data into the executable.
+        with self.assertRaisesRegex(EquivalenceError, 'omit or misalign table entries'):
+            validate_code_extent(code, start, 44)
+
+    def test_extraction_stops_before_the_next_function_not_at_a_data_symbol(self):
+        link_map = '''
+ 0001:00000000       _SaveHints@8              00401000 f   model_00.obj
+ 0001:00000010       _local_constant           00401010     model_00.obj
+ 0000:0044b740       _absolute_callee          0044b740     <absolute>
+ 0001:000008c0       _WriteShared              004018c0 f i model_01.obj
+'''
+        self.assertEqual(cap_function_extent(link_map, 0x401000, 2247), 2240)
+        self.assertEqual(cap_function_extent(link_map, 0x401000, 2000), 2000)
+        self.assertEqual(cap_function_extent(link_map, 0x4018c0, 100), 100)
+
     def test_base_index_order_is_canonical_only_at_scale_one(self):
         self.assertEqual(canonical_sib('mov ecx,DWORD PTR [esi+eax*1+0x8]'),
                          canonical_sib('mov ecx,DWORD PTR [eax+esi*1+0x8]'))
@@ -128,6 +149,39 @@ class EquivalenceTests(unittest.TestCase):
         self.assertIn('recorded differences cover 11 of 32',
                       '\n'.join(gate({}, retail, model, [dict(wide, retail=wide['retail'] * 2 + ['nop'])],
                                      ['register-choice'])))
+
+    def test_structural_label_cannot_accept_a_truncated_return(self):
+        body = [(2, 'mov eax,ecx')] * 30
+        retail = rows(0x401000, *body, (3, 'ret 0x4'))
+        model = rows(0x401000, *body)
+        hunk = {'offset': '0x3c', 'retail': ['ret 0x4'], 'model': []}
+        for classes in (['code-shape'], ['block-order'], None):
+            self.assertIn('return instructions or stack cleanup differ',
+                          '\n'.join(gate({}, retail, model, [hunk], classes)))
+
+    def test_gate_rejects_changed_return_cleanup(self):
+        body = [(2, 'mov eax,ecx')] * 30
+        retail = rows(0x401000, *body, (3, 'ret 0x4'))
+        model = rows(0x401000, *body, (1, 'ret'))
+        hunk = {'offset': '0x3c', 'retail': ['ret 0x4'], 'model': ['ret']}
+        self.assertIn('return instructions or stack cleanup differ',
+                      '\n'.join(gate({}, retail, model, [hunk], ['code-shape'])))
+
+    def test_gate_allows_merged_identical_return_sites(self):
+        body = [(2, 'mov eax,ecx')] * 30
+        retail = rows(0x401000, *body, (3, 'ret 0x4'), (3, 'ret 0x4'))
+        model = rows(0x401000, *body, (3, 'ret 0x4'))
+        hunk = {'offset': '0x3f', 'retail': ['ret 0x4'], 'model': []}
+        self.assertEqual(gate({}, retail, model, [hunk], ['code-shape']), [])
+
+    def test_gate_rejects_an_instruction_cut_at_the_extraction_boundary(self):
+        body = [(2, 'mov eax,ecx')] * 30
+        retail = rows(0x401000, *body, (1, 'ret'))
+        for invalid in ('.byte 0xe9', '.byte 0x83', '(bad)', 'data16'):
+            model = rows(0x401000, *body, (1, 'ret'), (1, invalid))
+            hunk = {'offset': '0x3d', 'retail': [], 'model': [invalid]}
+            self.assertIn('incomplete or invalid instruction',
+                          '\n'.join(gate({}, retail, model, [hunk], ['code-shape'])))
 
     def test_rebase_bound_calls_rewrites_an_authorized_in_window_call(self):
         rows = [(0, 'call 0x2000'), (5, 'ret')]
