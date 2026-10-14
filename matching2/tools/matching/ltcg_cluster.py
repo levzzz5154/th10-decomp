@@ -40,6 +40,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 import re
+import shutil
 import struct
 import tempfile
 from typing import Any, Mapping, Sequence
@@ -1111,6 +1112,9 @@ def build_cluster(spec: Mapping[str, Any], toolkit: Path, output: Path, flags: S
         raise LTCGClusterError('fixed-address cluster requires the documented MSVC compilation profile')
     inputs = _snapshot(spec)
     toolkit = toolkit.resolve()
+    # Earlier builds' work directories are never read again; only this build's is reported.
+    for stale in output.glob('native-*'):
+        shutil.rmtree(stale, ignore_errors=True)
     work = Path(tempfile.mkdtemp(prefix='native-', dir=output))
     env = compiler_environment(toolkit)
     compiler, linker, tool_hashes = _verify_toolchain(toolkit, 'wine', env, work)

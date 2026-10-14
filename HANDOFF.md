@@ -30,11 +30,37 @@ from the retail assembly of those regions.
 | 0x00415E90 result dispatcher (2026-10-14) | 4,480 | 873/1147 identical, 138 classified hunks (structural 121/143); see front_script_tick_00415e90_accepted note |
 | 0x00414900 front HUD update (2026-10-14) | 3,836 | 1064/1089 identical, 22 classified hunks (structural 25) |
 | 0x004067D0 projectile cell spawner (2026-10-14) | 1,472 | 327/354 identical, 17 classified hunks (structural 24); two semantic fixes (lit step only for shaped bullets, one-record cursor advance) |
-| 0x00406D90 projectile command Tick (2026-10-14) | 1,604 | 302/337 identical, 25 classified hunks (structural 12); region re-extended over its switch tables; `align(8)` was reserving EBX in callees, see accepted note |
+| 0x00406D90 projectile command Tick (2026-10-14) | 1,604 | 323/337 identical, 17 classified hunks; StartScript seam fixed after a replay crash (was 302/337), see accepted note |
 
 Tooling added: `equivalence.py` audited call-target rebases (explicit
 bindings only, verified callee bytes only, recorded, 6 new gate tests,
 full suite green, all registered recoveries re-verified unchanged).
+
+## Runtime validation (2026-10-14)
+
+The default build was played and traced. Every failure found was a seam between
+a model and the unchanged retail code around it, never wrong game logic:
+helper register conventions (item update 0x41AFD0, projectile Tick 0x406D90),
+a missing `ret 4` (teardown 0x417C80), the options refresh ABI (0x42E5A0) and
+extraction extents (hint save, replay save, replay submenu jump table). All are
+fixed in C++; see `equivalent_runtime_failures_2026_10_14.md`.
+
+- `make abi-check` (`tools/matching/callsite_abi.py`) compares the provenance
+  of every register argument a model passes to retail callees with retail's
+  call sites; reviewed equal-value cases live in `callsite_abi_reviewed.json`.
+  Run it after accepting or changing any equivalent model.
+- `make behavior-check` adds the Unicorn differentials (item update 473/473,
+  replay submenu 48/48); `BEHAVIOR_PYTHON` names a venv with unicorn 2.1.4.
+- `matching2/tests/replay_sync/` (README inside) traces a replay in retail and
+  in the build. Replays th10_04, th10_05 and th10_14 from the user's install
+  were identical to retail for every frame. Under this Wine setup retail itself
+  drifts from the recordings late in those runs; compare against retail's trace.
+- Runtime work happens in `matching2/build/behavior/` (copied game files,
+  separate Wine prefixes `wineprefix`/`wineprefix2`, Xvfb :91/:92). Never kill
+  the default Wine server: the MSVC toolchain uses it.
+- Known stale tests: 8 cases in `tools/matching/test_ltcg_cluster.py`
+  (`NativeDataAliasReferenceTests`) fail with `KeyError: 'anchor_roots'`; their
+  fixture specs predate that manifest key.
 
 ## Inline assembly
 
@@ -69,15 +95,17 @@ its recorded differences.
    identical between draft and retail), retail's flip must come from a
    c2-internal component outside the decoded accumulation — the two
    remaining RE targets are the block-weight assignment and the
-   initial-home pass. Batched-ladder harness is turnkey in
-   `scratch/eclstart/` for a future wine upgrade.
+   initial-home pass. The batched-ladder harness lived in
+   `scratch/eclstart/` and was deleted with the scratch trees on 2026-10-14;
+   it has to be rebuilt for a future wine upgrade.
 
 ## How to continue
 
 - Per region: read its recovery note in `matching2/reference/recovery_notes/`
-  (every note ends with "next levers" and a resumption recipe). Scratch
-  projects (`scratch/<name>/msvc/`) hold the working probe loops —
-  reflink-copy per the playbook (`local://th10-conversion-playbook.md`).
+  (every note ends with "next levers" and a resumption recipe). Probe loops are
+  rebuilt in a fresh `scratch/<name>/msvc/` per the playbook
+  (`local://th10-conversion-playbook.md`); the old scratch trees were deleted
+  on 2026-10-14.
 - Workflow, gates, conventions: repo README + the playbook.
 - Gate measurements of the existing drafts (real `equivalence.py --layout`,
   2026-10-14; older cluster-probe diff counts did not match the gate):
@@ -115,5 +143,5 @@ its recorded differences.
   real tree (models, manifests, notes) plus the documented probe commands.
   The c2 tracers live in `matching2/reference/compiler_traces/regalloc/`
   (usage line at the top of each). The HUD pair probe scripts
-  (`tools_hudpair_*.py`, `prologue_test.py`) are in `scratch/hudpair/` and
-  run from the repo root.
+  (`tools_hudpair_*.py`, `prologue_test.py`) lived in `scratch/hudpair/` and
+  were deleted on 2026-10-14 (the HUD update is accepted).

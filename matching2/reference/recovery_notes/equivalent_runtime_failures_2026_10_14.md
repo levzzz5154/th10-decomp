@@ -125,6 +125,29 @@ Hint-save already had a complete C++ body. Extraction now stops before the
 next function's map symbol instead of copying a partial WriteShared body.
 That body occupies 2240 bytes; its remaining region bytes are trap padding.
 
-All four original registration entries have been restored. Combined default
-build and runtime validation are pending; the diagnostic restored executable
-is not the intended final deliverable.
+All four original registration entries have been restored; the diagnostic
+restored executable was never the deliverable.
+
+## Replay submenu, 0x004236F0
+
+Game-over confirmation jumped to 0xCCCCCCCC: the layout's `code_bytes` (3256)
+left four bytes for an eight-entry jump table, so the packer kept one entry and
+filled seven with CC. The retail table starts at 0x0042438C; `code_bytes` is
+now 3228. `matching2/tests/replay_submenu_shipped_differential.py` covers it.
+
+## Projectile command Tick, 0x00406D90
+
+Found by the replay sync check: the default build faulted in the script loader
+~5,766 frames into replay `th10_05`. The model passed the script to the
+installed StartScript 0x00404F30 in EDI instead of EAX; see the 2026-10-14
+section of `projectile_command_runtime_00406d90_2026_10_13.md`.
+
+## Current validation
+
+`make abi-check` checks every model's register arguments into retail code;
+`make behavior-check` adds the two Unicorn differentials (item update 473/473,
+replay submenu 48/48). `matching2/tests/replay_sync/` found three full replays
+identical to retail frame for frame (Normal all clear, Easy all clear, Extra
+clear). Live checks: stage quit and demo interruption return to the title,
+options volume changes apply, game over reaches Continue / Save replay / Quit
+and Quit returns to the title.

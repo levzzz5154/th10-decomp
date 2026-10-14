@@ -1,35 +1,55 @@
 # Touhou 10 matching decompilation
 
 The goal is readable C++ that compiles to a byte-exact `th10.exe`.
-Development happens on `main`. The project currently combines recovered C++
-with inline assembly that still needs to be replaced.
+Development happens on `main`. Every game region is recovered C++; the default
+build contains no inline assembly. 72.7% of the bytes are byte-exact; the rest
+are *equivalent recoveries* (below), which `make EXACT=1` swaps back to their
+retail assembly to produce the bit-identical executable.
 
 ```sh
 make             # Compile what changed; exact everywhere except equivalent regions, built from C++
 make EXACT=1     # The same with equivalent regions from their assembly: the bit-identical executable
 make rebuild     # The same, recompiling every unit from scratch
 make progress    # Show C++ and remaining assembly counts
+make abi-check   # Equivalent models must pass retail callees the same register arguments
+make behavior-check  # abi-check plus the Unicorn differential tests (see below)
 ```
 
-The instruction comparison for equivalent recoveries is a structural check,
-not proof of gameplay equivalence. On 2026-10-14, execution tests found an
-incorrect helper ABI in item update, a missing return in manager teardown,
-and truncated instructions in options-label refresh and hint-save. The C++ repairs preserve the helper ABIs, complete the teardown return,
-and keep extraction inside the compiled function. These replacements remain
-C++ in the default build.
-See [the investigation](matching2/reference/recovery_notes/equivalent_runtime_failures_2026_10_14.md).
+## Validating the default build
 
-The bounded item test executes the installed replacement against real retail
-collaborators, rather than the separately compiled context models. Run it with:
+The instruction comparison for equivalent recoveries is a structural check, not
+proof of gameplay equivalence. Every runtime failure found so far sat at a seam
+between a C++ model and the unchanged retail code around it: a helper called
+with the wrong register convention (item update, projectile command Tick), a
+missing `ret 4` (manager teardown), extraction that cut instructions or a jump
+table (options refresh, hint save, replay submenu). See
+[the investigation](matching2/reference/recovery_notes/equivalent_runtime_failures_2026_10_14.md).
+Three checks now cover that:
 
-```sh
-python3 -m venv matching2/build/behavior-venv
-matching2/build/behavior-venv/bin/pip install unicorn==2.1.4
-make behavior-check BEHAVIOR_PYTHON=matching2/build/behavior-venv/bin/python
-```
+* `make abi-check` (`matching2/tools/matching/callsite_abi.py`, needs
+  `capstone`) pairs each model's calls into retail code with retail's and
+  compares where every register argument comes from. Cases reviewed by hand as
+  passing the same value are listed with their reason in
+  `callsite_abi_reviewed.json`.
+* `make behavior-check` also runs two Unicorn differential tests that execute
+  the installed item update and replay submenu bodies against the real retail
+  collaborators:
 
-Its fixture scripts animation ticking and a few other boundaries, so passing
-this test does not establish replay or complete-game equivalence.
+  ```sh
+  python3 -m venv matching2/build/behavior-venv
+  matching2/build/behavior-venv/bin/pip install unicorn==2.1.4
+  make behavior-check BEHAVIOR_PYTHON=matching2/build/behavior-venv/bin/python
+  ```
+
+* `matching2/tests/replay_sync/` plays a replay in retail and in the build under
+  the same Wine install and compares score, lives, power, stage, the gameplay
+  RNG and the player block every frame. On 2026-10-14 three full replays were
+  identical to retail for every frame: Normal all clear (86,200 frames), Easy
+  all clear (48,428, where retail and the build both fault at the same frame)
+  and Extra clear (43,353). Under this Wine setup retail itself drifts from the
+  recordings late in those runs, so the build is compared with retail's trace.
+
+## Equivalent recoveries
 
 Some functions have C++ accepted with recorded instruction differences,
 including compiler choices such as which of two registers is encoded as base
@@ -56,9 +76,8 @@ not built into the executable and not counted, and
 `python3 matching2/tools/matching/equivalence.py --layout layout/equivalent/<name>.json`
 prints its differences and what keeps it out. The gate does not prove that a
 call site loads the registers its callee expects, so a model's link context
-must carry the callee bodies that give retail's private conventions, and a
-recorded difference that touches the instructions feeding a call needs a
-reviewer's eye. Progress reports
+must carry the callee bodies that give retail's private conventions;
+`make abi-check` catches the cases where it does not. Progress reports
 them on their own line and gives the byte-exact share separately.
 `python3 matching2/tools/matching/equivalence.py --record` prints the current
 differences when preparing a layout.
