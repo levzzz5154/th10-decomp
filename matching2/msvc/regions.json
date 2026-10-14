@@ -64372,6 +64372,10 @@
     {
       "region": "asm_FUN_00426f70_00426f70",
       "layout": "layout/equivalent/familiar_refresh_00426f70.json"
+    },
+    {
+      "region": "asm_FUN_0040bd80_0040bd80",
+      "layout": "layout/equivalent/recovery_script_executor_0040bd80.json"
     }
   ]
 }
