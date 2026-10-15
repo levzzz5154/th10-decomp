@@ -18,19 +18,19 @@ int SptTest_0042be20::Update() {
         break;
     case 1:
         SptTest_Remember(&menu);
-        if (data_00474e30.Active(0x20)) menu.Advance(1);
-        if (data_00474e30.Active(0x10)) menu.Advance(-1);
+        if (g_input_keys_raw.Active(0x20)) menu.Advance(1);
+        if (g_input_keys_raw.Active(0x10)) menu.Advance(-1);
         switch (menu.selection) {
         case 2:
-            if (data_00474e30.repeated & 0x1001)
+            if (g_input_keys_raw.repeated & 0x1001)
                 SptTest_SetGameMode_0040ac90(&g_application, 3);
             break;
         case 1:
             if (parser) {
                 SptTest_Remember(&entry_cursor);
-                if (data_00474e30.MaskActive(0x80)) entry_cursor.Advance(1);
-                if (data_00474e30.MaskActive(0x40)) entry_cursor.Advance(-1);
-                if (data_00474e30.pressed & 0x1001) {
+                if (g_input_keys_raw.MaskActive(0x80)) entry_cursor.Advance(1);
+                if (g_input_keys_raw.MaskActive(0x40)) entry_cursor.Advance(-1);
+                if (g_input_keys_raw.pressed & 0x1001) {
                     if (resource) {
                         resource->Retire(1);
                         resource = 0;
@@ -43,9 +43,9 @@ int SptTest_0042be20::Update() {
             break;
         case 0:
             SptTest_Remember(&file_cursor);
-            if (data_00474e30.Active(0x80)) file_cursor.Advance(1);
-            if (data_00474e30.Active(0x40)) file_cursor.Advance(-1);
-            if (data_00474e30.repeated & 0x1001) {
+            if (g_input_keys_raw.Active(0x80)) file_cursor.Advance(1);
+            if (g_input_keys_raw.Active(0x40)) file_cursor.Advance(-1);
+            if (g_input_keys_raw.repeated & 0x1001) {
                 flags &= ~2u;
                 reinterpret_cast<PlatformWorker*>(&worker)->Start(this, SptTest_LoadThread_0042be10);
                 state = 2;

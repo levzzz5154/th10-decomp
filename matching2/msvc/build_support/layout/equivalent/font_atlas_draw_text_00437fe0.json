@@ -13,7 +13,7 @@
       "address": "0x00000000",
       "kind": "data"
     },
-    "_data_00474cb0": {
+    "_g_font_atlas_surface": {
       "address": "0x00474CB0",
       "kind": "data"
     },
@@ -45,63 +45,63 @@
       "address": "0x004521A6",
       "kind": "code"
     },
-    "_data_00491868": {
+    "_g_font_height_60": {
       "address": "0x00491868",
       "kind": "data"
     },
-    "_data_0049186c": {
+    "_g_font_height_58": {
       "address": "0x0049186C",
       "kind": "data"
     },
-    "_data_00491870": {
+    "_g_font_height_56": {
       "address": "0x00491870",
       "kind": "data"
     },
-    "_data_00491874": {
+    "_g_font_height_54": {
       "address": "0x00491874",
       "kind": "data"
     },
-    "_data_00491878": {
+    "_g_font_height_52": {
       "address": "0x00491878",
       "kind": "data"
     },
-    "_data_0049187c": {
+    "_g_font_height_50": {
       "address": "0x0049187C",
       "kind": "data"
     },
-    "_data_00491880": {
+    "_g_font_height_48": {
       "address": "0x00491880",
       "kind": "data"
     },
-    "_data_00491884": {
+    "_g_font_height_46": {
       "address": "0x00491884",
       "kind": "data"
     },
-    "_data_00491888": {
+    "_g_font_height_44": {
       "address": "0x00491888",
       "kind": "data"
     },
-    "_data_0049188c": {
+    "_g_font_height_42": {
       "address": "0x0049188C",
       "kind": "data"
     },
-    "_data_00491890": {
+    "_g_font_height_40": {
       "address": "0x00491890",
       "kind": "data"
     },
-    "_data_00491894": {
+    "_g_font_height_38": {
       "address": "0x00491894",
       "kind": "data"
     },
-    "_data_00491898": {
+    "_g_font_height_36": {
       "address": "0x00491898",
       "kind": "data"
     },
-    "_data_0049189c": {
+    "_g_font_height_34": {
       "address": "0x0049189C",
       "kind": "data"
     },
-    "_data_004918a0": {
+    "_g_font_height_32": {
       "address": "0x004918A0",
       "kind": "data"
     }

@@ -31,10 +31,10 @@ extern "C" __declspec(noinline) int __stdcall TitleMenu_DrawReplaySave_00433b30(
             g_ascii_manager, &position, "No.%.2d %s %.2d/%.2d/%.2d %.2d:%.2d %s %s %s %2.1f%%",
             slot + 1, "        ", date->tm_year % 100, date->tm_mon + 1, date->tm_mday,
             date->tm_hour, date->tm_min,
-            data_004746dc[header->character * 3 + header->shot_type],
-            data_004746f4[header->difficulty], data_00474744[8], header->slowdown);
+            g_shot_names[header->character * 3 + header->shot_type],
+            g_difficulty_names[header->difficulty], g_stage_names_short[8], header->slowdown);
         if (menu->phase_frames >= 10) {
-            int count = strlen(data_004746d8);
+            int count = strlen(g_name_entry_grid);
             position.x = 112.0f;
             position.y = 240.0f;
             position.z = 0.0f;
@@ -53,7 +53,7 @@ extern "C" __declspec(noinline) int __stdcall TitleMenu_DrawReplaySave_00433b30(
                 g_ascii_manager->current_4c = menu->name_cell == cell ? 0xFFFFFF00 : 0xFF808080;
                 if (cell < count - 3)
                     AsciiManager_AddFormatted(g_ascii_manager, &position, "%c",
-                                             data_004746d8[cell]);
+                                             g_name_entry_grid[cell]);
                 else
                     AsciiManager_AddFormatted(
                         g_ascii_manager, &position, "%c",
@@ -82,8 +82,8 @@ extern "C" __declspec(noinline) int __stdcall TitleMenu_DrawReplaySave_00433b30(
                     "No.%.2d %s %.2d/%.2d/%.2d %.2d:%.2d %s %s %s %2.1f%%", slot + 1,
                     header->name, date->tm_year % 100, date->tm_mon + 1, date->tm_mday,
                     date->tm_hour, date->tm_min,
-                    data_004746dc[header->character * 3 + header->shot_type],
-                    data_004746f4[header->difficulty], data_00474744[header->stage],
+                    g_shot_names[header->character * 3 + header->shot_type],
+                    g_difficulty_names[header->difficulty], g_stage_names_short[header->stage],
                     header->slowdown);
             } else {
                 AsciiManager_AddFormatted(

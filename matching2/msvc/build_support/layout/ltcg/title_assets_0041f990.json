@@ -199,7 +199,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_004749c8",
+      "symbol": "_g_sound_effect_settings",
       "address": "0x4749c8",
       "kind": "data"
     },
@@ -249,12 +249,12 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_0049231e",
+      "symbol": "_g_file_lock_depth",
       "address": "0x49231e",
       "kind": "data"
     },
     {
-      "symbol": "_data_004922a4",
+      "symbol": "_g_file_lock",
       "address": "0x4922a4",
       "kind": "data"
     },
@@ -299,12 +299,12 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_data_00492380",
+      "symbol": "_g_executable_checksum",
       "address": "0x492380",
       "kind": "data"
     },
     {
-      "symbol": "_data_00492384",
+      "symbol": "_g_executable_size",
       "address": "0x492384",
       "kind": "data"
     },
@@ -329,17 +329,17 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00491fec",
+      "symbol": "_g_text_anm_resource",
       "address": "0x491fec",
       "kind": "data"
     },
     {
-      "symbol": "_data_00494514",
+      "symbol": "_g_bgm_format_data",
       "address": "0x494514",
       "kind": "data"
     },
     {
-      "symbol": "_data_00491d78",
+      "symbol": "_g_sound_flags",
       "address": "0x491d78",
       "kind": "data"
     },
@@ -379,12 +379,12 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_data_00491c70",
+      "symbol": "_g_supervisor_window",
       "address": "0x491c70",
       "kind": "data"
     },
     {
-      "symbol": "_data_0046a67c",
+      "symbol": "_g_guid_wave_format",
       "address": "0x46a67c",
       "kind": "data"
     },
@@ -474,7 +474,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_004977a4",
+      "symbol": "_g_bgm_data_offset",
       "address": "0x004977A4",
       "kind": "data"
     }

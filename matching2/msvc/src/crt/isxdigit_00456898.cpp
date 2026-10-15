@@ -9,13 +9,13 @@ struct ThreadData {
     LocaleData* locale;
 };
 extern "C" ThreadData* __cdecl asm_getptd_00456357();
-extern "C" LocaleData* data_0047320c;
+extern "C" LocaleData* g_crt_locale_data;
 extern "C" LocaleData* __cdecl asm_updatetlocinfo_00455ade();
 extern "C" int __cdecl asm_isctype_mt_00455752(LocaleData*, int, int);
 
 extern "C" int __cdecl asm_isxdigit_00456898(int c) {
     LocaleData* locale = asm_getptd_00456357()->locale;
-    if (locale != data_0047320c) locale = asm_updatetlocinfo_00455ade();
+    if (locale != g_crt_locale_data) locale = asm_updatetlocinfo_00455ade();
     if (locale->categories > 1) return asm_isctype_mt_00455752(locale, c, 128);
     return locale->ctype[c * 2] & 128;
 }

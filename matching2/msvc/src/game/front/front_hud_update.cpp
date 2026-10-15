@@ -163,8 +163,8 @@ __declspec(noinline) int __stdcall FrontHudUpdate_00414900(
     FrontUpdateView* front) {
     if (front->flags_9eb4 & 0x10) {
         if (++front->banner_timer_9ecc >= 0x78) {
-            unsigned int gate = *(unsigned int*)&data_00491ff4;
-            data_00491fb8 = (gate & 0x1000 ? 0xFFFFFFF4u : 0) + 0xE;
+            unsigned int gate = *(unsigned int*)&g_app_flags;
+            g_main_state = (gate & 0x1000 ? 0xFFFFFFF4u : 0) + 0xE;
         }
     }
     {
@@ -270,21 +270,21 @@ __declspec(noinline) int __stdcall FrontHudUpdate_00414900(
             int script = 0x85;
             switch (g_globals_stage) {
             case 1:
-                if ((int)data_00474c84 >= 0x18)
+                if ((int)g_stage_progress >= 0x18)
                     script = 0x86;
                 break;
             case 2:
-                if ((int)data_00474c84 < 0x18)
+                if ((int)g_stage_progress < 0x18)
                     goto have_script;
                 script = 0x87;
                 break;
             case 3:
-                if ((int)data_00474c84 < 0x18)
+                if ((int)g_stage_progress < 0x18)
                     goto have_script;
                 script = 0x88;
                 break;
             case 4:
-                script = ((int)data_00474c84 >= 0x18 ? 1 : 0) + 0x89;
+                script = ((int)g_stage_progress >= 0x18 ? 1 : 0) + 0x89;
                 break;
             case 5:
                 script = 0x8B;
@@ -293,7 +293,7 @@ __declspec(noinline) int __stdcall FrontHudUpdate_00414900(
                 script = 0x8C;
                 break;
             case 7:
-                script = ((int)data_00474c84 >= 0x18 ? 1 : 0) + 0x8C;
+                script = ((int)g_stage_progress >= 0x18 ? 1 : 0) + 0x8C;
                 break;
             }
             {

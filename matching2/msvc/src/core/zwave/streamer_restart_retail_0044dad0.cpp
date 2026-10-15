@@ -6,7 +6,7 @@
 typedef unsigned int (__stdcall* RestartSeekFile)(void*, int, int*, unsigned int);
 extern "C" {
     extern RestartSeekFile imp_SetFilePointer;
-    extern unsigned int data_004977a4;
+    extern unsigned int g_bgm_data_offset;
 }
 
 #pragma code_seg(".text$07restart")
@@ -41,7 +41,7 @@ extern "C" __declspec(noinline) int __stdcall SoundStream_Restart_0044dad0(Sound
     } else {
         void* file = reader->file;
         if (file) {
-            imp_SetFilePointer(file, static_cast<int>(reader->record->offset + data_004977a4), 0, 0);
+            imp_SetFilePointer(file, static_cast<int>(reader->record->offset + g_bgm_data_offset), 0, 0);
             reader->remaining = static_cast<unsigned int>(reader->record->end);
         }
     }

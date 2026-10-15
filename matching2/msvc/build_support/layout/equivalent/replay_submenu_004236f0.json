@@ -10,11 +10,11 @@
   "function": "_SubmenuUpdate_004236f0@4",
   "code_bytes": 3228,
   "absolute_symbols": {
-    "_data_00474e30": {
+    "_g_input_keys_raw": {
       "address": "0x474E30",
       "kind": "data"
     },
-    "_data_00474e36": {
+    "_g_input_keys_held": {
       "address": "0x474E36",
       "kind": "data"
     },
@@ -54,7 +54,7 @@
       "address": "0x491C28",
       "kind": "data"
     },
-    "_data_00491fb8": {
+    "_g_main_state": {
       "address": "0x491FB8",
       "kind": "data"
     },
@@ -70,7 +70,7 @@
       "address": "0x491C10",
       "kind": "data"
     },
-    "_data_004746d8": {
+    "_g_name_entry_grid": {
       "address": "0x4746D8",
       "kind": "data"
     },

@@ -39,7 +39,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00439890_00439890() {
     L_004398a7:
         rep stosd
     L_004398a9:
-        mov eax,dword ptr [data_00491c2c]
+        mov eax,dword ptr [g_direct3d]
     L_004398ae:
         mov ecx,dword ptr [eax]
     L_004398b0:
@@ -53,23 +53,23 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00439890_00439890() {
     L_004398b9:
         call dword ptr [ecx+20h]
     L_004398bc:
-        cmp byte ptr [data_00491d65],bl
+        cmp byte ptr [g_windowed],bl
     L_004398c2:
         mov edi,80000000h
     L_004398c7:
         jne asm_target_00439991
     L_004398cd:
-        test byte ptr [data_00491d78],1
+        test byte ptr [g_sound_flags],1
     L_004398d4:
         je short L_004398e7
     L_004398d6:
         mov dword ptr [esp+50h],17h
     L_004398de:
-        mov byte ptr [data_00491d62],1
+        mov byte ptr [g_use_direct3d],1
     L_004398e5:
         jmp short L_00439920
     L_004398e7:
-        mov al,byte ptr [data_00491d62]
+        mov al,byte ptr [g_use_direct3d]
     L_004398ec:
         cmp al,0FFh
     L_004398ee:
@@ -81,7 +81,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00439890_00439890() {
     L_004398fa:
         mov dword ptr [esp+54h],16h
     L_00439902:
-        mov byte ptr [data_00491d62],bl
+        mov byte ptr [g_use_direct3d],bl
     L_00439908:
         call asm_TextLog_Append_0044b810
     L_0043990d:
@@ -99,17 +99,17 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00439890_00439890() {
     L_0043991c:
         mov dword ptr [esp+50h],ecx
     L_00439920:
-        cmp byte ptr [data_00492518],bl
+        cmp byte ptr [g_force_no_vsync],bl
     L_00439926:
         je short L_00439935
     L_00439928:
         mov ebp,1
     L_0043992d:
-        mov dword ptr [data_00491fdc],ebp
+        mov dword ptr [g_no_vsync],ebp
     L_00439933:
         jmp short L_0043996e
     L_00439935:
-        cmp dword ptr [data_00491fdc],ebx
+        cmp dword ptr [g_no_vsync],ebx
     L_0043993b:
         jne short L_00439969
     L_0043993d:
@@ -161,7 +161,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00439890_00439890() {
     L_004399a6:
         mov ebp,1
     L_004399ab:
-        mov eax,dword ptr [data_00491ff4]
+        mov eax,dword ptr [g_app_flags]
     L_004399b0:
         or eax,2
     L_004399b3:
@@ -175,17 +175,17 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00439890_00439890() {
     L_004399cf:
         mov dword ptr [esp+74h],ebp
     L_004399d3:
-        mov dword ptr [data_00491ff4],eax
+        mov dword ptr [g_app_flags],eax
     L_004399d8:
-        mov dword ptr [data_00491fe0],ebp
+        mov dword ptr [g_fixed_refresh],ebp
     L_004399de:
         xor esi,esi
     L_004399e0:
-        test byte ptr [data_00491d78],2
+        test byte ptr [g_sound_flags],2
     L_004399e7:
         jne short L_00439a65
     L_004399e9:
-        mov eax,dword ptr [data_00491c2c]
+        mov eax,dword ptr [g_direct3d]
     L_004399ee:
         mov ecx,dword ptr [eax]
     L_004399f0:
@@ -195,7 +195,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00439890_00439890() {
     L_004399f9:
         push edx
     L_004399fa:
-        mov edx,dword ptr [data_004924f0]
+        mov edx,dword ptr [g_main_window]
     L_00439a00:
         push 40h
     L_00439a02:
@@ -225,7 +225,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00439890_00439890() {
     L_00439a24:
         add esp,4
     L_00439a27:
-        mov eax,dword ptr [data_00491c2c]
+        mov eax,dword ptr [g_direct3d]
     L_00439a2c:
         mov ecx,dword ptr [eax]
     L_00439a2e:
@@ -235,7 +235,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00439890_00439890() {
     L_00439a37:
         push edx
     L_00439a38:
-        mov edx,dword ptr [data_004924f0]
+        mov edx,dword ptr [g_main_window]
     L_00439a3e:
         push 20h
     L_00439a40:
@@ -265,7 +265,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00439890_00439890() {
     L_00439a62:
         add esp,4
     L_00439a65:
-        mov eax,dword ptr [data_00491c2c]
+        mov eax,dword ptr [g_direct3d]
     L_00439a6a:
         mov ecx,dword ptr [eax]
     L_00439a6c:
@@ -275,7 +275,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00439890_00439890() {
     L_00439a75:
         push edx
     L_00439a76:
-        mov edx,dword ptr [data_004924f0]
+        mov edx,dword ptr [g_main_window]
     L_00439a7c:
         push 20h
     L_00439a7e:
@@ -293,7 +293,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00439890_00439890() {
     L_00439a88:
         jge asm_target_00439b13
     L_00439a8e:
-        cmp dword ptr [data_00491fdc],ebx
+        cmp dword ptr [g_no_vsync],ebx
     L_00439a94:
         jne short L_00439ab9
     L_00439a96:
@@ -307,7 +307,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00439890_00439890() {
     L_00439aa8:
         mov dword ptr [esp+78h],ebx
     L_00439aac:
-        mov dword ptr [data_00491fe0],ebx
+        mov dword ptr [g_fixed_refresh],ebx
     L_00439ab2:
         mov esi,ebp
     L_00439ab4:
@@ -337,7 +337,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00439890_00439890() {
     L_00439aec:
         call asm_TextLog_AppendLine_0044b8e0
     L_00439af1:
-        mov eax,dword ptr [data_00491c2c]
+        mov eax,dword ptr [g_direct3d]
     L_00439af6:
         add esp,4
     L_00439af9:
@@ -351,7 +351,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00439890_00439890() {
     L_00439b00:
         call dword ptr [ecx+8]
     L_00439b03:
-        mov dword ptr [data_00491c2c],ebx
+        mov dword ptr [g_direct3d],ebx
     L_00439b09:
         pop edi
     L_00439b0a:
@@ -373,7 +373,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00439890_00439890() {
     L_00439b1d:
         call asm_TextLog_Append_0044b810
     L_00439b22:
-        mov eax,dword ptr [data_00491ff4]
+        mov eax,dword ptr [g_app_flags]
     L_00439b27:
         add esp,4
     L_00439b2a:
@@ -389,7 +389,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00439890_00439890() {
     L_00439b3d:
         call asm_TextLog_Append_0044b810
     L_00439b42:
-        mov eax,dword ptr [data_00491ff4]
+        mov eax,dword ptr [g_app_flags]
     L_00439b47:
         add esp,4
     L_00439b4a:
@@ -403,7 +403,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00439890_00439890() {
     L_00439b59:
         call asm_TextLog_Append_0044b810
     L_00439b5e:
-        mov eax,dword ptr [data_00491ff4]
+        mov eax,dword ptr [g_app_flags]
     L_00439b63:
         add esp,4
     L_00439b66:
@@ -411,7 +411,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00439890_00439890() {
     L_00439b68:
         fld qword ptr [data_00470c00]
     L_00439b6e:
-        mov dword ptr [data_00491ff4],eax
+        mov dword ptr [g_app_flags],eax
     L_00439b73:
         fptan
     L_00439b75:
@@ -519,7 +519,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00439890_00439890() {
     L_00439c54:
         call dword ptr [ecx+1Ch]
     L_00439c57:
-        test byte ptr [data_00492090],40h
+        test byte ptr [g_caps_bits],40h
     L_00439c5e:
         jne short L_00439c72
     L_00439c60:
@@ -531,7 +531,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00439890_00439890() {
     L_00439c6f:
         add esp,4
     L_00439c72:
-        cmp dword ptr [data_00492058],100h
+        cmp dword ptr [g_present_backbuffer_format],100h
     L_00439c7c:
         ja short L_00439c90
     L_00439c7e:
@@ -543,7 +543,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00439890_00439890() {
     L_00439c8d:
         add esp,4
     L_00439c90:
-        test byte ptr [data_00491d78],1
+        test byte ptr [g_sound_flags],1
     L_00439c97:
         jne short L_00439cf2
     L_00439c99:
@@ -553,7 +553,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00439890_00439890() {
     L_00439c9f:
         mov ecx,dword ptr [esp+50h]
     L_00439ca3:
-        mov eax,dword ptr [data_00491c2c]
+        mov eax,dword ptr [g_direct3d]
     L_00439ca8:
         mov edx,dword ptr [eax]
     L_00439caa:
@@ -577,13 +577,13 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00439890_00439890() {
     L_00439cb8:
         jne short L_00439cc3
     L_00439cba:
-        or dword ptr [data_00491ff4],4
+        or dword ptr [g_app_flags],4
     L_00439cc1:
         jmp short L_00439cf2
     L_00439cc3:
-        mov esi,dword ptr [data_00491ff4]
+        mov esi,dword ptr [g_app_flags]
     L_00439cc9:
-        mov edx,dword ptr [data_00491d78]
+        mov edx,dword ptr [g_sound_flags]
     L_00439ccf:
         or edx,ebp
     L_00439cd1:
@@ -593,9 +593,9 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00439890_00439890() {
     L_00439cd9:
         mov ecx,474F70h
     L_00439cde:
-        mov dword ptr [data_00491ff4],esi
+        mov dword ptr [g_app_flags],esi
     L_00439ce4:
-        mov dword ptr [data_00491d78],edx
+        mov dword ptr [g_sound_flags],edx
     L_00439cea:
         call asm_TextLog_Append_0044b810
     L_00439cef:
@@ -615,7 +615,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00439890_00439890() {
     L_00439d04:
         mov dword ptr [data_004924f4],ebx
     L_00439d0a:
-        mov dword ptr [data_00491fe4],ebx
+        mov dword ptr [g_frames_presented],ebx
     L_00439d10:
         xor eax,eax
     L_00439d12:

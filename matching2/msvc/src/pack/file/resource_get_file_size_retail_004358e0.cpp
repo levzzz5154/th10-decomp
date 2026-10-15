@@ -10,7 +10,7 @@ struct ArchiveName_004356f0 {
     __declspec(noinline) const ArchiveEntry_004356f0* Find() const;
 };
 extern "C" char* __cdecl FirstByteSearch_00452730(const char*, int);
-extern "C" const char* data_00474908;
+extern "C" const char* g_resource_archive_path;
 extern "C" __declspec(dllimport) BOOL __stdcall CloseHandle(HANDLE);
 extern "C" __declspec(dllimport) DWORD __stdcall GetFileSize(HANDLE, DWORD*);
 #pragma code_seg(".text$09query")
@@ -21,7 +21,7 @@ __declspec(noinline) unsigned int __fastcall ResourceGetFileSize_004358e0(const 
         return DatArchive_FindSize(archive, slash ? slash + 1 : path);
     }
     ResourceSizeFile_004358e0 file;
-    file.Open(path, data_00474908);
+    file.Open(path, g_resource_archive_path);
     return file.GetSize();
 }
 #pragma code_seg()

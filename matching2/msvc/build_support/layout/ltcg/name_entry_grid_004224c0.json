@@ -74,7 +74,7 @@
   "constants": [],
   "absolute_symbols": [
     {
-      "symbol": "_data_004746d8",
+      "symbol": "_g_name_entry_grid",
       "address": "0x4746d8",
       "kind": "data"
     },

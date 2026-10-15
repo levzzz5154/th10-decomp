@@ -70,7 +70,7 @@ struct SurfaceDevice_00447c80 {
     virtual long __stdcall CreateOffscreenPlainSurface(unsigned int width, unsigned int height, int format, int pool, Resource_00447f70** result, void* shared) = 0;
 };
 extern "C" SurfaceDevice_00447c80* g_d3d_device;
-extern "C" int data_00491d14;
+extern "C" int g_render_target_format;
 extern "C" char str_string_format[], str_cannot_load_format[];
 extern "C" int __cdecl sprintf(char*, const char*, ...);
 extern "C" void __cdecl ReleaseHeapMemory_00452422(void*);

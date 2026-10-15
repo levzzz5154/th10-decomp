@@ -12,8 +12,8 @@ static __forceinline void CopyAtlasToTexture(FontTexture_00437fe0* texture, cons
                                              const FontAtlasRect_00437fe0* source) {
     FontSurface_00437fe0* surface;
     texture->methods->GetSurfaceLevel(texture, 0, &surface);
-    D3DXLoadSurfaceFromMemory_004521a6(surface, 0, destination, data_00474cb0.pixels, data_00474cb0.format,
-                                       data_00474cb0.pitch, 0, source, 4, 0);
+    D3DXLoadSurfaceFromMemory_004521a6(surface, 0, destination, g_font_atlas_surface.pixels, g_font_atlas_surface.format,
+                                       g_font_atlas_surface.pitch, 0, source, 4, 0);
     if (surface != 0)
         surface->methods->Release(surface);
 }
@@ -24,50 +24,50 @@ void __stdcall FontAtlas_DrawPlainText_00437fe0(const FontAtlasRect_00437fe0* de
                                                 FontTexture_00437fe0* texture) {
     void* font;
     if (size <= 17)
-        font = data_004918a0;
+        font = g_font_height_32;
     else if (size <= 18)
-        font = data_0049189c;
+        font = g_font_height_34;
     else if (size <= 19)
-        font = data_00491898;
+        font = g_font_height_36;
     else if (size <= 20)
-        font = data_00491894;
+        font = g_font_height_38;
     else if (size <= 21)
-        font = data_00491890;
+        font = g_font_height_40;
     else if (size <= 22)
-        font = data_0049188c;
+        font = g_font_height_42;
     else if (size <= 23)
-        font = data_00491888;
+        font = g_font_height_44;
     else if (size <= 24)
-        font = data_00491884;
+        font = g_font_height_46;
     else if (size <= 25)
-        font = data_00491880;
+        font = g_font_height_48;
     else if (size <= 26)
-        font = data_0049187c;
+        font = g_font_height_50;
     else if (size <= 27)
-        font = data_00491878;
+        font = g_font_height_52;
     else if (size <= 28)
-        font = data_00491874;
+        font = g_font_height_54;
     else if (size <= 29)
-        font = data_00491870;
+        font = g_font_height_56;
     else if (size <= 30)
-        font = data_0049186c;
+        font = g_font_height_58;
     else
-        font = data_00491868;
+        font = g_font_height_60;
     if (size < 17)
         size = 17;
 
-    data_00474cb0.Fill(color);
-    void* dc = data_00474cb0.dc;
+    g_font_atlas_surface.Fill(color);
+    void* dc = g_font_atlas_surface.dc;
     void* previous = SelectObject(dc, font);
     int row_count = size * 2 + 6;
-    data_00474cb0.InvertAlpha(row_count);
+    g_font_atlas_surface.InvertAlpha(row_count);
     SetBkMode(dc, 1);
     int length = strlen(text);
     SetTextColor(dc, color);
     TextOutA(dc, x * 2, 0, text, length);
     SelectObject(dc, previous);
-    data_00474cb0.InvertAlpha(row_count);
-    FontAtlas_Convert_00436da0(&data_00474cb0, row_count);
+    g_font_atlas_surface.InvertAlpha(row_count);
+    FontAtlas_Convert_00436da0(&g_font_atlas_surface, row_count);
     SelectObject(dc, previous);
 
     FontAtlasRect_00437fe0 source;

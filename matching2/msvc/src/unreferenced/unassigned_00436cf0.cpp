@@ -17,11 +17,11 @@ struct GdiFormat {
     unsigned int masks[4];
 };
 
-extern "C" unsigned char data_00474918;
+extern "C" unsigned char g_font_formats;
 
 extern "C" GdiFormat* __fastcall GdiFormat_Find(int unused, int id) {
     (void)unused;
-    GdiFormat* formats = (GdiFormat*)&data_00474918;
+    GdiFormat* formats = (GdiFormat*)&g_font_formats;
     int index = 0;
     while (formats[index].id != -1 && formats[index].id != id)
         ++index;

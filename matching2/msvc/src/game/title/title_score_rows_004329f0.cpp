@@ -36,7 +36,7 @@ int TitleDrawView::DrawScoreRows() {
                         g_score[cursor].table.rows[selected][row].score,
                         g_score[cursor].table.rows[selected][row].continues,
                         date->tm_year + 1900, date->tm_mon + 1, date->tm_mday, date->tm_hour,
-                        date->tm_min, data_0047471c[g_score[cursor].table.rows[selected][row].stage],
+                        date->tm_min, g_stage_names_long[g_score[cursor].table.rows[selected][row].stage],
                         g_score[cursor].table.rows[selected][row].slowdown);
                 } else {
                     AsciiManager_AddFormatted(

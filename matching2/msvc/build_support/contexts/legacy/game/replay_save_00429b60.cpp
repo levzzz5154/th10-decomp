@@ -39,8 +39,8 @@ extern "C" const char str_replay_stage_range_format[];                   // "Sta
 extern "C" const char str_replay_score_format[];                   // "Score %d\r\n"
 extern "C" const char str_replay_slow_rate_format[];                   // "Slow Rate %2.2f\r\n"
 extern "C" const char str_replay_comment_placeholder[];                   // the comment notice line
-extern "C" const char* data_004746dc[];                  // "ReimuA" .. "MarisaC"
-extern "C" const char* data_004746f4[];                  // "Easy" .. "Extra"
+extern "C" const char* g_shot_names[];                  // "ReimuA" .. "MarisaC"
+extern "C" const char* g_difficulty_names[];                  // "Easy" .. "Extra"
 
 // The CRT `tm` fields the date line reads.
 struct BrokenDownTime_00429b60 {
@@ -59,9 +59,9 @@ int __stdcall asm_File_OpenSharedWrite_0044b620(const char* path);
 
 // Closes the shared file and leaves the file lock.
 inline void File_CloseShared() {
-    imp_CloseHandle(data_00474c38);
-    imp_LeaveCriticalSection(&data_004922a4);
-    --data_0049231e;
+    imp_CloseHandle(g_file_write_handle);
+    imp_LeaveCriticalSection(&g_file_lock);
+    --g_file_lock_depth;
 }
 
 #pragma code_seg(".text$rsave01")
@@ -159,16 +159,16 @@ int __fastcall ReplaySaveManager_00429b60::Save(const char* file_name, const cha
     manager->header->packed_end = manager->header->packed_size + 0x24;
 
     asm_File_OpenSharedWrite_0044b620(path);
-    if (data_00474c38 != (void*)-1) {
+    if (g_file_write_handle != (void*)-1) {
         int (__stdcall* write_file)(void*, const void*, unsigned int, unsigned int*, void*) =
             imp_WriteFile;
         int sent = written;
-        write_file(data_00474c38, manager->header, 0x24, (unsigned int*)&written, 0);
+        write_file(g_file_write_handle, manager->header, 0x24, (unsigned int*)&written, 0);
         if (written != 0x24) {
             File_CloseShared();
         }
-        if (data_00474c38 != (void*)-1) {
-            write_file(data_00474c38, packed, sent, (unsigned int*)&written, 0);
+        if (g_file_write_handle != (void*)-1) {
+            write_file(g_file_write_handle, packed, sent, (unsigned int*)&written, 0);
             if (written != sent) {
                 File_CloseShared();
             }
@@ -192,8 +192,8 @@ int __fastcall ReplaySaveManager_00429b60::Save(const char* file_name, const cha
     out += asm_sprintf_00452ae8(out, str_replay_date_format, time->year % 100, time->month + 1,
                        time->day, time->hour, time->minute);
     out += asm_sprintf_00452ae8(out, str_replay_chara_format,
-                       data_004746dc[manager->summary->character * 3 + manager->summary->shot_type]);
-    out += asm_sprintf_00452ae8(out, str_replay_rank_format, data_004746f4[manager->summary->difficulty]);
+                       g_shot_names[manager->summary->character * 3 + manager->summary->shot_type]);
+    out += asm_sprintf_00452ae8(out, str_replay_rank_format, g_difficulty_names[manager->summary->difficulty]);
     if (manager->summary->stage_reached > 7) {
         if (first == 7) {
             out += asm_sprintf_00452ae8(out, str_replay_extra_clear);
@@ -216,8 +216,8 @@ int __fastcall ReplaySaveManager_00429b60::Save(const char* file_name, const cha
         out += 4 - remainder;
     }
     chunk->size = (unsigned int)(out - (char*)chunk);
-    if (data_00474c38 != (void*)-1) {
-        imp_WriteFile(data_00474c38, chunk, (unsigned int)(out - (char*)chunk), &user_written, 0);
+    if (g_file_write_handle != (void*)-1) {
+        imp_WriteFile(g_file_write_handle, chunk, (unsigned int)(out - (char*)chunk), &user_written, 0);
         if ((unsigned int)(out - (char*)chunk) != user_written) {
             File_CloseShared();
         }
@@ -234,14 +234,14 @@ int __fastcall ReplaySaveManager_00429b60::Save(const char* file_name, const cha
         out += 4 - remainder;
     }
     chunk->size = (unsigned int)(out - (char*)chunk);
-    if (data_00474c38 != (void*)-1) {
-        imp_WriteFile(data_00474c38, chunk, (unsigned int)(out - (char*)chunk), &user_written, 0);
+    if (g_file_write_handle != (void*)-1) {
+        imp_WriteFile(g_file_write_handle, chunk, (unsigned int)(out - (char*)chunk), &user_written, 0);
         if ((unsigned int)(out - (char*)chunk) != user_written) {
             File_CloseShared();
         }
     }
     asm_free_00452422(chunk);
-    if (data_00474c38 != (void*)-1) {
+    if (g_file_write_handle != (void*)-1) {
         File_CloseShared();
     }
     return 0;

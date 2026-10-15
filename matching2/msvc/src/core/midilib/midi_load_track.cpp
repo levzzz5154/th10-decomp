@@ -32,8 +32,8 @@ __declspec(dllimport) void __stdcall EnterCriticalSection(
     CriticalSection_0044b810* section);
 __declspec(dllimport) void __stdcall LeaveCriticalSection(
     CriticalSection_0044b810* section);
-extern CriticalSection_0044b810 data_004922bc;
-extern unsigned char data_0049231f;
+extern CriticalSection_0044b810 g_text_log_lock;
+extern unsigned char g_text_log_lock_depth;
 extern int __cdecl asm_vsprintf_004524a6(char* buffer, const char* format, char* arguments);
 }
 
@@ -111,8 +111,8 @@ __declspec(noinline) char* TextLog_0044b810::Append(char* format, ...) {
     va_list arguments;
     va_start(arguments, format);
 
-    EnterCriticalSection(&data_004922bc);
-    ++data_0049231f;
+    EnterCriticalSection(&g_text_log_lock);
+    ++g_text_log_lock_depth;
     asm_vsprintf_004524a6(staging, format, arguments);
 
     unsigned int length = strlen(staging);
@@ -124,8 +124,8 @@ __declspec(noinline) char* TextLog_0044b810::Append(char* format, ...) {
         *cursor = 0;
     }
 
-    LeaveCriticalSection(&data_004922bc);
-    --data_0049231f;
+    LeaveCriticalSection(&g_text_log_lock);
+    --g_text_log_lock_depth;
     return format;
 }
 #pragma code_seg()

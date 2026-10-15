@@ -14,7 +14,7 @@ CachedResource* __fastcall Recovery_LoadCachedResource(int index, void* owner, c
     SleepFn sleep = *(SleepFn*)&imp_Sleep;
     entry->busy = 1;
     do {
-        if (data_00491ff4 & 0x80)
+        if (g_app_flags & 0x80)
             break;
         sleep(1);
     } while (entry->busy != 0);

@@ -83,7 +83,7 @@ void LaserScriptRun_0041ca80::Run() {
             zero_124 = 0;
             break;
         case 0x4000u: {
-            int script = data_00474170[cmd.param2.i] + cmd.param3.i;
+            int script = g_bullet_script_first[cmd.param2.i] + cmd.param3.i;
             Entity_StartScript_00404f30(
                 reinterpret_cast<AnimationResource_0043e710*>(g_bullet_manager->resource),
                 &beam, script);

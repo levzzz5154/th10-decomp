@@ -4,8 +4,8 @@
 // and ask for game state 4.  The object arrives in ECX and the routine always
 // reports success.
 extern "C" unsigned char g_ascii_manager;                 // 0x004776E0 resource manager
-extern "C" unsigned char data_00491ff4;                 // 0x00491FF4 engine flags
-extern "C" unsigned char data_00491fb8;                 // 0x00491FB8 game state
+extern "C" unsigned char g_app_flags;                 // 0x00491FF4 engine flags
+extern "C" unsigned char g_main_state;                 // 0x00491FB8 game state
 
 struct ResourceHandle { int reserved; int flags; };
 struct ResourceOwner {
@@ -23,8 +23,8 @@ extern "C" int __fastcall Loading_OnUpdate(unsigned int* owner) {
     resources->slot_0C->flags |= 2;
     resources->slot_10->flags |= 2;
     resources->slot_89A8->flags |= 2;
-    *(unsigned int*)&data_00491ff4 &= ~0x1000u;
-    *(unsigned int*)&data_00491fb8 = 4;
+    *(unsigned int*)&g_app_flags &= ~0x1000u;
+    *(unsigned int*)&g_main_state = 4;
     *owner &= ~2u;
     return 1;
 }

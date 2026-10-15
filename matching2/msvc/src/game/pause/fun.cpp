@@ -34,8 +34,8 @@ extern "C" __declspec(noinline) int __stdcall ResultScreen_DrawRows_00422660(
                 AsciiManager_AddFormatted(
                     g_ascii_manager, &position, str_ranking_row_named_format, row + 1, header->name,
                     date->tm_year % 100, date->tm_mon + 1, date->tm_mday,
-                    data_004746dc[header->character * 3 + header->shot_type],
-                    data_00474708[header->difficulty], data_00474744[header->stage]);
+                    g_shot_names[header->character * 3 + header->shot_type],
+                    g_difficulty_initials[header->difficulty], g_stage_names_short[header->stage]);
             } else {
                 AsciiManager_AddFormatted(g_ascii_manager, &position, str_ranking_row_empty_format, row + 1);
             }
@@ -65,8 +65,8 @@ extern "C" __declspec(noinline) int __stdcall ResultScreen_DrawRows_00422660(
         AsciiManager_AddFormatted(
             g_ascii_manager, &position, str_ranking_row_format, cursor + 1,
             date->tm_year % 100, date->tm_mon + 1, date->tm_mday,
-            data_004746dc[header->character * 3 + header->shot_type],
-            data_00474708[header->difficulty], data_00474744[g_globals_stage]);
+            g_shot_names[header->character * 3 + header->shot_type],
+            g_difficulty_initials[header->difficulty], g_stage_names_short[g_globals_stage]);
         break;
     }
     case 12:
@@ -104,7 +104,7 @@ extern "C" __declspec(noinline) int __stdcall ResultScreen_DrawRows_00422660(
                     g_score[data_00474c68_shot * 3 + data_00474c68_char]
                         .table.rows[g_globals_difficulty][row].continues,
                     date->tm_year % 100, date->tm_mon + 1, date->tm_mday,
-                    data_0047471c[g_score[data_00474c68_shot * 3 + data_00474c68_char]
+                    g_stage_names_long[g_score[data_00474c68_shot * 3 + data_00474c68_char]
                                       .table.rows[g_globals_difficulty][row].stage]);
             } else {
                 AsciiManager_AddFormatted(

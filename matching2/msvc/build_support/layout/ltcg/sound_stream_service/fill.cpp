@@ -40,7 +40,7 @@ extern "C" __declspec(noinline) int __stdcall SoundStreamFill(SoundStream* strea
         void* file = reader->file;
         if (file) {
             MusicRecord* record = reader->record;
-            imp_SetFilePointer(file, static_cast<int>(record->offset + data_004977a4), 0, 0);
+            imp_SetFilePointer(file, static_cast<int>(record->offset + g_bgm_data_offset), 0, 0);
             reader->remaining = static_cast<unsigned int>(reader->record->end);
         }
     }

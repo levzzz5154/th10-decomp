@@ -92,7 +92,7 @@ typedef char EclFloat_manager_entity_offset[offsetof(EclFloatManager_00412350, c
 
 extern "C" EclFloatManager_00412350* g_enemy_ctrl;
 extern "C" int g_globals_difficulty;
-extern "C" int data_00474c98;
+extern "C" int g_rank;
 extern "C" float flt_1;
 extern "C" float flt_0;
 extern "C" float flt_2;
@@ -215,7 +215,7 @@ float EclFloatSource_00412350::ResolveFloatValue(int encoded_selector) const {
         result = g_enemy_ctrl->current_entity->value_106c;
         break;
     case -9960:
-        result = (float)data_00474c98;
+        result = (float)g_rank;
         break;
     case -9959:
         result = (float)g_globals_difficulty;

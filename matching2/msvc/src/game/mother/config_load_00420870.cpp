@@ -29,7 +29,7 @@ int GameApp_00420870::LoadConfig(const char* path) {
             g_application.config.version_marker != 0x100003 || size != sizeof(GameConfig)) {
             g_log.Append(str_config_invalid_reset);
         } else {
-            memcpy(data_00474e88, g_application.config.version_prefix, 18);
+            memcpy(g_key_bindings_current, g_application.config.version_prefix, 18);
             valid = true;
         }
     }

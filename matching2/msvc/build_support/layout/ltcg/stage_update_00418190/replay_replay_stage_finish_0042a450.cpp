@@ -7,8 +7,8 @@
 #define g_replay stage_replay_data_00477838
 #define g_score stage_replay_data_0047783c
 #define g_game_speed stage_replay_data_00476f78
-#define data_00491fc4 stage_replay_data_00491fc4
-#define data_00491fb8 stage_replay_data_00491fb8
+#define g_stage_flags stage_replay_data_00491fc4
+#define g_main_state stage_replay_data_00491fb8
 #define g_sound_manager stage_replay_data_00492590
 // 0x0042A450..0x0042A696: close the current stage in the replay manager.
 //
@@ -34,7 +34,7 @@ void ReplayManager_0042a6a0::FinishStage() {
         ReplayStage_0042a6a0* record = stage_data[g_globals.stage];
         ReplayFinishClearPools_0042ab20(this, g_globals.stage);
         current_pool = AppendPage(g_globals.stage);
-        if (data_00491fc4 == 0) {
+        if (g_stage_flags == 0) {
             record->score = g_globals.score;
             record->word_10 = g_globals.word_08;
             record->gauge = g_globals.gauge;
@@ -89,6 +89,6 @@ void ReplayManager_0042a6a0::FinishStage() {
 #undef g_replay
 #undef g_score
 #undef g_game_speed
-#undef data_00491fc4
-#undef data_00491fb8
+#undef g_stage_flags
+#undef g_main_state
 #undef g_sound_manager

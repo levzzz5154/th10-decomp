@@ -10,7 +10,7 @@ struct TextLog_0044b810 {
     char* Append(char* format, ...);
 };
 extern "C" {
-extern char data_00497c38[];
+extern char g_recovery_script_path[];
 
 void* __cdecl malloc(unsigned int);
 void* __fastcall LoadCachedResource_00447280(int slot, void* manager, const char* name);
@@ -18,9 +18,9 @@ void* __fastcall LoadCachedResource_00447280(int slot, void* manager, const char
 #pragma code_seg(".text$00stage")
 int BackGround::Load(const char* name) {
     if (!original) {
-        data_00497c38[0] = 0;
-        strcat(data_00497c38, name);
-        original = Archive_LoadFile(data_00497c38, &file_size, 0);
+        g_recovery_script_path[0] = 0;
+        strcat(g_recovery_script_path, name);
+        original = Archive_LoadFile(g_recovery_script_path, &file_size, 0);
         if (!original) return -1;
     }
     // Reuse the size temporary for both allocations (retail LTCG register shape).

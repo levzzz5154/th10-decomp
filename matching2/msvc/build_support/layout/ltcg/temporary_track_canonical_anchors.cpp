@@ -34,8 +34,8 @@ __declspec(dllimport) void __stdcall EnterCriticalSection(
     CriticalSection_0044b810* section);
 __declspec(dllimport) void __stdcall LeaveCriticalSection(
     CriticalSection_0044b810* section);
-extern CriticalSection_0044b810 data_004922bc;
-extern unsigned char data_0049231f;
+extern CriticalSection_0044b810 g_text_log_lock;
+extern unsigned char g_text_log_lock_depth;
 extern int __cdecl asm_vsprintf_004524a6(char* buffer, const char* format, char* arguments);
 }
 
@@ -104,8 +104,8 @@ __declspec(noinline) char* TextLog_0044b810::Append(char* format, ...) {
     va_list arguments;
     va_start(arguments, format);
 
-    EnterCriticalSection(&data_004922bc);
-    ++data_0049231f;
+    EnterCriticalSection(&g_text_log_lock);
+    ++g_text_log_lock_depth;
     asm_vsprintf_004524a6(staging, format, arguments);
 
     unsigned int length = strlen(staging);
@@ -117,8 +117,8 @@ __declspec(noinline) char* TextLog_0044b810::Append(char* format, ...) {
         *cursor = 0;
     }
 
-    LeaveCriticalSection(&data_004922bc);
-    --data_0049231f;
+    LeaveCriticalSection(&g_text_log_lock);
+    --g_text_log_lock_depth;
     return format;
 }
 #pragma code_seg()
@@ -231,8 +231,8 @@ struct ArchiveReader {
 
 extern "C" ArchiveEntry* g_archive;
 extern "C" int data_00497994;
-extern "C" unsigned char data_0049231e;
-extern "C" unsigned char data_004922a4[];
+extern "C" unsigned char g_file_lock_depth;
+extern "C" unsigned char g_file_lock[];
 
 extern "C" void (__stdcall *imp_EnterCriticalSection)(void*);
 extern "C" void (__stdcall *imp_LeaveCriticalSection)(void*);
@@ -251,8 +251,8 @@ extern "C" __declspec(noinline) char* __stdcall Archive_LoadFile(const char* nam
                                                                  int fromDisk) {
     char* buffer;
     unsigned int size;
-    imp_EnterCriticalSection(data_004922a4);
-    ++data_0049231e;
+    imp_EnterCriticalSection(g_file_lock);
+    ++g_file_lock_depth;
     if (!fromDisk) {
         const char* slash = asm_strrchr_00452930(name, '\\');
         const char* base = (slash == 0) ? name : slash + 1;
@@ -301,12 +301,12 @@ looked_up:
         imp_CloseHandle(file);
     }
 done:
-    imp_LeaveCriticalSection(data_004922a4);
-    --data_0049231e;
+    imp_LeaveCriticalSection(g_file_lock);
+    --g_file_lock_depth;
     return buffer;
 failed:
-    imp_LeaveCriticalSection(data_004922a4);
-    --data_0049231e;
+    imp_LeaveCriticalSection(g_file_lock);
+    --g_file_lock_depth;
     return 0;
 }
 #pragma code_seg()

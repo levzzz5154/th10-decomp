@@ -14,8 +14,8 @@ struct Owner_0041fd90 {
 };
 struct Flagged_0041fd90 { unsigned int flags_000; };
 extern "C" Owner_0041fd90* g_ascii_manager;
-extern "C" unsigned int data_00491ff4;
-extern "C" unsigned int data_00491fb8;
+extern "C" unsigned int g_app_flags;
+extern "C" unsigned int g_main_state;
 extern "C" __declspec(noinline) int __fastcall Update_0041fd90(void* unused, Flagged_0041fd90* record);
 #pragma code_seg(".text$01flag")
 int __fastcall Update_0041fd90(void* unused, Flagged_0041fd90* record) {
@@ -26,9 +26,9 @@ int __fastcall Update_0041fd90(void* unused, Flagged_0041fd90* record) {
     owner->a_00c->flags_004 |= 2u;
     owner->b_010->flags_004 |= 2u;
     owner->c_89a8->flags_004 |= 2u;
-    unsigned int* global = &data_00491ff4;
+    unsigned int* global = &g_app_flags;
     *global &= 0xFFFFEFFFu;
-    unsigned int* mode = &data_00491fb8;
+    unsigned int* mode = &g_main_state;
     *mode = 4u;
     unsigned int* flags = &record->flags_000;
     *flags &= ~2u;

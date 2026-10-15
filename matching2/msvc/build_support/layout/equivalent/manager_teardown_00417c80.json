@@ -153,7 +153,7 @@
       "address": "0x00474CA0",
       "kind": "data"
     },
-    "_data_00491fb8": {
+    "_g_main_state": {
       "address": "0x00491FB8",
       "kind": "data"
     },
@@ -185,7 +185,7 @@
       "address": "0x004776E8",
       "kind": "data"
     },
-    "_data_004776e4": {
+    "_g_background_prev": {
       "address": "0x004776E4",
       "kind": "data"
     },
@@ -253,7 +253,7 @@
       "address": "0x00492590",
       "kind": "data"
     },
-    "_data_00491d78": {
+    "_g_sound_flags": {
       "address": "0x00491D78",
       "kind": "data"
     },
@@ -261,23 +261,23 @@
       "address": "0x00477810",
       "kind": "data"
     },
-    "_data_004918a4": {
+    "_g_screen_effects_frozen": {
       "address": "0x004918A4",
       "kind": "data"
     },
-    "_data_004923a8": {
+    "_g_main_clear_color": {
       "address": "0x004923A8",
       "kind": "data"
     },
-    "_data_00474c38": {
+    "_g_file_write_handle": {
       "address": "0x00474C38",
       "kind": "data"
     },
-    "_data_0049231e": {
+    "_g_file_lock_depth": {
       "address": "0x0049231E",
       "kind": "data"
     },
-    "_data_004922a4": {
+    "_g_file_lock": {
       "address": "0x004922A4",
       "kind": "data"
     },

@@ -23,15 +23,15 @@ extern "C" __declspec(noinline) void __stdcall PauseMenu_Update_00422c80(PauseCh
     case 2: {
         PauseChoiceCursor_00422c80* cursor = &state->cursor;
         cursor->previous_selection = cursor->selection;
-        if (ChoiceInputActive(&data_00474e30, 0x10))
+        if (ChoiceInputActive(&g_input_keys_raw, 0x10))
             cursor->Advance(-1);
-        if (ChoiceInputActive(&data_00474e30, 0x20))
+        if (ChoiceInputActive(&g_input_keys_raw, 0x20))
             cursor->Advance(1);
         if (cursor->previous_selection != cursor->selection) {
             state->background.SetStopFrame((unsigned short)(cursor->selection + 7));
             g_sound_manager.Queue(12, 0);
         }
-        if (data_00474e36 & 0x1001) {
+        if (g_input_keys_held & 0x1001) {
             g_sound_manager.Queue(10, 0);
             switch (cursor->selection) {
             case 2:
@@ -51,7 +51,7 @@ extern "C" __declspec(noinline) void __stdcall PauseMenu_Update_00422c80(PauseCh
             }
             state->timer.SetSchedulerValue(0);
         }
-        if (data_00474e36 & 0x4000) {
+        if (g_input_keys_held & 0x4000) {
             g_sound_manager.Queue(10, 0);
             state->background.FindChildRef(117).StopAtFrame6();
             state->phase = 3;
@@ -59,7 +59,7 @@ extern "C" __declspec(noinline) void __stdcall PauseMenu_Update_00422c80(PauseCh
             state->cursor.Select(2);
             state->cursor_animation.StopAtFrame1();
         }
-        if (data_00474e36 & 0x200) {
+        if (g_input_keys_held & 0x200) {
             g_sound_manager.Queue(10, 0);
             state->background.FindChildRef(116).StopAtFrame6();
             state->phase = 3;
@@ -82,13 +82,13 @@ extern "C" __declspec(noinline) void __stdcall PauseMenu_Update_00422c80(PauseCh
             state->background.SetStopFrame((unsigned short)(state->cursor.selection + 15));
         PauseChoiceCursor_00422c80* cursor = &state->cursor;
         cursor->previous_selection = cursor->selection;
-        if ((short)data_00474e30.InputMaskActive(0x10)) cursor->Advance(-1);
-        if ((short)data_00474e30.InputMaskActive(0x20)) cursor->Advance(1);
+        if ((short)g_input_keys_raw.InputMaskActive(0x10)) cursor->Advance(-1);
+        if ((short)g_input_keys_raw.InputMaskActive(0x20)) cursor->Advance(1);
         if (cursor->previous_selection != cursor->selection) {
             state->background.SetStopFrame((unsigned short)(cursor->selection + 15));
             g_sound_manager.Queue(12, 0);
         }
-        if (data_00474e36 & 0x1001) {
+        if (g_input_keys_held & 0x1001) {
             g_sound_manager.Queue(10, 0);
             switch (cursor->selection) {
             case 1:
@@ -131,7 +131,7 @@ extern "C" __declspec(noinline) void __stdcall PauseMenu_Update_00422c80(PauseCh
         switch (state->cursor.selection) {
         case 2:
             state->background.StopAtFrame1();
-            data_00491fb8 = 10;
+            g_main_state = 10;
             return;
         case 1:
             state->cursor_animation.StopAtFrame1();
@@ -145,7 +145,7 @@ extern "C" __declspec(noinline) void __stdcall PauseMenu_Update_00422c80(PauseCh
     }
     return;
     escape:
-        if (data_00474e36 & 8) {
+        if (g_input_keys_held & 8) {
             state->cursor.Select(0);
             state->cursor_animation.StopAtFrame1();
             state->background.StopAtFrame1();

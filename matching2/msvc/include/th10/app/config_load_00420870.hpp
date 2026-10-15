@@ -32,7 +32,7 @@ struct TextLog_00420870 {
 extern "C" {
 extern GameApp_00420870 g_application;
 extern TextLog_00420870 g_log;
-extern char data_00474e88[];      // the key configuration in use (18 bytes)
+extern char g_key_bindings_current[];      // the key configuration in use (18 bytes)
 
 // Log lines (Shift-JIS).
 extern char str_config_missing_reset[];      // "no configuration data was found, so it was initialised"

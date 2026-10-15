@@ -5,9 +5,9 @@
 
 extern "C" {
 extern ItemSpawnManager_0041bb00* g_item_manager;
-extern unsigned int data_00474350[];  // burst colours of small projectiles
-extern unsigned int data_00474390[];  // ... of medium ones
-extern unsigned int data_004743b0[];  // ... of large ones
+extern unsigned int g_burst_color_small[];  // burst colours of small projectiles
+extern unsigned int g_burst_color_medium[];  // ... of medium ones
+extern unsigned int g_burst_color_large[];  // ... of large ones
 }
 
 #pragma code_seg(".text$f00408210F")
@@ -42,11 +42,11 @@ int __stdcall ProjectileManager_ClearRegion(ProjectileManager* manager, int spaw
                     371, reinterpret_cast<const Vector3*>(&record->position)));
             if (record->sprite) {
                 if (record->sprite->size <= 16.0f) {
-                    burst->primary_color = data_00474350[record->colour];
+                    burst->primary_color = g_burst_color_small[record->colour];
                 } else if (record->sprite->size <= 32.0f) {
-                    burst->primary_color = data_00474390[record->colour];
+                    burst->primary_color = g_burst_color_medium[record->colour];
                 } else {
-                    burst->primary_color = data_004743b0[record->colour];
+                    burst->primary_color = g_burst_color_large[record->colour];
                 }
             }
             record->lifetime = 0;

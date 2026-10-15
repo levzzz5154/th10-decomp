@@ -59,7 +59,7 @@ int SprtCtrlBatchView::SubmitSpriteQuadMirrored(const RenderEntity* entity, unsi
     if (g_quad_vertices[2].y < min_y) min_y = g_quad_vertices[2].y;
     if (g_quad_vertices[3].y < min_y) min_y = g_quad_vertices[3].y;
 
-    RenderTargetViewport* target = data_00491fac;
+    RenderTargetViewport* target = g_render_stage_active;
     if (max_x < (float)target->x) return 0;
     if ((float)target->y > max_y) return 0;
     if ((float)(target->x + target->width) < min_x) return 0;

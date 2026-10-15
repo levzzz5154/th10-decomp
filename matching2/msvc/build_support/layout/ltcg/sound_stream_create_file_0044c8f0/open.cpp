@@ -15,7 +15,7 @@ int MusicReadCursor::Open(const char* path, MusicTrackRecord* entry, unsigned in
             cursor->position = cursor->buffer_begin;
             if (entry->loop_end > 0) cursor->memory_end = entry->loop_end;
         } else if (cursor->file) {
-            imp_SetFilePointer(cursor->file, entry->file_offset + data_004977a4, 0, 0);
+            imp_SetFilePointer(cursor->file, entry->file_offset + g_bgm_data_offset, 0, 0);
             cursor->file_remaining = cursor->record->loop_end;
         }
         cursor->total_pcm_bytes = cursor->file_remaining;

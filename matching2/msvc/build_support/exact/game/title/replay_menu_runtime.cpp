@@ -60,7 +60,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00433570_00433570() {
     L_004335c7:
         mov eax,8
     L_004335cc:
-        mov dword ptr [data_00477848],474908h
+        mov dword ptr [g_stage_route_current],474908h
     L_004335d6:
         mov dword ptr [g_globals_stage],eax
     L_004335db:
@@ -134,7 +134,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00433570_00433570() {
     L_00433653:
         mov dword ptr [esi+4],edx
     L_00433656:
-        mov cl,byte ptr [data_00474e36]
+        mov cl,byte ptr [g_input_keys_held]
     L_0043365c:
         mov al,10h
     L_0043365e:
@@ -142,7 +142,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00433570_00433570() {
     L_00433660:
         jne short L_0043366a
     L_00433662:
-        test byte ptr [data_00474e34],al
+        test byte ptr [g_input_keys_edge],al
     L_00433668:
         je short L_00433673
     L_0043366a:
@@ -152,11 +152,11 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00433570_00433570() {
     L_0043366e:
         call asm_MenuCursor_Advance_0044bea0
     L_00433673:
-        test byte ptr [data_00474e36],20h
+        test byte ptr [g_input_keys_held],20h
     L_0043367a:
         jne short L_00433685
     L_0043367c:
-        test byte ptr [data_00474e34],20h
+        test byte ptr [g_input_keys_edge],20h
     L_00433683:
         je short L_0043368e
     L_00433685:
@@ -180,7 +180,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00433570_00433570() {
     L_004336a1:
         call asm_AnimationManager_QueueResource_0043dc90
     L_004336a6:
-        mov eax,dword ptr [data_00474e36]
+        mov eax,dword ptr [g_input_keys_held]
     L_004336ab:
         test al,0Ah
     L_004336ad:
@@ -234,7 +234,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00433570_00433570() {
     L_004336fe:
         mov dword ptr [ebx],0
     L_00433704:
-        mov eax,dword ptr [data_004746d8]
+        mov eax,dword ptr [g_name_entry_grid]
     L_00433709:
         lea edx,[eax+1]
     L_0043370c:
@@ -348,7 +348,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00433570_00433570() {
     L_004337d5:
         mov dword ptr [esi+4],eax
     L_004337d8:
-        mov cl,byte ptr [data_00474e36]
+        mov cl,byte ptr [g_input_keys_held]
     L_004337de:
         mov al,10h
     L_004337e0:
@@ -356,7 +356,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00433570_00433570() {
     L_004337e2:
         jne short L_004337ec
     L_004337e4:
-        test byte ptr [data_00474e34],al
+        test byte ptr [g_input_keys_edge],al
     L_004337ea:
         je short L_004337f5
     L_004337ec:
@@ -366,11 +366,11 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00433570_00433570() {
     L_004337f0:
         call asm_MenuCursor_Advance_0044bea0
     L_004337f5:
-        test byte ptr [data_00474e36],20h
+        test byte ptr [g_input_keys_held],20h
     L_004337fc:
         jne short L_00433807
     L_004337fe:
-        test byte ptr [data_00474e34],20h
+        test byte ptr [g_input_keys_edge],20h
     L_00433805:
         je short L_00433810
     L_00433807:
@@ -380,7 +380,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00433570_00433570() {
     L_0043380b:
         call asm_MenuCursor_Advance_0044bea0
     L_00433810:
-        mov cl,byte ptr [data_00474e36]
+        mov cl,byte ptr [g_input_keys_held]
     L_00433816:
         mov al,40h
     L_00433818:
@@ -388,7 +388,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00433570_00433570() {
     L_0043381a:
         jne short L_00433824
     L_0043381c:
-        test byte ptr [data_00474e34],al
+        test byte ptr [g_input_keys_edge],al
     L_00433822:
         je short L_0043383f
     L_00433824:
@@ -414,7 +414,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00433570_00433570() {
     L_0043383a:
         call asm_MenuCursor_Advance_0044bea0
     L_0043383f:
-        mov cl,byte ptr [data_00474e36]
+        mov cl,byte ptr [g_input_keys_held]
     L_00433845:
         mov al,80h
     L_00433847:
@@ -422,7 +422,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00433570_00433570() {
     L_00433849:
         jne short L_00433853
     L_0043384b:
-        test byte ptr [data_00474e34],al
+        test byte ptr [g_input_keys_edge],al
     L_00433851:
         je short L_0043386f
     L_00433853:
@@ -462,11 +462,11 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00433570_00433570() {
     L_00433882:
         call asm_AnimationManager_QueueResource_0043dc90
     L_00433887:
-        test dword ptr [data_00474e36],1001h
+        test dword ptr [g_input_keys_held],1001h
     L_00433891:
         je asm_target_004339ed
     L_00433897:
-        mov edi,dword ptr [data_004746d8]
+        mov edi,dword ptr [g_name_entry_grid]
     L_0043389d:
         mov eax,edi
     L_0043389f:
@@ -650,7 +650,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00433570_00433570() {
     L_004339e8:
         call asm_AnimationManager_QueueResource_0043dc90
     L_004339ed:
-        test byte ptr [data_00474e36],0Ah
+        test byte ptr [g_input_keys_held],0Ah
     L_004339f4:
         je asm_target_00433af6
     L_004339fa:

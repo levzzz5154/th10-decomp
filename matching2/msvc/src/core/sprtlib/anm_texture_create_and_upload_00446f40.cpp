@@ -11,8 +11,8 @@
 int __stdcall AnmTexture_CreateAndUpload_00446f40(AnmTexture_00446c70* texture, const AnmThtxHeader_00446c70* thtx, int format, int width, int height) {
     int stored_format = format;
     AnmSurface_00446c70* surface = 0;
-    if (data_00491d78 & 1) {
-        int d3d_format = data_0046f288[format];
+    if (g_sound_flags & 1) {
+        int d3d_format = g_texture_formats_a[format];
         if (d3d_format == 21 || d3d_format == 0)
             stored_format = 5;
         else if (d3d_format == 20)
@@ -24,7 +24,7 @@ int __stdcall AnmTexture_CreateAndUpload_00446f40(AnmTexture_00446c70* texture, 
     rect.right = thtx->width;
     rect.bottom = thtx->height;
     if (asm_D3DXCreateTexture_004521a0(g_d3d_device, width, height, 1, 0,
-                                       data_0046f288[stored_format], 1,
+                                       g_texture_formats_a[stored_format], 1,
                                        reinterpret_cast<void**>(&texture->texture)) != 0) {
         if (surface)
             surface->Release();
@@ -32,9 +32,9 @@ int __stdcall AnmTexture_CreateAndUpload_00446f40(AnmTexture_00446c70* texture, 
     }
     texture->texture->GetSurfaceLevel(0, &surface);
     asm_D3DXLoadSurfaceFromMemory_004521a6(
-        surface, 0, &rect, thtx->pixels, data_0046f288[thtx->format],
-        thtx->width * data_0046f2a0[thtx->format], 0, &rect, 1, 0);
-    texture->bytes_per_pixel = data_0046f2a0[stored_format];
+        surface, 0, &rect, thtx->pixels, g_texture_formats_a[thtx->format],
+        thtx->width * g_texture_formats_b[thtx->format], 0, &rect, 1, 0);
+    texture->bytes_per_pixel = g_texture_formats_b[stored_format];
     if (surface)
         surface->Release();
     return 0;

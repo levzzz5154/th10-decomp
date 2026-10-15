@@ -10,11 +10,11 @@ int EclView_0040a940::Update() {
     EclViewFindData_0040a450 find;
     switch (state) {
     case 4:
-        data_00474e30.previous_keys = data_00474e30.held_keys;
-        data_00474e30.held_keys = data_00474e30.raw;
-        data_00474e30.Update();
-        data_00474e30.new_press = data_00474e30.repeated;
-        if (data_00474e30.new_press & 8) {
+        g_input_keys_raw.previous_keys = g_input_keys_raw.held_keys;
+        g_input_keys_raw.held_keys = g_input_keys_raw.raw;
+        g_input_keys_raw.Update();
+        g_input_keys_raw.new_press = g_input_keys_raw.repeated;
+        if (g_input_keys_raw.new_press & 8) {
             g_player->Resume();
             g_player->Reset();
             g_bullet_manager->Resume();
@@ -28,19 +28,19 @@ int EclView_0040a940::Update() {
         break;
     case 1:
         EclView_Remember(&menu);
-        if (data_00474e30.Active(0x20)) menu.Advance(1);
-        if (data_00474e30.Active(0x10)) menu.Advance(-1);
+        if (g_input_keys_raw.Active(0x20)) menu.Advance(1);
+        if (g_input_keys_raw.Active(0x10)) menu.Advance(-1);
         switch (menu.selection) {
         case 2:
-            if (data_00474e30.repeated & 0x1001)
+            if (g_input_keys_raw.repeated & 0x1001)
                 EclView_SetGameMode_0040ac90(&g_application, 3);
             break;
         case 1:
             if (g_enemy_ctrl) {
                 EclView_Remember(&entry_cursor);
-                if (data_00474e30.MaskActive(0x80)) entry_cursor.Advance(1);
-                if (data_00474e30.MaskActive(0x40)) entry_cursor.Advance(-1);
-                if (data_00474e30.pressed & 0x1001) {
+                if (g_input_keys_raw.MaskActive(0x80)) entry_cursor.Advance(1);
+                if (g_input_keys_raw.MaskActive(0x40)) entry_cursor.Advance(-1);
+                if (g_input_keys_raw.pressed & 0x1001) {
                     g_player->SuspendAndStop();
                     g_player->Reset();
                     g_bullet_manager->Suspend();
@@ -63,9 +63,9 @@ int EclView_0040a940::Update() {
             break;
         case 0:
             EclView_Remember(&file_cursor);
-            if (data_00474e30.Active(0x80)) file_cursor.Advance(1);
-            if (data_00474e30.Active(0x40)) file_cursor.Advance(-1);
-            if (data_00474e30.repeated & 0x1001) {
+            if (g_input_keys_raw.Active(0x80)) file_cursor.Advance(1);
+            if (g_input_keys_raw.Active(0x40)) file_cursor.Advance(-1);
+            if (g_input_keys_raw.repeated & 0x1001) {
                 EclView_Release(g_front);
                 EclView_Release(g_player);
                 EclView_Release(g_bullet_manager);

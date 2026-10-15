@@ -97,15 +97,15 @@ struct FadeManagerView_004445C0 {
 
 // The camera focus at 0x491D7C, the near/far distances at 0x491E78, the fade
 // colour channels at 0x491E80 and the packed fade colour at 0x491E90.
-extern "C" float data_00491d7c;
-extern "C" float data_00491d80;
-extern "C" float data_00491d84;
-extern "C" float data_00491e78;
-extern "C" float data_00491e7c;
-extern "C" float data_00491e80;
-extern "C" float data_00491e84;
-extern "C" float data_00491e88;
-extern "C" unsigned int data_00491e90;
+extern "C" float g_back_camera;
+extern "C" float g_back_camera_2;
+extern "C" float g_back_camera_3;
+extern "C" float g_sprite_fade_near;
+extern "C" float g_sprite_fade_far;
+extern "C" float g_sprite_fade_color_r;
+extern "C" float g_sprite_fade_color_g;
+extern "C" float g_sprite_fade_color_b;
+extern "C" unsigned int g_sprite_fade_color;
 
 // The D3DX entry thunk at 0x4521C4; it jumps to the imported D3DXVec3Transform,
 // which pops its own three arguments.
@@ -122,7 +122,7 @@ extern "C" __declspec(noinline) int FadedQuadDraw_004445c0(SprtCtrlBatchView* ma
                                                            RenderEntity* entity) {
     FadeManagerView_004445C0* view = (FadeManagerView_004445C0*)manager;
     ((ProjectedEntity_00444240*)entity)->ProjectQuad((ProjectionManager_00444240*)manager);
-    float span = data_00491e78 - data_00491e7c;
+    float span = g_sprite_fade_near - g_sprite_fade_far;
     unsigned int color = (entity->flags & 0x8000u) ? entity->color_secondary : entity->color;
     FadeProbe4_004445C0 projected[4];
     // Traverse packed colors by their alpha-byte address, at one vertex stride.
@@ -132,25 +132,25 @@ extern "C" __declspec(noinline) int FadedQuadDraw_004445c0(SprtCtrlBatchView* ma
     for (int i = 0; color_cursor < color_end; ++i, color_cursor += sizeof(TexturedVertex)) {
         unsigned char* out = (unsigned char*)(color_cursor - 3);
         D3DXVec3Transform_004521c4(&projected[i], &view->probes[i].x, &view->projected_world);
-        float dx = projected[i].x - data_00491d7c;
-        float dy = projected[i].y - data_00491d80;
-        float dz = projected[i].z - data_00491d84;
+        float dx = projected[i].x - g_back_camera;
+        float dy = projected[i].y - g_back_camera_2;
+        float dz = projected[i].z - g_back_camera_3;
         float distance = DistanceFrom_004445C0(dx, dy, dz);
-        if (data_00491e78 < distance) {
-            float fade = (data_00491e78 - distance) / span;
+        if (g_sprite_fade_near < distance) {
+            float fade = (g_sprite_fade_near - distance) / span;
             if (fade >= 1.0f) {
-                *(unsigned int*)out = data_00491e90;
+                *(unsigned int*)out = g_sprite_fade_color;
                 out[3] = ((unsigned char*)&color)[3];
             } else {
                 out[0] = (unsigned char)(((unsigned char*)&color)[0]
                         - (unsigned char)(int)(((float)((unsigned char*)&color)[0]
-                                                - data_00491e80) * fade));
+                                                - g_sprite_fade_color_r) * fade));
                 out[1] = (unsigned char)(((unsigned char*)&color)[1]
                         - (unsigned char)(int)(((float)((unsigned char*)&color)[1]
-                                                - data_00491e84) * fade));
+                                                - g_sprite_fade_color_g) * fade));
                 unsigned short tail = *(const unsigned short*)((const unsigned char*)&color + 2);
                 out[2] = (unsigned char)((unsigned char)tail
-                        - (unsigned char)(int)(((float)(unsigned char)tail - data_00491e88) * fade));
+                        - (unsigned char)(int)(((float)(unsigned char)tail - g_sprite_fade_color_b) * fade));
                 out[3] = (unsigned char)(tail >> 8);
             }
         } else {

@@ -10,11 +10,11 @@ int FPS::Update() {
         fps = rate;
         if (rate > 65.0f) {
             if (++frame_events == 2) {
-                data_00492530 = data_00492528 = data_00492538 = data_00492540 =
+                g_frame_start_time = g_frame_target_time = g_frame_time = g_frame_min_delta =
                     FrameTimer_GetDelta();
             } else if (frame_events == 4) {
-                data_00492508 = 0;       // give up on the performance counter
-                data_00492530 = data_00492528 = data_00492538 = data_00492540 =
+                g_qpc_frequency = 0;       // give up on the performance counter
+                g_frame_start_time = g_frame_target_time = g_frame_time = g_frame_min_delta =
                     FrameTimer_GetDelta();
                 frame_events = 0;
             }

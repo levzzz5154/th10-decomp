@@ -26,16 +26,16 @@ struct ScreenshotCaptureCriticalSection { unsigned char storage[24]; };
 extern "C" {
 __declspec(dllimport) void __stdcall EnterCriticalSection(ScreenshotCaptureCriticalSection* section);
 __declspec(dllimport) void __stdcall LeaveCriticalSection(ScreenshotCaptureCriticalSection* section);
-extern ScreenshotCaptureCriticalSection data_004922bc;
-extern unsigned char data_0049231f;
+extern ScreenshotCaptureCriticalSection g_text_log_lock;
+extern unsigned char g_text_log_lock_depth;
 }
 #pragma code_seg(".text$00i_append")
 __declspec(noinline) char* TextLog_00420670::Append(char* format, ...) {
     char staging[0x2000];
     va_list arguments;
     va_start(arguments, format);
-    EnterCriticalSection(&data_004922bc);
-    ++data_0049231f;
+    EnterCriticalSection(&g_text_log_lock);
+    ++g_text_log_lock_depth;
     asm_vsprintf_004524a6(staging, format, arguments);
     unsigned int length = strlen(staging);
     char* destination = cursor;
@@ -44,8 +44,8 @@ __declspec(noinline) char* TextLog_00420670::Append(char* format, ...) {
         cursor = (char*)((unsigned int)cursor + length);
         *cursor = 0;
     }
-    LeaveCriticalSection(&data_004922bc);
-    --data_0049231f;
+    LeaveCriticalSection(&g_text_log_lock);
+    --g_text_log_lock_depth;
     return format;
 }
 #pragma code_seg()

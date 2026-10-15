@@ -13,7 +13,7 @@ extern "C" int __stdcall WindowCreateContext(HINSTANCE* instances, int count) {
         total += WindowCreateEscape(instance, index);
         if (CreateGameWindow_00439730(instance) != 0)
             total += WindowCreateEscape(instance, total);
-        total += WindowCreateEscape(data_004924f0.window, index);
+        total += WindowCreateEscape(g_main_window.window, index);
     }
     return total;
 }

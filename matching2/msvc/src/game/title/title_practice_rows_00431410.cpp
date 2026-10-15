@@ -35,10 +35,10 @@ int TitleDrawView::DrawPracticeRows() {
                 if (!g_score[g_globals_character.character + g_globals_character.shot_type * 3]
                          .practice[stage - 1 + g_globals_character.difficulty * 6].unlocked)
                     AsciiManager_AddFormatted(g_ascii_manager, &position, "%s  ---------",
-                                             data_0047471c[stage]);
+                                             g_stage_names_long[stage]);
                 else
                     AsciiManager_AddFormatted(
-                        g_ascii_manager, &position, "%s  %.8d0", data_0047471c[stage],
+                        g_ascii_manager, &position, "%s  %.8d0", g_stage_names_long[stage],
                         g_score[g_globals_character.character + g_globals_character.shot_type * 3]
                             .practice[stage - 1 + g_globals_character.difficulty * 6].best_score);
                 position.y += 18.0f;

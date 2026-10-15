@@ -7,8 +7,8 @@
 #define g_replay stage_effect_data_00477838
 #define g_score stage_effect_data_0047783c
 #define g_game_speed stage_effect_data_00476f78
-#define data_00491fc4 stage_effect_data_00491fc4
-#define data_00491fb8 stage_effect_data_00491fb8
+#define g_stage_flags stage_effect_data_00491fc4
+#define g_main_state stage_effect_data_00491fb8
 #define g_sound_manager stage_effect_data_00492590
 // 0x0043C970..0x0043CAFB: screen fade/pulse/shake selector and its nine-way
 // compiler-generated switch table. Native LTCG agrees on this in ESI,
@@ -103,6 +103,6 @@ void Screen::Configure(int priority, int selected_mode,
 #undef g_replay
 #undef g_score
 #undef g_game_speed
-#undef data_00491fc4
-#undef data_00491fb8
+#undef g_stage_flags
+#undef g_main_state
 #undef g_sound_manager

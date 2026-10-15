@@ -39,7 +39,7 @@
   "roots": [],
   "absolute_symbols": [
     {
-      "symbol": "_data_0046d0b4",
+      "symbol": "_g_enemy_ctrl_vtable",
       "address": "0x0046D0B4",
       "kind": "data"
     }

@@ -123,12 +123,12 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_0049231e",
+      "symbol": "_g_file_lock_depth",
       "address": "0x49231e",
       "kind": "data"
     },
     {
-      "symbol": "_data_004922a4",
+      "symbol": "_g_file_lock",
       "address": "0x4922a4",
       "kind": "data"
     },
@@ -173,12 +173,12 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_data_00492380",
+      "symbol": "_g_executable_checksum",
       "address": "0x492380",
       "kind": "data"
     },
     {
-      "symbol": "_data_00492384",
+      "symbol": "_g_executable_size",
       "address": "0x492384",
       "kind": "data"
     },

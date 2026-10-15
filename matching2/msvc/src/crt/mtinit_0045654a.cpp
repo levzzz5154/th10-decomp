@@ -17,12 +17,12 @@ extern "C" unsigned int (__stdcall *imp_GetCurrentThreadId)();
 extern "C" void* imp_TlsGetValue;
 extern "C" void* imp_TlsSetValue;
 extern "C" void* imp_TlsFree;
-extern "C" void* data_00477374;
-extern "C" void* data_00477378;
-extern "C" void* data_0047737c;
-extern "C" void* data_00477380;
-extern "C" unsigned int data_00473390;
-extern "C" char data_004735d0;
+extern "C" void* g_crt_ptd_alloc;
+extern "C" void* g_crt_ptd_get;
+extern "C" void* g_crt_ptd_set;
+extern "C" void* g_crt_ptd_init;
+extern "C" unsigned int g_crt_tls_index;
+extern "C" char g_crt_ptd_init_marker;
 
 extern "C" int __cdecl asm_mtinit_0045654a() {
     if (!asm_mtinitlocks_00453aa1()) {
@@ -32,22 +32,22 @@ extern "C" int __cdecl asm_mtinit_0045654a() {
     void* module = imp_GetModuleHandleA(reinterpret_cast<const char*>(0x46aa5c));
     if (module) {
         void* (__stdcall *get_proc)(void*, const char*) = imp_GetProcAddress;
-        data_00477374 = get_proc(module, reinterpret_cast<const char*>(0x46aa50));
-        data_00477378 = get_proc(module, reinterpret_cast<const char*>(0x46aa44));
-        data_0047737c = get_proc(module, reinterpret_cast<const char*>(0x46aa38));
-        data_00477380 = get_proc(module, reinterpret_cast<const char*>(0x46aa30));
-        if (!data_00477378) {
-            data_00477378 = imp_TlsGetValue;
-            data_0047737c = imp_TlsSetValue;
-            data_00477374 = reinterpret_cast<void*>(&asm_FUN_0045631e_0045631e);
-            data_00477380 = imp_TlsFree;
+        g_crt_ptd_alloc = get_proc(module, reinterpret_cast<const char*>(0x46aa50));
+        g_crt_ptd_get = get_proc(module, reinterpret_cast<const char*>(0x46aa44));
+        g_crt_ptd_set = get_proc(module, reinterpret_cast<const char*>(0x46aa38));
+        g_crt_ptd_init = get_proc(module, reinterpret_cast<const char*>(0x46aa30));
+        if (!g_crt_ptd_get) {
+            g_crt_ptd_get = imp_TlsGetValue;
+            g_crt_ptd_set = imp_TlsSetValue;
+            g_crt_ptd_alloc = reinterpret_cast<void*>(&asm_FUN_0045631e_0045631e);
+            g_crt_ptd_init = imp_TlsFree;
         }
     }
-    data_00473390 = reinterpret_cast<unsigned int (__stdcall*)(void*)>(data_00477374)(reinterpret_cast<void*>(&asm_freefls_4_004563c8));
-    if (data_00473390 != 0xffffffff) {
+    g_crt_tls_index = reinterpret_cast<unsigned int (__stdcall*)(void*)>(g_crt_ptd_alloc)(reinterpret_cast<void*>(&asm_freefls_4_004563c8));
+    if (g_crt_tls_index != 0xffffffff) {
         ThreadData* data = asm_FUN_0045794d_0045794d(1, 0x8c);
-        if (data && reinterpret_cast<int (__stdcall*)(unsigned int, ThreadData*)>(data_0047737c)(data_00473390, data)) {
-            data->initaddr = &data_004735d0;
+        if (data && reinterpret_cast<int (__stdcall*)(unsigned int, ThreadData*)>(g_crt_ptd_set)(g_crt_tls_index, data)) {
+            data->initaddr = &g_crt_ptd_init_marker;
             data->holdrand = 1;
             unsigned int id = imp_GetCurrentThreadId();
             data->thread_handle = 0xffffffff;

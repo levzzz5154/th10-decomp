@@ -16,7 +16,7 @@ struct ArchiveEntry_004356f0 {
     unsigned int field_0C;   // +0x0C
 };
 
-extern "C" ArchiveEntry_004356f0 data_004923b0[];
+extern "C" ArchiveEntry_004356f0 g_archive_entries[];
 
 struct ArchiveName_004356f0 {
     char text[1];
@@ -34,11 +34,11 @@ const ArchiveEntry_004356f0* ArchiveName_004356f0::Find() const {
     strcpy(buffer, name);
     if (length >= 0) {
         char* suffix = buffer + length;
-        *(unsigned int*)suffix = *(unsigned int*)&data_0046f274;
-        suffix[4] = (char)*(unsigned char*)&data_0046f278;
+        *(unsigned int*)suffix = *(unsigned int*)&g_resource_dat_suffix;
+        suffix[4] = (char)*(unsigned char*)&g_resource_dat_last_char;
     }
-    ArchiveEntry_004356f0* entry = data_004923b0;
-    for (int index = 0; index < *(int*)&data_00477850; index++, entry++) {
+    ArchiveEntry_004356f0* entry = g_archive_entries;
+    for (int index = 0; index < *(int*)&g_archive_entry_count; index++, entry++) {
         if (strcmp(entry->name, buffer) == 0)
             return entry;
     }

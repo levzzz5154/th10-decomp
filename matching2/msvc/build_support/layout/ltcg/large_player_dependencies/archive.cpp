@@ -14,8 +14,8 @@ struct ArchiveReader {
 
 extern "C" ArchiveEntry* g_archive;
 extern "C" int data_00497994;
-extern "C" unsigned char data_0049231e;
-extern "C" unsigned char data_004922a4[];
+extern "C" unsigned char g_file_lock_depth;
+extern "C" unsigned char g_file_lock[];
 
 extern "C" void (__stdcall *imp_EnterCriticalSection)(void*);
 extern "C" void (__stdcall *imp_LeaveCriticalSection)(void*);
@@ -34,8 +34,8 @@ extern "C" __declspec(noinline) char* __stdcall Archive_LoadFile(const char* nam
                                                                  int fromDisk) {
     char* buffer;
     unsigned int size;
-    imp_EnterCriticalSection(data_004922a4);
-    ++data_0049231e;
+    imp_EnterCriticalSection(g_file_lock);
+    ++g_file_lock_depth;
     if (!fromDisk) {
         const char* slash = asm_strrchr_00452930(name, '\\');
         const char* base = (slash == 0) ? name : slash + 1;
@@ -84,12 +84,12 @@ looked_up:
         imp_CloseHandle(file);
     }
 done:
-    imp_LeaveCriticalSection(data_004922a4);
-    --data_0049231e;
+    imp_LeaveCriticalSection(g_file_lock);
+    --g_file_lock_depth;
     return buffer;
 failed:
-    imp_LeaveCriticalSection(data_004922a4);
-    --data_0049231e;
+    imp_LeaveCriticalSection(g_file_lock);
+    --g_file_lock_depth;
     return 0;
 }
 #pragma code_seg()

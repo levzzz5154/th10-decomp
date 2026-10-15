@@ -57,7 +57,7 @@ struct EclViewFindData_0040a450 {
 };
 
 extern "C" {
-extern EclViewInput_0040a450 data_00474e30;
+extern EclViewInput_0040a450 g_input_keys_raw;
 extern EclViewGameState_0040a450 g_application;
 void* __cdecl malloc(unsigned int size);
 __declspec(dllimport) void* __stdcall FindFirstFileA(const char* pattern, EclViewFindData_0040a450* data);

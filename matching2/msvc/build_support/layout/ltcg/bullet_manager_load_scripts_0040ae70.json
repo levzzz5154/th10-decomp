@@ -735,12 +735,12 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_0046d0b4",
+      "symbol": "_g_enemy_ctrl_vtable",
       "address": "0x0046D0B4",
       "kind": "data"
     },
     {
-      "symbol": "_data_0046dab0",
+      "symbol": "_g_laser_vtable",
       "address": "0x0046DAB0",
       "kind": "data"
     },
@@ -785,7 +785,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00477848",
+      "symbol": "_g_stage_route_current",
       "address": "0x00477848",
       "kind": "data"
     },
@@ -800,7 +800,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00491d6a",
+      "symbol": "_g_screen_mode",
       "address": "0x00491D6A",
       "kind": "data"
     },
@@ -880,12 +880,12 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_data_004918a4",
+      "symbol": "_g_screen_effects_frozen",
       "address": "0x004918A4",
       "kind": "data"
     },
     {
-      "symbol": "_data_004703e4",
+      "symbol": "_g_anm_vm_vtable",
       "address": "0x004703E4",
       "kind": "data"
     },
@@ -920,12 +920,12 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00491ff4",
+      "symbol": "_g_app_flags",
       "address": "0x00491FF4",
       "kind": "data"
     },
     {
-      "symbol": "_data_00491fb8",
+      "symbol": "_g_main_state",
       "address": "0x00491FB8",
       "kind": "data"
     },

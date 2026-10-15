@@ -14,14 +14,14 @@ int GameFrameAdvance_00439390(GameFrame_00439390* frame) {
         int task = asm_FUN_00449c00_00449c00(g_func_ctrl);
         asm_FUN_0043ddf0_0043ddf0(g_sound_manager);
         if (task == 0) {
-            data_00492254.Stop();
+            g_frame_worker.Stop();
             return 1;
         }
         if (task == -1) {
-            data_00492254.Stop();
+            g_frame_worker.Stop();
             return 2;
         }
-        const unsigned char& limit = data_00491d66;
+        const unsigned char& limit = g_frame_limit;
         ++frame->tick;
         if (limit + 1 <= frame->tick) {
             typedef long (__stdcall *BeginScene_00439390)(void*);
@@ -43,7 +43,7 @@ int GameFrameAdvance_00439390(GameFrame_00439390* frame) {
             frame->tick = 0;
             asm_FUN_004391f0_004391f0();
         }
-        data_004923a0 = FrameTimer_GetDelta() - frame->frame_time;
+        g_frame_leftover_time = FrameTimer_GetDelta() - frame->frame_time;
     } else {
         imp_Sleep(0);
     }

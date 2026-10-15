@@ -5,7 +5,7 @@ struct ArchiveName_004356f0 { char text[1]; __declspec(noinline) const ArchiveEn
 struct ArchiveResourceName { char text[1]; unsigned char* Read(DatArchive* archive, unsigned char* output) const; };
 struct ResourcePath { char text[1]; __declspec(noinline) unsigned char* Load(unsigned char* output) const; DWORD GetFileSize() const; };
 extern "C" char* __cdecl FirstByteSearch_00452730(const char*, int);
-extern "C" const char* data_00474908;
+extern "C" const char* g_resource_archive_path;
 #pragma code_seg(".text$09load")
 __declspec(noinline) unsigned char* __stdcall ResourceLoadRetail(const char* path, unsigned char* output) {
     DatArchive* archive = (DatArchive*)((const ArchiveName_004356f0*)path)->Find();
@@ -15,7 +15,7 @@ __declspec(noinline) unsigned char* __stdcall ResourceLoadRetail(const char* pat
         return name->Read(archive, output);
     }
     FileHandleOwner file;
-    file.Open(path, data_00474908);
+    file.Open(path, g_resource_archive_path);
     return static_cast<unsigned char*>(file.ReadWhole(file.GetSize()));
 }
 #pragma code_seg()

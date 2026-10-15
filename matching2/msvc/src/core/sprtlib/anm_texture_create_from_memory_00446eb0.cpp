@@ -12,8 +12,8 @@ int __stdcall AnmTexture_CreateFromMemory_00446eb0(AnmUploadTag_00446c70 tag,
                                                    AnmTexture_00446c70* texture, int format,
                                                    unsigned int color_key, int width, int height) {
     int stored_format = format;
-    if (data_00491d78 & 1) {
-        int d3d_format = data_0046f288[format];
+    if (g_sound_flags & 1) {
+        int d3d_format = g_texture_formats_a[format];
         if (d3d_format == 21 || d3d_format == 0)
             stored_format = 5;
         else if (d3d_format == 20)
@@ -21,10 +21,10 @@ int __stdcall AnmTexture_CreateFromMemory_00446eb0(AnmUploadTag_00446c70 tag,
     }
     if (asm_D3DXCreateTextureFromFileInMemoryEx_004521ca(
             g_d3d_device, texture->file_data, texture->data_size, width, height, 0, 0,
-            data_0046f288[stored_format], 1, 1, 0xFFFFFFFF, color_key, 0, 0, &texture->texture) != 0)
+            g_texture_formats_a[stored_format], 1, 1, 0xFFFFFFFF, color_key, 0, 0, &texture->texture) != 0)
         return -1;
     texture->FillTransparentPixels();
-    texture->bytes_per_pixel = data_0046f2a0[stored_format];
+    texture->bytes_per_pixel = g_texture_formats_b[stored_format];
     return 0;
 }
 #pragma code_seg()

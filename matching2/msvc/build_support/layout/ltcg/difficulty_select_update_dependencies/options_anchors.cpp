@@ -12,7 +12,7 @@ struct SpriteVm_00449670 {
 };
 // 0x0043E5A0: show a sprite of a resource.
 void __fastcall SelectResourceSprite_0043e5a0(void* resource, int sprite);
-extern "C" int data_00497854;
+extern "C" int g_options_music_volume;
 extern "C" const char str_set_vol[];
 
 #pragma code_seg(".text$0042c730_fn")
@@ -32,7 +32,7 @@ void SpriteHandle_00449670::SelectSprite(int sprite) {
 #pragma code_seg(".text$0042e5a0_fn")
 #ifndef TH10_FULL_OPTIONS_REFRESH
 void __stdcall RefreshOptions_0042e5a0(Title* room) {
-    data_00497854 = data_00491d4c.music_volume;
+    g_options_music_volume = g_key_bindings.music_volume;
     for (int kind = 8; kind < 12; ++kind) {
         reinterpret_cast<RecoveryMusicResourceQueue_0043e460*>(&g_sound_manager)->RegisterResource(
             str_set_vol, kind, kind);

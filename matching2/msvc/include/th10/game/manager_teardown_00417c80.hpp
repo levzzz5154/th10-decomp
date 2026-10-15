@@ -66,7 +66,7 @@ extern "C" {
 extern unsigned int g_globals_flags;
 // Requested application mode (10 = stage 4, 0xB extra stage, 4/0xF stage 1,
 // 0xD practice, 0xE/0xF ...).
-extern int data_00491fb8;
+extern int g_main_state;
 // Shared score-animation speed, reset to 1.0 for the next run.
 extern float g_score_default_speed;
 // The run's score record; the capped fail counter sits at +0x50.
@@ -80,7 +80,7 @@ extern void* g_globals_stage;
 extern void* g_globals_stage_shown;
 // Game states (destroyed with 0x00402440).
 extern void* g_background;
-extern void* data_004776e4;
+extern void* g_background_prev;
 // The pause-menu manager (released by 0x00422220).
 extern void* g_pause;
 // The side panel / item manager object.
@@ -112,11 +112,11 @@ extern struct FuncCtrl* g_func_ctrl;
 extern char str_dummy[];
 extern struct AnimationManager_0043e460 g_sound_manager;
 // Extra-content flag byte for the resource index choice.
-extern unsigned char data_00491d78;
+extern unsigned char g_sound_flags;
 // The published manager-state pointer, cleared with the state.
 extern void* g_game;
 // Post-teardown markers: the frame gate and the next-mode bias.
-extern int data_004918a4;
-extern int data_004923a8;
+extern int g_screen_effects_frozen;
+extern int g_main_clear_color;
 
 }

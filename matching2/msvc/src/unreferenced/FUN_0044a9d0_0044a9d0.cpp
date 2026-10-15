@@ -36,9 +36,9 @@ struct KeyboardDevice {
 
 extern "C" __declspec(dllimport) BOOL __stdcall GetKeyboardState(BYTE* state);
 
-extern "C" unsigned int data_004924fc;        // 0x004924FC  input enabled
-extern "C" unsigned int data_00491ff4;        // 0x00491FF4  input mode flags
-extern "C" KeyboardDevice* data_00491c38;     // 0x00491C38  keyboard device
+extern "C" unsigned int g_input_enabled;        // 0x004924FC  input enabled
+extern "C" unsigned int g_app_flags;        // 0x00491FF4  input mode flags
+extern "C" KeyboardDevice* g_keyboard_device;     // 0x00491C38  keyboard device
 
 // 0x0044A190 receives the packed mask in ECX, an unused register argument and
 // two stack words (the binding set and the device, both zero here) and answers
@@ -64,8 +64,8 @@ unsigned short __fastcall FUN_0044a9d0_0044a9d0(unsigned int binding_set, unsign
             (0x00474E30 + binding_set * 0x6A);
     BYTE state[256];
 
-    if (data_004924fc) {
-        if (!(data_00491ff4 & 0x200)) {
+    if (g_input_enabled) {
+        if (!(g_app_flags & 0x200)) {
             GetKeyboardState(state);
 
             unsigned char keys = 0;
@@ -98,13 +98,13 @@ unsigned short __fastcall FUN_0044a9d0_0044a9d0(unsigned int binding_set, unsign
             mask |= (state[0x61] & 0x80) ? 0x60 : 0;
             mask |= (state[0x63] & 0x80) ? 0xa0 : 0;
         } else {
-            int result = data_00491c38->vtable->GetDeviceState(
-                data_00491c38, 256, state);
+            int result = g_keyboard_device->vtable->GetDeviceState(
+                g_keyboard_device, 256, state);
             mask = 0;
             if (result == (int)0x8007001e) {
-                data_00491c38->vtable->Acquire(data_00491c38);
+                g_keyboard_device->vtable->Acquire(g_keyboard_device);
             } else if (result != 0) {
-                data_00491c38->vtable->Acquire(data_00491c38);
+                g_keyboard_device->vtable->Acquire(g_keyboard_device);
             } else {
                 unsigned char keys = 0;
                 keys = (unsigned char)((keys >> 1) | (state[0x2c] & 0x80));

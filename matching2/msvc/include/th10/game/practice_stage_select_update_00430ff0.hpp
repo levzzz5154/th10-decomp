@@ -3,9 +3,9 @@
 #include "th10/game/shot_type_select_update_00430a60.hpp"
 
 extern "C" {
-extern int data_00491c08;               // practice stage selected last time
-extern int data_00474cac;               // number key held when practice starts
-extern unsigned char data_00497aa8[256];    // keyboard snapshot
+extern int g_title_practice_selection;               // practice stage selected last time
+extern int g_practice_difficulty;               // number key held when practice starts
+extern unsigned char g_keyboard_state[256];    // keyboard snapshot
 }
 
 // 0x0044B010 as its callers see it: the snapshot buffer in EDX and nothing

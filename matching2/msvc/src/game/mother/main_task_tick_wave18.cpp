@@ -2,7 +2,7 @@
 #pragma code_seg(".text$00b2_main")
 __declspec(noinline) int __fastcall MainTaskTickWave18(MainTaskStateWave18* state) {
     if ((state->flags_3CC & 0x80) != 0 && state->state_63C == 0)
-        data_00491fb8 = 3;
+        g_main_state = 3;
     g_sound_manager.TickFades();
     PollInputWave18(0);
     if (AnmPendingWave18(g_sprt_ctrl)) return 4;

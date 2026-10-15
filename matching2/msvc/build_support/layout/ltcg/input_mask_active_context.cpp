@@ -5,7 +5,7 @@
 int __stdcall InputMaskActiveCompilerContext(unsigned short* masks, int count) {
     int total = 0;
     for (int index = 0; index < count; ++index) {
-        total += data_00474e30.InputMaskActive(masks[index]);
+        total += g_input_keys_raw.InputMaskActive(masks[index]);
     }
     return total;
 }

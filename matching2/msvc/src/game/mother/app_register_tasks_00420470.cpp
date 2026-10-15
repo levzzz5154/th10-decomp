@@ -15,16 +15,16 @@ int __fastcall AppFlush_004200d0(void* app);
 int __fastcall AppOnRegister_004201b0(void* app);
 extern FuncCtrl* g_func_ctrl;
 extern App_00491c28 g_application;
-extern int data_00491fb4;
-extern int data_00491fb8;
-extern int data_00491fc0;
+extern int g_main_task_status_a;
+extern int g_main_state;
+extern int g_main_task_status_b;
 }
 
 #pragma code_seg(".text$00fn")
 extern "C" __declspec(noinline) int __stdcall App_RegisterTasks_00420470() {
-    data_00491fb4 = -2;
-    data_00491fb8 = 0;
-    data_00491fc0 = 0;
+    g_main_task_status_a = -2;
+    g_main_state = 0;
+    g_main_task_status_b = 0;
 
     SchedulerTask* task = SchedulerCallback_Create_00449ed0(AppUpdate_0041ff80);
     task->context = &g_application;

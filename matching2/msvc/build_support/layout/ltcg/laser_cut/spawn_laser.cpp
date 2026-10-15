@@ -42,7 +42,7 @@ int LaserSpawnParameters_0041c510::SpawnIn(LaserManager_0041c510* manager, int k
 #pragma code_seg(".text$f0041c5b0F")
 LineLaser_0041c5b0* __fastcall LineLaser_Construct_0041c5b0(LineLaser_0041c5b0* self) {
     LaserBase_Construct_0041c030(0, self);
-    self->vtable = &data_0046da60;
+    self->vtable = &g_line_laser_vtable;
     self->params.Construct();
     self->beam.Construct();
     self->flare.Construct();
@@ -53,7 +53,7 @@ LineLaser_0041c5b0* __fastcall LineLaser_Construct_0041c5b0(LineLaser_0041c5b0* 
 #pragma code_seg(".text$f0041c680F")
 BeamLaser_0041c680* __fastcall BeamLaser_Construct_0041c680(BeamLaser_0041c680* self) {
     LaserBase_Construct_0041c030(0, self);
-    self->vtable = &data_0046da10;
+    self->vtable = &g_beam_laser_vtable;
     self->params.Construct();
     self->beam.Construct();
     self->flare.Construct();

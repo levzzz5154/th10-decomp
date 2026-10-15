@@ -125,12 +125,12 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_004922bc",
+      "symbol": "_g_text_log_lock",
       "address": "0x4922bc",
       "kind": "data"
     },
     {
-      "symbol": "_data_0049231f",
+      "symbol": "_g_text_log_lock_depth",
       "address": "0x49231f",
       "kind": "data"
     },

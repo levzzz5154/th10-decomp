@@ -17,8 +17,8 @@ Gui_0040dc80* g_front;
 AnimationManager_0040dc80* g_sprt_ctrl;
 ScoreState_0040dc80 g_globals;
 SoundQueue g_sound_manager;
-int data_00474c50;
-PolarVec3 data_00491e6c;
+int g_enemy_hittable;
+PolarVec3 g_enemy_scroll;
 }
 
 extern "C" short g_sound_priority[];

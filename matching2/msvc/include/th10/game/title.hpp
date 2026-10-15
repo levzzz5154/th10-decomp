@@ -3,13 +3,13 @@
 #include "th10/game/anm_vm.hpp"
 #include "th10/game/counter_block.hpp"
 
-extern "C" const void* const data_0046ecf0[];
+extern "C" const void* const g_title_vtable[];
 
 // The vtable pointer, set before any member is constructed.
 struct TitleBase {
     const void* const* vtable;
 
-    __forceinline TitleBase() { vtable = data_0046ecf0; }
+    __forceinline TitleBase() { vtable = g_title_vtable; }
 };
 
 // A state word whose low bit is cleared on construction.

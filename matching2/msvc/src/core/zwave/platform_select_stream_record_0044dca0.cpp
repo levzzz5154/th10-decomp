@@ -1,7 +1,7 @@
 // Executed with maintained name lookup/selection by the cached-launch suite.
 // See reference/recovery_notes/sound_cached_stream_launch_0043d950.md for
 // invalid/null handles, callback record reloads and ignored Seek failure.
-extern "C" unsigned int data_004977a4;
+extern "C" unsigned int g_bgm_data_offset;
 extern "C" __declspec(dllimport) unsigned int __stdcall SetFilePointer(
         void*, int, int*, unsigned int);
 
@@ -34,7 +34,7 @@ __declspec(noinline) int PlatformStreamState_0044DCA0::Select(
     if (handle == (void*)-1) return (int)0x80004005u;
     record_090 = record;
     if (handle != 0) {
-        SetFilePointer(handle, (int)(data_004977a4 + record->offset_010),
+        SetFilePointer(handle, (int)(g_bgm_data_offset + record->offset_010),
                        0, 0);
         position_008 = record_090->length_01c;
     }

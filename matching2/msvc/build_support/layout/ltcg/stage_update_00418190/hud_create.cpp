@@ -7,8 +7,8 @@
 #define g_replay stage_hud_data_00477838
 #define g_score stage_hud_data_0047783c
 #define g_game_speed stage_hud_data_00476f78
-#define data_00491fc4 stage_hud_data_00491fc4
-#define data_00491fb8 stage_hud_data_00491fb8
+#define g_stage_flags stage_hud_data_00491fc4
+#define g_main_state stage_hud_data_00491fb8
 #define g_sound_manager stage_hud_data_00492590
 #include "hud_view.hpp"
 #pragma code_seg(".text$00448d00_fn")
@@ -30,6 +30,6 @@ ResultAnimationId __stdcall ResultAnimation_CreatePrimary(void* file, int script
 #undef g_replay
 #undef g_score
 #undef g_game_speed
-#undef data_00491fc4
-#undef data_00491fb8
+#undef g_stage_flags
+#undef g_main_state
 #undef g_sound_manager

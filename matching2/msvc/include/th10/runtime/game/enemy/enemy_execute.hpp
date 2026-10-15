@@ -93,7 +93,7 @@ __declspec(noinline) Float3* __stdcall OffsetPoint_00418810(const Float3* point)
 
 struct RenderStageState { __declspec(noinline) void SelectStage_00401d20(int index); };
 extern "C" RenderStageState g_application;
-extern "C" unsigned char data_00491e48[], data_00491e08[], data_00491dc8[], data_00474df0[];
+extern "C" unsigned char g_projection_matrix[], g_projection_view_matrix[], g_projection_world_matrix[], g_enemy_project_viewport[];
 extern "C" Float3* __stdcall D3DXVec3Project_0045218e(Float3* out, const Float3* vector, const void* viewport,
                                                       const void* projection, const void* view, const void* world);
 

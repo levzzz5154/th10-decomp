@@ -56,7 +56,7 @@
   "constant_aliases": [],
   "absolute_symbols": [
     {
-      "symbol": "_data_00474e88",
+      "symbol": "_g_key_bindings_current",
       "address": "0x00474E88",
       "kind": "data"
     }

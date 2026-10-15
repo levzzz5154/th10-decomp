@@ -19,12 +19,12 @@ Gui* g_front;
 Player* g_player;
 Card* g_card;
 RenderStageState g_application;
-unsigned char data_00491e48[64], data_00491e08[64], data_00491dc8[64], data_00474df0[24];
+unsigned char g_projection_matrix[64], g_projection_view_matrix[64], g_projection_world_matrix[64], g_enemy_project_viewport[24];
 ScoreState g_globals;
 SoundQueue g_sound_manager;
 extern "C" void* g_sprt_ctrl;
 extern "C" void* g_item_manager;
-extern "C" int data_00474c84, data_00474c8c;
+extern "C" int g_stage_progress, g_stage_progress_echo;
 extern "C" short g_sound_priority[];
 extern "C" Float3 g_offset_point_00497d80;
 extern "C" unsigned int g_offset_point_state_00497d8c;
@@ -579,9 +579,9 @@ void Gui::CreateScoreDisplay_00415db0(int stage) {
     *(int**)(self + 0x9EB8) = display;
     display[1] = stage;
     int next = stage + 1;
-    int previous = data_00474c84;
-    data_00474c84 = next;
-    if (previous != next) data_00474c8c = 0;
+    int previous = g_stage_progress;
+    g_stage_progress = next;
+    if (previous != next) g_stage_progress_echo = 0;
 }
 void SoundQueue::QueuePan_0043dd10(int sound, float pan) {
     int* self = (int*)this;

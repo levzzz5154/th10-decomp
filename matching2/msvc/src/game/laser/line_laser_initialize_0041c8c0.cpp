@@ -77,7 +77,7 @@ typedef char LineLaserBeamOffset_0041c8c0[offsetof(LineLaser_0041c8c0, beam) == 
 typedef char LineLaserFlareOffset_0041c8c0[offsetof(LineLaser_0041c8c0, flare) == 0x9AC ? 1 : -1];
 
 extern "C" LaserAnimationBank_0041e5c0* g_laser_manager;
-extern "C" int data_00474170[];          // first laser script of each colour
+extern "C" int g_bullet_script_first[];          // first laser script of each colour
 
 #pragma code_seg(".text$00zline")
 __declspec(noinline) int LineLaser_0041c8c0::Initialize(const LineLaserParams_0041c8c0* init) {
@@ -85,7 +85,7 @@ __declspec(noinline) int LineLaser_0041c8c0::Initialize(const LineLaserParams_00
     state = 2;
     Entity* animation = &beam;
     Entity_StartScript_00404f30(g_laser_manager->laser_animation, animation,
-                                params.script + data_00474170[params.colour]);
+                                params.script + g_bullet_script_first[params.colour]);
     beam.StopFrame() = 2;
     asm_FUN_0043ee30_0043ee30(animation);
     if (params.flags & 1)

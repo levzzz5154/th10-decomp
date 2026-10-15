@@ -2,7 +2,7 @@
 #include <string.h>
 
 // The game timer vtable at 0x004703E4.
-extern "C" const void* const data_004703e4[];
+extern "C" const void* const g_anm_vm_vtable[];
 
 // A game timer: its vtable and four counters, all cleared on construction.
 struct GameTimer {
@@ -13,7 +13,7 @@ struct GameTimer {
     int control;
 
     __forceinline GameTimer() {
-        vtable = data_004703e4;
+        vtable = g_anm_vm_vtable;
         previous = 0;
         current = 0;
         current_f = 0;

@@ -53,8 +53,8 @@ struct ReplayFindData_004315c0 {
 };
 
 extern "C" {
-extern int data_00491c04;               // replay selected last time
-extern int data_00491c00;               // main task mode request
+extern int g_title_replay_selection;               // replay selected last time
+extern int g_main_mode_request;               // main task mode request
 extern char g_replay_path[];            // path of the replay to play
 int __cdecl sprintf(char* buffer, const char* format, ...);
 int __cdecl _mkdir(const char* path);

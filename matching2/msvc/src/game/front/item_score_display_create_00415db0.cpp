@@ -11,9 +11,9 @@ void ItemManager_00415db0::CreateScoreDisplay(int stage) {
         reinterpret_cast<char*>(score_table) + score_table[stage].offset);
     score_display->stage = stage;
     int next = stage + 1;
-    int previous = data_00474c84;
-    data_00474c84 = next;
+    int previous = g_stage_progress;
+    g_stage_progress = next;
     if (previous != next)
-        data_00474c8c = 0;
+        g_stage_progress_echo = 0;
 }
 #pragma code_seg()

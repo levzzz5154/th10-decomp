@@ -3,7 +3,7 @@
 #include "th10/game/pause_result_open_004231d0/open_state.hpp"
 __forceinline void PauseOpenState::Open(bool result) {
     if (g_game->replay_mode == 1) {
-        data_00491fb8 = (data_00491ff4 & 0x1000) ? 2 : 4;
+        g_main_state = (g_app_flags & 0x1000) ? 2 : 4;
         return;
     }
     phase = 6;
@@ -34,7 +34,7 @@ __forceinline void PauseOpenState::Open(bool result) {
         background = assigned;
     }
     Music_Load(0, str_bgm_th10_17_wav);
-    if (data_00491d78 & 0x10)
+    if (g_sound_flags & 0x10)
         g_music_requests.RegisterResource(str_dummy, 4, 0);
     g_music_requests.RegisterResource(str_dummy, 2, 0);
     g_score->result_track_heard = 1;

@@ -4,7 +4,7 @@
 #include "th10/platform/sound_queue.hpp"
 
 extern "C" void* g_sprt_ctrl;
-extern "C" unsigned int data_00474e36;
+extern "C" unsigned int g_input_keys_held;
 __declspec(noinline) void __stdcall RecoveryMusicInstallSlot_0042c670(
     Title* room, int index);
 // 0x00409E50: stop the animation tree a handle refers to.

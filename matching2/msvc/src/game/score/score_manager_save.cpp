@@ -13,17 +13,17 @@ extern "C" __declspec(dllimport) int __stdcall WriteFile(void* handle, const voi
 // Closes the shared file and leaves the file lock. The handle itself is left
 // as it was.
 inline void File_CloseShared() {
-    CloseHandle(data_00474c38);
-    LeaveCriticalSection(&data_004922a4);
-    --data_0049231e;
+    CloseHandle(g_file_write_handle);
+    LeaveCriticalSection(&g_file_lock);
+    --g_file_lock_depth;
 }
 
 // Writes one block to the shared file; a short write closes it.
 inline int File_WriteShared(const void* buffer, unsigned int size) {
     unsigned long written;
-    if (data_00474c38 == (void*)-1)
+    if (g_file_write_handle == (void*)-1)
         return -1;
-    WriteFile(data_00474c38, buffer, size, &written, 0);
+    WriteFile(g_file_write_handle, buffer, size, &written, 0);
     if (size != written) {
         File_CloseShared();
         return -2;
@@ -74,7 +74,7 @@ int ScoreArchive_0042B1E0::Save() {
         return -1;
     File_WriteShared(file, sizeof(ScoreFileHeader));
     File_WriteShared(packed, file->compressed_size);
-    if (data_00474c38 != (void*)-1)
+    if (g_file_write_handle != (void*)-1)
         File_CloseShared();
     if (packed)
         asm_free_00452422(packed);

@@ -44,12 +44,12 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00491ff4",
+      "symbol": "_g_app_flags",
       "address": "0x00491FF4",
       "kind": "data"
     },
     {
-      "symbol": "_data_00491fb8",
+      "symbol": "_g_main_state",
       "address": "0x00491FB8",
       "kind": "data"
     }

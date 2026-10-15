@@ -7,8 +7,8 @@
 #define g_replay stage_bind_data_00477838
 #define g_score stage_bind_data_0047783c
 #define g_game_speed stage_bind_data_00476f78
-#define data_00491fc4 stage_bind_data_00491fc4
-#define data_00491fb8 stage_bind_data_00491fb8
+#define g_stage_flags stage_bind_data_00491fc4
+#define g_main_state stage_bind_data_00491fb8
 #define g_sound_manager stage_bind_data_00492590
 // 0x0040D830: initialize an enemy script record and bind its first instruction.
 // The record embeds the interpreter instance at +0x8, its own instance link at
@@ -21,7 +21,7 @@
 #include <string.h>
 
 extern "C" float g_game_speed;
-extern "C" unsigned char data_0046d0c0;
+extern "C" unsigned char g_enemy_vtable_live;
 struct BindGameState_0040d830 {
     unsigned char reserved[0x54];
     BindScriptTable_0040d830* table;
@@ -129,7 +129,7 @@ __declspec(noinline) EnemyScriptEntity_0040d830* __fastcall InitializeEnemyScrip
     int* scratch_words = &entity->instance.scratch_cursor;
     scratch_words[0] = 0;
     scratch_words[1] = 0;
-    entity->vtable = &data_0046d0c0;
+    entity->vtable = &g_enemy_vtable_live;
     ClearBoundAnimations_0040d830(unused, reinterpret_cast<BindAnimationOwner_0040d830*>(&entity->payload));
     memset(&entity->payload, 0, sizeof(entity->payload));
     // The entity starts with its embedded instance as the only chain entry.
@@ -217,6 +217,6 @@ __declspec(noinline) EnemyScriptEntity_0040d830* __fastcall InitializeEnemyScrip
 #undef g_replay
 #undef g_score
 #undef g_game_speed
-#undef data_00491fc4
-#undef data_00491fb8
+#undef g_stage_flags
+#undef g_main_state
 #undef g_sound_manager

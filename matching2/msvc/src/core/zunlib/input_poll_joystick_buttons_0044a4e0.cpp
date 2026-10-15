@@ -48,16 +48,16 @@ typedef char JoystickInfoSize_0044a4e0[(sizeof(JoystickInfo_0044a4e0) == 0x34) ?
 typedef char DirectJoystickStateSize_0044a4e0[(sizeof(DirectJoystickState_0044a4e0) == 0x110) ? 1 : -1];
 
 extern "C" __declspec(dllimport) unsigned int __stdcall joyGetPosEx(unsigned int, JoystickInfo_0044a4e0*);
-extern "C" unsigned int data_00491ff4;
-extern "C" DirectJoystick_0044a4e0* data_00491c3c[];
-extern "C" unsigned char data_00497bb0[128];
+extern "C" unsigned int g_app_flags;
+extern "C" DirectJoystick_0044a4e0* g_pad_devices[];
+extern "C" unsigned char g_joystick_buttons[128];
 
 extern "C" unsigned char* __fastcall Input_PollJoystickButtons_0044a4e0(int padIndex) {
     // Keep the 0x34-byte WinMM and 0x110-byte DirectInput stack records.
     JoystickInfo_0044a4e0 info;
     DirectJoystickState_0044a4e0 state;
-    memset(data_00497bb0, 0, sizeof(data_00497bb0));
-    if (!(data_00491ff4 & 0x400)) {
+    memset(g_joystick_buttons, 0, sizeof(g_joystick_buttons));
+    if (!(g_app_flags & 0x400)) {
         memset(&info, 0, sizeof(info));
         info.size = sizeof(info);
         info.flags = 0xff;
@@ -65,24 +65,24 @@ extern "C" unsigned char* __fastcall Input_PollJoystickButtons_0044a4e0(int padI
             unsigned int buttons = info.buttons;
             unsigned int i = 0;
             do {
-                if (buttons & 1) data_00497bb0[i] = 0x80;
+                if (buttons & 1) g_joystick_buttons[i] = 0x80;
                 ++i;
                 buttons >>= 1;
             } while (i < 32);
         }
     } else {
-        if (data_00491c3c[padIndex]->Poll() < 0) {
+        if (g_pad_devices[padIndex]->Poll() < 0) {
             // Poll failure attempts acquisition only; no state read follows.
-            long result = data_00491c3c[padIndex]->Acquire();
+            long result = g_pad_devices[padIndex]->Acquire();
             int retries = 0;
             while ((unsigned long)result == 0x8007001e) {
-                result = data_00491c3c[padIndex]->Acquire();
+                result = g_pad_devices[padIndex]->Acquire();
                 if (++retries >= 400) break;
             }
         } else {
-            data_00491c3c[padIndex]->GetDeviceState(sizeof(state), &state);
-            memcpy(data_00497bb0, state.buttons, sizeof(state.buttons));
+            g_pad_devices[padIndex]->GetDeviceState(sizeof(state), &state);
+            memcpy(g_joystick_buttons, state.buttons, sizeof(state.buttons));
         }
     }
-    return data_00497bb0;
+    return g_joystick_buttons;
 }

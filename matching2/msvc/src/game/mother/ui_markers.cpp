@@ -2,9 +2,9 @@
 #include "th10/game/pause_result_open_004231d0/dispatcher_contract.hpp"
 
 // The three marker animations, also released by the queued cleanup at 0x00421070.
-extern "C" DispatcherRef data_00477824;
-extern "C" DispatcherRef data_00477828;
-extern "C" DispatcherRef data_0047782c;
+extern "C" DispatcherRef g_queued_cleanup_a;
+extern "C" DispatcherRef g_queued_cleanup_b;
+extern "C" DispatcherRef g_queued_cleanup_c;
 
 // 0x00420F20 (16 bytes): stop the embedded UI worker.
 #pragma code_seg(".text$00420f20_fn")
@@ -27,14 +27,14 @@ static DispatcherRef CreateMarker(AnimationResource_00449870* resource, int scri
 static __forceinline void CreateMarkersOnce(GameUiThreadHost* host, const DispatcherVec3* position) {
     if (host->markers_created)
         return;
-    data_00477824 = CreateMarker(host->marker_resource, 0);
-    data_00477828 = CreateMarker(host->marker_resource, 1);
-    data_0047782c = CreateMarker(host->marker_resource, 2);
+    g_queued_cleanup_a = CreateMarker(host->marker_resource, 0);
+    g_queued_cleanup_b = CreateMarker(host->marker_resource, 1);
+    g_queued_cleanup_c = CreateMarker(host->marker_resource, 2);
     host->markers_created = 1;
     AnimationLookupContext* context = reinterpret_cast<AnimationLookupContext*>(g_sprt_ctrl);
-    DispatcherSetPosition(position, context, AnimationScriptId(data_00477824.value));
-    DispatcherSetPosition(position, context, AnimationScriptId(data_00477828.value));
-    DispatcherSetPosition(position, context, AnimationScriptId(data_0047782c.value));
+    DispatcherSetPosition(position, context, AnimationScriptId(g_queued_cleanup_a.value));
+    DispatcherSetPosition(position, context, AnimationScriptId(g_queued_cleanup_b.value));
+    DispatcherSetPosition(position, context, AnimationScriptId(g_queued_cleanup_c.value));
 }
 
 // 0x00420F30 (309 bytes)

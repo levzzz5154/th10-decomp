@@ -1,7 +1,7 @@
 // 0x00428AD0. The first __fastcall argument selects the active enemy pool, the
 // second receives the resolved pointer at +0x4C, and the third stack argument
 // is unused. The pool's current enemy is rejected when its entry angle is
-// farther than the threshold stored in data_00470B4C.
+// farther than the threshold stored in flt_224.
 #include <math.h>
 
 extern "C" float flt_224;   // 0x00470B4C, 224.0f

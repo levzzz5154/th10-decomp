@@ -32,7 +32,7 @@ BackGround::~BackGround() {
                              (stage_flags & 1) + 4);
     if (g_background == this)
         g_background = 0;
-    if (data_004776e4 == this)
-        data_004776e4 = 0;
+    if (g_background_prev == this)
+        g_background_prev = 0;
 }
 #pragma code_seg()

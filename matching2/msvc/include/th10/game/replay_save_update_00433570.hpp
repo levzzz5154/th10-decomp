@@ -22,7 +22,7 @@ typedef char ReplaySaveRoomSize_00433570[sizeof(TitleReplaySaveView) == 0x5AAC ?
 
 extern "C" {
 extern ReplayFile_004315c0* g_replay;  // the replay just recorded
-extern const char* data_004746d8;           // the name entry character grid
+extern const char* g_name_entry_grid;           // the name entry character grid
 int __cdecl time_00452b71(int* out);
 }
 // 0x004297B0: destroy and free an opened replay, if there is one.

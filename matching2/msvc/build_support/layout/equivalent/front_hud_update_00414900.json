@@ -12,11 +12,11 @@
   "function": "?FrontHudUpdate_00414900@@YGHPAUFrontUpdateView@@@Z",
   "code_bytes": 3808,
   "absolute_symbols": {
-    "_data_00491ff4": {
+    "_g_app_flags": {
       "address": "0x00491FF4",
       "kind": "data"
     },
-    "_data_00491fb8": {
+    "_g_main_state": {
       "address": "0x00491FB8",
       "kind": "data"
     },
@@ -240,7 +240,7 @@
       "address": "0x00470D10",
       "kind": "data"
     },
-    "_data_00474788": {
+    "_g_stage_routes": {
       "address": "0x00474788",
       "kind": "data"
     },
@@ -276,11 +276,11 @@
       "address": "0x00474C7C",
       "kind": "data"
     },
-    "_data_00474c84": {
+    "_g_stage_progress": {
       "address": "0x00474C84",
       "kind": "data"
     },
-    "_data_00474c8c": {
+    "_g_stage_progress_echo": {
       "address": "0x00474C8C",
       "kind": "data"
     },
@@ -292,7 +292,7 @@
       "address": "0x00474E5C",
       "kind": "data"
     },
-    "_data_00474e62": {
+    "_g_input_keys_secondary": {
       "address": "0x00474E62",
       "kind": "data"
     },
@@ -324,7 +324,7 @@
       "address": "0x0047783C",
       "kind": "data"
     },
-    "_data_00477848": {
+    "_g_stage_route_current": {
       "address": "0x00477848",
       "kind": "data"
     },
@@ -336,7 +336,7 @@
       "address": "0x00491C28",
       "kind": "data"
     },
-    "_data_00491d78": {
+    "_g_sound_flags": {
       "address": "0x00491D78",
       "kind": "data"
     },
@@ -358,8 +358,8 @@
     }
   },
   "bindings": {
-    "_data_00491ff4": "0x00491FF4",
-    "_data_00491fb8": "0x00491FB8",
+    "_g_app_flags": "0x00491FF4",
+    "_g_main_state": "0x00491FB8",
     "_g_player": "0x00477834",
     "_g_globals_gauge": "0x00474C4C",
     "_g_enemy_ctrl": "0x00477704",
@@ -457,7 +457,7 @@
     "_dbl_neg112": "0x00470D00",
     "_flt_400": "0x00470D08",
     "_dbl_neg128": "0x00470D10",
-    "_data_00474788": "0x00474788",
+    "_g_stage_routes": "0x00474788",
     "_g_sound_priority": "0x004749CE",
     "_g_globals": "0x00474C40",
     "_g_globals_power": "0x00474C48",
@@ -466,11 +466,11 @@
     "_g_globals_lives": "0x00474C70",
     "_g_globals_difficulty": "0x00474C74",
     "_g_globals_stage": "0x00474C7C",
-    "_data_00474c84": "0x00474C84",
-    "_data_00474c8c": "0x00474C8C",
+    "_g_stage_progress": "0x00474C84",
+    "_g_stage_progress_echo": "0x00474C8C",
     "_g_globals_flags": "0x00474CA0",
     "_g_input": "0x00474E5C",
-    "_data_00474e62": "0x00474E62",
+    "_g_input_keys_secondary": "0x00474E62",
     "_g_game_speed": "0x00476F78",
     "_g_ascii_manager": "0x004776E0",
     "_g_front": "0x0047770C",
@@ -478,10 +478,10 @@
     "_g_pause": "0x00477830",
     "_g_replay": "0x00477838",
     "_g_score": "0x0047783C",
-    "_data_00477848": "0x00477848",
+    "_g_stage_route_current": "0x00477848",
     "_g_func_ctrl": "0x00491BE4",
     "_g_application": "0x00491C28",
-    "_data_00491d78": "0x00491D78",
+    "_g_sound_flags": "0x00491D78",
     "_recovery_draw_shadowed_00437db0@24": "0x00437DB0",
     "_recovery_draw_unshadowed_00437fe0@24": "0x00437FE0",
     "_recovery_vsprintf_004524a6": "0x004524A6",

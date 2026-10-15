@@ -5,7 +5,7 @@
 // scheduler records it creates (record+0x08, priority 0x24, record+0x20 = the
 // manager), and the scheduler calls a routine with its context in ECX, so the
 // body is reached with the manager there.  The body clears the two shake offsets
-// the camera setup copies into the active view (data_00491E64/data_00491E68),
+// the camera setup copies into the active view (g_screen_shake_x/g_screen_shake_y),
 // clears the manager's own sprite origin (origin_x/origin_y at +0x5C/+0x60, the
 // pair the quad pipelines add to every sprite corner) and then walks render-slot
 // 14's entity list through 0x00448980, returning that call's result.
@@ -36,7 +36,7 @@ struct ShakeOffset_00448740 {
     float x;    // 0x00491E64
     float y;    // 0x00491E68
 };
-extern "C" ShakeOffset_00448740 data_00491e64;
+extern "C" ShakeOffset_00448740 g_screen_shake_x;
 
 // 0x00448980: walk the entity list of one render slot.
 extern "C" int __cdecl asm_AnimationManager_RenderBucket_00448980(
@@ -44,7 +44,7 @@ extern "C" int __cdecl asm_AnimationManager_RenderBucket_00448980(
 
 #pragma code_seg(".text$01slot14")
 int SprtCtrlBatchView::ResetOriginAndRenderSlot14() {
-    ShakeOffset_00448740* shake = &data_00491e64;
+    ShakeOffset_00448740* shake = &g_screen_shake_x;
     shake->x = 0.0f;
     shake->y = 0.0f;
     g_sprt_ctrl->origin_x = 0.0f;

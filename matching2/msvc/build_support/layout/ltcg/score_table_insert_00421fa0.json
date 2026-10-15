@@ -72,17 +72,17 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_004746d8",
+      "symbol": "_g_name_entry_grid",
       "address": "0x004746D8",
       "kind": "data"
     },
     {
-      "symbol": "_data_00477848",
+      "symbol": "_g_stage_route_current",
       "address": "0x00477848",
       "kind": "data"
     },
     {
-      "symbol": "_data_00474788",
+      "symbol": "_g_stage_routes",
       "address": "0x00474788",
       "kind": "data"
     },

@@ -138,7 +138,7 @@ void ProjectileCommandRuntime::Tick() {
                 reinterpret_cast<AnimationResource_0043e710*>(
                     reinterpret_cast<ProjectileSpawnManager*>(g_bullet_manager)->animations),
                 &record.sprite,
-                data_00474170[command->value_c] + command->value_d);
+                g_bullet_script_first[command->value_c] + command->value_d);
             break;
         case 0x8000:
             record.motion_flags |= cmd;

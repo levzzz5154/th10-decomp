@@ -124,9 +124,9 @@ extern "C" __declspec(noinline) int __stdcall SptTest_TickVm_0044fd10(SptTestRes
 }
 
 // 0x00450500
-extern "C" const unsigned int data_0046d0d8[];
+extern "C" const unsigned int g_enemy_vtable_released[];
 inline ScriptVm_00450560::ScriptVm_00450560()
-    : vtable(reinterpret_cast<unsigned int>(data_0046d0d8)), field_1010(0), field_1014(0) {}
+    : vtable(reinterpret_cast<unsigned int>(g_enemy_vtable_released)), field_1010(0), field_1014(0) {}
 #pragma code_seg(".text$c5create")
 SptTestResource_0042be20* ScriptParser_0042be20::CreateVm(const char* name) {
     ScriptVm_00450560* vm = new ScriptVm_00450560;

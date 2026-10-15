@@ -38,7 +38,7 @@
   "constants": [],
   "absolute_symbols": [
     {
-      "symbol": "_data_0046f328",
+      "symbol": "_g_crt_stream_vtable_b",
       "address": "0x0046F328",
       "kind": "data"
     }

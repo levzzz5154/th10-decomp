@@ -1,8 +1,8 @@
 #include "th10/game/fps_runtime.hpp"
 #include "th10/game/game_thread_queue_native.hpp"
 extern "C" GameThread_00401530 *g_ascii_manager;
-extern "C" int data_00491fb8;
-extern "C" unsigned char data_00491d66;
+extern "C" int g_main_state;
+extern "C" unsigned char g_frame_limit;
 extern "C" const float flt_30;
 extern "C" const float flt_40;
 extern "C" const char str_fps_format[];
@@ -11,7 +11,7 @@ extern "C" const char str_fps_format[];
 #pragma code_seg(".text$07draw")
 int FPS::Draw() {
     Update();
-    if (data_00491fb8 != 0xE) {
+    if (g_main_state != 0xE) {
         GameThread_00401530 *thread = g_ascii_manager;
         const float updated_fps = fps;
         if (thread) {
@@ -25,7 +25,7 @@ int FPS::Draw() {
         g_ascii_manager->current_4c=0xFFFFFFFF;
         }
     }
-    frame_count += (unsigned int)data_00491d66 + 1;
+    frame_count += (unsigned int)g_frame_limit + 1;
     return 1;
 }
 #pragma code_seg()

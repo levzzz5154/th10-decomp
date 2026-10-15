@@ -18,8 +18,8 @@ struct CriticalSection_0044b8e0 { unsigned char storage[24]; };
 extern "C" {
 __declspec(dllimport) void __stdcall EnterCriticalSection(CriticalSection_0044b8e0* section);
 __declspec(dllimport) void __stdcall LeaveCriticalSection(CriticalSection_0044b8e0* section);
-extern CriticalSection_0044b8e0 data_004922bc;
-extern unsigned char data_0049231f;
+extern CriticalSection_0044b8e0 g_text_log_lock;
+extern unsigned char g_text_log_lock_depth;
 }
 
 // The 8 KiB text ring: the append cursor at +0x2000 and the dirty flag at
@@ -31,8 +31,8 @@ __declspec(noinline) char* TextLog_0044b8e0::AppendLine(char* format, ...) {
     char buffer[512];
     va_list va;
     va_start(va, format);
-    EnterCriticalSection(&data_004922bc);
-    ++data_0049231f;
+    EnterCriticalSection(&g_text_log_lock);
+    ++g_text_log_lock_depth;
     asm_vsprintf_004524a6(buffer, format, va);
     unsigned int length = strlen(buffer);
     char* dest = cursor;
@@ -42,8 +42,8 @@ __declspec(noinline) char* TextLog_0044b8e0::AppendLine(char* format, ...) {
         *cursor = 0;
     }
     dirty = 1;
-    LeaveCriticalSection(&data_004922bc);
-    --data_0049231f;
+    LeaveCriticalSection(&g_text_log_lock);
+    --g_text_log_lock_depth;
     return format;
 }
 #pragma code_seg()

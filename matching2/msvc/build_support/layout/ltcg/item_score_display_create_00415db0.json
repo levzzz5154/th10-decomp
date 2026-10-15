@@ -100,12 +100,12 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00474c84",
+      "symbol": "_g_stage_progress",
       "address": "0x00474C84",
       "kind": "data"
     },
     {
-      "symbol": "_data_00474c8c",
+      "symbol": "_g_stage_progress_echo",
       "address": "0x00474C8C",
       "kind": "data"
     },

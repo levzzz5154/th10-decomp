@@ -10,8 +10,8 @@
 // detach it from the current game state and release its owned allocation list.
 // The link node at +0x116C is embedded in the record, so the same triple is
 // both the record's link and the list's node type.
-extern "C" unsigned char data_0046d0c0;   // 0x0046D0C0: live method table
-extern "C" unsigned char data_0046d0d8;   // 0x0046D0D8: released method table
+extern "C" unsigned char g_enemy_vtable_live;   // 0x0046D0C0: live method table
+extern "C" unsigned char g_enemy_vtable_released;   // 0x0046D0D8: released method table
 extern "C" void __cdecl entry_free_004524a1(void* block);
 
 struct Enemy_0040dae0;
@@ -97,7 +97,7 @@ void EnemyLink_0040dae0::Unlink() {
 
 void __stdcall Enemy_Release_0040dae0(Enemy_0040dae0* self) {
     EnemyCtrlLifecycleView* manager = *(EnemyCtrlLifecycleView**)&g_enemy_ctrl;
-    self->vtable = (int)&data_0046d0c0;
+    self->vtable = (int)&g_enemy_vtable_live;
     if (manager->head == &self->link)
         manager->head = self->link.next;
     if (manager->tail == &self->link)
@@ -151,7 +151,7 @@ void __stdcall Enemy_Release_0040dae0(Enemy_0040dae0* self) {
     }
 
     EnemyFreeNode_0040dae0* block = self->free_list;
-    self->vtable = (int)&data_0046d0d8;
+    self->vtable = (int)&g_enemy_vtable_released;
     while (block != 0) {
         EnemyFreeNode_0040dae0* next = block->next;
         entry_free_004524a1(block->data);

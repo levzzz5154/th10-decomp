@@ -2,7 +2,7 @@
 //
 // The quad is 256 units square, centred on the origin, with its texture
 // coordinates running 0..1. A second copy with room for a colour per vertex is
-// kept in data_00497930. The quad is uploaded to a new vertex buffer, which is
+// kept in g_clip_mirror_vertices. The quad is uploaded to a new vertex buffer, which is
 // left bound as stream 0.
 //
 // Native LTCG passes the host in EAX.
@@ -22,18 +22,18 @@ void ClipHost_004462f0::InitializeClip() {
     vertices[0].v = vertices[1].v = 0.0f;
     vertices[2].v = vertices[3].v = 1.0f;
 
-    data_00497930[0].position = vertices[0].position;
-    data_00497930[1].position = vertices[1].position;
-    data_00497930[2].position = vertices[2].position;
-    data_00497930[3].position = vertices[3].position;
-    data_00497930[0].u = vertices[0].u;
-    data_00497930[0].v = vertices[0].v;
-    data_00497930[1].u = vertices[1].u;
-    data_00497930[1].v = vertices[1].v;
-    data_00497930[2].u = vertices[2].u;
-    data_00497930[2].v = vertices[2].v;
-    data_00497930[3].u = vertices[3].u;
-    data_00497930[3].v = vertices[3].v;
+    g_clip_mirror_vertices[0].position = vertices[0].position;
+    g_clip_mirror_vertices[1].position = vertices[1].position;
+    g_clip_mirror_vertices[2].position = vertices[2].position;
+    g_clip_mirror_vertices[3].position = vertices[3].position;
+    g_clip_mirror_vertices[0].u = vertices[0].u;
+    g_clip_mirror_vertices[0].v = vertices[0].v;
+    g_clip_mirror_vertices[1].u = vertices[1].u;
+    g_clip_mirror_vertices[1].v = vertices[1].v;
+    g_clip_mirror_vertices[2].u = vertices[2].u;
+    g_clip_mirror_vertices[2].v = vertices[2].v;
+    g_clip_mirror_vertices[3].u = vertices[3].u;
+    g_clip_mirror_vertices[3].v = vertices[3].v;
 
     ClipDevice* device = g_d3d_device;
     device->vtable->CreateVertexBuffer(device, sizeof(vertices), 0, 0x102, 1, &buffer, 0);

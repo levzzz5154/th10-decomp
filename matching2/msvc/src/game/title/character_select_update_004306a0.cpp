@@ -74,17 +74,17 @@ __declspec(noinline) int __stdcall TitleMode7_004306a0(Title* room) {
     case 2: {
         MenuCursor* cursor = &room->cursor;
         cursor->previous_selection = cursor->selection;
-        if ((short)data_00474e30.InputMaskActive(0x40)) cursor->Advance(-1);
-        if ((short)data_00474e30.InputMaskActive(0x80)) cursor->Advance(1);
+        if ((short)g_input_keys_raw.InputMaskActive(0x40)) cursor->Advance(-1);
+        if ((short)g_input_keys_raw.InputMaskActive(0x80)) cursor->Advance(1);
         if (cursor->previous_selection != cursor->selection) {
             g_sound_manager.Queue(12, 0);
             reinterpret_cast<TitleAnimationSlotView*>(room)->RestartSlot(125);
             room->SetSlotFrame(125, cursor->selection + 7);
         }
-        if (data_00474e36 & 0xa) {
+        if (g_input_keys_held & 0xa) {
             room->SetTimerTarget(4);
             g_sound_manager.Queue(11, 0);
-        } else if (data_00474e36 & 0x1001) {
+        } else if (g_input_keys_held & 0x1001) {
             AnimationHandle_004497d0* handle =
                 reinterpret_cast<AnimationHandle_004497d0*>(&room->animation_slots[125]);
             {

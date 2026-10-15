@@ -22,7 +22,7 @@ void ReplayManager_0042a6a0::FinishStage() {
         ReplayStage_0042a6a0* record = stage_data[g_globals.stage];
         ReplayFinishClearPools_0042ab20(this, g_globals.stage);
         current_pool = AppendPage(g_globals.stage);
-        if (data_00491fc4 == 0) {
+        if (g_stage_flags == 0) {
             record->score = g_globals.score;
             record->word_10 = g_globals.word_08;
             record->gauge = g_globals.gauge;

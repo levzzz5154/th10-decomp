@@ -120,11 +120,11 @@ extern GameThread_00401530* g_ascii_manager;
 extern GameSelection_00431410 g_globals_character;
 extern ScoreCharacter_00431410* g_score;
 extern ReplayFile_00431ba0* g_replay;  // the replay just played
-extern const char* data_004746d8;        // the name entry character grid
-extern const char* data_0047471c[];      // "test", "Stage 1" .. "Stage 6", "Extra"
-extern const char* data_004746dc[];      // "ReimuA" .. "MarisaC"
-extern const char* data_004746f4[];      // "Easy" .. "Extra"
-extern const char* data_00474744[];      // "tst", "St1" .. "Ex", "All", "ExA"
+extern const char* g_name_entry_grid;        // the name entry character grid
+extern const char* g_stage_names_long[];      // "test", "Stage 1" .. "Stage 6", "Extra"
+extern const char* g_shot_names[];      // "ReimuA" .. "MarisaC"
+extern const char* g_difficulty_names[];      // "Easy" .. "Extra"
+extern const char* g_stage_names_short[];      // "tst", "St1" .. "Ex", "All", "ExA"
 }
 
 typedef char ScoreEntry_size[sizeof(ScoreEntry_004329f0) == 0x18 ? 1 : -1];

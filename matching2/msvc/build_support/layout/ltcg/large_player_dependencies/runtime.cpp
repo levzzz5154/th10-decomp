@@ -10,7 +10,7 @@ extern "C" {
     struct GameSelectionView { int shot_type, character, unknown_08, difficulty; };
     extern GameSelectionView g_globals_character;
     extern void* g_sprt_ctrl;
-    extern ParameterFile* data_00491bf0;
+    extern ParameterFile* g_player_parameter_file;
     extern FuncCtrl* g_func_ctrl;
     extern char str_pl00_anm[],str_pl01_anm[],str_player_data_missing[];
     extern const char* data_00476fc0[];
@@ -40,8 +40,8 @@ int PlayerResetBlock::Initialize() {
     CachedResource* resource=Recovery_LoadCachedResource(8,g_sprt_ctrl,name);
     Word(0x10)=(unsigned int)resource;
     if (!resource) { g_log.Append(str_player_data_missing); return -1; }
-    if (data_00491bf0) {
-        Word(0x45c)=(unsigned int)data_00491bf0;data_00491bf0=0;
+    if (g_player_parameter_file) {
+        Word(0x45c)=(unsigned int)g_player_parameter_file;g_player_parameter_file=0;
     } else {
         const char* parameter_name=data_00476fc0[g_globals_character.character+3*g_globals_character.shot_type];
         if (((ParameterLoader*)this)->Load(parameter_name)) {

@@ -85,4 +85,4 @@ typedef char RecorderStageOffset[offsetof(RecorderPoolLists,stages)==0x3C?1:-1];
 typedef char RecorderStageOwnerSize[sizeof(RecorderPoolLists)==0x9C?1:-1];
 
 void* __cdecl operator new(unsigned int size);
-extern "C" RecorderKeyRepeatState data_00474e30;
+extern "C" RecorderKeyRepeatState g_input_keys_raw;

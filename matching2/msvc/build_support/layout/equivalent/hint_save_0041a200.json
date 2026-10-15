@@ -60,19 +60,19 @@
       "address": "0x004660B4",
       "kind": "data"
     },
-    "_data_00474c38": {
+    "_g_file_write_handle": {
       "address": "0x00474C38",
       "kind": "data"
     },
-    "_data_0049231e": {
+    "_g_file_lock_depth": {
       "address": "0x0049231E",
       "kind": "data"
     },
-    "_data_00474494": {
+    "_g_hint_align_names": {
       "address": "0x00474494",
       "kind": "data"
     },
-    "_data_004744b0": {
+    "_g_hint_base_names": {
       "address": "0x004744B0",
       "kind": "data"
     },
@@ -190,10 +190,10 @@
     "_imp_CloseHandle": "0x004660CC",
     "_imp_WriteFile": "0x004660D4",
     "_imp_LeaveCriticalSection": "0x004660B4",
-    "_data_00474c38": "0x00474C38",
-    "_data_0049231e": "0x0049231E",
-    "_data_00474494": "0x00474494",
-    "_data_004744b0": "0x004744B0",
+    "_g_file_write_handle": "0x00474C38",
+    "_g_file_lock_depth": "0x0049231E",
+    "_g_hint_align_names": "0x00474494",
+    "_g_hint_base_names": "0x004744B0",
     "_str_hint_stage_end": "0x0046D320",
     "_str_hint_end": "0x0046D32C",
     "_str_hint_scale_format": "0x0046D334",

@@ -42,7 +42,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0044a190_0044a190() {
     L_0044a1b6:
         mov ebx,eax
     L_0044a1b8:
-        mov eax,dword ptr [data_00491ff4]
+        mov eax,dword ptr [g_app_flags]
     L_0044a1bd:
         test ah,4
     L_0044a1c0:
@@ -498,11 +498,11 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0044a190_0044a190() {
     L_0044a455:
         or esi,eax
     L_0044a457:
-        movsx ecx,word ptr [data_00491d5e]
+        movsx ecx,word ptr [g_joystick_x_threshold]
     L_0044a45e:
         mov ebx,dword ptr [esp+48h]
     L_0044a462:
-        movsx eax,word ptr [data_00491d60]
+        movsx eax,word ptr [g_joystick_y_threshold]
     L_0044a469:
         mov edi,dword ptr [esp+4Ch]
     L_0044a46d:
@@ -526,7 +526,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0044a190_0044a190() {
     L_0044a480:
         cmp edi,ecx
     L_0044a482:
-        movsx edi,word ptr [data_00491d5e]
+        movsx edi,word ptr [g_joystick_x_threshold]
     L_0044a489:
         setge bl
     L_0044a48c:

@@ -165,11 +165,11 @@ typedef char ProjectileBlueprint_columns[offsetof(ProjectileBlueprint_004067d0, 
 typedef char ProjectileBlueprint_flags[offsetof(ProjectileBlueprint_004067d0, flags) == 0x1FC ? 1 : -1];
 
 // A per-colour constant table (int / float variants).
-extern "C" int data_00474170[];                 // 0x00474170 first script per colour
-extern "C" float data_004741e0[];               // 0x004741E0 speed per colour
-extern "C" int data_00474250[];                 // 0x00474250 per colour
-extern "C" int data_004742c0[];                 // 0x004742C0 death table selector
-extern "C" int data_0047432c[];                 // 0x0047432C death animation per script
+extern "C" int g_bullet_script_first[];                 // 0x00474170 first script per colour
+extern "C" float g_bullet_speed_per_colour[];               // 0x004741E0 speed per colour
+extern "C" int g_bullet_field_per_colour[];                 // 0x00474250 per colour
+extern "C" int g_bullet_death_selector[];                 // 0x004742C0 death table selector
+extern "C" int g_bullet_death_animation[];                 // 0x0047432C death animation per script
 extern "C" float flt_0_5;                 // 0.5
 extern "C" float flt_2pi;                 // 2*pi
 extern "C" float flt_pi;                 // pi

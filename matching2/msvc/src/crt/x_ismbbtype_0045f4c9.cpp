@@ -1,9 +1,9 @@
-extern "C" unsigned char data_00497fa1[];
-extern "C" unsigned short* data_004739d8;
+extern "C" unsigned char g_mbc_char_table[];
+extern "C" unsigned short* g_crt_ctype_table;
 
 extern "C" int __cdecl asm_x_ismbbtype_0045f4c9(unsigned char character, unsigned int wide_mask, unsigned char byte_mask) {
-    if ((data_00497fa1[character] & byte_mask) == 0) {
-        unsigned int result = wide_mask ? data_004739d8[character] & wide_mask : 0;
+    if ((g_mbc_char_table[character] & byte_mask) == 0) {
+        unsigned int result = wide_mask ? g_crt_ctype_table[character] & wide_mask : 0;
         if (result == 0) return 0;
     }
     return 1;

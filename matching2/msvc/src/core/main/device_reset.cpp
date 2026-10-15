@@ -3,12 +3,12 @@ extern "C" __declspec(noinline) void __cdecl DeviceReset_004391f0() {
     char filename[256];
     if (g_d3d_device->methods->Present(g_d3d_device,0,0,0,0)<0) {
         g_sprt_ctrl->ReleaseTargets();
-        g_d3d_device->methods->Reset(g_d3d_device,data_00491d0c);
+        g_d3d_device->methods->Reset(g_d3d_device,g_present_parameters);
         Renderer_ApplyDeviceDefaults();
-        data_00491fd4=2;
+        g_device_mode=2;
     }
     g_sprt_ctrl->FinishTargets();
-    if (data_00474e36&0x800U) {
+    if (g_input_keys_held&0x800U) {
         MakeDirectory_00452abc(str_snapshot_dir);
         int index;
         for (index=0;index<1000;++index) {

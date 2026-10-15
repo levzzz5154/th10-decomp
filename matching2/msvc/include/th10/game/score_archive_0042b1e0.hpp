@@ -34,8 +34,8 @@ extern int (__stdcall* imp_CloseHandle)(void* handle);
 extern int (__stdcall* imp_WriteFile)(void* handle, const void* data,
     unsigned int size, unsigned int* written, void* overlapped);
 extern void (__stdcall* imp_LeaveCriticalSection)(CriticalSection* section);
-extern void* data_00474c38;
-extern unsigned char data_0049231e;
-extern CriticalSection data_004922a4;
+extern void* g_file_write_handle;
+extern unsigned char g_file_lock_depth;
+extern CriticalSection g_file_lock;
 extern char str_score_file[];
 }

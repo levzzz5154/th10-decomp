@@ -21,14 +21,14 @@ extern "C" int __stdcall DifficultySelectUpdateCompilerContext(
     HintUpdateView* indicator, int release,
     Title* music_room, void** objects) {
     objects[0] = &g_globals_difficulty;
-    objects[1] = &data_00474e30;
+    objects[1] = &g_input_keys_raw;
     objects[2] = &g_globals_character;
-    objects[3] = &data_00474e36;
+    objects[3] = &g_input_keys_held;
     objects[4] = &g_globals_shot_type;
-    objects[5] = &data_00491c08;
-    objects[6] = &data_00474cac;
-    objects[7] = data_00497aa8;
-    objects[8] = &data_00491fb8;
+    objects[5] = &g_title_practice_selection;
+    objects[6] = &g_practice_difficulty;
+    objects[7] = g_keyboard_state;
+    objects[8] = &g_main_state;
     objects[9] = &application_state_00491c00;
     return RecoveryScript_Execute_0040bd80(script) + head->Drain(indicator, release)
         + Title_UpdateMusicRoom(music_room)

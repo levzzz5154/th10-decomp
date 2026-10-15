@@ -61,7 +61,7 @@ extern EnemyCtrlCardView* g_enemy_ctrl;
 extern GameSelection_00409280 g_selection;         // 0x00474C68
 extern int g_globals_gauge;
 extern int g_globals_stage;                          // stage number
-extern int data_00474c84;
+extern int g_stage_progress;
 void __stdcall LoadScript_0043e710(AnimationResource_0043e710* resource,
                                    AnimationObject_0043e710* object, int index);
 }

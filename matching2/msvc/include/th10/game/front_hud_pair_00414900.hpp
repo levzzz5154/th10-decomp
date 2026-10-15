@@ -23,7 +23,7 @@
 // Globals the pair reads and writes (not already declared by the pause graph).
 // ---------------------------------------------------------------------------
 extern "C" unsigned char g_input;              // raw input edges
-extern "C" unsigned char data_00474e62;              // secondary input edges
+extern "C" unsigned char g_input_keys_secondary;              // secondary input edges
 extern "C" unsigned short g_globals_power;
 extern "C" unsigned int g_globals;               // score state object
 extern "C" unsigned int g_globals_gauge;
@@ -32,17 +32,17 @@ extern "C" unsigned int g_globals_shot_type;
 extern "C" unsigned int g_globals_lives;
 extern "C" unsigned int g_globals_difficulty;
 extern "C" unsigned int g_globals_stage;
-extern "C" unsigned int data_00474c84;               // stage progress counter
-extern "C" unsigned int data_00474c8c;               // progress echo
+extern "C" unsigned int g_stage_progress;               // stage progress counter
+extern "C" unsigned int g_stage_progress_echo;               // progress echo
 extern "C" unsigned char g_globals_flags;              // clear flags (bit 0x10)
 extern "C" unsigned char g_application;              // input mode state object
-extern "C" unsigned int data_00491fb8;               // front mode word
+extern "C" unsigned int g_main_state;               // front mode word
 extern "C" void* g_card;                      // game state arena
 extern "C" void* g_enemy_ctrl;                      // sequence record
 extern "C" void* g_pause;                      // clear state object
 extern "C" void* g_replay;                      // replay state record
 extern "C" void* g_score;                      // notice table
-extern "C" void* data_00477848;                      // bgm state record
+extern "C" void* g_stage_route_current;                      // bgm state record
 extern "C" short g_sound_priority[];                    // sound priority table
 extern "C" float flt_1;                      // 1.0f
 extern "C" float flt_0;                      // gauge threshold (slow)

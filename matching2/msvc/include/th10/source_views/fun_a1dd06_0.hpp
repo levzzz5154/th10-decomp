@@ -81,19 +81,19 @@ struct WorkerThread_00439390 {
     __declspec(noinline) void* Stop();
 };
 
-extern "C" GameFrame_00439390 data_004924f0;
+extern "C" GameFrame_00439390 g_main_window;
 extern "C" RenderStageState_00439390 g_application;
-extern "C" WorkerThread_00439390 data_00492254;
+extern "C" WorkerThread_00439390 g_frame_worker;
 // The task manager 0x00449C00/0x00449D40 decode for.
 extern "C" int g_func_ctrl;
 // The frame parameters 0x0043DDF0 walks.
 extern "C" char g_sound_manager[];
 // The frame time the renderer publishes.
-extern "C" double data_004923a0;
+extern "C" double g_frame_leftover_time;
 // How many frames one tick covers, read as the reset block's threshold.  Read
 // through a reference local: through the bare global the pass hoists the load
 // above the tick store.
-extern "C" unsigned char data_00491d66;
+extern "C" unsigned char g_frame_limit;
 // The Sleep thunk the "frame not due" path calls with 0 (it cleans the
 // argument itself, so retail has no `add esp,4` after the call).
 extern "C" void (__stdcall* imp_Sleep)(int);

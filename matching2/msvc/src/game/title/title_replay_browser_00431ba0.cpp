@@ -25,8 +25,8 @@ extern "C" __declspec(noinline) int __stdcall TitleMenu_DrawReplayBrowser_00431b
             g_ascii_manager, &position, "No.%.2d %s %.2d/%.2d/%.2d %.2d:%.2d %s %s %s %2.1f%%",
             menu->selected_replay + 1, header->name, date->tm_year % 100, date->tm_mon + 1,
             date->tm_mday, date->tm_hour, date->tm_min,
-            data_004746dc[header->character * 3 + header->shot_type],
-            data_004746f4[header->difficulty], data_00474744[header->stage], header->slowdown);
+            g_shot_names[header->character * 3 + header->shot_type],
+            g_difficulty_names[header->difficulty], g_stage_names_short[header->stage], header->slowdown);
         if (menu->phase_frames >= 10) {
             position.x = 220.0f;
             position.y = 128.0f;
@@ -34,16 +34,16 @@ extern "C" __declspec(noinline) int __stdcall TitleMenu_DrawReplayBrowser_00431b
                 g_ascii_manager->current_4c = menu->cursor == stage - 1 ? 0xFFFFFF00 : 0xFF808080;
                 if (!menu->replays[menu->selected_replay]->stages[stage].data) {
                     AsciiManager_AddFormatted(g_ascii_manager, &position, "%s  ---------",
-                                             data_0047471c[stage]);
+                                             g_stage_names_long[stage]);
                 } else if (stage < 6 &&
                            menu->replays[menu->selected_replay]->stages[stage + 1].data) {
                     ReplayStage_00431ba0* next =
                         menu->replays[menu->selected_replay]->stages[stage + 1].data;
                     AsciiManager_AddFormatted(g_ascii_manager, &position, "%s  %.8d%d",
-                                             data_0047471c[stage], next->score, next->value_1b4);
+                                             g_stage_names_long[stage], next->score, next->value_1b4);
                 } else {
                     AsciiManager_AddFormatted(g_ascii_manager, &position, "%s  %.8d%d",
-                                             data_0047471c[stage], header->score,
+                                             g_stage_names_long[stage], header->score,
                                              header->final_value_60);
                 }
                 position.y += 18.0f;
@@ -64,8 +64,8 @@ extern "C" __declspec(noinline) int __stdcall TitleMenu_DrawReplayBrowser_00431b
                     "No.%.2d %s %.2d/%.2d/%.2d %.2d:%.2d %s %s %s %2.1f%%", slot + 1,
                     header->name, date->tm_year % 100, date->tm_mon + 1, date->tm_mday,
                     date->tm_hour, date->tm_min,
-                    data_004746dc[header->character * 3 + header->shot_type],
-                    data_004746f4[header->difficulty], data_00474744[header->stage],
+                    g_shot_names[header->character * 3 + header->shot_type],
+                    g_difficulty_names[header->difficulty], g_stage_names_short[header->stage],
                     header->slowdown);
             } else {
                 AsciiManager_AddFormatted(

@@ -340,7 +340,7 @@
       "address": 4673076
     },
     {
-      "symbol": "_data_00474e36",
+      "symbol": "_g_input_keys_held",
       "kind": "data",
       "address": 4673078
     },
@@ -470,7 +470,7 @@
       "address": 4328448
     },
     {
-      "symbol": "_data_00491ff4",
+      "symbol": "_g_app_flags",
       "kind": "data",
       "address": 4792308
     },
@@ -505,7 +505,7 @@
       "address": 4505120
     },
     {
-      "symbol": "_data_00491c00",
+      "symbol": "_g_main_mode_request",
       "kind": "data",
       "address": 4791296
     },
@@ -520,7 +520,7 @@
       "address": 4363424
     },
     {
-      "symbol": "_data_00474c78",
+      "symbol": "_g_menu_difficulty_saved",
       "kind": "data",
       "address": 4672632
     },
@@ -540,17 +540,17 @@
       "address": 4672628
     },
     {
-      "symbol": "_data_00477848",
+      "symbol": "_g_stage_route_current",
       "kind": "data",
       "address": 4683848
     },
     {
-      "symbol": "_data_00474788",
+      "symbol": "_g_stage_routes",
       "kind": "data",
       "address": 4671368
     },
     {
-      "symbol": "_data_00491fb8",
+      "symbol": "_g_main_state",
       "kind": "data",
       "address": 4792248
     },
@@ -575,12 +575,12 @@
       "address": 4683536
     },
     {
-      "symbol": "_data_00476ff8",
+      "symbol": "_g_title_demo_paths",
       "kind": "data",
       "address": 4681720
     },
     {
-      "symbol": "_data_00474ca8",
+      "symbol": "_g_title_demo_index",
       "kind": "data",
       "address": 4672680
     },
@@ -590,12 +590,12 @@
       "address": 4672672
     },
     {
-      "symbol": "_data_00474e30",
+      "symbol": "_g_input_keys_raw",
       "kind": "data",
       "address": 4673072
     },
     {
-      "symbol": "_data_00474ca4",
+      "symbol": "_g_title_idle_frames",
       "kind": "data",
       "address": 4672676
     },

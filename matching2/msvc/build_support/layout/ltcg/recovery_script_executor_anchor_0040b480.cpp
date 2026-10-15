@@ -1,13 +1,13 @@
 // 0x0040B480: replace a loaded asset through the shared filename buffer.
 #include <string.h>
 #include "th10/platform/archive_callers.hpp"
-extern "C" char data_00497c38[];
+extern "C" char g_recovery_script_path[];
 extern "C" void __cdecl entry_free_00452422(void*);
 #pragma code_seg(".text$0040b480_fn")
 char* __stdcall LoadAsset(const char* name, AssetBuffer* buffer) {
-    data_00497c38[0] = 0;
-    strcat(data_00497c38, name);
-    char* data = Archive_LoadFile(data_00497c38, 0, 0);
+    g_recovery_script_path[0] = 0;
+    strcat(g_recovery_script_path, name);
+    char* data = Archive_LoadFile(g_recovery_script_path, 0, 0);
     if (buffer->data) {
         entry_free_00452422(buffer->data);
         buffer->data = 0;

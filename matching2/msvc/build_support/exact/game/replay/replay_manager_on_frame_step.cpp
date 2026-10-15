@@ -51,7 +51,7 @@ extern "C" __declspec(naked) void __cdecl ReplayManager_OnFrameStep() {
     L_0042a3f7:
         jne short L_0042a41d
     L_0042a3f9:
-        mov edx,dword ptr [data_00474e30]
+        mov edx,dword ptr [g_input_keys_raw]
     L_0042a3ff:
         test dh,al
     L_0042a401:

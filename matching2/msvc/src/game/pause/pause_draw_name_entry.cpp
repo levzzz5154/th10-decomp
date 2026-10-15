@@ -17,7 +17,7 @@ typedef char NameEntry_name_is_2b4[offsetof(NameEntryState_004224c0, name) == 0x
 typedef char NameEntry_position_is_12[sizeof(Vec3_00401530) == 12 ? 1 : -1];
 
 extern "C" {
-extern const char* data_004746d8;
+extern const char* g_name_entry_grid;
 extern GameThread_00401530* g_ascii_manager;
 extern const char str_string_format[];
 extern const char str_underscore[];
@@ -27,7 +27,7 @@ extern const char str_char_format[];
 #pragma code_seg(".text$04characters")
 extern "C" __declspec(noinline) void __stdcall DrawNameEntry_004224c0(
     NameEntryState_004224c0* state, Vec3_00401530 position) {
-    int character_count = static_cast<int>(strlen(data_004746d8));
+    int character_count = static_cast<int>(strlen(g_name_entry_grid));
     AsciiManager_AddFormatted(&position, g_ascii_manager, str_string_format, state->name);
     position.x += static_cast<float>(state->name_length * 9);
     if (state->name_length == 8)
@@ -42,7 +42,7 @@ extern "C" __declspec(noinline) void __stdcall DrawNameEntry_004224c0(
     for (int index = 0; index < character_count; ++index) {
         g_ascii_manager->current_4c = state->selected_glyph == index ? 0xFFFFFF00 : 0xFF808080;
         if (index < character_count - 3)
-            AsciiManager_AddFormatted(&position, g_ascii_manager, str_char_format, data_004746d8[index]);
+            AsciiManager_AddFormatted(&position, g_ascii_manager, str_char_format, g_name_entry_grid[index]);
         else
             AsciiManager_AddFormatted(&position, g_ascii_manager, str_char_format,
                 index == character_count - 3 ? 0x81 :

@@ -14,7 +14,7 @@ struct Device {
     void** vtable;                   // +0x00
 };
 
-extern "C" unsigned char data_00491c3c;
+extern "C" unsigned char g_pad_devices;
 
 int __stdcall Input_SetProperty(int a1, int a2) {
     int result = 1;
@@ -26,7 +26,7 @@ int __stdcall Input_SetProperty(int a1, int a2) {
         request.field_0C = 2;
         request.field_10 = -1000;
         request.field_14 = 1000;
-        Device* device = *(Device**)&data_00491c3c;
+        Device* device = *(Device**)&g_pad_devices;
         if (((int (__stdcall*)(Device*, int, BlitRequest*))device->vtable[6])(
                 device, 4, &request) < 0)
             return 0;

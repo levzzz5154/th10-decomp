@@ -3,10 +3,10 @@
 extern "C" void* g_sprt_ctrl;
 extern "C" RecoveryScriptOwner_0040bd80* g_ending;
 extern "C" GameThread_0040c540* g_ascii_manager;
-extern "C" unsigned int data_00474e30;
-extern "C" unsigned int data_00474e36;
+extern "C" unsigned int g_input_keys_raw;
+extern "C" unsigned int g_input_keys_held;
 extern "C" int g_globals_difficulty;
-extern "C" unsigned int data_004918a4;
+extern "C" unsigned int g_screen_effects_frozen;
 extern "C" const char recovery_script_empty_text_0046cfd4[];
 extern "C" const char recovery_script_special_music_0046cfc4[];
 extern float g_frame_timer_normal_lower;
@@ -25,7 +25,7 @@ extern "C" __declspec(noinline) int __stdcall RecoveryScript_Execute_0040bd80(Re
     if (flags & 4u)
         return 0;
     if (!(g_ending->flags_020 & 1u) && !(flags & 2u) &&
-        (data_00474e30 & 0x100u) && (flags & 1u))
+        (g_input_keys_raw & 0x100u) && (flags & 1u))
         state->command_timer.Set(state->command->frame);
 
     while (state->command->frame <= state->command_timer.current) {
@@ -77,10 +77,10 @@ extern "C" __declspec(noinline) int __stdcall RecoveryScript_Execute_0040bd80(Re
             state->wait_timer.Advance(-1.0f);
             if (state->command->arguments[0] < 0)
                 state->wait_timer.Set(999);
-            if (!(data_00474e36 & 0x1001u) && state->wait_timer.current > 0) {
+            if (!(g_input_keys_held & 0x1001u) && state->wait_timer.current > 0) {
                 if (g_ending->flags_020 & 1u)
                     return 0;
-                if (!(data_00474e30 & 0x100u))
+                if (!(g_input_keys_raw & 0x100u))
                     return 0;
                 if (state->wait_timer.current % 6 != 0)
                     return 0;
@@ -94,10 +94,10 @@ extern "C" __declspec(noinline) int __stdcall RecoveryScript_Execute_0040bd80(Re
             if (state->wait_timer.current <= 0)
                 state->wait_timer.Set(command->arguments[0]);
             state->wait_timer.Advance(-1.0f);
-            if (!(data_00474e36 & 0x1001u) && state->wait_timer.current > 0) {
+            if (!(g_input_keys_held & 0x1001u) && state->wait_timer.current > 0) {
                 if (g_ending->flags_020 & 1u)
                     return 0;
-                if (!(data_00474e30 & 0x100u))
+                if (!(g_input_keys_raw & 0x100u))
                     return 0;
                 if (state->wait_timer.current % 6 != 0)
                     return 0;
@@ -106,7 +106,7 @@ extern "C" __declspec(noinline) int __stdcall RecoveryScript_Execute_0040bd80(Re
             }
             state->wait_timer.Set(0);
             state->text_ring_position = 0;
-            data_004918a4 = 0;
+            g_screen_effects_frozen = 0;
             break;
         case 7:
             g_ascii_manager->EnsureAnimationResource(480.0f, 392.0f);

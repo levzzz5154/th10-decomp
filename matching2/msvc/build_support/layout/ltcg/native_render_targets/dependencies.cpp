@@ -39,7 +39,7 @@ int ScreenshotState::CaptureScreenshot(const char* name) {
             offset+=0x780;
         }
         back->methods->Unlock(back);
-        data_00492134=retail_beginthread_00452eec(&ScreenshotWriter,0,0);
+        g_screenshot_thread_id=retail_beginthread_00452eec(&ScreenshotWriter,0,0);
     } else if (format==0x17) g_log.Append(str_snapshot_16bit_unsupported);
     else { g_log.Append(str_mother_cpp_error);return 1; }
     if (back) back->methods->Release(back);

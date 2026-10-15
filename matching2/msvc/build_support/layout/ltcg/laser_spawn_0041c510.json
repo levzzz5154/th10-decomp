@@ -99,12 +99,12 @@
       "kind": "metadata"
     },
     {
-      "symbol": "_data_0046da60",
+      "symbol": "_g_line_laser_vtable",
       "address": "0x0046DA60",
       "kind": "data"
     },
     {
-      "symbol": "_data_0046da10",
+      "symbol": "_g_beam_laser_vtable",
       "address": "0x0046DA10",
       "kind": "data"
     },

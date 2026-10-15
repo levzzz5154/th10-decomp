@@ -135,7 +135,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_data_00474908",
+      "symbol": "_g_resource_archive_path",
       "address": "0x474908",
       "kind": "data"
     },

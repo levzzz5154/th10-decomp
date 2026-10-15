@@ -39,8 +39,8 @@ extern GameThread_0040dc80* g_card;
 extern Gui_0040dc80* g_front;
 extern AnimationManager_0040dc80* g_sprt_ctrl;
 extern ScoreState_0040dc80 g_globals;
-extern int data_00474c50;                // set once any enemy was open to shots this frame
-extern PolarVec3 data_00491e6c;          // the scroll applied to unscrolled enemies
+extern int g_enemy_hittable;                // set once any enemy was open to shots this frame
+extern PolarVec3 g_enemy_scroll;          // the scroll applied to unscrolled enemies
 }
 
 // 0x00450700: restart the record's script at a named entry.

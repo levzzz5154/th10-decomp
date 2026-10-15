@@ -29,5 +29,5 @@ struct ItemManager_00415db0 {
 };
 
 // The stage the game will play next, and progress within it.
-extern "C" int data_00474c84;
-extern "C" int data_00474c8c;
+extern "C" int g_stage_progress;
+extern "C" int g_stage_progress_echo;

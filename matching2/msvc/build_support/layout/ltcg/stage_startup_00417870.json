@@ -165,7 +165,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00491ff4",
+      "symbol": "_g_app_flags",
       "address": "0x491ff4",
       "kind": "data"
     },
@@ -175,7 +175,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00474cac",
+      "symbol": "_g_practice_difficulty",
       "address": "0x474cac",
       "kind": "data"
     },
@@ -190,7 +190,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00477848",
+      "symbol": "_g_stage_route_current",
       "address": "0x477848",
       "kind": "data"
     },
@@ -225,22 +225,22 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00494518",
+      "symbol": "_g_stage_wait",
       "address": "0x494518",
       "kind": "data"
     },
     {
-      "symbol": "_data_00492260",
+      "symbol": "_g_frame_thread_handle",
       "address": "0x492260",
       "kind": "data"
     },
     {
-      "symbol": "_data_00492264",
+      "symbol": "_g_frame_thread_id",
       "address": "0x492264",
       "kind": "data"
     },
     {
-      "symbol": "_data_004918a4",
+      "symbol": "_g_screen_effects_frozen",
       "address": "0x4918a4",
       "kind": "data"
     },
@@ -265,7 +265,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00491fc4",
+      "symbol": "_g_stage_flags",
       "address": "0x491fc4",
       "kind": "data"
     },

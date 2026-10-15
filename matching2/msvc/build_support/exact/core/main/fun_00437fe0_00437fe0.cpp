@@ -23,7 +23,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00437fe0_00437fe0() {
     L_00437fee:
         jg short L_00437ffb
     L_00437ff0:
-        mov edi,dword ptr [data_004918a0]
+        mov edi,dword ptr [g_font_height_32]
     L_00437ff6:
         jmp asm_target_004380b1
     L_00437ffb:
@@ -31,7 +31,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00437fe0_00437fe0() {
     L_00437ffe:
         jg short L_0043800b
     L_00438000:
-        mov edi,dword ptr [data_0049189c]
+        mov edi,dword ptr [g_font_height_34]
     L_00438006:
         jmp asm_target_004380b1
     L_0043800b:
@@ -39,7 +39,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00437fe0_00437fe0() {
     L_0043800e:
         jg short L_0043801b
     L_00438010:
-        mov edi,dword ptr [data_00491898]
+        mov edi,dword ptr [g_font_height_36]
     L_00438016:
         jmp asm_target_004380b1
     L_0043801b:
@@ -47,7 +47,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00437fe0_00437fe0() {
     L_0043801e:
         jg short L_0043802b
     L_00438020:
-        mov edi,dword ptr [data_00491894]
+        mov edi,dword ptr [g_font_height_38]
     L_00438026:
         jmp asm_target_004380b1
     L_0043802b:
@@ -55,7 +55,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00437fe0_00437fe0() {
     L_0043802e:
         jg short L_00438038
     L_00438030:
-        mov edi,dword ptr [data_00491890]
+        mov edi,dword ptr [g_font_height_40]
     L_00438036:
         jmp short L_004380b1
     L_00438038:
@@ -63,7 +63,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00437fe0_00437fe0() {
     L_0043803b:
         jg short L_00438045
     L_0043803d:
-        mov edi,dword ptr [data_0049188c]
+        mov edi,dword ptr [g_font_height_42]
     L_00438043:
         jmp short L_004380b1
     L_00438045:
@@ -71,7 +71,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00437fe0_00437fe0() {
     L_00438048:
         jg short L_00438052
     L_0043804a:
-        mov edi,dword ptr [data_00491888]
+        mov edi,dword ptr [g_font_height_44]
     L_00438050:
         jmp short L_004380b1
     L_00438052:
@@ -79,7 +79,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00437fe0_00437fe0() {
     L_00438055:
         jg short L_0043805f
     L_00438057:
-        mov edi,dword ptr [data_00491884]
+        mov edi,dword ptr [g_font_height_46]
     L_0043805d:
         jmp short L_004380b1
     L_0043805f:
@@ -87,7 +87,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00437fe0_00437fe0() {
     L_00438062:
         jg short L_0043806c
     L_00438064:
-        mov edi,dword ptr [data_00491880]
+        mov edi,dword ptr [g_font_height_48]
     L_0043806a:
         jmp short L_004380b1
     L_0043806c:
@@ -95,7 +95,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00437fe0_00437fe0() {
     L_0043806f:
         jg short L_00438079
     L_00438071:
-        mov edi,dword ptr [data_0049187c]
+        mov edi,dword ptr [g_font_height_50]
     L_00438077:
         jmp short L_004380b1
     L_00438079:
@@ -103,7 +103,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00437fe0_00437fe0() {
     L_0043807c:
         jg short L_00438086
     L_0043807e:
-        mov edi,dword ptr [data_00491878]
+        mov edi,dword ptr [g_font_height_52]
     L_00438084:
         jmp short L_004380b1
     L_00438086:
@@ -111,7 +111,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00437fe0_00437fe0() {
     L_00438089:
         jg short L_00438093
     L_0043808b:
-        mov edi,dword ptr [data_00491874]
+        mov edi,dword ptr [g_font_height_54]
     L_00438091:
         jmp short L_004380b1
     L_00438093:
@@ -119,17 +119,17 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00437fe0_00437fe0() {
     L_00438096:
         jg short L_004380a0
     L_00438098:
-        mov edi,dword ptr [data_00491870]
+        mov edi,dword ptr [g_font_height_56]
     L_0043809e:
         jmp short L_004380b1
     L_004380a0:
         cmp ebp,1Eh
     L_004380a3:
-        mov edi,dword ptr [data_0049186c]
+        mov edi,dword ptr [g_font_height_58]
     L_004380a9:
         jle short L_004380b1
     L_004380ab:
-        mov edi,dword ptr [data_00491868]
+        mov edi,dword ptr [g_font_height_60]
     L_004380b1:
         cmp ebp,11h
     L_004380b4:
@@ -143,7 +143,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00437fe0_00437fe0() {
     L_004380c4:
         call asm_FUN_00436ca0_00436ca0
     L_004380c9:
-        mov esi,dword ptr [data_00474dc4]
+        mov esi,dword ptr [g_font_texture_dc]
     L_004380cf:
         mov ebx,dword ptr [imp_SelectObject]
     L_004380d5:
@@ -283,9 +283,9 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00437fe0_00437fe0() {
     L_00438199:
         call dword ptr [edx+48h]
     L_0043819c:
-        mov eax,dword ptr [data_00474dc0]
+        mov eax,dword ptr [g_font_texture_format]
     L_004381a1:
-        mov ecx,dword ptr [data_00474db0]
+        mov ecx,dword ptr [g_font_texture_id]
     L_004381a7:
         push edi
     L_004381a8:
@@ -295,7 +295,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00437fe0_00437fe0() {
     L_004381ae:
         push edx
     L_004381af:
-        mov edx,dword ptr [data_00474dd0]
+        mov edx,dword ptr [g_font_texture_pixels]
     L_004381b5:
         push edi
     L_004381b6:

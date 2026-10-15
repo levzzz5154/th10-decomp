@@ -8,8 +8,8 @@
 #define g_replay stage_front_data_00477838
 #define g_score stage_front_data_0047783c
 #define g_game_speed stage_front_data_00476f78
-#define data_00491fc4 stage_front_data_00491fc4
-#define data_00491fb8 stage_front_data_00491fb8
+#define g_stage_flags stage_front_data_00491fc4
+#define g_main_state stage_front_data_00491fb8
 #define g_sound_manager stage_front_data_00492590
 #include "front_view.hpp"
 #undef g_sprt_ctrl
@@ -21,8 +21,8 @@
 #undef g_replay
 #undef g_score
 #undef g_game_speed
-#undef data_00491fc4
-#undef data_00491fb8
+#undef g_stage_flags
+#undef g_main_state
 #undef g_sound_manager
 #define g_sprt_ctrl stage_hud_g_sprt_ctrl
 #define g_front stage_hud_g_front
@@ -33,8 +33,8 @@
 #define g_replay stage_hud_data_00477838
 #define g_score stage_hud_data_0047783c
 #define g_game_speed stage_hud_data_00476f78
-#define data_00491fc4 stage_hud_data_00491fc4
-#define data_00491fb8 stage_hud_data_00491fb8
+#define g_stage_flags stage_hud_data_00491fc4
+#define g_main_state stage_hud_data_00491fb8
 #define g_sound_manager stage_hud_data_00492590
 #define GameStateField5c_0042a6a0 HudField5cChecked
 #include "hud_view.hpp"
@@ -48,8 +48,8 @@
 #undef g_replay
 #undef g_score
 #undef g_game_speed
-#undef data_00491fc4
-#undef data_00491fb8
+#undef g_stage_flags
+#undef g_main_state
 #undef g_sound_manager
 #include "th10/platform/worker.hpp"
 #define g_sprt_ctrl stage_quad_g_sprt_ctrl
@@ -61,8 +61,8 @@
 #define g_replay stage_quad_data_00477838
 #define g_score stage_quad_data_0047783c
 #define g_game_speed stage_quad_data_00476f78
-#define data_00491fc4 stage_quad_data_00491fc4
-#define data_00491fb8 stage_quad_data_00491fb8
+#define g_stage_flags stage_quad_data_00491fc4
+#define g_main_state stage_quad_data_00491fb8
 #define g_sound_manager stage_quad_data_00492590
 // 0x00404450 (214 bytes): enable the stage's three tasks, then start one
 // animation script for every quad of every stage object and remember which
@@ -123,8 +123,8 @@ struct Stage_00404450 {
 #undef g_replay
 #undef g_score
 #undef g_game_speed
-#undef data_00491fc4
-#undef data_00491fb8
+#undef g_stage_flags
+#undef g_main_state
 #undef g_sound_manager
 #define g_sprt_ctrl stage_fade_g_sprt_ctrl
 #define g_front stage_fade_g_front
@@ -135,8 +135,8 @@ struct Stage_00404450 {
 #define g_replay stage_fade_data_00477838
 #define g_score stage_fade_data_0047783c
 #define g_game_speed stage_fade_data_00476f78
-#define data_00491fc4 stage_fade_data_00491fc4
-#define data_00491fb8 stage_fade_data_00491fb8
+#define g_stage_flags stage_fade_data_00491fc4
+#define g_main_state stage_fade_data_00491fb8
 #define g_sound_manager stage_fade_data_00492590
 #include "th10/game/background_fade.hpp"
 #include "th10/core/screen.hpp"
@@ -152,8 +152,8 @@ extern "C" void _ReadWriteBarrier();
 #undef g_replay
 #undef g_score
 #undef g_game_speed
-#undef data_00491fc4
-#undef data_00491fb8
+#undef g_stage_flags
+#undef g_main_state
 #undef g_sound_manager
 #define g_sprt_ctrl stage_start_g_sprt_ctrl
 #define g_front stage_start_g_front
@@ -164,8 +164,8 @@ extern "C" void _ReadWriteBarrier();
 #define g_replay stage_start_data_00477838
 #define g_score stage_start_data_0047783c
 #define g_game_speed stage_start_data_00476f78
-#define data_00491fc4 stage_start_data_00491fc4
-#define data_00491fb8 stage_start_data_00491fb8
+#define g_stage_flags stage_start_data_00491fc4
+#define g_main_state stage_start_data_00491fb8
 #define g_sound_manager stage_start_data_00492590
 // 0x004045B0: start the background's "active" mode, initialising its timer
 // record to defaults while the record's initialised flag is still clear.
@@ -200,8 +200,8 @@ extern "C" void _ReadWriteBarrier();
 #undef g_replay
 #undef g_score
 #undef g_game_speed
-#undef data_00491fc4
-#undef data_00491fb8
+#undef g_stage_flags
+#undef g_main_state
 #undef g_sound_manager
 #define g_sprt_ctrl stage_bullet_g_sprt_ctrl
 #define g_front stage_bullet_g_front
@@ -212,8 +212,8 @@ extern "C" void _ReadWriteBarrier();
 #define g_replay stage_bullet_data_00477838
 #define g_score stage_bullet_data_0047783c
 #define g_game_speed stage_bullet_data_00476f78
-#define data_00491fc4 stage_bullet_data_00491fc4
-#define data_00491fb8 stage_bullet_data_00491fb8
+#define g_stage_flags stage_bullet_data_00491fc4
+#define g_main_state stage_bullet_data_00491fb8
 #define g_sound_manager stage_bullet_data_00492590
 // 0x00405ED0 - Re-arm the bullet pool: retire the pool's animation resource,
 // zero the whole slot array, rewind the free-slot cursor, and set the state
@@ -243,8 +243,8 @@ struct BulletPool {
 #undef g_replay
 #undef g_score
 #undef g_game_speed
-#undef data_00491fc4
-#undef data_00491fb8
+#undef g_stage_flags
+#undef g_main_state
 #undef g_sound_manager
 #define g_sprt_ctrl stage_pause_g_sprt_ctrl
 #define g_front stage_pause_g_front
@@ -255,8 +255,8 @@ struct BulletPool {
 #define g_replay stage_pause_data_00477838
 #define g_score stage_pause_data_0047783c
 #define g_game_speed stage_pause_data_00476f78
-#define data_00491fc4 stage_pause_data_00491fc4
-#define data_00491fb8 stage_pause_data_00491fb8
+#define g_stage_flags stage_pause_data_00491fc4
+#define g_main_state stage_pause_data_00491fb8
 #define g_sound_manager stage_pause_data_00492590
 // Complete pause timer/animation reset, 0x00424D90..0x00424EA0.
 // Source declaration is ordinary C++; native LTCG selects the observed ESI
@@ -299,8 +299,8 @@ typedef FrontScoreView PauseAnimationCountManager_00413790;
 #undef g_replay
 #undef g_score
 #undef g_game_speed
-#undef data_00491fc4
-#undef data_00491fb8
+#undef g_stage_flags
+#undef g_main_state
 #undef g_sound_manager
 #define g_sprt_ctrl stage_enemy_g_sprt_ctrl
 #define g_front stage_enemy_g_front
@@ -311,8 +311,8 @@ typedef FrontScoreView PauseAnimationCountManager_00413790;
 #define g_replay stage_enemy_data_00477838
 #define g_score stage_enemy_data_0047783c
 #define g_game_speed stage_enemy_data_00476f78
-#define data_00491fc4 stage_enemy_data_00491fc4
-#define data_00491fb8 stage_enemy_data_00491fb8
+#define g_stage_flags stage_enemy_data_00491fc4
+#define g_main_state stage_enemy_data_00491fb8
 #define g_sound_manager stage_enemy_data_00492590
 // 0x00409F90: remove every enemy. Retires the four enemy animation files,
 // destroys each enemy in the list, zeroes the counters and lets both manager
@@ -328,8 +328,8 @@ typedef FrontScoreView PauseAnimationCountManager_00413790;
 #undef g_replay
 #undef g_score
 #undef g_game_speed
-#undef data_00491fc4
-#undef data_00491fb8
+#undef g_stage_flags
+#undef g_main_state
 #undef g_sound_manager
 #define g_sprt_ctrl stage_chain_g_sprt_ctrl
 #define g_front stage_chain_g_front
@@ -340,8 +340,8 @@ typedef FrontScoreView PauseAnimationCountManager_00413790;
 #define g_replay stage_chain_data_00477838
 #define g_score stage_chain_data_0047783c
 #define g_game_speed stage_chain_data_00476f78
-#define data_00491fc4 stage_chain_data_00491fc4
-#define data_00491fb8 stage_chain_data_00491fb8
+#define g_stage_flags stage_chain_data_00491fc4
+#define g_main_state stage_chain_data_00491fb8
 #define g_sound_manager stage_chain_data_00492590
 // Variant A: member with the container walk, head cached in a local.
 extern "C" void __cdecl entry_free_004524a1(void* memory);
@@ -375,8 +375,8 @@ struct ScoreChain_00417770 {
 #undef g_replay
 #undef g_score
 #undef g_game_speed
-#undef data_00491fc4
-#undef data_00491fb8
+#undef g_stage_flags
+#undef g_main_state
 #undef g_sound_manager
 #define g_sprt_ctrl stage_replay_g_sprt_ctrl
 #define g_front stage_replay_g_front
@@ -387,8 +387,8 @@ struct ScoreChain_00417770 {
 #define g_replay stage_replay_data_00477838
 #define g_score stage_replay_data_0047783c
 #define g_game_speed stage_replay_data_00476f78
-#define data_00491fc4 stage_replay_data_00491fc4
-#define data_00491fb8 stage_replay_data_00491fb8
+#define g_stage_flags stage_replay_data_00491fc4
+#define g_main_state stage_replay_data_00491fb8
 #define g_sound_manager stage_replay_data_00492590
 // 0x0042A450..0x0042A696: close the current stage in the replay manager.
 //
@@ -411,8 +411,8 @@ struct ScoreChain_00417770 {
 #undef g_replay
 #undef g_score
 #undef g_game_speed
-#undef data_00491fc4
-#undef data_00491fb8
+#undef g_stage_flags
+#undef g_main_state
 #undef g_sound_manager
 #define g_sprt_ctrl stage_spawn_g_sprt_ctrl
 #define g_front stage_spawn_g_front
@@ -423,8 +423,8 @@ struct ScoreChain_00417770 {
 #define g_replay stage_spawn_data_00477838
 #define g_score stage_spawn_data_0047783c
 #define g_game_speed stage_spawn_data_00476f78
-#define data_00491fc4 stage_spawn_data_00491fc4
-#define data_00491fb8 stage_spawn_data_00491fb8
+#define g_stage_flags stage_spawn_data_00491fc4
+#define g_main_state stage_spawn_data_00491fb8
 #define g_sound_manager stage_spawn_data_00492590
 // 0x0040CFB0..0x0040D1F1: create an enemy.
 //
@@ -449,8 +449,8 @@ struct ScoreChain_00417770 {
 #undef g_replay
 #undef g_score
 #undef g_game_speed
-#undef data_00491fc4
-#undef data_00491fb8
+#undef g_stage_flags
+#undef g_main_state
 #undef g_sound_manager
 #define g_sprt_ctrl stage_requests_g_sprt_ctrl
 #define g_front stage_requests_g_front
@@ -461,8 +461,8 @@ struct ScoreChain_00417770 {
 #define g_replay stage_requests_data_00477838
 #define g_score stage_requests_data_0047783c
 #define g_game_speed stage_requests_data_00476f78
-#define data_00491fc4 stage_requests_data_00491fc4
-#define data_00491fb8 stage_requests_data_00491fb8
+#define g_stage_flags stage_requests_data_00491fc4
+#define g_main_state stage_requests_data_00491fb8
 #define g_sound_manager stage_requests_data_00492590
 #include "th10/render/resource_registrar_0043e460.hpp"
 
@@ -475,8 +475,8 @@ struct ScoreChain_00417770 {
 #undef g_replay
 #undef g_score
 #undef g_game_speed
-#undef data_00491fc4
-#undef data_00491fb8
+#undef g_stage_flags
+#undef g_main_state
 #undef g_sound_manager
 #define g_sprt_ctrl stage_sched_g_sprt_ctrl
 #define g_front stage_sched_g_front
@@ -487,8 +487,8 @@ struct ScoreChain_00417770 {
 #define g_replay stage_sched_data_00477838
 #define g_score stage_sched_data_0047783c
 #define g_game_speed stage_sched_data_00476f78
-#define data_00491fc4 stage_sched_data_00491fc4
-#define data_00491fb8 stage_sched_data_00491fb8
+#define g_stage_flags stage_sched_data_00491fc4
+#define g_main_state stage_sched_data_00491fb8
 #define g_sound_manager stage_sched_data_00492590
 // 0x00405410: store a scheduler value into the record whose address arrives in
 // EAX, initialising the record to its defaults while its "initialised" flag is
@@ -536,8 +536,8 @@ struct PlayerSchedulerRecord {
 #undef g_replay
 #undef g_score
 #undef g_game_speed
-#undef data_00491fc4
-#undef data_00491fb8
+#undef g_stage_flags
+#undef g_main_state
 #undef g_sound_manager
 #define g_sprt_ctrl stage_input_g_sprt_ctrl
 #define g_front stage_input_g_front
@@ -548,8 +548,8 @@ struct PlayerSchedulerRecord {
 #define g_replay stage_input_data_00477838
 #define g_score stage_input_data_0047783c
 #define g_game_speed stage_input_data_00476f78
-#define data_00491fc4 stage_input_data_00491fc4
-#define data_00491fb8 stage_input_data_00491fb8
+#define g_stage_flags stage_input_data_00491fc4
+#define g_main_state stage_input_data_00491fb8
 #define g_sound_manager stage_input_data_00492590
 // 0x0040AC90. Publish the requested input mode on a state object, unless the
 // object's +0x3CC flag word has bit 0x1000 set, in which case the mode is
@@ -588,8 +588,8 @@ __declspec(noinline) void SetInputMode(InputState* state, int mode);
 #undef g_replay
 #undef g_score
 #undef g_game_speed
-#undef data_00491fc4
-#undef data_00491fb8
+#undef g_stage_flags
+#undef g_main_state
 #undef g_sound_manager
 #define g_sprt_ctrl stage_decay_g_sprt_ctrl
 #define g_front stage_decay_g_front
@@ -600,8 +600,8 @@ __declspec(noinline) void SetInputMode(InputState* state, int mode);
 #define g_replay stage_decay_data_00477838
 #define g_score stage_decay_data_0047783c
 #define g_game_speed stage_decay_data_00476f78
-#define data_00491fc4 stage_decay_data_00491fc4
-#define data_00491fb8 stage_decay_data_00491fb8
+#define g_stage_flags stage_decay_data_00491fc4
+#define g_main_state stage_decay_data_00491fb8
 #define g_sound_manager stage_decay_data_00492590
 // 0x00418A00..0x00418A40 (65 bytes): ScoreState::DecayGauge
 //
@@ -654,8 +654,8 @@ __declspec(noinline) void SetInputMode(InputState* state, int mode);
 #undef g_replay
 #undef g_score
 #undef g_game_speed
-#undef data_00491fc4
-#undef data_00491fb8
+#undef g_stage_flags
+#undef g_main_state
 #undef g_sound_manager
 
 __declspec(noinline) void __stdcall Stage_StartQuadScripts_00404450(Stage_00404450* stage);

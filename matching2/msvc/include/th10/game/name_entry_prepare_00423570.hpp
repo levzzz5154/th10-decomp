@@ -39,9 +39,9 @@ struct NameEntryMenu_00423570 {
 typedef char NameEntryMenuNameOffset_00423570[offsetof(NameEntryMenu_00423570, name) == 0x2B4 ? 1 : -1];
 
 extern "C" ScoreFile_00423570* g_score;
-extern "C" StageInfo_00423570 data_00474788[];
-extern "C" StageInfo_00423570* data_00477848;   // the current stage's row
-extern "C" const char* data_004746d8;           // the name entry character grid
+extern "C" StageInfo_00423570 g_stage_routes[];
+extern "C" StageInfo_00423570* g_stage_route_current;   // the current stage's row
+extern "C" const char* g_name_entry_grid;           // the name entry character grid
 
 // 0x00423570: enter the score and set up the name entry.
 void __stdcall PrepareNameEntry_00423570(NameEntryMenu_00423570* menu);

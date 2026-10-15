@@ -15,12 +15,12 @@ struct KeyboardBinding_0044a950 {
     unsigned char unknown_2A[0x6A - 0x2A];
 };
 
-extern "C" KeyboardBinding_0044a950 data_00474e30[];
+extern "C" KeyboardBinding_0044a950 g_input_keys_raw[];
 
 #pragma code_seg(".text$01bindingedge")
 extern "C" unsigned short __declspec(noinline) __fastcall
 asm_FUN_0044a950_0044a950(unsigned int binding_set, unsigned short result) {
-    KeyboardBinding_0044a950* binding = &data_00474e30[binding_set];
+    KeyboardBinding_0044a950* binding = &g_input_keys_raw[binding_set];
 
     binding->previous = binding->current;
     binding->current = result;

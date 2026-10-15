@@ -10,10 +10,10 @@ bool __stdcall FontSurface_Create_00436af0(GdiSurface_00436a30* surface,int widt
     FontBitmapV4 bitmap;
     memset(&bitmap,0,sizeof(bitmap));
     unsigned int index=0;
-    while (data_00474918[index].kind!=-1 && data_00474918[index].kind!=format) ++index;
+    while (g_font_formats[index].kind!=-1 && g_font_formats[index].kind!=format) ++index;
     // Preserve the original sentinel and native-address guard, including an unknown format.
     FontFormatRecord* entry=0;
-    if (format!=-1) entry=(FontFormatRecord*)((unsigned int)data_00474918+index*sizeof(FontFormatRecord));
+    if (format!=-1) entry=(FontFormatRecord*)((unsigned int)g_font_formats+index*sizeof(FontFormatRecord));
     if (!entry) return false;
     int stride=((entry->bits_per_pixel*width)/8+3)/4*4;
     bitmap.height=-1-height;

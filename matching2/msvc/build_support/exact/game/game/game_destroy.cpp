@@ -33,7 +33,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00417c80_00417c80() {
     L_00417c92:
         mov edx,dword ptr [g_globals_flags]
     L_00417c98:
-        mov eax,dword ptr [data_00491fb8]
+        mov eax,dword ptr [g_main_state]
     L_00417c9d:
         and edx,0FFFFFFFCh
     L_00417ca0:
@@ -81,7 +81,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00417c80_00417c80() {
     L_00417d01:
         mov dword ptr [esi],edx
     L_00417d03:
-        mov eax,dword ptr [data_00491fb8]
+        mov eax,dword ptr [g_main_state]
     L_00417d08:
         mov ecx,dword ptr [g_globals_stage_shown]
     L_00417d0e:
@@ -159,7 +159,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00417c80_00417c80() {
     L_00417dab:
         mov dword ptr [g_globals_flags],eax
     L_00417db0:
-        mov eax,dword ptr [data_00491fb8]
+        mov eax,dword ptr [g_main_state]
     L_00417db5:
         test byte ptr [g_globals_flags],bl
     L_00417dbb:
@@ -205,7 +205,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00417c80_00417c80() {
     L_00417dfa:
         add esp,4
     L_00417dfd:
-        mov esi,dword ptr [data_004776e4]
+        mov esi,dword ptr [g_background_prev]
     L_00417e03:
         test esi,esi
     L_00417e05:
@@ -355,7 +355,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00417c80_00417c80() {
     L_00417eed:
         call asm_Recovery_ReleaseCompositeState_00414570
     L_00417ef2:
-        mov esi,dword ptr [data_004776e4]
+        mov esi,dword ptr [g_background_prev]
     L_00417ef8:
         test esi,esi
     L_00417efa:
@@ -373,7 +373,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00417c80_00417c80() {
     L_00417f0b:
         mov eax,dword ptr [g_background]
     L_00417f10:
-        mov dword ptr [data_004776e4],eax
+        mov dword ptr [g_background_prev],eax
     L_00417f15:
         mov eax,dword ptr [g_pause]
     L_00417f1a:
@@ -541,7 +541,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00417c80_00417c80() {
     L_0041801e:
         call ebx
     L_00418020:
-        inc byte ptr [data_0049231c]
+        inc byte ptr [g_scheduler_lock_depth]
     L_00418026:
         mov ecx,esi
     L_00418028:
@@ -553,7 +553,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00417c80_00417c80() {
     L_00418034:
         call ebp
     L_00418036:
-        dec byte ptr [data_0049231c]
+        dec byte ptr [g_scheduler_lock_depth]
     L_0041803c:
         mov eax,dword ptr [esp+24h]
     L_00418040:
@@ -569,7 +569,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00417c80_00417c80() {
     L_00418052:
         call ebx
     L_00418054:
-        inc byte ptr [data_0049231c]
+        inc byte ptr [g_scheduler_lock_depth]
     L_0041805a:
         mov ecx,esi
     L_0041805c:
@@ -581,7 +581,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00417c80_00417c80() {
     L_00418068:
         call ebp
     L_0041806a:
-        dec byte ptr [data_0049231c]
+        dec byte ptr [g_scheduler_lock_depth]
     L_00418070:
         test byte ptr [g_globals_flags],22h
     L_00418077:
@@ -597,7 +597,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00417c80_00417c80() {
     L_00418085:
         jne short L_004180a7
     L_00418087:
-        test byte ptr [data_00491d78],10h
+        test byte ptr [g_sound_flags],10h
     L_0041808e:
         mov edx,46DF98h
     L_00418093:
@@ -621,7 +621,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00417c80_00417c80() {
     L_004180ae:
         neg al
     L_004180b0:
-        mov dword ptr [data_004918a4],1
+        mov dword ptr [g_screen_effects_frozen],1
     L_004180ba:
         sbb eax,eax
     L_004180bc:
@@ -629,7 +629,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00417c80_00417c80() {
     L_004180c1:
         add eax,0FF000000h
     L_004180c6:
-        mov dword ptr [data_004923a8],eax
+        mov dword ptr [g_main_clear_color],eax
     L_004180cb:
         add esp,10h
     L_004180ce:

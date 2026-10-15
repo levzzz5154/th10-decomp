@@ -58,15 +58,15 @@
    "address": "0x004660D4",
    "kind": "data"
   },
-  "_data_00474c38": {
+  "_g_file_write_handle": {
    "address": "0x00474C38",
    "kind": "data"
   },
-  "_data_004922a4": {
+  "_g_file_lock": {
    "address": "0x004922A4",
    "kind": "data"
   },
-  "_data_0049231e": {
+  "_g_file_lock_depth": {
    "address": "0x0049231E",
    "kind": "data"
   },
@@ -82,11 +82,11 @@
    "address": "0x00470B44",
    "kind": "data"
   },
-  "_data_004746dc": {
+  "_g_shot_names": {
    "address": "0x004746DC",
    "kind": "data"
   },
-  "_data_004746f4": {
+  "_g_difficulty_names": {
    "address": "0x004746F4",
    "kind": "data"
   },

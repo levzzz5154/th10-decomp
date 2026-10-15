@@ -55,8 +55,8 @@ struct App_00420270 {
 };
 
 extern "C" App_00420270 g_application;
-extern "C" PlatformWorker data_00474dd4;
-extern "C" int data_004977b4;
+extern "C" PlatformWorker g_input_worker;
+extern "C" int g_sound_init_status;
 extern "C" AnimationManagerSurface_00420270* g_sprt_ctrl;
 extern "C" AnimationManager_0043e460 g_sound_manager;
 extern "C" DatArchive g_archive;
@@ -71,8 +71,8 @@ static inline void DeleteTimer(Win32Timer* timer) {
 
 #pragma code_seg(".text$10shutdown")
 int App_00420270::Shutdown() {
-    data_00474dd4.Stop();
-    data_004977b4 = 2;
+    g_input_worker.Stop();
+    g_sound_init_status = 2;
     g_application.worker.Stop();
     if (g_application.buffer_764) {
         asm_free_00452422(g_application.buffer_764);

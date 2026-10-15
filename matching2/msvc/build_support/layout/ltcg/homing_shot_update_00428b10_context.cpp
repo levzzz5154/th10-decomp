@@ -38,14 +38,14 @@ __declspec(noinline) float __stdcall Angle_Normalize(float angle) {
 #pragma code_seg()
 
 typedef int (__fastcall* HomingShotCallback_00428b10)(void*, HomingShot_00428b10*);
-extern "C" HomingShotCallback_00428b10 data_0047477c;  // the table slot that names the update
+extern "C" HomingShotCallback_00428b10 g_homing_shot_update;  // the table slot that names the update
 
 #pragma code_seg(".text$05context")
 extern "C" __declspec(noinline) int __stdcall HomingShotUpdateCompilerContext(
         HomingShot_00428b10** shots, int count) {
     int total = 0;
     while (count--)
-        total += data_0047477c(0, *shots++);
+        total += g_homing_shot_update(0, *shots++);
     return total;
 }
 #pragma code_seg()

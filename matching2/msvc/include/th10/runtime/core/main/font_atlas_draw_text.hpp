@@ -54,26 +54,27 @@ struct FontTexture_00437fe0 {
 };
 
 extern "C" {
-extern FontAtlas_00437fe0 data_00474cb0;
-// The fifteen fonts, one object each, largest first: data_00491868 is used
-// above 30 pixels, data_0049186c up to 30, ... data_004918a0 up to 17.
+extern FontAtlas_00437fe0 g_font_atlas_surface;
+// The fifteen fonts, one GDI object each: g_font_height_60 is used above 30
+// pixels, g_font_height_58 up to 30, ... g_font_height_32 up to 17. The name
+// is the font's own pixel height; the size ladder picks roughly twice it.
 // They are separate globals: read as elements of one array, the font no longer
 // competes for a register in the size ladder and the size loses its own.
-extern void* data_00491868;
-extern void* data_0049186c;
-extern void* data_00491870;
-extern void* data_00491874;
-extern void* data_00491878;
-extern void* data_0049187c;
-extern void* data_00491880;
-extern void* data_00491884;
-extern void* data_00491888;
-extern void* data_0049188c;
-extern void* data_00491890;
-extern void* data_00491894;
-extern void* data_00491898;
-extern void* data_0049189c;
-extern void* data_004918a0;
+extern void* g_font_height_60;
+extern void* g_font_height_58;
+extern void* g_font_height_56;
+extern void* g_font_height_54;
+extern void* g_font_height_52;
+extern void* g_font_height_50;
+extern void* g_font_height_48;
+extern void* g_font_height_46;
+extern void* g_font_height_44;
+extern void* g_font_height_42;
+extern void* g_font_height_40;
+extern void* g_font_height_38;
+extern void* g_font_height_36;
+extern void* g_font_height_34;
+extern void* g_font_height_32;
 
 __declspec(dllimport) void* __stdcall SelectObject(void* dc, void* object);
 __declspec(dllimport) int __stdcall SetBkMode(void* dc, int mode);

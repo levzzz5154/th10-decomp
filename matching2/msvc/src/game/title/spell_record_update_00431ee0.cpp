@@ -103,13 +103,13 @@ __declspec(noinline) int __stdcall TitleMode11_00431ee0(Title* room) {
         MenuCursor* difficulty = &records->difficulty;
         difficulty->previous_selection = difficulty->selection;
         records->page.previous_selection = records->page.selection;
-        if ((short)data_00474e30.InputMaskActive(0x10)) {
+        if ((short)g_input_keys_raw.InputMaskActive(0x10)) {
             difficulty->Advance(-1);
             AnimationManager_SetStopFrameAndRun(
                 2, reinterpret_cast<RecoveryLookupContext_0040bd80*>(g_sprt_ctrl),
                 *reinterpret_cast<RecoveryScriptId_0040bd80*>(&room->animation_slots[170]));
         }
-        if ((short)data_00474e30.InputMaskActive(0x20)) {
+        if ((short)g_input_keys_raw.InputMaskActive(0x20)) {
             difficulty->Advance(1);
             AnimationManager_SetStopFrameAndRun(
                 2, reinterpret_cast<RecoveryLookupContext_0040bd80*>(g_sprt_ctrl),
@@ -125,13 +125,13 @@ __declspec(noinline) int __stdcall TitleMode11_00431ee0(Title* room) {
             }
             records->page.item_count = PageCount_00431ee0(difficulty->selection);
         }
-        if ((short)data_00474e30.InputMaskActive(0x40)) {
+        if ((short)g_input_keys_raw.InputMaskActive(0x40)) {
             room->cursor.Advance(-1);
             AnimationManager_SetStopFrameAndRun(
                 2, reinterpret_cast<RecoveryLookupContext_0040bd80*>(g_sprt_ctrl),
                 *reinterpret_cast<RecoveryScriptId_0040bd80*>(&room->animation_slots[168]));
         }
-        if ((short)data_00474e30.InputMaskActive(0x80)) {
+        if ((short)g_input_keys_raw.InputMaskActive(0x80)) {
             room->cursor.Advance(1);
             AnimationManager_SetStopFrameAndRun(
                 2, reinterpret_cast<RecoveryLookupContext_0040bd80*>(g_sprt_ctrl),
@@ -148,7 +148,7 @@ __declspec(noinline) int __stdcall TitleMode11_00431ee0(Title* room) {
             if (records->page.selection > 0)
                 reinterpret_cast<TitleDrawView*>(room)->BuildSpellList();
         }
-        if (data_00474e36 & 0x1001) {
+        if (g_input_keys_held & 0x1001) {
             if (records->page.selection == 0) {
                 int line = 0;
                 do {
@@ -170,36 +170,36 @@ __declspec(noinline) int __stdcall TitleMode11_00431ee0(Title* room) {
         }
         if (records->difficulty.selection == 4 && room->cursor.selection == 2) {
             // Any game key restarts the sequence.
-            if (data_00474e36 & 0x160b) {
-                data_004979a4 = 0;
-                data_004979a0 = 0;
+            if (g_input_keys_held & 0x160b) {
+                g_spell_seq_progress = 0;
+                g_spell_seq_elapsed = 0;
             }
-            memcpy(data_00497d90, data_00497e90, sizeof(data_00497d90));
-            if (Input_UpdateKeyboardState(data_00497e90)) {
+            memcpy(g_keys_previous, g_keys_current, sizeof(g_keys_previous));
+            if (Input_UpdateKeyboardState(g_keys_current)) {
                 for (int key = 0; key < 256; ++key)
-                    data_004979a8[key] = (data_00497d90[key] ^ data_00497e90[key]) & data_00497e90[key];
-                if (data_004979a4 >= 22) {
+                    g_spell_seq_keys[key] = (g_keys_previous[key] ^ g_keys_current[key]) & g_keys_current[key];
+                if (g_spell_seq_progress >= 22) {
                     UnlockAllStages_0042c8c0(reinterpret_cast<GameProgress_0042c8c0*>(g_score));
                     g_sound_manager.Queue(44, 0);
-                    data_004979a4 = 0;
-                } else if (data_004979a8[data_0046ef10[data_004979a4]] & 0x80) {
-                    ++data_004979a4;
-                    data_004979a0 = 0;
+                    g_spell_seq_progress = 0;
+                } else if (g_spell_seq_keys[g_spell_seq_codes[g_spell_seq_progress]] & 0x80) {
+                    ++g_spell_seq_progress;
+                    g_spell_seq_elapsed = 0;
                 } else {
                     unsigned char any = 0;
                     for (int key = 0; key < 57; ++key)
-                        any |= data_004979a8[key];
+                        any |= g_spell_seq_keys[key];
                     if (any & 0x80)
-                        data_004979a4 = 0;
+                        g_spell_seq_progress = 0;
                 }
             }
-            ++data_004979a0;
-            if (data_004979a0 > 300) {
-                data_004979a4 = 0;
-                data_004979a0 = 0;
+            ++g_spell_seq_elapsed;
+            if (g_spell_seq_elapsed > 300) {
+                g_spell_seq_progress = 0;
+                g_spell_seq_elapsed = 0;
             }
         }
-        if (data_00474e36 & 0xa) {
+        if (g_input_keys_held & 0xa) {
             room->SetTimerTarget(3);
             g_sound_manager.Queue(11, 0);
             room->ClearAnimationSlot(records->difficulty.selection + 160);

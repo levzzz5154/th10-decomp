@@ -412,7 +412,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00491bf0",
+      "symbol": "_g_player_parameter_file",
       "address": "0x491bf0",
       "kind": "data"
     },
@@ -457,12 +457,12 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_004922a4",
+      "symbol": "_g_file_lock",
       "address": "0x4922a4",
       "kind": "data"
     },
     {
-      "symbol": "_data_0049231e",
+      "symbol": "_g_file_lock_depth",
       "address": "0x49231e",
       "kind": "data"
     },
@@ -482,22 +482,22 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_0047476c",
+      "symbol": "_g_music_room_commands",
       "address": "0x47476c",
       "kind": "data"
     },
     {
-      "symbol": "_data_00474778",
+      "symbol": "_g_music_room_easings",
       "address": "0x474778",
       "kind": "data"
     },
     {
-      "symbol": "_data_00491bf4",
+      "symbol": "_g_music_room_variable_map",
       "address": "0x491bf4",
       "kind": "data"
     },
     {
-      "symbol": "_data_00491bf8",
+      "symbol": "_g_music_room_callback_map",
       "address": "0x491bf8",
       "kind": "data"
     },

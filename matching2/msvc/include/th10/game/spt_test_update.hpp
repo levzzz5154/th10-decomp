@@ -35,7 +35,7 @@ struct SptTestFindData_0042bfc0 {
 };
 
 extern "C" {
-extern SptTestInput_0042bfc0 data_00474e30;
+extern SptTestInput_0042bfc0 g_input_keys_raw;
 extern SptTestGameState_0042bfc0 g_application;
 void* __cdecl malloc(unsigned int size);
 __declspec(dllimport) void* __stdcall FindFirstFileA(const char* pattern, SptTestFindData_0042bfc0* data);

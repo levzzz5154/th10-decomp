@@ -45,7 +45,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0040bd80_0040bd80() {
     L_0040bda6:
         jne short L_0040bdc6
     L_0040bda8:
-        mov ecx,dword ptr [data_00474e30]
+        mov ecx,dword ptr [g_input_keys_raw]
     L_0040bdae:
         test ch,1
     L_0040bdb1:
@@ -292,7 +292,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0040bd80_0040bd80() {
     L_0040bf2b:
         call asm_Player_SetSchedulerValue_00405410
     L_0040bf30:
-        test dword ptr [data_00474e36],1001h
+        test dword ptr [g_input_keys_held],1001h
     L_0040bf3a:
         jne short L_0040bf7f
     L_0040bf3c:
@@ -308,7 +308,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0040bd80_0040bd80() {
     L_0040bf4d:
         jne asm_target_0040c34a
     L_0040bf53:
-        mov ecx,dword ptr [data_00474e30]
+        mov ecx,dword ptr [g_input_keys_raw]
     L_0040bf59:
         test ch,1
     L_0040bf5c:
@@ -370,7 +370,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0040bd80_0040bd80() {
     L_0040bfb7:
         call asm_FrameTimer_Advance_0044bf40
     L_0040bfbc:
-        test dword ptr [data_00474e36],1001h
+        test dword ptr [g_input_keys_held],1001h
     L_0040bfc6:
         jne short L_0040c000
     L_0040bfc8:
@@ -386,7 +386,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0040bd80_0040bd80() {
     L_0040bfd9:
         jne asm_target_0040c34a
     L_0040bfdf:
-        mov ecx,dword ptr [data_00474e30]
+        mov ecx,dword ptr [g_input_keys_raw]
     L_0040bfe5:
         test ch,1
     L_0040bfe8:
@@ -420,7 +420,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0040bd80_0040bd80() {
     L_0040c015:
         mov dword ptr [ebp+78h],ebx
     L_0040c018:
-        mov dword ptr [data_004918a4],ebx
+        mov dword ptr [g_screen_effects_frozen],ebx
     L_0040c01e:
         jmp asm_target_0040c25f
     L_0040c023:

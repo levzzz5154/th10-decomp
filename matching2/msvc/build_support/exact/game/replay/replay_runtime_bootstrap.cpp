@@ -193,9 +193,9 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00428f60_00428f60() {
     L_00429088:
         mov word ptr [eax+2],cx
     L_0042908c:
-        mov ecx,dword ptr [data_00491fc4]
+        mov ecx,dword ptr [g_stage_flags]
     L_00429092:
-        mov dword ptr [data_004918b4],ebp
+        mov dword ptr [g_rng_generation],ebp
     L_00429098:
         mov edx,dword ptr [eax+1C0h]
     L_0042909e:
@@ -209,7 +209,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00428f60_00428f60() {
     L_004290ab:
         mov dword ptr [eax+1C0h],esi
     L_004290b1:
-        cmp dword ptr [data_00491fc4],ebp
+        cmp dword ptr [g_stage_flags],ebp
     L_004290b7:
         je short L_004290bf
     L_004290b9:
@@ -229,7 +229,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00428f60_00428f60() {
     L_004290d9:
         mov dword ptr [eax+14h],ecx
     L_004290dc:
-        mov edx,dword ptr [data_00474c58]
+        mov edx,dword ptr [g_player_power_display]
     L_004290e2:
         mov dword ptr [eax+18h],edx
     L_004290e5:
@@ -237,7 +237,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00428f60_00428f60() {
     L_004290eb:
         mov dword ptr [eax+1Ch],ecx
     L_004290ee:
-        mov edx,dword ptr [data_00474c98]
+        mov edx,dword ptr [g_rank]
     L_004290f4:
         mov dword ptr [eax+20h],edx
     L_004290f7:
@@ -519,7 +519,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00428f60_00428f60() {
     L_004292d2:
         mov word ptr [g_rng],ax
     L_004292d8:
-        mov dword ptr [data_004918b4],ebp
+        mov dword ptr [g_rng_generation],ebp
     L_004292de:
         mov ecx,dword ptr [esi+0Ch]
     L_004292e1:
@@ -555,7 +555,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00428f60_00428f60() {
     L_0042931c:
         mov eax,dword ptr [esi+20h]
     L_0042931f:
-        mov dword ptr [data_00474c98],eax
+        mov dword ptr [g_rank],eax
     L_00429324:
         mov ecx,dword ptr [esi+1B4h]
     L_0042932a:

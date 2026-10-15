@@ -345,17 +345,17 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_0046da60",
+      "symbol": "_g_line_laser_vtable",
       "address": "0x46da60",
       "kind": "data"
     },
     {
-      "symbol": "_data_0046da10",
+      "symbol": "_g_beam_laser_vtable",
       "address": "0x46da10",
       "kind": "data"
     },
     {
-      "symbol": "_data_0046dab0",
+      "symbol": "_g_laser_vtable",
       "address": "0x46dab0",
       "kind": "data"
     },

@@ -16,10 +16,10 @@
 // jumps onto a trailing shared return reproduce retail's `je`/`jne` pair and
 // its 20 bytes exactly.
 
-extern "C" unsigned char data_00491d63;
+extern "C" unsigned char g_music_mode;
 
 extern "C" int Fun_420b60() {
-    unsigned char mode = data_00491d63;
+    unsigned char mode = g_music_mode;
     if (mode == 2) {
         goto ready;
     }

@@ -33,9 +33,9 @@ struct AnimationLookupContext;
 struct AnimationScriptId { unsigned int value; };
 
 extern "C" {
-extern KeyBindings_0042f540 data_00474e88;
-extern KeyBindings_0042f540 data_00491d4c;
-extern KeyState_0042f540 data_00474e30;
+extern KeyBindings_0042f540 g_key_bindings_current;
+extern KeyBindings_0042f540 g_key_bindings;
+extern KeyState_0042f540 g_input_keys_raw;
 __declspec(noinline) void __stdcall RefreshTitleKeyConfigView(TitleKeyConfigView* state);
 __declspec(noinline) void __stdcall KeyConfigReassignSlot_00430250(
     TitleKeyConfigView* state, int slot, int key);

@@ -9,7 +9,7 @@ Float3 g_zero_vector;
 Float3 g_scroll_step;
 RngState g_replay_rng;
 RngState g_effect_rng;
-extern "C" float data_00491d7c[12];
+extern "C" float g_back_camera[12];
 extern "C" void* g_sprt_ctrl;
 extern "C" void* __cdecl ext_alloc_vm(void* manager);
 extern "C" AnmHandle* __cdecl ext_register(int which, void* manager, AnmHandle* out, void* vm);
@@ -241,9 +241,9 @@ float AnmVm::FloatVar(float id) {
     case 10013: return position.x;
     case 10014: return position.y;
     case 10015: return position.z;
-    case 10016: return data_00491d7c[0];
-    case 10017: return data_00491d7c[1];
-    case 10018: return data_00491d7c[2];
+    case 10016: return g_back_camera[0];
+    case 10017: return g_back_camera[1];
+    case 10018: return g_back_camera[2];
     default: return id;
     }
 }

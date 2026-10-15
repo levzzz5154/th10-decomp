@@ -1,6 +1,6 @@
 #ifndef TH10_QUEUED_CLEANUP_PAIR_HPP
 #define TH10_QUEUED_CLEANUP_PAIR_HPP
-extern "C" unsigned char data_00491bec;
+extern "C" unsigned char g_queued_anm_release;
 extern "C" unsigned char g_sprt_ctrl;
 
 // QueuedCleanupManager_00421070::Find's C++ definition is shared with the recovered
@@ -28,9 +28,9 @@ struct QueuedCleanupScriptId_00421070 {
     int value;
 };
 
-extern "C" QueuedCleanupScriptId_00421070 data_00477824;
-extern "C" QueuedCleanupScriptId_00421070 data_00477828;
-extern "C" QueuedCleanupScriptId_00421070 data_0047782c;
+extern "C" QueuedCleanupScriptId_00421070 g_queued_cleanup_a;
+extern "C" QueuedCleanupScriptId_00421070 g_queued_cleanup_b;
+extern "C" QueuedCleanupScriptId_00421070 g_queued_cleanup_c;
 
 class QueuedCleanupManager_00421070 {
 public:

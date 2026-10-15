@@ -10,10 +10,10 @@ void SprtCtrlTargetsView::Prepare(int index,int sx,int sy,int sw,int sh,int dx,i
     RenderTargetMetadata* dimensions=&metadata[index];
     dimensions->width=dw;
     dimensions->height=dh;
-    if (g_d3d_device->methods->CreateRenderTarget(g_d3d_device,dw,dh,data_00491d14,0,0,1,output,0)==0 ||
-        g_d3d_device->methods->CreatePlain(g_d3d_device,dimensions->width,dimensions->height,data_00491d14,3,output,0)==0) {
+    if (g_d3d_device->methods->CreateRenderTarget(g_d3d_device,dw,dh,g_render_target_format,0,0,1,output,0)==0 ||
+        g_d3d_device->methods->CreatePlain(g_d3d_device,dimensions->width,dimensions->height,g_render_target_format,3,output,0)==0) {
         RenderSurface** other=&secondary[index];
-        if (g_d3d_device->methods->CreatePlain(g_d3d_device,dimensions->width,dimensions->height,data_00491d14,3,other,0)==0 &&
+        if (g_d3d_device->methods->CreatePlain(g_d3d_device,dimensions->width,dimensions->height,g_render_target_format,3,other,0)==0 &&
             CopySurface_004521d6(*output,0,&target,back,0,&source,0xffffffffU,0)==0)
             CopySurface_004521d6(*other,0,0,*output,0,0,0xffffffffU,0);
     }

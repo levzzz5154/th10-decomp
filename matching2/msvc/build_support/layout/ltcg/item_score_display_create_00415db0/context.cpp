@@ -36,7 +36,7 @@ extern "C" void __stdcall ScoreDisplayStandIn_Publish(int* next_stage);
 
 #pragma code_seg(".text$01c_context")
 int __stdcall ItemScoreDisplayCompilerContext(ItemManager_00415db0** managers, int* stages, int count) {
-    ScoreDisplayStandIn_Publish(&data_00474c84);
+    ScoreDisplayStandIn_Publish(&g_stage_progress);
     for (int i = 0; i < count; ++i)
         managers[i]->CreateScoreDisplay(stages[i]);
     return count;

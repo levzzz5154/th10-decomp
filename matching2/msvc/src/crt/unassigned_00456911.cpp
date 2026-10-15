@@ -11,7 +11,7 @@ struct ThreadData {
 };
 
 extern "C" ThreadData* __cdecl asm_getptd_00456357();
-extern "C" LocaleData* data_0047320c;
+extern "C" LocaleData* g_crt_locale_data;
 extern "C" LocaleData* __cdecl asm_updatetlocinfo_00455ade();
 extern "C" int __cdecl asm_isctype_mt_00455752(LocaleData*, int, int);
 
@@ -21,7 +21,7 @@ extern "C" int __cdecl asm_unassigned_004567ab(int c);
 // the global locale changed; multibyte locales defer to _isctype_mt.
 #define CTYPE_TEST(c, mask)                                                \
     LocaleData* locale = asm_getptd_00456357()->locale;                    \
-    if (locale != data_0047320c) locale = asm_updatetlocinfo_00455ade();  \
+    if (locale != g_crt_locale_data) locale = asm_updatetlocinfo_00455ade();  \
     return locale->categories > 1                                          \
         ? asm_isctype_mt_00455752(locale, c, mask)                         \
         : locale->ctype[c] & mask

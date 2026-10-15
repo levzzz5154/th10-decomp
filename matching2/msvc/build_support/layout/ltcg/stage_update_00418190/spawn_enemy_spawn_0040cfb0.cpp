@@ -7,8 +7,8 @@
 #define g_replay stage_spawn_data_00477838
 #define g_score stage_spawn_data_0047783c
 #define g_game_speed stage_spawn_data_00476f78
-#define data_00491fc4 stage_spawn_data_00491fc4
-#define data_00491fb8 stage_spawn_data_00491fb8
+#define g_stage_flags stage_spawn_data_00491fc4
+#define g_main_state stage_spawn_data_00491fb8
 #define g_sound_manager stage_spawn_data_00492590
 // 0x0040CFB0..0x0040D1F1: create an enemy.
 //
@@ -103,6 +103,6 @@ Enemy_0040cfb0* EnemySpawn_0040cfb0::Create(EnemyCtrlSpawnView* manager, const c
 #undef g_replay
 #undef g_score
 #undef g_game_speed
-#undef data_00491fc4
-#undef data_00491fb8
+#undef g_stage_flags
+#undef g_main_state
 #undef g_sound_manager

@@ -3,7 +3,7 @@
 //
 // Allocates the 0x48-byte fixed-state pair, zeroes it, clears bit 0 of its
 // flag word at +0x24, raises bit 1 of its published flags and publishes it
-// through data_004776EC.  The scheduler callbacks are then installed; when the
+// through g_bomb.  The scheduler callbacks are then installed; when the
 // installation fails the freshly built pair is released and freed again, and
 // the factory reports NULL so callers can tell "not created" from "created".
 //

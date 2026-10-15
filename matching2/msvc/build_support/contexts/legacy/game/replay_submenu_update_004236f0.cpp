@@ -34,7 +34,7 @@ extern "C" __declspec(noinline) void __stdcall SubmenuUpdate_004236f0(SubmenuSta
     case 6:
         // The confirm gate: after ten ticks, sound 10 and start the setup.
         if (state->timer.field_04 < 10) break;
-        if ((data_00474e36 & 0x1001) == 0) break;
+        if ((g_input_keys_held & 0x1001) == 0) break;
         g_sound_manager.Queue(10, 0);
         state->state = 7;
         state->background.SetStopFrame(2);
@@ -78,15 +78,15 @@ extern "C" __declspec(noinline) void __stdcall SubmenuUpdate_004236f0(SubmenuSta
         // alternate flow, cancel back to the three rows.
         SubmenuCursor_004236f0* rows = &state->rows;
         rows->previous_selection = rows->selection;
-        if (ChoiceInputActive(&data_00474e30, 0x10))
+        if (ChoiceInputActive(&g_input_keys_raw, 0x10))
             rows->Advance(-1);
-        if (ChoiceInputActive(&data_00474e30, 0x20))
+        if (ChoiceInputActive(&g_input_keys_raw, 0x20))
             rows->Advance(1);
         if (rows->previous_selection != rows->selection) {
             state->background.SetStopFrame((unsigned short)rows->selection + 7);
             g_sound_manager.Queue(12, 0);
         }
-        if (data_00474e36 & 0x1001) {
+        if (g_input_keys_held & 0x1001) {
             state->background.FindChildRef(rows->selection + 0x7C).StopAtFrame6();
             g_sound_manager.Queue(10, 0);
             state->state = 13;
@@ -113,7 +113,7 @@ extern "C" __declspec(noinline) void __stdcall SubmenuUpdate_004236f0(SubmenuSta
                 break;
             }
         }
-        if (data_00474e36 & 0xA) {
+        if (g_input_keys_held & 0xA) {
             g_sound_manager.Queue(11, 0);
             if (rows->selection != 2) {
                 SelectInList(rows, 2);
@@ -129,18 +129,18 @@ extern "C" __declspec(noinline) void __stdcall SubmenuUpdate_004236f0(SubmenuSta
         {
         SubmenuCursor_004236f0* rows = &state->rows;
         rows->previous_selection = rows->selection;
-        if ((short)data_00474e30.InputMaskActive(0x10))
+        if ((short)g_input_keys_raw.InputMaskActive(0x10))
             rows->Advance(-1);
-        if ((short)data_00474e30.InputMaskActive(0x20))
+        if ((short)g_input_keys_raw.InputMaskActive(0x20))
             rows->Advance(1);
         if (rows->previous_selection != rows->selection)
             g_sound_manager.Queue(12, 0);
-        if (data_00474e36 & 0x1001) {
+        if (g_input_keys_held & 0x1001) {
             state->state = 11;
             state->timer.SetSchedulerValue(0);
             SubmenuCursor_004236f0* list = &state->list;
             SelectInList(list, 0);
-            state->list.item_count = (int)strlen(data_004746d8);
+            state->list.item_count = (int)strlen(g_name_entry_grid);
             state->list.wrap = 1;
             ReplayHeaderView_004236f0*& summary =
                 reinterpret_cast<ReplayHeaderView_004236f0*&>(g_replay->summary);
@@ -166,7 +166,7 @@ timed_length:
             g_sound_manager.Queue(10, 0);
             return;
         }
-        if (data_00474e36 & 0xA) {
+        if (g_input_keys_held & 0xA) {
             // Cancel: release the 25 replay managers and restore the rows.
             state->state = 8;
             state->timer.SetSchedulerValue(0);
@@ -194,17 +194,17 @@ timed_length:
         if (state->timer.field_04 < 10) break;
         SubmenuCursor_004236f0* list = &state->list;
         list->previous_selection = list->selection;
-        if ((short)data_00474e30.InputMaskActive(0x10))
+        if ((short)g_input_keys_raw.InputMaskActive(0x10))
             list->Advance(-13);
-        if ((short)data_00474e30.InputMaskActive(0x20))
+        if ((short)g_input_keys_raw.InputMaskActive(0x20))
             list->Advance(13);
-        if ((short)data_00474e30.InputMaskActive(0x40)) {
+        if ((short)g_input_keys_raw.InputMaskActive(0x40)) {
             if (list->selection % 13)
                 list->Advance(-1);
             else
                 list->Advance(12);
         }
-        if ((short)data_00474e30.InputMaskActive(0x80)) {
+        if ((short)g_input_keys_raw.InputMaskActive(0x80)) {
             if (list->selection % 13 == 12)
                 list->Advance(-12);
             else
@@ -212,8 +212,8 @@ timed_length:
         }
         if (list->previous_selection != list->selection)
             g_sound_manager.Queue(12, 0);
-        if (data_00474e36 & 0x1001) {
-            const char* grid = data_004746d8;
+        if (g_input_keys_held & 0x1001) {
+            const char* grid = g_name_entry_grid;
             int selection = list->selection;
             int length = (int)strlen(grid);
             if (selection < length - 3) {
@@ -254,7 +254,7 @@ timed_length:
                 UpdateBoundedCounter(length - 1, (unsigned int*)&list->selection);
             g_sound_manager.Queue(10, 0);
         }
-        if (data_00474e36 & 0xA) {
+        if (g_input_keys_held & 0xA) {
             g_sound_manager.Queue(11, 0);
             if (state->name_length != 0) {
                 --state->name_length;
@@ -272,17 +272,17 @@ timed_length:
         SubmenuCursor_004236f0* list = &state->list;
         if (state->no_entry == 0) {
             list->previous_selection = list->selection;
-            if ((short)data_00474e30.InputMaskActive(0x10))
+            if ((short)g_input_keys_raw.InputMaskActive(0x10))
                 list->Advance(-13);
-            if ((short)data_00474e30.InputMaskActive(0x20))
+            if ((short)g_input_keys_raw.InputMaskActive(0x20))
                 list->Advance(13);
-            if ((short)data_00474e30.InputMaskActive(0x40)) {
+            if ((short)g_input_keys_raw.InputMaskActive(0x40)) {
                 if (list->selection % 13)
                     list->Advance(-1);
                 else
                     list->Advance(12);
             }
-            if ((short)data_00474e30.InputMaskActive(0x80)) {
+            if ((short)g_input_keys_raw.InputMaskActive(0x80)) {
                 if (list->selection % 13 == 12)
                     list->Advance(-12);
                 else
@@ -291,9 +291,9 @@ timed_length:
             if (list->previous_selection != list->selection)
                 g_sound_manager.Queue(12, 0);
         }
-        if (data_00474e36 & 0x1001) {
+        if (g_input_keys_held & 0x1001) {
             if (state->no_entry == 0) {
-                const char* grid = data_004746d8;
+                const char* grid = g_name_entry_grid;
                 int selection = list->selection;
                 int length = (int)strlen(grid);
                 if (selection < length - 3) {
@@ -345,7 +345,7 @@ timed_length:
             state->background.SetStopFrame((short)(state->rows.selection + 7));
         }
         cancel_check:
-        if (data_00474e36 & 0xA) {
+        if (g_input_keys_held & 0xA) {
             if (state->rows.selection >= 0) {
                 if (state->name_length == 0)
                     return;
@@ -369,7 +369,7 @@ timed_length:
         state->state = 21;
         switch (state->rows.selection) {
         case 0:
-            data_00491fb8 = state->extra_cleared != 0 ? 10 : 13;
+            g_main_state = state->extra_cleared != 0 ? 10 : 13;
             return;
         case 1:
         case 2:

@@ -418,7 +418,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041a200_0041a200() {
     L_0041a43f:
         mov esi,eax
     L_0041a441:
-        mov eax,dword ptr [data_00474c38]
+        mov eax,dword ptr [g_file_write_handle]
     L_0041a446:
         cmp eax,0FFFFFFFFh
     L_0041a449:
@@ -442,7 +442,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041a200_0041a200() {
     L_0041a45f:
         je short L_0041a47f
     L_0041a461:
-        mov edx,dword ptr [data_00474c38]
+        mov edx,dword ptr [g_file_write_handle]
     L_0041a467:
         push edx
     L_0041a468:
@@ -452,7 +452,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041a200_0041a200() {
     L_0041a473:
         call dword ptr [imp_LeaveCriticalSection]
     L_0041a479:
-        dec byte ptr [data_0049231e]
+        dec byte ptr [g_file_lock_depth]
     L_0041a47f:
         mov eax,dword ptr [esp+0Ch]
     L_0041a483:
@@ -482,7 +482,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041a200_0041a200() {
     L_0041a4a0:
         mov esi,eax
     L_0041a4a2:
-        mov eax,dword ptr [data_00474c38]
+        mov eax,dword ptr [g_file_write_handle]
     L_0041a4a7:
         cmp eax,0FFFFFFFFh
     L_0041a4aa:
@@ -506,7 +506,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041a200_0041a200() {
     L_0041a4c0:
         je short L_0041a4e0
     L_0041a4c2:
-        mov edx,dword ptr [data_00474c38]
+        mov edx,dword ptr [g_file_write_handle]
     L_0041a4c8:
         push edx
     L_0041a4c9:
@@ -516,7 +516,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041a200_0041a200() {
     L_0041a4d4:
         call dword ptr [imp_LeaveCriticalSection]
     L_0041a4da:
-        dec byte ptr [data_0049231e]
+        dec byte ptr [g_file_lock_depth]
     L_0041a4e0:
         mov eax,dword ptr [esp+0Ch]
     L_0041a4e4:
@@ -546,7 +546,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041a200_0041a200() {
     L_0041a501:
         mov esi,eax
     L_0041a503:
-        mov eax,dword ptr [data_00474c38]
+        mov eax,dword ptr [g_file_write_handle]
     L_0041a508:
         cmp eax,0FFFFFFFFh
     L_0041a50b:
@@ -572,7 +572,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041a200_0041a200() {
     L_0041a523:
         je short L_0041a542
     L_0041a525:
-        mov eax,dword ptr [data_00474c38]
+        mov eax,dword ptr [g_file_write_handle]
     L_0041a52a:
         push eax
     L_0041a52b:
@@ -582,7 +582,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041a200_0041a200() {
     L_0041a536:
         call dword ptr [imp_LeaveCriticalSection]
     L_0041a53c:
-        dec byte ptr [data_0049231e]
+        dec byte ptr [g_file_lock_depth]
     L_0041a542:
         mov eax,dword ptr [ebx+70h]
     L_0041a545:
@@ -618,7 +618,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041a200_0041a200() {
     L_0041a569:
         mov esi,eax
     L_0041a56b:
-        mov eax,dword ptr [data_00474c38]
+        mov eax,dword ptr [g_file_write_handle]
     L_0041a570:
         cmp eax,0FFFFFFFFh
     L_0041a573:
@@ -644,7 +644,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041a200_0041a200() {
     L_0041a58b:
         je short L_0041a5aa
     L_0041a58d:
-        mov eax,dword ptr [data_00474c38]
+        mov eax,dword ptr [g_file_write_handle]
     L_0041a592:
         push eax
     L_0041a593:
@@ -654,7 +654,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041a200_0041a200() {
     L_0041a59e:
         call dword ptr [imp_LeaveCriticalSection]
     L_0041a5a4:
-        dec byte ptr [data_0049231e]
+        dec byte ptr [g_file_lock_depth]
     L_0041a5aa:
         lea ecx,[ebx+1Ch]
     L_0041a5ad:
@@ -684,7 +684,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041a200_0041a200() {
     L_0041a5ca:
         mov esi,eax
     L_0041a5cc:
-        mov eax,dword ptr [data_00474c38]
+        mov eax,dword ptr [g_file_write_handle]
     L_0041a5d1:
         cmp eax,0FFFFFFFFh
     L_0041a5d4:
@@ -708,7 +708,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041a200_0041a200() {
     L_0041a5ea:
         je short L_0041a609
     L_0041a5ec:
-        mov eax,dword ptr [data_00474c38]
+        mov eax,dword ptr [g_file_write_handle]
     L_0041a5f1:
         push eax
     L_0041a5f2:
@@ -718,7 +718,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041a200_0041a200() {
     L_0041a5fd:
         call dword ptr [imp_LeaveCriticalSection]
     L_0041a603:
-        dec byte ptr [data_0049231e]
+        dec byte ptr [g_file_lock_depth]
     L_0041a609:
         fld dword ptr [ebx+4]
     L_0041a60c:
@@ -758,7 +758,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041a200_0041a200() {
     L_0041a639:
         mov esi,eax
     L_0041a63b:
-        mov eax,dword ptr [data_00474c38]
+        mov eax,dword ptr [g_file_write_handle]
     L_0041a640:
         cmp eax,0FFFFFFFFh
     L_0041a643:
@@ -782,7 +782,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041a200_0041a200() {
     L_0041a659:
         je short L_0041a679
     L_0041a65b:
-        mov edx,dword ptr [data_00474c38]
+        mov edx,dword ptr [g_file_write_handle]
     L_0041a661:
         push edx
     L_0041a662:
@@ -792,7 +792,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041a200_0041a200() {
     L_0041a66d:
         call dword ptr [imp_LeaveCriticalSection]
     L_0041a673:
-        dec byte ptr [data_0049231e]
+        dec byte ptr [g_file_lock_depth]
     L_0041a679:
         mov eax,dword ptr [ebx+60h]
     L_0041a67c:
@@ -822,7 +822,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041a200_0041a200() {
     L_0041a699:
         mov esi,eax
     L_0041a69b:
-        mov eax,dword ptr [data_00474c38]
+        mov eax,dword ptr [g_file_write_handle]
     L_0041a6a0:
         cmp eax,0FFFFFFFFh
     L_0041a6a3:
@@ -846,7 +846,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041a200_0041a200() {
     L_0041a6b9:
         je short L_0041a6d9
     L_0041a6bb:
-        mov edx,dword ptr [data_00474c38]
+        mov edx,dword ptr [g_file_write_handle]
     L_0041a6c1:
         push edx
     L_0041a6c2:
@@ -856,7 +856,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041a200_0041a200() {
     L_0041a6cd:
         call dword ptr [imp_LeaveCriticalSection]
     L_0041a6d3:
-        dec byte ptr [data_0049231e]
+        dec byte ptr [g_file_lock_depth]
     L_0041a6d9:
         mov ecx,dword ptr [ebx+68h]
     L_0041a6dc:
@@ -904,7 +904,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041a200_0041a200() {
     L_0041a719:
         mov esi,eax
     L_0041a71b:
-        mov eax,dword ptr [data_00474c38]
+        mov eax,dword ptr [g_file_write_handle]
     L_0041a720:
         cmp eax,0FFFFFFFFh
     L_0041a723:
@@ -928,7 +928,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041a200_0041a200() {
     L_0041a739:
         je short L_0041a759
     L_0041a73b:
-        mov edx,dword ptr [data_00474c38]
+        mov edx,dword ptr [g_file_write_handle]
     L_0041a741:
         push edx
     L_0041a742:
@@ -938,7 +938,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041a200_0041a200() {
     L_0041a74d:
         call dword ptr [imp_LeaveCriticalSection]
     L_0041a753:
-        dec byte ptr [data_0049231e]
+        dec byte ptr [g_file_lock_depth]
     L_0041a759:
         mov ecx,dword ptr [ebx+64h]
     L_0041a75c:
@@ -986,7 +986,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041a200_0041a200() {
     L_0041a799:
         mov esi,eax
     L_0041a79b:
-        mov eax,dword ptr [data_00474c38]
+        mov eax,dword ptr [g_file_write_handle]
     L_0041a7a0:
         cmp eax,0FFFFFFFFh
     L_0041a7a3:
@@ -1010,7 +1010,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041a200_0041a200() {
     L_0041a7b9:
         je short L_0041a7d9
     L_0041a7bb:
-        mov edx,dword ptr [data_00474c38]
+        mov edx,dword ptr [g_file_write_handle]
     L_0041a7c1:
         push edx
     L_0041a7c2:
@@ -1020,7 +1020,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041a200_0041a200() {
     L_0041a7cd:
         call dword ptr [imp_LeaveCriticalSection]
     L_0041a7d3:
-        dec byte ptr [data_0049231e]
+        dec byte ptr [g_file_lock_depth]
     L_0041a7d9:
         mov eax,dword ptr [ebx+6Ch]
     L_0041a7dc:
@@ -1050,7 +1050,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041a200_0041a200() {
     L_0041a7f9:
         mov esi,eax
     L_0041a7fb:
-        mov eax,dword ptr [data_00474c38]
+        mov eax,dword ptr [g_file_write_handle]
     L_0041a800:
         cmp eax,0FFFFFFFFh
     L_0041a803:
@@ -1074,7 +1074,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041a200_0041a200() {
     L_0041a819:
         je short L_0041a839
     L_0041a81b:
-        mov edx,dword ptr [data_00474c38]
+        mov edx,dword ptr [g_file_write_handle]
     L_0041a821:
         push edx
     L_0041a822:
@@ -1084,7 +1084,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041a200_0041a200() {
     L_0041a82d:
         call dword ptr [imp_LeaveCriticalSection]
     L_0041a833:
-        dec byte ptr [data_0049231e]
+        dec byte ptr [g_file_lock_depth]
     L_0041a839:
         movzx eax,byte ptr [ebx+87h]
     L_0041a840:
@@ -1114,7 +1114,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041a200_0041a200() {
     L_0041a85d:
         mov esi,eax
     L_0041a85f:
-        mov eax,dword ptr [data_00474c38]
+        mov eax,dword ptr [g_file_write_handle]
     L_0041a864:
         cmp eax,0FFFFFFFFh
     L_0041a867:
@@ -1138,7 +1138,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041a200_0041a200() {
     L_0041a87d:
         je short L_0041a89d
     L_0041a87f:
-        mov edx,dword ptr [data_00474c38]
+        mov edx,dword ptr [g_file_write_handle]
     L_0041a885:
         push edx
     L_0041a886:
@@ -1148,7 +1148,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041a200_0041a200() {
     L_0041a891:
         call dword ptr [imp_LeaveCriticalSection]
     L_0041a897:
-        dec byte ptr [data_0049231e]
+        dec byte ptr [g_file_lock_depth]
     L_0041a89d:
         movzx eax,byte ptr [ebx+84h]
     L_0041a8a4:
@@ -1186,7 +1186,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041a200_0041a200() {
     L_0041a8d1:
         mov esi,eax
     L_0041a8d3:
-        mov eax,dword ptr [data_00474c38]
+        mov eax,dword ptr [g_file_write_handle]
     L_0041a8d8:
         cmp eax,0FFFFFFFFh
     L_0041a8db:
@@ -1210,7 +1210,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041a200_0041a200() {
     L_0041a8f1:
         je short L_0041a911
     L_0041a8f3:
-        mov edx,dword ptr [data_00474c38]
+        mov edx,dword ptr [g_file_write_handle]
     L_0041a8f9:
         push edx
     L_0041a8fa:
@@ -1220,7 +1220,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041a200_0041a200() {
     L_0041a905:
         call dword ptr [imp_LeaveCriticalSection]
     L_0041a90b:
-        dec byte ptr [data_0049231e]
+        dec byte ptr [g_file_lock_depth]
     L_0041a911:
         fld dword ptr [ebx+7Ch]
     L_0041a914:
@@ -1254,7 +1254,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041a200_0041a200() {
     L_0041a939:
         mov esi,eax
     L_0041a93b:
-        mov eax,dword ptr [data_00474c38]
+        mov eax,dword ptr [g_file_write_handle]
     L_0041a940:
         cmp eax,0FFFFFFFFh
     L_0041a943:
@@ -1278,7 +1278,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041a200_0041a200() {
     L_0041a959:
         je short L_0041a979
     L_0041a95b:
-        mov edx,dword ptr [data_00474c38]
+        mov edx,dword ptr [g_file_write_handle]
     L_0041a961:
         push edx
     L_0041a962:
@@ -1288,7 +1288,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041a200_0041a200() {
     L_0041a96d:
         call dword ptr [imp_LeaveCriticalSection]
     L_0041a973:
-        dec byte ptr [data_0049231e]
+        dec byte ptr [g_file_lock_depth]
     L_0041a979:
         mov eax,dword ptr [esp+0Ch]
     L_0041a97d:
@@ -1318,7 +1318,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041a200_0041a200() {
     L_0041a99a:
         mov esi,eax
     L_0041a99c:
-        mov eax,dword ptr [data_00474c38]
+        mov eax,dword ptr [g_file_write_handle]
     L_0041a9a1:
         cmp eax,0FFFFFFFFh
     L_0041a9a4:
@@ -1342,7 +1342,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041a200_0041a200() {
     L_0041a9ba:
         je short L_0041a9da
     L_0041a9bc:
-        mov edx,dword ptr [data_00474c38]
+        mov edx,dword ptr [g_file_write_handle]
     L_0041a9c2:
         push edx
     L_0041a9c3:
@@ -1352,7 +1352,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041a200_0041a200() {
     L_0041a9ce:
         call dword ptr [imp_LeaveCriticalSection]
     L_0041a9d4:
-        dec byte ptr [data_0049231e]
+        dec byte ptr [g_file_lock_depth]
     L_0041a9da:
         mov eax,dword ptr [esp+10h]
     L_0041a9de:
@@ -1402,7 +1402,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041a200_0041a200() {
     L_0041aa1c:
         mov esi,eax
     L_0041aa1e:
-        mov eax,dword ptr [data_00474c38]
+        mov eax,dword ptr [g_file_write_handle]
     L_0041aa23:
         cmp eax,0FFFFFFFFh
     L_0041aa26:
@@ -1426,7 +1426,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041a200_0041a200() {
     L_0041aa3c:
         je short L_0041aa5c
     L_0041aa3e:
-        mov edx,dword ptr [data_00474c38]
+        mov edx,dword ptr [g_file_write_handle]
     L_0041aa44:
         push edx
     L_0041aa45:
@@ -1436,7 +1436,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041a200_0041a200() {
     L_0041aa50:
         call dword ptr [imp_LeaveCriticalSection]
     L_0041aa56:
-        dec byte ptr [data_0049231e]
+        dec byte ptr [g_file_lock_depth]
     L_0041aa5c:
         mov eax,dword ptr [esp+0Ch]
     L_0041aa60:
@@ -1454,7 +1454,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041a200_0041a200() {
     L_0041aa73:
         jl asm_target_0041a3e4
     L_0041aa79:
-        mov eax,dword ptr [data_00474c38]
+        mov eax,dword ptr [g_file_write_handle]
     L_0041aa7e:
         cmp eax,0FFFFFFFFh
     L_0041aa81:
@@ -1468,7 +1468,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041a200_0041a200() {
     L_0041aa8f:
         call dword ptr [imp_LeaveCriticalSection]
     L_0041aa95:
-        dec byte ptr [data_0049231e]
+        dec byte ptr [g_file_lock_depth]
     L_0041aa9b:
         push edi
     L_0041aa9c:

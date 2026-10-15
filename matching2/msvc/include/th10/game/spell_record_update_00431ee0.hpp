@@ -25,12 +25,12 @@ struct TitleDrawView {
 struct GameProgress_0042c8c0;
 
 extern "C" {
-extern unsigned char data_00497e90[256];    // keyboard snapshot of this frame
-extern unsigned char data_00497d90[256];    // keyboard snapshot of the frame before
-extern unsigned char data_004979a8[256];    // keys that went down this frame
-extern unsigned int data_004979a4;          // keys of the unlock sequence entered so far
-extern int data_004979a0;                   // frames since the last key of the sequence
-extern const int data_0046ef10[22];         // the unlock sequence, as scan codes
+extern unsigned char g_keys_current[256];    // keyboard snapshot of this frame
+extern unsigned char g_keys_previous[256];    // keyboard snapshot of the frame before
+extern unsigned char g_spell_seq_keys[256];    // keys that went down this frame
+extern unsigned int g_spell_seq_progress;          // keys of the unlock sequence entered so far
+extern int g_spell_seq_elapsed;                   // frames since the last key of the sequence
+extern const int g_spell_seq_codes[22];         // the unlock sequence, as scan codes
 }
 
 // 0x004088C0: the number of spell cards of a difficulty.

@@ -5,12 +5,12 @@ extern "C" TextLog_0044b810 g_log;
 int GameInputSystem::InitializeDevices() {
     void* instance=(void*)imp_GetWindowLongA(window,-6);
     if (flags&8U) return -1;
-    if (DirectInput8Create_0045071e(instance,0x800,&data_00467aac,&direct_input,0)<0) {
+    if (DirectInput8Create_0045071e(instance,0x800,&g_guid_dinput,&direct_input,0)<0) {
         direct_input=0;
         g_log.Append(str_directinput_unavailable);
         return -1;
     }
-    if (direct_input->vtable->CreateDevice(direct_input,&data_0046793c,&keyboard,0)<0) {
+    if (direct_input->vtable->CreateDevice(direct_input,&g_guid_syskeyboard,&keyboard,0)<0) {
         if (direct_input) {
             direct_input->vtable->Release(direct_input);
             direct_input=0;
@@ -18,7 +18,7 @@ int GameInputSystem::InitializeDevices() {
         g_log.Append(str_directinput_unavailable);
         return -1;
     }
-    if (keyboard->vtable->SetDataFormat(keyboard,&data_004664fc)<0) {
+    if (keyboard->vtable->SetDataFormat(keyboard,&g_dinput_keyboard_format)<0) {
         if (keyboard) {
             keyboard->vtable->Release(keyboard);
             keyboard=0;
@@ -43,7 +43,7 @@ int GameInputSystem::InitializeDevices() {
     g_log.Append(str_directinput_ok);
     direct_input->vtable->EnumDevices(direct_input,4,&GameInput_EnumDevice_0043baf0,0,1);
     if (joystick) {
-        joystick->vtable->SetDataFormat(joystick,&data_00466704);
+        joystick->vtable->SetDataFormat(joystick,&g_dinput_joystick_format);
         joystick->vtable->SetCooperativeLevel(joystick,window,10);
         g_application.capabilities.size=44;
         joystick->vtable->GetCapabilities(joystick,&g_application.capabilities);
@@ -60,12 +60,12 @@ int GameInputSystem::InitializeDevices() {
 // create the keyboard and joystick devices and publish which exist. Thread entry: no arguments, final flags in EAX, plain RET.
 #pragma code_seg(".text$a12game")
 extern "C" unsigned int __cdecl Input_InitThread() {
-    data_00491ff4&=~0x600U;
+    g_app_flags&=~0x600U;
     g_application.InitializeDevices();
-    unsigned int flags=data_00491ff4;
+    unsigned int flags=g_app_flags;
     flags^=(((unsigned int)(g_application.keyboard!=0)<<9)^flags)&0x200U;
     flags^=(((unsigned int)(g_application.joystick!=0)<<10)^flags)&0x400U;
-    data_00491ff4=flags;
+    g_app_flags=flags;
     return flags;
 }
 #pragma code_seg()

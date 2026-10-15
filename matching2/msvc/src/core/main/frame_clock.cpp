@@ -22,11 +22,11 @@ struct CriticalSectionStorage {
     unsigned int opaque[6];                 // CRITICAL_SECTION, 24 bytes
 };
 
-extern "C" CriticalSectionStorage data_004922ec;    // 0x004922EC  timer lock
-extern "C" unsigned char data_00492321;             // 0x00492321  nesting counter
-extern "C" long long data_00492508;                 // 0x00492508  QPC ticks per second
-extern "C" long long data_00492510;                 // 0x00492510  previous QPC sample
-extern "C" double data_00492540;                    // 0x00492540  smallest delta seen
+extern "C" CriticalSectionStorage g_timer_lock;    // 0x004922EC  timer lock
+extern "C" unsigned char g_timer_lock_depth;             // 0x00492321  nesting counter
+extern "C" long long g_qpc_frequency;                 // 0x00492508  QPC ticks per second
+extern "C" long long g_qpc_previous;                 // 0x00492510  previous QPC sample
+extern "C" double g_frame_min_delta;                    // 0x00492540  smallest delta seen
 
 // QueryPerformanceCounter fills a 64-bit tick count.  The retail frame keeps a
 // trailing DWORD next to it (the 20-byte frame of 0x00439540), so the sample is
@@ -47,27 +47,27 @@ struct TickSample {
 extern "C" double __cdecl FrameTimer_GetDelta(void) {
     double Time;
     TickSample sample;
-    EnterCriticalSection(&data_004922ec);
-    ++data_00492321;
-    if (data_00492508 != 0) {
+    EnterCriticalSection(&g_timer_lock);
+    ++g_timer_lock_depth;
+    if (g_qpc_frequency != 0) {
         QueryPerformanceCounter(&sample.ticks);
-        Time = (double)(sample.ticks - data_00492510) / (double)data_00492508;
-        if (data_00492540 > Time)
-            data_00492540 = Time;
-        LeaveCriticalSection(&data_004922ec);
-        --data_00492321;
-        return Time - data_00492540;
+        Time = (double)(sample.ticks - g_qpc_previous) / (double)g_qpc_frequency;
+        if (g_frame_min_delta > Time)
+            g_frame_min_delta = Time;
+        LeaveCriticalSection(&g_timer_lock);
+        --g_timer_lock_depth;
+        return Time - g_frame_min_delta;
     }
     // No performance counter: the millisecond clock is the only source, and the
     // delta is scaled to seconds only after the smallest one is remembered.
     timeBeginPeriod(1);
     Time = (double)timeGetTime();
     timeEndPeriod(1);
-    if (data_00492540 > Time)
-        data_00492540 = Time;
-    Time = (Time - data_00492540 * 1000.0) * 0.001;
-    LeaveCriticalSection(&data_004922ec);
-    --data_00492321;
+    if (g_frame_min_delta > Time)
+        g_frame_min_delta = Time;
+    Time = (Time - g_frame_min_delta * 1000.0) * 0.001;
+    LeaveCriticalSection(&g_timer_lock);
+    --g_timer_lock_depth;
     return Time;
 }
 

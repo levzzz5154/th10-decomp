@@ -103,7 +103,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_data_0046d0d8",
+      "symbol": "_g_enemy_vtable_released",
       "address": "0x0046D0D8",
       "kind": "data"
     }

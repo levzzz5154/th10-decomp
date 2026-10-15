@@ -58,11 +58,11 @@ struct InputBinding {                 // one 0x6A-byte binding set
 
 extern "C" {
 __declspec(dllimport) unsigned int __stdcall joyGetPosEx(unsigned int id, JoyInfoEx* info);
-extern unsigned int data_00491ff4;            // input mode flags (0x400: DirectInput pad)
-extern InputBinding data_00474e30[];          // binding sets
-extern JoyCaps data_004918b8[];               // winmm capabilities per pad
-extern PadDevice* data_00491c3c[];            // DirectInput device per pad
-extern short data_00491d5e, data_00491d60;    // DirectInput X/Y axis thresholds
+extern unsigned int g_app_flags;            // input mode flags (0x400: DirectInput pad)
+extern InputBinding g_input_keys_raw[];          // binding sets
+extern JoyCaps g_joystick_caps[];               // winmm capabilities per pad
+extern PadDevice* g_pad_devices[];            // DirectInput device per pad
+extern short g_joystick_x_threshold, g_joystick_y_threshold;    // DirectInput X/Y axis thresholds
 }
 
 #define JOYSTICK_MIDPOINT(min, max) ((min + max) / 2)
@@ -85,8 +85,8 @@ static unsigned int SetButtonFromDirectInputJoystate(unsigned short* out, short 
 }
 
 unsigned short __stdcall ReadPad(unsigned short buttons, int set, int pad) {
-    InputBinding* binding = &data_00474e30[set];
-    if ((data_00491ff4 & 0x400) == 0) {
+    InputBinding* binding = &g_input_keys_raw[set];
+    if ((g_app_flags & 0x400) == 0) {
         JoyInfoEx info;
         memset(&info, 0, sizeof(info));
         info.dwSize = sizeof(info);
@@ -98,41 +98,41 @@ unsigned short __stdcall ReadPad(unsigned short buttons, int set, int pad) {
         SetButtonFromControllerInputs(&buttons, binding->focus, 4, info.dwButtons);
         SetButtonFromControllerInputs(&buttons, binding->skip, 0x100, info.dwButtons);
 
-        unsigned int deadzone = (data_004918b8[pad].wXmax - data_004918b8[pad].wXmin) / 4;
+        unsigned int deadzone = (g_joystick_caps[pad].wXmax - g_joystick_caps[pad].wXmin) / 4;
         buttons |= JOYSTICK_BUTTON_PRESSED(0x80, info.dwXpos,
-                                           JOYSTICK_MIDPOINT(data_004918b8[pad].wXmin, data_004918b8[pad].wXmax) + deadzone);
+                                           JOYSTICK_MIDPOINT(g_joystick_caps[pad].wXmin, g_joystick_caps[pad].wXmax) + deadzone);
         buttons |= JOYSTICK_BUTTON_PRESSED_INVERT(0x40, info.dwXpos,
-                                                  JOYSTICK_MIDPOINT(data_004918b8[pad].wXmin, data_004918b8[pad].wXmax) - deadzone);
-        unsigned int ymax = data_004918b8[pad].wYmax;
-        deadzone = (ymax - data_004918b8[pad].wYmin) / 4;
+                                                  JOYSTICK_MIDPOINT(g_joystick_caps[pad].wXmin, g_joystick_caps[pad].wXmax) - deadzone);
+        unsigned int ymax = g_joystick_caps[pad].wYmax;
+        deadzone = (ymax - g_joystick_caps[pad].wYmin) / 4;
         buttons |= JOYSTICK_BUTTON_PRESSED(0x20, info.dwYpos,
-                                           JOYSTICK_MIDPOINT(data_004918b8[pad].wYmin, ymax) + deadzone);
+                                           JOYSTICK_MIDPOINT(g_joystick_caps[pad].wYmin, ymax) + deadzone);
         buttons |= JOYSTICK_BUTTON_PRESSED_INVERT(0x10, info.dwYpos,
-                                                  JOYSTICK_MIDPOINT(data_004918b8[pad].wYmin, ymax) - deadzone);
+                                                  JOYSTICK_MIDPOINT(g_joystick_caps[pad].wYmin, ymax) - deadzone);
         return buttons;
     }
 
-    if (data_00491c3c[pad]->vtbl->Poll(data_00491c3c[pad]) < 0) {
+    if (g_pad_devices[pad]->vtbl->Poll(g_pad_devices[pad]) < 0) {
         int retryCount = 0;
-        long hr = data_00491c3c[pad]->vtbl->Acquire(data_00491c3c[pad]);
+        long hr = g_pad_devices[pad]->vtbl->Acquire(g_pad_devices[pad]);
         while (hr == (long)0x8007001e) {              // DIERR_INPUTLOST
-            hr = data_00491c3c[pad]->vtbl->Acquire(data_00491c3c[pad]);
+            hr = g_pad_devices[pad]->vtbl->Acquire(g_pad_devices[pad]);
             if (++retryCount >= 400) return buttons;
         }
         return buttons;
     }
     DiJoyState2 js;
     memset(&js, 0, sizeof(js));
-    if (data_00491c3c[pad]->vtbl->GetDeviceState(data_00491c3c[pad], sizeof(js), &js) < 0) return buttons;
+    if (g_pad_devices[pad]->vtbl->GetDeviceState(g_pad_devices[pad], sizeof(js), &js) < 0) return buttons;
     SetButtonFromDirectInputJoystate(&buttons, binding->shot, 1, js.rgbButtons);
     SetButtonFromDirectInputJoystate(&buttons, binding->bomb, 2, js.rgbButtons);
     SetButtonFromDirectInputJoystate(&buttons, binding->pause, 8, js.rgbButtons);
     SetButtonFromDirectInputJoystate(&buttons, binding->focus, 4, js.rgbButtons);
     SetButtonFromDirectInputJoystate(&buttons, binding->skip, 0x100, js.rgbButtons);
-    buttons |= JOYSTICK_BUTTON_PRESSED_INVERT(0x40, js.lX, -data_00491d5e);
-    buttons |= JOYSTICK_BUTTON_PRESSED_INVERT(0x10, js.lY, -data_00491d60);
-    buttons |= JOYSTICK_BUTTON_PRESSED(0x80, js.lX, data_00491d5e);
-    buttons |= JOYSTICK_BUTTON_PRESSED(0x20, js.lY, data_00491d60);
+    buttons |= JOYSTICK_BUTTON_PRESSED_INVERT(0x40, js.lX, -g_joystick_x_threshold);
+    buttons |= JOYSTICK_BUTTON_PRESSED_INVERT(0x10, js.lY, -g_joystick_y_threshold);
+    buttons |= JOYSTICK_BUTTON_PRESSED(0x80, js.lX, g_joystick_x_threshold);
+    buttons |= JOYSTICK_BUTTON_PRESSED(0x20, js.lY, g_joystick_y_threshold);
     return buttons;
 }
 

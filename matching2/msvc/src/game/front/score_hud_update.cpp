@@ -72,12 +72,12 @@ void FrontScoreView::Update() {
     HudTickAnimation(&animations[10]);
     if (!(flags.bytes[0]&0x20)) {
         if (g_globals.difficulty!=4) {
-            if (displayed_score>=data_00474474[g_globals.next_extend]) {
+            if (displayed_score>=g_next_extend_score[g_globals.next_extend]) {
                 g_globals.AddLives(1);
                 ++g_globals.next_extend;
             }
         } else {
-            if (displayed_score>=data_00474488[g_globals.next_extend]) {
+            if (displayed_score>=g_next_extend_score_2[g_globals.next_extend]) {
                 g_globals.AddLives(1);
                 ++g_globals.next_extend;
             }

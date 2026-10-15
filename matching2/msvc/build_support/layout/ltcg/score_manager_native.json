@@ -154,12 +154,12 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_0049231e",
+      "symbol": "_g_file_lock_depth",
       "address": "0x49231e",
       "kind": "data"
     },
     {
-      "symbol": "_data_004922a4",
+      "symbol": "_g_file_lock",
       "address": "0x4922a4",
       "kind": "data"
     },
@@ -249,7 +249,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_0046e354",
+      "symbol": "_g_score_blank_string",
       "address": "0x46e354",
       "kind": "data"
     },
@@ -259,7 +259,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_004918b4",
+      "symbol": "_g_rng_generation",
       "address": "0x4918b4",
       "kind": "data"
     },

@@ -22,7 +22,7 @@ struct Hint {
 typedef char Hint_size[sizeof(Hint) == 0x1A8 ? 1 : -1];
 typedef char Hint_record_offset[offsetof(Hint, records) == 0x18 ? 1 : -1];
 extern "C" FuncCtrl* g_func_ctrl;
-extern "C" volatile unsigned char data_00491d6a;
+extern "C" volatile unsigned char g_screen_mode;
 extern "C" Hint* g_hint;
 extern "C" SchedulerTask* __stdcall SchedulerCallback_Create_00449ed0(void*);
 extern "C" int __stdcall asm_FUN_00419960_00419960(Hint*, const char*, int);

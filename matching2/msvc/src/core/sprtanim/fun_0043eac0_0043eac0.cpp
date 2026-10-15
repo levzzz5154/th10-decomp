@@ -8,12 +8,12 @@
 extern "C" float __fastcall asm_Rng_NextFloat_0044bb20(const void* self);       // 0x0044BB20
 extern "C" float __fastcall asm_Rng_NextFloatSigned_0044bb90(const void* self); // 0x0044BB90
 extern "C" float flt_pi;   // 3.1415927f
-extern "C" float data_00491d7c;
-extern "C" float data_00491d80;
-extern "C" float data_00491d84;
-extern "C" float data_00491da0;
-extern "C" float data_00491da4;
-extern "C" float data_00491da8;
+extern "C" float g_back_camera;
+extern "C" float g_back_camera_2;
+extern "C" float g_back_camera_3;
+extern "C" float g_anm_vm_time_a;
+extern "C" float g_anm_vm_time_b;
+extern "C" float g_anm_vm_time_c;
 
 struct EffectFieldStore_0043eac0 {
     unsigned char pad_0000[0x30C];
@@ -78,17 +78,17 @@ float EffectFieldStore_0043eac0::Get(float index) {
     case 0x271F:
         return float_33c;
     case 0x2720:
-        return data_00491d7c;
+        return g_back_camera;
     case 0x2721:
-        return data_00491d80;
+        return g_back_camera_2;
     case 0x2722:
-        return data_00491d84;
+        return g_back_camera_3;
     case 0x2723:
-        return data_00491da0;
+        return g_anm_vm_time_a;
     case 0x2724:
-        return data_00491da4;
+        return g_anm_vm_time_b;
     case 0x2725:
-        return data_00491da8;
+        return g_anm_vm_time_c;
     default:
         return index;
     }

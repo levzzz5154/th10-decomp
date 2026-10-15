@@ -111,12 +111,12 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_0049231e",
+      "symbol": "_g_file_lock_depth",
       "address": "0x0049231e",
       "kind": "data"
     },
     {
-      "symbol": "_data_004922a4",
+      "symbol": "_g_file_lock",
       "address": "0x004922a4",
       "kind": "data"
     },
@@ -176,12 +176,12 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_data_004922bc",
+      "symbol": "_g_text_log_lock",
       "address": "0x004922BC",
       "kind": "data"
     },
     {
-      "symbol": "_data_0049231f",
+      "symbol": "_g_text_log_lock_depth",
       "address": "0x0049231F",
       "kind": "data"
     },
@@ -251,7 +251,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00474e88",
+      "symbol": "_g_key_bindings_current",
       "address": "0x00474E88",
       "kind": "data"
     },

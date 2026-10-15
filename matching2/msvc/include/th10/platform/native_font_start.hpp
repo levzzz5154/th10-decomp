@@ -26,11 +26,11 @@ struct FontRandomState {
 typedef char FontRandomSize[(sizeof(FontRandomState)==8 && offsetof(FontRandomState,seed)==0 && offsetof(FontRandomState,upper_word)==2 && offsetof(FontRandomState,generations)==4)?1:-1];
 typedef char FontBitmapSize[sizeof(FontBitmapV4)==108?1:-1];
 extern "C" {
- extern FontFormatRecord data_00474918[];
- extern GdiSurface_00436a30 data_00474cb0;
+ extern FontFormatRecord g_font_formats[];
+ extern GdiSurface_00436a30 g_font_atlas_surface;
  extern FontRandomState g_rng;
 
- extern void* data_00491868[15];
+ extern void* g_font_height_60[15];
  extern const char str_ms_gothic[];
  extern void* (__stdcall* imp_CreateDIBSection)(void*,const FontBitmapV4*,unsigned int,void**,void*,unsigned int);
  extern void* (__stdcall* imp_CreateCompatibleDC)(void*);

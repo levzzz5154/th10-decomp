@@ -34,9 +34,9 @@ void __stdcall SidePanel_ReleaseContents_00414370(SidePanel_00414370* panel) {
             panel->stage_buffer = 0;
         }
         panel->stage_buffer = 0;
-        data_00491be8 = 0;
+        g_next_stage_buffer = 0;
     } else {
-        data_00491be8 = panel->stage_buffer;
+        g_next_stage_buffer = panel->stage_buffer;
     }
 
     if (panel->update_task)

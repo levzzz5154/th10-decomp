@@ -7,7 +7,7 @@ struct AnimationResource_0043e710;
 struct Entity;
 __declspec(noinline) void __stdcall Entity_StartScript_00404f30(
     AnimationResource_0043e710* resource, Entity* entity, int script);
-extern "C" int data_004923a8;
+extern "C" int g_main_clear_color;
 
 #pragma code_seg(".text$00403c80_fn")
 int __stdcall BackGround_RunScript(BackGround* stage) {
@@ -110,7 +110,7 @@ int __stdcall BackGround_RunScript(BackGround* stage) {
             stage->sway_timer.Reset();
             break;
         case 13:
-            data_004923a8 = instruction->args[0].i;
+            g_main_clear_color = instruction->args[0].i;
             break;
         case 14:
             if (instruction->args[1].i >= 0) {

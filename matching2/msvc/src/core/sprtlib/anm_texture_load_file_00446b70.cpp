@@ -18,8 +18,8 @@
 int AnmTexture_00446c70::LoadFile(int format, void* size_slot, const char* name, unsigned int color_key) {
     char path[260];
     int stored_format = format;
-    if (data_00491d78 & 1) {
-        int d3d_format = data_0046f288[format];
+    if (g_sound_flags & 1) {
+        int d3d_format = g_texture_formats_a[format];
         if (d3d_format == 21 || d3d_format == 0)
             stored_format = 5;
         else if (d3d_format == 20)
@@ -32,13 +32,13 @@ int AnmTexture_00446c70::LoadFile(int format, void* size_slot, const char* name,
     data_size = reinterpret_cast<int>(size_slot);
     if (asm_D3DXCreateTextureFromFileInMemoryEx_004521ca(
             g_d3d_device, file, reinterpret_cast<unsigned int>(size_slot), 0, 0, 0, 0,
-            data_0046f288[stored_format], 1, 3,
+            g_texture_formats_a[stored_format], 1, 3,
             0xFFFFFFFF, color_key, 0, 0, &texture) != 0) {
         entry_free_00452422(file);
         return -1;
     }
     FillTransparentPixels();
-    bytes_per_pixel = data_0046f2a0[stored_format];
+    bytes_per_pixel = g_texture_formats_b[stored_format];
     file_data = file;
     return 0;
 }

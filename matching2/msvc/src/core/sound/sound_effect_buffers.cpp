@@ -16,7 +16,7 @@ struct SoundEffectSetting {
 };
 
 extern "C" {
-extern SoundEffectSetting data_004749c8[47];
+extern SoundEffectSetting g_sound_effect_settings[47];
 extern WaveSoundManager g_wave_sound_manager;
 }
 
@@ -32,11 +32,11 @@ int WaveSoundManager::InitializeEffects() {
         return 0;
     for (unsigned int index = 0; index < 47; ++index) {
         device->methods->duplicate_buffer(device,
-            secondary_buffers[data_004749c8[index].source],
+            secondary_buffers[g_sound_effect_settings[index].source],
             &secondary_buffers[128 + index]);
         secondary_buffers[128 + index]->methods->set_position(secondary_buffers[128 + index], 0);
         secondary_buffers[128 + index]->methods->set_volume(secondary_buffers[128 + index],
-            data_004749c8[index].volume);
+            g_sound_effect_settings[index].volume);
     }
     volume_a = g_supervisor.music_volume;
     volume_b = g_supervisor.effect_volume;

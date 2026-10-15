@@ -158,8 +158,8 @@ extern "C" void __cdecl asm_free_004524a1(void* memory);
 // Globals (all bound by the maintained symbol table).
 // ---------------------------------------------------------------------------
 
-extern "C" KeyRepeatState data_00474e30;        // 0x00474E30
-extern "C" unsigned int data_00474e36;          // 0x00474E36 (repeat word)
+extern "C" KeyRepeatState g_input_keys_raw;        // 0x00474E30
+extern "C" unsigned int g_input_keys_held;          // 0x00474E36 (repeat word)
 extern "C" unsigned int g_globals_flags;          // 0x00474CA0 (ranking gate bit 0x10)
 extern "C" int g_globals_character;
 extern "C" int g_globals_shot_type;
@@ -167,7 +167,7 @@ extern "C" int g_globals_difficulty;
 extern "C" int g_globals_stage;
 extern "C" GameStateFrameState* g_front;  // 0x0047770C
 extern "C" InputState g_application;            // 0x00491C28
-extern "C" int data_00491fb8;                   // 0x00491FB8 launch mode latch
+extern "C" int g_main_state;                   // 0x00491FB8 launch mode latch
 extern "C" SubSoundQueue_004236f0 g_sound_manager; // 0x00492590 sound queue
 extern "C" float g_game_speed;                 // 0x00476F78 shared game speed
 

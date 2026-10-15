@@ -3,7 +3,7 @@
 #include "../../../build_support/layout/ltcg/message_teardown_dependencies.hpp"
 extern "C" void* g_func_ctrl;
 extern "C" void* g_ending;
-extern "C" int data_004918a4;
+extern "C" int g_screen_effects_frozen;
 inline void ReleaseEndingBank(int index) {
     AnimationResource_00447810*& bank = reinterpret_cast<AnimationResource_00447810*&>(g_sprt_ctrl->banks[index]);
     if (bank) {
@@ -60,6 +60,6 @@ extern "C" __declspec(noinline) void __stdcall Ending_Release(EndingState* state
     }
     state->script = 0;
     g_ending = 0;
-    data_004918a4 = 0;
+    g_screen_effects_frozen = 0;
 }
 #pragma code_seg()

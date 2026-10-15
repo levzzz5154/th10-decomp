@@ -15,7 +15,7 @@ extern "C" RenderStageState g_application;
 // ABI through `roots`, exactly as 0x00401D20 is kept alive by the call below.
 struct GameFrame_00439390;
 int GameFrameAdvance_00439390(GameFrame_00439390* frame);
-extern "C" GameFrame_00439390 data_004924f0;
+extern "C" GameFrame_00439390 g_main_window;
 
 struct RenderStageState_00405300 {
     unsigned char reserved_000[0x388];
@@ -59,7 +59,7 @@ int __stdcall RenderBatchContext(const ScreenRect** rects, const unsigned int* c
         EntityDrawMirrored_00443480((RenderEntity*)entities[i], g_sprt_ctrl);
         cameras[i]->Apply();
         cameras[i]->ApplyDefault();
-        GameFrameAdvance_00439390(&data_004924f0);
+        GameFrameAdvance_00439390(&g_main_window);
     }
     g_application.SelectStage(0);
     ((RenderStageState_00405300*)&g_application)->SelectDefaultStage(0);

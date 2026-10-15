@@ -7,8 +7,8 @@
 #define g_replay stage_bind_data_00477838
 #define g_score stage_bind_data_0047783c
 #define g_game_speed stage_bind_data_00476f78
-#define data_00491fc4 stage_bind_data_00491fc4
-#define data_00491fb8 stage_bind_data_00491fb8
+#define g_stage_flags stage_bind_data_00491fc4
+#define g_main_state stage_bind_data_00491fb8
 #define g_sound_manager stage_bind_data_00492590
 #include "th10/game/enemy_script_bind_0040d830.hpp"
 
@@ -45,6 +45,6 @@ __declspec(noinline) int BindScriptTable_0040d830::Resolve(const char* name) {
 #undef g_replay
 #undef g_score
 #undef g_game_speed
-#undef data_00491fc4
-#undef data_00491fb8
+#undef g_stage_flags
+#undef g_main_state
 #undef g_sound_manager

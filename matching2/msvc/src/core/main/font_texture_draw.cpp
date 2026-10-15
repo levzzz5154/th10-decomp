@@ -11,7 +11,7 @@ typedef unsigned int COLORREF;
 // The shared font atlas object at 0x00474CB0: a 256-byte palette, 15 cached
 // GDI fonts, the pixel buffer, its pitch, the source format and the DC the
 // fonts are selected into.
-extern "C" unsigned char data_00474cb0;
+extern "C" unsigned char g_font_atlas_surface;
 
 // GDI entry points, reached through the image's own import slots so the calls
 // stay indirect exactly as the retail build issues them.
@@ -51,35 +51,35 @@ int __stdcall sub_437DB0(DWORD* destination_rect, int x, int size, COLORREF colo
                          LPCSTR text, void* surface_owner) {
     HGDIOBJ font;
     if (size <= 17)
-        font = *(HGDIOBJ*)&data_004918a0;
+        font = *(HGDIOBJ*)&g_font_height_32;
     else if (size <= 18)
-        font = *(HGDIOBJ*)&data_0049189c;
+        font = *(HGDIOBJ*)&g_font_height_34;
     else if (size <= 19)
-        font = *(HGDIOBJ*)&data_00491898;
+        font = *(HGDIOBJ*)&g_font_height_36;
     else if (size <= 20)
-        font = *(HGDIOBJ*)&data_00491894;
+        font = *(HGDIOBJ*)&g_font_height_38;
     else if (size <= 21)
-        font = *(HGDIOBJ*)&data_00491890;
+        font = *(HGDIOBJ*)&g_font_height_40;
     else if (size <= 22)
-        font = *(HGDIOBJ*)&data_0049188c;
+        font = *(HGDIOBJ*)&g_font_height_42;
     else if (size <= 23)
-        font = *(HGDIOBJ*)&data_00491888;
+        font = *(HGDIOBJ*)&g_font_height_44;
     else if (size <= 24)
-        font = *(HGDIOBJ*)&data_00491884;
+        font = *(HGDIOBJ*)&g_font_height_46;
     else if (size <= 25)
-        font = *(HGDIOBJ*)&data_00491880;
+        font = *(HGDIOBJ*)&g_font_height_48;
     else if (size <= 26)
-        font = *(HGDIOBJ*)&data_0049187c;
+        font = *(HGDIOBJ*)&g_font_height_50;
     else if (size <= 27)
-        font = *(HGDIOBJ*)&data_00491878;
+        font = *(HGDIOBJ*)&g_font_height_52;
     else if (size <= 28)
-        font = *(HGDIOBJ*)&data_00491874;
+        font = *(HGDIOBJ*)&g_font_height_54;
     else if (size <= 29)
-        font = *(HGDIOBJ*)&data_00491870;
+        font = *(HGDIOBJ*)&g_font_height_56;
     else if (size <= 30)
-        font = *(HGDIOBJ*)&data_0049186c;
+        font = *(HGDIOBJ*)&g_font_height_58;
     else
-        font = *(HGDIOBJ*)&data_00491868;
+        font = *(HGDIOBJ*)&g_font_height_60;
 
     int selected_size = size;
     if (selected_size < 17) {
@@ -87,13 +87,13 @@ int __stdcall sub_437DB0(DWORD* destination_rect, int x, int size, COLORREF colo
         selected_size = *(volatile int*)&size;
     }
 
-    memset(*(void**)&data_00474dd0, 0, *(int*)&data_00474dbc);
-    HDC dc = *(HDC*)&data_00474dc4;
+    memset(*(void**)&g_font_texture_pixels, 0, *(int*)&g_font_texture_size);
+    HDC dc = *(HDC*)&g_font_texture_dc;
     HGDIOBJ previous = SelectObject(dc, font);
     int line_height = 2 * selected_size + 6;
     StackWord height;
     height.value = line_height;
-    ((AtlasSetHeightFn)asm_FUN_00437160_00437160)(&data_00474cb0, height);
+    ((AtlasSetHeightFn)asm_FUN_00437160_00437160)(&g_font_atlas_surface, height);
     SetBkMode(dc, 1);
     int length = strlen(text);
     SetTextColor(dc, 0);
@@ -102,8 +102,8 @@ int __stdcall sub_437DB0(DWORD* destination_rect, int x, int size, COLORREF colo
     TextOutA(dc, 2 * x, 0, text, length);
     SelectObject(dc, previous);
     height.value = line_height;
-    ((AtlasSetHeightFn)asm_FUN_00437160_00437160)(&data_00474cb0, height);
-    ((AtlasRebuildFn)asm_FUN_00436da0_00436da0)(&data_00474cb0, line_height);
+    ((AtlasSetHeightFn)asm_FUN_00437160_00437160)(&g_font_atlas_surface, height);
+    ((AtlasRebuildFn)asm_FUN_00436da0_00436da0)(&g_font_atlas_surface, line_height);
     SelectObject(dc, previous);
 
     SrgbRect source_rect;
@@ -119,8 +119,8 @@ int __stdcall sub_437DB0(DWORD* destination_rect, int x, int size, COLORREF colo
     (*(SurfaceGetterFn*)(*(void***)surface_owner + 18))(surface_owner, 0, (void**)&size);
     void*& surface = *(void**)&size;
     (*(LoadSurfaceFromMemoryFn)asm_D3DXLoadSurfaceFromMemory_004521a6)(surface, 0,
-            destination_rect, *(void**)&data_00474dd0, *(unsigned int*)&data_00474db0,
-            *(unsigned int*)&data_00474dc0, 0, &source_rect, 4, 0);
+            destination_rect, *(void**)&g_font_texture_pixels, *(unsigned int*)&g_font_texture_id,
+            *(unsigned int*)&g_font_texture_format, 0, &source_rect, 4, 0);
     int result = (int)surface;
     if (surface)
         result = (*(ReleaseFn*)(*(void***)surface + 2))(surface);

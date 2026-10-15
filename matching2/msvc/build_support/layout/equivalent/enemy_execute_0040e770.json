@@ -54,11 +54,11 @@
       "address": "0x004749CE",
       "kind": "data"
     },
-    "_data_00474c84": {
+    "_g_stage_progress": {
       "address": "0x00474C84",
       "kind": "data"
     },
-    "_data_00474c8c": {
+    "_g_stage_progress_echo": {
       "address": "0x00474C8C",
       "kind": "data"
     },
@@ -186,18 +186,18 @@
     "_g_globals": "0x00474C40",
     "_g_laser_manager": "0x0047781C",
     "_g_application": "0x00491C28",
-    "_data_00491e08": "0x00491E08",
+    "_g_projection_view_matrix": "0x00491E08",
     "_g_player": "0x00477834",
     "_g_effect_rng_004918b0": "0x004918B0",
     "_g_front": "0x0047770C",
-    "_data_00491dc8": "0x00491DC8",
-    "_data_00491e48": "0x00491E48",
+    "_g_projection_world_matrix": "0x00491DC8",
+    "_g_projection_matrix": "0x00491E48",
     "_g_card": "0x004776F4",
     "_g_sound_manager": "0x00492590",
     "_g_rank_00474c98": "0x00474C98",
     "_g_bullet_manager": "0x004776F0",
     "_g_difficulty_00474c74": "0x00474C74",
-    "_data_00474df0": "0x00474DF0",
+    "_g_enemy_project_viewport": "0x00474DF0",
     "_g_enemy_ctrl": "0x00477704",
     "_flt_0": "0x00470B04",
     "_g_zero_vector2_00491c20": "0x00491C20",

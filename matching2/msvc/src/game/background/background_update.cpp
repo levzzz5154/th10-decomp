@@ -28,7 +28,7 @@ int BackGround::Update() {
         g_game_speed = game_speed;
     }
     overlay_active = 0;
-    memcpy(&data_00491d7c, &camera, sizeof(BackGroundCamera));
+    memcpy(&g_back_camera, &camera, sizeof(BackGroundCamera));
     ++frame;
     return 1;
 }

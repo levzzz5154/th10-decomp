@@ -17,7 +17,7 @@
 // destructor needs no unwind state for the node array.
 extern "C" void __stdcall ReplayManagerStandIn_Remove(void* scheduler, void* task);
 extern "C" int __stdcall ReplayManagerStandIn_Load(const char* path);
-extern "C" char data_00474e88[];
+extern "C" char g_key_bindings_current[];
 extern "C" float g_game_speed;
 
 // Same shape the equivalent body declares; the member definition lands here.
@@ -121,7 +121,7 @@ char __fastcall GameConfig_InitializeDefaults(int unused, GameConfig* config) {
     config->field_1b = 1;
     config->field_1c = 1;
     config->flags |= 0x100;
-    memcpy(config->version_prefix, data_00474e88, 18);
+    memcpy(config->version_prefix, g_key_bindings_current, 18);
     config->field_1f = 2;
     config->field_22 = 0;
     config->field_20 = 100;

@@ -20,8 +20,8 @@ struct PauseMenuRuntime {
     int elapsed;
 };
 extern "C" unsigned char g_globals_flags;
-extern "C" unsigned char data_00474e36;
-extern "C" unsigned char data_00491ff4;
+extern "C" unsigned char g_input_keys_held;
+extern "C" unsigned char g_app_flags;
 extern "C" PauseMenuRuntime* g_game;
 extern "C" float flt_0_99;
 extern "C" float flt_1_01;
@@ -45,7 +45,7 @@ int PauseUpdateView::Update() {
     switch (phase) {
     case 0:
         if (!(g_globals_flags & 0x20) &&
-            ((data_00474e36 & 8) || (data_00491ff4 & 0x10)) &&
+            ((g_input_keys_held & 8) || (g_app_flags & 0x10)) &&
             g_game->active_frame &&
             (g_game->active_frame->flags & 2) &&
             g_game->elapsed >= 30)

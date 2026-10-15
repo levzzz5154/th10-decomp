@@ -29,7 +29,7 @@ struct KeyRepeatState {
     __declspec(noinline) int InputMaskActive(unsigned short mask);
 };
 
-extern "C" KeyRepeatState data_00474e30;   // 0x00474E30
+extern "C" KeyRepeatState g_input_keys_raw;   // 0x00474E30
 
 #pragma code_seg(".text$01mask")
 int KeyRepeatState::InputMaskActive(unsigned short mask) {

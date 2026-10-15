@@ -37,7 +37,7 @@ struct ProjectedVertex_00444240 {
 };
 
 extern "C" ProjectedVertex_00444240 g_quad_vertices[4];
-extern "C" ProjectionEnvironment_00444240* data_00491fac;
+extern "C" ProjectionEnvironment_00444240* g_render_stage_active;
 
 // The compiler's pooled double 0.0 the three rotation guards compare against.
 extern "C" double dbl_0;
@@ -138,14 +138,14 @@ int ProjectedEntity_00444240::ProjectQuad(ProjectionManager_00444240* manager) {
         break;
     }
     input[0].z = input[1].z = input[2].z = input[3].z = 0.0f;
-    asm_D3DXVec3Project_0045218e(&g_quad_vertices[0], &input[0], &data_00491fac->viewport,
-                                 &data_00491fac->projection, &data_00491fac->view, &world);
-    asm_D3DXVec3Project_0045218e(&g_quad_vertices[1], &input[1], &data_00491fac->viewport,
-                                 &data_00491fac->projection, &data_00491fac->view, &world);
-    asm_D3DXVec3Project_0045218e(&g_quad_vertices[2], &input[2], &data_00491fac->viewport,
-                                 &data_00491fac->projection, &data_00491fac->view, &world);
-    asm_D3DXVec3Project_0045218e(&g_quad_vertices[3], &input[3], &data_00491fac->viewport,
-                                 &data_00491fac->projection, &data_00491fac->view, &world);
+    asm_D3DXVec3Project_0045218e(&g_quad_vertices[0], &input[0], &g_render_stage_active->viewport,
+                                 &g_render_stage_active->projection, &g_render_stage_active->view, &world);
+    asm_D3DXVec3Project_0045218e(&g_quad_vertices[1], &input[1], &g_render_stage_active->viewport,
+                                 &g_render_stage_active->projection, &g_render_stage_active->view, &world);
+    asm_D3DXVec3Project_0045218e(&g_quad_vertices[2], &input[2], &g_render_stage_active->viewport,
+                                 &g_render_stage_active->projection, &g_render_stage_active->view, &world);
+    asm_D3DXVec3Project_0045218e(&g_quad_vertices[3], &input[3], &g_render_stage_active->viewport,
+                                 &g_render_stage_active->projection, &g_render_stage_active->view, &world);
     manager->projected_world = world;
     return 0;
 }

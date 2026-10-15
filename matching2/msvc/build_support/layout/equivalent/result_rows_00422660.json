@@ -49,23 +49,23 @@
    "address": "0x46E19C",
    "kind": "data"
   },
-  "_data_004746dc": {
+  "_g_shot_names": {
    "address": "0x4746DC",
    "kind": "data"
   },
-  "_data_004746f4": {
+  "_g_difficulty_names": {
    "address": "0x4746F4",
    "kind": "data"
   },
-  "_data_00474708": {
+  "_g_difficulty_initials": {
    "address": "0x474708",
    "kind": "data"
   },
-  "_data_0047471c": {
+  "_g_stage_names_long": {
    "address": "0x47471C",
    "kind": "data"
   },
-  "_data_00474744": {
+  "_g_stage_names_short": {
    "address": "0x474744",
    "kind": "data"
   },

@@ -7,8 +7,8 @@
 #define g_replay stage_quad_data_00477838
 #define g_score stage_quad_data_0047783c
 #define g_game_speed stage_quad_data_00476f78
-#define data_00491fc4 stage_quad_data_00491fc4
-#define data_00491fb8 stage_quad_data_00491fb8
+#define g_stage_flags stage_quad_data_00491fc4
+#define g_main_state stage_quad_data_00491fb8
 #define g_sound_manager stage_quad_data_00492590
 // 0x00404450 (214 bytes): enable the stage's three tasks, then start one
 // animation script for every quad of every stage object and remember which
@@ -90,6 +90,6 @@ __declspec(noinline) void __stdcall Stage_StartQuadScripts_00404450(Stage_004044
 #undef g_replay
 #undef g_score
 #undef g_game_speed
-#undef data_00491fc4
-#undef data_00491fb8
+#undef g_stage_flags
+#undef g_main_state
 #undef g_sound_manager

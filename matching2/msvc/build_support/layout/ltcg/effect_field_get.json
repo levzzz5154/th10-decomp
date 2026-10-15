@@ -53,32 +53,32 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00491d7c",
+      "symbol": "_g_back_camera",
       "address": "0x00491D7C",
       "kind": "data"
     },
     {
-      "symbol": "_data_00491d80",
+      "symbol": "_g_back_camera_2",
       "address": "0x00491D80",
       "kind": "data"
     },
     {
-      "symbol": "_data_00491d84",
+      "symbol": "_g_back_camera_3",
       "address": "0x00491D84",
       "kind": "data"
     },
     {
-      "symbol": "_data_00491da0",
+      "symbol": "_g_anm_vm_time_a",
       "address": "0x00491DA0",
       "kind": "data"
     },
     {
-      "symbol": "_data_00491da4",
+      "symbol": "_g_anm_vm_time_b",
       "address": "0x00491DA4",
       "kind": "data"
     },
     {
-      "symbol": "_data_00491da8",
+      "symbol": "_g_anm_vm_time_c",
       "address": "0x00491DA8",
       "kind": "data"
     },

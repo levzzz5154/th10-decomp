@@ -5,7 +5,7 @@
 #include "th10/math/rng.hpp"
 #include "th10/core/screen.hpp"
 
-extern "C" int data_004918a4;  // 0x004918A4
+extern "C" int g_screen_effects_frozen;  // 0x004918A4
 extern "C" float flt_255;  // 0x00470BF8
 
 // 0x0043BD40: the fade-in update task (Screen modes 0 and 3):
@@ -29,7 +29,7 @@ typedef char AnimationCursor_0043bd40_size_must_be_40[
 
 #pragma code_seg(".text$07bd40")
 int ScreenFadeIn::Tick() {
-    if (data_004918a4 != 0)
+    if (g_screen_effects_frozen != 0)
         return 7;
 
     int divisor = length;
@@ -53,7 +53,7 @@ int ScreenFadeIn::Tick() {
 // The cursor owns a FrameTimer at +0x30.  Its retail caller supplies that
 // timer in ESI; the native-LTCG frame_timer cluster selects the same private
 // convention when both definitions are visible to one link.
-extern "C" int data_004918a4;
+extern "C" int g_screen_effects_frozen;
 struct GameScene_00477810 {
     unsigned char pad_00[0x58];
     unsigned int flags;  // +0x58
@@ -80,7 +80,7 @@ typedef char AnimationCursor_0043c230_size_must_fit[
 
 #pragma code_seg(".text$09c230")
 int ScreenFadeOut::Tick() {
-    if (data_004918a4 != 0)
+    if (g_screen_effects_frozen != 0)
         return 7;
 
     int divisor = length;
@@ -107,7 +107,7 @@ int ScreenFadeOut::Tick() {
 }
 #pragma code_seg()
 
-extern "C" int data_004918a4;  // 0x004918A4
+extern "C" int g_screen_effects_frozen;  // 0x004918A4
 
 // 0x0043C460: the flash update task (Screen mode 4): the alpha
 // falls from its start value to 0, then holds for a countdown.  The record embeds the scheduler and
@@ -144,7 +144,7 @@ typedef char AnimationCursor_0043c460_size_must_fit[
 #pragma code_seg(".text$11c460")
 int ScreenFlash::Tick() {
     int mode = *(unsigned char*)((unsigned char*)this + 0x27);
-    if (data_004918a4 != 0)
+    if (g_screen_effects_frozen != 0)
         return 0;
 
     int divisor = length;
@@ -172,17 +172,17 @@ int ScreenFlash::Tick() {
 #pragma code_seg(".text$12d_rng")
 #pragma code_seg()
 
-extern "C" int data_004918a4;                     // 0x004918A4, effects frozen
+extern "C" int g_screen_effects_frozen;                     // 0x004918A4, effects frozen
 extern "C" EntityScriptRng_0043cb80 g_rng;  // 0x004918B0, effect RNG
-extern "C" float data_00491e64;                   // 0x00491E64, screen shake x
-extern "C" float data_00491e68;                   // 0x00491E68, screen shake y
+extern "C" float g_screen_shake_x;                   // 0x00491E64, screen shake x
+extern "C" float g_screen_shake_y;                   // 0x00491E68, screen shake y
 
 // 0x0043C710 - screen shake with an attack/sustain/release envelope. The
 // shared parameters are the attack, sustain and release lengths in frames;
 // each axis is randomly displaced by zero, plus or minus the current amount.
 #pragma code_seg(".text$12b_shake")
 int Screen::UpdateEnvelopeShake() {
-    if (data_004918a4)
+    if (g_screen_effects_frozen)
         return 7;
     if (!g_game ||
         (((g_game->flags >> 2) | g_game->flags) & 1) ||
@@ -204,14 +204,14 @@ int Screen::UpdateEnvelopeShake() {
 
     float amount = duration_or_strength * ratio;
     switch (g_rng.NextRandomModulo(3)) {
-    case 0: data_00491e64 = 0.0f; break;
-    case 1: data_00491e64 = amount; break;
-    case 2: data_00491e64 = -amount; break;
+    case 0: g_screen_shake_x = 0.0f; break;
+    case 1: g_screen_shake_x = amount; break;
+    case 2: g_screen_shake_x = -amount; break;
     }
     switch (g_rng.NextRandomModulo(3)) {
-    case 0: data_00491e68 = 0.0f; break;
-    case 1: data_00491e68 = amount; break;
-    case 2: data_00491e68 = -amount; break;
+    case 0: g_screen_shake_y = 0.0f; break;
+    case 1: g_screen_shake_y = amount; break;
+    case 2: g_screen_shake_y = -amount; break;
     }
     return 1;
 }

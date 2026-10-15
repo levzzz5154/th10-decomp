@@ -17,9 +17,9 @@ extern "C" int __stdcall KeyConfigUpdateCompilerContext(
     HintLink_00419120* head,
     HintUpdateView* indicator, int release,
     Title* music_room, void** objects) {
-    objects[0] = &data_00474e88;
-    objects[1] = &data_00491d4c;
-    objects[2] = &data_00474e30;
+    objects[0] = &g_key_bindings_current;
+    objects[1] = &g_key_bindings;
+    objects[2] = &g_input_keys_raw;
     return RecoveryScript_Execute_0040bd80(script) + head->Drain(indicator, release)
         + Title_UpdateMusicRoom(music_room)
         + Title_DispatchUpdate(music_room);

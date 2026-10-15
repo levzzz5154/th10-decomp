@@ -146,27 +146,27 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_data_00492508",
+      "symbol": "_g_qpc_frequency",
       "address": "0x00492508",
       "kind": "data"
     },
     {
-      "symbol": "_data_00492528",
+      "symbol": "_g_frame_target_time",
       "address": "0x00492528",
       "kind": "data"
     },
     {
-      "symbol": "_data_00492530",
+      "symbol": "_g_frame_start_time",
       "address": "0x00492530",
       "kind": "data"
     },
     {
-      "symbol": "_data_00492538",
+      "symbol": "_g_frame_time",
       "address": "0x00492538",
       "kind": "data"
     },
     {
-      "symbol": "_data_00492540",
+      "symbol": "_g_frame_min_delta",
       "address": "0x00492540",
       "kind": "data"
     },
@@ -186,12 +186,12 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00491fb8",
+      "symbol": "_g_main_state",
       "address": "0x491fb8",
       "kind": "data"
     },
     {
-      "symbol": "_data_00491d66",
+      "symbol": "_g_frame_limit",
       "address": "0x491d66",
       "kind": "data"
     },

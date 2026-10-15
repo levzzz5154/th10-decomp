@@ -1,10 +1,10 @@
-extern "C" int data_00499314;
+extern "C" int g_crt_mbcs_ready;
 extern "C" int __cdecl asm_setmbcp_0045d15c(int);
 
 extern "C" int __cdecl asm_initmbctable_0045d2ac() {
-    if (!data_00499314) {
+    if (!g_crt_mbcs_ready) {
         asm_setmbcp_0045d15c(-3);
-        data_00499314 = 1;
+        g_crt_mbcs_ready = 1;
     }
     return 0;
 }

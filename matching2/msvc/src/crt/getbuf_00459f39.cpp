@@ -7,11 +7,11 @@ struct Stream {
     char charbuf[4];
     int buffer_size;
 };
-extern "C" unsigned int data_00477614;
+extern "C" unsigned int g_crt_stdio_bufsize;
 extern "C" void* __cdecl asm_malloc_00452706(unsigned int);
 
 extern "C" void __cdecl asm_getbuf_00459f39(Stream* stream) {
-    ++data_00477614;
+    ++g_crt_stdio_bufsize;
     stream->base = static_cast<char*>(asm_malloc_00452706(0x1000));
     if (stream->base) {
         stream->flags |= 8;

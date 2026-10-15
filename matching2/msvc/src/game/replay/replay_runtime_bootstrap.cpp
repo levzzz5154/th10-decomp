@@ -183,7 +183,7 @@ __declspec(noinline) int ReplayManager_004296f0::Start(int start_mode, const cha
         _ReadWriteBarrier();
         stage_record->seed = g_rng.seed;
         _ReadWriteBarrier();
-        int config_word = data_00491fc4;
+        int config_word = g_stage_flags;
         g_rng.generation = 0;
         _ReadWriteBarrier();
         stage_record->flag = stage_record->flag ^ ((stage_record->flag ^ config_word) & 1);

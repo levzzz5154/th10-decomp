@@ -20,8 +20,8 @@ extern "C" unsigned char imp_WriteFile;   // WriteFile
 extern "C" unsigned char imp_GetLastError;   // GetLastError
 extern "C" unsigned char imp_FormatMessageA;   // FormatMessageA
 extern "C" unsigned char imp_LocalFree;   // LocalFree
-extern "C" unsigned char data_004922a4;   // the file subsystem lock object
-extern "C" unsigned char data_0049231e;   // the lock's nesting counter
+extern "C" unsigned char g_file_lock;   // the file subsystem lock object
+extern "C" unsigned char g_file_lock_depth;   // the lock's nesting counter
 
 typedef void (__stdcall* EnterCriticalSectionFn)(void* section);
 typedef void (__stdcall* LeaveCriticalSectionFn)(void* section);
@@ -46,29 +46,29 @@ __declspec(noinline) int File_WriteWholeFile(const char* path, const void* buffe
 
 #pragma code_seg(".text$01write")
 int File_WriteWholeFile(const char* path, const void* buffer, unsigned long size) {
-    (*(EnterCriticalSectionFn*)&imp_EnterCriticalSection)(&data_004922a4);
-    ++data_0049231e;
+    (*(EnterCriticalSectionFn*)&imp_EnterCriticalSection)(&g_file_lock);
+    ++g_file_lock_depth;
     void* handle = (*(CreateFileFn*)&imp_CreateFileA)(path, 0x40000000, 1, 0, 2, 0x80, 0);
     if (handle == (void*)-1) {
         char* message;
         (*(FormatMessageFn*)&imp_FormatMessageA)(
             0x1300, 0, (*(GetLastErrorFn*)&imp_GetLastError)(), 0x400, &message, 0, 0);
         (*(LocalFreeFn*)&imp_LocalFree)(message);
-        (*(LeaveCriticalSectionFn*)&imp_LeaveCriticalSection)(&data_004922a4);
-        --data_0049231e;
+        (*(LeaveCriticalSectionFn*)&imp_LeaveCriticalSection)(&g_file_lock);
+        --g_file_lock_depth;
         return -1;
     }
     unsigned long written;
     (*(WriteFileFn*)&imp_WriteFile)(handle, buffer, size, &written, 0);
     if (size != written) {
         (*(CloseHandleFn*)&imp_CloseHandle)(handle);
-        (*(LeaveCriticalSectionFn*)&imp_LeaveCriticalSection)(&data_004922a4);
-        --data_0049231e;
+        (*(LeaveCriticalSectionFn*)&imp_LeaveCriticalSection)(&g_file_lock);
+        --g_file_lock_depth;
         return -2;
     }
     (*(CloseHandleFn*)&imp_CloseHandle)(handle);
-    (*(LeaveCriticalSectionFn*)&imp_LeaveCriticalSection)(&data_004922a4);
-    --data_0049231e;
+    (*(LeaveCriticalSectionFn*)&imp_LeaveCriticalSection)(&g_file_lock);
+    --g_file_lock_depth;
     return 0;
 }
 #pragma code_seg()

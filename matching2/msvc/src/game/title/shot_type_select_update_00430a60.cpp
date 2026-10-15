@@ -97,17 +97,17 @@ __declspec(noinline) int __stdcall TitleMode8_00430a60(Title* room) {
     case 2: {
         MenuCursor* cursor = &room->cursor;
         cursor->previous_selection = cursor->selection;
-        if ((short)data_00474e30.InputMaskActive(0x10)) cursor->Advance(-1);
-        if ((short)data_00474e30.InputMaskActive(0x20)) cursor->Advance(1);
+        if ((short)g_input_keys_raw.InputMaskActive(0x10)) cursor->Advance(-1);
+        if ((short)g_input_keys_raw.InputMaskActive(0x20)) cursor->Advance(1);
         if (cursor->previous_selection != cursor->selection) {
             g_sound_manager.Queue(12, 0);
             reinterpret_cast<TitleAnimationSlotView*>(room)->RestartSlot(g_globals_character + 150);
             room->SetSlotFrame(g_globals_character + 150, cursor->selection + 7);
         }
-        if (data_00474e36 & 0xa) {
+        if (g_input_keys_held & 0xa) {
             room->SetTimerTarget(4);
             g_sound_manager.Queue(11, 0);
-        } else if (data_00474e36 & 0x1001) {
+        } else if (g_input_keys_held & 0x1001) {
             room->SetTimerTarget(3);
             g_sound_manager.Queue(10, 0);
             AnimationRef_004497d0 child = reinterpret_cast<AnimationHandle_004497d0*>(
@@ -135,15 +135,15 @@ __declspec(noinline) int __stdcall TitleMode8_00430a60(Title* room) {
             if ((g_globals_flags & 0x10) == 0) {
                 room->DisableTimerWithOwner(3);
                 if (g_globals_difficulty < 4) {
-                    data_00477848 = data_00474788 + 1 * 0x30;
+                    g_stage_route_current = g_stage_routes + 1 * 0x30;
                     g_globals_stage = 1;
                     g_globals_stage_shown = 1;
                 } else {
-                    data_00477848 = data_00474788 + 7 * 0x30;
+                    g_stage_route_current = g_stage_routes + 7 * 0x30;
                     g_globals_stage = 7;
                     g_globals_stage_shown = 7;
                 }
-                data_00491fb8 = 7;
+                g_main_state = 7;
                 Music_FadeOut(6.0f);
             } else {
                 room->ClearAnimationSlot(100);

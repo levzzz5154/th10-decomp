@@ -1,7 +1,7 @@
 // 0x0041C290..0x0041C2EA (91 bytes): LaserManager_Create
 //
 // Allocates the 0x45C-byte laser manager (laser.cpp, LaserInf), initializes the embedded head laser (base Laser)
-// at +0x10, zeroes the whole block, publishes it through data_0047781C and then
+// at +0x10, zeroes the whole block, publishes it through g_laser_manager and then
 // installs the laser manager tasks on it.  A failed installation tears the
 // manager down again and frees it, and the factory reports NULL so callers can
 // tell "not created" from "created".

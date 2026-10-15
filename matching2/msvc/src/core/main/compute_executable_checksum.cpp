@@ -3,8 +3,8 @@
 #include "th10/platform/archive_file.hpp"
 extern "C" unsigned long (__stdcall *imp_GetModuleFileNameA)(void*, char*, unsigned long);
 extern "C" void __cdecl entry_free_00452422(void*);
-extern "C" int data_00492380;
-extern "C" int data_00492384;
+extern "C" int g_executable_checksum;
+extern "C" int g_executable_size;
 #pragma code_seg(".text$a03checksum")
 __declspec(noinline) int __stdcall ComputeExecutableChecksum() {
     int size;
@@ -23,8 +23,8 @@ __declspec(noinline) int __stdcall ComputeExecutableChecksum() {
             } while (--count);
         }
         entry_free_00452422(block);
-        data_00492384 = file_size;
-        data_00492380 = sum;
+        g_executable_size = file_size;
+        g_executable_checksum = sum;
         return sum;
     }
     return -1;

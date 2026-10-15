@@ -40,7 +40,7 @@ int Enemy::Execute_0040e770() {
             world.y = y + FloatValue_00412aa0(2, ins->f[n + 1]);
             world.z = position.z;
             g_application.SelectStage_00401d20(0);
-            D3DXVec3Project_0045218e(&spawn.position, &world, data_00491e48, data_00491e08, data_00491dc8, data_00474df0);
+            D3DXVec3Project_0045218e(&spawn.position, &world, g_projection_matrix, g_projection_view_matrix, g_projection_world_matrix, g_enemy_project_viewport);
             spawn.position.x -= 224.0f;
             spawn.position.z = 0.0f;
             spawn.position.y -= 16.0f;

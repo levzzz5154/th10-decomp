@@ -22,9 +22,9 @@ int __cdecl DataVersion_Load_00420100() {
     int size;
     if (g_archive.Open(str_th10_dat)) {
         sprintf(path, str_ver_file_format, 0x100, 'a');
-        data_0049238c = Archive_LoadFile(path, &size, 0);
-        data_00492388 = size;
-        if (!data_0049238c) {
+        g_data_version_buffer = Archive_LoadFile(path, &size, 0);
+        g_data_version_size = size;
+        if (!g_data_version_buffer) {
             g_log.AppendLine(str_data_version_mismatch);
             return -1;
         }

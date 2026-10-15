@@ -52,7 +52,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_004247f0_004247f0() {
     L_0042483a:
         ret
     L_0042483b:
-        mov eax,dword ptr [data_00491bf0]
+        mov eax,dword ptr [g_player_parameter_file]
     L_00424840:
         cmp eax,ebp
     L_00424842:
@@ -62,7 +62,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_004247f0_004247f0() {
     L_00424849:
         mov dword ptr [ebx+45Ch],eax
     L_0042484f:
-        mov dword ptr [data_00491bf0],ebp
+        mov dword ptr [g_player_parameter_file],ebp
     L_00424855:
         push edi
     L_00424856:

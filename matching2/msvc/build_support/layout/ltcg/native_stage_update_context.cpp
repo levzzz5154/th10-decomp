@@ -11,7 +11,7 @@ struct StageContextFade_00418190 {
     unsigned int flags;
 };
 extern "C" {
-extern BackGround* data_004776e4;
+extern BackGround* g_background_prev;
 extern unsigned char* g_ascii_manager;
 extern unsigned char* g_background;
 extern unsigned char* g_bomb;
@@ -28,10 +28,10 @@ extern unsigned char* g_player;
 extern unsigned char* g_replay;
 extern unsigned char* g_score;
 extern unsigned char* g_smoll_score;
-extern unsigned char* data_00477848;
-extern unsigned int g_globals_flags,data_00474e30,data_00491ff4,data_00491d78;
-extern int data_00491fb8,data_00474c88,data_00474c8c,g_globals_character,g_globals_shot_type;
-extern unsigned char data_00492254[],g_sound_manager[],g_application[],g_globals[];
+extern unsigned char* g_stage_route_current;
+extern unsigned int g_globals_flags,g_input_keys_raw,g_app_flags,g_sound_flags;
+extern int g_main_state,data_00474c88,g_stage_progress_echo,g_globals_character,g_globals_shot_type;
+extern unsigned char g_frame_worker[],g_sound_manager[],g_application[],g_globals[];
 extern const char str_main[],str_dummy[];
 // These declarations represent genuine logical parameters observed in retail.
 // Without the full helper closure, native calls do not claim their private ABI.
@@ -78,7 +78,7 @@ static __forceinline void StageReset(StageContextFade_00418190* context,int* loc
     StageResetEnemy_00409f90(g_enemy_ctrl);
     StageReleaseChain_00417770(g_laser_manager);
     data_00474c88=0;
-    data_00474c8c=0;
+    g_stage_progress_echo=0;
     StageResetGameplay_0042a450(g_replay);
     memset(local_state,0,16*4);
     StageStartScript_0040cfb0(local_state,g_enemy_ctrl,str_main);
@@ -97,15 +97,15 @@ static __forceinline void StageReset(StageContextFade_00418190* context,int* loc
     StageWord(reinterpret_cast<unsigned char*>(StageWord(g_card,0x37AC)),4)|=2u;
     StageKillPair(g_hint);
     if (delayed) {
-        StageRegisterMusic_0043e460(g_sound_manager,str_dummy,(data_00491d78&0x10u)?4:3,0);
-        StagePlayMusic_00420b10(0,StageWord(data_00477848,0x24));
+        StageRegisterMusic_0043e460(g_sound_manager,str_dummy,(g_sound_flags&0x10u)?4:3,0);
+        StagePlayMusic_00420b10(0,StageWord(g_stage_route_current,0x24));
         unsigned char* thread=g_ascii_manager;
         StageStopAnimation_00409e50(thread+0x89A4);
         StageWord(thread,0x89A4)=0;
         StageSetTimer_00405410(reinterpret_cast<unsigned char*>(context)+0x10,0);
     } else {
         if (!(g_globals_flags&0x20u))
-            StagePlayMusic_00420b10(0,StageWord(data_00477848,0x24));
+            StagePlayMusic_00420b10(0,StageWord(g_stage_route_current,0x24));
         unsigned char* thread=g_ascii_manager;
         StageStopAnimation_00409e50(thread+0x89A0);
         StageStopAnimation_00409e50(thread+0x89A4);
@@ -117,12 +117,12 @@ extern "C" int __stdcall StageContextUpdate_00418190(StageContextFade_00418190* 
     int local_state[16];
     if (context->frame==0) {
         if (context->flags&8u) {
-            StageStopWorker_0044c150(data_00492254);
-            data_00491fb8=((~(data_00491ff4>>12))&1u)|2u;
+            StageStopWorker_0044c150(g_frame_worker);
+            g_main_state=((~(g_app_flags>>12))&1u)|2u;
             return 1;
         }
         StageActivateBullets_00404450(g_background);
-        BackGround* game=data_004776e4;
+        BackGround* game=g_background_prev;
         if (game) {
             game->BeginFade();
             StageStartPlayerMode_004045b0(g_background);
@@ -134,7 +134,7 @@ extern "C" int __stdcall StageContextUpdate_00418190(StageContextFade_00418190* 
     } else if (context->frame==30 && (context->flags&0x800u)) {
         StageReset(context,local_state,true);
     }
-    BackGround* game=data_004776e4;
+    BackGround* game=g_background_prev;
     if (game && (game->flags&8u) && game) {
         StageBackGround_Destroy(game);
         free(game);
@@ -143,10 +143,10 @@ extern "C" int __stdcall StageContextUpdate_00418190(StageContextFade_00418190* 
         context->flags|=0x80u;
         return 1;
     }
-    StageStopWorker_0044c150(data_00492254);
+    StageStopWorker_0044c150(g_frame_worker);
     if (g_globals_flags&0x20u) {
-        if ((data_00474e30&0x160Bu)||(context->flags&0x70u))
-            data_00491fb8=(data_00491ff4&0x1000u)?2:4;
+        if ((g_input_keys_raw&0x160Bu)||(context->flags&0x70u))
+            g_main_state=(g_app_flags&0x1000u)?2:4;
         if (context->frame==0xB7C)
             Screen_Create(43,5,60,0,0,0);
         else if (context->frame==3000)
@@ -163,7 +163,7 @@ extern "C" int __stdcall StageContextUpdate_00418190(StageContextFade_00418190* 
     if (StageWord(g_enemy_ctrl,0x10)==0 && StageWord(g_front,0x9EB8)==0 && context->frame>=90)
         StageDecayScore_00418a00(g_globals);
     ++data_00474c88;
-    ++data_00474c8c;
+    ++g_stage_progress_echo;
     StageTickTimer_00404ed0(reinterpret_cast<unsigned char*>(context)+0x10);
     return 1;
 }

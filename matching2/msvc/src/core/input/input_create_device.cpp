@@ -5,17 +5,17 @@
 // device, the caller's descriptor (skipping its four-byte header), the global
 // that receives the device handle and a zero flag; a negative result means the
 // device had just been created, which the caller reports as a failure in EAX.
-extern "C" unsigned char data_00491c34;
-extern "C" unsigned char data_00491c3c;
+extern "C" unsigned char g_directinput_keyboard;
+extern "C" unsigned char g_pad_devices;
 
 typedef int(__stdcall* DirectInputCreateDeviceFn)(void* device, int descriptor,
                                                   int* handle, int flag);
 
 BOOL __stdcall Input_CreateDevice(int descriptor, int unused) {
-    if (*(int*)&data_00491c3c == 0) {
-        void* device = *(void**)&data_00491c34;
+    if (*(int*)&g_pad_devices == 0) {
+        void* device = *(void**)&g_directinput_keyboard;
         int result = ((DirectInputCreateDeviceFn)(*(void***)device)[3])(
-            device, descriptor + 4, (int*)&data_00491c3c, 0);
+            device, descriptor + 4, (int*)&g_pad_devices, 0);
         if (result < 0)
             return 1;
     }

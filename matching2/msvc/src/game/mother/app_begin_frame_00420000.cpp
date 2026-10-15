@@ -25,7 +25,7 @@ struct RenderStageState_00420000 {
     __declspec(noinline) int BeginFrame();
 };
 
-// The one application state object; g_d3d_device and data_004923a8 are its
+// The one application state object; g_d3d_device and g_main_clear_color are its
 // device and clear colour.
 extern "C" RenderStageState_00420000 g_application;
 

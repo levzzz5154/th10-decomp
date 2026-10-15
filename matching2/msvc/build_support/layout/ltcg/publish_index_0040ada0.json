@@ -39,7 +39,7 @@
   "roots": [],
   "absolute_symbols": [
     {
-      "symbol": "_data_00477848",
+      "symbol": "_g_stage_route_current",
       "address": "0x00477848",
       "kind": "data"
     }

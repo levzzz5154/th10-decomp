@@ -102,7 +102,7 @@ ECL_OFFSET(EclAnimationValue, value_38a, 0x38A);
 
 extern "C" EclIntegerManager* g_enemy_ctrl;
 extern "C" int g_globals_difficulty;
-extern "C" int data_00474c98;
+extern "C" int g_rank;
 
 #pragma code_seg(".text$02dispatch")
 int EclIntegerSource::ResolveIntegerValue(int encoded_selector) const {
@@ -183,7 +183,7 @@ int EclIntegerSource::ResolveIntegerValue(int encoded_selector) const {
         return object->value_38a;
     }
     case -9960:
-        return data_00474c98;
+        return g_rank;
     case -9959:
         return g_globals_difficulty;
     case -9954:

@@ -73,7 +73,7 @@ extern "C" __declspec(noinline) int __stdcall Hint_Initialize(Hint* manager) {
     manager->secondary_task_00C = secondary;
     manager->field_010 = 0;
 
-    if (data_00491d6a) {
+    if (g_screen_mode) {
         asm_FUN_00419960_00419960(manager, (const char*)0x46D6D8, 0);
         asm_FUN_00419960_00419960(manager, (const char*)0x46D6C4, 1);
     }

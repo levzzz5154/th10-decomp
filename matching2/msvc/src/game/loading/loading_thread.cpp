@@ -18,9 +18,9 @@
 extern "C" {
 extern LoadingView* g_loading;
 extern void* g_sprt_ctrl;              // animation manager
-extern void* data_00491fec;              // text.anm
-extern char* data_00494514;              // BGM format table
-extern unsigned char data_00491d78;      // sound option flags
+extern void* g_text_anm_resource;              // text.anm
+extern char* g_bgm_format_data;              // BGM format table
+extern unsigned char g_sound_flags;      // sound option flags
 extern char str_text_init_failed[];             // "error : 文字の初期化に失敗しました"
 extern char str_bgm_init_failed[];             // "error : BGM の初期化に失敗しました"
 extern TextLog_0044b810 g_log;
@@ -45,8 +45,8 @@ static __forceinline int LoadTitleScreenAssets(LoadingView* title) {
         return -1;
     }
     title->game_thread_created = 1;
-    data_00491fec = Recovery_LoadCachedResource_00447280(0, g_sprt_ctrl, "text.anm");
-    if (!data_00491fec)
+    g_text_anm_resource = Recovery_LoadCachedResource_00447280(0, g_sprt_ctrl, "text.anm");
+    if (!g_text_anm_resource)
         return -1;
     return 0;
 }
@@ -59,12 +59,12 @@ __declspec(noinline) int __fastcall Loading_LoadAssets_0041f990(LoadingView* own
         title->primary_task->reserved_flags |= 1u;
         return 0;
     }
-    data_00494514 = Archive_LoadFile("../../bgm/thbgm.fmt", 0, 0);
-    if (!data_00494514)
+    g_bgm_format_data = Archive_LoadFile("../../bgm/thbgm.fmt", 0, 0);
+    if (!g_bgm_format_data)
         g_log.Append(str_bgm_init_failed);
     g_wave_sound_manager.InitializeEffects();
     if (asm_File_ProbeExists_0044b4d0("thbgm.dat")) {
-        if (!(data_00491d78 & 0x10))
+        if (!(g_sound_flags & 0x10))
             g_wave_sound_manager.LaunchMusic("thbgm.dat");
         else
             strcpy(g_wave_sound_manager.music_file_name, "thbgm.dat");

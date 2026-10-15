@@ -12,8 +12,8 @@
 int AnmTexture_00446c70::Upload(AnmUploadTag_00446c70 tag, int format, const void* data, int size,
                                 int has_thtx) {
     int stored_format = format;
-    if (data_00491d78 & 1) {
-        int d3d_format = data_0046f288[format];
+    if (g_sound_flags & 1) {
+        int d3d_format = g_texture_formats_a[format];
         if (d3d_format == 21 || d3d_format == 0)
             stored_format = 5;
         else if (d3d_format == 20)
@@ -32,12 +32,12 @@ int AnmTexture_00446c70::Upload(AnmUploadTag_00446c70 tag, int format, const voi
         rect.right = entry->Thtx()->width;
         rect.bottom = entry->Thtx()->height;
         asm_D3DXLoadSurfaceFromMemory_004521a6(
-            surface, 0, 0, entry->Thtx()->pixels, data_0046f288[entry->Thtx()->format],
-            entry->Thtx()->width * data_0046f2a0[entry->Thtx()->format], 0, &rect, 1, 0);
+            surface, 0, 0, entry->Thtx()->pixels, g_texture_formats_a[entry->Thtx()->format],
+            entry->Thtx()->width * g_texture_formats_b[entry->Thtx()->format], 0, &rect, 1, 0);
     }
     surface->Release();
     FillTransparentPixels();
-    bytes_per_pixel = data_0046f2a0[stored_format];
+    bytes_per_pixel = g_texture_formats_b[stored_format];
     return 0;
 }
 #pragma code_seg()

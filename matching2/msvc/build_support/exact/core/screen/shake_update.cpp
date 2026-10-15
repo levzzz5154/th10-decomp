@@ -7,7 +7,7 @@
 extern "C" __declspec(naked) void __cdecl ScreenShake_Update() {
     __asm {
     L_0043c550:
-        mov eax,dword ptr [data_004918a4]
+        mov eax,dword ptr [g_screen_effects_frozen]
     L_0043c555:
         sub esp,0Ch
     L_0043c558:
@@ -113,7 +113,7 @@ extern "C" __declspec(naked) void __cdecl ScreenShake_Update() {
     L_0043c5ef:
         fmul dword ptr [esi+38h]
     L_0043c5f2:
-        mov esi,dword ptr [data_004918b4]
+        mov esi,dword ptr [g_rng_generation]
     L_0043c5f8:
         add edx,eax
     L_0043c5fa:
@@ -173,15 +173,15 @@ extern "C" __declspec(naked) void __cdecl ScreenShake_Update() {
     L_0043c651:
         fchs
     L_0043c653:
-        fstp dword ptr [data_00491e64]
+        fstp dword ptr [g_screen_shake_x]
     L_0043c659:
         jmp short L_0043c66d
     L_0043c65b:
-        fst dword ptr [data_00491e64]
+        fst dword ptr [g_screen_shake_x]
     L_0043c661:
         jmp short L_0043c66d
     L_0043c663:
-        mov dword ptr [data_00491e64],0
+        mov dword ptr [g_screen_shake_x],0
     L_0043c66d:
         mov eax,dword ptr [g_rng]
     L_0043c672:
@@ -237,7 +237,7 @@ extern "C" __declspec(naked) void __cdecl ScreenShake_Update() {
     L_0043c6cd:
         inc esi
     L_0043c6ce:
-        mov dword ptr [data_004918b4],esi
+        mov dword ptr [g_rng_generation],esi
     L_0043c6d4:
         sub edx,0
     L_0043c6d7:
@@ -253,7 +253,7 @@ extern "C" __declspec(naked) void __cdecl ScreenShake_Update() {
     L_0043c6df:
         fchs
     L_0043c6e1:
-        fstp dword ptr [data_00491e68]
+        fstp dword ptr [g_screen_shake_y]
     L_0043c6e7:
         mov eax,1
     L_0043c6ec:
@@ -263,7 +263,7 @@ extern "C" __declspec(naked) void __cdecl ScreenShake_Update() {
     L_0043c6f0:
         ret
     L_0043c6f1:
-        mov dword ptr [data_00491e68],0
+        mov dword ptr [g_screen_shake_y],0
     L_0043c6fb:
         fstp st(0)
     L_0043c6fd:

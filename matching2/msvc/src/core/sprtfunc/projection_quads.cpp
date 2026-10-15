@@ -31,7 +31,7 @@ extern "C" float flt_1;            //  1.0f
 extern "C" float flt_0_5;            //  0.5f
 extern "C" float flt_neg0_5;            // -0.5f
 
-extern "C" ProjectionDevice_00443B60* data_00491fac;
+extern "C" ProjectionDevice_00443B60* g_render_stage_active;
 extern "C" ProjectionVertex g_quad_vertices[4];
 
 // The projection helper the renderer reaches through its own import stub.
@@ -103,12 +103,12 @@ int BillboardSource_00443B60::BuildProjectedQuad() {
     world.m[15] = 1.0f;
     world.m[0] = world.m[5] = world.m[10] = 1.0f;
 
-    D3DXVec3Project(&center, &origin, &data_00491fac->viewport, &data_00491fac->projection,
-                    &data_00491fac->view, &world);
+    D3DXVec3Project(&center, &origin, &g_render_stage_active->viewport, &g_render_stage_active->projection,
+                    &g_render_stage_active->view, &world);
     if (center.z < 0.0f || center.z > 1.0f)
         return -1;
-    D3DXVec3Project(&reference, &data_00491fac->reference, &data_00491fac->viewport,
-                    &data_00491fac->projection, &data_00491fac->view, &world);
+    D3DXVec3Project(&reference, &g_render_stage_active->reference, &g_render_stage_active->viewport,
+                    &g_render_stage_active->projection, &g_render_stage_active->view, &world);
 
     delta.x = reference.x - center.x;
     delta.y = reference.y - center.y;

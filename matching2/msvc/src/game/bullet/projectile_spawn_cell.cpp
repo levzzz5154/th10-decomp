@@ -184,13 +184,13 @@ int __stdcall SpawnPatternCell_004067d0(ProjectilePattern_004073e0* pattern,
         reinterpret_cast<AnimationResource_0043e710*>(
             manager->animations),
         &record->sprite,
-        data_00474170[blueprint->colour] + blueprint->script_offset);
-    switch (data_004742c0[blueprint->colour]) {
+        g_bullet_script_first[blueprint->colour] + blueprint->script_offset);
+    switch (g_bullet_death_selector[blueprint->colour]) {
     case 0:
         record->death_animation = blueprint->script_offset * 2 + 0x11;
         break;
     case 1:
-        record->death_animation = data_0047432c[blueprint->script_offset];
+        record->death_animation = g_bullet_death_animation[blueprint->script_offset];
         break;
     case 2:
         record->death_animation = -1;
@@ -202,10 +202,10 @@ int __stdcall SpawnPatternCell_004067d0(ProjectilePattern_004073e0* pattern,
         record->death_animation = 0x13;
         break;
     }
-    record->field_460 = data_00474250[blueprint->colour];
+    record->field_460 = g_bullet_field_per_colour[blueprint->colour];
     record->field_458 = blueprint->field_204;
     record->bounds_grace = 10;
-    const float speed = data_004741e0[blueprint->colour];
+    const float speed = g_bullet_speed_per_colour[blueprint->colour];
     record->height_3f4 = speed;
     record->width_3f0 = speed;
     // The stop frame follows the shape bits.

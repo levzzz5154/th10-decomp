@@ -49,7 +49,7 @@ extern "C" __declspec(noinline) int __stdcall EnemyDataStart_0040dc80(EnemyTick_
     // 0x0040DE87: move both, and the drawn position by what they add up to.
     enemy->relative.Advance();
     if (enemy->flags & ENEMY_UNSCROLLED)
-        enemy->absolute.position += data_00491e6c;
+        enemy->absolute.position += g_enemy_scroll;
     enemy->absolute.Advance();
     *reinterpret_cast<Vec3*>(&enemy->final.velocity) =
         *reinterpret_cast<Vec3*>(&enemy->relative.position) + *reinterpret_cast<Vec3*>(&enemy->absolute.position)
@@ -147,7 +147,7 @@ extern "C" __declspec(noinline) int __stdcall EnemyDataStart_0040dc80(EnemyTick_
             }
             enemy->flags |= ENEMY_HIT;
         }
-        data_00474c50 = 1;
+        g_enemy_hittable = 1;
     }
 
     // 0x0040E275: a spell slot that came due without a hit.

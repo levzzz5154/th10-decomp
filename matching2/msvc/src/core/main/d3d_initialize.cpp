@@ -24,7 +24,7 @@ Direct3DMatrix* __stdcall asm_D3DXMatrixPerspectiveFovLH_0045219a(Direct3DMatrix
 SprtCtrlStateCacheView* __cdecl Renderer_ApplyDeviceDefaults(void);
 
 extern Application g_application;
-extern MainWindow data_004924f0;
+extern MainWindow g_main_window;
 extern TextLog_0044b810 g_log;
 
 // Log lines (Shift-JIS).
@@ -75,7 +75,7 @@ __declspec(noinline) int __stdcall D3DInitialize_00439890() {
         } else {
             parameters.back_buffer_format = g_application.config.field_1a == 0 ? 22 : 23;
         }
-        if (data_004924f0.force_no_vsync) {
+        if (g_main_window.force_no_vsync) {
             g_application.no_vsync = 1;
             goto immediate;
         }
@@ -108,16 +108,16 @@ immediate:
     for (;;) {
         if (g_application.config.flags & 2)
             goto reference;
-        if (g_application.direct3d->CreateDevice(0, 1, data_004924f0.window, 0x40,
+        if (g_application.direct3d->CreateDevice(0, 1, g_main_window.window, 0x40,
                 &parameters, &g_application.device) < 0) {
             if (retried)
                 g_log.Append(str_no_tnl_hal);
-            if (g_application.direct3d->CreateDevice(0, 1, data_004924f0.window, 0x20,
+            if (g_application.direct3d->CreateDevice(0, 1, g_main_window.window, 0x20,
                     &parameters, &g_application.device) < 0) {
                 if (retried)
                     g_log.Append(str_no_hal);
 reference:
-                if (g_application.direct3d->CreateDevice(0, 2, data_004924f0.window, 0x20,
+                if (g_application.direct3d->CreateDevice(0, 2, g_main_window.window, 0x20,
                         &parameters, &g_application.device) < 0) {
                     if (g_application.no_vsync == 0) {
                         g_log.Append(str_refresh_rate_unchangeable);
@@ -190,7 +190,7 @@ reference:
     }
     Renderer_ApplyDeviceDefaults();
     ApplyDefaultViewport(0xFF000000);
-    data_004924f0.quit = 0;
+    g_main_window.quit = 0;
     g_application.frames_presented = 0;
     return 0;
 }

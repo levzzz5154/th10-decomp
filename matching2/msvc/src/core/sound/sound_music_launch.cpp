@@ -14,7 +14,7 @@ __declspec(dllimport) void* __stdcall CreateEventA(void* security, int manual_re
     int initial_state, const char* name);
 __declspec(dllimport) void* __stdcall CreateThread(void* security, unsigned int stack_bytes,
     MusicWorkerEntry entry, void* argument, unsigned int flags, unsigned int* thread_id);
-extern WaveGuidImage data_0046a67c;
+extern WaveGuidImage g_guid_wave_format;
 unsigned int __stdcall SoundStream_Worker_0043e3a0(void*);
 }
 
@@ -36,7 +36,7 @@ int WaveSoundManager::LaunchMusic(const char* name) {
     segment_bytes -= segment_bytes % align;
     if (reinterpret_cast<SoundDeviceOwner*>(device_owner)->CreateFileStream(
             reinterpret_cast<SoundStreamingState**>(&music_stream), 0x10100, name,
-            data_0046a67c, 16, segment_bytes, music_worker_event, record) < 0)
+            g_guid_wave_format, 16, segment_bytes, music_worker_event, record) < 0)
         return -1;
     return 0;
 }

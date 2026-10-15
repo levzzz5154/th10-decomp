@@ -18,7 +18,7 @@
 
 void *__cdecl operator new(unsigned int size);
 extern "C" void *__cdecl memset(void *destination, int value, unsigned int size);
-extern "C" unsigned char data_0046d0b4;
+extern "C" unsigned char g_enemy_ctrl_vtable;
 
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
@@ -80,7 +80,7 @@ inline MessageParser_0040d280::MessageParser_0040d280() {
     tail[0] = 0;
     tail[1] = 0;
     memset(this, 0, sizeof(MessageParser_0040d280));
-    vtable = &data_0046d0b4;
+    vtable = &g_enemy_ctrl_vtable;
 }
 
 // View of the same object as a polymorphic one, so the parser's constructor

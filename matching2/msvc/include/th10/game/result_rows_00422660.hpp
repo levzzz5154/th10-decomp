@@ -33,7 +33,7 @@ extern "C" void __stdcall DrawNameEntry_004224c0(
 extern "C" {
 extern int g_globals_difficulty;             // the difficulty the run was played on
 extern int g_globals_stage;             // the stage the run ended on
-extern const char* data_00474708[];   // "E", "N", "H", "L", "X": difficulty initials
+extern const char* g_difficulty_initials[];   // "E", "N", "H", "L", "X": difficulty initials
 extern const char str_score_row_unplayed_format[];    // "%2d %s %.9ld%d --/--/-- Stage -"
 extern const char str_score_row_format[];    // "%2d %s %.9ld%d %.2d/%.2d/%.2d %s"
 extern const char str_score_ranking_title[];    // "            Score Ranking!!"

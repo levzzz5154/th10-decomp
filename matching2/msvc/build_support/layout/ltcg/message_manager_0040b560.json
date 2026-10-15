@@ -283,12 +283,12 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_0049231e",
+      "symbol": "_g_file_lock_depth",
       "address": "0x49231e",
       "kind": "data"
     },
     {
-      "symbol": "_data_004922a4",
+      "symbol": "_g_file_lock",
       "address": "0x4922a4",
       "kind": "data"
     },
@@ -373,12 +373,12 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00474440",
+      "symbol": "_g_ending_files",
       "address": "0x474440",
       "kind": "data"
     },
     {
-      "symbol": "_data_00497c38",
+      "symbol": "_g_recovery_script_path",
       "address": "0x497c38",
       "kind": "data"
     },

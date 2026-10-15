@@ -86,7 +86,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00491fac",
+      "symbol": "_g_render_stage_active",
       "address": "0x00491FAC",
       "kind": "data"
     },
@@ -101,42 +101,42 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00491d7c",
+      "symbol": "_g_back_camera",
       "address": "0x00491D7C",
       "kind": "data"
     },
     {
-      "symbol": "_data_00491d80",
+      "symbol": "_g_back_camera_2",
       "address": "0x00491D80",
       "kind": "data"
     },
     {
-      "symbol": "_data_00491d84",
+      "symbol": "_g_back_camera_3",
       "address": "0x00491D84",
       "kind": "data"
     },
     {
-      "symbol": "_data_00491e78",
+      "symbol": "_g_sprite_fade_near",
       "address": "0x00491E78",
       "kind": "data"
     },
     {
-      "symbol": "_data_00491e7c",
+      "symbol": "_g_sprite_fade_far",
       "address": "0x00491E7C",
       "kind": "data"
     },
     {
-      "symbol": "_data_00491e80",
+      "symbol": "_g_sprite_fade_color_r",
       "address": "0x00491E80",
       "kind": "data"
     },
     {
-      "symbol": "_data_00491e84",
+      "symbol": "_g_sprite_fade_color_g",
       "address": "0x00491E84",
       "kind": "data"
     },
     {
-      "symbol": "_data_00491e88",
+      "symbol": "_g_sprite_fade_color_b",
       "address": "0x00491E88",
       "kind": "data"
     },
@@ -171,7 +171,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_data_00491e90",
+      "symbol": "_g_sprite_fade_color",
       "address": "0x491e90",
       "kind": "data"
     },

@@ -63,7 +63,7 @@ void FrontInitializeView::Initialize() {
         reinterpret_cast<AnimationObject_0043e5a0 *>(&animations[31]), fraction / 10 + 8);
     reinterpret_cast<Resource_0043e5a0 *>(captions)->ConfigureObject(
         reinterpret_cast<AnimationObject_0043e5a0 *>(&animations[32]), digit + 8);
-    if (data_00491fb8 != 8) {
+    if (g_main_state != 8) {
         if (!(g_globals.flags.bytes[0] & 0x20)) {
             Entity *object = AllocateFrontObject(alternate_resource, 0);
             RegisterFrontInline(reinterpret_cast<FrontAnimationLists *>(g_sprt_ctrl), object);
@@ -82,7 +82,7 @@ void FrontInitializeView::Initialize() {
         Entity *object = AllocateFrontObject(captions, 79);
         RegisterFrontInline(reinterpret_cast<FrontAnimationLists *>(g_sprt_ctrl), object);
     }
-    if (data_00491fc4) {
+    if (g_stage_flags) {
         Entity *object = AllocateFrontObject(captions, g_globals.difficulty, 102);
         FrontAnimationLists *lists = reinterpret_cast<FrontAnimationLists *>(g_sprt_ctrl);
         RegisterFrontInline(lists, object);

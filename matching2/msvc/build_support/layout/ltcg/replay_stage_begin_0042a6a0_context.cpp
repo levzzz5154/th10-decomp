@@ -10,7 +10,7 @@ extern "C" int __cdecl ReplayStageBeginEscape(void* pointer, int value);
 #pragma code_seg(".text$0040a000_context")
 extern "C" int __stdcall ReplayStageBeginContext(ReplayManager_0042a6a0** managers, int count) {
     int total = ReplayStageBeginEscape(&g_globals, 0) + ReplayStageBeginEscape(&g_rng, 1) +
-                ReplayStageBeginEscape(&data_00491fc4, 2);
+                ReplayStageBeginEscape(&g_stage_flags, 2);
     for (int index = 0; index < count; ++index) {
         ReplayManager_0042a6a0* manager = managers[index];
         total += ReplayStageBeginEscape(manager, index);

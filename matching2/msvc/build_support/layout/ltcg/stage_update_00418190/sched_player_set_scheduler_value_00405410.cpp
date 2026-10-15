@@ -7,8 +7,8 @@
 #define g_replay stage_sched_data_00477838
 #define g_score stage_sched_data_0047783c
 #define g_game_speed stage_sched_data_00476f78
-#define data_00491fc4 stage_sched_data_00491fc4
-#define data_00491fb8 stage_sched_data_00491fb8
+#define g_stage_flags stage_sched_data_00491fc4
+#define g_main_state stage_sched_data_00491fb8
 #define g_sound_manager stage_sched_data_00492590
 // 0x00405410: store a scheduler value into the record whose address arrives in
 // EAX, initialising the record to its defaults while its "initialised" flag is
@@ -70,6 +70,6 @@ void PlayerSchedulerRecord::SetSchedulerValue(int value) {
 #undef g_replay
 #undef g_score
 #undef g_game_speed
-#undef data_00491fc4
-#undef data_00491fb8
+#undef g_stage_flags
+#undef g_main_state
 #undef g_sound_manager

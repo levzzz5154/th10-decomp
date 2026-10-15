@@ -94,12 +94,12 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00474cb0",
+      "symbol": "_g_font_atlas_surface",
       "address": "0x00474CB0",
       "kind": "data"
     },
     {
-      "symbol": "_data_00491868",
+      "symbol": "_g_font_height_60",
       "address": "0x00491868",
       "kind": "data"
     }

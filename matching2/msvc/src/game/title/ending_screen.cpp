@@ -53,7 +53,7 @@ int __stdcall EndingScreen_Update_0042d300(Title* room) {
             room->SetTimerTarget(2);
         break;
     case 2:
-        if ((data_00474e36 & 0x160b) != 0) {
+        if ((g_input_keys_held & 0x160b) != 0) {
             room->SetSlotFrame(90, 6);
             room->SetTimerTarget(4);
             g_sound_manager.Queue(32, 0);

@@ -126,9 +126,9 @@ __declspec(noinline) int __stdcall AnmTexture_UploadAt_00446d70(
     AnmUploadTag_00446c70 tag, AnmTexture_00446c70* texture, int format, const void* data, int top,
     int size, int has_thtx);
 
-extern "C" unsigned char data_00491d78;                // renderer capability flags
-extern "C" int data_0046f288[];                        // D3DFORMAT per ANM format index
-extern "C" int data_0046f2a0[];                        // bytes per pixel per ANM format index
+extern "C" unsigned char g_sound_flags;                // renderer capability flags
+extern "C" int g_texture_formats_a[];                        // D3DFORMAT per ANM format index
+extern "C" int g_texture_formats_b[];                        // bytes per pixel per ANM format index
 
 extern "C" unsigned int __stdcall asm_D3DXLoadSurfaceFromFileInMemory_004521d0(
     void* destination, const void* destination_palette, const void* destination_rect,

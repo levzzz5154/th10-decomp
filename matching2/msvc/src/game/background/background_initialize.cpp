@@ -11,19 +11,19 @@ struct TextLog_0044b8e0 {
     __declspec(noinline) char* AppendLine(char* format, ...);
 };
 extern "C" {
-extern unsigned int g_globals_stage; extern BackGroundCameraSnapshot data_00491d7c;
+extern unsigned int g_globals_stage; extern BackGroundCameraSnapshot g_back_camera;
 extern FuncCtrl* g_func_ctrl; extern float g_game_speed;
 SchedulerTask* __stdcall SchedulerCallback_Create_00449ed0(void* callback);
 }
 #pragma code_seg(".text$01init")
 extern "C" __declspec(noinline) int __stdcall BackGround_Initialize(BackGround* state, const char* name, int state_id) {
-    if (state_id==0) g_background=state; else data_004776e4=state;
+    if (state_id==0) g_background=state; else g_background_prev=state;
     state->stage_flags=g_globals_stage;
     if (state->Load(name)!=0) {
         ((TextLog_0044b8e0*)0x474f70)->AppendLine((char*)0x46cc70);
         return -1;
     }
-    state->camera=data_00491d7c;
+    state->camera=g_back_camera;
     state->camera.camera.position=CameraVector(0.0f,0.0f,-600.0f);
     state->camera.camera.direction=CameraVector(0.0f,300.0f,600.0f);
     state->camera.camera.up=CameraVector(0.0f,1.0f,0.0f);

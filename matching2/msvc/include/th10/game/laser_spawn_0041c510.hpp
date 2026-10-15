@@ -102,8 +102,8 @@ struct BeamLaser_0041c680 : LaserBase_0041c030 {
 };
 typedef char BeamLaserSize_0041c680[sizeof(BeamLaser_0041c680) == 0xD74 ? 1 : -1];
 
-extern "C" unsigned char data_0046da60;  // line laser vtable
-extern "C" unsigned char data_0046da10;  // beam laser vtable
+extern "C" unsigned char g_line_laser_vtable;  // line laser vtable
+extern "C" unsigned char g_beam_laser_vtable;  // beam laser vtable
 
 // 0x0041C5B0, 0x0041C680: construct a laser in raw storage.
 __declspec(noinline) LineLaser_0041c5b0* __fastcall LineLaser_Construct_0041c5b0(LineLaser_0041c5b0* self);

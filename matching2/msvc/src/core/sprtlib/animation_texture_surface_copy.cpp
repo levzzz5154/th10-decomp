@@ -89,10 +89,10 @@ void AnimationManagerIndexed_00447f70::CopyRectToBackBuffer(int index, int x, in
     if (Device()->GetBackBuffer(0, 0, 0, &back_buffer) != 0)
         return;
     if (!primary[index]) {
-        if (Device()->CreateRenderTarget(info[index].width, info[index].height, data_00491d14,
+        if (Device()->CreateRenderTarget(info[index].width, info[index].height, g_render_target_format,
                                          0, 0, 1, &primary[index], 0) != 0 &&
             Device()->CreateOffscreenPlainSurface(info[index].width, info[index].height,
-                                                  data_00491d14, 3, &primary[index], 0) != 0) {
+                                                  g_render_target_format, 3, &primary[index], 0) != 0) {
             back_buffer->Release();
             return;
         }

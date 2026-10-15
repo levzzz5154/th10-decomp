@@ -8,7 +8,7 @@
 // build_support/layout/ltcg/bullet_manager_load_scripts_0040ae70.json).
 #include "th10/math/timer.hpp"
 
-extern "C" unsigned char data_0046dab0;
+extern "C" unsigned char g_laser_vtable;
 extern "C" unsigned char g_game_speed;
 extern "C" void *__cdecl memset(void *destination, int value, unsigned int size);
 
@@ -31,7 +31,7 @@ typedef char LaserBaseView_size_must_be_1060[sizeof(LaserBaseView) == 0x424 ? 1 
 #pragma code_seg(".text$00fascoreobjinit")
 __declspec(noinline) LaserBaseView *__fastcall
 Laser_Construct(void *, LaserBaseView *self) {
-    self->vtable = &data_0046dab0;
+    self->vtable = &g_laser_vtable;
     // The clear goes through a typed pointer: the plain member form makes MSVC
     // schedule the read-modify-write ahead of the vtable store, which no longer
     // matches the retail bytes.

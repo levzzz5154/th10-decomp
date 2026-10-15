@@ -29,7 +29,7 @@
       "address": "0x00492590",
       "kind": "data"
     },
-    "_data_00474170": {
+    "_g_bullet_script_first": {
       "address": "0x00474170",
       "kind": "data"
     },
@@ -113,19 +113,19 @@
       "address": "0x00470B60",
       "kind": "data"
     },
-    "_data_004742c0": {
+    "_g_bullet_death_selector": {
       "address": "0x004742C0",
       "kind": "data"
     },
-    "_data_0047432c": {
+    "_g_bullet_death_animation": {
       "address": "0x0047432C",
       "kind": "data"
     },
-    "_data_004741e0": {
+    "_g_bullet_speed_per_colour": {
       "address": "0x004741E0",
       "kind": "data"
     },
-    "_data_00474250": {
+    "_g_bullet_field_per_colour": {
       "address": "0x00474250",
       "kind": "data"
     },

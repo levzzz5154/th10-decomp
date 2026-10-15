@@ -59,7 +59,7 @@ struct EffectKind_0040b070 {
     int value_b;                                             // +0x0C
 };
 
-extern "C" EffectKind_0040b070 data_00474430[];
+extern "C" EffectKind_0040b070 g_effect_kinds[];
 
 // The owner of an animation file.
 struct EffectSpawnView {

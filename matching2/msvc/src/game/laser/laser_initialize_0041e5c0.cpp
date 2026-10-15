@@ -53,7 +53,7 @@ struct Laser_0041e5c0 {
 };
 
 extern "C" LaserAnimationBank_0041e5c0* g_laser_manager;
-extern "C" int data_00474170[];          // first beam script of each colour
+extern "C" int g_bullet_script_first[];          // first beam script of each colour
 
 #pragma code_seg(".text$00zza_laser")
 __declspec(noinline) int Laser_0041e5c0::Initialize(const LaserParams_0041e5c0* init) {
@@ -61,7 +61,7 @@ __declspec(noinline) int Laser_0041e5c0::Initialize(const LaserParams_0041e5c0* 
     state = 3;
     Entity* animation = &beam;
     Entity_StartScript_00404f30(g_laser_manager->laser_animation, animation,
-                                params.script + data_00474170[params.colour]);
+                                params.script + g_bullet_script_first[params.colour]);
     beam.StopFrame() = 2;
     asm_FUN_0043ee30_0043ee30(animation);
     if (params.flags & 2)

@@ -38,19 +38,19 @@ extern "C" __declspec(noinline) int __fastcall AnimationLoadSurface_00447c80(
         size = manager->memorySize[index];
         manager->memory[index] = 0;
     }
-    if (Device()->CreateOffscreenPlainSurface(640, 1024, data_00491d14, 3, &scratch, 0) != 0)
+    if (Device()->CreateOffscreenPlainSurface(640, 1024, g_render_target_format, 3, &scratch, 0) != 0)
         return -1;
     if (LoadSurfaceFile_004521d0(scratch, 0, 0, data, size, 0, 1, 0, &manager->info[index]) != 0)
         goto fail;
     if (Device()->CreateRenderTarget(manager->info[index].width, manager->info[index].height,
-                                     data_00491d14, 0, 0, 1, &manager->primary[index], 0) != 0) {
+                                     g_render_target_format, 0, 0, 1, &manager->primary[index], 0) != 0) {
         if (Device()->CreateOffscreenPlainSurface(manager->info[index].width,
-                                                  manager->info[index].height, data_00491d14, 3,
+                                                  manager->info[index].height, g_render_target_format, 3,
                                                   &manager->primary[index], 0) != 0)
             goto fail;
     }
     if (Device()->CreateOffscreenPlainSurface(manager->info[index].width,
-                                              manager->info[index].height, data_00491d14, 3,
+                                              manager->info[index].height, g_render_target_format, 3,
                                               &manager->secondary[index], 0) != 0)
         goto fail;
     if (LoadSurfaceCopy_004521d6(manager->primary[index], 0, 0, scratch, 0, 0, 1, 0) != 0)

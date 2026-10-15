@@ -849,7 +849,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00474e88",
+      "symbol": "_g_key_bindings_current",
       "address": "0x00474E88",
       "kind": "data"
     },
@@ -884,12 +884,12 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_0049231e",
+      "symbol": "_g_file_lock_depth",
       "address": "0x0049231e",
       "kind": "data"
     },
     {
-      "symbol": "_data_004922a4",
+      "symbol": "_g_file_lock",
       "address": "0x004922a4",
       "kind": "data"
     },
@@ -944,7 +944,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_data_00497c38",
+      "symbol": "_g_recovery_script_path",
       "address": "0x00497C38",
       "kind": "data"
     },
@@ -959,12 +959,12 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00492380",
+      "symbol": "_g_executable_checksum",
       "address": "0x00492380",
       "kind": "data"
     },
     {
-      "symbol": "_data_00492384",
+      "symbol": "_g_executable_size",
       "address": "0x00492384",
       "kind": "data"
     },
@@ -989,22 +989,22 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_0047476c",
+      "symbol": "_g_music_room_commands",
       "address": "0x0047476C",
       "kind": "data"
     },
     {
-      "symbol": "_data_00474778",
+      "symbol": "_g_music_room_easings",
       "address": "0x00474778",
       "kind": "data"
     },
     {
-      "symbol": "_data_00491bf4",
+      "symbol": "_g_music_room_variable_map",
       "address": "0x00491BF4",
       "kind": "data"
     },
     {
-      "symbol": "_data_00491bf8",
+      "symbol": "_g_music_room_callback_map",
       "address": "0x00491BF8",
       "kind": "data"
     },
@@ -1019,12 +1019,12 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_data_004922bc",
+      "symbol": "_g_text_log_lock",
       "address": "0x004922BC",
       "kind": "data"
     },
     {
-      "symbol": "_data_0049231f",
+      "symbol": "_g_text_log_lock_depth",
       "address": "0x0049231F",
       "kind": "data"
     },
@@ -1039,7 +1039,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_data_00477848",
+      "symbol": "_g_stage_route_current",
       "address": "0x00477848",
       "kind": "data"
     },
@@ -1054,7 +1054,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00491be8",
+      "symbol": "_g_next_stage_buffer",
       "address": "0x00491BE8",
       "kind": "data"
     },
@@ -1164,12 +1164,12 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00474e30",
+      "symbol": "_g_input_keys_raw",
       "address": "0x00474E30",
       "kind": "data"
     },
     {
-      "symbol": "_data_00474e36",
+      "symbol": "_g_input_keys_held",
       "address": "0x00474E36",
       "kind": "data"
     },
@@ -1179,7 +1179,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_004918a4",
+      "symbol": "_g_screen_effects_frozen",
       "address": "0x004918A4",
       "kind": "data"
     },

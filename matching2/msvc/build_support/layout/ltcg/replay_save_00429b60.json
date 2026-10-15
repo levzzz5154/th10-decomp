@@ -128,17 +128,17 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00474c38",
+      "symbol": "_g_file_write_handle",
       "address": "0x00474C38",
       "kind": "data"
     },
     {
-      "symbol": "_data_004922a4",
+      "symbol": "_g_file_lock",
       "address": "0x004922A4",
       "kind": "data"
     },
     {
-      "symbol": "_data_0049231e",
+      "symbol": "_g_file_lock_depth",
       "address": "0x0049231E",
       "kind": "data"
     },
@@ -158,12 +158,12 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_004746dc",
+      "symbol": "_g_shot_names",
       "address": "0x004746DC",
       "kind": "data"
     },
     {
-      "symbol": "_data_004746f4",
+      "symbol": "_g_difficulty_names",
       "address": "0x004746F4",
       "kind": "data"
     },

@@ -224,17 +224,17 @@
       "kind": "metadata"
     },
     {
-      "symbol": "_data_00474350",
+      "symbol": "_g_burst_color_small",
       "address": "0x474350",
       "kind": "data"
     },
     {
-      "symbol": "_data_00474390",
+      "symbol": "_g_burst_color_medium",
       "address": "0x474390",
       "kind": "data"
     },
     {
-      "symbol": "_data_004743b0",
+      "symbol": "_g_burst_color_large",
       "address": "0x4743b0",
       "kind": "data"
     }

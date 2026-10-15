@@ -27,16 +27,16 @@ struct DemoFile {
 };
 typedef char DemoStageOffset[offsetof(DemoFile, stages) == 0xb0 ? 1 : -1];
 extern "C" {
-    extern unsigned int data_00474e30;
+    extern unsigned int g_input_keys_raw;
     extern unsigned int g_globals_flags;
-    extern int data_00474ca4, data_00474ca8;
-    extern int g_globals_character, g_globals_shot_type, g_globals_difficulty, data_00474c78;
-    extern int g_globals_stage, g_globals_stage_shown, data_00491fb8, data_00491c00;
-    extern unsigned int data_00491ff4;
-    extern const char* data_00476ff8[4];
+    extern int g_title_idle_frames, g_title_demo_index;
+    extern int g_globals_character, g_globals_shot_type, g_globals_difficulty, g_menu_difficulty_saved;
+    extern int g_globals_stage, g_globals_stage_shown, g_main_state, g_main_mode_request;
+    extern unsigned int g_app_flags;
+    extern const char* g_title_demo_paths[4];
     extern char g_replay_path[];
-    extern unsigned char data_00474788[];
-    extern unsigned char* data_00477848;
+    extern unsigned char g_stage_routes[];
+    extern unsigned char* g_stage_route_current;
     extern GameThread_0040c540* g_ascii_manager;
     extern float flt_0_99, flt_1_01, flt_1;
 }
@@ -76,35 +76,35 @@ __declspec(noinline) int __stdcall Title_DispatchUpdate(
         Title* room) {
     TitlePrefix* title = reinterpret_cast<TitlePrefix*>(room);
     if (title->mode == 1 || title->mode == 2) {
-        ++data_00474ca4;
-        if ((data_00474e30 & 0x160b) != 0) {
-            data_00474ca4 = 0;
-        } else if (data_00474ca4 >= 900) {
+        ++g_title_idle_frames;
+        if ((g_input_keys_raw & 0x160b) != 0) {
+            g_title_idle_frames = 0;
+        } else if (g_title_idle_frames >= 900) {
             g_globals_flags = (g_globals_flags & ~0x40u) | 0x20;
-            const char* source = data_00476ff8[data_00474ca8];
+            const char* source = g_title_demo_paths[g_title_demo_index];
             char* destination = g_replay_path;
             do { *destination++ = *source; } while (*source++ != '\0');
             DemoFile* file = TitleLoadDemo_004296f0(g_replay_path);
-            data_00474ca8 = (data_00474ca8 + 1) % 4;
+            g_title_demo_index = (g_title_demo_index + 1) % 4;
             int stage = 0;
             while (stage < 8 && file->stages[stage].present == 0)
                 ++stage;
             g_globals_stage = stage;
             g_globals_stage_shown = stage;
-            data_00491fb8 = 12;
+            g_main_state = 12;
             DemoHeader* header = file->header;
             g_globals_character = header->character;
-            data_00477848 = data_00474788 + stage * 0x30;
+            g_stage_route_current = g_stage_routes + stage * 0x30;
             g_globals_shot_type = header->shot;
-            data_00474c78 = g_globals_difficulty;
+            g_menu_difficulty_saved = g_globals_difficulty;
             g_globals_difficulty = header->difficulty;
             TitleReleaseDemo_004294a0(file);
             free(file);
-            data_00474ca4 = 0;
-            data_00491c00 = title->mode != 1;
+            g_title_idle_frames = 0;
+            g_main_mode_request = title->mode != 1;
         }
     }
-    int transition = data_00491c00;
+    int transition = g_main_mode_request;
     switch (title->mode) {
     case 0: {
         unsigned char* manager_bytes = reinterpret_cast<unsigned char*>(g_sprt_ctrl);
@@ -125,7 +125,7 @@ __declspec(noinline) int __stdcall Title_DispatchUpdate(
             room->DisableTimerWithOwner(15);
             RecoveryMusicInstallSlot_0042c670(room, 91);
             room->SetSlotFrame(91, 9);
-            data_00491c00 = 1;
+            g_main_mode_request = 1;
             MarkTitleCallback(room);
             TitleNameEntry_00432cb0(room);
             break;
@@ -133,14 +133,14 @@ __declspec(noinline) int __stdcall Title_DispatchUpdate(
         if ((g_globals_flags & 0x20) == 0) {
             TitleSetMusicFile_00420a90(0, "bgm/th10_02.wav");
             TitlePlayMusic_00420b10(0, 0);
-            transition = data_00491c00;
+            transition = g_main_mode_request;
         } else {
-            g_globals_difficulty = data_00474c78;
+            g_globals_difficulty = g_menu_difficulty_saved;
         }
         g_globals_flags &= ~0x20u;
         if (transition == 0) {
             room->DisableTimerWithOwner(1);
-            data_00491c00 = 1;
+            g_main_mode_request = 1;
         } else if (transition == 1) {
             if (g_globals_difficulty == 4)
                 SetSelection(&room->cursor, 1);
@@ -156,7 +156,7 @@ __declspec(noinline) int __stdcall Title_DispatchUpdate(
             room->DisableTimerWithOwner(12);
             RecoveryMusicInstallSlot_0042c670(room, 91);
             room->SetSlotFrame(91, 9);
-            data_00491c00 = 1;
+            g_main_mode_request = 1;
             MarkTitleCallback(room);
             TitleMode12_004315c0(room);
             break;
@@ -167,7 +167,7 @@ __declspec(noinline) int __stdcall Title_DispatchUpdate(
     case 1: EndingScreen_Update_0042d300(room); break;
     case 2: MarkTitleCallback(room); TitleMainMenu_0042d420(room); break;
     case 3:
-        data_00491fb8 = (~(data_00491ff4 >> 12) & 1) | 2;
+        g_main_state = (~(g_app_flags >> 12) & 1) | 2;
         // The same launch path serves modes 3, 10, and 13.
     case 10: case 13: TitleDispatchGame_00420c00(); break;
     case 4: TitleOptions_0042d920(room); break;

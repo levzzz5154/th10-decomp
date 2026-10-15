@@ -56,9 +56,9 @@ __declspec(noinline) int __stdcall TitleNameEntry_00432cb0(Title* room) {
         // The table records the stage of a whole game.
         g_globals_stage = 8;
         g_globals_stage_shown = 8;
-        data_00477848 = data_00474788 + 8 * 0x30;
+        g_stage_route_current = g_stage_routes + 8 * 0x30;
         int rank = ScoreFile_00432cb0()->shots[g_globals_character][g_globals_shot_type].table.InsertScore();
-        data_00477848 = data_00474788;
+        g_stage_route_current = g_stage_routes;
         g_globals_stage = 0;
         g_globals_stage_shown = 0;
         if (rank >= 0) {
@@ -67,7 +67,7 @@ __declspec(noinline) int __stdcall TitleNameEntry_00432cb0(Title* room) {
             UpdateBoundedCounter(rank, reinterpret_cast<unsigned int*>(&room->cursor));
             MenuCursor* grid = &entry->grid;
             SelectItem_00432cb0(*grid, 0);
-            entry->grid.item_count = strlen(data_004746d8);
+            entry->grid.item_count = strlen(g_name_entry_grid);
             entry->grid.wrap = 1;
             strcpy(entry->name, g_score->last_name);
             if (strcmp(entry->name, "        ") != 0)
@@ -90,7 +90,7 @@ __declspec(noinline) int __stdcall TitleNameEntry_00432cb0(Title* room) {
         break;
     case 2:
         if (entry->name_confirmed == 0) {
-            KeyRepeatState* input = &data_00474e30;
+            KeyRepeatState* input = &g_input_keys_raw;
             MenuCursor* grid = &entry->grid;
             grid->previous_selection = grid->selection;
             if ((short)input->InputMaskActive(0x10)) grid->Advance(-13);
@@ -110,9 +110,9 @@ __declspec(noinline) int __stdcall TitleNameEntry_00432cb0(Title* room) {
             if (grid->previous_selection != grid->selection)
                 g_sound_manager.Queue(12, 0);
         }
-        if (data_00474e36 & 0x1001) {
+        if (g_input_keys_held & 0x1001) {
             if (entry->name_confirmed == 0) {
-                const char* characters = data_004746d8;
+                const char* characters = g_name_entry_grid;
                 int count = strlen(characters);
                 int cell = entry->grid.selection;
                 if (cell < count - 3) {
@@ -156,7 +156,7 @@ __declspec(noinline) int __stdcall TitleNameEntry_00432cb0(Title* room) {
                 g_sound_manager.Queue(10, 0);
             }
         }
-        if (data_00474e36 & 0xa) {
+        if (g_input_keys_held & 0xa) {
             if (entry->name_confirmed == 0) {
                 if (entry->name_length == 0)
                     break;

@@ -204,12 +204,12 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00491fb8",
+      "symbol": "_g_main_state",
       "address": "0x491fb8",
       "kind": "data"
     },
     {
-      "symbol": "_data_00491fc4",
+      "symbol": "_g_stage_flags",
       "address": "0x491fc4",
       "kind": "data"
     },

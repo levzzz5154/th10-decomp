@@ -4,7 +4,7 @@
 #include "th10/platform/sound_queue.hpp"
 
 extern "C" void* g_sprt_ctrl;
-extern "C" unsigned int data_00474e36;
+extern "C" unsigned int g_input_keys_held;
 __declspec(noinline) void __stdcall RecoveryMusicInstallSlot_0042c670(
     Title* room, int index);
 struct AnimationHandle_0040c3c0 { unsigned int id; };
@@ -40,7 +40,7 @@ __declspec(noinline) int __stdcall EndingScreen_Update_0042d300(
             room->SetTimerTarget(2);
         break;
     case 2:
-        if ((data_00474e36 & 0x160b) != 0) {
+        if ((g_input_keys_held & 0x160b) != 0) {
             room->SetSlotFrame(90, 6);
             room->SetTimerTarget(4);
             g_sound_manager.Queue(32, 0);

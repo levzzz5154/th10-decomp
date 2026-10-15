@@ -41,5 +41,5 @@ extern "C" {
 // 0x00403C80: the stage script interpreter, one stack argument.
 void __stdcall BackGround_RunScript(BackGround* stage);
 extern float g_game_speed;
-extern BackGroundCamera data_00491d7c;
+extern BackGroundCamera g_back_camera;
 }

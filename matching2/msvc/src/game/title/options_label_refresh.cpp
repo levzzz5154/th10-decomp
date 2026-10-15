@@ -19,9 +19,9 @@
 #include "th10/game/options_label_refresh_0042e5a0.hpp"
 #include "th10/render/resource_registrar_0043e460.hpp"
 
-extern "C" int data_00497854;   // music volume copy for the sound thread
-extern "C" int data_00497858;   // sound volume copy
-extern "C" int data_0049785c;   // music DSP attenuation, DirectSound units
+extern "C" int g_options_music_volume;   // music volume copy for the sound thread
+extern "C" int g_options_sound_volume;   // sound volume copy
+extern "C" int g_options_music_attenuation;   // music DSP attenuation, DirectSound units
 extern "C" const char str_set_vol[];  // "bgm/th10_02.wav"
 
 extern "C" int __ftol2(void);
@@ -125,23 +125,23 @@ __declspec(noinline) void __stdcall RefreshOptions_0042e5a0(
     Title* room) {
     RecoveryLookupContext_0040bd80* manager =
         reinterpret_cast<RecoveryLookupContext_0040bd80*>(g_sprt_ctrl);
-    data_00497854 = data_00491d4c.music_volume;
+    g_options_music_volume = g_key_bindings.music_volume;
 
     // The request queue records "bgm/th10_02.wav" for resource 8; the retail
     // form passes the queue in a register (EAX) and the name in EDX.
     reinterpret_cast<AnimationManager_0043e460*>(&g_sound_manager)->RegisterResource(str_set_vol, 8, 0);
 
-    int sound = data_00491d4c.sound_volume;
-    data_00497858 = sound;
+    int sound = g_key_bindings.sound_volume;
+    g_options_sound_volume = sound;
     if (sound != 0)
-        data_0049785c = MusicAttenuation(data_00497854);
+        g_options_music_attenuation = MusicAttenuation(g_options_music_volume);
     else
-        data_0049785c = -10000;
+        g_options_music_attenuation = -10000;
 
     // The twelve digit labels are drawn unconditionally with the current
     // volume's sprites: hundreds, tens, ones of the large font, then the small.
-    const signed char& music = data_00491d4c.music_volume;
-    const signed char& sound_volume = data_00491d4c.sound_volume;
+    const signed char& music = g_key_bindings.music_volume;
+    const signed char& sound_volume = g_key_bindings.sound_volume;
     ConfigureHundreds(manager, room, 0x25, 0x33, music);
     ConfigureTens(manager, room, 0x26, 0x33, music);
     ConfigureOnes(manager, room, 0x27, 0x33, music);

@@ -27,7 +27,7 @@
 extern "C" __declspec(naked) void __cdecl asm_FUN_0042e5a0_0042e5a0() {
     __asm {
     L_0042e5a0:
-        movsx eax,byte ptr [data_00491d68]
+        movsx eax,byte ptr [g_music_volume]
     L_0042e5a7:
         push ebx
     L_0042e5a8:
@@ -39,7 +39,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0042e5a0_0042e5a0() {
     L_0042e5ac:
         push ebx
     L_0042e5ad:
-        mov dword ptr [data_00497854],eax
+        mov dword ptr [g_options_music_volume],eax
     L_0042e5b2:
         push 8
     L_0042e5b4:
@@ -49,15 +49,15 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0042e5a0_0042e5a0() {
     L_0042e5be:
         call asm_AnimationManager_RegisterResource_0043e460
     L_0042e5c3:
-        movsx eax,byte ptr [data_00491d69]
+        movsx eax,byte ptr [g_effect_volume]
     L_0042e5ca:
         cmp eax,ebx
     L_0042e5cc:
-        mov dword ptr [data_00497858],eax
+        mov dword ptr [g_options_sound_volume],eax
     L_0042e5d1:
         je short L_0042e60f
     L_0042e5d3:
-        fild dword ptr [data_00497854]
+        fild dword ptr [g_options_music_volume]
     L_0042e5d9:
         fmul dword ptr [flt_0_01]
     L_0042e5df:
@@ -83,11 +83,11 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0042e5a0_0042e5a0() {
     L_0042e605:
         sub ecx,eax
     L_0042e607:
-        mov dword ptr [data_0049785c],ecx
+        mov dword ptr [g_options_music_attenuation],ecx
     L_0042e60d:
         jmp short L_0042e619
     L_0042e60f:
-        mov dword ptr [data_0049785c],0FFFFD8F0h
+        mov dword ptr [g_options_music_attenuation],0FFFFD8F0h
     L_0042e619:
         mov edx,dword ptr [edi+2C8h]
     L_0042e61f:
@@ -153,7 +153,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0042e5a0_0042e5a0() {
     L_0042e674:
         je short L_0042e69d
     L_0042e676:
-        movsx edx,byte ptr [data_00491d68]
+        movsx edx,byte ptr [g_music_volume]
     L_0042e67d:
         mov eax,51EB851Fh
     L_0042e682:
@@ -221,7 +221,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0042e5a0_0042e5a0() {
     L_0042e6e5:
         je short L_0042e717
     L_0042e6e7:
-        movsx edx,byte ptr [data_00491d68]
+        movsx edx,byte ptr [g_music_volume]
     L_0042e6ee:
         mov eax,66666667h
     L_0042e6f3:
@@ -303,7 +303,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0042e5a0_0042e5a0() {
     L_0042e764:
         je short L_0042e785
     L_0042e766:
-        movsx eax,byte ptr [data_00491d68]
+        movsx eax,byte ptr [g_music_volume]
     L_0042e76d:
         cdq
     L_0042e76e:
@@ -369,7 +369,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0042e5a0_0042e5a0() {
     L_0042e7d4:
         je short L_0042e7fd
     L_0042e7d6:
-        movsx edx,byte ptr [data_00491d68]
+        movsx edx,byte ptr [g_music_volume]
     L_0042e7dd:
         mov eax,51EB851Fh
     L_0042e7e2:
@@ -437,7 +437,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0042e5a0_0042e5a0() {
     L_0042e845:
         je short L_0042e87c
     L_0042e847:
-        movsx edx,byte ptr [data_00491d68]
+        movsx edx,byte ptr [g_music_volume]
     L_0042e84e:
         mov eax,66666667h
     L_0042e853:
@@ -515,7 +515,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0042e5a0_0042e5a0() {
     L_0042e8c4:
         je short L_0042e8ea
     L_0042e8c6:
-        movsx eax,byte ptr [data_00491d68]
+        movsx eax,byte ptr [g_music_volume]
     L_0042e8cd:
         cdq
     L_0042e8ce:
@@ -583,7 +583,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0042e5a0_0042e5a0() {
     L_0042e934:
         je short L_0042e95d
     L_0042e936:
-        movsx edx,byte ptr [data_00491d69]
+        movsx edx,byte ptr [g_effect_volume]
     L_0042e93d:
         mov eax,51EB851Fh
     L_0042e942:
@@ -651,7 +651,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0042e5a0_0042e5a0() {
     L_0042e9a5:
         je short L_0042e9dc
     L_0042e9a7:
-        movsx edx,byte ptr [data_00491d69]
+        movsx edx,byte ptr [g_effect_volume]
     L_0042e9ae:
         mov eax,66666667h
     L_0042e9b3:
@@ -729,7 +729,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0042e5a0_0042e5a0() {
     L_0042ea24:
         je short L_0042ea4a
     L_0042ea26:
-        movsx eax,byte ptr [data_00491d69]
+        movsx eax,byte ptr [g_effect_volume]
     L_0042ea2d:
         cdq
     L_0042ea2e:
@@ -797,7 +797,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0042e5a0_0042e5a0() {
     L_0042ea94:
         je short L_0042eabd
     L_0042ea96:
-        movsx edx,byte ptr [data_00491d69]
+        movsx edx,byte ptr [g_effect_volume]
     L_0042ea9d:
         mov eax,51EB851Fh
     L_0042eaa2:
@@ -865,7 +865,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0042e5a0_0042e5a0() {
     L_0042eb05:
         je short L_0042eb3c
     L_0042eb07:
-        movsx edx,byte ptr [data_00491d69]
+        movsx edx,byte ptr [g_effect_volume]
     L_0042eb0e:
         mov eax,66666667h
     L_0042eb13:
@@ -943,7 +943,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0042e5a0_0042e5a0() {
     L_0042eb84:
         je short L_0042ebaa
     L_0042eb86:
-        movsx eax,byte ptr [data_00491d69]
+        movsx eax,byte ptr [g_effect_volume]
     L_0042eb8d:
         cdq
     L_0042eb8e:
@@ -961,7 +961,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0042e5a0_0042e5a0() {
     L_0042eba5:
         mov ebp,29h
     L_0042ebaa:
-        mov al,byte ptr [data_00491d68]
+        mov al,byte ptr [g_music_volume]
     L_0042ebaf:
         cmp al,0Ah
     L_0042ebb1:
@@ -1757,7 +1757,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0042e5a0_0042e5a0() {
     L_0042f07e:
         mov dword ptr [eax],ecx
     L_0042f080:
-        mov al,byte ptr [data_00491d69]
+        mov al,byte ptr [g_effect_volume]
     L_0042f085:
         cmp al,0Ah
     L_0042f087:

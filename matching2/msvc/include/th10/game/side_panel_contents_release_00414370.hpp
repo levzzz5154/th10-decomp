@@ -143,7 +143,7 @@ typedef char SidePanelStageSlot_00414370[offsetof(SidePanel_00414370, stage_slot
 extern "C" {
 extern PanelAnimationManager_00414370* g_sprt_ctrl;
 extern RunState_00414370 g_globals;
-extern void* data_00491be8;         // the stage buffer kept for the next stage
+extern void* g_next_stage_buffer;         // the stage buffer kept for the next stage
 }
 
 // 0x00414370: release everything the panel's stage holds.

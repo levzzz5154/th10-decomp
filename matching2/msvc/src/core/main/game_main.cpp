@@ -173,14 +173,14 @@ struct SoundManager_00438ad0 {
 typedef char SoundManagerSize_00438ad0[sizeof(SoundManager_00438ad0) == 0x52D0 ? 1 : -1];
 
 extern "C" {
-extern ReplayTable_00438ad0* data_00491be0;
+extern ReplayTable_00438ad0* g_replay_table;
 extern D3DResourceManager_00438ad0* g_func_ctrl;
 extern AnimationManager_00438ad0* g_sprt_ctrl;
 extern Application g_application;
-extern MainWindow data_004924f0;
+extern MainWindow g_main_window;
 extern SoundManager_00438ad0 g_sound_manager;
 extern TextLog_0044b810 g_log;
-extern ThreadSynchronization data_00492274;
+extern ThreadSynchronization g_thread_sync;
 }
 
 static inline void PumpMessage(Message_00438ad0* message) {
@@ -196,10 +196,10 @@ __declspec(noinline) int __stdcall GameMain_00438ad0(
     int index;
     CriticalSection* section;
 
-    data_004924f0.instance = instance;
+    g_main_window.instance = instance;
     ReplayTable_00438ad0* replays = new ReplayTable_00438ad0;
-    data_00491be0 = replays;
-    for (section = data_00492274.critical_sections, index = 7; index != 0; --index, ++section)
+    g_replay_table = replays;
+    for (section = g_thread_sync.critical_sections, index = 7; index != 0; --index, ++section)
         InitializeCriticalSection(section);
     g_log.Append(str_log_header);
 
@@ -226,7 +226,7 @@ __declspec(noinline) int __stdcall GameMain_00438ad0(
         }
         if (CreateGameWindow_00439730(instance) != 0)
             goto close_pass;
-        g_sound_manager.Start(data_004924f0.window);
+        g_sound_manager.Start(g_main_window.window);
         if (asm_FUN_00439890_00439890() != 0)
             goto close_pass;
         Joystick_Probe_0044a0c0();
@@ -238,10 +238,10 @@ __declspec(noinline) int __stdcall GameMain_00438ad0(
             ShowCursor(0);
             SetCursor(0);
         }
-        data_004924f0.previous_time = 0.0;
-        data_004924f0.start_time = data_004924f0.target_time =
-            data_004924f0.frame_time = data_004924f0.previous_time = FrameTimer_GetDelta();
-        SetForegroundWindow(data_004924f0.window);
+        g_main_window.previous_time = 0.0;
+        g_main_window.start_time = g_main_window.target_time =
+            g_main_window.frame_time = g_main_window.previous_time = FrameTimer_GetDelta();
+        SetForegroundWindow(g_main_window.window);
 
         exit_code = App_RegisterTasks_00420470();
         if (exit_code != 0) {
@@ -249,8 +249,8 @@ __declspec(noinline) int __stdcall GameMain_00438ad0(
                 exit_code = 2;
         } else {
             exit_code = 0;
-            data_004924f0.cursor_state = 0xFC;
-            while (!data_004924f0.quit) {
+            g_main_window.cursor_state = 0xFC;
+            while (!g_main_window.quit) {
                 if (PeekMessageA(&message, 0, 0, 0, 1)) {
                     PumpMessage(&message);
                     continue;
@@ -258,7 +258,7 @@ __declspec(noinline) int __stdcall GameMain_00438ad0(
                 long state = g_application.device->TestCooperativeLevel();
                 if (state == 0) {
                     exit_code = GameFrameAdvance_00439390(
-                        reinterpret_cast<GameFrame_00439390*>(&data_004924f0));
+                        reinterpret_cast<GameFrame_00439390*>(&g_main_window));
                     if (exit_code != 0)
                         break;
                     g_application.flags &= ~0x10u;
@@ -294,11 +294,11 @@ close_pass:
             g_application.direct3d->Release();
             g_application.direct3d = 0;
         }
-        if (data_004924f0.window != 0) {
-            ShowWindow(data_004924f0.window, 0);
-            MoveWindow(data_004924f0.window, 0, 0, 0, 0, 0);
-            DestroyWindow(data_004924f0.window);
-            data_004924f0.window = 0;
+        if (g_main_window.window != 0) {
+            ShowWindow(g_main_window.window, 0);
+            MoveWindow(g_main_window.window, 0, 0, 0, 0, 0);
+            DestroyWindow(g_main_window.window);
+            g_main_window.window = 0;
         }
         ShowCursor(1);
         if (exit_code != 2)
@@ -329,13 +329,13 @@ close_pass:
             MessageBoxA(0, g_log.text, "log", 0x10);
         File_WriteWholeFile("./log.txt", g_log.text, strlen(g_log.text));
     }
-    for (section = data_00492274.critical_sections, index = 7; index != 0; --index, ++section)
+    for (section = g_thread_sync.critical_sections, index = 7; index != 0; --index, ++section)
         DeleteCriticalSection(section);
-    SystemParametersInfoA(0x11, data_004924f0.saved_parameters[0], 0, 2);
-    SystemParametersInfoA(0x55, data_004924f0.saved_parameters[1], 0, 2);
-    SystemParametersInfoA(0x56, data_004924f0.saved_parameters[2], 0, 2);
+    SystemParametersInfoA(0x11, g_main_window.saved_parameters[0], 0, 2);
+    SystemParametersInfoA(0x55, g_main_window.saved_parameters[1], 0, 2);
+    SystemParametersInfoA(0x56, g_main_window.saved_parameters[2], 0, 2);
     asm_WINNLSEnableIME_0045232c(0, 1);
-    delete data_00491be0;
+    delete g_replay_table;
     return 0;
 }
 #pragma code_seg()

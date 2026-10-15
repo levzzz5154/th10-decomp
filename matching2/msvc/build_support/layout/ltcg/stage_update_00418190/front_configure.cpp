@@ -7,8 +7,8 @@
 #define g_replay stage_front_data_00477838
 #define g_score stage_front_data_0047783c
 #define g_game_speed stage_front_data_00476f78
-#define data_00491fc4 stage_front_data_00491fc4
-#define data_00491fb8 stage_front_data_00491fb8
+#define g_stage_flags stage_front_data_00491fc4
+#define g_main_state stage_front_data_00491fb8
 #define g_sound_manager stage_front_data_00492590
 // 0x0043E5A0 (356 bytes): configure one animation object from an archive
 // resource record.
@@ -52,6 +52,6 @@ __declspec(noinline) int Resource_0043e5a0::ConfigureObject(AnimationObject_0043
 #undef g_replay
 #undef g_score
 #undef g_game_speed
-#undef data_00491fc4
-#undef data_00491fb8
+#undef g_stage_flags
+#undef g_main_state
 #undef g_sound_manager

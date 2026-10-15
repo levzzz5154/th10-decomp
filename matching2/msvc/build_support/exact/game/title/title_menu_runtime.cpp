@@ -24,21 +24,21 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0042cdf0_0042cdf0() {
     L_0042ce00:
         jne short L_0042ce25
     L_0042ce02:
-        mov ecx,dword ptr [data_00474ca4]
+        mov ecx,dword ptr [g_title_idle_frames]
     L_0042ce08:
-        mov eax,dword ptr [data_00474e30]
+        mov eax,dword ptr [g_input_keys_raw]
     L_0042ce0d:
         inc ecx
     L_0042ce0e:
         test eax,160Bh
     L_0042ce13:
-        mov dword ptr [data_00474ca4],ecx
+        mov dword ptr [g_title_idle_frames],ecx
     L_0042ce19:
         je short L_0042ce3e
     L_0042ce1b:
-        mov dword ptr [data_00474ca4],0
+        mov dword ptr [g_title_idle_frames],0
     L_0042ce25:
-        mov edi,dword ptr [data_00491c00]
+        mov edi,dword ptr [g_main_mode_request]
     L_0042ce2b:
         mov eax,dword ptr [ebx+1Ch]
     L_0042ce2e:
@@ -48,13 +48,13 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0042cdf0_0042cdf0() {
     L_0042ce37:
         jmp dword ptr [eax*4+42D214h]
     L_0042ce3e:
-        cmp dword ptr [data_00474ca4],384h
+        cmp dword ptr [g_title_idle_frames],384h
     L_0042ce48:
         jl short L_0042ce25
     L_0042ce4a:
         mov eax,dword ptr [g_globals_flags]
     L_0042ce4f:
-        mov ecx,dword ptr [data_00474ca8]
+        mov ecx,dword ptr [g_title_demo_index]
     L_0042ce55:
         and eax,0FFFFFFBFh
     L_0042ce58:
@@ -84,7 +84,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0042cdf0_0042cdf0() {
     L_0042ce7f:
         call asm_StageManager_CreateRetail_004296f0
     L_0042ce84:
-        mov edx,dword ptr [data_00474ca8]
+        mov edx,dword ptr [g_title_demo_index]
     L_0042ce8a:
         inc edx
     L_0042ce8b:
@@ -100,7 +100,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0042cdf0_0042cdf0() {
     L_0042ce99:
         inc edx
     L_0042ce9a:
-        mov dword ptr [data_00474ca8],edx
+        mov dword ptr [g_title_demo_index],edx
     L_0042cea0:
         xor eax,eax
     L_0042cea2:
@@ -124,7 +124,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0042cdf0_0042cdf0() {
     L_0042cebe:
         mov dword ptr [g_globals_stage_shown],eax
     L_0042cec3:
-        mov dword ptr [data_00491fb8],0Ch
+        mov dword ptr [g_main_state],0Ch
     L_0042cecd:
         mov eax,dword ptr [esi+18h]
     L_0042ced0:
@@ -138,13 +138,13 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0042cdf0_0042cdf0() {
     L_0042cee2:
         mov edx,dword ptr [g_globals_difficulty]
     L_0042cee8:
-        mov dword ptr [data_00477848],ecx
+        mov dword ptr [g_stage_route_current],ecx
     L_0042ceee:
         mov ecx,dword ptr [eax+54h]
     L_0042cef1:
         mov dword ptr [g_globals_shot_type],ecx
     L_0042cef7:
-        mov dword ptr [data_00474c78],edx
+        mov dword ptr [g_menu_difficulty_saved],edx
     L_0042cefd:
         mov eax,dword ptr [eax+58h]
     L_0042cf00:
@@ -168,11 +168,11 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0042cdf0_0042cdf0() {
     L_0042cf1c:
         setne cl
     L_0042cf1f:
-        mov dword ptr [data_00474ca4],0
+        mov dword ptr [g_title_idle_frames],0
     L_0042cf29:
         mov edi,ecx
     L_0042cf2b:
-        mov dword ptr [data_00491c00],edi
+        mov dword ptr [g_main_mode_request],edi
     L_0042cf31:
         jmp asm_target_0042ce2b
     L_0042cf36:
@@ -276,7 +276,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0042cdf0_0042cdf0() {
     L_0042cfef:
         or ecx,2
     L_0042cff2:
-        mov dword ptr [data_00491c00],1
+        mov dword ptr [g_main_mode_request],1
     L_0042cffc:
         mov dword ptr [eax+4],ecx
     L_0042cfff:
@@ -302,11 +302,11 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0042cdf0_0042cdf0() {
     L_0042d023:
         call asm_Sound_PlayDummyRetail_00420b10
     L_0042d028:
-        mov edi,dword ptr [data_00491c00]
+        mov edi,dword ptr [g_main_mode_request]
     L_0042d02e:
         jmp short L_0042d03c
     L_0042d030:
-        mov edx,dword ptr [data_00474c78]
+        mov edx,dword ptr [g_menu_difficulty_saved]
     L_0042d036:
         mov dword ptr [g_globals_difficulty],edx
     L_0042d03c:
@@ -326,7 +326,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0042cdf0_0042cdf0() {
     L_0042d056:
         call asm_Title_DisableTimerWithOwner
     L_0042d05b:
-        mov dword ptr [data_00491c00],1
+        mov dword ptr [g_main_mode_request],1
     L_0042d065:
         call asm_FUN_0042d300_0042d300
     L_0042d06a:
@@ -444,7 +444,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0042cdf0_0042cdf0() {
     L_0042d126:
         or ecx,2
     L_0042d129:
-        mov dword ptr [data_00491c00],1
+        mov dword ptr [g_main_mode_request],1
     L_0042d133:
         mov dword ptr [eax+4],ecx
     L_0042d136:
@@ -464,7 +464,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0042cdf0_0042cdf0() {
     L_0042d14b:
         jmp short L_0042d19f
     L_0042d14d:
-        mov eax,dword ptr [data_00491ff4]
+        mov eax,dword ptr [g_app_flags]
     L_0042d152:
         shr eax,0Ch
     L_0042d155:
@@ -474,7 +474,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0042cdf0_0042cdf0() {
     L_0042d15a:
         or eax,2
     L_0042d15d:
-        mov dword ptr [data_00491fb8],eax
+        mov dword ptr [g_main_state],eax
     L_0042d162:
         call asm_GameState_DispatchDummy_00420c00
     L_0042d167:

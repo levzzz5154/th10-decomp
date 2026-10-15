@@ -47,7 +47,7 @@ struct TitleAnimationSlotView {
 };
 
 extern "C" {
-extern KeyRepeatState data_00474e30;
+extern KeyRepeatState g_input_keys_raw;
 extern int g_globals_difficulty;               // difficulty (4 and above: fixed entry)
 extern int g_globals_character;               // character
 extern GameThread_0040c540* g_ascii_manager;

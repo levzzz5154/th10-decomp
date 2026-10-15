@@ -9,8 +9,8 @@ __declspec(noinline) void* __fastcall ResultAnimation_Find(ResultAnimationLookup
 #define g_replay stage_handle_data_00477838
 #define g_score stage_handle_data_0047783c
 #define g_game_speed stage_handle_data_00476f78
-#define data_00491fc4 stage_handle_data_00491fc4
-#define data_00491fb8 stage_handle_data_00491fb8
+#define g_stage_flags stage_handle_data_00491fc4
+#define g_main_state stage_handle_data_00491fb8
 #define g_sound_manager stage_handle_data_00492590
 // 0x00409E50 - resolve the animation object behind an animation handle and set
 // its sprite word to 1, propagating that value to the object's direct children
@@ -71,6 +71,6 @@ void AnimationHandle::StopAtFrame1() {
 #undef g_replay
 #undef g_score
 #undef g_game_speed
-#undef data_00491fc4
-#undef data_00491fb8
+#undef g_stage_flags
+#undef g_main_state
 #undef g_sound_manager

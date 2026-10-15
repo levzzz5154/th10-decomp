@@ -95,7 +95,7 @@ void __stdcall Game_Destroy(Game* state) {
     // The replay-session flag; the branch below reads it back.
     unsigned char replay_bit = 2;
 
-    if (data_00491fb8 == 10) {
+    if (g_main_state == 10) {
         // Retail runs the animation fetch inline in this first mode arm (the
         // only inlined Ensure instance) and out of line everywhere else. The
         // handle is reached through the loaded game-thread value, so the
@@ -113,17 +113,17 @@ void __stdcall Game_Destroy(Game* state) {
         }
         if (g_globals_stage_shown == g_globals_stage)
             g_globals_flags |= 1u;
-    } else if (data_00491fb8 == 0xB) {
+    } else if (g_main_state == 0xB) {
         GameThread_0040c540* thread = g_ascii_manager;
         thread->EnsureAnimationResource(224.0f, 416.0f);
         g_globals_flags |= replay_bit;
-    } else if (data_00491fb8 == 4) {
+    } else if (g_main_state == 4) {
         GameThread_0040c540* thread = g_ascii_manager;
         thread->EnsureAnimationResource(480.0f, 392.0f);
-    } else if (data_00491fb8 == 0xF) {
+    } else if (g_main_state == 0xF) {
         GameThread_0040c540* thread = g_ascii_manager;
         thread->EnsureAnimationResource(480.0f, 392.0f);
-    } else if (data_00491fb8 == 0xD) {
+    } else if (g_main_state == 0xD) {
         GameThread_0040c540* thread = g_ascii_manager;
         thread->EnsureAnimationResource(480.0f, 392.0f);
         if (g_globals_stage_shown != g_globals_stage) {
@@ -135,7 +135,7 @@ void __stdcall Game_Destroy(Game* state) {
 
     if (!(g_globals_flags & replay_bit)) {
         // Full teardown of every per-session manager object.
-        if (data_00491fb8 != 0xE && data_00491fb8 != 0xF) {
+        if (g_main_state != 0xE && g_main_state != 0xF) {
             void* replay_manager = g_replay;
             if (replay_manager) {
                 ManagerOwned_Destroy_004294a0(replay_manager);
@@ -147,7 +147,7 @@ void __stdcall Game_Destroy(Game* state) {
             BackGround_Destroy(pending_state);
             entry_free_004524a1(pending_state);
         }
-        void* current_state = data_004776e4;
+        void* current_state = g_background_prev;
         if (current_state) {
             BackGround_Destroy(current_state);
             entry_free_004524a1(current_state);
@@ -198,12 +198,12 @@ void __stdcall Game_Destroy(Game* state) {
         // the surviving managers publish lose their active flag.
         FrontStagePartsView* panel = g_front;
         panel->ReleaseStageParts();
-        void* retired_state = data_004776e4;
+        void* retired_state = g_background_prev;
         if (retired_state) {
             BackGround_Destroy(retired_state);
             entry_free_004524a1(retired_state);
         }
-        data_004776e4 = g_background;
+        g_background_prev = g_background;
 
         TaskPairOwner_00417c80* pause = (TaskPairOwner_00417c80*)g_pause;
         if (pause->node_008) pause->node_008->flags_004 &= ~2u;
@@ -273,14 +273,14 @@ void __stdcall Game_Destroy(Game* state) {
         // resource index is 4 when the extra-content flag is set. Retail
         // hands the registrar its manager in EAX and the name in EDX.
         g_sound_manager.RegisterResource(
-            str_dummy, (data_00491d78 & 0x10u) ? 4 : 3, 0);
+            str_dummy, (g_sound_flags & 0x10u) ? 4 : 3, 0);
     }
 
     // The frame gate opens for the next scene and the mode bias records
     // whether the stage-end flag was still set. Keep the dword view: the
     // narrower byte load makes the emitted epilogue exceed the region and
     // previously caused the return instruction to be cut off.
-    data_004918a4 = 1;
-    data_004923a8 = (g_globals_flags & 1) ? 0 : -0x1000000;
+    g_screen_effects_frozen = 1;
+    g_main_clear_color = (g_globals_flags & 1) ? 0 : -0x1000000;
 }
 #pragma code_seg()

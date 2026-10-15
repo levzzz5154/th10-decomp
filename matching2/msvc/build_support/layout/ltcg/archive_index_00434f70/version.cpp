@@ -3,8 +3,8 @@
 extern "C" int __cdecl archive_sprintf(char*,const char*,...);
 extern "C" DatArchive g_archive;
 extern "C" TextLog_0044b8e0 g_log;
-extern "C" char* data_0049238c;
-extern "C" int data_00492388;
+extern "C" char* g_data_version_buffer;
+extern "C" int g_data_version_size;
 extern "C" char version_archive_name[],version_filename_format[];
 extern "C" char version_missing_message[],archive_missing_message[];
 extern "C" char* __stdcall Archive_LoadFile(const char*,int*,int);
@@ -15,8 +15,8 @@ __declspec(noinline) int CheckVersion() {
     if (g_archive.Open(version_archive_name)) {
         archive_sprintf(name,version_filename_format,0x100,0x61);
         char* buffer=Archive_LoadFile(name,&size,0);
-        data_0049238c=buffer;
-        data_00492388=size;
+        g_data_version_buffer=buffer;
+        g_data_version_size=size;
         if(buffer) return 0;
         g_log.AppendLine(version_missing_message);
     } else {

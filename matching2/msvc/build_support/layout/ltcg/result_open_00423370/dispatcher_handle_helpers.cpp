@@ -24,16 +24,16 @@ void DispatcherWaitTimer::SetSchedulerValue(int value) {
 struct DispatcherRankEntry {
     int values[12];
 };
-extern "C" DispatcherRankEntry data_00474788[];
-extern "C" DispatcherMusicRecord* data_00477848;
+extern "C" DispatcherRankEntry g_stage_routes[];
+extern "C" DispatcherMusicRecord* g_stage_route_current;
 typedef char DispatcherRankEntrySize[sizeof(DispatcherRankEntry) == 0x30 ? 1 : -1];
 
 #pragma code_seg(".text$004175e0_fn")
 void DispatcherRankState::AdvanceLevel() {
     if (level < 7)
         ++level;
-    data_00477848 = reinterpret_cast<DispatcherMusicRecord*>(
-        &data_00474788[level]);
+    g_stage_route_current = reinterpret_cast<DispatcherMusicRecord*>(
+        &g_stage_routes[level]);
 }
 #pragma code_seg()
 

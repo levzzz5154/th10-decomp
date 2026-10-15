@@ -7,8 +7,8 @@
 #define g_replay stage_marker_data_00477838
 #define g_score stage_marker_data_0047783c
 #define g_game_speed stage_marker_data_00476f78
-#define data_00491fc4 stage_marker_data_00491fc4
-#define data_00491fb8 stage_marker_data_00491fb8
+#define g_stage_flags stage_marker_data_00491fc4
+#define g_main_state stage_marker_data_00491fb8
 #define g_sound_manager stage_marker_data_00492590
 // 0x004493E0: mark animation objects that reference a retired script resource.
 // The native-LTCG cluster preserves the retail internal EAX/EDX call ABI.
@@ -51,6 +51,6 @@ __declspec(noinline) void SprtCtrl::MarkResourceForRemoval(void* resource) {
 #undef g_replay
 #undef g_score
 #undef g_game_speed
-#undef data_00491fc4
-#undef data_00491fb8
+#undef g_stage_flags
+#undef g_main_state
 #undef g_sound_manager

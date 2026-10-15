@@ -21,13 +21,13 @@
 // WriteFile, as retail does across the call boundary.
 __forceinline int WriteHintLine(const char* buffer, unsigned int length) {
     unsigned int written;
-    if (data_00474c38 == (void*)-1)
-        return (int)data_00474c38;
-    imp_WriteFile(data_00474c38, buffer, length, &written, 0);
+    if (g_file_write_handle == (void*)-1)
+        return (int)g_file_write_handle;
+    imp_WriteFile(g_file_write_handle, buffer, length, &written, 0);
     if (length != written) {
-        imp_CloseHandle(data_00474c38);
+        imp_CloseHandle(g_file_write_handle);
         imp_LeaveCriticalSection((void*)0x004922A4);
-        --data_0049231e;
+        --g_file_lock_depth;
     }
     return 0;
 }
@@ -35,16 +35,16 @@ __forceinline int WriteHintLine(const char* buffer, unsigned int length) {
 // "\tBase\t" names: the tip display mode, one row per stage script position.
 __forceinline const char* HintBaseName(int id) {
     for (int index = 0; index < 0x3d; ++index)
-        if (data_004744b0[index].id == id)
-            return data_004744b0[index].name;
+        if (g_hint_base_names[index].id == id)
+            return g_hint_base_names[index].name;
     return 0;
 }
 
 // "\tAlign\t" names: center, left, right.
 __forceinline const char* HintAlignName(int id) {
     for (int index = 0; index < 3; ++index)
-        if (data_00474494[index].id == id)
-            return data_00474494[index].name;
+        if (g_hint_align_names[index].id == id)
+            return g_hint_align_names[index].name;
     return 0;
 }
 
@@ -145,10 +145,10 @@ extern "C" __declspec(noinline) int __stdcall SaveHints(Manager_00419040* manage
             ++slot;
         } while (stage < 8);
     }
-    if (data_00474c38 != (void*)-1) {
-        imp_CloseHandle(data_00474c38);
+    if (g_file_write_handle != (void*)-1) {
+        imp_CloseHandle(g_file_write_handle);
         imp_LeaveCriticalSection((void*)0x004922A4);
-        --data_0049231e;
+        --g_file_lock_depth;
     }
     asm_free_00452422(buffer);
     return 0;

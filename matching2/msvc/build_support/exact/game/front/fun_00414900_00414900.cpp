@@ -43,7 +43,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00414900_00414900() {
     L_00414921:
         jl short L_0041493c
     L_00414923:
-        mov eax,dword ptr [data_00491ff4]
+        mov eax,dword ptr [g_app_flags]
     L_00414928:
         and eax,1000h
     L_0041492d:
@@ -55,7 +55,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00414900_00414900() {
     L_00414934:
         add eax,0Eh
     L_00414937:
-        mov dword ptr [data_00491fb8],eax
+        mov dword ptr [g_main_state],eax
     L_0041493c:
         push ebx
     L_0041493d:
@@ -780,7 +780,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00414900_00414900() {
     L_00414e0d:
         jmp dword ptr [eax*4+4157E0h]
     L_00414e14:
-        cmp dword ptr [data_00474c84],18h
+        cmp dword ptr [g_stage_progress],18h
     L_00414e1b:
         jl short L_00414e87
     L_00414e1d:
@@ -788,7 +788,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00414900_00414900() {
     L_00414e22:
         jmp short L_00414e87
     L_00414e24:
-        cmp dword ptr [data_00474c84],18h
+        cmp dword ptr [g_stage_progress],18h
     L_00414e2b:
         jl asm_target_00414f33
     L_00414e31:
@@ -796,7 +796,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00414900_00414900() {
     L_00414e36:
         jmp short L_00414e87
     L_00414e38:
-        cmp dword ptr [data_00474c84],18h
+        cmp dword ptr [g_stage_progress],18h
     L_00414e3f:
         jl asm_target_00414f33
     L_00414e45:
@@ -804,7 +804,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00414900_00414900() {
     L_00414e4a:
         jmp short L_00414e87
     L_00414e4c:
-        mov edx,dword ptr [data_00474c84]
+        mov edx,dword ptr [g_stage_progress]
     L_00414e52:
         xor eax,eax
     L_00414e54:
@@ -826,7 +826,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00414900_00414900() {
     L_00414e6f:
         jmp short L_00414e87
     L_00414e71:
-        mov edx,dword ptr [data_00474c84]
+        mov edx,dword ptr [g_stage_progress]
     L_00414e77:
         xor ecx,ecx
     L_00414e79:

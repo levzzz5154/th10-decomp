@@ -255,7 +255,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00433ef0_00433ef0() {
         _emit 0x00
 
     L_00434090:
-        mov eax,dword ptr [data_00491fec]
+        mov eax,dword ptr [g_text_anm_resource]
     L_00434095:
         mov esi,dword ptr [g_sprt_ctrl]
     L_0043409b:
@@ -807,11 +807,11 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00433ef0_00433ef0() {
     L_004344d5:
         mov dword ptr [esi+4],eax
     L_004344d8:
-        test byte ptr [data_00474e36],10h
+        test byte ptr [g_input_keys_held],10h
     L_004344df:
         jne short L_004344ea
     L_004344e1:
-        test byte ptr [data_00474e34],10h
+        test byte ptr [g_input_keys_edge],10h
     L_004344e8:
         je short L_004344f3
     L_004344ea:
@@ -821,7 +821,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00433ef0_00433ef0() {
     L_004344ee:
         call asm_MenuCursor_Advance_0044bea0
     L_004344f3:
-        mov cl,byte ptr [data_00474e36]
+        mov cl,byte ptr [g_input_keys_held]
     L_004344f9:
         mov al,20h
     L_004344fb:
@@ -829,7 +829,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00433ef0_00433ef0() {
     L_004344fd:
         jne short L_00434507
     L_004344ff:
-        test byte ptr [data_00474e34],al
+        test byte ptr [g_input_keys_edge],al
     L_00434505:
         je short L_00434510
     L_00434507:
@@ -1027,7 +1027,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00433ef0_00433ef0() {
     L_00434671:
         xor ebx,ebx
     L_00434673:
-        mov eax,dword ptr [data_00474e36]
+        mov eax,dword ptr [g_input_keys_held]
     L_00434678:
         test eax,1001h
     L_0043467d:
@@ -1127,7 +1127,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00433ef0_00433ef0() {
     L_0043474b:
         jne short L_0043479b
     L_0043474d:
-        test byte ptr [data_00491d78],10h
+        test byte ptr [g_sound_flags],10h
     L_00434754:
         mov edx,46DF98h
     L_00434759:
@@ -1189,7 +1189,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00433ef0_00433ef0() {
     L_004347aa:
         call asm_Recovery_ReplaceExtensionWav_00420a90
     L_004347af:
-        test byte ptr [data_00491d78],10h
+        test byte ptr [g_sound_flags],10h
     L_004347b6:
         je short L_004347ca
     L_004347b8:

@@ -16,16 +16,16 @@ extern "C" GameThread_0040c540* g_ascii_manager;
 // The key-state mask is written asynchronously by the window procedure and by
 // the input recorder between this function's calls, so every read is volatile
 // in the retail image; the plain-qualified extern keeps the ODR intact.
-extern "C" unsigned int data_00474e30;
-#define INPUT_MASK_00474e30 (*(const volatile unsigned int*)&data_00474e30)
-extern "C" unsigned int data_00474e36;
-#define SOUND_FLAGS_00474e36 (*(const volatile unsigned int*)&data_00474e36)
+extern "C" unsigned int g_input_keys_raw;
+#define INPUT_MASK_00474e30 (*(const volatile unsigned int*)&g_input_keys_raw)
+extern "C" unsigned int g_input_keys_held;
+#define SOUND_FLAGS_00474e36 (*(const volatile unsigned int*)&g_input_keys_held)
 
 extern "C" int g_globals_difficulty;
 #define GAME_MODE_00474c74 (*(const volatile int*)&g_globals_difficulty)
 
-extern "C" unsigned int data_004918a4;
-#define RING_FLAG_004918a4 (*(volatile unsigned int*)&data_004918a4)
+extern "C" unsigned int g_screen_effects_frozen;
+#define RING_FLAG_004918a4 (*(volatile unsigned int*)&g_screen_effects_frozen)
 
 extern "C" const char recovery_script_empty_text_0046cfd4[];
 extern "C" const char recovery_script_special_music_0046cfc4[];

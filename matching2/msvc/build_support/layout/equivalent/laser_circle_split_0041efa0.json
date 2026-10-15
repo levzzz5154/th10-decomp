@@ -94,15 +94,15 @@
       "address": "0x473660",
       "kind": "data"
     },
-    "_data_0046da60": {
+    "_g_line_laser_vtable": {
       "address": "0x46da60",
       "kind": "data"
     },
-    "_data_0046da10": {
+    "_g_beam_laser_vtable": {
       "address": "0x46da10",
       "kind": "data"
     },
-    "_data_0046dab0": {
+    "_g_laser_vtable": {
       "address": "0x46dab0",
       "kind": "data"
     },

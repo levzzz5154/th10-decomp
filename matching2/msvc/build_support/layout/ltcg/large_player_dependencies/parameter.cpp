@@ -2,7 +2,7 @@
 #include <math.h>
 #include "th10/platform/archive_callers.hpp"
 extern "C" const double dbl_pi_4;
-extern "C" const unsigned int data_0047476c[], data_00474778[], data_00491bf4[], data_00491bf8[];
+extern "C" const unsigned int g_music_room_commands[], g_music_room_easings[], g_music_room_variable_map[], g_music_room_callback_map[];
 #pragma code_seg(".text$a11body")
 int ParameterLoader::Load(const char* name) {
     file = (ParameterFile*)Archive_LoadFile(name, 0, 0);
@@ -16,10 +16,10 @@ int ParameterLoader::Load(const char* name) {
         file->groups[i].offset += (unsigned int)file;
         ParameterRecord* record = file->groups[i].records;
         while (record->kind >= 0) {
-            record->command = data_0047476c[record->command];
-            record->easing = data_00474778[record->easing];
-            record->variable = data_00491bf4[record->variable];
-            record->callback = data_00491bf8[record->callback];
+            record->command = g_music_room_commands[record->command];
+            record->easing = g_music_room_easings[record->easing];
+            record->variable = g_music_room_variable_map[record->variable];
+            record->callback = g_music_room_callback_map[record->callback];
             ++record;
         }
     }

@@ -166,7 +166,7 @@
       "address": "0x00417C70",
       "kind": "data"
     },
-    "_data_00474e88": {
+    "_g_key_bindings_current": {
       "address": "0x00474E88",
       "kind": "data"
     },
@@ -194,11 +194,11 @@
       "address": "0x00497994",
       "kind": "data"
     },
-    "_data_0049231e": {
+    "_g_file_lock_depth": {
       "address": "0x0049231e",
       "kind": "data"
     },
-    "_data_004922a4": {
+    "_g_file_lock": {
       "address": "0x004922a4",
       "kind": "data"
     },
@@ -242,7 +242,7 @@
       "address": "0x00434DD0",
       "kind": "code"
     },
-    "_data_00497c38": {
+    "_g_recovery_script_path": {
       "address": "0x00497C38",
       "kind": "data"
     },
@@ -254,11 +254,11 @@
       "address": "0x004660DC",
       "kind": "data"
     },
-    "_data_00492380": {
+    "_g_executable_checksum": {
       "address": "0x00492380",
       "kind": "data"
     },
-    "_data_00492384": {
+    "_g_executable_size": {
       "address": "0x00492384",
       "kind": "data"
     },
@@ -274,19 +274,19 @@
       "address": "0x00470C50",
       "kind": "data"
     },
-    "_data_0047476c": {
+    "_g_music_room_commands": {
       "address": "0x0047476C",
       "kind": "data"
     },
-    "_data_00474778": {
+    "_g_music_room_easings": {
       "address": "0x00474778",
       "kind": "data"
     },
-    "_data_00491bf4": {
+    "_g_music_room_variable_map": {
       "address": "0x00491BF4",
       "kind": "data"
     },
-    "_data_00491bf8": {
+    "_g_music_room_callback_map": {
       "address": "0x00491BF8",
       "kind": "data"
     },
@@ -298,11 +298,11 @@
       "address": "0x00458EC0",
       "kind": "code"
     },
-    "_data_004922bc": {
+    "_g_text_log_lock": {
       "address": "0x004922BC",
       "kind": "data"
     },
-    "_data_0049231f": {
+    "_g_text_log_lock_depth": {
       "address": "0x0049231F",
       "kind": "data"
     },
@@ -314,7 +314,7 @@
       "address": "0x00452706",
       "kind": "code"
     },
-    "_data_00477848": {
+    "_g_stage_route_current": {
       "address": "0x00477848",
       "kind": "data"
     },
@@ -326,7 +326,7 @@
       "address": "0x00474C68",
       "kind": "data"
     },
-    "_data_00491be8": {
+    "_g_next_stage_buffer": {
       "address": "0x00491BE8",
       "kind": "data"
     },
@@ -414,11 +414,11 @@
       "address": "0x004776E0",
       "kind": "data"
     },
-    "_data_00474e30": {
+    "_g_input_keys_raw": {
       "address": "0x00474E30",
       "kind": "data"
     },
-    "_data_00474e36": {
+    "_g_input_keys_held": {
       "address": "0x00474E36",
       "kind": "data"
     },
@@ -426,7 +426,7 @@
       "address": "0x00474C74",
       "kind": "data"
     },
-    "_data_004918a4": {
+    "_g_screen_effects_frozen": {
       "address": "0x004918A4",
       "kind": "data"
     },
@@ -570,7 +570,7 @@
       "address": "0x00420C00",
       "kind": "code"
     },
-    "_data_00491ff4": {
+    "_g_app_flags": {
       "address": "0x00491FF4",
       "kind": "data"
     },
@@ -586,7 +586,7 @@
       "address": "0x004294A0",
       "kind": "code"
     },
-    "_data_00474c78": {
+    "_g_menu_difficulty_saved": {
       "address": "0x00474C78",
       "kind": "data"
     },
@@ -594,11 +594,11 @@
       "address": "0x00474C6C",
       "kind": "data"
     },
-    "_data_00474788": {
+    "_g_stage_routes": {
       "address": "0x00474788",
       "kind": "data"
     },
-    "_data_00491fb8": {
+    "_g_main_state": {
       "address": "0x00491FB8",
       "kind": "data"
     },
@@ -614,11 +614,11 @@
       "address": "0x004296F0",
       "kind": "code"
     },
-    "_data_00476ff8": {
+    "_g_title_demo_paths": {
       "address": "0x00476FF8",
       "kind": "data"
     },
-    "_data_00474ca8": {
+    "_g_title_demo_index": {
       "address": "0x00474CA8",
       "kind": "data"
     },
@@ -626,7 +626,7 @@
       "address": "0x00474CA0",
       "kind": "data"
     },
-    "_data_00474ca4": {
+    "_g_title_idle_frames": {
       "address": "0x00474CA4",
       "kind": "data"
     },
@@ -638,15 +638,15 @@
       "address": "0x0043EE30",
       "kind": "code"
     },
-    "_data_00491d4c": {
+    "_g_key_bindings": {
       "address": "0x00491D4C",
       "kind": "data"
     },
-    "_data_00497bb0": {
+    "_g_joystick_buttons": {
       "address": "0x00497BB0",
       "kind": "data"
     },
-    "_data_00491c3c": {
+    "_g_pad_devices": {
       "address": "0x00491C3C",
       "kind": "data"
     },
@@ -662,15 +662,15 @@
       "address": "0x00420C30",
       "kind": "code"
     },
-    "_data_00491c08": {
+    "_g_title_practice_selection": {
       "address": "0x00491C08",
       "kind": "data"
     },
-    "_data_00474cac": {
+    "_g_practice_difficulty": {
       "address": "0x00474CAC",
       "kind": "data"
     },
-    "_data_00497aa8": {
+    "_g_keyboard_state": {
       "address": "0x00497AA8",
       "kind": "data"
     },
@@ -690,11 +690,11 @@
       "address": "0x00466208",
       "kind": "data"
     },
-    "_data_00491c04": {
+    "_g_title_replay_selection": {
       "address": "0x00491C04",
       "kind": "data"
     },
-    "_data_00491c00": {
+    "_g_main_mode_request": {
       "address": "0x00491C00",
       "kind": "data"
     },
@@ -762,7 +762,7 @@
       "address": "0x00477838",
       "kind": "data"
     },
-    "_data_004746d8": {
+    "_g_name_entry_grid": {
       "address": "0x004746D8",
       "kind": "data"
     },
@@ -782,27 +782,27 @@
       "address": "0x004743C0",
       "kind": "data"
     },
-    "_data_00497e90": {
+    "_g_keys_current": {
       "address": "0x00497E90",
       "kind": "data"
     },
-    "_data_00497d90": {
+    "_g_keys_previous": {
       "address": "0x00497D90",
       "kind": "data"
     },
-    "_data_004979a8": {
+    "_g_spell_seq_keys": {
       "address": "0x004979A8",
       "kind": "data"
     },
-    "_data_004979a4": {
+    "_g_spell_seq_progress": {
       "address": "0x004979A4",
       "kind": "data"
     },
-    "_data_004979a0": {
+    "_g_spell_seq_elapsed": {
       "address": "0x004979A0",
       "kind": "data"
     },
-    "_data_0046ef10": {
+    "_g_spell_seq_codes": {
       "address": "0x0046EF10",
       "kind": "data"
     },
@@ -826,15 +826,15 @@
       "address": "0x0046ECE8",
       "kind": "data"
     },
-    "_data_00497854": {
+    "_g_options_music_volume": {
       "address": "0x00497854",
       "kind": "data"
     },
-    "_data_00497858": {
+    "_g_options_sound_volume": {
       "address": "0x00497858",
       "kind": "data"
     },
-    "_data_0049785c": {
+    "_g_options_music_attenuation": {
       "address": "0x0049785C",
       "kind": "data"
     },

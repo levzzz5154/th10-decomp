@@ -53,7 +53,7 @@ extern "C" void* __stdcall FrontScriptTickEscape(int which) {
     case 4: return &g_globals_lives;
     case 5: return &g_globals_gauge;
     case 6: return &g_globals_power;
-    default: return &data_00474c84;
+    default: return &g_stage_progress;
     }
 }
 #pragma code_seg()

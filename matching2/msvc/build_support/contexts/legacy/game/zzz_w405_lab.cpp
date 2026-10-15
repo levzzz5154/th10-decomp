@@ -8,8 +8,8 @@ struct SchedulerTask;
 struct FuncCtrl;
 extern "C" void __fastcall FuncCtrl_Remove(SchedulerTask* task, FuncCtrl* scheduler);
 
-extern "C" unsigned char data_00492274;
-extern "C" unsigned char data_0049231c;
+extern "C" unsigned char g_thread_sync;
+extern "C" unsigned char g_scheduler_lock_depth;
 extern "C" unsigned char g_func_ctrl;
 extern "C" unsigned char g_bomb;
 
@@ -25,20 +25,20 @@ void __stdcall LabRecovery(RecoveryRawPair* pair) {
     FuncCtrl* const scheduler = *(FuncCtrl**)&g_func_ctrl;
     SchedulerTask* task = pair->primary;
     if (task) {
-        enter(&data_00492274);
-        ++data_0049231c;
+        enter(&g_thread_sync);
+        ++g_scheduler_lock_depth;
         FuncCtrl_Remove(task, scheduler);
-        leave(&data_00492274);
-        --data_0049231c;
+        leave(&g_thread_sync);
+        --g_scheduler_lock_depth;
     }
     task = pair->secondary;
     scheduler = *(FuncCtrl**)&g_func_ctrl;
     if (task) {
-        enter(&data_00492274);
-        ++data_0049231c;
+        enter(&g_thread_sync);
+        ++g_scheduler_lock_depth;
         FuncCtrl_Remove(task, scheduler);
-        leave(&data_00492274);
-        --data_0049231c;
+        leave(&g_thread_sync);
+        --g_scheduler_lock_depth;
     }
     *(unsigned int*)&g_bomb = 0;
 }

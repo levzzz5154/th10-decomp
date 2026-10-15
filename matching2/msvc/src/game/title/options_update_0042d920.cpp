@@ -48,10 +48,10 @@ static __forceinline void ShowLabel_0042d920(
 // Show the two labels of the current screen mode.
 static __forceinline void ShowModeLabels_0042d920(
         RecoveryLookupContext_0040bd80* manager, Title* room) {
-    if (data_00491d4c.screen_mode == 0) {
+    if (g_key_bindings.screen_mode == 0) {
         ShowLabel_0042d920(manager, room, 0x1f, 0x2e);
         ShowLabel_0042d920(manager, room, 0x20, 0x2f);
-    } else if (data_00491d4c.screen_mode == 1) {
+    } else if (g_key_bindings.screen_mode == 1) {
         ShowLabel_0042d920(manager, room, 0x1f, 0x30);
         ShowLabel_0042d920(manager, room, 0x20, 0x31);
     } else {
@@ -92,16 +92,16 @@ __declspec(noinline) int __stdcall TitleOptions_0042d920(Title* room) {
     case 2: {
         MenuCursor* cursor = &room->cursor;
         cursor->previous_selection = cursor->selection;
-        if ((short)data_00474e30.InputMaskActive(0x10)) cursor->Advance(-1);
-        if ((short)data_00474e30.InputMaskActive(0x20)) cursor->Advance(1);
+        if ((short)g_input_keys_raw.InputMaskActive(0x10)) cursor->Advance(-1);
+        if ((short)g_input_keys_raw.InputMaskActive(0x20)) cursor->Advance(1);
         if (cursor->previous_selection != cursor->selection) {
             application_state_00491c00.sound.Queue(12, 0);
             RunCursorSlot_0042d920(room);
             room->SetSlotFrame(1, room->cursor.selection + 7);
         }
-        if (data_00474e36 & 8)
+        if (g_input_keys_held & 8)
             goto cancel;
-        if (data_00474e36 & 2) {
+        if (g_input_keys_held & 2) {
         cancel:
             if (room->cursor.selection == 5) {
                 room->SetSlotFrame(1, 6);
@@ -119,14 +119,14 @@ __declspec(noinline) int __stdcall TitleOptions_0042d920(Title* room) {
                     && reinterpret_cast<FrameCounterPair*>(&room->timer)->AtInterval(60))
                 application_state_00491c00.sound.Queue(4, 0);
             RecoveryLookupContext_0040bd80* manager;
-            if ((short)data_00474e30.InputMaskActive(0x40)) {
+            if ((short)g_input_keys_raw.InputMaskActive(0x40)) {
                 manager = reinterpret_cast<RecoveryLookupContext_0040bd80*>(g_sprt_ctrl);
                 switch (room->cursor.selection) {
                 case 0:
-                    if (data_00491d4c.screen_mode > 0)
-                        --data_00491d4c.screen_mode;
+                    if (g_key_bindings.screen_mode > 0)
+                        --g_key_bindings.screen_mode;
                     else
-                        data_00491d4c.screen_mode = 2;
+                        g_key_bindings.screen_mode = 2;
                     ShowModeLabels_0042d920(manager, room);
                     application_state_00491c00.sound.Queue(12, 0);
                     break;
@@ -135,20 +135,20 @@ __declspec(noinline) int __stdcall TitleOptions_0042d920(Title* room) {
                     // the call into each branch, which keeps the `mov edi,ebp` argument
                     // setup per-branch and the decrement a split `add al,0xfb` instead of
                     // the folded `add byte ptr [mem],0xfb` a shared call site would fold to.
-                    if (data_00491d4c.music_volume < 5) {
-                        data_00491d4c.music_volume = 0;
+                    if (g_key_bindings.music_volume < 5) {
+                        g_key_bindings.music_volume = 0;
                         goto refresh_music;
                     }
-                    data_00491d4c.music_volume += 0xFB;
+                    g_key_bindings.music_volume += 0xFB;
                 refresh_music:
                     RefreshOptions_0042e5a0(room);
                     break;
                 case 2:
-                    if (data_00491d4c.sound_volume < 5) {
-                        data_00491d4c.sound_volume = 0;
+                    if (g_key_bindings.sound_volume < 5) {
+                        g_key_bindings.sound_volume = 0;
                         goto refresh_sound;
                     }
-                    data_00491d4c.sound_volume += 0xFB;
+                    g_key_bindings.sound_volume += 0xFB;
                 refresh_sound:
                     RefreshOptions_0042e5a0(room);
                     break;
@@ -156,31 +156,31 @@ __declspec(noinline) int __stdcall TitleOptions_0042d920(Title* room) {
             }
             else
                 manager = reinterpret_cast<RecoveryLookupContext_0040bd80*>(g_sprt_ctrl);
-            if ((short)data_00474e30.InputMaskActive(0x80)) {
+            if ((short)g_input_keys_raw.InputMaskActive(0x80)) {
                 switch (room->cursor.selection) {
                 case 0:
-                    if (data_00491d4c.screen_mode < 2)
-                        ++data_00491d4c.screen_mode;
+                    if (g_key_bindings.screen_mode < 2)
+                        ++g_key_bindings.screen_mode;
                     else
-                        data_00491d4c.screen_mode = 0;
+                        g_key_bindings.screen_mode = 0;
                     application_state_00491c00.sound.Queue(12, 0);
                     ShowModeLabels_0042d920(manager, room);
                     break;
                 case 1:
-                    data_00491d4c.music_volume += 5;
-                    if (data_00491d4c.music_volume > 100)
-                        data_00491d4c.music_volume = 100;
+                    g_key_bindings.music_volume += 5;
+                    if (g_key_bindings.music_volume > 100)
+                        g_key_bindings.music_volume = 100;
                     RefreshOptions_0042e5a0(room);
                     break;
                 case 2:
-                    data_00491d4c.sound_volume += 5;
-                    if (data_00491d4c.sound_volume > 100)
-                        data_00491d4c.sound_volume = 100;
+                    g_key_bindings.sound_volume += 5;
+                    if (g_key_bindings.sound_volume > 100)
+                        g_key_bindings.sound_volume = 100;
                     RefreshOptions_0042e5a0(room);
                     break;
                 }
             }
-            if (data_00474e36 & 0x1001) {
+            if (g_input_keys_held & 0x1001) {
                 switch (room->cursor.selection) {
                 case 5:
                     room->SetSlotFrame(1, 6);
@@ -188,9 +188,9 @@ __declspec(noinline) int __stdcall TitleOptions_0042d920(Title* room) {
                     room->SetTimerTarget(4);
                     break;
                 case 4:
-                    data_00491d4c.music_volume = 100;
-                    data_00491d4c.sound_volume = 80;
-                    data_00491d4c.screen_mode = 0;
+                    g_key_bindings.music_volume = 100;
+                    g_key_bindings.sound_volume = 80;
+                    g_key_bindings.screen_mode = 0;
                     RefreshOptions_0042e5a0(room);
                     ShowModeLabels_0042d920(manager, room);
                     application_state_00491c00.sound.Queue(10, 0);

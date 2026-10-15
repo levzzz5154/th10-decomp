@@ -8,13 +8,13 @@ void* __cdecl operator new(unsigned int size);
 extern "C" __declspec(noinline) int __stdcall SoundStreamFill(SoundStream* stream,
         WaveBuffer* buffer, unsigned int repeat);
 // The streaming sound's dispatch table.
-extern "C" void* data_004705d8;
+extern "C" void* g_sound_stream_unknown;
 
 #pragma code_seg(".text$00construct")
 extern "C" __declspec(noinline) SoundStreamState* __stdcall SoundStream_Construct_0044ce80(
         SoundStreamState* stream, WaveBuffer** buffers, unsigned int count,
         unsigned int buffer_bytes, MusicCursor* reader) {
-    stream->methods = &data_004705d8;
+    stream->methods = &g_sound_stream_unknown;
     stream->buffers = new WaveBuffer*[count];
     unsigned int i;
     for (i = 0; i < count; ++i)

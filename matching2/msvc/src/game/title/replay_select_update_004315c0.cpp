@@ -66,8 +66,8 @@ __declspec(noinline) int __stdcall TitleMode12_004315c0(Title* room) {
     switch (room->phase) {
     case 0: {
         room->cursor.item_count = 25;
-        UpdateBoundedCounter(data_00491c04, reinterpret_cast<unsigned int*>(&room->cursor));
-        data_00491c04 = 0;
+        UpdateBoundedCounter(g_title_replay_selection, reinterpret_cast<unsigned int*>(&room->cursor));
+        g_title_replay_selection = 0;
         if (reinterpret_cast<RecoveryLookup_0040bd80*>(g_sprt_ctrl)->Find(
                 reinterpret_cast<RecoveryLookupContext_0040bd80*>(g_sprt_ctrl),
                 *reinterpret_cast<RecoveryScriptId_0040bd80*>(&room->animation_slots[94])) == 0) {
@@ -106,14 +106,14 @@ __declspec(noinline) int __stdcall TitleMode12_004315c0(Title* room) {
     case 2: {
         MenuCursor* cursor = &room->cursor;
         cursor->previous_selection = cursor->selection;
-        if ((short)data_00474e30.InputMaskActive(0x10)) cursor->Advance(-1);
-        if ((short)data_00474e30.InputMaskActive(0x20)) cursor->Advance(1);
+        if ((short)g_input_keys_raw.InputMaskActive(0x10)) cursor->Advance(-1);
+        if ((short)g_input_keys_raw.InputMaskActive(0x20)) cursor->Advance(1);
         if (cursor->previous_selection != cursor->selection)
             g_sound_manager.Queue(12, 0);
-        if (data_00474e36 & 0xa) {
+        if (g_input_keys_held & 0xa) {
             room->SetTimerTarget(5);
             g_sound_manager.Queue(11, 0);
-        } else if (data_00474e36 & 0x1001) {
+        } else if (g_input_keys_held & 0x1001) {
             if (replays->replays[cursor->selection] != 0) {
                 room->SetTimerTarget(4);
                 replays->selected_replay = cursor->selection;
@@ -137,17 +137,17 @@ __declspec(noinline) int __stdcall TitleMode12_004315c0(Title* room) {
         if (room->timer.current >= 15) {
             MenuCursor* cursor = &room->cursor;
             cursor->previous_selection = cursor->selection;
-            if ((short)data_00474e30.InputMaskActive(0x10)) cursor->Advance(-1);
-            if ((short)data_00474e30.InputMaskActive(0x20)) cursor->Advance(1);
+            if ((short)g_input_keys_raw.InputMaskActive(0x10)) cursor->Advance(-1);
+            if ((short)g_input_keys_raw.InputMaskActive(0x20)) cursor->Advance(1);
             if (cursor->previous_selection != cursor->selection)
                 g_sound_manager.Queue(12, 0);
-            if (data_00474e36 & 0xa) {
+            if (g_input_keys_held & 0xa) {
                 cursor->PopSelection();
                 room->cursor.item_count = 25;
                 room->cursor.disabled_count = 0;
                 room->SetTimerTarget(2);
                 g_sound_manager.Queue(11, 0);
-            } else if (data_00474e36 & 0x1001) {
+            } else if (g_input_keys_held & 0x1001) {
                 replays->selected_stage = cursor->selection;
                 room->SetTimerTarget(3);
             }
@@ -161,18 +161,18 @@ __declspec(noinline) int __stdcall TitleMode12_004315c0(Title* room) {
         if (room->timer.current >= 32) {
             room->DisableTimerWithOwner(3);
             int stage = replays->selected_stage + 1;
-            data_00477848 = data_00474788 + stage * 0x30;
+            g_stage_route_current = g_stage_routes + stage * 0x30;
             g_globals_stage = stage;
             g_globals_stage_shown = stage;
             Music_FadeOut(6.0f);
-            data_00491fb8 = 12;
+            g_main_state = 12;
             strcpy(g_replay_path, replays->replays[replays->selected_replay]->path);
             ReplayFileHeader_004315c0* header = replays->replays[replays->selected_replay]->header;
             g_globals_character = header->character;
             g_globals_shot_type = header->shot_type;
             g_globals_difficulty = header->difficulty;
-            data_00491c00 = 2;
-            data_00491c04 = replays->selected_replay;
+            g_main_mode_request = 2;
+            g_title_replay_selection = replays->selected_replay;
         }
         break;
     case 5:

@@ -52,7 +52,7 @@ int MainTaskStateWave18::UpdateMode() {
                 goto done;
             }
             next_mode = 4;
-            data_00491c00 = 3;
+            g_main_mode_request = 3;
             ModeCreateProgressWave18();
             break;
         case 7:
@@ -82,7 +82,7 @@ int MainTaskStateWave18::UpdateMode() {
             ui_mode = 1;
             next_mode = 7;
             GameState()->stage = GameState()->stage_shown;
-            data_00477848 = data_00474788 + GameState()->stage_shown;
+            g_stage_route_current = g_stage_routes + GameState()->stage_shown;
             ModeCreateUiWave18(0);
             break;
         case 13:

@@ -7,8 +7,8 @@
 #define g_replay stage_front_data_00477838
 #define g_score stage_front_data_0047783c
 #define g_game_speed stage_front_data_00476f78
-#define data_00491fc4 stage_front_data_00491fc4
-#define data_00491fb8 stage_front_data_00491fb8
+#define g_stage_flags stage_front_data_00491fc4
+#define g_main_state stage_front_data_00491fb8
 #define g_sound_manager stage_front_data_00492590
 #include "front_view.hpp"
 static __forceinline Entity *AllocateFrontObject(void *resource, int script, int offset = 0) {
@@ -75,7 +75,7 @@ void FrontInitializeView::Initialize() {
         reinterpret_cast<AnimationObject_0043e5a0 *>(&animations[31]), fraction / 10 + 8);
     reinterpret_cast<Resource_0043e5a0 *>(captions)->ConfigureObject(
         reinterpret_cast<AnimationObject_0043e5a0 *>(&animations[32]), digit + 8);
-    if (data_00491fb8 != 8) {
+    if (g_main_state != 8) {
         if (!(g_globals.flags.bytes[0] & 0x20)) {
             Entity *object = AllocateFrontObject(alternate_resource, 0);
             RegisterFrontInline(reinterpret_cast<FrontAnimationLists *>(g_sprt_ctrl), object);
@@ -94,7 +94,7 @@ void FrontInitializeView::Initialize() {
         Entity *object = AllocateFrontObject(captions, 79);
         RegisterFrontInline(reinterpret_cast<FrontAnimationLists *>(g_sprt_ctrl), object);
     }
-    if (data_00491fc4) {
+    if (g_stage_flags) {
         Entity *object = AllocateFrontObject(captions, g_globals.difficulty, 102);
         FrontAnimationLists *lists = reinterpret_cast<FrontAnimationLists *>(g_sprt_ctrl);
         RegisterFrontInline(lists, object);
@@ -120,6 +120,6 @@ void FrontInitializeView::Initialize() {
 #undef g_replay
 #undef g_score
 #undef g_game_speed
-#undef data_00491fc4
-#undef data_00491fb8
+#undef g_stage_flags
+#undef g_main_state
 #undef g_sound_manager

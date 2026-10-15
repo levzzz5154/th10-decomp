@@ -19,7 +19,7 @@
 extern "C" void* g_sprt_ctrl;
 extern "C" GameThread_0040c540* g_ascii_manager;
 extern "C" SoundQueue g_sound_manager;
-extern "C" unsigned int data_00474e36;
+extern "C" unsigned int g_input_keys_held;
 extern "C" unsigned short recovery_music_repeat_00474e34;
 extern "C" unsigned char* recovery_music_player_0047783c;
 extern "C" unsigned char recovery_music_mode_00491d78;
@@ -254,9 +254,9 @@ __declspec(noinline) int __stdcall TitleMusicRoom_00433ef0(Title* room) {
         MusicRevealLine(room);
         MenuCursor* cursor = &room->cursor;
         cursor->previous_selection = cursor->selection;
-        if (data_00474e30.InputMaskActive(0x10))
+        if (g_input_keys_raw.InputMaskActive(0x10))
             cursor->Advance(-1);
-        if (data_00474e30.InputMaskActive(0x20))
+        if (g_input_keys_raw.InputMaskActive(0x20))
             cursor->Advance(1);
         if (cursor->previous_selection != cursor->selection) {
             g_sound_manager.Queue(12, 0);
@@ -291,7 +291,7 @@ __declspec(noinline) int __stdcall TitleMusicRoom_00433ef0(Title* room) {
             }
             room->preview_armed = 0;
         }
-        if (data_00474e36 & 0x1001u) {
+        if (g_input_keys_held & 0x1001u) {
             // Confirm: clear the comment lines and play the track.
             for (int row = 0; row < 8; ++row)
                 MusicSetTreeFrame(MusicFind(room->preview_handles[row].value), 3);
@@ -316,7 +316,7 @@ __declspec(noinline) int __stdcall TitleMusicRoom_00433ef0(Title* room) {
             room->preview_armed = 0;
             break;
         }
-        if (!(data_00474e36 & 0xAu))
+        if (!(g_input_keys_held & 0xAu))
             break;
 leave_room:
         // Cancel, or no comment file: drop the screen and go to phase 3.

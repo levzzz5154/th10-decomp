@@ -30,7 +30,7 @@ extern "C" void *__fastcall Recovery_LoadCachedResource_00447280(
 extern "C" SchedulerTask *__stdcall SchedulerCallback_Create_00449ed0(void *callback);
 extern "C" void *g_sprt_ctrl;
 extern "C" FuncCtrl *g_func_ctrl;
-extern "C" int data_004918a4;
+extern "C" int g_screen_effects_frozen;
 
 #pragma code_seg(".text$00hbstartupzmzt")
 extern "C" __declspec(noinline) int __stdcall
@@ -60,7 +60,7 @@ Title_RegisterTasks(Title *title) {
         return -1;
     }
     title->ready = 1;
-    data_004918a4 = 0;
+    g_screen_effects_frozen = 0;
     return 0;
 }
 #pragma code_seg()

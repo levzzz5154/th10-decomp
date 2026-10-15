@@ -9,27 +9,27 @@
  "function": "?ReadPad@@YGGGHH@Z",
  "code_bytes": 833,
  "absolute_symbols": {
-  "_data_00474e30": {
+  "_g_input_keys_raw": {
    "address": "0x00474E30",
    "kind": "data"
   },
-  "_data_004918b8": {
+  "_g_joystick_caps": {
    "address": "0x004918B8",
    "kind": "data"
   },
-  "_data_00491c3c": {
+  "_g_pad_devices": {
    "address": "0x00491C3C",
    "kind": "data"
   },
-  "_data_00491d5e": {
+  "_g_joystick_x_threshold": {
    "address": "0x00491D5E",
    "kind": "data"
   },
-  "_data_00491d60": {
+  "_g_joystick_y_threshold": {
    "address": "0x00491D60",
    "kind": "data"
   },
-  "_data_00491ff4": {
+  "_g_app_flags": {
    "address": "0x00491FF4",
    "kind": "data"
   },

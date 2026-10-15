@@ -9,7 +9,7 @@
 #include <string.h>
 
 extern "C" float g_game_speed;
-extern "C" unsigned char data_0046d0c0;
+extern "C" unsigned char g_enemy_vtable_live;
 struct BindGameState_0040d830 {
     unsigned char reserved[0x54];
     BindScriptTable_0040d830* table;
@@ -117,7 +117,7 @@ __declspec(noinline) EnemyScriptEntity_0040d830* __fastcall InitializeEnemyScrip
     int* scratch_words = &entity->instance.scratch_cursor;
     scratch_words[0] = 0;
     scratch_words[1] = 0;
-    entity->vtable = &data_0046d0c0;
+    entity->vtable = &g_enemy_vtable_live;
     ClearBoundAnimations_0040d830(unused, reinterpret_cast<BindAnimationOwner_0040d830*>(&entity->payload));
     memset(&entity->payload, 0, sizeof(entity->payload));
     // The entity starts with its embedded instance as the only chain entry.

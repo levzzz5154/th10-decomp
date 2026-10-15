@@ -67,12 +67,12 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00491e64",
+      "symbol": "_g_screen_shake_x",
       "address": "0x00491E64",
       "kind": "data"
     },
     {
-      "symbol": "_data_00491e68",
+      "symbol": "_g_screen_shake_y",
       "address": "0x00491E68",
       "kind": "data"
     },

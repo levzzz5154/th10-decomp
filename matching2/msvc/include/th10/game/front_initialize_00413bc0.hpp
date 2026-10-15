@@ -213,7 +213,7 @@ struct FrontGameState {
 };
 extern "C" FrontStageThread *g_ascii_manager;
 extern "C" FrontGameState *g_game;
-extern "C" int data_00491fb8;
-extern "C" int data_00491fc4;
+extern "C" int g_main_state;
+extern "C" int g_stage_flags;
 extern "C" FrontGameCounters g_globals;
 extern "C" FrontInitializeView *g_front;

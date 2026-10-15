@@ -21,8 +21,8 @@ struct GameCounters_0040b560 {
     int continued;                // 0x00474C90
 };
 extern "C" GameCounters_0040b560 g_globals_score;
-extern "C" const char* data_00474440[12];
-extern "C" char data_00497c38[260];
+extern "C" const char* g_ending_files[12];
+extern "C" char g_recovery_script_path[260];
 extern "C" char str_data_corrupted[];
 extern "C" TextLog_0044b810 g_log;
 struct EndingUnlocks {
@@ -88,10 +88,10 @@ int Ending::Initialize() {
     if (!g_score->alternate) RaiseFlag(flags, 2);
     g_score->endings[ending_index] = 1;
     if (ending_index >= 6) g_score->alternate = 1;
-    const char* filename = data_00474440[ending_index];
-    data_00497c38[0] = 0;
-    strcat(data_00497c38, filename);
-    file = Archive_LoadFile(data_00497c38, 0, 0);
+    const char* filename = g_ending_files[ending_index];
+    g_recovery_script_path[0] = 0;
+    strcat(g_recovery_script_path, filename);
+    file = Archive_LoadFile(g_recovery_script_path, 0, 0);
     if (!file) { g_log.Append(str_data_corrupted); return -1; }
     text = new EndingText(file + *(int*)(file + 4));
     return 0;

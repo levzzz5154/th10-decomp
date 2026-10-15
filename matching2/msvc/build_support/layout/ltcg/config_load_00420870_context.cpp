@@ -44,28 +44,28 @@ extern "C" unsigned long (__stdcall *imp_FormatMessageA)(unsigned long, void*, u
 extern "C" void* (__stdcall *imp_LocalFree)(void*);
 #pragma code_seg(".text$00h_write")
 __declspec(noinline) int __stdcall File_WriteWholeFile(const char* path, const void* buffer, unsigned long size) {
-    imp_EnterCriticalSection(data_004922a4);
-    ++data_0049231e;
+    imp_EnterCriticalSection(g_file_lock);
+    ++g_file_lock_depth;
     void* handle = imp_CreateFileA(path, 0x40000000, 1, 0, 2, 0x80, 0);
     if (handle == (void*)-1) {
         char* message;
         imp_FormatMessageA(0x1300, 0, imp_GetLastError(), 0x400, &message, 0, 0);
         imp_LocalFree(message);
-        imp_LeaveCriticalSection(data_004922a4);
-        --data_0049231e;
+        imp_LeaveCriticalSection(g_file_lock);
+        --g_file_lock_depth;
         return -1;
     }
     unsigned long written;
     imp_WriteFile(handle, buffer, size, &written, 0);
     if (size != written) {
         imp_CloseHandle(handle);
-        imp_LeaveCriticalSection(data_004922a4);
-        --data_0049231e;
+        imp_LeaveCriticalSection(g_file_lock);
+        --g_file_lock_depth;
         return -2;
     }
     imp_CloseHandle(handle);
-    imp_LeaveCriticalSection(data_004922a4);
-    --data_0049231e;
+    imp_LeaveCriticalSection(g_file_lock);
+    --g_file_lock_depth;
     return 0;
 }
 
@@ -76,16 +76,16 @@ struct ConfigLoadCriticalSection { unsigned char storage[24]; };
 extern "C" {
 __declspec(dllimport) void __stdcall EnterCriticalSection(ConfigLoadCriticalSection* section);
 __declspec(dllimport) void __stdcall LeaveCriticalSection(ConfigLoadCriticalSection* section);
-extern ConfigLoadCriticalSection data_004922bc;
-extern unsigned char data_0049231f;
+extern ConfigLoadCriticalSection g_text_log_lock;
+extern unsigned char g_text_log_lock_depth;
 }
 #pragma code_seg(".text$00i_append")
 __declspec(noinline) char* TextLog_00420870::Append(char* format, ...) {
     char staging[0x2000];
     va_list arguments;
     va_start(arguments, format);
-    EnterCriticalSection(&data_004922bc);
-    ++data_0049231f;
+    EnterCriticalSection(&g_text_log_lock);
+    ++g_text_log_lock_depth;
     asm_vsprintf_004524a6(staging, format, arguments);
     unsigned int length = strlen(staging);
     char* destination = cursor;
@@ -94,8 +94,8 @@ __declspec(noinline) char* TextLog_00420870::Append(char* format, ...) {
         cursor = (char*)((unsigned int)cursor + length);
         *cursor = 0;
     }
-    LeaveCriticalSection(&data_004922bc);
-    --data_0049231f;
+    LeaveCriticalSection(&g_text_log_lock);
+    --g_text_log_lock_depth;
     return format;
 }
 #pragma code_seg(".text$00j_line")
@@ -103,8 +103,8 @@ __declspec(noinline) char* TextLog_00420870::AppendLine(char* format, ...) {
     char buffer[512];
     va_list va;
     va_start(va, format);
-    EnterCriticalSection(&data_004922bc);
-    ++data_0049231f;
+    EnterCriticalSection(&g_text_log_lock);
+    ++g_text_log_lock_depth;
     asm_vsprintf_004524a6(buffer, format, va);
     unsigned int length = strlen(buffer);
     char* dest = cursor;
@@ -114,8 +114,8 @@ __declspec(noinline) char* TextLog_00420870::AppendLine(char* format, ...) {
         *cursor = 0;
     }
     dirty = 1;
-    LeaveCriticalSection(&data_004922bc);
-    --data_0049231f;
+    LeaveCriticalSection(&g_text_log_lock);
+    --g_text_log_lock_depth;
     return format;
 }
 #pragma code_seg()

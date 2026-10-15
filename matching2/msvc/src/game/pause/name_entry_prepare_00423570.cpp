@@ -21,14 +21,14 @@ static inline void SelectItem_00423570(MenuCursor* cursor, int item) {
 #pragma code_seg(".text$00423570_fn")
 void __stdcall PrepareNameEntry_00423570(NameEntryMenu_00423570* menu) {
     if (g_globals_score.stage == 7 && menu->extra_cleared != 0) {
-        data_00477848 = &data_00474788[8];
+        g_stage_route_current = &g_stage_routes[8];
         g_globals_score.stage = 8;
         g_globals_score.stage_shown = 8;
     }
     int rank = g_score->players[g_globals_score.shot_type + g_globals_score.character * 3]
                    .table.InsertScore();
     if (g_globals_score.stage == 7 && menu->extra_cleared != 0) {
-        data_00477848 = &data_00474788[7];
+        g_stage_route_current = &g_stage_routes[7];
         g_globals_score.stage = 7;
         g_globals_score.stage_shown = 7;
     }
@@ -37,7 +37,7 @@ void __stdcall PrepareNameEntry_00423570(NameEntryMenu_00423570* menu) {
         menu->rows.wrap = 1;
         SelectItem_00423570(&menu->rows, rank);
         SelectItem_00423570(&menu->alphabet, 0);
-        menu->alphabet.item_count = (int)strlen(data_004746d8);
+        menu->alphabet.item_count = (int)strlen(g_name_entry_grid);
         menu->alphabet.wrap = 1;
         strcpy(menu->name, g_score->last_name);
         menu->name_length = 0;

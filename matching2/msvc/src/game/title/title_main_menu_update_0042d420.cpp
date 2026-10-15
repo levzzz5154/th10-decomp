@@ -72,14 +72,14 @@ __declspec(noinline) int __stdcall TitleMainMenu_0042d420(Title* room) {
     case 2: {
         MenuCursor* cursor = &room->cursor;
         cursor->previous_selection = cursor->selection;
-        if ((short)data_00474e30.InputMaskActive(0x10)) cursor->Advance(-1);
-        if ((short)data_00474e30.InputMaskActive(0x20)) cursor->Advance(1);
+        if ((short)g_input_keys_raw.InputMaskActive(0x10)) cursor->Advance(-1);
+        if ((short)g_input_keys_raw.InputMaskActive(0x20)) cursor->Advance(1);
         if (cursor->previous_selection != cursor->selection) {
             g_sound_manager.Queue(12, 0);
             RunCursorSlot_0042d420(room);
             room->SetSlotFrame(0, cursor->selection + 7);
         }
-        if (data_00474e36 & 0xa) {
+        if (g_input_keys_held & 0xa) {
             if (cursor->selection == 7)
                 goto quit;
             g_sound_manager.Queue(11, 0);
@@ -87,7 +87,7 @@ __declspec(noinline) int __stdcall TitleMainMenu_0042d420(Title* room) {
             reinterpret_cast<TitleAnimationSlotView*>(room)->RestartSlot(0);
             room->SetSlotFrame(0, cursor->selection + 7);
         }
-        if (data_00474e36 & 0x1001) {
+        if (g_input_keys_held & 0x1001) {
             room->SetSlotFrame(0, 6);
             switch (cursor->selection) {
             case 0:

@@ -49,14 +49,14 @@ struct TitleGameState {
 };
 typedef char TitleGameStateFlags[offsetof(TitleGameState, flags) == 0x5c ? 1 : -1];
 extern "C" {
-    extern unsigned int data_00474e30;
+    extern unsigned int g_input_keys_raw;
     extern TitleGameState g_globals_score;
-    extern int data_00491fb8, data_00491c00;
-    extern unsigned int data_00491ff4;
-    extern const char* data_00476ff8[4];
+    extern int g_main_state, g_main_mode_request;
+    extern unsigned int g_app_flags;
+    extern const char* g_title_demo_paths[4];
     extern char g_replay_path[];
-    extern unsigned char data_00474788[];
-    extern unsigned char* data_00477848;
+    extern unsigned char g_stage_routes[];
+    extern unsigned char* g_stage_route_current;
     extern GameThread_0040c540* g_ascii_manager;
     extern float flt_0_99, flt_1_01, flt_1;
 }
@@ -95,20 +95,20 @@ static __forceinline void MarkTitleCallback(Title* room) {
 static __forceinline int UpdateIdleDemo(TitlePrefix* title) {
     switch (title->mode) { case 1: case 2:
         ++g_globals_score.idle_frames;
-        if ((data_00474e30 & 0x160b) != 0) {
+        if ((g_input_keys_raw & 0x160b) != 0) {
             g_globals_score.idle_frames = 0;
         } else if (g_globals_score.idle_frames >= 900) {
             g_globals_score.flags = (g_globals_score.flags & ~0x40u) | 0x20;
-            strcpy(g_replay_path, data_00476ff8[g_globals_score.next_demo]);
+            strcpy(g_replay_path, g_title_demo_paths[g_globals_score.next_demo]);
             DemoFile* file = TitleLoadDemo_004296f0(g_replay_path);
             g_globals_score.next_demo = (g_globals_score.next_demo + 1) % 4;
             int stage = 0;
             while (stage < 8 && file->stages[stage].present == 0)
                 ++stage;
-            data_00477848 = data_00474788 + stage * 0x30;
+            g_stage_route_current = g_stage_routes + stage * 0x30;
             g_globals_score.stage = stage;
             g_globals_score.first_stage = stage;
-            data_00491fb8 = 12;
+            g_main_state = 12;
             DemoHeader* header = file->header;
             g_globals_score.character = header->character;
             g_globals_score.menu_difficulty = g_globals_score.difficulty;
@@ -118,10 +118,10 @@ static __forceinline int UpdateIdleDemo(TitlePrefix* title) {
             free(file);
             int mode = title->mode;
             g_globals_score.idle_frames = 0;
-            return data_00491c00 = mode != 1;
+            return g_main_mode_request = mode != 1;
         }
     }
-    return data_00491c00;
+    return g_main_mode_request;
 }
 
 #pragma code_seg(".text$0042cdf0_model")
@@ -150,7 +150,7 @@ __declspec(noinline) int __stdcall TitleDispatcher_Model_0042cdf0(
             room->DisableTimerWithOwner(15);
             RecoveryMusicInstallSlot_0042c670(room, 91);
             room->SetSlotFrame(91, 9);
-            data_00491c00 = 1;
+            g_main_mode_request = 1;
             MarkTitleCallback(room);
             TitleNameEntry_00432cb0(room);
             break;
@@ -158,14 +158,14 @@ __declspec(noinline) int __stdcall TitleDispatcher_Model_0042cdf0(
         if ((g_globals_score.flags & 0x20) == 0) {
             TitleSetMusicFile_00420a90(0, "bgm/th10_02.wav");
             TitlePlayMusic_00420b10(0, 0);
-            transition = data_00491c00;
+            transition = g_main_mode_request;
         } else {
             g_globals_score.difficulty = g_globals_score.menu_difficulty;
         }
         g_globals_score.flags &= ~0x20u;
         if (transition == 0) {
             room->DisableTimerWithOwner(1);
-            data_00491c00 = 1;
+            g_main_mode_request = 1;
         } else if (transition == 1) {
             if (g_globals_score.difficulty == 4)
                 SetSelection(&room->cursor, 1);
@@ -182,7 +182,7 @@ __declspec(noinline) int __stdcall TitleDispatcher_Model_0042cdf0(
             room->DisableTimerWithOwner(12);
             RecoveryMusicInstallSlot_0042c670(room, 91);
             room->SetSlotFrame(91, 9);
-            data_00491c00 = 1;
+            g_main_mode_request = 1;
             MarkTitleCallback(room);
             TitleMode12_004315c0(room);
             break;
@@ -195,7 +195,7 @@ __declspec(noinline) int __stdcall TitleDispatcher_Model_0042cdf0(
     case 4: TitleOptions_0042d920(room); break;
     case 5: TitleMenuFlow_0042f540(room); break;
     case 3:
-        data_00491fb8 = (~(data_00491ff4 >> 12) & 1) | 2;
+        g_main_state = (~(g_app_flags >> 12) & 1) | 2;
         // The same launch path serves modes 3, 10, and 13.
     case 10: case 13: TitleDispatchGame_00420c00(); break;
     case 6: TitleMode6_00430320(room); break;

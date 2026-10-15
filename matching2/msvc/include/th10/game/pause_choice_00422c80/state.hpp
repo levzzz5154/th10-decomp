@@ -25,10 +25,10 @@ struct InputState {
     unsigned int flags_3CC;
 };
 __declspec(noinline) void SetInputMode(InputState* state, int mode);
-extern "C" KeyRepeatState data_00474e30;
-extern "C" unsigned int data_00474e36;
+extern "C" KeyRepeatState g_input_keys_raw;
+extern "C" unsigned int g_input_keys_held;
 extern "C" InputState g_application;
-extern "C" int data_00491fb8;
+extern "C" int g_main_state;
 struct ChoiceRuntime { unsigned char reserved[0x5C]; int replay_mode; };
 extern "C" ChoiceRuntime* g_game;
 struct PauseChoiceState {

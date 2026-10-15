@@ -7,7 +7,7 @@
 
 extern "C" {
 extern unsigned int g_globals_flags;
-extern void* data_00491bf0;
+extern void* g_player_parameter_file;
 extern AnimationBanks_00402440* g_sprt_ctrl;
 }
 #pragma code_seg(".text$01dtor")
@@ -17,14 +17,14 @@ Player::~Player() {
     g_player = 0;
     if (g_globals_flags & 1) {
         reinterpret_cast<SprtCtrl*>(g_sprt_ctrl)->MarkResourceForRemoval(animation_file);
-        data_00491bf0 = shot_type;
+        g_player_parameter_file = shot_type;
     } else {
         ReleaseAnimationBank(g_sprt_ctrl, 8);
         if (shot_type) {
             entry_free_00452422(shot_type);
             shot_type = 0;
         }
-        data_00491bf0 = 0;
+        g_player_parameter_file = 0;
     }
 }
 #pragma code_seg()

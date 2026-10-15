@@ -99,7 +99,7 @@ typedef char BackGroundCameraOffsetCheck[offsetof(BackGround,camera)==0x2a4c?1:-
 typedef char BackGroundSizeCheck[sizeof(BackGround)==0x2b64?1:-1];
 
 extern "C" {
-extern BackGround* data_004776e4;
+extern BackGround* g_background_prev;
 extern BackGround* g_background;
 int __stdcall BackGround_Initialize(BackGround* state, const char* name, int state_id);
 }

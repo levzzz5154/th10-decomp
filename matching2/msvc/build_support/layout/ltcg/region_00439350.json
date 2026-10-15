@@ -44,17 +44,17 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_0049251c",
+      "symbol": "_g_screen_saver_active",
       "address": "0x49251c",
       "kind": "data"
     },
     {
-      "symbol": "_data_00492520",
+      "symbol": "_g_screen_saver_timeout",
       "address": "0x492520",
       "kind": "data"
     },
     {
-      "symbol": "_data_00492524",
+      "symbol": "_g_monitor_power_off",
       "address": "0x492524",
       "kind": "data"
     },

@@ -1,7 +1,7 @@
 // Replay frame-step callback, 0x0042A3E0. Receiver in ECX, result in EAX.
 #include <stddef.h>
 extern "C" unsigned char g_game;
-extern "C" unsigned int data_00474e30;
+extern "C" unsigned int g_input_keys_raw;
 struct ReplayScene {
     unsigned char reserved000[0x58];
     unsigned int flags;
@@ -22,7 +22,7 @@ int ReplayFrameStep::Check() {
         int result = 1;
         if ((scene->flags & 4) != 0) return result;
         if (state != 1) return result;
-        if ((data_00474e30 & 0x100) == 0) return result;
+        if ((g_input_keys_raw & 0x100) == 0) return result;
         result = 1;
         if (frame % 4 != 0) result = 6;
         return result;

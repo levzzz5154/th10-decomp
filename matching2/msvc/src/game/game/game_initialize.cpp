@@ -44,13 +44,13 @@ typedef char StageTimingSecond[offsetof(StageTiming_00417870, second) == 0x2C ? 
 extern "C" {
 extern AnimationWaitState_00417870* g_sprt_ctrl;
 extern FuncCtrl* g_func_ctrl;
-extern StageResources_00417870* data_00477848;
+extern StageResources_00417870* g_stage_route_current;
 extern PathState_00417800* g_enemy_ctrl;
 extern StageTiming_00417870* g_fps;
 extern void* g_front;
 extern const char g_replay_path[];
-extern int data_00494518;
-extern int data_004918a4;
+extern int g_stage_wait;
+extern int g_screen_effects_frozen;
 extern const double dbl_0;
 __declspec(dllimport) void __stdcall Sleep(unsigned int);
 __declspec(noinline) int* __stdcall SchedulerCallback_Create_00449ed0(int callback);
@@ -145,10 +145,10 @@ extern "C" __declspec(noinline) int __stdcall Game_Initialize(Game* context) {
     }
     memcpy(context->configuration, g_application.configuration, sizeof(context->configuration));
     // The callback pair's second prefix word stores the stage kind.
-    memcpy(context->callbacks.unknown_00 + sizeof(int), &data_00477848->stage_kind, sizeof(int));
+    memcpy(context->callbacks.unknown_00 + sizeof(int), &g_stage_route_current->stage_kind, sizeof(int));
     if (!(g_globals.flags & 2)) {
         if (!ReplayCreate(context->replay_mode, g_replay_path)) goto failed;
-        if (!CreateStageState(data_00477848->stage_file, 0)) goto failed;
+        if (!CreateStageState(g_stage_route_current->stage_file, 0)) goto failed;
         if (!CreateItems()) goto failed;
         if (!CreatePlayerResources()) goto failed;
         if (!CreateProjectiles()) goto failed;
@@ -160,10 +160,10 @@ extern "C" __declspec(noinline) int __stdcall Game_Initialize(Game* context) {
     } else {
         reinterpret_cast<ReplayManager_0042a6a0*>(g_replay)->BeginStage();
         SetupScoreTask(g_front);
-        if (!CreateStageState(data_00477848->stage_file, 0)) goto failed;
+        if (!CreateStageState(g_stage_route_current->stage_file, 0)) goto failed;
     }
     if (!(g_globals.flags & 9)) {
-        if (!CreateEnemies(data_00477848->enemy_file)) goto failed;
+        if (!CreateEnemies(g_stage_route_current->enemy_file)) goto failed;
     } else {
         g_enemy_ctrl->Reset();
     }
@@ -172,13 +172,13 @@ extern "C" __declspec(noinline) int __stdcall Game_Initialize(Game* context) {
     if (!CreatePlayer()) goto failed;
     if (!(g_globals.flags & 0x20)) {
         StopMusic();
-        LoadMusic(0, data_00477848->music[0]);
-        LoadMusic(1, data_00477848->music[1]);
+        LoadMusic(0, g_stage_route_current->music[0]);
+        LoadMusic(1, g_stage_route_current->music[1]);
     }
     g_fps->second = dbl_0;
     g_fps->first = dbl_0;
     context->clock.SetSchedulerValue(0);
-    while (data_00494518)
+    while (g_stage_wait)
         Sleep(16);
     if (g_globals.reserved_44[0])
         g_globals.reserved_44[2] = 0;
@@ -188,7 +188,7 @@ extern "C" __declspec(noinline) int __stdcall Game_Initialize(Game* context) {
     g_globals.flags &= ~11u;
     g_application.worker_running = 0;
     g_application.worker_stop_requested = 1;
-    data_004918a4 = 0;
+    g_screen_effects_frozen = 0;
     context->callbacks.RetireCallbacks();
     return 0;
 failed:

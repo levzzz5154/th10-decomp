@@ -38,7 +38,7 @@
   "constants": [],
   "absolute_symbols": [
     {
-      "symbol": "_data_0046d0f0",
+      "symbol": "_g_enemy_eff_vtable",
       "address": "0x0046D0F0",
       "kind": "data"
     },

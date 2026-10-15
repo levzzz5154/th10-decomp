@@ -144,17 +144,17 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00477824",
+      "symbol": "_g_queued_cleanup_a",
       "address": "0x00477824",
       "kind": "data"
     },
     {
-      "symbol": "_data_00477828",
+      "symbol": "_g_queued_cleanup_b",
       "address": "0x00477828",
       "kind": "data"
     },
     {
-      "symbol": "_data_0047782c",
+      "symbol": "_g_queued_cleanup_c",
       "address": "0x0047782C",
       "kind": "data"
     },

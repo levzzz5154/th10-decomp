@@ -29,19 +29,19 @@ void __cdecl entry_free_004524a1(void* memory);
 extern Title* g_title;
 extern StartupLoader_00477820* g_loading;
 extern AnimationManager_0042c800* g_sprt_ctrl;
-extern unsigned int data_00491ff4;       // held input
-extern unsigned int data_00491fb8;       // requested application state
+extern unsigned int g_app_flags;       // held input
+extern unsigned int g_main_state;       // requested application state
 }
 
 #pragma code_seg(".text$00hbstartupzmzl")
 extern "C" __declspec(noinline) int __cdecl Title_LoadThread() {
     if (Title_RegisterTasks(g_title) != 0) {
-        data_00491fb8 = (~(data_00491ff4 >> 12) & 1) | 2;
+        g_main_state = (~(g_app_flags >> 12) & 1) | 2;
         return 0;
     }
     if (g_loading) {
         while (g_loading->frames < 300) {
-            if (data_00491ff4 & 0x80)
+            if (g_app_flags & 0x80)
                 break;
             Sleep(16);
         }

@@ -30,7 +30,7 @@ __declspec(noinline) int __stdcall TitleMode9_00430ff0(Title* room) {
     switch (room->phase) {
     case 0:
         room->cursor.item_count = 6;
-        SelectItem_00430ff0(room->cursor, data_00491c08);
+        SelectItem_00430ff0(room->cursor, g_title_practice_selection);
         RecoveryMusicInstallSlot_0042c670(room, 106);
         {
             // A named local: its symbol precedes the cursor's, which the
@@ -46,15 +46,15 @@ __declspec(noinline) int __stdcall TitleMode9_00430ff0(Title* room) {
     case 2: {
         MenuCursor* cursor = &room->cursor;
         cursor->previous_selection = cursor->selection;
-        if ((short)data_00474e30.InputMaskActive(0x10)) cursor->Advance(-1);
-        if ((short)data_00474e30.InputMaskActive(0x20)) cursor->Advance(1);
+        if ((short)g_input_keys_raw.InputMaskActive(0x10)) cursor->Advance(-1);
+        if ((short)g_input_keys_raw.InputMaskActive(0x20)) cursor->Advance(1);
         if (cursor->previous_selection != cursor->selection)
             g_sound_manager.Queue(12, 0);
-        if (data_00474e36 & 0xa) {
+        if (g_input_keys_held & 0xa) {
             room->SetTimerTarget(4);
             g_sound_manager.Queue(11, 0);
-            data_00491c08 = cursor->selection;
-        } else if (data_00474e36 & 0x1001) {
+            g_title_practice_selection = cursor->selection;
+        } else if (g_input_keys_held & 0x1001) {
             if (g_score->shots[g_globals_character][g_globals_shot_type]
                     .practice[g_globals_difficulty][cursor->selection].unlocked == 0) {
                 g_sound_manager.Queue(0x25, 0);
@@ -62,28 +62,28 @@ __declspec(noinline) int __stdcall TitleMode9_00430ff0(Title* room) {
                 room->SetTimerTarget(3);
                 g_sound_manager.Queue(10, 0);
             }
-            data_00491c08 = cursor->selection;
-            data_00474cac = 0;
-            if (Input_UpdateKeyboardState(data_00497aa8) == 0) {
-                if (data_00497aa8['1'] & 0x80) data_00474cac = 1;
-                else if (data_00497aa8['2'] & 0x80) data_00474cac = 2;
-                else if (data_00497aa8['3'] & 0x80) data_00474cac = 3;
-                else if (data_00497aa8['4'] & 0x80) data_00474cac = 4;
-                else if (data_00497aa8['5'] & 0x80) data_00474cac = 5;
-                else if (data_00497aa8['6'] & 0x80) data_00474cac = 6;
-                else if (data_00497aa8['7'] & 0x80) data_00474cac = 7;
-                else if (data_00497aa8['8'] & 0x80) data_00474cac = 8;
-                else if (data_00497aa8['9'] & 0x80) data_00474cac = 9;
+            g_title_practice_selection = cursor->selection;
+            g_practice_difficulty = 0;
+            if (Input_UpdateKeyboardState(g_keyboard_state) == 0) {
+                if (g_keyboard_state['1'] & 0x80) g_practice_difficulty = 1;
+                else if (g_keyboard_state['2'] & 0x80) g_practice_difficulty = 2;
+                else if (g_keyboard_state['3'] & 0x80) g_practice_difficulty = 3;
+                else if (g_keyboard_state['4'] & 0x80) g_practice_difficulty = 4;
+                else if (g_keyboard_state['5'] & 0x80) g_practice_difficulty = 5;
+                else if (g_keyboard_state['6'] & 0x80) g_practice_difficulty = 6;
+                else if (g_keyboard_state['7'] & 0x80) g_practice_difficulty = 7;
+                else if (g_keyboard_state['8'] & 0x80) g_practice_difficulty = 8;
+                else if (g_keyboard_state['9'] & 0x80) g_practice_difficulty = 9;
             } else {
-                if (data_00497aa8[2] & 0x80) data_00474cac = 1;
-                else if (data_00497aa8[3] & 0x80) data_00474cac = 2;
-                else if (data_00497aa8[4] & 0x80) data_00474cac = 3;
-                else if (data_00497aa8[5] & 0x80) data_00474cac = 4;
-                else if (data_00497aa8[6] & 0x80) data_00474cac = 5;
-                else if (data_00497aa8[7] & 0x80) data_00474cac = 6;
-                else if (data_00497aa8[8] & 0x80) data_00474cac = 7;
-                else if (data_00497aa8[9] & 0x80) data_00474cac = 8;
-                else if (data_00497aa8[10] & 0x80) data_00474cac = 9;
+                if (g_keyboard_state[2] & 0x80) g_practice_difficulty = 1;
+                else if (g_keyboard_state[3] & 0x80) g_practice_difficulty = 2;
+                else if (g_keyboard_state[4] & 0x80) g_practice_difficulty = 3;
+                else if (g_keyboard_state[5] & 0x80) g_practice_difficulty = 4;
+                else if (g_keyboard_state[6] & 0x80) g_practice_difficulty = 5;
+                else if (g_keyboard_state[7] & 0x80) g_practice_difficulty = 6;
+                else if (g_keyboard_state[8] & 0x80) g_practice_difficulty = 7;
+                else if (g_keyboard_state[9] & 0x80) g_practice_difficulty = 8;
+                else if (g_keyboard_state[10] & 0x80) g_practice_difficulty = 9;
             }
         }
         break;
@@ -98,11 +98,11 @@ __declspec(noinline) int __stdcall TitleMode9_00430ff0(Title* room) {
             cursor->PushSelection();
             room->DisableTimerWithOwner(3);
             int stage = cursor->selection + 1;
-            data_00477848 = data_00474788 + stage * 0x30;
+            g_stage_route_current = g_stage_routes + stage * 0x30;
             g_globals_stage = stage;
             g_globals_stage_shown = stage;
             Music_FadeOut(6.0f);
-            data_00491fb8 = 7;
+            g_main_state = 7;
         }
         break;
     case 4:

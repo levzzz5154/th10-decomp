@@ -1,16 +1,16 @@
-extern "C" unsigned int data_004739c0;
-extern "C" unsigned int data_004739c4;
-extern "C" unsigned int data_004739c8;
-extern "C" unsigned int data_004739cc;
-extern "C" unsigned int data_004739d0;
-extern "C" unsigned int data_004739d4;
+extern "C" unsigned int g_crt_decimal_ptr_a;
+extern "C" unsigned int g_crt_decimal_ptr_b;
+extern "C" unsigned int g_crt_decimal_ptr_c;
+extern "C" unsigned int g_crt_decimal_ptr_d;
+extern "C" unsigned int g_crt_decimal_ptr_e;
+extern "C" unsigned int g_crt_decimal_ptr_f;
 
 // 0x00456A8C..0x00456AC3: Install the CRT floating-point conversion hooks.
 extern "C" void __cdecl asm_FUN_00456a8c_00456a8c() {
-    data_004739c0 = 0x0045df97;
-    data_004739c4 = 0x0045dc17;
-    data_004739c8 = 0x0045dc7c;
-    data_004739cc = 0x0045dbdb;
-    data_004739d0 = 0x0045dc62;
-    data_004739d4 = 0x0045df97;
+    g_crt_decimal_ptr_a = 0x0045df97;
+    g_crt_decimal_ptr_b = 0x0045dc17;
+    g_crt_decimal_ptr_c = 0x0045dc7c;
+    g_crt_decimal_ptr_d = 0x0045dbdb;
+    g_crt_decimal_ptr_e = 0x0045dc62;
+    g_crt_decimal_ptr_f = 0x0045df97;
 }

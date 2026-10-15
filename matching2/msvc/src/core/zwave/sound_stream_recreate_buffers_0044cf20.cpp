@@ -6,7 +6,7 @@
 void* __cdecl operator new(unsigned int size);
 void __cdecl operator delete(void* block);
 // IID_IDirectSoundNotify.
-extern "C" const unsigned char data_0046743c[16];
+extern "C" const unsigned char g_iid_idirectsoundbuffer[16];
 
 #pragma code_seg(".text$00recreate")
 extern "C" __declspec(noinline) int __stdcall SoundStream_RecreateBuffers_0044cf20(
@@ -32,7 +32,7 @@ extern "C" __declspec(noinline) int __stdcall SoundStream_RecreateBuffers_0044cf
                 &stream->buffers[i], 0) < 0)
             return 0x80004005;
         WaveBuffer* buffer = stream->buffers[i];
-        if (buffer->methods->query_interface(buffer, data_0046743c,
+        if (buffer->methods->query_interface(buffer, g_iid_idirectsoundbuffer,
                 reinterpret_cast<void**>(&notify)) < 0)
             return 0x80004005;
 

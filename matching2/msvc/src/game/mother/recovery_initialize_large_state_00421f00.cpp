@@ -2,7 +2,7 @@
 // before its original object-wide zero fill.
 #include <string.h>
 #include "th10/game/large_initialization_state_00421f00.hpp"
-extern "C" const void* const data_004703e4[];
+extern "C" const void* const g_anm_vm_vtable[];
 extern "C" void _ReadWriteBarrier();
 #pragma intrinsic(_ReadWriteBarrier)
 #pragma code_seg(".text$01anchor")
@@ -13,7 +13,7 @@ Init_00421f00(LargeInitializationState_00421f00* state) {
     state->timer.current = 0;
     state->timer.elapsed = 0;
     state->timer.control = 0;
-    state->timer.vtable = data_004703e4;
+    state->timer.vtable = g_anm_vm_vtable;
     _ReadWriteBarrier();
     memset(state, 0, sizeof(*state));
     state->flags |= 0x140u;

@@ -1,5 +1,5 @@
 // 0x0044D400: query one entry of an interface list for the interface 0x0046747C names.
-extern "C" const unsigned char data_0046747c[16];
+extern "C" const unsigned char g_iid_unk_indirect[16];
 struct Interface_0044d400 {
     virtual long __stdcall QueryInterface(const void* iid, void** object) = 0;
     virtual unsigned long __stdcall AddRef() = 0;
@@ -25,6 +25,6 @@ __declspec(noinline) long __stdcall QueryItem_0044d400(InterfaceList_0044d400* l
     if (!list->items) return 0x800401F0;
     if (index >= list->count) return 0x80070057;
     *object = 0;
-    return list->items[index]->QueryInterface(data_0046747c, object);
+    return list->items[index]->QueryInterface(g_iid_unk_indirect, object);
 }
 #pragma code_seg()

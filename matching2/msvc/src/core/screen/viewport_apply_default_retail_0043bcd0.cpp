@@ -4,13 +4,13 @@
 __declspec(noinline) int __stdcall ApplyDefaultViewport(unsigned int color) {
     if (g_sprt_ctrl)
         g_sprt_ctrl->Flush();
-    data_00491cf4.x = 0;
-    data_00491cf4.y = 0;
-    data_00491cf4.width = 640;
-    data_00491cf4.height = 480;
-    data_00491cf4.min_z = 0.0f;
-    data_00491cf4.max_z = 1.0f;
-    g_d3d_device->Viewport(&data_00491cf4);
+    g_device_viewport.x = 0;
+    g_device_viewport.y = 0;
+    g_device_viewport.width = 640;
+    g_device_viewport.height = 480;
+    g_device_viewport.min_z = 0.0f;
+    g_device_viewport.max_z = 1.0f;
+    g_d3d_device->Viewport(&g_device_viewport);
     return ClearAndPresentTwice(color);
 }
 #pragma code_seg()

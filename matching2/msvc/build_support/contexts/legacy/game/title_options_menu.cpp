@@ -99,7 +99,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0042d920_0042d920() {
     L_0042d9a5:
         call asm_AnimationManager_SetStopFrameAndRun_00449250
     L_0042d9aa:
-        mov al,byte ptr [data_00491d6a]
+        mov al,byte ptr [g_screen_mode]
     L_0042d9af:
         cmp al,bl
     L_0042d9b1:
@@ -458,7 +458,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0042d920_0042d920() {
     L_0042dbd2:
         mov dword ptr [esi+4],edx
     L_0042dbd5:
-        mov cl,byte ptr [data_00474e36]
+        mov cl,byte ptr [g_input_keys_held]
     L_0042dbdb:
         mov al,10h
     L_0042dbdd:
@@ -466,7 +466,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0042d920_0042d920() {
     L_0042dbdf:
         jne short L_0042dbe9
     L_0042dbe1:
-        test byte ptr [data_00474e34],al
+        test byte ptr [g_input_keys_edge],al
     L_0042dbe7:
         je short L_0042dbf2
     L_0042dbe9:
@@ -476,11 +476,11 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0042d920_0042d920() {
     L_0042dbed:
         call asm_MenuCursor_Advance_0044bea0
     L_0042dbf2:
-        test byte ptr [data_00474e36],20h
+        test byte ptr [g_input_keys_held],20h
     L_0042dbf9:
         jne short L_0042dc04
     L_0042dbfb:
-        test byte ptr [data_00474e34],20h
+        test byte ptr [g_input_keys_edge],20h
     L_0042dc02:
         je short L_0042dc0d
     L_0042dc04:
@@ -530,7 +530,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0042d920_0042d920() {
     L_0042dc50:
         call asm_FUN_0042c770_0042c770
     L_0042dc55:
-        test byte ptr [data_00474e36],0Ah
+        test byte ptr [g_input_keys_held],0Ah
     L_0042dc5c:
         mov eax,dword ptr [ebp+24h]
     L_0042dc5f:
@@ -652,55 +652,55 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0042d920_0042d920() {
     L_0042dd1f:
         jne asm_target_0042def6
     L_0042dd25:
-        cmp byte ptr [data_00491d69],5
+        cmp byte ptr [g_effect_volume],5
     L_0042dd2c:
         jge short L_0042dd40
     L_0042dd2e:
         mov edi,ebp
     L_0042dd30:
-        mov byte ptr [data_00491d69],bl
+        mov byte ptr [g_effect_volume],bl
     L_0042dd36:
         call asm_FUN_0042e5a0_0042e5a0
     L_0042dd3b:
         jmp asm_target_0042def6
     L_0042dd40:
-        mov al,byte ptr [data_00491d69]
+        mov al,byte ptr [g_effect_volume]
     L_0042dd45:
         add al,0FBh
     L_0042dd47:
         mov edi,ebp
     L_0042dd49:
-        mov byte ptr [data_00491d69],al
+        mov byte ptr [g_effect_volume],al
     L_0042dd4e:
         call asm_FUN_0042e5a0_0042e5a0
     L_0042dd53:
         jmp asm_target_0042def6
     L_0042dd58:
-        cmp byte ptr [data_00491d68],5
+        cmp byte ptr [g_music_volume],5
     L_0042dd5f:
         jge short L_0042dd73
     L_0042dd61:
         mov edi,ebp
     L_0042dd63:
-        mov byte ptr [data_00491d68],bl
+        mov byte ptr [g_music_volume],bl
     L_0042dd69:
         call asm_FUN_0042e5a0_0042e5a0
     L_0042dd6e:
         jmp asm_target_0042def6
     L_0042dd73:
-        mov al,byte ptr [data_00491d68]
+        mov al,byte ptr [g_music_volume]
     L_0042dd78:
         add al,0FBh
     L_0042dd7a:
         mov edi,ebp
     L_0042dd7c:
-        mov byte ptr [data_00491d68],al
+        mov byte ptr [g_music_volume],al
     L_0042dd81:
         call asm_FUN_0042e5a0_0042e5a0
     L_0042dd86:
         jmp asm_target_0042def6
     L_0042dd8b:
-        mov al,byte ptr [data_00491d6a]
+        mov al,byte ptr [g_screen_mode]
     L_0042dd90:
         cmp al,bl
     L_0042dd92:
@@ -710,7 +710,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0042d920_0042d920() {
     L_0042dd9a:
         cmp al,bl
     L_0042dd9c:
-        mov byte ptr [data_00491d6a],al
+        mov byte ptr [g_screen_mode],al
     L_0042dda1:
         jne asm_target_0042df66
     L_0042dda7:
@@ -816,7 +816,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0042d920_0042d920() {
     L_0042de3d:
         jmp asm_target_0042dedd
     L_0042de42:
-        mov byte ptr [data_00491d6a],2
+        mov byte ptr [g_screen_mode],2
     L_0042de49:
         mov edx,dword ptr [ebp+2C8h]
     L_0042de4f:
@@ -952,17 +952,17 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0042d920_0042d920() {
     L_0042df21:
         jne asm_target_0042e255
     L_0042df27:
-        mov al,byte ptr [data_00491d69]
+        mov al,byte ptr [g_effect_volume]
     L_0042df2c:
         add al,5
     L_0042df2e:
         cmp al,64h
     L_0042df30:
-        mov byte ptr [data_00491d69],al
+        mov byte ptr [g_effect_volume],al
     L_0042df35:
         jle short L_0042df3e
     L_0042df37:
-        mov byte ptr [data_00491d69],64h
+        mov byte ptr [g_effect_volume],64h
     L_0042df3e:
         mov edi,ebp
     L_0042df40:
@@ -1106,17 +1106,17 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0042d920_0042d920() {
     L_0042e01c:
         jmp asm_target_0042dedb
     L_0042e021:
-        mov al,byte ptr [data_00491d68]
+        mov al,byte ptr [g_music_volume]
     L_0042e026:
         add al,5
     L_0042e028:
         cmp al,64h
     L_0042e02a:
-        mov byte ptr [data_00491d68],al
+        mov byte ptr [g_music_volume],al
     L_0042e02f:
         jle short L_0042e038
     L_0042e031:
-        mov byte ptr [data_00491d68],64h
+        mov byte ptr [g_music_volume],64h
     L_0042e038:
         mov edi,ebp
     L_0042e03a:
@@ -1124,7 +1124,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0042d920_0042d920() {
     L_0042e03f:
         jmp asm_target_0042e255
     L_0042e044:
-        mov al,byte ptr [data_00491d6a]
+        mov al,byte ptr [g_screen_mode]
     L_0042e049:
         cmp al,2
     L_0042e04b:
@@ -1132,11 +1132,11 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0042d920_0042d920() {
     L_0042e04d:
         inc al
     L_0042e04f:
-        mov byte ptr [data_00491d6a],al
+        mov byte ptr [g_screen_mode],al
     L_0042e054:
         jmp short L_0042e05c
     L_0042e056:
-        mov byte ptr [data_00491d6a],bl
+        mov byte ptr [g_screen_mode],bl
     L_0042e05c:
         push ebx
     L_0042e05d:
@@ -1148,7 +1148,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0042d920_0042d920() {
     L_0042e06c:
         mov edx,dword ptr [ebp+2C8h]
     L_0042e072:
-        mov al,byte ptr [data_00491d6a]
+        mov al,byte ptr [g_screen_mode]
     L_0042e077:
         cmp al,bl
     L_0042e079:
@@ -1445,7 +1445,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0042d920_0042d920() {
     L_0042e250:
         call asm_AnimationManager_SelectSpriteFromCurrentResource_00449670
     L_0042e255:
-        test dword ptr [data_00474e36],1001h
+        test dword ptr [g_input_keys_held],1001h
     L_0042e25f:
         je asm_target_0042e574
     L_0042e265:
@@ -1515,17 +1515,17 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0042d920_0042d920() {
     L_0042e2ce:
         mov edi,ebp
     L_0042e2d0:
-        mov byte ptr [data_00491d68],64h
+        mov byte ptr [g_music_volume],64h
     L_0042e2d7:
-        mov byte ptr [data_00491d69],50h
+        mov byte ptr [g_effect_volume],50h
     L_0042e2de:
-        mov byte ptr [data_00491d6a],bl
+        mov byte ptr [g_screen_mode],bl
     L_0042e2e4:
         call asm_FUN_0042e5a0_0042e5a0
     L_0042e2e9:
         mov edx,dword ptr [ebp+2C8h]
     L_0042e2ef:
-        mov al,byte ptr [data_00491d6a]
+        mov al,byte ptr [g_screen_mode]
     L_0042e2f4:
         cmp al,bl
     L_0042e2f6:

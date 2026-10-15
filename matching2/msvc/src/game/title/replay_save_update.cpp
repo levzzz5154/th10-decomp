@@ -37,7 +37,7 @@ __declspec(noinline) int __stdcall TitleMode16_00433570(Title* room) {
         room->cursor.item_count = 25;
         room->cursor.wrap = 1;
         SelectItem_00433570(room->cursor, 0);
-        data_00477848 = data_00474788 + 8 * 0x30;
+        g_stage_route_current = g_stage_routes + 8 * 0x30;
         g_globals_stage = 8;
         g_globals_stage_shown = 8;
         for (int number = 1; number <= 25; ++number) {
@@ -53,18 +53,18 @@ __declspec(noinline) int __stdcall TitleMode16_00433570(Title* room) {
     case 2: {
         MenuCursor* cursor = &room->cursor;
         cursor->previous_selection = cursor->selection;
-        if ((short)data_00474e30.InputMaskActive(0x10)) cursor->Advance(-1);
-        if ((short)data_00474e30.InputMaskActive(0x20)) cursor->Advance(1);
+        if ((short)g_input_keys_raw.InputMaskActive(0x10)) cursor->Advance(-1);
+        if ((short)g_input_keys_raw.InputMaskActive(0x20)) cursor->Advance(1);
         if (cursor->previous_selection != cursor->selection)
             g_sound_manager.Queue(12, 0);
-        if (data_00474e36 & 0xa) {
+        if (g_input_keys_held & 0xa) {
             room->SetTimerTarget(4);
             g_sound_manager.Queue(11, 0);
-        } else if (data_00474e36 & 0x1001) {
+        } else if (g_input_keys_held & 0x1001) {
             MenuCursor* grid = &save->grid;
             save->selected_replay = cursor->selection;
             SelectItem_00433570(*grid, 0);
-            save->grid.item_count = strlen(data_004746d8);
+            save->grid.item_count = strlen(g_name_entry_grid);
             save->grid.wrap = 1;
             ReplayFileHeader_004315c0** header = &g_replay->header;
             time_00452b71(&(*header)->date);
@@ -87,15 +87,15 @@ __declspec(noinline) int __stdcall TitleMode16_00433570(Title* room) {
     case 3: {
         MenuCursor* grid = &save->grid;
         grid->previous_selection = grid->selection;
-        if ((short)data_00474e30.InputMaskActive(0x10)) grid->Advance(-13);
-        if ((short)data_00474e30.InputMaskActive(0x20)) grid->Advance(13);
-        if ((short)data_00474e30.InputMaskActive(0x40)) {
+        if ((short)g_input_keys_raw.InputMaskActive(0x10)) grid->Advance(-13);
+        if ((short)g_input_keys_raw.InputMaskActive(0x20)) grid->Advance(13);
+        if ((short)g_input_keys_raw.InputMaskActive(0x40)) {
             if (grid->selection % 13 != 0)
                 grid->Advance(-1);
             else
                 grid->Advance(12);
         }
-        if ((short)data_00474e30.InputMaskActive(0x80)) {
+        if ((short)g_input_keys_raw.InputMaskActive(0x80)) {
             if (grid->selection % 13 != 12)
                 grid->Advance(1);
             else
@@ -103,8 +103,8 @@ __declspec(noinline) int __stdcall TitleMode16_00433570(Title* room) {
         }
         if (grid->previous_selection != grid->selection)
             g_sound_manager.Queue(12, 0);
-        if (data_00474e36 & 0x1001) {
-            const char* characters = data_004746d8;
+        if (g_input_keys_held & 0x1001) {
+            const char* characters = g_name_entry_grid;
             int count = strlen(characters);
             int cell = grid->selection;
             if (cell < count - 3) {
@@ -142,7 +142,7 @@ __declspec(noinline) int __stdcall TitleMode16_00433570(Title* room) {
             }
             g_sound_manager.Queue(10, 0);
         }
-        if (data_00474e36 & 0xa) {
+        if (g_input_keys_held & 0xa) {
             if (save->name_length == 0) {
                 room->SetTimerTarget(2);
             } else {

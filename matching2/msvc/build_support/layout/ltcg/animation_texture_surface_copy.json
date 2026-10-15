@@ -95,7 +95,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_data_00491d14",
+      "symbol": "_g_render_target_format",
       "address": "0x00491D14",
       "kind": "data"
     },

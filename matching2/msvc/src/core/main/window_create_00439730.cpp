@@ -20,13 +20,13 @@ __declspec(noinline) int __fastcall CreateGameWindow_00439730(HINSTANCE instance
     window_class.hCursor = LoadCursorA(0, (LPCSTR)0x7F00);             // IDC_ARROW
     window_class.hInstance = instance;
     window_class.lpfnWndProc = WindowProcedure_004390e0;
-    data_004924f0.input_enabled = 1;
-    data_004924f0.reserved_10 = 0;
+    g_main_window.input_enabled = 1;
+    g_main_window.reserved_10 = 0;
     window_class.lpszClassName = "BASE";
     RegisterClassA(&window_class);
 
     HWND window;
-    if (data_00491d65 == 0) {
+    if (g_windowed == 0) {
         // WS_OVERLAPPEDWINDOW
         window = CreateWindowExA(0, "BASE", str_window_title, 0x00CF0000, 0, 0, 640, 480, 0, 0, instance, 0);
     } else {
@@ -36,13 +36,13 @@ __declspec(noinline) int __fastcall CreateGameWindow_00439730(HINSTANCE instance
         window = CreateWindowExA(0, "BASE", str_window_title, 0x100A0000, 0x80000000, 0x80000000, width,
                                  height, 0, 0, instance, 0);
     }
-    data_004924f0.window = window;
-    data_00491c70 = window;
+    g_main_window.window = window;
+    g_supervisor_window = window;
     if (window == 0)
         return 1;
     SendMessageA(window, 0x112, 0xF020, 0);                    // WM_SYSCOMMAND, SC_MINIMIZE
     Sleep(16);
-    SendMessageA(data_004924f0.window, 0x112, 0xF120, 0);      // WM_SYSCOMMAND, SC_RESTORE
+    SendMessageA(g_main_window.window, 0x112, 0xF120, 0);      // WM_SYSCOMMAND, SC_RESTORE
     return 0;
 }
 #pragma code_seg()

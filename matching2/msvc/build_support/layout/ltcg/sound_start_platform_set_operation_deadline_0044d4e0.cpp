@@ -5,8 +5,8 @@
 #pragma code_seg(".text$11volume")
 __declspec(noinline) int
 PlatformInterfaceState_0044D4E0::SetOperationDeadline(int deadline) {
-    if (data_00497854 != 0) {
-        float factor = 1.0f - (float)data_00497854 * 0.01f;
+    if (g_options_music_volume != 0) {
+        float factor = 1.0f - (float)g_options_music_volume * 0.01f;
         int value = (int)((1.0f - factor * factor) * (deadline + 5000));
         return entries_004[0]->set_deadline(value - 5000);
     }

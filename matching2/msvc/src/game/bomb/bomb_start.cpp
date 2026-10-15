@@ -24,9 +24,9 @@ int __stdcall Bomb_Start(Bomb* bomb) {
     g_front->SetPowerDigits(power / 20, (power % 20) * 100 / 20);
     PlayerInitializeGlobal* state = g_card;
     state->ClearExpiredFlags();
-    data_00474c98 -= 0x80;
-    if (data_00474c98 > 0x400) data_00474c98 = 0x400;
-    else if (data_00474c98 < -0x400) data_00474c98 = -0x400;
+    g_rank -= 0x80;
+    if (g_rank > 0x400) g_rank = 0x400;
+    else if (g_rank < -0x400) g_rank = -0x400;
     if ((state->flags & 1) && state->elapsed_frames >= 60) bomb->mode = 1;
     else bomb->mode = 0;
     return 0;

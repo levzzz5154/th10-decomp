@@ -1,7 +1,7 @@
 #pragma once
 
 // First DirectSound buffer of the platform sound state and its volume fades.
-extern "C" int data_00497854;
+extern "C" int g_options_music_volume;
 
 struct PlatformD4E0Entry {
     virtual void __stdcall slot_00() = 0;

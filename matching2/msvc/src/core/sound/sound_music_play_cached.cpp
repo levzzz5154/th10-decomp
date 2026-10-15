@@ -18,7 +18,7 @@ __declspec(dllimport) void* __stdcall CreateEventA(void* security, int manual_re
     int initial_state, const char* name);
 __declspec(dllimport) void* __stdcall CreateThread(void* security, unsigned int stack_bytes,
     MusicWorkerEntry entry, void* argument, unsigned int flags, unsigned int* thread_id);
-extern WaveGuidImage data_0046a67c;
+extern WaveGuidImage g_guid_wave_format;
 unsigned int __stdcall SoundStream_Worker_0043e3a0(void*);
 }
 // 0x0043D790: point the running stream at the track a path names.
@@ -51,7 +51,7 @@ int WaveSoundManager::PlayCachedMusic(int slot) {
     if (reinterpret_cast<SoundDeviceOwner*>(device_owner)->CreateMemoryStream(
             reinterpret_cast<SoundStreamingState**>(&music_stream),
             music_read_cursors[slot], music_remaining_bytes[slot], cached_music_records[slot],
-            0x10100, data_0046a67c, 16, segment_bytes, music_worker_event) < 0)
+            0x10100, g_guid_wave_format, 16, segment_bytes, music_worker_event) < 0)
         return -1;
     selected_music_slot = slot;
     return 0;

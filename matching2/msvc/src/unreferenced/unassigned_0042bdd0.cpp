@@ -13,7 +13,7 @@
 // The vtable address is taken through an array declaration, which is the shape
 // that stores the absolute address the manifest binds for 0x0046D0F0.
 
-extern "C" char data_0046d0f0[];
+extern "C" char g_enemy_eff_vtable[];
 extern "C" void __cdecl entry_free_00452422(void* block);
 extern "C" void __cdecl entry_free_004524a1(void* block);
 
@@ -28,7 +28,7 @@ __declspec(noinline) void* Disposable_0042bdd0_Destroy(Disposable_0042bdd0* obje
 #pragma code_seg(".text$01del")
 void* Disposable_0042bdd0_Destroy(Disposable_0042bdd0* object, int flags) {
     void* block = object->block;
-    object->vtable = data_0046d0f0;
+    object->vtable = g_enemy_eff_vtable;
     if (block != 0) {
         entry_free_00452422(block);
         object->block = 0;

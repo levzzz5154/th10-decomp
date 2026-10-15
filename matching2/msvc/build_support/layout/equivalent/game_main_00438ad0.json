@@ -57,23 +57,23 @@
       "address": "0x00466214",
       "kind": "data"
     },
-    "_data_00491d66": {
+    "_g_frame_limit": {
       "address": "0x00491D66",
       "kind": "data"
     },
-    "_data_00492254": {
+    "_g_frame_worker": {
       "address": "0x00492254",
       "kind": "data"
     },
-    "_data_004922a4": {
+    "_g_file_lock": {
       "address": "0x004922A4",
       "kind": "data"
     },
-    "_data_0049231e": {
+    "_g_file_lock_depth": {
       "address": "0x0049231E",
       "kind": "data"
     },
-    "_data_004923a0": {
+    "_g_frame_leftover_time": {
       "address": "0x004923A0",
       "kind": "data"
     },
@@ -245,7 +245,7 @@
       "address": "0x0046DF98",
       "kind": "data"
     },
-    "_data_00474dd4": {
+    "_g_input_worker": {
       "address": "0x00474DD4",
       "kind": "data"
     },
@@ -253,7 +253,7 @@
       "address": "0x00477708",
       "kind": "data"
     },
-    "_data_004977b4": {
+    "_g_sound_init_status": {
       "address": "0x004977B4",
       "kind": "data"
     },
@@ -501,11 +501,11 @@
       "address": "0x0046F66C",
       "kind": "data"
     },
-    "_data_00491c70": {
+    "_g_supervisor_window": {
       "address": "0x00491C70",
       "kind": "data"
     },
-    "_data_00491d65": {
+    "_g_windowed": {
       "address": "0x00491D65",
       "kind": "data"
     },
@@ -617,7 +617,7 @@
       "address": "0x0046DE7C",
       "kind": "data"
     },
-    "_data_00474e88": {
+    "_g_key_bindings_current": {
       "address": "0x00474E88",
       "kind": "data"
     },
@@ -633,19 +633,19 @@
       "address": "0x00491C28",
       "kind": "data"
     },
-    "_data_00492274": {
+    "_g_thread_sync": {
       "address": "0x00492274",
       "kind": "data"
     },
-    "_data_004922bc": {
+    "_g_text_log_lock": {
       "address": "0x004922BC",
       "kind": "data"
     },
-    "_data_0049231f": {
+    "_g_text_log_lock_depth": {
       "address": "0x0049231F",
       "kind": "data"
     },
-    "_data_004924f0": {
+    "_g_main_window": {
       "address": "0x004924F0",
       "kind": "data"
     },
@@ -765,7 +765,7 @@
       "address": "0x00474F70",
       "kind": "data"
     },
-    "_data_00491be0": {
+    "_g_replay_table": {
       "address": "0x00491BE0",
       "kind": "data"
     },

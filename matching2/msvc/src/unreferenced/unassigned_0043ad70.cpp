@@ -22,7 +22,7 @@ __declspec(dllimport) unsigned int __stdcall timeSetEvent_0046628c(
     unsigned int delay, unsigned int resolution, void* procedure,
     unsigned int user, unsigned int type);
 
-extern unsigned int data_00491c70;
+extern unsigned int g_supervisor_window;
 void midi_timer_callback_0043a6e0(void);
 int __stdcall midi_read_length_0043a730(const unsigned char*& cursor);
 }
@@ -80,7 +80,7 @@ __forceinline int OpenMidiOut_0043ad70(void** handle, unsigned int device,
 int MidiSequencer_0043ad70::Restart() {
     if (!track_table) return -1;
     ResetTracks();
-    OpenMidiOut_0043ad70(&midi_out, 0xFFFFFFFFu, data_00491c70, 0, 0x10000u);
+    OpenMidiOut_0043ad70(&midi_out, 0xFFFFFFFFu, g_supervisor_window, 0, 0x10000u);
     if (frame_timer) timeKillEvent_00466288(frame_timer);
     timeEndPeriod_00466274(timer_period);
     frame_timer = 0;

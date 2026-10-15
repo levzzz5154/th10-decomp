@@ -704,7 +704,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_004236f0_004236f0() {
     L_00423726:
         jl asm_target_00424376
     L_0042372c:
-        test dword ptr [data_00474e36],1001h
+        test dword ptr [g_input_keys_held],1001h
     L_00423736:
         je asm_target_00424376
     L_0042373c:
@@ -900,11 +900,11 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_004236f0_004236f0() {
     L_004238a1:
         mov dword ptr [esi+4],ecx
     L_004238a4:
-        test byte ptr [data_00474e36],10h
+        test byte ptr [g_input_keys_held],10h
     L_004238ab:
         jne short L_004238b6
     L_004238ad:
-        test byte ptr [data_00474e34],10h
+        test byte ptr [g_input_keys_edge],10h
     L_004238b4:
         je short L_004238bf
     L_004238b6:
@@ -914,11 +914,11 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_004236f0_004236f0() {
     L_004238ba:
         call asm_MenuCursor_Advance_0044bea0
     L_004238bf:
-        test byte ptr [data_00474e36],20h
+        test byte ptr [g_input_keys_held],20h
     L_004238c6:
         jne short L_004238d1
     L_004238c8:
-        test byte ptr [data_00474e34],20h
+        test byte ptr [g_input_keys_edge],20h
     L_004238cf:
         je short L_004238da
     L_004238d1:
@@ -952,7 +952,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_004236f0_004236f0() {
     L_00423901:
         call asm_AnimationManager_QueueResource_0043dc90
     L_00423906:
-        test dword ptr [data_00474e36],1001h
+        test dword ptr [g_input_keys_held],1001h
     L_00423910:
         je asm_target_00423a0a
     L_00423916:
@@ -1092,7 +1092,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_004236f0_004236f0() {
     L_00423a08:
         jle short L_004239e2
     L_00423a0a:
-        test byte ptr [data_00474e36],0Ah
+        test byte ptr [g_input_keys_held],0Ah
     L_00423a11:
         je asm_target_00424376
     L_00423a17:
@@ -1216,7 +1216,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_004236f0_004236f0() {
     L_00423adf:
         call asm_AnimationManager_QueueResource_0043dc90
     L_00423ae4:
-        mov eax,dword ptr [data_00474e36]
+        mov eax,dword ptr [g_input_keys_held]
     L_00423ae9:
         test eax,1001h
     L_00423aee:
@@ -1254,7 +1254,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_004236f0_004236f0() {
     L_00423b22:
         mov dword ptr [ebx],0
     L_00423b28:
-        mov eax,dword ptr [data_004746d8]
+        mov eax,dword ptr [g_name_entry_grid]
     L_00423b2d:
         lea edx,[eax+1]
     L_00423b30:
@@ -1626,11 +1626,11 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_004236f0_004236f0() {
     L_00423daa:
         call asm_AnimationManager_QueueResource_0043dc90
     L_00423daf:
-        test dword ptr [data_00474e36],1001h
+        test dword ptr [g_input_keys_held],1001h
     L_00423db9:
         je short L_00423e07
     L_00423dbb:
-        mov edi,dword ptr [data_004746d8]
+        mov edi,dword ptr [g_name_entry_grid]
     L_00423dc1:
         mov eax,edi
     L_00423dc3:
@@ -1678,7 +1678,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_004236f0_004236f0() {
     L_00423e02:
         call asm_AnimationManager_QueueResource_0043dc90
     L_00423e07:
-        test byte ptr [data_00474e36],bl
+        test byte ptr [g_input_keys_held],bl
     L_00423e0d:
         je asm_target_00424376
     L_00423e13:
@@ -2030,7 +2030,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_004236f0_004236f0() {
     L_0042406a:
         call asm_AnimationManager_QueueResource_0043dc90
     L_0042406f:
-        test dword ptr [data_00474e36],1001h
+        test dword ptr [g_input_keys_held],1001h
     L_00424079:
         je asm_target_0042426d
     L_0042407f:
@@ -2040,7 +2040,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_004236f0_004236f0() {
     L_00424087:
         jne asm_target_00424217
     L_0042408d:
-        mov edi,dword ptr [data_004746d8]
+        mov edi,dword ptr [g_name_entry_grid]
     L_00424093:
         mov eax,edi
     L_00424095:
@@ -2308,7 +2308,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_004236f0_004236f0() {
     L_00424268:
         call asm_AnimationManager_SetStopFrameFromHandleRetail_00449470
     L_0042426d:
-        test byte ptr [data_00474e36],0Ah
+        test byte ptr [g_input_keys_held],0Ah
     L_00424274:
         je asm_target_00424376
     L_0042427a:
@@ -2462,7 +2462,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_004236f0_004236f0() {
     L_0042436d:
         add edx,0Dh
     L_00424370:
-        mov dword ptr [data_00491fb8],edx
+        mov dword ptr [g_main_state],edx
     L_00424376:
         pop edi
     L_00424377:

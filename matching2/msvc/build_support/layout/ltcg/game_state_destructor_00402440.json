@@ -119,7 +119,7 @@
   ],
   "absolute_symbols": [
     {
-      "symbol": "_data_004776e4",
+      "symbol": "_g_background_prev",
       "address": "0x4776e4",
       "kind": "data"
     },

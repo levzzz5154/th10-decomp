@@ -18,8 +18,8 @@ void __stdcall Sound_InitThread() {
     // The handle is bit-cast to float only so that it selects the stack-passing
     // form of the call above; no conversion happens.
     ((SoundDeviceInitFn)asm_FUN_0043cd30_0043cd30)(&g_sound_manager,
-                                                   *(float*)&data_004977b8);
-    while (*(int*)&data_004977b4 == 0)
+                                                   *(float*)&g_sound_init_volume);
+    while (*(int*)&g_sound_init_status == 0)
         Sleep(1);
-    *(int*)&data_004977bc = 1;
+    *(int*)&g_sound_init_done = 1;
 }

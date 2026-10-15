@@ -26,8 +26,8 @@ struct TagMsg {
     unsigned int point_y;
 };
 
-extern "C" unsigned char data_00497798;
-extern "C" unsigned char data_0049779c;
+extern "C" unsigned char g_midi_worker_state;
+extern "C" unsigned char g_midi_worker_event;
 extern "C" void __cdecl asm_FUN_0044d850_0044d850();
 
 extern "C" __declspec(dllimport) unsigned int __stdcall MsgWaitForMultipleObjects(
@@ -42,16 +42,16 @@ extern "C" unsigned int __stdcall asm_MidiWorker_MessageLoopRetail_0043e3a0(void
     int finished = 0;
     TagMsg message;
     do {
-        unsigned int wait = MsgWaitForMultipleObjects(1, &data_0049779c, 0, 0xFFFFFFFF, 0xBF);
-        MidiWorkerState* state = (MidiWorkerState*)*(void**)&data_00497798;
+        unsigned int wait = MsgWaitForMultipleObjects(1, &g_midi_worker_event, 0, 0xFFFFFFFF, 0xBF);
+        MidiWorkerState* state = (MidiWorkerState*)*(void**)&g_midi_worker_state;
         if (state == 0)
             finished = 1;
         switch (wait) {
         case 0:
             if (state != 0 && state->stream != 0) {
                 state->stopping = 1;
-                ((StreamStopFn)asm_FUN_0044d850_0044d850)(*(void**)&data_00497798, 1);
-                ((MidiWorkerState*)*(void**)&data_00497798)->stopping = 0;
+                ((StreamStopFn)asm_FUN_0044d850_0044d850)(*(void**)&g_midi_worker_state, 1);
+                ((MidiWorkerState*)*(void**)&g_midi_worker_state)->stopping = 0;
             }
             break;
         case 1:

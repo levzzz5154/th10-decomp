@@ -51,7 +51,7 @@ typedef char InputRecorderStageOffset[offsetof(InputRecorder_004297D0,active_sta
 extern "C" {
 extern void* g_game;
 extern InputAnalogSource* g_fps;
-extern unsigned int data_00491d78;
+extern unsigned int g_sound_flags;
 }
 
 int __fastcall ReplayManager_OnUpdate(InputRecorder_004297D0*);

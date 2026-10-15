@@ -43,11 +43,11 @@ static __forceinline void SelectItem_0042f540(MenuCursor& cursor, int index) {
 // Copy the bindings in use into the screen and redraw their labels.
 static __forceinline void LoadBindings_0042f540(Title* room) {
     TitleKeyConfigView* labels = reinterpret_cast<TitleKeyConfigView*>(room);
-    labels->bindings_59cc[0] = data_00474e88.keys[0];
-    labels->bindings_59cc[1] = data_00474e88.keys[1];
-    labels->bindings_59cc[2] = data_00474e88.keys[2];
-    labels->bindings_59cc[3] = data_00474e88.keys[3];
-    labels->bindings_59cc[4] = data_00474e88.skip;
+    labels->bindings_59cc[0] = g_key_bindings_current.keys[0];
+    labels->bindings_59cc[1] = g_key_bindings_current.keys[1];
+    labels->bindings_59cc[2] = g_key_bindings_current.keys[2];
+    labels->bindings_59cc[3] = g_key_bindings_current.keys[3];
+    labels->bindings_59cc[4] = g_key_bindings_current.skip;
     RefreshTitleKeyConfigView(labels);
 }
 
@@ -61,9 +61,9 @@ static __forceinline void RunCursorSlot_0042f540(Title* room) {
 static __forceinline void HandleInput_0042f540(Title* room) {
     MenuCursor* cursor = &room->cursor;
     cursor->previous_selection = cursor->selection;
-    if (data_00474e30.Active(0x10))
+    if (g_input_keys_raw.Active(0x10))
         cursor->Advance(-1);
-    if (data_00474e30.Active(0x20))
+    if (g_input_keys_raw.Active(0x20))
         cursor->Advance(1);
     if (cursor->previous_selection != cursor->selection) {
         g_sound_manager.Queue(12, 0);
@@ -81,10 +81,10 @@ static __forceinline void HandleInput_0042f540(Title* room) {
         }
     }
 
-    if ((data_00474e30.pressed & 0xa) && cursor->selection == 6) {
+    if ((g_input_keys_raw.pressed & 0xa) && cursor->selection == 6) {
         LoadBindings_0042f540(room);
     } else {
-        if ((data_00474e36 & 0x1001) == 0)
+        if ((g_input_keys_held & 0x1001) == 0)
             return;
         switch (cursor->selection) {
         case 5:
@@ -93,12 +93,12 @@ static __forceinline void HandleInput_0042f540(Title* room) {
             return;
         case 6: {
             TitleKeyConfigView* labels = reinterpret_cast<TitleKeyConfigView*>(room);
-            data_00474e88.keys[0] = labels->bindings_59cc[0];
-            data_00474e88.keys[1] = labels->bindings_59cc[1];
-            data_00474e88.keys[2] = labels->bindings_59cc[2];
-            data_00474e88.keys[3] = labels->bindings_59cc[3];
-            data_00474e88.skip = labels->bindings_59cc[4];
-            data_00491d4c = data_00474e88;
+            g_key_bindings_current.keys[0] = labels->bindings_59cc[0];
+            g_key_bindings_current.keys[1] = labels->bindings_59cc[1];
+            g_key_bindings_current.keys[2] = labels->bindings_59cc[2];
+            g_key_bindings_current.keys[3] = labels->bindings_59cc[3];
+            g_key_bindings_current.skip = labels->bindings_59cc[4];
+            g_key_bindings = g_key_bindings_current;
             break;
         }
         default:

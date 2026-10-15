@@ -313,7 +313,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0040dc80_0040dc80() {
     L_0040de9b:
         je short L_0040debf
     L_0040de9d:
-        fld dword ptr [data_00491e6c]
+        fld dword ptr [g_enemy_scroll]
     L_0040dea3:
         fadd dword ptr [ebx]
     L_0040dea5:
@@ -867,7 +867,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0040dc80_0040dc80() {
     L_0040e261:
         or dword ptr [ebp+1444h],2000h
     L_0040e26b:
-        mov dword ptr [data_00474c50],1
+        mov dword ptr [g_enemy_hittable],1
     L_0040e275:
         mov ecx,dword ptr [ebp+14D8h]
     L_0040e27b:

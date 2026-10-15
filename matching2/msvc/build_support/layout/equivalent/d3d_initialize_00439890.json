@@ -121,15 +121,15 @@
       "address": "0x00491C28",
       "kind": "data"
     },
-    "_data_004922bc": {
+    "_g_text_log_lock": {
       "address": "0x004922BC",
       "kind": "data"
     },
-    "_data_0049231f": {
+    "_g_text_log_lock_depth": {
       "address": "0x0049231F",
       "kind": "data"
     },
-    "_data_004924f0": {
+    "_g_main_window": {
       "address": "0x004924F0",
       "kind": "data"
     }

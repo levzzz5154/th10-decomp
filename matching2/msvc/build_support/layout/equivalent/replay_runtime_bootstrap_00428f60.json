@@ -76,7 +76,7 @@
       "address": "0x00477838",
       "kind": "data"
     },
-    "_data_00474e88": {
+    "_g_key_bindings_current": {
       "address": "0x00474E88",
       "kind": "data"
     },
@@ -88,7 +88,7 @@
       "address": "0x004918B0",
       "kind": "data"
     },
-    "_data_00491fc4": {
+    "_g_stage_flags": {
       "address": "0x00491FC4",
       "kind": "data"
     },

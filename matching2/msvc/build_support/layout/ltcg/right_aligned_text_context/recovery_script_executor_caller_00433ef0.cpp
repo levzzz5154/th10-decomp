@@ -3,7 +3,7 @@
 extern "C" void* g_sprt_ctrl;
 extern "C" GameThread_0040c540* g_ascii_manager;
 extern "C" SoundQueue g_sound_manager;
-extern "C" unsigned int data_00474e36;
+extern "C" unsigned int g_input_keys_held;
 extern "C" unsigned short recovery_music_repeat_00474e34;
 extern "C" unsigned char* recovery_music_player_0047783c;
 extern "C" unsigned char recovery_music_mode_00491d78;
@@ -345,9 +345,9 @@ extern "C" __declspec(noinline) int __stdcall Title_UpdateMusicRoom(
             ++room->preview_cursor;
         }
         room->cursor.previous_selection = room->cursor.selection;
-        if ((data_00474e36 & 0x10u) || (recovery_music_repeat_00474e34 & 0x10u))
+        if ((g_input_keys_held & 0x10u) || (recovery_music_repeat_00474e34 & 0x10u))
             room->cursor.Advance(-1);
-        if ((data_00474e36 & 0x20u) || (recovery_music_repeat_00474e34 & 0x20u))
+        if ((g_input_keys_held & 0x20u) || (recovery_music_repeat_00474e34 & 0x20u))
             room->cursor.Advance(1);
         if (room->cursor.previous_selection != room->cursor.selection) {
             g_sound_manager.Queue(12, 0);
@@ -383,7 +383,7 @@ extern "C" __declspec(noinline) int __stdcall Title_UpdateMusicRoom(
             }
             room->preview_armed = 0;
         }
-        if (data_00474e36 & 0x1001u) {
+        if (g_input_keys_held & 0x1001u) {
             for (int row = 0; row < 8; ++row)
                 MusicSetTreeFrame(MusicFind(room->preview_handles[row].value), 3);
             room->displayed_track = room->cursor.selection;
@@ -403,7 +403,7 @@ extern "C" __declspec(noinline) int __stdcall Title_UpdateMusicRoom(
             room->preview_armed = 0;
             return 0;
         }
-        if (data_00474e36 & 0xAu)
+        if (g_input_keys_held & 0xAu)
             goto leave_room;
         break;
     case 3:

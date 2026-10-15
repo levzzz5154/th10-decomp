@@ -140,7 +140,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00432cb0_00432cb0() {
     L_00432dab:
         lea edi,[edx+eax+8]
     L_00432daf:
-        mov dword ptr [data_00477848],474908h
+        mov dword ptr [g_stage_route_current],474908h
     L_00432db9:
         call asm_FUN_00421fa0_00421fa0
     L_00432dbe:
@@ -148,7 +148,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00432cb0_00432cb0() {
     L_00432dc0:
         cmp esi,ebx
     L_00432dc2:
-        mov dword ptr [data_00477848],474788h
+        mov dword ptr [g_stage_route_current],474788h
     L_00432dcc:
         mov dword ptr [g_globals_stage],ebx
     L_00432dd2:
@@ -194,7 +194,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00432cb0_00432cb0() {
     L_00432e1b:
         mov dword ptr [ebx],0
     L_00432e21:
-        mov ecx,dword ptr [data_004746d8]
+        mov ecx,dword ptr [g_name_entry_grid]
     L_00432e27:
         lea edx,[ecx+1]
     L_00432e2a:
@@ -448,7 +448,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00432cb0_00432cb0() {
     L_00432fcb:
         call asm_AnimationManager_QueueResource_0043dc90
     L_00432fd0:
-        test dword ptr [data_00474e36],1001h
+        test dword ptr [g_input_keys_held],1001h
     L_00432fda:
         je asm_target_0043312b
     L_00432fe0:
@@ -458,7 +458,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00432cb0_00432cb0() {
     L_00432fe8:
         jne asm_target_0043310e
     L_00432fee:
-        mov edi,dword ptr [data_004746d8]
+        mov edi,dword ptr [g_name_entry_grid]
     L_00432ff4:
         mov eax,edi
     L_00432ff6:
@@ -636,7 +636,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00432cb0_00432cb0() {
     L_00433126:
         call asm_AnimationManager_QueueResource_0043dc90
     L_0043312b:
-        test byte ptr [data_00474e36],0Ah
+        test byte ptr [g_input_keys_held],0Ah
     L_00433132:
         je asm_target_00433209
     L_00433138:

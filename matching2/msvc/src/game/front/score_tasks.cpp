@@ -35,12 +35,12 @@ extern "C" char str_data_corrupted[];
 // The addressed bytes are linker-owned game globals. Their uses here match
 // the pointer/dword operations at 0x00413A20, without naming their owners.
 extern "C" {
-extern ScoreTaskResourceNames_00413a20* data_00477848;
+extern ScoreTaskResourceNames_00413a20* g_stage_route_current;
 extern unsigned int g_globals_score;
 extern int g_globals_character;
-extern void* data_00491be8;
+extern void* g_next_stage_buffer;
 extern void* g_sprt_ctrl;
-extern char data_00497c38[];
+extern char g_recovery_script_path[];
 }
 
 struct ScoreTaskClock_00413a20 {
@@ -102,21 +102,21 @@ extern "C" __declspec(noinline) int __stdcall ScoreTask_Setup_00413a20(
     void*& cached_resource = state->cached_resource_9e80;
     cached_resource =
         LoadCachedResource_00447280(0x1c, g_sprt_ctrl,
-                                   data_00477848->cached_resource_name);
+                                   g_stage_route_current->cached_resource_name);
     if (!cached_resource) {
         LogResourceLoadFailure_00413a20();
         return -1;
     }
 
-    void* preloaded_buffer = data_00491be8;
+    void* preloaded_buffer = g_next_stage_buffer;
     if (preloaded_buffer) {
         state->archive_buffer_9ebc = preloaded_buffer;
-        data_00491be8 = 0;
+        g_next_stage_buffer = 0;
     } else {
         const int path_index = g_globals_character;
-        ScoreTaskResourceNames_00413a20* resource_names = data_00477848;
+        ScoreTaskResourceNames_00413a20* resource_names = g_stage_route_current;
         const char* path_suffix = resource_names->archive_paths[path_index];
-        char* path = data_00497c38;
+        char* path = g_recovery_script_path;
         path[0] = '\0';
         strcat(path, path_suffix);
         state->archive_buffer_9ebc = Archive_LoadFile(path, 0, 0);

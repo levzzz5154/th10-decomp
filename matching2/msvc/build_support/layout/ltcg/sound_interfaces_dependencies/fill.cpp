@@ -1,6 +1,6 @@
 #include "sound_wave_types.hpp"
 typedef void (__stdcall* StreamSleep)(unsigned int);
-extern "C" { extern StreamSleep imp_Sleep; extern unsigned int data_004977a4; extern unsigned int (__stdcall* imp_SetFilePointer)(void*,int,int*,unsigned int); __declspec(dllimport) int __stdcall ReadFile(void*,void*,unsigned int,unsigned int*,void*); }
+extern "C" { extern StreamSleep imp_Sleep; extern unsigned int g_bgm_data_offset; extern unsigned int (__stdcall* imp_SetFilePointer)(void*,int,int*,unsigned int); __declspec(dllimport) int __stdcall ReadFile(void*,void*,unsigned int,unsigned int*,void*); }
 extern "C" __declspec(noinline) int __stdcall ArchiveRead(MusicReadCursor*,unsigned int,unsigned int,unsigned int*);
 extern "C" __declspec(noinline) int __stdcall ArchiveRewind(MusicReadCursor*,bool);
 
@@ -43,7 +43,7 @@ extern "C" __declspec(noinline) int __stdcall SoundStreamFill(SoundStream* strea
         void* file = reader->file;
         if (file) {
             MusicTrackRecord* record = reader->record;
-            imp_SetFilePointer(file, static_cast<int>(record->file_offset + data_004977a4), 0, 0);
+            imp_SetFilePointer(file, static_cast<int>(record->file_offset + g_bgm_data_offset), 0, 0);
             reader->file_remaining = static_cast<unsigned int>(reader->record->loop_end);
         }
     }

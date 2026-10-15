@@ -11,12 +11,12 @@ extern "C" void __stdcall asm_eh_vector_constructor_iterator_0045252d(
 extern "C" void __cdecl asm_DatArchive_Reset_00434c20(void);
 extern "C" void __cdecl StaticExit_ArchiveArray(void);
 extern "C" int __cdecl asm_atexit_00452e0a(void (__cdecl*)(void));
-extern "C" char data_004923b0[];
+extern "C" char g_archive_entries[];
 int* __fastcall ArchiveRecord_Construct(int* element);
 
 extern "C" void __cdecl StaticInit_ArchiveArray(void) {
     asm_eh_vector_constructor_iterator_0045252d(
-        data_004923b0, 16, 20,
+        g_archive_entries, 16, 20,
         (void (__cdecl*)(void))ArchiveRecord_Construct,
         asm_DatArchive_Reset_00434c20);
     asm_atexit_00452e0a(StaticExit_ArchiveArray);

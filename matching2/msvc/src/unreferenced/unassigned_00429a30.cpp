@@ -14,11 +14,11 @@ struct Entity_00429a30 {
 };
 
 extern "C" GameUi_00429a30* g_game;
-extern "C" unsigned int data_00474e30;
+extern "C" unsigned int g_input_keys_raw;
 
 #pragma code_seg(".text$01accessor")
 __declspec(noinline) int Entity_00429a30::SelectFrameStep() {
-    if (g_game != 0 && state == 1 && (data_00474e30 & 0x100) &&
+    if (g_game != 0 && state == 1 && (g_input_keys_raw & 0x100) &&
         frame % 4 != 0)
         return 6;
     return 1;

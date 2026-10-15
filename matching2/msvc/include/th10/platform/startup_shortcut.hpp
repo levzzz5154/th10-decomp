@@ -70,8 +70,8 @@ extern HANDLE startupMutex;
 extern DWORD startupFlags;
 extern BYTE startupReplay;
 extern TextLog_0044b8e0 startupLog;
-extern CriticalSection data_004922bc, g_file_critical_section;
-extern BYTE data_0049231f, g_file_critical_depth;
+extern CriticalSection g_text_log_lock, g_file_critical_section;
+extern BYTE g_text_log_lock_depth, g_file_critical_depth;
 extern void* imp_EnterCriticalSection;
 extern void* imp_CreateFileA;
 }

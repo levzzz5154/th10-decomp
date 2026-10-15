@@ -203,7 +203,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00474e88",
+      "symbol": "_g_key_bindings_current",
       "address": "0x00474E88",
       "kind": "data"
     },
@@ -223,12 +223,12 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_004703e4",
+      "symbol": "_g_anm_vm_vtable",
       "address": "0x004703E4",
       "kind": "data"
     },
     {
-      "symbol": "_data_0046ecf0",
+      "symbol": "_g_title_vtable",
       "address": "0x0046ECF0",
       "kind": "data"
     },

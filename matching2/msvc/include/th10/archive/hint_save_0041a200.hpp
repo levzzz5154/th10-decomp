@@ -32,8 +32,8 @@ extern int (__stdcall* imp_CloseHandle)(void* handle);              // CloseHand
 extern int (__stdcall* imp_WriteFile)(void* handle, const void* buffer,
     unsigned int size, unsigned int* written, void* overlapped);  // WriteFile
 extern void (__stdcall* imp_LeaveCriticalSection)(void* section);            // LeaveCriticalSection
-extern void* data_00474c38;                                       // shared file handle
-extern unsigned char data_0049231e;                               // file lock depth
+extern void* g_file_write_handle;                                       // shared file handle
+extern unsigned char g_file_lock_depth;                               // file lock depth
 
 // hint_auto.txt literals.
 extern const char str_hint_stage_end[];   // "StageEnd\r\n"
@@ -69,7 +69,7 @@ struct HintNameEntry_0041a200 {
     int id;                 // +0x04
 };
 
-extern "C" const HintNameEntry_0041a200 data_00474494[3];    // Align: center/left/right
-extern "C" const HintNameEntry_0041a200 data_004744b0[61];   // Base: start/converse/boss names
+extern "C" const HintNameEntry_0041a200 g_hint_align_names[3];    // Align: center/left/right
+extern "C" const HintNameEntry_0041a200 g_hint_base_names[61];   // Base: start/converse/boss names
 
 #endif

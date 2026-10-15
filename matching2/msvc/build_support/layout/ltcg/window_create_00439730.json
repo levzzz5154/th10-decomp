@@ -72,17 +72,17 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_004924f0",
+      "symbol": "_g_main_window",
       "address": "0x004924F0",
       "kind": "data"
     },
     {
-      "symbol": "_data_00491c70",
+      "symbol": "_g_supervisor_window",
       "address": "0x00491C70",
       "kind": "data"
     },
     {
-      "symbol": "_data_00491d65",
+      "symbol": "_g_windowed",
       "address": "0x00491D65",
       "kind": "data"
     },

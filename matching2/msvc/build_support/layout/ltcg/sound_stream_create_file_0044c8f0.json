@@ -175,7 +175,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_004977a4",
+      "symbol": "_g_bgm_data_offset",
       "address": "0x004977A4",
       "kind": "data"
     },
@@ -215,12 +215,12 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00491c70",
+      "symbol": "_g_supervisor_window",
       "address": "0x00491C70",
       "kind": "data"
     },
     {
-      "symbol": "_data_0046a67c",
+      "symbol": "_g_guid_wave_format",
       "address": "0x0046A67C",
       "kind": "data"
     },

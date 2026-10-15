@@ -115,7 +115,7 @@ struct RenderTargetViewport {
     unsigned int x, y, width, height;
     float min_z, max_z;
 };
-extern "C" RenderTargetViewport* data_00491fac;
+extern "C" RenderTargetViewport* g_render_stage_active;
 // 0x004423C0: one saturated colour channel product, scaled by 1/128.
 __declspec(noinline) unsigned int AnimationColor_MultiplyChannel(unsigned char value, unsigned char scale);
 struct ScreenRect { float left, top, right, bottom; };
@@ -167,8 +167,8 @@ struct RenderDevice {
 };
 extern "C" RenderDevice* g_d3d_device;
 struct DeviceViewport { unsigned int x, y, width, height; float min_z, max_z; };
-extern "C" DeviceViewport data_00491cf4;
-extern "C" char data_00491d0c[];
+extern "C" DeviceViewport g_device_viewport;
+extern "C" char g_present_parameters[];
 __declspec(noinline) int __stdcall ClearAndPresentTwice(unsigned int color);
 struct SolidPosition {
     float x, y, z;

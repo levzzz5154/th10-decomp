@@ -40,17 +40,17 @@
   "constants": [],
   "absolute_symbols": [
     {
-      "symbol": "_data_004924fc",
+      "symbol": "_g_input_enabled",
       "address": "0x004924FC",
       "kind": "data"
     },
     {
-      "symbol": "_data_00491ff4",
+      "symbol": "_g_app_flags",
       "address": "0x00491FF4",
       "kind": "data"
     },
     {
-      "symbol": "_data_00491c38",
+      "symbol": "_g_keyboard_device",
       "address": "0x00491C38",
       "kind": "data"
     },

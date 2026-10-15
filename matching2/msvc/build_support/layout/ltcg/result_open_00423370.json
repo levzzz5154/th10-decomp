@@ -517,12 +517,12 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00491ff4",
+      "symbol": "_g_app_flags",
       "address": "0x491ff4",
       "kind": "data"
     },
     {
-      "symbol": "_data_00491fb8",
+      "symbol": "_g_main_state",
       "address": "0x491fb8",
       "kind": "data"
     },
@@ -537,7 +537,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00491d78",
+      "symbol": "_g_sound_flags",
       "address": "0x491d78",
       "kind": "data"
     },
@@ -632,7 +632,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_data_00474788",
+      "symbol": "_g_stage_routes",
       "address": "0x00474788",
       "kind": "data"
     },
@@ -677,12 +677,12 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00474c84",
+      "symbol": "_g_stage_progress",
       "address": "0x00474C84",
       "kind": "data"
     },
     {
-      "symbol": "_data_00474c8c",
+      "symbol": "_g_stage_progress_echo",
       "address": "0x00474C8C",
       "kind": "data"
     },
@@ -697,7 +697,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00474e62",
+      "symbol": "_g_input_keys_secondary",
       "address": "0x00474E62",
       "kind": "data"
     },
@@ -717,7 +717,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00477848",
+      "symbol": "_g_stage_route_current",
       "address": "0x00477848",
       "kind": "data"
     },

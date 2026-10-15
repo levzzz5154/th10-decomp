@@ -11,7 +11,7 @@
 
 #include <string.h>
 
-extern "C" char data_00474e88[];
+extern "C" char g_key_bindings_current[];
 
 #include "th10/game/large_initialization_state_00421f00.hpp"
 
@@ -29,7 +29,7 @@ char __fastcall GameConfig_InitializeDefaults(int unused, GameConfig* config) {
     config->field_1b = 1;
     config->field_1c = 1;
     config->flags |= 0x100;
-    memcpy(config->version_prefix, data_00474e88, 18);
+    memcpy(config->version_prefix, g_key_bindings_current, 18);
     config->field_1f = 2;
     config->field_22 = 0;
     config->field_20 = 100;

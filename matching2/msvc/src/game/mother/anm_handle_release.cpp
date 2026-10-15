@@ -8,7 +8,7 @@ extern "C" __declspec(noinline) void __stdcall ReleaseAnimationHandles_00421300(
         QueuedCleanupManager_00421070 receiver;
         QueuedCleanupContext_00421070* context = *reinterpret_cast<QueuedCleanupContext_00421070**>(&g_sprt_ctrl);
         QueuedAnmObject_00421070* animation;
-        animation = static_cast<QueuedAnmObject_00421070*>(receiver.Find(context, data_00477824));
+        animation = static_cast<QueuedAnmObject_00421070*>(receiver.Find(context, g_queued_cleanup_a));
         if (animation) {
             animation->cleanup_flag_304 = 2;
             if (!animation->children_processed_018)
@@ -16,7 +16,7 @@ extern "C" __declspec(noinline) void __stdcall ReleaseAnimationHandles_00421300(
                      child; child = child->next)
                     child->object->cleanup_flag_304 = 2;
         }
-        animation = static_cast<QueuedAnmObject_00421070*>(receiver.Find(context, data_00477828));
+        animation = static_cast<QueuedAnmObject_00421070*>(receiver.Find(context, g_queued_cleanup_b));
         if (animation) {
             animation->cleanup_flag_304 = 2;
             if (!animation->children_processed_018)
@@ -24,7 +24,7 @@ extern "C" __declspec(noinline) void __stdcall ReleaseAnimationHandles_00421300(
                      child; child = child->next)
                     child->object->cleanup_flag_304 = 2;
         }
-        animation = static_cast<QueuedAnmObject_00421070*>(receiver.Find(context, data_0047782c));
+        animation = static_cast<QueuedAnmObject_00421070*>(receiver.Find(context, g_queued_cleanup_c));
         if (animation) {
             animation->cleanup_flag_304 = 2;
             if (!animation->children_processed_018)
@@ -33,12 +33,12 @@ extern "C" __declspec(noinline) void __stdcall ReleaseAnimationHandles_00421300(
                     child->object->cleanup_flag_304 = 2;
         }
 
-        static_cast<volatile QueuedCleanupScriptId_00421070*>(&data_00477824)->value = 0;
-        static_cast<volatile QueuedCleanupScriptId_00421070*>(&data_00477828)->value = 0;
-        static_cast<volatile QueuedCleanupScriptId_00421070*>(&data_0047782c)->value = 0;
+        static_cast<volatile QueuedCleanupScriptId_00421070*>(&g_queued_cleanup_a)->value = 0;
+        static_cast<volatile QueuedCleanupScriptId_00421070*>(&g_queued_cleanup_b)->value = 0;
+        static_cast<volatile QueuedCleanupScriptId_00421070*>(&g_queued_cleanup_c)->value = 0;
         static_cast<volatile QueuedAnmState_00421070*>(state)->pending_cleanup_6FC = 2;
     }
-    if (*reinterpret_cast<int*>(&data_00491bec))
-        *reinterpret_cast<int*>(&data_00491bec) = 0;
+    if (*reinterpret_cast<int*>(&g_queued_anm_release))
+        *reinterpret_cast<int*>(&g_queued_anm_release) = 0;
 }
 #pragma code_seg()

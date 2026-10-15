@@ -57,10 +57,10 @@ struct ApplicationState_0042d920 {
 extern "C" {
 extern ApplicationState_0042d920 application_state_00491c00;
 // The volume bytes seen as the plain symbols at their own addresses.
-extern unsigned char data_00491d68;
-extern unsigned char data_00491d69;
+extern unsigned char g_music_volume;
+extern unsigned char g_effect_volume;
 }
-#define data_00491d4c application_state_00491c00.config
+#define g_key_bindings application_state_00491c00.config
 
 // 0x0042E5A0: apply the volumes and rewrite the option labels.
 __declspec(noinline) void __stdcall RefreshOptions_0042e5a0(Title* room);

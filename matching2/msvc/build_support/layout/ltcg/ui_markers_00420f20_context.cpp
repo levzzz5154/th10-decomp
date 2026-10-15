@@ -17,9 +17,9 @@ extern "C" int __stdcall UiMarkersCompilerContext(
         hosts[index].StopWorker();
         GameUi_ShowMarkers_00421180(&hosts[index], &positions[index]);
     }
-    UiMarkersObserve(&data_00477824);
-    UiMarkersObserve(&data_00477828);
-    UiMarkersObserve(&data_0047782c);
+    UiMarkersObserve(&g_queued_cleanup_a);
+    UiMarkersObserve(&g_queued_cleanup_b);
+    UiMarkersObserve(&g_queued_cleanup_c);
     return count;
 }
 #pragma code_seg()

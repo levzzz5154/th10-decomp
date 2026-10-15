@@ -16,26 +16,26 @@ typedef unsigned long (__stdcall *RawThreadEntry)(void*);
 __declspec(dllimport) void *__stdcall CreateThread(void*,unsigned long,RawThreadEntry,void*,unsigned long,unsigned long*);
 unsigned int __cdecl beginthreadex_00453683(void*,unsigned int,PlatformWorkerEntry,void*,unsigned int,unsigned int*);
 extern float g_game_speed;
-extern unsigned int data_004923a8,data_00491ff8;
-extern unsigned short data_004918a8;
+extern unsigned int g_main_clear_color,g_startup_time;
+extern unsigned short g_rng_seed_copy;
 extern unsigned char g_sound_manager;
-extern void *data_004977ac;
-extern PlatformWorker data_00474dd4;
+extern void *g_sound_preload_thread;
+extern PlatformWorker g_input_worker;
 }
 #pragma code_seg(".text$a00worker")
 extern "C" __declspec(noinline) int __cdecl App_StartWorkers() {
     InitializeVersionMarker_00420100();
-    g_game_speed=1.0f;data_004923a8=0xff000000;
+    g_game_speed=1.0f;g_main_clear_color=0xff000000;
     RenderCamera_InitializeDefaults_004216f0();
-    unsigned long now=timeGetTime();data_00491ff8=now;
-    g_rng.seed=(unsigned short)now;data_004918a8=(unsigned short)now;
+    unsigned long now=timeGetTime();g_startup_time=now;
+    g_rng.seed=(unsigned short)now;g_rng_seed_copy=(unsigned short)now;
     unsigned long thread_id;
-    data_004977ac=CreateThread(0,0,reinterpret_cast<RawThreadEntry>(&Sound_PreloadWorker_0043d080),&g_sound_manager,0,&thread_id);
+    g_sound_preload_thread=CreateThread(0,0,reinterpret_cast<RawThreadEntry>(&Sound_PreloadWorker_0043d080),&g_sound_manager,0,&thread_id);
     CreateStatsTaskOwner_00413350();
-    data_00474dd4.Stop();
-    data_00474dd4.entry=reinterpret_cast<PlatformWorkerEntry>(&Input_InitThread);
-    data_00474dd4.running=1;data_00474dd4.stop_requested=0;
-    data_00474dd4.thread=reinterpret_cast<void*>(beginthreadex_00453683(0,0,reinterpret_cast<PlatformWorkerEntry>(&Input_InitThread),&g_application,0,&data_00474dd4.thread_id));
+    g_input_worker.Stop();
+    g_input_worker.entry=reinterpret_cast<PlatformWorkerEntry>(&Input_InitThread);
+    g_input_worker.running=1;g_input_worker.stop_requested=0;
+    g_input_worker.thread=reinterpret_cast<void*>(beginthreadex_00453683(0,0,reinterpret_cast<PlatformWorkerEntry>(&Input_InitThread),&g_application,0,&g_input_worker.thread_id));
     g_sprt_ctrl->InitializeClip();
     InitializeFontCache_00437a00();
     return 0;

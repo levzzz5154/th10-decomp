@@ -1,14 +1,14 @@
 struct CrtThreadErrors { unsigned char prefix[8]; int error; unsigned int dos_error; };
 struct CrtErrorMap { unsigned int dos_error; int error; };
 extern "C" CrtThreadErrors* __cdecl asm_getptd_00456357();
-extern "C" CrtErrorMap data_004733b8[45];
+extern "C" CrtErrorMap g_crt_doserr_table[45];
 
 // 0x00456B04..0x00456B76: Translate a DOS error to thread-local errno.
 extern "C" void __cdecl asm_dosmaperr_00456b04(unsigned int dos_error) {
     asm_getptd_00456357()->dos_error = dos_error;
     for (unsigned int i = 0; i < 45; ++i) {
-        if (dos_error == data_004733b8[i].dos_error) {
-            asm_getptd_00456357()->error = data_004733b8[i].error;
+        if (dos_error == g_crt_doserr_table[i].dos_error) {
+            asm_getptd_00456357()->error = g_crt_doserr_table[i].error;
             return;
         }
     }

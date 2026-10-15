@@ -9,15 +9,15 @@
 // Native LTCG passes the object in EDI and the script state in ESI.
 #include "th10/game/ending_update.hpp"
 
-extern "C" unsigned int data_00474e30;
-extern "C" unsigned int data_00491fb8;
-extern "C" unsigned int data_00491ff4;
+extern "C" unsigned int g_input_keys_raw;
+extern "C" unsigned int g_main_state;
+extern "C" unsigned int g_app_flags;
 
 #pragma code_seg(".text$00xdecision")
 __declspec(noinline) int
 EndingUpdateView::Update() {
     if (EndingText_Tick(tick_state_018)) {
-        data_00491fb8 = (data_00491ff4 & 0x1000u) ? 2u : 15u;
+        g_main_state = (g_app_flags & 0x1000u) ? 2u : 15u;
         return 1;
     }
 
@@ -26,7 +26,7 @@ EndingUpdateView::Update() {
         reinterpret_cast<const EndingTextFlagsView*>(
             tick_state_018)->flags_074;
     if ((tick_flags & 4u) == 0 && (flags_020 & 2u) == 0 &&
-        (tick_flags & 2u) != 0 && (data_00474e30 & 0x100u) != 0) {
+        (tick_flags & 2u) != 0 && (g_input_keys_raw & 0x100u) != 0) {
         if (decision_counter_024 % 12 != 0)
             return 6;
     }

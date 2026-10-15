@@ -49,7 +49,7 @@ extern "C" __declspec(noinline) int __stdcall TitleMenu_DrawScoreEntry_00433230(
                         .table.rows[selected][row].continues,
                     date->tm_year + 1900, date->tm_mon + 1, date->tm_mday, date->tm_hour,
                     date->tm_min,
-                    data_0047471c[g_score[g_globals_character.character +
+                    g_stage_names_long[g_score[g_globals_character.character +
                                                 g_globals_character.shot_type * 3]
                                       .table.rows[selected][row].stage],
                     g_score[g_globals_character.character + g_globals_character.shot_type * 3]
@@ -70,7 +70,7 @@ extern "C" __declspec(noinline) int __stdcall TitleMenu_DrawScoreEntry_00433230(
             position.y += 18.0f;
         }
         if (!menu->name_confirmed) {
-            int count = strlen(data_004746d8);
+            int count = strlen(g_name_entry_grid);
             position.x = 84.0f;
             position.y = menu->cursor * 18.0f + 160.0f;
             position.z = 0.0f;
@@ -89,7 +89,7 @@ extern "C" __declspec(noinline) int __stdcall TitleMenu_DrawScoreEntry_00433230(
                 g_ascii_manager->current_4c = menu->name_cell == cell ? 0xFFFFFF00 : 0xFF808080;
                 if (cell < count - 3)
                     AsciiManager_AddFormatted(g_ascii_manager, &position, "%c",
-                                             data_004746d8[cell]);
+                                             g_name_entry_grid[cell]);
                 else
                     AsciiManager_AddFormatted(
                         g_ascii_manager, &position, "%c",

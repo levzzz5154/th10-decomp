@@ -104,8 +104,8 @@ extern "C" {
 extern SprtCtrlTargetsView* g_sprt_ctrl;
 extern RenderDevice* g_d3d_device;
 extern ScreenshotState g_application;
-extern unsigned int data_00491fd4,data_00474e36,data_00492134,data_00491d14;
-extern char data_00491d0c[],str_snapshot_dir[],str_snapshot_path_format[],str_mother_cpp_error[],str_snapshot_16bit_unsupported[],str_snapshot_alloc_failed[];
+extern unsigned int g_device_mode,g_input_keys_held,g_screenshot_thread_id,g_render_target_format;
+extern char g_present_parameters[],str_snapshot_dir[],str_snapshot_path_format[],str_mother_cpp_error[],str_snapshot_16bit_unsupported[],str_snapshot_alloc_failed[];
 void __cdecl Renderer_ApplyDeviceDefaults();
 int __cdecl MakeDirectory_00452abc(const char*);
 int __cdecl FormatString_00452ae8(char*,const char*,...);

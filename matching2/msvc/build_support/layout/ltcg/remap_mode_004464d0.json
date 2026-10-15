@@ -44,12 +44,12 @@
       "kind": "metadata"
     },
     {
-      "symbol": "_data_00491d78",
+      "symbol": "_g_sound_flags",
       "address": "0x00491D78",
       "kind": "data"
     },
     {
-      "symbol": "_data_0046f288",
+      "symbol": "_g_texture_formats_a",
       "address": "0x0046F288",
       "kind": "data"
     }

@@ -1657,7 +1657,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_00416a24:
         call asm_FrameTimer_Advance_0044bf40
     L_00416a29:
-        test dword ptr [data_00474e62],1001h
+        test dword ptr [g_input_keys_secondary],1001h
     L_00416a33:
         jne short L_00416a65
     L_00416a35:
@@ -1707,7 +1707,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_00416a8c:
         jmp asm_target_00416f09
     L_00416a91:
-        mov eax,dword ptr [data_00477848]
+        mov eax,dword ptr [g_stage_route_current]
     L_00416a96:
         mov ecx,dword ptr [eax+28h]
     L_00416a99:
@@ -2285,7 +2285,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_00416f39:
         ret 4
     L_00416f3c:
-        mov ecx,dword ptr [data_00474c84]
+        mov ecx,dword ptr [g_stage_progress]
     L_00416f42:
         xor eax,eax
     L_00416f44:
@@ -2293,7 +2293,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_00416f46:
         je short L_00416f4d
     L_00416f48:
-        mov dword ptr [data_00474c8c],eax
+        mov dword ptr [g_stage_progress_echo],eax
     L_00416f4d:
         pop edi
     L_00416f4e:
@@ -2301,7 +2301,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_00416f4f:
         pop ebp
     L_00416f50:
-        mov dword ptr [data_00474c84],eax
+        mov dword ptr [g_stage_progress],eax
     L_00416f55:
         or eax,0FFFFFFFFh
     L_00416f58:

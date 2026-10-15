@@ -107,12 +107,12 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00491d78",
+      "symbol": "_g_sound_flags",
       "address": "0x491d78",
       "kind": "data"
     },
     {
-      "symbol": "_data_00474e30",
+      "symbol": "_g_input_keys_raw",
       "address": "0x474e30",
       "kind": "data"
     },

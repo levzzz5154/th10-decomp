@@ -6,8 +6,8 @@ __declspec(noinline) char* TextLog_0044b8e0::AppendLine(char* format, ...) {
     char buffer[512];
     va_list va;
     va_start(va, format);
-    EnterCriticalSection(&data_004922bc);
-    ++data_0049231f;
+    EnterCriticalSection(&g_text_log_lock);
+    ++g_text_log_lock_depth;
     asm_vsprintf_004524a6(buffer, format, va);
     unsigned int length = strlen(buffer);
     char* dest = cursor;
@@ -17,8 +17,8 @@ __declspec(noinline) char* TextLog_0044b8e0::AppendLine(char* format, ...) {
         *cursor = 0;
     }
     dirty = 1;
-    LeaveCriticalSection(&data_004922bc);
-    --data_0049231f;
+    LeaveCriticalSection(&g_text_log_lock);
+    --g_text_log_lock_depth;
     return format;
 }
 #pragma code_seg()

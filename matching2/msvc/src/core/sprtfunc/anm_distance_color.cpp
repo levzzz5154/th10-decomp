@@ -39,14 +39,14 @@ struct BillboardSource_00443B60 {
     __declspec(noinline) int BuildProjectedQuad();
 };
 
-extern "C" float data_00491d7c;
-extern "C" float data_00491d80;
-extern "C" float data_00491d84;
-extern "C" float data_00491e78;
-extern "C" float data_00491e7c;
-extern "C" float data_00491e80;
-extern "C" float data_00491e84;
-extern "C" float data_00491e88;
+extern "C" float g_back_camera;
+extern "C" float g_back_camera_2;
+extern "C" float g_back_camera_3;
+extern "C" float g_sprite_fade_near;
+extern "C" float g_sprite_fade_far;
+extern "C" float g_sprite_fade_color_r;
+extern "C" float g_sprite_fade_color_g;
+extern "C" float g_sprite_fade_color_b;
 
 static __forceinline float DistanceFrom_00443FB0(RenderVec3 delta) {
     return (float)sqrt(delta.x * delta.x + delta.y * delta.y + delta.z * delta.z);
@@ -58,7 +58,7 @@ extern "C" __declspec(noinline) int EntityDraw_00443fb0(SprtCtrlBatchView* manag
     if (((BillboardSource_00443B60*)entity)->BuildProjectedQuad() != 0) {
         return -1;
     }
-    float span = data_00491e78 - data_00491e7c;
+    float span = g_sprite_fade_near - g_sprite_fade_far;
     unsigned int color = (entity->flags & 0x8000u) ? entity->color_secondary : entity->color;
     RenderVec3 delta;
     delta.x = entity->position.x + entity->base_position.x;
@@ -68,9 +68,9 @@ extern "C" __declspec(noinline) int EntityDraw_00443fb0(SprtCtrlBatchView* manag
     t.x = delta.x + entity->render_offset.x;
     t.y = delta.y + entity->render_offset.y;
     t.z = delta.z + entity->render_offset.z;
-    delta.x = t.x - data_00491d7c;
-    delta.y = t.y - data_00491d80;
-    delta.z = t.z - data_00491d84;
+    delta.x = t.x - g_back_camera;
+    delta.y = t.y - g_back_camera_2;
+    delta.z = t.z - g_back_camera_3;
     float distance = DistanceFrom_00443FB0(delta);
     if (manager->fade_enabled) {
         unsigned char* channel = (unsigned char*)&color;
@@ -83,21 +83,21 @@ extern "C" __declspec(noinline) int EntityDraw_00443fb0(SprtCtrlBatchView* manag
         scaled = (unsigned int)(channel[3] * manager->fade_alpha) >> 7;
         channel[3] = scaled >= 0x100 ? 0xFF : scaled;
     }
-    if (data_00491e78 < distance) {
-        float fade = (data_00491e78 - distance) / span;
+    if (g_sprite_fade_near < distance) {
+        float fade = (g_sprite_fade_near - distance) / span;
         if (fade >= 1.0f) {
             return -1;
         }
         unsigned char* out = (unsigned char*)&g_quad_vertices[0].color;
         out[0] = (unsigned char)(((unsigned char*)&color)[0]
                                  - (unsigned char)(int)((float)(((unsigned char*)&color)[0]
-                                                                - (int)data_00491e80) * fade));
+                                                                - (int)g_sprite_fade_color_r) * fade));
         out[1] = (unsigned char)(((unsigned char*)&color)[1]
                                  - (unsigned char)(int)((float)(((unsigned char*)&color)[1]
-                                                                - (int)data_00491e84) * fade));
+                                                                - (int)g_sprite_fade_color_g) * fade));
         out[2] = (unsigned char)(((unsigned char*)&color)[2]
                                  - (unsigned char)(int)((float)(((unsigned char*)&color)[2]
-                                                                - (int)data_00491e88) * fade));
+                                                                - (int)g_sprite_fade_color_b) * fade));
         out[3] = (unsigned char)(int)((1.0f - fade) * (float)((unsigned char*)&color)[3]);
     } else {
         g_quad_vertices[0].color = color;

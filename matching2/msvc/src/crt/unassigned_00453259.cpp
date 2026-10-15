@@ -2,10 +2,10 @@
 // installed handler if there is one, then report the error and abort.
 
 extern "C" void __cdecl asm_amsg_exit_0045373d(int code);
-extern "C" void* data_00477200;
+extern "C" void* g_crt_terminate_handle;
 
 extern "C" void __cdecl unassigned_00453259(void) {
-    if (data_00477200 != 0)
-        ((void (__cdecl*)(void))data_00477200)();
+    if (g_crt_terminate_handle != 0)
+        ((void (__cdecl*)(void))g_crt_terminate_handle)();
     asm_amsg_exit_0045373d(25);
 }

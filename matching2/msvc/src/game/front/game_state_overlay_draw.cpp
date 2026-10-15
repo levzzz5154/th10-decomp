@@ -34,7 +34,7 @@ typedef char OverlaySegmentsOffset[(offsetof(FrontDrawView, gauge_segments) == 0
 struct OverlayInputDevice_00415800 { unsigned char reserved[0x2480]; unsigned int flags; };
 struct OverlayInputOwner_00415800 { unsigned char reserved[0x10]; OverlayInputDevice_00415800* device; };
 extern "C" {
-    extern int data_00474c58;
+    extern int g_player_power_display;
     extern OverlayInputOwner_00415800* g_enemy_ctrl;
 }
 #pragma code_seg(".text$001soverlay")
@@ -65,10 +65,10 @@ extern "C" __declspec(noinline) int __stdcall GameStateOverlay_Draw_00415800(Fro
         asm_FUN_004451c0_004451c0(g_sprt_ctrl, &cursor->entity);
         ++cursor;
     } while (--count);
-    if (data_00474c58) {
+    if (g_player_power_display) {
         rect.left = 51.0f;
         rect.top = 461.0f;
-        rect.right = static_cast<float>(data_00474c58);
+        rect.right = static_cast<float>(g_player_power_display);
         rect.right *= 0.2923077f;
         rect.bottom = 463.0f;
         rect.right += 51.0f;

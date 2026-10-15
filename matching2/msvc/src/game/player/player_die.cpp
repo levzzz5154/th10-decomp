@@ -78,7 +78,7 @@ struct TimeoutMode {
 extern "C" {
     extern int g_globals_gauge;
     extern int g_globals_lives;
-    extern int data_00474c98;
+    extern int g_rank;
     extern TimeoutMode* g_replay;
     extern Hint* g_hint;
     extern TimeoutPlayer* g_card;
@@ -162,10 +162,10 @@ extern "C" __declspec(noinline) void __stdcall Player_Die(Player* player) {
             if (i != 2)
                 gauge->entities[i].flags &= ~2u;
     }
-    data_00474c98 -= 1024;
-    if (data_00474c98 > 1024)
-        data_00474c98 = 1024;
-    else if (data_00474c98 < -1024)
-        data_00474c98 = -1024;
+    g_rank -= 1024;
+    if (g_rank > 1024)
+        g_rank = 1024;
+    else if (g_rank < -1024)
+        g_rank = -1024;
 }
 #pragma code_seg()

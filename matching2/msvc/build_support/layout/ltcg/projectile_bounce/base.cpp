@@ -1,12 +1,12 @@
 // Complete genuine common laser constructor, compiled only as an
 // unselected dependency. It has no additional recovery credit.
 #include "th10/game/laser_spawn_0041c510.hpp"
-extern "C" unsigned char data_0046dab0;
+extern "C" unsigned char g_laser_vtable;
 extern "C" unsigned char g_game_speed;
 #pragma code_seg(".text$a01base")
 __declspec(noinline) LaserBase_0041c030 *__fastcall
 LaserBase_Construct_0041c030(LaserBase_0041c030 *self) {
-    self->vtable = &data_0046dab0;
+    self->vtable = &g_laser_vtable;
     // The clear goes through a typed pointer: the plain member form makes MSVC
     // schedule the read-modify-write ahead of the vtable store, which no longer
     // matches the retail bytes.

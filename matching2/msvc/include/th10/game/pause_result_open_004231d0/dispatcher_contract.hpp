@@ -157,11 +157,11 @@ extern "C" int g_globals_shot_type;
 extern "C" int g_globals_lives;
 extern "C" int g_globals_difficulty;
 extern "C" int g_globals_stage;
-extern "C" int data_00474c84;
-extern "C" int data_00474c8c;
+extern "C" int g_stage_progress;
+extern "C" int g_stage_progress_echo;
 extern "C" unsigned g_globals_flags;
 extern "C" unsigned g_input;
-extern "C" unsigned data_00474e62;
+extern "C" unsigned g_input_keys_secondary;
 
 // Real public stack interfaces: Music_Play has two inputs and RET8,
 // RandomVoice has one float and RET4. Incoming ECX is unused in both.

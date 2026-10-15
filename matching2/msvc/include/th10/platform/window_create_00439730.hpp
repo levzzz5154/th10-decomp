@@ -11,9 +11,9 @@ struct GameWindow_00439730 {
 };
 
 extern "C" {
-extern GameWindow_00439730 data_004924f0;
-extern HWND data_00491c70;              // the supervisor's copy of the window
-extern unsigned char data_00491d65;     // the configuration's windowed flag
+extern GameWindow_00439730 g_main_window;
+extern HWND g_supervisor_window;              // the supervisor's copy of the window
+extern unsigned char g_windowed;     // the configuration's windowed flag
 extern const char str_window_title[];      // the window title (Shift-JIS), "... Mountain of Faith. ver 1.00a"
 LRESULT __stdcall WindowProcedure_004390e0(HWND, UINT, WPARAM, LPARAM);
 }

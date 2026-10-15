@@ -2,7 +2,7 @@
 // archive file on disk or from an archive already held in memory.
 extern "C" void* (__stdcall* imp_CreateFileA)(const char* path, unsigned long access, unsigned long share, void* security, unsigned long disposition, unsigned long flags, void* template_file);
 extern "C" unsigned long (__stdcall* imp_SetFilePointer)(void* file, long distance, long* distance_high, unsigned long method);
-extern "C" int data_004977a4;
+extern "C" int g_bgm_data_offset;
 
 struct ArchiveEntry_0044dbf0 {
     unsigned char unknown_00[0x10];
@@ -38,7 +38,7 @@ __declspec(noinline) long __stdcall OpenCursor_0044dbf0(ArchiveCursor_0044dbf0* 
             cursor->memory_cursor = cursor->memory_base;
             if (entry->size > 0) cursor->memory_size = entry->size;
         } else if (cursor->file) {
-            imp_SetFilePointer(cursor->file, entry->offset + data_004977a4, 0, 0);
+            imp_SetFilePointer(cursor->file, entry->offset + g_bgm_data_offset, 0, 0);
             cursor->size = cursor->entry->size;
         }
         cursor->remaining = cursor->size;

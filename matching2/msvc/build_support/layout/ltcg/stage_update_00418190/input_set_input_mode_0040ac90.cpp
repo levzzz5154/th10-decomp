@@ -7,8 +7,8 @@
 #define g_replay stage_input_data_00477838
 #define g_score stage_input_data_0047783c
 #define g_game_speed stage_input_data_00476f78
-#define data_00491fc4 stage_input_data_00491fc4
-#define data_00491fb8 stage_input_data_00491fb8
+#define g_stage_flags stage_input_data_00491fc4
+#define g_main_state stage_input_data_00491fb8
 #define g_sound_manager stage_input_data_00492590
 // 0x0040AC90. Publish the requested input mode on a state object, unless the
 // object's +0x3CC flag word has bit 0x1000 set, in which case the mode is
@@ -56,6 +56,6 @@ void SetInputMode(InputState* state, int mode) {
 #undef g_replay
 #undef g_score
 #undef g_game_speed
-#undef data_00491fc4
-#undef data_00491fb8
+#undef g_stage_flags
+#undef g_main_state
 #undef g_sound_manager

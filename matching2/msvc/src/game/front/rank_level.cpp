@@ -11,13 +11,13 @@ struct RankState {
     __declspec(noinline) void AdvanceLevel();
 };
 
-extern "C" RankTableEntry data_00474788[];
-extern "C" RankTableEntry* data_00477848;
+extern "C" RankTableEntry g_stage_routes[];
+extern "C" RankTableEntry* g_stage_route_current;
 
 #pragma code_seg(".text$01rank")
 void RankState::AdvanceLevel() {
     if (this->level < 7)
         this->level = this->level + 1;
-    data_00477848 = &data_00474788[this->level];
+    g_stage_route_current = &g_stage_routes[this->level];
 }
 #pragma code_seg()

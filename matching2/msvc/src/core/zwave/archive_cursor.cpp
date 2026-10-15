@@ -2,7 +2,7 @@
 #include <string.h>
 extern "C" unsigned long (__stdcall* imp_SetFilePointer)(void* file, long distance, long* distance_high, unsigned long method);
 extern "C" int (__stdcall* imp_ReadFile)(void* file, void* buffer, unsigned long size, unsigned long* read, void* overlapped);
-extern "C" int data_004977a4;
+extern "C" int g_bgm_data_offset;
 
 struct ArchiveEntry_0044dd40 {
     unsigned char unknown_00[0x10];
@@ -33,11 +33,11 @@ __declspec(noinline) long __stdcall Rewind_0044dd40(ArchiveCursor_0044dd40* curs
     }
     if (!cursor->file) return 0x800401F0;
     if (skip_header && cursor->entry->header_size > 0) {
-        imp_SetFilePointer(cursor->file, cursor->entry->offset + cursor->entry->header_size + data_004977a4, 0, 0);
+        imp_SetFilePointer(cursor->file, cursor->entry->offset + cursor->entry->header_size + g_bgm_data_offset, 0, 0);
         cursor->size = cursor->entry->size - cursor->entry->header_size;
         return 0;
     }
-    imp_SetFilePointer(cursor->file, cursor->entry->offset + data_004977a4, 0, 0);
+    imp_SetFilePointer(cursor->file, cursor->entry->offset + g_bgm_data_offset, 0, 0);
     cursor->size = cursor->entry->size;
     return 0;
 }

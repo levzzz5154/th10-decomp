@@ -13,8 +13,8 @@ static __forceinline int* ClearCount() {
         ((g_globals_shot_type + g_globals_character * 3) * 0x10DF + g_globals_difficulty) * 4);
 }
 static DispatcherMusicRecord* MusicRecord();
-extern "C" DispatcherMusicRecord* data_00477848;
-static DispatcherMusicRecord* MusicRecord() { return data_00477848; }
+extern "C" DispatcherMusicRecord* g_stage_route_current;
+static DispatcherMusicRecord* MusicRecord() { return g_stage_route_current; }
 
 // Preserve the manager and resolved animation across the decode call, as the
 // actual caller does. A failed lookup clears the handle, but SetText is still
@@ -266,7 +266,7 @@ ResultDispatcher_00415e90(ResultDispatcherState* state) {
                 if (state->wait.current < 1)
                     state->wait.SetSchedulerValue(state->command->first_operand);
                 reinterpret_cast<FrameTimer*>(&state->wait)->Advance(-1.0f);
-                if (!(data_00474e62 & 0x1001) && state->wait.current > 0) {
+                if (!(g_input_keys_secondary & 0x1001) && state->wait.current > 0) {
                     if (!(state->flags & 1) || !(g_input & 0x100))
                         return 0;
                     state->wait.SetSchedulerValue(0);
@@ -402,9 +402,9 @@ ResultDispatcher_00415e90(ResultDispatcherState* state) {
                 asm_Sound_PlayRandomVoiceRetail_00420c30(g_globals_stage == 6 ? 8.0f : 2.0f);
                 break;
             case 0:
-                if (data_00474c84)
-                    data_00474c8c = 0;
-                data_00474c84 = 0;
+                if (g_stage_progress)
+                    g_stage_progress_echo = 0;
+                g_stage_progress = 0;
                 return -1;
 }
         next_command:
