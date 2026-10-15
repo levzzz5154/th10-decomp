@@ -43,7 +43,7 @@ extern "C" unsigned char* __stdcall ext_construct(void* memory, const char* name
 extern "C" int __stdcall ext_laser(void* laser, const void* params);
 extern "C" void __stdcall ext_configure(void* owner, int priority, int mode, int a, int b, int c, int d);
 extern "C" int __stdcall ext_shoot(void* manager, int i, int j, float angle);
-extern "C" void* data_004776e8;
+extern "C" void* g_background;
 extern "C" int __fastcall ext_fc_spawn(const void* position, int kind, int a, float angle, float speed);
 extern "C" int __fastcall ext_outside(const void* position, int unused, float x, float y);
 extern "C" void* __stdcall ext_display(void* memory, const char* table);
@@ -645,7 +645,7 @@ __declspec(noinline) void __stdcall Rig_StopAtFrame1(AnmHandle* handle) {
 void Card::End_00409c00() {
     unsigned char* self = (unsigned char*)this;
     if (flags & 1) {
-        *(unsigned int*)((unsigned char*)data_004776e8 + 0x2A18) |= 1;
+        *(unsigned int*)((unsigned char*)g_background + 0x2A18) |= 1;
         Rig_StopAtFrame1((AnmHandle*)(self + 0x768));
         Rig_StopAtFrame1((AnmHandle*)(self + 0x76C));
         Rig_StopAtFrame1((AnmHandle*)(self + 0x770));

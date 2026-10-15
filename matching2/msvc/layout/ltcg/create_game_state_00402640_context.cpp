@@ -2,8 +2,8 @@
 // initializer is compiled here for its private convention. The constructor
 // and destructor are stand-ins without unwind tables of their own, shaped so
 // each takes its receiver on the stack as the real ones do.
-#define TH10_GAME_STATE_LAYOUT_ONLY
-#include "../../src/game/background/initialize_game_state_00402230.cpp"
+#define TH10_BACKGROUND_LAYOUT_ONLY
+#include "../../src/game/background/background_initialize.cpp"
 #include "th10/platform/thread_sync.hpp"
 
 void __cdecl operator delete(void* block);
@@ -34,7 +34,7 @@ extern "C" __declspec(noinline) void __stdcall Scheduler_Remove(Scheduler* sched
 void __stdcall GameStateStandIn_MayThrow(void* state);
 
 // With every callee-saved register busy the receiver stays on the stack.
-static __forceinline void GameStateStandIn_Unregister(GameState_00402230* state) {
+static __forceinline void GameStateStandIn_Unregister(BackGround* state) {
     SchedulerTask* task = state->primary;
     Scheduler* scheduler = data_00491be4;
     if (task) {
@@ -56,21 +56,21 @@ static __forceinline void GameStateStandIn_Unregister(GameState_00402230* state)
 }
 
 #pragma code_seg(".text$02dtor")
-GameState_00402230::~GameState_00402230() {
+BackGround::~BackGround() {
     GameStateStandIn_Unregister(this);
 }
 #pragma code_seg()
 
 // A call that may throw gives the factory its cleanup state.
 #pragma code_seg(".text$01ctor")
-GameState_00402230::GameState_00402230() {
+BackGround::BackGround() {
     GameStateStandIn_Unregister(this);
     GameStateStandIn_MayThrow(0);
 }
 #pragma code_seg()
 
-#include "../../src/game/background/create_game_state_00402640.cpp"
+#include "../../src/game/background/background_create.cpp"
 
 #pragma code_seg(".text$17context")
-extern "C" GameState_00402230* __stdcall CreateGameStateContext_00402640(const char* name, int state_id) { return CreateGameState_00402640(name, state_id); }
+extern "C" BackGround* __stdcall CreateGameStateContext_00402640(const char* name, int state_id) { return BackGround_Create(name, state_id); }
 #pragma code_seg()

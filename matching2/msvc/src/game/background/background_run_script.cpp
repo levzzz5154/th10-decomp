@@ -1,7 +1,7 @@
 // 0x00403C80: run the stage script up to the current frame, then advance the
 // camera and fog moves it started and the sideways camera sway.
 #include <math.h>
-#include "th10/render/stage_objects.hpp"
+#include "th10/game/background_draw.hpp"
 
 struct AnimationResource_0043e710;
 struct Entity;
@@ -10,7 +10,7 @@ __declspec(noinline) void __stdcall Entity_StartScript_00404f30(
 extern "C" int data_004923a8;
 
 #pragma code_seg(".text$00403c80_fn")
-int __stdcall StageObjects_RunScript(StageObjects* stage) {
+int __stdcall BackGround_RunScript(BackGround* stage) {
     while (stage->instruction->time <= stage->script_timer.current) {
         StageInstruction* instruction = stage->instruction;
         switch (instruction->opcode) {

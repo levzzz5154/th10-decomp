@@ -92,7 +92,7 @@ struct Card_00409c00 {
 typedef char CardFlagsOffset_00409c00[offsetof(Card_00409c00, flags) == 0x378C ? 1 : -1];
 
 extern "C" {
-extern CardInterface_00409c00* data_004776e8;
+extern CardInterface_00409c00* g_background;
 extern CardFront_00409c00* data_0047770c;
 extern CardMode_00409c00* data_00477838;
 extern CardScoreFile_00409c00* data_0047783c;

@@ -76,7 +76,7 @@ struct StageInstruction {
     StageArgument args[11];
 };
 
-struct StageObjects {
+struct BackGround {
     unsigned char reserved_0000[0x14];
     StageObject** objects;                 // +0x14
     StageInstance* instances;              // +0x18
@@ -113,15 +113,15 @@ struct StageObjects {
     Vec3& Travel() { return *reinterpret_cast<Vec3*>(view.reserved_0F0); }
     StageFog& Fog() { return *reinterpret_cast<StageFog*>(&view.fog_start); }
 };
-typedef char StageObjectsInstruction[(offsetof(StageObjects, instruction) == 0x4C) ? 1 : -1];
-typedef char StageObjectsFogMove[(offsetof(StageObjects, fog_move) == 0xE8) ? 1 : -1];
-typedef char StageObjectsEntities[(offsetof(StageObjects, entities) == 0x17C) ? 1 : -1];
-typedef char StageObjectsView[(offsetof(StageObjects, view) == 0x2A4C) ? 1 : -1];
-typedef char StageObjectsTimer[(offsetof(StageObjects, fade_timer) == 0x2A1C) ? 1 : -1];
+typedef char BackGroundInstruction[(offsetof(BackGround, instruction) == 0x4C) ? 1 : -1];
+typedef char BackGroundFogMove[(offsetof(BackGround, fog_move) == 0xE8) ? 1 : -1];
+typedef char BackGroundEntities[(offsetof(BackGround, entities) == 0x17C) ? 1 : -1];
+typedef char BackGroundView[(offsetof(BackGround, view) == 0x2A4C) ? 1 : -1];
+typedef char BackGroundTimer[(offsetof(BackGround, fade_timer) == 0x2A1C) ? 1 : -1];
 typedef char StageObjectQuads[(offsetof(StageObject, quads) == 0x1C) ? 1 : -1];
 typedef char StageQuadSize[(sizeof(StageQuad) == 0x1C) ? 1 : -1];
 typedef char StageInstanceSize[(sizeof(StageInstance) == 0x10) ? 1 : -1];
-typedef char StageObjectsCounters[(offsetof(StageObjects, drawn_quads) == 0x2A14) ? 1 : -1];
+typedef char BackGroundCounters[(offsetof(BackGround, drawn_quads) == 0x2A14) ? 1 : -1];
 typedef char StageEntitySize[(sizeof(StageEntity) == 0x3AC) ? 1 : -1];
 
 extern "C" __declspec(noinline) int __cdecl asm_FUN_004451c0_004451c0(
@@ -149,8 +149,8 @@ inline void StageSetFog(int enabled) {
     }
 }
 
-__declspec(noinline) int __stdcall StageObjects_DrawLayer(StageObjects* stage, int layer);
-__declspec(noinline) int __stdcall StageObjects_Draw(StageObjects* stage);
-__declspec(noinline) int __stdcall StageObjects_DrawBackground(StageObjects* stage);
-__declspec(noinline) int __stdcall StageObjects_RunScript(StageObjects* stage);
+__declspec(noinline) int __stdcall BackGround_DrawLayer(BackGround* stage, int layer);
+__declspec(noinline) int __stdcall BackGround_Draw(BackGround* stage);
+__declspec(noinline) int __stdcall BackGround_DrawBackground(BackGround* stage);
+__declspec(noinline) int __stdcall BackGround_RunScript(BackGround* stage);
 #endif

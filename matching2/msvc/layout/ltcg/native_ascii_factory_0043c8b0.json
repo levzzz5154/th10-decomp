@@ -12,7 +12,7 @@
     "include/th10/game/scheduler.hpp",
     "include/th10/math/timer.hpp",
     "include/th10/platform/thread_sync.hpp",
-    "include/th10/game/native_stage_fade_00404530.hpp"
+    "include/th10/game/background_fade.hpp"
   ],
   "image_base": "0x00400000",
   "description": "Full game-state BeginFade, existing screen-effect factory and selector with genuine scheduler bodies. Complete direct-global stage update supplies a real compiler context; its remaining private helper ABIs are explicitly diagnostic and it is not recovered.",
@@ -36,12 +36,12 @@
     },
     {
       "name": "GameState_BeginFade",
-      "symbol": "?BeginFade@GameStateFade_00404530@@QAEXXZ",
+      "symbol": "?BeginFade@BackGround@@QAEXXZ",
       "section": ".text$00bFade",
       "address": "0x00404530",
       "size": 119,
       "actual_abi": "retail owner ESI; plainRET",
-      "source": "src/game/background/fun_00404530_00404530.cpp"
+      "source": "src/game/background/background_begin_fade.cpp"
     }
   ],
   "anchors": [
@@ -306,7 +306,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_StageDestroyGameState_00402440@4",
+      "symbol": "_StageBackGround_Destroy@4",
       "address": "0x402440",
       "kind": "relative_code"
     },
@@ -406,7 +406,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_004776e8",
+      "symbol": "_g_background",
       "address": "0x004776e8",
       "kind": "data"
     },
@@ -502,6 +502,6 @@
     }
   ],
   "additional_sources": [
-    "src/game/background/fun_00404530_00404530.cpp"
+    "src/game/background/background_begin_fade.cpp"
   ]
 }

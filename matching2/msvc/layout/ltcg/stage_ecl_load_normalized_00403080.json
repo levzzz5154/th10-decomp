@@ -1,17 +1,23 @@
 {
   "schema_version": 1,
   "name": "stage_ecl_load_normalized_00403080",
-  "source": "src/game/background/stage_ecl_load_normalized_00403080.cpp",
+  "source": "src/game/background/background_load_normalized.cpp",
   "driver": "layout/ltcg/stage_ecl_load_normalized_00403080_context.cpp",
   "headers": [
-    "include/th10/platform/stage_ecl_load_00403850.hpp"
+    "include/th10/game/background.hpp",
+    "include/th10/game/entity.hpp",
+    "include/th10/game/scheduler.hpp",
+    "include/th10/math/timer.hpp",
+    "include/th10/render/camera_batch.hpp",
+    "include/th10/render/quad_batch.hpp",
+    "include/th10/types.hpp"
   ],
   "image_base": "0x00400000",
   "description": "Normalize stage loader result via public thiscall Load; private filename in EAX.",
   "functions": [
     {
-      "name": "StageEclLoader_LoadNormalized",
-      "symbol": "?LoadNormalized@StageEclLoader_00403850@@QAEHPBD@Z",
+      "name": "BackGround_LoadNormalized",
+      "symbol": "?LoadNormalized@BackGround@@QAEHPBD@Z",
       "section": ".text$01forward",
       "address": "0x00403080",
       "size": 11,
@@ -40,7 +46,7 @@
   "constants": [],
   "absolute_symbols": [
     {
-      "symbol": "?Load@StageEclLoader_00403850@@QAEHPBD@Z",
+      "symbol": "?Load@BackGround@@QAEHPBD@Z",
       "address": "0x00403850",
       "kind": "relative_code"
     }

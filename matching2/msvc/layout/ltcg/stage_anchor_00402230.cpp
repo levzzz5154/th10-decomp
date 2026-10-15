@@ -2,7 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include "th10/platform/archive_file.hpp"
-#include "th10/platform/stage_ecl_load_00403850.hpp"
+#include "th10/game/background.hpp"
 struct TextLog_0044b810 {
     char text[0x2000];
     char* cursor;
@@ -11,12 +11,12 @@ struct TextLog_0044b810 {
 };
 extern "C" {
 extern char data_00497c38[];
-extern void* data_00491c10;
+
 void* __cdecl malloc(unsigned int);
 void* __fastcall LoadCachedResource_00447280(int slot, void* manager, const char* name);
 }
 #pragma code_seg(".text$03stage")
-int StageEclLoader_00403850::Load(const char* name) {
+int BackGround::Load(const char* name) {
     if (!original) {
         data_00497c38[0] = 0;
         strcat(data_00497c38, name);
@@ -25,15 +25,15 @@ int StageEclLoader_00403850::Load(const char* name) {
     }
     // Reuse the size temporary for both allocations (retail LTCG register shape).
     int allocation_size = file_size;
-    file = (StageEclFile_00403850*)malloc(allocation_size);
+    file = (BackGroundFile*)malloc(allocation_size);
     memcpy(file, original, file_size);
-    animation = LoadCachedResource_00447280((flags & 1) + 4, data_00491c10,
+    animation = LoadCachedResource_00447280((stage_flags & 1) + 4, data_00491c10,
                                            file->animation_name);
     if (!animation) {
         ((TextLog_0044b810*)0x474F70)->Append((char*)0x46CBC0);
         return -1;
     }
-    StageEclFile_00403850* data = file;
+    BackGroundFile* data = file;
     subroutines = data->sub_offsets;
     timeline = (char*)data + data->timeline_offset;
     auxiliary = (char*)data + data->auxiliary_offset;

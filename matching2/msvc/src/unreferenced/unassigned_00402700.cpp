@@ -7,7 +7,7 @@
 // layout/ltcg/dtor_release_00402700.json whose array-walking synthetic caller establishes that
 // convention.
 
-extern "C" void asm_DestroyGameState_00402440(void* object);
+extern "C" void asm_BackGround_Destroy(void* object);
 extern "C" void __cdecl entry_free_004524a1(void* block);
 
 struct Destroyable_00402700 {
@@ -19,7 +19,7 @@ __declspec(noinline) void Destroyable_00402700_Release(Destroyable_00402700* obj
 #pragma code_seg(".text$01rel")
 void Destroyable_00402700_Release(Destroyable_00402700* object) {
     if (object != 0) {
-        asm_DestroyGameState_00402440(object);
+        asm_BackGround_Destroy(object);
         entry_free_004524a1(object);
     }
 }

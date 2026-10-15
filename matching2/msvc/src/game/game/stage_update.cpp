@@ -55,8 +55,8 @@ extern unsigned char stage_config_00491d78;
 extern unsigned int stage_game_flags_00474ca0;
 extern int stage_result_00491fb8;
 extern Stage_00404450 *stage_quads_004776e8;
-extern GameStateFade_00404530 *stage_fade_004776e4;
-extern PlayerManagerState *stage_mode_004776e8;
+extern BackGround *stage_fade_004776e4;
+extern BackGround *stage_mode_004776e8;
 extern BulletPool *stage_bullets_004776f0;
 extern PauseState_00424d90 *stage_player_00477834;
 extern EnemyManager_00409f90 *stage_enemies_00477704;
@@ -186,7 +186,7 @@ extern "C" __declspec(noinline) int __stdcall StageUpdate(StageUpdateContext *co
     // Read the shared pointer again for disposal. The original callback also
     // checks it before both destruction and deallocation.
     if (stage_fade_004776e4 && (stage_fade_004776e4->flags & 8)) {
-        GameStateFade_00404530 *fade = stage_fade_004776e4;
+        BackGround *fade = stage_fade_004776e4;
         if (fade) {
             StageDestroyGameState(fade);
             operator delete(fade);

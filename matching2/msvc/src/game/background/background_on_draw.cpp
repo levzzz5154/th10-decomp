@@ -1,5 +1,5 @@
 // 0x00403070: the stage background's second draw task; forwards the stage
-// objects to StageObjects_Draw (0x00402CA0) as its stack argument.
+// objects to BackGround_Draw (0x00402CA0) as its stack argument.
 //
 // Retail: 51              push ecx
 //         E8 2A FC FF FF  call 0x00402CA0
@@ -11,7 +11,7 @@
 extern "C" void __stdcall asm_FUN_00402ca0_00402ca0(int value);
 
 #pragma code_seg(".text$01forward")
-__declspec(noinline) void __fastcall StageObjects_OnDraw(int value) {
+__declspec(noinline) void __fastcall BackGround_OnDraw(int value) {
     asm_FUN_00402ca0_00402ca0(value);
 }
 #pragma code_seg()

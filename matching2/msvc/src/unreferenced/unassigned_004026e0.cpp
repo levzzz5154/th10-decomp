@@ -8,7 +8,7 @@
 // native-LTCG cluster layout/ltcg/dtor_delete_004026e0.json whose array-walking synthetic
 // caller establishes that convention.
 
-extern "C" void asm_DestroyGameState_00402440(void* object);
+extern "C" void asm_BackGround_Destroy(void* object);
 extern "C" void __cdecl entry_free_004524a1(void* block);
 
 struct Deletable_004026e0 {
@@ -19,7 +19,7 @@ __declspec(noinline) void* Deletable_004026e0_Delete(Deletable_004026e0* object,
 
 #pragma code_seg(".text$01del")
 void* Deletable_004026e0_Delete(Deletable_004026e0* object, int flags) {
-    asm_DestroyGameState_00402440(object);
+    asm_BackGround_Destroy(object);
     if ((flags & 1) != 0) {
         entry_free_004524a1(object);
     }

@@ -51,7 +51,7 @@
     "include/th10/game/enemy_script_bind_0040d830.hpp",
     "include/th10/game/entity.hpp",
     "include/th10/game/entity_script_start.hpp",
-    "include/th10/game/native_stage_fade_00404530.hpp",
+    "include/th10/game/background_fade.hpp",
     "include/th10/game/replay_stage_begin_0042a6a0.hpp",
     "include/th10/game/replay_stage_finish_0042a450.hpp",
     "include/th10/render/screen_effect_controller.hpp",
@@ -213,15 +213,15 @@
       "size": 214
     },
     {
-      "name": "?BeginFade@GameStateFade_00404530@@QAEXXZ",
-      "symbol": "?BeginFade@GameStateFade_00404530@@QAEXXZ",
+      "name": "?BeginFade@BackGround@@QAEXXZ",
+      "symbol": "?BeginFade@BackGround@@QAEXXZ",
       "section": ".text$00404530_fn",
       "address": "0x404530",
       "size": 119
     },
     {
-      "name": "?StartMode@PlayerManagerState@@QAEXXZ",
-      "symbol": "?StartMode@PlayerManagerState@@QAEXXZ",
+      "name": "?StartMode@BackGround@@QAEXXZ",
+      "symbol": "?StartMode@BackGround@@QAEXXZ",
       "section": ".text$004045b0_fn",
       "address": "0x4045b0",
       "size": 92

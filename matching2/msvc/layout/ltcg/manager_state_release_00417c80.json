@@ -214,7 +214,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_GameState_Destroy_00402440@4",
+      "symbol": "_BackGround_Destroy@4",
       "address": "0x00402440",
       "kind": "relative_code"
     },
@@ -419,7 +419,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_004776e8",
+      "symbol": "_g_background",
       "address": "0x004776E8",
       "kind": "data"
     },

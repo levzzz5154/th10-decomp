@@ -2,7 +2,7 @@
 // Its still-private external helper boundaries are diagnostic, not recovered.
 #include <string.h>
 #include <stdlib.h>
-#include "th10/game/native_stage_fade_00404530.hpp"
+#include "th10/game/background_fade.hpp"
 #include "th10/render/screen_effect_controller.hpp"
 struct StageContextFade_00418190 {
     unsigned char reserved000[0x14];
@@ -11,9 +11,9 @@ struct StageContextFade_00418190 {
     unsigned int flags;
 };
 extern "C" {
-extern GameStateFade_00404530* data_004776e4;
+extern BackGround* data_004776e4;
 extern unsigned char* g_ascii_manager;
-extern unsigned char* data_004776e8;
+extern unsigned char* g_background;
 extern unsigned char* g_bomb;
 extern unsigned char* data_004776f0;
 extern unsigned char* g_card;
@@ -50,7 +50,7 @@ void __stdcall StageRefreshPanel_00426f70(void* panel);
 void __stdcall StagePlayMusic_00420b10(int slot,int selector);
 void __stdcall StageRegisterMusic_0043e460(void* queue,const char* name,int value,int parameter);
 void __stdcall StageSetTimer_00405410(void* timer,int value);
-void __stdcall StageDestroyGameState_00402440(void* state);
+void __stdcall StageBackGround_Destroy(void* state);
 void __stdcall StageSetInputMode_0040ac90(void* state,int value);
 void __stdcall StageTickThread_00417040(void* thread);
 void __stdcall StageDecayScore_00418a00(void* score);
@@ -121,11 +121,11 @@ extern "C" int __stdcall StageContextUpdate_00418190(StageContextFade_00418190* 
             data_00491fb8=((~(data_00491ff4>>12))&1u)|2u;
             return 1;
         }
-        StageActivateBullets_00404450(data_004776e8);
-        GameStateFade_00404530* game=data_004776e4;
+        StageActivateBullets_00404450(g_background);
+        BackGround* game=data_004776e4;
         if (game) {
             game->BeginFade();
-            StageStartPlayerMode_004045b0(data_004776e8);
+            StageStartPlayerMode_004045b0(g_background);
             context->flags|=0x800u;
             StageStopAnimation_00409e50(data_0047770c+0x9E14);
         } else {
@@ -134,9 +134,9 @@ extern "C" int __stdcall StageContextUpdate_00418190(StageContextFade_00418190* 
     } else if (context->frame==30 && (context->flags&0x800u)) {
         StageReset(context,local_state,true);
     }
-    GameStateFade_00404530* game=data_004776e4;
+    BackGround* game=data_004776e4;
     if (game && (game->flags&8u) && game) {
-        StageDestroyGameState_00402440(game);
+        StageBackGround_Destroy(game);
         free(game);
     }
     if (context->flags&4u) {

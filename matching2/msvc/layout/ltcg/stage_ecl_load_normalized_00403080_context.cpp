@@ -1,6 +1,6 @@
-#include "../../src/game/background/stage_ecl_load_normalized_00403080.cpp"
+#include "../../src/game/background/background_load_normalized.cpp"
 #pragma code_seg(".text$03context")
-extern "C" int __stdcall StageEclLoadNormalizedContext(StageEclLoader_00403850** loaders, const char** names, int count) {
+extern "C" int __stdcall StageEclLoadNormalizedContext(BackGround** loaders, const char** names, int count) {
     int result = 0;
     for (int i = 0; i < count; ++i) result += loaders[i]->LoadNormalized(names[i]);
     return result;

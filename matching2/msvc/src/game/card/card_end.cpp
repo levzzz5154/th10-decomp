@@ -7,7 +7,7 @@
 #pragma code_seg(".text$01a_end")
 void Card_00409c00::End() {
     if (flags & 1) {
-        data_004776e8->flags |= 1;
+        g_background->flags |= 1;
         effects[0].StopAtFrame1();
         effects[1].StopAtFrame1();
         effects[2].StopAtFrame1();

@@ -40,7 +40,7 @@ struct GameSelection_00408d60 {
 };
 
 extern "C" {
-extern StageState_00408d60* data_004776e8;
+extern StageState_00408d60* g_background;
 extern FrontResources_00408d60* data_0047770c;
 extern ScoreFile_00408d60* data_0047783c;
 extern MarkerOwner_00408d60* data_00477704;
@@ -59,7 +59,7 @@ int Card_00408d60::Update() {
     if (!(flags & 1))
         return 1;
     if (timer.current >= 60)
-        data_004776e8->flags &= ~1u;
+        g_background->flags &= ~1u;
     if (timer.current >= 300 && !(flags & 8)) {
         bonus -= (bonus_start - bonus_start / 10) / (bonus_duration - 300);
         bonus -= bonus % 10;

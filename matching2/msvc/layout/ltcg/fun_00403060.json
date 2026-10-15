@@ -1,15 +1,15 @@
 {
   "schema_version": 1,
   "name": "fun_00403060",
-  "source": "src/game/background/stage_objects_on_draw_background.cpp",
+  "source": "src/game/background/background_on_draw_background.cpp",
   "driver": "layout/ltcg/fun_00403060_context.cpp",
   "headers": [],
   "image_base": "0x00400000",
   "description": "Forward a value received in ECX to the game-state helper at 0x00402850 as its one stack argument, compiled with native LTCG.",
   "functions": [
     {
-      "name": "StageObjects_OnDrawBackground",
-      "symbol": "?StageObjects_OnDrawBackground@@YIXH@Z",
+      "name": "BackGround_OnDrawBackground",
+      "symbol": "?BackGround_OnDrawBackground@@YIXH@Z",
       "section": ".text$01forward",
       "address": "0x00403060",
       "size": 7,

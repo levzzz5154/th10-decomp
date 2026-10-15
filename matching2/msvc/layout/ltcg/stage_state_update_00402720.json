@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
   "name": "stage_state_update_00402720",
-  "source": "src/game/background/stage_state_update_00402720.cpp",
+  "source": "src/game/background/background_update.cpp",
   "driver": "layout/ltcg/stage_state_update_00402720/context.cpp",
   "headers": [
-    "include/th10/game/stage_state_update_00402720.hpp",
+    "include/th10/game/background_update.hpp",
     "include/th10/render/anm_script_table_sweep.hpp",
     "include/th10/render/camera_batch.hpp",
     "include/th10/render/quad_batch.hpp",
@@ -15,15 +15,15 @@
   "functions": [
     {
       "name": "StageState_Update",
-      "symbol": "?Update@StageState_00402720@@QAEHXZ",
+      "symbol": "?Update@BackGround@@QAEHXZ",
       "section": ".text$00stage_update",
       "address": "0x00402720",
       "actual_abi": "stage in EAX; plain RET",
       "size": 304
     },
     {
-      "name": "StageState_UpdateTask",
-      "symbol": "?StageState_UpdateTask_00403050@@YIHPAUStageState_00402720@@@Z",
+      "name": "BackGround_OnUpdate",
+      "symbol": "?BackGround_OnUpdate@@YIHPAUBackGround@@@Z",
       "section": ".text$00task_callback",
       "address": "0x00403050",
       "actual_abi": "context in ECX; moves it to EAX and tail-jumps",
@@ -31,7 +31,7 @@
     }
   ],
   "context": {
-    "symbol": "?StageUpdateCompilerContext@@YGPAUSchedulerTask@@PAU1@PAUStageState_00402720@@@Z",
+    "symbol": "?StageUpdateCompilerContext@@YGPAUSchedulerTask@@PAU1@PAUBackGround@@@Z",
     "section": ".text$03context",
     "address": "0x00403A30",
     "size": 21,
@@ -67,7 +67,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_RunStageScript_00403c80@4",
+      "symbol": "_BackGround_RunScript@4",
       "address": "0x00403C80",
       "kind": "relative_code"
     },

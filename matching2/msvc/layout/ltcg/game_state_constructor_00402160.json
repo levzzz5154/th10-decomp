@@ -4,10 +4,10 @@
   "constants": [],
   "exceptions": true,
   "name": "game_state_constructor_00402160",
-  "source": "src/game/background/game_state_constructor_00402160.cpp",
+  "source": "src/game/background/background_construct.cpp",
   "driver": "layout/ltcg/game_state_constructor_00402160_context.cpp",
   "headers": [
-    "include/th10/game/game_state.hpp",
+    "include/th10/game/background.hpp",
     "include/th10/game/entity.hpp",
     "include/th10/types.hpp",
     "include/th10/game/scheduler.hpp",
@@ -19,7 +19,7 @@
   "functions": [
     {
       "name": "GameState_Constructor",
-      "symbol": "??0GameState_00402230@@QAE@XZ",
+      "symbol": "??0BackGround@@QAE@XZ",
       "section": ".text$01ctor",
       "address": "0x00402160",
       "size": 188,
@@ -37,7 +37,7 @@
     },
     {
       "name": "GameStateConstructorHandler",
-      "symbol": "__ehhandler$??0GameState_00402230@@QAE@XZ",
+      "symbol": "__ehhandler$??0BackGround@@QAE@XZ",
       "section": ".text$x",
       "address": "0x0046556B",
       "size": 10,
@@ -110,12 +110,12 @@
       "kind": "metadata"
     },
     {
-      "symbol": "??0GameStateEntity@@QAE@XZ",
+      "symbol": "??0BackGroundEntity@@QAE@XZ",
       "address": "0x402050",
       "kind": "data"
     },
     {
-      "symbol": "??1GameStateEntity@@QAE@XZ",
+      "symbol": "??1BackGroundEntity@@QAE@XZ",
       "address": "0x401ff0",
       "kind": "data"
     }

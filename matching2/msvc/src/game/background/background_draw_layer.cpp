@@ -5,7 +5,7 @@
 // camera in EAX, and the draw calls the camera apply, the batch flush and the
 // entity dispatch on their whole-program registers, so both are compiled in
 // the cluster layout/ltcg/anm_batch_flush_00442f50.json.
-#include "th10/render/stage_objects.hpp"
+#include "th10/game/background_draw.hpp"
 
 #pragma code_seg(".text$000q1cull")
 int StageObject::IsOutsideView(const StageVector* offset, const RenderCamera* camera,
@@ -58,7 +58,7 @@ int StageObject::IsOutsideView(const StageVector* offset, const RenderCamera* ca
 #pragma code_seg()
 
 #pragma code_seg(".text$000q3draw")
-int __stdcall StageObjects_DrawLayer(StageObjects* stage, int layer) {
+int __stdcall BackGround_DrawLayer(BackGround* stage, int layer) {
     StageInstance* instance = stage->instances;
     data_00491c28.SelectStage(0);
     data_00491c10->cached_unknown_6c = 1;

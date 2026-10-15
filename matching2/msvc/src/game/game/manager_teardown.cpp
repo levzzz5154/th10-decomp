@@ -189,7 +189,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00417c80_00417c80() {
     L_00417de1:
         add esp,4
     L_00417de4:
-        mov esi,dword ptr [data_004776e8]
+        mov esi,dword ptr [g_background]
     L_00417dea:
         test esi,esi
     L_00417dec:
@@ -197,7 +197,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00417c80_00417c80() {
     L_00417dee:
         push esi
     L_00417def:
-        call asm_DestroyGameState_00402440
+        call asm_BackGround_Destroy
     L_00417df4:
         push esi
     L_00417df5:
@@ -213,7 +213,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00417c80_00417c80() {
     L_00417e07:
         push esi
     L_00417e08:
-        call asm_DestroyGameState_00402440
+        call asm_BackGround_Destroy
     L_00417e0d:
         push esi
     L_00417e0e:
@@ -363,7 +363,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00417c80_00417c80() {
     L_00417efc:
         push esi
     L_00417efd:
-        call asm_DestroyGameState_00402440
+        call asm_BackGround_Destroy
     L_00417f02:
         push esi
     L_00417f03:
@@ -371,7 +371,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00417c80_00417c80() {
     L_00417f08:
         add esp,4
     L_00417f0b:
-        mov eax,dword ptr [data_004776e8]
+        mov eax,dword ptr [g_background]
     L_00417f10:
         mov dword ptr [data_004776e4],eax
     L_00417f15:

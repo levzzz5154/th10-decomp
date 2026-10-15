@@ -1,16 +1,15 @@
 {
   "schema_version": 1,
   "name": "initialize_game_state_00402230",
-  "source": "src/game/background/initialize_game_state_00402230.cpp",
+  "source": "src/game/background/background_initialize.cpp",
   "driver": "layout/ltcg/initialize_game_state_00402230_context.cpp",
   "headers": [
     "include/th10/game/scheduler.hpp",
-    "include/th10/platform/stage_ecl_load_00403850.hpp",
+    "include/th10/game/background.hpp",
     "include/th10/render/camera_batch.hpp",
     "include/th10/render/quad_batch.hpp",
     "include/th10/platform/archive_file.hpp",
     "include/th10/platform/thread_sync.hpp",
-    "include/th10/game/game_state.hpp",
     "include/th10/game/entity.hpp",
     "include/th10/types.hpp",
     "include/th10/math/timer.hpp"
@@ -19,8 +18,8 @@
   "image_base": "0x00400000",
   "functions": [
     {
-      "name": "InitializeGameState_00402230",
-      "symbol": "_InitializeGameState_00402230@12",
+      "name": "BackGround_Initialize",
+      "symbol": "_BackGround_Initialize@12",
       "section": ".text$01init",
       "address": "0x00402230",
       "size": 522,
@@ -30,7 +29,7 @@
   "anchors": [
     {
       "name": "StageLoad",
-      "symbol": "?Load@StageEclLoader_00403850@@QAEHPBD@Z",
+      "symbol": "?Load@BackGround@@QAEHPBD@Z",
       "section": ".text$03stage",
       "address": "0x00403850",
       "size": 308
@@ -104,7 +103,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_004776e8",
+      "symbol": "_g_background",
       "address": "0x4776e8",
       "kind": "data"
     },

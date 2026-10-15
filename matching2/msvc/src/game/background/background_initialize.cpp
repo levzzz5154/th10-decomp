@@ -4,23 +4,22 @@
 extern "C" void _ReadWriteBarrier();
 #pragma intrinsic(_ReadWriteBarrier)
 #include "th10/game/scheduler.hpp"
-#include "th10/platform/stage_ecl_load_00403850.hpp"
 #include "th10/render/camera_batch.hpp"
-#include "th10/game/game_state.hpp"
+#include "th10/game/background.hpp"
 struct TextLog_0044b8e0 {
     char text[0x2000]; char* cursor; unsigned char dirty;
     __declspec(noinline) char* AppendLine(char* format, ...);
 };
 extern "C" {
-extern unsigned int data_00474c7c; extern GameCameraSnapshot_00402230 data_00491d7c;
+extern unsigned int data_00474c7c; extern BackGroundCameraSnapshot data_00491d7c;
 extern Scheduler* data_00491be4; extern float data_00476f78;
 SchedulerTask* __stdcall SchedulerCallback_Create_00449ed0(void* callback);
 }
 #pragma code_seg(".text$01init")
-extern "C" __declspec(noinline) int __stdcall InitializeGameState_00402230(GameState_00402230* state, const char* name, int state_id) {
-    if (state_id==0) data_004776e8=state; else data_004776e4=state;
+extern "C" __declspec(noinline) int __stdcall BackGround_Initialize(BackGround* state, const char* name, int state_id) {
+    if (state_id==0) g_background=state; else data_004776e4=state;
     state->stage_flags=data_00474c7c;
-    if (((StageEclLoader_00403850*)state)->Load(name)!=0) {
+    if (state->Load(name)!=0) {
         ((TextLog_0044b8e0*)0x474f70)->AppendLine((char*)0x46cc70);
         return -1;
     }

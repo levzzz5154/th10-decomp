@@ -17,7 +17,7 @@
       "address": "0x00452422",
       "kind": "code"
     },
-    "_GameState_Destroy_00402440@4": {
+    "_BackGround_Destroy@4": {
       "address": "0x00402440",
       "kind": "code"
     },
@@ -181,7 +181,7 @@
       "address": "0x00474C80",
       "kind": "data"
     },
-    "_data_004776e8": {
+    "_g_background": {
       "address": "0x004776E8",
       "kind": "data"
     },

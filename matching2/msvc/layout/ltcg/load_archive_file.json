@@ -5,11 +5,17 @@
   "headers": [
     "include/th10/platform/archive_file.hpp",
     "include/th10/platform/archive_callers.hpp",
-    "include/th10/platform/stage_ecl_load_00403850.hpp",
+    "include/th10/game/background.hpp",
     "layout/ltcg/native_archive_read/archive.hpp",
     "include/th10/archive/dat_archive_types.hpp",
     "include/th10/platform/file.hpp",
-    "include/th10/platform/windows_types.hpp"
+    "include/th10/platform/windows_types.hpp",
+    "include/th10/game/entity.hpp",
+    "include/th10/game/scheduler.hpp",
+    "include/th10/math/timer.hpp",
+    "include/th10/render/camera_batch.hpp",
+    "include/th10/render/quad_batch.hpp",
+    "include/th10/types.hpp"
   ],
   "image_base": "0x00400000",
   "description": "Inherited archive caller cluster retains its eight unrelated selected owners. LoadFile360 is now a complete truthful free-Read ABI anchor with complete Read279/Find53/cipher323 bodies; checksum207 and LoadFile360 are selected by the genuine native_archive_read cluster. Other inherited synthetic caller conventions remain explicit.",
@@ -69,9 +75,9 @@
       "actual_abi": "filename in EAX; owner on stack; RET 4"
     },
     {
-      "name": "StageEclLoader_00403850_Load",
-      "source": "src/game/background/stage_ecl_load.cpp",
-      "symbol": "?Load@StageEclLoader_00403850@@QAEHPBD@Z",
+      "name": "BackGround_Load",
+      "source": "src/game/background/background_load.cpp",
+      "symbol": "?Load@BackGround@@QAEHPBD@Z",
       "section": ".text$00stage",
       "address": "0x00403850",
       "size": 308,
@@ -426,7 +432,7 @@
     "src/unreferenced/FUN_0043e9d0_0043e9d0.cpp",
     "src/game/player/music_room.cpp",
     "src/core/midilib/midi_load_track.cpp",
-    "src/game/background/stage_ecl_load.cpp",
+    "src/game/background/background_load.cpp",
     "src/game/front/score_tasks.cpp",
     "src/unreferenced/unassigned_0043d670.cpp",
     "src/core/sound/sound_load_pending_slot_0043d640.cpp"
@@ -437,7 +443,7 @@
   ],
   "driver": "layout/ltcg/archive_callers_context.cpp",
   "context": {
-    "symbol": "?ArchiveCallersContext@@YGHPAPAUAssetBuffer@@PAPBDPAPAUMapResource@@PAPAUParameterLoader@@PAPAUSoundManager_0043a9b0@@PBDHPAPAUStageEclLoader_00403850@@@Z",
+    "symbol": "?ArchiveCallersContext@@YGHPAPAUAssetBuffer@@PAPBDPAPAUMapResource@@PAPAUParameterLoader@@PAPAUSoundManager_0043a9b0@@PBDHPAPAUBackGround@@@Z",
     "section": ".text$07context",
     "address": "0x0044B500",
     "size": 203,

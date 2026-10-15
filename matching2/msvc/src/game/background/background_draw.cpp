@@ -6,10 +6,10 @@
 // It calls the batch flush, the camera apply, the bucket renderer and the
 // timer on their whole-program registers, so it is compiled in the cluster
 // layout/ltcg/anm_batch_flush_00442f50.json.
-#include "th10/render/stage_objects.hpp"
+#include "th10/game/background_draw.hpp"
 
 #pragma code_seg(".text$000pm_stagedraw")
-int __stdcall StageObjects_Draw(StageObjects* stage) {
+int __stdcall BackGround_Draw(BackGround* stage) {
     if (stage->flags & 8) return 1;
     if (!(stage->flags & 4) || stage->fade_timer.current < 60) {
         data_00491c10->Flush();
@@ -35,10 +35,10 @@ int __stdcall StageObjects_Draw(StageObjects* stage) {
     if (stage->flags & 1) {
         StageSetRenderState(0x0E, 0);
         StageSetFog(1);
-        StageObjects_DrawLayer(stage, 8);
-        StageObjects_DrawLayer(stage, 9);
-        StageObjects_DrawLayer(stage, 10);
-        StageObjects_DrawLayer(stage, 11);
+        BackGround_DrawLayer(stage, 8);
+        BackGround_DrawLayer(stage, 9);
+        BackGround_DrawLayer(stage, 10);
+        BackGround_DrawLayer(stage, 11);
         data_00491c10->Flush();
     }
     AnimationManager_00442F50* manager = data_00491c10;

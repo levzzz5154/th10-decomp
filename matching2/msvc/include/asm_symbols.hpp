@@ -247,16 +247,16 @@ extern "C" void __cdecl asm_CatchIt_0046363a();
 #define VA_asm_CatchIt_0046363a 0x0046363a
 extern "C" void __cdecl asm_ConfigureColorPlaybackState_00442220();
 #define VA_asm_ConfigureColorPlaybackState_00442220 0x00442220
-extern "C" void __cdecl asm_ConstructGameState_00402160();
-#define VA_asm_ConstructGameState_00402160 0x00402160
+extern "C" void __cdecl asm_BackGround_Construct();
+#define VA_asm_BackGround_Construct 0x00402160
 extern "C" void __cdecl asm_CopyMan_0045d3bb();
 #define VA_asm_CopyMan_0045d3bb 0x0045d3bb
 extern "C" void __cdecl asm_CountPatternMatches_004088c0();
 #define VA_asm_CountPatternMatches_004088c0 0x004088c0
 extern "C" FrameInfo* __cdecl asm_CreateFrameInfo_004629eb(FrameInfo* frame, void* object);
 #define VA_asm_CreateFrameInfo_004629eb 0x004629eb
-extern "C" void __cdecl asm_CreateGameState_00402640();
-#define VA_asm_CreateGameState_00402640 0x00402640
+extern "C" void __cdecl asm_BackGround_Create();
+#define VA_asm_BackGround_Create 0x00402640
 extern "C" void __cdecl asm_CreateGameThread_00401440();
 #define VA_asm_CreateGameThread_00401440 0x00401440
 extern "C" void __cdecl asm_CxxFrameHandler_0046276d();
@@ -327,8 +327,8 @@ extern "C" void __cdecl asm_DecryptDatBuffer_part_0044b1c0();
 #define VA_asm_DecryptDatBuffer_part_0044b1c0 0x0044b1c0
 extern "C" void __cdecl asm_DestroyEntityList_00438a30();
 #define VA_asm_DestroyEntityList_00438a30 0x00438a30
-extern "C" void __cdecl asm_DestroyGameState_00402440();
-#define VA_asm_DestroyGameState_00402440 0x00402440
+extern "C" void __cdecl asm_BackGround_Destroy();
+#define VA_asm_BackGround_Destroy 0x00402440
 extern "C" void __cdecl asm_DestroyGameThread_00401260();
 #define VA_asm_DestroyGameThread_00401260 0x00401260
 extern "C" void __cdecl asm_DestructExceptionObject_00462f7c();
@@ -1688,8 +1688,8 @@ extern "C" void __cdecl asm_IncMan_0045d2fc(unsigned int* words, int bit);
 #define VA_asm_IncMan_0045d2fc 0x0045d2fc
 extern "C" void __cdecl asm_InitializeEntity_00401de0();
 #define VA_asm_InitializeEntity_00401de0 0x00401de0
-extern "C" void __cdecl asm_InitializeGameState_00402230();
-#define VA_asm_InitializeGameState_00402230 0x00402230
+extern "C" void __cdecl asm_BackGround_Initialize();
+#define VA_asm_BackGround_Initialize 0x00402230
 extern "C" void __cdecl asm_InitializePlayer_00405860();
 #define VA_asm_InitializePlayer_00405860 0x00405860
 extern "C" void __cdecl asm_InputMaskActive_0040ace0();
@@ -1800,8 +1800,8 @@ extern "C" void __cdecl asm_PlayerManager_ConstructRetail_00408910();
 #define VA_asm_PlayerManager_ConstructRetail_00408910 0x00408910
 extern "C" void __cdecl asm_PlayerManager_CreateRetail_00408c90();
 #define VA_asm_PlayerManager_CreateRetail_00408c90 0x00408c90
-extern "C" void __cdecl asm_PlayerManager_StartMode_004045b0();
-#define VA_asm_PlayerManager_StartMode_004045b0 0x004045b0
+extern "C" void __cdecl asm_BackGround_StartMode();
+#define VA_asm_BackGround_StartMode 0x004045b0
 extern "C" void __cdecl asm_Player_AdjustPower_00405b60();
 #define VA_asm_Player_AdjustPower_00405b60 0x00405b60
 extern "C" void __cdecl asm_Player_ClearExpiredFlagsRetail_00405500();
@@ -6016,7 +6016,7 @@ extern "C" unsigned char data_004776d4;
 extern "C" unsigned char data_004776d8;
 extern "C" unsigned char g_ascii_manager;
 extern "C" unsigned char data_004776e4;
-extern "C" unsigned char data_004776e8;
+extern "C" unsigned char g_background;
 extern "C" unsigned char g_bomb;
 extern "C" unsigned char data_004776f0;
 extern "C" unsigned char g_card;

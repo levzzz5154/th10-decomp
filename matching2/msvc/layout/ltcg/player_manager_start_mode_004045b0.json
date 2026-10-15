@@ -1,15 +1,18 @@
 {
   "schema_version": 1,
   "name": "player_manager_start_mode_004045b0",
-  "source": "src/game/background/player_manager_start_mode_004045b0.cpp",
+  "source": "src/game/background/background_start_mode.cpp",
   "driver": "layout/ltcg/player_manager_start_mode_context.cpp",
-  "headers": [],
+  "headers": [
+    "include/th10/game/background_fade.hpp",
+    "include/th10/math/timer.hpp"
+  ],
   "image_base": "0x00400000",
-  "description": "Player manager mode start with its timer-record initialisation, compiled with native LTCG so the manager pointer arrives in EAX.",
+  "description": "Background mode start with its timer-record initialisation, compiled with native LTCG so the manager pointer arrives in EAX.",
   "functions": [
     {
-      "name": "PlayerManagerState_StartMode",
-      "symbol": "?StartMode@PlayerManagerState@@QAEXXZ",
+      "name": "BackGround_StartMode",
+      "symbol": "?StartMode@BackGround@@QAEXXZ",
       "section": ".text$01startmode",
       "address": "0x004045B0",
       "size": 92,
@@ -17,7 +20,7 @@
     }
   ],
   "context": {
-    "symbol": "?PlayerManagerStartModeCompilerContext@@YGHPAPAUPlayerManagerState@@H@Z",
+    "symbol": "?PlayerManagerStartModeCompilerContext@@YGHPAPAUBackGround@@H@Z",
     "section": ".text$03context",
     "address": "0x00404610",
     "size": 41,

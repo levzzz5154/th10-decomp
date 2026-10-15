@@ -2,10 +2,10 @@
 // animations, ticks the overlay animations at unscaled game speed, then
 // publishes the stage camera. Native LTCG passes the stage in EAX.
 // 0x00403050: the scheduler callback, which forwards its ECX context.
-#include "th10/game/stage_state_update_00402720.hpp"
+#include "th10/game/background_update.hpp"
 
 #pragma code_seg(".text$00stage_update")
-int StageState_00402720::Update() {
+int BackGround::Update() {
     if (state_flags & 8)
         return 1;
     if ((state_flags & 4) && fade_frames >= 60)
@@ -16,7 +16,7 @@ int StageState_00402720::Update() {
     CameraNormalize(&camera.camera.unknown_024, &camera.camera.direction);
     clear_color = 0x808080;
     Sweep();
-    RunStageScript_00403c80(this);
+    BackGround_RunScript(this);
     for (int i = 0; i < 8; ++i)
         RunAnimationVm(&layers[i]);
     if (overlay_active) {
@@ -28,14 +28,14 @@ int StageState_00402720::Update() {
         data_00476f78 = game_speed;
     }
     overlay_active = 0;
-    memcpy(&data_00491d7c, &camera, sizeof(StageCamera_00402720));
+    memcpy(&data_00491d7c, &camera, sizeof(BackGroundCamera));
     ++frame;
     return 1;
 }
 #pragma code_seg()
 
 #pragma code_seg(".text$00task_callback")
-int __fastcall StageState_UpdateTask_00403050(StageState_00402720* stage) {
+int __fastcall BackGround_OnUpdate(BackGround* stage) {
     return stage->Update();
 }
 #pragma code_seg()

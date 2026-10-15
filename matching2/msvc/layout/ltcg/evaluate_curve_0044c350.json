@@ -11,7 +11,7 @@
     "include/th10/math/int3.hpp",
     "include/th10/math/trajectory_vector.hpp",
     "include/th10/render/stage_fog.hpp",
-    "include/th10/render/stage_objects.hpp",
+    "include/th10/game/background_draw.hpp",
     "include/th10/game/ascii_manager.hpp",
     "include/th10/game/entity_script_start.hpp",
     "include/th10/render/camera_batch.hpp",
@@ -112,9 +112,9 @@
       "actual_abi": "left in ECX; right in EAX; result pointer in ESI, returned in EAX; plain RET"
     },
     {
-      "name": "StageObjects_RunScript",
-      "source": "src/game/background/stage_script.cpp",
-      "symbol": "?StageObjects_RunScript@@YGHPAUStageObjects@@@Z",
+      "name": "BackGround_RunScript",
+      "source": "src/game/background/background_run_script.cpp",
+      "symbol": "?BackGround_RunScript@@YGHPAUBackGround@@@Z",
       "section": ".text$00403c80_fn",
       "address": "0x00403C80",
       "size": 1868,
@@ -321,7 +321,7 @@
     }
   ],
   "roots": [
-    "?StageObjects_RunScript@@YGHPAUStageObjects@@@Z"
+    "?BackGround_RunScript@@YGHPAUBackGround@@@Z"
   ],
   "additional_sources": [
     "src/core/sprtanim/int_interpolator.cpp",
@@ -331,7 +331,7 @@
     "src/game/enemy/trajectory_interpolator.cpp",
     "src/game/background/stage_fog_interpolator.cpp",
     "src/game/background/stage_fog.cpp",
-    "src/game/background/stage_script.cpp",
+    "src/game/background/background_run_script.cpp",
     "layout/ltcg/evaluate_curve/frame_timer_tick.cpp",
     "layout/ltcg/evaluate_curve/entity_start_script.cpp",
     "layout/ltcg/evaluate_curve/load_script.cpp"

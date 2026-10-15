@@ -79,7 +79,7 @@ extern GameThread_0040c540* g_ascii_manager;
 extern void* data_00474c7c;
 extern void* data_00474c80;
 // Game states (destroyed with 0x00402440).
-extern void* data_004776e8;
+extern void* g_background;
 extern void* data_004776e4;
 // The pause-menu manager (released by 0x00422220).
 extern void* g_pause;

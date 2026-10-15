@@ -1,11 +1,11 @@
 // Compiler context only; never selected as recovered game code.
-#include "../../src/game/background/player_manager_start_mode_004045b0.cpp"
+#include "../../src/game/background/background_start_mode.cpp"
 
 #pragma code_seg(".text$03context")
-int __stdcall PlayerManagerStartModeCompilerContext(PlayerManagerState** states, int count) {
-    PlayerManagerState** cursor = states;
+int __stdcall PlayerManagerStartModeCompilerContext(BackGround** states, int count) {
+    BackGround** cursor = states;
     while (count--) {
-        PlayerManagerState* state = *cursor++;
+        BackGround* state = *cursor++;
         state->StartMode();
         state->StartMode();
     }

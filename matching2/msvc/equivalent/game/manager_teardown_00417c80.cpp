@@ -39,7 +39,7 @@ extern "C" void __cdecl entry_free_004524a1(void* memory);
 
 // The stack-argument destroy callees, each spelled with its fixed retail
 // prototype (receiver at [ESP+4], RET 4).
-extern "C" void __stdcall GameState_Destroy_00402440(void* state);
+extern "C" void __stdcall BackGround_Destroy(void* state);
 extern "C" void __stdcall Manager_Release_00422220(void* manager);
 extern "C" void __stdcall Hud_Destroy(void* manager);
 extern "C" void __stdcall StageManager_Destroy_00424ed0(void* manager);
@@ -142,14 +142,14 @@ void __stdcall ReleaseGlobalManager_00417c80(ManagerState_00417c80* state) {
                 entry_free_004524a1(replay_manager);
             }
         }
-        void* pending_state = data_004776e8;
+        void* pending_state = g_background;
         if (pending_state) {
-            GameState_Destroy_00402440(pending_state);
+            BackGround_Destroy(pending_state);
             entry_free_004524a1(pending_state);
         }
         void* current_state = data_004776e4;
         if (current_state) {
-            GameState_Destroy_00402440(current_state);
+            BackGround_Destroy(current_state);
             entry_free_004524a1(current_state);
         }
         void* pause_menu = g_pause;
@@ -200,10 +200,10 @@ void __stdcall ReleaseGlobalManager_00417c80(ManagerState_00417c80* state) {
         panel->ReleaseStageParts();
         void* retired_state = data_004776e4;
         if (retired_state) {
-            GameState_Destroy_00402440(retired_state);
+            BackGround_Destroy(retired_state);
             entry_free_004524a1(retired_state);
         }
-        data_004776e4 = data_004776e8;
+        data_004776e4 = g_background;
 
         TaskPairOwner_00417c80* pause = (TaskPairOwner_00417c80*)g_pause;
         if (pause->node_008) pause->node_008->flags_004 &= ~2u;

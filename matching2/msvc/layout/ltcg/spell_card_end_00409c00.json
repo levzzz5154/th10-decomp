@@ -72,7 +72,7 @@
   "constants": [],
   "absolute_symbols": [
     {
-      "symbol": "_data_004776e8",
+      "symbol": "_g_background",
       "address": "0x004776E8",
       "kind": "data"
     },

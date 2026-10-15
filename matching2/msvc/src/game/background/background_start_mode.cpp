@@ -1,4 +1,4 @@
-// 0x004045B0: start the player manager's "active" mode, initialising its timer
+// 0x004045B0: start the background's "active" mode, initialising its timer
 // record to defaults while the record's initialised flag is still clear.
 //
 // Retail: 8B 88 2C 2A 00 00        mov ecx,[eax+0x2A2C]
@@ -18,35 +18,25 @@
 //         C3                       ret
 // The manager pointer arrives in EAX, so the mode switch is compiled as a
 // native LTCG cluster.
-// Carved out of src/game/player.cpp (asm_PlayerManager_StartMode_004045b0).
+// The background owns this fade timer at +0x2A1C.
 
-struct PlayerManagerState {
-    char unknown[0x2A18];
-    int flags_2A18;   // 0x2A18 mode flags
-    int field_2A1C;   // 0x2A1C timer value
-    int field_2A20;   // 0x2A20 timer limit
-    float field_2A24; // 0x2A24 timer limit as float
-    int field_2A28;   // 0x2A28 timer marker
-    int flags_2A2C;   // 0x2A2C timer initialised flag
-
-    __declspec(noinline) void StartMode();
-};
+#include "th10/game/background_fade.hpp"
 
 #pragma code_seg(".text$01startmode")
-void PlayerManagerState::StartMode() {
-    if (!(this->flags_2A2C & 1)) {
-        this->field_2A20 = 0;
-        this->field_2A1C = 0xFFF0BDC1;
-        this->field_2A24 = 0.0f;
-        this->field_2A28 = 0x476F78;
-        this->flags_2A2C |= 1;
+void BackGround::StartMode() {
+    if (!(this->timer.flags & 1)) {
+        this->timer.current = 0;
+        this->timer.previous = 0xFFF0BDC1;
+        this->timer.elapsed = 0.0f;
+        this->timer.speed = (const float*)0x476F78;
+        this->timer.flags |= 1;
     }
     // The flag update is a single read-modify-write of the field: taking the
     // field's address first keeps it from being split into load/or/store.
-    int* flags = &this->flags_2A18;
-    this->field_2A20 = 60;
-    this->field_2A24 = 60.0f;
-    this->field_2A1C = 59;
+    unsigned int* flags = &this->flags;
+    this->timer.current = 60;
+    this->timer.elapsed = 60.0f;
+    this->timer.previous = 59;
     *flags |= 4;
 }
 #pragma code_seg()

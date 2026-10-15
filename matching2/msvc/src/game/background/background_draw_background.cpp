@@ -6,7 +6,7 @@
 // It calls the batch flush, the camera apply, the stage selectors and the
 // timer on their whole-program registers, so it is compiled in the cluster
 // layout/ltcg/anm_batch_flush_00442f50.json.
-#include "th10/render/stage_objects.hpp"
+#include "th10/game/background_draw.hpp"
 
 // The parts of the render state at 0x00491C28 other units define.
 struct RenderStageState_00405300 {
@@ -26,7 +26,7 @@ __declspec(noinline) ScreenEffectController* __stdcall CreateScreenEffect_0043c8
 struct PlayfieldRect { int left, top, right, bottom; };
 
 #pragma code_seg(".text$000pl_stagebg")
-int __stdcall StageObjects_DrawBackground(StageObjects* stage) {
+int __stdcall BackGround_DrawBackground(BackGround* stage) {
     if (stage->flags & 8) return 1;
     if (!(stage->flags & 4) || stage->fade_timer.current < 60) {
         data_00491c10->Flush();
@@ -81,14 +81,14 @@ int __stdcall StageObjects_DrawBackground(StageObjects* stage) {
             data_00491c28.SelectStage(0);
         }
         StageSetFog(1);
-        StageObjects_DrawLayer(stage, 0);
-        StageObjects_DrawLayer(stage, 1);
-        StageObjects_DrawLayer(stage, 2);
-        StageObjects_DrawLayer(stage, 3);
-        StageObjects_DrawLayer(stage, 4);
-        StageObjects_DrawLayer(stage, 5);
-        StageObjects_DrawLayer(stage, 6);
-        StageObjects_DrawLayer(stage, 7);
+        BackGround_DrawLayer(stage, 0);
+        BackGround_DrawLayer(stage, 1);
+        BackGround_DrawLayer(stage, 2);
+        BackGround_DrawLayer(stage, 3);
+        BackGround_DrawLayer(stage, 4);
+        BackGround_DrawLayer(stage, 5);
+        BackGround_DrawLayer(stage, 6);
+        BackGround_DrawLayer(stage, 7);
         data_00491c10->Flush();
         if (stage->sprite_frames) ++stage->sprite_frames;
     }

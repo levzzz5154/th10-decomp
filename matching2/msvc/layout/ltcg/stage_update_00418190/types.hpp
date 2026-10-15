@@ -138,7 +138,7 @@ struct Stage_00404450 {
 #define data_00491fc4 stage_fade_data_00491fc4
 #define data_00491fb8 stage_fade_data_00491fb8
 #define data_00492590 stage_fade_data_00492590
-#include "th10/game/native_stage_fade_00404530.hpp"
+#include "th10/game/background_fade.hpp"
 #include "th10/render/screen_effect_controller.hpp"
 extern "C" float data_00476f78;
 extern "C" void _ReadWriteBarrier();
@@ -167,7 +167,7 @@ extern "C" void _ReadWriteBarrier();
 #define data_00491fc4 stage_start_data_00491fc4
 #define data_00491fb8 stage_start_data_00491fb8
 #define data_00492590 stage_start_data_00492590
-// 0x004045B0: start the player manager's "active" mode, initialising its timer
+// 0x004045B0: start the background's "active" mode, initialising its timer
 // record to defaults while the record's initialised flag is still clear.
 //
 // Retail: 8B 88 2C 2A 00 00        mov ecx,[eax+0x2A2C]
@@ -187,19 +187,9 @@ extern "C" void _ReadWriteBarrier();
 //         C3                       ret
 // The manager pointer arrives in EAX, so the mode switch is compiled as a
 // native LTCG cluster.
-// Carved out of src/game/player.cpp (asm_PlayerManager_StartMode_004045b0).
+// The background owns this fade timer at +0x2A1C.
 
-struct PlayerManagerState {
-    char unknown[0x2A18];
-    int flags_2A18;   // 0x2A18 mode flags
-    int field_2A1C;   // 0x2A1C timer value
-    int field_2A20;   // 0x2A20 timer limit
-    float field_2A24; // 0x2A24 timer limit as float
-    int field_2A28;   // 0x2A28 timer marker
-    int flags_2A2C;   // 0x2A2C timer initialised flag
-
-    __declspec(noinline) void StartMode();
-};
+#include "th10/game/background_fade.hpp"
 
 #undef data_00491c10
 #undef data_0047770c
