@@ -84,7 +84,7 @@ extern "C" GameFrame_00439390 data_004924f0;
 extern "C" RenderStageState_00439390 data_00491c28;
 extern "C" WorkerThread_00439390 data_00492254;
 // The task manager 0x00449C00/0x00449D40 decode for.
-extern "C" int data_00491be4;
+extern "C" int g_func_ctrl;
 // The frame parameters 0x0043DDF0 walks.
 extern "C" char data_00492590[];
 // The frame time the renderer publishes.
@@ -114,13 +114,13 @@ int GameFrameAdvance_00439390(GameFrame_00439390* frame) {
     frame->previous_time = frame->frame_time;
     if (frame->frame_time > frame->next_tick_time) {
         while (frame->next_tick_time < frame->frame_time) frame->next_tick_time += 1.0 / 60.0;
-        data_00491c10->Flush();
+        g_sprt_ctrl->Flush();
         RenderStage_00439390* stage = &data_00491c28.stages[1];
         data_00491c28.active_stage = stage;
         stage->camera.ApplyDefault();
         data_00491c30->Viewport(&data_00491c28.active_stage->camera.viewport_x);
         data_00491c28.stage_index = 1;
-        int task = asm_FUN_00449c00_00449c00(data_00491be4);
+        int task = asm_FUN_00449c00_00449c00(g_func_ctrl);
         asm_FUN_0043ddf0_0043ddf0(data_00492590);
         if (task == 0) {
             data_00492254.Stop();
@@ -136,15 +136,15 @@ int GameFrameAdvance_00439390(GameFrame_00439390* frame) {
             typedef long (__stdcall *BeginScene_00439390)(void*);
             RenderDevice* device = data_00491c30;
             ((BeginScene_00439390)device->vtable[0xA4 / 4])(device);
-            AnimationManager_00442F50* manager = data_00491c10;
+            SprtCtrlBatchView* manager = g_sprt_ctrl;
             TexturedVertex* buffer = (TexturedVertex*)((unsigned char*)manager + 0x3ADACC);
             manager->quad_count = 0;
             manager->cursor = buffer;
             manager->batch_start = buffer;
             data_00491c28.fog_enabled = 0xFF;
             data_00491c28.DisableFog();
-            asm_FUN_00449d40_00449d40(data_00491be4);
-            data_00491c10->Flush();
+            asm_FUN_00449d40_00449d40(g_func_ctrl);
+            g_sprt_ctrl->Flush();
             data_00491c30->Texture(0, 0);
             typedef long (__stdcall *EndScene_00439390)(void*);
             device = data_00491c30;
@@ -173,7 +173,7 @@ extern "C" int __cdecl entry_free_004524a1(void*);
 #pragma code_seg(".text$00a420c90")
 int RenderStageState_00439390::EnableFog() {
     if (fog_enabled != 1) {
-        data_00491c10->Flush();
+        g_sprt_ctrl->Flush();
         RenderDevice* dev = device;
         fog_enabled = 1;
         return dev->State(28, 1);
@@ -183,7 +183,7 @@ int RenderStageState_00439390::EnableFog() {
 #pragma code_seg(".text$00a420cd0")
 int RenderStageState_00439390::DisableFog() {
     if (fog_enabled) {
-        data_00491c10->Flush();
+        g_sprt_ctrl->Flush();
         RenderDevice* dev = device;
         fog_enabled = 0;
         return dev->State(28, 0);
@@ -193,7 +193,7 @@ int RenderStageState_00439390::DisableFog() {
 #pragma code_seg(".text$00a420d10")
 int RenderStageState_00439390::EnableDepthWrite() {
     if (depth_write_enabled != 1) {
-        data_00491c10->Flush();
+        g_sprt_ctrl->Flush();
         RenderDevice* dev = device;
         depth_write_enabled = 1;
         return dev->State(14, 1);
@@ -203,7 +203,7 @@ int RenderStageState_00439390::EnableDepthWrite() {
 #pragma code_seg(".text$00a420d50")
 int RenderStageState_00439390::DisableDepthWrite() {
     if (depth_write_enabled) {
-        data_00491c10->Flush();
+        g_sprt_ctrl->Flush();
         RenderDevice* dev = device;
         depth_write_enabled = 0;
         return dev->State(14, 0);
@@ -214,7 +214,7 @@ int RenderStageState_00439390::DisableDepthWrite() {
 // 0x00420D90: flush the pending animation batch, then set one render state.
 int __stdcall RenderStageState_SetRenderState(RenderStageState_00439390* stage,
                                               unsigned int state, unsigned int value) {
-    data_00491c10->Flush();
+    g_sprt_ctrl->Flush();
     return stage->device->State(state, value);
 }
 #pragma code_seg()

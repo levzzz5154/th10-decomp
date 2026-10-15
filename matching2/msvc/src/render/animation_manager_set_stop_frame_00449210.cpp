@@ -18,7 +18,7 @@ struct AnimationTreeNode {
     unsigned short stop_frame;              // +0x304
 };
 
-class AnimationManager {
+class SprtCtrl {
 public:
     void* __fastcall Find(AnimationLookupContext* context, AnimationScriptId id);
 };
@@ -30,7 +30,7 @@ void __fastcall AnimationManager_SetStopFrame(unsigned short frame, AnimationLoo
 __declspec(noinline) void __fastcall AnimationManager_SetStopFrame(
         unsigned short frame, AnimationLookupContext* context, AnimationScriptId id) {
     AnimationTreeNode* node = reinterpret_cast<AnimationTreeNode*>(
-        reinterpret_cast<AnimationManager*>(context)->Find(context, id));
+        reinterpret_cast<SprtCtrl*>(context)->Find(context, id));
     if (node != 0) {
         node->stop_frame = frame;
         if (!node->children_flagged) {

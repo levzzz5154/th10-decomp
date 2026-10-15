@@ -25,7 +25,7 @@
 // 0x004451C0: dispatch one animation entity's quad.  Defined in
 // src/core/sprtfunc/anm_vm_draw_dispatch.cpp and co-compiled by this cluster.
 extern "C" __declspec(noinline) int __cdecl asm_FUN_004451c0_004451c0(
-        AnimationManager_00442F50* manager, RenderEntity* entity);
+        SprtCtrlBatchView* manager, RenderEntity* entity);
 
 struct CardRuntime_00409230 {
     unsigned char reserved_0000[0x378C];
@@ -38,8 +38,8 @@ struct CardRuntime_00409230 {
 #pragma code_seg(".text$001release")
 int CardRuntime_00409230::ReleaseFlaggedEntities() {
     if (release_flag_378C & 1) {
-        asm_FUN_004451c0_004451c0(data_00491c10, (RenderEntity*)((char*)this + 0x10));
-        asm_FUN_004451c0_004451c0(data_00491c10, (RenderEntity*)((char*)this + 0x3BC));
+        asm_FUN_004451c0_004451c0(g_sprt_ctrl, (RenderEntity*)((char*)this + 0x10));
+        asm_FUN_004451c0_004451c0(g_sprt_ctrl, (RenderEntity*)((char*)this + 0x3BC));
     }
     return 1;
 }

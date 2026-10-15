@@ -6,7 +6,7 @@
 #include "th10/platform/sound_queue.hpp"
 
 // The enemy manager at 0x00477704, as far as a dying enemy reads it.
-struct EnemyManager_0040e5f0 {
+struct EnemyCtrlDeathView {
     unsigned char reserved_00[0x30];
     void* animation_files[4];                 // +0x30
     FrameTimer clock;                         // +0x40
@@ -33,13 +33,13 @@ struct EnemyNode_0040e6a0 {
     EnemyNode_0040e6a0* next;
 };
 
-extern "C" EnemyManager_0040e5f0* data_00477704;
+extern "C" EnemyCtrlDeathView* g_enemy_ctrl;
 extern "C" ScoreState data_00474c40;
 
 // 0x0040E5F0: sound, burst, drops and gauge hold of a dying enemy.
 int __stdcall Enemy_ReleaseOnDeath_0040e5f0(Enemy_0040e5f0* enemy);
 
 // 0x0040E6A0: start the bursts of the enemies that just died and tick the clock.
-void __stdcall EnemyManager_SweepDeaths_0040e6a0(EnemyManager_0040e5f0* manager);
+void __stdcall EnemyCtrl_SweepDeaths_0040e6a0(EnemyCtrlDeathView* manager);
 
 #endif

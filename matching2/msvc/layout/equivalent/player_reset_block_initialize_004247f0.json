@@ -46,7 +46,7 @@
       "address": "0x00449ED0",
       "kind": "code"
     },
-    "_data_00491be4": {
+    "_g_func_ctrl": {
       "address": "0x00491BE4",
       "kind": "data"
     },
@@ -114,7 +114,7 @@
       "address": "0x0043c870",
       "kind": "data"
     },
-    "_data_00491c10": {
+    "_g_sprt_ctrl": {
       "address": "0x00491C10",
       "kind": "data"
     },
@@ -162,7 +162,7 @@
       "address": "0x004660CC",
       "kind": "data"
     },
-    "_Stage_StartupThread": {
+    "_Game_LoadThread": {
       "address": "0x00417C70",
       "kind": "data"
     },
@@ -174,7 +174,7 @@
       "address": "0x00491C30",
       "kind": "data"
     },
-    "_data_00477810": {
+    "_g_game": {
       "address": "0x00477810",
       "kind": "data"
     },
@@ -774,7 +774,7 @@
       "address": "0x00433570",
       "kind": "code"
     },
-    "_data_00477708": {
+    "_g_fps": {
       "address": "0x00477708",
       "kind": "data"
     },
@@ -930,7 +930,7 @@
       "address": "0x414830",
       "kind": "relative_code"
     },
-    "_EnemyManager_CreateRetail_0040d6b0@4": {
+    "_EnemyCtrl_Create@4": {
       "address": "0x40d6b0",
       "kind": "relative_code"
     },
@@ -954,7 +954,7 @@
       "address": "0x45bd80",
       "kind": "relative_code"
     },
-    "_data_00477704": {
+    "_g_enemy_ctrl": {
       "address": "0x477704",
       "kind": "data"
     },
@@ -974,8 +974,8 @@
   "bindings": {
     "?Append@TextLog_0044b810@@QAAPADPADZZ": "0x44b810",
     "_LargePlayerCallbackCreate@4": "0x449ed0",
-    "_Scheduler_RegisterPrimary@12": "0x449ae0",
-    "_Scheduler_RegisterSecondary@12": "0x449b70",
+    "_FuncCtrl_RegisterPrimary@12": "0x449ae0",
+    "_FuncCtrl_RegisterSecondary@12": "0x449b70",
     "?Configure@ItemConfiguredEntity_00404f30@@QAEXHUConfigureResource_00404f30@@@Z": "0x404f30",
     "??0PlayerResetBlock@@QAE@XZ": "0x401140",
     "_Archive_LoadFile@12": "0x44b360",

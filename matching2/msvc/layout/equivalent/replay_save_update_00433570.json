@@ -47,7 +47,7 @@
       "address": "0x00449ED0",
       "kind": "code"
     },
-    "_data_00491be4": {
+    "_g_func_ctrl": {
       "address": "0x00491BE4",
       "kind": "data"
     },
@@ -115,7 +115,7 @@
       "address": "0x0043c870",
       "kind": "data"
     },
-    "_data_00491c10": {
+    "_g_sprt_ctrl": {
       "address": "0x00491C10",
       "kind": "data"
     },
@@ -163,7 +163,7 @@
       "address": "0x004660CC",
       "kind": "data"
     },
-    "_Stage_StartupThread": {
+    "_Game_LoadThread": {
       "address": "0x00417C70",
       "kind": "data"
     },
@@ -175,7 +175,7 @@
       "address": "0x00491C30",
       "kind": "data"
     },
-    "_data_00477810": {
+    "_g_game": {
       "address": "0x00477810",
       "kind": "data"
     },
@@ -861,15 +861,15 @@
     "?RecoveryDispatchText_004479d0@@YGXPAURecoveryTextResource_004479d0@@HPBDPAXHIH@Z": "0x004479D0",
     "_RecoveryAscii_Create_0043c8b0@24": "0x0043C8B0",
     "_RecoveryAscii_Register_0043c970@28": "0x0043C970",
-    "_Scheduler_RegisterPrimary@12": "0x00449AE0",
-    "_Scheduler_RegisterSecondary@12": "0x00449B70",
+    "_FuncCtrl_RegisterPrimary@12": "0x00449AE0",
+    "_FuncCtrl_RegisterSecondary@12": "0x00449B70",
     "_RecoveryAsciiRegisterPrimary_0044a000@12": "0x0044A000",
     "_RecoveryAsciiRegisterSecondary_0044a030@12": "0x0044A030",
     "?LoadAsset@@YGPADPBDPAUAssetBuffer@@@Z": "0x0040B480",
     "?EnsureAnimationResource@GameThread_0040c540@@QAEPAXMM@Z": "0x0040C540",
     "?ClearResourceSlot@AnimationManager_004477d0@@QAEXH@Z": "0x004477D0",
     "?Release@AnimationResource_00447810@@QAEXXZ": "0x00447810",
-    "?MarkResourceForRemoval@AnimationManager@@QAEXPAX@Z": "0x004493E0",
+    "?MarkResourceForRemoval@SprtCtrl@@QAEXPAX@Z": "0x004493E0",
     "?AnimationManager_CreatePrimaryBack_00448d00@@YGPAPAXPAXPAPAXHH@Z": "0x00448D00",
     "?Queue@SoundQueue@@QAEHHH@Z": "0x0043DC90",
     "?Start@PlatformWorker@@QAEXPAXP6GI0@Z@Z": "0x0044C1C0",

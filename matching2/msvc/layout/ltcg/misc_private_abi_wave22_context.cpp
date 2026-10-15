@@ -1,6 +1,6 @@
 // Compiler context only; never selected as recovered game code.
 #include "../../src/unreferenced/unassigned_00421c70.cpp"
-// The existing AnimationManager::Find dependency is emitted here as a
+// The existing SprtCtrl::Find dependency is emitted here as a
 // non-recovered ABI anchor; its maintained source belongs to another cluster.
 
 struct AnimationEntry {
@@ -24,14 +24,14 @@ struct AnimationScriptId {
     int value;
 };
 
-class AnimationManager {
+class SprtCtrl {
 public:
     void* __fastcall Find(AnimationLookupContext* context,
                            AnimationScriptId id);
 };
 
 #pragma code_seg(".text$50find")
-__declspec(noinline) void* __fastcall AnimationManager::Find(
+__declspec(noinline) void* __fastcall SprtCtrl::Find(
         AnimationLookupContext* context, AnimationScriptId id) {
     if (!id.value)
         return 0;

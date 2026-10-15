@@ -1,9 +1,9 @@
-#include "th10/game/scheduler.hpp"
+#include "th10/core/func_ctrl.hpp"
 #include "th10/platform/worker.hpp"
 
 extern "C" {
 SchedulerTask* __stdcall SchedulerCallback_Create_00449ed0(TaskRoutine callback);
-extern Scheduler* data_00491be4;
+extern FuncCtrl* g_func_ctrl;
 int __fastcall LoadingPrimary(void* owner);
 int __fastcall LoadingSecondary(void* owner);
 unsigned int __stdcall LoadingThreadMain(void* owner);
@@ -21,13 +21,13 @@ int LoadingView::StartWorker() {
     // Clear callback flag 0x2 before registration.
     *(unsigned int*)((unsigned char*)primary + 4) &= ~2u;
     primary->context = this;
-    Scheduler_RegisterPrimary(data_00491be4, primary, 3);
+    FuncCtrl_RegisterPrimary(g_func_ctrl, primary, 3);
     primary_task = primary;
 
     SchedulerTask* secondary = SchedulerCallback_Create_00449ed0(LoadingSecondary);
     *(unsigned int*)((unsigned char*)secondary + 4) &= ~2u;
     secondary->context = this;
-    Scheduler_RegisterSecondary(data_00491be4, secondary, 2);
+    FuncCtrl_RegisterSecondary(g_func_ctrl, secondary, 2);
     secondary_task = secondary;
 
     PlatformWorker* active_worker = &worker;

@@ -6,7 +6,7 @@ struct AnimationManager_0043e710 {
     int script_tick_counter;                   // +0x4C
 };
 
-extern "C" void* data_00491c10;
+extern "C" void* g_sprt_ctrl;
 extern "C" float data_00476f78;
 extern "C" void __stdcall asm_FUN_0043ee30_0043ee30(Entity* object);
 #pragma code_seg(".text$f0043e710F")
@@ -38,7 +38,7 @@ void* AnimationResource_0043e710::LoadScript(Entity* object, int index) {
     uint32_t* flag_word = &object->AnimationFlags();
     *flag_word &= ~1u;
     asm_FUN_0043ee30_0043ee30(object);
-    ++static_cast<AnimationManager_0043e710*>(data_00491c10)->script_tick_counter;
-    return data_00491c10;
+    ++static_cast<AnimationManager_0043e710*>(g_sprt_ctrl)->script_tick_counter;
+    return g_sprt_ctrl;
 }
 #pragma code_seg()

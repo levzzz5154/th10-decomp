@@ -581,7 +581,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041afd0_0041afd0() {
     L_0041b3ef:
         idiv ecx
     L_0041b3f1:
-        mov esi,dword ptr [data_0047770c]
+        mov esi,dword ptr [g_front]
     L_0041b3f7:
         imul edx,64h
     L_0041b3fa:
@@ -893,7 +893,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041afd0_0041afd0() {
     L_0041b649:
         idiv ecx
     L_0041b64b:
-        mov esi,dword ptr [data_0047770c]
+        mov esi,dword ptr [g_front]
     L_0041b651:
         imul edx,64h
     L_0041b654:

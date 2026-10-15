@@ -13,11 +13,11 @@
 #include "th10/archive/crypt.hpp"
 #include "th10/archive/lzss.hpp"
 #include "th10/game/score_archive_0042b1e0.hpp"
-#include "th10/app/frame_rate_counter_native.hpp"
+#include "th10/game/fps_runtime.hpp"
 
 // The frame-time counters the slow rate is derived from; 0x004134B0 keeps
 // them updated while the game runs (measured time over the interval budget).
-extern "C" FrameRateCounter_004134b0* data_00477708;
+extern "C" FPS* g_fps;
 extern "C" const volatile float data_00470b44;           // 100.0f
 extern "C" unsigned int data_00474c44;                   // the current score
 
@@ -123,7 +123,7 @@ int __fastcall ReplaySaveManager_00429b60::Save(const char* file_name, const cha
 
     manager->summary->stage_count = count;
     manager->summary->score = data_00474c44;
-    double scaled = data_00477708->measured / data_00477708->budget * data_00470b44;
+    double scaled = g_fps->measured / g_fps->budget * data_00470b44;
     manager->summary->slow_rate = data_00470b44 - scaled;
 
     // Pack the summary, the stage records and the pools into one buffer.

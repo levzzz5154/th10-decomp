@@ -3,7 +3,7 @@
 
 #pragma code_seg(".text$03context")
 int __stdcall MarkForRemovalContext_00449630(AnimationHandle_00449630* handles, int count,
-                                             AnimationManager* manager) {
+                                             SprtCtrl* manager) {
     for (int i = 0; i < count; ++i)
         handles[i].MarkForRemovalAndClear(manager);
     return 0;

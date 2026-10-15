@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "BulletEntity_MarkAnimationForRemoval",
-      "symbol": "?MarkAnimationForRemoval@BulletEntity_0040cea0@@QAIXPAVAnimationManager@@@Z",
+      "symbol": "?MarkAnimationForRemoval@BulletEntity_0040cea0@@QAIXPAVSprtCtrl@@@Z",
       "section": ".text$01mark",
       "address": "0x0040CEA0",
       "size": 36,
@@ -17,7 +17,7 @@
     }
   ],
   "context": {
-    "symbol": "?BulletEntityMarkAnimationForRemovalCompilerContext@@YGHPAVAnimationManager@@PAUBulletEntity_0040cea0@@@Z",
+    "symbol": "?BulletEntityMarkAnimationForRemovalCompilerContext@@YGHPAVSprtCtrl@@PAUBulletEntity_0040cea0@@@Z",
     "section": ".text$03context",
     "address": "0x0040CEE0",
     "size": 20,
@@ -38,12 +38,12 @@
   "constants": [],
   "absolute_symbols": [
     {
-      "symbol": "?SetFlag@AnimationManager@@QAIPAXPAUAnimationLookupContext@@H@Z",
+      "symbol": "?SetFlag@SprtCtrl@@QAIPAXPAUAnimationLookupContext@@H@Z",
       "address": "0x004492A0",
       "kind": "relative_code"
     },
     {
-      "symbol": "_data_00491c10",
+      "symbol": "_g_sprt_ctrl",
       "address": "0x00491C10",
       "kind": "data"
     }

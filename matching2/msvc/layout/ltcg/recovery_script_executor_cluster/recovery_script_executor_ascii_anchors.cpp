@@ -5,7 +5,7 @@
 #include "th10/platform/thread_sync.hpp"
 
 extern "C" {
-extern Scheduler* data_00491be4;
+extern FuncCtrl* g_func_ctrl;
 extern const float RecoveryAsciiFrameSpeed_00476f78;
 SchedulerTask* __stdcall SchedulerCallback_Create_00449ed0(TaskRoutine callback);
 int __fastcall RecoveryAsciiBasicTick_0043bd40(void*);
@@ -26,13 +26,13 @@ int __fastcall RecoveryAsciiRemove_0043c870(void*);
 // callback EAX / priority EDI / owner stack argument to native LTCG.
 // 0x00449AE0 is absolute-bound to its retail address; its body is recovered by
 // its own cluster and is not compiled here.
-extern "C" __declspec(noinline) int __stdcall Scheduler_RegisterPrimary(
-        Scheduler* scheduler, SchedulerTask* task, int priority);
+extern "C" __declspec(noinline) int __stdcall FuncCtrl_RegisterPrimary(
+        FuncCtrl* scheduler, SchedulerTask* task, int priority);
 
 // 0x00449B70 is absolute-bound to its retail address; its body is recovered by
 // its own cluster and is not compiled here.
-extern "C" __declspec(noinline) int __stdcall Scheduler_RegisterSecondary(
-        Scheduler* scheduler, SchedulerTask* task, int priority);
+extern "C" __declspec(noinline) int __stdcall FuncCtrl_RegisterSecondary(
+        FuncCtrl* scheduler, SchedulerTask* task, int priority);
 
 // 0x0044A000 is absolute-bound to its retail address; its body is recovered by
 // its own cluster and is not compiled here.
@@ -47,7 +47,7 @@ RecoveryAsciiRegisterSecondary_0044a030(TaskRoutine callback, int priority,
     SchedulerTask* task = SchedulerCallback_Create_00449ed0(callback);
     task->context = owner;
     *(unsigned int*)((unsigned char*)task + 4) |= 2u;
-    Scheduler_RegisterSecondary(data_00491be4, task, priority);
+    FuncCtrl_RegisterSecondary(g_func_ctrl, task, priority);
     return task;
 }
 

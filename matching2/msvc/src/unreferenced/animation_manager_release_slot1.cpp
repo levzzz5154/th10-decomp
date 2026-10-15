@@ -12,12 +12,12 @@ struct AnimationManager_0042c800 {
     AnimationResource_00447810* slots_3ad06c[0x21];
 };
 
-extern "C" AnimationManager_0042c800* data_00491c10;
+extern "C" AnimationManager_0042c800* g_sprt_ctrl;
 extern "C" void __cdecl entry_free_004524a1(void* memory);
 
 #pragma code_seg(".text$04layoutb")
 extern "C" __declspec(noinline) void __cdecl ReleaseSlot1_0042c800() {
-    AnimationResource_00447810** slot = &data_00491c10->slots_3ad06c[1];
+    AnimationResource_00447810** slot = &g_sprt_ctrl->slots_3ad06c[1];
     if (*slot != 0) {
         (*slot)->Release();
         entry_free_004524a1(*slot);

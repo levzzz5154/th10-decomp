@@ -21,7 +21,7 @@ struct BillboardSource_00443B60 {
 };
 
 #pragma code_seg(".text$06b05z00projected")
-int RenderEntity::SubmitProjectedQuad(AnimationManager_00442F50* manager) {
+int RenderEntity::SubmitProjectedQuad(SprtCtrlBatchView* manager) {
     if (((BillboardSource_00443B60*)this)->BuildProjectedQuad() != 0) {
         return -1;
     }

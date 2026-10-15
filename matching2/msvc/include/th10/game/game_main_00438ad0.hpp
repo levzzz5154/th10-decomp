@@ -6,7 +6,7 @@
 struct MidiSequencer;
 struct GameFrame_00439390;
 struct Holder_00438a30;
-struct SpriteStateCache;
+struct SprtCtrlStateCacheView;
 
 // A Win32 MSG.
 struct Message_00438ad0 {

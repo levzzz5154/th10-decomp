@@ -51,7 +51,7 @@ allocation_failed:
 }
 #pragma code_seg()
 #pragma code_seg(".text$a02release")
-void NativeRenderManager::ReleaseTargets() {
+void SprtCtrlTargetsView::ReleaseTargets() {
     for (int index=0;index<32;++index) {
         if (primary[index]) {
             primary[index]->methods->Release(primary[index]);
@@ -61,7 +61,7 @@ void NativeRenderManager::ReleaseTargets() {
 }
 #pragma code_seg()
 #pragma code_seg(".text$a10flush")
-int NativeRenderManager::Flush() {
+int SprtCtrlTargetsView::Flush() {
     int result=quad_count;
     if (result) {
         data_00491c30->methods->Stage(data_00491c30,0,6,0);

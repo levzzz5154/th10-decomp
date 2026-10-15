@@ -81,7 +81,7 @@ void Score_SetNormalizedAngle(void* state, float angle) {
 typedef void (__stdcall* GlobalStateDestroyFn)(void*);
 
 void Recovery_ReleaseGlobalStates() {
-    void* manager_state = *(void**)&data_00477810;
+    void* manager_state = *(void**)&g_game;
     if (manager_state) {
         ((GlobalStateDestroyFn)asm_FUN_00417c80_00417c80)(manager_state);
         entry_free_004524a1(manager_state);

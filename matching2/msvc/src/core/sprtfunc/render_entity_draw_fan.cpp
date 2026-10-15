@@ -6,7 +6,7 @@
 
 #pragma code_seg(".text$07contextzb")
 __declspec(noinline) int RenderEntity::DrawFan33() {
-    data_00491c10->DrawFan(this, strip_vertices, 0x21);
+    g_sprt_ctrl->DrawFan(this, strip_vertices, 0x21);
     return 0;
 }
 #pragma code_seg()

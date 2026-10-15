@@ -1,8 +1,8 @@
-#define data_00491c10 stage_front_data_00491c10
-#define data_0047770c stage_front_data_0047770c
+#define g_sprt_ctrl stage_front_g_sprt_ctrl
+#define g_front stage_front_g_front
 #define data_00474c40 stage_front_data_00474c40
 #define g_ascii_manager stage_front_data_004776e0
-#define data_00477704 stage_front_data_00477704
+#define g_enemy_ctrl stage_front_g_enemy_ctrl
 #define g_player stage_front_data_00477834
 #define data_00477838 stage_front_data_00477838
 #define data_0047783c stage_front_data_0047783c
@@ -25,7 +25,7 @@ struct AnimationManager_0043e7e0 {
     int script_tick_counter;
 };
 struct FrontAnimationLookup;
-extern "C" FrontAnimationLookup *data_00491c10;
+extern "C" FrontAnimationLookup *g_sprt_ctrl;
 extern "C" float data_00476f78;
 extern "C" void __stdcall asm_FUN_0043ee30_0043ee30(Entity *object);
 #pragma code_seg(".text$0043e7e0_fn")
@@ -58,16 +58,16 @@ InitializePreservingLoader_0043e7e0(AnimationResource_0043e7e0 *resource,
     unsigned int *flag_word = &object->AnimationFlags();
     *flag_word &= ~1u;
     asm_FUN_0043ee30_0043ee30(object);
-    AnimationManager_0043e7e0 *manager = (AnimationManager_0043e7e0 *)data_00491c10;
+    AnimationManager_0043e7e0 *manager = (AnimationManager_0043e7e0 *)g_sprt_ctrl;
     ++manager->script_tick_counter;
     return manager;
 }
 #pragma code_seg()
-#undef data_00491c10
-#undef data_0047770c
+#undef g_sprt_ctrl
+#undef g_front
 #undef data_00474c40
 #undef g_ascii_manager
-#undef data_00477704
+#undef g_enemy_ctrl
 #undef g_player
 #undef data_00477838
 #undef data_0047783c

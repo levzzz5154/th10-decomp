@@ -197,11 +197,11 @@ extern "C" __declspec(noinline) int __stdcall EnemyDataStart_0040dc80(EnemyTick_
     if (!(enemy->flags & ENEMY_UNSCROLLED)) {
         for (int index = 0; index < 8; ++index)
             SetAnimationTranslatedPosition_00449350(
-                data_00491c10, &enemy->final.position, enemy->animations[index]);
+                g_sprt_ctrl, &enemy->final.position, enemy->animations[index]);
     } else {
         for (int index = 0; index < 8; ++index)
             Animation_SetPosition(
-                data_00491c10, &enemy->final.position, enemy->animations[index]);
+                g_sprt_ctrl, &enemy->final.position, enemy->animations[index]);
     }
 
     // 0x0040E3DB: offer the enemy to the player's homing shots.
@@ -220,7 +220,7 @@ extern "C" __declspec(noinline) int __stdcall EnemyDataStart_0040dc80(EnemyTick_
 
     // 0x0040E43E: the hit flash and its sound.
     {
-        Animation_0040dc80* animation = AnimationManager_Find_004491c0(data_00491c10, enemy->animations[0]);
+        Animation_0040dc80* animation = AnimationManager_Find_004491c0(g_sprt_ctrl, enemy->animations[0]);
         if (animation == 0)
             enemy->animations[0].id = 0;
         if (enemy->flash_frames == 0) {
@@ -240,7 +240,7 @@ extern "C" __declspec(noinline) int __stdcall EnemyDataStart_0040dc80(EnemyTick_
         } else {
             animation->flags &= ~0x8000u;
             if (enemy->flags & ENEMY_BOSS)
-                data_0047770c->boss_bar_flags &= ~0x8000u;
+                g_front->boss_bar_flags &= ~0x8000u;
             --enemy->flash_frames;
         }
     }

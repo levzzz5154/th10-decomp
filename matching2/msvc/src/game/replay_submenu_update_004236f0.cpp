@@ -42,7 +42,7 @@ extern "C" __declspec(noinline) void __stdcall SubmenuUpdate_004236f0(SubmenuSta
         return;
     case 7:
         if (state->timer.field_04 < 10) break;
-        SubUpdateFrameMaximum_004236f0(data_0047770c);
+        SubUpdateFrameMaximum_004236f0(g_front);
         if ((data_00474ca0 & 0x10) != 0) {
             // Ranking gate: publish the frame-maximum high score into the
             // stage/mode/subslot/difficulty slot of the score file.
@@ -91,7 +91,7 @@ extern "C" __declspec(noinline) void __stdcall SubmenuUpdate_004236f0(SubmenuSta
             data_00492590.Queue(10, 0);
             state->state = 13;
             state->timer.SetSchedulerValue(0);
-            SubUpdateFrameMaximum_004236f0(data_0047770c);
+            SubUpdateFrameMaximum_004236f0(g_front);
             switch (rows->selection) {
             case 1:
                 state->timer.SetSchedulerValue(0);

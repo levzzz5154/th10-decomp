@@ -68,7 +68,7 @@
       "address": "0x00474C40",
       "kind": "data"
     },
-    "_data_00477810": {
+    "_g_game": {
       "address": "0x00477810",
       "kind": "data"
     },
@@ -92,7 +92,7 @@
       "address": "0x00491FC4",
       "kind": "data"
     },
-    "_data_00491be4": {
+    "_g_func_ctrl": {
       "address": "0x00491BE4",
       "kind": "data"
     },
@@ -131,8 +131,8 @@
     "?ReplayManager_LoadFile_00428f60@@YGHPAUReplayManager_004296f0@@PBD@Z": "0x0042A200",
     "?SetCountdown@EmbeddedTimerState_0042a930@@QAEXH@Z": "0x0042A930",
     "?GameConfig_InitializeDefaults@@YIDHPAUGameConfig@@@Z": "0x00418C40",
-    "_Scheduler_RegisterPrimary@12": "0x00449AE0",
-    "_Scheduler_RegisterSecondary@12": "0x00449B70"
+    "_FuncCtrl_RegisterPrimary@12": "0x00449AE0",
+    "_FuncCtrl_RegisterSecondary@12": "0x00449B70"
   },
   "base_index_order": 0,
   "differences": [

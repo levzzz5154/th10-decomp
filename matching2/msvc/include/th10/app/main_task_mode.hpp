@@ -4,11 +4,11 @@
 
 // Objects owned by one mode of the main task; each is created when its mode
 // is entered and destroyed when the next mode replaces it.
-struct OwnedObject_00418150;   // the menu screen (argument at +0x5C)
+struct Game;   // the menu screen (argument at +0x5C)
 struct Title;   // the running game
 struct ScoreOwnedObject;       // the result screen
 
-extern "C" OwnedObject_00418150* data_00477810;
+extern "C" Game* g_game;
 extern "C" Title* g_title;
 extern "C" ScoreOwnedObject* g_ending;
 extern "C" int data_00491c00;
@@ -34,7 +34,7 @@ extern "C" void __stdcall ModeReleaseGlobalsWave18();
 extern "C" void* __cdecl ModeCreateProgressWave18();
 extern "C" void* __stdcall ModeCreateUiWave18(unsigned int);
 extern "C" void* __stdcall ModeCreateSmallWave18();
-__declspec(noinline) void DestroyOwned_00418150(OwnedObject_00418150*);
+__declspec(noinline) void Game_Delete(Game*);
 __declspec(noinline) void Title_Delete(Title*);
 __declspec(noinline) void ScoreOwnedObject_Destroy(ScoreOwnedObject*);
 

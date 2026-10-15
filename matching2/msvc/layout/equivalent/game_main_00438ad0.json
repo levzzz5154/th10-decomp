@@ -93,7 +93,7 @@
       "address": "0x0043D7D0",
       "kind": "code"
     },
-    "?Flush@AnimationManager_00442F50@@QAEHXZ": {
+    "?Flush@SprtCtrlBatchView@@QAEHXZ": {
       "address": "0x00442F50",
       "kind": "code"
     },
@@ -193,7 +193,7 @@
       "address": "0x0043E460",
       "kind": "code"
     },
-    "?Release@ResourceList_DestroyABI_00449e50@@QAEXPAUScheduler@@@Z": {
+    "?Release@ResourceList_DestroyABI_00449e50@@QAEXPAUFuncCtrl@@@Z": {
       "address": "0x00449E50",
       "kind": "code"
     },
@@ -249,7 +249,7 @@
       "address": "0x00474DD4",
       "kind": "data"
     },
-    "_data_00477708": {
+    "_g_fps": {
       "address": "0x00477708",
       "kind": "data"
     },
@@ -437,11 +437,11 @@
       "address": "0x0044B360",
       "kind": "code"
     },
-    "_Scheduler_RegisterPrimary@12": {
+    "_FuncCtrl_RegisterPrimary@12": {
       "address": "0x00449AE0",
       "kind": "code"
     },
-    "_Scheduler_RegisterSecondary@12": {
+    "_FuncCtrl_RegisterSecondary@12": {
       "address": "0x00449B70",
       "kind": "code"
     },
@@ -621,11 +621,11 @@
       "address": "0x00474E88",
       "kind": "data"
     },
-    "_data_00491be4": {
+    "_g_func_ctrl": {
       "address": "0x00491BE4",
       "kind": "data"
     },
-    "_data_00491c10": {
+    "_g_sprt_ctrl": {
       "address": "0x00491C10",
       "kind": "data"
     },
@@ -830,10 +830,10 @@
     "?CreateGameWindow_00439730@@YIHPAX@Z": "0x00439730",
     "?LoadConfig@GameApp_00420870@@QAEHPBD@Z": "0x00420870",
     "?ReleaseAll_00438a30@@YGXPAUHolder_00438a30@@@Z": "0x00438A30",
-    "??0AnmStorageConstruct_00445900@@QAE@XZ": "0x00445900",
+    "??0SprtCtrl@@QAE@XZ": "0x00445900",
     "??1AnimationManagerStorage_00446220@@QAE@XZ": "0x00446220",
-    "?Initialize@D3DResourceManager_00449AA0@@QAEXXZ": "0x00449AA0",
-    "??1D3DResourceManager_Destroy_00438880@@QAE@XZ": "0x00438880",
+    "?Initialize@FuncCtrlInitializeView@@QAEXXZ": "0x00449AA0",
+    "??1FuncCtrlDestroyView@@QAE@XZ": "0x00438880",
     "?Stop@SoundWorkerPair_0043cc40@@QAEHXZ": "0x0043CC40",
     "?AppendLine@TextLog_0044b8e0@@QAAPADPADZZ": "0x0044B8E0",
     "?File_WriteWholeFile@@YGHPBDPBXK@Z": "0x0044B540",
@@ -845,9 +845,9 @@
     "?ProcessCommands@WaveSoundManager@@QAEIXZ": "0x0043DDF0",
     "__real@3f800000": "0x00470AFC",
     "__real@3c23d70a": "0x00470B00",
-    "__ehhandler$??0AnmStorageConstruct_00445900@@QAE@XZ": "0x004657A5",
+    "__ehhandler$??0SprtCtrl@@QAE@XZ": "0x004657A5",
     "__ehhandler$??1AnimationManagerStorage_00446220@@QAE@XZ": "0x00465225",
-    "__ehhandler$??1D3DResourceManager_Destroy_00438880@@QAE@XZ": "0x00465363",
+    "__ehhandler$??1FuncCtrlDestroyView@@QAE@XZ": "0x00465363",
     "_CompleteMidiHeader_0043aeb0@8": "0x0043AEB0"
   },
   "base_index_order": 0,
@@ -858,10 +858,10 @@
     "src/core/zunlib/text_log.cpp",
     "src/core/zunlib/text_log_append_line_0044b8e0.cpp",
     "src/game/mother/config_load_00420870.cpp",
-    "src/core/zunlib/d3_d_resource_manager_initialize_00449aa0.cpp",
+    "src/core/zunlib/func_ctrl_initialize.cpp",
     "src/core/main/window_create_00439730.cpp",
     {
-      "source": "src/core/sprtlib/anm_storage_construct_00445900.cpp",
+      "source": "src/core/sprtlib/sprt_ctrl_construct.cpp",
       "flags": [
         "/EHsc"
       ]
@@ -869,7 +869,7 @@
     "src/core/main/destroy_entity_list_00438a30.cpp",
     "src/game/mother/app_shutdown_00420270.cpp",
     {
-      "source": "src/core/main/d3_d_resource_manager_destroy_00438880.cpp",
+      "source": "src/core/main/func_ctrl_destroy.cpp",
       "flags": [
         "/EHsc"
       ]

@@ -7,8 +7,8 @@
     "layout/ltcg/runtime_selector_0043c970_scheduler_create.cpp"
   ],
   "headers": [
-    "include/th10/render/screen_effect_controller.hpp",
-    "include/th10/game/scheduler.hpp",
+    "include/th10/core/screen.hpp",
+    "include/th10/core/func_ctrl.hpp",
     "include/th10/math/timer.hpp",
     "include/th10/platform/thread_sync.hpp"
   ],
@@ -17,7 +17,7 @@
   "functions": [
     {
       "name": "RuntimeSelector_Configure",
-      "symbol": "?Configure@ScreenEffectController@@QAEXHHHHHH@Z",
+      "symbol": "?Configure@Screen@@QAEXHHHHHH@Z",
       "section": ".text$03selector",
       "address": "0x0043C970",
       "size": 396,
@@ -27,21 +27,21 @@
   "anchors": [
     {
       "name": "Factory",
-      "symbol": "?CreateScreenEffect_0043c8b0@@YGPAUScreenEffectController@@HHHHHH@Z",
+      "symbol": "?Screen_Create@@YGPAUScreen@@HHHHHH@Z",
       "section": ".text$01factory",
       "address": "0x43c8b0",
       "size": 77
     },
     {
       "name": "PrimaryRegister",
-      "symbol": "_Scheduler_RegisterPrimary@12",
+      "symbol": "_FuncCtrl_RegisterPrimary@12",
       "section": ".text$10primary",
       "address": "0x449ae0",
       "size": 131
     },
     {
       "name": "SecondaryRegister",
-      "symbol": "_Scheduler_RegisterSecondary@12",
+      "symbol": "_FuncCtrl_RegisterSecondary@12",
       "section": ".text$30secondary",
       "address": "0x449b70",
       "size": 131
@@ -118,7 +118,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_data_00491be4",
+      "symbol": "_g_func_ctrl",
       "address": "0x00491BE4",
       "kind": "data"
     },

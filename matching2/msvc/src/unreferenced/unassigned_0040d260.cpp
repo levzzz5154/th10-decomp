@@ -7,7 +7,7 @@ struct Rec_0040d260 {
     unsigned int field_050;
     unsigned char pad_054[0x68 - 0x54];
 };
-extern "C" Rec_0040d260* data_00477704;
+extern "C" Rec_0040d260* g_enemy_ctrl;
 #pragma code_seg(".text$01accessor")
 extern "C" __declspec(noinline) Rec_0040d260* __fastcall
 Init_0040d260(void* unused, Rec_0040d260* obj) {
@@ -16,7 +16,7 @@ Init_0040d260(void* unused, Rec_0040d260* obj) {
     *flag &= ~1u;
     memset(obj, 0, sizeof(Rec_0040d260));
     obj->flags_000 |= 2u;
-    data_00477704 = obj;
+    g_enemy_ctrl = obj;
     return obj;
 }
 #pragma code_seg()

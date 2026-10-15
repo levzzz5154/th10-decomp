@@ -13,8 +13,8 @@
     "include/th10/game/pause_result_open_004231d0/open_state.hpp",
     "include/th10/game/entity.hpp",
     "include/th10/game/recovery_mark_text_and_dispatcher_004479d0.hpp",
-    "include/th10/render/screen_effect_controller.hpp",
-    "include/th10/game/scheduler.hpp",
+    "include/th10/core/screen.hpp",
+    "include/th10/core/func_ctrl.hpp",
     "include/th10/game/score.hpp",
     "include/th10/math/timer.hpp",
     "include/th10/platform/sound_queue.hpp",
@@ -30,7 +30,7 @@
   "functions": [
     {
       "name": "FrontHudUpdate",
-      "symbol": "?FrontHudUpdate_00414900@@YGHPAUFrontHudRuntime@@@Z",
+      "symbol": "?FrontHudUpdate_00414900@@YGHPAUFrontUpdateView@@@Z",
       "section": ".text$00414900_fn",
       "address": "0x00414900",
       "size": 3836,
@@ -46,10 +46,10 @@
       "source": "src/game/front_script_tick_00415e90.cpp"
     }
   ],
-  "entry": "?FrontHudUpdate_00414900@@YGHPAUFrontHudRuntime@@@Z",
+  "entry": "?FrontHudUpdate_00414900@@YGHPAUFrontUpdateView@@@Z",
   "calls": [
     {
-      "caller": "?FrontHudUpdate_00414900@@YGHPAUFrontHudRuntime@@@Z",
+      "caller": "?FrontHudUpdate_00414900@@YGHPAUFrontUpdateView@@@Z",
       "callee": "_ResultDispatcher_00415e90@4",
       "address": "0x0041514B",
       "instruction": "call"
@@ -247,28 +247,28 @@
     },
     {
       "name": "RuntimeSelector_Configure",
-      "symbol": "?Configure@ScreenEffectController@@QAEXHHHHHH@Z",
+      "symbol": "?Configure@Screen@@QAEXHHHHHH@Z",
       "section": ".text$0043c970_fn",
       "address": "0x0043C970",
       "size": 396
     },
     {
       "name": "Factory",
-      "symbol": "?CreateScreenEffect_0043c8b0@@YGPAUScreenEffectController@@HHHHHH@Z",
+      "symbol": "?Screen_Create@@YGPAUScreen@@HHHHHH@Z",
       "section": ".text$0043c8b0_fn",
       "address": "0x43c8b0",
       "size": 82
     },
     {
       "name": "PrimaryRegister",
-      "symbol": "_Scheduler_RegisterPrimary@12",
+      "symbol": "_FuncCtrl_RegisterPrimary@12",
       "section": ".text$00449ae0_fn",
       "address": "0x449ae0",
       "size": 131
     },
     {
       "name": "SecondaryRegister",
-      "symbol": "_Scheduler_RegisterSecondary@12",
+      "symbol": "_FuncCtrl_RegisterSecondary@12",
       "section": ".text$00449b70_fn",
       "address": "0x449b70",
       "size": 131
@@ -499,7 +499,7 @@
   "constants": [],
   "absolute_symbols": [
     {
-      "symbol": "_data_00491c10",
+      "symbol": "_g_sprt_ctrl",
       "address": "0x00491C10",
       "kind": "data"
     },
@@ -509,7 +509,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00477810",
+      "symbol": "_g_game",
       "address": "0x477810",
       "kind": "data"
     },
@@ -529,7 +529,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_0047770c",
+      "symbol": "_g_front",
       "address": "0x0047770C",
       "kind": "data"
     },
@@ -699,7 +699,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00477704",
+      "symbol": "_g_enemy_ctrl",
       "address": "0x00477704",
       "kind": "data"
     },
@@ -769,7 +769,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_data_00491be4",
+      "symbol": "_g_func_ctrl",
       "address": "0x00491BE4",
       "kind": "data"
     },

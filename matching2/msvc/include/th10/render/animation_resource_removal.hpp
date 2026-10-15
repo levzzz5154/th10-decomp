@@ -8,7 +8,7 @@ struct AnimationListNode {
     AnimationListNode* next;
 };
 
-struct AnimationManager {
+struct SprtCtrl {
     void MarkResourceForRemoval(void* resource);
     void MarkSlotForRemoval(int slot);
 };

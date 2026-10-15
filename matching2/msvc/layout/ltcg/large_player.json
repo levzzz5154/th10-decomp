@@ -25,7 +25,7 @@
     "include/th10/platform/archive_file.hpp",
     "include/th10/platform/text_log.hpp",
     "include/th10/platform/thread_sync.hpp",
-    "include/th10/game/scheduler.hpp"
+    "include/th10/core/func_ctrl.hpp"
   ],
   "image_base": "0x00400000",
   "description": "Complete native factory and PlayerResetBlock constructor with genuine implicit member/array construction. Full real initializer and caller supply compiler context; their nonmatching complete bodies remain unselected.",
@@ -72,14 +72,14 @@
     },
     {
       "name": "Primary",
-      "symbol": "_Scheduler_RegisterPrimary@12",
+      "symbol": "_FuncCtrl_RegisterPrimary@12",
       "address": "0x449ae0",
       "size": 131,
       "section": ".text$a15body"
     },
     {
       "name": "Secondary",
-      "symbol": "_Scheduler_RegisterSecondary@12",
+      "symbol": "_FuncCtrl_RegisterSecondary@12",
       "address": "0x449b70",
       "size": 131,
       "section": ".text$a17body"
@@ -257,7 +257,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_EnemyManager_CreateRetail_0040d6b0@4",
+      "symbol": "_EnemyCtrl_Create@4",
       "address": "0x40d6b0",
       "kind": "relative_code"
     },
@@ -407,7 +407,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00491be4",
+      "symbol": "_g_func_ctrl",
       "address": "0x491be4",
       "kind": "data"
     },
@@ -417,7 +417,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00491c10",
+      "symbol": "_g_sprt_ctrl",
       "address": "0x491c10",
       "kind": "data"
     },
@@ -502,7 +502,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00477704",
+      "symbol": "_g_enemy_ctrl",
       "address": "0x477704",
       "kind": "data"
     },

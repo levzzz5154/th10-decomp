@@ -3,7 +3,7 @@
 #include "th10/platform/text_log.hpp"
 #include "th10/game/enemy_death_release_0040e5f0.hpp"
 
-extern "C" void* data_00491c10;
+extern "C" void* g_sprt_ctrl;
 extern "C" void* __fastcall Recovery_LoadCachedResource_00447280(
     int index, void* cache, const char* name);
 
@@ -28,8 +28,8 @@ __declspec(noinline) int ScriptFileChunkContext_0040d400::ParseAnimationChunk(ch
     if (index < header->count) {
         do {
             void* resource = Recovery_LoadCachedResource_00447280(index + 9,
-                data_00491c10, name);
-            data_00477704->animation_files[index + 1] = resource;
+                g_sprt_ctrl, name);
+            g_enemy_ctrl->animation_files[index + 1] = resource;
             if (!resource) {
                 reinterpret_cast<TextLog_0044b810*>(0x00474F70)->Append(
                     reinterpret_cast<char*>(0x0046CB68));

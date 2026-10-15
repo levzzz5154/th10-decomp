@@ -1,6 +1,6 @@
 #pragma once
 // Opaque tags used by recovered C-linkage entry points below.
-struct AnimationManager_00442F50;
+struct SprtCtrlBatchView;
 struct CrtHeapBlock;
 struct CxxUnregisterFrame_004630ce;
 struct DecimalConversionRecord_00461841;
@@ -267,10 +267,10 @@ extern "C" void __cdecl asm_D3DResourceList_ClearPending_00449a90();
 #define VA_asm_D3DResourceList_ClearPending_00449a90 0x00449a90
 extern "C" void __cdecl asm_D3DResourceList_ReleaseResources_00449e50();
 #define VA_asm_D3DResourceList_ReleaseResources_00449e50 0x00449e50
-extern "C" void __cdecl asm_D3DResourceManager_Destroy_00438880();
-#define VA_asm_D3DResourceManager_Destroy_00438880 0x00438880
-extern "C" void __cdecl asm_D3DResourceManager_Initialize_00449aa0();
-#define VA_asm_D3DResourceManager_Initialize_00449aa0 0x00449aa0
+extern "C" void __cdecl asm_FuncCtrlDestroyView();
+#define VA_asm_FuncCtrlDestroyView 0x00438880
+extern "C" void __cdecl asm_FuncCtrl_Construct();
+#define VA_asm_FuncCtrl_Construct 0x00449aa0
 extern "C" void __cdecl asm_D3DXCreateTextureFromFileInMemoryEx_004521ca();
 #define VA_asm_D3DXCreateTextureFromFileInMemoryEx_004521ca 0x004521ca
 extern "C" void __cdecl asm_D3DXCreateTexture_004521a0();
@@ -395,8 +395,8 @@ extern "C" void __cdecl asm_EncryptDatBuffer_0044b220();
 #define VA_asm_EncryptDatBuffer_0044b220 0x0044b220
 extern "C" void __cdecl asm_EnemyGrid_ScanCellsRetail_004073e0();
 #define VA_asm_EnemyGrid_ScanCellsRetail_004073e0 0x004073e0
-extern "C" void __cdecl asm_EnemyManager_CreateRetail_0040d6b0();
-#define VA_asm_EnemyManager_CreateRetail_0040d6b0 0x0040d6b0
+extern "C" void __cdecl asm_EnemyCtrl_Create();
+#define VA_asm_EnemyCtrl_Create 0x0040d6b0
 extern "C" void __cdecl Loading_Create();
 #define VA_Loading_Create 0x0041fd00
 extern "C" void __cdecl asm_Enemy_DeathSweepRetail_0040e6a0();
@@ -1231,7 +1231,7 @@ extern "C" void __cdecl asm_FUN_00444ce0_00444ce0();
 #define VA_asm_FUN_00444ce0_00444ce0 0x00444ce0
 extern "C" void __cdecl asm_FUN_004450e0_004450e0();
 #define VA_asm_FUN_004450e0_004450e0 0x004450e0
-extern "C" int __cdecl asm_FUN_004451c0_004451c0(AnimationManager_00442F50* manager, RenderEntity* entity);
+extern "C" int __cdecl asm_FUN_004451c0_004451c0(SprtCtrlBatchView* manager, RenderEntity* entity);
 #define VA_asm_FUN_004451c0_004451c0 0x004451c0
 extern "C" void __cdecl asm_FUN_004452f0_004452f0();
 #define VA_asm_FUN_004452f0_004452f0 0x004452f0
@@ -1636,8 +1636,8 @@ extern "C" void __cdecl asm_GameProgress_UnlockAllStages_0042c8c0();
 #define VA_asm_GameProgress_UnlockAllStages_0042c8c0 0x0042c8c0
 extern "C" void __cdecl asm_GameProgress_UnlockAllStages_part_0042c900();
 #define VA_asm_GameProgress_UnlockAllStages_part_0042c900 0x0042c900
-extern "C" void __cdecl asm_GameStateInit_00445900();
-#define VA_asm_GameStateInit_00445900 0x00445900
+extern "C" void __cdecl asm_SprtCtrl_Construct();
+#define VA_asm_SprtCtrl_Construct 0x00445900
 extern "C" void __cdecl asm_GameStateInit_part_00445ae0();
 #define VA_asm_GameStateInit_part_00445ae0 0x00445ae0
 extern "C" void __cdecl asm_Title_DisableTimerWithOwner();
@@ -1664,8 +1664,8 @@ extern "C" void __cdecl asm_GameThread_Construct_00401000();
 #define VA_asm_GameThread_Construct_00401000 0x00401000
 extern "C" void __cdecl asm_GameThread_SelectRenderStageRetail_00401d20();
 #define VA_asm_GameThread_SelectRenderStageRetail_00401d20 0x00401d20
-extern "C" void __cdecl asm_GameUi_CreateAndPublish_004180e0();
-#define VA_asm_GameUi_CreateAndPublish_004180e0 0x004180e0
+extern "C" void __cdecl asm_Game_Create();
+#define VA_asm_Game_Create 0x004180e0
 extern "C" void __cdecl asm_GetLcidFromCountry_0045c93e();
 #define VA_asm_GetLcidFromCountry_0045c93e 0x0045c93e
 extern "C" void __cdecl asm_GetLcidFromDefault_0045c35d();
@@ -1682,8 +1682,8 @@ extern "C" void __cdecl asm_Grow_LegacyString_004386b0();
 #define VA_asm_Grow_LegacyString_004386b0 0x004386b0
 extern "C" void __cdecl asm_Heap_DestroyOwnedSecondary_0042cdb0();
 #define VA_asm_Heap_DestroyOwnedSecondary_0042cdb0 0x0042cdb0
-extern "C" void __cdecl asm_Heap_DestroyOwned_00418150();
-#define VA_asm_Heap_DestroyOwned_00418150 0x00418150
+extern "C" void __cdecl asm_Heap_Game_Delete();
+#define VA_asm_Heap_Game_Delete 0x00418150
 extern "C" void __cdecl asm_IncMan_0045d2fc(unsigned int* words, int bit);
 #define VA_asm_IncMan_0045d2fc 0x0045d2fc
 extern "C" void __cdecl asm_InitializeEntity_00401de0();
@@ -1977,16 +1977,16 @@ extern "C" void __cdecl asm_SaveSystemSettingsRetail_004392e0();
 extern "C" SchedulerTask* __stdcall asm_SchedulerCallback_Create_00449ed0(
     void* callback);
 #define VA_asm_SchedulerCallback_Create_00449ed0 0x00449ed0
-extern "C" void __cdecl asm_Scheduler_CreateAndRegisterSecondary_0044a030();
-#define VA_asm_Scheduler_CreateAndRegisterSecondary_0044a030 0x0044a030
-extern "C" void __cdecl asm_Scheduler_CreateAndRegister_0044a000();
-#define VA_asm_Scheduler_CreateAndRegister_0044a000 0x0044a000
-extern "C" void __cdecl asm_Scheduler_RegisterPrimary_00449ae0();
-#define VA_asm_Scheduler_RegisterPrimary_00449ae0 0x00449ae0
-extern "C" void __cdecl asm_Scheduler_RegisterSecondary_00449b70();
-#define VA_asm_Scheduler_RegisterSecondary_00449b70 0x00449b70
-extern "C" void __cdecl asm_Scheduler_Remove_00449f60();
-#define VA_asm_Scheduler_Remove_00449f60 0x00449f60
+extern "C" void __cdecl asm_FuncCtrl_CreateAndRegisterSecondary_0044a030();
+#define VA_asm_FuncCtrl_CreateAndRegisterSecondary_0044a030 0x0044a030
+extern "C" void __cdecl asm_FuncCtrl_CreateAndRegister_0044a000();
+#define VA_asm_FuncCtrl_CreateAndRegister_0044a000 0x0044a000
+extern "C" void __cdecl asm_FuncCtrl_RegisterPrimary_00449ae0();
+#define VA_asm_FuncCtrl_RegisterPrimary_00449ae0 0x00449ae0
+extern "C" void __cdecl asm_FuncCtrl_RegisterSecondary_00449b70();
+#define VA_asm_FuncCtrl_RegisterSecondary_00449b70 0x00449b70
+extern "C" void __cdecl asm_FuncCtrl_Remove_00449f60();
+#define VA_asm_FuncCtrl_Remove_00449f60 0x00449f60
 extern "C" void __cdecl LaserManager_RegisterTasks();
 #define VA_LaserManager_RegisterTasks 0x0041c120
 extern "C" void __cdecl asm_LaserManager_Destroy_0041c1c0();
@@ -6023,10 +6023,10 @@ extern "C" unsigned char g_card;
 extern "C" unsigned char g_ecl_view;
 extern "C" unsigned char g_effect;
 extern "C" unsigned char g_ending;
-extern "C" unsigned char data_00477704;
-extern "C" unsigned char data_00477708;
-extern "C" unsigned char data_0047770c;
-extern "C" unsigned char data_00477810;
+extern "C" unsigned char g_enemy_ctrl;
+extern "C" unsigned char g_fps;
+extern "C" unsigned char g_front;
+extern "C" unsigned char g_game;
 extern "C" unsigned char g_hint;
 extern "C" unsigned char data_00477818;
 extern "C" unsigned char g_laser_manager;
@@ -6067,14 +6067,14 @@ extern "C" unsigned char data_004918a8;
 extern "C" unsigned char data_004918b0;
 extern "C" unsigned char data_004918b4;
 extern "C" unsigned char data_00491be0;
-extern "C" unsigned char data_00491be4;
+extern "C" unsigned char g_func_ctrl;
 extern "C" unsigned char data_00491be8;
 extern "C" unsigned char data_00491bec;
 extern "C" unsigned char data_00491bf0;
 extern "C" unsigned char data_00491c00;
 extern "C" unsigned char data_00491c04;
 extern "C" unsigned char data_00491c08;
-extern "C" unsigned char data_00491c10;
+extern "C" unsigned char g_sprt_ctrl;
 extern "C" unsigned char data_00491c14;
 extern "C" unsigned char data_00491c18;
 extern "C" unsigned char data_00491c1c;

@@ -23,7 +23,7 @@ struct EnemyNode_00409f90 {
 };
 
 // The enemy manager at 0x00477704, as far as its clear touches it.
-struct EnemyManager_00409f90 {
+struct EnemyCtrlClearView {
     unsigned char reserved_000[8];
     EnemyTask_00409f90* update_task;
     EnemyTask_00409f90* draw_task;
@@ -42,4 +42,4 @@ struct AnimationSlots_00409f90 {
     void* slots[0x21];
 };
 
-extern "C" AnimationManager* data_00491c10;
+extern "C" SprtCtrl* g_sprt_ctrl;

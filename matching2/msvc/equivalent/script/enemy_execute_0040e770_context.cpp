@@ -12,17 +12,17 @@ Float3 g_zero_vector_00491c14;
 Float2 g_zero_vector2_00491c20;
 Float3 g_camera_offset_00491d7c;
 RngState g_effect_rng_004918b0;
-EnemyManager* data_00477704;
+EnemyCtrl* g_enemy_ctrl;
 BulletManager* data_004776f0;
 LaserManager* g_laser_manager;
-Gui* data_0047770c;
+Gui* g_front;
 Player* g_player;
 Card* g_card;
 RenderStageState data_00491c28;
 unsigned char data_00491e48[64], data_00491e08[64], data_00491dc8[64], data_00474df0[24];
 ScoreState data_00474c40;
 SoundQueue data_00492590;
-extern "C" void* data_00491c10;
+extern "C" void* g_sprt_ctrl;
 extern "C" void* data_00477818;
 extern "C" int data_00474c84, data_00474c8c;
 extern "C" short data_004749ce[];
@@ -194,7 +194,7 @@ float RngState::NextFloatSigned_0044bb90() {
 
 // ---- animations ----
 void AnmHandle::Release_00449630() {
-    ext_set_flag(0, data_00491c10, id);
+    ext_set_flag(0, g_sprt_ctrl, id);
     id = 0;
 }
 struct AnmNode {
@@ -207,14 +207,14 @@ struct AnmNode {
     unsigned int flags_35c;
 };
 void AnmHandle::Show_004495e0() {
-    AnmNode* node = (AnmNode*)ext_find_node((void*)id, data_00491c10, id);
+    AnmNode* node = (AnmNode*)ext_find_node((void*)id, g_sprt_ctrl, id);
     if (node == 0) return;
     node->flags_35c &= ~2u;
     if (node->field_018 != 0) return;
     for (AnmNode* child = node->field_014; child != 0; child = child->field_004) child->field_000->flags_35c &= ~2u;
 }
 void AnmHandle::Hide_00449590() {
-    AnmNode* node = (AnmNode*)ext_find_node((void*)id, data_00491c10, id);
+    AnmNode* node = (AnmNode*)ext_find_node((void*)id, g_sprt_ctrl, id);
     if (node == 0) return;
     node->flags_35c |= 2;
     if (node->field_018 != 0) return;
@@ -222,18 +222,18 @@ void AnmHandle::Hide_00449590() {
 }
 #define CREATE(name, which) \
     AnmHandle* __stdcall name(AnmLoaded* anm, AnmHandle* out, int script, int layer) { \
-        unsigned char* vm = (unsigned char*)ext_alloc_vm(data_00491c10); \
+        unsigned char* vm = (unsigned char*)ext_alloc_vm(g_sprt_ctrl); \
         unsigned int flags = *(unsigned int*)(vm + 0x35C); \
         *(int*)(vm + 0x20) = layer; \
         *(unsigned int*)(vm + 0x35C) = flags | 0x40000000u; \
         ext_init_sprite(anm, vm, script); \
-        ext_register(which, data_00491c10, out, vm); \
+        ext_register(which, g_sprt_ctrl, out, vm); \
         return out; \
     }
 CREATE(Anm_CreateBack_00448d00, 0)
 CREATE(Anm_CreateFront_00448e30, 1)
 AnmVm* __stdcall Anm_Resolve_00449450(AnmHandle* handle) {
-    AnmVm* vm = (AnmVm*)ext_find(data_00491c10, handle->id);
+    AnmVm* vm = (AnmVm*)ext_find(g_sprt_ctrl, handle->id);
     if (vm == 0) handle->id = 0;
     return vm;
 }
@@ -247,13 +247,13 @@ Float3* __stdcall OffsetPoint_00418810(const Float3* point) {
 struct RigCamera { __declspec(noinline) void Apply(); };
 void RigCamera::Apply() {
     unsigned char* self = (unsigned char*)this;
-    if (data_00491c10) ((AnmHandle*)data_00491c10)->Release_00449630();
+    if (g_sprt_ctrl) ((AnmHandle*)g_sprt_ctrl)->Release_00449630();
     ext_call(self + 0x4C, (int)(self + 0x18));
     ext_call(self + 0x8C, *(int*)(self + 0x48));
     ext_call(self + 0x30, (int)(self + 0x0C));
-    if (data_00491c10) {
-        ((int*)data_00491c10)[0x5C / 4] = *(int*)(self + 0xE8);
-        ((int*)data_00491c10)[0x60 / 4] = *(int*)(self + 0xEC);
+    if (g_sprt_ctrl) {
+        ((int*)g_sprt_ctrl)[0x5C / 4] = *(int*)(self + 0xE8);
+        ((int*)g_sprt_ctrl)[0x60 / 4] = *(int*)(self + 0xEC);
     }
 }
 struct RigDevice { void** vtable; };
@@ -268,7 +268,7 @@ void RenderStageState::SelectStage_00401d20(int index) {
 }
 
 // ---- enemies, items ----
-EnemyFull* __stdcall EnemyManager_Spawn_0040cfb0(const EnemySpawn* p, EnemyManager* manager, const char* name) {
+EnemyFull* __stdcall EnemyCtrl_Spawn_0040cfb0(const EnemySpawn* p, EnemyCtrl* manager, const char* name) {
     void* memory = ext_new(0x2518);
     unsigned char* enemy = memory ? ext_construct(memory, name) : 0;
     *(Float3*)(enemy + 0x1094) = p->position;
@@ -328,7 +328,7 @@ EnemyFull* __stdcall EnemyManager_Spawn_0040cfb0(const EnemySpawn* p, EnemyManag
     ++*(int*)((char*)manager + 0x64);
     return (EnemyFull*)enemy;
 }
-void __stdcall EnemyManager_SweepDeaths_0040e6a0(EnemyManager* manager) {
+void __stdcall EnemyCtrl_SweepDeaths_0040e6a0(EnemyCtrl* manager) {
     void** next;
     for (void** node = *(void***)((char*)manager + 0x58); node; node = next) {
         unsigned char* enemy = (unsigned char*)node[0];
@@ -337,7 +337,7 @@ void __stdcall EnemyManager_SweepDeaths_0040e6a0(EnemyManager* manager) {
         if (((flags & 0x50) || (flags & 0xC000)) && !(flags & 0x80)) continue;
         if (*(int*)(enemy + 0x2448) >= 0) {
             AnmHandle burst;
-            ext_register(*(int*)(enemy + 0x2448), data_00477704->anm[*(int*)(enemy + 0x244C)], &burst, enemy + 0x1068);
+            ext_register(*(int*)(enemy + 0x2448), g_enemy_ctrl->anm[*(int*)(enemy + 0x244C)], &burst, enemy + 0x1068);
         }
         *(unsigned int*)(enemy + 0x2480) |= 0x20000;
     }
@@ -413,7 +413,7 @@ int BulletManager::Sweep_00408210(int convert) {
             if (convert) ((RigCamera*)position)->Apply();
             AnmHandle handle;
             ext_register(0x173, *(void**)(self + 0x3E0B50), &handle, &low);
-            unsigned char* vm = (unsigned char*)ext_find(data_00491c10, handle.id);
+            unsigned char* vm = (unsigned char*)ext_find(g_sprt_ctrl, handle.id);
             unsigned char* shape = *(unsigned char**)(record + 0x39C);
             if (shape) *(int*)(vm + 0x2FC) = data_004749ce[*(short*)(record + 0x7EC)];
             *(int*)(record + 0x450) = 0;
@@ -620,7 +620,7 @@ void RigEffect::Configure(int priority, int mode, int a, int b, int c, int d) {
     }
     f[4] = mode; f[7] = a; f[8] = b; f[9] = c; f[10] = d;
 }
-void* __stdcall CreateScreenEffect_0043c8b0(int priority, int mode, int a, int b, int c, int d) {
+void* __stdcall Screen_Create(int priority, int mode, int a, int b, int c, int d) {
     RigEffect* owner = (RigEffect*)ext_new(0x44);
     if (owner) {
         owner->f[16] &= ~1u;
@@ -637,7 +637,7 @@ void __stdcall Score_SetMode_00412ed0(ScoreState* state, int mode) {
 }
 __declspec(noinline) void __stdcall Rig_StopAtFrame1(AnmHandle* handle) {
     if (handle->id) {
-        unsigned char* vm = (unsigned char*)ext_find(data_00491c10, handle->id);
+        unsigned char* vm = (unsigned char*)ext_find(g_sprt_ctrl, handle->id);
         if (vm) { *(int*)(vm + 0x2C) = 1; *(short*)(vm + 0x30) = 1; }
         else handle->id = 0;
     }
@@ -650,26 +650,26 @@ void Card::End_00409c00() {
         Rig_StopAtFrame1((AnmHandle*)(self + 0x76C));
         Rig_StopAtFrame1((AnmHandle*)(self + 0x770));
         flags &= ~1u;
-        ext_set_flag(0, data_00491c10, *(int*)(self + 0x774));
+        ext_set_flag(0, g_sprt_ctrl, *(int*)(self + 0x774));
         *(int*)(self + 0x774) = 0;
         if (flags & 2) {
             data_00474c40.fields[1] += *(int*)(self + 0x3790) / 10;
             if (data_00474c40.fields[1] >= 1000000000) data_00474c40.fields[1] = 999999999;
-            ext_call(data_0047770c, *(int*)(self + 0x3790));
+            ext_call(g_front, *(int*)(self + 0x3790));
             ext_call(&data_00492590, 0x2D);
         } else {
-            AnmHandle* caption = (AnmHandle*)((unsigned char*)data_0047770c + 0x9E14);
-            ext_set_flag(0, data_00491c10, caption->id);
+            AnmHandle* caption = (AnmHandle*)((unsigned char*)g_front + 0x9E14);
+            ext_set_flag(0, g_sprt_ctrl, caption->id);
             caption->id = 0;
             AnmHandle out;
-            caption->id = Anm_CreateBack_00448d00(*(AnmLoaded**)((unsigned char*)data_0047770c + 0x9EC8), &out, 0x48, 0xF)->id;
+            caption->id = Anm_CreateBack_00448d00(*(AnmLoaded**)((unsigned char*)g_front + 0x9EC8), &out, 0x48, 0xF)->id;
         }
     }
 }
 void Card::StopAnimation_0040cea0() {
     flags |= 0x10;
     const int handle = *(int*)((unsigned char*)this + 0x774);
-    ext_set_flag(0, data_00491c10, handle);
+    ext_set_flag(0, g_sprt_ctrl, handle);
     *(int*)((unsigned char*)this + 0x774) = 0;
 }
 void __stdcall Card_Start_00409280(Card* card, int id, const char* name, int time, int unused) {
@@ -699,8 +699,8 @@ extern "C" int __stdcall RigEntry(Enemy** enemies, int count) {
     int n = count;
     while (n--) (*cards++)->End_00409c00();
     Drops_Flush_0040c9a0((Float3*)enemies[0], (ItemDrops*)enemies[1]);
-    EnemyManager_SweepDeaths_0040e6a0((EnemyManager*)enemies[3]);
-    CreateScreenEffect_0043c8b0(43, 5, 60, 0, 0, 0);
+    EnemyCtrl_SweepDeaths_0040e6a0((EnemyCtrl*)enemies[3]);
+    Screen_Create(43, 5, 60, 0, 0, 0);
     data_004776f0->Sweep_00408210(count);
     ((RigCamera*)enemies[2])->Apply();
     return total;

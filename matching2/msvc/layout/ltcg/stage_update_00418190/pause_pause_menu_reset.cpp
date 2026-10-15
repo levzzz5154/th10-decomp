@@ -1,9 +1,9 @@
 #include "hud_view.hpp"
-#define data_00491c10 stage_pause_data_00491c10
-#define data_0047770c stage_pause_data_0047770c
+#define g_sprt_ctrl stage_pause_g_sprt_ctrl
+#define g_front stage_pause_g_front
 #define data_00474c40 stage_pause_data_00474c40
 #define g_ascii_manager stage_pause_data_004776e0
-#define data_00477704 stage_pause_data_00477704
+#define g_enemy_ctrl stage_pause_g_enemy_ctrl
 #define g_player stage_pause_data_00477834
 #define data_00477838 stage_pause_data_00477838
 #define data_0047783c stage_pause_data_0047783c
@@ -42,7 +42,7 @@ struct PauseAnimationRecord_00413790 {
     unsigned int flags;
     unsigned char reserved_004[0x3ac-4];
 };
-typedef ScoreHud_00417040 PauseAnimationCountManager_00413790;
+typedef FrontScoreView PauseAnimationCountManager_00413790;
 struct PauseAnimationLookupContext_00424d90;
 // Genuine public fastcall contract: EDX contains the lookup context, one ID
 // is on the stack, and the helper returns with RET4. ECX is an ignored value.
@@ -113,11 +113,11 @@ extern "C" __declspec(noinline) void __stdcall ReplayPauseReset_00424d90(PauseSt
     manager->SetActiveCount(pause_active_count_00474c70);
 }
 #pragma code_seg()
-#undef data_00491c10
-#undef data_0047770c
+#undef g_sprt_ctrl
+#undef g_front
 #undef data_00474c40
 #undef g_ascii_manager
-#undef data_00477704
+#undef g_enemy_ctrl
 #undef g_player
 #undef data_00477838
 #undef data_0047783c

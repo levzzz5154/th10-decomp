@@ -11,7 +11,7 @@
   "functions": [
     {
       "name": "animation_manager_mark_slot_for_removal_0040ae20",
-      "symbol": "?MarkSlotForRemoval@AnimationManager@@QAEXH@Z",
+      "symbol": "?MarkSlotForRemoval@SprtCtrl@@QAEXH@Z",
       "section": ".text$01accessor",
       "address": "0x0040AE20",
       "size": 12,
@@ -19,7 +19,7 @@
     }
   ],
   "context": {
-    "symbol": "?Ctx@@YGXPAPAUAnimationManager@@H@Z",
+    "symbol": "?Ctx@@YGXPAPAUSprtCtrl@@H@Z",
     "section": ".text$zzcontext",
     "address": "0x00449460",
     "size": 38,
@@ -51,7 +51,7 @@
       "kind": "metadata"
     },
     {
-      "symbol": "_data_00491c10",
+      "symbol": "_g_sprt_ctrl",
       "address": "0x00491C10",
       "kind": "data"
     },
@@ -72,7 +72,7 @@
   "anchors": [
     {
       "name": "AnimationManager_MarkResourceForRemoval_abi_anchor",
-      "symbol": "?MarkResourceForRemoval@AnimationManager@@QAEXPAX@Z",
+      "symbol": "?MarkResourceForRemoval@SprtCtrl@@QAEXPAX@Z",
       "section": ".text$20helper",
       "address": "0x004493E0",
       "size": 92

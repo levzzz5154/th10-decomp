@@ -53,7 +53,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00491c10",
+      "symbol": "_g_sprt_ctrl",
       "address": "0x00491C10",
       "kind": "data"
     },
@@ -113,7 +113,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_data_00477810",
+      "symbol": "_g_game",
       "address": "0x00477810",
       "kind": "data"
     },
@@ -363,7 +363,7 @@
     },
     {
       "name": "UiOwnedDestroy",
-      "symbol": "?DestroyOwned_00418150@@YGXPAUOwnedObject_00418150@@@Z",
+      "symbol": "?Game_Delete@@YGXPAUGame@@@Z",
       "section": ".text$00b0_ui_destroy",
       "address": "0x00418150",
       "size": 18

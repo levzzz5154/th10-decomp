@@ -10,7 +10,7 @@ extern "C" void __stdcall SaveHints(Manager_00419040* manager,const char* path);
 #pragma code_seg(".text$01cleanup")
 extern "C" __declspec(noinline) void __stdcall ResourceCleanup(Manager_00419040* manager) {
     RemoveScheduledTaskPair(&manager->tasks);
-    AnimationBuckets* buckets=data_00491c10;
+    AnimationBuckets* buckets=g_sprt_ctrl;
     int* key=manager->keys;
     int remaining=10;
     do {

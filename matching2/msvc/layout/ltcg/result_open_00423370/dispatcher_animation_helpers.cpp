@@ -34,12 +34,12 @@ DispatcherRef DispatcherPrimaryLists::RegisterPrimaryBack(Entity* object) {
 #pragma code_seg(".text$00448d00_fn")
 DispatcherRef __stdcall DispatcherCreateAnimation(
         AnimationResource_00449870* resource, int script_index, int render_bucket) {
-    Entity* object = reinterpret_cast<AnimationPool*>(data_00491c10)->Allocate();
+    Entity* object = reinterpret_cast<AnimationPool*>(g_sprt_ctrl)->Allocate();
     unsigned flags = object->flags_35C;
     object->render_bucket = render_bucket;
     object->flags_35C = flags | 0x40000000;
     resource->InitializeObject(object, script_index);
-    return reinterpret_cast<DispatcherPrimaryLists*>(data_00491c10)->RegisterPrimaryBack(object);
+    return reinterpret_cast<DispatcherPrimaryLists*>(g_sprt_ctrl)->RegisterPrimaryBack(object);
 }
 #pragma code_seg()
 

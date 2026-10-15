@@ -24,7 +24,7 @@
 #include "th10/render/resource_surface_loading.hpp"
 
 // The quad batch owner is the same object; only its flush is needed here.
-struct AnimationManager_00442F50 {
+struct SprtCtrlBatchView {
     __declspec(noinline) int Flush();
 };
 
@@ -120,7 +120,7 @@ void AnimationTextureManager_00448270::CaptureBackBuffer(int resource, int entry
                                                          int target_width, int target_height) {
     if (!resources[resource]->entries[entry].texture)
         return;
-    reinterpret_cast<AnimationManager_00442F50*>(this)->Flush();
+    reinterpret_cast<SprtCtrlBatchView*>(this)->Flush();
     Resource_00447f70* back_buffer;
     if (Device()->GetBackBuffer(0, 0, 0, &back_buffer) != 0)
         return;
@@ -157,7 +157,7 @@ void AnimationTextureManager_00448270::CopyTexture(int target_resource, int targ
         return;
     if (!resources[source_resource]->entries[source_entry].texture)
         return;
-    reinterpret_cast<AnimationManager_00442F50*>(this)->Flush();
+    reinterpret_cast<SprtCtrlBatchView*>(this)->Flush();
     Resource_00447f70* target;
     if (resources[target_resource]->entries[target_entry].texture->GetSurfaceLevel(0, &target) != 0)
         return;
@@ -191,7 +191,7 @@ void AnimationManagerIndexed_00447f70::CaptureBackBufferImage(int index, int lef
                                                               int width, int height,
                                                               int target_left, int target_top,
                                                               int target_width, int target_height) {
-    reinterpret_cast<AnimationManager_00442F50*>(this)->Flush();
+    reinterpret_cast<SprtCtrlBatchView*>(this)->Flush();
     if (primary[index])
         Clear(index);
     SurfaceRect_00447fd0 source;

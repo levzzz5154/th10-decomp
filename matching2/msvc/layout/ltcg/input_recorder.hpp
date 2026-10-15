@@ -49,8 +49,8 @@ typedef char InputRecorderFrameOffset[offsetof(InputRecorder_004297D0,frame_coun
 typedef char InputRecorderStageOffset[offsetof(InputRecorder_004297D0,active_stage)==0x1D0?1:-1];
 
 extern "C" {
-extern void* data_00477810;
-extern InputAnalogSource* data_00477708;
+extern void* g_game;
+extern InputAnalogSource* g_fps;
 extern unsigned int data_00491d78;
 }
 

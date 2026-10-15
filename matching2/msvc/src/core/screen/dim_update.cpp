@@ -1,4 +1,4 @@
-// 0x0043C310..0x0043C3BE: the dim update task (ScreenEffectController modes 6
+// 0x0043C310..0x0043C3BE: the dim update task (Screen modes 6
 // and 7, registered at priority 14). The object is handed to the callback in ECX.
 //
 // The callback advances the fractional frame position by the frame delta

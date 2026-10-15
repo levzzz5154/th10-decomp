@@ -1,5 +1,5 @@
 // Compiler context and ABI anchor only; none of these bytes enter the image.
-#include "../../src/game/enemy/enemy_manager_delete.cpp"
+#include "../../src/game/enemy/enemy_ctrl_delete.cpp"
 
 // As 0x0040D530 reads it: a slot word at +0x08.
 struct AnchorEntity_0040d710 {
@@ -22,11 +22,11 @@ extern "C" __declspec(noinline) void __cdecl asm_FUN_0040d530_0040d530(void* obj
 #pragma code_seg()
 
 #pragma code_seg(".text$05context")
-extern "C" int __stdcall DtorDeleteContext_0040d710(EnemyManager** items, int count) {
+extern "C" int __stdcall DtorDeleteContext_0040d710(EnemyCtrl** items, int count) {
     int freed = 0;
     while (count--) {
-        EnemyManager_Delete(*items);
-        freed += EnemyManager_DeletingDestructor(*items++, 1) != 0;
+        EnemyCtrl_Delete(*items);
+        freed += EnemyCtrl_DeletingDestructor(*items++, 1) != 0;
     }
     return freed;
 }

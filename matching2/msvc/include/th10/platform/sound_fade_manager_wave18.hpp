@@ -35,7 +35,7 @@ typedef char MainStateOffset[offsetof(MainTaskStateWave18, state_63C)==0x63C?1:-
 typedef char MainRequestOffset[offsetof(MainTaskStateWave18, request_648)==0x648?1:-1];
 extern "C" SoundFadeManagerWave18 data_00492590;
 extern "C" int data_00491fb8;
-extern "C" void* data_00491c10;
+extern "C" void* g_sprt_ctrl;
 extern "C" unsigned short __fastcall PollInputWave18(unsigned int binding_index);
 extern "C" int __stdcall AnmPendingWave18(void* pending);
 typedef char ModeCurrentOffset[offsetof(MainTaskStateWave18,current_mode)==0x38C?1:-1];

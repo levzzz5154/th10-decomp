@@ -12,7 +12,7 @@
 // 0x0042C750: maintained in src/game/title/title_dispatch_animation_slot_secondary.cpp.
 
 
-#include "th10/game/scheduler.hpp"
+#include "th10/core/func_ctrl.hpp"
 #include "th10/platform/thread_sync.hpp"
 
 struct SchedulerTaskRaw_00449c00 {
@@ -30,8 +30,8 @@ static SchedulerTaskRaw_00449c00* raw_task_00449c00(TaskLink* link) {
 }
 
 // 0x00449C00..0x00449D33: primary task pass and compiler switch table.
-extern "C" __declspec(noinline) int __stdcall Scheduler_RunPrimary_00449c00(
-        Scheduler* scheduler) {
+extern "C" __declspec(noinline) int __stdcall FuncCtrl_RunPrimary_00449c00(
+        FuncCtrl* scheduler) {
     EnterCriticalSection(&g_thread_synchronization.critical_sections[0]);
     ++g_thread_synchronization.scheduler_lock_depth;
 restart_primary:
@@ -50,7 +50,7 @@ repeat_primary:
                 ++g_thread_synchronization.scheduler_lock_depth;
                 switch (result) {
                 case 0:
-                    Scheduler_RemoveTask((SchedulerTask*)task, scheduler);
+                    FuncCtrl_RemoveTask((SchedulerTask*)task, scheduler);
                     break;
                 case 1:
                     break;
@@ -83,9 +83,9 @@ done_primary:
     return processed;
 }
 
-// 0x00449D40..0x00449E4B: Scheduler_RunSecondary and compiler-local switch table
-extern "C" __declspec(noinline) int __stdcall Scheduler_RunSecondary_00449d40(
-        Scheduler* scheduler) {
+// 0x00449D40..0x00449E4B: FuncCtrl_RunSecondary and compiler-local switch table
+extern "C" __declspec(noinline) int __stdcall FuncCtrl_RunSecondary_00449d40(
+        FuncCtrl* scheduler) {
     EnterCriticalSection(&g_thread_synchronization.critical_sections[0]);
     ++g_thread_synchronization.scheduler_lock_depth;
     int processed = 0;
@@ -103,7 +103,7 @@ repeat_secondary:
                 ++g_thread_synchronization.scheduler_lock_depth;
                 switch (result) {
                 case 0:
-                    Scheduler_RemoveTask((SchedulerTask*)task, scheduler);
+                    FuncCtrl_RemoveTask((SchedulerTask*)task, scheduler);
                     break;
                 case 1:
                     break;

@@ -3,6 +3,6 @@
 
 #pragma code_seg(".text$46dispatch")
 __declspec(noinline) void __fastcall Title_DispatchAnimationSlot(int slot, Title* state) {
-    AnimationManager_SetStopFrameAndRun(2, data_00491c10, AnimationSlots(state)[slot]);
+    AnimationManager_SetStopFrameAndRun(2, g_sprt_ctrl, AnimationSlots(state)[slot]);
 }
 #pragma code_seg()

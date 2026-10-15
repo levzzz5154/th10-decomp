@@ -8,7 +8,7 @@ inline unsigned int ScaleColor(unsigned char channel, unsigned char tint) {
 union PackedColor { unsigned int packed; unsigned char channels[4]; };
 #pragma code_seg(".text$04bablend")
 extern "C" __declspec(noinline) void SyncRenderState_004423e0(
-        AnimationManager_00442F50* manager, RenderEntity* entity) {
+        SprtCtrlBatchView* manager, RenderEntity* entity) {
     if (manager->cached_blend != ((entity->flags >> 4) & 3)) {
         manager->Flush();
         manager->cached_blend = (unsigned char)((entity->flags >> 4) & 3);

@@ -1,7 +1,7 @@
 // Compiler context only; never selected as recovered game code. The manager's
 // starter and destructor are stand-ins shaped so each takes its receiver
 // where the real one does.
-#include "th10/game/scheduler.hpp"
+#include "th10/core/func_ctrl.hpp"
 #include "th10/platform/thread_sync.hpp"
 #include "../../../src/game/replay/replay_manager_create_00429610.cpp"
 
@@ -12,8 +12,8 @@ extern "C" int __stdcall ReplayManagerStandIn_Load(const char* path);
 extern "C" SchedulerTask* __stdcall ReplayManagerStandIn_Task(void* routine);
 
 #pragma code_seg(".text$06primary")
-extern "C" __declspec(noinline) int __stdcall Scheduler_RegisterPrimary(
-        Scheduler* scheduler, SchedulerTask* task, int priority) {
+extern "C" __declspec(noinline) int __stdcall FuncCtrl_RegisterPrimary(
+        FuncCtrl* scheduler, SchedulerTask* task, int priority) {
     int result = 0;
     if (task->on_register) {
         result = task->on_register(task->context);
@@ -33,7 +33,7 @@ extern "C" __declspec(noinline) int __stdcall Scheduler_RegisterPrimary(
 #pragma code_seg()
 
 static __forceinline void ReplayManagerStandIn_Unregister(void* task) {
-    void* scheduler = data_00491be4;
+    void* scheduler = g_func_ctrl;
     if (task) {
         EnterCriticalSection(&g_thread_synchronization.critical_sections[0]);
         ++g_thread_synchronization.scheduler_lock_depth;
@@ -62,11 +62,11 @@ int ReplayManager_004296f0::Start(int start_mode, const char* replay_path) {
     void** tasks = reinterpret_cast<void**>(reserved_000);
     SchedulerTask* update = ReplayManagerStandIn_Task(path);
     update->context = this;
-    Scheduler_RegisterPrimary(static_cast<Scheduler*>(data_00491be4), update, 0x10);
+    FuncCtrl_RegisterPrimary(static_cast<FuncCtrl*>(g_func_ctrl), update, 0x10);
     tasks[2] = update;
     SchedulerTask* draw = ReplayManagerStandIn_Task(reserved_1c0);
     draw->context = this;
-    Scheduler_RegisterPrimary(static_cast<Scheduler*>(data_00491be4), draw, 0x11);
+    FuncCtrl_RegisterPrimary(static_cast<FuncCtrl*>(g_func_ctrl), draw, 0x11);
     tasks[3] = draw;
     return 0;
 }

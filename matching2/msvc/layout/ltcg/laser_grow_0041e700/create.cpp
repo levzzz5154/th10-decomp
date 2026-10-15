@@ -16,7 +16,7 @@ extern "C" float data_00470b48;
 #pragma code_seg(".text$70create")
 __declspec(noinline) void** __stdcall ItemAnimation_CreateOffset_00448db0(
     void* resource, void** out, int index, const Point3_OrientedRect* position) {
-    Entity* object = static_cast<AnimationPool*>(data_00491c10)->Allocate();
+    Entity* object = static_cast<AnimationPool*>(g_sprt_ctrl)->Allocate();
     object->flags_35C |= 0x40000000u;
     object->render_bucket = 0;
     object->position.x = position->x + data_00470b4c;
@@ -24,7 +24,7 @@ __declspec(noinline) void** __stdcall ItemAnimation_CreateOffset_00448db0(
     object->position.z = position->z;
     LoadScript_0043e710(static_cast<AnimationResource_0043e710*>(resource),
         reinterpret_cast<AnimationObject_0043e710*>(object),index);
-    asm_AnimationManager_RegisterPrimaryBack_004489d0(data_00491c10, out, object);
+    asm_AnimationManager_RegisterPrimaryBack_004489d0(g_sprt_ctrl, out, object);
     return out;
 }
 #pragma code_seg()

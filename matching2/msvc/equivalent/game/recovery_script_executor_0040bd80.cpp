@@ -5,9 +5,9 @@
 // init/teardown paths, the key-state masks by the window procedure and the
 // input recorder. Volatile-qualified lvalue reads keep the plain externs' ODR
 // intact while matching the retail reloads.
-extern "C" void* data_00491c10;
+extern "C" void* g_sprt_ctrl;
 __declspec(noinline) void* __cdecl RecoveryValidateHandle_00449450(RecoveryHandle_0040bd80* handle);
-#define MANAGER_00491c10 (*(void* const volatile*)&data_00491c10)
+#define MANAGER_00491c10 (*(void* const volatile*)&g_sprt_ctrl)
 extern "C" RecoveryScriptOwner_0040bd80* g_ending;
 #define OWNER_00477700 (*(RecoveryScriptOwner_0040bd80* const volatile*)&g_ending)
 extern "C" GameThread_0040c540* g_ascii_manager;
@@ -90,7 +90,7 @@ extern "C" __declspec(noinline) int __stdcall RecoveryScript_Execute_0040bd80(Re
                 state->text_handles[0].StopAtFrame2();
                 ++state->text_ring_position;
             } else {
-                static_cast<RecoveryTextVm_00447a50*>(RecoveryValidateHandle_00449450(&state->text_handles[state->text_ring_position]))->MarkText(data_00491c10, state->color, RecoveryDecodePath_00417010(reinterpret_cast<const unsigned char*>(command) + 4));
+                static_cast<RecoveryTextVm_00447a50*>(RecoveryValidateHandle_00449450(&state->text_handles[state->text_ring_position]))->MarkText(g_sprt_ctrl, state->color, RecoveryDecodePath_00417010(reinterpret_cast<const unsigned char*>(command) + 4));
                 state->text_handles[state->text_ring_position].StopAtFrame2();
                 ++state->text_ring_position;
                 if (state->text_ring_position >= 5)
@@ -190,7 +190,7 @@ extern "C" __declspec(noinline) int __stdcall RecoveryScript_Execute_0040bd80(Re
             break;
         case 12: {
             for (int i = 0; i < 5; ++i) {
-                reinterpret_cast<RecoveryLookup_0040bd80*>(data_00491c10)->SetFlag(reinterpret_cast<RecoveryLookupContext_0040bd80*>(data_00491c10), static_cast<int>(state->text_handles[i].value));
+                reinterpret_cast<RecoveryLookup_0040bd80*>(g_sprt_ctrl)->SetFlag(reinterpret_cast<RecoveryLookupContext_0040bd80*>(g_sprt_ctrl), static_cast<int>(state->text_handles[i].value));
                 state->text_handles[i].value = 0;
             }
             char* loaded = LoadAsset(reinterpret_cast<const char*>(state->command) + 4, reinterpret_cast<AssetBuffer*>(OWNER_00477700));

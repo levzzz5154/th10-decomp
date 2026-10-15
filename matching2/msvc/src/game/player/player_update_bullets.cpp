@@ -25,7 +25,7 @@ extern "C" __declspec(noinline) int __stdcall Player_UpdateBullets(Player* playe
                 player->laser_active[bullet->definition->option] = 0;
             }
             if (bullet->definition->kind == SHOT_LASER && bullet->state == 1 &&
-                ((data_0047770c && data_0047770c->script) || !data_00477704)) {
+                ((g_front && g_front->script) || !g_enemy_ctrl)) {
                 bullet->state = 2;
                 bullet->animation.StopAtFrame1();
                 bullet->laser_animation.StopAtFrame1();
@@ -41,7 +41,7 @@ extern "C" __declspec(noinline) int __stdcall Player_UpdateBullets(Player* playe
                 bullet->definition->on_update(player, bullet);
             bullet->motion.Update();
             bullet->motion.Advance();
-            AnimationContext *context = static_cast<AnimationContext*>(data_00491c10);
+            AnimationContext *context = static_cast<AnimationContext*>(g_sprt_ctrl);
             AnimationObject *primary = context->FindInBuckets(REF(bullet->animation));
             if (!primary) {
                 bullet->state = 0;

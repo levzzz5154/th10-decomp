@@ -33,9 +33,9 @@
 #include "th10/render/quad_batch.hpp"
 
 extern "C" __declspec(noinline) int EntityDraw_00443290(RenderEntity* entity,
-                                                       AnimationManager_00442F50* manager);
+                                                       SprtCtrlBatchView* manager);
 #pragma code_seg(".text$06b02z00build")
-int EntityDraw_00443290(RenderEntity* entity, AnimationManager_00442F50* manager) {
+int EntityDraw_00443290(RenderEntity* entity, SprtCtrlBatchView* manager) {
     float width = entity->sprite_width * entity->scale_x;
     float height = entity->sprite_height * entity->scale_y;
     float half_height = height * 0.5f;

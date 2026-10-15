@@ -3,6 +3,6 @@
 
 #pragma code_seg(".text$77stoprunhandle")
 void AnimationRunHandle::SetStopFrameAndRun(unsigned short frame) {
-    AnimationManager_SetStopFrameAndRun(frame, data_00491c10, value);
+    AnimationManager_SetStopFrameAndRun(frame, g_sprt_ctrl, value);
 }
 #pragma code_seg()

@@ -39,7 +39,7 @@
   "roots": [],
   "absolute_symbols": [
     {
-      "symbol": "_data_00477810",
+      "symbol": "_g_game",
       "address": "0x00477810",
       "kind": "data"
     },

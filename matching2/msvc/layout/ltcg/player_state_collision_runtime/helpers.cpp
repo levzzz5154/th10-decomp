@@ -28,7 +28,7 @@ void* PickupAnimationLists::MarkForRemoval(AnimationRef handle) {
 #pragma code_seg(".text$f0040c480F")
 void PlayerAnimationHandle::StopAtFrame2() {
     AnimationRef id(value);
-    PickupAnimation* node=static_cast<PickupAnimationLists*>(data_00491c10)->Find(id);
+    PickupAnimation* node=static_cast<PickupAnimationLists*>(g_sprt_ctrl)->Find(id);
     if (node) {
         node->stop_frame=2;
         if (!node->child_previous)
@@ -39,14 +39,14 @@ void PlayerAnimationHandle::StopAtFrame2() {
 #pragma code_seg(".text$f00449450F")
 PickupAnimation* PlayerAnimationHandle::Validate() {
     AnimationRef id(value);
-    PickupAnimation* object=static_cast<PickupAnimationLists*>(data_00491c10)->Find(id);
+    PickupAnimation* object=static_cast<PickupAnimationLists*>(g_sprt_ctrl)->Find(id);
     if (!object) value=0;
     return object;
 }
 #pragma code_seg(".text$f00449630F")
 void PlayerAnimationHandle::Retire() {
     AnimationRef id(value);
-    static_cast<PickupAnimationLists*>(data_00491c10)->MarkForRemoval(id);
+    static_cast<PickupAnimationLists*>(g_sprt_ctrl)->MarkForRemoval(id);
     value=0;
 }
 #pragma code_seg(".text$f00427b50F")

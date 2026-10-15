@@ -13,7 +13,7 @@
 #include <string.h>
 
 #pragma code_seg(".text$0040cfb0_fn")
-Enemy_0040cfb0* EnemySpawn_0040cfb0::Create(EnemyManager_0040cfb0* manager, const char* entry) {
+Enemy_0040cfb0* EnemySpawn_0040cfb0::Create(EnemyCtrlSpawnView* manager, const char* entry) {
     Enemy_0040cfb0* enemy = new Enemy_0040cfb0(entry);
 
     enemy->data.position = position;

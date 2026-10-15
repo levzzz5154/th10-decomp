@@ -13,7 +13,7 @@ struct SpellTimerDisplay_004127a0 {
 typedef char SpellTimerDisplay_004127a0_seconds_offset_check[
     offsetof(SpellTimerDisplay_004127a0, remaining_seconds) == 0x9ec0 ? 1 : -1];
 
-extern "C" SpellTimerDisplay_004127a0 *data_0047770c;
+extern "C" SpellTimerDisplay_004127a0 *g_front;
 
 struct SpellTimerStage_004127a0 {
     unsigned char reserved_0000[0xad4];
@@ -136,7 +136,7 @@ __declspec(noinline) void *SpellTimerState_004127a0::AdvanceSlots() {
         if (seconds_remaining > 99)
             seconds_remaining = 99;
 
-        SpellTimerDisplay_004127a0 *timer_display = data_0047770c;
+        SpellTimerDisplay_004127a0 *timer_display = g_front;
         timer_display->remaining_seconds = seconds_remaining;
         if (self->clock.current_frame < self->slots[slot_index].due_frame)
             goto no_resource;

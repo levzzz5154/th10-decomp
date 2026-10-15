@@ -52,7 +52,7 @@ struct ScoreTable_00421fa0 {
 typedef char ScoreRecordSize_00421fa0[sizeof(ScoreRecord_00421fa0) == 0x18 ? 1 : -1];
 
 extern "C" GameCounters_00421fa0 data_00474c44;
-extern "C" FrameCounters_00421fa0* data_00477708;
+extern "C" FrameCounters_00421fa0* g_fps;
 extern "C" int __cdecl time_00452b71(int* out);
 
 #endif

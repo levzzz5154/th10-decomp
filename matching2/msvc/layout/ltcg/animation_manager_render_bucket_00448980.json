@@ -10,8 +10,8 @@
   "description": "0x00448980 compiled with native LTCG so that the bucket index stays in EAX and the animation manager in EDI, and so that the call to 0x004451C0 receives the entity in EAX and the manager in ECX. The .text$01anchor section is a compiled ABI anchor for 0x004451C0: placed at its retail address by the gaps, validated as a complete contribution, and never exported as recovered code. The function is not rooted, so the whole-program pass keeps the register convention it assigns instead of the declared __thiscall one.",
   "functions": [
     {
-      "name": "AnimationManager_00442F50_RenderBucket",
-      "symbol": "?RenderBucket@AnimationManager_00442F50@@QAEHH@Z",
+      "name": "SprtCtrlBatchView_RenderBucket",
+      "symbol": "?RenderBucket@SprtCtrlBatchView@@QAEHH@Z",
       "section": ".text$03bucket",
       "address": "0x00448980",
       "size": 67,
@@ -19,7 +19,7 @@
     }
   ],
   "context": {
-    "symbol": "?RenderBucketContext@@YGHPAPAUAnimationManager_00442F50@@H@Z",
+    "symbol": "?RenderBucketContext@@YGHPAPAUSprtCtrlBatchView@@H@Z",
     "section": ".text$05context",
     "address": "0x004489F0",
     "size": 43,
@@ -91,7 +91,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "?DrawStrip@AnimationManager_00442F50@@QAEHPBURenderEntity@@PBXI@Z",
+      "symbol": "?DrawStrip@SprtCtrlBatchView@@QAEHPBURenderEntity@@PBXI@Z",
       "address": "0x00444CE0",
       "kind": "relative_code"
     }

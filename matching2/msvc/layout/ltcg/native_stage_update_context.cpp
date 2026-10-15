@@ -3,7 +3,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include "th10/game/background_fade.hpp"
-#include "th10/render/screen_effect_controller.hpp"
+#include "th10/core/screen.hpp"
 struct StageContextFade_00418190 {
     unsigned char reserved000[0x14];
     int frame;
@@ -18,8 +18,8 @@ extern unsigned char* g_bomb;
 extern unsigned char* data_004776f0;
 extern unsigned char* g_card;
 extern unsigned char* g_effect;
-extern unsigned char* data_00477704;
-extern unsigned char* data_0047770c;
+extern unsigned char* g_enemy_ctrl;
+extern unsigned char* g_front;
 extern unsigned char* g_hint;
 extern unsigned char* data_00477818;
 extern unsigned char* g_laser_manager;
@@ -75,19 +75,19 @@ static __forceinline void StageReset(StageContextFade_00418190* context,int* loc
     StageResetBulletPool_00405ed0(data_004776f0);
     StageResetPause_00424d90(g_player);
     memset(data_00477818+0x14,0,0x873A8*4);
-    StageResetEnemy_00409f90(data_00477704);
+    StageResetEnemy_00409f90(g_enemy_ctrl);
     StageReleaseChain_00417770(g_laser_manager);
     data_00474c88=0;
     data_00474c8c=0;
     StageResetGameplay_0042a450(data_00477838);
     memset(local_state,0,16*4);
-    StageStartScript_0040cfb0(local_state,data_00477704,data_0046d278);
-    StageInitializeThread_00413bc0(data_0047770c);
+    StageStartScript_0040cfb0(local_state,g_enemy_ctrl,data_0046d278);
+    StageInitializeThread_00413bc0(g_front);
     StageKillPair(g_pause);
     StageKillRequiredPair(g_player);
     StageRefreshPanel_00426f70(g_player);
     StageKillPair(data_004776f0);
-    StageKillPair(data_00477704);
+    StageKillPair(g_enemy_ctrl);
     StageKillPair(data_00477818);
     StageKillPair(g_laser_manager);
     StageKillRequiredPair(g_effect);
@@ -127,7 +127,7 @@ extern "C" int __stdcall StageContextUpdate_00418190(StageContextFade_00418190* 
             game->BeginFade();
             StageStartPlayerMode_004045b0(g_background);
             context->flags|=0x800u;
-            StageStopAnimation_00409e50(data_0047770c+0x9E14);
+            StageStopAnimation_00409e50(g_front+0x9E14);
         } else {
             StageReset(context,local_state,false);
         }
@@ -148,11 +148,11 @@ extern "C" int __stdcall StageContextUpdate_00418190(StageContextFade_00418190* 
         if ((data_00474e30&0x160Bu)||(context->flags&0x70u))
             data_00491fb8=(data_00491ff4&0x1000u)?2:4;
         if (context->frame==0xB7C)
-            CreateScreenEffect_0043c8b0(43,5,60,0,0,0);
+            Screen_Create(43,5,60,0,0,0);
         else if (context->frame==3000)
             StageSetInputMode_0040ac90(data_00491c28,4);
     }
-    StageTickThread_00417040(data_0047770c);
+    StageTickThread_00417040(g_front);
     if ((context->flags&0x10u)||(context->flags&0x20u)||(context->flags&0x40u))
         return 3;
     if (StageWord(data_00477838,0x10)!=1) {
@@ -160,7 +160,7 @@ extern "C" int __stdcall StageContextUpdate_00418190(StageContextFade_00418190* 
         int* frames=reinterpret_cast<int*>(data_0047783c+index*0x437C+0x4CC);
         if (*frames<215999999) ++*frames;
     }
-    if (StageWord(data_00477704,0x10)==0 && StageWord(data_0047770c,0x9EB8)==0 && context->frame>=90)
+    if (StageWord(g_enemy_ctrl,0x10)==0 && StageWord(g_front,0x9EB8)==0 && context->frame>=90)
         StageDecayScore_00418a00(data_00474c40);
     ++data_00474c88;
     ++data_00474c8c;

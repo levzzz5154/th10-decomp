@@ -5,8 +5,8 @@
 // init/teardown paths, the key-state masks by the window procedure and the
 // input recorder. Volatile-qualified lvalue reads keep the plain externs' ODR
 // intact while matching the retail reloads.
-extern "C" void* data_00491c10;
-#define MANAGER_00491c10 (*(void* const volatile*)&data_00491c10)
+extern "C" void* g_sprt_ctrl;
+#define MANAGER_00491c10 (*(void* const volatile*)&g_sprt_ctrl)
 extern "C" RecoveryScriptOwner_0040bd80* g_ending;
 #define OWNER_00477700 (*(RecoveryScriptOwner_0040bd80* const volatile*)&g_ending)
 extern "C" GameThread_0040c540* g_ascii_manager;

@@ -3,7 +3,7 @@
 // while keeping its manager base at offset zero.
 #include "th10/render/quad_batch.hpp"
 
-struct AnimationManagerBucket1_00448600 : AnimationManager_00442F50 {
+struct AnimationManagerBucket1_00448600 : SprtCtrlBatchView {
     __declspec(noinline) int RenderBucket1();
 };
 

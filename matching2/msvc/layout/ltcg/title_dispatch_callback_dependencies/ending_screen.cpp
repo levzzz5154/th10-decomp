@@ -3,7 +3,7 @@
 #include "th10/game/title_menu.hpp"
 #include "th10/platform/sound_queue.hpp"
 
-extern "C" void* data_00491c10;
+extern "C" void* g_sprt_ctrl;
 extern "C" unsigned int data_00474e36;
 __declspec(noinline) void __stdcall RecoveryMusicInstallSlot_0042c670(
     Title* room, int index);
@@ -16,8 +16,8 @@ __declspec(noinline) int __stdcall EndingScreen_Update_0042d300(
     switch (room->phase) {
     case 0: {
         RecoveryScriptId_0040bd80 id = { static_cast<int>(room->animation_slots[88]) };
-        if (reinterpret_cast<RecoveryLookup_0040bd80*>(data_00491c10)->Find(
-                reinterpret_cast<RecoveryLookupContext_0040bd80*>(data_00491c10), id) == 0) {
+        if (reinterpret_cast<RecoveryLookup_0040bd80*>(g_sprt_ctrl)->Find(
+                reinterpret_cast<RecoveryLookupContext_0040bd80*>(g_sprt_ctrl), id) == 0) {
             RecoveryMusicInstallSlot_0042c670(room, 88);
             RecoveryMusicInstallSlot_0042c670(room, 90);
             void* handle;

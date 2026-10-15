@@ -2,7 +2,7 @@
 // or with the supplied routine. Both preserve the other flag bits and leave
 // the callback context untouched. Native LTCG derives the EAX receiver and
 // the routine constructor's ECX callback argument.
-#include "th10/game/scheduler.hpp"
+#include "th10/core/func_ctrl.hpp"
 
 struct EmptyTask : SchedulerTask {
     __declspec(noinline) EmptyTask();

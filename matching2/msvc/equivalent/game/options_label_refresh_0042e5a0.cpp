@@ -124,7 +124,7 @@ static __forceinline void ShowDigit(
 __declspec(noinline) void __stdcall RefreshOptions_0042e5a0(
     Title* room) {
     RecoveryLookupContext_0040bd80* manager =
-        reinterpret_cast<RecoveryLookupContext_0040bd80*>(data_00491c10);
+        reinterpret_cast<RecoveryLookupContext_0040bd80*>(g_sprt_ctrl);
     data_00497854 = data_00491d4c.music_volume;
 
     // The request queue records "bgm/th10_02.wav" for resource 8; the retail

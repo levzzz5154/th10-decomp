@@ -25,10 +25,10 @@ struct LaserManagerDrawView {
     int OnDraw();     // __thiscall: `self` arrives in ECX
 };
 
-extern "C" unsigned char data_00477810;
+extern "C" unsigned char g_game;
 
 int LaserManagerDrawView::OnDraw() {
-    LaserFrameState* state = *(LaserFrameState**)&data_00477810;
+    LaserFrameState* state = *(LaserFrameState**)&g_game;
     if ((state->flags_58 & 4) == 0) {
         LaserDrawNode* node = head;
         if (node != 0) {

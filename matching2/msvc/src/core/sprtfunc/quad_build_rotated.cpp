@@ -25,11 +25,11 @@
 #include "th10/render/quad_batch.hpp"
 
 extern "C" __declspec(noinline) int EntityDraw_00443290(RenderEntity* entity,
-                                                       AnimationManager_00442F50* manager);
+                                                       SprtCtrlBatchView* manager);
 
 #pragma code_seg(".text$06b03rotquad")
 extern "C" __declspec(noinline) int BuildRotatedQuad_004436c0(
-        AnimationManager_00442F50* manager, RenderEntity* entity) {
+        SprtCtrlBatchView* manager, RenderEntity* entity) {
     float ca, sa;
     float angle;
     float px, py, pz, width, height;
@@ -102,7 +102,7 @@ extern "C" __declspec(noinline) int BuildRotatedQuad_004436c0(
 
 #pragma code_seg(".text$06b04rotquad")
 extern "C" __declspec(noinline) int BuildRotatedQuadAlt_00443910(
-        AnimationManager_00442F50* manager, RenderEntity* entity) {
+        SprtCtrlBatchView* manager, RenderEntity* entity) {
     float ca, sa;
     float angle;
     float px, py, pz, width, height;

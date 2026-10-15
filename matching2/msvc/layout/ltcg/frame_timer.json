@@ -13,15 +13,15 @@
     "?Tick@ScreenFadeIn@@QAEHXZ",
     "?Tick@ScreenFadeOut@@QAEHXZ",
     "?Tick@ScreenFlash@@QAEHXZ",
-    "?UpdateEnvelopeShake@ScreenEffectController@@QAEHXZ"
+    "?UpdateEnvelopeShake@Screen@@QAEHXZ"
   ],
   "headers": [
     "include/th10/game/score.hpp",
     "include/th10/math/timer.hpp",
     "include/th10/game/stage_schedule.hpp",
     "include/th10/math/rng.hpp",
-    "include/th10/render/screen_effect_controller.hpp",
-    "include/th10/game/scheduler.hpp"
+    "include/th10/core/screen.hpp",
+    "include/th10/core/func_ctrl.hpp"
   ],
   "image_base": "0x00400000",
   "description": "FrameTimer methods, the three animation cursors, the scheduler store, the gauge-timer clamp and the stage sequence schedule compiled as ordinary C++ with a synthetic caller under native LTCG; the scheduler receiver stays in EAX, the score state whose gauge timer is clamped in EDI and the embedded timers in ESI. Compiler context and layout gaps are never selected as game code.",
@@ -105,9 +105,9 @@
       "actual_abi": "this in ESI; delta at [ESP+4]; RET 4"
     },
     {
-      "name": "ScreenEffectController_UpdateEnvelopeShake",
+      "name": "Screen_UpdateEnvelopeShake",
       "source": "src/core/screen/updates.cpp",
-      "symbol": "?UpdateEnvelopeShake@ScreenEffectController@@QAEHXZ",
+      "symbol": "?UpdateEnvelopeShake@Screen@@QAEHXZ",
       "section": ".text$12b_shake",
       "address": "0x0043C710",
       "size": 349,
@@ -223,7 +223,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00477810",
+      "symbol": "_g_game",
       "address": "0x00477810",
       "kind": "data"
     },

@@ -80,6 +80,6 @@ extern "C" {
 extern FloatingTextRenderState_0042b780 data_00491c28;
 // 0x00443080: draw one entity; the manager is on the stack and the entity
 // arrives in ESI.
-__declspec(noinline) int __stdcall FloatingText_DrawEntity_00443080(AnimationManager_00442F50* manager, FloatingTextSprite_0042b780* entity);
+__declspec(noinline) int __stdcall FloatingText_DrawEntity_00443080(SprtCtrlBatchView* manager, FloatingTextSprite_0042b780* entity);
 }
 int __fastcall SmollScore_DrawTask_0042b9b0(SmollScoreDrawView* pool);

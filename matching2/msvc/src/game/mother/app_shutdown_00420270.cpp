@@ -57,7 +57,7 @@ struct App_00420270 {
 extern "C" App_00420270 data_00491c28;
 extern "C" PlatformWorker data_00474dd4;
 extern "C" int data_004977b4;
-extern "C" AnimationManagerSurface_00420270* data_00491c10;
+extern "C" AnimationManagerSurface_00420270* g_sprt_ctrl;
 extern "C" AnimationManager_0043e460 data_00492590;
 extern "C" DatArchive data_00497990;
 extern "C" const char data_0046df98[];
@@ -79,8 +79,8 @@ int App_00420270::Shutdown() {
         data_00491c28.buffer_764 = 0;
     }
     Recovery_ReleaseGlobalStates();
-    DeletePublishedBlock(data_00477708);
-    ComObject_00420270** back_buffer = &data_00491c10->back_buffer;
+    DeletePublishedBlock(g_fps);
+    ComObject_00420270** back_buffer = &g_sprt_ctrl->back_buffer;
     if (*back_buffer) {
         (*back_buffer)->vtable->Release(*back_buffer);
         *back_buffer = 0;

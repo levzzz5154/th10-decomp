@@ -20,10 +20,10 @@
 // runtime in ECX and the callback hands it to the update as its single stack
 // argument while preserving the register.
 #pragma code_seg(".text$00415ae0_fn")
-struct FrontHudRuntime;
-__declspec(noinline) int __stdcall FrontHudUpdate_00414900(FrontHudRuntime* front);
+struct FrontUpdateView;
+__declspec(noinline) int __stdcall FrontHudUpdate_00414900(FrontUpdateView* front);
 extern "C" __declspec(noinline) int __fastcall FrontHudCallback_00415ae0(void* state) {
-    return FrontHudUpdate_00414900((FrontHudRuntime*)state);
+    return FrontHudUpdate_00414900((FrontUpdateView*)state);
 }
 #pragma code_seg()
 
@@ -31,12 +31,12 @@ extern "C" __declspec(noinline) int __fastcall FrontHudCallback_00415ae0(void* s
 #pragma code_seg(".text$00448d00_at")
 int* __stdcall DispatcherCreateAt(
         AnimationResource_00449870* resource, int* out, int script_index, int render_bucket) {
-    Entity* object = reinterpret_cast<AnimationPool*>(data_00491c10)->Allocate();
+    Entity* object = reinterpret_cast<AnimationPool*>(g_sprt_ctrl)->Allocate();
     unsigned flags = object->flags_35C;
     object->render_bucket = render_bucket;
     object->flags_35C = flags | 0x40000000;
     resource->InitializeObject(object, script_index);
-    *out = reinterpret_cast<DispatcherPrimaryLists*>(data_00491c10)->RegisterPrimaryBack(object).value;
+    *out = reinterpret_cast<DispatcherPrimaryLists*>(g_sprt_ctrl)->RegisterPrimaryBack(object).value;
     return out;
 }
 #pragma code_seg()

@@ -9,7 +9,7 @@
   ],
   "headers": [
     "include/th10/game/game_thread.hpp",
-    "include/th10/game/scheduler.hpp",
+    "include/th10/core/func_ctrl.hpp",
     "include/th10/render/anm_manager_lists.hpp",
     "include/th10/game/entity.hpp",
     "include/th10/types.hpp"

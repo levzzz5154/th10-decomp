@@ -95,7 +95,7 @@ struct D3D9Device {
     D3D9DeviceVtbl* lpVtbl;
 };
 
-extern "C" unsigned char data_00491c10;             // 0x00491C10  game state object
+extern "C" unsigned char g_sprt_ctrl;             // 0x00491C10  game state object
 extern "C" unsigned char data_00491c30;             // 0x00491C30  IDirect3DDevice9*
 
 // Every call site reads the global again: the device is published around a
@@ -151,7 +151,7 @@ enum {
 // the state the sprite batches push; the reset below restores its defaults.
 // Only the widths and offsets of these fields are certain, so the dirty
 // markers after the texture factor keep their retail addresses as names.
-struct SpriteStateCache {
+struct SprtCtrlStateCacheView {
     unsigned char unused_0000[0x3ADA64];
     unsigned int texture_factor;          // +0x3ADA64
     unsigned char flags_3ADA68;           // +0x3ADA68
@@ -168,7 +168,7 @@ struct SpriteStateCache {
 // filtering), then invalidates the cached sprite state.  Runs right after a
 // successful device Reset.  Returns the game state object it touched; the
 // caller ignores it.
-extern "C" SpriteStateCache* __cdecl Renderer_ApplyDeviceDefaults(void) {
+extern "C" SprtCtrlStateCacheView* __cdecl Renderer_ApplyDeviceDefaults(void) {
     D3D9_DEVICE->lpVtbl->SetRenderState(D3D9_DEVICE, D3DRS_ZENABLE, 1);
     D3D9_DEVICE->lpVtbl->SetRenderState(D3D9_DEVICE, D3DRS_LIGHTING, 0);
     D3D9_DEVICE->lpVtbl->SetRenderState(D3D9_DEVICE, D3DRS_CULLMODE, 1);
@@ -214,7 +214,7 @@ extern "C" SpriteStateCache* __cdecl Renderer_ApplyDeviceDefaults(void) {
     D3D9_DEVICE->lpVtbl->SetSamplerState(D3D9_DEVICE, 0, D3DSAMP_ADDRESSU, 1);
     D3D9_DEVICE->lpVtbl->SetSamplerState(D3D9_DEVICE, 0, D3DSAMP_ADDRESSV, 1);
 
-    SpriteStateCache* state = *(SpriteStateCache**)&data_00491c10;
+    SprtCtrlStateCacheView* state = *(SprtCtrlStateCacheView**)&g_sprt_ctrl;
     if (state != 0) {
         state->flags_3ADA68 = 3;
         state->flags_3ADA69 = 0xFF;

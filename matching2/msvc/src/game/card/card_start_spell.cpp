@@ -27,7 +27,7 @@ struct GameThread_00409280 {
     unsigned char reserved_8998[4];
     AnimationResource_00449870* text;              // +0x899C
 };
-struct EnemyManager_00409280 {
+struct BulletResourceView_00409280 {
     unsigned char reserved[0x3E0B50];
     AnimationResource_00449870* effects;           // +0x3E0B50
 };
@@ -35,7 +35,7 @@ struct MarkerTarget_00409280 {
     unsigned char reserved[0x1068];
     Vec3 position;                                 // +0x1068
 };
-struct StageOwner_00409280 {
+struct EnemyCtrlCardView {
     unsigned char reserved_00[0x10];
     MarkerTarget_00409280* target;                 // +0x10
     unsigned char reserved_14[0x24];
@@ -53,11 +53,11 @@ struct GameSelection_00409280 {
 
 extern "C" {
 extern GameMode_00409280* data_00477838;
-extern FrontResources_00409280* data_0047770c;
+extern FrontResources_00409280* g_front;
 extern GameThread_00409280* g_ascii_manager;
-extern EnemyManager_00409280* data_004776f0;
+extern BulletResourceView_00409280* data_004776f0;
 extern ScoreManager* data_0047783c;
-extern StageOwner_00409280* data_00477704;
+extern EnemyCtrlCardView* g_enemy_ctrl;
 extern GameSelection_00409280 g_selection;         // 0x00474C68
 extern int data_00474c4c;
 extern int data_00474c7c;                          // stage number
@@ -88,25 +88,25 @@ static inline void CopyName(char* const destination, const char* const source) {
         ;
 }
 
-static inline void LoadDigit(HudSprite_00408d60* sprite, int script) {
-    LoadScript_0043e710(data_0047770c->digits,
+static inline void LoadDigit(FrontSprite_00408d60* sprite, int script) {
+    LoadScript_0043e710(g_front->digits,
                         reinterpret_cast<AnimationObject_0043e710*>(sprite), script);
 }
 
-static inline void StartScript(HudSprite_00408d60* sprite, int script) {
+static inline void StartScript(FrontSprite_00408d60* sprite, int script) {
     Entity_StartScript_00404f30(
-        reinterpret_cast<AnimationResource_0043e710*>(data_00477704->resource),
+        reinterpret_cast<AnimationResource_0043e710*>(g_enemy_ctrl->resource),
         reinterpret_cast<Entity*>(sprite), script);
 }
 
 static inline AnimationLists* Animations() {
-    return reinterpret_cast<AnimationLists*>(data_00491c10);
+    return reinterpret_cast<AnimationLists*>(g_sprt_ctrl);
 }
 
 // Create an animation running `script` of `resource` on the panel's layer.
 struct PanelAppearance { int render_bucket; unsigned int flags; };
 static inline AnimationRef CreatePanelAnimation(AnimationResource_00449870* resource, int script, PanelAppearance appearance) {
-    Entity* object = reinterpret_cast<AnimationPool*>(data_00491c10)->Allocate();
+    Entity* object = reinterpret_cast<AnimationPool*>(g_sprt_ctrl)->Allocate();
     object->render_bucket = appearance.render_bucket;
     object->flags_35C |= appearance.flags;
     resource->InitializeObject(object, script);
@@ -162,13 +162,13 @@ void Card_00408d60::StartSpell(int index, const char* name, int duration) {
     panel_handles[2].value = CreateAnimation(g_ascii_manager->front, 2).value;
     reinterpret_cast<HintVm_00419120*>(
         GetAnimation(reinterpret_cast<int&>(panel_handles[1].value)))
-        ->FormatRightAligned(data_00491c10, 0x00FFFFFFu, name);
+        ->FormatRightAligned(g_sprt_ctrl, 0x00FFFFFFu, name);
     data_00492590.Queue(14, 0);
 
     marker_handle.value = CreateAnimation(data_004776f0->effects, 417).value;
-    marker_position = data_00477704->target->position;
+    marker_position = g_enemy_ctrl->target->position;
     SetAnimationTranslatedPosition_00449350(
-        reinterpret_cast<const PositionVector_004492f0*>(&marker_position), data_00491c10,
+        reinterpret_cast<const PositionVector_004492f0*>(&marker_position), g_sprt_ctrl,
         marker_handle);
     FindChild(marker_handle.value, 415)->ScriptIntegerVariables()[2] = duration;
     FindChild(marker_handle.value, 416)->ScriptIntegerVariables()[2] = duration;
@@ -185,43 +185,43 @@ void Card_00408d60::StartSpell(int index, const char* name, int duration) {
         StartScript(&frame_sprite, 12);
         StartScript(&label_sprite, 11);
         if (index >= 2)
-            CreateAnimation(data_00477704->resource, 14);
+            CreateAnimation(g_enemy_ctrl->resource, 14);
         else
-            CreateAnimation(data_00477704->resource, 15);
+            CreateAnimation(g_enemy_ctrl->resource, 15);
         break;
     case 2:
         StartScript(&frame_sprite, 14);
         StartScript(&label_sprite, 15);
-        CreateAnimation(data_00477704->resource, 17);
+        CreateAnimation(g_enemy_ctrl->resource, 17);
         break;
     case 3:
         StartScript(&frame_sprite, 18);
         StartScript(&label_sprite, 19);
-        CreateAnimation(data_00477704->resource, 21);
+        CreateAnimation(g_enemy_ctrl->resource, 21);
         break;
     case 4:
         StartScript(&frame_sprite, 19);
         StartScript(&label_sprite, 20);
-        CreateAnimation(data_00477704->resource, 22);
+        CreateAnimation(g_enemy_ctrl->resource, 22);
         break;
     case 5:
         StartScript(&frame_sprite, 12);
         StartScript(&label_sprite, 13);
-        CreateAnimation(data_00477704->resource, 15);
+        CreateAnimation(g_enemy_ctrl->resource, 15);
         break;
     case 6:
         StartScript(&frame_sprite, 33);
         StartScript(&label_sprite, 34);
-        CreateAnimation(data_00477704->resource, 36);
+        CreateAnimation(g_enemy_ctrl->resource, 36);
         break;
     case 7:
         if (g_selection.stage_phase < 24) {
             StartScript(&frame_sprite, 38);
-            CreateAnimation(data_00477704->resource, 40);
+            CreateAnimation(g_enemy_ctrl->resource, 40);
         } else {
             StartScript(&frame_sprite, 27);
             StartScript(&label_sprite, 28);
-            CreateAnimation(data_00477704->resource, 30);
+            CreateAnimation(g_enemy_ctrl->resource, 30);
         }
         break;
     }

@@ -7,7 +7,7 @@
 int __stdcall BulletManagerInitializeContext_00405e20(BulletManager_00405e20** managers,
                                                       int count, SchedulerTask* task) {
     // Keeps the primary registration anchor in the link.
-    int result = Scheduler_RegisterPrimary(data_00491be4, task, count);
+    int result = FuncCtrl_RegisterPrimary(g_func_ctrl, task, count);
     while (count--)
         result += BulletManager_Initialize_00405e20(*managers++);
     return result;

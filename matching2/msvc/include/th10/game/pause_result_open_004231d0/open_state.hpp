@@ -40,11 +40,11 @@ struct OpenMusicProgress {
     unsigned char reserved[0x1D8A3];
     unsigned char result_track_heard;
 };
-extern "C" OpenRuntime* data_00477810;
+extern "C" OpenRuntime* g_game;
 extern "C" unsigned int data_00491ff4;
 extern "C" int data_00491fb8;
 extern "C" OpenGameThread* g_ascii_manager;
-extern "C" OpenResources* data_0047770c;
+extern "C" OpenResources* g_front;
 extern "C" unsigned char data_00491d78;
 extern "C" OpenMusicProgress* data_0047783c;
 extern "C" char data_0046e0d8[];

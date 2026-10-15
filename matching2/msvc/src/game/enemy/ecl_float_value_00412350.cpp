@@ -90,7 +90,7 @@ ECL_FLOAT_OFFSET(value_23fc, 0x23FC);
 #undef ECL_FLOAT_OFFSET
 typedef char EclFloat_manager_entity_offset[offsetof(EclFloatManager_00412350, current_entity) == 0x10 ? 1 : -1];
 
-extern "C" EclFloatManager_00412350* data_00477704;
+extern "C" EclFloatManager_00412350* g_enemy_ctrl;
 extern "C" int data_00474c74;
 extern "C" int data_00474c98;
 extern "C" float data_00470afc;
@@ -209,10 +209,10 @@ float EclFloatSource_00412350::ResolveFloatValue(int encoded_selector) const {
         result = g_player->position.y;
         break;
     case -9963:
-        result = data_00477704->current_entity->value_1068;
+        result = g_enemy_ctrl->current_entity->value_1068;
         break;
     case -9962:
-        result = data_00477704->current_entity->value_106c;
+        result = g_enemy_ctrl->current_entity->value_106c;
         break;
     case -9960:
         result = (float)data_00474c98;

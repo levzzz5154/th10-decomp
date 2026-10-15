@@ -7,7 +7,7 @@ int __stdcall PlayerUpdateContext(BombState** players,int count) {
     data_004776f0->ActivateAll(count);
     ((DropSource_0040c9a0*)players[0])->FlushDrops((ItemDrops_0040c9a0*)players[1]);
     Enemy_ReleaseOnDeath_0040e5f0((Enemy_0040e5f0*)players[2]);
-    EnemyManager_SweepDeaths_0040e6a0((EnemyManager_0040e5f0*)players[3]);
+    EnemyCtrl_SweepDeaths_0040e6a0((EnemyCtrlDeathView*)players[3]);
     data_00477818->ConvertItems();
     return count;
 }

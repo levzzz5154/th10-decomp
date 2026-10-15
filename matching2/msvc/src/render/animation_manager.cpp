@@ -106,17 +106,17 @@ struct AnimationLookupContext {
     AnimationLookupEntry* secondary_bucket;    // +0x72DADC
 };
 
-class AnimationManager {
+class SprtCtrl {
 public:
     __declspec(noinline) void* __fastcall SetFlag(AnimationLookupContext* context, int id);
 };
 
 // 0x004492A0: AnimationManager_SetFlag - mark the object registered under a
 // script id, and its not-yet-flagged children, as script owned.
-typedef void* (__fastcall* AnimationFindFn)(AnimationManager*, AnimationLookupContext*, int);
+typedef void* (__fastcall* AnimationFindFn)(SprtCtrl*, AnimationLookupContext*, int);
 
 #pragma code_seg(".text$03setflag")
-void* __fastcall AnimationManager::SetFlag(AnimationLookupContext* context, int id) {
+void* __fastcall SprtCtrl::SetFlag(AnimationLookupContext* context, int id) {
     // The lookup is the sibling entry point; the retail call keeps the manager
     // object in ECX and the context in EDX, so it goes through its fixed address.
     AnimationLookupEntry* entry = (AnimationLookupEntry*)

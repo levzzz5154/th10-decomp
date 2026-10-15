@@ -6,7 +6,7 @@
 // Native LTCG passes the index in EDI; the room stays on the stack.
 #include "th10/game/title_menu.hpp"
 
-extern "C" void* data_00491c10;
+extern "C" void* g_sprt_ctrl;
 extern "C" void* __cdecl asm_FUN_00449950_00449950(void* manager);
 extern "C" void** __cdecl asm_AnimationManager_RegisterPrimaryBack_004489d0(
     void* manager, void** out, void* object);
@@ -19,12 +19,12 @@ __declspec(noinline) void __stdcall RecoveryMusicInstallSlot_0042c670(
         Title* room, int index) {
     void* resource = room->animation_resource;
     RecoveryMusicVm_00433ef0* object = static_cast<RecoveryMusicVm_00433ef0*>(
-        asm_FUN_00449950_00449950(data_00491c10));
+        asm_FUN_00449950_00449950(g_sprt_ctrl));
     object->render_bucket = 15;
     object->flags |= 0x40000000u;
     static_cast<AnimationResource_00449870*>(resource)->InitializeObject(object, index);
     void* handle;
-    asm_AnimationManager_RegisterPrimaryBack_004489d0(data_00491c10, &handle, object);
+    asm_AnimationManager_RegisterPrimaryBack_004489d0(g_sprt_ctrl, &handle, object);
     room->animation_slots[index] = reinterpret_cast<unsigned int>(handle);
 }
 #pragma code_seg()

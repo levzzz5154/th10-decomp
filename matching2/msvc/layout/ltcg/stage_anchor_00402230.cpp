@@ -27,7 +27,7 @@ int BackGround::Load(const char* name) {
     int allocation_size = file_size;
     file = (BackGroundFile*)malloc(allocation_size);
     memcpy(file, original, file_size);
-    animation = LoadCachedResource_00447280((stage_flags & 1) + 4, data_00491c10,
+    animation = LoadCachedResource_00447280((stage_flags & 1) + 4, g_sprt_ctrl,
                                            file->animation_name);
     if (!animation) {
         ((TextLog_0044b810*)0x474F70)->Append((char*)0x46CBC0);

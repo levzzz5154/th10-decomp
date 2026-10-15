@@ -4,7 +4,7 @@
   "source": "src/game/card/card_register_tasks.cpp",
   "driver": "layout/ltcg/player_manager_tasks_004089c0_context.cpp",
   "headers": [
-    "include/th10/game/scheduler.hpp",
+    "include/th10/core/func_ctrl.hpp",
     "include/th10/platform/thread_sync.hpp",
     "include/th10/math/timer.hpp",
     "include/th10/game/card_tasks.hpp"
@@ -23,15 +23,15 @@
   ],
   "anchors": [
     {
-      "name": "Scheduler_RegisterPrimary",
-      "symbol": "_Scheduler_RegisterPrimary@12",
+      "name": "FuncCtrl_RegisterPrimary",
+      "symbol": "_FuncCtrl_RegisterPrimary@12",
       "section": ".text$10primary",
       "address": "0x00449AE0",
       "size": 131
     },
     {
-      "name": "Scheduler_RegisterSecondary",
-      "symbol": "_Scheduler_RegisterSecondary@12",
+      "name": "FuncCtrl_RegisterSecondary",
+      "symbol": "_FuncCtrl_RegisterSecondary@12",
       "section": ".text$12secondary",
       "address": "0x00449B70",
       "size": 131
@@ -74,7 +74,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_data_00491be4",
+      "symbol": "_g_func_ctrl",
       "address": "0x00491BE4",
       "kind": "data"
     },

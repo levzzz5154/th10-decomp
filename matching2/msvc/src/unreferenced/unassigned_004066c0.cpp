@@ -4,7 +4,7 @@
 extern "C" {
 float __stdcall Angle_NormalizeSum_0044bc10(float value, float addend);
 void __fastcall DispatchAnm_004451c0(void* manager, void* object);
-extern void* data_00491c10;
+extern void* g_sprt_ctrl;
 }
 
 struct SlotChainNode_004066c0 {
@@ -51,7 +51,7 @@ __declspec(noinline) int SlotChainOwner_004066C0::UpdateSlotChain(int slot) {
             node->flags_364 |= 4;
         }
 
-        DispatchAnm_004451c0(data_00491c10,
+        DispatchAnm_004451c0(g_sprt_ctrl,
                              reinterpret_cast<unsigned char*>(node) + 8);
         node = node->next_44C;
     }

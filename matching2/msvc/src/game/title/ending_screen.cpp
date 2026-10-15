@@ -34,8 +34,8 @@ static __forceinline void SelectItem_0042d300(MenuCursor& cursor, int selected) 
 int __stdcall EndingScreen_Update_0042d300(Title* room) {
     switch (room->phase) {
     case 0: {
-        if (reinterpret_cast<RecoveryLookup_0040bd80*>(data_00491c10)->Find(
-                reinterpret_cast<RecoveryLookupContext_0040bd80*>(data_00491c10),
+        if (reinterpret_cast<RecoveryLookup_0040bd80*>(g_sprt_ctrl)->Find(
+                reinterpret_cast<RecoveryLookupContext_0040bd80*>(g_sprt_ctrl),
                 *reinterpret_cast<RecoveryScriptId_0040bd80*>(&room->animation_slots[88])) == 0) {
             RecoveryMusicInstallSlot_0042c670(room, 88);
             RecoveryMusicInstallSlot_0042c670(room, 90);

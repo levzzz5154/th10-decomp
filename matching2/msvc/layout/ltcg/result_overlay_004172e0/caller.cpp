@@ -7,7 +7,7 @@ void AnimationHandle::StopAtFrame1() {
     ResultAnimationId id;
     id.value = value;
     ResultAnimationEntry* node =
-        static_cast<ResultAnimationEntry*>(ResultAnimation_Find(data_00491c10, id));
+        static_cast<ResultAnimationEntry*>(ResultAnimation_Find(g_sprt_ctrl, id));
     if (node) {
         node->flags = 1;
         if (!node->children_flagged)

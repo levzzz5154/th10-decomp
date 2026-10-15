@@ -1,17 +1,17 @@
 // Compiler-only models of the two callees whose private conventions the game
 // state destructor depends on.
-#include "th10/game/scheduler.hpp"
+#include "th10/core/func_ctrl.hpp"
 #include "th10/game/enemy_manager_dependencies_0040d530.hpp"
 
 void __cdecl operator delete(void*);
-extern "C" AnimationManager* data_00491c10;
+extern "C" SprtCtrl* g_sprt_ctrl;
 extern "C" void __cdecl entry_free_00452422(void* memory);
 
 #pragma code_seg(".text$07release")
 void AnimationResource_00447810::Release() {
     if (resource_108 == 0)
         return;
-    data_00491c10->MarkResourceForRemoval(this);
+    g_sprt_ctrl->MarkResourceForRemoval(this);
     for (int index = 0; index < entry_count_10c; ++index) {
         AnimationResourceEntry_00447810* entry = &entries_120[index];
         if (entry->handle != 0) {
@@ -47,7 +47,7 @@ void AnimationResource_00447810::Release() {
 #pragma code_seg()
 
 #pragma code_seg(".text$13remove")
-extern "C" __declspec(noinline) void __stdcall Scheduler_Remove(Scheduler* scheduler, SchedulerTask* task) {
+extern "C" __declspec(noinline) void __stdcall FuncCtrl_Remove(FuncCtrl* scheduler, SchedulerTask* task) {
     if (!task) return;
     TaskLink* node = &scheduler->primary.link;
     while (node) {

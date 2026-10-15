@@ -19,7 +19,7 @@ struct RenderEntityMatrixView {
 
 extern "C" double data_00470b70;
 extern "C" __declspec(noinline) void SyncRenderState_004423e0(
-        AnimationManager_00442F50* manager, RenderEntity* entity);
+        SprtCtrlBatchView* manager, RenderEntity* entity);
 extern "C" void __stdcall asm_D3DXMatrixRotationX_004521ac(RenderMatrix4x4* out, float angle);
 extern "C" void __stdcall asm_D3DXMatrixRotationY_004521b8(RenderMatrix4x4* out, float angle);
 extern "C" void __stdcall asm_D3DXMatrixRotationZ_004521be(RenderMatrix4x4* out, float angle);
@@ -29,8 +29,8 @@ extern "C" void __stdcall asm_D3DXMatrixMultiply_004521b2(RenderMatrix4x4* out,
 
 #pragma code_seg(".text$06b09z00transform")
 extern "C" __declspec(noinline) int EntityDraw_00444760(RenderEntity* entity,
-                                                        AnimationManager_00442F50* manager);
-int EntityDraw_00444760(RenderEntity* entity, AnimationManager_00442F50* manager) {
+                                                        SprtCtrlBatchView* manager);
+int EntityDraw_00444760(RenderEntity* entity, SprtCtrlBatchView* manager) {
     RenderMatrix4x4 world;
     RenderMatrix4x4 rotation;
     RenderMatrix4x4 tex_matrix;

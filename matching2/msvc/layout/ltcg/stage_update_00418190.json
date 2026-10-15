@@ -2,7 +2,7 @@
   "schema_version": 1,
   "image_base": "0x400000",
   "name": "stage_update_00418190",
-  "source": "src/game/game/stage_update.cpp",
+  "source": "src/game/game/game_update.cpp",
   "driver": "layout/ltcg/stage_update_00418190/driver.cpp",
   "additional_sources": [
     "layout/ltcg/stage_update_00418190/front_front_initialize_00413bc0.cpp",
@@ -54,8 +54,8 @@
     "include/th10/game/background_fade.hpp",
     "include/th10/game/replay_stage_begin_0042a6a0.hpp",
     "include/th10/game/replay_stage_finish_0042a450.hpp",
-    "include/th10/render/screen_effect_controller.hpp",
-    "include/th10/game/scheduler.hpp",
+    "include/th10/core/screen.hpp",
+    "include/th10/core/func_ctrl.hpp",
     "include/th10/game/score.hpp",
     "include/th10/math/rng.hpp",
     "include/th10/math/timer.hpp",
@@ -74,11 +74,11 @@
     "layout/ltcg/stage_update_00418190/types.hpp",
     "include/th10/game/player.hpp"
   ],
-  "description": "Complete stage update and complete native dependency graph, with shared animation bodies, original task null checks, both reset paths, replay frame count, fade disposal, and public stack-call imports of the existing player-refresh and stage destructor. Only StageUpdate is selected.",
+  "description": "Complete stage update and complete native dependency graph, with shared animation bodies, original task null checks, both reset paths, replay frame count, fade disposal, and public stack-call imports of the existing player-refresh and stage destructor. Only Game_Update is selected.",
   "functions": [
     {
-      "name": "StageUpdate",
-      "symbol": "_StageUpdate@4",
+      "name": "Game_Update",
+      "symbol": "_Game_Update@4",
       "section": ".text$00418190_fn",
       "address": "0x418190",
       "size": 1544,
@@ -86,16 +86,16 @@
     }
   ],
   "context": {
-    "symbol": "?StageUpdateCompilerCaller_004187c0@@YIXPAX@Z",
+    "symbol": "?Game_UpdateCompilerCaller_004187c0@@YIXPAX@Z",
     "section": ".text$004187c0_context",
     "address": "0x4187c0",
     "size": 7,
-    "description": "Complete existing 0x4187C0 fastcall wrapper; unselected and no new game-code credit. StageUpdate is also rooted to preserve its public stdcall entry."
+    "description": "Complete existing 0x4187C0 fastcall wrapper; unselected and no new game-code credit. Game_Update is also rooted to preserve its public stdcall entry."
   },
   "anchors": [
     {
-      "name": "?Initialize@FrontInitialization_00413bc0@@QAEXXZ",
-      "symbol": "?Initialize@FrontInitialization_00413bc0@@QAEXXZ",
+      "name": "?Initialize@FrontInitializeView@@QAEXXZ",
+      "symbol": "?Initialize@FrontInitializeView@@QAEXXZ",
       "section": ".text$00413bc0_fn",
       "address": "0x413bc0",
       "size": 1965
@@ -150,8 +150,8 @@
       "size": 203
     },
     {
-      "name": "?Update@ScoreHud_00417040@@QAEXXZ",
-      "symbol": "?Update@ScoreHud_00417040@@QAEXXZ",
+      "name": "?Update@FrontScoreView@@QAEXXZ",
+      "symbol": "?Update@FrontScoreView@@QAEXXZ",
       "section": ".text$00417040_fn",
       "address": "0x417040",
       "size": 671
@@ -192,8 +192,8 @@
       "size": 141
     },
     {
-      "name": "?SetActiveCount@ScoreHud_00417040@@QAEXH@Z",
-      "symbol": "?SetActiveCount@ScoreHud_00417040@@QAEXH@Z",
+      "name": "?SetActiveCount@FrontScoreView@@QAEXH@Z",
+      "symbol": "?SetActiveCount@FrontScoreView@@QAEXH@Z",
       "section": ".text$00413790_fn",
       "address": "0x413790",
       "size": 77
@@ -241,15 +241,15 @@
       "size": 273
     },
     {
-      "name": "?Clear@EnemyManager_00409f90@@QAEXXZ",
-      "symbol": "?Clear@EnemyManager_00409f90@@QAEXXZ",
+      "name": "?Clear@EnemyCtrlClearView@@QAEXXZ",
+      "symbol": "?Clear@EnemyCtrlClearView@@QAEXXZ",
       "section": ".text$00409f90_fn",
       "address": "0x409f90",
       "size": 118
     },
     {
-      "name": "?MarkResourceForRemoval@AnimationManager@@QAEXPAX@Z",
-      "symbol": "?MarkResourceForRemoval@AnimationManager@@QAEXPAX@Z",
+      "name": "?MarkResourceForRemoval@SprtCtrl@@QAEXPAX@Z",
+      "symbol": "?MarkResourceForRemoval@SprtCtrl@@QAEXPAX@Z",
       "section": ".text$004493e0_fn",
       "address": "0x4493e0",
       "size": 92
@@ -304,8 +304,8 @@
       "size": 136
     },
     {
-      "name": "?Create@EnemySpawn_0040cfb0@@QAEPAUEnemy_0040cfb0@@PAUEnemyManager_0040cfb0@@PBD@Z",
-      "symbol": "?Create@EnemySpawn_0040cfb0@@QAEPAUEnemy_0040cfb0@@PAUEnemyManager_0040cfb0@@PBD@Z",
+      "name": "?Create@EnemySpawn_0040cfb0@@QAEPAUEnemy_0040cfb0@@PAUEnemyCtrlSpawnView@@PBD@Z",
+      "symbol": "?Create@EnemySpawn_0040cfb0@@QAEPAUEnemy_0040cfb0@@PAUEnemyCtrlSpawnView@@PBD@Z",
       "section": ".text$0040cfb0_fn",
       "address": "0x40cfb0",
       "size": 577
@@ -332,15 +332,15 @@
       "size": 73
     },
     {
-      "name": "?CreateScreenEffect_0043c8b0@@YGPAUScreenEffectController@@HHHHHH@Z",
-      "symbol": "?CreateScreenEffect_0043c8b0@@YGPAUScreenEffectController@@HHHHHH@Z",
+      "name": "?Screen_Create@@YGPAUScreen@@HHHHHH@Z",
+      "symbol": "?Screen_Create@@YGPAUScreen@@HHHHHH@Z",
       "section": ".text$0043c8b0_fn",
       "address": "0x43c8b0",
       "size": 82
     },
     {
-      "name": "?Configure@ScreenEffectController@@QAEXHHHHHH@Z",
-      "symbol": "?Configure@ScreenEffectController@@QAEXHHHHHH@Z",
+      "name": "?Configure@Screen@@QAEXHHHHHH@Z",
+      "symbol": "?Configure@Screen@@QAEXHHHHHH@Z",
       "section": ".text$0043c970_fn",
       "address": "0x43c970",
       "size": 396
@@ -402,15 +402,15 @@
       "size": 204
     },
     {
-      "name": "_Scheduler_RegisterPrimary@12",
-      "symbol": "_Scheduler_RegisterPrimary@12",
+      "name": "_FuncCtrl_RegisterPrimary@12",
+      "symbol": "_FuncCtrl_RegisterPrimary@12",
       "section": ".text$00449ae0_fn",
       "address": "0x449ae0",
       "size": 131
     },
     {
-      "name": "_Scheduler_RegisterSecondary@12",
-      "symbol": "_Scheduler_RegisterSecondary@12",
+      "name": "_FuncCtrl_RegisterSecondary@12",
+      "symbol": "_FuncCtrl_RegisterSecondary@12",
       "section": ".text$00449b70_fn",
       "address": "0x449b70",
       "size": 131
@@ -701,12 +701,12 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00477810",
+      "symbol": "_g_game",
       "address": "0x477810",
       "kind": "data"
     },
     {
-      "symbol": "_data_00491c10",
+      "symbol": "_g_sprt_ctrl",
       "address": "0x491c10",
       "kind": "data"
     },
@@ -746,12 +746,12 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00477704",
+      "symbol": "_g_enemy_ctrl",
       "address": "0x477704",
       "kind": "data"
     },
     {
-      "symbol": "_data_0047770c",
+      "symbol": "_g_front",
       "address": "0x47770c",
       "kind": "data"
     },
@@ -801,7 +801,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_data_00491be4",
+      "symbol": "_g_func_ctrl",
       "address": "0x491be4",
       "kind": "data"
     },
@@ -811,7 +811,7 @@
       "kind": "data"
     },
     {
-      "symbol": "@Scheduler_RemoveTask@8",
+      "symbol": "@FuncCtrl_RemoveTask@8",
       "address": "0x449f60",
       "kind": "relative_code"
     },
@@ -1056,12 +1056,12 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_stage_front_data_00491c10",
+      "symbol": "_stage_front_g_sprt_ctrl",
       "address": "0x491c10",
       "kind": "data"
     },
     {
-      "symbol": "_stage_front_data_0047770c",
+      "symbol": "_stage_front_g_front",
       "address": "0x47770c",
       "kind": "data"
     },
@@ -1076,7 +1076,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_stage_front_data_00477704",
+      "symbol": "_stage_front_g_enemy_ctrl",
       "address": "0x477704",
       "kind": "data"
     },
@@ -1116,12 +1116,12 @@
       "kind": "data"
     },
     {
-      "symbol": "_stage_hud_data_00491c10",
+      "symbol": "_stage_hud_g_sprt_ctrl",
       "address": "0x491c10",
       "kind": "data"
     },
     {
-      "symbol": "_stage_hud_data_0047770c",
+      "symbol": "_stage_hud_g_front",
       "address": "0x47770c",
       "kind": "data"
     },
@@ -1136,7 +1136,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_stage_hud_data_00477704",
+      "symbol": "_stage_hud_g_enemy_ctrl",
       "address": "0x477704",
       "kind": "data"
     },
@@ -1176,12 +1176,12 @@
       "kind": "data"
     },
     {
-      "symbol": "_stage_worker_data_00491c10",
+      "symbol": "_stage_worker_g_sprt_ctrl",
       "address": "0x491c10",
       "kind": "data"
     },
     {
-      "symbol": "_stage_worker_data_0047770c",
+      "symbol": "_stage_worker_g_front",
       "address": "0x47770c",
       "kind": "data"
     },
@@ -1196,7 +1196,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_stage_worker_data_00477704",
+      "symbol": "_stage_worker_g_enemy_ctrl",
       "address": "0x477704",
       "kind": "data"
     },
@@ -1236,12 +1236,12 @@
       "kind": "data"
     },
     {
-      "symbol": "_stage_quad_data_00491c10",
+      "symbol": "_stage_quad_g_sprt_ctrl",
       "address": "0x491c10",
       "kind": "data"
     },
     {
-      "symbol": "_stage_quad_data_0047770c",
+      "symbol": "_stage_quad_g_front",
       "address": "0x47770c",
       "kind": "data"
     },
@@ -1256,7 +1256,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_stage_quad_data_00477704",
+      "symbol": "_stage_quad_g_enemy_ctrl",
       "address": "0x477704",
       "kind": "data"
     },
@@ -1296,12 +1296,12 @@
       "kind": "data"
     },
     {
-      "symbol": "_stage_fade_data_00491c10",
+      "symbol": "_stage_fade_g_sprt_ctrl",
       "address": "0x491c10",
       "kind": "data"
     },
     {
-      "symbol": "_stage_fade_data_0047770c",
+      "symbol": "_stage_fade_g_front",
       "address": "0x47770c",
       "kind": "data"
     },
@@ -1316,7 +1316,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_stage_fade_data_00477704",
+      "symbol": "_stage_fade_g_enemy_ctrl",
       "address": "0x477704",
       "kind": "data"
     },
@@ -1356,12 +1356,12 @@
       "kind": "data"
     },
     {
-      "symbol": "_stage_start_data_00491c10",
+      "symbol": "_stage_start_g_sprt_ctrl",
       "address": "0x491c10",
       "kind": "data"
     },
     {
-      "symbol": "_stage_start_data_0047770c",
+      "symbol": "_stage_start_g_front",
       "address": "0x47770c",
       "kind": "data"
     },
@@ -1376,7 +1376,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_stage_start_data_00477704",
+      "symbol": "_stage_start_g_enemy_ctrl",
       "address": "0x477704",
       "kind": "data"
     },
@@ -1416,12 +1416,12 @@
       "kind": "data"
     },
     {
-      "symbol": "_stage_bullet_data_00491c10",
+      "symbol": "_stage_bullet_g_sprt_ctrl",
       "address": "0x491c10",
       "kind": "data"
     },
     {
-      "symbol": "_stage_bullet_data_0047770c",
+      "symbol": "_stage_bullet_g_front",
       "address": "0x47770c",
       "kind": "data"
     },
@@ -1436,7 +1436,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_stage_bullet_data_00477704",
+      "symbol": "_stage_bullet_g_enemy_ctrl",
       "address": "0x477704",
       "kind": "data"
     },
@@ -1476,12 +1476,12 @@
       "kind": "data"
     },
     {
-      "symbol": "_stage_pause_data_00491c10",
+      "symbol": "_stage_pause_g_sprt_ctrl",
       "address": "0x491c10",
       "kind": "data"
     },
     {
-      "symbol": "_stage_pause_data_0047770c",
+      "symbol": "_stage_pause_g_front",
       "address": "0x47770c",
       "kind": "data"
     },
@@ -1496,7 +1496,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_stage_pause_data_00477704",
+      "symbol": "_stage_pause_g_enemy_ctrl",
       "address": "0x477704",
       "kind": "data"
     },
@@ -1536,12 +1536,12 @@
       "kind": "data"
     },
     {
-      "symbol": "_stage_enemy_data_00491c10",
+      "symbol": "_stage_enemy_g_sprt_ctrl",
       "address": "0x491c10",
       "kind": "data"
     },
     {
-      "symbol": "_stage_enemy_data_0047770c",
+      "symbol": "_stage_enemy_g_front",
       "address": "0x47770c",
       "kind": "data"
     },
@@ -1556,7 +1556,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_stage_enemy_data_00477704",
+      "symbol": "_stage_enemy_g_enemy_ctrl",
       "address": "0x477704",
       "kind": "data"
     },
@@ -1596,12 +1596,12 @@
       "kind": "data"
     },
     {
-      "symbol": "_stage_marker_data_00491c10",
+      "symbol": "_stage_marker_g_sprt_ctrl",
       "address": "0x491c10",
       "kind": "data"
     },
     {
-      "symbol": "_stage_marker_data_0047770c",
+      "symbol": "_stage_marker_g_front",
       "address": "0x47770c",
       "kind": "data"
     },
@@ -1616,7 +1616,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_stage_marker_data_00477704",
+      "symbol": "_stage_marker_g_enemy_ctrl",
       "address": "0x477704",
       "kind": "data"
     },
@@ -1656,12 +1656,12 @@
       "kind": "data"
     },
     {
-      "symbol": "_stage_chain_data_00491c10",
+      "symbol": "_stage_chain_g_sprt_ctrl",
       "address": "0x491c10",
       "kind": "data"
     },
     {
-      "symbol": "_stage_chain_data_0047770c",
+      "symbol": "_stage_chain_g_front",
       "address": "0x47770c",
       "kind": "data"
     },
@@ -1676,7 +1676,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_stage_chain_data_00477704",
+      "symbol": "_stage_chain_g_enemy_ctrl",
       "address": "0x477704",
       "kind": "data"
     },
@@ -1716,12 +1716,12 @@
       "kind": "data"
     },
     {
-      "symbol": "_stage_replay_data_00491c10",
+      "symbol": "_stage_replay_g_sprt_ctrl",
       "address": "0x491c10",
       "kind": "data"
     },
     {
-      "symbol": "_stage_replay_data_0047770c",
+      "symbol": "_stage_replay_g_front",
       "address": "0x47770c",
       "kind": "data"
     },
@@ -1736,7 +1736,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_stage_replay_data_00477704",
+      "symbol": "_stage_replay_g_enemy_ctrl",
       "address": "0x477704",
       "kind": "data"
     },
@@ -1776,12 +1776,12 @@
       "kind": "data"
     },
     {
-      "symbol": "_stage_bind_data_00491c10",
+      "symbol": "_stage_bind_g_sprt_ctrl",
       "address": "0x491c10",
       "kind": "data"
     },
     {
-      "symbol": "_stage_bind_data_0047770c",
+      "symbol": "_stage_bind_g_front",
       "address": "0x47770c",
       "kind": "data"
     },
@@ -1796,7 +1796,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_stage_bind_data_00477704",
+      "symbol": "_stage_bind_g_enemy_ctrl",
       "address": "0x477704",
       "kind": "data"
     },
@@ -1836,12 +1836,12 @@
       "kind": "data"
     },
     {
-      "symbol": "_stage_spawn_data_00491c10",
+      "symbol": "_stage_spawn_g_sprt_ctrl",
       "address": "0x491c10",
       "kind": "data"
     },
     {
-      "symbol": "_stage_spawn_data_0047770c",
+      "symbol": "_stage_spawn_g_front",
       "address": "0x47770c",
       "kind": "data"
     },
@@ -1856,7 +1856,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_stage_spawn_data_00477704",
+      "symbol": "_stage_spawn_g_enemy_ctrl",
       "address": "0x477704",
       "kind": "data"
     },
@@ -1896,12 +1896,12 @@
       "kind": "data"
     },
     {
-      "symbol": "_stage_handle_data_00491c10",
+      "symbol": "_stage_handle_g_sprt_ctrl",
       "address": "0x491c10",
       "kind": "data"
     },
     {
-      "symbol": "_stage_handle_data_0047770c",
+      "symbol": "_stage_handle_g_front",
       "address": "0x47770c",
       "kind": "data"
     },
@@ -1916,7 +1916,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_stage_handle_data_00477704",
+      "symbol": "_stage_handle_g_enemy_ctrl",
       "address": "0x477704",
       "kind": "data"
     },
@@ -1956,12 +1956,12 @@
       "kind": "data"
     },
     {
-      "symbol": "_stage_requests_data_00491c10",
+      "symbol": "_stage_requests_g_sprt_ctrl",
       "address": "0x491c10",
       "kind": "data"
     },
     {
-      "symbol": "_stage_requests_data_0047770c",
+      "symbol": "_stage_requests_g_front",
       "address": "0x47770c",
       "kind": "data"
     },
@@ -1976,7 +1976,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_stage_requests_data_00477704",
+      "symbol": "_stage_requests_g_enemy_ctrl",
       "address": "0x477704",
       "kind": "data"
     },
@@ -2016,12 +2016,12 @@
       "kind": "data"
     },
     {
-      "symbol": "_stage_effect_data_00491c10",
+      "symbol": "_stage_effect_g_sprt_ctrl",
       "address": "0x491c10",
       "kind": "data"
     },
     {
-      "symbol": "_stage_effect_data_0047770c",
+      "symbol": "_stage_effect_g_front",
       "address": "0x47770c",
       "kind": "data"
     },
@@ -2036,7 +2036,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_stage_effect_data_00477704",
+      "symbol": "_stage_effect_g_enemy_ctrl",
       "address": "0x477704",
       "kind": "data"
     },
@@ -2076,12 +2076,12 @@
       "kind": "data"
     },
     {
-      "symbol": "_stage_sched_data_00491c10",
+      "symbol": "_stage_sched_g_sprt_ctrl",
       "address": "0x491c10",
       "kind": "data"
     },
     {
-      "symbol": "_stage_sched_data_0047770c",
+      "symbol": "_stage_sched_g_front",
       "address": "0x47770c",
       "kind": "data"
     },
@@ -2096,7 +2096,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_stage_sched_data_00477704",
+      "symbol": "_stage_sched_g_enemy_ctrl",
       "address": "0x477704",
       "kind": "data"
     },
@@ -2136,12 +2136,12 @@
       "kind": "data"
     },
     {
-      "symbol": "_stage_input_data_00491c10",
+      "symbol": "_stage_input_g_sprt_ctrl",
       "address": "0x491c10",
       "kind": "data"
     },
     {
-      "symbol": "_stage_input_data_0047770c",
+      "symbol": "_stage_input_g_front",
       "address": "0x47770c",
       "kind": "data"
     },
@@ -2156,7 +2156,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_stage_input_data_00477704",
+      "symbol": "_stage_input_g_enemy_ctrl",
       "address": "0x477704",
       "kind": "data"
     },
@@ -2196,12 +2196,12 @@
       "kind": "data"
     },
     {
-      "symbol": "_stage_timer_data_00491c10",
+      "symbol": "_stage_timer_g_sprt_ctrl",
       "address": "0x491c10",
       "kind": "data"
     },
     {
-      "symbol": "_stage_timer_data_0047770c",
+      "symbol": "_stage_timer_g_front",
       "address": "0x47770c",
       "kind": "data"
     },
@@ -2216,7 +2216,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_stage_timer_data_00477704",
+      "symbol": "_stage_timer_g_enemy_ctrl",
       "address": "0x477704",
       "kind": "data"
     },
@@ -2256,12 +2256,12 @@
       "kind": "data"
     },
     {
-      "symbol": "_stage_decay_data_00491c10",
+      "symbol": "_stage_decay_g_sprt_ctrl",
       "address": "0x491c10",
       "kind": "data"
     },
     {
-      "symbol": "_stage_decay_data_0047770c",
+      "symbol": "_stage_decay_g_front",
       "address": "0x47770c",
       "kind": "data"
     },
@@ -2276,7 +2276,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_stage_decay_data_00477704",
+      "symbol": "_stage_decay_g_enemy_ctrl",
       "address": "0x477704",
       "kind": "data"
     },
@@ -2507,7 +2507,7 @@
     }
   ],
   "roots": [
-    "_StageUpdate@4"
+    "_Game_Update@4"
   ],
   "anchor_roots": [
     "?InitializeObject@FrontAnimationResource@@QAEXPAUEntity@@H@Z",

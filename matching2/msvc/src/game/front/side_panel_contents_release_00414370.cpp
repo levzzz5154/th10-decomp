@@ -10,14 +10,14 @@
 #pragma code_seg(".text$00414370_fn")
 void __stdcall SidePanel_ReleaseContents_00414370(SidePanel_00414370* panel) {
     if (!(data_00474c40.flags & 9)) {
-        PanelResource_00414370** resource = &data_00491c10->stage_resource;
+        PanelResource_00414370** resource = &g_sprt_ctrl->stage_resource;
         if (*resource) {
             (*resource)->Release();
             operator delete(*resource);
             *resource = 0;
         }
     } else {
-        data_00491c10->MarkResourceForRemoval(panel->stage_file);
+        g_sprt_ctrl->MarkResourceForRemoval(panel->stage_file);
     }
     panel->stage_file = 0;
 
@@ -42,8 +42,8 @@ void __stdcall SidePanel_ReleaseContents_00414370(SidePanel_00414370* panel) {
     if (panel->update_task)
         panel->update_task->flags &= ~2u;
 
-    panel->frame.Release(data_00491c10);
-    PanelAnimationManager_00414370* animations = data_00491c10;
+    panel->frame.Release(g_sprt_ctrl);
+    PanelAnimationManager_00414370* animations = g_sprt_ctrl;
     panel->caption.Release(animations);
     panel->gauge.Release(animations);
     int* counter = panel->counters;

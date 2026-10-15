@@ -6,12 +6,12 @@ struct AnimationListNode {
     AnimationListNode* next;
 };
 
-struct AnimationManager {
+struct SprtCtrl {
     void MarkResourceForRemoval(void* resource);
 };
 
 #pragma code_seg(".text$004493e0_fn")
-__declspec(noinline) void AnimationManager::MarkResourceForRemoval(void* resource) {
+__declspec(noinline) void SprtCtrl::MarkResourceForRemoval(void* resource) {
     unsigned char* bytes = reinterpret_cast<unsigned char*>(this);
 
     AnimationListNode* node = *reinterpret_cast<AnimationListNode**>(

@@ -35,7 +35,7 @@
 extern "C" __declspec(naked) void __cdecl ReplayManager_OnFrameStep() {
     __asm {
     L_0042a3e0:
-        mov eax,dword ptr [data_00477810]
+        mov eax,dword ptr [g_game]
     L_0042a3e5:
         test eax,eax
     L_0042a3e7:

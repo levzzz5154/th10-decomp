@@ -59,7 +59,7 @@ int PlayfieldPoint::OutsidePlayfield(float width, float height) const {
 #pragma code_seg()
 
 // Compiler context and ABI anchors only; none of these bytes enter the image.
-extern "C" void* data_00491c10;
+extern "C" void* g_sprt_ctrl;
 
 extern "C" void* __cdecl operator_new_00452493(unsigned int size);
 extern "C" void* __cdecl Entity_Constructor_00402050(void* entity);
@@ -141,7 +141,7 @@ asm_AnimationObject_LoadScript_0043e710(void* resource, void* object, int index)
     *(int*)(obj + 0x5C) = -1;
     *(int*)(obj + 0x35C) = *(int*)(obj + 0x35C) & ~1;
     asm_AnimationObject_LoadScriptTail_0043ee30(obj);
-    unsigned char* manager = (unsigned char*)data_00491c10;
+    unsigned char* manager = (unsigned char*)g_sprt_ctrl;
     *(int*)(manager + 0x4C) = *(int*)(manager + 0x4C) + 1;
 }
 #pragma code_seg()

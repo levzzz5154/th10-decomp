@@ -1,4 +1,4 @@
-#include "th10/game/scheduler.hpp"
+#include "th10/core/func_ctrl.hpp"
 extern "C" void _ReadWriteBarrier();
 #pragma intrinsic(_ReadWriteBarrier)
 void* __cdecl operator new(unsigned int);

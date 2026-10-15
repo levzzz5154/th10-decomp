@@ -10,7 +10,7 @@ Float3 g_scroll_step;
 RngState g_replay_rng;
 RngState g_effect_rng;
 extern "C" float data_00491d7c[12];
-extern "C" void* data_00491c10;
+extern "C" void* g_sprt_ctrl;
 extern "C" void* __cdecl ext_alloc_vm(void* manager);
 extern "C" AnmHandle* __cdecl ext_register(int which, void* manager, AnmHandle* out, void* vm);
 extern "C" void* __fastcall ext_find(void* context, int id);
@@ -149,12 +149,12 @@ void __stdcall List_InsertAfter(ListNode* position, ListNode* node) {
 }
 #define CREATE(name, which) \
     __declspec(noinline) AnmHandle* __stdcall name(AnmLoaded* anm, AnmHandle* out, int script, int layer) { \
-        AnmVm* vm = (AnmVm*)ext_alloc_vm(data_00491c10); \
+        AnmVm* vm = (AnmVm*)ext_alloc_vm(g_sprt_ctrl); \
         unsigned int flags = vm->flags; \
         vm->layer = layer; \
         vm->flags = flags | 0x40000000u; \
         anm->SetSprite(vm, script); \
-        ext_register(which, data_00491c10, out, vm); \
+        ext_register(which, g_sprt_ctrl, out, vm); \
         return out; \
     }
 CREATE(Anm_CreatePrimaryBack, 0)
@@ -162,7 +162,7 @@ CREATE(Anm_CreatePrimaryFront, 1)
 CREATE(Anm_CreateSecondaryBack, 2)
 CREATE(Anm_CreateSecondaryFront, 3)
 AnmVm* __stdcall Anm_Resolve(AnmHandle* handle) {
-    AnmVm* vm = (AnmVm*)ext_find(data_00491c10, (int)handle->value);
+    AnmVm* vm = (AnmVm*)ext_find(g_sprt_ctrl, (int)handle->value);
     if (vm == 0) handle->value = 0;
     return vm;
 }

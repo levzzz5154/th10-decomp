@@ -3,14 +3,14 @@
 #include "../../src/core/zunlib/scheduler_tasks.cpp"
 
 #pragma code_seg(".text$90context")
-void __stdcall SchedulerContext(Scheduler* scheduler, SchedulerTask** tasks, int count, int priority) {
+void __stdcall SchedulerContext(FuncCtrl* scheduler, SchedulerTask** tasks, int count, int priority) {
     for (int index=0;index<count;++index) {
         SchedulerTask* task=tasks[index];
-        Scheduler_RegisterPrimary(scheduler,task,priority);
-        Scheduler_RegisterSecondary(scheduler,task,priority);
-        Scheduler_RemoveLocked(scheduler,task);
+        FuncCtrl_RegisterPrimary(scheduler,task,priority);
+        FuncCtrl_RegisterSecondary(scheduler,task,priority);
+        FuncCtrl_RemoveLocked(scheduler,task);
     }
-    void (__fastcall *volatile remove)(SchedulerTask*,Scheduler*)=&Scheduler_Remove;
+    void (__fastcall *volatile remove)(SchedulerTask*,FuncCtrl*)=&FuncCtrl_Remove;
     remove(tasks[0],scheduler);
 }
 #pragma code_seg()

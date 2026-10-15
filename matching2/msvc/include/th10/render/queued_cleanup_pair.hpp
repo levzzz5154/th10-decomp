@@ -1,7 +1,7 @@
 #ifndef TH10_QUEUED_CLEANUP_PAIR_HPP
 #define TH10_QUEUED_CLEANUP_PAIR_HPP
 extern "C" unsigned char data_00491bec;
-extern "C" unsigned char data_00491c10;
+extern "C" unsigned char g_sprt_ctrl;
 
 // QueuedCleanupManager_00421070::Find's C++ definition is shared with the recovered
 // 0x004491C0 entry. Keep these ABI types identical to that translation unit:

@@ -3,7 +3,7 @@
 // The laser manager installs this very address as its primary scheduler task
 // (0x0041C120 does), so the callback runs once per frame: it advances the linked
 // record list at +0x18 through 0x0041C330 and returns that call's result.  The
-// frame state published at data_00477810 says when the display must not advance
+// frame state published at g_game says when the display must not advance
 // - bit 0, bit 2 and bit 0x400 of its +0x58 flag word each report success
 // without touching the records.  When the same word carries bit 1 (the frozen
 // step), the time scale at data_00476f78 is zeroed around the call, so the
@@ -24,7 +24,7 @@
 // callee (src/game/laser/laser_manager_update_lasers.cpp).
 #include <stddef.h>
 
-// The frame state at data_00477810; only the flag word this region reads is
+// The frame state at g_game; only the flag word this region reads is
 // described.
 struct FrameFlagBits_0041c480 {
     unsigned int paused:1;              // bit 0
@@ -42,7 +42,7 @@ struct FrameState_0041c480 {
 
 #include "th10/game/laser_list.hpp"
 
-extern "C" FrameState_0041c480* data_00477810;
+extern "C" FrameState_0041c480* g_game;
 extern "C" float data_00476f78;
 
 // 0x0041C330 (src/game/laser/laser_manager_update_lasers.cpp).  Its records object
@@ -51,11 +51,11 @@ extern "C" int __cdecl LaserManager_UpdateLasers(LaserManagerUpdateView* records
 
 #pragma code_seg(".text$03advance")
 int LaserManagerUpdateView::AdvanceFrame() {
-    if (data_00477810->flags_58.paused | data_00477810->flags_58.idle)
+    if (g_game->flags_58.paused | g_game->flags_58.idle)
         return 1;
-    if (data_00477810->flags_58.deferred)
+    if (g_game->flags_58.deferred)
         return 1;
-    if (data_00477810->flags_58.frozen) {
+    if (g_game->flags_58.frozen) {
         float saved = data_00476f78;
         data_00476f78 = 0.0f;
         int result = LaserManager_UpdateLasers(this);

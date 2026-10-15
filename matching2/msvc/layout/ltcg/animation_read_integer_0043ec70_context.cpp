@@ -3,7 +3,7 @@
 
 #pragma code_seg(".text$05context")
 int __stdcall AnimationReadIntegerCompilerContext(
-        AnimationObjectVariables_0043ec70** objects, AnimationManager** managers,
+        AnimationObjectVariables_0043ec70** objects, SprtCtrl** managers,
         AnimationLookupContext** contexts, const int* variables, int count) {
     int total = 0;
     while (count--) {

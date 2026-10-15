@@ -99,21 +99,21 @@ int HintLink_00419120::Drain(
         case 0:
             state->positions[state->slot] = vm->position;
             state->widths[state->slot] = entry->offset;
-            vm->FormatCentered(data_00491c10, 0x00FFFFFFu, static_cast<const char*>(entry->text));
+            vm->FormatCentered(g_sprt_ctrl, 0x00FFFFFFu, static_cast<const char*>(entry->text));
             break;
         case 1:
             state->positions[state->slot] = vm->position;
             state->positions[state->slot].x += entry->offset * 0.5f;
             state->widths[state->slot] = entry->offset;
             reinterpret_cast<RecoveryTextVm_00447a50*>(vm)->MarkText(
-                data_00491c10, 0x00FFFFFFu, static_cast<const char*>(entry->text));
+                g_sprt_ctrl, 0x00FFFFFFu, static_cast<const char*>(entry->text));
             vm->flags = (vm->flags & 0xFFF7FFFFu) | 0x00040000u;
             break;
         case 2:
             state->positions[state->slot] = vm->position;
             state->positions[state->slot].x -= entry->offset * 0.5f;
             state->widths[state->slot] = entry->offset;
-            vm->FormatRightAligned(data_00491c10, 0x00FFFFFFu, static_cast<const char*>(entry->text));
+            vm->FormatRightAligned(g_sprt_ctrl, 0x00FFFFFFu, static_cast<const char*>(entry->text));
             vm->flags = (vm->flags & 0xFFFBFFFFu) | 0x00080000u;
             break;
         }

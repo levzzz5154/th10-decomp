@@ -4,7 +4,7 @@
 #include "th10/render/camera_batch.hpp"
 #include "th10/game/menu_cursor.hpp"
 
-struct AnimationManager_00442F50;
+struct SprtCtrlBatchView;
 
 struct EclViewEntry_0040a940 {
     const char* name;
@@ -106,12 +106,12 @@ typedef char EclViewSpriteOffset_0040a940[offsetof(EclView_0040a940, sprite) == 
 typedef char EclViewFlagsOffset_0040a940[offsetof(EclView_0040a940, flags) == 0x684 ? 1 : -1];
 typedef char EclViewSize_0040a940[sizeof(EclView_0040a940) == 0x688 ? 1 : -1];
 
-struct AnimationManager_00442F50;
+struct SprtCtrlBatchView;
 extern "C" {
 extern GameThread_00401530* g_ascii_manager;
-extern EclViewEnemies_0040a940* data_00477704;
-extern AnimationManager_00442F50* data_00491c10;
+extern EclViewEnemies_0040a940* g_enemy_ctrl;
+extern SprtCtrlBatchView* g_sprt_ctrl;
 // 0x00443080: draw one entity; the manager is on the stack and the entity
 // arrives in ESI.
-__declspec(noinline) int __stdcall EclView_DrawEntity_00443080(AnimationManager_00442F50* manager, EclViewSprite_0040a940* entity);
+__declspec(noinline) int __stdcall EclView_DrawEntity_00443080(SprtCtrlBatchView* manager, EclViewSprite_0040a940* entity);
 }

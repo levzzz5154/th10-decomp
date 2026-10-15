@@ -256,7 +256,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041dd80_0041dd80() {
     L_0041df33:
         mov ecx,dword ptr [g_laser_manager]
     L_0041df39:
-        mov esi,dword ptr [data_00491c10]
+        mov esi,dword ptr [g_sprt_ctrl]
     L_0041df3f:
         mov edi,dword ptr [ecx+458h]
     L_0041df45:
@@ -296,7 +296,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041dd80_0041dd80() {
     L_0041df96:
         call asm_AnimationObject_LoadScript_0043e710
     L_0041df9b:
-        mov edx,dword ptr [data_00491c10]
+        mov edx,dword ptr [g_sprt_ctrl]
     L_0041dfa1:
         mov ebx,esi
     L_0041dfa3:
@@ -1616,7 +1616,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041efa0_0041efa0() {
     L_0041f153:
         mov ecx,dword ptr [g_laser_manager]
     L_0041f159:
-        mov esi,dword ptr [data_00491c10]
+        mov esi,dword ptr [g_sprt_ctrl]
     L_0041f15f:
         mov edi,dword ptr [ecx+458h]
     L_0041f165:
@@ -1656,7 +1656,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041efa0_0041efa0() {
     L_0041f1b6:
         call asm_AnimationObject_LoadScript_0043e710
     L_0041f1bb:
-        mov edx,dword ptr [data_00491c10]
+        mov edx,dword ptr [g_sprt_ctrl]
     L_0041f1c1:
         mov ebx,esi
     L_0041f1c3:

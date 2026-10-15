@@ -6,7 +6,7 @@
 
 #pragma code_seg(".text$03update")
 int InputRecorder_004297D0::Update() {
-    if (!data_00477810)
+    if (!g_game)
         return 1;
     if (!playback_mode) {
         data_00474e30.previous_keys = data_00474e30.held_keys;
@@ -25,7 +25,7 @@ int InputRecorder_004297D0::Update() {
         }
         data_00474e30.Update();
         if (frame_count % 30 == 0) {
-            float rounded = data_00477708->value + 0.5f;
+            float rounded = g_fps->value + 0.5f;
             unsigned int value;
             if (rounded >= 256.0f)
                 value = 255;

@@ -28,7 +28,7 @@ BackGround::~BackGround() {
     }
     // Each of the two states owns the script bank loaded for it.
     if (!(data_00474ca0 & 1))
-        ReleaseAnimationBank(reinterpret_cast<AnimationBanks_00402440*>(data_00491c10),
+        ReleaseAnimationBank(reinterpret_cast<AnimationBanks_00402440*>(g_sprt_ctrl),
                              (stage_flags & 1) + 4);
     if (g_background == this)
         g_background = 0;

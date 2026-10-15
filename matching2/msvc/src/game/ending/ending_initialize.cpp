@@ -2,11 +2,11 @@
 // allocation cleanup.
 // EndingText is supplied by the cluster driver before this source.
 #include <string.h>
-#include "th10/game/scheduler.hpp"
+#include "th10/core/func_ctrl.hpp"
 #include "th10/render/animation_public_callers.hpp"
 #include "th10/platform/archive_file.hpp"
 #include "th10/platform/text_log.hpp"
-extern "C" Scheduler* data_00491be4;
+extern "C" FuncCtrl* g_func_ctrl;
 extern "C" int __fastcall Ending_UpdateTask(void*);
 extern "C" int __fastcall Ending_DrawTask(void*);
 // The running game's counters at 0x00474C44: one object whose address is
@@ -67,13 +67,13 @@ int Ending::Initialize() {
     update->heap_owned = 1; update->reserved_flags |= 1;
     update->on_tick = Ending_UpdateTask; update->on_register = 0; update->on_remove = 0;
     update->context = this;
-    Scheduler_RegisterPrimary(data_00491be4, update, 28);
+    FuncCtrl_RegisterPrimary(g_func_ctrl, update, 28);
     update_task = update;
     SchedulerTask* draw = new EndingTask;
     draw->heap_owned = 1; draw->reserved_flags |= 1;
     draw->on_tick = Ending_DrawTask; draw->on_register = 0; draw->on_remove = 0;
     draw->context = this;
-    Scheduler_RegisterSecondary(data_00491be4, draw, 6);
+    FuncCtrl_RegisterSecondary(g_func_ctrl, draw, 6);
     draw_task = draw;
     int& background = ((EndingAsciiView*)g_ascii_manager)->background_id;
     AnimationPosition_00448d50 position(480.0f, 392.0f, 0.0f);

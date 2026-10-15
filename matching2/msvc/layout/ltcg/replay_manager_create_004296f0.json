@@ -6,7 +6,7 @@
   "headers": [
     "include/th10/game/replay_manager_create_004296f0.hpp",
     "include/th10/platform/thread_sync.hpp",
-    "include/th10/game/scheduler.hpp",
+    "include/th10/core/func_ctrl.hpp",
     "include/th10/game/replay_pool_append_0042aa50.hpp"
   ],
   "image_base": "0x00400000",
@@ -122,7 +122,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00491be4",
+      "symbol": "_g_func_ctrl",
       "address": "0x00491BE4",
       "kind": "data"
     },

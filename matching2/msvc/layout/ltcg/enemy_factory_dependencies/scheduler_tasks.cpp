@@ -1,12 +1,12 @@
-#include "th10/game/scheduler.hpp"
+#include "th10/core/func_ctrl.hpp"
 #include "th10/platform/thread_sync.hpp"
 
 void __cdecl operator delete(void*);
 
 #ifndef TH10_SCHEDULER_REMOVE_ONLY
 #pragma code_seg(".text$07b")
-extern "C" __declspec(noinline) int __stdcall Scheduler_RegisterPrimary(
-        Scheduler* scheduler, SchedulerTask* task, int priority) {
+extern "C" __declspec(noinline) int __stdcall FuncCtrl_RegisterPrimary(
+        FuncCtrl* scheduler, SchedulerTask* task, int priority) {
     int result = 0;
     if (task->on_register) {
         result = task->on_register(task->context);
@@ -24,8 +24,8 @@ extern "C" __declspec(noinline) int __stdcall Scheduler_RegisterPrimary(
     return result;
 }
 #pragma code_seg(".text$08b")
-extern "C" __declspec(noinline) int __stdcall Scheduler_RegisterSecondary(
-        Scheduler* scheduler, SchedulerTask* task, int priority) {
+extern "C" __declspec(noinline) int __stdcall FuncCtrl_RegisterSecondary(
+        FuncCtrl* scheduler, SchedulerTask* task, int priority) {
     int result = 0;
     if (task->on_register) {
         result = task->on_register(task->context);
@@ -49,7 +49,7 @@ extern "C" __declspec(noinline) int __stdcall Scheduler_RegisterSecondary(
 #define TH10_SCHEDULER_REMOVE_CODE_SEG ".text$10b"
 #endif
 #pragma code_seg(TH10_SCHEDULER_REMOVE_CODE_SEG)
-extern "C" __declspec(noinline) void __stdcall Scheduler_Remove(Scheduler* scheduler, SchedulerTask* task) {
+extern "C" __declspec(noinline) void __stdcall FuncCtrl_Remove(FuncCtrl* scheduler, SchedulerTask* task) {
     if (!task) return;
     TaskLink* node = &scheduler->primary.link;
     while (node) {

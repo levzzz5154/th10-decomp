@@ -51,7 +51,7 @@ struct GameThread_0040c3c0 {
 
 extern "C" {
 extern char data_00497c38[];             // scratch path
-extern void* data_00491c10;              // animation manager
+extern void* g_sprt_ctrl;              // animation manager
 extern GameThread_0040c3c0* g_ascii_manager;
 extern StageOwner_0040c3c0* g_ending;
 }

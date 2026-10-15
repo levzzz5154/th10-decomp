@@ -1,7 +1,7 @@
 // The ASCII manager (g_ascii_manager, 0x004776E0, 0x89AC bytes): creation and
 // resource loading. Both are compiled in the cl_00401110 native-LTCG cluster.
 #include "th10/game/entity.hpp"
-#include "th10/game/scheduler.hpp"
+#include "th10/core/func_ctrl.hpp"
 #include "th10/platform/text_log.hpp"
 #include "th10/render/animation_object_0043e5a0.hpp"
 #include "th10/game/game_thread.hpp"
@@ -39,27 +39,27 @@ SchedulerTask *__stdcall SchedulerCallback_Create_00449ed0(void *callback);
 int __fastcall AsciiManagerUpdate_004014f0(void *manager);
 int __fastcall AsciiManagerDraw_00401510(void *manager);
 int __fastcall AsciiManagerDrawOverlay_00401520(void *manager);
-extern void *data_00491c10;
-extern Scheduler *data_00491be4;
+extern void *g_sprt_ctrl;
+extern FuncCtrl *g_func_ctrl;
 }
 
 #pragma code_seg(".text$00_b_load")
 int AsciiManager_00401110::LoadResources() {
     AsciiManager_00401110 *manager = this;
     manager->ascii_resource = (Resource_0043e5a0 *)Recovery_LoadCachedResource_00447280(
-            2, data_00491c10, "ascii.anm");
+            2, g_sprt_ctrl, "ascii.anm");
     if (!manager->ascii_resource) {
         ((TextLog_0044b810 *)0x474F70)->Append((char *)0x46CB68);
         return -1;
     }
     manager->text_resource = (Resource_0043e5a0 *)Recovery_LoadCachedResource_00447280(
-            0, data_00491c10, "text.anm");
+            0, g_sprt_ctrl, "text.anm");
     if (!manager->text_resource) {
         ((TextLog_0044b810 *)0x474F70)->Append((char *)0x46CB68);
         return -1;
     }
     manager->capture_resource = (Resource_0043e5a0 *)Recovery_LoadCachedResource_00447280(
-            3, data_00491c10, "capture.anm");
+            3, g_sprt_ctrl, "capture.anm");
     if (!manager->capture_resource) {
         ((TextLog_0044b810 *)0x474F70)->Append((char *)0x46CB68);
         return -1;
@@ -68,19 +68,19 @@ int AsciiManager_00401110::LoadResources() {
     SchedulerTask *task = SchedulerCallback_Create_00449ed0((void *)AsciiManagerUpdate_004014f0);
     task->reserved_flags &= ~1u;
     task->context = manager;
-    Scheduler_RegisterPrimary(data_00491be4, task, 4);
+    FuncCtrl_RegisterPrimary(g_func_ctrl, task, 4);
     manager->update_task = task;
 
     task = SchedulerCallback_Create_00449ed0((void *)AsciiManagerDraw_00401510);
     task->context = manager;
     task->reserved_flags &= ~1u;
-    Scheduler_RegisterSecondary(data_00491be4, task, 0x30);
+    FuncCtrl_RegisterSecondary(g_func_ctrl, task, 0x30);
     manager->draw_task = task;
 
     task = SchedulerCallback_Create_00449ed0((void *)AsciiManagerDrawOverlay_00401520);
     task->context = manager;
     task->reserved_flags &= ~1u;
-    Scheduler_RegisterSecondary(data_00491be4, task, 0x26);
+    FuncCtrl_RegisterSecondary(g_func_ctrl, task, 0x26);
     manager->overlay_draw_task = task;
 
     Entity *sprite = &manager->primary_sprite;

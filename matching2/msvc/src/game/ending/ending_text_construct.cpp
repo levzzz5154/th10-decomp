@@ -61,7 +61,7 @@ typedef char EndingWorkerOffset[offsetof(EndingText,worker) == 0xD0 ? 1 : -1];
 #endif
 #pragma code_seg(TH10_ENDING_TEXT_CONSTRUCTOR_SECTION)
 EndingText::EndingText(void* script_data) {
-    AnimationLookupContext* manager = (AnimationLookupContext*)data_00491c10;
+    AnimationLookupContext* manager = (AnimationLookupContext*)g_sprt_ctrl;
     memset(this, 0, sizeof(*this));
     for (unsigned int i = 0; i < 5; ++i) {
         AnimationResource_00449870* bank = *(AnimationResource_00449870**)((char*)g_ascii_manager + 0x899C);
@@ -70,7 +70,7 @@ EndingText::EndingText(void* script_data) {
         glyph->render_bucket = 15;
         glyph->flags = old_flags | 0x40000000u;
         bank->InitializeObject(glyph, i + 0x42);
-        manager = (AnimationLookupContext*)data_00491c10;
+        manager = (AnimationLookupContext*)g_sprt_ctrl;
         int id;
         asm_AnimationManager_RegisterPrimaryBack_004489d0(manager, (void**)&id, glyph);
         handles[i] = id;

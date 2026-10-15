@@ -1,6 +1,6 @@
 // 0x00449590: find the node named by this object's first field, raise flag bit 1
 // on it, and on every node in its child chain when it has no children of its own.
-extern "C" void* data_00491c10;
+extern "C" void* g_sprt_ctrl;
 
 struct AnimationNode_00449590 {
     AnimationNode_00449590* field_000;   // +0x000
@@ -19,7 +19,7 @@ extern "C" AnimationNode_00449590* __fastcall AnimationManager_Find_004491c0(
 #pragma code_seg(".text$01accessor")
 void AnimationNode_00449590::SetFlag() {
     AnimationNode_00449590* node =
-        AnimationManager_Find_004491c0(field_000, data_00491c10, (int)field_000);
+        AnimationManager_Find_004491c0(field_000, g_sprt_ctrl, (int)field_000);
     if (node == 0) {
         return;
     }

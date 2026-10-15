@@ -18,7 +18,7 @@ SubRef4_004236f0 SubHandle4_004236f0::FindChildRef(int script_id) {
     AnimationScriptId id;
     id.value = (int)value;
     SubAnimationNode_004236f0* node = reinterpret_cast<SubAnimationNode_004236f0*>(
-        SubAnimFind_004236f0(data_00491c10, id));
+        SubAnimFind_004236f0(g_sprt_ctrl, id));
     if (node == 0)
         value = 0;
     for (SubAnimationChildLink_004236f0* link = &node->children; link != 0; link = link->next)

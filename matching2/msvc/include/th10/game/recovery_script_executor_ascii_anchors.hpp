@@ -1,6 +1,6 @@
 #pragma once
 #include <stddef.h>
-#include "th10/game/scheduler.hpp"
+#include "th10/core/func_ctrl.hpp"
 #include "th10/math/timer.hpp"
 
 // Full 0x44-byte ASCII overlay state used by 0043C8B0 and 0043C970.

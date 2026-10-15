@@ -41,16 +41,16 @@ struct GameSelection_00408d60 {
 
 extern "C" {
 extern StageState_00408d60* g_background;
-extern FrontResources_00408d60* data_0047770c;
+extern FrontResources_00408d60* g_front;
 extern ScoreFile_00408d60* data_0047783c;
-extern MarkerOwner_00408d60* data_00477704;
+extern MarkerOwner_00408d60* g_enemy_ctrl;
 extern GameSelection_00408d60 g_selection;         // 0x00474C68
 // The animation VM takes one stack object pointer and returns with RET 4.
-int __stdcall RunAnimationVm(HudSprite_00408d60* sprite);
+int __stdcall RunAnimationVm(FrontSprite_00408d60* sprite);
 }
 
-static inline void Configure(HudSprite_00408d60* sprite, int script) {
-    data_0047770c->digits->ConfigureObject(
+static inline void Configure(FrontSprite_00408d60* sprite, int script) {
+    g_front->digits->ConfigureObject(
         reinterpret_cast<AnimationObject_0043e5a0*>(sprite), script);
 }
 
@@ -126,9 +126,9 @@ int Card_00408d60::Update() {
     for (int j = 0; j < 5; ++j)
         RunAnimationVm(&counter_digits[j]);
 
-    marker_position += (data_00477704->target->position - marker_position) * 0.05f;
+    marker_position += (g_enemy_ctrl->target->position - marker_position) * 0.05f;
     SetAnimationTranslatedPosition_00449350(
-        reinterpret_cast<const PositionVector_004492f0*>(&marker_position), data_00491c10, marker_handle);
+        reinterpret_cast<const PositionVector_004492f0*>(&marker_position), g_sprt_ctrl, marker_handle);
     return 1;
 }
 #pragma code_seg()

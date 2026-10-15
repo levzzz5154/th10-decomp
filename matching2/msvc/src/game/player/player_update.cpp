@@ -86,7 +86,7 @@ extern "C" __declspec(noinline) int __stdcall Player_Update(Player* player) {
         // The actual entry transition continues directly into the live state.
     }
     case PLAYER_ALIVE:
-        if (data_0047770c && !data_0047770c->script && g_bomb &&
+        if (g_front && !g_front->script && g_bomb &&
                 !g_bomb->active && static_cast<short>(data_00474c40.power / 20) != 0 &&
                 g_input.revive) {
             reinterpret_cast<PlayerSchedulerRecord*>(&player->invulnerability_timer)->SetSchedulerValue(270);
@@ -95,7 +95,7 @@ extern "C" __declspec(noinline) int __stdcall Player_Update(Player* player) {
             Player_RefreshOptions(player);
             {
                 int power = data_00474c40.power;
-                reinterpret_cast<PowerDisplayOwner_004054b0*>(data_0047770c)->SetPowerDigits(power / 20, (power % 20) * 100 / 20);
+                reinterpret_cast<PowerDisplayOwner_004054b0*>(g_front)->SetPowerDigits(power / 20, (power % 20) * 100 / 20);
             }
             data_00474c40.AddWithMinimum(3000);
         }
@@ -123,7 +123,7 @@ extern "C" __declspec(noinline) int __stdcall Player_Update(Player* player) {
                 Player_RefreshOptions(player);
                 {
                 int power = data_00474c40.power;
-                reinterpret_cast<PowerDisplayOwner_004054b0*>(data_0047770c)->SetPowerDigits(power / 20, (power % 20) * 100 / 20);
+                reinterpret_cast<PowerDisplayOwner_004054b0*>(g_front)->SetPowerDigits(power / 20, (power % 20) * 100 / 20);
             }
                 player->state = PLAYER_ALIVE;
             }
@@ -135,7 +135,7 @@ extern "C" __declspec(noinline) int __stdcall Player_Update(Player* player) {
             if (data_00474c40.power < 0) data_00474c40.power = 0;
             {
                 int power = data_00474c40.power;
-                reinterpret_cast<PowerDisplayOwner_004054b0*>(data_0047770c)->SetPowerDigits(power / 20, (power % 20) * 100 / 20);
+                reinterpret_cast<PowerDisplayOwner_004054b0*>(g_front)->SetPowerDigits(power / 20, (power % 20) * 100 / 20);
             }
             Vec3 target = {0.0f, player->position.y - 224.0f, 0.0f};
             float angle = float(Player_AngleToPoint(player, &target));
@@ -205,13 +205,13 @@ extern "C" __declspec(noinline) int __stdcall Player_Update(Player* player) {
     player->state_timer.TickInline();
     player->focus_timer.TickInline();
 
-    if (!data_0047770c->script && data_00477704 && data_00477704->enabled &&
+    if (!g_front->script && g_enemy_ctrl && g_enemy_ctrl->enabled &&
             player->state_timer.current % 60 == 0) {
         ++data_00474c40.field_58;
         if (data_00474c40.field_58 > 1024) data_00474c40.field_58 = 1024;
         else if (data_00474c40.field_58 < -1024) data_00474c40.field_58 = -1024;
     }
-    if (!data_0047770c->script && data_00477704 && data_00477704->enabled)
+    if (!g_front->script && g_enemy_ctrl && g_enemy_ctrl->enabled)
         player->UpdateShooting();
     else {
         ResetPlayerTimer(player->shot_timer, -1);

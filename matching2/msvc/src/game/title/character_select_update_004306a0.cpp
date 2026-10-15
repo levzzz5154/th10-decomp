@@ -63,7 +63,7 @@ __declspec(noinline) int __stdcall TitleMode7_004306a0(Title* room) {
         room->ClearAnimationSlot(125);
         RecoveryMusicInstallSlot_0042c670(room, 125);
         AnimationManager_SetStopFrameAndRun(
-            3, reinterpret_cast<RecoveryLookupContext_0040bd80*>(data_00491c10),
+            3, reinterpret_cast<RecoveryLookupContext_0040bd80*>(g_sprt_ctrl),
             *reinterpret_cast<RecoveryScriptId_0040bd80*>(&room->animation_slots[125]));
         room->SetSlotFrame(125, room->cursor.selection + 0x11);
         room->SetTimerTarget(1);

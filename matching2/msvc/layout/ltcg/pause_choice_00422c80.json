@@ -239,7 +239,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00477810",
+      "symbol": "_g_game",
       "address": "0x477810",
       "kind": "data"
     },
@@ -254,7 +254,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00491c10",
+      "symbol": "_g_sprt_ctrl",
       "address": "0x491c10",
       "kind": "data"
     },

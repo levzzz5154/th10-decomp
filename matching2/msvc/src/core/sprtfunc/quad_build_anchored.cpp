@@ -11,7 +11,7 @@
 
 #pragma code_seg(".text$06b01z00quad")
 extern "C" __declspec(noinline) int EntityDraw_00443080(RenderEntity* entity,
-                                                       AnimationManager_00442F50* manager) {
+                                                       SprtCtrlBatchView* manager) {
     float width = entity->sprite_width * entity->scale_x;
     float height = entity->sprite_height * entity->scale_y;
     float half_height = height * 0.5f;

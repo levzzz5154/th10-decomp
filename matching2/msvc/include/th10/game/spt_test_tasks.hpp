@@ -1,5 +1,5 @@
 #pragma once
-#include "th10/game/scheduler.hpp"
+#include "th10/core/func_ctrl.hpp"
 
 struct SptTestTaskView {
     unsigned char reserved_00[0x08];

@@ -46,7 +46,7 @@
    "address": "0x474C40",
    "kind": "data"
   },
-  "_data_0047770c": {
+  "_g_front": {
    "address": "0x47770C",
    "kind": "data"
   },
@@ -66,7 +66,7 @@
    "address": "0x4749CE",
    "kind": "data"
   },
-  "_data_00491c10": {
+  "_g_sprt_ctrl": {
    "address": "0x491C10",
    "kind": "data"
   },

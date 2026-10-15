@@ -22,7 +22,7 @@ struct PanelAnimationManager_00414570 {
     PanelResource_00447810* stage_resource;   // +0x3AD0DC
 };
 
-extern "C" PanelAnimationManager_00414570* data_00491c10;
+extern "C" PanelAnimationManager_00414570* g_sprt_ctrl;
 // The run's counters; the run flags sit at +0x60.
 struct RunState_00414570 {
     unsigned char reserved_00[0x60];
@@ -32,7 +32,7 @@ struct RunState_00414570 {
 extern "C" RunState_00414570 data_00474c40;
 
 // The side panel's stage-owned parts.
-struct SidePanel_00414570 {
+struct FrontStagePartsView {
     unsigned char reserved_0000[0x9E80];
     int stage_state;                          // +0x9E80
     unsigned char reserved_9e84[0x9EB8 - 0x9E84];

@@ -34,7 +34,7 @@ int Player::CheckLaserHit(const Point3_OrientedRect* origin, float angle, float 
     // Negated rejection tests, so that an unordered comparison does not
     // reject by itself.
     if (!(lower.x > length) && !(width * 0.5f < lower.y) && !(upper.x < 0.0f) && !(width * -0.5f > upper.y)) {
-        if (data_0047770c != 0 && data_0047770c->active != 0)
+        if (g_front != 0 && g_front->active != 0)
             return 0;
         if (state == PLAYER_DYING || state == PLAYER_HIT || state == PLAYER_STATE_3)
             return 0;

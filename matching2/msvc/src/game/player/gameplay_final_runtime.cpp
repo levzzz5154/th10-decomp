@@ -64,7 +64,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00426f70_00426f70() {
     L_00426fbb:
         TH10_REL8(0x74, 0x00426fbb, VA_asm_target_0042702f)
     L_00426fbd:
-        mov edx,dword ptr [data_00491c10]
+        mov edx,dword ptr [g_sprt_ctrl]
     L_00426fc3:
         mov eax,dword ptr [edx+72DAD4h]
     L_00426fc9:
@@ -269,7 +269,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00426f70_00426f70() {
     L_004270e1:
         jmp asm_target_00427169
     L_004270e6:
-        mov ebx,dword ptr [data_00491c10]
+        mov ebx,dword ptr [g_sprt_ctrl]
     L_004270ec:
         lea edx,[ebp+330Ch]
     L_004270f2:
@@ -415,7 +415,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00426f70_00426f70() {
     L_004271cb:
         je short L_0042723f
     L_004271cd:
-        mov edx,dword ptr [data_00491c10]
+        mov edx,dword ptr [g_sprt_ctrl]
     L_004271d3:
         mov eax,dword ptr [edx+72DAD4h]
     L_004271d9:
@@ -583,7 +583,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00426f70_00426f70() {
     L_00427305:
         mov dword ptr [edi+32F0h],ecx
     L_0042730b:
-        mov esi,dword ptr [data_00491c10]
+        mov esi,dword ptr [g_sprt_ctrl]
     L_00427311:
         mov ebx,dword ptr [ebp+10h]
     L_00427314:
@@ -607,7 +607,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00426f70_00426f70() {
     L_00427338:
         call asm_FUN_00449870_00449870
     L_0042733d:
-        mov edx,dword ptr [data_00491c10]
+        mov edx,dword ptr [g_sprt_ctrl]
     L_00427343:
         mov ebx,esi
     L_00427345:
@@ -717,7 +717,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00426f70_00426f70() {
     L_0042742f:
         mov ebx,dword ptr [esi+4]
     L_00427432:
-        mov esi,dword ptr [data_00491c10]
+        mov esi,dword ptr [g_sprt_ctrl]
     L_00427438:
         add eax,ecx
     L_0042743a:
@@ -751,7 +751,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00426f70_00426f70() {
     L_00427476:
         call asm_FUN_00449870_00449870
     L_0042747b:
-        mov edx,dword ptr [data_00491c10]
+        mov edx,dword ptr [g_sprt_ctrl]
     L_00427481:
         mov ebx,esi
     L_00427483:
@@ -895,7 +895,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00426f70_00426f70() {
     L_004275cd:
         mov dword ptr [edi+32E8h],edx
     L_004275d3:
-        mov esi,dword ptr [data_00491c10]
+        mov esi,dword ptr [g_sprt_ctrl]
     L_004275d9:
         mov dword ptr [edi+3330h],427950h
     L_004275e3:
@@ -921,7 +921,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00426f70_00426f70() {
     L_0042760b:
         call asm_FUN_00449870_00449870
     L_00427610:
-        mov edx,dword ptr [data_00491c10]
+        mov edx,dword ptr [g_sprt_ctrl]
     L_00427616:
         mov ebx,esi
     L_00427618:
@@ -1053,7 +1053,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00426f70_00426f70() {
     L_00427738:
         jne asm_target_00427833
     L_0042773e:
-        mov esi,dword ptr [data_00491c10]
+        mov esi,dword ptr [g_sprt_ctrl]
     L_00427744:
         mov ebx,dword ptr [ebp+10h]
     L_00427747:
@@ -1077,7 +1077,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00426f70_00426f70() {
     L_0042776c:
         call asm_FUN_00449870_00449870
     L_00427771:
-        mov edx,dword ptr [data_00491c10]
+        mov edx,dword ptr [g_sprt_ctrl]
     L_00427777:
         mov ebx,esi
     L_00427779:
@@ -1091,7 +1091,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00426f70_00426f70() {
     L_0042778c:
         jmp asm_target_0042782f
     L_00427791:
-        mov esi,dword ptr [data_00491c10]
+        mov esi,dword ptr [g_sprt_ctrl]
     L_00427797:
         mov ebx,dword ptr [ebp+10h]
     L_0042779a:
@@ -1115,7 +1115,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00426f70_00426f70() {
     L_004277bf:
         call asm_FUN_00449870_00449870
     L_004277c4:
-        mov edx,dword ptr [data_00491c10]
+        mov edx,dword ptr [g_sprt_ctrl]
     L_004277ca:
         mov ebx,esi
     L_004277cc:
@@ -1129,7 +1129,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00426f70_00426f70() {
     L_004277df:
         jmp short L_0042782f
     L_004277e1:
-        mov esi,dword ptr [data_00491c10]
+        mov esi,dword ptr [g_sprt_ctrl]
     L_004277e7:
         mov ebx,dword ptr [ebp+10h]
     L_004277ea:
@@ -1153,7 +1153,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00426f70_00426f70() {
     L_0042780f:
         call asm_FUN_00449870_00449870
     L_00427814:
-        mov edx,dword ptr [data_00491c10]
+        mov edx,dword ptr [g_sprt_ctrl]
     L_0042781a:
         mov ebx,esi
     L_0042781c:
@@ -1183,7 +1183,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00426f70_00426f70() {
     L_00427851:
         jge asm_target_004278fd
     L_00427857:
-        mov ebx,dword ptr [data_00491c10]
+        mov ebx,dword ptr [g_sprt_ctrl]
     L_0042785d:
         mov edx,esi
     L_0042785f:

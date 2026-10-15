@@ -13,7 +13,7 @@ extern "C" __declspec(noinline) void __stdcall PauseMenu_Update_00422c80(PauseCh
     case 1:
         if (state->timer.field_04 >= 10) {
             state->phase = 2;
-            state->cursor.item_count = data_00477810->replay_mode ? 2 : 3;
+            state->cursor.item_count = g_game->replay_mode ? 2 : 3;
             state->cursor.wrap = 1;
             state->cursor.Select(0);
             state->background.SetStopFrame((unsigned short)(state->cursor.selection + 7));
@@ -40,7 +40,7 @@ extern "C" __declspec(noinline) void __stdcall PauseMenu_Update_00422c80(PauseCh
                 break;
             case 1:
                 state->background.FindChildRef(116).StopAtFrame6();
-                state->phase = data_00477810->replay_mode ? 3 : 4;
+                state->phase = g_game->replay_mode ? 3 : 4;
                 break;
             case 0:
                 state->cursor_animation.StopAtFrame1();

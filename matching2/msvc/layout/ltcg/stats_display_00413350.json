@@ -1,19 +1,19 @@
 {
   "schema_version": 1,
   "name": "stats_display_00413350",
-  "source": "src/game/fps/stats_task.cpp",
+  "source": "src/game/fps/fps_create.cpp",
   "driver": "layout/ltcg/stats_display_00413350_context.cpp",
   "headers": [
-    "include/th10/game/stats_display.hpp",
-    "include/th10/game/scheduler.hpp",
+    "include/th10/game/fps.hpp",
+    "include/th10/core/func_ctrl.hpp",
     "include/th10/platform/thread_sync.hpp"
   ],
   "image_base": "0x00400000",
   "description": "FPS display factory compiled with the recovered secondary scheduler registration body to establish its private task and priority registers.",
   "functions": [
     {
-      "name": "StatsDisplay_Create",
-      "symbol": "_StatsDisplay_Create",
+      "name": "FPS_Create",
+      "symbol": "_FPS_Create",
       "section": ".text$01factory",
       "address": "0x00413350",
       "size": 151,
@@ -23,14 +23,14 @@
   "anchors": [
     {
       "name": "RegisterSecondary",
-      "symbol": "_Scheduler_RegisterSecondary@12",
+      "symbol": "_FuncCtrl_RegisterSecondary@12",
       "section": ".text$09secondary",
       "address": "0x00449B70",
       "size": 131
     }
   ],
   "context": {
-    "symbol": "_StatsDisplayCompilerContext",
+    "symbol": "_FPSCompilerContext",
     "section": ".text$02context",
     "address": "0x004133F0",
     "size": 5,
@@ -57,7 +57,7 @@
   ],
   "absolute_symbols": [
     {
-      "symbol": "_data_00491be4",
+      "symbol": "_g_func_ctrl",
       "address": "0x491be4",
       "kind": "data"
     },
@@ -77,12 +77,12 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00477708",
+      "symbol": "_g_fps",
       "address": "0x477708",
       "kind": "data"
     },
     {
-      "symbol": "@FpsCounter_OnDraw@4",
+      "symbol": "@FPS_OnDraw@4",
       "address": "0x413690",
       "kind": "data"
     },

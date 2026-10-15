@@ -118,7 +118,7 @@ static __forceinline float DistanceFrom_004445C0(float dx, float dy, float dz) {
 }
 
 #pragma code_seg(".text$06b0800fadequad")
-extern "C" __declspec(noinline) int FadedQuadDraw_004445c0(AnimationManager_00442F50* manager,
+extern "C" __declspec(noinline) int FadedQuadDraw_004445c0(SprtCtrlBatchView* manager,
                                                            RenderEntity* entity) {
     FadeManagerView_004445C0* view = (FadeManagerView_004445C0*)manager;
     ((ProjectedEntity_00444240*)entity)->ProjectQuad((ProjectionManager_00444240*)manager);

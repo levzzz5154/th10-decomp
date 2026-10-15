@@ -8,7 +8,7 @@
 
 void __cdecl operator delete(void* block);
 #pragma code_seg(".text$13remove")
-extern "C" __declspec(noinline) void __stdcall Scheduler_Remove(Scheduler* scheduler, SchedulerTask* task) {
+extern "C" __declspec(noinline) void __stdcall FuncCtrl_Remove(FuncCtrl* scheduler, SchedulerTask* task) {
     if (!task) return;
     TaskLink* node = &scheduler->primary.link;
     while (node) {
@@ -36,20 +36,20 @@ void __stdcall GameStateStandIn_MayThrow(void* state);
 // With every callee-saved register busy the receiver stays on the stack.
 static __forceinline void GameStateStandIn_Unregister(BackGround* state) {
     SchedulerTask* task = state->primary;
-    Scheduler* scheduler = data_00491be4;
+    FuncCtrl* scheduler = g_func_ctrl;
     if (task) {
         EnterCriticalSection(&g_thread_synchronization.critical_sections[0]);
         ++g_thread_synchronization.scheduler_lock_depth;
-        Scheduler_Remove(scheduler, task);
+        FuncCtrl_Remove(scheduler, task);
         LeaveCriticalSection(&g_thread_synchronization.critical_sections[0]);
         --g_thread_synchronization.scheduler_lock_depth;
     }
     task = state->secondary;
-    scheduler = data_00491be4;
+    scheduler = g_func_ctrl;
     if (task) {
         EnterCriticalSection(&g_thread_synchronization.critical_sections[0]);
         ++g_thread_synchronization.scheduler_lock_depth;
-        Scheduler_Remove(scheduler, task);
+        FuncCtrl_Remove(scheduler, task);
         LeaveCriticalSection(&g_thread_synchronization.critical_sections[0]);
         --g_thread_synchronization.scheduler_lock_depth;
     }

@@ -10,7 +10,7 @@ struct TriggerDialogue_004267f0 {
 };
 
 extern "C" {
-extern TriggerDialogue_004267f0* data_0047770c;
+extern TriggerDialogue_004267f0* g_front;
 }
 
 #endif

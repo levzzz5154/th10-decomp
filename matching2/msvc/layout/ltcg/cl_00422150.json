@@ -4,13 +4,13 @@
   "source": "src/game/pause/pause_register_tasks.cpp",
   "driver": "layout/ltcg/cl_00422150_context.cpp",
   "headers": [
-    "include/th10/game/scheduler.hpp",
+    "include/th10/core/func_ctrl.hpp",
     "include/th10/game/timer_state_00422360.hpp",
     "include/th10/math/timer.hpp",
     "include/th10/platform/thread_sync.hpp"
   ],
   "image_base": "0x00400000",
-  "description": "Scheduler task installer compiled with native LTCG against the full scheduler registration anchors.",
+  "description": "FuncCtrl task installer compiled with native LTCG against the full scheduler registration anchors.",
   "functions": [
     {
       "name": "Pause_RegisterTasks_00422150",
@@ -24,15 +24,15 @@
   ],
   "anchors": [
     {
-      "name": "Scheduler_RegisterPrimary",
-      "symbol": "_Scheduler_RegisterPrimary@12",
+      "name": "FuncCtrl_RegisterPrimary",
+      "symbol": "_FuncCtrl_RegisterPrimary@12",
       "section": ".text$10primary",
       "address": "0x00449AE0",
       "size": 131
     },
     {
-      "name": "Scheduler_RegisterSecondary",
-      "symbol": "_Scheduler_RegisterSecondary@12",
+      "name": "FuncCtrl_RegisterSecondary",
+      "symbol": "_FuncCtrl_RegisterSecondary@12",
       "section": ".text$12secondary",
       "address": "0x00449B70",
       "size": 131
@@ -76,7 +76,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_data_00491be4",
+      "symbol": "_g_func_ctrl",
       "address": "0x00491BE4",
       "kind": "data"
     },

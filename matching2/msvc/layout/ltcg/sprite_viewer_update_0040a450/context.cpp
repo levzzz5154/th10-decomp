@@ -99,7 +99,7 @@ void EclView_0040a940::ClearScriptNames() {
 // 0x00409F90
 #pragma code_seg(".text$a05")
 void EclViewEnemies_0040a940::Clear() {
-    AnimationManager_00442F50* manager = data_00491c10;
+    SprtCtrlBatchView* manager = g_sprt_ctrl;
     void** handle = reinterpret_cast<void**>(reinterpret_cast<char*>(manager) + 0x3AD090);
     for (int i = 4; i; --i) EclViewStandIn_Callee2(manager, *handle++);
     for (int j = 0; j < enemy_count; ++j) EclViewStandIn_Callee(parser);
@@ -183,7 +183,7 @@ void EclViewEnemies_0040a940::SuspendTasks() {
 void EclViewItems_0040a1a0::Reset() {
     if (update_task) update_task->flags |= 2;
     if (draw_task) draw_task->flags |= 2;
-    AnimationManager_00442F50* manager = data_00491c10;
+    SprtCtrlBatchView* manager = g_sprt_ctrl;
     for (int i = 0; i < 4; ++i) {
         EclViewStandIn_Callee2(manager, reserved_000 + i);
         EclViewStandIn_Callee2(manager, this);

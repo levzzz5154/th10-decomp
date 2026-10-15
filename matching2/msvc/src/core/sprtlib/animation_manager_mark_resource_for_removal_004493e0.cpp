@@ -7,7 +7,7 @@
 #define TH10_ANIMATION_RESOURCE_MARK_SECTION ".text$20helper"
 #endif
 #pragma code_seg(TH10_ANIMATION_RESOURCE_MARK_SECTION)
-__declspec(noinline) void AnimationManager::MarkResourceForRemoval(void* resource) {
+__declspec(noinline) void SprtCtrl::MarkResourceForRemoval(void* resource) {
     unsigned char* bytes = reinterpret_cast<unsigned char*>(this);
 
     AnimationListNode* node = *reinterpret_cast<AnimationListNode**>(

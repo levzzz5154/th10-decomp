@@ -34,7 +34,7 @@ int Player::Move() {
     else if (input & 0x80) direction = PLAYER_DIRECTION_RIGHT;
     else direction = PLAYER_DIRECTION_NONE;
 
-    if (data_00477704 != 0 && data_00477704->enabled != 0 &&
+    if (g_enemy_ctrl != 0 && g_enemy_ctrl->enabled != 0 &&
         focus_timer.current >= 4) {
         focused = (movement_input.word >> 2) & 1;
         if (data_00474c40.character * 3 + data_00474c40.shot_type == 5) {
@@ -51,11 +51,11 @@ int Player::Move() {
     if (focused) {
         if (focus_marker == 0) {
             AnimationResource_00449870* marker_resource = reinterpret_cast<AnimationResource_00449870*>(data_004776f0->item_animation);
-            Entity* object = reinterpret_cast<AnimationPool*>(data_00491c10)->Allocate();
+            Entity* object = reinterpret_cast<AnimationPool*>(g_sprt_ctrl)->Allocate();
             object->render_bucket = 9;
             object->flags_35C |= 0x40000000u;
             marker_resource->InitializeObject(object, 0x160);
-            AnimationRef assigned = reinterpret_cast<AnimationLists*>(data_00491c10)->RegisterPrimaryBack(object);
+            AnimationRef assigned = reinterpret_cast<AnimationLists*>(g_sprt_ctrl)->RegisterPrimaryBack(object);
             AsRef(focus_marker) = assigned;
         }
         switch (direction) {
@@ -69,7 +69,7 @@ int Player::Move() {
         case PLAYER_DIRECTION_DOWN_RIGHT: move_y = move_x = focused_diagonal_speed; break;
         }
     } else {
-        PickupAnimationLists* context = reinterpret_cast<PickupAnimationLists*>(data_00491c10);
+        PickupAnimationLists* context = reinterpret_cast<PickupAnimationLists*>(g_sprt_ctrl);
         if (context->Find(AsRef(focus_marker)) != 0)
             Animation_SetStopFrame(1, context, AsRef(focus_marker));
         AnimationRef* marker = &AsRef(focus_marker);
@@ -104,7 +104,7 @@ int Player::Move() {
     Vector3* world = &position;
     world->x = static_cast<float>(fixed_position.x) * 0.01f;
     world->y = static_cast<float>(fixed_position.y) * 0.01f;
-    PickupAnimationLists* context = reinterpret_cast<PickupAnimationLists*>(data_00491c10);
+    PickupAnimationLists* context = reinterpret_cast<PickupAnimationLists*>(g_sprt_ctrl);
     if (context->Find(AsRef(focus_marker)) == 0) {
         AsRef(focus_marker) = AnimationRef(0);
     } else {
@@ -149,7 +149,7 @@ int Player::Move() {
             Vector3 option_position = {
                 static_cast<float>(option->position.x) * 0.01f,
                 static_cast<float>(option->position.y) * 0.01f, 0.0f };
-            context = reinterpret_cast<PickupAnimationLists*>(data_00491c10);
+            context = reinterpret_cast<PickupAnimationLists*>(g_sprt_ctrl);
             Animation_SetTranslatedPosition(context, &option_position, AsRef(option->animation));
             Animation_SetTranslatedPosition(context, &option_position, AsRef(option->second_animation));
         }

@@ -2,7 +2,7 @@
 #include "../../src/unreferenced/unassigned_00405f40.cpp"
 
 extern "C" void __cdecl opaque_release_004492a0(void* item);
-extern "C" char* data_00491c10;
+extern "C" char* g_sprt_ctrl;
 
 #pragma code_seg(".text$03anchor")
 __declspec(noinline) void AnimationResource_00405f40::Release() {

@@ -107,8 +107,8 @@ __declspec(noinline) int __stdcall Title_DispatchUpdate(
     int transition = data_00491c00;
     switch (title->mode) {
     case 0: {
-        unsigned char* manager_bytes = reinterpret_cast<unsigned char*>(data_00491c10);
-        AnimationManager* manager = reinterpret_cast<AnimationManager*>(data_00491c10);
+        unsigned char* manager_bytes = reinterpret_cast<unsigned char*>(g_sprt_ctrl);
+        SprtCtrl* manager = reinterpret_cast<SprtCtrl*>(g_sprt_ctrl);
         manager->MarkResourceForRemoval(*reinterpret_cast<void**>(manager_bytes + 0x3ad084));
         manager->MarkResourceForRemoval(*reinterpret_cast<void**>(manager_bytes + 0x3ad088));
         manager->MarkResourceForRemoval(*reinterpret_cast<void**>(manager_bytes + 0x3ad074));

@@ -20,7 +20,7 @@ struct AnimationScriptId {
 };
 // 0x004492A0: let the animation with this id, and its children, be removed.
 void* __fastcall AnimationManager_SetFlag_004492a0(AnimationLookupContext* context, AnimationScriptId id);
-extern "C" AnimationLookupContext* data_00491c10;
+extern "C" AnimationLookupContext* g_sprt_ctrl;
 
 // An animation a game object owns, named by its id.
 struct CardAnimation_00409c00 {
@@ -28,7 +28,7 @@ struct CardAnimation_00409c00 {
 
     // Let the manager dispose of the animation and forget it.
     void Release() {
-        AnimationManager_SetFlag_004492a0(data_00491c10, id);
+        AnimationManager_SetFlag_004492a0(g_sprt_ctrl, id);
         id.value = 0;
     }
 };
@@ -93,7 +93,7 @@ typedef char CardFlagsOffset_00409c00[offsetof(Card_00409c00, flags) == 0x378C ?
 
 extern "C" {
 extern CardInterface_00409c00* g_background;
-extern CardFront_00409c00* data_0047770c;
+extern CardFront_00409c00* g_front;
 extern CardMode_00409c00* data_00477838;
 extern CardScoreFile_00409c00* data_0047783c;
 extern CardGame_00409c00 data_00474c44;

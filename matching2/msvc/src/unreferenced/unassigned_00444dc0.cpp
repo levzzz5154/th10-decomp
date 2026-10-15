@@ -1,7 +1,7 @@
 // 0x00444DC0: bind an entity texture and queue its quad vertices.
 #include "th10/render/quad_batch.hpp"
 #pragma code_seg(".text$06dquad")
-int AnimationManager_00442F50::DrawQuad(const RenderEntity* entity, const TexturedVertex* vertices) {
+int SprtCtrlBatchView::DrawQuad(const RenderEntity* entity, const TexturedVertex* vertices) {
     if (!(entity->flags & 1)) return -1;
     if (!(entity->flags & 2)) return -1;
     if (((const unsigned char*)&entity->color)[3] == 0) return -1;

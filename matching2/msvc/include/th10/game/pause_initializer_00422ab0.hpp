@@ -14,14 +14,14 @@ __declspec(noinline) void* __fastcall AnimationManager_Find_004491c0(
     AnimationLookupContext* context, AnimationScriptId id);
 __declspec(noinline) void* __fastcall AnimationManager_SetFlag_004492a0(
     AnimationLookupContext* context, AnimationScriptId id);
-extern "C" AnimationLookupContext* data_00491c10;
+extern "C" AnimationLookupContext* g_sprt_ctrl;
 
 struct Ref4 {
     int value;
     Ref4(int value) : value(value) {}
     void MarkAndClear() {
         AnimationScriptId& id = *reinterpret_cast<AnimationScriptId*>(this);
-        AnimationManager_SetFlag_004492a0(data_00491c10, id);
+        AnimationManager_SetFlag_004492a0(g_sprt_ctrl, id);
         value = 0;
     }
 };
@@ -139,9 +139,9 @@ struct AnimationSecondaryLists {
 extern "C" unsigned char data_00474ca0;
 extern "C" unsigned char data_00474e36;
 extern "C" unsigned char data_00491ff4;
-extern "C" PauseMenuRuntime* data_00477810;
+extern "C" PauseMenuRuntime* g_game;
 extern "C" PauseResourceOwner1* g_ascii_manager;
-extern "C" PauseResourceOwner2* data_0047770c;
+extern "C" PauseResourceOwner2* g_front;
 extern "C" float data_00470b68;
 extern "C" float data_00470b64;
 extern "C" float data_00476f78;

@@ -2,9 +2,9 @@
 #include <string.h>
 #include <stddef.h>
 #include "th10/game/entity.hpp"
-#include "th10/game/scheduler.hpp"
+#include "th10/core/func_ctrl.hpp"
 #include "th10/platform/thread_sync.hpp"
-extern "C" void* data_00491be4;
+extern "C" void* g_func_ctrl;
 extern "C" void* data_00477818;
 extern "C" void __cdecl entry_free_00452422(void*);
 void* __cdecl operator new(unsigned int);
@@ -32,4 +32,4 @@ typedef char ElementSize[sizeof(Item)==0x3F0?1:-1];
 typedef char ManagerSize[sizeof(ItemManager)==0x21CEC0?1:-1];
 typedef char ElementOffset[offsetof(ItemManager,elements)==0x14?1:-1];
 
-__declspec(noinline) void __stdcall ManagerTeardownScheduler_Remove_00449F60(Scheduler*,SchedulerTask*);
+__declspec(noinline) void __stdcall ManagerTeardownFuncCtrl_Remove_00449F60(FuncCtrl*,SchedulerTask*);

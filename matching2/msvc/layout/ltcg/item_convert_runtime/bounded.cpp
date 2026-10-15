@@ -35,7 +35,7 @@ __declspec(noinline) int LineEffectSweep_0041e260::CreateSegmentsInBounds(int sp
                 !(point.y - 16.0f >= 448.0f)) {
                 int script = script_in_bounds * 2 + 17;
                 void* resource = g_laser_manager->line_animation;
-                Entity* animation = static_cast<AnimationPool*>(data_00491c10)->Allocate();
+                Entity* animation = static_cast<AnimationPool*>(g_sprt_ctrl)->Allocate();
                 unsigned int flags = animation->flags_35C;
                 animation->flags_35C = flags | 0x40000000u;
                 animation->render_bucket = 0;
@@ -48,7 +48,7 @@ __declspec(noinline) int LineEffectSweep_0041e260::CreateSegmentsInBounds(int sp
                     reinterpret_cast<AnimationObject_0043e710*>(animation), script);
                 void* handle;
                 asm_AnimationManager_RegisterPrimaryBack_004489d0(
-                    data_00491c10, &handle, animation);
+                    g_sprt_ctrl, &handle, animation);
 
                 // The second rectangle has a 32-unit margin and is reached
                 // only after creating and registering the destruction effect.

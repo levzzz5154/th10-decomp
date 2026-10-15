@@ -91,9 +91,9 @@ struct GameThreadRenderState {
 extern "C" GameThreadRenderState data_00491c28;
 
 extern "C" __declspec(noinline) int EntityDraw_00443080(RenderEntity* entity,
-                                                       AnimationManager_00442F50* manager);
+                                                       SprtCtrlBatchView* manager);
 extern "C" __declspec(noinline) int EntityDraw_00443290(RenderEntity* entity,
-                                                       AnimationManager_00442F50* manager);
+                                                       SprtCtrlBatchView* manager);
 
 static __forceinline void GlyphSetScale(RenderEntity* entity, float x, float y) {
     entity->scale_x = x;

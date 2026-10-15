@@ -1,8 +1,8 @@
-#define data_00491c10 stage_bind_data_00491c10
-#define data_0047770c stage_bind_data_0047770c
+#define g_sprt_ctrl stage_bind_g_sprt_ctrl
+#define g_front stage_bind_g_front
 #define data_00474c40 stage_bind_data_00474c40
 #define g_ascii_manager stage_bind_data_004776e0
-#define data_00477704 stage_bind_data_00477704
+#define g_enemy_ctrl stage_bind_g_enemy_ctrl
 #define g_player stage_bind_data_00477834
 #define data_00477838 stage_bind_data_00477838
 #define data_0047783c stage_bind_data_0047783c
@@ -26,7 +26,7 @@ struct BindGameState_0040d830 {
     unsigned char reserved[0x54];
     BindScriptTable_0040d830* table;
 };
-extern "C" BindGameState_0040d830* data_00477704;
+extern "C" BindGameState_0040d830* g_enemy_ctrl;
 struct EnemyScriptEntity_0040d830;
 struct BindScriptName_0040d830 { const char* value; };
 struct BindFrameTimer_0040d830 {
@@ -174,7 +174,7 @@ __declspec(noinline) EnemyScriptEntity_0040d830* __fastcall InitializeEnemyScrip
     entity->payload.auxiliary_timer.Reset();
     entity->payload.second_auxiliary_timer.Reset();
     // Resolve the script in the active game's table and start at time zero.
-    entity->table = data_00477704->table;
+    entity->table = g_enemy_ctrl->table;
     entity->running->instruction = reinterpret_cast<void*>(entity->table->Resolve(label.value));
     entity->running->timer = 0.0f;
     float* position = entity->payload.position;
@@ -208,11 +208,11 @@ __declspec(noinline) EnemyScriptEntity_0040d830* __fastcall InitializeEnemyScrip
     return entity;
 }
 #pragma code_seg()
-#undef data_00491c10
-#undef data_0047770c
+#undef g_sprt_ctrl
+#undef g_front
 #undef data_00474c40
 #undef g_ascii_manager
-#undef data_00477704
+#undef g_enemy_ctrl
 #undef g_player
 #undef data_00477838
 #undef data_0047783c

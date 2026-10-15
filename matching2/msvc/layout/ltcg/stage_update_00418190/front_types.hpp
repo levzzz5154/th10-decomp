@@ -168,7 +168,7 @@ struct FrontTask {
     int priority;
     unsigned int flags;
 };
-struct FrontInitialization_00413bc0 {
+struct FrontInitializeView {
     int reserved_00[2];
     FrontTask *update_task;
     FrontTask *draw_task;
@@ -198,10 +198,10 @@ struct FrontInitialization_00413bc0 {
     }
     __declspec(noinline) void Initialize();
 };
-typedef char FrontAnimations[offsetof(FrontInitialization_00413bc0, animations) == 0x10 ? 1 : -1];
+typedef char FrontAnimations[offsetof(FrontInitializeView, animations) == 0x10 ? 1 : -1];
 typedef char
-    FrontAlternate[offsetof(FrontInitialization_00413bc0, alternate_resource) == 0x9E80 ? 1 : -1];
-typedef char FrontResource[offsetof(FrontInitialization_00413bc0, captions) == 0x9EC8 ? 1 : -1];
+    FrontAlternate[offsetof(FrontInitializeView, alternate_resource) == 0x9E80 ? 1 : -1];
+typedef char FrontResource[offsetof(FrontInitializeView, captions) == 0x9EC8 ? 1 : -1];
 struct FrontStageThread {
     unsigned char reserved_00[0x8994];
     void *title_resource;

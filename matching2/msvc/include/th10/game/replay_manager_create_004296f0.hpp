@@ -1,7 +1,7 @@
 #pragma once
 #include <string.h>
 #include <stddef.h>
-#include "th10/game/scheduler.hpp"
+#include "th10/core/func_ctrl.hpp"
 #include "th10/platform/thread_sync.hpp"
 #include "th10/game/replay_pool_append_0042aa50.hpp"
 
@@ -67,8 +67,8 @@ extern "C" __declspec(noinline) void __stdcall ReplayPool_Clear_0042ab20(ReplayP
 inline void ReplayManager_004296f0::ClearStage(int stage) {
     ReplayPool_Clear_0042ab20(PoolLists(), stage);
 }
-__declspec(noinline) void __stdcall ManagerTeardownScheduler_Remove_00449F60(Scheduler* scheduler, SchedulerTask* task);
-extern "C" void* data_00491be4;
+__declspec(noinline) void __stdcall ManagerTeardownFuncCtrl_Remove_00449F60(FuncCtrl* scheduler, SchedulerTask* task);
+extern "C" void* g_func_ctrl;
 // The replay manager the game is currently using.
 extern "C" ReplayManager_004296f0* data_00477838;
 

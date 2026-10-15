@@ -5,7 +5,7 @@
   "driver": "layout/ltcg/resource_cleanup_context.cpp",
   "headers": [
     "include/th10/game/scheduler_remove_locked.hpp",
-    "include/th10/game/scheduler.hpp",
+    "include/th10/core/func_ctrl.hpp",
     "include/th10/platform/thread_sync.hpp",
     "include/th10/render/animation_mark_for_removal.hpp",
     "include/th10/game/resource_cleanup.hpp"
@@ -39,7 +39,7 @@
     },
     {
       "name": "SchedulerRemove",
-      "symbol": "_Scheduler_Remove@8",
+      "symbol": "_FuncCtrl_Remove@8",
       "section": ".text$05remove",
       "address": "0x00449F60",
       "size": 114
@@ -92,12 +92,12 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00491be4",
+      "symbol": "_g_func_ctrl",
       "address": "0x00491BE4",
       "kind": "data"
     },
     {
-      "symbol": "_data_00491c10",
+      "symbol": "_g_sprt_ctrl",
       "address": "0x00491C10",
       "kind": "data"
     },

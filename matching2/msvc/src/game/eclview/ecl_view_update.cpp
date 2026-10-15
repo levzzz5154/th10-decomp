@@ -19,8 +19,8 @@ int EclView_0040a940::Update() {
             g_player->Reset();
             data_004776f0->Resume();
             data_004776f0->Reset();
-            data_00477704->Resume();
-            data_00477704->Clear();
+            g_enemy_ctrl->Resume();
+            g_enemy_ctrl->Clear();
             data_00477818->Resume();
             memset(data_00477818->slots, 0, sizeof(data_00477818->slots));
             state = 1;
@@ -36,7 +36,7 @@ int EclView_0040a940::Update() {
                 EclView_SetGameMode_0040ac90(&data_00491c28, 3);
             break;
         case 1:
-            if (data_00477704) {
+            if (g_enemy_ctrl) {
                 EclView_Remember(&entry_cursor);
                 if (data_00474e30.MaskActive(0x80)) entry_cursor.Advance(1);
                 if (data_00474e30.MaskActive(0x40)) entry_cursor.Advance(-1);
@@ -45,9 +45,9 @@ int EclView_0040a940::Update() {
                     g_player->Reset();
                     data_004776f0->Suspend();
                     data_004776f0->Reset();
-                    data_00477704->SuspendTasks();
-                    data_00477704->Clear();
-                    data_0047770c->Reset();
+                    g_enemy_ctrl->SuspendTasks();
+                    g_enemy_ctrl->Clear();
+                    g_front->Reset();
                     data_00477818->Suspend();
                     memset(data_00477818->slots, 0, sizeof(data_00477818->slots));
                     EclViewSpawn_0040a450 spawn;
@@ -56,7 +56,7 @@ int EclView_0040a940::Update() {
                     spawn.y = 0.0f;
                     spawn.z = 0.0f;
                     spawn.life = 10000;
-                    spawn.Create(data_00477704, data_00477704->parser->entries[entry_cursor.selection].name);
+                    spawn.Create(g_enemy_ctrl, g_enemy_ctrl->parser->entries[entry_cursor.selection].name);
                     state = 4;
                 }
             }
@@ -66,13 +66,13 @@ int EclView_0040a940::Update() {
             if (data_00474e30.Active(0x80)) file_cursor.Advance(1);
             if (data_00474e30.Active(0x40)) file_cursor.Advance(-1);
             if (data_00474e30.repeated & 0x1001) {
-                EclView_Release(data_0047770c);
+                EclView_Release(g_front);
                 EclView_Release(g_player);
                 EclView_Release(data_004776f0);
                 EclView_Release(g_bomb);
                 EclView_Release(data_00477818);
                 EclView_Release(g_smoll_score);
-                EclView_Release(data_00477704);
+                EclView_Release(g_enemy_ctrl);
                 flags &= ~2u;
                 reinterpret_cast<PlatformWorker*>(&worker)->Start(this, EclView_LoadThread_0040a340);
                 state = 2;

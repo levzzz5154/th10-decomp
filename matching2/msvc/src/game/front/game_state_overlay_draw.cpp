@@ -2,14 +2,14 @@
 #include "th10/render/quad_batch.hpp"
 #include <stddef.h>
 extern "C" __declspec(noinline) int __cdecl asm_FUN_004451c0_004451c0(
-    AnimationManager_00442F50* manager, RenderEntity* entity);
+    SprtCtrlBatchView* manager, RenderEntity* entity);
 
 struct OverlayVm_00415800 {
     RenderEntity entity;
     unsigned char reserved_tail[0x3AC - sizeof(RenderEntity)];
 };
 struct OverlaySegment_00415800 { float value; unsigned int color; };
-struct OverlayState_00415800 {
+struct FrontDrawView {
     unsigned char reserved_0000[0x10];
     OverlayVm_00415800 primary[10];
     OverlayVm_00415800 secondary[10];
@@ -27,42 +27,42 @@ struct OverlayState_00415800 {
     unsigned char reserved_9ebc[4];
     int stage_index;
 };
-typedef char OverlaySecondaryOffset[(offsetof(OverlayState_00415800, secondary) == 0x24C8) ? 1 : -1];
-typedef char OverlayTertiaryOffset[(offsetof(OverlayState_00415800, tertiary) == 0x4980) ? 1 : -1];
-typedef char OverlayGaugeOffset[(offsetof(OverlayState_00415800, gauge_value) == 0x9E84) ? 1 : -1];
-typedef char OverlaySegmentsOffset[(offsetof(OverlayState_00415800, gauge_segments) == 0x9E94) ? 1 : -1];
+typedef char OverlaySecondaryOffset[(offsetof(FrontDrawView, secondary) == 0x24C8) ? 1 : -1];
+typedef char OverlayTertiaryOffset[(offsetof(FrontDrawView, tertiary) == 0x4980) ? 1 : -1];
+typedef char OverlayGaugeOffset[(offsetof(FrontDrawView, gauge_value) == 0x9E84) ? 1 : -1];
+typedef char OverlaySegmentsOffset[(offsetof(FrontDrawView, gauge_segments) == 0x9E94) ? 1 : -1];
 struct OverlayInputDevice_00415800 { unsigned char reserved[0x2480]; unsigned int flags; };
 struct OverlayInputOwner_00415800 { unsigned char reserved[0x10]; OverlayInputDevice_00415800* device; };
 extern "C" {
     extern int data_00474c58;
-    extern OverlayInputOwner_00415800* data_00477704;
+    extern OverlayInputOwner_00415800* g_enemy_ctrl;
 }
 #pragma code_seg(".text$001soverlay")
-extern "C" __declspec(noinline) int __stdcall GameStateOverlay_Draw_00415800(OverlayState_00415800* state) {
+extern "C" __declspec(noinline) int __stdcall GameStateOverlay_Draw_00415800(FrontDrawView* state) {
     ScreenRect rect;
     OverlayVm_00415800* cursor = state->secondary;
     int count = 10;
     do {
-        asm_FUN_004451c0_004451c0(data_00491c10, &cursor[-10].entity);
-        asm_FUN_004451c0_004451c0(data_00491c10, &cursor->entity);
+        asm_FUN_004451c0_004451c0(g_sprt_ctrl, &cursor[-10].entity);
+        asm_FUN_004451c0_004451c0(g_sprt_ctrl, &cursor->entity);
         ++cursor;
     } while (--count);
     cursor = state->tertiary;
     count = 9;
     do {
-        asm_FUN_004451c0_004451c0(data_00491c10, &cursor->entity);
+        asm_FUN_004451c0_004451c0(g_sprt_ctrl, &cursor->entity);
         ++cursor;
     } while (--count);
     cursor = state->quaternary;
     count = 4;
     do {
-        asm_FUN_004451c0_004451c0(data_00491c10, &cursor->entity);
+        asm_FUN_004451c0_004451c0(g_sprt_ctrl, &cursor->entity);
         ++cursor;
     } while (--count);
     cursor = state->quinary;
     count = 7;
     do {
-        asm_FUN_004451c0_004451c0(data_00491c10, &cursor->entity);
+        asm_FUN_004451c0_004451c0(g_sprt_ctrl, &cursor->entity);
         ++cursor;
     } while (--count);
     if (data_00474c58) {
@@ -104,15 +104,15 @@ extern "C" __declspec(noinline) int __stdcall GameStateOverlay_Draw_00415800(Ove
             ++segment;
         } while (--count);
     }
-    if (data_00477704) {
-        OverlayInputDevice_00415800* device = data_00477704->device;
+    if (g_enemy_ctrl) {
+        OverlayInputDevice_00415800* device = g_enemy_ctrl->device;
         if (device && (~(device->flags >> 4) & 1) && (~device->flags & 1))
-            asm_FUN_004451c0_004451c0(data_00491c10, &state->input_prompt.entity);
-        if (data_00477704 && state->stage_index >= 0 && data_00477704->device && !state->prompt_hidden) {
+            asm_FUN_004451c0_004451c0(g_sprt_ctrl, &state->input_prompt.entity);
+        if (g_enemy_ctrl && state->stage_index >= 0 && g_enemy_ctrl->device && !state->prompt_hidden) {
             cursor = state->late_pair;
             count = 2;
             do {
-                asm_FUN_004451c0_004451c0(data_00491c10, &cursor->entity);
+                asm_FUN_004451c0_004451c0(g_sprt_ctrl, &cursor->entity);
                 ++cursor;
             } while (--count);
         }

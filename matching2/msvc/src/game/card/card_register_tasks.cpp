@@ -8,7 +8,7 @@ SchedulerTask* __stdcall SchedulerCallback_Create_00449ed0(TaskRoutine callback)
 int __fastcall CardPrimary_00409220(void* owner);
 int __fastcall CardRender_00409230(void* owner);
 int __fastcall CardTrailing_00409270(void* owner);
-extern Scheduler* data_00491be4;
+extern FuncCtrl* g_func_ctrl;
 extern float data_00476f78;
 }
 
@@ -20,19 +20,19 @@ int CardTasks_004089c0::InitializeTasks() {
         CardPrimary_00409220);
     callback->context = this;
     callback->reserved_flags &= ~1u;
-    Scheduler_RegisterPrimary(data_00491be4, callback, 0x16);
+    FuncCtrl_RegisterPrimary(g_func_ctrl, callback, 0x16);
     primary_task = callback;
 
     callback = SchedulerCallback_Create_00449ed0(CardRender_00409230);
     callback->reserved_flags &= ~1u;
     callback->context = this;
-    Scheduler_RegisterSecondary(data_00491be4, callback, 0x0e);
+    FuncCtrl_RegisterSecondary(g_func_ctrl, callback, 0x0e);
     secondary_task = callback;
 
     callback = SchedulerCallback_Create_00449ed0(CardTrailing_00409270);
     callback->context = this;
     callback->reserved_flags &= ~1u;
-    Scheduler_RegisterSecondary(data_00491be4, callback, 0x25);
+    FuncCtrl_RegisterSecondary(g_func_ctrl, callback, 0x25);
     trailing_task = callback;
 
     // Finish publishing the callback before initializing the embedded timer.

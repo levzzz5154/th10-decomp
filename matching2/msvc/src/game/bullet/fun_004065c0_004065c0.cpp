@@ -14,12 +14,12 @@ extern "C" int __stdcall asm_FUN_00406240_00406240(const void* entry);  // 0x004
 extern "C" float data_00470b64;    // normal upper bound
 extern "C" float data_00470b68;    // normal lower bound
 
-struct RecoverySlotOwner_004065c0 {
+struct GameBulletView {
     unsigned char pad_00[0x58];
     unsigned int field_58;  // +0x58
 };
 
-extern "C" RecoverySlotOwner_004065c0* data_00477810;
+extern "C" GameBulletView* g_game;
 
 struct RecoverySlotTable_004065c0 {
     unsigned char pad_0000[0x14];
@@ -52,8 +52,8 @@ int RecoverySlotTable_004065c0::Rearm() {
     int remaining = 2000;
     do {
         if (*(unsigned short*)(pose + 0x46) != 0) {
-            if (!(data_00477810 != 0 && (data_00477810->field_58 & 2) != 0
-                  && (data_00477810->field_58 & 0x400) != 0)) {
+            if (!(g_game != 0 && (g_game->field_58 & 2) != 0
+                  && (g_game->field_58 & 0x400) != 0)) {
                 if (asm_FUN_00406240_00406240(entry) != 0)
                     goto next;
             }

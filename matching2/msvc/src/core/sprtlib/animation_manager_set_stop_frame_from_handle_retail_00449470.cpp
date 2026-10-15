@@ -25,19 +25,19 @@ struct AnimationTreeNode {
     unsigned short stop_frame;              // +0x304
 };
 
-class AnimationManager {
+class SprtCtrl {
 public:
     void* __fastcall Find(AnimationLookupContext* context, AnimationScriptId id);
 };
 
-extern "C" AnimationLookupContext* data_00491c10;
+extern "C" AnimationLookupContext* g_sprt_ctrl;
 
 #pragma code_seg(".text$75stop")
 void AnimationHandle_00449470::SetStopFrame(unsigned short frame) {
     AnimationScriptId id;
     id.value = (int)value;
     AnimationTreeNode* node = reinterpret_cast<AnimationTreeNode*>(
-        reinterpret_cast<AnimationManager*>(data_00491c10)->Find(data_00491c10, id));
+        reinterpret_cast<SprtCtrl*>(g_sprt_ctrl)->Find(g_sprt_ctrl, id));
     if (node != 0) {
         node->stop_frame = frame;
         if (!node->children_flagged) {

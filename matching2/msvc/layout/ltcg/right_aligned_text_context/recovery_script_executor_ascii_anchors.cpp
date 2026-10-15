@@ -5,7 +5,7 @@
 #include "th10/game/right_aligned_text_context/thread_sync.hpp"
 
 extern "C" {
-extern Scheduler* data_00491be4;
+extern FuncCtrl* g_func_ctrl;
 extern const float RecoveryAsciiFrameSpeed_00476f78;
 SchedulerTask* __stdcall SchedulerCallback_Create_00449ed0(TaskRoutine callback);
 int __fastcall RecoveryAsciiBasicTick_0043bd40(void*);
@@ -25,8 +25,8 @@ int __fastcall RecoveryAsciiRemove_0043c870(void*);
 // The factories' scheduler chain is supplied in full to expose its private
 // callback EAX / priority EDI / owner stack argument to native LTCG.
 #pragma code_seg(".text$00449ae0_ascii_anchor")
-extern "C" __declspec(noinline) int __stdcall Scheduler_RegisterPrimary(
-        Scheduler* scheduler, SchedulerTask* task, int priority) {
+extern "C" __declspec(noinline) int __stdcall FuncCtrl_RegisterPrimary(
+        FuncCtrl* scheduler, SchedulerTask* task, int priority) {
     int result = 0;
     if (task->on_register) {
         result = task->on_register(task->context);
@@ -45,8 +45,8 @@ extern "C" __declspec(noinline) int __stdcall Scheduler_RegisterPrimary(
 }
 
 #pragma code_seg(".text$00449b70_ascii_anchor")
-extern "C" __declspec(noinline) int __stdcall Scheduler_RegisterSecondary(
-        Scheduler* scheduler, SchedulerTask* task, int priority) {
+extern "C" __declspec(noinline) int __stdcall FuncCtrl_RegisterSecondary(
+        FuncCtrl* scheduler, SchedulerTask* task, int priority) {
     int result = 0;
     if (task->on_register) {
         result = task->on_register(task->context);
@@ -71,7 +71,7 @@ RecoveryAsciiRegisterPrimary_0044a000(TaskRoutine callback, int priority,
     SchedulerTask* task = SchedulerCallback_Create_00449ed0(callback);
     task->context = owner;
     *(unsigned int*)((unsigned char*)task + 4) |= 2u;
-    Scheduler_RegisterPrimary(data_00491be4, task, priority);
+    FuncCtrl_RegisterPrimary(g_func_ctrl, task, priority);
     return task;
 }
 
@@ -82,7 +82,7 @@ RecoveryAsciiRegisterSecondary_0044a030(TaskRoutine callback, int priority,
     SchedulerTask* task = SchedulerCallback_Create_00449ed0(callback);
     task->context = owner;
     *(unsigned int*)((unsigned char*)task + 4) |= 2u;
-    Scheduler_RegisterSecondary(data_00491be4, task, priority);
+    FuncCtrl_RegisterSecondary(g_func_ctrl, task, priority);
     return task;
 }
 

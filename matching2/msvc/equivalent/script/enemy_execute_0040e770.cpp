@@ -22,7 +22,7 @@ int Enemy::Execute_0040e770() {
     EclInstr* ins = (*(EclVm* const volatile*)&ecl->active)->instr;
     switch (ins->id) {
     case 0x109:
-        if (data_00477704->boss[0] != 0) break;
+        if (g_enemy_ctrl->boss[0] != 0) break;
     case 0x100: {
         int n = (ins->i[0] + 4) / 4;
         EnemySpawn spawn;
@@ -49,11 +49,11 @@ int Enemy::Execute_0040e770() {
         spawn.score = IVAL(4, ins->i[n + 3]);
         spawn.item = IVAL(5, ins->i[n + 4]);
         memcpy(spawn.variables, variables, sizeof(spawn.variables));
-        EnemyManager_Spawn_0040cfb0(&spawn, data_00477704, &ins->s[4]);
+        EnemyCtrl_Spawn_0040cfb0(&spawn, g_enemy_ctrl, &ins->s[4]);
         return 0;
     }
     case 0x10a:
-        if (data_00477704->boss[0] != 0) break;
+        if (g_enemy_ctrl->boss[0] != 0) break;
     case 0x101: {
         int n = (ins->i[0] + 4) / 4;
         EnemySpawn spawn;
@@ -64,11 +64,11 @@ int Enemy::Execute_0040e770() {
         spawn.score = IVAL(4, ins->i[n + 3]);
         spawn.item = IVAL(5, ins->i[n + 4]);
         memcpy(spawn.variables, variables, sizeof(spawn.variables));
-        EnemyManager_Spawn_0040cfb0(&spawn, data_00477704, &ins->s[4]);
+        EnemyCtrl_Spawn_0040cfb0(&spawn, g_enemy_ctrl, &ins->s[4]);
         return 0;
     }
     case 0x10f:
-        if (data_00477704->boss[0] != 0) break;
+        if (g_enemy_ctrl->boss[0] != 0) break;
     case 0x10e: {
         int n = (ins->i[0] + 4) / 4;
         EnemySpawn spawn;
@@ -81,11 +81,11 @@ int Enemy::Execute_0040e770() {
         spawn.item = IVAL(6, ins->i[n + 5]);
         memcpy(spawn.variables, variables, sizeof(spawn.variables));
         spawn.flags |= 1;
-        EnemyManager_Spawn_0040cfb0(&spawn, data_00477704, &ins->s[4]);
+        EnemyCtrl_Spawn_0040cfb0(&spawn, g_enemy_ctrl, &ins->s[4]);
         return 0;
     }
     case 0x10b:
-        if (data_00477704->boss[0] != 0) break;
+        if (g_enemy_ctrl->boss[0] != 0) break;
     case 0x104: {
         int n = (ins->i[0] + 4) / 4;
         EnemySpawn spawn;
@@ -99,11 +99,11 @@ int Enemy::Execute_0040e770() {
         spawn.item = IVAL(5, ins->i[n + 4]);
         memcpy(spawn.variables, variables, sizeof(spawn.variables));
         spawn.mirrored = 1;
-        EnemyManager_Spawn_0040cfb0(&spawn, data_00477704, &ins->s[4]);
+        EnemyCtrl_Spawn_0040cfb0(&spawn, g_enemy_ctrl, &ins->s[4]);
         return 0;
     }
     case 0x10c:
-        if (data_00477704->boss[0] != 0) break;
+        if (g_enemy_ctrl->boss[0] != 0) break;
     case 0x105: {
         int n = (ins->i[0] + 4) / 4;
         EnemySpawn spawn;
@@ -115,7 +115,7 @@ int Enemy::Execute_0040e770() {
         spawn.item = IVAL(5, ins->i[n + 4]);
         memcpy(spawn.variables, variables, sizeof(spawn.variables));
         spawn.mirrored = 1;
-        EnemyManager_Spawn_0040cfb0(&spawn, data_00477704, &ins->s[4]);
+        EnemyCtrl_Spawn_0040cfb0(&spawn, g_enemy_ctrl, &ins->s[4]);
         return 0;
     }
     case 0x102:
@@ -127,7 +127,7 @@ int Enemy::Execute_0040e770() {
         anm[slot].Release_00449630();
         if (script < 0) break;
         AnmHandle handle;
-        anm[slot] = *Anm_CreateFront_00448e30(data_00477704->anm[anm_file], &handle, IOP(1), 5);
+        anm[slot] = *Anm_CreateFront_00448e30(g_enemy_ctrl->anm[anm_file], &handle, IOP(1), 5);
         if (slot == 0) {
             anm_main_script = IOP(1);
             anm_main_file = anm_file;
@@ -143,7 +143,7 @@ int Enemy::Execute_0040e770() {
     case 0x107: {
         int file = IOP(0);
         AnmHandle handle;
-        Anm_CreateFront_00448e30(data_00477704->anm[file], &handle, IOP(1), 6);
+        Anm_CreateFront_00448e30(g_enemy_ctrl->anm[file], &handle, IOP(1), 6);
         AnmVm* vm = Anm_Resolve_00449450(&handle);
         if (!(flags & 0x40000)) vm->offset = *OffsetPoint_00418810(&position);
         else vm->offset = position;
@@ -152,7 +152,7 @@ int Enemy::Execute_0040e770() {
     case 0x110: {
         int file = IOP(0);
         AnmHandle handle;
-        Anm_CreateBack_00448d00(data_00477704->anm[file], &handle, IOP(1), 6);
+        Anm_CreateBack_00448d00(g_enemy_ctrl->anm[file], &handle, IOP(1), 6);
         AnmVm* vm = Anm_Resolve_00449450(&handle);
         if (!(flags & 0x40000)) vm->offset = *OffsetPoint_00418810(&position);
         else vm->offset = position;
@@ -161,13 +161,13 @@ int Enemy::Execute_0040e770() {
     case 0x108: {
         int file = IOP(0);
         AnmHandle handle;
-        Anm_CreateFront_00448e30(data_00477704->anm[file], &handle, IOP(1), 6);
+        Anm_CreateFront_00448e30(g_enemy_ctrl->anm[file], &handle, IOP(1), 6);
         return 0;
     }
     case 0x111: {
         int file = IOP(0);
         AnmHandle handle;
-        Anm_CreateFront_00448e30(data_00477704->anm[file], &handle, IOP(1), 6);
+        Anm_CreateFront_00448e30(g_enemy_ctrl->anm[file], &handle, IOP(1), 6);
         AnmVm* vm = Anm_Resolve_00449450(&handle);
         if (!(flags & 0x40000)) vm->offset = *OffsetPoint_00418810(&position);
         else vm->offset = position;
@@ -180,7 +180,7 @@ int Enemy::Execute_0040e770() {
         int script = IOP(1);
         anm[slot].Release_00449630();
         AnmHandle handle;
-        anm[slot] = *Anm_CreateFront_00448e30(data_00477704->anm[anm_file], &handle, script, 5);
+        anm[slot] = *Anm_CreateFront_00448e30(g_enemy_ctrl->anm[anm_file], &handle, script, 5);
         AnmVm* vm = Anm_Resolve_00449450(&anm[slot]);
         if (slot == 0) {
             hitbox_width = vm->sprite_width * vm->scale.y;
@@ -200,7 +200,7 @@ int Enemy::Execute_0040e770() {
         int slot = IOP(0);
         anm[slot].Release_00449630();
         AnmHandle handle;
-        anm[slot] = *Anm_CreateFront_00448e30(data_00477704->anm[anm_file], &handle, anm_base_script + 5, 5);
+        anm[slot] = *Anm_CreateFront_00448e30(g_enemy_ctrl->anm[anm_file], &handle, anm_base_script + 5, 5);
         AnmVm* vm = Anm_Resolve_00449450(&anm[slot]);
         if (slot == 0) {
             hitbox_width = vm->sprite_width * vm->scale.y;
@@ -349,10 +349,10 @@ int Enemy::Execute_0040e770() {
         if (y > UNSET) motion->origin.y = y;
     }
     case 0x126:
-        absolute.position = data_00477704->boss[0]->body.position;
+        absolute.position = g_enemy_ctrl->boss[0]->body.position;
         return 0;
     case 0x127:
-        relative.position = data_00477704->boss[0]->body.position;
+        relative.position = g_enemy_ctrl->boss[0]->body.position;
         return 0;
     case 0x144:
         flags |= 0x200;
@@ -407,7 +407,7 @@ int Enemy::Execute_0040e770() {
         return 0;
     }
     case 0x15b:
-        data_0047770c->SetMarker(IOP(0), max_life, FOP(1), IOP(2));
+        g_front->SetMarker(IOP(0), max_life, FOP(1), IOP(2));
         return 0;
     case 0x140:
         fb0 = FOP(0);
@@ -460,8 +460,8 @@ int Enemy::Execute_0040e770() {
         life = IOP(0);
         max_life = life;
         for (int i = 0; i < 4; ++i) {
-            data_0047770c->markers[i].ratio = 0.0f;
-            data_0047770c->markers[i].value = 0;
+            g_front->markers[i].ratio = 0.0f;
+            g_front->markers[i].value = 0;
         }
         f13c8 = life;
         return 0;
@@ -469,11 +469,11 @@ int Enemy::Execute_0040e770() {
     case 0x14c: {
         int index = IOP(0);
         if (index < 0) {
-            if (flags & 0x8000) data_00477704->boss[boss_index] = 0;
+            if (flags & 0x8000) g_enemy_ctrl->boss[boss_index] = 0;
             flags &= ~0x8000u;
         } else {
             flags |= 0x8000;
-            data_00477704->boss[index] = ecl;
+            g_enemy_ctrl->boss[index] = ecl;
             boss_index = index;
         }
         return 0;
@@ -485,7 +485,7 @@ int Enemy::Execute_0040e770() {
         timer_1430.Set_00405410(IOP(0));
         return 0;
     case 0x159:
-        EnemyManager_SweepDeaths_0040e6a0(data_00477704);
+        EnemyCtrl_SweepDeaths_0040e6a0(g_enemy_ctrl);
         return 0;
     case 0x163:
         switch (g_difficulty_00474c74) {
@@ -735,19 +735,19 @@ int Enemy::Execute_0040e770() {
         data_00492590.QueuePan_0043dd10(IOP(0), position.x);
         return 0;
     case 0x151:
-        CreateScreenEffect_0043c8b0(0x31, 1, IOP(0), IOP(1), IOP(2), 0);
+        Screen_Create(0x31, 1, IOP(0), IOP(1), IOP(2), 0);
         return 0;
     case 0x152:
-        data_0047770c->CreateScoreDisplay_00415db0(IOP(0));
+        g_front->CreateScoreDisplay_00415db0(IOP(0));
         data_004776f0->Sweep_00408210(0);
         g_laser_manager->Cleanup_0041c850(0);
-        EnemyManager_SweepDeaths_0040e6a0(data_00477704);
+        EnemyCtrl_SweepDeaths_0040e6a0(g_enemy_ctrl);
         return 0;
     case 0x153:
-        if (data_0047770c->message != 0 && data_0047770c->message->f78 == 0) return -1;
+        if (g_front->message != 0 && g_front->message->f78 == 0) return -1;
         break;
     case 0x154:
-        if (data_00477704->boss[0] != 0) return -1;
+        if (g_enemy_ctrl->boss[0] != 0) return -1;
         break;
     case 0x156:
     case 0x15c:
@@ -970,7 +970,7 @@ int Enemy::Execute_0040e770() {
         return 0;
     }
     case 0x168:
-        data_0047770c->f9e90 = IntArg_00412a00(0);
+        g_front->f9e90 = IntArg_00412a00(0);
         return 0;
     case 0x16d:
         g_laser_manager->MarkEligible_0041c7d0();

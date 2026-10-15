@@ -1,11 +1,11 @@
 // Unselected native ABI anchor from src/core/sprtlib/fun_00447810_00447810.cpp.
 // Only the placement section differs.
-class AnimationManager {
+class SprtCtrl {
 public:
     void MarkResourceForRemoval(void* resource);
 };
 
-extern "C" AnimationManager* data_00491c10;
+extern "C" SprtCtrl* g_sprt_ctrl;
 
 // CRT free, the entry at 0x00452422 (0x004524A1 is the five-byte jump to it).
 extern "C" void __cdecl entry_free_00452422(void* memory);
@@ -42,7 +42,7 @@ struct AnimationResource_00447810 {
 void AnimationResource_00447810::Release() {
     if (resource_108 == 0)
         return;
-    data_00491c10->MarkResourceForRemoval(this);
+    g_sprt_ctrl->MarkResourceForRemoval(this);
     for (int index = 0; index < entry_count_10c; ++index) {
         AnimationResourceEntry_00447810* entry = &entries_120[index];
         if (entry->handle != 0) {

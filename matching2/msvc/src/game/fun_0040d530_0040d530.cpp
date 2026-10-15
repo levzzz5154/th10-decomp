@@ -1,4 +1,4 @@
-// 0x0040D530..0x0040D65B (300 bytes): EnemyManager_Destroy
+// 0x0040D530..0x0040D65B (300 bytes): EnemyCtrl_Destroy
 //
 // Runs the manager's list release, unregisters both scheduler nodes, frees the
 // per-difficulty block array, releases the four animation slots the manager
@@ -9,16 +9,16 @@
 // the manager itself, ESI for the node/record under work, EBX for the
 // scheduler and the animation manager, EBP for the cached import pointer).
 #include <stddef.h>
-#include "th10/game/scheduler.hpp"
+#include "th10/core/func_ctrl.hpp"
 #include "th10/platform/thread_sync.hpp"
 
-extern "C" Scheduler *data_00491be4;
-extern "C" void *data_00477704;
+extern "C" FuncCtrl *g_func_ctrl;
+extern "C" void *g_enemy_ctrl;
 extern "C" unsigned char data_00474ca0;
 
 extern "C" void __cdecl entry_free_004524a1(void *memory);
 extern "C" void __cdecl entry_free_00452422(void *memory);
-extern "C" void __stdcall EnemyManager_ReleaseLists_00409f90(void *manager);
+extern "C" void __stdcall EnemyCtrl_ReleaseLists_00409f90(void *manager);
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
 
@@ -37,30 +37,30 @@ public:
 
 
 
-extern "C" AnimationManager *data_00491c10;
+extern "C" SprtCtrl *g_sprt_ctrl;
 
-#include "th10/game/enemy_manager_factory_0040d6b0.hpp"
+#include "th10/game/enemy_ctrl.hpp"
 
 #pragma code_seg(".text$02b")
-void EnemyManager_0040d530::Destroy() {
-    EnemyManager_ReleaseLists_00409f90(this);
+void EnemyCtrl::Destroy() {
+    EnemyCtrl_ReleaseLists_00409f90(this);
 
     SchedulerTask *task = node_008;
-    Scheduler *scheduler = data_00491be4;
+    FuncCtrl *scheduler = g_func_ctrl;
     if (task) {
         EnterCriticalSection(&g_thread_synchronization.critical_sections[0]);
         ++g_thread_synchronization.scheduler_lock_depth;
-        Scheduler_Remove(scheduler, task);
+        FuncCtrl_Remove(scheduler, task);
         LeaveCriticalSection(&g_thread_synchronization.critical_sections[0]);
         --g_thread_synchronization.scheduler_lock_depth;
     }
 
     task = node_00C;
-    scheduler = data_00491be4;
+    scheduler = g_func_ctrl;
     if (task) {
         EnterCriticalSection(&g_thread_synchronization.critical_sections[0]);
         ++g_thread_synchronization.scheduler_lock_depth;
-        Scheduler_Remove(scheduler, task);
+        FuncCtrl_Remove(scheduler, task);
         LeaveCriticalSection(&g_thread_synchronization.critical_sections[0]);
         --g_thread_synchronization.scheduler_lock_depth;
     }
@@ -87,7 +87,7 @@ void EnemyManager_0040d530::Destroy() {
             if ((unsigned int)index >= 0x21u)
                 continue;
             AnimationResource_00447810 **slot =
-                &((AnimationManager_004477d0 *)data_00491c10)->slots_3ad06c[index];
+                &((AnimationManager_004477d0 *)g_sprt_ctrl)->slots_3ad06c[index];
             if (*slot == 0)
                 continue;
             (*slot)->Release();
@@ -96,6 +96,6 @@ void EnemyManager_0040d530::Destroy() {
         }
     }
 
-    data_00477704 = 0;
+    g_enemy_ctrl = 0;
 }
 #pragma code_seg()

@@ -31,7 +31,7 @@ int ScoreTable_00421fa0::InsertScore() {
     time_00452b71(&records[data_00474c44.difficulty][rank].time);
     strcpy(records[data_00474c44.difficulty][rank].name, "        ");
     records[data_00474c44.difficulty][rank].slow_rate =
-        100.0f - (float)(data_00477708->slow_frames / data_00477708->frames) * 100.0f;
+        100.0f - (float)(g_fps->slow_frames / g_fps->frames) * 100.0f;
     return rank;
 }
 #pragma code_seg()

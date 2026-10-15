@@ -3,7 +3,7 @@
 #include "th10/game/title_menu.hpp"
 #include "th10/platform/sound_queue.hpp"
 
-extern "C" void* data_00491c10;
+extern "C" void* g_sprt_ctrl;
 extern "C" unsigned int data_00474e36;
 __declspec(noinline) void __stdcall RecoveryMusicInstallSlot_0042c670(
     Title* room, int index);

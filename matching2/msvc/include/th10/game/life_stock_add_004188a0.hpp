@@ -32,7 +32,7 @@ struct AnimationLists_004188a0 {
     __declspec(noinline) AnimationNode_004188a0* MarkForRemoval(AnimationHandle_004188a0 handle);
 };
 
-extern "C" AnimationLists_004188a0* data_00491c10;
+extern "C" AnimationLists_004188a0* g_sprt_ctrl;
 
 // 0x00448D00: start script `index` of a resource as a new animation at the
 // back of the primary list; the handle is written to `out` and returned.
@@ -58,7 +58,7 @@ struct AnimationManager_00413790 {
     __declspec(noinline) void SetActiveCount(int count);
 };
 
-extern "C" AnimationManager_00413790* data_0047770c;
+extern "C" AnimationManager_00413790* g_front;
 
 // The run's counters; the power sits at +0x08 and the life stock at +0x30.
 struct RunCounters_004188a0 {

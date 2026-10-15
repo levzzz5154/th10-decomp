@@ -63,7 +63,7 @@ struct AnimationLists {
 // The lookup walk the retail body inlines at every user.
 __forceinline AnimationTreeNode* FindTree(unsigned int handle) {
     if (handle == 0) return 0;
-    AnimationLists* lists = (AnimationLists*)data_00491c10;
+    AnimationLists* lists = (AnimationLists*)g_sprt_ctrl;
     for (AnimationListNode* node = lists->primary_head; node != 0; node = node->next)
         if (*(int*)node->object == (int)handle)
             return (AnimationTreeNode*)node->object;
@@ -127,12 +127,12 @@ __forceinline void FlagTreeFlags(unsigned int handle) {
 }
 
 // Register one fresh object and return its new handle.
-inline unsigned int RegisterFreshObject(Entity* object, FrontHudRuntime* front) {
+inline unsigned int RegisterFreshObject(Entity* object, FrontUpdateView* front) {
     AnimationListNode* node = (AnimationListNode*)&object->manager_node_animation;
     node->object = object;
     node->next = 0;
     node->previous = 0;
-    AnimationLists* lists = (AnimationLists*)data_00491c10;
+    AnimationLists* lists = (AnimationLists*)g_sprt_ctrl;
     if (lists->primary_head == 0) {
         lists->primary_head = node;
     } else {
@@ -160,7 +160,7 @@ inline unsigned int RegisterFreshObject(Entity* object, FrontHudRuntime* front) 
 
 #pragma code_seg(".text$00414900_fn")
 __declspec(noinline) int __stdcall FrontHudUpdate_00414900(
-    FrontHudRuntime* front) {
+    FrontUpdateView* front) {
     if (front->flags_9eb4 & 0x10) {
         if (++front->banner_timer_9ecc >= 0x78) {
             unsigned int gate = *(unsigned int*)&data_00491ff4;
@@ -168,21 +168,21 @@ __declspec(noinline) int __stdcall FrontHudUpdate_00414900(
         }
     }
     {
-        FrontHudRuntime::BankObject* vm = front->objects;
+        FrontUpdateView::BankObject* vm = front->objects;
         for (int n = 9; n != 0; --n) {
             AnmVm_Run_0043ee30(vm);
             vm += 1;
         }
     }
     {
-        FrontHudRuntime::BankObject* vm = &front->objects[9];
+        FrontUpdateView::BankObject* vm = &front->objects[9];
         for (int n = 4; n != 0; --n) {
             AnmVm_Run_0043ee30(vm);
             vm += 1;
         }
     }
     {
-        FrontHudRuntime::BankObject* vm = &front->objects[13];
+        FrontUpdateView::BankObject* vm = &front->objects[13];
         for (int n = 2; n != 0; --n) {
             AnmVm_Run_0043ee30(vm);
             vm += 1;
@@ -192,7 +192,7 @@ __declspec(noinline) int __stdcall FrontHudUpdate_00414900(
         Player* play = g_player;
         if (play != 0 && play->position.y > data_00470bdc &&
             play->position.x < data_00470d10) {
-            FrontHudRuntime::BankObject* obj = &front->objects[15];
+            FrontUpdateView::BankObject* obj = &front->objects[15];
             for (int n = 7; n != 0; --n) {
                 obj->stop_frame = 3;
                 obj += 1;
@@ -203,7 +203,7 @@ __declspec(noinline) int __stdcall FrontHudUpdate_00414900(
         Player* play = g_player;
         if (play != 0 &&
             (play->position.y < data_00470d08 || data_00470d00 < play->position.x)) {
-            FrontHudRuntime::BankObject* obj = &front->objects[15];
+            FrontUpdateView::BankObject* obj = &front->objects[15];
             for (int n = 7; n != 0; --n) {
                 obj->stop_frame = 2;
                 obj += 1;
@@ -215,7 +215,7 @@ __declspec(noinline) int __stdcall FrontHudUpdate_00414900(
         int value = data_00474c4c;
         int divisor = 10000;
         AnmVm_Run_0043ee30(&front->objects[15]);
-        FrontHudRuntime::BankObject* obj = &front->objects[16];
+        FrontUpdateView::BankObject* obj = &front->objects[16];
         for (int n = 5; n != 0; --n) {
             int digit = value / divisor;
             value = value % divisor;
@@ -228,7 +228,7 @@ __declspec(noinline) int __stdcall FrontHudUpdate_00414900(
     }
     AnmVm_Run_0043ee30(&front->objects[21]);
 
-    SequenceRecord_00477704* seq = (SequenceRecord_00477704*)data_00477704;
+    SequenceRecord_00477704* seq = (SequenceRecord_00477704*)g_enemy_ctrl;
     if (seq && seq->field_10 && !front->sequence_9eb8) {
         ScriptBody* body = (ScriptBody*)seq->field_10;
         int gauge_value = body->gauge_value_23fc;
@@ -303,7 +303,7 @@ __declspec(noinline) int __stdcall FrontHudUpdate_00414900(
                 break;
             }
             {
-                AnimationPool* pool = (AnimationPool*)data_00491c10;
+                AnimationPool* pool = (AnimationPool*)g_sprt_ctrl;
                 Entity* object = pool->Allocate();
                 unsigned int flags = object->flags_35C;
                 object->flags_35C = flags | 0x40000000u;
@@ -333,7 +333,7 @@ __declspec(noinline) int __stdcall FrontHudUpdate_00414900(
         for (int i = 0; i < 10; ++i) {
             int* slot = &front->boss_ids_9e28[i];
             if (i < count && *slot == 0) {
-                AnimationPool* pool = (AnimationPool*)data_00491c10;
+                AnimationPool* pool = (AnimationPool*)g_sprt_ctrl;
                 Entity* object = pool->Allocate();
                 unsigned int flags = object->flags_35C;
                 object->flags_35C = flags | 0x40000000u;
@@ -381,7 +381,7 @@ __declspec(noinline) int __stdcall FrontHudUpdate_00414900(
         }
     }
 
-    seq = (SequenceRecord_00477704*)data_00477704;
+    seq = (SequenceRecord_00477704*)g_enemy_ctrl;
     if (seq != 0) {
         int position = front->script_pos_9ec0;
         if (position >= 0) {

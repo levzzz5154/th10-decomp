@@ -21,14 +21,14 @@ struct GameFlags { unsigned char unknown_00[0x54]; signed char flags; };
 struct PauseState { unsigned char unknown_00[0x10]; int paused; };
 struct EnemyState { unsigned char unknown_0000[0x9eb8]; int active; };
 struct DialogState { int unknown_00; int active; };
-extern "C" GameFlags* data_00477810;
-extern "C" PauseState* data_00477704;
-extern "C" EnemyState* data_0047770c;
+extern "C" GameFlags* g_game;
+extern "C" PauseState* g_enemy_ctrl;
+extern "C" EnemyState* g_front;
 extern "C" DialogState* g_pause;
 extern "C" int data_00474c58;
 extern "C" __declspec(noinline) double __stdcall FloorPixelCoordinate(float);
 extern "C" __declspec(noinline) int __cdecl asm_FUN_004451c0_004451c0(
-    AnimationManager_00442F50*, RenderEntity*);
+    SprtCtrlBatchView*, RenderEntity*);
 
 // Copy coordinates in order so source and destination may alias.
 inline void CopyRenderPosition(RenderVec3& to, const RenderVec3& from, float dx, float dy) {
@@ -40,13 +40,13 @@ inline void CopyRenderPosition(RenderVec3& to, const RenderVec3& from, float dx,
 int PlayerRenderState::Draw() {
     if (state != 2) {
         CopyRenderPosition(sprite.position, position, 224.0f, 16.0f);
-        asm_FUN_004451c0_004451c0(data_00491c10, &sprite);
+        asm_FUN_004451c0_004451c0(g_sprt_ctrl, &sprite);
         for (int index = 0; index < 4; ++index) {
             if (options[index].draw) options[index].draw(&options[index]);
         }
-        if (data_00477810 && (data_00477810->flags & 0x80) && data_00477704 &&
-            data_0047770c && data_00477704->paused == 0 &&
-            data_0047770c->active == 0 && g_pause->active == 0 &&
+        if (g_game && (g_game->flags & 0x80) && g_enemy_ctrl &&
+            g_front && g_enemy_ctrl->paused == 0 &&
+            g_front->active == 0 && g_pause->active == 0 &&
             data_00474c58 != 0) {
             int power = data_00474c58;
             ScreenRect rect;

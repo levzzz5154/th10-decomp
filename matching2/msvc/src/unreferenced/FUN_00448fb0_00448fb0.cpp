@@ -42,7 +42,7 @@ struct AnimationObject_00448fb0 {
     unsigned int flags_035c;                        // +0x35C
 };
 
-extern "C" void* data_00491c10;
+extern "C" void* g_sprt_ctrl;
 extern "C" void* __cdecl asm_FUN_00449950_00449950(void* manager);
 extern "C" void __cdecl asm_AnimationObject_LoadScript_0043e710(
     void* resource, void* object, int index);
@@ -58,12 +58,12 @@ __declspec(noinline)
 void** __stdcall AnimationManager_CreatePositionedSecondaryBack_00448fb0(
     void* resource, void** out, int index, const AnimationPosition_00448fb0* position) {
     AnimationObject_00448fb0* object =
-        (AnimationObject_00448fb0*)asm_FUN_00449950_00449950(data_00491c10);
+        (AnimationObject_00448fb0*)asm_FUN_00449950_00449950(g_sprt_ctrl);
     object->flags_035c |= 0x40000000u;
     object->render_bucket_020 = 0;
     object->position_340 = *position;
     asm_AnimationObject_LoadScript_0043e710(resource, object, index);
-    asm_AnimationManager_RegisterSecondaryBack_00448ac0(data_00491c10, out, object);
+    asm_AnimationManager_RegisterSecondaryBack_00448ac0(g_sprt_ctrl, out, object);
     return out;
 }
 #pragma code_seg()

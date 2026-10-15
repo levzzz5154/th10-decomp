@@ -5,7 +5,7 @@
   "driver": "layout/ltcg/replay_manager_teardown_004294a0/context.cpp",
   "headers": [
     "include/th10/game/replay_manager_create_004296f0.hpp",
-    "include/th10/game/scheduler.hpp",
+    "include/th10/core/func_ctrl.hpp",
     "include/th10/platform/thread_sync.hpp",
     "include/th10/game/replay_pool_append_0042aa50.hpp"
   ],
@@ -117,7 +117,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00491be4",
+      "symbol": "_g_func_ctrl",
       "address": "0x00491BE4",
       "kind": "data"
     },
@@ -156,7 +156,7 @@
     },
     {
       "name": "ActualSchedulerRemove",
-      "symbol": "?ManagerTeardownScheduler_Remove_00449F60@@YGXPAUScheduler@@PAUSchedulerTask@@@Z",
+      "symbol": "?ManagerTeardownFuncCtrl_Remove_00449F60@@YGXPAUFuncCtrl@@PAUSchedulerTask@@@Z",
       "section": ".text$70remove",
       "address": "0x00449F60",
       "size": 114

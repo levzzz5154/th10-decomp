@@ -8,7 +8,7 @@
 #include "../../../src/game/ending/animation_resource_lazy_fetch.cpp"
 
 // Bindings for everything the models below call.
-extern "C" void* data_00491c10;
+extern "C" void* g_sprt_ctrl;
 extern "C" void* __cdecl operator_new_00452493(unsigned int size);
 extern "C" void* __cdecl Entity_Constructor_00402050(void* entity);
 extern "C" void __cdecl Entity_Init_00401de0(void* unused, void* entity);
@@ -84,7 +84,7 @@ extern "C" __declspec(noinline) void __cdecl asm_AnimationObject_LoadScript_0043
     *(int*)(obj + 0x5C) = -1;
     *(int*)(obj + 0x35C) = *(int*)(obj + 0x35C) & ~1;
     asm_AnimationObject_LoadScriptTail_0043ee30(obj);
-    unsigned char* manager = (unsigned char*)data_00491c10;
+    unsigned char* manager = (unsigned char*)g_sprt_ctrl;
     *(int*)(manager + 0x4C) = *(int*)(manager + 0x4C) + 1;
 }
 #pragma code_seg()
@@ -153,23 +153,23 @@ void** __stdcall AnimationManager_CreatePositionedPrimary_00448d50(
     void* resource, void** out, int index,
     const AnimationPosition_00448d50* position) {
     AnimationObject_00448d50* object =
-        (AnimationObject_00448d50*)asm_FUN_00449950_00449950(data_00491c10);
+        (AnimationObject_00448d50*)asm_FUN_00449950_00449950(g_sprt_ctrl);
     object->flags_035c |= 0x40000000u;
     object->render_bucket_020 = 0;
     object->position_340 = *position;
     asm_AnimationObject_LoadScript_0043e710(resource, object, index);
-    asm_AnimationManager_RegisterPrimaryBack_004489d0(data_00491c10, out, object);
+    asm_AnimationManager_RegisterPrimaryBack_004489d0(g_sprt_ctrl, out, object);
     return out;
 }
 #pragma code_seg()
 
 #pragma code_seg(".text$8context")
-struct ManagerState_00417c80;
-extern "C" void __stdcall ReleaseGlobalManager_00417c80(ManagerState_00417c80* state);
+struct Game;
+extern "C" void __stdcall Game_Destroy(Game* state);
 
 extern "C" int __stdcall ManagerReleaseContext_00417c80(void** states, int count) {
     for (int index = 0; index < count; ++index)
-        ReleaseGlobalManager_00417c80((ManagerState_00417c80*)states[index]);
+        Game_Destroy((Game*)states[index]);
     return 0;
 }
 #pragma code_seg()

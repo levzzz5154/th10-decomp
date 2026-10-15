@@ -169,7 +169,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00428f60_00428f60() {
     L_0042905a:
         mov dword ptr [edx+58h],ecx
     L_0042905d:
-        mov ecx,dword ptr [data_00477810]
+        mov ecx,dword ptr [g_game]
     L_00429063:
         cmp ecx,ebp
     L_00429065:
@@ -289,7 +289,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00428f60_00428f60() {
     L_0042913f:
         mov ecx,dword ptr [esi+4]
     L_00429142:
-        mov edx,dword ptr [data_00491be4]
+        mov edx,dword ptr [g_func_ctrl]
     L_00429148:
         and ecx,0FFFFFFFDh
     L_0042914b:
@@ -309,7 +309,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00428f60_00428f60() {
     L_00429164:
         mov dword ptr [esi+4],ecx
     L_00429167:
-        call asm_Scheduler_RegisterPrimary_00449ae0
+        call asm_FuncCtrl_RegisterPrimary_00449ae0
     L_0042916c:
         push 24h
     L_0042916e:
@@ -351,7 +351,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00428f60_00428f60() {
     L_004291a0:
         mov eax,dword ptr [esi+4]
     L_004291a3:
-        mov ecx,dword ptr [data_00491be4]
+        mov ecx,dword ptr [g_func_ctrl]
     L_004291a9:
         and eax,0FFFFFFFDh
     L_004291ac:
@@ -371,7 +371,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00428f60_00428f60() {
     L_004291c5:
         mov dword ptr [esi+4],eax
     L_004291c8:
-        call asm_Scheduler_RegisterPrimary_00449ae0
+        call asm_FuncCtrl_RegisterPrimary_00449ae0
     L_004291cd:
         push 24h
     L_004291cf:
@@ -413,7 +413,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00428f60_00428f60() {
     L_00429204:
         mov edx,dword ptr [esi+4]
     L_00429207:
-        mov eax,dword ptr [data_00491be4]
+        mov eax,dword ptr [g_func_ctrl]
     L_0042920c:
         and edx,0FFFFFFFDh
     L_0042920f:
@@ -433,7 +433,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00428f60_00428f60() {
     L_00429228:
         mov dword ptr [esi+4],edx
     L_0042922b:
-        call asm_Scheduler_RegisterSecondary_00449b70
+        call asm_FuncCtrl_RegisterSecondary_00449b70
     L_00429230:
         mov dword ptr [ebx+0Ch],esi
     L_00429233:
@@ -469,7 +469,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00428f60_00428f60() {
     L_00429264:
         mov esi,dword ptr [ebx+18h]
     L_00429267:
-        mov edi,dword ptr [data_00477810]
+        mov edi,dword ptr [g_game]
     L_0042926d:
         add esi,14h
     L_00429270:
@@ -609,7 +609,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00428f60_00428f60() {
     L_0042937c:
         mov edx,dword ptr [esi+4]
     L_0042937f:
-        mov eax,dword ptr [data_00491be4]
+        mov eax,dword ptr [g_func_ctrl]
     L_00429384:
         and edx,0FFFFFFFDh
     L_00429387:
@@ -629,7 +629,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00428f60_00428f60() {
     L_004293a0:
         mov dword ptr [esi+4],edx
     L_004293a3:
-        call asm_Scheduler_RegisterPrimary_00449ae0
+        call asm_FuncCtrl_RegisterPrimary_00449ae0
     L_004293a8:
         push 24h
     L_004293aa:
@@ -671,7 +671,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00428f60_00428f60() {
     L_004293dc:
         mov ecx,dword ptr [esi+4]
     L_004293df:
-        mov edx,dword ptr [data_00491be4]
+        mov edx,dword ptr [g_func_ctrl]
     L_004293e5:
         and ecx,0FFFFFFFDh
     L_004293e8:
@@ -691,7 +691,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00428f60_00428f60() {
     L_00429401:
         mov dword ptr [esi+4],ecx
     L_00429404:
-        call asm_Scheduler_RegisterPrimary_00449ae0
+        call asm_FuncCtrl_RegisterPrimary_00449ae0
     L_00429409:
         push 24h
     L_0042940b:
@@ -733,7 +733,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00428f60_00428f60() {
     L_00429440:
         mov eax,dword ptr [esi+4]
     L_00429443:
-        mov ecx,dword ptr [data_00491be4]
+        mov ecx,dword ptr [g_func_ctrl]
     L_00429449:
         and eax,0FFFFFFFDh
     L_0042944c:
@@ -753,7 +753,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00428f60_00428f60() {
     L_00429465:
         mov dword ptr [esi+4],eax
     L_00429468:
-        call asm_Scheduler_RegisterSecondary_00449b70
+        call asm_FuncCtrl_RegisterSecondary_00449b70
     L_0042946d:
         pop edi
     L_0042946e:

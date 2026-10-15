@@ -1,8 +1,8 @@
-#define data_00491c10 stage_spawn_data_00491c10
-#define data_0047770c stage_spawn_data_0047770c
+#define g_sprt_ctrl stage_spawn_g_sprt_ctrl
+#define g_front stage_spawn_g_front
 #define data_00474c40 stage_spawn_data_00474c40
 #define g_ascii_manager stage_spawn_data_004776e0
-#define data_00477704 stage_spawn_data_00477704
+#define g_enemy_ctrl stage_spawn_g_enemy_ctrl
 #define g_player stage_spawn_data_00477834
 #define data_00477838 stage_spawn_data_00477838
 #define data_0047783c stage_spawn_data_0047783c
@@ -25,7 +25,7 @@
 #include <string.h>
 
 #pragma code_seg(".text$0040cfb0_fn")
-Enemy_0040cfb0* EnemySpawn_0040cfb0::Create(EnemyManager_0040cfb0* manager, const char* entry) {
+Enemy_0040cfb0* EnemySpawn_0040cfb0::Create(EnemyCtrlSpawnView* manager, const char* entry) {
     Enemy_0040cfb0* enemy = new Enemy_0040cfb0(entry);
 
     enemy->data.position = position;
@@ -94,11 +94,11 @@ Enemy_0040cfb0* EnemySpawn_0040cfb0::Create(EnemyManager_0040cfb0* manager, cons
     return enemy;
 }
 #pragma code_seg()
-#undef data_00491c10
-#undef data_0047770c
+#undef g_sprt_ctrl
+#undef g_front
 #undef data_00474c40
 #undef g_ascii_manager
-#undef data_00477704
+#undef g_enemy_ctrl
 #undef g_player
 #undef data_00477838
 #undef data_0047783c

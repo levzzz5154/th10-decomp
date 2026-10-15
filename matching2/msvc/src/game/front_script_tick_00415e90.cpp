@@ -27,9 +27,9 @@
 // runtime in ECX and the callback hands it to the update as its single stack
 // argument while preserving the register.
 #pragma code_seg(".text$00415ae0_fn")
-struct FrontHudRuntime;
-__declspec(noinline) int __stdcall FrontHudUpdate_00414900(FrontHudRuntime* front);
+struct FrontUpdateView;
+__declspec(noinline) int __stdcall FrontHudUpdate_00414900(FrontUpdateView* front);
 extern "C" __declspec(noinline) int __fastcall FrontHudCallback_00415ae0(void* state) {
-    return FrontHudUpdate_00414900((FrontHudRuntime*)state);
+    return FrontHudUpdate_00414900((FrontUpdateView*)state);
 }
 #pragma code_seg()

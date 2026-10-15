@@ -1,4 +1,4 @@
-// 0x0043C500: the flash draw task (ScreenEffectController mode 4): a solid
+// 0x0043C500: the flash draw task (Screen mode 4): a solid
 // playfield quad in the flash colour at the current alpha.
 #include "th10/render/quad_batch.hpp"
 #include <stddef.h>

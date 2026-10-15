@@ -30,8 +30,8 @@ int GrowLaser::Update() {
             length = target_length;
     }
     angle = NormalizeAngle_0044bc10(angle, data_00476f78 * angular_velocity);
-    if ((flags & 1u) && data_00477704->target)
-        position = data_00477704->target->position;
+    if ((flags & 1u) && g_enemy_ctrl->target)
+        position = g_enemy_ctrl->target->position;
 
     Point3_OrientedRect delta(data_00476f78 * velocity.x,
         data_00476f78 * velocity.y, data_00476f78 * velocity.z);

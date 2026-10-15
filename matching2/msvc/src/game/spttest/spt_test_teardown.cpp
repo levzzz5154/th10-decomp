@@ -36,20 +36,20 @@ void SptTest_0042be20::ClearScriptNames() {
 SptTest_0042be20::~SptTest_0042be20() {
     ClearScriptNames();
     SchedulerTask* task = update_task;
-    Scheduler* scheduler = static_cast<Scheduler*>(data_00491be4);
+    FuncCtrl* scheduler = static_cast<FuncCtrl*>(g_func_ctrl);
     if (task) {
         EnterCriticalSection(&g_thread_synchronization.critical_sections[0]);
         ++g_thread_synchronization.scheduler_lock_depth;
-        ManagerTeardownScheduler_Remove_00449F60(scheduler, task);
+        ManagerTeardownFuncCtrl_Remove_00449F60(scheduler, task);
         LeaveCriticalSection(&g_thread_synchronization.critical_sections[0]);
         --g_thread_synchronization.scheduler_lock_depth;
     }
     task = draw_task;
-    scheduler = static_cast<Scheduler*>(data_00491be4);
+    scheduler = static_cast<FuncCtrl*>(g_func_ctrl);
     if (task) {
         EnterCriticalSection(&g_thread_synchronization.critical_sections[0]);
         ++g_thread_synchronization.scheduler_lock_depth;
-        ManagerTeardownScheduler_Remove_00449F60(scheduler, task);
+        ManagerTeardownFuncCtrl_Remove_00449F60(scheduler, task);
         LeaveCriticalSection(&g_thread_synchronization.critical_sections[0]);
         --g_thread_synchronization.scheduler_lock_depth;
     }
@@ -65,8 +65,8 @@ SptTest_0042be20::~SptTest_0042be20() {
         resource->Retire(1);
         resource = 0;
     }
-    data_00491c10->Unload(7);
-    data_00491c10->Unload(6);
+    g_sprt_ctrl->Unload(7);
+    g_sprt_ctrl->Unload(6);
     data_00477844 = 0;
 }
 #pragma code_seg()

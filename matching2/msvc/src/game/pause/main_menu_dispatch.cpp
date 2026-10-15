@@ -750,7 +750,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_004236f0_004236f0() {
     L_00423782:
         jl asm_target_00424376
     L_00423788:
-        mov eax,dword ptr [data_0047770c]
+        mov eax,dword ptr [g_front]
     L_0042378d:
         call asm_GameState_UpdateFrameMaximum_00421f60
     L_00423792:
@@ -986,7 +986,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_004236f0_004236f0() {
     L_0042394f:
         call asm_Player_SetSchedulerValue_00405410
     L_00423954:
-        mov eax,dword ptr [data_0047770c]
+        mov eax,dword ptr [g_front]
     L_00423959:
         call asm_GameState_UpdateFrameMaximum_00421f60
     L_0042395e:

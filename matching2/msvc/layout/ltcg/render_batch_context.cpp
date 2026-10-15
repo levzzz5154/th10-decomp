@@ -43,20 +43,20 @@ struct RenderStageState_00439390 {
 };
 
 extern "C" __declspec(noinline) int EntityDrawMirrored_00443480(RenderEntity* entity,
-                                                               AnimationManager_00442F50* manager);
+                                                               SprtCtrlBatchView* manager);
 #pragma code_seg(".text$07context")
 int __stdcall RenderBatchContext(const ScreenRect** rects, const unsigned int* colors, int count,
                                   const RenderEntity** entities, const void** vertices, RenderCamera** cameras) {
     for (int i = 0; i < count; ++i) {
         DrawGradientQuad(rects[i], colors[4*i], colors[4*i+1], colors[4*i+2], colors[4*i+3]);
-        data_00491c10->DrawStrip(entities[i], vertices[i], colors[i]);
-        data_00491c10->DrawQuad(entities[i], (const TexturedVertex*)vertices[i]);
-        data_00491c10->DrawFan(entities[i], vertices[i], colors[i]);
-        data_00491c10->DrawSolidStrip(entities[i], vertices[i], colors[i]);
-        data_00491c10->DrawSolidFan(entities[i], vertices[i], colors[i]);
-        data_00491c10->SubmitSpriteQuad(entities[i], colors[i]);
-        data_00491c10->SubmitSpriteQuadMirrored(entities[i], colors[i]);
-        EntityDrawMirrored_00443480((RenderEntity*)entities[i], data_00491c10);
+        g_sprt_ctrl->DrawStrip(entities[i], vertices[i], colors[i]);
+        g_sprt_ctrl->DrawQuad(entities[i], (const TexturedVertex*)vertices[i]);
+        g_sprt_ctrl->DrawFan(entities[i], vertices[i], colors[i]);
+        g_sprt_ctrl->DrawSolidStrip(entities[i], vertices[i], colors[i]);
+        g_sprt_ctrl->DrawSolidFan(entities[i], vertices[i], colors[i]);
+        g_sprt_ctrl->SubmitSpriteQuad(entities[i], colors[i]);
+        g_sprt_ctrl->SubmitSpriteQuadMirrored(entities[i], colors[i]);
+        EntityDrawMirrored_00443480((RenderEntity*)entities[i], g_sprt_ctrl);
         cameras[i]->Apply();
         cameras[i]->ApplyDefault();
         GameFrameAdvance_00439390(&data_004924f0);
@@ -75,7 +75,7 @@ int __stdcall RenderBatchContext(const ScreenRect** rects, const unsigned int* c
 extern "C" void __cdecl entry_free_004524a1(void* memory);
 
 #pragma code_seg(".text$06b01anchor")
-extern "C" __declspec(noinline) int EntityDraw_00443080(RenderEntity* entity, AnimationManager_00442F50* manager) {
+extern "C" __declspec(noinline) int EntityDraw_00443080(RenderEntity* entity, SprtCtrlBatchView* manager) {
     int a = (int)entity->flags;
     int b = (int)entity->strip_count;
     entry_free_004524a1(entity);
@@ -119,7 +119,7 @@ int ProjectedEntity_00444240::ProjectQuad(ProjectionManager_00444240* manager) {
 #pragma code_seg()
 
 #pragma code_seg(".text$06b08anchor")
-extern "C" __declspec(noinline) int FadedQuadDraw_004445c0(AnimationManager_00442F50* manager, RenderEntity* entity) {
+extern "C" __declspec(noinline) int FadedQuadDraw_004445c0(SprtCtrlBatchView* manager, RenderEntity* entity) {
     entry_free_004524a1((void*)1);
     entry_free_004524a1(entity);
     entry_free_004524a1(manager);
@@ -130,7 +130,7 @@ extern "C" __declspec(noinline) int FadedQuadDraw_004445c0(AnimationManager_0044
 
 #pragma code_seg(".text$04ap")
 extern "C" __declspec(noinline) void SyncRenderState_004423e0(
-        AnimationManager_00442F50* manager, RenderEntity* entity) {
+        SprtCtrlBatchView* manager, RenderEntity* entity) {
     int a = (int)entity->flags;
     entry_free_004524a1((void*)1);
     if (manager->quad_count) manager->Flush();

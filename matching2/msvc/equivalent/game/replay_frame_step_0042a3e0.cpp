@@ -1,6 +1,6 @@
 // Replay frame-step callback, 0x0042A3E0. Receiver in ECX, result in EAX.
 #include <stddef.h>
-extern "C" unsigned char data_00477810;
+extern "C" unsigned char g_game;
 extern "C" unsigned int data_00474e30;
 struct ReplayScene {
     unsigned char reserved000[0x58];
@@ -17,7 +17,7 @@ typedef char ReplayFrameStep_state_offset[offsetof(ReplayFrameStep, state) == 0x
 typedef char ReplayFrameStep_frame_offset[offsetof(ReplayFrameStep, frame) == 0x1c8 ? 1 : -1];
 typedef char ReplayScene_flags_offset[offsetof(ReplayScene, flags) == 0x58 ? 1 : -1];
 int ReplayFrameStep::Check() {
-    ReplayScene* scene = (ReplayScene*)*(void**)&data_00477810;
+    ReplayScene* scene = (ReplayScene*)*(void**)&g_game;
     if (scene) {
         int result = 1;
         if ((scene->flags & 4) != 0) return result;

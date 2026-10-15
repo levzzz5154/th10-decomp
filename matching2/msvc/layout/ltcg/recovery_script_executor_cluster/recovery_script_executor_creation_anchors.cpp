@@ -2,7 +2,7 @@
 struct AnimationPosition_00448d50 { float x, y, z; };
 
 // Bindings for everything the anchors below call.
-extern "C" void* data_00491c10;
+extern "C" void* g_sprt_ctrl;
 extern "C" void* __cdecl operator_new_00452493(unsigned int size);
 extern "C" void* __cdecl Entity_Constructor_00402050(void* entity);
 extern "C" void __cdecl Entity_Init_00401de0(void* unused, void* entity);

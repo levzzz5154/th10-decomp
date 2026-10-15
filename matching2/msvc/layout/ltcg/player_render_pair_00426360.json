@@ -49,7 +49,7 @@
     },
     {
       "name": "Flush_complete_genuine_helper",
-      "symbol": "?Flush@AnimationManager_00442F50@@QAEHXZ",
+      "symbol": "?Flush@SprtCtrlBatchView@@QAEHXZ",
       "section": ".text$05flush",
       "address": "0x00442F50",
       "size": 133
@@ -92,17 +92,17 @@
   "constants": [],
   "absolute_symbols": [
     {
-      "symbol": "_data_00477810",
+      "symbol": "_g_game",
       "address": "0x477810",
       "kind": "data"
     },
     {
-      "symbol": "_data_00477704",
+      "symbol": "_g_enemy_ctrl",
       "address": "0x477704",
       "kind": "data"
     },
     {
-      "symbol": "_data_0047770c",
+      "symbol": "_g_front",
       "address": "0x47770c",
       "kind": "data"
     },
@@ -117,7 +117,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00491c10",
+      "symbol": "_g_sprt_ctrl",
       "address": "0x491c10",
       "kind": "data"
     },
@@ -177,12 +177,12 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "?SubmitProjectedQuad@RenderEntity@@QAEHPAUAnimationManager_00442F50@@@Z",
+      "symbol": "?SubmitProjectedQuad@RenderEntity@@QAEHPAUSprtCtrlBatchView@@@Z",
       "address": "0x443f80",
       "kind": "relative_code"
     },
     {
-      "symbol": "?DrawStrip@AnimationManager_00442F50@@QAEHPBURenderEntity@@PBXI@Z",
+      "symbol": "?DrawStrip@SprtCtrlBatchView@@QAEHPBURenderEntity@@PBXI@Z",
       "address": "0x444ce0",
       "kind": "relative_code"
     }

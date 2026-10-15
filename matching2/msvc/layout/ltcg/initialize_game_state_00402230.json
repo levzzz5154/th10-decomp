@@ -4,7 +4,7 @@
   "source": "src/game/background/background_initialize.cpp",
   "driver": "layout/ltcg/initialize_game_state_00402230_context.cpp",
   "headers": [
-    "include/th10/game/scheduler.hpp",
+    "include/th10/core/func_ctrl.hpp",
     "include/th10/game/background.hpp",
     "include/th10/render/camera_batch.hpp",
     "include/th10/render/quad_batch.hpp",
@@ -36,14 +36,14 @@
     },
     {
       "name": "RegisterPrimary",
-      "symbol": "_Scheduler_RegisterPrimary@12",
+      "symbol": "_FuncCtrl_RegisterPrimary@12",
       "section": ".text$08primary",
       "address": "0x00449AE0",
       "size": 131
     },
     {
       "name": "RegisterSecondary",
-      "symbol": "_Scheduler_RegisterSecondary@12",
+      "symbol": "_FuncCtrl_RegisterSecondary@12",
       "section": ".text$09secondary",
       "address": "0x00449B70",
       "size": 131
@@ -123,7 +123,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00491be4",
+      "symbol": "_g_func_ctrl",
       "address": "0x491be4",
       "kind": "data"
     },
@@ -178,7 +178,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00491c10",
+      "symbol": "_g_sprt_ctrl",
       "address": "0x491c10",
       "kind": "data"
     },

@@ -1,11 +1,11 @@
 // Complete helper bodies let native LTCG derive their private register ABIs.
 #include "../../../src/game/player/player_die.cpp"
 #include "set_active_count.cpp"
-#define data_00491c10 g_timeout_load_manager
+#define g_sprt_ctrl g_timeout_load_manager
 #define code_seg(name) code_seg(".text$0043e710_fn")
 #include "../../../src/core/sprtanim/animation_object_load_script_0043e710.cpp"
 #undef code_seg
-#undef data_00491c10
+#undef g_sprt_ctrl
 #pragma code_seg()
 #define code_seg(name) code_seg(".text$0041a120_fn")
 #include "../../../src/game/hint/hint_data_create.cpp"

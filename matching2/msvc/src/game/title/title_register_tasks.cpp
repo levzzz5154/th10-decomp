@@ -5,7 +5,7 @@
 // Native LTCG passes the title state in EBX, so this is compiled in the same
 // link as the scheduler registration functions and the text log it calls
 // (layout/ltcg/bullet_manager_load_scripts_0040ae70.json).
-#include "th10/game/scheduler.hpp"
+#include "th10/core/func_ctrl.hpp"
 
 struct Title {
     unsigned char pad_000[0x0C];
@@ -28,8 +28,8 @@ struct TextLog_0044b810 {
 extern "C" void *__fastcall Recovery_LoadCachedResource_00447280(
         int id, void *cache, const char *name);
 extern "C" SchedulerTask *__stdcall SchedulerCallback_Create_00449ed0(void *callback);
-extern "C" void *data_00491c10;
-extern "C" Scheduler *data_00491be4;
+extern "C" void *g_sprt_ctrl;
+extern "C" FuncCtrl *g_func_ctrl;
 extern "C" int data_004918a4;
 
 #pragma code_seg(".text$00hbstartupzmzt")
@@ -38,23 +38,23 @@ Title_RegisterTasks(Title *title) {
     SchedulerTask *task = SchedulerCallback_Create_00449ed0((void *)0x42D2E0);
     task->reserved_flags &= ~1u;
     task->context = title;
-    Scheduler_RegisterPrimary(data_00491be4, task, 6);
+    FuncCtrl_RegisterPrimary(g_func_ctrl, task, 6);
     title->update_task = task;
 
     task = SchedulerCallback_Create_00449ed0((void *)0x42D2F0);
     task->context = title;
     task->reserved_flags &= ~1u;
-    Scheduler_RegisterSecondary(data_00491be4, task, 3);
+    FuncCtrl_RegisterSecondary(g_func_ctrl, task, 3);
     title->draw_task = task;
 
     title->title_resource = Recovery_LoadCachedResource_00447280(
-            0x19, data_00491c10, "title.anm");
+            0x19, g_sprt_ctrl, "title.anm");
     if (!title->title_resource) {
         ((TextLog_0044b810 *)0x474F70)->Append((char *)0x46CB68);
         return -1;
     }
     title->title_v_resource = Recovery_LoadCachedResource_00447280(
-            0x1A, data_00491c10, "title_v.anm");
+            0x1A, g_sprt_ctrl, "title_v.anm");
     if (!title->title_v_resource) {
         ((TextLog_0044b810 *)0x474F70)->Append((char *)0x46CB68);
         return -1;

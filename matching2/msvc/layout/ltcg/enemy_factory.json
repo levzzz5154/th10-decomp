@@ -1,29 +1,29 @@
 {
   "schema_version": 2,
   "name": "enemy_factory",
-  "source": "src/game/enemy_manager_create_retail_0040d6b0.cpp",
+  "source": "src/game/enemy/enemy_ctrl_create.cpp",
   "headers": [
-    "include/th10/game/scheduler.hpp",
+    "include/th10/core/func_ctrl.hpp",
     "include/th10/platform/thread_sync.hpp",
     "include/th10/render/animation_resource_removal.hpp",
     "include/th10/game/menu_cursor.hpp",
-    "include/th10/game/enemy_manager_factory_0040d6b0.hpp",
+    "include/th10/game/enemy_ctrl.hpp",
     "include/th10/game/enemy_manager_dependencies_0040d530.hpp",
     "include/th10/game/startup_managers_0040a350.hpp"
   ],
   "image_base": "0x00400000",
   "functions": [
     {
-      "name": "EnemyManager_CreateRetail",
-      "symbol": "_EnemyManager_CreateRetail_0040d6b0@4",
+      "name": "EnemyCtrl_CreateRetail",
+      "symbol": "_EnemyCtrl_Create@4",
       "address": "0x0040D6B0",
       "size": 95,
       "section": ".text$04b",
       "actual_abi": "one script argument on stack, RET4, EAX result; manager EBX"
     },
     {
-      "name": "EnemyManager_Destroy",
-      "symbol": "?Destroy@EnemyManager_0040d530@@QAEXXZ",
+      "name": "EnemyCtrl_Destroy",
+      "symbol": "?Destroy@EnemyCtrl@@QAEXXZ",
       "address": "0x0040D530",
       "size": 300,
       "section": ".text$02b",
@@ -48,29 +48,29 @@
   ],
   "anchors": [
     {
-      "name": "_asm_MessageHost_InitRetail_0040d280@8",
-      "symbol": "_asm_MessageHost_InitRetail_0040d280@8",
+      "name": "_EnemyCtrl_Initialize@8",
+      "symbol": "_EnemyCtrl_Initialize@8",
       "address": "0x40d280",
       "size": 334,
       "section": ".text$01b"
     },
     {
-      "name": "_Scheduler_RegisterPrimary@12",
-      "symbol": "_Scheduler_RegisterPrimary@12",
+      "name": "_FuncCtrl_RegisterPrimary@12",
+      "symbol": "_FuncCtrl_RegisterPrimary@12",
       "address": "0x449ae0",
       "size": 131,
       "section": ".text$07b"
     },
     {
-      "name": "_Scheduler_RegisterSecondary@12",
-      "symbol": "_Scheduler_RegisterSecondary@12",
+      "name": "_FuncCtrl_RegisterSecondary@12",
+      "symbol": "_FuncCtrl_RegisterSecondary@12",
       "address": "0x449b70",
       "size": 131,
       "section": ".text$08b"
     },
     {
-      "name": "_Scheduler_Remove@8",
-      "symbol": "_Scheduler_Remove@8",
+      "name": "_FuncCtrl_Remove@8",
+      "symbol": "_FuncCtrl_Remove@8",
       "address": "0x449f60",
       "size": 114,
       "section": ".text$10b"
@@ -90,8 +90,8 @@
       "section": ".text$05b"
     },
     {
-      "name": "?MarkResourceForRemoval@AnimationManager@@QAEXPAX@Z",
-      "symbol": "?MarkResourceForRemoval@AnimationManager@@QAEXPAX@Z",
+      "name": "?MarkResourceForRemoval@SprtCtrl@@QAEXPAX@Z",
+      "symbol": "?MarkResourceForRemoval@SprtCtrl@@QAEXPAX@Z",
       "address": "0x4493e0",
       "size": 92,
       "section": ".text$06b"
@@ -309,12 +309,12 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00491be4",
+      "symbol": "_g_func_ctrl",
       "address": "0x00491BE4",
       "kind": "data"
     },
     {
-      "symbol": "_data_00491c10",
+      "symbol": "_g_sprt_ctrl",
       "address": "0x00491C10",
       "kind": "data"
     },
@@ -339,12 +339,12 @@
       "kind": "data"
     },
     {
-      "symbol": "_asm_Scheduler_RegisterPrimary_00449ae0",
+      "symbol": "_asm_FuncCtrl_RegisterPrimary_00449ae0",
       "address": "0x00449AE0",
       "kind": "relative_code"
     },
     {
-      "symbol": "_asm_Scheduler_RegisterSecondary_00449b70",
+      "symbol": "_asm_FuncCtrl_RegisterSecondary_00449b70",
       "address": "0x00449B70",
       "kind": "relative_code"
     },
@@ -384,7 +384,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00477708",
+      "symbol": "_g_fps",
       "address": "0x00477708",
       "kind": "data"
     },
@@ -419,7 +419,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_data_00477704",
+      "symbol": "_g_enemy_ctrl",
       "address": "0x477704",
       "kind": "data"
     },
@@ -429,7 +429,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_EnemyManager_ReleaseLists_00409f90@4",
+      "symbol": "_EnemyCtrl_ReleaseLists_00409f90@4",
       "address": "0x409f90",
       "kind": "relative_code"
     },
@@ -475,7 +475,7 @@
     }
   ],
   "roots": [
-    "_EnemyManager_CreateRetail_0040d6b0@4"
+    "_EnemyCtrl_Create@4"
   ],
   "description": "Complete enemy factory and teardown with genuine startup wrapper and member initializer; all four complete bodies selected.",
   "included_sources": [
@@ -499,13 +499,13 @@
     },
     {
       "caller": "?InitializeManagers@FactoryCallerState@@QAEHXZ",
-      "callee": "_EnemyManager_CreateRetail_0040d6b0@4",
+      "callee": "_EnemyCtrl_Create@4",
       "address": "0x40a377",
       "instruction": "call"
     },
     {
-      "caller": "_EnemyManager_CreateRetail_0040d6b0@4",
-      "callee": "?Destroy@EnemyManager_0040d530@@QAEXXZ",
+      "caller": "_EnemyCtrl_Create@4",
+      "callee": "?Destroy@EnemyCtrl@@QAEXXZ",
       "address": "0x40d6f5",
       "instruction": "call"
     }

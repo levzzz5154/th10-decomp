@@ -1,9 +1,9 @@
 {
   "schema_version": 2,
   "name": "fps_counter_004134b0",
-  "source": "src/app/fps_counter.cpp",
+  "source": "src/game/fps/fps_update.cpp",
   "headers": [
-    "include/th10/app/frame_rate_counter_native.hpp",
+    "include/th10/game/fps_runtime.hpp",
     "include/th10/game/game_thread_queue_native.hpp"
   ],
   "image_base": "0x00400000",
@@ -11,7 +11,7 @@
   "functions": [
     {
       "name": "FrameRateCounter_Update",
-      "symbol": "?Update@FrameRateCounter_004134b0@@QAEHXZ",
+      "symbol": "?Update@FPS@@QAEHXZ",
       "section": ".text$05update",
       "address": "0x004134B0",
       "size": 280,
@@ -27,7 +27,7 @@
     },
     {
       "name": "Draw",
-      "symbol": "?Draw@FrameRateCounter_004134b0@@QAEHXZ",
+      "symbol": "?Draw@FPS@@QAEHXZ",
       "section": ".text$07draw",
       "address": "0x004135D0",
       "size": 180,
@@ -35,7 +35,7 @@
     },
     {
       "name": "Callback",
-      "symbol": "?FpsCounter_OnDraw@@YIHPAUFrameRateCounter_004134b0@@@Z",
+      "symbol": "?FPS_OnDraw@@YIHPAUFPS@@@Z",
       "section": ".text$09callback",
       "address": "0x00413690",
       "size": 10,
@@ -164,7 +164,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00477810",
+      "symbol": "_g_game",
       "address": "0x00477810",
       "kind": "data"
     },
@@ -234,23 +234,23 @@
       "kind": "data"
     }
   ],
-  "entry": "?FpsCounter_OnDraw@@YIHPAUFrameRateCounter_004134b0@@@Z",
+  "entry": "?FPS_OnDraw@@YIHPAUFPS@@@Z",
   "anchors": [],
   "calls": [
     {
-      "caller": "?FpsCounter_OnDraw@@YIHPAUFrameRateCounter_004134b0@@@Z",
-      "callee": "?Draw@FrameRateCounter_004134b0@@QAEHXZ",
+      "caller": "?FPS_OnDraw@@YIHPAUFPS@@@Z",
+      "callee": "?Draw@FPS@@QAEHXZ",
       "address": "0x413693",
       "instruction": "call"
     },
     {
-      "caller": "?Draw@FrameRateCounter_004134b0@@QAEHXZ",
-      "callee": "?Update@FrameRateCounter_004134b0@@QAEHXZ",
+      "caller": "?Draw@FPS@@QAEHXZ",
+      "callee": "?Update@FPS@@QAEHXZ",
       "address": "0x4135d6",
       "instruction": "call"
     },
     {
-      "caller": "?Draw@FrameRateCounter_004134b0@@QAEHXZ",
+      "caller": "?Draw@FPS@@QAEHXZ",
       "callee": "?AsciiManager_AddFormattedMarked@@YAXPAUGameThread_00401530@@PBUVec3_00401530@@PBDZZ",
       "address": "0x41364e",
       "instruction": "call"
@@ -279,8 +279,8 @@
   ],
   "included_sources": [
     "src/game/ascii/add_formatted_marked.cpp",
-    "src/app/fun_004135d0_004135d0.cpp",
-    "src/app/fps_counter_on_draw.cpp",
+    "src/game/fps/fps_draw.cpp",
+    "src/game/fps/fps_on_draw.cpp",
     "src/game/ascii/add_formatted.cpp",
     "src/game/replay_manager_draw.cpp"
   ],

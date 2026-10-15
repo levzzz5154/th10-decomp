@@ -8,7 +8,7 @@ struct AnimationObject_00448e30 {
     unsigned int flags_035c;
 };
 
-extern "C" void* data_00491c10;
+extern "C" void* g_sprt_ctrl;
 
 // Same-TU forward for the allocator thunk: /O2 inlines it into the create
 // body so the whole-program pass sees the real allocator edge without an
@@ -54,12 +54,12 @@ __declspec(noinline)
 void** __stdcall AnimationManager_CreatePrimaryFront_00448e30(
         void* resource, void** out, int index, int render_bucket) {
     AnimationObject_00448e30* object =
-        (AnimationObject_00448e30*)asm_FUN_00449950_00449950(data_00491c10);
+        (AnimationObject_00448e30*)asm_FUN_00449950_00449950(g_sprt_ctrl);
     unsigned int flags = object->flags_035c;
     object->render_bucket_020 = render_bucket;
     object->flags_035c = flags | 0x40000000u;
     ((AnimationResource_00449870*)resource)->InitializeObject((Entity*)object, index);
-    asm_AnimationManager_RegisterPrimaryFront_00448a50(data_00491c10, out, object);
+    asm_AnimationManager_RegisterPrimaryFront_00448a50(g_sprt_ctrl, out, object);
     return out;
 }
 #pragma code_seg()

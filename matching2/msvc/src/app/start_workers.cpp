@@ -36,7 +36,7 @@ extern "C" __declspec(noinline) int __cdecl App_StartWorkers() {
     data_00474dd4.entry=reinterpret_cast<PlatformWorkerEntry>(&Input_InitThread);
     data_00474dd4.running=1;data_00474dd4.stop_requested=0;
     data_00474dd4.thread=reinterpret_cast<void*>(beginthreadex_00453683(0,0,reinterpret_cast<PlatformWorkerEntry>(&Input_InitThread),&data_00491c28,0,&data_00474dd4.thread_id));
-    data_00491c10->InitializeClip();
+    g_sprt_ctrl->InitializeClip();
     InitializeFontCache_00437a00();
     return 0;
 }

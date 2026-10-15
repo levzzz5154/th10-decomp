@@ -37,7 +37,7 @@ struct AnimationLists_00424480 {
     __declspec(noinline) AnimationObject_00424480* Find(AnimationHandle_00424480 handle);
 };
 
-extern "C" AnimationLists_00424480* data_00491c10;
+extern "C" AnimationLists_00424480* g_sprt_ctrl;
 
 // A screen rectangle filled from a region of a texture.
 struct SpriteRegion_00424480 {

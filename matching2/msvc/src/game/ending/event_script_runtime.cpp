@@ -112,7 +112,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0040bd80_0040bd80() {
     L_0040be10:
         mov eax,dword ptr [edi]
     L_0040be12:
-        mov esi,dword ptr [data_00491c10]
+        mov esi,dword ptr [g_sprt_ctrl]
     L_0040be18:
         push eax
     L_0040be19:
@@ -150,7 +150,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0040bd80_0040bd80() {
     L_0040be48:
         mov ecx,dword ptr [ebp+40h]
     L_0040be4b:
-        mov ebx,dword ptr [data_00491c10]
+        mov ebx,dword ptr [g_sprt_ctrl]
     L_0040be51:
         lea edi,[ebp+40h]
     L_0040be54:
@@ -210,7 +210,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0040bd80_0040bd80() {
     L_0040bea0:
         call asm_AnimationManager_ValidateHandle_00449450
     L_0040bea5:
-        mov edx,dword ptr [data_00491c10]
+        mov edx,dword ptr [g_sprt_ctrl]
     L_0040beab:
         push edx
     L_0040beac:
@@ -430,7 +430,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0040bd80_0040bd80() {
     L_0040c02d:
         lea esi,[ebp+edx*4+90h]
     L_0040c034:
-        mov edx,dword ptr [data_00491c10]
+        mov edx,dword ptr [g_sprt_ctrl]
     L_0040c03a:
         push eax
     L_0040c03b:
@@ -632,7 +632,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0040bd80_0040bd80() {
     L_0040c1b3:
         jmp asm_target_0040c25f
     L_0040c1b8:
-        mov ebx,dword ptr [data_00491c10]
+        mov ebx,dword ptr [g_sprt_ctrl]
     L_0040c1be:
         lea esi,[ebp+40h]
     L_0040c1c1:
@@ -834,7 +834,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0040bd80_0040bd80() {
     L_0040c2ec:
         mov esi,dword ptr [edx+4]
     L_0040c2ef:
-        mov ebx,dword ptr [data_00491c10]
+        mov ebx,dword ptr [g_sprt_ctrl]
     L_0040c2f5:
         add esi,1Dh
     L_0040c2f8:

@@ -30,7 +30,7 @@ extern "C" __declspec(noinline) int __stdcall Manager_Release_00422220(Manager_0
             operator delete(owned);
         }
     }
-    MarkAnimationForRemoval(data_00491c10, manager->animation_id);
+    MarkAnimationForRemoval(g_sprt_ctrl, manager->animation_id);
     manager->animation_id = 0;
     g_pause = 0;
     return 0;

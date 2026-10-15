@@ -39,7 +39,7 @@ struct RenderSlotNode_00448980 {
 extern "C" int __cdecl asm_FUN_004451c0_004451c0(void* manager, RenderSlotNode_00448980* entity);
 
 #pragma code_seg(".text$03bucket")
-int AnimationManager_00442F50::RenderBucket(int index) {
+int SprtCtrlBatchView::RenderBucket(int index) {
     RenderSlotNode_00448980* node = *(RenderSlotNode_00448980**)
         ((unsigned char*)this + 0x72DB00 + index * 0x3AC);
     while (node != 0) {

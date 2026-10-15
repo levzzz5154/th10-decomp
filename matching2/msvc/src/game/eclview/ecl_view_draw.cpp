@@ -27,8 +27,8 @@ int EclView_0040a940::Draw() {
         else
             AsciiManager_AddFormattedMarked(g_ascii_manager, &position, "File not found.");
         position.y = 26.0f;
-        if (data_00477704)
-            AsciiManager_AddFormattedMarked(g_ascii_manager, &position, "Ecl %s", data_00477704->parser->entries[entry_cursor.selection].name);
+        if (g_enemy_ctrl)
+            AsciiManager_AddFormattedMarked(g_ascii_manager, &position, "Ecl %s", g_enemy_ctrl->parser->entries[entry_cursor.selection].name);
         else
             AsciiManager_AddFormattedMarked(g_ascii_manager, &position, "Ecl %d", entry_cursor.selection);
         position.y = 36.0f;
@@ -42,7 +42,7 @@ int EclView_0040a940::Draw() {
         position.x = 500.0f;
         position.y = 240.0f;
         position.z = 0.0f;
-        AsciiManager_AddFormattedMarked(g_ascii_manager, &position, "Enemy %d", data_00477704->enemy_count);
+        AsciiManager_AddFormattedMarked(g_ascii_manager, &position, "Enemy %d", g_enemy_ctrl->enemy_count);
         return 1;
     }
     case 3: {
@@ -57,7 +57,7 @@ int EclView_0040a940::Draw() {
     }
     if (flags & 2) {
         sprite.base_position = CameraVector(320.0f, 240.0f, 0.0f);
-        EclView_DrawEntity_00443080(data_00491c10, &sprite);
+        EclView_DrawEntity_00443080(g_sprt_ctrl, &sprite);
     }
     return 1;
 }

@@ -15,7 +15,7 @@ void AnimationHandle::StopAtFrame1() {
     AnimationScriptId id;
     id.value = value;
     AnimationLookupAnchorEntry* node =
-        static_cast<AnimationLookupAnchorEntry*>(AnimationManager_Find_004491c0(data_00491c10, id));
+        static_cast<AnimationLookupAnchorEntry*>(AnimationManager_Find_004491c0(g_sprt_ctrl, id));
     if (node) {
         node->flags = 1;
         if (!node->children_flagged)
@@ -68,12 +68,12 @@ void __stdcall Card_ShowCaption_004172e0(int kind, CardFront_00409c00* front, in
 // 0x00448D00
 #pragma code_seg(".text$01f_create")
 AnimationScriptId __stdcall Card_CreateAnimation_00448d00(void* file, int script, int layer) {
-    int* object = static_cast<int*>(CardStandIn_Allocate(data_00491c10));
+    int* object = static_cast<int*>(CardStandIn_Allocate(g_sprt_ctrl));
     object[8] = layer;
     object[0xD7] |= 0x40000000;
     CardStandIn_Register(file, object, reinterpret_cast<void*>(script));
     AnimationScriptId created;
-    CardStandIn_Register(data_00491c10, &created.value, object);
+    CardStandIn_Register(g_sprt_ctrl, &created.value, object);
     return created;
 }
 

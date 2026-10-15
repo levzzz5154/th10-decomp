@@ -9,7 +9,7 @@
     "include/th10/game/recovery_script_executor_cluster/recovery_script_executor_0040bd80.hpp",
     "include/th10/game/recovery_script_executor_cluster/recovery_script_executor_text_anchors.hpp",
     "include/th10/game/recovery_script_executor_text_anchors.hpp",
-    "include/th10/game/scheduler.hpp",
+    "include/th10/core/func_ctrl.hpp",
     "include/th10/math/timer.hpp",
     "include/th10/platform/archive_callers.hpp",
     "include/th10/platform/archive_file.hpp",
@@ -145,7 +145,7 @@
     },
     {
       "name": "FullHelper_004493e0",
-      "symbol": "?MarkResourceForRemoval@AnimationManager@@QAEXPAX@Z",
+      "symbol": "?MarkResourceForRemoval@SprtCtrl@@QAEXPAX@Z",
       "section": ".text$004493e0_fn",
       "address": "0x004493E0",
       "size": 94
@@ -406,7 +406,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_data_00491be4",
+      "symbol": "_g_func_ctrl",
       "address": "0x00491BE4",
       "kind": "data"
     },
@@ -491,7 +491,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00491c10",
+      "symbol": "_g_sprt_ctrl",
       "address": "0x00491C10",
       "kind": "data"
     },
@@ -551,7 +551,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_Stage_StartupThread",
+      "symbol": "_Game_LoadThread",
       "address": "0x00417C70",
       "kind": "data"
     },
@@ -566,7 +566,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00477810",
+      "symbol": "_g_game",
       "address": "0x00477810",
       "kind": "data"
     },
@@ -1101,12 +1101,12 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_Scheduler_RegisterPrimary@12",
+      "symbol": "_FuncCtrl_RegisterPrimary@12",
       "address": "0x449ae0",
       "kind": "relative_code"
     },
     {
-      "symbol": "_Scheduler_RegisterSecondary@12",
+      "symbol": "_FuncCtrl_RegisterSecondary@12",
       "address": "0x449b70",
       "kind": "relative_code"
     },
@@ -1136,7 +1136,7 @@
   ],
   "anchor_roots": [
     "?ClearResourceSlot@AnimationManager_004477d0@@QAEXH@Z",
-    "?MarkResourceForRemoval@AnimationManager@@QAEXPAX@Z",
+    "?MarkResourceForRemoval@SprtCtrl@@QAEXPAX@Z",
     "?MarkText@RecoveryTextVm_00447a50@@QAEXPAXIPBD@Z",
     "?Release@AnimationResource_00447810@@QAEXXZ",
     "?Start@PlatformWorker@@QAEXPAXP6GI0@Z@Z",

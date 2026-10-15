@@ -21,7 +21,7 @@ __forceinline int TitleKeyConfigView::FindChildHandle(
 
 __forceinline KeyConfigAnimationObject_0042f8b0* TitleKeyConfigView::FindDigit(
         unsigned short tag) {
-    KeyConfigLookupContext_0042f8b0* context = data_00491c10;
+    KeyConfigLookupContext_0042f8b0* context = g_sprt_ctrl;
     KeyConfigScriptId_0042f8b0 id;
     id.value = FindChildHandle(tag, context);
     return (KeyConfigAnimationObject_0042f8b0*)

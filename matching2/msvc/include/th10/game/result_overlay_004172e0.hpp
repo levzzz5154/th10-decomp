@@ -27,7 +27,7 @@ struct ResultAnimationId {
 };
 // 0x004492A0: let the animation with this id, and its children, be removed.
 void* __fastcall ResultAnimation_Retire(ResultAnimationLookup* context, ResultAnimationId id);
-extern "C" ResultAnimationLookup* data_00491c10;
+extern "C" ResultAnimationLookup* g_sprt_ctrl;
 
 // An animation a game object owns, named by its id.
 struct ResultAnimationHandle {
@@ -35,7 +35,7 @@ struct ResultAnimationHandle {
 
     // Let the manager dispose of the animation and forget it.
     void Release() {
-        ResultAnimation_Retire(data_00491c10, id);
+        ResultAnimation_Retire(g_sprt_ctrl, id);
         id.value = 0;
     }
 };
@@ -105,7 +105,7 @@ typedef char CardFlagsOffset_00409c00[offsetof(ResultCard_00409c00, flags) == 0x
 
 extern "C" {
 extern CardInterface_00409c00* g_background;
-extern ResultOverlayState_004172e0* data_0047770c;
+extern ResultOverlayState_004172e0* g_front;
 extern CardMode_00409c00* data_00477838;
 extern CardScoreFile_00409c00* data_0047783c;
 extern CardGame_00409c00 data_00474c44;

@@ -66,12 +66,12 @@ __declspec(noinline) void DispatcherSetPosition(
 
 static __forceinline void SpawnTriggerParticle(AnimationResource_00449870* resource,
         int index, const DispatcherVec3* position) {
-    Entity* object = reinterpret_cast<AnimationPool*>(data_00491c10)->Allocate();
+    Entity* object = reinterpret_cast<AnimationPool*>(g_sprt_ctrl)->Allocate();
     unsigned int flags = object->flags_35C;
     object->render_bucket = 0;
     object->flags_35C = flags | 0x40000000;
     resource->InitializeObject(object, index);
-    AnimationLookupContext* manager = reinterpret_cast<AnimationLookupContext*>(data_00491c10);
+    AnimationLookupContext* manager = reinterpret_cast<AnimationLookupContext*>(g_sprt_ctrl);
     DispatcherRef handle = reinterpret_cast<DispatcherPrimaryLists*>(manager)->RegisterPrimaryBack(object);
     DispatcherSetPosition(manager, position, AnimationScriptId(handle.value));
 }
@@ -86,7 +86,7 @@ extern "C" __declspec(noinline) void __stdcall Player_Hit(Player* player) {
     for (int i = 0; i < 32; ++i)
         SpawnTriggerParticle(data_004776f0->resource, 0x163, &position);
     target->timer.Set(0);
-    if (data_00477810 && !(data_00477810->flags & 0x200))
+    if (g_game && !(g_game->flags & 0x200))
         data_00492590.Queue(4, 0);
     target->activation_timer.Set(6);
     LoadScript_0043e710(reinterpret_cast<AnimationResource_0043e710*>(target->resource),

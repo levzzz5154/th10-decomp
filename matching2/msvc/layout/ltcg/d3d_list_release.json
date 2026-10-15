@@ -4,7 +4,7 @@
   "source": "src/core/zunlib/d3_d_resource_list_release_resources_00449e50.cpp",
   "driver": "layout/ltcg/d3d_list_release_context.cpp",
   "headers": [
-    "include/th10/game/scheduler.hpp",
+    "include/th10/core/func_ctrl.hpp",
     "include/th10/platform/thread_sync.hpp",
     "include/th10/game/resource_list_00449e50.hpp"
   ],
@@ -57,7 +57,7 @@
       "kind": "data"
     },
     {
-      "symbol": "@Scheduler_RemoveTask@8",
+      "symbol": "@FuncCtrl_RemoveTask@8",
       "address": "0x00449F60",
       "kind": "relative_code"
     }

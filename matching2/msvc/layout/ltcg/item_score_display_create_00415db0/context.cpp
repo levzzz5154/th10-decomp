@@ -4,13 +4,13 @@
 #include "th10/platform/thread_sync.hpp"
 #include "../../../src/game/front/item_score_display_create_00415db0.cpp"
 
-extern "C" void* data_00491be4;
+extern "C" void* g_func_ctrl;
 extern "C" void __stdcall ScoreDisplayStandIn_Remove(void* scheduler, void* task);
 // C++ linkage: a call the compiler must assume can throw.
 void __stdcall ScoreDisplayStandIn_MayThrow(void* argument);
 
 static __forceinline void ScoreDisplayStandIn_Unregister(void* task) {
-    void* scheduler = data_00491be4;
+    void* scheduler = g_func_ctrl;
     if (task) {
         EnterCriticalSection(&g_thread_synchronization.critical_sections[0]);
         ++g_thread_synchronization.scheduler_lock_depth;

@@ -61,8 +61,8 @@
     },
     {
       "name": "GameUi_CreateAndPublish",
-      "symbol": "_GameUi_CreateAndPublish_004180e0@4",
-      "source": "src/game/game/game_ui_create.cpp",
+      "symbol": "_Game_Create@4",
+      "source": "src/game/game/game_create.cpp",
       "section": ".text$00uicreate",
       "address": "0x004180E0",
       "size": 107,
@@ -149,7 +149,7 @@
   "constants": [],
   "roots": [
     "?Destroy@PlatformWorker@@QAEPAU1@I@Z",
-    "_GameUi_CreateAndPublish_004180e0@4"
+    "_Game_Create@4"
   ],
   "absolute_symbols": [
     {
@@ -198,7 +198,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_Stage_StartupThread",
+      "symbol": "_Game_LoadThread",
       "address": "0x00417C70",
       "kind": "data"
     },
@@ -213,7 +213,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00477810",
+      "symbol": "_g_game",
       "address": "0x00477810",
       "kind": "data"
     },
@@ -249,7 +249,7 @@
     }
   ],
   "additional_sources": [
-    "src/game/game/game_ui_create.cpp",
+    "src/game/game/game_create.cpp",
     "src/game/mother/thread_spawn.cpp",
     "src/core/zunlib/platform_destroy_worker_0044c100.cpp",
     "src/core/zunlib/platform_stop_worker_0044c150.cpp",

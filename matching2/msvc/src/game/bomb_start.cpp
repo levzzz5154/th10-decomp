@@ -2,7 +2,7 @@
 #include <stddef.h>
 #include "th10/game/entity.hpp"
 #include "th10/platform/sound_queue.hpp"
-extern "C" void* data_00491c10;
+extern "C" void* g_sprt_ctrl;
 extern "C" const float data_00470b4c;
 extern "C" const float data_00470b48;
 extern "C" const float data_00470b20;
@@ -55,7 +55,7 @@ int* AnimationPrimaryLists::RegisterPrimaryBack(int* out, Entity* entity) {
 #pragma code_seg(".text$a09create")
 __declspec(noinline) int* __stdcall CreateScreenPositionedPrimary_00448db0(
     AnimationResource_0043e710* resource, int* out, int index, const Vector3* position) {
-    Entity* object = reinterpret_cast<AnimationPool*>(data_00491c10)->Allocate();
+    Entity* object = reinterpret_cast<AnimationPool*>(g_sprt_ctrl)->Allocate();
     unsigned int flags = object->flags_35C;
     object->render_bucket = 0;
     object->flags_35C = flags | 0x40000000;
@@ -63,7 +63,7 @@ __declspec(noinline) int* __stdcall CreateScreenPositionedPrimary_00448db0(
     object->position.y = position->y + data_00470b48;
     object->position.z = position->z;
     LoadScript_0043e710(resource, static_cast<AnimationObject_0043e710*>(object), index);
-    reinterpret_cast<AnimationPrimaryLists*>(data_00491c10)->RegisterPrimaryBack(out, object);
+    reinterpret_cast<AnimationPrimaryLists*>(g_sprt_ctrl)->RegisterPrimaryBack(out, object);
     return out;
 }
 
@@ -74,7 +74,7 @@ struct PlayerAnimationResources {
 typedef PlayerFlags_00405500 PlayerInitializeGlobal;
 extern "C" PlayerAnimationResources* data_004776f0;
 extern "C" PlayerInitializeGlobal* g_card;
-extern "C" PowerDisplayOwner_004054b0* data_0047770c;
+extern "C" PowerDisplayOwner_004054b0* g_front;
 extern "C" int data_00474c68;
 extern "C" short data_00474c48;
 extern "C" int data_00474c98;
@@ -99,7 +99,7 @@ int __stdcall Bomb_Start(Bomb* bomb) {
         data_004776f0->resource, &handle, index, &bomb->position);
     data_00492590.QueuePan(0x26, bomb->position.x);
     int power = data_00474c48;
-    data_0047770c->SetPowerDigits(power / 20, (power % 20) * 100 / 20);
+    g_front->SetPowerDigits(power / 20, (power % 20) * 100 / 20);
     PlayerInitializeGlobal* state = g_card;
     state->ClearExpiredFlags();
     data_00474c98 -= 0x80;

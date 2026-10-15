@@ -30,8 +30,8 @@
 // anchor sources carry a compiled body for each of them, placed at the retail
 // address and never exported as recovered code.
 #include "th10/game/manager_teardown_00417c80.hpp"
-#include "th10/game/enemy_manager_factory_0040d6b0.hpp"
-#include "th10/game/scheduler.hpp"
+#include "th10/game/enemy_ctrl.hpp"
+#include "th10/core/func_ctrl.hpp"
 #include "th10/platform/thread_sync.hpp"
 #include <string.h>
 
@@ -41,7 +41,7 @@ extern "C" void __cdecl entry_free_004524a1(void* memory);
 // prototype (receiver at [ESP+4], RET 4).
 extern "C" void __stdcall BackGround_Destroy(void* state);
 extern "C" void __stdcall Manager_Release_00422220(void* manager);
-extern "C" void __stdcall Hud_Destroy(void* manager);
+extern "C" void __stdcall Front_Destroy(void* manager);
 extern "C" void __stdcall StageManager_Destroy_00424ed0(void* manager);
 extern "C" void __stdcall BulletManager_Destroy_00405f70(void* manager);
 extern "C" void __stdcall ItemManager_Destroy_0041adf0(void* manager);
@@ -49,13 +49,13 @@ extern "C" void __stdcall ScoreExtendedObject_DestroyRetail_0041c1c0(void* objec
 extern "C" void __stdcall ResourceCleanup_00418ee0(void* state);
 extern "C" void __stdcall EffectManager_Destroy_0042b570(void* manager);
 extern "C" void __stdcall ManagerOwned_Destroy_004294a0(void* manager);
-extern "C" void __stdcall EnemyManager_Clear_00409f90(void* manager);
+extern "C" void __stdcall EnemyCtrl_Clear_00409f90(void* manager);
 extern "C" void __stdcall BulletManager_Release_0040af00(void* manager);
 extern "C" void __stdcall Bomb_Release(void* state);
 extern "C" void __stdcall Card_Destroy_00408af0(void* manager);
 
 // The manager state block: two scheduler tasks the game thread registered.
-struct ManagerState_00417c80 {
+struct Game {
     unsigned char reserved_000[8];
     SchedulerTask* task_008;                        // +0x08
     SchedulerTask* task_00C;                        // +0x0C
@@ -84,7 +84,7 @@ struct ReplayTaskPairOwner_00417c80 {
 
 #pragma code_seg(".text$9release")
 extern "C" __declspec(noinline)
-void __stdcall ReleaseGlobalManager_00417c80(ManagerState_00417c80* state) {
+void __stdcall Game_Destroy(Game* state) {
     // The score archive owns the run's record file; flush it first. Retail
     // hands the archive over in EBX.
     data_0047783c->Save();
@@ -157,9 +157,9 @@ void __stdcall ReleaseGlobalManager_00417c80(ManagerState_00417c80* state) {
             Manager_Release_00422220(pause_menu);
             entry_free_004524a1(pause_menu);
         }
-        void* items = data_0047770c;
+        void* items = g_front;
         if (items) {
-            Hud_Destroy(items);
+            Front_Destroy(items);
             entry_free_004524a1(items);
         }
         void* stage = g_player;
@@ -196,7 +196,7 @@ void __stdcall ReleaseGlobalManager_00417c80(ManagerState_00417c80* state) {
         // Replay/recovery teardown: the side panel's stage parts go back, the
         // second game state moves into the first slot, and the task records
         // the surviving managers publish lose their active flag.
-        SidePanel_00414570* panel = data_0047770c;
+        FrontStagePartsView* panel = g_front;
         panel->ReleaseStageParts();
         void* retired_state = data_004776e4;
         if (retired_state) {
@@ -223,9 +223,9 @@ void __stdcall ReleaseGlobalManager_00417c80(ManagerState_00417c80* state) {
     // 0x00417F80: with the run still active (flag bits 0 or 3) the enemy
     // manager is cleared in place; otherwise it is destroyed and freed.
     if (data_00474ca0 & 9u) {
-        EnemyManager_Clear_00409f90(data_00477704);
+        EnemyCtrl_Clear_00409f90(g_enemy_ctrl);
     } else {
-        EnemyManager_0040d530* enemies = data_00477704;
+        EnemyCtrl* enemies = g_enemy_ctrl;
         if (enemies) {
             enemies->Destroy();
             entry_free_004524a1(enemies);
@@ -248,12 +248,12 @@ void __stdcall ReleaseGlobalManager_00417c80(ManagerState_00417c80* state) {
     }
 
     // Unhook the manager state's two scheduler tasks under the scheduler lock.
-    Scheduler* scheduler = data_00491be4;
+    FuncCtrl* scheduler = g_func_ctrl;
     SchedulerTask* primary = state->task_008;
     if (primary) {
         EnterCriticalSection(&g_thread_synchronization.critical_sections[0]);
         ++g_thread_synchronization.scheduler_lock_depth;
-        Scheduler_RemoveTask(primary, scheduler);
+        FuncCtrl_RemoveTask(primary, scheduler);
         LeaveCriticalSection(&g_thread_synchronization.critical_sections[0]);
         --g_thread_synchronization.scheduler_lock_depth;
     }
@@ -261,13 +261,13 @@ void __stdcall ReleaseGlobalManager_00417c80(ManagerState_00417c80* state) {
     if (secondary) {
         EnterCriticalSection(&g_thread_synchronization.critical_sections[0]);
         ++g_thread_synchronization.scheduler_lock_depth;
-        Scheduler_RemoveTask(secondary, scheduler);
+        FuncCtrl_RemoveTask(secondary, scheduler);
         LeaveCriticalSection(&g_thread_synchronization.critical_sections[0]);
         --g_thread_synchronization.scheduler_lock_depth;
     }
 
     // The published manager-state pointer dies with the state.
-    data_00477810 = 0;
+    g_game = 0;
     if (!(data_00474ca0 & 0x22u)) {
         // Re-register the shared animation resource for the next run; the
         // resource index is 4 when the extra-content flag is set. Retail

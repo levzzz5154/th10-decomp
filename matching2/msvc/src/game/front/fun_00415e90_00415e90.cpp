@@ -113,7 +113,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_00415f25:
         mov eax,dword ptr [edi]
     L_00415f27:
-        mov ebx,dword ptr [data_00491c10]
+        mov ebx,dword ptr [g_sprt_ctrl]
     L_00415f2d:
         mov edx,ebx
     L_00415f2f:
@@ -163,7 +163,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_00415f7a:
         mov eax,dword ptr [ebp+4Ch]
     L_00415f7d:
-        mov esi,dword ptr [data_00491c10]
+        mov esi,dword ptr [g_sprt_ctrl]
     L_00415f83:
         lea edi,[ebp+4Ch]
     L_00415f86:
@@ -195,7 +195,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_00415faf:
         mov eax,dword ptr [ebp+50h]
     L_00415fb2:
-        mov esi,dword ptr [data_00491c10]
+        mov esi,dword ptr [g_sprt_ctrl]
     L_00415fb8:
         lea ebx,[ebp+50h]
     L_00415fbb:
@@ -229,7 +229,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_00415fe7:
         mov eax,dword ptr [edi]
     L_00415fe9:
-        mov edx,dword ptr [data_00491c10]
+        mov edx,dword ptr [g_sprt_ctrl]
     L_00415fef:
         add esp,0Ch
     L_00415ff2:
@@ -257,7 +257,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_00416018:
         push eax
     L_00416019:
-        mov eax,dword ptr [data_00491c10]
+        mov eax,dword ptr [g_sprt_ctrl]
     L_0041601e:
         push edx
     L_0041601f:
@@ -281,7 +281,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_00416041:
         mov ecx,dword ptr [ebp+50h]
     L_00416044:
-        mov ebx,dword ptr [data_00491c10]
+        mov ebx,dword ptr [g_sprt_ctrl]
     L_0041604a:
         lea edi,[ebp+50h]
     L_0041604d:
@@ -337,7 +337,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_004160a6:
         jmp asm_target_00416f09
     L_004160ab:
-        mov ecx,dword ptr [data_0047770c]
+        mov ecx,dword ptr [g_front]
     L_004160b1:
         mov eax,dword ptr [ecx+9EC8h]
     L_004160b7:
@@ -423,7 +423,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_0041613c:
         jne asm_target_00416f09
     L_00416142:
-        mov ecx,dword ptr [data_00477704]
+        mov ecx,dword ptr [g_enemy_ctrl]
     L_00416148:
         mov eax,dword ptr [ecx+38h]
     L_0041614b:
@@ -443,7 +443,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_0041615e:
         jmp asm_target_00416f09
     L_00416163:
-        mov eax,dword ptr [data_00477704]
+        mov eax,dword ptr [g_enemy_ctrl]
     L_00416168:
         mov eax,dword ptr [eax+38h]
     L_0041616b:
@@ -481,7 +481,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_0041619c:
         jne asm_target_00416f09
     L_004161a2:
-        mov edx,dword ptr [data_00477704]
+        mov edx,dword ptr [g_enemy_ctrl]
     L_004161a8:
         mov eax,dword ptr [edx+38h]
     L_004161ab:
@@ -501,7 +501,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_004161be:
         jmp asm_target_00416f09
     L_004161c3:
-        mov ecx,dword ptr [data_00477704]
+        mov ecx,dword ptr [g_enemy_ctrl]
     L_004161c9:
         mov eax,dword ptr [ecx+38h]
     L_004161cc:
@@ -635,7 +635,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_004162bf:
         mov ecx,dword ptr [ebp+4Ch]
     L_004162c2:
-        mov edi,dword ptr [data_00491c10]
+        mov edi,dword ptr [g_sprt_ctrl]
     L_004162c8:
         xor ebx,ebx
     L_004162ca:
@@ -679,7 +679,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_00416311:
         mov ecx,dword ptr [ebp+4Ch]
     L_00416314:
-        mov edi,dword ptr [data_00491c10]
+        mov edi,dword ptr [g_sprt_ctrl]
     L_0041631a:
         lea esi,[ebp+6Ch]
     L_0041631d:
@@ -829,7 +829,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_00416431:
         mov eax,dword ptr [eax+4]
     L_00416434:
-        mov edx,dword ptr [data_00477704]
+        mov edx,dword ptr [g_enemy_ctrl]
     L_0041643a:
         mov ecx,dword ptr [edx+38h]
     L_0041643d:
@@ -849,7 +849,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_00416453:
         call asm_AnimationManager_SelectSpriteFromResource_004496a0
     L_00416458:
-        mov ecx,dword ptr [data_00477704]
+        mov ecx,dword ptr [g_enemy_ctrl]
     L_0041645e:
         mov eax,dword ptr [ecx+38h]
     L_00416461:
@@ -875,7 +875,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_00416487:
         mov eax,dword ptr [eax+4]
     L_0041648a:
-        mov edx,dword ptr [data_00477704]
+        mov edx,dword ptr [g_enemy_ctrl]
     L_00416490:
         mov ecx,dword ptr [edx+38h]
     L_00416493:
@@ -895,7 +895,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_004164a9:
         call asm_AnimationManager_SelectSpriteFromResource_004496a0
     L_004164ae:
-        mov ecx,dword ptr [data_00477704]
+        mov ecx,dword ptr [g_enemy_ctrl]
     L_004164b4:
         mov eax,dword ptr [ecx+38h]
     L_004164b7:
@@ -931,7 +931,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_004164ef:
         mov eax,dword ptr [eax+4]
     L_004164f2:
-        mov edx,dword ptr [data_00477704]
+        mov edx,dword ptr [g_enemy_ctrl]
     L_004164f8:
         mov ecx,dword ptr [edx+38h]
     L_004164fb:
@@ -951,7 +951,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_00416511:
         call asm_AnimationManager_SelectSpriteFromResource_004496a0
     L_00416516:
-        mov ecx,dword ptr [data_00477704]
+        mov ecx,dword ptr [g_enemy_ctrl]
     L_0041651c:
         mov eax,dword ptr [ecx+38h]
     L_0041651f:
@@ -977,7 +977,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_00416545:
         mov eax,dword ptr [eax+4]
     L_00416548:
-        mov edx,dword ptr [data_00477704]
+        mov edx,dword ptr [g_enemy_ctrl]
     L_0041654e:
         mov ecx,dword ptr [edx+38h]
     L_00416551:
@@ -997,7 +997,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_00416567:
         call asm_AnimationManager_SelectSpriteFromResource_004496a0
     L_0041656c:
-        mov ecx,dword ptr [data_00477704]
+        mov ecx,dword ptr [g_enemy_ctrl]
     L_00416572:
         mov eax,dword ptr [ecx+38h]
     L_00416575:
@@ -1033,7 +1033,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_004165ad:
         mov eax,dword ptr [eax+4]
     L_004165b0:
-        mov edx,dword ptr [data_00477704]
+        mov edx,dword ptr [g_enemy_ctrl]
     L_004165b6:
         mov ecx,dword ptr [edx+38h]
     L_004165b9:
@@ -1053,7 +1053,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_004165cf:
         call asm_AnimationManager_SelectSpriteFromResource_004496a0
     L_004165d4:
-        mov ecx,dword ptr [data_00477704]
+        mov ecx,dword ptr [g_enemy_ctrl]
     L_004165da:
         mov eax,dword ptr [ecx+38h]
     L_004165dd:
@@ -1079,7 +1079,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_00416603:
         mov eax,dword ptr [eax+4]
     L_00416606:
-        mov edx,dword ptr [data_00477704]
+        mov edx,dword ptr [g_enemy_ctrl]
     L_0041660c:
         mov ecx,dword ptr [edx+38h]
     L_0041660f:
@@ -1099,7 +1099,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_00416625:
         call asm_AnimationManager_SelectSpriteFromResource_004496a0
     L_0041662a:
-        mov ecx,dword ptr [data_00477704]
+        mov ecx,dword ptr [g_enemy_ctrl]
     L_00416630:
         mov eax,dword ptr [ecx+38h]
     L_00416633:
@@ -1135,7 +1135,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_0041666b:
         mov eax,dword ptr [eax+4]
     L_0041666e:
-        mov edx,dword ptr [data_00477704]
+        mov edx,dword ptr [g_enemy_ctrl]
     L_00416674:
         mov ecx,dword ptr [edx+38h]
     L_00416677:
@@ -1155,7 +1155,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_00416690:
         call asm_AnimationManager_SelectSpriteFromResource_004496a0
     L_00416695:
-        mov ecx,dword ptr [data_00477704]
+        mov ecx,dword ptr [g_enemy_ctrl]
     L_0041669b:
         mov eax,dword ptr [ecx+38h]
     L_0041669e:
@@ -1181,7 +1181,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_004166c1:
         mov eax,dword ptr [eax+4]
     L_004166c4:
-        mov edx,dword ptr [data_00477704]
+        mov edx,dword ptr [g_enemy_ctrl]
     L_004166ca:
         mov ecx,dword ptr [edx+38h]
     L_004166cd:
@@ -1201,7 +1201,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_004166e3:
         call asm_AnimationManager_SelectSpriteFromResource_004496a0
     L_004166e8:
-        mov ecx,dword ptr [data_00477704]
+        mov ecx,dword ptr [g_enemy_ctrl]
     L_004166ee:
         mov eax,dword ptr [ecx+38h]
     L_004166f1:
@@ -1237,7 +1237,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_00416726:
         mov eax,dword ptr [eax+4]
     L_00416729:
-        mov edx,dword ptr [data_00477704]
+        mov edx,dword ptr [g_enemy_ctrl]
     L_0041672f:
         mov ecx,dword ptr [edx+38h]
     L_00416732:
@@ -1257,7 +1257,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_00416748:
         call asm_AnimationManager_SelectSpriteFromResource_004496a0
     L_0041674d:
-        mov ecx,dword ptr [data_00477704]
+        mov ecx,dword ptr [g_enemy_ctrl]
     L_00416753:
         mov eax,dword ptr [ecx+38h]
     L_00416756:
@@ -1283,7 +1283,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_00416779:
         mov eax,dword ptr [eax+4]
     L_0041677c:
-        mov edx,dword ptr [data_00477704]
+        mov edx,dword ptr [g_enemy_ctrl]
     L_00416782:
         mov ecx,dword ptr [edx+38h]
     L_00416785:
@@ -1303,7 +1303,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_0041679b:
         call asm_AnimationManager_SelectSpriteFromResource_004496a0
     L_004167a0:
-        mov ecx,dword ptr [data_00477704]
+        mov ecx,dword ptr [g_enemy_ctrl]
     L_004167a6:
         mov eax,dword ptr [ecx+38h]
     L_004167a9:
@@ -1339,7 +1339,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_004167de:
         mov eax,dword ptr [eax+4]
     L_004167e1:
-        mov edx,dword ptr [data_00477704]
+        mov edx,dword ptr [g_enemy_ctrl]
     L_004167e7:
         mov ecx,dword ptr [edx+38h]
     L_004167ea:
@@ -1359,7 +1359,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_00416800:
         call asm_AnimationManager_SelectSpriteFromResource_004496a0
     L_00416805:
-        mov ecx,dword ptr [data_00477704]
+        mov ecx,dword ptr [g_enemy_ctrl]
     L_0041680b:
         mov eax,dword ptr [ecx+38h]
     L_0041680e:
@@ -1385,7 +1385,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_00416831:
         mov eax,dword ptr [eax+4]
     L_00416834:
-        mov edx,dword ptr [data_00477704]
+        mov edx,dword ptr [g_enemy_ctrl]
     L_0041683a:
         mov ecx,dword ptr [edx+38h]
     L_0041683d:
@@ -1405,7 +1405,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_00416853:
         call asm_AnimationManager_SelectSpriteFromResource_004496a0
     L_00416858:
-        mov ecx,dword ptr [data_00477704]
+        mov ecx,dword ptr [g_enemy_ctrl]
     L_0041685e:
         mov eax,dword ptr [ecx+38h]
     L_00416861:
@@ -1445,7 +1445,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_004168a0:
         mov eax,dword ptr [eax+4]
     L_004168a3:
-        mov edx,dword ptr [data_00477704]
+        mov edx,dword ptr [g_enemy_ctrl]
     L_004168a9:
         mov ecx,dword ptr [edx+38h]
     L_004168ac:
@@ -1465,7 +1465,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_004168c2:
         call asm_AnimationManager_SelectSpriteFromResource_004496a0
     L_004168c7:
-        mov ecx,dword ptr [data_00477704]
+        mov ecx,dword ptr [g_enemy_ctrl]
     L_004168cd:
         mov eax,dword ptr [ecx+38h]
     L_004168d0:
@@ -1491,7 +1491,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_004168f3:
         mov eax,dword ptr [eax+4]
     L_004168f6:
-        mov edx,dword ptr [data_00477704]
+        mov edx,dword ptr [g_enemy_ctrl]
     L_004168fc:
         mov ecx,dword ptr [edx+38h]
     L_004168ff:
@@ -1511,7 +1511,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_00416915:
         call asm_AnimationManager_SelectSpriteFromResource_004496a0
     L_0041691a:
-        mov ecx,dword ptr [data_00477704]
+        mov ecx,dword ptr [g_enemy_ctrl]
     L_00416920:
         mov eax,dword ptr [ecx+38h]
     L_00416923:
@@ -1545,7 +1545,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_00416955:
         mov eax,dword ptr [eax+4]
     L_00416958:
-        mov edx,dword ptr [data_00477704]
+        mov edx,dword ptr [g_enemy_ctrl]
     L_0041695e:
         mov ecx,dword ptr [edx+38h]
     L_00416961:
@@ -1565,7 +1565,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_0041697a:
         call asm_AnimationManager_SelectSpriteFromResource_004496a0
     L_0041697f:
-        mov ecx,dword ptr [data_00477704]
+        mov ecx,dword ptr [g_enemy_ctrl]
     L_00416985:
         mov eax,dword ptr [ecx+38h]
     L_00416988:
@@ -1591,7 +1591,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_004169ae:
         mov eax,dword ptr [eax+4]
     L_004169b1:
-        mov edx,dword ptr [data_00477704]
+        mov edx,dword ptr [g_enemy_ctrl]
     L_004169b7:
         mov ecx,dword ptr [edx+38h]
     L_004169ba:
@@ -1611,7 +1611,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_004169d3:
         call asm_AnimationManager_SelectSpriteFromResource_004496a0
     L_004169d8:
-        mov ecx,dword ptr [data_00477704]
+        mov ecx,dword ptr [g_enemy_ctrl]
     L_004169de:
         mov eax,dword ptr [ecx+38h]
     L_004169e1:
@@ -1717,7 +1717,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_00416a9c:
         call asm_Sound_PlayDummyRetail_00420b10
     L_00416aa1:
-        mov edx,dword ptr [data_0047770c]
+        mov edx,dword ptr [g_front]
     L_00416aa7:
         mov eax,dword ptr [edx+9E80h]
     L_00416aad:
@@ -1743,7 +1743,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_00416ad2:
         jmp dword ptr [eax*4+416FE0h]
     L_00416ad9:
-        mov ecx,dword ptr [data_00477704]
+        mov ecx,dword ptr [g_enemy_ctrl]
     L_00416adf:
         mov eax,dword ptr [ecx+38h]
     L_00416ae2:
@@ -1763,7 +1763,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_00416af8:
         jmp asm_target_00416f09
     L_00416afd:
-        mov eax,dword ptr [data_00477704]
+        mov eax,dword ptr [g_enemy_ctrl]
     L_00416b02:
         mov eax,dword ptr [eax+38h]
     L_00416b05:
@@ -1783,7 +1783,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_00416b1b:
         jmp asm_target_00416f09
     L_00416b20:
-        mov edx,dword ptr [data_00477704]
+        mov edx,dword ptr [g_enemy_ctrl]
     L_00416b26:
         mov eax,dword ptr [edx+38h]
     L_00416b29:
@@ -1803,7 +1803,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_00416b3f:
         jmp asm_target_00416f09
     L_00416b44:
-        mov ecx,dword ptr [data_00477704]
+        mov ecx,dword ptr [g_enemy_ctrl]
     L_00416b4a:
         mov eax,dword ptr [ecx+38h]
     L_00416b4d:
@@ -1823,7 +1823,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_00416b63:
         jmp asm_target_00416f09
     L_00416b68:
-        mov eax,dword ptr [data_00477704]
+        mov eax,dword ptr [g_enemy_ctrl]
     L_00416b6d:
         mov eax,dword ptr [eax+38h]
     L_00416b70:
@@ -1843,7 +1843,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_00416b86:
         jmp asm_target_00416f09
     L_00416b8b:
-        mov edx,dword ptr [data_00477704]
+        mov edx,dword ptr [g_enemy_ctrl]
     L_00416b91:
         mov eax,dword ptr [edx+38h]
     L_00416b94:
@@ -1863,7 +1863,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_00416baa:
         jmp asm_target_00416f09
     L_00416baf:
-        mov ecx,dword ptr [data_00477704]
+        mov ecx,dword ptr [g_enemy_ctrl]
     L_00416bb5:
         mov eax,dword ptr [ecx+38h]
     L_00416bb8:
@@ -1949,7 +1949,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_00416c5e:
         jne asm_target_00416de8
     L_00416c64:
-        mov eax,dword ptr [data_0047770c]
+        mov eax,dword ptr [g_front]
     L_00416c69:
         or dword ptr [eax+9EB4h],20h
     L_00416c70:
@@ -2081,7 +2081,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_00416d85:
         call asm_AsciiManager_CreateRetail_0043c8b0
     L_00416d8a:
-        mov eax,dword ptr [data_0047770c]
+        mov eax,dword ptr [g_front]
     L_00416d8f:
         mov ebx,dword ptr [eax+9EB4h]
     L_00416d95:
@@ -2125,7 +2125,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_00416deb:
         jne asm_target_00416e98
     L_00416df1:
-        mov eax,dword ptr [data_0047770c]
+        mov eax,dword ptr [g_front]
     L_00416df6:
         or dword ptr [eax+9EB4h],20h
     L_00416dfd:
@@ -2197,11 +2197,11 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_00416e96:
         jmp short L_00416f09
     L_00416e98:
-        mov edi,dword ptr [data_0047770c]
+        mov edi,dword ptr [g_front]
     L_00416e9e:
         mov eax,dword ptr [edi+9E14h]
     L_00416ea4:
-        mov edx,dword ptr [data_00491c10]
+        mov edx,dword ptr [g_sprt_ctrl]
     L_00416eaa:
         lea esi,[edi+9E14h]
     L_00416eb0:

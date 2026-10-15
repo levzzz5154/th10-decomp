@@ -7,35 +7,35 @@
 
 #pragma code_seg(".text$01a_dtor")
 Card_00408af0::~Card_00408af0() {
-    AnimationLookupContext* animations = data_00491c10;
+    AnimationLookupContext* animations = g_sprt_ctrl;
     effects[0].Release(animations);
     effects[1].Release(animations);
     effects[2].Release(animations);
 
     SchedulerTask* task = update_task;
-    Scheduler* scheduler = static_cast<Scheduler*>(data_00491be4);
+    FuncCtrl* scheduler = static_cast<FuncCtrl*>(g_func_ctrl);
     if (task) {
         EnterCriticalSection(&g_thread_synchronization.critical_sections[0]);
         ++g_thread_synchronization.scheduler_lock_depth;
-        ManagerTeardownScheduler_Remove_00449F60(scheduler, task);
+        ManagerTeardownFuncCtrl_Remove_00449F60(scheduler, task);
         LeaveCriticalSection(&g_thread_synchronization.critical_sections[0]);
         --g_thread_synchronization.scheduler_lock_depth;
     }
     task = draw_task;
-    scheduler = static_cast<Scheduler*>(data_00491be4);
+    scheduler = static_cast<FuncCtrl*>(g_func_ctrl);
     if (task) {
         EnterCriticalSection(&g_thread_synchronization.critical_sections[0]);
         ++g_thread_synchronization.scheduler_lock_depth;
-        ManagerTeardownScheduler_Remove_00449F60(scheduler, task);
+        ManagerTeardownFuncCtrl_Remove_00449F60(scheduler, task);
         LeaveCriticalSection(&g_thread_synchronization.critical_sections[0]);
         --g_thread_synchronization.scheduler_lock_depth;
     }
     task = trailing_task;
-    scheduler = static_cast<Scheduler*>(data_00491be4);
+    scheduler = static_cast<FuncCtrl*>(g_func_ctrl);
     if (task) {
         EnterCriticalSection(&g_thread_synchronization.critical_sections[0]);
         ++g_thread_synchronization.scheduler_lock_depth;
-        ManagerTeardownScheduler_Remove_00449F60(scheduler, task);
+        ManagerTeardownFuncCtrl_Remove_00449F60(scheduler, task);
         LeaveCriticalSection(&g_thread_synchronization.critical_sections[0]);
         --g_thread_synchronization.scheduler_lock_depth;
     }

@@ -22,7 +22,7 @@ struct PauseMenuRuntime {
 extern "C" unsigned char data_00474ca0;
 extern "C" unsigned char data_00474e36;
 extern "C" unsigned char data_00491ff4;
-extern "C" PauseMenuRuntime* data_00477810;
+extern "C" PauseMenuRuntime* g_game;
 extern "C" float data_00470b68;
 extern "C" float data_00470b64;
 
@@ -46,9 +46,9 @@ int PauseUpdateView::Update() {
     case 0:
         if (!(data_00474ca0 & 0x20) &&
             ((data_00474e36 & 8) || (data_00491ff4 & 0x10)) &&
-            data_00477810->active_frame &&
-            (data_00477810->active_frame->flags & 2) &&
-            data_00477810->elapsed >= 30)
+            g_game->active_frame &&
+            (g_game->active_frame->flags & 2) &&
+            g_game->elapsed >= 30)
             PauseMenu_Initialize_00422ab0(this);
         break;
     case 1: case 2: case 3: case 4: case 5:

@@ -13,7 +13,7 @@ struct AppDrawFlush {
 
 #pragma code_seg(".text$001z3gapb")
 int AppDrawFlush::Run() {
-    data_00491c10->Flush();
+    g_sprt_ctrl->Flush();
     data_00491e64 = 0.0f;
     data_00491e68 = 0.0f;
     return 1;

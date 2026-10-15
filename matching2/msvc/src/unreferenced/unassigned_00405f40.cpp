@@ -1,6 +1,6 @@
 
 extern "C" void __cdecl entry_free_004524a1(void* block);
-extern "C" char* data_00491c10;
+extern "C" char* g_sprt_ctrl;
 
 struct AnimationResource_00405f40 {
     unsigned char pad_000[0x108];
@@ -18,7 +18,7 @@ __declspec(noinline) int ReleaseCachedResource_00405f40();
 #pragma code_seg(".text$01release")
 __declspec(noinline) int ReleaseCachedResource_00405f40() {
     AnimationResource_00405f40** slot =
-        (AnimationResource_00405f40**)(data_00491c10 + 0x3AD088);
+        (AnimationResource_00405f40**)(g_sprt_ctrl + 0x3AD088);
     AnimationResource_00405f40* record = *slot;
     if (record != 0) {
         record->Release();

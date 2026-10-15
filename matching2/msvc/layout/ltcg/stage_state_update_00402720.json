@@ -8,7 +8,7 @@
     "include/th10/render/anm_script_table_sweep.hpp",
     "include/th10/render/camera_batch.hpp",
     "include/th10/render/quad_batch.hpp",
-    "include/th10/game/scheduler.hpp"
+    "include/th10/core/func_ctrl.hpp"
   ],
   "image_base": "0x00400000",
   "description": "Stage per-frame update with the stage in EAX and its ECX scheduler callback, compiled with the real EBX-receiver script table sweep.",
@@ -31,7 +31,7 @@
     }
   ],
   "context": {
-    "symbol": "?StageUpdateCompilerContext@@YGPAUSchedulerTask@@PAU1@PAUBackGround@@@Z",
+    "symbol": "?Game_UpdateCompilerContext@@YGPAUSchedulerTask@@PAU1@PAUBackGround@@@Z",
     "section": ".text$03context",
     "address": "0x00403A30",
     "size": 21,

@@ -10,7 +10,7 @@
 // source is therefore compiled in the same native-LTCG link as the scheduler
 // registration functions and the constant-log formatter it calls (see
 // layout/ltcg/bullet_manager_load_scripts_0040ae70.json).
-#include "th10/game/scheduler.hpp"
+#include "th10/core/func_ctrl.hpp"
 
 struct LaserManagerView {
     unsigned char pad_000[0x08];
@@ -37,8 +37,8 @@ struct TextLog_0044b810 {
 extern "C" void *__fastcall Recovery_LoadCachedResource_00447280(
         int id, void *cache, const char *name);
 extern "C" SchedulerTask *__stdcall SchedulerCallback_Create_00449ed0(void *callback);
-extern "C" void *data_00491c10;
-extern "C" Scheduler *data_00491be4;
+extern "C" void *g_sprt_ctrl;
+extern "C" FuncCtrl *g_func_ctrl;
 
 extern "C" __declspec(noinline) int __stdcall
 LaserManager_RegisterTasks(LaserManagerView *manager);
@@ -46,7 +46,7 @@ LaserManager_RegisterTasks(LaserManagerView *manager);
 extern "C" __declspec(noinline) int __stdcall
 LaserManager_RegisterTasks(LaserManagerView *manager) {
     void *resource = Recovery_LoadCachedResource_00447280(
-            7, data_00491c10, (const char *)0x46CD88);
+            7, g_sprt_ctrl, (const char *)0x46CD88);
     manager->display_resource_458 = resource;
     if (!resource) {
         ((TextLog_0044b810 *)0x474F70)->Append((char *)0x46CD54);
@@ -56,13 +56,13 @@ LaserManager_RegisterTasks(LaserManagerView *manager) {
     SchedulerTask *primary = SchedulerCallback_Create_00449ed0((void *)0x41C480);
     primary->reserved_flags &= ~1u;
     primary->context = manager;
-    Scheduler_RegisterPrimary(data_00491be4, primary, 0x13);
+    FuncCtrl_RegisterPrimary(g_func_ctrl, primary, 0x13);
     manager->primary_task_008 = primary;
 
     SchedulerTask *secondary = SchedulerCallback_Create_00449ed0((void *)0x41C4E0);
     secondary->reserved_flags &= ~1u;
     secondary->context = manager;
-    Scheduler_RegisterSecondary(data_00491be4, secondary, 0x1B);
+    FuncCtrl_RegisterSecondary(g_func_ctrl, secondary, 0x1B);
     manager->secondary_task_00C = secondary;
     manager->head_laser_pointer_434 = manager->head_laser_010;
     return 0;

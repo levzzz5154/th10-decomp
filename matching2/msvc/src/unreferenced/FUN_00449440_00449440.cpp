@@ -7,13 +7,13 @@
 struct AnimationManager_00449440;
 struct RenderEntity_00449440;
 
-extern "C" AnimationManager_00449440* data_00491c10;
+extern "C" AnimationManager_00449440* g_sprt_ctrl;
 
 extern "C" __declspec(noinline) int __cdecl asm_FUN_004451c0_004451c0(
         RenderEntity_00449440* entity, AnimationManager_00449440* manager);
 
 #pragma code_seg(".text$03draw")
 __declspec(noinline) int DrawGlobalAnimation_00449440(RenderEntity_00449440* entity) {
-    return asm_FUN_004451c0_004451c0(entity, data_00491c10);
+    return asm_FUN_004451c0_004451c0(entity, g_sprt_ctrl);
 }
 #pragma code_seg()

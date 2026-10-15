@@ -49,7 +49,7 @@ void __stdcall ChangeAnimationScript(ScriptChangeResource* resource, Entity* obj
     unsigned int* flag_word = &object->AnimationFlags();
     *flag_word &= ~1u;
     RunChangeScriptVm(object);
-    ++data_00491c10->script_tick_counter;
+    ++g_sprt_ctrl->script_tick_counter;
 }
 #pragma code_seg()
 

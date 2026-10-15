@@ -1,11 +1,11 @@
 #pragma once
-#include "th10/game/scheduler.hpp"
+#include "th10/core/func_ctrl.hpp"
 #include "th10/platform/thread_sync.hpp"
 #include "th10/render/native_render_targets.hpp"
 #include "th10/game/ending_text_view.hpp"
 #include "th10/render/animation_resource_removal.hpp"
 
-// The singleton has the existing NativeRenderManager view. The removal code
+// The singleton has the existing SprtCtrlTargetsView view. The removal code
 // below takes its own typed views of the same original manager bytes.
 struct AnimationBucketEntry {
     AnimationBucketEntry* object;    // +0x00: object registered by this node

@@ -14,7 +14,7 @@
 // same native-LTCG link as the scheduler registration bodies it calls (see
 // layout/ltcg/bullet_manager_load_scripts_0040ae70.json).
 #include <stddef.h>
-#include "th10/game/scheduler.hpp"
+#include "th10/core/func_ctrl.hpp"
 
 void *__cdecl operator new(unsigned int size);
 extern "C" void *__cdecl memset(void *destination, int value, unsigned int size);
@@ -92,20 +92,7 @@ struct MessageParserVirtual_0040d280 {
     virtual int construct(int argument);   // +0x08
 };
 
-struct MessageHost_0040d280 {
-    unsigned char reserved_000[0x08];
-    SchedulerTask *volatile update_node_008;   // +0x08
-    SchedulerTask *volatile draw_node_00C;     // +0x0C
-    unsigned char reserved_010[0x20];
-    void *animation_archive_030;               // +0x30
-    unsigned char reserved_034[0x0C];
-    int timer_previous_040;                    // +0x40
-    int timer_current_044;                     // +0x44
-    float timer_elapsed_048;                   // +0x48
-    const float *timer_speed_04C;              // +0x4C
-    volatile unsigned int timer_flags_050;     // +0x50
-    MessageParser_0040d280 *parser_054;        // +0x54
-};
+#include "th10/game/enemy_ctrl.hpp"
 
 // The global game object whose archive field is published on the host.
 struct GameArchiveOwner_0040d280 {
@@ -115,13 +102,13 @@ struct GameArchiveOwner_0040d280 {
 
 extern "C" GameArchiveOwner_0040d280 *data_004776f0;
 extern "C" unsigned char data_00476f78;
-extern "C" Scheduler *data_00491be4;
+extern "C" FuncCtrl *g_func_ctrl;
 
 // Both callback nodes are built by the same sequence: construct, re-clear the
 // two routine words, publish the callback and the context, and force bit 0 on
 // with bit 1 off.
 static SchedulerCallbackTask_0040d280 *BuildCallbackNode_0040d280(
-        void *callback, MessageHost_0040d280 *host) {
+        void *callback, EnemyCtrl *host) {
     SchedulerCallbackTask_0040d280 *node = new SchedulerCallbackTask_0040d280;
     unsigned int flags = node->flags;
     node->on_tick = callback;
@@ -134,7 +121,7 @@ static SchedulerCallbackTask_0040d280 *BuildCallbackNode_0040d280(
 
 #pragma code_seg(".text$01b")
 extern "C" __declspec(noinline) int __stdcall
-asm_MessageHost_InitRetail_0040d280(MessageHost_0040d280 *host, int script_name) {
+EnemyCtrl_Initialize(EnemyCtrl *host, int script_name) {
     host->animation_archive_030 = data_004776f0->animation_archive;
 
     MessageParser_0040d280 *parser = new MessageParser_0040d280;
@@ -143,12 +130,12 @@ asm_MessageHost_InitRetail_0040d280(MessageHost_0040d280 *host, int script_name)
 
     SchedulerTask *update =
         (SchedulerTask *)BuildCallbackNode_0040d280((void *)0x40D810, host);
-    Scheduler_RegisterPrimary(data_00491be4, update, 0x12);
+    FuncCtrl_RegisterPrimary(g_func_ctrl, update, 0x12);
     host->update_node_008 = update;
 
     SchedulerTask *draw =
         (SchedulerTask *)BuildCallbackNode_0040d280((void *)0x40D820, host);
-    Scheduler_RegisterSecondary(data_00491be4, draw, 0x14);
+    FuncCtrl_RegisterSecondary(g_func_ctrl, draw, 0x14);
     host->draw_node_00C = draw;
 
     unsigned int timer_flags = host->timer_flags_050;

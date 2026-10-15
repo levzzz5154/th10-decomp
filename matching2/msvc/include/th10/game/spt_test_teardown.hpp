@@ -1,6 +1,6 @@
 #pragma once
 #include "th10/game/spt_test.hpp"
-#include "th10/game/scheduler.hpp"
+#include "th10/core/func_ctrl.hpp"
 #include "th10/platform/thread_sync.hpp"
 #include "th10/platform/worker.hpp"
 
@@ -24,7 +24,7 @@ struct SptTestAnimations_0042be20 {
     }
 };
 
-extern "C" SptTestAnimations_0042be20* data_00491c10;
-extern "C" void* data_00491be4;          // the scheduler
+extern "C" SptTestAnimations_0042be20* g_sprt_ctrl;
+extern "C" void* g_func_ctrl;          // the scheduler
 // 0x00449F60: unlink one task; the caller holds the scheduler lock.
-__declspec(noinline) void __stdcall ManagerTeardownScheduler_Remove_00449F60(Scheduler*, SchedulerTask*);
+__declspec(noinline) void __stdcall ManagerTeardownFuncCtrl_Remove_00449F60(FuncCtrl*, SchedulerTask*);

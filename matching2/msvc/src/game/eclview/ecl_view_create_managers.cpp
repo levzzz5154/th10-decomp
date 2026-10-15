@@ -1,8 +1,8 @@
 // 0x0040A350: recreate the player, bullet, bomb, item, effect, enemy and HUD
 // managers for the ECL viewer's selected script, then reset its menu.
 #include "th10/game/startup_managers_0040a350.hpp"
-#include "th10/game/enemy_manager_factory_0040d6b0.hpp"
-extern "C" void *data_00477704;
+#include "th10/game/enemy_ctrl.hpp"
+extern "C" void *g_enemy_ctrl;
 extern "C" void *__cdecl Create_00425020();
 extern "C" void *__cdecl Create_00406060();
 extern "C" void *__cdecl Create_004056b0();
@@ -18,9 +18,9 @@ int FactoryCallerState::InitializeManagers() {
     Create_004056b0();
     Create_0041aed0();
     Create_0042b660();
-    EnemyManager_CreateRetail_0040d6b0(scripts_034[script_index_114]);
+    EnemyCtrl_Create(scripts_034[script_index_114]);
     Create_00414830();
-    void *parser = *(void **)((char *)data_00477704 + 0x54);
+    void *parser = *(void **)((char *)g_enemy_ctrl + 0x54);
     menu_1ec.item_count = *(int *)((char *)parser + 8);
     menu_1ec.Advance(1);
     menu_1ec.Advance(-1);

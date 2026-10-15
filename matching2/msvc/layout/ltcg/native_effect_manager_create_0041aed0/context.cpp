@@ -7,11 +7,11 @@
 
 // C linkage: a removal the compiler knows cannot throw, so the stand-in
 // destructor needs no unwind state for the element array.
-extern "C" void __stdcall ManagerCreateStandIn_Remove(Scheduler* scheduler, SchedulerTask* task);
+extern "C" void __stdcall ManagerCreateStandIn_Remove(FuncCtrl* scheduler, SchedulerTask* task);
 
 #pragma code_seg(".text$06primary")
-extern "C" __declspec(noinline) int __stdcall Scheduler_RegisterPrimary(
-        Scheduler* scheduler, SchedulerTask* task, int priority) {
+extern "C" __declspec(noinline) int __stdcall FuncCtrl_RegisterPrimary(
+        FuncCtrl* scheduler, SchedulerTask* task, int priority) {
     int result = 0;
     if (task->on_register) {
         result = task->on_register(task->context);
@@ -31,7 +31,7 @@ extern "C" __declspec(noinline) int __stdcall Scheduler_RegisterPrimary(
 #pragma code_seg()
 
 static __forceinline void ManagerCreateStandIn_Unregister(SchedulerTask* task) {
-    Scheduler* scheduler = static_cast<Scheduler*>(data_00491be4);
+    FuncCtrl* scheduler = static_cast<FuncCtrl*>(g_func_ctrl);
     if (task) {
         EnterCriticalSection(&g_thread_synchronization.critical_sections[0]);
         ++g_thread_synchronization.scheduler_lock_depth;
@@ -49,11 +49,11 @@ int ItemManager::Initialize() {
     SchedulerTask* update = ManagerCreateStandIn_Task(tail);
     update->reserved_flags &= ~1u;
     update->context = this;
-    Scheduler_RegisterPrimary(static_cast<Scheduler*>(data_00491be4), update, 0x15);
+    FuncCtrl_RegisterPrimary(static_cast<FuncCtrl*>(g_func_ctrl), update, 0x15);
     primary = update;
     SchedulerTask* draw = ManagerCreateStandIn_Task(tail + 4);
     draw->context = this;
-    Scheduler_RegisterPrimary(static_cast<Scheduler*>(data_00491be4), draw, 0x19);
+    FuncCtrl_RegisterPrimary(static_cast<FuncCtrl*>(g_func_ctrl), draw, 0x19);
     secondary = draw;
     return 0;
 }

@@ -7,7 +7,7 @@ struct AnimationScriptId_00449450 {
 struct AnimationHandle_00449450 {
     unsigned int value;
 };
-extern "C" AnimationLookupContext* data_00491c10;
+extern "C" AnimationLookupContext* g_sprt_ctrl;
 
 class AnimationManager_00449450 {
 public:

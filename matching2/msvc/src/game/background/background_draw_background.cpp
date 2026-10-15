@@ -19,8 +19,8 @@ struct RenderStageState_00439390 {
 struct PlayerSchedulerRecord {
     __declspec(noinline) void SetSchedulerValue(int value);
 };
-struct ScreenEffectController;
-__declspec(noinline) ScreenEffectController* __stdcall CreateScreenEffect_0043c8b0(
+struct Screen;
+__declspec(noinline) Screen* __stdcall Screen_Create(
     int priority, int mode, int first, int second, int third, int fourth);
 
 struct PlayfieldRect { int left, top, right, bottom; };
@@ -29,7 +29,7 @@ struct PlayfieldRect { int left, top, right, bottom; };
 int __stdcall BackGround_DrawBackground(BackGround* stage) {
     if (stage->flags & 8) return 1;
     if (!(stage->flags & 4) || stage->fade_timer.current < 60) {
-        data_00491c10->Flush();
+        g_sprt_ctrl->Flush();
         stage->view.camera.clip_x = data_00491c28.stages[0].camera.clip_x;
         stage->view.camera.clip_y = data_00491c28.stages[0].camera.clip_y;
         data_00491c28.stages[0] = stage->view;
@@ -50,7 +50,7 @@ int __stdcall BackGround_DrawBackground(BackGround* stage) {
     }
     if (stage->flags & 4) {
         if (stage->fade_timer.current < 30) {
-            CreateScreenEffect_0043c8b0(15, 3, 30, 0, 0, 0);
+            Screen_Create(15, 3, 30, 0, 0, 0);
             stage->flags |= 1;
             reinterpret_cast<PlayerSchedulerRecord*>(&stage->fade_timer)->SetSchedulerValue(1);
         } else {
@@ -60,8 +60,8 @@ int __stdcall BackGround_DrawBackground(BackGround* stage) {
     }
     if (reinterpret_cast<unsigned char*>(&stage->fade_color)[3] != 0) {
         unsigned int color = stage->fade_color;
-        data_00491c10->fade_enabled = 1;
-        *reinterpret_cast<unsigned int*>(&data_00491c10->fade_blue) = color;
+        g_sprt_ctrl->fade_enabled = 1;
+        *reinterpret_cast<unsigned int*>(&g_sprt_ctrl->fade_blue) = color;
     }
     stage->drawn_objects = 0;
     stage->culled_objects = 0;
@@ -70,11 +70,11 @@ int __stdcall BackGround_DrawBackground(BackGround* stage) {
         if (stage->sprites[0].texture) {
             reinterpret_cast<RenderStageState_00405300*>(&data_00491c28)->SelectDefaultStage(0);
             reinterpret_cast<RenderStageState_00439390*>(&data_00491c28)->DisableFog();
-            data_00491c10->Flush();
+            g_sprt_ctrl->Flush();
             StageSetRenderState(0x0E, 0);
             for (int i = 0; i < 8; ++i) {
                 if (stage->sprites[i].texture) {
-                    asm_FUN_004451c0_004451c0(data_00491c10, &stage->sprites[i]);
+                    asm_FUN_004451c0_004451c0(g_sprt_ctrl, &stage->sprites[i]);
                 }
             }
             StageSetRenderState(0x0E, 1);
@@ -89,14 +89,14 @@ int __stdcall BackGround_DrawBackground(BackGround* stage) {
         BackGround_DrawLayer(stage, 5);
         BackGround_DrawLayer(stage, 6);
         BackGround_DrawLayer(stage, 7);
-        data_00491c10->Flush();
+        g_sprt_ctrl->Flush();
         if (stage->sprite_frames) ++stage->sprite_frames;
     }
-    data_00491c10->fade_enabled = 0;
-    *reinterpret_cast<unsigned int*>(&data_00491c10->fade_blue) = 0x80808080;
+    g_sprt_ctrl->fade_enabled = 0;
+    *reinterpret_cast<unsigned int*>(&g_sprt_ctrl->fade_blue) = 0x80808080;
     if (stage->dimmed) {
-        data_00491c10->fade_enabled = 1;
-        *reinterpret_cast<unsigned int*>(&data_00491c10->fade_blue) = 0xFF404040;
+        g_sprt_ctrl->fade_enabled = 1;
+        *reinterpret_cast<unsigned int*>(&g_sprt_ctrl->fade_blue) = 0xFF404040;
     }
     StageSetRenderState(0x0E, 0);
     StageSetRenderState(0x17, 8);

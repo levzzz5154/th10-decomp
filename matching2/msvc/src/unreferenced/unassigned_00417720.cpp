@@ -1,6 +1,6 @@
 
 extern "C" void* __stdcall find_opaque_004491c0(unsigned int id);
-extern "C" char* data_00491c10;
+extern "C" char* g_sprt_ctrl;
 
 struct AnimationNode_00417720 {
     AnimationNode_00417720* object;

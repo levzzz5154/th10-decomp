@@ -6,7 +6,7 @@
 // Looks an animation up by handle and clears a stale handle.
 static __forceinline AnimationObject* ResolveOrClear(unsigned int* handle) {
     unsigned int value = *handle;
-    AnimationObject* object = static_cast<AnimationContext*>(data_00491c10)->FindInBuckets(value);
+    AnimationObject* object = static_cast<AnimationContext*>(g_sprt_ctrl)->FindInBuckets(value);
     if (!object) *handle = 0;
     return object;
 }
@@ -53,13 +53,13 @@ extern "C" __declspec(noinline) int __stdcall Player_FireShot(
 
             int script = shot->animation + 5;
             void* resource = player->animation_file;
-            Entity* object = static_cast<AnimationPool*>(data_00491c10)->Allocate();
+            Entity* object = static_cast<AnimationPool*>(g_sprt_ctrl)->Allocate();
             unsigned int flags = object->flags_35C;
             object->render_bucket = 15;
             object->flags_35C = flags | 0x40000000u;
             static_cast<AnimationResource_00449870*>(resource)
                 ->InitializeObject(object, script);
-            AnimationRef id = static_cast<AnimationLists*>(data_00491c10)->RegisterPrimaryBack(object);
+            AnimationRef id = static_cast<AnimationLists*>(g_sprt_ctrl)->RegisterPrimaryBack(object);
             // The shared record declares its handles volatile for the bullet update.
             const_cast<unsigned int&>(bullet->animation.value) = id.value;
             AnimationObject* primary = ResolveOrClear(const_cast<unsigned int*>(&bullet->animation.value));
@@ -69,13 +69,13 @@ extern "C" __declspec(noinline) int __stdcall Player_FireShot(
             }
             if (shot->kind == SHOT_LASER) {
                 void* laser_resource = player->animation_file;
-                Entity* laser = static_cast<AnimationPool*>(data_00491c10)->Allocate();
+                Entity* laser = static_cast<AnimationPool*>(g_sprt_ctrl)->Allocate();
                 unsigned int laser_flags = laser->flags_35C;
                 laser->render_bucket = 15;
                 laser->flags_35C = laser_flags | 0x40000000u;
                 static_cast<AnimationResource_00449870*>(laser_resource)
                     ->InitializeObject(laser, 16);
-                AnimationRef laser_id = static_cast<AnimationLists*>(data_00491c10)
+                AnimationRef laser_id = static_cast<AnimationLists*>(g_sprt_ctrl)
                     ->RegisterPrimaryBack(laser);
                 bullet->laser_animation.value = laser_id.value;
             } else {

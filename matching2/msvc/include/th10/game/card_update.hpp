@@ -7,7 +7,7 @@
 #include "th10/render/position_setter_pair.hpp"
 
 // One sprite of the in-game side panel.
-struct HudSprite_00408d60 {
+struct FrontSprite_00408d60 {
     unsigned char reserved_000[0x304];
     unsigned short stop_frame;                     // +0x304
     unsigned char reserved_306[0x3AC - 0x306];
@@ -17,12 +17,12 @@ struct HudSprite_00408d60 {
 // two two-digit counters, driven by the scheduler callback at 0x00409220.
 struct Card_00408d60 {
     unsigned char reserved_0000[0x10];
-    HudSprite_00408d60 frame_sprite;               // +0x0010
-    HudSprite_00408d60 label_sprite;               // +0x03BC
+    FrontSprite_00408d60 frame_sprite;               // +0x0010
+    FrontSprite_00408d60 label_sprite;               // +0x03BC
     AnimationHandle_00449470 panel_handles[3];     // +0x0768
     PositionScriptId_004492f0 marker_handle;       // +0x0774
-    HudSprite_00408d60 bonus_digits[8];            // +0x0778
-    HudSprite_00408d60 counter_digits[5];          // +0x24D8
+    FrontSprite_00408d60 bonus_digits[8];            // +0x0778
+    FrontSprite_00408d60 counter_digits[5];          // +0x24D8
     FrameTimer timer;                              // +0x3734
     char spell_name[0x3788 - 0x3748];              // +0x3748
     int record_index;                              // +0x3788

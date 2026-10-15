@@ -25,7 +25,7 @@
   "anchors": [
     {
       "name": "AnimationManager_RenderBucket_00448980_abi_anchor",
-      "symbol": "?RenderBucket@AnimationManager_00442F50@@QAEHH@Z",
+      "symbol": "?RenderBucket@SprtCtrlBatchView@@QAEHH@Z",
       "section": ".text$03bucket",
       "address": "0x00448980",
       "size": 68

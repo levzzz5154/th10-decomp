@@ -91,7 +91,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0042d920_0042d920() {
     L_0042d993:
         mov eax,dword ptr [ebp+2C8h]
     L_0042d999:
-        mov edx,dword ptr [data_00491c10]
+        mov edx,dword ptr [g_sprt_ctrl]
     L_0042d99f:
         push eax
     L_0042d9a0:
@@ -103,7 +103,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0042d920_0042d920() {
     L_0042d9af:
         cmp al,bl
     L_0042d9b1:
-        mov esi,dword ptr [data_00491c10]
+        mov esi,dword ptr [g_sprt_ctrl]
     L_0042d9b7:
         jne asm_target_0042da66
     L_0042d9bd:
@@ -510,7 +510,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0042d920_0042d920() {
     L_0042dc28:
         mov ecx,dword ptr [ebp+2C8h]
     L_0042dc2e:
-        mov edx,dword ptr [data_00491c10]
+        mov edx,dword ptr [g_sprt_ctrl]
     L_0042dc34:
         push ecx
     L_0042dc35:
@@ -632,7 +632,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0042d920_0042d920() {
     L_0042dd00:
         test ax,ax
     L_0042dd03:
-        mov esi,dword ptr [data_00491c10]
+        mov esi,dword ptr [g_sprt_ctrl]
     L_0042dd09:
         mov edi,1Fh
     L_0042dd0e:

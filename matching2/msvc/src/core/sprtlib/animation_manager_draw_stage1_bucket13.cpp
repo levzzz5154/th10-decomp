@@ -24,7 +24,7 @@ extern "C" RenderStageState_00448810 data_00491c28;
 extern "C" int __cdecl asm_AnimationManager_RenderBucket_00448980(void* manager, int index);
 
 #pragma code_seg(".text$08stage13")
-int AnimationManager_00442F50::RenderStage1Bucket13() {
+int SprtCtrlBatchView::RenderStage1Bucket13() {
     RenderStage_00448810* stage = &data_00491c28.stages[1];
     data_00491c28.active_stage = stage;
     stage->camera.ApplyDefault();

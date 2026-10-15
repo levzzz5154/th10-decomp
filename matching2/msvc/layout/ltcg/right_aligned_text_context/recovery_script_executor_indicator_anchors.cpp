@@ -1,6 +1,6 @@
 #include "th10/game/right_aligned_text_context/recovery_script_executor_caller_00419120.hpp"
 
-extern "C" void* data_00491c10;
+extern "C" void* g_sprt_ctrl;
 extern "C" void* __cdecl asm_FUN_00449950_00449950(void* manager);
 extern "C" void __cdecl asm_AnimationObject_LoadScript_0043e710(
     void* resource, void* object, int index);
@@ -16,7 +16,7 @@ void** __stdcall RecoveryPlayerAnimationCreate_00448db0(
         void* resource, void** result, int script,
         const HintPosition_00419120* position) {
     unsigned char* object = static_cast<unsigned char*>(
-        asm_FUN_00449950_00449950(data_00491c10));
+        asm_FUN_00449950_00449950(g_sprt_ctrl));
     *reinterpret_cast<unsigned int*>(object + 0x35C) |= 0x40000000u;
     *reinterpret_cast<int*>(object + 0x20) = 0;
     HintPosition_00419120* object_position =
@@ -25,7 +25,7 @@ void** __stdcall RecoveryPlayerAnimationCreate_00448db0(
     object_position->y = position->y + recovery_indicator_y_origin_00470b48;
     object_position->z = position->z;
     asm_AnimationObject_LoadScript_0043e710(resource, object, script);
-    asm_AnimationManager_RegisterPrimaryBack_004489d0(data_00491c10, result, object);
+    asm_AnimationManager_RegisterPrimaryBack_004489d0(g_sprt_ctrl, result, object);
     return result;
 }
 #pragma code_seg()

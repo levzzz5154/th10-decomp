@@ -11,11 +11,11 @@ struct SceneFlags_0041ba00 {
 };
 
 
-extern "C" unsigned char data_00477810;  // 0x00477810  active scene
+extern "C" unsigned char g_game;  // 0x00477810  active scene
 extern "C" int __stdcall asm_FUN_0041afd0_0041afd0(void* self);
 
 int ItemManager::OnUpdate() {
-    SceneFlags_0041ba00* scene = *(SceneFlags_0041ba00**)&data_00477810;
+    SceneFlags_0041ba00* scene = *(SceneFlags_0041ba00**)&g_game;
     if (scene != 0 && ((((scene->flags_58 >> 2) | scene->flags_58) & 1) != 0 ||
                        (scene->flags_58 & 0x400) != 0))
         return 1;

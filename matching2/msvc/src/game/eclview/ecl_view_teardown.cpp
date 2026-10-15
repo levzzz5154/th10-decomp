@@ -54,27 +54,27 @@ inline void EclView_DeleteOwned(T* const& owner) {
 EclView_0040a940::~EclView_0040a940() {
     ClearScriptNames();
     SchedulerTask* task = update_task;
-    Scheduler* scheduler = static_cast<Scheduler*>(data_00491be4);
+    FuncCtrl* scheduler = static_cast<FuncCtrl*>(g_func_ctrl);
     if (task) {
         EnterCriticalSection(&g_thread_synchronization.critical_sections[0]);
         ++g_thread_synchronization.scheduler_lock_depth;
-        ManagerTeardownScheduler_Remove_00449F60(scheduler, task);
+        ManagerTeardownFuncCtrl_Remove_00449F60(scheduler, task);
         LeaveCriticalSection(&g_thread_synchronization.critical_sections[0]);
         --g_thread_synchronization.scheduler_lock_depth;
     }
     task = draw_task;
-    scheduler = static_cast<Scheduler*>(data_00491be4);
+    scheduler = static_cast<FuncCtrl*>(g_func_ctrl);
     if (task) {
         EnterCriticalSection(&g_thread_synchronization.critical_sections[0]);
         ++g_thread_synchronization.scheduler_lock_depth;
-        ManagerTeardownScheduler_Remove_00449F60(scheduler, task);
+        ManagerTeardownFuncCtrl_Remove_00449F60(scheduler, task);
         LeaveCriticalSection(&g_thread_synchronization.critical_sections[0]);
         --g_thread_synchronization.scheduler_lock_depth;
     }
-    EclView_DeleteOwned(data_0047770c);
+    EclView_DeleteOwned(g_front);
     EclView_DeleteOwned(g_player);
     EclView_DeleteOwned(data_004776f0);
-    EclView_DeleteOwned(data_00477704);
+    EclView_DeleteOwned(g_enemy_ctrl);
     EclView_DeleteOwned(g_bomb);
     EclView_DeleteOwned(data_00477818);
     EclView_DeleteOwned(g_smoll_score);

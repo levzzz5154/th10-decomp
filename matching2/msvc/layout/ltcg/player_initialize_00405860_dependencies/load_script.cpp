@@ -56,6 +56,6 @@ __declspec(noinline) void __stdcall LoadScript_0043e710(
     uint32_t* flag_word = &object->AnimationFlags();
     *flag_word &= ~1u;
     asm_FUN_0043ee30_0043ee30(object);
-    ++reinterpret_cast<AnimationManager_0043e710*>(data_00491c10)->script_tick_counter;
+    ++reinterpret_cast<AnimationManager_0043e710*>(g_sprt_ctrl)->script_tick_counter;
 }
 #pragma code_seg()

@@ -113,7 +113,7 @@
   "anchors": [
     {
       "name": "flush",
-      "symbol": "?Flush@AnimationManager_00442F50@@QAEHXZ",
+      "symbol": "?Flush@SprtCtrlBatchView@@QAEHXZ",
       "section": ".text$01flush",
       "address": "0x00442F50",
       "size": 133

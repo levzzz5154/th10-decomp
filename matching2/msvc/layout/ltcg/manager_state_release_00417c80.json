@@ -5,13 +5,13 @@
   "driver": "layout/ltcg/manager_state_release_00417c80/context.cpp",
   "headers": [
     "include/th10/game/manager_teardown_00417c80.hpp",
-    "include/th10/game/scheduler.hpp",
+    "include/th10/core/func_ctrl.hpp",
     "include/th10/platform/thread_sync.hpp",
     "include/th10/game/score.hpp",
     "include/th10/math/timer.hpp",
     "include/th10/game/score_file.hpp",
     "include/th10/game/score_archive_0042b1e0.hpp",
-    "include/th10/game/enemy_manager_factory_0040d6b0.hpp",
+    "include/th10/game/enemy_ctrl.hpp",
     "include/th10/game/enemy_manager_dependencies_0040d530.hpp",
     "include/th10/render/resource_registrar_0043e460.hpp",
     "include/th10/render/animation_resource_removal.hpp"
@@ -28,8 +28,8 @@
   "description": "The manager-state teardown compiled with native LTCG beside the score-archive flush, the game-thread animation fetch, the enemy-manager destroy and models of every private-register callee, so each callee receives the register retail uses.",
   "functions": [
     {
-      "name": "ReleaseGlobalManager_00417c80",
-      "symbol": "_ReleaseGlobalManager_00417c80@4",
+      "name": "Game_Destroy",
+      "symbol": "_Game_Destroy@4",
       "section": ".text$9release",
       "address": "0x00417C80",
       "size": 1103,
@@ -52,8 +52,8 @@
       "size": 75
     },
     {
-      "name": "EnemyManager_Destroy",
-      "symbol": "?Destroy@EnemyManager_0040d530@@QAEXXZ",
+      "name": "EnemyCtrl_Destroy",
+      "symbol": "?Destroy@EnemyCtrl@@QAEXXZ",
       "section": ".text$02b",
       "address": "0x0040D530",
       "size": 305
@@ -67,7 +67,7 @@
     },
     {
       "name": "ReleaseStageParts",
-      "symbol": "?ReleaseStageParts@SidePanel_00414570@@QAEXXZ",
+      "symbol": "?ReleaseStageParts@FrontStagePartsView@@QAEXXZ",
       "section": ".text$04panel",
       "address": "0x00414570",
       "size": 121
@@ -219,7 +219,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_Hud_Destroy@4",
+      "symbol": "_Front_Destroy@4",
       "address": "0x004145F0",
       "kind": "relative_code"
     },
@@ -254,7 +254,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_EnemyManager_Clear_00409f90@4",
+      "symbol": "_EnemyCtrl_Clear_00409f90@4",
       "address": "0x00409F90",
       "kind": "relative_code"
     },
@@ -284,17 +284,17 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "@Scheduler_RemoveTask@8",
+      "symbol": "@FuncCtrl_RemoveTask@8",
       "address": "0x00449F60",
       "kind": "relative_code"
     },
     {
-      "symbol": "_Scheduler_Remove@8",
+      "symbol": "_FuncCtrl_Remove@8",
       "address": "0x00449F60",
       "kind": "relative_code"
     },
     {
-      "symbol": "_EnemyManager_ReleaseLists_00409f90@4",
+      "symbol": "_EnemyCtrl_ReleaseLists_00409f90@4",
       "address": "0x00409F90",
       "kind": "relative_code"
     },
@@ -374,7 +374,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00491c10",
+      "symbol": "_g_sprt_ctrl",
       "address": "0x00491C10",
       "kind": "data"
     },
@@ -434,7 +434,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_0047770c",
+      "symbol": "_g_front",
       "address": "0x0047770C",
       "kind": "data"
     },
@@ -474,7 +474,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00477704",
+      "symbol": "_g_enemy_ctrl",
       "address": "0x00477704",
       "kind": "data"
     },
@@ -494,7 +494,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00491be4",
+      "symbol": "_g_func_ctrl",
       "address": "0x00491BE4",
       "kind": "data"
     },
@@ -514,7 +514,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00477810",
+      "symbol": "_g_game",
       "address": "0x00477810",
       "kind": "data"
     },

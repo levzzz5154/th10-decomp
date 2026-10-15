@@ -13,8 +13,8 @@
     "include/th10/math/interpolator.hpp",
     "include/th10/math/vector.hpp",
     "include/th10/math/timer.hpp",
-    "include/th10/render/screen_effect_controller.hpp",
-    "include/th10/game/scheduler.hpp",
+    "include/th10/core/screen.hpp",
+    "include/th10/core/func_ctrl.hpp",
     "include/th10/platform/thread_sync.hpp"
   ],
   "image_base": "0x00400000",
@@ -149,7 +149,7 @@
     {
       "name": "SyncRenderState",
       "source": "src/core/sprtfunc/render_state_sync.cpp",
-      "symbol": "?SyncRenderState@AnimationManager_00442F50@@QAEXPBURenderEntity@@@Z",
+      "symbol": "?SyncRenderState@SprtCtrlBatchView@@QAEXPBURenderEntity@@@Z",
       "section": ".text$04bsync",
       "address": "0x004425A0",
       "size": 201,
@@ -157,7 +157,7 @@
     },
     {
       "name": "SubmitSpriteQuad",
-      "symbol": "?SubmitSpriteQuad@AnimationManager_00442F50@@QAEHPBURenderEntity@@I@Z",
+      "symbol": "?SubmitSpriteQuad@SprtCtrlBatchView@@QAEHPBURenderEntity@@I@Z",
       "section": ".text$04c2quad",
       "address": "0x00442670",
       "size": 1111,
@@ -166,7 +166,7 @@
     },
     {
       "name": "SubmitSpriteQuadMirrored",
-      "symbol": "?SubmitSpriteQuadMirrored@AnimationManager_00442F50@@QAEHPBURenderEntity@@I@Z",
+      "symbol": "?SubmitSpriteQuadMirrored@SprtCtrlBatchView@@QAEHPBURenderEntity@@I@Z",
       "section": ".text$04c4mirror",
       "address": "0x00442AD0",
       "size": 1111,
@@ -174,8 +174,8 @@
       "source": "src/core/sprtfunc/sprite_quad_submit_mirrored.cpp"
     },
     {
-      "name": "AnimationManager_00442F50_Flush",
-      "symbol": "?Flush@AnimationManager_00442F50@@QAEHXZ",
+      "name": "SprtCtrlBatchView_Flush",
+      "symbol": "?Flush@SprtCtrlBatchView@@QAEHXZ",
       "section": ".text$05flush",
       "address": "0x00442F50",
       "size": 133,
@@ -185,7 +185,7 @@
     {
       "name": "AppendQuad",
       "source": "src/core/sprtfunc/quad_vertex_append.cpp",
-      "symbol": "?AppendQuad@AnimationManager_00442F50@@QAEHPBUTexturedVertex@@@Z",
+      "symbol": "?AppendQuad@SprtCtrlBatchView@@QAEHPBUTexturedVertex@@@Z",
       "section": ".text$05happend",
       "address": "0x00442FE0",
       "size": 157,
@@ -230,7 +230,7 @@
     {
       "name": "SubmitProjectedQuad_00443f80",
       "source": "src/core/sprtfunc/entity_submit_projected_00443f80.cpp",
-      "symbol": "?SubmitProjectedQuad@RenderEntity@@QAEHPAUAnimationManager_00442F50@@@Z",
+      "symbol": "?SubmitProjectedQuad@RenderEntity@@QAEHPAUSprtCtrlBatchView@@@Z",
       "section": ".text$06b05z00projected",
       "address": "0x443f80",
       "size": 33,
@@ -257,7 +257,7 @@
     {
       "name": "DrawStrip",
       "source": "src/core/sprtfunc/edge_strip_draw.cpp",
-      "symbol": "?DrawStrip@AnimationManager_00442F50@@QAEHPBURenderEntity@@PBXI@Z",
+      "symbol": "?DrawStrip@SprtCtrlBatchView@@QAEHPBURenderEntity@@PBXI@Z",
       "section": ".text$06bstrip",
       "address": "0x00444CE0",
       "size": 224,
@@ -266,7 +266,7 @@
     {
       "name": "DrawQuad",
       "source": "src/unreferenced/unassigned_00444dc0.cpp",
-      "symbol": "?DrawQuad@AnimationManager_00442F50@@QAEHPBURenderEntity@@PBUTexturedVertex@@@Z",
+      "symbol": "?DrawQuad@SprtCtrlBatchView@@QAEHPBURenderEntity@@PBUTexturedVertex@@@Z",
       "section": ".text$06dquad",
       "address": "0x00444DC0",
       "size": 145,
@@ -275,7 +275,7 @@
     {
       "name": "DrawSolidStrip",
       "source": "src/unreferenced/unassigned_00444e60.cpp",
-      "symbol": "?DrawSolidStrip@AnimationManager_00442F50@@QAEHPBURenderEntity@@PBXI@Z",
+      "symbol": "?DrawSolidStrip@SprtCtrlBatchView@@QAEHPBURenderEntity@@PBXI@Z",
       "section": ".text$06ebstrip",
       "address": "0x00444E60",
       "size": 315,
@@ -284,7 +284,7 @@
     {
       "name": "DrawSolidFan",
       "source": "src/unreferenced/unassigned_00444fa0.cpp",
-      "symbol": "?DrawSolidFan@AnimationManager_00442F50@@QAEHPBURenderEntity@@PBXI@Z",
+      "symbol": "?DrawSolidFan@SprtCtrlBatchView@@QAEHPBURenderEntity@@PBXI@Z",
       "section": ".text$06edfan",
       "address": "0x00444FA0",
       "size": 315,
@@ -293,7 +293,7 @@
     {
       "name": "DrawFan",
       "source": "src/core/sprtfunc/rect_fan_draw.cpp",
-      "symbol": "?DrawFan@AnimationManager_00442F50@@QAEHPBURenderEntity@@PBXI@Z",
+      "symbol": "?DrawFan@SprtCtrlBatchView@@QAEHPBURenderEntity@@PBXI@Z",
       "section": ".text$06ffan",
       "address": "0x004450E0",
       "size": 211,
@@ -310,7 +310,7 @@
     },
     {
       "name": "AnimationManager_00448620_RenderStage0Bucket3",
-      "symbol": "?RenderStage0Bucket3@AnimationManager_00442F50@@QAEHXZ",
+      "symbol": "?RenderStage0Bucket3@SprtCtrlBatchView@@QAEHXZ",
       "section": ".text$08layer3",
       "address": "0x00448620",
       "size": 115,
@@ -319,7 +319,7 @@
     },
     {
       "name": "AnimationManager_00448770_RenderStage1Bucket0F",
-      "symbol": "?RenderStage1Bucket0F@AnimationManager_00442F50@@QAEHXZ",
+      "symbol": "?RenderStage1Bucket0F@SprtCtrlBatchView@@QAEHXZ",
       "section": ".text$08stage0f",
       "address": "0x00448770",
       "size": 72,
@@ -328,7 +328,7 @@
     },
     {
       "name": "AnimationManager_004487c0_RenderStage1Bucket10",
-      "symbol": "?RenderStage1Bucket10@AnimationManager_00442F50@@QAEHXZ",
+      "symbol": "?RenderStage1Bucket10@SprtCtrlBatchView@@QAEHXZ",
       "section": ".text$08stage10",
       "address": "0x004487c0",
       "size": 72,
@@ -337,7 +337,7 @@
     },
     {
       "name": "AnimationManager_00448810_RenderStage1Bucket13",
-      "symbol": "?RenderStage1Bucket13@AnimationManager_00442F50@@QAEHXZ",
+      "symbol": "?RenderStage1Bucket13@SprtCtrlBatchView@@QAEHXZ",
       "section": ".text$08stage13",
       "address": "0x00448810",
       "size": 72,
@@ -913,7 +913,7 @@
   "constants": [],
   "absolute_symbols": [
     {
-      "symbol": "_data_00491c10",
+      "symbol": "_g_sprt_ctrl",
       "address": "0x00491C10",
       "kind": "data"
     },
@@ -1023,7 +1023,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00491be4",
+      "symbol": "_g_func_ctrl",
       "address": "0x00491BE4",
       "kind": "data"
     },
@@ -1128,7 +1128,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00477704",
+      "symbol": "_g_enemy_ctrl",
       "address": "0x00477704",
       "kind": "data"
     },
@@ -1314,10 +1314,10 @@
   "roots": [
     "?ApplyDefaultViewport@@YGHI@Z",
     "?Draw@ColorViewport@@QAEHXZ",
-    "?RenderStage1Bucket0F@AnimationManager_00442F50@@QAEHXZ",
-    "?RenderStage1Bucket10@AnimationManager_00442F50@@QAEHXZ",
-    "?RenderStage1Bucket13@AnimationManager_00442F50@@QAEHXZ",
-    "?RenderStage0Bucket3@AnimationManager_00442F50@@QAEHXZ",
+    "?RenderStage1Bucket0F@SprtCtrlBatchView@@QAEHXZ",
+    "?RenderStage1Bucket10@SprtCtrlBatchView@@QAEHXZ",
+    "?RenderStage1Bucket13@SprtCtrlBatchView@@QAEHXZ",
+    "?RenderStage0Bucket3@SprtCtrlBatchView@@QAEHXZ",
     "?ReleaseFlaggedEntities@CardRuntime_00409230@@QAEHXZ",
     "?Draw@ScreenFadeOutQuad@@QAEHXZ",
     "?Draw@ScreenDimFullQuad@@QAEHXZ",
@@ -1516,29 +1516,29 @@
       "size": 57
     },
     {
-      "name": "CreateScreenEffect_0043c8b0_abi_anchor",
-      "symbol": "?CreateScreenEffect_0043c8b0@@YGPAUScreenEffectController@@HHHHHH@Z",
+      "name": "Screen_Create_abi_anchor",
+      "symbol": "?Screen_Create@@YGPAUScreen@@HHHHHH@Z",
       "section": ".text$03w6effect",
       "address": "0x0043C8B0",
       "size": 82
     },
     {
       "name": "ScreenEffect_Configure_0043c970_abi_anchor",
-      "symbol": "?Configure@ScreenEffectController@@QAEXHHHHHH@Z",
+      "symbol": "?Configure@Screen@@QAEXHHHHHH@Z",
       "section": ".text$03w8configure",
       "address": "0x0043C970",
       "size": 396
     },
     {
-      "name": "Scheduler_RegisterPrimary_00449ae0_abi_anchor",
-      "symbol": "_Scheduler_RegisterPrimary@12",
+      "name": "FuncCtrl_RegisterPrimary_00449ae0_abi_anchor",
+      "symbol": "_FuncCtrl_RegisterPrimary@12",
       "section": ".text$09bucketka_regp",
       "address": "0x00449AE0",
       "size": 131
     },
     {
-      "name": "Scheduler_RegisterSecondary_00449b70_abi_anchor",
-      "symbol": "_Scheduler_RegisterSecondary@12",
+      "name": "FuncCtrl_RegisterSecondary_00449b70_abi_anchor",
+      "symbol": "_FuncCtrl_RegisterSecondary@12",
       "section": ".text$09bucketkc_regs",
       "address": "0x00449B70",
       "size": 131

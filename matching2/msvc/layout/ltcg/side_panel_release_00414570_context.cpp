@@ -2,7 +2,7 @@
 #include "th10/game/side_panel_release_00414570.hpp"
 #include "../../src/game/front/side_panel_release_00414570.cpp"
 
-extern "C" SidePanel_00414570* data_0047770c;
+extern "C" FrontStagePartsView* g_front;
 extern "C" void __cdecl SidePanelReleaseBarrier(void* value);
 
 #pragma inline_depth(0)
@@ -11,7 +11,7 @@ extern "C" int __stdcall SidePanelReleaseContext(int count) {
     // The run state is reachable through pointers in the real program.
     SidePanelReleaseBarrier(&data_00474c40);
     for (int index = 0; index < count; ++index)
-        data_0047770c->ReleaseStageParts();
+        g_front->ReleaseStageParts();
     return count;
 }
 #pragma code_seg()

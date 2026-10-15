@@ -10,7 +10,7 @@ extern "C" void __stdcall ReplayManagerStandIn_Remove(void* scheduler, void* tas
 extern "C" int __stdcall ReplayManagerStandIn_Load(char* path);
 
 static __forceinline void ReplayManagerStandIn_Unregister(void* task) {
-    void* scheduler = data_00491be4;
+    void* scheduler = g_func_ctrl;
     if (task) {
         EnterCriticalSection(&g_thread_synchronization.critical_sections[0]);
         ++g_thread_synchronization.scheduler_lock_depth;

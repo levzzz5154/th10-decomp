@@ -9,14 +9,14 @@ struct Block_004132a0 {
     unsigned int words[0x23 - 1];          // +0x04
 };
 
-extern "C" Block_004132a0* data_00477708;
+extern "C" Block_004132a0* g_fps;
 
 __declspec(noinline) Block_004132a0* InitBlock_004132a0(Block_004132a0* block);
 #pragma code_seg(".text$01accessor")
 Block_004132a0* InitBlock_004132a0(Block_004132a0* block) {
     memset(block, 0, 0x8C);
     block->flags |= 2u;
-    data_00477708 = block;
+    g_fps = block;
     return block;
 }
 #pragma code_seg()

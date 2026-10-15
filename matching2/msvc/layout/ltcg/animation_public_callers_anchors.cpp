@@ -88,7 +88,7 @@ extern "C" __declspec(noinline) void __cdecl asm_AnimationObject_LoadScript_0043
     *(int*)(obj + 0x5C) = -1;
     *(int*)(obj + 0x35C) = *(int*)(obj + 0x35C) & ~1;
     asm_AnimationObject_LoadScriptTail_0043ee30(obj);
-    unsigned char* manager = (unsigned char*)data_00491c10;
+    unsigned char* manager = (unsigned char*)g_sprt_ctrl;
     *(int*)(manager + 0x4C) = *(int*)(manager + 0x4C) + 1;
 }
 #pragma code_seg()
@@ -142,17 +142,17 @@ __declspec(noinline)
 void** __stdcall AnimationManager_CreatePositionedPrimary_00448d50(
     void* resource, void** out, int index, const AnimationPosition_00448d50* position) {
     AnimationObject_00448d50* object =
-        (AnimationObject_00448d50*)((AnimationPool*)data_00491c10)->Allocate();
+        (AnimationObject_00448d50*)((AnimationPool*)g_sprt_ctrl)->Allocate();
     object->flags_035c |= 0x40000000u;
     object->render_bucket_020 = 0;
     object->position_340 = *position;
     asm_AnimationObject_LoadScript_0043e710(resource, object, index);
-    asm_AnimationManager_RegisterPrimaryBack_004489d0(data_00491c10, out, object);
+    asm_AnimationManager_RegisterPrimaryBack_004489d0(g_sprt_ctrl, out, object);
     return out;
 }
 #pragma code_seg()
 #pragma code_seg(".text$13find")
-__declspec(noinline) void* __fastcall AnimationManager::Find(
+__declspec(noinline) void* __fastcall SprtCtrl::Find(
         AnimationLookupContext* context, AnimationScriptId id) {
     if (!id.value)
         return 0;

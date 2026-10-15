@@ -5,7 +5,7 @@
   "driver": "layout/ltcg/player_manager_teardown_00408af0/context.cpp",
   "headers": [
     "include/th10/game/card_destructor.hpp",
-    "include/th10/game/scheduler.hpp",
+    "include/th10/core/func_ctrl.hpp",
     "include/th10/platform/thread_sync.hpp"
   ],
   "image_base": "0x00400000",
@@ -136,12 +136,12 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00491c10",
+      "symbol": "_g_sprt_ctrl",
       "address": "0x00491C10",
       "kind": "data"
     },
     {
-      "symbol": "_data_00491be4",
+      "symbol": "_g_func_ctrl",
       "address": "0x00491BE4",
       "kind": "data"
     },
@@ -187,7 +187,7 @@
     },
     {
       "name": "ActualSchedulerRemove",
-      "symbol": "?ManagerTeardownScheduler_Remove_00449F60@@YGXPAUScheduler@@PAUSchedulerTask@@@Z",
+      "symbol": "?ManagerTeardownFuncCtrl_Remove_00449F60@@YGXPAUFuncCtrl@@PAUSchedulerTask@@@Z",
       "section": ".text$70remove",
       "address": "0x00449F60",
       "size": 114

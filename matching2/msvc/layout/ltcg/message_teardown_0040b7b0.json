@@ -7,7 +7,7 @@
     "layout/ltcg/message_teardown_helpers.cpp"
   ],
   "headers": [
-    "include/th10/game/scheduler.hpp",
+    "include/th10/core/func_ctrl.hpp",
     "include/th10/platform/thread_sync.hpp",
     "include/th10/render/native_render_targets.hpp",
     "include/th10/game/ending_text_view.hpp",
@@ -44,21 +44,21 @@
     },
     {
       "name": "ClearIndexedResource",
-      "symbol": "?Clear@NativeRenderManager@@QAEXH@Z",
+      "symbol": "?Clear@SprtCtrlTargetsView@@QAEXH@Z",
       "section": ".text$09clear",
       "address": "0x00447F70",
       "size": 87
     },
     {
       "name": "MarkResource",
-      "symbol": "?MarkResourceForRemoval@AnimationManager@@QAEXPAX@Z",
+      "symbol": "?MarkResourceForRemoval@SprtCtrl@@QAEXPAX@Z",
       "section": ".text$11mark",
       "address": "0x004493E0",
       "size": 92
     },
     {
       "name": "SchedulerRemove",
-      "symbol": "_Scheduler_Remove@8",
+      "symbol": "_FuncCtrl_Remove@8",
       "section": ".text$13remove",
       "address": "0x00449F60",
       "size": 114
@@ -126,12 +126,12 @@
   "constants": [],
   "absolute_symbols": [
     {
-      "symbol": "_data_00491be4",
+      "symbol": "_g_func_ctrl",
       "address": "0x491be4",
       "kind": "data"
     },
     {
-      "symbol": "_data_00491c10",
+      "symbol": "_g_sprt_ctrl",
       "address": "0x491c10",
       "kind": "data"
     },
@@ -146,7 +146,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00477810",
+      "symbol": "_g_game",
       "address": "0x477810",
       "kind": "data"
     },
@@ -216,7 +216,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_ReleaseGlobalManager_00417c80@4",
+      "symbol": "_Game_Destroy@4",
       "address": "0x417c80",
       "kind": "relative_code"
     },

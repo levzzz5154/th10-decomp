@@ -1,7 +1,7 @@
 // 0x00444CE0: draw an entity's textured triangle strip.
 #include "th10/render/quad_batch.hpp"
 #pragma code_seg(".text$06bstrip")
-int AnimationManager_00442F50::DrawStrip(const RenderEntity* entity, const void* vertices, unsigned int count) {
+int SprtCtrlBatchView::DrawStrip(const RenderEntity* entity, const void* vertices, unsigned int count) {
     if (!(entity->flags & 1)) return -1;
     if (!(entity->flags & 2)) return -1;
     if (((const unsigned char*)&entity->color)[3] == 0) return -1;

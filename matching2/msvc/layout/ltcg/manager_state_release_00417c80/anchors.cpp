@@ -13,7 +13,7 @@ extern "C" void __cdecl entry_free_00452422(void* memory);
 void __cdecl operator delete(void* memory);
 
 extern "C" unsigned int data_00474ca0;
-extern "C" void* data_00491c10;
+extern "C" void* g_sprt_ctrl;
 
 // The twelve-byte position record handed to the animation manager; identical
 // to the definition in the positioned-primary recovery.
@@ -55,7 +55,7 @@ struct PanelSlot_004136c0 {
     __declspec(noinline) void Release();
 };
 
-struct SidePanel_00414570 {
+struct FrontStagePartsView {
     unsigned char reserved_0000[0x9E80];
     int stage_state;                                // +0x9E80
     unsigned char reserved_9e84[0x9EB8 - 0x9E84];
@@ -79,7 +79,7 @@ void PanelResource_00447810::Release() {
     SidePanelReleaseBarrier(this);
 }
 #pragma code_seg(".text$04panel")
-void SidePanel_00414570::ReleaseStageParts() {
+void FrontStagePartsView::ReleaseStageParts() {
     PanelSlot_004136c0* slot = stage_slot;
     if (slot) {
         slot->Release();
@@ -89,7 +89,7 @@ void SidePanel_00414570::ReleaseStageParts() {
     if (data_00474ca0 & 9)
         return;
     PanelResource_00447810** resource =
-        &reinterpret_cast<PanelAnimationManager_00414570*>(data_00491c10)->stage_resource;
+        &reinterpret_cast<PanelAnimationManager_00414570*>(g_sprt_ctrl)->stage_resource;
     if (*resource) {
         (*resource)->Release();
         operator delete(*resource);

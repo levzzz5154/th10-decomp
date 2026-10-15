@@ -17,7 +17,7 @@
       "address": "0x00000000",
       "kind": "data"
     },
-    "_data_00491c10": {
+    "_g_sprt_ctrl": {
       "address": "0x00491C10",
       "kind": "data"
     },
@@ -165,7 +165,7 @@
       "address": "0x00449ED0",
       "kind": "code"
     },
-    "_data_00491be4": {
+    "_g_func_ctrl": {
       "address": "0x00491BE4",
       "kind": "data"
     },
@@ -277,7 +277,7 @@
       "address": "0x004660CC",
       "kind": "data"
     },
-    "_Stage_StartupThread": {
+    "_Game_LoadThread": {
       "address": "0x00417C70",
       "kind": "data"
     },
@@ -289,7 +289,7 @@
       "address": "0x00491C30",
       "kind": "data"
     },
-    "_data_00477810": {
+    "_g_game": {
       "address": "0x00477810",
       "kind": "data"
     },
@@ -817,7 +817,7 @@
       "address": "0x004746D8",
       "kind": "data"
     },
-    "_data_00477708": {
+    "_g_fps": {
       "address": "0x00477708",
       "kind": "data"
     },

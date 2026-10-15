@@ -1,14 +1,14 @@
-// Compiler-only ABI anchors for Scheduler_RegisterPrimary (0x00449AE0) and
-// Scheduler_RegisterSecondary (0x00449B70): the full bodies, so the pass
+// Compiler-only ABI anchors for FuncCtrl_RegisterPrimary (0x00449AE0) and
+// FuncCtrl_RegisterSecondary (0x00449B70): the full bodies, so the pass
 // gives callers the retail task-in-ESI, priority-in-EDI convention. Placed by
 // clusters whose recovered code precedes 0x00449AE0; never selected as
 // recovered game code.
-#include "th10/game/scheduler.hpp"
+#include "th10/core/func_ctrl.hpp"
 #include "th10/platform/thread_sync.hpp"
 
 #pragma code_seg(".text$10primary")
-extern "C" __declspec(noinline) int __stdcall Scheduler_RegisterPrimary(
-        Scheduler* scheduler, SchedulerTask* task, int priority) {
+extern "C" __declspec(noinline) int __stdcall FuncCtrl_RegisterPrimary(
+        FuncCtrl* scheduler, SchedulerTask* task, int priority) {
     int result = 0;
     if (task->on_register) {
         result = task->on_register(task->context);
@@ -27,8 +27,8 @@ extern "C" __declspec(noinline) int __stdcall Scheduler_RegisterPrimary(
 }
 
 #pragma code_seg(".text$12secondary")
-extern "C" __declspec(noinline) int __stdcall Scheduler_RegisterSecondary(
-        Scheduler* scheduler, SchedulerTask* task, int priority) {
+extern "C" __declspec(noinline) int __stdcall FuncCtrl_RegisterSecondary(
+        FuncCtrl* scheduler, SchedulerTask* task, int priority) {
     int result = 0;
     if (task->on_register) {
         result = task->on_register(task->context);

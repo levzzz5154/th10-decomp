@@ -18,8 +18,8 @@ struct ItemPauseState_0041b8e0 {
 
 struct AnimationManager_0041b8e0;
 
-extern "C" ItemPauseState_0041b8e0* data_00477810;
-extern "C" AnimationManager_0041b8e0* data_00491c10;
+extern "C" ItemPauseState_0041b8e0* g_game;
+extern "C" AnimationManager_0041b8e0* g_sprt_ctrl;
 
 // 0x004451C0: entity in EAX, manager in ECX.
 extern "C" __declspec(noinline) int __cdecl asm_FUN_004451c0_004451c0(

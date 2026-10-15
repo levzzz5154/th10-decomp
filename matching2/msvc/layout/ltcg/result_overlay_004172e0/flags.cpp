@@ -11,7 +11,7 @@ __declspec(noinline) void* __fastcall ResultAnimation_Find(ResultAnimationLookup
 
 #pragma code_seg(".text$00449590_fn")
 void ResultAnimationId::Show() {
-    CaptionFlagObject* object = reinterpret_cast<CaptionFlagObject*>(ResultAnimation_Find(data_00491c10,*this));
+    CaptionFlagObject* object = reinterpret_cast<CaptionFlagObject*>(ResultAnimation_Find(g_sprt_ctrl,*this));
     if (object) {
         object->flags |= 2u;
         if (!object->children_flagged)
@@ -23,7 +23,7 @@ void ResultAnimationId::Show() {
 
 #pragma code_seg(".text$004495e0_fn")
 void ResultAnimationId::Hide() {
-    CaptionFlagObject* object = reinterpret_cast<CaptionFlagObject*>(ResultAnimation_Find(data_00491c10,*this));
+    CaptionFlagObject* object = reinterpret_cast<CaptionFlagObject*>(ResultAnimation_Find(g_sprt_ctrl,*this));
     if (object) {
         object->flags &= ~2u;
         if (!object->children_flagged)

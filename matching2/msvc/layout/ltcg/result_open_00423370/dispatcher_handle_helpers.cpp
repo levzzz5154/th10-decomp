@@ -57,7 +57,7 @@ typedef char DispatcherTreeStopOffset[
 void DispatcherHandle::StopAtFrame1() {
     DispatcherTreeObject* object = reinterpret_cast<DispatcherTreeObject*>(
         DispatcherFindAnimation(
-            reinterpret_cast<AnimationLookupContext*>(data_00491c10), id));
+            reinterpret_cast<AnimationLookupContext*>(g_sprt_ctrl), id));
     if (object != 0) {
         object->stop_frame = 1;
         if (!object->children_flagged)
@@ -72,7 +72,7 @@ void DispatcherHandle::StopAtFrame1() {
 void DispatcherHandle::StopAtFrame2() {
     DispatcherTreeObject* object = reinterpret_cast<DispatcherTreeObject*>(
         DispatcherFindAnimation(
-            reinterpret_cast<AnimationLookupContext*>(data_00491c10), id));
+            reinterpret_cast<AnimationLookupContext*>(g_sprt_ctrl), id));
     if (object != 0) {
         object->stop_frame = 2;
         if (!object->children_flagged)
@@ -87,7 +87,7 @@ void DispatcherHandle::StopAtFrame2() {
 void DispatcherHandle::StopAtFrame3() {
     DispatcherTreeObject* object = reinterpret_cast<DispatcherTreeObject*>(
         DispatcherFindAnimation(
-            reinterpret_cast<AnimationLookupContext*>(data_00491c10), id));
+            reinterpret_cast<AnimationLookupContext*>(g_sprt_ctrl), id));
     if (object != 0) {
         object->stop_frame = 3;
         if (!object->children_flagged)
@@ -102,7 +102,7 @@ void DispatcherHandle::StopAtFrame3() {
 void DispatcherHandle::SetStopFrame(short frame) {
     DispatcherTreeObject* object = reinterpret_cast<DispatcherTreeObject*>(
         DispatcherFindAnimation(
-            reinterpret_cast<AnimationLookupContext*>(data_00491c10), id));
+            reinterpret_cast<AnimationLookupContext*>(g_sprt_ctrl), id));
     if (object != 0) {
         object->stop_frame = frame;
         if (!object->children_flagged)
@@ -135,7 +135,7 @@ typedef char DispatcherChildHeadOffset[
 DispatcherRef DispatcherHandle::FindChildRef(int script_id) {
     DispatcherParentObject* object = reinterpret_cast<DispatcherParentObject*>(
         DispatcherFindAnimation(
-            reinterpret_cast<AnimationLookupContext*>(data_00491c10), id));
+            reinterpret_cast<AnimationLookupContext*>(g_sprt_ctrl), id));
     if (object == 0)
         id.value = 0;
     // Retail forms this embedded list head even when the lookup failed; keep
@@ -154,7 +154,7 @@ void DispatcherRef::SelectCurrentSprite(int index) {
     AnimationObject_0043e5a0* object =
         reinterpret_cast<AnimationObject_0043e5a0*>(
             DispatcherFindAnimation(
-            reinterpret_cast<AnimationLookupContext*>(data_00491c10), id));
+            reinterpret_cast<AnimationLookupContext*>(g_sprt_ctrl), id));
     if (object != 0)
         object->resource->ConfigureObject(object, index);
 }
@@ -167,7 +167,7 @@ void DispatcherRef::SelectResourceSprite(
     AnimationObject_0043e5a0* object =
         reinterpret_cast<AnimationObject_0043e5a0*>(
             DispatcherFindAnimation(
-            reinterpret_cast<AnimationLookupContext*>(data_00491c10), id));
+            reinterpret_cast<AnimationLookupContext*>(g_sprt_ctrl), id));
     if (object != 0)
         reinterpret_cast<Resource_0043e5a0*>(resource)->ConfigureObject(object, index);
 }

@@ -1,6 +1,6 @@
 #include "th10/render/native_render_targets.hpp"
 #pragma code_seg(".text$a12clear")
-void NativeRenderManager::Clear(int index) {
+void SprtCtrlTargetsView::Clear(int index) {
     if (primary[index]) { primary[index]->methods->Release(primary[index]);primary[index]=0; }
     if (secondary[index]) { secondary[index]->methods->Release(secondary[index]);secondary[index]=0; }
     if (memory[index]) { entry_free_00452422(memory[index]);memory[index]=0; }

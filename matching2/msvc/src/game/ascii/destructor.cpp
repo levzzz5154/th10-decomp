@@ -5,7 +5,7 @@
 #include "th10/game/manager_teardown_helpers.hpp"
 
 extern "C" {
-extern AnimationBanks_00402440* data_00491c10;
+extern AnimationBanks_00402440* g_sprt_ctrl;
 extern GameThread* g_ascii_manager;
 }
 
@@ -14,9 +14,9 @@ GameThread::~GameThread() {
     RemoveSchedulerTask(update_task);
     RemoveSchedulerTask(draw_task);
     RemoveSchedulerTask(late_draw_task);
-    ReleaseAnimationBank(data_00491c10, 2);
-    ReleaseAnimationBank(data_00491c10, 0);
-    ReleaseAnimationBank(data_00491c10, 3);
+    ReleaseAnimationBank(g_sprt_ctrl, 2);
+    ReleaseAnimationBank(g_sprt_ctrl, 0);
+    ReleaseAnimationBank(g_sprt_ctrl, 3);
     g_ascii_manager = 0;
 }
 #pragma code_seg()

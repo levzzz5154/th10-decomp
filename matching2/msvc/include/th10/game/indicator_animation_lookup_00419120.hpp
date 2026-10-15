@@ -5,7 +5,7 @@
 // place, and those call sites use the *Inline spellings here.
 #include "th10/game/marktext_dispatcher_context/recovery_script_executor_caller_00419120.hpp"
 
-extern "C" void* data_00491c10;
+extern "C" void* g_sprt_ctrl;
 
 struct IndicatorAnimationManager_00419120 : RecoveryLookupContext_0040bd80 {
     __forceinline HintVm_00419120* FindInline(unsigned int id) {
@@ -35,7 +35,7 @@ struct IndicatorAnimationManager_00419120 : RecoveryLookupContext_0040bd80 {
 };
 
 static __forceinline IndicatorAnimationManager_00419120* IndicatorAnimations() {
-    return static_cast<IndicatorAnimationManager_00419120*>(data_00491c10);
+    return static_cast<IndicatorAnimationManager_00419120*>(g_sprt_ctrl);
 }
 
 // Removes the handle's VM and forgets it.
@@ -58,8 +58,8 @@ static __forceinline HintVm_00419120* IndicatorHandle_GetInline(
 static inline HintVm_00419120* IndicatorHandle_Get(
         HintHandle_00419120& handle) {
     HintVm_00419120* vm = static_cast<HintVm_00419120*>(
-        static_cast<RecoveryLookup_0040bd80*>(data_00491c10)->Find(
-            static_cast<RecoveryLookupContext_0040bd80*>(data_00491c10),
+        static_cast<RecoveryLookup_0040bd80*>(g_sprt_ctrl)->Find(
+            static_cast<RecoveryLookupContext_0040bd80*>(g_sprt_ctrl),
             *reinterpret_cast<RecoveryScriptId_0040bd80*>(&handle)));
     if (vm == 0)
         handle.value = 0;

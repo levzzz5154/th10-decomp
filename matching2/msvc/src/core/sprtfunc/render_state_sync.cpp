@@ -1,7 +1,7 @@
 // 0x004425A0: synchronize cached blend and texture filtering before drawing.
 #include "th10/render/quad_batch.hpp"
 #pragma code_seg(".text$04bsync")
-void AnimationManager_00442F50::SyncRenderState(const RenderEntity* entity) {
+void SprtCtrlBatchView::SyncRenderState(const RenderEntity* entity) {
     if (cached_blend != ((entity->flags >> 4) & 3)) {
         Flush();
         cached_blend = (unsigned char)((entity->flags >> 4) & 3);

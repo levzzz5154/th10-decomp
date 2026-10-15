@@ -9,7 +9,7 @@ __declspec(noinline) void* __fastcall AnimationManager_Find_004491c0(
     AnimationLookupContext* context, AnimationScriptId id);
 __declspec(noinline) void* __fastcall AnimationManager_SetFlag_004492a0(
     AnimationLookupContext* context, AnimationScriptId id);
-extern "C" AnimationLookupContext* data_00491c10;
+extern "C" AnimationLookupContext* g_sprt_ctrl;
 
 struct Ref4 {
     int value;

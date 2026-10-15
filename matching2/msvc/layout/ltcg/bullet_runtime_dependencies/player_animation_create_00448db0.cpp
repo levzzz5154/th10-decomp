@@ -29,7 +29,7 @@ struct AnimationObject_00448db0 {
     unsigned int flags_035c; // +0x35C
 };
 
-extern "C" void* data_00491c10;
+extern "C" void* g_sprt_ctrl;
 extern "C" void* __cdecl asm_FUN_00449950_00449950(void* manager);
 extern "C" void __cdecl asm_AnimationObject_LoadScript_0043e710(void* resource, void* object,
                                                                 int index);
@@ -41,7 +41,7 @@ enum { kAnimationPositioned = 0x40000000 };
 __declspec(noinline) void** __stdcall AnimationManager_CreateScreenPositionedPrimary_00448db0(
     void* resource, void** out, int index, const AnimationPosition_00448db0* position) {
     AnimationObject_00448db0* object =
-        (AnimationObject_00448db0*)asm_FUN_00449950_00449950(data_00491c10);
+        (AnimationObject_00448db0*)asm_FUN_00449950_00449950(g_sprt_ctrl);
     unsigned int flags = *(volatile unsigned int*)&object->flags_035c;
     *(volatile int*)&object->render_bucket_020 = 0;
     *(volatile unsigned int*)&object->flags_035c = flags | kAnimationPositioned;
@@ -49,7 +49,7 @@ __declspec(noinline) void** __stdcall AnimationManager_CreateScreenPositionedPri
     object->position_340.y = position->y + data_00470b48;
     object->position_340.z = position->z;
     asm_AnimationObject_LoadScript_0043e710(resource, object, index);
-    asm_AnimationManager_RegisterPrimaryBack_004489d0(data_00491c10, out, object);
+    asm_AnimationManager_RegisterPrimaryBack_004489d0(g_sprt_ctrl, out, object);
     return out;
 }
 #pragma code_seg()

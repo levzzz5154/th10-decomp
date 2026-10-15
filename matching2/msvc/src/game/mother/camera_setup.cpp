@@ -11,7 +11,7 @@
 extern "C" const double data_00470ba0;
 #pragma code_seg(".text$00adefault")
 void RenderCamera::ApplyDefault() {
-    if (data_00491c10) data_00491c10->Flush();
+    if (g_sprt_ctrl) g_sprt_ctrl->Flush();
     float viewport_width = (float)width;
     float half_width = viewport_width * 0.5f;
     float viewport_height = (float)height;
@@ -29,9 +29,9 @@ void RenderCamera::ApplyDefault() {
     ((SetTransform)device->vtable[0xB0 / 4])(device, 2, &view);
     device = data_00491c30;
     ((SetTransform)device->vtable[0xB0 / 4])(device, 3, &projection);
-    if (data_00491c10) {
-        ((int*)data_00491c10)[0x5C / 4] = clip_x;
-        ((int*)data_00491c10)[0x60 / 4] = clip_y;
+    if (g_sprt_ctrl) {
+        ((int*)g_sprt_ctrl)[0x5C / 4] = clip_x;
+        ((int*)g_sprt_ctrl)[0x60 / 4] = clip_y;
     }
 }
 #pragma code_seg()

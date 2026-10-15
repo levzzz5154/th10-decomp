@@ -6,7 +6,7 @@ void SubHandle4_004236f0::StopAtFrame3() {
     AnimationScriptId id;
     id.value = (int)value;
     AnimationTreeNode* node = reinterpret_cast<AnimationTreeNode*>(
-        SubAnimFind_004236f0(data_00491c10, id));
+        SubAnimFind_004236f0(g_sprt_ctrl, id));
     if (node != 0) {
         node->stop_frame = 3;
         if (!node->children_flagged) {

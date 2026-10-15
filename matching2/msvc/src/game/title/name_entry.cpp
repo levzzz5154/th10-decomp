@@ -46,7 +46,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00432cb0_00432cb0() {
     L_00432ce8:
         mov eax,dword ptr [ebp+43Ch]
     L_00432cee:
-        mov edx,dword ptr [data_00491c10]
+        mov edx,dword ptr [g_sprt_ctrl]
     L_00432cf4:
         push eax
     L_00432cf5:

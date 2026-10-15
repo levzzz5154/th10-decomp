@@ -1,5 +1,5 @@
 #pragma once
-#include "th10/game/scheduler.hpp"
+#include "th10/core/func_ctrl.hpp"
 #include "th10/math/timer.hpp"
 
 // The manager suffix is recovered from 0x004089C0 and its sole caller.

@@ -10,7 +10,7 @@ inline CameraVector* CameraCross(CameraVector* out, const CameraVector* a, const
 }
 #pragma code_seg(".text$00bcamera")
 void RenderCamera::Apply() {
-    if (data_00491c10) data_00491c10->Flush();
+    if (g_sprt_ctrl) g_sprt_ctrl->Flush();
     CameraVector target(direction.x + position.x, direction.y + position.y, direction.z + position.z);
     CameraVector eye(eye_offset.x + position.x, eye_offset.y + position.y, eye_offset.z + position.z);
     CameraLookAt(&view, &eye, &target, &up);
@@ -22,9 +22,9 @@ void RenderCamera::Apply() {
     ((SetTransform)device->vtable[0xB0 / 4])(device, 3, &projection);
     CameraCross(&right, &direction, &up);
     CameraNormalize(&right, &right);
-    if (data_00491c10) {
-        ((int*)data_00491c10)[0x5C / 4] = clip_x;
-        ((int*)data_00491c10)[0x60 / 4] = clip_y;
+    if (g_sprt_ctrl) {
+        ((int*)g_sprt_ctrl)[0x5C / 4] = clip_x;
+        ((int*)g_sprt_ctrl)[0x60 / 4] = clip_y;
     }
 }
 #pragma code_seg()

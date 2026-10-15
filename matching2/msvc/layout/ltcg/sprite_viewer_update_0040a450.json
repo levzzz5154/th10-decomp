@@ -11,7 +11,7 @@
     "include/th10/render/camera_batch.hpp",
     "include/th10/render/quad_batch.hpp",
     "include/th10/game/menu_cursor.hpp",
-    "include/th10/game/scheduler.hpp",
+    "include/th10/core/func_ctrl.hpp",
     "include/th10/platform/thread_sync.hpp",
     "include/th10/platform/worker.hpp"
   ],
@@ -267,7 +267,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_data_0047770c",
+      "symbol": "_g_front",
       "address": "0x0047770C",
       "kind": "data"
     },
@@ -282,7 +282,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00477704",
+      "symbol": "_g_enemy_ctrl",
       "address": "0x00477704",
       "kind": "data"
     },
@@ -342,7 +342,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_data_00491c10",
+      "symbol": "_g_sprt_ctrl",
       "address": "0x00491C10",
       "kind": "data"
     },

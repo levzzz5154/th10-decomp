@@ -58,14 +58,14 @@ extern "C" RenderStageState_00448620 data_00491c28;
 extern "C" int __cdecl asm_AnimationManager_RenderBucket_00448980(void* manager, int index);
 
 #pragma code_seg(".text$08layer3")
-int AnimationManager_00442F50::RenderStage0Bucket3() {
+int SprtCtrlBatchView::RenderStage0Bucket3() {
     RenderStage_00448620* stage = &data_00491c28.stages[0];
     data_00491c28.active_stage = stage;
     stage->camera.ApplyDefault();
     data_00491c30->Viewport(&data_00491c28.active_stage->camera.viewport_x);
     data_00491c28.stage_index = 0;
     if (data_00491c28.fog_dirty) {
-        data_00491c10->Flush();
+        g_sprt_ctrl->Flush();
         data_00491c28.fog_dirty = 0;
         data_00491c30->State(0x1C, 0);
     }

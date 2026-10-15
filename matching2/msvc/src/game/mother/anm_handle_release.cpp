@@ -6,7 +6,7 @@
 extern "C" __declspec(noinline) void __stdcall ReleaseAnimationHandles_00421300(QueuedAnmState_00421070* state) {
     if (state->pending_cleanup_6FC == 1) {
         QueuedCleanupManager_00421070 receiver;
-        QueuedCleanupContext_00421070* context = *reinterpret_cast<QueuedCleanupContext_00421070**>(&data_00491c10);
+        QueuedCleanupContext_00421070* context = *reinterpret_cast<QueuedCleanupContext_00421070**>(&g_sprt_ctrl);
         QueuedAnmObject_00421070* animation;
         animation = static_cast<QueuedAnmObject_00421070*>(receiver.Find(context, data_00477824));
         if (animation) {

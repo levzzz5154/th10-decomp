@@ -1,10 +1,10 @@
 #include "hud_view.hpp"
 __declspec(noinline) void* __fastcall ResultAnimation_Find(ResultAnimationLookup*,ResultAnimationId);
-#define data_00491c10 stage_handle_data_00491c10
-#define data_0047770c stage_handle_data_0047770c
+#define g_sprt_ctrl stage_handle_g_sprt_ctrl
+#define g_front stage_handle_g_front
 #define data_00474c40 stage_handle_data_00474c40
 #define g_ascii_manager stage_handle_data_004776e0
-#define data_00477704 stage_handle_data_00477704
+#define g_enemy_ctrl stage_handle_g_enemy_ctrl
 #define g_player stage_handle_data_00477834
 #define data_00477838 stage_handle_data_00477838
 #define data_0047783c stage_handle_data_0047783c
@@ -44,14 +44,14 @@ struct AnimationTreeNode {
 
 
 
-extern "C" AnimationLookupContext* data_00491c10;
+extern "C" AnimationLookupContext* g_sprt_ctrl;
 
 #pragma code_seg(".text$00409e50_fn")
 void AnimationHandle::StopAtFrame1() {
     AnimationScriptId id;
     id.value = (int)value;
     AnimationTreeNode* node = reinterpret_cast<AnimationTreeNode*>(
-        ResultAnimation_Find(data_00491c10, id));
+        ResultAnimation_Find(g_sprt_ctrl, id));
     if (node != 0) {
         node->stop_frame = 1;
         if (!node->children_flagged) {
@@ -62,11 +62,11 @@ void AnimationHandle::StopAtFrame1() {
     }
 }
 #pragma code_seg()
-#undef data_00491c10
-#undef data_0047770c
+#undef g_sprt_ctrl
+#undef g_front
 #undef data_00474c40
 #undef g_ascii_manager
-#undef data_00477704
+#undef g_enemy_ctrl
 #undef g_player
 #undef data_00477838
 #undef data_0047783c

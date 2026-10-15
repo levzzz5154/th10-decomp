@@ -130,14 +130,14 @@ extern "C" __declspec(noinline) void __stdcall Player_Die(Player* player) {
     if (power < 5000)
         data_00474c4c = 5000;
     if (remaining >= 0)
-        reinterpret_cast<AnimationManager_00413790*>(data_0047770c)->SetActiveCount(remaining);
+        reinterpret_cast<AnimationManager_00413790*>(g_front)->SetActiveCount(remaining);
     player->state = PLAYER_DYING;
     SetTimer(player->state_timer, 0);
     SetTimer(player->invulnerability_timer, 180);
     LoadScript_0043e710(reinterpret_cast<AnimationResource_0043e710*>(player->animation_file),
         reinterpret_cast<AnimationObject_0043e710*>(&player->sprite), 0);
     TimeoutAnimationManager* manager =
-        reinterpret_cast<TimeoutAnimationManager*>(data_00491c10);
+        reinterpret_cast<TimeoutAnimationManager*>(g_sprt_ctrl);
     unsigned int* handles = &options[0].animation;
     for (int i = 0; i < 4; ++i) {
         PlayerOption* option = reinterpret_cast<PlayerOption*>(

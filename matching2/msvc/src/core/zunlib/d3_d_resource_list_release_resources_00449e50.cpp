@@ -1,6 +1,6 @@
 // Release each queued scheduler resource under the shared scheduler lock.
 // Native LTCG supplies the receiver in EAX and the owner on the stack (RET 4).
-#include "th10/game/scheduler.hpp"
+#include "th10/core/func_ctrl.hpp"
 #include "th10/platform/thread_sync.hpp"
 #include "th10/game/resource_list_00449e50.hpp"
 
@@ -17,7 +17,7 @@ void ResourceList_00449e50::Release(ResourceListOwner_00449e50 owner) {
             if (resource) {
                 enter(&g_thread_synchronization.critical_sections[0]);
                 ++g_thread_synchronization.scheduler_lock_depth;
-                Scheduler_RemoveTask(resource, owner.scheduler);
+                FuncCtrl_RemoveTask(resource, owner.scheduler);
                 leave(&g_thread_synchronization.critical_sections[0]);
                 --g_thread_synchronization.scheduler_lock_depth;
             }

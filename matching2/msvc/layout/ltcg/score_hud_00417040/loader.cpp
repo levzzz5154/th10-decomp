@@ -4,7 +4,7 @@ struct AnimationObject_0043e7e0 : Entity {};
 struct AnimationResource_0043e7e0 { unsigned short id; unsigned char reserved_002[0x11A]; void** scripts; unsigned char reserved_120[4]; int loading; };
 struct AnimationManager_0043e7e0 { unsigned char reserved[0x4C]; int script_tick_counter; };
 struct ResultAnimationLookup;
-extern "C" ResultAnimationLookup* data_00491c10;
+extern "C" ResultAnimationLookup* g_sprt_ctrl;
 extern "C" float data_00476f78;
 extern "C" void __stdcall asm_FUN_0043ee30_0043ee30(Entity* object);
 #pragma code_seg(".text$0043e7e0_fn")
@@ -36,7 +36,7 @@ __declspec(noinline) void* __stdcall InitializePreservingLoader_0043e7e0(
     unsigned int* flag_word = &object->AnimationFlags();
     *flag_word &= ~1u;
     asm_FUN_0043ee30_0043ee30(object);
-    AnimationManager_0043e7e0* manager = (AnimationManager_0043e7e0*)data_00491c10;
+    AnimationManager_0043e7e0* manager = (AnimationManager_0043e7e0*)g_sprt_ctrl;
     ++manager->script_tick_counter;
     return manager;
 }

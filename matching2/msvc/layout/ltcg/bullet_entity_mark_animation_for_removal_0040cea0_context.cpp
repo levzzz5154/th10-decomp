@@ -3,7 +3,7 @@
 
 #pragma code_seg(".text$03context")
 int __stdcall BulletEntityMarkAnimationForRemovalCompilerContext(
-        AnimationManager* manager, BulletEntity_0040cea0* entity) {
+        SprtCtrl* manager, BulletEntity_0040cea0* entity) {
     entity->MarkAnimationForRemoval(manager);
     return 0;
 }

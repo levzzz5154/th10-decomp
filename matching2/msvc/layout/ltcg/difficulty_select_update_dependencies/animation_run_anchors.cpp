@@ -3,7 +3,7 @@
 // this link so that it shares the one lookup at 0x004491C0; and 0x0042C750,
 // which restarts one animation slot of the room at frame 3 (the maintained
 // free-function form is src/game/title/title_dispatch_animation_slot_secondary.cpp).
-#define AnimationManager RecoveryLookup_0040bd80
+#define SprtCtrl RecoveryLookup_0040bd80
 #define AnimationLookupContext RecoveryLookupContext_0040bd80
 #define AnimationScriptId RecoveryScriptId_0040bd80
 #define code_seg(name) code_seg(".text$00449250_fn")
@@ -16,6 +16,6 @@ struct TitleAnimationSlotView {
 };
 #pragma code_seg(".text$0042c750_fn")
 void TitleAnimationSlotView::RestartSlot(int slot) {
-    AnimationManager_SetStopFrameAndRun(3, data_00491c10, slots[slot]);
+    AnimationManager_SetStopFrameAndRun(3, g_sprt_ctrl, slots[slot]);
 }
 #pragma code_seg()

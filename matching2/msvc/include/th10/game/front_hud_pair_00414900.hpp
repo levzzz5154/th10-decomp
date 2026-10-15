@@ -38,7 +38,7 @@ extern "C" unsigned char data_00474ca0;              // clear flags (bit 0x10)
 extern "C" unsigned char data_00491c28;              // input mode state object
 extern "C" unsigned int data_00491fb8;               // front mode word
 extern "C" void* g_card;                      // game state arena
-extern "C" void* data_00477704;                      // sequence record
+extern "C" void* g_enemy_ctrl;                      // sequence record
 extern "C" void* g_pause;                      // clear state object
 extern "C" void* data_00477838;                      // replay state record
 extern "C" void* data_0047783c;                      // notice table
@@ -67,7 +67,7 @@ extern "C" int __stdcall AnmVm_Run_0043ee30(void* vm);          // 0x0043EE30
 extern "C" void __cdecl FrontFree_004524a1(void* block);        // 0x004524A1
 
 // The stage-front runtime (0x0047770C). Offsets per retail accesses.
-struct FrontHudRuntime {
+struct FrontUpdateView {
     int sequence_counter;                    // +0x0000, sequence frame counter
     unsigned char pad_0004[0x18 - 0x04];
     unsigned char frame_ramp_18[0x2C - 0x18]; // +0x0018, embedded frame ramp
@@ -132,12 +132,12 @@ struct FrontHudRuntime {
     int banner_timer_9ecc;                   // +0x9ECC
 };
 
-typedef char FrontBankBase[offsetof(FrontHudRuntime, objects) == 0x4980 ? 1 : -1];
-typedef char FrontFlagsOffset[offsetof(FrontHudRuntime, flags_9eb4) == 0x9EB4 ? 1 : -1];
+typedef char FrontBankBase[offsetof(FrontUpdateView, objects) == 0x4980 ? 1 : -1];
+typedef char FrontFlagsOffset[offsetof(FrontUpdateView, flags_9eb4) == 0x9EB4 ? 1 : -1];
 
 // The recovered pair: the update and the script walker it drives.
 __declspec(noinline) int __stdcall FrontHudUpdate_00414900(
-    FrontHudRuntime* front);
+    FrontUpdateView* front);
 struct ResultDispatcherState;
 extern "C" __declspec(noinline) int __stdcall ResultDispatcher_00415e90(
     ResultDispatcherState* front);

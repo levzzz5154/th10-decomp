@@ -40,15 +40,15 @@ extern "C" ShakeOffset_00448740 data_00491e64;
 
 // 0x00448980: walk the entity list of one render slot.
 extern "C" int __cdecl asm_AnimationManager_RenderBucket_00448980(
-    AnimationManager_00442F50* manager, int slot);
+    SprtCtrlBatchView* manager, int slot);
 
 #pragma code_seg(".text$01slot14")
-int AnimationManager_00442F50::ResetOriginAndRenderSlot14() {
+int SprtCtrlBatchView::ResetOriginAndRenderSlot14() {
     ShakeOffset_00448740* shake = &data_00491e64;
     shake->x = 0.0f;
     shake->y = 0.0f;
-    data_00491c10->origin_x = 0.0f;
-    data_00491c10->origin_y = 0.0f;
+    g_sprt_ctrl->origin_x = 0.0f;
+    g_sprt_ctrl->origin_y = 0.0f;
     return asm_AnimationManager_RenderBucket_00448980(this, 14);
 }
 #pragma code_seg()

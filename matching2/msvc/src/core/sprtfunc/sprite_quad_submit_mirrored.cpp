@@ -8,7 +8,7 @@
 #include "th10/render/quad_batch.hpp"
 
 #pragma code_seg(".text$04c4mirror")
-int AnimationManager_00442F50::SubmitSpriteQuadMirrored(const RenderEntity* entity, unsigned int mode) {
+int SprtCtrlBatchView::SubmitSpriteQuadMirrored(const RenderEntity* entity, unsigned int mode) {
     for (int corner = 0; corner < 4; ++corner) {
         data_004978c0[corner].x += origin_x;
         data_004978c0[corner].y += origin_y;

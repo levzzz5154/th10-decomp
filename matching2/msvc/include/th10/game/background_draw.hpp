@@ -125,7 +125,7 @@ typedef char BackGroundCounters[(offsetof(BackGround, drawn_quads) == 0x2A14) ? 
 typedef char StageEntitySize[(sizeof(StageEntity) == 0x3AC) ? 1 : -1];
 
 extern "C" __declspec(noinline) int __cdecl asm_FUN_004451c0_004451c0(
-    AnimationManager_00442F50*, RenderEntity*);
+    SprtCtrlBatchView*, RenderEntity*);
 extern "C" CameraMatrix* __stdcall D3DXMatrixTranslation(CameraMatrix*, float, float, float);
 extern "C" RenderVec3* __stdcall D3DXVec3ProjectArray(
     RenderVec3* out, unsigned int out_stride, const RenderVec3* in, unsigned int in_stride,
@@ -137,13 +137,13 @@ extern "C" __declspec(noinline) int __cdecl asm_AnimationManager_RenderBucket_00
 
 // Flush the sprite batch, then change one device render state.
 inline void StageSetRenderState(unsigned int state, unsigned int value) {
-    data_00491c10->Flush();
+    g_sprt_ctrl->Flush();
     data_00491c30->State(state, value);
 }
 // Switch device fog (render state 0x1C) unless it already has that setting.
 inline void StageSetFog(int enabled) {
     if (data_00491c28.fog_enabled != enabled) {
-        data_00491c10->Flush();
+        g_sprt_ctrl->Flush();
         data_00491c28.fog_enabled = enabled;
         data_00491c30->State(0x1C, enabled);
     }

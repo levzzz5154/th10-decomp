@@ -3,7 +3,7 @@
 // marks it for the scheduler teardown, which is how the pair installed by
 // 0x004055C0 is released. Retail receives the pair in EAX and ends in a plain RET.
 
-// Scheduler callback node; only the status dword at +0x04 is touched here.
+// FuncCtrl callback node; only the status dword at +0x04 is touched here.
 struct SchedulerCallback {
     int priority;                       // +0x00
     unsigned int flags_04;              // +0x04, bit 1 retires the callback

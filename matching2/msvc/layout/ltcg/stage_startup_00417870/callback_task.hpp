@@ -1,5 +1,5 @@
 #pragma once
-#include "th10/game/scheduler.hpp"
+#include "th10/core/func_ctrl.hpp"
 inline void InitializeCallbackLink(TaskLink& link, SchedulerTask* task) {
     link.task = task;
     link.next = 0;

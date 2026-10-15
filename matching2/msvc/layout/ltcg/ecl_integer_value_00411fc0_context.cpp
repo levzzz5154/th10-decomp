@@ -2,7 +2,7 @@
 #pragma code_seg(".text$06validate")
 void* ResolveAnimationHandle(AnimationHandle_00449450* handle) {
     AnimationScriptId_00449450 id = { (int)handle->value };
-    void* object = ((AnimationManager_00449450*)data_00491c10)->Find(data_00491c10, id);
+    void* object = ((AnimationManager_00449450*)g_sprt_ctrl)->Find(g_sprt_ctrl, id);
     if (!object) handle->value = 0;
     return object;
 }

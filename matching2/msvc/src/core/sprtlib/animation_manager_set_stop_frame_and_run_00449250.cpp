@@ -6,7 +6,7 @@
 __declspec(noinline) void __fastcall AnimationManager_SetStopFrameAndRun(
         unsigned short frame, AnimationLookupContext* context, AnimationScriptId id) {
     AnimationTreeNode* node = reinterpret_cast<AnimationTreeNode*>(
-        reinterpret_cast<AnimationManager*>(context)->Find(context, id));
+        reinterpret_cast<SprtCtrl*>(context)->Find(context, id));
     if (node != 0) {
         node->stop_frame = frame;
         RunAnimationVm(node);

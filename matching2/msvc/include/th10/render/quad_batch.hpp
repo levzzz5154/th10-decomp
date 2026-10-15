@@ -2,7 +2,7 @@
 #define TH10_QUAD_BATCH_HPP
 struct RenderEntity;
 struct TexturedVertex { float x, y, z, rhw; unsigned int color; float u, v; };
-struct AnimationManager_00442F50 {
+struct SprtCtrlBatchView {
     unsigned char unknown_00000000[0x54];
     int state_changes;
     int draw_calls;
@@ -98,7 +98,7 @@ struct RenderEntity {
     // 0x00443F80: project the entity's billboard quad and submit it as a
     // plain sprite when the projection succeeds; see
     // src/core/sprtfunc/entity_submit_projected_00443f80.cpp.
-    __declspec(noinline) int SubmitProjectedQuad(AnimationManager_00442F50* manager);
+    __declspec(noinline) int SubmitProjectedQuad(SprtCtrlBatchView* manager);
     // 0x00445880: draw the strip vertices as a 33-point fan; see
     // src/core/sprtfunc/render_entity_draw_fan.cpp.
     __declspec(noinline) int DrawFan33();
@@ -120,7 +120,7 @@ extern "C" RenderTargetViewport* data_00491fac;
 __declspec(noinline) unsigned int AnimationColor_MultiplyChannel(unsigned char value, unsigned char scale);
 struct ScreenRect { float left, top, right, bottom; };
 __declspec(noinline) int __stdcall DrawSolidQuad(const ScreenRect*, unsigned int);
-extern "C" AnimationManager_00442F50* data_00491c10;
+extern "C" SprtCtrlBatchView* g_sprt_ctrl;
 struct RenderDevice {
     void** vtable;
     long Stage(unsigned int stage, unsigned int state, unsigned int value) {

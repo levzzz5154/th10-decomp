@@ -20,7 +20,7 @@
   "functions": [
     {
       "name": "FinishTargets",
-      "symbol": "?FinishTargets@NativeRenderManager@@QAEXXZ",
+      "symbol": "?FinishTargets@SprtCtrlTargetsView@@QAEXXZ",
       "section": ".text$a04targets",
       "address": "0x438a60",
       "size": 111,
@@ -36,7 +36,7 @@
     },
     {
       "name": "Clear",
-      "symbol": "?Clear@NativeRenderManager@@QAEXH@Z",
+      "symbol": "?Clear@SprtCtrlTargetsView@@QAEXH@Z",
       "section": ".text$a12clear",
       "address": "0x447f70",
       "size": 87,
@@ -46,14 +46,14 @@
   "anchors": [
     {
       "name": "Capture",
-      "symbol": "?Capture@NativeRenderManager@@QAEXHHHHHHHHHH@Z",
+      "symbol": "?Capture@SprtCtrlTargetsView@@QAEXHHHHHHHHHH@Z",
       "section": ".text$a14capture",
       "address": "0x448270",
       "size": 238
     },
     {
       "name": "Prepare",
-      "symbol": "?Prepare@NativeRenderManager@@QAEXHHHHHHHHH@Z",
+      "symbol": "?Prepare@SprtCtrlTargetsView@@QAEXHHHHHHHHH@Z",
       "section": ".text$a16prepare",
       "address": "0x448450",
       "size": 362
@@ -67,14 +67,14 @@
     },
     {
       "name": "ReleaseTargets",
-      "symbol": "?ReleaseTargets@NativeRenderManager@@QAEXXZ",
+      "symbol": "?ReleaseTargets@SprtCtrlTargetsView@@QAEXXZ",
       "section": ".text$a02release",
       "address": "0x438a30",
       "size": 43
     },
     {
       "name": "Flush",
-      "symbol": "?Flush@NativeRenderManager@@QAEHXZ",
+      "symbol": "?Flush@SprtCtrlTargetsView@@QAEHXZ",
       "section": ".text$a10flush",
       "address": "0x442f50",
       "size": 133
@@ -223,7 +223,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00491c10",
+      "symbol": "_g_sprt_ctrl",
       "address": "0x491c10",
       "kind": "data"
     },
@@ -302,7 +302,7 @@
   "calls": [
     {
       "caller": "_DeviceReset_004391f0",
-      "callee": "?FinishTargets@NativeRenderManager@@QAEXXZ",
+      "callee": "?FinishTargets@SprtCtrlTargetsView@@QAEXXZ",
       "address": "0x0043924B",
       "instruction": "call"
     }

@@ -5,7 +5,7 @@ __declspec(noinline) int __fastcall MainTaskTickWave18(MainTaskStateWave18* stat
         data_00491fb8 = 3;
     data_00492590.TickFades();
     PollInputWave18(0);
-    if (AnmPendingWave18(data_00491c10)) return 4;
+    if (AnmPendingWave18(g_sprt_ctrl)) return 4;
     int request = state->request_648;
     if (request) {
         // Retail encodes the two statuses as a mask: request 2 returns 4,

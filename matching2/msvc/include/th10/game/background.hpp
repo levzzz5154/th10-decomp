@@ -5,7 +5,7 @@
 #include <stddef.h>
 #include <string.h>
 #include "th10/game/entity.hpp"
-#include "th10/game/scheduler.hpp"
+#include "th10/core/func_ctrl.hpp"
 #include "th10/math/timer.hpp"
 #include "th10/render/camera_batch.hpp"
 

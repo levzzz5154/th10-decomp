@@ -5,7 +5,7 @@ extern "C" int __cdecl EnemySpawnEscape(void* pointer, int value);
 
 #pragma inline_depth(0)
 #pragma code_seg(".text$0040a000_context")
-extern "C" int __stdcall EnemySpawnContext(EnemySpawn_0040cfb0** spawns, EnemyManager_0040cfb0** managers,
+extern "C" int __stdcall EnemySpawnContext(EnemySpawn_0040cfb0** spawns, EnemyCtrlSpawnView** managers,
                                            const char** entries, int count) {
     // The run state is reachable through pointers in the real program.
     int total = EnemySpawnEscape(&data_00474c40, 0);

@@ -23,12 +23,12 @@ struct AnimationNode_00449820 {
     AnimationChildLink_00449820 children;   // +0x010
 };
 
-class AnimationManager {
+class SprtCtrl {
 public:
     void* __fastcall Find(AnimationLookupContext* context, AnimationScriptId id);
 };
 
-extern "C" AnimationLookupContext* data_00491c10;
+extern "C" AnimationLookupContext* g_sprt_ctrl;
 
 struct AnimationHandle_00449820 {
     AnimationScriptId id;
@@ -38,7 +38,7 @@ struct AnimationHandle_00449820 {
 #pragma code_seg(".text$85child")
 AnimationChild_00449820* AnimationHandle_00449820::FindChild(int script_id) {
     AnimationNode_00449820* node = reinterpret_cast<AnimationNode_00449820*>(
-        reinterpret_cast<AnimationManager*>(data_00491c10)->Find(data_00491c10, id));
+        reinterpret_cast<SprtCtrl*>(g_sprt_ctrl)->Find(g_sprt_ctrl, id));
     if (node == 0)
         id.value = 0;
     for (AnimationChildLink_00449820* link = &node->children; link != 0; link = link->next)

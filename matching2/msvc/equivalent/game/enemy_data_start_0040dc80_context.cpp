@@ -13,8 +13,8 @@ extern "C" {
 Player* g_player;
 Bomb* g_bomb;
 GameThread_0040dc80* g_card;
-Gui_0040dc80* data_0047770c;
-AnimationManager_0040dc80* data_00491c10;
+Gui_0040dc80* g_front;
+AnimationManager_0040dc80* g_sprt_ctrl;
 ScoreState_0040dc80 data_00474c40;
 SoundQueue data_00492590;
 int data_00474c50;
@@ -117,7 +117,7 @@ void __fastcall Animation_SetPosition(
 
 // src/core/sprtlib/animation_handle_change_script_004496d0.cpp
 void ScriptChangeHandle::ChangeScript(int index) {
-    Animation_0040dc80* object = AnimationManager_Find_004491c0(data_00491c10, *this);
+    Animation_0040dc80* object = AnimationManager_Find_004491c0(g_sprt_ctrl, *this);
     if (object) ext_call(object, index);
 }
 
@@ -217,7 +217,7 @@ int __fastcall FieldContact_004266b0(
             return 0;
         return 2;
     }
-    if (data_0047770c && *(int*)((unsigned char*)data_0047770c + 0x9EB8))
+    if (g_front && *(int*)((unsigned char*)g_front + 0x9EB8))
         return 0;
     if (player->state == 2 || player->state == 4 || player->state == 3)
         return 0;

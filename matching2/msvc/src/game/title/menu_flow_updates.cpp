@@ -53,7 +53,7 @@ static __forceinline void LoadBindings_0042f540(Title* room) {
 
 // Restart the cursor animation of slot 2.
 static __forceinline void RunCursorSlot_0042f540(Title* room) {
-    AnimationManager_SetStopFrameAndRun(3, reinterpret_cast<AnimationLookupContext*>(data_00491c10),
+    AnimationManager_SetStopFrameAndRun(3, reinterpret_cast<AnimationLookupContext*>(g_sprt_ctrl),
         *reinterpret_cast<AnimationScriptId*>(&room->animation_slots[2]));
 }
 

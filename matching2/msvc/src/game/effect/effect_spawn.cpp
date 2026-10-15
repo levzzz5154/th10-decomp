@@ -12,12 +12,12 @@
 static __forceinline void CreatePrimaryBack(
         AnimationResource_00449870* file, AnimationHandle_0040b070* out, int index, int bucket) {
     AnimationNode_0040b070* object =
-        reinterpret_cast<AnimationPool_0040b070*>(data_00491c10)->Allocate();
+        reinterpret_cast<AnimationPool_0040b070*>(g_sprt_ctrl)->Allocate();
     unsigned int flags = object->flags;
     object->render_bucket = bucket;
     object->flags = flags | 0x40000000u;
     file->InitializeObject(object, index);
-    asm_AnimationManager_RegisterPrimaryBack_004489d0(data_00491c10, (void**)out, object);
+    asm_AnimationManager_RegisterPrimaryBack_004489d0(g_sprt_ctrl, (void**)out, object);
 }
 
 #pragma code_seg(".text$0040b070_fn")
@@ -26,7 +26,7 @@ AnimationHandle_0040b070 __stdcall EffectSpawnView::SpawnEffect(
     EffectKind_0040b070* entry = &data_00474430[kind];
     AnimationHandle_0040b070 created;
     CreatePrimaryBack(file, &created, entry->script, 15);
-    AnimationNode_0040b070* node = data_00491c10->Find(created);
+    AnimationNode_0040b070* node = g_sprt_ctrl->Find(created);
     if (!node)
         created.value = 0;
     if (entry->setup)
@@ -47,7 +47,7 @@ AnimationHandle_0040b070 __stdcall SpawnEffectFromFile(
     EffectKind_0040b070* entry = &data_00474430[kind];
     AnimationHandle_0040b070 created;
     CreatePrimaryBack(file, &created, entry->script, 15);
-    AnimationNode_0040b070* node = data_00491c10->Find(created);
+    AnimationNode_0040b070* node = g_sprt_ctrl->Find(created);
     if (!node)
         created.value = 0;
     if (entry->setup)

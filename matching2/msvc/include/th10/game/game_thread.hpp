@@ -1,5 +1,5 @@
 #pragma once
-#include "th10/game/scheduler.hpp"
+#include "th10/core/func_ctrl.hpp"
 
 extern "C" void __cdecl entry_free_00452422(void* memory);
 

@@ -9,7 +9,7 @@
   "function": "?Check@ReplayFrameStep@@QAEHXZ",
   "code_bytes": 68,
   "absolute_symbols": {
-    "_data_00477810": {
+    "_g_game": {
       "address": "0x00477810",
       "kind": "data"
     },

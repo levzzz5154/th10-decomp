@@ -3,7 +3,7 @@
 // Complete packed-command dispatcher at 0x00415E90. This is unselected compiler
 // context; the 4,480-byte retail owner is not claimed as a recovered region.
 static DispatcherStageState* StageState() {
-    return reinterpret_cast<DispatcherStageState*>(data_0047770c);
+    return reinterpret_cast<DispatcherStageState*>(g_front);
 }
 static unsigned char* ProgressBytes() {
     return reinterpret_cast<unsigned char*>(data_0047783c);
@@ -20,23 +20,23 @@ static DispatcherMusicRecord* MusicRecord() { return data_00477848; }
 // actual caller does. A failed lookup clears the handle, but SetText is still
 // invoked with its null result; the callee owns that behavior.
 static __forceinline void DecodeAndSetText(ResultDispatcherState* state, DispatcherHandle* handle) {
-    AnimationLookupContext* context = reinterpret_cast<AnimationLookupContext*>(data_00491c10);
+    AnimationLookupContext* context = reinterpret_cast<AnimationLookupContext*>(g_sprt_ctrl);
     DispatcherObject* animation = DispatcherFindAnimation(context, handle->id);
     if (!animation)
         handle->id.value = 0;
     char* text = Path_DecodeXor(reinterpret_cast<const char*>(
         &state->command->first_operand));
     AnimationLookupContext* manager =
-        reinterpret_cast<AnimationLookupContext*>(data_00491c10);
+        reinterpret_cast<AnimationLookupContext*>(g_sprt_ctrl);
     animation->MarkText(manager, state->text_parameters[state->text_side], text);
 }
 static __forceinline void BlankText(ResultDispatcherState* state, DispatcherHandle* handle) {
-    AnimationLookupContext* context = reinterpret_cast<AnimationLookupContext*>(data_00491c10);
+    AnimationLookupContext* context = reinterpret_cast<AnimationLookupContext*>(g_sprt_ctrl);
     DispatcherObject* animation = DispatcherFindAnimation(context, handle->id);
     if (!animation)
         handle->id.value = 0;
     AnimationLookupContext* manager =
-        reinterpret_cast<AnimationLookupContext*>(data_00491c10);
+        reinterpret_cast<AnimationLookupContext*>(g_sprt_ctrl);
     animation->MarkText(manager, state->text_parameters[state->text_side], " ");
 }
 
@@ -100,14 +100,14 @@ ResultDispatcher_00415e90(ResultDispatcherState* state) {
             case 2:
                 if (data_00474c7c == 6) {
                     if (data_00474c68 == 1)
-                        { DispatcherRef created = DispatcherCreateAnimation(data_00477704->resource, 0x20, 15); state->right_portrait.id.value = created.value; }
+                        { DispatcherRef created = DispatcherCreateAnimation(g_enemy_ctrl->resource, 0x20, 15); state->right_portrait.id.value = created.value; }
                     else if (data_00474c68 == 1)
-                        { DispatcherRef created2 = DispatcherCreateAnimation(data_00477704->resource, 0x20, 15); state->right_portrait.id.value = created2.value; }
+                        { DispatcherRef created2 = DispatcherCreateAnimation(g_enemy_ctrl->resource, 0x20, 15); state->right_portrait.id.value = created2.value; }
                 } else if (data_00474c7c == 7 && state->variant < 1) {
                     if (data_00474c68 == 0)
-                        { DispatcherRef created = DispatcherCreateAnimation(data_00477704->resource, 0x25, 15); state->right_portrait.id.value = created.value; }
+                        { DispatcherRef created = DispatcherCreateAnimation(g_enemy_ctrl->resource, 0x25, 15); state->right_portrait.id.value = created.value; }
                     else if (data_00474c68 == 1)
-                        { DispatcherRef created = DispatcherCreateAnimation(data_00477704->resource, 0x25, 15); state->right_portrait.id.value = created.value; }
+                        { DispatcherRef created = DispatcherCreateAnimation(g_enemy_ctrl->resource, 0x25, 15); state->right_portrait.id.value = created.value; }
                 } else {
                     if (data_00474c68 == 0)
                         { DispatcherRef created = DispatcherCreateAnimation(static_cast<AnimationResource_00449870*>(g_player->animation_file), 0x1E, 15); state->right_portrait.id.value = created.value; }
@@ -138,7 +138,7 @@ ResultDispatcher_00415e90(ResultDispatcherState* state) {
             case 7: {
                 state->right_portrait.StopAtFrame3();
                 state->left_portrait.StopAtFrame2();
-                AnimationLookupContext* context = reinterpret_cast<AnimationLookupContext*>(data_00491c10);
+                AnimationLookupContext* context = reinterpret_cast<AnimationLookupContext*>(g_sprt_ctrl);
                 state->text_side = 0;
                 DispatcherSetPosition(&state->text_positions[0], context, state->first_text.id);
                 DispatcherSetPosition(&state->text_positions[state->text_side], context,
@@ -149,7 +149,7 @@ ResultDispatcher_00415e90(ResultDispatcherState* state) {
             case 8: {
                 state->left_portrait.StopAtFrame3();
                 state->right_portrait.StopAtFrame2();
-                AnimationLookupContext* context = reinterpret_cast<AnimationLookupContext*>(data_00491c10);
+                AnimationLookupContext* context = reinterpret_cast<AnimationLookupContext*>(g_sprt_ctrl);
                 state->text_side = 1;
                 DispatcherSetPosition(&state->text_positions[1], context, state->first_text.id);
                 DispatcherSetPosition(&state->text_positions[state->text_side], context,
@@ -180,82 +180,82 @@ ResultDispatcher_00415e90(ResultDispatcherState* state) {
                 switch (data_00474c7c) {
                 case 1:
                     if (mode == 1) {
-                        state->right_portrait.FindChildRef(24).SelectResourceSprite(data_00477704->resource, state->command->first_operand + 0xf);
-                        state->right_portrait.FindChildRef(27).SelectResourceSprite(data_00477704->resource, state->command->first_operand + 0x17);
+                        state->right_portrait.FindChildRef(24).SelectResourceSprite(g_enemy_ctrl->resource, state->command->first_operand + 0xf);
+                        state->right_portrait.FindChildRef(27).SelectResourceSprite(g_enemy_ctrl->resource, state->command->first_operand + 0x17);
                     }
                     if (*mode_addr == 1) {
-                        state->right_portrait.FindChildRef(24).SelectResourceSprite(data_00477704->resource, state->command->first_operand + 0xf);
-                        state->right_portrait.FindChildRef(27).SelectResourceSprite(data_00477704->resource, state->command->first_operand + 0x17);
+                        state->right_portrait.FindChildRef(24).SelectResourceSprite(g_enemy_ctrl->resource, state->command->first_operand + 0xf);
+                        state->right_portrait.FindChildRef(27).SelectResourceSprite(g_enemy_ctrl->resource, state->command->first_operand + 0x17);
                     }
                     break;
                 case 2:
                     if (mode == 0) {
-                        state->right_portrait.FindChildRef(24).SelectResourceSprite(data_00477704->resource, state->command->first_operand + 0x15);
-                        state->right_portrait.FindChildRef(27).SelectResourceSprite(data_00477704->resource, state->command->first_operand + 0x1e);
+                        state->right_portrait.FindChildRef(24).SelectResourceSprite(g_enemy_ctrl->resource, state->command->first_operand + 0x15);
+                        state->right_portrait.FindChildRef(27).SelectResourceSprite(g_enemy_ctrl->resource, state->command->first_operand + 0x1e);
                     }
                     if (*mode_addr == 0) {
-                        state->right_portrait.FindChildRef(24).SelectResourceSprite(data_00477704->resource, state->command->first_operand + 0x15);
-                        state->right_portrait.FindChildRef(27).SelectResourceSprite(data_00477704->resource, state->command->first_operand + 0x1e);
+                        state->right_portrait.FindChildRef(24).SelectResourceSprite(g_enemy_ctrl->resource, state->command->first_operand + 0x15);
+                        state->right_portrait.FindChildRef(27).SelectResourceSprite(g_enemy_ctrl->resource, state->command->first_operand + 0x1e);
                     }
                     break;
                 case 3:
                     if (mode == 1) {
-                        state->right_portrait.FindChildRef(24).SelectResourceSprite(data_00477704->resource, state->command->first_operand + 0x22);
-                        state->right_portrait.FindChildRef(27).SelectResourceSprite(data_00477704->resource, state->command->first_operand + 0x2b);
+                        state->right_portrait.FindChildRef(24).SelectResourceSprite(g_enemy_ctrl->resource, state->command->first_operand + 0x22);
+                        state->right_portrait.FindChildRef(27).SelectResourceSprite(g_enemy_ctrl->resource, state->command->first_operand + 0x2b);
                     }
                     if (*mode_addr == 0) {
-                        state->right_portrait.FindChildRef(24).SelectResourceSprite(data_00477704->resource, state->command->first_operand + 0x22);
-                        state->right_portrait.FindChildRef(27).SelectResourceSprite(data_00477704->resource, state->command->first_operand + 0x2b);
+                        state->right_portrait.FindChildRef(24).SelectResourceSprite(g_enemy_ctrl->resource, state->command->first_operand + 0x22);
+                        state->right_portrait.FindChildRef(27).SelectResourceSprite(g_enemy_ctrl->resource, state->command->first_operand + 0x2b);
                     }
                     break;
                 case 4:
                     if (mode == 1) {
-                        state->right_portrait.FindChildRef(24).SelectResourceSprite(data_00477704->resource, state->command->first_operand + 0x25);
-                        state->right_portrait.FindChildRef(27).SelectResourceSprite(data_00477704->resource, state->command->first_operand + 0x2e);
+                        state->right_portrait.FindChildRef(24).SelectResourceSprite(g_enemy_ctrl->resource, state->command->first_operand + 0x25);
+                        state->right_portrait.FindChildRef(27).SelectResourceSprite(g_enemy_ctrl->resource, state->command->first_operand + 0x2e);
                     }
                     if (*mode_addr == 0) {
-                        state->right_portrait.FindChildRef(24).SelectResourceSprite(data_00477704->resource, state->command->first_operand + 0x25);
-                        state->right_portrait.FindChildRef(27).SelectResourceSprite(data_00477704->resource, state->command->first_operand + 0x2e);
+                        state->right_portrait.FindChildRef(24).SelectResourceSprite(g_enemy_ctrl->resource, state->command->first_operand + 0x25);
+                        state->right_portrait.FindChildRef(27).SelectResourceSprite(g_enemy_ctrl->resource, state->command->first_operand + 0x2e);
                     }
                     break;
                 case 5:
                     if (mode == 1) {
-                        state->right_portrait.FindChildRef(24).SelectResourceSprite(data_00477704->resource, state->command->first_operand + 0x16);
-                        state->right_portrait.FindChildRef(27).SelectResourceSprite(data_00477704->resource, state->command->first_operand + 0x1f);
+                        state->right_portrait.FindChildRef(24).SelectResourceSprite(g_enemy_ctrl->resource, state->command->first_operand + 0x16);
+                        state->right_portrait.FindChildRef(27).SelectResourceSprite(g_enemy_ctrl->resource, state->command->first_operand + 0x1f);
                     }
                     if (*mode_addr == 0) {
-                        state->right_portrait.FindChildRef(24).SelectResourceSprite(data_00477704->resource, state->command->first_operand + 0x16);
-                        state->right_portrait.FindChildRef(27).SelectResourceSprite(data_00477704->resource, state->command->first_operand + 0x1f);
+                        state->right_portrait.FindChildRef(24).SelectResourceSprite(g_enemy_ctrl->resource, state->command->first_operand + 0x16);
+                        state->right_portrait.FindChildRef(27).SelectResourceSprite(g_enemy_ctrl->resource, state->command->first_operand + 0x1f);
                     }
                     break;
                 case 6:
                     if (mode == 1) {
-                        state->right_portrait.FindChildRef(28).SelectResourceSprite(data_00477704->resource, state->command->first_operand + 0x30);
-                        state->right_portrait.FindChildRef(31).SelectResourceSprite(data_00477704->resource, state->command->first_operand + 0x39);
+                        state->right_portrait.FindChildRef(28).SelectResourceSprite(g_enemy_ctrl->resource, state->command->first_operand + 0x30);
+                        state->right_portrait.FindChildRef(31).SelectResourceSprite(g_enemy_ctrl->resource, state->command->first_operand + 0x39);
                     }
                     if (*mode_addr == 0) {
-                        state->right_portrait.FindChildRef(28).SelectResourceSprite(data_00477704->resource, state->command->first_operand + 0x30);
-                        state->right_portrait.FindChildRef(31).SelectResourceSprite(data_00477704->resource, state->command->first_operand + 0x39);
+                        state->right_portrait.FindChildRef(28).SelectResourceSprite(g_enemy_ctrl->resource, state->command->first_operand + 0x30);
+                        state->right_portrait.FindChildRef(31).SelectResourceSprite(g_enemy_ctrl->resource, state->command->first_operand + 0x39);
                     }
                     break;
                 case 7:
                     if (state->variant < 1) {
                         if (mode == 1) {
-                        state->right_portrait.FindChildRef(33).SelectResourceSprite(data_00477704->resource, state->command->first_operand + 0x44);
-                        state->right_portrait.FindChildRef(36).SelectResourceSprite(data_00477704->resource, state->command->first_operand + 0x4d);
+                        state->right_portrait.FindChildRef(33).SelectResourceSprite(g_enemy_ctrl->resource, state->command->first_operand + 0x44);
+                        state->right_portrait.FindChildRef(36).SelectResourceSprite(g_enemy_ctrl->resource, state->command->first_operand + 0x4d);
                         }
                         if (*mode_addr == 0) {
-                        state->right_portrait.FindChildRef(33).SelectResourceSprite(data_00477704->resource, state->command->first_operand + 0x44);
-                        state->right_portrait.FindChildRef(36).SelectResourceSprite(data_00477704->resource, state->command->first_operand + 0x4d);
+                        state->right_portrait.FindChildRef(33).SelectResourceSprite(g_enemy_ctrl->resource, state->command->first_operand + 0x44);
+                        state->right_portrait.FindChildRef(36).SelectResourceSprite(g_enemy_ctrl->resource, state->command->first_operand + 0x4d);
                         }
                     } else {
                         if (mode == 1) {
-                        state->right_portrait.FindChildRef(24).SelectResourceSprite(data_00477704->resource, state->command->first_operand + 0x2e);
-                        state->right_portrait.FindChildRef(27).SelectResourceSprite(data_00477704->resource, state->command->first_operand + 0x37);
+                        state->right_portrait.FindChildRef(24).SelectResourceSprite(g_enemy_ctrl->resource, state->command->first_operand + 0x2e);
+                        state->right_portrait.FindChildRef(27).SelectResourceSprite(g_enemy_ctrl->resource, state->command->first_operand + 0x37);
                         }
                         if (*mode_addr == 0) {
-                        state->right_portrait.FindChildRef(24).SelectResourceSprite(data_00477704->resource, state->command->first_operand + 0x2e);
-                        state->right_portrait.FindChildRef(27).SelectResourceSprite(data_00477704->resource, state->command->first_operand + 0x37);
+                        state->right_portrait.FindChildRef(24).SelectResourceSprite(g_enemy_ctrl->resource, state->command->first_operand + 0x2e);
+                        state->right_portrait.FindChildRef(27).SelectResourceSprite(g_enemy_ctrl->resource, state->command->first_operand + 0x37);
                         }
                     }
                     break;
@@ -288,37 +288,37 @@ ResultDispatcher_00415e90(ResultDispatcherState* state) {
                 switch (data_00474c7c) {
                 case 1: {
                     state->stage_title.id.value =
-                        DispatcherCreateAnimation(data_00477704->resource, 0x0D, 15).value;
+                        DispatcherCreateAnimation(g_enemy_ctrl->resource, 0x0D, 15).value;
                     break;
                 }
                 case 2: {
                     state->stage_title.id.value =
-                        DispatcherCreateAnimation(data_00477704->resource, 0x10, 15).value;
+                        DispatcherCreateAnimation(g_enemy_ctrl->resource, 0x10, 15).value;
                     break;
                 }
                 case 3: {
                     state->stage_title.id.value =
-                        DispatcherCreateAnimation(data_00477704->resource, 0x14, 15).value;
+                        DispatcherCreateAnimation(g_enemy_ctrl->resource, 0x14, 15).value;
                     break;
                 }
                 case 4: {
                     state->stage_title.id.value =
-                        DispatcherCreateAnimation(data_00477704->resource, 0x15, 15).value;
+                        DispatcherCreateAnimation(g_enemy_ctrl->resource, 0x15, 15).value;
                     break;
                 }
                 case 5: {
                     state->stage_title.id.value =
-                        DispatcherCreateAnimation(data_00477704->resource, 0x0E, 15).value;
+                        DispatcherCreateAnimation(g_enemy_ctrl->resource, 0x0E, 15).value;
                     break;
                 }
                 case 6: {
                     state->stage_title.id.value =
-                        DispatcherCreateAnimation(data_00477704->resource, 0x23, 15).value;
+                        DispatcherCreateAnimation(g_enemy_ctrl->resource, 0x23, 15).value;
                     break;
                 }
                 case 7: {
                     state->stage_title.id.value =
-                        DispatcherCreateAnimation(data_00477704->resource, 0x1D, 15).value;
+                        DispatcherCreateAnimation(g_enemy_ctrl->resource, 0x1D, 15).value;
                     break;
                 }
                 default: goto next_command;
@@ -366,7 +366,7 @@ ResultDispatcher_00415e90(ResultDispatcherState* state) {
                         SetInputMode(&data_00491c28, 4);
                         break;
                     }
-                    CreateScreenEffect_0043c8b0(0x31, 5, 0x78, 0, 0, 0);
+                    Screen_Create(0x31, 5, 0x78, 0, 0, 0);
                     DispatcherStageState* stage = StageState();
                     stage->result_phase = 0;
                     stage->flags |= 0x10;
@@ -388,7 +388,7 @@ ResultDispatcher_00415e90(ResultDispatcherState* state) {
                         ++*count;
                 } else {
                     DispatcherStageState* stage = StageState();
-                    DispatcherRemoveAnimation(reinterpret_cast<AnimationLookupContext*>(data_00491c10),
+                    DispatcherRemoveAnimation(reinterpret_cast<AnimationLookupContext*>(g_sprt_ctrl),
                         stage->transition_animation);
                     stage->transition_animation.value = 0;
                     stage->transition_animation.value =

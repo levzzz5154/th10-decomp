@@ -69,7 +69,7 @@ short __stdcall Joystick_Probe_0044a0c0();
 void __stdcall Input_NormalizeKeyboardState();
 int __stdcall GameFrameAdvance_00439390(GameFrame_00439390* frame);
 void __stdcall ReleaseAll_00438a30(Holder_00438a30* holder);
-extern "C" SpriteStateCache* __cdecl Renderer_ApplyDeviceDefaults(void);
+extern "C" SprtCtrlStateCacheView* __cdecl Renderer_ApplyDeviceDefaults(void);
 
 int __fastcall CreateGameWindow_00439730(void* instance);
 int __stdcall File_WriteWholeFile(const char* path, const void* buffer, unsigned long size);
@@ -85,7 +85,7 @@ struct TextLog_0044b8e0 {
     char* AppendLine(char* format, ...);
 };
 // The routines that build and tear down the two managers, likewise.
-struct D3DResourceManager_00449AA0 {
+struct FuncCtrlInitializeView {
     unsigned char lists[0x48];
     __declspec(noinline) void Initialize();
 };
@@ -93,15 +93,15 @@ struct AnimationManagerStorage_00446220 {
     __declspec(noinline) ~AnimationManagerStorage_00446220();
 };
 // The animation manager: built by 0x00445900, torn down by 0x00446220.
-struct AnmStorageConstruct_00445900 {
+struct SprtCtrl {
     unsigned char storage[0x732460];
-    AnmStorageConstruct_00445900();
-    ~AnmStorageConstruct_00445900() {
+    SprtCtrl();
+    ~SprtCtrl() {
         reinterpret_cast<AnimationManagerStorage_00446220*>(this)->
             ~AnimationManagerStorage_00446220();
     }
 };
-typedef AnmStorageConstruct_00445900 AnimationManager_00438ad0;
+typedef SprtCtrl AnimationManager_00438ad0;
 struct App_00420270 {
     __declspec(noinline) int Shutdown();
 };
@@ -135,11 +135,11 @@ struct ReplayTable_00438ad0 {
 struct D3DResourceManager_00438ad0 {
     unsigned char lists[0x48];
     D3DResourceManager_00438ad0() {
-        reinterpret_cast<D3DResourceManager_00449AA0*>(this)->Initialize();
+        reinterpret_cast<FuncCtrlInitializeView*>(this)->Initialize();
     }
     ~D3DResourceManager_00438ad0() {
-        reinterpret_cast<D3DResourceManager_Destroy_00438880*>(this)->
-            ~D3DResourceManager_Destroy_00438880();
+        reinterpret_cast<FuncCtrlDestroyView*>(this)->
+            ~FuncCtrlDestroyView();
     }
 };
 
@@ -174,8 +174,8 @@ typedef char SoundManagerSize_00438ad0[sizeof(SoundManager_00438ad0) == 0x52D0 ?
 
 extern "C" {
 extern ReplayTable_00438ad0* data_00491be0;
-extern D3DResourceManager_00438ad0* data_00491be4;
-extern AnimationManager_00438ad0* data_00491c10;
+extern D3DResourceManager_00438ad0* g_func_ctrl;
+extern AnimationManager_00438ad0* g_sprt_ctrl;
 extern Application data_00491c28;
 extern MainWindow data_004924f0;
 extern SoundManager_00438ad0 data_00492590;
@@ -218,7 +218,7 @@ __declspec(noinline) int __stdcall GameMain_00438ad0(
 
     for (;;) {
         D3DResourceManager_00438ad0* resources = new D3DResourceManager_00438ad0;
-        data_00491be4 = resources;
+        g_func_ctrl = resources;
         data_00491c28.direct3d = static_cast<Direct3D*>(Direct3DCreate9_00452176(0x20));
         if (data_00491c28.direct3d == 0) {
             reinterpret_cast<TextLog_0044b8e0*>(&data_00474f70)->AppendLine(data_0046f6a0);
@@ -232,7 +232,7 @@ __declspec(noinline) int __stdcall GameMain_00438ad0(
         Joystick_Probe_0044a0c0();
         Input_NormalizeKeyboardState();
         AnimationManager_00438ad0* animations = new AnimationManager_00438ad0;
-        data_00491c10 = animations;
+        g_sprt_ctrl = animations;
         if (!data_00491c28.config.field_1d) {
             asm_WINNLSEnableIME_0045232c(0, 0);
             ShowCursor(0);
@@ -264,7 +264,7 @@ __declspec(noinline) int __stdcall GameMain_00438ad0(
                     data_00491c28.flags &= ~0x10u;
                 } else if (state == 0x88760869) {
                     // D3DERR_DEVICENOTRESET
-                    ReleaseAll_00438a30(reinterpret_cast<Holder_00438a30*>(data_00491c10));
+                    ReleaseAll_00438a30(reinterpret_cast<Holder_00438a30*>(g_sprt_ctrl));
                     if (data_00491c28.device->Reset(&data_00491c28.present_parameters) != 0)
                         break;
                     Renderer_ApplyDeviceDefaults();
@@ -275,14 +275,14 @@ __declspec(noinline) int __stdcall GameMain_00438ad0(
         }
 
         reinterpret_cast<App_00420270*>(&data_00491c28)->Shutdown();
-        delete data_00491be4;
-        data_00491be4 = 0;
+        delete g_func_ctrl;
+        g_func_ctrl = 0;
         while (reinterpret_cast<WaveSoundManager*>(&data_00492590)->ProcessCommands() != 0) {
         }
 close_pass:
         data_00492590.Stop();
-        delete data_00491c10;
-        data_00491c10 = 0;
+        delete g_sprt_ctrl;
+        g_sprt_ctrl = 0;
         if (data_00491c28.device != 0) {
             data_00491c28.device->Reset(&data_00491c28.present_parameters);
             if (data_00491c28.device != 0) {

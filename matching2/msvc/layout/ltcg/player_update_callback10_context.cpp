@@ -1,4 +1,4 @@
-// Scheduler callback only; Update is compiled from its own source.
+// FuncCtrl callback only; Update is compiled from its own source.
 #include "../../src/game/bomb/bomb_on_update.cpp"
 // Actual secondary callback installed alongside the primary callback.
 #pragma code_seg(".text$037secondary")

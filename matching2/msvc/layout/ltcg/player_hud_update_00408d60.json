@@ -99,7 +99,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "?Find@AnimationManager@@QAIPAXPAUAnimationLookupContext@@UAnimationScriptId@@@Z",
+      "symbol": "?Find@SprtCtrl@@QAIPAXPAUAnimationLookupContext@@UAnimationScriptId@@@Z",
       "address": "0x004491C0",
       "kind": "relative_code"
     },
@@ -119,7 +119,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_0047770c",
+      "symbol": "_g_front",
       "address": "0x0047770C",
       "kind": "data"
     },
@@ -129,12 +129,12 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00477704",
+      "symbol": "_g_enemy_ctrl",
       "address": "0x00477704",
       "kind": "data"
     },
     {
-      "symbol": "_data_00491c10",
+      "symbol": "_g_sprt_ctrl",
       "address": "0x00491C10",
       "kind": "data"
     },

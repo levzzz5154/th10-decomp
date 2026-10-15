@@ -1,5 +1,5 @@
 #include "th10/game/recovery_script_executor_0040bd80.hpp"
-extern "C" void* data_00491c10;
+extern "C" void* g_sprt_ctrl;
 extern float g_frame_timer_normal_lower;
 extern float g_frame_timer_normal_upper;
 #pragma code_seg(".text$00405410_fn")
@@ -51,7 +51,7 @@ void* __fastcall RecoveryLookup_0040bd80::SetFlag(RecoveryLookupContext_0040bd80
 #pragma code_seg(".text$00449450_fn")
 void* __cdecl RecoveryLookup_0040bd80::Validate(RecoveryHandle_0040bd80* handle) {
     RecoveryScriptId_0040bd80 id = { static_cast<int>(handle->value) };
-    void* object = Find(reinterpret_cast<RecoveryLookupContext_0040bd80*>(data_00491c10), id);
+    void* object = Find(reinterpret_cast<RecoveryLookupContext_0040bd80*>(g_sprt_ctrl), id);
     if (object == 0)
         handle->value = 0;
     return object;
@@ -68,7 +68,7 @@ struct RecoveryStopNode_0040bd80 {
 #pragma code_seg(".text$0040c480_fn")
 void RecoveryHandle_0040bd80::StopAtFrame2() {
     RecoveryScriptId_0040bd80 id = { static_cast<int>(value) };
-    RecoveryStopNode_0040bd80* node = static_cast<RecoveryStopNode_0040bd80*>(reinterpret_cast<RecoveryLookup_0040bd80*>(data_00491c10)->Find(reinterpret_cast<RecoveryLookupContext_0040bd80*>(data_00491c10), id));
+    RecoveryStopNode_0040bd80* node = static_cast<RecoveryStopNode_0040bd80*>(reinterpret_cast<RecoveryLookup_0040bd80*>(g_sprt_ctrl)->Find(reinterpret_cast<RecoveryLookupContext_0040bd80*>(g_sprt_ctrl), id));
     if (node != 0) {
         node->stop_frame = 2;
         if (!node->children_flagged)
@@ -79,7 +79,7 @@ void RecoveryHandle_0040bd80::StopAtFrame2() {
 #pragma code_seg(".text$0040c4d0_fn")
 void RecoveryHandle_0040bd80::StopAtFrame3() {
     RecoveryScriptId_0040bd80 id = { static_cast<int>(value) };
-    RecoveryStopNode_0040bd80* node = static_cast<RecoveryStopNode_0040bd80*>(reinterpret_cast<RecoveryLookup_0040bd80*>(data_00491c10)->Find(reinterpret_cast<RecoveryLookupContext_0040bd80*>(data_00491c10), id));
+    RecoveryStopNode_0040bd80* node = static_cast<RecoveryStopNode_0040bd80*>(reinterpret_cast<RecoveryLookup_0040bd80*>(g_sprt_ctrl)->Find(reinterpret_cast<RecoveryLookupContext_0040bd80*>(g_sprt_ctrl), id));
     if (node != 0) {
         node->stop_frame = 3;
         if (!node->children_flagged)
@@ -89,7 +89,7 @@ void RecoveryHandle_0040bd80::StopAtFrame3() {
 }
 #pragma code_seg(".text$00449630_fn")
 void RecoveryHandle_0040bd80::MarkForRemoval() {
-    reinterpret_cast<RecoveryLookup_0040bd80*>(data_00491c10)->SetFlag(reinterpret_cast<RecoveryLookupContext_0040bd80*>(data_00491c10), static_cast<int>(value));
+    reinterpret_cast<RecoveryLookup_0040bd80*>(g_sprt_ctrl)->SetFlag(reinterpret_cast<RecoveryLookupContext_0040bd80*>(g_sprt_ctrl), static_cast<int>(value));
     value = 0;
 }
 #pragma code_seg()

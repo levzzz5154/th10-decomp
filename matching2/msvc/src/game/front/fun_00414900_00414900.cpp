@@ -275,7 +275,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00414900_00414900() {
     L_00414aca:
         call asm_FUN_0043ee30_0043ee30
     L_00414acf:
-        mov eax,dword ptr [data_00477704]
+        mov eax,dword ptr [g_enemy_ctrl]
     L_00414ad4:
         test eax,eax
     L_00414ad6:
@@ -337,7 +337,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00414900_00414900() {
     L_00414b5a:
         mov ecx,dword ptr [g_player]
     L_00414b60:
-        mov esi,dword ptr [data_00491c10]
+        mov esi,dword ptr [g_sprt_ctrl]
     L_00414b66:
         fld dword ptr [ecx+3C4h]
     L_00414b6c:
@@ -862,7 +862,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00414900_00414900() {
     L_00414eb5:
         call asm_FUN_00449870_00449870
     L_00414eba:
-        mov esi,dword ptr [data_00491c10]
+        mov esi,dword ptr [g_sprt_ctrl]
     L_00414ec0:
         lea eax,[edi+4]
     L_00414ec3:
@@ -968,7 +968,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00414900_00414900() {
     L_00414f7e:
         call asm_FUN_00449870_00449870
     L_00414f83:
-        mov esi,dword ptr [data_00491c10]
+        mov esi,dword ptr [g_sprt_ctrl]
     L_00414f89:
         lea eax,[edi+4]
     L_00414f8c:
@@ -1145,7 +1145,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00414900_00414900() {
     L_00415094:
         je short L_0041510a
     L_00415096:
-        mov edx,dword ptr [data_00491c10]
+        mov edx,dword ptr [g_sprt_ctrl]
     L_0041509c:
         mov eax,dword ptr [edx+72DAD4h]
     L_004150a2:
@@ -1307,7 +1307,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00414900_00414900() {
     L_004151b6:
         test ecx,ecx
     L_004151b8:
-        mov edx,dword ptr [data_00491c10]
+        mov edx,dword ptr [g_sprt_ctrl]
     L_004151be:
         mov esi,4000000h
     L_004151c3:
@@ -1813,7 +1813,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00414900_00414900() {
     L_00415490:
         mov dword ptr [edi+9EB8h],0
     L_0041549a:
-        mov ecx,dword ptr [data_00477704]
+        mov ecx,dword ptr [g_enemy_ctrl]
     L_004154a0:
         test ecx,ecx
     L_004154a2:
@@ -1941,7 +1941,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00414900_00414900() {
     L_004155a8:
         mov edx,dword ptr [edi+9EC0h]
     L_004155ae:
-        mov ecx,dword ptr [data_00477704]
+        mov ecx,dword ptr [g_enemy_ctrl]
     L_004155b4:
         mov dword ptr [edi+9EC4h],edx
     L_004155ba:

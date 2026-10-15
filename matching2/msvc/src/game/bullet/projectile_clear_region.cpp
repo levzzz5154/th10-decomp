@@ -36,8 +36,8 @@ int __stdcall ProjectileManager_ClearRegion(ProjectileManager* manager, int spaw
                 data_00477818->Spawn(reinterpret_cast<const Vector3*>(&record->position), 8, -1,
                                      -1.5707963705062866f, 0.6f);
             }
-            Entity* burst = static_cast<AnimationLookup*>(data_00491c10)->Find(
-                static_cast<AnimationLookupContext*>(data_00491c10),
+            Entity* burst = static_cast<AnimationLookup*>(g_sprt_ctrl)->Find(
+                static_cast<AnimationLookupContext*>(g_sprt_ctrl),
                 reinterpret_cast<CutAnimationResource*>(manager->animations)->CreateOffset(
                     371, reinterpret_cast<const Vector3*>(&record->position)));
             if (record->sprite) {

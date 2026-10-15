@@ -35,5 +35,5 @@ struct AnimationPositionHandle {
     __declspec(noinline) void SetPosition(const PositionVector_004492f0* position);
     __declspec(noinline) void SetTranslatedPosition(const PositionVector_004492f0* position);
 };
-extern "C" PositionLookupContext_004492f0* data_00491c10;
+extern "C" PositionLookupContext_004492f0* g_sprt_ctrl;
 #endif

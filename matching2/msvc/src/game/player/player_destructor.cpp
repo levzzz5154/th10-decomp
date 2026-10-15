@@ -8,7 +8,7 @@
 extern "C" {
 extern unsigned int data_00474ca0;
 extern void* data_00491bf0;
-extern AnimationBanks_00402440* data_00491c10;
+extern AnimationBanks_00402440* g_sprt_ctrl;
 }
 #pragma code_seg(".text$01dtor")
 Player::~Player() {
@@ -16,10 +16,10 @@ Player::~Player() {
     RemoveSchedulerTask(draw_task);
     g_player = 0;
     if (data_00474ca0 & 1) {
-        reinterpret_cast<AnimationManager*>(data_00491c10)->MarkResourceForRemoval(animation_file);
+        reinterpret_cast<SprtCtrl*>(g_sprt_ctrl)->MarkResourceForRemoval(animation_file);
         data_00491bf0 = shot_type;
     } else {
-        ReleaseAnimationBank(data_00491c10, 8);
+        ReleaseAnimationBank(g_sprt_ctrl, 8);
         if (shot_type) {
             entry_free_00452422(shot_type);
             shot_type = 0;

@@ -1,8 +1,8 @@
-#define data_00491c10 stage_quad_data_00491c10
-#define data_0047770c stage_quad_data_0047770c
+#define g_sprt_ctrl stage_quad_g_sprt_ctrl
+#define g_front stage_quad_g_front
 #define data_00474c40 stage_quad_data_00474c40
 #define g_ascii_manager stage_quad_data_004776e0
-#define data_00477704 stage_quad_data_00477704
+#define g_enemy_ctrl stage_quad_g_enemy_ctrl
 #define g_player stage_quad_data_00477834
 #define data_00477838 stage_quad_data_00477838
 #define data_0047783c stage_quad_data_0047783c
@@ -81,11 +81,11 @@ __declspec(noinline) void __stdcall Stage_StartQuadScripts_00404450(Stage_004044
     stage->value_4c = stage->initial_value_1c;
 }
 #pragma code_seg()
-#undef data_00491c10
-#undef data_0047770c
+#undef g_sprt_ctrl
+#undef g_front
 #undef data_00474c40
 #undef g_ascii_manager
-#undef data_00477704
+#undef g_enemy_ctrl
 #undef g_player
 #undef data_00477838
 #undef data_0047783c

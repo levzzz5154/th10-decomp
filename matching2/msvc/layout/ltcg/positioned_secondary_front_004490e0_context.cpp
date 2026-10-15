@@ -80,7 +80,7 @@ extern "C" __declspec(noinline) void __cdecl asm_AnimationObject_LoadScript_0043
     *(int*)(obj + 0x5C) = -1;
     *(int*)(obj + 0x35C) = *(int*)(obj + 0x35C) & ~1;
     asm_AnimationObject_LoadScriptTail_0043ee30(obj);
-    unsigned char* manager = (unsigned char*)data_00491c10;
+    unsigned char* manager = (unsigned char*)g_sprt_ctrl;
     *(int*)(manager + 0x4C) = *(int*)(manager + 0x4C) + 1;
 }
 #pragma code_seg()

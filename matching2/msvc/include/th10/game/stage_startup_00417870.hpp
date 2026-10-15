@@ -163,7 +163,7 @@ typedef char StageRunLives[offsetof(StageRunState_00417870, initial_lives) == 0x
 extern "C" StageApplication_00417870 data_00491c28;
 
 // The published UI context is passed to the startup worker on the stack.
-struct StageStartup_00417870;
-extern "C" __declspec(noinline) int __stdcall StageStartup(StageStartup_00417870* context);
+struct Game;
+extern "C" __declspec(noinline) int __stdcall Game_Initialize(Game* context);
 
 #endif

@@ -70,7 +70,7 @@
       "address": "0x00477818",
       "kind": "data"
     },
-    "_data_00491c10": {
+    "_g_sprt_ctrl": {
       "address": "0x00491C10",
       "kind": "data"
     },
@@ -145,8 +145,8 @@
     "?OffsetPoint_00418810@@YGPAUFloat3@@PBU1@@Z": "0x00418810",
     "?Apply@RigCamera@@QAEXXZ": "0x004215A0",
     "?SelectStage_00401d20@RenderStageState@@QAEXH@Z": "0x00401D20",
-    "?EnemyManager_Spawn_0040cfb0@@YGPAUEnemyFull@@PBUEnemySpawn@@PAUEnemyManager@@PBD@Z": "0x0040CFB0",
-    "?EnemyManager_SweepDeaths_0040e6a0@@YGXPAUEnemyManager@@@Z": "0x0040E6A0",
+    "?EnemyCtrl_Spawn_0040cfb0@@YGPAUEnemyFull@@PBUEnemySpawn@@PAUEnemyCtrl@@PBD@Z": "0x0040CFB0",
+    "?EnemyCtrl_SweepDeaths_0040e6a0@@YGXPAUEnemyCtrl@@@Z": "0x0040E6A0",
     "?Enemy_BindSlot_00412720@@YGXPAUEnemyFull@@HHHPBD@Z": "0x00412720",
     "?Drops_Flush_0040c9a0@@YGXPBUFloat3@@PAUItemDrops@@@Z": "0x0040C9A0",
     "?Shoot_004073e0@Shooter@@QAEHPAUBulletManager@@@Z": "0x004073E0",
@@ -161,7 +161,7 @@
     "?Construct_0040cf40@BeamLaserParams@@QAEPAU1@XZ": "0x0040CF40",
     "?CreateScoreDisplay_00415db0@Gui@@QAEXH@Z": "0x00415DB0",
     "?QueuePan_0043dd10@SoundQueue@@QAEXHM@Z": "0x0043DD10",
-    "?CreateScreenEffect_0043c8b0@@YGPAXHHHHHH@Z": "0x0043C8B0",
+    "?Screen_Create@@YGPAXHHHHHH@Z": "0x0043C8B0",
     "?Score_SetMode_00412ed0@@YGXPAUScoreState@@H@Z": "0x00412ED0",
     "?End_00409c00@Card@@QAEXXZ": "0x00409C00",
     "?StopAnimation_0040cea0@Card@@QAEXXZ": "0x0040CEA0",
@@ -189,7 +189,7 @@
     "_data_00491e08": "0x00491E08",
     "_g_player": "0x00477834",
     "_g_effect_rng_004918b0": "0x004918B0",
-    "_data_0047770c": "0x0047770C",
+    "_g_front": "0x0047770C",
     "_data_00491dc8": "0x00491DC8",
     "_data_00491e48": "0x00491E48",
     "_g_card": "0x004776F4",
@@ -198,7 +198,7 @@
     "_data_004776f0": "0x004776F0",
     "_g_difficulty_00474c74": "0x00474C74",
     "_data_00474df0": "0x00474DF0",
-    "_data_00477704": "0x00477704",
+    "_g_enemy_ctrl": "0x00477704",
     "_data_00470b04": "0x00470B04",
     "_g_zero_vector2_00491c20": "0x00491C20",
     "_g_camera_offset_00491d7c": "0x00491D7C",

@@ -28,12 +28,12 @@ extern "C" void** __cdecl asm_AnimationManager_RegisterPrimaryBack_004489d0(
 void** __stdcall AnimationManager_CreatePrimaryBack_00448d00(
         void* resource, void** out, int index, int render_bucket) {
     AnimationObject_00448d00* object =
-        (AnimationObject_00448d00*)asm_FUN_00449950_00449950(data_00491c10);
+        (AnimationObject_00448d00*)asm_FUN_00449950_00449950(g_sprt_ctrl);
     unsigned int flags = object->flags_035c;
     object->render_bucket_020 = render_bucket;
     object->flags_035c = flags | 0x40000000u;
     ((AnimationResource_00449870*)resource)->InitializeObject(object, index);
-    asm_AnimationManager_RegisterPrimaryBack_004489d0(data_00491c10, out, object);
+    asm_AnimationManager_RegisterPrimaryBack_004489d0(g_sprt_ctrl, out, object);
     return out;
 }
 #pragma code_seg(".text$004491c0_fn")

@@ -8,7 +8,7 @@
 #include "th10/math/angle.hpp"
 #include <stddef.h>
 extern "C" __declspec(noinline) int __cdecl asm_FUN_004451c0_004451c0(
-    AnimationManager_00442F50* manager, RenderEntity* entity);
+    SprtCtrlBatchView* manager, RenderEntity* entity);
 struct GrowLaser {
     unsigned char reserved_000[0x24];
     RenderVec3 position;
@@ -35,13 +35,13 @@ int GrowLaser::Draw() {
     primary_position.z = position.z;
     vm->rotation.z = Angle_NormalizeSum(angle, 1.57079632679489661923f);
     vm->flags |= 4;
-    asm_FUN_004451c0_004451c0(data_00491c10, vm);
+    asm_FUN_004451c0_004451c0(g_sprt_ctrl, vm);
     if (secondary_visibility == 0.0f) {
         RenderVec3& secondary_position = *(RenderVec3*)((unsigned char*)this + 0xCFC);
         secondary_position.x = position.x + 224.0f;
         secondary_position.y = position.y + 16.0f;
         secondary_position.z = position.z;
-        asm_FUN_004451c0_004451c0(data_00491c10, &secondary);
+        asm_FUN_004451c0_004451c0(g_sprt_ctrl, &secondary);
     }
     return 0;
 }

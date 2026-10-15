@@ -2,7 +2,7 @@
 // the drawing routine its type selects.
 //
 // The routine is entered with the animation manager in ECX and the entity in
-// EAX - every retail call site loads that pair, `mov ecx,[data_00491c10]` then
+// EAX - every retail call site loads that pair, `mov ecx,[g_sprt_ctrl]` then
 // `lea eax,[entity+0x10]`.  It reads the entity's flag word at +0x35C once and
 // rejects the entity unless bits 0 and 1 are set and the alpha byte at +0x2FF
 // is nonzero, then switches on `(flags >> 22) & 0xF` through a ten-entry jump
@@ -18,7 +18,7 @@
 // layout/ltcg/render_batch_context.cpp.  None of those bodies is recovered
 // code; only their parameter homes matter.
 //
-// The tenth, 0x00444CE0, is the recovered AnimationManager::DrawStrip, whose
+// The tenth, 0x00444CE0, is the recovered SprtCtrl::DrawStrip, whose
 // body is a definition in this same link (layout/ltcg/anm_batch_flush_00442f50
 // .json co-compiles src/core/sprtfunc/edge_strip_draw.cpp).  That is what earns case 9
 // the no-move marshalling retail has - `DrawStrip` enters on (ECX manager, EAX
@@ -46,25 +46,25 @@
 #include "th10/render/quad_batch.hpp"
 
 extern "C" __declspec(noinline) int EntityDraw_00443080(RenderEntity* entity,
-                                                               AnimationManager_00442F50* manager);
-extern "C" __declspec(noinline) int BuildRotatedQuad_004436c0(AnimationManager_00442F50* manager,
+                                                               SprtCtrlBatchView* manager);
+extern "C" __declspec(noinline) int BuildRotatedQuad_004436c0(SprtCtrlBatchView* manager,
                                                                     RenderEntity* entity);
 extern "C" __declspec(noinline) int EntityDraw_00443290(RenderEntity* entity,
-                                                               AnimationManager_00442F50* manager);
-extern "C" __declspec(noinline) int BuildRotatedQuadAlt_00443910(AnimationManager_00442F50* manager,
+                                                               SprtCtrlBatchView* manager);
+extern "C" __declspec(noinline) int BuildRotatedQuadAlt_00443910(SprtCtrlBatchView* manager,
                                                                        RenderEntity* entity);
-extern "C" __declspec(noinline) int EntityDraw_00444580(AnimationManager_00442F50* manager,
+extern "C" __declspec(noinline) int EntityDraw_00444580(SprtCtrlBatchView* manager,
                                                                RenderEntity* entity);
-extern "C" __declspec(noinline) int EntityDraw_00443fb0(AnimationManager_00442F50* manager,
+extern "C" __declspec(noinline) int EntityDraw_00443fb0(SprtCtrlBatchView* manager,
                                                                RenderEntity* entity);
-extern "C" __declspec(noinline) int FadedQuadDraw_004445c0(AnimationManager_00442F50* manager,
+extern "C" __declspec(noinline) int FadedQuadDraw_004445c0(SprtCtrlBatchView* manager,
                                                                   RenderEntity* entity);
 extern "C" __declspec(noinline) int EntityDraw_00444760(RenderEntity* entity,
-                                                               AnimationManager_00442F50* manager);
+                                                               SprtCtrlBatchView* manager);
 
 #pragma code_seg(".text$06hdispatch")
 extern "C" __declspec(noinline) int __cdecl asm_FUN_004451c0_004451c0(
-        AnimationManager_00442F50* manager, RenderEntity* entity) {
+        SprtCtrlBatchView* manager, RenderEntity* entity) {
     unsigned int flags = entity->flags;
     if (!(flags & 1)) return -1;
     if (!(flags & 2)) return -1;

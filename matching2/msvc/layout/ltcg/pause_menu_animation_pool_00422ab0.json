@@ -99,17 +99,17 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_0047770c",
+      "symbol": "_g_front",
       "address": "0x0047770C",
       "kind": "data"
     },
     {
-      "symbol": "_data_00477810",
+      "symbol": "_g_game",
       "address": "0x00477810",
       "kind": "data"
     },
     {
-      "symbol": "_data_00491c10",
+      "symbol": "_g_sprt_ctrl",
       "address": "0x00491C10",
       "kind": "data"
     },
@@ -139,7 +139,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "?SetFlag@AnimationManager@@QAIPAXPAUAnimationLookupContext@@H@Z",
+      "symbol": "?SetFlag@SprtCtrl@@QAIPAXPAUAnimationLookupContext@@H@Z",
       "address": "0x004492A0",
       "kind": "relative_code"
     },

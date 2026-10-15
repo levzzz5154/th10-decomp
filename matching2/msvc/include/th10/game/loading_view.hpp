@@ -1,5 +1,5 @@
 #pragma once
-#include "th10/game/scheduler.hpp"
+#include "th10/core/func_ctrl.hpp"
 #include "th10/platform/worker.hpp"
 
 struct LoadingView {

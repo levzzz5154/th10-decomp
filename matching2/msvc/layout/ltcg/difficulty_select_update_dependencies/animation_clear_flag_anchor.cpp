@@ -15,8 +15,8 @@ struct AnimationNode_004495e0 {
 #pragma code_seg(".text$004495e0_fn")
 void AnimationHandle_004495e0::ClearFlag() {
     AnimationNode_004495e0* node = reinterpret_cast<AnimationNode_004495e0*>(
-        reinterpret_cast<RecoveryLookup_0040bd80*>(data_00491c10)->Find(
-            reinterpret_cast<RecoveryLookupContext_0040bd80*>(data_00491c10), id));
+        reinterpret_cast<RecoveryLookup_0040bd80*>(g_sprt_ctrl)->Find(
+            reinterpret_cast<RecoveryLookupContext_0040bd80*>(g_sprt_ctrl), id));
     if (node == 0) return;
     node->flags &= ~2u;
     if (node->children_flagged != 0) return;

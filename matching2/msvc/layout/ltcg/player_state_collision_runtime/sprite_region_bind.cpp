@@ -15,7 +15,7 @@ struct PickupAnimationLists {
 int SpriteRegion_00424480::BindToAnimation(AnimationHandle_00424480 handle,
         int new_left, int new_top, int new_width, int new_height) {
     AnimationObject_00424480* animation = reinterpret_cast<AnimationObject_00424480*>(
-        static_cast<PickupAnimationLists*>(data_00491c10)->Find(AnimationRef(handle.value)));
+        static_cast<PickupAnimationLists*>(g_sprt_ctrl)->Find(AnimationRef(handle.value)));
     AnimationSprite_00424480* sprite = animation->sprite;
     return Set(*animation->texture, new_left, new_top, new_width, new_height,
         static_cast<int>(sprite->left), static_cast<int>(sprite->top),

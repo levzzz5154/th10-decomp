@@ -2,8 +2,8 @@
 #include "th10/render/quad_batch.hpp"
 #pragma code_seg(".text$01capply")
 __declspec(noinline) int __stdcall ApplyDefaultViewport(unsigned int color) {
-    if (data_00491c10)
-        data_00491c10->Flush();
+    if (g_sprt_ctrl)
+        g_sprt_ctrl->Flush();
     data_00491cf4.x = 0;
     data_00491cf4.y = 0;
     data_00491cf4.width = 640;

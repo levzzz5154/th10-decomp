@@ -6,7 +6,7 @@
 __declspec(noinline) void EndingTextView::Destroy() {
     worker.Stop();
     for (int i = 0; i < 5; ++i) {
-        MarkAnimationForRemoval(reinterpret_cast<AnimationBuckets*>(data_00491c10), animation_ids[i]);
+        MarkAnimationForRemoval(reinterpret_cast<AnimationBuckets*>(g_sprt_ctrl), animation_ids[i]);
         animation_ids[i] = 0;
     }
     worker.vtable = &platform_worker_vtable;
@@ -15,7 +15,7 @@ __declspec(noinline) void EndingTextView::Destroy() {
 #pragma code_seg()
 
 #pragma code_seg(".text$09clear")
-void NativeRenderManager::Clear(int index) {
+void SprtCtrlTargetsView::Clear(int index) {
     if (primary[index]) { primary[index]->methods->Release(primary[index]);primary[index]=0; }
     if (secondary[index]) { secondary[index]->methods->Release(secondary[index]);secondary[index]=0; }
     if (memory[index]) { entry_free_00452422(memory[index]);memory[index]=0; }
@@ -27,7 +27,7 @@ void NativeRenderManager::Clear(int index) {
 void AnimationResource_00447810::Release() {
     if (resource_108 == 0)
         return;
-    reinterpret_cast<AnimationManager*>(data_00491c10)->MarkResourceForRemoval(this);
+    reinterpret_cast<SprtCtrl*>(g_sprt_ctrl)->MarkResourceForRemoval(this);
     for (int index = 0; index < entry_count_10c; ++index) {
         AnimationResourceEntry_00447810* entry = &entries_120[index];
         if (entry->handle != 0) {
@@ -63,7 +63,7 @@ void AnimationResource_00447810::Release() {
 #pragma code_seg()
 
 #pragma code_seg(".text$11mark")
-__declspec(noinline) void AnimationManager::MarkResourceForRemoval(void* resource) {
+__declspec(noinline) void SprtCtrl::MarkResourceForRemoval(void* resource) {
     unsigned char* bytes = reinterpret_cast<unsigned char*>(this);
 
     AnimationListNode* node = *reinterpret_cast<AnimationListNode**>(
@@ -88,7 +88,7 @@ __declspec(noinline) void AnimationManager::MarkResourceForRemoval(void* resourc
 #pragma code_seg()
 
 #pragma code_seg(".text$13remove")
-extern "C" __declspec(noinline) void __stdcall Scheduler_Remove(Scheduler* scheduler, SchedulerTask* task) {
+extern "C" __declspec(noinline) void __stdcall FuncCtrl_Remove(FuncCtrl* scheduler, SchedulerTask* task) {
     if (!task) return;
     TaskLink* node = &scheduler->primary.link;
     while (node) {

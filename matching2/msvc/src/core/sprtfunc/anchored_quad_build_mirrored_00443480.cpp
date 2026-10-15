@@ -12,9 +12,9 @@
 #include "th10/render/quad_batch.hpp"
 
 extern "C" __declspec(noinline) int EntityDrawMirrored_00443480(RenderEntity *entity,
-                                                                AnimationManager_00442F50 *manager);
+                                                                SprtCtrlBatchView *manager);
 #pragma code_seg(".text$06b02z02mirror")
-int EntityDrawMirrored_00443480(RenderEntity *entity, AnimationManager_00442F50 *manager) {
+int EntityDrawMirrored_00443480(RenderEntity *entity, SprtCtrlBatchView *manager) {
     if (!(entity->flags & 1))
         return -1;
     if (!(entity->flags & 2))

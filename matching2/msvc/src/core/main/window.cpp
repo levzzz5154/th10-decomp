@@ -136,7 +136,7 @@ extern "C" __declspec(naked) void __cdecl asm_GameMain_00438ad0() {
     L_00438bb1:
         je short L_00438bba
     L_00438bb3:
-        call asm_D3DResourceManager_Initialize_00449aa0
+        call asm_FuncCtrl_Construct
     L_00438bb8:
         jmp short L_00438bbc
     L_00438bba:
@@ -144,7 +144,7 @@ extern "C" __declspec(naked) void __cdecl asm_GameMain_00438ad0() {
     L_00438bbc:
         push 20h
     L_00438bbe:
-        mov dword ptr [data_00491be4],eax
+        mov dword ptr [g_func_ctrl],eax
     L_00438bc3:
         call asm_Direct3DCreate9_00452176
     L_00438bc8:
@@ -222,13 +222,13 @@ extern "C" __declspec(naked) void __cdecl asm_GameMain_00438ad0() {
     L_00438c56:
         push eax
     L_00438c57:
-        call asm_GameStateInit_00445900
+        call asm_SprtCtrl_Construct
     L_00438c5c:
         jmp short L_00438c60
     L_00438c5e:
         xor eax,eax
     L_00438c60:
-        mov dword ptr [data_00491c10],eax
+        mov dword ptr [g_sprt_ctrl],eax
     L_00438c65:
         cmp byte ptr [data_00491d65],bl
     L_00438c6b:
@@ -356,7 +356,7 @@ extern "C" __declspec(naked) void __cdecl asm_GameMain_00438ad0() {
     L_00438d4d:
         jne short L_00438d89
     L_00438d4f:
-        mov eax,dword ptr [data_00491c10]
+        mov eax,dword ptr [g_sprt_ctrl]
     L_00438d54:
         call asm_DestroyEntityList_00438a30
     L_00438d59:
@@ -392,7 +392,7 @@ extern "C" __declspec(naked) void __cdecl asm_GameMain_00438ad0() {
     L_00438d9a:
         call asm_FUN_00420270_00420270
     L_00438d9f:
-        mov eax,dword ptr [data_00491be4]
+        mov eax,dword ptr [g_func_ctrl]
     L_00438da4:
         cmp eax,ebx
     L_00438da6:
@@ -402,7 +402,7 @@ extern "C" __declspec(naked) void __cdecl asm_GameMain_00438ad0() {
     L_00438daa:
         push eax
     L_00438dab:
-        call asm_D3DResourceManager_Destroy_00438880
+        call asm_FuncCtrlDestroyView
     L_00438db0:
         push esi
     L_00438db1:
@@ -410,7 +410,7 @@ extern "C" __declspec(naked) void __cdecl asm_GameMain_00438ad0() {
     L_00438db6:
         add esp,4
     L_00438db9:
-        mov dword ptr [data_00491be4],ebx
+        mov dword ptr [g_func_ctrl],ebx
     L_00438dbf:
         nop
     L_00438dc0:
@@ -436,7 +436,7 @@ extern "C" __declspec(naked) void __cdecl asm_GameMain_00438ad0() {
     L_00438de7:
         call asm_FUN_0043d120_0043d120
     L_00438dec:
-        mov eax,dword ptr [data_00491c10]
+        mov eax,dword ptr [g_sprt_ctrl]
     L_00438df1:
         cmp eax,ebp
     L_00438df3:
@@ -458,7 +458,7 @@ extern "C" __declspec(naked) void __cdecl asm_GameMain_00438ad0() {
     L_00438e0b:
         cmp eax,ebp
     L_00438e0d:
-        mov dword ptr [data_00491c10],ebp
+        mov dword ptr [g_sprt_ctrl],ebp
     L_00438e13:
         je short L_00438e35
     L_00438e15:

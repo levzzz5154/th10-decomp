@@ -1,15 +1,15 @@
 // Copy compiled into the render batch link so the stage background task sees
 // the screen effect factory's private entry convention.
-#include "th10/render/screen_effect_controller.hpp"
+#include "th10/core/screen.hpp"
 
 #pragma code_seg(".text$03w6effect")
 
 // The native closure supplies the draw priority in EBX and the five effect
 // parameters on the stack. The inline constructor retains the original
 // timer flag access before the complete state wipe.
-ScreenEffectController* __stdcall CreateScreenEffect_0043c8b0(
+Screen* __stdcall Screen_Create(
         int priority, int mode, int first, int second, int third, int fourth) {
-    ScreenEffectController* owner = new ScreenEffectController;
+    Screen* owner = new Screen;
     if (owner) {
         owner->Configure(priority, mode, first, second, third, fourth);
     }

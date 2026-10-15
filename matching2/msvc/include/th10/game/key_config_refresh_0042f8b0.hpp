@@ -45,7 +45,7 @@ public:
     __declspec(noinline) void* __fastcall Find(KeyConfigLookupContext_0042f8b0* context,
                                                KeyConfigScriptId_0042f8b0 id);
 };
-extern "C" KeyConfigLookupContext_0042f8b0* data_00491c10;
+extern "C" KeyConfigLookupContext_0042f8b0* g_sprt_ctrl;
 struct TitleKeyConfigView {
     unsigned char reserved_000[0x2CC];
     KeyConfigScriptId_0042f8b0 parent_handle_2cc;

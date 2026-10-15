@@ -10,7 +10,7 @@ extern "C" void __cdecl entry_free_004524a1(void* memory);
 // and it lets the render state's address escape, as the real draw does, so the
 // caller cannot assume the device and the state never overlap.
 #pragma code_seg(".text$08entity")
-extern "C" __declspec(noinline) int __stdcall FloatingText_DrawEntity_00443080(AnimationManager_00442F50* manager, FloatingTextSprite_0042b780* entity) {
+extern "C" __declspec(noinline) int __stdcall FloatingText_DrawEntity_00443080(SprtCtrlBatchView* manager, FloatingTextSprite_0042b780* entity) {
     int a = (int)entity->x;
     entry_free_004524a1(entity);
     a += (int)entity->y;

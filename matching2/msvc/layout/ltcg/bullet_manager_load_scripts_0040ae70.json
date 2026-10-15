@@ -7,7 +7,7 @@
     "src/game/effect/effect_release.cpp",
     "src/game/loading/loading_load_startup_resources.cpp",
     "src/game/pause/pause_release.cpp",
-    "src/game/enemy/message_host_init.cpp",
+    "src/game/enemy/enemy_ctrl_initialize.cpp",
     "src/game/laser/laser_manager_create.cpp",
     "src/game/fps/platform_release_owned_handle_00413450.cpp",
     "src/game/bomb/bomb_create.cpp",
@@ -53,9 +53,9 @@
     "_Title_LoadThread"
   ],
   "headers": [
-    "include/th10/game/hud_register_tasks.hpp",
+    "include/th10/game/front_tasks.hpp",
     "include/th10/game/published_block.hpp",
-    "include/th10/game/scheduler.hpp",
+    "include/th10/core/func_ctrl.hpp",
     "include/th10/game/scheduler_remove_locked.hpp",
     "include/th10/math/timer.hpp",
     "include/th10/platform/text_log.hpp",
@@ -64,7 +64,8 @@
     "include/th10/game/anm_vm.hpp",
     "include/th10/game/counter_block.hpp",
     "include/th10/game/ecl_view.hpp",
-    "include/th10/render/animation_resource_removal.hpp"
+    "include/th10/render/animation_resource_removal.hpp",
+    "include/th10/game/enemy_ctrl.hpp"
   ],
   "image_base": "0x00400000",
   "description": "BulletManager_LoadScripts and BulletManager_Create compiled with the scheduler registration/removal pair, the constant-log formatter and the joystick probe under native LTCG, so the pass keeps the manager in EBX, the callback in ESI and the registration priority in EDI. It also carries the fixed-state factory and the callback installers it calls, the score-manager factory and the message host initialiser, whose EBX receiver is the same whole-program agreement. The ItemFront initializer uses EBX and calls the public score setup callback before its two scheduler registrations.",
@@ -114,13 +115,13 @@
       "actual_abi": "manager in EBX across the script-load and release calls; result in EAX"
     },
     {
-      "name": "asm_MessageHost_InitRetail_0040d280",
-      "symbol": "_asm_MessageHost_InitRetail_0040d280@8",
+      "name": "EnemyCtrl_Initialize",
+      "symbol": "_EnemyCtrl_Initialize@8",
       "section": ".text$00d_bmsghost",
       "address": "0x0040D280",
       "size": 334,
       "actual_abi": "host in EBX; script name on the stack; RET 4; result in EAX",
-      "source": "src/game/enemy/message_host_init.cpp"
+      "source": "src/game/enemy/enemy_ctrl_initialize.cpp"
     },
     {
       "name": "Recovery_InstallPairClearFlags_0041ad90",
@@ -168,36 +169,36 @@
       "source": "src/game/laser/laser_manager_create.cpp"
     },
     {
-      "name": "Scheduler_RegisterPrimary",
+      "name": "FuncCtrl_RegisterPrimary",
       "source": "src/core/zunlib/scheduler_tasks.cpp",
-      "symbol": "_Scheduler_RegisterPrimary@12",
+      "symbol": "_FuncCtrl_RegisterPrimary@12",
       "section": ".text$10primary",
       "address": "0x00449AE0",
       "size": 131,
       "actual_abi": "task in ESI, priority in EDI, scheduler on stack; RET 4"
     },
     {
-      "name": "Scheduler_RegisterSecondary",
+      "name": "FuncCtrl_RegisterSecondary",
       "source": "src/core/zunlib/scheduler_tasks.cpp",
-      "symbol": "_Scheduler_RegisterSecondary@12",
+      "symbol": "_FuncCtrl_RegisterSecondary@12",
       "section": ".text$30secondary",
       "address": "0x00449B70",
       "size": 131,
       "actual_abi": "task in ESI, priority in EDI, scheduler on stack; RET 4"
     },
     {
-      "name": "Scheduler_RemoveLocked",
+      "name": "FuncCtrl_RemoveLocked",
       "source": "src/core/zunlib/scheduler_tasks.cpp",
-      "symbol": "_Scheduler_RemoveLocked@8",
+      "symbol": "_FuncCtrl_RemoveLocked@8",
       "section": ".text$50locked",
       "address": "0x00449F20",
       "size": 52,
       "actual_abi": "task in ESI, scheduler on stack; RET 4"
     },
     {
-      "name": "Scheduler_Remove",
+      "name": "FuncCtrl_Remove",
       "source": "src/core/zunlib/scheduler_tasks.cpp",
-      "symbol": "_Scheduler_Remove@8",
+      "symbol": "_FuncCtrl_Remove@8",
       "section": ".text$70remove",
       "address": "0x00449F60",
       "size": 114,
@@ -210,7 +211,7 @@
       "section": ".text$76schedulerprimary",
       "address": "0x0044A000",
       "size": 43,
-      "actual_abi": "callback receiver in EAX; priority in EDI; context on stack; Scheduler_RegisterPrimary; RET 4"
+      "actual_abi": "callback receiver in EAX; priority in EDI; context on stack; FuncCtrl_RegisterPrimary; RET 4"
     },
     {
       "name": "SchedulerCreateSecondary_0044A030",
@@ -219,7 +220,7 @@
       "section": ".text$78schedulersecondary",
       "address": "0x0044A030",
       "size": 43,
-      "actual_abi": "callback receiver in EAX; priority in EDI; context on stack; Scheduler_RegisterSecondary; RET 4"
+      "actual_abi": "callback receiver in EAX; priority in EDI; context on stack; FuncCtrl_RegisterSecondary; RET 4"
     },
     {
       "name": "Joystick_Probe",
@@ -267,8 +268,8 @@
       "actual_abi": "no arguments; logger receiver in ECX with caller cleanup; result in EAX; plain RET"
     },
     {
-      "name": "Hud_RegisterTasks",
-      "symbol": "_Hud_RegisterTasks@4",
+      "name": "Front_RegisterTasks",
+      "symbol": "_Front_RegisterTasks@4",
       "source": "src/game/front/task_registration.cpp",
       "section": ".text$00d_ciitem",
       "address": "0x00413980",
@@ -403,7 +404,7 @@
     }
   ],
   "context": {
-    "symbol": "?BulletManagerLoadScriptsCompilerContext@@YGHPAUScheduler@@PAPAUSchedulerTask@@HHPAPAUEffect@@@Z",
+    "symbol": "?BulletManagerLoadScriptsCompilerContext@@YGHPAUFuncCtrl@@PAPAUSchedulerTask@@HHPAPAUEffect@@@Z",
     "section": ".text$90context",
     "address": "0x0044B900",
     "size": 533,
@@ -789,12 +790,12 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00491be4",
+      "symbol": "_g_func_ctrl",
       "address": "0x00491BE4",
       "kind": "data"
     },
     {
-      "symbol": "_data_00491c10",
+      "symbol": "_g_sprt_ctrl",
       "address": "0x00491C10",
       "kind": "data"
     },
@@ -819,12 +820,12 @@
       "kind": "data"
     },
     {
-      "symbol": "_asm_Scheduler_RegisterPrimary_00449ae0",
+      "symbol": "_asm_FuncCtrl_RegisterPrimary_00449ae0",
       "address": "0x00449AE0",
       "kind": "relative_code"
     },
     {
-      "symbol": "_asm_Scheduler_RegisterSecondary_00449b70",
+      "symbol": "_asm_FuncCtrl_RegisterSecondary_00449b70",
       "address": "0x00449B70",
       "kind": "relative_code"
     },
@@ -864,7 +865,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00477708",
+      "symbol": "_g_fps",
       "address": "0x00477708",
       "kind": "data"
     },
@@ -956,7 +957,7 @@
     },
     {
       "name": "AnimationManager_MarkResourceForRemoval",
-      "symbol": "?MarkResourceForRemoval@AnimationManager@@QAEXPAX@Z",
+      "symbol": "?MarkResourceForRemoval@SprtCtrl@@QAEXPAX@Z",
       "section": ".text$00he_mark",
       "address": "0x004493E0",
       "size": 92

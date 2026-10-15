@@ -1,12 +1,12 @@
 #pragma once
 #include <string.h>
 #include <stddef.h>
-#include "th10/game/scheduler.hpp"
+#include "th10/core/func_ctrl.hpp"
 #include "th10/platform/thread_sync.hpp"
 #include "th10/render/animation_resource_removal.hpp"
-extern "C" void* data_00491be4;
+extern "C" void* g_func_ctrl;
 extern "C" void* data_004776f0;
-extern "C" AnimationManager* data_00491c10;
+extern "C" SprtCtrl* g_sprt_ctrl;
 extern "C" void __cdecl entry_free_00452422(void*);
 void __cdecl operator delete(void*);
 struct BulletSlot_00405DE0 {
@@ -30,4 +30,4 @@ struct BulletManager_00405F70 {
 typedef char ItemSize[sizeof(BulletSlot_00405DE0)==0x7F0?1:-1];
 typedef char ManagerSize[sizeof(BulletManager_00405F70)==0x3E0B54?1:-1];
 typedef char ItemsOffset[offsetof(BulletManager_00405F70,items)==0x60?1:-1];
-__declspec(noinline) void __stdcall ManagerTeardownScheduler_Remove_00449F60(Scheduler*,SchedulerTask*);
+__declspec(noinline) void __stdcall ManagerTeardownFuncCtrl_Remove_00449F60(FuncCtrl*,SchedulerTask*);

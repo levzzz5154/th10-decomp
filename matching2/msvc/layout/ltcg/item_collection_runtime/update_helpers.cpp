@@ -56,11 +56,11 @@ int ItemRunState::AddPower(int amount) {
     power+=amount;
     if (power>100) {
         power=100;
-        ItemAnimationHandle* banner=&data_0047770c->ExtendBanner();
-        static_cast<ItemAnimationLists*>(data_00491c10)->MarkForRemoval(*banner);
+        ItemAnimationHandle* banner=&g_front->ExtendBanner();
+        static_cast<ItemAnimationLists*>(g_sprt_ctrl)->MarkForRemoval(*banner);
         banner->value=0;
         void* created;
-        void** output=ItemAnimation_CreatePrimaryBack(data_0047770c->AnimationResource(),&created,73,15);
+        void** output=ItemAnimation_CreatePrimaryBack(g_front->AnimationResource(),&created,73,15);
         // The public helper returns its output pointer. Copy the handle's
         // representation, as the retained animation registrar does.
         memcpy(banner,output,sizeof(*banner));
@@ -73,14 +73,14 @@ void ItemRunState::AddLives(int amount) {
     if (lives>9) lives=9;
     else {
         data_00492590.Queue(44,0);
-        ItemAnimationHandle* banner=&data_0047770c->ExtendBanner();
-        static_cast<ItemAnimationLists*>(data_00491c10)->MarkForRemoval(*banner);
+        ItemAnimationHandle* banner=&g_front->ExtendBanner();
+        static_cast<ItemAnimationLists*>(g_sprt_ctrl)->MarkForRemoval(*banner);
         banner->value=0;
         void* created;
-        void** output=ItemAnimation_CreatePrimaryBack(data_0047770c->AnimationResource(),&created,75,15);
+        void** output=ItemAnimation_CreatePrimaryBack(g_front->AnimationResource(),&created,75,15);
         memcpy(banner,output,sizeof(*banner));
     }
-    data_0047770c->SetActiveCount(data_00474c40.lives);
+    g_front->SetActiveCount(data_00474c40.lives);
 }
 #pragma code_seg(".text$f004054b0F")
 void ItemHud::SetPowerDigits(int whole,int fraction) {

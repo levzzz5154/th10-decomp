@@ -1,5 +1,5 @@
 #pragma once
-#include "th10/game/scheduler.hpp"
+#include "th10/core/func_ctrl.hpp"
 #include "th10/math/timer.hpp"
 
 // The 0x2C8-byte state created by 0x00422360: two scheduler tasks, a frame

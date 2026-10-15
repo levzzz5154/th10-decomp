@@ -1,15 +1,15 @@
 {
   "schema_version": 1,
   "name": "d3d_list_initialize_00449aa0",
-  "source": "src/core/zunlib/d3_d_resource_manager_initialize_00449aa0.cpp",
+  "source": "src/core/zunlib/func_ctrl_initialize.cpp",
   "driver": "layout/ltcg/d3d_list_initialize_00449aa0_context.cpp",
   "headers": [],
   "image_base": "0x00400000",
   "description": "Initialize both embedded resource lists; object in EAX, plain RET.",
   "functions": [
     {
-      "name": "D3DResourceManager_Initialize_00449aa0",
-      "symbol": "?Initialize@D3DResourceManager_00449AA0@@QAEXXZ",
+      "name": "FuncCtrl_Construct",
+      "symbol": "?Initialize@FuncCtrlInitializeView@@QAEXXZ",
       "section": ".text$01init",
       "address": "0x00449AA0",
       "size": 59,
@@ -17,7 +17,7 @@
     }
   ],
   "context": {
-    "symbol": "?D3DInitializeCompilerContext@@YGXPAPAUD3DResourceManager_00449AA0@@H@Z",
+    "symbol": "?D3DInitializeCompilerContext@@YGXPAPAUFuncCtrlInitializeView@@H@Z",
     "section": ".text$03context",
     "address": "0x00449AE0",
     "size": 34,

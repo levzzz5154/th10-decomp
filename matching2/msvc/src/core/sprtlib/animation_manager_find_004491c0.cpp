@@ -34,13 +34,13 @@ struct AnimationScriptId {
     int value;
 };
 
-class AnimationManager {
+class SprtCtrl {
 public:
     void* __fastcall Find(AnimationLookupContext* context, AnimationScriptId id);
 };
 
 #pragma code_seg(".text$50find")
-__declspec(noinline) void* __fastcall AnimationManager::Find(
+__declspec(noinline) void* __fastcall SprtCtrl::Find(
         AnimationLookupContext* context, AnimationScriptId id) {
     if (!id.value)
         return 0;

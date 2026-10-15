@@ -1,15 +1,15 @@
 {
   "schema_version": 1,
   "name": "destroy_owned_00418150",
-  "source": "src/game/game/heap_destroy_owned_00418150.cpp",
+  "source": "src/game/game/game_delete.cpp",
   "driver": "layout/ltcg/destroy_owned_00418150_context.cpp",
   "headers": [],
   "image_base": "0x00400000",
   "description": "Destroy/free wrapper compiled with native LTCG so object arrives in ESI.",
   "functions": [
     {
-      "name": "DestroyOwned_00418150",
-      "symbol": "?DestroyOwned_00418150@@YGXPAUOwnedObject_00418150@@@Z",
+      "name": "Game_Delete",
+      "symbol": "?Game_Delete@@YGXPAUGame@@@Z",
       "section": ".text$01destroy00418150",
       "address": "0x00418150",
       "size": 18,
@@ -17,7 +17,7 @@
     }
   ],
   "context": {
-    "symbol": "?DestroyOwnedCompilerContext_00418150@@YGXPAPAUOwnedObject_00418150@@H@Z",
+    "symbol": "?DestroyOwnedCompilerContext_00418150@@YGXPAPAUGame@@H@Z",
     "section": ".text$03context",
     "address": "0x00418170",
     "size": 39,

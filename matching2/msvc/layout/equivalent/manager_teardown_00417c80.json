@@ -6,7 +6,7 @@
     "equivalent/game/manager_teardown_00417c80.cpp"
   ],
   "entry_symbol": "_ManagerReleaseContext_00417c80@8",
-  "function": "_ReleaseGlobalManager_00417c80@4",
+  "function": "_Game_Destroy@4",
   "code_bytes": 1105,
   "absolute_symbols": {
     "_entry_free_004524a1": {
@@ -21,7 +21,7 @@
       "address": "0x00402440",
       "kind": "code"
     },
-    "_Hud_Destroy@4": {
+    "_Front_Destroy@4": {
       "address": "0x004145F0",
       "kind": "code"
     },
@@ -49,7 +49,7 @@
       "address": "0x004294A0",
       "kind": "code"
     },
-    "_EnemyManager_Clear_00409f90@4": {
+    "_EnemyCtrl_Clear_00409f90@4": {
       "address": "0x00409F90",
       "kind": "code"
     },
@@ -73,15 +73,15 @@
       "address": "0x0041C1C0",
       "kind": "code"
     },
-    "@Scheduler_RemoveTask@8": {
+    "@FuncCtrl_RemoveTask@8": {
       "address": "0x00449F60",
       "kind": "code"
     },
-    "_Scheduler_Remove@8": {
+    "_FuncCtrl_Remove@8": {
       "address": "0x00449F60",
       "kind": "code"
     },
-    "_EnemyManager_ReleaseLists_00409f90@4": {
+    "_EnemyCtrl_ReleaseLists_00409f90@4": {
       "address": "0x00409F90",
       "kind": "code"
     },
@@ -145,7 +145,7 @@
       "address": "0x00492274",
       "kind": "data"
     },
-    "_data_00491c10": {
+    "_g_sprt_ctrl": {
       "address": "0x00491C10",
       "kind": "data"
     },
@@ -193,7 +193,7 @@
       "address": "0x00477830",
       "kind": "data"
     },
-    "_data_0047770c": {
+    "_g_front": {
       "address": "0x0047770C",
       "kind": "data"
     },
@@ -225,7 +225,7 @@
       "address": "0x00477838",
       "kind": "data"
     },
-    "_data_00477704": {
+    "_g_enemy_ctrl": {
       "address": "0x00477704",
       "kind": "data"
     },
@@ -241,7 +241,7 @@
       "address": "0x004776F4",
       "kind": "data"
     },
-    "_data_00491be4": {
+    "_g_func_ctrl": {
       "address": "0x00491BE4",
       "kind": "data"
     },
@@ -257,7 +257,7 @@
       "address": "0x00491D78",
       "kind": "data"
     },
-    "_data_00477810": {
+    "_g_game": {
       "address": "0x00477810",
       "kind": "data"
     },
@@ -328,8 +328,8 @@
     "?AnimationManager_CreatePositionedPrimary_00448d50@@YGPAPAXPAXPAPAXHPBUAnimationPosition_00448d50@@@Z": "0x00448D50",
     "?IncrementCappedCount@ScoreState@@QAEXXZ": "0x00418A90",
     "?RegisterResource@AnimationManager_0043e460@@QAEPADPBDHH@Z": "0x0043E460",
-    "?Destroy@EnemyManager_0040d530@@QAEXXZ": "0x0040D530",
-    "?ReleaseStageParts@SidePanel_00414570@@QAEXXZ": "0x00414570",
+    "?Destroy@EnemyCtrl@@QAEXXZ": "0x0040D530",
+    "?ReleaseStageParts@FrontStagePartsView@@QAEXXZ": "0x00414570",
     "?Release@PanelSlot_004136c0@@QAEXXZ": "0x004136C0"
   },
   "base_index_order": 0,
@@ -484,7 +484,7 @@
   ],
   "note": "reference/recovery_notes/manager_teardown_00417c80_equivalent_2026_10_13.md",
   "roots": [
-    "_ReleaseGlobalManager_00417c80@4"
+    "_Game_Destroy@4"
   ],
   "context_cluster": "layout/ltcg/manager_state_release_00417c80.json"
 }

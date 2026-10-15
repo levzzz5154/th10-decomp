@@ -13,96 +13,96 @@
   "description": "Twelve single-bucket scheduler draw tasks. The native-LTCG context includes the RenderBucket body at 0x00448980 as an ABI anchor, so each call carries the manager in EDI and the bucket index in EAX while the tasks keep their rooted thiscall entries.",
   "functions": [
     {
-      "name": "AnimationManager_00442F50_DrawBucket0",
-      "symbol": "?DrawBucket0@AnimationManager_00442F50@@QAEHXZ",
+      "name": "SprtCtrlBatchView_DrawBucket0",
+      "symbol": "?DrawBucket0@SprtCtrlBatchView@@QAEHXZ",
       "section": ".text$01b00",
       "address": "0x004485F0",
       "size": 12,
       "actual_abi": "manager in ECX; preserves EDI; bucket index in EAX and manager in EDI for 0x00448980; result in EAX; plain RET"
     },
     {
-      "name": "AnimationManager_00442F50_DrawBucket2",
-      "symbol": "?DrawBucket2@AnimationManager_00442F50@@QAEHXZ",
+      "name": "SprtCtrlBatchView_DrawBucket2",
+      "symbol": "?DrawBucket2@SprtCtrlBatchView@@QAEHXZ",
       "section": ".text$01b02",
       "address": "0x00448610",
       "size": 15,
       "actual_abi": "manager in ECX; preserves EDI; bucket index in EAX and manager in EDI for 0x00448980; result in EAX; plain RET"
     },
     {
-      "name": "AnimationManager_00442F50_DrawBucket4",
-      "symbol": "?DrawBucket4@AnimationManager_00442F50@@QAEHXZ",
+      "name": "SprtCtrlBatchView_DrawBucket4",
+      "symbol": "?DrawBucket4@SprtCtrlBatchView@@QAEHXZ",
       "section": ".text$01b04",
       "address": "0x004486A0",
       "size": 15,
       "actual_abi": "manager in ECX; preserves EDI; bucket index in EAX and manager in EDI for 0x00448980; result in EAX; plain RET"
     },
     {
-      "name": "AnimationManager_00442F50_DrawBucket5",
-      "symbol": "?DrawBucket5@AnimationManager_00442F50@@QAEHXZ",
+      "name": "SprtCtrlBatchView_DrawBucket5",
+      "symbol": "?DrawBucket5@SprtCtrlBatchView@@QAEHXZ",
       "section": ".text$01b05",
       "address": "0x004486B0",
       "size": 15,
       "actual_abi": "manager in ECX; preserves EDI; bucket index in EAX and manager in EDI for 0x00448980; result in EAX; plain RET"
     },
     {
-      "name": "AnimationManager_00442F50_DrawBucket6",
-      "symbol": "?DrawBucket6@AnimationManager_00442F50@@QAEHXZ",
+      "name": "SprtCtrlBatchView_DrawBucket6",
+      "symbol": "?DrawBucket6@SprtCtrlBatchView@@QAEHXZ",
       "section": ".text$01b06",
       "address": "0x004486C0",
       "size": 15,
       "actual_abi": "manager in ECX; preserves EDI; bucket index in EAX and manager in EDI for 0x00448980; result in EAX; plain RET"
     },
     {
-      "name": "AnimationManager_00442F50_DrawBucket7",
-      "symbol": "?DrawBucket7@AnimationManager_00442F50@@QAEHXZ",
+      "name": "SprtCtrlBatchView_DrawBucket7",
+      "symbol": "?DrawBucket7@SprtCtrlBatchView@@QAEHXZ",
       "section": ".text$01b07",
       "address": "0x004486D0",
       "size": 15,
       "actual_abi": "manager in ECX; preserves EDI; bucket index in EAX and manager in EDI for 0x00448980; result in EAX; plain RET"
     },
     {
-      "name": "AnimationManager_00442F50_DrawBucket8",
-      "symbol": "?DrawBucket8@AnimationManager_00442F50@@QAEHXZ",
+      "name": "SprtCtrlBatchView_DrawBucket8",
+      "symbol": "?DrawBucket8@SprtCtrlBatchView@@QAEHXZ",
       "section": ".text$01b08",
       "address": "0x004486E0",
       "size": 15,
       "actual_abi": "manager in ECX; preserves EDI; bucket index in EAX and manager in EDI for 0x00448980; result in EAX; plain RET"
     },
     {
-      "name": "AnimationManager_00442F50_DrawBucket9",
-      "symbol": "?DrawBucket9@AnimationManager_00442F50@@QAEHXZ",
+      "name": "SprtCtrlBatchView_DrawBucket9",
+      "symbol": "?DrawBucket9@SprtCtrlBatchView@@QAEHXZ",
       "section": ".text$01b09",
       "address": "0x004486F0",
       "size": 15,
       "actual_abi": "manager in ECX; preserves EDI; bucket index in EAX and manager in EDI for 0x00448980; result in EAX; plain RET"
     },
     {
-      "name": "AnimationManager_00442F50_DrawBucket10",
-      "symbol": "?DrawBucket10@AnimationManager_00442F50@@QAEHXZ",
+      "name": "SprtCtrlBatchView_DrawBucket10",
+      "symbol": "?DrawBucket10@SprtCtrlBatchView@@QAEHXZ",
       "section": ".text$01b10",
       "address": "0x00448700",
       "size": 15,
       "actual_abi": "manager in ECX; preserves EDI; bucket index in EAX and manager in EDI for 0x00448980; result in EAX; plain RET"
     },
     {
-      "name": "AnimationManager_00442F50_DrawBucket11",
-      "symbol": "?DrawBucket11@AnimationManager_00442F50@@QAEHXZ",
+      "name": "SprtCtrlBatchView_DrawBucket11",
+      "symbol": "?DrawBucket11@SprtCtrlBatchView@@QAEHXZ",
       "section": ".text$01b11",
       "address": "0x00448710",
       "size": 15,
       "actual_abi": "manager in ECX; preserves EDI; bucket index in EAX and manager in EDI for 0x00448980; result in EAX; plain RET"
     },
     {
-      "name": "AnimationManager_00442F50_DrawBucket12",
-      "symbol": "?DrawBucket12@AnimationManager_00442F50@@QAEHXZ",
+      "name": "SprtCtrlBatchView_DrawBucket12",
+      "symbol": "?DrawBucket12@SprtCtrlBatchView@@QAEHXZ",
       "section": ".text$01b12",
       "address": "0x00448720",
       "size": 15,
       "actual_abi": "manager in ECX; preserves EDI; bucket index in EAX and manager in EDI for 0x00448980; result in EAX; plain RET"
     },
     {
-      "name": "AnimationManager_00442F50_DrawBucket13",
-      "symbol": "?DrawBucket13@AnimationManager_00442F50@@QAEHXZ",
+      "name": "SprtCtrlBatchView_DrawBucket13",
+      "symbol": "?DrawBucket13@SprtCtrlBatchView@@QAEHXZ",
       "section": ".text$01b13",
       "address": "0x00448730",
       "size": 15,
@@ -110,30 +110,30 @@
     }
   ],
   "roots": [
-    "?DrawBucket0@AnimationManager_00442F50@@QAEHXZ",
-    "?DrawBucket2@AnimationManager_00442F50@@QAEHXZ",
-    "?DrawBucket4@AnimationManager_00442F50@@QAEHXZ",
-    "?DrawBucket5@AnimationManager_00442F50@@QAEHXZ",
-    "?DrawBucket6@AnimationManager_00442F50@@QAEHXZ",
-    "?DrawBucket7@AnimationManager_00442F50@@QAEHXZ",
-    "?DrawBucket8@AnimationManager_00442F50@@QAEHXZ",
-    "?DrawBucket9@AnimationManager_00442F50@@QAEHXZ",
-    "?DrawBucket10@AnimationManager_00442F50@@QAEHXZ",
-    "?DrawBucket11@AnimationManager_00442F50@@QAEHXZ",
-    "?DrawBucket12@AnimationManager_00442F50@@QAEHXZ",
-    "?DrawBucket13@AnimationManager_00442F50@@QAEHXZ"
+    "?DrawBucket0@SprtCtrlBatchView@@QAEHXZ",
+    "?DrawBucket2@SprtCtrlBatchView@@QAEHXZ",
+    "?DrawBucket4@SprtCtrlBatchView@@QAEHXZ",
+    "?DrawBucket5@SprtCtrlBatchView@@QAEHXZ",
+    "?DrawBucket6@SprtCtrlBatchView@@QAEHXZ",
+    "?DrawBucket7@SprtCtrlBatchView@@QAEHXZ",
+    "?DrawBucket8@SprtCtrlBatchView@@QAEHXZ",
+    "?DrawBucket9@SprtCtrlBatchView@@QAEHXZ",
+    "?DrawBucket10@SprtCtrlBatchView@@QAEHXZ",
+    "?DrawBucket11@SprtCtrlBatchView@@QAEHXZ",
+    "?DrawBucket12@SprtCtrlBatchView@@QAEHXZ",
+    "?DrawBucket13@SprtCtrlBatchView@@QAEHXZ"
   ],
   "anchors": [
     {
       "name": "AnimationManager_RenderBucket_00448980_abi_anchor",
-      "symbol": "?RenderBucket@AnimationManager_00442F50@@QAEHH@Z",
+      "symbol": "?RenderBucket@SprtCtrlBatchView@@QAEHH@Z",
       "section": ".text$03bucket",
       "address": "0x00448980",
       "size": 68
     }
   ],
   "context": {
-    "symbol": "?AnimationBucketTasksContext@@YGHPAPAUAnimationManager_00442F50@@H@Z",
+    "symbol": "?AnimationBucketTasksContext@@YGHPAPAUSprtCtrlBatchView@@H@Z",
     "section": ".text$05context",
     "address": "0x00448A10",
     "size": 158,

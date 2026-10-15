@@ -9,7 +9,7 @@
     "include/th10/game/recovery_script_executor_ascii_anchors.hpp",
     "include/th10/game/title_menu.hpp",
     "include/th10/game/recovery_script_executor_text_anchors.hpp",
-    "include/th10/game/scheduler.hpp",
+    "include/th10/core/func_ctrl.hpp",
     "include/th10/game/title_dispatch_callback_0042d2e0.hpp",
     "include/th10/math/timer.hpp",
     "include/th10/platform/archive_callers.hpp",
@@ -158,8 +158,8 @@
       "size": 123
     },
     {
-      "name": "?MarkResourceForRemoval@AnimationManager@@QAEXPAX@Z",
-      "symbol": "?MarkResourceForRemoval@AnimationManager@@QAEXPAX@Z",
+      "name": "?MarkResourceForRemoval@SprtCtrl@@QAEXPAX@Z",
+      "symbol": "?MarkResourceForRemoval@SprtCtrl@@QAEXPAX@Z",
       "section": ".text$20helper",
       "address": 4410640,
       "size": 92
@@ -260,7 +260,7 @@
       "address": 4671950
     },
     {
-      "symbol": "_data_00491c10",
+      "symbol": "_g_sprt_ctrl",
       "kind": "data",
       "address": 4791312
     },

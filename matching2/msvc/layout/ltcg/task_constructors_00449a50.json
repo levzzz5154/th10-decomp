@@ -4,7 +4,7 @@
   "source": "src/core/zunlib/task_constructors_00449a50.cpp",
   "driver": "layout/ltcg/task_constructors_00449a50_context.cpp",
   "headers": [
-    "include/th10/game/scheduler.hpp"
+    "include/th10/core/func_ctrl.hpp"
   ],
   "image_base": "0x00400000",
   "description": "Native C++ task constructors.",

@@ -14,12 +14,12 @@ void GameUiThreadHost::StopWorker() {
 #pragma code_seg()
 
 static DispatcherRef CreateMarker(AnimationResource_00449870* resource, int script_index) {
-    Entity* object = reinterpret_cast<AnimationPool*>(data_00491c10)->Allocate();
+    Entity* object = reinterpret_cast<AnimationPool*>(g_sprt_ctrl)->Allocate();
     unsigned flags = object->flags_35C;
     object->render_bucket = 15;
     object->flags_35C = flags | 0x40000000;
     resource->InitializeObject(object, script_index);
-    return reinterpret_cast<DispatcherPrimaryLists*>(data_00491c10)->RegisterPrimaryBack(object);
+    return reinterpret_cast<DispatcherPrimaryLists*>(g_sprt_ctrl)->RegisterPrimaryBack(object);
 }
 
 // Create the three marker animations once and place them all at the given
@@ -31,7 +31,7 @@ static __forceinline void CreateMarkersOnce(GameUiThreadHost* host, const Dispat
     data_00477828 = CreateMarker(host->marker_resource, 1);
     data_0047782c = CreateMarker(host->marker_resource, 2);
     host->markers_created = 1;
-    AnimationLookupContext* context = reinterpret_cast<AnimationLookupContext*>(data_00491c10);
+    AnimationLookupContext* context = reinterpret_cast<AnimationLookupContext*>(g_sprt_ctrl);
     DispatcherSetPosition(position, context, AnimationScriptId(data_00477824.value));
     DispatcherSetPosition(position, context, AnimationScriptId(data_00477828.value));
     DispatcherSetPosition(position, context, AnimationScriptId(data_0047782c.value));
@@ -62,7 +62,7 @@ struct AnimationManagerView {
 extern "C" void __stdcall GameUi_ShowMarkers_00421180(
         GameUiThreadHost* host, const DispatcherVec3* position) {
     CreateMarkersOnce(host, position);
-    AnimationManagerView* view = reinterpret_cast<AnimationManagerView*>(data_00491c10);
+    AnimationManagerView* view = reinterpret_cast<AnimationManagerView*>(g_sprt_ctrl);
     if (view->layer < 0) {
         view->layer = 8;
         view->source.left = 0;

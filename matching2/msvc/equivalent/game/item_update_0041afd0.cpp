@@ -148,7 +148,7 @@ extern "C" __declspec(noinline) int __stdcall ItemManager_UpdateItems(ItemSpawnM
                 case 1: case 10: {
                     int changed=data_00474c40.AddPower(1);
                     int power=data_00474c40.power;
-                    data_0047770c->SetPowerDigits(power/20,(power%20)*100/20);
+                    g_front->SetPowerDigits(power/20,(power%20)*100/20);
                     if (changed) {
                         Player_RefreshOptions(g_player);
                         g_smoll_score->Spawn(-1,&motion->position(),0xFFFFFF40u);
@@ -214,7 +214,7 @@ extern "C" __declspec(noinline) int __stdcall ItemManager_UpdateItems(ItemSpawnM
                 case 4: case 11: {
                     int changed=data_00474c40.AddPower(20);
                     int power=data_00474c40.power;
-                    data_0047770c->SetPowerDigits(power/20,(power%20)*100/20);
+                    g_front->SetPowerDigits(power/20,(power%20)*100/20);
                     if (changed) {
                         Player_RefreshOptions(g_player);
                         data_00492590.QueuePan(29,motion->position().x);

@@ -1,9 +1,9 @@
 #pragma once
 #include <stddef.h>
 #include "th10/game/entity.hpp"
-#include "th10/game/scheduler.hpp"
+#include "th10/core/func_ctrl.hpp"
 #include "th10/platform/thread_sync.hpp"
-extern "C" void* data_00491be4;
+extern "C" void* g_func_ctrl;
 extern "C" void* g_smoll_score;
 extern "C" void __cdecl entry_free_00452422(void*);
 void __cdecl operator delete(void*);
@@ -19,4 +19,4 @@ struct SmollScoreDestructorView {
 };
 typedef char AnimationSize[sizeof(EffectAnimation_00401FF0)==0x3AC?1:-1];
 typedef char AnimationOffset[offsetof(SmollScoreDestructorView,animation)==0x18?1:-1];
-__declspec(noinline) void __stdcall ManagerTeardownScheduler_Remove_00449F60(Scheduler*,SchedulerTask*);
+__declspec(noinline) void __stdcall ManagerTeardownFuncCtrl_Remove_00449F60(FuncCtrl*,SchedulerTask*);

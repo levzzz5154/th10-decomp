@@ -10,11 +10,11 @@ int Bomb::HitTest(const PickupPoint* point) {
     if (dx*dx + dy*dy < radius*radius) {
         if (mode == 0 && (g_card->flags & 1)) result = 3;
         else if (g_card->flags & 1) result = 38;
-        else result = data_00477704->alternate_mode ? 38 : 5;
+        else result = g_enemy_ctrl->alternate_mode ? 38 : 5;
     } else {
         if (g_card->flags & 1) {
             if (mode == 1) result = data_00474c68 ? 23 : 26;
-        } else if (data_00477704->alternate_mode != 0 && mode == 0) {
+        } else if (g_enemy_ctrl->alternate_mode != 0 && mode == 0) {
             result = data_00474c68 == 0 ? 20 : 16;
         }
     }

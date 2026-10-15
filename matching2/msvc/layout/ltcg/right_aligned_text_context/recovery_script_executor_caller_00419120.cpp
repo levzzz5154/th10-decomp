@@ -1,6 +1,6 @@
 #include "th10/game/right_aligned_text_context/recovery_script_executor_caller_00419120.hpp"
 
-extern "C" void* data_00491c10;
+extern "C" void* g_sprt_ctrl;
 extern "C" void* g_ascii_manager;
 extern "C" int recovery_indicator_owner_00474c84;
 extern "C" float recovery_indicator_eight_00470bd0;
@@ -42,7 +42,7 @@ static inline HintVm_00419120* FindIndicatorInline(
 int HintLink_00419120::Drain(
         HintUpdateView* state, int release) {
     HintLink_00419120* current = this;
-    void* manager = data_00491c10;
+    void* manager = g_sprt_ctrl;
     while (current != 0) {
         HintLink_00419120* next = current->next;
         HintEntry_00419120* entry = current->object;
@@ -74,7 +74,7 @@ int HintLink_00419120::Drain(
                 *RecoveryPlayerAnimationCreate_00448db0(
                     static_cast<HintThread_00419120*>(g_ascii_manager)->resource,
                     &result, state->slot + 2, &entry->position));
-            manager = data_00491c10;
+            manager = g_sprt_ctrl;
             unsigned int* handle = &state->handles[state->slot];
             vm = FindIndicatorInline(manager, *handle);
             if (vm == 0)
@@ -99,8 +99,8 @@ int HintLink_00419120::Drain(
             unsigned int* handle = &state->handles[state->slot];
             RecoveryScriptId_0040bd80 id = { static_cast<int>(*handle) };
             vm = static_cast<HintVm_00419120*>(
-                reinterpret_cast<RecoveryLookup_0040bd80*>(data_00491c10)->Find(
-                    static_cast<RecoveryLookupContext_0040bd80*>(data_00491c10), id));
+                reinterpret_cast<RecoveryLookup_0040bd80*>(g_sprt_ctrl)->Find(
+                    static_cast<RecoveryLookupContext_0040bd80*>(g_sprt_ctrl), id));
             if (vm == 0)
                 *handle = 0;
             unsigned char font_size = static_cast<unsigned char>(
@@ -117,14 +117,14 @@ int HintLink_00419120::Drain(
             reinterpret_cast<EntityMovementSlot_0041ab70*>(vm)->Initialise(
                 reinterpret_cast<const MovementPair_0041ab70*>(&destination),
                 reinterpret_cast<const MovementPair_0041ab70*>(&source), 8, 4);
-            manager = data_00491c10;
+            manager = g_sprt_ctrl;
         } else {
             void* result;
             state->handles[state->slot] = reinterpret_cast<unsigned int>(
                 *RecoveryPlayerAnimationCreate_00448db0(
                     static_cast<HintThread_00419120*>(g_ascii_manager)->resource,
                     &result, state->slot + 12, &entry->position));
-            manager = data_00491c10;
+            manager = g_sprt_ctrl;
             unsigned int* handle = &state->handles[state->slot];
             RecoveryScriptId_0040bd80 id = { static_cast<int>(*handle) };
             vm = static_cast<HintVm_00419120*>(
@@ -151,7 +151,7 @@ int HintLink_00419120::Drain(
             state->positions[state->slot] = vm->position;
             state->values[state->slot] = entry->offset;
             vm->FormatCentered(manager, 0x00FFFFFFu, static_cast<const char*>(entry->text));
-            manager = data_00491c10;
+            manager = g_sprt_ctrl;
             break;
         case 1:
             state->positions[state->slot] = vm->position;
@@ -160,7 +160,7 @@ int HintLink_00419120::Drain(
             reinterpret_cast<RecoveryTextVm_00447a50*>(vm)->MarkText(
                 manager, 0x00FFFFFFu, static_cast<const char*>(entry->text));
             vm->flags = (vm->flags & 0xFFF7FFFFu) | 0x00040000u;
-            manager = data_00491c10;
+            manager = g_sprt_ctrl;
             break;
         case 2:
             state->positions[state->slot] = vm->position;
@@ -168,7 +168,7 @@ int HintLink_00419120::Drain(
             state->values[state->slot] = entry->offset;
             vm->FormatRightAligned(manager, 0x00FFFFFFu, static_cast<const char*>(entry->text));
             vm->flags = (vm->flags & 0xFFFBFFFFu) | 0x00080000u;
-            manager = data_00491c10;
+            manager = g_sprt_ctrl;
             break;
         }
 
@@ -185,7 +185,7 @@ int HintLink_00419120::Drain(
         entry->previous = 0;
         if (release != 0) {
             recovery_indicator_free_004524a1(entry);
-            manager = data_00491c10;
+            manager = g_sprt_ctrl;
         }
         current = next;
     }

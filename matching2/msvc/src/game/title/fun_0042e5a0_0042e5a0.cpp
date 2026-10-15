@@ -1,6 +1,6 @@
 // BLOCKED (D3305): closest_byte_count=3999/3999; first_diff=none
 // (authoritative retail overlay probe exact; no readable candidate retained).
-// residual_class=private EDI receiver, private-register AnimationManager
+// residual_class=private EDI receiver, private-register SprtCtrl
 // helper ABIs, and long repeated control-flow/source-shape scheduling with
 // x87 volume arithmetic and shared animation-object layout.
 // variants_tested=live Ghidra decompilation plus callers/callees
@@ -91,7 +91,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0042e5a0_0042e5a0() {
     L_0042e619:
         mov edx,dword ptr [edi+2C8h]
     L_0042e61f:
-        mov esi,dword ptr [data_00491c10]
+        mov esi,dword ptr [g_sprt_ctrl]
     L_0042e625:
         push edx
     L_0042e626:

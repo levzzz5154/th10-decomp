@@ -213,7 +213,7 @@ struct GuiMessage {
     unsigned char unknown_00[0x78];
     int f78;
 };
-extern "C" Gui* data_0047770c;
+extern "C" Gui* g_front;
 
 struct Player {
     unsigned char unknown_000[0x3C0];
@@ -235,18 +235,18 @@ extern "C" SoundQueue data_00492590;
 struct ScoreState { int fields[20]; };
 extern "C" ScoreState data_00474c40;
 __declspec(noinline) void __stdcall Score_SetMode_00412ed0(ScoreState* state, int mode);
-__declspec(noinline) void* __stdcall CreateScreenEffect_0043c8b0(int priority, int mode, int a, int b, int c, int d);
+__declspec(noinline) void* __stdcall Screen_Create(int priority, int mode, int a, int b, int c, int d);
 
 struct Enemy;
 struct EnemyFull;
-struct EnemyManager {
+struct EnemyCtrl {
     unsigned char unknown_00[0x10];
     EnemyFull* boss[8];         // +0x10
     AnmLoaded* anm[8];          // +0x30
 };
-extern "C" EnemyManager* data_00477704;
-__declspec(noinline) void __stdcall EnemyManager_SweepDeaths_0040e6a0(EnemyManager* manager);
-__declspec(noinline) EnemyFull* __stdcall EnemyManager_Spawn_0040cfb0(const EnemySpawn* parameters, EnemyManager* manager, const char* name);
+extern "C" EnemyCtrl* g_enemy_ctrl;
+__declspec(noinline) void __stdcall EnemyCtrl_SweepDeaths_0040e6a0(EnemyCtrl* manager);
+__declspec(noinline) EnemyFull* __stdcall EnemyCtrl_Spawn_0040cfb0(const EnemySpawn* parameters, EnemyCtrl* manager, const char* name);
 __declspec(noinline) void __stdcall Enemy_BindSlot_00412720(EnemyFull* enemy, int index, int id, int value, const char* data);
 
 struct Enemy {

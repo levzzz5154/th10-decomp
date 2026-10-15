@@ -24,7 +24,7 @@ typedef char ContactModeOffset[offsetof(TriggerFieldContact,mode)==0x458 ? 1:-1]
 typedef char ContactCountdownOffset[offsetof(TriggerFieldContact,activation_countdown)==0x4310 ? 1:-1];
 extern "C" const float data_00470b0c;
 extern "C" const float data_00470be8;
-extern "C" FieldContactDialogue* data_0047770c;
+extern "C" FieldContactDialogue* g_front;
 // Genuine activation entry takes only this pointer on the stack, and RET 4.
 extern "C" void __stdcall ActivateField00426CF0(TriggerFieldContact* target);
 // Native LTCG provides the retail position ECX, target EDX, size EAX ABI.

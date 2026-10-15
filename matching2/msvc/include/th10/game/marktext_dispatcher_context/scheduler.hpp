@@ -38,16 +38,16 @@ struct SchedulerTask {
         on_remove = 0;
     }
 };
-struct Scheduler {
+struct FuncCtrl {
     SchedulerTask primary;
     SchedulerTask secondary;
 };
 
 extern "C" {
-__declspec(noinline) int __stdcall Scheduler_RegisterPrimary(Scheduler*, SchedulerTask*, int priority);
-__declspec(noinline) int __stdcall Scheduler_RegisterSecondary(Scheduler*, SchedulerTask*, int priority);
-__declspec(noinline) void __stdcall Scheduler_RemoveLocked(Scheduler*, SchedulerTask*);
-__declspec(noinline) void __fastcall Scheduler_Remove(SchedulerTask*, Scheduler*);
+__declspec(noinline) int __stdcall FuncCtrl_RegisterPrimary(FuncCtrl*, SchedulerTask*, int priority);
+__declspec(noinline) int __stdcall FuncCtrl_RegisterSecondary(FuncCtrl*, SchedulerTask*, int priority);
+__declspec(noinline) void __stdcall FuncCtrl_RemoveLocked(FuncCtrl*, SchedulerTask*);
+__declspec(noinline) void __fastcall FuncCtrl_Remove(SchedulerTask*, FuncCtrl*);
 }
 
 typedef char SchedulerTask_size_must_be_36[sizeof(SchedulerTask) == 36 ? 1 : -1];

@@ -1,8 +1,8 @@
-#define data_00491c10 stage_front_data_00491c10
-#define data_0047770c stage_front_data_0047770c
+#define g_sprt_ctrl stage_front_g_sprt_ctrl
+#define g_front stage_front_g_front
 #define data_00474c40 stage_front_data_00474c40
 #define g_ascii_manager stage_front_data_004776e0
-#define data_00477704 stage_front_data_00477704
+#define g_enemy_ctrl stage_front_g_enemy_ctrl
 #define g_player stage_front_data_00477834
 #define data_00477838 stage_front_data_00477838
 #define data_0047783c stage_front_data_0047783c
@@ -12,7 +12,7 @@
 #define data_00492590 stage_front_data_00492590
 #include "front_view.hpp"
 static __forceinline Entity *AllocateFrontObject(void *resource, int script, int offset = 0) {
-    Entity *object = reinterpret_cast<FrontAnimationPool *>(data_00491c10)->Allocate();
+    Entity *object = reinterpret_cast<FrontAnimationPool *>(g_sprt_ctrl)->Allocate();
     unsigned int flags = object->flags_35C | 0x40000000;
     script += offset;
     object->render_bucket = 15;
@@ -21,7 +21,7 @@ static __forceinline Entity *AllocateFrontObject(void *resource, int script, int
     return object;
 }
 #pragma code_seg(".text$00413bc0_fn")
-void FrontInitialization_00413bc0::Initialize() {
+void FrontInitializeView::Initialize() {
     if (update_task)
         update_task->flags |= 2;
     if (draw_task)
@@ -29,13 +29,13 @@ void FrontInitialization_00413bc0::Initialize() {
     if (!persistent_a.value) {
         Entity *object = AllocateFrontObject(captions, 0);
         FrontAnimationId id =
-            reinterpret_cast<FrontAnimationLists *>(data_00491c10)->RegisterPrimaryBack(object);
+            reinterpret_cast<FrontAnimationLists *>(g_sprt_ctrl)->RegisterPrimaryBack(object);
         persistent_a = id;
     }
     if (!persistent_b.value) {
         Entity *object = AllocateFrontObject(captions, 1);
         // Retail registers this object without writing the second handle slot.
-        reinterpret_cast<FrontAnimationLists *>(data_00491c10)->RegisterPrimaryBack(object);
+        reinterpret_cast<FrontAnimationLists *>(g_sprt_ctrl)->RegisterPrimaryBack(object);
     }
     if (!(animations[0].flags_35C & 1)) {
         int script = 20;
@@ -78,44 +78,44 @@ void FrontInitialization_00413bc0::Initialize() {
     if (data_00491fb8 != 8) {
         if (!(data_00474c40.flags.bytes[0] & 0x20)) {
             Entity *object = AllocateFrontObject(alternate_resource, 0);
-            RegisterFrontInline(reinterpret_cast<FrontAnimationLists *>(data_00491c10), object);
+            RegisterFrontInline(reinterpret_cast<FrontAnimationLists *>(g_sprt_ctrl), object);
             object = AllocateFrontObject(alternate_resource, 1);
-            RegisterFrontInline(reinterpret_cast<FrontAnimationLists *>(data_00491c10), object);
+            RegisterFrontInline(reinterpret_cast<FrontAnimationLists *>(g_sprt_ctrl), object);
         }
     }
     if (data_00474c40.flags.bytes[0] & 0x20) {
         Entity *object = AllocateFrontObject(captions, 113);
-        RegisterFrontInline(reinterpret_cast<FrontAnimationLists *>(data_00491c10), object);
+        RegisterFrontInline(reinterpret_cast<FrontAnimationLists *>(g_sprt_ctrl), object);
     }
     LoadScript_0043e710(
         reinterpret_cast<AnimationResource_0043e710 *>(g_ascii_manager->title_resource),
         reinterpret_cast<AnimationObject_0043e710 *>(&animations[42]), 0);
-    if (data_00474c40.stage == 1 && !data_00477810->stage_one_gate && !data_00474c40.continues) {
+    if (data_00474c40.stage == 1 && !g_game->stage_one_gate && !data_00474c40.continues) {
         Entity *object = AllocateFrontObject(captions, 79);
-        RegisterFrontInline(reinterpret_cast<FrontAnimationLists *>(data_00491c10), object);
+        RegisterFrontInline(reinterpret_cast<FrontAnimationLists *>(g_sprt_ctrl), object);
     }
     if (data_00491fc4) {
         Entity *object = AllocateFrontObject(captions, data_00474c40.difficulty, 102);
-        FrontAnimationLists *lists = reinterpret_cast<FrontAnimationLists *>(data_00491c10);
+        FrontAnimationLists *lists = reinterpret_cast<FrontAnimationLists *>(g_sprt_ctrl);
         RegisterFrontInline(lists, object);
         difficulty_caption.value = lists->next_id.value;
-        data_00491c10->SetFrame3Inline(difficulty_caption);
+        g_sprt_ctrl->SetFrame3Inline(difficulty_caption);
     }
     Entity *object = AllocateFrontObject(captions, data_00474c40.difficulty, 107);
-    FrontAnimationLists *lists = reinterpret_cast<FrontAnimationLists *>(data_00491c10);
+    FrontAnimationLists *lists = reinterpret_cast<FrontAnimationLists *>(g_sprt_ctrl);
     RegisterFrontInline(lists, object);
     FrontAnimationId caption_id = difficulty_caption;
     difficulty_label = lists->next_id;
     // The final tree operation deliberately uses the caption's handle again.
-    data_00491c10->SetFrame3Inline(caption_id);
+    g_sprt_ctrl->SetFrame3Inline(caption_id);
     field_9e90 = 0;
 }
 #pragma code_seg()
-#undef data_00491c10
-#undef data_0047770c
+#undef g_sprt_ctrl
+#undef g_front
 #undef data_00474c40
 #undef g_ascii_manager
-#undef data_00477704
+#undef g_enemy_ctrl
 #undef g_player
 #undef data_00477838
 #undef data_0047783c

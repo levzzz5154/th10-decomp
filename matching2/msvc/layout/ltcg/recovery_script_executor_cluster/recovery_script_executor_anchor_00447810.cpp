@@ -1,7 +1,7 @@
 // 0x00447810..0x004478F6: retire one cached animation-resource record.
 //
 // Retail enters with the record in EDI - every one of its 24 call sites loads
-// it there - and hands the record to AnimationManager::MarkResourceForRemoval
+// it there - and hands the record to SprtCtrl::MarkResourceForRemoval
 // with the manager singleton in EAX and the record in EDX.  Neither convention
 // is expressible as a declaration: an external callee keeps the convention its
 // prototype names, and no MSVC convention puts an argument in EAX.  Both are
@@ -16,12 +16,12 @@
 // and the free; that is the pressure which moves the receiver out of ESI and
 // into EDI.
 
-class AnimationManager {
+class SprtCtrl {
 public:
     void MarkResourceForRemoval(void* resource);
 };
 
-extern "C" AnimationManager* data_00491c10;
+extern "C" SprtCtrl* g_sprt_ctrl;
 
 // CRT free, the entry at 0x00452422 (0x004524A1 is the five-byte jump to it).
 extern "C" void __cdecl entry_free_00452422(void* memory);
@@ -58,7 +58,7 @@ struct AnimationResource_00447810 {
 void AnimationResource_00447810::Release() {
     if (resource_108 == 0)
         return;
-    data_00491c10->MarkResourceForRemoval(this);
+    g_sprt_ctrl->MarkResourceForRemoval(this);
     for (int index = 0; index < entry_count_10c; ++index) {
         AnimationResourceEntry_00447810* entry = &entries_120[index];
         if (entry->handle != 0) {

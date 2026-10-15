@@ -19,8 +19,8 @@
     "include/th10/game/pause_result_open_004231d0/open_animation.hpp",
     "include/th10/game/pause_result_open_004231d0/open_state.hpp",
     "include/th10/game/recovery_mark_text_and_dispatcher_004479d0.hpp",
-    "include/th10/render/screen_effect_controller.hpp",
-    "include/th10/game/scheduler.hpp",
+    "include/th10/core/screen.hpp",
+    "include/th10/core/func_ctrl.hpp",
     "include/th10/game/score.hpp",
     "include/th10/math/timer.hpp",
     "include/th10/platform/sound_queue.hpp",
@@ -148,7 +148,7 @@
   ],
   "absolute_symbols": [
     {
-      "symbol": "_data_00491c10",
+      "symbol": "_g_sprt_ctrl",
       "address": "0x00491C10",
       "kind": "data"
     },
@@ -188,7 +188,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00477810",
+      "symbol": "_g_game",
       "address": "0x477810",
       "kind": "data"
     },

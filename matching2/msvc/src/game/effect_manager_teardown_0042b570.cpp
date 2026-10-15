@@ -4,20 +4,20 @@
 #pragma code_seg(".text$03manager_dtor")
 SmollScoreDestructorView::~SmollScoreDestructorView() {
     SchedulerTask* task = update_task;
-    Scheduler* scheduler = static_cast<Scheduler*>(data_00491be4);
+    FuncCtrl* scheduler = static_cast<FuncCtrl*>(g_func_ctrl);
     if (task) {
         EnterCriticalSection(&g_thread_synchronization.critical_sections[0]);
         ++g_thread_synchronization.scheduler_lock_depth;
-        ManagerTeardownScheduler_Remove_00449F60(scheduler, task);
+        ManagerTeardownFuncCtrl_Remove_00449F60(scheduler, task);
         LeaveCriticalSection(&g_thread_synchronization.critical_sections[0]);
         --g_thread_synchronization.scheduler_lock_depth;
     }
     task = draw_task;
-    scheduler = static_cast<Scheduler*>(data_00491be4);
+    scheduler = static_cast<FuncCtrl*>(g_func_ctrl);
     if (task) {
         EnterCriticalSection(&g_thread_synchronization.critical_sections[0]);
         ++g_thread_synchronization.scheduler_lock_depth;
-        ManagerTeardownScheduler_Remove_00449F60(scheduler, task);
+        ManagerTeardownFuncCtrl_Remove_00449F60(scheduler, task);
         LeaveCriticalSection(&g_thread_synchronization.critical_sections[0]);
         --g_thread_synchronization.scheduler_lock_depth;
     }

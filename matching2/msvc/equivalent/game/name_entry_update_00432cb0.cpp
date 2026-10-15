@@ -40,8 +40,8 @@ __declspec(noinline) int __stdcall TitleNameEntry_00432cb0(Title* room) {
         room->cursor.item_count = 30;
         Music_Load_00420a90(0, "bgm/th10_17.wav");
         Music_Play_00420b10(0, 17);
-        if (reinterpret_cast<RecoveryLookup_0040bd80*>(data_00491c10)->Find(
-                reinterpret_cast<RecoveryLookupContext_0040bd80*>(data_00491c10),
+        if (reinterpret_cast<RecoveryLookup_0040bd80*>(g_sprt_ctrl)->Find(
+                reinterpret_cast<RecoveryLookupContext_0040bd80*>(g_sprt_ctrl),
                 *reinterpret_cast<RecoveryScriptId_0040bd80*>(&room->animation_slots[94])) == 0) {
             RecoveryMusicInstallSlot_0042c670(room, 94);
             void* resource = g_ascii_manager->animation_resource;

@@ -14,7 +14,7 @@ struct ColorViewport {
 #pragma code_seg(".text$03viewport")
 int ColorViewport::Draw() {
     ScreenRect rect = {0.0f, 0.0f, 640.0f, 480.0f};
-    data_00491c10->Flush();
+    g_sprt_ctrl->Flush();
     data_00491cf4.x = 0;
     data_00491cf4.y = 0;
     data_00491cf4.width = 640;
@@ -25,7 +25,7 @@ int ColorViewport::Draw() {
 }
 #pragma code_seg()
 
-// 0x0043C2C0: the fade-out draw task (ScreenEffectController mode 2): a solid
+// 0x0043C2C0: the fade-out draw task (Screen mode 2): a solid
 // playfield quad at the current alpha.
 struct ScreenFadeOutQuad {
     unsigned char reserved_000[0x18];
@@ -44,7 +44,7 @@ int ScreenFadeOutQuad::Draw() {
 }
 #pragma code_seg()
 
-// 0x0043C3C0: the full-screen dim draw task (ScreenEffectController mode 6).
+// 0x0043C3C0: the full-screen dim draw task (Screen mode 6).
 struct ScreenDimFullQuad {
     unsigned char reserved_000[0x18];
     unsigned int alpha;
@@ -62,7 +62,7 @@ int ScreenDimFullQuad::Draw() {
 }
 #pragma code_seg()
 
-// 0x0043C410: the playfield dim draw task (ScreenEffectController mode 7).
+// 0x0043C410: the playfield dim draw task (Screen mode 7).
 struct ScreenDimPlayfieldQuad {
     unsigned char reserved_000[0x18];
     unsigned int alpha;

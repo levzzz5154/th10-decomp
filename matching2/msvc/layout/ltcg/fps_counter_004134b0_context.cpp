@@ -3,10 +3,10 @@
 // The array walk keeps the counter object in a callee-saved register across the
 // FrameTimer_GetDelta call, which is the whole-program decision that reproduces
 // retail's ESI receiver.
-#include "../../src/app/fps_counter.cpp"
+#include "../../src/game/fps/fps_update.cpp"
 
 #pragma code_seg(".text$03context")
-int __stdcall FrameRateCounterCompilerContext(FrameRateCounter_004134b0* counters, int count) {
+int __stdcall FrameRateCounterCompilerContext(FPS* counters, int count) {
     int total = 0;
     do {
         total += counters->Update();

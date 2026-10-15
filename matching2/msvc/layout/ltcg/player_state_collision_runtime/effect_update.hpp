@@ -7,6 +7,6 @@ typedef PickupAnimationLists AnimationContext;
 struct FrontScript { unsigned char reserved[0x9eb8]; void* script;
     __declspec(noinline) void SetPowerDigits(int whole, int fraction); };
 extern "C" {
-extern FrontScript* data_0047770c;
+extern FrontScript* g_front;
 float __stdcall NormalizeAngle(float value);
 }

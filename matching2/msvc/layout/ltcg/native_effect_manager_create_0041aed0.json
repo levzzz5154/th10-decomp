@@ -8,7 +8,7 @@
     "include/th10/game/item_manager_destructor.hpp",
     "include/th10/game/entity.hpp",
     "include/th10/types.hpp",
-    "include/th10/game/scheduler.hpp",
+    "include/th10/core/func_ctrl.hpp",
     "include/th10/platform/thread_sync.hpp"
   ],
   "image_base": "0x00400000",
@@ -134,7 +134,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_data_00491be4",
+      "symbol": "_g_func_ctrl",
       "address": "0x00491BE4",
       "kind": "data"
     },
@@ -209,7 +209,7 @@
     },
     {
       "name": "ActualSchedulerRegisterPrimary",
-      "symbol": "_Scheduler_RegisterPrimary@12",
+      "symbol": "_FuncCtrl_RegisterPrimary@12",
       "section": ".text$06primary",
       "address": "0x00449AE0",
       "size": 131

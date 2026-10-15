@@ -25,7 +25,7 @@ struct ProjectedEntity_00444240 {
 };
 
 #pragma code_seg(".text$06b07fade")
-extern "C" __declspec(noinline) void EntityDraw_00444580(AnimationManager_00442F50* manager,
+extern "C" __declspec(noinline) void EntityDraw_00444580(SprtCtrlBatchView* manager,
                                                          RenderEntity* entity) {
     ((ProjectedEntity_00444240*)entity)->ProjectQuad((ProjectionManager_00444240*)manager);
     manager->SubmitSpriteQuad(entity, 0);

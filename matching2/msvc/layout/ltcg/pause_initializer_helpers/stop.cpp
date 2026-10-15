@@ -2,7 +2,7 @@
 #pragma code_seg(".text$03stop")
 void Handle4::StopAtFrame3() {
     AnimationScriptId id; id.value = (int)value;
-    AnimationTreeNode* node = reinterpret_cast<AnimationTreeNode*>(AnimationManager_Find_004491c0(data_00491c10, id));
+    AnimationTreeNode* node = reinterpret_cast<AnimationTreeNode*>(AnimationManager_Find_004491c0(g_sprt_ctrl, id));
     if (node != 0) {
         node->stop_frame = 3;
         if (!node->children_flagged)

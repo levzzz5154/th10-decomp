@@ -6,7 +6,7 @@
 int __stdcall TaskOwnerContext_004132c0(TaskOwner_004132c0** owners, int count,
                                          SchedulerTask* task) {
     // Keeps the primary registration anchor in the link.
-    int result = Scheduler_RegisterPrimary(data_00491be4, task, count);
+    int result = FuncCtrl_RegisterPrimary(g_func_ctrl, task, count);
     while (count--)
         result += (*owners++)->InstallDrawTask();
     return result;

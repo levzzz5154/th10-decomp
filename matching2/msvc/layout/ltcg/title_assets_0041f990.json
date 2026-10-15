@@ -6,7 +6,7 @@
   "headers": [
     "include/th10/app/supervisor.hpp",
     "include/th10/game/loading_view.hpp",
-    "include/th10/game/scheduler.hpp",
+    "include/th10/core/func_ctrl.hpp",
     "include/th10/platform/worker.hpp",
     "layout/ltcg/sound_interfaces_dependencies/sound_wave_types.hpp",
     "layout/ltcg/title_assets_dependencies/workers.hpp",
@@ -324,7 +324,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00491c10",
+      "symbol": "_g_sprt_ctrl",
       "address": "0x491c10",
       "kind": "data"
     },

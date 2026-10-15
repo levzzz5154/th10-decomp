@@ -4,9 +4,9 @@
 #include "th10/game/enemy_manager_clear_00409f90.hpp"
 
 #pragma code_seg(".text$10clear")
-void EnemyManager_00409f90::Clear() {
+void EnemyCtrlClearView::Clear() {
     for (int slot = 9; slot < 13; ++slot)
-        data_00491c10->MarkResourceForRemoval(reinterpret_cast<AnimationSlots_00409f90*>(data_00491c10)->slots[slot]);
+        g_sprt_ctrl->MarkResourceForRemoval(reinterpret_cast<AnimationSlots_00409f90*>(g_sprt_ctrl)->slots[slot]);
     EnemyNode_00409f90* node = first;
     while (node) {
         EnemyNode_00409f90* next = node->next;

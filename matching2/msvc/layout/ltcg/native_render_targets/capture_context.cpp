@@ -1,5 +1,5 @@
 #pragma code_seg(".text$a14capture")
-void NativeRenderManager::Capture(int bank,int index,int sx,int sy,int sw,int sh,int dx,int dy,int dw,int dh) {
+void SprtCtrlTargetsView::Capture(int bank,int index,int sx,int sy,int sw,int sh,int dx,int dy,int dw,int dh) {
     if (!banks[bank]->entries[index].texture) return;
     Flush();
     RenderSurface* back;

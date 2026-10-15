@@ -3,7 +3,7 @@
 #include "../../src/core/sprtlib/animation_manager_render_bucket_00448980.cpp"
 
 #pragma code_seg(".text$05context")
-int __stdcall AnimationBucketTasksContext(AnimationManager_00442F50** managers, int count) {
+int __stdcall AnimationBucketTasksContext(SprtCtrlBatchView** managers, int count) {
     int result = 0;
     for (int index = 0; index < count; ++index) {
         result += managers[index]->DrawBucket0();

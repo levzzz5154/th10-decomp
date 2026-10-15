@@ -16,7 +16,7 @@ void ResultCard_00409c00::End() {
         if (flags & 2) {
             data_00474c44.score += bonus / 10;
             if (data_00474c44.score >= 1000000000) data_00474c44.score = 999999999;
-            ResultOverlay_SetMode(0, data_0047770c, bonus);
+            ResultOverlay_SetMode(0, g_front, bonus);
             if (data_00477838->mode != 1) {
                 CardHistory_00409c00* history =
                     &data_0047783c->shots[data_00474c44.shot_type + data_00474c44.character * 3].spells[spell_id];
@@ -28,9 +28,9 @@ void ResultCard_00409c00::End() {
         } else {
             // The slot is located before the create call, which may replace
             // the front manager.
-            ResultAnimationHandle& caption = data_0047770c->caption;
+            ResultAnimationHandle& caption = g_front->caption;
             caption.Release();
-            caption.id = ResultAnimation_CreatePrimary(data_0047770c->captions, 0x48, 0xF);
+            caption.id = ResultAnimation_CreatePrimary(g_front->captions, 0x48, 0xF);
         }
     }
 }

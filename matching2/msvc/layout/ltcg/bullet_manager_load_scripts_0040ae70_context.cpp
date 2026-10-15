@@ -1,6 +1,6 @@
 // Compiler context only: this caller is not recovered application code.
 #include "../../src/game/effect/effect_initialize.cpp"
-#include "th10/game/hud_register_tasks.hpp"
+#include "th10/game/front_tasks.hpp"
 
 struct Effect;
 Effect *Effect_Create();
@@ -13,9 +13,9 @@ ScoreManager_0041c100 *InitializeManager_0041c100(ScoreManager_0041c100 *manager
 struct RawState_0040a130;
 extern "C" int __stdcall EclView_RegisterTasks(RawState_0040a130 *state);
 
-struct MessageHost_0040d280;
-extern "C" int __stdcall asm_MessageHost_InitRetail_0040d280(
-        MessageHost_0040d280 *host, int script_name);
+struct EnemyCtrl;
+extern "C" int __stdcall EnemyCtrl_Initialize(
+        EnemyCtrl *host, int script_name);
 
 // Address-only alias of the independently proven complete genuine zero-argument
 // HintCreate419090 entry; pointer in EAX, ordinary cdecl/plainRET.
@@ -48,7 +48,7 @@ extern "C" EclViewState *__cdecl asm_FUN_0040a3c0_0040a3c0();
 
 #pragma code_seg(".text$90context")
 int __stdcall BulletManagerLoadScriptsCompilerContext(
-        Scheduler *scheduler, SchedulerTask **tasks, int count, int priority,
+        FuncCtrl *scheduler, SchedulerTask **tasks, int count, int priority,
         Effect **slots) {
     for (int index = 0; index < count; ++index) {
         SchedulerCreatePrimary_0044A000 *primary =
@@ -62,11 +62,11 @@ int __stdcall BulletManagerLoadScriptsCompilerContext(
     }
     for (int index = 0; index < count; ++index) {
         SchedulerTask *task = tasks[index];
-        Scheduler_RegisterPrimary(scheduler, task, priority);
-        Scheduler_RegisterSecondary(scheduler, task, priority);
-        Scheduler_RemoveLocked(scheduler, task);
+        FuncCtrl_RegisterPrimary(scheduler, task, priority);
+        FuncCtrl_RegisterSecondary(scheduler, task, priority);
+        FuncCtrl_RemoveLocked(scheduler, task);
     }
-    Scheduler_Remove(scheduler, tasks[0]);
+    FuncCtrl_Remove(scheduler, tasks[0]);
     reinterpret_cast<PublishedBlock*>(slots[0])->Release();
     reinterpret_cast<PublishedBlock*>(slots[1])->Destroy(priority);
     DeletePublishedBlock(reinterpret_cast<PublishedBlock*>(slots[2]));
@@ -90,8 +90,8 @@ int __stdcall BulletManagerLoadScriptsCompilerContext(
             ++created;
     }
     for (int index = 0; index < count; ++index) {
-        if (asm_MessageHost_InitRetail_0040d280(
-                (MessageHost_0040d280 *)slots[index], priority) == 0)
+        if (EnemyCtrl_Initialize(
+                (EnemyCtrl *)slots[index], priority) == 0)
             ++created;
     }
 
@@ -104,8 +104,8 @@ int __stdcall BulletManagerLoadScriptsCompilerContext(
             ++created;
     }
     for (int index = 0; index < count; ++index)
-        created += Hud_RegisterTasks(
-            reinterpret_cast<ItemFrontState_00413980*>(slots[index])) == 0;
+        created += Front_RegisterTasks(
+            reinterpret_cast<FrontTaskView*>(slots[index])) == 0;
     for (int index = 0; index < count; ++index)
         created += Title_RegisterTasks(
             reinterpret_cast<Title*>(slots[index])) == 0;

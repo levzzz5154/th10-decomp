@@ -24,7 +24,7 @@ static inline void TickClock(FrameTimer* clock) {
 }
 
 #pragma code_seg(".text$079kz_sweep")
-void __stdcall EnemyManager_SweepDeaths_0040e6a0(EnemyManager_0040e5f0* manager) {
+void __stdcall EnemyCtrl_SweepDeaths_0040e6a0(EnemyCtrlDeathView* manager) {
     EnemyNode_0040e6a0* next;
     for (EnemyNode_0040e6a0* node = manager->first; node; node = next) {
         Enemy_0040e5f0* enemy = node->enemy;
@@ -35,7 +35,7 @@ void __stdcall EnemyManager_SweepDeaths_0040e6a0(EnemyManager_0040e5f0* manager)
         if (enemy->death_script >= 0) {
             void* burst;
             ItemAnimation_CreateOffset_00448db0(
-                data_00477704->animation_files[enemy->death_file], &burst,
+                g_enemy_ctrl->animation_files[enemy->death_file], &burst,
                 enemy->death_script, (const Vector3*)&enemy->position);
         }
         enemy->flags |= 0x20000;

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "anm_storage_construct_00445900",
-  "source": "src/core/sprtlib/anm_storage_construct_00445900.cpp",
+  "source": "src/core/sprtlib/sprt_ctrl_construct.cpp",
   "driver": "layout/ltcg/anm_storage_construct_00445900_context.cpp",
   "included_sources": [
     "layout/ltcg/anm_storage_construct_entity.cpp",
@@ -10,7 +10,7 @@
   "headers": [
     "include/th10/game/entity.hpp",
     "include/th10/types.hpp",
-    "include/th10/game/scheduler.hpp",
+    "include/th10/core/func_ctrl.hpp",
     "include/th10/platform/thread_sync.hpp"
   ],
   "image_base": "0x00400000",
@@ -20,7 +20,7 @@
   "functions": [
     {
       "name": "AnmStorageConstructor",
-      "symbol": "??0AnmStorageConstruct_00445900@@QAE@XZ",
+      "symbol": "??0SprtCtrl@@QAE@XZ",
       "section": ".text$01construct",
       "address": "0x00445900",
       "size": 2315,
@@ -58,7 +58,7 @@
     },
     {
       "name": "ConstructorManagerDestructorHandler",
-      "symbol": "__ehhandler$??0AnmStorageConstruct_00445900@@QAE@XZ",
+      "symbol": "__ehhandler$??0SprtCtrl@@QAE@XZ",
       "section": ".text$x",
       "address": "0x004657A5",
       "size": 10,
@@ -90,14 +90,14 @@
     },
     {
       "name": "RegisterPrimary",
-      "symbol": "_Scheduler_RegisterPrimary@12",
+      "symbol": "_FuncCtrl_RegisterPrimary@12",
       "section": ".text$08primary",
       "address": "0x00449AE0",
       "size": 131
     },
     {
       "name": "RegisterSecondary",
-      "symbol": "_Scheduler_RegisterSecondary@12",
+      "symbol": "_FuncCtrl_RegisterSecondary@12",
       "section": ".text$09secondary",
       "address": "0x00449B70",
       "size": 131
@@ -207,7 +207,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_data_00491be4",
+      "symbol": "_g_func_ctrl",
       "address": "0x00491BE4",
       "kind": "data"
     },

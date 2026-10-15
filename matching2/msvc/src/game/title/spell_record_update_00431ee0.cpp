@@ -72,8 +72,8 @@ __declspec(noinline) int __stdcall TitleMode11_00431ee0(Title* room) {
         SelectItem_00431ee0(records->page, 0);
         MenuCursor* page = &records->page;
         page->wrap = 1;
-        if (reinterpret_cast<RecoveryLookup_0040bd80*>(data_00491c10)->Find(
-                reinterpret_cast<RecoveryLookupContext_0040bd80*>(data_00491c10),
+        if (reinterpret_cast<RecoveryLookup_0040bd80*>(g_sprt_ctrl)->Find(
+                reinterpret_cast<RecoveryLookupContext_0040bd80*>(g_sprt_ctrl),
                 *reinterpret_cast<RecoveryScriptId_0040bd80*>(&room->animation_slots[94])) == 0) {
             RecoveryMusicInstallSlot_0042c670(room, 94);
             void* resource = g_ascii_manager->animation_resource;
@@ -106,13 +106,13 @@ __declspec(noinline) int __stdcall TitleMode11_00431ee0(Title* room) {
         if ((short)data_00474e30.InputMaskActive(0x10)) {
             difficulty->Advance(-1);
             AnimationManager_SetStopFrameAndRun(
-                2, reinterpret_cast<RecoveryLookupContext_0040bd80*>(data_00491c10),
+                2, reinterpret_cast<RecoveryLookupContext_0040bd80*>(g_sprt_ctrl),
                 *reinterpret_cast<RecoveryScriptId_0040bd80*>(&room->animation_slots[170]));
         }
         if ((short)data_00474e30.InputMaskActive(0x20)) {
             difficulty->Advance(1);
             AnimationManager_SetStopFrameAndRun(
-                2, reinterpret_cast<RecoveryLookupContext_0040bd80*>(data_00491c10),
+                2, reinterpret_cast<RecoveryLookupContext_0040bd80*>(g_sprt_ctrl),
                 *reinterpret_cast<RecoveryScriptId_0040bd80*>(&room->animation_slots[171]));
         }
         if (difficulty->previous_selection != difficulty->selection) {
@@ -128,13 +128,13 @@ __declspec(noinline) int __stdcall TitleMode11_00431ee0(Title* room) {
         if ((short)data_00474e30.InputMaskActive(0x40)) {
             room->cursor.Advance(-1);
             AnimationManager_SetStopFrameAndRun(
-                2, reinterpret_cast<RecoveryLookupContext_0040bd80*>(data_00491c10),
+                2, reinterpret_cast<RecoveryLookupContext_0040bd80*>(g_sprt_ctrl),
                 *reinterpret_cast<RecoveryScriptId_0040bd80*>(&room->animation_slots[168]));
         }
         if ((short)data_00474e30.InputMaskActive(0x80)) {
             room->cursor.Advance(1);
             AnimationManager_SetStopFrameAndRun(
-                2, reinterpret_cast<RecoveryLookupContext_0040bd80*>(data_00491c10),
+                2, reinterpret_cast<RecoveryLookupContext_0040bd80*>(g_sprt_ctrl),
                 *reinterpret_cast<RecoveryScriptId_0040bd80*>(&room->animation_slots[169]));
         }
         if (room->cursor.previous_selection != room->cursor.selection) {
@@ -215,7 +215,7 @@ __declspec(noinline) int __stdcall TitleMode11_00431ee0(Title* room) {
             room->ClearAnimationSlot(172);
             for (int line = 0; line < 10; ++line)
                 SetTreeFrame_00431ee0(
-                    FindAnimation_00431ee0(reinterpret_cast<RecoveryLookupContext_0040bd80*>(data_00491c10),
+                    FindAnimation_00431ee0(reinterpret_cast<RecoveryLookupContext_0040bd80*>(g_sprt_ctrl),
                                            records->lines[line].value), 1);
         }
         break;

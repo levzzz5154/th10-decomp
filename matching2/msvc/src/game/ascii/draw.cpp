@@ -48,7 +48,7 @@ int __stdcall AsciiManager_DrawStrings(AsciiManager* thread) {
         }
         if (in_game_view != record->in_game_view) {
             in_game_view = record->in_game_view;
-            data_00491c10->Flush();
+            g_sprt_ctrl->Flush();
             if (in_game_view)
                 data_00491c28.SelectStage(0);
             else
@@ -73,18 +73,18 @@ int __stdcall AsciiManager_DrawStrings(AsciiManager* thread) {
                     reinterpret_cast<unsigned char*>(&thread->glyph.color)[3] = (record->color >> 24) / 2;
                     thread->glyph.base_position.x += 2.0f;
                     thread->glyph.base_position.y += 2.0f;
-                    EntityDraw_00443080(&thread->glyph, data_00491c10);
+                    EntityDraw_00443080(&thread->glyph, g_sprt_ctrl);
                     thread->glyph.base_position.x -= 2.0f;
                     thread->glyph.base_position.y -= 2.0f;
                 }
                 thread->glyph.color = record->color;
-                EntityDraw_00443080(&thread->glyph, data_00491c10);
+                EntityDraw_00443080(&thread->glyph, g_sprt_ctrl);
                 thread->glyph.base_position.x += advance;
             }
         }
     }
     if (in_game_view) {
-        data_00491c10->Flush();
+        g_sprt_ctrl->Flush();
         data_00491c28.SelectStage(1);
     }
     return 1;
@@ -114,7 +114,7 @@ int AsciiManager::DrawLateRecords() {
         const char* text = record->text;
         if (in_game_view != record->in_game_view) {
             in_game_view = record->in_game_view;
-            data_00491c10->Flush();
+            g_sprt_ctrl->Flush();
             if (in_game_view)
                 data_00491c28.SelectStage(0);
             else
@@ -133,15 +133,15 @@ int AsciiManager::DrawLateRecords() {
                     &font->sprites[static_cast<unsigned char>(*text) - ' ']);
                 glyph.color = record->color;
                 if (glyph.scale_x != 1.0f)
-                    EntityDraw_00443290(&glyph, data_00491c10);
+                    EntityDraw_00443290(&glyph, g_sprt_ctrl);
                 else
-                    EntityDraw_00443080(&glyph, data_00491c10);
+                    EntityDraw_00443080(&glyph, g_sprt_ctrl);
                 glyph.base_position.x += advance;
             }
         }
     }
     if (in_game_view) {
-        data_00491c10->Flush();
+        g_sprt_ctrl->Flush();
         data_00491c28.SelectStage(1);
     }
     return 1;

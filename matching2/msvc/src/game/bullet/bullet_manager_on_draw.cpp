@@ -10,7 +10,7 @@ extern "C" {
 // 0x0044BC10: the signed-angle normaliser (stdcall, two floats, result in ST0).
 float __stdcall Angle_NormalizeSum_0044bc10(float value, float limit);
 // 0x00491C10: the loaded animation manager pointer.
-extern struct AnimationManager_004067a0* data_00491c10;
+extern struct AnimationManager_004067a0* g_sprt_ctrl;
 }
 
 struct Sprite_004067a0;
@@ -54,11 +54,11 @@ struct SlotState_004067a0 {
     unsigned char pad_000[0x0058];
     unsigned int flags;                       // +0x0058
 };
-extern "C" SlotState_004067a0* data_00477810;
+extern "C" SlotState_004067a0* g_game;
 
 #pragma code_seg(".text$03run")
 __declspec(noinline) int SlotOwner_004067a0::OnDraw() {
-    SlotState_004067a0* state = data_00477810;
+    SlotState_004067a0* state = g_game;
     if (!state || !(state->flags & 4)) {
         for (int index = 0; index < 6; ++index) AdvanceSlot(index);
     }
@@ -86,7 +86,7 @@ __declspec(noinline) int SlotOwner_004067a0::AdvanceSlot(int index) {
             entity->sprite_angle = Angle_NormalizeSum_0044bc10(entity->heading, 1.5707964f);
             entity->sprite_flags |= 4;
         }
-        asm_FUN_004451c0_004451c0((Sprite_004067a0*)((char*)entity + 8), data_00491c10);
+        asm_FUN_004451c0_004451c0((Sprite_004067a0*)((char*)entity + 8), g_sprt_ctrl);
         entity = entity->next;
     }
     return 1;

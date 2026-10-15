@@ -4,12 +4,12 @@
 #include "th10/game/result_overlay_004172e0.hpp"
 __declspec(noinline) void* __fastcall ResultAnimation_Find(ResultAnimationLookup*,ResultAnimationId);
 static __forceinline ResultAnimationId CreateDigit(void* resource, int index) {
-    Entity* object = reinterpret_cast<ResultAnimationPool*>(data_00491c10)->Allocate();
+    Entity* object = reinterpret_cast<ResultAnimationPool*>(g_sprt_ctrl)->Allocate();
     unsigned flags = object->flags_35C;
     object->render_bucket = 15;
     object->flags_35C = flags | 0x40000000u;
     reinterpret_cast<ResultAnimationResource*>(resource)->InitializeObject(object, index);
-    return reinterpret_cast<ResultAnimationLists*>(data_00491c10)->RegisterPrimaryBack(object);
+    return reinterpret_cast<ResultAnimationLists*>(g_sprt_ctrl)->RegisterPrimaryBack(object);
 }
 #pragma code_seg(".text$004172e0_fn")
 void __stdcall ResultOverlay_SetMode(int kind, ResultOverlayState_004172e0* front, int number) {
@@ -23,13 +23,13 @@ void __stdcall ResultOverlay_SetMode(int kind, ResultOverlayState_004172e0* fron
         // Keep the input in remaining while number tracks the digit position.
         for (number = 0; number < 8; ++number) {
             ResultAnimationId* digit = &front->digits[number];
-            ResultAnimation_Retire(data_00491c10, *digit);
+            ResultAnimation_Retire(g_sprt_ctrl, *digit);
             digit->value = 0;
             *digit = CreateDigit(front->captions, 39 + number);
             int value = remaining / divisor;
             int remainder = remaining % divisor;
             if (value) leading_digit_seen = 1;
-            Entity* object = reinterpret_cast<Entity*>(ResultAnimation_Find(data_00491c10, *digit));
+            Entity* object = reinterpret_cast<Entity*>(ResultAnimation_Find(g_sprt_ctrl, *digit));
             if (object) {
                 AnimationObject_0043e5a0* vm = reinterpret_cast<AnimationObject_0043e5a0*>(object);
                 vm->resource->ConfigureObject(vm, value + 8);

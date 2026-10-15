@@ -24,7 +24,7 @@ struct EnemyLink_0040dae0 {
     void Unlink();
 };
 
-struct EnemyManager_0040dae0 {
+struct EnemyCtrlLifecycleView {
     char unknown_000[0x10];       // +0x00
     int entries[0x12];            // +0x10, indexed by the record's slot index
     EnemyLink_0040dae0* head;     // +0x58
@@ -96,7 +96,7 @@ void EnemyLink_0040dae0::Unlink() {
 }
 
 void __stdcall Enemy_Release_0040dae0(Enemy_0040dae0* self) {
-    EnemyManager_0040dae0* manager = *(EnemyManager_0040dae0**)&data_00477704;
+    EnemyCtrlLifecycleView* manager = *(EnemyCtrlLifecycleView**)&g_enemy_ctrl;
     self->vtable = (int)&data_0046d0c0;
     if (manager->head == &self->link)
         manager->head = self->link.next;
@@ -107,7 +107,7 @@ void __stdcall Enemy_Release_0040dae0(Enemy_0040dae0* self) {
     if (self->flags & 0x8000)
         manager->entries[self->index] = 0;
 
-    EnemySelector_0040dae0* selector = *(EnemySelector_0040dae0**)&data_00491c10;
+    EnemySelector_0040dae0* selector = *(EnemySelector_0040dae0**)&g_sprt_ctrl;
     int* entry = self->entries;
     for (int remaining = 10; remaining != 0; --remaining) {
         int name = *entry;

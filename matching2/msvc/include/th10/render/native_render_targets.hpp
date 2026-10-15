@@ -40,7 +40,7 @@ struct RenderTexture { RenderTextureMethods* methods; };
 struct RenderTextureEntry { RenderTexture* texture; unsigned char reserved[12]; };
 struct RenderBank { unsigned char reserved[0x120]; RenderTextureEntry* entries; };
 struct RenderTargetMetadata { unsigned int width,height,reserved[5]; };
-struct NativeRenderManager {
+struct SprtCtrlTargetsView {
     int primary_index,capture_bank;
     RenderXYWH capture_source,capture_destination;
     int capture_index;
@@ -89,11 +89,11 @@ struct ScreenshotState {
     char filename[256];
     __declspec(noinline) int CaptureScreenshot(const char* filename);
 };
-typedef char ManagerBanks[offsetof(NativeRenderManager,banks)==0x3ad06c?1:-1];
-typedef char ManagerPrimary[offsetof(NativeRenderManager,primary)==0x3ad4e0?1:-1];
-typedef char ManagerMetadata[offsetof(NativeRenderManager,metadata)==0x3ad6e0?1:-1];
-typedef char ManagerCount[offsetof(NativeRenderManager,quad_count)==0x3adac8?1:-1];
-typedef char ManagerCursor[offsetof(NativeRenderManager,cursor)==0x72dacc?1:-1];
+typedef char ManagerBanks[offsetof(SprtCtrlTargetsView,banks)==0x3ad06c?1:-1];
+typedef char ManagerPrimary[offsetof(SprtCtrlTargetsView,primary)==0x3ad4e0?1:-1];
+typedef char ManagerMetadata[offsetof(SprtCtrlTargetsView,metadata)==0x3ad6e0?1:-1];
+typedef char ManagerCount[offsetof(SprtCtrlTargetsView,quad_count)==0x3adac8?1:-1];
+typedef char ManagerCursor[offsetof(SprtCtrlTargetsView,cursor)==0x72dacc?1:-1];
 typedef char ScreenshotHeader[offsetof(ScreenshotState,file_image)==0x510?1:-1];
 typedef char ScreenshotInfo[offsetof(ScreenshotState,info)==0x520?1:-1];
 typedef char ScreenshotName[offsetof(ScreenshotState,filename)==0x528?1:-1];
@@ -101,7 +101,7 @@ typedef char DeviceBackBuffer[offsetof(RenderDeviceMethods,GetBackBuffer)==0x48?
 typedef char DeviceCreateTarget[offsetof(RenderDeviceMethods,CreateRenderTarget)==0x70?1:-1];
 typedef char DeviceCreatePlain[offsetof(RenderDeviceMethods,CreatePlain)==0x90?1:-1];
 extern "C" {
-extern NativeRenderManager* data_00491c10;
+extern SprtCtrlTargetsView* g_sprt_ctrl;
 extern RenderDevice* data_00491c30;
 extern ScreenshotState data_00491c28;
 extern unsigned int data_00491fd4,data_00474e36,data_00492134,data_00491d14;

@@ -5,12 +5,12 @@
 #include "th10/render/animation_handle.hpp"
 struct AnimationLookupContext;
 struct AnimationScriptId { int value; };
-class AnimationManager { public: void* __fastcall Find(AnimationLookupContext*, AnimationScriptId); };
-extern "C" AnimationLookupContext* data_00491c10;
+class SprtCtrl { public: void* __fastcall Find(AnimationLookupContext*, AnimationScriptId); };
+extern "C" AnimationLookupContext* g_sprt_ctrl;
 #pragma code_seg(".text$02validate")
 int AnimationHandle::Validate() {
     AnimationScriptId id; id.value = (int)value;
-    void* object = reinterpret_cast<AnimationManager*>(data_00491c10)->Find(data_00491c10, id);
+    void* object = reinterpret_cast<SprtCtrl*>(g_sprt_ctrl)->Find(g_sprt_ctrl, id);
     if (!object) value = 0;
     return object != 0;
 }

@@ -138,7 +138,7 @@ extern "C" __declspec(naked) void __cdecl asm_AnimationObject_ChangeScript_0043e
     L_0043e9be:
         call asm_FUN_0043ee30_0043ee30
     L_0043e9c3:
-        mov eax,dword ptr [data_00491c10]
+        mov eax,dword ptr [g_sprt_ctrl]
     L_0043e9c8:
         inc dword ptr [eax+4Ch]
     L_0043e9cb:

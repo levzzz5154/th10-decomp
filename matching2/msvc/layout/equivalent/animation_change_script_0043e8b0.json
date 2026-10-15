@@ -9,7 +9,7 @@
   "function": "_ChangeAnimationScript@12",
   "code_bytes": 287,
   "absolute_symbols": {
-    "_data_00491c10": {
+    "_g_sprt_ctrl": {
       "address": "0x00491C10",
       "kind": "data"
     },

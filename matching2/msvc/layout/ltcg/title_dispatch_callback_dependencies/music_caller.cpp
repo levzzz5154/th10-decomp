@@ -22,8 +22,8 @@ void* __fastcall RecoveryLookup_0040bd80::Find(RecoveryLookupContext_0040bd80* c
 void StopHandle_00409e50(AnimationHandle_0040c3c0* handle) {
     RecoveryScriptId_0040bd80 id = { static_cast<int>(handle->id) };
     RecoveryMusicVm_00433ef0* object = static_cast<RecoveryMusicVm_00433ef0*>(
-        reinterpret_cast<RecoveryLookup_0040bd80*>(data_00491c10)->Find(
-            reinterpret_cast<RecoveryLookupContext_0040bd80*>(data_00491c10), id));
+        reinterpret_cast<RecoveryLookup_0040bd80*>(g_sprt_ctrl)->Find(
+            reinterpret_cast<RecoveryLookupContext_0040bd80*>(g_sprt_ctrl), id));
     if (object != 0) {
         object->stop_frame = 1;
         if (object->children_flagged == 0) {

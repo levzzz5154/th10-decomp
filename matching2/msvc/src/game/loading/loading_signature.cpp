@@ -21,13 +21,13 @@ struct TitleGameThread_0041fdd0 {
 extern "C" int __stdcall TitleEffectsAdvance_0041fdd0(TitleEffectState_0041fdd0* state) {
     if (state->signature_ready == 1) {
         AnimationResource_00449870* resource = state->signature_resource;
-        Entity* object = ((AnimationPool*)data_00491c10)->Allocate();
+        Entity* object = ((AnimationPool*)g_sprt_ctrl)->Allocate();
         unsigned int flags = object->AnimationFlags();
         object->render_bucket = 15;
         object->AnimationFlags() = flags | 0x40000000u;
         resource->InitializeObject(object, 0);
         int handle;
-        asm_AnimationManager_RegisterPrimaryBack_004489d0(data_00491c10, (void**)&handle, object);
+        asm_AnimationManager_RegisterPrimaryBack_004489d0(g_sprt_ctrl, (void**)&handle, object);
         state->signature_handle = handle;
         ++state->signature_ready;
     }

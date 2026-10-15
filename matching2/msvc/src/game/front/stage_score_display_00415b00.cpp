@@ -4,15 +4,15 @@
 #include "th10/game/entity_script_start.hpp"
 
 static __forceinline SlotRef CreateSlotAnimation(AnimationResource_00449870* resource, int index) {
-    Entity* object = ((AnimationPool*)data_00491c10)->Allocate();
+    Entity* object = ((AnimationPool*)g_sprt_ctrl)->Allocate();
     unsigned flags = object->flags_35C;
     object->render_bucket = 15;
     object->flags_35C = flags | 0x40000000;
     resource->InitializeObject(object,index);
-    return ((SlotLists*)data_00491c10)->RegisterPrimaryBack(object);
+    return ((SlotLists*)g_sprt_ctrl)->RegisterPrimaryBack(object);
 }
 static __forceinline Entity* ResolveSlotAnimation(SlotRef* handle) {
-    Entity* object = (Entity*)AnimationManager_Find_004491c0((AnimationLookupContext*)data_00491c10, *(AnimationScriptId*)handle);
+    Entity* object = (Entity*)AnimationManager_Find_004491c0((AnimationLookupContext*)g_sprt_ctrl, *(AnimationScriptId*)handle);
     if (!object) handle->value = 0;
     return object;
 }
@@ -46,6 +46,6 @@ StageScoreDisplay::StageScoreDisplay(const void* description) {
         }
         node = next;
     }
-    SweepDeaths(data_00477704);
+    SweepDeaths(g_enemy_ctrl);
 }
 #pragma code_seg()

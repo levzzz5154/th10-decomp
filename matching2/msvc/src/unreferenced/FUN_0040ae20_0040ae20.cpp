@@ -3,7 +3,7 @@
 #include "th10/render/animation_resource_removal.hpp"
 
 #pragma code_seg(".text$01accessor")
-__declspec(noinline) void AnimationManager::MarkSlotForRemoval(int slot) {
+__declspec(noinline) void SprtCtrl::MarkSlotForRemoval(int slot) {
     void** resources = reinterpret_cast<void**>(reinterpret_cast<unsigned char*>(this) + 0x3ad06c);
     MarkResourceForRemoval(resources[slot]);
 }

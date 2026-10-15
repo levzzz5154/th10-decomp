@@ -4,12 +4,12 @@
 extern "C" __declspec(noinline) void __cdecl DeviceReset_004391f0() {
     char filename[256];
     if (data_00491c30->methods->Present(data_00491c30,0,0,0,0)<0) {
-        data_00491c10->ReleaseTargets();
+        g_sprt_ctrl->ReleaseTargets();
         data_00491c30->methods->Reset(data_00491c30,data_00491d0c);
         Renderer_ApplyDeviceDefaults();
         data_00491fd4=2;
     }
-    data_00491c10->FinishTargets();
+    g_sprt_ctrl->FinishTargets();
     if (data_00474e36&0x800U) {
         MakeDirectory_00452abc(data_0046f6e4);
         int index;

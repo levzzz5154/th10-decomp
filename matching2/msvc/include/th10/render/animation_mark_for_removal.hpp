@@ -22,7 +22,7 @@ struct AnimationBuckets {
 
 enum { kAnimationMarkedForRemoval = 0x04000000 };
 
-extern "C" AnimationBuckets* data_00491c10;  // the animation manager
+extern "C" AnimationBuckets* g_sprt_ctrl;  // the animation manager
 
 __forceinline AnimationBucketEntry* FindAnimationEntry(AnimationBuckets* buckets, int id) {
     for (AnimationBucketEntry* node = buckets->primary_bucket; node != 0; node = node->next)

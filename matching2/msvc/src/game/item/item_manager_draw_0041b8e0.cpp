@@ -28,7 +28,7 @@ __declspec(noinline) int ItemManager_0041b8e0::Draw() {
             data_004776f0->item_sprites->ConfigureObject(item->Sprite(), item->type + 0x157);
             item->sprite_alpha = 0xFF;
         }
-        asm_FUN_004451c0_004451c0(item->Sprite(), data_00491c10);
+        asm_FUN_004451c0_004451c0(item->Sprite(), g_sprt_ctrl);
     }
     return 1;
 }
@@ -36,7 +36,7 @@ __declspec(noinline) int ItemManager_0041b8e0::Draw() {
 
 #pragma code_seg(".text$00ondraw")
 int __fastcall ItemManager_OnDraw_0041ba30(ItemManager_0041b8e0* manager) {
-    if (data_00477810 != 0 && (data_00477810->flags & 4))
+    if (g_game != 0 && (g_game->flags & 4))
         return 1;
     return manager->Draw();
 }

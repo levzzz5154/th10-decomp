@@ -8,7 +8,7 @@ struct AnimationScriptId {
 void* __fastcall AnimationManager_SetFlag_004492a0(AnimationLookupContext* context,
                                                    AnimationScriptId id);
 
-extern "C" AnimationLookupContext* data_00491c10;
+extern "C" AnimationLookupContext* g_sprt_ctrl;
 
 struct AnimationPairOwner_00404420 {
     unsigned char reserved_0000[0x1EE4];
@@ -22,7 +22,7 @@ struct AnimationPairOwner_00404420 {
 
 #pragma code_seg(".text$00fn")
 void AnimationPairOwner_00404420::ReleaseAnimations() {
-    AnimationLookupContext* context = data_00491c10;
+    AnimationLookupContext* context = g_sprt_ctrl;
     active_count = 0;
     AnimationManager_SetFlag_004492a0(context, primary);
     AnimationManager_SetFlag_004492a0(context, secondary);

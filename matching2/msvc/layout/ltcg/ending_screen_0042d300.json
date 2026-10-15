@@ -13,7 +13,7 @@
     "include/th10/game/title_menu.hpp",
     "include/th10/game/recovery_script_executor_text_anchors.hpp",
     "include/th10/game/recovery_script_executor_text_sibling_anchors.hpp",
-    "include/th10/game/scheduler.hpp",
+    "include/th10/core/func_ctrl.hpp",
     "include/th10/math/timer.hpp",
     "include/th10/platform/archive_callers.hpp",
     "include/th10/platform/archive_file.hpp",
@@ -120,15 +120,15 @@
       "size": 396
     },
     {
-      "name": "Scheduler_RegisterPrimary",
-      "symbol": "_Scheduler_RegisterPrimary@12",
+      "name": "FuncCtrl_RegisterPrimary",
+      "symbol": "_FuncCtrl_RegisterPrimary@12",
       "section": ".text$00449ae0_ascii_anchor",
       "address": "0x00449AE0",
       "size": 131
     },
     {
-      "name": "Scheduler_RegisterSecondary",
-      "symbol": "_Scheduler_RegisterSecondary@12",
+      "name": "FuncCtrl_RegisterSecondary",
+      "symbol": "_FuncCtrl_RegisterSecondary@12",
       "section": ".text$00449b70_ascii_anchor",
       "address": "0x00449B70",
       "size": 131
@@ -177,7 +177,7 @@
     },
     {
       "name": "FullHelper_004493e0",
-      "symbol": "?MarkResourceForRemoval@AnimationManager@@QAEXPAX@Z",
+      "symbol": "?MarkResourceForRemoval@SprtCtrl@@QAEXPAX@Z",
       "section": ".text$004493e0_fn",
       "address": "0x004493E0",
       "size": 92
@@ -716,7 +716,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_data_00491be4",
+      "symbol": "_g_func_ctrl",
       "address": "0x00491BE4",
       "kind": "data"
     },
@@ -801,7 +801,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00491c10",
+      "symbol": "_g_sprt_ctrl",
       "address": "0x00491C10",
       "kind": "data"
     },
@@ -861,7 +861,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_Stage_StartupThread",
+      "symbol": "_Game_LoadThread",
       "address": "0x00417C70",
       "kind": "data"
     },
@@ -876,7 +876,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00477810",
+      "symbol": "_g_game",
       "address": "0x00477810",
       "kind": "data"
     },

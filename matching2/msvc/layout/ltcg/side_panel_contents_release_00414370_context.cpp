@@ -1,7 +1,7 @@
 // Compiler context and ABI anchors only; none of these bytes enter the image.
 #include "../../src/game/front/side_panel_contents_release_00414370.cpp"
 
-extern "C" SidePanel_00414370* data_0047770c;
+extern "C" SidePanel_00414370* g_front;
 extern "C" void __cdecl SidePanelContentsBarrier(void* value);
 
 #pragma inline_depth(0)
@@ -10,7 +10,7 @@ extern "C" int __stdcall SidePanelContentsContext(int count) {
     // The run state is reachable through pointers in the real program.
     SidePanelContentsBarrier(&data_00474c40);
     for (int index = 0; index < count; ++index)
-        SidePanel_ReleaseContents_00414370(data_0047770c);
+        SidePanel_ReleaseContents_00414370(g_front);
     return count;
 }
 #pragma code_seg()

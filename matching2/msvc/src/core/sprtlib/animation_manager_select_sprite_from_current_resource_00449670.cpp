@@ -1,7 +1,7 @@
 // 0x00449670..0x00449693: select the sprite of the object's current resource.
 // The object arrives in EAX, a convention only a native LTCG link chooses, so
 // this region is compiled as a cluster.
-extern "C" void* data_00491c10;
+extern "C" void* g_sprt_ctrl;
 
 struct Resource_00449670;
 
@@ -22,7 +22,7 @@ extern "C" void __fastcall AnimationObject_ConfigureFromResource_0043e5a0(
 
 #pragma code_seg(".text$01accessor")
 void Object_00449670::SelectSpriteFromCurrentResource(Resource_00449670* resource) {
-    Node_00449670* node = AnimationManager_Find_004491c0(field_000, data_00491c10, (int)field_000);
+    Node_00449670* node = AnimationManager_Find_004491c0(field_000, g_sprt_ctrl, (int)field_000);
     if (node != 0) {
         AnimationObject_ConfigureFromResource_0043e5a0(node->field_308, resource);
     }

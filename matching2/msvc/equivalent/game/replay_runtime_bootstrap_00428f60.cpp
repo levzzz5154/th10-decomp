@@ -42,7 +42,7 @@ int ReplayManager_LoadFile_00428f60(ReplayManager_004296f0* manager, const char*
 
 // The running game's profile/front state; its +0x24 block mirrors the
 // configuration block's +0x14..+0x48.
-extern "C" void* data_00477810;
+extern "C" void* g_game;
 
 // The frame countdown timer embedded at the head of the score state: the
 // retail body addresses it with the containing object's base (the timer
@@ -169,9 +169,9 @@ __declspec(noinline) int ReplayManager_004296f0::Start(int start_mode, const cha
         ((ReplayConfigBlock_00428f60*)summary)->character = data_00474c40.character;
         ((ReplayConfigBlock_00428f60*)summary)->shot_type = data_00474c40.shot_type;
         ((ReplayConfigBlock_00428f60*)summary)->difficulty = data_00474c40.difficulty;
-        if (data_00477810)
+        if (g_game)
             memcpy(((ReplayConfigBlock_00428f60*)summary)->profile_mirror,
-                   (char*)data_00477810 + 0x24, 0x34);
+                   (char*)g_game + 0x24, 0x34);
 
         // The flag word's heap-owned bit follows the configuration word's low
         // bit, and the boss-gauge counters only clear while the configuration
@@ -203,17 +203,17 @@ __declspec(noinline) int ReplayManager_004296f0::Start(int start_mode, const cha
 
         SchedulerTask* update =
             (SchedulerTask*)BuildCallbackNode_00428f60((void*)0x0042A3D0, this);
-        Scheduler_RegisterPrimary((Scheduler*)data_00491be4, update, 0x0B);
+        FuncCtrl_RegisterPrimary((FuncCtrl*)g_func_ctrl, update, 0x0B);
         update_task = update;
 
         SchedulerTask* trailing =
             (SchedulerTask*)BuildCallbackNode_00428f60((void*)0x0042A3E0, this);
-        Scheduler_RegisterPrimary((Scheduler*)data_00491be4, trailing, 0x1B);
+        FuncCtrl_RegisterPrimary((FuncCtrl*)g_func_ctrl, trailing, 0x1B);
         trailing_task = trailing;
 
         SchedulerTask* draw =
             (SchedulerTask*)BuildCallbackNode_00428f60((void*)0x0042A430, this);
-        Scheduler_RegisterSecondary((Scheduler*)data_00491be4, draw, 5);
+        FuncCtrl_RegisterSecondary((FuncCtrl*)g_func_ctrl, draw, 5);
         draw_task = draw;
 
         reserved_1d0 = (unsigned int)data_00474c40.stage;
@@ -226,7 +226,7 @@ __declspec(noinline) int ReplayManager_004296f0::Start(int start_mode, const cha
         if (ReplayManager_LoadFile_00428f60(this, replay_path))
             return -1;
 
-        memcpy((char*)data_00477810 + 0x24, (char*)summary + 0x14, 0x34);
+        memcpy((char*)g_game + 0x24, (char*)summary + 0x14, 0x34);
 
         // Each node is nine dwords. The rewind goes through the dword view of
         // the node array: retail addresses the cursor and count stores through
@@ -262,17 +262,17 @@ __declspec(noinline) int ReplayManager_004296f0::Start(int start_mode, const cha
 
         SchedulerTask* update =
             (SchedulerTask*)BuildCallbackNode_00428f60((void*)0x0042A3D0, this);
-        Scheduler_RegisterPrimary((Scheduler*)data_00491be4, update, 0x0B);
+        FuncCtrl_RegisterPrimary((FuncCtrl*)g_func_ctrl, update, 0x0B);
         update_task = update;
 
         SchedulerTask* trailing =
             (SchedulerTask*)BuildCallbackNode_00428f60((void*)0x0042A3E0, this);
-        Scheduler_RegisterPrimary((Scheduler*)data_00491be4, trailing, 0x1B);
+        FuncCtrl_RegisterPrimary((FuncCtrl*)g_func_ctrl, trailing, 0x1B);
         trailing_task = trailing;
 
         SchedulerTask* draw =
             (SchedulerTask*)BuildCallbackNode_00428f60((void*)0x0042A430, this);
-        Scheduler_RegisterSecondary((Scheduler*)data_00491be4, draw, 5);
+        FuncCtrl_RegisterSecondary((FuncCtrl*)g_func_ctrl, draw, 5);
         draw_task = draw;
 
         reserved_1d0 = 0xFFFFFFFFu;

@@ -22,18 +22,18 @@ struct AnimationManager_0041f930 {
     AnimationResource_00447810* slots_3ad06c[0x21];
 };
 
-extern "C" AnimationManager_0041f930* data_00491c10;
+extern "C" AnimationManager_0041f930* g_sprt_ctrl;
 extern "C" void __cdecl entry_free_004524a1(void* memory);
 
 #pragma code_seg(".text$03pair")
 extern "C" __declspec(noinline) int __cdecl ReleasePair_0041f930() {
-    AnimationResource_00447810** slot = &data_00491c10->slots_3ad06c[6];
+    AnimationResource_00447810** slot = &g_sprt_ctrl->slots_3ad06c[6];
     if (*slot != 0) {
         (*slot)->Release();
         entry_free_004524a1(*slot);
         *slot = 0;
     }
-    slot = &data_00491c10->slots_3ad06c[7];
+    slot = &g_sprt_ctrl->slots_3ad06c[7];
     if (*slot != 0) {
         (*slot)->Release();
         entry_free_004524a1(*slot);

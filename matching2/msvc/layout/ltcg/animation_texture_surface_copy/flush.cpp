@@ -9,7 +9,7 @@ typedef long (__stdcall *DrawPrimitiveUP_00442F50)(
     void*, unsigned int, unsigned int, const void*, unsigned int);
 
 #pragma code_seg(".text$01flush")
-__declspec(noinline) int AnimationManager_00442F50::Flush() {
+__declspec(noinline) int SprtCtrlBatchView::Flush() {
     int result = quad_count;
     if (result != 0) {
         void* device = *reinterpret_cast<void**>(0x00491C30);

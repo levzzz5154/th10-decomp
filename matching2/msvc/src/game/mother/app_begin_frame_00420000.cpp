@@ -30,18 +30,18 @@ struct RenderStageState_00420000 {
 extern "C" RenderStageState_00420000 data_00491c28;
 
 // The manager's fade colour is four byte channels written as one word here.
-inline unsigned int& ManagerFadeColor(AnimationManager_00442F50* manager) {
+inline unsigned int& ManagerFadeColor(SprtCtrlBatchView* manager) {
     return *reinterpret_cast<unsigned int*>(&manager->fade_blue);
 }
 
 // The first word after the cached state block (+0x3ADA70).
-inline int& ManagerCachedTail(AnimationManager_00442F50* manager) {
+inline int& ManagerCachedTail(SprtCtrlBatchView* manager) {
     return *reinterpret_cast<int*>(manager->unknown_003ADA70);
 }
 
 #pragma code_seg(".text$001z3gapa0frame")
 int RenderStageState_00420000::BeginFrame() {
-    AnimationManager_00442F50* manager = data_00491c10;
+    SprtCtrlBatchView* manager = g_sprt_ctrl;
     ManagerCachedTail(manager) = 0;
     manager->cached_texture = 0;
     manager->cached_unknown_69 = 0xff;

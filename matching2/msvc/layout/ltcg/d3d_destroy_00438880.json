@@ -1,12 +1,12 @@
 {
   "schema_version": 1,
   "name": "d3d_destroy_00438880",
-  "source": "src/core/main/d3_d_resource_manager_destroy_00438880.cpp",
+  "source": "src/core/main/func_ctrl_destroy.cpp",
   "driver": "layout/ltcg/d3d_destroy_00438880_context.cpp",
   "headers": [
     "include/th10/render/d3d_destroy_00438880.hpp",
     "include/th10/game/resource_list_destroy_abi.hpp",
-    "include/th10/game/scheduler.hpp",
+    "include/th10/core/func_ctrl.hpp",
     "include/th10/platform/thread_sync.hpp",
     "include/th10/platform/worker.hpp"
   ],
@@ -15,12 +15,12 @@
   "exceptions": true,
   "functions": [
     {
-      "name": "semantic_D3DResourceManager_Destroy_00438880",
-      "symbol": "??1D3DResourceManager_Destroy_00438880@@QAE@XZ",
+      "name": "semantic_FuncCtrlDestroyView",
+      "symbol": "??1FuncCtrlDestroyView@@QAE@XZ",
       "section": ".text$01manager",
       "address": "0x00438880",
       "size": 103,
-      "source": "src/core/main/d3_d_resource_manager_destroy_00438880.cpp",
+      "source": "src/core/main/func_ctrl_destroy.cpp",
       "actual_abi": "manager stack argument; genuine frameless C++ EH frame; RET4"
     },
     {
@@ -38,7 +38,7 @@
       "section": ".text$x",
       "address": "0x00465350",
       "size": 8,
-      "source": "src/core/main/d3_d_resource_manager_destroy_00438880.cpp",
+      "source": "src/core/main/func_ctrl_destroy.cpp",
       "actual_abi": "frame EBP; manager from EBP+4; tail-jump pending clear",
       "generated": true,
       "native_symbol_pattern": "\\$L[0-9]+"
@@ -49,18 +49,18 @@
       "section": ".text$x",
       "address": "0x00465358",
       "size": 11,
-      "source": "src/core/main/d3_d_resource_manager_destroy_00438880.cpp",
+      "source": "src/core/main/func_ctrl_destroy.cpp",
       "actual_abi": "frame EBP; manager from EBP+4 plus0x24; tail-jump pending clear",
       "generated": true,
       "native_symbol_pattern": "\\$L[0-9]+"
     },
     {
       "name": "semantic_D3DResourceManager_ExceptionHandler_00465363",
-      "symbol": "__ehhandler$??1D3DResourceManager_Destroy_00438880@@QAE@XZ",
+      "symbol": "__ehhandler$??1FuncCtrlDestroyView@@QAE@XZ",
       "section": ".text$x",
       "address": "0x00465363",
       "size": 10,
-      "source": "src/core/main/d3_d_resource_manager_destroy_00438880.cpp",
+      "source": "src/core/main/func_ctrl_destroy.cpp",
       "actual_abi": "FuncInfo EAX; tail-jump CxxFrameHandler",
       "generated": true
     }
@@ -132,7 +132,7 @@
       "kind": "data"
     },
     {
-      "symbol": "@Scheduler_RemoveTask@8",
+      "symbol": "@FuncCtrl_RemoveTask@8",
       "address": "0x00449F60",
       "kind": "relative_code"
     },
@@ -185,14 +185,14 @@
   "anchors": [
     {
       "name": "Release",
-      "symbol": "?Release@ResourceList_DestroyABI_00449e50@@QAEXPAUScheduler@@@Z",
+      "symbol": "?Release@ResourceList_DestroyABI_00449e50@@QAEXPAUFuncCtrl@@@Z",
       "section": ".text$07release",
       "address": "0x449e50",
       "size": 82
     },
     {
       "name": "ListClear",
-      "symbol": "??1D3DResourceList_Destroy_00438880@@QAE@XZ",
+      "symbol": "??1FuncCtrlDestroyList@@QAE@XZ",
       "section": ".text$05listclear",
       "address": "0x449a90",
       "size": 12

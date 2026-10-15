@@ -3,12 +3,12 @@
 // which gives the embedded timer its retail ESI receiver.
 #include "th10/math/timer.hpp"
 #include "th10/math/rng.hpp"
-#include "th10/render/screen_effect_controller.hpp"
+#include "th10/core/screen.hpp"
 
 extern "C" int data_004918a4;  // 0x004918A4
 extern "C" float data_00470bf8;  // 0x00470BF8
 
-// 0x0043BD40: the fade-in update task (ScreenEffectController modes 0 and 3):
+// 0x0043BD40: the fade-in update task (Screen modes 0 and 3):
 // the alpha falls from 255 to 0 over the length. The object embeds a FrameTimer at
 // +0x30; native LTCG supplies the retail internal ESI receiver for that call.
 struct ScreenFadeIn {
@@ -48,7 +48,7 @@ int ScreenFadeIn::Tick() {
 }
 #pragma code_seg()
 
-// 0x0043C230..0x0043C2B4: the fade-out update task (ScreenEffectController
+// 0x0043C230..0x0043C2B4: the fade-out update task (Screen
 // modes 2 and 5): the alpha rises from 0 to 255 over the length.
 // The cursor owns a FrameTimer at +0x30.  Its retail caller supplies that
 // timer in ESI; the native-LTCG frame_timer cluster selects the same private
@@ -59,7 +59,7 @@ struct GameScene_00477810 {
     unsigned int flags;  // +0x58
 };
 // The game scene (0x00477810); the effects stop while it is paused.
-extern "C" GameScene_00477810* data_00477810;
+extern "C" GameScene_00477810* g_game;
 extern "C" float data_00470bf8;
 
 struct ScreenFadeOut {
@@ -97,7 +97,7 @@ int ScreenFadeOut::Tick() {
     if (frame >= divisor + 2)
         return 7;
 
-    void* state = data_00477810;
+    void* state = g_game;
     if (state == 0 || (((*(unsigned int*)((char*)state + 0x58) >> 2) |
                         *(unsigned int*)((char*)state + 0x58)) & 1) == 0) {
         reinterpret_cast<FrameTimer*>(reinterpret_cast<unsigned char*>(this) +
@@ -109,7 +109,7 @@ int ScreenFadeOut::Tick() {
 
 extern "C" int data_004918a4;  // 0x004918A4
 
-// 0x0043C460: the flash update task (ScreenEffectController mode 4): the alpha
+// 0x0043C460: the flash update task (Screen mode 4): the alpha
 // falls from its start value to 0, then holds for a countdown.  The record embeds the scheduler and
 // the FrameTimer at +0x30; native LTCG supplies the retail EAX receiver for
 // the scheduler store and the ESI receiver for the embedded timer, exactly as
@@ -181,12 +181,12 @@ extern "C" float data_00491e68;                   // 0x00491E68, screen shake y
 // shared parameters are the attack, sustain and release lengths in frames;
 // each axis is randomly displaced by zero, plus or minus the current amount.
 #pragma code_seg(".text$12b_shake")
-int ScreenEffectController::UpdateEnvelopeShake() {
+int Screen::UpdateEnvelopeShake() {
     if (data_004918a4)
         return 7;
-    if (!data_00477810 ||
-        (((data_00477810->flags >> 2) | data_00477810->flags) & 1) ||
-        (data_00477810->flags & 0x72))
+    if (!g_game ||
+        (((g_game->flags >> 2) | g_game->flags) & 1) ||
+        (g_game->flags & 0x72))
         return 1;
 
     timer.Tick();

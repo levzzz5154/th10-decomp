@@ -16,7 +16,7 @@ extern "C" float data_00470b48;
 
 #pragma code_seg(".text$f00448db0F")
 CutAnimationId CutAnimationResource::CreateOffset(int index,const Vector3* position) {
- Entity* object=static_cast<AnimationPool*>(data_00491c10)->Allocate();
+ Entity* object=static_cast<AnimationPool*>(g_sprt_ctrl)->Allocate();
  unsigned int flags=object->flags_35C;
  object->render_bucket=0;
  object->flags_35C=flags|0x40000000u;
@@ -25,6 +25,6 @@ CutAnimationId CutAnimationResource::CreateOffset(int index,const Vector3* posit
  object->position.z=position->z;
  LoadScript_0043e710(reinterpret_cast<AnimationResource_0043e710*>(this),
    reinterpret_cast<AnimationObject_0043e710*>(object),index);
- return static_cast<CutAnimationLists*>(data_00491c10)->RegisterPrimaryBack(object);
+ return static_cast<CutAnimationLists*>(g_sprt_ctrl)->RegisterPrimaryBack(object);
 }
 #pragma code_seg()

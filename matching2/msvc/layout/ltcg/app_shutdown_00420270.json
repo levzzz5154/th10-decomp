@@ -9,7 +9,7 @@
     "include/th10/game/published_block.hpp",
     "include/th10/render/resource_registrar_0043e460.hpp",
     "include/th10/game/scheduler_remove_locked.hpp",
-    "include/th10/game/scheduler.hpp",
+    "include/th10/core/func_ctrl.hpp",
     "include/th10/platform/thread_sync.hpp",
     "include/th10/archive/dat_archive_types.hpp",
     "include/th10/platform/file.hpp",
@@ -318,12 +318,12 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00491be4",
+      "symbol": "_g_func_ctrl",
       "address": "0x00491BE4",
       "kind": "data"
     },
     {
-      "symbol": "_data_00491c10",
+      "symbol": "_g_sprt_ctrl",
       "address": "0x00491C10",
       "kind": "data"
     },
@@ -348,12 +348,12 @@
       "kind": "data"
     },
     {
-      "symbol": "_asm_Scheduler_RegisterPrimary_00449ae0",
+      "symbol": "_asm_FuncCtrl_RegisterPrimary_00449ae0",
       "address": "0x00449AE0",
       "kind": "relative_code"
     },
     {
-      "symbol": "_asm_Scheduler_RegisterSecondary_00449b70",
+      "symbol": "_asm_FuncCtrl_RegisterSecondary_00449b70",
       "address": "0x00449B70",
       "kind": "relative_code"
     },
@@ -393,7 +393,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00477708",
+      "symbol": "_g_fps",
       "address": "0x00477708",
       "kind": "data"
     },
@@ -483,7 +483,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_Stage_StartupThread",
+      "symbol": "_Game_LoadThread",
       "address": "0x00417C70",
       "kind": "data"
     },
@@ -498,7 +498,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00477810",
+      "symbol": "_g_game",
       "address": "0x00477810",
       "kind": "data"
     },
@@ -553,7 +553,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_Scheduler_Remove@8",
+      "symbol": "_FuncCtrl_Remove@8",
       "address": "0x00449F60",
       "kind": "relative_code"
     }

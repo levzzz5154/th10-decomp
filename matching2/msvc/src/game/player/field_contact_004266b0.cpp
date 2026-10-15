@@ -28,7 +28,7 @@ extern "C" __declspec(noinline) int __fastcall FieldContact004266B0(
             return 0;
         return 2;
     }
-    if (data_0047770c && data_0047770c->active)
+    if (g_front && g_front->active)
         return 0;
     if (target->mode == 2 || target->mode == 4 || target->mode == 3)
         return 0;

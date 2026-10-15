@@ -5,7 +5,7 @@
 #include "th10/game/side_panel_release_00414570.hpp"
 
 #pragma code_seg(".text$00414570_fn")
-void SidePanel_00414570::ReleaseStageParts() {
+void FrontStagePartsView::ReleaseStageParts() {
     PanelSlot_004136c0* slot = stage_slot;
     if (slot) {
         slot->Release();
@@ -14,7 +14,7 @@ void SidePanel_00414570::ReleaseStageParts() {
     }
     if (data_00474c40.flags & 9)
         return;
-    PanelResource_00447810** resource = &data_00491c10->stage_resource;
+    PanelResource_00447810** resource = &g_sprt_ctrl->stage_resource;
     if (*resource) {
         (*resource)->Release();
         operator delete(*resource);

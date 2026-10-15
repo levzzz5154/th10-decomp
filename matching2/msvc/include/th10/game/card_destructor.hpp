@@ -1,6 +1,6 @@
 #pragma once
 #include <stddef.h>
-#include "th10/game/scheduler.hpp"
+#include "th10/core/func_ctrl.hpp"
 #include "th10/platform/thread_sync.hpp"
 
 void __cdecl operator delete(void* block);
@@ -11,10 +11,10 @@ struct AnimationScriptId {
 };
 // 0x004492A0: let the animation with this id, and its children, be removed.
 void* __fastcall AnimationManager_SetFlag_004492a0(AnimationLookupContext* context, AnimationScriptId id);
-__declspec(noinline) void __stdcall ManagerTeardownScheduler_Remove_00449F60(Scheduler* scheduler, SchedulerTask* task);
+__declspec(noinline) void __stdcall ManagerTeardownFuncCtrl_Remove_00449F60(FuncCtrl* scheduler, SchedulerTask* task);
 
-extern "C" AnimationLookupContext* data_00491c10;
-extern "C" void* data_00491be4;
+extern "C" AnimationLookupContext* g_sprt_ctrl;
+extern "C" void* g_func_ctrl;
 
 // An animation the manager owns, named by its id.
 struct CardAnimation_00408af0 {

@@ -61,14 +61,14 @@ static __forceinline void ShowModeLabels_0042d920(
 }
 
 static __forceinline void ShowScreenMode_0042d920(Title* room) {
-    RecoveryLookupContext_0040bd80* manager = reinterpret_cast<RecoveryLookupContext_0040bd80*>(data_00491c10);
+    RecoveryLookupContext_0040bd80* manager = reinterpret_cast<RecoveryLookupContext_0040bd80*>(g_sprt_ctrl);
     ShowModeLabels_0042d920(manager, room);
 }
 
 // Restart the cursor animation of slot 1.
 static __forceinline void RunCursorSlot_0042d920(Title* room) {
     AnimationManager_SetStopFrameAndRun(
-        3, reinterpret_cast<RecoveryLookupContext_0040bd80*>(data_00491c10),
+        3, reinterpret_cast<RecoveryLookupContext_0040bd80*>(g_sprt_ctrl),
         *reinterpret_cast<RecoveryScriptId_0040bd80*>(&room->animation_slots[1]));
 }
 
@@ -120,7 +120,7 @@ __declspec(noinline) int __stdcall TitleOptions_0042d920(Title* room) {
                 application_state_00491c00.sound.Queue(4, 0);
             RecoveryLookupContext_0040bd80* manager;
             if ((short)data_00474e30.InputMaskActive(0x40)) {
-                manager = reinterpret_cast<RecoveryLookupContext_0040bd80*>(data_00491c10);
+                manager = reinterpret_cast<RecoveryLookupContext_0040bd80*>(g_sprt_ctrl);
                 switch (room->cursor.selection) {
                 case 0:
                     if (data_00491d4c.screen_mode > 0)
@@ -155,7 +155,7 @@ __declspec(noinline) int __stdcall TitleOptions_0042d920(Title* room) {
                 }
             }
             else
-                manager = reinterpret_cast<RecoveryLookupContext_0040bd80*>(data_00491c10);
+                manager = reinterpret_cast<RecoveryLookupContext_0040bd80*>(g_sprt_ctrl);
             if ((short)data_00474e30.InputMaskActive(0x80)) {
                 switch (room->cursor.selection) {
                 case 0:

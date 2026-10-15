@@ -56,11 +56,11 @@
       "address": "0x00474E62",
       "kind": "data"
     },
-    "_data_0047770c": {
+    "_g_front": {
       "address": "0x0047770C",
       "kind": "data"
     },
-    "_data_00477704": {
+    "_g_enemy_ctrl": {
       "address": "0x00477704",
       "kind": "data"
     },
@@ -84,7 +84,7 @@
       "address": "0x00477848",
       "kind": "data"
     },
-    "_data_00491c10": {
+    "_g_sprt_ctrl": {
       "address": "0x00491C10",
       "kind": "data"
     },
@@ -120,7 +120,7 @@
       "address": "0x0046DF98",
       "kind": "data"
     },
-    "_data_00491be4": {
+    "_g_func_ctrl": {
       "address": "0x00491BE4",
       "kind": "data"
     },
@@ -380,7 +380,7 @@
       "address": "0x004776E0",
       "kind": "data"
     },
-    "_data_00477810": {
+    "_g_game": {
       "address": "0x00477810",
       "kind": "data"
     }
@@ -397,14 +397,14 @@
     "_data_00474ca0": "0x00474CA0",
     "_g_input": "0x00474E5C",
     "_data_00474e62": "0x00474E62",
-    "_data_0047770c": "0x0047770C",
-    "_data_00477704": "0x00477704",
+    "_g_front": "0x0047770C",
+    "_g_enemy_ctrl": "0x00477704",
     "_g_pause": "0x00477830",
     "_g_player": "0x00477834",
     "_data_00477838": "0x00477838",
     "_data_0047783c": "0x0047783C",
     "_data_00477848": "0x00477848",
-    "_data_00491c10": "0x00491C10",
+    "_g_sprt_ctrl": "0x00491C10",
     "_data_00491c28": "0x00491C28",
     "_data_00492590": "0x00492590",
     "_data_00476f78": "0x00476F78",
@@ -413,7 +413,7 @@
     "_data_00491d78": "0x00491D78",
     "_data_0046e0d8": "0x0046E0D8",
     "_data_0046df98": "0x0046DF98",
-    "_data_00491be4": "0x00491BE4",
+    "_g_func_ctrl": "0x00491BE4",
     "_data_0046e0c0": "0x0046E0C0",
     "?g_music_requests@@3UAnimationManager_0043e460@@A": "0x00492590",
     "?g_frame_timer_normal_lower@@3MA": "0x00470B68",
@@ -483,10 +483,10 @@
     "?AddScore@ScoreState@@QAEXH@Z": "0x00409D90",
     "?RecoveryDispatchText_004479d0@@YGXPAURecoveryTextResource_004479d0@@PAXHHIPBDH@Z": "0x004479D0",
     "?MarkText@RecoveryTextVm_00447a50@@QAAXPAXZZ": "0x00447A50",
-    "?Configure@ScreenEffectController@@QAEXHHHHHH@Z": "0x0043C970",
-    "?CreateScreenEffect_0043c8b0@@YGPAUScreenEffectController@@HHHHHH@Z": "0x0043C8B0",
-    "_Scheduler_RegisterPrimary@12": "0x449ae0",
-    "_Scheduler_RegisterSecondary@12": "0x449b70",
+    "?Configure@Screen@@QAEXHHHHHH@Z": "0x0043C970",
+    "?Screen_Create@@YGPAUScreen@@HHHHHH@Z": "0x0043C8B0",
+    "_FuncCtrl_RegisterPrimary@12": "0x449ae0",
+    "_FuncCtrl_RegisterSecondary@12": "0x449b70",
     "?CreateEffectPrimary@@YGPAUSchedulerTask@@PAXH0@Z": "0x44a000",
     "?CreateEffectSecondary@@YGPAUSchedulerTask@@PAXH0@Z": "0x44a030",
     "?Queue@SoundQueue@@QAEHHH@Z": "0x0043DC90",

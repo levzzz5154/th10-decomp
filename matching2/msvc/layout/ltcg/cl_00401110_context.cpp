@@ -16,7 +16,7 @@ extern "C" GameThread *__stdcall AsciiManager_Create();
 #pragma code_seg(".text$90context")
 int __stdcall GameThreadCreateContext_00401110(SchedulerTask* task, int count) {
     // Keeps the full registration anchors in the link.
-    int result = Scheduler_RegisterPrimary(data_00491be4, task, count);
+    int result = FuncCtrl_RegisterPrimary(g_func_ctrl, task, count);
     while (count--)
         result += AsciiManager_Create() != 0;
     return result;

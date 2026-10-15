@@ -1,7 +1,7 @@
 #include "../../../layout/ltcg/title_teardown_0041fb50/title_teardown_dependencies.hpp"
 
 inline void ReleaseLoadingBank(int index) {
-    AnimationResource_00447810*& bank = reinterpret_cast<AnimationResource_00447810*&>(data_00491c10->banks[index]);
+    AnimationResource_00447810*& bank = reinterpret_cast<AnimationResource_00447810*&>(g_sprt_ctrl->banks[index]);
     if (bank) {
         bank->Release();
         entry_free_004524a1(bank);
@@ -13,20 +13,20 @@ inline void ReleaseLoadingBank(int index) {
 TitleState_0041FB50::~TitleState_0041FB50() {
     worker.Stop();
     SchedulerTask* task = update_task;
-    Scheduler* scheduler = static_cast<Scheduler*>(data_00491be4);
+    FuncCtrl* scheduler = static_cast<FuncCtrl*>(g_func_ctrl);
     if (task) {
         EnterCriticalSection(&g_thread_synchronization.critical_sections[0]);
         ++g_thread_synchronization.scheduler_lock_depth;
-        Scheduler_Remove(scheduler, task);
+        FuncCtrl_Remove(scheduler, task);
         LeaveCriticalSection(&g_thread_synchronization.critical_sections[0]);
         --g_thread_synchronization.scheduler_lock_depth;
     }
     task = draw_task;
-    scheduler = static_cast<Scheduler*>(data_00491be4);
+    scheduler = static_cast<FuncCtrl*>(g_func_ctrl);
     if (task) {
         EnterCriticalSection(&g_thread_synchronization.critical_sections[0]);
         ++g_thread_synchronization.scheduler_lock_depth;
-        Scheduler_Remove(scheduler, task);
+        FuncCtrl_Remove(scheduler, task);
         LeaveCriticalSection(&g_thread_synchronization.critical_sections[0]);
         --g_thread_synchronization.scheduler_lock_depth;
     }

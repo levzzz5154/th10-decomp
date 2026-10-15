@@ -8,7 +8,7 @@
     "src/core/zunlib/platform_stop_worker_0044c150.cpp"
   ],
   "headers": [
-    "include/th10/game/scheduler.hpp",
+    "include/th10/core/func_ctrl.hpp",
     "include/th10/game/manager_teardown_helpers.hpp",
     "include/th10/game/enemy_manager_dependencies_0040d530.hpp",
     "include/th10/render/animation_resource_removal.hpp",
@@ -58,7 +58,7 @@
     },
     {
       "name": "SchedulerRemove",
-      "symbol": "_Scheduler_Remove@8",
+      "symbol": "_FuncCtrl_Remove@8",
       "section": ".text$13remove",
       "address": "0x00449F60",
       "size": 114
@@ -157,12 +157,12 @@
       "kind": "metadata"
     },
     {
-      "symbol": "_data_00491be4",
+      "symbol": "_g_func_ctrl",
       "address": "0x491be4",
       "kind": "data"
     },
     {
-      "symbol": "_data_00491c10",
+      "symbol": "_g_sprt_ctrl",
       "address": "0x491c10",
       "kind": "data"
     },
@@ -197,7 +197,7 @@
       "kind": "data"
     },
     {
-      "symbol": "?MarkResourceForRemoval@AnimationManager@@QAEXPAX@Z",
+      "symbol": "?MarkResourceForRemoval@SprtCtrl@@QAEXPAX@Z",
       "address": "0x004493E0",
       "kind": "relative_code"
     },

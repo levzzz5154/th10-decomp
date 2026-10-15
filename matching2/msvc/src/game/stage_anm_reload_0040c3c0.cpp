@@ -25,7 +25,7 @@ int Stage_0040c3c0::ReloadAnm() {
     data_00497c38[0] = 0;
     strcat(data_00497c38, name);
     anm[header->anm_slot] =
-        Recovery_LoadCachedResource(header->anm_slot + 0x1D, data_00491c10, data_00497c38);
+        Recovery_LoadCachedResource(header->anm_slot + 0x1D, g_sprt_ctrl, data_00497c38);
     flags &= ~4u;
     g_ascii_manager->StopLoadingSprite();
     return 0;

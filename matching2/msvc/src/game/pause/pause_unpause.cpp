@@ -3,7 +3,7 @@
 struct AnimationLookupContext;
 struct AnimationScriptId { int value; };
 void* __fastcall AnimationManager_SetFlag_004492a0(AnimationLookupContext*, AnimationScriptId);
-extern "C" AnimationLookupContext* data_00491c10;
+extern "C" AnimationLookupContext* g_sprt_ctrl;
 struct PauseFlags_00422c30 { unsigned char reserved[0x58]; unsigned flags; };
 extern PauseFlags_00422c30* g_pause_flags;
 extern AnimationManager_0043e460 g_music_requests;
@@ -19,7 +19,7 @@ struct PauseOwner_00422c30 {
 void PauseOwner_00422c30::Unpause() {
  g_pause_flags->flags &= ~0x10u;
  g_music_requests.RegisterResource("", 7, 0);
- AnimationManager_SetFlag_004492a0(data_00491c10, animation);
+ AnimationManager_SetFlag_004492a0(g_sprt_ctrl, animation);
  // Publish the cleared pause animation before restoring game timing.
  *(volatile int*)&animation.value = 0;
  g_game_speed = *(volatile float*)&saved_speed;

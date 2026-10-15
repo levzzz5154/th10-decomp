@@ -18,13 +18,13 @@ inline Loading_0044C130::~Loading_0044C130() {
 
 #pragma code_seg(".text$02pair")
 extern "C" __declspec(noinline) int __cdecl ReleasePair_0041f930() {
-    AnimationResource_00447810** slot = reinterpret_cast<AnimationResource_00447810**>(&data_00491c10->banks[6]);
+    AnimationResource_00447810** slot = reinterpret_cast<AnimationResource_00447810**>(&g_sprt_ctrl->banks[6]);
     if (*slot) {
         (*slot)->Release();
         entry_free_004524a1(*slot);
         *slot = 0;
     }
-    slot = reinterpret_cast<AnimationResource_00447810**>(&data_00491c10->banks[7]);
+    slot = reinterpret_cast<AnimationResource_00447810**>(&g_sprt_ctrl->banks[7]);
     if (*slot) {
         (*slot)->Release();
         entry_free_004524a1(*slot);
@@ -37,14 +37,14 @@ extern "C" __declspec(noinline) int __cdecl ReleasePair_0041f930() {
 #include "../../src/game/loading/loading_release.cpp"
 #include "title_teardown_0041fb50/title_encrypt.cpp"
 
-extern "C" void __stdcall ReleaseGlobalManager_00417c80(void*);
+extern "C" void __stdcall Game_Destroy(void*);
 extern "C" void __stdcall ReleaseGlobalScript_0042cb60(void*);
 extern "C" void __stdcall ReleaseGlobalMessage_0040b7b0(void*);
 extern "C" void __stdcall ReleaseGlobalPending_004294a0(void*);
 #pragma code_seg(".text$05globals")
 void Recovery_ReleaseGlobalStates() {
-    void* manager_state = data_00477810;
-    if (manager_state) { ReleaseGlobalManager_00417c80(manager_state);entry_free_004524a1(manager_state); }
+    void* manager_state = g_game;
+    if (manager_state) { Game_Destroy(manager_state);entry_free_004524a1(manager_state); }
     void* script_state = g_title;
     if (script_state) { ReleaseGlobalScript_0042cb60(script_state);entry_free_004524a1(script_state); }
     TitleState_0041FB50* resource_state = static_cast<TitleState_0041FB50*>(g_loading);

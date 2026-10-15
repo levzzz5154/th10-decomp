@@ -2,7 +2,7 @@
 #pragma code_seg(".text$02gradient")
 int __stdcall DrawGradientQuad(const ScreenRect* rect, unsigned int top_left, unsigned int top_right, unsigned int bottom_left, unsigned int bottom_right) {
     SolidVertex vertices[4];
-    data_00491c10->Flush();
+    g_sprt_ctrl->Flush();
     vertices[0].position = SolidPosition(rect->left, rect->top, 0.0f);
     vertices[1].position = SolidPosition(rect->right, rect->top, 0.0f);
     vertices[2].position = SolidPosition(rect->left, rect->bottom, 0.0f);
@@ -19,7 +19,7 @@ int __stdcall DrawGradientQuad(const ScreenRect* rect, unsigned int top_left, un
     data_00491c30->State(20, 6);
     data_00491c30->Format(0x44);
     data_00491c30->Draw(5, 2, vertices, sizeof(SolidVertex));
-    unsigned char* cache = (unsigned char*)data_00491c10;
+    unsigned char* cache = (unsigned char*)g_sprt_ctrl;
     cache[0x3ADA6A] = 0xFF;
     *(int*)(cache + 0x3ADA70) = 0;
     *(int*)(cache + 0x3ADA64) = 0;

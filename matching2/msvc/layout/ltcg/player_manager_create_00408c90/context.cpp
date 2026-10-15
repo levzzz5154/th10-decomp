@@ -7,15 +7,15 @@
 #include "th10/platform/thread_sync.hpp"
 #include "../../../src/game/card/card_create.cpp"
 
-extern "C" void* data_00491be4;
+extern "C" void* g_func_ctrl;
 extern "C" SchedulerTask* __stdcall ManagerCreateStandIn_Task(void* routine);
 
 // C++ linkage: a call the compiler must assume can throw.
 void __stdcall ManagerCreateStandIn_MayThrow(void* manager);
 
 #pragma code_seg(".text$06primary")
-extern "C" __declspec(noinline) int __stdcall Scheduler_RegisterPrimary(
-        Scheduler* scheduler, SchedulerTask* task, int priority) {
+extern "C" __declspec(noinline) int __stdcall FuncCtrl_RegisterPrimary(
+        FuncCtrl* scheduler, SchedulerTask* task, int priority) {
     int result = 0;
     if (task->on_register) {
         result = task->on_register(task->context);
@@ -42,20 +42,20 @@ struct ManagerCreateStandInTasks {
 // With every callee-saved register busy the receiver stays on the stack.
 static __forceinline void ManagerCreateStandIn_Unregister(ManagerCreateStandInTasks* manager) {
     SchedulerTask* task = manager->update_task;
-    Scheduler* scheduler = static_cast<Scheduler*>(data_00491be4);
+    FuncCtrl* scheduler = static_cast<FuncCtrl*>(g_func_ctrl);
     if (task) {
         EnterCriticalSection(&g_thread_synchronization.critical_sections[0]);
         ++g_thread_synchronization.scheduler_lock_depth;
-        ManagerTeardownScheduler_Remove_00449F60(scheduler, task);
+        ManagerTeardownFuncCtrl_Remove_00449F60(scheduler, task);
         LeaveCriticalSection(&g_thread_synchronization.critical_sections[0]);
         --g_thread_synchronization.scheduler_lock_depth;
     }
     task = manager->draw_task;
-    scheduler = static_cast<Scheduler*>(data_00491be4);
+    scheduler = static_cast<FuncCtrl*>(g_func_ctrl);
     if (task) {
         EnterCriticalSection(&g_thread_synchronization.critical_sections[0]);
         ++g_thread_synchronization.scheduler_lock_depth;
-        ManagerTeardownScheduler_Remove_00449F60(scheduler, task);
+        ManagerTeardownFuncCtrl_Remove_00449F60(scheduler, task);
         LeaveCriticalSection(&g_thread_synchronization.critical_sections[0]);
         --g_thread_synchronization.scheduler_lock_depth;
     }
@@ -77,12 +77,12 @@ int Card_00408c90::Initialize() {
     SchedulerTask* update = ManagerCreateStandIn_Task(tail);
     update->reserved_flags &= ~1u;
     update->context = this;
-    Scheduler_RegisterPrimary(static_cast<Scheduler*>(data_00491be4), update, 0x18);
+    FuncCtrl_RegisterPrimary(static_cast<FuncCtrl*>(g_func_ctrl), update, 0x18);
     tasks->update_task = update;
     SchedulerTask* draw = ManagerCreateStandIn_Task(tail + 4);
     draw->reserved_flags &= ~1u;
     draw->context = this;
-    Scheduler_RegisterPrimary(static_cast<Scheduler*>(data_00491be4), draw, 0x2B);
+    FuncCtrl_RegisterPrimary(static_cast<FuncCtrl*>(g_func_ctrl), draw, 0x2B);
     tasks->draw_task = draw;
     return *reinterpret_cast<int*>(tail);
 }

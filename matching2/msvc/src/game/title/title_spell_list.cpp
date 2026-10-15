@@ -13,7 +13,7 @@
 #include "th10/game/score_file.hpp"
 #include "th10/game/title_draw.hpp"
 
-extern "C" void* data_00491c10;
+extern "C" void* g_sprt_ctrl;
 // Existing retail strings; the diagnostic layout binds their original addresses.
 // Named: "No.%3d %s %4d/%4d". Masked: "No.%3d ", twenty-one full-width
 // question marks in Shift-JIS, then " %4d/%4d". Empty: one space.
@@ -51,7 +51,7 @@ int TitleDrawView::BuildSpellList() {
             ++spell;
         if (spell >= SCORE_SPELL_COUNT) {
             for (; line < 10; ++line) {
-                void* manager = data_00491c10;
+                void* manager = g_sprt_ctrl;
                 HintVm_00419120* text = FindAnimation(manager, spell_lines[line]);
                 if (text == 0)
                     spell_lines[line] = 0;
@@ -69,7 +69,7 @@ int TitleDrawView::BuildSpellList() {
             }
             name[length] = '\0';
             ScoreRecordSection* record = &Scores()->records[cursor];
-            void* manager = data_00491c10;
+            void* manager = g_sprt_ctrl;
             HintVm_00419120* text = FindAnimation(manager, spell_lines[line]);
             if (text == 0)
                 spell_lines[line] = 0;
@@ -79,7 +79,7 @@ int TitleDrawView::BuildSpellList() {
             ++spell;
         } else {
             ScoreRecordSection* record = &Scores()->records[cursor];
-            void* manager = data_00491c10;
+            void* manager = g_sprt_ctrl;
             HintVm_00419120* text = FindAnimation(manager, spell_lines[line]);
             if (text == 0)
                 spell_lines[line] = 0;

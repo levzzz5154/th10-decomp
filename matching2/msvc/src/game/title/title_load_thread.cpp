@@ -4,7 +4,7 @@
 // is held), drops the loading animation and lets the title's update task run.
 // Compiled in the bullet_manager_load_scripts_0040ae70 native-LTCG cluster so
 // the title state travels in EBX and the animation record in EDI.
-#include "th10/game/scheduler.hpp"
+#include "th10/core/func_ctrl.hpp"
 
 struct Title {
     unsigned char pad_000[0x0C];
@@ -28,7 +28,7 @@ __declspec(dllimport) void __stdcall Sleep(unsigned long milliseconds);
 void __cdecl entry_free_004524a1(void* memory);
 extern Title* g_title;
 extern StartupLoader_00477820* g_loading;
-extern AnimationManager_0042c800* data_00491c10;
+extern AnimationManager_0042c800* g_sprt_ctrl;
 extern unsigned int data_00491ff4;       // held input
 extern unsigned int data_00491fb8;       // requested application state
 }
@@ -45,7 +45,7 @@ extern "C" __declspec(noinline) int __cdecl Title_LoadThread() {
                 break;
             Sleep(16);
         }
-        AnimationResource_00447810** slot = &data_00491c10->slots_3ad06c[1];
+        AnimationResource_00447810** slot = &g_sprt_ctrl->slots_3ad06c[1];
         if (*slot != 0) {
             (*slot)->Release();
             entry_free_004524a1(*slot);

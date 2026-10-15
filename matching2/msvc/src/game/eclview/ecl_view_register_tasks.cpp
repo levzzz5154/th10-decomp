@@ -7,7 +7,7 @@
 // created task occupies ESI and the priority occupies EDI: this source is
 // therefore compiled in the same native-LTCG link as the registration pair it
 // calls (see layout/ltcg/bullet_manager_load_scripts_0040ae70.json).
-#include "th10/game/scheduler.hpp"
+#include "th10/core/func_ctrl.hpp"
 
 struct RawState_0040a130 {
     unsigned char pad_000[8];
@@ -16,7 +16,7 @@ struct RawState_0040a130 {
 };
 
 extern "C" SchedulerTask *__stdcall SchedulerCallback_Create_00449ed0(void *callback);
-extern "C" Scheduler *data_00491be4;
+extern "C" FuncCtrl *g_func_ctrl;
 extern "C" unsigned char data_00477848;
 extern "C" unsigned char data_00474c7c;
 extern "C" unsigned char data_00474c80;
@@ -31,13 +31,13 @@ EclView_RegisterTasks(RawState_0040a130 *state) {
     SchedulerTask *primary = SchedulerCallback_Create_00449ed0((void *)0x40ABE0);
     primary->reserved_flags |= 1u;
     primary->context = state;
-    Scheduler_RegisterPrimary(data_00491be4, primary, 5);
+    FuncCtrl_RegisterPrimary(g_func_ctrl, primary, 5);
     state->primary_task_008 = primary;
 
     SchedulerTask *secondary = SchedulerCallback_Create_00449ed0((void *)0x40ABF0);
     secondary->reserved_flags |= 1u;
     secondary->context = state;
-    Scheduler_RegisterSecondary(data_00491be4, secondary, 0x27);
+    FuncCtrl_RegisterSecondary(g_func_ctrl, secondary, 0x27);
     state->secondary_task_00C = secondary;
     return 0;
 }

@@ -87,11 +87,11 @@
     }
   ],
   "context": {
-    "symbol": "?StageUpdateCompilerCaller_004187c0@@YIXPAX@Z",
+    "symbol": "?Game_UpdateCompilerCaller_004187c0@@YIXPAX@Z",
     "section": ".text$10entry",
     "address": "0x004187C0",
     "size": 7,
-    "description": "Complete actual 4187C0 fastcall wrapper to the existing public StageUpdate stack entry; unselected native link entry, no synthetic caller or new game-code credit."
+    "description": "Complete actual 4187C0 fastcall wrapper to the existing public Game_Update stack entry; unselected native link entry, no synthetic caller or new game-code credit."
   },
   "gaps": [
     {
@@ -185,7 +185,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00477704",
+      "symbol": "_g_enemy_ctrl",
       "address": "0x477704",
       "kind": "data"
     },
@@ -205,7 +205,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_0047770c",
+      "symbol": "_g_front",
       "address": "0x47770c",
       "kind": "data"
     },
@@ -230,7 +230,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00491c10",
+      "symbol": "_g_sprt_ctrl",
       "address": "0x491c10",
       "kind": "data"
     },
@@ -285,7 +285,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_StageUpdate@4",
+      "symbol": "_Game_Update@4",
       "address": "0x418190",
       "kind": "relative_code"
     }

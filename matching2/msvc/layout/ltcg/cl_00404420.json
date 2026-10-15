@@ -66,7 +66,7 @@
   "constant_aliases": [],
   "absolute_symbols": [
     {
-      "symbol": "_data_00491c10",
+      "symbol": "_g_sprt_ctrl",
       "address": "0x00491C10",
       "kind": "data"
     }

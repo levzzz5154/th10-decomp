@@ -14,14 +14,14 @@
 #include <math.h>
 #include <string.h>
 
-struct SpriteStateCache;
+struct SprtCtrlStateCacheView;
 
 extern "C" {
 Direct3DMatrix* __stdcall asm_D3DXMatrixLookAtLH_00452194(Direct3DMatrix* out,
     const Direct3DVector* eye, const Direct3DVector* at, const Direct3DVector* up);
 Direct3DMatrix* __stdcall asm_D3DXMatrixPerspectiveFovLH_0045219a(Direct3DMatrix* out,
     float fov_y, float aspect, float near_z, float far_z);
-SpriteStateCache* __cdecl Renderer_ApplyDeviceDefaults(void);
+SprtCtrlStateCacheView* __cdecl Renderer_ApplyDeviceDefaults(void);
 
 extern Application data_00491c28;
 extern MainWindow data_004924f0;

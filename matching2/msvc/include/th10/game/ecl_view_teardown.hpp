@@ -1,6 +1,6 @@
 #pragma once
 #include "th10/game/ecl_view_draw.hpp"
-#include "th10/game/scheduler.hpp"
+#include "th10/core/func_ctrl.hpp"
 #include "th10/platform/thread_sync.hpp"
 #include "th10/platform/worker.hpp"
 
@@ -36,14 +36,14 @@ struct EclViewPopups_0040a1a0 {
 };
 
 extern "C" {
-extern EclViewItems_0040a1a0* data_0047770c;
+extern EclViewItems_0040a1a0* g_front;
 extern EclViewPlayer_0040a1a0* g_player;
 extern EclViewBullets_0040a1a0* data_004776f0;
 extern EclViewLasers_0040a1a0* g_bomb;
 extern EclViewEffects_0040a1a0* data_00477818;
 extern EclViewPopups_0040a1a0* g_smoll_score;
 extern EclView_0040a940* g_ecl_view;
-extern void* data_00491be4;          // the scheduler
+extern void* g_func_ctrl;          // the scheduler
 }
 // 0x00449F60: unlink one task; the caller holds the scheduler lock.
-__declspec(noinline) void __stdcall ManagerTeardownScheduler_Remove_00449F60(Scheduler*, SchedulerTask*);
+__declspec(noinline) void __stdcall ManagerTeardownFuncCtrl_Remove_00449F60(FuncCtrl*, SchedulerTask*);

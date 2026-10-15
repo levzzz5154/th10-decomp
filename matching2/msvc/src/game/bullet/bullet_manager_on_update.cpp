@@ -25,7 +25,7 @@ struct RecoverySlotTable_004065c0 {
 #pragma code_seg(".text$05canrearm")
 __declspec(noinline) int RecoverySlotTable_004065c0::OnUpdate() {
     RecoverySlotOwner_00406770* owner =
-        *reinterpret_cast<RecoverySlotOwner_00406770**>(&data_00477810);
+        *reinterpret_cast<RecoverySlotOwner_00406770**>(&g_game);
     if (owner != 0 && ((owner->field_58 >> 2 | owner->field_58) & 1) != 0)
         return 1;
     return Rearm();

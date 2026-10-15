@@ -1109,7 +1109,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0040dc80_0040dc80() {
     L_0040e38b:
         mov dword ptr [esp+2Ch],ebx
     L_0040e38f:
-        mov ebx,dword ptr [data_00491c10]
+        mov ebx,dword ptr [g_sprt_ctrl]
     L_0040e395:
         mov eax,dword ptr [edi]
     L_0040e397:
@@ -1135,7 +1135,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0040dc80_0040dc80() {
     L_0040e3b2:
         mov dword ptr [esp+2Ch],ebx
     L_0040e3b6:
-        mov ebx,dword ptr [data_00491c10]
+        mov ebx,dword ptr [g_sprt_ctrl]
     L_0040e3bc:
         TH10_NOP_LEA_ESP_DISP8()
     L_0040e3c0:
@@ -1327,7 +1327,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0040dc80_0040dc80() {
     L_0040e52b:
         jns short L_0040e538
     L_0040e52d:
-        mov eax,dword ptr [data_0047770c]
+        mov eax,dword ptr [g_front]
     L_0040e532:
         and dword ptr [eax+9DA4h],ecx
     L_0040e538:

@@ -16,13 +16,13 @@ struct AnimationLookupContext_00424480 {
     AnimationLookupNode_00424480* secondary_bucket; // +0x72DADC
 };
 
-extern "C" unsigned char data_00491c10;
+extern "C" unsigned char g_sprt_ctrl;
 
 namespace {
 
 AnimationLookupContext_00424480* CurrentAnimationLookupContext_00424480() {
     return *reinterpret_cast<AnimationLookupContext_00424480**>(
-        &data_00491c10);
+        &g_sprt_ctrl);
 }
 
 void* FindAnimationObject_00424480(

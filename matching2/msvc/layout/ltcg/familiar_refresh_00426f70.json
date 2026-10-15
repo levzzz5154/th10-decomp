@@ -59,7 +59,7 @@
   {
    "name": "AnimationManager_Find",
    "source": "layout/ltcg/familiar_refresh_00426f70_dependencies/find.cpp",
-   "symbol": "?Find@AnimationManager@@QAIPAXPAUAnimationLookupContext@@UAnimationScriptId@@@Z",
+   "symbol": "?Find@SprtCtrl@@QAIPAXPAUAnimationLookupContext@@UAnimationScriptId@@@Z",
    "section": ".text$004491c0_find",
    "address": "0x004491C0",
    "size": 73,
@@ -84,7 +84,7 @@
   },
   {
    "caller": "?SetStopFrame@AnimationHandle_00449470@@QAEXG@Z",
-   "callee": "?Find@AnimationManager@@QAIPAXPAUAnimationLookupContext@@UAnimationScriptId@@@Z",
+   "callee": "?Find@SprtCtrl@@QAIPAXPAUAnimationLookupContext@@UAnimationScriptId@@@Z",
    "address": "0x00449479",
    "instruction": "call"
   }
@@ -155,7 +155,7 @@
  "constants": [],
  "absolute_symbols": [
   {
-   "symbol": "_data_00491c10",
+   "symbol": "_g_sprt_ctrl",
    "address": "0x00491C10",
    "kind": "data"
   },

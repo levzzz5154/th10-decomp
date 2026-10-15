@@ -4,13 +4,13 @@ extern "C" __declspec(noinline) int __stdcall Hint_Initialize(Hint* manager) {
     SchedulerTask* primary = SchedulerCallback_Create_00449ed0((void*)0x4198A0);
     primary->context = manager;
     primary->reserved_flags &= ~1u;
-    Scheduler_RegisterPrimary(data_00491be4, primary, 0x19);
+    FuncCtrl_RegisterPrimary(g_func_ctrl, primary, 0x19);
     manager->primary_task_008 = primary;
 
     SchedulerTask* secondary = SchedulerCallback_Create_00449ed0((void*)0x4198B0);
     secondary->reserved_flags &= ~1u;
     secondary->context = manager;
-    Scheduler_RegisterSecondary(data_00491be4, secondary, 0x2C);
+    FuncCtrl_RegisterSecondary(g_func_ctrl, secondary, 0x2C);
     manager->secondary_task_00C = secondary;
     manager->field_010 = 0;
 

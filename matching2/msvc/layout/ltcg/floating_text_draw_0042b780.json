@@ -97,7 +97,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00491c10",
+      "symbol": "_g_sprt_ctrl",
       "address": "0x00491C10",
       "kind": "data"
     },
@@ -142,7 +142,7 @@
     },
     {
       "name": "AnimationManager_Flush",
-      "symbol": "?Flush@AnimationManager_00442F50@@QAEHXZ",
+      "symbol": "?Flush@SprtCtrlBatchView@@QAEHXZ",
       "section": ".text$05flush",
       "address": "0x00442F50",
       "size": 133

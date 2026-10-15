@@ -1,8 +1,8 @@
-#define data_00491c10 stage_effect_data_00491c10
-#define data_0047770c stage_effect_data_0047770c
+#define g_sprt_ctrl stage_effect_g_sprt_ctrl
+#define g_front stage_effect_g_front
 #define data_00474c40 stage_effect_data_00474c40
 #define g_ascii_manager stage_effect_data_004776e0
-#define data_00477704 stage_effect_data_00477704
+#define g_enemy_ctrl stage_effect_g_enemy_ctrl
 #define g_player stage_effect_data_00477834
 #define data_00477838 stage_effect_data_00477838
 #define data_0047783c stage_effect_data_0047783c
@@ -14,7 +14,7 @@
 // compiler-generated switch table. Native LTCG agrees on this in ESI,
 // priority in EBX, and selected mode plus four parameters on the stack.
 // Genuine scheduler creation bodies establish callback EAX and priority EDI.
-#include "th10/render/screen_effect_controller.hpp"
+#include "th10/core/screen.hpp"
 __declspec(noinline) SchedulerTask* __stdcall CreateEffectPrimary(void* context, int priority, void* routine);
 __declspec(noinline) SchedulerTask* __stdcall CreateEffectSecondary(void* context, int priority, void* routine);
 extern "C" int __fastcall FadeOutUpdate_0043bd40(void*);
@@ -31,7 +31,7 @@ extern "C" int __fastcall EnvelopeShakeUpdate_0043c710(void*);
 extern "C" int __fastcall ScreenEffectRemove_0043c870(void*);
 extern "C" float data_00476f78;
 #pragma code_seg(".text$0043c970_fn")
-void ScreenEffectController::Configure(int priority, int selected_mode,
+void Screen::Configure(int priority, int selected_mode,
         int first, int second, int third, int fourth) {
     // Parameters retain their shared representation; each update routine
     // interprets them as colors, durations, repetition counts, or shake limits.
@@ -94,11 +94,11 @@ void ScreenEffectController::Configure(int priority, int selected_mode,
     parameter28 = fourth;
 }
 #pragma code_seg()
-#undef data_00491c10
-#undef data_0047770c
+#undef g_sprt_ctrl
+#undef g_front
 #undef data_00474c40
 #undef g_ascii_manager
-#undef data_00477704
+#undef g_enemy_ctrl
 #undef g_player
 #undef data_00477838
 #undef data_0047783c

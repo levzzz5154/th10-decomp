@@ -29,12 +29,12 @@ typedef char AnimationEntityHandleOffsetCheck_00441520[
 typedef char AnimationResourcePayloadOffsetCheck_00441520[
     offsetof(AnimationResource_00441520, payload_120) == 0x120 ? 1 : -1];
 
-extern "C" AnimationManager_00441520* data_00491c10;
+extern "C" AnimationManager_00441520* g_sprt_ctrl;
 
 // Keeping the resource lookup inline lets native LTCG hoist the manager load
 // once, after the zero-count branch, and retain retail's Boolean conversion.
 inline int HasLoadedResource_00441520(AnimationResourceId_00441520* handle) {
-    AnimationManager_00441520* manager = data_00491c10;
+    AnimationManager_00441520* manager = g_sprt_ctrl;
     if (handle == 0) return 0;
     int index = handle->value;
     if (index < 0) return 0;

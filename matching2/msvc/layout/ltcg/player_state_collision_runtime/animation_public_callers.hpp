@@ -31,7 +31,7 @@ struct AnimationScriptId {
     int value;
 };
 
-class AnimationManager {
+class SprtCtrl {
 public:
     void* __fastcall Find(AnimationLookupContext* context, AnimationScriptId id);
 };
@@ -44,7 +44,7 @@ struct AnimationPosition_00448d50 {
     float x, y, z;
     AnimationPosition_00448d50(float px, float py, float pz) : x(px), y(py), z(pz) {}
 };
-extern "C" void* data_00491c10;
+extern "C" void* g_sprt_ctrl;
 extern "C" void* g_ascii_manager;
 extern "C" __declspec(noinline) void** __cdecl asm_AnimationManager_RegisterPrimaryBack_004489d0(
     void* manager, void** out, void* entity);

@@ -3,7 +3,7 @@
 // Complete packed-command dispatcher at 0x00415E90. This is unselected compiler
 // context; the 4,480-byte retail owner is not claimed as a recovered region.
 static DispatcherStageState* StageState() {
-    return reinterpret_cast<DispatcherStageState*>(data_0047770c);
+    return reinterpret_cast<DispatcherStageState*>(g_front);
 }
 static unsigned char* ProgressBytes() {
     return reinterpret_cast<unsigned char*>(data_0047783c);
@@ -20,7 +20,7 @@ static DispatcherMusicRecord* MusicRecord() { return data_00477848; }
 // actual caller does. A failed lookup clears the handle, but SetText is still
 // invoked with its null result; the callee owns that behavior.
 static __forceinline void DecodeAndSetText(ResultDispatcherState* state, DispatcherHandle* handle) {
-    AnimationLookupContext* context = reinterpret_cast<AnimationLookupContext*>(data_00491c10);
+    AnimationLookupContext* context = reinterpret_cast<AnimationLookupContext*>(g_sprt_ctrl);
     DispatcherObject* animation = DispatcherFindAnimation(context, handle->id);
     if (!animation)
         handle->id.value = 0;
@@ -29,7 +29,7 @@ static __forceinline void DecodeAndSetText(ResultDispatcherState* state, Dispatc
     animation->MarkText(context, state->text_parameters[state->text_side], text);
 }
 static __forceinline void BlankText(ResultDispatcherState* state, DispatcherHandle* handle) {
-    AnimationLookupContext* context = reinterpret_cast<AnimationLookupContext*>(data_00491c10);
+    AnimationLookupContext* context = reinterpret_cast<AnimationLookupContext*>(g_sprt_ctrl);
     DispatcherObject* animation = DispatcherFindAnimation(context, handle->id);
     if (!animation)
         handle->id.value = 0;
@@ -72,10 +72,10 @@ ResultDispatcher_00415e90(ResultDispatcherState* state) {
                 if (data_00474c68 == 0 || data_00474c68 == 1) {
                     if (data_00474c7c == 6)
                         state->right_portrait.id.value =
-                            DispatcherCreateAnimation(data_00477704->resource, 0x20, 15).value;
+                            DispatcherCreateAnimation(g_enemy_ctrl->resource, 0x20, 15).value;
                     else if (data_00474c7c == 7 && state->variant < 1)
                         state->right_portrait.id.value =
-                            DispatcherCreateAnimation(data_00477704->resource, 0x25, 15).value;
+                            DispatcherCreateAnimation(g_enemy_ctrl->resource, 0x25, 15).value;
                     else
                         state->right_portrait.id.value =
                             DispatcherCreateAnimation(static_cast<AnimationResource_00449870*>(g_player->animation_file), 0x1E, 15).value;
@@ -102,7 +102,7 @@ ResultDispatcher_00415e90(ResultDispatcherState* state) {
             case 7: {
                 state->right_portrait.StopAtFrame3();
                 state->left_portrait.StopAtFrame2();
-                AnimationLookupContext* context = reinterpret_cast<AnimationLookupContext*>(data_00491c10);
+                AnimationLookupContext* context = reinterpret_cast<AnimationLookupContext*>(g_sprt_ctrl);
                 state->text_side = 0;
                 DispatcherSetPosition(&state->text_positions[0], context, state->first_text.id);
                 DispatcherSetPosition(&state->text_positions[state->text_side], context,
@@ -113,7 +113,7 @@ ResultDispatcher_00415e90(ResultDispatcherState* state) {
             case 8: {
                 state->left_portrait.StopAtFrame3();
                 state->right_portrait.StopAtFrame2();
-                AnimationLookupContext* context = reinterpret_cast<AnimationLookupContext*>(data_00491c10);
+                AnimationLookupContext* context = reinterpret_cast<AnimationLookupContext*>(g_sprt_ctrl);
                 state->text_side = 1;
                 DispatcherSetPosition(&state->text_positions[1], context, state->first_text.id);
                 DispatcherSetPosition(&state->text_positions[state->text_side], context,
@@ -184,11 +184,11 @@ ResultDispatcher_00415e90(ResultDispatcherState* state) {
                     // Fetch these genuine operands before FindChildRef, as
                     // retail does; fetch the second pair after the first call.
                     int index = state->command->first_operand + first_index;
-                    AnimationResource_00449870* resource = data_00477704->resource;
+                    AnimationResource_00449870* resource = g_enemy_ctrl->resource;
                     state->right_portrait.FindChildRef(first_child).SelectResourceSprite(
                         resource, index);
                     index = state->command->first_operand + second_index;
-                    resource = data_00477704->resource;
+                    resource = g_enemy_ctrl->resource;
                     state->right_portrait.FindChildRef(second_child).SelectResourceSprite(
                         resource, index);
                 }
@@ -237,7 +237,7 @@ ResultDispatcher_00415e90(ResultDispatcherState* state) {
                 default: goto next_command;
                 }
                 state->stage_title.id.value =
-                    DispatcherCreateAnimation(data_00477704->resource, script, 15).value;
+                    DispatcherCreateAnimation(g_enemy_ctrl->resource, script, 15).value;
                 break;
             }
             case 20: {
@@ -281,7 +281,7 @@ ResultDispatcher_00415e90(ResultDispatcherState* state) {
                         SetInputMode(&data_00491c28, 4);
                         break;
                     }
-                    CreateScreenEffect_0043c8b0(0x31, 5, 0x78, 0, 0, 0);
+                    Screen_Create(0x31, 5, 0x78, 0, 0, 0);
                     DispatcherStageState* stage = StageState();
                     stage->result_phase = 0;
                     stage->flags |= 0x10;
@@ -303,7 +303,7 @@ ResultDispatcher_00415e90(ResultDispatcherState* state) {
                         ++*count;
                 } else {
                     DispatcherStageState* stage = StageState();
-                    DispatcherRemoveAnimation(reinterpret_cast<AnimationLookupContext*>(data_00491c10),
+                    DispatcherRemoveAnimation(reinterpret_cast<AnimationLookupContext*>(g_sprt_ctrl),
                         stage->transition_animation);
                     stage->transition_animation.value = 0;
                     stage->transition_animation.value =

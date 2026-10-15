@@ -26,7 +26,7 @@ struct EnemyTimerSweepFrame_0040d750 {
 // One 0x68-byte manager object is allocated at 0x0040D6B0 and initialized by
 // 0x0040D280. The same object owns the callback records, frame timer, parser,
 // and enemy-list endpoints used by the sweep and teardown paths.
-struct EnemyTimerSweepManager_0040d750 {
+struct EnemyCtrlSweepView {
     unsigned int lifecycle_flags_000;
     unsigned int reserved_004;
     void* primary_callback_record_008;
@@ -84,17 +84,17 @@ struct EnemyTimerSweepEntity_0040d750 {
 };
 
 typedef char EnemyTimerSweepManager_size_check[
-    sizeof(EnemyTimerSweepManager_0040d750) == 0x68 ? 1 : -1];
+    sizeof(EnemyCtrlSweepView) == 0x68 ? 1 : -1];
 typedef char EnemyTimerSweepFrame_size_check[
     sizeof(EnemyTimerSweepFrame_0040d750) == 0x10 ? 1 : -1];
 typedef char EnemyTimerSweepFrame_offset_check[
-    offsetof(EnemyTimerSweepManager_0040d750, frame_040) == 0x40 ? 1 : -1];
+    offsetof(EnemyCtrlSweepView, frame_040) == 0x40 ? 1 : -1];
 typedef char EnemyTimerSweepListHead_offset_check[
-    offsetof(EnemyTimerSweepManager_0040d750, enemy_list_head_058) == 0x58 ? 1 : -1];
+    offsetof(EnemyCtrlSweepView, enemy_list_head_058) == 0x58 ? 1 : -1];
 typedef char EnemyTimerSweepListTail_offset_check[
-    offsetof(EnemyTimerSweepManager_0040d750, enemy_list_tail_05c) == 0x5C ? 1 : -1];
+    offsetof(EnemyCtrlSweepView, enemy_list_tail_05c) == 0x5C ? 1 : -1];
 typedef char EnemyTimerSweepEnemyCount_offset_check[
-    offsetof(EnemyTimerSweepManager_0040d750, enemy_count_060) == 0x60 ? 1 : -1];
+    offsetof(EnemyCtrlSweepView, enemy_count_060) == 0x60 ? 1 : -1];
 typedef char EnemyTimerSweepLink_size_check[
     sizeof(EnemyTimerSweepLink_0040d750) == 0x0C ? 1 : -1];
 typedef char EnemyTimerSweepEntity_link_offset_check[

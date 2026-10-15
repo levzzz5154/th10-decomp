@@ -1,11 +1,11 @@
 #include "th10/game/background_fade.hpp"
-#include "th10/render/screen_effect_controller.hpp"
+#include "th10/core/screen.hpp"
 extern "C" float data_00476f78;
 extern "C" void _ReadWriteBarrier();
 #pragma intrinsic(_ReadWriteBarrier)
 #pragma code_seg(".text$00bFade")
 void BackGround::BeginFade() {
-    CreateScreenEffect_0043c8b0(15, 2, 30, 0, 0, 0);
+    Screen_Create(15, 2, 30, 0, 0, 0);
     if (!(timer.flags & 1u)) {
         timer.current = 0;
         timer.previous = -999999;

@@ -14,7 +14,7 @@
     "src/game/ending/ending_text_construct.cpp"
   ],
   "headers": [
-    "include/th10/game/scheduler.hpp",
+    "include/th10/core/func_ctrl.hpp",
     "include/th10/render/animation_public_callers.hpp",
     "include/th10/platform/archive_file.hpp",
     "include/th10/platform/text_log.hpp",
@@ -99,14 +99,14 @@
     },
     {
       "name": "RegisterPrimary",
-      "symbol": "_Scheduler_RegisterPrimary@12",
+      "symbol": "_FuncCtrl_RegisterPrimary@12",
       "section": ".text$16primary",
       "address": "0x449ae0",
       "size": 131
     },
     {
       "name": "RegisterSecondary",
-      "symbol": "_Scheduler_RegisterSecondary@12",
+      "symbol": "_FuncCtrl_RegisterSecondary@12",
       "section": ".text$16secondary",
       "address": "0x449b70",
       "size": 131
@@ -223,7 +223,7 @@
   "constants": [],
   "absolute_symbols": [
     {
-      "symbol": "_data_00491c10",
+      "symbol": "_g_sprt_ctrl",
       "address": "0x00491C10",
       "kind": "data"
     },
@@ -368,7 +368,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_data_00491be4",
+      "symbol": "_g_func_ctrl",
       "address": "0x491be4",
       "kind": "data"
     },

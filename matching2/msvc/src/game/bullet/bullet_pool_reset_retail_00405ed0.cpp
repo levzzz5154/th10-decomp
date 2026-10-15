@@ -3,12 +3,12 @@
 // word back to 5.
 #include <string.h>
 
-class AnimationManager {
+class SprtCtrl {
 public:
     void MarkResourceForRemoval(void* resource);
 };
 
-extern "C" AnimationManager* data_00491c10;
+extern "C" SprtCtrl* g_sprt_ctrl;
 
 struct BulletPool {
     unsigned char reserved_000[0x10];
@@ -22,7 +22,7 @@ struct BulletPool {
 
 #pragma code_seg(".text$01reset")
 void BulletPool::Reset() {
-    AnimationManager* manager = data_00491c10;
+    SprtCtrl* manager = g_sprt_ctrl;
     manager->MarkResourceForRemoval(animation);
     memset(slots, 0, sizeof(slots));
     cursor = slots;

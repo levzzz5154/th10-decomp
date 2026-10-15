@@ -8,8 +8,8 @@
   "context_sources": [
     "src/game/front_script_tick_00415e90.cpp"
   ],
-  "entry_symbol": "?FrontHudUpdate_00414900@@YGHPAUFrontHudRuntime@@@Z",
-  "function": "?FrontHudUpdate_00414900@@YGHPAUFrontHudRuntime@@@Z",
+  "entry_symbol": "?FrontHudUpdate_00414900@@YGHPAUFrontUpdateView@@@Z",
+  "function": "?FrontHudUpdate_00414900@@YGHPAUFrontUpdateView@@@Z",
   "code_bytes": 3808,
   "absolute_symbols": {
     "_data_00491ff4": {
@@ -28,11 +28,11 @@
       "address": "0x00474C4C",
       "kind": "data"
     },
-    "_data_00477704": {
+    "_g_enemy_ctrl": {
       "address": "0x00477704",
       "kind": "data"
     },
-    "_data_00491c10": {
+    "_g_sprt_ctrl": {
       "address": "0x00491C10",
       "kind": "data"
     },
@@ -304,11 +304,11 @@
       "address": "0x004776E0",
       "kind": "data"
     },
-    "_data_0047770c": {
+    "_g_front": {
       "address": "0x0047770C",
       "kind": "data"
     },
-    "_data_00477810": {
+    "_g_game": {
       "address": "0x00477810",
       "kind": "data"
     },
@@ -328,7 +328,7 @@
       "address": "0x00477848",
       "kind": "data"
     },
-    "_data_00491be4": {
+    "_g_func_ctrl": {
       "address": "0x00491BE4",
       "kind": "data"
     },
@@ -362,8 +362,8 @@
     "_data_00491fb8": "0x00491FB8",
     "_g_player": "0x00477834",
     "_data_00474c4c": "0x00474C4C",
-    "_data_00477704": "0x00477704",
-    "_data_00491c10": "0x00491C10",
+    "_g_enemy_ctrl": "0x00477704",
+    "_g_sprt_ctrl": "0x00491C10",
     "_g_card": "0x004776F4",
     "_data_00492590": "0x00492590",
     "_AnmVm_Run_0043ee30@4": "0x0043EE30",
@@ -403,16 +403,16 @@
     "?AddScore@ScoreState@@QAEXH@Z": "0x00409D90",
     "?RecoveryDispatchText_004479d0@@YGXPAURecoveryTextResource_004479d0@@PAXHHIPBDH@Z": "0x004479D0",
     "?MarkText@RecoveryTextVm_00447a50@@QAAXPAXZZ": "0x00447A50",
-    "?Configure@ScreenEffectController@@QAEXHHHHHH@Z": "0x0043C970",
-    "?CreateScreenEffect_0043c8b0@@YGPAUScreenEffectController@@HHHHHH@Z": "0x43c8b0",
-    "_Scheduler_RegisterPrimary@12": "0x449ae0",
-    "_Scheduler_RegisterSecondary@12": "0x449b70",
+    "?Configure@Screen@@QAEXHHHHHH@Z": "0x0043C970",
+    "?Screen_Create@@YGPAUScreen@@HHHHHH@Z": "0x43c8b0",
+    "_FuncCtrl_RegisterPrimary@12": "0x449ae0",
+    "_FuncCtrl_RegisterSecondary@12": "0x449b70",
     "?CreateEffectPrimary@@YGPAUSchedulerTask@@PAXH0@Z": "0x44a000",
     "?CreateEffectSecondary@@YGPAUSchedulerTask@@PAXH0@Z": "0x44a030",
     "?Queue@SoundQueue@@QAEHHH@Z": "0x0043DC90",
     "?ConfigureObject@Resource_0043e5a0@@QAEHPAUAnimationObject_0043e5a0@@H@Z": "0x0043E5A0",
     "@FrontHudCallback_00415ae0@4": "0x00415AE0",
-    "?FrontHudUpdate_00414900@@YGHPAUFrontHudRuntime@@@Z": "0x00414900",
+    "?FrontHudUpdate_00414900@@YGHPAUFrontUpdateView@@@Z": "0x00414900",
     "_ResultDispatcher_00415e90@4": "0x00415E90",
     "??2@YAPAXI@Z": "0x00452493",
     "?Entity_Constructor@@YIPAUEntity@@PAU1@@Z": "0x402050",
@@ -473,13 +473,13 @@
     "_data_00474e62": "0x00474E62",
     "_data_00476f78": "0x00476F78",
     "_g_ascii_manager": "0x004776E0",
-    "_data_0047770c": "0x0047770C",
-    "_data_00477810": "0x00477810",
+    "_g_front": "0x0047770C",
+    "_g_game": "0x00477810",
     "_g_pause": "0x00477830",
     "_data_00477838": "0x00477838",
     "_data_0047783c": "0x0047783C",
     "_data_00477848": "0x00477848",
-    "_data_00491be4": "0x00491BE4",
+    "_g_func_ctrl": "0x00491BE4",
     "_data_00491c28": "0x00491C28",
     "_data_00491d78": "0x00491D78",
     "_recovery_draw_shadowed_00437db0@24": "0x00437DB0",

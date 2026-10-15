@@ -39,7 +39,7 @@ extern ScoreTaskResourceNames_00413a20* data_00477848;
 extern unsigned int data_00474c44;
 extern int data_00474c68;
 extern void* data_00491be8;
-extern void* data_00491c10;
+extern void* g_sprt_ctrl;
 extern char data_00497c38[];
 }
 
@@ -68,7 +68,7 @@ struct ScoreTaskClock_00413a20 {
 typedef char ScoreTaskClock_00413a20_size_check[
     sizeof(ScoreTaskClock_00413a20) == 0x14 ? 1 : -1];
 
-struct TaskResourceState_00413a20 {
+struct FrontResourcesView {
     unsigned char reserved_0000[0x9e60];
     ScoreTaskClock_00413a20 clock;
     unsigned char reserved_9e74[4];
@@ -81,11 +81,11 @@ struct TaskResourceState_00413a20 {
     unsigned int field_9ec4;
 };
 
-typedef char TaskResourceState_00413a20_field_offsets_are_correct[
-    (offsetof(TaskResourceState_00413a20, clock) == 0x9e60 &&
-     offsetof(TaskResourceState_00413a20, cached_resource_9e80) == 0x9e80 &&
-     offsetof(TaskResourceState_00413a20, archive_buffer_9ebc) == 0x9ebc &&
-     offsetof(TaskResourceState_00413a20, field_9ec4) == 0x9ec4)
+typedef char FrontResourcesView_field_offsets_are_correct[
+    (offsetof(FrontResourcesView, clock) == 0x9e60 &&
+     offsetof(FrontResourcesView, cached_resource_9e80) == 0x9e80 &&
+     offsetof(FrontResourcesView, archive_buffer_9ebc) == 0x9ebc &&
+     offsetof(FrontResourcesView, field_9ec4) == 0x9ec4)
         ? 1
         : -1];
 
@@ -97,11 +97,11 @@ static void LogResourceLoadFailure_00413a20() {
 // Legacy callers retain their fixed-address assembly symbol alias.
 #pragma code_seg(".text$02xscore")
 extern "C" __declspec(noinline) int __stdcall ScoreTask_Setup_00413a20(
-    TaskResourceState_00413a20* state) {
+    FrontResourcesView* state) {
 
     void*& cached_resource = state->cached_resource_9e80;
     cached_resource =
-        LoadCachedResource_00447280(0x1c, data_00491c10,
+        LoadCachedResource_00447280(0x1c, g_sprt_ctrl,
                                    data_00477848->cached_resource_name);
     if (!cached_resource) {
         LogResourceLoadFailure_00413a20();

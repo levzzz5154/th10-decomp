@@ -1,5 +1,5 @@
 #pragma code_seg(".text$a16prepare")
-void NativeRenderManager::Prepare(int index,int sx,int sy,int sw,int sh,int dx,int dy,int dw,int dh) {
+void SprtCtrlTargetsView::Prepare(int index,int sx,int sy,int sw,int sh,int dx,int dy,int dw,int dh) {
     Flush();
     RenderSurface** output=&primary[index];
     if (*output) Clear(index);

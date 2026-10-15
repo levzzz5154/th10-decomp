@@ -68,8 +68,8 @@ __declspec(noinline) int __stdcall TitleMode12_004315c0(Title* room) {
         room->cursor.item_count = 25;
         UpdateBoundedCounter(data_00491c04, reinterpret_cast<unsigned int*>(&room->cursor));
         data_00491c04 = 0;
-        if (reinterpret_cast<RecoveryLookup_0040bd80*>(data_00491c10)->Find(
-                reinterpret_cast<RecoveryLookupContext_0040bd80*>(data_00491c10),
+        if (reinterpret_cast<RecoveryLookup_0040bd80*>(g_sprt_ctrl)->Find(
+                reinterpret_cast<RecoveryLookupContext_0040bd80*>(g_sprt_ctrl),
                 *reinterpret_cast<RecoveryScriptId_0040bd80*>(&room->animation_slots[94])) == 0) {
             RecoveryMusicInstallSlot_0042c670(room, 94);
             void* resource = g_ascii_manager->animation_resource;

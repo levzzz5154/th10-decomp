@@ -1,7 +1,7 @@
 #pragma once
 // Retains the three pre-existing scheduler-order qualifiers from the selected
 // 418E30 model. Six unforced models failed; these are not a new removal claim.
-#include "th10/game/scheduler.hpp"
+#include "th10/core/func_ctrl.hpp"
 struct Hint;
 struct HintDataRecord {
     Hint* owner;
@@ -21,7 +21,7 @@ struct Hint {
 };
 typedef char Hint_size[sizeof(Hint) == 0x1A8 ? 1 : -1];
 typedef char Hint_record_offset[offsetof(Hint, records) == 0x18 ? 1 : -1];
-extern "C" Scheduler* data_00491be4;
+extern "C" FuncCtrl* g_func_ctrl;
 extern "C" volatile unsigned char data_00491d6a;
 extern "C" Hint* g_hint;
 extern "C" SchedulerTask* __stdcall SchedulerCallback_Create_00449ed0(void*);

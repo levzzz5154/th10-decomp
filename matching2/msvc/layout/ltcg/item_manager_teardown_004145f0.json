@@ -1,13 +1,13 @@
 {
   "schema_version": 1,
   "name": "item_manager_teardown_004145f0",
-  "source": "src/game/front/hud_destructor.cpp",
+  "source": "src/game/front/front_destroy.cpp",
   "driver": "layout/ltcg/item_manager_teardown_004145f0/context.cpp",
   "headers": [
-    "include/th10/game/hud_destructor.hpp",
+    "include/th10/game/front_destroy.hpp",
     "include/th10/game/entity.hpp",
     "include/th10/types.hpp",
-    "include/th10/game/scheduler.hpp",
+    "include/th10/core/func_ctrl.hpp",
     "include/th10/platform/thread_sync.hpp",
     "include/th10/render/animation_resource_removal.hpp"
   ],
@@ -15,8 +15,8 @@
   "description": "Item manager destructor with its member sprites and compiler-generated unwind cleanups, compiled with the real sprite destructor, animation lookups, resource-removal marker and scheduler removal and a deleting caller.",
   "functions": [
     {
-      "name": "Hud_Destroy",
-      "symbol": "??1Hud@@QAE@XZ",
+      "name": "Front_Destroy",
+      "symbol": "??1Front@@QAE@XZ",
       "section": ".text$01a_dtor",
       "address": "0x004145F0",
       "actual_abi": "receiver on the stack, RET 4; compiler-generated EH frame",
@@ -94,7 +94,7 @@
     },
     {
       "name": "ItemManagerDestroyHandler",
-      "symbol": "__ehhandler$??1Hud@@QAE@XZ",
+      "symbol": "__ehhandler$??1Front@@QAE@XZ",
       "section": ".text$x",
       "address": "0x0046574E",
       "actual_abi": "compiler-generated EH handler",
@@ -103,7 +103,7 @@
     }
   ],
   "context": {
-    "symbol": "?HudTeardownCompilerContext@@YGXPAUHud@@@Z",
+    "symbol": "?HudTeardownCompilerContext@@YGXPAUFront@@@Z",
     "section": ".text$01b_context",
     "address": "0x00414830",
     "size": 28,
@@ -184,22 +184,22 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "?Hud_ReleaseContents@@YGXPAUHud@@@Z",
+      "symbol": "?Front_ReleaseContents@@YGXPAUFront@@@Z",
       "address": "0x00414370",
       "kind": "relative_code"
     },
     {
-      "symbol": "_data_0047770c",
+      "symbol": "_g_front",
       "address": "0x0047770C",
       "kind": "data"
     },
     {
-      "symbol": "_data_00491c10",
+      "symbol": "_g_sprt_ctrl",
       "address": "0x00491C10",
       "kind": "data"
     },
     {
-      "symbol": "_data_00491be4",
+      "symbol": "_g_func_ctrl",
       "address": "0x00491BE4",
       "kind": "data"
     },
@@ -231,7 +231,7 @@
   "anchors": [
     {
       "name": "ActualSpriteDestructor",
-      "symbol": "??1HudSprite@@QAE@XZ",
+      "symbol": "??1FrontSprite@@QAE@XZ",
       "section": ".text$00sprite_dtor",
       "address": "0x00401FF0",
       "size": 34
@@ -252,14 +252,14 @@
     },
     {
       "name": "ActualMarkResourceForRemoval",
-      "symbol": "?MarkResourceForRemoval@AnimationManager@@QAEXPAX@Z",
+      "symbol": "?MarkResourceForRemoval@SprtCtrl@@QAEXPAX@Z",
       "section": ".text$20helper",
       "address": "0x004493E0",
       "size": 92
     },
     {
       "name": "ActualSchedulerRemove",
-      "symbol": "?ManagerTeardownScheduler_Remove_00449F60@@YGXPAUScheduler@@PAUSchedulerTask@@@Z",
+      "symbol": "?ManagerTeardownFuncCtrl_Remove_00449F60@@YGXPAUFuncCtrl@@PAUSchedulerTask@@@Z",
       "section": ".text$70remove",
       "address": "0x00449F60",
       "size": 114

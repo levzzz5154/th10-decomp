@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "MarkForRemovalAndClear_00449630",
-      "symbol": "?MarkForRemovalAndClear@AnimationHandle_00449630@@QAIXPAVAnimationManager@@@Z",
+      "symbol": "?MarkForRemovalAndClear@AnimationHandle_00449630@@QAIXPAVSprtCtrl@@@Z",
       "section": ".text$01fn",
       "address": "0x00449630",
       "size": 21,
@@ -18,7 +18,7 @@
     }
   ],
   "context": {
-    "symbol": "?MarkForRemovalContext_00449630@@YGHPAUAnimationHandle_00449630@@HPAVAnimationManager@@@Z",
+    "symbol": "?MarkForRemovalContext_00449630@@YGHPAUAnimationHandle_00449630@@HPAVSprtCtrl@@@Z",
     "section": ".text$03context",
     "address": "0x00449650",
     "size": 40,
@@ -40,12 +40,12 @@
   "constant_aliases": [],
   "absolute_symbols": [
     {
-      "symbol": "?SetFlag@AnimationManager@@QAIPAXPAUAnimationLookupContext@@H@Z",
+      "symbol": "?SetFlag@SprtCtrl@@QAIPAXPAUAnimationLookupContext@@H@Z",
       "address": "0x004492A0",
       "kind": "relative_code"
     },
     {
-      "symbol": "_data_00491c10",
+      "symbol": "_g_sprt_ctrl",
       "address": "0x00491C10",
       "kind": "data"
     }

@@ -14,7 +14,7 @@ struct BindGameState_0040d830 {
     unsigned char reserved[0x54];
     BindScriptTable_0040d830* table;
 };
-extern "C" BindGameState_0040d830* data_00477704;
+extern "C" BindGameState_0040d830* g_enemy_ctrl;
 struct EnemyScriptEntity_0040d830;
 struct BindScriptName_0040d830 { const char* value; };
 struct BindFrameTimer_0040d830 {
@@ -162,7 +162,7 @@ __declspec(noinline) EnemyScriptEntity_0040d830* __fastcall InitializeEnemyScrip
     entity->payload.auxiliary_timer.Reset();
     entity->payload.second_auxiliary_timer.Reset();
     // Resolve the script in the active game's table and start at time zero.
-    entity->table = data_00477704->table;
+    entity->table = g_enemy_ctrl->table;
     entity->running->instruction = reinterpret_cast<void*>(entity->table->Resolve(label.value));
     entity->running->timer = 0.0f;
     float* position = entity->payload.position;

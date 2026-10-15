@@ -1,18 +1,18 @@
 {
   "schema_version": 1,
   "name": "enemy_timer_sweep_0040d750",
-  "source": "src/game/enemy/enemy_timer_sweep_retail_0040d750.cpp",
+  "source": "src/game/enemy/enemy_ctrl_update.cpp",
   "driver": "layout/ltcg/enemy_timer_sweep_0040d750_context.cpp",
   "headers": [
     "include/th10/game/enemy_timer_sweep_0040d750.hpp",
-    "include/th10/game/scheduler.hpp"
+    "include/th10/core/func_ctrl.hpp"
   ],
   "image_base": "0x00400000",
   "description": "Enemy list sweep and frame-timer tick with the manager in EDI, together with its ECX scheduler callback.",
   "functions": [
     {
       "name": "EnemyTimerSweep",
-      "symbol": "?Sweep@EnemyTimerSweepManager_0040d750@@QAEHXZ",
+      "symbol": "?Sweep@EnemyCtrlSweepView@@QAEHXZ",
       "section": ".text$01sweep",
       "address": "0x0040D750",
       "actual_abi": "manager in EDI; plain RET",
@@ -20,7 +20,7 @@
     },
     {
       "name": "EnemyTimerSweep_Task",
-      "symbol": "?EnemyTimerSweep_Task_0040d810@@YIHPAUEnemyTimerSweepManager_0040d750@@@Z",
+      "symbol": "?EnemyCtrl_OnUpdate@@YIHPAUEnemyCtrlSweepView@@@Z",
       "section": ".text$02task",
       "address": "0x0040D810",
       "actual_abi": "context in ECX; moved to EDI around the call",
@@ -28,7 +28,7 @@
     }
   ],
   "context": {
-    "symbol": "?EnemyTimerSweepCompilerContext@@YGPAUSchedulerTask@@PAU1@PAUEnemyTimerSweepManager_0040d750@@@Z",
+    "symbol": "?EnemyTimerSweepCompilerContext@@YGPAUSchedulerTask@@PAU1@PAUEnemyCtrlSweepView@@@Z",
     "section": ".text$03context",
     "address": "0x0040D820",
     "size": 21,

@@ -75,7 +75,7 @@ struct ItemSmollScoreView {
 
 extern "C" {
 extern ItemRunState data_00474c40;
-extern ItemHud* data_0047770c;
+extern ItemHud* g_front;
 extern ItemSmollScoreView* g_smoll_score;
 extern unsigned int g_input;
 extern float data_00476f78;

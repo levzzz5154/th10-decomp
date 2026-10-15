@@ -13,10 +13,10 @@
 extern "C" const int data_00476f7c[];
 extern "C" void* g_player;
 extern "C" float data_00470b44;
-extern "C" void* data_00491c10;
+extern "C" void* g_sprt_ctrl;
 
 static __forceinline FamiliarAnimManager_00426f70* AnimManager() {
-    return (FamiliarAnimManager_00426f70*)data_00491c10;
+    return (FamiliarAnimManager_00426f70*)g_sprt_ctrl;
 }
 
 // Trail sprite scheduler callback (0x00427950) and playback switch callback

@@ -3,7 +3,7 @@
 #include <stddef.h>
 extern "C" void _ReadWriteBarrier();
 #pragma intrinsic(_ReadWriteBarrier)
-#include "th10/game/scheduler.hpp"
+#include "th10/core/func_ctrl.hpp"
 #include "th10/render/camera_batch.hpp"
 #include "th10/game/background.hpp"
 struct TextLog_0044b8e0 {
@@ -12,7 +12,7 @@ struct TextLog_0044b8e0 {
 };
 extern "C" {
 extern unsigned int data_00474c7c; extern BackGroundCameraSnapshot data_00491d7c;
-extern Scheduler* data_00491be4; extern float data_00476f78;
+extern FuncCtrl* g_func_ctrl; extern float data_00476f78;
 SchedulerTask* __stdcall SchedulerCallback_Create_00449ed0(void* callback);
 }
 #pragma code_seg(".text$01init")
@@ -31,13 +31,13 @@ extern "C" __declspec(noinline) int __stdcall BackGround_Initialize(BackGround* 
     state->frame_limit=9610000.0f;
     SchedulerTask* callback=SchedulerCallback_Create_00449ed0((void*)0x403050);
     callback->context=state; callback->reserved_flags &= ~1u;
-    Scheduler_RegisterPrimary(data_00491be4,callback,state_id+12); state->primary=callback;
+    FuncCtrl_RegisterPrimary(g_func_ctrl,callback,state_id+12); state->primary=callback;
     callback=SchedulerCallback_Create_00449ed0((void*)0x403060);
     callback->reserved_flags &= ~1u; callback->context=state;
-    Scheduler_RegisterSecondary(data_00491be4,callback,state_id+7); state->secondary=callback;
+    FuncCtrl_RegisterSecondary(g_func_ctrl,callback,state_id+7); state->secondary=callback;
     callback=SchedulerCallback_Create_00449ed0((void*)0x403070);
     callback->context=state; callback->reserved_flags &= ~1u;
-    Scheduler_RegisterSecondary(data_00491be4,callback,state_id+10); state->after_draw=callback;
+    FuncCtrl_RegisterSecondary(g_func_ctrl,callback,state_id+10); state->after_draw=callback;
     state->initialization_frame=0;
     // Finish publishing the callback before accessing the embedded timer.
     _ReadWriteBarrier();

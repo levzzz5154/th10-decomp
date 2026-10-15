@@ -3,7 +3,7 @@
     {
       "name": "semantic_AnimationManager_FlushQuadBatch_00442f50",
       "source": "src/core/sprtfunc/anm_batch_flush.cpp",
-      "symbol": "?Flush@AnimationManager_00442F50@@QAEHXZ",
+      "symbol": "?Flush@SprtCtrlBatchView@@QAEHXZ",
       "address": "0x00442F50",
       "size": 133,
       "kind": "semantic",

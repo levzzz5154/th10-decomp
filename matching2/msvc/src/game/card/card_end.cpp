@@ -16,7 +16,7 @@ void Card_00409c00::End() {
         if (flags & 2) {
             data_00474c44.score += bonus / 10;
             if (data_00474c44.score >= 1000000000) data_00474c44.score = 999999999;
-            Card_ShowCaption_004172e0(0, data_0047770c, bonus);
+            Card_ShowCaption_004172e0(0, g_front, bonus);
             if (data_00477838->mode != 1) {
                 CardHistory_00409c00* history =
                     &data_0047783c->shots[data_00474c44.shot_type + data_00474c44.character * 3].spells[spell_id];
@@ -28,9 +28,9 @@ void Card_00409c00::End() {
         } else {
             // The slot is located before the create call, which may replace
             // the front manager.
-            CardAnimation_00409c00& caption = data_0047770c->caption;
+            CardAnimation_00409c00& caption = g_front->caption;
             caption.Release();
-            caption.id = Card_CreateAnimation_00448d00(data_0047770c->captions, 0x48, 0xF);
+            caption.id = Card_CreateAnimation_00448d00(g_front->captions, 0x48, 0xF);
         }
     }
 }

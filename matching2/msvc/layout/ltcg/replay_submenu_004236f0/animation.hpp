@@ -8,7 +8,7 @@
 struct AnimationLookupContext;
 __declspec(noinline) void* __fastcall SubAnimFind_004236f0(
     AnimationLookupContext* context, AnimationScriptId id);
-extern "C" AnimationLookupContext* data_00491c10;
+extern "C" AnimationLookupContext* g_sprt_ctrl;
 
 struct AnimationTreeNode {
     AnimationTreeNode* object;              // +0x000

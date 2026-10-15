@@ -176,7 +176,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0042cdf0_0042cdf0() {
     L_0042cf31:
         jmp asm_target_0042ce2b
     L_0042cf36:
-        mov esi,dword ptr [data_00491c10]
+        mov esi,dword ptr [g_sprt_ctrl]
     L_0042cf3c:
         mov edx,dword ptr [esi+3AD084h]
     L_0042cf42:

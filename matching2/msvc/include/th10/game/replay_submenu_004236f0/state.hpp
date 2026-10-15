@@ -165,7 +165,7 @@ extern "C" int data_00474c68;                   // stage
 extern "C" int data_00474c6c;                   // mode
 extern "C" int data_00474c74;                   // subslot
 extern "C" int data_00474c7c;                   // difficulty
-extern "C" GameStateFrameState* data_0047770c;  // 0x0047770C
+extern "C" GameStateFrameState* g_front;  // 0x0047770C
 extern "C" InputState data_00491c28;            // 0x00491C28
 extern "C" int data_00491fb8;                   // 0x00491FB8 launch mode latch
 extern "C" SubSoundQueue_004236f0 data_00492590; // 0x00492590 sound queue

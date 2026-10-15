@@ -1,8 +1,8 @@
-#define data_00491c10 stage_hud_data_00491c10
-#define data_0047770c stage_hud_data_0047770c
+#define g_sprt_ctrl stage_hud_g_sprt_ctrl
+#define g_front stage_hud_g_front
 #define data_00474c40 stage_hud_data_00474c40
 #define g_ascii_manager stage_hud_data_004776e0
-#define data_00477704 stage_hud_data_00477704
+#define g_enemy_ctrl stage_hud_g_enemy_ctrl
 #define g_player stage_hud_data_00477834
 #define data_00477838 stage_hud_data_00477838
 #define data_0047783c stage_hud_data_0047783c
@@ -12,7 +12,7 @@
 #define data_00492590 stage_hud_data_00492590
 #include "hud_view.hpp"
 #pragma code_seg(".text$00417040_fn")
-void ScoreHud_00417040::Update() {
+void FrontScoreView::Update() {
     if (data_00474c40.score != displayed_score) {
         int old_displayed = displayed_score;
         int candidate = (data_00474c40.score - displayed_score) / 32;
@@ -34,9 +34,9 @@ void ScoreHud_00417040::Update() {
         data_00474c40.high_score_continues=data_00474c40.continues;
         data_00474c40.flags=updated_flags;
         if (!(updated_flags.bytes[0]&4)) {
-            ResultAnimationHandle* banner = &data_0047770c->secondary;
+            ResultAnimationHandle* banner = &g_front->secondary;
             banner->Release();
-            banner->id = ResultAnimation_CreatePrimary(data_0047770c->captions,74,15);
+            banner->id = ResultAnimation_CreatePrimary(g_front->captions,74,15);
         }
     }
     if (stage_frame>=20) {
@@ -97,11 +97,11 @@ void ScoreHud_00417040::Update() {
     }
 }
 #pragma code_seg()
-#undef data_00491c10
-#undef data_0047770c
+#undef g_sprt_ctrl
+#undef g_front
 #undef data_00474c40
 #undef g_ascii_manager
-#undef data_00477704
+#undef g_enemy_ctrl
 #undef g_player
 #undef data_00477838
 #undef data_0047783c

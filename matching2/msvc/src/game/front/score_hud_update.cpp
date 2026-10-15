@@ -1,6 +1,6 @@
 #include "th10/game/score_hud_00417040.hpp"
 #pragma code_seg(".text$00417040_fn")
-void ScoreHud_00417040::Update() {
+void FrontScoreView::Update() {
     if (data_00474c40.score != displayed_score) {
         int old_displayed = displayed_score;
         int candidate = (data_00474c40.score - displayed_score) / 32;
@@ -22,9 +22,9 @@ void ScoreHud_00417040::Update() {
         data_00474c40.high_score_continues=data_00474c40.continues;
         data_00474c40.flags=updated_flags;
         if (!(updated_flags.bytes[0]&4)) {
-            ResultAnimationHandle* banner = &data_0047770c->secondary;
+            ResultAnimationHandle* banner = &g_front->secondary;
             banner->Release();
-            banner->id = ResultAnimation_CreatePrimary(data_0047770c->captions,74,15);
+            banner->id = ResultAnimation_CreatePrimary(g_front->captions,74,15);
         }
     }
     if (stage_frame>=20) {

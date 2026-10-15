@@ -30,7 +30,7 @@ extern "C" unsigned int data_00474e36;
 extern "C" InputState data_00491c28;
 extern "C" int data_00491fb8;
 struct ChoiceRuntime { unsigned char reserved[0x5C]; int replay_mode; };
-extern "C" ChoiceRuntime* data_00477810;
+extern "C" ChoiceRuntime* g_game;
 struct PauseChoiceState {
     int reserved_00;
     int phase;

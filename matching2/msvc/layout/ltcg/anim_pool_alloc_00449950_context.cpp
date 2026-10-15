@@ -65,12 +65,12 @@ __declspec(noinline) void __fastcall Entity_Init(void* unused, Entity* entity) {
 
 // The manager global the twelve create families load before the call; the
 // synthetic loop below keeps it live in ESI across the call exactly as they do.
-extern "C" Entity* data_00491c10_manager;
+extern "C" Entity* g_sprt_ctrl_manager;
 
 #pragma code_seg(".text$05context")
 int __stdcall AnimationPoolAllocateContext(Entity** output, int count) {
     for (int i = 0; i < count; ++i) {
-        AnimationPool* pool = (AnimationPool*)data_00491c10_manager;
+        AnimationPool* pool = (AnimationPool*)g_sprt_ctrl_manager;
         Entity* entity = pool->Allocate();
         Entity_Init(0, entity);
         output[i] = entity;

@@ -4,7 +4,7 @@
 #include "th10/render/animation_resource_removal.hpp"
 
 #pragma code_seg(".text$00he_mark")
-__declspec(noinline) void AnimationManager::MarkResourceForRemoval(void* resource) {
+__declspec(noinline) void SprtCtrl::MarkResourceForRemoval(void* resource) {
     unsigned char* bytes = reinterpret_cast<unsigned char*>(this);
 
     AnimationListNode* node = *reinterpret_cast<AnimationListNode**>(

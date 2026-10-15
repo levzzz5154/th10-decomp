@@ -7,7 +7,7 @@
 
 struct OpenReplayState { unsigned char reserved_00[0x58]; unsigned int flags; int replay_mode; };
 extern "C" {
-extern OpenReplayState* data_00477810;
+extern OpenReplayState* g_game;
 extern int data_00491fb8;
 extern void* g_ascii_manager;
 extern const float data_00470b04, data_00470b94;

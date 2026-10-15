@@ -3,7 +3,7 @@
 #pragma code_seg(".text$f00409e50F")
 void PlayerAnimationHandle::StopAtFrame1() {
     AnimationRef id(value);
-    AnimationObject *object = static_cast<AnimationContext*>(data_00491c10)->Find(id);
+    AnimationObject *object = static_cast<AnimationContext*>(g_sprt_ctrl)->Find(id);
     if (object) {
         object->stop_frame = 1;
         if (!object->child_previous)
@@ -15,7 +15,7 @@ void PlayerAnimationHandle::StopAtFrame1() {
 #pragma code_seg(".text$f0040c4d0F")
 void PlayerAnimationHandle::StopAtFrame3() {
     AnimationRef id(value);
-    AnimationObject *object = static_cast<AnimationContext*>(data_00491c10)->Find(id);
+    AnimationObject *object = static_cast<AnimationContext*>(g_sprt_ctrl)->Find(id);
     if (object) {
         object->stop_frame = 3;
         if (!object->child_previous)

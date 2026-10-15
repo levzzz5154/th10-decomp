@@ -4,7 +4,7 @@
 #pragma code_seg(".text$03validate")
 void* __cdecl AnimationManager_00449450::ValidateHandle(AnimationHandle_00449450* handle) {
     AnimationScriptId_00449450 id = { (int)handle->value };
-    void* object = Find(data_00491c10, id);
+    void* object = Find(g_sprt_ctrl, id);
     if (object == 0)
         handle->value = 0;
     return object;

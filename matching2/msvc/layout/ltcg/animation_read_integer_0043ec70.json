@@ -17,7 +17,7 @@
     },
     {
       "name": "AnimationManager_SetFlag",
-      "symbol": "?SetFlag@AnimationManager@@QAIPAXPAUAnimationLookupContext@@H@Z",
+      "symbol": "?SetFlag@SprtCtrl@@QAIPAXPAUAnimationLookupContext@@H@Z",
       "section": ".text$03setflag",
       "address": "0x004492A0",
       "size": 66,
@@ -25,7 +25,7 @@
     }
   ],
   "context": {
-    "symbol": "?AnimationReadIntegerCompilerContext@@YGHPAPAUAnimationObjectVariables_0043ec70@@PAPAVAnimationManager@@PAPAUAnimationLookupContext@@PBHH@Z",
+    "symbol": "?AnimationReadIntegerCompilerContext@@YGHPAPAUAnimationObjectVariables_0043ec70@@PAPAVSprtCtrl@@PAPAUAnimationLookupContext@@PBHH@Z",
     "section": ".text$05context",
     "address": "0x004492F0",
     "size": 113,
@@ -43,5 +43,5 @@
     {"symbol": "_asm_AnimationManager_Find_004491c0", "address": "0x004491C0", "kind": "relative_code"},
     {"symbol": "__fltused", "address": "0x00000000", "kind": "metadata"}
   ],
-  "roots": ["?SetFlag@AnimationManager@@QAIPAXPAUAnimationLookupContext@@H@Z"]
+  "roots": ["?SetFlag@SprtCtrl@@QAIPAXPAUAnimationLookupContext@@H@Z"]
 }

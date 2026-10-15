@@ -1,9 +1,9 @@
 #pragma once
-#define data_00491c10 stage_front_data_00491c10
-#define data_0047770c stage_front_data_0047770c
+#define g_sprt_ctrl stage_front_g_sprt_ctrl
+#define g_front stage_front_g_front
 #define data_00474c40 stage_front_data_00474c40
 #define g_ascii_manager stage_front_data_004776e0
-#define data_00477704 stage_front_data_00477704
+#define g_enemy_ctrl stage_front_g_enemy_ctrl
 #define g_player stage_front_data_00477834
 #define data_00477838 stage_front_data_00477838
 #define data_0047783c stage_front_data_0047783c
@@ -12,11 +12,11 @@
 #define data_00491fb8 stage_front_data_00491fb8
 #define data_00492590 stage_front_data_00492590
 #include "front_view.hpp"
-#undef data_00491c10
-#undef data_0047770c
+#undef g_sprt_ctrl
+#undef g_front
 #undef data_00474c40
 #undef g_ascii_manager
-#undef data_00477704
+#undef g_enemy_ctrl
 #undef g_player
 #undef data_00477838
 #undef data_0047783c
@@ -24,11 +24,11 @@
 #undef data_00491fc4
 #undef data_00491fb8
 #undef data_00492590
-#define data_00491c10 stage_hud_data_00491c10
-#define data_0047770c stage_hud_data_0047770c
+#define g_sprt_ctrl stage_hud_g_sprt_ctrl
+#define g_front stage_hud_g_front
 #define data_00474c40 stage_hud_data_00474c40
 #define g_ascii_manager stage_hud_data_004776e0
-#define data_00477704 stage_hud_data_00477704
+#define g_enemy_ctrl stage_hud_g_enemy_ctrl
 #define g_player stage_hud_data_00477834
 #define data_00477838 stage_hud_data_00477838
 #define data_0047783c stage_hud_data_0047783c
@@ -39,11 +39,11 @@
 #define GameStateField5c_0042a6a0 HudField5cChecked
 #include "hud_view.hpp"
 #undef GameStateField5c_0042a6a0
-#undef data_00491c10
-#undef data_0047770c
+#undef g_sprt_ctrl
+#undef g_front
 #undef data_00474c40
 #undef g_ascii_manager
-#undef data_00477704
+#undef g_enemy_ctrl
 #undef g_player
 #undef data_00477838
 #undef data_0047783c
@@ -52,11 +52,11 @@
 #undef data_00491fb8
 #undef data_00492590
 #include "th10/platform/worker.hpp"
-#define data_00491c10 stage_quad_data_00491c10
-#define data_0047770c stage_quad_data_0047770c
+#define g_sprt_ctrl stage_quad_g_sprt_ctrl
+#define g_front stage_quad_g_front
 #define data_00474c40 stage_quad_data_00474c40
 #define g_ascii_manager stage_quad_data_004776e0
-#define data_00477704 stage_quad_data_00477704
+#define g_enemy_ctrl stage_quad_g_enemy_ctrl
 #define g_player stage_quad_data_00477834
 #define data_00477838 stage_quad_data_00477838
 #define data_0047783c stage_quad_data_0047783c
@@ -114,11 +114,11 @@ struct Stage_00404450 {
     StageTask_00404450* after_draw_task;        // +0x2a40
 };
 
-#undef data_00491c10
-#undef data_0047770c
+#undef g_sprt_ctrl
+#undef g_front
 #undef data_00474c40
 #undef g_ascii_manager
-#undef data_00477704
+#undef g_enemy_ctrl
 #undef g_player
 #undef data_00477838
 #undef data_0047783c
@@ -126,11 +126,11 @@ struct Stage_00404450 {
 #undef data_00491fc4
 #undef data_00491fb8
 #undef data_00492590
-#define data_00491c10 stage_fade_data_00491c10
-#define data_0047770c stage_fade_data_0047770c
+#define g_sprt_ctrl stage_fade_g_sprt_ctrl
+#define g_front stage_fade_g_front
 #define data_00474c40 stage_fade_data_00474c40
 #define g_ascii_manager stage_fade_data_004776e0
-#define data_00477704 stage_fade_data_00477704
+#define g_enemy_ctrl stage_fade_g_enemy_ctrl
 #define g_player stage_fade_data_00477834
 #define data_00477838 stage_fade_data_00477838
 #define data_0047783c stage_fade_data_0047783c
@@ -139,15 +139,15 @@ struct Stage_00404450 {
 #define data_00491fb8 stage_fade_data_00491fb8
 #define data_00492590 stage_fade_data_00492590
 #include "th10/game/background_fade.hpp"
-#include "th10/render/screen_effect_controller.hpp"
+#include "th10/core/screen.hpp"
 extern "C" float data_00476f78;
 extern "C" void _ReadWriteBarrier();
 #pragma intrinsic(_ReadWriteBarrier)
-#undef data_00491c10
-#undef data_0047770c
+#undef g_sprt_ctrl
+#undef g_front
 #undef data_00474c40
 #undef g_ascii_manager
-#undef data_00477704
+#undef g_enemy_ctrl
 #undef g_player
 #undef data_00477838
 #undef data_0047783c
@@ -155,11 +155,11 @@ extern "C" void _ReadWriteBarrier();
 #undef data_00491fc4
 #undef data_00491fb8
 #undef data_00492590
-#define data_00491c10 stage_start_data_00491c10
-#define data_0047770c stage_start_data_0047770c
+#define g_sprt_ctrl stage_start_g_sprt_ctrl
+#define g_front stage_start_g_front
 #define data_00474c40 stage_start_data_00474c40
 #define g_ascii_manager stage_start_data_004776e0
-#define data_00477704 stage_start_data_00477704
+#define g_enemy_ctrl stage_start_g_enemy_ctrl
 #define g_player stage_start_data_00477834
 #define data_00477838 stage_start_data_00477838
 #define data_0047783c stage_start_data_0047783c
@@ -191,11 +191,11 @@ extern "C" void _ReadWriteBarrier();
 
 #include "th10/game/background_fade.hpp"
 
-#undef data_00491c10
-#undef data_0047770c
+#undef g_sprt_ctrl
+#undef g_front
 #undef data_00474c40
 #undef g_ascii_manager
-#undef data_00477704
+#undef g_enemy_ctrl
 #undef g_player
 #undef data_00477838
 #undef data_0047783c
@@ -203,11 +203,11 @@ extern "C" void _ReadWriteBarrier();
 #undef data_00491fc4
 #undef data_00491fb8
 #undef data_00492590
-#define data_00491c10 stage_bullet_data_00491c10
-#define data_0047770c stage_bullet_data_0047770c
+#define g_sprt_ctrl stage_bullet_g_sprt_ctrl
+#define g_front stage_bullet_g_front
 #define data_00474c40 stage_bullet_data_00474c40
 #define g_ascii_manager stage_bullet_data_004776e0
-#define data_00477704 stage_bullet_data_00477704
+#define g_enemy_ctrl stage_bullet_g_enemy_ctrl
 #define g_player stage_bullet_data_00477834
 #define data_00477838 stage_bullet_data_00477838
 #define data_0047783c stage_bullet_data_0047783c
@@ -222,7 +222,7 @@ extern "C" void _ReadWriteBarrier();
 
 #include "th10/render/animation_resource_removal.hpp"
 
-extern "C" AnimationManager* data_00491c10;
+extern "C" SprtCtrl* g_sprt_ctrl;
 
 struct BulletPool {
     unsigned char reserved_000[0x10];
@@ -234,11 +234,11 @@ struct BulletPool {
     __declspec(noinline) void Reset();
 };
 
-#undef data_00491c10
-#undef data_0047770c
+#undef g_sprt_ctrl
+#undef g_front
 #undef data_00474c40
 #undef g_ascii_manager
-#undef data_00477704
+#undef g_enemy_ctrl
 #undef g_player
 #undef data_00477838
 #undef data_0047783c
@@ -246,11 +246,11 @@ struct BulletPool {
 #undef data_00491fc4
 #undef data_00491fb8
 #undef data_00492590
-#define data_00491c10 stage_pause_data_00491c10
-#define data_0047770c stage_pause_data_0047770c
+#define g_sprt_ctrl stage_pause_g_sprt_ctrl
+#define g_front stage_pause_g_front
 #define data_00474c40 stage_pause_data_00474c40
 #define g_ascii_manager stage_pause_data_004776e0
-#define data_00477704 stage_pause_data_00477704
+#define g_enemy_ctrl stage_pause_g_enemy_ctrl
 #define g_player stage_pause_data_00477834
 #define data_00477838 stage_pause_data_00477838
 #define data_0047783c stage_pause_data_0047783c
@@ -289,12 +289,12 @@ struct PauseAnimationRecord_00413790 {
     unsigned int flags;
     unsigned char reserved_004[0x3ac-4];
 };
-typedef ScoreHud_00417040 PauseAnimationCountManager_00413790;
-#undef data_00491c10
-#undef data_0047770c
+typedef FrontScoreView PauseAnimationCountManager_00413790;
+#undef g_sprt_ctrl
+#undef g_front
 #undef data_00474c40
 #undef g_ascii_manager
-#undef data_00477704
+#undef g_enemy_ctrl
 #undef g_player
 #undef data_00477838
 #undef data_0047783c
@@ -302,11 +302,11 @@ typedef ScoreHud_00417040 PauseAnimationCountManager_00413790;
 #undef data_00491fc4
 #undef data_00491fb8
 #undef data_00492590
-#define data_00491c10 stage_enemy_data_00491c10
-#define data_0047770c stage_enemy_data_0047770c
+#define g_sprt_ctrl stage_enemy_g_sprt_ctrl
+#define g_front stage_enemy_g_front
 #define data_00474c40 stage_enemy_data_00474c40
 #define g_ascii_manager stage_enemy_data_004776e0
-#define data_00477704 stage_enemy_data_00477704
+#define g_enemy_ctrl stage_enemy_g_enemy_ctrl
 #define g_player stage_enemy_data_00477834
 #define data_00477838 stage_enemy_data_00477838
 #define data_0047783c stage_enemy_data_0047783c
@@ -319,11 +319,11 @@ typedef ScoreHud_00417040 PauseAnimationCountManager_00413790;
 // tasks run again. The manager arrives on the stack.
 #include "th10/game/enemy_manager_clear_00409f90.hpp"
 
-#undef data_00491c10
-#undef data_0047770c
+#undef g_sprt_ctrl
+#undef g_front
 #undef data_00474c40
 #undef g_ascii_manager
-#undef data_00477704
+#undef g_enemy_ctrl
 #undef g_player
 #undef data_00477838
 #undef data_0047783c
@@ -331,11 +331,11 @@ typedef ScoreHud_00417040 PauseAnimationCountManager_00413790;
 #undef data_00491fc4
 #undef data_00491fb8
 #undef data_00492590
-#define data_00491c10 stage_chain_data_00491c10
-#define data_0047770c stage_chain_data_0047770c
+#define g_sprt_ctrl stage_chain_g_sprt_ctrl
+#define g_front stage_chain_g_front
 #define data_00474c40 stage_chain_data_00474c40
 #define g_ascii_manager stage_chain_data_004776e0
-#define data_00477704 stage_chain_data_00477704
+#define g_enemy_ctrl stage_chain_g_enemy_ctrl
 #define g_player stage_chain_data_00477834
 #define data_00477838 stage_chain_data_00477838
 #define data_0047783c stage_chain_data_0047783c
@@ -366,11 +366,11 @@ struct ScoreChain_00417770 {
     __declspec(noinline) void ReleaseChain();
 };
 
-#undef data_00491c10
-#undef data_0047770c
+#undef g_sprt_ctrl
+#undef g_front
 #undef data_00474c40
 #undef g_ascii_manager
-#undef data_00477704
+#undef g_enemy_ctrl
 #undef g_player
 #undef data_00477838
 #undef data_0047783c
@@ -378,11 +378,11 @@ struct ScoreChain_00417770 {
 #undef data_00491fc4
 #undef data_00491fb8
 #undef data_00492590
-#define data_00491c10 stage_replay_data_00491c10
-#define data_0047770c stage_replay_data_0047770c
+#define g_sprt_ctrl stage_replay_g_sprt_ctrl
+#define g_front stage_replay_g_front
 #define data_00474c40 stage_replay_data_00474c40
 #define g_ascii_manager stage_replay_data_004776e0
-#define data_00477704 stage_replay_data_00477704
+#define g_enemy_ctrl stage_replay_g_enemy_ctrl
 #define g_player stage_replay_data_00477834
 #define data_00477838 stage_replay_data_00477838
 #define data_0047783c stage_replay_data_0047783c
@@ -402,11 +402,11 @@ struct ScoreChain_00417770 {
 // The manager arrives in EBX (the compiler's own convention).
 #include "th10/game/replay_stage_finish_0042a450.hpp"
 
-#undef data_00491c10
-#undef data_0047770c
+#undef g_sprt_ctrl
+#undef g_front
 #undef data_00474c40
 #undef g_ascii_manager
-#undef data_00477704
+#undef g_enemy_ctrl
 #undef g_player
 #undef data_00477838
 #undef data_0047783c
@@ -414,11 +414,11 @@ struct ScoreChain_00417770 {
 #undef data_00491fc4
 #undef data_00491fb8
 #undef data_00492590
-#define data_00491c10 stage_spawn_data_00491c10
-#define data_0047770c stage_spawn_data_0047770c
+#define g_sprt_ctrl stage_spawn_g_sprt_ctrl
+#define g_front stage_spawn_g_front
 #define data_00474c40 stage_spawn_data_00474c40
 #define g_ascii_manager stage_spawn_data_004776e0
-#define data_00477704 stage_spawn_data_00477704
+#define g_enemy_ctrl stage_spawn_g_enemy_ctrl
 #define g_player stage_spawn_data_00477834
 #define data_00477838 stage_spawn_data_00477838
 #define data_0047783c stage_spawn_data_0047783c
@@ -440,11 +440,11 @@ struct ScoreChain_00417770 {
 #include "enemy_spawn.hpp"
 #include <string.h>
 
-#undef data_00491c10
-#undef data_0047770c
+#undef g_sprt_ctrl
+#undef g_front
 #undef data_00474c40
 #undef g_ascii_manager
-#undef data_00477704
+#undef g_enemy_ctrl
 #undef g_player
 #undef data_00477838
 #undef data_0047783c
@@ -452,11 +452,11 @@ struct ScoreChain_00417770 {
 #undef data_00491fc4
 #undef data_00491fb8
 #undef data_00492590
-#define data_00491c10 stage_requests_data_00491c10
-#define data_0047770c stage_requests_data_0047770c
+#define g_sprt_ctrl stage_requests_g_sprt_ctrl
+#define g_front stage_requests_g_front
 #define data_00474c40 stage_requests_data_00474c40
 #define g_ascii_manager stage_requests_data_004776e0
-#define data_00477704 stage_requests_data_00477704
+#define g_enemy_ctrl stage_requests_g_enemy_ctrl
 #define g_player stage_requests_data_00477834
 #define data_00477838 stage_requests_data_00477838
 #define data_0047783c stage_requests_data_0047783c
@@ -466,11 +466,11 @@ struct ScoreChain_00417770 {
 #define data_00492590 stage_requests_data_00492590
 #include "th10/render/resource_registrar_0043e460.hpp"
 
-#undef data_00491c10
-#undef data_0047770c
+#undef g_sprt_ctrl
+#undef g_front
 #undef data_00474c40
 #undef g_ascii_manager
-#undef data_00477704
+#undef g_enemy_ctrl
 #undef g_player
 #undef data_00477838
 #undef data_0047783c
@@ -478,11 +478,11 @@ struct ScoreChain_00417770 {
 #undef data_00491fc4
 #undef data_00491fb8
 #undef data_00492590
-#define data_00491c10 stage_sched_data_00491c10
-#define data_0047770c stage_sched_data_0047770c
+#define g_sprt_ctrl stage_sched_g_sprt_ctrl
+#define g_front stage_sched_g_front
 #define data_00474c40 stage_sched_data_00474c40
 #define g_ascii_manager stage_sched_data_004776e0
-#define data_00477704 stage_sched_data_00477704
+#define g_enemy_ctrl stage_sched_g_enemy_ctrl
 #define g_player stage_sched_data_00477834
 #define data_00477838 stage_sched_data_00477838
 #define data_0047783c stage_sched_data_0047783c
@@ -527,11 +527,11 @@ struct PlayerSchedulerRecord {
     __declspec(noinline) void SetSchedulerValue(int value);
 };
 
-#undef data_00491c10
-#undef data_0047770c
+#undef g_sprt_ctrl
+#undef g_front
 #undef data_00474c40
 #undef g_ascii_manager
-#undef data_00477704
+#undef g_enemy_ctrl
 #undef g_player
 #undef data_00477838
 #undef data_0047783c
@@ -539,11 +539,11 @@ struct PlayerSchedulerRecord {
 #undef data_00491fc4
 #undef data_00491fb8
 #undef data_00492590
-#define data_00491c10 stage_input_data_00491c10
-#define data_0047770c stage_input_data_0047770c
+#define g_sprt_ctrl stage_input_g_sprt_ctrl
+#define g_front stage_input_g_front
 #define data_00474c40 stage_input_data_00474c40
 #define g_ascii_manager stage_input_data_004776e0
-#define data_00477704 stage_input_data_00477704
+#define g_enemy_ctrl stage_input_g_enemy_ctrl
 #define g_player stage_input_data_00477834
 #define data_00477838 stage_input_data_00477838
 #define data_0047783c stage_input_data_0047783c
@@ -579,11 +579,11 @@ struct InputState {
 
 __declspec(noinline) void SetInputMode(InputState* state, int mode);
 
-#undef data_00491c10
-#undef data_0047770c
+#undef g_sprt_ctrl
+#undef g_front
 #undef data_00474c40
 #undef g_ascii_manager
-#undef data_00477704
+#undef g_enemy_ctrl
 #undef g_player
 #undef data_00477838
 #undef data_0047783c
@@ -591,11 +591,11 @@ __declspec(noinline) void SetInputMode(InputState* state, int mode);
 #undef data_00491fc4
 #undef data_00491fb8
 #undef data_00492590
-#define data_00491c10 stage_decay_data_00491c10
-#define data_0047770c stage_decay_data_0047770c
+#define g_sprt_ctrl stage_decay_g_sprt_ctrl
+#define g_front stage_decay_g_front
 #define data_00474c40 stage_decay_data_00474c40
 #define g_ascii_manager stage_decay_data_004776e0
-#define data_00477704 stage_decay_data_00477704
+#define g_enemy_ctrl stage_decay_g_enemy_ctrl
 #define g_player stage_decay_data_00477834
 #define data_00477838 stage_decay_data_00477838
 #define data_0047783c stage_decay_data_0047783c
@@ -645,11 +645,11 @@ __declspec(noinline) void SetInputMode(InputState* state, int mode);
 // the gauge record and ESI for the timer the advance call is handed.
 #include "th10/game/score.hpp"
 
-#undef data_00491c10
-#undef data_0047770c
+#undef g_sprt_ctrl
+#undef g_front
 #undef data_00474c40
 #undef g_ascii_manager
-#undef data_00477704
+#undef g_enemy_ctrl
 #undef g_player
 #undef data_00477838
 #undef data_0047783c

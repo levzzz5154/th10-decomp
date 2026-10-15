@@ -30,8 +30,8 @@
   "description": "Complete score easing, high-score captions, decimal digits and extra-life checks. Full animation/life helpers and an explicitly compiler-only single-call entry; only the 671-byte HUD is selected.",
   "functions": [
     {
-      "name": "ScoreHud_Update",
-      "symbol": "?Update@ScoreHud_00417040@@QAEXXZ",
+      "name": "ScoreFront_Update",
+      "symbol": "?Update@FrontScoreView@@QAEXXZ",
       "section": ".text$00417040_fn",
       "address": "0x00417040",
       "size": 671,
@@ -43,7 +43,7 @@
     "section": ".text$0044bd00_context",
     "address": "0x0044BD00",
     "size": 19,
-    "description": "Complete compiler-only call-and-return context to retain a private HUD receiver. Unselected; no game-code credit and no substitution for real StageUpdate."
+    "description": "Complete compiler-only call-and-return context to retain a private HUD receiver. Unselected; no game-code credit and no substitution for real Game_Update."
   },
   "anchors": [
     {
@@ -55,7 +55,7 @@
     },
     {
       "name": "SetActiveCount",
-      "symbol": "?SetActiveCount@ScoreHud_00417040@@QAEXH@Z",
+      "symbol": "?SetActiveCount@FrontScoreView@@QAEXH@Z",
       "section": ".text$00413790_fn",
       "address": "0x00413790",
       "size": 77
@@ -212,12 +212,12 @@
   ],
   "absolute_symbols": [
     {
-      "symbol": "_data_00491c10",
+      "symbol": "_g_sprt_ctrl",
       "address": "0x00491C10",
       "kind": "data"
     },
     {
-      "symbol": "_data_0047770c",
+      "symbol": "_g_front",
       "address": "0x0047770C",
       "kind": "data"
     },

@@ -5,7 +5,7 @@
   "driver": "layout/ltcg/game_thread_context.cpp",
   "headers": [
     "include/th10/game/game_thread.hpp",
-    "include/th10/game/scheduler.hpp"
+    "include/th10/core/func_ctrl.hpp"
   ],
   "image_base": "0x00400000",
   "description": "GameThread in-place constructor compiled with native LTCG so the object pointer arrives in ESI and is returned in EAX.",

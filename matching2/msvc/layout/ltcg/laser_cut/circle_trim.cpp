@@ -33,7 +33,7 @@ int TrimLaser::TrimCircle(const CutVector* center,float radius,int spawn_items) 
     }
     int index=parameters.script*2+17;
     void* resource=static_cast<CutAnimationBank*>(g_laser_manager)->line_animation;
-    Entity* object=static_cast<AnimationPool*>(data_00491c10)->Allocate();
+    Entity* object=static_cast<AnimationPool*>(g_sprt_ctrl)->Allocate();
     unsigned int flags=object->flags_35C;
     object->flags_35C=flags|0x40000000u;
     object->render_bucket=0;
@@ -42,7 +42,7 @@ int TrimLaser::TrimCircle(const CutVector* center,float radius,int spawn_items) 
     object->position.y=point.y+16.0f;
     LoadScript_0043e710(static_cast<AnimationResource_0043e710*>(resource),
         reinterpret_cast<AnimationObject_0043e710*>(object),index);
-    static_cast<CutAnimationLists*>(data_00491c10)->RegisterPrimaryBack(object);
+    static_cast<CutAnimationLists*>(g_sprt_ctrl)->RegisterPrimaryBack(object);
    }
    point+=step;
    progress+=12.0f;

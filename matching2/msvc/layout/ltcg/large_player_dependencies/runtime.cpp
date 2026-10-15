@@ -1,7 +1,7 @@
 #include "th10/game/large_player_native.hpp"
 #include "th10/platform/archive_callers.hpp"
 #include "th10/platform/text_log.hpp"
-#include "th10/game/scheduler.hpp"
+#include "th10/core/func_ctrl.hpp"
 struct CachedResource;
 CachedResource* __fastcall Recovery_LoadCachedResource(int,void*,const char*);
 extern "C" {
@@ -9,9 +9,9 @@ extern "C" {
     // reaches through its address, so field loads are never folded.
     struct GameSelectionView { int shot_type, character, unknown_08, difficulty; };
     extern GameSelectionView data_00474c68;
-    extern void* data_00491c10;
+    extern void* g_sprt_ctrl;
     extern ParameterFile* data_00491bf0;
-    extern Scheduler* data_00491be4;
+    extern FuncCtrl* g_func_ctrl;
     extern char data_0046e42c[],data_0046e420[],data_0046e3ec[];
     extern const char* data_00476fc0[];
     extern TextLog_0044b810 data_00474f70;
@@ -37,7 +37,7 @@ struct PlayerBounds3 { float x, y, z; };
 int PlayerResetBlock::Initialize() {
     const char* name;
     if (!data_00474c68.shot_type) name=data_0046e42c; else name=data_0046e420;
-    CachedResource* resource=Recovery_LoadCachedResource(8,data_00491c10,name);
+    CachedResource* resource=Recovery_LoadCachedResource(8,g_sprt_ctrl,name);
     Word(0x10)=(unsigned int)resource;
     if (!resource) { data_00474f70.Append(data_0046e3ec); return -1; }
     if (data_00491bf0) {
@@ -50,10 +50,10 @@ int PlayerResetBlock::Initialize() {
     }
     SchedulerTask* task=LargePlayerCallbackCreate(LargePlayerTick);
     task->context=this;*(unsigned int*)((char*)task+4)&=~2u;
-    Scheduler_RegisterPrimary(data_00491be4,task,0x10);Word(8)=(unsigned int)task;
+    FuncCtrl_RegisterPrimary(g_func_ctrl,task,0x10);Word(8)=(unsigned int)task;
     task=LargePlayerCallbackCreate(LargePlayerDraw);
     *(unsigned int*)((char*)task+4)&=~2u;task->context=this;
-    Scheduler_RegisterSecondary(data_00491be4,task,0x16);Word(0xc)=(unsigned int)task;
+    FuncCtrl_RegisterSecondary(g_func_ctrl,task,0x16);Word(0xc)=(unsigned int)task;
     ConfigureResource_00404f30 script_resource={(void*)Word(0x10)};
     ((ItemConfiguredEntity_00404f30*)&slot)->Configure(0,script_resource);
     Float(0x3c0)=0;Float(0x3c4)=400;

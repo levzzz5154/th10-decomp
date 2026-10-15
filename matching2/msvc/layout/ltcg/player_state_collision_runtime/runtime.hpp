@@ -71,9 +71,9 @@ struct PlayerDamage {
 };
 extern "C" {
 extern PickupGameState* g_card;
-extern PickupConfig* data_00477704;
+extern PickupConfig* g_enemy_ctrl;
 extern int data_00474c68, data_00474c44;
-extern void* data_00491c10;
+extern void* g_sprt_ctrl;
 extern float data_00476f78;
 }
 __declspec(noinline) AnimationRef __stdcall Pickup_CreatePrimaryBack(

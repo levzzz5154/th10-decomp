@@ -26,7 +26,7 @@ int MainTaskStateWave18::UpdateMode() {
             // Start the game.
             switch (previous) {
             case 7:
-                DestroyOwned_00418150(data_00477810);
+                Game_Delete(g_game);
             case 1:
             case 2:
                 ModeCreateProgressWave18();
@@ -46,7 +46,7 @@ int MainTaskStateWave18::UpdateMode() {
                 ScoreOwnedObject_Destroy(g_ending);
                 break;
             case 7:
-                DestroyOwned_00418150(data_00477810);
+                Game_Delete(g_game);
                 break;
             default:
                 goto done;
@@ -69,16 +69,16 @@ int MainTaskStateWave18::UpdateMode() {
             break;
         case 11: {
             // Reopen the menu screen with the argument it had.
-            unsigned int argument = reinterpret_cast<GameUiArgumentWave18*>(data_00477810)->argument;
+            unsigned int argument = reinterpret_cast<GameUiArgumentWave18*>(g_game)->argument;
             ui_mode = 0;
-            if (previous == 7) DestroyOwned_00418150(data_00477810);
+            if (previous == 7) Game_Delete(g_game);
             next_mode = 7;
             ModeCreateUiWave18(argument);
             break;
         }
         case 10:
             // Reopen the menu screen for the stage shown last.
-            DestroyOwned_00418150(data_00477810);
+            Game_Delete(g_game);
             ui_mode = 1;
             next_mode = 7;
             GameState()->stage = GameState()->stage_shown;
@@ -86,14 +86,14 @@ int MainTaskStateWave18::UpdateMode() {
             ModeCreateUiWave18(0);
             break;
         case 13:
-            DestroyOwned_00418150(data_00477810);
+            Game_Delete(g_game);
             ui_mode = 1;
             next_mode = 7;
             ModeCreateUiWave18(0);
             break;
         case 14:
             // Open the result screen.
-            if (previous == 7) DestroyOwned_00418150(data_00477810);
+            if (previous == 7) Game_Delete(g_game);
             ModeCreateSmallWave18();
             break;
         case 3:

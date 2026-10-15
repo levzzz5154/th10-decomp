@@ -15,7 +15,7 @@ struct AnimationTreeNode {
     unsigned short stop_frame;  // +0x304
 };
 
-class AnimationManager {
+class SprtCtrl {
 public:
     void* __fastcall Find(AnimationLookupContext* context, AnimationScriptId id);
 };
@@ -33,7 +33,7 @@ struct AnimationRunHandle {
     __declspec(noinline) void SetStopFrameAndRun(unsigned short frame);
 };
 
-extern "C" AnimationLookupContext* data_00491c10;
+extern "C" AnimationLookupContext* g_sprt_ctrl;
 // RunAnimationVm is the real stack-pointer / RET4 interpreter at 0x0043EE30.
 extern "C" int __stdcall RunAnimationVm(AnimationTreeNode* node);
 

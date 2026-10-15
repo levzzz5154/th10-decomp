@@ -46,7 +46,7 @@ struct AnimationPool_0040b070 {
     __declspec(noinline) AnimationNode_0040b070* Allocate();
 };
 
-extern "C" AnimationLists_0040b070* data_00491c10;
+extern "C" AnimationLists_0040b070* g_sprt_ctrl;
 extern "C" void** __cdecl asm_AnimationManager_RegisterPrimaryBack_004489d0(
     void* manager, void** out, void* entity);
 

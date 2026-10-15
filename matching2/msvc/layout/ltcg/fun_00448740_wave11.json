@@ -10,8 +10,8 @@
   "description": "0x00448740 compiled with native LTCG so the manager stays in ECX, the 0x00448980 call receives it in EDI and the slot index in EAX. The .text$03bucket section is a compiled ABI anchor for the assembly region at 0x00448980: placed at the retail address so the call carries retail's own displacement, validated as a complete contribution, and never exported as recovered code.",
   "functions": [
     {
-      "name": "AnimationManager_00442F50_ResetOriginAndRenderSlot14",
-      "symbol": "?ResetOriginAndRenderSlot14@AnimationManager_00442F50@@QAEHXZ",
+      "name": "SprtCtrlBatchView_ResetOriginAndRenderSlot14",
+      "symbol": "?ResetOriginAndRenderSlot14@SprtCtrlBatchView@@QAEHXZ",
       "section": ".text$01slot14",
       "address": "0x00448740",
       "size": 48,
@@ -19,7 +19,7 @@
     }
   ],
   "roots": [
-    "?ResetOriginAndRenderSlot14@AnimationManager_00442F50@@QAEHXZ"
+    "?ResetOriginAndRenderSlot14@SprtCtrlBatchView@@QAEHXZ"
   ],
   "anchors": [
     {
@@ -31,7 +31,7 @@
     }
   ],
   "context": {
-    "symbol": "?AnimationSlotTaskContext@@YGHPAPAUAnimationManager_00442F50@@H@Z",
+    "symbol": "?AnimationSlotTaskContext@@YGHPAPAUSprtCtrlBatchView@@H@Z",
     "section": ".text$05context",
     "address": "0x00448A10",
     "size": 38,
@@ -62,7 +62,7 @@
       "kind": "metadata"
     },
     {
-      "symbol": "_data_00491c10",
+      "symbol": "_g_sprt_ctrl",
       "address": "0x00491C10",
       "kind": "data"
     },

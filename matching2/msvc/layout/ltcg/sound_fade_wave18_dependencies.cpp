@@ -9,7 +9,7 @@ void ScoreOwnedObject_Destroy(ScoreOwnedObject* object) {
     if (object) { ModeDestroySmallWave18(object); ModeFreeWave18(object); }
 }
 #pragma code_seg(".text$00b0_ui_destroy")
-void DestroyOwned_00418150(OwnedObject_00418150* object) {
+void Game_Delete(Game* object) {
     if (object) { ModeDestroyUiWave18(object); ModeFreeWave18(object); }
 }
 #pragma code_seg(".text$00d_leave")

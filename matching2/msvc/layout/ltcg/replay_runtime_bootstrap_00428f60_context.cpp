@@ -7,7 +7,7 @@
 // bootstrap's own Start definition is NOT here; the model supplies it.
 #include <string.h>
 #include <stdlib.h>
-#include "th10/game/scheduler.hpp"
+#include "th10/core/func_ctrl.hpp"
 #include "th10/game/linked_pool_append.hpp"
 #include "th10/game/large_initialization_state_00421f00.hpp"
 #include "th10/platform/thread_sync.hpp"
@@ -33,7 +33,7 @@ struct EmbeddedTimerState_0042a930 {
 };
 
 static __forceinline void ReplayManagerStandIn_Unregister(void* task) {
-    void* scheduler = data_00491be4;
+    void* scheduler = g_func_ctrl;
     if (task) {
         EnterCriticalSection(&g_thread_synchronization.critical_sections[0]);
         ++g_thread_synchronization.scheduler_lock_depth;
@@ -131,8 +131,8 @@ char __fastcall GameConfig_InitializeDefaults(int unused, GameConfig* config) {
 
 // The task arrives in ESI and its priority in EDI; only the scheduler is
 // pushed, exactly as at the bootstrap's retail call sites.
-extern "C" __declspec(noinline) int __stdcall Scheduler_RegisterPrimary(
-        Scheduler* scheduler, SchedulerTask* task, int priority) {
+extern "C" __declspec(noinline) int __stdcall FuncCtrl_RegisterPrimary(
+        FuncCtrl* scheduler, SchedulerTask* task, int priority) {
     int result = 0;
     if (task->on_register) {
         result = task->on_register(task->context);
@@ -150,8 +150,8 @@ extern "C" __declspec(noinline) int __stdcall Scheduler_RegisterPrimary(
     return result;
 }
 
-extern "C" __declspec(noinline) int __stdcall Scheduler_RegisterSecondary(
-        Scheduler* scheduler, SchedulerTask* task, int priority) {
+extern "C" __declspec(noinline) int __stdcall FuncCtrl_RegisterSecondary(
+        FuncCtrl* scheduler, SchedulerTask* task, int priority) {
     int result = 0;
     if (task->on_register) {
         result = task->on_register(task->context);

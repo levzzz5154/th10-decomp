@@ -22,7 +22,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_004247f0_004247f0() {
     L_00424804:
         mov eax,46E420h
     L_00424809:
-        mov edx,dword ptr [data_00491c10]
+        mov edx,dword ptr [g_sprt_ctrl]
     L_0042480f:
         push eax
     L_00424810:
@@ -74,7 +74,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_004247f0_004247f0() {
     L_00424862:
         mov edx,dword ptr [esi+4]
     L_00424865:
-        mov eax,dword ptr [data_00491be4]
+        mov eax,dword ptr [g_func_ctrl]
     L_0042486a:
         and edx,0FFFFFFFDh
     L_0042486d:
@@ -86,7 +86,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_004247f0_004247f0() {
     L_00424876:
         mov dword ptr [esi+4],edx
     L_00424879:
-        call asm_Scheduler_RegisterPrimary_00449ae0
+        call asm_FuncCtrl_RegisterPrimary_00449ae0
     L_0042487e:
         push 426510h
     L_00424883:
@@ -94,7 +94,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_004247f0_004247f0() {
     L_00424886:
         call asm_SchedulerCallback_Create_00449ed0
     L_0042488b:
-        mov ecx,dword ptr [data_00491be4]
+        mov ecx,dword ptr [g_func_ctrl]
     L_00424891:
         mov esi,eax
     L_00424893:
@@ -106,7 +106,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_004247f0_004247f0() {
     L_0042489d:
         mov dword ptr [esi+20h],ebx
     L_004248a0:
-        call asm_Scheduler_RegisterSecondary_00449b70
+        call asm_FuncCtrl_RegisterSecondary_00449b70
     L_004248a5:
         mov edx,dword ptr [ebx+10h]
     L_004248a8:

@@ -33,7 +33,7 @@
   "anchors": [
     {
       "name": "Flush",
-      "symbol": "?Flush@AnimationManager_00442F50@@QAEHXZ",
+      "symbol": "?Flush@SprtCtrlBatchView@@QAEHXZ",
       "section": ".text$05flush",
       "address": "0x442f50",
       "size": 133
@@ -216,12 +216,12 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "?SubmitProjectedQuad@RenderEntity@@QAEHPAUAnimationManager_00442F50@@@Z",
+      "symbol": "?SubmitProjectedQuad@RenderEntity@@QAEHPAUSprtCtrlBatchView@@@Z",
       "address": "0x443f80",
       "kind": "relative_code"
     },
     {
-      "symbol": "?DrawStrip@AnimationManager_00442F50@@QAEHPBURenderEntity@@PBXI@Z",
+      "symbol": "?DrawStrip@SprtCtrlBatchView@@QAEHPBURenderEntity@@PBXI@Z",
       "address": "0x444ce0",
       "kind": "relative_code"
     },

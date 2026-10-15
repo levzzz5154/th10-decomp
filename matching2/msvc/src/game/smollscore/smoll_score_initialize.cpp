@@ -3,7 +3,7 @@
 // 0x23) tasks, and set up its sprite from resource entry 0xC4.
 // Native LTCG passes the pool in EAX.
 #include "th10/game/smoll_score_view.hpp"
-#include "th10/game/scheduler.hpp"
+#include "th10/core/func_ctrl.hpp"
 #include "th10/render/animation_object_0043e5a0.hpp"
 
 struct StageResources_0042b4d0 {
@@ -15,7 +15,7 @@ extern "C" {
 SchedulerTask* __stdcall SchedulerCallback_Create_00449ed0(TaskRoutine callback);
 int __fastcall SmollScoreUpdateTask_0042b9a0(void* pool);
 int __fastcall SmollScoreDrawTask_0042b9b0(void* pool);
-extern Scheduler* data_00491be4;
+extern FuncCtrl* g_func_ctrl;
 extern StageResources_0042b4d0* g_ascii_manager;
 }
 
@@ -26,13 +26,13 @@ int SmollScoreView::Initialize() {
     SchedulerTask* task = SchedulerCallback_Create_00449ed0(SmollScoreUpdateTask_0042b9a0);
     task->context = this;
     task->reserved_flags &= ~1u;
-    Scheduler_RegisterPrimary(data_00491be4, task, 0xF);
+    FuncCtrl_RegisterPrimary(g_func_ctrl, task, 0xF);
     update_task = task;
 
     task = SchedulerCallback_Create_00449ed0(SmollScoreDrawTask_0042b9b0);
     task->context = this;
     task->reserved_flags &= ~1u;
-    Scheduler_RegisterSecondary(data_00491be4, task, 0x23);
+    FuncCtrl_RegisterSecondary(g_func_ctrl, task, 0x23);
     draw_task = task;
 
     Entity* entity = &sprite;

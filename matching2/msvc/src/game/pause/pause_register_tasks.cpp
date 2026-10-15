@@ -9,7 +9,7 @@ extern "C" {
 SchedulerTask* __stdcall SchedulerCallback_Create_00449ed0(TaskRoutine callback);
 int __fastcall Pause_UpdateTask_00422a90(void* state);
 int __fastcall Pause_DrawTask_00422aa0(void* state);
-extern Scheduler* data_00491be4;
+extern FuncCtrl* g_func_ctrl;
 extern const float data_00476f78;
 }
 
@@ -17,13 +17,13 @@ __declspec(noinline) int __cdecl Pause_RegisterTasks(Pause* state) {
     SchedulerTask* task = SchedulerCallback_Create_00449ed0(Pause_UpdateTask_00422a90);
     task->reserved_flags &= ~1u;
     task->context = state;
-    Scheduler_RegisterPrimary(data_00491be4, task, 9);
+    FuncCtrl_RegisterPrimary(g_func_ctrl, task, 9);
     state->update_task = task;
 
     task = SchedulerCallback_Create_00449ed0(Pause_DrawTask_00422aa0);
     task->context = state;
     task->reserved_flags &= ~1u;
-    Scheduler_RegisterSecondary(data_00491be4, task, 0x2E);
+    FuncCtrl_RegisterSecondary(g_func_ctrl, task, 0x2E);
     state->draw_task = task;
 
     FrameTimer& timer = state->timer;

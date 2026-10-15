@@ -12,7 +12,7 @@
   "functions": [
     {
       "name": "EnemySpawn_Create",
-      "symbol": "?Create@EnemySpawn_0040cfb0@@QAEPAUEnemy_0040cfb0@@PAUEnemyManager_0040cfb0@@PBD@Z",
+      "symbol": "?Create@EnemySpawn_0040cfb0@@QAEPAUEnemy_0040cfb0@@PAUEnemyCtrlSpawnView@@PBD@Z",
       "section": ".text$0040cfb0_fn",
       "address": "0x0040CFB0",
       "size": 577,

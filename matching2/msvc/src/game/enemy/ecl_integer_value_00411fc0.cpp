@@ -100,7 +100,7 @@ ECL_OFFSET(EclIntegerManager, current_entity, 0x10);
 ECL_OFFSET(EclAnimationValue, value_38a, 0x38A);
 #undef ECL_OFFSET
 
-extern "C" EclIntegerManager* data_00477704;
+extern "C" EclIntegerManager* g_enemy_ctrl;
 extern "C" int data_00474c74;
 extern "C" int data_00474c98;
 
@@ -171,9 +171,9 @@ int EclIntegerSource::ResolveIntegerValue(int encoded_selector) const {
     case -9964:
         return (int)g_player->position.y;
     case -9963:
-        return (int)data_00477704->current_entity->value_1068;
+        return (int)g_enemy_ctrl->current_entity->value_1068;
     case -9962:
-        return (int)data_00477704->current_entity->value_106c;
+        return (int)g_enemy_ctrl->current_entity->value_106c;
     case -9996:
     case -9976:
         return (int)value_106c;

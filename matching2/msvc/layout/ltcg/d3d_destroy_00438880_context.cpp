@@ -1,11 +1,11 @@
 // The original scalar deleting destructor is the complete unselected caller.
-#include "../../src/core/main/d3_d_resource_manager_destroy_00438880.cpp"
+#include "../../src/core/main/func_ctrl_destroy.cpp"
 #include "destroy_release_adapter.cpp"
 #include "../../src/core/zunlib/platform_stop_worker_0044c150.cpp"
 extern "C" void __cdecl entry_free_004524a1(void* memory);
 #pragma code_seg(".text$30context")
 void* Object_00439040::Destroy(unsigned int flags) {
-    static_cast<D3DResourceManager_Destroy_00438880*>(this)->~D3DResourceManager_Destroy_00438880();
+    static_cast<FuncCtrlDestroyView*>(this)->~FuncCtrlDestroyView();
     if (flags & 1) entry_free_004524a1(this);
     return this;
 }

@@ -4,7 +4,7 @@
 #include "../../layout/ltcg/native_render_targets/capture_context.cpp"
 #include "../../layout/ltcg/native_render_targets/prepare_context.cpp"
 #pragma code_seg(".text$a04targets")
-void NativeRenderManager::FinishTargets() {
+void SprtCtrlTargetsView::FinishTargets() {
     if (capture_bank>=0) {
         Capture(capture_bank,capture_index,capture_source.x,capture_source.y,capture_source.width,capture_source.height,
                 capture_destination.x,capture_destination.y,capture_destination.width,capture_destination.height);

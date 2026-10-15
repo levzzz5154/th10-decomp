@@ -1,11 +1,11 @@
 // 0x0040B7B0: detach the ending's tasks, release its animation banks and
 // script storage, then clear the published ending (g_ending).
 #include "../../../layout/ltcg/message_teardown_dependencies.hpp"
-extern "C" void* data_00491be4;
+extern "C" void* g_func_ctrl;
 extern "C" void* g_ending;
 extern "C" int data_004918a4;
 inline void ReleaseEndingBank(int index) {
-    AnimationResource_00447810*& bank = reinterpret_cast<AnimationResource_00447810*&>(data_00491c10->banks[index]);
+    AnimationResource_00447810*& bank = reinterpret_cast<AnimationResource_00447810*&>(g_sprt_ctrl->banks[index]);
     if (bank) {
         bank->Release();
         entry_free_004524a1(bank);
@@ -26,24 +26,24 @@ struct EndingState {
 #pragma code_seg(".text$03message")
 extern "C" __declspec(noinline) void __stdcall Ending_Release(EndingState* state) {
     SchedulerTask* task = state->update_task;
-    Scheduler* scheduler = (Scheduler*)data_00491be4;
+    FuncCtrl* scheduler = (FuncCtrl*)g_func_ctrl;
     if (task) {
         EnterCriticalSection(&g_thread_synchronization.critical_sections[0]);
         ++g_thread_synchronization.scheduler_lock_depth;
-        Scheduler_Remove(scheduler, task);
+        FuncCtrl_Remove(scheduler, task);
         LeaveCriticalSection(&g_thread_synchronization.critical_sections[0]);
         --g_thread_synchronization.scheduler_lock_depth;
     }
     task = state->draw_task;
-    scheduler = (Scheduler*)data_00491be4;
+    scheduler = (FuncCtrl*)g_func_ctrl;
     if (task) {
         EnterCriticalSection(&g_thread_synchronization.critical_sections[0]);
         ++g_thread_synchronization.scheduler_lock_depth;
-        Scheduler_Remove(scheduler, task);
+        FuncCtrl_Remove(scheduler, task);
         LeaveCriticalSection(&g_thread_synchronization.critical_sections[0]);
         --g_thread_synchronization.scheduler_lock_depth;
     }
-    data_00491c10->Clear(0);
+    g_sprt_ctrl->Clear(0);
     EndingTextView* animations = state->animations;
     if (animations) {
         animations->Destroy();

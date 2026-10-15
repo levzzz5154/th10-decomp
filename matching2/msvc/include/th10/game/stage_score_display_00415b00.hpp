@@ -86,7 +86,7 @@ struct SlotEffect {
 };
 struct SlotEffectManager { unsigned char reserved[0x18]; SlotEffect* first; };
 extern "C" SlotEffectManager* g_laser_manager;
-extern "C" void* data_00477704;
+extern "C" void* g_enemy_ctrl;
 extern "C" void __stdcall SweepDeaths(void* manager);
 struct SlotVector {
     float x,y,z;

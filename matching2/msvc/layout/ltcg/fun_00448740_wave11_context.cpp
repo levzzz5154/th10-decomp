@@ -23,7 +23,7 @@ extern "C" void __cdecl asm_FUN_004451c0_004451c0(void* object, void* manager);
 // relocation.  None of these bytes are selected as recovered code.
 #pragma code_seg(".text$03bucket")
 extern "C" __declspec(noinline) int __cdecl asm_AnimationManager_RenderBucket_00448980(
-        AnimationManager_00442F50* manager, int slot) {
+        SprtCtrlBatchView* manager, int slot) {
     RenderSlotNode_00448740* node = *(RenderSlotNode_00448740**)
         ((unsigned char*)manager + 0x72DB00 + slot * 0x3AC);
     while (node != 0) {
@@ -42,7 +42,7 @@ extern "C" __declspec(noinline) int __cdecl asm_AnimationManager_RenderBucket_00
 // Synthetic scheduler dispatch that establishes the task's register convention;
 // not recovered game code.
 #pragma code_seg(".text$05context")
-int __stdcall AnimationSlotTaskContext(AnimationManager_00442F50** managers,
+int __stdcall AnimationSlotTaskContext(SprtCtrlBatchView** managers,
                                        int count) {
     int result = 0;
     for (int index = 0; index < count; ++index) {

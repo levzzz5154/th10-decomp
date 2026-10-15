@@ -5,7 +5,7 @@
 #include "th10/game/player.hpp"
 #include "th10/game/score.hpp"
 #include "th10/platform/sound_queue.hpp"
-#include "th10/render/screen_effect_controller.hpp"
+#include "th10/core/screen.hpp"
 #include "th10/game/recovery_mark_text_and_dispatcher_004479d0.hpp"
 
 // Genuine source inputs recovered from the retail body. All private register
@@ -145,9 +145,9 @@ struct DispatcherMusicRecord {
     int music_slot;
 };
 
-extern "C" DispatcherStageResourceOwner* data_00477704;
+extern "C" DispatcherStageResourceOwner* g_enemy_ctrl;
 extern "C" DispatcherReplayOwner* data_00477838;
-extern "C" void* data_00491c10;
+extern "C" void* g_sprt_ctrl;
 extern "C" DispatcherInputState data_00491c28;
 extern "C" ScoreState data_00474c40;
 extern "C" short data_00474c48;

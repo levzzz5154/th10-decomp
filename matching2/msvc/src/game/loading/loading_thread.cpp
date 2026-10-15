@@ -17,7 +17,7 @@
 
 extern "C" {
 extern LoadingView* g_loading;
-extern void* data_00491c10;              // animation manager
+extern void* g_sprt_ctrl;              // animation manager
 extern void* data_00491fec;              // text.anm
 extern char* data_00494514;              // BGM format table
 extern unsigned char data_00491d78;      // sound option flags
@@ -35,7 +35,7 @@ void __stdcall ScoreManager_Create_0042af20();
 
 // Everything the title screen itself needs; -1 when any of it is missing.
 static __forceinline int LoadTitleScreenAssets(LoadingView* title) {
-    title->logo_animation = Recovery_LoadCachedResource_00447280(1, data_00491c10, "sig.anm");
+    title->logo_animation = Recovery_LoadCachedResource_00447280(1, g_sprt_ctrl, "sig.anm");
     if (!title->logo_animation)
         return -1;
     title->secondary_task->reserved_flags |= 1u;
@@ -45,7 +45,7 @@ static __forceinline int LoadTitleScreenAssets(LoadingView* title) {
         return -1;
     }
     title->game_thread_created = 1;
-    data_00491fec = Recovery_LoadCachedResource_00447280(0, data_00491c10, "text.anm");
+    data_00491fec = Recovery_LoadCachedResource_00447280(0, g_sprt_ctrl, "text.anm");
     if (!data_00491fec)
         return -1;
     return 0;

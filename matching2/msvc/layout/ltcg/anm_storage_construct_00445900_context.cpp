@@ -1,6 +1,6 @@
 #include "anm_storage_construct_entity.cpp"
-#include "../../src/core/sprtlib/anm_storage_construct_00445900.cpp"
-inline void* __cdecl operator new(unsigned int, AnmStorageConstruct_00445900& storage) { return &storage; }
+#include "../../src/core/sprtlib/sprt_ctrl_construct.cpp"
+inline void* __cdecl operator new(unsigned int, SprtCtrl& storage) { return &storage; }
 #pragma code_seg(".text$02context")
-extern "C" AnmStorageConstruct_00445900* __stdcall ConstructAnmStorageContext(AnmStorageConstruct_00445900* storage) { return new(*storage) AnmStorageConstruct_00445900; }
+extern "C" SprtCtrl* __stdcall ConstructAnmStorageContext(SprtCtrl* storage) { return new(*storage) SprtCtrl; }
 #pragma code_seg()

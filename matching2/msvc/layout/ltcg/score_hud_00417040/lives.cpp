@@ -5,14 +5,14 @@ void HudGameState::AddLives(int amount) {
     if (lives > 9) lives = 9;
     else {
         data_00492590.Queue(44,0);
-        ResultAnimationHandle* banner = &data_0047770c->secondary;
+        ResultAnimationHandle* banner = &g_front->secondary;
         banner->Release();
-        banner->id = ResultAnimation_CreatePrimary(data_0047770c->captions,75,15);
+        banner->id = ResultAnimation_CreatePrimary(g_front->captions,75,15);
     }
-    data_0047770c->SetActiveCount(data_00474c40.lives);
+    g_front->SetActiveCount(data_00474c40.lives);
 }
 #pragma code_seg(".text$00413790_fn")
-void ScoreHud_00417040::SetActiveCount(int count) {
+void FrontScoreView::SetActiveCount(int count) {
     int index=0;
     for (;index<count;++index)
         life_icons[index].flags |= 2;

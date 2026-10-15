@@ -22,7 +22,7 @@ struct ResultAnimationId {
 };
 // 0x004492A0: let the animation with this id, and its children, be removed.
 void* __fastcall ResultAnimation_Retire(ResultAnimationLookup* context, ResultAnimationId id);
-extern "C" ResultAnimationLookup* data_00491c10;
+extern "C" ResultAnimationLookup* g_sprt_ctrl;
 
 // An animation a game object owns, named by its id.
 struct ResultAnimationHandle {
@@ -30,7 +30,7 @@ struct ResultAnimationHandle {
 
     // Let the manager dispose of the animation and forget it.
     void Release() {
-        ResultAnimation_Retire(data_00491c10, id);
+        ResultAnimation_Retire(g_sprt_ctrl, id);
         id.value = 0;
     }
 };
@@ -41,7 +41,7 @@ struct HudFlagWord {
     HudFlagWord& operator|=(unsigned int bits) { value |= bits; return *this; }
 };
 struct HudLifeIcon { unsigned int flags; unsigned char reserved_04[0x3AC-4]; };
-struct ScoreHud_00417040 {
+struct FrontScoreView {
     unsigned char reserved_00[0x10];
     Entity animations[20];
     unsigned char reserved_4980[0x4CDC-0x4980];
@@ -63,12 +63,12 @@ struct ScoreHud_00417040 {
     __declspec(noinline) void Update();
     __declspec(noinline) void SetActiveCount(int count);
 };
-typedef char HudHigh[offsetof(ScoreHud_00417040,animations)==0x10?1:-1];
-typedef char HudScore[offsetof(ScoreHud_00417040,animations)+10*sizeof(Entity)==0x24C8?1:-1];
-typedef char HudFrame[offsetof(ScoreHud_00417040,stage_frame)==0x9E64?1:-1];
-typedef char HudDisplayed[offsetof(ScoreHud_00417040,displayed_score)==0x9E78?1:-1];
-typedef char HudFlags[offsetof(ScoreHud_00417040,flags)==0x9EB4?1:-1];
-typedef char HudResource[offsetof(ScoreHud_00417040,captions)==0x9EC8?1:-1];
+typedef char HudHigh[offsetof(FrontScoreView,animations)==0x10?1:-1];
+typedef char HudScore[offsetof(FrontScoreView,animations)+10*sizeof(Entity)==0x24C8?1:-1];
+typedef char HudFrame[offsetof(FrontScoreView,stage_frame)==0x9E64?1:-1];
+typedef char HudDisplayed[offsetof(FrontScoreView,displayed_score)==0x9E78?1:-1];
+typedef char HudFlags[offsetof(FrontScoreView,flags)==0x9EB4?1:-1];
+typedef char HudResource[offsetof(FrontScoreView,captions)==0x9EC8?1:-1];
 // 0x00448D00: create a front animation from a file's script.
 __declspec(noinline) ResultAnimationId __stdcall ResultAnimation_CreatePrimary(void* file, int script, int layer);
 
@@ -125,7 +125,7 @@ typedef char GameStateField5c_0042a6a0[offsetof(HudGameState, next_extend) == 0x
 
 
 extern "C" HudGameState data_00474c40;
-extern "C" ScoreHud_00417040* data_0047770c;
+extern "C" FrontScoreView* g_front;
 extern "C" const int data_00474474[5];
 extern "C" const int data_00474488[5];
 extern "C" int __stdcall HudTickAnimation(Entity* object);

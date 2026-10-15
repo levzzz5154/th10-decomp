@@ -33,7 +33,7 @@ __forceinline void BombState::Step() {
     switch (active_state) {
     case 1: {
         BombAnimationValue* node = static_cast<BombAnimationValue*>(
-            FindAnimationOrClear_00405750(data_00491c10, &animation));
+            FindAnimationOrClear_00405750(g_sprt_ctrl, &animation));
         if (node == 0) {
             active_state = 0;
             return;
@@ -48,7 +48,7 @@ __forceinline void BombState::Step() {
             position.y -= 1.3f;
         }
         PositionVector_004492f0 render = {position.x + 224.0f, position.y + 16.0f, position.z};
-        SetAnimationPosition_004492f0(data_00491c10, &render, animation);
+        SetAnimationPosition_004492f0(g_sprt_ctrl, &render, animation);
         collision_radius = node->collision_radius;
         CancelBullets();
         break;

@@ -48,7 +48,7 @@ struct PanelSlot_004136c0 {
 
 // The side panel's stage-owned parts; the teardown releases the stage parts
 // on the replay/recovery path.
-struct SidePanel_00414570 {
+struct FrontStagePartsView {
     unsigned char reserved_0000[0x9E80];
     int stage_state;                                // +0x9E80
     unsigned char reserved_9e84[0x9EB8 - 0x9E84];
@@ -84,7 +84,7 @@ extern void* data_004776e4;
 // The pause-menu manager (released by 0x00422220).
 extern void* g_pause;
 // The side panel / item manager object.
-extern SidePanel_00414570* data_0047770c;
+extern FrontStagePartsView* g_front;
 // The bullet manager (destroyed by 0x00405F70).
 extern void* data_004776f0;
 // The native effect manager (destroyed by 0x0041ADF0); its element storage
@@ -99,7 +99,7 @@ extern void* g_smoll_score;
 // The replay manager / pending block (destroyed by 0x004294A0).
 extern void* data_00477838;
 // The enemy manager (cleared by 0x00409F90 or destroyed by 0x0040D530).
-extern struct EnemyManager_0040d530* data_00477704;
+extern struct EnemyCtrl* g_enemy_ctrl;
 // The bullet-manager release (0x0040AF00).
 extern void* g_effect;
 // The recovery pair state (released by 0x00405620).
@@ -107,14 +107,14 @@ extern void* g_bomb;
 // The spell-card manager (Card; destroyed by 0x00408AF0).
 extern void* g_card;
 // The one scheduler both removals go through.
-extern struct Scheduler* data_00491be4;
+extern struct FuncCtrl* g_func_ctrl;
 // The shared animation resource name and the manager that re-registers it.
 extern char data_0046df98[];
 extern struct AnimationManager_0043e460 data_00492590;
 // Extra-content flag byte for the resource index choice.
 extern unsigned char data_00491d78;
 // The published manager-state pointer, cleared with the state.
-extern void* data_00477810;
+extern void* g_game;
 // Post-teardown markers: the frame gate and the next-mode bias.
 extern int data_004918a4;
 extern int data_004923a8;

@@ -53,7 +53,7 @@ static __forceinline float DistanceFrom_00443FB0(RenderVec3 delta) {
 }
 
 #pragma code_seg(".text$06b0600distance")
-extern "C" __declspec(noinline) int EntityDraw_00443fb0(AnimationManager_00442F50* manager,
+extern "C" __declspec(noinline) int EntityDraw_00443fb0(SprtCtrlBatchView* manager,
                                                         RenderEntity* entity) {
     if (((BillboardSource_00443B60*)entity)->BuildProjectedQuad() != 0) {
         return -1;

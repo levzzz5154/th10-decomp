@@ -72,7 +72,7 @@
     },
     {
       "name": "AnimationManager_Find",
-      "symbol": "?Find@AnimationManager@@QAIPAXPAUAnimationLookupContext@@UAnimationScriptId@@@Z",
+      "symbol": "?Find@SprtCtrl@@QAIPAXPAUAnimationLookupContext@@UAnimationScriptId@@@Z",
       "section": ".text$50find",
       "address": "0x004491C0",
       "size": 73,
@@ -281,7 +281,7 @@
   "constants": [],
   "absolute_symbols": [
     {
-      "symbol": "_data_00491c10",
+      "symbol": "_g_sprt_ctrl",
       "address": "0x00491C10",
       "kind": "data"
     },

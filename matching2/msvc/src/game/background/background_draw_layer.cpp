@@ -61,7 +61,7 @@ int StageObject::IsOutsideView(const StageVector* offset, const RenderCamera* ca
 int __stdcall BackGround_DrawLayer(BackGround* stage, int layer) {
     StageInstance* instance = stage->instances;
     data_00491c28.SelectStage(0);
-    data_00491c10->cached_unknown_6c = 1;
+    g_sprt_ctrl->cached_unknown_6c = 1;
     for (; instance->object >= 0; ++instance) {
         StageObject* object = stage->objects[instance->object];
         if (object->layer != layer) continue;
@@ -96,7 +96,7 @@ int __stdcall BackGround_DrawLayer(BackGround* stage, int layer) {
             }
             if ((entity->flags & 0x03C00000) == 0x02000000) StageSetFog(1);
             else StageSetFog(0);
-            asm_FUN_004451c0_004451c0(data_00491c10, entity);
+            asm_FUN_004451c0_004451c0(g_sprt_ctrl, entity);
             ++stage->drawn_quads;
         }
         ++stage->drawn_objects;

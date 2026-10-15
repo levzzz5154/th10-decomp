@@ -1,6 +1,6 @@
 #pragma once
 // The thirty-five-word block 0x004132A0 clears and publishes through
-// data_00477708, and its teardown (0x00413300, 0x004133F0).
+// g_fps, and its teardown (0x00413300, 0x004133F0).
 #include "th10/game/scheduler_remove_locked.hpp"
 
 struct PublishedBlock {
@@ -13,10 +13,10 @@ struct PublishedBlock {
     PublishedBlock* Destroy(unsigned int flags);
 };
 
-extern "C" PublishedBlock* data_00477708;
+extern "C" PublishedBlock* g_fps;
 
 // Remove the block's scheduler task under the scheduler lock and unpublish it.
 __forceinline void PublishedBlock::Shutdown() {
     RemoveScheduledTask(task);
-    data_00477708 = 0;
+    g_fps = 0;
 }

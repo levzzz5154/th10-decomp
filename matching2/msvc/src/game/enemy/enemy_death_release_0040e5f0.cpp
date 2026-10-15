@@ -17,7 +17,7 @@ int __stdcall Enemy_ReleaseOnDeath_0040e5f0(Enemy_0040e5f0* enemy) {
     if (enemy->death_script >= 0) {
         void* burst;
         ItemAnimation_CreateOffset_00448db0(
-            data_00477704->animation_files[enemy->death_file], &burst,
+            g_enemy_ctrl->animation_files[enemy->death_file], &burst,
             enemy->death_script, (const Vector3*)&enemy->position);
     }
     DropSource_0040c9a0* source = &enemy->position;

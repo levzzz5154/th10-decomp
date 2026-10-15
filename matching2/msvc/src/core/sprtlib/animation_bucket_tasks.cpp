@@ -11,73 +11,73 @@
 #include "th10/render/quad_batch.hpp"
 
 #pragma code_seg(".text$01b00")
-int AnimationManager_00442F50::DrawBucket0() {
+int SprtCtrlBatchView::DrawBucket0() {
     return RenderBucket(0);
 }
 #pragma code_seg()
 
 #pragma code_seg(".text$01b02")
-int AnimationManager_00442F50::DrawBucket2() {
+int SprtCtrlBatchView::DrawBucket2() {
     return RenderBucket(2);
 }
 #pragma code_seg()
 
 #pragma code_seg(".text$01b04")
-int AnimationManager_00442F50::DrawBucket4() {
+int SprtCtrlBatchView::DrawBucket4() {
     return RenderBucket(4);
 }
 #pragma code_seg()
 
 #pragma code_seg(".text$01b05")
-int AnimationManager_00442F50::DrawBucket5() {
+int SprtCtrlBatchView::DrawBucket5() {
     return RenderBucket(5);
 }
 #pragma code_seg()
 
 #pragma code_seg(".text$01b06")
-int AnimationManager_00442F50::DrawBucket6() {
+int SprtCtrlBatchView::DrawBucket6() {
     return RenderBucket(6);
 }
 #pragma code_seg()
 
 #pragma code_seg(".text$01b07")
-int AnimationManager_00442F50::DrawBucket7() {
+int SprtCtrlBatchView::DrawBucket7() {
     return RenderBucket(7);
 }
 #pragma code_seg()
 
 #pragma code_seg(".text$01b08")
-int AnimationManager_00442F50::DrawBucket8() {
+int SprtCtrlBatchView::DrawBucket8() {
     return RenderBucket(8);
 }
 #pragma code_seg()
 
 #pragma code_seg(".text$01b09")
-int AnimationManager_00442F50::DrawBucket9() {
+int SprtCtrlBatchView::DrawBucket9() {
     return RenderBucket(9);
 }
 #pragma code_seg()
 
 #pragma code_seg(".text$01b10")
-int AnimationManager_00442F50::DrawBucket10() {
+int SprtCtrlBatchView::DrawBucket10() {
     return RenderBucket(10);
 }
 #pragma code_seg()
 
 #pragma code_seg(".text$01b11")
-int AnimationManager_00442F50::DrawBucket11() {
+int SprtCtrlBatchView::DrawBucket11() {
     return RenderBucket(11);
 }
 #pragma code_seg()
 
 #pragma code_seg(".text$01b12")
-int AnimationManager_00442F50::DrawBucket12() {
+int SprtCtrlBatchView::DrawBucket12() {
     return RenderBucket(12);
 }
 #pragma code_seg()
 
 #pragma code_seg(".text$01b13")
-int AnimationManager_00442F50::DrawBucket13() {
+int SprtCtrlBatchView::DrawBucket13() {
     return RenderBucket(13);
 }
 #pragma code_seg()

@@ -11,8 +11,8 @@
   "description": "Enemy manager clear with the manager on the stack, compiled with the real animation-resource marker so it keeps its EAX/EDX registers.",
   "functions": [
     {
-      "name": "EnemyManager_Clear",
-      "symbol": "?Clear@EnemyManager_00409f90@@QAEXXZ",
+      "name": "EnemyCtrl_Clear",
+      "symbol": "?Clear@EnemyCtrlClearView@@QAEXXZ",
       "section": ".text$10clear",
       "address": "0x00409F90",
       "actual_abi": "manager on the stack; RET 4",
@@ -20,7 +20,7 @@
     }
   ],
   "context": {
-    "symbol": "?EnemyManagerClearCompilerContext@@YGXPAPAUEnemyManager_00409f90@@H@Z",
+    "symbol": "?EnemyManagerClearCompilerContext@@YGXPAPAUEnemyCtrlClearView@@H@Z",
     "section": ".text$15context",
     "address": "0x0040A010",
     "size": 35,
@@ -46,7 +46,7 @@
   "constants": [],
   "absolute_symbols": [
     {
-      "symbol": "_data_00491c10",
+      "symbol": "_g_sprt_ctrl",
       "address": "0x00491C10",
       "kind": "data"
     }
@@ -54,7 +54,7 @@
   "anchors": [
     {
       "name": "MarkResourceForRemoval",
-      "symbol": "?MarkResourceForRemoval@AnimationManager@@QAEXPAX@Z",
+      "symbol": "?MarkResourceForRemoval@SprtCtrl@@QAEXPAX@Z",
       "section": ".text$20helper",
       "address": "0x004493E0",
       "size": 92

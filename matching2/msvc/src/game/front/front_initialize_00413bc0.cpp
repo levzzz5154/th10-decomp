@@ -1,6 +1,6 @@
 #include "th10/game/front_initialize_00413bc0.hpp"
 static __forceinline Entity *AllocateFrontObject(void *resource, int script, int offset = 0) {
-    Entity *object = reinterpret_cast<FrontAnimationPool *>(data_00491c10)->Allocate();
+    Entity *object = reinterpret_cast<FrontAnimationPool *>(g_sprt_ctrl)->Allocate();
     unsigned int flags = object->flags_35C | 0x40000000;
     script += offset;
     object->render_bucket = 15;
@@ -9,7 +9,7 @@ static __forceinline Entity *AllocateFrontObject(void *resource, int script, int
     return object;
 }
 #pragma code_seg(".text$00413bc0_fn")
-void FrontInitialization_00413bc0::Initialize() {
+void FrontInitializeView::Initialize() {
     if (update_task)
         update_task->flags |= 2;
     if (draw_task)
@@ -17,13 +17,13 @@ void FrontInitialization_00413bc0::Initialize() {
     if (!persistent_a.value) {
         Entity *object = AllocateFrontObject(captions, 0);
         FrontAnimationId id =
-            reinterpret_cast<FrontAnimationLists *>(data_00491c10)->RegisterPrimaryBack(object);
+            reinterpret_cast<FrontAnimationLists *>(g_sprt_ctrl)->RegisterPrimaryBack(object);
         persistent_a = id;
     }
     if (!persistent_b.value) {
         Entity *object = AllocateFrontObject(captions, 1);
         // Retail registers this object without writing the second handle slot.
-        reinterpret_cast<FrontAnimationLists *>(data_00491c10)->RegisterPrimaryBack(object);
+        reinterpret_cast<FrontAnimationLists *>(g_sprt_ctrl)->RegisterPrimaryBack(object);
     }
     if (!(animations[0].flags_35C & 1)) {
         int script = 20;
@@ -66,36 +66,36 @@ void FrontInitialization_00413bc0::Initialize() {
     if (data_00491fb8 != 8) {
         if (!(data_00474c40.flags.bytes[0] & 0x20)) {
             Entity *object = AllocateFrontObject(alternate_resource, 0);
-            RegisterFrontInline(reinterpret_cast<FrontAnimationLists *>(data_00491c10), object);
+            RegisterFrontInline(reinterpret_cast<FrontAnimationLists *>(g_sprt_ctrl), object);
             object = AllocateFrontObject(alternate_resource, 1);
-            RegisterFrontInline(reinterpret_cast<FrontAnimationLists *>(data_00491c10), object);
+            RegisterFrontInline(reinterpret_cast<FrontAnimationLists *>(g_sprt_ctrl), object);
         }
     }
     if (data_00474c40.flags.bytes[0] & 0x20) {
         Entity *object = AllocateFrontObject(captions, 113);
-        RegisterFrontInline(reinterpret_cast<FrontAnimationLists *>(data_00491c10), object);
+        RegisterFrontInline(reinterpret_cast<FrontAnimationLists *>(g_sprt_ctrl), object);
     }
     LoadScript_0043e710(
         reinterpret_cast<AnimationResource_0043e710 *>(g_ascii_manager->title_resource),
         reinterpret_cast<AnimationObject_0043e710 *>(&animations[42]), 0);
-    if (data_00474c40.stage == 1 && !data_00477810->stage_one_gate && !data_00474c40.continues) {
+    if (data_00474c40.stage == 1 && !g_game->stage_one_gate && !data_00474c40.continues) {
         Entity *object = AllocateFrontObject(captions, 79);
-        RegisterFrontInline(reinterpret_cast<FrontAnimationLists *>(data_00491c10), object);
+        RegisterFrontInline(reinterpret_cast<FrontAnimationLists *>(g_sprt_ctrl), object);
     }
     if (data_00491fc4) {
         Entity *object = AllocateFrontObject(captions, data_00474c40.difficulty, 102);
-        FrontAnimationLists *lists = reinterpret_cast<FrontAnimationLists *>(data_00491c10);
+        FrontAnimationLists *lists = reinterpret_cast<FrontAnimationLists *>(g_sprt_ctrl);
         RegisterFrontInline(lists, object);
         difficulty_caption.value = lists->next_id.value;
-        data_00491c10->SetFrame3Inline(difficulty_caption);
+        g_sprt_ctrl->SetFrame3Inline(difficulty_caption);
     }
     Entity *object = AllocateFrontObject(captions, data_00474c40.difficulty, 107);
-    FrontAnimationLists *lists = reinterpret_cast<FrontAnimationLists *>(data_00491c10);
+    FrontAnimationLists *lists = reinterpret_cast<FrontAnimationLists *>(g_sprt_ctrl);
     RegisterFrontInline(lists, object);
     FrontAnimationId caption_id = difficulty_caption;
     difficulty_label = lists->next_id;
     // The final tree operation deliberately uses the caption's handle again.
-    data_00491c10->SetFrame3Inline(caption_id);
+    g_sprt_ctrl->SetFrame3Inline(caption_id);
     field_9e90 = 0;
 }
 #pragma code_seg()

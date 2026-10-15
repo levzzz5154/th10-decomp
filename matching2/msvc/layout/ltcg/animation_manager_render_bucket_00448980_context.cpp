@@ -55,7 +55,7 @@ extern "C" __declspec(noinline) int __cdecl asm_FUN_004451c0_004451c0(
     case 4: return asm_FUN_00443fb0_00443fb0(record, manager);
     case 5: return asm_FUN_004445c0_004445c0(record, manager);
     case 6: return asm_FUN_00444760_00444760(record, manager);
-    case 7: return ((AnimationManager_00442F50*)manager)->DrawStrip(
+    case 7: return ((SprtCtrlBatchView*)manager)->DrawStrip(
                 (const RenderEntity*)record, 0, record->vertex_count);
     case 8: return asm_FUN_00443290_00443290(record, manager);
     case 9: return asm_FUN_00443910_00443910(record, manager);
@@ -68,7 +68,7 @@ extern "C" __declspec(noinline) int __cdecl asm_FUN_004451c0_004451c0(
 // walks an array of animation managers and draws one bucket of each.  Not
 // recovered game code.
 #pragma code_seg(".text$05context")
-int __stdcall RenderBucketContext(AnimationManager_00442F50** managers, int count) {
+int __stdcall RenderBucketContext(SprtCtrlBatchView** managers, int count) {
     int result = 0;
     for (int index = 0; index < count; ++index) {
         result = managers[index]->RenderBucket(index);

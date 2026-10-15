@@ -76,7 +76,7 @@ struct Enemy_0040cfb0 {
 };
 typedef char EnemySize_0040cfb0[sizeof(Enemy_0040cfb0) == 0x2518 ? 1 : -1];
 
-struct EnemyManager_0040cfb0 {
+struct EnemyCtrlSpawnView {
     unsigned char reserved_00[0x58];
     EnemyNode_0040cfb0* head;           // +0x58
     EnemyNode_0040cfb0* tail;           // +0x5C
@@ -96,7 +96,7 @@ struct EnemySpawn_0040cfb0 {
 
     // 0x0040CFB0: create an enemy running the named script entry and append
     // it to the manager's list.
-    __declspec(noinline) Enemy_0040cfb0* Create(EnemyManager_0040cfb0* manager, const char* entry);
+    __declspec(noinline) Enemy_0040cfb0* Create(EnemyCtrlSpawnView* manager, const char* entry);
 };
 typedef char EnemySpawnSize_0040cfb0[sizeof(EnemySpawn_0040cfb0) == 0x40 ? 1 : -1];
 
