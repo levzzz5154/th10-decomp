@@ -5,28 +5,11 @@
 #include "timer.hpp"
 
 struct PickupPoint { float x, y; };
-struct Vec3 {
-    float x, y, z;
-    __declspec(noinline) int OutsideViewport(float horizontal_margin, float vertical_margin) const;
-    Vec3 *SetPolar(float angle, float radius);
-    Vec3 &operator+=(const Vec3 &other) {
-        x += other.x;
-        y += other.y;
-        z += other.z;
-        return *this;
-    }
-    void SnapToHundredths() {
-        x = (float)floor(x * 100.0f) * 0.01f;
-        y = (float)floor(y * 100.0f) * 0.01f;
-    }
-    Vec3 operator+(const Vec3 &other) const {
-        Vec3 sum;
-        sum.x = x + other.x;
-        sum.y = y + other.y;
-        sum.z = z + other.z;
-        return sum;
-    }
-};
+typedef Vector3 Vec3;
+inline void Vector3::SnapToHundredths() {
+    x = (float)floor(x * 100.0f) * 0.01f;
+    y = (float)floor(y * 100.0f) * 0.01f;
+}
 struct Motion {
     Vec3 position, velocity;
     // speed is also the orbit turn rate when flags bit 0 is set.

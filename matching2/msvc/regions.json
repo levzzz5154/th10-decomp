@@ -4822,7 +4822,7 @@
     {
       "name": "semantic_CollisionCheck_00408100",
       "source": "src/game/player_collision_00408030_00408100.cpp",
-      "symbol": "?Check@PlayerCollisionEngine@@QAEHPBUVec3@@MHH@Z",
+      "symbol": "?Check@PlayerCollisionEngine@@QAEHPBUVector3@@MHH@Z",
       "address": "0x00408100",
       "size": 260,
       "kind": "semantic",

@@ -64,7 +64,7 @@
     },
     {
       "name": "function_00408100",
-      "symbol": "?Check@PlayerCollisionEngine@@QAEHPBUVec3@@MHH@Z",
+      "symbol": "?Check@PlayerCollisionEngine@@QAEHPBUVector3@@MHH@Z",
       "section": ".text$f00408100F",
       "address": "0x408100",
       "size": 260,
@@ -254,7 +254,7 @@
     },
     {
       "name": "function_00428d70",
-      "symbol": "?OutsideViewport@Vec3@@QBEHMM@Z",
+      "symbol": "?OutsideViewport@Vector3@@QBEHMM@Z",
       "section": ".text$f00428d70F",
       "address": "0x428d70",
       "size": 91
@@ -359,7 +359,7 @@
     },
     {
       "name": "function_0041c800",
-      "symbol": "?Evaluate@PlayerBulletManager@@QAEHPBUVec3@@MH@Z",
+      "symbol": "?Evaluate@PlayerBulletManager@@QAEHPBUVector3@@MH@Z",
       "section": ".text$f0041c800F",
       "address": "0x41c800",
       "size": 76
@@ -756,7 +756,7 @@
       "kind": "data"
     },
     {
-      "symbol": "?SetPolar@Vec3@@QAEPAU1@MM@Z",
+      "symbol": "?SetPolar@Vector3@@QAEPAU1@MM@Z",
       "address": "0x44c5d0",
       "kind": "relative_code"
     },

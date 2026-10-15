@@ -41,7 +41,7 @@ void Motion::Advance() {
 
 extern "C" const float data_00470b40, data_00470b3c, data_00470b04, data_00470b38;
 #pragma code_seg(".text$f00428d70F")
-int Vec3::OutsideViewport(float horizontal_margin, float vertical_margin) const {
+int Vector3::OutsideViewport(float horizontal_margin, float vertical_margin) const {
     if (!(x + horizontal_margin <= data_00470b40) && !(x - horizontal_margin >= data_00470b3c) &&
         !(y + vertical_margin <= data_00470b04) && !(y - vertical_margin >= data_00470b38))
         return 0;

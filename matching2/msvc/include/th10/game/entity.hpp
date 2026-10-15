@@ -12,6 +12,28 @@ struct Vector3 {
     float x;
     float y;
     float z;
+
+    // 0x00428D70: whether the point lies outside the playfield widened by
+    // the two margins.
+    __declspec(noinline) int OutsideViewport(float horizontal_margin, float vertical_margin) const;
+    // 0x0044C5D0: set x and y from a direction and a length; z is untouched.
+    Vector3* SetPolar(float angle, float radius);
+    // Round x and y down to hundredths of a pixel (defined where it is used).
+    void SnapToHundredths();
+
+    Vector3& operator+=(const Vector3& other) {
+        x += other.x;
+        y += other.y;
+        z += other.z;
+        return *this;
+    }
+    Vector3 operator+(const Vector3& other) const {
+        Vector3 sum;
+        sum.x = x + other.x;
+        sum.y = y + other.y;
+        sum.z = z + other.z;
+        return sum;
+    }
 };
 
 // ============================================================================
