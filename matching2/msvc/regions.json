@@ -43380,7 +43380,7 @@
     },
     {
       "name": "semantic_DirectInput8Create_0045071e",
-      "source": "src/unidentified/DirectInput8Create_0045071e.cpp",
+      "source": "src/platform/imports/DirectInput8Create_0045071e.cpp",
       "symbol": "_DirectInput8Create_0045071e@20",
       "address": "0x0045071E",
       "size": 6,
@@ -43388,7 +43388,7 @@
       "owner": "0x0045071E",
       "previous_record": {
         "name": "asm_DirectInput8Create_0045071e",
-        "source": "src/unidentified/DirectInput8Create_0045071e.cpp",
+        "source": "src/platform/imports/DirectInput8Create_0045071e.cpp",
         "symbol": "_asm_DirectInput8Create_0045071e",
         "address": "0x0045071E",
         "size": 6,
@@ -43414,7 +43414,7 @@
     },
     {
       "name": "semantic_Ordinal_11_00452170",
-      "source": "src/unidentified/Ordinal_11_00452170.cpp",
+      "source": "src/platform/imports/Ordinal_11_00452170.cpp",
       "symbol": "_Ordinal_11_00452170@12",
       "address": "0x00452170",
       "size": 6,
@@ -43423,7 +43423,7 @@
     },
     {
       "name": "semantic_Direct3DCreate9_00452176",
-      "source": "src/unidentified/Direct3DCreate9_00452176.cpp",
+      "source": "src/platform/imports/Direct3DCreate9_00452176.cpp",
       "symbol": "_Direct3DCreate9_00452176@4",
       "address": "0x00452176",
       "size": 6,
@@ -43432,7 +43432,7 @@
     },
     {
       "name": "semantic_D3DXVec3Normalize_0045217c",
-      "source": "src/unidentified/D3DXVec3Normalize_0045217c.cpp",
+      "source": "src/platform/imports/D3DXVec3Normalize_0045217c.cpp",
       "symbol": "_D3DXVec3Normalize@8",
       "address": "0x0045217C",
       "size": 6,
@@ -43441,7 +43441,7 @@
     },
     {
       "name": "semantic_D3DXMatrixTranslation_00452182",
-      "source": "src/unidentified/D3DXMatrixTranslation_00452182.cpp",
+      "source": "src/platform/imports/D3DXMatrixTranslation_00452182.cpp",
       "symbol": "_asm_D3DXMatrixTranslation_00452182",
       "address": "0x00452182",
       "size": 6,
@@ -43450,7 +43450,7 @@
     },
     {
       "name": "semantic_D3DXVec3ProjectArray_00452188",
-      "source": "src/unidentified/D3DXVec3ProjectArray_00452188.cpp",
+      "source": "src/platform/imports/D3DXVec3ProjectArray_00452188.cpp",
       "symbol": "_asm_D3DXVec3ProjectArray_00452188@36",
       "address": "0x00452188",
       "size": 6,
@@ -43459,7 +43459,7 @@
     },
     {
       "name": "semantic_D3DXVec3Project_0045218e",
-      "source": "src/unidentified/D3DXVec3Project_0045218e.cpp",
+      "source": "src/platform/imports/D3DXVec3Project_0045218e.cpp",
       "symbol": "_D3DXVec3Project_0045218e@24",
       "address": "0x0045218E",
       "size": 6,
@@ -43468,7 +43468,7 @@
     },
     {
       "name": "semantic_D3DXMatrixLookAtLH_00452194",
-      "source": "src/unidentified/D3DXMatrixLookAtLH_00452194.cpp",
+      "source": "src/platform/imports/D3DXMatrixLookAtLH_00452194.cpp",
       "symbol": "_asm_D3DXMatrixLookAtLH_00452194@16",
       "address": "0x00452194",
       "size": 6,
@@ -43477,7 +43477,7 @@
     },
     {
       "name": "semantic_D3DXMatrixPerspectiveFovLH_0045219a",
-      "source": "src/unidentified/D3DXMatrixPerspectiveFovLH_0045219a.cpp",
+      "source": "src/platform/imports/D3DXMatrixPerspectiveFovLH_0045219a.cpp",
       "symbol": "_asm_D3DXMatrixPerspectiveFovLH_0045219a@20",
       "address": "0x0045219A",
       "size": 6,
@@ -43486,7 +43486,7 @@
     },
     {
       "name": "semantic_D3DXCreateTexture_004521a0",
-      "source": "src/unidentified/D3DXCreateTexture_004521a0.cpp",
+      "source": "src/platform/imports/D3DXCreateTexture_004521a0.cpp",
       "symbol": "_asm_D3DXCreateTexture_004521a0@32",
       "address": "0x004521A0",
       "size": 6,
@@ -43495,7 +43495,7 @@
     },
     {
       "name": "semantic_D3DXLoadSurfaceFromMemory_004521a6",
-      "source": "src/unidentified/D3DXLoadSurfaceFromMemory_004521a6.cpp",
+      "source": "src/platform/imports/D3DXLoadSurfaceFromMemory_004521a6.cpp",
       "symbol": "_asm_D3DXLoadSurfaceFromMemory_004521a6@40",
       "address": "0x004521A6",
       "size": 6,
@@ -43504,7 +43504,7 @@
     },
     {
       "name": "semantic_D3DXMatrixRotationX_004521ac",
-      "source": "src/unidentified/D3DXMatrixRotationX_004521ac.cpp",
+      "source": "src/platform/imports/D3DXMatrixRotationX_004521ac.cpp",
       "symbol": "_asm_D3DXMatrixRotationX_004521ac@8",
       "address": "0x004521AC",
       "size": 6,
@@ -43513,7 +43513,7 @@
     },
     {
       "name": "semantic_D3DXMatrixMultiply_004521b2",
-      "source": "src/unidentified/D3DXMatrixMultiply_004521b2.cpp",
+      "source": "src/platform/imports/D3DXMatrixMultiply_004521b2.cpp",
       "symbol": "_asm_D3DXMatrixMultiply_004521b2@12",
       "address": "0x004521B2",
       "size": 6,
@@ -43522,7 +43522,7 @@
     },
     {
       "name": "semantic_D3DXMatrixRotationY_004521b8",
-      "source": "src/unidentified/D3DXMatrixRotationY_004521b8.cpp",
+      "source": "src/platform/imports/D3DXMatrixRotationY_004521b8.cpp",
       "symbol": "_asm_D3DXMatrixRotationY_004521b8@8",
       "address": "0x004521B8",
       "size": 6,
@@ -43531,7 +43531,7 @@
     },
     {
       "name": "semantic_D3DXMatrixRotationZ_004521be",
-      "source": "src/unidentified/D3DXMatrixRotationZ_004521be.cpp",
+      "source": "src/platform/imports/D3DXMatrixRotationZ_004521be.cpp",
       "symbol": "_asm_D3DXMatrixRotationZ_004521be",
       "address": "0x004521BE",
       "size": 6,
@@ -43540,7 +43540,7 @@
     },
     {
       "name": "semantic_D3DXVec3Transform_004521c4",
-      "source": "src/unidentified/D3DXVec3Transform_004521c4.cpp",
+      "source": "src/platform/imports/D3DXVec3Transform_004521c4.cpp",
       "symbol": "_D3DXVec3Transform@12",
       "address": "0x004521C4",
       "size": 6,
@@ -43549,7 +43549,7 @@
     },
     {
       "name": "semantic_D3DXCreateTextureFromFileInMemoryEx_004521ca",
-      "source": "src/unidentified/D3DXCreateTextureFromFileInMemoryEx_004521ca.cpp",
+      "source": "src/platform/imports/D3DXCreateTextureFromFileInMemoryEx_004521ca.cpp",
       "symbol": "_D3DXCreateTextureFromFileInMemoryEx_004521ca@60",
       "address": "0x004521CA",
       "size": 6,
@@ -43558,7 +43558,7 @@
     },
     {
       "name": "semantic_D3DXLoadSurfaceFromFileInMemory_004521d0",
-      "source": "src/unidentified/D3DXLoadSurfaceFromFileInMemory_004521d0.cpp",
+      "source": "src/platform/imports/D3DXLoadSurfaceFromFileInMemory_004521d0.cpp",
       "symbol": "_asm_D3DXLoadSurfaceFromFileInMemory_004521d0@36",
       "address": "0x004521D0",
       "size": 6,
@@ -43567,7 +43567,7 @@
     },
     {
       "name": "semantic_D3DXLoadSurfaceFromSurface_004521d6",
-      "source": "src/unidentified/D3DXLoadSurfaceFromSurface_004521d6.cpp",
+      "source": "src/platform/imports/D3DXLoadSurfaceFromSurface_004521d6.cpp",
       "symbol": "_D3DXLoadSurfaceFromSurface_004521d6@32",
       "address": "0x004521D6",
       "size": 6,
@@ -43576,7 +43576,7 @@
     },
     {
       "name": "semantic_import_thunk_004521dc",
-      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "source": "src/crt/unassigned_004521dc.cpp",
       "symbol": "_semantic_import_thunk_004521dc",
       "address": "0x004521DC",
       "size": 6,
@@ -43585,7 +43585,7 @@
     },
     {
       "name": "semantic_import_thunk_004521e2",
-      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "source": "src/crt/unassigned_004521dc.cpp",
       "symbol": "_semantic_import_thunk_004521e2",
       "address": "0x004521E2",
       "size": 6,
@@ -43594,7 +43594,7 @@
     },
     {
       "name": "semantic_import_thunk_004521e8",
-      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "source": "src/crt/unassigned_004521dc.cpp",
       "symbol": "_semantic_import_thunk_004521e8",
       "address": "0x004521E8",
       "size": 6,
@@ -43603,7 +43603,7 @@
     },
     {
       "name": "semantic_import_thunk_004521ee",
-      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "source": "src/crt/unassigned_004521dc.cpp",
       "symbol": "_semantic_import_thunk_004521ee",
       "address": "0x004521EE",
       "size": 6,
@@ -43612,7 +43612,7 @@
     },
     {
       "name": "semantic_import_thunk_004521f4",
-      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "source": "src/crt/unassigned_004521dc.cpp",
       "symbol": "_semantic_import_thunk_004521f4",
       "address": "0x004521F4",
       "size": 6,
@@ -43621,7 +43621,7 @@
     },
     {
       "name": "semantic_import_thunk_004521fa",
-      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "source": "src/crt/unassigned_004521dc.cpp",
       "symbol": "_semantic_import_thunk_004521fa",
       "address": "0x004521FA",
       "size": 6,
@@ -43630,7 +43630,7 @@
     },
     {
       "name": "semantic_import_thunk_00452200",
-      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "source": "src/crt/unassigned_004521dc.cpp",
       "symbol": "_semantic_import_thunk_00452200",
       "address": "0x00452200",
       "size": 6,
@@ -43639,7 +43639,7 @@
     },
     {
       "name": "semantic_import_thunk_00452206",
-      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "source": "src/crt/unassigned_004521dc.cpp",
       "symbol": "_semantic_import_thunk_00452206",
       "address": "0x00452206",
       "size": 6,
@@ -43648,7 +43648,7 @@
     },
     {
       "name": "semantic_import_thunk_0045220c",
-      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "source": "src/crt/unassigned_004521dc.cpp",
       "symbol": "_semantic_import_thunk_0045220c",
       "address": "0x0045220C",
       "size": 6,
@@ -43657,7 +43657,7 @@
     },
     {
       "name": "semantic_import_thunk_00452212",
-      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "source": "src/crt/unassigned_004521dc.cpp",
       "symbol": "_semantic_import_thunk_00452212",
       "address": "0x00452212",
       "size": 6,
@@ -43666,7 +43666,7 @@
     },
     {
       "name": "semantic_import_thunk_00452218",
-      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "source": "src/crt/unassigned_004521dc.cpp",
       "symbol": "_semantic_import_thunk_00452218",
       "address": "0x00452218",
       "size": 6,
@@ -43675,7 +43675,7 @@
     },
     {
       "name": "semantic_import_thunk_0045221e",
-      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "source": "src/crt/unassigned_004521dc.cpp",
       "symbol": "_semantic_import_thunk_0045221e",
       "address": "0x0045221E",
       "size": 6,
@@ -43684,7 +43684,7 @@
     },
     {
       "name": "semantic_import_thunk_00452224",
-      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "source": "src/crt/unassigned_004521dc.cpp",
       "symbol": "_semantic_import_thunk_00452224",
       "address": "0x00452224",
       "size": 6,
@@ -43693,7 +43693,7 @@
     },
     {
       "name": "semantic_import_thunk_0045222a",
-      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "source": "src/crt/unassigned_004521dc.cpp",
       "symbol": "_semantic_import_thunk_0045222a",
       "address": "0x0045222A",
       "size": 6,
@@ -43702,7 +43702,7 @@
     },
     {
       "name": "semantic_import_thunk_00452230",
-      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "source": "src/crt/unassigned_004521dc.cpp",
       "symbol": "_semantic_import_thunk_00452230",
       "address": "0x00452230",
       "size": 6,
@@ -43711,7 +43711,7 @@
     },
     {
       "name": "semantic_import_thunk_00452236",
-      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "source": "src/crt/unassigned_004521dc.cpp",
       "symbol": "_semantic_import_thunk_00452236",
       "address": "0x00452236",
       "size": 6,
@@ -43720,7 +43720,7 @@
     },
     {
       "name": "semantic_import_thunk_0045223c",
-      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "source": "src/crt/unassigned_004521dc.cpp",
       "symbol": "_semantic_import_thunk_0045223c",
       "address": "0x0045223C",
       "size": 6,
@@ -43729,7 +43729,7 @@
     },
     {
       "name": "semantic_import_thunk_00452242",
-      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "source": "src/crt/unassigned_004521dc.cpp",
       "symbol": "_semantic_import_thunk_00452242",
       "address": "0x00452242",
       "size": 6,
@@ -43738,7 +43738,7 @@
     },
     {
       "name": "semantic_import_thunk_00452248",
-      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "source": "src/crt/unassigned_004521dc.cpp",
       "symbol": "_semantic_import_thunk_00452248",
       "address": "0x00452248",
       "size": 6,
@@ -43747,7 +43747,7 @@
     },
     {
       "name": "semantic_import_thunk_0045224e",
-      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "source": "src/crt/unassigned_004521dc.cpp",
       "symbol": "_semantic_import_thunk_0045224e",
       "address": "0x0045224E",
       "size": 6,
@@ -43756,7 +43756,7 @@
     },
     {
       "name": "semantic_import_thunk_00452254",
-      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "source": "src/crt/unassigned_004521dc.cpp",
       "symbol": "_semantic_import_thunk_00452254",
       "address": "0x00452254",
       "size": 6,
@@ -43765,7 +43765,7 @@
     },
     {
       "name": "semantic_import_thunk_0045225a",
-      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "source": "src/crt/unassigned_004521dc.cpp",
       "symbol": "_semantic_import_thunk_0045225a",
       "address": "0x0045225A",
       "size": 6,
@@ -43774,7 +43774,7 @@
     },
     {
       "name": "semantic_import_thunk_00452260",
-      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "source": "src/crt/unassigned_004521dc.cpp",
       "symbol": "_semantic_import_thunk_00452260",
       "address": "0x00452260",
       "size": 6,
@@ -43783,7 +43783,7 @@
     },
     {
       "name": "semantic_import_thunk_00452266",
-      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "source": "src/crt/unassigned_004521dc.cpp",
       "symbol": "_semantic_import_thunk_00452266",
       "address": "0x00452266",
       "size": 6,
@@ -43792,7 +43792,7 @@
     },
     {
       "name": "semantic_import_thunk_0045226c",
-      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "source": "src/crt/unassigned_004521dc.cpp",
       "symbol": "_semantic_import_thunk_0045226c",
       "address": "0x0045226C",
       "size": 6,
@@ -43801,7 +43801,7 @@
     },
     {
       "name": "semantic_import_thunk_00452272",
-      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "source": "src/crt/unassigned_004521dc.cpp",
       "symbol": "_semantic_import_thunk_00452272",
       "address": "0x00452272",
       "size": 6,
@@ -43810,7 +43810,7 @@
     },
     {
       "name": "semantic_import_thunk_00452278",
-      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "source": "src/crt/unassigned_004521dc.cpp",
       "symbol": "_semantic_import_thunk_00452278",
       "address": "0x00452278",
       "size": 6,
@@ -43819,7 +43819,7 @@
     },
     {
       "name": "semantic_import_thunk_0045227e",
-      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "source": "src/crt/unassigned_004521dc.cpp",
       "symbol": "_semantic_import_thunk_0045227e",
       "address": "0x0045227E",
       "size": 6,
@@ -43828,7 +43828,7 @@
     },
     {
       "name": "semantic_import_thunk_00452284",
-      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "source": "src/crt/unassigned_004521dc.cpp",
       "symbol": "_semantic_import_thunk_00452284",
       "address": "0x00452284",
       "size": 6,
@@ -43837,7 +43837,7 @@
     },
     {
       "name": "semantic_import_thunk_0045228a",
-      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "source": "src/crt/unassigned_004521dc.cpp",
       "symbol": "_semantic_import_thunk_0045228a",
       "address": "0x0045228A",
       "size": 6,
@@ -43846,7 +43846,7 @@
     },
     {
       "name": "semantic_import_thunk_00452290",
-      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "source": "src/crt/unassigned_004521dc.cpp",
       "symbol": "_semantic_import_thunk_00452290",
       "address": "0x00452290",
       "size": 6,
@@ -43855,7 +43855,7 @@
     },
     {
       "name": "semantic_import_thunk_00452296",
-      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "source": "src/crt/unassigned_004521dc.cpp",
       "symbol": "_semantic_import_thunk_00452296",
       "address": "0x00452296",
       "size": 6,
@@ -43864,7 +43864,7 @@
     },
     {
       "name": "semantic_import_thunk_0045229c",
-      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "source": "src/crt/unassigned_004521dc.cpp",
       "symbol": "_semantic_import_thunk_0045229c",
       "address": "0x0045229C",
       "size": 6,
@@ -43873,7 +43873,7 @@
     },
     {
       "name": "semantic_import_thunk_004522a2",
-      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "source": "src/crt/unassigned_004521dc.cpp",
       "symbol": "_semantic_import_thunk_004522a2",
       "address": "0x004522A2",
       "size": 6,
@@ -43882,7 +43882,7 @@
     },
     {
       "name": "semantic_import_thunk_004522a8",
-      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "source": "src/crt/unassigned_004521dc.cpp",
       "symbol": "_semantic_import_thunk_004522a8",
       "address": "0x004522A8",
       "size": 6,
@@ -43891,7 +43891,7 @@
     },
     {
       "name": "semantic_import_thunk_004522ae",
-      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "source": "src/crt/unassigned_004521dc.cpp",
       "symbol": "_semantic_import_thunk_004522ae",
       "address": "0x004522AE",
       "size": 6,
@@ -43900,7 +43900,7 @@
     },
     {
       "name": "semantic_import_thunk_004522b4",
-      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "source": "src/crt/unassigned_004521dc.cpp",
       "symbol": "_semantic_import_thunk_004522b4",
       "address": "0x004522B4",
       "size": 6,
@@ -43909,7 +43909,7 @@
     },
     {
       "name": "semantic_import_thunk_004522ba",
-      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "source": "src/crt/unassigned_004521dc.cpp",
       "symbol": "_semantic_import_thunk_004522ba",
       "address": "0x004522BA",
       "size": 6,
@@ -43918,7 +43918,7 @@
     },
     {
       "name": "semantic_import_thunk_004522c0",
-      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "source": "src/crt/unassigned_004521dc.cpp",
       "symbol": "_semantic_import_thunk_004522c0",
       "address": "0x004522C0",
       "size": 6,
@@ -43927,7 +43927,7 @@
     },
     {
       "name": "semantic_import_thunk_004522c6",
-      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "source": "src/crt/unassigned_004521dc.cpp",
       "symbol": "_semantic_import_thunk_004522c6",
       "address": "0x004522C6",
       "size": 6,
@@ -43936,7 +43936,7 @@
     },
     {
       "name": "semantic_import_thunk_004522cc",
-      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "source": "src/crt/unassigned_004521dc.cpp",
       "symbol": "_semantic_import_thunk_004522cc",
       "address": "0x004522CC",
       "size": 6,
@@ -43945,7 +43945,7 @@
     },
     {
       "name": "semantic_import_thunk_004522d2",
-      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "source": "src/crt/unassigned_004521dc.cpp",
       "symbol": "_semantic_import_thunk_004522d2",
       "address": "0x004522D2",
       "size": 6,
@@ -43954,7 +43954,7 @@
     },
     {
       "name": "semantic_import_thunk_004522d8",
-      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "source": "src/crt/unassigned_004521dc.cpp",
       "symbol": "_semantic_import_thunk_004522d8",
       "address": "0x004522D8",
       "size": 6,
@@ -43963,7 +43963,7 @@
     },
     {
       "name": "semantic_import_thunk_004522de",
-      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "source": "src/crt/unassigned_004521dc.cpp",
       "symbol": "_semantic_import_thunk_004522de",
       "address": "0x004522DE",
       "size": 6,
@@ -43972,7 +43972,7 @@
     },
     {
       "name": "semantic_import_thunk_004522e4",
-      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "source": "src/crt/unassigned_004521dc.cpp",
       "symbol": "_semantic_import_thunk_004522e4",
       "address": "0x004522E4",
       "size": 6,
@@ -43981,7 +43981,7 @@
     },
     {
       "name": "semantic_import_thunk_004522ea",
-      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "source": "src/crt/unassigned_004521dc.cpp",
       "symbol": "_semantic_import_thunk_004522ea",
       "address": "0x004522EA",
       "size": 6,
@@ -43990,7 +43990,7 @@
     },
     {
       "name": "semantic_import_thunk_004522f0",
-      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "source": "src/crt/unassigned_004521dc.cpp",
       "symbol": "_semantic_import_thunk_004522f0",
       "address": "0x004522F0",
       "size": 6,
@@ -43999,7 +43999,7 @@
     },
     {
       "name": "semantic_import_thunk_004522f6",
-      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "source": "src/crt/unassigned_004521dc.cpp",
       "symbol": "_semantic_import_thunk_004522f6",
       "address": "0x004522F6",
       "size": 6,
@@ -44008,7 +44008,7 @@
     },
     {
       "name": "semantic_import_thunk_004522fc",
-      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "source": "src/crt/unassigned_004521dc.cpp",
       "symbol": "_semantic_import_thunk_004522fc",
       "address": "0x004522FC",
       "size": 6,
@@ -44017,7 +44017,7 @@
     },
     {
       "name": "semantic_import_thunk_00452302",
-      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "source": "src/crt/unassigned_004521dc.cpp",
       "symbol": "_semantic_import_thunk_00452302",
       "address": "0x00452302",
       "size": 6,
@@ -44026,7 +44026,7 @@
     },
     {
       "name": "semantic_import_thunk_00452308",
-      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "source": "src/crt/unassigned_004521dc.cpp",
       "symbol": "_semantic_import_thunk_00452308",
       "address": "0x00452308",
       "size": 6,
@@ -44035,7 +44035,7 @@
     },
     {
       "name": "semantic_import_thunk_0045230e",
-      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "source": "src/crt/unassigned_004521dc.cpp",
       "symbol": "_semantic_import_thunk_0045230e",
       "address": "0x0045230E",
       "size": 6,
@@ -44044,7 +44044,7 @@
     },
     {
       "name": "semantic_import_thunk_00452314",
-      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "source": "src/crt/unassigned_004521dc.cpp",
       "symbol": "_semantic_import_thunk_00452314",
       "address": "0x00452314",
       "size": 6,
@@ -44053,7 +44053,7 @@
     },
     {
       "name": "semantic_import_thunk_0045231a",
-      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "source": "src/crt/unassigned_004521dc.cpp",
       "symbol": "_semantic_import_thunk_0045231a",
       "address": "0x0045231A",
       "size": 6,
@@ -44062,7 +44062,7 @@
     },
     {
       "name": "semantic_import_thunk_00452320",
-      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "source": "src/crt/unassigned_004521dc.cpp",
       "symbol": "_semantic_import_thunk_00452320",
       "address": "0x00452320",
       "size": 6,
@@ -44071,7 +44071,7 @@
     },
     {
       "name": "semantic_import_thunk_00452326",
-      "source": "src/unidentified/unassigned_004521dc.cpp",
+      "source": "src/crt/unassigned_004521dc.cpp",
       "symbol": "_semantic_import_thunk_00452326",
       "address": "0x00452326",
       "size": 6,
@@ -44080,7 +44080,7 @@
     },
     {
       "name": "semantic_WINNLSEnableIME_0045232c",
-      "source": "src/unidentified/WINNLSEnableIME_0045232c.cpp",
+      "source": "src/crt/WINNLSEnableIME_0045232c.cpp",
       "symbol": "_asm_WINNLSEnableIME_0045232c@8",
       "address": "0x0045232C",
       "size": 6,
@@ -44089,7 +44089,7 @@
     },
     {
       "name": "semantic_import_thunk_00452332",
-      "source": "src/unidentified/unassigned_00452332.cpp",
+      "source": "src/crt/unassigned_00452332.cpp",
       "symbol": "_semantic_import_thunk_00452332",
       "address": "0x00452332",
       "size": 6,
@@ -44098,7 +44098,7 @@
     },
     {
       "name": "semantic_import_thunk_00452338",
-      "source": "src/unidentified/unassigned_00452332.cpp",
+      "source": "src/crt/unassigned_00452332.cpp",
       "symbol": "_semantic_import_thunk_00452338",
       "address": "0x00452338",
       "size": 6,
@@ -44107,7 +44107,7 @@
     },
     {
       "name": "semantic_import_thunk_0045233e",
-      "source": "src/unidentified/unassigned_00452332.cpp",
+      "source": "src/crt/unassigned_00452332.cpp",
       "symbol": "_semantic_import_thunk_0045233e",
       "address": "0x0045233E",
       "size": 6,
@@ -44116,7 +44116,7 @@
     },
     {
       "name": "semantic_import_thunk_00452344",
-      "source": "src/unidentified/unassigned_00452332.cpp",
+      "source": "src/crt/unassigned_00452332.cpp",
       "symbol": "_semantic_import_thunk_00452344",
       "address": "0x00452344",
       "size": 6,
@@ -44125,7 +44125,7 @@
     },
     {
       "name": "semantic_import_thunk_0045234a",
-      "source": "src/unidentified/unassigned_00452332.cpp",
+      "source": "src/crt/unassigned_00452332.cpp",
       "symbol": "_semantic_import_thunk_0045234a",
       "address": "0x0045234A",
       "size": 6,
@@ -44134,7 +44134,7 @@
     },
     {
       "name": "semantic_import_thunk_00452350",
-      "source": "src/unidentified/unassigned_00452332.cpp",
+      "source": "src/crt/unassigned_00452332.cpp",
       "symbol": "_semantic_import_thunk_00452350",
       "address": "0x00452350",
       "size": 6,
@@ -44143,7 +44143,7 @@
     },
     {
       "name": "semantic_import_thunk_00452356",
-      "source": "src/unidentified/unassigned_00452332.cpp",
+      "source": "src/crt/unassigned_00452332.cpp",
       "symbol": "_semantic_import_thunk_00452356",
       "address": "0x00452356",
       "size": 6,
@@ -44152,7 +44152,7 @@
     },
     {
       "name": "semantic_import_thunk_0045235c",
-      "source": "src/unidentified/unassigned_00452332.cpp",
+      "source": "src/crt/unassigned_00452332.cpp",
       "symbol": "_semantic_import_thunk_0045235c",
       "address": "0x0045235C",
       "size": 6,
@@ -44161,7 +44161,7 @@
     },
     {
       "name": "semantic_import_thunk_00452362",
-      "source": "src/unidentified/unassigned_00452332.cpp",
+      "source": "src/crt/unassigned_00452332.cpp",
       "symbol": "_semantic_import_thunk_00452362",
       "address": "0x00452362",
       "size": 6,
@@ -44170,7 +44170,7 @@
     },
     {
       "name": "semantic_import_thunk_00452368",
-      "source": "src/unidentified/unassigned_00452332.cpp",
+      "source": "src/crt/unassigned_00452332.cpp",
       "symbol": "_semantic_import_thunk_00452368",
       "address": "0x00452368",
       "size": 6,
@@ -44179,7 +44179,7 @@
     },
     {
       "name": "semantic_import_thunk_0045236e",
-      "source": "src/unidentified/unassigned_00452332.cpp",
+      "source": "src/crt/unassigned_00452332.cpp",
       "symbol": "_semantic_import_thunk_0045236e",
       "address": "0x0045236E",
       "size": 6,
@@ -44188,7 +44188,7 @@
     },
     {
       "name": "semantic_import_thunk_00452374",
-      "source": "src/unidentified/unassigned_00452332.cpp",
+      "source": "src/crt/unassigned_00452332.cpp",
       "symbol": "_semantic_import_thunk_00452374",
       "address": "0x00452374",
       "size": 6,
@@ -44197,7 +44197,7 @@
     },
     {
       "name": "semantic_import_thunk_0045237a",
-      "source": "src/unidentified/unassigned_00452332.cpp",
+      "source": "src/crt/unassigned_00452332.cpp",
       "symbol": "_semantic_import_thunk_0045237a",
       "address": "0x0045237A",
       "size": 6,
@@ -44206,7 +44206,7 @@
     },
     {
       "name": "semantic_import_thunk_00452380",
-      "source": "src/unidentified/unassigned_00452332.cpp",
+      "source": "src/crt/unassigned_00452332.cpp",
       "symbol": "_semantic_import_thunk_00452380",
       "address": "0x00452380",
       "size": 6,
@@ -44215,7 +44215,7 @@
     },
     {
       "name": "semantic_import_thunk_00452386",
-      "source": "src/unidentified/unassigned_00452332.cpp",
+      "source": "src/crt/unassigned_00452332.cpp",
       "symbol": "_semantic_import_thunk_00452386",
       "address": "0x00452386",
       "size": 6,
@@ -44224,7 +44224,7 @@
     },
     {
       "name": "semantic_import_thunk_0045238c",
-      "source": "src/unidentified/unassigned_00452332.cpp",
+      "source": "src/crt/unassigned_00452332.cpp",
       "symbol": "_semantic_import_thunk_0045238c",
       "address": "0x0045238C",
       "size": 6,
@@ -44233,7 +44233,7 @@
     },
     {
       "name": "semantic_import_thunk_00452392",
-      "source": "src/unidentified/unassigned_00452332.cpp",
+      "source": "src/crt/unassigned_00452332.cpp",
       "symbol": "_semantic_import_thunk_00452392",
       "address": "0x00452392",
       "size": 6,
@@ -44242,7 +44242,7 @@
     },
     {
       "name": "semantic_import_thunk_00452398",
-      "source": "src/unidentified/unassigned_00452332.cpp",
+      "source": "src/crt/unassigned_00452332.cpp",
       "symbol": "_semantic_import_thunk_00452398",
       "address": "0x00452398",
       "size": 6,
@@ -44251,7 +44251,7 @@
     },
     {
       "name": "semantic_import_thunk_0045239e",
-      "source": "src/unidentified/unassigned_00452332.cpp",
+      "source": "src/crt/unassigned_00452332.cpp",
       "symbol": "_semantic_import_thunk_0045239e",
       "address": "0x0045239E",
       "size": 6,
@@ -44260,7 +44260,7 @@
     },
     {
       "name": "semantic_import_thunk_004523a4",
-      "source": "src/unidentified/unassigned_00452332.cpp",
+      "source": "src/crt/unassigned_00452332.cpp",
       "symbol": "_semantic_import_thunk_004523a4",
       "address": "0x004523A4",
       "size": 6,
@@ -44269,7 +44269,7 @@
     },
     {
       "name": "semantic_import_thunk_004523aa",
-      "source": "src/unidentified/unassigned_00452332.cpp",
+      "source": "src/crt/unassigned_00452332.cpp",
       "symbol": "_semantic_import_thunk_004523aa",
       "address": "0x004523AA",
       "size": 6,
@@ -44278,7 +44278,7 @@
     },
     {
       "name": "semantic_import_thunk_004523b0",
-      "source": "src/unidentified/unassigned_00452332.cpp",
+      "source": "src/crt/unassigned_00452332.cpp",
       "symbol": "_semantic_import_thunk_004523b0",
       "address": "0x004523B0",
       "size": 6,
@@ -44287,7 +44287,7 @@
     },
     {
       "name": "semantic_import_thunk_004523b6",
-      "source": "src/unidentified/unassigned_00452332.cpp",
+      "source": "src/crt/unassigned_00452332.cpp",
       "symbol": "_semantic_import_thunk_004523b6",
       "address": "0x004523B6",
       "size": 6,
@@ -44296,7 +44296,7 @@
     },
     {
       "name": "semantic_import_thunk_004523bc",
-      "source": "src/unidentified/unassigned_00452332.cpp",
+      "source": "src/crt/unassigned_00452332.cpp",
       "symbol": "_semantic_import_thunk_004523bc",
       "address": "0x004523BC",
       "size": 6,
@@ -44305,7 +44305,7 @@
     },
     {
       "name": "semantic_import_thunk_004523c2",
-      "source": "src/unidentified/unassigned_00452332.cpp",
+      "source": "src/crt/unassigned_00452332.cpp",
       "symbol": "_semantic_import_thunk_004523c2",
       "address": "0x004523C2",
       "size": 6,
@@ -44314,7 +44314,7 @@
     },
     {
       "name": "semantic_import_thunk_004523c8",
-      "source": "src/unidentified/unassigned_00452332.cpp",
+      "source": "src/crt/unassigned_00452332.cpp",
       "symbol": "_semantic_import_thunk_004523c8",
       "address": "0x004523C8",
       "size": 6,
@@ -44323,7 +44323,7 @@
     },
     {
       "name": "semantic_import_thunk_004523ce",
-      "source": "src/unidentified/unassigned_00452332.cpp",
+      "source": "src/crt/unassigned_00452332.cpp",
       "symbol": "_semantic_import_thunk_004523ce",
       "address": "0x004523CE",
       "size": 6,
@@ -44332,7 +44332,7 @@
     },
     {
       "name": "semantic_import_thunk_004523d4",
-      "source": "src/unidentified/unassigned_00452332.cpp",
+      "source": "src/crt/unassigned_00452332.cpp",
       "symbol": "_semantic_import_thunk_004523d4",
       "address": "0x004523D4",
       "size": 6,
@@ -44341,7 +44341,7 @@
     },
     {
       "name": "semantic_import_thunk_004523da",
-      "source": "src/unidentified/unassigned_00452332.cpp",
+      "source": "src/crt/unassigned_00452332.cpp",
       "symbol": "_semantic_import_thunk_004523da",
       "address": "0x004523DA",
       "size": 6,
@@ -44350,7 +44350,7 @@
     },
     {
       "name": "semantic_import_thunk_004523e0",
-      "source": "src/unidentified/unassigned_00452332.cpp",
+      "source": "src/crt/unassigned_00452332.cpp",
       "symbol": "_semantic_import_thunk_004523e0",
       "address": "0x004523E0",
       "size": 6,
@@ -44359,7 +44359,7 @@
     },
     {
       "name": "semantic_import_thunk_004523e6",
-      "source": "src/unidentified/unassigned_00452332.cpp",
+      "source": "src/crt/unassigned_00452332.cpp",
       "symbol": "_semantic_import_thunk_004523e6",
       "address": "0x004523E6",
       "size": 6,
@@ -44368,7 +44368,7 @@
     },
     {
       "name": "semantic_import_thunk_004523ec",
-      "source": "src/unidentified/unassigned_00452332.cpp",
+      "source": "src/crt/unassigned_00452332.cpp",
       "symbol": "_semantic_import_thunk_004523ec",
       "address": "0x004523EC",
       "size": 6,
@@ -44377,7 +44377,7 @@
     },
     {
       "name": "semantic_import_thunk_004523f2",
-      "source": "src/unidentified/unassigned_00452332.cpp",
+      "source": "src/crt/unassigned_00452332.cpp",
       "symbol": "_semantic_import_thunk_004523f2",
       "address": "0x004523F2",
       "size": 6,
@@ -44386,7 +44386,7 @@
     },
     {
       "name": "semantic_import_thunk_004523f8",
-      "source": "src/unidentified/unassigned_00452332.cpp",
+      "source": "src/crt/unassigned_00452332.cpp",
       "symbol": "_semantic_import_thunk_004523f8",
       "address": "0x004523F8",
       "size": 6,
@@ -44395,7 +44395,7 @@
     },
     {
       "name": "semantic_import_thunk_004523fe",
-      "source": "src/unidentified/unassigned_00452332.cpp",
+      "source": "src/crt/unassigned_00452332.cpp",
       "symbol": "_semantic_import_thunk_004523fe",
       "address": "0x004523FE",
       "size": 6,
@@ -44404,7 +44404,7 @@
     },
     {
       "name": "semantic_import_thunk_00452404",
-      "source": "src/unidentified/unassigned_00452332.cpp",
+      "source": "src/crt/unassigned_00452332.cpp",
       "symbol": "_semantic_import_thunk_00452404",
       "address": "0x00452404",
       "size": 6,
@@ -44413,7 +44413,7 @@
     },
     {
       "name": "semantic_import_thunk_0045240a",
-      "source": "src/unidentified/unassigned_00452332.cpp",
+      "source": "src/crt/unassigned_00452332.cpp",
       "symbol": "_semantic_import_thunk_0045240a",
       "address": "0x0045240A",
       "size": 6,
@@ -44422,7 +44422,7 @@
     },
     {
       "name": "semantic_import_thunk_00452410",
-      "source": "src/unidentified/unassigned_00452332.cpp",
+      "source": "src/crt/unassigned_00452332.cpp",
       "symbol": "_semantic_import_thunk_00452410",
       "address": "0x00452410",
       "size": 6,
@@ -44431,7 +44431,7 @@
     },
     {
       "name": "semantic_import_thunk_00452416",
-      "source": "src/unidentified/unassigned_00452332.cpp",
+      "source": "src/crt/unassigned_00452332.cpp",
       "symbol": "_semantic_import_thunk_00452416",
       "address": "0x00452416",
       "size": 6,
@@ -44440,7 +44440,7 @@
     },
     {
       "name": "semantic_import_thunk_0045241c",
-      "source": "src/unidentified/unassigned_00452332.cpp",
+      "source": "src/crt/unassigned_00452332.cpp",
       "symbol": "_semantic_import_thunk_0045241c",
       "address": "0x0045241C",
       "size": 6,
@@ -44449,7 +44449,7 @@
     },
     {
       "name": "semantic_free_00452422",
-      "source": "src/unidentified/free_00452422.cpp",
+      "source": "src/crt/free_00452422.cpp",
       "symbol": "_free_00452422",
       "address": "0x00452422",
       "size": 113,
@@ -44458,7 +44458,7 @@
       "previous_records": [
         {
           "name": "asm_free_00452422",
-          "source": "src/unidentified/free_00452422.cpp",
+          "source": "src/crt/free_00452422.cpp",
           "symbol": "_asm_free_00452422",
           "address": "0x00452422",
           "size": 83,
@@ -44467,7 +44467,7 @@
         },
         {
           "name": "semantic_FUN_00452475_00452475",
-          "source": "src/unidentified/FUN_00452475_00452475.cpp",
+          "source": "src/crt/FUN_00452475_00452475.cpp",
           "symbol": "_asm_FUN_00452475_00452475",
           "address": "0x00452475",
           "size": 9,
@@ -44475,7 +44475,7 @@
           "owner": "0x00452475",
           "previous_record": {
             "name": "asm_FUN_00452475_00452475",
-            "source": "src/unidentified/FUN_00452475_00452475.cpp",
+            "source": "src/crt/FUN_00452475_00452475.cpp",
             "symbol": "_asm_FUN_00452475_00452475",
             "address": "0x00452475",
             "size": 9,
@@ -44485,7 +44485,7 @@
         },
         {
           "name": "asm_free_part_0045247e",
-          "source": "src/unidentified/free_00452422.cpp",
+          "source": "src/crt/free_00452422.cpp",
           "symbol": "_asm_free_part_0045247e",
           "address": "0x0045247E",
           "size": 21,
@@ -44496,7 +44496,7 @@
     },
     {
       "name": "semantic_operator_new_00452493",
-      "source": "src/unidentified/operator_new_00452493.cpp",
+      "source": "src/crt/operator_new_00452493.cpp",
       "symbol": "_asm_operator_new_00452493",
       "address": "0x00452493",
       "size": 14,
@@ -44505,7 +44505,7 @@
     },
     {
       "name": "semantic_free_004524a1",
-      "source": "src/unidentified/free_004524a1.cpp",
+      "source": "src/crt/free_004524a1.cpp",
       "symbol": "_asm_free_004524a1",
       "address": "0x004524A1",
       "size": 5,
@@ -44514,7 +44514,7 @@
     },
     {
       "name": "semantic_vsprintf_004524a6",
-      "source": "src/unidentified/vsprintf_004524a6.cpp",
+      "source": "src/crt/vsprintf_004524a6.cpp",
       "symbol": "_asm_vsprintf_004524a6",
       "address": "0x004524A6",
       "size": 87,
@@ -44523,7 +44523,7 @@
     },
     {
       "name": "semantic_FUN_004524fd_004524fd",
-      "source": "src/unidentified/FUN_004524fd_004524fd.cpp",
+      "source": "src/crt/FUN_004524fd_004524fd.cpp",
       "symbol": "_asm_FUN_004524fd_004524fd",
       "address": "0x004524FD",
       "size": 48,
@@ -44592,7 +44592,7 @@
     },
     {
       "name": "semantic_nh_malloc_004526da",
-      "source": "src/unidentified/nh_malloc_004526da.cpp",
+      "source": "src/crt/nh_malloc_004526da.cpp",
       "symbol": "_asm_nh_malloc_004526da",
       "address": "0x004526DA",
       "size": 44,
@@ -44601,7 +44601,7 @@
     },
     {
       "name": "semantic_malloc_00452706",
-      "source": "src/unidentified/malloc_00452706.cpp",
+      "source": "src/crt/malloc_00452706.cpp",
       "symbol": "_asm_malloc_00452706",
       "address": "0x00452706",
       "size": 18,
@@ -44642,7 +44642,7 @@
     },
     {
       "name": "semantic_atol_00452876",
-      "source": "src/unidentified/atol_00452876.cpp",
+      "source": "src/crt/atol_00452876.cpp",
       "symbol": "_asm_atol_00452876",
       "address": "0x00452876",
       "size": 5,
@@ -44703,7 +44703,7 @@
     },
     {
       "name": "semantic_atof_00452a84",
-      "source": "src/unidentified/atof_00452a84.cpp",
+      "source": "src/crt/atof_00452a84.cpp",
       "symbol": "_asm_atof_00452a84",
       "address": "0x00452A84",
       "size": 56,
@@ -44712,7 +44712,7 @@
     },
     {
       "name": "semantic_CreateDirectory_00452abc",
-      "source": "src/unidentified/FUN_00452abc_00452abc.cpp",
+      "source": "src/crt/FUN_00452abc_00452abc.cpp",
       "symbol": "_asm_FUN_00452abc_00452abc",
       "address": "0x00452ABC",
       "size": 44,
@@ -44721,7 +44721,7 @@
     },
     {
       "name": "semantic_sprintf_00452ae8",
-      "source": "src/unidentified/sprintf_00452ae8.cpp",
+      "source": "src/crt/sprintf_00452ae8.cpp",
       "symbol": "_asm_sprintf_00452ae8",
       "address": "0x00452AE8",
       "size": 88,
@@ -44730,7 +44730,7 @@
     },
     {
       "name": "semantic_FUN_00452b40_00452b40",
-      "source": "src/unidentified/FUN_00452b40_00452b40.cpp",
+      "source": "src/crt/FUN_00452b40_00452b40.cpp",
       "symbol": "_asm_FUN_00452b40_00452b40",
       "address": "0x00452B40",
       "size": 49,
@@ -44739,7 +44739,7 @@
     },
     {
       "name": "semantic_FID_conflict___time32_00452b71",
-      "source": "src/unidentified/FID_conflict___time32_00452b71.cpp",
+      "source": "src/crt/FID_conflict___time32_00452b71.cpp",
       "symbol": "_asm_FID_conflict___time32_00452b71",
       "address": "0x00452B71",
       "size": 57,
@@ -44772,7 +44772,7 @@
     },
     {
       "name": "semantic_onexitinit_00452daa",
-      "source": "src/unidentified/onexitinit_00452daa.cpp",
+      "source": "src/crt/onexitinit_00452daa.cpp",
       "symbol": "_asm_onexitinit_00452daa",
       "address": "0x00452DAA",
       "size": 40,
@@ -44793,7 +44793,7 @@
     },
     {
       "name": "semantic_atexit_00452e0a",
-      "source": "src/unidentified/atexit_00452e0a.cpp",
+      "source": "src/crt/atexit_00452e0a.cpp",
       "symbol": "_asm_atexit_00452e0a",
       "address": "0x00452E0A",
       "size": 18,
@@ -44858,7 +44858,7 @@
     },
     {
       "name": "semantic_sscanf_00452fb9",
-      "source": "src/unidentified/sscanf_00452fb9.cpp",
+      "source": "src/crt/sscanf_00452fb9.cpp",
       "symbol": "_asm_sscanf_00452fb9",
       "address": "0x00452FB9",
       "size": 52,
@@ -44899,7 +44899,7 @@
     },
     {
       "name": "semantic_unassigned_00453259",
-      "source": "src/unidentified/unassigned_00453259.cpp",
+      "source": "src/crt/unassigned_00453259.cpp",
       "symbol": "_unassigned_00453259",
       "address": "0x00453259",
       "size": 20,
@@ -44907,7 +44907,7 @@
       "owner": "0x00453259",
       "previous_record": {
         "name": "asm_unassigned_00453259",
-        "source": "src/unidentified/unassigned_00453259.cpp",
+        "source": "src/crt/unassigned_00453259.cpp",
         "symbol": "_asm_unassigned_00453259",
         "address": "0x00453259",
         "size": 20,
@@ -44917,7 +44917,7 @@
     },
     {
       "name": "semantic_FUN_0045326d_0045326d",
-      "source": "src/unidentified/FUN_0045326d_0045326d.cpp",
+      "source": "src/crt/FUN_0045326d_0045326d.cpp",
       "symbol": "_unassigned_0045326d",
       "address": "0x0045326D",
       "size": 16,
@@ -44925,7 +44925,7 @@
       "owner": "0x0045326D",
       "previous_record": {
         "name": "asm_FUN_0045326d_0045326d",
-        "source": "src/unidentified/FUN_0045326d_0045326d.cpp",
+        "source": "src/crt/FUN_0045326d_0045326d.cpp",
         "symbol": "_asm_FUN_0045326d_0045326d",
         "address": "0x0045326D",
         "size": 16,
@@ -44991,7 +44991,7 @@
     },
     {
       "name": "semantic_unassigned_0045370e",
-      "source": "src/unidentified/unassigned_0045370e.cpp",
+      "source": "src/crt/unassigned_0045370e.cpp",
       "symbol": "_unassigned_0045370e",
       "address": "0x0045370E",
       "size": 13,
@@ -44999,7 +44999,7 @@
       "owner": "0x0045370E",
       "previous_record": {
         "name": "asm_unassigned_0045370e",
-        "source": "src/unidentified/unassigned_0045370e.cpp",
+        "source": "src/crt/unassigned_0045370e.cpp",
         "symbol": "_asm_unassigned_0045370e",
         "address": "0x0045370E",
         "size": 13,
@@ -45009,7 +45009,7 @@
     },
     {
       "name": "semantic_rand_0045371b",
-      "source": "src/unidentified/rand_0045371b.cpp",
+      "source": "src/crt/rand_0045371b.cpp",
       "symbol": "_asm_rand_0045371b",
       "address": "0x0045371B",
       "size": 34,
@@ -45066,7 +45066,7 @@
     },
     {
       "name": "semantic_heap_select_004539b1",
-      "source": "src/unidentified/heap_select_004539b1.cpp",
+      "source": "src/crt/heap_select_004539b1.cpp",
       "symbol": "_asm_heap_select_004539b1",
       "address": "0x004539B1",
       "size": 26,
@@ -45075,7 +45075,7 @@
     },
     {
       "name": "semantic_heap_init_004539cb",
-      "source": "src/unidentified/heap_init_004539cb.cpp",
+      "source": "src/crt/heap_init_004539cb.cpp",
       "symbol": "_asm_heap_init_004539cb",
       "address": "0x004539CB",
       "size": 81,
@@ -45096,7 +45096,7 @@
     },
     {
       "name": "semantic_FUN_00453a9b_00453a9b",
-      "source": "src/unidentified/FUN_00453a9b_00453a9b.cpp",
+      "source": "src/crt/FUN_00453a9b_00453a9b.cpp",
       "symbol": "_asm_FUN_00453a9b_00453a9b",
       "address": "0x00453A9B",
       "size": 6,
@@ -45105,7 +45105,7 @@
     },
     {
       "name": "semantic_mtinitlocks_00453aa1",
-      "source": "src/unidentified/mtinitlocks_00453aa1.cpp",
+      "source": "src/crt/mtinitlocks_00453aa1.cpp",
       "symbol": "_asm_mtinitlocks_00453aa1",
       "address": "0x00453AA1",
       "size": 73,
@@ -45126,7 +45126,7 @@
     },
     {
       "name": "semantic_FUN_00453b3f_00453b3f",
-      "source": "src/unidentified/FUN_00453b3f_00453b3f.cpp",
+      "source": "src/crt/FUN_00453b3f_00453b3f.cpp",
       "symbol": "_asm_FUN_00453b3f_00453b3f",
       "address": "0x00453B3F",
       "size": 21,
@@ -45159,7 +45159,7 @@
     },
     {
       "name": "semantic_lock_00453c0c",
-      "source": "src/unidentified/lock_00453c0c.cpp",
+      "source": "src/crt/lock_00453c0c.cpp",
       "symbol": "_asm_lock_00453c0c",
       "address": "0x00453C0C",
       "size": 49,
@@ -45168,7 +45168,7 @@
     },
     {
       "name": "semantic_unassigned_00453c3d",
-      "source": "src/unidentified/unassigned_00453c3d.cpp",
+      "source": "src/crt/unassigned_00453c3d.cpp",
       "symbol": "_asm_unassigned_00453c3d",
       "address": "0x00453C3D",
       "size": 21,
@@ -45189,7 +45189,7 @@
     },
     {
       "name": "semantic_sbh_find_block_00453c9a",
-      "source": "src/unidentified/sbh_find_block_00453c9a.cpp",
+      "source": "src/crt/sbh_find_block_00453c9a.cpp",
       "symbol": "_asm_sbh_find_block_00453c9a",
       "address": "0x00453C9A",
       "size": 43,
@@ -45270,7 +45270,7 @@
     },
     {
       "name": "semantic_sbh_heap_set_threshold_00454863",
-      "source": "src/unidentified/unassigned_00454863.cpp",
+      "source": "src/crt/unassigned_00454863.cpp",
       "symbol": "_asm_unassigned_00454863",
       "address": "0x00454863",
       "size": 91,
@@ -45455,7 +45455,7 @@
     },
     {
       "name": "semantic_set_new_handler_0045570d",
-      "source": "src/unidentified/unassigned_0045570d.cpp",
+      "source": "src/crt/unassigned_0045570d.cpp",
       "symbol": "_asm_unassigned_0045570d",
       "address": "0x0045570D",
       "size": 36,
@@ -45464,7 +45464,7 @@
     },
     {
       "name": "semantic_FUN_00455731_00455731",
-      "source": "src/unidentified/FUN_00455731_00455731.cpp",
+      "source": "src/crt/FUN_00455731_00455731.cpp",
       "symbol": "_asm_FUN_00455731_00455731",
       "address": "0x00455731",
       "size": 6,
@@ -45473,7 +45473,7 @@
     },
     {
       "name": "semantic_callnewh_00455737",
-      "source": "src/unidentified/callnewh_00455737.cpp",
+      "source": "src/crt/callnewh_00455737.cpp",
       "symbol": "_asm_callnewh_00455737",
       "address": "0x00455737",
       "size": 27,
@@ -45494,7 +45494,7 @@
     },
     {
       "name": "semantic_isctype_locale_004557c9",
-      "source": "src/unidentified/unassigned_004557c9.cpp",
+      "source": "src/crt/unassigned_004557c9.cpp",
       "symbol": "_asm_unassigned_004557c9",
       "address": "0x004557C9",
       "size": 39,
@@ -45503,7 +45503,7 @@
     },
     {
       "name": "semantic_FUN_004557f0_004557f0",
-      "source": "src/unidentified/FUN_004557f0_004557f0.cpp",
+      "source": "src/crt/FUN_004557f0_004557f0.cpp",
       "symbol": "_asm_FUN_004557f0_004557f0",
       "address": "0x004557F0",
       "size": 6,
@@ -45512,7 +45512,7 @@
     },
     {
       "name": "semantic_FUN_004557f6_004557f6",
-      "source": "src/unidentified/FUN_004557f6_004557f6.cpp",
+      "source": "src/crt/FUN_004557f6_004557f6.cpp",
       "symbol": "_asm_FUN_004557f6_004557f6",
       "address": "0x004557F6",
       "size": 6,
@@ -45521,7 +45521,7 @@
     },
     {
       "name": "semantic_freetlocinfo_004557fc",
-      "source": "src/unidentified/freetlocinfo_004557fc.cpp",
+      "source": "src/crt/freetlocinfo_004557fc.cpp",
       "symbol": "_asm_freetlocinfo_004557fc",
       "address": "0x004557FC",
       "size": 208,
@@ -45529,7 +45529,7 @@
       "owner": "0x004557FC",
       "previous_record": {
         "name": "asm_freetlocinfo_004557fc",
-        "source": "src/unidentified/freetlocinfo_004557fc.cpp",
+        "source": "src/crt/freetlocinfo_004557fc.cpp",
         "symbol": "_asm_freetlocinfo_004557fc",
         "address": "0x004557FC",
         "size": 208,
@@ -45551,7 +45551,7 @@
     },
     {
       "name": "semantic_FUN_0045598d_0045598d",
-      "source": "src/unidentified/FUN_0045598d_0045598d.cpp",
+      "source": "src/crt/FUN_0045598d_0045598d.cpp",
       "symbol": "_asm_FUN_0045598d_0045598d",
       "address": "0x0045598D",
       "size": 3,
@@ -45560,7 +45560,7 @@
     },
     {
       "name": "semantic_strcats_00455990",
-      "source": "src/unidentified/strcats_00455990.cpp",
+      "source": "src/crt/strcats_00455990.cpp",
       "symbol": "_asm_strcats_00455990",
       "address": "0x00455990",
       "size": 36,
@@ -45581,7 +45581,7 @@
     },
     {
       "name": "semantic_lc_lctostr_00455a90",
-      "source": "src/unidentified/lc_lctostr_00455a90.cpp",
+      "source": "src/crt/lc_lctostr_00455a90.cpp",
       "symbol": "_asm_lc_lctostr_00455a90",
       "address": "0x00455A90",
       "size": 78,
@@ -45662,7 +45662,7 @@
     },
     {
       "name": "semantic_FUN_0045631e_0045631e",
-      "source": "src/unidentified/FUN_0045631e_0045631e.cpp",
+      "source": "src/crt/FUN_0045631e_0045631e.cpp",
       "symbol": "_asm_FUN_0045631e_0045631e@4",
       "address": "0x0045631E",
       "size": 9,
@@ -45671,7 +45671,7 @@
     },
     {
       "name": "semantic_mtterm_00456327",
-      "source": "src/unidentified/mtterm_00456327.cpp",
+      "source": "src/crt/mtterm_00456327.cpp",
       "symbol": "_asm_mtterm_00456327",
       "address": "0x00456327",
       "size": 29,
@@ -45680,7 +45680,7 @@
     },
     {
       "name": "semantic_initptd_00456344",
-      "source": "src/unidentified/initptd_00456344.cpp",
+      "source": "src/crt/initptd_00456344.cpp",
       "symbol": "_asm_initptd_00456344",
       "address": "0x00456344",
       "size": 19,
@@ -45689,7 +45689,7 @@
     },
     {
       "name": "semantic_getptd_00456357",
-      "source": "src/unidentified/getptd_00456357.cpp",
+      "source": "src/crt/getptd_00456357.cpp",
       "symbol": "_asm_getptd_00456357",
       "address": "0x00456357",
       "size": 113,
@@ -45710,7 +45710,7 @@
     },
     {
       "name": "semantic_freeptd_0045650f",
-      "source": "src/unidentified/freeptd_0045650f.cpp",
+      "source": "src/crt/freeptd_0045650f.cpp",
       "symbol": "_asm_freeptd_0045650f",
       "address": "0x0045650F",
       "size": 47,
@@ -45719,7 +45719,7 @@
     },
     {
       "name": "semantic_import_GetCurrentThreadId_0045653e",
-      "source": "src/unidentified/unassigned_0045653e.cpp",
+      "source": "src/crt/unassigned_0045653e.cpp",
       "symbol": "_import_GetCurrentThreadId_0045653e@0",
       "address": "0x0045653E",
       "size": 6,
@@ -45728,7 +45728,7 @@
     },
     {
       "name": "semantic_import_GetCurrentThread_00456544",
-      "source": "src/unidentified/unassigned_0045653e.cpp",
+      "source": "src/crt/unassigned_0045653e.cpp",
       "symbol": "_import_GetCurrentThread_00456544@0",
       "address": "0x00456544",
       "size": 6,
@@ -45737,7 +45737,7 @@
     },
     {
       "name": "semantic_mtinit_0045654a",
-      "source": "src/unidentified/mtinit_0045654a.cpp",
+      "source": "src/crt/mtinit_0045654a.cpp",
       "symbol": "_asm_mtinit_0045654a",
       "address": "0x0045654A",
       "size": 239,
@@ -45834,7 +45834,7 @@
     },
     {
       "name": "semantic_isdigit_0045685e",
-      "source": "src/unidentified/isdigit_0045685e.cpp",
+      "source": "src/crt/isdigit_0045685e.cpp",
       "symbol": "_asm_isdigit_0045685e",
       "address": "0x0045685E",
       "size": 58,
@@ -45843,7 +45843,7 @@
     },
     {
       "name": "semantic_isxdigit_00456898",
-      "source": "src/unidentified/isxdigit_00456898.cpp",
+      "source": "src/crt/isxdigit_00456898.cpp",
       "symbol": "_asm_isxdigit_00456898",
       "address": "0x00456898",
       "size": 63,
@@ -45852,7 +45852,7 @@
     },
     {
       "name": "semantic_isspace_004568d7",
-      "source": "src/unidentified/isspace_004568d7.cpp",
+      "source": "src/crt/isspace_004568d7.cpp",
       "symbol": "_asm_isspace_004568d7",
       "address": "0x004568D7",
       "size": 58,
@@ -45861,7 +45861,7 @@
     },
     {
       "name": "semantic_ispunct_00456911",
-      "source": "src/unidentified/unassigned_00456911.cpp",
+      "source": "src/crt/unassigned_00456911.cpp",
       "symbol": "_asm_unassigned_00456911",
       "address": "0x00456911",
       "size": 58,
@@ -45869,7 +45869,7 @@
       "owner": "0x00456911",
       "previous_record": {
         "name": "asm_unassigned_00456911",
-        "source": "src/unidentified/unassigned_00456911.cpp",
+        "source": "src/crt/unassigned_00456911.cpp",
         "symbol": "_asm_unassigned_00456911",
         "address": "0x00456911",
         "size": 378,
@@ -45879,7 +45879,7 @@
     },
     {
       "name": "semantic_isalnum_0045694b",
-      "source": "src/unidentified/unassigned_00456911.cpp",
+      "source": "src/crt/unassigned_00456911.cpp",
       "symbol": "_asm_target_0045694b",
       "address": "0x0045694B",
       "size": 63,
@@ -45888,7 +45888,7 @@
     },
     {
       "name": "semantic_isprint_0045698a",
-      "source": "src/unidentified/unassigned_00456911.cpp",
+      "source": "src/crt/unassigned_00456911.cpp",
       "symbol": "_asm_isprint_0045698a",
       "address": "0x0045698A",
       "size": 63,
@@ -45897,7 +45897,7 @@
     },
     {
       "name": "semantic_isgraph_004569c9",
-      "source": "src/unidentified/unassigned_00456911.cpp",
+      "source": "src/crt/unassigned_00456911.cpp",
       "symbol": "_asm_isgraph_004569c9",
       "address": "0x004569C9",
       "size": 63,
@@ -45906,7 +45906,7 @@
     },
     {
       "name": "semantic_iscntrl_00456a08",
-      "source": "src/unidentified/unassigned_00456911.cpp",
+      "source": "src/crt/unassigned_00456911.cpp",
       "symbol": "_asm_iscntrl_00456a08",
       "address": "0x00456A08",
       "size": 58,
@@ -45915,7 +45915,7 @@
     },
     {
       "name": "semantic_isascii_00456a42",
-      "source": "src/unidentified/unassigned_00456911.cpp",
+      "source": "src/crt/unassigned_00456911.cpp",
       "symbol": "_asm_isascii_00456a42",
       "address": "0x00456A42",
       "size": 13,
@@ -45924,7 +45924,7 @@
     },
     {
       "name": "semantic_toascii_00456a4f",
-      "source": "src/unidentified/unassigned_00456911.cpp",
+      "source": "src/crt/unassigned_00456911.cpp",
       "symbol": "_asm_toascii_00456a4f",
       "address": "0x00456A4F",
       "size": 8,
@@ -45933,7 +45933,7 @@
     },
     {
       "name": "semantic_iscsymf_00456a57",
-      "source": "src/unidentified/unassigned_00456911.cpp",
+      "source": "src/crt/unassigned_00456911.cpp",
       "symbol": "_asm_iscsymf_00456a57",
       "address": "0x00456A57",
       "size": 26,
@@ -45942,7 +45942,7 @@
     },
     {
       "name": "semantic_iscsym_00456a71",
-      "source": "src/unidentified/unassigned_00456911.cpp",
+      "source": "src/crt/unassigned_00456911.cpp",
       "symbol": "_asm_iscsym_00456a71",
       "address": "0x00456A71",
       "size": 26,
@@ -45951,7 +45951,7 @@
     },
     {
       "name": "semantic_FUN_00456a8b_00456a8b",
-      "source": "src/unidentified/FUN_00456a8b_00456a8b.cpp",
+      "source": "src/crt/FUN_00456a8b_00456a8b.cpp",
       "symbol": "_asm_FUN_00456a8b_00456a8b",
       "address": "0x00456A8B",
       "size": 1,
@@ -45960,7 +45960,7 @@
     },
     {
       "name": "semantic_FUN_00456a8c_00456a8c",
-      "source": "src/unidentified/FUN_00456a8c_00456a8c.cpp",
+      "source": "src/crt/FUN_00456a8c_00456a8c.cpp",
       "symbol": "_asm_FUN_00456a8c_00456a8c",
       "address": "0x00456A8C",
       "size": 56,
@@ -45969,7 +45969,7 @@
     },
     {
       "name": "semantic_FUN_00456ac4_00456ac4",
-      "source": "src/unidentified/FUN_00456ac4_00456ac4.cpp",
+      "source": "src/crt/FUN_00456ac4_00456ac4.cpp",
       "symbol": "_asm_FUN_00456ac4_00456ac4",
       "address": "0x00456AC4",
       "size": 16,
@@ -45990,7 +45990,7 @@
     },
     {
       "name": "semantic_FUN_00456af2_00456af2",
-      "source": "src/unidentified/FUN_00456af2_00456af2.cpp",
+      "source": "src/crt/FUN_00456af2_00456af2.cpp",
       "symbol": "_asm_FUN_00456af2_00456af2",
       "address": "0x00456AF2",
       "size": 9,
@@ -45999,7 +45999,7 @@
     },
     {
       "name": "semantic_FUN_00456afb_00456afb",
-      "source": "src/unidentified/FUN_00456afb_00456afb.cpp",
+      "source": "src/crt/FUN_00456afb_00456afb.cpp",
       "symbol": "_asm_FUN_00456afb_00456afb",
       "address": "0x00456AFB",
       "size": 9,
@@ -46008,7 +46008,7 @@
     },
     {
       "name": "semantic_dosmaperr_00456b04",
-      "source": "src/unidentified/dosmaperr_00456b04.cpp",
+      "source": "src/crt/dosmaperr_00456b04.cpp",
       "symbol": "_asm_dosmaperr_00456b04",
       "address": "0x00456B04",
       "size": 115,
@@ -46145,7 +46145,7 @@
     },
     {
       "name": "semantic_FUN_00457577_00457577",
-      "source": "src/unidentified/FUN_00457577_00457577.cpp",
+      "source": "src/crt/FUN_00457577_00457577.cpp",
       "symbol": "_asm_FUN_00457577_00457577",
       "address": "0x00457577",
       "size": 9,
@@ -46154,7 +46154,7 @@
     },
     {
       "name": "semantic_FUN_00457580_00457580",
-      "source": "src/unidentified/FUN_00457580_00457580.cpp",
+      "source": "src/crt/FUN_00457580_00457580.cpp",
       "symbol": "_asm_FUN_00457580_00457580",
       "address": "0x00457580",
       "size": 9,
@@ -46187,7 +46187,7 @@
     },
     {
       "name": "semantic_cinit_004575bf",
-      "source": "src/unidentified/cinit_004575bf.cpp",
+      "source": "src/crt/cinit_004575bf.cpp",
       "symbol": "_asm_cinit_004575bf",
       "address": "0x004575BF",
       "size": 106,
@@ -46208,7 +46208,7 @@
     },
     {
       "name": "semantic_exit_004576ec",
-      "source": "src/unidentified/exit_004576ec.cpp",
+      "source": "src/crt/exit_004576ec.cpp",
       "symbol": "_asm_exit_004576ec",
       "address": "0x004576EC",
       "size": 17,
@@ -46217,7 +46217,7 @@
     },
     {
       "name": "semantic_exit_004576fd",
-      "source": "src/unidentified/exit_004576fd.cpp",
+      "source": "src/crt/exit_004576fd.cpp",
       "symbol": "_asm_exit_004576fd",
       "address": "0x004576FD",
       "size": 17,
@@ -46226,7 +46226,7 @@
     },
     {
       "name": "semantic_cexit_0045770e",
-      "source": "src/unidentified/cexit_0045770e.cpp",
+      "source": "src/crt/cexit_0045770e.cpp",
       "symbol": "_asm_cexit_0045770e",
       "address": "0x0045770E",
       "size": 15,
@@ -46235,7 +46235,7 @@
     },
     {
       "name": "semantic_unassigned_0045771d",
-      "source": "src/unidentified/unassigned_0045771d.cpp",
+      "source": "src/crt/unassigned_0045771d.cpp",
       "symbol": "_unassigned_0045771d",
       "address": "0x0045771D",
       "size": 15,
@@ -46243,7 +46243,7 @@
       "owner": "0x0045771D",
       "previous_record": {
         "name": "asm_unassigned_0045771d",
-        "source": "src/unidentified/unassigned_0045771d.cpp",
+        "source": "src/crt/unassigned_0045771d.cpp",
         "symbol": "_asm_unassigned_0045771d",
         "address": "0x0045771D",
         "size": 15,
@@ -46289,7 +46289,7 @@
     },
     {
       "name": "semantic_cxx_exception_filter_gate_00457932",
-      "source": "src/unidentified/unassigned_00457932.cpp",
+      "source": "src/crt/unassigned_00457932.cpp",
       "symbol": "_asm_unassigned_00457932",
       "address": "0x00457932",
       "size": 27,
@@ -46322,7 +46322,7 @@
     },
     {
       "name": "semantic_inc_00457a3c",
-      "source": "src/unidentified/inc_00457a3c.cpp",
+      "source": "src/crt/inc_00457a3c.cpp",
       "symbol": "@asm_inc_00457a3c@8",
       "address": "0x00457A3C",
       "size": 22,
@@ -46403,7 +46403,7 @@
     },
     {
       "name": "semantic_unassigned_00458c25",
-      "source": "src/unidentified/unassigned_00458c25.cpp",
+      "source": "src/crt/unassigned_00458c25.cpp",
       "symbol": "_asm_unassigned_00458c25",
       "address": "0x00458C25",
       "size": 20,
@@ -46504,7 +46504,7 @@
     },
     {
       "name": "semantic_unassigned_00459075",
-      "source": "src/unidentified/unassigned_00459075.cpp",
+      "source": "src/crt/unassigned_00459075.cpp",
       "symbol": "_asm_unassigned_00459075",
       "address": "0x00459075",
       "size": 42,
@@ -46513,7 +46513,7 @@
     },
     {
       "name": "semantic_FF_MSGBANNER_0045909f",
-      "source": "src/unidentified/FF_MSGBANNER_0045909f.cpp",
+      "source": "src/crt/FF_MSGBANNER_0045909f.cpp",
       "symbol": "_asm_FF_MSGBANNER_0045909f",
       "address": "0x0045909F",
       "size": 57,
@@ -46522,7 +46522,7 @@
     },
     {
       "name": "semantic_wincmdln_004590d8",
-      "source": "src/unidentified/wincmdln_004590d8.cpp",
+      "source": "src/crt/wincmdln_004590d8.cpp",
       "symbol": "_asm_wincmdln_004590d8",
       "address": "0x004590D8",
       "size": 93,
@@ -46627,7 +46627,7 @@
     },
     {
       "name": "semantic_crtInitCritSecNoSpinCount_8_004597fe",
-      "source": "src/unidentified/crtInitCritSecNoSpinCount_8_004597fe.cpp",
+      "source": "src/crt/crtInitCritSecNoSpinCount_8_004597fe.cpp",
       "symbol": "_asm_crtInitCritSecNoSpinCount_8_004597fe@8",
       "address": "0x004597FE",
       "size": 16,
@@ -46728,7 +46728,7 @@
     },
     {
       "name": "semantic_getbuf_00459f39",
-      "source": "src/unidentified/getbuf_00459f39.cpp",
+      "source": "src/crt/getbuf_00459f39.cpp",
       "symbol": "_asm_getbuf_00459f39",
       "address": "0x00459F39",
       "size": 68,
@@ -46737,7 +46737,7 @@
     },
     {
       "name": "semantic_isatty_00459f7d",
-      "source": "src/unidentified/isatty_00459f7d.cpp",
+      "source": "src/crt/isatty_00459f7d.cpp",
       "symbol": "_asm_isatty_00459f7d",
       "address": "0x00459F7D",
       "size": 42,
@@ -46746,7 +46746,7 @@
     },
     {
       "name": "semantic_FUN_00459fa7_00459fa7",
-      "source": "src/unidentified/FUN_00459fa7_00459fa7.cpp",
+      "source": "src/crt/FUN_00459fa7_00459fa7.cpp",
       "symbol": "_asm_FUN_00459fa7_00459fa7",
       "address": "0x00459FA7",
       "size": 6,
@@ -46791,7 +46791,7 @@
     },
     {
       "name": "semantic_lock_file2_0045a099",
-      "source": "src/unidentified/lock_file2_0045a099.cpp",
+      "source": "src/crt/lock_file2_0045a099.cpp",
       "symbol": "_asm_lock_file2_0045a099",
       "address": "0x0045A099",
       "size": 35,
@@ -46800,7 +46800,7 @@
     },
     {
       "name": "semantic_unlock_file_or_section_0045a0bc",
-      "source": "src/unidentified/unassigned_0045a0bc.cpp",
+      "source": "src/crt/unassigned_0045a0bc.cpp",
       "symbol": "_asm_unassigned_0045a0bc",
       "address": "0x0045A0BC",
       "size": 47,
@@ -46809,7 +46809,7 @@
     },
     {
       "name": "semantic_unlock_file2_0045a0eb",
-      "source": "src/unidentified/unlock_file2_0045a0eb.cpp",
+      "source": "src/crt/unlock_file2_0045a0eb.cpp",
       "symbol": "_asm_unlock_file2_0045a0eb",
       "address": "0x0045A0EB",
       "size": 35,
@@ -46818,7 +46818,7 @@
     },
     {
       "name": "semantic_wctomb_mt_0045a10e",
-      "source": "src/unidentified/wctomb_mt_0045a10e.cpp",
+      "source": "src/crt/wctomb_mt_0045a10e.cpp",
       "symbol": "_asm_wctomb_mt_0045a10e",
       "address": "0x0045A10E",
       "size": 96,
@@ -46827,7 +46827,7 @@
     },
     {
       "name": "semantic_wctomb_0045a16e",
-      "source": "src/unidentified/wctomb_0045a16e.cpp",
+      "source": "src/crt/wctomb_0045a16e.cpp",
       "symbol": "_asm_wctomb_0045a16e",
       "address": "0x0045A16E",
       "size": 39,
@@ -46836,7 +46836,7 @@
     },
     {
       "name": "semantic_FUN_0045a195_0045a195",
-      "source": "src/unidentified/FUN_0045a195_0045a195.cpp",
+      "source": "src/crt/FUN_0045a195_0045a195.cpp",
       "symbol": "_asm_FUN_0045a195_0045a195",
       "address": "0x0045A195",
       "size": 6,
@@ -46845,7 +46845,7 @@
     },
     {
       "name": "semantic_FUN_0045a19b_0045a19b",
-      "source": "src/unidentified/FUN_0045a19b_0045a19b.cpp",
+      "source": "src/crt/FUN_0045a19b_0045a19b.cpp",
       "symbol": "_asm_FUN_0045a19b_0045a19b",
       "address": "0x0045A19B",
       "size": 6,
@@ -46898,7 +46898,7 @@
     },
     {
       "name": "semantic_Getdays_0045a417",
-      "source": "src/unidentified/Getdays_0045a417.cpp",
+      "source": "src/crt/Getdays_0045a417.cpp",
       "symbol": "_asm_Getdays_0045a417",
       "address": "0x0045A417",
       "size": 127,
@@ -46907,7 +46907,7 @@
     },
     {
       "name": "semantic_Getmonths_0045a496",
-      "source": "src/unidentified/Getmonths_0045a496.cpp",
+      "source": "src/crt/Getmonths_0045a496.cpp",
       "symbol": "_asm_Getmonths_0045a496",
       "address": "0x0045A496",
       "size": 149,
@@ -47000,7 +47000,7 @@
     },
     {
       "name": "semantic_Strftime_0045afe0",
-      "source": "src/unidentified/Strftime_0045afe0.cpp",
+      "source": "src/crt/Strftime_0045afe0.cpp",
       "symbol": "_asm_Strftime_0045afe0",
       "address": "0x0045AFE0",
       "size": 50,
@@ -47009,7 +47009,7 @@
     },
     {
       "name": "semantic_strftime_default_locale_0045b012",
-      "source": "src/unidentified/unassigned_0045b012.cpp",
+      "source": "src/crt/unassigned_0045b012.cpp",
       "symbol": "_asm_unassigned_0045b012",
       "address": "0x0045B012",
       "size": 27,
@@ -47018,7 +47018,7 @@
     },
     {
       "name": "semantic_FUN_0045b02d_0045b02d",
-      "source": "src/unidentified/FUN_0045b02d_0045b02d.cpp",
+      "source": "src/crt/FUN_0045b02d_0045b02d.cpp",
       "symbol": "_asm_FUN_0045b02d_0045b02d",
       "address": "0x0045B02D",
       "size": 6,
@@ -47075,7 +47075,7 @@
     },
     {
       "name": "semantic_free_lconv_num_0045b5bc",
-      "source": "src/unidentified/free_lconv_num_0045b5bc.cpp",
+      "source": "src/crt/free_lconv_num_0045b5bc.cpp",
       "symbol": "_asm_free_lconv_num_0045b5bc",
       "address": "0x0045B5BC",
       "size": 95,
@@ -47144,7 +47144,7 @@
     },
     {
       "name": "semantic_FUN_0045bd21_0045bd21",
-      "source": "src/unidentified/FUN_0045bd21_0045bd21.cpp",
+      "source": "src/crt/FUN_0045bd21_0045bd21.cpp",
       "symbol": "_asm_FUN_0045bd21_0045bd21",
       "address": "0x0045BD21",
       "size": 6,
@@ -47153,7 +47153,7 @@
     },
     {
       "name": "semantic_locale_field4_0045bd27",
-      "source": "src/unidentified/unassigned_0045bd27.cpp",
+      "source": "src/crt/unassigned_0045bd27.cpp",
       "symbol": "_asm_unassigned_0045bd27",
       "address": "0x0045BD27",
       "size": 25,
@@ -47161,7 +47161,7 @@
       "owner": "0x0045BD27",
       "previous_record": {
         "name": "asm_unassigned_0045bd27",
-        "source": "src/unidentified/unassigned_0045bd27.cpp",
+        "source": "src/crt/unassigned_0045bd27.cpp",
         "symbol": "_asm_unassigned_0045bd27",
         "address": "0x0045BD27",
         "size": 75,
@@ -47171,7 +47171,7 @@
     },
     {
       "name": "semantic_locale_field8_0045bd40",
-      "source": "src/unidentified/unassigned_0045bd27.cpp",
+      "source": "src/crt/unassigned_0045bd27.cpp",
       "symbol": "_asm_locale_field8_0045bd40",
       "address": "0x0045BD40",
       "size": 25,
@@ -47180,7 +47180,7 @@
     },
     {
       "name": "semantic_locale_fieldc_0045bd59",
-      "source": "src/unidentified/unassigned_0045bd27.cpp",
+      "source": "src/crt/unassigned_0045bd27.cpp",
       "symbol": "_asm_locale_fieldc_0045bd59",
       "address": "0x0045BD59",
       "size": 25,
@@ -47189,7 +47189,7 @@
     },
     {
       "name": "semantic_FUN_0045bd72_0045bd72",
-      "source": "src/unidentified/FUN_0045bd72_0045bd72.cpp",
+      "source": "src/crt/FUN_0045bd72_0045bd72.cpp",
       "symbol": "_asm_FUN_0045bd72_0045bd72",
       "address": "0x0045BD72",
       "size": 3,
@@ -47290,7 +47290,7 @@
     },
     {
       "name": "semantic_TranslateName_0045c2fd",
-      "source": "src/unidentified/TranslateName_0045c2fd.cpp",
+      "source": "src/crt/TranslateName_0045c2fd.cpp",
       "symbol": "_asm_TranslateName_0045c2fd",
       "address": "0x0045C2FD",
       "size": 96,
@@ -47299,7 +47299,7 @@
     },
     {
       "name": "semantic_GetLcidFromDefault_0045c35d",
-      "source": "src/unidentified/GetLcidFromDefault_0045c35d.cpp",
+      "source": "src/crt/GetLcidFromDefault_0045c35d.cpp",
       "symbol": "_asm_GetLcidFromDefault_0045c35d",
       "address": "0x0045C35D",
       "size": 26,
@@ -47320,7 +47320,7 @@
     },
     {
       "name": "semantic_FUN_0045c3f1_0045c3f1",
-      "source": "src/unidentified/FUN_0045c3f1_0045c3f1.cpp",
+      "source": "src/crt/FUN_0045c3f1_0045c3f1.cpp",
       "symbol": "_asm_FUN_0045c3f1_0045c3f1",
       "address": "0x0045C3F1",
       "size": 30,
@@ -47353,7 +47353,7 @@
     },
     {
       "name": "semantic_GetPrimaryLen_0045c527",
-      "source": "src/unidentified/GetPrimaryLen_0045c527.cpp",
+      "source": "src/crt/GetPrimaryLen_0045c527.cpp",
       "symbol": "@asm_GetPrimaryLen_0045c527@8",
       "address": "0x0045C527",
       "size": 29,
@@ -47410,7 +47410,7 @@
     },
     {
       "name": "semantic_GetLcidFromCountry_0045c93e",
-      "source": "src/unidentified/GetLcidFromCountry_0045c93e.cpp",
+      "source": "src/crt/GetLcidFromCountry_0045c93e.cpp",
       "symbol": "_asm_GetLcidFromCountry_0045c93e",
       "address": "0x0045C93E",
       "size": 55,
@@ -47567,7 +47567,7 @@
     },
     {
       "name": "semantic_unassigned_0045d14c",
-      "source": "src/unidentified/unassigned_0045d14c.cpp",
+      "source": "src/crt/unassigned_0045d14c.cpp",
       "symbol": "_asm_unassigned_0045d14c",
       "address": "0x0045D14C",
       "size": 16,
@@ -47588,7 +47588,7 @@
     },
     {
       "name": "semantic_initmbctable_0045d2ac",
-      "source": "src/unidentified/initmbctable_0045d2ac.cpp",
+      "source": "src/crt/initmbctable_0045d2ac.cpp",
       "symbol": "_asm_initmbctable_0045d2ac",
       "address": "0x0045D2AC",
       "size": 30,
@@ -47597,7 +47597,7 @@
     },
     {
       "name": "semantic_ZeroTail_0045d2ca",
-      "source": "src/unidentified/ZeroTail_0045d2ca.cpp",
+      "source": "src/crt/ZeroTail_0045d2ca.cpp",
       "symbol": "_asm_ZeroTail_0045d2ca",
       "address": "0x0045D2CA",
       "size": 50,
@@ -47606,7 +47606,7 @@
     },
     {
       "name": "semantic_IncMan_0045d2fc",
-      "source": "src/unidentified/IncMan_0045d2fc.cpp",
+      "source": "src/crt/IncMan_0045d2fc.cpp",
       "symbol": "_asm_IncMan_0045d2fc",
       "address": "0x0045D2FC",
       "size": 77,
@@ -47651,7 +47651,7 @@
     },
     {
       "name": "semantic_IsZeroMan_0045d3e2",
-      "source": "src/unidentified/IsZeroMan_0045d3e2.cpp",
+      "source": "src/crt/IsZeroMan_0045d3e2.cpp",
       "symbol": "_asm_IsZeroMan_0045d3e2",
       "address": "0x0045D3E2",
       "size": 25,
@@ -47684,7 +47684,7 @@
     },
     {
       "name": "semantic_ld12cvt_wrapper_0045d5ce",
-      "source": "src/unidentified/FID_conflict___ld12tod_0045d5ce.cpp",
+      "source": "src/crt/FID_conflict___ld12tod_0045d5ce.cpp",
       "symbol": "_asm_FID_conflict___ld12tod_0045d5ce",
       "address": "0x0045D5CE",
       "size": 22,
@@ -47693,7 +47693,7 @@
     },
     {
       "name": "semantic_ld12cvt_wrapper_0045d5e4",
-      "source": "src/unidentified/FID_conflict___ld12tod_0045d5e4.cpp",
+      "source": "src/crt/FID_conflict___ld12tod_0045d5e4.cpp",
       "symbol": "_asm_FID_conflict___ld12tod_0045d5e4",
       "address": "0x0045D5E4",
       "size": 22,
@@ -47714,7 +47714,7 @@
     },
     {
       "name": "semantic_decimal_conversion_0045d676",
-      "source": "src/unidentified/FUN_0045d676_0045d676.cpp",
+      "source": "src/crt/FUN_0045d676_0045d676.cpp",
       "symbol": "_asm_FUN_0045d676_0045d676",
       "address": "0x0045D676",
       "size": 69,
@@ -47723,7 +47723,7 @@
     },
     {
       "name": "semantic_decimal_conversion_0045d6bb",
-      "source": "src/unidentified/FUN_0045d6bb_0045d6bb.cpp",
+      "source": "src/crt/FUN_0045d6bb_0045d6bb.cpp",
       "symbol": "_asm_FUN_0045d6bb_0045d6bb",
       "address": "0x0045D6BB",
       "size": 70,
@@ -47732,7 +47732,7 @@
     },
     {
       "name": "semantic_decimal_conversion_0045d701",
-      "source": "src/unidentified/FUN_0045d701_0045d701.cpp",
+      "source": "src/crt/FUN_0045d701_0045d701.cpp",
       "symbol": "_asm_FUN_0045d701_0045d701",
       "address": "0x0045D701",
       "size": 69,
@@ -47753,7 +47753,7 @@
     },
     {
       "name": "semantic_decimal_conversion_0045db86",
-      "source": "src/unidentified/FUN_0045db86_0045db86.cpp",
+      "source": "src/crt/FUN_0045db86_0045db86.cpp",
       "symbol": "_asm_FUN_0045db86_0045db86",
       "address": "0x0045DB86",
       "size": 85,
@@ -47762,7 +47762,7 @@
     },
     {
       "name": "semantic_forcdecpt_0045dbdb",
-      "source": "src/unidentified/forcdecpt_0045dbdb.cpp",
+      "source": "src/crt/forcdecpt_0045dbdb.cpp",
       "symbol": "_asm_forcdecpt_0045dbdb",
       "address": "0x0045DBDB",
       "size": 60,
@@ -47771,7 +47771,7 @@
     },
     {
       "name": "semantic_trim_trailing_zeros_0045dc17",
-      "source": "src/unidentified/unassigned_0045dc17.cpp",
+      "source": "src/crt/unassigned_0045dc17.cpp",
       "symbol": "_asm_unassigned_0045dc17",
       "address": "0x0045DC17",
       "size": 75,
@@ -47779,7 +47779,7 @@
       "owner": "0x0045DC17",
       "previous_record": {
         "name": "asm_unassigned_0045dc17",
-        "source": "src/unidentified/unassigned_0045dc17.cpp",
+        "source": "src/crt/unassigned_0045dc17.cpp",
         "symbol": "_asm_unassigned_0045dc17",
         "address": "0x0045DC17",
         "size": 101,
@@ -47789,7 +47789,7 @@
     },
     {
       "name": "semantic_compare_floating_limit_0045dc62",
-      "source": "src/unidentified/unassigned_0045dc62.cpp",
+      "source": "src/crt/unassigned_0045dc62.cpp",
       "symbol": "_asm_unassigned_0045dc62",
       "address": "0x0045DC62",
       "size": 26,
@@ -47798,7 +47798,7 @@
     },
     {
       "name": "semantic_fassign_0045dc7c",
-      "source": "src/unidentified/fassign_0045dc7c.cpp",
+      "source": "src/crt/fassign_0045dc7c.cpp",
       "symbol": "_asm_fassign_0045dc7c",
       "address": "0x0045DC7C",
       "size": 62,
@@ -47879,7 +47879,7 @@
     },
     {
       "name": "semantic_cfltcvt_0045df97",
-      "source": "src/unidentified/cfltcvt_0045df97.cpp",
+      "source": "src/crt/cfltcvt_0045df97.cpp",
       "symbol": "_asm_cfltcvt_0045df97",
       "address": "0x0045DF97",
       "size": 81,
@@ -47888,7 +47888,7 @@
     },
     {
       "name": "semantic_setdefaultprecision_0045dfe8",
-      "source": "src/unidentified/setdefaultprecision_0045dfe8.cpp",
+      "source": "src/crt/setdefaultprecision_0045dfe8.cpp",
       "symbol": "_asm_setdefaultprecision_0045dfe8",
       "address": "0x0045DFE8",
       "size": 18,
@@ -47993,7 +47993,7 @@
     },
     {
       "name": "semantic_mbtowc_0045e375",
-      "source": "src/unidentified/mbtowc_0045e375.cpp",
+      "source": "src/crt/mbtowc_0045e375.cpp",
       "symbol": "_asm_mbtowc_0045e375",
       "address": "0x0045E375",
       "size": 43,
@@ -48002,7 +48002,7 @@
     },
     {
       "name": "semantic_FUN_0045e3a0_0045e3a0",
-      "source": "src/unidentified/FUN_0045e3a0_0045e3a0.cpp",
+      "source": "src/crt/FUN_0045e3a0_0045e3a0.cpp",
       "symbol": "_asm_FUN_0045e3a0_0045e3a0",
       "address": "0x0045E3A0",
       "size": 3,
@@ -48035,7 +48035,7 @@
     },
     {
       "name": "semantic_FID_conflict___set_errno_from_matherr_0045e86c",
-      "source": "src/unidentified/FID_conflict___set_errno_from_matherr_0045e86c.cpp",
+      "source": "src/crt/FID_conflict___set_errno_from_matherr_0045e86c.cpp",
       "symbol": "_asm_FID_conflict___set_errno_from_matherr_0045e86c",
       "address": "0x0045E86C",
       "size": 40,
@@ -48044,7 +48044,7 @@
     },
     {
       "name": "semantic_unassigned_0045e894",
-      "source": "src/unidentified/unassigned_0045e894.cpp",
+      "source": "src/crt/unassigned_0045e894.cpp",
       "symbol": "_asm_unassigned_0045e894",
       "address": "0x0045E894",
       "size": 32,
@@ -48149,7 +48149,7 @@
     },
     {
       "name": "semantic_get_double_exponent_0045ebf5",
-      "source": "src/unidentified/unassigned_0045ebf5.cpp",
+      "source": "src/crt/unassigned_0045ebf5.cpp",
       "symbol": "_asm_unassigned_0045ebf5",
       "address": "0x0045EBF5",
       "size": 21,
@@ -48157,7 +48157,7 @@
       "owner": "0x0045EBF5",
       "previous_record": {
         "name": "asm_unassigned_0045ebf5",
-        "source": "src/unidentified/unassigned_0045ebf5.cpp",
+        "source": "src/crt/unassigned_0045ebf5.cpp",
         "symbol": "_asm_unassigned_0045ebf5",
         "address": "0x0045EBF5",
         "size": 63,
@@ -48167,7 +48167,7 @@
     },
     {
       "name": "semantic_adjust_double_exponent_0045ec0a",
-      "source": "src/unidentified/unassigned_0045ec0a.cpp",
+      "source": "src/crt/unassigned_0045ec0a.cpp",
       "symbol": "_asm_unassigned_0045ec0a",
       "address": "0x0045EC0A",
       "size": 42,
@@ -48308,7 +48308,7 @@
     },
     {
       "name": "semantic_FUN_0045f3a4_0045f3a4",
-      "source": "src/unidentified/FUN_0045f3a4_0045f3a4.cpp",
+      "source": "src/crt/FUN_0045f3a4_0045f3a4.cpp",
       "symbol": "_asm_FUN_0045f3a4_0045f3a4",
       "address": "0x0045F3A4",
       "size": 16,
@@ -48317,7 +48317,7 @@
     },
     {
       "name": "semantic_FUN_0045f3b4_0045f3b4",
-      "source": "src/unidentified/unassigned_0045f3b4.cpp",
+      "source": "src/crt/unassigned_0045f3b4.cpp",
       "symbol": "_asm_unassigned_0045f3b4",
       "address": "0x0045F3B4",
       "size": 12,
@@ -48326,7 +48326,7 @@
     },
     {
       "name": "semantic_FUN_0045f3c0_0045f3c0",
-      "source": "src/unidentified/FUN_0045f3c0_0045f3c0.cpp",
+      "source": "src/crt/FUN_0045f3c0_0045f3c0.cpp",
       "symbol": "_asm_FUN_0045f3c0_0045f3c0",
       "address": "0x0045F3C0",
       "size": 16,
@@ -48347,7 +48347,7 @@
     },
     {
       "name": "semantic_x_ismbbtype_0045f4c9",
-      "source": "src/unidentified/x_ismbbtype_0045f4c9.cpp",
+      "source": "src/crt/x_ismbbtype_0045f4c9.cpp",
       "symbol": "_asm_x_ismbbtype_0045f4c9",
       "address": "0x0045F4C9",
       "size": 51,
@@ -48356,7 +48356,7 @@
     },
     {
       "name": "semantic_ismbbtype_wrapper_0045f4fc",
-      "source": "src/unidentified/unassigned_0045f4fc.cpp",
+      "source": "src/crt/unassigned_0045f4fc.cpp",
       "symbol": "_asm_unassigned_0045f4fc",
       "address": "0x0045F4FC",
       "size": 17,
@@ -48364,7 +48364,7 @@
       "owner": "0x0045F4FC",
       "previous_record": {
         "name": "asm_unassigned_0045f4fc",
-        "source": "src/unidentified/unassigned_0045f4fc.cpp",
+        "source": "src/crt/unassigned_0045f4fc.cpp",
         "symbol": "_asm_unassigned_0045f4fc",
         "address": "0x0045F4FC",
         "size": 148,
@@ -48374,7 +48374,7 @@
     },
     {
       "name": "semantic_ismbbtype_wrapper_0045f50d",
-      "source": "src/unidentified/unassigned_0045f4fc.cpp",
+      "source": "src/crt/unassigned_0045f4fc.cpp",
       "symbol": "_asm_ismbbtype_wrapper_0045f50d",
       "address": "0x0045F50D",
       "size": 17,
@@ -48383,7 +48383,7 @@
     },
     {
       "name": "semantic_ismbbtype_wrapper_0045f51e",
-      "source": "src/unidentified/unassigned_0045f4fc.cpp",
+      "source": "src/crt/unassigned_0045f4fc.cpp",
       "symbol": "_asm_ismbbtype_wrapper_0045f51e",
       "address": "0x0045F51E",
       "size": 17,
@@ -48392,7 +48392,7 @@
     },
     {
       "name": "semantic_ismbbtype_wrapper_0045f52f",
-      "source": "src/unidentified/unassigned_0045f4fc.cpp",
+      "source": "src/crt/unassigned_0045f4fc.cpp",
       "symbol": "_asm_ismbbtype_wrapper_0045f52f",
       "address": "0x0045F52F",
       "size": 20,
@@ -48401,7 +48401,7 @@
     },
     {
       "name": "semantic_ismbbtype_wrapper_0045f543",
-      "source": "src/unidentified/unassigned_0045f4fc.cpp",
+      "source": "src/crt/unassigned_0045f4fc.cpp",
       "symbol": "_asm_ismbbtype_wrapper_0045f543",
       "address": "0x0045F543",
       "size": 20,
@@ -48410,7 +48410,7 @@
     },
     {
       "name": "semantic_ismbbtype_wrapper_0045f557",
-      "source": "src/unidentified/unassigned_0045f4fc.cpp",
+      "source": "src/crt/unassigned_0045f4fc.cpp",
       "symbol": "_asm_ismbbtype_wrapper_0045f557",
       "address": "0x0045F557",
       "size": 20,
@@ -48419,7 +48419,7 @@
     },
     {
       "name": "semantic_ismbbtype_wrapper_0045f56b",
-      "source": "src/unidentified/unassigned_0045f4fc.cpp",
+      "source": "src/crt/unassigned_0045f4fc.cpp",
       "symbol": "_asm_ismbbtype_wrapper_0045f56b",
       "address": "0x0045F56B",
       "size": 20,
@@ -48428,7 +48428,7 @@
     },
     {
       "name": "semantic_ismbbtype_wrapper_0045f57f",
-      "source": "src/unidentified/unassigned_0045f4fc.cpp",
+      "source": "src/crt/unassigned_0045f4fc.cpp",
       "symbol": "_asm_ismbbtype_wrapper_0045f57f",
       "address": "0x0045F57F",
       "size": 17,
@@ -48437,7 +48437,7 @@
     },
     {
       "name": "semantic_ismbblead_0045f590",
-      "source": "src/unidentified/ismbblead_0045f590.cpp",
+      "source": "src/crt/ismbblead_0045f590.cpp",
       "symbol": "_asm_ismbblead_0045f590",
       "address": "0x0045F590",
       "size": 17,
@@ -48446,7 +48446,7 @@
     },
     {
       "name": "semantic_ismbbtype_wrapper_0045f5a1",
-      "source": "src/unidentified/unassigned_0045f5a1.cpp",
+      "source": "src/crt/unassigned_0045f5a1.cpp",
       "symbol": "_asm_unassigned_0045f5a1",
       "address": "0x0045F5A1",
       "size": 17,
@@ -48454,7 +48454,7 @@
       "owner": "0x0045F5A1",
       "previous_record": {
         "name": "asm_unassigned_0045f5a1",
-        "source": "src/unidentified/unassigned_0045f5a1.cpp",
+        "source": "src/crt/unassigned_0045f5a1.cpp",
         "symbol": "_asm_unassigned_0045f5a1",
         "address": "0x0045F5A1",
         "size": 180,
@@ -48464,7 +48464,7 @@
     },
     {
       "name": "semantic_ismbbtype_3a4_0045f5b2",
-      "source": "src/unidentified/unassigned_0045f5a1.cpp",
+      "source": "src/crt/unassigned_0045f5a1.cpp",
       "symbol": "_asm_ismbbtype_3a4_0045f5b2",
       "address": "0x0045F5B2",
       "size": 39,
@@ -48497,7 +48497,7 @@
     },
     {
       "name": "semantic_get_osfhandle_0045f6d4",
-      "source": "src/unidentified/get_osfhandle_0045f6d4.cpp",
+      "source": "src/crt/get_osfhandle_0045f6d4.cpp",
       "symbol": "_asm_get_osfhandle_0045f6d4",
       "address": "0x0045F6D4",
       "size": 65,
@@ -48518,7 +48518,7 @@
     },
     {
       "name": "semantic_FUN_0045f7b5_0045f7b5",
-      "source": "src/unidentified/FUN_0045f7b5_0045f7b5.cpp",
+      "source": "src/crt/FUN_0045f7b5_0045f7b5.cpp",
       "symbol": "_asm_FUN_0045f7b5_0045f7b5",
       "address": "0x0045F7B5",
       "size": 34,
@@ -48587,7 +48587,7 @@
     },
     {
       "name": "semantic_flush_0045fbf6",
-      "source": "src/unidentified/flush_0045fbf6.cpp",
+      "source": "src/crt/flush_0045fbf6.cpp",
       "symbol": "_asm_flush_0045fbf6",
       "address": "0x0045FBF6",
       "size": 93,
@@ -48596,7 +48596,7 @@
     },
     {
       "name": "semantic_fflush_lk_0045fc53",
-      "source": "src/unidentified/fflush_lk_0045fc53.cpp",
+      "source": "src/crt/fflush_lk_0045fc53.cpp",
       "symbol": "_asm_fflush_lk_0045fc53",
       "address": "0x0045FC53",
       "size": 46,
@@ -48629,7 +48629,7 @@
     },
     {
       "name": "semantic_flushall_0045fda6",
-      "source": "src/unidentified/flushall_0045fda6.cpp",
+      "source": "src/crt/flushall_0045fda6.cpp",
       "symbol": "_asm_flushall_0045fda6",
       "address": "0x0045FDA6",
       "size": 9,
@@ -48638,7 +48638,7 @@
     },
     {
       "name": "semantic_FUN_0045fdaf_0045fdaf",
-      "source": "src/unidentified/FUN_0045fdaf_0045fdaf.cpp",
+      "source": "src/crt/FUN_0045fdaf_0045fdaf.cpp",
       "symbol": "_asm_FUN_0045fdaf_0045fdaf",
       "address": "0x0045FDAF",
       "size": 9,
@@ -48671,7 +48671,7 @@
     },
     {
       "name": "semantic_unassigned_0045fe75",
-      "source": "src/unidentified/unassigned_0045fe75.cpp",
+      "source": "src/crt/unassigned_0045fe75.cpp",
       "symbol": "_unassigned_0045fe75",
       "address": "0x0045FE75",
       "size": 9,
@@ -48679,7 +48679,7 @@
       "owner": "0x0045FE75",
       "previous_record": {
         "name": "asm_unassigned_0045fe75",
-        "source": "src/unidentified/unassigned_0045fe75.cpp",
+        "source": "src/crt/unassigned_0045fe75.cpp",
         "symbol": "_asm_unassigned_0045fe75",
         "address": "0x0045FE75",
         "size": 9,
@@ -48689,7 +48689,7 @@
     },
     {
       "name": "semantic_FUN_0045fe7e_0045fe7e",
-      "source": "src/unidentified/FUN_0045fe7e_0045fe7e.cpp",
+      "source": "src/crt/FUN_0045fe7e_0045fe7e.cpp",
       "symbol": "_asm_FUN_0045fe7e_0045fe7e",
       "address": "0x0045FE7E",
       "size": 9,
@@ -48722,7 +48722,7 @@
     },
     {
       "name": "semantic_GetLocaleInfoNumber_004601a1",
-      "source": "src/unidentified/FUN_004601a1_004601a1.cpp",
+      "source": "src/crt/FUN_004601a1_004601a1.cpp",
       "symbol": "_asm_FUN_004601a1_004601a1",
       "address": "0x004601A1",
       "size": 71,
@@ -48775,7 +48775,7 @@
     },
     {
       "name": "semantic_stricmp_0046054e",
-      "source": "src/unidentified/stricmp_0046054e.cpp",
+      "source": "src/crt/stricmp_0046054e.cpp",
       "symbol": "_asm_stricmp_0046054e",
       "address": "0x0046054E",
       "size": 105,
@@ -48784,7 +48784,7 @@
     },
     {
       "name": "semantic_strnicmp_004605b7",
-      "source": "src/unidentified/strnicmp_004605b7.cpp",
+      "source": "src/crt/strnicmp_004605b7.cpp",
       "symbol": "_asm_strnicmp_004605b7",
       "address": "0x004605B7",
       "size": 127,
@@ -48877,7 +48877,7 @@
     },
     {
       "name": "semantic_addl_00460798",
-      "source": "src/unidentified/addl_00460798.cpp",
+      "source": "src/crt/addl_00460798.cpp",
       "symbol": "_asm_addl_00460798",
       "address": "0x00460798",
       "size": 33,
@@ -48886,7 +48886,7 @@
     },
     {
       "name": "semantic_add_12_004607b9",
-      "source": "src/unidentified/add_12_004607b9.cpp",
+      "source": "src/crt/add_12_004607b9.cpp",
       "symbol": "_asm_add_12_004607b9",
       "address": "0x004607B9",
       "size": 94,
@@ -48955,7 +48955,7 @@
     },
     {
       "name": "semantic_unassigned_00460c1e",
-      "source": "src/unidentified/unassigned_00460c1e.cpp",
+      "source": "src/crt/unassigned_00460c1e.cpp",
       "symbol": "_unassigned_00460c1e",
       "address": "0x00460C1E",
       "size": 8,
@@ -48963,7 +48963,7 @@
       "owner": "0x00460C1E",
       "previous_record": {
         "name": "asm_unassigned_00460c1e",
-        "source": "src/unidentified/unassigned_00460c1e.cpp",
+        "source": "src/crt/unassigned_00460c1e.cpp",
         "symbol": "_asm_unassigned_00460c1e",
         "address": "0x00460C1E",
         "size": 8,
@@ -48985,7 +48985,7 @@
     },
     {
       "name": "semantic_tolower_00460cee",
-      "source": "src/unidentified/tolower_00460cee.cpp",
+      "source": "src/crt/tolower_00460cee.cpp",
       "symbol": "_asm_tolower_00460cee",
       "address": "0x00460CEE",
       "size": 34,
@@ -49066,7 +49066,7 @@
     },
     {
       "name": "semantic_fpu_status_flags_00461004",
-      "source": "src/unidentified/unassigned_00461004.cpp",
+      "source": "src/crt/unassigned_00461004.cpp",
       "symbol": "_asm_unassigned_00461004",
       "address": "0x00461004",
       "size": 57,
@@ -49074,7 +49074,7 @@
       "owner": "0x00461004",
       "previous_record": {
         "name": "asm_unassigned_00461004",
-        "source": "src/unidentified/unassigned_00461004.cpp",
+        "source": "src/crt/unassigned_00461004.cpp",
         "symbol": "_asm_unassigned_00461004",
         "address": "0x00461004",
         "size": 90,
@@ -49120,7 +49120,7 @@
     },
     {
       "name": "semantic_controlfp_00461090",
-      "source": "src/unidentified/controlfp_00461090.cpp",
+      "source": "src/crt/controlfp_00461090.cpp",
       "symbol": "_asm_controlfp_00461090",
       "address": "0x00461090",
       "size": 22,
@@ -49129,7 +49129,7 @@
     },
     {
       "name": "semantic_mbsnbicoll_004610a6",
-      "source": "src/unidentified/mbsnbicoll_004610a6.cpp",
+      "source": "src/crt/mbsnbicoll_004610a6.cpp",
       "symbol": "_asm_mbsnbicoll_004610a6",
       "address": "0x004610A6",
       "size": 78,
@@ -49174,7 +49174,7 @@
     },
     {
       "name": "semantic_fclose_lk_0046140c",
-      "source": "src/unidentified/fclose_lk_0046140c.cpp",
+      "source": "src/crt/fclose_lk_0046140c.cpp",
       "symbol": "_asm_fclose_lk_0046140c",
       "address": "0x0046140C",
       "size": 76,
@@ -49347,7 +49347,7 @@
     },
     {
       "name": "semantic_freebuf_00462225",
-      "source": "src/unidentified/freebuf_00462225.cpp",
+      "source": "src/crt/freebuf_00462225.cpp",
       "symbol": "_asm_freebuf_00462225",
       "address": "0x00462225",
       "size": 43,
@@ -49356,7 +49356,7 @@
     },
     {
       "name": "semantic_strdup_00462250",
-      "source": "src/unidentified/strdup_00462250.cpp",
+      "source": "src/crt/strdup_00462250.cpp",
       "symbol": "_asm_strdup_00462250",
       "address": "0x00462250",
       "size": 43,
@@ -49389,7 +49389,7 @@
     },
     {
       "name": "semantic_basic_string_char_std_char_traits_char_std_allocator_char_00462301",
-      "source": "src/unidentified/basic_string_char_std_char_traits_char_std_allocator_char_00462301.cpp",
+      "source": "src/crt/basic_string_char_std_char_traits_char_std_allocator_char_00462301.cpp",
       "symbol": "?Init@LegacyString_00462301@@QAEPAU1@PBU1@@Z",
       "address": "0x00462301",
       "size": 38,
@@ -49410,7 +49410,7 @@
     },
     {
       "name": "semantic_unassigned_00462363",
-      "source": "src/unidentified/unassigned_00462363.cpp",
+      "source": "src/crt/unassigned_00462363.cpp",
       "symbol": "?Myptr@StringBase_00462363@@QBEPBDXZ",
       "address": "0x00462363",
       "size": 14,
@@ -49418,7 +49418,7 @@
       "owner": "0x00462363",
       "previous_record": {
         "name": "asm_unassigned_00462363",
-        "source": "src/unidentified/unassigned_00462363.cpp",
+        "source": "src/crt/unassigned_00462363.cpp",
         "symbol": "_asm_unassigned_00462363",
         "address": "0x00462363",
         "size": 14,
@@ -49428,7 +49428,7 @@
     },
     {
       "name": "semantic_FUN_00462371_00462371",
-      "source": "src/unidentified/FUN_00462371_00462371.cpp",
+      "source": "src/crt/FUN_00462371_00462371.cpp",
       "symbol": "?Destroy@RuntimeException_00462371@@QAEXXZ",
       "address": "0x00462371",
       "size": 29,
@@ -49437,7 +49437,7 @@
     },
     {
       "name": "semantic_FUN_0046238e_0046238e",
-      "source": "src/unidentified/FUN_0046238e_0046238e.cpp",
+      "source": "src/crt/FUN_0046238e_0046238e.cpp",
       "symbol": "?Destroy@RuntimeException_0046238e@@QAEPAU1@E@Z",
       "address": "0x0046238E",
       "size": 28,
@@ -49446,7 +49446,7 @@
     },
     {
       "name": "semantic_unassigned_004623aa",
-      "source": "src/unidentified/unassigned_004623aa.cpp",
+      "source": "src/crt/unassigned_004623aa.cpp",
       "symbol": "?Init@RuntimeException_004623aa@@QAEPAU1@PAX@Z",
       "address": "0x004623AA",
       "size": 24,
@@ -49455,7 +49455,7 @@
     },
     {
       "name": "semantic_FUN_004623c2_004623c2",
-      "source": "src/unidentified/FUN_004623c2_004623c2.cpp",
+      "source": "src/crt/FUN_004623c2_004623c2.cpp",
       "symbol": "?Destroy@RuntimeException_004623c2@@QAEPAU1@E@Z",
       "address": "0x004623C2",
       "size": 28,
@@ -49464,7 +49464,7 @@
     },
     {
       "name": "semantic_FUN_004623de_004623de",
-      "source": "src/unidentified/FUN_004623de_004623de.cpp",
+      "source": "src/crt/FUN_004623de_004623de.cpp",
       "symbol": "?Destroy@RuntimeException_004623de@@QAEXXZ",
       "address": "0x004623DE",
       "size": 11,
@@ -49473,7 +49473,7 @@
     },
     {
       "name": "semantic_unassigned_004623e9",
-      "source": "src/unidentified/unassigned_004623e9.cpp",
+      "source": "src/crt/unassigned_004623e9.cpp",
       "symbol": "?Init@RuntimeException_004623e9@@QAEPAU1@PAX@Z",
       "address": "0x004623E9",
       "size": 24,
@@ -49482,7 +49482,7 @@
     },
     {
       "name": "semantic_FUN_00462401_00462401",
-      "source": "src/unidentified/FUN_00462401_00462401.cpp",
+      "source": "src/crt/FUN_00462401_00462401.cpp",
       "symbol": "?Destroy@RuntimeException_00462401@@QAEPAU1@E@Z",
       "address": "0x00462401",
       "size": 28,
@@ -49491,7 +49491,7 @@
     },
     {
       "name": "semantic_FUN_0046241d_0046241d",
-      "source": "src/unidentified/FUN_0046241d_0046241d.cpp",
+      "source": "src/crt/FUN_0046241d_0046241d.cpp",
       "symbol": "?Destroy@RuntimeException_0046241d@@QAEXXZ",
       "address": "0x0046241D",
       "size": 11,
@@ -49524,7 +49524,7 @@
     },
     {
       "name": "semantic_FUN_004624ab_004624ab",
-      "source": "src/unidentified/FUN_004624ab_004624ab.cpp",
+      "source": "src/crt/FUN_004624ab_004624ab.cpp",
       "symbol": "?Init@RuntimeException_004624ab@@QAEPAU1@PAX@Z",
       "address": "0x004624AB",
       "size": 24,
@@ -49533,7 +49533,7 @@
     },
     {
       "name": "semantic_FUN_004624c3_004624c3",
-      "source": "src/unidentified/FUN_004624c3_004624c3.cpp",
+      "source": "src/crt/FUN_004624c3_004624c3.cpp",
       "symbol": "?Init@LegacyString_004624c3@@QAEPAU1@PBD@Z",
       "address": "0x004624C3",
       "size": 34,
@@ -49554,7 +49554,7 @@
     },
     {
       "name": "semantic_FUN_00462525_00462525",
-      "source": "src/unidentified/FUN_00462525_00462525.cpp",
+      "source": "src/crt/FUN_00462525_00462525.cpp",
       "symbol": "?Init@RuntimeException_00462525@@QAEPAU1@PAX@Z",
       "address": "0x00462525",
       "size": 24,
@@ -49571,7 +49571,7 @@
     },
     {
       "name": "semantic_import_HeapFree_0046253e",
-      "source": "src/unidentified/unassigned_0046253e.cpp",
+      "source": "src/crt/unassigned_0046253e.cpp",
       "symbol": "_import_HeapFree_0046253e@12",
       "address": "0x0046253E",
       "size": 6,
@@ -49580,7 +49580,7 @@
     },
     {
       "name": "semantic_import_HeapAlloc_00462544",
-      "source": "src/unidentified/unassigned_0046253e.cpp",
+      "source": "src/crt/unassigned_0046253e.cpp",
       "symbol": "_import_HeapAlloc_00462544@12",
       "address": "0x00462544",
       "size": 6,
@@ -49589,7 +49589,7 @@
     },
     {
       "name": "semantic_import_CreateDirectoryA_0046254a",
-      "source": "src/unidentified/unassigned_0046253e.cpp",
+      "source": "src/crt/unassigned_0046253e.cpp",
       "symbol": "_import_CreateDirectoryA_0046254a@8",
       "address": "0x0046254A",
       "size": 6,
@@ -49598,7 +49598,7 @@
     },
     {
       "name": "semantic_import_GetSystemTimeAsFileTime_00462550",
-      "source": "src/unidentified/unassigned_0046253e.cpp",
+      "source": "src/crt/unassigned_0046253e.cpp",
       "symbol": "_import_GetSystemTimeAsFileTime_00462550@4",
       "address": "0x00462550",
       "size": 6,
@@ -49607,7 +49607,7 @@
     },
     {
       "name": "semantic_import_ExitThread_00462556",
-      "source": "src/unidentified/unassigned_0046253e.cpp",
+      "source": "src/crt/unassigned_0046253e.cpp",
       "symbol": "_import_ExitThread_00462556@4",
       "address": "0x00462556",
       "size": 6,
@@ -49616,7 +49616,7 @@
     },
     {
       "name": "semantic_import_SetEnvironmentVariableA_0046255c",
-      "source": "src/unidentified/unassigned_0046253e.cpp",
+      "source": "src/crt/unassigned_0046253e.cpp",
       "symbol": "_import_SetEnvironmentVariableA_0046255c@8",
       "address": "0x0046255C",
       "size": 6,
@@ -49625,7 +49625,7 @@
     },
     {
       "name": "semantic_import_GetCurrentDirectoryA_00462562",
-      "source": "src/unidentified/unassigned_0046253e.cpp",
+      "source": "src/crt/unassigned_0046253e.cpp",
       "symbol": "_import_GetCurrentDirectoryA_00462562@8",
       "address": "0x00462562",
       "size": 6,
@@ -49634,7 +49634,7 @@
     },
     {
       "name": "semantic_import_SetCurrentDirectoryA_00462568",
-      "source": "src/unidentified/unassigned_0046253e.cpp",
+      "source": "src/crt/unassigned_0046253e.cpp",
       "symbol": "_import_SetCurrentDirectoryA_00462568@4",
       "address": "0x00462568",
       "size": 6,
@@ -49643,7 +49643,7 @@
     },
     {
       "name": "semantic_import_GetCurrentThreadId_0046256e",
-      "source": "src/unidentified/unassigned_0046253e.cpp",
+      "source": "src/crt/unassigned_0046253e.cpp",
       "symbol": "_import_GetCurrentThreadId_0046256e@0",
       "address": "0x0046256E",
       "size": 6,
@@ -49652,7 +49652,7 @@
     },
     {
       "name": "semantic_import_GetModuleHandleA_00462574",
-      "source": "src/unidentified/unassigned_0046253e.cpp",
+      "source": "src/crt/unassigned_0046253e.cpp",
       "symbol": "_import_GetModuleHandleA_00462574@4",
       "address": "0x00462574",
       "size": 6,
@@ -49661,7 +49661,7 @@
     },
     {
       "name": "semantic_import_GetCommandLineA_0046257a",
-      "source": "src/unidentified/unassigned_0046253e.cpp",
+      "source": "src/crt/unassigned_0046253e.cpp",
       "symbol": "_import_GetCommandLineA_0046257a@0",
       "address": "0x0046257A",
       "size": 6,
@@ -49670,7 +49670,7 @@
     },
     {
       "name": "semantic_import_HeapDestroy_00462580",
-      "source": "src/unidentified/unassigned_0046253e.cpp",
+      "source": "src/crt/unassigned_0046253e.cpp",
       "symbol": "_import_HeapDestroy_00462580@4",
       "address": "0x00462580",
       "size": 6,
@@ -49679,7 +49679,7 @@
     },
     {
       "name": "semantic_import_HeapCreate_00462586",
-      "source": "src/unidentified/unassigned_0046253e.cpp",
+      "source": "src/crt/unassigned_0046253e.cpp",
       "symbol": "_import_HeapCreate_00462586@12",
       "address": "0x00462586",
       "size": 6,
@@ -49688,7 +49688,7 @@
     },
     {
       "name": "semantic_import_VirtualFree_0046258c",
-      "source": "src/unidentified/unassigned_0046253e.cpp",
+      "source": "src/crt/unassigned_0046253e.cpp",
       "symbol": "_import_VirtualFree_0046258c@12",
       "address": "0x0046258C",
       "size": 6,
@@ -49697,7 +49697,7 @@
     },
     {
       "name": "semantic_import_FatalAppExitA_00462592",
-      "source": "src/unidentified/unassigned_0046253e.cpp",
+      "source": "src/crt/unassigned_0046253e.cpp",
       "symbol": "_import_FatalAppExitA_00462592@8",
       "address": "0x00462592",
       "size": 6,
@@ -49706,7 +49706,7 @@
     },
     {
       "name": "semantic_import_VirtualAlloc_00462598",
-      "source": "src/unidentified/unassigned_0046253e.cpp",
+      "source": "src/crt/unassigned_0046253e.cpp",
       "symbol": "_import_VirtualAlloc_00462598@16",
       "address": "0x00462598",
       "size": 6,
@@ -49715,7 +49715,7 @@
     },
     {
       "name": "semantic_import_HeapReAlloc_0046259e",
-      "source": "src/unidentified/unassigned_0046253e.cpp",
+      "source": "src/crt/unassigned_0046253e.cpp",
       "symbol": "_import_HeapReAlloc_0046259e@16",
       "address": "0x0046259E",
       "size": 6,
@@ -49724,7 +49724,7 @@
     },
     {
       "name": "semantic_import_IsBadWritePtr_004625a4",
-      "source": "src/unidentified/unassigned_0046253e.cpp",
+      "source": "src/crt/unassigned_0046253e.cpp",
       "symbol": "_import_IsBadWritePtr_004625a4@8",
       "address": "0x004625A4",
       "size": 6,
@@ -49733,7 +49733,7 @@
     },
     {
       "name": "semantic_import_TlsAlloc_004625aa",
-      "source": "src/unidentified/unassigned_0046253e.cpp",
+      "source": "src/crt/unassigned_0046253e.cpp",
       "symbol": "_import_TlsAlloc_004625aa@0",
       "address": "0x004625AA",
       "size": 6,
@@ -49742,7 +49742,7 @@
     },
     {
       "name": "semantic_import_SetLastError_004625b0",
-      "source": "src/unidentified/unassigned_0046253e.cpp",
+      "source": "src/crt/unassigned_0046253e.cpp",
       "symbol": "_import_SetLastError_004625b0@4",
       "address": "0x004625B0",
       "size": 6,
@@ -49751,7 +49751,7 @@
     },
     {
       "name": "semantic_import_GetCurrentThread_004625b6",
-      "source": "src/unidentified/unassigned_0046253e.cpp",
+      "source": "src/crt/unassigned_0046253e.cpp",
       "symbol": "_import_GetCurrentThread_004625b6@0",
       "address": "0x004625B6",
       "size": 6,
@@ -49760,7 +49760,7 @@
     },
     {
       "name": "semantic_import_TlsFree_004625bc",
-      "source": "src/unidentified/unassigned_0046253e.cpp",
+      "source": "src/crt/unassigned_0046253e.cpp",
       "symbol": "_import_TlsFree_004625bc@4",
       "address": "0x004625BC",
       "size": 6,
@@ -49769,7 +49769,7 @@
     },
     {
       "name": "semantic_import_TlsSetValue_004625c2",
-      "source": "src/unidentified/unassigned_0046253e.cpp",
+      "source": "src/crt/unassigned_0046253e.cpp",
       "symbol": "_import_TlsSetValue_004625c2@8",
       "address": "0x004625C2",
       "size": 6,
@@ -49778,7 +49778,7 @@
     },
     {
       "name": "semantic_import_TlsGetValue_004625c8",
-      "source": "src/unidentified/unassigned_0046253e.cpp",
+      "source": "src/crt/unassigned_0046253e.cpp",
       "symbol": "_import_TlsGetValue_004625c8@4",
       "address": "0x004625C8",
       "size": 6,
@@ -49787,7 +49787,7 @@
     },
     {
       "name": "semantic_import_GetProcAddress_004625ce",
-      "source": "src/unidentified/unassigned_0046253e.cpp",
+      "source": "src/crt/unassigned_0046253e.cpp",
       "symbol": "_import_GetProcAddress_004625ce@8",
       "address": "0x004625CE",
       "size": 6,
@@ -49796,7 +49796,7 @@
     },
     {
       "name": "semantic_import_WideCharToMultiByte_004625d4",
-      "source": "src/unidentified/unassigned_0046253e.cpp",
+      "source": "src/crt/unassigned_0046253e.cpp",
       "symbol": "_import_WideCharToMultiByte_004625d4@32",
       "address": "0x004625D4",
       "size": 6,
@@ -49805,7 +49805,7 @@
     },
     {
       "name": "semantic_import_GetTimeZoneInformation_004625da",
-      "source": "src/unidentified/unassigned_0046253e.cpp",
+      "source": "src/crt/unassigned_0046253e.cpp",
       "symbol": "_import_GetTimeZoneInformation_004625da@4",
       "address": "0x004625DA",
       "size": 6,
@@ -49814,7 +49814,7 @@
     },
     {
       "name": "semantic_import_ExitProcess_004625e0",
-      "source": "src/unidentified/unassigned_0046253e.cpp",
+      "source": "src/crt/unassigned_0046253e.cpp",
       "symbol": "_import_ExitProcess_004625e0@4",
       "address": "0x004625E0",
       "size": 6,
@@ -49823,7 +49823,7 @@
     },
     {
       "name": "semantic_import_TerminateProcess_004625e6",
-      "source": "src/unidentified/unassigned_0046253e.cpp",
+      "source": "src/crt/unassigned_0046253e.cpp",
       "symbol": "_import_TerminateProcess_004625e6@8",
       "address": "0x004625E6",
       "size": 6,
@@ -49832,7 +49832,7 @@
     },
     {
       "name": "semantic_import_GetCurrentProcess_004625ec",
-      "source": "src/unidentified/unassigned_0046253e.cpp",
+      "source": "src/crt/unassigned_0046253e.cpp",
       "symbol": "_import_GetCurrentProcess_004625ec@0",
       "address": "0x004625EC",
       "size": 6,
@@ -49841,7 +49841,7 @@
     },
     {
       "name": "semantic_import_HeapSize_004625f2",
-      "source": "src/unidentified/unassigned_0046253e.cpp",
+      "source": "src/crt/unassigned_0046253e.cpp",
       "symbol": "_import_HeapSize_004625f2@12",
       "address": "0x004625F2",
       "size": 6,
@@ -49850,7 +49850,7 @@
     },
     {
       "name": "semantic_import_UnhandledExceptionFilter_004625f8",
-      "source": "src/unidentified/unassigned_0046253e.cpp",
+      "source": "src/crt/unassigned_0046253e.cpp",
       "symbol": "_import_UnhandledExceptionFilter_004625f8@4",
       "address": "0x004625F8",
       "size": 6,
@@ -49859,7 +49859,7 @@
     },
     {
       "name": "semantic_import_VirtualProtect_004625fe",
-      "source": "src/unidentified/unassigned_0046253e.cpp",
+      "source": "src/crt/unassigned_0046253e.cpp",
       "symbol": "_import_VirtualProtect_004625fe@16",
       "address": "0x004625FE",
       "size": 6,
@@ -49868,7 +49868,7 @@
     },
     {
       "name": "semantic_import_GetSystemInfo_00462604",
-      "source": "src/unidentified/unassigned_0046253e.cpp",
+      "source": "src/crt/unassigned_0046253e.cpp",
       "symbol": "_import_GetSystemInfo_00462604@4",
       "address": "0x00462604",
       "size": 6,
@@ -49877,7 +49877,7 @@
     },
     {
       "name": "semantic_import_VirtualQuery_0046260a",
-      "source": "src/unidentified/unassigned_0046253e.cpp",
+      "source": "src/crt/unassigned_0046253e.cpp",
       "symbol": "_import_VirtualQuery_0046260a@12",
       "address": "0x0046260A",
       "size": 6,
@@ -49886,7 +49886,7 @@
     },
     {
       "name": "semantic_import_GetStdHandle_00462610",
-      "source": "src/unidentified/unassigned_0046253e.cpp",
+      "source": "src/crt/unassigned_0046253e.cpp",
       "symbol": "_import_GetStdHandle_00462610@4",
       "address": "0x00462610",
       "size": 6,
@@ -49895,7 +49895,7 @@
     },
     {
       "name": "semantic_import_FreeEnvironmentStringsA_00462616",
-      "source": "src/unidentified/unassigned_0046253e.cpp",
+      "source": "src/crt/unassigned_0046253e.cpp",
       "symbol": "_import_FreeEnvironmentStringsA_00462616@4",
       "address": "0x00462616",
       "size": 6,
@@ -49904,7 +49904,7 @@
     },
     {
       "name": "semantic_import_GetEnvironmentStrings_0046261c",
-      "source": "src/unidentified/unassigned_0046253e.cpp",
+      "source": "src/crt/unassigned_0046253e.cpp",
       "symbol": "_import_GetEnvironmentStrings_0046261c@0",
       "address": "0x0046261C",
       "size": 6,
@@ -49913,7 +49913,7 @@
     },
     {
       "name": "semantic_import_FreeEnvironmentStringsW_00462622",
-      "source": "src/unidentified/unassigned_0046253e.cpp",
+      "source": "src/crt/unassigned_0046253e.cpp",
       "symbol": "_import_FreeEnvironmentStringsW_00462622@4",
       "address": "0x00462622",
       "size": 6,
@@ -49922,7 +49922,7 @@
     },
     {
       "name": "semantic_import_GetEnvironmentStringsW_00462628",
-      "source": "src/unidentified/unassigned_0046253e.cpp",
+      "source": "src/crt/unassigned_0046253e.cpp",
       "symbol": "_import_GetEnvironmentStringsW_00462628@0",
       "address": "0x00462628",
       "size": 6,
@@ -49931,7 +49931,7 @@
     },
     {
       "name": "semantic_import_SetHandleCount_0046262e",
-      "source": "src/unidentified/unassigned_0046253e.cpp",
+      "source": "src/crt/unassigned_0046253e.cpp",
       "symbol": "_import_SetHandleCount_0046262e@4",
       "address": "0x0046262E",
       "size": 6,
@@ -49940,7 +49940,7 @@
     },
     {
       "name": "semantic_import_GetFileType_00462634",
-      "source": "src/unidentified/unassigned_0046253e.cpp",
+      "source": "src/crt/unassigned_0046253e.cpp",
       "symbol": "_import_GetFileType_00462634@4",
       "address": "0x00462634",
       "size": 6,
@@ -49949,7 +49949,7 @@
     },
     {
       "name": "semantic_RtlUnwind_0046263a",
-      "source": "src/unidentified/RtlUnwind_0046263a.cpp",
+      "source": "src/crt/RtlUnwind_0046263a.cpp",
       "symbol": "_asm_RtlUnwind_0046263a@16",
       "address": "0x0046263A",
       "size": 6,
@@ -49958,7 +49958,7 @@
     },
     {
       "name": "semantic_import_InterlockedExchange_00462640",
-      "source": "src/unidentified/unassigned_00462640.cpp",
+      "source": "src/crt/unassigned_00462640.cpp",
       "symbol": "_import_InterlockedExchange_00462640@8",
       "address": "0x00462640",
       "size": 6,
@@ -49967,7 +49967,7 @@
     },
     {
       "name": "semantic_import_GetStringTypeA_00462646",
-      "source": "src/unidentified/unassigned_00462640.cpp",
+      "source": "src/crt/unassigned_00462640.cpp",
       "symbol": "_import_GetStringTypeA_00462646@20",
       "address": "0x00462646",
       "size": 6,
@@ -49976,7 +49976,7 @@
     },
     {
       "name": "semantic_import_GetStringTypeW_0046264c",
-      "source": "src/unidentified/unassigned_00462640.cpp",
+      "source": "src/crt/unassigned_00462640.cpp",
       "symbol": "_import_GetStringTypeW_0046264c@16",
       "address": "0x0046264C",
       "size": 6,
@@ -49985,7 +49985,7 @@
     },
     {
       "name": "semantic_import_GetTimeFormatA_00462652",
-      "source": "src/unidentified/unassigned_00462640.cpp",
+      "source": "src/crt/unassigned_00462640.cpp",
       "symbol": "_import_GetTimeFormatA_00462652@24",
       "address": "0x00462652",
       "size": 6,
@@ -49994,7 +49994,7 @@
     },
     {
       "name": "semantic_import_GetDateFormatA_00462658",
-      "source": "src/unidentified/unassigned_00462640.cpp",
+      "source": "src/crt/unassigned_00462640.cpp",
       "symbol": "_import_GetDateFormatA_00462658@24",
       "address": "0x00462658",
       "size": 6,
@@ -50003,7 +50003,7 @@
     },
     {
       "name": "semantic_import_GetCPInfo_0046265e",
-      "source": "src/unidentified/unassigned_00462640.cpp",
+      "source": "src/crt/unassigned_00462640.cpp",
       "symbol": "_import_GetCPInfo_0046265e@8",
       "address": "0x0046265E",
       "size": 6,
@@ -50012,7 +50012,7 @@
     },
     {
       "name": "semantic_import_GetUserDefaultLCID_00462664",
-      "source": "src/unidentified/unassigned_00462640.cpp",
+      "source": "src/crt/unassigned_00462640.cpp",
       "symbol": "_import_GetUserDefaultLCID_00462664@0",
       "address": "0x00462664",
       "size": 6,
@@ -50021,7 +50021,7 @@
     },
     {
       "name": "semantic_import_GetLocaleInfoA_0046266a",
-      "source": "src/unidentified/unassigned_00462640.cpp",
+      "source": "src/crt/unassigned_00462640.cpp",
       "symbol": "_import_GetLocaleInfoA_0046266a@16",
       "address": "0x0046266A",
       "size": 6,
@@ -50030,7 +50030,7 @@
     },
     {
       "name": "semantic_import_EnumSystemLocalesA_00462670",
-      "source": "src/unidentified/unassigned_00462640.cpp",
+      "source": "src/crt/unassigned_00462640.cpp",
       "symbol": "_import_EnumSystemLocalesA_00462670@8",
       "address": "0x00462670",
       "size": 6,
@@ -50039,7 +50039,7 @@
     },
     {
       "name": "semantic_import_IsValidLocale_00462676",
-      "source": "src/unidentified/unassigned_00462640.cpp",
+      "source": "src/crt/unassigned_00462640.cpp",
       "symbol": "_import_IsValidLocale_00462676@8",
       "address": "0x00462676",
       "size": 6,
@@ -50048,7 +50048,7 @@
     },
     {
       "name": "semantic_import_IsValidCodePage_0046267c",
-      "source": "src/unidentified/unassigned_00462640.cpp",
+      "source": "src/crt/unassigned_00462640.cpp",
       "symbol": "_import_IsValidCodePage_0046267c@4",
       "address": "0x0046267C",
       "size": 6,
@@ -50057,7 +50057,7 @@
     },
     {
       "name": "semantic_import_GetACP_00462682",
-      "source": "src/unidentified/unassigned_00462640.cpp",
+      "source": "src/crt/unassigned_00462640.cpp",
       "symbol": "_import_GetACP_00462682@0",
       "address": "0x00462682",
       "size": 6,
@@ -50066,7 +50066,7 @@
     },
     {
       "name": "semantic_import_GetOEMCP_00462688",
-      "source": "src/unidentified/unassigned_00462640.cpp",
+      "source": "src/crt/unassigned_00462640.cpp",
       "symbol": "_import_GetOEMCP_00462688@0",
       "address": "0x00462688",
       "size": 6,
@@ -50075,7 +50075,7 @@
     },
     {
       "name": "semantic_import_RaiseException_0046268e",
-      "source": "src/unidentified/unassigned_00462640.cpp",
+      "source": "src/crt/unassigned_00462640.cpp",
       "symbol": "_import_RaiseException_0046268e@16",
       "address": "0x0046268E",
       "size": 6,
@@ -50084,7 +50084,7 @@
     },
     {
       "name": "semantic_import_LCMapStringA_00462694",
-      "source": "src/unidentified/unassigned_00462640.cpp",
+      "source": "src/crt/unassigned_00462640.cpp",
       "symbol": "_import_LCMapStringA_00462694@24",
       "address": "0x00462694",
       "size": 6,
@@ -50093,7 +50093,7 @@
     },
     {
       "name": "semantic_import_LCMapStringW_0046269a",
-      "source": "src/unidentified/unassigned_00462640.cpp",
+      "source": "src/crt/unassigned_00462640.cpp",
       "symbol": "_import_LCMapStringW_0046269a@24",
       "address": "0x0046269A",
       "size": 6,
@@ -50102,7 +50102,7 @@
     },
     {
       "name": "semantic_import_GetTickCount_004626a0",
-      "source": "src/unidentified/unassigned_00462640.cpp",
+      "source": "src/crt/unassigned_00462640.cpp",
       "symbol": "_import_GetTickCount_004626a0@0",
       "address": "0x004626A0",
       "size": 6,
@@ -50111,7 +50111,7 @@
     },
     {
       "name": "semantic_import_GetCurrentProcessId_004626a6",
-      "source": "src/unidentified/unassigned_00462640.cpp",
+      "source": "src/crt/unassigned_00462640.cpp",
       "symbol": "_import_GetCurrentProcessId_004626a6@0",
       "address": "0x004626A6",
       "size": 6,
@@ -50120,7 +50120,7 @@
     },
     {
       "name": "semantic_import_LoadLibraryA_004626ac",
-      "source": "src/unidentified/unassigned_00462640.cpp",
+      "source": "src/crt/unassigned_00462640.cpp",
       "symbol": "_import_LoadLibraryA_004626ac@4",
       "address": "0x004626AC",
       "size": 6,
@@ -50129,7 +50129,7 @@
     },
     {
       "name": "semantic_import_SetStdHandle_004626b2",
-      "source": "src/unidentified/unassigned_00462640.cpp",
+      "source": "src/crt/unassigned_00462640.cpp",
       "symbol": "_import_SetStdHandle_004626b2@8",
       "address": "0x004626B2",
       "size": 6,
@@ -50138,7 +50138,7 @@
     },
     {
       "name": "semantic_import_SetConsoleCtrlHandler_004626b8",
-      "source": "src/unidentified/unassigned_00462640.cpp",
+      "source": "src/crt/unassigned_00462640.cpp",
       "symbol": "_import_SetConsoleCtrlHandler_004626b8@8",
       "address": "0x004626B8",
       "size": 6,
@@ -50147,7 +50147,7 @@
     },
     {
       "name": "semantic_import_FlushFileBuffers_004626be",
-      "source": "src/unidentified/unassigned_00462640.cpp",
+      "source": "src/crt/unassigned_00462640.cpp",
       "symbol": "_import_FlushFileBuffers_004626be@4",
       "address": "0x004626BE",
       "size": 6,
@@ -50156,7 +50156,7 @@
     },
     {
       "name": "semantic_import_GetLocaleInfoW_004626c4",
-      "source": "src/unidentified/unassigned_00462640.cpp",
+      "source": "src/crt/unassigned_00462640.cpp",
       "symbol": "_import_GetLocaleInfoW_004626c4@16",
       "address": "0x004626C4",
       "size": 6,
@@ -50165,7 +50165,7 @@
     },
     {
       "name": "semantic_import_CompareStringA_004626ca",
-      "source": "src/unidentified/unassigned_00462640.cpp",
+      "source": "src/crt/unassigned_00462640.cpp",
       "symbol": "_import_CompareStringA_004626ca@24",
       "address": "0x004626CA",
       "size": 6,
@@ -50174,7 +50174,7 @@
     },
     {
       "name": "semantic_import_CompareStringW_004626d0",
-      "source": "src/unidentified/unassigned_00462640.cpp",
+      "source": "src/crt/unassigned_00462640.cpp",
       "symbol": "_import_CompareStringW_004626d0@24",
       "address": "0x004626D0",
       "size": 6,
@@ -50315,7 +50315,7 @@
     },
     {
       "name": "semantic_CreateFrameInfo_004629eb",
-      "source": "src/unidentified/CreateFrameInfo_004629eb.cpp",
+      "source": "src/crt/CreateFrameInfo_004629eb.cpp",
       "symbol": "_asm_CreateFrameInfo_004629eb",
       "address": "0x004629EB",
       "size": 40,
@@ -50324,7 +50324,7 @@
     },
     {
       "name": "semantic_IsExceptionObjectToBeDestroyed_00462a13",
-      "source": "src/unidentified/IsExceptionObjectToBeDestroyed_00462a13.cpp",
+      "source": "src/crt/IsExceptionObjectToBeDestroyed_00462a13.cpp",
       "symbol": "_asm_IsExceptionObjectToBeDestroyed_00462a13",
       "address": "0x00462A13",
       "size": 33,
@@ -50333,7 +50333,7 @@
     },
     {
       "name": "semantic_FindAndUnlinkFrame_00462a34",
-      "source": "src/unidentified/FindAndUnlinkFrame_00462a34.cpp",
+      "source": "src/crt/FindAndUnlinkFrame_00462a34.cpp",
       "symbol": "_asm_FindAndUnlinkFrame_00462a34",
       "address": "0x00462A34",
       "size": 76,
@@ -50398,7 +50398,7 @@
     },
     {
       "name": "semantic_scalar_deleting_destructor_00462b7b",
-      "source": "src/unidentified/scalar_deleting_destructor_00462b7b.cpp",
+      "source": "src/crt/scalar_deleting_destructor_00462b7b.cpp",
       "symbol": "?Destroy@RuntimeException_00462b7b@@QAEPAU1@E@Z",
       "address": "0x00462B7B",
       "size": 28,
@@ -50443,7 +50443,7 @@
     },
     {
       "name": "semantic_FUN_00462bed_00462bed",
-      "source": "src/unidentified/FUN_00462bed_00462bed.cpp",
+      "source": "src/crt/FUN_00462bed_00462bed.cpp",
       "symbol": "@asm_FUN_00462bed_00462bed@4",
       "address": "0x00462BED",
       "size": 4,
@@ -50452,7 +50452,7 @@
     },
     {
       "name": "semantic_FUN_00462bf1_00462bf1",
-      "source": "src/unidentified/FUN_00462bf1_00462bf1.cpp",
+      "source": "src/crt/FUN_00462bf1_00462bf1.cpp",
       "symbol": "@asm_FUN_00462bf1_00462bf1@12",
       "address": "0x00462BF1",
       "size": 11,
@@ -50461,7 +50461,7 @@
     },
     {
       "name": "semantic_FUN_00462bfc_00462bfc",
-      "source": "src/unidentified/FUN_00462bfc_00462bfc.cpp",
+      "source": "src/crt/FUN_00462bfc_00462bfc.cpp",
       "symbol": "@asm_FUN_00462bfc_00462bfc@12",
       "address": "0x00462BFC",
       "size": 5,
@@ -50470,7 +50470,7 @@
     },
     {
       "name": "semantic_exception_00462c01",
-      "source": "src/unidentified/exception_00462c01.cpp",
+      "source": "src/crt/exception_00462c01.cpp",
       "symbol": "?Init@RuntimeException_00462c01@@QAEPAU1@XZ",
       "address": "0x00462C01",
       "size": 17,
@@ -50479,7 +50479,7 @@
     },
     {
       "name": "semantic_FUN_00462c12_00462c12",
-      "source": "src/unidentified/FUN_00462c12_00462c12.cpp",
+      "source": "src/crt/FUN_00462c12_00462c12.cpp",
       "symbol": "?Init@RuntimeException_00462c12@@QAEPAU1@PAPBD@Z",
       "address": "0x00462C12",
       "size": 72,
@@ -50488,7 +50488,7 @@
     },
     {
       "name": "semantic_FUN_00462c5a_00462c5a",
-      "source": "src/unidentified/FUN_00462c5a_00462c5a.cpp",
+      "source": "src/crt/FUN_00462c5a_00462c5a.cpp",
       "symbol": "?Init@RuntimeException_00462c5a@@QAEPAU1@PBU1@@Z",
       "address": "0x00462C5A",
       "size": 82,
@@ -50497,7 +50497,7 @@
     },
     {
       "name": "semantic_exception_00462cac",
-      "source": "src/unidentified/exception_00462cac.cpp",
+      "source": "src/crt/exception_00462cac.cpp",
       "symbol": "?Destroy@RuntimeException_00462cac@@QAEXXZ",
       "address": "0x00462CAC",
       "size": 22,
@@ -50506,7 +50506,7 @@
     },
     {
       "name": "semantic_unassigned_00462cc2",
-      "source": "src/unidentified/unassigned_00462cc2.cpp",
+      "source": "src/crt/unassigned_00462cc2.cpp",
       "symbol": "?What@RuntimeException_00462cc2@@QAEPBDXZ",
       "address": "0x00462CC2",
       "size": 13,
@@ -50515,7 +50515,7 @@
     },
     {
       "name": "semantic_unassigned_00462ccf",
-      "source": "src/unidentified/unassigned_00462cc2.cpp",
+      "source": "src/crt/unassigned_00462cc2.cpp",
       "symbol": "?InitAddress@RuntimeException_00462cc2@@QAEPAU1@PAX@Z",
       "address": "0x00462CCF",
       "size": 25,
@@ -50524,7 +50524,7 @@
     },
     {
       "name": "semantic_unassigned_00462ce8",
-      "source": "src/unidentified/unassigned_00462cc2.cpp",
+      "source": "src/crt/unassigned_00462cc2.cpp",
       "symbol": "?InitValue@RuntimeException_00462cc2@@QAEPAU1@PAX@Z",
       "address": "0x00462CE8",
       "size": 24,
@@ -50533,7 +50533,7 @@
     },
     {
       "name": "semantic_FUN_00462d00_00462d00",
-      "source": "src/unidentified/FUN_00462d00_00462d00.cpp",
+      "source": "src/crt/FUN_00462d00_00462d00.cpp",
       "symbol": "?Destroy@RuntimeException_00462d00@@QAEXXZ",
       "address": "0x00462D00",
       "size": 11,
@@ -50542,7 +50542,7 @@
     },
     {
       "name": "semantic_FUN_00462d0b_00462d0b",
-      "source": "src/unidentified/FUN_00462d0b_00462d0b.cpp",
+      "source": "src/crt/FUN_00462d0b_00462d0b.cpp",
       "symbol": "?Init@RuntimeException_00462d0b@@QAEPAU1@PAX@Z",
       "address": "0x00462D0B",
       "size": 25,
@@ -50551,7 +50551,7 @@
     },
     {
       "name": "semantic_FUN_00462d24_00462d24",
-      "source": "src/unidentified/FUN_00462d24_00462d24.cpp",
+      "source": "src/crt/FUN_00462d24_00462d24.cpp",
       "symbol": "?Init@RuntimeException_00462d24@@QAEPAU1@PAX@Z",
       "address": "0x00462D24",
       "size": 24,
@@ -50560,7 +50560,7 @@
     },
     {
       "name": "semantic_FUN_00462d3c_00462d3c",
-      "source": "src/unidentified/FUN_00462d3c_00462d3c.cpp",
+      "source": "src/crt/FUN_00462d3c_00462d3c.cpp",
       "symbol": "?Destroy@RuntimeException_00462d3c@@QAEXXZ",
       "address": "0x00462D3C",
       "size": 11,
@@ -50569,7 +50569,7 @@
     },
     {
       "name": "semantic_unassigned_00462d47",
-      "source": "src/unidentified/unassigned_00462d47.cpp",
+      "source": "src/crt/unassigned_00462d47.cpp",
       "symbol": "?Init@RuntimeException_00462d47@@QAEPAU1@PAX@Z",
       "address": "0x00462D47",
       "size": 24,
@@ -50578,7 +50578,7 @@
     },
     {
       "name": "semantic_unassigned_00462d5f",
-      "source": "src/unidentified/unassigned_00462d47.cpp",
+      "source": "src/crt/unassigned_00462d47.cpp",
       "symbol": "?Init@RuntimeException_00462d5f@@QAEPAU1@PAX@Z",
       "address": "0x00462D5F",
       "size": 24,
@@ -50587,7 +50587,7 @@
     },
     {
       "name": "semantic_FUN_00462d77_00462d77",
-      "source": "src/unidentified/FUN_00462d77_00462d77.cpp",
+      "source": "src/crt/FUN_00462d77_00462d77.cpp",
       "symbol": "?Destroy@RuntimeException_00462d77@@QAEXXZ",
       "address": "0x00462D77",
       "size": 11,
@@ -50596,7 +50596,7 @@
     },
     {
       "name": "semantic_FUN_00462d82_00462d82",
-      "source": "src/unidentified/FUN_00462d82_00462d82.cpp",
+      "source": "src/crt/FUN_00462d82_00462d82.cpp",
       "symbol": "?Destroy@RuntimeException_00462d82@@QAEPAU1@E@Z",
       "address": "0x00462D82",
       "size": 28,
@@ -50605,7 +50605,7 @@
     },
     {
       "name": "semantic_operator_00462d9e",
-      "source": "src/unidentified/operator_00462d9e.cpp",
+      "source": "src/crt/operator_00462d9e.cpp",
       "symbol": "?Assign@RuntimeException_00462d9e@@QAEPAU1@PAU1@@Z",
       "address": "0x00462D9E",
       "size": 31,
@@ -50614,7 +50614,7 @@
     },
     {
       "name": "semantic_FUN_00462dbd_00462dbd",
-      "source": "src/unidentified/FUN_00462dbd_00462dbd.cpp",
+      "source": "src/crt/FUN_00462dbd_00462dbd.cpp",
       "symbol": "?Destroy@RuntimeException_00462dbd@@QAEPAU1@E@Z",
       "address": "0x00462DBD",
       "size": 28,
@@ -50623,7 +50623,7 @@
     },
     {
       "name": "semantic_FUN_00462dd9_00462dd9",
-      "source": "src/unidentified/FUN_00462dd9_00462dd9.cpp",
+      "source": "src/crt/FUN_00462dd9_00462dd9.cpp",
       "symbol": "?Destroy@RuntimeException_00462dd9@@QAEPAU1@E@Z",
       "address": "0x00462DD9",
       "size": 28,
@@ -50632,7 +50632,7 @@
     },
     {
       "name": "semantic_FUN_00462df5_00462df5",
-      "source": "src/unidentified/FUN_00462df5_00462df5.cpp",
+      "source": "src/crt/FUN_00462df5_00462df5.cpp",
       "symbol": "?Destroy@RuntimeException_00462df5@@QAEPAU1@E@Z",
       "address": "0x00462DF5",
       "size": 28,
@@ -50901,7 +50901,7 @@
     },
     {
       "name": "semantic_CxxUnhandledExceptionFilter_00463a5c",
-      "source": "src/unidentified/CxxUnhandledExceptionFilter_00463a5c.cpp",
+      "source": "src/crt/CxxUnhandledExceptionFilter_00463a5c.cpp",
       "symbol": "_asm_CxxUnhandledExceptionFilter_00463a5c@4",
       "address": "0x00463A5C",
       "size": 78,
@@ -50910,7 +50910,7 @@
     },
     {
       "name": "semantic_unassigned_00463aaa",
-      "source": "src/unidentified/unassigned_00463aaa.cpp",
+      "source": "src/crt/unassigned_00463aaa.cpp",
       "symbol": "_asm_unassigned_00463aaa",
       "address": "0x00463AAA",
       "size": 19,
@@ -50919,7 +50919,7 @@
     },
     {
       "name": "semantic_unassigned_00463abd",
-      "source": "src/unidentified/unassigned_00463aaa.cpp",
+      "source": "src/crt/unassigned_00463aaa.cpp",
       "symbol": "_asm_unassigned_00463abd",
       "address": "0x00463ABD",
       "size": 13,
@@ -50928,7 +50928,7 @@
     },
     {
       "name": "semantic_ValidateRead_00463aca",
-      "source": "src/unidentified/ValidateRead_00463aca.cpp",
+      "source": "src/crt/ValidateRead_00463aca.cpp",
       "symbol": "_asm_ValidateRead_00463aca",
       "address": "0x00463ACA",
       "size": 28,
@@ -50937,7 +50937,7 @@
     },
     {
       "name": "semantic_ValidateWrite_00463ae6",
-      "source": "src/unidentified/ValidateWrite_00463ae6.cpp",
+      "source": "src/crt/ValidateWrite_00463ae6.cpp",
       "symbol": "_asm_ValidateWrite_00463ae6",
       "address": "0x00463AE6",
       "size": 28,
@@ -50946,7 +50946,7 @@
     },
     {
       "name": "semantic_ValidateExecute_00463b02",
-      "source": "src/unidentified/ValidateExecute_00463b02.cpp",
+      "source": "src/crt/ValidateExecute_00463b02.cpp",
       "symbol": "_asm_ValidateExecute_00463b02",
       "address": "0x00463B02",
       "size": 24,
@@ -50955,7 +50955,7 @@
     },
     {
       "name": "semantic_unassigned_00463b1a",
-      "source": "src/unidentified/unassigned_00463b1a.cpp",
+      "source": "src/crt/unassigned_00463b1a.cpp",
       "symbol": "_asm_unassigned_00463b1a@4",
       "address": "0x00463B1A",
       "size": 6,
@@ -50964,7 +50964,7 @@
     },
     {
       "name": "semantic_unassigned_00463b20",
-      "source": "src/unidentified/unassigned_00463b1a.cpp",
+      "source": "src/crt/unassigned_00463b1a.cpp",
       "symbol": "_asm_unassigned_00463b20@8",
       "address": "0x00463B20",
       "size": 6,
@@ -50973,7 +50973,7 @@
     },
     {
       "name": "semantic_unassigned_00463b26",
-      "source": "src/unidentified/unassigned_00463b1a.cpp",
+      "source": "src/crt/unassigned_00463b1a.cpp",
       "symbol": "_asm_unassigned_00463b26@4",
       "address": "0x00463B26",
       "size": 6,
@@ -61085,31 +61085,31 @@
     "src/script/script_text_reader.cpp",
     "src/script/stage_ecl_load.cpp",
     "src/script/stage_ecl_load_normalized_00403080.cpp",
-    "src/unidentified/CreateFrameInfo_004629eb.cpp",
-    "src/unidentified/CxxUnhandledExceptionFilter_00463a5c.cpp",
-    "src/unidentified/D3DXCreateTextureFromFileInMemoryEx_004521ca.cpp",
-    "src/unidentified/D3DXCreateTexture_004521a0.cpp",
-    "src/unidentified/D3DXLoadSurfaceFromFileInMemory_004521d0.cpp",
-    "src/unidentified/D3DXLoadSurfaceFromMemory_004521a6.cpp",
-    "src/unidentified/D3DXLoadSurfaceFromSurface_004521d6.cpp",
-    "src/unidentified/D3DXMatrixLookAtLH_00452194.cpp",
-    "src/unidentified/D3DXMatrixMultiply_004521b2.cpp",
-    "src/unidentified/D3DXMatrixPerspectiveFovLH_0045219a.cpp",
-    "src/unidentified/D3DXMatrixRotationX_004521ac.cpp",
-    "src/unidentified/D3DXMatrixRotationY_004521b8.cpp",
-    "src/unidentified/D3DXMatrixRotationZ_004521be.cpp",
-    "src/unidentified/D3DXMatrixTranslation_00452182.cpp",
-    "src/unidentified/D3DXVec3Normalize_0045217c.cpp",
-    "src/unidentified/D3DXVec3ProjectArray_00452188.cpp",
-    "src/unidentified/D3DXVec3Project_0045218e.cpp",
-    "src/unidentified/D3DXVec3Transform_004521c4.cpp",
-    "src/unidentified/Direct3DCreate9_00452176.cpp",
-    "src/unidentified/DirectInput8Create_0045071e.cpp",
-    "src/unidentified/FF_MSGBANNER_0045909f.cpp",
-    "src/unidentified/FID_conflict___ld12tod_0045d5ce.cpp",
-    "src/unidentified/FID_conflict___ld12tod_0045d5e4.cpp",
-    "src/unidentified/FID_conflict___set_errno_from_matherr_0045e86c.cpp",
-    "src/unidentified/FID_conflict___time32_00452b71.cpp",
+    "src/crt/CreateFrameInfo_004629eb.cpp",
+    "src/crt/CxxUnhandledExceptionFilter_00463a5c.cpp",
+    "src/platform/imports/D3DXCreateTextureFromFileInMemoryEx_004521ca.cpp",
+    "src/platform/imports/D3DXCreateTexture_004521a0.cpp",
+    "src/platform/imports/D3DXLoadSurfaceFromFileInMemory_004521d0.cpp",
+    "src/platform/imports/D3DXLoadSurfaceFromMemory_004521a6.cpp",
+    "src/platform/imports/D3DXLoadSurfaceFromSurface_004521d6.cpp",
+    "src/platform/imports/D3DXMatrixLookAtLH_00452194.cpp",
+    "src/platform/imports/D3DXMatrixMultiply_004521b2.cpp",
+    "src/platform/imports/D3DXMatrixPerspectiveFovLH_0045219a.cpp",
+    "src/platform/imports/D3DXMatrixRotationX_004521ac.cpp",
+    "src/platform/imports/D3DXMatrixRotationY_004521b8.cpp",
+    "src/platform/imports/D3DXMatrixRotationZ_004521be.cpp",
+    "src/platform/imports/D3DXMatrixTranslation_00452182.cpp",
+    "src/platform/imports/D3DXVec3Normalize_0045217c.cpp",
+    "src/platform/imports/D3DXVec3ProjectArray_00452188.cpp",
+    "src/platform/imports/D3DXVec3Project_0045218e.cpp",
+    "src/platform/imports/D3DXVec3Transform_004521c4.cpp",
+    "src/platform/imports/Direct3DCreate9_00452176.cpp",
+    "src/platform/imports/DirectInput8Create_0045071e.cpp",
+    "src/crt/FF_MSGBANNER_0045909f.cpp",
+    "src/crt/FID_conflict___ld12tod_0045d5ce.cpp",
+    "src/crt/FID_conflict___ld12tod_0045d5e4.cpp",
+    "src/crt/FID_conflict___set_errno_from_matherr_0045e86c.cpp",
+    "src/crt/FID_conflict___time32_00452b71.cpp",
     "src/unidentified/FUN_00401100_00401100.cpp",
     "src/unidentified/FUN_004014f0_004014f0.cpp",
     "src/unidentified/FUN_00401510_00401510.cpp",
@@ -61473,65 +61473,65 @@
     "src/unidentified/FUN_00450200_00450200.cpp",
     "src/unidentified/FUN_00450210_00450210.cpp",
     "src/unidentified/FUN_00450500_00450500.cpp",
-    "src/unidentified/FUN_004524fd_004524fd.cpp",
-    "src/unidentified/FUN_00452abc_00452abc.cpp",
-    "src/unidentified/FUN_00452b40_00452b40.cpp",
-    "src/unidentified/FUN_0045326d_0045326d.cpp",
-    "src/unidentified/FUN_00453a9b_00453a9b.cpp",
-    "src/unidentified/FUN_00453b3f_00453b3f.cpp",
-    "src/unidentified/FUN_00455731_00455731.cpp",
-    "src/unidentified/FUN_004557f0_004557f0.cpp",
-    "src/unidentified/FUN_004557f6_004557f6.cpp",
-    "src/unidentified/FUN_0045598d_0045598d.cpp",
-    "src/unidentified/FUN_0045631e_0045631e.cpp",
-    "src/unidentified/FUN_00456a8b_00456a8b.cpp",
-    "src/unidentified/FUN_00456a8c_00456a8c.cpp",
-    "src/unidentified/FUN_00456ac4_00456ac4.cpp",
-    "src/unidentified/FUN_00456af2_00456af2.cpp",
-    "src/unidentified/FUN_00456afb_00456afb.cpp",
-    "src/unidentified/FUN_00457577_00457577.cpp",
-    "src/unidentified/FUN_00457580_00457580.cpp",
-    "src/unidentified/FUN_00459fa7_00459fa7.cpp",
-    "src/unidentified/FUN_0045a195_0045a195.cpp",
-    "src/unidentified/FUN_0045a19b_0045a19b.cpp",
-    "src/unidentified/FUN_0045b02d_0045b02d.cpp",
-    "src/unidentified/FUN_0045bd21_0045bd21.cpp",
-    "src/unidentified/FUN_0045bd72_0045bd72.cpp",
-    "src/unidentified/FUN_0045c3f1_0045c3f1.cpp",
-    "src/unidentified/FUN_0045d676_0045d676.cpp",
-    "src/unidentified/FUN_0045d6bb_0045d6bb.cpp",
-    "src/unidentified/FUN_0045d701_0045d701.cpp",
-    "src/unidentified/FUN_0045db86_0045db86.cpp",
-    "src/unidentified/FUN_0045e3a0_0045e3a0.cpp",
-    "src/unidentified/FUN_0045f3a4_0045f3a4.cpp",
-    "src/unidentified/FUN_0045f3c0_0045f3c0.cpp",
-    "src/unidentified/FUN_0045f7b5_0045f7b5.cpp",
-    "src/unidentified/FUN_0045fdaf_0045fdaf.cpp",
-    "src/unidentified/FUN_0045fe7e_0045fe7e.cpp",
-    "src/unidentified/FUN_004601a1_004601a1.cpp",
-    "src/unidentified/FUN_00462371_00462371.cpp",
-    "src/unidentified/FUN_0046238e_0046238e.cpp",
-    "src/unidentified/FUN_004623c2_004623c2.cpp",
-    "src/unidentified/FUN_004623de_004623de.cpp",
-    "src/unidentified/FUN_00462401_00462401.cpp",
-    "src/unidentified/FUN_0046241d_0046241d.cpp",
-    "src/unidentified/FUN_004624ab_004624ab.cpp",
-    "src/unidentified/FUN_004624c3_004624c3.cpp",
-    "src/unidentified/FUN_00462525_00462525.cpp",
-    "src/unidentified/FUN_00462bed_00462bed.cpp",
-    "src/unidentified/FUN_00462bf1_00462bf1.cpp",
-    "src/unidentified/FUN_00462bfc_00462bfc.cpp",
-    "src/unidentified/FUN_00462c12_00462c12.cpp",
-    "src/unidentified/FUN_00462c5a_00462c5a.cpp",
-    "src/unidentified/FUN_00462d00_00462d00.cpp",
-    "src/unidentified/FUN_00462d0b_00462d0b.cpp",
-    "src/unidentified/FUN_00462d24_00462d24.cpp",
-    "src/unidentified/FUN_00462d3c_00462d3c.cpp",
-    "src/unidentified/FUN_00462d77_00462d77.cpp",
-    "src/unidentified/FUN_00462d82_00462d82.cpp",
-    "src/unidentified/FUN_00462dbd_00462dbd.cpp",
-    "src/unidentified/FUN_00462dd9_00462dd9.cpp",
-    "src/unidentified/FUN_00462df5_00462df5.cpp",
+    "src/crt/FUN_004524fd_004524fd.cpp",
+    "src/crt/FUN_00452abc_00452abc.cpp",
+    "src/crt/FUN_00452b40_00452b40.cpp",
+    "src/crt/FUN_0045326d_0045326d.cpp",
+    "src/crt/FUN_00453a9b_00453a9b.cpp",
+    "src/crt/FUN_00453b3f_00453b3f.cpp",
+    "src/crt/FUN_00455731_00455731.cpp",
+    "src/crt/FUN_004557f0_004557f0.cpp",
+    "src/crt/FUN_004557f6_004557f6.cpp",
+    "src/crt/FUN_0045598d_0045598d.cpp",
+    "src/crt/FUN_0045631e_0045631e.cpp",
+    "src/crt/FUN_00456a8b_00456a8b.cpp",
+    "src/crt/FUN_00456a8c_00456a8c.cpp",
+    "src/crt/FUN_00456ac4_00456ac4.cpp",
+    "src/crt/FUN_00456af2_00456af2.cpp",
+    "src/crt/FUN_00456afb_00456afb.cpp",
+    "src/crt/FUN_00457577_00457577.cpp",
+    "src/crt/FUN_00457580_00457580.cpp",
+    "src/crt/FUN_00459fa7_00459fa7.cpp",
+    "src/crt/FUN_0045a195_0045a195.cpp",
+    "src/crt/FUN_0045a19b_0045a19b.cpp",
+    "src/crt/FUN_0045b02d_0045b02d.cpp",
+    "src/crt/FUN_0045bd21_0045bd21.cpp",
+    "src/crt/FUN_0045bd72_0045bd72.cpp",
+    "src/crt/FUN_0045c3f1_0045c3f1.cpp",
+    "src/crt/FUN_0045d676_0045d676.cpp",
+    "src/crt/FUN_0045d6bb_0045d6bb.cpp",
+    "src/crt/FUN_0045d701_0045d701.cpp",
+    "src/crt/FUN_0045db86_0045db86.cpp",
+    "src/crt/FUN_0045e3a0_0045e3a0.cpp",
+    "src/crt/FUN_0045f3a4_0045f3a4.cpp",
+    "src/crt/FUN_0045f3c0_0045f3c0.cpp",
+    "src/crt/FUN_0045f7b5_0045f7b5.cpp",
+    "src/crt/FUN_0045fdaf_0045fdaf.cpp",
+    "src/crt/FUN_0045fe7e_0045fe7e.cpp",
+    "src/crt/FUN_004601a1_004601a1.cpp",
+    "src/crt/FUN_00462371_00462371.cpp",
+    "src/crt/FUN_0046238e_0046238e.cpp",
+    "src/crt/FUN_004623c2_004623c2.cpp",
+    "src/crt/FUN_004623de_004623de.cpp",
+    "src/crt/FUN_00462401_00462401.cpp",
+    "src/crt/FUN_0046241d_0046241d.cpp",
+    "src/crt/FUN_004624ab_004624ab.cpp",
+    "src/crt/FUN_004624c3_004624c3.cpp",
+    "src/crt/FUN_00462525_00462525.cpp",
+    "src/crt/FUN_00462bed_00462bed.cpp",
+    "src/crt/FUN_00462bf1_00462bf1.cpp",
+    "src/crt/FUN_00462bfc_00462bfc.cpp",
+    "src/crt/FUN_00462c12_00462c12.cpp",
+    "src/crt/FUN_00462c5a_00462c5a.cpp",
+    "src/crt/FUN_00462d00_00462d00.cpp",
+    "src/crt/FUN_00462d0b_00462d0b.cpp",
+    "src/crt/FUN_00462d24_00462d24.cpp",
+    "src/crt/FUN_00462d3c_00462d3c.cpp",
+    "src/crt/FUN_00462d77_00462d77.cpp",
+    "src/crt/FUN_00462d82_00462d82.cpp",
+    "src/crt/FUN_00462dbd_00462dbd.cpp",
+    "src/crt/FUN_00462dd9_00462dd9.cpp",
+    "src/crt/FUN_00462df5_00462df5.cpp",
     "src/unidentified/FUN_00465a00_00465a00.cpp",
     "src/unidentified/FUN_00465a20_00465a20.cpp",
     "src/unidentified/FUN_00465a30_00465a30.cpp",
@@ -61539,104 +61539,104 @@
     "src/unidentified/FUN_00465a60_00465a60.cpp",
     "src/unidentified/FUN_00465a70_00465a70.cpp",
     "src/unidentified/FUN_00465a80_00465a80.cpp",
-    "src/unidentified/FindAndUnlinkFrame_00462a34.cpp",
-    "src/unidentified/GetLcidFromCountry_0045c93e.cpp",
-    "src/unidentified/GetLcidFromDefault_0045c35d.cpp",
-    "src/unidentified/GetPrimaryLen_0045c527.cpp",
-    "src/unidentified/Getdays_0045a417.cpp",
-    "src/unidentified/Getmonths_0045a496.cpp",
-    "src/unidentified/IncMan_0045d2fc.cpp",
-    "src/unidentified/IsExceptionObjectToBeDestroyed_00462a13.cpp",
-    "src/unidentified/IsZeroMan_0045d3e2.cpp",
-    "src/unidentified/Ordinal_11_00452170.cpp",
-    "src/unidentified/RtlUnwind_0046263a.cpp",
-    "src/unidentified/Strftime_0045afe0.cpp",
-    "src/unidentified/TranslateName_0045c2fd.cpp",
-    "src/unidentified/ValidateExecute_00463b02.cpp",
-    "src/unidentified/ValidateRead_00463aca.cpp",
-    "src/unidentified/ValidateWrite_00463ae6.cpp",
-    "src/unidentified/WINNLSEnableIME_0045232c.cpp",
-    "src/unidentified/ZeroTail_0045d2ca.cpp",
-    "src/unidentified/add_12_004607b9.cpp",
-    "src/unidentified/addl_00460798.cpp",
-    "src/unidentified/atexit_00452e0a.cpp",
-    "src/unidentified/atof_00452a84.cpp",
-    "src/unidentified/atol_00452876.cpp",
-    "src/unidentified/basic_string_char_std_char_traits_char_std_allocator_char_00462301.cpp",
-    "src/unidentified/callnewh_00455737.cpp",
-    "src/unidentified/cexit_0045770e.cpp",
-    "src/unidentified/cfltcvt_0045df97.cpp",
-    "src/unidentified/cinit_004575bf.cpp",
-    "src/unidentified/controlfp_00461090.cpp",
+    "src/crt/FindAndUnlinkFrame_00462a34.cpp",
+    "src/crt/GetLcidFromCountry_0045c93e.cpp",
+    "src/crt/GetLcidFromDefault_0045c35d.cpp",
+    "src/crt/GetPrimaryLen_0045c527.cpp",
+    "src/crt/Getdays_0045a417.cpp",
+    "src/crt/Getmonths_0045a496.cpp",
+    "src/crt/IncMan_0045d2fc.cpp",
+    "src/crt/IsExceptionObjectToBeDestroyed_00462a13.cpp",
+    "src/crt/IsZeroMan_0045d3e2.cpp",
+    "src/platform/imports/Ordinal_11_00452170.cpp",
+    "src/crt/RtlUnwind_0046263a.cpp",
+    "src/crt/Strftime_0045afe0.cpp",
+    "src/crt/TranslateName_0045c2fd.cpp",
+    "src/crt/ValidateExecute_00463b02.cpp",
+    "src/crt/ValidateRead_00463aca.cpp",
+    "src/crt/ValidateWrite_00463ae6.cpp",
+    "src/crt/WINNLSEnableIME_0045232c.cpp",
+    "src/crt/ZeroTail_0045d2ca.cpp",
+    "src/crt/add_12_004607b9.cpp",
+    "src/crt/addl_00460798.cpp",
+    "src/crt/atexit_00452e0a.cpp",
+    "src/crt/atof_00452a84.cpp",
+    "src/crt/atol_00452876.cpp",
+    "src/crt/basic_string_char_std_char_traits_char_std_allocator_char_00462301.cpp",
+    "src/crt/callnewh_00455737.cpp",
+    "src/crt/cexit_0045770e.cpp",
+    "src/crt/cfltcvt_0045df97.cpp",
+    "src/crt/cinit_004575bf.cpp",
+    "src/crt/controlfp_00461090.cpp",
     "src/unidentified/copy_second_block_00404c70.cpp",
-    "src/unidentified/crtInitCritSecNoSpinCount_8_004597fe.cpp",
-    "src/unidentified/dosmaperr_00456b04.cpp",
+    "src/crt/crtInitCritSecNoSpinCount_8_004597fe.cpp",
+    "src/crt/dosmaperr_00456b04.cpp",
     "src/unidentified/effect_pool_install_tasks_0042bbd0.cpp",
     "src/unidentified/empty_bodies_00420dc0.cpp",
     "src/unidentified/entry_at_00401d00.cpp",
-    "src/unidentified/exception_00462c01.cpp",
-    "src/unidentified/exception_00462cac.cpp",
-    "src/unidentified/exit_004576ec.cpp",
-    "src/unidentified/exit_004576fd.cpp",
-    "src/unidentified/fassign_0045dc7c.cpp",
-    "src/unidentified/fclose_lk_0046140c.cpp",
-    "src/unidentified/fflush_lk_0045fc53.cpp",
+    "src/crt/exception_00462c01.cpp",
+    "src/crt/exception_00462cac.cpp",
+    "src/crt/exit_004576ec.cpp",
+    "src/crt/exit_004576fd.cpp",
+    "src/crt/fassign_0045dc7c.cpp",
+    "src/crt/fclose_lk_0046140c.cpp",
+    "src/crt/fflush_lk_0045fc53.cpp",
     "src/unidentified/flag_broadcast_0041fd90.cpp",
-    "src/unidentified/flush_0045fbf6.cpp",
-    "src/unidentified/flushall_0045fda6.cpp",
-    "src/unidentified/forcdecpt_0045dbdb.cpp",
-    "src/unidentified/free_00452422.cpp",
-    "src/unidentified/free_004524a1.cpp",
-    "src/unidentified/free_lconv_num_0045b5bc.cpp",
-    "src/unidentified/freebuf_00462225.cpp",
-    "src/unidentified/freeptd_0045650f.cpp",
-    "src/unidentified/freetlocinfo_004557fc.cpp",
-    "src/unidentified/get_osfhandle_0045f6d4.cpp",
-    "src/unidentified/getbuf_00459f39.cpp",
-    "src/unidentified/getptd_00456357.cpp",
-    "src/unidentified/heap_init_004539cb.cpp",
-    "src/unidentified/heap_select_004539b1.cpp",
+    "src/crt/flush_0045fbf6.cpp",
+    "src/crt/flushall_0045fda6.cpp",
+    "src/crt/forcdecpt_0045dbdb.cpp",
+    "src/crt/free_00452422.cpp",
+    "src/crt/free_004524a1.cpp",
+    "src/crt/free_lconv_num_0045b5bc.cpp",
+    "src/crt/freebuf_00462225.cpp",
+    "src/crt/freeptd_0045650f.cpp",
+    "src/crt/freetlocinfo_004557fc.cpp",
+    "src/crt/get_osfhandle_0045f6d4.cpp",
+    "src/crt/getbuf_00459f39.cpp",
+    "src/crt/getptd_00456357.cpp",
+    "src/crt/heap_init_004539cb.cpp",
+    "src/crt/heap_select_004539b1.cpp",
     "src/unidentified/holder_copy_00442180.cpp",
-    "src/unidentified/inc_00457a3c.cpp",
-    "src/unidentified/initmbctable_0045d2ac.cpp",
-    "src/unidentified/initptd_00456344.cpp",
-    "src/unidentified/isatty_00459f7d.cpp",
-    "src/unidentified/isdigit_0045685e.cpp",
-    "src/unidentified/ismbblead_0045f590.cpp",
-    "src/unidentified/isspace_004568d7.cpp",
-    "src/unidentified/isxdigit_00456898.cpp",
-    "src/unidentified/lc_lctostr_00455a90.cpp",
-    "src/unidentified/lock_00453c0c.cpp",
-    "src/unidentified/lock_file2_0045a099.cpp",
-    "src/unidentified/malloc_00452706.cpp",
-    "src/unidentified/mbsnbicoll_004610a6.cpp",
-    "src/unidentified/mbtowc_0045e375.cpp",
+    "src/crt/inc_00457a3c.cpp",
+    "src/crt/initmbctable_0045d2ac.cpp",
+    "src/crt/initptd_00456344.cpp",
+    "src/crt/isatty_00459f7d.cpp",
+    "src/crt/isdigit_0045685e.cpp",
+    "src/crt/ismbblead_0045f590.cpp",
+    "src/crt/isspace_004568d7.cpp",
+    "src/crt/isxdigit_00456898.cpp",
+    "src/crt/lc_lctostr_00455a90.cpp",
+    "src/crt/lock_00453c0c.cpp",
+    "src/crt/lock_file2_0045a099.cpp",
+    "src/crt/malloc_00452706.cpp",
+    "src/crt/mbsnbicoll_004610a6.cpp",
+    "src/crt/mbtowc_0045e375.cpp",
     "src/unidentified/menu_cursor_step_004243c0.cpp",
-    "src/unidentified/mtinit_0045654a.cpp",
-    "src/unidentified/mtinitlocks_00453aa1.cpp",
-    "src/unidentified/mtterm_00456327.cpp",
-    "src/unidentified/nh_malloc_004526da.cpp",
-    "src/unidentified/onexitinit_00452daa.cpp",
-    "src/unidentified/operator_00462d9e.cpp",
-    "src/unidentified/operator_new_00452493.cpp",
+    "src/crt/mtinit_0045654a.cpp",
+    "src/crt/mtinitlocks_00453aa1.cpp",
+    "src/crt/mtterm_00456327.cpp",
+    "src/crt/nh_malloc_004526da.cpp",
+    "src/crt/onexitinit_00452daa.cpp",
+    "src/crt/operator_00462d9e.cpp",
+    "src/crt/operator_new_00452493.cpp",
     "src/unidentified/publish_index_0040ada0.cpp",
-    "src/unidentified/rand_0045371b.cpp",
+    "src/crt/rand_0045371b.cpp",
     "src/unidentified/record_links_0042.cpp",
     "src/unidentified/record_write_runs_b_0040.cpp",
-    "src/unidentified/sbh_find_block_00453c9a.cpp",
-    "src/unidentified/scalar_deleting_destructor_00462b7b.cpp",
-    "src/unidentified/setdefaultprecision_0045dfe8.cpp",
-    "src/unidentified/sprintf_00452ae8.cpp",
-    "src/unidentified/sscanf_00452fb9.cpp",
-    "src/unidentified/strcats_00455990.cpp",
-    "src/unidentified/strdup_00462250.cpp",
-    "src/unidentified/stricmp_0046054e.cpp",
-    "src/unidentified/strnicmp_004605b7.cpp",
+    "src/crt/sbh_find_block_00453c9a.cpp",
+    "src/crt/scalar_deleting_destructor_00462b7b.cpp",
+    "src/crt/setdefaultprecision_0045dfe8.cpp",
+    "src/crt/sprintf_00452ae8.cpp",
+    "src/crt/sscanf_00452fb9.cpp",
+    "src/crt/strcats_00455990.cpp",
+    "src/crt/strdup_00462250.cpp",
+    "src/crt/stricmp_0046054e.cpp",
+    "src/crt/strnicmp_004605b7.cpp",
     "src/unidentified/thunk_FUN_00436a30_00436a20.cpp",
     "src/unidentified/thunk_FUN_0043e5a0_00405bd0.cpp",
     "src/unidentified/timer_arm_float_00405450.cpp",
     "src/unidentified/timer_arm_record_00404ca0.cpp",
-    "src/unidentified/tolower_00460cee.cpp",
+    "src/crt/tolower_00460cee.cpp",
     "src/unidentified/unassigned_00401490.cpp",
     "src/unidentified/unassigned_004014b0.cpp",
     "src/unidentified/unassigned_004014d0.cpp",
@@ -62175,44 +62175,44 @@
     "src/unidentified/unassigned_00450560.cpp",
     "src/unidentified/unassigned_00450580.cpp",
     "src/unidentified/unassigned_00450610.cpp",
-    "src/unidentified/unassigned_004521dc.cpp",
-    "src/unidentified/unassigned_00452332.cpp",
-    "src/unidentified/unassigned_00453259.cpp",
-    "src/unidentified/unassigned_0045370e.cpp",
-    "src/unidentified/unassigned_00453c3d.cpp",
-    "src/unidentified/unassigned_00454863.cpp",
-    "src/unidentified/unassigned_0045570d.cpp",
-    "src/unidentified/unassigned_004557c9.cpp",
-    "src/unidentified/unassigned_0045653e.cpp",
-    "src/unidentified/unassigned_00456911.cpp",
-    "src/unidentified/unassigned_0045771d.cpp",
-    "src/unidentified/unassigned_00457932.cpp",
-    "src/unidentified/unassigned_00458c25.cpp",
-    "src/unidentified/unassigned_00459075.cpp",
-    "src/unidentified/unassigned_0045a0bc.cpp",
-    "src/unidentified/unassigned_0045b012.cpp",
-    "src/unidentified/unassigned_0045bd27.cpp",
-    "src/unidentified/unassigned_0045d14c.cpp",
-    "src/unidentified/unassigned_0045dc17.cpp",
-    "src/unidentified/unassigned_0045dc62.cpp",
-    "src/unidentified/unassigned_0045e894.cpp",
-    "src/unidentified/unassigned_0045ebf5.cpp",
-    "src/unidentified/unassigned_0045ec0a.cpp",
-    "src/unidentified/unassigned_0045f3b4.cpp",
-    "src/unidentified/unassigned_0045f4fc.cpp",
-    "src/unidentified/unassigned_0045f5a1.cpp",
-    "src/unidentified/unassigned_0045fe75.cpp",
-    "src/unidentified/unassigned_00460c1e.cpp",
-    "src/unidentified/unassigned_00461004.cpp",
-    "src/unidentified/unassigned_00462363.cpp",
-    "src/unidentified/unassigned_004623aa.cpp",
-    "src/unidentified/unassigned_004623e9.cpp",
-    "src/unidentified/unassigned_0046253e.cpp",
-    "src/unidentified/unassigned_00462640.cpp",
-    "src/unidentified/unassigned_00462cc2.cpp",
-    "src/unidentified/unassigned_00462d47.cpp",
-    "src/unidentified/unassigned_00463aaa.cpp",
-    "src/unidentified/unassigned_00463b1a.cpp",
+    "src/crt/unassigned_004521dc.cpp",
+    "src/crt/unassigned_00452332.cpp",
+    "src/crt/unassigned_00453259.cpp",
+    "src/crt/unassigned_0045370e.cpp",
+    "src/crt/unassigned_00453c3d.cpp",
+    "src/crt/unassigned_00454863.cpp",
+    "src/crt/unassigned_0045570d.cpp",
+    "src/crt/unassigned_004557c9.cpp",
+    "src/crt/unassigned_0045653e.cpp",
+    "src/crt/unassigned_00456911.cpp",
+    "src/crt/unassigned_0045771d.cpp",
+    "src/crt/unassigned_00457932.cpp",
+    "src/crt/unassigned_00458c25.cpp",
+    "src/crt/unassigned_00459075.cpp",
+    "src/crt/unassigned_0045a0bc.cpp",
+    "src/crt/unassigned_0045b012.cpp",
+    "src/crt/unassigned_0045bd27.cpp",
+    "src/crt/unassigned_0045d14c.cpp",
+    "src/crt/unassigned_0045dc17.cpp",
+    "src/crt/unassigned_0045dc62.cpp",
+    "src/crt/unassigned_0045e894.cpp",
+    "src/crt/unassigned_0045ebf5.cpp",
+    "src/crt/unassigned_0045ec0a.cpp",
+    "src/crt/unassigned_0045f3b4.cpp",
+    "src/crt/unassigned_0045f4fc.cpp",
+    "src/crt/unassigned_0045f5a1.cpp",
+    "src/crt/unassigned_0045fe75.cpp",
+    "src/crt/unassigned_00460c1e.cpp",
+    "src/crt/unassigned_00461004.cpp",
+    "src/crt/unassigned_00462363.cpp",
+    "src/crt/unassigned_004623aa.cpp",
+    "src/crt/unassigned_004623e9.cpp",
+    "src/crt/unassigned_0046253e.cpp",
+    "src/crt/unassigned_00462640.cpp",
+    "src/crt/unassigned_00462cc2.cpp",
+    "src/crt/unassigned_00462d47.cpp",
+    "src/crt/unassigned_00463aaa.cpp",
+    "src/crt/unassigned_00463b1a.cpp",
     "src/unidentified/unassigned_004658c0.cpp",
     "src/unidentified/unassigned_004658f0.cpp",
     "src/unidentified/unassigned_00465910.cpp",
@@ -62227,13 +62227,13 @@
     "src/unidentified/unassigned_members_0044.cpp",
     "src/unidentified/unassigned_members_b_0044.cpp",
     "src/unidentified/unassigned_records_0044.cpp",
-    "src/unidentified/unlock_file2_0045a0eb.cpp",
+    "src/crt/unlock_file2_0045a0eb.cpp",
     "src/unidentified/vec2_scale_00441de0.cpp",
-    "src/unidentified/vsprintf_004524a6.cpp",
-    "src/unidentified/wctomb_0045a16e.cpp",
-    "src/unidentified/wctomb_mt_0045a10e.cpp",
-    "src/unidentified/wincmdln_004590d8.cpp",
-    "src/unidentified/x_ismbbtype_0045f4c9.cpp",
+    "src/crt/vsprintf_004524a6.cpp",
+    "src/crt/wctomb_0045a16e.cpp",
+    "src/crt/wctomb_mt_0045a10e.cpp",
+    "src/crt/wincmdln_004590d8.cpp",
+    "src/crt/x_ismbbtype_0045f4c9.cpp",
     "src/unidentified/zero_returns_004221e0.cpp",
     "src/util/heap.cpp",
     "src/util/heap_destroy_owned_00418150.cpp",
@@ -63244,13 +63244,13 @@
       ".r000001": "_crt_exsup3_text_base_00454c08",
       "__except_handler3": "_crt_exsup3_except_handler3"
     },
-    "src/unidentified/FID_conflict___time32_00452b71.cpp": {
+    "src/crt/FID_conflict___time32_00452b71.cpp": {
       "__aulldiv": "_asm_aulldiv_00456b80"
     },
     "src/util/legacy_string.cpp": {
       "$T1074": "_LegacyString_Grow_ExceptionInfo"
     },
-    "src/unidentified/free_00452422.cpp": {
+    "src/crt/free_00452422.cpp": {
       "$T517": "_data_0046a690",
       "__SEH_prolog": "_asm_SEH_prolog_00454bbc",
       "__SEH_epilog": "_asm_SEH_epilog_00454bf7"
@@ -63723,309 +63723,309 @@
     }
   },
   "source_flags": {
-    "src/unidentified/FUN_0045f7b5_0045f7b5.cpp": [
+    "src/crt/FUN_0045f7b5_0045f7b5.cpp": [
       "/O1"
     ],
-    "src/unidentified/get_osfhandle_0045f6d4.cpp": [
+    "src/crt/get_osfhandle_0045f6d4.cpp": [
       "/O1"
     ],
-    "src/unidentified/GetLcidFromCountry_0045c93e.cpp": [
+    "src/crt/GetLcidFromCountry_0045c93e.cpp": [
       "/O1"
     ],
-    "src/unidentified/initmbctable_0045d2ac.cpp": [
+    "src/crt/initmbctable_0045d2ac.cpp": [
       "/O1"
     ],
-    "src/unidentified/GetPrimaryLen_0045c527.cpp": [
+    "src/crt/GetPrimaryLen_0045c527.cpp": [
       "/O1"
     ],
-    "src/unidentified/free_lconv_num_0045b5bc.cpp": [
+    "src/crt/free_lconv_num_0045b5bc.cpp": [
       "/O1"
     ],
-    "src/unidentified/lock_file2_0045a099.cpp": [
+    "src/crt/lock_file2_0045a099.cpp": [
       "/O1"
     ],
-    "src/unidentified/unlock_file2_0045a0eb.cpp": [
+    "src/crt/unlock_file2_0045a0eb.cpp": [
       "/O1"
     ],
-    "src/unidentified/getbuf_00459f39.cpp": [
+    "src/crt/getbuf_00459f39.cpp": [
       "/O1"
     ],
-    "src/unidentified/freebuf_00462225.cpp": [
+    "src/crt/freebuf_00462225.cpp": [
       "/O1"
     ],
-    "src/unidentified/strdup_00462250.cpp": [
+    "src/crt/strdup_00462250.cpp": [
       "/O1"
     ],
-    "src/unidentified/inc_00457a3c.cpp": [
+    "src/crt/inc_00457a3c.cpp": [
       "/O1"
     ],
-    "src/unidentified/mtinit_0045654a.cpp": [
+    "src/crt/mtinit_0045654a.cpp": [
       "/O1"
     ],
-    "src/unidentified/isxdigit_00456898.cpp": [
+    "src/crt/isxdigit_00456898.cpp": [
       "/O1"
     ],
-    "src/unidentified/isspace_004568d7.cpp": [
+    "src/crt/isspace_004568d7.cpp": [
       "/O1"
     ],
-    "src/unidentified/isdigit_0045685e.cpp": [
+    "src/crt/isdigit_0045685e.cpp": [
       "/O1"
     ],
-    "src/unidentified/freeptd_0045650f.cpp": [
+    "src/crt/freeptd_0045650f.cpp": [
       "/O1"
     ],
-    "src/unidentified/getptd_00456357.cpp": [
+    "src/crt/getptd_00456357.cpp": [
       "/O1"
     ],
-    "src/unidentified/atof_00452a84.cpp": [
+    "src/crt/atof_00452a84.cpp": [
       "/O1",
       "/Oy-"
     ],
-    "src/unidentified/FID_conflict___time32_00452b71.cpp": [
+    "src/crt/FID_conflict___time32_00452b71.cpp": [
       "/O1",
       "/Oy-"
     ],
-    "src/unidentified/sscanf_00452fb9.cpp": [
+    "src/crt/sscanf_00452fb9.cpp": [
       "/O1",
       "/Oy-"
     ],
-    "src/unidentified/vsprintf_004524a6.cpp": [
+    "src/crt/vsprintf_004524a6.cpp": [
       "/O1",
       "/Oy-"
     ],
-    "src/unidentified/sprintf_00452ae8.cpp": [
+    "src/crt/sprintf_00452ae8.cpp": [
       "/O1",
       "/Oy-"
     ],
-    "src/unidentified/FUN_004524fd_004524fd.cpp": [
+    "src/crt/FUN_004524fd_004524fd.cpp": [
       "/O1",
       "/Oy-"
     ],
-    "src/unidentified/FUN_00452b40_00452b40.cpp": [
+    "src/crt/FUN_00452b40_00452b40.cpp": [
       "/O1",
       "/Oy-"
     ],
-    "src/unidentified/lc_lctostr_00455a90.cpp": [
+    "src/crt/lc_lctostr_00455a90.cpp": [
       "/O1"
     ],
-    "src/unidentified/strcats_00455990.cpp": [
+    "src/crt/strcats_00455990.cpp": [
       "/O1"
     ],
-    "src/unidentified/onexitinit_00452daa.cpp": [
+    "src/crt/onexitinit_00452daa.cpp": [
       "/O1"
     ],
-    "src/unidentified/rand_0045371b.cpp": [
+    "src/crt/rand_0045371b.cpp": [
       "/O1"
     ],
-    "src/unidentified/lock_00453c0c.cpp": [
+    "src/crt/lock_00453c0c.cpp": [
       "/O1",
       "/Oy-"
     ],
-    "src/unidentified/FUN_00453b3f_00453b3f.cpp": [
+    "src/crt/FUN_00453b3f_00453b3f.cpp": [
       "/O1",
       "/Oy-"
     ],
-    "src/unidentified/mtinitlocks_00453aa1.cpp": [
+    "src/crt/mtinitlocks_00453aa1.cpp": [
       "/O1"
     ],
-    "src/unidentified/heap_init_004539cb.cpp": [
+    "src/crt/heap_init_004539cb.cpp": [
       "/O1"
     ],
-    "src/unidentified/heap_select_004539b1.cpp": [
+    "src/crt/heap_select_004539b1.cpp": [
       "/O1"
     ],
-    "src/unidentified/callnewh_00455737.cpp": [
+    "src/crt/callnewh_00455737.cpp": [
       "/O1"
     ],
-    "src/unidentified/nh_malloc_004526da.cpp": [
+    "src/crt/nh_malloc_004526da.cpp": [
       "/O1"
     ],
-    "src/unidentified/operator_new_00452493.cpp": [
+    "src/crt/operator_new_00452493.cpp": [
       "/O1"
     ],
-    "src/unidentified/malloc_00452706.cpp": [
+    "src/crt/malloc_00452706.cpp": [
       "/O1"
     ],
-    "src/unidentified/atexit_00452e0a.cpp": [
+    "src/crt/atexit_00452e0a.cpp": [
       "/O1"
     ],
-    "src/unidentified/mtterm_00456327.cpp": [
+    "src/crt/mtterm_00456327.cpp": [
       "/O1"
     ],
     "src/util/legacy_string.cpp": [
       "/EHs"
     ],
-    "src/unidentified/free_00452422.cpp": [
+    "src/crt/free_00452422.cpp": [
       "/TC",
       "/O1"
     ],
-    "src/unidentified/IsZeroMan_0045d3e2.cpp": [
+    "src/crt/IsZeroMan_0045d3e2.cpp": [
       "/O1"
     ],
-    "src/unidentified/unassigned_0045d14c.cpp": [
+    "src/crt/unassigned_0045d14c.cpp": [
       "/O1"
     ],
-    "src/unidentified/unassigned_00458c25.cpp": [
+    "src/crt/unassigned_00458c25.cpp": [
       "/O1"
     ],
-    "src/unidentified/unassigned_00453c3d.cpp": [
+    "src/crt/unassigned_00453c3d.cpp": [
       "/O1"
     ],
-    "src/unidentified/unassigned_0045e894.cpp": [
+    "src/crt/unassigned_0045e894.cpp": [
       "/O1"
     ],
-    "src/unidentified/FUN_0045c3f1_0045c3f1.cpp": [
+    "src/crt/FUN_0045c3f1_0045c3f1.cpp": [
       "/O1"
     ],
-    "src/unidentified/unassigned_00459075.cpp": [
+    "src/crt/unassigned_00459075.cpp": [
       "/O1"
     ],
-    "src/unidentified/isatty_00459f7d.cpp": [
+    "src/crt/isatty_00459f7d.cpp": [
       "/O1"
     ],
-    "src/unidentified/sbh_find_block_00453c9a.cpp": [
+    "src/crt/sbh_find_block_00453c9a.cpp": [
       "/O1"
     ],
-    "src/unidentified/ZeroTail_0045d2ca.cpp": [
+    "src/crt/ZeroTail_0045d2ca.cpp": [
       "/O1"
     ],
-    "src/unidentified/addl_00460798.cpp": [
+    "src/crt/addl_00460798.cpp": [
       "/O1"
     ],
-    "src/unidentified/add_12_004607b9.cpp": [
+    "src/crt/add_12_004607b9.cpp": [
       "/O1"
     ],
-    "src/unidentified/IncMan_0045d2fc.cpp": [
+    "src/crt/IncMan_0045d2fc.cpp": [
       "/O1"
     ],
-    "src/unidentified/FID_conflict___set_errno_from_matherr_0045e86c.cpp": [
+    "src/crt/FID_conflict___set_errno_from_matherr_0045e86c.cpp": [
       "/O1"
     ],
-    "src/unidentified/dosmaperr_00456b04.cpp": [
+    "src/crt/dosmaperr_00456b04.cpp": [
       "/O1"
     ],
-    "src/unidentified/FUN_00456a8c_00456a8c.cpp": [
+    "src/crt/FUN_00456a8c_00456a8c.cpp": [
       "/O1"
     ],
-    "src/unidentified/mbtowc_0045e375.cpp": [
+    "src/crt/mbtowc_0045e375.cpp": [
       "/O1"
     ],
-    "src/unidentified/wctomb_0045a16e.cpp": [
+    "src/crt/wctomb_0045a16e.cpp": [
       "/O1"
     ],
-    "src/unidentified/tolower_00460cee.cpp": [
+    "src/crt/tolower_00460cee.cpp": [
       "/O1"
     ],
-    "src/unidentified/Strftime_0045afe0.cpp": [
+    "src/crt/Strftime_0045afe0.cpp": [
       "/O1",
       "/Oy-"
     ],
-    "src/unidentified/mbsnbicoll_004610a6.cpp": [
+    "src/crt/mbsnbicoll_004610a6.cpp": [
       "/O1",
       "/Oy-"
     ],
-    "src/unidentified/fclose_lk_0046140c.cpp": [
+    "src/crt/fclose_lk_0046140c.cpp": [
       "/O1"
     ],
-    "src/unidentified/fassign_0045dc7c.cpp": [
+    "src/crt/fassign_0045dc7c.cpp": [
       "/O1",
       "/Oy-"
     ],
-    "src/unidentified/cfltcvt_0045df97.cpp": [
+    "src/crt/cfltcvt_0045df97.cpp": [
       "/O1",
       "/Oy-"
     ],
-    "src/unidentified/forcdecpt_0045dbdb.cpp": [
+    "src/crt/forcdecpt_0045dbdb.cpp": [
       "/O1"
     ],
-    "src/unidentified/x_ismbbtype_0045f4c9.cpp": [
+    "src/crt/x_ismbbtype_0045f4c9.cpp": [
       "/O1"
     ],
-    "src/unidentified/FF_MSGBANNER_0045909f.cpp": [
+    "src/crt/FF_MSGBANNER_0045909f.cpp": [
       "/O1"
     ],
-    "src/unidentified/wincmdln_004590d8.cpp": [
+    "src/crt/wincmdln_004590d8.cpp": [
       "/O1"
     ],
-    "src/unidentified/controlfp_00461090.cpp": [
+    "src/crt/controlfp_00461090.cpp": [
       "/O1"
     ],
-    "src/unidentified/FUN_00452abc_00452abc.cpp": [
+    "src/crt/FUN_00452abc_00452abc.cpp": [
       "/O1"
     ],
-    "src/unidentified/FID_conflict___ld12tod_0045d5ce.cpp": [
+    "src/crt/FID_conflict___ld12tod_0045d5ce.cpp": [
       "/O1"
     ],
-    "src/unidentified/FID_conflict___ld12tod_0045d5e4.cpp": [
+    "src/crt/FID_conflict___ld12tod_0045d5e4.cpp": [
       "/O1"
     ],
-    "src/unidentified/FUN_0045d701_0045d701.cpp": [
+    "src/crt/FUN_0045d701_0045d701.cpp": [
       "/O1",
       "/Oy-"
     ],
-    "src/unidentified/FUN_0045d676_0045d676.cpp": [
+    "src/crt/FUN_0045d676_0045d676.cpp": [
       "/O1",
       "/Oy-"
     ],
-    "src/unidentified/FUN_0045d6bb_0045d6bb.cpp": [
+    "src/crt/FUN_0045d6bb_0045d6bb.cpp": [
       "/O1",
       "/Oy-"
     ],
-    "src/unidentified/FUN_0045db86_0045db86.cpp": [
+    "src/crt/FUN_0045db86_0045db86.cpp": [
       "/O1",
       "/Oy-"
     ],
-    "src/unidentified/TranslateName_0045c2fd.cpp": [
+    "src/crt/TranslateName_0045c2fd.cpp": [
       "/O1",
       "/Oy-"
     ],
-    "src/unidentified/IsExceptionObjectToBeDestroyed_00462a13.cpp": [
+    "src/crt/IsExceptionObjectToBeDestroyed_00462a13.cpp": [
       "/O1"
     ],
-    "src/unidentified/FindAndUnlinkFrame_00462a34.cpp": [
+    "src/crt/FindAndUnlinkFrame_00462a34.cpp": [
       "/O1"
     ],
-    "src/unidentified/CreateFrameInfo_004629eb.cpp": [
+    "src/crt/CreateFrameInfo_004629eb.cpp": [
       "/O1"
     ],
-    "src/unidentified/FUN_004601a1_004601a1.cpp": [
+    "src/crt/FUN_004601a1_004601a1.cpp": [
       "/O1",
       "/Oy-"
     ],
-    "src/unidentified/wctomb_mt_0045a10e.cpp": [
+    "src/crt/wctomb_mt_0045a10e.cpp": [
       "/O1",
       "/Oy-"
     ],
-    "src/unidentified/fflush_lk_0045fc53.cpp": [
+    "src/crt/fflush_lk_0045fc53.cpp": [
       "/O1"
     ],
-    "src/unidentified/flush_0045fbf6.cpp": [
+    "src/crt/flush_0045fbf6.cpp": [
       "/O1"
     ],
-    "src/unidentified/stricmp_0046054e.cpp": [
+    "src/crt/stricmp_0046054e.cpp": [
       "/O1",
       "/Oy-"
     ],
-    "src/unidentified/strnicmp_004605b7.cpp": [
+    "src/crt/strnicmp_004605b7.cpp": [
       "/O1",
       "/Oy-"
     ],
-    "src/unidentified/setdefaultprecision_0045dfe8.cpp": [
+    "src/crt/setdefaultprecision_0045dfe8.cpp": [
       "/O1"
     ],
-    "src/unidentified/ismbblead_0045f590.cpp": [
+    "src/crt/ismbblead_0045f590.cpp": [
       "/O1"
     ],
-    "src/unidentified/cexit_0045770e.cpp": [
+    "src/crt/cexit_0045770e.cpp": [
       "/O1"
     ],
-    "src/unidentified/exit_004576ec.cpp": [
+    "src/crt/exit_004576ec.cpp": [
       "/O1"
     ],
-    "src/unidentified/exit_004576fd.cpp": [
+    "src/crt/exit_004576fd.cpp": [
       "/O1"
     ],
-    "src/unidentified/crtInitCritSecNoSpinCount_8_004597fe.cpp": [
+    "src/crt/crtInitCritSecNoSpinCount_8_004597fe.cpp": [
       "/O1"
     ],
     "src/unidentified/FUN_00465a00_00465a00.cpp": [
@@ -64034,178 +64034,178 @@
     "src/unidentified/FUN_00465a50_00465a50.cpp": [
       "/O1"
     ],
-    "src/unidentified/unassigned_0045b012.cpp": [
+    "src/crt/unassigned_0045b012.cpp": [
       "/O1"
     ],
-    "src/unidentified/unassigned_0045f3b4.cpp": [
+    "src/crt/unassigned_0045f3b4.cpp": [
       "/O1"
     ],
-    "src/unidentified/unassigned_00457932.cpp": [
+    "src/crt/unassigned_00457932.cpp": [
       "/O1"
     ],
-    "src/unidentified/Getdays_0045a417.cpp": [
+    "src/crt/Getdays_0045a417.cpp": [
       "/O1"
     ],
-    "src/unidentified/Getmonths_0045a496.cpp": [
+    "src/crt/Getmonths_0045a496.cpp": [
       "/O1"
     ],
-    "src/unidentified/unassigned_0045bd27.cpp": [
+    "src/crt/unassigned_0045bd27.cpp": [
       "/O1"
     ],
-    "src/unidentified/FUN_0045bd21_0045bd21.cpp": [
+    "src/crt/FUN_0045bd21_0045bd21.cpp": [
       "/O1"
     ],
-    "src/unidentified/FUN_0045bd72_0045bd72.cpp": [
+    "src/crt/FUN_0045bd72_0045bd72.cpp": [
       "/O1"
     ],
-    "src/unidentified/FUN_00459fa7_00459fa7.cpp": [
+    "src/crt/FUN_00459fa7_00459fa7.cpp": [
       "/O1"
     ],
-    "src/unidentified/FUN_0045a195_0045a195.cpp": [
+    "src/crt/FUN_0045a195_0045a195.cpp": [
       "/O1"
     ],
-    "src/unidentified/FUN_0045a19b_0045a19b.cpp": [
+    "src/crt/FUN_0045a19b_0045a19b.cpp": [
       "/O1"
     ],
-    "src/unidentified/FUN_0045b02d_0045b02d.cpp": [
+    "src/crt/FUN_0045b02d_0045b02d.cpp": [
       "/O1"
     ],
-    "src/unidentified/FUN_0045598d_0045598d.cpp": [
+    "src/crt/FUN_0045598d_0045598d.cpp": [
       "/O1"
     ],
-    "src/unidentified/FUN_0045e3a0_0045e3a0.cpp": [
+    "src/crt/FUN_0045e3a0_0045e3a0.cpp": [
       "/O1"
     ],
-    "src/unidentified/unassigned_00454863.cpp": [
+    "src/crt/unassigned_00454863.cpp": [
       "/O1"
     ],
-    "src/unidentified/unassigned_0045f4fc.cpp": [
+    "src/crt/unassigned_0045f4fc.cpp": [
       "/O1"
     ],
-    "src/unidentified/unassigned_0045f5a1.cpp": [
+    "src/crt/unassigned_0045f5a1.cpp": [
       "/O1"
     ],
-    "src/unidentified/unassigned_00461004.cpp": [
+    "src/crt/unassigned_00461004.cpp": [
       "/O1"
     ],
-    "src/unidentified/unassigned_0045dc17.cpp": [
+    "src/crt/unassigned_0045dc17.cpp": [
       "/O1"
     ],
-    "src/unidentified/unassigned_0045dc62.cpp": [
+    "src/crt/unassigned_0045dc62.cpp": [
       "/O1"
     ],
-    "src/unidentified/unassigned_0045ebf5.cpp": [
+    "src/crt/unassigned_0045ebf5.cpp": [
       "/O1"
     ],
-    "src/unidentified/unassigned_0045ec0a.cpp": [
+    "src/crt/unassigned_0045ec0a.cpp": [
       "/O1"
     ],
-    "src/unidentified/unassigned_004557c9.cpp": [
+    "src/crt/unassigned_004557c9.cpp": [
       "/O1"
     ],
-    "src/unidentified/unassigned_0045570d.cpp": [
+    "src/crt/unassigned_0045570d.cpp": [
       "/O1"
     ],
-    "src/unidentified/unassigned_0045a0bc.cpp": [
+    "src/crt/unassigned_0045a0bc.cpp": [
       "/O1"
     ],
-    "src/unidentified/cinit_004575bf.cpp": [
+    "src/crt/cinit_004575bf.cpp": [
       "/O1"
     ],
-    "src/unidentified/ValidateRead_00463aca.cpp": [
+    "src/crt/ValidateRead_00463aca.cpp": [
       "/O1"
     ],
-    "src/unidentified/ValidateWrite_00463ae6.cpp": [
+    "src/crt/ValidateWrite_00463ae6.cpp": [
       "/O1"
     ],
-    "src/unidentified/ValidateExecute_00463b02.cpp": [
+    "src/crt/ValidateExecute_00463b02.cpp": [
       "/O1"
     ],
-    "src/unidentified/unassigned_00463aaa.cpp": [
+    "src/crt/unassigned_00463aaa.cpp": [
       "/O1"
     ],
-    "src/unidentified/CxxUnhandledExceptionFilter_00463a5c.cpp": [
+    "src/crt/CxxUnhandledExceptionFilter_00463a5c.cpp": [
       "/O1"
     ],
-    "src/unidentified/unassigned_00463b1a.cpp": [
+    "src/crt/unassigned_00463b1a.cpp": [
       "/O1"
     ],
-    "src/unidentified/FUN_0046238e_0046238e.cpp": [
+    "src/crt/FUN_0046238e_0046238e.cpp": [
       "/O1"
     ],
-    "src/unidentified/FUN_004623c2_004623c2.cpp": [
+    "src/crt/FUN_004623c2_004623c2.cpp": [
       "/O1"
     ],
-    "src/unidentified/FUN_00462401_00462401.cpp": [
+    "src/crt/FUN_00462401_00462401.cpp": [
       "/O1"
     ],
-    "src/unidentified/FUN_00462d82_00462d82.cpp": [
+    "src/crt/FUN_00462d82_00462d82.cpp": [
       "/O1"
     ],
-    "src/unidentified/scalar_deleting_destructor_00462b7b.cpp": [
+    "src/crt/scalar_deleting_destructor_00462b7b.cpp": [
       "/O1"
     ],
-    "src/unidentified/FUN_00462dbd_00462dbd.cpp": [
+    "src/crt/FUN_00462dbd_00462dbd.cpp": [
       "/O1"
     ],
-    "src/unidentified/FUN_00462dd9_00462dd9.cpp": [
+    "src/crt/FUN_00462dd9_00462dd9.cpp": [
       "/O1"
     ],
-    "src/unidentified/FUN_00462df5_00462df5.cpp": [
+    "src/crt/FUN_00462df5_00462df5.cpp": [
       "/O1"
     ],
-    "src/unidentified/unassigned_004623aa.cpp": [
+    "src/crt/unassigned_004623aa.cpp": [
       "/O1"
     ],
-    "src/unidentified/unassigned_004623e9.cpp": [
+    "src/crt/unassigned_004623e9.cpp": [
       "/O1"
     ],
-    "src/unidentified/FUN_00462d24_00462d24.cpp": [
+    "src/crt/FUN_00462d24_00462d24.cpp": [
       "/O1"
     ],
-    "src/unidentified/FUN_004624ab_004624ab.cpp": [
+    "src/crt/FUN_004624ab_004624ab.cpp": [
       "/O1"
     ],
-    "src/unidentified/FUN_00462525_00462525.cpp": [
+    "src/crt/FUN_00462525_00462525.cpp": [
       "/O1"
     ],
-    "src/unidentified/FUN_00462d0b_00462d0b.cpp": [
+    "src/crt/FUN_00462d0b_00462d0b.cpp": [
       "/O1"
     ],
-    "src/unidentified/FUN_00462371_00462371.cpp": [
+    "src/crt/FUN_00462371_00462371.cpp": [
       "/O1"
     ],
-    "src/unidentified/unassigned_00462d47.cpp": [
+    "src/crt/unassigned_00462d47.cpp": [
       "/O1"
     ],
-    "src/unidentified/unassigned_00462cc2.cpp": [
+    "src/crt/unassigned_00462cc2.cpp": [
       "/O1"
     ],
-    "src/unidentified/operator_00462d9e.cpp": [
+    "src/crt/operator_00462d9e.cpp": [
       "/O1"
     ],
-    "src/unidentified/exception_00462cac.cpp": [
+    "src/crt/exception_00462cac.cpp": [
       "/O1"
     ],
-    "src/unidentified/FUN_00462c12_00462c12.cpp": [
+    "src/crt/FUN_00462c12_00462c12.cpp": [
       "/O1"
     ],
-    "src/unidentified/FUN_00462c5a_00462c5a.cpp": [
+    "src/crt/FUN_00462c5a_00462c5a.cpp": [
       "/O1"
     ],
-    "src/unidentified/basic_string_char_std_char_traits_char_std_allocator_char_00462301.cpp": [
+    "src/crt/basic_string_char_std_char_traits_char_std_allocator_char_00462301.cpp": [
       "/O1"
     ],
-    "src/unidentified/exception_00462c01.cpp": [
+    "src/crt/exception_00462c01.cpp": [
       "/O1"
     ],
-    "src/unidentified/FUN_004624c3_004624c3.cpp": [
+    "src/crt/FUN_004624c3_004624c3.cpp": [
       "/O1"
     ],
-    "src/unidentified/unassigned_00456911.cpp": [
+    "src/crt/unassigned_00456911.cpp": [
       "/O1"
     ],
-    "src/unidentified/freetlocinfo_004557fc.cpp": [
+    "src/crt/freetlocinfo_004557fc.cpp": [
       "/O1"
     ]
   },

@@ -1,7 +1,7 @@
 {
   "regions": [
     {
-      "source": "src/unidentified/D3DXVec3Transform_004521c4.cpp",
+      "source": "src/platform/imports/D3DXVec3Transform_004521c4.cpp",
       "address": "0x004521C4",
       "name": "semantic_D3DXVec3Transform_004521c4",
       "symbol": "_D3DXVec3Transform@12",
