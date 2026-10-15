@@ -6022,7 +6022,7 @@ extern "C" unsigned char data_004776f0;
 extern "C" unsigned char data_004776f4;
 extern "C" unsigned char g_ecl_view;
 extern "C" unsigned char data_004776fc;
-extern "C" unsigned char data_00477700;
+extern "C" unsigned char g_ending;
 extern "C" unsigned char data_00477704;
 extern "C" unsigned char data_00477708;
 extern "C" unsigned char data_0047770c;

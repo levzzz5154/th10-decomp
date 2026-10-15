@@ -1,7 +1,7 @@
 #include <string.h>
 #include "th10/game/marktext_dispatcher_context/recovery_script_executor_0040bd80.hpp"
 extern "C" void* data_00491c10;
-extern "C" RecoveryScriptOwner_0040bd80* data_00477700;
+extern "C" RecoveryScriptOwner_0040bd80* g_ending;
 extern "C" GameThread_0040c540* g_ascii_manager;
 extern "C" unsigned int data_00474e30;
 extern "C" unsigned int data_00474e36;
@@ -24,7 +24,7 @@ extern "C" __declspec(noinline) int __stdcall RecoveryScript_Execute_0040bd80(Re
     const unsigned int flags = state->flags;
     if (flags & 4u)
         return 0;
-    if (!(data_00477700->flags_020 & 1u) && !(flags & 2u) &&
+    if (!(g_ending->flags_020 & 1u) && !(flags & 2u) &&
         (data_00474e30 & 0x100u) && (flags & 1u))
         state->command_timer.Set(state->command->frame);
 
@@ -78,7 +78,7 @@ extern "C" __declspec(noinline) int __stdcall RecoveryScript_Execute_0040bd80(Re
             if (state->command->arguments[0] < 0)
                 state->wait_timer.Set(999);
             if (!(data_00474e36 & 0x1001u) && state->wait_timer.current > 0) {
-                if (data_00477700->flags_020 & 1u)
+                if (g_ending->flags_020 & 1u)
                     return 0;
                 if (!(data_00474e30 & 0x100u))
                     return 0;
@@ -95,7 +95,7 @@ extern "C" __declspec(noinline) int __stdcall RecoveryScript_Execute_0040bd80(Re
                 state->wait_timer.Set(command->arguments[0]);
             state->wait_timer.Advance(-1.0f);
             if (!(data_00474e36 & 0x1001u) && state->wait_timer.current > 0) {
-                if (data_00477700->flags_020 & 1u)
+                if (g_ending->flags_020 & 1u)
                     return 0;
                 if (!(data_00474e30 & 0x100u))
                     return 0;
@@ -149,7 +149,7 @@ extern "C" __declspec(noinline) int __stdcall RecoveryScript_Execute_0040bd80(Re
                 manager->SetFlag(reinterpret_cast<RecoveryLookupContext_0040bd80*>(data_00491c10), static_cast<int>(handle->value));
                 handle->value = 0;
             }
-            char* loaded = LoadAsset(reinterpret_cast<const char*>(state->command) + 4, reinterpret_cast<AssetBuffer*>(data_00477700));
+            char* loaded = LoadAsset(reinterpret_cast<const char*>(state->command) + 4, reinterpret_cast<AssetBuffer*>(g_ending));
             if (loaded == 0)
                 return -1;
             memset(state, 0, sizeof(*state));

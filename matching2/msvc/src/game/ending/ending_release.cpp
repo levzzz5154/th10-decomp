@@ -1,10 +1,10 @@
-// 0x0040B7B0: detach the message tasks, release its animation banks and
-// script storage, then clear the published manager and message state.
+// 0x0040B7B0: detach the ending's tasks, release its animation banks and
+// script storage, then clear the published ending (g_ending).
 #include "../../../layout/ltcg/message_teardown_dependencies.hpp"
 extern "C" void* data_00491be4;
-extern "C" void* data_00477700;
+extern "C" void* g_ending;
 extern "C" int data_004918a4;
-inline void ReleaseMessageBank(int index) {
+inline void ReleaseEndingBank(int index) {
     AnimationResource_00447810*& bank = reinterpret_cast<AnimationResource_00447810*&>(data_00491c10->banks[index]);
     if (bank) {
         bank->Release();
@@ -13,7 +13,7 @@ inline void ReleaseMessageBank(int index) {
     }
 }
 
-struct MessageState_0040b7b0 {
+struct EndingState {
     unsigned int flags; // +0x00
     unsigned int reserved_004;
     SchedulerTask* update_task; // +0x08
@@ -24,7 +24,7 @@ struct MessageState_0040b7b0 {
 };
 
 #pragma code_seg(".text$03message")
-extern "C" __declspec(noinline) void __stdcall MessageState_Release_0040b7b0(MessageState_0040b7b0* state) {
+extern "C" __declspec(noinline) void __stdcall Ending_Release(EndingState* state) {
     SchedulerTask* task = state->update_task;
     Scheduler* scheduler = (Scheduler*)data_00491be4;
     if (task) {
@@ -50,16 +50,16 @@ extern "C" __declspec(noinline) void __stdcall MessageState_Release_0040b7b0(Mes
         entry_free_004524a1(animations);
     }
     state->animations = 0;
-    ReleaseMessageBank(29);
-    ReleaseMessageBank(30);
-    ReleaseMessageBank(31);
-    ReleaseMessageBank(32);
+    ReleaseEndingBank(29);
+    ReleaseEndingBank(30);
+    ReleaseEndingBank(31);
+    ReleaseEndingBank(32);
     if (state->script) {
         entry_free_00452422(state->script);
         state->script = 0;
     }
     state->script = 0;
-    data_00477700 = 0;
+    g_ending = 0;
     data_004918a4 = 0;
 }
 #pragma code_seg()

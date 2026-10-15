@@ -10,7 +10,7 @@ struct ScoreOwnedObject;       // the result screen
 
 extern "C" OwnedObject_00418150* data_00477810;
 extern "C" OwnedObject_0042cdb0* data_0047784c;
-extern "C" ScoreOwnedObject* data_00477700;
+extern "C" ScoreOwnedObject* g_ending;
 extern "C" int data_00491c00;
 
 // One row of the stage table at 0x00474788.

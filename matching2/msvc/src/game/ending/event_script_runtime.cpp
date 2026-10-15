@@ -35,7 +35,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0040bd80_0040bd80() {
     L_0040bd95:
         ret 4
     L_0040bd98:
-        mov ecx,dword ptr [data_00477700]
+        mov ecx,dword ptr [g_ending]
     L_0040bd9e:
         test byte ptr [ecx+20h],1
     L_0040bda2:
@@ -302,7 +302,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0040bd80_0040bd80() {
     L_0040bf41:
         jle short L_0040bf7f
     L_0040bf43:
-        mov ecx,dword ptr [data_00477700]
+        mov ecx,dword ptr [g_ending]
     L_0040bf49:
         test byte ptr [ecx+20h],1
     L_0040bf4d:
@@ -380,7 +380,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0040bd80_0040bd80() {
     L_0040bfcd:
         jle short L_0040c000
     L_0040bfcf:
-        mov ecx,dword ptr [data_00477700]
+        mov ecx,dword ptr [g_ending]
     L_0040bfd5:
         test byte ptr [ecx+20h],1
     L_0040bfd9:
@@ -656,7 +656,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0040bd80_0040bd80() {
     L_0040c1dc:
         mov eax,dword ptr [ebp+54h]
     L_0040c1df:
-        mov ecx,dword ptr [data_00477700]
+        mov ecx,dword ptr [g_ending]
     L_0040c1e5:
         add eax,4
     L_0040c1e8:

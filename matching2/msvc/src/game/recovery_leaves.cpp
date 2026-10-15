@@ -33,7 +33,7 @@ struct RecoverySmallState {
 RecoverySmallState::RecoverySmallState() {
     memset(this, 0, sizeof(*this));
     flags |= 2;
-    *(void**)&data_00477700 = this;
+    *(void**)&g_ending = this;
 }
 
 // The installer takes the state as its only stack argument and cleans it, so
@@ -96,7 +96,7 @@ void Recovery_ReleaseGlobalStates() {
         ((GlobalStateDestroyFn)asm_FUN_0041fb50_0041fb50)(resource_state);
         entry_free_004524a1(resource_state);
     }
-    void* small_state = *(void**)&data_00477700;
+    void* small_state = *(void**)&g_ending;
     if (small_state) {
         ((GlobalStateDestroyFn)asm_FUN_0040b7b0_0040b7b0)(small_state);
         entry_free_004524a1(small_state);

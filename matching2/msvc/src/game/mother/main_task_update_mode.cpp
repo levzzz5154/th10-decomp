@@ -32,7 +32,7 @@ int MainTaskStateWave18::UpdateMode() {
                 ModeCreateProgressWave18();
                 break;
             case 14:
-                ScoreOwnedObject_Destroy(data_00477700);
+                ScoreOwnedObject_Destroy(g_ending);
                 ModeCreateProgressWave18();
                 break;
             }
@@ -43,7 +43,7 @@ int MainTaskStateWave18::UpdateMode() {
             case 2:
                 break;
             case 14:
-                ScoreOwnedObject_Destroy(data_00477700);
+                ScoreOwnedObject_Destroy(g_ending);
                 break;
             case 7:
                 DestroyOwned_00418150(data_00477810);

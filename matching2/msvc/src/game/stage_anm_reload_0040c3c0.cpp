@@ -12,7 +12,7 @@ int StageOwner_0040c3c0::ReloadStageAnm() {
 // 0x0040C3A0: the worker thread's entry.
 #pragma code_seg(".text$03thread")
 extern "C" unsigned int __cdecl Stage_ReloadAnmThread_0040c3a0() {
-    data_00477700->stage->ReloadAnm();
+    g_ending->stage->ReloadAnm();
     return 0;
 }
 #pragma code_seg()

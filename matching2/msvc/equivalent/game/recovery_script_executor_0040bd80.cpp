@@ -8,8 +8,8 @@
 extern "C" void* data_00491c10;
 __declspec(noinline) void* __cdecl RecoveryValidateHandle_00449450(RecoveryHandle_0040bd80* handle);
 #define MANAGER_00491c10 (*(void* const volatile*)&data_00491c10)
-extern "C" RecoveryScriptOwner_0040bd80* data_00477700;
-#define OWNER_00477700 (*(RecoveryScriptOwner_0040bd80* const volatile*)&data_00477700)
+extern "C" RecoveryScriptOwner_0040bd80* g_ending;
+#define OWNER_00477700 (*(RecoveryScriptOwner_0040bd80* const volatile*)&g_ending)
 extern "C" GameThread_0040c540* g_ascii_manager;
 
 

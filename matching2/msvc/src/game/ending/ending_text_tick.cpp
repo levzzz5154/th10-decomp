@@ -1,4 +1,4 @@
-// 0x0040BD20..0x0040BD7C: TickRecoveryState_0040bd20
+// 0x0040BD20..0x0040BD7C: EndingText_Tick
 //
 // The state this runs on is the ending/credits script object constructed at
 // 0x0040BA90. At +0x04 it carries the FrameTimer shape shared by the whole
@@ -24,7 +24,7 @@ extern float g_frame_timer_normal_upper;  // 0x00470B64
 
 extern "C" int __stdcall asm_FUN_0040bd80_0040bd80(void* state);
 
-struct RecoveryTickState_0040bd20 {
+struct EndingTextTickView {
     int pad_00;             // +0x00
     int previous;           // +0x04
     int current;            // +0x08
@@ -33,7 +33,7 @@ struct RecoveryTickState_0040bd20 {
 };
 
 #pragma code_seg(".text$01tick")
-__declspec(noinline) int __stdcall TickRecoveryState_0040bd20(RecoveryTickState_0040bd20* state) {
+__declspec(noinline) int __stdcall EndingText_Tick(EndingTextTickView* state) {
     if (asm_FUN_0040bd80_0040bd80(state))
         return 1;
 

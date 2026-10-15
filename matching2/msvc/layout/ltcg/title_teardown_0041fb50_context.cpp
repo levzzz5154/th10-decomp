@@ -49,7 +49,7 @@ void Recovery_ReleaseGlobalStates() {
     if (script_state) { ReleaseGlobalScript_0042cb60(script_state);entry_free_004524a1(script_state); }
     TitleState_0041FB50* resource_state = static_cast<TitleState_0041FB50*>(data_00477820);
     if (resource_state) { resource_state->~TitleState_0041FB50();entry_free_004524a1(resource_state); }
-    void* small_state = data_00477700;
+    void* small_state = g_ending;
     if (small_state) { ReleaseGlobalMessage_0040b7b0(small_state);entry_free_004524a1(small_state); }
     void* pending_block = data_00477838;
     if (pending_block) { ReleaseGlobalPending_004294a0(pending_block);entry_free_004524a1(pending_block); }

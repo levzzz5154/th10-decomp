@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "message_teardown_0040b7b0",
-  "source": "src/game/ending/fun_0040b7b0_0040b7b0.cpp",
+  "source": "src/game/ending/ending_release.cpp",
   "driver": "layout/ltcg/message_teardown_context.cpp",
   "included_sources": [
     "layout/ltcg/message_teardown_helpers.cpp"
@@ -19,8 +19,8 @@
   "description": "Message manager teardown362 with the actual complete global-state teardown128 as compiler entry. All six complete genuine scheduler, resource and worker dependencies compile as unselected helpers; all are exact in this context. Only the message teardown is exported, and existing selected helper/caller owners remain unchanged. There is no synthetic pressure caller or fabricated argument.",
   "functions": [
     {
-      "name": "MessageState_Release_0040b7b0",
-      "symbol": "_MessageState_Release_0040b7b0@4",
+      "name": "Ending_Release",
+      "symbol": "_Ending_Release@4",
       "section": ".text$03message",
       "address": "0x0040B7B0",
       "size": 362,
@@ -72,7 +72,7 @@
     }
   ],
   "roots": [
-    "_MessageState_Release_0040b7b0@4"
+    "_Ending_Release@4"
   ],
   "context": {
     "symbol": "?Recovery_ReleaseGlobalStates@@YGXXZ",
@@ -136,7 +136,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00477700",
+      "symbol": "_g_ending",
       "address": "0x477700",
       "kind": "data"
     },
