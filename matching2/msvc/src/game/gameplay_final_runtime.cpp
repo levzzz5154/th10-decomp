@@ -825,7 +825,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00426f70_00426f70() {
     L_00427526:
         call asm_FUN_00463b2c_00463b2c
     L_0042752b:
-        mov ecx,dword ptr [data_00477834]
+        mov ecx,dword ptr [g_player]
     L_00427531:
         mov dword ptr [edi+32F0h],eax
     L_00427537:

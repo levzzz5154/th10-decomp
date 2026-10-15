@@ -98,4 +98,4 @@ typedef char PlayerResetLayout[(
     sizeof(PlayerPickupRecord5c)==0x5c &&
     sizeof(PlayerAnimationRecord98)==0x98 &&
     sizeof(PlayerIndicatorRecord6c)==0x6c)?1:-1];
-extern "C" PlayerResetBlock* data_00477834;
+extern "C" PlayerResetBlock* g_player;

@@ -39,7 +39,7 @@ StageScoreDisplay::StageScoreDisplay(const void* description) {
     StageCollisionRecord* record = data_004776f0->records;
     for (int remaining=2000; remaining; --remaining,++record)
         if (record->state != 0 && record->state != 3) record->Activate();
-    for (SlotEffect* node = data_0047781c->first; node;) {
+    for (SlotEffect* node = g_laser_manager->first; node;) {
         SlotEffect* next = node->next;
         if (node->kind != 1) {
             node->Release(0);

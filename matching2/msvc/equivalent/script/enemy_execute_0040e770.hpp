@@ -179,7 +179,7 @@ struct LaserManager {
     __declspec(noinline) int Evaluate_0041c800(const Float3* point, float radius, int flag);
     __declspec(noinline) int MarkEligible_0041c7d0();
 };
-extern "C" LaserManager* data_0047781c;
+extern "C" LaserManager* g_laser_manager;
 
 struct ItemDrops {
     int items[13];          // +0x00: [0] is the main item
@@ -219,7 +219,7 @@ struct Player {
     unsigned char unknown_000[0x3C0];
     Float3 position;            // +0x3C0
 };
-extern "C" Player* data_00477834;
+extern "C" Player* g_player;
 
 struct SpellCard {
     unsigned char unknown_0000[0x378C];

@@ -254,7 +254,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041dd80_0041dd80() {
     L_0041df2c:
         movsx ebx,word ptr [ebx+44Ah]
     L_0041df33:
-        mov ecx,dword ptr [data_0047781c]
+        mov ecx,dword ptr [g_laser_manager]
     L_0041df39:
         mov esi,dword ptr [data_00491c10]
     L_0041df3f:
@@ -625,7 +625,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041dd80_0041dd80() {
     L_0041e1c4:
         fild dword ptr [esp+40h]
     L_0041e1c8:
-        mov esi,dword ptr [data_0047781c]
+        mov esi,dword ptr [g_laser_manager]
     L_0041e1ce:
         fld dword ptr [esp+20h]
     L_0041e1d2:
@@ -1022,7 +1022,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041eb00_0041eb00() {
     L_0041ed34:
         lea ecx,[eax+eax+11h]
     L_0041ed38:
-        mov eax,dword ptr [data_0047781c]
+        mov eax,dword ptr [g_laser_manager]
     L_0041ed3d:
         push ecx
     L_0041ed3e:
@@ -1249,7 +1249,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041eb00_0041eb00() {
     L_0041eeb0:
         fstp dword ptr [esp+78h]
     L_0041eeb4:
-        mov esi,dword ptr [data_0047781c]
+        mov esi,dword ptr [g_laser_manager]
     L_0041eeba:
         fild dword ptr [esp+58h]
     L_0041eebe:
@@ -1614,7 +1614,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041efa0_0041efa0() {
     L_0041f14c:
         movsx ebx,word ptr [esi+466h]
     L_0041f153:
-        mov ecx,dword ptr [data_0047781c]
+        mov ecx,dword ptr [g_laser_manager]
     L_0041f159:
         mov esi,dword ptr [data_00491c10]
     L_0041f15f:
@@ -1957,7 +1957,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041efa0_0041efa0() {
     L_0041f3ba:
         fsubr dword ptr [esi+444h]
     L_0041f3c0:
-        mov esi,dword ptr [data_0047781c]
+        mov esi,dword ptr [g_laser_manager]
     L_0041f3c6:
         fstp dword ptr [esp+6Ch]
     L_0041f3ca:

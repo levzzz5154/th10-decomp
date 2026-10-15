@@ -26,7 +26,7 @@ struct PlayerAnimationValue_00405750 {
 };
 extern "C" PlayerMotionGlobals_00405750* data_004776f4;
 extern "C" CollisionEngine_00408100* data_004776f0;
-extern "C" ScoreRecords_0041c800* data_0047781c;
+extern "C" ScoreRecords_0041c800* g_laser_manager;
 extern "C" int data_00474c68;
 extern "C" float data_00470b0c, data_00470afc, data_00470d34, data_00470b4c, data_00470b48;
 typedef char PlayerUpdateTimerOffset[offsetof(PlayerUpdateState_00405750,timer)==0x14 ? 1:-1];

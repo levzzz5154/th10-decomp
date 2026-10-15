@@ -49,11 +49,6 @@
   "constants": [],
   "absolute_symbols": [
     {
-      "symbol": "_data_00477834",
-      "address": "0x00477834",
-      "kind": "data"
-    },
-    {
       "symbol": "_g_player",
       "address": "0x00477834",
       "kind": "data"

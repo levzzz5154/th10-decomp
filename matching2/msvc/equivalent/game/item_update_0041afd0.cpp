@@ -67,9 +67,9 @@ extern "C" __declspec(noinline) int __stdcall ItemManager_UpdateItems(ItemSpawnM
         }
         ItemCollector* player;
         if (motion->state==seeking) {
-            player=data_00477834;
+            player=g_player;
             if ((player->state!=2 && player->state!=4 && player->position.y<data_00470bf4) ||
-                data_004776ec->active!=idle) {
+                g_bomb->active!=idle) {
                 motion->magnet_speed=player->movement->seek_speed;
                 motion->state=3;
                 goto seek_player;
@@ -98,7 +98,7 @@ extern "C" __declspec(noinline) int __stdcall ItemManager_UpdateItems(ItemSpawnM
             IntegrateItem(motion);
             motion->velocity.y+=data_00476f78*data_00470cdc;
             if (motion->velocity.y>=data_00470b04) {
-                player=data_00477834;
+                player=g_player;
                 motion->magnet_speed=player->movement->seek_speed;
                 motion->state=3;
                 goto seek_player;
@@ -109,9 +109,9 @@ extern "C" __declspec(noinline) int __stdcall ItemManager_UpdateItems(ItemSpawnM
                 data_00474c40.AdjustPower(-4);
                 goto step;
             }
-            player=data_00477834;
+            player=g_player;
         } else if (motion->state==3) {
-            player=data_00477834;
+            player=g_player;
         seek_player:
             float dx=player->position.x-motion->position().x;
             float dy=player->position.y-motion->position_y;
@@ -127,19 +127,19 @@ extern "C" __declspec(noinline) int __stdcall ItemManager_UpdateItems(ItemSpawnM
                 motion->velocity.y=0.0f;
             }
         } else if (motion->state==4) {
-            ItemCollector* target=data_00477834;
+            ItemCollector* target=g_player;
             motion->velocity.SetPolar(target->AngleFromPoint(&motion->position()),motion->magnet_speed);
             IntegrateItem(motion);
             if (motion->magnet_speed<data_00470cd8) motion->magnet_speed+=data_00470c38;
             int player_state=target->state;
-            player=data_00477834;
+            player=g_player;
             if (player_state==4) {
                 motion->state=seeking;
                 motion->velocity.x=0.0f;
                 motion->velocity.y=0.0f;
             }
         } else {
-            player=data_00477834;
+            player=g_player;
         }
 
         if (player->state!=2) {
@@ -150,7 +150,7 @@ extern "C" __declspec(noinline) int __stdcall ItemManager_UpdateItems(ItemSpawnM
                     int power=data_00474c40.power;
                     data_0047770c->SetPowerDigits(power/20,(power%20)*100/20);
                     if (changed) {
-                        ItemCollector_PowerChanged(data_00477834);
+                        ItemCollector_PowerChanged(g_player);
                         data_00477840->Spawn(-1,&motion->position(),0xFFFFFF40u);
                         data_00492590.QueuePan(29,motion->position().x);
                         if (data_00474c40.power>=100) convert_items=1;
@@ -216,7 +216,7 @@ extern "C" __declspec(noinline) int __stdcall ItemManager_UpdateItems(ItemSpawnM
                     int power=data_00474c40.power;
                     data_0047770c->SetPowerDigits(power/20,(power%20)*100/20);
                     if (changed) {
-                        ItemCollector_PowerChanged(data_00477834);
+                        ItemCollector_PowerChanged(g_player);
                         data_00492590.QueuePan(29,motion->position().x);
                         data_00477840->Spawn(-1,&motion->position(),0xFFFFFF40u);
                         data_00474c40.AdjustPower(24);
@@ -237,7 +237,7 @@ extern "C" __declspec(noinline) int __stdcall ItemManager_UpdateItems(ItemSpawnM
                 goto step;
             }
             if (motion->state!=4 && motion->state!=3) {
-                unsigned int focused=data_00474e5c&4;
+                unsigned int focused=g_input&4;
                 bool magnet=(focused && !OutsideItemBox(motion->position().x,motion->position().y,player->focused_magnet)) ||
                     (!focused && !OutsideItemBox(motion->position().x,motion->position().y,player->unfocused_magnet));
                 if (magnet) {

@@ -39,7 +39,7 @@
   "roots": [],
   "absolute_symbols": [
     {
-      "symbol": "_data_004776ec",
+      "symbol": "_g_bomb",
       "address": "0x004776EC",
       "kind": "data"
     }

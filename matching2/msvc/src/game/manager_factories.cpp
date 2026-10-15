@@ -95,7 +95,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041afd0_0041afd0() {
     L_0041b056:
         jne asm_target_0041b133
     L_0041b05c:
-        mov edx,dword ptr [data_00477834]
+        mov edx,dword ptr [g_player]
     L_0041b062:
         mov eax,dword ptr [edx+458h]
     L_0041b068:
@@ -117,7 +117,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041afd0_0041afd0() {
     L_0041b083:
         jnp short L_0041b08f
     L_0041b085:
-        mov eax,dword ptr [data_004776ec]
+        mov eax,dword ptr [g_bomb]
     L_0041b08a:
         cmp dword ptr [eax+28h],ecx
     L_0041b08d:
@@ -257,7 +257,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041afd0_0041afd0() {
     L_0041b190:
         jne short L_0041b1ad
     L_0041b192:
-        mov ecx,dword ptr [data_00477834]
+        mov ecx,dword ptr [g_player]
     L_0041b198:
         mov edx,dword ptr [ecx+45Ch]
     L_0041b19e:
@@ -293,7 +293,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041afd0_0041afd0() {
     L_0041b1db:
         jne asm_target_0041b2a1
     L_0041b1e1:
-        mov edx,dword ptr [data_00477834]
+        mov edx,dword ptr [g_player]
     L_0041b1e7:
         fld dword ptr [edx+3C0h]
     L_0041b1ed:
@@ -411,7 +411,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041afd0_0041afd0() {
     L_0041b2aa:
         mov ecx,dword ptr [ebp+38h]
     L_0041b2ad:
-        mov esi,dword ptr [data_00477834]
+        mov esi,dword ptr [g_player]
     L_0041b2b3:
         lea edx,[ebp-4]
     L_0041b2b6:
@@ -481,7 +481,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041afd0_0041afd0() {
     L_0041b31e:
         mov eax,dword ptr [esi+458h]
     L_0041b324:
-        mov edx,dword ptr [data_00477834]
+        mov edx,dword ptr [g_player]
     L_0041b32a:
         cmp eax,4
     L_0041b32d:
@@ -495,7 +495,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041afd0_0041afd0() {
     L_0041b33f:
         jmp short L_0041b347
     L_0041b341:
-        mov edx,dword ptr [data_00477834]
+        mov edx,dword ptr [g_player]
     L_0041b347:
         cmp dword ptr [edx+458h],2
     L_0041b34e:
@@ -609,7 +609,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041afd0_0041afd0() {
     L_0041b417:
         je short L_0041b47d
     L_0041b419:
-        mov ecx,dword ptr [data_00477834]
+        mov ecx,dword ptr [g_player]
     L_0041b41f:
         push ecx
     L_0041b420:
@@ -921,7 +921,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041afd0_0041afd0() {
     L_0041b671:
         je short L_0041b6d3
     L_0041b673:
-        mov ecx,dword ptr [data_00477834]
+        mov ecx,dword ptr [g_player]
     L_0041b679:
         push ecx
     L_0041b67a:
@@ -1023,7 +1023,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041afd0_0041afd0() {
     L_0041b746:
         je asm_target_0041b7fd
     L_0041b74c:
-        mov ecx,dword ptr [data_00474e5c]
+        mov ecx,dword ptr [g_input]
     L_0041b752:
         and ecx,4
     L_0041b755:

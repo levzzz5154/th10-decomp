@@ -54,7 +54,7 @@ extern "C" __declspec(noinline) int __stdcall
 ResultDispatcher_00415e90(ResultDispatcherState* state) {
     if (state->countdown > 0)
         --state->countdown;
-    if ((state->flags & 1) && (data_00474e5c & 0x100)) {
+    if ((state->flags & 1) && (g_input & 0x100)) {
         int frame = state->command->frame;
         FrameTimer* timer = &state->timer;
         if (!(timer->flags & 1)) {
@@ -102,8 +102,8 @@ ResultDispatcher_00415e90(ResultDispatcherState* state) {
                 break;
             case 1:
                 switch (data_00474c68) {
-                case 0: CREATE_INTO(state->left_portrait.id.value, data_00477834->resource, 0x1D) break;
-                case 1: CREATE_INTO(state->left_portrait.id.value, data_00477834->resource, 0x1D) break;
+                case 0: CREATE_INTO(state->left_portrait.id.value, static_cast<AnimationResource_00449870*>(g_player->animation_file), 0x1D) break;
+                case 1: CREATE_INTO(state->left_portrait.id.value, static_cast<AnimationResource_00449870*>(g_player->animation_file), 0x1D) break;
                 }
                 break;
             case 2:
@@ -119,8 +119,8 @@ ResultDispatcher_00415e90(ResultDispatcherState* state) {
                     }
                 } else {
                     switch (data_00474c68) {
-                    case 0: CREATE_INTO(state->right_portrait.id.value, data_00477834->resource, 0x1E) break;
-                    case 1: CREATE_INTO(state->right_portrait.id.value, data_00477834->resource, 0x1E) break;
+                    case 0: CREATE_INTO(state->right_portrait.id.value, static_cast<AnimationResource_00449870*>(g_player->animation_file), 0x1E) break;
+                    case 1: CREATE_INTO(state->right_portrait.id.value, static_cast<AnimationResource_00449870*>(g_player->animation_file), 0x1E) break;
                     }
                 }
                 break;
@@ -276,7 +276,7 @@ ResultDispatcher_00415e90(ResultDispatcherState* state) {
                     state->wait.SetSchedulerValue(state->command->first_operand);
                 reinterpret_cast<FrameTimer*>(&state->wait)->Advance(-1.0f);
                 if (!(data_00474e62 & 0x1001) && state->wait.current > 0) {
-                    if (!(state->flags & 1) || !(data_00474e5c & 0x100))
+                    if (!(state->flags & 1) || !(g_input & 0x100))
                         return 0;
                     state->wait.SetSchedulerValue(0);
                     state->alternate_text = 0;
@@ -334,7 +334,7 @@ ResultDispatcher_00415e90(ResultDispatcherState* state) {
                         (data_00474c7c + (data_00474c74 * 3 + 0x4E) * 2) * 8] = 1;
                 }
                 if (data_00474ca0 & 0x10) {
-                    data_00477830->OpenResult();
+                    g_pause_menu->OpenResult();
                     break;
                 }
                 if (data_00474c7c == 6) {
@@ -382,7 +382,7 @@ ResultDispatcher_00415e90(ResultDispatcherState* state) {
                         SetInputMode(&data_00491c28, 4);
                         break;
                     }
-                    data_00477830->OpenResult();
+                    g_pause_menu->OpenResult();
                     int* count = ClearCount();
                     if (*count < 99999)
                         ++*count;

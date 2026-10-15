@@ -2,6 +2,7 @@
 #include <stddef.h>
 #include "th10/game/pause_result_open_004231d0/open_state.hpp"
 #include "th10/math/timer.hpp"
+#include "th10/game/player.hpp"
 #include "th10/game/score.hpp"
 #include "th10/platform/sound_queue.hpp"
 #include "th10/game/runtime_selector_0043c970.hpp"
@@ -113,10 +114,6 @@ typedef char DispatcherPositionsOffset[offsetof(ResultDispatcherState,text_posit
 typedef char DispatcherParametersOffset[offsetof(ResultDispatcherState,text_parameters)==0x88?1:-1];
 typedef char DispatcherStateExtent[sizeof(ResultDispatcherState)==0x90?1:-1];
 
-struct DispatcherResourceOwner {
-    unsigned char reserved_00[0x10];
-    AnimationResource_00449870* resource;
-};
 struct DispatcherStageResourceOwner {
     unsigned char reserved_00[0x38];
     AnimationResource_00449870* resource;
@@ -148,7 +145,6 @@ struct DispatcherMusicRecord {
     int music_slot;
 };
 
-extern "C" DispatcherResourceOwner* data_00477834;
 extern "C" DispatcherStageResourceOwner* data_00477704;
 extern "C" DispatcherReplayOwner* data_00477838;
 extern "C" void* data_00491c10;
@@ -164,7 +160,7 @@ extern "C" int data_00474c7c;
 extern "C" int data_00474c84;
 extern "C" int data_00474c8c;
 extern "C" unsigned data_00474ca0;
-extern "C" unsigned data_00474e5c;
+extern "C" unsigned g_input;
 extern "C" unsigned data_00474e62;
 
 // Real public stack interfaces: Music_Play has two inputs and RET8,

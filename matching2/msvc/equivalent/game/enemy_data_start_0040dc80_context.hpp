@@ -47,8 +47,8 @@ struct ScoreState_0040dc80 {
 };
 
 extern "C" {
-extern Player_0040dc80* data_00477834;
-extern Stage_0040dc80* data_004776ec;
+extern Player_0040dc80* g_player;
+extern Stage_0040dc80* g_bomb;
 extern GameThread_0040dc80* data_004776f4;
 extern Gui_0040dc80* data_0047770c;
 extern AnimationManager_0040dc80* data_00491c10;

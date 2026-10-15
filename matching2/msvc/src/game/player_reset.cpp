@@ -5,6 +5,6 @@
 #pragma code_seg(".text$a05body")
 PlayerResetBlock::PlayerResetBlock() {
     memset(this, 0, sizeof(*this));
-    data_00477834 = this;
+    g_player = this;
 }
 #pragma code_seg()

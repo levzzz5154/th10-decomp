@@ -37,14 +37,14 @@ static inline bool TimerChanged(const FrameTimer& timer) {
 int Player::UpdateShooting() {
     if (state == PLAYER_ALIVE) {
         if (shot_timer.current < 0) {
-            if (!data_00474e5c.repeat)
+            if (!g_input.repeat)
                 return 0;
             reinterpret_cast<PlayerSchedulerRecord*>(&shot_timer)->SetSchedulerValue(0);
         }
         if (TimerChanged(shot_timer))
             FireShots(shot_timer.current);
         if (shot_timer.current >= 15) {
-            if (data_00474e5c.repeat)
+            if (g_input.repeat)
                 shot_timer.Advance(-15.0f);
             else
                 reinterpret_cast<PlayerSchedulerRecord*>(&shot_timer)->SetSchedulerValue(-1);

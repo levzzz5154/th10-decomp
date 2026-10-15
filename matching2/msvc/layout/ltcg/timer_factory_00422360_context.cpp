@@ -7,7 +7,7 @@
 //
 // The factory at 0x00422360 calls this with the object in EDX and keeps the
 // result from EAX, so the object pointer is the second __fastcall parameter.
-extern "C" void* data_00477830;
+extern "C" void* g_pause_menu;
 
 #include "th10/game/timer_state_00422360.hpp"
 
@@ -32,7 +32,7 @@ void* __fastcall InitializeTimerState_004220e0(int unused, TimerState_00422360* 
     state->field_1CC = 1;
     memset(state, 0, sizeof(*state));
     state->flags |= 2u;
-    data_00477830 = state;
+    g_pause_menu = state;
     return state;
 }
 #pragma code_seg()

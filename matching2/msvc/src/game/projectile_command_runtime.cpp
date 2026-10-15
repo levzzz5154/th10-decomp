@@ -140,7 +140,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00406d90_00406d90() {
     L_00406e91:
         jne short L_00406ea6
     L_00406e93:
-        mov ecx,dword ptr [data_00477834]
+        mov ecx,dword ptr [g_player]
     L_00406e99:
         lea eax,[ebp+3B4h]
     L_00406e9f:
@@ -264,7 +264,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00406d90_00406d90() {
     L_00406f96:
         jne short L_00406fab
     L_00406f98:
-        mov ecx,dword ptr [data_00477834]
+        mov ecx,dword ptr [g_player]
     L_00406f9e:
         lea eax,[ebp+3B4h]
     L_00406fa4:

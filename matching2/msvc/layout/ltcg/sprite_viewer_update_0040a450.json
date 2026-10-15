@@ -272,7 +272,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00477834",
+      "symbol": "_g_player",
       "address": "0x00477834",
       "kind": "data"
     },
@@ -287,7 +287,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_004776ec",
+      "symbol": "_g_bomb",
       "address": "0x004776EC",
       "kind": "data"
     },

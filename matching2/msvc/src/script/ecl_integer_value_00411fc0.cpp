@@ -99,7 +99,7 @@ ECL_OFFSET(EclIntegerManager, current_entity, 0x10);
 ECL_OFFSET(EclAnimationValue, value_38a, 0x38A);
 #undef ECL_OFFSET
 
-extern "C" EclIntegerSource* data_00477834;
+extern "C" EclIntegerSource* g_player;
 extern "C" EclIntegerManager* data_00477704;
 extern "C" int data_00474c74;
 extern "C" int data_00474c98;
@@ -114,9 +114,9 @@ int EclIntegerSource::ResolveIntegerValue(int encoded_selector) const {
     case -9987:
         return (int)Rng_NextFloatSigned((RngState*)0x004918B0);
     case -9991:
-        return (int)data_00477834->origin_x;
+        return (int)g_player->origin_x;
     case -9990:
-        return (int)data_00477834->origin_y;
+        return (int)g_player->origin_y;
     case -9988:
         return value_115c;
     case -9986:
@@ -167,9 +167,9 @@ int EclIntegerSource::ResolveIntegerValue(int encoded_selector) const {
     case -9966:
         return (int)value_10e0;
     case -9965:
-        return (int)data_00477834->origin_x;
+        return (int)g_player->origin_x;
     case -9964:
-        return (int)data_00477834->origin_y;
+        return (int)g_player->origin_y;
     case -9963:
         return (int)data_00477704->current_entity->value_1068;
     case -9962:

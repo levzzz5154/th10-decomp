@@ -378,7 +378,7 @@ int Enemy::Execute_0040e770() {
             angle = g_effect_rng_004918b0.NextFloatSigned_0044bb90() * (3.1415927f / 3.0f);
         } else if (bounds_width * 0.25f + bounds_x < position.x) {
             angle = Angle_Normalize(g_effect_rng_004918b0.NextAngle() * 0.33333334f + 3.1415927f);
-        } else if (position.x < data_00477834->position.x) {
+        } else if (position.x < g_player->position.x) {
             angle = g_effect_rng_004918b0.NextFloatSigned_0044bb90() * (3.1415927f / 2.0f);
         } else {
             angle = Angle_Normalize(g_effect_rng_004918b0.NextAngle() * 0.5f + 3.1415927f);
@@ -526,7 +526,7 @@ int Enemy::Execute_0040e770() {
         int index = IOP(0);
         shooters[index].position = shoot_offset[index] + position;
         if (shoot_range_squared != 0.0f) {
-            if (!(shoot_range_squared <= DistanceSquared(shooters[index].position, data_00477834->position))) break;
+            if (!(shoot_range_squared <= DistanceSquared(shooters[index].position, g_player->position))) break;
         }
         shooters[index].Shoot_004073e0(data_004776f0);
         return 0;
@@ -729,7 +729,7 @@ int Enemy::Execute_0040e770() {
         return 0;
     case 0x19a:
         data_004776f0->Sweep_00408210(1);
-        data_0047781c->Cleanup_0041c850(1);
+        g_laser_manager->Cleanup_0041c850(1);
         return 0;
     case 0x150:
         data_00492590.QueuePan_0043dd10(IOP(0), position.x);
@@ -740,7 +740,7 @@ int Enemy::Execute_0040e770() {
     case 0x152:
         data_0047770c->CreateScoreDisplay_00415db0(IOP(0));
         data_004776f0->Sweep_00408210(0);
-        data_0047781c->Cleanup_0041c850(0);
+        g_laser_manager->Cleanup_0041c850(0);
         EnemyManager_SweepDeaths_0040e6a0(data_00477704);
         return 0;
     case 0x153:
@@ -800,7 +800,7 @@ int Enemy::Execute_0040e770() {
         params.f18 = FOP(6);
         params.f1c = FOP(7);
         params.flags |= 1;
-        data_0047781c->Spawn_0041c510(&params, 0);
+        g_laser_manager->Spawn_0041c510(&params, 0);
         return 0;
     }
     case 0x19d:
@@ -820,7 +820,7 @@ int Enemy::Execute_0040e770() {
         params.f3c = IOP(9);
         params.f28 = FOP(10);
         params.flags = IOP(11) | 2;
-        int id = data_0047781c->Spawn_0041c510(&params, 1);
+        int id = g_laser_manager->Spawn_0041c510(&params, 1);
         if (result) *result = id;
         return 0;
     }
@@ -839,7 +839,7 @@ int Enemy::Execute_0040e770() {
         params.f18 = FOP(6);
         params.f1c = FOP(7);
         params.flags &= ~1u;
-        data_0047781c->Spawn_0041c510(&params, 0);
+        g_laser_manager->Spawn_0041c510(&params, 0);
         return 0;
     }
     case 0x1ad:
@@ -860,50 +860,50 @@ int Enemy::Execute_0040e770() {
         params.f3c = IntArg_00412a00(9);
         params.f28 = FOP(10);
         params.flags = IntArg_00412a00(11) & ~2u;
-        int id = data_0047781c->Spawn_0041c510(&params, 1);
+        int id = g_laser_manager->Spawn_0041c510(&params, 1);
         if (result) *result = id;
         return 0;
     }
     case 0x19e: {
-        Laser* laser = data_0047781c->FindById_0040cf90(IntArg_00412a00(0));
+        Laser* laser = g_laser_manager->FindById_0040cf90(IntArg_00412a00(0));
         if (laser) laser->f24 = Float3(FOP(1), FOP(2), 0.0f);
         return 0;
     }
     case 0x19f: {
-        Laser* laser = data_0047781c->FindById_0040cf90(IntArg_00412a00(0));
+        Laser* laser = g_laser_manager->FindById_0040cf90(IntArg_00412a00(0));
         if (laser) laser->SetVector_0040cf60(Float3(FOP(1), FOP(2), 0.0f));
         return 0;
     }
     case 0x1a0: {
-        Laser* laser = data_0047781c->FindById_0040cf90(IntArg_00412a00(0));
+        Laser* laser = g_laser_manager->FindById_0040cf90(IntArg_00412a00(0));
         if (laser) laser->f48 = FOP(1);
         return 0;
     }
     case 0x1a1: {
-        Laser* laser = data_0047781c->FindById_0040cf90(IntArg_00412a00(0));
+        Laser* laser = g_laser_manager->FindById_0040cf90(IntArg_00412a00(0));
         if (laser) laser->f44 = FOP(1);
         return 0;
     }
     case 0x1a2: {
-        Laser* laser = data_0047781c->FindById_0040cf90(IntArg_00412a00(0));
+        Laser* laser = g_laser_manager->FindById_0040cf90(IntArg_00412a00(0));
         if (laser) laser->f3c = FOP(1);
         return 0;
     }
     case 0x1a3: {
-        Laser* laser = data_0047781c->FindById_0040cf90(IntArg_00412a00(0));
+        Laser* laser = g_laser_manager->FindById_0040cf90(IntArg_00412a00(0));
         if (laser) laser->f440 = FOP(1);
         return 0;
     }
     case 0x1a4: {
         float radius = FOP(0);
         data_004776f0->Check_00408100(&position, radius, 1, 0);
-        data_0047781c->Evaluate_0041c800(&position, radius, 1);
+        g_laser_manager->Evaluate_0041c800(&position, radius, 1);
         return 0;
     }
     case 0x1a5: {
         float radius = FOP(0);
         data_004776f0->Check_00408100(&position, radius, 0, 0);
-        data_0047781c->Evaluate_0041c800(&position, radius, 0);
+        g_laser_manager->Evaluate_0041c800(&position, radius, 0);
         return 0;
     }
     case 0x158:
@@ -973,7 +973,7 @@ int Enemy::Execute_0040e770() {
         data_0047770c->f9e90 = IntArg_00412a00(0);
         return 0;
     case 0x16d:
-        data_0047781c->MarkEligible_0041c7d0();
+        g_laser_manager->MarkEligible_0041c7d0();
         return 0;
     case 0x16e:
         f20 = IntArg_00412a00(0);
@@ -985,7 +985,7 @@ int Enemy::Execute_0040e770() {
         g_game_speed_00476f78 = FOP(0);
         return 0;
     case 0x1ae:
-        *FloatDest(0) = (float)atan2(data_00477834->position.y - FOP(2), data_00477834->position.x - FOP(1));
+        *FloatDest(0) = (float)atan2(g_player->position.y - FOP(2), g_player->position.x - FOP(1));
         return 0;
     case 0x170: {
         float wait;

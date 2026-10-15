@@ -10,7 +10,7 @@ int PlayerUpdateState_00405750::Draw() {
             data_004776f0->Check(&position, collision_radius,
                 (~data_004776f4->flags) & 1u, 1);
         }
-        data_0047781c->CopyVectorAndEvaluate(&position.x, collision_radius,
+        g_laser_manager->CopyVectorAndEvaluate(&position.x, collision_radius,
             (~data_004776f4->flags) & 1u);
     }
     return 0;

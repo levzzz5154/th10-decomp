@@ -7,7 +7,7 @@ struct Rec_004055a0 {
     unsigned int field_024;
     unsigned char pad_028[0x48 - 0x28];
 };
-extern "C" Rec_004055a0* data_004776ec;
+extern "C" Rec_004055a0* g_bomb;
 #pragma code_seg(".text$01accessor")
 extern "C" __declspec(noinline) Rec_004055a0* __fastcall
 Init_004055a0(void* unused, Rec_004055a0* obj) {
@@ -16,7 +16,7 @@ Init_004055a0(void* unused, Rec_004055a0* obj) {
     *flag &= ~1u;
     memset(obj, 0, sizeof(Rec_004055a0));
     obj->flags_000 |= 2u;
-    data_004776ec = obj;
+    g_bomb = obj;
     return obj;
 }
 #pragma code_seg()

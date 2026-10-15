@@ -4,7 +4,7 @@
 #define data_00474c40 stage_front_data_00474c40
 #define data_004776e0 stage_front_data_004776e0
 #define data_00477704 stage_front_data_00477704
-#define data_00477834 stage_front_data_00477834
+#define g_player stage_front_data_00477834
 #define data_00477838 stage_front_data_00477838
 #define data_0047783c stage_front_data_0047783c
 #define data_00476f78 stage_front_data_00476f78
@@ -17,7 +17,7 @@
 #undef data_00474c40
 #undef data_004776e0
 #undef data_00477704
-#undef data_00477834
+#undef g_player
 #undef data_00477838
 #undef data_0047783c
 #undef data_00476f78
@@ -29,7 +29,7 @@
 #define data_00474c40 stage_hud_data_00474c40
 #define data_004776e0 stage_hud_data_004776e0
 #define data_00477704 stage_hud_data_00477704
-#define data_00477834 stage_hud_data_00477834
+#define g_player stage_hud_data_00477834
 #define data_00477838 stage_hud_data_00477838
 #define data_0047783c stage_hud_data_0047783c
 #define data_00476f78 stage_hud_data_00476f78
@@ -44,7 +44,7 @@
 #undef data_00474c40
 #undef data_004776e0
 #undef data_00477704
-#undef data_00477834
+#undef g_player
 #undef data_00477838
 #undef data_0047783c
 #undef data_00476f78
@@ -57,7 +57,7 @@
 #define data_00474c40 stage_quad_data_00474c40
 #define data_004776e0 stage_quad_data_004776e0
 #define data_00477704 stage_quad_data_00477704
-#define data_00477834 stage_quad_data_00477834
+#define g_player stage_quad_data_00477834
 #define data_00477838 stage_quad_data_00477838
 #define data_0047783c stage_quad_data_0047783c
 #define data_00476f78 stage_quad_data_00476f78
@@ -119,7 +119,7 @@ struct Stage_00404450 {
 #undef data_00474c40
 #undef data_004776e0
 #undef data_00477704
-#undef data_00477834
+#undef g_player
 #undef data_00477838
 #undef data_0047783c
 #undef data_00476f78
@@ -131,7 +131,7 @@ struct Stage_00404450 {
 #define data_00474c40 stage_fade_data_00474c40
 #define data_004776e0 stage_fade_data_004776e0
 #define data_00477704 stage_fade_data_00477704
-#define data_00477834 stage_fade_data_00477834
+#define g_player stage_fade_data_00477834
 #define data_00477838 stage_fade_data_00477838
 #define data_0047783c stage_fade_data_0047783c
 #define data_00476f78 stage_fade_data_00476f78
@@ -148,7 +148,7 @@ extern "C" void _ReadWriteBarrier();
 #undef data_00474c40
 #undef data_004776e0
 #undef data_00477704
-#undef data_00477834
+#undef g_player
 #undef data_00477838
 #undef data_0047783c
 #undef data_00476f78
@@ -160,7 +160,7 @@ extern "C" void _ReadWriteBarrier();
 #define data_00474c40 stage_start_data_00474c40
 #define data_004776e0 stage_start_data_004776e0
 #define data_00477704 stage_start_data_00477704
-#define data_00477834 stage_start_data_00477834
+#define g_player stage_start_data_00477834
 #define data_00477838 stage_start_data_00477838
 #define data_0047783c stage_start_data_0047783c
 #define data_00476f78 stage_start_data_00476f78
@@ -206,7 +206,7 @@ struct PlayerManagerState {
 #undef data_00474c40
 #undef data_004776e0
 #undef data_00477704
-#undef data_00477834
+#undef g_player
 #undef data_00477838
 #undef data_0047783c
 #undef data_00476f78
@@ -218,7 +218,7 @@ struct PlayerManagerState {
 #define data_00474c40 stage_bullet_data_00474c40
 #define data_004776e0 stage_bullet_data_004776e0
 #define data_00477704 stage_bullet_data_00477704
-#define data_00477834 stage_bullet_data_00477834
+#define g_player stage_bullet_data_00477834
 #define data_00477838 stage_bullet_data_00477838
 #define data_0047783c stage_bullet_data_0047783c
 #define data_00476f78 stage_bullet_data_00476f78
@@ -249,7 +249,7 @@ struct BulletPool {
 #undef data_00474c40
 #undef data_004776e0
 #undef data_00477704
-#undef data_00477834
+#undef g_player
 #undef data_00477838
 #undef data_0047783c
 #undef data_00476f78
@@ -261,7 +261,7 @@ struct BulletPool {
 #define data_00474c40 stage_pause_data_00474c40
 #define data_004776e0 stage_pause_data_004776e0
 #define data_00477704 stage_pause_data_00477704
-#define data_00477834 stage_pause_data_00477834
+#define g_player stage_pause_data_00477834
 #define data_00477838 stage_pause_data_00477838
 #define data_0047783c stage_pause_data_0047783c
 #define data_00476f78 stage_pause_data_00476f78
@@ -305,7 +305,7 @@ typedef ScoreHud_00417040 PauseAnimationCountManager_00413790;
 #undef data_00474c40
 #undef data_004776e0
 #undef data_00477704
-#undef data_00477834
+#undef g_player
 #undef data_00477838
 #undef data_0047783c
 #undef data_00476f78
@@ -317,7 +317,7 @@ typedef ScoreHud_00417040 PauseAnimationCountManager_00413790;
 #define data_00474c40 stage_enemy_data_00474c40
 #define data_004776e0 stage_enemy_data_004776e0
 #define data_00477704 stage_enemy_data_00477704
-#define data_00477834 stage_enemy_data_00477834
+#define g_player stage_enemy_data_00477834
 #define data_00477838 stage_enemy_data_00477838
 #define data_0047783c stage_enemy_data_0047783c
 #define data_00476f78 stage_enemy_data_00476f78
@@ -334,7 +334,7 @@ typedef ScoreHud_00417040 PauseAnimationCountManager_00413790;
 #undef data_00474c40
 #undef data_004776e0
 #undef data_00477704
-#undef data_00477834
+#undef g_player
 #undef data_00477838
 #undef data_0047783c
 #undef data_00476f78
@@ -346,7 +346,7 @@ typedef ScoreHud_00417040 PauseAnimationCountManager_00413790;
 #define data_00474c40 stage_chain_data_00474c40
 #define data_004776e0 stage_chain_data_004776e0
 #define data_00477704 stage_chain_data_00477704
-#define data_00477834 stage_chain_data_00477834
+#define g_player stage_chain_data_00477834
 #define data_00477838 stage_chain_data_00477838
 #define data_0047783c stage_chain_data_0047783c
 #define data_00476f78 stage_chain_data_00476f78
@@ -381,7 +381,7 @@ struct ScoreChain_00417770 {
 #undef data_00474c40
 #undef data_004776e0
 #undef data_00477704
-#undef data_00477834
+#undef g_player
 #undef data_00477838
 #undef data_0047783c
 #undef data_00476f78
@@ -393,7 +393,7 @@ struct ScoreChain_00417770 {
 #define data_00474c40 stage_replay_data_00474c40
 #define data_004776e0 stage_replay_data_004776e0
 #define data_00477704 stage_replay_data_00477704
-#define data_00477834 stage_replay_data_00477834
+#define g_player stage_replay_data_00477834
 #define data_00477838 stage_replay_data_00477838
 #define data_0047783c stage_replay_data_0047783c
 #define data_00476f78 stage_replay_data_00476f78
@@ -417,7 +417,7 @@ struct ScoreChain_00417770 {
 #undef data_00474c40
 #undef data_004776e0
 #undef data_00477704
-#undef data_00477834
+#undef g_player
 #undef data_00477838
 #undef data_0047783c
 #undef data_00476f78
@@ -429,7 +429,7 @@ struct ScoreChain_00417770 {
 #define data_00474c40 stage_spawn_data_00474c40
 #define data_004776e0 stage_spawn_data_004776e0
 #define data_00477704 stage_spawn_data_00477704
-#define data_00477834 stage_spawn_data_00477834
+#define g_player stage_spawn_data_00477834
 #define data_00477838 stage_spawn_data_00477838
 #define data_0047783c stage_spawn_data_0047783c
 #define data_00476f78 stage_spawn_data_00476f78
@@ -455,7 +455,7 @@ struct ScoreChain_00417770 {
 #undef data_00474c40
 #undef data_004776e0
 #undef data_00477704
-#undef data_00477834
+#undef g_player
 #undef data_00477838
 #undef data_0047783c
 #undef data_00476f78
@@ -467,7 +467,7 @@ struct ScoreChain_00417770 {
 #define data_00474c40 stage_requests_data_00474c40
 #define data_004776e0 stage_requests_data_004776e0
 #define data_00477704 stage_requests_data_00477704
-#define data_00477834 stage_requests_data_00477834
+#define g_player stage_requests_data_00477834
 #define data_00477838 stage_requests_data_00477838
 #define data_0047783c stage_requests_data_0047783c
 #define data_00476f78 stage_requests_data_00476f78
@@ -481,7 +481,7 @@ struct ScoreChain_00417770 {
 #undef data_00474c40
 #undef data_004776e0
 #undef data_00477704
-#undef data_00477834
+#undef g_player
 #undef data_00477838
 #undef data_0047783c
 #undef data_00476f78
@@ -493,7 +493,7 @@ struct ScoreChain_00417770 {
 #define data_00474c40 stage_sched_data_00474c40
 #define data_004776e0 stage_sched_data_004776e0
 #define data_00477704 stage_sched_data_00477704
-#define data_00477834 stage_sched_data_00477834
+#define g_player stage_sched_data_00477834
 #define data_00477838 stage_sched_data_00477838
 #define data_0047783c stage_sched_data_0047783c
 #define data_00476f78 stage_sched_data_00476f78
@@ -542,7 +542,7 @@ struct PlayerSchedulerRecord {
 #undef data_00474c40
 #undef data_004776e0
 #undef data_00477704
-#undef data_00477834
+#undef g_player
 #undef data_00477838
 #undef data_0047783c
 #undef data_00476f78
@@ -554,7 +554,7 @@ struct PlayerSchedulerRecord {
 #define data_00474c40 stage_input_data_00474c40
 #define data_004776e0 stage_input_data_004776e0
 #define data_00477704 stage_input_data_00477704
-#define data_00477834 stage_input_data_00477834
+#define g_player stage_input_data_00477834
 #define data_00477838 stage_input_data_00477838
 #define data_0047783c stage_input_data_0047783c
 #define data_00476f78 stage_input_data_00476f78
@@ -594,7 +594,7 @@ __declspec(noinline) void SetInputMode(InputState* state, int mode);
 #undef data_00474c40
 #undef data_004776e0
 #undef data_00477704
-#undef data_00477834
+#undef g_player
 #undef data_00477838
 #undef data_0047783c
 #undef data_00476f78
@@ -606,7 +606,7 @@ __declspec(noinline) void SetInputMode(InputState* state, int mode);
 #define data_00474c40 stage_decay_data_00474c40
 #define data_004776e0 stage_decay_data_004776e0
 #define data_00477704 stage_decay_data_00477704
-#define data_00477834 stage_decay_data_00477834
+#define g_player stage_decay_data_00477834
 #define data_00477838 stage_decay_data_00477838
 #define data_0047783c stage_decay_data_0047783c
 #define data_00476f78 stage_decay_data_00476f78
@@ -660,7 +660,7 @@ __declspec(noinline) void SetInputMode(InputState* state, int mode);
 #undef data_00474c40
 #undef data_004776e0
 #undef data_00477704
-#undef data_00477834
+#undef g_player
 #undef data_00477838
 #undef data_0047783c
 #undef data_00476f78

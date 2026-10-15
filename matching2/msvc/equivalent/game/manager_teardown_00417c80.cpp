@@ -152,7 +152,7 @@ void __stdcall ReleaseGlobalManager_00417c80(ManagerState_00417c80* state) {
             GameState_Destroy_00402440(current_state);
             entry_free_004524a1(current_state);
         }
-        void* pause_menu = data_00477830;
+        void* pause_menu = g_pause_menu;
         if (pause_menu) {
             Manager_Release_00422220(pause_menu);
             entry_free_004524a1(pause_menu);
@@ -162,7 +162,7 @@ void __stdcall ReleaseGlobalManager_00417c80(ManagerState_00417c80* state) {
             ItemManager_Destroy_004145f0(items);
             entry_free_004524a1(items);
         }
-        void* stage = data_00477834;
+        void* stage = g_player;
         if (stage) {
             StageManager_Destroy_00424ed0(stage);
             entry_free_004524a1(stage);
@@ -177,7 +177,7 @@ void __stdcall ReleaseGlobalManager_00417c80(ManagerState_00417c80* state) {
             NativeEffectManager_Destroy_0041adf0(native_effects);
             entry_free_004524a1(native_effects);
         }
-        void* score_extended = data_0047781c;
+        void* score_extended = g_laser_manager;
         if (score_extended) {
             ScoreExtendedObject_DestroyRetail_0041c1c0(score_extended);
             entry_free_004524a1(score_extended);
@@ -205,7 +205,7 @@ void __stdcall ReleaseGlobalManager_00417c80(ManagerState_00417c80* state) {
         }
         data_004776e4 = data_004776e8;
 
-        TaskPairOwner_00417c80* pause = (TaskPairOwner_00417c80*)data_00477830;
+        TaskPairOwner_00417c80* pause = (TaskPairOwner_00417c80*)g_pause_menu;
         if (pause->node_008) pause->node_008->flags_004 &= ~2u;
         if (pause->node_00C) pause->node_00C->flags_004 &= ~2u;
         TaskPairOwner_00417c80* bullet = (TaskPairOwner_00417c80*)data_004776f0;
@@ -236,7 +236,7 @@ void __stdcall ReleaseGlobalManager_00417c80(ManagerState_00417c80* state) {
         BulletManager_Release_0040af00(bullet_release);
         entry_free_004524a1(bullet_release);
     }
-    void* recovery_pair = data_004776ec;
+    void* recovery_pair = g_bomb;
     if (recovery_pair) {
         Recovery_ReleaseRawPairAndReset(recovery_pair);
         entry_free_004524a1(recovery_pair);

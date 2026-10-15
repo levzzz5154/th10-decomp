@@ -15,8 +15,8 @@ int SpriteViewer_0040a940::Update() {
         data_00474e30.Update();
         data_00474e30.new_press = data_00474e30.repeated;
         if (data_00474e30.new_press & 8) {
-            data_00477834->Resume();
-            data_00477834->Reset();
+            g_player->Resume();
+            g_player->Reset();
             data_004776f0->Resume();
             data_004776f0->Reset();
             data_00477704->Resume();
@@ -41,8 +41,8 @@ int SpriteViewer_0040a940::Update() {
                 if (data_00474e30.MaskActive(0x80)) entry_cursor.Advance(1);
                 if (data_00474e30.MaskActive(0x40)) entry_cursor.Advance(-1);
                 if (data_00474e30.pressed & 0x1001) {
-                    data_00477834->SuspendAndStop();
-                    data_00477834->Reset();
+                    g_player->SuspendAndStop();
+                    g_player->Reset();
                     data_004776f0->Suspend();
                     data_004776f0->Reset();
                     data_00477704->SuspendTasks();
@@ -67,9 +67,9 @@ int SpriteViewer_0040a940::Update() {
             if (data_00474e30.Active(0x40)) file_cursor.Advance(-1);
             if (data_00474e30.repeated & 0x1001) {
                 SpriteViewer_Release(data_0047770c);
-                SpriteViewer_Release(data_00477834);
+                SpriteViewer_Release(g_player);
                 SpriteViewer_Release(data_004776f0);
-                SpriteViewer_Release(data_004776ec);
+                SpriteViewer_Release(g_bomb);
                 SpriteViewer_Release(data_00477818);
                 SpriteViewer_Release(data_00477840);
                 SpriteViewer_Release(data_00477704);

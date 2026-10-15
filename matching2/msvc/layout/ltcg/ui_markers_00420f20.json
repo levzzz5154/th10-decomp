@@ -19,7 +19,8 @@
     "include/th10/platform/sound_queue.hpp",
     "include/th10/game/runtime_selector_0043c970.hpp",
     "include/th10/game/scheduler.hpp",
-    "include/th10/game/recovery_mark_text_and_dispatcher_004479d0.hpp"
+    "include/th10/game/recovery_mark_text_and_dispatcher_004479d0.hpp",
+    "include/th10/game/player.hpp"
   ],
   "image_base": "0x00400000",
   "description": "The UI host's worker stop and marker creation entries compiled with native LTCG beside complete models of the animation allocate, register, find and position callees and the worker stop.",

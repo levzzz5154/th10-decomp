@@ -77,7 +77,7 @@ void LineLaserBounce_0041cfd0::Bounce() {
             parameters.angle = Angle_Normalize_0044bc70(-angle - data_00470b18);
             parameters.width = width;
             reflected = 1;
-            parameters.SpawnIn(data_0047781c, 0);
+            parameters.SpawnIn(g_laser_manager, 0);
         }
         if (!(flags & 0x08000000) &&
             (next.y < data_00470b04 ||
@@ -85,7 +85,7 @@ void LineLaserBounce_0041cfd0::Bounce() {
             parameters.angle = -angle;
             parameters.position = next;
             parameters.width = width;
-            parameters.SpawnIn(data_0047781c, 0);
+            parameters.SpawnIn(g_laser_manager, 0);
         } else if (!reflected)
             return;
         flags &= ~0x08000c00u;

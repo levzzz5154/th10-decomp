@@ -54,7 +54,7 @@ extern "C" int __stdcall BulletRuntimeTick(BulletRuntimeState* state) {
         if (state->flags & 2u) {
             int contact = FieldContact004266B0(
                 reinterpret_cast<const ContactVector2*>(&state->position),
-                reinterpret_cast<TriggerFieldContact*>(data_00477834),
+                reinterpret_cast<TriggerFieldContact*>(g_player),
                 reinterpret_cast<const ContactVector2*>(&state->collision_width));
             void* result;
             if (contact == 1) {

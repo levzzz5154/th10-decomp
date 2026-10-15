@@ -136,7 +136,7 @@ void __stdcall Enemy_Release_0040dae0(Enemy_0040dae0* self) {
         ++entry;
     }
 
-    EnemyState_0040dae0* state = *(EnemyState_0040dae0**)&data_00477834;
+    EnemyState_0040dae0* state = *(EnemyState_0040dae0**)&g_player;
     if (state != 0) {
         if (state->enemy == self) {
             state->enemy = 0;

@@ -198,11 +198,6 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00477834",
-      "address": "0x477834",
-      "kind": "data"
-    },
-    {
       "symbol": "_g_player",
       "address": "0x477834",
       "kind": "data"

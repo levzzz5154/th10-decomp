@@ -97,11 +97,11 @@ extern "C" __declspec(noinline) int __stdcall EnemyDataStart_0040dc80(EnemyTick_
 
     // 0x0040E050: swap the animation while the stage covers the enemy.
     if (enemy->flags & ENEMY_SWAPS_SCRIPT) {
-        if (data_004776ec->Covered() && !(enemy->flags & ENEMY_SCRIPT_SWAPPED)) {
+        if (g_bomb->Covered() && !(enemy->flags & ENEMY_SCRIPT_SWAPPED)) {
             enemy->animation_script = enemy->covered_script;
             enemy->animations[0].ChangeScript(enemy->covered_script);
             enemy->flags |= ENEMY_SCRIPT_SWAPPED | ENEMY_NO_HIT;
-        } else if (!data_004776ec->Covered() && (enemy->flags & ENEMY_SCRIPT_SWAPPED)) {
+        } else if (!g_bomb->Covered() && (enemy->flags & ENEMY_SCRIPT_SWAPPED)) {
             enemy->animation_script = enemy->uncovered_script;
             enemy->animations[0].ChangeScript(enemy->uncovered_script);
             enemy->flags &= ~(ENEMY_SCRIPT_SWAPPED | ENEMY_NO_HIT);
@@ -119,8 +119,8 @@ extern "C" __declspec(noinline) int __stdcall EnemyDataStart_0040dc80(EnemyTick_
     enemy->flags &= ~ENEMY_HIT;
     if (!(enemy->flags & (ENEMY_NO_HIT | ENEMY_INTANGIBLE))) {
         int damage = static_cast<Player_0040dc80*>(0)->Sweep(
-            data_00477834, &enemy->final.position, &enemy->hit_size);
-        if (data_00477834->shot_mode == 2 || data_00477834->shot_mode == 0)
+            g_player, &enemy->final.position, &enemy->hit_size);
+        if (g_player->shot_mode == 2 || g_player->shot_mode == 0)
             damage /= 5;
         if (damage != 0) {
             if ((data_004776f4->flags & 1) && (enemy->flags & ENEMY_BOSS)) {
@@ -164,7 +164,7 @@ extern "C" __declspec(noinline) int __stdcall EnemyDataStart_0040dc80(EnemyTick_
 
     // 0x0040E2BD: contact with the player.
     if (!(enemy->flags & (ENEMY_NO_CONTACT | ENEMY_INTANGIBLE)) && enemy->contact_timer.current <= 0)
-        FieldContact_004266b0(&enemy->final.position, data_00477834, &enemy->contact_size);
+        FieldContact_004266b0(&enemy->final.position, g_player, &enemy->contact_size);
 
     // 0x0040E2E4: the turning animations.
     if (enemy->flags & ENEMY_FACES) {
@@ -207,7 +207,7 @@ extern "C" __declspec(noinline) int __stdcall EnemyDataStart_0040dc80(EnemyTick_
     // 0x0040E3DB: offer the enemy to the player's homing shots.
     if (!(enemy->flags & (ENEMY_NO_HIT | ENEMY_INTANGIBLE))
         && !(enemy->flags & (ENEMY_UNSCROLLED | ENEMY_UNTARGETED))) {
-        Player_0040dc80* player = data_00477834;
+        Player_0040dc80* player = g_player;
         if (player->target == 0
             || fabsf(player->target->data.final.position.x - player->x)
                    < fabsf(enemy->final.position.x - player->x)) {

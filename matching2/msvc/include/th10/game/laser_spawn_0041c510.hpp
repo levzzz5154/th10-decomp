@@ -134,6 +134,6 @@ struct LaserSpawnParameters_0041c510 {
     __declspec(noinline) int SpawnIn(LaserManager_0041c510* manager, int kind) const;
 };
 
-extern "C" LaserManager_0041c510* data_0047781c;
+extern "C" LaserManager_0041c510* g_laser_manager;
 
 #endif

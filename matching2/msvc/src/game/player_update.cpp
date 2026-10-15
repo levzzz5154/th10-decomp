@@ -69,7 +69,7 @@ extern "C" __declspec(noinline) int __stdcall Player_Update(Player* player) {
         head->y = player->fixed_position.y;
         if (player->state_timer.current >= 30) {
             ActivatePlayerCollisions(true);
-            for (Laser* laser = data_0047781c->first; laser;) {
+            for (Laser* laser = g_laser_manager->first; laser;) {
                 Laser* next = laser->next;
                 if (laser->state != 1) laser->Retire(0);
                 laser = next;
@@ -78,7 +78,7 @@ extern "C" __declspec(noinline) int __stdcall Player_Update(Player* player) {
             float radius = float(player->state_timer.current) * (512.0f / 30.0f) + 64.0f;
             data_004776f0->Check(&player->death_position, radius, 0, 1);
             data_004776f0->Check(&player->death_position, radius * 0.25f, 0, 0);
-            data_0047781c->Evaluate(&player->death_position, radius, 0);
+            g_laser_manager->Evaluate(&player->death_position, radius, 0);
         }
         if (player->state_timer.current < 60) break;
         player->state = PLAYER_ALIVE;
@@ -86,11 +86,11 @@ extern "C" __declspec(noinline) int __stdcall Player_Update(Player* player) {
         // The actual entry transition continues directly into the live state.
     }
     case PLAYER_ALIVE:
-        if (data_0047770c && !data_0047770c->script && data_004776ec &&
-                !data_004776ec->active && static_cast<short>(data_00474c40.power / 20) != 0 &&
-                data_00474e5c.revive) {
+        if (data_0047770c && !data_0047770c->script && g_bomb &&
+                !g_bomb->active && static_cast<short>(data_00474c40.power / 20) != 0 &&
+                g_input.revive) {
             reinterpret_cast<PlayerSchedulerRecord*>(&player->invulnerability_timer)->SetSchedulerValue(270);
-            Bomb_Start(data_004776ec);
+            Bomb_Start(g_bomb);
             data_00474c40.power -= 20;
             Player_RefreshOptions(player);
             {
@@ -101,7 +101,7 @@ extern "C" __declspec(noinline) int __stdcall Player_Update(Player* player) {
         }
         if (player->state_timer.current < 30) {
             ActivatePlayerCollisions(true);
-            for (Laser* laser = data_0047781c->first; laser;) {
+            for (Laser* laser = g_laser_manager->first; laser;) {
                 Laser* next = laser->next;
                 if (laser->state != 1) laser->Retire(0);
                 laser = next;
@@ -114,11 +114,11 @@ extern "C" __declspec(noinline) int __stdcall Player_Update(Player* player) {
             Player_Die(player);
             // Once contact has been updated, state 4 shares the full death path.
         } else {
-            if (data_004776ec && !data_004776ec->active &&
-                    static_cast<short>(data_00474c40.power / 20) != 0 && data_00474e5c.revive) {
+            if (g_bomb && !g_bomb->active &&
+                    static_cast<short>(data_00474c40.power / 20) != 0 && g_input.revive) {
                 reinterpret_cast<PlayerSchedulerRecord*>(&player->state_timer)->SetSchedulerValue(60);
                 reinterpret_cast<PlayerSchedulerRecord*>(&player->invulnerability_timer)->SetSchedulerValue(200);
-                Bomb_Start(data_004776ec);
+                Bomb_Start(g_bomb);
                 data_00474c40.power -= 20;
                 Player_RefreshOptions(player);
                 {
@@ -148,7 +148,7 @@ extern "C" __declspec(noinline) int __stdcall Player_Update(Player* player) {
         }
         if (player->state_timer.current >= 30) {
             if (data_00474c40.lives < 0) {
-                if (data_00477838->mode != 1) data_00477830->OpenPause();
+                if (data_00477838->mode != 1) g_pause_menu->OpenPause();
                 else data_00491c28.Set(4);
             } else {
                 player->state = PLAYER_RESPAWNING;
@@ -167,7 +167,7 @@ extern "C" __declspec(noinline) int __stdcall Player_Update(Player* player) {
     case PLAYER_STATE_3:
         if (player->state_timer.current != 4 && player->state_timer.current == 15) {
             ActivatePlayerCollisions(false);
-            data_0047781c->Reset(1);
+            g_laser_manager->Reset(1);
         }
         break;
     }

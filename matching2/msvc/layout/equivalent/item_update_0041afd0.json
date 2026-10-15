@@ -33,7 +33,7 @@
       "address": "0x00474C48",
       "kind": "data"
     },
-    "_data_00474e5c": {
+    "_g_input": {
       "address": "0x00474E5C",
       "kind": "data"
     },
@@ -45,7 +45,7 @@
       "address": "0x00476F78",
       "kind": "data"
     },
-    "_data_004776ec": {
+    "_g_bomb": {
       "address": "0x004776EC",
       "kind": "data"
     },
@@ -61,11 +61,11 @@
       "address": "0x00477818",
       "kind": "data"
     },
-    "_data_0047781c": {
+    "_g_laser_manager": {
       "address": "0x0047781C",
       "kind": "data"
     },
-    "_data_00477834": {
+    "_g_player": {
       "address": "0x00477834",
       "kind": "data"
     },

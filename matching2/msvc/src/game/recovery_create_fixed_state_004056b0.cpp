@@ -26,7 +26,7 @@ struct RawPair_004056b0 {
     unsigned char pad_028[0x20];
 };
 
-extern "C" void *data_004776ec;
+extern "C" void *g_bomb;
 extern "C" void __cdecl entry_free_004524a1(void *block);
 extern "C" int __stdcall asm_Recovery_InstallPairSetFlags_004055c0(
         RawPair_004056b0 *pair);
@@ -43,7 +43,7 @@ extern "C" __declspec(noinline) void *__cdecl asm_Recovery_CreateFixedState_0040
         *owned &= ~1u;
         memset(fresh, 0, sizeof(RawPair_004056b0));
         fresh->flags_000 |= 2u;
-        data_004776ec = fresh;
+        g_bomb = fresh;
         state = fresh;
     } else {
         state = 0;

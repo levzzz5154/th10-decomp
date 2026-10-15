@@ -113,7 +113,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00414900_00414900() {
     L_0041499f:
         test byte ptr [edi+9EB4h],1
     L_004149a6:
-        mov ecx,dword ptr [data_00477834]
+        mov ecx,dword ptr [g_player]
     L_004149ac:
         TH10_REL8(0x75, 0x004149ac, VA_asm_target_00414a08)
     L_004149ae:
@@ -335,7 +335,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00414900_00414900() {
     L_00414b53:
         test byte ptr [edi+9EB4h],8
     L_00414b5a:
-        mov ecx,dword ptr [data_00477834]
+        mov ecx,dword ptr [g_player]
     L_00414b60:
         mov esi,dword ptr [data_00491c10]
     L_00414b66:
@@ -2085,7 +2085,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00414900_00414900() {
     L_004156e0:
         fadd dword ptr [data_00470b4c]
     L_004156e6:
-        mov ecx,dword ptr [data_00477834]
+        mov ecx,dword ptr [g_player]
     L_004156ec:
         mov dword ptr [edi+9D8Ch],43F00000h
     L_004156f6:

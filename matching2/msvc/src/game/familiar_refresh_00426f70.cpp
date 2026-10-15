@@ -11,7 +11,7 @@
 // The per-count schedule base table, the shot schedule owner (orbit bases),
 // the shared half scaler of the schedule offsets and the animation manager.
 extern "C" const int data_00476f7c[];
-extern "C" void* data_00477834;
+extern "C" void* g_player;
 extern "C" float data_00470b44;
 extern "C" void* data_00491c10;
 
@@ -218,7 +218,7 @@ extern "C" __declspec(noinline) void __stdcall PlayerFamiliarRefresh_00426f70(
                 ScaleOffset(&player->familiars[i].focused,
                             &player->offsets->focused[data_00476f7c[desired] + i]);
                 const int* orbit_base =
-                    (const int*)((const char*)data_00477834 + 0x43AC) + i * 16;
+                    (const int*)((const char*)g_player + 0x43AC) + i * 16;
                 player->familiars[i].position.x = orbit_base[0];
                 player->familiars[i].position.y = orbit_base[1];
                 if (player->alternate && player->familiars[i].state == 0) {

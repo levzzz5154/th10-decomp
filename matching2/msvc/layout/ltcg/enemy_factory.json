@@ -284,7 +284,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_004776ec",
+      "symbol": "_g_bomb",
       "address": "0x004776EC",
       "kind": "data"
     },
@@ -299,7 +299,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_0047781c",
+      "symbol": "_g_laser_manager",
       "address": "0x0047781C",
       "kind": "data"
     },
@@ -389,7 +389,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00477830",
+      "symbol": "_g_pause_menu",
       "address": "0x00477830",
       "kind": "data"
     },

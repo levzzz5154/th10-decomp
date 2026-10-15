@@ -3,7 +3,7 @@
 #define data_00474c40 stage_marker_data_00474c40
 #define data_004776e0 stage_marker_data_004776e0
 #define data_00477704 stage_marker_data_00477704
-#define data_00477834 stage_marker_data_00477834
+#define g_player stage_marker_data_00477834
 #define data_00477838 stage_marker_data_00477838
 #define data_0047783c stage_marker_data_0047783c
 #define data_00476f78 stage_marker_data_00476f78
@@ -47,7 +47,7 @@ __declspec(noinline) void AnimationManager::MarkResourceForRemoval(void* resourc
 #undef data_00474c40
 #undef data_004776e0
 #undef data_00477704
-#undef data_00477834
+#undef g_player
 #undef data_00477838
 #undef data_0047783c
 #undef data_00476f78

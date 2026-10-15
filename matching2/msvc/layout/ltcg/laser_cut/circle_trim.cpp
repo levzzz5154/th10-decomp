@@ -32,7 +32,7 @@ int TrimLaser::TrimCircle(const CutVector* center,float radius,int spawn_items) 
      data_00477818->Spawn(&point,8,-1,-1.5707963705062866f,0.6f);
     }
     int index=parameters.script*2+17;
-    void* resource=static_cast<CutAnimationBank*>(data_0047781c)->line_animation;
+    void* resource=static_cast<CutAnimationBank*>(g_laser_manager)->line_animation;
     Entity* object=static_cast<AnimationPool*>(data_00491c10)->Allocate();
     unsigned int flags=object->flags_35C;
     object->flags_35C=flags|0x40000000u;
@@ -84,7 +84,7 @@ int TrimLaser::TrimCircle(const CutVector* center,float radius,int spawn_items) 
    params.length=run_length;
    if (run_length>18.0f) {
     params.position=origin+step*static_cast<float>(start);
-    params.SpawnIn(data_0047781c,0);
+    params.SpawnIn(g_laser_manager,0);
    }
   }
  }

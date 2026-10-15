@@ -11,7 +11,7 @@ extern "C" void __fastcall Scheduler_Remove(SchedulerTask* task, Scheduler* sche
 extern "C" unsigned char data_00492274;
 extern "C" unsigned char data_0049231c;
 extern "C" unsigned char data_00491be4;
-extern "C" unsigned char data_004776ec;
+extern "C" unsigned char g_bomb;
 
 struct RecoveryRawPair {
     unsigned char unknown_00[0x8];
@@ -40,5 +40,5 @@ void __stdcall LabRecovery(RecoveryRawPair* pair) {
         leave(&data_00492274);
         --data_0049231c;
     }
-    *(unsigned int*)&data_004776ec = 0;
+    *(unsigned int*)&g_bomb = 0;
 }

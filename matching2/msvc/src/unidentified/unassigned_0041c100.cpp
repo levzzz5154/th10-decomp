@@ -6,7 +6,7 @@ struct ScoreManager_0041c100 {
 };
 
 ScoreObject* __fastcall ScoreObject_Initialize(void*, ScoreObject* self);
-extern "C" ScoreManager_0041c100* data_0047781c;
+extern "C" ScoreManager_0041c100* g_laser_manager;
 
 __declspec(noinline) ScoreManager_0041c100* InitializeManager_0041c100(
         ScoreManager_0041c100* manager);
@@ -15,7 +15,7 @@ __declspec(noinline) ScoreManager_0041c100* InitializeManager_0041c100(
         ScoreManager_0041c100* manager) {
     ScoreObject_Initialize(0, reinterpret_cast<ScoreObject*>(manager->bytes + 0x10));
     memset(manager, 0, sizeof(*manager));
-    data_0047781c = manager;
+    g_laser_manager = manager;
     return manager;
 }
 #pragma code_seg()

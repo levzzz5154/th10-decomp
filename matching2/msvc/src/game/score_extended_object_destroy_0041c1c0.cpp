@@ -21,7 +21,7 @@ struct ScoreExtendedObject_0041c1c0 {
     ScoreEntry_0041c1c0* entries;         // +0x18
 };
 
-extern "C" void* data_0047781c;
+extern "C" void* g_laser_manager;
 
 #pragma code_seg(".text$00gascoredisplayzd")
 extern "C" __declspec(noinline) void __stdcall ScoreExtendedObject_DestroyRetail(
@@ -37,6 +37,6 @@ extern "C" __declspec(noinline) void __stdcall ScoreExtendedObject_DestroyRetail
         operator delete(entry);
         entry = next;
     }
-    data_0047781c = 0;
+    g_laser_manager = 0;
 }
 #pragma code_seg()

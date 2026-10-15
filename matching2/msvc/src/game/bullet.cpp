@@ -655,7 +655,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0040dc80_0040dc80() {
     L_0040e05c:
         je asm_target_0040e0e9
     L_0040e062:
-        mov eax,dword ptr [data_004776ec]
+        mov eax,dword ptr [g_bomb]
     L_0040e067:
         mov eax,dword ptr [eax+28h]
     L_0040e06a:
@@ -763,7 +763,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0040dc80_0040dc80() {
     L_0040e122:
         jne asm_target_0040e275
     L_0040e128:
-        mov edx,dword ptr [data_00477834]
+        mov edx,dword ptr [g_player]
     L_0040e12e:
         lea ecx,[ebp+0B0h]
     L_0040e134:
@@ -781,7 +781,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0040dc80_0040dc80() {
     L_0040e141:
         mov ecx,eax
     L_0040e143:
-        mov eax,dword ptr [data_00477834]
+        mov eax,dword ptr [g_player]
     L_0040e148:
         mov eax,dword ptr [eax+458h]
     L_0040e14e:
@@ -995,7 +995,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0040dc80_0040dc80() {
     L_0040e2ce:
         jg short L_0040e2e4
     L_0040e2d0:
-        mov edx,dword ptr [data_00477834]
+        mov edx,dword ptr [g_player]
     L_0040e2d6:
         lea eax,[ebp+0B8h]
     L_0040e2dc:
@@ -1169,7 +1169,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0040dc80_0040dc80() {
     L_0040e3ea:
         jne short L_0040e43e
     L_0040e3ec:
-        mov ecx,dword ptr [data_00477834]
+        mov ecx,dword ptr [g_player]
     L_0040e3f2:
         mov eax,dword ptr [ecx+3504h]
     L_0040e3f8:

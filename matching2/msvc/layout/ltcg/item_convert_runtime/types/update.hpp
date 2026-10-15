@@ -78,10 +78,10 @@ struct ItemFloatingTextPool {
 extern "C" {
 extern ItemRunState data_00474c40;
 extern ItemHud* data_0047770c;
-extern ItemCollector* data_00477834;
+extern ItemCollector* g_player;
 extern ItemFloatingTextPool* data_00477840;
-extern ItemCollectionBlocker* data_004776ec;
-extern unsigned int data_00474e5c;
+extern ItemCollectionBlocker* g_bomb;
+extern unsigned int g_input;
 extern float data_00476f78;
 extern float data_00470b04, data_00470b94, data_00470bf4, data_00470cdc;
 extern float data_00470b08, data_00470be0, data_00470cd8, data_00470c38;

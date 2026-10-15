@@ -2815,7 +2815,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0040e770_0040e770() {
     L_0040faf6:
         fld dword ptr [ebx+2Ch]
     L_0040faf9:
-        mov edx,dword ptr [data_00477834]
+        mov edx,dword ptr [g_player]
     L_0040faff:
         fcomp dword ptr [edx+3C0h]
     L_0040fb05:
@@ -3937,7 +3937,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0040e770_0040e770() {
     L_00410279:
         jnp short L_004102b2
     L_0041027b:
-        mov eax,dword ptr [data_00477834]
+        mov eax,dword ptr [g_player]
     L_00410280:
         fld dword ptr [ecx+4]
     L_00410283:
@@ -5471,7 +5471,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0040e770_0040e770() {
     L_00410d19:
         call asm_FUN_00408210_00408210
     L_00410d1e:
-        mov eax,dword ptr [data_0047781c]
+        mov eax,dword ptr [g_laser_manager]
     L_00410d23:
         mov ebx,1
     L_00410d28:
@@ -5609,7 +5609,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0040e770_0040e770() {
     L_00410de8:
         call asm_FUN_00408210_00408210
     L_00410ded:
-        mov eax,dword ptr [data_0047781c]
+        mov eax,dword ptr [g_laser_manager]
     L_00410df2:
         xor ebx,ebx
     L_00410df4:
@@ -6085,7 +6085,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0040e770_0040e770() {
     L_0041110b:
         mov ecx,dword ptr [esp+78h]
     L_0041110f:
-        mov esi,dword ptr [data_0047781c]
+        mov esi,dword ptr [g_laser_manager]
     L_00411115:
         or ecx,1
     L_00411118:
@@ -6285,7 +6285,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0040e770_0040e770() {
     L_004112ae:
         call asm_ECL_ResolveIntOperand_0044fdb0
     L_004112b3:
-        mov esi,dword ptr [data_0047781c]
+        mov esi,dword ptr [g_laser_manager]
     L_004112b9:
         or eax,2
     L_004112bc:
@@ -6455,7 +6455,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0040e770_0040e770() {
     L_00411404:
         mov ecx,dword ptr [esp+78h]
     L_00411408:
-        mov esi,dword ptr [data_0047781c]
+        mov esi,dword ptr [g_laser_manager]
     L_0041140e:
         and ecx,0FFFFFFFEh
     L_00411411:
@@ -6635,7 +6635,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0040e770_0040e770() {
     L_0041157f:
         call asm_ECL_ResolveIntFromEntity_00412a00
     L_00411584:
-        mov esi,dword ptr [data_0047781c]
+        mov esi,dword ptr [g_laser_manager]
     L_0041158a:
         and eax,0FFFFFFFDh
     L_0041158d:
@@ -6683,7 +6683,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0040e770_0040e770() {
     L_004115cd:
         mov ecx,eax
     L_004115cf:
-        mov eax,dword ptr [data_0047781c]
+        mov eax,dword ptr [g_laser_manager]
     L_004115d4:
         call asm_BulletEntity_FindById_0040cf90
     L_004115d9:
@@ -6761,7 +6761,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0040e770_0040e770() {
     L_00411656:
         mov ecx,eax
     L_00411658:
-        mov eax,dword ptr [data_0047781c]
+        mov eax,dword ptr [g_laser_manager]
     L_0041165d:
         call asm_BulletEntity_FindById_0040cf90
     L_00411662:
@@ -6831,7 +6831,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0040e770_0040e770() {
     L_004116d5:
         mov ecx,eax
     L_004116d7:
-        mov eax,dword ptr [data_0047781c]
+        mov eax,dword ptr [g_laser_manager]
     L_004116dc:
         call asm_BulletEntity_FindById_0040cf90
     L_004116e1:
@@ -6879,7 +6879,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0040e770_0040e770() {
     L_00411721:
         mov ecx,eax
     L_00411723:
-        mov eax,dword ptr [data_0047781c]
+        mov eax,dword ptr [g_laser_manager]
     L_00411728:
         call asm_BulletEntity_FindById_0040cf90
     L_0041172d:
@@ -6927,7 +6927,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0040e770_0040e770() {
     L_0041176d:
         mov ecx,eax
     L_0041176f:
-        mov eax,dword ptr [data_0047781c]
+        mov eax,dword ptr [g_laser_manager]
     L_00411774:
         call asm_BulletEntity_FindById_0040cf90
     L_00411779:
@@ -6975,7 +6975,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0040e770_0040e770() {
     L_004117b9:
         mov ecx,eax
     L_004117bb:
-        mov eax,dword ptr [data_0047781c]
+        mov eax,dword ptr [g_laser_manager]
     L_004117c0:
         call asm_BulletEntity_FindById_0040cf90
     L_004117c5:
@@ -7037,7 +7037,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0040e770_0040e770() {
     L_0041181e:
         call asm_FUN_00408100_00408100
     L_00411823:
-        mov eax,dword ptr [data_0047781c]
+        mov eax,dword ptr [g_laser_manager]
     L_00411828:
         push 1
     L_0041182a:
@@ -7087,7 +7087,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0040e770_0040e770() {
     L_00411866:
         call asm_FUN_00408100_00408100
     L_0041186b:
-        mov eax,dword ptr [data_0047781c]
+        mov eax,dword ptr [g_laser_manager]
     L_00411870:
         push 0
     L_00411872:
@@ -7635,7 +7635,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0040e770_0040e770() {
     L_00411baf:
         ret
     L_00411bb0:
-        mov eax,dword ptr [data_0047781c]
+        mov eax,dword ptr [g_laser_manager]
     L_00411bb5:
         call asm_ScoreRecords_MarkEligible_0041c7d0
     L_00411bba:
@@ -7741,7 +7741,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0040e770_0040e770() {
     L_00411c59:
         ret
     L_00411c5a:
-        mov esi,dword ptr [data_00477834]
+        mov esi,dword ptr [g_player]
     L_00411c60:
         mov eax,dword ptr [edx+4]
     L_00411c63:
@@ -7755,7 +7755,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0040e770_0040e770() {
     L_00411c77:
         mov eax,dword ptr [ebx+14D8h]
     L_00411c7d:
-        mov edi,dword ptr [data_00477834]
+        mov edi,dword ptr [g_player]
     L_00411c83:
         mov eax,dword ptr [eax+4]
     L_00411c86:

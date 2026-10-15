@@ -32,7 +32,7 @@ typedef char RawManager_0041c290_size_must_be_45c[
 void *__cdecl operator new(unsigned int size);
 extern "C" void *__cdecl memset(void *destination, int value, unsigned int size);
 extern "C" void __cdecl entry_free_004524a1(void *block);
-extern "C" RawManager_0041c290 *data_0047781c;
+extern "C" RawManager_0041c290 *g_laser_manager;
 ScoreObject *__fastcall ScoreObject_Initialize(void *, ScoreObject *self);
 extern "C" int __stdcall asm_ScoreDisplay_RegisterTasksRetail_0041c120(
         RawManager_0041c290 *manager);
@@ -49,7 +49,7 @@ asm_ScoreManager_CreateAndInitRetail_0041c290(void) {
     if (fresh) {
         ScoreObject_Initialize(0, (ScoreObject *)fresh->score_010);
         memset(fresh, 0, sizeof(RawManager_0041c290));
-        data_0047781c = fresh;
+        g_laser_manager = fresh;
         manager = fresh;
     } else {
         manager = 0;

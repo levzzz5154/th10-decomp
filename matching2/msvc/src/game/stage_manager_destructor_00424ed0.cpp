@@ -23,7 +23,7 @@ typedef char StageDataOffset_00424ed0[offsetof(StageManager_00424ed0, stage_data
 
 extern "C" {
 extern unsigned int data_00474ca0;
-extern StageManager_00424ed0* data_00477834;
+extern StageManager_00424ed0* g_player;
 extern void* data_00491bf0;
 extern AnimationBanks_00402440* data_00491c10;
 }
@@ -31,7 +31,7 @@ extern AnimationBanks_00402440* data_00491c10;
 StageManager_00424ed0::~StageManager_00424ed0() {
     RemoveSchedulerTask(update_task);
     RemoveSchedulerTask(draw_task);
-    data_00477834 = 0;
+    g_player = 0;
     if (data_00474ca0 & 1) {
         reinterpret_cast<AnimationManager*>(data_00491c10)->MarkResourceForRemoval(animation_resource);
         data_00491bf0 = stage_data;

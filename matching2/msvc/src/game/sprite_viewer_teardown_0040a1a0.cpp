@@ -72,10 +72,10 @@ SpriteViewer_0040a940::~SpriteViewer_0040a940() {
         --g_thread_synchronization.scheduler_lock_depth;
     }
     SpriteViewer_DeleteOwned(data_0047770c);
-    SpriteViewer_DeleteOwned(data_00477834);
+    SpriteViewer_DeleteOwned(g_player);
     SpriteViewer_DeleteOwned(data_004776f0);
     SpriteViewer_DeleteOwned(data_00477704);
-    SpriteViewer_DeleteOwned(data_004776ec);
+    SpriteViewer_DeleteOwned(g_bomb);
     SpriteViewer_DeleteOwned(data_00477818);
     SpriteViewer_DeleteOwned(data_00477840);
     data_004776f8 = 0;

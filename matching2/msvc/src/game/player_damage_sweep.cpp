@@ -63,7 +63,7 @@ int PlayerDamage::Sweep(Player* player, const PickupPoint* center,
                                      0x42000000u,0x3fb33333u,13,indicator_value);
         }
     }
-    total += data_004776ec->HitTest(center);
+    total += g_bomb->HitTest(center);
     PlayerDamageSource* circle = player->damage_sources;
     PlayerDamageSource* table = circle;
     for (int index = 0; index < 32; ++circle, ++index) {

@@ -14,9 +14,9 @@ Float3 g_camera_offset_00491d7c;
 RngState g_effect_rng_004918b0;
 EnemyManager* data_00477704;
 BulletManager* data_004776f0;
-LaserManager* data_0047781c;
+LaserManager* g_laser_manager;
 Gui* data_0047770c;
-Player* data_00477834;
+Player* g_player;
 SpellCard* data_004776f4;
 RenderStageState data_00491c28;
 unsigned char data_00491e48[64], data_00491e08[64], data_00491dc8[64], data_00474df0[24];
@@ -375,8 +375,8 @@ void __stdcall Drops_Flush_0040c9a0(const Float3* position, ItemDrops* drops) {
 
 // ---- bullets, lasers ----
 int Shooter::Shoot_004073e0(BulletManager* manager) {
-    float dx = data_00477834->position.x - position.x;
-    float dy = data_00477834->position.y - position.y;
+    float dx = g_player->position.x - position.x;
+    float dy = g_player->position.y - position.y;
     float angle;
     if (dy == 0.0f && dx == 0.0f) angle = 1.5707964f;
     else angle = (float)atan2(dy, dx);
@@ -386,7 +386,7 @@ int Shooter::Shoot_004073e0(BulletManager* manager) {
         }
     }
 done:
-    if (flags & 0x400) ((RigCamera*)data_00477834)->Apply();
+    if (flags & 0x400) ((RigCamera*)g_player)->Apply();
     if (flags & 0x200) data_00492590.QueuePan_0043dd10(sound, position.x);
     return 0;
 }

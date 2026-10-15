@@ -52,9 +52,9 @@ struct PlayerSchedulerRecord {
 struct PlayerPracticeState { unsigned char reserved_00[0x10]; int mode; };
 extern "C" {
 extern PlayerCollisionEngine* data_004776f0;
-extern LaserManager* data_0047781c;
+extern LaserManager* g_laser_manager;
 extern PlayerItemManager* data_00477818;
-extern PauseOpenState* data_00477830;
+extern PauseOpenState* g_pause_menu;
 extern PlayerPracticeState* data_00477838;
 extern PlayerInputMode data_00491c28;
 __declspec(noinline) int __stdcall Bomb_Start(Bomb* player);

@@ -221,7 +221,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00417c80_00417c80() {
     L_00417e13:
         add esp,4
     L_00417e16:
-        mov esi,dword ptr [data_00477830]
+        mov esi,dword ptr [g_pause_menu]
     L_00417e1c:
         test esi,esi
     L_00417e1e:
@@ -253,7 +253,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00417c80_00417c80() {
     L_00417e45:
         add esp,4
     L_00417e48:
-        mov esi,dword ptr [data_00477834]
+        mov esi,dword ptr [g_player]
     L_00417e4e:
         test esi,esi
     L_00417e50:
@@ -301,7 +301,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00417c80_00417c80() {
     L_00417e90:
         add esp,4
     L_00417e93:
-        mov esi,dword ptr [data_0047781c]
+        mov esi,dword ptr [g_laser_manager]
     L_00417e99:
         test esi,esi
     L_00417e9b:
@@ -375,7 +375,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00417c80_00417c80() {
     L_00417f10:
         mov dword ptr [data_004776e4],eax
     L_00417f15:
-        mov eax,dword ptr [data_00477830]
+        mov eax,dword ptr [g_pause_menu]
     L_00417f1a:
         mov ecx,dword ptr [eax+8]
     L_00417f1d:
@@ -491,7 +491,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00417c80_00417c80() {
     L_00417fc7:
         add esp,4
     L_00417fca:
-        mov esi,dword ptr [data_004776ec]
+        mov esi,dword ptr [g_bomb]
     L_00417fd0:
         test esi,esi
     L_00417fd2:

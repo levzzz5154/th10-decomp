@@ -201,7 +201,7 @@ __declspec(noinline) int __stdcall FrontHudUpdate_00414900(
         }
     }
     if ((front->flags_9eb4 & 1) == 0) {
-        PlayState_00477834* play = (PlayState_00477834*)data_00477834;
+        PlayState_00477834* play = (PlayState_00477834*)g_player;
         if (play != 0 && play->field_3C4 > data_00470bdc &&
             play->field_3C0 < data_00470d10) {
             FrontHudRuntime::BankObject* obj = &front->objects[15];
@@ -212,7 +212,7 @@ __declspec(noinline) int __stdcall FrontHudUpdate_00414900(
             front->flags_9eb4 |= 1;
         }
     } else {
-        PlayState_00477834* play = (PlayState_00477834*)data_00477834;
+        PlayState_00477834* play = (PlayState_00477834*)g_player;
         if (play != 0 &&
             (play->field_3C4 < data_00470d08 || data_00470d00 < play->field_3C0)) {
             FrontHudRuntime::BankObject* obj = &front->objects[15];
@@ -253,7 +253,7 @@ __declspec(noinline) int __stdcall FrontHudUpdate_00414900(
         if (front->gauge_disp_9e84 > ratio) {
             front->gauge_disp_9e84 = ratio;
         }
-        PlayState_00477834* play = (PlayState_00477834*)data_00477834;
+        PlayState_00477834* play = (PlayState_00477834*)g_player;
         if ((front->flags_9eb4 & 8) == 0) {
             if (play->field_3C4 <= data_00470bc8 && play->field_3C0 < data_00470b5c) {
                 int count = front->boss_id_count_9e90;
@@ -477,7 +477,7 @@ __declspec(noinline) int __stdcall FrontHudUpdate_00414900(
                     front->objects[22].height_344 = 480.0f;
                     front->objects[22].y_340 = body->boss_y_1068 + data_00470b4c;
                     float offset =
-                        body->boss_y_1068 - ((PlayState_00477834*)data_00477834)->field_3C0;
+                        body->boss_y_1068 - ((PlayState_00477834*)g_player)->field_3C0;
                     if (fabs(offset) < data_00470cf0) {
                         front->objects[22].alpha_2ff =
                             (unsigned char)(0x40 - (int)(fabs(offset) * data_00470ce8));

@@ -80,7 +80,7 @@ struct PlayerDamage {
     __declspec(noinline) int Sweep(Player*, const PickupPoint*, const PickupPoint*);
 };
 extern "C" {
-extern Bomb* data_004776ec;
+extern Bomb* g_bomb;
 extern PickupGameState* data_004776f4;
 extern PickupConfig* data_00477704;
 extern int data_00474c68, data_00474c44;

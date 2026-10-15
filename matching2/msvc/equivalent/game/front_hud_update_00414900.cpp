@@ -201,7 +201,7 @@ __declspec(noinline) int __stdcall FrontHudUpdate_00414900(
         }
     }
     if ((front->flags_9eb4 & 1) == 0) {
-        PlayState_00477834* play = (PlayState_00477834*)data_00477834;
+        PlayState_00477834* play = (PlayState_00477834*)g_player;
         if (play != 0 && play->field_3C4 > data_00470bdc &&
             play->field_3C0 < data_00470d10) {
             FrontHudRuntime::BankObject* obj = &front->objects[15];
@@ -212,7 +212,7 @@ __declspec(noinline) int __stdcall FrontHudUpdate_00414900(
             front->flags_9eb4 |= 1;
         }
     } else {
-        PlayState_00477834* play = (PlayState_00477834*)data_00477834;
+        PlayState_00477834* play = (PlayState_00477834*)g_player;
         if (play != 0 &&
             (play->field_3C4 < data_00470d08 || data_00470d00 < play->field_3C0)) {
             FrontHudRuntime::BankObject* obj = &front->objects[15];
@@ -252,7 +252,7 @@ __declspec(noinline) int __stdcall FrontHudUpdate_00414900(
         if (front->gauge_disp_9e84 > front->gauge_ratio_9e88) {
             *(int*)&front->gauge_disp_9e84 = *(int*)&front->gauge_ratio_9e88;
         }
-        PlayState_00477834* play = (PlayState_00477834*)data_00477834;
+        PlayState_00477834* play = (PlayState_00477834*)g_player;
         if (front->flags_9eb4 & 8) {
             if (play->field_3C4 >= data_00470c28 || play->field_3C0 > data_00470b04) {
                 for (int i = 0; i < front->boss_id_count_9e90; ++i) {
@@ -479,7 +479,7 @@ __declspec(noinline) int __stdcall FrontHudUpdate_00414900(
                 front->objects[22].height_344 = 480.0f;
                 front->objects[22].y_340 = body->boss_y_1068 + data_00470b4c;
                 float offset = (float)fabs(
-                    body->boss_y_1068 - ((PlayState_00477834*)data_00477834)->field_3C0);
+                    body->boss_y_1068 - ((PlayState_00477834*)g_player)->field_3C0);
                 if (offset >= data_00470cf0) {
                     front->objects[22].alpha_2ff = 0xFF;
                 } else {

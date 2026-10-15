@@ -189,7 +189,7 @@
       "address": "0x004776E4",
       "kind": "data"
     },
-    "_data_00477830": {
+    "_g_pause_menu": {
       "address": "0x00477830",
       "kind": "data"
     },
@@ -197,7 +197,7 @@
       "address": "0x0047770C",
       "kind": "data"
     },
-    "_data_00477834": {
+    "_g_player": {
       "address": "0x00477834",
       "kind": "data"
     },
@@ -209,7 +209,7 @@
       "address": "0x00477818",
       "kind": "data"
     },
-    "_data_0047781c": {
+    "_g_laser_manager": {
       "address": "0x0047781C",
       "kind": "data"
     },
@@ -233,7 +233,7 @@
       "address": "0x004776FC",
       "kind": "data"
     },
-    "_data_004776ec": {
+    "_g_bomb": {
       "address": "0x004776EC",
       "kind": "data"
     },

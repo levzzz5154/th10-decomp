@@ -34,7 +34,7 @@ __declspec(noinline) int LineEffectSweep_0041e260::CreateSegmentsInBounds(int sp
             if (!(animation_y <= data_00470b04) &&
                 !(point.y - 16.0f >= 448.0f)) {
                 int script = script_in_bounds * 2 + 17;
-                void* resource = data_0047781c->line_animation;
+                void* resource = g_laser_manager->line_animation;
                 Entity* animation = static_cast<AnimationPool*>(data_00491c10)->Allocate();
                 unsigned int flags = animation->flags_35C;
                 animation->flags_35C = flags | 0x40000000u;

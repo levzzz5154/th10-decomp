@@ -81,18 +81,18 @@ extern void* data_00474c80;
 extern void* data_004776e8;
 extern void* data_004776e4;
 // The pause-menu manager (released by 0x00422220).
-extern void* data_00477830;
+extern void* g_pause_menu;
 // The side panel / item manager object.
 extern SidePanel_00414570* data_0047770c;
 // The stage manager (destroyed by 0x00424ED0).
-extern void* data_00477834;
+extern void* g_player;
 // The bullet manager (destroyed by 0x00405F70).
 extern void* data_004776f0;
 // The native effect manager (destroyed by 0x0041ADF0); its element storage
 // at +0x14 is wiped on the replay path.
 extern void* data_00477818;
 // The score-extended object (released by 0x0041C1C0).
-extern void* data_0047781c;
+extern void* g_laser_manager;
 // The resource state (released by 0x00418EE0).
 extern void* data_00477814;
 // The effect manager (destroyed by 0x0042B570).
@@ -104,7 +104,7 @@ extern struct EnemyManager_0040d530* data_00477704;
 // The bullet-manager release (0x0040AF00).
 extern void* data_004776fc;
 // The recovery pair state (released by 0x00405620).
-extern void* data_004776ec;
+extern void* g_bomb;
 // The player manager (destroyed by 0x00408AF0).
 extern void* data_004776f4;
 // The one scheduler both removals go through.

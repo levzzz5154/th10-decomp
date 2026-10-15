@@ -391,7 +391,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_0047781c",
+      "symbol": "_g_laser_manager",
       "address": "0x0047781C",
       "kind": "data"
     },
@@ -441,7 +441,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00477834",
+      "symbol": "_g_player",
       "address": "0x477834",
       "kind": "data"
     },
@@ -451,12 +451,12 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_004776ec",
+      "symbol": "_g_bomb",
       "address": "0x4776ec",
       "kind": "data"
     },
     {
-      "symbol": "_data_00474e5c",
+      "symbol": "_g_input",
       "address": "0x474e5c",
       "kind": "data"
     },

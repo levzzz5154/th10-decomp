@@ -4,7 +4,7 @@
 //
 // The factory at 0x00422360 calls this with the object in EDX and keeps the
 // result from EAX, so the object pointer is the second __fastcall parameter.
-extern "C" void* data_00477830;
+extern "C" void* g_pause_menu;
 
 struct RecoveryState {
     unsigned flags;              // +0x000
@@ -49,6 +49,6 @@ void* __fastcall RecoveryState_Initialize(int unused, RecoveryState* state) {
     state->field_1CC = 1;
     memset(state, 0, sizeof(*state));
     state->flags |= 2u;
-    data_00477830 = state;
+    g_pause_menu = state;
     return state;
 }

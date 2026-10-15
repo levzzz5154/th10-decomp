@@ -745,7 +745,7 @@
   "constants": [],
   "absolute_symbols": [
     {
-      "symbol": "_data_004776ec",
+      "symbol": "_g_bomb",
       "address": "0x4776ec",
       "kind": "data"
     },
@@ -910,7 +910,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00474e5c",
+      "symbol": "_g_input",
       "address": "0x474e5c",
       "kind": "data"
     },
@@ -940,7 +940,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_0047781c",
+      "symbol": "_g_laser_manager",
       "address": "0x47781c",
       "kind": "data"
     },
@@ -950,7 +950,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00477830",
+      "symbol": "_g_pause_menu",
       "address": "0x477830",
       "kind": "data"
     },
@@ -1007,11 +1007,6 @@
     {
       "symbol": "_data_00470b0c",
       "address": "0x470b0c",
-      "kind": "data"
-    },
-    {
-      "symbol": "_data_00477834",
-      "address": "0x477834",
       "kind": "data"
     },
     {

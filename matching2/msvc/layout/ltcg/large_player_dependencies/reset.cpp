@@ -37,6 +37,6 @@ PlayerResetBlock::PlayerResetBlock() {
     do { PlayerReset_ClearFlag(&effect->timer.flags); ++effect; } while (--count);
     PlayerReset_ClearFlag(&final_timer.flags);
     memset(this, 0, sizeof(*this));
-    data_00477834 = this;
+    g_player = this;
 }
 #pragma code_seg()

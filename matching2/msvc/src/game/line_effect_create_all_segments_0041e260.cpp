@@ -57,7 +57,7 @@ __declspec(noinline) int LineEffectSweep_0041e260::CreateAllSegments(int spawn_i
     do {
         ++count;
         int index=script_all*2+17;
-        void* resource=data_0047781c->line_animation;
+        void* resource=g_laser_manager->line_animation;
         Entity* object=static_cast<AnimationPool*>(data_00491c10)->Allocate();
         unsigned int flags=object->flags_35C;
         object->flags_35C=flags|0x40000000u;

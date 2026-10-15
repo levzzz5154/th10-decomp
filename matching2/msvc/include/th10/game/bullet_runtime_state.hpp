@@ -1,5 +1,6 @@
 #ifndef TH10_BULLET_RUNTIME_STATE_HPP
 #define TH10_BULLET_RUNTIME_STATE_HPP
+#include "th10/game/player.hpp"
 #include <stddef.h>
 #include "th10/game/field_contact_004266b0.hpp"
 #include "th10/game/player_wrap.hpp"
@@ -47,7 +48,6 @@ typedef char RuntimeModeOffset[(offsetof(BulletRuntimeState, mode) == 0x446) ? 1
 typedef char
     RuntimeImmunityOffset[(offsetof(BulletRuntimeState, immunity_timer) == 0x718) ? 1 : -1];
 extern "C" float data_00476f78;
-extern "C" void* data_00477834;
 struct BulletAnimationResourceSource {
     unsigned char reserved_000[0x3e0b50];
     void* resource;

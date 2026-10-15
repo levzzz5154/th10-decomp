@@ -20,7 +20,7 @@ static __forceinline AnimationRef& AsRef(unsigned int& handle) {
 
 #pragma code_seg(".text$f004250b0F")
 int Player::Move() {
-    volatile MovementInput& movement_input = data_00474e5c;
+    volatile MovementInput& movement_input = g_input;
     long move_x = 0;
     long move_y = 0;
     unsigned char input = movement_input.bytes[0];

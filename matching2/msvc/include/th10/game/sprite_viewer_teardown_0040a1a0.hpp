@@ -37,9 +37,9 @@ struct SpriteViewerPopups_0040a1a0 {
 
 extern "C" {
 extern SpriteViewerItems_0040a1a0* data_0047770c;
-extern SpriteViewerPlayer_0040a1a0* data_00477834;
+extern SpriteViewerPlayer_0040a1a0* g_player;
 extern SpriteViewerBullets_0040a1a0* data_004776f0;
-extern SpriteViewerLasers_0040a1a0* data_004776ec;
+extern SpriteViewerLasers_0040a1a0* g_bomb;
 extern SpriteViewerEffects_0040a1a0* data_00477818;
 extern SpriteViewerPopups_0040a1a0* data_00477840;
 extern SpriteViewer_0040a940* data_004776f8;

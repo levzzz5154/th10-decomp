@@ -47,7 +47,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_00415eb2:
         je short L_00415ef7
     L_00415eb4:
-        mov eax,dword ptr [data_00474e5c]
+        mov eax,dword ptr [g_input]
     L_00415eb9:
         test ah,1
     L_00415ebc:
@@ -367,7 +367,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_004160da:
         jne asm_target_00416f09
     L_004160e0:
-        mov eax,dword ptr [data_00477834]
+        mov eax,dword ptr [g_player]
     L_004160e5:
         mov eax,dword ptr [eax+10h]
     L_004160e8:
@@ -387,7 +387,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_004160fe:
         jmp asm_target_00416f09
     L_00416103:
-        mov edx,dword ptr [data_00477834]
+        mov edx,dword ptr [g_player]
     L_00416109:
         mov eax,dword ptr [edx+10h]
     L_0041610c:
@@ -531,7 +531,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_004161f2:
         jne asm_target_00416f09
     L_004161f8:
-        mov eax,dword ptr [data_00477834]
+        mov eax,dword ptr [g_player]
     L_004161fd:
         mov eax,dword ptr [eax+10h]
     L_00416200:
@@ -551,7 +551,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_00416213:
         jmp asm_target_00416f09
     L_00416218:
-        mov edx,dword ptr [data_00477834]
+        mov edx,dword ptr [g_player]
     L_0041621e:
         mov eax,dword ptr [edx+10h]
     L_00416221:
@@ -1669,7 +1669,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_00416a3e:
         je asm_target_00416f2d
     L_00416a44:
-        mov eax,dword ptr [data_00474e5c]
+        mov eax,dword ptr [g_input]
     L_00416a49:
         test ah,1
     L_00416a4c:
@@ -1937,7 +1937,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_00416c44:
         je short L_00416c56
     L_00416c46:
-        mov edi,dword ptr [data_00477830]
+        mov edi,dword ptr [g_pause_menu]
     L_00416c4c:
         call asm_FUN_00423370_00423370
     L_00416c51:
@@ -2165,7 +2165,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_00416e4d:
         je short L_00416e8a
     L_00416e4f:
-        mov edi,dword ptr [data_00477830]
+        mov edi,dword ptr [g_pause_menu]
     L_00416e55:
         call asm_FUN_00423370_00423370
     L_00416e5a:

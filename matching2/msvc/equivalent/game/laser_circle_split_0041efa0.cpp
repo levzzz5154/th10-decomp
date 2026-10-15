@@ -34,7 +34,7 @@ int CircleSplitLaser::Split(const CutVector* center,float radius,int spawn_items
      data_00477818->Spawn(sample_position,8,-1,-1.5707963705062866f,0.6f);
     }
     int index=script*2+17;
-    void* resource=static_cast<CutAnimationBank*>(data_0047781c)->line_animation;
+    void* resource=static_cast<CutAnimationBank*>(g_laser_manager)->line_animation;
     reinterpret_cast<CutAnimationResource*>(resource)->CreateOffset(index,&point);
    }
    point+=step;
@@ -69,7 +69,7 @@ int CircleSplitLaser::Split(const CutVector* center,float radius,int spawn_items
     params.type=type;
     params.script=script;
     params.total_length=total_length-start*12.0f;
-    params.SpawnIn(data_0047781c,0);
+    params.SpawnIn(g_laser_manager,0);
    }
   }
  }

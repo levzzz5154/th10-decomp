@@ -26,7 +26,7 @@ struct PlayerTrail_00427960 {
     TrailPoint_00427960 points[33];
     int trail_mode;
 };
-extern "C" PlayerTrail_00427960* data_00477834;
+extern "C" PlayerTrail_00427960* g_player;
 struct TrailSprite_00427960 {
     unsigned char reserved_000[0x34];
     TrailPoint_00427960 position;
@@ -39,7 +39,7 @@ struct TrailSprite_00427960 {
 };
 #pragma code_seg(".text$03worker")
 void TrailSprite_00427960::Update() {
-    PlayerTrail_00427960* player = data_00477834;
+    PlayerTrail_00427960* player = g_player;
     int mode = player->trail_mode;
     position.CopyFrom(player->points[index * 8 + 8]);
     if (mode == 0) {

@@ -58,7 +58,7 @@ void LaserScriptRun_0041ca80::Run() {
             if (cmd.param1.f <= data_00470b50)
                 angle = angle_3C;
             else if (cmd.param1.f >= data_00470ccc)
-                angle = static_cast<EntityAngleFromPoint_00426660*>(data_00477834)
+                angle = static_cast<EntityAngleFromPoint_00426660*>(g_player)
                     ->AngleFromPoint(&position_x_24);
             else
                 angle = cmd.param1.f;

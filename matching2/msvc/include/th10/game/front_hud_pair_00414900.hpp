@@ -21,7 +21,7 @@
 // ---------------------------------------------------------------------------
 // Globals the pair reads and writes (not already declared by the pause graph).
 // ---------------------------------------------------------------------------
-extern "C" unsigned char data_00474e5c;              // raw input edges
+extern "C" unsigned char g_input;              // raw input edges
 extern "C" unsigned char data_00474e62;              // secondary input edges
 extern "C" unsigned short data_00474c48;             // graze counter (word)
 extern "C" unsigned int data_00474c40;               // score state object
@@ -38,8 +38,8 @@ extern "C" unsigned char data_00491c28;              // input mode state object
 extern "C" unsigned int data_00491fb8;               // front mode word
 extern "C" void* data_004776f4;                      // game state arena
 extern "C" void* data_00477704;                      // sequence record
-extern "C" void* data_00477830;                      // clear state object
-extern "C" void* data_00477834;                      // play-state record
+extern "C" void* g_pause_menu;                      // clear state object
+extern "C" void* g_player;                      // play-state record
 extern "C" void* data_00477838;                      // replay state record
 extern "C" void* data_0047783c;                      // notice table
 extern "C" void* data_00477848;                      // bgm state record
