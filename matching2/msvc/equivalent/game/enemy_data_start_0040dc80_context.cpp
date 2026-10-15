@@ -104,7 +104,7 @@ void __fastcall SetAnimationTranslatedPosition_00449350(
 }
 
 // src/game/laser_manager.cpp
-void __fastcall MovementSetPosition_004492f0(
+void __fastcall Animation_SetPosition(
         AnimationManager_0040dc80* manager, const PolarVec3* position, ScriptChangeHandle id) {
     AnimationNode_0040dc80* object = (AnimationNode_0040dc80*)AnimationManager_Find_004491c0(manager, id);
     if (object != 0) {

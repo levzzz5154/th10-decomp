@@ -2,7 +2,7 @@
 #include "../../layout/ltcg/player_state_collision_runtime/runtime.hpp"
 
 #pragma code_seg(".text$f004059f0F")
-int PickupPlayer::HitTest(const PickupPoint* point) {
+int Bomb::HitTest(const PickupPoint* point) {
     if (active == 0) return 0;
     int result = 0;
     float dy = point->y - position.y;

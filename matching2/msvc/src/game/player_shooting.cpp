@@ -10,7 +10,7 @@
 #include "../../layout/ltcg/player_state_collision_runtime/movement_input.hpp"
 extern "C" {
 extern unsigned short data_00474c48;
-__declspec(noinline) int __stdcall StageSchedule_Fire_00427e90(
+__declspec(noinline) int __stdcall Player_FireShot(
     Player* player, ShotDefinition* shot, int frame);
 }
 
@@ -23,7 +23,7 @@ int Player::FireShots(int frame) {
     if (focused) level += 5;
     for (ShotDefinition* shot = shot_type->lists[level].shots; shot->period >= 0; ++shot) {
         if (frame % shot->period == shot->phase)
-            StageSchedule_Fire_00427e90(this, shot, frame);
+            Player_FireShot(this, shot, frame);
     }
     return 0;
 }

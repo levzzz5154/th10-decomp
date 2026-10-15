@@ -200,7 +200,7 @@ extern "C" __declspec(noinline) int __stdcall EnemyDataStart_0040dc80(EnemyTick_
                 data_00491c10, &enemy->final.position, enemy->animations[index]);
     } else {
         for (int index = 0; index < 8; ++index)
-            MovementSetPosition_004492f0(
+            Animation_SetPosition(
                 data_00491c10, &enemy->final.position, enemy->animations[index]);
     }
 

@@ -1,5 +1,5 @@
 // Complete helper bodies let native LTCG derive their private register ABIs.
-#include "../../../src/game/spell_timeout.cpp"
+#include "../../../src/game/player_die.cpp"
 #include "set_active_count.cpp"
 #define data_00491c10 g_timeout_load_manager
 #define code_seg(name) code_seg(".text$0043e710_fn")
@@ -18,7 +18,7 @@
 
 #pragma code_seg(".text$0044ba00_context")
 extern "C" int __stdcall TimeoutContext(TimeoutField* field) {
-    SpellTimeout_004269d0(field);
+    Player_Die(field);
     return 1;
 }
 #pragma code_seg()

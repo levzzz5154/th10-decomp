@@ -49,7 +49,7 @@ static inline void ActivatePlayerCollisions(bool idle_only) {
 }
 
 #pragma code_seg(".text$f00425730F")
-extern "C" __declspec(noinline) int __stdcall PlayerState_Update_00425730(Player* player) {
+extern "C" __declspec(noinline) int __stdcall Player_Update(Player* player) {
     switch (player->state) {
     case PLAYER_RESPAWNING: {
         player->fixed_position.y = 48000 - player->state_timer.current * 8000 / 60;
@@ -90,9 +90,9 @@ extern "C" __declspec(noinline) int __stdcall PlayerState_Update_00425730(Player
                 !data_004776ec->active && static_cast<short>(data_00474c40.power / 20) != 0 &&
                 data_00474e5c.revive) {
             reinterpret_cast<PlayerSchedulerRecord*>(&player->invulnerability_timer)->SetSchedulerValue(270);
-            InitializePlayer_00405860(data_004776ec);
+            Bomb_Start(data_004776ec);
             data_00474c40.power -= 20;
-            RefreshFamiliars_00426f70(player);
+            Player_RefreshOptions(player);
             {
                 int power = data_00474c40.power;
                 reinterpret_cast<PowerDisplayOwner_004054b0*>(data_0047770c)->SetPowerDigits(power / 20, (power % 20) * 100 / 20);
@@ -111,16 +111,16 @@ extern "C" __declspec(noinline) int __stdcall PlayerState_Update_00425730(Player
         break;
     case PLAYER_HIT:
         if (player->state_timer.current >= 8) {
-            UpdateContact_004269d0(player);
+            Player_Die(player);
             // Once contact has been updated, state 4 shares the full death path.
         } else {
             if (data_004776ec && !data_004776ec->active &&
                     static_cast<short>(data_00474c40.power / 20) != 0 && data_00474e5c.revive) {
                 reinterpret_cast<PlayerSchedulerRecord*>(&player->state_timer)->SetSchedulerValue(60);
                 reinterpret_cast<PlayerSchedulerRecord*>(&player->invulnerability_timer)->SetSchedulerValue(200);
-                InitializePlayer_00405860(data_004776ec);
+                Bomb_Start(data_004776ec);
                 data_00474c40.power -= 20;
-                RefreshFamiliars_00426f70(player);
+                Player_RefreshOptions(player);
                 {
                 int power = data_00474c40.power;
                 reinterpret_cast<PowerDisplayOwner_004054b0*>(data_0047770c)->SetPowerDigits(power / 20, (power % 20) * 100 / 20);
@@ -138,13 +138,13 @@ extern "C" __declspec(noinline) int __stdcall PlayerState_Update_00425730(Player
                 reinterpret_cast<PowerDisplayOwner_004054b0*>(data_0047770c)->SetPowerDigits(power / 20, (power % 20) * 100 / 20);
             }
             Vec3 target = {0.0f, player->position.y - 224.0f, 0.0f};
-            float angle = float(Entity_AngleToPoint_00426610(player, &target));
+            float angle = float(Player_AngleToPoint(player, &target));
             for (int fan_index = 0; fan_index < 7; ++fan_index) {
                 float direction = (float(fan_index) * 0.11219974f + angle) - 0.39269909f;
                 int kind = fan_index == 1 || fan_index == 3 || fan_index == 5 ? 4 : 1;
                 data_00477818->Spawn(reinterpret_cast<const Vector3*>(&player->position), kind, 0xffffff, direction, 3.0f);
             }
-            RefreshFamiliars_00426f70(player);
+            Player_RefreshOptions(player);
         }
         if (player->state_timer.current >= 30) {
             if (data_00474c40.lives < 0) {
@@ -153,7 +153,7 @@ extern "C" __declspec(noinline) int __stdcall PlayerState_Update_00425730(Player
             } else {
                 player->state = PLAYER_RESPAWNING;
                 g_score_default_speed = 1.0f;
-                Pickup_AllocateIndicator(0, player, &player->position, 0x42000000, 0x41800000, 30, 150);
+                Player_AddDamageSource(0, player, &player->position, 0x42000000, 0x41800000, 30, 150);
                 player->death_position = player->position;
                 player->fixed_position.x = 0;
                 player->fixed_position.y = 48000;
@@ -218,7 +218,7 @@ extern "C" __declspec(noinline) int __stdcall PlayerState_Update_00425730(Player
         player->homing_target = 0;
         player->has_homing_target = 0;
     }
-    EffectPoolUpdate(player);
+    Player_UpdateBullets(player);
     return 1;
 }
 #pragma code_seg()

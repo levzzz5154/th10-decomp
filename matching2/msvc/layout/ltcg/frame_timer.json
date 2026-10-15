@@ -261,7 +261,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_StageSchedule_Fire_00427e90@12",
+      "symbol": "_Player_FireShot@12",
       "address": "0x00427E90",
       "kind": "relative_code"
     },

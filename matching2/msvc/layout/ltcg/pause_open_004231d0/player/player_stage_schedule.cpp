@@ -16,7 +16,7 @@
 // The timer store at 0x00405410 takes the timer in EAX.
 
 extern "C" {
-int __stdcall StageSchedule_Fire_00427e90(StageSequence* sequence,
+int __stdcall Player_FireShot(StageSequence* sequence,
                                           StageScheduleEntry* entry, int frame);
 extern short data_00474c48;     // rank counter, twenty steps per rank
 extern unsigned int data_00474e5c;
@@ -32,7 +32,7 @@ int StageSequence::Dispatch(int frame) {
     for (StageScheduleEntry* entry = file->schedules[rank].entries;
          entry->period >= 0; ++entry) {
         if (frame % entry->period == entry->phase)
-            StageSchedule_Fire_00427e90(this, entry, frame);
+            Player_FireShot(this, entry, frame);
     }
     return 0;
 }

@@ -72,7 +72,7 @@
     "?Advance@FrameTimer@@QAEXM@Z": "0x0044BF40",
     "?Find@AnimationFinder_0040dc80@@QAIPAUAnimation_0040dc80@@PAUAnimationManager_0040dc80@@UScriptChangeHandle@@@Z": "0x004491C0",
     "?SetAnimationTranslatedPosition_00449350@@YIXPAUAnimationManager_0040dc80@@PBUPolarVec3@@UScriptChangeHandle@@@Z": "0x00449350",
-    "?MovementSetPosition_004492f0@@YIXPAUAnimationManager_0040dc80@@PBUPolarVec3@@UScriptChangeHandle@@@Z": "0x004492F0",
+    "?Animation_SetPosition@@YIXPAUAnimationManager_0040dc80@@PBUPolarVec3@@UScriptChangeHandle@@@Z": "0x004492F0",
     "?ChangeScript@ScriptChangeHandle@@QAEXH@Z": "0x004496D0",
     "_EclVm_TickChildren@8": "0x0044FD10",
     "?ClearResourceList@EnemyRecord_0040dc80@@QAEXXZ": "0x0040C6E0",

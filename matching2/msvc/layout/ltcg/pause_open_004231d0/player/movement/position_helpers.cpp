@@ -12,7 +12,7 @@ struct MovementAnimationTree {
 };
 
 #pragma code_seg(".text$00449210_fn")
-void __fastcall MovementStopFrame_00449210(
+void __fastcall Animation_SetStopFrame(
     unsigned short frame, AnimationLookupContext* context, AnimationScriptId id) {
     Entity* object = static_cast<Entity*>(AnimationManager_Find_004491c0(context, id));
     if (object != 0) {
@@ -24,7 +24,7 @@ void __fastcall MovementStopFrame_00449210(
     }
 }
 #pragma code_seg(".text$004492f0_fn")
-void __fastcall MovementSetPosition_004492f0(
+void __fastcall Animation_SetPosition(
     const Vector3* position, AnimationLookupContext* context, AnimationScriptId id) {
     Entity* object = static_cast<Entity*>(AnimationManager_Find_004491c0(context, id));
     if (object != 0) {
@@ -36,7 +36,7 @@ void __fastcall MovementSetPosition_004492f0(
     }
 }
 #pragma code_seg(".text$00449350_fn")
-void __fastcall MovementSetTranslatedPosition_00449350(
+void __fastcall Animation_SetTranslatedPosition(
     const Vector3* position, AnimationLookupContext* context, AnimationScriptId id) {
     Entity* object = static_cast<Entity*>(AnimationManager_Find_004491c0(context, id));
     if (object != 0) {

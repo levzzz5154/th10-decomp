@@ -1,3 +1,5 @@
+// 0x00428630: the damage the player's bullets, bomb and damage sources deal
+// to a box this frame (an enemy's position and size).
 #include "../../layout/ltcg/player_state_collision_runtime/runtime.hpp"
 #include <math.h>
 #pragma intrinsic(sin,cos)
@@ -12,7 +14,7 @@ static __forceinline void GetBounds(const Center* center, const Size* size,
 }
 
 #pragma code_seg(".text$f00428630F")
-int PickupSweepResult::Sweep(Player* player, const PickupPoint* center,
+int PlayerDamage::Sweep(Player* player, const PickupPoint* center,
                             const PickupPoint* size) {
     int total = 0;
     if (player->state_timer.current == player->state_timer.previous) return 0;
@@ -57,7 +59,7 @@ int PickupSweepResult::Sweep(Player* player, const PickupPoint* center,
         shot = bullet->definition;
         if (shot->kind == SHOT_HOMING) {
             int indicator_value = shot->damage/3;
-            Pickup_AllocateIndicator(shot->damage,player,&bullet->motion.position,
+            Player_AddDamageSource(shot->damage,player,&bullet->motion.position,
                                      0x42000000u,0x3fb33333u,13,indicator_value);
         }
     }

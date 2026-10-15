@@ -71,7 +71,7 @@ int Player::Move() {
     } else {
         PickupAnimationLists* context = reinterpret_cast<PickupAnimationLists*>(data_00491c10);
         if (context->Find(AsRef(focus_marker)) != 0)
-            MovementStopFrame_00449210(1, context, AsRef(focus_marker));
+            Animation_SetStopFrame(1, context, AsRef(focus_marker));
         AnimationRef* marker = &AsRef(focus_marker);
         marker->value = 0;
         switch (direction) {
@@ -112,7 +112,7 @@ int Player::Move() {
         marker_position.x = position.x + 224.0f;
         marker_position.z = position.z;
         marker_position.y = position.y + 16.0f;
-        MovementSetPosition_004492f0(&marker_position, context, AsRef(focus_marker));
+        Animation_SetPosition(&marker_position, context, AsRef(focus_marker));
     }
 
     if (focused == 0 && (move_y != 0 || move_x != 0)) {
@@ -150,8 +150,8 @@ int Player::Move() {
                 static_cast<float>(option->position.x) * 0.01f,
                 static_cast<float>(option->position.y) * 0.01f, 0.0f };
             context = reinterpret_cast<PickupAnimationLists*>(data_00491c10);
-            MovementSetTranslatedPosition_00449350(context, &option_position, AsRef(option->animation));
-            MovementSetTranslatedPosition_00449350(context, &option_position, AsRef(option->second_animation));
+            Animation_SetTranslatedPosition(context, &option_position, AsRef(option->animation));
+            Animation_SetTranslatedPosition(context, &option_position, AsRef(option->second_animation));
         }
     }
     return 0;

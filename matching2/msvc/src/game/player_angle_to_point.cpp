@@ -1,3 +1,5 @@
+// 0x00426610: the angle from the player to a point.
+//
 // The original routine is a compiler-generated x87 angle helper.  Native
 // LTCG supplies its two pointers in EAX and ECX, while this source keeps the
 // operation expressed in terms of the point and the entity's world position.

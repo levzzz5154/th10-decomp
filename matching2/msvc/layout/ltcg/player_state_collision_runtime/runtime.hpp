@@ -60,7 +60,7 @@ struct PickupAnimationLists {
 struct PickupGameState { unsigned char reserved_0000[0x378c]; unsigned char flags; };
 struct PickupConfig { unsigned char reserved_00[0x10]; int alternate_mode;
     unsigned char reserved_14[0x60-0x14]; int enabled; };
-struct PickupPlayer {
+struct Bomb {
     unsigned char reserved_00[0x28];
     int active;
     int reserved_2c;
@@ -73,14 +73,14 @@ struct PickupPlayer {
 };
 // Retail takes an optional output word in ECX and the three inputs on the
 // stack. MSVC 7.1 supports the observed null receiver at this boundary.
-struct PickupSweepResult {
+struct PlayerDamage {
     int value;
     // 0x00428630: the damage the player's bullets and damage sources deal to
     // an enemy box this frame.
     __declspec(noinline) int Sweep(Player*, const PickupPoint*, const PickupPoint*);
 };
 extern "C" {
-extern PickupPlayer* data_004776ec;
+extern Bomb* data_004776ec;
 extern PickupGameState* data_004776f4;
 extern PickupConfig* data_00477704;
 extern int data_00474c68, data_00474c44;
@@ -90,7 +90,7 @@ extern float data_00476f78;
 __declspec(noinline) AnimationRef __stdcall Pickup_CreatePrimaryBack(
     void* resource, int script, int layer);
 // 0x00427B50: start a damage source at `position`.
-extern "C" __declspec(noinline) PlayerDamageSource* __fastcall Pickup_AllocateIndicator(
+extern "C" __declspec(noinline) PlayerDamageSource* __fastcall Player_AddDamageSource(
     unsigned int unused, Player*, const PickupPosition* volatile position,
     unsigned int radius_bits, unsigned int speed_bits, int countdown, unsigned int value);
 

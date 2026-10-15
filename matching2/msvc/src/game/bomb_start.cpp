@@ -1,4 +1,4 @@
-// 0x00405860: initialize a player runtime and its animation, sound and power display.
+// 0x00405860: start a bomb: its animation, sound and the power display.
 #include <stddef.h>
 #include "th10/game/entity.hpp"
 #include "th10/platform/sound_queue.hpp"
@@ -106,7 +106,7 @@ extern "C" int data_00474c68;
 extern "C" short data_00474c48;
 extern "C" int data_00474c98;
 #pragma code_seg(".text$a04initialize")
-extern "C" __declspec(noinline) int __stdcall InitializePlayer_00405860(PlayerInitialization* player) {
+extern "C" __declspec(noinline) int __stdcall Bomb_Start(PlayerInitialization* player) {
     if (player->initialized) return -1;
     player->initialized = 1;
     player->timer.Reset(-1);

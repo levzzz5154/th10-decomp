@@ -4,7 +4,7 @@
 #include "../../layout/ltcg/player_state_collision_runtime/animation_tree.hpp"
 
 #pragma code_seg(".text$f00449210F")
-void __fastcall MovementStopFrame_00449210(
+void __fastcall Animation_SetStopFrame(
     unsigned short frame, PickupAnimationLists* context, AnimationRef id) {
     Entity* object = reinterpret_cast<Entity*>(context->Find(id));
     if (object != 0) {
@@ -16,7 +16,7 @@ void __fastcall MovementStopFrame_00449210(
     }
 }
 #pragma code_seg(".text$f004492f0F")
-void __fastcall MovementSetPosition_004492f0(
+void __fastcall Animation_SetPosition(
     const Vector3* position, PickupAnimationLists* context, AnimationRef id) {
     Entity* object = reinterpret_cast<Entity*>(context->Find(id));
     if (object != 0) {

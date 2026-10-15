@@ -4,7 +4,7 @@
 #include "animation_tree.hpp"
 
 #pragma code_seg(".text$f00449350F")
-void __fastcall MovementSetTranslatedPosition_00449350(
+void __fastcall Animation_SetTranslatedPosition(
     PickupAnimationLists* context, const Vector3* position, AnimationRef id) {
     Entity* object = reinterpret_cast<Entity*>(context->Find(id));
     if (object != 0) {

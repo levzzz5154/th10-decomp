@@ -201,21 +201,21 @@
     },
     {
       "name": "stop",
-      "symbol": "?MovementStopFrame_00449210@@YIXGPAUAnimationLookupContext@@UAnimationScriptId@@@Z",
+      "symbol": "?Animation_SetStopFrame@@YIXGPAUAnimationLookupContext@@UAnimationScriptId@@@Z",
       "section": ".text$00449210_fn",
       "address": "0x449210",
       "size": 54
     },
     {
       "name": "position",
-      "symbol": "?MovementSetPosition_004492f0@@YIXPBUVector3@@PAUAnimationLookupContext@@UAnimationScriptId@@@Z",
+      "symbol": "?Animation_SetPosition@@YIXPBUVector3@@PAUAnimationLookupContext@@UAnimationScriptId@@@Z",
       "section": ".text$004492f0_fn",
       "address": "0x4492f0",
       "size": 90
     },
     {
       "name": "translated",
-      "symbol": "?MovementSetTranslatedPosition_00449350@@YIXPBUVector3@@PAUAnimationLookupContext@@UAnimationScriptId@@@Z",
+      "symbol": "?Animation_SetTranslatedPosition@@YIXPBUVector3@@PAUAnimationLookupContext@@UAnimationScriptId@@@Z",
       "section": ".text$00449350_fn",
       "address": "0x449350",
       "size": 120
@@ -613,7 +613,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_StageSchedule_Fire_00427e90@12",
+      "symbol": "_Player_FireShot@12",
       "address": "0x427e90",
       "kind": "relative_code"
     },

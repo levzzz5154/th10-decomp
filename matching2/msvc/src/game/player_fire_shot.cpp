@@ -1,3 +1,4 @@
+// 0x00427E90: fire one shot from the first free bullet slot.
 #include "../../layout/ltcg/player_state_collision_runtime/effect_update.hpp"
 #include "../../layout/ltcg/player_state_collision_runtime/animation_public_callers.hpp"
 #include "../../layout/ltcg/player_state_collision_runtime/sound_queue.hpp"
@@ -16,9 +17,8 @@ static __forceinline Vector3 ToWorldPosition(const FixedPoint& point) {
     return value;
 }
 
-// 0x00427E90: fire one shot from the first free bullet slot.
 #pragma code_seg(".text$f00427e90F")
-extern "C" __declspec(noinline) int __stdcall StageSchedule_Fire_00427e90(
+extern "C" __declspec(noinline) int __stdcall Player_FireShot(
         Player* player, ShotDefinition* shot, int frame) {
     PlayerBullet* bullet = player->bullets;
     if (shot->kind == SHOT_LASER && player->laser_active[shot->option])

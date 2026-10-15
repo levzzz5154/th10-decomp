@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "name": "player_initialize_00405860",
-  "source": "src/game/initialize_player_00405860.cpp",
+  "source": "src/game/bomb_start.cpp",
   "headers": [
     "include/th10/game/entity.hpp",
     "include/th10/types.hpp",
@@ -33,7 +33,7 @@
     },
     {
       "name": "Initialize",
-      "symbol": "_InitializePlayer_00405860@4",
+      "symbol": "_Bomb_Start@4",
       "section": ".text$a04initialize",
       "address": "0x405860",
       "size": 397,
@@ -99,10 +99,10 @@
       "size": 116
     }
   ],
-  "entry": "_InitializePlayer_00405860@4",
+  "entry": "_Bomb_Start@4",
   "calls": [
     {
-      "caller": "_InitializePlayer_00405860@4",
+      "caller": "_Bomb_Start@4",
       "callee": "?SetPowerDigits@PowerDisplayOwner_004054b0@@QAEXHH@Z",
       "address": "0x405975",
       "instruction": "call"

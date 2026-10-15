@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "spell_timeout_004269d0",
-  "source": "src/game/spell_timeout.cpp",
+  "source": "src/game/player_die.cpp",
   "driver": "layout/ltcg/spell_timeout_004269d0/context.cpp",
   "included_sources": [
     "layout/ltcg/spell_timeout_004269d0/set_active_count.cpp",
@@ -15,7 +15,7 @@
     "include/th10/game/pause_result_open_004231d0/music.hpp",
     "include/th10/game/pause_result_open_004231d0/open_animation.hpp",
     "include/th10/game/pause_result_open_004231d0/open_state.hpp",
-    "include/th10/game/spell_timeout.hpp",
+    "include/th10/game/player_die.hpp",
     "include/th10/game/stage_tip_create.hpp",
     "include/th10/game/stage_tips.hpp",
     "include/th10/render/resource_registrar_0043e460.hpp",
@@ -25,8 +25,8 @@
   "description": "Complete spell timeout with native active-count, script-loader and urgent-tip compiler contexts; only the timeout is selected.",
   "functions": [
     {
-      "name": "SpellTimeout_004269d0",
-      "symbol": "_SpellTimeout_004269d0@4",
+      "name": "Player_Die",
+      "symbol": "_Player_Die@4",
       "section": ".text$004269d0_fn",
       "address": "0x004269D0",
       "size": 796,
@@ -196,6 +196,6 @@
     }
   ],
   "roots": [
-    "_SpellTimeout_004269d0@4"
+    "_Player_Die@4"
   ]
 }

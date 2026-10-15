@@ -75,11 +75,11 @@ extern float g_movement_render_y;                        // 0x470B48
 
 __declspec(noinline) void __stdcall MovementLoadScript_0043e710(
     AnimationResource_00449870* resource, Entity* object, int index);
-__declspec(noinline) void __fastcall MovementStopFrame_00449210(
+__declspec(noinline) void __fastcall Animation_SetStopFrame(
     unsigned short frame, AnimationLookupContext* context, AnimationScriptId id);
-__declspec(noinline) void __fastcall MovementSetPosition_004492f0(
+__declspec(noinline) void __fastcall Animation_SetPosition(
     const Vector3* position, AnimationLookupContext* context, AnimationScriptId id);
-__declspec(noinline) void __fastcall MovementSetTranslatedPosition_00449350(
+__declspec(noinline) void __fastcall Animation_SetTranslatedPosition(
     const Vector3* position, AnimationLookupContext* context, AnimationScriptId id);
 __declspec(noinline) int PlayerMovement_004250b0(MovementState* player);
 

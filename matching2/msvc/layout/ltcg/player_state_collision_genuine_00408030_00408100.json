@@ -5,16 +5,16 @@
   "driver": "layout/ltcg/player_state_collision_runtime/runtime.cpp",
   "additional_sources": [
     "layout/ltcg/player_state_collision_runtime/creation.cpp",
-    "src/game/scheduled_effect_create_00427e90.cpp",
-    "src/game/effect_pool_update.cpp",
-    "src/game/player_pickup_sweep.cpp",
+    "src/game/player_fire_shot.cpp",
+    "src/game/player_update_bullets.cpp",
+    "src/game/player_damage_sweep.cpp",
     "src/game/item_spawn.cpp",
-    "src/game/player_state_update.cpp",
+    "src/game/player_update.cpp",
     "src/game/player_movement.cpp",
     "src/game/laser_manager.cpp",
-    "src/game/player_hit_test_004059f0.cpp",
+    "src/game/bomb_hit_test.cpp",
     "src/render/animation_handle_helpers.cpp",
-    "src/render/animation_resource_initialize_object_00449870.cpp",
+    "src/render/animation_resource_initialize_object.cpp",
     "src/game/player_shooting.cpp"
   ],
   "included_sources": [
@@ -76,30 +76,30 @@
     },
     {
       "name": "function_00427e90",
-      "symbol": "_StageSchedule_Fire_00427e90@12",
+      "symbol": "_Player_FireShot@12",
       "section": ".text$f00427e90F",
       "address": "0x427e90",
       "size": 717,
       "actual_abi": "stdcall: player, descriptor and frame on the stack; RET12",
-      "source": "src/game/scheduled_effect_create_00427e90.cpp"
+      "source": "src/game/player_fire_shot.cpp"
     },
     {
       "name": "function_00428280",
-      "symbol": "_EffectPoolUpdate@4",
+      "symbol": "_Player_UpdateBullets@4",
       "section": ".text$f00428280F",
       "address": "0x428280",
       "size": 876,
       "actual_abi": "stdcall: player on the stack; RET4",
-      "source": "src/game/effect_pool_update.cpp"
+      "source": "src/game/player_update_bullets.cpp"
     },
     {
       "name": "function_00428630",
-      "symbol": "?Sweep@PickupSweepResult@@QAEHPAUPlayer@@PBUPickupPoint@@1@Z",
+      "symbol": "?Sweep@PlayerDamage@@QAEHPAUPlayer@@PBUPickupPoint@@1@Z",
       "section": ".text$f00428630F",
       "address": "0x428630",
       "size": 1170,
       "actual_abi": "optional result record in ECX; manager, center and size on the stack; RET12",
-      "source": "src/game/player_pickup_sweep.cpp"
+      "source": "src/game/player_damage_sweep.cpp"
     },
     {
       "name": "function_0041bb00",
@@ -112,12 +112,12 @@
     },
     {
       "name": "function_00425730",
-      "symbol": "_PlayerState_Update_00425730@4",
+      "symbol": "_Player_Update@4",
       "section": ".text$f00425730F",
       "address": "0x425730",
       "size": 3112,
       "actual_abi": "stdcall: player on the stack; RET4",
-      "source": "src/game/player_state_update.cpp"
+      "source": "src/game/player_update.cpp"
     },
     {
       "name": "function_004250b0",
@@ -130,12 +130,12 @@
     },
     {
       "name": "function_004059f0",
-      "symbol": "?HitTest@PickupPlayer@@QAEHPBUPickupPoint@@@Z",
+      "symbol": "?HitTest@Bomb@@QAEHPBUPickupPoint@@@Z",
       "section": ".text$f004059f0F",
       "address": "0x4059f0",
       "size": 202,
       "actual_abi": "private LTCG: player ECX; point EAX; RET0",
-      "source": "src/game/player_hit_test_004059f0.cpp"
+      "source": "src/game/bomb_hit_test.cpp"
     },
     {
       "name": "function_0041c800",
@@ -157,7 +157,7 @@
     },
     {
       "name": "function_00449210",
-      "symbol": "?MovementStopFrame_00449210@@YIXGPAUPickupAnimationLists@@UAnimationRef@@@Z",
+      "symbol": "?Animation_SetStopFrame@@YIXGPAUPickupAnimationLists@@UAnimationRef@@@Z",
       "section": ".text$f00449210F",
       "address": "0x449210",
       "size": 54,
@@ -166,7 +166,7 @@
     },
     {
       "name": "function_004492f0",
-      "symbol": "?MovementSetPosition_004492f0@@YIXPBUVector3@@PAUPickupAnimationLists@@UAnimationRef@@@Z",
+      "symbol": "?Animation_SetPosition@@YIXPBUVector3@@PAUPickupAnimationLists@@UAnimationRef@@@Z",
       "section": ".text$f004492f0F",
       "address": "0x4492f0",
       "size": 90,
@@ -180,7 +180,7 @@
       "address": "0x449870",
       "size": 217,
       "actual_abi": "this ECX; object and index stack; RET8",
-      "source": "src/render/animation_resource_initialize_object_00449870.cpp"
+      "source": "src/render/animation_resource_initialize_object.cpp"
     },
     {
       "name": "function_00428160",
@@ -253,7 +253,7 @@
     },
     {
       "name": "function_00427b50",
-      "symbol": "@Pickup_AllocateIndicator@28",
+      "symbol": "@Player_AddDamageSource@28",
       "section": ".text$f00427b50F",
       "address": "0x427b50",
       "size": 181
@@ -386,7 +386,7 @@
     },
     {
       "name": "function_00449350",
-      "symbol": "?MovementSetTranslatedPosition_00449350@@YIXPAUPickupAnimationLists@@PBUVector3@@UAnimationRef@@@Z",
+      "symbol": "?Animation_SetTranslatedPosition@@YIXPAUPickupAnimationLists@@PBUVector3@@UAnimationRef@@@Z",
       "section": ".text$f00449350F",
       "address": "0x449350",
       "size": 111
@@ -400,7 +400,7 @@
     },
     {
       "name": "function_00426610",
-      "symbol": "_Entity_AngleToPoint_00426610@8",
+      "symbol": "_Player_AngleToPoint@8",
       "section": ".text$f00426610F",
       "address": "0x426610",
       "size": 67
@@ -431,9 +431,9 @@
     "?SetPolar@ItemPolarVelocity_0041bb00@@QAEPAU1@MM@Z"
   ],
   "roots": [
-    "_StageSchedule_Fire_00427e90@12",
-    "_EffectPoolUpdate@4",
-    "_PlayerState_Update_00425730@4",
+    "_Player_FireShot@12",
+    "_Player_UpdateBullets@4",
+    "_Player_Update@4",
     "?InitializeObject@AnimationResource_00449870@@QAEXPAUEntity@@H@Z"
   ],
   "gaps": [
@@ -856,17 +856,17 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_InitializePlayer_00405860@4",
+      "symbol": "_Bomb_Start@4",
       "address": "0x405860",
       "kind": "relative_code"
     },
     {
-      "symbol": "_RefreshFamiliars_00426f70@4",
+      "symbol": "_Player_RefreshOptions@4",
       "address": "0x426f70",
       "kind": "relative_code"
     },
     {
-      "symbol": "_UpdateContact_004269d0@4",
+      "symbol": "_Player_Die@4",
       "address": "0x4269d0",
       "kind": "relative_code"
     },

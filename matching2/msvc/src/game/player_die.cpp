@@ -1,7 +1,9 @@
-// 0x004269D0: enter the spell timeout transition and retire its animation pairs.
+// 0x004269D0: the player dies: take a life and some power, enter the dying
+// state with 180 frames of invulnerability, drop the options and show the
+// lives-left caution.
 #include "th10/game/pause_result_open_004231d0/open_state.hpp"
 #include "th10/game/stage_tip_create.hpp"
-#include "th10/game/spell_timeout.hpp"
+#include "th10/game/player_die.hpp"
 
 struct AnimationRecord_00413790 {
     unsigned int flags_0000;             // +0x000
@@ -134,7 +136,7 @@ typedef char TimeoutPlayerFlags[offsetof(TimeoutPlayer, flags) == 0x378C ? 1 : -
 typedef char TimeoutPlayerState[offsetof(TimeoutPlayer, pending_state) == 0x3790 ? 1 : -1];
 
 #pragma code_seg(".text$004269d0_fn")
-extern "C" __declspec(noinline) void __stdcall SpellTimeout_004269d0(TimeoutField* field) {
+extern "C" __declspec(noinline) void __stdcall Player_Die(TimeoutField* field) {
     // Retain the slot-array base across the arithmetic and helper calls.
     TimeoutSlot* slots = field->slots;
     int power = data_00474c4c;

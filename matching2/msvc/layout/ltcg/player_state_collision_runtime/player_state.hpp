@@ -63,11 +63,11 @@ extern PlayerItemManager* data_00477818;
 extern PlayerDeathScene* data_00477830;
 extern PlayerPracticeState* data_00477838;
 extern PlayerInputMode data_00491c28;
-__declspec(noinline) int __stdcall InitializePlayer_00405860(PickupPlayer* player);
-__declspec(noinline) int __stdcall RefreshFamiliars_00426f70(Player* player);
-__declspec(noinline) int __stdcall UpdateContact_004269d0(Player* player);
-__declspec(noinline) double __stdcall Entity_AngleToPoint_00426610(const Player* player, const Vec3* point);
-int __stdcall EffectPoolUpdate(Player* player);
+__declspec(noinline) int __stdcall Bomb_Start(Bomb* player);
+__declspec(noinline) int __stdcall Player_RefreshOptions(Player* player);
+__declspec(noinline) int __stdcall Player_Die(Player* player);
+__declspec(noinline) double __stdcall Player_AngleToPoint(const Player* player, const Vec3* point);
+int __stdcall Player_UpdateBullets(Player* player);
 void __stdcall asm_FUN_0043ee30_0043ee30(Entity* object);
 }
 

@@ -1,3 +1,5 @@
+// 0x00428280: update the player's 128 bullets: move them, keep their
+// animations in place, and retire lasers and bullets that left the screen.
 #include "../../layout/ltcg/player_state_collision_runtime/effect_update.hpp"
 
 // The shared record declares its handles volatile; the update reads them plainly.
@@ -7,7 +9,7 @@
 // Descriptor callbacks have two real inputs in ECX/EDX. Private helpers
 // above have complete definitions so LTCG chooses their internal registers.
 #pragma code_seg(".text$f00428280F")
-extern "C" __declspec(noinline) int __stdcall EffectPoolUpdate(Player* player) {
+extern "C" __declspec(noinline) int __stdcall Player_UpdateBullets(Player* player) {
     PlayerBullet* bullet = player->bullets;
     int remaining = 128;
     do {

@@ -54,7 +54,7 @@ int PlayerMovement_004250b0(MovementState* player) {
     } else {
         AnimationLookupContext* context = reinterpret_cast<AnimationLookupContext*>(data_00491c10);
         if (AnimationManager_Find_004491c0(context, player->slow_animation) != 0)
-            MovementStopFrame_00449210(1, context, player->slow_animation);
+            Animation_SetStopFrame(1, context, player->slow_animation);
         player->slow_animation.value = 0;
         switch (player->direction) {
         case 1: move_y = -player->normal_speed; break;
@@ -97,7 +97,7 @@ int PlayerMovement_004250b0(MovementState* player) {
         Vector3 position = { player->position.x + g_movement_render_x,
                              player->position.y + g_movement_render_y,
                              player->position.z };
-        MovementSetPosition_004492f0(&position, context, player->slow_animation);
+        Animation_SetPosition(&position, context, player->slow_animation);
     }
 
     if (player->slow == 0 && (move_x != 0 || move_y != 0)) {
@@ -138,8 +138,8 @@ int PlayerMovement_004250b0(MovementState* player) {
                 static_cast<float>(orbit->current.x) * g_movement_position_scale,
                 static_cast<float>(orbit->current.y) * g_movement_position_scale, 0.0f };
             context = reinterpret_cast<AnimationLookupContext*>(data_00491c10);
-            MovementSetTranslatedPosition_00449350(&position, context, orbit->first_animation);
-            MovementSetTranslatedPosition_00449350(&position, context, orbit->second_animation);
+            Animation_SetTranslatedPosition(&position, context, orbit->first_animation);
+            Animation_SetTranslatedPosition(&position, context, orbit->second_animation);
         }
     }
     return 0;

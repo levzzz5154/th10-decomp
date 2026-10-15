@@ -1,5 +1,5 @@
 // Compiler context only; never selected as recovered game code.
-#include "../../src/game/entity_angle_to_point_00426610.cpp"
+#include "../../src/game/player_angle_to_point.cpp"
 
 #pragma code_seg(".text$03context")
 double __stdcall EntityAngleToPointCompilerContext(

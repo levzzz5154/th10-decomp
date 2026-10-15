@@ -50,7 +50,7 @@ void PlayerAnimationHandle::Retire() {
     value=0;
 }
 #pragma code_seg(".text$f00427b50F")
-extern "C" PlayerDamageSource* __fastcall Pickup_AllocateIndicator(
+extern "C" PlayerDamageSource* __fastcall Player_AddDamageSource(
         unsigned int unused, Player* player, const PickupPosition* volatile position,
         unsigned int radius_bits, unsigned int speed_bits, int countdown, unsigned int damage) {
     (void)unused;

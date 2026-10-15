@@ -67,7 +67,7 @@ __declspec(noinline) int __fastcall FieldContact_004266b0(
 // 0x00449350, 0x004492F0: place an animation in field or in screen coordinates.
 __declspec(noinline) void __fastcall SetAnimationTranslatedPosition_00449350(
     AnimationManager_0040dc80* manager, const PolarVec3* position, ScriptChangeHandle id);
-__declspec(noinline) void __fastcall MovementSetPosition_004492f0(
+__declspec(noinline) void __fastcall Animation_SetPosition(
     AnimationManager_0040dc80* manager, const PolarVec3* position, ScriptChangeHandle id);
 // 0x004491C0: the running animation a handle names.
 // Retail calls it as a member that ignores its receiver.
