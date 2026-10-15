@@ -11,7 +11,7 @@
     "include/th10/game/pause_result_open_004231d0/open_state.hpp",
     "include/th10/game/entity.hpp",
     "include/th10/game/recovery_mark_text_and_dispatcher_004479d0.hpp",
-    "include/th10/game/runtime_selector_0043c970.hpp",
+    "include/th10/render/screen_effect_controller.hpp",
     "include/th10/game/scheduler.hpp",
     "include/th10/game/score.hpp",
     "include/th10/math/timer.hpp",
@@ -257,14 +257,14 @@
     },
     {
       "name": "RuntimeSelector_Configure",
-      "symbol": "?Configure@ScreenEffectController_0043c970@@QAEXHHHHHH@Z",
+      "symbol": "?Configure@ScreenEffectController@@QAEXHHHHHH@Z",
       "section": ".text$0043c970_fn",
       "address": "0x0043C970",
       "size": 396
     },
     {
       "name": "Factory",
-      "symbol": "?CreateScreenEffect_0043c8b0@@YGPAUScreenEffectController_0043c970@@HHHHHH@Z",
+      "symbol": "?CreateScreenEffect_0043c8b0@@YGPAUScreenEffectController@@HHHHHH@Z",
       "section": ".text$0043c8b0_fn",
       "address": "0x43c8b0",
       "size": 82

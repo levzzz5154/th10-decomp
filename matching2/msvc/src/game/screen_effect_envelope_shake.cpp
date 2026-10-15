@@ -3,7 +3,7 @@
 #pragma code_seg(".text$12d_rng")
 #include "th10/math/rng.hpp"
 #pragma code_seg()
-#include "th10/game/runtime_selector_0043c970.hpp"
+#include "th10/render/screen_effect_controller.hpp"
 
 struct GameScene_00477810 {
     unsigned char pad_00[0x58];
@@ -20,7 +20,7 @@ extern "C" float data_00491e68;                   // 0x00491E68, screen shake y
 // shared parameters are the attack, sustain and release lengths in frames;
 // each axis is randomly displaced by zero, plus or minus the current amount.
 #pragma code_seg(".text$12b_shake")
-int ScreenEffectController_0043c970::UpdateEnvelopeShake() {
+int ScreenEffectController::UpdateEnvelopeShake() {
     if (data_004918a4)
         return 7;
     if (!data_00477810 ||

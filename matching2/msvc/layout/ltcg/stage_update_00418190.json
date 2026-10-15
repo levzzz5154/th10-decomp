@@ -54,7 +54,7 @@
     "include/th10/game/native_stage_fade_00404530.hpp",
     "include/th10/game/replay_stage_begin_0042a6a0.hpp",
     "include/th10/game/replay_stage_finish_0042a450.hpp",
-    "include/th10/game/runtime_selector_0043c970.hpp",
+    "include/th10/render/screen_effect_controller.hpp",
     "include/th10/game/scheduler.hpp",
     "include/th10/game/score.hpp",
     "include/th10/math/rng.hpp",
@@ -332,15 +332,15 @@
       "size": 73
     },
     {
-      "name": "?CreateScreenEffect_0043c8b0@@YGPAUScreenEffectController_0043c970@@HHHHHH@Z",
-      "symbol": "?CreateScreenEffect_0043c8b0@@YGPAUScreenEffectController_0043c970@@HHHHHH@Z",
+      "name": "?CreateScreenEffect_0043c8b0@@YGPAUScreenEffectController@@HHHHHH@Z",
+      "symbol": "?CreateScreenEffect_0043c8b0@@YGPAUScreenEffectController@@HHHHHH@Z",
       "section": ".text$0043c8b0_fn",
       "address": "0x43c8b0",
       "size": 82
     },
     {
-      "name": "?Configure@ScreenEffectController_0043c970@@QAEXHHHHHH@Z",
-      "symbol": "?Configure@ScreenEffectController_0043c970@@QAEXHHHHHH@Z",
+      "name": "?Configure@ScreenEffectController@@QAEXHHHHHH@Z",
+      "symbol": "?Configure@ScreenEffectController@@QAEXHHHHHH@Z",
       "section": ".text$0043c970_fn",
       "address": "0x43c970",
       "size": 396

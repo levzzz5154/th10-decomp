@@ -2,7 +2,8 @@
 
 extern "C" int data_004918a4;  // 0x004918A4
 
-// Animation cursor update at 0x0043C460.  The record embeds the scheduler and
+// 0x0043C460: the flash update task (ScreenEffectController mode 4): the alpha
+// falls from its start value to 0, then holds for a countdown.  The record embeds the scheduler and
 // the FrameTimer at +0x30; native LTCG supplies the retail EAX receiver for
 // the scheduler store and the ESI receiver for the embedded timer, exactly as
 // for the 0x0043C230 cursor.
@@ -16,7 +17,7 @@ struct PlayerSchedulerRecord {
     __declspec(noinline) void SetSchedulerValue(int value);
 };
 
-struct AnimationCursor_0043c460 {
+struct ScreenFlash {
     unsigned char pad_00[0x18];
     int value;                 // +0x18
     int length;                // +0x1C
@@ -31,10 +32,10 @@ struct AnimationCursor_0043c460 {
 };
 
 typedef char AnimationCursor_0043c460_size_must_fit[
-    sizeof(AnimationCursor_0043c460) == 0x40 ? 1 : -1];
+    sizeof(ScreenFlash) == 0x40 ? 1 : -1];
 
 #pragma code_seg(".text$11c460")
-int AnimationCursor_0043c460::Tick() {
+int ScreenFlash::Tick() {
     int mode = *(unsigned char*)((unsigned char*)this + 0x27);
     if (data_004918a4 != 0)
         return 0;

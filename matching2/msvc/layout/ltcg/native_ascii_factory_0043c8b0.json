@@ -8,7 +8,7 @@
     "layout/ltcg/native_stage_update_context.cpp"
   ],
   "headers": [
-    "include/th10/game/runtime_selector_0043c970.hpp",
+    "include/th10/render/screen_effect_controller.hpp",
     "include/th10/game/scheduler.hpp",
     "include/th10/math/timer.hpp",
     "include/th10/platform/thread_sync.hpp",
@@ -19,16 +19,16 @@
   "functions": [
     {
       "name": "RuntimeSelector_Configure",
-      "symbol": "?Configure@ScreenEffectController_0043c970@@QAEXHHHHHH@Z",
+      "symbol": "?Configure@ScreenEffectController@@QAEXHHHHHH@Z",
       "section": ".text$03selector",
       "address": "0x0043C970",
       "size": 396,
       "actual_abi": "owner ESI; priority EBX; selected mode and four parameters on stack; RET 20",
-      "source": "src/game/fun_0043c970_0043c970.cpp"
+      "source": "src/render/screen_effect_configure.cpp"
     },
     {
       "name": "AsciiFactory",
-      "symbol": "?CreateScreenEffect_0043c8b0@@YGPAUScreenEffectController_0043c970@@HHHHHH@Z",
+      "symbol": "?CreateScreenEffect_0043c8b0@@YGPAUScreenEffectController@@HHHHHH@Z",
       "section": ".text$01factory",
       "address": "0x0043C8B0",
       "size": 82,
@@ -502,7 +502,7 @@
     }
   ],
   "additional_sources": [
-    "src/game/fun_0043c970_0043c970.cpp",
+    "src/render/screen_effect_configure.cpp",
     "src/game/fun_00404530_00404530.cpp"
   ]
 }

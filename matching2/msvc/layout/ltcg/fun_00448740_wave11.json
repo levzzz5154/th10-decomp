@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "fun_00448740_wave11",
-  "source": "src/unidentified/FUN_00448740_00448740.cpp",
+  "source": "src/render/animation_manager_draw_slot14.cpp",
   "driver": "layout/ltcg/fun_00448740_wave11_context.cpp",
   "headers": [
     "include/th10/render/quad_batch.hpp"

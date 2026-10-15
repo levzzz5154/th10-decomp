@@ -1,4 +1,4 @@
-#include "th10/game/runtime_selector_0043c970.hpp"
+#include "th10/render/screen_effect_controller.hpp"
 extern "C" float data_00476f78;
 #include "runtime_selector_0043c970_scheduler_create.cpp"
 #include "th10/game/scheduler.hpp"

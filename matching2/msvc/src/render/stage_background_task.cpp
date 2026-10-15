@@ -19,8 +19,8 @@ struct RenderStageState_00439390 {
 struct PlayerSchedulerRecord {
     __declspec(noinline) void SetSchedulerValue(int value);
 };
-struct ScreenEffectController_0043c970;
-__declspec(noinline) ScreenEffectController_0043c970* __stdcall CreateScreenEffect_0043c8b0(
+struct ScreenEffectController;
+__declspec(noinline) ScreenEffectController* __stdcall CreateScreenEffect_0043c8b0(
     int priority, int mode, int first, int second, int third, int fourth);
 
 struct PlayfieldRect { int left, top, right, bottom; };

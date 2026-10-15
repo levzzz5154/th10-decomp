@@ -11,7 +11,7 @@
 #define data_00491fb8 stage_fade_data_00491fb8
 #define data_00492590 stage_fade_data_00492590
 #include "th10/game/native_stage_fade_00404530.hpp"
-#include "th10/game/runtime_selector_0043c970.hpp"
+#include "th10/render/screen_effect_controller.hpp"
 extern "C" float data_00476f78;
 extern "C" void _ReadWriteBarrier();
 #pragma intrinsic(_ReadWriteBarrier)

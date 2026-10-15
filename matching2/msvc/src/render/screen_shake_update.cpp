@@ -1,9 +1,10 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
-// 0x0043C550..0x0043C706: FUN_0043c550
+// 0x0043C550..0x0043C706: the camera shake task (ScreenEffectController mode 1);
+// the readable model is equivalent/platform/camera_shake_0043c550.cpp.
 // Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_0043c550_0043c550() {
+extern "C" __declspec(naked) void __cdecl ScreenShake_Update() {
     __asm {
     L_0043c550:
         mov eax,dword ptr [data_004918a4]

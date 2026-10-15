@@ -3,7 +3,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include "th10/game/native_stage_fade_00404530.hpp"
-#include "th10/game/runtime_selector_0043c970.hpp"
+#include "th10/render/screen_effect_controller.hpp"
 struct StageContextFade_00418190 {
     unsigned char reserved000[0x14];
     int frame;

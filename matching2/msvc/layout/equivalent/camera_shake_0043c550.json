@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "camera_shake_0043c550",
-  "region": "asm_FUN_0043c550_0043c550",
+  "region": "ScreenShake_Update",
   "sources": [
     "equivalent/platform/camera_shake_0043c550.cpp"
   ],

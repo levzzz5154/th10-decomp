@@ -1,4 +1,4 @@
-#include "../../src/game/fun_0043c970_0043c970.cpp"
+#include "../../src/render/screen_effect_configure.cpp"
 #include "runtime_selector_0043c970_scheduler_create.cpp"
 #include "th10/game/scheduler.hpp"
 #include "th10/platform/thread_sync.hpp"
@@ -46,14 +46,14 @@ extern "C" __declspec(noinline) int __stdcall Scheduler_RegisterSecondary(
 
 
 
-#include "th10/game/runtime_selector_0043c970.hpp"
+#include "th10/render/screen_effect_controller.hpp"
 #include <string.h>
 void* __cdecl operator new(unsigned int);
 #pragma code_seg(".text$01factory")
-ScreenEffectController_0043c970* __stdcall CreateScreenEffect_0043c8b0(
+ScreenEffectController* __stdcall CreateScreenEffect_0043c8b0(
         int priority, int mode, int first, int second, int third, int fourth) {
-    ScreenEffectController_0043c970* owner =
-        static_cast<ScreenEffectController_0043c970*>(operator new(0x44));
+    ScreenEffectController* owner =
+        static_cast<ScreenEffectController*>(operator new(0x44));
     if (owner) {
         owner->timer.flags &= ~1u;
         memset(owner,0,sizeof(*owner));

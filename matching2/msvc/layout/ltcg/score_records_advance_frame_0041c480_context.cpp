@@ -1,5 +1,5 @@
 // Compiler context only; these bytes do not enter the recovered image.
-#include "../../src/unidentified/FUN_0041c480_0041c480.cpp"
+#include "../../src/game/score_display_on_update.cpp"
 
 // Synthetic entry: the primary scheduler task only ever reaches this callback
 // with the object the score manager published at 0x0047781C, so the context

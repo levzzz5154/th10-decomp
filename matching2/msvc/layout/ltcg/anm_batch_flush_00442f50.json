@@ -13,7 +13,7 @@
     "include/th10/math/interpolator.hpp",
     "include/th10/math/vector.hpp",
     "include/th10/math/timer.hpp",
-    "include/th10/game/runtime_selector_0043c970.hpp",
+    "include/th10/render/screen_effect_controller.hpp",
     "include/th10/game/scheduler.hpp",
     "include/th10/platform/thread_sync.hpp"
   ],
@@ -315,7 +315,7 @@
       "address": "0x00448620",
       "size": 115,
       "actual_abi": "manager in ECX; manager in EBX across the mid-body calls; bucket index 3 in EAX and the manager in EDI for the 0x00448980 call; result in EAX; plain RET",
-      "source": "src/unidentified/FUN_00448620_00448620.cpp"
+      "source": "src/render/animation_manager_draw_stage0_bucket3.cpp"
     },
     {
       "name": "AnimationManager_00448770_RenderStage1Bucket0F",
@@ -324,7 +324,7 @@
       "address": "0x00448770",
       "size": 72,
       "actual_abi": "manager in ECX; bucket index EAX / manager EDI passed on; plain RET",
-      "source": "src/unidentified/FUN_00448770_00448770.cpp"
+      "source": "src/render/animation_manager_draw_stage1_bucket0f.cpp"
     },
     {
       "name": "AnimationManager_004487c0_RenderStage1Bucket10",
@@ -333,7 +333,7 @@
       "address": "0x004487c0",
       "size": 72,
       "actual_abi": "manager in ECX; bucket index EAX / manager EDI passed on; plain RET",
-      "source": "src/unidentified/FUN_004487c0_004487c0.cpp"
+      "source": "src/render/animation_manager_draw_stage1_bucket10.cpp"
     },
     {
       "name": "AnimationManager_00448810_RenderStage1Bucket13",
@@ -342,7 +342,7 @@
       "address": "0x00448810",
       "size": 72,
       "actual_abi": "manager in ECX; bucket index EAX / manager EDI passed on; plain RET",
-      "source": "src/unidentified/FUN_00448810_00448810.cpp"
+      "source": "src/render/animation_manager_draw_stage1_bucket13.cpp"
     },
     {
       "name": "EntityDraw_00444760",
@@ -355,30 +355,30 @@
     },
     {
       "name": "AsciiOverlay_0043C2C0_Draw",
-      "symbol": "?Draw@AsciiOverlay_0043C2C0@@QAEHXZ",
+      "symbol": "?Draw@ScreenFadeOutQuad@@QAEHXZ",
       "section": ".text$03w0overlay",
       "address": "0x0043C2C0",
       "size": 68,
       "actual_abi": "ECX receiver; EDI rectangle and EBX color for DrawSolidQuad; plain RET",
-      "source": "src/game/ascii_overlay_callbacks.cpp"
+      "source": "src/render/screen_fade_out_draw.cpp"
     },
     {
       "name": "AsciiOverlay_0043C3C0_Draw",
-      "symbol": "?Draw@AsciiOverlay_0043C3C0@@QAEHXZ",
+      "symbol": "?Draw@ScreenDimFullQuad@@QAEHXZ",
       "section": ".text$03w2overlay",
       "address": "0x0043C3C0",
       "size": 68,
       "actual_abi": "ECX receiver; EDI rectangle and EBX color for DrawSolidQuad; plain RET",
-      "source": "src/unidentified/FUN_0043c3c0_0043c3c0.cpp"
+      "source": "src/render/screen_dim_draw_full.cpp"
     },
     {
       "name": "AsciiOverlay_0043C410_Draw",
-      "symbol": "?Draw@AsciiOverlay_0043C410@@QAEHXZ",
+      "symbol": "?Draw@ScreenDimPlayfieldQuad@@QAEHXZ",
       "section": ".text$03w4overlay",
       "address": "0x0043C410",
       "size": 68,
       "actual_abi": "ECX receiver; EDI rectangle and EBX color for DrawSolidQuad; plain RET",
-      "source": "src/game/ascii_manager_on_draw_retail_0043c410.cpp"
+      "source": "src/render/screen_dim_draw_playfield.cpp"
     },
     {
       "name": "BossOverlay_0041D7C0_Draw",
@@ -414,7 +414,7 @@
       "address": "0x00445880",
       "size": 25,
       "actual_abi": "entity in ECX; passes the manager in ECX and the entity in EAX to 0x004450E0; returns 0; plain RET",
-      "source": "src/unidentified/FUN_00445880_00445880.cpp"
+      "source": "src/render/render_entity_draw_fan.cpp"
     },
     {
       "name": "Run_004200d0",
@@ -1259,8 +1259,8 @@
     }
   ],
   "additional_sources": [
-    "src/game/ascii_manager_on_draw_retail_0043c410.cpp",
-    "src/game/ascii_overlay_callbacks.cpp",
+    "src/render/screen_dim_draw_playfield.cpp",
+    "src/render/screen_fade_out_draw.cpp",
     "src/game/laser_line_draw.cpp",
     "src/game/fun_00405300_00405300.cpp",
     "src/game/game_state_overlay_draw.cpp",
@@ -1292,12 +1292,12 @@
     "src/render/viewport_apply_default_retail_0043bcd0.cpp",
     "src/game/laser_grow_draw.cpp",
     "src/app/app_on_draw_flush.cpp",
-    "src/unidentified/FUN_0043c3c0_0043c3c0.cpp",
-    "src/unidentified/FUN_00445880_00445880.cpp",
-    "src/unidentified/FUN_00448620_00448620.cpp",
-    "src/unidentified/FUN_00448770_00448770.cpp",
-    "src/unidentified/FUN_004487c0_004487c0.cpp",
-    "src/unidentified/FUN_00448810_00448810.cpp",
+    "src/render/screen_dim_draw_full.cpp",
+    "src/render/render_entity_draw_fan.cpp",
+    "src/render/animation_manager_draw_stage0_bucket3.cpp",
+    "src/render/animation_manager_draw_stage1_bucket0f.cpp",
+    "src/render/animation_manager_draw_stage1_bucket10.cpp",
+    "src/render/animation_manager_draw_stage1_bucket13.cpp",
     "src/unreferenced/unassigned_00444dc0.cpp",
     "src/unreferenced/unassigned_00444e60.cpp",
     "src/unreferenced/unassigned_00444fa0.cpp",
@@ -1324,9 +1324,9 @@
     "?RenderStage1Bucket13@AnimationManager_00442F50@@QAEHXZ",
     "?RenderStage0Bucket3@AnimationManager_00442F50@@QAEHXZ",
     "?ReleaseFlaggedEntities@ScoreRuntimeState_00409230@@QAEHXZ",
-    "?Draw@AsciiOverlay_0043C2C0@@QAEHXZ",
-    "?Draw@AsciiOverlay_0043C3C0@@QAEHXZ",
-    "?Draw@AsciiOverlay_0043C410@@QAEHXZ",
+    "?Draw@ScreenFadeOutQuad@@QAEHXZ",
+    "?Draw@ScreenDimFullQuad@@QAEHXZ",
+    "?Draw@ScreenDimPlayfieldQuad@@QAEHXZ",
     "?Draw@LineLaser@@QAEHXZ",
     "?Draw@GrowLaser@@QAEHXZ",
     "_GameStateOverlay_Draw_00415800@4",
@@ -1522,14 +1522,14 @@
     },
     {
       "name": "CreateScreenEffect_0043c8b0_abi_anchor",
-      "symbol": "?CreateScreenEffect_0043c8b0@@YGPAUScreenEffectController_0043c970@@HHHHHH@Z",
+      "symbol": "?CreateScreenEffect_0043c8b0@@YGPAUScreenEffectController@@HHHHHH@Z",
       "section": ".text$03w6effect",
       "address": "0x0043C8B0",
       "size": 82
     },
     {
       "name": "ScreenEffect_Configure_0043c970_abi_anchor",
-      "symbol": "?Configure@ScreenEffectController_0043c970@@QAEXHHHHHH@Z",
+      "symbol": "?Configure@ScreenEffectController@@QAEXHHHHHH@Z",
       "section": ".text$03w8configure",
       "address": "0x0043C970",
       "size": 396

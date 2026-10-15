@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "score_records_advance_frame_0041c480",
-  "source": "src/unidentified/FUN_0041c480_0041c480.cpp",
+  "source": "src/game/score_display_on_update.cpp",
   "driver": "layout/ltcg/score_records_advance_frame_0041c480_context.cpp",
   "headers": [
     "include/th10/game/score_record_list.hpp"

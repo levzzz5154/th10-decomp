@@ -4,26 +4,26 @@
   "source": "src/math/frame_timer.cpp",
   "additional_sources": [
     "src/game/player_set_scheduler_value_00405410.cpp",
-    "src/unidentified/FUN_0043bd40_0043bd40.cpp",
-    "src/unidentified/FUN_0043c230_0043c230.cpp",
-    "src/unidentified/FUN_0043c460_0043c460.cpp",
+    "src/render/screen_fade_in_update.cpp",
+    "src/render/screen_fade_out_update.cpp",
+    "src/render/screen_flash_update.cpp",
     "src/game/recovery_decay_counter_00418a00.cpp",
     "src/game/replay_progress.cpp",
     "src/game/screen_effect_envelope_shake.cpp"
   ],
   "driver": "layout/ltcg/frame_timer_context.cpp",
   "roots": [
-    "?Tick@AnimationCursor_0043bd40@@QAEHXZ",
-    "?Tick@AnimationCursor_0043c230@@QAEHXZ",
-    "?Tick@AnimationCursor_0043c460@@QAEHXZ",
-    "?UpdateEnvelopeShake@ScreenEffectController_0043c970@@QAEHXZ"
+    "?Tick@ScreenFadeIn@@QAEHXZ",
+    "?Tick@ScreenFadeOut@@QAEHXZ",
+    "?Tick@ScreenFlash@@QAEHXZ",
+    "?UpdateEnvelopeShake@ScreenEffectController@@QAEHXZ"
   ],
   "headers": [
     "include/th10/game/score.hpp",
     "include/th10/math/timer.hpp",
     "include/th10/game/stage_schedule.hpp",
     "include/th10/math/rng.hpp",
-    "include/th10/game/runtime_selector_0043c970.hpp",
+    "include/th10/render/screen_effect_controller.hpp",
     "include/th10/game/scheduler.hpp"
   ],
   "image_base": "0x00400000",
@@ -74,8 +74,8 @@
     },
     {
       "name": "AnimationCursor_Tick_0043bd40",
-      "source": "src/unidentified/FUN_0043bd40_0043bd40.cpp",
-      "symbol": "?Tick@AnimationCursor_0043bd40@@QAEHXZ",
+      "source": "src/render/screen_fade_in_update.cpp",
+      "symbol": "?Tick@ScreenFadeIn@@QAEHXZ",
       "section": ".text$07bd40",
       "address": "0x0043BD40",
       "size": 93,
@@ -83,8 +83,8 @@
     },
     {
       "name": "AnimationCursor_Tick_0043c230",
-      "source": "src/unidentified/FUN_0043c230_0043c230.cpp",
-      "symbol": "?Tick@AnimationCursor_0043c230@@QAEHXZ",
+      "source": "src/render/screen_fade_out_update.cpp",
+      "symbol": "?Tick@ScreenFadeOut@@QAEHXZ",
       "section": ".text$09c230",
       "address": "0x0043C230",
       "size": 133,
@@ -92,8 +92,8 @@
     },
     {
       "name": "AnimationCursor_Tick_0043c460",
-      "source": "src/unidentified/FUN_0043c460_0043c460.cpp",
-      "symbol": "?Tick@AnimationCursor_0043c460@@QAEHXZ",
+      "source": "src/render/screen_flash_update.cpp",
+      "symbol": "?Tick@ScreenFlash@@QAEHXZ",
       "section": ".text$11c460",
       "address": "0x0043C460",
       "size": 154,
@@ -110,7 +110,7 @@
     {
       "name": "ScreenEffectController_UpdateEnvelopeShake",
       "source": "src/game/screen_effect_envelope_shake.cpp",
-      "symbol": "?UpdateEnvelopeShake@ScreenEffectController_0043c970@@QAEHXZ",
+      "symbol": "?UpdateEnvelopeShake@ScreenEffectController@@QAEHXZ",
       "section": ".text$12b_shake",
       "address": "0x0043C710",
       "size": 349,

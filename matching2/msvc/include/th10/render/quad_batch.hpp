@@ -33,11 +33,11 @@ struct AnimationManager_00442F50 {
     __declspec(noinline) void SyncRenderState(const RenderEntity* entity);
     __declspec(noinline) int DrawStrip(const RenderEntity* entity, const void* vertices, unsigned int count);
     // 0x00448620: republishes the first render stage and draws animation
-    // bucket 3; see src/unidentified/FUN_00448620_00448620.cpp.
+    // bucket 3; see src/render/animation_manager_draw_stage0_bucket3.cpp.
     __declspec(noinline) int RenderStage0Bucket3();
     // 0x00448770, 0x004487C0 and 0x00448810: the scheduler tasks that
     // republish the second render stage and then draw one animation bucket
-    // (0x0F, 0x10 and 0x13); see src/unidentified/FUN_00448770_00448770.cpp.
+    // (0x0F, 0x10 and 0x13); see src/render/animation_manager_draw_stage1_bucket0f.cpp.
     __declspec(noinline) int RenderStage1Bucket0F();
     __declspec(noinline) int RenderStage1Bucket10();
     __declspec(noinline) int RenderStage1Bucket13();
@@ -100,7 +100,7 @@ struct RenderEntity {
     // src/render/entity_submit_projected_00443f80.cpp.
     __declspec(noinline) int SubmitProjectedQuad(AnimationManager_00442F50* manager);
     // 0x00445880: draw the strip vertices as a 33-point fan; see
-    // src/unidentified/FUN_00445880_00445880.cpp.
+    // src/render/render_entity_draw_fan.cpp.
     __declspec(noinline) int DrawFan33();
 };
 // The shared sprite quad both submit pipelines finish and append.

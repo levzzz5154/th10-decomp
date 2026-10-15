@@ -3,9 +3,10 @@
 extern "C" int data_004918a4;  // 0x004918A4
 extern "C" float data_00470bf8;  // 0x00470BF8
 
-// Animation cursor update at 0x0043BD40. The object embeds a FrameTimer at
+// 0x0043BD40: the fade-in update task (ScreenEffectController modes 0 and 3):
+// the alpha falls from 255 to 0 over the length. The object embeds a FrameTimer at
 // +0x30; native LTCG supplies the retail internal ESI receiver for that call.
-struct AnimationCursor_0043bd40 {
+struct ScreenFadeIn {
     unsigned char pad_00[0x18];
     int value;                   // +0x18
     int length;                  // +0x1C
@@ -19,10 +20,10 @@ struct AnimationCursor_0043bd40 {
 };
 
 typedef char AnimationCursor_0043bd40_size_must_be_40[
-    sizeof(AnimationCursor_0043bd40) == 0x40 ? 1 : -1];
+    sizeof(ScreenFadeIn) == 0x40 ? 1 : -1];
 
 #pragma code_seg(".text$07bd40")
-int AnimationCursor_0043bd40::Tick() {
+int ScreenFadeIn::Tick() {
     if (data_004918a4 != 0)
         return 7;
 

@@ -5,7 +5,7 @@
 #include "th10/game/player.hpp"
 #include "th10/game/score.hpp"
 #include "th10/platform/sound_queue.hpp"
-#include "th10/game/runtime_selector_0043c970.hpp"
+#include "th10/render/screen_effect_controller.hpp"
 #include "th10/game/recovery_mark_text_and_dispatcher_004479d0.hpp"
 
 // Genuine source inputs recovered from the retail body. All private register

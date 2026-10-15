@@ -1,6 +1,6 @@
 // Camera shake task: advance its timer, interpolate amplitude, and choose
 // independently signed offsets through the game's 16-bit random recurrence.
-#include "th10/game/runtime_selector_0043c970.hpp"
+#include "th10/render/screen_effect_controller.hpp"
 extern unsigned g_shake_cancel;
 struct ShakeRngStorage {
     union {
@@ -27,7 +27,7 @@ static __forceinline unsigned ShakeRandom() {
 }
 #pragma code_seg(".text$00camera")
 extern "C" __declspec(noinline) int __fastcall LinearShakeUpdate_0043c550(void* context) {
-    ScreenEffectController_0043c970* self = static_cast<ScreenEffectController_0043c970*>(context);
+    ScreenEffectController* self = static_cast<ScreenEffectController*>(context);
     if (g_shake_cancel) return 7;
     self->timer.previous = (unsigned)self->timer.current;
     if (*self->timer.speed > g_timer_unit_low && *self->timer.speed < g_timer_unit_high) {

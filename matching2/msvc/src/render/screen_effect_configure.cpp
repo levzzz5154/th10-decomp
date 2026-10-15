@@ -2,7 +2,7 @@
 // compiler-generated switch table. Native LTCG agrees on this in ESI,
 // priority in EBX, and selected mode plus four parameters on the stack.
 // Genuine scheduler creation bodies establish callback EAX and priority EDI.
-#include "th10/game/runtime_selector_0043c970.hpp"
+#include "th10/render/screen_effect_controller.hpp"
 __declspec(noinline) SchedulerTask* __stdcall CreateEffectPrimary(void* context, int priority, void* routine);
 __declspec(noinline) SchedulerTask* __stdcall CreateEffectSecondary(void* context, int priority, void* routine);
 extern "C" int __fastcall FadeOutUpdate_0043bd40(void*);
@@ -19,7 +19,7 @@ extern "C" int __fastcall EnvelopeShakeUpdate_0043c710(void*);
 extern "C" int __fastcall ScreenEffectRemove_0043c870(void*);
 extern "C" float data_00476f78;
 #pragma code_seg(".text$03selector")
-void ScreenEffectController_0043c970::Configure(int priority, int selected_mode,
+void ScreenEffectController::Configure(int priority, int selected_mode,
         int first, int second, int third, int fourth) {
     // Parameters retain their shared representation; each update routine
     // interprets them as colors, durations, repetition counts, or shake limits.

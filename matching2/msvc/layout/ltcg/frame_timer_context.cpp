@@ -16,16 +16,16 @@
 struct PlayerSchedulerRecord {
     void SetSchedulerValue(int value);
 };
-struct AnimationCursor_0043bd40 { int Tick(); };
-struct AnimationCursor_0043c230 { int Tick(); };
-struct AnimationCursor_0043c460 { int Tick(); };
+struct ScreenFadeIn { int Tick(); };
+struct ScreenFadeOut { int Tick(); };
+struct ScreenFlash { int Tick(); };
 
 #pragma code_seg(".text$15context")
 extern "C" void __stdcall AnimationTimerSchedulerCompilerContext(
         FrameTimer* timers, int count, int delta,
-        AnimationCursor_0043bd40* cursor_bd40,
-        AnimationCursor_0043c230* cursor_c230,
-        AnimationCursor_0043c460* cursor_c460,
+        ScreenFadeIn* cursor_bd40,
+        ScreenFadeOut* cursor_c230,
+        ScreenFlash* cursor_c460,
         PlayerSchedulerRecord* scheduler,
         ScoreState* scores, StageSequence* sequence,
         EntityScriptRng_0043cb80* rng) {

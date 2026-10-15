@@ -1,12 +1,11 @@
-// 0x0043C310..0x0043C3BE: tick callback of the animation objects whose setup
-// routine (0x0043C970, cases 6 and 7) registers it with the scheduler at
-// priority 14. The object is handed to the callback in ECX.
+// 0x0043C310..0x0043C3BE: the dim update task (ScreenEffectController modes 6
+// and 7, registered at priority 14). The object is handed to the callback in ECX.
 //
 // The callback advances the fractional frame position by the frame delta
 // published at +0x3C and republishes the animation parameters the drawing pass
 // reads back: +0x18 is the value derived from the elapsed frame position, and
 // +0x30 keeps the frame the previous tick ended on.
-struct AnimationCursor {
+struct ScreenDim {
     unsigned char pad_00[0x18];
     int value;                   // +0x18  value derived from the frame position
     int length;                  // +0x1C  total length, 0 while undetermined
@@ -19,7 +18,7 @@ struct AnimationCursor {
     int Tick();
 };
 
-int AnimationCursor::Tick() {
+int ScreenDim::Tick() {
     if (mode == 0) {
         int divisor = length;
         if (divisor != 0 && frame <= divisor)

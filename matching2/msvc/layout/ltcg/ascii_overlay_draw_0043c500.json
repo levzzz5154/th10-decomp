@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "ascii_overlay_draw_0043c500",
-  "source": "src/render/fun_0043c500_0043c500.cpp",
+  "source": "src/render/screen_flash_draw.cpp",
   "included_sources": [
     "src/render/special_quad.cpp",
     "src/render/anm_batch_flush.cpp"
@@ -15,7 +15,7 @@
   "functions": [
     {
       "name": "AsciiOverlay_Draw_0043C500",
-      "symbol": "?Draw@AsciiOverlay_0043C500@@QAEHXZ",
+      "symbol": "?Draw@ScreenFlashQuad@@QAEHXZ",
       "section": ".text$03callback",
       "address": "0x0043C500",
       "size": 74,
@@ -30,7 +30,7 @@
     "description": "Unselected array-walking compiler context."
   },
   "roots": [
-    "?Draw@AsciiOverlay_0043C500@@QAEHXZ"
+    "?Draw@ScreenFlashQuad@@QAEHXZ"
   ],
   "anchors": [
     {
