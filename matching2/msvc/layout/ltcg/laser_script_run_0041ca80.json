@@ -14,7 +14,7 @@
  "included_sources": [
   "src/game/entity_start_script_00404f30.cpp",
   "src/game/player_set_scheduler_value_00405410.cpp",
-  "src/game/entity_angle_from_point_00426660.cpp",
+  "src/game/player_angle_from_point.cpp",
   "src/render/animation_manager_queue_resource_0043dc90.cpp",
   "src/platform/sound_queue_pan_0043dd10.cpp",
   "src/render/animation_object_load_script_0043e710.cpp"
@@ -24,7 +24,9 @@
   "include/th10/game/entity_script_start.hpp",
   "include/th10/game/laser_script_run_0041ca80.hpp",
   "include/th10/platform/sound_queue.hpp",
-  "include/th10/types.hpp"
+  "include/th10/types.hpp",
+   "include/th10/game/player.hpp",
+   "include/th10/math/timer.hpp"
  ],
  "image_base": "0x00400000",
  "description": "Line-laser script interpreter (vtable 0x0046DA60 slot 0) with its scheduler store, angle helper, script starter chain (Entity_Init stub, StartScript, LoadScript) and sound queue callees compiled as one native-LTCG graph so the retail private register conventions emerge; the polar setter stays an external relative_code binding at 0x0041F800.",
@@ -62,7 +64,7 @@
   },
   {
    "name": "angle",
-   "symbol": "?AngleFromPoint@EntityAngleFromPoint_00426660@@QAEMPBM@Z",
+   "symbol": "?AngleFromPoint@Player@@QAEMPBM@Z",
    "section": ".text$00426660_fn",
    "address": "0x00426660",
    "size": 67

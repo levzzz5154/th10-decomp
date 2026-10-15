@@ -257,6 +257,9 @@ struct Player {
     // 0x00428160: fire every shot of the current power level that is due on
     // `frame` of the cycle.
     __declspec(noinline) int FireShots(int frame);
+    // 0x00426660: the angle from `point` to the player (0 when they meet).
+    // LTCG callers pass the point in EAX.
+    __declspec(noinline) float AngleFromPoint(const float* point);
 };
 
 #define PLAYER_CHECK(name, expression) typedef char player_check_##name[(expression) ? 1 : -1]

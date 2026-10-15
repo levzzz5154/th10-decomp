@@ -20,12 +20,6 @@ struct PlayerSchedulerRecord {
     void SetSchedulerValue(int value);
 };
 
-// 0x00426660: angle from a point to an entity; the entity stays in ECX and
-// the point arrives in EAX.
-struct EntityAngleFromPoint_00426660 {
-    float AngleFromPoint(const float* point);
-};
-
 // 0x00404F30: reinitialise an animation object and start script `script` of
 // `resource` on it. The object arrives in ESI, the script index in EAX and
 // only the resource is passed on the stack.
@@ -58,8 +52,7 @@ void LaserScriptRun_0041ca80::Run() {
             if (cmd.param1.f <= data_00470b50)
                 angle = angle_3C;
             else if (cmd.param1.f >= data_00470ccc)
-                angle = static_cast<EntityAngleFromPoint_00426660*>(g_player)
-                    ->AngleFromPoint(&position_x_24);
+                angle = g_player->AngleFromPoint(&position_x_24);
             else
                 angle = cmd.param1.f;
             angle_A4 = angle;

@@ -47,8 +47,7 @@ __forceinline static float SpawnCommand_AimAngle(ProjectileSpawnRecord& record,
     if (value <= data_00470b50)
         return record.angle_3e4;
     if (value >= data_00470ccc)
-        return reinterpret_cast<EntityAngleFromPoint_00426660*>(g_player)
-            ->AngleFromPoint(reinterpret_cast<const float*>(&record.position));
+        return g_player->AngleFromPoint(reinterpret_cast<const float*>(&record.position));
     return value;
 }
 

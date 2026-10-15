@@ -3,6 +3,7 @@
 
 #include <stddef.h>
 #include "th10/game/entity.hpp"
+#include "th10/game/player.hpp"
 
 // One scheduler slot of a line laser. The layout is the shared
 // PlayerSchedulerRecord shape: `previous` holds the raw value minus one (or
@@ -157,7 +158,6 @@ struct BulletAnimationResourceSource {
     void* resource;                    // +0x3E0B50
 };
 extern "C" BulletAnimationResourceSource* data_004776f0;
-extern "C" void* g_player;
 extern "C" const int data_00474170[];
 extern "C" float data_00470b04, data_00470b50, data_00470cc8, data_00470ccc;
 

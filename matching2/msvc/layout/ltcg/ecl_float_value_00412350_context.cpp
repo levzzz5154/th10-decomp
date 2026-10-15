@@ -2,9 +2,9 @@
 #include "../../src/script/ecl_float_value_00412350.cpp"
 
 #pragma code_seg(".text$04angle")
-float EntityAngleFromPoint_00426660::AngleFromPoint(const float* point) {
-    float dx = origin_x - point[0];
-    float dy = origin_y - point[1];
+float Player::AngleFromPoint(const float* point) {
+    float dx = position.x - point[0];
+    float dy = position.y - point[1];
     if (dy == data_00470b04 && dx == data_00470b04)
         return data_00470b94;
     return (float)atan2((double)dy, (double)dx);

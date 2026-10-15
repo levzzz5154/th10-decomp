@@ -88,7 +88,7 @@
     },
     {
       "name": "EntityAngleFromPoint_AngleFromPoint",
-      "symbol": "?AngleFromPoint@EntityAngleFromPoint_00426660@@QAEMPBM@Z",
+      "symbol": "?AngleFromPoint@Player@@QAEMPBM@Z",
       "section": ".text$00426660_s",
       "address": "0x00426660",
       "size": 67

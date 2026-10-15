@@ -116,7 +116,7 @@
   },
   "bindings": {
     "?SetSchedulerValue@PlayerSchedulerRecord@@QAEXH@Z": "0x00405410",
-    "?AngleFromPoint@EntityAngleFromPoint_00426660@@QAEMPBM@Z": "0x00426660",
+    "?AngleFromPoint@Player@@QAEMPBM@Z": "0x00426660",
     "?SetScorePolar@ScoreGameplayPolarVector@@QAEPAU1@MM@Z": "0x00408750",
     "?Queue@SoundQueue@@QAEHHH@Z": "0x0043DC90",
     "?QueuePan@SoundQueue@@QAEXHM@Z": "0x0043DD10",

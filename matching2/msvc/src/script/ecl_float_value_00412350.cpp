@@ -2,14 +2,6 @@
 #include <stddef.h>
 #include <math.h>
 
-struct EntityAngleFromPoint_00426660 {
-    unsigned char reserved_000[0x3C0];
-    float origin_x;
-    float origin_y;
-
-    __declspec(noinline) float AngleFromPoint(const float* point);
-};
-
 
 
 #include "th10/math/rng.hpp"
@@ -133,7 +125,7 @@ float EclFloatSource_00412350::ResolveFloatValue(int encoded_selector) const {
         result = g_player->position.y;
         break;
     case -9989:
-        result = ((EntityAngleFromPoint_00426660*)g_player)->AngleFromPoint(&value_1068);
+        result = g_player->AngleFromPoint(&value_1068);
         break;
     case -9988:
         result = value_1160;
@@ -232,10 +224,10 @@ float EclFloatSource_00412350::ResolveFloatValue(int encoded_selector) const {
         result = data_00470afc;
         break;
     case -9956:
-        result = ((EntityAngleFromPoint_00426660*)g_player)->AngleFromPoint(&value_1094);
+        result = g_player->AngleFromPoint(&value_1094);
         break;
     case -9955:
-        result = ((EntityAngleFromPoint_00426660*)g_player)->AngleFromPoint(&value_10c0);
+        result = g_player->AngleFromPoint(&value_10c0);
         break;
     case -9954:
         result = (float)value_23fc;

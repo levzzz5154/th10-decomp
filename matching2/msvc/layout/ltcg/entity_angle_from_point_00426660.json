@@ -1,15 +1,20 @@
 {
   "schema_version": 1,
   "name": "entity_angle_from_point_00426660",
-  "source": "src/game/entity_angle_from_point_00426660.cpp",
+  "source": "src/game/player_angle_from_point.cpp",
   "driver": "layout/ltcg/entity_angle_from_point_00426660_context.cpp",
-  "headers": [],
+  "headers": [
+    "include/th10/game/player.hpp",
+    "include/th10/game/entity.hpp",
+    "include/th10/types.hpp",
+    "include/th10/math/timer.hpp"
+  ],
   "image_base": "0x00400000",
   "description": "Entity angle helper compiled with native LTCG so the entity remains in ECX and the point arrives in EAX.",
   "functions": [
     {
-      "name": "EntityAngleFromPoint_00426660",
-      "symbol": "?AngleFromPoint@EntityAngleFromPoint_00426660@@QAEMPBM@Z",
+      "name": "Player_AngleFromPoint",
+      "symbol": "?AngleFromPoint@Player@@QAEMPBM@Z",
       "section": ".text$01angle",
       "address": "0x00426660",
       "size": 67,
@@ -17,7 +22,7 @@
     }
   ],
   "context": {
-    "symbol": "?EntityAngleFromPointCompilerContext@@YGMPAUEntityAngleFromPoint_00426660@@PBM@Z",
+    "symbol": "?EntityAngleFromPointCompilerContext@@YGMPAUPlayer@@PBM@Z",
     "section": ".text$03context",
     "address": "0x00426700",
     "size": 16,
