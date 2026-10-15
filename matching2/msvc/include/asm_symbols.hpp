@@ -397,8 +397,8 @@ extern "C" void __cdecl asm_EnemyGrid_ScanCellsRetail_004073e0();
 #define VA_asm_EnemyGrid_ScanCellsRetail_004073e0 0x004073e0
 extern "C" void __cdecl asm_EnemyManager_CreateRetail_0040d6b0();
 #define VA_asm_EnemyManager_CreateRetail_0040d6b0 0x0040d6b0
-extern "C" void __cdecl asm_EnemySlot_CreateAndInitRetail_0041fd00();
-#define VA_asm_EnemySlot_CreateAndInitRetail_0041fd00 0x0041fd00
+extern "C" void __cdecl Loading_Create();
+#define VA_Loading_Create 0x0041fd00
 extern "C" void __cdecl asm_Enemy_DeathSweepRetail_0040e6a0();
 #define VA_asm_Enemy_DeathSweepRetail_0040e6a0 0x0040e6a0
 extern "C" void __cdecl asm_Enemy_SweepPendingDropsRetail_0041ba50();
@@ -747,8 +747,8 @@ extern "C" void __cdecl asm_FUN_0041efa0_part_0041f2c0();
 #define VA_asm_FUN_0041efa0_part_0041f2c0 0x0041f2c0
 extern "C" void __cdecl asm_FUN_0041efa0_part_0041f2f0();
 #define VA_asm_FUN_0041efa0_part_0041f2f0 0x0041f2f0
-extern "C" void __cdecl asm_FUN_0041fb50_0041fb50();
-#define VA_asm_FUN_0041fb50_0041fb50 0x0041fb50
+extern "C" void __cdecl Loading_Release();
+#define VA_Loading_Release 0x0041fb50
 extern "C" void __cdecl asm_FUN_0041fdd0_0041fdd0();
 #define VA_asm_FUN_0041fdd0_0041fdd0 0x0041fdd0
 extern "C" void __cdecl asm_FUN_0041ff60_0041ff60();
@@ -6030,7 +6030,7 @@ extern "C" unsigned char data_00477810;
 extern "C" unsigned char data_00477814;
 extern "C" unsigned char data_00477818;
 extern "C" unsigned char g_laser_manager;
-extern "C" unsigned char data_00477820;
+extern "C" unsigned char g_loading;
 extern "C" unsigned char data_00477824;
 extern "C" unsigned char data_00477828;
 extern "C" unsigned char data_0047782c;

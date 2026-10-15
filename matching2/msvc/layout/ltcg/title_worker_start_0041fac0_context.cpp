@@ -1,5 +1,5 @@
 // Compiler-only ABI anchors and array caller. Only StartWorker is exported.
-#include "../../src/game/loading/recovery_start_worker_0041fac0.cpp"
+#include "../../src/game/loading/loading_start_worker.cpp"
 
 #include "th10/game/scheduler.hpp"
 #include "th10/platform/thread_sync.hpp"
@@ -66,14 +66,14 @@ __declspec(noinline) void PlatformWorker::Stop() {
 }
 #pragma code_seg()
 
-struct StateTable_0041f850;
-extern "C" StateTable_0041f850* __cdecl asm_EnemySlot_CreateAndInitRetail_0041fd00();
+struct Loading;
+extern "C" Loading* __cdecl Loading_Create();
 
 #pragma code_seg(".text$30context")
-extern "C" int __cdecl TitleWorkerStartCompilerContext(TitleWorkerOwner** owners, int count) {
+extern "C" int __cdecl LoadingStartCompilerContext(LoadingView** owners, int count) {
     while (count--) {
         (*owners++)->StartWorker();
     }
-    return asm_EnemySlot_CreateAndInitRetail_0041fd00() != 0;
+    return Loading_Create() != 0;
 }
 #pragma code_seg()

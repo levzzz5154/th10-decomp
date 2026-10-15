@@ -1,5 +1,5 @@
-// 0x0041FDD0: initialize title signature and cached interface animations,
-// then advance the title effect frame counter.
+// 0x0041FDD0: initialize the loading screen's signature (sig.anm) and cached interface animations,
+// then advance its effect frame counter.
 #include <string.h>
 #include "th10/render/animation_public_callers.hpp"
 struct TitleEffectState_0041fdd0 {

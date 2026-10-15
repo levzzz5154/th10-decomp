@@ -38,7 +38,7 @@
   "constants": [],
   "absolute_symbols": [
     {
-      "symbol": "_asm_FUN_0041fb50_0041fb50@4",
+      "symbol": "_Loading_Release@4",
       "address": "0x41FB50",
       "kind": "relative_code"
     },

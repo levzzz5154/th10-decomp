@@ -2,7 +2,7 @@
 #include "th10/game/scheduler.hpp"
 #include "th10/platform/worker.hpp"
 
-struct TitleWorkerOwner {
+struct LoadingView {
     unsigned char reserved_00[8];
     SchedulerTask* primary_task;             // +0x08
     SchedulerTask* secondary_task;           // +0x0c
@@ -17,11 +17,11 @@ struct TitleWorkerOwner {
     __declspec(noinline) int LoadStartupResources();
 };
 
-typedef char TitleWorkerOwner_primary_offset[
-    offsetof(TitleWorkerOwner, primary_task) == 8 ? 1 : -1];
-typedef char TitleWorkerOwner_secondary_offset[
-    offsetof(TitleWorkerOwner, secondary_task) == 12 ? 1 : -1];
-typedef char TitleWorkerOwner_worker_offset[
-    offsetof(TitleWorkerOwner, worker) == 16 ? 1 : -1];
-typedef char TitleWorkerOwner_logo_offset[
-    offsetof(TitleWorkerOwner, logo_animation) == 0x3e0 ? 1 : -1];
+typedef char LoadingOwner_primary_offset[
+    offsetof(LoadingView, primary_task) == 8 ? 1 : -1];
+typedef char LoadingOwner_secondary_offset[
+    offsetof(LoadingView, secondary_task) == 12 ? 1 : -1];
+typedef char LoadingOwner_worker_offset[
+    offsetof(LoadingView, worker) == 16 ? 1 : -1];
+typedef char LoadingOwner_logo_offset[
+    offsetof(LoadingView, logo_animation) == 0x3e0 ? 1 : -1];

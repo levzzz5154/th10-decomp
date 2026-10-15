@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "title_teardown_0041fb50",
-  "source": "src/game/loading/fun_0041fb50_0041fb50.cpp",
+  "source": "src/game/loading/loading_release.cpp",
   "driver": "layout/ltcg/title_teardown_0041fb50_context.cpp",
   "included_sources": [
     "layout/ltcg/title_teardown_0041fb50/message_teardown_helpers.cpp",
@@ -38,8 +38,8 @@
       "actual_abi": "Genuine title destructor, one logical receiver stack, RET4"
     },
     {
-      "name": "TitleWorkerUnwind",
-      "symbol": "_TitleWorkerUnwind_00465680",
+      "name": "LoadingUnwind",
+      "symbol": "_LoadingUnwind_00465680",
       "section": ".text$x",
       "address": "0x00465680",
       "size": 11,
@@ -121,7 +121,7 @@
     },
     {
       "name": "WorkerDestructor",
-      "symbol": "??1TitleWorker_0044C130@@UAE@XZ",
+      "symbol": "??1Loading_0044C130@@UAE@XZ",
       "section": ".text$14worker",
       "address": "0x0044C130",
       "size": 16
@@ -327,7 +327,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00477820",
+      "symbol": "_g_loading",
       "address": "0x477820",
       "kind": "data"
     },
@@ -535,7 +535,7 @@
   ],
   "data_aliases": [
     {
-      "symbol": "??_7TitleWorker_0044C130@@6B@",
+      "symbol": "??_7Loading_0044C130@@6B@",
       "address": "0x004703E4",
       "bytes": "00c14400"
     }

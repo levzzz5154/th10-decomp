@@ -1,11 +1,11 @@
 {
   "schema_version": 1,
   "name": "title_assets_0041f990",
-  "source": "src/game/loading/title_assets.cpp",
+  "source": "src/game/loading/loading_thread.cpp",
   "driver": "layout/ltcg/title_assets_0041f990_context.cpp",
   "headers": [
     "include/th10/app/supervisor.hpp",
-    "include/th10/game/title_worker_owner_0041fac0.hpp",
+    "include/th10/game/loading_view.hpp",
     "include/th10/game/scheduler.hpp",
     "include/th10/platform/worker.hpp",
     "layout/ltcg/sound_interfaces_dependencies/sound_wave_types.hpp",
@@ -28,8 +28,8 @@
   "description": "Title worker thread body, the sound effect buffer initialiser and the music launcher it calls, compiled with the real worker stop, archive loader, text log and cursor open, and a stand-in for the file stream factory, so the pass hands the sound manager over in EBX/EAX and orders the factory arguments by its parameter list. The supervisor block is one address-taken object, which keeps its stores ahead of pointer loads.",
   "functions": [
     {
-      "name": "TitleWorker_LoadAssets_0041f990",
-      "symbol": "?TitleWorker_LoadAssets_0041f990@@YIHPAUTitleWorkerOwner@@@Z",
+      "name": "Loading_LoadAssets_0041f990",
+      "symbol": "?Loading_LoadAssets_0041f990@@YIHPAULoadingView@@@Z",
       "section": ".text$00title",
       "address": "0x0041F990",
       "size": 299,
@@ -92,7 +92,7 @@
     },
     {
       "name": "LoadStartup",
-      "symbol": "?LoadStartupResources@TitleWorkerOwner@@QAEHXZ",
+      "symbol": "?LoadStartupResources@LoadingView@@QAEHXZ",
       "section": ".text$00startup",
       "address": "0x41f8d0",
       "size": 82
@@ -319,7 +319,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_data_00477820",
+      "symbol": "_g_loading",
       "address": "0x477820",
       "kind": "data"
     },

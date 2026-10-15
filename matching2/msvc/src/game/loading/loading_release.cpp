@@ -1,6 +1,6 @@
 #include "../../../layout/ltcg/title_teardown_0041fb50/title_teardown_dependencies.hpp"
 
-inline void ReleaseTitleBank(int index) {
+inline void ReleaseLoadingBank(int index) {
     AnimationResource_00447810*& bank = reinterpret_cast<AnimationResource_00447810*&>(data_00491c10->banks[index]);
     if (bank) {
         bank->Release();
@@ -31,14 +31,14 @@ TitleState_0041FB50::~TitleState_0041FB50() {
         --g_thread_synchronization.scheduler_lock_depth;
     }
     ReleasePair_0041f930();
-    ReleaseTitleBank(1);
+    ReleaseLoadingBank(1);
     GameThread* thread = static_cast<GameThread*>(g_ascii_manager);
-    data_00477820 = 0;
+    g_loading = 0;
     if (thread) {
         DestroyGameThread_00401260(thread);
         entry_free_004524a1(thread);
     }
-    ReleaseTitleBank(0);
+    ReleaseLoadingBank(0);
     static_cast<ScoreArchive_0042B1E0*>(data_0047783c)->Save();
     ScoreArchive_0042B1E0* archive = static_cast<ScoreArchive_0042B1E0*>(data_0047783c);
     if (archive) {

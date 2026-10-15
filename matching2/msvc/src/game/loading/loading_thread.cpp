@@ -1,4 +1,4 @@
-// 0x0041F990: body of the title worker thread. Loads the logo and text
+// 0x0041F990: body of the loading screen's worker thread. Loads the logo and text
 // animations, initialises text drawing and the BGM format table, prepares the
 // sound effects and the music file, then wakes the title's tick task. A
 // failure before the text animation is in place requests application state 3.
@@ -11,12 +11,12 @@
 // retail's unread `mov [esp+4],ecx`.
 #include <string.h>
 #include "th10/app/supervisor.hpp"
-#include "th10/game/title_worker_owner_0041fac0.hpp"
+#include "th10/game/loading_view.hpp"
 #include "../../../layout/ltcg/sound_interfaces_dependencies/sound_wave_types.hpp"
 #pragma intrinsic(strcpy)
 
 extern "C" {
-extern TitleWorkerOwner* data_00477820;
+extern LoadingView* g_loading;
 extern void* data_00491c10;              // animation manager
 extern void* data_00491fec;              // text.anm
 extern char* data_00494514;              // BGM format table
@@ -34,7 +34,7 @@ int __stdcall asm_File_ProbeExists_0044b4d0(const char* name);
 void __stdcall ScoreManager_Create_0042af20();
 
 // Everything the title screen itself needs; -1 when any of it is missing.
-static __forceinline int LoadTitleScreenAssets(TitleWorkerOwner* title) {
+static __forceinline int LoadTitleScreenAssets(LoadingView* title) {
     title->logo_animation = Recovery_LoadCachedResource_00447280(1, data_00491c10, "sig.anm");
     if (!title->logo_animation)
         return -1;
@@ -52,8 +52,8 @@ static __forceinline int LoadTitleScreenAssets(TitleWorkerOwner* title) {
 }
 
 #pragma code_seg(".text$00title")
-__declspec(noinline) int __fastcall TitleWorker_LoadAssets_0041f990(TitleWorkerOwner* owner) {
-    TitleWorkerOwner* title = data_00477820;
+__declspec(noinline) int __fastcall Loading_LoadAssets_0041f990(LoadingView* owner) {
+    LoadingView* title = g_loading;
     if (LoadTitleScreenAssets(title) != 0) {
         g_supervisor.next_state = 3;
         title->primary_task->reserved_flags |= 1u;

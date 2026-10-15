@@ -11,7 +11,7 @@ inline TitleAnimation_00401FF0::~TitleAnimation_00401FF0() {
 #pragma code_seg()
 
 #pragma code_seg(".text$14worker")
-inline TitleWorker_0044C130::~TitleWorker_0044C130() {
+inline Loading_0044C130::~Loading_0044C130() {
     Stop();
 }
 #pragma code_seg()
@@ -34,7 +34,7 @@ extern "C" __declspec(noinline) int __cdecl ReleasePair_0041f930() {
 }
 #pragma code_seg()
 
-#include "../../src/game/loading/fun_0041fb50_0041fb50.cpp"
+#include "../../src/game/loading/loading_release.cpp"
 #include "title_teardown_0041fb50/title_encrypt.cpp"
 
 extern "C" void __stdcall ReleaseGlobalManager_00417c80(void*);
@@ -47,7 +47,7 @@ void Recovery_ReleaseGlobalStates() {
     if (manager_state) { ReleaseGlobalManager_00417c80(manager_state);entry_free_004524a1(manager_state); }
     void* script_state = data_0047784c;
     if (script_state) { ReleaseGlobalScript_0042cb60(script_state);entry_free_004524a1(script_state); }
-    TitleState_0041FB50* resource_state = static_cast<TitleState_0041FB50*>(data_00477820);
+    TitleState_0041FB50* resource_state = static_cast<TitleState_0041FB50*>(g_loading);
     if (resource_state) { resource_state->~TitleState_0041FB50();entry_free_004524a1(resource_state); }
     void* small_state = g_ending;
     if (small_state) { ReleaseGlobalMessage_0040b7b0(small_state);entry_free_004524a1(small_state); }

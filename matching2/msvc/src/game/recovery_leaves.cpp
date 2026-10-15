@@ -91,9 +91,9 @@ void Recovery_ReleaseGlobalStates() {
         ((GlobalStateDestroyFn)asm_FUN_0042cb60_0042cb60)(script_state);
         entry_free_004524a1(script_state);
     }
-    void* resource_state = *(void**)&data_00477820;
+    void* resource_state = *(void**)&g_loading;
     if (resource_state) {
-        ((GlobalStateDestroyFn)asm_FUN_0041fb50_0041fb50)(resource_state);
+        ((GlobalStateDestroyFn)Loading_Release)(resource_state);
         entry_free_004524a1(resource_state);
     }
     void* small_state = *(void**)&g_ending;

@@ -27,7 +27,7 @@ int __stdcall Title_RegisterTasks_0042caa0(TitleState_0042caa0* title);
 __declspec(dllimport) void __stdcall Sleep(unsigned long milliseconds);
 void __cdecl entry_free_004524a1(void* memory);
 extern TitleState_0042caa0* data_0047784c;
-extern StartupLoader_00477820* data_00477820;
+extern StartupLoader_00477820* g_loading;
 extern AnimationManager_0042c800* data_00491c10;
 extern unsigned int data_00491ff4;       // held input
 extern unsigned int data_00491fb8;       // requested application state
@@ -39,8 +39,8 @@ extern "C" __declspec(noinline) int __cdecl TitleLoadThread_0042c9f0() {
         data_00491fb8 = (~(data_00491ff4 >> 12) & 1) | 2;
         return 0;
     }
-    if (data_00477820) {
-        while (data_00477820->frames < 300) {
+    if (g_loading) {
+        while (g_loading->frames < 300) {
             if (data_00491ff4 & 0x80)
                 break;
             Sleep(16);

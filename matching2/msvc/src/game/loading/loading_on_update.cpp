@@ -1,4 +1,4 @@
-// 0x0041FEB0: the title loading worker's update task (registered by
+// 0x0041FEB0: the loading screen's update task (registered by
 // 0x0041FAC0). Release the three resources the object owns when
 // its "hold" bit is set, then drop the engine flag that keeps the game on hold
 // and ask for game state 4.  The object arrives in ECX and the routine always
@@ -16,7 +16,7 @@ struct ResourceOwner {
     ResourceHandle* slot_89A8;                          // 0x89A8
 };
 
-extern "C" int __fastcall TitleWorker_OnUpdate(unsigned int* owner) {
+extern "C" int __fastcall Loading_OnUpdate(unsigned int* owner) {
     if ((*owner & 2) == 0)
         return 1;
     ResourceOwner* resources = *(ResourceOwner**)&g_ascii_manager;

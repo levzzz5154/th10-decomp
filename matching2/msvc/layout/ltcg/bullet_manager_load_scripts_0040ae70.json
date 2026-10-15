@@ -5,7 +5,7 @@
   "additional_sources": [
     "src/game/effect/bullet_manager_create_0040af90.cpp",
     "src/game/effect/bullet_manager_release_0040af00.cpp",
-    "src/game/loading/load_startup_resources_0041f8d0.cpp",
+    "src/game/loading/loading_load_startup_resources.cpp",
     "src/game/pause/manager_release_00422220.cpp",
     "src/game/enemy/message_host_init.cpp",
     "src/game/laser/object_factories.cpp",
@@ -259,7 +259,7 @@
     },
     {
       "name": "LoadStartupResources_0041f8d0",
-      "source": "src/game/loading/load_startup_resources_0041f8d0.cpp",
+      "source": "src/game/loading/loading_load_startup_resources.cpp",
       "symbol": "_LoadStartupResources_0041f8d0",
       "section": ".text$00hbstartup",
       "address": "0x0041F8D0",
@@ -914,7 +914,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00477820",
+      "symbol": "_g_loading",
       "address": "0x00477820",
       "kind": "data"
     },

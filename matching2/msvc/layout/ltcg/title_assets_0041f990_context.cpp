@@ -1,5 +1,5 @@
 // Compiler context only; never selected as recovered game code.
-#include "../../src/game/loading/title_assets.cpp"
+#include "../../src/game/loading/loading_thread.cpp"
 #include "title_assets_dependencies/startup.cpp"
 #include "title_assets_dependencies/music_stop.cpp"
 #include "title_assets_dependencies/workers.cpp"
@@ -10,7 +10,7 @@
 // it), and the supervisor block's address is passed around the program.
 #pragma code_seg(".text$95context")
 void __stdcall TitleAssetsCompilerContext(PlatformWorker* worker, Supervisor** supervisor) {
-    worker->entry = reinterpret_cast<PlatformWorkerEntry>(TitleWorker_LoadAssets_0041f990);
+    worker->entry = reinterpret_cast<PlatformWorkerEntry>(Loading_LoadAssets_0041f990);
     *supervisor = &g_supervisor;
 }
 #pragma code_seg()

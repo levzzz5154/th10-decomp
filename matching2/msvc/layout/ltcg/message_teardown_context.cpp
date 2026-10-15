@@ -4,7 +4,7 @@
 #include "message_teardown_helpers.cpp"
 extern "C" void* data_00477810;
 extern "C" void* data_0047784c;
-extern "C" void* data_00477820;
+extern "C" void* g_loading;
 extern "C" void* data_00477838;
 extern "C" void __stdcall ReleaseGlobalManager_00417c80(void*);
 extern "C" void __stdcall ReleaseGlobalScript_0042cb60(void*);
@@ -16,7 +16,7 @@ void Recovery_ReleaseGlobalStates() {
     if (manager_state) { ReleaseGlobalManager_00417c80(manager_state);entry_free_004524a1(manager_state); }
     void* script_state = data_0047784c;
     if (script_state) { ReleaseGlobalScript_0042cb60(script_state);entry_free_004524a1(script_state); }
-    void* resource_state = data_00477820;
+    void* resource_state = g_loading;
     if (resource_state) { ReleaseGlobalResource_0041fb50(resource_state);entry_free_004524a1(resource_state); }
     EndingState* small_state = (EndingState*)g_ending;
     if (small_state) { Ending_Release(small_state);entry_free_004524a1(small_state); }

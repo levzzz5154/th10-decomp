@@ -2,7 +2,7 @@
 #include <stddef.h>
 #include "th10/game/anm_vm.hpp"
 
-struct StateTable_0041f850 {
+struct Loading {
     unsigned int flags;
     unsigned char unknown_004[0xC];
     GameTimer timer;
@@ -10,8 +10,8 @@ struct StateTable_0041f850 {
     AnmVm vm;
     unsigned char unknown_3dc[0x14];
 
-    StateTable_0041f850();
+    Loading();
 };
-extern "C" StateTable_0041f850* data_00477820;
+extern "C" Loading* g_loading;
 
-typedef char StateTable_size_check[sizeof(StateTable_0041f850)==0x3f0?1:-1];
+typedef char Loading_size_check[sizeof(Loading)==0x3f0?1:-1];
