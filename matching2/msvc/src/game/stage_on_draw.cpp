@@ -1,4 +1,4 @@
-// 0x004187D0..0x004187EE: FUN_004187d0
+// 0x004187D0: the stage's draw task.
 // Clears a block of the global state unless this object's flag word says the
 // block is still in use; always reports success. The owner block is huge, so
 // only the touched offsets are described, in the order retail stores them.
@@ -12,7 +12,7 @@ struct StateBlock {
     int field_58;                                    // +0x58
 };
 
-int __fastcall FUN_004187d0_004187d0(unsigned char* self) {
+int __fastcall Stage_OnDraw(unsigned char* self) {
     if ((self[0x58] & 4) == 0) {
         StateBlock* block = *(StateBlock**)&data_00491c10;
         block->field_50 = 0;

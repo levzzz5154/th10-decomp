@@ -1,6 +1,9 @@
-#include "th10/game/player_update_00405750.hpp"
+// 0x00405AC0: the bomb's bullet-cancel pass: while the bomb is active, run
+// the collision engine over its circle (the last argument depends on the
+// player's focus inputs).
+#include "th10/game/bomb_state.hpp"
 #pragma code_seg(".text$040draw")
-int PlayerUpdateState_00405750::Draw() {
+int BombState::CancelBullets() {
     if (active_state) {
         if (((data_004776f4->flags & 1u) && data_004776f4->input_state >= 0x5D &&
              data_004776f4->input_state <= 0x60) || data_004776f4->input_state == 0x6D) {

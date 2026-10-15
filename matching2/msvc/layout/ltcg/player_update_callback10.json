@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
   "name": "player_update_callback10",
-  "source": "src/unidentified/FUN_00405840_00405840.cpp",
+  "source": "src/game/bomb_on_update.cpp",
   "additional_sources": [
-    "src/game/update_player_00405750.cpp",
+    "src/game/bomb_update.cpp",
     "layout/ltcg/player_update_callback10_dependencies/timer_tick.cpp",
     "layout/ltcg/player_update_callback10_dependencies/player_draw.cpp",
     "layout/ltcg/player_update_callback10_dependencies/score_evaluate.cpp",
@@ -17,7 +17,7 @@
   "headers": [
     "include/th10/game/entity.hpp",
     "include/th10/game/item_spawn_0041bb00.hpp",
-    "include/th10/game/player_update_00405750.hpp",
+    "include/th10/game/bomb_state.hpp",
     "include/th10/game/player_update_collision.hpp",
     "include/th10/game/player_update_score.hpp",
     "include/th10/math/timer.hpp",
@@ -30,21 +30,21 @@
   "functions": [
     {
       "name": "PlayerUpdate",
-      "symbol": "?Update@PlayerUpdateState_00405750@@QAEHXZ",
+      "symbol": "?Update@BombState@@QAEHXZ",
       "address": "0x00405750",
       "size": 223,
       "section": ".text$030update",
       "actual_abi": "player in EDI from the scheduler callback 0x00405840; integer result EAX, plain RET",
-      "source": "src/game/update_player_00405750.cpp"
+      "source": "src/game/bomb_update.cpp"
     },
     {
       "name": "PlayerUpdateCallback",
-      "symbol": "?PlayerUpdateCallback_00405840@@YIHPAX@Z",
+      "symbol": "?Bomb_OnUpdate@@YIHPAX@Z",
       "address": "0x00405840",
       "size": 10,
       "section": ".text$036callback",
       "actual_abi": "actual TaskRoutine contextECX; preservesEDI; real call405750 supplies playerEDI; integer resultEAX, plainRET",
-      "source": "src/unidentified/FUN_00405840_00405840.cpp"
+      "source": "src/game/bomb_on_update.cpp"
     }
   ],
   "anchors": [
@@ -134,7 +134,7 @@
     },
     {
       "name": "PlayerDraw",
-      "symbol": "?Draw@PlayerUpdateState_00405750@@QAEHXZ",
+      "symbol": "?CancelBullets@BombState@@QAEHXZ",
       "address": "0x405ac0",
       "size": 124,
       "section": ".text$040draw"
@@ -156,7 +156,7 @@
     "description": "Secondary callback registered by the same 0x004055C0 installer; returns 1. Link entry only."
   },
   "roots": [
-    "?PlayerUpdateCallback_00405840@@YIHPAX@Z"
+    "?Bomb_OnUpdate@@YIHPAX@Z"
   ],
   "constants": [
     {

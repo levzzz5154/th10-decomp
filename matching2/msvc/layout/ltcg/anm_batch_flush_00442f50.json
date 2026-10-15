@@ -7,7 +7,7 @@
     "include/th10/render/camera_batch.hpp",
     "include/th10/math/angle.hpp",
     "include/th10/game/score_runtime_state_004091c0.hpp",
-    "include/th10/game/game_thread_text.hpp",
+    "include/th10/game/ascii_manager.hpp",
     "include/th10/render/stage_objects.hpp",
     "include/th10/render/stage_fog.hpp",
     "include/th10/math/interpolator.hpp",
@@ -471,8 +471,8 @@
       "source": "src/platform/fun_00439390_00439390.cpp"
     },
     {
-      "name": "GameThreadText_DrawRecords_00401760",
-      "symbol": "?GameThreadText_DrawRecords_00401760@@YGHPAUGameThreadText@@@Z",
+      "name": "AsciiManager_DrawStrings",
+      "symbol": "?AsciiManager_DrawStrings@@YGHPAUAsciiManager@@@Z",
       "section": ".text$000m1records",
       "address": "0x00401760",
       "size": 738,
@@ -480,17 +480,17 @@
       "source": "src/game/fun_00401760_00401760.cpp"
     },
     {
-      "name": "GameThreadText_DrawLateTask_00401520",
-      "symbol": "?GameThreadText_DrawLateTask_00401520@@YIHPAUGameThreadText@@@Z",
+      "name": "AsciiManager_OnDrawLate",
+      "symbol": "?AsciiManager_OnDrawLate@@YIHPAUAsciiManager@@@Z",
       "section": ".text$000lb1task",
       "address": "0x00401520",
       "size": 10,
       "actual_abi": "__fastcall: thread ECX; saves EBX and passes the thread in EBX to 0x00401A50; plain RET",
-      "source": "src/game/game_thread_run_queue_leaf_00401520.cpp"
+      "source": "src/game/ascii_manager_on_draw_late.cpp"
     },
     {
       "name": "GameThreadText_DrawLateRecords",
-      "symbol": "?DrawLateRecords@GameThreadText@@QAEHXZ",
+      "symbol": "?DrawLateRecords@AsciiManager@@QAEHXZ",
       "section": ".text$000m3late",
       "address": "0x00401A50",
       "size": 570,
@@ -1303,7 +1303,7 @@
     "src/unreferenced/unassigned_00444fa0.cpp",
     "src/game/fun_00401760_00401760.cpp",
     "src/game/fun_00401a50_00401a50.cpp",
-    "src/game/game_thread_run_queue_leaf_00401520.cpp",
+    "src/game/ascii_manager_on_draw_late.cpp",
     "src/app/app_begin_frame_00420000.cpp",
     "src/render/anchored_quad_build_mirrored_00443480.cpp",
     "src/render/stage_objects_draw.cpp",
@@ -1334,8 +1334,8 @@
     "?DrawFan33@RenderEntity@@QAEHXZ",
     "?Run@FlushCallback_004200d0@@QAEHXZ",
     "?RenderStageState_SetRenderState@@YGHPAURenderStageState_00439390@@II@Z",
-    "?GameThreadText_DrawRecords_00401760@@YGHPAUGameThreadText@@@Z",
-    "?GameThreadText_DrawLateTask_00401520@@YIHPAUGameThreadText@@@Z",
+    "?AsciiManager_DrawStrings@@YGHPAUAsciiManager@@@Z",
+    "?AsciiManager_OnDrawLate@@YIHPAUAsciiManager@@@Z",
     "?BeginFrame@RenderStageState_00420000@@QAEHXZ",
     "?StageObjects_DrawLayer@@YGHPAUStageObjects@@H@Z",
     "?StageObjects_Draw@@YGHPAUStageObjects@@@Z",

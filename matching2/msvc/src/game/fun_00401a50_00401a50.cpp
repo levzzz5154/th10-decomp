@@ -8,13 +8,13 @@
 // The receiver arrives in EBX, the batch manager goes to the flush in ESI and
 // the stage camera to its apply in EDI, all from the whole-program pass, so
 // this unit is compiled in the cluster layout/ltcg/anm_batch_flush_00442f50.json.
-#include "th10/game/game_thread_text.hpp"
+#include "th10/game/ascii_manager.hpp"
 
 #pragma code_seg(".text$000m3late")
-int GameThreadText::DrawLateRecords() {
+int AsciiManager::DrawLateRecords() {
     int in_game_view = 1;
     glyph.flags = (glyph.flags & 0xFFD7FFFFu) | 0x00140001u;
-    GameThreadTextRecord* record = late_records;
+    AsciiString* record = late_records;
     for (int i = 0; i < late_record_count; ++i, ++record) {
         glyph.base_position = record->position;
         GlyphSetScale(&glyph, record->scale_x, record->scale_y);

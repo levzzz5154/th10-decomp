@@ -25,6 +25,8 @@ struct ItemManager {
  __declspec(noinline) ~ItemManager();
  // 0x0041AD90: register the update and draw tasks; nonzero on failure.
  __declspec(noinline) int Initialize();
+ // 0x0041BA00: the update task; skipped while the game is paused or busy.
+ int OnUpdate();
 };
 typedef char ElementSize[sizeof(Item)==0x3F0?1:-1];
 typedef char ManagerSize[sizeof(ItemManager)==0x21CEC0?1:-1];

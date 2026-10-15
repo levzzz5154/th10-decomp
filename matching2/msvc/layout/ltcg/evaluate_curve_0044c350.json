@@ -12,7 +12,7 @@
     "include/th10/math/trajectory_vector.hpp",
     "include/th10/render/stage_fog.hpp",
     "include/th10/render/stage_objects.hpp",
-    "include/th10/game/game_thread_text.hpp",
+    "include/th10/game/ascii_manager.hpp",
     "include/th10/game/entity_script_start.hpp",
     "include/th10/render/camera_batch.hpp",
     "include/th10/render/quad_batch.hpp",

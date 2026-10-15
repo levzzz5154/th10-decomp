@@ -4,8 +4,8 @@
 extern "C" int __cdecl asm_FUN_00415800_00415800(int arg);
 typedef int (__stdcall* SizeFromCtx8Fn)(int object);
 
-// 0x00415AF0..0x00415AF6: FUN_00415af0
+// 0x00415AF0: the HUD's draw task.
 // Recovered: forwarding stub - hands the object to the 0x00415800 size routine.
-int __fastcall FUN_00415af0(void* self) {
+int __fastcall Hud_OnDraw(void* self) {
     return ((SizeFromCtx8Fn)asm_FUN_00415800_00415800)((int)self);
 }

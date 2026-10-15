@@ -24,7 +24,7 @@
       "address": "0x0040BA70",
       "size": 10,
       "actual_abi": "receiver ECX; EAX result; plain RET",
-      "source": "src/unidentified/FUN_0040ba70_0040ba70.cpp"
+      "source": "src/game/message_manager_on_update.cpp"
     },
     {
       "name": "RecoveryEmitter_UpdateDecision",
@@ -116,7 +116,7 @@
     }
   ],
   "additional_sources": [
-    "src/unidentified/FUN_0040ba70_0040ba70.cpp",
+    "src/game/message_manager_on_update.cpp",
     "src/game/recovery_update_emitter_decision_0040b9f0.cpp"
   ],
   "roots": [

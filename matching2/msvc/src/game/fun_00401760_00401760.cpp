@@ -13,13 +13,13 @@
 // in EDI and the glyph to the quad draw in ESI, all from the whole-program
 // pass, so this unit is compiled in the cluster
 // layout/ltcg/anm_batch_flush_00442f50.json.
-#include "th10/game/game_thread_text.hpp"
+#include "th10/game/ascii_manager.hpp"
 
 #pragma code_seg(".text$000m1records")
-int __stdcall GameThreadText_DrawRecords_00401760(GameThreadText* thread) {
+int __stdcall AsciiManager_DrawStrings(AsciiManager* thread) {
     int in_game_view = 1;
     thread->glyph.flags = (thread->glyph.flags & 0xFFD7FFFFu) | 0x00140001u;
-    GameThreadTextRecord* record = thread->records;
+    AsciiString* record = thread->records;
     for (int i = 0; i < thread->record_count; ++i, ++record) {
         thread->glyph.base_position = record->position;
         GlyphSetScale(&thread->glyph, record->scale_x, record->scale_y);
@@ -53,8 +53,8 @@ int __stdcall GameThreadText_DrawRecords_00401760(GameThreadText* thread) {
                 thread->glyph.texture = reinterpret_cast<RenderTexture*>(&thread->font->sprites[
                     record->font * 0x62 + static_cast<unsigned char>(*text) - ' ']);
                 GlyphSetSpriteSize(&thread->glyph,
-                    reinterpret_cast<GameThreadFontSprite*>(thread->glyph.texture)->width,
-                    reinterpret_cast<GameThreadFontSprite*>(thread->glyph.texture)->height);
+                    reinterpret_cast<AsciiFontSprite*>(thread->glyph.texture)->width,
+                    reinterpret_cast<AsciiFontSprite*>(thread->glyph.texture)->height);
                 if (record->shadow) {
                     thread->glyph.color = record->color & 0xFF000000u;
                     reinterpret_cast<unsigned char*>(&thread->glyph.color)[3] = (record->color >> 24) / 2;

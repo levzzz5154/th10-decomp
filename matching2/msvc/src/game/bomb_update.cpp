@@ -1,4 +1,4 @@
-// 0x00405750..0x0040582E: per-frame update of one active player state.
+// 0x00405750..0x0040582E: Bomb::Update, the per-frame update of the bomb.
 //
 // An inactive state does nothing.  State 1 follows its animation: when the
 // animation is gone the id is forgotten and the state goes inactive without
@@ -19,7 +19,7 @@
 //  * SetAnimationPosition takes the context before the position.  The render
 //    position pointer (ESI) is then evaluated first, the manager cannot live
 //    in ESI, and the shared zero gets ESI with the manager in EBP.
-#include "th10/game/player_update_00405750.hpp"
+#include "th10/game/bomb_state.hpp"
 
 static inline void* FindAnimationOrClear_00405750(PositionLookupContext_004492f0* manager,
                                                  PositionScriptId_004492f0* id) {
@@ -29,10 +29,10 @@ static inline void* FindAnimationOrClear_00405750(PositionLookupContext_004492f0
     return node;
 }
 
-__forceinline void PlayerUpdateState_00405750::Step() {
+__forceinline void BombState::Step() {
     switch (active_state) {
     case 1: {
-        PlayerAnimationValue_00405750* node = static_cast<PlayerAnimationValue_00405750*>(
+        BombAnimationValue* node = static_cast<BombAnimationValue*>(
             FindAnimationOrClear_00405750(data_00491c10, &animation));
         if (node == 0) {
             active_state = 0;
@@ -50,7 +50,7 @@ __forceinline void PlayerUpdateState_00405750::Step() {
         PositionVector_004492f0 render = {position.x + 224.0f, position.y + 16.0f, position.z};
         SetAnimationPosition_004492f0(data_00491c10, &render, animation);
         collision_radius = node->collision_radius;
-        Draw();
+        CancelBullets();
         break;
     }
     default:
@@ -60,7 +60,7 @@ __forceinline void PlayerUpdateState_00405750::Step() {
 }
 
 #pragma code_seg(".text$030update")
-int PlayerUpdateState_00405750::Update() {
+int BombState::Update() {
     if (active_state != 0)
         Step();
     return 1;

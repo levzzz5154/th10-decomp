@@ -1,7 +1,7 @@
 #ifndef TH10_STAGE_OBJECTS_HPP
 #define TH10_STAGE_OBJECTS_HPP
 #include <stddef.h>
-#include "th10/game/game_thread_text.hpp"
+#include "th10/game/ascii_manager.hpp"
 #include "th10/math/interpolator.hpp"
 #include "th10/math/timer.hpp"
 #include "th10/math/vector.hpp"
