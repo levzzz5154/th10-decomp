@@ -15,6 +15,7 @@
 // the creation graph header so the anchor bodies compiled for this pair link
 // against the same symbols.
 
+#include "th10/game/player.hpp"
 #include "th10/game/pause_initializer_00422ab0.hpp"
 #include "th10/render/animation_object_0043e5a0.hpp"
 
@@ -39,7 +40,6 @@ extern "C" unsigned int data_00491fb8;               // front mode word
 extern "C" void* data_004776f4;                      // game state arena
 extern "C" void* data_00477704;                      // sequence record
 extern "C" void* g_pause_menu;                      // clear state object
-extern "C" void* g_player;                      // play-state record
 extern "C" void* data_00477838;                      // replay state record
 extern "C" void* data_0047783c;                      // notice table
 extern "C" void* data_00477848;                      // bgm state record

@@ -13,18 +13,6 @@
 
 namespace {
 
-// The play-state record behind 0x00477834.
-struct PlayState_00477834 {
-    unsigned char pad_0000[0x10];
-    int field_10;
-    unsigned char pad_0014[0x3C0 - 0x14];
-    float field_3C0;
-    float field_3C4;
-    unsigned char pad_03c8[0x23FC - 0x3C8];
-    int field_23FC;
-    int field_2400;
-};
-
 // The sequence record behind 0x00477704.
 struct SequenceRecord_00477704 {
     unsigned char pad_0000[0x10];
@@ -201,9 +189,9 @@ __declspec(noinline) int __stdcall FrontHudUpdate_00414900(
         }
     }
     if ((front->flags_9eb4 & 1) == 0) {
-        PlayState_00477834* play = (PlayState_00477834*)g_player;
-        if (play != 0 && play->field_3C4 > data_00470bdc &&
-            play->field_3C0 < data_00470d10) {
+        Player* play = g_player;
+        if (play != 0 && play->position.y > data_00470bdc &&
+            play->position.x < data_00470d10) {
             FrontHudRuntime::BankObject* obj = &front->objects[15];
             for (int n = 7; n != 0; --n) {
                 obj->stop_frame = 3;
@@ -212,9 +200,9 @@ __declspec(noinline) int __stdcall FrontHudUpdate_00414900(
             front->flags_9eb4 |= 1;
         }
     } else {
-        PlayState_00477834* play = (PlayState_00477834*)g_player;
+        Player* play = g_player;
         if (play != 0 &&
-            (play->field_3C4 < data_00470d08 || data_00470d00 < play->field_3C0)) {
+            (play->position.y < data_00470d08 || data_00470d00 < play->position.x)) {
             FrontHudRuntime::BankObject* obj = &front->objects[15];
             for (int n = 7; n != 0; --n) {
                 obj->stop_frame = 2;
@@ -252,9 +240,9 @@ __declspec(noinline) int __stdcall FrontHudUpdate_00414900(
         if (front->gauge_disp_9e84 > front->gauge_ratio_9e88) {
             *(int*)&front->gauge_disp_9e84 = *(int*)&front->gauge_ratio_9e88;
         }
-        PlayState_00477834* play = (PlayState_00477834*)g_player;
+        Player* play = g_player;
         if (front->flags_9eb4 & 8) {
-            if (play->field_3C4 >= data_00470c28 || play->field_3C0 > data_00470b04) {
+            if (play->position.y >= data_00470c28 || play->position.x > data_00470b04) {
                 for (int i = 0; i < front->boss_id_count_9e90; ++i) {
                     if (front->boss_ids_9e28[i] != 0) {
                         FlagStopFrame2(front->boss_ids_9e28[i]);
@@ -266,7 +254,7 @@ __declspec(noinline) int __stdcall FrontHudUpdate_00414900(
                 front->flags_9eb4 &= ~8u;
             }
         } else {
-            if (play->field_3C4 <= data_00470bc8 && play->field_3C0 < data_00470b5c) {
+            if (play->position.y <= data_00470bc8 && play->position.x < data_00470b5c) {
                 for (int i = 0; i < front->boss_id_count_9e90; ++i) {
                     if (front->boss_ids_9e28[i] != 0) {
                         FlagStopFrame3(front->boss_ids_9e28[i]);
@@ -479,7 +467,7 @@ __declspec(noinline) int __stdcall FrontHudUpdate_00414900(
                 front->objects[22].height_344 = 480.0f;
                 front->objects[22].y_340 = body->boss_y_1068 + data_00470b4c;
                 float offset = (float)fabs(
-                    body->boss_y_1068 - ((PlayState_00477834*)g_player)->field_3C0);
+                    body->boss_y_1068 - g_player->position.x);
                 if (offset >= data_00470cf0) {
                     front->objects[22].alpha_2ff = 0xFF;
                 } else {
