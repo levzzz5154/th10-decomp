@@ -69,7 +69,7 @@
       "address": "0x00477834",
       "kind": "data"
     },
-    "_data_00477840": {
+    "_g_smoll_score": {
       "address": "0x00477840",
       "kind": "data"
     },
@@ -184,7 +184,7 @@
     "?ConvertItems@ItemSpawnManager_0041bb00@@QAEHXZ": "0x0041BA50",
     "?SetPolar@ItemPolarVelocity_0041bb00@@QAEPAU1@MM@Z": "0x0041BEB0",
     "?AngleFromPoint@Player@@QAEMPBM@Z": "0x00426660",
-    "?Spawn@ItemFloatingTextPool@@QAEXHPBUVector3@@I@Z": "0x0042B9C0",
+    "?Spawn@ItemSmollScoreView@@QAEXHPBUVector3@@I@Z": "0x0042B9C0",
     "?QueuePan@SoundQueue@@QAEXHM@Z": "0x0043DD10"
   },
   "base_index_order": 0,

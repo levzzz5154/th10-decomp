@@ -10,14 +10,14 @@ struct Effect_0042b430 {
     __forceinline Effect_0042b430() { active = 0; }
 };
 
-struct EffectManager_0042b430 {
+struct SmollScore {
     unsigned int flags;
     unsigned char unknown_004[0x14];
     AnmVm vm;
     Effect_0042b430 effects[0x2D3];
 
-    EffectManager_0042b430();
+    SmollScore();
 };
-extern "C" EffectManager_0042b430* data_00477840;
+extern "C" SmollScore* g_smoll_score;
 
-typedef char EffectManager_size_check[sizeof(EffectManager_0042b430)==0xb884?1:-1];
+typedef char SmollScore_size_check[sizeof(SmollScore)==0xb884?1:-1];

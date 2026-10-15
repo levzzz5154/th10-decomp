@@ -1,12 +1,12 @@
 {
   "schema_version": 2,
   "name": "effect_pool_update_batch",
-  "source": "src/game/smollscore/weather_pool.cpp",
+  "source": "src/game/smollscore/smoll_score_update.cpp",
   "additional_sources": [
-    "src/game/smollscore/effect_pool_update.cpp"
+    "src/game/smollscore/smoll_score_on_update.cpp"
   ],
   "headers": [
-    "include/th10/game/effect_pool_0042b6f0.hpp",
+    "include/th10/game/smoll_score_view.hpp",
     "include/th10/game/entity.hpp",
     "include/th10/types.hpp"
   ],
@@ -14,29 +14,29 @@
   "description": "Real tail wrapper and drop-update callee linked together so LTCG selects retail's EAX pool convention.",
   "functions": [
     {
-      "name": "EffectPool_UpdateDrops",
-      "symbol": "?UpdateDrops@EffectPool_0042b6f0@@QAEHXZ",
+      "name": "SmollScore_UpdatePopups",
+      "symbol": "?UpdatePopups@SmollScoreView@@QAEHXZ",
       "section": ".text$01drops",
       "address": "0x0042B6F0",
       "size": 134,
       "actual_abi": "pool in EAX; result in EAX; plain RET",
-      "source": "src/game/smollscore/weather_pool.cpp"
+      "source": "src/game/smollscore/smoll_score_update.cpp"
     },
     {
-      "name": "EffectPool_Update",
-      "symbol": "?Update@EffectPool_0042b6f0@@QAEHXZ",
+      "name": "SmollScore_Update",
+      "symbol": "?Update@SmollScoreView@@QAEHXZ",
       "section": ".text$02wrapper",
       "address": "0x0042B9A0",
       "size": 7,
-      "actual_abi": "this in ECX; moves to EAX and tail-jumps to UpdateDrops",
-      "source": "src/game/smollscore/effect_pool_update.cpp"
+      "actual_abi": "this in ECX; moves to EAX and tail-jumps to UpdatePopups",
+      "source": "src/game/smollscore/smoll_score_on_update.cpp"
     }
   ],
-  "entry": "?Update@EffectPool_0042b6f0@@QAEHXZ",
+  "entry": "?Update@SmollScoreView@@QAEHXZ",
   "calls": [
     {
-      "caller": "?Update@EffectPool_0042b6f0@@QAEHXZ",
-      "callee": "?UpdateDrops@EffectPool_0042b6f0@@QAEHXZ",
+      "caller": "?Update@SmollScoreView@@QAEHXZ",
+      "callee": "?UpdatePopups@SmollScoreView@@QAEHXZ",
       "address": "0x0042B9A2",
       "instruction": "jmp"
     }

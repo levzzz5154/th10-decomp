@@ -51,7 +51,7 @@ struct FloatingText_0042b780 {
 };
 typedef char FloatingTextSize_0042b780[sizeof(FloatingText_0042b780) == 0x40 ? 1 : -1];
 
-struct FloatingTextPool_0042b780 {
+struct SmollScoreDrawView {
     unsigned char reserved_000[0x10];
     FloatingTextResource_0042b780* resource;
     int next_text;
@@ -63,7 +63,7 @@ struct FloatingTextPool_0042b780 {
     __declspec(noinline) void Spawn(int value, const FloatingTextPosition_0042b780* position, unsigned int color);
     __forceinline void DrawGlyphs(const FloatingText_0042b780* text, float advance, int alpha);
 };
-typedef char FloatingTextPoolTexts_0042b780[offsetof(FloatingTextPool_0042b780, texts) == 0x3C4 ? 1 : -1];
+typedef char SmollScoreTexts_0042b780[offsetof(SmollScoreDrawView, texts) == 0x3C4 ? 1 : -1];
 
 // The game-wide render state at 0x00491C28, as far as the draw reads it.
 // Reading the flags through the modelled state keeps retail's store order.
@@ -82,4 +82,4 @@ extern FloatingTextRenderState_0042b780 data_00491c28;
 // arrives in ESI.
 __declspec(noinline) int __stdcall FloatingText_DrawEntity_00443080(AnimationManager_00442F50* manager, FloatingTextSprite_0042b780* entity);
 }
-int __fastcall FloatingTextPool_DrawTask_0042b9b0(FloatingTextPool_0042b780* pool);
+int __fastcall SmollScore_DrawTask_0042b9b0(SmollScoreDrawView* pool);

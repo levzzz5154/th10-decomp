@@ -1,4 +1,4 @@
-#include "th10/game/effect_manager_teardown_0042b570.hpp"
+#include "th10/game/smoll_score_destructor.hpp"
 #pragma code_seg(".text$01element_dtor")
 inline EffectAnimation_00401FF0::~EffectAnimation_00401FF0() {
  void* owned=resource;

@@ -333,7 +333,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00417c80_00417c80() {
     L_00417ec2:
         add esp,4
     L_00417ec5:
-        mov esi,dword ptr [data_00477840]
+        mov esi,dword ptr [g_smoll_score]
     L_00417ecb:
         test esi,esi
     L_00417ecd:

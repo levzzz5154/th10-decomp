@@ -95,7 +95,7 @@ extern void* g_laser_manager;
 // The resource state (released by 0x00418EE0).
 extern void* data_00477814;
 // The effect manager (destroyed by 0x0042B570).
-extern void* data_00477840;
+extern void* g_smoll_score;
 // The replay manager / pending block (destroyed by 0x004294A0).
 extern void* data_00477838;
 // The enemy manager (cleared by 0x00409F90 or destroyed by 0x0040D530).

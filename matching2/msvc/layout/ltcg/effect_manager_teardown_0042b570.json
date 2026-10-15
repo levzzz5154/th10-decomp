@@ -74,13 +74,13 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_data_00477840",
+      "symbol": "_g_smoll_score",
       "address": "0x00477840",
       "kind": "data"
     }
   ],
   "headers": [
-    "include/th10/game/effect_manager_teardown_0042b570.hpp",
+    "include/th10/game/smoll_score_destructor.hpp",
     "include/th10/game/entity.hpp",
     "include/th10/types.hpp",
     "include/th10/game/scheduler.hpp",
@@ -101,15 +101,15 @@
       "actual_abi": "Original independently reachable ECX animation destructor, plain RET; actual array callback"
     },
     {
-      "name": "EffectManagerDestructor",
-      "symbol": "??1EffectManager_0042B570@@QAE@XZ",
+      "name": "SmollScoreDestructor",
+      "symbol": "??1SmollScoreDestructorView@@QAE@XZ",
       "section": ".text$03manager_dtor",
       "address": "0x0042B570",
       "size": 232,
       "actual_abi": "Logical receiver; expected stack receiver RET4, genuine member cleanup"
     },
     {
-      "name": "EffectManagerAnimationUnwind",
+      "name": "SmollScoreAnimationUnwind",
       "symbol": "_EffectManagerAnimationUnwind_00465230",
       "section": ".text$x",
       "address": "0x00465230",
@@ -119,8 +119,8 @@
       "native_symbol_pattern": "\\$L[0-9]+"
     },
     {
-      "name": "EffectManagerHandler",
-      "symbol": "__ehhandler$??1EffectManager_0042B570@@QAE@XZ",
+      "name": "SmollScoreHandler",
+      "symbol": "__ehhandler$??1SmollScoreDestructorView@@QAE@XZ",
       "section": ".text$x",
       "address": "0x0046523B",
       "size": 10,
@@ -138,7 +138,7 @@
     }
   ],
   "context": {
-    "symbol": "?EffectManager_DestroyOwned_0042B6D0@@YGXPAUEffectManager_0042B570@@@Z",
+    "symbol": "?SmollScore_DestroyOwned_0042B6D0@@YGXPAUSmollScoreDestructorView@@@Z",
     "section": ".text$05owned_delete",
     "address": "0x0042B6D0",
     "size": 28,

@@ -615,7 +615,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041afd0_0041afd0() {
     L_0041b420:
         call asm_FUN_00426f70_00426f70
     L_0041b425:
-        mov esi,dword ptr [data_00477840]
+        mov esi,dword ptr [g_smoll_score]
     L_0041b42b:
         push 0FFFFFF40h
     L_0041b430:
@@ -655,7 +655,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041afd0_0041afd0() {
     L_0041b47d:
         movsx eax,word ptr [data_00474c48]
     L_0041b484:
-        mov esi,dword ptr [data_00477840]
+        mov esi,dword ptr [g_smoll_score]
     L_0041b48a:
         cdq
     L_0041b48b:
@@ -745,7 +745,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041afd0_0041afd0() {
     L_0041b51d:
         idiv ecx
     L_0041b51f:
-        mov esi,dword ptr [data_00477840]
+        mov esi,dword ptr [g_smoll_score]
     L_0041b525:
         push 0FFFFFFFFh
     L_0041b527:
@@ -765,7 +765,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041afd0_0041afd0() {
     L_0041b540:
         shl ebx,1
     L_0041b542:
-        mov esi,dword ptr [data_00477840]
+        mov esi,dword ptr [g_smoll_score]
     L_0041b548:
         mov eax,ebx
     L_0041b54a:
@@ -813,7 +813,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041afd0_0041afd0() {
     L_0041b5a3:
         mov ebx,2710h
     L_0041b5a8:
-        mov esi,dword ptr [data_00477840]
+        mov esi,dword ptr [g_smoll_score]
     L_0041b5ae:
         push 0FF00FF00h
     L_0041b5b3:
@@ -855,7 +855,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041afd0_0041afd0() {
     L_0041b5f7:
         jmp asm_target_0041b718
     L_0041b5fc:
-        mov esi,dword ptr [data_00477840]
+        mov esi,dword ptr [g_smoll_score]
     L_0041b602:
         push 0FF00FF00h
     L_0041b607:
@@ -937,7 +937,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041afd0_0041afd0() {
     L_0041b68c:
         call asm_FUN_0043dd10_0043dd10
     L_0041b691:
-        mov esi,dword ptr [data_00477840]
+        mov esi,dword ptr [g_smoll_score]
     L_0041b697:
         push 0FFFFFF40h
     L_0041b69c:
@@ -967,7 +967,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041afd0_0041afd0() {
     L_0041b6d3:
         movsx eax,word ptr [data_00474c48]
     L_0041b6da:
-        mov esi,dword ptr [data_00477840]
+        mov esi,dword ptr [g_smoll_score]
     L_0041b6e0:
         cdq
     L_0041b6e1:

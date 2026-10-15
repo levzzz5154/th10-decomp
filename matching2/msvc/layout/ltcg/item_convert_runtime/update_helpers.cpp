@@ -89,7 +89,7 @@ void ItemHud::SetPowerDigits(int whole,int fraction) {
     AnimationResource()->ConfigureObject(reinterpret_cast<AnimationObject_0043e5a0*>(storage+0x7590),fraction%10+8);
 }
 #pragma code_seg(".text$f0042b9c0F")
-void ItemFloatingTextPool::Spawn(int value,const Vector3* position,unsigned int color) {
+void ItemSmollScoreView::Spawn(int value,const Vector3* position,unsigned int color) {
     if (next_text>=0x2D0) next_text=0;
     ItemFloatingText* text=&texts[next_text];
     int length=0;

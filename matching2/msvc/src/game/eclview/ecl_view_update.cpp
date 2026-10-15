@@ -71,7 +71,7 @@ int EclView_0040a940::Update() {
                 EclView_Release(data_004776f0);
                 EclView_Release(g_bomb);
                 EclView_Release(data_00477818);
-                EclView_Release(data_00477840);
+                EclView_Release(g_smoll_score);
                 EclView_Release(data_00477704);
                 flags &= ~2u;
                 reinterpret_cast<PlatformWorker*>(&worker)->Start(this, EclView_LoadThread_0040a340);

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "effect_manager_construct_0042b430",
-  "source": "src/game/smollscore/effect_manager_reset_and_publish_retail_0042b430.cpp",
+  "source": "src/game/smollscore/smoll_score_construct.cpp",
   "driver": "layout/ltcg/effect_manager_construct_0042b430_context.cpp",
   "headers": [
     "include/th10/game/anm_vm.hpp"
@@ -11,7 +11,7 @@
   "functions": [
     {
       "name": "effect_manager_construct_0042b430",
-      "symbol": "??0EffectManager_0042b430@@QAE@XZ",
+      "symbol": "??0SmollScore@@QAE@XZ",
       "section": ".text$01accessor",
       "address": "0x0042B430",
       "size": 134,
@@ -51,7 +51,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00477840",
+      "symbol": "_g_smoll_score",
       "address": "0x00477840",
       "kind": "data"
     }

@@ -1,8 +1,8 @@
 // 0x0042B570: unregister both tasks and destroy the actual owned animation.
-#include "th10/game/effect_manager_teardown_0042b570.hpp"
+#include "th10/game/smoll_score_destructor.hpp"
 
 #pragma code_seg(".text$03manager_dtor")
-EffectManager_0042B570::~EffectManager_0042B570() {
+SmollScoreDestructorView::~SmollScoreDestructorView() {
     SchedulerTask* task = update_task;
     Scheduler* scheduler = static_cast<Scheduler*>(data_00491be4);
     if (task) {
@@ -21,6 +21,6 @@ EffectManager_0042B570::~EffectManager_0042B570() {
         LeaveCriticalSection(&g_thread_synchronization.critical_sections[0]);
         --g_thread_synchronization.scheduler_lock_depth;
     }
-    data_00477840 = 0;
+    g_smoll_score = 0;
 }
 #pragma code_seg()

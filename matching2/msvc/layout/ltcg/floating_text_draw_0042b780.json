@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
   "name": "floating_text_draw_0042b780",
-  "source": "src/game/smollscore/floating_text_draw.cpp",
+  "source": "src/game/smollscore/smoll_score_draw.cpp",
   "driver": "layout/ltcg/floating_text_draw_0042b780_context.cpp",
   "headers": [
-    "include/th10/game/floating_text_draw_0042b780.hpp",
+    "include/th10/game/smoll_score_draw.hpp",
     "include/th10/render/quad_batch.hpp",
     "include/th10/render/animation_byte_interpolator.hpp",
     "include/th10/math/timer.hpp",
@@ -16,24 +16,24 @@
   "description": "Floating number draw with the pool in EDI, its ECX scheduler callback and the EAX/ESI/EDI spawner, compiled with the real ESI-receiver batch flush, an ESI-entity stand-in for the entity draw and a stand-in for the spawner's caller.",
   "functions": [
     {
-      "name": "FloatingTextPool_Draw",
-      "symbol": "?Draw@FloatingTextPool_0042b780@@QAEHXZ",
+      "name": "SmollScore_Draw",
+      "symbol": "?Draw@SmollScoreDrawView@@QAEHXZ",
       "section": ".text$01draw",
       "address": "0x0042B780",
       "actual_abi": "pool in EDI; plain RET",
       "size": 540
     },
     {
-      "name": "FloatingTextPool_DrawTask",
-      "symbol": "?FloatingTextPool_DrawTask_0042b9b0@@YIHPAUFloatingTextPool_0042b780@@@Z",
+      "name": "SmollScore_DrawTask",
+      "symbol": "?SmollScore_DrawTask_0042b9b0@@YIHPAUSmollScoreDrawView@@@Z",
       "section": ".text$02task",
       "address": "0x0042B9B0",
       "actual_abi": "context in ECX; moved to EDI around the call",
       "size": 10
     },
     {
-      "name": "FloatingTextPool_Spawn",
-      "symbol": "?Spawn@FloatingTextPool_0042b780@@QAEXHPBUFloatingTextPosition_0042b780@@I@Z",
+      "name": "SmollScore_Spawn",
+      "symbol": "?Spawn@SmollScoreDrawView@@QAEXHPBUFloatingTextPosition_0042b780@@I@Z",
       "section": ".text$03spawn",
       "address": "0x0042B9C0",
       "actual_abi": "value in EAX, pool in ESI, position in EDI, colour on the stack; RET 4",
@@ -122,7 +122,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_data_00477840",
+      "symbol": "_g_smoll_score",
       "address": "0x00477840",
       "kind": "data"
     },

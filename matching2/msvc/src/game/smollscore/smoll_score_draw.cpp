@@ -5,11 +5,11 @@
 // 0x0042B9C0: start a floating number in the next ring slot. Native LTCG
 // passes the value in EAX, the pool in ESI and the position in EDI; only the
 // colour is on the stack.
-#include "th10/game/floating_text_draw_0042b780.hpp"
+#include "th10/game/smoll_score_draw.hpp"
 #include "th10/game/player.hpp"
 
 // Draw one number's glyphs left to right, most significant digit first.
-__forceinline void FloatingTextPool_0042b780::DrawGlyphs(const FloatingText_0042b780* text, float advance, int alpha) {
+__forceinline void SmollScoreDrawView::DrawGlyphs(const FloatingText_0042b780* text, float advance, int alpha) {
     const unsigned char* glyph = &text->glyphs[text->length - 1];
     for (int remaining = text->length; remaining > 0; remaining--, glyph--) {
         if (text->timer.current >= 52 && *glyph != 10) {
@@ -31,7 +31,7 @@ __forceinline void FloatingTextPool_0042b780::DrawGlyphs(const FloatingText_0042
 }
 
 #pragma code_seg(".text$01draw")
-int FloatingTextPool_0042b780::Draw() {
+int SmollScoreDrawView::Draw() {
     FloatingText_0042b780* text = texts;
     int alpha;
     if (!(data_00491c28.options & 4) && data_00491c28.fog_dirty) {
@@ -66,13 +66,13 @@ int FloatingTextPool_0042b780::Draw() {
 #pragma code_seg()
 
 #pragma code_seg(".text$02task")
-int __fastcall FloatingTextPool_DrawTask_0042b9b0(FloatingTextPool_0042b780* pool) {
+int __fastcall SmollScore_DrawTask_0042b9b0(SmollScoreDrawView* pool) {
     return pool->Draw();
 }
 #pragma code_seg()
 
 #pragma code_seg(".text$03spawn")
-void FloatingTextPool_0042b780::Spawn(int value, const FloatingTextPosition_0042b780* position, unsigned int color) {
+void SmollScoreDrawView::Spawn(int value, const FloatingTextPosition_0042b780* position, unsigned int color) {
     if (next_text >= 0x2D0) next_text = 0;
     FloatingText_0042b780* text = &texts[next_text];
     int length = 0;

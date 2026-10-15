@@ -13,7 +13,7 @@ struct ViewportPosition {
                            float vertical_margin) const;
 };
 
-struct EffectPoolPosition {
+struct SmollScorePosition {
     float x;
     float y;
 
@@ -50,7 +50,7 @@ int ViewportPosition::IsPartiallyOutside(float horizontal_margin,
 }
 
 // 0x00428D70: the same contract emitted for effect-pool culling.
-int EffectPoolPosition::OutsideViewport(float horizontal_margin,
+int SmollScorePosition::OutsideViewport(float horizontal_margin,
                                         float vertical_margin) const {
     if (!(x + horizontal_margin <= g_playfield_min_x) &&
         !(x - horizontal_margin >= g_playfield_max_x) &&

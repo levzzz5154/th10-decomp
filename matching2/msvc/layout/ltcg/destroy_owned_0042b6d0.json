@@ -1,15 +1,15 @@
 {
   "schema_version": 1,
   "name": "destroy_owned_0042b6d0",
-  "source": "src/game/smollscore/effect_manager_delete.cpp",
+  "source": "src/game/smollscore/smoll_score_delete.cpp",
   "driver": "layout/ltcg/destroy_owned_0042b6d0_context.cpp",
   "headers": [],
   "image_base": "0x00400000",
   "description": "Destroy/free wrapper compiled with native LTCG so object arrives in ESI.",
   "functions": [
     {
-      "name": "EffectManager_Delete",
-      "symbol": "?EffectManager_Delete@@YGXPAUEffectManager@@@Z",
+      "name": "SmollScore_Delete",
+      "symbol": "?SmollScore_Delete@@YGXPAUSmollScore@@@Z",
       "section": ".text$01destroy0042b6d0",
       "address": "0x0042B6D0",
       "size": 18,
@@ -17,7 +17,7 @@
     }
   ],
   "context": {
-    "symbol": "?DestroyOwnedCompilerContext_0042b6d0@@YGXPAPAUEffectManager@@H@Z",
+    "symbol": "?DestroyOwnedCompilerContext_0042b6d0@@YGXPAPAUSmollScore@@H@Z",
     "section": ".text$03context",
     "address": "0x0042B6F0",
     "size": 39,

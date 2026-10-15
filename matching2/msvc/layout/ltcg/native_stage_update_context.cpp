@@ -27,7 +27,7 @@ extern unsigned char* g_pause_menu;
 extern unsigned char* g_player;
 extern unsigned char* data_00477838;
 extern unsigned char* data_0047783c;
-extern unsigned char* data_00477840;
+extern unsigned char* g_smoll_score;
 extern unsigned char* data_00477848;
 extern unsigned int data_00474ca0,data_00474e30,data_00491ff4,data_00491d78;
 extern int data_00491fb8,data_00474c88,data_00474c8c,data_00474c68,data_00474c6c;
@@ -92,7 +92,7 @@ static __forceinline void StageReset(StageContextFade_00418190* context,int* loc
     StageKillPair(g_laser_manager);
     StageKillRequiredPair(data_004776fc);
     StageKillPair(g_bomb);
-    StageKillRequiredPair(data_00477840);
+    StageKillRequiredPair(g_smoll_score);
     StageKillPair(g_card);
     StageWord(reinterpret_cast<unsigned char*>(StageWord(g_card,0x37AC)),4)|=2u;
     StageKillPair(data_00477814);

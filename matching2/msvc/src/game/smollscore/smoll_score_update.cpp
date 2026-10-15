@@ -1,11 +1,12 @@
-#include "th10/game/effect_pool_0042b6f0.hpp"
+// 0x0042B6F0: raise every active score popup and retire it after 60 frames.
+#include "th10/game/smoll_score_view.hpp"
 
 extern "C" float data_00476f78;
 extern "C" float data_00470b0c;
 extern float g_frame_timer_normal_lower;
 extern float g_frame_timer_normal_upper;
 
-__forceinline void EffectTimer_0042b6f0::Tick() {
+__forceinline void SmollScoreTimer::Tick() {
     previous = current;
     if (*speed > g_frame_timer_normal_lower && *speed < g_frame_timer_normal_upper) {
         current++;
@@ -19,13 +20,13 @@ __forceinline void EffectTimer_0042b6f0::Tick() {
 }
 
 #pragma code_seg(".text$01drops")
-int EffectPool_0042b6f0::UpdateDrops() {
+int SmollScoreView::UpdatePopups() {
     for (int index = 0; index < 0x2D3; index++) {
-        EffectDrop_0042b6f0* drop = &drops[index];
-        if (!drop->active) continue;
-        drop->position -= data_00470b0c * data_00476f78;
-        drop->timer.Tick();
-        if (drop->timer.current > 60) drop->active = 0;
+        SmollScorePopup* popup = &popups[index];
+        if (!popup->active) continue;
+        popup->position -= data_00470b0c * data_00476f78;
+        popup->timer.Tick();
+        if (popup->timer.current > 60) popup->active = 0;
     }
     return 1;
 }

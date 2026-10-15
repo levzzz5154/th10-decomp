@@ -77,7 +77,7 @@ EclView_0040a940::~EclView_0040a940() {
     EclView_DeleteOwned(data_00477704);
     EclView_DeleteOwned(g_bomb);
     EclView_DeleteOwned(data_00477818);
-    EclView_DeleteOwned(data_00477840);
+    EclView_DeleteOwned(g_smoll_score);
     g_ecl_view = 0;
 }
 #pragma code_seg()

@@ -41,7 +41,7 @@ extern EclViewPlayer_0040a1a0* g_player;
 extern EclViewBullets_0040a1a0* data_004776f0;
 extern EclViewLasers_0040a1a0* g_bomb;
 extern EclViewEffects_0040a1a0* data_00477818;
-extern EclViewPopups_0040a1a0* data_00477840;
+extern EclViewPopups_0040a1a0* g_smoll_score;
 extern EclView_0040a940* g_ecl_view;
 extern void* data_00491be4;          // the scheduler
 }

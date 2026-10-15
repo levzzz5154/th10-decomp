@@ -187,7 +187,7 @@ void __stdcall ReleaseGlobalManager_00417c80(ManagerState_00417c80* state) {
             ResourceCleanup_00418ee0(resource_state);
             entry_free_004524a1(resource_state);
         }
-        void* effects = data_00477840;
+        void* effects = g_smoll_score;
         if (effects) {
             EffectManager_Destroy_0042b570(effects);
             entry_free_004524a1(effects);

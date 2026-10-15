@@ -121,12 +121,12 @@ extern "C" __declspec(noinline) int __stdcall ItemManager_UpdateItems(ItemSpawnM
                     data_0047770c->SetPowerDigits(power/20,(power%20)*100/20);
                     if (changed) {
                         ItemCollector_PowerChanged(g_player);
-                        data_00477840->Spawn(-1,&item->position,0xFFFFFF40u);
+                        g_smoll_score->Spawn(-1,&item->position,0xFFFFFF40u);
                         data_00492590.QueuePan(29,item->position.x);
                         if (data_00474c40.power>=100) convert_items=true;
                         data_00474c40.AdjustPower(12);
                     } else {
-                        data_00477840->Spawn(data_00474c40.power/2,&item->position,0xFFFF4040u);
+                        g_smoll_score->Spawn(data_00474c40.power/2,&item->position,0xFFFF4040u);
                     }
                     data_00474c40.AdvanceGaugeTimer(60);
                     break;
@@ -136,14 +136,14 @@ extern "C" __declspec(noinline) int __stdcall ItemManager_UpdateItems(ItemSpawnM
                     if (player->position.y<data_00470cd4) {
                         value=data_00474c40.gauge*10;
                         value-=value%10;
-                        data_00477840->Spawn(value,&item->position,0xFFFFFF00u);
+                        g_smoll_score->Spawn(value,&item->position,0xFFFFFF00u);
                         adjustment=8;
                     } else {
                         int penalty=static_cast<int>((player->position.y-data_00470cd4)*data_00470cd0*
                             (data_00474c40.gauge*0.5f-data_00470ce0));
                         value=data_00474c40.gauge*10/2-penalty;
                         value-=value%10;
-                        data_00477840->Spawn(value,&item->position,0xFFFFFFFFu);
+                        g_smoll_score->Spawn(value,&item->position,0xFFFFFFFFu);
                         adjustment=1;
                     }
                     data_00474c40.AdjustPower(adjustment);
@@ -158,7 +158,7 @@ extern "C" __declspec(noinline) int __stdcall ItemManager_UpdateItems(ItemSpawnM
                     case 2: value=8000; break;
                     case 3: case 4: value=10000; break;
                     }
-                    data_00477840->Spawn(value,&item->position,0xFF00FF00u);
+                    g_smoll_score->Spawn(value,&item->position,0xFF00FF00u);
                     data_00474c40.AddGauge(value);
                     data_00474c40.AdvanceGaugeTimer(120);
                     break;
@@ -170,18 +170,18 @@ extern "C" __declspec(noinline) int __stdcall ItemManager_UpdateItems(ItemSpawnM
                     if (changed) {
                         ItemCollector_PowerChanged(g_player);
                         data_00492590.QueuePan(29,item->position.x);
-                        data_00477840->Spawn(-1,&item->position,0xFFFFFF40u);
+                        g_smoll_score->Spawn(-1,&item->position,0xFFFFFF40u);
                         data_00474c40.AdjustPower(24);
                         if (data_00474c40.power>=100) convert_items=true;
                     } else {
-                        data_00477840->Spawn(data_00474c40.power/2,&item->position,0xFFFF4040u);
+                        g_smoll_score->Spawn(data_00474c40.power/2,&item->position,0xFFFF4040u);
                     }
                     data_00474c40.AdvanceGaugeTimer(20);
                     break;
                 }
                 case 5: {
                     int value=data_00474c40.gauge*10;
-                    data_00477840->Spawn(value,&item->position,0xFFFFFF00u);
+                    g_smoll_score->Spawn(value,&item->position,0xFFFFFF00u);
                     data_00474c40.AdjustPower(8);
                     data_00474c40.AddScore(value);
                     data_00474c40.AdvanceGaugeTimer(100);
@@ -197,7 +197,7 @@ extern "C" __declspec(noinline) int __stdcall ItemManager_UpdateItems(ItemSpawnM
                     data_00474c40.AddScore(10);
                     break;
                 case 9:
-                    data_00477840->Spawn(100,&item->position,0xFF00FF00u);
+                    g_smoll_score->Spawn(100,&item->position,0xFF00FF00u);
                     data_00474c40.AddGauge(100);
                     data_00474c40.AdvanceGaugeTimer(60);
                     break;

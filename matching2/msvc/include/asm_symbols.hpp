@@ -1856,8 +1856,8 @@ extern "C" void __cdecl asm_Recovery_ClearEightBuckets_00419040();
 #define VA_asm_Recovery_ClearEightBuckets_00419040 0x00419040
 extern "C" void* __cdecl Bomb_Create(void);
 #define VA_asm_Recovery_CreateFixedState_004056b0 0x004056b0
-extern "C" void __cdecl asm_Recovery_CreateHugeResourceState_0042b660();
-#define VA_asm_Recovery_CreateHugeResourceState_0042b660 0x0042b660
+extern "C" void __cdecl SmollScore_Create();
+#define VA_SmollScore_Create 0x0042b660
 extern "C" void __cdecl asm_Recovery_CreateLargeResourceState_00425020();
 #define VA_asm_Recovery_CreateLargeResourceState_00425020 0x00425020
 extern "C" StageTipManager_00419090* __cdecl asm_Recovery_CreateResourceState_00419090(void);
@@ -6038,7 +6038,7 @@ extern "C" unsigned char g_pause_menu;
 extern "C" unsigned char g_player;
 extern "C" unsigned char data_00477838;
 extern "C" unsigned char data_0047783c;
-extern "C" unsigned char data_00477840;
+extern "C" unsigned char g_smoll_score;
 extern "C" unsigned char data_00477844;
 extern "C" unsigned char data_00477848;
 extern "C" unsigned char data_0047784c;

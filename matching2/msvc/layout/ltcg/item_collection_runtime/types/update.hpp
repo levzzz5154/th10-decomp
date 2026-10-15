@@ -65,7 +65,7 @@ struct ItemFloatingText {
     unsigned char active, length;
     unsigned char reserved_3a[6];
 };
-struct ItemFloatingTextPool {
+struct ItemSmollScoreView {
     unsigned char reserved_000[0x14];
     int next_text;
     unsigned char reserved_018[0x3C4-0x18];
@@ -76,7 +76,7 @@ struct ItemFloatingTextPool {
 extern "C" {
 extern ItemRunState data_00474c40;
 extern ItemHud* data_0047770c;
-extern ItemFloatingTextPool* data_00477840;
+extern ItemSmollScoreView* g_smoll_score;
 extern unsigned int g_input;
 extern float data_00476f78;
 extern float data_00470b04, data_00470b94, data_00470bf4, data_00470cdc;
@@ -94,4 +94,4 @@ typedef char ItemRunGaugeOffset[offsetof(ItemRunState,gauge)==12?1:-1];
 typedef char ItemRunLivesOffset[offsetof(ItemRunState,lives)==0x30?1:-1];
 typedef char ItemRunPowerAccumulatorOffset[offsetof(ItemRunState,power_accumulator)==0x58?1:-1];
 typedef char ItemFloatingTextSize[sizeof(ItemFloatingText)==0x40?1:-1];
-typedef char ItemFloatingTextPoolOffset[offsetof(ItemFloatingTextPool,texts)==0x3C4?1:-1];
+typedef char ItemSmollScoreViewOffset[offsetof(ItemSmollScoreView,texts)==0x3C4?1:-1];
