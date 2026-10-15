@@ -44,9 +44,9 @@ struct ProjectileCommandRuntime {
 // record to the player.
 __forceinline static float SpawnCommand_AimAngle(ProjectileSpawnRecord& record,
                                                  const float& value) {
-    if (value <= data_00470b50)
+    if (value <= flt_neg990)
         return record.angle_3e4;
-    if (value >= data_00470ccc)
+    if (value >= flt_990)
         return g_player->AngleFromPoint(reinterpret_cast<const float*>(&record.position));
     return value;
 }
@@ -102,7 +102,7 @@ void ProjectileCommandRuntime::Tick() {
         case 0x100:
             record.motion_flags |= cmd;
             record.field_6c8 = SpawnCommand_AimAngle(record, command->value_a);
-            record.field_6c4 = command->value_b > data_00470cc8
+            record.field_6c4 = command->value_b > flt_neg999
                 ? command->value_b : record.fall_speed_3d8;
             if (!(record.timer_6b0.flags & 1u)) {
                 record.timer_6b0.flags |= 1u;

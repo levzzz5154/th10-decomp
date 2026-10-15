@@ -9,9 +9,9 @@
 float EclFloatVm::ResolveFloatValue(int selector, float value) {
     unsigned short mask = table->indirect_mask;
     if (mask & (1 << selector)) {
-        if (value >= data_00470b04) {
+        if (value >= flt_0) {
             return *(float*)&stack.data[stack.frame_base + (int)value];
-        } else if (value == data_00470b60) {
+        } else if (value == flt_neg1) {
             if (stack.cursor - 4 >= 0) {
                 stack.cursor -= 4;
                 *(int*)&value = *(int*)&stack.data[stack.cursor];

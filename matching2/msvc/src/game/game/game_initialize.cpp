@@ -51,7 +51,7 @@ extern void* g_front;
 extern const char g_replay_path[];
 extern int data_00494518;
 extern int data_004918a4;
-extern const double data_00470b70;
+extern const double dbl_0;
 __declspec(dllimport) void __stdcall Sleep(unsigned int);
 __declspec(noinline) int* __stdcall SchedulerCallback_Create_00449ed0(int callback);
 void* __stdcall ReplayCreate(int replay_mode, const char* file);
@@ -175,8 +175,8 @@ extern "C" __declspec(noinline) int __stdcall Game_Initialize(Game* context) {
         LoadMusic(0, data_00477848->music[0]);
         LoadMusic(1, data_00477848->music[1]);
     }
-    g_fps->second = data_00470b70;
-    g_fps->first = data_00470b70;
+    g_fps->second = dbl_0;
+    g_fps->first = dbl_0;
     context->clock.SetSchedulerValue(0);
     while (data_00494518)
         Sleep(16);

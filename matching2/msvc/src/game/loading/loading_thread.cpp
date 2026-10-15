@@ -21,8 +21,8 @@ extern void* g_sprt_ctrl;              // animation manager
 extern void* data_00491fec;              // text.anm
 extern char* data_00494514;              // BGM format table
 extern unsigned char data_00491d78;      // sound option flags
-extern char data_0046dc28[];             // "error : 文字の初期化に失敗しました"
-extern char data_0046dbec[];             // "error : BGM の初期化に失敗しました"
+extern char str_text_init_failed[];             // "error : 文字の初期化に失敗しました"
+extern char str_bgm_init_failed[];             // "error : BGM の初期化に失敗しました"
 extern TextLog_0044b810 g_log;
 extern WaveSoundManager g_wave_sound_manager;
 
@@ -41,7 +41,7 @@ static __forceinline int LoadTitleScreenAssets(LoadingView* title) {
     title->secondary_task->reserved_flags |= 1u;
     title->logo_loaded = 1;
     if (!AsciiManager_Create()) {
-        g_log.Append(data_0046dc28);
+        g_log.Append(str_text_init_failed);
         return -1;
     }
     title->game_thread_created = 1;
@@ -61,7 +61,7 @@ __declspec(noinline) int __fastcall Loading_LoadAssets_0041f990(LoadingView* own
     }
     data_00494514 = Archive_LoadFile("../../bgm/thbgm.fmt", 0, 0);
     if (!data_00494514)
-        g_log.Append(data_0046dbec);
+        g_log.Append(str_bgm_init_failed);
     g_wave_sound_manager.InitializeEffects();
     if (asm_File_ProbeExists_0044b4d0("thbgm.dat")) {
         if (!(data_00491d78 & 0x10))

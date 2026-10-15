@@ -132,7 +132,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_004247f0_004247f0() {
     L_004248dc:
         fld dword ptr [esi+10h]
     L_004248df:
-        fmul dword ptr [data_00470b44]
+        fmul dword ptr [flt_100]
     L_004248e5:
         call asm_FUN_00463b2c_00463b2c
     L_004248ea:
@@ -140,7 +140,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_004247f0_004247f0() {
     L_004248f0:
         fld dword ptr [esi+14h]
     L_004248f3:
-        fmul dword ptr [data_00470b44]
+        fmul dword ptr [flt_100]
     L_004248f9:
         call asm_FUN_00463b2c_00463b2c
     L_004248fe:
@@ -148,7 +148,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_004247f0_004247f0() {
     L_00424904:
         fld dword ptr [esi+18h]
     L_00424907:
-        fmul dword ptr [data_00470b44]
+        fmul dword ptr [flt_100]
     L_0042490d:
         call asm_FUN_00463b2c_00463b2c
     L_00424912:
@@ -156,7 +156,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_004247f0_004247f0() {
     L_00424918:
         fld dword ptr [esi+1Ch]
     L_0042491b:
-        fmul dword ptr [data_00470b44]
+        fmul dword ptr [flt_100]
     L_00424921:
         call asm_FUN_00463b2c_00463b2c
     L_00424926:
@@ -250,7 +250,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_004247f0_004247f0() {
     L_004249f4:
         mov eax,40A00000h
     L_004249f9:
-        fmul dword ptr [data_00470b0c]
+        fmul dword ptr [flt_0_5]
     L_004249ff:
         mov dword ptr [ebx+424h],eax
     L_00424a05:
@@ -264,7 +264,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_004247f0_004247f0() {
     L_00424a1e:
         mov dword ptr [ebx+430h],eax
     L_00424a24:
-        fmul dword ptr [data_00470b0c]
+        fmul dword ptr [flt_0_5]
     L_00424a2a:
         fst dword ptr [ebx+42Ch]
     L_00424a30:
@@ -276,7 +276,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_004247f0_004247f0() {
     L_00424a43:
         mov dword ptr [ebx+43Ch],eax
     L_00424a49:
-        fmul dword ptr [data_00470b0c]
+        fmul dword ptr [flt_0_5]
     L_00424a4f:
         lea eax,[ebx+404h]
     L_00424a55:

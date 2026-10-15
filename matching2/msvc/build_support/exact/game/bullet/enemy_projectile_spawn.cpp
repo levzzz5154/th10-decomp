@@ -231,7 +231,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_004067d0_004067d0() {
     L_0040693f:
         fild dword ptr [esp+28h]
     L_00406943:
-        fadd dword ptr [data_00470b0c]
+        fadd dword ptr [flt_0_5]
     L_00406949:
         test cl,1
     L_0040694c:
@@ -239,7 +239,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_004067d0_004067d0() {
     L_0040694f:
         je short L_00406957
     L_00406951:
-        fmul dword ptr [data_00470b60]
+        fmul dword ptr [flt_neg1]
     L_00406957:
         cmp si,di
     L_0040695a:
@@ -263,7 +263,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_004067d0_004067d0() {
     L_0040697f:
         mov dword ptr [esp+28h],ecx
     L_00406983:
-        fmul dword ptr [data_00470b14]
+        fmul dword ptr [flt_2pi]
     L_00406989:
         fidiv dword ptr [esp+28h]
     L_0040698d:
@@ -291,7 +291,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_004067d0_004067d0() {
     L_004069b9:
         fild dword ptr [esp+30h]
     L_004069bd:
-        fld dword ptr [data_00470b18]
+        fld dword ptr [flt_pi]
     L_004069c3:
         fdiv st,st(1)
     L_004069c5:
@@ -299,7 +299,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_004067d0_004067d0() {
     L_004069c9:
         fild dword ptr [esp+28h]
     L_004069cd:
-        fmul dword ptr [data_00470b14]
+        fmul dword ptr [flt_2pi]
     L_004069d3:
         fdiv st,st(2)
     L_004069d5:
@@ -355,7 +355,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_004067d0_004067d0() {
     L_00406a2d:
         mov dword ptr [esp+28h],ecx
     L_00406a31:
-        fmul dword ptr [data_00470b14]
+        fmul dword ptr [flt_2pi]
     L_00406a37:
         fidiv dword ptr [esp+28h]
     L_00406a3b:
@@ -607,15 +607,15 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_004067d0_004067d0() {
     L_00406c6f:
         fld dword ptr [ebp+3C0h]
     L_00406c75:
-        fmul dword ptr [data_00470c40]
+        fmul dword ptr [flt_4]
     L_00406c7b:
         fld dword ptr [ebp+3C4h]
     L_00406c81:
-        fmul dword ptr [data_00470c40]
+        fmul dword ptr [flt_4]
     L_00406c87:
         fld dword ptr [ebp+3C8h]
     L_00406c8d:
-        fmul dword ptr [data_00470c40]
+        fmul dword ptr [flt_4]
     L_00406c93:
         fstp dword ptr [esp+1Ch]
     L_00406c97:

@@ -806,37 +806,37 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00470b4c",
+      "symbol": "_flt_224",
       "address": "0x470b4c",
       "kind": "data"
     },
     {
-      "symbol": "_data_00470b48",
+      "symbol": "_flt_16",
       "address": "0x470b48",
       "kind": "data"
     },
     {
-      "symbol": "_data_00470afc",
+      "symbol": "_flt_1",
       "address": "0x470afc",
       "kind": "data"
     },
     {
-      "symbol": "_data_00470b64",
+      "symbol": "_flt_1_01",
       "address": "0x470b64",
       "kind": "data"
     },
     {
-      "symbol": "_data_00470b68",
+      "symbol": "_flt_0_99",
       "address": "0x470b68",
       "kind": "data"
     },
     {
-      "symbol": "_data_00470b44",
+      "symbol": "_flt_100",
       "address": "0x470b44",
       "kind": "data"
     },
     {
-      "symbol": "_data_00470b00",
+      "symbol": "_flt_0_01",
       "address": "0x470b00",
       "kind": "data"
     },
@@ -861,22 +861,22 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_data_00470b40",
+      "symbol": "_flt_neg192",
       "address": "0x00470b40",
       "kind": "data"
     },
     {
-      "symbol": "_data_00470b3c",
+      "symbol": "_flt_192",
       "address": "0x00470b3c",
       "kind": "data"
     },
     {
-      "symbol": "_data_00470b04",
+      "symbol": "_flt_0",
       "address": "0x00470b04",
       "kind": "data"
     },
     {
-      "symbol": "_data_00470b38",
+      "symbol": "_flt_448",
       "address": "0x00470b38",
       "kind": "data"
     },
@@ -986,7 +986,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00470bc8",
+      "symbol": "_flt_64",
       "address": "0x470bc8",
       "kind": "data"
     },
@@ -1006,7 +1006,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00470b0c",
+      "symbol": "_flt_0_5",
       "address": "0x470b0c",
       "kind": "data"
     },
@@ -1046,7 +1046,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00470b94",
+      "symbol": "_flt_pi_2",
       "address": "0x470b94",
       "kind": "data"
     },
@@ -1071,12 +1071,12 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_0046e0d8",
+      "symbol": "_str_bgm_th10_17_wav",
       "address": "0x46e0d8",
       "kind": "data"
     },
     {
-      "symbol": "_data_0046df98",
+      "symbol": "_str_dummy",
       "address": "0x46df98",
       "kind": "data"
     },

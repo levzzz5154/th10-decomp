@@ -31,7 +31,7 @@ __declspec(noinline) int LineEffectSweep_0041e260::CreateSegmentsInBounds(int sp
         if (!(point.x + 16.0f <= -192.0f) &&
             !(point.x - 16.0f >= 192.0f)) {
             float animation_y = point.y + 16.0f;
-            if (!(animation_y <= data_00470b04) &&
+            if (!(animation_y <= flt_0) &&
                 !(point.y - 16.0f >= 448.0f)) {
                 int script = script_in_bounds * 2 + 17;
                 void* resource = g_laser_manager->line_animation;
@@ -55,7 +55,7 @@ __declspec(noinline) int LineEffectSweep_0041e260::CreateSegmentsInBounds(int sp
                 if (spawn_items &&
                     !(point.x + 32.0f <= -192.0f) &&
                     !(point.x - 32.0f >= 192.0f) &&
-                    !(point.y + 32.0f <= data_00470b04) &&
+                    !(point.y + 32.0f <= flt_0) &&
                     !(point.y - 32.0f >= 448.0f)) {
                     g_item_manager->Spawn(
                         &point, 8, -1, -1.57079637050628662109375f,

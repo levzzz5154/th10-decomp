@@ -54,10 +54,10 @@ int __stdcall ShutdownMidi_0043ae20(MidiSequencer* sequencer);
 void __stdcall CleanupMidi_0043a910(MidiSequencer* sequencer);
 
 // Log lines (Shift-JIS).
-extern char data_0046f77c[];    // "Touhou action log ------ ..."
-extern char data_0046f6a0[];    // "the Direct3D object could not be created for some reason"
-extern char data_0046f6f0[];    // "an option that needs a restart was changed, restarting"
-extern char data_0046f7cc[];    // "------ ..."
+extern char str_log_header[];    // "Touhou action log ------ ..."
+extern char str_d3d_create_failed[];    // "the Direct3D object could not be created for some reason"
+extern char str_restart_required[];    // "an option that needs a restart was changed, restarting"
+extern char str_log_footer[];    // "------ ..."
 }
 
 int __stdcall SaveSystemSettingsRetail_004392e0();
@@ -201,7 +201,7 @@ __declspec(noinline) int __stdcall GameMain_00438ad0(
     data_00491be0 = replays;
     for (section = data_00492274.critical_sections, index = 7; index != 0; --index, ++section)
         InitializeCriticalSection(section);
-    g_log.Append(data_0046f77c);
+    g_log.Append(str_log_header);
 
     if (Startup_InstanceCheck_00439ff0() == -1)
         goto close_pass;
@@ -221,7 +221,7 @@ __declspec(noinline) int __stdcall GameMain_00438ad0(
         g_func_ctrl = resources;
         g_application.direct3d = static_cast<Direct3D*>(Direct3DCreate9_00452176(0x20));
         if (g_application.direct3d == 0) {
-            reinterpret_cast<TextLog_0044b8e0*>(&g_log)->AppendLine(data_0046f6a0);
+            reinterpret_cast<TextLog_0044b8e0*>(&g_log)->AppendLine(str_d3d_create_failed);
             goto close_pass;
         }
         if (CreateGameWindow_00439730(instance) != 0)
@@ -308,7 +308,7 @@ close_pass:
         TextLog_0044b810* log = &g_log;
         log->cursor = log->text;
         log->text[0] = 0;
-        log->Append(data_0046f6f0);
+        log->Append(str_restart_required);
         if (!g_application.config.field_1d)
             asm_WINNLSEnableIME_0045232c(0, 1);
         for (index = 0; index < 60; ++index) {
@@ -324,7 +324,7 @@ close_pass:
         g_application.midi = 0;
     }
     if (g_log.cursor != g_log.text) {
-        g_log.Append(data_0046f7cc);
+        g_log.Append(str_log_footer);
         if (g_log.dirty)
             MessageBoxA(0, g_log.text, "log", 0x10);
         File_WriteWholeFile("./log.txt", g_log.text, strlen(g_log.text));

@@ -114,7 +114,7 @@ void ItemSmollScoreView::Spawn(int value,const Vector3* position,unsigned int co
 float ItemCollector::AngleFromPoint(const Vector3* point) {
     float dx=position.x-point->x;
     float dy=position.y-point->y;
-    if (dy==data_00470b04 && dx==data_00470b04) return data_00470b94;
+    if (dy==flt_0 && dx==flt_0) return flt_pi_2;
     return static_cast<float>(atan2(static_cast<double>(dy),static_cast<double>(dx)));
 }
 #pragma code_seg(".text$f0043dd10F")

@@ -1,6 +1,6 @@
 #include "th10/game/game_thread_queue_native.hpp"
-extern "C" const float data_00470c2c;
-extern "C" const char data_0046e658[];
+extern "C" const float flt_50;
+extern "C" const char str_int3_format[];
 struct ReplayManagerPanel {
  unsigned char pad_00[0x10];
  int display_state;
@@ -17,15 +17,15 @@ __declspec(noinline) int __fastcall ReplayManager_Draw(void* callback_context_ec
  if (g_game != 0 && panel->display_state != 0 && panel->display_state == 1) {
     Vec3_00401530 position = {383.0f,450.0f,0.0f};
     unsigned int color;
-    if ((float)panel->value < data_00470c30)
+    if ((float)panel->value < flt_30)
         color=0xff5050ffu;
-    else if ((float)panel->value < data_00470c2c)
+    else if ((float)panel->value < flt_50)
         color=0xffa0a0ffu;
     else
         color=0xffffffffu;
     GameThread_00401530* thread=g_ascii_manager;
     thread->current_4c=color;
-    AsciiManager_AddFormatted(thread,&position,data_0046e658,(int)panel->value);
+    AsciiManager_AddFormatted(thread,&position,str_int3_format,(int)panel->value);
     g_ascii_manager->current_4c=-1;
  }
  return 1;

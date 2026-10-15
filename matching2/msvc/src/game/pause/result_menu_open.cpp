@@ -32,10 +32,10 @@ __forceinline void PauseOpenState::Open(bool result) {
         AnimationScriptId assigned = reinterpret_cast<AnimationListsOpen*>(g_sprt_ctrl)->RegisterSecondaryBack(object);
         background = assigned;
     }
-    Music_Load(0, data_0046e0d8);
+    Music_Load(0, str_bgm_th10_17_wav);
     if (data_00491d78 & 0x10)
-        g_music_requests.RegisterResource(data_0046df98, 4, 0);
-    g_music_requests.RegisterResource(data_0046df98, 2, 0);
+        g_music_requests.RegisterResource(str_dummy, 4, 0);
+    g_music_requests.RegisterResource(str_dummy, 2, 0);
     g_score->result_track_heard = 1;
     result_flag = result ? 1 : 0;
     saved_speed = g_game_speed;

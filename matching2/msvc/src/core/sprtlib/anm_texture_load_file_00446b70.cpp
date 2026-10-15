@@ -25,7 +25,7 @@ int AnmTexture_00446c70::LoadFile(int format, void* size_slot, const char* name,
         else if (d3d_format == 20)
             stored_format = 3;
     }
-    sprintf(path, data_0046e1c8, name);
+    sprintf(path, str_string_format, name);
     char* file = Archive_LoadFile(path, reinterpret_cast<int*>(&size_slot), 1);
     if (!file)
         return -1;

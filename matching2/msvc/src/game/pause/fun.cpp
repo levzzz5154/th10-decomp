@@ -32,12 +32,12 @@ extern "C" __declspec(noinline) int __stdcall ResultScreen_DrawRows_00422660(
                 ReplayHeader_00431ba0* header = file->header;
                 tm* date = localtime(&header->date);
                 AsciiManager_AddFormatted(
-                    g_ascii_manager, &position, data_0046e19c, row + 1, header->name,
+                    g_ascii_manager, &position, str_ranking_row_named_format, row + 1, header->name,
                     date->tm_year % 100, date->tm_mon + 1, date->tm_mday,
                     data_004746dc[header->character * 3 + header->shot_type],
                     data_00474708[header->difficulty], data_00474744[header->stage]);
             } else {
-                AsciiManager_AddFormatted(g_ascii_manager, &position, data_0046e174, row + 1);
+                AsciiManager_AddFormatted(g_ascii_manager, &position, str_ranking_row_empty_format, row + 1);
             }
             position.y += 15.0f;
         }
@@ -63,7 +63,7 @@ extern "C" __declspec(noinline) int __stdcall ResultScreen_DrawRows_00422660(
         ReplayHeader_00431ba0* header = g_replay->header;
         tm* date = localtime(&header->date);
         AsciiManager_AddFormatted(
-            g_ascii_manager, &position, data_0046e148, cursor + 1,
+            g_ascii_manager, &position, str_ranking_row_format, cursor + 1,
             date->tm_year % 100, date->tm_mon + 1, date->tm_mday,
             data_004746dc[header->character * 3 + header->shot_type],
             data_00474708[header->difficulty], data_00474744[g_globals_stage]);
@@ -78,7 +78,7 @@ extern "C" __declspec(noinline) int __stdcall ResultScreen_DrawRows_00422660(
         position.z = 0.0f;
         int cursor = state->cursor;
         position.y = 64.0f;
-        AsciiManager_AddFormatted(g_ascii_manager, &position, data_0046e12c);
+        AsciiManager_AddFormatted(g_ascii_manager, &position, str_score_ranking_title);
         position.x = 75.0f;
         position.y = cursor * 18.0f + 96.0f;
         if (state->no_entry == 0) {
@@ -96,7 +96,7 @@ extern "C" __declspec(noinline) int __stdcall ResultScreen_DrawRows_00422660(
                     &g_score[data_00474c68_shot * 3 + data_00474c68_char].table;
                 tm* date = localtime(&table->rows[g_globals_difficulty][row].date);
                 AsciiManager_AddFormatted(
-                    g_ascii_manager, &position, data_0046e108, row + 1,
+                    g_ascii_manager, &position, str_score_row_format, row + 1,
                     g_score[data_00474c68_shot * 3 + data_00474c68_char]
                         .table.rows[g_globals_difficulty][row].name,
                     g_score[data_00474c68_shot * 3 + data_00474c68_char]
@@ -108,7 +108,7 @@ extern "C" __declspec(noinline) int __stdcall ResultScreen_DrawRows_00422660(
                                       .table.rows[g_globals_difficulty][row].stage]);
             } else {
                 AsciiManager_AddFormatted(
-                    g_ascii_manager, &position, data_0046e0e8, row + 1,
+                    g_ascii_manager, &position, str_score_row_unplayed_format, row + 1,
                     g_score[data_00474c68_shot * 3 + data_00474c68_char]
                         .table.rows[g_globals_difficulty][row].name,
                     g_score[data_00474c68_shot * 3 + data_00474c68_char]

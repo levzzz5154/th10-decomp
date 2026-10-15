@@ -5,7 +5,7 @@
 // at 0x00470B44 and subtracts the result from it (FSUBR), so the body reads
 // `scale - (first / second) * scale`.  The record arrives in EAX.
 
-extern "C" float data_00470b44;
+extern "C" float flt_100;
 
 #pragma pack(push, 4)
 struct Ratio_00421f80 {
@@ -19,6 +19,6 @@ struct Ratio_00421f80 {
 
 #pragma code_seg(".text$01ratio")
 float Ratio_00421f80::Remaining() {
-    return data_00470b44 - (float)(first / second) * data_00470b44;
+    return flt_100 - (float)(first / second) * flt_100;
 }
 #pragma code_seg()

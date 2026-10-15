@@ -2,8 +2,8 @@
 // calls and of its caller, so the checking LTCG link derives the same private
 // register conventions as retail. Only EclVm::Run is compared.
 #include "th10/runtime/script/sptcmd/ecl_core_interpreter.hpp"
-float data_00470b04 = 0.0f;
-float data_00470b60 = -1.0f;
+float flt_0 = 0.0f;
+float flt_neg1 = -1.0f;
 int EclStack::Pop() {
     int b = base;
     if (sp - (int)sizeof(int) >= 0) { sp -= sizeof(int); base = *(int*)(data + sp); }
@@ -64,9 +64,9 @@ float EclVm::FloatOperand(int selector) {
     unsigned short mask = operands->mask;
     if (mask & (1 << selector)) {
         const float& d = operands->f[selector];
-        if (d >= data_00470b04) {
+        if (d >= flt_0) {
             return *(float*)&stack.data[stack.base + (int)d];
-        } else if (d == data_00470b60) {
+        } else if (d == flt_neg1) {
             union { int integer; float real; } value;
             if (stack.sp - 4 >= 0) {
                 stack.sp -= 4;
@@ -86,9 +86,9 @@ float EclVm::FloatOperand(int selector) {
 float EclVm::FloatValue(int selector, EclVm* vm, float value) {
     unsigned short mask = vm->instr->mask;
     if (mask & (1 << selector)) {
-        if (value >= data_00470b04) {
+        if (value >= flt_0) {
             return *(float*)&vm->stack.data[vm->stack.base + (int)value];
-        } else if (value == data_00470b60) {
+        } else if (value == flt_neg1) {
             vm->stack.PopFloat(&value);
         } else {
             return vm->owner->ResolveFloat((int)value);

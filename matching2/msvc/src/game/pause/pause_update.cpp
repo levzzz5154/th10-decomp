@@ -23,8 +23,8 @@ extern "C" unsigned char g_globals_flags;
 extern "C" unsigned char data_00474e36;
 extern "C" unsigned char data_00491ff4;
 extern "C" PauseMenuRuntime* g_game;
-extern "C" float data_00470b68;
-extern "C" float data_00470b64;
+extern "C" float flt_0_99;
+extern "C" float flt_1_01;
 
 struct PauseUpdateView {
     int unknown_00;
@@ -59,7 +59,7 @@ int PauseUpdateView::Update() {
         break;
     }
     previous_frame = current_frame;
-    if (*speed > data_00470b68 && *speed < data_00470b64) {
+    if (*speed > flt_0_99 && *speed < flt_1_01) {
         ++current_frame;
         elapsed += 1.0f;
     } else {

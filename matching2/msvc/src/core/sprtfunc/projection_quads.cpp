@@ -26,10 +26,10 @@ struct ProjectionDevice_00443B60 {
 };
 
 // The shared .rdata float constants, read through their retail addresses.
-extern "C" float data_00470b04;            //  0.0f
-extern "C" float data_00470afc;            //  1.0f
-extern "C" float data_00470b0c;            //  0.5f
-extern "C" float data_00470b78;            // -0.5f
+extern "C" float flt_0;            //  0.0f
+extern "C" float flt_1;            //  1.0f
+extern "C" float flt_0_5;            //  0.5f
+extern "C" float flt_neg0_5;            // -0.5f
 
 extern "C" ProjectionDevice_00443B60* data_00491fac;
 extern "C" ProjectionVertex g_quad_vertices[4];

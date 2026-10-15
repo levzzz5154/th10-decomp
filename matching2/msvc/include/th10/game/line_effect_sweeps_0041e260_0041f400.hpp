@@ -51,15 +51,15 @@ typedef char LineScriptCheck_0041f400[offsetof(LineEffectSweep_0041e260,script_i
 extern "C" {
 extern ItemSpawnManager_0041bb00* g_item_manager;
 extern LineAnimationResourceBank_0041e260* g_laser_manager;
-extern float data_00470cd8;
-extern float data_00470d1c;
-extern float data_00470b4c;
-extern float data_00470b48;
-extern float data_00470bcc;
-extern float data_00470b40;
-extern float data_00470b3c;
-extern float data_00470b04;
-extern float data_00470b38;
+extern float flt_12;
+extern float flt_6;
+extern float flt_224;
+extern float flt_16;
+extern float flt_32;
+extern float flt_neg192;
+extern float flt_192;
+extern float flt_0;
+extern float flt_448;
 }
 struct AnimationResource_0043e710;
 struct AnimationObject_0043e710;

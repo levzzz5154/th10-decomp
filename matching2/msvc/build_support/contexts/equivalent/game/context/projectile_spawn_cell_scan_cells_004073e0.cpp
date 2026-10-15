@@ -4,7 +4,7 @@
 // stack). The sections are moved past the spawner's jump tables, so the gate
 // sees the calls as leaving the function.
 #include "th10/game/enemy_grid_scan_004073e0.hpp"
-extern "C" const float data_00470b20;
+extern "C" const float flt_5_2083335;
 #define code_seg(name) code_seg(".text$zz_004073e0")
 #include "../../../../layout/ltcg/enemy_grid_scan_dependencies/sound_pan.cpp"
 #include "../../../../../src/game/bullet/enemy_grid_scan.cpp"

@@ -27,10 +27,10 @@ extern "C" __declspec(noinline) int __fastcall AnimationLoadSurface_00447c80(
     if (manager->primary[index])
         manager->Clear(index);
     if (!manager->memory[index]) {
-        sprintf(path, data_0046e1c8, name);
+        sprintf(path, str_string_format, name);
         data = Archive_LoadFile(path, &size, 0);
         if (!data) {
-            g_log.AppendLine(data_00470150, name);
+            g_log.AppendLine(str_cannot_load_format, name);
             return -1;
         }
     } else {

@@ -261,62 +261,62 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_data_0046de7c",
+      "symbol": "_str_config_missing_reset",
       "address": "0x0046DE7C",
       "kind": "data"
     },
     {
-      "symbol": "_data_0046de48",
+      "symbol": "_str_config_invalid_reset",
       "address": "0x0046DE48",
       "kind": "data"
     },
     {
-      "symbol": "_data_0046de2c",
+      "symbol": "_str_no_fog",
       "address": "0x0046DE2C",
       "kind": "data"
     },
     {
-      "symbol": "_data_0046de04",
+      "symbol": "_str_force_16bit_textures",
       "address": "0x0046DE04",
       "kind": "data"
     },
     {
-      "symbol": "_data_0046dde4",
+      "symbol": "_str_window_mode",
       "address": "0x0046DDE4",
       "kind": "data"
     },
     {
-      "symbol": "_data_0046ddbc",
+      "symbol": "_str_force_reference_rasterizer",
       "address": "0x0046DDBC",
       "kind": "data"
     },
     {
-      "symbol": "_data_0046dd84",
+      "symbol": "_str_no_directinput",
       "address": "0x0046DD84",
       "kind": "data"
     },
     {
-      "symbol": "_data_0046dd64",
+      "symbol": "_str_bgm_in_memory",
       "address": "0x0046DD64",
       "kind": "data"
     },
     {
-      "symbol": "_data_0046dd4c",
+      "symbol": "_str_no_vsync",
       "address": "0x0046DD4C",
       "kind": "data"
     },
     {
-      "symbol": "_data_0046dd28",
+      "symbol": "_str_no_text_autodetect",
       "address": "0x0046DD28",
       "kind": "data"
     },
     {
-      "symbol": "_data_0046dd08",
+      "symbol": "_str_cannot_write_file_format",
       "address": "0x0046DD08",
       "kind": "data"
     },
     {
-      "symbol": "_data_0046dcb0",
+      "symbol": "_str_folder_not_writable",
       "address": "0x0046DCB0",
       "kind": "data"
     }

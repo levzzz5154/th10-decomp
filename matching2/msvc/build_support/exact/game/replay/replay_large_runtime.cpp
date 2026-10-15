@@ -279,9 +279,9 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00429b60_00429b60() {
     L_00429d06:
         push ebx
     L_00429d07:
-        fmul dword ptr [data_00470b44]
+        fmul dword ptr [flt_100]
     L_00429d0d:
-        fsubr dword ptr [data_00470b44]
+        fsubr dword ptr [flt_100]
     L_00429d13:
         fstp dword ptr [eax+48h]
     L_00429d16:

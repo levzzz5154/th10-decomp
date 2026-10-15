@@ -4,7 +4,7 @@
 #include "th10/runtime/core/sprtanim/anm_vm_tick.hpp"
 
 float g_game_speed = 1.0f;
-float data_00470b04 = 0.0f;
+float flt_0 = 0.0f;
 Float3 g_zero_vector;
 Float3 g_scroll_step;
 RngState g_replay_rng;

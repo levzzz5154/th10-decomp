@@ -186,7 +186,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_0046f36c",
+      "symbol": "_str_ms_gothic",
       "address": "0x46f36c",
       "kind": "data"
     },
@@ -381,27 +381,27 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_0046f9e0",
+      "symbol": "_str_directinput_unavailable",
       "address": "0x46f9e0",
       "kind": "data"
     },
     {
-      "symbol": "_data_0046f9b0",
+      "symbol": "_str_directinput_no_data_format",
       "address": "0x46f9b0",
       "kind": "data"
     },
     {
-      "symbol": "_data_0046f97c",
+      "symbol": "_str_directinput_no_cooperative_level",
       "address": "0x46f97c",
       "kind": "data"
     },
     {
-      "symbol": "_data_0046f954",
+      "symbol": "_str_directinput_ok",
       "address": "0x46f954",
       "kind": "data"
     },
     {
-      "symbol": "_data_0046f934",
+      "symbol": "_str_pad_found",
       "address": "0x46f934",
       "kind": "data"
     },

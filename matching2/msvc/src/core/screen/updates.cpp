@@ -6,7 +6,7 @@
 #include "th10/core/screen.hpp"
 
 extern "C" int data_004918a4;  // 0x004918A4
-extern "C" float data_00470bf8;  // 0x00470BF8
+extern "C" float flt_255;  // 0x00470BF8
 
 // 0x0043BD40: the fade-in update task (Screen modes 0 and 3):
 // the alpha falls from 255 to 0 over the length. The object embeds a FrameTimer at
@@ -34,7 +34,7 @@ int ScreenFadeIn::Tick() {
 
     int divisor = length;
     if (divisor != 0) {
-        int next = int(data_00470bf8 - elapsed * data_00470bf8 / divisor);
+        int next = int(flt_255 - elapsed * flt_255 / divisor);
         value = next;
         if (next < 0)
             value = 0;
@@ -60,7 +60,7 @@ struct GameScene_00477810 {
 };
 // The game scene (0x00477810); the effects stop while it is paused.
 extern "C" GameScene_00477810* g_game;
-extern "C" float data_00470bf8;
+extern "C" float flt_255;
 
 struct ScreenFadeOut {
     unsigned char pad_00[0x18];
@@ -86,7 +86,7 @@ int ScreenFadeOut::Tick() {
     int divisor = length;
     if (divisor != 0) {
         if (frame < divisor) {
-            value = (int)(elapsed * data_00470bf8 / divisor);
+            value = (int)(elapsed * flt_255 / divisor);
         } else {
             value = 255;
         }

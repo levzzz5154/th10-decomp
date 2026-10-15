@@ -273,7 +273,7 @@ void __stdcall Game_Destroy(Game* state) {
         // resource index is 4 when the extra-content flag is set. Retail
         // hands the registrar its manager in EAX and the name in EDX.
         g_sound_manager.RegisterResource(
-            data_0046df98, (data_00491d78 & 0x10u) ? 4 : 3, 0);
+            str_dummy, (data_00491d78 & 0x10u) ? 4 : 3, 0);
     }
 
     // The frame gate opens for the next scene and the mode bias records

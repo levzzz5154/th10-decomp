@@ -5,8 +5,8 @@
 float Player::AngleFromPoint(const float* point) {
     float dx = position.x - point[0];
     float dy = position.y - point[1];
-    if (dy == data_00470b04 && dx == data_00470b04)
-        return data_00470b94;
+    if (dy == flt_0 && dx == flt_0)
+        return flt_pi_2;
     return (float)atan2((double)dy, (double)dx);
 }
 #pragma code_seg()

@@ -180,7 +180,7 @@
     "__real@3e800000": "0x00470D40",
     "__real@40c90fdb": "0x00470B14",
     "__real@c12e847e00000000": "0x00470D58",
-    "_data_00470b60": "0x00470B60",
+    "_flt_neg1": "0x00470B60",
     "_g_game_speed": "0x00476F78",
     "___security_cookie": "0x00473660",
     "_g_globals": "0x00474C40",
@@ -199,7 +199,7 @@
     "_g_difficulty_00474c74": "0x00474C74",
     "_data_00474df0": "0x00474DF0",
     "_g_enemy_ctrl": "0x00477704",
-    "_data_00470b04": "0x00470B04",
+    "_flt_0": "0x00470B04",
     "_g_zero_vector2_00491c20": "0x00491C20",
     "_g_camera_offset_00491d7c": "0x00491D7C",
     "_g_zero_vector_00491c14": "0x00491C14"

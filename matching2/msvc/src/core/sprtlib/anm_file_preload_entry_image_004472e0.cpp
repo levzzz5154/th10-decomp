@@ -15,20 +15,20 @@ int __stdcall AnmFile_PreloadEntryImage_004472e0(AnmFile_004470c0* file,
     char path[260];
     int size;
     if (!entry) {
-        g_log.AppendLine(data_00470274);
+        g_log.AppendLine(str_anm_load_failed);
         return -1;
     }
     if (entry->version != 4) {
-        g_log.AppendLine(data_00470254);
+        g_log.AppendLine(str_anm_version_mismatch);
         return -1;
     }
     if (!entry->has_data) {
         const char* name = entry->Name();
         if (name[0] != '@') {
-            sprintf(path, data_0046e1c8, name);
+            sprintf(path, str_string_format, name);
             char* data = Archive_LoadFile(path, &size, 1);
             if (!data) {
-                g_log.AppendLine(data_00470210, name);
+                g_log.AppendLine(str_texture_load_failed_format, name);
                 return -1;
             }
             file->textures[index].data_size = size;

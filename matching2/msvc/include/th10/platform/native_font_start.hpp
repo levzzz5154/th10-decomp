@@ -31,7 +31,7 @@ extern "C" {
  extern FontRandomState g_rng;
 
  extern void* data_00491868[15];
- extern const char data_0046f36c[];
+ extern const char str_ms_gothic[];
  extern void* (__stdcall* imp_CreateDIBSection)(void*,const FontBitmapV4*,unsigned int,void**,void*,unsigned int);
  extern void* (__stdcall* imp_CreateCompatibleDC)(void*);
  __declspec(dllimport) void* __stdcall CreateFontA(int,int,int,int,int,unsigned int,unsigned int,unsigned int,unsigned int,unsigned int,unsigned int,unsigned int,unsigned int,const char*);

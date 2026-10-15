@@ -190,8 +190,8 @@ __declspec(noinline) int __stdcall FrontHudUpdate_00414900(
     }
     if ((front->flags_9eb4 & 1) == 0) {
         Player* play = g_player;
-        if (play != 0 && play->position.y > data_00470bdc &&
-            play->position.x < data_00470d10) {
+        if (play != 0 && play->position.y > flt_416 &&
+            play->position.x < dbl_neg128) {
             FrontUpdateView::BankObject* obj = &front->objects[15];
             for (int n = 7; n != 0; --n) {
                 obj->stop_frame = 3;
@@ -202,7 +202,7 @@ __declspec(noinline) int __stdcall FrontHudUpdate_00414900(
     } else {
         Player* play = g_player;
         if (play != 0 &&
-            (play->position.y < data_00470d08 || data_00470d00 < play->position.x)) {
+            (play->position.y < flt_400 || dbl_neg112 < play->position.x)) {
             FrontUpdateView::BankObject* obj = &front->objects[15];
             for (int n = 7; n != 0; --n) {
                 obj->stop_frame = 2;
@@ -235,14 +235,14 @@ __declspec(noinline) int __stdcall FrontHudUpdate_00414900(
         front->gauge_value_9e8c = gauge_value;
         front->gauge_ratio_9e88 = (float)gauge_value / (float)body->gauge_range_2400;
         if (front->gauge_ratio_9e88 > front->gauge_disp_9e84) {
-            front->gauge_disp_9e84 = front->gauge_disp_9e84 + data_00470cf8;
+            front->gauge_disp_9e84 = front->gauge_disp_9e84 + flt_0_025;
         }
         if (front->gauge_disp_9e84 > front->gauge_ratio_9e88) {
             *(int*)&front->gauge_disp_9e84 = *(int*)&front->gauge_ratio_9e88;
         }
         Player* play = g_player;
         if (front->flags_9eb4 & 8) {
-            if (play->position.y >= data_00470c28 || play->position.x > data_00470b04) {
+            if (play->position.y >= flt_80 || play->position.x > flt_0) {
                 for (int i = 0; i < front->boss_id_count_9e90; ++i) {
                     if (front->boss_ids_9e28[i] != 0) {
                         FlagStopFrame2(front->boss_ids_9e28[i]);
@@ -254,7 +254,7 @@ __declspec(noinline) int __stdcall FrontHudUpdate_00414900(
                 front->flags_9eb4 &= ~8u;
             }
         } else {
-            if (play->position.y <= data_00470bc8 && play->position.x < data_00470b5c) {
+            if (play->position.y <= flt_64 && play->position.x < flt_neg64) {
                 for (int i = 0; i < front->boss_id_count_9e90; ++i) {
                     if (front->boss_ids_9e28[i] != 0) {
                         FlagStopFrame3(front->boss_ids_9e28[i]);
@@ -350,8 +350,8 @@ __declspec(noinline) int __stdcall FrontHudUpdate_00414900(
         if (finished == 0) {
             // The inlined frame-ramp tick on the sub-record.
             runtime->ramp_previous = runtime->ramp_current;
-            if (*runtime->ramp_speed > data_00470b68 &&
-                *runtime->ramp_speed < data_00470b64) {
+            if (*runtime->ramp_speed > flt_0_99 &&
+                *runtime->ramp_speed < flt_1_01) {
                 ++runtime->ramp_current;
                 runtime->ramp_elapsed += 1.0f;
             } else {
@@ -465,17 +465,17 @@ __declspec(noinline) int __stdcall FrontHudUpdate_00414900(
                 // The boss bank tick and its fade-in window.
                 AnmVm_Run_0043ee30(&front->objects[22]);
                 front->objects[22].height_344 = 480.0f;
-                front->objects[22].y_340 = body->boss_y_1068 + data_00470b4c;
+                front->objects[22].y_340 = body->boss_y_1068 + flt_224;
                 float offset = (float)fabs(
                     body->boss_y_1068 - g_player->position.x);
-                if (offset >= data_00470cf0) {
+                if (offset >= dbl_64) {
                     front->objects[22].alpha_2ff = 0xFF;
                 } else {
                     front->objects[22].alpha_2ff =
-                        (unsigned char)(0x40 - (int)(offset * data_00470ce8));
+                        (unsigned char)(0x40 - (int)(offset * flt_neg2_984375));
                 }
-                if (body->boss_y_1068 < data_00470b40 ||
-                    body->boss_y_1068 > data_00470b3c) {
+                if (body->boss_y_1068 < flt_neg192 ||
+                    body->boss_y_1068 > flt_192) {
                     front->objects[22].alpha_2ff = 0;
                 }
             }
@@ -483,8 +483,8 @@ __declspec(noinline) int __stdcall FrontHudUpdate_00414900(
     }
     // The boss frame ramp advance (an inlined copy of the frame timer tick).
     front->boss_frame_9e60 = front->boss_frame_prev_9e64;
-    if (*front->boss_speed_9e6c > data_00470b68 &&
-        *front->boss_speed_9e6c < data_00470b64) {
+    if (*front->boss_speed_9e6c > flt_0_99 &&
+        *front->boss_speed_9e6c < flt_1_01) {
         ++front->boss_frame_prev_9e64;
         front->boss_frame_acc_9e68 += 1.0f;
     } else {

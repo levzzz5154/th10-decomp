@@ -40,12 +40,12 @@ int ScreenshotState::CaptureScreenshot(const char* name) {
         }
         back->methods->Unlock(back);
         data_00492134=retail_beginthread_00452eec(&ScreenshotWriter,0,0);
-    } else if (format==0x17) g_log.Append(data_0046df38);
-    else { g_log.Append(data_0046deb0);return 1; }
+    } else if (format==0x17) g_log.Append(str_snapshot_16bit_unsupported);
+    else { g_log.Append(str_mother_cpp_error);return 1; }
     if (back) back->methods->Release(back);
     return 0;
 allocation_failed:
-    g_log.Append(data_0046def0);
+    g_log.Append(str_snapshot_alloc_failed);
     if (back) back->methods->Release(back);
     return 0;
 }

@@ -1,7 +1,7 @@
-extern "C" float data_00470afc;
-extern "C" float data_00470b64;
-extern "C" float data_00470b68;
-extern "C" float data_00470c58;
+extern "C" float flt_1;
+extern "C" float flt_1_01;
+extern "C" float flt_0_99;
+extern "C" float flt_0_0001;
 extern "C" float g_game_speed;
 #include <math.h>
 
@@ -59,13 +59,13 @@ void EffectAccel_00407560::Update() {
     } else {
         auxiliary += g_game_speed * auxiliary_acceleration;
         velocity += acceleration * g_game_speed;
-        if (fabs(velocity.x) > data_00470c58 || fabs(velocity.y) > data_00470c58)
+        if (fabs(velocity.x) > flt_0_0001 || fabs(velocity.y) > flt_0_0001)
             angle = (float)atan2((double)velocity.y, (double)velocity.x);
     }
 
     previous = current;
-    if (*time_scale > data_00470b68 && *time_scale < data_00470b64) {
-        float next_elapsed = *(volatile float*)&elapsed + data_00470afc;
+    if (*time_scale > flt_0_99 && *time_scale < flt_1_01) {
+        float next_elapsed = *(volatile float*)&elapsed + flt_1;
         ++current;
         elapsed = next_elapsed;
     } else {

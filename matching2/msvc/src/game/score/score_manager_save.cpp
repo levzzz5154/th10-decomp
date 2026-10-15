@@ -70,7 +70,7 @@ int ScoreArchive_0042B1E0::Save() {
                            (int*)&file->compressed_size);
     file->reserved_04 = file->compressed_size + sizeof(ScoreFileHeader);
     EncryptDatBuffer(packed, file->compressed_size, 0xAC, 0x35, 0x10, file->compressed_size);
-    if (OpenSharedFileWrite(data_0046e848))
+    if (OpenSharedFileWrite(str_score_file))
         return -1;
     File_WriteShared(file, sizeof(ScoreFileHeader));
     File_WriteShared(packed, file->compressed_size);

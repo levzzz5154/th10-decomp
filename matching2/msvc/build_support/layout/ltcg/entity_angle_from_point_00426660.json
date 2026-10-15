@@ -43,12 +43,12 @@
   "constants": [],
   "absolute_symbols": [
     {
-      "symbol": "_data_00470b04",
+      "symbol": "_flt_0",
       "address": "0x00470B04",
       "kind": "data"
     },
     {
-      "symbol": "_data_00470b94",
+      "symbol": "_flt_pi_2",
       "address": "0x00470B94",
       "kind": "data"
     },

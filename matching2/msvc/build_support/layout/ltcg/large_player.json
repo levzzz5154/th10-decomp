@@ -337,27 +337,27 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_data_0046e3ec",
+      "symbol": "_str_player_data_missing",
       "address": "0x46e3ec",
       "kind": "data"
     },
     {
-      "symbol": "_data_0046e420",
+      "symbol": "_str_pl01_anm",
       "address": "0x46e420",
       "kind": "data"
     },
     {
-      "symbol": "_data_0046e42c",
+      "symbol": "_str_pl00_anm",
       "address": "0x46e42c",
       "kind": "data"
     },
     {
-      "symbol": "_data_00470b0c",
+      "symbol": "_flt_0_5",
       "address": "0x470b0c",
       "kind": "data"
     },
     {
-      "symbol": "_data_00470b44",
+      "symbol": "_flt_100",
       "address": "0x470b44",
       "kind": "data"
     },
@@ -477,7 +477,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00470c50",
+      "symbol": "_dbl_pi_4",
       "address": "0x470c50",
       "kind": "data"
     },

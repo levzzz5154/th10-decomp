@@ -47,8 +47,8 @@ extern "C" OpenGameThread* g_ascii_manager;
 extern "C" OpenResources* g_front;
 extern "C" unsigned char data_00491d78;
 extern "C" OpenMusicProgress* g_score;
-extern "C" char data_0046e0d8[];
-extern "C" char data_0046df98[];
+extern "C" char str_bgm_th10_17_wav[];
+extern "C" char str_dummy[];
 struct PauseOpenState {
     int reserved_00;
     int phase;

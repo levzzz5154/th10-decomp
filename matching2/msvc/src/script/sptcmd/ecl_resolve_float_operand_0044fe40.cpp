@@ -11,9 +11,9 @@ float EclFloatVm::ResolveFloatOperand(int selector) {
     unsigned short mask = operands->indirect_mask;
     if (mask & (1 << selector)) {
         const float& displacement = operands->values[selector];
-        if (displacement >= data_00470b04) {
+        if (displacement >= flt_0) {
             return *(float*)&stack.data[stack.frame_base + (int)displacement];
-        } else if (displacement == data_00470b60) {
+        } else if (displacement == flt_neg1) {
             union { int integer; float real; } value;
             if (stack.cursor - 4 >= 0) {
                 stack.cursor -= 4;

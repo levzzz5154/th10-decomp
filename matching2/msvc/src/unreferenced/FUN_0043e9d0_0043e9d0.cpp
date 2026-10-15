@@ -2,13 +2,13 @@
 #include <stdio.h>
 #include <string.h>
 #include "th10/platform/archive_callers.hpp"
-extern "C" const char data_0046e1c8[];
+extern "C" const char str_string_format[];
 extern "C" int __stdcall ProbeFileExists(const char*);
 #pragma code_seg(".text$04map")
 void MapResource::LoadMap(const char* name) {
     char path[260];
     int size;
-    sprintf(path, data_0046e1c8, name);
+    sprintf(path, str_string_format, name);
     char* end = path + strlen(path);
     end[-3] = 'm';
     end[-2] = 'a';

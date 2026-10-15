@@ -985,7 +985,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00470ba0",
+      "symbol": "_dbl_pi_20",
       "address": "0x00470BA0",
       "kind": "data"
     },
@@ -1100,7 +1100,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_data_00470b70",
+      "symbol": "_dbl_0",
       "address": "0x00470B70",
       "kind": "data"
     },

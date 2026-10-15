@@ -38,7 +38,7 @@ extern "C" __declspec(noinline) int __stdcall ItemManager_UpdateItems(ItemSpawnM
         }
         ItemCollector* player=g_player;
         if (item->state==1) {
-            if ((player->state!=2 && player->state!=4 && player->position.y<data_00470bf4) ||
+            if ((player->state!=2 && player->state!=4 && player->position.y<flt_128) ||
                 g_bomb->active!=0) {
                 item->magnet_speed=player->movement->seek_speed;
                 item->state=3;
@@ -54,26 +54,26 @@ extern "C" __declspec(noinline) int __stdcall ItemManager_UpdateItems(ItemSpawnM
                 item->position.y=static_cast<float>(item->position.y+dy);
                 item->position.z+=dz;
             }
-            item->velocity.y+=g_game_speed*data_00470cdc;
-            if (item->velocity.y>=data_00470b04) item->velocity.x=0.0f;
-            if (item->velocity.y>data_00470b08) item->velocity.y=2.0f;
+            item->velocity.y+=g_game_speed*flt_0_03;
+            if (item->velocity.y>=flt_0) item->velocity.x=0.0f;
+            if (item->velocity.y>flt_2) item->velocity.y=2.0f;
             // Retail tests the stored binary32 position, after discarding
             // the extended result of the planar addition.
             const volatile float& stored_y=item->position.y;
-            if (stored_y>data_00470be0) {
+            if (stored_y>flt_472) {
                 item->state=0;
                 continue;
             }
         } else if (item->state==2) {
             IntegrateItem(item);
-            item->velocity.y+=g_game_speed*data_00470cdc;
-            if (item->velocity.y>=data_00470b04) {
+            item->velocity.y+=g_game_speed*flt_0_03;
+            if (item->velocity.y>=flt_0) {
                 player=g_player;
                 item->magnet_speed=player->movement->seek_speed;
                 item->state=3;
                 goto seek_player;
             }
-            if (item->position.y>data_00470be0) {
+            if (item->position.y>flt_472) {
                 item->state=0;
                 g_globals.AdjustPower(-4);
                 continue;
@@ -85,11 +85,11 @@ extern "C" __declspec(noinline) int __stdcall ItemManager_UpdateItems(ItemSpawnM
             float dx=player->position.x-item->position.x;
             float dy=player->position.y-item->position.y;
             float angle;
-            if (dy==data_00470b04 && dx==data_00470b04) angle=data_00470b94;
+            if (dy==flt_0 && dx==flt_0) angle=flt_pi_2;
             else angle=static_cast<float>(atan2(static_cast<double>(dy),static_cast<double>(dx)));
             item->velocity.SetPolar(angle,item->magnet_speed);
             IntegrateItem(item);
-            if (item->magnet_speed<data_00470cd8) item->magnet_speed+=data_00470c38;
+            if (item->magnet_speed<flt_12) item->magnet_speed+=flt_0_2;
             if (player->state==4) {
                 item->state=1;
                 item->velocity.x=0.0f;
@@ -99,7 +99,7 @@ extern "C" __declspec(noinline) int __stdcall ItemManager_UpdateItems(ItemSpawnM
             ItemCollector* target=g_player;
             item->velocity.SetPolar(target->AngleFromPoint(&item->position),item->magnet_speed);
             IntegrateItem(item);
-            if (item->magnet_speed<data_00470cd8) item->magnet_speed+=data_00470c38;
+            if (item->magnet_speed<flt_12) item->magnet_speed+=flt_0_2;
             int player_state=target->state;
             player=g_player;
             if (player_state==4) {
@@ -133,14 +133,14 @@ extern "C" __declspec(noinline) int __stdcall ItemManager_UpdateItems(ItemSpawnM
                 }
                 case 2: {
                     int value, adjustment;
-                    if (player->position.y<data_00470cd4) {
+                    if (player->position.y<flt_144) {
                         value=g_globals.gauge*10;
                         value-=value%10;
                         g_smoll_score->Spawn(value,&item->position,0xFFFFFF00u);
                         adjustment=8;
                     } else {
-                        int penalty=static_cast<int>((player->position.y-data_00470cd4)*data_00470cd0*
-                            (g_globals.gauge*0.5f-data_00470ce0));
+                        int penalty=static_cast<int>((player->position.y-flt_144)*flt_0_003289474*
+                            (g_globals.gauge*0.5f-flt_5000));
                         value=g_globals.gauge*10/2-penalty;
                         value-=value%10;
                         g_smoll_score->Spawn(value,&item->position,0xFFFFFFFFu);
@@ -212,7 +212,7 @@ extern "C" __declspec(noinline) int __stdcall ItemManager_UpdateItems(ItemSpawnM
                     (!focused && !OutsideItemBox(position,player->unfocused_magnet));
                 if (magnet) {
                     item->state=4;
-                    item->magnet_speed=player->movement->seek_speed*data_00470cc4;
+                    item->magnet_speed=player->movement->seek_speed*flt_0_33333334;
                 }
             }
         }

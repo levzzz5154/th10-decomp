@@ -5,7 +5,7 @@
 // removal, save hints when requested, then release all owned bucket chains.
 extern "C" unsigned char data_00491d6a;
 extern "C" void* g_hint;
-extern "C" const char data_0046d6d8[];
+extern "C" const char str_hint_auto_path[];
 extern "C" void __stdcall SaveHints(Manager_00419040* manager,const char* path);
 #pragma code_seg(".text$01cleanup")
 extern "C" __declspec(noinline) void __stdcall ResourceCleanup(Manager_00419040* manager) {
@@ -18,7 +18,7 @@ extern "C" __declspec(noinline) void __stdcall ResourceCleanup(Manager_00419040*
         *key=0;
         ++key;
     } while (--remaining);
-    if (data_00491d6a==2) SaveHints(manager,data_0046d6d8);
+    if (data_00491d6a==2) SaveHints(manager,str_hint_auto_path);
     manager->ClearBuckets();
     g_hint=0;
 }

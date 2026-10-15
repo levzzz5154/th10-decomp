@@ -368,12 +368,12 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_0046cb68",
+      "symbol": "_str_data_corrupted",
       "address": "0x0046CB68",
       "kind": "data"
     },
     {
-      "symbol": "_data_0046d254",
+      "symbol": "_str_front_anm",
       "address": "0x0046D254",
       "kind": "data"
     },
@@ -538,7 +538,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_0046df98",
+      "symbol": "_str_dummy",
       "address": "0x0046DF98",
       "kind": "data"
     },

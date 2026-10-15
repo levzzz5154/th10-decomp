@@ -44,25 +44,25 @@ extern "C" void* g_replay;                      // replay state record
 extern "C" void* g_score;                      // notice table
 extern "C" void* data_00477848;                      // bgm state record
 extern "C" short g_sound_priority[];                    // sound priority table
-extern "C" float data_00470afc;                      // 1.0f
-extern "C" float data_00470b04;                      // gauge threshold (slow)
-extern "C" float data_00470b3c;                      // boss fade window high
-extern "C" float data_00470b40;                      // boss fade window low
-extern "C" float data_00470b5c;                      // gauge threshold (slow 2)
-extern "C" float data_00470bc8;                      // gauge open threshold
-extern "C" float data_00470c28;                      // gauge close threshold
-extern "C" float data_00470bdc;                      // banner close threshold
-extern "C" float data_00470ce8;                      // boss alpha scale
-extern "C" double data_00470cf0;                     // boss alpha epsilon
-extern "C" float data_00470cf8;                      // gauge ramp step
-extern "C" double data_00470d00;                     // banner open threshold
-extern "C" float data_00470d08;                      // banner close threshold 2
-extern "C" double data_00470d10;                     // banner open threshold 2
+extern "C" float flt_1;                      // 1.0f
+extern "C" float flt_0;                      // gauge threshold (slow)
+extern "C" float flt_192;                      // boss fade window high
+extern "C" float flt_neg192;                      // boss fade window low
+extern "C" float flt_neg64;                      // gauge threshold (slow 2)
+extern "C" float flt_64;                      // gauge open threshold
+extern "C" float flt_80;                      // gauge close threshold
+extern "C" float flt_416;                      // banner close threshold
+extern "C" float flt_neg2_984375;                      // boss alpha scale
+extern "C" double dbl_64;                     // boss alpha epsilon
+extern "C" float flt_0_025;                      // gauge ramp step
+extern "C" double dbl_neg112;                     // banner open threshold
+extern "C" float flt_400;                      // banner close threshold 2
+extern "C" double dbl_neg128;                     // banner open threshold 2
 
 // The music/sound request table the queue helper posts through (0x00492590).
 extern "C" SoundQueue g_sound_manager;
 
-extern "C" float data_00470b4c;                      // boss anchor offset
+extern "C" float flt_224;                      // boss anchor offset
 extern "C" int __stdcall AnmVm_Run_0043ee30(void* vm);          // 0x0043EE30
 extern "C" void __cdecl FrontFree_004524a1(void* block);        // 0x004524A1
 

@@ -4,8 +4,8 @@
 #include <string.h>
 #include <math.h>
 
-extern "C" float data_00470b04;
-extern "C" float data_00470b60;
+extern "C" float flt_0;
+extern "C" float flt_neg1;
 
 struct EclInstr {
     int time;

@@ -5,7 +5,7 @@
 #include <math.h>
 
 extern "C" float g_game_speed;      // 0x00476F78
-extern "C" float data_00470b04;     // 0.0f
+extern "C" float flt_0;     // 0.0f
 struct Float3 {
     float x, y, z;
     Float3() {}

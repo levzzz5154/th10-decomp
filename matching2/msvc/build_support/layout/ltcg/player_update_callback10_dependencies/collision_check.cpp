@@ -28,7 +28,7 @@ int CollisionEngine_00408100::Check(const PositionVector_004492f0* point,
             float diameter = record->collision_diameter;
             // Preserve the original field read before the shared scale read.
             _ReadWriteBarrier();
-            float combined_radius = diameter * data_00470b0c + radius;
+            float combined_radius = diameter * flt_0_5 + radius;
             float distance_squared = displacement.x * displacement.x +
                 displacement.y * displacement.y;
             // FCOMPP/TEST AH,5/JNP skips an ordered radius below distance.

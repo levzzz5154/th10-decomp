@@ -22,24 +22,24 @@
 extern "C" int data_00497854;   // music volume copy for the sound thread
 extern "C" int data_00497858;   // sound volume copy
 extern "C" int data_0049785c;   // music DSP attenuation, DirectSound units
-extern "C" const char data_0046ece8[];  // "bgm/th10_02.wav"
+extern "C" const char str_set_vol[];  // "bgm/th10_02.wav"
 
 extern "C" int __ftol2(void);
 
 // The retail curve constants, pooled at their retail addresses.
-extern "C" const float data_00470afc;   // 1.0
-extern "C" const float data_00470b00;   // 0.01
-extern "C" const float data_00470b80;   // -5000.0
+extern "C" const float flt_1;   // 1.0
+extern "C" const float flt_0_01;   // 0.01
+extern "C" const float flt_neg5000;   // -5000.0
 
 // The music DSP attenuation is -5000 - (int)((1 - x^4) * -5000) with
 // x = 1 - music/100, read back from the stored volume copy the way the
 // retail block does, and a fixed full attenuation while the music is off.
 static int MusicAttenuation(const int& stored_music) {
-    float fraction = stored_music * data_00470b00;
-    float complement = data_00470afc - fraction;
+    float fraction = stored_music * flt_0_01;
+    float complement = flt_1 - fraction;
     float squared = complement * complement;
-    float fourth = data_00470afc - squared * squared;
-    return -5000 - static_cast<int>(fourth * data_00470b80);
+    float fourth = flt_1 - squared * squared;
+    return -5000 - static_cast<int>(fourth * flt_neg5000);
 }
 
 // The room's second animation slot holds the label parent.  A missing parent
@@ -129,7 +129,7 @@ __declspec(noinline) void __stdcall RefreshOptions_0042e5a0(
 
     // The request queue records "bgm/th10_02.wav" for resource 8; the retail
     // form passes the queue in a register (EAX) and the name in EDX.
-    reinterpret_cast<AnimationManager_0043e460*>(&g_sound_manager)->RegisterResource(data_0046ece8, 8, 0);
+    reinterpret_cast<AnimationManager_0043e460*>(&g_sound_manager)->RegisterResource(str_set_vol, 8, 0);
 
     int sound = data_00491d4c.sound_volume;
     data_00497858 = sound;

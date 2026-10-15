@@ -6,10 +6,10 @@ extern "C" __declspec(noinline) int __stdcall AnimationLoadMemory_00447ec0(int i
     char path[260];
     int size;
     if (manager->primary[index]) manager->Clear(index);
-    sprintf(path,data_0046e1c8,name);
+    sprintf(path,str_string_format,name);
     char* memory = Archive_LoadFile(path,&size,0);
     if (!memory) {
-        g_log.AppendLine(data_00470150,name);
+        g_log.AppendLine(str_cannot_load_format,name);
         return -1;
     }
     manager->memory[index]=memory;

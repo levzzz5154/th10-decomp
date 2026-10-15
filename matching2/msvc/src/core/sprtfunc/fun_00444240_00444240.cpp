@@ -40,7 +40,7 @@ extern "C" ProjectedVertex_00444240 g_quad_vertices[4];
 extern "C" ProjectionEnvironment_00444240* data_00491fac;
 
 // The compiler's pooled double 0.0 the three rotation guards compare against.
-extern "C" double data_00470b70;
+extern "C" double dbl_0;
 
 struct ProjectionManager_00444240 {
     unsigned char reserved_00000000[0x3AD0F0];
@@ -90,15 +90,15 @@ int ProjectedEntity_00444240::ProjectQuad(ProjectionManager_00444240* manager) {
         world_matrix.m[5] *= scale_y;
         flags &= 0xFFFFFFF7u;
         ProjectionMatrix_00444240 rotation;
-        if (rotation_x != data_00470b70) {
+        if (rotation_x != dbl_0) {
             asm_D3DXMatrixRotationX_004521ac(&rotation, rotation_x);
             asm_D3DXMatrixMultiply_004521b2(&world_matrix, &world_matrix, &rotation);
         }
-        if (rotation_y != data_00470b70) {
+        if (rotation_y != dbl_0) {
             asm_D3DXMatrixRotationY_004521b8(&rotation, rotation_y);
             asm_D3DXMatrixMultiply_004521b2(&world_matrix, &world_matrix, &rotation);
         }
-        if (rotation_z != data_00470b70) {
+        if (rotation_z != dbl_0) {
             asm_D3DXMatrixRotationZ_004521be(&rotation, rotation_z);
             asm_D3DXMatrixMultiply_004521b2(&world_matrix, &world_matrix, &rotation);
         }

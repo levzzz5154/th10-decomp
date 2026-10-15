@@ -95,9 +95,9 @@ struct TextLog_00420670 {
 extern "C" {
 extern GameApp_00420670 g_application;
 extern TextLog_00420670 g_log;
-extern char data_0046def0[];      // Shift-JIS: "not enough memory for the screenshot"
-extern char data_0046df38[];      // Shift-JIS: "screenshots need a 32-bit display"
-extern char data_0046deb0[];      // "error ? .\\src\\game\\mother.cpp\r\n"
+extern char str_snapshot_alloc_failed[];      // Shift-JIS: "not enough memory for the screenshot"
+extern char str_snapshot_16bit_unsupported[];      // Shift-JIS: "screenshots need a 32-bit display"
+extern char str_mother_cpp_error[];      // "error ? .\\src\\game\\mother.cpp\r\n"
 
 __declspec(dllimport) void __stdcall Sleep(unsigned long milliseconds);
 void* __cdecl asm_malloc_00452706(unsigned int size);

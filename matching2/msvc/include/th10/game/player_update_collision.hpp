@@ -44,7 +44,7 @@ struct CollisionEngine_00408100 {
 extern "C" CollisionEngine_00408100* g_bullet_manager;
 extern "C" ItemSpawnManager_0041bb00* g_item_manager;
 extern "C" float g_game_speed;
-extern "C" float data_00470b0c;
+extern "C" float flt_0_5;
 typedef char CollisionRecordSize[sizeof(CollisionRecord_00408100) == 0x7F0 ? 1 : -1];
 typedef char CollisionRecordPosition[offsetof(CollisionRecord_00408100, position) == 0x3B4 ? 1 : -1];
 typedef char CollisionRecordRadius[offsetof(CollisionRecord_00408100, collision_diameter) == 0x3F0 ? 1 : -1];

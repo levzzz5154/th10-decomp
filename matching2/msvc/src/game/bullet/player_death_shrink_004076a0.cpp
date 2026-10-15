@@ -1,9 +1,9 @@
 #include "th10/game/player_motion_helpers_004074b0_004076a0.hpp"
-extern "C" float data_00470afc;
-extern "C" float data_00470b64;
-extern "C" float data_00470b68;
-extern "C" float data_00470c68;
-extern "C" float data_00470c6c;
+extern "C" float flt_1;
+extern "C" float flt_1_01;
+extern "C" float flt_0_99;
+extern "C" float flt_5;
+extern "C" float flt_0_3125;
 extern "C" float g_game_speed;
 // 0x004076A0. While the death clock runs, turn the heading and grow the
 // speed by the frame scale and refresh the velocity; at the deadline clear the
@@ -22,7 +22,7 @@ void PlayerDeathShrinkState_004076A0::AdvanceDeathShrink() {
     }
 
     death_timer.previous = death_timer.current;
-    if (*death_timer.speed > data_00470b68 && *death_timer.speed < data_00470b64) {
+    if (*death_timer.speed > flt_0_99 && *death_timer.speed < flt_1_01) {
         ++death_timer.current;
         death_timer.elapsed += 1.0f;
     } else {

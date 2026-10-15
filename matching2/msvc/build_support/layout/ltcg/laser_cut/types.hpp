@@ -71,7 +71,7 @@ struct CutAnimationBank : LaserManager_0041c510 {
 };
 extern "C" {
  extern ItemSpawnManager_0041bb00* g_item_manager;
- extern float data_00470b04;
+ extern float flt_0;
 }
 struct AnimationResource_0043e710;
 struct AnimationObject_0043e710;

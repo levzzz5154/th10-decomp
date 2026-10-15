@@ -18,7 +18,7 @@ int PauseUpdateView::Update() {
         break;
     }
     previous_frame = current_frame;
-    if (*speed > data_00470b68 && *speed < data_00470b64) {
+    if (*speed > flt_0_99 && *speed < flt_1_01) {
         ++current_frame;
         elapsed += 1.0f;
     } else {

@@ -209,7 +209,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0040e770_0040e770() {
     L_0040e8cc:
         fld dword ptr [esp+248h]
     L_0040e8d3:
-        fsub dword ptr [data_00470b4c]
+        fsub dword ptr [flt_224]
     L_0040e8d9:
         mov esi,dword ptr [esp+18h]
     L_0040e8dd:
@@ -221,7 +221,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0040e770_0040e770() {
     L_0040e8ef:
         fld dword ptr [esp+24Ch]
     L_0040e8f6:
-        fsub dword ptr [data_00470b48]
+        fsub dword ptr [flt_16]
     L_0040e8fc:
         mov edi,dword ptr [esp+1Ch]
     L_0040e900:
@@ -1817,13 +1817,13 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0040e770_0040e770() {
     L_0040f400:
         push ecx
     L_0040f401:
-        fsub dword ptr [data_00470b94]
+        fsub dword ptr [flt_pi_2]
     L_0040f407:
         fstp dword ptr [esp]
     L_0040f40a:
         call asm_Angle_Normalize_0044bc70
     L_0040f40f:
-        fsubr dword ptr [data_00470b94]
+        fsubr dword ptr [flt_pi_2]
     L_0040f415:
         push ecx
     L_0040f416:
@@ -1937,7 +1937,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0040e770_0040e770() {
     L_0040f4d7:
         je short L_0040f507
     L_0040f4d9:
-        fsub dword ptr [data_00470b94]
+        fsub dword ptr [flt_pi_2]
     L_0040f4df:
         push ecx
     L_0040f4e0:
@@ -1945,7 +1945,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0040e770_0040e770() {
     L_0040f4e3:
         call asm_Angle_Normalize_0044bc70
     L_0040f4e8:
-        fsubr dword ptr [data_00470b94]
+        fsubr dword ptr [flt_pi_2]
     L_0040f4ee:
         push ecx
     L_0040f4ef:
@@ -2029,7 +2029,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0040e770_0040e770() {
     L_0040f57f:
         fabs
     L_0040f581:
-        fcomp dword ptr [data_00470b18]
+        fcomp dword ptr [flt_pi]
     L_0040f587:
         fnstsw ax
     L_0040f589:
@@ -2049,7 +2049,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0040e770_0040e770() {
     L_0040f59d:
         fld dword ptr [esp+30h]
     L_0040f5a1:
-        fadd dword ptr [data_00470b14]
+        fadd dword ptr [flt_2pi]
     L_0040f5a7:
         fstp dword ptr [esp+30h]
     L_0040f5ab:
@@ -2057,7 +2057,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0040e770_0040e770() {
     L_0040f5ad:
         fld dword ptr [esp+10h]
     L_0040f5b1:
-        fadd dword ptr [data_00470b14]
+        fadd dword ptr [flt_2pi]
     L_0040f5b7:
         fstp dword ptr [esp+10h]
     L_0040f5bb:
@@ -2807,9 +2807,9 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0040e770_0040e770() {
     L_0040fae3:
         call asm_Rng_NextFloatSigned_0044bb90
     L_0040fae8:
-        fmul dword ptr [data_00470b18]
+        fmul dword ptr [flt_pi]
     L_0040faee:
-        fmul dword ptr [data_00470cc4]
+        fmul dword ptr [flt_0_33333334]
     L_0040faf4:
         jmp short L_0040fb2a
     L_0040faf6:
@@ -2827,17 +2827,17 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0040e770_0040e770() {
     L_0040fb0c:
         call asm_Rng_NextFloatSigned_0044bb90
     L_0040fb11:
-        fmul dword ptr [data_00470b94]
+        fmul dword ptr [flt_pi_2]
     L_0040fb17:
         jmp short L_0040fb39
     L_0040fb19:
         call asm_Rng_NextFloatSigned_0044bb90
     L_0040fb1e:
-        fmul dword ptr [data_00470b18]
+        fmul dword ptr [flt_pi]
     L_0040fb24:
-        fmul dword ptr [data_00470b0c]
+        fmul dword ptr [flt_0_5]
     L_0040fb2a:
-        fadd dword ptr [data_00470b18]
+        fadd dword ptr [flt_pi]
     L_0040fb30:
         push ecx
     L_0040fb31:
@@ -3923,7 +3923,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0040e770_0040e770() {
     L_0041025f:
         mov esi,dword ptr [esp+2Ch]
     L_00410263:
-        fld dword ptr [data_00470b04]
+        fld dword ptr [flt_0]
     L_00410269:
         mov dword ptr [eax+8],esi
     L_0041026c:

@@ -102,11 +102,11 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0043af30_0043af30() {
     L_0043afba:
         fidiv dword ptr [esp+18h]
     L_0043afbe:
-        fsubr dword ptr [data_00470afc]
+        fsubr dword ptr [flt_1]
     L_0043afc4:
         fst dword ptr [edi+2C8h]
     L_0043afca:
-        fmul dword ptr [data_00470bf4]
+        fmul dword ptr [flt_128]
     L_0043afd0:
         call asm_FUN_00463b2c_00463b2c
     L_0043afd5:
@@ -120,7 +120,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0043af30_0043af30() {
     L_0043afe3:
         fld dword ptr [edi+2C8h]
     L_0043afe9:
-        fmul dword ptr [data_00470bf4]
+        fmul dword ptr [flt_128]
     L_0043afef:
         call asm_FUN_00463b2c_00463b2c
     L_0043aff4:

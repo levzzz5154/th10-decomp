@@ -18,27 +18,27 @@
 // The frame-time counters the slow rate is derived from; 0x004134B0 keeps
 // them updated while the game runs (measured time over the interval budget).
 extern "C" FPS* g_fps;
-extern "C" const volatile float data_00470b44;           // 100.0f
+extern "C" const volatile float flt_100;           // 100.0f
 extern "C" unsigned int g_globals_score;                   // the current score
 
 // Replay text pool: format strings and constants shared by the save paths.
-extern "C" const char data_0046e650[];                   // "replay"
-extern "C" const char data_0046e644[];                   // "replay/%s"
-extern "C" const char data_0046e5e0[];                   // the replay file info line
-extern "C" const char data_0046e5d8[];                   // "Version %s\r\n"
-extern "C" const char data_0046e5c8[];                   // "1.00a"
-extern "C" const char data_0046e5bc[];                   // "Name %s\r\n"
-extern "C" const char data_0046e59c[];                   // "Date %.2d/%.2d/%.2d %.2d:%.2d\r\n"
-extern "C" const char data_0046e590[];                   // "Chara %s\r\n"
-extern "C" const char data_0046e584[];                   // "Rank %s\r\n"
-extern "C" const char data_0046e570[];                   // "Extra Stage Clear\r\n"
-extern "C" const char data_0046e55c[];                   // "Stage All Clear\r\n"
-extern "C" const char data_0046e54c[];                   // "Extra Stage\r\n"
-extern "C" const char data_0046e540[];                   // "Stage %d\r\n"
-extern "C" const char data_0046e52c[];                   // "Stage %d 〜 %d\r\n"
-extern "C" const char data_0046e520[];                   // "Score %d\r\n"
-extern "C" const char data_0046e50c[];                   // "Slow Rate %2.2f\r\n"
-extern "C" const char data_0046e4f8[];                   // the comment notice line
+extern "C" const char str_replay_dir[];                   // "replay"
+extern "C" const char str_replay_path_format[];                   // "replay/%s"
+extern "C" const char str_replay_info_title[];                   // the replay file info line
+extern "C" const char str_game_version[];                   // "Version %s\r\n"
+extern "C" const char str_replay_version_format[];                   // "1.00a"
+extern "C" const char str_replay_name_format[];                   // "Name %s\r\n"
+extern "C" const char str_replay_date_format[];                   // "Date %.2d/%.2d/%.2d %.2d:%.2d\r\n"
+extern "C" const char str_replay_chara_format[];                   // "Chara %s\r\n"
+extern "C" const char str_replay_rank_format[];                   // "Rank %s\r\n"
+extern "C" const char str_replay_extra_clear[];                   // "Extra Stage Clear\r\n"
+extern "C" const char str_replay_all_clear[];                   // "Stage All Clear\r\n"
+extern "C" const char str_replay_extra_stage[];                   // "Extra Stage\r\n"
+extern "C" const char str_replay_stage_format[];                   // "Stage %d\r\n"
+extern "C" const char str_replay_stage_range_format[];                   // "Stage %d 〜 %d\r\n"
+extern "C" const char str_replay_score_format[];                   // "Score %d\r\n"
+extern "C" const char str_replay_slow_rate_format[];                   // "Slow Rate %2.2f\r\n"
+extern "C" const char str_replay_comment_placeholder[];                   // the comment notice line
 extern "C" const char* data_004746dc[];                  // "ReimuA" .. "MarisaC"
 extern "C" const char* data_004746f4[];                  // "Easy" .. "Extra"
 
@@ -92,8 +92,8 @@ int __fastcall ReplaySaveManager_00429b60::Save(const char* file_name, const cha
         manager->summary->name[length] = ' ';
     }
 
-    asm_FUN_00452abc_00452abc(data_0046e650);
-    asm_sprintf_00452ae8(path, data_0046e644, file_name);
+    asm_FUN_00452abc_00452abc(str_replay_dir);
+    asm_sprintf_00452ae8(path, str_replay_path_format, file_name);
 
     // Measure every stage: the fixed record plus each pool's input and state
     // bytes. The per-stage data size gathers the same figure so the loader
@@ -123,8 +123,8 @@ int __fastcall ReplaySaveManager_00429b60::Save(const char* file_name, const cha
 
     manager->summary->stage_count = count;
     manager->summary->score = g_globals_score;
-    double scaled = g_fps->measured / g_fps->budget * data_00470b44;
-    manager->summary->slow_rate = data_00470b44 - scaled;
+    double scaled = g_fps->measured / g_fps->budget * flt_100;
+    manager->summary->slow_rate = flt_100 - scaled;
 
     // Pack the summary, the stage records and the pools into one buffer.
     unsigned char* buffer = (unsigned char*)asm_malloc_00452706(total);
@@ -184,33 +184,33 @@ int __fastcall ReplaySaveManager_00429b60::Save(const char* file_name, const cha
     chunk->magic = 0x52455355;
     chunk->flag = 0;
     char* out = chunk->text;
-    out += asm_sprintf_00452ae8(out, data_0046e5e0);
-    const char* version = data_0046e5c8;
-    out += asm_sprintf_00452ae8(out, data_0046e5d8, version);
-    out += asm_sprintf_00452ae8(out, data_0046e5bc, manager->summary);
+    out += asm_sprintf_00452ae8(out, str_replay_info_title);
+    const char* version = str_replay_version_format;
+    out += asm_sprintf_00452ae8(out, str_game_version, version);
+    out += asm_sprintf_00452ae8(out, str_replay_name_format, manager->summary);
     BrokenDownTime_00429b60* time = asm_localtime_00452baa(&manager->summary->date);
-    out += asm_sprintf_00452ae8(out, data_0046e59c, time->year % 100, time->month + 1,
+    out += asm_sprintf_00452ae8(out, str_replay_date_format, time->year % 100, time->month + 1,
                        time->day, time->hour, time->minute);
-    out += asm_sprintf_00452ae8(out, data_0046e590,
+    out += asm_sprintf_00452ae8(out, str_replay_chara_format,
                        data_004746dc[manager->summary->character * 3 + manager->summary->shot_type]);
-    out += asm_sprintf_00452ae8(out, data_0046e584, data_004746f4[manager->summary->difficulty]);
+    out += asm_sprintf_00452ae8(out, str_replay_rank_format, data_004746f4[manager->summary->difficulty]);
     if (manager->summary->stage_reached > 7) {
         if (first == 7) {
-            out += asm_sprintf_00452ae8(out, data_0046e570);
+            out += asm_sprintf_00452ae8(out, str_replay_extra_clear);
         } else {
-            out += asm_sprintf_00452ae8(out, data_0046e55c);
+            out += asm_sprintf_00452ae8(out, str_replay_all_clear);
         }
     } else if (first == last) {
         if (first == 7) {
-            out += asm_sprintf_00452ae8(out, data_0046e54c);
+            out += asm_sprintf_00452ae8(out, str_replay_extra_stage);
         } else {
-            out += asm_sprintf_00452ae8(out, data_0046e540, first);
+            out += asm_sprintf_00452ae8(out, str_replay_stage_format, first);
         }
     } else {
-        out += asm_sprintf_00452ae8(out, data_0046e52c, first, last);
+        out += asm_sprintf_00452ae8(out, str_replay_stage_range_format, first, last);
     }
-    out += asm_sprintf_00452ae8(out, data_0046e520, manager->summary->score);
-    out += asm_sprintf_00452ae8(out, data_0046e50c, (double)manager->summary->slow_rate) + 1;
+    out += asm_sprintf_00452ae8(out, str_replay_score_format, manager->summary->score);
+    out += asm_sprintf_00452ae8(out, str_replay_slow_rate_format, (double)manager->summary->slow_rate) + 1;
     remainder = (int)(out - (char*)chunk) % 4;
     if (remainder != 0) {
         out += 4 - remainder;
@@ -228,7 +228,7 @@ int __fastcall ReplaySaveManager_00429b60::Save(const char* file_name, const cha
     chunk->magic = 0x52455355;
     chunk->flag = 1;
     out = chunk->text;
-    out += asm_sprintf_00452ae8(out, data_0046e4f8) + 1;
+    out += asm_sprintf_00452ae8(out, str_replay_comment_placeholder) + 1;
     remainder = (int)(out - (char*)chunk) % 4;
     if (remainder != 0) {
         out += 4 - remainder;

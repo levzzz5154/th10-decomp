@@ -93,32 +93,32 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00470afc",
+      "symbol": "_flt_1",
       "address": "0x470afc",
       "kind": "data"
     },
     {
-      "symbol": "_data_00470b04",
+      "symbol": "_flt_0",
       "address": "0x470b04",
       "kind": "data"
     },
     {
-      "symbol": "_data_00470b08",
+      "symbol": "_flt_2",
       "address": "0x470b08",
       "kind": "data"
     },
     {
-      "symbol": "_data_00470b18",
+      "symbol": "_flt_pi",
       "address": "0x470b18",
       "kind": "data"
     },
     {
-      "symbol": "_data_00470b94",
+      "symbol": "_flt_pi_2",
       "address": "0x470b94",
       "kind": "data"
     },
     {
-      "symbol": "_data_00470bd4",
+      "symbol": "_flt_3",
       "address": "0x470bd4",
       "kind": "data"
     }

@@ -77,8 +77,8 @@ extern StageAssets *stage_assets_00477848;
 extern StageScoreManager *stage_scores_0047783c;
 extern InputState stage_application_00491c28;
 extern ScoreState stage_gauge_00474c40;
-extern const char data_0046d278[];
-extern const char data_0046df98[];
+extern const char str_main[];
+extern const char str_dummy[];
 void __stdcall StageDestroyGameState(void *state);
 }
 void __cdecl operator delete(void *object);
@@ -120,7 +120,7 @@ extern "C" __declspec(noinline) int __stdcall Game_Update(Game *context) {
             stage_replay_00477838->FinishStage();
             EnemySpawn_0040cfb0 spawn;
             memset(&spawn, 0, sizeof(spawn));
-            spawn.Create(stage_spawn_manager_00477704, data_0046d278);
+            spawn.Create(stage_spawn_manager_00477704, str_main);
             stage_front_g_front->Initialize();
             stage_tasks_00477830->PauseOptional();
             TaskPair(stage_player_00477834)->PauseRequired();
@@ -157,7 +157,7 @@ extern "C" __declspec(noinline) int __stdcall Game_Update(Game *context) {
         stage_replay_00477838->FinishStage();
         EnemySpawn_0040cfb0 spawn;
         memset(&spawn, 0, sizeof(spawn));
-        spawn.Create(stage_spawn_manager_00477704, data_0046d278);
+        spawn.Create(stage_spawn_manager_00477704, str_main);
         stage_front_g_front->Initialize();
         stage_tasks_00477830->PauseOptional();
         TaskPair(stage_player_00477834)->PauseRequired();
@@ -175,9 +175,9 @@ extern "C" __declspec(noinline) int __stdcall Game_Update(Game *context) {
             ->flags |= 2;
         stage_timer_tasks_00477814->PauseOptional();
         if (stage_config_00491d78 & 0x10)
-            stage_requests_00492590.RegisterResource(data_0046df98, 4, 0);
+            stage_requests_00492590.RegisterResource(str_dummy, 4, 0);
         else
-            stage_requests_00492590.RegisterResource(data_0046df98, 3, 0);
+            stage_requests_00492590.RegisterResource(str_dummy, 3, 0);
         Music_Play(0, stage_assets_00477848->music_index);
         stage_thread_004776e0->second.StopAtFrame1();
         stage_thread_004776e0->second.value = 0;

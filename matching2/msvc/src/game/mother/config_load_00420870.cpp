@@ -19,7 +19,7 @@ int GameApp_00420870::LoadConfig(const char* path) {
     GameConfig_InitializeDefaults(0, &g_application.config);
     char* file = Archive_LoadFile(path, &size, 1);
     if (file == 0) {
-        g_log.Append(data_0046de7c);
+        g_log.Append(str_config_missing_reset);
     } else {
         memcpy(&g_application.config, file, sizeof(GameConfig));
         free(file);
@@ -27,7 +27,7 @@ int GameApp_00420870::LoadConfig(const char* path) {
             g_application.config.field_1c >= 2 || g_application.config.field_1d >= 2 ||
             g_application.config.field_1e >= 3 || g_application.config.field_1f >= 3 ||
             g_application.config.version_marker != 0x100003 || size != sizeof(GameConfig)) {
-            g_log.Append(data_0046de48);
+            g_log.Append(str_config_invalid_reset);
         } else {
             memcpy(data_00474e88, g_application.config.version_prefix, 18);
             valid = true;
@@ -38,27 +38,27 @@ int GameApp_00420870::LoadConfig(const char* path) {
 
     no_vsync = 0;
     if (config.flags & 4)
-        g_log.Append(data_0046de2c);
+        g_log.Append(str_no_fog);
     if (config.flags & 1)
-        g_log.Append(data_0046de04);
+        g_log.Append(str_force_16bit_textures);
     if (config.field_1d)
-        g_log.Append(data_0046dde4);
+        g_log.Append(str_window_mode);
     if (config.flags & 2)
-        g_log.Append(data_0046ddbc);
+        g_log.Append(str_force_reference_rasterizer);
     if (config.flags & 8)
-        g_log.Append(data_0046dd84);
+        g_log.Append(str_no_directinput);
     if (config.flags & 0x10)
-        g_log.Append(data_0046dd64);
+        g_log.Append(str_bgm_in_memory);
     if (config.flags & 0x20) {
-        g_log.Append(data_0046dd4c);
+        g_log.Append(str_no_vsync);
         g_application.no_vsync = 1;
     }
     if (config.flags & 0x40)
-        g_log.Append(data_0046dd28);
+        g_log.Append(str_no_text_autodetect);
 
     if (File_WriteWholeFile(path, &g_application.config, sizeof(GameConfig)) != 0) {
-        g_log.AppendLine(data_0046dd08, path);
-        g_log.AppendLine(data_0046dcb0);
+        g_log.AppendLine(str_cannot_write_file_format, path);
+        g_log.AppendLine(str_folder_not_writable);
         return -1;
     }
     return 0;

@@ -25,27 +25,27 @@
    "address": "0x0",
    "kind": "data"
   },
-  "_data_0046e0e8": {
+  "_str_score_row_unplayed_format": {
    "address": "0x46E0E8",
    "kind": "data"
   },
-  "_data_0046e108": {
+  "_str_score_row_format": {
    "address": "0x46E108",
    "kind": "data"
   },
-  "_data_0046e12c": {
+  "_str_score_ranking_title": {
    "address": "0x46E12C",
    "kind": "data"
   },
-  "_data_0046e148": {
+  "_str_ranking_row_format": {
    "address": "0x46E148",
    "kind": "data"
   },
-  "_data_0046e174": {
+  "_str_ranking_row_empty_format": {
    "address": "0x46E174",
    "kind": "data"
   },
-  "_data_0046e19c": {
+  "_str_ranking_row_named_format": {
    "address": "0x46E19C",
    "kind": "data"
   },

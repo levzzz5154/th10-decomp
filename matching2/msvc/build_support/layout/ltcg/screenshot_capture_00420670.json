@@ -112,17 +112,17 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_data_0046def0",
+      "symbol": "_str_snapshot_alloc_failed",
       "address": "0x0046DEF0",
       "kind": "data"
     },
     {
-      "symbol": "_data_0046df38",
+      "symbol": "_str_snapshot_16bit_unsupported",
       "address": "0x0046DF38",
       "kind": "data"
     },
     {
-      "symbol": "_data_0046deb0",
+      "symbol": "_str_mother_cpp_error",
       "address": "0x0046DEB0",
       "kind": "data"
     }

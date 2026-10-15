@@ -3,8 +3,8 @@
 // ECL operand and tagged-stack view shared by the float resolvers. The VM's
 // operand table follows its time field; the byte stack starts at VM +0x08.
 // These globals are the retail 0.0f and -1.0f constants.
-extern "C" float data_00470b04;
-extern "C" float data_00470b60;
+extern "C" float flt_0;
+extern "C" float flt_neg1;
 struct EclFloatOperandTable {
     unsigned char pad_000[8];
     unsigned short indirect_mask;  // +0x08: one bit per operand

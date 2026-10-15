@@ -93,12 +93,12 @@ typedef char EclFloat_manager_entity_offset[offsetof(EclFloatManager_00412350, c
 extern "C" EclFloatManager_00412350* g_enemy_ctrl;
 extern "C" int g_globals_difficulty;
 extern "C" int data_00474c98;
-extern "C" float data_00470afc;
-extern "C" float data_00470b04;
-extern "C" float data_00470b08;
-extern "C" float data_00470b18;
-extern "C" float data_00470b94;
-extern "C" float data_00470bd4;
+extern "C" float flt_1;
+extern "C" float flt_0;
+extern "C" float flt_2;
+extern "C" float flt_pi;
+extern "C" float flt_pi_2;
+extern "C" float flt_3;
 
 
 #pragma code_seg(".text$02dispatch")
@@ -116,7 +116,7 @@ float EclFloatSource_00412350::ResolveFloatValue(int encoded_selector) const {
         result = Rng_NextFloatSigned((RngState*)0x004918B0);
         break;
     case -9998:
-        result = Rng_NextFloatSigned((RngState*)0x004918B0) * data_00470b18;
+        result = Rng_NextFloatSigned((RngState*)0x004918B0) * flt_pi;
         break;
     case -9991:
         result = g_player->position.x;
@@ -221,7 +221,7 @@ float EclFloatSource_00412350::ResolveFloatValue(int encoded_selector) const {
         result = (float)g_globals_difficulty;
         break;
     case -9957:
-        result = data_00470afc;
+        result = flt_1;
         break;
     case -9956:
         result = g_player->AngleFromPoint(&value_1094);
@@ -233,18 +233,18 @@ float EclFloatSource_00412350::ResolveFloatValue(int encoded_selector) const {
         result = (float)value_23fc;
         break;
     case -9953:
-        result = (float)(g_globals_difficulty == data_00470b04);
+        result = (float)(g_globals_difficulty == flt_0);
         break;
     case -9952:
-        result = (float)(g_globals_difficulty == data_00470afc);
+        result = (float)(g_globals_difficulty == flt_1);
         break;
     case -9951:
-        result = (float)(g_globals_difficulty == data_00470b08);
+        result = (float)(g_globals_difficulty == flt_2);
         break;
     case -9950:
-        result = (float)(g_globals_difficulty == data_00470bd4);
+        result = (float)(g_globals_difficulty == flt_3);
         break;
-    default: result = data_00470b04;
+    default: result = flt_0;
         break;
     }
     return result;

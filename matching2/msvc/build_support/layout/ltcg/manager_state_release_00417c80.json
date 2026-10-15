@@ -499,7 +499,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_0046df98",
+      "symbol": "_str_dummy",
       "address": "0x0046DF98",
       "kind": "data"
     },
@@ -559,7 +559,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_0046e848",
+      "symbol": "_str_score_file",
       "address": "0x0046E848",
       "kind": "data"
     },

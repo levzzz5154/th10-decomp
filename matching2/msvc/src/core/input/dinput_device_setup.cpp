@@ -7,7 +7,7 @@ int GameInputSystem::InitializeDevices() {
     if (flags&8U) return -1;
     if (DirectInput8Create_0045071e(instance,0x800,&data_00467aac,&direct_input,0)<0) {
         direct_input=0;
-        g_log.Append(data_0046f9e0);
+        g_log.Append(str_directinput_unavailable);
         return -1;
     }
     if (direct_input->vtable->CreateDevice(direct_input,&data_0046793c,&keyboard,0)<0) {
@@ -15,7 +15,7 @@ int GameInputSystem::InitializeDevices() {
             direct_input->vtable->Release(direct_input);
             direct_input=0;
         }
-        g_log.Append(data_0046f9e0);
+        g_log.Append(str_directinput_unavailable);
         return -1;
     }
     if (keyboard->vtable->SetDataFormat(keyboard,&data_004664fc)<0) {
@@ -27,7 +27,7 @@ int GameInputSystem::InitializeDevices() {
             direct_input->vtable->Release(direct_input);
             direct_input=0;
         }
-        g_log.Append(data_0046f9b0);
+        g_log.Append(str_directinput_no_data_format);
         return -1;
     }
     if (keyboard->vtable->SetCooperativeLevel(keyboard,window,0x16)<0) {
@@ -36,11 +36,11 @@ int GameInputSystem::InitializeDevices() {
             keyboard=0;
         }
         ReleaseInput();
-        g_log.Append(data_0046f97c);
+        g_log.Append(str_directinput_no_cooperative_level);
         return -1;
     }
     keyboard->vtable->Acquire(keyboard);
-    g_log.Append(data_0046f954);
+    g_log.Append(str_directinput_ok);
     direct_input->vtable->EnumDevices(direct_input,4,&GameInput_EnumDevice_0043baf0,0,1);
     if (joystick) {
         joystick->vtable->SetDataFormat(joystick,&data_00466704);
@@ -48,7 +48,7 @@ int GameInputSystem::InitializeDevices() {
         g_application.capabilities.size=44;
         joystick->vtable->GetCapabilities(joystick,&g_application.capabilities);
         joystick->vtable->EnumObjects(joystick,&GameInput_EnumObject_0043bb30,0,0);
-        g_log.Append(data_0046f934);
+        g_log.Append(str_pad_found);
     }
     return 0;
 }

@@ -92,7 +92,7 @@
     "__real@3f8147ae": "0x00470B64",
     "__real@40c90fdb": "0x00470B14",
     "__real@bf800000": "0x00470B60",
-    "_data_00470b04": "0x00470B04",
+    "_flt_0": "0x00470B04",
     "_g_effect_rng": "0x004918B0",
     "_g_game_speed": "0x00476F78",
     "_g_replay_rng": "0x004918A8",

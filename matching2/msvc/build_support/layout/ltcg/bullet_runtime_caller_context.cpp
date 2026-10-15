@@ -14,7 +14,7 @@ int __stdcall SoundQueueMotionContext(BulletRuntimeDeceleration** bullets, int c
 }
 #pragma code_seg()
 
-extern "C" const float data_00470b0c;
+extern "C" const float flt_0_5;
 extern float g_playfield_min_x, g_playfield_max_x, g_playfield_min_y, g_playfield_max_y;
 #pragma code_seg(".text$00ebounds")
 int PlayfieldPoint::OutsidePlayfieldInclusive(float width, float height) const {
@@ -44,14 +44,14 @@ void FrameTimer::Advance(float delta) {
 
 #pragma code_seg()
 
-extern "C" float data_00470b5c;
+extern "C" float flt_neg64;
 #pragma code_seg(".text$00dbounds")
 int PlayfieldPoint::OutsidePlayfield(float width, float height) const {
     float half_width = width * 0.5f;
     if (half_width + x <= g_playfield_min_x || x - half_width >= g_playfield_max_x)
         return 1;
     float half_height = height * 0.5f;
-    if (half_height + y <= data_00470b5c || y - half_height >= g_playfield_max_y)
+    if (half_height + y <= flt_neg64 || y - half_height >= g_playfield_max_y)
         return 1;
     return 0;
 }

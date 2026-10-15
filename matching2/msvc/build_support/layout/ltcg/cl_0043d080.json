@@ -210,7 +210,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_data_0046e1c8",
+      "symbol": "_str_string_format",
       "address": "0x0046E1C8",
       "kind": "data"
     },
@@ -225,7 +225,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_data_00470c50",
+      "symbol": "_dbl_pi_4",
       "address": "0x00470C50",
       "kind": "data"
     },

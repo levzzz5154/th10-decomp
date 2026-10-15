@@ -8,7 +8,7 @@
 // instead of keeping it in an x87 register to the call.
 #include "th10/render/camera_batch.hpp"
 #include <math.h>
-extern "C" const double data_00470ba0;
+extern "C" const double dbl_pi_20;
 #pragma code_seg(".text$00adefault")
 void RenderCamera::ApplyDefault() {
     if (g_sprt_ctrl) g_sprt_ctrl->Flush();
@@ -19,7 +19,7 @@ void RenderCamera::ApplyDefault() {
     float aspect;
     *(volatile float*)&aspect = viewport_width / viewport_height;
     CameraVector view_up, target, eye;
-    eye.x = half_width; eye.y = half_height; eye.z = half_height / (float)tan(data_00470ba0);
+    eye.x = half_width; eye.y = half_height; eye.z = half_height / (float)tan(dbl_pi_20);
     target.x = half_width; target.y = half_height; target.z = 0.0f;
     view_up.x = 0.0f; view_up.y = -1.0f; view_up.z = 0.0f;
     CameraLookAt(&view, &eye, &target, &view_up);

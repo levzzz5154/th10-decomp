@@ -12,10 +12,10 @@ extern "C" {
     extern void* g_sprt_ctrl;
     extern ParameterFile* data_00491bf0;
     extern FuncCtrl* g_func_ctrl;
-    extern char data_0046e42c[],data_0046e420[],data_0046e3ec[];
+    extern char str_pl00_anm[],str_pl01_anm[],str_player_data_missing[];
     extern const char* data_00476fc0[];
     extern TextLog_0044b810 g_log;
-    extern float data_00470b44,data_00470b0c,g_game_speed;
+    extern float flt_100,flt_0_5,g_game_speed;
     extern float data_00476fb8[],data_00476fb0[],data_00476fa0[],data_00476fa8[];
     int __fastcall LargePlayerTick(void*);
     int __fastcall LargePlayerDraw(void*);
@@ -36,16 +36,16 @@ struct PlayerBounds3 { float x, y, z; };
 
 int PlayerResetBlock::Initialize() {
     const char* name;
-    if (!g_globals_character.shot_type) name=data_0046e42c; else name=data_0046e420;
+    if (!g_globals_character.shot_type) name=str_pl00_anm; else name=str_pl01_anm;
     CachedResource* resource=Recovery_LoadCachedResource(8,g_sprt_ctrl,name);
     Word(0x10)=(unsigned int)resource;
-    if (!resource) { g_log.Append(data_0046e3ec); return -1; }
+    if (!resource) { g_log.Append(str_player_data_missing); return -1; }
     if (data_00491bf0) {
         Word(0x45c)=(unsigned int)data_00491bf0;data_00491bf0=0;
     } else {
         const char* parameter_name=data_00476fc0[g_globals_character.character+3*g_globals_character.shot_type];
         if (((ParameterLoader*)this)->Load(parameter_name)) {
-            g_log.Append(data_0046e3ec);return -1;
+            g_log.Append(str_player_data_missing);return -1;
         }
     }
     SchedulerTask* task=LargePlayerCallbackCreate(LargePlayerTick);
@@ -59,10 +59,10 @@ int PlayerResetBlock::Initialize() {
     Float(0x3c0)=0;Float(0x3c4)=400;
     Word(0x3cc)=0;Word(0x3d0)=40000;
     ParameterFile* parameters=(ParameterFile*)Word(0x45c);
-    Word(0x3d4)=(int)(parameters->width*data_00470b44);
-    Word(0x3d8)=(int)(parameters->height*data_00470b44);
-    Word(0x3dc)=(int)(parameters->projected_width*data_00470b44);
-    Word(0x3e0)=(int)(parameters->projected_height*data_00470b44);
+    Word(0x3d4)=(int)(parameters->width*flt_100);
+    Word(0x3d8)=(int)(parameters->height*flt_100);
+    Word(0x3dc)=(int)(parameters->projected_width*flt_100);
+    Word(0x3e0)=(int)(parameters->projected_height*flt_100);
     unsigned int* indicator=(unsigned int*)((char*)this+0x436c);
     for (int i=0;i<33;++i) {
         indicator[0]=Word(0x3cc);indicator[1]=Word(0x3d0);indicator+=2;
@@ -73,11 +73,11 @@ int PlayerResetBlock::Initialize() {
     *(unsigned int*)((char*)Word(0x45c)+4)=reinterpret_cast<const unsigned int&>(data_00476fb8[g_globals_character.shot_type]);
     *(unsigned int*)((char*)Word(0x45c)+12)=reinterpret_cast<const unsigned int&>(data_00476fb0[g_globals_character.shot_type]);
     *(unsigned int*)((char*)Word(0x45c)+8)=reinterpret_cast<const unsigned int&>(data_00476fa0[g_globals_character.shot_type]);
-    float half=*(float*)((char*)Word(0x45c)+4)*data_00470b0c;
+    float half=*(float*)((char*)Word(0x45c)+4)*flt_0_5;
     Float(0x424)=5;Float(0x420)=half;Float(0x41c)=half;
-    half=data_00476fb0[g_globals_character.shot_type]*data_00470b0c;
+    half=data_00476fb0[g_globals_character.shot_type]*flt_0_5;
     Float(0x430)=5;Float(0x42c)=half;Float(0x428)=half;
-    half=data_00476fa8[g_globals_character.shot_type]*data_00470b0c;
+    half=data_00476fa8[g_globals_character.shot_type]*flt_0_5;
     Float(0x43c)=5;Float(0x438)=half;Float(0x434)=half;
     PlayerBounds3 bounds;
     bounds.x=Float(0x3c0)-Float(0x41c);

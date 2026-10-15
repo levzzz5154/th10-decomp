@@ -170,14 +170,14 @@ extern "C" float data_004741e0[];               // 0x004741E0 speed per colour
 extern "C" int data_00474250[];                 // 0x00474250 per colour
 extern "C" int data_004742c0[];                 // 0x004742C0 death table selector
 extern "C" int data_0047432c[];                 // 0x0047432C death animation per script
-extern "C" float data_00470b0c;                 // 0.5
-extern "C" float data_00470b14;                 // 2*pi
-extern "C" float data_00470b18;                 // pi
-extern "C" float data_00470b50;                 // -990
-extern "C" float data_00470b60;                 // -1
-extern "C" float data_00470c40;                 // 4
-extern "C" float data_00470cc8;                 // -999
-extern "C" float data_00470ccc;                 // 990
+extern "C" float flt_0_5;                 // 0.5
+extern "C" float flt_2pi;                 // 2*pi
+extern "C" float flt_pi;                 // pi
+extern "C" float flt_neg990;                 // -990
+extern "C" float flt_neg1;                 // -1
+extern "C" float flt_4;                 // 4
+extern "C" float flt_neg999;                 // -999
+extern "C" float flt_990;                 // 990
 extern "C" float g_game_speed;                 // frame delta, 1.0 normally
 
 #endif

@@ -243,9 +243,9 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00422660_00422660() {
     L_004227ac:
         fmul dword ptr [data_00470c08]
     L_004227b2:
-        fadd dword ptr [data_00470bc8]
+        fadd dword ptr [flt_64]
     L_004227b8:
-        fld dword ptr [data_00470b4c]
+        fld dword ptr [flt_224]
     L_004227be:
         fsub st,st(1)
     L_004227c0:

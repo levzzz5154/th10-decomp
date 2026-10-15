@@ -38,7 +38,7 @@
   "constants": [],
   "absolute_symbols": [
     {
-      "symbol": "_data_00470b44",
+      "symbol": "_flt_100",
       "address": "0x00470B44",
       "kind": "data"
     },

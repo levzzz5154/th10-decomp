@@ -42,7 +42,7 @@
       "address": "0x00491C30",
       "kind": "data"
     },
-    "_data_0046e1c8": {
+    "_str_string_format": {
       "address": "0x0046E1C8",
       "kind": "data"
     },
@@ -138,7 +138,7 @@
       "address": "0x0044B4D0",
       "kind": "code"
     },
-    "_data_00470c50": {
+    "_dbl_pi_4": {
       "address": "0x00470C50",
       "kind": "data"
     },
@@ -218,7 +218,7 @@
       "address": "0x00474F70",
       "kind": "data"
     },
-    "_data_0046cb68": {
+    "_str_data_corrupted": {
       "address": "0x0046CB68",
       "kind": "data"
     },
@@ -238,19 +238,19 @@
       "address": "0x004521A0",
       "kind": "code"
     },
-    "_data_00470210": {
+    "_str_texture_load_failed_format": {
       "address": "0x00470210",
       "kind": "data"
     },
-    "_data_00470254": {
+    "_str_anm_version_mismatch": {
       "address": "0x00470254",
       "kind": "data"
     },
-    "_data_00470274": {
+    "_str_anm_load_failed": {
       "address": "0x00470274",
       "kind": "data"
     },
-    "_data_00470384": {
+    "_str_texture_slots_full": {
       "address": "0x00470384",
       "kind": "data"
     },
@@ -262,11 +262,11 @@
       "address": "0x00452000",
       "kind": "code"
     },
-    "_data_0047016c": {
+    "_str_texture_load_failed": {
       "address": "0x0047016c",
       "kind": "data"
     },
-    "_data_004701b0": {
+    "_str_texture_create_failed_format": {
       "address": "0x004701b0",
       "kind": "data"
     }

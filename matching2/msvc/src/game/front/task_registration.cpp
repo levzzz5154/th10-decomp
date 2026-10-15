@@ -16,8 +16,8 @@ int __stdcall ScoreTask_Setup_00413a20(void* state);
 extern BulletResourceCache_0040ae70* g_sprt_ctrl;
 extern FuncCtrl* g_func_ctrl;
 extern TextLog_0044b810 g_log;
-extern char data_0046cb68[];
-extern char data_0046d254[];
+extern char str_data_corrupted[];
+extern char str_front_anm[];
 int __fastcall ItemFront_UpdateThunk_00415ae0(void* state);
 int __fastcall ItemFront_RenderThunk_00415af0(void* state);
 }
@@ -26,10 +26,10 @@ int __fastcall ItemFront_RenderThunk_00415af0(void* state);
 extern "C" __declspec(noinline) int __stdcall
 Front_RegisterTasks(FrontTaskView* state) {
     void* resource = Recovery_LoadCachedResource_00447280(
-        6, g_sprt_ctrl, data_0046d254);
+        6, g_sprt_ctrl, str_front_anm);
     state->front_resource = resource;
     if (!resource) {
-        g_log.Append(data_0046cb68);
+        g_log.Append(str_data_corrupted);
         return -1;
     }
     if (ScoreTask_Setup_00413a20(state) != 0)

@@ -27,7 +27,7 @@ int TrimLaser::TrimCircle(const CutVector* center,float radius,int spawn_items) 
     cut[count]=1;
     ++hit_count;
     if (spawn_items && !(point.x+32.0f<=-192.0f) &&
-        !(point.x-32.0f>=192.0f) && !(point.y+32.0f<=data_00470b04) &&
+        !(point.x-32.0f>=192.0f) && !(point.y+32.0f<=flt_0) &&
         !(point.y-32.0f>=448.0f)) {
      g_item_manager->Spawn(&point,8,-1,-1.5707963705062866f,0.6f);
     }

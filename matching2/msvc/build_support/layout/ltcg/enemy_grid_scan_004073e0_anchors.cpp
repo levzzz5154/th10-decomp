@@ -1,7 +1,7 @@
 // Compiler context only: models of the callees, so the pass derives their
 // register arguments. None of these bytes are selected.
 #include "th10/game/enemy_grid_scan_004073e0.hpp"
-extern "C" const float data_00470b20;
+extern "C" const float flt_5_2083335;
 #include "enemy_grid_scan_dependencies/sound_pan.cpp"
 
 extern "C" int __cdecl EnemyGridScanLeaf(void* pointer, int value);

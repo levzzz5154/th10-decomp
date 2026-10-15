@@ -19,8 +19,8 @@ __declspec(noinline) int Resource_0043e5a0::ConfigureObject(
     object->block_a.SetIdentity();
     object->block_b.SetIdentity();
     unsigned char* rec = object->record;
-    object->block_a.values[0][0] = object->width * data_00470b7c;
-    object->block_a.values[1][1] = object->height * data_00470b7c;
+    object->block_a.values[0][0] = object->width * flt_0_00390625;
+    object->block_a.values[1][1] = object->height * flt_0_00390625;
     object->block_b.values[0][0] =
         (*reinterpret_cast<float*>(rec + 0x38) /
          *reinterpret_cast<float*>(rec + 0x1C)) * object->width;

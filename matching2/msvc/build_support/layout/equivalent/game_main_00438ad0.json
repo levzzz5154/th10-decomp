@@ -241,7 +241,7 @@
       "address": "0x004524A1",
       "kind": "code"
     },
-    "_data_0046df98": {
+    "_str_dummy": {
       "address": "0x0046DF98",
       "kind": "data"
     },
@@ -477,27 +477,27 @@
       "address": "0x004660AC",
       "kind": "data"
     },
-    "_data_0046dd28": {
+    "_str_no_text_autodetect": {
       "address": "0x0046DD28",
       "kind": "data"
     },
-    "_data_0046dd64": {
+    "_str_bgm_in_memory": {
       "address": "0x0046DD64",
       "kind": "data"
     },
-    "_data_0046ddbc": {
+    "_str_force_reference_rasterizer": {
       "address": "0x0046DDBC",
       "kind": "data"
     },
-    "_data_0046dde4": {
+    "_str_window_mode": {
       "address": "0x0046DDE4",
       "kind": "data"
     },
-    "_data_0046de2c": {
+    "_str_no_fog": {
       "address": "0x0046DE2C",
       "kind": "data"
     },
-    "_data_0046f66c": {
+    "_str_window_title": {
       "address": "0x0046F66C",
       "kind": "data"
     },
@@ -589,31 +589,31 @@
       "address": "0x004524A6",
       "kind": "code"
     },
-    "_data_0046dcb0": {
+    "_str_folder_not_writable": {
       "address": "0x0046DCB0",
       "kind": "data"
     },
-    "_data_0046dd08": {
+    "_str_cannot_write_file_format": {
       "address": "0x0046DD08",
       "kind": "data"
     },
-    "_data_0046dd4c": {
+    "_str_no_vsync": {
       "address": "0x0046DD4C",
       "kind": "data"
     },
-    "_data_0046dd84": {
+    "_str_no_directinput": {
       "address": "0x0046DD84",
       "kind": "data"
     },
-    "_data_0046de04": {
+    "_str_force_16bit_textures": {
       "address": "0x0046DE04",
       "kind": "data"
     },
-    "_data_0046de48": {
+    "_str_config_invalid_reset": {
       "address": "0x0046DE48",
       "kind": "data"
     },
-    "_data_0046de7c": {
+    "_str_config_missing_reset": {
       "address": "0x0046DE7C",
       "kind": "data"
     },
@@ -745,19 +745,19 @@
       "address": "0x0045232C",
       "kind": "code"
     },
-    "_data_0046f6a0": {
+    "_str_d3d_create_failed": {
       "address": "0x0046F6A0",
       "kind": "data"
     },
-    "_data_0046f6f0": {
+    "_str_restart_required": {
       "address": "0x0046F6F0",
       "kind": "data"
     },
-    "_data_0046f77c": {
+    "_str_log_header": {
       "address": "0x0046F77C",
       "kind": "data"
     },
-    "_data_0046f7cc": {
+    "_str_log_footer": {
       "address": "0x0046F7CC",
       "kind": "data"
     },

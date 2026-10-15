@@ -951,12 +951,12 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_0046d278",
+      "symbol": "_str_main",
       "address": "0x46d278",
       "kind": "data"
     },
     {
-      "symbol": "_data_0046df98",
+      "symbol": "_str_dummy",
       "address": "0x46df98",
       "kind": "data"
     },

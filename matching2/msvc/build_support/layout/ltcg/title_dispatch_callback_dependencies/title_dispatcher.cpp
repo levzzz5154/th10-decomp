@@ -38,7 +38,7 @@ extern "C" {
     extern unsigned char data_00474788[];
     extern unsigned char* data_00477848;
     extern GameThread_0040c540* g_ascii_manager;
-    extern float data_00470b68, data_00470b64, data_00470afc;
+    extern float flt_0_99, flt_1_01, flt_1;
 }
 // These declarations describe logical inputs, not promises about retail ABI.
 __declspec(noinline) DemoFile* __stdcall TitleLoadDemo_004296f0(const char* path);
@@ -183,8 +183,8 @@ __declspec(noinline) int __stdcall Title_DispatchUpdate(
     case 16: TitleMode16_00433570(room); break;
     }
     room->timer.previous = room->timer.current;
-    if (data_00470b68 < *room->timer.speed && *room->timer.speed < data_00470b64) {
-        room->timer.elapsed += data_00470afc;
+    if (flt_0_99 < *room->timer.speed && *room->timer.speed < flt_1_01) {
+        room->timer.elapsed += flt_1;
         ++room->timer.current;
     } else {
         room->timer.elapsed += *room->timer.speed;

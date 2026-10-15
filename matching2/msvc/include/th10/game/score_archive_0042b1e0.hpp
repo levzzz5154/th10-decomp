@@ -37,5 +37,5 @@ extern void (__stdcall* imp_LeaveCriticalSection)(CriticalSection* section);
 extern void* data_00474c38;
 extern unsigned char data_0049231e;
 extern CriticalSection data_004922a4;
-extern char data_0046e848[];
+extern char str_score_file[];
 }

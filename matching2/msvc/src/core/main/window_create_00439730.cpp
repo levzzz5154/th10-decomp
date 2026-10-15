@@ -28,12 +28,12 @@ __declspec(noinline) int __fastcall CreateGameWindow_00439730(HINSTANCE instance
     HWND window;
     if (data_00491d65 == 0) {
         // WS_OVERLAPPEDWINDOW
-        window = CreateWindowExA(0, "BASE", data_0046f66c, 0x00CF0000, 0, 0, 640, 480, 0, 0, instance, 0);
+        window = CreateWindowExA(0, "BASE", str_window_title, 0x00CF0000, 0, 0, 640, 480, 0, 0, instance, 0);
     } else {
         int width = GetSystemMetrics(7) * 2 + 640;                           // SM_CXFIXEDFRAME
         int height = GetSystemMetrics(8) * 2 + GetSystemMetrics(4) + 480;    // SM_CYFIXEDFRAME, SM_CYCAPTION
         // WS_VISIBLE | WS_SYSMENU | WS_MINIMIZEBOX at CW_USEDEFAULT
-        window = CreateWindowExA(0, "BASE", data_0046f66c, 0x100A0000, 0x80000000, 0x80000000, width,
+        window = CreateWindowExA(0, "BASE", str_window_title, 0x100A0000, 0x80000000, 0x80000000, width,
                                  height, 0, 0, instance, 0);
     }
     data_004924f0.window = window;

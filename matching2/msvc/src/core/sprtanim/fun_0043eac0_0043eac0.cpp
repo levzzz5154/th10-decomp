@@ -7,7 +7,7 @@
 
 extern "C" float __fastcall asm_Rng_NextFloat_0044bb20(const void* self);       // 0x0044BB20
 extern "C" float __fastcall asm_Rng_NextFloatSigned_0044bb90(const void* self); // 0x0044BB90
-extern "C" float data_00470b18;   // 3.1415927f
+extern "C" float flt_pi;   // 3.1415927f
 extern "C" float data_00491d7c;
 extern "C" float data_00491d80;
 extern "C" float data_00491d84;
@@ -69,8 +69,8 @@ float EffectFieldStore_0043eac0::Get(float index) {
         return asm_Rng_NextFloatSigned_0044bb90((const void*)0x004918B0);
     case 0x271A:
         if (flags & 0x40000000)
-            return asm_Rng_NextFloatSigned_0044bb90((const void*)0x004918A8) * data_00470b18;
-        return asm_Rng_NextFloatSigned_0044bb90((const void*)0x004918B0) * data_00470b18;
+            return asm_Rng_NextFloatSigned_0044bb90((const void*)0x004918A8) * flt_pi;
+        return asm_Rng_NextFloatSigned_0044bb90((const void*)0x004918B0) * flt_pi;
     case 0x271D:
         return float_334;
     case 0x271E:

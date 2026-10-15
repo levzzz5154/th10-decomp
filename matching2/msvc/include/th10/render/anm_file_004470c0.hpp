@@ -65,7 +65,7 @@ struct AnmScriptRef_00447470 {
     int offset;
 };
 
-extern "C" char data_0047016c[], data_004701b0[];
+extern "C" char str_texture_load_failed[], str_texture_create_failed_format[];
 
 extern "C" void* __cdecl asm_malloc_00452706(unsigned int size);
 
@@ -81,4 +81,4 @@ struct TextLog_0044b8e0 {
 extern "C" TextLog_0044b8e0 g_log;
 #endif
 
-extern "C" char data_00470210[], data_00470254[], data_00470274[], data_00470384[];
+extern "C" char str_texture_load_failed_format[], str_anm_version_mismatch[], str_anm_load_failed[], str_texture_slots_full[];

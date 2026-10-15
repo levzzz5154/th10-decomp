@@ -9,10 +9,10 @@ extern "C" __declspec(noinline) void __cdecl DeviceReset_004391f0() {
     }
     g_sprt_ctrl->FinishTargets();
     if (data_00474e36&0x800U) {
-        MakeDirectory_00452abc(data_0046f6e4);
+        MakeDirectory_00452abc(str_snapshot_dir);
         int index;
         for (index=0;index<1000;++index) {
-            FormatString_00452ae8(filename,data_0046f6d0,index);
+            FormatString_00452ae8(filename,str_snapshot_path_format,index);
             if (!FileProbe_0044b4d0(filename)) break;
         }
         if (index>=1000) return;

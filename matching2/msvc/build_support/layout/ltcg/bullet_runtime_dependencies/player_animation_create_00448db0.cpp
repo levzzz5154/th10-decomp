@@ -1,5 +1,5 @@
-extern "C" const float data_00470b48;
-extern "C" const float data_00470b4c;
+extern "C" const float flt_16;
+extern "C" const float flt_224;
 // 0x00448DB0..0x00448E25 (118 bytes): create an animation object at a
 // playfield position and append it to the primary list.
 //
@@ -45,8 +45,8 @@ __declspec(noinline) void** __stdcall AnimationManager_CreateScreenPositionedPri
     unsigned int flags = *(volatile unsigned int*)&object->flags_035c;
     *(volatile int*)&object->render_bucket_020 = 0;
     *(volatile unsigned int*)&object->flags_035c = flags | kAnimationPositioned;
-    object->position_340.x = position->x + data_00470b4c;
-    object->position_340.y = position->y + data_00470b48;
+    object->position_340.x = position->x + flt_224;
+    object->position_340.y = position->y + flt_16;
     object->position_340.z = position->z;
     asm_AnimationObject_LoadScript_0043e710(resource, object, index);
     asm_AnimationManager_RegisterPrimaryBack_004489d0(g_sprt_ctrl, out, object);

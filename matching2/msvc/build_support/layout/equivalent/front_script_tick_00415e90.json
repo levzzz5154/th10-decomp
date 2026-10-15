@@ -112,11 +112,11 @@
       "address": "0x00491D78",
       "kind": "data"
     },
-    "_data_0046e0d8": {
+    "_str_bgm_th10_17_wav": {
       "address": "0x0046E0D8",
       "kind": "data"
     },
-    "_data_0046df98": {
+    "_str_dummy": {
       "address": "0x0046DF98",
       "kind": "data"
     },
@@ -124,7 +124,7 @@
       "address": "0x00491BE4",
       "kind": "data"
     },
-    "_data_0046e0c0": {
+    "_str_pause": {
       "address": "0x0046E0C0",
       "kind": "data"
     },
@@ -292,67 +292,67 @@
       "address": "0x004524A1",
       "kind": "code"
     },
-    "_data_00470b04": {
+    "_flt_0": {
       "address": "0x00470B04",
       "kind": "data"
     },
-    "_data_00470b3c": {
+    "_flt_192": {
       "address": "0x00470B3C",
       "kind": "data"
     },
-    "_data_00470b40": {
+    "_flt_neg192": {
       "address": "0x00470B40",
       "kind": "data"
     },
-    "_data_00470b4c": {
+    "_flt_224": {
       "address": "0x00470B4C",
       "kind": "data"
     },
-    "_data_00470b5c": {
+    "_flt_neg64": {
       "address": "0x00470B5C",
       "kind": "data"
     },
-    "_data_00470b64": {
+    "_flt_1_01": {
       "address": "0x00470B64",
       "kind": "data"
     },
-    "_data_00470b68": {
+    "_flt_0_99": {
       "address": "0x00470B68",
       "kind": "data"
     },
-    "_data_00470bc8": {
+    "_flt_64": {
       "address": "0x00470BC8",
       "kind": "data"
     },
-    "_data_00470bdc": {
+    "_flt_416": {
       "address": "0x00470BDC",
       "kind": "data"
     },
-    "_data_00470c28": {
+    "_flt_80": {
       "address": "0x00470C28",
       "kind": "data"
     },
-    "_data_00470ce8": {
+    "_flt_neg2_984375": {
       "address": "0x00470CE8",
       "kind": "data"
     },
-    "_data_00470cf0": {
+    "_dbl_64": {
       "address": "0x00470CF0",
       "kind": "data"
     },
-    "_data_00470cf8": {
+    "_flt_0_025": {
       "address": "0x00470CF8",
       "kind": "data"
     },
-    "_data_00470d00": {
+    "_dbl_neg112": {
       "address": "0x00470D00",
       "kind": "data"
     },
-    "_data_00470d08": {
+    "_flt_400": {
       "address": "0x00470D08",
       "kind": "data"
     },
-    "_data_00470d10": {
+    "_dbl_neg128": {
       "address": "0x00470D10",
       "kind": "data"
     },
@@ -411,10 +411,10 @@
     "_g_sound_priority": "0x004749CE",
     "_data_0046cfd4": "0x0046CFD4",
     "_data_00491d78": "0x00491D78",
-    "_data_0046e0d8": "0x0046E0D8",
-    "_data_0046df98": "0x0046DF98",
+    "_str_bgm_th10_17_wav": "0x0046E0D8",
+    "_str_dummy": "0x0046DF98",
     "_g_func_ctrl": "0x00491BE4",
-    "_data_0046e0c0": "0x0046E0C0",
+    "_str_pause": "0x0046E0C0",
     "?g_music_requests@@3UAnimationManager_0043e460@@A": "0x00492590",
     "?g_frame_timer_normal_lower@@3MA": "0x00470B68",
     "?g_frame_timer_normal_upper@@3MA": "0x00470B64",
@@ -495,22 +495,22 @@
     "?InitializeObject@AnimationResource_00449870@@QAEXPAUEntity@@H@Z": "0x449870",
     "_AnmVm_Run_0043ee30@4": "0x0043EE30",
     "_FrontFree_004524a1": "0x004524A1",
-    "_data_00470b04": "0x00470B04",
-    "_data_00470b3c": "0x00470B3C",
-    "_data_00470b40": "0x00470B40",
-    "_data_00470b4c": "0x00470B4C",
-    "_data_00470b5c": "0x00470B5C",
-    "_data_00470b64": "0x00470B64",
-    "_data_00470b68": "0x00470B68",
-    "_data_00470bc8": "0x00470BC8",
-    "_data_00470bdc": "0x00470BDC",
-    "_data_00470c28": "0x00470C28",
-    "_data_00470ce8": "0x00470CE8",
-    "_data_00470cf0": "0x00470CF0",
-    "_data_00470cf8": "0x00470CF8",
-    "_data_00470d00": "0x00470D00",
-    "_data_00470d08": "0x00470D08",
-    "_data_00470d10": "0x00470D10",
+    "_flt_0": "0x00470B04",
+    "_flt_192": "0x00470B3C",
+    "_flt_neg192": "0x00470B40",
+    "_flt_224": "0x00470B4C",
+    "_flt_neg64": "0x00470B5C",
+    "_flt_1_01": "0x00470B64",
+    "_flt_0_99": "0x00470B68",
+    "_flt_64": "0x00470BC8",
+    "_flt_416": "0x00470BDC",
+    "_flt_80": "0x00470C28",
+    "_flt_neg2_984375": "0x00470CE8",
+    "_dbl_64": "0x00470CF0",
+    "_flt_0_025": "0x00470CF8",
+    "_dbl_neg112": "0x00470D00",
+    "_flt_400": "0x00470D08",
+    "_dbl_neg128": "0x00470D10",
     "_g_globals": "0x00474C40",
     "_g_globals_gauge": "0x00474C4C",
     "_g_card": "0x004776F4",

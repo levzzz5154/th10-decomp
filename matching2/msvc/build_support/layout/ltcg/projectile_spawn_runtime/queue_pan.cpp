@@ -5,12 +5,12 @@
 #include "th10/platform/sound_queue.hpp"
 
 extern "C" short g_sound_priority[];
-extern "C" float data_00470b20;
+extern "C" float flt_5_2083335;
 
 #pragma code_seg(".text$0043dd10_s")
 void SoundQueue::QueuePan(int sound_id, float pan) {
     int priority = g_sound_priority[sound_id * 4];
-    int request = int(pan * data_00470b20);
+    int request = int(pan * flt_5_2083335);
     int slot;
     for (slot = 0; slot < 12; ++slot) {
         if (sound_ids[slot] < 0)

@@ -62,8 +62,8 @@
     "?Start@EclVm@@QAEHRAU1@H@Z": "0x0044DF70",
     "?SpawnChild@EclOwner@@QAEHHH@Z": "0x004500D0",
     "__real@00000000": "0x00470B04",
-    "_data_00470b04": "0x00470B04",
-    "_data_00470b60": "0x00470B60"
+    "_flt_0": "0x00470B04",
+    "_flt_neg1": "0x00470B60"
   },
   "base_index_order": 96,
   "differences": [

@@ -13,10 +13,10 @@ AnmFile_004470c0* __stdcall AnmManager_LoadFile_004470c0(AnmManager_004470c0* ma
                                                          const char* name) {
     char path[260];
     if (slot >= 33) {
-        g_log.AppendLine(data_00470384);
+        g_log.AppendLine(str_texture_slots_full);
         return 0;
     }
-    sprintf(path, data_0046e1c8, name);
+    sprintf(path, str_string_format, name);
     AnmEntryHeader_00446c70* header =
         reinterpret_cast<AnmEntryHeader_00446c70*>(Archive_LoadFile(path, 0, 0));
     int index = 0;

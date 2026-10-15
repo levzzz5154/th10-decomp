@@ -78,7 +78,7 @@
    "address": "0x00477708",
    "kind": "data"
   },
-  "_data_00470b44": {
+  "_flt_100": {
    "address": "0x00470B44",
    "kind": "data"
   },
@@ -90,71 +90,71 @@
    "address": "0x004746F4",
    "kind": "data"
   },
-  "_data_0046e4f8": {
+  "_str_replay_comment_placeholder": {
    "address": "0x0046E4F8",
    "kind": "data"
   },
-  "_data_0046e50c": {
+  "_str_replay_slow_rate_format": {
    "address": "0x0046E50C",
    "kind": "data"
   },
-  "_data_0046e520": {
+  "_str_replay_score_format": {
    "address": "0x0046E520",
    "kind": "data"
   },
-  "_data_0046e52c": {
+  "_str_replay_stage_range_format": {
    "address": "0x0046E52C",
    "kind": "data"
   },
-  "_data_0046e540": {
+  "_str_replay_stage_format": {
    "address": "0x0046E540",
    "kind": "data"
   },
-  "_data_0046e54c": {
+  "_str_replay_extra_stage": {
    "address": "0x0046E54C",
    "kind": "data"
   },
-  "_data_0046e55c": {
+  "_str_replay_all_clear": {
    "address": "0x0046E55C",
    "kind": "data"
   },
-  "_data_0046e570": {
+  "_str_replay_extra_clear": {
    "address": "0x0046E570",
    "kind": "data"
   },
-  "_data_0046e584": {
+  "_str_replay_rank_format": {
    "address": "0x0046E584",
    "kind": "data"
   },
-  "_data_0046e590": {
+  "_str_replay_chara_format": {
    "address": "0x0046E590",
    "kind": "data"
   },
-  "_data_0046e59c": {
+  "_str_replay_date_format": {
    "address": "0x0046E59C",
    "kind": "data"
   },
-  "_data_0046e5bc": {
+  "_str_replay_name_format": {
    "address": "0x0046E5BC",
    "kind": "data"
   },
-  "_data_0046e5c8": {
+  "_str_replay_version_format": {
    "address": "0x0046E5C8",
    "kind": "data"
   },
-  "_data_0046e5d8": {
+  "_str_game_version": {
    "address": "0x0046E5D8",
    "kind": "data"
   },
-  "_data_0046e5e0": {
+  "_str_replay_info_title": {
    "address": "0x0046E5E0",
    "kind": "data"
   },
-  "_data_0046e644": {
+  "_str_replay_path_format": {
    "address": "0x0046E644",
    "kind": "data"
   },
-  "_data_0046e650": {
+  "_str_replay_dir": {
    "address": "0x0046E650",
    "kind": "data"
   },

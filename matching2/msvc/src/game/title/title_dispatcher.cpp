@@ -58,7 +58,7 @@ extern "C" {
     extern unsigned char data_00474788[];
     extern unsigned char* data_00477848;
     extern GameThread_0040c540* g_ascii_manager;
-    extern float data_00470b68, data_00470b64, data_00470afc;
+    extern float flt_0_99, flt_1_01, flt_1;
 }
 // These declarations describe logical inputs, not promises about retail ABI.
 __declspec(noinline) DemoFile* __stdcall TitleLoadDemo_004296f0(const char* path);

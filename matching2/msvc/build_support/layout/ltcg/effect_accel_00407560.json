@@ -38,22 +38,22 @@
   "constants": [],
   "absolute_symbols": [
     {
-      "symbol": "_data_00470afc",
+      "symbol": "_flt_1",
       "address": "0x00470AFC",
       "kind": "data"
     },
     {
-      "symbol": "_data_00470b64",
+      "symbol": "_flt_1_01",
       "address": "0x00470B64",
       "kind": "data"
     },
     {
-      "symbol": "_data_00470b68",
+      "symbol": "_flt_0_99",
       "address": "0x00470B68",
       "kind": "data"
     },
     {
-      "symbol": "_data_00470c58",
+      "symbol": "_flt_0_0001",
       "address": "0x00470C58",
       "kind": "data"
     },

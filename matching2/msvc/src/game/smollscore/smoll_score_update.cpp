@@ -2,7 +2,7 @@
 #include "th10/game/smoll_score_view.hpp"
 
 extern "C" float g_game_speed;
-extern "C" float data_00470b0c;
+extern "C" float flt_0_5;
 extern float g_frame_timer_normal_lower;
 extern float g_frame_timer_normal_upper;
 
@@ -24,7 +24,7 @@ int SmollScoreView::UpdatePopups() {
     for (int index = 0; index < 0x2D3; index++) {
         SmollScorePopup* popup = &popups[index];
         if (!popup->active) continue;
-        popup->position -= data_00470b0c * g_game_speed;
+        popup->position -= flt_0_5 * g_game_speed;
         popup->timer.Tick();
         if (popup->timer.current > 60) popup->active = 0;
     }

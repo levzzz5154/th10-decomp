@@ -11,8 +11,8 @@ extern "C" __declspec(noinline) void* __stdcall LoadScript_0043e710(
 
 // Retail reads these existing single-precision data cells; do not substitute
 // immediates because the x87 memory operands are part of the complete body.
-extern "C" float data_00470b4c;
-extern "C" float data_00470b48;
+extern "C" float flt_224;
+extern "C" float flt_16;
 
 #pragma code_seg(".text$f00448db0F")
 CutAnimationId CutAnimationResource::CreateOffset(int index,const Vector3* position) {

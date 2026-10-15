@@ -33,15 +33,15 @@
       "address": "0x00474170",
       "kind": "data"
     },
-    "_data_00470b50": {
+    "_flt_neg990": {
       "address": "0x00470B50",
       "kind": "data"
     },
-    "_data_00470ccc": {
+    "_flt_990": {
       "address": "0x00470CCC",
       "kind": "data"
     },
-    "_data_00470cc8": {
+    "_flt_neg999": {
       "address": "0x00470CC8",
       "kind": "data"
     },
@@ -49,19 +49,19 @@
       "address": "0x00476F78",
       "kind": "data"
     },
-    "_data_00470b0c": {
+    "_flt_0_5": {
       "address": "0x00470B0C",
       "kind": "data"
     },
-    "_data_00470b14": {
+    "_flt_2pi": {
       "address": "0x00470B14",
       "kind": "data"
     },
-    "_data_00470b18": {
+    "_flt_pi": {
       "address": "0x00470B18",
       "kind": "data"
     },
-    "_data_00470c40": {
+    "_flt_4": {
       "address": "0x00470C40",
       "kind": "data"
     },
@@ -77,11 +77,11 @@
       "address": "0x00401000",
       "kind": "code"
     },
-    "_data_00470b04": {
+    "_flt_0": {
       "address": "0x00470B04",
       "kind": "data"
     },
-    "_data_00470b94": {
+    "_flt_pi_2": {
       "address": "0x00470B94",
       "kind": "data"
     },
@@ -89,7 +89,7 @@
       "address": "0x004749CE",
       "kind": "data"
     },
-    "_data_00470b20": {
+    "_flt_5_2083335": {
       "address": "0x00470B20",
       "kind": "data"
     },
@@ -109,7 +109,7 @@
       "address": "0x0043EE30",
       "kind": "code"
     },
-    "_data_00470b60": {
+    "_flt_neg1": {
       "address": "0x00470B60",
       "kind": "data"
     },

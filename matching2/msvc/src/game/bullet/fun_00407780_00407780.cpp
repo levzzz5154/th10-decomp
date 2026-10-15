@@ -1,6 +1,6 @@
 // 0x00407780: turn by a fixed angle and decelerate between speed resets.
 #include "th10/platform/sound_queue.hpp"
-extern "C" float data_00470b68, data_00470b64, g_game_speed;
+extern "C" float flt_0_99, flt_1_01, g_game_speed;
 #include "th10/game/bullet_deceleration.hpp"
 #pragma code_seg(".text$01bullet")
 void BulletDeceleration::TurnStep() {
@@ -30,7 +30,7 @@ void BulletDeceleration::TurnStep() {
     }
     velocity.SetPolar(angle, magnitude);
     previous = current;
-    if (*time_scale > data_00470b68 && *time_scale < data_00470b64) {
+    if (*time_scale > flt_0_99 && *time_scale < flt_1_01) {
         ++current;
         elapsed += 1.0f;
     } else {

@@ -159,6 +159,6 @@ struct BulletAnimationResourceSource {
 };
 extern "C" BulletAnimationResourceSource* g_bullet_manager;
 extern "C" const int data_00474170[];
-extern "C" float data_00470b04, data_00470b50, data_00470cc8, data_00470ccc;
+extern "C" float flt_0, flt_neg990, flt_neg999, flt_990;
 
 #endif

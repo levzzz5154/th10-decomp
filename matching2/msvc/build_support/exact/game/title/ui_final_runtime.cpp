@@ -949,7 +949,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00433ef0_00433ef0() {
     L_004345e1:
         fabs
     L_004345e3:
-        fcomp dword ptr [data_00470c64]
+        fcomp dword ptr [flt_40]
     L_004345e9:
         fnstsw ax
     L_004345eb:

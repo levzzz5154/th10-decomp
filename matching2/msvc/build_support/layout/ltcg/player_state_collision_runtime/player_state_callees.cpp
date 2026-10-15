@@ -10,7 +10,7 @@ extern "C" {
 extern OpenReplayState* g_game;
 extern int data_00491fb8;
 extern void* g_ascii_manager;
-extern const float data_00470b04, data_00470b94;
+extern const float flt_0, flt_pi_2;
 __declspec(noinline) void __stdcall OpenInitialize_00420a90(void* resource, void* object, int script);
 __declspec(noinline) int __stdcall OpenRegister_0043e460(void* lists, void* object);
 }

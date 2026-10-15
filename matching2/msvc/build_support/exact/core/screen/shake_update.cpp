@@ -27,7 +27,7 @@ extern "C" __declspec(naked) void __cdecl ScreenShake_Update() {
     L_0043c568:
         fld dword ptr [ecx]
     L_0043c56a:
-        fcomp dword ptr [data_00470b68]
+        fcomp dword ptr [flt_0_99]
     L_0043c570:
         fnstsw ax
     L_0043c572:
@@ -37,7 +37,7 @@ extern "C" __declspec(naked) void __cdecl ScreenShake_Update() {
     L_0043c577:
         fld dword ptr [ecx]
     L_0043c579:
-        fcomp dword ptr [data_00470b64]
+        fcomp dword ptr [flt_1_01]
     L_0043c57f:
         fnstsw ax
     L_0043c581:
@@ -49,7 +49,7 @@ extern "C" __declspec(naked) void __cdecl ScreenShake_Update() {
     L_0043c589:
         inc edx
     L_0043c58a:
-        fadd dword ptr [data_00470afc]
+        fadd dword ptr [flt_1]
     L_0043c590:
         mov dword ptr [esi+34h],edx
     L_0043c593:

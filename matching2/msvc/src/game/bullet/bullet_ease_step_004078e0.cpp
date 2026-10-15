@@ -3,9 +3,9 @@
 #include <math.h>
 #include "th10/math/angle.hpp"
 #include "th10/platform/sound_queue.hpp"
-extern "C" float data_00470b68, data_00470b64, g_game_speed;
+extern "C" float flt_0_99, flt_1_01, g_game_speed;
 #include "th10/game/bullet_runtime_deceleration.hpp"
-extern "C" float data_00470b04;
+extern "C" float flt_0;
 #pragma code_seg(".text$01gease")
 void BulletRuntimeDeceleration::EaseStep() {
     int length = duration;
@@ -36,7 +36,7 @@ void BulletRuntimeDeceleration::EaseStep() {
     }
     velocity.SetPolar(angle, magnitude);
     previous = current;
-    if (*time_scale > data_00470b68 && *time_scale < data_00470b64) {
+    if (*time_scale > flt_0_99 && *time_scale < flt_1_01) {
         ++current;
         elapsed += 1.0f;
     } else {

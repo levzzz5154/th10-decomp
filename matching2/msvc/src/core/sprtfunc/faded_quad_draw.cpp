@@ -41,7 +41,7 @@ struct ProjectedVertex_00444240 {
 };
 
 // The compiler's pooled double 0.0 the three rotation guards compare against.
-extern "C" double data_00470b70;
+extern "C" double dbl_0;
 
 struct ProjectionManager_00444240 {
     unsigned char reserved_00000000[0x3AD0F0];

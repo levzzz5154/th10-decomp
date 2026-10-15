@@ -32,7 +32,7 @@ extern unsigned char* data_00477848;
 extern unsigned int g_globals_flags,data_00474e30,data_00491ff4,data_00491d78;
 extern int data_00491fb8,data_00474c88,data_00474c8c,g_globals_character,g_globals_shot_type;
 extern unsigned char data_00492254[],g_sound_manager[],g_application[],g_globals[];
-extern const char data_0046d278[],data_0046df98[];
+extern const char str_main[],str_dummy[];
 // These declarations represent genuine logical parameters observed in retail.
 // Without the full helper closure, native calls do not claim their private ABI.
 void __stdcall StageStopWorker_0044c150(void* worker);
@@ -81,7 +81,7 @@ static __forceinline void StageReset(StageContextFade_00418190* context,int* loc
     data_00474c8c=0;
     StageResetGameplay_0042a450(g_replay);
     memset(local_state,0,16*4);
-    StageStartScript_0040cfb0(local_state,g_enemy_ctrl,data_0046d278);
+    StageStartScript_0040cfb0(local_state,g_enemy_ctrl,str_main);
     StageInitializeThread_00413bc0(g_front);
     StageKillPair(g_pause);
     StageKillRequiredPair(g_player);
@@ -97,7 +97,7 @@ static __forceinline void StageReset(StageContextFade_00418190* context,int* loc
     StageWord(reinterpret_cast<unsigned char*>(StageWord(g_card,0x37AC)),4)|=2u;
     StageKillPair(g_hint);
     if (delayed) {
-        StageRegisterMusic_0043e460(g_sound_manager,data_0046df98,(data_00491d78&0x10u)?4:3,0);
+        StageRegisterMusic_0043e460(g_sound_manager,str_dummy,(data_00491d78&0x10u)?4:3,0);
         StagePlayMusic_00420b10(0,StageWord(data_00477848,0x24));
         unsigned char* thread=g_ascii_manager;
         StageStopAnimation_00409e50(thread+0x89A4);

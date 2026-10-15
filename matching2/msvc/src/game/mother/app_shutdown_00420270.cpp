@@ -60,7 +60,7 @@ extern "C" int data_004977b4;
 extern "C" AnimationManagerSurface_00420270* g_sprt_ctrl;
 extern "C" AnimationManager_0043e460 g_sound_manager;
 extern "C" DatArchive g_archive;
-extern "C" const char data_0046df98[];
+extern "C" const char str_dummy[];
 
 static inline void DeleteTimer(Win32Timer* timer) {
     if (timer) {
@@ -85,7 +85,7 @@ int App_00420270::Shutdown() {
         (*back_buffer)->vtable->Release(*back_buffer);
         *back_buffer = 0;
     }
-    g_sound_manager.RegisterResource(data_0046df98, 4, 0);
+    g_sound_manager.RegisterResource(str_dummy, 4, 0);
     DeleteFontCacheObjects_00437d10();
     if (keyboard) {
         keyboard->vtable->Unacquire(keyboard);

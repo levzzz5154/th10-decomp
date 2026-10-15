@@ -17,7 +17,7 @@ struct RenderEntityMatrixView {
     RenderMatrix4x4 texture_transform;
 };
 
-extern "C" double data_00470b70;
+extern "C" double dbl_0;
 extern "C" __declspec(noinline) void SyncRenderState_004423e0(
         SprtCtrlBatchView* manager, RenderEntity* entity);
 extern "C" void __stdcall asm_D3DXMatrixRotationX_004521ac(RenderMatrix4x4* out, float angle);
@@ -50,15 +50,15 @@ int EntityDraw_00444760(RenderEntity* entity, SprtCtrlBatchView* manager) {
         view->world_transform.m[5] *= entity->scale_y;
         flags &= 0xFFFFFFF7u;
         entity->flags = flags;
-        if (entity->rotation.x != data_00470b70) {
+        if (entity->rotation.x != dbl_0) {
             asm_D3DXMatrixRotationX_004521ac(&rotation, entity->rotation.x);
             asm_D3DXMatrixMultiply_004521b2(&view->world_transform, &view->world_transform, &rotation);
         }
-        if (entity->rotation.y != data_00470b70) {
+        if (entity->rotation.y != dbl_0) {
             asm_D3DXMatrixRotationY_004521b8(&rotation, entity->rotation.y);
             asm_D3DXMatrixMultiply_004521b2(&view->world_transform, &view->world_transform, &rotation);
         }
-        if (entity->rotation.z != data_00470b70) {
+        if (entity->rotation.z != dbl_0) {
             asm_D3DXMatrixRotationZ_004521be(&rotation, entity->rotation.z);
             asm_D3DXMatrixMultiply_004521b2(&view->world_transform, &view->world_transform, &rotation);
         }

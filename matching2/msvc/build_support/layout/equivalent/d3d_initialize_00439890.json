@@ -57,59 +57,59 @@
       "address": "0x004524A6",
       "kind": "code"
     },
-    "_data_0046f3c0": {
+    "_str_no_a8r8g8b8": {
       "address": "0x0046F3C0",
       "kind": "data"
     },
-    "_data_0046f408": {
+    "_str_no_512_textures": {
       "address": "0x0046F408",
       "kind": "data"
     },
-    "_data_0046f458": {
+    "_str_no_texop_add": {
       "address": "0x0046F458",
       "kind": "data"
     },
-    "_data_0046f4a8": {
+    "_str_running_tnl_hal": {
       "address": "0x0046F4A8",
       "kind": "data"
     },
-    "_data_0046f4c4": {
+    "_str_running_hal": {
       "address": "0x0046F4C4",
       "kind": "data"
     },
-    "_data_0046f4d8": {
+    "_str_running_ref": {
       "address": "0x0046F4D8",
       "kind": "data"
     },
-    "_data_0046f514": {
+    "_str_d3d_init_failed": {
       "address": "0x0046F514",
       "kind": "data"
     },
-    "_data_0046f54c": {
+    "_str_no_async_present": {
       "address": "0x0046F54C",
       "kind": "data"
     },
-    "_data_0046f584": {
+    "_str_refresh_rate_unchangeable": {
       "address": "0x0046F584",
       "kind": "data"
     },
-    "_data_0046f5ac": {
+    "_str_no_hal": {
       "address": "0x0046F5AC",
       "kind": "data"
     },
-    "_data_0046f5cc": {
+    "_str_no_tnl_hal": {
       "address": "0x0046F5CC",
       "kind": "data"
     },
-    "_data_0046f5f0": {
+    "_str_trying_vsync_async": {
       "address": "0x0046F5F0",
       "kind": "data"
     },
-    "_data_0046f614": {
+    "_str_trying_60hz": {
       "address": "0x0046F614",
       "kind": "data"
     },
-    "_data_0046f640": {
+    "_str_first_run_32bit": {
       "address": "0x0046F640",
       "kind": "data"
     },

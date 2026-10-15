@@ -245,7 +245,7 @@
       "address": "0x00491BE4",
       "kind": "data"
     },
-    "_data_0046df98": {
+    "_str_dummy": {
       "address": "0x0046DF98",
       "kind": "data"
     },
@@ -293,7 +293,7 @@
       "address": "0x004660B4",
       "kind": "data"
     },
-    "_data_0046e848": {
+    "_str_score_file": {
       "address": "0x0046E848",
       "kind": "data"
     },

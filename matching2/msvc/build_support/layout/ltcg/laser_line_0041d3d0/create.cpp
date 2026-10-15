@@ -10,8 +10,8 @@ extern "C" __declspec(noinline) void* __stdcall LoadScript_0043e710(
 
 // Retail reads these existing single-precision data cells; do not substitute
 // immediates because the x87 memory operands are part of the complete body.
-extern "C" float data_00470b4c;
-extern "C" float data_00470b48;
+extern "C" float flt_224;
+extern "C" float flt_16;
 
 #pragma code_seg(".text$70create")
 __declspec(noinline) void** __stdcall ItemAnimation_CreateOffset_00448db0(
@@ -19,8 +19,8 @@ __declspec(noinline) void** __stdcall ItemAnimation_CreateOffset_00448db0(
     Entity* object = static_cast<AnimationPool*>(g_sprt_ctrl)->Allocate();
     object->flags_35C |= 0x40000000u;
     object->render_bucket = 0;
-    object->position.x = position->x + data_00470b4c;
-    object->position.y = position->y + data_00470b48;
+    object->position.x = position->x + flt_224;
+    object->position.y = position->y + flt_16;
     object->position.z = position->z;
     LoadScript_0043e710(static_cast<AnimationResource_0043e710*>(resource),
         reinterpret_cast<AnimationObject_0043e710*>(object),index);

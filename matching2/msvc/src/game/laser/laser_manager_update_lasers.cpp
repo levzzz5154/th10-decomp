@@ -14,7 +14,7 @@
 #include "th10/game/laser_list.hpp"
 
 extern "C" void __cdecl entry_free_004524a1(void* memory);
-extern "C" float data_00470b68, data_00470b64;
+extern "C" float flt_0_99, flt_1_01;
 
 static __forceinline void RemoveRecord(LaserManagerUpdateView* records,
                                        LaserListNode* node) {
@@ -30,7 +30,7 @@ static __forceinline void RemoveRecord(LaserManagerUpdateView* records,
 
 static __forceinline void AdvanceTimer(LaserListNode* node) {
     node->previous = node->current;
-    if (*node->speed > data_00470b68 && *node->speed < data_00470b64) {
+    if (*node->speed > flt_0_99 && *node->speed < flt_1_01) {
         ++node->current;
         node->elapsed += 1.0f;
     } else {

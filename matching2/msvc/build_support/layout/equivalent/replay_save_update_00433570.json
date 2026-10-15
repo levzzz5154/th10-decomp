@@ -263,7 +263,7 @@
       "address": "0x00492384",
       "kind": "data"
     },
-    "_data_0046e1c8": {
+    "_str_string_format": {
       "address": "0x0046E1C8",
       "kind": "data"
     },
@@ -271,7 +271,7 @@
       "address": "0x0044B4D0",
       "kind": "code"
     },
-    "_data_00470c50": {
+    "_dbl_pi_4": {
       "address": "0x00470C50",
       "kind": "data"
     },
@@ -339,7 +339,7 @@
       "address": "0x00474F70",
       "kind": "data"
     },
-    "_data_0046cb68": {
+    "_str_data_corrupted": {
       "address": "0x0046CB68",
       "kind": "data"
     },
@@ -351,11 +351,11 @@
       "address": "0x00492590",
       "kind": "data"
     },
-    "_data_00470b68": {
+    "_flt_0_99": {
       "address": "0x00470B68",
       "kind": "data"
     },
-    "_data_00470b64": {
+    "_flt_1_01": {
       "address": "0x00470B64",
       "kind": "data"
     },
@@ -371,7 +371,7 @@
       "address": "0x00477834",
       "kind": "data"
     },
-    "_data_00470b04": {
+    "_flt_0": {
       "address": "0x00470B04",
       "kind": "data"
     },
@@ -379,31 +379,31 @@
       "address": "0x0044BC10",
       "kind": "code"
     },
-    "_data_00470b40": {
+    "_flt_neg192": {
       "address": "0x00470B40",
       "kind": "data"
     },
-    "_data_00470b3c": {
+    "_flt_192": {
       "address": "0x00470B3C",
       "kind": "data"
     },
-    "_data_00470b38": {
+    "_flt_448": {
       "address": "0x00470B38",
       "kind": "data"
     },
-    "_data_00470b18": {
+    "_flt_pi": {
       "address": "0x00470B18",
       "kind": "data"
     },
-    "_data_00470b58": {
+    "_flt_neg384": {
       "address": "0x00470B58",
       "kind": "data"
     },
-    "_data_00470b54": {
+    "_flt_384": {
       "address": "0x00470B54",
       "kind": "data"
     },
-    "_data_00470b50": {
+    "_flt_neg990": {
       "address": "0x00470B50",
       "kind": "data"
     },
@@ -563,7 +563,7 @@
       "address": "0x00476FD8",
       "kind": "data"
     },
-    "_data_00470afc": {
+    "_flt_1": {
       "address": "0x00470AFC",
       "kind": "data"
     },
@@ -823,7 +823,7 @@
       "address": "0x00491C00",
       "kind": "data"
     },
-    "_data_0046ece8": {
+    "_str_set_vol": {
       "address": "0x0046ECE8",
       "kind": "data"
     },

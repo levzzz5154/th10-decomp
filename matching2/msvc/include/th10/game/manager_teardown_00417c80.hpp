@@ -109,7 +109,7 @@ extern void* g_card;
 // The one scheduler both removals go through.
 extern struct FuncCtrl* g_func_ctrl;
 // The shared animation resource name and the manager that re-registers it.
-extern char data_0046df98[];
+extern char str_dummy[];
 extern struct AnimationManager_0043e460 g_sound_manager;
 // Extra-content flag byte for the resource index choice.
 extern unsigned char data_00491d78;

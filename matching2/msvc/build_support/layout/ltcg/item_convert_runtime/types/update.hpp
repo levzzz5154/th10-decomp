@@ -83,9 +83,9 @@ extern ItemSmollScoreView* g_smoll_score;
 extern ItemCollectionBlocker* g_bomb;
 extern unsigned int g_input;
 extern float g_game_speed;
-extern float data_00470b04, data_00470b94, data_00470bf4, data_00470cdc;
-extern float data_00470b08, data_00470be0, data_00470cd8, data_00470c38;
-extern float data_00470cc4, data_00470cd4, data_00470cd0, data_00470ce0;
+extern float flt_0, flt_pi_2, flt_128, flt_0_03;
+extern float flt_2, flt_472, flt_12, flt_0_2;
+extern float flt_0_33333334, flt_144, flt_0_003289474, flt_5000;
 __declspec(noinline) void __stdcall ItemCollector_PowerChanged(ItemCollector* player);
 __declspec(noinline) int __stdcall ItemManager_UpdateItems(ItemSpawnManager_0041bb00* manager);
 }

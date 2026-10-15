@@ -268,27 +268,27 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_0046f6e4",
+      "symbol": "_str_snapshot_dir",
       "address": "0x46f6e4",
       "kind": "data"
     },
     {
-      "symbol": "_data_0046f6d0",
+      "symbol": "_str_snapshot_path_format",
       "address": "0x46f6d0",
       "kind": "data"
     },
     {
-      "symbol": "_data_0046deb0",
+      "symbol": "_str_mother_cpp_error",
       "address": "0x46deb0",
       "kind": "data"
     },
     {
-      "symbol": "_data_0046df38",
+      "symbol": "_str_snapshot_16bit_unsupported",
       "address": "0x46df38",
       "kind": "data"
     },
     {
-      "symbol": "_data_0046def0",
+      "symbol": "_str_snapshot_alloc_failed",
       "address": "0x46def0",
       "kind": "data"
     },

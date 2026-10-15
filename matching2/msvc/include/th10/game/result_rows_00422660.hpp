@@ -34,12 +34,12 @@ extern "C" {
 extern int g_globals_difficulty;             // the difficulty the run was played on
 extern int g_globals_stage;             // the stage the run ended on
 extern const char* data_00474708[];   // "E", "N", "H", "L", "X": difficulty initials
-extern const char data_0046e0e8[];    // "%2d %s %.9ld%d --/--/-- Stage -"
-extern const char data_0046e108[];    // "%2d %s %.9ld%d %.2d/%.2d/%.2d %s"
-extern const char data_0046e12c[];    // "            Score Ranking!!"
-extern const char data_0046e148[];    // "No.%.2d          %.2d/%.2d/%.2d %s %s %s"
-extern const char data_0046e174[];    // "No.%.2d -------- --/--/-- ------- - St-"
-extern const char data_0046e19c[];    // "No.%.2d %s %.2d/%.2d/%.2d %s %s %s"
+extern const char str_score_row_unplayed_format[];    // "%2d %s %.9ld%d --/--/-- Stage -"
+extern const char str_score_row_format[];    // "%2d %s %.9ld%d %.2d/%.2d/%.2d %s"
+extern const char str_score_ranking_title[];    // "            Score Ranking!!"
+extern const char str_ranking_row_format[];    // "No.%.2d          %.2d/%.2d/%.2d %s %s %s"
+extern const char str_ranking_row_empty_format[];    // "No.%.2d -------- --/--/-- ------- - St-"
+extern const char str_ranking_row_named_format[];    // "No.%.2d %s %.2d/%.2d/%.2d %s %s %s"
 }
 
 // Plain-int views of the run's selection words; reading them as ints keeps

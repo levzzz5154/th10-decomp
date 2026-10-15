@@ -9,7 +9,7 @@
 //   +0x0C GetFloatValue        enemy 0x00412350
 //   +0x10 GetIntVarAddress     enemy 0x004126D0
 //   +0x14 deleting destructor  base 0x0040C7B0, enemy 0x0040CC50
-extern "C" unsigned char data_00470b04;   // 0.0f
+extern "C" unsigned char flt_0;   // 0.0f
 
 struct EclVm {
     int Run();
@@ -23,6 +23,6 @@ int EclVm::Run() { return 0; }                                    // 0x0040C5E0
 int EclVm::GetIntValue(int) { return 0; }                         // 0x0040C690
 float* EclVm::GetFloatVarAddress(int) { return 0; }               // 0x0040C6A0
 double EclVm::GetFloatValue(int) {                                // 0x0040C6B0
-    return *(float*)&data_00470b04;
+    return *(float*)&flt_0;
 }
 int* EclVm::GetIntVarAddress(int) { return 0; }                   // 0x0040C6C0

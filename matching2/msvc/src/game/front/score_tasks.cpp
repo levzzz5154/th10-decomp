@@ -30,7 +30,7 @@ typedef char ScoreTaskResourceNames_00413a20_offsets_check[
 
 extern "C" float g_game_speed;
 extern "C" TextLog_0044b810 g_log;
-extern "C" char data_0046cb68[];
+extern "C" char str_data_corrupted[];
 
 // The addressed bytes are linker-owned game globals. Their uses here match
 // the pointer/dword operations at 0x00413A20, without naming their owners.
@@ -90,7 +90,7 @@ typedef char FrontResourcesView_field_offsets_are_correct[
         : -1];
 
 static void LogResourceLoadFailure_00413a20() {
-    g_log.Append(data_0046cb68);
+    g_log.Append(str_data_corrupted);
 }
 
 // Public stdcall task callback: state pointer on the stack and result in EAX.

@@ -3,7 +3,7 @@
 #include <math.h>
 #include "th10/game/player.hpp"
 
-extern "C" float data_00470b04, data_00470b64, data_00470b68, g_game_speed;
+extern "C" float flt_0, flt_1_01, flt_0_99, g_game_speed;
 
 // Steer toward the target with an angular offset and scaled turn rate until
 // the deadline, then clear the homing flag. The homing timer always advances.
@@ -19,7 +19,7 @@ void PlayerHomingState_00407EF0::HomeTowardTarget() {
             (double)g_player->position.y -
             (double)position_y;
         float target_angle;
-        if (dy == data_00470b04 && dx == data_00470b04) {
+        if (dy == flt_0 && dx == flt_0) {
             // Retail uses a quarter turn for a zero-length direction.
             target_angle = 1.57079637f;
         } else {
@@ -34,7 +34,7 @@ void PlayerHomingState_00407EF0::HomeTowardTarget() {
     }
 
     homing_timer.previous = homing_timer.current;
-    if (*homing_timer.speed > data_00470b68 && *homing_timer.speed < data_00470b64) {
+    if (*homing_timer.speed > flt_0_99 && *homing_timer.speed < flt_1_01) {
         ++homing_timer.current;
         homing_timer.elapsed += 1.0f;
     } else {

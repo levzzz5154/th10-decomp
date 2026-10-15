@@ -37,7 +37,7 @@ struct PlayerItemManager;
 extern "C" {
 extern PlayerCollisionEngine* g_bullet_manager;
 extern PlayerItemManager* g_item_manager;
-extern float data_00470b0c;
+extern float flt_0_5;
 }
 struct AnimationResource_0043e710 {
     unsigned short id;

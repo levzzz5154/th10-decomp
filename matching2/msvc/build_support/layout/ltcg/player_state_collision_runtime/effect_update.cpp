@@ -39,11 +39,11 @@ void Motion::Advance() {
 }
 #pragma code_seg()
 
-extern "C" const float data_00470b40, data_00470b3c, data_00470b04, data_00470b38;
+extern "C" const float flt_neg192, flt_192, flt_0, flt_448;
 #pragma code_seg(".text$f00428d70F")
 int Vector3::OutsideViewport(float horizontal_margin, float vertical_margin) const {
-    if (!(x + horizontal_margin <= data_00470b40) && !(x - horizontal_margin >= data_00470b3c) &&
-        !(y + vertical_margin <= data_00470b04) && !(y - vertical_margin >= data_00470b38))
+    if (!(x + horizontal_margin <= flt_neg192) && !(x - horizontal_margin >= flt_192) &&
+        !(y + vertical_margin <= flt_0) && !(y - vertical_margin >= flt_448))
         return 0;
     return 1;
 }

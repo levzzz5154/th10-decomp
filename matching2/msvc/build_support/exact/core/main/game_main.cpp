@@ -244,7 +244,7 @@ extern "C" __declspec(naked) void __cdecl asm_GameMain_00438ad0() {
     L_00438c7c:
         call dword ptr [imp_SetCursor]
     L_00438c82:
-        fld qword ptr [data_00470b70]
+        fld qword ptr [dbl_0]
     L_00438c88:
         fstp qword ptr [data_00492540]
     L_00438c8e:

@@ -1,7 +1,7 @@
 #include "th10/game/laser_spawn_0041c510.hpp"
 #include "th10/platform/sound_queue.hpp"
 
-extern "C" float data_00470b40, data_00470b3c, data_00470b04, data_00470b38, data_00470b18;
+extern "C" float flt_neg192, flt_192, flt_0, flt_448, flt_pi;
 extern "C" float __stdcall Angle_Normalize_0044bc70(float value);
 
 struct BounceVector2 {
@@ -67,21 +67,21 @@ void LineLaserBounce_0041cfd0::Bounce() {
     next.x += position.x;
     next.z = 0;
     next.y += position.y;
-    if (next.x <= data_00470b40 || next.x >= data_00470b3c ||
-        next.y <= data_00470b04 || next.y >= data_00470b38) {
+    if (next.x <= flt_neg192 || next.x >= flt_192 ||
+        next.y <= flt_0 || next.y >= flt_448) {
         int reflected = 0;
         if (sound_id >= 0)
             g_sound_manager.Queue(sound_id, 0);
-        if (next.x < data_00470b40 || next.x >= data_00470b3c) {
+        if (next.x < flt_neg192 || next.x >= flt_192) {
             parameters.position = next;
-            parameters.angle = Angle_Normalize_0044bc70(-angle - data_00470b18);
+            parameters.angle = Angle_Normalize_0044bc70(-angle - flt_pi);
             parameters.width = width;
             reflected = 1;
             parameters.SpawnIn(g_laser_manager, 0);
         }
         if (!(flags & 0x08000000) &&
-            (next.y < data_00470b04 ||
-             (next.y >= data_00470b38 && (flags & 0x400)))) {
+            (next.y < flt_0 ||
+             (next.y >= flt_448 && (flags & 0x400)))) {
             parameters.angle = -angle;
             parameters.position = next;
             parameters.width = width;

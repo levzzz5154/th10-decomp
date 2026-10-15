@@ -7,7 +7,7 @@ extern "C" short g_sound_priority[];
 #pragma code_seg(".text$a05pan")
 void SoundQueue::QueuePan(int sound_id, float pan) {
     int priority = g_sound_priority[sound_id * 4];
-    int request = int(pan * data_00470b20);
+    int request = int(pan * flt_5_2083335);
     int slot;
     for (slot = 0; slot < 12; ++slot) {
         if (sound_ids[slot] < 0)

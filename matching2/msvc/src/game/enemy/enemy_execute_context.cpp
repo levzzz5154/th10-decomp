@@ -3,8 +3,8 @@
 // register conventions as retail. Only Enemy::Execute_0040e770 is compared.
 #include "th10/runtime/game/enemy/enemy_execute.hpp"
 
-float data_00470b04 = 0.0f;
-float data_00470b60 = -1.0f;
+float flt_0 = 0.0f;
+float flt_neg1 = -1.0f;
 float g_game_speed = 1.0f;
 int g_difficulty_00474c74;
 int g_rank_00474c98;
@@ -52,9 +52,9 @@ extern "C" void* __stdcall ext_display(void* memory, const char* table);
 float EclVm::FloatValue(int selector, EclVm* vm, float value) {
     unsigned short mask = vm->instr->mask;
     if (mask & (1 << selector)) {
-        if (value >= data_00470b04) {
+        if (value >= flt_0) {
             return *(float*)&vm->stack.data[vm->stack.base + (int)value];
-        } else if (value == data_00470b60) {
+        } else if (value == flt_neg1) {
             vm->stack.PopFloat(&value);
         } else {
             return vm->owner->ResolveFloat((int)value);
@@ -114,9 +114,9 @@ float EclVm::FloatOperand(int selector) {
     unsigned short mask = operands->mask;
     if (mask & (1 << selector)) {
         const float& d = operands->f[selector];
-        if (d >= data_00470b04) {
+        if (d >= flt_0) {
             return *(float*)&stack.data[stack.base + (int)d];
-        } else if (d == data_00470b60) {
+        } else if (d == flt_neg1) {
             union { int integer; float real; } value;
             if (stack.sp - 4 >= 0) {
                 stack.sp -= 4;

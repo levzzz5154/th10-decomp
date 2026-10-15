@@ -2,10 +2,10 @@
 #include <math.h>
 #include "th10/math/angle.hpp"
 #include "th10/platform/sound_queue.hpp"
-extern "C" float data_00470b68, data_00470b64, g_game_speed;
+extern "C" float flt_0_99, flt_1_01, g_game_speed;
 #include "th10/game/bullet_deceleration.hpp"
 #include "th10/game/player.hpp"
-extern "C" float data_00470b04;
+extern "C" float flt_0;
 #pragma code_seg(".text$01haim")
 void BulletDeceleration::AimStep() {
     int length = duration;
@@ -18,7 +18,7 @@ void BulletDeceleration::AimStep() {
         double dx = g_player->position.x - position_x;
         double dy = g_player->position.y - position_y;
         float heading;
-        if (dy == data_00470b04 && dx == data_00470b04)
+        if (dy == flt_0 && dx == flt_0)
             heading = 1.57079637f;
         else
             heading = (float)atan2(dy, dx);
@@ -41,7 +41,7 @@ void BulletDeceleration::AimStep() {
     }
     velocity.SetPolar(angle, magnitude);
     previous = current;
-    if (*time_scale > data_00470b68 && *time_scale < data_00470b64) {
+    if (*time_scale > flt_0_99 && *time_scale < flt_1_01) {
         ++current;
         elapsed += 1.0f;
     } else {

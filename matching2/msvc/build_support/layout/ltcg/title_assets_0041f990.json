@@ -344,12 +344,12 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_0046dc28",
+      "symbol": "_str_text_init_failed",
       "address": "0x46dc28",
       "kind": "data"
     },
     {
-      "symbol": "_data_0046dbec",
+      "symbol": "_str_bgm_init_failed",
       "address": "0x46dbec",
       "kind": "data"
     },

@@ -262,12 +262,12 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00470b68",
+      "symbol": "_flt_0_99",
       "address": "0x470b68",
       "kind": "data"
     },
     {
-      "symbol": "_data_00470b64",
+      "symbol": "_flt_1_01",
       "address": "0x470b64",
       "kind": "data"
     },
@@ -277,7 +277,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_0046e0c0",
+      "symbol": "_str_pause",
       "address": "0x46e0c0",
       "kind": "data"
     },

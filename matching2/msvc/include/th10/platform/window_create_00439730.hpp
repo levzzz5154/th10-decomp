@@ -14,7 +14,7 @@ extern "C" {
 extern GameWindow_00439730 data_004924f0;
 extern HWND data_00491c70;              // the supervisor's copy of the window
 extern unsigned char data_00491d65;     // the configuration's windowed flag
-extern const char data_0046f66c[];      // the window title (Shift-JIS), "... Mountain of Faith. ver 1.00a"
+extern const char str_window_title[];      // the window title (Shift-JIS), "... Mountain of Faith. ver 1.00a"
 LRESULT __stdcall WindowProcedure_004390e0(HWND, UINT, WPARAM, LPARAM);
 }
 

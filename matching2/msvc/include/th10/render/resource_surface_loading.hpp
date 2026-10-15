@@ -71,7 +71,7 @@ struct SurfaceDevice_00447c80 {
 };
 extern "C" SurfaceDevice_00447c80* g_d3d_device;
 extern "C" int data_00491d14;
-extern "C" char data_0046e1c8[], data_00470150[];
+extern "C" char str_string_format[], str_cannot_load_format[];
 extern "C" int __cdecl sprintf(char*, const char*, ...);
 extern "C" void __cdecl ReleaseHeapMemory_00452422(void*);
 extern "C" long __stdcall LoadSurfaceFile_004521d0(Resource_00447f70*, const void*, const void*, const void*, unsigned int, const void*, unsigned int, unsigned int, ImageInfo_00447c80*);

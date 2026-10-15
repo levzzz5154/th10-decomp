@@ -49,9 +49,9 @@ void LaserScriptRun_0041ca80::Run() {
             flags_404 |= 0x10u;
             speed_A0 = cmd.param0.f;
             float angle;
-            if (cmd.param1.f <= data_00470b50)
+            if (cmd.param1.f <= flt_neg990)
                 angle = angle_3C;
-            else if (cmd.param1.f >= data_00470ccc)
+            else if (cmd.param1.f >= flt_990)
                 angle = g_player->AngleFromPoint(&position_x_24);
             else
                 angle = cmd.param1.f;
@@ -76,7 +76,7 @@ void LaserScriptRun_0041ca80::Run() {
         case 0x100u:
             flags_404 |= cmd.opcode;
             mode_10C = cmd.param0.i;
-            width_108 = cmd.param1.f > data_00470cc8 ? cmd.param1.f : width_48;
+            width_108 = cmd.param1.f > flt_neg999 ? cmd.param1.f : width_48;
             timer_F4.SetSchedulerValue(0);
             width_duration_11C = cmd.param2.i;
             width_duration_120 = cmd.param3.i;
@@ -119,7 +119,7 @@ void LaserScriptRun_0041ca80::Run() {
         case 0x8000000u:
             if (cmd.param2.i > 0) {
                 flags_404 |= cmd.opcode;
-                if (cmd.param0.f >= data_00470b04)
+                if (cmd.param0.f >= flt_0)
                     target_13C = cmd.param0.f;
                 else
                     target_13C = width_48;

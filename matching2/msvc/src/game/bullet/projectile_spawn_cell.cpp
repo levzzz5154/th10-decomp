@@ -42,7 +42,7 @@ __forceinline static float Rng_RangeFloat(RngState* state, float range) {
 // A shaped bullet is lit at once and steps back by one frame of its velocity.
 __forceinline static void SpawnRecord_Light(ProjectileSpawnRecord* record, Vec3& position) {
     record->state = 2;
-    const Vec3 shift = record->velocity * data_00470c40;
+    const Vec3 shift = record->velocity * flt_4;
     position.x -= shift.x;
     position.y -= shift.y;
     position.z -= shift.z;
@@ -104,11 +104,11 @@ int __stdcall SpawnPatternCell_004067d0(ProjectilePattern_004073e0* pattern,
         if (blueprint->columns & 1) {
             x = (float)((column + 1) / 2);
         } else {
-            x = (float)(column / 2) + data_00470b0c;
+            x = (float)(column / 2) + flt_0_5;
         }
         x *= blueprint->x_spacing;
         if (column & 1)
-            x *= data_00470b60;
+            x *= flt_neg1;
         if (blueprint->layout == 0)
             x += aim;
         x += blueprint->x_base;
@@ -117,15 +117,15 @@ int __stdcall SpawnPatternCell_004067d0(ProjectilePattern_004073e0* pattern,
         x = aim;
         // fallthrough
     case 3:
-        x = (float)column * data_00470b14 / (float)blueprint->columns + x +
+        x = (float)column * flt_2pi / (float)blueprint->columns + x +
             row * blueprint->x_spacing + blueprint->x_base;
         break;
     case 4:
         x = aim;
         // fallthrough
     case 5: {
-        x = x + data_00470b18 / (float)blueprint->columns +
-            (float)column * data_00470b14 / (float)blueprint->columns +
+        x = x + flt_pi / (float)blueprint->columns +
+            (float)column * flt_2pi / (float)blueprint->columns +
             row * blueprint->x_spacing + blueprint->x_base;
         break;
     }
@@ -136,7 +136,7 @@ int __stdcall SpawnPatternCell_004067d0(ProjectilePattern_004073e0* pattern,
     case 7:
         y = Rng_RangeFloat(&g_rng, blueprint->y_head - blueprint->y_tail) +
             blueprint->y_tail;
-        x = (float)column * data_00470b14 / (float)blueprint->columns +
+        x = (float)column * flt_2pi / (float)blueprint->columns +
             row * blueprint->x_spacing + blueprint->x_base;
         break;
     case 8:

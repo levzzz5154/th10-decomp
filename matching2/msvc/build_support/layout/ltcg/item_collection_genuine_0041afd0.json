@@ -460,12 +460,12 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00470b4c",
+      "symbol": "_flt_224",
       "address": "0x00470B4C",
       "kind": "data"
     },
     {
-      "symbol": "_data_00470b48",
+      "symbol": "_flt_16",
       "address": "0x00470B48",
       "kind": "data"
     },
@@ -495,37 +495,37 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00470cd8",
+      "symbol": "_flt_12",
       "address": "0x00470CD8",
       "kind": "data"
     },
     {
-      "symbol": "_data_00470d1c",
+      "symbol": "_flt_6",
       "address": "0x00470D1C",
       "kind": "data"
     },
     {
-      "symbol": "_data_00470bcc",
+      "symbol": "_flt_32",
       "address": "0x00470BCC",
       "kind": "data"
     },
     {
-      "symbol": "_data_00470b40",
+      "symbol": "_flt_neg192",
       "address": "0x00470B40",
       "kind": "data"
     },
     {
-      "symbol": "_data_00470b3c",
+      "symbol": "_flt_192",
       "address": "0x00470B3C",
       "kind": "data"
     },
     {
-      "symbol": "_data_00470b04",
+      "symbol": "_flt_0",
       "address": "0x00470B04",
       "kind": "data"
     },
     {
-      "symbol": "_data_00470b38",
+      "symbol": "_flt_448",
       "address": "0x00470B38",
       "kind": "data"
     },
@@ -595,52 +595,52 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_data_00470b94",
+      "symbol": "_flt_pi_2",
       "address": "0x470b94",
       "kind": "data"
     },
     {
-      "symbol": "_data_00470bf4",
+      "symbol": "_flt_128",
       "address": "0x470bf4",
       "kind": "data"
     },
     {
-      "symbol": "_data_00470cdc",
+      "symbol": "_flt_0_03",
       "address": "0x470cdc",
       "kind": "data"
     },
     {
-      "symbol": "_data_00470b08",
+      "symbol": "_flt_2",
       "address": "0x470b08",
       "kind": "data"
     },
     {
-      "symbol": "_data_00470be0",
+      "symbol": "_flt_472",
       "address": "0x470be0",
       "kind": "data"
     },
     {
-      "symbol": "_data_00470c38",
+      "symbol": "_flt_0_2",
       "address": "0x470c38",
       "kind": "data"
     },
     {
-      "symbol": "_data_00470cc4",
+      "symbol": "_flt_0_33333334",
       "address": "0x470cc4",
       "kind": "data"
     },
     {
-      "symbol": "_data_00470cd4",
+      "symbol": "_flt_144",
       "address": "0x470cd4",
       "kind": "data"
     },
     {
-      "symbol": "_data_00470cd0",
+      "symbol": "_flt_0_003289474",
       "address": "0x470cd0",
       "kind": "data"
     },
     {
-      "symbol": "_data_00470ce0",
+      "symbol": "_flt_5000",
       "address": "0x470ce0",
       "kind": "data"
     },

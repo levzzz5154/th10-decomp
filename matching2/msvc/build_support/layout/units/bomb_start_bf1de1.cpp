@@ -28,8 +28,8 @@ __declspec(noinline) int* __stdcall CreateScreenPositionedPrimary_00448db0(
     unsigned int flags = object->flags_35C;
     object->render_bucket = 0;
     object->flags_35C = flags | 0x40000000;
-    object->position.x = position->x + data_00470b4c;
-    object->position.y = position->y + data_00470b48;
+    object->position.x = position->x + flt_224;
+    object->position.y = position->y + flt_16;
     object->position.z = position->z;
     LoadScript_0043e710(resource, static_cast<AnimationObject_0043e710*>(object), index);
     reinterpret_cast<AnimationPrimaryLists*>(g_sprt_ctrl)->RegisterPrimaryBack(out, object);

@@ -3,9 +3,9 @@
 #include "th10/math/timer.hpp"
 #include "th10/platform/sound_queue.hpp"
 
-extern "C" float data_00470b40;
-extern "C" float data_00470b3c;
-extern "C" float data_00470b54;
+extern "C" float flt_neg192;
+extern "C" float flt_192;
+extern "C" float flt_384;
 
 struct PlayfieldPoint {
     float x;

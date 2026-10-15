@@ -12,7 +12,7 @@
 // the shared half scaler of the schedule offsets and the animation manager.
 extern "C" const int data_00476f7c[];
 extern "C" void* g_player;
-extern "C" float data_00470b44;
+extern "C" float flt_100;
 extern "C" void* g_sprt_ctrl;
 
 static __forceinline FamiliarAnimManager_00426f70* AnimManager() {
@@ -90,8 +90,8 @@ static __forceinline AnimationRef SpawnOrbitAnimation(
 // Scale one schedule row (half size) into a record offset.
 static __forceinline void ScaleOffset(FamiliarPoint_00426f70* out,
                                       const FamiliarOffsetRow_00426f70* row) {
-    out->x = (int)(data_00470b44 * row->x);
-    out->y = (int)(data_00470b44 * row->y);
+    out->x = (int)(flt_100 * row->x);
+    out->y = (int)(flt_100 * row->y);
 }
 
 static __forceinline int SpawnFamiliar(PlayerFamiliarRuntime_00426f70* player,

@@ -1,7 +1,7 @@
 // 0x0041D170: LineLaser::Motion0040 (vtable 0x0046DA60 slot 0x30): repeated
 // turn/speed steps with linear deceleration between them.
 #include "th10/platform/sound_queue.hpp"
-extern "C" float data_00470b68, data_00470b64, g_game_speed;
+extern "C" float flt_0_99, flt_1_01, g_game_speed;
 struct DecelerationVector2 {
     float x, y;
     void SetPolar(float angle, float speed);
@@ -62,7 +62,7 @@ void LineLaser::Motion0040() {
     }
     velocity.SetPolar(angle, magnitude);
     previous = current;
-    if (*time_scale > data_00470b68 && *time_scale < data_00470b64) {
+    if (*time_scale > flt_0_99 && *time_scale < flt_1_01) {
         ++current;
         elapsed += 1.0f;
     } else {

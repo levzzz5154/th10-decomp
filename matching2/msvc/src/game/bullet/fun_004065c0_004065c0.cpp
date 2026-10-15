@@ -11,8 +11,8 @@
 // memory operand here rather than a local.
 
 extern "C" int __stdcall asm_FUN_00406240_00406240(const void* entry);  // 0x00406240
-extern "C" float data_00470b64;    // normal upper bound
-extern "C" float data_00470b68;    // normal lower bound
+extern "C" float flt_1_01;    // normal upper bound
+extern "C" float flt_0_99;    // normal lower bound
 
 struct GameBulletView {
     unsigned char pad_00[0x58];
@@ -65,8 +65,8 @@ int RecoverySlotTable_004065c0::Rearm() {
             *(void**)(pose + 0x4C) = 0;
             ++active;
             *(int*)(pose - 8) = *(int*)(pose - 4);
-            if (**(float**)(pose + 4) > data_00470b68
-                && **(float**)(pose + 4) < data_00470b64) {
+            if (**(float**)(pose + 4) > flt_0_99
+                && **(float**)(pose + 4) < flt_1_01) {
                 ++*(int*)(pose - 4);
                 *(float*)pose += 1.0f;
             } else {

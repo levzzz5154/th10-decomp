@@ -109,7 +109,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041afd0_0041afd0() {
     L_0041b072:
         fld dword ptr [edx+3C4h]
     L_0041b078:
-        fcomp dword ptr [data_00470bf4]
+        fcomp dword ptr [flt_128]
     L_0041b07e:
         fnstsw ax
     L_0041b080:
@@ -165,13 +165,13 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041afd0_0041afd0() {
     L_0041b0de:
         fld dword ptr [g_game_speed]
     L_0041b0e4:
-        fmul dword ptr [data_00470cdc]
+        fmul dword ptr [flt_0_03]
     L_0041b0ea:
         fadd dword ptr [ebp+0Ch]
     L_0041b0ed:
         fst dword ptr [ebp+0Ch]
     L_0041b0f0:
-        fcomp dword ptr [data_00470b04]
+        fcomp dword ptr [flt_0]
     L_0041b0f6:
         fnstsw ax
     L_0041b0f8:
@@ -183,7 +183,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041afd0_0041afd0() {
     L_0041b100:
         fld dword ptr [ebp+0Ch]
     L_0041b103:
-        fcomp dword ptr [data_00470b08]
+        fcomp dword ptr [flt_2]
     L_0041b109:
         fnstsw ax
     L_0041b10b:
@@ -195,7 +195,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041afd0_0041afd0() {
     L_0041b117:
         fld dword ptr [ebp]
     L_0041b11a:
-        fcomp dword ptr [data_00470be0]
+        fcomp dword ptr [flt_472]
     L_0041b120:
         fnstsw ax
     L_0041b122:
@@ -243,13 +243,13 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041afd0_0041afd0() {
     L_0041b173:
         fld dword ptr [g_game_speed]
     L_0041b179:
-        fmul dword ptr [data_00470cdc]
+        fmul dword ptr [flt_0_03]
     L_0041b17f:
         fadd dword ptr [ebp+0Ch]
     L_0041b182:
         fst dword ptr [ebp+0Ch]
     L_0041b185:
-        fcomp dword ptr [data_00470b04]
+        fcomp dword ptr [flt_0]
     L_0041b18b:
         fnstsw ax
     L_0041b18d:
@@ -271,7 +271,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041afd0_0041afd0() {
     L_0041b1ad:
         fld dword ptr [ebp]
     L_0041b1b0:
-        fcomp dword ptr [data_00470be0]
+        fcomp dword ptr [flt_472]
     L_0041b1b6:
         fnstsw ax
     L_0041b1b8:
@@ -303,7 +303,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041afd0_0041afd0() {
     L_0041b1f6:
         fsub dword ptr [ebp]
     L_0041b1f9:
-        fld dword ptr [data_00470b04]
+        fld dword ptr [flt_0]
     L_0041b1ff:
         fld st(1)
     L_0041b201:
@@ -315,7 +315,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041afd0_0041afd0() {
     L_0041b208:
         jp short L_0041b229
     L_0041b20a:
-        fld dword ptr [data_00470b04]
+        fld dword ptr [flt_0]
     L_0041b210:
         fld st(2)
     L_0041b212:
@@ -387,7 +387,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041afd0_0041afd0() {
     L_0041b27a:
         fld dword ptr [ebp+38h]
     L_0041b27d:
-        fcomp dword ptr [data_00470cd8]
+        fcomp dword ptr [flt_12]
     L_0041b283:
         fnstsw ax
     L_0041b285:
@@ -397,7 +397,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041afd0_0041afd0() {
     L_0041b28a:
         fld dword ptr [ebp+38h]
     L_0041b28d:
-        fadd dword ptr [data_00470c38]
+        fadd dword ptr [flt_0_2]
     L_0041b293:
         fstp dword ptr [ebp+38h]
     L_0041b296:
@@ -465,7 +465,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041afd0_0041afd0() {
     L_0041b302:
         fld dword ptr [ebp+38h]
     L_0041b305:
-        fcomp dword ptr [data_00470cd8]
+        fcomp dword ptr [flt_12]
     L_0041b30b:
         fnstsw ax
     L_0041b30d:
@@ -475,7 +475,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041afd0_0041afd0() {
     L_0041b312:
         fld dword ptr [ebp+38h]
     L_0041b315:
-        fadd dword ptr [data_00470c38]
+        fadd dword ptr [flt_0_2]
     L_0041b31b:
         fstp dword ptr [ebp+38h]
     L_0041b31e:
@@ -677,7 +677,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041afd0_0041afd0() {
     L_0041b4aa:
         fld dword ptr [edx+3C4h]
     L_0041b4b0:
-        fcomp dword ptr [data_00470cd4]
+        fcomp dword ptr [flt_144]
     L_0041b4b6:
         fnstsw ax
     L_0041b4b8:
@@ -705,15 +705,15 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041afd0_0041afd0() {
     L_0041b4d5:
         fld dword ptr [edx+3C4h]
     L_0041b4db:
-        fsub dword ptr [data_00470cd4]
+        fsub dword ptr [flt_144]
     L_0041b4e1:
-        fmul dword ptr [data_00470cd0]
+        fmul dword ptr [flt_0_003289474]
     L_0041b4e7:
         fild dword ptr [g_globals_gauge]
     L_0041b4ed:
-        fmul dword ptr [data_00470b0c]
+        fmul dword ptr [flt_0_5]
     L_0041b4f3:
-        fsub dword ptr [data_00470ce0]
+        fsub dword ptr [flt_5000]
     L_0041b4f9:
         fmulp st(1),st
     L_0041b4fb:
@@ -1119,7 +1119,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041afd0_0041afd0() {
     L_0041b7ed:
         mov dword ptr [ebp+2Ch],4
     L_0041b7f4:
-        fmul dword ptr [data_00470cc4]
+        fmul dword ptr [flt_0_33333334]
     L_0041b7fa:
         fstp dword ptr [ebp+38h]
     L_0041b7fd:
@@ -1137,7 +1137,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041afd0_0041afd0() {
     L_0041b810:
         fld dword ptr [ecx]
     L_0041b812:
-        fcomp dword ptr [data_00470b68]
+        fcomp dword ptr [flt_0_99]
     L_0041b818:
         fnstsw ax
     L_0041b81a:
@@ -1147,7 +1147,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041afd0_0041afd0() {
     L_0041b81f:
         fld dword ptr [ecx]
     L_0041b821:
-        fcomp dword ptr [data_00470b64]
+        fcomp dword ptr [flt_1_01]
     L_0041b827:
         fnstsw ax
     L_0041b829:
@@ -1159,7 +1159,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041afd0_0041afd0() {
     L_0041b831:
         inc edx
     L_0041b832:
-        fadd dword ptr [data_00470afc]
+        fadd dword ptr [flt_1]
     L_0041b838:
         mov dword ptr [ebp+1Ch],edx
     L_0041b83b:

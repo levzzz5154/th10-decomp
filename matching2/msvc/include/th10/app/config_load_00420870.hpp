@@ -35,18 +35,18 @@ extern TextLog_00420870 g_log;
 extern char data_00474e88[];      // the key configuration in use (18 bytes)
 
 // Log lines (Shift-JIS).
-extern char data_0046de7c[];      // "no configuration data was found, so it was initialised"
-extern char data_0046de48[];      // "the configuration data was invalid, so it was initialised again"
-extern char data_0046de2c[];      // "fog is suppressed"
-extern char data_0046de04[];      // "16-bit textures are forced"
-extern char data_0046dde4[];      // "starting in window mode"
-extern char data_0046ddbc[];      // "the reference rasteriser is forced"
-extern char data_0046dd84[];      // "DirectInput is not used for pad and keyboard input"
-extern char data_0046dd64[];      // "the music is loaded into memory"
-extern char data_0046dd4c[];      // "no vertical synchronisation"
-extern char data_0046dd28[];      // "the text drawing environment is not detected automatically"
-extern char data_0046dd08[];      // "the file cannot be written %s"
-extern char data_0046dcb0[];      // "is the folder write-protected, or is the disk full?"
+extern char str_config_missing_reset[];      // "no configuration data was found, so it was initialised"
+extern char str_config_invalid_reset[];      // "the configuration data was invalid, so it was initialised again"
+extern char str_no_fog[];      // "fog is suppressed"
+extern char str_force_16bit_textures[];      // "16-bit textures are forced"
+extern char str_window_mode[];      // "starting in window mode"
+extern char str_force_reference_rasterizer[];      // "the reference rasteriser is forced"
+extern char str_no_directinput[];      // "DirectInput is not used for pad and keyboard input"
+extern char str_bgm_in_memory[];      // "the music is loaded into memory"
+extern char str_no_vsync[];      // "no vertical synchronisation"
+extern char str_no_text_autodetect[];      // "the text drawing environment is not detected automatically"
+extern char str_cannot_write_file_format[];      // "the file cannot be written %s"
+extern char str_folder_not_writable[];      // "is the folder write-protected, or is the disk full?"
 
 char* __stdcall Archive_LoadFile(const char* name, int* out_size, int from_disk);
 void __cdecl free(void* block);

@@ -8,8 +8,8 @@ struct ObjectAccessor_00413290 {
 };
 
 float __fastcall Rng_NextFloatSigned(RngState* state);
-extern "C" float data_00470b18;
+extern "C" float flt_pi;
 
 float ObjectAccessor_00413290::LoadValue() const {
-    return Rng_NextFloatSigned((RngState*)this) * data_00470b18;
+    return Rng_NextFloatSigned((RngState*)this) * flt_pi;
 }

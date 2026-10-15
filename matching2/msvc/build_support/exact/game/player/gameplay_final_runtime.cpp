@@ -537,7 +537,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00426f70_00426f70() {
     L_0042729a:
         lea esi,[edx+ecx*4+20h]
     L_0042729e:
-        fmul dword ptr [data_00470b44]
+        fmul dword ptr [flt_100]
     L_004272a4:
         call asm_FUN_00463b2c_00463b2c
     L_004272a9:
@@ -545,7 +545,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00426f70_00426f70() {
     L_004272af:
         fld dword ptr [esi+4]
     L_004272b2:
-        fmul dword ptr [data_00470b44]
+        fmul dword ptr [flt_100]
     L_004272b8:
         call asm_FUN_00463b2c_00463b2c
     L_004272bd:
@@ -649,7 +649,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00426f70_00426f70() {
     L_0042739b:
         lea eax,[eax+edx*4+20h]
     L_0042739f:
-        fmul dword ptr [data_00470b44]
+        fmul dword ptr [flt_100]
     L_004273a5:
         mov dword ptr [esp+18h],eax
     L_004273a9:
@@ -663,7 +663,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00426f70_00426f70() {
     L_004273ba:
         fld dword ptr [ecx+4]
     L_004273bd:
-        fmul dword ptr [data_00470b44]
+        fmul dword ptr [flt_100]
     L_004273c3:
         call asm_FUN_00463b2c_00463b2c
     L_004273c8:
@@ -683,7 +683,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00426f70_00426f70() {
     L_004273e8:
         lea eax,[ecx+eax*4+98h]
     L_004273ef:
-        fmul dword ptr [data_00470b44]
+        fmul dword ptr [flt_100]
     L_004273f5:
         mov dword ptr [esp+18h],eax
     L_004273f9:
@@ -697,7 +697,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00426f70_00426f70() {
     L_0042740a:
         fld dword ptr [edx+4]
     L_0042740d:
-        fmul dword ptr [data_00470b44]
+        fmul dword ptr [flt_100]
     L_00427413:
         call asm_FUN_00463b2c_00463b2c
     L_00427418:
@@ -785,7 +785,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00426f70_00426f70() {
     L_004274bf:
         lea ebx,[eax+edx*4+20h]
     L_004274c3:
-        fmul dword ptr [data_00470b44]
+        fmul dword ptr [flt_100]
     L_004274c9:
         call asm_FUN_00463b2c_00463b2c
     L_004274ce:
@@ -793,7 +793,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00426f70_00426f70() {
     L_004274d4:
         fld dword ptr [ebx+4]
     L_004274d7:
-        fmul dword ptr [data_00470b44]
+        fmul dword ptr [flt_100]
     L_004274dd:
         call asm_FUN_00463b2c_00463b2c
     L_004274e2:
@@ -813,7 +813,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00426f70_00426f70() {
     L_00427505:
         lea ebx,[eax+edx*4+98h]
     L_0042750c:
-        fmul dword ptr [data_00470b44]
+        fmul dword ptr [flt_100]
     L_00427512:
         call asm_FUN_00463b2c_00463b2c
     L_00427517:
@@ -821,7 +821,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00426f70_00426f70() {
     L_0042751d:
         fld dword ptr [ebx+4]
     L_00427520:
-        fmul dword ptr [data_00470b44]
+        fmul dword ptr [flt_100]
     L_00427526:
         call asm_FUN_00463b2c_00463b2c
     L_0042752b:
@@ -871,7 +871,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00426f70_00426f70() {
     L_0042758d:
         lea esi,[eax+edx*4+98h]
     L_00427594:
-        fmul dword ptr [data_00470b44]
+        fmul dword ptr [flt_100]
     L_0042759a:
         call asm_FUN_00463b2c_00463b2c
     L_0042759f:
@@ -879,7 +879,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00426f70_00426f70() {
     L_004275a5:
         fld dword ptr [esi+4]
     L_004275a8:
-        fmul dword ptr [data_00470b44]
+        fmul dword ptr [flt_100]
     L_004275ae:
         call asm_FUN_00463b2c_00463b2c
     L_004275b3:
@@ -959,7 +959,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00426f70_00426f70() {
     L_00427668:
         lea eax,[edx+ecx*4+20h]
     L_0042766c:
-        fmul dword ptr [data_00470b44]
+        fmul dword ptr [flt_100]
     L_00427672:
         mov dword ptr [esp+18h],eax
     L_00427676:
@@ -973,7 +973,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00426f70_00426f70() {
     L_00427687:
         fld dword ptr [eax+4]
     L_0042768a:
-        fmul dword ptr [data_00470b44]
+        fmul dword ptr [flt_100]
     L_00427690:
         call asm_FUN_00463b2c_00463b2c
     L_00427695:
@@ -993,7 +993,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00426f70_00426f70() {
     L_004276b5:
         lea eax,[eax+edx*4+98h]
     L_004276bc:
-        fmul dword ptr [data_00470b44]
+        fmul dword ptr [flt_100]
     L_004276c2:
         mov dword ptr [esp+18h],eax
     L_004276c6:
@@ -1005,7 +1005,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00426f70_00426f70() {
     L_004276d5:
         fld dword ptr [ecx+4]
     L_004276d8:
-        fmul dword ptr [data_00470b44]
+        fmul dword ptr [flt_100]
     L_004276de:
         call asm_FUN_00463b2c_00463b2c
     L_004276e3:

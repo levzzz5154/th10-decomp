@@ -316,22 +316,22 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_0046e000",
+      "symbol": "_str_th10_dat",
       "address": "0x0046E000",
       "kind": "data"
     },
     {
-      "symbol": "_data_0046dff0",
+      "symbol": "_str_ver_file_format",
       "address": "0x0046DFF0",
       "kind": "data"
     },
     {
-      "symbol": "_data_0046dfc8",
+      "symbol": "_str_data_version_mismatch",
       "address": "0x0046DFC8",
       "kind": "data"
     },
     {
-      "symbol": "_data_0046dfa0",
+      "symbol": "_str_data_file_missing",
       "address": "0x0046DFA0",
       "kind": "data"
     },

@@ -28,20 +28,20 @@ extern MainWindow data_004924f0;
 extern TextLog_0044b810 g_log;
 
 // Log lines (Shift-JIS).
-extern char data_0046f640[];    // "first run, the screen was initialised at 32 bits"
-extern char data_0046f614[];    // "trying to change the refresh rate to 60Hz"
-extern char data_0046f5f0[];    // "trying whether presenting without VSync is possible"
-extern char data_0046f5cc[];    // "T&L HAL does not seem to be usable"
-extern char data_0046f5ac[];    // "HAL does not seem to be usable either"
-extern char data_0046f584[];    // "the refresh rate cannot be changed"
-extern char data_0046f54c[];    // "asynchronous updates do not work either, changing to the ugliest mode"
-extern char data_0046f514[];    // "Direct3D initialisation failed, the game cannot run like this"
-extern char data_0046f4d8[];    // "running on REF, but it is too slow to be a game..."
-extern char data_0046f4c4[];    // "running on HAL"
-extern char data_0046f4a8[];    // "running on T&L HAL"
-extern char data_0046f458[];    // "D3DTEXOPCAPS_ADD is not supported, emulating additive colour"
-extern char data_0046f408[];    // "textures of 512 and above are not supported, most pictures will be blurred"
-extern char data_0046f3c0[];    // "D3DFMT_A8R8G8B8 is not supported, running with reduced colours"
+extern char str_first_run_32bit[];    // "first run, the screen was initialised at 32 bits"
+extern char str_trying_60hz[];    // "trying to change the refresh rate to 60Hz"
+extern char str_trying_vsync_async[];    // "trying whether presenting without VSync is possible"
+extern char str_no_tnl_hal[];    // "T&L HAL does not seem to be usable"
+extern char str_no_hal[];    // "HAL does not seem to be usable either"
+extern char str_refresh_rate_unchangeable[];    // "the refresh rate cannot be changed"
+extern char str_no_async_present[];    // "asynchronous updates do not work either, changing to the ugliest mode"
+extern char str_d3d_init_failed[];    // "Direct3D initialisation failed, the game cannot run like this"
+extern char str_running_ref[];    // "running on REF, but it is too slow to be a game..."
+extern char str_running_hal[];    // "running on HAL"
+extern char str_running_tnl_hal[];    // "running on T&L HAL"
+extern char str_no_texop_add[];    // "D3DTEXOPCAPS_ADD is not supported, emulating additive colour"
+extern char str_no_512_textures[];    // "textures of 512 and above are not supported, most pictures will be blurred"
+extern char str_no_a8r8g8b8[];    // "D3DFMT_A8R8G8B8 is not supported, running with reduced colours"
 }
 
 int __stdcall ApplyDefaultViewport(unsigned int color);
@@ -71,7 +71,7 @@ __declspec(noinline) int __stdcall D3DInitialize_00439890() {
         } else if (g_application.config.field_1a == 0xFF) {
             parameters.back_buffer_format = 22;         // D3DFMT_X8R8G8B8
             g_application.config.field_1a = 0;
-            g_log.Append(data_0046f640);
+            g_log.Append(str_first_run_32bit);
         } else {
             parameters.back_buffer_format = g_application.config.field_1a == 0 ? 22 : 23;
         }
@@ -82,14 +82,14 @@ __declspec(noinline) int __stdcall D3DInitialize_00439890() {
         if (g_application.no_vsync == 0) {
             parameters.refresh_rate = 60;
             parameters.presentation_interval = 1;
-            g_log.Append(data_0046f614);
+            g_log.Append(str_trying_60hz);
             parameters.swap_effect = 1;
         } else {
 immediate:
             parameters.refresh_rate = 0;
             parameters.swap_effect = 1;
             parameters.presentation_interval = 0x80000000;
-            g_log.Append(data_0046f5f0);
+            g_log.Append(str_trying_vsync_async);
         }
     } else {
         parameters.back_buffer_format = desktop.format;
@@ -111,44 +111,44 @@ immediate:
         if (g_application.direct3d->CreateDevice(0, 1, data_004924f0.window, 0x40,
                 &parameters, &g_application.device) < 0) {
             if (retried)
-                g_log.Append(data_0046f5cc);
+                g_log.Append(str_no_tnl_hal);
             if (g_application.direct3d->CreateDevice(0, 1, data_004924f0.window, 0x20,
                     &parameters, &g_application.device) < 0) {
                 if (retried)
-                    g_log.Append(data_0046f5ac);
+                    g_log.Append(str_no_hal);
 reference:
                 if (g_application.direct3d->CreateDevice(0, 2, data_004924f0.window, 0x20,
                         &parameters, &g_application.device) < 0) {
                     if (g_application.no_vsync == 0) {
-                        g_log.Append(data_0046f584);
+                        g_log.Append(str_refresh_rate_unchangeable);
                         parameters.refresh_rate = 0;
                         g_application.fixed_refresh = 0;
                         retried = 1;
                         continue;
                     }
                     if (parameters.presentation_interval == 0x80000000) {
-                        g_log.Append(data_0046f54c);
+                        g_log.Append(str_no_async_present);
                         parameters.presentation_interval = 1;
                         parameters.swap_effect = 3;
                         continue;
                     }
-                    reinterpret_cast<TextLog_0044b8e0*>(&g_log)->AppendLine(data_0046f514);
+                    reinterpret_cast<TextLog_0044b8e0*>(&g_log)->AppendLine(str_d3d_init_failed);
                     if (g_application.direct3d != 0) {
                         g_application.direct3d->Release();
                         g_application.direct3d = 0;
                     }
                     return 1;
                 } else {
-                    g_log.Append(data_0046f4d8);
+                    g_log.Append(str_running_ref);
                     g_application.flags &= ~1u;
                     hardware = false;
                 }
             } else {
-                g_log.Append(data_0046f4c4);
+                g_log.Append(str_running_hal);
                 g_application.flags &= ~1u;
             }
         } else {
-            g_log.Append(data_0046f4a8);
+            g_log.Append(str_running_tnl_hal);
             g_application.flags |= 1;
         }
         break;
@@ -175,9 +175,9 @@ reference:
     g_application.device->GetViewport(&g_application.viewport);
     g_application.device->GetDeviceCaps(&g_application.caps);
     if (!(g_application.caps.texture_op_caps & 0x40))
-        g_log.Append(data_0046f458);
+        g_log.Append(str_no_texop_add);
     if (g_application.caps.max_texture_width <= 256)
-        g_log.Append(data_0046f408);
+        g_log.Append(str_no_512_textures);
     if (!(g_application.config.flags & 1) && hardware) {
         if (g_application.direct3d->CheckDeviceFormat(0, 1, parameters.back_buffer_format,
                 0, 3, 21) == 0) {
@@ -185,7 +185,7 @@ reference:
         } else {
             g_application.flags &= ~4u;
             g_application.config.flags |= 1;
-            g_log.Append(data_0046f3c0);
+            g_log.Append(str_no_a8r8g8b8);
         }
     }
     Renderer_ApplyDeviceDefaults();

@@ -54,7 +54,7 @@ extern "C" __declspec(naked) void __cdecl asm_AnimationObject_ChangeScript_0043e
     L_0043e8f2:
         or edi,8
     L_0043e8f5:
-        fmul dword ptr [data_00470b60]
+        fmul dword ptr [flt_neg1]
     L_0043e8fb:
         xor edi,200h
     L_0043e901:

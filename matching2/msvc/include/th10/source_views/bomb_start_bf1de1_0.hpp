@@ -4,10 +4,10 @@
 #include "th10/game/entity.hpp"
 #include "th10/platform/sound_queue.hpp"
 extern "C" void* g_sprt_ctrl;
-extern "C" const float data_00470b4c;
-extern "C" const float data_00470b48;
-extern "C" const float data_00470b20;
-extern "C" const float data_00470b7c;
+extern "C" const float flt_224;
+extern "C" const float flt_16;
+extern "C" const float flt_5_2083335;
+extern "C" const float flt_0_00390625;
 #include "../../../build_support/layout/ltcg/player_initialize_00405860_dependencies/entity_init.cpp"
 #include "../../../src/core/sprtlib/animation_pool_allocate.cpp"
 #include "../../../build_support/layout/ltcg/player_initialize_00405860_dependencies/load_script.cpp"

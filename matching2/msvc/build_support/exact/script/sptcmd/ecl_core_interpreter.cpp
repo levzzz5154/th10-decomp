@@ -2513,7 +2513,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0044e1a0_0044e1a0() {
     L_0044f401:
         fstp dword ptr [esp+94h]
     L_0044f408:
-        fld dword ptr [data_00470b04]
+        fld dword ptr [flt_0]
     L_0044f40e:
         mov dword ptr [esp+14h],1
     L_0044f416:
