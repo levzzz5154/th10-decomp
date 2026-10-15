@@ -9,7 +9,6 @@
     "src/unidentified/FUN_0043c460_0043c460.cpp",
     "src/game/recovery_decay_counter_00418a00.cpp",
     "src/game/replay_progress.cpp",
-    "src/game/stage_sequence_schedule.cpp",
     "src/game/screen_effect_envelope_shake.cpp"
   ],
   "driver": "layout/ltcg/frame_timer_context.cpp",
@@ -109,24 +108,6 @@
       "actual_abi": "this in ESI; delta at [ESP+4]; RET 4"
     },
     {
-      "name": "StageSequence_Dispatch",
-      "source": "src/game/stage_sequence_schedule.cpp",
-      "symbol": "?Dispatch@StageSequence@@QAEHH@Z",
-      "section": ".text$04zzm_dispatch",
-      "address": "0x00428160",
-      "size": 105,
-      "actual_abi": "this in EDI; frame in EBX; plain RET"
-    },
-    {
-      "name": "StageSequence_Update",
-      "source": "src/game/stage_sequence_schedule.cpp",
-      "symbol": "?Update@StageSequence@@QAEHXZ",
-      "section": ".text$04zzn_update",
-      "address": "0x004281D0",
-      "size": 174,
-      "actual_abi": "this in EAX; plain RET"
-    },
-    {
       "name": "ScreenEffectController_UpdateEnvelopeShake",
       "source": "src/game/screen_effect_envelope_shake.cpp",
       "symbol": "?UpdateEnvelopeShake@ScreenEffectController_0043c970@@QAEHXZ",
@@ -149,7 +130,7 @@
     "symbol": "AnimationTimerSchedulerCompilerContext@40",
     "section": ".text$15context",
     "address": "0x0044BFA0",
-    "size": 296,
+    "size": 280,
     "description": "Synthetic caller roots every cursor, timer, gauge and scheduler edge; not recovered game code."
   },
   "gaps": [
@@ -176,7 +157,7 @@
     {
       "section": ".text$04zzlayout",
       "address": "0x00418A41",
-      "size": 63263
+      "size": 66447
     },
     {
       "section": ".text$06layout",
@@ -200,23 +181,13 @@
     },
     {
       "section": ".text$16layout",
-      "address": "0x0044C0C8",
-      "size": 147256
+      "address": "0x0044C0B8",
+      "size": 147272
     },
     {
       "section": ".rdata",
       "address": "0x00470000",
       "size": 2812
-    },
-    {
-      "section": ".text$04zzm_dispatchz",
-      "address": "0x004281C9",
-      "size": 7
-    },
-    {
-      "section": ".text$04zzn_updatez",
-      "address": "0x0042827E",
-      "size": 2898
     },
     {
       "section": ".text$12a_layout",

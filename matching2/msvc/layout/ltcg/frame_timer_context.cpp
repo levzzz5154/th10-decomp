@@ -50,8 +50,6 @@ extern "C" void __stdcall AnimationTimerSchedulerCompilerContext(
         for (int index = 0; index < count; ++index)
             scores[index].AdvanceGaugeTimer(delta);
     }
-    if (sequence != 0)
-        sequence->Update();
     if (rng != 0) {
         for (int index = 0; index < count; ++index)
             rng[index].NextRandomModulo(delta + index);

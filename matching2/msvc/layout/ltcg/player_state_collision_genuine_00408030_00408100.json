@@ -14,7 +14,8 @@
     "src/game/laser_manager.cpp",
     "src/game/player_hit_test_004059f0.cpp",
     "src/render/animation_handle_helpers.cpp",
-    "src/render/animation_resource_initialize_object_00449870.cpp"
+    "src/render/animation_resource_initialize_object_00449870.cpp",
+    "src/game/player_shooting.cpp"
   ],
   "included_sources": [
     "layout/ltcg/player_state_collision_runtime/helpers.cpp",
@@ -24,10 +25,8 @@
     "layout/ltcg/player_state_collision_runtime/preserve.cpp",
     "layout/ltcg/player_state_collision_runtime/effect_update.cpp",
     "layout/ltcg/player_state_collision_runtime/sound_queue.cpp",
-    "layout/ltcg/player_state_collision_runtime/schedule_dispatch.cpp",
     "layout/ltcg/player_state_collision_runtime/scheduler_store.cpp",
     "layout/ltcg/player_state_collision_runtime/sequence_timers.cpp",
-    "layout/ltcg/player_state_collision_runtime/schedule_update.cpp",
     "layout/ltcg/player_state_collision_runtime/collision_bounds.cpp",
     "layout/ltcg/player_state_collision_runtime/collision_loader.cpp",
     "layout/ltcg/player_state_collision_runtime/collision_create.cpp",
@@ -182,6 +181,24 @@
       "size": 217,
       "actual_abi": "this ECX; object and index stack; RET8",
       "source": "src/render/animation_resource_initialize_object_00449870.cpp"
+    },
+    {
+      "name": "function_00428160",
+      "symbol": "?FireShots@Player@@QAEHH@Z",
+      "section": ".text$f00428160F",
+      "address": "0x428160",
+      "size": 105,
+      "actual_abi": "private EDI player / EBX frame / RET0",
+      "source": "src/game/player_shooting.cpp"
+    },
+    {
+      "name": "function_004281d0",
+      "symbol": "?UpdateShooting@Player@@QAEHXZ",
+      "section": ".text$f004281d0F",
+      "address": "0x4281d0",
+      "size": 174,
+      "actual_abi": "private EAX player / RET0",
+      "source": "src/game/player_shooting.cpp"
     }
   ],
   "context": {
@@ -305,25 +322,11 @@
       "size": 91
     },
     {
-      "name": "function_00428160",
-      "symbol": "?FireShots@Player@@QAEHH@Z",
-      "section": ".text$f00428160F",
-      "address": "0x428160",
-      "size": 105
-    },
-    {
       "name": "function_0043dd10",
       "symbol": "?QueuePan@SoundQueue@@QAEXHM@Z",
       "section": ".text$f0043dd10F",
       "address": "0x43dd10",
       "size": 149
-    },
-    {
-      "name": "function_004281d0",
-      "symbol": "?UpdateShooting@Player@@QAEHXZ",
-      "section": ".text$f004281d0F",
-      "address": "0x4281d0",
-      "size": 174
     },
     {
       "name": "function_00405410",

@@ -4,10 +4,9 @@
 
 #include "effect_update.cpp"
 
-#include "schedule_dispatch.cpp"
 #include "sound_queue.cpp"
 
-#include "schedule_update.cpp"
+#include "scheduler_store.cpp"
 #include "sequence_timers.cpp"
 
 #include "player_state_callees.cpp"
