@@ -4,6 +4,7 @@
 #include <math.h>
 #include "timer.hpp"
 #include "th10/game/player.hpp"
+#include "th10/game/bomb.hpp"
 
 typedef Vector3 Vec3;
 inline void Vector3::SnapToHundredths() {
@@ -60,17 +61,6 @@ struct PickupAnimationLists {
 struct PickupGameState { unsigned char reserved_0000[0x378c]; unsigned char flags; };
 struct PickupConfig { unsigned char reserved_00[0x10]; int alternate_mode;
     unsigned char reserved_14[0x60-0x14]; int enabled; };
-struct Bomb {
-    unsigned char reserved_00[0x28];
-    int active;
-    int reserved_2c;
-    PickupPoint position;
-    int reserved_38;
-    float radius;
-    int reserved_40;
-    int mode;
-    __declspec(noinline) int HitTest(const PickupPoint* point);
-};
 // Retail takes an optional output word in ECX and the three inputs on the
 // stack. MSVC 7.1 supports the observed null receiver at this boundary.
 struct PlayerDamage {
@@ -80,7 +70,6 @@ struct PlayerDamage {
     __declspec(noinline) int Sweep(Player*, const PickupPoint*, const PickupPoint*);
 };
 extern "C" {
-extern Bomb* g_bomb;
 extern PickupGameState* data_004776f4;
 extern PickupConfig* data_00477704;
 extern int data_00474c68, data_00474c44;

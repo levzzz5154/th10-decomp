@@ -14,7 +14,7 @@ extern "C" const float data_00470b7c;
 #include "th10/game/power_display_004054b0.hpp"
 #include "../../layout/ltcg/player_initialize_00405860_dependencies/clear_flags.cpp"
 #include "../../layout/ltcg/player_initialize_00405860_dependencies/sound_pan.cpp"
-#include "th10/game/player.hpp"
+#include "th10/game/bomb.hpp"
 
 struct PrimaryListNode {
     Entity* owner;
@@ -67,33 +67,6 @@ __declspec(noinline) int* __stdcall CreateScreenPositionedPrimary_00448db0(
     return out;
 }
 
-struct PlayerInitializationTimer {
-    int previous, current;
-    float elapsed;
-    float* speed;
-    unsigned int flags;
-    void Reset(int previous_frame) {
-        if (!(flags & 1)) {
-            current = 0;
-            previous = static_cast<int>(0xFFF0BDC1u);
-            elapsed = 0;
-            speed = &data_00476f78;
-            flags |= 1;
-        }
-        current = 0;
-        elapsed = 0;
-        previous = previous_frame;
-    }
-};
-struct PlayerInitialization {
-    unsigned char pad00[0x14];
-    PlayerInitializationTimer timer;
-    int initialized;
-    int animation_handle;
-    Vector3 position;
-    float width, height;
-    int pending_animation;
-};
 struct PlayerAnimationResources {
     unsigned char pad00[0x3E0B50];
     AnimationResource_0043e710* resource;
@@ -106,13 +79,13 @@ extern "C" int data_00474c68;
 extern "C" short data_00474c48;
 extern "C" int data_00474c98;
 #pragma code_seg(".text$a04initialize")
-extern "C" __declspec(noinline) int __stdcall Bomb_Start(PlayerInitialization* player) {
-    if (player->initialized) return -1;
-    player->initialized = 1;
-    player->timer.Reset(-1);
-    player->width = 32.0f;
-    player->height = 4.0f;
-    player->position = g_player->position;
+int __stdcall Bomb_Start(Bomb* bomb) {
+    if (bomb->active) return -1;
+    bomb->active = 1;
+    bomb->timer.Reset();
+    bomb->radius = 32.0f;
+    bomb->unknown_40 = 4.0f;
+    bomb->position = g_player->position;
     int index;
     if ((!(data_004776f4->flags & 1) ||
          data_004776f4->animation_state < 0x5D ||
@@ -122,9 +95,9 @@ extern "C" __declspec(noinline) int __stdcall Bomb_Start(PlayerInitialization* p
     else
         index = 0x1B9;
     int handle;
-    player->animation_handle = *CreateScreenPositionedPrimary_00448db0(
-        data_004776f0->resource, &handle, index, &player->position);
-    data_00492590.QueuePan(0x26, player->position.x);
+    bomb->animation = *CreateScreenPositionedPrimary_00448db0(
+        data_004776f0->resource, &handle, index, &bomb->position);
+    data_00492590.QueuePan(0x26, bomb->position.x);
     int power = data_00474c48;
     data_0047770c->SetPowerDigits(power / 20, (power % 20) * 100 / 20);
     PlayerInitializeGlobal* state = data_004776f4;
@@ -132,8 +105,8 @@ extern "C" __declspec(noinline) int __stdcall Bomb_Start(PlayerInitialization* p
     data_00474c98 -= 0x80;
     if (data_00474c98 > 0x400) data_00474c98 = 0x400;
     else if (data_00474c98 < -0x400) data_00474c98 = -0x400;
-    if ((state->flags & 1) && state->elapsed_frames >= 60) player->pending_animation = 1;
-    else player->pending_animation = 0;
+    if ((state->flags & 1) && state->elapsed_frames >= 60) bomb->mode = 1;
+    else bomb->mode = 0;
     return 0;
 }
 #pragma code_seg()

@@ -57,7 +57,6 @@ extern PlayerItemManager* data_00477818;
 extern PauseOpenState* g_pause_menu;
 extern PlayerPracticeState* data_00477838;
 extern PlayerInputMode data_00491c28;
-__declspec(noinline) int __stdcall Bomb_Start(Bomb* player);
 __declspec(noinline) int __stdcall Player_RefreshOptions(Player* player);
 __declspec(noinline) int __stdcall Player_Die(Player* player);
 __declspec(noinline) double __stdcall Player_AngleToPoint(const Player* player, const Vec3* point);

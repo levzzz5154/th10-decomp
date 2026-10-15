@@ -66,7 +66,8 @@
     "include/th10/game/pause_result_open_004231d0/music.hpp",
     "include/th10/game/pause_result_open_004231d0/open_animation.hpp",
     "include/th10/game/pause_result_open_004231d0/open_state.hpp",
-    "include/th10/render/resource_registrar_0043e460.hpp"
+    "include/th10/render/resource_registrar_0043e460.hpp",
+    "include/th10/game/bomb.hpp"
   ],
   "image_base": "0x400000",
   "functions": [

@@ -9,7 +9,8 @@
     "include/th10/render/animation_object_0043e5a0.hpp",
     "include/th10/game/power_display_004054b0.hpp",
     "include/th10/game/player.hpp",
-    "include/th10/math/timer.hpp"
+    "include/th10/math/timer.hpp",
+    "include/th10/game/bomb.hpp"
   ],
   "included_sources": [
     "layout/ltcg/player_initialize_00405860_dependencies/entity_init.cpp",
@@ -169,6 +170,11 @@
     },
     {
       "symbol": "_data_00476f78",
+      "address": "0x476f78",
+      "kind": "data"
+    },
+    {
+      "symbol": "?g_score_default_speed@@3MA",
       "address": "0x476f78",
       "kind": "data"
     },
