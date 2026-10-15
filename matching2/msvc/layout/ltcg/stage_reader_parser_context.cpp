@@ -29,8 +29,8 @@ __declspec(noinline) int FindNamedValue(const char* name, const NamedValue* tabl
 
 // Synthetic root: keeps the parser address-taken, as it is for its retail callers.
 #pragma code_seg(".text$p10b_context")
-extern "C" __declspec(noinline) void* __stdcall StageTipParserContext() {
-    return ParseStageTips;
+extern "C" __declspec(noinline) void* __stdcall HintParserContext() {
+    return Hint_ParseData;
 }
 #pragma code_seg()
 #include "../../src/game/hint/script_text_reader.cpp"

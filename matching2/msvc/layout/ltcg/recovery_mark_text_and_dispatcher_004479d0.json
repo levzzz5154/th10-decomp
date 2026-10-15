@@ -47,31 +47,31 @@
       "source": "src/core/sprtlib/recovery_mark_text_and_dispatcher_004479d0.cpp"
     },
     {
-      "name": "RecoveryIndicatorState_00419120::Update",
-      "symbol": "?Update@RecoveryIndicatorState_00419120@@QAEHXZ",
+      "name": "HintUpdateView::Update",
+      "symbol": "?Update@HintUpdateView@@QAEHXZ",
       "section": ".text$00419650_fn",
       "address": "0x00419650",
       "size": 571,
       "actual_abi": "Retail: manager EBX; EAX=1; plain RET",
-      "source": "src/game/hint/stage_focus_fade.cpp"
+      "source": "src/game/hint/hint_update.cpp"
     },
     {
-      "name": "RecoveryIndicator_UpdateCallback_004198a0",
-      "symbol": "?RecoveryIndicator_UpdateCallback_004198a0@@YIHPAURecoveryIndicatorState_00419120@@@Z",
+      "name": "Hint_OnUpdate",
+      "symbol": "?Hint_OnUpdate@@YIHPAUHintUpdateView@@@Z",
       "section": ".text$004198a0_fn",
       "address": "0x004198A0",
       "size": 10,
       "actual_abi": "__fastcall: manager ECX; plain RET",
-      "source": "src/game/hint/recovery_invoke_void_004198a0.cpp"
+      "source": "src/game/hint/hint_on_update.cpp"
     },
     {
-      "name": "RecoveryIndicatorLink_00419120::Drain",
-      "symbol": "?Drain@RecoveryIndicatorLink_00419120@@QAEHPAURecoveryIndicatorState_00419120@@H@Z",
+      "name": "HintLink_00419120::Drain",
+      "symbol": "?Drain@HintLink_00419120@@QAEHPAUHintUpdateView@@H@Z",
       "section": ".text$00419120_fn",
       "address": "0x00419120",
       "size": 1317,
       "actual_abi": "Retail: queue head EAX; manager and release flag on the stack; RET 8",
-      "source": "src/game/hint/effect_indicator_queue.cpp"
+      "source": "src/game/hint/hint_drain_queue.cpp"
     }
   ],
   "anchors": [
@@ -280,7 +280,7 @@
     },
     {
       "name": "RecoveryPlayerAnimationCreate_00448db0",
-      "symbol": "?RecoveryPlayerAnimationCreate_00448db0@@YGPAPAXPAXPAPAXHPBURecoveryIndicatorPosition_00419120@@@Z",
+      "symbol": "?RecoveryPlayerAnimationCreate_00448db0@@YGPAPAXPAXPAPAXHPBUHintPosition_00419120@@@Z",
       "section": ".text$00448db0_fn",
       "address": "0x00448DB0",
       "size": 118
@@ -293,15 +293,15 @@
       "size": 136
     },
     {
-      "name": "RecoveryIndicatorVm_FormatRightAligned",
-      "symbol": "?FormatRightAligned@RecoveryIndicatorVm_00419120@@QAAXPAXZZ",
+      "name": "HintVm_FormatRightAligned",
+      "symbol": "?FormatRightAligned@HintVm_00419120@@QAAXPAXZZ",
       "section": ".text$00447ae0_fn",
       "address": "0x00447AE0",
       "size": 204
     },
     {
-      "name": "RecoveryIndicatorVm_FormatCentered",
-      "symbol": "?FormatCentered@RecoveryIndicatorVm_00419120@@QAAXPAXZZ",
+      "name": "HintVm_FormatCentered",
+      "symbol": "?FormatCentered@HintVm_00419120@@QAAXPAXZZ",
       "section": ".text$00447bb0_fn",
       "address": "0x00447BB0",
       "size": 194
@@ -1453,17 +1453,17 @@
     "layout/ltcg/marktext_dispatcher_context/recovery_script_executor_anchor_0044c150.cpp",
     "layout/ltcg/marktext_dispatcher_context/recovery_script_executor_anchor_0044b360.cpp",
     "layout/ltcg/marktext_dispatcher_context/recovery_script_executor_creation_anchors.cpp",
-    "src/game/hint/effect_indicator_queue.cpp",
+    "src/game/hint/hint_drain_queue.cpp",
     "layout/ltcg/marktext_dispatcher_context/recovery_script_executor_indicator_anchors.cpp",
     "layout/ltcg/marktext_dispatcher_context/recovery_script_executor_text_sibling_anchors.cpp",
     "layout/ltcg/marktext_dispatcher_context/recovery_script_executor_caller_00433ef0.cpp",
     "layout/ltcg/marktext_dispatcher_context/recovery_script_executor_0040bd80.cpp",
     "layout/ltcg/marktext_dispatcher_context/recovery_animation_slot_frames_0042c6d0.cpp",
     "layout/ltcg/marktext_dispatcher_context/recovery_script_executor_text_anchors.cpp",
-    "src/game/hint/stage_focus_fade.cpp",
-    "src/game/hint/recovery_invoke_void_004198a0.cpp"
+    "src/game/hint/hint_update.cpp",
+    "src/game/hint/hint_on_update.cpp"
   ],
   "roots": [
-    "?RecoveryIndicator_UpdateCallback_004198a0@@YIHPAURecoveryIndicatorState_00419120@@@Z"
+    "?Hint_OnUpdate@@YIHPAUHintUpdateView@@@Z"
   ]
 }

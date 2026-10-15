@@ -12,16 +12,16 @@ extern "C" float recovery_indicator_half_00470b0c;
 extern "C" float recovery_indicator_three_quarters_00470ce4;
 extern "C" void __cdecl recovery_indicator_free_004524a1(void* object);
 
-struct RecoveryIndicatorThread_00419120 {
+struct HintThread_00419120 {
     unsigned char reserved_000[0x899C];
     void* resource;
 };
-struct RecoveryIndicatorScalePair_00419120 {
+struct HintScalePair_00419120 {
     float x;
     float y;
 };
 
-static inline RecoveryIndicatorVm_00419120* FindIndicatorInline(
+static inline HintVm_00419120* FindIndicatorInline(
         void* manager, unsigned int id) {
     if (id == 0)
         return 0;
@@ -30,22 +30,22 @@ static inline RecoveryIndicatorVm_00419120* FindIndicatorInline(
     for (RecoveryLookupNode_0040bd80* node = context->primary;
          node != 0; node = node->next)
         if (*reinterpret_cast<unsigned int*>(node->object) == id)
-            return reinterpret_cast<RecoveryIndicatorVm_00419120*>(node->object);
+            return reinterpret_cast<HintVm_00419120*>(node->object);
     for (RecoveryLookupNode_0040bd80* node = context->secondary;
          node != 0; node = node->next)
         if (*reinterpret_cast<unsigned int*>(node->object) == id)
-            return reinterpret_cast<RecoveryIndicatorVm_00419120*>(node->object);
+            return reinterpret_cast<HintVm_00419120*>(node->object);
     return 0;
 }
 
 #pragma code_seg(".text$00419120_fn")
-int RecoveryIndicatorLink_00419120::Drain(
-        RecoveryIndicatorState_00419120* state, int release) {
-    RecoveryIndicatorLink_00419120* current = this;
+int HintLink_00419120::Drain(
+        HintUpdateView* state, int release) {
+    HintLink_00419120* current = this;
     void* manager = data_00491c10;
     while (current != 0) {
-        RecoveryIndicatorLink_00419120* next = current->next;
-        RecoveryIndicatorEntry_00419120* entry = current->object;
+        HintLink_00419120* next = current->next;
+        HintEntry_00419120* entry = current->object;
         if (entry->owner_tag == 0 ||
             entry->owner_tag == recovery_indicator_owner_00474c84)
             --entry->countdown;
@@ -55,24 +55,24 @@ int RecoveryIndicatorLink_00419120::Drain(
         }
 
         unsigned int* old_handle = &state->handles[state->slot];
-        RecoveryIndicatorVm_00419120* old_vm =
+        HintVm_00419120* old_vm =
             FindIndicatorInline(manager, *old_handle);
         if (old_vm != 0) {
             old_vm->flags |= 0x04000000u;
             if (!old_vm->children_flagged)
-                for (RecoveryIndicatorVmLink_00419120* child = old_vm->children;
+                for (HintVmLink_00419120* child = old_vm->children;
                      child != 0; child = child->next)
                     child->object->flags |= 0x04000000u;
         }
         *old_handle = 0;
         entry->position.y += entry->intensity * recovery_indicator_eight_00470bd0;
 
-        RecoveryIndicatorVm_00419120* vm;
+        HintVm_00419120* vm;
         if (entry->intensity <= recovery_indicator_one_00470afc) {
             void* result;
             state->handles[state->slot] = reinterpret_cast<unsigned int>(
                 *RecoveryPlayerAnimationCreate_00448db0(
-                    static_cast<RecoveryIndicatorThread_00419120*>(g_ascii_manager)->resource,
+                    static_cast<HintThread_00419120*>(g_ascii_manager)->resource,
                     &result, state->slot + 2, &entry->position));
             manager = data_00491c10;
             unsigned int* handle = &state->handles[state->slot];
@@ -81,10 +81,10 @@ int RecoveryIndicatorLink_00419120::Drain(
                 *handle = 0;
             vm->font_width = 15;
             vm->font_height = 15;
-            RecoveryIndicatorScalePair_00419120 source = {
+            HintScalePair_00419120 source = {
                 entry->intensity, entry->intensity
             };
-            RecoveryIndicatorScalePair_00419120 destination = {
+            HintScalePair_00419120 destination = {
                 entry->intensity * recovery_indicator_three_halves_00470ca8, 0.0f
             };
             reinterpret_cast<EntityMovementSlot_0041ab70*>(vm)->Initialise(
@@ -94,11 +94,11 @@ int RecoveryIndicatorLink_00419120::Drain(
             void* result;
             state->handles[state->slot] = reinterpret_cast<unsigned int>(
                 *RecoveryPlayerAnimationCreate_00448db0(
-                    static_cast<RecoveryIndicatorThread_00419120*>(g_ascii_manager)->resource,
+                    static_cast<HintThread_00419120*>(g_ascii_manager)->resource,
                     &result, state->slot + 12, &entry->position));
             unsigned int* handle = &state->handles[state->slot];
             RecoveryScriptId_0040bd80 id = { static_cast<int>(*handle) };
-            vm = static_cast<RecoveryIndicatorVm_00419120*>(
+            vm = static_cast<HintVm_00419120*>(
                 reinterpret_cast<RecoveryLookup_0040bd80*>(data_00491c10)->Find(
                     static_cast<RecoveryLookupContext_0040bd80*>(data_00491c10), id));
             if (vm == 0)
@@ -107,11 +107,11 @@ int RecoveryIndicatorLink_00419120::Drain(
                 static_cast<int>(entry->intensity * recovery_indicator_fifteen_00470c08));
             vm->font_width = font_size;
             vm->font_height = font_size;
-            RecoveryIndicatorScalePair_00419120 source = {
+            HintScalePair_00419120 source = {
                 entry->intensity * recovery_indicator_half_00470b0c,
                 entry->intensity * recovery_indicator_half_00470b0c
             };
-            RecoveryIndicatorScalePair_00419120 destination = {
+            HintScalePair_00419120 destination = {
                 entry->intensity * recovery_indicator_three_quarters_00470ce4, 0.0f
             };
             reinterpret_cast<EntityMovementSlot_0041ab70*>(vm)->Initialise(
@@ -122,23 +122,23 @@ int RecoveryIndicatorLink_00419120::Drain(
             void* result;
             state->handles[state->slot] = reinterpret_cast<unsigned int>(
                 *RecoveryPlayerAnimationCreate_00448db0(
-                    static_cast<RecoveryIndicatorThread_00419120*>(g_ascii_manager)->resource,
+                    static_cast<HintThread_00419120*>(g_ascii_manager)->resource,
                     &result, state->slot + 12, &entry->position));
             manager = data_00491c10;
             unsigned int* handle = &state->handles[state->slot];
             RecoveryScriptId_0040bd80 id = { static_cast<int>(*handle) };
-            vm = static_cast<RecoveryIndicatorVm_00419120*>(
+            vm = static_cast<HintVm_00419120*>(
                 reinterpret_cast<RecoveryLookup_0040bd80*>(manager)->Find(
                     static_cast<RecoveryLookupContext_0040bd80*>(manager), id));
             if (vm == 0)
                 *handle = 0;
             vm->font_width = 30;
             vm->font_height = 30;
-            RecoveryIndicatorScalePair_00419120 source = {
+            HintScalePair_00419120 source = {
                 entry->intensity * recovery_indicator_half_00470b0c,
                 entry->intensity * recovery_indicator_half_00470b0c
             };
-            RecoveryIndicatorScalePair_00419120 destination = {
+            HintScalePair_00419120 destination = {
                 entry->intensity * recovery_indicator_three_quarters_00470ce4, 0.0f
             };
             reinterpret_cast<EntityMovementSlot_0041ab70*>(vm)->Initialise(

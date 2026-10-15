@@ -3,7 +3,7 @@ extern "C" void* __cdecl memset(void*, int, unsigned int);
 extern "C" unsigned char data_00477844;
 
 #pragma code_seg(".text$00binit")
-// 0x0042BB30..0x0042BBC0: construct the script tester (SptTest; its embedded script object has vtable 0x004703E4). Nothing calls it: the debug tool is unreachable in retail.
+// 0x0042BB30..0x0042BBC0: construct the script tester (SptTest; its embedded script object has vtable 0x004703E4). Its only caller is the create function 0x0042BF30, which nothing calls: the debug tool is unreachable in retail.
 extern "C" __declspec(noinline) SptTestState* __fastcall SptTest_Construct(
     int unused, SptTestState* state) {
     (void)unused;

@@ -10,12 +10,12 @@
   "description": "Stage-tip parser with its line reader; splitter, trimmer, list and loader bodies are ABI anchors.",
   "functions": [
     {
-      "name": "ParseStageTips",
-      "symbol": "_ParseStageTips@12",
+      "name": "Hint_ParseData",
+      "symbol": "_Hint_ParseData@12",
       "section": ".text$p01parser",
       "address": "0x00419960",
       "size": 1498,
-      "source": "src/game/hint/stage_tip_parser.cpp",
+      "source": "src/game/hint/hint_parse_data.cpp",
       "actual_abi": "manager, file name and duplicate flag on the stack; RET 12"
     },
     {
@@ -357,10 +357,10 @@
   ],
   "driver": "layout/ltcg/stage_reader_parser_context.cpp",
   "additional_sources": [
-    "src/game/hint/stage_tip_parser.cpp"
+    "src/game/hint/hint_parse_data.cpp"
   ],
   "context": {
-    "symbol": "_StageTipParserContext@0",
+    "symbol": "_HintParserContext@0",
     "section": ".text$p10b_context",
     "address": "0x0041AB50",
     "size": 6,

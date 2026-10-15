@@ -4,7 +4,7 @@
 #include "th10/game/marktext_dispatcher_context/recovery_script_executor_caller_00419120.hpp"
 
 #pragma code_seg(".text$004198a0_fn")
-int __fastcall RecoveryIndicator_UpdateCallback_004198a0(RecoveryIndicatorState_00419120* manager) {
+int __fastcall Hint_OnUpdate(HintUpdateView* manager) {
     return manager->Update();
 }
 #pragma code_seg()

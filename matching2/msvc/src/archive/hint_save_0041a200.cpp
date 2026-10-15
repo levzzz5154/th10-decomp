@@ -1,5 +1,5 @@
 // 0x0041A200 (_SaveHints@8): regenerate hint/hint_auto.txt, the auto-generated
-// stage-tip file. The eight stage lists of the resource manager are written
+// hint file. The eight stage lists of the resource manager are written
 // out one after another as "Stage : N ... StageEnd" blocks, and every tip that
 // the run actually showed (selection != 0) contributes one "Tips" record with
 // its text, position, counters and display attributes. The header carries a
@@ -92,7 +92,7 @@ extern "C" __declspec(noinline) int __stdcall SaveHints(Manager_00419040* manage
             if (entry != 0) {
                 do {
                     next = entry->next;
-                    StageTip* tip = static_cast<StageTip*>(entry->block);
+                    HintData* tip = static_cast<HintData*>(entry->block);
                     if (tip->selection != 0) {
                         if (rows == 0)
                             asm_sprintf_00452ae8(buffer, data_0046d3f8);

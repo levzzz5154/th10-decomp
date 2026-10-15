@@ -1,4 +1,4 @@
-// Complete effect-pool allocation/initialization/registration factory.
+// 0x0042BF30: create the script tester (SptTest): allocate, construct, register its tasks. Nothing calls it.
 #include "th10/game/spt_test_state.hpp"
 #include "th10/game/spt_test_tasks.hpp"
 void* __cdecl operator new(unsigned int);

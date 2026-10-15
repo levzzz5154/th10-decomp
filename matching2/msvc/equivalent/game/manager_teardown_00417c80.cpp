@@ -182,7 +182,7 @@ void __stdcall ReleaseGlobalManager_00417c80(ManagerState_00417c80* state) {
             ScoreExtendedObject_DestroyRetail_0041c1c0(score_extended);
             entry_free_004524a1(score_extended);
         }
-        void* resource_state = data_00477814;
+        void* resource_state = g_hint;
         if (resource_state) {
             ResourceCleanup_00418ee0(resource_state);
             entry_free_004524a1(resource_state);

@@ -337,7 +337,7 @@
     },
     {
       "name": "RecoveryPlayerAnimationCreate_00448db0",
-      "symbol": "?RecoveryPlayerAnimationCreate_00448db0@@YGPAPAXPAXPAPAXHPBURecoveryIndicatorPosition_00419120@@@Z",
+      "symbol": "?RecoveryPlayerAnimationCreate_00448db0@@YGPAPAXPAXPAPAXHPBUHintPosition_00419120@@@Z",
       "section": ".text$00448db0_fn",
       "address": "0x00448DB0",
       "size": 118
@@ -350,15 +350,15 @@
       "size": 136
     },
     {
-      "name": "RecoveryIndicatorVm_FormatRightAligned",
-      "symbol": "?FormatRightAligned@RecoveryIndicatorVm_00419120@@QAAXPAXZZ",
+      "name": "HintVm_FormatRightAligned",
+      "symbol": "?FormatRightAligned@HintVm_00419120@@QAAXPAXZZ",
       "section": ".text$00447ae0_fn",
       "address": "0x00447AE0",
       "size": 204
     },
     {
-      "name": "RecoveryIndicatorVm_FormatCentered",
-      "symbol": "?FormatCentered@RecoveryIndicatorVm_00419120@@QAAXPAXZZ",
+      "name": "HintVm_FormatCentered",
+      "symbol": "?FormatCentered@HintVm_00419120@@QAAXPAXZZ",
       "section": ".text$00447bb0_fn",
       "address": "0x00447BB0",
       "size": 194
@@ -434,8 +434,8 @@
       "size": 1500
     },
     {
-      "name": "RecoveryIndicatorLink_Drain",
-      "symbol": "?Drain@RecoveryIndicatorLink_00419120@@QAEHPAURecoveryIndicatorState_00419120@@H@Z",
+      "name": "HintLink_Drain",
+      "symbol": "?Drain@HintLink_00419120@@QAEHPAUHintUpdateView@@H@Z",
       "section": ".text$00419120_fn",
       "address": "0x00419120",
       "size": 1343

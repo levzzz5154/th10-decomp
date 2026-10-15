@@ -92,7 +92,7 @@ extern "C" __declspec(noinline) int __stdcall SaveHints(Manager_00419040* manage
             if (entry != 0) {
                 do {
                     next = entry->next;
-                    StageTip* tip = static_cast<StageTip*>(entry->block);
+                    HintData* tip = static_cast<HintData*>(entry->block);
                     if (tip->selection != 0) {
                         if (rows == 0)
                             asm_sprintf_00452ae8(buffer, data_0046d3f8);

@@ -345,7 +345,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_CreateStageTips",
+      "symbol": "_Hint_Create",
       "address": "0x419090",
       "kind": "relative_code"
     },

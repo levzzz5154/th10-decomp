@@ -8,7 +8,7 @@
 #undef data_00491c10
 #pragma code_seg()
 #define code_seg(name) code_seg(".text$0041a120_fn")
-#include "../../../src/game/hint/stage_tip_create_retail_0041a120.cpp"
+#include "../../../src/game/hint/hint_data_create.cpp"
 #undef code_seg
 #pragma code_seg()
 #define code_seg(name) code_seg(".text$00424650_fn")

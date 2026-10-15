@@ -89,7 +89,7 @@
     },
     {
       "name": "format",
-      "symbol": "?FormatRightAligned@RecoveryIndicatorVm_00419120@@QAAXPAXZZ",
+      "symbol": "?FormatRightAligned@HintVm_00419120@@QAAXPAXZZ",
       "section": ".text$00447ae0_fn",
       "address": "0x00447AE0",
       "size": 204

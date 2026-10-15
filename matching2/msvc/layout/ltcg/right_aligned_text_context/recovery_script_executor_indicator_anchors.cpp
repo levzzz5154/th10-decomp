@@ -14,13 +14,13 @@ extern "C" float recovery_indicator_y_origin_00470b48;
 #pragma code_seg(".text$00448db0_fn")
 void** __stdcall RecoveryPlayerAnimationCreate_00448db0(
         void* resource, void** result, int script,
-        const RecoveryIndicatorPosition_00419120* position) {
+        const HintPosition_00419120* position) {
     unsigned char* object = static_cast<unsigned char*>(
         asm_FUN_00449950_00449950(data_00491c10));
     *reinterpret_cast<unsigned int*>(object + 0x35C) |= 0x40000000u;
     *reinterpret_cast<int*>(object + 0x20) = 0;
-    RecoveryIndicatorPosition_00419120* object_position =
-        reinterpret_cast<RecoveryIndicatorPosition_00419120*>(object + 0x340);
+    HintPosition_00419120* object_position =
+        reinterpret_cast<HintPosition_00419120*>(object + 0x340);
     object_position->x = position->x + recovery_indicator_x_origin_00470b4c;
     object_position->y = position->y + recovery_indicator_y_origin_00470b48;
     object_position->z = position->z;

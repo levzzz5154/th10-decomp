@@ -1,25 +1,25 @@
 #include <string.h>
 #include "stage_tip.hpp"
-static void SetOwner_00418d40(StageTipRecord* record,
-                             StageTipManager* owner) {
+static void SetOwner_00418d40(HintDataRecord* record,
+                             Hint* owner) {
     record->owner = owner;
 }
 
-static void SetOwnerPair_00418d40(StageTipRecord* record,
-                                 StageTipManager* owner) {
+static void SetOwnerPair_00418d40(HintDataRecord* record,
+                                 Hint* owner) {
     record[0].owner = owner;
     record[1].owner = owner;
 }
 
-static void ClearRecord_00418d40(StageTipRecord* record) {
+static void ClearRecord_00418d40(HintDataRecord* record) {
     record->unknown_04 = 0;
     record->unknown_08 = 0;
 }
 
 #pragma code_seg(".text$a00construct")
-StageTipManager* StageTipManager::InitializeLayout() {
-    StageTipManager* manager = this;
-    memset(manager, 0, sizeof(StageTipManager));
+Hint* Hint::InitializeLayout() {
+    Hint* manager = this;
+    memset(manager, 0, sizeof(Hint));
     manager->flags |= 2;
     SetOwnerPair_00418d40(&manager->records[0], manager);
     ClearRecord_00418d40(&manager->records[0]);
@@ -51,7 +51,7 @@ StageTipManager* StageTipManager::InitializeLayout() {
     ClearRecord_00418d40(&manager->records[14]);
     SetOwner_00418d40(&manager->records[15], manager);
     ClearRecord_00418d40(&manager->records[15]);
-    data_00477814 = manager;
+    g_hint = manager;
     return manager;
 }
 #pragma code_seg()

@@ -24,16 +24,16 @@ extern "C" const char EmptyCardText[];
 static inline ScoreManager* Scores() { return reinterpret_cast<ScoreManager*>(data_0047783c); }
 
 // The animation with this id, searching both of the manager's lists.
-static inline RecoveryIndicatorVm_00419120* FindAnimation(void* manager, unsigned int id) {
+static inline HintVm_00419120* FindAnimation(void* manager, unsigned int id) {
     if (id == 0)
         return 0;
     RecoveryLookupContext_0040bd80* context = static_cast<RecoveryLookupContext_0040bd80*>(manager);
     for (RecoveryLookupNode_0040bd80* node = context->primary; node != 0; node = node->next)
         if (*reinterpret_cast<unsigned int*>(node->object) == id)
-            return reinterpret_cast<RecoveryIndicatorVm_00419120*>(node->object);
+            return reinterpret_cast<HintVm_00419120*>(node->object);
     for (RecoveryLookupNode_0040bd80* node = context->secondary; node != 0; node = node->next)
         if (*reinterpret_cast<unsigned int*>(node->object) == id)
-            return reinterpret_cast<RecoveryIndicatorVm_00419120*>(node->object);
+            return reinterpret_cast<HintVm_00419120*>(node->object);
     return 0;
 }
 
@@ -52,7 +52,7 @@ int TitleMenu_00431410::BuildSpellList() {
         if (spell >= SCORE_SPELL_COUNT) {
             for (; line < 10; ++line) {
                 void* manager = data_00491c10;
-                RecoveryIndicatorVm_00419120* text = FindAnimation(manager, spell_lines[line]);
+                HintVm_00419120* text = FindAnimation(manager, spell_lines[line]);
                 if (text == 0)
                     spell_lines[line] = 0;
                 text->FormatCentered(manager, 0xFFFFFFFF, EmptyCardText);
@@ -70,7 +70,7 @@ int TitleMenu_00431410::BuildSpellList() {
             name[length] = '\0';
             ScoreRecordSection* record = &Scores()->records[cursor];
             void* manager = data_00491c10;
-            RecoveryIndicatorVm_00419120* text = FindAnimation(manager, spell_lines[line]);
+            HintVm_00419120* text = FindAnimation(manager, spell_lines[line]);
             if (text == 0)
                 spell_lines[line] = 0;
             text->FormatCentered(manager, record->spells[spell].captures != 0 ? 0xFFFF80 : 0xEFEFEF,
@@ -80,7 +80,7 @@ int TitleMenu_00431410::BuildSpellList() {
         } else {
             ScoreRecordSection* record = &Scores()->records[cursor];
             void* manager = data_00491c10;
-            RecoveryIndicatorVm_00419120* text = FindAnimation(manager, spell_lines[line]);
+            HintVm_00419120* text = FindAnimation(manager, spell_lines[line]);
             if (text == 0)
                 spell_lines[line] = 0;
             text->FormatCentered(

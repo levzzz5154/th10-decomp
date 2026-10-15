@@ -14,8 +14,8 @@ __declspec(noinline) int __stdcall TitleDispatcher_Update_0042cdf0(RecoveryMusic
 #pragma code_seg(".text$0040a000_context")
 extern "C" int __stdcall KeyConfigUpdateCompilerContext(
     RecoveryScriptState_0040bd80* script,
-    RecoveryIndicatorLink_00419120* head,
-    RecoveryIndicatorState_00419120* indicator, int release,
+    HintLink_00419120* head,
+    HintUpdateView* indicator, int release,
     RecoveryMusicRoom_00433ef0* music_room, void** objects) {
     objects[0] = &data_00474e88;
     objects[1] = &data_00491d4c;

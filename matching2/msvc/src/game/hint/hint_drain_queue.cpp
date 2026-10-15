@@ -8,35 +8,35 @@
 extern "C" int recovery_indicator_owner_00474c84;
 extern "C" void __cdecl recovery_indicator_free_004524a1(void* object);
 
-struct RecoveryIndicatorScalePair_00419120 {
+struct HintScalePair_00419120 {
     float x;
     float y;
 };
 
-struct RecoveryIndicatorThread_00419120 {
+struct HintThread_00419120 {
     unsigned char reserved_000[0x899C];
     void* text_animations;    // the loaded text animation file
 };
-extern "C" RecoveryIndicatorThread_00419120* g_ascii_manager;
+extern "C" HintThread_00419120* g_ascii_manager;
 
-static __forceinline RecoveryIndicatorHandle_00419120* AsHandle(void** result) {
-    return reinterpret_cast<RecoveryIndicatorHandle_00419120*>(result);
+static __forceinline HintHandle_00419120* AsHandle(void** result) {
+    return reinterpret_cast<HintHandle_00419120*>(result);
 }
 
-static inline void StartScale(RecoveryIndicatorVm_00419120* vm,
-        RecoveryIndicatorScalePair_00419120* to, RecoveryIndicatorScalePair_00419120* from) {
+static inline void StartScale(HintVm_00419120* vm,
+        HintScalePair_00419120* to, HintScalePair_00419120* from) {
     reinterpret_cast<EntityMovementSlot_0041ab70*>(vm)->Initialise(
         reinterpret_cast<const MovementPair_0041ab70*>(to),
         reinterpret_cast<const MovementPair_0041ab70*>(from), 8, 4);
 }
 
 #pragma code_seg(".text$00419120_fn")
-int RecoveryIndicatorLink_00419120::Drain(
-        RecoveryIndicatorState_00419120* state, int release) {
-    RecoveryIndicatorLink_00419120* next;
-    for (RecoveryIndicatorLink_00419120* current = this; current != 0; current = next) {
+int HintLink_00419120::Drain(
+        HintUpdateView* state, int release) {
+    HintLink_00419120* next;
+    for (HintLink_00419120* current = this; current != 0; current = next) {
         next = current->next;
-        RecoveryIndicatorEntry_00419120* entry = current->object;
+        HintEntry_00419120* entry = current->object;
         if (entry->owner_tag == 0 ||
             entry->owner_tag == recovery_indicator_owner_00474c84)
             --entry->countdown;
@@ -47,7 +47,7 @@ int RecoveryIndicatorLink_00419120::Drain(
         IndicatorHandle_Remove(state->handles[state->slot]);
         entry->position.y += entry->intensity * 8.0f;
 
-        RecoveryIndicatorVm_00419120* vm;
+        HintVm_00419120* vm;
         if (entry->intensity <= 1.0f) {
             void* animations = g_ascii_manager->text_animations;
             void* created;
@@ -56,10 +56,10 @@ int RecoveryIndicatorLink_00419120::Drain(
             vm = IndicatorHandle_GetInline(state->handles[state->slot]);
             vm->font_width = 15;
             vm->font_height = 15;
-            RecoveryIndicatorScalePair_00419120 from = {
+            HintScalePair_00419120 from = {
                 entry->intensity, entry->intensity
             };
-            RecoveryIndicatorScalePair_00419120 to = {
+            HintScalePair_00419120 to = {
                 entry->intensity * 1.5f, 0.0f
             };
             StartScale(vm, &to, &from);
@@ -71,10 +71,10 @@ int RecoveryIndicatorLink_00419120::Drain(
             vm = IndicatorHandle_Get(state->handles[state->slot]);
             vm->font_width = static_cast<unsigned char>(entry->intensity * 15.0f);
             vm->font_height = vm->font_width;
-            RecoveryIndicatorScalePair_00419120 to = {
+            HintScalePair_00419120 to = {
                 entry->intensity * 0.75f, 0.0f
             };
-            RecoveryIndicatorScalePair_00419120 from = {
+            HintScalePair_00419120 from = {
                 entry->intensity * 0.5f, entry->intensity * 0.5f
             };
             StartScale(vm, &to, &from);
@@ -86,10 +86,10 @@ int RecoveryIndicatorLink_00419120::Drain(
             vm = IndicatorHandle_Get(state->handles[state->slot]);
             vm->font_width = 30;
             vm->font_height = 30;
-            RecoveryIndicatorScalePair_00419120 to = {
+            HintScalePair_00419120 to = {
                 entry->intensity * 0.75f, 0.0f
             };
-            RecoveryIndicatorScalePair_00419120 from = {
+            HintScalePair_00419120 from = {
                 entry->intensity * 0.5f, entry->intensity * 0.5f
             };
             StartScale(vm, &to, &from);

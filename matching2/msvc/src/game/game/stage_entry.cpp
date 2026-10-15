@@ -62,7 +62,7 @@ void* __stdcall CreateProjectiles();
 void* __stdcall CreateEffects();
 void* __cdecl CreateScore();
 void* __stdcall CreateTimerResources();
-void* __cdecl CreateStageTips();
+void* __cdecl Hint_Create();
 void* __cdecl CreateLargeResources();
 int __stdcall SetupScoreTask(void* task);
 void* __stdcall CreateEnemies(const char* file);
@@ -155,7 +155,7 @@ extern "C" __declspec(noinline) int __stdcall StageStartup(StageStartup_00417870
         if (!CreateEffects()) goto failed;
         if (!CreateScore()) goto failed;
         if (!CreateTimerResources()) goto failed;
-        if (!CreateStageTips()) goto failed;
+        if (!Hint_Create()) goto failed;
         if (!CreateLargeResources()) goto failed;
     } else {
         reinterpret_cast<ReplayManager_0042a6a0*>(data_00477838)->BeginStage();

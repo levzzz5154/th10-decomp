@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "name": "native_stage_tip",
-  "source": "src/game/hint/native_stage_tip.cpp",
+  "source": "src/game/hint/hint.cpp",
   "included_sources": [
     "layout/ltcg/native_stage_tip/construct.cpp",
     "layout/ltcg/native_stage_tip/initialize.cpp",
@@ -18,7 +18,7 @@
   "functions": [
     {
       "name": "Initialize",
-      "symbol": "_StageTipInitialize@4",
+      "symbol": "_Hint_Initialize@4",
       "section": ".text$a02initialize",
       "address": "0x418e30",
       "size": 131,
@@ -26,7 +26,7 @@
     },
     {
       "name": "Factory",
-      "symbol": "?StageTipCreate@@YAPAUStageTipManager@@XZ",
+      "symbol": "?Hint_Create@@YAPAUHint@@XZ",
       "section": ".text$a04factory",
       "address": "0x419090",
       "size": 67,
@@ -34,7 +34,7 @@
     },
     {
       "name": "Construct",
-      "symbol": "?InitializeLayout@StageTipManager@@QAEPAU1@XZ",
+      "symbol": "?InitializeLayout@Hint@@QAEPAU1@XZ",
       "section": ".text$a00construct",
       "address": "0x418d40",
       "size": 237,
@@ -143,7 +143,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_data_00477814",
+      "symbol": "_g_hint",
       "address": "0x00477814",
       "kind": "data"
     },
@@ -153,17 +153,17 @@
       "kind": "relative_code"
     }
   ],
-  "entry": "?StageTipCreate@@YAPAUStageTipManager@@XZ",
+  "entry": "?Hint_Create@@YAPAUHint@@XZ",
   "calls": [
     {
-      "caller": "?StageTipCreate@@YAPAUStageTipManager@@XZ",
-      "callee": "_StageTipInitialize@4",
+      "caller": "?Hint_Create@@YAPAUHint@@XZ",
+      "callee": "_Hint_Initialize@4",
       "address": "0x4190af",
       "instruction": "call"
     },
     {
-      "caller": "?StageTipCreate@@YAPAUStageTipManager@@XZ",
-      "callee": "?InitializeLayout@StageTipManager@@QAEPAU1@XZ",
+      "caller": "?Hint_Create@@YAPAUHint@@XZ",
+      "callee": "?InitializeLayout@Hint@@QAEPAU1@XZ",
       "address": "0x4190a4",
       "instruction": "call"
     }

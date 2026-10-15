@@ -763,12 +763,12 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "?FormatCentered@RecoveryIndicatorVm_00419120@@QAAXPAXZZ",
+      "symbol": "?FormatCentered@HintVm_00419120@@QAAXPAXZZ",
       "address": "0x447bb0",
       "kind": "relative_code"
     },
     {
-      "symbol": "?FormatRightAligned@RecoveryIndicatorVm_00419120@@QAAXPAXZZ",
+      "symbol": "?FormatRightAligned@HintVm_00419120@@QAAXPAXZZ",
       "address": "0x447ae0",
       "kind": "relative_code"
     },

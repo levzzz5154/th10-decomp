@@ -6,7 +6,7 @@
   "included_sources": [
     "layout/ltcg/spell_timeout_004269d0/set_active_count.cpp",
     "src/core/sprtanim/animation_object_load_script_0043e710.cpp",
-    "src/game/hint/stage_tip_create_retail_0041a120.cpp",
+    "src/game/hint/hint_data_create.cpp",
     "src/game/pause/stage_tip_create_urgent_00424650.cpp"
   ],
   "headers": [
@@ -16,8 +16,8 @@
     "include/th10/game/pause_result_open_004231d0/open_animation.hpp",
     "include/th10/game/pause_result_open_004231d0/open_state.hpp",
     "include/th10/game/player_die.hpp",
-    "include/th10/game/stage_tip_create.hpp",
-    "include/th10/game/stage_tips.hpp",
+    "include/th10/game/hint_data_create.hpp",
+    "include/th10/game/hint_data.hpp",
     "include/th10/render/resource_registrar_0043e460.hpp",
     "include/th10/types.hpp",
     "include/th10/game/player.hpp",
@@ -51,15 +51,15 @@
       "size": 77
     },
     {
-      "name": "StageTip_Create",
-      "symbol": "?StageTip_Create_0041a120@@YGPAUStageTip@@PAUStageTipManager@@PBDPBUStageTipPosition@@@Z",
+      "name": "HintData_Create",
+      "symbol": "?HintData_Create_0041a120@@YGPAUHintData@@PAUHint@@PBDPBUHintDataPosition@@@Z",
       "section": ".text$0041a120_fn",
       "address": "0x0041A120",
       "size": 220
     },
     {
-      "name": "StageTip_CreateUrgent",
-      "symbol": "?StageTip_CreateUrgent_00424650@@YGPAUStageTip@@PAUStageTipManager@@PBDPBUStageTipPosition@@@Z",
+      "name": "HintData_CreateUrgent",
+      "symbol": "?HintData_CreateUrgent_00424650@@YGPAUHintData@@PAUHint@@PBDPBUHintDataPosition@@@Z",
       "section": ".text$00424650_fn",
       "address": "0x00424650",
       "size": 104
@@ -167,7 +167,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00477814",
+      "symbol": "_g_hint",
       "address": "0x477814",
       "kind": "data"
     },

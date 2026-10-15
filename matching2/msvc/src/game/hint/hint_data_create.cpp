@@ -7,9 +7,9 @@
 // position in EBX.
 #include <string.h>
 
-#include "th10/game/stage_tip_create.hpp"
+#include "th10/game/hint_data_create.hpp"
 
-StageTip::StageTip() {
+HintData::HintData() {
     memset(this, 0, sizeof(*this));
     node.Initialize(this);
     state = -1;
@@ -19,9 +19,9 @@ StageTip::StageTip() {
 }
 
 #pragma code_seg(".text$01create")
-__declspec(noinline) StageTip* __stdcall StageTip_Create_0041a120(
-        StageTipManager* manager, const char* text, const StageTipPosition* position) {
-    StageTip* tip = new StageTip;
+__declspec(noinline) HintData* __stdcall HintData_Create_0041a120(
+        Hint* manager, const char* text, const HintDataPosition* position) {
+    HintData* tip = new HintData;
     manager->lists[8 + GameState()->list].Append(&tip->node);
     tip->selection = 30;
     tip->position = *position;

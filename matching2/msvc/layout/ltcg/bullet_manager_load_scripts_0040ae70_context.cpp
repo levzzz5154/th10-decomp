@@ -18,7 +18,7 @@ extern "C" int __stdcall asm_MessageHost_InitRetail_0040d280(
         MessageHost_0040d280 *host, int script_name);
 
 // Address-only alias of the independently proven complete genuine zero-argument
-// StageTipCreate419090 entry; pointer in EAX, ordinary cdecl/plainRET.
+// HintCreate419090 entry; pointer in EAX, ordinary cdecl/plainRET.
 extern "C" void* __cdecl asm_Recovery_CreateResourceState_00419090();
 struct SchedulerCreatePrimary_0044A000 {
     __declspec(noinline) SchedulerTask* Create(void* context, int priority);

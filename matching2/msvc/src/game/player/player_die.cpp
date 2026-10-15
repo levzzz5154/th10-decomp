@@ -2,7 +2,7 @@
 // state with 180 frames of invulnerability, drop the options and show the
 // lives-left caution.
 #include "th10/game/pause_result_open_004231d0/open_state.hpp"
-#include "th10/game/stage_tip_create.hpp"
+#include "th10/game/hint_data_create.hpp"
 #include "th10/game/player.hpp"
 #include "th10/game/player_die.hpp"
 
@@ -80,7 +80,7 @@ extern "C" {
     extern int data_00474c70;
     extern int data_00474c98;
     extern TimeoutMode* data_00477838;
-    extern StageTipManager* data_00477814;
+    extern Hint* g_hint;
     extern TimeoutPlayer* g_card;
     extern const char g_timeout_caution[];
 }
@@ -152,8 +152,8 @@ extern "C" __declspec(noinline) void __stdcall Player_Die(Player* player) {
     }
     player->option_count = 0;
     if (data_00477838->mode != 1)
-        StageTip_CreateUrgent_00424650(data_00477814, g_timeout_caution,
-            reinterpret_cast<const StageTipPosition*>(&player->position));
+        HintData_CreateUrgent_00424650(g_hint, g_timeout_caution,
+            reinterpret_cast<const HintDataPosition*>(&player->position));
     TimeoutPlayer* gauge = g_card;
     if (gauge->elapsed_frames >= 60) {
         gauge->pending_state = 0;

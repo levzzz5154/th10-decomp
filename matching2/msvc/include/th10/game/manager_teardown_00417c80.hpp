@@ -93,7 +93,7 @@ extern void* data_00477818;
 // The score-extended object (released by 0x0041C1C0).
 extern void* g_laser_manager;
 // The resource state (released by 0x00418EE0).
-extern void* data_00477814;
+extern void* g_hint;
 // The effect manager (destroyed by 0x0042B570).
 extern void* g_smoll_score;
 // The replay manager / pending block (destroyed by 0x004294A0).

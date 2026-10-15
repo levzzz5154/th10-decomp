@@ -4,7 +4,7 @@
 #include <stddef.h>
 #include <time.h>
 #include "th10/game/resource_cleanup.hpp"
-#include "th10/game/stage_tips.hpp"
+#include "th10/game/hint_data.hpp"
 
 // 0x0041A200 (_SaveHints@8): regenerate hint/hint_auto.txt from the eight
 // per-stage tip lists of the resource manager. Called by the resource cleanup

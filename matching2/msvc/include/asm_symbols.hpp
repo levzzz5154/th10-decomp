@@ -10,7 +10,7 @@ struct FptostrRecord_00460D10;
 struct LocaleInfo;
 struct NameEntry;
 struct RenderEntity;
-struct StageTipManager_00419090;
+struct HintCreateView;
 struct Stream;
 struct SchedulerTask;
 struct ThreadData;
@@ -1860,7 +1860,7 @@ extern "C" void __cdecl SmollScore_Create();
 #define VA_SmollScore_Create 0x0042b660
 extern "C" void __cdecl asm_Recovery_CreateLargeResourceState_00425020();
 #define VA_asm_Recovery_CreateLargeResourceState_00425020 0x00425020
-extern "C" StageTipManager_00419090* __cdecl asm_Recovery_CreateResourceState_00419090(void);
+extern "C" HintCreateView* __cdecl asm_Recovery_CreateResourceState_00419090(void);
 #define VA_asm_Recovery_CreateResourceState_00419090 0x00419090
 extern "C" void __cdecl asm_Recovery_CreateSmallState_0040b940();
 #define VA_asm_Recovery_CreateSmallState_0040b940 0x0040b940
@@ -6027,7 +6027,7 @@ extern "C" unsigned char data_00477704;
 extern "C" unsigned char data_00477708;
 extern "C" unsigned char data_0047770c;
 extern "C" unsigned char data_00477810;
-extern "C" unsigned char data_00477814;
+extern "C" unsigned char g_hint;
 extern "C" unsigned char data_00477818;
 extern "C" unsigned char g_laser_manager;
 extern "C" unsigned char g_loading;

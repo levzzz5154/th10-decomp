@@ -1,4 +1,4 @@
-// Retail 0x00419960: load a stage-tip script and build the per-stage tip lists.
+// Retail 0x00419960: load a hint script (HintData) and build the per-hint lists.
 // Contract: the loaded file is readable as a NUL-terminated text sequence, the
 // scratch and record allocations succeed, and all lines fit 4096 bytes. These
 // are the same preconditions as the retail helpers' unchecked scans.
@@ -14,7 +14,7 @@ static inline char* ReadScriptLine(char* cursor, char* out, int* remaining, unsi
 }
 #pragma code_seg(".text$p01parser")
 extern "C" __declspec(noinline) int __stdcall
-ParseStageTips(TipManager* manager, const char* filename, int noDuplicate) {
+Hint_ParseData(TipManager* manager, const char* filename, int noDuplicate) {
     int stage = -1, count = 0, remaining;
     char* data = Archive_LoadFile(filename, &remaining, 1);
     if (!data)

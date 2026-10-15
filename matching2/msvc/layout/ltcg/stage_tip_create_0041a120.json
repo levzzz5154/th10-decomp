@@ -1,30 +1,30 @@
 {
   "schema_version": 1,
   "name": "stage_tip_create_0041a120",
-  "source": "src/game/hint/stage_tip_create_retail_0041a120.cpp",
+  "source": "src/game/hint/hint_data_create.cpp",
   "additional_sources": [
     "src/game/pause/stage_tip_create_urgent_00424650.cpp"
   ],
   "driver": "layout/ltcg/stage_tip_create_0041a120_context.cpp",
   "headers": [
-    "include/th10/game/stage_tips.hpp",
-    "include/th10/game/stage_tip_create.hpp"
+    "include/th10/game/hint_data.hpp",
+    "include/th10/game/hint_data_create.hpp"
   ],
   "image_base": "0x00400000",
   "description": "Tip creation and its urgent wrapper linked with native LTCG so the pass selects retail's EBX position and ESI manager.",
   "functions": [
     {
-      "name": "StageTip_Create_0041a120",
-      "symbol": "?StageTip_Create_0041a120@@YGPAUStageTip@@PAUStageTipManager@@PBDPBUStageTipPosition@@@Z",
+      "name": "HintData_Create_0041a120",
+      "symbol": "?HintData_Create_0041a120@@YGPAUHintData@@PAUHint@@PBDPBUHintDataPosition@@@Z",
       "section": ".text$01create",
       "address": "0x0041A120",
       "size": 220,
       "actual_abi": "manager and text on the stack; position in EBX; RET 8",
-      "source": "src/game/hint/stage_tip_create_retail_0041a120.cpp"
+      "source": "src/game/hint/hint_data_create.cpp"
     },
     {
-      "name": "StageTip_CreateUrgent_00424650",
-      "symbol": "?StageTip_CreateUrgent_00424650@@YGPAUStageTip@@PAUStageTipManager@@PBDPBUStageTipPosition@@@Z",
+      "name": "HintData_CreateUrgent_00424650",
+      "symbol": "?HintData_CreateUrgent_00424650@@YGPAUHintData@@PAUHint@@PBDPBUHintDataPosition@@@Z",
       "section": ".text$03urgent",
       "address": "0x00424650",
       "size": 104,
@@ -33,7 +33,7 @@
     }
   ],
   "context": {
-    "symbol": "_StageTipCreateCompilerContext@8",
+    "symbol": "_HintDataCreateCompilerContext@8",
     "section": ".text$05context",
     "address": "0x004269D0",
     "size": 45,
@@ -69,7 +69,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_data_00477814",
+      "symbol": "_g_hint",
       "address": "0x00477814",
       "kind": "data"
     },

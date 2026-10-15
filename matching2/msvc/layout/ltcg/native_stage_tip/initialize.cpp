@@ -1,6 +1,6 @@
 #include "stage_tip.hpp"
 #pragma code_seg(".text$a02initialize")
-extern "C" __declspec(noinline) int __stdcall StageTipInitialize(StageTipManager* manager) {
+extern "C" __declspec(noinline) int __stdcall Hint_Initialize(Hint* manager) {
     SchedulerTask* primary = SchedulerCallback_Create_00449ed0((void*)0x4198A0);
     primary->context = manager;
     primary->reserved_flags &= ~1u;

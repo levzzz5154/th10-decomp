@@ -9,7 +9,7 @@ struct AnimationResource_0043e710;
 struct AnimationObject_0043e710;
 
 // A text sprite; the formatter draws into its texture.
-struct RecoveryIndicatorVm_00419120 {
+struct HintVm_00419120 {
     void __cdecl FormatRightAligned(void* manager, ...); // 0x00447AE0
 };
 
@@ -160,7 +160,7 @@ void Card_00408d60::StartSpell(int index, const char* name, int duration) {
     panel_handles[0].value = CreateAnimation(g_ascii_manager->front, 1).value;
     panel_handles[1].value = CreateAnimation(g_ascii_manager->text, 72).value;
     panel_handles[2].value = CreateAnimation(g_ascii_manager->front, 2).value;
-    reinterpret_cast<RecoveryIndicatorVm_00419120*>(
+    reinterpret_cast<HintVm_00419120*>(
         GetAnimation(reinterpret_cast<int&>(panel_handles[1].value)))
         ->FormatRightAligned(data_00491c10, 0x00FFFFFFu, name);
     data_00492590.Queue(14, 0);

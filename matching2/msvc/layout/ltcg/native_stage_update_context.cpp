@@ -20,7 +20,7 @@ extern unsigned char* g_card;
 extern unsigned char* data_004776fc;
 extern unsigned char* data_00477704;
 extern unsigned char* data_0047770c;
-extern unsigned char* data_00477814;
+extern unsigned char* g_hint;
 extern unsigned char* data_00477818;
 extern unsigned char* g_laser_manager;
 extern unsigned char* g_pause;
@@ -95,7 +95,7 @@ static __forceinline void StageReset(StageContextFade_00418190* context,int* loc
     StageKillRequiredPair(g_smoll_score);
     StageKillPair(g_card);
     StageWord(reinterpret_cast<unsigned char*>(StageWord(g_card,0x37AC)),4)|=2u;
-    StageKillPair(data_00477814);
+    StageKillPair(g_hint);
     if (delayed) {
         StageRegisterMusic_0043e460(data_00492590,data_0046df98,(data_00491d78&0x10u)?4:3,0);
         StagePlayMusic_00420b10(0,StageWord(data_00477848,0x24));

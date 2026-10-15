@@ -49,4 +49,4 @@ struct NamedValue {
     unsigned int value;
 };
 int FindNamedValue(const char* name, const NamedValue* table, int count);
-extern "C" int __stdcall ParseStageTips(TipManager*, const char*, int);
+extern "C" int __stdcall Hint_ParseData(TipManager*, const char*, int);

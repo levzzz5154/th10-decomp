@@ -12,7 +12,7 @@
     "include/th10/game/scheduler_remove_locked.hpp",
     "include/th10/game/scheduler.hpp",
     "include/th10/platform/thread_sync.hpp",
-    "include/th10/game/stage_tips.hpp"
+    "include/th10/game/hint_data.hpp"
   ],
   "image_base": "0x400000",
   "description": "Real hint-file writer with its genuine WriteShared callee: the nine pre-loop writes call WriteShared_0044b740, whose buffer-EDX/size-ESI private convention only whole-program LTCG can assign against the real caller; the fifteen in-loop/inline writes spell the WriteFile/CloseHandle/LeaveCriticalSection body out at every site.",

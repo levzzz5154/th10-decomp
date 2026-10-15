@@ -407,7 +407,7 @@
     "section": ".text$90context",
     "address": "0x0044B900",
     "size": 533,
-    "description": "Synthetic caller for the remaining existing owners; not recovered game code. Moved StageTip owners are independently established by the complete genuine factory closure."
+    "description": "Synthetic caller for the remaining existing owners; not recovered game code. Moved HintData owners are independently established by the complete genuine factory closure."
   },
   "gaps": [
     {
@@ -814,7 +814,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_data_00477814",
+      "symbol": "_g_hint",
       "address": "0x00477814",
       "kind": "data"
     },

@@ -17,7 +17,7 @@ extern "C" int recovery_indicator_owner_00474c84;   // current stage tag
 extern "C" int data_00474c7c;                       // current stage queue index
 
 #pragma code_seg(".text$00419650_fn")
-int RecoveryIndicatorState_00419120::Update() {
+int HintUpdateView::Update() {
     if (owner_tag != recovery_indicator_owner_00474c84)
         stage_frame = 0;
     queues[data_00474c7c].head->Drain(this, 1);
@@ -25,7 +25,7 @@ int RecoveryIndicatorState_00419120::Update() {
     float player_x = g_player->position.x + 224.0f;
     float player_y = g_player->position.y + 16.0f;
     for (int i = 0; i < 10; ++i) {
-        RecoveryIndicatorVm_00419120* vm = IndicatorHandle_GetInline(handles[i]);
+        HintVm_00419120* vm = IndicatorHandle_GetInline(handles[i]);
         if (!vm)
             continue;
         if (vm->interrupt_pending)
