@@ -19,7 +19,9 @@
     "include/th10/game/stage_tip_create.hpp",
     "include/th10/game/stage_tips.hpp",
     "include/th10/render/resource_registrar_0043e460.hpp",
-    "include/th10/types.hpp"
+    "include/th10/types.hpp",
+    "include/th10/game/player.hpp",
+    "include/th10/math/timer.hpp"
   ],
   "image_base": "0x00400000",
   "description": "Complete spell timeout with native active-count, script-loader and urgent-tip compiler contexts; only the timeout is selected.",

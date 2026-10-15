@@ -17,7 +17,7 @@
 #pragma code_seg()
 
 #pragma code_seg(".text$0044ba00_context")
-extern "C" int __stdcall TimeoutContext(TimeoutField* field) {
+extern "C" int __stdcall TimeoutContext(Player* field) {
     Player_Die(field);
     return 1;
 }

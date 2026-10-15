@@ -3,6 +3,7 @@
 // lives-left caution.
 #include "th10/game/pause_result_open_004231d0/open_state.hpp"
 #include "th10/game/stage_tip_create.hpp"
+#include "th10/game/player.hpp"
 #include "th10/game/player_die.hpp"
 
 struct AnimationRecord_00413790 {
@@ -46,39 +47,16 @@ struct TimeoutAnimationManager {
         return 0;
     }
 };
-struct TimeoutHandle {
-    int value;
-    static __forceinline void StopAtFrame1(int value, TimeoutAnimationManager* manager) {
-        TimeoutAnimation* object = manager->Find(value);
-        if (object) {
-            object->stop_frame = 1;
-            if (!object->children_flagged)
-                for (TimeoutAnimationLink* child = object->children; child; child = child->next)
-                    child->object->stop_frame = 1;
-        }
+// Stop an animation and its children at frame 1, looked up by handle.
+static __forceinline void StopAtFrame1(int value, TimeoutAnimationManager* manager) {
+    TimeoutAnimation* object = manager->Find(value);
+    if (object) {
+        object->stop_frame = 1;
+        if (!object->children_flagged)
+            for (TimeoutAnimationLink* child = object->children; child; child = child->next)
+                child->object->stop_frame = 1;
     }
-};
-struct TimeoutSlot {
-    int state;
-    unsigned char reserved004[0x68 - 4];
-    TimeoutHandle first, second;
-    unsigned char reserved070[0x98 - 0x70];
-};
-struct TimeoutField {
-    unsigned char reserved000[0x10];
-    AnimationResource_00449870* resource;
-    Entity animation;
-    StageTipPosition position;
-    unsigned char reserved3cc[0x458 - 0x3cc];
-    int mode;
-    unsigned char reserved45c[0x474 - 0x45c];
-    OpenTimer timer;
-    unsigned char reserved488[0x32a0 - 0x488];
-    TimeoutSlot slots[4];
-    int active_slots;
-    unsigned char reserved3504[0x430c - 0x3504];
-    OpenTimer activation_timer;
-};
+}
 struct TimeoutPlayerEntity {
     unsigned char reserved000[0x378];
     unsigned int flags;
@@ -117,17 +95,6 @@ typedef char TimeoutAnimationChildrenFlag[offsetof(TimeoutAnimation, children_fl
 typedef char TimeoutAnimationStopFrame[offsetof(TimeoutAnimation, stop_frame) == 0x304 ? 1 : -1];
 typedef char TimeoutPrimaryList[offsetof(TimeoutAnimationManager, primary) == 0x72DAD4 ? 1 : -1];
 typedef char TimeoutSecondaryList[offsetof(TimeoutAnimationManager, secondary) == 0x72DADC ? 1 : -1];
-typedef char TimeoutSlotSize[sizeof(TimeoutSlot) == 0x98 ? 1 : -1];
-typedef char TimeoutSlotFirst[offsetof(TimeoutSlot, first) == 0x68 ? 1 : -1];
-typedef char TimeoutSlotSecond[offsetof(TimeoutSlot, second) == 0x6C ? 1 : -1];
-typedef char TimeoutFieldResource[offsetof(TimeoutField, resource) == 0x10 ? 1 : -1];
-typedef char TimeoutFieldAnimation[offsetof(TimeoutField, animation) == 0x14 ? 1 : -1];
-typedef char TimeoutFieldPosition[offsetof(TimeoutField, position) == 0x3C0 ? 1 : -1];
-typedef char TimeoutFieldMode[offsetof(TimeoutField, mode) == 0x458 ? 1 : -1];
-typedef char TimeoutFieldFirstTimer[offsetof(TimeoutField, timer) == 0x474 ? 1 : -1];
-typedef char TimeoutFieldSlots[offsetof(TimeoutField, slots) == 0x32A0 ? 1 : -1];
-typedef char TimeoutFieldActiveSlots[offsetof(TimeoutField, active_slots) == 0x3500 ? 1 : -1];
-typedef char TimeoutFieldTimer[offsetof(TimeoutField, activation_timer) == 0x430C ? 1 : -1];
 typedef char TimeoutPlayerEntitySize[sizeof(TimeoutPlayerEntity) == 0x3AC ? 1 : -1];
 typedef char TimeoutPlayerEntityFlags[offsetof(TimeoutPlayerEntity, flags) == 0x378 ? 1 : -1];
 typedef char TimeoutPlayerEntities[offsetof(TimeoutPlayer, entities) == 0x75C ? 1 : -1];
@@ -135,10 +102,24 @@ typedef char TimeoutPlayerFrames[offsetof(TimeoutPlayer, elapsed_frames) == 0x37
 typedef char TimeoutPlayerFlags[offsetof(TimeoutPlayer, flags) == 0x378C ? 1 : -1];
 typedef char TimeoutPlayerState[offsetof(TimeoutPlayer, pending_state) == 0x3790 ? 1 : -1];
 
+// The timer store order of this function (current, elapsed, previous).
+static __forceinline void SetTimer(FrameTimer& timer, int frame) {
+    if (!(timer.flags & 1)) {
+        timer.current = 0;
+        timer.previous = -999999;
+        timer.elapsed = 0.0f;
+        timer.speed = &data_00476f78;
+        timer.flags |= 1;
+    }
+    timer.current = frame;
+    timer.elapsed = (float)frame;
+    timer.previous = frame - 1;
+}
+
 #pragma code_seg(".text$004269d0_fn")
-extern "C" __declspec(noinline) void __stdcall Player_Die(TimeoutField* field) {
-    // Retain the slot-array base across the arithmetic and helper calls.
-    TimeoutSlot* slots = field->slots;
+extern "C" __declspec(noinline) void __stdcall Player_Die(Player* player) {
+    // Retain the option-array base across the arithmetic and helper calls.
+    PlayerOption* options = player->options;
     int power = data_00474c4c;
     int remaining = data_00474c70 - 1;
     // Preserve the signed fixed-point intermediate: multiplying and dividing
@@ -150,35 +131,36 @@ extern "C" __declspec(noinline) void __stdcall Player_Die(TimeoutField* field) {
         data_00474c4c = 5000;
     if (remaining >= 0)
         reinterpret_cast<AnimationManager_00413790*>(data_0047770c)->SetActiveCount(remaining);
-    field->mode = 2;
-    field->timer.Set(0);
-    field->activation_timer.Set(180);
-    LoadScript_0043e710(reinterpret_cast<AnimationResource_0043e710*>(field->resource),
-        reinterpret_cast<AnimationObject_0043e710*>(&field->animation), 0);
+    player->state = PLAYER_DYING;
+    SetTimer(player->state_timer, 0);
+    SetTimer(player->invulnerability_timer, 180);
+    LoadScript_0043e710(reinterpret_cast<AnimationResource_0043e710*>(player->animation_file),
+        reinterpret_cast<AnimationObject_0043e710*>(&player->sprite), 0);
     TimeoutAnimationManager* manager =
         reinterpret_cast<TimeoutAnimationManager*>(data_00491c10);
-    TimeoutHandle* handles = &slots[0].first;
+    unsigned int* handles = &options[0].animation;
     for (int i = 0; i < 4; ++i) {
-        TimeoutSlot* slot = reinterpret_cast<TimeoutSlot*>(
-            reinterpret_cast<char*>(handles) - offsetof(TimeoutSlot, first));
-        // Capture the first handle before clearing the slot state.
-        int first = handles[0].value;
-        slot->state = 0;
-        TimeoutHandle::StopAtFrame1(first, manager);
-        TimeoutHandle::StopAtFrame1(handles[1].value, manager);
-        handles = reinterpret_cast<TimeoutHandle*>(
-            reinterpret_cast<char*>(handles) + sizeof(TimeoutSlot));
+        PlayerOption* option = reinterpret_cast<PlayerOption*>(
+            reinterpret_cast<char*>(handles) - offsetof(PlayerOption, animation));
+        // Capture the first handle before clearing the option.
+        int first = handles[0];
+        option->active = 0;
+        StopAtFrame1(first, manager);
+        StopAtFrame1(handles[1], manager);
+        handles = reinterpret_cast<unsigned int*>(
+            reinterpret_cast<char*>(handles) + sizeof(PlayerOption));
     }
-    field->active_slots = 0;
+    player->option_count = 0;
     if (data_00477838->mode != 1)
-        StageTip_CreateUrgent_00424650(data_00477814, g_timeout_caution, &field->position);
-    TimeoutPlayer* player = data_004776f4;
-    if (player->elapsed_frames >= 60) {
-        player->pending_state = 0;
-        player->flags &= ~2u;
+        StageTip_CreateUrgent_00424650(data_00477814, g_timeout_caution,
+            reinterpret_cast<const StageTipPosition*>(&player->position));
+    TimeoutPlayer* gauge = data_004776f4;
+    if (gauge->elapsed_frames >= 60) {
+        gauge->pending_state = 0;
+        gauge->flags &= ~2u;
         for (int i = 0; i < 8; ++i)
             if (i != 2)
-                player->entities[i].flags &= ~2u;
+                gauge->entities[i].flags &= ~2u;
     }
     data_00474c98 -= 1024;
     if (data_00474c98 > 1024)
