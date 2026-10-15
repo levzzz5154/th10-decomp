@@ -1,6 +1,6 @@
 #include "asm_symbols.hpp"
 
-// 0x0042A430..0x0042A44B: ReplayManager_OnDraw
+// 0x0042A430: the replay manager's draw task (registered by 0x00428F60).
 // The scene arrives in ECX. The routine reports whether the active global scene
 // owns a live object with bit 2 of its flag byte set; otherwise it hands the
 // scene straight to the frame-tick routine at 0x00429A70, whose receiver reads

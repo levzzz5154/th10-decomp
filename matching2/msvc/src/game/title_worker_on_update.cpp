@@ -1,4 +1,5 @@
-// 0x0041FEB0..0x0041FEEE - release the three resources the object owns when
+// 0x0041FEB0: the title loading worker's update task (registered by
+// 0x0041FAC0). Release the three resources the object owns when
 // its "hold" bit is set, then drop the engine flag that keeps the game on hold
 // and ask for game state 4.  The object arrives in ECX and the routine always
 // reports success.

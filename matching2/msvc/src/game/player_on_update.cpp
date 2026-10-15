@@ -1,5 +1,5 @@
-// 0x00426500..0x00426506: thunk that forwards its ECX argument to the
-// scheduler routine at 0x00425730 and returns that call's result unchanged.
+// 0x00426500: the player's update task. Forwards its ECX argument to
+// Player_Update (0x00425730) and returns that call's result unchanged.
 // The callee is entered through a __stdcall pointer type: retail consumes the
 // pushed argument inside the callee, so no caller-side cleanup is emitted.
 extern "C" int __cdecl asm_FUN_00425730_00425730(void*);

@@ -1,6 +1,7 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
+// 0x0042A3E0: the replay manager's frame-step task, registered by 0x00428F60.
 // BLOCKED (near miss): frame-step callback stored twice by 0x00428F60; this in
 // ECX.  Returns 6 when the game UI (0x00477810) exists without flag 4 in +0x58,
 // state (+0x10) == 1, bit 0x100 of 0x00474E30 is set and frame (+0x1C8) % 4 != 0,
