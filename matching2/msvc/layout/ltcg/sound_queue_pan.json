@@ -3,7 +3,7 @@
   "name": "sound_queue_pan",
   "source": "src/game/fun_00407780_00407780.cpp",
   "additional_sources": [
-    "src/unidentified/FUN_0041d170_0041d170.cpp",
+    "src/game/laser_line_decelerate.cpp",
     "src/render/animation_manager_queue_resource_0043dc90.cpp",
     "src/game/fun_00407a30_00407a30.cpp",
     "src/game/fun_00407be0_00407be0.cpp",
@@ -50,8 +50,8 @@
     },
     {
       "name": "ProjectileDeceleration_Update",
-      "source": "src/unidentified/FUN_0041d170_0041d170.cpp",
-      "symbol": "?Update@ProjectileDeceleration@@QAEXXZ",
+      "source": "src/game/laser_line_decelerate.cpp",
+      "symbol": "?Motion0040@LineLaser@@QAEXXZ",
       "section": ".text$03deceleration",
       "address": "0x0041D170",
       "size": 329,
@@ -223,7 +223,7 @@
     }
   ],
   "roots": [
-    "?Update@ProjectileDeceleration@@QAEXXZ"
+    "?Motion0040@LineLaser@@QAEXXZ"
   ],
   "driver": "layout/ltcg/sound_queue_pan_context.cpp",
   "context": {

@@ -1,4 +1,5 @@
-// 0x0041EA40: synchronize and draw the boss's embedded overlay VMs.
+// 0x0041EA40: GrowLaser::Draw (vtable 0x0046DA10 slot 0x0C): place and draw
+// the beam and origin-flare VMs.
 // Public ECX scheduler receiver. The render dispatcher is the real definition
 // co-compiled in anm_batch_flush_00442f50, giving it ECX manager / EAX entity.
 // Explicit subobject views preserve the retail load/store ordering; the
@@ -8,7 +9,7 @@
 #include <stddef.h>
 extern "C" __declspec(noinline) int __cdecl asm_FUN_004451c0_004451c0(
     AnimationManager_00442F50* manager, RenderEntity* entity);
-struct BossOverlay_0041EA40 {
+struct GrowLaser {
     unsigned char reserved_000[0x24];
     RenderVec3 position;
     unsigned char reserved_030[0x3C - 0x30];
@@ -21,12 +22,12 @@ struct BossOverlay_0041EA40 {
     RenderEntity secondary;
     __declspec(noinline) int Draw();
 };
-typedef char BossOverlay_0041EA40_PrimaryOffset[(offsetof(BossOverlay_0041EA40, primary) == 0x61C) ? 1 : -1];
-typedef char BossOverlay_0041EA40_SecondaryOffset[(offsetof(BossOverlay_0041EA40, secondary) == 0x9C8) ? 1 : -1];
-typedef char BossOverlay_0041EA40_PrimaryPositionOffset[(offsetof(BossOverlay_0041EA40, primary) + offsetof(RenderEntity, base_position) == 0x950) ? 1 : -1];
-typedef char BossOverlay_0041EA40_SecondaryPositionOffset[(offsetof(BossOverlay_0041EA40, secondary) + offsetof(RenderEntity, base_position) == 0xCFC) ? 1 : -1];
+typedef char BossOverlay_0041EA40_PrimaryOffset[(offsetof(GrowLaser, primary) == 0x61C) ? 1 : -1];
+typedef char BossOverlay_0041EA40_SecondaryOffset[(offsetof(GrowLaser, secondary) == 0x9C8) ? 1 : -1];
+typedef char BossOverlay_0041EA40_PrimaryPositionOffset[(offsetof(GrowLaser, primary) + offsetof(RenderEntity, base_position) == 0x950) ? 1 : -1];
+typedef char BossOverlay_0041EA40_SecondaryPositionOffset[(offsetof(GrowLaser, secondary) + offsetof(RenderEntity, base_position) == 0xCFC) ? 1 : -1];
 #pragma code_seg(".text$001z2boss")
-int BossOverlay_0041EA40::Draw() {
+int GrowLaser::Draw() {
     RenderEntity* vm = (RenderEntity*)((unsigned char*)this + 0x61C);
     RenderVec3& primary_position = *(RenderVec3*)((unsigned char*)this + 0x950);
     primary_position.x = position.x + 224.0f;

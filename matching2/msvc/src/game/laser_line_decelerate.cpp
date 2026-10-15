@@ -1,11 +1,12 @@
-// 0x0041D170: repeated turn/speed steps with linear deceleration between them.
+// 0x0041D170: LineLaser::Motion0040 (vtable 0x0046DA60 slot 0x30): repeated
+// turn/speed steps with linear deceleration between them.
 #include "th10/platform/sound_queue.hpp"
 extern "C" float data_00470b68, data_00470b64, data_00476f78;
 struct DecelerationVector2 {
     float x, y;
     void SetPolar(float angle, float speed);
 };
-struct ProjectileDeceleration {
+struct LineLaser {
     char reserved_000[0x30];
     DecelerationVector2 velocity;
     float reserved_038;
@@ -31,10 +32,10 @@ struct ProjectileDeceleration {
     unsigned int flags;
     int reserved_408;
     int sound_id;
-    __declspec(noinline) void Update();
+    __declspec(noinline) void Motion0040();
 };
 #pragma code_seg(".text$03deceleration")
-void ProjectileDeceleration::Update() {
+void LineLaser::Motion0040() {
     int length = duration;
     float magnitude;
     if (current >= length) {

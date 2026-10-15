@@ -17071,9 +17071,9 @@
       "kind": "padding"
     },
     {
-      "name": "semantic_unassigned_0041bef0",
-      "source": "src/unidentified/unassigned_0041bef0.cpp",
-      "symbol": "_asm_unassigned_0041bef0",
+      "name": "semantic_Laser_RunCommands_0041bef0",
+      "source": "src/game/laser_base.cpp",
+      "symbol": "?RunCommands@Laser@@QAEXXZ",
       "address": "0x0041BEF0",
       "size": 1,
       "kind": "semantic",
@@ -17097,9 +17097,9 @@
       "kind": "padding"
     },
     {
-      "name": "semantic_FUN_0041bf00_0041bf00",
-      "source": "src/unidentified/FUN_0041bf00_0041bf00.cpp",
-      "symbol": "?FUN_0041bf00@@YGHH@Z",
+      "name": "semantic_Laser_Initialize_0041bf00",
+      "source": "src/game/laser_base.cpp",
+      "symbol": "?Initialize@Laser@@QAEHPBULaserParameters@@@Z",
       "address": "0x0041BF00",
       "size": 5,
       "kind": "semantic",
@@ -17123,9 +17123,9 @@
       "kind": "padding"
     },
     {
-      "name": "semantic__FUN_0041bf10",
-      "source": "src/unidentified/FUN_0041bf10_0041bf10.cpp",
-      "symbol": "_FUN_0041bf10",
+      "name": "semantic_Laser_Update_0041bf10",
+      "source": "src/game/laser_base.cpp",
+      "symbol": "?Update@Laser@@QAEHXZ",
       "address": "0x0041BF10",
       "size": 3,
       "kind": "semantic",
@@ -17149,9 +17149,9 @@
       "kind": "padding"
     },
     {
-      "name": "semantic_FUN_0041bf20_0041bf20",
-      "source": "src/unidentified/FUN_0041bf20_0041bf20.cpp",
-      "symbol": "?FUN_0041bf20_0041bf20@@YGHXZ",
+      "name": "semantic_Laser_Draw_0041bf20",
+      "source": "src/game/laser_base.cpp",
+      "symbol": "?Draw@Laser@@QAEHXZ",
       "address": "0x0041BF20",
       "size": 3,
       "kind": "semantic",
@@ -17175,9 +17175,9 @@
       "kind": "padding"
     },
     {
-      "name": "semantic_RecoveryNode_0041bf30",
-      "source": "src/unidentified/FUN_0041bf30_0041bf30.cpp",
-      "symbol": "?Unlink@RecoveryNode_0041bf30@@QAEHXZ",
+      "name": "semantic_Laser_Unlink_0041bf30",
+      "source": "src/game/laser_base.cpp",
+      "symbol": "?Unlink@Laser@@QAEHXZ",
       "address": "0x0041BF30",
       "size": 25,
       "kind": "semantic",
@@ -17201,9 +17201,9 @@
       "kind": "padding"
     },
     {
-      "name": "semantic_Stub_ReturnZero3_0041bf50",
-      "source": "src/unidentified/FUN_0041bf50_0041bf50.cpp",
-      "symbol": "?Stub_ReturnZero3_0041bf50@@YGHHHH@Z",
+      "name": "semantic_Laser_Cut_0041bf50",
+      "source": "src/game/laser_base.cpp",
+      "symbol": "?Cut@Laser@@QAEHPBULaserPoint@@0H@Z",
       "address": "0x0041BF50",
       "size": 5,
       "kind": "semantic",
@@ -17227,9 +17227,9 @@
       "kind": "padding"
     },
     {
-      "name": "semantic_RecoveryZeroSlot_0041bf60",
-      "source": "src/unidentified/FUN_0041bf60_0041bf60.cpp",
-      "symbol": "?RecoveryZeroSlot_0041bf60@@YGHHHH@Z",
+      "name": "semantic_Laser_OnPlayerHit_0041bf60",
+      "source": "src/game/laser_base.cpp",
+      "symbol": "?OnPlayerHit@Laser@@QAEHPBULaserPoint@@0H@Z",
       "address": "0x0041BF60",
       "size": 5,
       "kind": "semantic",
@@ -17253,9 +17253,9 @@
       "kind": "padding"
     },
     {
-      "name": "semantic_FUN_0041bf70_0041bf70",
-      "source": "src/unidentified/FUN_0041bf70_0041bf70.cpp",
-      "symbol": "?FUN_0041bf70@@YGHH@Z",
+      "name": "semantic_Laser_CreateSegments_0041bf70",
+      "source": "src/game/laser_base.cpp",
+      "symbol": "?CreateSegments@Laser@@QAEHH@Z",
       "address": "0x0041BF70",
       "size": 5,
       "kind": "semantic",
@@ -17279,9 +17279,9 @@
       "kind": "padding"
     },
     {
-      "name": "semantic_FUN_0041bf80_0041bf80",
-      "source": "src/unidentified/FUN_0041bf80_0041bf80.cpp",
-      "symbol": "?FUN_0041bf80@@YGHHH@Z",
+      "name": "semantic_Laser_HitTestCircle_0041bf80",
+      "source": "src/game/laser_base.cpp",
+      "symbol": "?HitTestCircle@Laser@@QAEHPBULaserPoint@@M@Z",
       "address": "0x0041BF80",
       "size": 5,
       "kind": "semantic",
@@ -17305,9 +17305,9 @@
       "kind": "padding"
     },
     {
-      "name": "semantic_unassigned_0041bf90",
-      "source": "src/unidentified/unassigned_0041bf90.cpp",
-      "symbol": "_asm_unassigned_0041bf90",
+      "name": "semantic_Laser_Motion0001_0041bf90",
+      "source": "src/game/laser_base.cpp",
+      "symbol": "?Motion0001@Laser@@QAEXXZ",
       "address": "0x0041BF90",
       "size": 1,
       "kind": "semantic",
@@ -17331,9 +17331,9 @@
       "kind": "padding"
     },
     {
-      "name": "semantic_unassigned_0041bfa0",
-      "source": "src/unidentified/unassigned_0041bfa0.cpp",
-      "symbol": "_asm_unassigned_0041bfa0",
+      "name": "semantic_Laser_Motion0010_0041bfa0",
+      "source": "src/game/laser_base.cpp",
+      "symbol": "?Motion0010@Laser@@QAEXXZ",
       "address": "0x0041BFA0",
       "size": 1,
       "kind": "semantic",
@@ -17357,9 +17357,9 @@
       "kind": "padding"
     },
     {
-      "name": "semantic_unassigned_0041bfb0",
-      "source": "src/unidentified/unassigned_0041bfb0.cpp",
-      "symbol": "_asm_unassigned_0041bfb0",
+      "name": "semantic_Laser_Motion0020_0041bfb0",
+      "source": "src/game/laser_base.cpp",
+      "symbol": "?Motion0020@Laser@@QAEXXZ",
       "address": "0x0041BFB0",
       "size": 1,
       "kind": "semantic",
@@ -17383,9 +17383,9 @@
       "kind": "padding"
     },
     {
-      "name": "semantic_unassigned_0041bfc0",
-      "source": "src/unidentified/unassigned_0041bfc0.cpp",
-      "symbol": "_asm_unassigned_0041bfc0",
+      "name": "semantic_Laser_Motion0040_0041bfc0",
+      "source": "src/game/laser_base.cpp",
+      "symbol": "?Motion0040@Laser@@QAEXXZ",
       "address": "0x0041BFC0",
       "size": 1,
       "kind": "semantic",
@@ -17409,9 +17409,9 @@
       "kind": "padding"
     },
     {
-      "name": "semantic_unassigned_0041bfd0",
-      "source": "src/unidentified/unassigned_0041bfd0.cpp",
-      "symbol": "_asm_unassigned_0041bfd0",
+      "name": "semantic_Laser_Motion0100_0041bfd0",
+      "source": "src/game/laser_base.cpp",
+      "symbol": "?Motion0100@Laser@@QAEXXZ",
       "address": "0x0041BFD0",
       "size": 1,
       "kind": "semantic",
@@ -17435,9 +17435,9 @@
       "kind": "padding"
     },
     {
-      "name": "semantic_unassigned_0041bfe0",
-      "source": "src/unidentified/unassigned_0041bfe0.cpp",
-      "symbol": "_asm_unassigned_0041bfe0",
+      "name": "semantic_Laser_Motion0080_0041bfe0",
+      "source": "src/game/laser_base.cpp",
+      "symbol": "?Motion0080@Laser@@QAEXXZ",
       "address": "0x0041BFE0",
       "size": 1,
       "kind": "semantic",
@@ -17461,9 +17461,9 @@
       "kind": "padding"
     },
     {
-      "name": "semantic_unassigned_0041bff0",
-      "source": "src/unidentified/unassigned_0041bff0.cpp",
-      "symbol": "_asm_unassigned_0041bff0",
+      "name": "semantic_Laser_Bounce_0041bff0",
+      "source": "src/game/laser_base.cpp",
+      "symbol": "?Bounce@Laser@@QAEXXZ",
       "address": "0x0041BFF0",
       "size": 1,
       "kind": "semantic",
@@ -17478,9 +17478,9 @@
       "kind": "padding"
     },
     {
-      "name": "semantic_unassigned_0041c000",
-      "source": "src/unidentified/unassigned_0041c000.cpp",
-      "symbol": "_asm_unassigned_0041c000",
+      "name": "semantic_Laser_Motion100000_0041c000",
+      "source": "src/game/laser_base.cpp",
+      "symbol": "?Motion100000@Laser@@QAEXXZ",
       "address": "0x0041C000",
       "size": 1,
       "kind": "semantic",
@@ -17495,9 +17495,9 @@
       "kind": "padding"
     },
     {
-      "name": "semantic_unassigned_0041c010",
-      "source": "src/unidentified/unassigned_0041c010.cpp",
-      "symbol": "_asm_unassigned_0041c010",
+      "name": "semantic_Laser_Motion200000_0041c010",
+      "source": "src/game/laser_base.cpp",
+      "symbol": "?Motion200000@Laser@@QAEXXZ",
       "address": "0x0041C010",
       "size": 1,
       "kind": "semantic",
@@ -17512,9 +17512,9 @@
       "kind": "padding"
     },
     {
-      "name": "semantic_unassigned_0041c020",
-      "source": "src/unidentified/unassigned_0041c020.cpp",
-      "symbol": "_asm_unassigned_0041c020",
+      "name": "semantic_Laser_Motion4000000_0041c020",
+      "source": "src/game/laser_base.cpp",
+      "symbol": "?Motion4000000@Laser@@QAEXXZ",
       "address": "0x0041C020",
       "size": 1,
       "kind": "semantic",
@@ -18167,15 +18167,15 @@
     },
     {
       "name": "semantic_ProjectileDeceleration_Update_0041d170",
-      "source": "src/unidentified/FUN_0041d170_0041d170.cpp",
-      "symbol": "?Update@ProjectileDeceleration@@QAEXXZ",
+      "source": "src/game/laser_line_decelerate.cpp",
+      "symbol": "?Motion0040@LineLaser@@QAEXXZ",
       "address": "0x0041D170",
       "size": 329,
       "kind": "semantic",
       "owner": "0x0041D170",
       "previous_record": {
         "name": "asm_FUN_0041d170_0041d170",
-        "source": "src/unidentified/FUN_0041d170_0041d170.cpp",
+        "source": "src/game/laser_line_decelerate.cpp",
         "symbol": "_asm_FUN_0041d170_0041d170",
         "address": "0x0041D170",
         "size": 329,
@@ -18236,15 +18236,15 @@
     },
     {
       "name": "semantic_BossOverlay_0041D7C0_Draw_0041d7c0",
-      "source": "src/game/boss_sync_positions_retail_0041d7c0.cpp",
-      "symbol": "?Draw@BossOverlay_0041D7C0@@QAEHXZ",
+      "source": "src/game/laser_line_draw.cpp",
+      "symbol": "?Draw@LineLaser@@QAEHXZ",
       "address": "0x0041D7C0",
       "size": 173,
       "kind": "semantic",
       "owner": "0x0041D7C0",
       "previous_record": {
         "name": "asm_Boss_SyncPositionsRetail_0041d7c0",
-        "source": "src/game/boss_sync_positions_retail_0041d7c0.cpp",
+        "source": "src/game/laser_line_draw.cpp",
         "symbol": "_asm_Boss_SyncPositionsRetail_0041d7c0",
         "address": "0x0041D7C0",
         "size": 173,
@@ -18262,15 +18262,15 @@
     },
     {
       "name": "semantic_FUN_0041d870_0041d870",
-      "source": "src/unidentified/FUN_0041d870_0041d870.cpp",
-      "symbol": "?FUN_0041d870@@YGHXZ",
+      "source": "src/game/laser_line_unlink.cpp",
+      "symbol": "?Unlink@LineLaser@@QAEHXZ",
       "address": "0x0041D870",
       "size": 3,
       "kind": "semantic",
       "owner": "0x0041D870",
       "previous_record": {
         "name": "asm_FUN_0041d870_0041d870",
-        "source": "src/unidentified/FUN_0041d870_0041d870.cpp",
+        "source": "src/game/laser_line_unlink.cpp",
         "symbol": "_asm_FUN_0041d870_0041d870",
         "address": "0x0041D870",
         "size": 3,
@@ -18358,15 +18358,15 @@
     },
     {
       "name": "semantic_OrientedRect_IntersectsCircle_0041e4d0",
-      "source": "src/math/oriented_rect.cpp",
-      "symbol": "?IntersectsCircle@OrientedRect_0041E4D0@@QBEHPBUPoint3_OrientedRect@@M@Z",
+      "source": "src/game/laser_line_hit_test.cpp",
+      "symbol": "?HitTestCircle@LineLaser@@QBEHPBUPoint3_OrientedRect@@M@Z",
       "address": "0x0041E4D0",
       "size": 226,
       "kind": "semantic",
       "owner": "0x0041E4D0",
       "previous_record": {
         "name": "asm_FUN_0041e4d0_0041e4d0",
-        "source": "src/math/oriented_rect.cpp",
+        "source": "src/game/laser_line_hit_test.cpp",
         "symbol": "_asm_FUN_0041e4d0_0041e4d0",
         "address": "0x0041E4D0",
         "size": 226,
@@ -18428,15 +18428,15 @@
     },
     {
       "name": "semantic_BossOverlay_0041EA40_Draw_0041ea40",
-      "source": "src/unidentified/FUN_0041ea40_0041ea40.cpp",
-      "symbol": "?Draw@BossOverlay_0041EA40@@QAEHXZ",
+      "source": "src/game/laser_grow_draw.cpp",
+      "symbol": "?Draw@GrowLaser@@QAEHXZ",
       "address": "0x0041EA40",
       "size": 173,
       "kind": "semantic",
       "owner": "0x0041EA40",
       "previous_record": {
         "name": "asm_FUN_0041ea40_0041ea40",
-        "source": "src/unidentified/FUN_0041ea40_0041ea40.cpp",
+        "source": "src/game/laser_grow_draw.cpp",
         "symbol": "_asm_FUN_0041ea40_0041ea40",
         "address": "0x0041EA40",
         "size": 173,
@@ -18454,15 +18454,15 @@
     },
     {
       "name": "semantic_Stub_ReturnZero_0041eaf0",
-      "source": "src/unidentified/FUN_0041eaf0_0041eaf0.cpp",
-      "symbol": "?Stub_ReturnZero_0041eaf0@@YGHXZ",
+      "source": "src/game/laser_grow_unlink.cpp",
+      "symbol": "?Unlink@GrowLaser@@QAEHXZ",
       "address": "0x0041EAF0",
       "size": 3,
       "kind": "semantic",
       "owner": "0x0041EAF0",
       "previous_record": {
         "name": "asm_FUN_0041eaf0_0041eaf0",
-        "source": "src/unidentified/FUN_0041eaf0_0041eaf0.cpp",
+        "source": "src/game/laser_grow_unlink.cpp",
         "symbol": "_asm_FUN_0041eaf0_0041eaf0",
         "address": "0x0041EAF0",
         "size": 3,
@@ -18540,15 +18540,15 @@
     },
     {
       "name": "semantic_OrientedRect_IntersectsCircle_0041f670",
-      "source": "src/unidentified/FUN_0041f670_0041f670.cpp",
-      "symbol": "?IntersectsCircle@OrientedRect_0041F670@@QBEHPBUPoint3_OrientedRect@@M@Z",
+      "source": "src/game/laser_grow_hit_test.cpp",
+      "symbol": "?HitTestCircle@GrowLaser@@QBEHPBUPoint3_OrientedRect@@M@Z",
       "address": "0x0041F670",
       "size": 226,
       "kind": "semantic",
       "owner": "0x0041F670",
       "previous_record": {
         "name": "asm_FUN_0041f670_0041f670",
-        "source": "src/unidentified/FUN_0041f670_0041f670.cpp",
+        "source": "src/game/laser_grow_hit_test.cpp",
         "symbol": "_asm_FUN_0041f670_0041f670",
         "address": "0x0041F670",
         "size": 226,
@@ -60507,7 +60507,7 @@
     "src/game/ascii_overlay_callbacks.cpp",
     "src/game/asset_buffer.cpp",
     "src/game/boss_gauge.cpp",
-    "src/game/boss_sync_positions_retail_0041d7c0.cpp",
+    "src/game/laser_line_draw.cpp",
     "src/game/bullet.cpp",
     "src/game/bullet_anim_release.cpp",
     "src/game/bullet_ease_step_004078e0.cpp",
@@ -60858,7 +60858,7 @@
     "src/math/int2_add_00427dc0.cpp",
     "src/math/int_interpolator.cpp",
     "src/math/interpolators.cpp",
-    "src/math/oriented_rect.cpp",
+    "src/game/laser_line_hit_test.cpp",
     "src/math/random_vector.cpp",
     "src/math/rng.cpp",
     "src/math/timer.cpp",
@@ -61303,22 +61303,14 @@
     "src/game/native_effect_manager_delete.cpp",
     "src/unidentified/FUN_0041ba00_0041ba00.cpp",
     "src/unreferenced/FUN_0041bee0_0041bee0.cpp",
-    "src/unidentified/FUN_0041bf00_0041bf00.cpp",
-    "src/unidentified/FUN_0041bf10_0041bf10.cpp",
-    "src/unidentified/FUN_0041bf20_0041bf20.cpp",
-    "src/unidentified/FUN_0041bf30_0041bf30.cpp",
-    "src/unidentified/FUN_0041bf50_0041bf50.cpp",
-    "src/unidentified/FUN_0041bf60_0041bf60.cpp",
-    "src/unidentified/FUN_0041bf70_0041bf70.cpp",
-    "src/unidentified/FUN_0041bf80_0041bf80.cpp",
     "src/unidentified/FUN_0041c480_0041c480.cpp",
     "src/unidentified/FUN_0041c4e0_0041c4e0.cpp",
     "src/unreferenced/FUN_0041c880_0041c880.cpp",
-    "src/unidentified/FUN_0041d170_0041d170.cpp",
-    "src/unidentified/FUN_0041d870_0041d870.cpp",
-    "src/unidentified/FUN_0041ea40_0041ea40.cpp",
-    "src/unidentified/FUN_0041eaf0_0041eaf0.cpp",
-    "src/unidentified/FUN_0041f670_0041f670.cpp",
+    "src/game/laser_line_decelerate.cpp",
+    "src/game/laser_line_unlink.cpp",
+    "src/game/laser_grow_draw.cpp",
+    "src/game/laser_grow_unlink.cpp",
+    "src/game/laser_grow_hit_test.cpp",
     "src/unidentified/FUN_0041feb0_0041feb0.cpp",
     "src/unidentified/FUN_0041fef0_0041fef0.cpp",
     "src/unreferenced/FUN_0041ff30_0041ff30.cpp",
@@ -61922,17 +61914,6 @@
     "src/unreferenced/unassigned_0041ba4d.cpp",
     "src/unreferenced/unassigned_0041be70.cpp",
     "src/unreferenced/unassigned_0041bed0.cpp",
-    "src/unidentified/unassigned_0041bef0.cpp",
-    "src/unidentified/unassigned_0041bf90.cpp",
-    "src/unidentified/unassigned_0041bfa0.cpp",
-    "src/unidentified/unassigned_0041bfb0.cpp",
-    "src/unidentified/unassigned_0041bfc0.cpp",
-    "src/unidentified/unassigned_0041bfd0.cpp",
-    "src/unidentified/unassigned_0041bfe0.cpp",
-    "src/unidentified/unassigned_0041bff0.cpp",
-    "src/unidentified/unassigned_0041c000.cpp",
-    "src/unidentified/unassigned_0041c010.cpp",
-    "src/unidentified/unassigned_0041c020.cpp",
     "src/unreferenced/unassigned_0041c0a0.cpp",
     "src/unreferenced/unassigned_0041c0b0.cpp",
     "src/unreferenced/unassigned_0041c0d0.cpp",
@@ -62250,7 +62231,8 @@
     "src/render/stage_background_task.cpp",
     "src/render/stage_fog_interpolator.cpp",
     "src/render/stage_fog.cpp",
-    "src/render/stage_script.cpp"
+    "src/render/stage_script.cpp",
+    "src/game/laser_base.cpp"
   ],
   "notes": [
     "Every executable body is compiled from C++; unported bodies use MSVC inline assembly.",
@@ -63262,11 +63244,11 @@
       "?g_thread_synchronization@@3UThreadSynchronization@@A": "_data_00492274",
       "@Scheduler_RemoveTask@8": "_Scheduler_Remove@8"
     },
-    "src/math/oriented_rect.cpp": {
+    "src/game/laser_line_hit_test.cpp": {
       "__real@00000000": "_data_00470b04",
       "__real@bf000000": "_data_00470b78"
     },
-    "src/unidentified/FUN_0041f670_0041f670.cpp": {
+    "src/game/laser_grow_hit_test.cpp": {
       "__real@00000000": "_data_00470b04",
       "__real@bf000000": "_data_00470b78"
     },

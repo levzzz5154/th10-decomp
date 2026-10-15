@@ -382,21 +382,21 @@
     },
     {
       "name": "BossOverlay_0041D7C0_Draw",
-      "symbol": "?Draw@BossOverlay_0041D7C0@@QAEHXZ",
+      "symbol": "?Draw@LineLaser@@QAEHXZ",
       "section": ".text$001z0boss",
       "address": "0x0041D7C0",
       "size": 173,
       "actual_abi": "public ECX receiver; manager ECX and entity EAX at dispatcher calls; plain RET",
-      "source": "src/game/boss_sync_positions_retail_0041d7c0.cpp"
+      "source": "src/game/laser_line_draw.cpp"
     },
     {
       "name": "BossOverlay_0041EA40_Draw",
-      "symbol": "?Draw@BossOverlay_0041EA40@@QAEHXZ",
+      "symbol": "?Draw@GrowLaser@@QAEHXZ",
       "section": ".text$001z2boss",
       "address": "0x0041EA40",
       "size": 173,
       "actual_abi": "public ECX receiver; manager ECX and entity EAX at dispatcher calls; plain RET",
-      "source": "src/unidentified/FUN_0041ea40_0041ea40.cpp"
+      "source": "src/game/laser_grow_draw.cpp"
     },
     {
       "name": "GameStateOverlay_Draw_00415800",
@@ -1261,7 +1261,7 @@
   "additional_sources": [
     "src/game/ascii_manager_on_draw_retail_0043c410.cpp",
     "src/game/ascii_overlay_callbacks.cpp",
-    "src/game/boss_sync_positions_retail_0041d7c0.cpp",
+    "src/game/laser_line_draw.cpp",
     "src/game/fun_00405300_00405300.cpp",
     "src/game/game_state_overlay_draw.cpp",
     "src/game/recovery_reset_device_streams_0043bc40.cpp",
@@ -1290,7 +1290,7 @@
     "src/render/sprite_quad_submit.cpp",
     "src/render/sprite_quad_submit_mirrored.cpp",
     "src/render/viewport_apply_default_retail_0043bcd0.cpp",
-    "src/unidentified/FUN_0041ea40_0041ea40.cpp",
+    "src/game/laser_grow_draw.cpp",
     "src/unidentified/FUN_004200d0_004200d0.cpp",
     "src/unidentified/FUN_0043c3c0_0043c3c0.cpp",
     "src/unidentified/FUN_00445880_00445880.cpp",
@@ -1327,8 +1327,8 @@
     "?Draw@AsciiOverlay_0043C2C0@@QAEHXZ",
     "?Draw@AsciiOverlay_0043C3C0@@QAEHXZ",
     "?Draw@AsciiOverlay_0043C410@@QAEHXZ",
-    "?Draw@BossOverlay_0041D7C0@@QAEHXZ",
-    "?Draw@BossOverlay_0041EA40@@QAEHXZ",
+    "?Draw@LineLaser@@QAEHXZ",
+    "?Draw@GrowLaser@@QAEHXZ",
     "_GameStateOverlay_Draw_00415800@4",
     "?RunArrayReleaseCallback@ScoreRuntimeState_004091c0@@QAEHXZ",
     "?DrawFan33@RenderEntity@@QAEHXZ",
