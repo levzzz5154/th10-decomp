@@ -16,4 +16,4 @@ typedef char ItemFrontState_00413980_offsets_check[
 
 // Native LTCG supplies the receiver in EBX, preserving the retail entry.
 extern "C" __declspec(noinline) int __stdcall
-ItemFront_Initialize_00413980(ItemFrontState_00413980* state);
+Hud_RegisterTasks(ItemFrontState_00413980* state);

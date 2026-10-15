@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
   "name": "item_manager_construct_00413810",
-  "source": "src/game/item_manager_construct_00413810.cpp",
+  "source": "src/game/hud_construct.cpp",
   "driver": "layout/ltcg/item_manager_construct_00413810/context.cpp",
   "headers": [
-    "include/th10/game/item_manager_construct_00413810.hpp",
+    "include/th10/game/hud_construct.hpp",
     "include/th10/game/entity.hpp",
     "include/th10/types.hpp",
     "include/th10/math/timer.hpp"
@@ -14,7 +14,7 @@
   "functions": [
     {
       "name": "ItemManager_Construct",
-      "symbol": "??0ItemManager_00413810@@QAE@XZ",
+      "symbol": "??0Hud@@QAE@XZ",
       "section": ".text$01construct",
       "address": "0x00413810",
       "actual_abi": "receiver on the stack, RET 4; receiver returned in EAX; compiler-generated EH frame",
@@ -72,7 +72,7 @@
     },
     {
       "name": "ItemManagerConstructHandler",
-      "symbol": "__ehhandler$??0ItemManager_00413810@@QAE@XZ",
+      "symbol": "__ehhandler$??0Hud@@QAE@XZ",
       "section": ".text$x",
       "address": "0x004654B5",
       "actual_abi": "compiler-generated EH handler",
@@ -81,7 +81,7 @@
     }
   ],
   "context": {
-    "symbol": "?ItemManagerConstructCompilerContext@@YGPAUItemManager_00413810@@PAX@Z",
+    "symbol": "?HudConstructCompilerContext@@YGPAUHud@@PAX@Z",
     "section": ".text$05context",
     "address": "0x00413980",
     "size": 22,
@@ -137,7 +137,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "??1ItemManagerSprite_00413810@@QAE@XZ",
+      "symbol": "??1HudSprite@@QAE@XZ",
       "address": "0x00401FF0",
       "kind": "data"
     },
@@ -159,7 +159,7 @@
   "anchors": [
     {
       "name": "ActualSpriteConstructor",
-      "symbol": "??0ItemManagerSprite_00413810@@QAE@XZ",
+      "symbol": "??0HudSprite@@QAE@XZ",
       "section": ".text$00sprite",
       "address": "0x00402050",
       "size": 88

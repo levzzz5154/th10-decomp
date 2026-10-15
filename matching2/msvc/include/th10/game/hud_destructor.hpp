@@ -73,7 +73,7 @@ __forceinline void AnimationLists_SetFlag(AnimationLookupContext* context, Anima
 }
 
 // An animation the manager owns, named by its id.
-struct ItemManagerAnimation_004145f0 {
+struct HudAnimation {
     AnimationScriptId id;
 
     // Let the animation manager dispose of the animation and forget it.
@@ -89,36 +89,36 @@ struct ItemManagerAnimation_004145f0 {
 };
 
 // One sprite of the item manager: an Entity whose destructor is 0x00401FF0.
-struct ItemManagerSprite_004145f0 : Entity {
-    ~ItemManagerSprite_004145f0();
+struct HudSprite : Entity {
+    ~HudSprite();
 };
 
 // The 0x9ED0-byte item manager, as its destructor sees it.
-struct ItemManager_004145f0 {
+struct Hud {
     unsigned int flags;
     unsigned int reserved_0004;
     SchedulerTask* update_task;
     SchedulerTask* draw_task;
-    ItemManagerSprite_004145f0 sprites_0010[10];
-    ItemManagerSprite_004145f0 sprites_24c8[10];
-    ItemManagerSprite_004145f0 sprites_4980[9];
-    ItemManagerSprite_004145f0 sprites_6a8c[4];
-    ItemManagerSprite_004145f0 sprites_793c[2];
-    ItemManagerSprite_004145f0 sprites_8094[7];
-    ItemManagerSprite_004145f0 sprite_9a48;
-    ItemManagerAnimation_004145f0 effects[8];      // +0x9DF4
+    HudSprite sprites_0010[10];
+    HudSprite sprites_24c8[10];
+    HudSprite sprites_4980[9];
+    HudSprite sprites_6a8c[4];
+    HudSprite sprites_793c[2];
+    HudSprite sprites_8094[7];
+    HudSprite sprite_9a48;
+    HudAnimation effects[8];      // +0x9DF4
     unsigned char reserved_9e14[0x9E50 - 0x9E14];
-    ItemManagerAnimation_004145f0 banner;          // +0x9E50
+    HudAnimation banner;          // +0x9E50
     unsigned char reserved_9e54[0x9EC8 - 0x9E54];
     void* captions;                                // +0x9EC8, animation file
     unsigned int reserved_9ecc;
 
-    __declspec(noinline) ~ItemManager_004145f0();    // 0x004145F0
+    __declspec(noinline) ~Hud();    // 0x004145F0
 };
-typedef char ItemManagerSize_004145f0[sizeof(ItemManager_004145f0) == 0x9ED0 ? 1 : -1];
-typedef char ItemManagerEffects_004145f0[offsetof(ItemManager_004145f0, effects) == 0x9DF4 ? 1 : -1];
+typedef char ItemManagerSize_004145f0[sizeof(Hud) == 0x9ED0 ? 1 : -1];
+typedef char ItemManagerEffects_004145f0[offsetof(Hud, effects) == 0x9DF4 ? 1 : -1];
 
 // 0x00414370: release everything the manager's items and score texts hold.
-void __stdcall ItemManager_ReleaseContents_00414370(ItemManager_004145f0* manager);
+void __stdcall Hud_ReleaseContents(Hud* manager);
 
-extern "C" ItemManager_004145f0* data_0047770c;
+extern "C" Hud* data_0047770c;

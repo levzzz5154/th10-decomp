@@ -1,15 +1,15 @@
 {
   "schema_version": 1,
   "name": "destroy_owned_0041afb0",
-  "source": "src/game/native_effect_manager_delete.cpp",
+  "source": "src/game/item_manager_delete.cpp",
   "driver": "layout/ltcg/destroy_owned_0041afb0_context.cpp",
   "headers": [],
   "image_base": "0x00400000",
   "description": "Destroy/free wrapper compiled with native LTCG so object arrives in ESI.",
   "functions": [
     {
-      "name": "NativeEffectManager_Delete",
-      "symbol": "?NativeEffectManager_Delete@@YGXPAUNativeEffectManager@@@Z",
+      "name": "ItemManager_Delete",
+      "symbol": "?ItemManager_Delete@@YGXPAUItemManager@@@Z",
       "section": ".text$01destroy0041afb0",
       "address": "0x0041AFB0",
       "size": 18,
@@ -17,7 +17,7 @@
     }
   ],
   "context": {
-    "symbol": "?DestroyOwnedCompilerContext_0041afb0@@YGXPAPAUNativeEffectManager@@H@Z",
+    "symbol": "?DestroyOwnedCompilerContext_0041afb0@@YGXPAPAUItemManager@@H@Z",
     "section": ".text$03context",
     "address": "0x0041AFD0",
     "size": 39,
@@ -38,7 +38,7 @@
   "constants": [],
   "absolute_symbols": [
     {
-      "symbol": "_BulletManager_Destroy_0041adf0@4",
+      "symbol": "_ItemManager_Destroy_0041adf0@4",
       "address": "0x0041ADF0",
       "kind": "relative_code"
     },

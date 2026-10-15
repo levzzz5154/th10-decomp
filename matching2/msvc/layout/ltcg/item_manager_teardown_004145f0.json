@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
   "name": "item_manager_teardown_004145f0",
-  "source": "src/game/item_manager_teardown_004145f0.cpp",
+  "source": "src/game/hud_destructor.cpp",
   "driver": "layout/ltcg/item_manager_teardown_004145f0/context.cpp",
   "headers": [
-    "include/th10/game/item_manager_teardown_004145f0.hpp",
+    "include/th10/game/hud_destructor.hpp",
     "include/th10/game/entity.hpp",
     "include/th10/types.hpp",
     "include/th10/game/scheduler.hpp",
@@ -15,8 +15,8 @@
   "description": "Item manager destructor with its member sprites and compiler-generated unwind cleanups, compiled with the real sprite destructor, animation lookups, resource-removal marker and scheduler removal and a deleting caller.",
   "functions": [
     {
-      "name": "ItemManager_Destroy",
-      "symbol": "??1ItemManager_004145f0@@QAE@XZ",
+      "name": "Hud_Destroy",
+      "symbol": "??1Hud@@QAE@XZ",
       "section": ".text$01a_dtor",
       "address": "0x004145F0",
       "actual_abi": "receiver on the stack, RET 4; compiler-generated EH frame",
@@ -94,7 +94,7 @@
     },
     {
       "name": "ItemManagerDestroyHandler",
-      "symbol": "__ehhandler$??1ItemManager_004145f0@@QAE@XZ",
+      "symbol": "__ehhandler$??1Hud@@QAE@XZ",
       "section": ".text$x",
       "address": "0x0046574E",
       "actual_abi": "compiler-generated EH handler",
@@ -103,7 +103,7 @@
     }
   ],
   "context": {
-    "symbol": "?ItemManagerTeardownCompilerContext@@YGXPAUItemManager_004145f0@@@Z",
+    "symbol": "?HudTeardownCompilerContext@@YGXPAUHud@@@Z",
     "section": ".text$01b_context",
     "address": "0x00414830",
     "size": 28,
@@ -184,7 +184,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "?ItemManager_ReleaseContents_00414370@@YGXPAUItemManager_004145f0@@@Z",
+      "symbol": "?Hud_ReleaseContents@@YGXPAUHud@@@Z",
       "address": "0x00414370",
       "kind": "relative_code"
     },
@@ -231,7 +231,7 @@
   "anchors": [
     {
       "name": "ActualSpriteDestructor",
-      "symbol": "??1ItemManagerSprite_004145f0@@QAE@XZ",
+      "symbol": "??1HudSprite@@QAE@XZ",
       "section": ".text$00sprite_dtor",
       "address": "0x00401FF0",
       "size": 34

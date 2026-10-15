@@ -1,15 +1,15 @@
 {
   "schema_version": 1,
   "name": "destroy_owned_004148e0",
-  "source": "src/game/item_manager_delete.cpp",
+  "source": "src/game/hud_delete.cpp",
   "driver": "layout/ltcg/destroy_owned_004148e0_context.cpp",
   "headers": [],
   "image_base": "0x00400000",
   "description": "Destroy/free wrapper compiled with native LTCG so object arrives in ESI.",
   "functions": [
     {
-      "name": "ItemManager_Delete",
-      "symbol": "?ItemManager_Delete@@YGXPAUItemManager@@@Z",
+      "name": "Hud_Delete",
+      "symbol": "?Hud_Delete@@YGXPAUHud@@@Z",
       "section": ".text$01destroy004148e0",
       "address": "0x004148E0",
       "size": 18,
@@ -17,7 +17,7 @@
     }
   ],
   "context": {
-    "symbol": "?DestroyOwnedCompilerContext_004148e0@@YGXPAPAUItemManager@@H@Z",
+    "symbol": "?DestroyOwnedCompilerContext_004148e0@@YGXPAPAUHud@@H@Z",
     "section": ".text$03context",
     "address": "0x00414900",
     "size": 39,

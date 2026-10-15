@@ -21,7 +21,7 @@
       "address": "0x00402440",
       "kind": "code"
     },
-    "_ItemManager_Destroy_004145f0@4": {
+    "_Hud_Destroy@4": {
       "address": "0x004145F0",
       "kind": "code"
     },
@@ -33,7 +33,7 @@
       "address": "0x00405F70",
       "kind": "code"
     },
-    "_NativeEffectManager_Destroy_0041adf0@4": {
+    "_ItemManager_Destroy_0041adf0@4": {
       "address": "0x0041ADF0",
       "kind": "code"
     },

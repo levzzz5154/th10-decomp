@@ -53,7 +53,7 @@
     "_TitleLoadThread_0042c9f0"
   ],
   "headers": [
-    "include/th10/game/item_front_initialize_00413980.hpp",
+    "include/th10/game/hud_register_tasks.hpp",
     "include/th10/game/published_block.hpp",
     "include/th10/game/scheduler.hpp",
     "include/th10/game/scheduler_remove_locked.hpp",
@@ -267,8 +267,8 @@
       "actual_abi": "no arguments; logger receiver in ECX with caller cleanup; result in EAX; plain RET"
     },
     {
-      "name": "ItemFront_Initialize_00413980",
-      "symbol": "_ItemFront_Initialize_00413980@4",
+      "name": "Hud_RegisterTasks",
+      "symbol": "_Hud_RegisterTasks@4",
       "source": "src/game/task_registration.cpp",
       "section": ".text$00d_ciitem",
       "address": "0x00413980",

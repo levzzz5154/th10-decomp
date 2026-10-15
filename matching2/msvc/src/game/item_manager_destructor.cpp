@@ -1,6 +1,7 @@
-#include "th10/game/manager_teardown_native_0041adf0.hpp"
+// 0x0041ADF0: destroy the item manager: its two tasks leave the scheduler.
+#include "th10/game/item_manager_destructor.hpp"
 #pragma code_seg(".text$03manager_dtor")
-NativeEffectManager_0041ADF0::~NativeEffectManager_0041ADF0() {
+ItemManager::~ItemManager() {
  SchedulerTask* task=primary;
  Scheduler* scheduler=(Scheduler*)data_00491be4;
  if(task) {

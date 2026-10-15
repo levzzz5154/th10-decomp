@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
   "name": "manager_teardown_native_0041adf0",
-  "source": "src/game/manager_teardown_native_0041adf0.cpp",
+  "source": "src/game/item_manager_destructor.cpp",
   "driver": "layout/ltcg/manager_teardown_native_0041adf0/context.cpp",
   "headers": [
-    "include/th10/game/manager_teardown_native_0041adf0.hpp",
+    "include/th10/game/item_manager_destructor.hpp",
     "include/th10/game/entity.hpp",
     "include/th10/types.hpp",
     "include/th10/game/scheduler.hpp",
@@ -21,7 +21,7 @@
   "functions": [
     {
       "name": "ManagerTeardown",
-      "symbol": "??1NativeEffectManager_0041ADF0@@QAE@XZ",
+      "symbol": "??1ItemManager@@QAE@XZ",
       "section": ".text$03manager_dtor",
       "address": "0x0041ADF0",
       "size": 216,
@@ -39,7 +39,7 @@
     },
     {
       "name": "ManagerArrayHandler",
-      "symbol": "__ehhandler$??1NativeEffectManager_0041ADF0@@QAE@XZ",
+      "symbol": "__ehhandler$??1ItemManager@@QAE@XZ",
       "section": ".text$x",
       "address": "0x0046541C",
       "size": 10,
@@ -48,7 +48,7 @@
     }
   ],
   "context": {
-    "symbol": "?ManagerTeardown_DestroyOwned_0041AFB0@@YGXPAUNativeEffectManager_0041ADF0@@@Z",
+    "symbol": "?ManagerTeardown_DestroyOwned_0041AFB0@@YGXPAUItemManager@@@Z",
     "section": ".text$05owned_delete",
     "address": "0x0041AFB0",
     "size": 28,
@@ -170,7 +170,7 @@
   "anchors": [
     {
       "name": "ActualElementDestructor",
-      "symbol": "??1NativeEffectElement_0041AD60@@QAE@XZ",
+      "symbol": "??1Item@@QAE@XZ",
       "section": ".text$01element_dtor",
       "address": "0x0041AD60",
       "size": 34

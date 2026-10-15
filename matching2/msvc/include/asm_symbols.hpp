@@ -1712,8 +1712,8 @@ extern "C" void __cdecl asm_ItemFrontRuntime_InitializeRetail_00413980();
 #define VA_asm_ItemFrontRuntime_InitializeRetail_00413980 0x00413980
 extern "C" void __cdecl asm_ItemManager_CreateRetail_00414830();
 #define VA_asm_ItemManager_CreateRetail_00414830 0x00414830
-extern "C" void __cdecl asm_ItemManager_DestroyRetail_00405f70();
-#define VA_asm_ItemManager_DestroyRetail_00405f70 0x00405f70
+extern "C" void __cdecl asm_BulletManager_DestroyRetail_00405f70();
+#define VA_asm_BulletManager_DestroyRetail_00405f70 0x00405f70
 extern "C" void __cdecl asm_JumpToContinuation_004626d6();
 #define VA_asm_JumpToContinuation_004626d6 0x004626d6
 extern "C" void __cdecl asm_KeyConfig_ReassignSlotRetail_00430250();

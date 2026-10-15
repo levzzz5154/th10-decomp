@@ -41,10 +41,10 @@ extern "C" void __cdecl entry_free_004524a1(void* memory);
 // prototype (receiver at [ESP+4], RET 4).
 extern "C" void __stdcall GameState_Destroy_00402440(void* state);
 extern "C" void __stdcall Manager_Release_00422220(void* manager);
-extern "C" void __stdcall ItemManager_Destroy_004145f0(void* manager);
+extern "C" void __stdcall Hud_Destroy(void* manager);
 extern "C" void __stdcall StageManager_Destroy_00424ed0(void* manager);
 extern "C" void __stdcall BulletManager_Destroy_00405f70(void* manager);
-extern "C" void __stdcall NativeEffectManager_Destroy_0041adf0(void* manager);
+extern "C" void __stdcall ItemManager_Destroy_0041adf0(void* manager);
 extern "C" void __stdcall ScoreExtendedObject_DestroyRetail_0041c1c0(void* object);
 extern "C" void __stdcall ResourceCleanup_00418ee0(void* state);
 extern "C" void __stdcall EffectManager_Destroy_0042b570(void* manager);
@@ -159,7 +159,7 @@ void __stdcall ReleaseGlobalManager_00417c80(ManagerState_00417c80* state) {
         }
         void* items = data_0047770c;
         if (items) {
-            ItemManager_Destroy_004145f0(items);
+            Hud_Destroy(items);
             entry_free_004524a1(items);
         }
         void* stage = g_player;
@@ -174,7 +174,7 @@ void __stdcall ReleaseGlobalManager_00417c80(ManagerState_00417c80* state) {
         }
         void* native_effects = data_00477818;
         if (native_effects) {
-            NativeEffectManager_Destroy_0041adf0(native_effects);
+            ItemManager_Destroy_0041adf0(native_effects);
             entry_free_004524a1(native_effects);
         }
         void* score_extended = g_laser_manager;

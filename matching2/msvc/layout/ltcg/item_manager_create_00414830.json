@@ -1,19 +1,19 @@
 {
   "schema_version": 1,
   "name": "item_manager_create_00414830",
-  "source": "src/game/item_manager_create_00414830.cpp",
+  "source": "src/game/hud_create.cpp",
   "driver": "layout/ltcg/item_manager_create_00414830/context.cpp",
   "headers": [
-    "include/th10/game/item_manager_create_00414830.hpp",
+    "include/th10/game/hud_create.hpp",
     "include/th10/game/scheduler.hpp",
     "include/th10/platform/thread_sync.hpp"
   ],
   "image_base": "0x00400000",
-  "description": "ItemManager factory with its compiler-generated new-expression cleanup, compiled with stand-in constructor, initializer and destructor shaped for their receivers.",
+  "description": "Hud factory with its compiler-generated new-expression cleanup, compiled with stand-in constructor, initializer and destructor shaped for their receivers.",
   "functions": [
     {
       "name": "ItemManager_Create",
-      "symbol": "?ItemManager_Create_00414830@@YGPAUItemManager_00414830@@XZ",
+      "symbol": "?Hud_Create@@YGPAUHud@@XZ",
       "section": ".text$04create",
       "address": "0x00414830",
       "actual_abi": "no arguments; manager returned in EAX; compiler-generated EH frame",
@@ -31,7 +31,7 @@
     },
     {
       "name": "ItemManagerCreateHandler",
-      "symbol": "__ehhandler$?ItemManager_Create_00414830@@YGPAUItemManager_00414830@@XZ",
+      "symbol": "__ehhandler$?Hud_Create@@YGPAUHud@@XZ",
       "section": ".text$x",
       "address": "0x0046584B",
       "actual_abi": "compiler-generated EH handler",
@@ -40,7 +40,7 @@
     }
   ],
   "context": {
-    "symbol": "?ItemManagerCreateCompilerContext@@YGHXZ",
+    "symbol": "?HudCreateCompilerContext@@YGHXZ",
     "section": ".text$05context",
     "address": "0x004148C0",
     "size": 12,
@@ -158,21 +158,21 @@
   "anchors": [
     {
       "name": "ConstructorStandIn",
-      "symbol": "??0ItemManager_00414830@@QAE@XZ",
+      "symbol": "??0Hud@@QAE@XZ",
       "section": ".text$01ctor",
       "address": "0x00413810",
       "size": 138
     },
     {
       "name": "InitializeStandIn",
-      "symbol": "?Initialize@ItemManager_00414830@@QAEHXZ",
+      "symbol": "?Initialize@Hud@@QAEHXZ",
       "section": ".text$02init",
       "address": "0x00413980",
       "size": 96
     },
     {
       "name": "DestructorStandIn",
-      "symbol": "??1ItemManager_00414830@@QAE@XZ",
+      "symbol": "??1Hud@@QAE@XZ",
       "section": ".text$03dtor",
       "address": "0x004145F0",
       "size": 127

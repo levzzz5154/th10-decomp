@@ -277,7 +277,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00417c80_00417c80() {
     L_00417e6b:
         push esi
     L_00417e6c:
-        call asm_ItemManager_DestroyRetail_00405f70
+        call asm_BulletManager_DestroyRetail_00405f70
     L_00417e71:
         push esi
     L_00417e72:

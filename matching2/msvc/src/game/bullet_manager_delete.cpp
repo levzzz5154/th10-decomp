@@ -12,13 +12,13 @@
 
 struct BulletManager;
 
-extern "C" __stdcall void asm_ItemManager_DestroyRetail_00405f70(BulletManager* item);
+extern "C" __stdcall void asm_BulletManager_DestroyRetail_00405f70(BulletManager* item);
 void __cdecl operator delete(void* block);
 
 #pragma code_seg(".text$01release")
 __declspec(noinline) void BulletManager_Delete(BulletManager* item) {
     if (item) {
-        asm_ItemManager_DestroyRetail_00405f70(item);
+        asm_BulletManager_DestroyRetail_00405f70(item);
         operator delete(item);
     }
 }

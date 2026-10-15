@@ -2,12 +2,12 @@
 // delete flag in the first stack argument, so this body is a cluster.
 
 struct OwnedObject_0041af90;
-extern "C" void __stdcall BulletManager_Destroy_0041adf0(void* object);
+extern "C" void __stdcall ItemManager_Destroy_0041adf0(void* object);
 extern "C" void __cdecl entry_free_004524a1(void* memory);
 __declspec(noinline) void* DestroyOwned_DeletingDestructor_0041af90(OwnedObject_0041af90* object, unsigned int flags);
 #pragma code_seg(".text$01delete0041af90")
 void* DestroyOwned_DeletingDestructor_0041af90(OwnedObject_0041af90* object, unsigned int flags) {
-    BulletManager_Destroy_0041adf0(object);
+    ItemManager_Destroy_0041adf0(object);
     if (flags & 1) entry_free_004524a1(object);
     return object;
 }

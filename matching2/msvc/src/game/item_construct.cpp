@@ -1,11 +1,11 @@
 #include <string.h>
 #include "th10/game/entity.hpp"
 
-// 0x0041ACF0..0x0041AD57: pool-element constructor of the effect array built by
-// 0x0041AED0 (2198 elements of 0x3F0 bytes). The shared Entity head is retired
+// 0x0041ACF0..0x0041AD57: constructor of one item, run over the item array built by
+// 0x0041AED0 (2198 items of 0x3F0 bytes). The shared Entity head is retired
 // exactly like Entity_Constructor (0x00402050); the extra flag word at +0x3D8 is
 // effect-only state that lives past the zeroed head.
-struct EffectEntity : Entity {
+struct Item : Entity {
     uint32_t& Flags_3D8() {
         return *(uint32_t*)((uint8_t*)this + 0x3D8);
     }
@@ -18,7 +18,7 @@ static void Entity_ClearRegistrationBit(uint32_t* flags) {
     *flags &= ~1u;
 }
 
-EffectEntity* __fastcall EffectEntity_Constructor(EffectEntity* entity) {
+Item* __fastcall Item_Construct(Item* entity) {
     Entity_ClearRegistrationBit(&entity->flags_06C);
     Entity_ClearRegistrationBit(&entity->flags_0B0);
     Entity_ClearRegistrationBit(&entity->flags_0FC);

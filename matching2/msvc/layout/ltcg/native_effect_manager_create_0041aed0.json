@@ -1,11 +1,11 @@
 {
   "schema_version": 1,
   "name": "native_effect_manager_create_0041aed0",
-  "source": "src/game/native_effect_manager_create_0041aed0.cpp",
+  "source": "src/game/item_manager_create.cpp",
   "driver": "layout/ltcg/native_effect_manager_create_0041aed0/context.cpp",
   "headers": [
-    "include/th10/game/native_effect_manager_create_0041aed0.hpp",
-    "include/th10/game/manager_teardown_native_0041adf0.hpp",
+    "include/th10/game/item_manager_create.hpp",
+    "include/th10/game/item_manager_destructor.hpp",
     "include/th10/game/entity.hpp",
     "include/th10/types.hpp",
     "include/th10/game/scheduler.hpp",
@@ -15,16 +15,16 @@
   "description": "Effect manager factory with its inlined constructor and compiler-generated new-expression cleanup, compiled with the real element constructor and destructor and stand-in initializer and destructor shaped for their receivers.",
   "functions": [
     {
-      "name": "NativeEffectManager_Create",
-      "symbol": "?NativeEffectManager_Create_0041aed0@@YGPAUNativeEffectManager_0041ADF0@@XZ",
+      "name": "ItemManager_Create",
+      "symbol": "?ItemManager_Create@@YGPAUItemManager@@XZ",
       "section": ".text$04create",
       "address": "0x0041AED0",
       "actual_abi": "no arguments; manager returned in EAX; compiler-generated EH frame",
       "size": 185
     },
     {
-      "name": "NativeEffectManagerCreateUnwind",
-      "symbol": "_NativeEffectManagerCreateUnwind_00465800",
+      "name": "ItemManagerCreateUnwind",
+      "symbol": "_ItemManagerCreateUnwind_00465800",
       "section": ".text$x",
       "address": "0x00465800",
       "actual_abi": "frees the block when an element constructor throws",
@@ -33,8 +33,8 @@
       "size": 11
     },
     {
-      "name": "NativeEffectManagerCreateHandler",
-      "symbol": "__ehhandler$?NativeEffectManager_Create_0041aed0@@YGPAUNativeEffectManager_0041ADF0@@XZ",
+      "name": "ItemManagerCreateHandler",
+      "symbol": "__ehhandler$?ItemManager_Create@@YGPAUItemManager@@XZ",
       "section": ".text$x",
       "address": "0x0046580B",
       "actual_abi": "compiler-generated EH handler",
@@ -43,7 +43,7 @@
     }
   ],
   "context": {
-    "symbol": "?NativeEffectManagerCreateCompilerContext@@YGHXZ",
+    "symbol": "?ItemManagerCreateCompilerContext@@YGHXZ",
     "section": ".text$05context",
     "address": "0x0041AF90",
     "size": 12,
@@ -181,28 +181,28 @@
   "anchors": [
     {
       "name": "ActualElementConstructor",
-      "symbol": "??0NativeEffectElement_0041AD60@@QAE@XZ",
+      "symbol": "??0Item@@QAE@XZ",
       "section": ".text$00element_ctor",
       "address": "0x0041ACF0",
       "size": 104
     },
     {
       "name": "ActualElementDestructor",
-      "symbol": "??1NativeEffectElement_0041AD60@@QAE@XZ",
+      "symbol": "??1Item@@QAE@XZ",
       "section": ".text$01element_dtor",
       "address": "0x0041AD60",
       "size": 34
     },
     {
       "name": "InitializeStandIn",
-      "symbol": "?Initialize@NativeEffectManager_0041ADF0@@QAEHXZ",
+      "symbol": "?Initialize@ItemManager@@QAEHXZ",
       "section": ".text$02init",
       "address": "0x0041AD90",
       "size": 89
     },
     {
       "name": "DestructorStandIn",
-      "symbol": "??1NativeEffectManager_0041ADF0@@QAE@XZ",
+      "symbol": "??1ItemManager@@QAE@XZ",
       "section": ".text$03dtor",
       "address": "0x0041ADF0",
       "size": 165

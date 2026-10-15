@@ -5,7 +5,7 @@
 #define TH10_SCHEDULER_REMOVE_CODE_SEG ".text$07remove"
 #include "../manager_teardown_native_0041adf0/scheduler.cpp"
 #include "th10/platform/thread_sync.hpp"
-#include "../../../src/game/item_manager_create_00414830.cpp"
+#include "../../../src/game/hud_create.cpp"
 
 extern "C" void* data_00491be4;
 extern "C" SchedulerTask* __stdcall ManagerCreateStandIn_Task(void* routine);
@@ -65,14 +65,14 @@ static __forceinline void ManagerCreateStandIn_Unregister(ManagerCreateStandInTa
 // removals keep every callee-saved register busy, so the receiver stays on
 // the stack.
 #pragma code_seg(".text$01ctor")
-ItemManager_00414830::ItemManager_00414830() {
+Hud::Hud() {
     ManagerCreateStandIn_Unregister(reinterpret_cast<ManagerCreateStandInTasks*>(this));
     ManagerCreateStandIn_MayThrow(0);
 }
 
 // The task in ESI and its priority in EDI leave EBX to the receiver.
 #pragma code_seg(".text$02init")
-int ItemManager_00414830::Initialize() {
+int Hud::Initialize() {
     ManagerCreateStandInTasks* tasks = reinterpret_cast<ManagerCreateStandInTasks*>(this);
     SchedulerTask* update = ManagerCreateStandIn_Task(tail);
     update->reserved_flags &= ~1u;
@@ -88,12 +88,12 @@ int ItemManager_00414830::Initialize() {
 }
 
 #pragma code_seg(".text$03dtor")
-ItemManager_00414830::~ItemManager_00414830() {
+Hud::~Hud() {
     ManagerCreateStandIn_Unregister(reinterpret_cast<ManagerCreateStandInTasks*>(this));
 }
 
 #pragma code_seg(".text$05context")
-int __stdcall ItemManagerCreateCompilerContext() {
-    return ItemManager_Create_00414830() != 0;
+int __stdcall HudCreateCompilerContext() {
+    return Hud_Create() != 0;
 }
 #pragma code_seg()

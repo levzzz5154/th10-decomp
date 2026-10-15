@@ -1,6 +1,6 @@
 // Compiler context only: this caller is not recovered application code.
 #include "../../src/game/bullet_manager_load_scripts_0040ae70.cpp"
-#include "th10/game/item_front_initialize_00413980.hpp"
+#include "th10/game/hud_register_tasks.hpp"
 
 struct BulletManagerState_0040af90;
 BulletManagerState_0040af90 *BulletManager_Create_0040af90();
@@ -104,7 +104,7 @@ int __stdcall BulletManagerLoadScriptsCompilerContext(
             ++created;
     }
     for (int index = 0; index < count; ++index)
-        created += ItemFront_Initialize_00413980(
+        created += Hud_RegisterTasks(
             reinterpret_cast<ItemFrontState_00413980*>(slots[index])) == 0;
     for (int index = 0; index < count; ++index)
         created += Title_RegisterTasks_0042caa0(

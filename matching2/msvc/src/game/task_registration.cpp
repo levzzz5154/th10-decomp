@@ -1,5 +1,5 @@
 // 0x00413980..0x00413A12: load the front animation and register its tasks.
-#include "th10/game/item_front_initialize_00413980.hpp"
+#include "th10/game/hud_register_tasks.hpp"
 
 struct BulletResourceCache_0040ae70;
 struct TextLog_0044b810 {
@@ -24,7 +24,7 @@ int __fastcall ItemFront_RenderThunk_00415af0(void* state);
 
 #pragma code_seg(".text$00d_ciitem")
 extern "C" __declspec(noinline) int __stdcall
-ItemFront_Initialize_00413980(ItemFrontState_00413980* state) {
+Hud_RegisterTasks(ItemFrontState_00413980* state) {
     void* resource = Recovery_LoadCachedResource_00447280(
         6, data_00491c10, data_0046d254);
     state->front_resource = resource;

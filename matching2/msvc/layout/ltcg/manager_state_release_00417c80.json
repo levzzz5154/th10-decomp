@@ -219,7 +219,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_ItemManager_Destroy_004145f0@4",
+      "symbol": "_Hud_Destroy@4",
       "address": "0x004145F0",
       "kind": "relative_code"
     },
@@ -234,7 +234,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_NativeEffectManager_Destroy_0041adf0@4",
+      "symbol": "_ItemManager_Destroy_0041adf0@4",
       "address": "0x0041ADF0",
       "kind": "relative_code"
     },

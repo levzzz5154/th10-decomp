@@ -3,7 +3,7 @@
 // destructor are stand-ins shaped so each takes its receiver where the real
 // one does.
 #include "../manager_teardown_native_0041adf0/element.cpp"
-#include "../../../src/game/native_effect_manager_create_0041aed0.cpp"
+#include "../../../src/game/item_manager_create.cpp"
 
 // C linkage: a removal the compiler knows cannot throw, so the stand-in
 // destructor needs no unwind state for the element array.
@@ -45,7 +45,7 @@ extern "C" SchedulerTask* __stdcall ManagerCreateStandIn_Task(void* routine);
 
 // The task in ESI and its priority in EDI leave EBX to the receiver.
 #pragma code_seg(".text$02init")
-int NativeEffectManager_0041ADF0::Initialize() {
+int ItemManager::Initialize() {
     SchedulerTask* update = ManagerCreateStandIn_Task(tail);
     update->reserved_flags &= ~1u;
     update->context = this;
@@ -60,13 +60,13 @@ int NativeEffectManager_0041ADF0::Initialize() {
 
 // With every callee-saved register busy the receiver stays on the stack.
 #pragma code_seg(".text$03dtor")
-NativeEffectManager_0041ADF0::~NativeEffectManager_0041ADF0() {
+ItemManager::~ItemManager() {
     ManagerCreateStandIn_Unregister(primary);
     ManagerCreateStandIn_Unregister(secondary);
 }
 
 #pragma code_seg(".text$05context")
-int __stdcall NativeEffectManagerCreateCompilerContext() {
-    return NativeEffectManager_Create_0041aed0() != 0;
+int __stdcall ItemManagerCreateCompilerContext() {
+    return ItemManager_Create() != 0;
 }
 #pragma code_seg()
