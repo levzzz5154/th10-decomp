@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "replay_stage_begin_0042a6a0",
-  "source": "src/game/replay_stage_begin_0042a6a0.cpp",
+  "source": "src/game/replay/replay_stage_begin_0042a6a0.cpp",
   "driver": "layout/ltcg/replay_stage_begin_0042a6a0_context.cpp",
   "headers": [
     "include/th10/game/replay_stage_begin_0042a6a0.hpp",

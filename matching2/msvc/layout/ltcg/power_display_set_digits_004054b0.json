@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "power_display_set_digits_004054b0",
-  "source": "src/game/power_display_set_digits_004054b0.cpp",
+  "source": "src/game/background/power_display_set_digits_004054b0.cpp",
   "driver": "layout/ltcg/power_display_set_digits_004054b0_context.cpp",
   "headers": [
     "include/th10/render/animation_object_0043e5a0.hpp"

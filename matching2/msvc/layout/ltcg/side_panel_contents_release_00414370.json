@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "side_panel_contents_release_00414370",
-  "source": "src/game/side_panel_contents_release_00414370.cpp",
+  "source": "src/game/front/side_panel_contents_release_00414370.cpp",
   "driver": "layout/ltcg/side_panel_contents_release_00414370_context.cpp",
   "headers": [
     "include/th10/game/side_panel_contents_release_00414370.hpp"

@@ -1,31 +1,31 @@
 {
   "schema_version": 1,
   "name": "bullet_manager_load_scripts_0040ae70",
-  "source": "src/game/bullet_manager_load_scripts_0040ae70.cpp",
+  "source": "src/game/effect/bullet_manager_load_scripts_0040ae70.cpp",
   "additional_sources": [
-    "src/game/bullet_manager_create_0040af90.cpp",
-    "src/game/bullet_manager_release_0040af00.cpp",
-    "src/game/load_startup_resources_0041f8d0.cpp",
-    "src/game/manager_release_00422220.cpp",
-    "src/game/message_host_init.cpp",
-    "src/game/object_factories.cpp",
-    "src/game/platform_release_owned_handle_00413450.cpp",
-    "src/game/bomb_create.cpp",
-    "src/game/recovery_install_pair_clear_flags_0041ad90.cpp",
-    "src/game/bomb_register_tasks.cpp",
-    "src/game/bomb_release.cpp",
+    "src/game/effect/bullet_manager_create_0040af90.cpp",
+    "src/game/effect/bullet_manager_release_0040af00.cpp",
+    "src/game/loading/load_startup_resources_0041f8d0.cpp",
+    "src/game/pause/manager_release_00422220.cpp",
+    "src/game/enemy/message_host_init.cpp",
+    "src/game/laser/object_factories.cpp",
+    "src/game/fps/platform_release_owned_handle_00413450.cpp",
+    "src/game/bomb/bomb_create.cpp",
+    "src/game/item/recovery_install_pair_clear_flags_0041ad90.cpp",
+    "src/game/bomb/bomb_register_tasks.cpp",
+    "src/game/bomb/bomb_release.cpp",
     "src/game/scheduler_create_and_register_0044a000.cpp",
     "src/game/scheduler_create_and_register_secondary_0044a030.cpp",
     "src/game/scheduler_release_task_pair_0043cb00.cpp",
     "src/game/scheduler_tasks.cpp",
-    "src/game/score_display_register_tasks_retail_0041c120.cpp",
-    "src/game/score_extended_object_destroy_0041c1c0.cpp",
-    "src/game/score_object_initialize_0041c030.cpp",
-    "src/game/task_registration.cpp",
-    "src/game/title_register_tasks_0042caa0.cpp",
+    "src/game/laser/score_display_register_tasks_retail_0041c120.cpp",
+    "src/game/laser/score_extended_object_destroy_0041c1c0.cpp",
+    "src/game/laser/score_object_initialize_0041c030.cpp",
+    "src/game/front/task_registration.cpp",
+    "src/game/title/title_register_tasks_0042caa0.cpp",
     "src/platform/joystick_probe.cpp",
     "src/platform/text_log.cpp",
-    "src/game/sprite_viewer_register_tasks.cpp",
+    "src/game/eclview/sprite_viewer_register_tasks.cpp",
     "src/unreferenced/unassigned_00405f00.cpp",
     "src/unreferenced/unassigned_00413300.cpp",
     "src/unreferenced/unassigned_004133f0.cpp",
@@ -33,9 +33,9 @@
     "src/unreferenced/unassigned_0041c100.cpp",
     "src/unreferenced/unassigned_0044a060.cpp",
     "src/unreferenced/unassigned_0044a090.cpp",
-    "src/game/sprite_viewer_construct.cpp",
+    "src/game/eclview/sprite_viewer_construct.cpp",
     "src/unreferenced/FUN_0040a3c0_0040a3c0.cpp",
-    "src/game/title_load_thread_0042c9f0.cpp",
+    "src/game/title/title_load_thread_0042c9f0.cpp",
     "layout/ltcg/bullet_manager_load_scripts_0040ae70_release.cpp",
     "layout/ltcg/bullet_manager_load_scripts_0040ae70_mark.cpp"
   ],
@@ -71,7 +71,7 @@
   "functions": [
     {
       "name": "Recovery_InstallPairSetFlags_004055c0",
-      "source": "src/game/bomb_register_tasks.cpp",
+      "source": "src/game/bomb/bomb_register_tasks.cpp",
       "symbol": "_Bomb_RegisterTasks@4",
       "section": ".text$00_vinstall",
       "address": "0x004055C0",
@@ -80,7 +80,7 @@
     },
     {
       "name": "Recovery_CreateFixedState_004056b0",
-      "source": "src/game/bomb_create.cpp",
+      "source": "src/game/bomb/bomb_create.cpp",
       "symbol": "_Bomb_Create",
       "section": ".text$00_xfixed",
       "address": "0x004056B0",
@@ -93,7 +93,7 @@
       "section": ".text$00_ystatereg",
       "address": "0x0040A130",
       "size": 106,
-      "source": "src/game/sprite_viewer_register_tasks.cpp",
+      "source": "src/game/eclview/sprite_viewer_register_tasks.cpp",
       "actual_abi": "state in EBX; result in EAX; plain RET"
     },
     {
@@ -110,7 +110,7 @@
       "section": ".text$00c_create",
       "address": "0x0040AF90",
       "size": 86,
-      "source": "src/game/bullet_manager_create_0040af90.cpp",
+      "source": "src/game/effect/bullet_manager_create_0040af90.cpp",
       "actual_abi": "manager in EBX across the script-load and release calls; result in EAX"
     },
     {
@@ -120,11 +120,11 @@
       "address": "0x0040D280",
       "size": 334,
       "actual_abi": "host in EBX; script name on the stack; RET 4; result in EAX",
-      "source": "src/game/message_host_init.cpp"
+      "source": "src/game/enemy/message_host_init.cpp"
     },
     {
       "name": "Recovery_InstallPairClearFlags_0041ad90",
-      "source": "src/game/recovery_install_pair_clear_flags_0041ad90.cpp",
+      "source": "src/game/item/recovery_install_pair_clear_flags_0041ad90.cpp",
       "symbol": "_asm_Recovery_InstallPairClearFlags_0041ad90@4",
       "section": ".text$00e_installclear",
       "address": "0x0041AD90",
@@ -138,7 +138,7 @@
       "address": "0x0041C030",
       "size": 98,
       "actual_abi": "object in EDX; unused ECX slot; result in EAX; plain RET",
-      "source": "src/game/score_object_initialize_0041c030.cpp"
+      "source": "src/game/laser/score_object_initialize_0041c030.cpp"
     },
     {
       "name": "InitializeManager_0041c100",
@@ -156,7 +156,7 @@
       "address": "0x0041C120",
       "size": 146,
       "actual_abi": "manager in EBX; result in EAX; plain RET",
-      "source": "src/game/score_display_register_tasks_retail_0041c120.cpp"
+      "source": "src/game/laser/score_display_register_tasks_retail_0041c120.cpp"
     },
     {
       "name": "ScoreManager_CreateAndInit_0041c290",
@@ -165,7 +165,7 @@
       "address": "0x0041C290",
       "size": 91,
       "actual_abi": "manager in ESI; registration call receives it in EBX; result in EAX; plain RET",
-      "source": "src/game/object_factories.cpp"
+      "source": "src/game/laser/object_factories.cpp"
     },
     {
       "name": "Scheduler_RegisterPrimary",
@@ -259,7 +259,7 @@
     },
     {
       "name": "LoadStartupResources_0041f8d0",
-      "source": "src/game/load_startup_resources_0041f8d0.cpp",
+      "source": "src/game/loading/load_startup_resources_0041f8d0.cpp",
       "symbol": "_LoadStartupResources_0041f8d0",
       "section": ".text$00hbstartup",
       "address": "0x0041F8D0",
@@ -269,7 +269,7 @@
     {
       "name": "Hud_RegisterTasks",
       "symbol": "_Hud_RegisterTasks@4",
-      "source": "src/game/task_registration.cpp",
+      "source": "src/game/front/task_registration.cpp",
       "section": ".text$00d_ciitem",
       "address": "0x00413980",
       "size": 147,
@@ -318,7 +318,7 @@
       "address": "0x00413450",
       "size": 84,
       "actual_abi": "block in EBX",
-      "source": "src/game/platform_release_owned_handle_00413450.cpp"
+      "source": "src/game/fps/platform_release_owned_handle_00413450.cpp"
     },
     {
       "name": "Recovery_ReleaseRawPair_0043cb00",
@@ -336,7 +336,7 @@
       "address": "0x00405620",
       "size": 137,
       "actual_abi": "stdcall; pair on the stack",
-      "source": "src/game/bomb_release.cpp"
+      "source": "src/game/bomb/bomb_release.cpp"
     },
     {
       "name": "BulletManager_Release_0040af00",
@@ -345,7 +345,7 @@
       "address": "0x0040AF00",
       "size": 137,
       "actual_abi": "stdcall; pair on the stack",
-      "source": "src/game/bullet_manager_release_0040af00.cpp"
+      "source": "src/game/effect/bullet_manager_release_0040af00.cpp"
     },
     {
       "name": "ScoreExtendedObject_DestroyRetail_0041c1c0",
@@ -354,7 +354,7 @@
       "address": "0x0041C1C0",
       "size": 195,
       "actual_abi": "stdcall; object on the stack",
-      "source": "src/game/score_extended_object_destroy_0041c1c0.cpp"
+      "source": "src/game/laser/score_extended_object_destroy_0041c1c0.cpp"
     },
     {
       "name": "Manager_Release_00422220_00422220",
@@ -363,7 +363,7 @@
       "address": "0x00422220",
       "size": 311,
       "actual_abi": "stdcall; manager on the stack",
-      "source": "src/game/manager_release_00422220.cpp"
+      "source": "src/game/pause/manager_release_00422220.cpp"
     },
     {
       "name": "Title_RegisterTasks_0042caa0",
@@ -372,11 +372,11 @@
       "address": "0x0042CAA0",
       "size": 192,
       "actual_abi": "title state in EBX; result in EAX; plain RET",
-      "source": "src/game/title_register_tasks_0042caa0.cpp"
+      "source": "src/game/title/title_register_tasks_0042caa0.cpp"
     },
     {
       "name": "counter_state_construct_0040a040",
-      "source": "src/game/sprite_viewer_construct.cpp",
+      "source": "src/game/eclview/sprite_viewer_construct.cpp",
       "symbol": "??0SpriteViewerState@@QAE@XZ",
       "section": ".text$00_ystateinit",
       "address": "0x0040A040",
@@ -399,7 +399,7 @@
       "address": "0x0042C9F0",
       "size": 168,
       "actual_abi": "no arguments; plain RET",
-      "source": "src/game/title_load_thread_0042c9f0.cpp"
+      "source": "src/game/title/title_load_thread_0042c9f0.cpp"
     }
   ],
   "context": {

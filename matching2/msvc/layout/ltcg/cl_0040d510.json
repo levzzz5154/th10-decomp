@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "cl_0040d510",
-  "source": "src/game/enemy_manager_suspend.cpp",
+  "source": "src/game/enemy/enemy_manager_suspend.cpp",
   "driver": "layout/ltcg/cl_0040d510_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

@@ -1,7 +1,7 @@
 {
  "schema_version": 1,
  "name": "entity_start_script_00404f30",
- "source": "src/game/entity_start_script_00404f30.cpp",
+ "source": "src/game/background/entity_start_script_00404f30.cpp",
  "driver": "layout/ltcg/entity_start_script_00404f30_context.cpp",
  "headers": [
   "include/th10/game/entity.hpp",
@@ -19,7 +19,7 @@
    "address": "0x00404F30",
    "size": 202,
    "actual_abi": "entity in ESI, script index in EAX, resource on the stack; RET 4",
-   "source": "src/game/entity_start_script_00404f30.cpp"
+   "source": "src/game/background/entity_start_script_00404f30.cpp"
   },
   {
    "name": "Laser_Initialize_0041e5c0",
@@ -28,7 +28,7 @@
    "address": "0x0041E5C0",
    "size": 309,
    "actual_abi": "virtual thiscall: laser in ECX, parameters on the stack; RET 4",
-   "source": "src/game/laser_initialize_0041e5c0.cpp"
+   "source": "src/game/laser/laser_initialize_0041e5c0.cpp"
   },
   {
    "name": "Stage_StartQuadScripts_00404450",
@@ -37,7 +37,7 @@
    "address": "0x00404450",
    "size": 214,
    "actual_abi": "stage on the stack; RET 4",
-   "source": "src/game/stage_start_quad_scripts_00404450.cpp"
+   "source": "src/game/background/stage_start_quad_scripts_00404450.cpp"
   },
   {
    "name": "LineLaser_Initialize_0041c8c0",
@@ -45,7 +45,7 @@
    "section": ".text$00zline",
    "address": "0x0041C8C0",
    "size": 442,
-   "source": "src/game/line_laser_initialize_0041c8c0.cpp",
+   "source": "src/game/laser/line_laser_initialize_0041c8c0.cpp",
    "actual_abi": "virtual thiscall: laser in ECX, parameters on the stack; result 0; RET 4"
   }
  ],
@@ -166,9 +166,9 @@
   "?Initialize@LineLaser_0041c8c0@@QAEHPBULineLaserParams_0041c8c0@@@Z"
  ],
  "additional_sources": [
-  "src/game/laser_initialize_0041e5c0.cpp",
-  "src/game/stage_start_quad_scripts_00404450.cpp",
-  "src/game/line_laser_initialize_0041c8c0.cpp"
+  "src/game/laser/laser_initialize_0041e5c0.cpp",
+  "src/game/background/stage_start_quad_scripts_00404450.cpp",
+  "src/game/laser/line_laser_initialize_0041c8c0.cpp"
  ],
  "constant_aliases": [
   {

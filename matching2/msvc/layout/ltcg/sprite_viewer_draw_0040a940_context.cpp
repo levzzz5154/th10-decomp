@@ -1,8 +1,8 @@
 // Compiler context only; never selected as recovered game code. The queue
 // writer and marked-text formatter are ABI anchors for the ESI/EBX arguments.
-#include "../../src/game/ascii_manager/add_string.cpp"
-#include "../../src/game/ascii_manager/add_formatted_marked.cpp"
-#include "../../src/game/sprite_viewer_draw_0040a940.cpp"
+#include "../../src/game/ascii/add_string.cpp"
+#include "../../src/game/ascii/add_formatted_marked.cpp"
+#include "../../src/game/eclview/sprite_viewer_draw_0040a940.cpp"
 
 extern "C" void __cdecl entry_free_004524a1(void* memory);
 

@@ -1,5 +1,5 @@
 // Compiler context only; never selected as recovered game code.
-#include "../../src/game/bullet_manager_initialize_00405e20.cpp"
+#include "../../src/game/bullet/bullet_manager_initialize_00405e20.cpp"
 #include "scheduler_register_anchors.cpp"
 #include "../../src/platform/text_log.cpp"
 

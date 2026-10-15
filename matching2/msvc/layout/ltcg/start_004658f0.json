@@ -24,7 +24,7 @@
       "section": ".text$01anchor",
       "address": "0x00421F00",
       "size": 71,
-      "source": "src/game/recovery_initialize_large_state_00421f00.cpp",
+      "source": "src/game/mother/recovery_initialize_large_state_00421f00.cpp",
       "actual_abi": "state ESI; EAX pointer result; RET"
     },
     {
@@ -33,7 +33,7 @@
       "section": ".text$00bconfig",
       "address": "0x00418C40",
       "size": 125,
-      "source": "src/game/game_config_defaults.cpp",
+      "source": "src/game/game/game_config_defaults.cpp",
       "actual_abi": "config EDX; unused ECX slot elided; char result AL; RET"
     }
   ],
@@ -92,7 +92,7 @@
   ],
   "roots": [],
   "additional_sources": [
-    "src/game/recovery_initialize_large_state_00421f00.cpp",
-    "src/game/game_config_defaults.cpp"
+    "src/game/mother/recovery_initialize_large_state_00421f00.cpp",
+    "src/game/game/game_config_defaults.cpp"
   ]
 }

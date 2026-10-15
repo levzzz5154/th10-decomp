@@ -1,1 +1,1 @@
-#include "../../../src/game/bomb_cancel_bullets.cpp"
+#include "../../../src/game/bomb/bomb_cancel_bullets.cpp"

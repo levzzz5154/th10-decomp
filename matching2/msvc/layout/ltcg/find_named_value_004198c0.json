@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "find_named_value_004198c0",
-  "source": "src/game/named_value_lookup_004198c0.cpp",
+  "source": "src/game/hint/named_value_lookup_004198c0.cpp",
   "driver": "layout/ltcg/find_named_value_004198c0_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

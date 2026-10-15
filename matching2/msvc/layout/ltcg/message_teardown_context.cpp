@@ -1,6 +1,6 @@
 // Actual complete 0x004203F0 caller, compiled as an unselected entry.
 // Its original owner in recovery_leaves.cpp is retained.
-#include "../../src/game/fun_0040b7b0_0040b7b0.cpp"
+#include "../../src/game/ending/fun_0040b7b0_0040b7b0.cpp"
 #include "message_teardown_helpers.cpp"
 extern "C" void* data_00477810;
 extern "C" void* data_0047784c;

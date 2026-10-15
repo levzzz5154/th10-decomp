@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "player_hud_start_spell_00409280",
-  "source": "src/game/player_hud_start_spell_00409280.cpp",
+  "source": "src/game/card/player_hud_start_spell_00409280.cpp",
   "driver": "layout/ltcg/player_hud_start_spell_00409280_context.cpp",
   "image_base": "0x00400000",
   "description": "Complete readable C++ spell-card start routine and primary-back registrar. Both full native contributions pass the unmasked retail byte gate; complete native callees supply LTCG context.",
@@ -136,7 +136,7 @@
     "layout/ltcg/player_hud_start_spell_dependencies/format.cpp"
   ],
   "included_sources": [
-    "src/game/entity_start_script_00404f30.cpp",
+    "src/game/background/entity_start_script_00404f30.cpp",
     "src/render/animation_manager_queue_resource_0043dc90.cpp",
     "src/render/animation_object_load_script_0043e710.cpp",
     "layout/ltcg/position_setter_find_anchor.cpp",

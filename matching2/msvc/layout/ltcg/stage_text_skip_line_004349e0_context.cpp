@@ -1,5 +1,5 @@
 // Compiler context only; never selected as recovered game code.
-#include "../../src/game/stage_text_skip_line_004349e0.cpp"
+#include "../../src/game/title/stage_text_skip_line_004349e0.cpp"
 
 #pragma code_seg(".text$03context")
 int __stdcall StageTextSkipLineCompilerContext(char** cursors, int** remainings,

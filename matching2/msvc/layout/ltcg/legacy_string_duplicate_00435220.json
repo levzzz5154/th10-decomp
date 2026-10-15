@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "legacy_string_duplicate_00435220",
-  "source": "src/util/legacy_string_duplicate_00435220.cpp",
+  "source": "src/pack/arcmngr/legacy_string_duplicate_00435220.cpp",
   "driver": "layout/ltcg/legacy_string_duplicate_00435220_context.cpp",
   "headers": [],
   "image_base": "0x00400000",
@@ -14,7 +14,7 @@
       "address": "0x00435220",
       "size": 47,
       "actual_abi": "source string in EDI; plain RET",
-      "source": "src/util/legacy_string_duplicate_00435220.cpp"
+      "source": "src/pack/arcmngr/legacy_string_duplicate_00435220.cpp"
     }
   ],
   "anchors": [],

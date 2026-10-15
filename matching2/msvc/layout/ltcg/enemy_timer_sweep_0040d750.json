@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "enemy_timer_sweep_0040d750",
-  "source": "src/game/enemy_timer_sweep_retail_0040d750.cpp",
+  "source": "src/game/enemy/enemy_timer_sweep_retail_0040d750.cpp",
   "driver": "layout/ltcg/enemy_timer_sweep_0040d750_context.cpp",
   "headers": [
     "include/th10/game/enemy_timer_sweep_0040d750.hpp",

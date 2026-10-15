@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "stage_manager_destructor_00424ed0",
-  "source": "src/game/player_destructor.cpp",
+  "source": "src/game/player/player_destructor.cpp",
   "driver": "layout/ltcg/stage_manager_destructor_00424ed0_context.cpp",
   "included_sources": [
     "layout/ltcg/game_state_anchor_00402160.cpp",

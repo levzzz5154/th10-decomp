@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "lzss",
-  "source": "src/archive/lzss.cpp",
+  "source": "src/pack/resfile/lzss.cpp",
   "driver": "layout/ltcg/lzss_context.cpp",
   "headers": [
     "include/th10/archive/lzss.hpp"

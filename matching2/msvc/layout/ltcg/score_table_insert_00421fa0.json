@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "score_table_insert_00421fa0",
-  "source": "src/game/score_table_insert_00421fa0.cpp",
+  "source": "src/game/mother/score_table_insert_00421fa0.cpp",
   "driver": "layout/ltcg/score_table_insert_00421fa0_context.cpp",
   "headers": [
     "include/th10/game/menu_cursor.hpp",
@@ -22,7 +22,7 @@
     {
       "name": "NameEntry_Prepare",
       "symbol": "?PrepareNameEntry_00423570@@YGXPAUNameEntryMenu_00423570@@@Z",
-      "source": "src/game/name_entry_prepare_00423570.cpp",
+      "source": "src/game/pause/name_entry_prepare_00423570.cpp",
       "section": ".text$00423570_fn",
       "address": "0x00423570",
       "size": 377,
@@ -131,7 +131,7 @@
     }
   ],
   "additional_sources": [
-    "src/game/name_entry_prepare_00423570.cpp",
+    "src/game/pause/name_entry_prepare_00423570.cpp",
     "layout/ltcg/score_table_insert_00421fa0_anchors.cpp"
   ],
   "included_sources": []

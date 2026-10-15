@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "archive_index_00434f70",
-  "source": "src/archive/dat_archive_load_index_00434f70.cpp",
+  "source": "src/pack/arcmngr/dat_archive_load_index_00434f70.cpp",
   "driver": "layout/ltcg/archive_index_00434f70_context.cpp",
   "headers": [
     "layout/ltcg/archive_index_00434f70/archive.hpp",

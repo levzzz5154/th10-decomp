@@ -27,7 +27,7 @@
       "address": "0x00401D20",
       "size": 60,
       "actual_abi": "state in ESI; stage index in EBX; plain RET",
-      "source": "src/render/render_stage_select.cpp"
+      "source": "src/game/ascii/render_stage_select.cpp"
     },
     {
       "name": "RenderStageState_00405300_SelectDefaultStage",
@@ -36,11 +36,11 @@
       "address": "0x00405300",
       "size": 60,
       "actual_abi": "state in ESI; index in EBX; plain RET",
-      "source": "src/game/fun_00405300_00405300.cpp"
+      "source": "src/game/background/fun_00405300_00405300.cpp"
     },
     {
       "name": "ScoreRuntimeState_ReleaseFlaggedEntityArrays",
-      "source": "src/game/release_flagged_entity_arrays_score_runtime_state_004091c0.cpp",
+      "source": "src/game/card/release_flagged_entity_arrays_score_runtime_state_004091c0.cpp",
       "symbol": "?ReleaseFlaggedEntityArrays@ScoreRuntimeState_004091c0@@QAEHXZ",
       "section": ".text$001arrays",
       "address": "0x004091C0",
@@ -49,7 +49,7 @@
     },
     {
       "name": "ScoreRuntimeState_ReleaseFlaggedEntities",
-      "source": "src/game/release_flagged_entities_score_runtime_state_00409230.cpp",
+      "source": "src/game/card/release_flagged_entities_score_runtime_state_00409230.cpp",
       "symbol": "?ReleaseFlaggedEntities@ScoreRuntimeState_00409230@@QAEHXZ",
       "section": ".text$001release",
       "address": "0x00409230",
@@ -63,7 +63,7 @@
       "address": "0x00409270",
       "size": 10,
       "actual_abi": "state in ECX; saves EBX and passes the state in EBX to 0x004091C0; plain RET",
-      "source": "src/game/run_array_release_callback_score_runtime_state_00409270.cpp"
+      "source": "src/game/card/run_array_release_callback_score_runtime_state_00409270.cpp"
     },
     {
       "name": "RenderCamera_ApplyDefault",
@@ -72,11 +72,11 @@
       "address": "0x00421480",
       "size": 287,
       "actual_abi": "EDI camera; plain RET",
-      "source": "src/render/camera_setup.cpp"
+      "source": "src/game/mother/camera_setup.cpp"
     },
     {
       "name": "RenderCamera_Apply",
-      "source": "src/render/camera_apply.cpp",
+      "source": "src/game/mother/camera_apply.cpp",
       "symbol": "?Apply@RenderCamera@@QAEXXZ",
       "section": ".text$00bcamera",
       "address": "0x004215A0",
@@ -387,7 +387,7 @@
       "address": "0x0041D7C0",
       "size": 173,
       "actual_abi": "public ECX receiver; manager ECX and entity EAX at dispatcher calls; plain RET",
-      "source": "src/game/laser_line_draw.cpp"
+      "source": "src/game/laser/laser_line_draw.cpp"
     },
     {
       "name": "BossOverlay_0041EA40_Draw",
@@ -396,11 +396,11 @@
       "address": "0x0041EA40",
       "size": 173,
       "actual_abi": "public ECX receiver; manager ECX and entity EAX at dispatcher calls; plain RET",
-      "source": "src/game/laser_grow_draw.cpp"
+      "source": "src/game/laser/laser_grow_draw.cpp"
     },
     {
       "name": "GameStateOverlay_Draw_00415800",
-      "source": "src/game/game_state_overlay_draw.cpp",
+      "source": "src/game/front/game_state_overlay_draw.cpp",
       "symbol": "_GameStateOverlay_Draw_00415800@4",
       "section": ".text$001soverlay",
       "address": "0x00415800",
@@ -423,7 +423,7 @@
       "address": "0x004200D0",
       "size": 39,
       "actual_abi": "saves ESI and passes the manager in ESI to 0x00442F50; returns 1; plain RET",
-      "source": "src/app/app_on_draw_flush.cpp"
+      "source": "src/game/mother/app_on_draw_flush.cpp"
     },
     {
       "name": "RenderStageState_EnableFog",
@@ -477,7 +477,7 @@
       "address": "0x00401760",
       "size": 738,
       "actual_abi": "__stdcall: thread on the stack; manager ESI to 0x00442F50, camera EDI to 0x004215A0, glyph ESI to 0x00443080; RET 4",
-      "source": "src/game/ascii_manager/draw.cpp"
+      "source": "src/game/ascii/draw.cpp"
     },
     {
       "name": "AsciiManager_OnDrawLate",
@@ -486,7 +486,7 @@
       "address": "0x00401520",
       "size": 10,
       "actual_abi": "__fastcall: thread ECX; saves EBX and passes the thread in EBX to 0x00401A50; plain RET",
-      "source": "src/game/ascii_manager/draw.cpp"
+      "source": "src/game/ascii/draw.cpp"
     },
     {
       "name": "GameThreadText_DrawLateRecords",
@@ -495,7 +495,7 @@
       "address": "0x00401A50",
       "size": 570,
       "actual_abi": "thread in EBX; manager ESI to 0x00442F50, camera EDI to 0x004215A0; EAX=1; plain RET",
-      "source": "src/game/ascii_manager/draw.cpp"
+      "source": "src/game/ascii/draw.cpp"
     },
     {
       "name": "RenderStageState_BeginFrame_00420000",
@@ -504,11 +504,11 @@
       "address": "0x00420000",
       "size": 177,
       "actual_abi": "state in ECX; camera in EDI to 0x004215A0; returns 1; plain RET",
-      "source": "src/app/app_begin_frame_00420000.cpp"
+      "source": "src/game/mother/app_begin_frame_00420000.cpp"
     },
     {
       "name": "StageObject_IsOutsideView_00403090",
-      "source": "src/render/stage_objects_draw.cpp",
+      "source": "src/game/background/stage_objects_draw.cpp",
       "symbol": "?IsOutsideView@StageObject@@QBEHPBUStageVector@@PBURenderCamera@@M@Z",
       "section": ".text$000q1cull",
       "address": "0x00403090",
@@ -517,7 +517,7 @@
     },
     {
       "name": "StageObjects_DrawLayer_00403a30",
-      "source": "src/render/stage_objects_draw.cpp",
+      "source": "src/game/background/stage_objects_draw.cpp",
       "symbol": "?StageObjects_DrawLayer@@YGHPAUStageObjects@@H@Z",
       "section": ".text$000q3draw",
       "address": "0x00403A30",
@@ -526,7 +526,7 @@
     },
     {
       "name": "StageObjects_Draw_00402ca0",
-      "source": "src/render/stage_draw_task.cpp",
+      "source": "src/game/background/stage_draw_task.cpp",
       "symbol": "?StageObjects_Draw@@YGHPAUStageObjects@@@Z",
       "section": ".text$000pm_stagedraw",
       "address": "0x00402CA0",
@@ -535,7 +535,7 @@
     },
     {
       "name": "StageObjects_DrawBackground_00402850",
-      "source": "src/render/stage_background_task.cpp",
+      "source": "src/game/background/stage_background_task.cpp",
       "symbol": "?StageObjects_DrawBackground@@YGHPAUStageObjects@@@Z",
       "section": ".text$000pl_stagebg",
       "address": "0x00402850",
@@ -1260,21 +1260,21 @@
   ],
   "additional_sources": [
     "src/render/screen_effect/draws.cpp",
-    "src/game/laser_line_draw.cpp",
-    "src/game/fun_00405300_00405300.cpp",
-    "src/game/game_state_overlay_draw.cpp",
+    "src/game/laser/laser_line_draw.cpp",
+    "src/game/background/fun_00405300_00405300.cpp",
+    "src/game/front/game_state_overlay_draw.cpp",
     "src/game/recovery_reset_device_streams_0043bc40.cpp",
-    "src/game/release_flagged_entities_score_runtime_state_00409230.cpp",
-    "src/game/release_flagged_entity_arrays_score_runtime_state_004091c0.cpp",
-    "src/game/run_array_release_callback_score_runtime_state_00409270.cpp",
+    "src/game/card/release_flagged_entities_score_runtime_state_00409230.cpp",
+    "src/game/card/release_flagged_entity_arrays_score_runtime_state_004091c0.cpp",
+    "src/game/card/run_array_release_callback_score_runtime_state_00409270.cpp",
     "src/platform/fun_00439390_00439390.cpp",
     "src/render/anchored_quad_build_00443290.cpp",
     "src/render/animation_color_multiply_channel_004423c0.cpp",
     "src/render/anm_batch_flush.cpp",
     "src/render/anm_distance_color.cpp",
     "src/render/anm_vm_draw_dispatch.cpp",
-    "src/render/camera_apply.cpp",
-    "src/render/camera_setup.cpp",
+    "src/game/mother/camera_apply.cpp",
+    "src/game/mother/camera_setup.cpp",
     "src/render/edge_strip_draw.cpp",
     "src/render/entity_submit_projected_00443f80.cpp",
     "src/render/fun_00444580_00444580.cpp",
@@ -1282,14 +1282,14 @@
     "src/render/quad_transform_draw_00444760.cpp",
     "src/render/quad_vertex_append.cpp",
     "src/render/rect_fan_draw.cpp",
-    "src/render/render_stage_select.cpp",
+    "src/game/ascii/render_stage_select.cpp",
     "src/render/render_state_sync.cpp",
     "src/render/special_quad.cpp",
     "src/render/sprite_quad_submit.cpp",
     "src/render/sprite_quad_submit_mirrored.cpp",
     "src/render/viewport_apply_default_retail_0043bcd0.cpp",
-    "src/game/laser_grow_draw.cpp",
-    "src/app/app_on_draw_flush.cpp",
+    "src/game/laser/laser_grow_draw.cpp",
+    "src/game/mother/app_on_draw_flush.cpp",
     "src/render/render_entity_draw_fan.cpp",
     "src/render/animation_manager_draw_stage0_bucket3.cpp",
     "src/render/animation_manager_draw_stage1_bucket0f.cpp",
@@ -1298,13 +1298,13 @@
     "src/unreferenced/unassigned_00444dc0.cpp",
     "src/unreferenced/unassigned_00444e60.cpp",
     "src/unreferenced/unassigned_00444fa0.cpp",
-    "src/game/ascii_manager/draw.cpp",
-    "src/app/app_begin_frame_00420000.cpp",
+    "src/game/ascii/draw.cpp",
+    "src/game/mother/app_begin_frame_00420000.cpp",
     "src/render/anchored_quad_build_mirrored_00443480.cpp",
-    "src/render/stage_objects_draw.cpp",
-    "src/render/stage_draw_task.cpp",
+    "src/game/background/stage_objects_draw.cpp",
+    "src/game/background/stage_draw_task.cpp",
     "layout/ltcg/render_batch_frame_timer_anchor.cpp",
-    "src/render/stage_background_task.cpp",
+    "src/game/background/stage_background_task.cpp",
     "layout/ltcg/render_batch_stage_anchors.cpp",
     "layout/ltcg/render_batch/scheduler_register.cpp",
     "layout/ltcg/render_batch/scheduler_create.cpp",

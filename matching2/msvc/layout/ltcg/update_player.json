@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "player_draw_and_collision_complete",
-  "source": "src/game/bomb_cancel_bullets.cpp",
+  "source": "src/game/bomb/bomb_cancel_bullets.cpp",
   "additional_sources": [
     "layout/ltcg/update_player_dependencies/timer_tick.cpp",
     "layout/ltcg/update_player_dependencies/player_draw.cpp",
@@ -12,11 +12,11 @@
     "src/game/fun_00408100_00408100.cpp",
     "layout/ltcg/update_player_dependencies/playfield_bounds.cpp",
     "layout/ltcg/update_player_dependencies/item_spawn_closure.cpp",
-    "src/game/collision_engine_activate_all_00408460.cpp",
-    "src/game/item_drops_flush_0040c9a0.cpp",
+    "src/game/bullet/collision_engine_activate_all_00408460.cpp",
+    "src/game/enemy/item_drops_flush_0040c9a0.cpp",
     "layout/ltcg/update_player_dependencies/enemy_death_callees.cpp",
-    "src/game/enemy_death_release_0040e5f0.cpp",
-    "src/game/enemy_manager_sweep_deaths_0040e6a0.cpp",
+    "src/game/enemy/enemy_death_release_0040e5f0.cpp",
+    "src/game/enemy/enemy_manager_sweep_deaths_0040e6a0.cpp",
     "src/game/item_convert_sweep_0041ba50.cpp"
   ],
   "headers": [
@@ -45,7 +45,7 @@
       "size": 124,
       "section": ".text$040draw",
       "actual_abi": "player ESI, position EBX, zero EAX return, plain RET",
-      "source": "src/game/bomb_cancel_bullets.cpp"
+      "source": "src/game/bomb/bomb_cancel_bullets.cpp"
     },
     {
       "name": "CollisionActivateAll",
@@ -54,7 +54,7 @@
       "size": 62,
       "section": ".text$069h_all",
       "actual_abi": "engine in EAX, flag in EBX; plain RET",
-      "source": "src/game/collision_engine_activate_all_00408460.cpp"
+      "source": "src/game/bullet/collision_engine_activate_all_00408460.cpp"
     },
     {
       "name": "ItemDropsFlush",
@@ -63,7 +63,7 @@
       "size": 48,
       "section": ".text$079h_flush",
       "actual_abi": "position in EAX, drops in EDI; plain RET",
-      "source": "src/game/item_drops_flush_0040c9a0.cpp"
+      "source": "src/game/enemy/item_drops_flush_0040c9a0.cpp"
     },
     {
       "name": "ItemDropsScatter",
@@ -72,7 +72,7 @@
       "address": "0x40c9d0",
       "size": 503,
       "actual_abi": "position in ESI, drops on the stack; RET 4",
-      "source": "src/game/item_drops_flush_0040c9a0.cpp"
+      "source": "src/game/enemy/item_drops_flush_0040c9a0.cpp"
     },
     {
       "name": "EnemyReleaseOnDeath",
@@ -81,7 +81,7 @@
       "address": "0x40e5f0",
       "size": 162,
       "actual_abi": "enemy on the stack; RET 4",
-      "source": "src/game/enemy_death_release_0040e5f0.cpp"
+      "source": "src/game/enemy/enemy_death_release_0040e5f0.cpp"
     },
     {
       "name": "EnemyManagerSweepDeaths",
@@ -90,7 +90,7 @@
       "address": "0x40e6a0",
       "size": 182,
       "actual_abi": "manager on the stack; RET 4",
-      "source": "src/game/enemy_manager_sweep_deaths_0040e6a0.cpp"
+      "source": "src/game/enemy/enemy_manager_sweep_deaths_0040e6a0.cpp"
     }
   ],
   "anchors": [
@@ -573,7 +573,7 @@
     "layout/ltcg/update_player_dependencies/item_spawn_0041bb00_create.cpp",
     "layout/ltcg/update_player_dependencies/item_spawn_0041bb00_dependencies.cpp",
     "layout/ltcg/update_player_dependencies/player_update.cpp",
-    "src/game/bomb_update.cpp"
+    "src/game/bomb/bomb_update.cpp"
   ],
   "constant_aliases": [],
   "data_aliases": [

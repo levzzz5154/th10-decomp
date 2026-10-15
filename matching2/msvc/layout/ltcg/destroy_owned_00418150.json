@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "destroy_owned_00418150",
-  "source": "src/util/heap_destroy_owned_00418150.cpp",
+  "source": "src/game/game/heap_destroy_owned_00418150.cpp",
   "driver": "layout/ltcg/destroy_owned_00418150_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "script_table_sweep",
-  "source": "src/render/anm_script_table_sweep.cpp",
+  "source": "src/game/background/anm_script_table_sweep.cpp",
   "driver": "layout/ltcg/script_table_sweep_context.cpp",
   "headers": ["include/th10/render/anm_script_table_sweep.hpp"],
   "image_base": "0x00400000",

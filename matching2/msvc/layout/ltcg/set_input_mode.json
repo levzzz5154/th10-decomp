@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "set_input_mode",
-  "source": "src/game/set_input_mode_0040ac90.cpp",
+  "source": "src/game/eclview/set_input_mode_0040ac90.cpp",
   "driver": "layout/ltcg/set_input_mode_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

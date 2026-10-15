@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "script_viewer_update_0042bfc0",
-  "source": "src/game/script_viewer_update_0042bfc0.cpp",
+  "source": "src/game/spttest/script_viewer_update_0042bfc0.cpp",
   "driver": "layout/ltcg/script_viewer_update_0042bfc0_context.cpp",
   "headers": [
     "include/th10/game/script_viewer_update_0042bfc0.hpp",

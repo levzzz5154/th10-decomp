@@ -1,7 +1,7 @@
 // Compiler context only; never selected as recovered game code. The batch
 // flush is an ABI anchor for its ESI receiver.
 #include "../../src/render/anm_batch_flush.cpp"
-#include "../../src/game/floating_text_draw.cpp"
+#include "../../src/game/smollscore/floating_text_draw.cpp"
 
 extern "C" void __cdecl entry_free_004524a1(void* memory);
 

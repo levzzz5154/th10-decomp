@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "mt_probe",
-  "source": "src/game/player_set_scheduler_value_00405410.cpp",
+  "source": "src/game/background/player_set_scheduler_value_00405410.cpp",
   "driver": "layout/ltcg/mt_probe_context.cpp",
   "headers": [
     "include/th10/game/recovery_script_executor_0040bd80.hpp",

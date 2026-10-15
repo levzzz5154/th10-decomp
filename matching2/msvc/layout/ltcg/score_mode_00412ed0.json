@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "score_mode_00412ed0",
-  "source": "src/game/score_set_mode_00412ed0.cpp",
+  "source": "src/game/enemy/score_set_mode_00412ed0.cpp",
   "driver": "layout/ltcg/score_mode_00412ed0_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

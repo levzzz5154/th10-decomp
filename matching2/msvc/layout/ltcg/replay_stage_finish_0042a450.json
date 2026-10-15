@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "replay_stage_finish_0042a450",
-  "source": "src/game/replay_stage_finish_0042a450.cpp",
+  "source": "src/game/replay/replay_stage_finish_0042a450.cpp",
   "driver": "layout/ltcg/replay_stage_finish_0042a450_context.cpp",
   "headers": [
     "include/th10/game/replay_stage_finish_0042a450.hpp",
@@ -196,6 +196,6 @@
     "layout/ltcg/replay_stage_finish_dependencies/pause_reset.cpp"
   ],
   "included_sources": [
-    "src/game/pause_menu_reset.cpp"
+    "src/game/player/pause_menu_reset.cpp"
   ]
 }

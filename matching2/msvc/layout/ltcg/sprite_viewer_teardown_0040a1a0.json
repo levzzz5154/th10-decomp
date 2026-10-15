@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "sprite_viewer_teardown_0040a1a0",
-  "source": "src/game/sprite_viewer_teardown_0040a1a0.cpp",
+  "source": "src/game/eclview/sprite_viewer_teardown_0040a1a0.cpp",
   "driver": "layout/ltcg/sprite_viewer_teardown_0040a1a0/context.cpp",
   "headers": [
     "include/th10/game/sprite_viewer_teardown_0040a1a0.hpp",

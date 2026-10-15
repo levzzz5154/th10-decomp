@@ -1,7 +1,7 @@
 // Compiler context only; never selected as recovered game code.
 // The update is reached through a table of callbacks, so the context calls it
 // through the table slot and the pass keeps its declared register convention.
-#include "../../src/game/homing_shot_update_00428b10.cpp"
+#include "../../src/game/player/homing_shot_update_00428b10.cpp"
 
 // Models of the two angle helpers, placed at their retail addresses so the
 // pass can see that neither disturbs the x87 stack below its argument.

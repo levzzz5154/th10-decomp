@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "cached_com_slot_release_retail_00421d20",
-  "source": "src/game/cached_com_slot_release_retail_00421d20.cpp",
+  "source": "src/game/mother/cached_com_slot_release_retail_00421d20.cpp",
   "driver": "layout/ltcg/cached_com_slot_release_retail_00421d20_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

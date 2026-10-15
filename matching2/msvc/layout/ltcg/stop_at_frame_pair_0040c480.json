@@ -1,24 +1,24 @@
 {
   "schema_version": 1,
   "name": "stop_at_frame_pair_0040c480",
-  "source": "src/render/anm_propagate.cpp",
+  "source": "src/game/card/anm_propagate.cpp",
   "additional_sources": [
-    "src/game/recovery_initialize_timed_state_00423510.cpp",
-    "src/game/recovery_mark_animation_tree_004243f0.cpp",
+    "src/game/pause/recovery_initialize_timed_state_00423510.cpp",
+    "src/game/pause/recovery_mark_animation_tree_004243f0.cpp",
     "src/render/animation_manager_find_004491c0.cpp",
     "src/render/animation_manager_find_child_by_script_index_004497d0.cpp",
     "src/render/animation_manager_set_stop_frame_00449210.cpp",
     "src/render/animation_manager_set_stop_frame_from_handle_retail_00449470.cpp",
-    "src/render/animation_manager_stop_at_frame2_0040c480.cpp",
-    "src/render/animation_manager_stop_at_frame3_0040c4d0.cpp",
+    "src/game/ending/animation_manager_stop_at_frame2_0040c480.cpp",
+    "src/game/ending/animation_manager_stop_at_frame3_0040c4d0.cpp",
     "src/unreferenced/unassigned_00449820.cpp",
     "src/render/animation_manager_set_stop_frame_and_run_00449250.cpp",
-    "src/game/game_state_dispatch_animation_slot_0042c730.cpp",
-    "src/game/game_state_dispatch_animation_slot_secondary_0042c750.cpp",
+    "src/game/title/game_state_dispatch_animation_slot_0042c730.cpp",
+    "src/game/title/game_state_dispatch_animation_slot_secondary_0042c750.cpp",
     "src/render/animation_handle_set_stop_frame_and_run_004494c0.cpp",
-    "src/game/recovery_switch_playback_state_00427ae0.cpp",
-    "src/game/playback_state_on_switch_00427ad0.cpp",
-    "src/game/game_state_find_slot_child_0042c7c0.cpp"
+    "src/game/player/recovery_switch_playback_state_00427ae0.cpp",
+    "src/game/player/playback_state_on_switch_00427ad0.cpp",
+    "src/game/title/game_state_find_slot_child_0042c7c0.cpp"
   ],
   "driver": "layout/ltcg/stop_at_frame_pair_0040c480_context.cpp",
   "headers": [
@@ -41,7 +41,7 @@
       "address": "0x00409E50",
       "size": 65,
       "actual_abi": "handle address in EAX; nothing on the stack; plain RET",
-      "source": "src/render/anm_propagate.cpp"
+      "source": "src/game/card/anm_propagate.cpp"
     },
     {
       "name": "AnimationManager_StopAtFrame2",
@@ -50,7 +50,7 @@
       "address": "0x0040C480",
       "size": 65,
       "actual_abi": "handle address in EAX; nothing on the stack; plain RET",
-      "source": "src/render/animation_manager_stop_at_frame2_0040c480.cpp"
+      "source": "src/game/ending/animation_manager_stop_at_frame2_0040c480.cpp"
     },
     {
       "name": "AnimationManager_StopAtFrame3",
@@ -59,7 +59,7 @@
       "address": "0x0040C4D0",
       "size": 65,
       "actual_abi": "handle address in EAX; nothing on the stack; plain RET",
-      "source": "src/render/animation_manager_stop_at_frame3_0040c4d0.cpp"
+      "source": "src/game/ending/animation_manager_stop_at_frame3_0040c4d0.cpp"
     },
     {
       "name": "AnimationHandle_00449470_SetStopFrame",
@@ -81,7 +81,7 @@
     },
     {
       "name": "RecoveryTimedState_InitializeTimedState_00423510",
-      "source": "src/game/recovery_initialize_timed_state_00423510.cpp",
+      "source": "src/game/pause/recovery_initialize_timed_state_00423510.cpp",
       "symbol": "?InitializeTimedState@RecoveryTimedState_00423510@@QAEXXZ",
       "section": ".text$45timed",
       "address": "0x00423510",
@@ -95,7 +95,7 @@
       "address": "0x004243F0",
       "size": 65,
       "actual_abi": "handle address in EAX; nothing on the stack; plain RET",
-      "source": "src/game/recovery_mark_animation_tree_004243f0.cpp"
+      "source": "src/game/pause/recovery_mark_animation_tree_004243f0.cpp"
     },
     {
       "name": "FindChild_00449820",
@@ -131,7 +131,7 @@
       "address": "0x0042C730",
       "size": 27,
       "actual_abi": "state EAX, slot ECX; plain RET",
-      "source": "src/game/game_state_dispatch_animation_slot_0042c730.cpp"
+      "source": "src/game/title/game_state_dispatch_animation_slot_0042c730.cpp"
     },
     {
       "name": "semantic_DispatchAnimationSlotSecondary",
@@ -140,7 +140,7 @@
       "address": "0x0042C750",
       "size": 27,
       "actual_abi": "state EAX, slot ECX; plain RET",
-      "source": "src/game/game_state_dispatch_animation_slot_secondary_0042c750.cpp"
+      "source": "src/game/title/game_state_dispatch_animation_slot_secondary_0042c750.cpp"
     },
     {
       "name": "AnimationRunHandle_SetStopFrameAndRun",
@@ -154,7 +154,7 @@
     {
       "name": "PlaybackState_SwitchPlaybackState",
       "symbol": "?SwitchPlaybackState@PlaybackState@@QAEXXZ",
-      "source": "src/game/recovery_switch_playback_state_00427ae0.cpp",
+      "source": "src/game/player/recovery_switch_playback_state_00427ae0.cpp",
       "address": "0x00427AE0",
       "size": 99,
       "section": ".text$45timedzbd",
@@ -163,7 +163,7 @@
     {
       "name": "PlaybackState_OnSwitch_00427ad0",
       "symbol": "?PlaybackState_OnSwitch_00427ad0@@YIHPAUPlaybackState@@@Z",
-      "source": "src/game/playback_state_on_switch_00427ad0.cpp",
+      "source": "src/game/player/playback_state_on_switch_00427ad0.cpp",
       "address": "0x00427AD0",
       "size": 12,
       "section": ".text$45timedzbc5",
@@ -172,7 +172,7 @@
     {
       "name": "FindAnimationSlotChild_0042c7c0",
       "symbol": "?FindAnimationSlotChild_0042c7c0@@YI?AUAnimationRef_004497d0@@HPAUGameAnimationSlots@@H@Z",
-      "source": "src/game/game_state_find_slot_child_0042c7c0.cpp",
+      "source": "src/game/title/game_state_find_slot_child_0042c7c0.cpp",
       "address": "0x0042C7C0",
       "size": 25,
       "section": ".text$47dispatchz3",

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "item_manager_construct_00413810",
-  "source": "src/game/hud_construct.cpp",
+  "source": "src/game/front/hud_construct.cpp",
   "driver": "layout/ltcg/item_manager_construct_00413810/context.cpp",
   "headers": [
     "include/th10/game/hud_construct.hpp",

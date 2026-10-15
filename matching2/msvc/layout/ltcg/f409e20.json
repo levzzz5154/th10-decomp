@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "f409e20",
-  "source": "src/game/score_retire_callbacks_00409e20.cpp",
+  "source": "src/game/card/score_retire_callbacks_00409e20.cpp",
   "driver": "layout/ltcg/f409e20_context.cpp",
   "headers": [],
   "image_base": "0x400000",

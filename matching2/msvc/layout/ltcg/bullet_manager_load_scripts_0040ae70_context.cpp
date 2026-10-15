@@ -1,5 +1,5 @@
 // Compiler context only: this caller is not recovered application code.
-#include "../../src/game/bullet_manager_load_scripts_0040ae70.cpp"
+#include "../../src/game/effect/bullet_manager_load_scripts_0040ae70.cpp"
 #include "th10/game/hud_register_tasks.hpp"
 
 struct BulletManagerState_0040af90;

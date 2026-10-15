@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "dat_archive_open_00434c30",
-  "source": "src/archive/dat_archive_open_00434c30.cpp",
+  "source": "src/pack/arcmngr/dat_archive_open_00434c30.cpp",
   "driver": "layout/ltcg/dat_archive_open_00434c30_context.cpp",
   "headers": [
     "include/th10/archive/dat_archive_types.hpp",
@@ -21,7 +21,7 @@
       "address": "0x00434C30",
       "size": 108,
       "actual_abi": "archive in ECX, path in EAX; AL result; plain RET",
-      "source": "src/archive/dat_archive_open_00434c30.cpp"
+      "source": "src/pack/arcmngr/dat_archive_open_00434c30.cpp"
     },
     {
       "name": "DatArchive_OpenResource",
@@ -30,7 +30,7 @@
       "address": "0x00434CA0",
       "size": 100,
       "actual_abi": "archive in ECX, resource name in EAX; AL result; plain RET",
-      "source": "src/archive/dat_archive_open_00434c30.cpp"
+      "source": "src/pack/arcmngr/dat_archive_open_00434c30.cpp"
     },
     {
       "name": "DatArchive_OpenNext",
@@ -39,7 +39,7 @@
       "address": "0x004357D0",
       "size": 36,
       "actual_abi": "path in EAX; AL result; plain RET",
-      "source": "src/archive/dat_archive_open_next_004357d0.cpp"
+      "source": "src/pack/resfile/dat_archive_open_next_004357d0.cpp"
     }
   ],
   "anchors": [
@@ -262,10 +262,10 @@
   ],
   "roots": [],
   "included_sources": [
-    "src/archive/dat_archive_close_00434d10.cpp",
-    "src/util/legacy_string_duplicate_00435220.cpp"
+    "src/pack/arcmngr/dat_archive_close_00434d10.cpp",
+    "src/pack/arcmngr/legacy_string_duplicate_00435220.cpp"
   ],
   "additional_sources": [
-    "src/archive/dat_archive_open_next_004357d0.cpp"
+    "src/pack/resfile/dat_archive_open_next_004357d0.cpp"
   ]
 }

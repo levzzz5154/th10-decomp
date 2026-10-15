@@ -1,5 +1,5 @@
 // Compiler context only; never selected as recovered game code.
-#include "../../src/game/recovery_clear_eight_buckets_00419040.cpp"
+#include "../../src/game/hint/recovery_clear_eight_buckets_00419040.cpp"
 
 #pragma code_seg(".text$03context")
 int __stdcall RecoveryClearEightBucketsCompilerContext(

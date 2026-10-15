@@ -1,5 +1,5 @@
 // Complete compiler context for the count helper at 0x00413790.
-// Uses the same complete implementation as src/game/animation_set_active_count_00413790.cpp.
+// Uses the same complete implementation as src/game/fps/animation_set_active_count_00413790.cpp.
 #pragma code_seg(".text$00413790_fn")
 void AnimationManager_00413790::SetActiveCount(int count) {
     int index = 0;

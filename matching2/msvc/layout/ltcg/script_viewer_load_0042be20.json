@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "script_viewer_load_0042be20",
-  "source": "src/game/script_viewer_load_0042be20.cpp",
+  "source": "src/game/spttest/script_viewer_load_0042be20.cpp",
   "driver": "layout/ltcg/script_viewer_load_0042be20/context.cpp",
   "headers": [
     "include/th10/game/script_viewer_load_0042be20.hpp",

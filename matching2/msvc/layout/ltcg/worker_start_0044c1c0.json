@@ -17,7 +17,7 @@
     {
       "name": "GameUiThreadHost_Spawn",
       "symbol": "?Spawn@GameUiThreadHost@@QAEHP6GIPAX@Z0@Z",
-      "source": "src/game/thread_spawn.cpp",
+      "source": "src/game/mother/thread_spawn.cpp",
       "section": ".text$02spawn",
       "address": "0x00420EA0",
       "size": 118,
@@ -62,7 +62,7 @@
     {
       "name": "GameUi_CreateAndPublish",
       "symbol": "_GameUi_CreateAndPublish_004180e0@4",
-      "source": "src/game/game_ui_create.cpp",
+      "source": "src/game/game/game_ui_create.cpp",
       "section": ".text$00uicreate",
       "address": "0x004180E0",
       "size": 107,
@@ -74,7 +74,7 @@
       "section": ".text$03aprogressctor",
       "address": "0x0042C920",
       "size": 204,
-      "source": "src/game/progress_worker_construct_0042c920.cpp",
+      "source": "src/game/title/progress_worker_construct_0042c920.cpp",
       "actual_abi": "this EDX; EAX result; RET"
     },
     {
@@ -83,7 +83,7 @@
       "section": ".text$03cprogressfactory",
       "address": "0x0042CD50",
       "size": 96,
-      "source": "src/game/progress_worker.cpp",
+      "source": "src/game/title/progress_worker.cpp",
       "actual_abi": "no arguments; state EDI, worker ESI; EAX result; RET"
     }
   ],
@@ -249,13 +249,13 @@
     }
   ],
   "additional_sources": [
-    "src/game/game_ui_create.cpp",
-    "src/game/thread_spawn.cpp",
+    "src/game/game/game_ui_create.cpp",
+    "src/game/mother/thread_spawn.cpp",
     "src/platform/platform_destroy_worker_0044c100.cpp",
     "src/platform/platform_stop_worker_0044c150.cpp",
     "src/unreferenced/unassigned_0044c200.cpp",
-    "src/game/progress_worker_construct_0042c920.cpp",
-    "src/game/progress_worker.cpp"
+    "src/game/title/progress_worker_construct_0042c920.cpp",
+    "src/game/title/progress_worker.cpp"
   ],
   "anchors": [
     {
@@ -267,6 +267,6 @@
     }
   ],
   "included_sources": [
-    "src/game/game_config_defaults.cpp"
+    "src/game/game/game_config_defaults.cpp"
   ]
 }

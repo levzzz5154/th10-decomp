@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
   "name": "key_config_reassign",
-  "source": "src/game/key_config.cpp",
+  "source": "src/game/title/key_config.cpp",
   "included_sources": [
-    "src/game/fun_0042f8b0_0042f8b0.cpp",
+    "src/game/title/fun_0042f8b0_0042f8b0.cpp",
     "src/render/animation_manager_queue_resource_0043dc90.cpp"
   ],
   "driver": "layout/ltcg/key_config_reassign_context.cpp",

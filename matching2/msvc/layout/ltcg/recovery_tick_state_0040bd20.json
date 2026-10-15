@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "recovery_tick_state_0040bd20",
-  "source": "src/game/recovery_tick_state_0040bd20.cpp",
+  "source": "src/game/ending/recovery_tick_state_0040bd20.cpp",
   "driver": "layout/ltcg/recovery_tick_state_0040bd20_context.cpp",
   "headers": [
     "include/th10/game/recovery_emitter_decision_0040b9f0.hpp"
@@ -24,7 +24,7 @@
       "address": "0x0040BA70",
       "size": 10,
       "actual_abi": "receiver ECX; EAX result; plain RET",
-      "source": "src/game/message_manager_on_update.cpp"
+      "source": "src/game/ending/message_manager_on_update.cpp"
     },
     {
       "name": "RecoveryEmitter_UpdateDecision",
@@ -33,7 +33,7 @@
       "address": "0x0040B9F0",
       "size": 111,
       "actual_abi": "object in EDI; script state handed on in ESI; plain RET",
-      "source": "src/game/recovery_update_emitter_decision_0040b9f0.cpp"
+      "source": "src/game/ending/recovery_update_emitter_decision_0040b9f0.cpp"
     }
   ],
   "context": {
@@ -116,8 +116,8 @@
     }
   ],
   "additional_sources": [
-    "src/game/message_manager_on_update.cpp",
-    "src/game/recovery_update_emitter_decision_0040b9f0.cpp"
+    "src/game/ending/message_manager_on_update.cpp",
+    "src/game/ending/recovery_update_emitter_decision_0040b9f0.cpp"
   ],
   "roots": [
     "?RunDecisionCallback@RecoveryUpdateEmitterState_0040b9f0@@QAEHXZ"

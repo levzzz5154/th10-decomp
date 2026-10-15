@@ -1,7 +1,7 @@
 // Equivalent-recovery unit for 0x00415E90: the walker model followed by the
 // helper graph of src/game/front_script_tick_00415e90.cpp, in its order.
 #include "front_script_tick_00415e90.cpp"
-#include "../../src/game/result_menu_open.cpp"
+#include "../../src/game/pause/result_menu_open.cpp"
 #include "../../layout/ltcg/result_open_00423370/dispatcher_handle_helpers.cpp"
 #include "../../layout/ltcg/result_open_00423370/dispatcher_animation_helpers.cpp"
 #include "../../layout/ltcg/result_open_00423370/dispatcher_input_mode.cpp"

@@ -1,5 +1,5 @@
 // Compiler context only; none of these bytes enter the image.
-#include "../../../src/game/title_practice_rows_00431410.cpp"
+#include "../../../src/game/title/title_practice_rows_00431410.cpp"
 #include "formatted.cpp"
 
 #pragma code_seg(".text$07context")

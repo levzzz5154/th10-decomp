@@ -35,7 +35,7 @@ struct PlayerInputMode {
     unsigned int flags;
     __declspec(noinline) void Set(int mode);
 };
-// The death screen (0x00477830); src/game/pause_result_open.cpp.
+// The death screen (0x00477830); src/game/pause/pause_result_open.cpp.
 struct PauseOpenState {
     __declspec(noinline) void OpenPause();  // 0x004231D0
 };

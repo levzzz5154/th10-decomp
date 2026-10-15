@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "cl_00422150",
-  "source": "src/game/timer_state_register_tasks_00422150.cpp",
+  "source": "src/game/pause/timer_state_register_tasks_00422150.cpp",
   "driver": "layout/ltcg/cl_00422150_context.cpp",
   "headers": [
     "include/th10/game/scheduler.hpp",
@@ -19,7 +19,7 @@
       "address": "0x00422150",
       "size": 142,
       "actual_abi": "owner in EBX; plain RET",
-      "source": "src/game/timer_state_register_tasks_00422150.cpp"
+      "source": "src/game/pause/timer_state_register_tasks_00422150.cpp"
     }
   ],
   "anchors": [

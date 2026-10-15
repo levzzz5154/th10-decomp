@@ -1,4 +1,4 @@
-// Unselected native ABI anchor: verbatim copy of src/game/ascii_manager/add_string.cpp.
+// Unselected native ABI anchor: verbatim copy of src/game/ascii/add_string.cpp.
 // Complete queue writer0x00401530, with the real FPS caller in the native closure.
 #include <string.h>
 #include "th10/game/game_thread_queue_native.hpp"

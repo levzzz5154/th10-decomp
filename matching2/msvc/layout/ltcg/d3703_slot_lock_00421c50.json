@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "d3703_slot_lock_00421c50",
-  "source": "src/game/slot_lock_leaves.cpp",
+  "source": "src/game/mother/slot_lock_leaves.cpp",
   "driver": "layout/ltcg/d3703_slot_lock_00421c50_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

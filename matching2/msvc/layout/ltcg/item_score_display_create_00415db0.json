@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "item_score_display_create_00415db0",
-  "source": "src/game/item_score_display_create_00415db0.cpp",
+  "source": "src/game/front/item_score_display_create_00415db0.cpp",
   "driver": "layout/ltcg/item_score_display_create_00415db0/context.cpp",
   "headers": [
     "include/th10/game/item_score_display_create_00415db0.hpp",

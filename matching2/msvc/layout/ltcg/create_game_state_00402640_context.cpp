@@ -3,7 +3,7 @@
 // and destructor are stand-ins without unwind tables of their own, shaped so
 // each takes its receiver on the stack as the real ones do.
 #define TH10_GAME_STATE_LAYOUT_ONLY
-#include "../../src/game/initialize_game_state_00402230.cpp"
+#include "../../src/game/background/initialize_game_state_00402230.cpp"
 #include "th10/platform/thread_sync.hpp"
 
 void __cdecl operator delete(void* block);
@@ -69,7 +69,7 @@ GameState_00402230::GameState_00402230() {
 }
 #pragma code_seg()
 
-#include "../../src/game/create_game_state_00402640.cpp"
+#include "../../src/game/background/create_game_state_00402640.cpp"
 
 #pragma code_seg(".text$17context")
 extern "C" GameState_00402230* __stdcall CreateGameStateContext_00402640(const char* name, int state_id) { return CreateGameState_00402640(name, state_id); }

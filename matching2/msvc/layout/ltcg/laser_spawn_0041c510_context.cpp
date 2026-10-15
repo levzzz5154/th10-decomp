@@ -1,7 +1,7 @@
 // Compiler context only; never selected as recovered game code.
 #include "th10/game/laser_spawn_0041c510.hpp"
 #include "laser_spawn_0041c510_anchors.cpp"
-#include "../../src/game/laser_spawn_0041c510.cpp"
+#include "../../src/game/laser/laser_spawn_0041c510.cpp"
 
 #pragma inline_depth(0)
 #pragma code_seg(".text$0040a000_context")

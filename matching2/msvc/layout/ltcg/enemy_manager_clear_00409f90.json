@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "enemy_manager_clear_00409f90",
-  "source": "src/game/enemy_manager_clear_00409f90.cpp",
+  "source": "src/game/eclview/enemy_manager_clear_00409f90.cpp",
   "driver": "layout/ltcg/enemy_manager_clear_00409f90/context.cpp",
   "headers": [
     "include/th10/game/enemy_manager_clear_00409f90.hpp",

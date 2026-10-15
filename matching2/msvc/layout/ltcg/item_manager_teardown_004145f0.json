@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "item_manager_teardown_004145f0",
-  "source": "src/game/hud_destructor.cpp",
+  "source": "src/game/front/hud_destructor.cpp",
   "driver": "layout/ltcg/item_manager_teardown_004145f0/context.cpp",
   "headers": [
     "include/th10/game/hud_destructor.hpp",

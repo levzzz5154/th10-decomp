@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
   "name": "input_recorder_callback_packet_0042a3d0_0042a8a0",
-  "source": "src/game/replay_manager_on_update.cpp",
+  "source": "src/game/replay/replay_manager_on_update.cpp",
   "additional_sources": [
-    "src/game/recovery_append_packet_0042a8a0.cpp",
-    "src/game/input_recorder_update_004297d0.cpp"
+    "src/game/replay/recovery_append_packet_0042a8a0.cpp",
+    "src/game/replay/input_recorder_update_004297d0.cpp"
   ],
   "included_sources": [
     "layout/ltcg/input_recorder_helpers.cpp"
@@ -33,7 +33,7 @@
       "section": ".text$07packet",
       "address": "0x0042A8A0",
       "size": 85,
-      "source": "src/game/recovery_append_packet_0042a8a0.cpp",
+      "source": "src/game/replay/recovery_append_packet_0042a8a0.cpp",
       "actual_abi": "Genuine recorder caller supplies receiver in EAX, first word in DX, two stack words; result in EAX, RET 8"
     },
     {
@@ -42,7 +42,7 @@
       "section": ".text$03update",
       "address": "0x004297D0",
       "size": 596,
-      "source": "src/game/input_recorder_update_004297d0.cpp",
+      "source": "src/game/replay/input_recorder_update_004297d0.cpp",
       "actual_abi": "recorder in EDI"
     }
   ],

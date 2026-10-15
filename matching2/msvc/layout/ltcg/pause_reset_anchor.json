@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "pause_reset_anchor",
-  "source": "src/game/pause_menu_reset.cpp",
+  "source": "src/game/player/pause_menu_reset.cpp",
   "driver": "layout/ltcg/pause_reset_anchor_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

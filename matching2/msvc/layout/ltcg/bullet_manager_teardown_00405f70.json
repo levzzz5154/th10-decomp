@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "bullet_manager_teardown_00405f70",
-  "source": "src/game/bullet_manager_teardown_00405f70.cpp",
+  "source": "src/game/bullet/bullet_manager_teardown_00405f70.cpp",
   "driver": "layout/ltcg/bullet_manager_teardown_00405f70/context.cpp",
   "image_base": "0x00400000",
   "description": "Complete ordinary C++ bullet manager destructor with its genuine member array, element cleanup, scheduler and animation-removal bodies; real owned-delete caller is unselected.",

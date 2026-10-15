@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "cl_0040e760",
-  "source": "src/script/enemy_run.cpp",
+  "source": "src/game/enemy/enemy_run.cpp",
   "driver": "layout/ltcg/cl_0040e760_context.cpp",
   "headers": [],
   "image_base": "0x00400000",
@@ -14,7 +14,7 @@
       "address": "0x0040E760",
       "size": 11,
       "actual_abi": "outer in ECX; plain RET; tail jump",
-      "source": "src/script/enemy_run.cpp"
+      "source": "src/game/enemy/enemy_run.cpp"
     }
   ],
   "anchors": [

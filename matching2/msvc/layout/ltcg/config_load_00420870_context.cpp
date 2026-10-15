@@ -1,5 +1,5 @@
 // Compiler context and ABI anchors only; none of these bytes enter the image.
-#include "../../src/app/config_load_00420870.cpp"
+#include "../../src/game/mother/config_load_00420870.cpp"
 #include <stdarg.h>
 
 extern "C" int __cdecl ConfigLoadEscape(void* pointer, int value);

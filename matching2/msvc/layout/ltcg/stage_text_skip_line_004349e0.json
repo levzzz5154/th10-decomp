@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "stage_text_skip_line_004349e0",
-  "source": "src/game/stage_text_skip_line_004349e0.cpp",
+  "source": "src/game/title/stage_text_skip_line_004349e0.cpp",
   "driver": "layout/ltcg/stage_text_skip_line_004349e0_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

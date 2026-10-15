@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "sprite_viewer_draw_0040a940",
-  "source": "src/game/sprite_viewer_draw_0040a940.cpp",
+  "source": "src/game/eclview/sprite_viewer_draw_0040a940.cpp",
   "driver": "layout/ltcg/sprite_viewer_draw_0040a940_context.cpp",
   "headers": [
     "include/th10/game/sprite_viewer_draw_0040a940.hpp",
@@ -146,8 +146,8 @@
     }
   ],
   "included_sources": [
-    "src/game/ascii_manager/add_string.cpp",
-    "src/game/ascii_manager/add_formatted_marked.cpp"
+    "src/game/ascii/add_string.cpp",
+    "src/game/ascii/add_formatted_marked.cpp"
   ],
   "data_aliases": [
     {

@@ -2,7 +2,7 @@
 // default build compiles this into the executable once
 // tools/matching/equivalence.py has checked that it differs from the exact
 // bytes only as recorded in layout/equivalent/enemy_execute_0040e770.json. The
-// assembly in src/script/ecl_vm.cpp supplies those exact bytes and `make EXACT=1`.
+// assembly in src/game/enemy/ecl_vm.cpp supplies those exact bytes and `make EXACT=1`.
 // This is the loosest of the equivalent recoveries: see the note the layout names.
 #include "enemy_execute_0040e770.hpp"
 

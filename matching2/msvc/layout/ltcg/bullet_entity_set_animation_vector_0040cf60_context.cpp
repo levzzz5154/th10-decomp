@@ -1,5 +1,5 @@
 // Compiler context only; never selected as recovered game code.
-#include "../../src/game/bullet_entity_set_animation_vector_0040cf60.cpp"
+#include "../../src/game/enemy/bullet_entity_set_animation_vector_0040cf60.cpp"
 
 #pragma code_seg(".text$03context")
 int __stdcall BulletEntitySetAnimationVectorCompilerContext(

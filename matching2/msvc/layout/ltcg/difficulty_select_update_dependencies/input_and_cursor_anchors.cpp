@@ -4,7 +4,7 @@
 // screens' own translation unit.
 #define noinline
 #define code_seg(name) code_seg(".text$0040ace0_fn")
-#include "../../../src/game/input_mask_active_0040ace0.cpp"
+#include "../../../src/game/eclview/input_mask_active_0040ace0.cpp"
 #undef code_seg
 #undef noinline
 #include "th10/game/menu_cursor.hpp"

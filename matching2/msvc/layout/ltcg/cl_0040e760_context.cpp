@@ -1,5 +1,5 @@
 // Compiler context only; never selected as recovered game code.
-#include "../../src/script/enemy_run.cpp"
+#include "../../src/game/enemy/enemy_run.cpp"
 
 #pragma code_seg(".text$03anchor")
 __declspec(noinline) void EnemyEcl::Run() {

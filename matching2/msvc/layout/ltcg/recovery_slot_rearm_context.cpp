@@ -1,5 +1,5 @@
 // Compiler context only; never selected as recovered game code.
-#include "../../src/game/bullet_manager_on_update.cpp"
+#include "../../src/game/bullet/bullet_manager_on_update.cpp"
 
 #pragma code_seg(".text$03context")
 int __stdcall RecoverySlotRearmCompilerContext(RecoverySlotTable_004065c0* tables, int count) {

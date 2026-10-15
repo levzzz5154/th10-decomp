@@ -1,5 +1,5 @@
 // Compiler context only; never selected as recovered game code.
-#include "../../src/render/animation_slot_release_004136c0.cpp"
+#include "../../src/game/fps/animation_slot_release_004136c0.cpp"
 
 #include "animation_lookup_anchors.cpp"
 

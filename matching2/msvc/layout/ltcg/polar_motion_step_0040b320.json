@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "polar_motion_step_0040b320",
-  "source": "src/game/polar_motion_step_0040b320.cpp",
+  "source": "src/game/effect/polar_motion_step_0040b320.cpp",
   "driver": "layout/ltcg/polar_motion_step_0040b320_context.cpp",
   "headers": [
     "include/th10/game/polar_motion.hpp"

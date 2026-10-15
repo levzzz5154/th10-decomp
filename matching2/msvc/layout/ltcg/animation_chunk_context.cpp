@@ -1,5 +1,5 @@
 // Genuine complete front.anm loader; used only as unselected logger caller.
-#include "../../src/script/ecl_file_parse_animations.cpp"
+#include "../../src/game/enemy/ecl_file_parse_animations.cpp"
 #include "animation_chunk_text_log.cpp"
 #pragma code_seg(".text$a03front")
 extern "C" __declspec(noinline) int __cdecl LoadFrontAnm_00413b50() {

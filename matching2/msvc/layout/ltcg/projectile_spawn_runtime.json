@@ -1,10 +1,10 @@
 {
   "schema_version": 2,
   "name": "projectile_spawn_runtime",
-  "source": "src/game/enemy_projectile_spawn.cpp",
+  "source": "src/game/bullet/enemy_projectile_spawn.cpp",
   "additional_sources": [
-    "src/game/projectile_command_runtime.cpp",
-    "src/game/enemy_grid_scan.cpp"
+    "src/game/bullet/projectile_command_runtime.cpp",
+    "src/game/bullet/enemy_grid_scan.cpp"
   ],
   "included_sources": [
     "layout/ltcg/projectile_spawn_runtime/start_script.cpp",
@@ -40,7 +40,7 @@
     },
     {
       "name": "ProjectileCommandRuntime_Tick_00406d90",
-      "source": "src/game/projectile_command_runtime.cpp",
+      "source": "src/game/bullet/projectile_command_runtime.cpp",
       "symbol": "?Tick@ProjectileCommandRuntime@@QAEXXZ",
       "section": ".text$00406d90_fn",
       "address": "0x00406D90",
@@ -49,7 +49,7 @@
     },
     {
       "name": "EnemyGrid_ScanCells_004073e0",
-      "source": "src/game/enemy_grid_scan.cpp",
+      "source": "src/game/bullet/enemy_grid_scan.cpp",
       "symbol": "?EnemyGrid_ScanCells_004073e0@@YGHPAUProjectilePattern_004073e0@@PAUProjectileManager_004073e0@@@Z",
       "section": ".text$004073e0_fn",
       "address": "0x004073E0",

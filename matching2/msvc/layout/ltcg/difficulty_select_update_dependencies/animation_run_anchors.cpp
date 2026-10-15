@@ -2,7 +2,7 @@
 // screen 0x00430320 calls, unselected here, seen through the lookup types of
 // this link so that it shares the one lookup at 0x004491C0; and 0x0042C750,
 // which restarts one animation slot of the room at frame 3 (the maintained
-// free-function form is src/game/game_state_dispatch_animation_slot_secondary_0042c750.cpp).
+// free-function form is src/game/title/game_state_dispatch_animation_slot_secondary_0042c750.cpp).
 #define AnimationManager RecoveryLookup_0040bd80
 #define AnimationLookupContext RecoveryLookupContext_0040bd80
 #define AnimationScriptId RecoveryScriptId_0040bd80

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "counter_state_construct_0040a040",
-  "source": "src/game/sprite_viewer_construct.cpp",
+  "source": "src/game/eclview/sprite_viewer_construct.cpp",
   "driver": "layout/ltcg/counter_state_construct_0040a040_context.cpp",
   "headers": [
     "include/th10/game/anm_vm.hpp",

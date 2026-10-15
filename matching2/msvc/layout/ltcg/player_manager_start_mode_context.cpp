@@ -1,5 +1,5 @@
 // Compiler context only; never selected as recovered game code.
-#include "../../src/game/player_manager_start_mode_004045b0.cpp"
+#include "../../src/game/background/player_manager_start_mode_004045b0.cpp"
 
 #pragma code_seg(".text$03context")
 int __stdcall PlayerManagerStartModeCompilerContext(PlayerManagerState** states, int count) {

@@ -1,4 +1,4 @@
-#include "../../src/game/game_state_constructor_00402160.cpp"
+#include "../../src/game/background/game_state_constructor_00402160.cpp"
 void* __cdecl operator new(unsigned int size);
 void __cdecl operator delete(void* block);
 #pragma code_seg(".text$02context")

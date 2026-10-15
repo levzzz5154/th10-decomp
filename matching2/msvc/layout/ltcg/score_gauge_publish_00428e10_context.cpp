@@ -1,5 +1,5 @@
 // Compiler context only; never selected as recovered game code.
-#include "../../src/game/fun_00428e10_00428e10.cpp"
+#include "../../src/game/player/fun_00428e10_00428e10.cpp"
 
 #pragma code_seg(".text$03context")
 extern "C" __declspec(noinline) int __stdcall ScoreGaugeContext00428e10(

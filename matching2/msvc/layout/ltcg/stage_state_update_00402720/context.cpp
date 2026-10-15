@@ -1,7 +1,7 @@
 // Compiler context only; never selected as recovered game code. It publishes
 // the update callback the way the stage initializer at 0x00402230 does.
-#include "../../../src/render/anm_script_table_sweep.cpp"
-#include "../../../src/game/stage_state_update_00402720.cpp"
+#include "../../../src/game/background/anm_script_table_sweep.cpp"
+#include "../../../src/game/background/stage_state_update_00402720.cpp"
 #include "th10/game/scheduler.hpp"
 
 #pragma code_seg(".text$03context")

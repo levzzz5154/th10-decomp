@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "rank_level",
-  "source": "src/game/rank_level.cpp",
+  "source": "src/game/front/rank_level.cpp",
   "driver": "layout/ltcg/rank_level_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

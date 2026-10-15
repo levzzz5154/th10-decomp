@@ -1,5 +1,5 @@
 // Compiler context only; never selected as recovered game code.
-#include "../../src/game/effect_pool_install_tasks.cpp"
+#include "../../src/game/spttest/effect_pool_install_tasks.cpp"
 #include "scheduler_register_anchors.cpp"
 
 struct EffectPoolState;

@@ -1,5 +1,5 @@
 // Compiler context only; never selected as recovered game code.
-#include "../../src/game/player_hud_start_spell_00409280.cpp"
+#include "../../src/game/card/player_hud_start_spell_00409280.cpp"
 
 // The spell card setup hands the panel its record index, name and duration.
 #pragma code_seg(".text$0044e100_context")

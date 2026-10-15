@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "game_progress_unlock_all_stages_0042c8c0",
-  "source": "src/game/game_progress_unlock_all_stages_0042c8c0.cpp",
+  "source": "src/game/title/game_progress_unlock_all_stages_0042c8c0.cpp",
   "driver": "layout/ltcg/game_progress_unlock_all_stages_0042c8c0_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

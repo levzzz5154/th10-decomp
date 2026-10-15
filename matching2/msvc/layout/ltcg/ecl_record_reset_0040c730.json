@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "ecl_record_reset_0040c730",
-  "source": "src/game/ecl_record_reset_0040c730.cpp",
+  "source": "src/game/enemy/ecl_record_reset_0040c730.cpp",
   "driver": "layout/ltcg/ecl_record_reset_0040c730_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

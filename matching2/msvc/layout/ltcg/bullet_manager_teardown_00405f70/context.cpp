@@ -3,4 +3,4 @@
 #include "owned_delete.cpp"
 #include "../manager_teardown_native_0041adf0/scheduler.cpp"
 #include "../../../src/render/animation_manager_mark_resource_for_removal_004493e0.cpp"
-#include "../../../src/game/bullet_manager_teardown_00405f70.cpp"
+#include "../../../src/game/bullet/bullet_manager_teardown_00405f70.cpp"

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "script_state_destructor_0042cb60",
-  "source": "src/game/script_state_destructor_0042cb60.cpp",
+  "source": "src/game/title/script_state_destructor_0042cb60.cpp",
   "driver": "layout/ltcg/script_state_destructor_0042cb60_context.cpp",
   "included_sources": [
     "layout/ltcg/game_state_anchor_00402160.cpp",

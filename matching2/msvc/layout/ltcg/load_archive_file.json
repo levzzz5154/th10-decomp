@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "load_archive_file",
-  "source": "src/game/asset_buffer.cpp",
+  "source": "src/game/effect/asset_buffer.cpp",
   "headers": [
     "include/th10/platform/archive_file.hpp",
     "include/th10/platform/archive_callers.hpp",
@@ -16,7 +16,7 @@
   "functions": [
     {
       "name": "LoadAsset",
-      "source": "src/game/asset_buffer.cpp",
+      "source": "src/game/effect/asset_buffer.cpp",
       "symbol": "?LoadAsset@@YGPADPBDPAUAssetBuffer@@@Z",
       "section": ".text$01asset",
       "address": "0x0040B480",
@@ -25,7 +25,7 @@
     },
     {
       "name": "ScriptFileLoader_Load",
-      "source": "src/script/fun_0040cd20_0040cd20.cpp",
+      "source": "src/game/enemy/fun_0040cd20_0040cd20.cpp",
       "symbol": "?Load@ScriptFileLoader@@QAEHPBD@Z",
       "section": ".text$02script",
       "address": "0x0040CD20",
@@ -43,7 +43,7 @@
     },
     {
       "name": "ParameterLoader_Load",
-      "source": "src/game/music_room.cpp",
+      "source": "src/game/player/music_room.cpp",
       "symbol": "?Load@ParameterLoader@@QAEHPBD@Z",
       "section": ".text$02zparameter",
       "address": "0x00426520",
@@ -70,7 +70,7 @@
     },
     {
       "name": "StageEclLoader_00403850_Load",
-      "source": "src/script/stage_ecl_load.cpp",
+      "source": "src/game/background/stage_ecl_load.cpp",
       "symbol": "?Load@StageEclLoader_00403850@@QAEHPBD@Z",
       "section": ".text$00stage",
       "address": "0x00403850",
@@ -79,7 +79,7 @@
     },
     {
       "name": "ScoreTask_Setup_00413a20",
-      "source": "src/game/score_tasks.cpp",
+      "source": "src/game/front/score_tasks.cpp",
       "symbol": "_ScoreTask_Setup_00413a20@4",
       "section": ".text$02xscore",
       "address": "0x00413A20",
@@ -422,12 +422,12 @@
     }
   ],
   "additional_sources": [
-    "src/script/fun_0040cd20_0040cd20.cpp",
+    "src/game/enemy/fun_0040cd20_0040cd20.cpp",
     "src/unreferenced/FUN_0043e9d0_0043e9d0.cpp",
-    "src/game/music_room.cpp",
+    "src/game/player/music_room.cpp",
     "src/platform/midi_load_track.cpp",
-    "src/script/stage_ecl_load.cpp",
-    "src/game/score_tasks.cpp",
+    "src/game/background/stage_ecl_load.cpp",
+    "src/game/front/score_tasks.cpp",
     "src/unreferenced/unassigned_0043d670.cpp",
     "src/platform/sound_load_pending_slot_0043d640.cpp"
   ],

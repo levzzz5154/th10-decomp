@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "native_archive_index",
-  "source": "src/archive/dat.cpp",
+  "source": "src/pack/arcmngr/dat.cpp",
   "driver": "layout/ltcg/native_archive_index_context.cpp",
   "headers": [
     "layout/ltcg/native_archive_index/parser.hpp",

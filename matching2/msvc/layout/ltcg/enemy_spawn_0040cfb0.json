@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "enemy_spawn_0040cfb0",
-  "source": "src/game/enemy_spawn_0040cfb0.cpp",
+  "source": "src/game/enemy/enemy_spawn_0040cfb0.cpp",
   "driver": "layout/ltcg/enemy_spawn_0040cfb0_context.cpp",
   "headers": [
     "include/th10/game/enemy_spawn_0040cfb0.hpp",

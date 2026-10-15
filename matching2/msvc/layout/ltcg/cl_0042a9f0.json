@@ -62,7 +62,7 @@
     }
   ],
   "included_sources": [
-    "src/game/game_config_defaults.cpp"
+    "src/game/game/game_config_defaults.cpp"
   ],
   "roots": []
 }

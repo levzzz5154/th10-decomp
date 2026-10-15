@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "laser_grow_0041e700",
-  "source": "src/game/laser_grow_update.cpp",
+  "source": "src/game/laser/laser_grow_update.cpp",
   "driver": "layout/ltcg/laser_grow_0041e700/driver.cpp",
   "additional_sources": [
     "layout/ltcg/laser_grow_0041e700/scheduler.cpp",

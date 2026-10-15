@@ -1,5 +1,5 @@
 // Compiler context and ABI anchors only; none of these bytes enter the image.
-#include "../../src/game/animation_resource_lazy_fetch.cpp"
+#include "../../src/game/ending/animation_resource_lazy_fetch.cpp"
 
 // Bindings for everything the anchors below call.
 extern "C" void* data_00491c10;

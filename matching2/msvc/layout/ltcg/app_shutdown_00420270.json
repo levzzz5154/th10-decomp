@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "app_shutdown_00420270",
-  "source": "src/app/app_shutdown_00420270.cpp",
+  "source": "src/game/mother/app_shutdown_00420270.cpp",
   "driver": "layout/ltcg/app_shutdown_00420270_context.cpp",
   "headers": [
     "include/th10/platform/worker.hpp",
@@ -564,6 +564,6 @@
   ],
   "included_sources": [
     "src/platform/platform_stop_worker_0044c150.cpp",
-    "src/game/platform_release_owned_handle_00413450.cpp"
+    "src/game/fps/platform_release_owned_handle_00413450.cpp"
   ]
 }

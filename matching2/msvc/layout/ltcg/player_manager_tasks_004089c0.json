@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "player_manager_tasks_004089c0",
-  "source": "src/game/fun_004089c0_004089c0.cpp",
+  "source": "src/game/card/fun_004089c0_004089c0.cpp",
   "driver": "layout/ltcg/player_manager_tasks_004089c0_context.cpp",
   "headers": [
     "include/th10/game/scheduler.hpp",

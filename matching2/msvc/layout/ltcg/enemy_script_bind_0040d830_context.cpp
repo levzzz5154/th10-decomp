@@ -1,4 +1,4 @@
-#include "../../src/game/fun_0040d830_0040d830.cpp"
+#include "../../src/game/enemy/fun_0040d830_0040d830.cpp"
 #include "enemy_script_bind_resolve_anchor.cpp"
 // Unselected array caller: keep the receiver live through repeated binds so
 // LTCG chooses the retail ESI receiver and leaves the name aggregate on stack.

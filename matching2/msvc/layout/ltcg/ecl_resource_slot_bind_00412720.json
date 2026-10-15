@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "ecl_resource_slot_bind_00412720",
-  "source": "src/game/ecl_set_resource_slot_00412720.cpp",
+  "source": "src/game/enemy/ecl_set_resource_slot_00412720.cpp",
   "driver": "layout/ltcg/ecl_resource_slot_bind_00412720_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

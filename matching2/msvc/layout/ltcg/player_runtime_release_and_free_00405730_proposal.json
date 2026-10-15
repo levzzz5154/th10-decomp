@@ -2,7 +2,7 @@
   "regions": [
     {
       "name": "semantic_PlayerRuntime_ReleaseAndFree_00405730",
-      "source": "src/game/bomb_delete.cpp",
+      "source": "src/game/bomb/bomb_delete.cpp",
       "symbol": "?Bomb_Delete@@YGXPAX@Z",
       "address": "0x00405730",
       "size": 18,

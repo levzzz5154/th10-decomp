@@ -1,5 +1,5 @@
 // Compiler context only; never selected as recovered game code.
-#include "../../src/render/anm_propagate.cpp"
+#include "../../src/game/card/anm_propagate.cpp"
 #include "th10/game/playback_state.hpp"
 
 // 0x00449210, a separate translation unit of this link.

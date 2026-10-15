@@ -50,7 +50,7 @@
     },
     {
       "name": "Interpolator_Vec3_Step",
-      "source": "src/math/vec3_interpolator.cpp",
+      "source": "src/game/background/vec3_interpolator.cpp",
       "symbol": "?Step@?$Interpolator@UVec3@@@@QAE?AUVec3@@XZ",
       "section": ".text$00404610_fn",
       "address": "0x00404610",
@@ -68,7 +68,7 @@
     },
     {
       "name": "Interpolator_TrajectoryVec2_Step",
-      "source": "src/game/trajectory_interpolator.cpp",
+      "source": "src/game/enemy/trajectory_interpolator.cpp",
       "symbol": "?Step@?$Interpolator@UTrajectoryVec2@@@@QAE?AUTrajectoryVec2@@XZ",
       "section": ".text$00412ac0_fn",
       "address": "0x00412AC0",
@@ -77,7 +77,7 @@
     },
     {
       "name": "Interpolator_StageFog_Step",
-      "source": "src/render/stage_fog_interpolator.cpp",
+      "source": "src/game/background/stage_fog_interpolator.cpp",
       "symbol": "?Step@?$Interpolator@UStageFog@@@@QAE?AUStageFog@@XZ",
       "section": ".text$004049a0_fn",
       "address": "0x004049A0",
@@ -86,7 +86,7 @@
     },
     {
       "name": "StageFog_Subtract",
-      "source": "src/render/stage_fog.cpp",
+      "source": "src/game/background/stage_fog.cpp",
       "symbol": "??GStageFog@@QBE?AU0@ABU0@@Z",
       "section": ".text$00404d40_fn",
       "address": "0x00404D40",
@@ -95,7 +95,7 @@
     },
     {
       "name": "StageFog_Scale",
-      "source": "src/render/stage_fog.cpp",
+      "source": "src/game/background/stage_fog.cpp",
       "symbol": "??DStageFog@@QBE?AU0@M@Z",
       "section": ".text$00404da0_fn",
       "address": "0x00404DA0",
@@ -104,7 +104,7 @@
     },
     {
       "name": "StageFog_Add",
-      "source": "src/render/stage_fog.cpp",
+      "source": "src/game/background/stage_fog.cpp",
       "symbol": "??HStageFog@@QBE?AU0@ABU0@@Z",
       "section": ".text$00404e10_fn",
       "address": "0x00404E10",
@@ -113,7 +113,7 @@
     },
     {
       "name": "StageObjects_RunScript",
-      "source": "src/render/stage_script.cpp",
+      "source": "src/game/background/stage_script.cpp",
       "symbol": "?StageObjects_RunScript@@YGHPAUStageObjects@@@Z",
       "section": ".text$00403c80_fn",
       "address": "0x00403C80",
@@ -326,12 +326,12 @@
   "additional_sources": [
     "src/math/int_interpolator.cpp",
     "src/math/vec2_interpolator.cpp",
-    "src/math/vec3_interpolator.cpp",
+    "src/game/background/vec3_interpolator.cpp",
     "src/math/interpolators.cpp",
-    "src/game/trajectory_interpolator.cpp",
-    "src/render/stage_fog_interpolator.cpp",
-    "src/render/stage_fog.cpp",
-    "src/render/stage_script.cpp",
+    "src/game/enemy/trajectory_interpolator.cpp",
+    "src/game/background/stage_fog_interpolator.cpp",
+    "src/game/background/stage_fog.cpp",
+    "src/game/background/stage_script.cpp",
     "layout/ltcg/evaluate_curve/frame_timer_tick.cpp",
     "layout/ltcg/evaluate_curve/entity_start_script.cpp",
     "layout/ltcg/evaluate_curve/load_script.cpp"

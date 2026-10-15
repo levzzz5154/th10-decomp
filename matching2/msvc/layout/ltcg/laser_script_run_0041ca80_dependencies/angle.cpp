@@ -2,4 +2,4 @@
 // the callee's body and gives its callers the private register convention
 // (entity in ECX, point in EAX). Never selected from this cluster.
 #define code_seg(name) code_seg(".text$00426660_fn")
-#include "../../../src/game/player_angle_from_point.cpp"
+#include "../../../src/game/player/player_angle_from_point.cpp"

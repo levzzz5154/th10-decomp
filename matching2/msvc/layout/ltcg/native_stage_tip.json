@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "name": "native_stage_tip",
-  "source": "src/game/native_stage_tip.cpp",
+  "source": "src/game/hint/native_stage_tip.cpp",
   "included_sources": [
     "layout/ltcg/native_stage_tip/construct.cpp",
     "layout/ltcg/native_stage_tip/initialize.cpp",

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "path_decode_xor_00417010",
-  "source": "src/platform/path_decode_xor_00417010.cpp",
+  "source": "src/game/front/path_decode_xor_00417010.cpp",
   "driver": "layout/ltcg/path_decode_xor_00417010_context.cpp",
   "headers": [],
   "image_base": "0x00400000",
@@ -14,7 +14,7 @@
       "address": "0x00417010",
       "size": 41,
       "actual_abi": "encoded text in EAX; plain RET",
-      "source": "src/platform/path_decode_xor_00417010.cpp"
+      "source": "src/game/front/path_decode_xor_00417010.cpp"
     }
   ],
   "anchors": [],

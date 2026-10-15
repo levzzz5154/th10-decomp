@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "result_open_00423370",
-  "source": "src/game/result_menu_open.cpp",
+  "source": "src/game/pause/result_menu_open.cpp",
   "driver": "layout/ltcg/result_open_00423370_context.cpp",
   "headers": [
     "include/th10/game/pause_result_open_004231d0/descriptor.hpp",

@@ -1,9 +1,9 @@
 {
   "schema_version": 2,
   "name": "title_effects_0041fdd0",
-  "source": "src/game/result_screen_effects.cpp",
+  "source": "src/game/loading/result_screen_effects.cpp",
   "additional_sources": [
-    "src/game/title_worker_on_draw.cpp"
+    "src/game/loading/title_worker_on_draw.cpp"
   ],
   "included_sources": [
     "layout/ltcg/animation_public_callers_anchors.cpp"
@@ -23,7 +23,7 @@
       "address": 4324816,
       "size": 220,
       "actual_abi": "state stack; RET4",
-      "source": "src/game/result_screen_effects.cpp"
+      "source": "src/game/loading/result_screen_effects.cpp"
     },
     {
       "name": "TitleEffectsCallback",
@@ -32,7 +32,7 @@
       "address": "0x0041FEF0",
       "size": 7,
       "actual_abi": "state ECX, pushes state for worker RET4; RET",
-      "source": "src/game/title_worker_on_draw.cpp"
+      "source": "src/game/loading/title_worker_on_draw.cpp"
     }
   ],
   "entry": "?TitleWorker_OnDraw@@YIXPAX@Z",

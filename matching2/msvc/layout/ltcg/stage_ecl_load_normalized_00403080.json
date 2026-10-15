@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "stage_ecl_load_normalized_00403080",
-  "source": "src/script/stage_ecl_load_normalized_00403080.cpp",
+  "source": "src/game/background/stage_ecl_load_normalized_00403080.cpp",
   "driver": "layout/ltcg/stage_ecl_load_normalized_00403080_context.cpp",
   "headers": [
     "include/th10/platform/stage_ecl_load_00403850.hpp"

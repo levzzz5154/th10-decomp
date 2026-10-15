@@ -1,7 +1,7 @@
 #include "../../src/game/player_reset.cpp"
 #include "large_player_dependencies/configure.cpp"
 #include "large_player_dependencies/runtime.cpp"
-#include "../../src/game/recovery_create_large_resource_state_00425020.cpp"
+#include "../../src/game/player/recovery_create_large_resource_state_00425020.cpp"
 #include "large_player_dependencies/script.cpp"
 #include "large_player_dependencies/parameter.cpp"
 #include "large_player_dependencies/archive.cpp"

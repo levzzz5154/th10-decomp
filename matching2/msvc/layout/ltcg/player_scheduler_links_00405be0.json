@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "player_scheduler_links_00405be0",
-  "source": "src/game/player_scheduler.cpp",
+  "source": "src/game/bomb/player_scheduler.cpp",
   "driver": "layout/ltcg/player_scheduler_links_00405be0_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

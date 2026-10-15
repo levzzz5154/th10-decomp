@@ -1,6 +1,6 @@
 // Compiler context only; never selected as recovered game code.
 #pragma code_seg(".text$00fn")
-#include "../../src/game/timer_state_register_tasks_00422150.cpp"
+#include "../../src/game/pause/timer_state_register_tasks_00422150.cpp"
 #pragma code_seg()
 #include "scheduler_register_anchors.cpp"
 

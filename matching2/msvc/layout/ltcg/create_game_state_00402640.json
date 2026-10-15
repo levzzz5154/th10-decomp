@@ -4,7 +4,7 @@
   "constants": [],
   "exceptions": true,
   "name": "create_game_state_00402640",
-  "source": "src/game/create_game_state_00402640.cpp",
+  "source": "src/game/background/create_game_state_00402640.cpp",
   "driver": "layout/ltcg/create_game_state_00402640_context.cpp",
   "headers": [
     "include/th10/game/entity.hpp",
@@ -19,7 +19,7 @@
     "include/th10/types.hpp"
   ],
   "included_sources": [
-    "src/game/initialize_game_state_00402230.cpp",
+    "src/game/background/initialize_game_state_00402230.cpp",
     "layout/ltcg/log_anchor_00402230.cpp",
     "layout/ltcg/scheduler_anchor_00402230.cpp",
     "layout/ltcg/stage_anchor_00402230.cpp"

@@ -1,5 +1,5 @@
 // Compiler context only; never selected as recovered game code.
-#include "../../src/game/replay_stage_finish_0042a450.cpp"
+#include "../../src/game/replay/replay_stage_finish_0042a450.cpp"
 
 extern "C" int __cdecl ReplayStageFinishEscape(void* pointer, int value);
 

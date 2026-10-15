@@ -1,11 +1,11 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
-// 0x0040AE70: recovered in src/game/bullet_manager_load_scripts_0040ae70.cpp.
+// 0x0040AE70: recovered in src/game/effect/bullet_manager_load_scripts_0040ae70.cpp.
 
-// 0x0040AF90: recovered in src/game/bullet_manager_create_0040af90.cpp.
+// 0x0040AF90: recovered in src/game/effect/bullet_manager_create_0040af90.cpp.
 
-// 0x0040C6E0: recovered in src/game/bullet_entity_clear_resource_list_0040c6e0.cpp.
+// 0x0040C6E0: recovered in src/game/enemy/bullet_entity_clear_resource_list_0040c6e0.cpp.
 
 // 0x0040CC70..0x0040CD00: Entity_ClearAnims
 // Drop every animation slot's "active" flag and blank the eight 0x210-byte
@@ -72,17 +72,17 @@ ClearAnimsOwner* __fastcall Entity_ClearAnims_0040cc70(int unused, ClearAnimsOwn
     return owner;
 }
 
-// 0x0040CEA0: recovered in src/game/bullet_entity_mark_animation_for_removal_0040cea0.cpp.
+// 0x0040CEA0: recovered in src/game/enemy/bullet_entity_mark_animation_for_removal_0040cea0.cpp.
 
-// 0x0040CF60: recovered in src/game/bullet_entity_set_animation_vector_0040cf60.cpp.
+// 0x0040CF60: recovered in src/game/enemy/bullet_entity_set_animation_vector_0040cf60.cpp.
 
-// 0x0040CF90: recovered in src/game/bullet_entity_find_by_id_0040cf90.cpp.
+// 0x0040CF90: recovered in src/game/enemy/bullet_entity_find_by_id_0040cf90.cpp.
 
 // 0x0040CFB0: maintained in src/game/fun_0040cfb0_0040cfb0.cpp.
 
-// 0x0040D680: recovered in src/game/bullet_entity_release_resource_0040d680.cpp.
+// 0x0040D680: recovered in src/game/enemy/bullet_entity_release_resource_0040d680.cpp.
 
-// 0x0040D830: recovered in src/game/fun_0040d830_0040d830.cpp.
+// 0x0040D830: recovered in src/game/enemy/fun_0040d830_0040d830.cpp.
 
 // 0x0040DC80..0x0040E5EB: FUN_0040dc80
 // Naked body preserves the retail register/stack ABI.

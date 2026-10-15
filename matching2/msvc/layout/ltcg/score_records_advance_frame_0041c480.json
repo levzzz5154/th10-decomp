@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "score_records_advance_frame_0041c480",
-  "source": "src/game/score_display_on_update.cpp",
+  "source": "src/game/laser/score_display_on_update.cpp",
   "driver": "layout/ltcg/score_records_advance_frame_0041c480_context.cpp",
   "headers": [
     "include/th10/game/score_record_list.hpp"
@@ -12,7 +12,7 @@
     {
       "name": "ScoreRecords_Tick",
       "symbol": "_ScoreRecords_Tick_0041c330",
-      "source": "src/game/score_records_tick_0041c330.cpp",
+      "source": "src/game/laser/score_records_tick_0041c330.cpp",
       "section": ".text$01callee",
       "address": "0x0041C330",
       "size": 274,
@@ -98,7 +98,7 @@
     }
   ],
   "additional_sources": [
-    "src/game/score_records_tick_0041c330.cpp"
+    "src/game/laser/score_records_tick_0041c330.cpp"
   ],
   "constant_aliases": [
     {

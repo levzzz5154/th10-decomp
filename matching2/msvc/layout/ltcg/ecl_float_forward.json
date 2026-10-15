@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "ecl_float_forward",
-  "source": "src/game/ecl_forward_float_00412aa0.cpp",
+  "source": "src/game/enemy/ecl_forward_float_00412aa0.cpp",
   "driver": "layout/ltcg/ecl_float_forward_context.cpp",
   "headers": [
     "include/th10/script/ecl_float_values.hpp"

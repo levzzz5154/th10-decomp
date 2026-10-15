@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "file_handle_open_00435370",
-  "source": "src/platform/file_handle_open_00435370.cpp",
+  "source": "src/pack/file/file_handle_open_00435370.cpp",
   "driver": "layout/ltcg/file_handle_open_00435370_context.cpp",
   "headers": [
     "include/th10/platform/file.hpp",
@@ -24,7 +24,7 @@
       "section": ".text$03resolve",
       "address": "0x00435610",
       "size": 121,
-      "source": "src/platform/file_resolve_path_00435610.cpp",
+      "source": "src/pack/file/file_resolve_path_00435610.cpp",
       "actual_abi": "source EAX,destination ECX; plain RET"
     }
   ],
@@ -99,6 +99,6 @@
     }
   ],
   "additional_sources": [
-    "src/platform/file_resolve_path_00435610.cpp"
+    "src/pack/file/file_resolve_path_00435610.cpp"
   ]
 }

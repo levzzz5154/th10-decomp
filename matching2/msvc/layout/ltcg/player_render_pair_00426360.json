@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "name": "player_render_pair_00426360",
-  "source": "src/game/player_render_pair_00426360.cpp",
+  "source": "src/game/player/player_render_pair_00426360.cpp",
   "headers": [
     "include/th10/render/quad_batch.hpp"
   ],

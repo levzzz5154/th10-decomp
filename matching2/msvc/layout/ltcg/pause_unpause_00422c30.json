@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "pause_unpause_00422c30",
-  "source": "src/game/game_state_unpause_00422c30.cpp",
+  "source": "src/game/pause/game_state_unpause_00422c30.cpp",
   "driver": "layout/ltcg/pause_unpause_00422c30_context.cpp",
   "headers": [
     "include/th10/render/resource_registrar_0043e460.hpp"
@@ -16,7 +16,7 @@
       "address": "0x00422C30",
       "size": 74,
       "actual_abi": "owner in ESI; plain RET",
-      "source": "src/game/game_state_unpause_00422c30.cpp"
+      "source": "src/game/pause/game_state_unpause_00422c30.cpp"
     }
   ],
   "anchors": [

@@ -1,8 +1,8 @@
 // Compiler context only; never selected as recovered game code.
-#include "../../src/game/ascii_manager/create.cpp"
+#include "../../src/game/ascii/create.cpp"
 
 #pragma code_seg(".text$00_0thread")
-#include "../../src/game/ascii_manager/construct.cpp"
+#include "../../src/game/ascii/construct.cpp"
 #pragma code_seg()
 #pragma code_seg(".text$00_d_init")
 #include "../../src/game/entity_initialize_00401de0.cpp"

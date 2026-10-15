@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "stage_score_display_00415b00",
-  "source": "src/game/stage_score_display_00415b00.cpp",
+  "source": "src/game/front/stage_score_display_00415b00.cpp",
   "driver": "layout/ltcg/stage_score_display_00415b00_context.cpp",
   "headers": [
     "include/th10/game/entity.hpp",

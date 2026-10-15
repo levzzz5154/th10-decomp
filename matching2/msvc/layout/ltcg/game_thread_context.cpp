@@ -1,6 +1,6 @@
 // Compiler context only; never selected as recovered game code.
 #pragma code_seg(".text$01thread")
-#include "../../src/game/ascii_manager/construct.cpp"
+#include "../../src/game/ascii/construct.cpp"
 #pragma code_seg()
 
 #pragma code_seg(".text$03context")

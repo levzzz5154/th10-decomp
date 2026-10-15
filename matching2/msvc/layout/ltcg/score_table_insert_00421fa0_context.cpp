@@ -1,5 +1,5 @@
 // Compiler context only; never selected as recovered game code.
-#include "../../src/game/score_table_insert_00421fa0.cpp"
+#include "../../src/game/mother/score_table_insert_00421fa0.cpp"
 #include "th10/game/name_entry_prepare_00423570.hpp"
 
 extern "C" int __cdecl ScoreTableInsertEscape(void* pointer, int value);

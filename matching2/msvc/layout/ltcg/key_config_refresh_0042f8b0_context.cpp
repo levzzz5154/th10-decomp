@@ -1,5 +1,5 @@
 // Compiler-visible ABI anchors and synthetic caller, never selected as recovered code.
-#include "../../src/game/fun_0042f8b0_0042f8b0.cpp"
+#include "../../src/game/title/fun_0042f8b0_0042f8b0.cpp"
 __forceinline void KeyConfigMatrix_0042f8b0::SetIdentity() {
     values[3][2] = 0.0f;
     values[3][1] = 0.0f;

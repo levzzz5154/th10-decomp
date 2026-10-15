@@ -1,7 +1,7 @@
 {
  "schema_version": 1,
  "name": "laser_script_run_0041ca80",
- "source": "src/game/laser_script_run_0041ca80.cpp",
+ "source": "src/game/laser/laser_script_run_0041ca80.cpp",
  "driver": "layout/ltcg/laser_script_run_0041ca80_context.cpp",
  "additional_sources": [
   "layout/ltcg/laser_script_run_0041ca80_dependencies/entity_init_start_script.cpp",
@@ -12,9 +12,9 @@
   "layout/ltcg/laser_script_run_0041ca80_dependencies/load_script.cpp"
  ],
  "included_sources": [
-  "src/game/entity_start_script_00404f30.cpp",
-  "src/game/player_set_scheduler_value_00405410.cpp",
-  "src/game/player_angle_from_point.cpp",
+  "src/game/background/entity_start_script_00404f30.cpp",
+  "src/game/background/player_set_scheduler_value_00405410.cpp",
+  "src/game/player/player_angle_from_point.cpp",
   "src/render/animation_manager_queue_resource_0043dc90.cpp",
   "src/platform/sound_queue_pan_0043dd10.cpp",
   "src/render/animation_object_load_script_0043e710.cpp"

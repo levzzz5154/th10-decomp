@@ -2,7 +2,7 @@
   "schema_version": 1,
   "image_base": "0x00400000",
   "name": "front_initialize_00413bc0",
-  "source": "src/game/front_initialize_00413bc0.cpp",
+  "source": "src/game/front/front_initialize_00413bc0.cpp",
   "driver": "layout/ltcg/front_initialize_00413bc0/driver.cpp",
   "additional_sources": [
     "layout/ltcg/front_initialize_00413bc0/context.cpp",

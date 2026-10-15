@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "cell_pair_scale_00427d80",
-  "source": "src/game/cell_pair_scale_00427d80.cpp",
+  "source": "src/game/player/cell_pair_scale_00427d80.cpp",
   "driver": "layout/ltcg/cell_pair_scale_00427d80_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

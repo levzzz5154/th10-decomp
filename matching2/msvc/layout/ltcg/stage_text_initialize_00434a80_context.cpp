@@ -1,5 +1,5 @@
 // Compiler context only; never selected as recovered game code.
-#include "../../src/game/stage_text.cpp"
+#include "../../src/game/title/stage_text.cpp"
 
 #pragma code_seg(".text$03context")
 int __stdcall StageTextCompilerContext(StageText_00434a80** records, int count,

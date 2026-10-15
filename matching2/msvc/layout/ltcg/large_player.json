@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "large_player",
-  "source": "src/game/recovery_create_large_resource_state_00425020.cpp",
+  "source": "src/game/player/recovery_create_large_resource_state_00425020.cpp",
   "driver": "layout/ltcg/large_player_context.cpp",
   "included_sources": [
     "src/game/player_reset.cpp",
@@ -44,7 +44,7 @@
       "address": "0x4246c0",
       "size": 244,
       "section": ".text$a05body",
-      "source": "src/game/recovery_create_large_resource_state_00425020.cpp",
+      "source": "src/game/player/recovery_create_large_resource_state_00425020.cpp",
       "actual_abi": "Original complete constructor: receiver ESI, returned owner EAX, plain RET. Member construction precedes full4478 wipe and global publication."
     }
   ],

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "destroy_owned_0041afb0",
-  "source": "src/game/item_manager_delete.cpp",
+  "source": "src/game/item/item_manager_delete.cpp",
   "driver": "layout/ltcg/destroy_owned_0041afb0_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

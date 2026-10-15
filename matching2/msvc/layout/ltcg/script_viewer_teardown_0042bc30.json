@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "script_viewer_teardown_0042bc30",
-  "source": "src/game/script_viewer_teardown_0042bc30.cpp",
+  "source": "src/game/spttest/script_viewer_teardown_0042bc30.cpp",
   "driver": "layout/ltcg/script_viewer_teardown_0042bc30/context.cpp",
   "headers": [
     "include/th10/game/script_viewer_teardown_0042bc30.hpp",

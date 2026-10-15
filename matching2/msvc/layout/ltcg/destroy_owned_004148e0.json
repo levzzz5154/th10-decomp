@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "destroy_owned_004148e0",
-  "source": "src/game/hud_delete.cpp",
+  "source": "src/game/front/hud_delete.cpp",
   "driver": "layout/ltcg/destroy_owned_004148e0_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

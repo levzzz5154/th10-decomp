@@ -1,7 +1,7 @@
 // Cluster entry: the region sweep and a synthetic caller. Retail calls the
 // sweep from the enemy script interpreter, which is not C++ yet; this caller
 // only gives the compiler a direct call to pick the register homes from.
-#include "../../../src/game/projectile_clear_region.cpp"
+#include "../../../src/game/bullet/projectile_clear_region.cpp"
 #pragma code_seg(".text$f00449a00F")
 extern "C" __declspec(noinline) int __stdcall ProjectileClearRegionContext(
         ProjectileManager** managers, int count) {

@@ -5,7 +5,7 @@
 #define TH10_SCHEDULER_REMOVE_CODE_SEG ".text$07remove"
 #include "../manager_teardown_native_0041adf0/scheduler.cpp"
 #include "th10/platform/thread_sync.hpp"
-#include "../../../src/game/hud_create.cpp"
+#include "../../../src/game/front/hud_create.cpp"
 
 extern "C" void* data_00491be4;
 extern "C" SchedulerTask* __stdcall ManagerCreateStandIn_Task(void* routine);

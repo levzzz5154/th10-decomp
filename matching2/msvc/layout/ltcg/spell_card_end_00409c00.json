@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "spell_card_end_00409c00",
-  "source": "src/game/spell_card_end_00409c00.cpp",
+  "source": "src/game/card/spell_card_end_00409c00.cpp",
   "driver": "layout/ltcg/spell_card_end_00409c00/context.cpp",
   "headers": [
     "include/th10/game/spell_card_end_00409c00.hpp",

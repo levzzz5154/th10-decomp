@@ -1,5 +1,5 @@
 // Compiler context only; never selected as recovered game code.
-#include "../../src/game/player_hud_update_00408d60.cpp"
+#include "../../src/game/card/player_hud_update_00408d60.cpp"
 
 typedef int (__fastcall *HudCallback_00408d60)(PlayerHud_00408d60* hud);
 

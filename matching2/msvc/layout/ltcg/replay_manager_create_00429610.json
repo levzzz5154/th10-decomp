@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "replay_manager_create_00429610",
-  "source": "src/game/replay_manager_create_00429610.cpp",
+  "source": "src/game/replay/replay_manager_create_00429610.cpp",
   "driver": "layout/ltcg/replay_manager_create_00429610/context.cpp",
   "headers": [
     "include/th10/game/replay_manager_create_004296f0.hpp",

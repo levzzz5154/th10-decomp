@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "release_managed_item",
-  "source": "src/game/bullet_manager_delete.cpp",
+  "source": "src/game/bullet/bullet_manager_delete.cpp",
   "driver": "layout/ltcg/release_managed_item_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

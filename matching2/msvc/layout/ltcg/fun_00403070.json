@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "fun_00403070",
-  "source": "src/render/stage_objects_on_draw.cpp",
+  "source": "src/game/background/stage_objects_on_draw.cpp",
   "driver": "layout/ltcg/fun_00403070_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

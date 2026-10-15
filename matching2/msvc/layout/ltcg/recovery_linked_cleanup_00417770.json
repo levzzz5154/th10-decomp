@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "recovery_linked_cleanup_00417770",
-  "source": "src/game/recovery_linked_cleanup_00417770.cpp",
+  "source": "src/game/front/recovery_linked_cleanup_00417770.cpp",
   "driver": "layout/ltcg/recovery_linked_cleanup_00417770_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

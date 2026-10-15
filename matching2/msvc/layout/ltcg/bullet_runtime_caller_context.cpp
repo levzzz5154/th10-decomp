@@ -1,5 +1,5 @@
 // Compiler context only; never recovered game code.
-#include "../../src/game/bullet_runtime_update.cpp"
+#include "../../src/game/bullet/bullet_runtime_update.cpp"
 #include "th10/game/player_wrap.hpp"
 #pragma code_seg(".text$10context")
 int __stdcall SoundQueueMotionContext(BulletRuntimeDeceleration** bullets, int count) {

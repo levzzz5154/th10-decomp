@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "ecl_integer_value_00411fc0",
-  "source": "src/script/ecl_integer_value_00411fc0.cpp",
+  "source": "src/game/enemy/ecl_integer_value_00411fc0.cpp",
   "driver": "layout/ltcg/ecl_integer_value_00411fc0_context.cpp",
   "headers": [
     "include/th10/math/rng.hpp",

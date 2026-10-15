@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "lazy_animation_resource_0040c540_wave11",
-  "source": "src/game/animation_resource_lazy_fetch.cpp",
+  "source": "src/game/ending/animation_resource_lazy_fetch.cpp",
   "driver": "layout/ltcg/lazy_animation_resource_0040c540_wave11_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

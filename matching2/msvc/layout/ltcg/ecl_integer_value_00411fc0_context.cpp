@@ -1,4 +1,4 @@
-#include "../../src/script/ecl_integer_value_00411fc0.cpp"
+#include "../../src/game/enemy/ecl_integer_value_00411fc0.cpp"
 #pragma code_seg(".text$06validate")
 void* ResolveAnimationHandle(AnimationHandle_00449450* handle) {
     AnimationScriptId_00449450 id = { (int)handle->value };

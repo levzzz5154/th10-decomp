@@ -4,7 +4,7 @@
 #include "../native_archive_read/find.cpp"
 #include "../native_archive_read/decrypt.cpp"
 #include "../native_archive_read/load.cpp"
-#include "../../../src/game/script_viewer_load_0042be20.cpp"
+#include "../../../src/game/spttest/script_viewer_load_0042be20.cpp"
 
 #pragma code_seg(".text$z9context")
 void* __stdcall ScriptViewerCompilerContext() {

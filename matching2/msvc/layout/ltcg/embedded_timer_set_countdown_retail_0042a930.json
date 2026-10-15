@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "embedded_timer_set_countdown_retail_0042a930",
-  "source": "src/game/embedded_timer_set_countdown_retail_0042a930.cpp",
+  "source": "src/game/replay/embedded_timer_set_countdown_retail_0042a930.cpp",
   "driver": "layout/ltcg/embedded_timer_set_countdown_retail_0042a930_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

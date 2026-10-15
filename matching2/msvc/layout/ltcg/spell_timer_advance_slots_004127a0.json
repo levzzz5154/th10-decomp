@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "spell_timer_advance_slots_004127a0",
-  "source": "src/game/spell_timer.cpp",
+  "source": "src/game/enemy/spell_timer.cpp",
   "driver": "layout/ltcg/spell_timer_advance_slots_004127a0_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

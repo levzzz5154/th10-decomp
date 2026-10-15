@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "homing_shot_update_00428b10",
-  "source": "src/game/homing_shot_update_00428b10.cpp",
+  "source": "src/game/player/homing_shot_update_00428b10.cpp",
   "driver": "layout/ltcg/homing_shot_update_00428b10_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

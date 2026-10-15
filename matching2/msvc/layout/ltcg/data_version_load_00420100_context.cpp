@@ -1,11 +1,11 @@
 // Compiler context and ABI anchors only; none of these bytes enter the image.
-#include "../../src/app/data_version_load_00420100.cpp"
+#include "../../src/game/mother/data_version_load_00420100.cpp"
 
 // The real archive opener closure, as in dat_archive_open_00434c30: it is what
 // gives the opener its archive in ECX and its path in EAX.
-#include "../../src/archive/dat_archive_open_00434c30.cpp"
-#include "../../src/archive/dat_archive_close_00434d10.cpp"
-#include "../../src/util/legacy_string_duplicate_00435220.cpp"
+#include "../../src/pack/arcmngr/dat_archive_open_00434c30.cpp"
+#include "../../src/pack/arcmngr/dat_archive_close_00434d10.cpp"
+#include "../../src/pack/arcmngr/legacy_string_duplicate_00435220.cpp"
 
 // The file constructors stay external here, so no vtable is emitted.
 

@@ -7,7 +7,7 @@
 #include "archive_index_00434f70/version.cpp"
 #include "archive_index_00434f70/open.cpp"
 #include "archive_index_00434f70/close.cpp"
-#include "../../src/archive/dat_archive_load_index_00434f70.cpp"
+#include "../../src/pack/arcmngr/dat_archive_load_index_00434f70.cpp"
 #include "archive_index_00434f70/duplicate.cpp"
 #include "archive_index_00434f70/read.cpp"
 #include "archive_index_00434f70/find.cpp"

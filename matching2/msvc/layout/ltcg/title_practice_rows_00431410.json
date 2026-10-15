@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "title_practice_rows_00431410",
-  "source": "src/game/title_practice_rows_00431410.cpp",
+  "source": "src/game/title/title_practice_rows_00431410.cpp",
   "driver": "layout/ltcg/title_practice_rows_00431410/context.cpp",
   "headers": [
     "include/th10/game/game_thread_queue_native.hpp",
@@ -21,7 +21,7 @@
     {
       "name": "TitleMenu_DrawScoreRows",
       "symbol": "?DrawScoreRows@TitleMenu_00431410@@QAEHXZ",
-      "source": "src/game/title_score_rows_004329f0.cpp",
+      "source": "src/game/title/title_score_rows_004329f0.cpp",
       "section": ".text$06scores",
       "address": "0x004329F0",
       "size": 689,
@@ -30,7 +30,7 @@
     {
       "name": "TitleMenu_DrawOverlay",
       "symbol": "?DrawOverlay@TitleMenu_00431410@@QAEHXZ",
-      "source": "src/game/title_menu_draw_0042d260.cpp",
+      "source": "src/game/title/title_menu_draw_0042d260.cpp",
       "section": ".text$03dispatch",
       "address": "0x0042D260",
       "size": 116,
@@ -39,7 +39,7 @@
     {
       "name": "TitleMenu_DrawCallback",
       "symbol": "?TitleMenu_DrawCallback_0042d2f0@@YIHPAUTitleMenu_00431410@@@Z",
-      "source": "src/game/title_menu_draw_0042d260.cpp",
+      "source": "src/game/title/title_menu_draw_0042d260.cpp",
       "section": ".text$04callback",
       "address": "0x0042D2F0",
       "size": 7,
@@ -48,7 +48,7 @@
     {
       "name": "TitleMenu_DrawReplayBrowser",
       "symbol": "_TitleMenu_DrawReplayBrowser_00431ba0@4",
-      "source": "src/game/title_replay_browser_00431ba0.cpp",
+      "source": "src/game/title/title_replay_browser_00431ba0.cpp",
       "section": ".text$05s_browser",
       "address": "0x00431BA0",
       "size": 825,
@@ -57,7 +57,7 @@
     {
       "name": "TitleMenu_DrawScoreEntry",
       "symbol": "_TitleMenu_DrawScoreEntry_00433230@4",
-      "source": "src/game/title_score_entry_00433230.cpp",
+      "source": "src/game/title/title_score_entry_00433230.cpp",
       "section": ".text$08entry",
       "address": "0x00433230",
       "size": 826,
@@ -66,7 +66,7 @@
     {
       "name": "TitleMenu_DrawReplaySave",
       "symbol": "_TitleMenu_DrawReplaySave_00433b30@4",
-      "source": "src/game/title_replay_save_00433b30.cpp",
+      "source": "src/game/title/title_replay_save_00433b30.cpp",
       "section": ".text$09save",
       "address": "0x00433B30",
       "size": 955,
@@ -231,11 +231,11 @@
   ],
   "additional_sources": [
     "layout/ltcg/title_practice_rows_00431410/append.cpp",
-    "src/game/title_score_rows_004329f0.cpp",
-    "src/game/title_menu_draw_0042d260.cpp",
-    "src/game/title_replay_browser_00431ba0.cpp",
-    "src/game/title_score_entry_00433230.cpp",
-    "src/game/title_replay_save_00433b30.cpp"
+    "src/game/title/title_score_rows_004329f0.cpp",
+    "src/game/title/title_menu_draw_0042d260.cpp",
+    "src/game/title/title_replay_browser_00431ba0.cpp",
+    "src/game/title/title_score_entry_00433230.cpp",
+    "src/game/title/title_replay_save_00433b30.cpp"
   ],
   "data_aliases": [
     {

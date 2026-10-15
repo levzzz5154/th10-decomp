@@ -10,7 +10,7 @@
 // convention the whole-program link-time code generator chose for this leaf.
 // The siblings 0x00428E70, 0x00428E80, 0x00428E90 and 0x00427E40 walk the same
 // 0x98-byte stride over the same state, which is the gauge slot array the
-// recovered sibling 0x00428E10 (src/game/fun_00428e10_00428e10.cpp) publishes
+// recovered sibling 0x00428E10 (src/game/player/fun_00428e10_00428e10.cpp) publishes
 // into: its per-slot fields sit at +0x00, +0x08, +0x10 and +0x18 of each record.
 //
 // Plain C++ cannot name EAX, so the body is compiled in the native-LTCG

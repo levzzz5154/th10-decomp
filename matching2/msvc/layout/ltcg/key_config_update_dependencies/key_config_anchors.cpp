@@ -2,10 +2,10 @@
 // unselected here: the label refresh 0x0042F8B0, the slot reassignment
 // 0x00430250 and the two helpers the refresh needs to compile as in retail.
 #define code_seg(name) code_seg(".text$00430250_fn")
-#include "../../../src/game/key_config.cpp"
+#include "../../../src/game/title/key_config.cpp"
 #undef code_seg
 #define code_seg(name) code_seg(".text$0042f8b0_fn")
-#include "../../../src/game/fun_0042f8b0_0042f8b0.cpp"
+#include "../../../src/game/title/fun_0042f8b0_0042f8b0.cpp"
 #undef code_seg
 #pragma code_seg()
 __forceinline void KeyConfigMatrix_0042f8b0::SetIdentity() {

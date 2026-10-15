@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "item_line_bounded_0041f400_2026_09_28",
-  "source": "src/game/fun_0041f400_0041f400.cpp",
+  "source": "src/game/laser/fun_0041f400_0041f400.cpp",
   "driver": "layout/ltcg/item_line_runtime_0041e260/driver.cpp",
   "headers": [
     "include/th10/game/entity.hpp",
@@ -36,7 +36,7 @@
       "section": ".text$45allsegments",
       "address": "0x0041E260",
       "size": 609,
-      "source": "src/game/line_effect_create_all_segments_0041e260.cpp",
+      "source": "src/game/laser/line_effect_create_all_segments_0041e260.cpp",
       "actual_abi": "public this ECX; spawn-items flag stack; RET4, integer count EAX"
     }
   ],
@@ -296,7 +296,7 @@
     }
   ],
   "additional_sources": [
-    "src/game/line_effect_create_all_segments_0041e260.cpp"
+    "src/game/laser/line_effect_create_all_segments_0041e260.cpp"
   ],
   "roots": [
     "?CreateSegmentsInBounds@LineEffectSweep_0041e260@@QAEHH@Z",

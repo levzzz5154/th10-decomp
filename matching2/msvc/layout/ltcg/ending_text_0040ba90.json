@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "ending_text_0040ba90",
-  "source": "src/game/ending_text_constructor_0040ba90.cpp",
+  "source": "src/game/ending/ending_text_constructor_0040ba90.cpp",
   "driver": "layout/ltcg/ending_text_0040ba90_context.cpp",
   "additional_sources": [
     "layout/ltcg/ending_text_0040ba90_anchors.cpp"

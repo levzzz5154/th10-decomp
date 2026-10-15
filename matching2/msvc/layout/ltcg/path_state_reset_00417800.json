@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "path_state_reset_00417800",
-  "source": "src/game/path_state_reset_00417800.cpp",
+  "source": "src/game/front/path_state_reset_00417800.cpp",
   "driver": "layout/ltcg/path_state_reset_00417800_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

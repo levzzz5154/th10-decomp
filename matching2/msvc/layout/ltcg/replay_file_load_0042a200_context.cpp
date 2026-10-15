@@ -1,5 +1,5 @@
 // Compiler context and ABI anchors only; none of these bytes enter the image.
-#include "../../src/game/replay_file_load_0042a200.cpp"
+#include "../../src/game/replay/replay_file_load_0042a200.cpp"
 
 extern "C" int __cdecl ReplayFileLoadEscape(void* pointer, int value);
 

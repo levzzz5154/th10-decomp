@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "sprite_region_bind_00424480",
-  "source": "src/game/sprite_region_bind_00424480.cpp",
+  "source": "src/game/pause/sprite_region_bind_00424480.cpp",
   "driver": "layout/ltcg/sprite_region_bind_00424480_context.cpp",
   "headers": [
     "include/th10/game/sprite_region_bind_00424480.hpp"

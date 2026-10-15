@@ -1,12 +1,12 @@
 {
   "schema_version": 1,
   "name": "sound_queue_pan",
-  "source": "src/game/fun_00407780_00407780.cpp",
+  "source": "src/game/bullet/fun_00407780_00407780.cpp",
   "additional_sources": [
-    "src/game/laser_line_decelerate.cpp",
+    "src/game/laser/laser_line_decelerate.cpp",
     "src/render/animation_manager_queue_resource_0043dc90.cpp",
-    "src/game/fun_00407a30_00407a30.cpp",
-    "src/game/fun_00407be0_00407be0.cpp",
+    "src/game/bullet/fun_00407a30_00407a30.cpp",
+    "src/game/bullet/fun_00407be0_00407be0.cpp",
     "src/platform/sound_queue_pan_0043dd10.cpp"
   ],
   "headers": [
@@ -23,7 +23,7 @@
   "functions": [
     {
       "name": "BulletDeceleration_TurnStep",
-      "source": "src/game/fun_00407780_00407780.cpp",
+      "source": "src/game/bullet/fun_00407780_00407780.cpp",
       "symbol": "?TurnStep@BulletDeceleration@@QAEXXZ",
       "address": "0x00407780",
       "size": 338,
@@ -32,7 +32,7 @@
     },
     {
       "name": "BulletDeceleration_AimStep",
-      "source": "src/game/fun_00407a30_00407a30.cpp",
+      "source": "src/game/bullet/fun_00407a30_00407a30.cpp",
       "symbol": "?AimStep@BulletDeceleration@@QAEXXZ",
       "address": "0x00407A30",
       "size": 431,
@@ -41,7 +41,7 @@
     },
     {
       "name": "BulletDeceleration_Bounce",
-      "source": "src/game/fun_00407be0_00407be0.cpp",
+      "source": "src/game/bullet/fun_00407be0_00407be0.cpp",
       "symbol": "?Bounce@BulletDeceleration@@QAEXXZ",
       "address": "0x00407BE0",
       "size": 446,
@@ -50,7 +50,7 @@
     },
     {
       "name": "ProjectileDeceleration_Update",
-      "source": "src/game/laser_line_decelerate.cpp",
+      "source": "src/game/laser/laser_line_decelerate.cpp",
       "symbol": "?Motion0040@LineLaser@@QAEXXZ",
       "section": ".text$03deceleration",
       "address": "0x0041D170",

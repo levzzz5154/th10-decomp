@@ -1,5 +1,5 @@
 // Compiler context and ABI anchors only; none of these bytes enter the image.
-#include "../../src/game/enemy_spawn_0040cfb0.cpp"
+#include "../../src/game/enemy/enemy_spawn_0040cfb0.cpp"
 
 extern "C" int __cdecl EnemySpawnEscape(void* pointer, int value);
 

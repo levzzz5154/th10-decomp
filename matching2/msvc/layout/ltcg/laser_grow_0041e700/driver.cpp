@@ -1,6 +1,6 @@
 // Existing public laser callback plus a complete actual fastcall wrapper.
 // The 4187C0 wrapper is only the native link entry and earns no new credit.
-#include "../../../src/game/laser_grow_update.cpp"
+#include "../../../src/game/laser/laser_grow_update.cpp"
 struct StageUpdateContext;
 extern "C" int __stdcall StageUpdate(StageUpdateContext* context);
 #pragma code_seg(".text$10entry")

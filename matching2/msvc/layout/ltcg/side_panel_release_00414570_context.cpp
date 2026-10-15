@@ -1,6 +1,6 @@
 // Compiler context only; never selected as recovered game code.
 #include "th10/game/side_panel_release_00414570.hpp"
-#include "../../src/game/side_panel_release_00414570.cpp"
+#include "../../src/game/front/side_panel_release_00414570.cpp"
 
 extern "C" SidePanel_00414570* data_0047770c;
 extern "C" void __cdecl SidePanelReleaseBarrier(void* value);

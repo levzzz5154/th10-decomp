@@ -1,6 +1,6 @@
 // Copy compiled into the easing link so the stage script sees this function's
 // private entry convention; the recovered function is in
-// src/game/entity_start_script_00404f30.cpp.
+// src/game/background/entity_start_script_00404f30.cpp.
 // 0x00404F30 (202 bytes): reinitialize an animation object and start script
 // `script` of `resource` on it, with all three position vectors at the origin.
 //

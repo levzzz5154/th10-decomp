@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "destroy_owned_00425090",
-  "source": "src/game/player_delete.cpp",
+  "source": "src/game/player/player_delete.cpp",
   "driver": "layout/ltcg/destroy_owned_00425090_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

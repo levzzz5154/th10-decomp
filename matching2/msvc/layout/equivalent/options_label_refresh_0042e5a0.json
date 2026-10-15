@@ -923,15 +923,15 @@
     "layout/ltcg/difficulty_select_update_dependencies/animation_clear_flag_anchor.cpp",
     "layout/ltcg/difficulty_select_update_dependencies/keyboard_state_anchor.cpp",
     "layout/ltcg/difficulty_select_update_dependencies/score_progress_anchor.cpp",
-    "src/game/title_main_menu_update_0042d420.cpp",
-    "src/game/character_select_update_004306a0.cpp",
-    "src/game/shot_type_select_update_00430a60.cpp",
-    "src/game/practice_stage_select_update_00430ff0.cpp",
-    "src/game/replay_select_update_004315c0.cpp",
+    "src/game/title/title_main_menu_update_0042d420.cpp",
+    "src/game/title/character_select_update_004306a0.cpp",
+    "src/game/title/shot_type_select_update_00430a60.cpp",
+    "src/game/title/practice_stage_select_update_00430ff0.cpp",
+    "src/game/title/replay_select_update_004315c0.cpp",
     "layout/ltcg/difficulty_select_update_dependencies/spell_record_anchors.cpp",
-    "src/game/spell_record_update_00431ee0.cpp",
+    "src/game/title/spell_record_update_00431ee0.cpp",
     "layout/ltcg/difficulty_select_update_dependencies/spell_list_anchor.cpp",
-    "src/game/options_update_0042d920.cpp",
+    "src/game/title/options_update_0042d920.cpp",
     "equivalent/game/options_label_refresh_0042e5a0_context.cpp"
   ]
 }

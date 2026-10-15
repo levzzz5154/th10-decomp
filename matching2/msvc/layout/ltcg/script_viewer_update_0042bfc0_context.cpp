@@ -5,7 +5,7 @@
 // order when combined.
 #include "th10/script/ecl_children.hpp"
 #include "script_vm_00450560.hpp"
-#include "../../src/game/script_viewer_update_0042bfc0.cpp"
+#include "../../src/game/spttest/script_viewer_update_0042bfc0.cpp"
 
 extern "C" void __cdecl entry_free_00452422(void* memory);
 extern "C" unsigned int __cdecl asm_beginthreadex_00453683(

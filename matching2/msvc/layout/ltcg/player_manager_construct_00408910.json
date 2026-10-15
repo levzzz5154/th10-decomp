@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "player_manager_construct_00408910",
-  "source": "src/game/player_manager_construct_00408910.cpp",
+  "source": "src/game/card/player_manager_construct_00408910.cpp",
   "driver": "layout/ltcg/player_manager_construct_00408910/context.cpp",
   "headers": [
     "include/th10/game/player_manager_construct_00408910.hpp",

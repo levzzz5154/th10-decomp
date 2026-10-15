@@ -2,7 +2,7 @@
   "schema_version": 1,
   "image_base": "0x00400000",
   "name": "score_hud_00417040",
-  "source": "src/game/score_hud_update.cpp",
+  "source": "src/game/front/score_hud_update.cpp",
   "driver": "layout/ltcg/score_hud_00417040/driver.cpp",
   "additional_sources": [
     "layout/ltcg/score_hud_00417040/context.cpp",

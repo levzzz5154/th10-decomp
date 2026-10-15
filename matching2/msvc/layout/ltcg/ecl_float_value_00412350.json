@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "ecl_float_value_00412350",
-  "source": "src/script/ecl_float_value_00412350.cpp",
+  "source": "src/game/enemy/ecl_float_value_00412350.cpp",
   "driver": "layout/ltcg/ecl_float_value_00412350_context.cpp",
   "headers": [
     "include/th10/math/rng.hpp",

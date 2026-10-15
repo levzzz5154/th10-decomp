@@ -30,7 +30,7 @@
       "address": "0x4054b0",
       "size": 79,
       "actual_abi": "owner ESI, whole part EDX, fraction stack; RET4; existing79-byte recovery unchanged",
-      "source": "src/game/power_display_set_digits_004054b0.cpp"
+      "source": "src/game/background/power_display_set_digits_004054b0.cpp"
     },
     {
       "name": "Initialize",
@@ -270,6 +270,6 @@
     }
   ],
   "additional_sources": [
-    "src/game/power_display_set_digits_004054b0.cpp"
+    "src/game/background/power_display_set_digits_004054b0.cpp"
   ]
 }

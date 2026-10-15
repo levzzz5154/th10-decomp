@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "archive_entry_delete",
-  "source": "src/archive/dat_archive_entry_delete.cpp",
+  "source": "src/pack/arcmngr/dat_archive_entry_delete.cpp",
   "driver": "layout/ltcg/archive_entry_delete_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

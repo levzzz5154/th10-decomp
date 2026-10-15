@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "ui_markers_00420f20",
-  "source": "src/game/ui_markers.cpp",
+  "source": "src/game/mother/ui_markers.cpp",
   "driver": "layout/ltcg/ui_markers_00420f20_context.cpp",
   "headers": [
     "include/th10/game/ui_thread_host.hpp",

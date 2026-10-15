@@ -1,5 +1,5 @@
 // Unselected ABI anchor for 0x0041F8D0. The maintained body in
-// src/game/load_startup_resources_0041f8d0.cpp is the same statements as a
+// src/game/loading/load_startup_resources_0041f8d0.cpp is the same statements as a
 // free function; here it is the member the title worker calls, so that the
 // whole-program pass sees a receiver the callee never reads.
 #pragma code_seg(".text$00startup")

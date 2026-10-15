@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "stage_startup_00417870",
-  "source": "src/game/stage_entry.cpp",
+  "source": "src/game/game/stage_entry.cpp",
   "driver": "layout/ltcg/stage_startup_00417870/worker.cpp",
   "additional_sources": [
     "layout/ltcg/stage_startup_00417870/begin.cpp",

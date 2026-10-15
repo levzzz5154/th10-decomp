@@ -18,7 +18,7 @@
       "address": "0x0040B3A0",
       "size": 192,
       "actual_abi": "object in EAX",
-      "source": "src/game/bullet_anim_release.cpp"
+      "source": "src/game/effect/bullet_anim_release.cpp"
     },
     {
       "name": "Deletable_0040b920_Delete",
@@ -102,7 +102,7 @@
     }
   ],
   "additional_sources": [
-    "src/game/bullet_anim_release.cpp"
+    "src/game/effect/bullet_anim_release.cpp"
   ],
   "included_sources": [
     "src/platform/platform_stop_worker_0044c150.cpp"

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "title_teardown_0041fb50",
-  "source": "src/game/fun_0041fb50_0041fb50.cpp",
+  "source": "src/game/loading/fun_0041fb50_0041fb50.cpp",
   "driver": "layout/ltcg/title_teardown_0041fb50_context.cpp",
   "included_sources": [
     "layout/ltcg/title_teardown_0041fb50/message_teardown_helpers.cpp",
@@ -73,7 +73,7 @@
       "address": "0x0042B1E0",
       "size": 564,
       "actual_abi": "manager in EBX; result in EAX; plain RET",
-      "source": "src/game/score_manager_save.cpp"
+      "source": "src/game/score/score_manager_save.cpp"
     }
   ],
   "anchors": [
@@ -559,6 +559,6 @@
     "??1AnimationManagerStorage_00446220@@QAE@XZ"
   ],
   "additional_sources": [
-    "src/game/score_manager_save.cpp"
+    "src/game/score/score_manager_save.cpp"
   ]
 }

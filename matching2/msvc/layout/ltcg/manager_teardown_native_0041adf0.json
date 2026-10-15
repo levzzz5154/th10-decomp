@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "manager_teardown_native_0041adf0",
-  "source": "src/game/item_manager_destructor.cpp",
+  "source": "src/game/item/item_manager_destructor.cpp",
   "driver": "layout/ltcg/manager_teardown_native_0041adf0/context.cpp",
   "headers": [
     "include/th10/game/item_manager_destructor.hpp",

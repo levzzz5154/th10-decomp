@@ -1,5 +1,5 @@
 // Compiler context only; never selected as recovered game code.
-#include "../../src/game/player_suspend.cpp"
+#include "../../src/game/eclview/player_suspend.cpp"
 
 #pragma code_seg(".text$03context")
 int __stdcall f40a010CompilerContext(PlayerTaskPair** pairs, int count) {

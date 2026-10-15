@@ -14,7 +14,7 @@
 // task node, which is why the body keeps its declared __thiscall convention and
 // the layout roots it. The two callees read their record from EDI (0x00421480)
 // and the manager from EDI with the bucket index in EAX (0x00448980); the
-// camera member is the recovered model in src/render/camera_setup.cpp and the
+// camera member is the recovered model in src/game/mother/camera_setup.cpp and the
 // bucket renderer is the compiled ABI anchor below, so the body is compiled in
 // the native-LTCG cluster layout/ltcg/anm_batch_flush_00442f50.json.
 #include "th10/render/camera_batch.hpp"

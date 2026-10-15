@@ -1,1 +1,1 @@
-#include "../../../src/game/game_config_defaults.cpp"
+#include "../../../src/game/game/game_config_defaults.cpp"

@@ -1,5 +1,5 @@
 // Compiler context and ABI anchors only; none of these bytes enter the image.
-#include "../../src/app/screenshot_capture_00420670.cpp"
+#include "../../src/game/mother/screenshot_capture_00420670.cpp"
 #include <stdarg.h>
 
 extern "C" int __cdecl ScreenshotCaptureEscape(void* pointer, int value);

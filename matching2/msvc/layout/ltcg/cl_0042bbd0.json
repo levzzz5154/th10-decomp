@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "cl_0042bbd0",
-  "source": "src/game/effect_pool_install_tasks.cpp",
+  "source": "src/game/spttest/effect_pool_install_tasks.cpp",
   "driver": "layout/ltcg/cl_0042bbd0_context.cpp",
   "headers": [
     "include/th10/game/scheduler.hpp",
@@ -19,7 +19,7 @@
       "address": "0x0042BBD0",
       "size": 84,
       "actual_abi": "owner in EBX; plain RET",
-      "source": "src/game/effect_pool_install_tasks.cpp"
+      "source": "src/game/spttest/effect_pool_install_tasks.cpp"
     },
     {
       "name": "EffectPool_Initialize_0042bb30",
@@ -27,7 +27,7 @@
       "section": ".text$00binit",
       "address": "0x0042BB30",
       "size": 145,
-      "source": "src/game/effect_pool_state_construct.cpp",
+      "source": "src/game/spttest/effect_pool_state_construct.cpp",
       "actual_abi": "unused ECX slot elided, state EDX; EAX pointer result; RET"
     },
     {
@@ -159,7 +159,7 @@
   ],
   "roots": [],
   "additional_sources": [
-    "src/game/effect_pool_state_construct.cpp",
+    "src/game/spttest/effect_pool_state_construct.cpp",
     "src/unreferenced/FUN_0042bf30_0042bf30.cpp"
   ]
 }

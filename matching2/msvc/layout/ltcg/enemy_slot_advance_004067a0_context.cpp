@@ -1,5 +1,5 @@
 // Compiler context only; never selected as recovered game code.
-#include "../../src/game/bullet_manager_on_draw.cpp"
+#include "../../src/game/bullet/bullet_manager_on_draw.cpp"
 
 // 0x004451C0 enters on (EAX sprite, ECX manager). The recovered dispatcher
 // lives in the render-batch cluster; this stand-in only fixes the parameter

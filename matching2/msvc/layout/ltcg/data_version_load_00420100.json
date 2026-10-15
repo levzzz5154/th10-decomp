@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "data_version_load_00420100",
-  "source": "src/app/data_version_load_00420100.cpp",
+  "source": "src/game/mother/data_version_load_00420100.cpp",
   "driver": "layout/ltcg/data_version_load_00420100_context.cpp",
   "headers": [
     "include/th10/app/data_version_00420100.hpp",
@@ -484,9 +484,9 @@
     "layout/ltcg/native_archive_read/decrypt.cpp",
     "layout/ltcg/native_archive_read/load.cpp",
     "layout/ltcg/resource_surface_loading_log.cpp",
-    "src/archive/dat_archive_open_00434c30.cpp",
-    "src/archive/dat_archive_close_00434d10.cpp",
-    "src/util/legacy_string_duplicate_00435220.cpp"
+    "src/pack/arcmngr/dat_archive_open_00434c30.cpp",
+    "src/pack/arcmngr/dat_archive_close_00434d10.cpp",
+    "src/pack/arcmngr/legacy_string_duplicate_00435220.cpp"
   ],
   "data_aliases": []
 }

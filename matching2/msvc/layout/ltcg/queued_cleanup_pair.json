@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
   "name": "queued_cleanup_pair",
-  "source": "src/render/queued_anm_cleanup.cpp",
+  "source": "src/game/mother/queued_anm_cleanup.cpp",
   "additional_sources": [
-    "src/render/anm_handle_release.cpp"
+    "src/game/mother/anm_handle_release.cpp"
   ],
   "included_sources": [
     "layout/ltcg/queued_cleanup_find_anchor.cpp"
@@ -29,7 +29,7 @@
     },
     {
       "name": "ReleaseAnimationHandles_00421300",
-      "source": "src/render/anm_handle_release.cpp",
+      "source": "src/game/mother/anm_handle_release.cpp",
       "symbol": "_ReleaseAnimationHandles_00421300@4",
       "section": ".text$30release",
       "address": "0x00421300",

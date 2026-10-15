@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "title_dispatch_callback_0042d2e0",
-  "source": "src/game/title_dispatch_callback_0042d2e0.cpp",
+  "source": "src/game/title/title_dispatch_callback_0042d2e0.cpp",
   "driver": "layout/ltcg/title_dispatch_callback_0042d2e0_context.cpp",
   "headers": [
     "include/th10/game/menu_cursor.hpp",
@@ -613,8 +613,8 @@
     "layout/ltcg/title_dispatch_callback_dependencies/ending_screen.cpp",
     "layout/ltcg/title_dispatch_callback_dependencies/music_caller.cpp",
     "layout/ltcg/title_dispatch_callback_dependencies/title_dispatcher.cpp",
-    "src/game/recovery_animation_slot_frames_0042c6d0.cpp",
-    "src/game/recovery_install_animation_slot_0042c670.cpp",
+    "src/game/title/recovery_animation_slot_frames_0042c6d0.cpp",
+    "src/game/title/recovery_install_animation_slot_0042c670.cpp",
     "src/render/animation_manager_mark_resource_for_removal_004493e0.cpp",
     "src/render/animation_manager_queue_resource_0043dc90.cpp"
   ],

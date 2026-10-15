@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "bullet_entity_find_by_id_0040cf90",
-  "source": "src/game/bullet_entity_find_by_id_0040cf90.cpp",
+  "source": "src/game/enemy/bullet_entity_find_by_id_0040cf90.cpp",
   "driver": "layout/ltcg/bullet_entity_find_by_id_0040cf90_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

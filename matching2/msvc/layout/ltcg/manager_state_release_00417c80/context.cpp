@@ -4,8 +4,8 @@
 // game-thread animation fetch walk in one link, and the models below give the
 // positioned-primary creation the callees and register pressure retail uses
 // (the same modelling the lazy-animation-fetch cluster carries).
-#include "../../../src/game/score_manager_save.cpp"
-#include "../../../src/game/animation_resource_lazy_fetch.cpp"
+#include "../../../src/game/score/score_manager_save.cpp"
+#include "../../../src/game/ending/animation_resource_lazy_fetch.cpp"
 
 // Bindings for everything the models below call.
 extern "C" void* data_00491c10;

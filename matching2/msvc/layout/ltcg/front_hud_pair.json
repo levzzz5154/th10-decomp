@@ -960,7 +960,7 @@
     }
   ],
   "included_sources": [
-    "src/game/result_menu_open.cpp",
+    "src/game/pause/result_menu_open.cpp",
     "layout/ltcg/result_open_00423370/allocate.cpp",
     "layout/ltcg/result_open_00423370/animation_manager_queue_resource_0043dc90.cpp",
     "layout/ltcg/result_open_00423370/animation_object_configure_from_resource_0043e5a0.cpp",

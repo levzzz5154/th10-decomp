@@ -1,4 +1,4 @@
-// Unselected native ABI anchor: verbatim copy of src/game/ascii_manager/add_formatted.cpp.
+// Unselected native ABI anchor: verbatim copy of src/game/ascii/add_formatted.cpp.
 #include <stdio.h>
 #include <stdarg.h>
 #include "th10/game/game_thread_queue_native.hpp"

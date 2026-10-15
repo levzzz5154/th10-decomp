@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "effect_accel_00407560",
-  "source": "src/game/enemy_motion_steps.cpp",
+  "source": "src/game/bullet/enemy_motion_steps.cpp",
   "driver": "layout/ltcg/effect_accel_00407560_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

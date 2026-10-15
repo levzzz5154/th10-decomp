@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "enemy_grid_scan_004073e0",
-  "source": "src/game/enemy_grid_scan.cpp",
+  "source": "src/game/bullet/enemy_grid_scan.cpp",
   "driver": "layout/ltcg/enemy_grid_scan_004073e0_context.cpp",
   "headers": [
     "include/th10/game/enemy_grid_scan_004073e0.hpp",

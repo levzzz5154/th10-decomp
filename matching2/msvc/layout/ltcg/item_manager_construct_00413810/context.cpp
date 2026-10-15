@@ -22,7 +22,7 @@ HudSprite::HudSprite() {
 }
 #pragma code_seg()
 
-#include "../../../src/game/hud_construct.cpp"
+#include "../../../src/game/front/hud_construct.cpp"
 
 inline void* __cdecl operator new(unsigned int, void* place) { return place; }
 

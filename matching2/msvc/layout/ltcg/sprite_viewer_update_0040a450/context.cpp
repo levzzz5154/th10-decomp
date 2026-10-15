@@ -2,7 +2,7 @@
 // below stands in for (or copies) a callee recovered or still assembly
 // elsewhere, compiled here so the whole-program pass selects that callee's
 // private registers.
-#include "../../../src/game/sprite_viewer_update_0040a450.cpp"
+#include "../../../src/game/eclview/sprite_viewer_update_0040a450.cpp"
 
 extern "C" void __cdecl entry_free_00452422(void* memory);
 extern "C" unsigned int __cdecl asm_beginthreadex_00453683(

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "laser_spawn_0041c510",
-  "source": "src/game/laser_spawn_0041c510.cpp",
+  "source": "src/game/laser/laser_spawn_0041c510.cpp",
   "driver": "layout/ltcg/laser_spawn_0041c510_context.cpp",
   "headers": [
     "include/th10/game/laser_spawn_0041c510.hpp",

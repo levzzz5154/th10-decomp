@@ -79,7 +79,7 @@ void RecoveryMusicRoom_00433ef0::DisableTimerWithOwner(int owner) {
 }
 // 0x0042C620 SetTimerTarget is defined in the class.
 #pragma code_seg()
-// 0x0042C670: src/game/recovery_install_animation_slot_0042c670.cpp.
+// 0x0042C670: src/game/title/recovery_install_animation_slot_0042c670.cpp.
 void __stdcall RecoveryMusicInstallSlot_0042c670(RecoveryMusicRoom_00433ef0* room, int index);
 #pragma code_seg(".text$004349e0_fn")
 __declspec(noinline) char* __stdcall RecoveryMusicSkipLine_004349e0(char* cursor, int* remaining) {

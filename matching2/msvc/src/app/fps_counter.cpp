@@ -14,7 +14,7 @@ extern "C" double data_00492538;      // 0x00492538
 extern "C" double data_00492540;      // 0x00492540
 
 // The slot owner whose flags gate the accounting below; the same object
-// src/game/fun_004065c0_004065c0.cpp names RecoverySlotOwner_004065c0.
+// src/game/bullet/fun_004065c0_004065c0.cpp names RecoverySlotOwner_004065c0.
 struct RecoverySlotOwner_004134b0 {
     unsigned char pad_00[0x58];
     unsigned int field_58;  // +0x58
@@ -66,9 +66,9 @@ int FrameRateCounter_004134b0::Update() {
 #pragma code_seg()
 
 
-#include "../game/ascii_manager/add_formatted_marked.cpp"
+#include "../game/ascii/add_formatted_marked.cpp"
 #include "fun_004135d0_004135d0.cpp"
 #include "fps_counter_on_draw.cpp"
 
-#include "../game/ascii_manager/add_formatted.cpp"
+#include "../game/ascii/add_formatted.cpp"
 #include "../game/replay_manager_draw.cpp"

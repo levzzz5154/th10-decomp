@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "recovery_offset_point_00418810",
-  "source": "src/game/recovery_offset_point_00418810.cpp",
+  "source": "src/game/game/recovery_offset_point_00418810.cpp",
   "driver": "layout/ltcg/recovery_offset_point_00418810_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

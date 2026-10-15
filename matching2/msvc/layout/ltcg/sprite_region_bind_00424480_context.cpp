@@ -1,6 +1,6 @@
 // Compiler context only; never selected as recovered game code.
 #include "th10/game/sprite_region_bind_00424480.hpp"
-#include "../../src/game/sprite_region_bind_00424480.cpp"
+#include "../../src/game/pause/sprite_region_bind_00424480.cpp"
 
 #pragma inline_depth(0)
 #pragma code_seg(".text$0040a000_context")

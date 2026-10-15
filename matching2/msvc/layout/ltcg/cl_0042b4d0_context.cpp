@@ -1,5 +1,5 @@
 // Compiler context only; never selected as recovered game code.
-#include "../../src/game/effect_pool_initialize_0042b4d0.cpp"
+#include "../../src/game/smollscore/effect_pool_initialize_0042b4d0.cpp"
 
 #pragma code_seg(".text$00h_init")
 #include "../../src/game/entity_initialize_00401de0.cpp"

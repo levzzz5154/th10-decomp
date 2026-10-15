@@ -1,5 +1,5 @@
 // Compiler context only; never selected as recovered game code.
-#include "../../src/game/recovery_timer_reset_00412db0.cpp"
+#include "../../src/game/enemy/recovery_timer_reset_00412db0.cpp"
 
 #pragma code_seg(".text$03context")
 int __stdcall RecoveryTimerResetCompilerContext(

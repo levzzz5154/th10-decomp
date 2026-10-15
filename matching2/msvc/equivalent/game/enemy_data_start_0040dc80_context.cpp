@@ -26,7 +26,7 @@ extern "C" void __stdcall ext_call(void* a, int b);
 extern "C" void __cdecl ext_free(void* memory);
 extern "C" int __stdcall ext_run(EclChildState* state, float delta);
 
-// src/math/vec3_interpolator.cpp, src/game/trajectory_interpolator.cpp
+// src/game/background/vec3_interpolator.cpp, src/game/enemy/trajectory_interpolator.cpp
 template struct Interpolator<Vec3>;
 template struct Interpolator<TrajectoryVec2>;
 
@@ -103,7 +103,7 @@ void __fastcall SetAnimationTranslatedPosition_00449350(
     }
 }
 
-// src/game/laser_manager.cpp
+// src/game/laser/laser_manager.cpp
 void __fastcall Animation_SetPosition(
         AnimationManager_0040dc80* manager, const PolarVec3* position, ScriptChangeHandle id) {
     AnimationNode_0040dc80* object = (AnimationNode_0040dc80*)AnimationManager_Find_004491c0(manager, id);
@@ -142,7 +142,7 @@ extern "C" __declspec(noinline) int __stdcall EclVm_TickChildren(EclChildOwner* 
     return 0;
 }
 
-// src/game/bullet_entity_clear_resource_list_0040c6e0.cpp
+// src/game/enemy/bullet_entity_clear_resource_list_0040c6e0.cpp
 struct ResourceRecord_0040dc80 {
     void* resource;
     ResourceRecord_0040dc80* next;
@@ -157,7 +157,7 @@ void EnemyRecord_0040dc80::ClearResourceList() {
     }
 }
 
-// src/game/ecl_record_reset_0040c730.cpp
+// src/game/enemy/ecl_record_reset_0040c730.cpp
 void EnemyRecord_0040dc80::ResetScript() {
     unsigned char* self = (unsigned char*)this;
     *(float*)(self + 0x8) = 0.0f;
@@ -202,7 +202,7 @@ int __fastcall BindName_00450700(const char* name, EnemyRecord_0040dc80* record)
     return 0;
 }
 
-// src/game/field_contact_004266b0.cpp
+// src/game/player/field_contact_004266b0.cpp
 int __fastcall FieldContact_004266b0(
         const PolarVec3* position, Player* player, const Vec2* size) {
     const Vec2* low = (const Vec2*)((unsigned char*)player + 0x404);

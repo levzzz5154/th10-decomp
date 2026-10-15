@@ -3,13 +3,13 @@
 
 // 0x00420C00: recovered in src/game/music_requests_00420a90.cpp.
 
-// 0x00421F60: recovered in src/game/game_state_update_frame_maximum_00421f60.cpp.
+// 0x00421F60: recovered in src/game/mother/game_state_update_frame_maximum_00421f60.cpp.
 
-// 0x00422C30: recovered in src/game/game_state_unpause_00422c30.cpp.
+// 0x00422C30: recovered in src/game/pause/game_state_unpause_00422c30.cpp.
 
-// 0x0042C730: maintained in src/game/game_state_dispatch_animation_slot_0042c730.cpp.
+// 0x0042C730: maintained in src/game/title/game_state_dispatch_animation_slot_0042c730.cpp.
 
-// 0x0042C750: maintained in src/game/game_state_dispatch_animation_slot_secondary_0042c750.cpp.
+// 0x0042C750: maintained in src/game/title/game_state_dispatch_animation_slot_secondary_0042c750.cpp.
 
 
 #include "th10/game/scheduler.hpp"

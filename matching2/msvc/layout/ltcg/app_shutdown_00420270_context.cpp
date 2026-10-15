@@ -2,9 +2,9 @@
 // bodies give the whole-program pass the register receivers retail uses
 // (worker and timer and archive in ESI, block in EBX, registrar in EAX with
 // the name in EDX); the caller makes the application arrive in EAX.
-#include "../../src/app/app_shutdown_00420270.cpp"
+#include "../../src/game/mother/app_shutdown_00420270.cpp"
 #include "../../src/platform/platform_stop_worker_0044c150.cpp"
-#include "../../src/game/platform_release_owned_handle_00413450.cpp"
+#include "../../src/game/fps/platform_release_owned_handle_00413450.cpp"
 
 extern Win32TimerVtable g_win32_timer_vtable;
 

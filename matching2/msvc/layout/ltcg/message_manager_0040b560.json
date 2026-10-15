@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "message_manager_0040b560",
-  "source": "src/game/message_manager_initialize_0040b560.cpp",
+  "source": "src/game/ending/message_manager_initialize_0040b560.cpp",
   "driver": "layout/ltcg/message_manager_0040b560_context.cpp",
   "additional_sources": [
     "layout/ltcg/message_manager_0040b560_anchors.cpp"
@@ -11,7 +11,7 @@
     "layout/ltcg/message_manager_0040b560_scheduler.cpp",
     "layout/ltcg/native_archive_read/load.cpp",
     "src/platform/text_log.cpp",
-    "src/game/ending_text_constructor_0040ba90.cpp"
+    "src/game/ending/ending_text_constructor_0040ba90.cpp"
   ],
   "headers": [
     "include/th10/game/scheduler.hpp",

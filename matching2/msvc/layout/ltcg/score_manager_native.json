@@ -1,15 +1,15 @@
 {
   "schema_version": 2,
   "name": "score_manager_native",
-  "source": "src/game/effect_manager_initialize_pools_retail_0042ae60.cpp",
+  "source": "src/game/score/effect_manager_initialize_pools_retail_0042ae60.cpp",
   "headers": [
     "include/th10/game/score_archive_manager_0042ae60.hpp",
     "include/th10/game/score_file.hpp"
   ],
   "additional_sources": [
-    "src/game/score_settings_initialize_defaults_0042add0.cpp",
-    "src/game/score_manager_load_sections.cpp",
-    "src/game/score_file.cpp"
+    "src/game/score/score_settings_initialize_defaults_0042add0.cpp",
+    "src/game/score/score_manager_load_sections.cpp",
+    "src/game/score/score_file.cpp"
   ],
   "image_base": "0x00400000",
   "description": "Complete scoreth10.dat manager constructor and genuine exception-aware allocating factory; all private helper bodies complete, nonmatching helpers unselected with zero credit.",
@@ -55,7 +55,7 @@
       "address": "0x0042ADD0",
       "size": 142,
       "section": ".text$01b",
-      "source": "src/game/score_settings_initialize_defaults_0042add0.cpp",
+      "source": "src/game/score/score_settings_initialize_defaults_0042add0.cpp",
       "actual_abi": "One actual settings-section pointer, privately EDX, plain RET; only realcaller42AE8Apresents LEAEDX[EBX+1D86C], no unused ECX formal."
     },
     {
@@ -64,7 +64,7 @@
       "address": "0x0042B030",
       "size": 423,
       "section": ".text$04b",
-      "source": "src/game/score_manager_load_sections.cpp",
+      "source": "src/game/score/score_manager_load_sections.cpp",
       "actual_abi": "manager in EBX; returns 0 in EAX; plain RET"
     },
     {
@@ -73,7 +73,7 @@
       "address": "0x0042ACB0",
       "size": 274,
       "section": ".text$00b",
-      "source": "src/game/score_file.cpp",
+      "source": "src/game/score/score_file.cpp",
       "actual_abi": "record section in EAX; plain RET"
     }
   ],

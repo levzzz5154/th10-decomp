@@ -1,7 +1,7 @@
 // Compiler context only; never selected as recovered game code. The animation
 // manager callees are complete models so the pass derives their register
 // arguments, and the marker handles escape as they do in the retail program.
-#include "../../src/game/ui_markers.cpp"
+#include "../../src/game/mother/ui_markers.cpp"
 #include "result_open_00423370/find.cpp"
 #include "result_open_00423370/allocate.cpp"
 #include "result_open_00423370/dispatcher_animation_helpers.cpp"

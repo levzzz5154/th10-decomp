@@ -11,7 +11,7 @@
 
 #include "player_state_callees.cpp"
 
-#include "../../../src/game/player_collision_00408030_00408100.cpp"
+#include "../../../src/game/bullet/player_collision_00408030_00408100.cpp"
 #include "collision_bounds.cpp"
 
 #include "item_polar.cpp"

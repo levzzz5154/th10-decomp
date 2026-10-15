@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "f40a010",
-  "source": "src/game/player_suspend.cpp",
+  "source": "src/game/eclview/player_suspend.cpp",
   "driver": "layout/ltcg/f40a010_context.cpp",
   "headers": [],
   "image_base": "0x400000",

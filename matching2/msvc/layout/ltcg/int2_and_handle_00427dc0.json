@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
   "name": "int2_and_handle_00427dc0",
-  "source": "src/math/int2_add_00427dc0.cpp",
+  "source": "src/game/player/int2_add_00427dc0.cpp",
   "driver": "layout/ltcg/int2_and_handle_00427dc0_context.cpp",
   "additional_sources": [
-    "src/render/animation_handle_validate_00427dd0.cpp",
+    "src/game/player/animation_handle_validate_00427dd0.cpp",
     "layout/ltcg/int2_handle_find_anchor.cpp"
   ],
   "included_sources": [
@@ -27,7 +27,7 @@
     },
     {
       "name": "AnimationHandle_Validate",
-      "source": "src/render/animation_handle_validate_00427dd0.cpp",
+      "source": "src/game/player/animation_handle_validate_00427dd0.cpp",
       "symbol": "?Validate@AnimationHandle@@QAEHXZ",
       "section": ".text$02validate",
       "address": "0x00427DD0",

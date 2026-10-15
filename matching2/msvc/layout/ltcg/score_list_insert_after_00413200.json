@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "score_list_insert_after_00413200",
-  "source": "src/game/score_list_insert_after_00413200.cpp",
+  "source": "src/game/enemy/score_list_insert_after_00413200.cpp",
   "driver": "layout/ltcg/score_list_insert_after_00413200_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "title_spell_list_00432690",
-  "source": "src/game/title_spell_list.cpp",
+  "source": "src/game/title/title_spell_list.cpp",
   "driver": "layout/ltcg/title_spell_list/driver.cpp",
   "additional_sources": [
     "layout/ltcg/title_spell_list/centered_text.cpp",

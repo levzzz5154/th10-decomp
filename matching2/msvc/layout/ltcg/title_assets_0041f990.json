@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "title_assets_0041f990",
-  "source": "src/game/title_assets.cpp",
+  "source": "src/game/loading/title_assets.cpp",
   "driver": "layout/ltcg/title_assets_0041f990_context.cpp",
   "headers": [
     "include/th10/app/supervisor.hpp",

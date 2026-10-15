@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "stage_text_initialize_00434a80",
-  "source": "src/game/stage_text.cpp",
+  "source": "src/game/title/stage_text.cpp",
   "driver": "layout/ltcg/stage_text_initialize_00434a80_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

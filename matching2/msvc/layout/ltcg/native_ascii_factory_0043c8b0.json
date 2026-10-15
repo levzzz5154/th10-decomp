@@ -41,7 +41,7 @@
       "address": "0x00404530",
       "size": 119,
       "actual_abi": "retail owner ESI; plainRET",
-      "source": "src/game/fun_00404530_00404530.cpp"
+      "source": "src/game/background/fun_00404530_00404530.cpp"
     }
   ],
   "anchors": [
@@ -502,6 +502,6 @@
     }
   ],
   "additional_sources": [
-    "src/game/fun_00404530_00404530.cpp"
+    "src/game/background/fun_00404530_00404530.cpp"
   ]
 }

@@ -3,7 +3,7 @@
 // destructor are stand-ins shaped so each takes its receiver where the real
 // one does.
 #include "../manager_teardown_native_0041adf0/element.cpp"
-#include "../../../src/game/item_manager_create.cpp"
+#include "../../../src/game/item/item_manager_create.cpp"
 
 // C linkage: a removal the compiler knows cannot throw, so the stand-in
 // destructor needs no unwind state for the element array.

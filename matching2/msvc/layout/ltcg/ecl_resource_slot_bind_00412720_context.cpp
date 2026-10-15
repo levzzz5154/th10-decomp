@@ -1,5 +1,5 @@
 // Compiler context only; its bytes are not recovered game code.
-#include "../../src/game/ecl_set_resource_slot_00412720.cpp"
+#include "../../src/game/enemy/ecl_set_resource_slot_00412720.cpp"
 
 #pragma code_seg(".text$03context")
 int __stdcall Ctx(SlotTable_00412720** t, int* id, const char** d, int n) {

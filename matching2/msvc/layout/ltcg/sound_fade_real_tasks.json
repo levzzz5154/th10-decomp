@@ -158,10 +158,10 @@
       "kind": "data"
     }
   ],
-  "source": "src/app/main_task_tick_wave18.cpp",
+  "source": "src/game/mother/main_task_tick_wave18.cpp",
   "additional_sources": [
-    "src/app/main_task_update_mode.cpp",
-    "src/platform/sound_fade_tick_wave18.cpp",
+    "src/game/mother/main_task_update_mode.cpp",
+    "src/game/mother/sound_fade_tick_wave18.cpp",
     "src/game/platform_set_operation_deadline_0044d4e0.cpp",
     "src/platform/sound_fade_steps_0044d740.cpp"
   ],
@@ -174,7 +174,7 @@
       "address": "0x0041FF80",
       "size": 113,
       "actual_abi": "owner ECX; no stack arguments; plain RET",
-      "source": "src/app/main_task_tick_wave18.cpp"
+      "source": "src/game/mother/main_task_tick_wave18.cpp"
     },
     {
       "name": "MainTaskUpdateMode",
@@ -183,7 +183,7 @@
       "address": "0x004218D0",
       "size": 666,
       "actual_abi": "owner EAX; result in EAX; plain RET; switch tables follow the body",
-      "source": "src/app/main_task_update_mode.cpp"
+      "source": "src/game/mother/main_task_update_mode.cpp"
     },
     {
       "name": "SoundFadeTick",
@@ -192,7 +192,7 @@
       "address": "0x00421E00",
       "size": 225,
       "actual_abi": "owner EAX; plain RET",
-      "source": "src/platform/sound_fade_tick_wave18.cpp"
+      "source": "src/game/mother/sound_fade_tick_wave18.cpp"
     },
     {
       "name": "PlatformInterfaceState_0044D4E0_SetOperationDeadline",

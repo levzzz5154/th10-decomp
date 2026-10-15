@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "script_viewer_draw_0042c360",
-  "source": "src/game/script_viewer_draw_0042c360.cpp",
+  "source": "src/game/spttest/script_viewer_draw_0042c360.cpp",
   "driver": "layout/ltcg/script_viewer_draw_0042c360_context.cpp",
   "headers": [
     "include/th10/game/script_viewer_load_0042be20.hpp",
@@ -118,8 +118,8 @@
     }
   ],
   "included_sources": [
-    "src/game/ascii_manager/add_string.cpp",
-    "src/game/ascii_manager/add_formatted_marked.cpp"
+    "src/game/ascii/add_string.cpp",
+    "src/game/ascii/add_formatted_marked.cpp"
   ],
   "data_aliases": [
     {

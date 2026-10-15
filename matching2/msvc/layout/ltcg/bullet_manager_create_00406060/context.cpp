@@ -1,7 +1,7 @@
 // Compiler context only; never selected as recovered game code. The manager's
 // initializer and destructor are stand-ins shaped so each takes its receiver
 // where the real one does.
-#include "../../../src/game/bullet_manager_create_00406060.cpp"
+#include "../../../src/game/bullet/bullet_manager_create_00406060.cpp"
 
 extern "C" SchedulerTask* __stdcall ManagerCreateStandIn_Task(void* routine);
 

@@ -5,7 +5,7 @@
 // parameter lets the pass drop ECX at the call.
 #pragma code_seg(".text$00h_config")
 #define TH10_GAME_CONFIG_KEEP_SECTION
-#include "../../src/game/game_config_defaults.cpp"
+#include "../../src/game/game/game_config_defaults.cpp"
 #undef TH10_GAME_CONFIG_KEEP_SECTION
 #pragma code_seg()
 

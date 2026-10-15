@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "cl_00405e20",
-  "source": "src/game/bullet_manager_initialize_00405e20.cpp",
+  "source": "src/game/bullet/bullet_manager_initialize_00405e20.cpp",
   "driver": "layout/ltcg/cl_00405e20_context.cpp",
   "headers": [
     "include/th10/game/scheduler.hpp",
@@ -18,7 +18,7 @@
       "address": "0x00405E20",
       "size": 163,
       "actual_abi": "manager in EBX; result in EAX; plain RET",
-      "source": "src/game/bullet_manager_initialize_00405e20.cpp"
+      "source": "src/game/bullet/bullet_manager_initialize_00405e20.cpp"
     }
   ],
   "anchors": [

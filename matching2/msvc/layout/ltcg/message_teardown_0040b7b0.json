@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "message_teardown_0040b7b0",
-  "source": "src/game/fun_0040b7b0_0040b7b0.cpp",
+  "source": "src/game/ending/fun_0040b7b0_0040b7b0.cpp",
   "driver": "layout/ltcg/message_teardown_context.cpp",
   "included_sources": [
     "layout/ltcg/message_teardown_helpers.cpp"

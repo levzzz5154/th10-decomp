@@ -34,7 +34,7 @@ extern "C" __declspec(noinline) int __cdecl ReleasePair_0041f930() {
 }
 #pragma code_seg()
 
-#include "../../src/game/fun_0041fb50_0041fb50.cpp"
+#include "../../src/game/loading/fun_0041fb50_0041fb50.cpp"
 #include "title_teardown_0041fb50/title_encrypt.cpp"
 
 extern "C" void __stdcall ReleaseGlobalManager_00417c80(void*);

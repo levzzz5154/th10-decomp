@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "player_draw_sprites_00409190",
-  "source": "src/game/player_draw_sprites_00409190.cpp",
+  "source": "src/game/card/player_draw_sprites_00409190.cpp",
   "driver": "layout/ltcg/player_draw_sprites_00409190_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

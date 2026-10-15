@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "player_manager_start_mode_004045b0",
-  "source": "src/game/player_manager_start_mode_004045b0.cpp",
+  "source": "src/game/background/player_manager_start_mode_004045b0.cpp",
   "driver": "layout/ltcg/player_manager_start_mode_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

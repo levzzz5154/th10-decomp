@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "result_overlay_004172e0",
-  "source": "src/game/result_overlay.cpp",
+  "source": "src/game/front/result_overlay.cpp",
   "driver": "layout/ltcg/result_overlay_004172e0/driver.cpp",
   "additional_sources": [
     "layout/ltcg/result_overlay_004172e0/caller.cpp",

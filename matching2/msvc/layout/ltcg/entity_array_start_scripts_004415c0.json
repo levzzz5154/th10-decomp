@@ -107,7 +107,7 @@
   ],
   "included_sources": [
     "src/render/animation_object_load_script_0043e710.cpp",
-    "src/game/entity_start_script_00404f30.cpp",
+    "src/game/background/entity_start_script_00404f30.cpp",
     "layout/ltcg/entity_start_script_00404f30_context.cpp"
   ],
   "roots": []

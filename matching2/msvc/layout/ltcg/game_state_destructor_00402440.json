@@ -4,7 +4,7 @@
   "constants": [],
   "exceptions": true,
   "name": "game_state_destructor_00402440",
-  "source": "src/game/game_state_destructor_00402440.cpp",
+  "source": "src/game/background/game_state_destructor_00402440.cpp",
   "driver": "layout/ltcg/game_state_destructor_00402440_context.cpp",
   "headers": [
     "include/th10/game/game_state.hpp",

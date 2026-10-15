@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "player_clear_expired_flags_00405500",
-  "source": "src/game/player_clear_expired_flags_00405500.cpp",
+  "source": "src/game/background/player_clear_expired_flags_00405500.cpp",
   "driver": "layout/ltcg/player_clear_expired_flags_00405500_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

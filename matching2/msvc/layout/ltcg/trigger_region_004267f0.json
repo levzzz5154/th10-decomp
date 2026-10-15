@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "trigger_region_004267f0",
-  "source": "src/game/trigger_region_004267f0.cpp",
+  "source": "src/game/player/trigger_region_004267f0.cpp",
   "driver": "layout/ltcg/trigger_region_004267f0_context.cpp",
   "headers": [
     "include/th10/game/trigger_region_004267f0.hpp",

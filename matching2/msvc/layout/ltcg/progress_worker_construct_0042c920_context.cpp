@@ -1,5 +1,5 @@
 // Compiler context only; its bytes are not recovered game code.
-#include "../../src/game/progress_worker_construct_0042c920.cpp"
+#include "../../src/game/title/progress_worker_construct_0042c920.cpp"
 
 #pragma code_seg(".text$03context")
 inline void* operator new(unsigned int, void* where) { return where; }

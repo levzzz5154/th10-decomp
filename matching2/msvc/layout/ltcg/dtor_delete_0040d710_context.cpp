@@ -1,5 +1,5 @@
 // Compiler context and ABI anchor only; none of these bytes enter the image.
-#include "../../src/game/enemy_manager_delete.cpp"
+#include "../../src/game/enemy/enemy_manager_delete.cpp"
 
 // As 0x0040D530 reads it: a slot word at +0x08.
 struct AnchorEntity_0040d710 {

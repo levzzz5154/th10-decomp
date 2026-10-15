@@ -1,5 +1,5 @@
 // Compiler context and ABI anchors only; none of these bytes enter the image.
-#include "../../src/game/side_panel_contents_release_00414370.cpp"
+#include "../../src/game/front/side_panel_contents_release_00414370.cpp"
 
 extern "C" SidePanel_00414370* data_0047770c;
 extern "C" void __cdecl SidePanelContentsBarrier(void* value);

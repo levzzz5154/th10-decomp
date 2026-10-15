@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "recovery_animation_slot_frames_0042c6d0",
-  "source": "src/game/recovery_animation_slot_frames_0042c6d0.cpp",
+  "source": "src/game/title/recovery_animation_slot_frames_0042c6d0.cpp",
   "driver": "layout/ltcg/recovery_animation_slot_frames_0042c6d0_context.cpp",
   "headers": [
     "include/th10/game/recovery_script_executor_0040bd80.hpp",
@@ -46,7 +46,7 @@
       "address": "0x0042C670",
       "size": 95,
       "actual_abi": "room on the stack; slot index in EDI; RET 4",
-      "source": "src/game/recovery_install_animation_slot_0042c670.cpp"
+      "source": "src/game/title/recovery_install_animation_slot_0042c670.cpp"
     }
   ],
   "anchors": [
@@ -1363,7 +1363,7 @@
     "layout/ltcg/recovery_script_executor_text_sibling_anchors.cpp",
     "layout/ltcg/recovery_script_executor_caller_00433ef0.cpp",
     "src/game/recovery_script_executor_0040bd80.cpp",
-    "src/game/recovery_install_animation_slot_0042c670.cpp"
+    "src/game/title/recovery_install_animation_slot_0042c670.cpp"
   ],
   "roots": []
 }

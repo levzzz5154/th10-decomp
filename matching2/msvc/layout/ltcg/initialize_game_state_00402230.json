@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "initialize_game_state_00402230",
-  "source": "src/game/initialize_game_state_00402230.cpp",
+  "source": "src/game/background/initialize_game_state_00402230.cpp",
   "driver": "layout/ltcg/initialize_game_state_00402230_context.cpp",
   "headers": [
     "include/th10/game/scheduler.hpp",

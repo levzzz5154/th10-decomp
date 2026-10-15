@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "pause_choice_00422c80",
-  "source": "src/game/pause_choice_update_00422c80.cpp",
+  "source": "src/game/pause/pause_choice_update_00422c80.cpp",
   "headers": [
     "include/th10/game/pause_choice_00422c80/state.hpp",
     "include/th10/game/pause_choice_00422c80/animation.hpp",

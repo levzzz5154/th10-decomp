@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "key_config_refresh_0042f8b0",
-  "source": "src/game/fun_0042f8b0_0042f8b0.cpp",
+  "source": "src/game/title/fun_0042f8b0_0042f8b0.cpp",
   "driver": "layout/ltcg/key_config_refresh_0042f8b0_context.cpp",
   "headers": [
     "include/th10/game/key_config_refresh_0042f8b0.hpp"

@@ -17,8 +17,8 @@
     "include/th10/render/animation_resource_removal.hpp"
   ],
   "included_sources": [
-    "src/game/score_manager_save.cpp",
-    "src/game/animation_resource_lazy_fetch.cpp"
+    "src/game/score/score_manager_save.cpp",
+    "src/game/ending/animation_resource_lazy_fetch.cpp"
   ],
   "additional_sources": [
     "layout/ltcg/manager_state_release_00417c80/anchors.cpp",

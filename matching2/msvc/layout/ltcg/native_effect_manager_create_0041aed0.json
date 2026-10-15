@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "native_effect_manager_create_0041aed0",
-  "source": "src/game/item_manager_create.cpp",
+  "source": "src/game/item/item_manager_create.cpp",
   "driver": "layout/ltcg/native_effect_manager_create_0041aed0/context.cpp",
   "headers": [
     "include/th10/game/item_manager_create.hpp",

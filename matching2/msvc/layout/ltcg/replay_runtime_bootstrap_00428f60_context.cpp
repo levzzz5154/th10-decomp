@@ -11,7 +11,7 @@
 #include "th10/game/linked_pool_append.hpp"
 #include "th10/game/large_initialization_state_00421f00.hpp"
 #include "th10/platform/thread_sync.hpp"
-#include "../../src/game/replay_manager_create_00429610.cpp"
+#include "../../src/game/replay/replay_manager_create_00429610.cpp"
 
 // C linkage: calls the compiler knows cannot throw, so the stand-in
 // destructor needs no unwind state for the node array.

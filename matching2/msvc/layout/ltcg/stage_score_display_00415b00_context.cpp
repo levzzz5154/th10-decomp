@@ -1,5 +1,5 @@
 // Compiler-only dependencies: complete pool, primary-list, lookup and activation bodies.
-#include "../../src/game/stage_score_display_00415b00.cpp"
+#include "../../src/game/front/stage_score_display_00415b00.cpp"
 void* __cdecl operator new(unsigned int,void*);
 
 #pragma code_seg(".text$00401000_context")

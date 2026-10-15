@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "listener_owner_broadcast_0041c760",
-  "source": "src/game/listener_owner_broadcast_0041c760.cpp",
+  "source": "src/game/laser/listener_owner_broadcast_0041c760.cpp",
   "driver": "layout/ltcg/listener_owner_broadcast_0041c760_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

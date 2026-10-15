@@ -1,5 +1,5 @@
 // Compiler context only; the lookup return remains live through the caller.
-#include "../../src/archive/dat_archive_find_size_00434ef0.cpp"
+#include "../../src/pack/arcmngr/dat_archive_find_size_00434ef0.cpp"
 
 #pragma code_seg(".text$03context")
 extern "C" __declspec(noinline) int __stdcall ArchiveFindSizeCompilerContext(

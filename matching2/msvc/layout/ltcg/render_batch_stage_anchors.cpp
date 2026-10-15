@@ -1,6 +1,6 @@
 // Body compiled here only so this link derives its entry convention for
 // the stage background task; the recovered function lives in
-// src/game/player_set_scheduler_value_00405410.cpp.
+// src/game/background/player_set_scheduler_value_00405410.cpp.
 struct PlayerSchedulerRecord {
     int field_00;
     int field_04;

@@ -17,4 +17,4 @@ __declspec(noinline) void __fastcall Entity_Init(void* unused, Entity* entity) {
 #pragma code_seg()
 
 #define code_seg(name) code_seg(".text$00404f30_fn")
-#include "../../../src/game/entity_start_script_00404f30.cpp"
+#include "../../../src/game/background/entity_start_script_00404f30.cpp"

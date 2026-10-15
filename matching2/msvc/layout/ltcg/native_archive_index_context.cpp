@@ -4,4 +4,4 @@
 #define ARCHIVE_DECRYPT_SECTION ".text$a20cipher"
 #include "native_archive_index/index.cpp"
 #include "native_archive_index/native_archive_read/decrypt.cpp"
-#include "../../src/archive/dat.cpp"
+#include "../../src/pack/arcmngr/dat.cpp"

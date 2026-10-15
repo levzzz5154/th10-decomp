@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "sprite_viewer_update_0040a450",
-  "source": "src/game/sprite_viewer_update_0040a450.cpp",
+  "source": "src/game/eclview/sprite_viewer_update_0040a450.cpp",
   "driver": "layout/ltcg/sprite_viewer_update_0040a450/context.cpp",
   "headers": [
     "include/th10/game/sprite_viewer_update_0040a450.hpp",

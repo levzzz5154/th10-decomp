@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "ending_screen_0042d300",
-  "source": "src/game/ending_screen.cpp",
+  "source": "src/game/title/ending_screen.cpp",
   "driver": "layout/ltcg/ending_screen_0042d300_context.cpp",
   "headers": [
     "include/th10/game/ending_screen_0042d300.hpp",
@@ -1574,8 +1574,8 @@
     "layout/ltcg/recovery_script_executor_indicator_anchors.cpp",
     "layout/ltcg/recovery_script_executor_text_anchors.cpp",
     "layout/ltcg/recovery_script_executor_text_sibling_anchors.cpp",
-    "src/game/recovery_animation_slot_frames_0042c6d0.cpp",
-    "src/game/recovery_install_animation_slot_0042c670.cpp",
+    "src/game/title/recovery_animation_slot_frames_0042c6d0.cpp",
+    "src/game/title/recovery_install_animation_slot_0042c670.cpp",
     "src/game/recovery_script_executor_0040bd80.cpp"
   ],
   "data_aliases": [

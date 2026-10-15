@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "destroy_game_thread_00401260",
-  "source": "src/game/ascii_manager/destructor.cpp",
+  "source": "src/game/ascii/destructor.cpp",
   "driver": "layout/ltcg/destroy_game_thread_00401260/context.cpp",
   "included_sources": [
     "layout/ltcg/game_state_anchor_00402160.cpp"

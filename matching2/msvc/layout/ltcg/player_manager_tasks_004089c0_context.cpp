@@ -1,5 +1,5 @@
 // Compiler-only genuine full scheduler anchors and synthetic caller.
-#include "../../src/game/fun_004089c0_004089c0.cpp"
+#include "../../src/game/card/fun_004089c0_004089c0.cpp"
 #include "th10/game/scheduler.hpp"
 #include "th10/platform/thread_sync.hpp"
 

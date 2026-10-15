@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "name": "trail_sprite_update_00427960",
-  "source": "src/game/player_option_follow_trail.cpp",
+  "source": "src/game/player/player_option_follow_trail.cpp",
   "headers": [
     "include/th10/game/player.hpp",
     "include/th10/game/entity.hpp",

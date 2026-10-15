@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "d3505_recovery_append",
-  "source": "src/game/recovery_append_node_0041ab10.cpp",
+  "source": "src/game/item/recovery_append_node_0041ab10.cpp",
   "driver": "layout/ltcg/d3505_recovery_append_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

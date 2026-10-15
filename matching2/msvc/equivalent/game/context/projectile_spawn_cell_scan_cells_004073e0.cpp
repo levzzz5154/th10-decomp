@@ -7,7 +7,7 @@
 extern "C" const float data_00470b20;
 #define code_seg(name) code_seg(".text$zz_004073e0")
 #include "../../../layout/ltcg/enemy_grid_scan_dependencies/sound_pan.cpp"
-#include "../../../src/game/enemy_grid_scan.cpp"
+#include "../../../src/game/bullet/enemy_grid_scan.cpp"
 #undef code_seg
 
 // The link entry: a plain caller of the scanner.

@@ -19,7 +19,7 @@
       "address": "0x00405ED0",
       "size": 45,
       "actual_abi": "pool in ESI; plain RET",
-      "source": "src/game/bullet_pool_reset_retail_00405ed0.cpp"
+      "source": "src/game/bullet/bullet_pool_reset_retail_00405ed0.cpp"
     },
     {
       "name": "AnimationManager_ClearResourceSlot",
@@ -54,7 +54,7 @@
       "address": "0x0041F930",
       "size": 91,
       "actual_abi": "no entry register; plain RET with EAX = 0",
-      "source": "src/game/recovery_release_pair_0041f930.cpp"
+      "source": "src/game/loading/recovery_release_pair_0041f930.cpp"
     },
     {
       "name": "ReleaseSlot1_0042c800_0042c800",
@@ -166,8 +166,8 @@
     }
   ],
   "additional_sources": [
-    "src/game/bullet_pool_reset_retail_00405ed0.cpp",
-    "src/game/recovery_release_pair_0041f930.cpp",
+    "src/game/bullet/bullet_pool_reset_retail_00405ed0.cpp",
+    "src/game/loading/recovery_release_pair_0041f930.cpp",
     "src/render/animation_manager_clear_resource_slot_004477d0.cpp",
     "src/render/fun_00447810_00447810.cpp",
     "src/unreferenced/animation_manager_release_slot1.cpp",

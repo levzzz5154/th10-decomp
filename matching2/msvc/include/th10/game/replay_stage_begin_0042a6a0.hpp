@@ -125,7 +125,7 @@ struct ReplayManager_0042a6a0 {
     // record, or put the recorded player state back during playback.
     __declspec(noinline) void FinishStage();
 
-    // 0x0042AA50 (src/game/linked_pool_append_0042aa50.cpp): allocate an
+    // 0x0042AA50 (src/game/replay/linked_pool_append_0042aa50.cpp): allocate an
     // input page and append it to a stage's list.
     __declspec(noinline) ReplayPoolLink_0042a6a0* AppendPage(int stage);
 

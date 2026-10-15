@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "animation_set_active_count_00413790",
-  "source": "src/game/animation_set_active_count_00413790.cpp",
+  "source": "src/game/fps/animation_set_active_count_00413790.cpp",
   "driver": "layout/ltcg/animation_set_active_count_00413790_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

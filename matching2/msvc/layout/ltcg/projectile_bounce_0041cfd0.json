@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "projectile_bounce_0041cfd0",
-  "source": "src/game/projectile_bounce.cpp",
+  "source": "src/game/laser/projectile_bounce.cpp",
   "driver": "layout/ltcg/projectile_bounce_context.cpp",
   "included_sources": [
     "layout/ltcg/projectile_bounce/base.cpp",

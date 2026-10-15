@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
   "name": "resource_size",
-  "source": "src/archive/resource_get_file_size_retail_004358e0.cpp",
+  "source": "src/pack/resfile/resource_get_file_size_retail_004358e0.cpp",
   "driver": "layout/ltcg/resource_size_context.cpp",
   "included_sources": [
-    "src/archive/dat_archive_find_size_00434ef0.cpp"
+    "src/pack/arcmngr/dat_archive_find_size_00434ef0.cpp"
   ],
   "headers": [
     "include/th10/archive/dat_archive_types.hpp",

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "item_enter_state_2_0041be40",
-  "source": "src/game/item_enter_state_2_0041be40.cpp",
+  "source": "src/game/item/item_enter_state_2_0041be40.cpp",
   "driver": "layout/ltcg/item_enter_state_2_0041be40_context.cpp",
   "headers": [
     "include/th10/game/entity.hpp",
@@ -114,7 +114,7 @@
   ],
   "included_sources": [
     "src/render/animation_object_load_script_0043e710.cpp",
-    "src/game/entity_start_script_00404f30.cpp",
+    "src/game/background/entity_start_script_00404f30.cpp",
     "layout/ltcg/entity_start_script_00404f30_context.cpp"
   ],
   "roots": []

@@ -6,7 +6,7 @@
 #pragma code_seg(".text$04slot")
 #include "th10/game/game_thread.hpp"
 #pragma code_seg()
-#include "../../../src/game/ascii_manager/destructor.cpp"
+#include "../../../src/game/ascii/destructor.cpp"
 #pragma code_seg(".text$02context")
 extern "C" void __stdcall DestroyGameThreadContext_00401260(GameThread* thread) { thread->~GameThread(); }
 #pragma code_seg()

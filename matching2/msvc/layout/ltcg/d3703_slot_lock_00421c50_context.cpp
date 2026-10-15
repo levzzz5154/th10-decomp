@@ -1,4 +1,4 @@
-#include "../../src/game/slot_lock_leaves.cpp"
+#include "../../src/game/mother/slot_lock_leaves.cpp"
 
 #pragma code_seg(".text$03context")
 extern "C" int __stdcall D3703SlotLockContext_00421c50(

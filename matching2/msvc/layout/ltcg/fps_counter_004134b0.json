@@ -47,7 +47,7 @@
       "section": ".text$01append",
       "address": "0x00401530",
       "size": 132,
-      "source": "src/game/ascii_manager/add_string.cpp",
+      "source": "src/game/ascii/add_string.cpp",
       "actual_abi": "Original full writer: thread ECX, name EAX, position EBX, plain RET."
     },
     {
@@ -275,13 +275,13 @@
     }
   ],
   "additional_sources": [
-    "src/game/ascii_manager/add_string.cpp"
+    "src/game/ascii/add_string.cpp"
   ],
   "included_sources": [
-    "src/game/ascii_manager/add_formatted_marked.cpp",
+    "src/game/ascii/add_formatted_marked.cpp",
     "src/app/fun_004135d0_004135d0.cpp",
     "src/app/fps_counter_on_draw.cpp",
-    "src/game/ascii_manager/add_formatted.cpp",
+    "src/game/ascii/add_formatted.cpp",
     "src/game/replay_manager_draw.cpp"
   ],
   "roots": [

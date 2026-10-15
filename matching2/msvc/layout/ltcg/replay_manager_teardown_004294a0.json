@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "replay_manager_teardown_004294a0",
-  "source": "src/game/replay_manager_teardown_004294a0.cpp",
+  "source": "src/game/replay/replay_manager_teardown_004294a0.cpp",
   "driver": "layout/ltcg/replay_manager_teardown_004294a0/context.cpp",
   "headers": [
     "include/th10/game/replay_manager_create_004296f0.hpp",
@@ -163,7 +163,7 @@
     }
   ],
   "included_sources": [
-    "src/game/linked_pool_release.cpp",
+    "src/game/replay/linked_pool_release.cpp",
     "layout/ltcg/manager_teardown_native_0041adf0/scheduler.cpp"
   ]
 }

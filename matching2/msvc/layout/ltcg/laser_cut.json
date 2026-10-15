@@ -8,7 +8,7 @@
     "description": "Unrecovered sibling used as the link entry; compiler context only."
   },
   "name": "laser_cut",
-  "source": "src/game/laser_rectangle_trim.cpp",
+  "source": "src/game/laser/laser_rectangle_trim.cpp",
   "driver": "layout/ltcg/laser_cut/driver.cpp",
   "additional_sources": [
     "layout/ltcg/laser_cut/allocator.cpp",

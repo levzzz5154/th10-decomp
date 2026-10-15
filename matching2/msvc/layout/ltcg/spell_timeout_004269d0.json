@@ -1,13 +1,13 @@
 {
   "schema_version": 1,
   "name": "spell_timeout_004269d0",
-  "source": "src/game/player_die.cpp",
+  "source": "src/game/player/player_die.cpp",
   "driver": "layout/ltcg/spell_timeout_004269d0/context.cpp",
   "included_sources": [
     "layout/ltcg/spell_timeout_004269d0/set_active_count.cpp",
     "src/render/animation_object_load_script_0043e710.cpp",
-    "src/game/stage_tip_create_retail_0041a120.cpp",
-    "src/game/stage_tip_create_urgent_00424650.cpp"
+    "src/game/hint/stage_tip_create_retail_0041a120.cpp",
+    "src/game/pause/stage_tip_create_urgent_00424650.cpp"
   ],
   "headers": [
     "include/th10/game/entity.hpp",

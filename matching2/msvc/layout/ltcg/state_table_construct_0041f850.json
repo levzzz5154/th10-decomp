@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "state_table_construct_0041f850",
-  "source": "src/game/recovery_initialize_state_table_0041f850.cpp",
+  "source": "src/game/loading/recovery_initialize_state_table_0041f850.cpp",
   "driver": "layout/ltcg/state_table_construct_0041f850_context.cpp",
   "headers": [
     "include/th10/game/anm_vm.hpp"

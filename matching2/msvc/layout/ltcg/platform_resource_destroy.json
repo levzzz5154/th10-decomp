@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "platform_resource_destroy",
-  "source": "src/game/platform_deleting_destructor_with_release_004297b0.cpp",
+  "source": "src/game/replay/platform_deleting_destructor_with_release_004297b0.cpp",
   "driver": "layout/ltcg/platform_resource_destroy_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

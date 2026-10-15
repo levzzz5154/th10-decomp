@@ -1,7 +1,7 @@
 // Compiler context and ABI anchors only; none of these bytes enter the image.
-#include "../../src/archive/dat_archive_open_00434c30.cpp"
-#include "../../src/archive/dat_archive_close_00434d10.cpp"
-#include "../../src/util/legacy_string_duplicate_00435220.cpp"
+#include "../../src/pack/arcmngr/dat_archive_open_00434c30.cpp"
+#include "../../src/pack/arcmngr/dat_archive_close_00434d10.cpp"
+#include "../../src/pack/arcmngr/legacy_string_duplicate_00435220.cpp"
 
 // The constructors the openers inline; the real definitions live in
 // platform/file.cpp, platform/memory_file.cpp and platform/resource_lifetime.cpp.

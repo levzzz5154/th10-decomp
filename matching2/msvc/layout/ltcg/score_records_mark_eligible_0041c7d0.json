@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "score_records_mark_eligible_0041c7d0",
-  "source": "src/game/score_records_mark_eligible_0041c7d0.cpp",
+  "source": "src/game/laser/score_records_mark_eligible_0041c7d0.cpp",
   "driver": "layout/ltcg/score_records_mark_eligible_0041c7d0_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

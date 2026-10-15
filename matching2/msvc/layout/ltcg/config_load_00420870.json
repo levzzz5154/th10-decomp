@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "config_load_00420870",
-  "source": "src/app/config_load_00420870.cpp",
+  "source": "src/game/mother/config_load_00420870.cpp",
   "driver": "layout/ltcg/config_load_00420870_context.cpp",
   "headers": [
     "include/th10/app/config_load_00420870.hpp",
@@ -377,7 +377,7 @@
   "additional_sources": [],
   "included_sources": [
     "layout/ltcg/config_load_dependencies/config_defaults.cpp",
-    "src/game/game_config_defaults.cpp",
+    "src/game/game/game_config_defaults.cpp",
     "layout/ltcg/native_archive_read/read.cpp",
     "layout/ltcg/native_archive_read/find.cpp",
     "layout/ltcg/native_archive_read/decrypt.cpp",

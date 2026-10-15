@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "dtor_delete_0040d710",
-  "source": "src/game/enemy_manager_delete.cpp",
+  "source": "src/game/enemy/enemy_manager_delete.cpp",
   "driver": "layout/ltcg/dtor_delete_0040d710_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

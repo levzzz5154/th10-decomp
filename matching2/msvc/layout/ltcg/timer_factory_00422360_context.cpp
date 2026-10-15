@@ -1,6 +1,6 @@
 // Compiler-only ABI context. None of these anchors is exported as game code.
 // Models of 0x4220E0/0x422150 establish the private EDX/EBX call agreement.
-#include "../../src/game/recovery_create_timer_state_00422360.cpp"
+#include "../../src/game/pause/recovery_create_timer_state_00422360.cpp"
 #include <string.h>
 
 // 0x004220E0: initialise a freshly allocated recovery state in place.
@@ -38,7 +38,7 @@ void* __fastcall InitializeTimerState_004220e0(int unused, TimerState_00422360* 
 #pragma code_seg()
 
 #pragma code_seg(".text$20runtime")
-#include "../../src/game/timer_state_register_tasks_00422150.cpp"
+#include "../../src/game/pause/timer_state_register_tasks_00422150.cpp"
 #pragma code_seg()
 
 #include "th10/game/scheduler.hpp"

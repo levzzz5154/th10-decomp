@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "input_mask_active",
-  "source": "src/game/input_mask_active_0040ace0.cpp",
+  "source": "src/game/eclview/input_mask_active_0040ace0.cpp",
   "driver": "layout/ltcg/input_mask_active_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "replay_file_load_0042a200",
-  "source": "src/game/replay_file_load_0042a200.cpp",
+  "source": "src/game/replay/replay_file_load_0042a200.cpp",
   "driver": "layout/ltcg/replay_file_load_0042a200_context.cpp",
   "headers": [
     "include/th10/game/replay_file_load_0042a200.hpp",

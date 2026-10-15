@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "cl_00420470",
-  "source": "src/app/app_register_tasks_00420470.cpp",
+  "source": "src/game/mother/app_register_tasks_00420470.cpp",
   "driver": "layout/ltcg/cl_00420470_context.cpp",
   "headers": [
     "include/th10/game/scheduler.hpp",
@@ -17,7 +17,7 @@
       "address": "0x00420470",
       "size": 204,
       "actual_abi": "no arguments; plain RET",
-      "source": "src/app/app_register_tasks_00420470.cpp"
+      "source": "src/game/mother/app_register_tasks_00420470.cpp"
     }
   ],
   "anchors": [

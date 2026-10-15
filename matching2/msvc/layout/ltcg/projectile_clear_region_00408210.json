@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "projectile_clear_region_00408210",
-  "source": "src/game/projectile_clear_region.cpp",
+  "source": "src/game/bullet/projectile_clear_region.cpp",
   "driver": "layout/ltcg/projectile_clear_region/driver.cpp",
   "additional_sources": [
     "layout/ltcg/projectile_clear_region/allocator.cpp",

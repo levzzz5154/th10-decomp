@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "title_worker_start_0041fac0",
-  "source": "src/game/recovery_start_worker_0041fac0.cpp",
+  "source": "src/game/loading/recovery_start_worker_0041fac0.cpp",
   "driver": "layout/ltcg/title_worker_start_0041fac0_context.cpp",
   "headers": [
     "include/th10/game/scheduler.hpp",
@@ -28,7 +28,7 @@
       "section": ".text$00bstatector",
       "address": "0x0041F850",
       "size": 128,
-      "source": "src/game/recovery_initialize_state_table_0041f850.cpp",
+      "source": "src/game/loading/recovery_initialize_state_table_0041f850.cpp",
       "actual_abi": "this ESI; EAX result; RET"
     },
     {
@@ -37,7 +37,7 @@
       "section": ".text$04factory",
       "address": "0x0041FD00",
       "size": 69,
-      "source": "src/game/enemy_slot_create_and_init_retail_0041fd00.cpp",
+      "source": "src/game/loading/enemy_slot_create_and_init_retail_0041fd00.cpp",
       "actual_abi": "no arguments; state EBX; EAX result; RET"
     }
   ],
@@ -202,7 +202,7 @@
     }
   ],
   "additional_sources": [
-    "src/game/recovery_initialize_state_table_0041f850.cpp",
-    "src/game/enemy_slot_create_and_init_retail_0041fd00.cpp"
+    "src/game/loading/recovery_initialize_state_table_0041f850.cpp",
+    "src/game/loading/enemy_slot_create_and_init_retail_0041fd00.cpp"
   ]
 }

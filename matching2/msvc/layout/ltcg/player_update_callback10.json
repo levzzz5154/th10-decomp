@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
   "name": "player_update_callback10",
-  "source": "src/game/bomb_on_update.cpp",
+  "source": "src/game/bomb/bomb_on_update.cpp",
   "additional_sources": [
-    "src/game/bomb_update.cpp",
+    "src/game/bomb/bomb_update.cpp",
     "layout/ltcg/player_update_callback10_dependencies/timer_tick.cpp",
     "layout/ltcg/player_update_callback10_dependencies/player_draw.cpp",
     "layout/ltcg/player_update_callback10_dependencies/score_evaluate.cpp",
@@ -35,7 +35,7 @@
       "size": 223,
       "section": ".text$030update",
       "actual_abi": "player in EDI from the scheduler callback 0x00405840; integer result EAX, plain RET",
-      "source": "src/game/bomb_update.cpp"
+      "source": "src/game/bomb/bomb_update.cpp"
     },
     {
       "name": "PlayerUpdateCallback",
@@ -44,7 +44,7 @@
       "size": 10,
       "section": ".text$036callback",
       "actual_abi": "actual TaskRoutine contextECX; preservesEDI; real call405750 supplies playerEDI; integer resultEAX, plainRET",
-      "source": "src/game/bomb_on_update.cpp"
+      "source": "src/game/bomb/bomb_on_update.cpp"
     }
   ],
   "anchors": [

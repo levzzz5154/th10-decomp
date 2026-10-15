@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
   "name": "stage_tip_create_0041a120",
-  "source": "src/game/stage_tip_create_retail_0041a120.cpp",
+  "source": "src/game/hint/stage_tip_create_retail_0041a120.cpp",
   "additional_sources": [
-    "src/game/stage_tip_create_urgent_00424650.cpp"
+    "src/game/pause/stage_tip_create_urgent_00424650.cpp"
   ],
   "driver": "layout/ltcg/stage_tip_create_0041a120_context.cpp",
   "headers": [
@@ -20,7 +20,7 @@
       "address": "0x0041A120",
       "size": 220,
       "actual_abi": "manager and text on the stack; position in EBX; RET 8",
-      "source": "src/game/stage_tip_create_retail_0041a120.cpp"
+      "source": "src/game/hint/stage_tip_create_retail_0041a120.cpp"
     },
     {
       "name": "StageTip_CreateUrgent_00424650",
@@ -29,7 +29,7 @@
       "address": "0x00424650",
       "size": 104,
       "actual_abi": "manager in ESI; text and position on the stack; RET 8",
-      "source": "src/game/stage_tip_create_urgent_00424650.cpp"
+      "source": "src/game/pause/stage_tip_create_urgent_00424650.cpp"
     }
   ],
   "context": {

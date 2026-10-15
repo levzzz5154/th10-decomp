@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "resource_load",
-  "source": "src/archive/resource_load_00435800.cpp",
+  "source": "src/pack/resfile/resource_load_00435800.cpp",
   "driver": "layout/ltcg/resource_load_context.cpp",
   "included_sources": [
     "layout/ltcg/resource_load_lifetime.cpp",

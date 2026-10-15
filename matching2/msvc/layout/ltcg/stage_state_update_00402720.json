@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "stage_state_update_00402720",
-  "source": "src/game/stage_state_update_00402720.cpp",
+  "source": "src/game/background/stage_state_update_00402720.cpp",
   "driver": "layout/ltcg/stage_state_update_00402720/context.cpp",
   "headers": [
     "include/th10/game/stage_state_update_00402720.hpp",
@@ -102,6 +102,6 @@
     }
   ],
   "included_sources": [
-    "src/render/anm_script_table_sweep.cpp"
+    "src/game/background/anm_script_table_sweep.cpp"
   ]
 }

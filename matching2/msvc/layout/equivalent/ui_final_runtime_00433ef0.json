@@ -1335,8 +1335,8 @@
   ],
   "listed_branch_targets": true,
   "context_sources": [
-    "src/game/stage_text_extract_line_00434a20.cpp",
-    "src/game/stage_text_skip_line_004349e0.cpp",
+    "src/game/title/stage_text_extract_line_00434a20.cpp",
+    "src/game/title/stage_text_skip_line_004349e0.cpp",
     "src/render/animation_manager_register_resource_0043e460.cpp"
   ]
 }

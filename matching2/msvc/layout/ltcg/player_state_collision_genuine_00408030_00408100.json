@@ -1,24 +1,24 @@
 {
   "schema_version": 1,
   "name": "player_state_collision_genuine_00408030_00408100",
-  "source": "src/game/player_collision_00408030_00408100.cpp",
+  "source": "src/game/bullet/player_collision_00408030_00408100.cpp",
   "driver": "layout/ltcg/player_state_collision_runtime/runtime.cpp",
   "additional_sources": [
     "layout/ltcg/player_state_collision_runtime/creation.cpp",
-    "src/game/player_fire_shot.cpp",
-    "src/game/player_update_bullets.cpp",
-    "src/game/player_damage_sweep.cpp",
-    "src/game/item_spawn.cpp",
-    "src/game/player_update.cpp",
-    "src/game/player_movement.cpp",
-    "src/game/laser_manager.cpp",
-    "src/game/bomb_hit_test.cpp",
+    "src/game/player/player_fire_shot.cpp",
+    "src/game/player/player_update_bullets.cpp",
+    "src/game/player/player_damage_sweep.cpp",
+    "src/game/item/item_spawn.cpp",
+    "src/game/player/player_update.cpp",
+    "src/game/player/player_movement.cpp",
+    "src/game/laser/laser_manager.cpp",
+    "src/game/bomb/bomb_hit_test.cpp",
     "src/render/animation_handle_helpers.cpp",
     "src/render/animation_resource_initialize_object.cpp",
-    "src/game/player_shooting.cpp",
-    "src/game/pause_result_open.cpp",
+    "src/game/player/player_shooting.cpp",
+    "src/game/pause/pause_result_open.cpp",
     "layout/ltcg/player_state_collision_runtime/death_screen_callees.cpp",
-    "src/game/player_angle_to_point.cpp"
+    "src/game/player/player_angle_to_point.cpp"
   ],
   "included_sources": [
     "layout/ltcg/player_state_collision_runtime/helpers.cpp",
@@ -94,7 +94,7 @@
       "address": "0x427e90",
       "size": 717,
       "actual_abi": "stdcall: player, descriptor and frame on the stack; RET12",
-      "source": "src/game/player_fire_shot.cpp"
+      "source": "src/game/player/player_fire_shot.cpp"
     },
     {
       "name": "function_00428280",
@@ -103,7 +103,7 @@
       "address": "0x428280",
       "size": 876,
       "actual_abi": "stdcall: player on the stack; RET4",
-      "source": "src/game/player_update_bullets.cpp"
+      "source": "src/game/player/player_update_bullets.cpp"
     },
     {
       "name": "function_00428630",
@@ -112,7 +112,7 @@
       "address": "0x428630",
       "size": 1170,
       "actual_abi": "optional result record in ECX; manager, center and size on the stack; RET12",
-      "source": "src/game/player_damage_sweep.cpp"
+      "source": "src/game/player/player_damage_sweep.cpp"
     },
     {
       "name": "function_0041bb00",
@@ -121,7 +121,7 @@
       "address": "0x41bb00",
       "size": 819,
       "actual_abi": "private EAX manager; position, kind, identifier, angle and speed on the stack; RET16",
-      "source": "src/game/item_spawn.cpp"
+      "source": "src/game/item/item_spawn.cpp"
     },
     {
       "name": "function_00425730",
@@ -130,7 +130,7 @@
       "address": "0x425730",
       "size": 3112,
       "actual_abi": "stdcall: player on the stack; RET4",
-      "source": "src/game/player_update.cpp"
+      "source": "src/game/player/player_update.cpp"
     },
     {
       "name": "function_004250b0",
@@ -139,7 +139,7 @@
       "address": "0x4250b0",
       "size": 1656,
       "actual_abi": "private EDI receiver; RET0",
-      "source": "src/game/player_movement.cpp"
+      "source": "src/game/player/player_movement.cpp"
     },
     {
       "name": "function_004059f0",
@@ -148,7 +148,7 @@
       "address": "0x4059f0",
       "size": 202,
       "actual_abi": "private LTCG: player ECX; point EAX; RET0",
-      "source": "src/game/bomb_hit_test.cpp"
+      "source": "src/game/bomb/bomb_hit_test.cpp"
     },
     {
       "name": "function_0041c800",
@@ -157,7 +157,7 @@
       "address": "0x41c800",
       "size": 76,
       "actual_abi": "private EAX manager / EBX point / radius and mode stack words / RET8",
-      "source": "src/game/laser_manager.cpp"
+      "source": "src/game/laser/laser_manager.cpp"
     },
     {
       "name": "function_0041c850",
@@ -166,7 +166,7 @@
       "address": "0x41c850",
       "size": 44,
       "actual_abi": "private EAX manager / EBX mode / RET0",
-      "source": "src/game/laser_manager.cpp"
+      "source": "src/game/laser/laser_manager.cpp"
     },
     {
       "name": "function_00449210",
@@ -202,7 +202,7 @@
       "address": "0x428160",
       "size": 105,
       "actual_abi": "private EDI player / EBX frame / RET0",
-      "source": "src/game/player_shooting.cpp"
+      "source": "src/game/player/player_shooting.cpp"
     },
     {
       "name": "function_004281d0",
@@ -211,7 +211,7 @@
       "address": "0x4281d0",
       "size": 174,
       "actual_abi": "private EAX player / RET0",
-      "source": "src/game/player_shooting.cpp"
+      "source": "src/game/player/player_shooting.cpp"
     },
     {
       "name": "function_004231d0",
@@ -220,7 +220,7 @@
       "address": "0x4231d0",
       "size": 411,
       "actual_abi": "menu state in EDI; plain RET; derived through Player_Update",
-      "source": "src/game/pause_result_open.cpp"
+      "source": "src/game/pause/pause_result_open.cpp"
     },
     {
       "name": "function_00426610",
@@ -229,7 +229,7 @@
       "address": "0x426610",
       "size": 67,
       "actual_abi": "stdcall: player and point on the stack; RET8",
-      "source": "src/game/player_angle_to_point.cpp"
+      "source": "src/game/player/player_angle_to_point.cpp"
     }
   ],
   "context": {

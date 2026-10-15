@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "difficulty_select_update_00430320",
-  "source": "src/game/difficulty_select_update_00430320.cpp",
+  "source": "src/game/title/difficulty_select_update_00430320.cpp",
   "driver": "layout/ltcg/difficulty_select_update_00430320_context.cpp",
   "headers": [
     "include/th10/game/character_select_update_004306a0.hpp",
@@ -58,7 +58,7 @@
       "address": "0x00430320",
       "size": 888,
       "actual_abi": "room on the stack from the title dispatcher 0x0042CDF0; integer result EAX, RET 4",
-      "source": "src/game/difficulty_select_update_00430320.cpp"
+      "source": "src/game/title/difficulty_select_update_00430320.cpp"
     },
     {
       "name": "CharacterSelect_Update",
@@ -66,7 +66,7 @@
       "section": ".text$004306a0_fn",
       "address": "0x004306A0",
       "size": 956,
-      "source": "src/game/character_select_update_004306a0.cpp",
+      "source": "src/game/title/character_select_update_004306a0.cpp",
       "actual_abi": "room on the stack from the title dispatcher 0x0042CDF0; integer result EAX, RET 4"
     },
     {
@@ -75,7 +75,7 @@
       "section": ".text$00430a60_fn",
       "address": "0x00430A60",
       "size": 1424,
-      "source": "src/game/shot_type_select_update_00430a60.cpp",
+      "source": "src/game/title/shot_type_select_update_00430a60.cpp",
       "actual_abi": "room on the stack from the title dispatcher 0x0042CDF0; integer result EAX, RET 4"
     },
     {
@@ -84,7 +84,7 @@
       "section": ".text$00430ff0_fn",
       "address": "0x00430FF0",
       "size": 1052,
-      "source": "src/game/practice_stage_select_update_00430ff0.cpp",
+      "source": "src/game/title/practice_stage_select_update_00430ff0.cpp",
       "actual_abi": "room on the stack from the title dispatcher 0x0042CDF0; integer result EAX, RET 4"
     },
     {
@@ -93,7 +93,7 @@
       "section": ".text$0042d420_fn",
       "address": "0x0042D420",
       "size": 1280,
-      "source": "src/game/title_main_menu_update_0042d420.cpp",
+      "source": "src/game/title/title_main_menu_update_0042d420.cpp",
       "actual_abi": "room on the stack from the title dispatcher 0x0042CDF0; integer result EAX, RET 4"
     },
     {
@@ -102,7 +102,7 @@
       "section": ".text$004315c0_fn",
       "address": "0x004315C0",
       "size": 1492,
-      "source": "src/game/replay_select_update_004315c0.cpp",
+      "source": "src/game/title/replay_select_update_004315c0.cpp",
       "actual_abi": "room on the stack from the title dispatcher 0x0042CDF0; integer result EAX, RET 4"
     },
     {
@@ -111,7 +111,7 @@
       "section": ".text$00431ee0_fn",
       "address": "0x00431EE0",
       "size": 1968,
-      "source": "src/game/spell_record_update_00431ee0.cpp",
+      "source": "src/game/title/spell_record_update_00431ee0.cpp",
       "actual_abi": "room on the stack from the title dispatcher 0x0042CDF0; integer result EAX, RET 4"
     },
     {
@@ -120,7 +120,7 @@
       "section": ".text$0042d920_fn",
       "address": "0x0042D920",
       "size": 3188,
-      "source": "src/game/options_update_0042d920.cpp",
+      "source": "src/game/title/options_update_0042d920.cpp",
       "actual_abi": "room on the stack from the title dispatcher 0x0042CDF0; integer result EAX, RET 4"
     }
   ],
@@ -2064,16 +2064,16 @@
     "layout/ltcg/difficulty_select_update_dependencies/animation_clear_flag_anchor.cpp",
     "layout/ltcg/difficulty_select_update_dependencies/keyboard_state_anchor.cpp",
     "layout/ltcg/difficulty_select_update_dependencies/score_progress_anchor.cpp",
-    "src/game/title_main_menu_update_0042d420.cpp",
-    "src/game/character_select_update_004306a0.cpp",
-    "src/game/shot_type_select_update_00430a60.cpp",
-    "src/game/practice_stage_select_update_00430ff0.cpp",
-    "src/game/replay_select_update_004315c0.cpp",
+    "src/game/title/title_main_menu_update_0042d420.cpp",
+    "src/game/title/character_select_update_004306a0.cpp",
+    "src/game/title/shot_type_select_update_00430a60.cpp",
+    "src/game/title/practice_stage_select_update_00430ff0.cpp",
+    "src/game/title/replay_select_update_004315c0.cpp",
     "layout/ltcg/difficulty_select_update_dependencies/spell_record_anchors.cpp",
-    "src/game/spell_record_update_00431ee0.cpp",
+    "src/game/title/spell_record_update_00431ee0.cpp",
     "layout/ltcg/difficulty_select_update_dependencies/spell_list_anchor.cpp",
     "layout/ltcg/difficulty_select_update_dependencies/options_anchors.cpp",
-    "src/game/options_update_0042d920.cpp"
+    "src/game/title/options_update_0042d920.cpp"
   ],
   "roots": [],
   "included_sources": [
@@ -2096,13 +2096,13 @@
     "layout/ltcg/recovery_script_executor_indicator_anchors.cpp",
     "layout/ltcg/recovery_script_executor_text_anchors.cpp",
     "layout/ltcg/recovery_script_executor_text_sibling_anchors.cpp",
-    "src/game/ending_screen.cpp",
-    "src/game/game_progress_unlock_all_stages_0042c8c0.cpp",
-    "src/game/input_mask_active_0040ace0.cpp",
-    "src/game/recovery_animation_slot_frames_0042c6d0.cpp",
-    "src/game/recovery_install_animation_slot_0042c670.cpp",
+    "src/game/title/ending_screen.cpp",
+    "src/game/title/game_progress_unlock_all_stages_0042c8c0.cpp",
+    "src/game/eclview/input_mask_active_0040ace0.cpp",
+    "src/game/title/recovery_animation_slot_frames_0042c6d0.cpp",
+    "src/game/title/recovery_install_animation_slot_0042c670.cpp",
     "src/game/recovery_script_executor_0040bd80.cpp",
-    "src/game/title_spell_list.cpp",
+    "src/game/title/title_spell_list.cpp",
     "src/render/animation_manager_find_child_by_script_index_004497d0.cpp",
     "src/render/animation_manager_set_stop_frame_and_run_00449250.cpp",
     "src/render/animation_manager_set_stop_frame_from_handle_retail_00449470.cpp"

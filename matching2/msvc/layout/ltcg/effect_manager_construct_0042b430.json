@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "effect_manager_construct_0042b430",
-  "source": "src/game/effect_manager_reset_and_publish_retail_0042b430.cpp",
+  "source": "src/game/smollscore/effect_manager_reset_and_publish_retail_0042b430.cpp",
   "driver": "layout/ltcg/effect_manager_construct_0042b430_context.cpp",
   "headers": [
     "include/th10/game/anm_vm.hpp"

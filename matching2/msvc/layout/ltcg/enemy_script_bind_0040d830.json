@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "enemy_script_bind_0040d830",
-  "source": "src/game/fun_0040d830_0040d830.cpp",
+  "source": "src/game/enemy/fun_0040d830_0040d830.cpp",
   "driver": "layout/ltcg/enemy_script_bind_0040d830_context.cpp",
   "headers": [
     "include/th10/game/enemy_script_bind_0040d830.hpp"

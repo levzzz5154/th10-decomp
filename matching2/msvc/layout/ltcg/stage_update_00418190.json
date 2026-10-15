@@ -2,7 +2,7 @@
   "schema_version": 1,
   "image_base": "0x400000",
   "name": "stage_update_00418190",
-  "source": "src/game/stage_update.cpp",
+  "source": "src/game/game/stage_update.cpp",
   "driver": "layout/ltcg/stage_update_00418190/driver.cpp",
   "additional_sources": [
     "layout/ltcg/stage_update_00418190/front_front_initialize_00413bc0.cpp",

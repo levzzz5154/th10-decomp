@@ -4,7 +4,7 @@
   "source": "src/unreferenced/FUN_0040c650_0040c650.cpp",
   "additional_sources": [
     "src/unreferenced/FUN_0040c680_0040c680.cpp",
-    "src/script/ecl_resolve_int_from_entity_00412a00.cpp"
+    "src/game/enemy/ecl_resolve_int_from_entity_00412a00.cpp"
   ],
   "driver": "layout/ltcg/ecl_operand_thunks_context.cpp",
   "headers": [
@@ -38,7 +38,7 @@
       "address": "0x00412A00",
       "size": 16,
       "actual_abi": "VM in EAX, selector in ECX; calls 0x0044FDB0 with the interpreter in EDX and the selector on the stack",
-      "source": "src/script/ecl_resolve_int_from_entity_00412a00.cpp"
+      "source": "src/game/enemy/ecl_resolve_int_from_entity_00412a00.cpp"
     }
   ],
   "anchors": [

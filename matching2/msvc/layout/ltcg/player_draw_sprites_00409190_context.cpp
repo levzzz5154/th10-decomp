@@ -1,5 +1,5 @@
 // Compiler context and ABI anchor only; none of these bytes enter the image.
-#include "../../src/game/player_draw_sprites_00409190.cpp"
+#include "../../src/game/card/player_draw_sprites_00409190.cpp"
 
 // 0x004451C0 enters on (EAX entity, ECX manager). The recovered dispatcher
 // lives in the render-batch cluster; this stand-in only fixes the parameter

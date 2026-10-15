@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "trigger_activation_00426cf0",
-  "source": "src/game/trigger_activation.cpp",
+  "source": "src/game/player/trigger_activation.cpp",
   "driver": "layout/ltcg/trigger_activation_00426cf0/context.cpp",
   "included_sources": [
     "layout/ltcg/result_open_00423370/find.cpp",

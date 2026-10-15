@@ -4,7 +4,7 @@
 // (layout/ltcg/enemy_state_set_mirrored.json).
 // The adjacent load at 0x0040CDB0 reads the enemy pointer at +0x3504;
 // this byte at +0x3508 is the mirror flag (see EnemyState_0040dae0
-// in src/game/enemy_lifecycle.cpp).
+// in src/game/enemy/enemy_lifecycle.cpp).
 
 struct EnemyState_0040cde0 {
     unsigned char pad_000[0x3504];

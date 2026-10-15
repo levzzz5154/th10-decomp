@@ -1,4 +1,4 @@
-#include "../../../src/game/stage_entry.cpp"
+#include "../../../src/game/game/stage_entry.cpp"
 
 // Complete genuine worker at 0x00417C70; only stage startup is selected here.
 struct StageStartup_00417870;

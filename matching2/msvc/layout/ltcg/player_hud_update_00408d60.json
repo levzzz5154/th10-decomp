@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "player_hud_update_00408d60",
-  "source": "src/game/player_hud_update_00408d60.cpp",
+  "source": "src/game/card/player_hud_update_00408d60.cpp",
   "driver": "layout/ltcg/player_hud_update_00408d60_context.cpp",
   "image_base": "0x00400000",
   "description": "The side panel update and its scheduler callback, compiled with the real bodies of the sprite configure, stop-frame and position routines so the pass gives each call its private register convention.",

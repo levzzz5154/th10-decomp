@@ -1,6 +1,6 @@
 // Compiler context only; never selected as recovered game code.
 #include "th10/game/effect_kind_spawn_0040b070.hpp"
-#include "../../src/game/effect_kind_spawn_0040b070.cpp"
+#include "../../src/game/effect/effect_kind_spawn_0040b070.cpp"
 
 #pragma inline_depth(0)
 #pragma code_seg(".text$0040a000_context")

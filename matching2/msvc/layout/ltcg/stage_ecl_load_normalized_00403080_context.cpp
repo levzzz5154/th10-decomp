@@ -1,4 +1,4 @@
-#include "../../src/script/stage_ecl_load_normalized_00403080.cpp"
+#include "../../src/game/background/stage_ecl_load_normalized_00403080.cpp"
 #pragma code_seg(".text$03context")
 extern "C" int __stdcall StageEclLoadNormalizedContext(StageEclLoader_00403850** loaders, const char** names, int count) {
     int result = 0;

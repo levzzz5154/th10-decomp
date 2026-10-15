@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "item_manager_create_00414830",
-  "source": "src/game/hud_create.cpp",
+  "source": "src/game/front/hud_create.cpp",
   "driver": "layout/ltcg/item_manager_create_00414830/context.cpp",
   "headers": [
     "include/th10/game/hud_create.hpp",

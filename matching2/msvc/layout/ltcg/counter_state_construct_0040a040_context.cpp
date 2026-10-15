@@ -1,5 +1,5 @@
 // Compiler context only; its bytes are not recovered game code.
-#include "../../src/game/sprite_viewer_construct.cpp"
+#include "../../src/game/eclview/sprite_viewer_construct.cpp"
 
 #pragma code_seg(".text$03context")
 inline void* operator new(unsigned int, void* where) { return where; }

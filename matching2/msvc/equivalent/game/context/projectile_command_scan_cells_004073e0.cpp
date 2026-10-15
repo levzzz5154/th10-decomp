@@ -6,5 +6,5 @@
 // the calls as leaving the function.
 #define code_seg(name) code_seg(".text$zz_004073e0")
 #include "../../../layout/ltcg/enemy_grid_scan_004073e0_anchors.cpp"
-#include "../../../src/game/enemy_grid_scan.cpp"
+#include "../../../src/game/bullet/enemy_grid_scan.cpp"
 #undef code_seg

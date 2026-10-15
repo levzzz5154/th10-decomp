@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "game_thread",
-  "source": "src/game/ascii_manager/construct.cpp",
+  "source": "src/game/ascii/construct.cpp",
   "driver": "layout/ltcg/game_thread_context.cpp",
   "headers": [
     "include/th10/game/game_thread.hpp",

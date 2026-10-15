@@ -1,5 +1,5 @@
 // Compiler context only; never selected as recovered game code.
-#include "../../src/game/title_assets.cpp"
+#include "../../src/game/loading/title_assets.cpp"
 #include "title_assets_dependencies/startup.cpp"
 #include "title_assets_dependencies/music_stop.cpp"
 #include "title_assets_dependencies/workers.cpp"

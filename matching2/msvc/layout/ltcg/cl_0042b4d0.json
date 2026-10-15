@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "cl_0042b4d0",
-  "source": "src/game/effect_pool_initialize_0042b4d0.cpp",
+  "source": "src/game/smollscore/effect_pool_initialize_0042b4d0.cpp",
   "driver": "layout/ltcg/cl_0042b4d0_context.cpp",
   "headers": [
     "include/th10/game/effect_pool_0042b6f0.hpp",
@@ -23,7 +23,7 @@
       "address": "0x0042B4D0",
       "size": 145,
       "actual_abi": "pool in EAX; plain RET",
-      "source": "src/game/effect_pool_initialize_0042b4d0.cpp"
+      "source": "src/game/smollscore/effect_pool_initialize_0042b4d0.cpp"
     },
     {
       "name": "EffectManager_Construct_0042b430",
@@ -31,7 +31,7 @@
       "section": ".text$00nctor",
       "address": "0x0042B430",
       "size": 134,
-      "source": "src/game/effect_manager_reset_and_publish_retail_0042b430.cpp",
+      "source": "src/game/smollscore/effect_manager_reset_and_publish_retail_0042b430.cpp",
       "actual_abi": "this EBX; EAX result; RET"
     },
     {
@@ -40,7 +40,7 @@
       "section": ".text$00zbfactory",
       "address": "0x0042B660",
       "size": 71,
-      "source": "src/game/recovery_create_huge_resource_state_0042b660.cpp",
+      "source": "src/game/smollscore/recovery_create_huge_resource_state_0042b660.cpp",
       "actual_abi": "no arguments; ESI state; EAX result; RET"
     },
     {
@@ -211,8 +211,8 @@
   ],
   "roots": [],
   "additional_sources": [
-    "src/game/effect_manager_reset_and_publish_retail_0042b430.cpp",
-    "src/game/recovery_create_huge_resource_state_0042b660.cpp",
+    "src/game/smollscore/effect_manager_reset_and_publish_retail_0042b430.cpp",
+    "src/game/smollscore/recovery_create_huge_resource_state_0042b660.cpp",
     "src/game/animation_object_configure_from_resource_0043e5a0.cpp"
   ]
 }

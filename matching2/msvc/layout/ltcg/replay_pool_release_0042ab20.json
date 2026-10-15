@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "replay_pool_release_0042ab20",
-  "source": "src/game/linked_pool_release.cpp",
+  "source": "src/game/replay/linked_pool_release.cpp",
   "driver": "layout/ltcg/replay_pool_release_0042ab20_context.cpp",
   "headers": [
     "include/th10/game/replay_pool_append_0042aa50.hpp"

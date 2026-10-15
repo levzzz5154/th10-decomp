@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "stats_display_00413350",
-  "source": "src/game/stats_task.cpp",
+  "source": "src/game/fps/stats_task.cpp",
   "driver": "layout/ltcg/stats_display_00413350_context.cpp",
   "headers": [
     "include/th10/game/stats_display.hpp",

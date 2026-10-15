@@ -1,5 +1,5 @@
 // Compiler context only; no context bytes count as recovered game code.
-#include "../../src/game/asset_buffer.cpp"
+#include "../../src/game/effect/asset_buffer.cpp"
 #include "th10/platform/stage_ecl_load_00403850.hpp"
 
 // The manager object 0x0043A9B0 works on.  Only the fields the modelled body

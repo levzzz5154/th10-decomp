@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "floating_text_draw_0042b780",
-  "source": "src/game/floating_text_draw.cpp",
+  "source": "src/game/smollscore/floating_text_draw.cpp",
   "driver": "layout/ltcg/floating_text_draw_0042b780_context.cpp",
   "headers": [
     "include/th10/game/floating_text_draw_0042b780.hpp",

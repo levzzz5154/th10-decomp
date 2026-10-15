@@ -15,13 +15,13 @@ __declspec(noinline) void __stdcall OpenInitialize_00420a90(void* resource, void
 __declspec(noinline) int __stdcall OpenRegister_0043e460(void* lists, void* object);
 }
 
-// src/game/set_input_mode_0040ac90.cpp
+// src/game/eclview/set_input_mode_0040ac90.cpp
 #pragma code_seg(".text$f0040ac90F")
 void PlayerInputMode::Set(int value) {
     if ((flags & 0x1000) == 0) mode = value;
     else mode = 2;
 }
-// src/game/power_display_set_digits_004054b0.cpp
+// src/game/background/power_display_set_digits_004054b0.cpp
 inline AnimationObject_0043e5a0* DigitSprite_004054b0(unsigned char* storage) {
     return reinterpret_cast<AnimationObject_0043e5a0*>(storage);
 }

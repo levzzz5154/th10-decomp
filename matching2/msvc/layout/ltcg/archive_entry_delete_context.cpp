@@ -1,5 +1,5 @@
 // Compiler context only; never selected as recovered game code.
-#include "../../src/archive/dat_archive_entry_delete.cpp"
+#include "../../src/pack/arcmngr/dat_archive_entry_delete.cpp"
 #pragma code_seg(".text$03context")
 extern "C" int __stdcall ArchiveDeleteContext(ArchiveEntryOwner* entry, unsigned char* flags, int count) {
     int result = 0;

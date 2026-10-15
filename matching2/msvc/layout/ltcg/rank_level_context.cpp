@@ -1,5 +1,5 @@
 // Compiler context only; never selected as recovered game code.
-#include "../../src/game/rank_level.cpp"
+#include "../../src/game/front/rank_level.cpp"
 
 #pragma code_seg(".text$03context")
 int __stdcall RankLevelCompilerContext(RankState** states, int count) {

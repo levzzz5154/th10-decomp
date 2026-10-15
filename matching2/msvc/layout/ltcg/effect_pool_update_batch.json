@@ -1,9 +1,9 @@
 {
   "schema_version": 2,
   "name": "effect_pool_update_batch",
-  "source": "src/game/weather_pool.cpp",
+  "source": "src/game/smollscore/weather_pool.cpp",
   "additional_sources": [
-    "src/game/effect_pool_update.cpp"
+    "src/game/smollscore/effect_pool_update.cpp"
   ],
   "headers": [
     "include/th10/game/effect_pool_0042b6f0.hpp",
@@ -20,7 +20,7 @@
       "address": "0x0042B6F0",
       "size": 134,
       "actual_abi": "pool in EAX; result in EAX; plain RET",
-      "source": "src/game/weather_pool.cpp"
+      "source": "src/game/smollscore/weather_pool.cpp"
     },
     {
       "name": "EffectPool_Update",
@@ -29,7 +29,7 @@
       "address": "0x0042B9A0",
       "size": 7,
       "actual_abi": "this in ECX; moves to EAX and tail-jumps to UpdateDrops",
-      "source": "src/game/effect_pool_update.cpp"
+      "source": "src/game/smollscore/effect_pool_update.cpp"
     }
   ],
   "entry": "?Update@EffectPool_0042b6f0@@QAEHXZ",

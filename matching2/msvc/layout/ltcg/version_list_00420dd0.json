@@ -1,5 +1,5 @@
 {
- "schema_version":1,"name":"version_list_00420dd0","source":"src/game/version_list.cpp","driver":"layout/ltcg/version_list_00420dd0_context.cpp","headers":[],"image_base":"0x00400000","description":"Version-list matcher with compiler-visible fixed strings rebound to retail rdata addresses.",
+ "schema_version":1,"name":"version_list_00420dd0","source":"src/game/mother/version_list.cpp","driver":"layout/ltcg/version_list_00420dd0_context.cpp","headers":[],"image_base":"0x00400000","description":"Version-list matcher with compiler-visible fixed strings rebound to retail rdata addresses.",
  "functions":[{"name":"VersionList_00420dd0_Match","symbol":"?Match@VersionList_00420dd0@@QAEHPBDHH@Z","section":".text$01version","address":"0x00420DD0","size":205,"actual_abi":"this in EAX; three stack arguments; RET 12"}],
  "context":{"symbol":"?VersionList00420dd0CompilerContext@@YGHPAUVersionList_00420dd0@@PBDHH@Z","section":".text$03context","address":"0x00420EC0","size":27,"description":"Direct synthetic caller establishes EAX receiver."},
  "gaps":[{"section":".text$00layout","address":"0x00401000","size":130512},{"section":".text$02layout","address":"0x00420E9D","size":35}],"constants":[],

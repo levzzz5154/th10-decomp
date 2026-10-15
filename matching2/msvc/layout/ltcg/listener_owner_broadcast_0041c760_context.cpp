@@ -1,5 +1,5 @@
 // Compiler context only; none of these bytes enter the image.
-#include "../../src/game/listener_owner_broadcast_0041c760.cpp"
+#include "../../src/game/laser/listener_owner_broadcast_0041c760.cpp"
 
 #pragma code_seg(".text$05context")
 extern "C" int __stdcall ListenerOwnerBroadcastContext_0041c760(

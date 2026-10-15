@@ -1,7 +1,7 @@
 // Compiler context only; never selected as recovered game code. The bodies
 // below stand in for callees recovered or still assembly elsewhere, so the
 // whole-program pass selects their private registers.
-#include "../../../src/game/spell_card_end_00409c00.cpp"
+#include "../../../src/game/card/spell_card_end_00409c00.cpp"
 #include "../animation_lookup_anchors.cpp"
 
 extern "C" short data_004749ce[];

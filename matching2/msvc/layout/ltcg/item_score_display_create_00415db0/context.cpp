@@ -2,7 +2,7 @@
 // constructor is a stand-in shaped to take its receiver and its argument on
 // the stack as the real one does.
 #include "th10/platform/thread_sync.hpp"
-#include "../../../src/game/item_score_display_create_00415db0.cpp"
+#include "../../../src/game/front/item_score_display_create_00415db0.cpp"
 
 extern "C" void* data_00491be4;
 extern "C" void __stdcall ScoreDisplayStandIn_Remove(void* scheduler, void* task);

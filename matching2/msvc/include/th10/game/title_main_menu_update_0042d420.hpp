@@ -4,7 +4,7 @@
 
 // The score file seen by 0x0042C850, which reports whether any character has
 // cleared the game with any shot type (the maintained form is
-// src/game/progress.cpp).
+// src/game/title/progress.cpp).
 struct ScoreFileProgress_0042c850 {
     unsigned char reserved_00000[0x1D888];
     unsigned char cleared[6];

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "stage_text_extract_line_00434a20",
-  "source": "src/game/stage_text_extract_line_00434a20.cpp",
+  "source": "src/game/title/stage_text_extract_line_00434a20.cpp",
   "driver": "layout/ltcg/stage_text_extract_line_00434a20_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

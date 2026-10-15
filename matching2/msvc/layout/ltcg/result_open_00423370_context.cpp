@@ -1,4 +1,4 @@
-#include "../../src/game/result_menu_open.cpp"
+#include "../../src/game/pause/result_menu_open.cpp"
 #include "result_open_00423370/result_dispatcher.cpp"
 #include "result_open_00423370/dispatcher_handle_helpers.cpp"
 #include "result_open_00423370/dispatcher_animation_helpers.cpp"

@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
   "name": "split_resource_path_0041a050",
-  "source": "src/game/recovery_split_resource_path_0041a050.cpp",
+  "source": "src/game/hint/recovery_split_resource_path_0041a050.cpp",
   "additional_sources": [
-    "src/game/recovery_trim_whitespace_0041a0a0.cpp"
+    "src/game/hint/recovery_trim_whitespace_0041a0a0.cpp"
   ],
   "driver": "layout/ltcg/split_resource_path_0041a050_context.cpp",
   "headers": [],
@@ -17,7 +17,7 @@
       "address": "0x0041A050",
       "size": 75,
       "actual_abi": "line in EAX; value in EBX; key in EDI; plain RET through tail jumps",
-      "source": "src/game/recovery_split_resource_path_0041a050.cpp"
+      "source": "src/game/hint/recovery_split_resource_path_0041a050.cpp"
     },
     {
       "name": "TrimWhitespace_0041a0a0",
@@ -26,7 +26,7 @@
       "address": "0x0041A0A0",
       "size": 114,
       "actual_abi": "text in EAX; result in EAX; plain RET",
-      "source": "src/game/recovery_trim_whitespace_0041a0a0.cpp"
+      "source": "src/game/hint/recovery_trim_whitespace_0041a0a0.cpp"
     }
   ],
   "context": {

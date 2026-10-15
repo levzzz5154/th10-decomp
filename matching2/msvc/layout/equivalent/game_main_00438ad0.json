@@ -857,7 +857,7 @@
   "context_sources": [
     "src/platform/text_log.cpp",
     "src/platform/text_log_append_line_0044b8e0.cpp",
-    "src/app/config_load_00420870.cpp",
+    "src/game/mother/config_load_00420870.cpp",
     "src/render/d3_d_resource_manager_initialize_00449aa0.cpp",
     "src/platform/window_create_00439730.cpp",
     {
@@ -867,7 +867,7 @@
       ]
     },
     "src/game/destroy_entity_list_00438a30.cpp",
-    "src/app/app_shutdown_00420270.cpp",
+    "src/game/mother/app_shutdown_00420270.cpp",
     {
       "source": "src/render/d3_d_resource_manager_destroy_00438880.cpp",
       "flags": [

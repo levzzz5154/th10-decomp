@@ -1,5 +1,5 @@
 // Compiler context and ABI anchors only; none of these bytes enter the image.
-#include "../../src/game/item_manager_draw_0041b8e0.cpp"
+#include "../../src/game/item/item_manager_draw_0041b8e0.cpp"
 
 #include "../../src/game/animation_object_configure_from_resource_0043e5a0.cpp"
 

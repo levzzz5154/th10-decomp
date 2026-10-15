@@ -1,5 +1,5 @@
 // Compiler-only ABI anchors and array caller. Only StartWorker is exported.
-#include "../../src/game/recovery_start_worker_0041fac0.cpp"
+#include "../../src/game/loading/recovery_start_worker_0041fac0.cpp"
 
 #include "th10/game/scheduler.hpp"
 #include "th10/platform/thread_sync.hpp"

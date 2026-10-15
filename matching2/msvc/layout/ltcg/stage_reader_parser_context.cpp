@@ -33,5 +33,5 @@ extern "C" __declspec(noinline) void* __stdcall StageTipParserContext() {
     return ParseStageTips;
 }
 #pragma code_seg()
-#include "../../src/script/script_text_reader.cpp"
+#include "../../src/game/hint/script_text_reader.cpp"
 #include "stage_archive_loader.cpp"

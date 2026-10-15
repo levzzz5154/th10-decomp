@@ -1,6 +1,6 @@
 // Compiler context only: this caller is not a recovered application function.
 // E3: replicates the real cluster's context — Set/Advance loop plus executor.
-#include "../../src/game/player_set_scheduler_value_00405410.cpp"
+#include "../../src/game/background/player_set_scheduler_value_00405410.cpp"
 #include "recovery_script_executor_cluster/recovery_script_executor_0040bd80.cpp"
 
 #pragma code_seg(".text$00401000_context")

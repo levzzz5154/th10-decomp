@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "stage_reader_parser",
-  "source": "src/script/script_text_reader.cpp",
+  "source": "src/game/hint/script_text_reader.cpp",
   "headers": [
     "include/stage_parser_model.hpp",
     "include/th10/platform/archive_file.hpp"
@@ -15,7 +15,7 @@
       "section": ".text$p01parser",
       "address": "0x00419960",
       "size": 1498,
-      "source": "src/game/stage_tip_parser.cpp",
+      "source": "src/game/hint/stage_tip_parser.cpp",
       "actual_abi": "manager, file name and duplicate flag on the stack; RET 12"
     },
     {
@@ -357,7 +357,7 @@
   ],
   "driver": "layout/ltcg/stage_reader_parser_context.cpp",
   "additional_sources": [
-    "src/game/stage_tip_parser.cpp"
+    "src/game/hint/stage_tip_parser.cpp"
   ],
   "context": {
     "symbol": "_StageTipParserContext@0",

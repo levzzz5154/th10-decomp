@@ -8,7 +8,7 @@
 // the 0x00414900 update.
 
 #include "../../layout/ltcg/front_hud_pair/result_dispatcher.cpp"
-#include "../../src/game/result_menu_open.cpp"
+#include "../../src/game/pause/result_menu_open.cpp"
 #include "../../layout/ltcg/result_open_00423370/dispatcher_handle_helpers.cpp"
 #include "../../layout/ltcg/result_open_00423370/dispatcher_animation_helpers.cpp"
 #include "../../layout/ltcg/result_open_00423370/dispatcher_input_mode.cpp"

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "timer_factory_00422360",
-  "source": "src/game/recovery_create_timer_state_00422360.cpp",
+  "source": "src/game/pause/recovery_create_timer_state_00422360.cpp",
   "additional_sources": [],
   "headers": [
     "include/th10/game/scheduler.hpp",
@@ -168,6 +168,6 @@
     "description": "Compiler-only public factory caller, never selected."
   },
   "included_sources": [
-    "src/game/timer_state_register_tasks_00422150.cpp"
+    "src/game/pause/timer_state_register_tasks_00422150.cpp"
   ]
 }
