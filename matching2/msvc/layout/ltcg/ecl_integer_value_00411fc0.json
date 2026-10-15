@@ -5,7 +5,11 @@
   "driver": "layout/ltcg/ecl_integer_value_00411fc0_context.cpp",
   "headers": [
     "include/th10/math/rng.hpp",
-    "include/th10/render/animation_validate_handle_00449450.hpp"
+    "include/th10/render/animation_validate_handle_00449450.hpp",
+    "include/th10/game/player.hpp",
+    "include/th10/game/entity.hpp",
+    "include/th10/types.hpp",
+    "include/th10/math/timer.hpp"
   ],
   "image_base": "0x00400000",
   "description": "Integer ECL value dispatcher and native switch table; genuine handle resolution and lookup bodies establish ESI handle ABI.",

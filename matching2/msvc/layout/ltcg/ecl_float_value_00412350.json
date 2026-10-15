@@ -4,7 +4,11 @@
   "source": "src/script/ecl_float_value_00412350.cpp",
   "driver": "layout/ltcg/ecl_float_value_00412350_context.cpp",
   "headers": [
-    "include/th10/math/rng.hpp"
+    "include/th10/math/rng.hpp",
+    "include/th10/game/player.hpp",
+    "include/th10/game/entity.hpp",
+    "include/th10/types.hpp",
+    "include/th10/math/timer.hpp"
   ],
   "image_base": "0x00400000",
   "description": "Floating-point ECL value dispatcher with its complete native switch table and genuine angle-helper context.",

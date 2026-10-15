@@ -13,6 +13,7 @@ struct EntityAngleFromPoint_00426660 {
 
 
 #include "th10/math/rng.hpp"
+#include "th10/game/player.hpp"
 
 // The adjacent entry at 0x00412300 selects integer destinations from the
 // same ECL object. This dispatcher reads the corresponding scalar values.
@@ -97,7 +98,6 @@ ECL_FLOAT_OFFSET(value_23fc, 0x23FC);
 #undef ECL_FLOAT_OFFSET
 typedef char EclFloat_manager_entity_offset[offsetof(EclFloatManager_00412350, current_entity) == 0x10 ? 1 : -1];
 
-extern "C" EclFloatSource_00412350* g_player;
 extern "C" EclFloatManager_00412350* data_00477704;
 extern "C" int data_00474c74;
 extern "C" int data_00474c98;
@@ -127,10 +127,10 @@ float EclFloatSource_00412350::ResolveFloatValue(int encoded_selector) const {
         result = Rng_NextFloatSigned((RngState*)0x004918B0) * data_00470b18;
         break;
     case -9991:
-        result = g_player->origin_x;
+        result = g_player->position.x;
         break;
     case -9990:
-        result = g_player->origin_y;
+        result = g_player->position.y;
         break;
     case -9989:
         result = ((EntityAngleFromPoint_00426660*)g_player)->AngleFromPoint(&value_1068);
@@ -211,10 +211,10 @@ float EclFloatSource_00412350::ResolveFloatValue(int encoded_selector) const {
         result = value_10e0;
         break;
     case -9965:
-        result = g_player->origin_x;
+        result = g_player->position.x;
         break;
     case -9964:
-        result = g_player->origin_y;
+        result = g_player->position.y;
         break;
     case -9963:
         result = data_00477704->current_entity->value_1068;

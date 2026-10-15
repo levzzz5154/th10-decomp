@@ -5,6 +5,7 @@ __declspec(noinline) void* ResolveAnimationHandle(AnimationHandle_00449450* hand
 #include <math.h>
 
 #include "th10/math/rng.hpp"
+#include "th10/game/player.hpp"
 
 // The adjacent entry at 0x00412300 selects integer destinations from the
 // same ECL object. This dispatcher reads the corresponding scalar values.
@@ -99,7 +100,6 @@ ECL_OFFSET(EclIntegerManager, current_entity, 0x10);
 ECL_OFFSET(EclAnimationValue, value_38a, 0x38A);
 #undef ECL_OFFSET
 
-extern "C" EclIntegerSource* g_player;
 extern "C" EclIntegerManager* data_00477704;
 extern "C" int data_00474c74;
 extern "C" int data_00474c98;
@@ -114,9 +114,9 @@ int EclIntegerSource::ResolveIntegerValue(int encoded_selector) const {
     case -9987:
         return (int)Rng_NextFloatSigned((RngState*)0x004918B0);
     case -9991:
-        return (int)g_player->origin_x;
+        return (int)g_player->position.x;
     case -9990:
-        return (int)g_player->origin_y;
+        return (int)g_player->position.y;
     case -9988:
         return value_115c;
     case -9986:
@@ -167,9 +167,9 @@ int EclIntegerSource::ResolveIntegerValue(int encoded_selector) const {
     case -9966:
         return (int)value_10e0;
     case -9965:
-        return (int)g_player->origin_x;
+        return (int)g_player->position.x;
     case -9964:
-        return (int)g_player->origin_y;
+        return (int)g_player->position.y;
     case -9963:
         return (int)data_00477704->current_entity->value_1068;
     case -9962:
