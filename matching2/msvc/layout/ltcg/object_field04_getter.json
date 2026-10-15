@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "object_field04_getter",
-  "source": "src/unidentified/FUN_00405390_00405390.cpp",
+  "source": "src/unreferenced/FUN_00405390_00405390.cpp",
   "driver": "layout/ltcg/object_field04_getter_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

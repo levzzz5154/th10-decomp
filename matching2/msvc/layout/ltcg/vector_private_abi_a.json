@@ -1,11 +1,11 @@
 {
   "schema_version": 1,
   "name": "vector_private_abi_a",
-  "source": "src/unidentified/unassigned_00404e70.cpp",
+  "source": "src/unreferenced/unassigned_00404e70.cpp",
   "driver": "layout/ltcg/vector_private_abi_a_context.cpp",
   "additional_sources": [
-    "src/unidentified/unassigned_00405240.cpp",
-    "src/unidentified/unassigned_00405260.cpp"
+    "src/unreferenced/unassigned_00405240.cpp",
+    "src/unreferenced/unassigned_00405260.cpp"
   ],
   "headers": [],
   "image_base": "0x00400000",
@@ -14,7 +14,7 @@
     {
       "name": "VectorScale_00404e70_Scale",
       "symbol": "?Scale@VectorScale_00404e70@@QBE?AUVector3_00404e70@@M@Z",
-      "source": "src/unidentified/unassigned_00404e70.cpp",
+      "source": "src/unreferenced/unassigned_00404e70.cpp",
       "section": ".text$01scale",
       "address": "0x00404E70",
       "size": 31,
@@ -23,7 +23,7 @@
     {
       "name": "VectorSubtract_00405240",
       "symbol": "?VectorSubtract_00405240@@YI?AUVector3_00405240@@ABU1@0@Z",
-      "source": "src/unidentified/unassigned_00405240.cpp",
+      "source": "src/unreferenced/unassigned_00405240.cpp",
       "section": ".text$03sub",
       "address": "0x00405240",
       "size": 25,
@@ -32,7 +32,7 @@
     {
       "name": "VectorAdd_00405260",
       "symbol": "??HVector3_00405260@@QBE?AU0@ABU0@@Z",
-      "source": "src/unidentified/unassigned_00405260.cpp",
+      "source": "src/unreferenced/unassigned_00405260.cpp",
       "section": ".text$05add",
       "address": "0x00405260",
       "size": 25,

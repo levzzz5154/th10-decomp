@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "replay_header_init_0042aa10",
-  "source": "src/unidentified/unassigned_0042aa10.cpp",
+  "source": "src/unreferenced/unassigned_0042aa10.cpp",
   "driver": "layout/ltcg/replay_header_init_0042aa10_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "worker_owner_stop_0041ff60",
-  "source": "src/unidentified/FUN_0041ff60_0041ff60.cpp",
+  "source": "src/unreferenced/FUN_0041ff60_0041ff60.cpp",
   "driver": "layout/ltcg/worker_owner_stop_0041ff60_context.cpp",
   "additional_sources": [
     "src/unidentified/FUN_00465a30_00465a30.cpp"

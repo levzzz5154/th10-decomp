@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "accessor_004501e0",
-  "source": "src/unidentified/FUN_004501e0_004501e0.cpp",
+  "source": "src/unreferenced/FUN_004501e0_004501e0.cpp",
   "driver": "layout/ltcg/accessor_004501e0_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

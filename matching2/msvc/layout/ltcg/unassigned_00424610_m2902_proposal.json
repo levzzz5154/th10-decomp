@@ -2,7 +2,7 @@
   "regions": [
     {
       "name": "semantic_unassigned_00424610",
-      "source": "src/unidentified/unassigned_00424610.cpp",
+      "source": "src/unreferenced/unassigned_00424610.cpp",
       "symbol": "_asm_unassigned_00424610",
       "address": "0x00424610",
       "size": 6,

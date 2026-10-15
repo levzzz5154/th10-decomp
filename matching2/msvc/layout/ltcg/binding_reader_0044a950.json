@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "binding_reader_0044a950",
-  "source": "src/unidentified/FUN_0044a950_0044a950.cpp",
+  "source": "src/unreferenced/FUN_0044a950_0044a950.cpp",
   "driver": "layout/ltcg/binding_reader_0044a950_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

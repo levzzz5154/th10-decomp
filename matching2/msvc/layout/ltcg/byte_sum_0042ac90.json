@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "byte_sum_0042ac90",
-  "source": "src/unidentified/unassigned_0042ac90.cpp",
+  "source": "src/unreferenced/unassigned_0042ac90.cpp",
   "driver": "layout/ltcg/byte_sum_0042ac90_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

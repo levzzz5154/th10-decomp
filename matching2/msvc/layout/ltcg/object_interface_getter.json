@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "object_interface_getter",
-  "source": "src/unidentified/FUN_00405360_00405360.cpp",
+  "source": "src/unreferenced/FUN_00405360_00405360.cpp",
   "driver": "layout/ltcg/object_interface_getter_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

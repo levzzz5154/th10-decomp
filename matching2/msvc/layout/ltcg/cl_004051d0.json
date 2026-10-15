@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "cl_004051d0",
-  "source": "src/unidentified/unassigned_004051d0.cpp",
+  "source": "src/unreferenced/unassigned_004051d0.cpp",
   "driver": "layout/ltcg/cl_004051d0_context.cpp",
   "headers": [],
   "image_base": "0x00400000",
@@ -14,7 +14,7 @@
       "address": "0x004051D0",
       "size": 7,
       "actual_abi": "object in EAX; plain RET",
-      "source": "src/unidentified/unassigned_004051d0.cpp"
+      "source": "src/unreferenced/unassigned_004051d0.cpp"
     }
   ],
   "anchors": [],

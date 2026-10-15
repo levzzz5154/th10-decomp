@@ -1,11 +1,11 @@
 {
   "schema_version": 1,
   "name": "small_private_abi_b",
-  "source": "src/unidentified/unassigned_004177c0.cpp",
+  "source": "src/unreferenced/unassigned_004177c0.cpp",
   "driver": "layout/ltcg/small_private_abi_b_context.cpp",
   "additional_sources": [
-    "src/unidentified/unassigned_004177e0.cpp",
-    "src/unidentified/unassigned_004497b0.cpp"
+    "src/unreferenced/unassigned_004177e0.cpp",
+    "src/unreferenced/unassigned_004497b0.cpp"
   ],
   "headers": [],
   "image_base": "0x00400000",
@@ -18,7 +18,7 @@
       "address": "0x004177C0",
       "size": 25,
       "actual_abi": "animation object in ECX; plain RET",
-      "source": "src/unidentified/unassigned_004177c0.cpp"
+      "source": "src/unreferenced/unassigned_004177c0.cpp"
     },
     {
       "name": "SetFlags_004177e0",
@@ -27,7 +27,7 @@
       "address": "0x004177E0",
       "size": 25,
       "actual_abi": "animation object in ECX; plain RET",
-      "source": "src/unidentified/unassigned_004177e0.cpp"
+      "source": "src/unreferenced/unassigned_004177e0.cpp"
     },
     {
       "name": "FindChildByScriptIndex_004497b0",
@@ -36,7 +36,7 @@
       "address": "0x004497B0",
       "size": 31,
       "actual_abi": "animation object in EAX; script id in ECX; plain RET",
-      "source": "src/unidentified/unassigned_004497b0.cpp"
+      "source": "src/unreferenced/unassigned_004497b0.cpp"
     }
   ],
   "context": {

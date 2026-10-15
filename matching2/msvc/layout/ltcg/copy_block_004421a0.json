@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "copy_block_004421a0",
-  "source": "src/unidentified/FUN_004421a0_004421a0.cpp",
+  "source": "src/unreferenced/FUN_004421a0_004421a0.cpp",
   "driver": "layout/ltcg/copy_block_004421a0_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "set_primary_color",
-  "source": "src/unidentified/FUN_00401cc0_00401cc0.cpp",
+  "source": "src/unreferenced/FUN_00401cc0_00401cc0.cpp",
   "driver": "layout/ltcg/set_primary_color_context.cpp",
   "headers": [
     "include/th10/game/entity.hpp",

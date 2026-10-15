@@ -1,1 +1,1 @@
-{"regions":[{"name":"IndexAccessor_0040c820_Load","source":"src/unidentified/FUN_0040c820_0040c820.cpp","symbol":"?Load@IndexAccessor_0040c820@@QBEHH@Z","address":"0x0040C820","size":5,"kind":"semantic","owner":"0x0040C820"}]}
+{"regions":[{"name":"IndexAccessor_0040c820_Load","source":"src/unreferenced/FUN_0040c820_0040c820.cpp","symbol":"?Load@IndexAccessor_0040c820@@QBEHH@Z","address":"0x0040C820","size":5,"kind":"semantic","owner":"0x0040C820"}]}

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "replay_header_stamp",
-  "source": "src/unidentified/FUN_0042a810_0042a810.cpp",
+  "source": "src/unreferenced/FUN_0042a810_0042a810.cpp",
   "driver": "layout/ltcg/replay_header_stamp_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

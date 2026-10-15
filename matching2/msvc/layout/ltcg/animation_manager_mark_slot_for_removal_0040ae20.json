@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "animation_manager_mark_slot_for_removal_0040ae20",
-  "source": "src/unidentified/FUN_0040ae20_0040ae20.cpp",
+  "source": "src/unreferenced/FUN_0040ae20_0040ae20.cpp",
   "driver": "layout/ltcg/animation_manager_mark_slot_for_removal_0040ae20_context.cpp",
   "headers": [
     "include/th10/render/animation_resource_removal.hpp"

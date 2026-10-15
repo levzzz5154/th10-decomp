@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "publish_index_0040ada0",
-  "source": "src/unidentified/publish_index_0040ada0.cpp",
+  "source": "src/unreferenced/publish_index_0040ada0.cpp",
   "driver": "layout/ltcg/publish_index_0040ada0_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

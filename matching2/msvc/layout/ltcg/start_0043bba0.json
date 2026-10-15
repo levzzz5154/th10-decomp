@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "start_0043bba0",
-  "source": "src/unidentified/unassigned_0043bba0.cpp",
+  "source": "src/unreferenced/unassigned_0043bba0.cpp",
   "driver": "layout/ltcg/start_0043bba0_context.cpp",
   "headers": [],
   "image_base": "0x00400000",
@@ -13,7 +13,7 @@
       "section": ".text$01start",
       "address": "0x43bba0",
       "size": 77,
-      "source": "src/unidentified/unassigned_0043bba0.cpp",
+      "source": "src/unreferenced/unassigned_0043bba0.cpp",
       "actual_abi": "retail entry"
     }
   ],

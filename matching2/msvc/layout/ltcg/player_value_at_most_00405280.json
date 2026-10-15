@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "player_value_at_most_00405280",
-  "source": "src/unidentified/unassigned_00405280.cpp",
+  "source": "src/unreferenced/unassigned_00405280.cpp",
   "driver": "layout/ltcg/player_value_at_most_00405280_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

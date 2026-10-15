@@ -1,11 +1,11 @@
 {
   "schema_version": 1,
   "name": "indexed_copy_00428e",
-  "source": "src/unidentified/unassigned_00428ea0.cpp",
+  "source": "src/unreferenced/unassigned_00428ea0.cpp",
   "additional_sources": [
-    "src/unidentified/unassigned_00428ec0.cpp",
-    "src/unidentified/unassigned_00428ee0.cpp",
-    "src/unidentified/unassigned_00428f00.cpp"
+    "src/unreferenced/unassigned_00428ec0.cpp",
+    "src/unreferenced/unassigned_00428ee0.cpp",
+    "src/unreferenced/unassigned_00428f00.cpp"
   ],
   "driver": "layout/ltcg/indexed_copy_00428e_context.cpp",
   "headers": [],
@@ -19,7 +19,7 @@
       "address": "0x00428EA0",
       "size": 24,
       "actual_abi": "source in ECX; base in EDX; index in EAX; plain RET",
-      "source": "src/unidentified/unassigned_00428ea0.cpp"
+      "source": "src/unreferenced/unassigned_00428ea0.cpp"
     },
     {
       "name": "IndexedCopySource_00428ec0_Copy",
@@ -28,7 +28,7 @@
       "address": "0x00428EC0",
       "size": 24,
       "actual_abi": "source in ECX; base in EDX; index in EAX; plain RET",
-      "source": "src/unidentified/unassigned_00428ec0.cpp"
+      "source": "src/unreferenced/unassigned_00428ec0.cpp"
     },
     {
       "name": "IndexedCopySource_00428ee0_Copy",
@@ -37,7 +37,7 @@
       "address": "0x00428EE0",
       "size": 24,
       "actual_abi": "source in ECX; base in EDX; index in EAX; plain RET",
-      "source": "src/unidentified/unassigned_00428ee0.cpp"
+      "source": "src/unreferenced/unassigned_00428ee0.cpp"
     },
     {
       "name": "IndexedCopySource_00428f00_Copy",
@@ -46,7 +46,7 @@
       "address": "0x00428F00",
       "size": 24,
       "actual_abi": "source in ECX; base in EDX; index in EAX; plain RET",
-      "source": "src/unidentified/unassigned_00428f00.cpp"
+      "source": "src/unreferenced/unassigned_00428f00.cpp"
     }
   ],
   "context": {

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "sound_pair_clear_0043a490",
-  "source": "src/unidentified/FUN_0043a490_0043a490.cpp",
+  "source": "src/unreferenced/FUN_0043a490_0043a490.cpp",
   "driver": "layout/ltcg/sound_pair_clear_0043a490_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

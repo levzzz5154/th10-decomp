@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "cursor_whole_record_0042a830",
-  "source": "src/unidentified/unassigned_0042a830.cpp",
+  "source": "src/unreferenced/unassigned_0042a830.cpp",
   "driver": "layout/ltcg/cursor_whole_record_0042a830_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

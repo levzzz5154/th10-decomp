@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "resource_slot_init_004367e0",
-  "source": "src/unidentified/FUN_004367e0_004367e0.cpp",
+  "source": "src/unreferenced/FUN_004367e0_004367e0.cpp",
   "driver": "layout/ltcg/resource_slot_init_004367e0_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

@@ -1,7 +1,7 @@
 {
   "regions": [{
     "name": "CopyPair_0040ad10_CopyFirstToSecond",
-    "source": "src/unidentified/FUN_0040ad10_0040ad10.cpp",
+    "source": "src/unreferenced/FUN_0040ad10_0040ad10.cpp",
     "symbol": "?CopyFirstToSecond@CopyPair_0040ad10@@QAEXXZ",
     "address": "0x0040AD10",
     "size": 6,

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "resource_surface_loading",
-  "source": "src/unidentified/FUN_00447ec0_00447ec0.cpp",
+  "source": "src/unreferenced/FUN_00447ec0_00447ec0.cpp",
   "additional_sources": [
     "src/render/animation_load_surface_00447c80.cpp"
   ],
@@ -25,7 +25,7 @@
       "section": ".text$03memory",
       "address": "0x00447EC0",
       "size": 169,
-      "source": "src/unidentified/FUN_00447ec0_00447ec0.cpp",
+      "source": "src/unreferenced/FUN_00447ec0_00447ec0.cpp",
       "actual_abi": "index ECX; manager EDX; filename EBX; plain RET"
     },
     {

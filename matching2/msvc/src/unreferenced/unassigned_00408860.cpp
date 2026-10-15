@@ -7,7 +7,7 @@
 // result register is dead.
 //
 // 0x00408880 is the same body one field higher at +0x84 and is recovered in
-// src/unidentified/unassigned_00408880.cpp.
+// src/unreferenced/unassigned_00408880.cpp.
 
 struct CounterState_00408860 {
     char pad_000[0x80];

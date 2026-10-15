@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "ecl_owner_resolve_float_0040c660",
-  "source": "src/unidentified/FUN_0040c660_0040c660.cpp",
+  "source": "src/unreferenced/FUN_0040c660_0040c660.cpp",
   "driver": "layout/ltcg/ecl_owner_resolve_float_0040c660_context.cpp",
   "headers": [
     "include/th10/script/ecl_float_destination.hpp"

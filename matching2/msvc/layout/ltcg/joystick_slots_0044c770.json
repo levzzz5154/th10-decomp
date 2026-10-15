@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "joystick_slots_0044c770",
-  "source": "src/unidentified/unassigned_0044c770.cpp",
+  "source": "src/unreferenced/unassigned_0044c770.cpp",
   "driver": "layout/ltcg/joystick_slots_0044c770_context.cpp",
   "headers": [],
   "image_base": "0x00400000",
@@ -14,7 +14,7 @@
       "address": "0x0044C770",
       "size": 19,
       "actual_abi": "slot in ESI; plain RET",
-      "source": "src/unidentified/unassigned_0044c770.cpp"
+      "source": "src/unreferenced/unassigned_0044c770.cpp"
     },
     {
       "name": "JoystickSlot_0044c790::Configure",
@@ -23,7 +23,7 @@
       "address": "0x0044C790",
       "size": 69,
       "actual_abi": "slot in ESI; three stack arguments; RET 0xC",
-      "source": "src/unidentified/unassigned_0044c790.cpp"
+      "source": "src/unreferenced/unassigned_0044c790.cpp"
     }
   ],
   "context": {
@@ -69,6 +69,6 @@
     }
   ],
   "additional_sources": [
-    "src/unidentified/unassigned_0044c790.cpp"
+    "src/unreferenced/unassigned_0044c790.cpp"
   ]
 }

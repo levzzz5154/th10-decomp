@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "word_color_channels_004050a0",
-  "source": "src/unidentified/unassigned_004050a0.cpp",
+  "source": "src/unreferenced/unassigned_004050a0.cpp",
   "driver": "layout/ltcg/word_color_channels_004050a0_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

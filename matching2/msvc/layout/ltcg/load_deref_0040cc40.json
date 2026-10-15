@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "load_deref_0040cc40",
-  "source": "src/unidentified/FUN_0040cc40_0040cc40.cpp",
+  "source": "src/unreferenced/FUN_0040cc40_0040cc40.cpp",
   "driver": "layout/ltcg/load_deref_0040cc40_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

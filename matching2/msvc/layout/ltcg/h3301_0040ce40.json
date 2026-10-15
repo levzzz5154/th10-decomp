@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "h3301_0040ce40",
-  "source": "src/unidentified/FUN_0040ce40_0040ce40.cpp",
+  "source": "src/unreferenced/FUN_0040ce40_0040ce40.cpp",
   "driver": "layout/ltcg/h3301_0040ce40_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

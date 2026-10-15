@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "acc_0040b500",
-  "source": "src/unidentified/unassigned_0040b500.cpp",
+  "source": "src/unreferenced/unassigned_0040b500.cpp",
   "driver": "layout/ltcg/acc_0040b500_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

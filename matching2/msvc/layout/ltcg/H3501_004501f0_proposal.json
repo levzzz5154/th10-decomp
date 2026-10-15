@@ -1,7 +1,7 @@
 {
   "regions": [{
     "name": "OuterRecord_004501f0_Store",
-    "source": "src/unidentified/FUN_004501f0_004501f0.cpp",
+    "source": "src/unreferenced/FUN_004501f0_004501f0.cpp",
     "symbol": "?Store@OuterRecord_004501f0@@QAEXH@Z",
     "address": "0x004501F0",
     "size": 7,

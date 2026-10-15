@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "copy_second_block_00404c70",
-  "source": "src/unidentified/copy_second_block_00404c70.cpp",
+  "source": "src/unreferenced/copy_second_block_00404c70.cpp",
   "driver": "layout/ltcg/copy_second_block_00404c70_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

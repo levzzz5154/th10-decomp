@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "accessor_0041ab60",
-  "source": "src/unidentified/FUN_0041ab60_0041ab60.cpp",
+  "source": "src/unreferenced/FUN_0041ab60_0041ab60.cpp",
   "additional_sources": ["src/game/entity_movement_slot.cpp"],
   "driver": "layout/ltcg/accessor_0041ab60_context.cpp",
   "headers": ["include/th10/game/entity_movement_slot_0041ab70.hpp"],
@@ -15,7 +15,7 @@
       "address": "0x0041AB60",
       "size": 4,
       "actual_abi": "object in EAX; plain RET",
-      "source": "src/unidentified/FUN_0041ab60_0041ab60.cpp"
+      "source": "src/unreferenced/FUN_0041ab60_0041ab60.cpp"
     },
     {
       "name": "EntityMovementSlot_Initialise",

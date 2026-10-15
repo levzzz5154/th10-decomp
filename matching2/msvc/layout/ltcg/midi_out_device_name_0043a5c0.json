@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "midi_out_device_name_0043a5c0",
-  "source": "src/unidentified/FUN_0043a5c0_0043a5c0.cpp",
+  "source": "src/unreferenced/FUN_0043a5c0_0043a5c0.cpp",
   "driver": "layout/ltcg/midi_out_device_name_0043a5c0_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

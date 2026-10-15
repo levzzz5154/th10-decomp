@@ -1,5 +1,5 @@
 // Compiler context only; never selected as recovered game code.
-#include "../../src/unidentified/unassigned_0040c670.cpp"
+#include "../../src/unreferenced/unassigned_0040c670.cpp"
 
 #pragma code_seg(".text$03context")
 int __stdcall ResolveContext_0040c670(EclSource_0040c670** sources, int* selectors, int count) {

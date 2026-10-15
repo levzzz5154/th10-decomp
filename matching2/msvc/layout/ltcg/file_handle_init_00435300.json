@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "file_handle_init_00435300",
-  "source": "src/unidentified/FUN_00435300_00435300.cpp",
+  "source": "src/unreferenced/FUN_00435300_00435300.cpp",
   "driver": "layout/ltcg/file_handle_init_00435300_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

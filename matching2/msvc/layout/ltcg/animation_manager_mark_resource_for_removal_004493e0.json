@@ -72,7 +72,7 @@
       "address": "0x00447910",
       "size": 42,
       "actual_abi": "entry in ESI; plain RET",
-      "source": "src/unidentified/unassigned_00447910.cpp"
+      "source": "src/unreferenced/unassigned_00447910.cpp"
     },
     {
       "name": "AnmManager_ServicePending_00447700",
@@ -171,7 +171,7 @@
     "src/render/animation_manager_clear_resource_slot_004477d0.cpp",
     "src/render/fun_00447810_00447810.cpp",
     "src/unidentified/unassigned_0042c800.cpp",
-    "src/unidentified/unassigned_00447910.cpp",
+    "src/unreferenced/unassigned_00447910.cpp",
     "src/render/anm_manager_service_pending_00447700.cpp"
   ]
 }

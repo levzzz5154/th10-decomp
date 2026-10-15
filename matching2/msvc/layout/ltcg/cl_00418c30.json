@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "cl_00418c30",
-  "source": "src/unidentified/unassigned_00418c30.cpp",
+  "source": "src/unreferenced/unassigned_00418c30.cpp",
   "driver": "layout/ltcg/cl_00418c30_context.cpp",
   "headers": [],
   "image_base": "0x00400000",
@@ -14,7 +14,7 @@
       "address": "0x00418C30",
       "size": 10,
       "actual_abi": "record in ESI; plain RET",
-      "source": "src/unidentified/unassigned_00418c30.cpp"
+      "source": "src/unreferenced/unassigned_00418c30.cpp"
     }
   ],
   "anchors": [

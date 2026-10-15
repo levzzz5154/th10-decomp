@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "cl_00402020",
-  "source": "src/unidentified/unassigned_00402020.cpp",
+  "source": "src/unreferenced/unassigned_00402020.cpp",
   "driver": "layout/ltcg/cl_00402020_context.cpp",
   "headers": [],
   "image_base": "0x00400000",
@@ -14,7 +14,7 @@
       "address": "0x00402020",
       "size": 30,
       "actual_abi": "holder in ESI; plain RET",
-      "source": "src/unidentified/unassigned_00402020.cpp"
+      "source": "src/unreferenced/unassigned_00402020.cpp"
     }
   ],
   "anchors": [],

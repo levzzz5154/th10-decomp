@@ -36,7 +36,7 @@
       "section": ".text$02factory",
       "address": "0x0042BF30",
       "size": 67,
-      "source": "src/unidentified/FUN_0042bf30_0042bf30.cpp",
+      "source": "src/unreferenced/FUN_0042bf30_0042bf30.cpp",
       "actual_abi": "no arguments; state home EBX; EAX result; RET"
     }
   ],
@@ -160,6 +160,6 @@
   "roots": [],
   "additional_sources": [
     "src/unidentified/FUN_0042bb30_0042bb30.cpp",
-    "src/unidentified/FUN_0042bf30_0042bf30.cpp"
+    "src/unreferenced/FUN_0042bf30_0042bf30.cpp"
   ]
 }

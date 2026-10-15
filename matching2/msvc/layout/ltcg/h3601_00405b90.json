@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "h3601_00405b90",
-  "source": "src/unidentified/FUN_00405b90_00405b90.cpp",
+  "source": "src/unreferenced/FUN_00405b90_00405b90.cpp",
   "driver": "layout/ltcg/h3601_00405b90_context.cpp",
   "headers": [], "image_base": "0x00400000",
   "description": "16-bit field accessor recovered with native LTCG register shaping.",

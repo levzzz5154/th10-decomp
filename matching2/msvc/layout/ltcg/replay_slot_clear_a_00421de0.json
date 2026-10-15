@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "replay_slot_clear_a_00421de0",
-  "source": "src/unidentified/FUN_00421de0_00421de0.cpp",
+  "source": "src/unreferenced/FUN_00421de0_00421de0.cpp",
   "driver": "layout/ltcg/replay_slot_clear_a_00421de0_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "vec2_scale_00441de0",
-  "source": "src/unidentified/vec2_scale_00441de0.cpp",
+  "source": "src/unreferenced/vec2_scale_00441de0.cpp",
   "driver": "layout/ltcg/vec2_scale_00441de0_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

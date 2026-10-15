@@ -2,7 +2,7 @@
   "regions": [
     {
       "name": "semantic_H3401_GlobalIndex_00405cb0",
-      "source": "src/unidentified/FUN_00405cb0_00405cb0.cpp",
+      "source": "src/unreferenced/FUN_00405cb0_00405cb0.cpp",
       "symbol": "_asm_FUN_00405cb0_00405cb0",
       "address": "0x00405CB0",
       "size": 8,

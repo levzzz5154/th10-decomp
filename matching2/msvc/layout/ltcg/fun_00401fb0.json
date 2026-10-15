@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "fun_00401fb0",
-  "source": "src/unidentified/FUN_00401fb0_00401fb0.cpp",
+  "source": "src/unreferenced/FUN_00401fb0_00401fb0.cpp",
   "driver": "layout/ltcg/fun_00401fb0_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

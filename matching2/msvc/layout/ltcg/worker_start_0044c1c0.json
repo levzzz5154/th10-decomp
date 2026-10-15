@@ -53,7 +53,7 @@
     {
       "name": "PlatformWorker_StartSuspended",
       "symbol": "?StartSuspended@PlatformWorker@@QAEXPAXP6GI0@Z@Z",
-      "source": "src/unidentified/unassigned_0044c200.cpp",
+      "source": "src/unreferenced/unassigned_0044c200.cpp",
       "section": ".text$46suspended",
       "address": "0x0044C200",
       "size": 56,
@@ -253,7 +253,7 @@
     "src/game/thread_spawn.cpp",
     "src/platform/platform_destroy_worker_0044c100.cpp",
     "src/platform/platform_stop_worker_0044c150.cpp",
-    "src/unidentified/unassigned_0044c200.cpp",
+    "src/unreferenced/unassigned_0044c200.cpp",
     "src/game/progress_worker_construct_0042c920.cpp",
     "src/game/progress_worker.cpp"
   ],

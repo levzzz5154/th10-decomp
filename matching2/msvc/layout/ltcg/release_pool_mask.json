@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "release_pool_mask",
-  "source": "src/unidentified/FUN_004052e0_004052e0.cpp",
+  "source": "src/unreferenced/FUN_004052e0_004052e0.cpp",
   "driver": "layout/ltcg/release_pool_mask_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

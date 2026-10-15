@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "small_state_init_0040b530",
-  "source": "src/unidentified/unassigned_0040b530.cpp",
+  "source": "src/unreferenced/unassigned_0040b530.cpp",
   "driver": "layout/ltcg/small_state_init_0040b530_context.cpp",
   "headers": ["include/asm_symbols.hpp"],
   "image_base": "0x00400000",

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "cl_004132c0",
-  "source": "src/unidentified/unassigned_004132c0.cpp",
+  "source": "src/unreferenced/unassigned_004132c0.cpp",
   "driver": "layout/ltcg/cl_004132c0_context.cpp",
   "headers": [
     "include/th10/game/scheduler.hpp",
@@ -17,7 +17,7 @@
       "address": "0x004132C0",
       "size": 50,
       "actual_abi": "owner in EBX; EAX zero; plain RET",
-      "source": "src/unidentified/unassigned_004132c0.cpp"
+      "source": "src/unreferenced/unassigned_004132c0.cpp"
     }
   ],
   "anchors": [

@@ -11,7 +11,7 @@
     "src/render/animation_manager_set_stop_frame_from_handle_retail_00449470.cpp",
     "src/render/animation_manager_stop_at_frame2_0040c480.cpp",
     "src/render/animation_manager_stop_at_frame3_0040c4d0.cpp",
-    "src/unidentified/unassigned_00449820.cpp",
+    "src/unreferenced/unassigned_00449820.cpp",
     "src/render/animation_manager_set_stop_frame_and_run_00449250.cpp",
     "src/game/game_state_dispatch_animation_slot_0042c730.cpp",
     "src/game/game_state_dispatch_animation_slot_secondary_0042c750.cpp",
@@ -104,7 +104,7 @@
       "address": "0x00449820",
       "size": 58,
       "actual_abi": "handle address in ESI; script id in EDI; child in EAX; plain RET",
-      "source": "src/unidentified/unassigned_00449820.cpp"
+      "source": "src/unreferenced/unassigned_00449820.cpp"
     },
     {
       "name": "FindChildRef_004497d0",

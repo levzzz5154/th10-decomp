@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "cl_00404420",
-  "source": "src/unidentified/unassigned_00404420.cpp",
+  "source": "src/unreferenced/unassigned_00404420.cpp",
   "driver": "layout/ltcg/cl_00404420_context.cpp",
   "headers": [],
   "image_base": "0x00400000",
@@ -14,7 +14,7 @@
       "address": "0x00404420",
       "size": 47,
       "actual_abi": "owner in ESI; plain RET",
-      "source": "src/unidentified/unassigned_00404420.cpp"
+      "source": "src/unreferenced/unassigned_00404420.cpp"
     }
   ],
   "anchors": [

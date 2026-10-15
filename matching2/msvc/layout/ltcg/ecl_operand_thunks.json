@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
   "name": "ecl_operand_thunks",
-  "source": "src/unidentified/FUN_0040c650_0040c650.cpp",
+  "source": "src/unreferenced/FUN_0040c650_0040c650.cpp",
   "additional_sources": [
-    "src/unidentified/FUN_0040c680_0040c680.cpp",
+    "src/unreferenced/FUN_0040c680_0040c680.cpp",
     "src/script/ecl_resolve_int_from_entity_00412a00.cpp"
   ],
   "driver": "layout/ltcg/ecl_operand_thunks_context.cpp",
@@ -20,7 +20,7 @@
       "address": "0x0040C650",
       "size": 8,
       "actual_abi": "slot in EAX, selector in ECX; tail jump to 0x0044FE40 with the interpreter in EAX",
-      "source": "src/unidentified/FUN_0040c650_0040c650.cpp"
+      "source": "src/unreferenced/FUN_0040c650_0040c650.cpp"
     },
     {
       "name": "ResolveSlotFloatValue_0040c680",
@@ -29,7 +29,7 @@
       "address": "0x0040C680",
       "size": 8,
       "actual_abi": "slot in EDX, selector in ECX, operand on the stack; tail jump to 0x0044FF80 with the interpreter in EAX",
-      "source": "src/unidentified/FUN_0040c680_0040c680.cpp"
+      "source": "src/unreferenced/FUN_0040c680_0040c680.cpp"
     },
     {
       "name": "ResolveEntityIntOperand_00412a00",

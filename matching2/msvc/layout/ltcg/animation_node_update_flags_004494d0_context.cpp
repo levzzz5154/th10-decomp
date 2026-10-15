@@ -1,6 +1,6 @@
 // Synthetic compiler context only; not recovered game behavior.  The array
 // call shape is intended to expose the receiver in EAX as observed at retail.
-#include "../../src/unidentified/unassigned_004494d0.cpp"
+#include "../../src/unreferenced/unassigned_004494d0.cpp"
 
 #pragma code_seg(".text$03context")
 int __stdcall AnimUpdateFlagsFromLookupCompilerContext(

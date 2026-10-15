@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "positioned_primary_front_00448e80_wave12",
-  "source": "src/unidentified/FUN_00448e80_00448e80.cpp",
+  "source": "src/unreferenced/FUN_00448e80_00448e80.cpp",
   "driver": "layout/ltcg/positioned_primary_front_00448e80_wave12_context.cpp",
   "headers": [],
   "image_base": "0x00400000",
@@ -30,7 +30,7 @@
       "section": ".text$05ad_screen",
       "address": "0x00448EE0",
       "size": 118,
-      "source": "src/unidentified/FUN_00448ee0_00448ee0.cpp",
+      "source": "src/unreferenced/FUN_00448ee0_00448ee0.cpp",
       "actual_abi": "position EDI; three stack args; RET 12"
     }
   ],
@@ -147,7 +147,7 @@
   ],
   "additional_sources": [
     "src/render/animation_manager_create_primary_front_00448e30.cpp",
-    "src/unidentified/FUN_00448ee0_00448ee0.cpp"
+    "src/unreferenced/FUN_00448ee0_00448ee0.cpp"
   ],
   "constant_aliases": [
     {

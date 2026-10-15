@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "h3001_00421450",
-  "source": "src/unidentified/FUN_00421450_00421450.cpp",
+  "source": "src/unreferenced/FUN_00421450_00421450.cpp",
   "driver": "layout/ltcg/h3001_00421450_context.cpp",
   "headers": ["include/asm_symbols.hpp"],
   "image_base": "0x00400000",

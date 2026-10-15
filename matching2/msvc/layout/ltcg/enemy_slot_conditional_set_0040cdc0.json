@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "enemy_slot_conditional_set_0040cdc0",
-  "source": "src/unidentified/unassigned_0040cdc0.cpp",
+  "source": "src/unreferenced/unassigned_0040cdc0.cpp",
   "driver": "layout/ltcg/enemy_slot_conditional_set_0040cdc0_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

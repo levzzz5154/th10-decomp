@@ -34,7 +34,7 @@
     },
     {
       "name": "MapResource_LoadMap",
-      "source": "src/unidentified/FUN_0043e9d0_0043e9d0.cpp",
+      "source": "src/unreferenced/FUN_0043e9d0_0043e9d0.cpp",
       "symbol": "?LoadMap@MapResource@@QAEXPBD@Z",
       "section": ".text$04map",
       "address": "0x0043E9D0",
@@ -61,7 +61,7 @@
     },
     {
       "name": "Sound_LoadMusicTable_0043d670",
-      "source": "src/unidentified/unassigned_0043d670.cpp",
+      "source": "src/unreferenced/unassigned_0043d670.cpp",
       "symbol": "_Sound_LoadMusicTable_0043d670@8",
       "section": ".text$03zrc_music",
       "address": "0x0043D670",
@@ -423,12 +423,12 @@
   ],
   "additional_sources": [
     "src/script/fun_0040cd20_0040cd20.cpp",
-    "src/unidentified/FUN_0043e9d0_0043e9d0.cpp",
+    "src/unreferenced/FUN_0043e9d0_0043e9d0.cpp",
     "src/game/music_room.cpp",
     "src/unidentified/FUN_0043a9b0_0043a9b0.cpp",
     "src/script/stage_ecl_load.cpp",
     "src/game/score_tasks.cpp",
-    "src/unidentified/unassigned_0043d670.cpp",
+    "src/unreferenced/unassigned_0043d670.cpp",
     "src/platform/sound_load_pending_slot_0043d640.cpp"
   ],
   "roots": [

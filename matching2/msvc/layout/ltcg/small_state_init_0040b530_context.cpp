@@ -1,5 +1,5 @@
 // Synthetic compiler context; never selected as game code.
-#include "../../src/unidentified/unassigned_0040b530.cpp"
+#include "../../src/unreferenced/unassigned_0040b530.cpp"
 
 #pragma code_seg(".text$03context")
 extern "C" __declspec(noinline) void __stdcall SmallStateInitCompilerContext(

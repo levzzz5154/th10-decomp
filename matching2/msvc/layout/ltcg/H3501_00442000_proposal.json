@@ -1,7 +1,7 @@
 {
   "regions": [{
     "name": "CopySource_00442000_CopyTo",
-    "source": "src/unidentified/FUN_00442000_00442000.cpp",
+    "source": "src/unreferenced/FUN_00442000_00442000.cpp",
     "symbol": "?CopyTo@CopySource_00442000@@QAEXPAUCopyDestination_00442000@@@Z",
     "address": "0x00442000",
     "size": 6,

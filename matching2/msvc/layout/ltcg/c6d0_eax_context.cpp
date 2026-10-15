@@ -1,5 +1,5 @@
 // Synthetic compiler context for the private EAX receiver at 0x0040C6D0.
-#include "../../src/unidentified/unassigned_0040c6d0.cpp"
+#include "../../src/unreferenced/unassigned_0040c6d0.cpp"
 
 #pragma code_seg(".text$03context")
 extern "C" __declspec(noinline) int __stdcall C6D0EaxContext(

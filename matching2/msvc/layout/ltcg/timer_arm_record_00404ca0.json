@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "timer_arm_record_00404ca0",
-  "source": "src/unidentified/timer_arm_record_00404ca0.cpp",
+  "source": "src/unreferenced/timer_arm_record_00404ca0.cpp",
   "driver": "layout/ltcg/timer_arm_record_00404ca0_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

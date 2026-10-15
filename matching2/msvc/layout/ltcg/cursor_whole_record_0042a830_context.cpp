@@ -1,5 +1,5 @@
 // Compiler context only; never selected as recovered game code.
-#include "../../src/unidentified/unassigned_0042a830.cpp"
+#include "../../src/unreferenced/unassigned_0042a830.cpp"
 
 #pragma code_seg(".text$03context")
 extern "C" int __stdcall CursorWholeRecordContext_0042a830(CursorState_0042a830** items, int count) {

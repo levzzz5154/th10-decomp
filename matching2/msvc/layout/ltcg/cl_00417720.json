@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "cl_00417720",
-  "source": "src/unidentified/unassigned_00417720.cpp",
+  "source": "src/unreferenced/unassigned_00417720.cpp",
   "driver": "layout/ltcg/cl_00417720_context.cpp",
   "headers": [],
   "image_base": "0x00400000",
@@ -14,7 +14,7 @@
       "address": "0x00417720",
       "size": 10,
       "actual_abi": "entity in EAX; plain RET; tail jump",
-      "source": "src/unidentified/unassigned_00417720.cpp"
+      "source": "src/unreferenced/unassigned_00417720.cpp"
     }
   ],
   "anchors": [

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "h3601_0040c820",
-  "source": "src/unidentified/FUN_0040c820_0040c820.cpp",
+  "source": "src/unreferenced/FUN_0040c820_0040c820.cpp",
   "driver": "layout/ltcg/h3601_0040c820_context.cpp",
   "headers": [], "image_base": "0x00400000",
   "description": "Indexed dword accessor recovered with native LTCG register shaping.",

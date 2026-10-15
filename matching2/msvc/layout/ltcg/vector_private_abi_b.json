@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "name": "vector_private_abi_b",
-  "source": "src/unidentified/unassigned_0041f780.cpp",
-  "additional_sources": ["src/unidentified/unassigned_00427ce0.cpp"],
+  "source": "src/unreferenced/unassigned_0041f780.cpp",
+  "additional_sources": ["src/unreferenced/unassigned_00427ce0.cpp"],
   "driver": "layout/ltcg/vector_private_abi_b_context.cpp",
   "headers": [],
   "image_base": "0x00400000",
@@ -15,7 +15,7 @@
       "address": "0x0041F780",
       "size": 31,
       "actual_abi": "source object in ECX; destination argument in EAX; scale on stack; caller cleanup RET 4",
-      "source": "src/unidentified/unassigned_0041f780.cpp"
+      "source": "src/unreferenced/unassigned_0041f780.cpp"
     },
     {
       "name": "IntPair_00427ce0_ToVector",
@@ -24,7 +24,7 @@
       "address": "0x00427CE0",
       "size": 30,
       "actual_abi": "source object in ECX; aggregate destination in EAX; plain RET",
-      "source": "src/unidentified/unassigned_00427ce0.cpp"
+      "source": "src/unreferenced/unassigned_00427ce0.cpp"
     }
   ],
   "context": {

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "setspritewidth_0042ba70",
-  "source": "src/unidentified/unassigned_0042ba70.cpp",
+  "source": "src/unreferenced/unassigned_0042ba70.cpp",
   "driver": "layout/ltcg/setspritewidth_0042ba70_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

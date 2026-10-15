@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "clear_scale_velocity_x_alternate",
-  "source": "src/unidentified/FUN_00401f70_00401f70.cpp",
+  "source": "src/unreferenced/FUN_00401f70_00401f70.cpp",
   "driver": "layout/ltcg/clear_scale_velocity_x_alternate_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

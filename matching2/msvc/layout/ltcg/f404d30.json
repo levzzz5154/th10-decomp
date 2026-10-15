@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "f404d30",
-  "source": "src/unidentified/FUN_00404d30_00404d30.cpp",
+  "source": "src/unreferenced/FUN_00404d30_00404d30.cpp",
   "driver": "layout/ltcg/f404d30_context.cpp",
   "headers": [],
   "image_base": "0x400000",

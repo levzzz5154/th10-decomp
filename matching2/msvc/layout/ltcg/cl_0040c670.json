@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "cl_0040c670",
-  "source": "src/unidentified/unassigned_0040c670.cpp",
+  "source": "src/unreferenced/unassigned_0040c670.cpp",
   "driver": "layout/ltcg/cl_0040c670_context.cpp",
   "headers": [],
   "image_base": "0x00400000",
@@ -14,7 +14,7 @@
       "address": "0x0040C670",
       "size": 11,
       "actual_abi": "selector in ECX; source in EDX; value in EAX; plain RET",
-      "source": "src/unidentified/unassigned_0040c670.cpp"
+      "source": "src/unreferenced/unassigned_0040c670.cpp"
     }
   ],
   "anchors": [],

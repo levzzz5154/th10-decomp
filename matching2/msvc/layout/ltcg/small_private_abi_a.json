@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "small_private_abi_a",
-  "source": "src/unidentified/unassigned_0040ae50.cpp",
+  "source": "src/unreferenced/unassigned_0040ae50.cpp",
   "driver": "layout/ltcg/small_private_abi_a_context.cpp",
   "headers": [],
   "image_base": "0x00400000",
@@ -14,7 +14,7 @@
       "address": "0x0040AE50",
       "size": 30,
       "actual_abi": "state in EAX; plain RET",
-      "source": "src/unidentified/unassigned_0040ae50.cpp"
+      "source": "src/unreferenced/unassigned_0040ae50.cpp"
     },
     {
       "name": "CachedSlot_00421d50_Release",
@@ -23,7 +23,7 @@
       "address": "0x00421D50",
       "size": 27,
       "actual_abi": "slot in ESI; plain RET",
-      "source": "src/unidentified/unassigned_00421d50.cpp"
+      "source": "src/unreferenced/unassigned_00421d50.cpp"
     }
   ],
   "context": {
@@ -42,5 +42,5 @@
   "absolute_symbols": [
     {"symbol": "_data_004776fc", "address": "0x004776FC", "kind": "data"}
   ],
-  "additional_sources": ["src/unidentified/unassigned_00421d50.cpp"]
+  "additional_sources": ["src/unreferenced/unassigned_00421d50.cpp"]
 }

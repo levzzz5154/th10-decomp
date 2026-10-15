@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "positioned_secondary_back_00448fb0",
-  "source": "src/unidentified/FUN_00448fb0_00448fb0.cpp",
+  "source": "src/unreferenced/FUN_00448fb0_00448fb0.cpp",
   "driver": "layout/ltcg/positioned_secondary_back_00448fb0_context.cpp",
   "headers": [],
   "image_base": "0x00400000",
@@ -30,7 +30,7 @@
       "section": ".text$05qscreen",
       "address": "0x00449010",
       "size": 118,
-      "source": "src/unidentified/FUN_00449010_00449010.cpp",
+      "source": "src/unreferenced/FUN_00449010_00449010.cpp",
       "actual_abi": "position EDI; three stack args; RET 12"
     }
   ],
@@ -147,7 +147,7 @@
   ],
   "additional_sources": [
     "src/render/animation_manager_create_secondary_back_00448f60.cpp",
-    "src/unidentified/FUN_00449010_00449010.cpp"
+    "src/unreferenced/FUN_00449010_00449010.cpp"
   ],
   "constant_aliases": [
     {

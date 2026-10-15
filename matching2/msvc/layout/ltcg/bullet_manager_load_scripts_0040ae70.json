@@ -26,15 +26,15 @@
     "src/platform/joystick_probe.cpp",
     "src/platform/text_log.cpp",
     "src/unidentified/FUN_0040a130_0040a130.cpp",
-    "src/unidentified/unassigned_00405f00.cpp",
-    "src/unidentified/unassigned_00413300.cpp",
-    "src/unidentified/unassigned_004133f0.cpp",
-    "src/unidentified/unassigned_00413b50.cpp",
-    "src/unidentified/unassigned_0041c100.cpp",
-    "src/unidentified/unassigned_0044a060.cpp",
-    "src/unidentified/unassigned_0044a090.cpp",
+    "src/unreferenced/unassigned_00405f00.cpp",
+    "src/unreferenced/unassigned_00413300.cpp",
+    "src/unreferenced/unassigned_004133f0.cpp",
+    "src/unreferenced/unassigned_00413b50.cpp",
+    "src/unreferenced/unassigned_0041c100.cpp",
+    "src/unreferenced/unassigned_0044a060.cpp",
+    "src/unreferenced/unassigned_0044a090.cpp",
     "src/unidentified/FUN_0040a040_0040a040.cpp",
-    "src/unidentified/FUN_0040a3c0_0040a3c0.cpp",
+    "src/unreferenced/FUN_0040a3c0_0040a3c0.cpp",
     "src/game/title_load_thread_0042c9f0.cpp",
     "layout/ltcg/bullet_manager_load_scripts_0040ae70_release.cpp",
     "layout/ltcg/bullet_manager_load_scripts_0040ae70_mark.cpp"
@@ -147,7 +147,7 @@
       "address": "0x0041C100",
       "size": 30,
       "actual_abi": "manager in ESI; result in EAX",
-      "source": "src/unidentified/unassigned_0041c100.cpp"
+      "source": "src/unreferenced/unassigned_0041c100.cpp"
     },
     {
       "name": "ScoreDisplay_RegisterTasks_0041c120",
@@ -241,7 +241,7 @@
     },
     {
       "name": "LoadBulletAnm_00405f00",
-      "source": "src/unidentified/unassigned_00405f00.cpp",
+      "source": "src/unreferenced/unassigned_00405f00.cpp",
       "symbol": "_LoadBulletAnm_00405f00",
       "section": ".text$00_xload",
       "address": "0x00405F00",
@@ -250,7 +250,7 @@
     },
     {
       "name": "LoadFrontAnm_00413b50",
-      "source": "src/unidentified/unassigned_00413b50.cpp",
+      "source": "src/unreferenced/unassigned_00413b50.cpp",
       "symbol": "_LoadFrontAnm_00413b50",
       "section": ".text$00d_clload",
       "address": "0x00413B50",
@@ -282,7 +282,7 @@
       "address": "0x0044A060",
       "size": 43,
       "actual_abi": "callback in EAX; priority in EDI; context at [ESP+4]; returns the task; RET 4",
-      "source": "src/unidentified/unassigned_0044a060.cpp"
+      "source": "src/unreferenced/unassigned_0044a060.cpp"
     },
     {
       "name": "Create_0044a090",
@@ -291,7 +291,7 @@
       "address": "0x0044A090",
       "size": 43,
       "actual_abi": "callback in EAX; priority in EDI; context at [ESP+4]; returns the task; RET 4",
-      "source": "src/unidentified/unassigned_0044a090.cpp"
+      "source": "src/unreferenced/unassigned_0044a090.cpp"
     },
     {
       "name": "Release_00413300",
@@ -300,7 +300,7 @@
       "address": "0x00413300",
       "size": 71,
       "actual_abi": "block in EAX",
-      "source": "src/unidentified/unassigned_00413300.cpp"
+      "source": "src/unreferenced/unassigned_00413300.cpp"
     },
     {
       "name": "Destroy_004133f0",
@@ -309,7 +309,7 @@
       "address": "0x004133F0",
       "size": 91,
       "actual_abi": "block in EBX; flags on the stack; callee pops 4",
-      "source": "src/unidentified/unassigned_004133f0.cpp"
+      "source": "src/unreferenced/unassigned_004133f0.cpp"
     },
     {
       "name": "DeletePublishedBlock_00413450",
@@ -385,7 +385,7 @@
     },
     {
       "name": "CounterState_Create_0040a3c0",
-      "source": "src/unidentified/FUN_0040a3c0_0040a3c0.cpp",
+      "source": "src/unreferenced/FUN_0040a3c0_0040a3c0.cpp",
       "symbol": "_asm_FUN_0040a3c0_0040a3c0",
       "section": ".text$00_zfactory",
       "address": "0x0040A3C0",

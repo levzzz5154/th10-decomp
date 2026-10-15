@@ -4,7 +4,7 @@
   "source": "src/render/animation_manager_set_translated_position_00449350.cpp",
   "additional_sources": [
     "layout/ltcg/position_setter_translated_unit.cpp",
-    "src/unidentified/unassigned_anim_setters_00449.cpp"
+    "src/unreferenced/unassigned_anim_setters_00449.cpp"
   ],
   "included_sources": [
     "layout/ltcg/position_setter_find_anchor.cpp",
@@ -32,7 +32,7 @@
       "section": ".text$80positionwrap",
       "address": "0x00449650",
       "size": 15,
-      "source": "src/unidentified/unassigned_anim_setters_00449.cpp",
+      "source": "src/unreferenced/unassigned_anim_setters_00449.cpp",
       "actual_abi": "handle EAX, position ESI; plain RET"
     },
     {
@@ -41,7 +41,7 @@
       "section": ".text$90translatedwrap",
       "address": "0x00449660",
       "size": 15,
-      "source": "src/unidentified/unassigned_anim_setters_00449.cpp",
+      "source": "src/unreferenced/unassigned_anim_setters_00449.cpp",
       "actual_abi": "handle EAX, position ESI; plain RET"
     }
   ],

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "countdown_subtract_clamp_00427c90",
-  "source": "src/unidentified/unassigned_00427c90.cpp",
+  "source": "src/unreferenced/unassigned_00427c90.cpp",
   "driver": "layout/ltcg/countdown_subtract_clamp_00427c90_context.cpp",
   "headers": [],
   "image_base": "0x00400000",
