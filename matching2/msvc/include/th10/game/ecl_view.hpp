@@ -3,7 +3,7 @@
 #include "th10/game/anm_vm.hpp"
 #include "th10/game/counter_block.hpp"
 
-struct SpriteViewerState {
+struct EclViewState {
     unsigned int flags;
     unsigned char unknown_004[0xC];
     GameTimer timer;
@@ -15,10 +15,10 @@ struct SpriteViewerState {
     AnmVm vm;
     unsigned char unknown_674[0x14];
 
-    SpriteViewerState();
+    EclViewState();
 };
-extern "C" SpriteViewerState* data_004776f8;
+extern "C" EclViewState* g_ecl_view;
 
-typedef char CounterState_size_check[sizeof(SpriteViewerState) == 0x688 ? 1 : -1];
-typedef char CounterState_timer_check[offsetof(SpriteViewerState, timer) == 0x10 ? 1 : -1];
-typedef char CounterState_vm_check[offsetof(SpriteViewerState, vm) == 0x2c8 ? 1 : -1];
+typedef char CounterState_size_check[sizeof(EclViewState) == 0x688 ? 1 : -1];
+typedef char CounterState_timer_check[offsetof(EclViewState, timer) == 0x10 ? 1 : -1];
+typedef char CounterState_vm_check[offsetof(EclViewState, vm) == 0x2c8 ? 1 : -1];

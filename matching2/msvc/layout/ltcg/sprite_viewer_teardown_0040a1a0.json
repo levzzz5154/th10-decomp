@@ -1,11 +1,11 @@
 {
   "schema_version": 1,
   "name": "sprite_viewer_teardown_0040a1a0",
-  "source": "src/game/eclview/sprite_viewer_teardown_0040a1a0.cpp",
+  "source": "src/game/eclview/ecl_view_teardown.cpp",
   "driver": "layout/ltcg/sprite_viewer_teardown_0040a1a0/context.cpp",
   "headers": [
-    "include/th10/game/sprite_viewer_teardown_0040a1a0.hpp",
-    "include/th10/game/sprite_viewer_draw_0040a940.hpp",
+    "include/th10/game/ecl_view_teardown.hpp",
+    "include/th10/game/ecl_view_draw.hpp",
     "include/th10/game/game_thread_queue_native.hpp",
     "include/th10/render/camera_batch.hpp",
     "include/th10/game/scheduler.hpp",
@@ -18,24 +18,24 @@
   "description": "SprtView screen destructor with its two compiler-generated member cleanups and the ESI script-name clear; real scheduler unlink and worker stop, stand-in manager destructors and the owned-delete caller.",
   "functions": [
     {
-      "name": "SpriteViewer_ClearScriptNames",
-      "symbol": "?ClearScriptNames@SpriteViewer_0040a940@@QAEXXZ",
+      "name": "EclView_ClearScriptNames",
+      "symbol": "?ClearScriptNames@EclView_0040a940@@QAEXXZ",
       "section": ".text$01names",
       "address": "0x00409EB0",
       "actual_abi": "screen in ESI; plain RET",
       "size": 86
     },
     {
-      "name": "SpriteViewer_Destructor",
-      "symbol": "??1SpriteViewer_0040a940@@QAE@XZ",
+      "name": "EclView_Destructor",
+      "symbol": "??1EclView_0040a940@@QAE@XZ",
       "section": ".text$03dtor",
       "address": "0x0040A1A0",
       "actual_abi": "receiver on the stack; RET 4; compiler-generated EH frame",
       "size": 412
     },
     {
-      "name": "SpriteViewerWorkerUnwind",
-      "symbol": "_SpriteViewerWorkerUnwind_004657d0",
+      "name": "EclViewWorkerUnwind",
+      "symbol": "_EclViewWorkerUnwind_004657d0",
       "section": ".text$x",
       "address": "0x004657D0",
       "actual_abi": "worker member at receiver+0x10, destructor 0x0044C130",
@@ -44,8 +44,8 @@
       "size": 11
     },
     {
-      "name": "SpriteViewerSpriteUnwind",
-      "symbol": "_SpriteViewerSpriteUnwind_004657db",
+      "name": "EclViewSpriteUnwind",
+      "symbol": "_EclViewSpriteUnwind_004657db",
       "section": ".text$x",
       "address": "0x004657DB",
       "actual_abi": "sprite member at receiver+0x2C8, destructor 0x00401FF0",
@@ -54,8 +54,8 @@
       "size": 14
     },
     {
-      "name": "SpriteViewerHandler",
-      "symbol": "__ehhandler$??1SpriteViewer_0040a940@@QAE@XZ",
+      "name": "EclViewHandler",
+      "symbol": "__ehhandler$??1EclView_0040a940@@QAE@XZ",
       "section": ".text$x",
       "address": "0x004657E9",
       "actual_abi": "compiler-generated EH handler",
@@ -64,7 +64,7 @@
     }
   ],
   "context": {
-    "symbol": "?SpriteViewer_DestroyOwned_0040a1a0@@YGXPAUSpriteViewer_0040a940@@PAUSpriteViewerWorkerArrayStandIn@@PAUSpriteViewerSpriteArrayStandIn@@@Z",
+    "symbol": "?EclView_DestroyOwned_0040a1a0@@YGXPAUEclView_0040a940@@PAUEclViewWorkerArrayStandIn@@PAUEclViewSpriteArrayStandIn@@@Z",
     "section": ".text$05owned_delete",
     "address": "0x0040A410",
     "size": 46,
@@ -260,7 +260,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_004776f8",
+      "symbol": "_g_ecl_view",
       "address": "0x004776F8",
       "kind": "data"
     },
@@ -287,70 +287,70 @@
   "anchors": [
     {
       "name": "SpriteDestructor",
-      "symbol": "??1SpriteViewerSprite_0040a940@@QAE@XZ",
+      "symbol": "??1EclViewSprite_0040a940@@QAE@XZ",
       "section": ".text$00sprite",
       "address": "0x00401FF0",
       "size": 34
     },
     {
       "name": "LasersStandIn",
-      "symbol": "??1SpriteViewerLasers_0040a1a0@@QAE@XZ",
+      "symbol": "??1EclViewLasers_0040a1a0@@QAE@XZ",
       "section": ".text$00x1",
       "address": "0x00405620",
       "size": 127
     },
     {
       "name": "BulletsStandIn",
-      "symbol": "??1SpriteViewerBullets_0040a1a0@@QAE@XZ",
+      "symbol": "??1EclViewBullets_0040a1a0@@QAE@XZ",
       "section": ".text$00x2",
       "address": "0x00405F70",
       "size": 127
     },
     {
       "name": "ArrayStandIn",
-      "symbol": "??1SpriteViewerWorkerArrayStandIn@@QAE@XZ",
+      "symbol": "??1EclViewWorkerArrayStandIn@@QAE@XZ",
       "section": ".text$05zarray",
       "address": "0x0040A440",
       "size": 16
     },
     {
       "name": "SpriteArrayStandIn",
-      "symbol": "??1SpriteViewerSpriteArrayStandIn@@QAE@XZ",
+      "symbol": "??1EclViewSpriteArrayStandIn@@QAE@XZ",
       "section": ".text$05zsprites",
       "address": "0x0040A450",
       "size": 19
     },
     {
       "name": "EnemiesStandIn",
-      "symbol": "??1SpriteViewerEnemies_0040a940@@QAE@XZ",
+      "symbol": "??1EclViewEnemies_0040a940@@QAE@XZ",
       "section": ".text$06a",
       "address": "0x0040D530",
       "size": 130
     },
     {
       "name": "ItemsStandIn",
-      "symbol": "??1SpriteViewerItems_0040a1a0@@QAE@XZ",
+      "symbol": "??1EclViewItems_0040a1a0@@QAE@XZ",
       "section": ".text$06b",
       "address": "0x004145F0",
       "size": 127
     },
     {
       "name": "EffectsStandIn",
-      "symbol": "??1SpriteViewerEffects_0040a1a0@@QAE@XZ",
+      "symbol": "??1EclViewEffects_0040a1a0@@QAE@XZ",
       "section": ".text$06c",
       "address": "0x0041ADF0",
       "size": 127
     },
     {
       "name": "PlayerStandIn",
-      "symbol": "??1SpriteViewerPlayer_0040a1a0@@QAE@XZ",
+      "symbol": "??1EclViewPlayer_0040a1a0@@QAE@XZ",
       "section": ".text$06d",
       "address": "0x00424ED0",
       "size": 127
     },
     {
       "name": "PopupsStandIn",
-      "symbol": "??1SpriteViewerPopups_0040a1a0@@QAE@XZ",
+      "symbol": "??1EclViewPopups_0040a1a0@@QAE@XZ",
       "section": ".text$06e",
       "address": "0x0042B570",
       "size": 127
@@ -364,7 +364,7 @@
     },
     {
       "name": "WorkerDestructor",
-      "symbol": "??1SpriteViewerWorker_0040a940@@QAE@XZ",
+      "symbol": "??1EclViewWorker_0040a940@@QAE@XZ",
       "section": ".text$10worker",
       "address": "0x0044C130",
       "size": 16

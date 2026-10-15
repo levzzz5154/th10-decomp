@@ -3,10 +3,10 @@
 // Native LTCG keeps the viewer in EDI and passes the game thread in ESI and
 // the text position in EBX to the marked-text writer.
 // 0x0040ABF0: the scheduler callback, which forwards its ECX context.
-#include "th10/game/sprite_viewer_draw_0040a940.hpp"
+#include "th10/game/ecl_view_draw.hpp"
 
 #pragma code_seg(".text$05draw")
-int SpriteViewer_0040a940::Draw() {
+int EclView_0040a940::Draw() {
     Vec3_00401530 position = {0.0f, 0.0f, 0.0f};
     AsciiManager_AddFormattedMarked(g_ascii_manager, &position, "SprtView\n");
     switch (state) {
@@ -57,14 +57,14 @@ int SpriteViewer_0040a940::Draw() {
     }
     if (flags & 2) {
         sprite.base_position = CameraVector(320.0f, 240.0f, 0.0f);
-        SpriteViewer_DrawEntity_00443080(data_00491c10, &sprite);
+        EclView_DrawEntity_00443080(data_00491c10, &sprite);
     }
     return 1;
 }
 #pragma code_seg()
 
 #pragma code_seg(".text$06task")
-int __fastcall SpriteViewer_DrawTask_0040abf0(SpriteViewer_0040a940* viewer) {
+int __fastcall EclView_DrawTask_0040abf0(EclView_0040a940* viewer) {
     return viewer->Draw();
 }
 #pragma code_seg()

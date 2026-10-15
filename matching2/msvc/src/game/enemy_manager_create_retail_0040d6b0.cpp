@@ -37,8 +37,8 @@ EnemyManager_CreateRetail_0040d6b0(int script_name) {
 }
 #pragma code_seg()
 
-#include "sprite_viewer_create_managers.cpp"
-#include "sprite_viewer_load_thread.cpp"
+#include "eclview/ecl_view_create_managers.cpp"
+#include "eclview/ecl_view_load_thread.cpp"
 #include "../../layout/ltcg/enemy_factory_dependencies/message_host_init.cpp"
 #include "../../layout/ltcg/enemy_factory_dependencies/scheduler_tasks.cpp"
 #include "../../layout/ltcg/enemy_factory_dependencies/bullet_entity_release_resource_0040d680.cpp"

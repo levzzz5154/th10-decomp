@@ -555,7 +555,7 @@ extern "C" void __cdecl asm_FUN_0040a010_0040a010();
 #define VA_asm_FUN_0040a010_0040a010 0x0040a010
 extern "C" void __cdecl asm_FUN_0040a040_0040a040();
 #define VA_asm_FUN_0040a040_0040a040 0x0040a040
-extern "C" void __cdecl SpriteViewer_RegisterTasks();
+extern "C" void __cdecl EclView_RegisterTasks();
 #define VA_asm_FUN_0040a130_0040a130 0x0040a130
 extern "C" void __cdecl asm_FUN_0040a1a0_0040a1a0();
 #define VA_asm_FUN_0040a1a0_0040a1a0 0x0040a1a0
@@ -6020,7 +6020,7 @@ extern "C" unsigned char data_004776e8;
 extern "C" unsigned char g_bomb;
 extern "C" unsigned char data_004776f0;
 extern "C" unsigned char data_004776f4;
-extern "C" unsigned char data_004776f8;
+extern "C" unsigned char g_ecl_view;
 extern "C" unsigned char data_004776fc;
 extern "C" unsigned char data_00477700;
 extern "C" unsigned char data_00477704;

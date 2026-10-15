@@ -5,19 +5,19 @@
 #define TH10_SCHEDULER_REMOVE_CODE_SEG ".text$07remove"
 #include "../manager_teardown_native_0041adf0/scheduler.cpp"
 #include "../../../src/core/zunlib/platform_stop_worker_0044c150.cpp"
-#include "../../../src/game/eclview/sprite_viewer_teardown_0040a1a0.cpp"
+#include "../../../src/game/eclview/ecl_view_teardown.cpp"
 
 extern "C" void __cdecl entry_free_00452422(void* memory);
 
 // Each manager destructor unregisters its two scheduler tasks, as the real
 // ones do; with every callee-saved register busy the receiver stays on the
 // stack.
-struct SpriteViewerStandInManager {
+struct EclViewStandInManager {
     unsigned char reserved_000[8];
     SchedulerTask* update_task;
     SchedulerTask* draw_task;
 };
-static __forceinline void SpriteViewerStandIn_Unregister(SpriteViewerStandInManager* manager) {
+static __forceinline void EclViewStandIn_Unregister(EclViewStandInManager* manager) {
     SchedulerTask* task = manager->update_task;
     Scheduler* scheduler = static_cast<Scheduler*>(data_00491be4);
     if (task) {
@@ -38,34 +38,34 @@ static __forceinline void SpriteViewerStandIn_Unregister(SpriteViewerStandInMana
     }
 }
 #pragma code_seg(".text$00x1")
-SpriteViewerLasers_0040a1a0::~SpriteViewerLasers_0040a1a0() {
-    SpriteViewerStandIn_Unregister(reinterpret_cast<SpriteViewerStandInManager*>(this));
+EclViewLasers_0040a1a0::~EclViewLasers_0040a1a0() {
+    EclViewStandIn_Unregister(reinterpret_cast<EclViewStandInManager*>(this));
 }
 #pragma code_seg(".text$00x2")
-SpriteViewerBullets_0040a1a0::~SpriteViewerBullets_0040a1a0() {
-    SpriteViewerStandIn_Unregister(reinterpret_cast<SpriteViewerStandInManager*>(this));
+EclViewBullets_0040a1a0::~EclViewBullets_0040a1a0() {
+    EclViewStandIn_Unregister(reinterpret_cast<EclViewStandInManager*>(this));
 }
 #pragma code_seg(".text$06b")
-SpriteViewerItems_0040a1a0::~SpriteViewerItems_0040a1a0() {
-    SpriteViewerStandIn_Unregister(reinterpret_cast<SpriteViewerStandInManager*>(this));
+EclViewItems_0040a1a0::~EclViewItems_0040a1a0() {
+    EclViewStandIn_Unregister(reinterpret_cast<EclViewStandInManager*>(this));
 }
 #pragma code_seg(".text$06c")
-SpriteViewerEffects_0040a1a0::~SpriteViewerEffects_0040a1a0() {
-    SpriteViewerStandIn_Unregister(reinterpret_cast<SpriteViewerStandInManager*>(this));
+EclViewEffects_0040a1a0::~EclViewEffects_0040a1a0() {
+    EclViewStandIn_Unregister(reinterpret_cast<EclViewStandInManager*>(this));
 }
 #pragma code_seg(".text$06d")
-SpriteViewerPlayer_0040a1a0::~SpriteViewerPlayer_0040a1a0() {
-    SpriteViewerStandIn_Unregister(reinterpret_cast<SpriteViewerStandInManager*>(this));
+EclViewPlayer_0040a1a0::~EclViewPlayer_0040a1a0() {
+    EclViewStandIn_Unregister(reinterpret_cast<EclViewStandInManager*>(this));
 }
 #pragma code_seg(".text$06e")
-SpriteViewerPopups_0040a1a0::~SpriteViewerPopups_0040a1a0() {
-    SpriteViewerStandIn_Unregister(reinterpret_cast<SpriteViewerStandInManager*>(this));
+EclViewPopups_0040a1a0::~EclViewPopups_0040a1a0() {
+    EclViewStandIn_Unregister(reinterpret_cast<EclViewStandInManager*>(this));
 }
 // 0x0040D530 takes its receiver in EAX.
 #pragma code_seg(".text$06a")
-SpriteViewerEnemies_0040a940::~SpriteViewerEnemies_0040a940() {
+EclViewEnemies_0040a940::~EclViewEnemies_0040a940() {
     entry_free_00452422(this);
-    SpriteViewerStandIn_Unregister(reinterpret_cast<SpriteViewerStandInManager*>(this));
+    EclViewStandIn_Unregister(reinterpret_cast<EclViewStandInManager*>(this));
 }
 #pragma code_seg()
 
@@ -73,27 +73,27 @@ SpriteViewerEnemies_0040a940::~SpriteViewerEnemies_0040a940() {
 // array and a sprite array: the vector destructor iterator takes both member
 // destructors' addresses, which keeps their public ECX receivers for the
 // unwind funclets.
-struct SpriteViewerWorkerArrayStandIn {
-    SpriteViewerWorker_0040a940 workers[2];
-    ~SpriteViewerWorkerArrayStandIn();
+struct EclViewWorkerArrayStandIn {
+    EclViewWorker_0040a940 workers[2];
+    ~EclViewWorkerArrayStandIn();
 };
-struct SpriteViewerSpriteArrayStandIn {
-    SpriteViewerSprite_0040a940 sprites[2];
-    ~SpriteViewerSpriteArrayStandIn();
+struct EclViewSpriteArrayStandIn {
+    EclViewSprite_0040a940 sprites[2];
+    ~EclViewSpriteArrayStandIn();
 };
 #pragma code_seg(".text$05zarray")
-__declspec(noinline) SpriteViewerWorkerArrayStandIn::~SpriteViewerWorkerArrayStandIn() {}
+__declspec(noinline) EclViewWorkerArrayStandIn::~EclViewWorkerArrayStandIn() {}
 #pragma code_seg(".text$05zsprites")
-__declspec(noinline) SpriteViewerSpriteArrayStandIn::~SpriteViewerSpriteArrayStandIn() {}
+__declspec(noinline) EclViewSpriteArrayStandIn::~EclViewSpriteArrayStandIn() {}
 #pragma code_seg(".text$05owned_delete")
-__declspec(noinline) void __stdcall SpriteViewer_DestroyOwned_0040a1a0(SpriteViewer_0040a940* viewer,
-                                                                       SpriteViewerWorkerArrayStandIn* workers,
-                                                                       SpriteViewerSpriteArrayStandIn* sprites) {
+__declspec(noinline) void __stdcall EclView_DestroyOwned_0040a1a0(EclView_0040a940* viewer,
+                                                                       EclViewWorkerArrayStandIn* workers,
+                                                                       EclViewSpriteArrayStandIn* sprites) {
     if (viewer) {
-        viewer->~SpriteViewer_0040a940();
+        viewer->~EclView_0040a940();
         ::operator delete(viewer);
     }
-    workers->~SpriteViewerWorkerArrayStandIn();
-    sprites->~SpriteViewerSpriteArrayStandIn();
+    workers->~EclViewWorkerArrayStandIn();
+    sprites->~EclViewSpriteArrayStandIn();
 }
 #pragma code_seg()

@@ -1,4 +1,4 @@
-// 0x0040A010: suspend the player (the sprite viewer calls it on g_player):
+// 0x0040A010: suspend the player (the ECL viewer calls it on g_player):
 // flag both of its scheduler tasks and refresh the options (0x00426F70). Unlike 0x00409E20 the two callback pointers are dereferenced without
 // a null test, and the pair is then handed to the teardown at 0x00426F70.
 // Retail receives the pair in EAX and tail-calls the teardown.

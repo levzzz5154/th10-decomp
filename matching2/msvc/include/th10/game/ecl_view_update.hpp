@@ -1,9 +1,9 @@
 #pragma once
 #include <string.h>
-#include "th10/game/sprite_viewer_teardown_0040a1a0.hpp"
+#include "th10/game/ecl_view_teardown.hpp"
 
 // The key state at 0x00474E30.
-struct SpriteViewerInput_0040a450 {
+struct EclViewInput_0040a450 {
     unsigned short raw;            // +0x00, the keys read this frame
     unsigned char reserved_02[2];
     unsigned short held;           // +0x04
@@ -26,17 +26,17 @@ struct SpriteViewerInput_0040a450 {
 };
 
 // The game-wide state at 0x00491C28, as far as the mode switch writes it.
-struct SpriteViewerGameState_0040a450 {
+struct EclViewGameState_0040a450 {
     unsigned char reserved_000[0x390];
     int mode;                  // +0x390
     unsigned char reserved_394[0x3CC - 0x394];
     unsigned int flags;        // +0x3CC, bit 0x1000 forces mode 2
 };
 // 0x0040AC90: request a game mode.
-__declspec(noinline) void __stdcall SpriteViewer_SetGameMode_0040ac90(SpriteViewerGameState_0040a450* state, int mode);
+__declspec(noinline) void __stdcall EclView_SetGameMode_0040ac90(EclViewGameState_0040a450* state, int mode);
 
 // What an enemy is created with.
-struct SpriteViewerSpawn_0040a450 {
+struct EclViewSpawn_0040a450 {
     float x;
     float y;
     float z;
@@ -45,10 +45,10 @@ struct SpriteViewerSpawn_0040a450 {
     int reserved_18[10];
 
     // 0x0040CFB0: create an enemy running the named script entry.
-    __declspec(noinline) void Create(SpriteViewerEnemies_0040a940* manager, const char* entry);
+    __declspec(noinline) void Create(EclViewEnemies_0040a940* manager, const char* entry);
 };
 
-struct SpriteViewerFindData_0040a450 {
+struct EclViewFindData_0040a450 {
     unsigned int attributes;
     unsigned int times[6];
     unsigned int size_high, size_low, reserved0, reserved1;
@@ -57,35 +57,35 @@ struct SpriteViewerFindData_0040a450 {
 };
 
 extern "C" {
-extern SpriteViewerInput_0040a450 data_00474e30;
-extern SpriteViewerGameState_0040a450 data_00491c28;
+extern EclViewInput_0040a450 data_00474e30;
+extern EclViewGameState_0040a450 data_00491c28;
 void* __cdecl malloc(unsigned int size);
-__declspec(dllimport) void* __stdcall FindFirstFileA(const char* pattern, SpriteViewerFindData_0040a450* data);
-__declspec(dllimport) int __stdcall FindNextFileA(void* search, SpriteViewerFindData_0040a450* data);
+__declspec(dllimport) void* __stdcall FindFirstFileA(const char* pattern, EclViewFindData_0040a450* data);
+__declspec(dllimport) int __stdcall FindNextFileA(void* search, EclViewFindData_0040a450* data);
 __declspec(dllimport) int __stdcall FindClose(void* search);
 }
 // 0x0040A340: the loader thread entry, which recreates the managers.
-unsigned int __stdcall SpriteViewer_LoadThread_0040a340(void* context);
+unsigned int __stdcall EclView_LoadThread_0040a340(void* context);
 
 // Destroy and free a manager the screen owns, if there is one; the global
 // keeps its stale pointer until the loader thread replaces it.
-__declspec(noinline) void SpriteViewer_Release(SpriteViewerItems_0040a1a0* object);     // 0x004148E0
-__declspec(noinline) void SpriteViewer_Release(SpriteViewerPlayer_0040a1a0* object);    // 0x00425090
-__declspec(noinline) void SpriteViewer_Release(SpriteViewerBullets_0040a1a0* object);   // 0x00406140
-__declspec(noinline) void SpriteViewer_Release(SpriteViewerLasers_0040a1a0* object);    // 0x00405730
-__declspec(noinline) void SpriteViewer_Release(SpriteViewerEffects_0040a1a0* object);   // 0x0041AFB0
-__declspec(noinline) void SpriteViewer_Release(SpriteViewerPopups_0040a1a0* object);    // 0x0042B6D0
-__declspec(noinline) void SpriteViewer_Release(SpriteViewerEnemies_0040a940* object);   // 0x0040D730
+__declspec(noinline) void EclView_Release(EclViewItems_0040a1a0* object);     // 0x004148E0
+__declspec(noinline) void EclView_Release(EclViewPlayer_0040a1a0* object);    // 0x00425090
+__declspec(noinline) void EclView_Release(EclViewBullets_0040a1a0* object);   // 0x00406140
+__declspec(noinline) void EclView_Release(EclViewLasers_0040a1a0* object);    // 0x00405730
+__declspec(noinline) void EclView_Release(EclViewEffects_0040a1a0* object);   // 0x0041AFB0
+__declspec(noinline) void EclView_Release(EclViewPopups_0040a1a0* object);    // 0x0042B6D0
+__declspec(noinline) void EclView_Release(EclViewEnemies_0040a940* object);   // 0x0040D730
 
-inline void SpriteViewer_Remember(MenuCursor* cursor) {
+inline void EclView_Remember(MenuCursor* cursor) {
     cursor->previous_selection = cursor->selection;
 }
 // Select the wanted item, or the last one when there are fewer.
-inline void SpriteViewer_Select(MenuCursor& cursor, int index) {
+inline void EclView_Select(MenuCursor& cursor, int index) {
     if (cursor.item_count != 0)
         cursor.selection = index >= cursor.item_count ? cursor.item_count - 1 : index;
     else
         cursor.selection = 0;
 }
 
-int __fastcall SpriteViewer_UpdateTask_0040abe0(SpriteViewer_0040a940* viewer);
+int __fastcall EclView_UpdateTask_0040abe0(EclView_0040a940* viewer);

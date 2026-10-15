@@ -1,5 +1,5 @@
 // 0x0040A350: recreate the player, bullet, bomb, item, effect, enemy and HUD
-// managers for the sprite viewer's selected script, then reset its menu.
+// managers for the ECL viewer's selected script, then reset its menu.
 #include "th10/game/startup_managers_0040a350.hpp"
 #include "th10/game/enemy_manager_factory_0040d6b0.hpp"
 extern "C" void *data_00477704;

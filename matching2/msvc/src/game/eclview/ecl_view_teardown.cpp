@@ -5,17 +5,17 @@
 // 0x004657D0 and 0x004657DB also run).
 // 0x00409EB0: free every script name and the list itself; native LTCG passes
 // the screen in ESI.
-#include "th10/game/sprite_viewer_teardown_0040a1a0.hpp"
+#include "th10/game/ecl_view_teardown.hpp"
 
 #pragma code_seg(".text$10worker")
-inline SpriteViewerWorker_0040a940::~SpriteViewerWorker_0040a940() {
+inline EclViewWorker_0040a940::~EclViewWorker_0040a940() {
     vtable = &platform_worker_vtable;
     reinterpret_cast<PlatformWorker*>(this)->Stop();
 }
 #pragma code_seg()
 
 #pragma code_seg(".text$00sprite")
-inline SpriteViewerSprite_0040a940::~SpriteViewerSprite_0040a940() {
+inline EclViewSprite_0040a940::~EclViewSprite_0040a940() {
     void* owned = resource;
     if (owned) free(owned);
     resource = 0;
@@ -23,7 +23,7 @@ inline SpriteViewerSprite_0040a940::~SpriteViewerSprite_0040a940() {
 #pragma code_seg()
 
 #pragma code_seg(".text$01names")
-void SpriteViewer_0040a940::ClearScriptNames() {
+void EclView_0040a940::ClearScriptNames() {
     if (script_names) {
         for (int i = 0; i < script_count; ++i) {
             if (script_names[i]) {
@@ -42,7 +42,7 @@ void SpriteViewer_0040a940::ClearScriptNames() {
 
 // Destroy and free an owned manager, if the screen created it.
 template <class T>
-inline void SpriteViewer_DeleteOwned(T* const& owner) {
+inline void EclView_DeleteOwned(T* const& owner) {
     T* object = owner;
     if (object) {
         object->~T();
@@ -51,7 +51,7 @@ inline void SpriteViewer_DeleteOwned(T* const& owner) {
 }
 
 #pragma code_seg(".text$03dtor")
-SpriteViewer_0040a940::~SpriteViewer_0040a940() {
+EclView_0040a940::~EclView_0040a940() {
     ClearScriptNames();
     SchedulerTask* task = update_task;
     Scheduler* scheduler = static_cast<Scheduler*>(data_00491be4);
@@ -71,13 +71,13 @@ SpriteViewer_0040a940::~SpriteViewer_0040a940() {
         LeaveCriticalSection(&g_thread_synchronization.critical_sections[0]);
         --g_thread_synchronization.scheduler_lock_depth;
     }
-    SpriteViewer_DeleteOwned(data_0047770c);
-    SpriteViewer_DeleteOwned(g_player);
-    SpriteViewer_DeleteOwned(data_004776f0);
-    SpriteViewer_DeleteOwned(data_00477704);
-    SpriteViewer_DeleteOwned(g_bomb);
-    SpriteViewer_DeleteOwned(data_00477818);
-    SpriteViewer_DeleteOwned(data_00477840);
-    data_004776f8 = 0;
+    EclView_DeleteOwned(data_0047770c);
+    EclView_DeleteOwned(g_player);
+    EclView_DeleteOwned(data_004776f0);
+    EclView_DeleteOwned(data_00477704);
+    EclView_DeleteOwned(g_bomb);
+    EclView_DeleteOwned(data_00477818);
+    EclView_DeleteOwned(data_00477840);
+    g_ecl_view = 0;
 }
 #pragma code_seg()

@@ -1,4 +1,4 @@
-// 0x0040D510: suspend the enemy manager (the sprite viewer calls it): set
+// 0x0040D510: suspend the enemy manager (the ECL viewer calls it): set
 // bit 1 of both of its scheduler tasks' flag words.
 // The leading parameter arrives in EAX, a convention only a native LTCG link
 // chooses, so this region is compiled as a cluster.

@@ -25,7 +25,7 @@
     "src/game/title/title_register_tasks_0042caa0.cpp",
     "src/core/zunlib/joystick_probe.cpp",
     "src/core/zunlib/text_log.cpp",
-    "src/game/eclview/sprite_viewer_register_tasks.cpp",
+    "src/game/eclview/ecl_view_register_tasks.cpp",
     "src/unreferenced/unassigned_00405f00.cpp",
     "src/unreferenced/unassigned_00413300.cpp",
     "src/unreferenced/unassigned_004133f0.cpp",
@@ -33,7 +33,7 @@
     "src/unreferenced/unassigned_0041c100.cpp",
     "src/unreferenced/unassigned_0044a060.cpp",
     "src/unreferenced/unassigned_0044a090.cpp",
-    "src/game/eclview/sprite_viewer_construct.cpp",
+    "src/game/eclview/ecl_view_construct.cpp",
     "src/unreferenced/FUN_0040a3c0_0040a3c0.cpp",
     "src/game/title/title_load_thread_0042c9f0.cpp",
     "layout/ltcg/bullet_manager_load_scripts_0040ae70_release.cpp",
@@ -63,7 +63,7 @@
     "include/th10/render/animation_mark_for_removal.hpp",
     "include/th10/game/anm_vm.hpp",
     "include/th10/game/counter_block.hpp",
-    "include/th10/game/sprite_viewer_state.hpp",
+    "include/th10/game/ecl_view.hpp",
     "include/th10/render/animation_resource_removal.hpp"
   ],
   "image_base": "0x00400000",
@@ -89,11 +89,11 @@
     },
     {
       "name": "State_RegisterTasks_0040a130",
-      "symbol": "_SpriteViewer_RegisterTasks@4",
+      "symbol": "_EclView_RegisterTasks@4",
       "section": ".text$00_ystatereg",
       "address": "0x0040A130",
       "size": 106,
-      "source": "src/game/eclview/sprite_viewer_register_tasks.cpp",
+      "source": "src/game/eclview/ecl_view_register_tasks.cpp",
       "actual_abi": "state in EBX; result in EAX; plain RET"
     },
     {
@@ -376,8 +376,8 @@
     },
     {
       "name": "counter_state_construct_0040a040",
-      "source": "src/game/eclview/sprite_viewer_construct.cpp",
-      "symbol": "??0SpriteViewerState@@QAE@XZ",
+      "source": "src/game/eclview/ecl_view_construct.cpp",
+      "symbol": "??0EclViewState@@QAE@XZ",
       "section": ".text$00_ystateinit",
       "address": "0x0040A040",
       "size": 234,
@@ -889,7 +889,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_004776f8",
+      "symbol": "_g_ecl_view",
       "address": "0x004776F8",
       "kind": "data"
     },

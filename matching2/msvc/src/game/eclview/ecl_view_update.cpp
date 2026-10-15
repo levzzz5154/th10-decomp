@@ -3,11 +3,11 @@
 // file on the loader thread, spawn an entry of the loaded script as an enemy,
 // or quit), state 4 polls the keys itself and returns to the menu on key 8.
 // 0x0040ABE0: the scheduler callback, which forwards its ECX context.
-#include "th10/game/sprite_viewer_update_0040a450.hpp"
+#include "th10/game/ecl_view_update.hpp"
 
 #pragma code_seg(".text$b1update")
-int SpriteViewer_0040a940::Update() {
-    SpriteViewerFindData_0040a450 find;
+int EclView_0040a940::Update() {
+    EclViewFindData_0040a450 find;
     switch (state) {
     case 4:
         data_00474e30.previous_keys = data_00474e30.held_keys;
@@ -27,17 +27,17 @@ int SpriteViewer_0040a940::Update() {
         }
         break;
     case 1:
-        SpriteViewer_Remember(&menu);
+        EclView_Remember(&menu);
         if (data_00474e30.Active(0x20)) menu.Advance(1);
         if (data_00474e30.Active(0x10)) menu.Advance(-1);
         switch (menu.selection) {
         case 2:
             if (data_00474e30.repeated & 0x1001)
-                SpriteViewer_SetGameMode_0040ac90(&data_00491c28, 3);
+                EclView_SetGameMode_0040ac90(&data_00491c28, 3);
             break;
         case 1:
             if (data_00477704) {
-                SpriteViewer_Remember(&entry_cursor);
+                EclView_Remember(&entry_cursor);
                 if (data_00474e30.MaskActive(0x80)) entry_cursor.Advance(1);
                 if (data_00474e30.MaskActive(0x40)) entry_cursor.Advance(-1);
                 if (data_00474e30.pressed & 0x1001) {
@@ -50,7 +50,7 @@ int SpriteViewer_0040a940::Update() {
                     data_0047770c->Reset();
                     data_00477818->Suspend();
                     memset(data_00477818->slots, 0, sizeof(data_00477818->slots));
-                    SpriteViewerSpawn_0040a450 spawn;
+                    EclViewSpawn_0040a450 spawn;
                     memset(&spawn, 0, sizeof(spawn));
                     spawn.x = 0.0f;
                     spawn.y = 0.0f;
@@ -62,19 +62,19 @@ int SpriteViewer_0040a940::Update() {
             }
             break;
         case 0:
-            SpriteViewer_Remember(&file_cursor);
+            EclView_Remember(&file_cursor);
             if (data_00474e30.Active(0x80)) file_cursor.Advance(1);
             if (data_00474e30.Active(0x40)) file_cursor.Advance(-1);
             if (data_00474e30.repeated & 0x1001) {
-                SpriteViewer_Release(data_0047770c);
-                SpriteViewer_Release(g_player);
-                SpriteViewer_Release(data_004776f0);
-                SpriteViewer_Release(g_bomb);
-                SpriteViewer_Release(data_00477818);
-                SpriteViewer_Release(data_00477840);
-                SpriteViewer_Release(data_00477704);
+                EclView_Release(data_0047770c);
+                EclView_Release(g_player);
+                EclView_Release(data_004776f0);
+                EclView_Release(g_bomb);
+                EclView_Release(data_00477818);
+                EclView_Release(data_00477840);
+                EclView_Release(data_00477704);
                 flags &= ~2u;
-                reinterpret_cast<PlatformWorker*>(&worker)->Start(this, SpriteViewer_LoadThread_0040a340);
+                reinterpret_cast<PlatformWorker*>(&worker)->Start(this, EclView_LoadThread_0040a340);
                 state = 2;
             }
             break;
@@ -103,13 +103,13 @@ int SpriteViewer_0040a940::Update() {
         }
         menu.item_count = 3;
         menu.wrap = 1;
-        SpriteViewer_Select(menu, 0);
+        EclView_Select(menu, 0);
         file_cursor.item_count = count;
         file_cursor.wrap = 1;
-        SpriteViewer_Select(file_cursor, 0);
+        EclView_Select(file_cursor, 0);
         entry_cursor.item_count = 1;
         entry_cursor.wrap = 1;
-        SpriteViewer_Select(entry_cursor, 0);
+        EclView_Select(entry_cursor, 0);
         state = 1;
         position_x = 0.0f;
         position_y = 32.0f;
@@ -123,7 +123,7 @@ int SpriteViewer_0040a940::Update() {
 #pragma code_seg()
 
 #pragma code_seg(".text$b2task")
-int __fastcall SpriteViewer_UpdateTask_0040abe0(SpriteViewer_0040a940* viewer) {
+int __fastcall EclView_UpdateTask_0040abe0(EclView_0040a940* viewer) {
     return viewer->Update();
 }
 #pragma code_seg()

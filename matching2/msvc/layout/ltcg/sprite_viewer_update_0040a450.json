@@ -1,12 +1,12 @@
 {
   "schema_version": 1,
   "name": "sprite_viewer_update_0040a450",
-  "source": "src/game/eclview/sprite_viewer_update_0040a450.cpp",
+  "source": "src/game/eclview/ecl_view_update.cpp",
   "driver": "layout/ltcg/sprite_viewer_update_0040a450/context.cpp",
   "headers": [
-    "include/th10/game/sprite_viewer_update_0040a450.hpp",
-    "include/th10/game/sprite_viewer_teardown_0040a1a0.hpp",
-    "include/th10/game/sprite_viewer_draw_0040a940.hpp",
+    "include/th10/game/ecl_view_update.hpp",
+    "include/th10/game/ecl_view_teardown.hpp",
+    "include/th10/game/ecl_view_draw.hpp",
     "include/th10/game/game_thread_queue_native.hpp",
     "include/th10/render/camera_batch.hpp",
     "include/th10/render/quad_batch.hpp",
@@ -19,16 +19,16 @@
   "description": "SprtView screen update with the screen on the stack and its forwarding scheduler callback, compiled with copies of or stand-ins for every callee so each keeps its private registers.",
   "functions": [
     {
-      "name": "SpriteViewer_Update",
-      "symbol": "?Update@SpriteViewer_0040a940@@QAEHXZ",
+      "name": "EclView_Update",
+      "symbol": "?Update@EclView_0040a940@@QAEHXZ",
       "section": ".text$b1update",
       "address": "0x0040A450",
       "actual_abi": "screen on the stack; RET 4; security cookie",
       "size": 1251
     },
     {
-      "name": "SpriteViewer_UpdateTask",
-      "symbol": "?SpriteViewer_UpdateTask_0040abe0@@YIHPAUSpriteViewer_0040a940@@@Z",
+      "name": "EclView_UpdateTask",
+      "symbol": "?EclView_UpdateTask_0040abe0@@YIHPAUEclView_0040a940@@@Z",
       "section": ".text$b2task",
       "address": "0x0040ABE0",
       "actual_abi": "context in ECX, pushed for the update; plain RET",
@@ -36,7 +36,7 @@
     }
   ],
   "context": {
-    "symbol": "?SpriteViewerUpdateCompilerContext@@YGPAXXZ",
+    "symbol": "?EclViewUpdateCompilerContext@@YGPAXXZ",
     "section": ".text$b3context",
     "address": "0x0040ABF0",
     "size": 6,
@@ -257,12 +257,12 @@
       "kind": "metadata"
     },
     {
-      "symbol": "?SpriteViewer_LoadThread_0040a340@@YGIPAX@Z",
+      "symbol": "?EclView_LoadThread_0040a340@@YGIPAX@Z",
       "address": "0x0040A340",
       "kind": "data"
     },
     {
-      "symbol": "_SpriteViewerStandIn_Callee@4",
+      "symbol": "_EclViewStandIn_Callee@4",
       "address": "0x00426F70",
       "kind": "relative_code"
     },
@@ -302,42 +302,42 @@
       "kind": "data"
     },
     {
-      "symbol": "??1SpriteViewerItems_0040a1a0@@QAE@XZ",
+      "symbol": "??1EclViewItems_0040a1a0@@QAE@XZ",
       "address": "0x004145F0",
       "kind": "relative_code"
     },
     {
-      "symbol": "??1SpriteViewerPlayer_0040a1a0@@QAE@XZ",
+      "symbol": "??1EclViewPlayer_0040a1a0@@QAE@XZ",
       "address": "0x00424ED0",
       "kind": "relative_code"
     },
     {
-      "symbol": "??1SpriteViewerBullets_0040a1a0@@QAE@XZ",
+      "symbol": "??1EclViewBullets_0040a1a0@@QAE@XZ",
       "address": "0x00405F70",
       "kind": "relative_code"
     },
     {
-      "symbol": "??1SpriteViewerLasers_0040a1a0@@QAE@XZ",
+      "symbol": "??1EclViewLasers_0040a1a0@@QAE@XZ",
       "address": "0x00405620",
       "kind": "relative_code"
     },
     {
-      "symbol": "??1SpriteViewerEffects_0040a1a0@@QAE@XZ",
+      "symbol": "??1EclViewEffects_0040a1a0@@QAE@XZ",
       "address": "0x0041ADF0",
       "kind": "relative_code"
     },
     {
-      "symbol": "??1SpriteViewerPopups_0040a1a0@@QAE@XZ",
+      "symbol": "??1EclViewPopups_0040a1a0@@QAE@XZ",
       "address": "0x0042B570",
       "kind": "relative_code"
     },
     {
-      "symbol": "??1SpriteViewerEnemies_0040a940@@QAE@XZ",
+      "symbol": "??1EclViewEnemies_0040a940@@QAE@XZ",
       "address": "0x0040D530",
       "kind": "relative_code"
     },
     {
-      "symbol": "_SpriteViewerStandIn_Callee2@8",
+      "symbol": "_EclViewStandIn_Callee2@8",
       "address": "0x004493E0",
       "kind": "relative_code"
     },
@@ -347,7 +347,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_SpriteViewerStandIn_Init@8",
+      "symbol": "_EclViewStandIn_Init@8",
       "address": "0x0040D830",
       "kind": "relative_code"
     }
@@ -355,133 +355,133 @@
   "anchors": [
     {
       "name": "ReleaseLasers",
-      "symbol": "?SpriteViewer_Release@@YGXPAUSpriteViewerLasers_0040a1a0@@@Z",
+      "symbol": "?EclView_Release@@YGXPAUEclViewLasers_0040a1a0@@@Z",
       "section": ".text$a00",
       "address": "0x00405730",
       "size": 19
     },
     {
       "name": "BulletsReset",
-      "symbol": "?Reset@SpriteViewerBullets_0040a1a0@@QAEXXZ",
+      "symbol": "?Reset@EclViewBullets_0040a1a0@@QAEXXZ",
       "section": ".text$a01",
       "address": "0x00405ED0",
       "size": 22
     },
     {
       "name": "ReleaseBullets",
-      "symbol": "?SpriteViewer_Release@@YGXPAUSpriteViewerBullets_0040a1a0@@@Z",
+      "symbol": "?EclView_Release@@YGXPAUEclViewBullets_0040a1a0@@@Z",
       "section": ".text$a02",
       "address": "0x00406140",
       "size": 19
     },
     {
       "name": "Suspend",
-      "symbol": "?Suspend@SpriteViewerTaskPair_0040a940@@QAEXXZ",
+      "symbol": "?Suspend@EclViewTaskPair_0040a940@@QAEXXZ",
       "section": ".text$a03",
       "address": "0x00409E20",
       "size": 28
     },
     {
       "name": "ClearScriptNames",
-      "symbol": "?ClearScriptNames@SpriteViewer_0040a940@@QAEXXZ",
+      "symbol": "?ClearScriptNames@EclView_0040a940@@QAEXXZ",
       "section": ".text$a04",
       "address": "0x00409EB0",
       "size": 86
     },
     {
       "name": "EnemiesClear",
-      "symbol": "?Clear@SpriteViewerEnemies_0040a940@@QAEXXZ",
+      "symbol": "?Clear@EclViewEnemies_0040a940@@QAEXXZ",
       "section": ".text$a05",
       "address": "0x00409F90",
       "size": 91
     },
     {
       "name": "PlayerSuspendAndStop",
-      "symbol": "?SuspendAndStop@SpriteViewerPlayer_0040a1a0@@QAEXXZ",
+      "symbol": "?SuspendAndStop@EclViewPlayer_0040a1a0@@QAEXXZ",
       "section": ".text$a06",
       "address": "0x0040A010",
       "size": 36
     },
     {
       "name": "InputUpdate",
-      "symbol": "?Update@SpriteViewerInput_0040a450@@QAEGXZ",
+      "symbol": "?Update@EclViewInput_0040a450@@QAEGXZ",
       "section": ".text$c00",
       "address": "0x0040AC20",
       "size": 109
     },
     {
       "name": "SetGameMode",
-      "symbol": "?SpriteViewer_SetGameMode_0040ac90@@YGXPAUSpriteViewerGameState_0040a450@@H@Z",
+      "symbol": "?EclView_SetGameMode_0040ac90@@YGXPAUEclViewGameState_0040a450@@H@Z",
       "section": ".text$c01",
       "address": "0x0040AC90",
       "size": 37
     },
     {
       "name": "MaskActive",
-      "symbol": "?MaskActive@SpriteViewerInput_0040a450@@QAEGG@Z",
+      "symbol": "?MaskActive@EclViewInput_0040a450@@QAEGG@Z",
       "section": ".text$c02",
       "address": "0x0040ACE0",
       "size": 33
     },
     {
       "name": "EnemiesSpawn",
-      "symbol": "?Create@SpriteViewerSpawn_0040a450@@QAEXPAUSpriteViewerEnemies_0040a940@@PBD@Z",
+      "symbol": "?Create@EclViewSpawn_0040a450@@QAEXPAUEclViewEnemies_0040a940@@PBD@Z",
       "section": ".text$c03",
       "address": "0x0040CFB0",
       "size": 98
     },
     {
       "name": "EnemiesSuspendTasks",
-      "symbol": "?SuspendTasks@SpriteViewerEnemies_0040a940@@QAEXXZ",
+      "symbol": "?SuspendTasks@EclViewEnemies_0040a940@@QAEXXZ",
       "section": ".text$c04",
       "address": "0x0040D510",
       "size": 28
     },
     {
       "name": "ReleaseEnemies",
-      "symbol": "?SpriteViewer_Release@@YGXPAUSpriteViewerEnemies_0040a940@@@Z",
+      "symbol": "?EclView_Release@@YGXPAUEclViewEnemies_0040a940@@@Z",
       "section": ".text$c05",
       "address": "0x0040D730",
       "size": 19
     },
     {
       "name": "ItemsReset",
-      "symbol": "?Reset@SpriteViewerItems_0040a1a0@@QAEXXZ",
+      "symbol": "?Reset@EclViewItems_0040a1a0@@QAEXXZ",
       "section": ".text$c06",
       "address": "0x00413BC0",
       "size": 61
     },
     {
       "name": "ReleaseItems",
-      "symbol": "?SpriteViewer_Release@@YGXPAUSpriteViewerItems_0040a1a0@@@Z",
+      "symbol": "?EclView_Release@@YGXPAUEclViewItems_0040a1a0@@@Z",
       "section": ".text$c07",
       "address": "0x004148E0",
       "size": 19
     },
     {
       "name": "ReleaseEffects",
-      "symbol": "?SpriteViewer_Release@@YGXPAUSpriteViewerEffects_0040a1a0@@@Z",
+      "symbol": "?EclView_Release@@YGXPAUEclViewEffects_0040a1a0@@@Z",
       "section": ".text$c08",
       "address": "0x0041AFB0",
       "size": 19
     },
     {
       "name": "PlayerReset",
-      "symbol": "?Reset@SpriteViewerPlayer_0040a1a0@@QAEXXZ",
+      "symbol": "?Reset@EclViewPlayer_0040a1a0@@QAEXXZ",
       "section": ".text$c09",
       "address": "0x00424D90",
       "size": 22
     },
     {
       "name": "ReleasePlayer",
-      "symbol": "?SpriteViewer_Release@@YGXPAUSpriteViewerPlayer_0040a1a0@@@Z",
+      "symbol": "?EclView_Release@@YGXPAUEclViewPlayer_0040a1a0@@@Z",
       "section": ".text$c10",
       "address": "0x00425090",
       "size": 19
     },
     {
       "name": "ReleasePopups",
-      "symbol": "?SpriteViewer_Release@@YGXPAUSpriteViewerPopups_0040a1a0@@@Z",
+      "symbol": "?EclView_Release@@YGXPAUEclViewPopups_0040a1a0@@@Z",
       "section": ".text$c11",
       "address": "0x0042B6D0",
       "size": 19

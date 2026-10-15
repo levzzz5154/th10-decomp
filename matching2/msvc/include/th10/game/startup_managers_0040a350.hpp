@@ -18,4 +18,4 @@ typedef char StartupState_script_index_is_114[
     offsetof(FactoryCallerState, script_index_114) == 0x114 ? 1 : -1];
 typedef char StartupState_menu_is_1ec[
     offsetof(FactoryCallerState, menu_1ec) == 0x1EC ? 1 : -1];
-extern "C" FactoryCallerState *data_004776f8;
+extern "C" FactoryCallerState *g_ecl_view;

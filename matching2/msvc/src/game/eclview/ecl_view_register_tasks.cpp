@@ -23,7 +23,7 @@ extern "C" unsigned char data_00474c80;
 
 #pragma code_seg(".text$00_ystatereg")
 extern "C" __declspec(noinline) int __stdcall
-SpriteViewer_RegisterTasks(RawState_0040a130 *state) {
+EclView_RegisterTasks(RawState_0040a130 *state) {
     *(void **)&data_00477848 = (void *)0x474788;
     *(unsigned int *)&data_00474c7c = 0;
     *(unsigned int *)&data_00474c80 = 0;
