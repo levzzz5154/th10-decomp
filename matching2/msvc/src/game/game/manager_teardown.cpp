@@ -309,7 +309,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00417c80_00417c80() {
     L_00417e9d:
         push esi
     L_00417e9e:
-        call asm_ScoreExtendedObject_DestroyRetail_0041c1c0
+        call asm_LaserManager_Destroy_0041c1c0
     L_00417ea3:
         push esi
     L_00417ea4:

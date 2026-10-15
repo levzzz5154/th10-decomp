@@ -1,6 +1,6 @@
-// 0x0041C120..0x0041C1B1 (146 bytes): asm_ScoreDisplay_RegisterTasksRetail_0041c120
+// 0x0041C120..0x0041C1B1 (146 bytes): LaserManager_RegisterTasks
 //
-// Loads the score display resource, then creates and registers the two
+// Loads the laser resource, then creates and registers the two
 // scheduler callbacks that drive it; a failure to load the resource is logged
 // through the constant text log and reported as -1.
 //
@@ -12,18 +12,18 @@
 // layout/ltcg/bullet_manager_load_scripts_0040ae70.json).
 #include "th10/game/scheduler.hpp"
 
-struct RawManager_0041c290 {
+struct LaserManagerView {
     unsigned char pad_000[0x08];
     void *primary_task_008;             // +0x008, primary display task
     void *secondary_task_00C;           // +0x00C, secondary display task
-    unsigned char score_010[0x424];     // +0x010, embedded score object
-    void *score_pointer_434;            // +0x434, address of the embedded object
+    unsigned char head_laser_010[0x424];     // +0x010, embedded head laser (base Laser)
+    void *head_laser_pointer_434;            // +0x434, address of the embedded object
     unsigned char pad_438[0x20];
     void *display_resource_458;         // +0x458, filled by this routine
 };
 
-typedef char RawManager_0041c290_size_must_be_45c[
-    sizeof(RawManager_0041c290) == 0x45C ? 1 : -1];
+typedef char LaserManagerView_size_must_be_45c[
+    sizeof(LaserManagerView) == 0x45C ? 1 : -1];
 
 // Declared here exactly as the co-compiled TextLog translation unit defines it,
 // so the whole-program pass can pick the register agreement retail used.
@@ -41,10 +41,10 @@ extern "C" void *data_00491c10;
 extern "C" Scheduler *data_00491be4;
 
 extern "C" __declspec(noinline) int __stdcall
-asm_ScoreDisplay_RegisterTasksRetail_0041c120(RawManager_0041c290 *manager);
+LaserManager_RegisterTasks(LaserManagerView *manager);
 #pragma code_seg(".text$00gascoredisplay")
 extern "C" __declspec(noinline) int __stdcall
-asm_ScoreDisplay_RegisterTasksRetail_0041c120(RawManager_0041c290 *manager) {
+LaserManager_RegisterTasks(LaserManagerView *manager) {
     void *resource = Recovery_LoadCachedResource_00447280(
             7, data_00491c10, (const char *)0x46CD88);
     manager->display_resource_458 = resource;
@@ -64,7 +64,7 @@ asm_ScoreDisplay_RegisterTasksRetail_0041c120(RawManager_0041c290 *manager) {
     secondary->context = manager;
     Scheduler_RegisterSecondary(data_00491be4, secondary, 0x1B);
     manager->secondary_task_00C = secondary;
-    manager->score_pointer_434 = manager->score_010;
+    manager->head_laser_pointer_434 = manager->head_laser_010;
     return 0;
 }
 #pragma code_seg()

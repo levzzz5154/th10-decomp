@@ -1,6 +1,6 @@
 #pragma once
 // 0x0041C800..0x0041C84B (76 bytes):
-//   ?CopyVectorAndEvaluate@ScoreRecords_0041c800@@QAEHPBMMH@Z
+//   ?CopyVectorAndEvaluate@LaserManager_0041c800@@QAEHPBMMH@Z
 //
 // Copies the caller's three-component vector into the record area at this+0x440
 // and then walks the linked record list rooted at this+0x18, adding up what each
@@ -28,7 +28,7 @@
 // synthetic caller supplies that register state.
 #include <stddef.h>
 
-struct ScoreLinkedRecord_0041c800 {
+struct LaserListNode_0041c800 {
     // Vtable slot 7 (byte offset 0x1C) is the evaluator; slots 0..6 belong to
     // the other record operations and are never named here.
     virtual int Slot00();
@@ -41,15 +41,15 @@ struct ScoreLinkedRecord_0041c800 {
     virtual int Slot1C(const float* vector, float value, int flag);
 
     unsigned char reserved_004[4];              // +0x04
-    ScoreLinkedRecord_0041c800* next;           // +0x08
+    LaserListNode_0041c800* next;           // +0x08
     int type;                                   // +0x0C, 1 marks a retired record
 };
 
 struct Vector3_0041c800 { float x; float y; float z; };
 
-struct ScoreRecords_0041c800 {
+struct LaserManager_0041c800 {
     unsigned char reserved_000[0x18];
-    ScoreLinkedRecord_0041c800* linked_head;    // +0x18
+    LaserListNode_0041c800* linked_head;    // +0x18
     unsigned char reserved_01C[0x440 - 0x1C];
     Vector3_0041c800 vector_440;                // +0x440
 
@@ -57,11 +57,11 @@ struct ScoreRecords_0041c800 {
                                                    int flag);
 };
 
-typedef char ScoreRecords_0041c800_head_must_be_18[
-    (offsetof(ScoreRecords_0041c800, linked_head) == 0x18) ? 1 : -1];
-typedef char ScoreRecords_0041c800_vector_must_be_440[
-    (offsetof(ScoreRecords_0041c800, vector_440) == 0x440) ? 1 : -1];
-typedef char ScoreLinkedRecord_0041c800_next_must_be_8[
-    (offsetof(ScoreLinkedRecord_0041c800, next) == 0x08) ? 1 : -1];
-typedef char ScoreLinkedRecord_0041c800_type_must_be_c[
-    (offsetof(ScoreLinkedRecord_0041c800, type) == 0x0C) ? 1 : -1];
+typedef char LaserManager_0041c800_head_must_be_18[
+    (offsetof(LaserManager_0041c800, linked_head) == 0x18) ? 1 : -1];
+typedef char LaserManager_0041c800_vector_must_be_440[
+    (offsetof(LaserManager_0041c800, vector_440) == 0x440) ? 1 : -1];
+typedef char LaserListNode_0041c800_next_must_be_8[
+    (offsetof(LaserListNode_0041c800, next) == 0x08) ? 1 : -1];
+typedef char LaserListNode_0041c800_type_must_be_c[
+    (offsetof(LaserListNode_0041c800, type) == 0x0C) ? 1 : -1];

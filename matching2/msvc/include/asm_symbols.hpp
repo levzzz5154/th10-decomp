@@ -1987,10 +1987,10 @@ extern "C" void __cdecl asm_Scheduler_RegisterSecondary_00449b70();
 #define VA_asm_Scheduler_RegisterSecondary_00449b70 0x00449b70
 extern "C" void __cdecl asm_Scheduler_Remove_00449f60();
 #define VA_asm_Scheduler_Remove_00449f60 0x00449f60
-extern "C" void __cdecl asm_ScoreDisplay_RegisterTasksRetail_0041c120();
-#define VA_asm_ScoreDisplay_RegisterTasksRetail_0041c120 0x0041c120
-extern "C" void __cdecl asm_ScoreExtendedObject_DestroyRetail_0041c1c0();
-#define VA_asm_ScoreExtendedObject_DestroyRetail_0041c1c0 0x0041c1c0
+extern "C" void __cdecl LaserManager_RegisterTasks();
+#define VA_LaserManager_RegisterTasks 0x0041c120
+extern "C" void __cdecl asm_LaserManager_Destroy_0041c1c0();
+#define VA_asm_LaserManager_Destroy_0041c1c0 0x0041c1c0
 extern "C" void __cdecl asm_ScoreExtendedObject_Initialize_0041c5b0();
 #define VA_asm_ScoreExtendedObject_Initialize_0041c5b0 0x0041c5b0
 extern "C" void __cdecl asm_ScoreFile_InitializeDefaultsRetail_0042acb0();
@@ -2005,10 +2005,10 @@ extern "C" void __cdecl asm_ScoreGauge_SetTargetTenthAndDisableTimer_00418b80();
 #define VA_asm_ScoreGauge_SetTargetTenthAndDisableTimer_00418b80 0x00418b80
 extern "C" void __cdecl asm_ScoreList_InsertAfter_00413200();
 #define VA_asm_ScoreList_InsertAfter_00413200 0x00413200
-extern "C" void * __cdecl asm_ScoreManager_CreateAndInitRetail_0041c290(void);
-#define VA_asm_ScoreManager_CreateAndInitRetail_0041c290 0x0041c290
-extern "C" void __cdecl asm_ScoreObject_Initialize_0041c030();
-#define VA_asm_ScoreObject_Initialize_0041c030 0x0041c030
+extern "C" void * __cdecl LaserManager_Create(void);
+#define VA_LaserManager_Create 0x0041c290
+extern "C" void __cdecl asm_Laser_Construct_0041c030();
+#define VA_asm_Laser_Construct_0041c030 0x0041c030
 extern "C" void __cdecl asm_ScoreOwnedObject_Destroy_0040b9d0();
 #define VA_asm_ScoreOwnedObject_Destroy_0040b9d0 0x0040b9d0
 extern "C" void __cdecl asm_ScoreRecords_CopyVectorAndEvaluate_0041c800();

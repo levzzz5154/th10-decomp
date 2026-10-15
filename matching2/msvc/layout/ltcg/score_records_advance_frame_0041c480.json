@@ -1,26 +1,26 @@
 {
   "schema_version": 1,
   "name": "score_records_advance_frame_0041c480",
-  "source": "src/game/laser/score_display_on_update.cpp",
+  "source": "src/game/laser/laser_manager_on_update.cpp",
   "driver": "layout/ltcg/score_records_advance_frame_0041c480_context.cpp",
   "headers": [
-    "include/th10/game/score_record_list.hpp"
+    "include/th10/game/laser_list.hpp"
   ],
   "image_base": "0x00400000",
   "description": "The score display's per-frame record advance and the record list tick it calls, compiled with native LTCG so the records object arrives in ECX and the 0x0041C330 call receives it in EDI.",
   "functions": [
     {
       "name": "ScoreRecords_Tick",
-      "symbol": "_ScoreRecords_Tick_0041c330",
-      "source": "src/game/laser/score_records_tick_0041c330.cpp",
+      "symbol": "_LaserManager_UpdateLasers",
+      "source": "src/game/laser/laser_manager_update_lasers.cpp",
       "section": ".text$01callee",
       "address": "0x0041C330",
       "size": 274,
       "actual_abi": "records in EDI; returns 1 in EAX; plain RET"
     },
     {
-      "name": "ScoreRecords_0041c480_AdvanceFrame",
-      "symbol": "?AdvanceFrame@ScoreRecords_0041c480@@QAEHXZ",
+      "name": "LaserManager_OnUpdate",
+      "symbol": "?AdvanceFrame@LaserManagerUpdateView@@QAEHXZ",
       "section": ".text$03advance",
       "address": "0x0041C480",
       "size": 91,
@@ -28,7 +28,7 @@
     }
   ],
   "roots": [
-    "?AdvanceFrame@ScoreRecords_0041c480@@QAEHXZ"
+    "?AdvanceFrame@LaserManagerUpdateView@@QAEHXZ"
   ],
   "context": {
     "symbol": "?ScoreRecordsAdvanceFrameCompilerContext@@YGHXZ",
@@ -98,7 +98,7 @@
     }
   ],
   "additional_sources": [
-    "src/game/laser/score_records_tick_0041c330.cpp"
+    "src/game/laser/laser_manager_update_lasers.cpp"
   ],
   "constant_aliases": [
     {

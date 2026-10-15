@@ -1,4 +1,4 @@
-// 0x0041C7D0..0x0041C7FB: mark linked score records eligible for removal.
+// 0x0041C7D0..0x0041C7FB: mark linked lasers eligible for removal.
 //
 // The retail caller supplies the score-record owner in EAX. Native LTCG
 // context (layout/ltcg/score_records_mark_eligible_0041c7d0.json) preserves

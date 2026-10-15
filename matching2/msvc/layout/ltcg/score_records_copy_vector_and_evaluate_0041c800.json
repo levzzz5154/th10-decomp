@@ -8,8 +8,8 @@
   "description": "Score-record vector copy and linked-record evaluation compiled with native LTCG so the internal retail convention is reproduced: receiver in EAX, vector in EBX, the float value and the int flag on the stack, result in EAX and RET 8.",
   "functions": [
     {
-      "name": "ScoreRecords_0041c800_CopyVectorAndEvaluate",
-      "symbol": "?CopyVectorAndEvaluate@ScoreRecords_0041c800@@QAEHPBMMH@Z",
+      "name": "LaserManager_0041c800_CopyVectorAndEvaluate",
+      "symbol": "?CopyVectorAndEvaluate@LaserManager_0041c800@@QAEHPBMMH@Z",
       "section": ".text$01accessor",
       "address": "0x0041C800",
       "size": 76,

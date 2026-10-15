@@ -38,7 +38,7 @@
   "constants": [],
   "absolute_symbols": [
     {
-      "symbol": "_asm_ScoreExtendedObject_DestroyRetail_0041c1c0@4",
+      "symbol": "_asm_LaserManager_Destroy_0041c1c0@4",
       "address": "0x41C1C0",
       "kind": "relative_code"
     },

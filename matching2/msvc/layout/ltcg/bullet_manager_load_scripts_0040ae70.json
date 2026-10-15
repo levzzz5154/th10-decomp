@@ -8,7 +8,7 @@
     "src/game/loading/loading_load_startup_resources.cpp",
     "src/game/pause/pause_release.cpp",
     "src/game/enemy/message_host_init.cpp",
-    "src/game/laser/object_factories.cpp",
+    "src/game/laser/laser_manager_create.cpp",
     "src/game/fps/platform_release_owned_handle_00413450.cpp",
     "src/game/bomb/bomb_create.cpp",
     "src/game/item/recovery_install_pair_clear_flags_0041ad90.cpp",
@@ -18,9 +18,9 @@
     "src/core/zunlib/scheduler_create_and_register_secondary_0044a030.cpp",
     "src/core/screen/scheduler_release_task_pair_0043cb00.cpp",
     "src/core/zunlib/scheduler_tasks.cpp",
-    "src/game/laser/score_display_register_tasks_retail_0041c120.cpp",
-    "src/game/laser/score_extended_object_destroy_0041c1c0.cpp",
-    "src/game/laser/score_object_initialize_0041c030.cpp",
+    "src/game/laser/laser_manager_register_tasks.cpp",
+    "src/game/laser/laser_manager_destroy.cpp",
+    "src/game/laser/laser_construct.cpp",
     "src/game/front/task_registration.cpp",
     "src/game/title/title_register_tasks_0042caa0.cpp",
     "src/core/zunlib/joystick_probe.cpp",
@@ -48,7 +48,7 @@
     "_Recovery_ReleaseRawPair@4",
     "_Bomb_Release@4",
     "_Effect_Release@4",
-    "_ScoreExtendedObject_DestroyRetail@4",
+    "_LaserManager_Destroy@4",
     "_Manager_Release_00422220@4",
     "_TitleLoadThread_0042c9f0"
   ],
@@ -132,13 +132,13 @@
       "actual_abi": "pair in EBX across both registration calls; result in EAX; plain RET"
     },
     {
-      "name": "ScoreObject_Initialize_0041c030",
-      "symbol": "?ScoreObject_Initialize@@YIPAUScoreObject@@PAXPAU1@@Z",
+      "name": "Laser_Construct_0041c030",
+      "symbol": "?Laser_Construct@@YIPAULaserBaseView@@PAXPAU1@@Z",
       "section": ".text$00fascoreobjinit",
       "address": "0x0041C030",
       "size": 98,
       "actual_abi": "object in EDX; unused ECX slot; result in EAX; plain RET",
-      "source": "src/game/laser/score_object_initialize_0041c030.cpp"
+      "source": "src/game/laser/laser_construct.cpp"
     },
     {
       "name": "InitializeManager_0041c100",
@@ -150,22 +150,22 @@
       "source": "src/unreferenced/unassigned_0041c100.cpp"
     },
     {
-      "name": "ScoreDisplay_RegisterTasks_0041c120",
-      "symbol": "_asm_ScoreDisplay_RegisterTasksRetail_0041c120@4",
+      "name": "LaserManager_RegisterTasks_0041c120",
+      "symbol": "_LaserManager_RegisterTasks@4",
       "section": ".text$00gascoredisplay",
       "address": "0x0041C120",
       "size": 146,
       "actual_abi": "manager in EBX; result in EAX; plain RET",
-      "source": "src/game/laser/score_display_register_tasks_retail_0041c120.cpp"
+      "source": "src/game/laser/laser_manager_register_tasks.cpp"
     },
     {
       "name": "ScoreManager_CreateAndInit_0041c290",
-      "symbol": "_asm_ScoreManager_CreateAndInitRetail_0041c290",
+      "symbol": "_LaserManager_Create",
       "section": ".text$00gbscoremanager",
       "address": "0x0041C290",
       "size": 91,
       "actual_abi": "manager in ESI; registration call receives it in EBX; result in EAX; plain RET",
-      "source": "src/game/laser/object_factories.cpp"
+      "source": "src/game/laser/laser_manager_create.cpp"
     },
     {
       "name": "Scheduler_RegisterPrimary",
@@ -349,12 +349,12 @@
     },
     {
       "name": "ScoreExtendedObject_DestroyRetail_0041c1c0",
-      "symbol": "_ScoreExtendedObject_DestroyRetail@4",
+      "symbol": "_LaserManager_Destroy@4",
       "section": ".text$00gascoredisplayzd",
       "address": "0x0041C1C0",
       "size": 195,
       "actual_abi": "stdcall; object on the stack",
-      "source": "src/game/laser/score_extended_object_destroy_0041c1c0.cpp"
+      "source": "src/game/laser/laser_manager_destroy.cpp"
     },
     {
       "name": "Manager_Release_00422220_00422220",
@@ -664,7 +664,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_asm_ScoreExtendedObject_DestroyRetail_0041c1c0@4",
+      "symbol": "_asm_LaserManager_Destroy_0041c1c0@4",
       "address": "0x0041C1C0",
       "kind": "relative_code"
     },

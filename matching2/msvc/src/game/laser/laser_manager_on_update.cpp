@@ -1,6 +1,6 @@
-// 0x0041C480..0x0041C4DA (91 bytes): per-frame advance of the score records.
+// 0x0041C480..0x0041C4DA (91 bytes): per-frame advance of the lasers.
 //
-// The score display installs this very address as its primary scheduler task
+// The laser manager installs this very address as its primary scheduler task
 // (0x0041C120 does), so the callback runs once per frame: it advances the linked
 // record list at +0x18 through 0x0041C330 and returns that call's result.  The
 // frame state published at data_00477810 says when the display must not advance
@@ -21,7 +21,7 @@
 // 0x0041C330 in EDI; EDI is not the parameter register of any declaration, so
 // the body is compiled in the native-LTCG cluster
 // layout/ltcg/score_records_advance_frame_0041c480.json together with that
-// callee (src/game/laser/score_records_tick_0041c330.cpp).
+// callee (src/game/laser/laser_manager_update_lasers.cpp).
 #include <stddef.h>
 
 // The frame state at data_00477810; only the flag word this region reads is
@@ -40,17 +40,17 @@ struct FrameState_0041c480 {
     FrameFlagBits_0041c480 flags_58;    // +0x58
 };
 
-#include "th10/game/score_record_list.hpp"
+#include "th10/game/laser_list.hpp"
 
 extern "C" FrameState_0041c480* data_00477810;
 extern "C" float data_00476f78;
 
-// 0x0041C330 (src/game/laser/score_records_tick_0041c330.cpp).  Its records object
+// 0x0041C330 (src/game/laser/laser_manager_update_lasers.cpp).  Its records object
 // arrives in EDI: this region, its only caller, sets it there.
-extern "C" int __cdecl ScoreRecords_Tick_0041c330(ScoreRecords_0041c480* records);
+extern "C" int __cdecl LaserManager_UpdateLasers(LaserManagerUpdateView* records);
 
 #pragma code_seg(".text$03advance")
-int ScoreRecords_0041c480::AdvanceFrame() {
+int LaserManagerUpdateView::AdvanceFrame() {
     if (data_00477810->flags_58.paused | data_00477810->flags_58.idle)
         return 1;
     if (data_00477810->flags_58.deferred)
@@ -58,10 +58,10 @@ int ScoreRecords_0041c480::AdvanceFrame() {
     if (data_00477810->flags_58.frozen) {
         float saved = data_00476f78;
         data_00476f78 = 0.0f;
-        int result = ScoreRecords_Tick_0041c330(this);
+        int result = LaserManager_UpdateLasers(this);
         data_00476f78 = saved;
         return result;
     }
-    return ScoreRecords_Tick_0041c330(this);
+    return LaserManager_UpdateLasers(this);
 }
 #pragma code_seg()
