@@ -10,42 +10,49 @@ static __forceinline AnimationObject* ResolveOrClear(unsigned int* handle) {
     return object;
 }
 
+// A fixed-point position as a world position at depth 0.
+static __forceinline Vector3 ToWorldPosition(const FixedPoint& point) {
+    Vector3 value = {point.x * 0.01f, point.y * 0.01f, 0.0f};
+    return value;
+}
+
+// 0x00427E90: fire one shot from the first free bullet slot.
 #pragma code_seg(".text$f00427e90F")
 extern "C" __declspec(noinline) int __stdcall StageSchedule_Fire_00427e90(
-        PlayerState* player, PickupDescriptor* descriptor, int frame) {
-    PickupRecord* effect = player->pickups;
-    if (descriptor->type == 3 && player->active_by_ordinal[descriptor->ordinal])
+        Player* player, ShotDefinition* shot, int frame) {
+    PlayerBullet* bullet = player->bullets;
+    if (shot->kind == SHOT_LASER && player->laser_active[shot->option])
         return 0;
-    for (int index = 0; index < 128; ++index, ++effect) {
-        if (effect->state == 0) {
-            effect->state = 1;
-            effect->descriptor = descriptor;
-            if (!(effect->clock.flags & 1)) {
-                effect->clock.current = 0;
-                effect->clock.previous = -999999;
-                effect->clock.elapsed = 0.0f;
-                effect->clock.speed = &g_score_default_speed;
-                effect->clock.flags |= 1;
+    for (int index = 0; index < 128; ++index, ++bullet) {
+        if (bullet->state == 0) {
+            bullet->state = 1;
+            bullet->definition = shot;
+            if (!(bullet->timer.flags & 1)) {
+                bullet->timer.current = 0;
+                bullet->timer.previous = -999999;
+                bullet->timer.elapsed = 0.0f;
+                bullet->timer.speed = &g_score_default_speed;
+                bullet->timer.flags |= 1;
             }
-            effect->clock.current = 0;
-            effect->clock.elapsed = 0.0f;
-            effect->clock.previous = -1;
-            if (descriptor->ordinal == 0) {
-                effect->motion.position = player->spawn_origin;
+            bullet->timer.current = 0;
+            bullet->timer.elapsed = 0.0f;
+            bullet->timer.previous = -1;
+            if (shot->option == 0) {
+                bullet->motion.position = player->position;
             } else {
-                ScheduledFamiliar* familiar = &player->familiars[descriptor->ordinal - 1];
-                effect->motion.position = familiar->position.ToWorldPosition();
+                PlayerOption* option = &player->options[shot->option - 1];
+                bullet->motion.position = ToWorldPosition(option->position);
             }
-            if (descriptor->type == 3)
-                player->active_by_ordinal[descriptor->ordinal] = 1;
-            effect->motion.speed = descriptor->spawn_speed;
-            effect->motion.angle = NormalizeAngle(descriptor->spawn_angle);
-            effect->motion.Update();
-            effect->motion.position.x += descriptor->spawn_offset.x - effect->motion.velocity.x;
-            effect->motion.position.y += descriptor->spawn_offset.y - effect->motion.velocity.y;
+            if (shot->kind == SHOT_LASER)
+                player->laser_active[shot->option] = 1;
+            bullet->motion.speed = shot->speed;
+            bullet->motion.angle = NormalizeAngle(shot->angle);
+            bullet->motion.Update();
+            bullet->motion.position.x += shot->offset.x - bullet->motion.velocity.x;
+            bullet->motion.position.y += shot->offset.y - bullet->motion.velocity.y;
 
-            int script = descriptor->spawn_script + 5;
-            void* resource = player->animation_resource;
+            int script = shot->animation + 5;
+            void* resource = player->animation_file;
             Entity* object = static_cast<AnimationPool*>(data_00491c10)->Allocate();
             unsigned int flags = object->flags_35C;
             object->render_bucket = 15;
@@ -53,31 +60,31 @@ extern "C" __declspec(noinline) int __stdcall StageSchedule_Fire_00427e90(
             static_cast<AnimationResource_00449870*>(resource)
                 ->InitializeObject(object, script);
             AnimationRef id = static_cast<AnimationLists*>(data_00491c10)->RegisterPrimaryBack(object);
-            // The shared record declares its handles volatile for the effect update.
-            const_cast<unsigned int&>(effect->handle.value) = id.value;
-            AnimationObject* primary = ResolveOrClear(const_cast<unsigned int*>(&effect->handle.value));
+            // The shared record declares its handles volatile for the bullet update.
+            const_cast<unsigned int&>(bullet->animation.value) = id.value;
+            AnimationObject* primary = ResolveOrClear(const_cast<unsigned int*>(&bullet->animation.value));
             if (primary->flags & 0x8000000) {
-                primary->angle = descriptor->spawn_angle;
+                primary->angle = shot->angle;
                 primary->flags |= 4;
             }
-            if (descriptor->type == 3) {
-                void* secondary_resource = player->animation_resource;
-                Entity* secondary = static_cast<AnimationPool*>(data_00491c10)->Allocate();
-                unsigned int secondary_flags = secondary->flags_35C;
-                secondary->render_bucket = 15;
-                secondary->flags_35C = secondary_flags | 0x40000000u;
-                static_cast<AnimationResource_00449870*>(secondary_resource)
-                    ->InitializeObject(secondary, 16);
-                AnimationRef secondary_id = static_cast<AnimationLists*>(data_00491c10)
-                    ->RegisterPrimaryBack(secondary);
-                effect->secondary_handle.value = secondary_id.value;
+            if (shot->kind == SHOT_LASER) {
+                void* laser_resource = player->animation_file;
+                Entity* laser = static_cast<AnimationPool*>(data_00491c10)->Allocate();
+                unsigned int laser_flags = laser->flags_35C;
+                laser->render_bucket = 15;
+                laser->flags_35C = laser_flags | 0x40000000u;
+                static_cast<AnimationResource_00449870*>(laser_resource)
+                    ->InitializeObject(laser, 16);
+                AnimationRef laser_id = static_cast<AnimationLists*>(data_00491c10)
+                    ->RegisterPrimaryBack(laser);
+                bullet->laser_animation.value = laser_id.value;
             } else {
-                effect->secondary_handle.value = 0;
+                bullet->laser_animation.value = 0;
             }
-            if (descriptor->spawn_callback)
-                descriptor->spawn_callback(player, effect, frame);
-            if (descriptor->spawn_sound >= 0)
-                data_00492590.QueuePan(descriptor->spawn_sound, effect->motion.position.x);
+            if (shot->on_fire)
+                shot->on_fire(player, bullet, frame);
+            if (shot->sound >= 0)
+                data_00492590.QueuePan(shot->sound, bullet->motion.position.x);
             return 0;
         }
     }

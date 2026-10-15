@@ -1,7 +1,7 @@
 #include "effect_update.hpp"
 
 #pragma code_seg(".text$f00409e50F")
-void PickupHandle::StopAtFrame1() {
+void PlayerAnimationHandle::StopAtFrame1() {
     AnimationRef id(value);
     AnimationObject *object = static_cast<AnimationContext*>(data_00491c10)->Find(id);
     if (object) {
@@ -13,7 +13,7 @@ void PickupHandle::StopAtFrame1() {
 }
 #pragma code_seg()
 #pragma code_seg(".text$f0040c4d0F")
-void PickupHandle::StopAtFrame3() {
+void PlayerAnimationHandle::StopAtFrame3() {
     AnimationRef id(value);
     AnimationObject *object = static_cast<AnimationContext*>(data_00491c10)->Find(id);
     if (object) {

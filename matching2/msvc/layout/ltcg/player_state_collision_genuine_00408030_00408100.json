@@ -50,7 +50,9 @@
     "layout/ltcg/player_state_collision_runtime/movement.hpp",
     "layout/ltcg/player_state_collision_runtime/movement_input.hpp",
     "include/th10/game/power_display_004054b0.hpp",
-    "include/th10/render/animation_object_0043e5a0.hpp"
+    "include/th10/render/animation_object_0043e5a0.hpp",
+    "include/th10/game/player.hpp",
+    "include/th10/math/timer.hpp"
   ],
   "image_base": "0x400000",
   "functions": [
@@ -90,7 +92,7 @@
     },
     {
       "name": "function_00428630",
-      "symbol": "?Sweep@PickupSweepResult@@QAEHPAUPlayerState@@PBUPickupPoint@@1@Z",
+      "symbol": "?Sweep@PickupSweepResult@@QAEHPAUPlayer@@PBUPickupPoint@@1@Z",
       "section": ".text$f00428630F",
       "address": "0x428630",
       "size": 1170,
@@ -117,7 +119,7 @@
     },
     {
       "name": "function_004250b0",
-      "symbol": "?Move@PlayerState@@QAEHXZ",
+      "symbol": "?Move@Player@@QAEHXZ",
       "section": ".text$f004250b0F",
       "address": "0x4250b0",
       "size": 1656,
@@ -163,21 +165,21 @@
     },
     {
       "name": "function_0040c480",
-      "symbol": "?StopAtFrame2@PickupHandle@@QAEXXZ",
+      "symbol": "?StopAtFrame2@PlayerAnimationHandle@@QAEXXZ",
       "section": ".text$f0040c480F",
       "address": "0x40c480",
       "size": 65
     },
     {
       "name": "function_00449450",
-      "symbol": "?Validate@PickupHandle@@QAEPAUPickupAnimation@@XZ",
+      "symbol": "?Validate@PlayerAnimationHandle@@QAEPAUPickupAnimation@@XZ",
       "section": ".text$f00449450F",
       "address": "0x449450",
       "size": 21
     },
     {
       "name": "function_00449630",
-      "symbol": "?Retire@PickupHandle@@QAEXXZ",
+      "symbol": "?Retire@PlayerAnimationHandle@@QAEXXZ",
       "section": ".text$f00449630F",
       "address": "0x449630",
       "size": 21
@@ -233,14 +235,14 @@
     },
     {
       "name": "function_00409e50",
-      "symbol": "?StopAtFrame1@PickupHandle@@QAEXXZ",
+      "symbol": "?StopAtFrame1@PlayerAnimationHandle@@QAEXXZ",
       "section": ".text$f00409e50F",
       "address": "0x409e50",
       "size": 65
     },
     {
       "name": "function_0040c4d0",
-      "symbol": "?StopAtFrame3@PickupHandle@@QAEXXZ",
+      "symbol": "?StopAtFrame3@PlayerAnimationHandle@@QAEXXZ",
       "section": ".text$f0040c4d0F",
       "address": "0x40c4d0",
       "size": 65
@@ -261,7 +263,7 @@
     },
     {
       "name": "function_00428160",
-      "symbol": "?Dispatch@PlayerState@@QAEHH@Z",
+      "symbol": "?FireShots@Player@@QAEHH@Z",
       "section": ".text$f00428160F",
       "address": "0x428160",
       "size": 105
@@ -275,7 +277,7 @@
     },
     {
       "name": "function_004281d0",
-      "symbol": "?UpdateSequence@PlayerState@@QAEHXZ",
+      "symbol": "?UpdateShooting@Player@@QAEHXZ",
       "section": ".text$f004281d0F",
       "address": "0x4281d0",
       "size": 174
@@ -359,14 +361,14 @@
     },
     {
       "name": "function_0041c800",
-      "symbol": "?Evaluate@PlayerBulletManager@@QAEHPBUVector3@@MH@Z",
+      "symbol": "?Evaluate@LaserManager@@QAEHPBUVector3@@MH@Z",
       "section": ".text$f0041c800F",
       "address": "0x41c800",
       "size": 76
     },
     {
       "name": "function_0041c850",
-      "symbol": "?Reset@PlayerBulletManager@@QAEHH@Z",
+      "symbol": "?Reset@LaserManager@@QAEHH@Z",
       "section": ".text$f0041c850F",
       "address": "0x41c850",
       "size": 44
@@ -927,6 +929,11 @@
     },
     {
       "symbol": "_data_00477834",
+      "address": "0x477834",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_player",
       "address": "0x477834",
       "kind": "data"
     },

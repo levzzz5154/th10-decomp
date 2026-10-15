@@ -22348,7 +22348,7 @@
     {
       "name": "semantic_PlayerMove_004250b0",
       "source": "src/game/player_movement.cpp",
-      "symbol": "?Move@PlayerState@@QAEHXZ",
+      "symbol": "?Move@Player@@QAEHXZ",
       "address": "0x004250B0",
       "size": 1656,
       "kind": "semantic",
@@ -23467,7 +23467,7 @@
     {
       "name": "semantic_PickupSweep_00428630",
       "source": "src/game/player_pickup_sweep.cpp",
-      "symbol": "?Sweep@PickupSweepResult@@QAEHPAUPlayerState@@PBUPickupPoint@@1@Z",
+      "symbol": "?Sweep@PickupSweepResult@@QAEHPAUPlayer@@PBUPickupPoint@@1@Z",
       "address": "0x00428630",
       "size": 1170,
       "kind": "semantic",

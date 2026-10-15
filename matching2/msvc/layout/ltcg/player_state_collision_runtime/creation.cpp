@@ -7,7 +7,6 @@
 #include "preserve.cpp"
 #include "initialize.cpp"
 
-struct PickupHandle;
 #pragma code_seg(".text$f00448d00F")
 __declspec(noinline) AnimationRef __stdcall Pickup_CreatePrimaryBack(
         void* resource,int script,int layer) {

@@ -12,74 +12,74 @@ static __forceinline void GetBounds(const Center* center, const Size* size,
 }
 
 #pragma code_seg(".text$f00428630F")
-int PickupSweepResult::Sweep(PickupManager* manager, const PickupPoint* center,
+int PickupSweepResult::Sweep(Player* player, const PickupPoint* center,
                             const PickupPoint* size) {
     int total = 0;
-    if (manager->state_timer.current == manager->state_timer.previous) return 0;
-    PickupRecord* pickup = manager->pickups;
+    if (player->state_timer.current == player->state_timer.previous) return 0;
+    PlayerBullet* bullet = player->bullets;
 
     Vec3 minimum, maximum, working_point;
     GetBounds(center, size, &minimum, &maximum);
     if (this) value = 0;
-    for (int count = 128; count != 0; --count, ++pickup) {
-        int state=pickup->state;
+    for (int count = 128; count != 0; --count, ++bullet) {
+        int state=bullet->state;
         if (state == 0 || state == 2) continue;
-        PickupDescriptor* descriptor = pickup->descriptor;
+        ShotDefinition* shot = bullet->definition;
         Vec3 pickup_minimum;
-        GetBounds(&pickup->motion.position,
-                  reinterpret_cast<const PickupPoint*>(&descriptor->width),
+        GetBounds(&bullet->motion.position,
+                  reinterpret_cast<const PickupPoint*>(&shot->width),
                   &pickup_minimum, &working_point);
         if (pickup_minimum.y > maximum.y || pickup_minimum.x > maximum.x ||
             working_point.y < minimum.y || working_point.x < minimum.x)
             continue;
-        if (descriptor->type != 3 && pickup_minimum.y < 0.0f) continue;
-        if (descriptor->type == 3 && maximum.y < 0.0f) continue;
-        if (descriptor->filter && descriptor->filter(manager,pickup,center)) continue;
-        if (!pickup->initialized) {
-            pickup->handle.StopAtFrame2();
-            pickup->initialized = 1;
+        if (shot->kind != SHOT_LASER && pickup_minimum.y < 0.0f) continue;
+        if (shot->kind == SHOT_LASER && maximum.y < 0.0f) continue;
+        if (shot->skip_hit && shot->skip_hit(player,bullet,center)) continue;
+        if (!bullet->hitting) {
+            bullet->animation.StopAtFrame2();
+            bullet->hitting = 1;
         }
-        descriptor = pickup->descriptor;
-        pickup->collected = 1;
-        if (descriptor->type != 3 || pickup->clock.AtInterval(4)) total += descriptor->value;
-        if (descriptor->type != 3) {
-            float saved_angle = pickup->handle.Validate()->angle;
-            pickup->handle.Retire();
-            pickup->handle.value = Pickup_CreatePrimaryBack(
-                manager->animation_resource, pickup->descriptor->collected_script + 5, 15).value;
-            PickupAnimation* object = pickup->handle.Validate();
+        shot = bullet->definition;
+        bullet->hit_this_frame = 1;
+        if (shot->kind != SHOT_LASER || bullet->timer.AtInterval(4)) total += shot->damage;
+        if (shot->kind != SHOT_LASER) {
+            float saved_angle = bullet->animation.Validate()->angle;
+            bullet->animation.Retire();
+            bullet->animation.value = Pickup_CreatePrimaryBack(
+                player->animation_file, bullet->definition->hit_animation + 5, 15).value;
+            PickupAnimation* object = bullet->animation.Validate();
             object->angle = saved_angle;
             object->flags |= 4u;
-            pickup->motion.position.z = 0.1f;
-            pickup->state = 2;
-            pickup->motion.speed *= 0.125f;
+            bullet->motion.position.z = 0.1f;
+            bullet->state = 2;
+            bullet->motion.speed *= 0.125f;
         }
-        descriptor = pickup->descriptor;
-        if (descriptor->type == 2) {
-            int indicator_value = descriptor->value/3;
-            Pickup_AllocateIndicator(descriptor->value,manager,&pickup->motion.position,
+        shot = bullet->definition;
+        if (shot->kind == SHOT_HOMING) {
+            int indicator_value = shot->damage/3;
+            Pickup_AllocateIndicator(shot->damage,player,&bullet->motion.position,
                                      0x42000000u,0x3fb33333u,13,indicator_value);
         }
     }
     total += data_004776ec->HitTest(center);
-    PickupRegion* circle = manager->regions;
-    PickupRegion* table = circle;
+    PlayerDamageSource* circle = player->damage_sources;
+    PlayerDamageSource* table = circle;
     for (int index = 0; index < 32; ++circle, ++index) {
-        PickupRegion* region = &table[index];
+        PlayerDamageSource* region = &table[index];
         if (!(region->flags & 1u)) continue;
-        if (region->timer.current != region->timer.previous &&
-            region->timer.current % region->interval == 0) continue;
+        if (region->lifetime.current != region->lifetime.previous &&
+            region->lifetime.current % region->interval == 0) continue;
         if (!(region->flags & 2u)) {
             if (region->angle == 0.0f) {
                 float half_width = region->width * 0.5f;
-                if (region->center.x - half_width > maximum.x ||
-                    region->center.x + half_width < minimum.x) continue;
+                if (region->position.x - half_width > maximum.x ||
+                    region->position.x + half_width < minimum.x) continue;
                 float half_height = region->height * 0.5f;
-                if (region->center.y - half_height > maximum.y ||
-                    region->center.y + half_height < minimum.y) continue;
+                if (region->position.y - half_height > maximum.y ||
+                    region->position.y + half_height < minimum.y) continue;
             } else {
-                double dx = center->x - region->center.x;
-                double dy = center->y - region->center.y;
+                double dx = center->x - region->position.x;
+                double dy = center->y - region->position.y;
                 float sine = sinf(-region->angle);
                 double cosine = cos(-region->angle);
                 working_point.x = cosine * dx - sine * dy;
@@ -93,13 +93,13 @@ int PickupSweepResult::Sweep(PickupManager* manager, const PickupPoint* center,
             }
         } else {
             float radius = circle->radius;
-            float dy = region->center.y - center->y;
-            float dx = region->center.x - center->x;
+            float dy = region->position.y - center->y;
+            float dx = region->position.x - center->x;
             if (radius * radius < dx * dx + dy * dy) continue;
         }
-        total += region->value;
-        region->accumulated += region->value;
-        if (region->limit <= region->accumulated) region->value = 0;
+        total += region->damage;
+        region->damage_dealt += region->damage;
+        if (region->damage_limit <= region->damage_dealt) region->damage = 0;
     }
     if (total != 0) {
         data_00474c44 += (total/10+10)/10;

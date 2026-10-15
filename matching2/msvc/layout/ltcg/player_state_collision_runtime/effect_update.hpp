@@ -4,8 +4,6 @@
 typedef PickupAnimation AnimationObject;
 typedef PickupAnimationNode AnimationNode;
 typedef PickupAnimationLists AnimationContext;
-typedef PickupRecord EffectEntry;
-typedef PickupDescriptor EffectDescriptor;
 struct FrontScript { unsigned char reserved[0x9eb8]; void* script;
     __declspec(noinline) void SetPowerDigits(int whole, int fraction); };
 extern "C" {

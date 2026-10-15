@@ -6,142 +6,152 @@
 #include "../../layout/ltcg/player_state_collision_runtime/animation_public_callers.hpp"
 #include "../../layout/ltcg/player_state_collision_runtime/movement.hpp"
 
+// Start one of the sprite's lean scripts (1/2 into and out of a left turn,
+// 3/4 for the right).
+static __forceinline void Lean(Player* player, int script) {
+    static_cast<AnimationResource_0043e710*>(player->animation_file)->LoadScript(&player->sprite, script);
+}
+
+// The player keeps animation handles as plain words; the animation calls take
+// them as AnimationRef copies of the stored value.
+static __forceinline AnimationRef& AsRef(unsigned int& handle) {
+    return *reinterpret_cast<AnimationRef*>(&handle);
+}
+
 #pragma code_seg(".text$f004250b0F")
-int PlayerState::Move() {
-    MovementState* player = reinterpret_cast<MovementState*>(this);
+int Player::Move() {
     volatile MovementInput& movement_input = data_00474e5c;
     long move_x = 0;
     long move_y = 0;
     unsigned char input = movement_input.bytes[0];
-    if ((input & 0x50) == 0x50) player->direction = MovementUpLeft;
-    else if ((input & 0x60) == 0x60) player->direction = MovementDownLeft;
-    else if ((input & 0x90) == 0x90) player->direction = MovementUpRight;
-    else if ((input & 0xA0) == 0xA0) player->direction = MovementDownRight;
-    else if (input & 0x20) player->direction = MovementDown;
-    else if (input & 0x10) player->direction = MovementUp;
-    else if (input & 0x40) player->direction = MovementLeft;
-    else if (input & 0x80) player->direction = MovementRight;
-    else player->direction = MovementNone;
+    if ((input & 0x50) == 0x50) direction = PLAYER_DIRECTION_UP_LEFT;
+    else if ((input & 0x60) == 0x60) direction = PLAYER_DIRECTION_DOWN_LEFT;
+    else if ((input & 0x90) == 0x90) direction = PLAYER_DIRECTION_UP_RIGHT;
+    else if ((input & 0xA0) == 0xA0) direction = PLAYER_DIRECTION_DOWN_RIGHT;
+    else if (input & 0x20) direction = PLAYER_DIRECTION_DOWN;
+    else if (input & 0x10) direction = PLAYER_DIRECTION_UP;
+    else if (input & 0x40) direction = PLAYER_DIRECTION_LEFT;
+    else if (input & 0x80) direction = PLAYER_DIRECTION_RIGHT;
+    else direction = PLAYER_DIRECTION_NONE;
 
     if (data_00477704 != 0 && data_00477704->enabled != 0 &&
-        player->auxiliary_timer.current >= 4) {
-        player->slow = (movement_input.word >> 2) & 1;
+        focus_timer.current >= 4) {
+        focused = (movement_input.word >> 2) & 1;
         if (data_00474c40.character * 3 + data_00474c40.shot_type == 5) {
             if (movement_input.bytes[0] & 4)
-                player->slow_transition_age = 0;
-            else if (player->slow_transition_age < 30)
-                ++player->slow_transition_age;
+                focus_transition_age = 0;
+            else if (focus_transition_age < 30)
+                ++focus_transition_age;
         }
     } else {
-        player->slow = 0;
-        player->slow_transition_age = 30;
+        focused = 0;
+        focus_transition_age = 30;
     }
 
-    if (player->slow) {
-        if (player->slow_animation.value == 0) {
-            AnimationResource_00449870* resource = reinterpret_cast<AnimationResource_00449870*>(data_004776f0->item_animation);
+    if (focused) {
+        if (focus_marker == 0) {
+            AnimationResource_00449870* marker_resource = reinterpret_cast<AnimationResource_00449870*>(data_004776f0->item_animation);
             Entity* object = reinterpret_cast<AnimationPool*>(data_00491c10)->Allocate();
             object->render_bucket = 9;
             object->flags_35C |= 0x40000000u;
-            resource->InitializeObject(object, 0x160);
+            marker_resource->InitializeObject(object, 0x160);
             AnimationRef assigned = reinterpret_cast<AnimationLists*>(data_00491c10)->RegisterPrimaryBack(object);
-            player->slow_animation = assigned;
+            AsRef(focus_marker) = assigned;
         }
-        switch (player->direction) {
-        case MovementRight: move_x = player->slow_speed; break;
-        case MovementLeft: move_x = -player->slow_speed; break;
-        case MovementUp: move_y = -player->slow_speed; break;
-        case MovementDown: move_y = player->slow_speed; break;
-        case MovementUpLeft: move_y = move_x = -player->slow_diagonal_speed; break;
-        case MovementDownLeft: move_y = player->slow_diagonal_speed; move_x = -move_y; break;
-        case MovementUpRight: move_x = player->slow_diagonal_speed; move_y = -move_x; break;
-        case MovementDownRight: move_y = move_x = player->slow_diagonal_speed; break;
+        switch (direction) {
+        case PLAYER_DIRECTION_RIGHT: move_x = focused_speed; break;
+        case PLAYER_DIRECTION_LEFT: move_x = -focused_speed; break;
+        case PLAYER_DIRECTION_UP: move_y = -focused_speed; break;
+        case PLAYER_DIRECTION_DOWN: move_y = focused_speed; break;
+        case PLAYER_DIRECTION_UP_LEFT: move_y = move_x = -focused_diagonal_speed; break;
+        case PLAYER_DIRECTION_DOWN_LEFT: move_y = focused_diagonal_speed; move_x = -move_y; break;
+        case PLAYER_DIRECTION_UP_RIGHT: move_x = focused_diagonal_speed; move_y = -move_x; break;
+        case PLAYER_DIRECTION_DOWN_RIGHT: move_y = move_x = focused_diagonal_speed; break;
         }
     } else {
         PickupAnimationLists* context = reinterpret_cast<PickupAnimationLists*>(data_00491c10);
-        if (context->Find(player->slow_animation) != 0)
-            MovementStopFrame_00449210(1, context, player->slow_animation);
-        AnimationRef* handle = &player->slow_animation;
-        handle->value = 0;
-        switch (player->direction) {
-        case MovementRight: move_x = player->normal_speed; break;
-        case MovementLeft: move_x = -player->normal_speed; break;
-        case MovementUp: move_y = -player->normal_speed; break;
-        case MovementDown: move_y = player->normal_speed; break;
-        case MovementUpLeft: move_y = move_x = -player->normal_diagonal_speed; break;
-        case MovementDownLeft: move_y = player->normal_diagonal_speed; move_x = -move_y; break;
-        case MovementUpRight: move_x = player->normal_diagonal_speed; move_y = -move_x; break;
-        case MovementDownRight: move_y = move_x = player->normal_diagonal_speed; break;
+        if (context->Find(AsRef(focus_marker)) != 0)
+            MovementStopFrame_00449210(1, context, AsRef(focus_marker));
+        AnimationRef* marker = &AsRef(focus_marker);
+        marker->value = 0;
+        switch (direction) {
+        case PLAYER_DIRECTION_RIGHT: move_x = speed; break;
+        case PLAYER_DIRECTION_LEFT: move_x = -speed; break;
+        case PLAYER_DIRECTION_UP: move_y = -speed; break;
+        case PLAYER_DIRECTION_DOWN: move_y = speed; break;
+        case PLAYER_DIRECTION_UP_LEFT: move_y = move_x = -diagonal_speed; break;
+        case PLAYER_DIRECTION_DOWN_LEFT: move_y = diagonal_speed; move_x = -move_y; break;
+        case PLAYER_DIRECTION_UP_RIGHT: move_x = diagonal_speed; move_y = -move_x; break;
+        case PLAYER_DIRECTION_DOWN_RIGHT: move_y = move_x = diagonal_speed; break;
         }
     }
 
     // Lean into a turn and straighten out of it.
-    // Lean into a turn and straighten out of it.
-    if (move_x < 0 && player->previous_movement.x >= 0) player->resource->LoadScript(&player->animation, 1);
-    else if (move_x == 0 && player->previous_movement.x < 0) player->resource->LoadScript(&player->animation, 2);
-    if (move_x > 0 && player->previous_movement.x <= 0) player->resource->LoadScript(&player->animation, 3);
-    else if (move_x == 0 && player->previous_movement.x > 0) player->resource->LoadScript(&player->animation, 4);
-    player->previous_movement.x = move_x;
-    player->previous_movement.y = move_y;
-    player->velocity.x = static_cast<int>(static_cast<float>(move_x) * data_00476f78);
-    player->velocity.y = static_cast<int>(static_cast<float>(move_y) * data_00476f78);
-    player->integer_position.x += player->velocity.x;
-    player->integer_position.y += player->velocity.y;
-    if (player->integer_position.x < -18400) player->integer_position.x = -18400;
-    else if (player->integer_position.x > 18400) player->integer_position.x = 18400;
-    if (player->integer_position.y < 3200) player->integer_position.y = 3200;
-    else if (player->integer_position.y > 43200) player->integer_position.y = 43200;
-    Vector3* world = &player->position;
-    world->x = static_cast<float>(player->integer_position.x) * 0.01f;
-    world->y = static_cast<float>(player->integer_position.y) * 0.01f;
+    if (move_x < 0 && previous_velocity.x >= 0) Lean(this, 1);
+    else if (move_x == 0 && previous_velocity.x < 0) Lean(this, 2);
+    if (move_x > 0 && previous_velocity.x <= 0) Lean(this, 3);
+    else if (move_x == 0 && previous_velocity.x > 0) Lean(this, 4);
+    previous_velocity.x = move_x;
+    previous_velocity.y = move_y;
+    velocity.x = static_cast<int>(static_cast<float>(move_x) * data_00476f78);
+    velocity.y = static_cast<int>(static_cast<float>(move_y) * data_00476f78);
+    fixed_position.x += velocity.x;
+    fixed_position.y += velocity.y;
+    if (fixed_position.x < -18400) fixed_position.x = -18400;
+    else if (fixed_position.x > 18400) fixed_position.x = 18400;
+    if (fixed_position.y < 3200) fixed_position.y = 3200;
+    else if (fixed_position.y > 43200) fixed_position.y = 43200;
+    Vector3* world = &position;
+    world->x = static_cast<float>(fixed_position.x) * 0.01f;
+    world->y = static_cast<float>(fixed_position.y) * 0.01f;
     PickupAnimationLists* context = reinterpret_cast<PickupAnimationLists*>(data_00491c10);
-    if (context->Find(player->slow_animation) == 0) {
-        player->slow_animation = AnimationRef(0);
+    if (context->Find(AsRef(focus_marker)) == 0) {
+        AsRef(focus_marker) = AnimationRef(0);
     } else {
-        Vector3 position;
-        position.x = player->position.x + 224.0f;
-        position.z = player->position.z;
-        position.y = player->position.y + 16.0f;
-        MovementSetPosition_004492f0(&position, context, player->slow_animation);
+        Vector3 marker_position;
+        marker_position.x = position.x + 224.0f;
+        marker_position.z = position.z;
+        marker_position.y = position.y + 16.0f;
+        MovementSetPosition_004492f0(&marker_position, context, AsRef(focus_marker));
     }
 
-    if (player->slow == 0 && (move_y != 0 || move_x != 0)) {
+    if (focused == 0 && (move_y != 0 || move_x != 0)) {
         int entry = 32;
-        while (entry > player->trail_sections * 8) {
-            player->trail[entry] = player->trail[player->trail_sections * 8];
+        while (entry > option_count * 8) {
+            position_history[entry] = position_history[option_count * 8];
             --entry;
         }
         while (entry > 0) {
-            player->trail[entry] = player->trail[entry - 1];
+            position_history[entry] = position_history[entry - 1];
             --entry;
         }
     }
-    player->trail[0] = player->integer_position;
+    position_history[0] = fixed_position;
 
     for (int index = 0; index < 4; ++index) {
-        MovementOrbit* orbit = &player->orbits[index];
-        if (orbit->active != 0) {
-            orbit->desired = *(player->slow ? &orbit->slow_offset : &orbit->normal_offset) + player->integer_position;
-            if (orbit->update != 0)
-                orbit->update(orbit);
-            if (orbit->reset_position == 0) {
-                if (player->slow_transition_age >= 30) {
-                    MovementPoint delta = (orbit->desired - orbit->current) * player->slow_transition_age / 100;
-                    if (delta != MovementPoint(0,0))
-                        orbit->current += delta;
+        PlayerOption* option = &options[index];
+        if (option->active != 0) {
+            option->target = fixed_position + *(focused ? &option->focused_offset : &option->unfocused_offset);
+            if (option->update != 0)
+                option->update(option);
+            if (option->reset_position == 0) {
+                if (focus_transition_age >= 30) {
+                    FixedPoint delta = (option->target - option->position) * focus_transition_age / 100;
+                    if (delta != FixedPoint(0,0))
+                        option->position += delta;
                     else
-                        orbit->current = orbit->desired;
+                        option->position = option->target;
                 }
             } else {
-                orbit->reset_position = 0;
-                orbit->current = orbit->desired;
+                option->reset_position = 0;
+                option->position = option->target;
             }
-            Vector3 position = {
-                static_cast<float>(orbit->current.x) * 0.01f,
-                static_cast<float>(orbit->current.y) * 0.01f, 0.0f };
+            Vector3 option_position = {
+                static_cast<float>(option->position.x) * 0.01f,
+                static_cast<float>(option->position.y) * 0.01f, 0.0f };
             context = reinterpret_cast<PickupAnimationLists*>(data_00491c10);
-            MovementSetTranslatedPosition_00449350(context, &position, orbit->first_animation);
-            MovementSetTranslatedPosition_00449350(context, &position, orbit->second_animation);
+            MovementSetTranslatedPosition_00449350(context, &option_position, AsRef(option->animation));
+            MovementSetTranslatedPosition_00449350(context, &option_position, AsRef(option->second_animation));
         }
     }
     return 0;

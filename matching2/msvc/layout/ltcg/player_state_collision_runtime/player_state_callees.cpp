@@ -17,22 +17,22 @@ __declspec(noinline) int __stdcall OpenRegister_0043e460(void* lists, void* obje
 
 // src/game/player_bullet_animation_0041c800_0041c850_00449210_004492f0.cpp
 #pragma code_seg(".text$f0041c800F")
-int PlayerBulletManager::Evaluate(const Vec3* point, float radius, int mode) {
-    PlayerBullet* record = first;
+int LaserManager::Evaluate(const Vec3* point, float radius, int mode) {
+    Laser* record = first;
     evaluation_point = *point;
     int total = 0;
     while (record) {
-        PlayerBullet* next = record->next;
+        Laser* next = record->next;
         if (record->state != 1) total += record->Evaluate(point, radius, mode);
         record = next;
     }
     return total;
 }
 #pragma code_seg(".text$f0041c850F")
-int PlayerBulletManager::Reset(int mode) {
-    PlayerBullet* record = first;
+int LaserManager::Reset(int mode) {
+    Laser* record = first;
     while (record) {
-        PlayerBullet* next = record->next;
+        Laser* next = record->next;
         if (record->state != 1) record->Retire(mode);
         record = next;
     }
@@ -46,9 +46,9 @@ void PlayerInputMode::Set(int value) {
 }
 // src/game/entity_angle_to_point_00426610.cpp
 #pragma code_seg(".text$f00426610F")
-extern "C" __declspec(noinline) double __stdcall Entity_AngleToPoint_00426610(const PlayerState* player, const Vec3* point) {
-    float horizontal = point->x - player->spawn_origin.x;
-    float vertical = point->y - player->spawn_origin.y;
+extern "C" __declspec(noinline) double __stdcall Entity_AngleToPoint_00426610(const Player* player, const Vec3* point) {
+    float horizontal = point->x - player->position.x;
+    float vertical = point->y - player->position.y;
     if (vertical == data_00470b04 && horizontal == data_00470b04)
         return data_00470b94;
     return atan2(vertical, horizontal);

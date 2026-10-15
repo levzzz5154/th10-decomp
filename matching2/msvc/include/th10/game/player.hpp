@@ -10,15 +10,18 @@
 #include "th10/math/timer.hpp"
 
 struct SchedulerTask;
-struct ShotTypeFile;      // the loaded shot-type (.sht) file
-struct ShotDefinition;    // one shot entry of a shot-type file
 struct Point3_OrientedRect;
+struct PickupAnimation;   // an animation object, as the player's records see it
+struct Player;
+struct PlayerBullet;
 
 // Player positions are kept in hundredths of a pixel; Player::position is the
 // same point as floats.
 struct FixedPoint {
     int x, y;
 
+    FixedPoint() {}
+    FixedPoint(int x_, int y_) : x(x_), y(y_) {}
     // Retail copies these member by member; the compiler's own block copy
     // picks other loop pointers.
     FixedPoint& operator=(const FixedPoint& other) {
@@ -26,6 +29,80 @@ struct FixedPoint {
         y = other.y;
         return *this;
     }
+    FixedPoint operator+(const FixedPoint& other) const { return FixedPoint(x + other.x, y + other.y); }
+    FixedPoint operator-(const FixedPoint& other) const { return FixedPoint(x - other.x, y - other.y); }
+    FixedPoint operator*(int scale) const { return FixedPoint(x * scale, y * scale); }
+    FixedPoint operator/(int divisor) const { return FixedPoint(x / divisor, y / divisor); }
+    bool operator!=(const FixedPoint& other) const { return x != other.x || y != other.y; }
+    FixedPoint& operator+=(const FixedPoint& other) {
+        x += other.x;
+        y += other.y;
+        return *this;
+    }
+};
+
+// A screen point or size without depth.
+struct PickupPoint {
+    float x, y;
+};
+
+// A position with a polar velocity, or an orbit when flags bit 0 is set.
+struct Motion {
+    Vector3 position, velocity;
+    float speed;        // also the orbit turn rate when flags bit 0 is set
+    float angle, radius, radius_step;
+    unsigned char flags;
+    // 0x0044C2A0: move by one frame.
+    __declspec(noinline) void Advance();
+    // Recompute the velocity (or the orbit radius and angle); inline.
+    void Update();
+};
+
+// An animation handle as the player's records keep it. Retail re-reads and
+// re-stores it around each use, so the value is volatile.
+struct PlayerAnimationHandle {
+    volatile unsigned int value;
+    __declspec(noinline) void StopAtFrame1();          // 0x00409E50
+    __declspec(noinline) void StopAtFrame2();          // 0x0040C480
+    __declspec(noinline) void StopAtFrame3();          // 0x0040C4D0
+    __declspec(noinline) PickupAnimation* Validate();  // 0x00449450, clears a stale handle
+    __declspec(noinline) void Retire();                // 0x00449630
+};
+
+enum ShotKind {
+    SHOT_HOMING = 2,  // its damage also leaves a small damage source behind
+    SHOT_LASER = 3    // stays alive while the fire button is held
+};
+
+// One shot of a shot-type (.sht) file: what to fire, how often and from where.
+struct ShotDefinition {
+    signed char period;          // fires on frames where frame % period == phase
+    signed char phase;
+    short damage;
+    PickupPoint offset;          // from the player or the option firing it
+    float width, height;         // hitbox
+    float angle, speed;
+    signed char option;          // 0 = the player, 1..4 = that option
+    unsigned char kind;          // a ShotKind, or 0
+    short animation, hit_animation, sound;
+    void (__fastcall* on_fire)(Player* player, PlayerBullet* bullet, int frame);
+    void (__fastcall* on_update)(Player* player, PlayerBullet* bullet);
+    unsigned char unknown_2c[4];
+    // Nonzero when this shot cannot hit at that point.
+    int (__fastcall* skip_hit)(Player* player, PlayerBullet* bullet, const PickupPoint* point);
+};
+
+// The shots a shot type fires at one power level.
+struct ShotList {
+    ShotDefinition* shots;       // ends with a negative period
+    int unknown_04;
+};
+
+// A loaded shot-type file: one shot list per power level, unfocused then
+// focused.
+struct ShotTypeFile {
+    unsigned char unknown_000[0x110];
+    ShotList lists[10];
 };
 
 enum PlayerStateId {
@@ -50,21 +127,17 @@ struct PlayerBox {
 
 // One shot the player has fired (0x5C bytes).
 struct PlayerBullet {
-    FrameTimer timer;                  // +0x00
-    Vector3 position;                  // +0x14
-    Vector3 velocity;                  // +0x20
-    float speed;                       // +0x2C
-    float angle;                       // +0x30
-    float unknown_34, unknown_38;      // +0x34
-    unsigned char motion_flags;        // +0x3C
-    unsigned char pad_3d[3];
-    int state;                         // +0x40, 0 = free, 1 = flying
-    unsigned int animation;            // +0x44, animation handle
-    unsigned int hit_animation;        // +0x48
-    int unknown_4c;                    // +0x4C
-    int hit_this_frame;                // +0x50
-    int has_hit;                       // +0x54
-    ShotDefinition* definition;        // +0x58
+    FrameTimer timer;                        // +0x00
+    Motion motion;                           // +0x14
+    // 0 = free, 1 = flying, 2 = hit and fading. Retail reads it once per
+    // test, so it is volatile.
+    volatile int state;                      // +0x40
+    PlayerAnimationHandle animation;         // +0x44
+    PlayerAnimationHandle laser_animation;   // +0x48, lasers only
+    unsigned int unknown_4c;                 // +0x4C
+    int hit_this_frame;                      // +0x50
+    int hitting;                             // +0x54, a laser that is touching an enemy
+    ShotDefinition* definition;              // +0x58
 };
 
 // One of the four options (familiars) that orbit the player (0x98 bytes).
@@ -80,7 +153,7 @@ struct PlayerOption {
     unsigned int second_animation;     // +0x6C
     unsigned char unknown_70[0x1C];
     int reset_position;                // +0x8C
-    int (__fastcall* update)(PlayerOption* option);  // +0x90
+    int (__fastcall* update)(PlayerOption* option);  // +0x90, optional
     int unknown_94;
 
     // The four points above by index, the order a replay saves them in.
@@ -92,11 +165,16 @@ struct PlayerOption {
 struct PlayerDamageSource {
     float radius;                      // +0x00
     float radius_growth;               // +0x04
-    float angle;                       // +0x08
+    float angle;                       // +0x08, of a rotated rectangle
     float angle_step;                  // +0x0C
     float width, height;               // +0x10
-    Vector3 position;                  // +0x18
-    unsigned char motion_24[0x20];     // +0x24, the rest of its motion record
+    union {
+        struct {
+            Vector3 position;          // +0x18
+            unsigned char unknown_24[0x20];
+        };
+        Motion motion;                 // +0x18
+    };
     FrameTimer lifetime;               // +0x44, counts down to zero
     int damage;                        // +0x58
     int damage_dealt;                  // +0x5C
@@ -141,7 +219,9 @@ struct Player {
     unsigned char pad_3509[3];
     PlayerDamageSource damage_sources[32];   // +0x350C
     unsigned char unknown_428c[0x68];
-    int unknown_42f4[5];                     // +0x42F4
+    // +0x42F4: per firing point (0 = player, 1..4 = options), whether a laser
+    // is out. One shot type keeps its focus transition age in the last slot.
+    int laser_active[5];
     int focus_transition_age;                // +0x4308
     FrameTimer invulnerability_timer;        // +0x430C
     unsigned int unknown_4320;               // +0x4320
@@ -161,6 +241,15 @@ struct Player {
     // 0x00428E10: move the player to a fixed-point position and make the
     // options jump to their places.
     __declspec(noinline) Player* SetFixedPosition(const FixedPoint* source);
+
+    // 0x004250B0: read the input and move the player, the focus marker, the
+    // position history and the options.
+    __declspec(noinline) int Move();
+    // 0x004281D0: while alive and shooting, run the 15-frame shot cycle.
+    __declspec(noinline) int UpdateShooting();
+    // 0x00428160: fire every shot of the current power level that is due on
+    // `frame` of the cycle.
+    __declspec(noinline) int FireShots(int frame);
 };
 
 #define PLAYER_CHECK(name, expression) typedef char player_check_##name[(expression) ? 1 : -1]
@@ -178,7 +267,11 @@ PLAYER_CHECK(bullets, offsetof(Player, bullets) == 0x49C);
 PLAYER_CHECK(focus_marker, offsetof(Player, focus_marker) == 0x329C);
 PLAYER_CHECK(option_count, offsetof(Player, option_count) == 0x3500);
 PLAYER_CHECK(damage_sources, offsetof(Player, damage_sources) == 0x350C);
-PLAYER_CHECK(unknown_42f4, offsetof(Player, unknown_42f4) == 0x42F4);
+PLAYER_CHECK(laser_active, offsetof(Player, laser_active) == 0x42F4);
+PLAYER_CHECK(motion_size, sizeof(Motion) == 0x2C);
+PLAYER_CHECK(shot_definition_skip_hit, offsetof(ShotDefinition, skip_hit) == 0x30);
+PLAYER_CHECK(bullet_state, offsetof(PlayerBullet, state) == 0x40);
+PLAYER_CHECK(damage_source_lifetime, offsetof(PlayerDamageSource, lifetime) == 0x44);
 PLAYER_CHECK(invulnerability_timer, offsetof(Player, invulnerability_timer) == 0x430C);
 PLAYER_CHECK(item_collect_box, offsetof(Player, item_collect_box) == 0x4324);
 PLAYER_CHECK(position_history, offsetof(Player, position_history) == 0x436C);

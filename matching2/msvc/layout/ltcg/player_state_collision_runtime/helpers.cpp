@@ -26,7 +26,7 @@ void* PickupAnimationLists::MarkForRemoval(AnimationRef handle) {
     return cursor;
 }
 #pragma code_seg(".text$f0040c480F")
-void PickupHandle::StopAtFrame2() {
+void PlayerAnimationHandle::StopAtFrame2() {
     AnimationRef id(value);
     PickupAnimation* node=static_cast<PickupAnimationLists*>(data_00491c10)->Find(id);
     if (node) {
@@ -37,47 +37,47 @@ void PickupHandle::StopAtFrame2() {
     }
 }
 #pragma code_seg(".text$f00449450F")
-PickupAnimation* PickupHandle::Validate() {
+PickupAnimation* PlayerAnimationHandle::Validate() {
     AnimationRef id(value);
     PickupAnimation* object=static_cast<PickupAnimationLists*>(data_00491c10)->Find(id);
     if (!object) value=0;
     return object;
 }
 #pragma code_seg(".text$f00449630F")
-void PickupHandle::Retire() {
+void PlayerAnimationHandle::Retire() {
     AnimationRef id(value);
     static_cast<PickupAnimationLists*>(data_00491c10)->MarkForRemoval(id);
     value=0;
 }
 #pragma code_seg(".text$f00427b50F")
-extern "C" PickupRegion* __fastcall Pickup_AllocateIndicator(
-        unsigned int unused, PickupManager* manager, const PickupPosition* volatile position,
-        unsigned int radius_bits, unsigned int speed_bits, int countdown, unsigned int value) {
+extern "C" PlayerDamageSource* __fastcall Pickup_AllocateIndicator(
+        unsigned int unused, Player* player, const PickupPosition* volatile position,
+        unsigned int radius_bits, unsigned int speed_bits, int countdown, unsigned int damage) {
     (void)unused;
     const PickupPosition* saved_position=position;
-    PickupRegion* slot=manager->regions;
+    PlayerDamageSource* slot=player->damage_sources;
     for (int index=0; index<32; ++index,++slot) {
         if (slot->flags & 1u) continue;
         memset(slot,0,sizeof(*slot));
         slot->flags |= 3u;
-        memset(&slot->center,0,sizeof(slot->center)+sizeof(slot->reserved_24));
-        slot->center=*saved_position;
+        memset(&slot->position,0,sizeof(slot->position)+sizeof(slot->unknown_24));
+        slot->position=*saved_position;
         volatile unsigned int* payload=reinterpret_cast<unsigned int*>(&slot->radius);
         payload[0]=radius_bits;
         payload[1]=speed_bits;
-        if (!(slot->timer.flags & 1u)) {
-            slot->timer.current=0;
-            slot->timer.previous=-999999;
-            slot->timer.elapsed=0.0f;
-            slot->timer.speed=&data_00476f78;
-            slot->timer.flags |= 1u;
+        if (!(slot->lifetime.flags & 1u)) {
+            slot->lifetime.current=0;
+            slot->lifetime.previous=-999999;
+            slot->lifetime.elapsed=0.0f;
+            slot->lifetime.speed=&data_00476f78;
+            slot->lifetime.flags |= 1u;
         }
-        slot->timer.current=countdown;
-        slot->timer.previous=countdown-1;
-        slot->timer.elapsed=static_cast<float>(countdown);
-        slot->value=static_cast<int>(value);
-        slot->accumulated=0;
-        slot->limit=999999;
+        slot->lifetime.current=countdown;
+        slot->lifetime.previous=countdown-1;
+        slot->lifetime.elapsed=static_cast<float>(countdown);
+        slot->damage=static_cast<int>(damage);
+        slot->damage_dealt=0;
+        slot->damage_limit=999999;
         slot->interval=4;
         return slot;
     }
