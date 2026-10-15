@@ -12,8 +12,8 @@
   "layout/ltcg/familiar_refresh_00426f70_dependencies/find.cpp",
   "layout/ltcg/familiar_refresh_00426f70_dependencies/set_stop_frame.cpp"
  ],
- "entry_symbol": "_PlayerFamiliarRefresh_00426f70@4",
- "function": "_PlayerFamiliarRefresh_00426f70@4",
+ "entry_symbol": "_Player_RefreshOptions@4",
+ "function": "_Player_RefreshOptions@4",
  "code_bytes": 2496,
  "absolute_symbols": {
   "_data_00491c10": {

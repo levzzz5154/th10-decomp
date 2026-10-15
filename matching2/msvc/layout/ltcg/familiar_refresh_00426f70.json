@@ -18,12 +18,12 @@
  ],
  "image_base": "0x00400000",
  "description": "Familiar/orbit refresh co-compiled under native LTCG with verbatim copies of the real animation-manager callee sources: the 4096-slot pool allocator (with the genuine one-pointer Entity_Init), primary registration back and front, the create wrapper, the script-id lookup and the stop-frame helper. The real refresh is the whole-program entry; the pass derives the private register edges (allocator manager in ESI, registrar manager EDX / object EBX / sret EAX, create out slot in EDI, stop-frame handle EAX / frame SI) and, hopefully, the retail prologue entry copy.",
- "entry": "_PlayerFamiliarRefresh_00426f70@4",
+ "entry": "_Player_RefreshOptions@4",
  "functions": [
   {
    "name": "PlayerFamiliarRefresh",
    "source": "src/game/familiar_refresh_00426f70.cpp",
-   "symbol": "_PlayerFamiliarRefresh_00426f70@4",
+   "symbol": "_Player_RefreshOptions@4",
    "section": ".text$00426f70_fn",
    "address": "0x00426F70",
    "size": 2520,

@@ -102,7 +102,7 @@ static __forceinline int SpawnFamiliar(PlayerFamiliarRuntime_00426f70* player,
 }
 
 #pragma code_seg(".text$00426f70_fn")
-extern "C" __declspec(noinline) void __stdcall PlayerFamiliarRefresh_00426f70(
+extern "C" __declspec(noinline) void __stdcall Player_RefreshOptions(
         PlayerFamiliarRuntime_00426f70* player) {
     FamiliarRecord_00426f70* record = player->familiars;
     const unsigned int remove_flag = 0x4000000u;
