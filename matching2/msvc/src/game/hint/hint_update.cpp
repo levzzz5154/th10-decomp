@@ -14,13 +14,13 @@
 #include "th10/game/player.hpp"
 
 extern "C" int recovery_indicator_owner_00474c84;   // current stage tag
-extern "C" int data_00474c7c;                       // current stage queue index
+extern "C" int g_globals_stage;                       // current stage queue index
 
 #pragma code_seg(".text$00419650_fn")
 int HintUpdateView::Update() {
     if (owner_tag != recovery_indicator_owner_00474c84)
         stage_frame = 0;
-    queues[data_00474c7c].head->Drain(this, 1);
+    queues[g_globals_stage].head->Drain(this, 1);
 
     float player_x = g_player->position.x + 224.0f;
     float player_y = g_player->position.y + 16.0f;

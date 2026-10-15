@@ -5,7 +5,7 @@ extern "C" RecoveryScriptOwner_0040bd80* g_ending;
 extern "C" GameThread_0040c540* g_ascii_manager;
 extern "C" unsigned int data_00474e30;
 extern "C" unsigned int data_00474e36;
-extern "C" int data_00474c74;
+extern "C" int g_globals_difficulty;
 extern "C" unsigned int data_004918a4;
 extern "C" const char recovery_script_empty_text_0046cfd4[];
 extern "C" const char recovery_script_special_music_0046cfc4[];
@@ -168,7 +168,7 @@ extern "C" __declspec(noinline) int __stdcall RecoveryScript_Execute_0040bd80(Re
             RecoveryAscii_Create_0043c8b0(0x31, 5, static_cast<unsigned int>(command->arguments[0]), 0, 0, 0);
             break;
         case 15:
-            if (data_00474c74 == 1) {
+            if (g_globals_difficulty == 1) {
                 reinterpret_cast<RecoveryHandle_0040bd80*>(&state->animation_handles[command->arguments[0]])->MarkForRemoval();
                 void* created;
                 void** result = AnimationManager_CreatePrimaryBack_00448d00(state->resources[state->command->arguments[1]], &created, state->command->arguments[2], 15);
@@ -176,7 +176,7 @@ extern "C" __declspec(noinline) int __stdcall RecoveryScript_Execute_0040bd80(Re
             }
             break;
         case 16:
-            if (data_00474c74 == 2) {
+            if (g_globals_difficulty == 2) {
                 reinterpret_cast<RecoveryHandle_0040bd80*>(&state->animation_handles[command->arguments[0]])->MarkForRemoval();
                 void* created;
                 void** result = AnimationManager_CreatePrimaryBack_00448d00(state->resources[state->command->arguments[1]], &created, state->command->arguments[2], 15);
@@ -184,7 +184,7 @@ extern "C" __declspec(noinline) int __stdcall RecoveryScript_Execute_0040bd80(Re
             }
             break;
         case 17:
-            if (data_00474c74 == 3) {
+            if (g_globals_difficulty == 3) {
                 reinterpret_cast<RecoveryHandle_0040bd80*>(&state->animation_handles[command->arguments[0]])->MarkForRemoval();
                 void* created;
                 void** result = AnimationManager_CreatePrimaryBack_00448d00(state->resources[state->command->arguments[1]], &created, state->command->arguments[2], 15);

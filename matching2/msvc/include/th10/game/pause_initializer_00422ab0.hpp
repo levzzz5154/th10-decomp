@@ -136,7 +136,7 @@ struct AnimationSecondaryLists {
     unsigned char reserved_72dae4[0x732454 - 0x72DAE4]; unsigned int next_handle;
     __declspec(noinline) Handle4* RegisterSecondaryBack(Handle4* out, Entity* object);
 };
-extern "C" unsigned char data_00474ca0;
+extern "C" unsigned char g_globals_flags;
 extern "C" unsigned char data_00474e36;
 extern "C" unsigned char data_00491ff4;
 extern "C" PauseMenuRuntime* g_game;

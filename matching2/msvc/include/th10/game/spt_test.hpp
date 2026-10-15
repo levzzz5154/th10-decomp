@@ -124,4 +124,4 @@ typedef char SptTestStateOffset_0042be20[offsetof(SptTest_0042be20, state) == 0x
 typedef char SptTestCursorOffset_0042be20[offsetof(SptTest_0042be20, entry_cursor) == 0x1EC ? 1 : -1];
 typedef char SptTestParserOffset_0042be20[offsetof(SptTest_0042be20, parser) == 0x2D8 ? 1 : -1];
 
-extern "C" SptTest_0042be20* data_00477844;
+extern "C" SptTest_0042be20* g_spt_test;

@@ -60,13 +60,13 @@ extern "C" __declspec(noinline) int __stdcall ResultScreen_DrawRows_00422660(
         position.x = 102.0f;
         DrawNameEntry_004224c0(state, position);
         position.x = 48.0f;
-        ReplayHeader_00431ba0* header = data_00477838->header;
+        ReplayHeader_00431ba0* header = g_replay->header;
         tm* date = localtime(&header->date);
         AsciiManager_AddFormatted(
             g_ascii_manager, &position, data_0046e148, cursor + 1,
             date->tm_year % 100, date->tm_mon + 1, date->tm_mday,
             data_004746dc[header->character * 3 + header->shot_type],
-            data_00474708[header->difficulty], data_00474744[data_00474c7c]);
+            data_00474708[header->difficulty], data_00474744[g_globals_stage]);
         break;
     }
     case 12:
@@ -90,31 +90,31 @@ extern "C" __declspec(noinline) int __stdcall ResultScreen_DrawRows_00422660(
         position.y = 96.0f;
         for (int row = 0; row < 10; ++row) {
             g_ascii_manager->current_4c = row == cursor ? 0xFFFFFF00 : 0xFF808080;
-            if (data_0047783c[data_00474c68_shot * 3 + data_00474c68_char]
-                    .table.rows[data_00474c74][row].date != 0) {
+            if (g_score[data_00474c68_shot * 3 + data_00474c68_char]
+                    .table.rows[g_globals_difficulty][row].date != 0) {
                 ScoreTable_004329f0* table =
-                    &data_0047783c[data_00474c68_shot * 3 + data_00474c68_char].table;
-                tm* date = localtime(&table->rows[data_00474c74][row].date);
+                    &g_score[data_00474c68_shot * 3 + data_00474c68_char].table;
+                tm* date = localtime(&table->rows[g_globals_difficulty][row].date);
                 AsciiManager_AddFormatted(
                     g_ascii_manager, &position, data_0046e108, row + 1,
-                    data_0047783c[data_00474c68_shot * 3 + data_00474c68_char]
-                        .table.rows[data_00474c74][row].name,
-                    data_0047783c[data_00474c68_shot * 3 + data_00474c68_char]
-                        .table.rows[data_00474c74][row].score,
-                    data_0047783c[data_00474c68_shot * 3 + data_00474c68_char]
-                        .table.rows[data_00474c74][row].continues,
+                    g_score[data_00474c68_shot * 3 + data_00474c68_char]
+                        .table.rows[g_globals_difficulty][row].name,
+                    g_score[data_00474c68_shot * 3 + data_00474c68_char]
+                        .table.rows[g_globals_difficulty][row].score,
+                    g_score[data_00474c68_shot * 3 + data_00474c68_char]
+                        .table.rows[g_globals_difficulty][row].continues,
                     date->tm_year % 100, date->tm_mon + 1, date->tm_mday,
-                    data_0047471c[data_0047783c[data_00474c68_shot * 3 + data_00474c68_char]
-                                      .table.rows[data_00474c74][row].stage]);
+                    data_0047471c[g_score[data_00474c68_shot * 3 + data_00474c68_char]
+                                      .table.rows[g_globals_difficulty][row].stage]);
             } else {
                 AsciiManager_AddFormatted(
                     g_ascii_manager, &position, data_0046e0e8, row + 1,
-                    data_0047783c[data_00474c68_shot * 3 + data_00474c68_char]
-                        .table.rows[data_00474c74][row].name,
-                    data_0047783c[data_00474c68_shot * 3 + data_00474c68_char]
-                        .table.rows[data_00474c74][row].score,
-                    data_0047783c[data_00474c68_shot * 3 + data_00474c68_char]
-                        .table.rows[data_00474c74][row].continues);
+                    g_score[data_00474c68_shot * 3 + data_00474c68_char]
+                        .table.rows[g_globals_difficulty][row].name,
+                    g_score[data_00474c68_shot * 3 + data_00474c68_char]
+                        .table.rows[g_globals_difficulty][row].score,
+                    g_score[data_00474c68_shot * 3 + data_00474c68_char]
+                        .table.rows[g_globals_difficulty][row].continues);
             }
             position.y += 18.0f;
         }

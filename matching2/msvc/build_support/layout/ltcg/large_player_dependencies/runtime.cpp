@@ -8,7 +8,7 @@ extern "C" {
     // The selection words are fields of one game-state struct other code
     // reaches through its address, so field loads are never folded.
     struct GameSelectionView { int shot_type, character, unknown_08, difficulty; };
-    extern GameSelectionView data_00474c68;
+    extern GameSelectionView g_globals_character;
     extern void* g_sprt_ctrl;
     extern ParameterFile* data_00491bf0;
     extern FuncCtrl* g_func_ctrl;
@@ -36,14 +36,14 @@ struct PlayerBounds3 { float x, y, z; };
 
 int PlayerResetBlock::Initialize() {
     const char* name;
-    if (!data_00474c68.shot_type) name=data_0046e42c; else name=data_0046e420;
+    if (!g_globals_character.shot_type) name=data_0046e42c; else name=data_0046e420;
     CachedResource* resource=Recovery_LoadCachedResource(8,g_sprt_ctrl,name);
     Word(0x10)=(unsigned int)resource;
     if (!resource) { g_log.Append(data_0046e3ec); return -1; }
     if (data_00491bf0) {
         Word(0x45c)=(unsigned int)data_00491bf0;data_00491bf0=0;
     } else {
-        const char* parameter_name=data_00476fc0[data_00474c68.character+3*data_00474c68.shot_type];
+        const char* parameter_name=data_00476fc0[g_globals_character.character+3*g_globals_character.shot_type];
         if (((ParameterLoader*)this)->Load(parameter_name)) {
             g_log.Append(data_0046e3ec);return -1;
         }
@@ -70,14 +70,14 @@ int PlayerResetBlock::Initialize() {
     InitializeTimer(&timer_460);timer_460.elapsed=-1;timer_460.previous=-2;timer_460.current=-1;
     // Character tables initialize the three leading parameter words at +4,+C,+8.
     // The parameter words are dword slots; the tables hold float bit patterns.
-    *(unsigned int*)((char*)Word(0x45c)+4)=reinterpret_cast<const unsigned int&>(data_00476fb8[data_00474c68.shot_type]);
-    *(unsigned int*)((char*)Word(0x45c)+12)=reinterpret_cast<const unsigned int&>(data_00476fb0[data_00474c68.shot_type]);
-    *(unsigned int*)((char*)Word(0x45c)+8)=reinterpret_cast<const unsigned int&>(data_00476fa0[data_00474c68.shot_type]);
+    *(unsigned int*)((char*)Word(0x45c)+4)=reinterpret_cast<const unsigned int&>(data_00476fb8[g_globals_character.shot_type]);
+    *(unsigned int*)((char*)Word(0x45c)+12)=reinterpret_cast<const unsigned int&>(data_00476fb0[g_globals_character.shot_type]);
+    *(unsigned int*)((char*)Word(0x45c)+8)=reinterpret_cast<const unsigned int&>(data_00476fa0[g_globals_character.shot_type]);
     float half=*(float*)((char*)Word(0x45c)+4)*data_00470b0c;
     Float(0x424)=5;Float(0x420)=half;Float(0x41c)=half;
-    half=data_00476fb0[data_00474c68.shot_type]*data_00470b0c;
+    half=data_00476fb0[g_globals_character.shot_type]*data_00470b0c;
     Float(0x430)=5;Float(0x42c)=half;Float(0x428)=half;
-    half=data_00476fa8[data_00474c68.shot_type]*data_00470b0c;
+    half=data_00476fa8[g_globals_character.shot_type]*data_00470b0c;
     Float(0x43c)=5;Float(0x438)=half;Float(0x434)=half;
     PlayerBounds3 bounds;
     bounds.x=Float(0x3c0)-Float(0x41c);

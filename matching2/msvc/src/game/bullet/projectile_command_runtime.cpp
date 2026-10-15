@@ -16,7 +16,7 @@
 #include "th10/platform/sound_queue.hpp"
 
 // The vanishing activation 0x00408030, whose receiver retail keeps in ESI;
-// PlayerCollisionRecord and the manager root data_004776f0 are declared by
+// PlayerCollisionRecord and the manager root g_bullet_manager are declared by
 // the activate.cpp anchor included at the bottom of this file.
 
 // The point the aim commands fall back to: the player origin, with the point
@@ -136,7 +136,7 @@ void ProjectileCommandRuntime::Tick() {
         case 0x4000:
             Entity_StartScript_00404f30(
                 reinterpret_cast<AnimationResource_0043e710*>(
-                    reinterpret_cast<ProjectileSpawnManager*>(data_004776f0)->animations),
+                    reinterpret_cast<ProjectileSpawnManager*>(g_bullet_manager)->animations),
                 &record.sprite,
                 data_00474170[command->value_c] + command->value_d);
             break;
@@ -186,7 +186,7 @@ void ProjectileCommandRuntime::Tick() {
             memcpy(pattern.commands, record.commands, sizeof(record.commands));
             EnemyGrid_ScanCells_004073e0(
                 reinterpret_cast<ProjectilePattern_004073e0*>(pattern_words),
-                reinterpret_cast<ProjectileManager_004073e0*>(data_004776f0));
+                reinterpret_cast<ProjectileManager_004073e0*>(g_bullet_manager));
             ++record.command_index;
             if (vanish == 0)
                 continue;

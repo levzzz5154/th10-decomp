@@ -212,7 +212,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_data_00474ca0",
+      "symbol": "_g_globals_flags",
       "address": "0x00474CA0",
       "kind": "data"
     },

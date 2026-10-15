@@ -20,7 +20,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00426f70_00426f70() {
     L_00426f70:
         sub esp,38h
     L_00426f73:
-        mov cx,word ptr [data_00474c48]
+        mov cx,word ptr [g_globals_power]
     L_00426f7a:
         movsx edx,cx
     L_00426f7d:
@@ -151,9 +151,9 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00426f70_00426f70() {
     L_0042702f:
         mov dword ptr [esi],0
     L_00427035:
-        mov eax,dword ptr [data_00474c68]
+        mov eax,dword ptr [g_globals_character]
     L_0042703a:
-        mov ecx,dword ptr [data_00474c6c]
+        mov ecx,dword ptr [g_globals_shot_type]
     L_00427040:
         lea edx,[ecx+eax*2]
     L_00427043:
@@ -499,7 +499,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00426f70_00426f70() {
     L_00427249:
         mov dword ptr [edi+3328h],esi
     L_0042724f:
-        mov eax,dword ptr [data_00474c68]
+        mov eax,dword ptr [g_globals_character]
     L_00427254:
         sub eax,0
     L_00427257:
@@ -509,7 +509,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00426f70_00426f70() {
     L_0042725e:
         jne asm_target_00427833
     L_00427264:
-        mov eax,dword ptr [data_00474c6c]
+        mov eax,dword ptr [g_globals_shot_type]
     L_00427269:
         sub eax,0
     L_0042726c:
@@ -1039,7 +1039,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00426f70_00426f70() {
     L_00427720:
         mov dword ptr [edi+32E0h],ecx
     L_00427726:
-        mov eax,dword ptr [data_00474c6c]
+        mov eax,dword ptr [g_globals_shot_type]
     L_0042772b:
         sub eax,0
     L_0042772e:

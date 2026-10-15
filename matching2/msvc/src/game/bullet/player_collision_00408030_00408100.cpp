@@ -13,7 +13,7 @@ int PlayerCollisionRecord::Activate() {
         state = 3;
         animation_state = 1;
         if (animation_index >= 0) {
-            static_cast<AnimationResource_0043e710*>(data_004776f0->item_animation)->
+            static_cast<AnimationResource_0043e710*>(g_bullet_manager->item_animation)->
                 CreateOffset(animation_index, reinterpret_cast<const Vector3*>(&position));
         }
         if (!(timer_flags & 1u)) {
@@ -75,7 +75,7 @@ int PlayerCollisionEngine::Check(const Vec3* point,
                 const PlayfieldPoint* location =
                     reinterpret_cast<const PlayfieldPoint*>(&record->position);
                 if (!location->OutsideBounds(2.0f, 2.0f) && spawn_item) {
-                    data_00477818->Spawn(reinterpret_cast<const Vector3*>(&record->position), 8, -1,
+                    g_item_manager->Spawn(reinterpret_cast<const Vector3*>(&record->position), 8, -1,
                         -1.5707963705062866f, 0.6000000238418579f);
                 }
             }

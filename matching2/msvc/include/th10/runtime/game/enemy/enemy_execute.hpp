@@ -135,7 +135,7 @@ struct BulletManager {
     __declspec(noinline) int Sweep_00408210(int convert);
     __declspec(noinline) int Check_00408100(const Float3* point, float radius, int spawn_item, int filter);
 };
-extern "C" BulletManager* data_004776f0;
+extern "C" BulletManager* g_bullet_manager;
 
 struct LaserManager;
 struct Laser {

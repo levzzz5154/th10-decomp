@@ -238,7 +238,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041dd80_0041dd80() {
     L_0041df0e:
         je short L_0041df2c
     L_0041df10:
-        mov eax,dword ptr [data_00477818]
+        mov eax,dword ptr [g_item_manager]
     L_0041df15:
         push 3F19999Ah
     L_0041df1a:
@@ -1006,7 +1006,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041eb00_0041eb00() {
     L_0041ed13:
         jne short L_0041ed2d
     L_0041ed15:
-        mov eax,dword ptr [data_00477818]
+        mov eax,dword ptr [g_item_manager]
     L_0041ed1a:
         push 3F19999Ah
     L_0041ed1f:
@@ -1598,7 +1598,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041efa0_0041efa0() {
     L_0041f12e:
         je short L_0041f14c
     L_0041f130:
-        mov eax,dword ptr [data_00477818]
+        mov eax,dword ptr [g_item_manager]
     L_0041f135:
         push 3F19999Ah
     L_0041f13a:

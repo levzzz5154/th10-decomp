@@ -72,7 +72,7 @@ struct PlayerDamage {
 extern "C" {
 extern PickupGameState* g_card;
 extern PickupConfig* g_enemy_ctrl;
-extern int data_00474c68, data_00474c44;
+extern int g_globals_character, g_globals_score;
 extern void* g_sprt_ctrl;
 extern float g_game_speed;
 }

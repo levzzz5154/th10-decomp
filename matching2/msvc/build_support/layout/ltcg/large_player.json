@@ -362,12 +362,12 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00474c68",
+      "symbol": "_g_globals_character",
       "address": "0x474c68",
       "kind": "data"
     },
     {
-      "symbol": "_data_00474c6c",
+      "symbol": "_g_globals_shot_type",
       "address": "0x474c6c",
       "kind": "data"
     },

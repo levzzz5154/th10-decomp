@@ -162,15 +162,15 @@ __declspec(noinline) int __stdcall TitleMode12_004315c0(Title* room) {
             room->DisableTimerWithOwner(3);
             int stage = replays->selected_stage + 1;
             data_00477848 = data_00474788 + stage * 0x30;
-            data_00474c7c = stage;
-            data_00474c80 = stage;
+            g_globals_stage = stage;
+            g_globals_stage_shown = stage;
             Music_FadeOut(6.0f);
             data_00491fb8 = 12;
-            strcpy(data_00477710, replays->replays[replays->selected_replay]->path);
+            strcpy(g_replay_path, replays->replays[replays->selected_replay]->path);
             ReplayFileHeader_004315c0* header = replays->replays[replays->selected_replay]->header;
-            data_00474c68 = header->character;
-            data_00474c6c = header->shot_type;
-            data_00474c74 = header->difficulty;
+            g_globals_character = header->character;
+            g_globals_shot_type = header->shot_type;
+            g_globals_difficulty = header->difficulty;
             data_00491c00 = 2;
             data_00491c04 = replays->selected_replay;
         }

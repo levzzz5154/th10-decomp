@@ -2,7 +2,7 @@
 #define TH10_GAME_REPLAY_FILE_LOAD_0042A200_HPP
 #include "th10/game/replay_stage_begin_0042a6a0.hpp"
 
-extern "C" unsigned int data_00474ca0;     // game flags; 0x20 = replays come from the data archive
+extern "C" unsigned int g_globals_flags;     // game flags; 0x20 = replays come from the data archive
 
 // The shared-handle file helpers (build_support/layout/units/file_581343.cpp, 0x0044B790).
 int __stdcall asm_File_ProbeExists_0044b4d0(const char* path);

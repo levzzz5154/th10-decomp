@@ -17,12 +17,12 @@ int EclView_0040a940::Update() {
         if (data_00474e30.new_press & 8) {
             g_player->Resume();
             g_player->Reset();
-            data_004776f0->Resume();
-            data_004776f0->Reset();
+            g_bullet_manager->Resume();
+            g_bullet_manager->Reset();
             g_enemy_ctrl->Resume();
             g_enemy_ctrl->Clear();
-            data_00477818->Resume();
-            memset(data_00477818->slots, 0, sizeof(data_00477818->slots));
+            g_item_manager->Resume();
+            memset(g_item_manager->slots, 0, sizeof(g_item_manager->slots));
             state = 1;
         }
         break;
@@ -43,13 +43,13 @@ int EclView_0040a940::Update() {
                 if (data_00474e30.pressed & 0x1001) {
                     g_player->SuspendAndStop();
                     g_player->Reset();
-                    data_004776f0->Suspend();
-                    data_004776f0->Reset();
+                    g_bullet_manager->Suspend();
+                    g_bullet_manager->Reset();
                     g_enemy_ctrl->SuspendTasks();
                     g_enemy_ctrl->Clear();
                     g_front->Reset();
-                    data_00477818->Suspend();
-                    memset(data_00477818->slots, 0, sizeof(data_00477818->slots));
+                    g_item_manager->Suspend();
+                    memset(g_item_manager->slots, 0, sizeof(g_item_manager->slots));
                     EclViewSpawn_0040a450 spawn;
                     memset(&spawn, 0, sizeof(spawn));
                     spawn.x = 0.0f;
@@ -68,9 +68,9 @@ int EclView_0040a940::Update() {
             if (data_00474e30.repeated & 0x1001) {
                 EclView_Release(g_front);
                 EclView_Release(g_player);
-                EclView_Release(data_004776f0);
+                EclView_Release(g_bullet_manager);
                 EclView_Release(g_bomb);
-                EclView_Release(data_00477818);
+                EclView_Release(g_item_manager);
                 EclView_Release(g_smoll_score);
                 EclView_Release(g_enemy_ctrl);
                 flags &= ~2u;

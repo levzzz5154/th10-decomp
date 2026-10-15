@@ -49,7 +49,7 @@ typedef char LinePositionCheck_0041e260[offsetof(LineEffectSweep_0041e260,positi
 typedef char LineScriptCheck_0041e260[offsetof(LineEffectSweep_0041e260,script_all)==0x44a?1:-1];
 typedef char LineScriptCheck_0041f400[offsetof(LineEffectSweep_0041e260,script_in_bounds)==0x466?1:-1];
 extern "C" {
-extern ItemSpawnManager_0041bb00* data_00477818;
+extern ItemSpawnManager_0041bb00* g_item_manager;
 extern LineAnimationResourceBank_0041e260* g_laser_manager;
 extern float data_00470cd8;
 extern float data_00470d1c;

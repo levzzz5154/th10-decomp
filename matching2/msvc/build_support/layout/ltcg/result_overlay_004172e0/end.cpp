@@ -14,14 +14,14 @@ void ResultCard_00409c00::End() {
         flags &= ~1u;
         name.Release();
         if (flags & 2) {
-            data_00474c44.score += bonus / 10;
-            if (data_00474c44.score >= 1000000000) data_00474c44.score = 999999999;
+            g_globals_score.score += bonus / 10;
+            if (g_globals_score.score >= 1000000000) g_globals_score.score = 999999999;
             ResultOverlay_SetMode(0, g_front, bonus);
-            if (data_00477838->mode != 1) {
+            if (g_replay->mode != 1) {
                 CardHistory_00409c00* history =
-                    &data_0047783c->shots[data_00474c44.shot_type + data_00474c44.character * 3].spells[spell_id];
+                    &g_score->shots[g_globals_score.shot_type + g_globals_score.character * 3].spells[spell_id];
                 if (history->captures < 99999) history->captures++;
-                history = &data_0047783c->shots[6].spells[spell_id];
+                history = &g_score->shots[6].spells[spell_id];
                 if (history->captures < 99999) history->captures++;
             }
             g_sound_manager.Queue(0x2D, 0);

@@ -8,9 +8,9 @@ struct ItemAnimationResources_0041bb00 {
     void* item_animation;
 };
 extern "C" {
-extern short data_00474c48;
+extern short g_globals_power;
 extern float g_game_speed;
-extern ItemAnimationResources_0041bb00* data_004776f0;
+extern ItemAnimationResources_0041bb00* g_bullet_manager;
 }
 #include "th10/render/animation_public_callers.hpp"
 struct ConfigureResource_00404f30 { void* value; };
@@ -63,21 +63,21 @@ __declspec(noinline) int ItemSpawnManager_0041bb00::Spawn(
         else if (location->x>=192.0f) location->x=192.0f;
         item->velocity.SetPolar(angle,speed);
         ResetSpawnTimer_0041bb00(item);
-        if (data_00474c48>=100) {
+        if (g_globals_power>=100) {
             switch(kind) {
             case 10: case 11: kind=5; break;
             case 1: case 4: kind=9; break;
             }
         }
         if (item->kind==3)
-            ItemAnimation_CreateOffset_00448db0(data_004776f0->item_animation,
+            ItemAnimation_CreateOffset_00448db0(g_bullet_manager->item_animation,
                 reinterpret_cast<void**>(&speed),393,
                 reinterpret_cast<const Vector3*>(location));
         item->kind=kind;
         item->display_kind=kind;
         if (kind==10) {
             item->display_kind=1;
-            ConfigureResource_00404f30 resource={data_004776f0->item_animation};
+            ConfigureResource_00404f30 resource={g_bullet_manager->item_animation};
             reinterpret_cast<ItemConfiguredEntity_00404f30*>(item)->Configure(375,resource);
             item->identifier=identifier;
             return 0;
@@ -86,7 +86,7 @@ __declspec(noinline) int ItemSpawnManager_0041bb00::Spawn(
         if (kind==11) { item->display_kind=4; script=378; }
         else script=kind+374;
         reinterpret_cast<ItemConfiguredEntity_00404f30*>(item)->Configure(script,
-            *reinterpret_cast<ConfigureResource_00404f30*>(&data_004776f0->item_animation));
+            *reinterpret_cast<ConfigureResource_00404f30*>(&g_bullet_manager->item_animation));
         item->identifier=identifier;
         return 0;
     }

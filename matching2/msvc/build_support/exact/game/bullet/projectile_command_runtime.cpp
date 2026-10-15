@@ -372,7 +372,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00406d90_00406d90() {
     L_00407093:
         mov edx,dword ptr [esi+0Ch]
     L_00407096:
-        mov ecx,dword ptr [data_004776f0]
+        mov ecx,dword ptr [g_bullet_manager]
     L_0040709c:
         add eax,edx
     L_0040709e:
@@ -540,7 +540,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00406d90_00406d90() {
     L_004071f1:
         mov dword ptr [esp+20Ch],edx
     L_004071f8:
-        mov edx,dword ptr [data_004776f0]
+        mov edx,dword ptr [g_bullet_manager]
     L_004071fe:
         mov dword ptr [esp+24h],ecx
     L_00407202:

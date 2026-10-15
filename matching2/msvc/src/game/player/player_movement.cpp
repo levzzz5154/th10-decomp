@@ -50,7 +50,7 @@ int Player::Move() {
 
     if (focused) {
         if (focus_marker == 0) {
-            AnimationResource_00449870* marker_resource = reinterpret_cast<AnimationResource_00449870*>(data_004776f0->item_animation);
+            AnimationResource_00449870* marker_resource = reinterpret_cast<AnimationResource_00449870*>(g_bullet_manager->item_animation);
             Entity* object = reinterpret_cast<AnimationPool*>(g_sprt_ctrl)->Allocate();
             object->render_bucket = 9;
             object->flags_35C |= 0x40000000u;

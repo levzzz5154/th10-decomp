@@ -44,7 +44,7 @@ ReplayManager_004296f0::~ReplayManager_004296f0() {
         LeaveCriticalSection(&g_thread_synchronization.critical_sections[0]);
         --g_thread_synchronization.scheduler_lock_depth;
     }
-    if (this == data_00477838)
-        data_00477838 = 0;
+    if (this == g_replay)
+        g_replay = 0;
 }
 #pragma code_seg()

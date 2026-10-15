@@ -73,10 +73,10 @@ EclView_0040a940::~EclView_0040a940() {
     }
     EclView_DeleteOwned(g_front);
     EclView_DeleteOwned(g_player);
-    EclView_DeleteOwned(data_004776f0);
+    EclView_DeleteOwned(g_bullet_manager);
     EclView_DeleteOwned(g_enemy_ctrl);
     EclView_DeleteOwned(g_bomb);
-    EclView_DeleteOwned(data_00477818);
+    EclView_DeleteOwned(g_item_manager);
     EclView_DeleteOwned(g_smoll_score);
     g_ecl_view = 0;
 }

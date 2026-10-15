@@ -74,7 +74,7 @@ __declspec(noinline) int LineEffectSweep_0041e260::CreateAllSegments(int spawn_i
             !(point.x-32.0f>=192.0f) &&
             !(point.y+32.0f<=data_00470b04) &&
             !(point.y-32.0f>=448.0f)) {
-            data_00477818->Spawn(&point,8,-1,-1.5707963705062866f,0.6f);
+            g_item_manager->Spawn(&point,8,-1,-1.5707963705062866f,0.6f);
         }
         point.x+=step.velocity.x;
         point.y+=step.velocity.y;

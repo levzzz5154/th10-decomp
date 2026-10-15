@@ -10,8 +10,8 @@ struct ScoreFile_004306a0 {
 };
 
 extern "C" {
-extern int data_00474c6c;               // shot type
-extern ScoreFile_004306a0* data_0047783c;
+extern int g_globals_shot_type;               // shot type
+extern ScoreFile_004306a0* g_score;
 }
 
 __declspec(noinline) int __stdcall TitleMode7_004306a0(Title* room);

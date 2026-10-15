@@ -20,7 +20,7 @@ struct GameCounters_0040b560 {
     unsigned char reserved_34[0x18];
     int continued;                // 0x00474C90
 };
-extern "C" GameCounters_0040b560 data_00474c44;
+extern "C" GameCounters_0040b560 g_globals_score;
 extern "C" const char* data_00474440[12];
 extern "C" char data_00497c38[260];
 extern "C" char data_0046cb68[];
@@ -30,7 +30,7 @@ struct EndingUnlocks {
     unsigned char endings[12];
     unsigned char alternate;
 };
-extern "C" EndingUnlocks* data_0047783c;
+extern "C" EndingUnlocks* g_score;
 struct EndingAsciiView {
     unsigned char reserved[0x8994];
     void* resource;
@@ -82,12 +82,12 @@ int Ending::Initialize() {
         background = *(int*)AnimationManager_CreatePositionedPrimary_00448d50(
             ((EndingAsciiView*)g_ascii_manager)->Resource(), (void**)&id, 6, &position);
     }
-    ending_index = data_00474c44.character * 3 + data_00474c44.shot_type;
-    if (!data_00474c44.continued && data_00474c44.difficulty >= 1) ending_index += 6;
-    if (!data_0047783c->endings[ending_index]) RaiseFlag(flags, 1);
-    if (!data_0047783c->alternate) RaiseFlag(flags, 2);
-    data_0047783c->endings[ending_index] = 1;
-    if (ending_index >= 6) data_0047783c->alternate = 1;
+    ending_index = g_globals_score.character * 3 + g_globals_score.shot_type;
+    if (!g_globals_score.continued && g_globals_score.difficulty >= 1) ending_index += 6;
+    if (!g_score->endings[ending_index]) RaiseFlag(flags, 1);
+    if (!g_score->alternate) RaiseFlag(flags, 2);
+    g_score->endings[ending_index] = 1;
+    if (ending_index >= 6) g_score->alternate = 1;
     const char* filename = data_00474440[ending_index];
     data_00497c38[0] = 0;
     strcat(data_00497c38, filename);

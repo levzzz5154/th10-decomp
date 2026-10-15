@@ -20,8 +20,8 @@ extern "C" unsigned int data_00474e30;
 extern "C" unsigned int data_00474e36;
 #define SOUND_FLAGS_00474e36 (*(const volatile unsigned int*)&data_00474e36)
 
-extern "C" int data_00474c74;
-#define GAME_MODE_00474c74 (*(const volatile int*)&data_00474c74)
+extern "C" int g_globals_difficulty;
+#define GAME_MODE_00474c74 (*(const volatile int*)&g_globals_difficulty)
 
 extern "C" unsigned int data_004918a4;
 #define RING_FLAG_004918a4 (*(volatile unsigned int*)&data_004918a4)

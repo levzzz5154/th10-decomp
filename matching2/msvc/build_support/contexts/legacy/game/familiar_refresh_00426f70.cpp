@@ -106,12 +106,12 @@ extern "C" __declspec(noinline) void __stdcall Player_RefreshOptions(
         PlayerFamiliarRuntime_00426f70* player) {
     FamiliarRecord_00426f70* record = player->familiars;
     const unsigned int remove_flag = 0x4000000u;
-    const int power = data_00474c44.power;
+    const int power = g_globals_score.power;
     int desired = power / 20;
     int i;
 
     // Sweep the four attached-effect handles.
-    if (data_00474c44.power >= 100) {
+    if (g_globals_score.power >= 100) {
         for (i = 4; i != 0; --i, ++record) {
             int handle = record->effect_handle;
             if (handle != 0) {
@@ -121,7 +121,7 @@ extern "C" __declspec(noinline) void __stdcall Player_RefreshOptions(
                     RetireFamiliarAnimation(node, remove_flag);
             }
             record->effect_handle = 0;
-            switch (data_00474c44.character * 3 + data_00474c44.shot_type) {
+            switch (g_globals_score.character * 3 + g_globals_score.shot_type) {
             case 0: {
                 void* slot_0;
                 record->effect_handle = (int)*AnimationManager_CreatePrimaryFront_00448e30(
@@ -184,7 +184,7 @@ extern "C" __declspec(noinline) void __stdcall Player_RefreshOptions(
         player->familiars[i].handle = 0;
         player->familiars[i].index = i;
 
-        switch (data_00474c44.character) {
+        switch (g_globals_score.character) {
         case 0: {
             // First character: both offsets from the schedule, the familiar
             // placed on the player at the offset of the current mode, then
@@ -198,14 +198,14 @@ extern "C" __declspec(noinline) void __stdcall Player_RefreshOptions(
             FamiliarPoint_00426f70 position = player->anchor + *offset;
             player->familiars[i].position.CopyFrom(position);
             player->familiars[i].anchor.CopyFrom(position);
-            switch (data_00474c44.shot_type) {
+            switch (g_globals_score.shot_type) {
             case 0: player->familiars[i].handle = SpawnFamiliar(player, 0x11); break;
             case 1: player->familiars[i].handle = SpawnFamiliar(player, 0x12); break;
             case 2: player->familiars[i].handle = SpawnFamiliar(player, 0x13); break;
             }
             break; }
         case 1:
-            switch (data_00474c44.shot_type) {
+            switch (g_globals_score.shot_type) {
             case 0: {
                 // Second character, first shot type: the familiar follows the shot
                 // schedule's orbit base and trails the player's position

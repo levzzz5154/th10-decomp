@@ -4,7 +4,7 @@
 // bytes are never exported as recovered code.
 #include "th10/game/projectile_spawn_runtime_004067d0.hpp"
 
-extern "C" void* data_004776f0;
+extern "C" void* g_bullet_manager;
 extern "C" float g_game_speed;
 
 struct PlayfieldPoint {
@@ -56,7 +56,7 @@ int PlayerCollisionRecord::Activate() {
         state = 3;
         animation_state = 1;
         if (animation_index >= 0) {
-            reinterpret_cast<AnimationResource_0043e710*>(data_004776f0)
+            reinterpret_cast<AnimationResource_0043e710*>(g_bullet_manager)
                 ->CreateOffset(animation_index,
                                reinterpret_cast<const Vector3*>(&position));
         }

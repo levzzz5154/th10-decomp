@@ -12,7 +12,7 @@ extern "C" void __cdecl SidePanelReleaseBarrier(void* value);
 extern "C" void __cdecl entry_free_00452422(void* memory);
 void __cdecl operator delete(void* memory);
 
-extern "C" unsigned int data_00474ca0;
+extern "C" unsigned int g_globals_flags;
 extern "C" void* g_sprt_ctrl;
 
 // The twelve-byte position record handed to the animation manager; identical
@@ -86,7 +86,7 @@ void FrontStagePartsView::ReleaseStageParts() {
         operator delete(slot);
         stage_slot = 0;
     }
-    if (data_00474ca0 & 9)
+    if (g_globals_flags & 9)
         return;
     PanelResource_00447810** resource =
         &reinterpret_cast<PanelAnimationManager_00414570*>(g_sprt_ctrl)->stage_resource;

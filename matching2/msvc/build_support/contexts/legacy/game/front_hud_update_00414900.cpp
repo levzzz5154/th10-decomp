@@ -212,7 +212,7 @@ __declspec(noinline) int __stdcall FrontHudUpdate_00414900(
         }
     }
     {
-        int value = data_00474c4c;
+        int value = g_globals_gauge;
         int divisor = 10000;
         AnmVm_Run_0043ee30(&front->objects[15]);
         FrontUpdateView::BankObject* obj = &front->objects[16];
@@ -274,7 +274,7 @@ __declspec(noinline) int __stdcall FrontHudUpdate_00414900(
         }
         if (front->pending_id_9e24 == 0) {
             int script = 0x85;
-            switch (data_00474c7c) {
+            switch (g_globals_stage) {
             case 1:
                 if (data_00474c84 >= 0x18)
                     script = 0x86;

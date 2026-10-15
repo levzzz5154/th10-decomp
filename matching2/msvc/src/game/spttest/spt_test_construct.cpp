@@ -1,6 +1,6 @@
 #include "th10/game/spt_test_state.hpp"
 extern "C" void* __cdecl memset(void*, int, unsigned int);
-extern "C" unsigned char data_00477844;
+extern "C" unsigned char g_spt_test;
 
 #pragma code_seg(".text$00binit")
 // 0x0042BB30..0x0042BBC0: construct the script tester (SptTest; its embedded script object has vtable 0x004703E4). Its only caller is the create function 0x0042BF30, which nothing calls: the debug tool is unreachable in retail.
@@ -33,7 +33,7 @@ extern "C" __declspec(noinline) SptTestState* __fastcall SptTest_Construct(
     state->field_2BC = 1;
     memset(state, 0, sizeof(*state));
     state->unknown_00[0] |= 2;
-    *(int*)&data_00477844 = (int)state;
+    *(int*)&g_spt_test = (int)state;
     return state;
 }
 

@@ -70,7 +70,7 @@ inline void ReplayManager_004296f0::ClearStage(int stage) {
 __declspec(noinline) void __stdcall ManagerTeardownFuncCtrl_Remove_00449F60(FuncCtrl* scheduler, SchedulerTask* task);
 extern "C" void* g_func_ctrl;
 // The replay manager the game is currently using.
-extern "C" ReplayManager_004296f0* data_00477838;
+extern "C" ReplayManager_004296f0* g_replay;
 
 __declspec(noinline) ReplayManager_004296f0* __stdcall ReplayManager_Create_004296f0(const char* replay_path);
 __declspec(noinline) ReplayManager_004296f0* __stdcall ReplayManager_Create_00429610(int start_mode, const char* replay_path);

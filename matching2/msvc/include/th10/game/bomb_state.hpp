@@ -28,9 +28,9 @@ struct BombAnimationValue {
     float collision_radius;
 };
 extern "C" BombPlayerInput* g_card;
-extern "C" CollisionEngine_00408100* data_004776f0;
+extern "C" CollisionEngine_00408100* g_bullet_manager;
 extern "C" LaserManager_0041c800* g_laser_manager;
-extern "C" int data_00474c68;
+extern "C" int g_globals_character;
 extern "C" float data_00470b0c, data_00470afc, data_00470d34, data_00470b4c, data_00470b48;
 typedef char BombStateTimerOffset[offsetof(BombState,timer)==0x14 ? 1:-1];
 typedef char BombStateStateOffset[offsetof(BombState,active_state)==0x28 ? 1:-1];

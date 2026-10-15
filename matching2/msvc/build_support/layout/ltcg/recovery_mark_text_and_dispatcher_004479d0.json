@@ -1129,12 +1129,12 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00474c44",
+      "symbol": "_g_globals_score",
       "address": "0x00474C44",
       "kind": "data"
     },
     {
-      "symbol": "_data_00474c68",
+      "symbol": "_g_globals_character",
       "address": "0x00474C68",
       "kind": "data"
     },
@@ -1259,7 +1259,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00474c74",
+      "symbol": "_g_globals_difficulty",
       "address": "0x00474C74",
       "kind": "data"
     },
@@ -1434,7 +1434,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00474c7c",
+      "symbol": "_g_globals_stage",
       "address": "0x00474C7C",
       "kind": "data"
     }

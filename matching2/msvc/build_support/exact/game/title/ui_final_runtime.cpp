@@ -423,7 +423,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00433ef0_00433ef0() {
     L_004341ea:
         mov dword ptr [eax],ebx
     L_004341ec:
-        mov ecx,dword ptr [data_0047783c]
+        mov ecx,dword ptr [g_score]
     L_004341f2:
         mov al,byte ptr [ecx+edi+1D892h]
     L_004341f9:
@@ -629,7 +629,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00433ef0_00433ef0() {
     L_00434374:
         call asm_AnimationManager_ValidateHandle_00449450
     L_00434379:
-        mov ecx,dword ptr [data_0047783c]
+        mov ecx,dword ptr [g_score]
     L_0043437f:
         mov esi,eax
     L_00434381:
@@ -737,7 +737,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00433ef0_00433ef0() {
     L_00434449:
         call asm_AnimationManager_ValidateHandle_00449450
     L_0043444e:
-        mov ecx,dword ptr [data_0047783c]
+        mov ecx,dword ptr [g_score]
     L_00434454:
         mov esi,eax
     L_00434456:
@@ -1107,7 +1107,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00433ef0_00433ef0() {
     L_00434712:
         mov dword ptr [ebp+2C0h],eax
     L_00434718:
-        mov edx,dword ptr [data_0047783c]
+        mov edx,dword ptr [g_score]
     L_0043471e:
         mov dword ptr [ebp+2B4h],ebx
     L_00434724:
@@ -1213,7 +1213,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00433ef0_00433ef0() {
     L_004347d7:
         call asm_AnimationManager_RegisterResource_0043e460
     L_004347dc:
-        mov edx,dword ptr [data_0047783c]
+        mov edx,dword ptr [g_score]
     L_004347e2:
         pop edi
     L_004347e3:

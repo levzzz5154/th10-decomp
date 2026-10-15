@@ -100,7 +100,7 @@ struct GameArchiveOwner_0040d280 {
     void *animation_archive;               // +0x3E0B50
 };
 
-extern "C" GameArchiveOwner_0040d280 *data_004776f0;
+extern "C" GameArchiveOwner_0040d280 *g_bullet_manager;
 extern "C" unsigned char g_game_speed;
 extern "C" FuncCtrl *g_func_ctrl;
 
@@ -122,7 +122,7 @@ static SchedulerCallbackTask_0040d280 *BuildCallbackNode_0040d280(
 #pragma code_seg(".text$00d_bmsghost")
 extern "C" __declspec(noinline) int __stdcall
 EnemyCtrl_Initialize(EnemyCtrl *host, int script_name) {
-    host->animation_archive_030 = data_004776f0->animation_archive;
+    host->animation_archive_030 = g_bullet_manager->animation_archive;
 
     MessageParser_0040d280 *parser = new MessageParser_0040d280;
     host->parser_054 = parser;

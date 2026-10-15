@@ -9,7 +9,7 @@
 #include "../../../build_support/layout/ltcg/player_state_collision_runtime/player_state.hpp"
 #include "../../../build_support/layout/ltcg/player_state_collision_runtime/movement_input.hpp"
 extern "C" {
-extern unsigned short data_00474c48;
+extern unsigned short g_globals_power;
 __declspec(noinline) int __stdcall Player_FireShot(
     Player* player, ShotDefinition* shot, int frame);
 }
@@ -18,7 +18,7 @@ __declspec(noinline) int __stdcall Player_FireShot(
 // UpdateShooting; LTCG derives retail's EDI receiver and EBX frame.
 #pragma code_seg(".text$f00428160F")
 int Player::FireShots(int frame) {
-    int level = data_00474c48 / 20;  // whole units of power
+    int level = g_globals_power / 20;  // whole units of power
     if (level >= 5) level = 4;
     if (focused) level += 5;
     for (ShotDefinition* shot = shot_type->lists[level].shots; shot->period >= 0; ++shot) {

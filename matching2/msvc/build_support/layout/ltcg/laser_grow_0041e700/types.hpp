@@ -68,7 +68,7 @@ struct LaserPolarPoint : Point3_OrientedRect {
 extern "C" {
 extern float g_game_speed;
 extern LaserFollowBank* g_enemy_ctrl;
-extern LaserAnimationBank* data_004776f0;
+extern LaserAnimationBank* g_bullet_manager;
 float __stdcall NormalizeAngle_0044bc10(float angle,float increment);
 void __stdcall RunLaserAnimation_0043ee30(Entity* object);
 }

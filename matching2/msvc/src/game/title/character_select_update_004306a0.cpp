@@ -46,8 +46,8 @@ __declspec(noinline) int __stdcall TitleMode7_004306a0(Title* room) {
     switch (room->phase) {
     case 0:
         room->cursor.item_count = 2;
-        if (data_00474c74 == 4) {
-            ScoreFile_004306a0* score = data_0047783c;
+        if (g_globals_difficulty == 4) {
+            ScoreFile_004306a0* score = g_score;
             if (!score->cleared[0][0] && !score->cleared[0][1] && !score->cleared[0][2]) {
                 if (room->cursor.selection == 0)
                     SelectItem_004306a0(room->cursor, 1);
@@ -113,14 +113,14 @@ __declspec(noinline) int __stdcall TitleMode7_004306a0(Title* room) {
             room->ClearAnimationSlot(99);
             room->DisableTimerWithOwner(8);
             int character = room->cursor.selection;
-            int previous = data_00474c68;
-            data_00474c68 = character;
+            int previous = g_globals_character;
+            g_globals_character = character;
             room->cursor.PushSelection();
             room->cursor.item_count = 3;
             if (previous != character)
                 SelectItem_004306a0(room->cursor, 0);
             else
-                UpdateBoundedCounter(data_00474c6c, reinterpret_cast<unsigned int*>(&room->cursor));
+                UpdateBoundedCounter(g_globals_shot_type, reinterpret_cast<unsigned int*>(&room->cursor));
         }
         break;
     case 4:
@@ -128,7 +128,7 @@ __declspec(noinline) int __stdcall TitleMode7_004306a0(Title* room) {
             room->ClearAnimationSlot(125);
             room->ClearAnimationSlot(99);
             room->DisableTimerWithOwner(6);
-            data_00474c68 = room->cursor.selection;
+            g_globals_character = room->cursor.selection;
             room->cursor.PopSelection();
         }
         break;

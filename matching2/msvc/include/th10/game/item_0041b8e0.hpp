@@ -47,4 +47,4 @@ struct ItemStage_0041b8e0 {
     Resource_0043e5a0* item_sprites;                   // +0x3E0B50
 };
 
-extern "C" ItemStage_0041b8e0* data_004776f0;
+extern "C" ItemStage_0041b8e0* g_bullet_manager;

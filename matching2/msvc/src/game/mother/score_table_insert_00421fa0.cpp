@@ -18,19 +18,19 @@ extern "C" char* __cdecl strcpy(char* destination, const char* source);
 int ScoreTable_00421fa0::InsertScore() {
     int rank;
     for (rank = 0; rank < 10; ++rank) {
-        if (records[data_00474c44.difficulty][rank].score <= data_00474c44.score)
+        if (records[g_globals_score.difficulty][rank].score <= g_globals_score.score)
             break;
     }
     if (rank >= 10)
         return -1;
     for (int place = 9; place > rank; --place)
-        records[data_00474c44.difficulty][place] = records[data_00474c44.difficulty][place - 1];
-    records[data_00474c44.difficulty][rank].score = data_00474c44.score;
-    records[data_00474c44.difficulty][rank].suffix = data_00474c44.suffix;
-    records[data_00474c44.difficulty][rank].stage = (unsigned char)data_00474c44.stage;
-    time_00452b71(&records[data_00474c44.difficulty][rank].time);
-    strcpy(records[data_00474c44.difficulty][rank].name, "        ");
-    records[data_00474c44.difficulty][rank].slow_rate =
+        records[g_globals_score.difficulty][place] = records[g_globals_score.difficulty][place - 1];
+    records[g_globals_score.difficulty][rank].score = g_globals_score.score;
+    records[g_globals_score.difficulty][rank].suffix = g_globals_score.suffix;
+    records[g_globals_score.difficulty][rank].stage = (unsigned char)g_globals_score.stage;
+    time_00452b71(&records[g_globals_score.difficulty][rank].time);
+    strcpy(records[g_globals_score.difficulty][rank].name, "        ");
+    records[g_globals_score.difficulty][rank].slow_rate =
         100.0f - (float)(g_fps->slow_frames / g_fps->frames) * 100.0f;
     return rank;
 }

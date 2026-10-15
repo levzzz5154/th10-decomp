@@ -14,7 +14,7 @@ void __stdcall Entity_StartScript_00404f30(AnimationResource_0043e710* resource,
 int Item_0041b8e0::EnterState2() {
     state = 2;
     Entity_StartScript_00404f30(
-        reinterpret_cast<AnimationResource_0043e710*>(data_004776f0->item_sprites),
+        reinterpret_cast<AnimationResource_0043e710*>(g_bullet_manager->item_sprites),
         reinterpret_cast<Entity*>(this),
         variant + 0x176);
     return 0;

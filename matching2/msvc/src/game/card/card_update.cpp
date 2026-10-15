@@ -42,7 +42,7 @@ struct GameSelection_00408d60 {
 extern "C" {
 extern StageState_00408d60* g_background;
 extern FrontResources_00408d60* g_front;
-extern ScoreFile_00408d60* data_0047783c;
+extern ScoreFile_00408d60* g_score;
 extern MarkerOwner_00408d60* g_enemy_ctrl;
 extern GameSelection_00408d60 g_selection;         // 0x00474C68
 // The animation VM takes one stack object pointer and returns with RET 4.
@@ -111,13 +111,13 @@ int Card_00408d60::Update() {
         RunAnimationVm(&bonus_digits[2]);
     }
 
-    int count = data_0047783c->shots[g_selection.shot_type + g_selection.character * 3]
+    int count = g_score->shots[g_selection.shot_type + g_selection.character * 3]
         .spells[record_index].attempts;
     if (count >= 100)
         count = 99;
     Configure(&counter_digits[0], count / 10 + 30);
     Configure(&counter_digits[1], count % 10 + 30);
-    count = data_0047783c->shots[g_selection.shot_type + g_selection.character * 3]
+    count = g_score->shots[g_selection.shot_type + g_selection.character * 3]
         .spells[record_index].captures;
     if (count >= 100)
         count = 99;

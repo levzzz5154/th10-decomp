@@ -7,7 +7,7 @@ extern "C" int __stdcall TitlePracticeRowsContext(TitleDrawView** menus, int cou
                                                   GameSelection_00431410** selection) {
     // The game state is reachable through pointers in the game, so stores
     // through other pointers may alias its members.
-    *selection = &data_00474c68;
+    *selection = &g_globals_character;
     int total = 0;
     for (int i = 0; i < count; ++i)
         total += menus[i]->DrawPracticeRows();

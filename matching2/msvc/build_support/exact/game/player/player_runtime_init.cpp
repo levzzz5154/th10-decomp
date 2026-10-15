@@ -6,7 +6,7 @@
 extern "C" __declspec(naked) void __cdecl asm_FUN_004247f0_004247f0() {
     __asm {
     L_004247f0:
-        mov eax,dword ptr [data_00474c68]
+        mov eax,dword ptr [g_globals_character]
     L_004247f5:
         sub esp,0Ch
     L_004247f8:
@@ -220,7 +220,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_004247f0_004247f0() {
     L_004249a3:
         mov dword ptr [ebx+464h],esi
     L_004249a9:
-        mov edi,dword ptr [data_00474c68]
+        mov edi,dword ptr [g_globals_character]
     L_004249af:
         mov edi,dword ptr [edi*4+476FB8h]
     L_004249b6:
@@ -228,7 +228,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_004247f0_004247f0() {
     L_004249bc:
         mov dword ptr [eax+4],edi
     L_004249bf:
-        mov edi,dword ptr [data_00474c68]
+        mov edi,dword ptr [g_globals_character]
     L_004249c5:
         mov edi,dword ptr [edi*4+476FB0h]
     L_004249cc:
@@ -236,7 +236,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_004247f0_004247f0() {
     L_004249d2:
         mov dword ptr [eax+0Ch],edi
     L_004249d5:
-        mov edi,dword ptr [data_00474c68]
+        mov edi,dword ptr [g_globals_character]
     L_004249db:
         mov edi,dword ptr [edi*4+476FA0h]
     L_004249e2:
@@ -258,7 +258,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_004247f0_004247f0() {
     L_00424a0b:
         fstp dword ptr [ebx+41Ch]
     L_00424a11:
-        mov edi,dword ptr [data_00474c68]
+        mov edi,dword ptr [g_globals_character]
     L_00424a17:
         fld dword ptr [edi*4+476FB0h]
     L_00424a1e:
@@ -270,7 +270,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_004247f0_004247f0() {
     L_00424a30:
         fstp dword ptr [ebx+428h]
     L_00424a36:
-        mov edi,dword ptr [data_00474c68]
+        mov edi,dword ptr [g_globals_character]
     L_00424a3c:
         fld dword ptr [edi*4+476FA8h]
     L_00424a43:
@@ -604,9 +604,9 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_004247f0_004247f0() {
     L_00424d49:
         ret
     L_00424d4a:
-        mov eax,dword ptr [data_00474c68]
+        mov eax,dword ptr [g_globals_character]
     L_00424d4f:
-        mov ecx,dword ptr [data_00474c6c]
+        mov ecx,dword ptr [g_globals_shot_type]
     L_00424d55:
         lea edx,[ecx+eax*2]
     L_00424d58:

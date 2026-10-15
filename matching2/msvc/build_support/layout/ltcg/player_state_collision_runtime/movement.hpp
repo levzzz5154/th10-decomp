@@ -1,7 +1,7 @@
 #pragma once
 #include "runtime.hpp"
 #include "collision.hpp"
-extern "C" int data_00474c6c;
+extern "C" int g_globals_shot_type;
 #include "movement_input.hpp"
 extern "C" const float data_00470b00;
 extern "C" const float data_00470b4c, data_00470b48;

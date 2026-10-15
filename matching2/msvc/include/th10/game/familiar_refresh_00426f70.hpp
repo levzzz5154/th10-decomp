@@ -114,4 +114,4 @@ struct FamiliarGameCounters_00426f70 {
     int shot_type;                               // 0x00474C6C
 };
 
-extern "C" FamiliarGameCounters_00426f70 data_00474c44;
+extern "C" FamiliarGameCounters_00426f70 g_globals_score;

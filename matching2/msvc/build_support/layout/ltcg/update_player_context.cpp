@@ -4,11 +4,11 @@
 #pragma code_seg(".text$160context")
 int __stdcall PlayerUpdateContext(BombState** players,int count) {
     for(int i=0;i<count;++i) players[i]->Update();
-    data_004776f0->ActivateAll(count);
+    g_bullet_manager->ActivateAll(count);
     ((DropSource_0040c9a0*)players[0])->FlushDrops((ItemDrops_0040c9a0*)players[1]);
     Enemy_ReleaseOnDeath_0040e5f0((Enemy_0040e5f0*)players[2]);
     EnemyCtrl_SweepDeaths_0040e6a0((EnemyCtrlDeathView*)players[3]);
-    data_00477818->ConvertItems();
+    g_item_manager->ConvertItems();
     return count;
 }
 #pragma code_seg()

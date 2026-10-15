@@ -43,14 +43,14 @@ extern "C" __declspec(noinline) void __stdcall SubmenuUpdate_004236f0(SubmenuSta
     case 7:
         if (state->timer.field_04 < 10) break;
         SubUpdateFrameMaximum_004236f0(g_front);
-        if ((data_00474ca0 & 0x10) != 0) {
+        if ((g_globals_flags & 0x10) != 0) {
             // Ranking gate: publish the frame-maximum high score into the
             // stage/mode/subslot/difficulty slot of the score file.
-            int* slot = reinterpret_cast<int*>(reinterpret_cast<char*>(data_0047783c)
-                + (data_00474c6c + 3 * data_00474c68) * 0x437C
-                + (data_00474c7c + 6 * data_00474c74) * 8 + 0x4DC);
-            if (data_00474c44.score > *slot)
-                *slot = data_00474c44.score;
+            int* slot = reinterpret_cast<int*>(reinterpret_cast<char*>(g_score)
+                + (g_globals_shot_type + 3 * g_globals_character) * 0x437C
+                + (g_globals_stage + 6 * g_globals_difficulty) * 8 + 0x4DC);
+            if (g_globals_score.score > *slot)
+                *slot = g_globals_score.score;
             state->state = 8;
             state->rows.item_count = 3;
             state->rows.wrap = 1;
@@ -143,15 +143,15 @@ extern "C" __declspec(noinline) void __stdcall SubmenuUpdate_004236f0(SubmenuSta
             state->list.item_count = (int)strlen(data_004746d8);
             state->list.wrap = 1;
             ReplayHeaderView_004236f0*& summary =
-                reinterpret_cast<ReplayHeaderView_004236f0*&>(data_00477838->summary);
-            if (state->extra_cleared != 0 && (data_00474ca0 & 0x10) == 0) {
+                reinterpret_cast<ReplayHeaderView_004236f0*&>(g_replay->summary);
+            if (state->extra_cleared != 0 && (g_globals_flags & 0x10) == 0) {
                 asm_FID_conflict___time32_00452b71(&summary->saved_time);
                 summary->difficulty_slot = 8;
             } else {
                 asm_FID_conflict___time32_00452b71(&summary->saved_time);
-                summary->difficulty_slot = data_00474c7c;
+                summary->difficulty_slot = g_globals_stage;
             }
-            strcpy(state->name, data_0047783c->last_name);
+            strcpy(state->name, g_score->last_name);
             state->name_length = 0;
             if (strcmp(state->name, "        ") != 0)
                 list->Advance(-1);
@@ -239,12 +239,12 @@ timed_length:
                 asm_sprintf_00452ae8(path, "th10_%.2d.rpy", selection + 1);
                 SubPlatformResource_Destroy_004236f0(
                     reinterpret_cast<PlatformResource*>(state->handles[selection]));
-                asm_FUN_00429b60_00429b60(data_00477838, path, state->name);
+                asm_FUN_00429b60_00429b60(g_replay, path, state->name);
                 state->handles[selection] =
                     ReplayManager_Create_004296f0(path);
                 state->state = 10;
                 state->timer.SetSchedulerValue(0);
-                strcpy(data_0047783c->last_name, state->name);
+                strcpy(g_score->last_name, state->name);
                 return;
             }
             // The letter/space cells share the length bump and the append
@@ -320,11 +320,11 @@ timed_length:
                     state->name[state->name_length] = ' ';
                 } else if (selection == length - 1) {
                     // Save the name into the stage/mode/subslot slot table.
-                    char* slot = reinterpret_cast<char*>(data_0047783c)
-                        + (data_00474c6c + 3 * data_00474c68) * 0x437C
-                        + (3 * selection + 30 * data_00474c74) * 8 + 0x1E;
+                    char* slot = reinterpret_cast<char*>(g_score)
+                        + (g_globals_shot_type + 3 * g_globals_character) * 0x437C
+                        + (3 * selection + 30 * g_globals_difficulty) * 8 + 0x1E;
                     strcpy(slot, state->name);
-                    strcpy(data_0047783c->last_name, state->name);
+                    strcpy(g_score->last_name, state->name);
                     reinterpret_cast<SubAnimNode_004236f0&>(state->background).SetFlag();
                     state->state = 8;
                     state->rows.item_count = 3;

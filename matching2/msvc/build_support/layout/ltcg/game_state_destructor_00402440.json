@@ -169,7 +169,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_data_00474ca0",
+      "symbol": "_g_globals_flags",
       "address": "0x474ca0",
       "kind": "data"
     },

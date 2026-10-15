@@ -31,7 +31,7 @@ extern "C" __declspec(noinline) int __stdcall ItemManager_UpdateItems(ItemSpawnM
             if (--item->variant<0) {
                 item->state=2;
                 Entity_StartScript_00404f30(
-                    static_cast<AnimationResource_0043e710*>(data_004776f0->item_animation),
+                    static_cast<AnimationResource_0043e710*>(g_bullet_manager->item_animation),
                     &item->animation,item->kind+374);
             }
             continue;

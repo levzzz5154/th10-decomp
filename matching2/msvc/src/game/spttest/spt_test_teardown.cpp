@@ -67,6 +67,6 @@ SptTest_0042be20::~SptTest_0042be20() {
     }
     g_sprt_ctrl->Unload(7);
     g_sprt_ctrl->Unload(6);
-    data_00477844 = 0;
+    g_spt_test = 0;
 }
 #pragma code_seg()

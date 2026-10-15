@@ -24,7 +24,7 @@ void Recovery_ReleaseGlobalStates() {
         ((GlobalStateDestroyFn)asm_FUN_0040b7b0_0040b7b0)(small_state);
         entry_free_004524a1(small_state);
     }
-    void* pending_block = *(void**)&data_00477838;
+    void* pending_block = *(void**)&g_replay;
     if (pending_block) {
         ((GlobalStateDestroyFn)asm_FUN_004294a0_004294a0)(pending_block);
         entry_free_004524a1(pending_block);

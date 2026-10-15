@@ -137,12 +137,12 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_data_00474c4c",
+      "symbol": "_g_globals_gauge",
       "address": "0x474c4c",
       "kind": "data"
     },
     {
-      "symbol": "_data_00474c70",
+      "symbol": "_g_globals_lives",
       "address": "0x474c70",
       "kind": "data"
     },
@@ -152,7 +152,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00474c68",
+      "symbol": "_g_globals_character",
       "address": "0x474c68",
       "kind": "data"
     },
@@ -162,7 +162,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00477838",
+      "symbol": "_g_replay",
       "address": "0x477838",
       "kind": "data"
     },

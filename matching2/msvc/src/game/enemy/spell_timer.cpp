@@ -2,7 +2,7 @@
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
 
-extern "C" int data_00474c4c;
+extern "C" int g_globals_gauge;
 extern "C" float g_game_speed;
 
 struct SpellTimerDisplay_004127a0 {
@@ -146,7 +146,7 @@ __declspec(noinline) void *SpellTimerState_004127a0::AdvanceSlots() {
         self->clock.Reset();
         self->state_flags |= 0x00010000u;
 
-        int &countdown = data_00474c4c;
+        int &countdown = g_globals_gauge;
         countdown -= 3000;
         if (countdown < 5000)
             countdown = 5000;

@@ -20,6 +20,6 @@ ItemManager::~ItemManager() {
   LeaveCriticalSection(&g_thread_synchronization.critical_sections[0]);
   --g_thread_synchronization.scheduler_lock_depth;
  }
- data_00477818=0;
+ g_item_manager=0;
 }
 #pragma code_seg()

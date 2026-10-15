@@ -15,22 +15,22 @@ extern BackGround* data_004776e4;
 extern unsigned char* g_ascii_manager;
 extern unsigned char* g_background;
 extern unsigned char* g_bomb;
-extern unsigned char* data_004776f0;
+extern unsigned char* g_bullet_manager;
 extern unsigned char* g_card;
 extern unsigned char* g_effect;
 extern unsigned char* g_enemy_ctrl;
 extern unsigned char* g_front;
 extern unsigned char* g_hint;
-extern unsigned char* data_00477818;
+extern unsigned char* g_item_manager;
 extern unsigned char* g_laser_manager;
 extern unsigned char* g_pause;
 extern unsigned char* g_player;
-extern unsigned char* data_00477838;
-extern unsigned char* data_0047783c;
+extern unsigned char* g_replay;
+extern unsigned char* g_score;
 extern unsigned char* g_smoll_score;
 extern unsigned char* data_00477848;
-extern unsigned int data_00474ca0,data_00474e30,data_00491ff4,data_00491d78;
-extern int data_00491fb8,data_00474c88,data_00474c8c,data_00474c68,data_00474c6c;
+extern unsigned int g_globals_flags,data_00474e30,data_00491ff4,data_00491d78;
+extern int data_00491fb8,data_00474c88,data_00474c8c,g_globals_character,g_globals_shot_type;
 extern unsigned char data_00492254[],g_sound_manager[],g_application[],g_globals[];
 extern const char data_0046d278[],data_0046df98[];
 // These declarations represent genuine logical parameters observed in retail.
@@ -72,23 +72,23 @@ static __forceinline void StageKillRequiredPair(unsigned char* owner) {
 }
 static __forceinline void StageReset(StageContextFade_00418190* context,int* local_state,bool delayed) {
     context->flags&=~0x800u;
-    StageResetBulletPool_00405ed0(data_004776f0);
+    StageResetBulletPool_00405ed0(g_bullet_manager);
     StageResetPause_00424d90(g_player);
-    memset(data_00477818+0x14,0,0x873A8*4);
+    memset(g_item_manager+0x14,0,0x873A8*4);
     StageResetEnemy_00409f90(g_enemy_ctrl);
     StageReleaseChain_00417770(g_laser_manager);
     data_00474c88=0;
     data_00474c8c=0;
-    StageResetGameplay_0042a450(data_00477838);
+    StageResetGameplay_0042a450(g_replay);
     memset(local_state,0,16*4);
     StageStartScript_0040cfb0(local_state,g_enemy_ctrl,data_0046d278);
     StageInitializeThread_00413bc0(g_front);
     StageKillPair(g_pause);
     StageKillRequiredPair(g_player);
     StageRefreshPanel_00426f70(g_player);
-    StageKillPair(data_004776f0);
+    StageKillPair(g_bullet_manager);
     StageKillPair(g_enemy_ctrl);
-    StageKillPair(data_00477818);
+    StageKillPair(g_item_manager);
     StageKillPair(g_laser_manager);
     StageKillRequiredPair(g_effect);
     StageKillPair(g_bomb);
@@ -104,7 +104,7 @@ static __forceinline void StageReset(StageContextFade_00418190* context,int* loc
         StageWord(thread,0x89A4)=0;
         StageSetTimer_00405410(reinterpret_cast<unsigned char*>(context)+0x10,0);
     } else {
-        if (!(data_00474ca0&0x20u))
+        if (!(g_globals_flags&0x20u))
             StagePlayMusic_00420b10(0,StageWord(data_00477848,0x24));
         unsigned char* thread=g_ascii_manager;
         StageStopAnimation_00409e50(thread+0x89A0);
@@ -144,7 +144,7 @@ extern "C" int __stdcall StageContextUpdate_00418190(StageContextFade_00418190* 
         return 1;
     }
     StageStopWorker_0044c150(data_00492254);
-    if (data_00474ca0&0x20u) {
+    if (g_globals_flags&0x20u) {
         if ((data_00474e30&0x160Bu)||(context->flags&0x70u))
             data_00491fb8=(data_00491ff4&0x1000u)?2:4;
         if (context->frame==0xB7C)
@@ -155,9 +155,9 @@ extern "C" int __stdcall StageContextUpdate_00418190(StageContextFade_00418190* 
     StageTickThread_00417040(g_front);
     if ((context->flags&0x10u)||(context->flags&0x20u)||(context->flags&0x40u))
         return 3;
-    if (StageWord(data_00477838,0x10)!=1) {
-        int index=data_00474c6c+data_00474c68*3;
-        int* frames=reinterpret_cast<int*>(data_0047783c+index*0x437C+0x4CC);
+    if (StageWord(g_replay,0x10)!=1) {
+        int index=g_globals_shot_type+g_globals_character*3;
+        int* frames=reinterpret_cast<int*>(g_score+index*0x437C+0x4CC);
         if (*frames<215999999) ++*frames;
     }
     if (StageWord(g_enemy_ctrl,0x10)==0 && StageWord(g_front,0x9EB8)==0 && context->frame>=90)

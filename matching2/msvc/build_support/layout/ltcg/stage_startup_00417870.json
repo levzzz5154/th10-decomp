@@ -170,7 +170,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00474ca0",
+      "symbol": "_g_globals_flags",
       "address": "0x474ca0",
       "kind": "data"
     },
@@ -195,7 +195,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00477838",
+      "symbol": "_g_replay",
       "address": "0x477838",
       "kind": "data"
     },
@@ -220,7 +220,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00477710",
+      "symbol": "_g_replay_path",
       "address": "0x477710",
       "kind": "data"
     },
@@ -255,7 +255,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_0047783c",
+      "symbol": "_g_score",
       "address": "0x47783c",
       "kind": "data"
     },

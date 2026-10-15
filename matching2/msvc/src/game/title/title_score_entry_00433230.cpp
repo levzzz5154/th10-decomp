@@ -24,7 +24,7 @@ extern "C" __declspec(noinline) int __stdcall TitleMenu_DrawScoreEntry_00433230(
     switch (menu->phase) {
     case 2: {
         Vec3_00401530 position = {48.0f, 160.0f, 0.0f};
-        int selected = data_00474c68.difficulty;
+        int selected = g_globals_character.difficulty;
         g_ascii_manager->current_64 = 1;
         for (int row = 0; row < 10; ++row) {
             int shade = 0xFF - row * 0x10;
@@ -33,38 +33,38 @@ extern "C" __declspec(noinline) int __stdcall TitleMenu_DrawScoreEntry_00433230(
                 g_ascii_manager->current_4c = 0xFF0000FF | ((shade << 8 | shade) << 8);
             else
                 g_ascii_manager->current_4c = menu->cursor != row ? 0xFF404040 : 0xFFFFFFFF;
-            if (data_0047783c[data_00474c68.character + data_00474c68.shot_type * 3]
+            if (g_score[g_globals_character.character + g_globals_character.shot_type * 3]
                     .table.rows[selected][row].date != 0) {
                 ScoreTable_004329f0* table =
-                    &data_0047783c[data_00474c68.character + data_00474c68.shot_type * 3].table;
+                    &g_score[g_globals_character.character + g_globals_character.shot_type * 3].table;
                 tm* date = localtime(&table->rows[selected][row].date);
                 AsciiManager_AddFormatted(
                     g_ascii_manager, &position,
                     "%2d  %s  %9ld%d  %.4d/%.2d/%.2d %.2d:%.2d  %s  %2.1f%%", rank,
-                    data_0047783c[data_00474c68.character + data_00474c68.shot_type * 3]
+                    g_score[g_globals_character.character + g_globals_character.shot_type * 3]
                         .table.rows[selected][row].name,
-                    data_0047783c[data_00474c68.character + data_00474c68.shot_type * 3]
+                    g_score[g_globals_character.character + g_globals_character.shot_type * 3]
                         .table.rows[selected][row].score,
-                    data_0047783c[data_00474c68.character + data_00474c68.shot_type * 3]
+                    g_score[g_globals_character.character + g_globals_character.shot_type * 3]
                         .table.rows[selected][row].continues,
                     date->tm_year + 1900, date->tm_mon + 1, date->tm_mday, date->tm_hour,
                     date->tm_min,
-                    data_0047471c[data_0047783c[data_00474c68.character +
-                                                data_00474c68.shot_type * 3]
+                    data_0047471c[g_score[g_globals_character.character +
+                                                g_globals_character.shot_type * 3]
                                       .table.rows[selected][row].stage],
-                    data_0047783c[data_00474c68.character + data_00474c68.shot_type * 3]
+                    g_score[g_globals_character.character + g_globals_character.shot_type * 3]
                         .table.rows[selected][row].slowdown);
             } else {
                 AsciiManager_AddFormatted(
                     g_ascii_manager, &position,
                     "%2d  %s  %9ld%d  ----/--/-- --:--  Stage -  ---%%", rank,
-                    data_0047783c[data_00474c68.character + data_00474c68.shot_type * 3]
+                    g_score[g_globals_character.character + g_globals_character.shot_type * 3]
                         .table.rows[selected][row].name,
-                    data_0047783c[data_00474c68.character + data_00474c68.shot_type * 3]
+                    g_score[g_globals_character.character + g_globals_character.shot_type * 3]
                         .table.rows[selected][row].score,
-                    data_0047783c[data_00474c68.character + data_00474c68.shot_type * 3]
+                    g_score[g_globals_character.character + g_globals_character.shot_type * 3]
                         .table.rows[selected][row].continues,
-                    data_0047783c[data_00474c68.character + data_00474c68.shot_type * 3]
+                    g_score[g_globals_character.character + g_globals_character.shot_type * 3]
                         .table.rows[selected][row].slowdown);
             }
             position.y += 18.0f;

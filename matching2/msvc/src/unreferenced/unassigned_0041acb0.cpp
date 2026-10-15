@@ -21,12 +21,12 @@ struct EffectManager_0041acb0 {
     __declspec(noinline) EffectManager_0041acb0();
 };
 
-extern "C" EffectManager_0041acb0* data_00477818;
+extern "C" EffectManager_0041acb0* g_item_manager;
 
 #pragma code_seg(".text$01fn")
 EffectManager_0041acb0::EffectManager_0041acb0() {
     memset(this, 0, sizeof(*this));
     flags |= 2;
-    data_00477818 = this;
+    g_item_manager = this;
 }
 #pragma code_seg()

@@ -28,7 +28,7 @@ static __forceinline void SelectItem_00432cb0(MenuCursor& cursor, int index) {
 
 // The score file with its high-score tables.
 static __forceinline NameEntryScoreFile_00432cb0* ScoreFile_00432cb0() {
-    return reinterpret_cast<NameEntryScoreFile_00432cb0*>(data_0047783c);
+    return reinterpret_cast<NameEntryScoreFile_00432cb0*>(g_score);
 }
 
 #pragma code_seg(".text$00432cb0_fn")
@@ -50,17 +50,17 @@ __declspec(noinline) int __stdcall TitleNameEntry_00432cb0(Title* room) {
         }
         RecoveryMusicInstallSlot_0042c670(room, 104);
         room->SetTimerTarget(1);
-        RecoveryMusicInstallSlot_0042c670(room, data_00474c68 + 152);
-        RecoveryMusicInstallSlot_0042c670(room, data_00474c68 * 3 + data_00474c6c + 154);
-        RecoveryMusicInstallSlot_0042c670(room, data_00474c74 + 160);
+        RecoveryMusicInstallSlot_0042c670(room, g_globals_character + 152);
+        RecoveryMusicInstallSlot_0042c670(room, g_globals_character * 3 + g_globals_shot_type + 154);
+        RecoveryMusicInstallSlot_0042c670(room, g_globals_difficulty + 160);
         // The table records the stage of a whole game.
-        data_00474c7c = 8;
-        data_00474c80 = 8;
+        g_globals_stage = 8;
+        g_globals_stage_shown = 8;
         data_00477848 = data_00474788 + 8 * 0x30;
-        int rank = ScoreFile_00432cb0()->shots[data_00474c68][data_00474c6c].table.InsertScore();
+        int rank = ScoreFile_00432cb0()->shots[g_globals_character][g_globals_shot_type].table.InsertScore();
         data_00477848 = data_00474788;
-        data_00474c7c = 0;
-        data_00474c80 = 0;
+        g_globals_stage = 0;
+        g_globals_stage_shown = 0;
         if (rank >= 0) {
             room->timer.Set(0);
             room->cursor.wrap = 1;
@@ -69,7 +69,7 @@ __declspec(noinline) int __stdcall TitleNameEntry_00432cb0(Title* room) {
             SelectItem_00432cb0(*grid, 0);
             entry->grid.item_count = strlen(data_004746d8);
             entry->grid.wrap = 1;
-            strcpy(entry->name, data_0047783c->last_name);
+            strcpy(entry->name, g_score->last_name);
             if (strcmp(entry->name, "        ") != 0)
                 grid->Advance(-1);
             int length;
@@ -142,8 +142,8 @@ __declspec(noinline) int __stdcall TitleNameEntry_00432cb0(Title* room) {
                     entry->name[entry->name_length] = ' ';
                     g_sound_manager.Queue(10, 0);
                 } else if (cell == count - 1) {
-                    strcpy(ScoreFile_00432cb0()->shots[data_00474c68][data_00474c6c]
-                               .table.records[data_00474c74][room->cursor.selection].name,
+                    strcpy(ScoreFile_00432cb0()->shots[g_globals_character][g_globals_shot_type]
+                               .table.records[g_globals_difficulty][room->cursor.selection].name,
                            entry->name);
                     strcpy(ScoreFile_00432cb0()->last_name, entry->name);
                     room->SetTimerTarget(3);
@@ -172,9 +172,9 @@ __declspec(noinline) int __stdcall TitleNameEntry_00432cb0(Title* room) {
     case 3:
         if (room->timer.current >= 6) {
             room->ClearAnimationSlot(104);
-            room->ClearAnimationSlot(data_00474c68 + 152);
-            room->ClearAnimationSlot(data_00474c68 * 3 + data_00474c6c + 154);
-            room->ClearAnimationSlot(data_00474c74 + 160);
+            room->ClearAnimationSlot(g_globals_character + 152);
+            room->ClearAnimationSlot(g_globals_character * 3 + g_globals_shot_type + 154);
+            room->ClearAnimationSlot(g_globals_difficulty + 160);
             room->DisableTimerWithOwner(16);
         }
         break;

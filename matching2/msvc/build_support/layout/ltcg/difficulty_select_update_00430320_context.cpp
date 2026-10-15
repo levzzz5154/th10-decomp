@@ -20,11 +20,11 @@ extern "C" int __stdcall DifficultySelectUpdateCompilerContext(
     HintLink_00419120* head,
     HintUpdateView* indicator, int release,
     Title* music_room, void** objects) {
-    objects[0] = &data_00474c74;
+    objects[0] = &g_globals_difficulty;
     objects[1] = &data_00474e30;
-    objects[2] = &data_00474c68;
+    objects[2] = &g_globals_character;
     objects[3] = &data_00474e36;
-    objects[4] = &data_00474c6c;
+    objects[4] = &g_globals_shot_type;
     objects[5] = &data_00491c08;
     objects[6] = &data_00474cac;
     objects[7] = data_00497aa8;

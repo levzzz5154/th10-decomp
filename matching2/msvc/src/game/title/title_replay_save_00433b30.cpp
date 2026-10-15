@@ -25,7 +25,7 @@ extern "C" __declspec(noinline) int __stdcall TitleMenu_DrawReplaySave_00433b30(
         int slot = menu->selected_replay;
         if (menu->phase_frames < 10)
             position.y = (10.0f - menu->phase_elapsed) * ((slot * 15 + 80) - 240.0f) * 0.1f + 240.0f;
-        ReplayHeader_00431ba0* header = data_00477838->header;
+        ReplayHeader_00431ba0* header = g_replay->header;
         tm* date = localtime(&header->date);
         AsciiManager_AddFormatted(
             g_ascii_manager, &position, "No.%.2d %s %.2d/%.2d/%.2d %.2d:%.2d %s %s %s %2.1f%%",

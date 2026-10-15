@@ -23,14 +23,14 @@ struct TimerRecord_00429b30 {
 };
 
 extern "C" int __cdecl asm_FID_conflict___time32_00452b71(int* timer);
-extern "C" int data_00474c7c;
+extern "C" int g_globals_stage;
 
 __declspec(noinline) int Reseed_00429b30(TimerRecord_00429b30* record, int value);
 
 #pragma code_seg(".text$01reseed")
 int Reseed_00429b30(TimerRecord_00429b30* record, int value) {
     asm_FID_conflict___time32_00452b71((int*)((char*)record->block + 0x0C));
-    record->block->field_5C = (value != 0) ? value + 7 : data_00474c7c;
+    record->block->field_5C = (value != 0) ? value + 7 : g_globals_stage;
     return 0;
 }
 #pragma code_seg()

@@ -91,7 +91,7 @@ ECL_FLOAT_OFFSET(value_23fc, 0x23FC);
 typedef char EclFloat_manager_entity_offset[offsetof(EclFloatManager_00412350, current_entity) == 0x10 ? 1 : -1];
 
 extern "C" EclFloatManager_00412350* g_enemy_ctrl;
-extern "C" int data_00474c74;
+extern "C" int g_globals_difficulty;
 extern "C" int data_00474c98;
 extern "C" float data_00470afc;
 extern "C" float data_00470b04;
@@ -218,7 +218,7 @@ float EclFloatSource_00412350::ResolveFloatValue(int encoded_selector) const {
         result = (float)data_00474c98;
         break;
     case -9959:
-        result = (float)data_00474c74;
+        result = (float)g_globals_difficulty;
         break;
     case -9957:
         result = data_00470afc;
@@ -233,16 +233,16 @@ float EclFloatSource_00412350::ResolveFloatValue(int encoded_selector) const {
         result = (float)value_23fc;
         break;
     case -9953:
-        result = (float)(data_00474c74 == data_00470b04);
+        result = (float)(g_globals_difficulty == data_00470b04);
         break;
     case -9952:
-        result = (float)(data_00474c74 == data_00470afc);
+        result = (float)(g_globals_difficulty == data_00470afc);
         break;
     case -9951:
-        result = (float)(data_00474c74 == data_00470b08);
+        result = (float)(g_globals_difficulty == data_00470b08);
         break;
     case -9950:
-        result = (float)(data_00474c74 == data_00470bd4);
+        result = (float)(g_globals_difficulty == data_00470bd4);
         break;
     default: result = data_00470b04;
         break;

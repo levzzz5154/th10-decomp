@@ -51,11 +51,11 @@ struct PlayerSchedulerRecord {
 };
 struct PlayerPracticeState { unsigned char reserved_00[0x10]; int mode; };
 extern "C" {
-extern PlayerCollisionEngine* data_004776f0;
+extern PlayerCollisionEngine* g_bullet_manager;
 extern LaserManager* g_laser_manager;
-extern PlayerItemManager* data_00477818;
+extern PlayerItemManager* g_item_manager;
 extern PauseOpenState* g_pause;
-extern PlayerPracticeState* data_00477838;
+extern PlayerPracticeState* g_replay;
 extern PlayerInputMode g_application;
 __declspec(noinline) int __stdcall Player_RefreshOptions(Player* player);
 __declspec(noinline) int __stdcall Player_Die(Player* player);

@@ -92,7 +92,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00432cb0_00432cb0() {
     L_00432d3d:
         call asm_GameState_SetTimerTarget_0042c620
     L_00432d42:
-        mov edi,dword ptr [data_00474c68]
+        mov edi,dword ptr [g_globals_character]
     L_00432d48:
         add edi,98h
     L_00432d4e:
@@ -100,9 +100,9 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00432cb0_00432cb0() {
     L_00432d4f:
         call asm_Recovery_InstallAnimationSlot_0042c670
     L_00432d54:
-        mov eax,dword ptr [data_00474c68]
+        mov eax,dword ptr [g_globals_character]
     L_00432d59:
-        mov ecx,dword ptr [data_00474c6c]
+        mov ecx,dword ptr [g_globals_shot_type]
     L_00432d5f:
         lea edx,[ecx+eax*2]
     L_00432d62:
@@ -112,7 +112,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00432cb0_00432cb0() {
     L_00432d6a:
         call asm_Recovery_InstallAnimationSlot_0042c670
     L_00432d6f:
-        mov edi,dword ptr [data_00474c74]
+        mov edi,dword ptr [g_globals_difficulty]
     L_00432d75:
         add edi,0A0h
     L_00432d7b:
@@ -120,21 +120,21 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00432cb0_00432cb0() {
     L_00432d7c:
         call asm_Recovery_InstallAnimationSlot_0042c670
     L_00432d81:
-        mov ecx,dword ptr [data_00474c6c]
+        mov ecx,dword ptr [g_globals_shot_type]
     L_00432d87:
         mov eax,8
     L_00432d8c:
-        mov dword ptr [data_00474c7c],eax
+        mov dword ptr [g_globals_stage],eax
     L_00432d91:
-        mov dword ptr [data_00474c80],eax
+        mov dword ptr [g_globals_stage_shown],eax
     L_00432d96:
-        mov eax,dword ptr [data_00474c68]
+        mov eax,dword ptr [g_globals_character]
     L_00432d9b:
         lea edx,[ecx+eax*2]
     L_00432d9e:
         add edx,eax
     L_00432da0:
-        mov eax,dword ptr [data_0047783c]
+        mov eax,dword ptr [g_score]
     L_00432da5:
         imul edx,437Ch
     L_00432dab:
@@ -150,9 +150,9 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00432cb0_00432cb0() {
     L_00432dc2:
         mov dword ptr [data_00477848],474788h
     L_00432dcc:
-        mov dword ptr [data_00474c7c],ebx
+        mov dword ptr [g_globals_stage],ebx
     L_00432dd2:
-        mov dword ptr [data_00474c80],ebx
+        mov dword ptr [g_globals_stage_shown],ebx
     L_00432dd8:
         jl asm_target_00432eb0
     L_00432dde:
@@ -212,7 +212,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00432cb0_00432cb0() {
     L_00432e39:
         mov dword ptr [ebp+58FCh],ecx
     L_00432e3f:
-        mov ecx,dword ptr [data_0047783c]
+        mov ecx,dword ptr [g_score]
     L_00432e45:
         lea esi,[ebp+58DCh]
     L_00432e4b:
@@ -562,9 +562,9 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00432cb0_00432cb0() {
     L_004330af:
         jne short L_0043311a
     L_004330b1:
-        mov ecx,dword ptr [data_00474c74]
+        mov ecx,dword ptr [g_globals_difficulty]
     L_004330b7:
-        mov edi,dword ptr [data_00474c6c]
+        mov edi,dword ptr [g_globals_shot_type]
     L_004330bd:
         lea eax,[ecx+ecx*4]
     L_004330c0:
@@ -574,7 +574,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00432cb0_00432cb0() {
     L_004330c6:
         lea eax,[ecx+ecx*2]
     L_004330c9:
-        mov ecx,dword ptr [data_00474c68]
+        mov ecx,dword ptr [g_globals_character]
     L_004330cf:
         lea edi,[edi+ecx*2]
     L_004330d2:
@@ -584,7 +584,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00432cb0_00432cb0() {
     L_004330da:
         mov ecx,edi
     L_004330dc:
-        mov edi,dword ptr [data_0047783c]
+        mov edi,dword ptr [g_score]
     L_004330e2:
         lea esi,[ebp+58DCh]
     L_004330e8:
@@ -720,15 +720,15 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00432cb0_00432cb0() {
     L_004331bc:
         call asm_Recovery_ClearAnimationSlot_0042c6d0
     L_004331c1:
-        mov esi,dword ptr [data_00474c68]
+        mov esi,dword ptr [g_globals_character]
     L_004331c7:
         add esi,98h
     L_004331cd:
         call asm_Recovery_ClearAnimationSlot_0042c6d0
     L_004331d2:
-        mov eax,dword ptr [data_00474c68]
+        mov eax,dword ptr [g_globals_character]
     L_004331d7:
-        mov ecx,dword ptr [data_00474c6c]
+        mov ecx,dword ptr [g_globals_shot_type]
     L_004331dd:
         lea edx,[ecx+eax*2]
     L_004331e0:
@@ -736,7 +736,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00432cb0_00432cb0() {
     L_004331e7:
         call asm_Recovery_ClearAnimationSlot_0042c6d0
     L_004331ec:
-        mov esi,dword ptr [data_00474c74]
+        mov esi,dword ptr [g_globals_difficulty]
     L_004331f2:
         add esi,0A0h
     L_004331f8:

@@ -24,6 +24,6 @@ BulletManager_00405F70::~BulletManager_00405F70() {
         --g_thread_synchronization.scheduler_lock_depth;
     }
     g_sprt_ctrl->MarkResourceForRemoval(archive);
-    data_004776f0 = 0;
+    g_bullet_manager = 0;
 }
 #pragma code_seg()

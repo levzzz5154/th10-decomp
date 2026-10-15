@@ -94,7 +94,7 @@ typedef char CardFlagsOffset_00409c00[offsetof(Card_00409c00, flags) == 0x378C ?
 extern "C" {
 extern CardInterface_00409c00* g_background;
 extern CardFront_00409c00* g_front;
-extern CardMode_00409c00* data_00477838;
-extern CardScoreFile_00409c00* data_0047783c;
-extern CardGame_00409c00 data_00474c44;
+extern CardMode_00409c00* g_replay;
+extern CardScoreFile_00409c00* g_score;
+extern CardGame_00409c00 g_globals_score;
 }

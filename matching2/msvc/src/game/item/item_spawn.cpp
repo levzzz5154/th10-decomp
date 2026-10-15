@@ -31,7 +31,7 @@ static __forceinline SpawnItem_0041bb00* FindFreeItem(SpawnItem_0041bb00* item) 
 }
 
 static __forceinline AnimationResource_0043e710* ItemAnimation() {
-    return static_cast<AnimationResource_0043e710*>(data_004776f0->item_animation);
+    return static_cast<AnimationResource_0043e710*>(g_bullet_manager->item_animation);
 }
 
 #pragma code_seg(".text$f0041bb00F")

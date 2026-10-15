@@ -4,8 +4,8 @@
 #define g_ascii_manager stage_quad_data_004776e0
 #define g_enemy_ctrl stage_quad_g_enemy_ctrl
 #define g_player stage_quad_data_00477834
-#define data_00477838 stage_quad_data_00477838
-#define data_0047783c stage_quad_data_0047783c
+#define g_replay stage_quad_data_00477838
+#define g_score stage_quad_data_0047783c
 #define g_game_speed stage_quad_data_00476f78
 #define data_00491fc4 stage_quad_data_00491fc4
 #define data_00491fb8 stage_quad_data_00491fb8
@@ -87,8 +87,8 @@ __declspec(noinline) void __stdcall Stage_StartQuadScripts_00404450(Stage_004044
 #undef g_ascii_manager
 #undef g_enemy_ctrl
 #undef g_player
-#undef data_00477838
-#undef data_0047783c
+#undef g_replay
+#undef g_score
 #undef g_game_speed
 #undef data_00491fc4
 #undef data_00491fb8

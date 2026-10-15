@@ -38,7 +38,7 @@ struct NameEntryMenu_00423570 {
 };
 typedef char NameEntryMenuNameOffset_00423570[offsetof(NameEntryMenu_00423570, name) == 0x2B4 ? 1 : -1];
 
-extern "C" ScoreFile_00423570* data_0047783c;
+extern "C" ScoreFile_00423570* g_score;
 extern "C" StageInfo_00423570 data_00474788[];
 extern "C" StageInfo_00423570* data_00477848;   // the current stage's row
 extern "C" const char* data_004746d8;           // the name entry character grid

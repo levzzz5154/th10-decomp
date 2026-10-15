@@ -52,7 +52,7 @@ struct BulletAnimationResourceSource {
     unsigned char reserved_000[0x3e0b50];
     void* resource;
 };
-extern "C" BulletAnimationResourceSource* data_004776f0;
+extern "C" BulletAnimationResourceSource* g_bullet_manager;
 struct ProjectileCommandRuntime {
     __declspec(noinline) void Tick();
 };

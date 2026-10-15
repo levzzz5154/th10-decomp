@@ -21,7 +21,7 @@ extern "C" const char NamedCardFormat[];
 extern "C" const char MaskedCardFormat[];
 extern "C" const char EmptyCardText[];
 
-static inline ScoreManager* Scores() { return reinterpret_cast<ScoreManager*>(data_0047783c); }
+static inline ScoreManager* Scores() { return reinterpret_cast<ScoreManager*>(g_score); }
 
 // The animation with this id, searching both of the manager's lists.
 static inline HintVm_00419120* FindAnimation(void* manager, unsigned int id) {

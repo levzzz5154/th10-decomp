@@ -91,7 +91,7 @@ int GrowLaser::Update() {
             OnPlayerHit(PlayerPoint(), &hit_size, 0);
         } else if (collision == 2 && timer.current % 5 == 0) {
             void* handle;
-            ItemAnimation_CreateOffset_00448db0(data_004776f0->resource,
+            ItemAnimation_CreateOffset_00448db0(g_bullet_manager->resource,
                 &handle, 434, PlayerPoint());
             g_sound_manager.QueuePan(28, position.x);
         }

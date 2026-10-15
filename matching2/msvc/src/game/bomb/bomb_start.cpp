@@ -13,14 +13,14 @@ int __stdcall Bomb_Start(Bomb* bomb) {
          g_card->animation_state < 0x5D ||
          g_card->animation_state > 0x60) &&
         g_card->animation_state != 0x6D)
-        index = data_00474c68 ? 0x197 : 0x190;
+        index = g_globals_character ? 0x197 : 0x190;
     else
         index = 0x1B9;
     int handle;
     bomb->animation = *CreateScreenPositionedPrimary_00448db0(
-        data_004776f0->resource, &handle, index, &bomb->position);
+        g_bullet_manager->resource, &handle, index, &bomb->position);
     g_sound_manager.QueuePan(0x26, bomb->position.x);
-    int power = data_00474c48;
+    int power = g_globals_power;
     g_front->SetPowerDigits(power / 20, (power % 20) * 100 / 20);
     PlayerInitializeGlobal* state = g_card;
     state->ClearExpiredFlags();

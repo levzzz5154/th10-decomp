@@ -31,7 +31,7 @@ int SptTest_0042be20::LoadScript() {
 
 #pragma code_seg(".text$00task")
 int __stdcall SptTest_LoadTask_0042be10() {
-    data_00477844->LoadScript();
+    g_spt_test->LoadScript();
     return 0;
 }
 #pragma code_seg()

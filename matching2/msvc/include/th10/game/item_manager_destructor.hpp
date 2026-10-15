@@ -5,7 +5,7 @@
 #include "th10/core/func_ctrl.hpp"
 #include "th10/platform/thread_sync.hpp"
 extern "C" void* g_func_ctrl;
-extern "C" void* data_00477818;
+extern "C" void* g_item_manager;
 extern "C" void __cdecl entry_free_00452422(void*);
 void* __cdecl operator new(unsigned int);
 void __cdecl operator delete(void*);
@@ -21,7 +21,7 @@ struct ItemManager {
  unsigned int field_010;
  Item elements[0x896];
  unsigned char tail[12];
- ItemManager() { memset(this,0,sizeof(*this));flags|=2;data_00477818=this; }
+ ItemManager() { memset(this,0,sizeof(*this));flags|=2;g_item_manager=this; }
  __declspec(noinline) ~ItemManager();
  // 0x0041AD90: register the update and draw tasks; nonzero on failure.
  __declspec(noinline) int Initialize();

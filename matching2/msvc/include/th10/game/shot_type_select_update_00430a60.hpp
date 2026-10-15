@@ -33,10 +33,10 @@ struct AnimationHandle_004495e0 {
 };
 
 extern "C" {
-extern int data_00474c6c;               // shot type
-extern ScoreFile_00430a60* data_0047783c;
-extern unsigned int data_00474ca0;      // game flags (0x10: practice)
-extern int data_00474c7c, data_00474c80;    // stage, starting stage
+extern int g_globals_shot_type;               // shot type
+extern ScoreFile_00430a60* g_score;
+extern unsigned int g_globals_flags;      // game flags (0x10: practice)
+extern int g_globals_stage, g_globals_stage_shown;    // stage, starting stage
 extern int data_00491fb8;               // requested application mode
 extern unsigned char data_00474788[];   // stage table, 0x30 bytes per stage
 extern unsigned char* data_00477848;    // current stage record

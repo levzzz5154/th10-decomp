@@ -525,17 +525,17 @@
       "address": 4672632
     },
     {
-      "symbol": "_data_00474c6c",
+      "symbol": "_g_globals_shot_type",
       "kind": "data",
       "address": 4672620
     },
     {
-      "symbol": "_data_00474c68",
+      "symbol": "_g_globals_character",
       "kind": "data",
       "address": 4672616
     },
     {
-      "symbol": "_data_00474c74",
+      "symbol": "_g_globals_difficulty",
       "kind": "data",
       "address": 4672628
     },
@@ -555,12 +555,12 @@
       "address": 4792248
     },
     {
-      "symbol": "_data_00474c80",
+      "symbol": "_g_globals_stage_shown",
       "kind": "data",
       "address": 4672640
     },
     {
-      "symbol": "_data_00474c7c",
+      "symbol": "_g_globals_stage",
       "kind": "data",
       "address": 4672636
     },
@@ -570,7 +570,7 @@
       "address": 4364016
     },
     {
-      "symbol": "_data_00477710",
+      "symbol": "_g_replay_path",
       "kind": "data",
       "address": 4683536
     },
@@ -585,7 +585,7 @@
       "address": 4672680
     },
     {
-      "symbol": "_data_00474ca0",
+      "symbol": "_g_globals_flags",
       "kind": "data",
       "address": 4672672
     },

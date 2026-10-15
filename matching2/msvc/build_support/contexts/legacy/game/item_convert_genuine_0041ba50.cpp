@@ -29,7 +29,7 @@ int ItemSpawnManager_0041bb00::ConvertItems() {
         }
         void* flash;
         ItemAnimation_CreateOffset_00448db0(
-            data_004776f0->item_animation, &flash, 0x189, &item->position);
+            g_bullet_manager->item_animation, &flash, 0x189, &item->position);
     }
     return 0;
 }

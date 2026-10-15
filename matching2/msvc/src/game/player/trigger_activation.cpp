@@ -41,7 +41,7 @@ struct TriggerPlayer {
     unsigned int flags;                      // +0x378C
     int pending_state;                       // +0x3790
 };
-extern "C" TriggerResources* data_004776f0;
+extern "C" TriggerResources* g_bullet_manager;
 
 extern "C" TriggerPlayer* g_card;
 extern "C" SoundQueue g_sound_manager;
@@ -82,9 +82,9 @@ extern "C" __declspec(noinline) void __stdcall Player_Hit(Player* player) {
     TriggerAnimationField* target = reinterpret_cast<TriggerAnimationField*>(player);
     target->mode = 4;
     TriggerPosition position(target->position);
-    SpawnTriggerParticle(data_004776f0->resource, 0x162, &position);
+    SpawnTriggerParticle(g_bullet_manager->resource, 0x162, &position);
     for (int i = 0; i < 32; ++i)
-        SpawnTriggerParticle(data_004776f0->resource, 0x163, &position);
+        SpawnTriggerParticle(g_bullet_manager->resource, 0x163, &position);
     target->timer.Set(0);
     if (g_game && !(g_game->flags & 0x200))
         g_sound_manager.Queue(4, 0);

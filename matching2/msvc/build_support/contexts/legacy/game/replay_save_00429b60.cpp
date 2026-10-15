@@ -19,7 +19,7 @@
 // them updated while the game runs (measured time over the interval budget).
 extern "C" FPS* g_fps;
 extern "C" const volatile float data_00470b44;           // 100.0f
-extern "C" unsigned int data_00474c44;                   // the current score
+extern "C" unsigned int g_globals_score;                   // the current score
 
 // Replay text pool: format strings and constants shared by the save paths.
 extern "C" const char data_0046e650[];                   // "replay"
@@ -122,7 +122,7 @@ int __fastcall ReplaySaveManager_00429b60::Save(const char* file_name, const cha
     }
 
     manager->summary->stage_count = count;
-    manager->summary->score = data_00474c44;
+    manager->summary->score = g_globals_score;
     double scaled = g_fps->measured / g_fps->budget * data_00470b44;
     manager->summary->slow_rate = data_00470b44 - scaled;
 

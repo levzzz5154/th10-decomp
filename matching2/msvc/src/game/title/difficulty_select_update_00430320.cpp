@@ -34,7 +34,7 @@
 
 // Stop the child animation of the confirmed entry at frame 2.
 static __forceinline void StopConfirmedChild_00430320(Title* room, int slot) {
-    if (data_00474c74 < 4) {
+    if (g_globals_difficulty < 4) {
         AnimationRef_004497d0 child =
             reinterpret_cast<AnimationHandle_004497d0*>(&room->animation_slots[slot])
                 ->FindChildRef(room->cursor.selection + 0x6d);
@@ -49,7 +49,7 @@ static __forceinline void StopConfirmedChild_00430320(Title* room, int slot) {
 
 #pragma code_seg(".text$00430320_fn")
 __declspec(noinline) int __stdcall TitleMode6_00430320(Title* room) {
-    int slot = (data_00474c74 >= 4) + 0x77;
+    int slot = (g_globals_difficulty >= 4) + 0x77;
     void* handle;
     switch (room->phase) {
     case 0:
@@ -61,7 +61,7 @@ __declspec(noinline) int __stdcall TitleMode6_00430320(Title* room) {
             void** result = AnimationManager_CreatePrimaryBack_00448d00(resource, &handle, 8, 15);
             room->fallback_handle.value = reinterpret_cast<unsigned int>(*result);
         }
-        room->cursor.item_count = data_00474c74 < 4 ? 4 : 1;
+        room->cursor.item_count = g_globals_difficulty < 4 ? 4 : 1;
         room->ClearAnimationSlot(slot);
         RecoveryMusicInstallSlot_0042c670(room, slot);
         AnimationManager_SetStopFrameAndRun(
@@ -75,7 +75,7 @@ __declspec(noinline) int __stdcall TitleMode6_00430320(Title* room) {
             room->SetTimerTarget(2);
         break;
     case 2:
-        if (data_00474c74 < 4) {
+        if (g_globals_difficulty < 4) {
             MenuCursor* cursor = &room->cursor;
             cursor->previous_selection = cursor->selection;
             if ((short)data_00474e30.InputMaskActive(0x10)) cursor->Advance(-1);
@@ -101,11 +101,11 @@ __declspec(noinline) int __stdcall TitleMode6_00430320(Title* room) {
         if (room->timer.current >= 14) {
             room->ClearAnimationSlot(98);
             room->DisableTimerWithOwner(7);
-            if (data_00474c74 < 4)
-                data_00474c74 = room->cursor.selection;
+            if (g_globals_difficulty < 4)
+                g_globals_difficulty = room->cursor.selection;
             room->cursor.PushSelection();
             room->cursor.item_count = 2;
-            UpdateBoundedCounter(data_00474c68, reinterpret_cast<unsigned int*>(&room->cursor));
+            UpdateBoundedCounter(g_globals_character, reinterpret_cast<unsigned int*>(&room->cursor));
         }
         break;
     case 4:
@@ -116,10 +116,10 @@ __declspec(noinline) int __stdcall TitleMode6_00430320(Title* room) {
             room->ClearAnimationSlot(94);
             RecoveryMusicStopHandle_00409e50(&room->fallback_handle);
             room->DisableTimerWithOwner(2);
-            if (data_00474c74 < 4)
-                data_00474c74 = room->cursor.selection;
+            if (g_globals_difficulty < 4)
+                g_globals_difficulty = room->cursor.selection;
             else
-                data_00474c74 = reinterpret_cast<TitleDifficultyView*>(room)->saved_difficulty;
+                g_globals_difficulty = reinterpret_cast<TitleDifficultyView*>(room)->saved_difficulty;
             room->cursor.PopSelection();
         }
         break;

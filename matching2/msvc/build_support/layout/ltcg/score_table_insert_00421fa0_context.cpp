@@ -11,7 +11,7 @@ extern "C" int __cdecl ScoreTableInsertEscape(void* pointer, int value);
 #pragma code_seg(".text$0040a000_context")
 extern "C" int __stdcall ScoreTableInsertContext(ScoreTable_00421fa0* tables, int count,
                                                  NameEntryMenu_00423570* menu) {
-    int total = ScoreTableInsertEscape(&data_00474c44, 0);
+    int total = ScoreTableInsertEscape(&g_globals_score, 0);
     PrepareNameEntry_00423570(menu);
     for (int index = 0; index < count; ++index) {
         ScoreTable_00421fa0* table = &tables[index];

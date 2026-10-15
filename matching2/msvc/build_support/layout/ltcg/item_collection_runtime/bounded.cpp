@@ -57,7 +57,7 @@ __declspec(noinline) int LineEffectSweep_0041e260::CreateSegmentsInBounds(int sp
                     !(point.x - 32.0f >= 192.0f) &&
                     !(point.y + 32.0f <= data_00470b04) &&
                     !(point.y - 32.0f >= 448.0f)) {
-                    data_00477818->Spawn(
+                    g_item_manager->Spawn(
                         &point, 8, -1, -1.57079637050628662109375f,
                         0.60000002384185791015625f);
                 }

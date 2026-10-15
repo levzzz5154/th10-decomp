@@ -11,7 +11,7 @@
 static void* selection_state_escape_00474c68;
 #pragma section(".data$00474c68escape", read, write)
 __declspec(allocate(".data$00474c68escape")) struct GameSelectionView { int shot_type, character, unknown_08, difficulty; };
-extern "C" GameSelectionView data_00474c68;
+extern "C" GameSelectionView g_globals_character;
 extern "C" __declspec(noinline) void* __stdcall SelectionStateRef_00474c68(void) {
-    return &data_00474c68.shot_type;
+    return &g_globals_character.shot_type;
 }

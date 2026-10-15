@@ -4,7 +4,7 @@
 extern "C" int g_globals;
 #pragma code_seg(".text$02d")
 int __stdcall SubUpdateFrameMaximum_004236f0(GameStateFrameState* state) {
-    state->frame_value = data_00474c44.score;
+    state->frame_value = g_globals_score.score;
     if (g_globals < state->frame_value)
         g_globals = state->frame_value;
     return state->frame_value;

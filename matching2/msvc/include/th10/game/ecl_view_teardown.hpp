@@ -38,9 +38,9 @@ struct EclViewPopups_0040a1a0 {
 extern "C" {
 extern EclViewItems_0040a1a0* g_front;
 extern EclViewPlayer_0040a1a0* g_player;
-extern EclViewBullets_0040a1a0* data_004776f0;
+extern EclViewBullets_0040a1a0* g_bullet_manager;
 extern EclViewLasers_0040a1a0* g_bomb;
-extern EclViewEffects_0040a1a0* data_00477818;
+extern EclViewEffects_0040a1a0* g_item_manager;
 extern EclViewPopups_0040a1a0* g_smoll_score;
 extern EclView_0040a940* g_ecl_view;
 extern void* g_func_ctrl;          // the scheduler

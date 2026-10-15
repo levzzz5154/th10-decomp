@@ -19,7 +19,7 @@ struct TextLog_0044b810 {
 
 struct ScoreTaskResourceNames_00413a20 {
     unsigned char reserved_0000[0x18];
-    const char* archive_paths[2];      // +0x18, +0x1C, selected by data_00474c68
+    const char* archive_paths[2];      // +0x18, +0x1C, selected by g_globals_character
     const char* cached_resource_name;  // +0x20
 };
 
@@ -36,8 +36,8 @@ extern "C" char data_0046cb68[];
 // the pointer/dword operations at 0x00413A20, without naming their owners.
 extern "C" {
 extern ScoreTaskResourceNames_00413a20* data_00477848;
-extern unsigned int data_00474c44;
-extern int data_00474c68;
+extern unsigned int g_globals_score;
+extern int g_globals_character;
 extern void* data_00491be8;
 extern void* g_sprt_ctrl;
 extern char data_00497c38[];
@@ -113,7 +113,7 @@ extern "C" __declspec(noinline) int __stdcall ScoreTask_Setup_00413a20(
         state->archive_buffer_9ebc = preloaded_buffer;
         data_00491be8 = 0;
     } else {
-        const int path_index = data_00474c68;
+        const int path_index = g_globals_character;
         ScoreTaskResourceNames_00413a20* resource_names = data_00477848;
         const char* path_suffix = resource_names->archive_paths[path_index];
         char* path = data_00497c38;
@@ -132,7 +132,7 @@ extern "C" __declspec(noinline) int __stdcall ScoreTask_Setup_00413a20(
     _ReadWriteBarrier();
     state->field_9ec0 = 0xffffffff;
     state->field_9ec4 = 0xffffffff;
-    state->field_9e78 = data_00474c44;
+    state->field_9e78 = g_globals_score;
     return 0;
 }
 

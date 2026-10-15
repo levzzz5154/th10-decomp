@@ -160,11 +160,11 @@ extern "C" void __cdecl asm_free_004524a1(void* memory);
 
 extern "C" KeyRepeatState data_00474e30;        // 0x00474E30
 extern "C" unsigned int data_00474e36;          // 0x00474E36 (repeat word)
-extern "C" unsigned int data_00474ca0;          // 0x00474CA0 (ranking gate bit 0x10)
-extern "C" int data_00474c68;                   // stage
-extern "C" int data_00474c6c;                   // mode
-extern "C" int data_00474c74;                   // subslot
-extern "C" int data_00474c7c;                   // difficulty
+extern "C" unsigned int g_globals_flags;          // 0x00474CA0 (ranking gate bit 0x10)
+extern "C" int g_globals_character;
+extern "C" int g_globals_shot_type;
+extern "C" int g_globals_difficulty;
+extern "C" int g_globals_stage;
 extern "C" GameStateFrameState* g_front;  // 0x0047770C
 extern "C" InputState g_application;            // 0x00491C28
 extern "C" int data_00491fb8;                   // 0x00491FB8 launch mode latch

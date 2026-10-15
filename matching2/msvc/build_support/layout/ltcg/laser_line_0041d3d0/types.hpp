@@ -57,7 +57,7 @@ struct LineLaser {
 struct LaserAnimationBank {unsigned char reserved[0x3e0b50];void* resource;};
 extern "C" {
 extern float g_game_speed;
-extern LaserAnimationBank* data_004776f0;
+extern LaserAnimationBank* g_bullet_manager;
 void __stdcall RunLaserAnimation_0043ee30(Entity* object);
 }
 __declspec(noinline) void** __stdcall ItemAnimation_CreateOffset_00448db0(

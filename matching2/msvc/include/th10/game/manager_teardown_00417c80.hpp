@@ -63,7 +63,7 @@ extern "C" {
 
 // Game flags (bit 0x2 marks a replay/recovery session; bit 0x1 the stage end;
 // bit 0x8 the practice fail counter).
-extern unsigned int data_00474ca0;
+extern unsigned int g_globals_flags;
 // Requested application mode (10 = stage 4, 0xB extra stage, 4/0xF stage 1,
 // 0xD practice, 0xE/0xF ...).
 extern int data_00491fb8;
@@ -72,12 +72,12 @@ extern float g_score_default_speed;
 // The run's score record; the capped fail counter sits at +0x50.
 extern struct ScoreState g_globals;
 // The score archive; flushed first so the run's record file is written.
-extern struct ScoreArchive_0042B1E0* data_0047783c;
+extern struct ScoreArchive_0042B1E0* g_score;
 // The game thread.
 extern GameThread_0040c540* g_ascii_manager;
 // Stage file pointers; equality marks the stage-end state.
-extern void* data_00474c7c;
-extern void* data_00474c80;
+extern void* g_globals_stage;
+extern void* g_globals_stage_shown;
 // Game states (destroyed with 0x00402440).
 extern void* g_background;
 extern void* data_004776e4;
@@ -86,10 +86,10 @@ extern void* g_pause;
 // The side panel / item manager object.
 extern FrontStagePartsView* g_front;
 // The bullet manager (destroyed by 0x00405F70).
-extern void* data_004776f0;
+extern void* g_bullet_manager;
 // The native effect manager (destroyed by 0x0041ADF0); its element storage
 // at +0x14 is wiped on the replay path.
-extern void* data_00477818;
+extern void* g_item_manager;
 // The score-extended object (released by 0x0041C1C0).
 extern void* g_laser_manager;
 // The resource state (released by 0x00418EE0).
@@ -97,7 +97,7 @@ extern void* g_hint;
 // The effect manager (destroyed by 0x0042B570).
 extern void* g_smoll_score;
 // The replay manager / pending block (destroyed by 0x004294A0).
-extern void* data_00477838;
+extern void* g_replay;
 // The enemy manager (cleared by 0x00409F90 or destroyed by 0x0040D530).
 extern struct EnemyCtrl* g_enemy_ctrl;
 // The bullet-manager release (0x0040AF00).

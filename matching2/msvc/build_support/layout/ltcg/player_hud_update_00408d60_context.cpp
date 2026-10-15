@@ -8,7 +8,7 @@ typedef int (__fastcall *HudCallback_00408d60)(Card_00408d60* hud);
 int __stdcall CardUpdateContext(HudCallback_00408d60* slot, Card_00408d60* hud,
         GameSelection_00408d60** selection, ScoreFile_00408d60*** scores) {
     *selection = &g_selection;
-    *scores = &data_0047783c;
+    *scores = &g_score;
     *slot = CardPrimary_00409220;
     return (*slot)(hud);
 }

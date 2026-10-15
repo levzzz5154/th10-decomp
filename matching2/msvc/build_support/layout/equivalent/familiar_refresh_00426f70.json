@@ -60,11 +60,11 @@
    "address": "0x00000000",
    "kind": "data"
   },
-  "_data_00474c44": {
+  "_g_globals_score": {
    "address": "0x00474C44",
    "kind": "data"
   },
-  "_data_00474c48": {
+  "_g_globals_power": {
    "address": "0x00474C48",
    "kind": "data"
   }

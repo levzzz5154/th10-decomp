@@ -265,7 +265,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00429b60_00429b60() {
     L_00429cec:
         mov ecx,dword ptr [edi+18h]
     L_00429cef:
-        mov edx,dword ptr [data_00474c44]
+        mov edx,dword ptr [g_globals_score]
     L_00429cf5:
         mov eax,dword ptr [g_fps]
     L_00429cfa:

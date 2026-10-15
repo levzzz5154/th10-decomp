@@ -4,7 +4,7 @@
 #include "../../../build_support/layout/ltcg/projectile_clear_region/lookup.hpp"
 
 extern "C" {
-extern ItemSpawnManager_0041bb00* data_00477818;
+extern ItemSpawnManager_0041bb00* g_item_manager;
 extern unsigned int data_00474350[];  // burst colours of small projectiles
 extern unsigned int data_00474390[];  // ... of medium ones
 extern unsigned int data_004743b0[];  // ... of large ones
@@ -33,7 +33,7 @@ int __stdcall ProjectileManager_ClearRegion(ProjectileManager* manager, int spaw
             }
             record->flags |= 8;
             if (spawn_items) {
-                data_00477818->Spawn(reinterpret_cast<const Vector3*>(&record->position), 8, -1,
+                g_item_manager->Spawn(reinterpret_cast<const Vector3*>(&record->position), 8, -1,
                                      -1.5707963705062866f, 0.6f);
             }
             Entity* burst = static_cast<AnimationLookup*>(g_sprt_ctrl)->Find(

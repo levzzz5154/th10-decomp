@@ -66,7 +66,7 @@
       "address": "0x004776E8",
       "kind": "data"
     },
-    "_data_00477818": {
+    "_g_item_manager": {
       "address": "0x00477818",
       "kind": "data"
     },
@@ -195,7 +195,7 @@
     "_g_card": "0x004776F4",
     "_g_sound_manager": "0x00492590",
     "_g_rank_00474c98": "0x00474C98",
-    "_data_004776f0": "0x004776F0",
+    "_g_bullet_manager": "0x004776F0",
     "_g_difficulty_00474c74": "0x00474C74",
     "_data_00474df0": "0x00474DF0",
     "_g_enemy_ctrl": "0x00477704",

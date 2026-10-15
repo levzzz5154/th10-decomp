@@ -18,15 +18,15 @@ struct RawState_0040a130 {
 extern "C" SchedulerTask *__stdcall SchedulerCallback_Create_00449ed0(void *callback);
 extern "C" FuncCtrl *g_func_ctrl;
 extern "C" unsigned char data_00477848;
-extern "C" unsigned char data_00474c7c;
-extern "C" unsigned char data_00474c80;
+extern "C" unsigned char g_globals_stage;
+extern "C" unsigned char g_globals_stage_shown;
 
 #pragma code_seg(".text$00_ystatereg")
 extern "C" __declspec(noinline) int __stdcall
 EclView_RegisterTasks(RawState_0040a130 *state) {
     *(void **)&data_00477848 = (void *)0x474788;
-    *(unsigned int *)&data_00474c7c = 0;
-    *(unsigned int *)&data_00474c80 = 0;
+    *(unsigned int *)&g_globals_stage = 0;
+    *(unsigned int *)&g_globals_stage_shown = 0;
 
     SchedulerTask *primary = SchedulerCallback_Create_00449ed0((void *)0x40ABE0);
     primary->reserved_flags |= 1u;

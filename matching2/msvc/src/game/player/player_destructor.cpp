@@ -6,7 +6,7 @@
 #include "th10/game/player.hpp"
 
 extern "C" {
-extern unsigned int data_00474ca0;
+extern unsigned int g_globals_flags;
 extern void* data_00491bf0;
 extern AnimationBanks_00402440* g_sprt_ctrl;
 }
@@ -15,7 +15,7 @@ Player::~Player() {
     RemoveSchedulerTask(update_task);
     RemoveSchedulerTask(draw_task);
     g_player = 0;
-    if (data_00474ca0 & 1) {
+    if (g_globals_flags & 1) {
         reinterpret_cast<SprtCtrl*>(g_sprt_ctrl)->MarkResourceForRemoval(animation_file);
         data_00491bf0 = shot_type;
     } else {

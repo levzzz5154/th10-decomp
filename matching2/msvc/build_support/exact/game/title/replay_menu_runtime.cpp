@@ -62,9 +62,9 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00433570_00433570() {
     L_004335cc:
         mov dword ptr [data_00477848],474908h
     L_004335d6:
-        mov dword ptr [data_00474c7c],eax
+        mov dword ptr [g_globals_stage],eax
     L_004335db:
-        mov dword ptr [data_00474c80],eax
+        mov dword ptr [g_globals_stage_shown],eax
     L_004335e0:
         mov esi,1
     L_004335e5:
@@ -248,7 +248,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00433570_00433570() {
     L_00433715:
         jne short L_00433710
     L_00433717:
-        mov esi,dword ptr [data_00477838]
+        mov esi,dword ptr [g_replay]
     L_0043371d:
         sub eax,edx
     L_0043371f:
@@ -270,7 +270,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00433570_00433570() {
     L_00433740:
         mov dword ptr [eax+5Ch],8
     L_00433747:
-        mov eax,dword ptr [data_0047783c]
+        mov eax,dword ptr [g_score]
     L_0043374c:
         lea esi,[ebp+58DCh]
     L_00433752:
@@ -598,7 +598,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00433570_00433570() {
     L_00433987:
         call asm_Platform_DeletingDestructorWithRelease_004297b0
     L_0043398c:
-        mov ecx,dword ptr [data_00477838]
+        mov ecx,dword ptr [g_replay]
     L_00433992:
         lea esi,[ebp+58DCh]
     L_00433998:
@@ -616,7 +616,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00433570_00433570() {
     L_004339aa:
         call asm_StageManager_CreateRetail_004296f0
     L_004339af:
-        mov edx,dword ptr [data_0047783c]
+        mov edx,dword ptr [g_score]
     L_004339b5:
         add edx,1D878h
     L_004339bb:
@@ -720,7 +720,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00433570_00433570() {
     L_00433a8d:
         call asm_Score_InputHistoryStep_0044be70
     L_00433a92:
-        mov esi,dword ptr [data_00477838]
+        mov esi,dword ptr [g_replay]
     L_00433a98:
         test esi,esi
     L_00433a9a:

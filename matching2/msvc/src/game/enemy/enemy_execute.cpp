@@ -528,7 +528,7 @@ int Enemy::Execute_0040e770() {
         if (shoot_range_squared != 0.0f) {
             if (!(shoot_range_squared <= DistanceSquared(shooters[index].position, g_player->position))) break;
         }
-        shooters[index].Shoot_004073e0(data_004776f0);
+        shooters[index].Shoot_004073e0(g_bullet_manager);
         return 0;
     }
     case 0x192: {
@@ -728,7 +728,7 @@ int Enemy::Execute_0040e770() {
         ecl->body.slots[IOP(0)].cursor = &ins->s[8];
         return 0;
     case 0x19a:
-        data_004776f0->Sweep_00408210(1);
+        g_bullet_manager->Sweep_00408210(1);
         g_laser_manager->Cleanup_0041c850(1);
         return 0;
     case 0x150:
@@ -739,7 +739,7 @@ int Enemy::Execute_0040e770() {
         return 0;
     case 0x152:
         g_front->CreateScoreDisplay_00415db0(IOP(0));
-        data_004776f0->Sweep_00408210(0);
+        g_bullet_manager->Sweep_00408210(0);
         g_laser_manager->Cleanup_0041c850(0);
         EnemyCtrl_SweepDeaths_0040e6a0(g_enemy_ctrl);
         return 0;
@@ -896,13 +896,13 @@ int Enemy::Execute_0040e770() {
     }
     case 0x1a4: {
         float radius = FOP(0);
-        data_004776f0->Check_00408100(&position, radius, 1, 0);
+        g_bullet_manager->Check_00408100(&position, radius, 1, 0);
         g_laser_manager->Evaluate_0041c800(&position, radius, 1);
         return 0;
     }
     case 0x1a5: {
         float radius = FOP(0);
-        data_004776f0->Check_00408100(&position, radius, 0, 0);
+        g_bullet_manager->Check_00408100(&position, radius, 0, 0);
         g_laser_manager->Evaluate_0041c800(&position, radius, 0);
         return 0;
     }

@@ -164,7 +164,7 @@
   "constants": [],
   "absolute_symbols": [
     {
-      "symbol": "_data_00474c48",
+      "symbol": "_g_globals_power",
       "address": "0x00474C48",
       "kind": "data"
     },
@@ -174,7 +174,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_004776f0",
+      "symbol": "_g_bullet_manager",
       "address": "0x004776F0",
       "kind": "data"
     },
@@ -214,7 +214,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_data_00477818",
+      "symbol": "_g_item_manager",
       "address": "0x00477818",
       "kind": "data"
     },

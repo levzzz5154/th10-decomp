@@ -76,10 +76,10 @@ struct TimeoutMode {
     int mode;
 };
 extern "C" {
-    extern int data_00474c4c;
-    extern int data_00474c70;
+    extern int g_globals_gauge;
+    extern int g_globals_lives;
     extern int data_00474c98;
-    extern TimeoutMode* data_00477838;
+    extern TimeoutMode* g_replay;
     extern Hint* g_hint;
     extern TimeoutPlayer* g_card;
     extern const char g_timeout_caution[];
@@ -120,15 +120,15 @@ static __forceinline void SetTimer(FrameTimer& timer, int frame) {
 extern "C" __declspec(noinline) void __stdcall Player_Die(Player* player) {
     // Retain the option-array base across the arithmetic and helper calls.
     PlayerOption* options = player->options;
-    int power = data_00474c4c;
-    int remaining = data_00474c70 - 1;
+    int power = g_globals_gauge;
+    int remaining = g_globals_lives - 1;
     // Preserve the signed fixed-point intermediate: multiplying and dividing
     // by ten cannot be cancelled for values whose intermediate wraps.
     power += ((power - 5000) / -3 * 10) / 10;
-    data_00474c70 = remaining;
-    data_00474c4c = power;
+    g_globals_lives = remaining;
+    g_globals_gauge = power;
     if (power < 5000)
-        data_00474c4c = 5000;
+        g_globals_gauge = 5000;
     if (remaining >= 0)
         reinterpret_cast<AnimationManager_00413790*>(g_front)->SetActiveCount(remaining);
     player->state = PLAYER_DYING;
@@ -151,7 +151,7 @@ extern "C" __declspec(noinline) void __stdcall Player_Die(Player* player) {
             reinterpret_cast<char*>(handles) + sizeof(PlayerOption));
     }
     player->option_count = 0;
-    if (data_00477838->mode != 1)
+    if (g_replay->mode != 1)
         HintData_CreateUrgent_00424650(g_hint, g_timeout_caution,
             reinterpret_cast<const HintDataPosition*>(&player->position));
     TimeoutPlayer* gauge = g_card;

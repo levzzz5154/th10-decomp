@@ -51,7 +51,7 @@ void Recovery_ReleaseGlobalStates() {
     if (resource_state) { resource_state->~TitleState_0041FB50();entry_free_004524a1(resource_state); }
     void* small_state = g_ending;
     if (small_state) { ReleaseGlobalMessage_0040b7b0(small_state);entry_free_004524a1(small_state); }
-    void* pending_block = data_00477838;
+    void* pending_block = g_replay;
     if (pending_block) { ReleaseGlobalPending_004294a0(pending_block);entry_free_004524a1(pending_block); }
 }
 #pragma code_seg()

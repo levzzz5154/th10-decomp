@@ -20,17 +20,17 @@ static inline void SelectItem_00423570(MenuCursor* cursor, int item) {
 
 #pragma code_seg(".text$00423570_fn")
 void __stdcall PrepareNameEntry_00423570(NameEntryMenu_00423570* menu) {
-    if (data_00474c44.stage == 7 && menu->extra_cleared != 0) {
+    if (g_globals_score.stage == 7 && menu->extra_cleared != 0) {
         data_00477848 = &data_00474788[8];
-        data_00474c44.stage = 8;
-        data_00474c44.stage_shown = 8;
+        g_globals_score.stage = 8;
+        g_globals_score.stage_shown = 8;
     }
-    int rank = data_0047783c->players[data_00474c44.shot_type + data_00474c44.character * 3]
+    int rank = g_score->players[g_globals_score.shot_type + g_globals_score.character * 3]
                    .table.InsertScore();
-    if (data_00474c44.stage == 7 && menu->extra_cleared != 0) {
+    if (g_globals_score.stage == 7 && menu->extra_cleared != 0) {
         data_00477848 = &data_00474788[7];
-        data_00474c44.stage = 7;
-        data_00474c44.stage_shown = 7;
+        g_globals_score.stage = 7;
+        g_globals_score.stage_shown = 7;
     }
     if (rank >= 0) {
         menu->rows.item_count = 25;
@@ -39,7 +39,7 @@ void __stdcall PrepareNameEntry_00423570(NameEntryMenu_00423570* menu) {
         SelectItem_00423570(&menu->alphabet, 0);
         menu->alphabet.item_count = (int)strlen(data_004746d8);
         menu->alphabet.wrap = 1;
-        strcpy(menu->name, data_0047783c->last_name);
+        strcpy(menu->name, g_score->last_name);
         menu->name_length = 0;
         if (strcmp(menu->name, "        ") != 0)
             menu->alphabet.Advance(-1);

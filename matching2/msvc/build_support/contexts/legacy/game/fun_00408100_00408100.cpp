@@ -38,7 +38,7 @@ int CollisionEngine_00408100::Check(const PositionVector_004492f0* point,
                 const PlayfieldPoint* location =
                     reinterpret_cast<const PlayfieldPoint*>(&record->position);
                 if (!location->OutsideBounds(2.0f, 2.0f) && spawn_item) {
-                    data_00477818->Spawn(&record->position.x, 8, -1,
+                    g_item_manager->Spawn(&record->position.x, 8, -1,
                         -1.5707963705062866f, 0.6000000238418579f);
                 }
             }

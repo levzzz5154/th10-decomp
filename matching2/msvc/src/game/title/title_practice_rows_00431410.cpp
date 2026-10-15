@@ -16,12 +16,12 @@ int TitleDrawView::DrawPracticeRows() {
         if (phase_frames >= 10 || phase == 3) {
             position.y = 216.0f;
             position.x = 168.0f;
-            if (data_00474c68.shot_type != 0)
+            if (g_globals_character.shot_type != 0)
                 position.x = 296.0f;
             for (int stage = 1; stage < 7; ++stage) {
                 if (cursor == stage - 1) {
-                    if (data_0047783c[data_00474c68.character + data_00474c68.shot_type * 3]
-                            .practice[stage - 1 + data_00474c68.difficulty * 6].unlocked) {
+                    if (g_score[g_globals_character.character + g_globals_character.shot_type * 3]
+                            .practice[stage - 1 + g_globals_character.difficulty * 6].unlocked) {
                         if (phase == 3 && phase_frames % 4 >= 2)
                             g_ascii_manager->current_4c = 0xFF000000;
                         else
@@ -32,15 +32,15 @@ int TitleDrawView::DrawPracticeRows() {
                 } else {
                     g_ascii_manager->current_4c = 0xFF808080;
                 }
-                if (!data_0047783c[data_00474c68.character + data_00474c68.shot_type * 3]
-                         .practice[stage - 1 + data_00474c68.difficulty * 6].unlocked)
+                if (!g_score[g_globals_character.character + g_globals_character.shot_type * 3]
+                         .practice[stage - 1 + g_globals_character.difficulty * 6].unlocked)
                     AsciiManager_AddFormatted(g_ascii_manager, &position, "%s  ---------",
                                              data_0047471c[stage]);
                 else
                     AsciiManager_AddFormatted(
                         g_ascii_manager, &position, "%s  %.8d0", data_0047471c[stage],
-                        data_0047783c[data_00474c68.character + data_00474c68.shot_type * 3]
-                            .practice[stage - 1 + data_00474c68.difficulty * 6].best_score);
+                        g_score[g_globals_character.character + g_globals_character.shot_type * 3]
+                            .practice[stage - 1 + g_globals_character.difficulty * 6].best_score);
                 position.y += 18.0f;
             }
         }

@@ -6,11 +6,11 @@ static DispatcherStageState* StageState() {
     return reinterpret_cast<DispatcherStageState*>(g_front);
 }
 static unsigned char* ProgressBytes() {
-    return reinterpret_cast<unsigned char*>(data_0047783c);
+    return reinterpret_cast<unsigned char*>(g_score);
 }
 static __forceinline int* ClearCount() {
     return reinterpret_cast<int*>(ProgressBytes() + 0x4D0 +
-        ((data_00474c6c + data_00474c68 * 3) * 0x10DF + data_00474c74) * 4);
+        ((g_globals_shot_type + g_globals_character * 3) * 0x10DF + g_globals_difficulty) * 4);
 }
 static DispatcherMusicRecord* MusicRecord();
 extern "C" DispatcherMusicRecord* data_00477848;
@@ -101,24 +101,24 @@ ResultDispatcher_00415e90(ResultDispatcherState* state) {
                 CREATE_INTO(state->background.id.value, StageState()->resource, 0x5A)
                 break;
             case 1:
-                switch (data_00474c68) {
+                switch (g_globals_character) {
                 case 0: CREATE_INTO(state->left_portrait.id.value, static_cast<AnimationResource_00449870*>(g_player->animation_file), 0x1D) break;
                 case 1: CREATE_INTO(state->left_portrait.id.value, static_cast<AnimationResource_00449870*>(g_player->animation_file), 0x1D) break;
                 }
                 break;
             case 2:
-                if (data_00474c7c == 6) {
-                    switch (data_00474c68) {
+                if (g_globals_stage == 6) {
+                    switch (g_globals_character) {
                     case 0: CREATE_INTO(state->right_portrait.id.value, g_enemy_ctrl->resource, 0x20) break;
                     case 1: CREATE_INTO(state->right_portrait.id.value, g_enemy_ctrl->resource, 0x20) break;
                     }
-                } else if (data_00474c7c == 7 && state->variant < 1) {
-                    switch (data_00474c68) {
+                } else if (g_globals_stage == 7 && state->variant < 1) {
+                    switch (g_globals_character) {
                     case 0: CREATE_INTO(state->right_portrait.id.value, g_enemy_ctrl->resource, 0x25) break;
                     case 1: CREATE_INTO(state->right_portrait.id.value, g_enemy_ctrl->resource, 0x25) break;
                     }
                 } else {
-                    switch (data_00474c68) {
+                    switch (g_globals_character) {
                     case 0: CREATE_INTO(state->right_portrait.id.value, static_cast<AnimationResource_00449870*>(g_player->animation_file), 0x1E) break;
                     case 1: CREATE_INTO(state->right_portrait.id.value, static_cast<AnimationResource_00449870*>(g_player->animation_file), 0x1E) break;
                     }
@@ -171,7 +171,7 @@ ResultDispatcher_00415e90(ResultDispatcherState* state) {
                     state->flags) & 1;
                 break;
             case 12:
-                switch (data_00474c68) {
+                switch (g_globals_character) {
                 case 0:
                     state->left_portrait.FindChildRef(0x17).SelectCurrentSprite(
                         state->command->first_operand + 0x34);
@@ -187,9 +187,9 @@ ResultDispatcher_00415e90(ResultDispatcherState* state) {
                 }
                 break;
             case 13:
-                switch (data_00474c7c) {
+                switch (g_globals_stage) {
                 case 1:
-                    switch (data_00474c68) {
+                    switch (g_globals_character) {
                     case 0:
                         state->right_portrait.FindChildRef(24).SelectResourceSprite(g_enemy_ctrl->resource, state->command->first_operand + 0xf); state->right_portrait.FindChildRef(27).SelectResourceSprite(g_enemy_ctrl->resource, state->command->first_operand + 0x17);
                         break;
@@ -199,7 +199,7 @@ ResultDispatcher_00415e90(ResultDispatcherState* state) {
                     }
                     break;
                 case 2:
-                    switch (data_00474c68) {
+                    switch (g_globals_character) {
                     case 0:
                         state->right_portrait.FindChildRef(24).SelectResourceSprite(g_enemy_ctrl->resource, state->command->first_operand + 0x15); state->right_portrait.FindChildRef(27).SelectResourceSprite(g_enemy_ctrl->resource, state->command->first_operand + 0x1e);
                         break;
@@ -209,7 +209,7 @@ ResultDispatcher_00415e90(ResultDispatcherState* state) {
                     }
                     break;
                 case 3:
-                    switch (data_00474c68) {
+                    switch (g_globals_character) {
                     case 0:
                         state->right_portrait.FindChildRef(24).SelectResourceSprite(g_enemy_ctrl->resource, state->command->first_operand + 0x22); state->right_portrait.FindChildRef(27).SelectResourceSprite(g_enemy_ctrl->resource, state->command->first_operand + 0x2b);
                         break;
@@ -219,7 +219,7 @@ ResultDispatcher_00415e90(ResultDispatcherState* state) {
                     }
                     break;
                 case 4:
-                    switch (data_00474c68) {
+                    switch (g_globals_character) {
                     case 0:
                         state->right_portrait.FindChildRef(24).SelectResourceSprite(g_enemy_ctrl->resource, state->command->first_operand + 0x25); state->right_portrait.FindChildRef(27).SelectResourceSprite(g_enemy_ctrl->resource, state->command->first_operand + 0x2e);
                         break;
@@ -229,7 +229,7 @@ ResultDispatcher_00415e90(ResultDispatcherState* state) {
                     }
                     break;
                 case 5:
-                    switch (data_00474c68) {
+                    switch (g_globals_character) {
                     case 0:
                         state->right_portrait.FindChildRef(24).SelectResourceSprite(g_enemy_ctrl->resource, state->command->first_operand + 0x16); state->right_portrait.FindChildRef(27).SelectResourceSprite(g_enemy_ctrl->resource, state->command->first_operand + 0x1f);
                         break;
@@ -239,7 +239,7 @@ ResultDispatcher_00415e90(ResultDispatcherState* state) {
                     }
                     break;
                 case 6:
-                    switch (data_00474c68) {
+                    switch (g_globals_character) {
                     case 0:
                         state->right_portrait.FindChildRef(28).SelectResourceSprite(g_enemy_ctrl->resource, state->command->first_operand + 0x30); state->right_portrait.FindChildRef(31).SelectResourceSprite(g_enemy_ctrl->resource, state->command->first_operand + 0x39);
                         break;
@@ -250,7 +250,7 @@ ResultDispatcher_00415e90(ResultDispatcherState* state) {
                     break;
                 case 7:
                     if (state->variant < 1) {
-                        switch (data_00474c68) {
+                        switch (g_globals_character) {
                         case 0:
                             state->right_portrait.FindChildRef(33).SelectResourceSprite(g_enemy_ctrl->resource, state->command->first_operand + 0x44); state->right_portrait.FindChildRef(36).SelectResourceSprite(g_enemy_ctrl->resource, state->command->first_operand + 0x4d);
                             break;
@@ -259,7 +259,7 @@ ResultDispatcher_00415e90(ResultDispatcherState* state) {
                             break;
                         }
                     } else {
-                        switch (data_00474c68) {
+                        switch (g_globals_character) {
                         case 0:
                             state->right_portrait.FindChildRef(24).SelectResourceSprite(g_enemy_ctrl->resource, state->command->first_operand + 0x2e); state->right_portrait.FindChildRef(27).SelectResourceSprite(g_enemy_ctrl->resource, state->command->first_operand + 0x37);
                             break;
@@ -294,7 +294,7 @@ ResultDispatcher_00415e90(ResultDispatcherState* state) {
                 { int created; DispatcherCreateAt(StageState()->effect_resource, &created, 2, 15); }
                 break;
             case 19:
-                switch (data_00474c7c) {
+                switch (g_globals_stage) {
                 case 1: {
                     CREATE_INTO(state->stage_title.id.value, g_enemy_ctrl->resource, 0x0D)
                     break;
@@ -327,42 +327,42 @@ ResultDispatcher_00415e90(ResultDispatcherState* state) {
                 }
                 break;
             case 20: {
-                if (data_00474c74 != 4) {
-                    ProgressBytes()[(data_00474c6c + data_00474c68 * 3) * 0x437C + 0x4E1 +
-                        (data_00474c7c + data_00474c74 * 3 * 2) * 8] = 1;
-                    ProgressBytes()[(data_00474c6c + data_00474c68 * 3) * 0x437C +
-                        (data_00474c7c + (data_00474c74 * 3 + 0x4E) * 2) * 8] = 1;
+                if (g_globals_difficulty != 4) {
+                    ProgressBytes()[(g_globals_shot_type + g_globals_character * 3) * 0x437C + 0x4E1 +
+                        (g_globals_stage + g_globals_difficulty * 3 * 2) * 8] = 1;
+                    ProgressBytes()[(g_globals_shot_type + g_globals_character * 3) * 0x437C +
+                        (g_globals_stage + (g_globals_difficulty * 3 + 0x4E) * 2) * 8] = 1;
                 }
-                if (data_00474ca0 & 0x10) {
+                if (g_globals_flags & 0x10) {
                     g_pause->OpenResult();
                     break;
                 }
-                if (data_00474c7c == 6) {
+                if (g_globals_stage == 6) {
                     StageState()->flags |= 0x20;
-                    g_globals.AddScore(data_00474c4c * 1000);
-                    switch (data_00474c74) {
+                    g_globals.AddScore(g_globals_gauge * 1000);
+                    switch (g_globals_difficulty) {
                     case 0:
-                        g_globals.AddScore(data_00474c70 * 20000000);
-                        g_globals.AddScore(data_00474c48 * 100000);
+                        g_globals.AddScore(g_globals_lives * 20000000);
+                        g_globals.AddScore(g_globals_power * 100000);
                         break;
                     case 1:
-                        g_globals.AddScore(data_00474c70 * 25000000);
-                        g_globals.AddScore(data_00474c48 * 100000);
+                        g_globals.AddScore(g_globals_lives * 25000000);
+                        g_globals.AddScore(g_globals_power * 100000);
                         break;
                     case 2:
-                        g_globals.AddScore(data_00474c70 * 35000000);
-                        g_globals.AddScore(data_00474c48 * 200000);
+                        g_globals.AddScore(g_globals_lives * 35000000);
+                        g_globals.AddScore(g_globals_power * 200000);
                         break;
                     case 3:
-                        g_globals.AddScore(data_00474c70 * 40000000);
-                        g_globals.AddScore(data_00474c48 * 300000);
+                        g_globals.AddScore(g_globals_lives * 40000000);
+                        g_globals.AddScore(g_globals_power * 300000);
                         break;
                     case 4:
-                        g_globals.AddScore(data_00474c70 * 40000000);
-                        g_globals.AddScore(data_00474c48 * 400000);
+                        g_globals.AddScore(g_globals_lives * 40000000);
+                        g_globals.AddScore(g_globals_power * 400000);
                         break;
                     }
-                    if (data_00477838->replay_mode == 1) {
+                    if (g_replay->replay_mode == 1) {
                         SetInputMode(&g_application, 4);
                         break;
                     }
@@ -373,12 +373,12 @@ ResultDispatcher_00415e90(ResultDispatcherState* state) {
                     int* count = ClearCount();
                     if (*count < 99999)
                         ++*count;
-                } else if (data_00474c7c == 7) {
+                } else if (g_globals_stage == 7) {
                     StageState()->flags |= 0x20;
-                    g_globals.AddScore(data_00474c4c * 1000);
-                    g_globals.AddScore(data_00474c70 * 40000000);
-                    g_globals.AddScore(data_00474c48 * 400000);
-                    if (data_00477838->replay_mode == 1) {
+                    g_globals.AddScore(g_globals_gauge * 1000);
+                    g_globals.AddScore(g_globals_lives * 40000000);
+                    g_globals.AddScore(g_globals_power * 400000);
+                    if (g_replay->replay_mode == 1) {
                         SetInputMode(&g_application, 4);
                         break;
                     }
@@ -398,7 +398,7 @@ ResultDispatcher_00415e90(ResultDispatcherState* state) {
                 break;
             }
             case 21:
-                if (data_00474c7c != 6)
+                if (g_globals_stage != 6)
                     asm_Sound_PlayRandomVoiceRetail_00420c30(2.0f);
                 else
                     asm_Sound_PlayRandomVoiceRetail_00420c30(8.0f);

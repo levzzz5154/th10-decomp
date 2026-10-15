@@ -211,7 +211,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00414900_00414900() {
     L_00414a5c:
         mov edi,dword ptr [esp+18h]
     L_00414a60:
-        mov ebp,dword ptr [data_00474c4c]
+        mov ebp,dword ptr [g_globals_gauge]
     L_00414a66:
         lea ecx,[edi+8094h]
     L_00414a6c:
@@ -768,7 +768,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00414900_00414900() {
     L_00414df7:
         jne asm_target_00414f33
     L_00414dfd:
-        mov eax,dword ptr [data_00474c7c]
+        mov eax,dword ptr [g_globals_stage]
     L_00414e02:
         dec eax
     L_00414e03:

@@ -26,26 +26,26 @@ int TitleDrawView::DrawScoreRows() {
                 int shade = 0xFF - row * 0x10;
                 int rank = row + 1;
                 g_ascii_manager->current_4c = 0xFF0000FF | ((shade << 8 | shade) << 8);
-                if (data_0047783c[cursor].table.rows[selected][row].date != 0) {
-                    ScoreTable_004329f0* table = &data_0047783c[cursor].table;
+                if (g_score[cursor].table.rows[selected][row].date != 0) {
+                    ScoreTable_004329f0* table = &g_score[cursor].table;
                     tm* date = localtime(&table->rows[selected][row].date);
                     AsciiManager_AddFormatted(
                         g_ascii_manager, &position,
                         "%2d  %s  %9ld%d  %.4d/%.2d/%.2d %.2d:%.2d  %s  %2.1f%%", rank,
-                        data_0047783c[cursor].table.rows[selected][row].name,
-                        data_0047783c[cursor].table.rows[selected][row].score,
-                        data_0047783c[cursor].table.rows[selected][row].continues,
+                        g_score[cursor].table.rows[selected][row].name,
+                        g_score[cursor].table.rows[selected][row].score,
+                        g_score[cursor].table.rows[selected][row].continues,
                         date->tm_year + 1900, date->tm_mon + 1, date->tm_mday, date->tm_hour,
-                        date->tm_min, data_0047471c[data_0047783c[cursor].table.rows[selected][row].stage],
-                        data_0047783c[cursor].table.rows[selected][row].slowdown);
+                        date->tm_min, data_0047471c[g_score[cursor].table.rows[selected][row].stage],
+                        g_score[cursor].table.rows[selected][row].slowdown);
                 } else {
                     AsciiManager_AddFormatted(
                         g_ascii_manager, &position,
                         "%2d  %s  %9ld%d  ----/--/-- --:--  Stage -  ---%%", rank,
-                        data_0047783c[cursor].table.rows[selected][row].name,
-                        data_0047783c[cursor].table.rows[selected][row].score,
-                        data_0047783c[cursor].table.rows[selected][row].continues,
-                        data_0047783c[cursor].table.rows[selected][row].slowdown);
+                        g_score[cursor].table.rows[selected][row].name,
+                        g_score[cursor].table.rows[selected][row].score,
+                        g_score[cursor].table.rows[selected][row].continues,
+                        g_score[cursor].table.rows[selected][row].slowdown);
                 }
                 position.y += 18.0f;
             }
@@ -53,15 +53,15 @@ int TitleDrawView::DrawScoreRows() {
         g_ascii_manager->current_4c = 0xFFFFFFFF;
         position.x = 328.0f;
         position.y = 378.0f;
-        AsciiManager_AddFormatted(g_ascii_manager, &position, "    %5d", data_0047783c[cursor].play_count);
+        AsciiManager_AddFormatted(g_ascii_manager, &position, "    %5d", g_score[cursor].play_count);
         position.y = 396.0f;
         AsciiManager_AddFormatted(g_ascii_manager, &position, "%3d:%.2d:%.2d",
-                                 data_0047783c[cursor].play_time / 216000,
-                                 data_0047783c[cursor].play_time / 3600 % 60,
-                                 data_0047783c[cursor].play_time / 60 % 60);
+                                 g_score[cursor].play_time / 216000,
+                                 g_score[cursor].play_time / 3600 % 60,
+                                 g_score[cursor].play_time / 60 % 60);
         position.y = 414.0f;
         AsciiManager_AddFormatted(g_ascii_manager, &position, "    %5d",
-                                 data_0047783c[cursor].clear_count[selected]);
+                                 g_score[cursor].clear_count[selected]);
         g_ascii_manager->current_4c = 0xFFFFFFFF;
         g_ascii_manager->current_64 = 0;
         break;

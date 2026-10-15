@@ -36,7 +36,7 @@ StageScoreDisplay::StageScoreDisplay(const void* description) {
     color_b = 0x8088FF;
     field84 = 0;
     region = SlotVector(24.0f,0.0f,0.0f);
-    StageCollisionRecord* record = data_004776f0->records;
+    StageCollisionRecord* record = g_bullet_manager->records;
     for (int remaining=2000; remaining; --remaining,++record)
         if (record->state != 0 && record->state != 3) record->Activate();
     for (SlotEffect* node = g_laser_manager->first; node;) {

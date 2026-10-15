@@ -13,7 +13,7 @@ Float2 g_zero_vector2_00491c20;
 Float3 g_camera_offset_00491d7c;
 RngState g_effect_rng_004918b0;
 EnemyCtrl* g_enemy_ctrl;
-BulletManager* data_004776f0;
+BulletManager* g_bullet_manager;
 LaserManager* g_laser_manager;
 Gui* g_front;
 Player* g_player;
@@ -23,7 +23,7 @@ unsigned char data_00491e48[64], data_00491e08[64], data_00491dc8[64], data_0047
 ScoreState g_globals;
 SoundQueue g_sound_manager;
 extern "C" void* g_sprt_ctrl;
-extern "C" void* data_00477818;
+extern "C" void* g_item_manager;
 extern "C" int data_00474c84, data_00474c8c;
 extern "C" short g_sound_priority[];
 extern "C" Float3 g_offset_point_00497d80;
@@ -361,14 +361,14 @@ __declspec(noinline) void __stdcall Rig_Scatter(const Float3* position, ItemDrop
             target.x = position->x + angle * drops->spread_x;
             target.y = position->y + angle * drops->spread_y;
             target.z = position->z;
-            ext_spawn_item(data_00477818, &target, kind + 1, -1, -1.5707964f, 2.2f);
+            ext_spawn_item(g_item_manager, &target, kind + 1, -1, -1.5707964f, 2.2f);
             angle = Angle_Normalize(angle + 1.5707964f);
         }
     }
     memset(&drops->items[1], 0, 44);
 }
 void __stdcall Drops_Flush_0040c9a0(const Float3* position, ItemDrops* drops) {
-    if (drops->items[0] > 0) ext_spawn_item(data_00477818, position, drops->items[0], -1, -1.5707964f, 2.2f);
+    if (drops->items[0] > 0) ext_spawn_item(g_item_manager, position, drops->items[0], -1, -1.5707964f, 2.2f);
     Rig_Scatter(position, drops);
     drops->items[0] = 0;
 }
@@ -701,7 +701,7 @@ extern "C" int __stdcall RigEntry(Enemy** enemies, int count) {
     Drops_Flush_0040c9a0((Float3*)enemies[0], (ItemDrops*)enemies[1]);
     EnemyCtrl_SweepDeaths_0040e6a0((EnemyCtrl*)enemies[3]);
     Screen_Create(43, 5, 60, 0, 0, 0);
-    data_004776f0->Sweep_00408210(count);
+    g_bullet_manager->Sweep_00408210(count);
     ((RigCamera*)enemies[2])->Apply();
     return total;
 }

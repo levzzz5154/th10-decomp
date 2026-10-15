@@ -37,29 +37,29 @@ __declspec(noinline) int __stdcall TitleMode8_00430a60(Title* room) {
     switch (room->phase) {
     case 0:
         room->cursor.item_count = 3;
-        if (data_00474c74 == 4) {
-            ScoreFile_00430a60* score = data_0047783c;
-            if (!score->cleared[data_00474c68][0]) {
+        if (g_globals_difficulty == 4) {
+            ScoreFile_00430a60* score = g_score;
+            if (!score->cleared[g_globals_character][0]) {
                 if (room->cursor.selection == 0) {
-                    if (score->cleared[data_00474c68][1])
+                    if (score->cleared[g_globals_character][1])
                         SelectItem_00430a60(room->cursor, 1);
                     else
                         SelectItem_00430a60(room->cursor, 2);
                 }
                 DisableItem_00430a60(room->cursor, 0);
             }
-            if (!score->cleared[data_00474c68][1]) {
+            if (!score->cleared[g_globals_character][1]) {
                 if (room->cursor.selection == 1) {
-                    if (score->cleared[data_00474c68][0])
+                    if (score->cleared[g_globals_character][0])
                         SelectItem_00430a60(room->cursor, 0);
                     else
                         SelectItem_00430a60(room->cursor, 2);
                 }
                 DisableItem_00430a60(room->cursor, 1);
             }
-            if (!score->cleared[data_00474c68][2]) {
+            if (!score->cleared[g_globals_character][2]) {
                 if (room->cursor.selection == 2) {
-                    if (score->cleared[data_00474c68][0])
+                    if (score->cleared[g_globals_character][0])
                         SelectItem_00430a60(room->cursor, 0);
                     else
                         SelectItem_00430a60(room->cursor, 1);
@@ -68,26 +68,26 @@ __declspec(noinline) int __stdcall TitleMode8_00430a60(Title* room) {
             }
         }
         RecoveryMusicInstallSlot_0042c670(room, 100);
-        room->ClearAnimationSlot(data_00474c68 + 150);
-        RecoveryMusicInstallSlot_0042c670(room, data_00474c68 + 150);
+        room->ClearAnimationSlot(g_globals_character + 150);
+        RecoveryMusicInstallSlot_0042c670(room, g_globals_character + 150);
         AnimationManager_SetStopFrameAndRun(
             3, reinterpret_cast<RecoveryLookupContext_0040bd80*>(g_sprt_ctrl),
-            *reinterpret_cast<RecoveryScriptId_0040bd80*>(&room->animation_slots[data_00474c68 + 150]));
-        room->SetSlotFrame(data_00474c68 + 150, room->cursor.selection + 0x11);
+            *reinterpret_cast<RecoveryScriptId_0040bd80*>(&room->animation_slots[g_globals_character + 150]));
+        room->SetSlotFrame(g_globals_character + 150, room->cursor.selection + 0x11);
         room->SetTimerTarget(1);
-        if (data_0047783c->shots[data_00474c68][0].clears[data_00474c74] == 0) {
+        if (g_score->shots[g_globals_character][0].clears[g_globals_difficulty] == 0) {
             AnimationRef_004497d0 child = reinterpret_cast<AnimationHandle_004497d0*>(
-                &room->animation_slots[data_00474c68 + 150])->FindChildRef(data_00474c68 * 3 + 0x8a);
+                &room->animation_slots[g_globals_character + 150])->FindChildRef(g_globals_character * 3 + 0x8a);
             reinterpret_cast<AnimationHandle_004495e0*>(&child)->ClearFlag();
         }
-        if (data_0047783c->shots[data_00474c68][1].clears[data_00474c74] == 0) {
+        if (g_score->shots[g_globals_character][1].clears[g_globals_difficulty] == 0) {
             AnimationRef_004497d0 child = reinterpret_cast<AnimationHandle_004497d0*>(
-                &room->animation_slots[data_00474c68 + 150])->FindChildRef(data_00474c68 * 3 + 0x8b);
+                &room->animation_slots[g_globals_character + 150])->FindChildRef(g_globals_character * 3 + 0x8b);
             reinterpret_cast<AnimationHandle_004495e0*>(&child)->ClearFlag();
         }
-        if (data_0047783c->shots[data_00474c68][2].clears[data_00474c74] == 0) {
+        if (g_score->shots[g_globals_character][2].clears[g_globals_difficulty] == 0) {
             AnimationRef_004497d0 child = reinterpret_cast<AnimationHandle_004497d0*>(
-                &room->animation_slots[data_00474c68 + 150])->FindChildRef(data_00474c68 * 3 + 0x8c);
+                &room->animation_slots[g_globals_character + 150])->FindChildRef(g_globals_character * 3 + 0x8c);
             reinterpret_cast<AnimationHandle_004495e0*>(&child)->ClearFlag();
         }
     case 1:
@@ -101,8 +101,8 @@ __declspec(noinline) int __stdcall TitleMode8_00430a60(Title* room) {
         if ((short)data_00474e30.InputMaskActive(0x20)) cursor->Advance(1);
         if (cursor->previous_selection != cursor->selection) {
             g_sound_manager.Queue(12, 0);
-            reinterpret_cast<TitleAnimationSlotView*>(room)->RestartSlot(data_00474c68 + 150);
-            room->SetSlotFrame(data_00474c68 + 150, cursor->selection + 7);
+            reinterpret_cast<TitleAnimationSlotView*>(room)->RestartSlot(g_globals_character + 150);
+            room->SetSlotFrame(g_globals_character + 150, cursor->selection + 7);
         }
         if (data_00474e36 & 0xa) {
             room->SetTimerTarget(4);
@@ -111,37 +111,37 @@ __declspec(noinline) int __stdcall TitleMode8_00430a60(Title* room) {
             room->SetTimerTarget(3);
             g_sound_manager.Queue(10, 0);
             AnimationRef_004497d0 child = reinterpret_cast<AnimationHandle_004497d0*>(
-                &room->animation_slots[data_00474c68 + 150])->FindChildRef(
-                    cursor->selection + (data_00474c68 * 3 + 0x3f) * 2);
+                &room->animation_slots[g_globals_character + 150])->FindChildRef(
+                    cursor->selection + (g_globals_character * 3 + 0x3f) * 2);
             reinterpret_cast<AnimationHandle_00449470*>(&child)->SetStopFrame(6);
         }
         break;
     }
     case 3:
         if (room->timer.current == 10) {
-            if ((data_00474ca0 & 0x10) == 0) {
+            if ((g_globals_flags & 0x10) == 0) {
                 g_ascii_manager->EnsureAnimationResource(480.0f, 392.0f);
                 RecoveryAscii_Create_0043c8b0(0x2b, 5, 0x20, 0, 0, 0);
             } else {
-                data_00474c6c = room->cursor.selection;
+                g_globals_shot_type = room->cursor.selection;
                 room->cursor.PushSelection();
                 room->ClearAnimationSlot(100);
                 room->DisableTimerWithOwner(9);
             }
         }
         if (room->timer.current >= 40) {
-            data_00474c6c = room->cursor.selection;
+            g_globals_shot_type = room->cursor.selection;
             room->cursor.PushSelection();
-            if ((data_00474ca0 & 0x10) == 0) {
+            if ((g_globals_flags & 0x10) == 0) {
                 room->DisableTimerWithOwner(3);
-                if (data_00474c74 < 4) {
+                if (g_globals_difficulty < 4) {
                     data_00477848 = data_00474788 + 1 * 0x30;
-                    data_00474c7c = 1;
-                    data_00474c80 = 1;
+                    g_globals_stage = 1;
+                    g_globals_stage_shown = 1;
                 } else {
                     data_00477848 = data_00474788 + 7 * 0x30;
-                    data_00474c7c = 7;
-                    data_00474c80 = 7;
+                    g_globals_stage = 7;
+                    g_globals_stage_shown = 7;
                 }
                 data_00491fb8 = 7;
                 Music_FadeOut(6.0f);
@@ -153,7 +153,7 @@ __declspec(noinline) int __stdcall TitleMode8_00430a60(Title* room) {
         break;
     case 4:
         if (room->timer.current >= 6) {
-            room->ClearAnimationSlot(data_00474c68 + 150);
+            room->ClearAnimationSlot(g_globals_character + 150);
             room->ClearAnimationSlot(100);
             room->DisableTimerWithOwner(7);
             room->cursor.PopSelection();

@@ -104,8 +104,8 @@ int PlayerDamage::Sweep(Player* player, const PickupPoint* center,
         if (region->damage_limit <= region->damage_dealt) region->damage = 0;
     }
     if (total != 0) {
-        data_00474c44 += (total/10+10)/10;
-        if (data_00474c44 >= 1000000000) data_00474c44 = 999999999;
+        g_globals_score += (total/10+10)/10;
+        if (g_globals_score >= 1000000000) g_globals_score = 999999999;
     }
     return total;
 }

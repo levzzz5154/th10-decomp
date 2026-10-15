@@ -62,12 +62,12 @@ extern "C" int __stdcall BulletRuntimeTick(BulletRuntimeState* state) {
                 state->stop_frame = 1;
                 if (state->death_animation >= 0)
                     AnimationManager_CreateScreenPositionedPrimary_00448db0(
-                        data_004776f0->resource, &result, state->death_animation,
+                        g_bullet_manager->resource, &result, state->death_animation,
                         reinterpret_cast<const AnimationPosition_00448db0*>(&state->position));
             } else if (contact == 2 && !(state->flags & 4u)) {
                 state->flags |= 4u;
                 AnimationManager_CreateScreenPositionedPrimary_00448db0(
-                    data_004776f0->resource, &result, 434,
+                    g_bullet_manager->resource, &result, 434,
                     reinterpret_cast<const AnimationPosition_00448db0*>(&state->position));
                 g_sound_manager.QueuePan(28, state->position.x);
             }

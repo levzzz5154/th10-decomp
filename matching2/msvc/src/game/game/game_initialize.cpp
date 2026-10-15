@@ -48,7 +48,7 @@ extern StageResources_00417870* data_00477848;
 extern PathState_00417800* g_enemy_ctrl;
 extern StageTiming_00417870* g_fps;
 extern void* g_front;
-extern const char data_00477710[];
+extern const char g_replay_path[];
 extern int data_00494518;
 extern int data_004918a4;
 extern const double data_00470b70;
@@ -91,7 +91,7 @@ extern "C" __declspec(noinline) int __stdcall Game_Initialize(Game* context) {
     if (g_application.stage_reset) {
         if (g_globals.stage == 7)
             g_globals.difficulty = 4;
-        ScoreManager* scores = reinterpret_cast<ScoreManager*>(data_0047783c);
+        ScoreManager* scores = reinterpret_cast<ScoreManager*>(g_score);
         const int shot = g_globals.character * 3 + g_globals.shot_type;
         const int difficulty = g_globals.difficulty;
         // A difficulty page occupies ten rank entries. Keep its byte origin
@@ -147,7 +147,7 @@ extern "C" __declspec(noinline) int __stdcall Game_Initialize(Game* context) {
     // The callback pair's second prefix word stores the stage kind.
     memcpy(context->callbacks.unknown_00 + sizeof(int), &data_00477848->stage_kind, sizeof(int));
     if (!(g_globals.flags & 2)) {
-        if (!ReplayCreate(context->replay_mode, data_00477710)) goto failed;
+        if (!ReplayCreate(context->replay_mode, g_replay_path)) goto failed;
         if (!CreateStageState(data_00477848->stage_file, 0)) goto failed;
         if (!CreateItems()) goto failed;
         if (!CreatePlayerResources()) goto failed;
@@ -158,7 +158,7 @@ extern "C" __declspec(noinline) int __stdcall Game_Initialize(Game* context) {
         if (!Hint_Create()) goto failed;
         if (!CreateLargeResources()) goto failed;
     } else {
-        reinterpret_cast<ReplayManager_0042a6a0*>(data_00477838)->BeginStage();
+        reinterpret_cast<ReplayManager_0042a6a0*>(g_replay)->BeginStage();
         SetupScoreTask(g_front);
         if (!CreateStageState(data_00477848->stage_file, 0)) goto failed;
     }

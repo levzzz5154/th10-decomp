@@ -29,15 +29,15 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00428f60_00428f60() {
     L_00428f6a:
         jne asm_target_00429245
     L_00428f70:
-        mov eax,dword ptr [data_00474c7c]
+        mov eax,dword ptr [g_globals_stage]
     L_00428f75:
         mov ecx,ebx
     L_00428f77:
-        mov dword ptr [data_00477838],ebx
+        mov dword ptr [g_replay],ebx
     L_00428f7d:
         call asm_FUN_0042ab20_0042ab20
     L_00428f82:
-        mov esi,dword ptr [data_00474c7c]
+        mov esi,dword ptr [g_globals_stage]
     L_00428f88:
         push ebx
     L_00428f89:
@@ -143,27 +143,27 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00428f60_00428f60() {
     L_00429024:
         xor edx,edx
     L_00429026:
-        mov eax,dword ptr [data_00474c7c]
+        mov eax,dword ptr [g_globals_stage]
     L_0042902b:
         mov dword ptr [ebx+eax*4+1Ch],edx
     L_0042902f:
-        mov ecx,dword ptr [data_00474c7c]
+        mov ecx,dword ptr [g_globals_stage]
     L_00429035:
         mov eax,dword ptr [ebx+ecx*4+1Ch]
     L_00429039:
         mov edx,dword ptr [ebx+18h]
     L_0042903c:
-        mov ecx,dword ptr [data_00474c68]
+        mov ecx,dword ptr [g_globals_character]
     L_00429042:
         mov dword ptr [edx+50h],ecx
     L_00429045:
         mov edx,dword ptr [ebx+18h]
     L_00429048:
-        mov ecx,dword ptr [data_00474c6c]
+        mov ecx,dword ptr [g_globals_shot_type]
     L_0042904e:
         mov dword ptr [edx+54h],ecx
     L_00429051:
-        mov ecx,dword ptr [data_00474c74]
+        mov ecx,dword ptr [g_globals_difficulty]
     L_00429057:
         mov edx,dword ptr [ebx+18h]
     L_0042905a:
@@ -185,7 +185,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00428f60_00428f60() {
     L_00429075:
         rep movsd
     L_00429077:
-        mov dx,word ptr [data_00474c7c]
+        mov dx,word ptr [g_globals_stage]
     L_0042907e:
         mov word ptr [eax],dx
     L_00429081:
@@ -217,15 +217,15 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00428f60_00428f60() {
     L_004290bc:
         mov dword ptr [eax+28h],ebp
     L_004290bf:
-        mov ecx,dword ptr [data_00474c44]
+        mov ecx,dword ptr [g_globals_score]
     L_004290c5:
         mov dword ptr [eax+0Ch],ecx
     L_004290c8:
-        mov dx,word ptr [data_00474c48]
+        mov dx,word ptr [g_globals_power]
     L_004290cf:
         mov word ptr [eax+10h],dx
     L_004290d3:
-        mov ecx,dword ptr [data_00474c4c]
+        mov ecx,dword ptr [g_globals_gauge]
     L_004290d9:
         mov dword ptr [eax+14h],ecx
     L_004290dc:
@@ -233,7 +233,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00428f60_00428f60() {
     L_004290e2:
         mov dword ptr [eax+18h],edx
     L_004290e5:
-        mov ecx,dword ptr [data_00474c70]
+        mov ecx,dword ptr [g_globals_lives]
     L_004290eb:
         mov dword ptr [eax+1Ch],ecx
     L_004290ee:
@@ -241,13 +241,13 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00428f60_00428f60() {
     L_004290f4:
         mov dword ptr [eax+20h],edx
     L_004290f7:
-        mov ecx,dword ptr [data_00474c90]
+        mov ecx,dword ptr [g_globals_continues]
     L_004290fd:
         mov dword ptr [eax+1B4h],ecx
     L_00429103:
         mov edx,dword ptr [ebx+18h]
     L_00429106:
-        mov eax,dword ptr [data_00474c90]
+        mov eax,dword ptr [g_globals_continues]
     L_0042910b:
         push 24h
     L_0042910d:
@@ -437,7 +437,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00428f60_00428f60() {
     L_00429230:
         mov dword ptr [ebx+0Ch],esi
     L_00429233:
-        mov ecx,dword ptr [data_00474c7c]
+        mov ecx,dword ptr [g_globals_stage]
     L_00429239:
         mov dword ptr [ebx+1D0h],ecx
     L_0042923f:
@@ -459,7 +459,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00428f60_00428f60() {
     L_0042924f:
         mov esi,ebx
     L_00429251:
-        mov dword ptr [data_00477838],ebx
+        mov dword ptr [g_replay],ebx
     L_00429257:
         call asm_FUN_0042a200_0042a200
     L_0042925c:
@@ -479,7 +479,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00428f60_00428f60() {
     L_00429278:
         rep movsd
     L_0042927a:
-        mov eax,dword ptr [data_00474c7c]
+        mov eax,dword ptr [g_globals_stage]
     L_0042927f:
         lea edx,[eax+eax*8]
     L_00429282:
@@ -501,19 +501,19 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00428f60_00428f60() {
     L_004292ae:
         mov ecx,dword ptr [eax+50h]
     L_004292b1:
-        mov dword ptr [data_00474c68],ecx
+        mov dword ptr [g_globals_character],ecx
     L_004292b7:
         mov edx,dword ptr [ebx+18h]
     L_004292ba:
         mov eax,dword ptr [edx+54h]
     L_004292bd:
-        mov dword ptr [data_00474c6c],eax
+        mov dword ptr [g_globals_shot_type],eax
     L_004292c2:
         mov ecx,dword ptr [ebx+18h]
     L_004292c5:
         mov edx,dword ptr [ecx+58h]
     L_004292c8:
-        mov dword ptr [data_00474c74],edx
+        mov dword ptr [g_globals_difficulty],edx
     L_004292ce:
         mov ax,word ptr [esi+2]
     L_004292d2:
@@ -523,11 +523,11 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00428f60_00428f60() {
     L_004292de:
         mov ecx,dword ptr [esi+0Ch]
     L_004292e1:
-        mov dword ptr [data_00474c44],ecx
+        mov dword ptr [g_globals_score],ecx
     L_004292e7:
         mov dx,word ptr [esi+10h]
     L_004292eb:
-        mov word ptr [data_00474c48],dx
+        mov word ptr [g_globals_power],dx
     L_004292f2:
         mov eax,dword ptr [esi+14h]
     L_004292f5:
@@ -551,7 +551,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00428f60_00428f60() {
     L_00429313:
         mov edx,dword ptr [esi+1Ch]
     L_00429316:
-        mov dword ptr [data_00474c70],edx
+        mov dword ptr [g_globals_lives],edx
     L_0042931c:
         mov eax,dword ptr [esi+20h]
     L_0042931f:
@@ -559,9 +559,9 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00428f60_00428f60() {
     L_00429324:
         mov ecx,dword ptr [esi+1B4h]
     L_0042932a:
-        mov eax,dword ptr [data_00474c7c]
+        mov eax,dword ptr [g_globals_stage]
     L_0042932f:
-        mov dword ptr [data_00474c90],ecx
+        mov dword ptr [g_globals_continues],ecx
     L_00429335:
         lea edx,[eax+eax*8]
     L_00429338:

@@ -29,7 +29,7 @@
       "address": "0x00474C40",
       "kind": "data"
     },
-    "_data_00474c48": {
+    "_g_globals_power": {
       "address": "0x00474C48",
       "kind": "data"
     },
@@ -49,7 +49,7 @@
       "address": "0x004776EC",
       "kind": "data"
     },
-    "_data_004776f0": {
+    "_g_bullet_manager": {
       "address": "0x004776F0",
       "kind": "data"
     },
@@ -57,7 +57,7 @@
       "address": "0x0047770C",
       "kind": "data"
     },
-    "_data_00477818": {
+    "_g_item_manager": {
       "address": "0x00477818",
       "kind": "data"
     },

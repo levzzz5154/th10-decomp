@@ -8,9 +8,9 @@ struct ItemAnimationResources_0041bb00 {
     void* item_animation;
 };
 extern "C" {
-extern short data_00474c48;
+extern short g_globals_power;
 extern float g_game_speed;
-extern ItemAnimationResources_0041bb00* data_004776f0;
+extern ItemAnimationResources_0041bb00* g_bullet_manager;
 }
 struct ItemBankSnapshot {
     ItemAnimationResources_0041bb00* value;
@@ -60,7 +60,7 @@ __declspec(noinline) int ItemSpawnManager_0041bb00::Spawn(
         else if (location->x>=192.0f) location->x=192.0f;
         item->velocity.SetPolar(angle,speed);
         ResetSpawnTimer_0041bb00(item);
-        if (data_00474c48>=100) {
+        if (g_globals_power>=100) {
             switch(kind) {
             case 10: case 11: kind=5; break;
             case 1: case 4: kind=9; break;
@@ -68,18 +68,18 @@ __declspec(noinline) int ItemSpawnManager_0041bb00::Spawn(
         }
         if (item->kind==3) {
             void* retired_handle;
-            ItemAnimation_CreateOffset_00448db0(data_004776f0->item_animation,
+            ItemAnimation_CreateOffset_00448db0(g_bullet_manager->item_animation,
                 &retired_handle,393,location);
         }
         item->kind=kind;
         item->display_kind=kind;
         if (kind==10) {
             item->display_kind=1;
-            Entity_StartScript_00404f30(static_cast<AnimationResource_0043e710*>(data_004776f0->item_animation), &item->animation,375);
+            Entity_StartScript_00404f30(static_cast<AnimationResource_0043e710*>(g_bullet_manager->item_animation), &item->animation,375);
             item->animation.primary_color=identifier;
             return 0;
         }
-        ItemBankSnapshot bank=data_004776f0;
+        ItemBankSnapshot bank=g_bullet_manager;
         int script;
         if (kind==11) { item->display_kind=4; script=378; }
         else script=kind+374;

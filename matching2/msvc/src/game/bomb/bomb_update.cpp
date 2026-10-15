@@ -3,7 +3,7 @@
 // An inactive state does nothing.  State 1 follows its animation: when the
 // animation is gone the id is forgotten and the state goes inactive without
 // ticking; otherwise the state drifts upwards (slower while the focus-style
-// inputs 0x5D..0x60 / 0x6D are held, faster when data_00474c68 is set),
+// inputs 0x5D..0x60 / 0x6D are held, faster when g_globals_character is set),
 // moves the animation to the playfield position, refreshes the collision
 // radius from the animation and runs the collision pass.  Every other state
 // only ticks the timer.
@@ -42,7 +42,7 @@ __forceinline void BombState::Step() {
             ((g_card->input_state >= 0x5D && g_card->input_state <= 0x60) ||
              g_card->input_state == 0x6D)) {
             position.y -= 0.5f;
-        } else if (data_00474c68 == 0) {
+        } else if (g_globals_character == 0) {
             position.y -= 1.0f;
         } else {
             position.y -= 1.3f;

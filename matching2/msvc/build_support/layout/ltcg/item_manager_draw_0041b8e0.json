@@ -113,7 +113,7 @@
   ],
   "absolute_symbols": [
     {
-      "symbol": "_data_004776f0",
+      "symbol": "_g_bullet_manager",
       "address": "0x004776F0",
       "kind": "data"
     },

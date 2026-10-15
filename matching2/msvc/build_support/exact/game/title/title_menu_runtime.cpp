@@ -52,7 +52,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0042cdf0_0042cdf0() {
     L_0042ce48:
         jl short L_0042ce25
     L_0042ce4a:
-        mov eax,dword ptr [data_00474ca0]
+        mov eax,dword ptr [g_globals_flags]
     L_0042ce4f:
         mov ecx,dword ptr [data_00474ca8]
     L_0042ce55:
@@ -60,7 +60,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0042cdf0_0042cdf0() {
     L_0042ce58:
         or eax,20h
     L_0042ce5b:
-        mov dword ptr [data_00474ca0],eax
+        mov dword ptr [g_globals_flags],eax
     L_0042ce60:
         mov eax,dword ptr [ecx*4+476FF8h]
     L_0042ce67:
@@ -120,9 +120,9 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0042cdf0_0042cdf0() {
     L_0042ceb6:
         lea ecx,[eax+eax*2]
     L_0042ceb9:
-        mov dword ptr [data_00474c7c],eax
+        mov dword ptr [g_globals_stage],eax
     L_0042cebe:
-        mov dword ptr [data_00474c80],eax
+        mov dword ptr [g_globals_stage_shown],eax
     L_0042cec3:
         mov dword ptr [data_00491fb8],0Ch
     L_0042cecd:
@@ -134,15 +134,15 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0042cdf0_0042cdf0() {
     L_0042ced6:
         add ecx,474788h
     L_0042cedc:
-        mov dword ptr [data_00474c68],edx
+        mov dword ptr [g_globals_character],edx
     L_0042cee2:
-        mov edx,dword ptr [data_00474c74]
+        mov edx,dword ptr [g_globals_difficulty]
     L_0042cee8:
         mov dword ptr [data_00477848],ecx
     L_0042ceee:
         mov ecx,dword ptr [eax+54h]
     L_0042cef1:
-        mov dword ptr [data_00474c6c],ecx
+        mov dword ptr [g_globals_shot_type],ecx
     L_0042cef7:
         mov dword ptr [data_00474c78],edx
     L_0042cefd:
@@ -150,7 +150,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0042cdf0_0042cdf0() {
     L_0042cf00:
         push esi
     L_0042cf01:
-        mov dword ptr [data_00474c74],eax
+        mov dword ptr [g_globals_difficulty],eax
     L_0042cf06:
         call asm_FUN_004294a0_004294a0
     L_0042cf0b:
@@ -286,7 +286,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0042cdf0_0042cdf0() {
     L_0042d005:
         jmp asm_target_0042d19f
     L_0042d00a:
-        test byte ptr [data_00474ca0],20h
+        test byte ptr [g_globals_flags],20h
     L_0042d011:
         jne short L_0042d030
     L_0042d013:
@@ -308,15 +308,15 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0042cdf0_0042cdf0() {
     L_0042d030:
         mov edx,dword ptr [data_00474c78]
     L_0042d036:
-        mov dword ptr [data_00474c74],edx
+        mov dword ptr [g_globals_difficulty],edx
     L_0042d03c:
-        mov ecx,dword ptr [data_00474ca0]
+        mov ecx,dword ptr [g_globals_flags]
     L_0042d042:
         and ecx,0FFFFFFDFh
     L_0042d045:
         test edi,edi
     L_0042d047:
-        mov dword ptr [data_00474ca0],ecx
+        mov dword ptr [g_globals_flags],ecx
     L_0042d04d:
         jne short L_0042d06f
     L_0042d04f:
@@ -336,7 +336,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0042cdf0_0042cdf0() {
     L_0042d072:
         jne short L_0042d0c7
     L_0042d074:
-        cmp dword ptr [data_00474c74],4
+        cmp dword ptr [g_globals_difficulty],4
     L_0042d07b:
         jne short L_0042d09f
     L_0042d07d:

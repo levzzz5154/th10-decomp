@@ -20,11 +20,11 @@ struct BulletManager_00405cc0 {
     __declspec(noinline) BulletManager_00405cc0();
 };
 
-extern "C" BulletManager_00405cc0* data_004776f0;
+extern "C" BulletManager_00405cc0* g_bullet_manager;
 
 #pragma code_seg(".text$01fn")
 BulletManager_00405cc0::BulletManager_00405cc0() {
     memset(this, 0, sizeof(*this));
-    data_004776f0 = this;
+    g_bullet_manager = this;
 }
 #pragma code_seg()

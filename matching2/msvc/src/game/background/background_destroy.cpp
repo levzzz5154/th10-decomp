@@ -4,7 +4,7 @@
 #include "th10/game/manager_teardown_helpers.hpp"
 
 extern "C" {
-extern unsigned char data_00474ca0;
+extern unsigned char g_globals_flags;
 void __cdecl entry_free_00452422(void* memory);
 }
 
@@ -27,7 +27,7 @@ BackGround::~BackGround() {
         instances = 0;
     }
     // Each of the two states owns the script bank loaded for it.
-    if (!(data_00474ca0 & 1))
+    if (!(g_globals_flags & 1))
         ReleaseAnimationBank(reinterpret_cast<AnimationBanks_00402440*>(g_sprt_ctrl),
                              (stage_flags & 1) + 4);
     if (g_background == this)

@@ -19,11 +19,11 @@ struct HintGameState {
     int display_value_alternate;         // 0x00474C8C
 };
 
-extern "C" HintGameState data_00474c68;
+extern "C" HintGameState g_globals_character;
 
 // The game state is always reached through its address, so the compiler
 // re-reads a field after any store that could alias it, as retail does.
-inline HintGameState* GameState() { return &data_00474c68; }
+inline HintGameState* GameState() { return &g_globals_character; }
 
 HintData* __stdcall HintData_Create_0041a120(Hint* manager, const char* text,
                                              const HintDataPosition* position);

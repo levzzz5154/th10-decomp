@@ -19,10 +19,10 @@ struct ObjectAccessor_0041aad0 {
     __declspec(noinline) void RetireCounts();
 };
 
-extern "C" int data_00474c7c;
+extern "C" int g_globals_stage;
 
 void ObjectAccessor_0041aad0::RetireCounts() {
-    Chain_0041aad0* node = entries[data_00474c7c].head;
+    Chain_0041aad0* node = entries[g_globals_stage].head;
     while (node) {
         Chain_0041aad0* next = node->next;
         Chain_0041aad0* inner = node->inner;

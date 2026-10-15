@@ -18,7 +18,7 @@ int ReplayManager_0042a6a0::LoadFile(const char* name) {
     unsigned char* packed;
 
     strcpy(filename, name);
-    if (!(data_00474ca0 & 0x20)) {
+    if (!(g_globals_flags & 0x20)) {
         sprintf(path, "replay/%s", name);
         if (!asm_File_ProbeExists_0044b4d0(path))
             return -1;
@@ -55,7 +55,7 @@ int ReplayManager_0042a6a0::LoadFile(const char* name) {
         stage = (ReplayStage_0042a6a0*)((unsigned char*)(stage + 1) + stage->data_size);
     }
 
-    if (!(data_00474ca0 & 0x20) && packed)
+    if (!(g_globals_flags & 0x20) && packed)
         free(packed);
     return 0;
 }

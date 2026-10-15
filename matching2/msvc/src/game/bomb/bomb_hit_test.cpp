@@ -13,9 +13,9 @@ int Bomb::HitTest(const PickupPoint* point) {
         else result = g_enemy_ctrl->alternate_mode ? 38 : 5;
     } else {
         if (g_card->flags & 1) {
-            if (mode == 1) result = data_00474c68 ? 23 : 26;
+            if (mode == 1) result = g_globals_character ? 23 : 26;
         } else if (g_enemy_ctrl->alternate_mode != 0 && mode == 0) {
-            result = data_00474c68 == 0 ? 20 : 16;
+            result = g_globals_character == 0 ? 20 : 16;
         }
     }
     return result;

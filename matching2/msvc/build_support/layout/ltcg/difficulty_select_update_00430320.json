@@ -1360,12 +1360,12 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00474c44",
+      "symbol": "_g_globals_score",
       "address": "0x00474C44",
       "kind": "data"
     },
     {
-      "symbol": "_data_00474c68",
+      "symbol": "_g_globals_character",
       "address": "0x00474C68",
       "kind": "data"
     },
@@ -1490,7 +1490,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00474c74",
+      "symbol": "_g_globals_difficulty",
       "address": "0x00474C74",
       "kind": "data"
     },
@@ -1705,7 +1705,7 @@
       "address": 4672632
     },
     {
-      "symbol": "_data_00474c6c",
+      "symbol": "_g_globals_shot_type",
       "kind": "data",
       "address": 4672620
     },
@@ -1720,12 +1720,12 @@
       "address": 4792248
     },
     {
-      "symbol": "_data_00474c80",
+      "symbol": "_g_globals_stage_shown",
       "kind": "data",
       "address": 4672640
     },
     {
-      "symbol": "_data_00474c7c",
+      "symbol": "_g_globals_stage",
       "kind": "data",
       "address": 4672636
     },
@@ -1745,7 +1745,7 @@
       "address": 4672680
     },
     {
-      "symbol": "_data_00474ca0",
+      "symbol": "_g_globals_flags",
       "kind": "data",
       "address": 4672672
     },
@@ -1790,7 +1790,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_data_0047783c",
+      "symbol": "_g_score",
       "address": "0x0047783C",
       "kind": "data"
     },
@@ -1845,7 +1845,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00477710",
+      "symbol": "_g_replay_path",
       "address": "0x00477710",
       "kind": "data"
     },
@@ -1920,7 +1920,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_data_00477838",
+      "symbol": "_g_replay",
       "address": "0x00477838",
       "kind": "data"
     },

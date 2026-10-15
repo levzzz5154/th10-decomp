@@ -35,7 +35,7 @@ __declspec(noinline) int __stdcall TitleMode9_00430ff0(Title* room) {
         {
             // A named local: its symbol precedes the cursor's, which the
             // unlock test's operand order in phase 2 depends on.
-            int character_slot = data_00474c68 + 107;
+            int character_slot = g_globals_character + 107;
             RecoveryMusicInstallSlot_0042c670(room, character_slot);
         }
         room->SetTimerTarget(1);
@@ -55,8 +55,8 @@ __declspec(noinline) int __stdcall TitleMode9_00430ff0(Title* room) {
             g_sound_manager.Queue(11, 0);
             data_00491c08 = cursor->selection;
         } else if (data_00474e36 & 0x1001) {
-            if (data_0047783c->shots[data_00474c68][data_00474c6c]
-                    .practice[data_00474c74][cursor->selection].unlocked == 0) {
+            if (g_score->shots[g_globals_character][g_globals_shot_type]
+                    .practice[g_globals_difficulty][cursor->selection].unlocked == 0) {
                 g_sound_manager.Queue(0x25, 0);
             } else {
                 room->SetTimerTarget(3);
@@ -99,8 +99,8 @@ __declspec(noinline) int __stdcall TitleMode9_00430ff0(Title* room) {
             room->DisableTimerWithOwner(3);
             int stage = cursor->selection + 1;
             data_00477848 = data_00474788 + stage * 0x30;
-            data_00474c7c = stage;
-            data_00474c80 = stage;
+            g_globals_stage = stage;
+            g_globals_stage_shown = stage;
             Music_FadeOut(6.0f);
             data_00491fb8 = 7;
         }
@@ -108,7 +108,7 @@ __declspec(noinline) int __stdcall TitleMode9_00430ff0(Title* room) {
     case 4:
         if (room->timer.current >= 6) {
             room->ClearAnimationSlot(106);
-            room->ClearAnimationSlot(data_00474c68 + 107);
+            room->ClearAnimationSlot(g_globals_character + 107);
             room->DisableTimerWithOwner(8);
             room->cursor.PopSelection();
         }

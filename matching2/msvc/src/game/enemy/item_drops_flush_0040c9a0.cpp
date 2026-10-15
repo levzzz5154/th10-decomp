@@ -10,7 +10,7 @@
 #pragma code_seg(".text$079h_flush")
 void DropSource_0040c9a0::FlushDrops(ItemDrops_0040c9a0* drops) {
     if (drops->main_item > 0)
-        data_00477818->Spawn(position, drops->main_item, -1, -1.5707964f, 2.2f);
+        g_item_manager->Spawn(position, drops->main_item, -1, -1.5707964f, 2.2f);
     ScatterDrops(drops);
     drops->main_item = 0;
 }
@@ -36,7 +36,7 @@ void DropSource_0040c9a0::ScatterDrops(ItemDrops_0040c9a0* drops) {
             target.x += position[0];
             target.y += position[1];
             target.z = height;
-            data_00477818->Spawn(&target.x, kind + 1, -1, -1.5707964f, 2.2f);
+            g_item_manager->Spawn(&target.x, kind + 1, -1, -1.5707964f, 2.2f);
             angle = Angle_Normalize_0044bc70(
                 (ItemScatter_NextU32() * (1.0f / 2147483648.0f) - 1.0f) * 0.78539819f
                 + angle + 1.5707964f);

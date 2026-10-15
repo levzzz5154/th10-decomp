@@ -10,7 +10,7 @@
   "function": "?TrimCircle@TrimLaser@@UAEHPBUCutVector@@MH@Z",
   "code_bytes": 1238,
   "absolute_symbols": {
-    "_data_00474c48": {
+    "_g_globals_power": {
       "address": "0x00474C48",
       "kind": "data"
     },
@@ -18,7 +18,7 @@
       "address": "0x00476F78",
       "kind": "data"
     },
-    "_data_004776f0": {
+    "_g_bullet_manager": {
       "address": "0x004776F0",
       "kind": "data"
     },
@@ -50,7 +50,7 @@
       "address": "0x00401DE0",
       "kind": "code"
     },
-    "_data_00477818": {
+    "_g_item_manager": {
       "address": "0x00477818",
       "kind": "data"
     },

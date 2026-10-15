@@ -87,9 +87,9 @@ extern "C" __declspec(noinline)
 void __stdcall Game_Destroy(Game* state) {
     // The score archive owns the run's record file; flush it first. Retail
     // hands the archive over in EBX.
-    data_0047783c->Save();
+    g_score->Save();
 
-    data_00474ca0 &= ~3u;
+    g_globals_flags &= ~3u;
     g_score_default_speed = 1.0f;
 
     // The replay-session flag; the branch below reads it back.
@@ -111,12 +111,12 @@ void __stdcall Game_Destroy(Game* state) {
                 g_ascii_manager->animation_resource, &slot_handle, 6, &position);
             *handle_slot = *slot;
         }
-        if (data_00474c80 == data_00474c7c)
-            data_00474ca0 |= 1u;
+        if (g_globals_stage_shown == g_globals_stage)
+            g_globals_flags |= 1u;
     } else if (data_00491fb8 == 0xB) {
         GameThread_0040c540* thread = g_ascii_manager;
         thread->EnsureAnimationResource(224.0f, 416.0f);
-        data_00474ca0 |= replay_bit;
+        g_globals_flags |= replay_bit;
     } else if (data_00491fb8 == 4) {
         GameThread_0040c540* thread = g_ascii_manager;
         thread->EnsureAnimationResource(480.0f, 392.0f);
@@ -126,17 +126,17 @@ void __stdcall Game_Destroy(Game* state) {
     } else if (data_00491fb8 == 0xD) {
         GameThread_0040c540* thread = g_ascii_manager;
         thread->EnsureAnimationResource(480.0f, 392.0f);
-        if (data_00474c80 != data_00474c7c) {
+        if (g_globals_stage_shown != g_globals_stage) {
             g_globals.IncrementCappedCount();
-            data_00474ca0 |= 8u;
+            g_globals_flags |= 8u;
         }
-        data_00474ca0 |= 1u;
+        g_globals_flags |= 1u;
     }
 
-    if (!(data_00474ca0 & replay_bit)) {
+    if (!(g_globals_flags & replay_bit)) {
         // Full teardown of every per-session manager object.
         if (data_00491fb8 != 0xE && data_00491fb8 != 0xF) {
-            void* replay_manager = data_00477838;
+            void* replay_manager = g_replay;
             if (replay_manager) {
                 ManagerOwned_Destroy_004294a0(replay_manager);
                 entry_free_004524a1(replay_manager);
@@ -167,12 +167,12 @@ void __stdcall Game_Destroy(Game* state) {
             StageManager_Destroy_00424ed0(stage);
             entry_free_004524a1(stage);
         }
-        void* bullets = data_004776f0;
+        void* bullets = g_bullet_manager;
         if (bullets) {
             BulletManager_Destroy_00405f70(bullets);
             entry_free_004524a1(bullets);
         }
-        void* native_effects = data_00477818;
+        void* native_effects = g_item_manager;
         if (native_effects) {
             ItemManager_Destroy_0041adf0(native_effects);
             entry_free_004524a1(native_effects);
@@ -208,21 +208,21 @@ void __stdcall Game_Destroy(Game* state) {
         TaskPairOwner_00417c80* pause = (TaskPairOwner_00417c80*)g_pause;
         if (pause->node_008) pause->node_008->flags_004 &= ~2u;
         if (pause->node_00C) pause->node_00C->flags_004 &= ~2u;
-        TaskPairOwner_00417c80* bullet = (TaskPairOwner_00417c80*)data_004776f0;
+        TaskPairOwner_00417c80* bullet = (TaskPairOwner_00417c80*)g_bullet_manager;
         if (bullet->node_008) bullet->node_008->flags_004 &= ~2u;
         if (bullet->node_00C) bullet->node_00C->flags_004 &= ~2u;
         ReplayTaskPairOwner_00417c80* replay =
-            (ReplayTaskPairOwner_00417c80*)data_00477838;
+            (ReplayTaskPairOwner_00417c80*)g_replay;
         if (replay->node_1CC) replay->node_1CC->flags_004 &= ~2u;
         if (replay->node_00C) replay->node_00C->flags_004 &= ~2u;
         // The native effect manager's element storage is wiped for the next
         // run; the wipe covers 0x873A8 dwords from +0x14.
-        memset((char*)data_00477818 + 0x14, 0, 0x873A8 * 4);
+        memset((char*)g_item_manager + 0x14, 0, 0x873A8 * 4);
     }
 
     // 0x00417F80: with the run still active (flag bits 0 or 3) the enemy
     // manager is cleared in place; otherwise it is destroyed and freed.
-    if (data_00474ca0 & 9u) {
+    if (g_globals_flags & 9u) {
         EnemyCtrl_Clear_00409f90(g_enemy_ctrl);
     } else {
         EnemyCtrl* enemies = g_enemy_ctrl;
@@ -268,7 +268,7 @@ void __stdcall Game_Destroy(Game* state) {
 
     // The published manager-state pointer dies with the state.
     g_game = 0;
-    if (!(data_00474ca0 & 0x22u)) {
+    if (!(g_globals_flags & 0x22u)) {
         // Re-register the shared animation resource for the next run; the
         // resource index is 4 when the extra-content flag is set. Retail
         // hands the registrar its manager in EAX and the name in EDX.
@@ -281,6 +281,6 @@ void __stdcall Game_Destroy(Game* state) {
     // narrower byte load makes the emitted epilogue exceed the region and
     // previously caused the return instruction to be cut off.
     data_004918a4 = 1;
-    data_004923a8 = (data_00474ca0 & 1) ? 0 : -0x1000000;
+    data_004923a8 = (g_globals_flags & 1) ? 0 : -0x1000000;
 }
 #pragma code_seg()

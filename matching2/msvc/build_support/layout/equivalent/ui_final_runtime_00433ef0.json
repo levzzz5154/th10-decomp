@@ -318,11 +318,11 @@
       "address": "0x00477848",
       "kind": "data"
     },
-    "_data_00474c44": {
+    "_g_globals_score": {
       "address": "0x00474C44",
       "kind": "data"
     },
-    "_data_00474c68": {
+    "_g_globals_character": {
       "address": "0x00474C68",
       "kind": "data"
     },
@@ -422,7 +422,7 @@
       "address": "0x00474E36",
       "kind": "data"
     },
-    "_data_00474c74": {
+    "_g_globals_difficulty": {
       "address": "0x00474C74",
       "kind": "data"
     },
@@ -594,7 +594,7 @@
       "address": "0x00474C78",
       "kind": "data"
     },
-    "_data_00474c6c": {
+    "_g_globals_shot_type": {
       "address": "0x00474C6C",
       "kind": "data"
     },
@@ -606,11 +606,11 @@
       "address": "0x00491FB8",
       "kind": "data"
     },
-    "_data_00474c80": {
+    "_g_globals_stage_shown": {
       "address": "0x00474C80",
       "kind": "data"
     },
-    "_data_00474c7c": {
+    "_g_globals_stage": {
       "address": "0x00474C7C",
       "kind": "data"
     },
@@ -626,7 +626,7 @@
       "address": "0x00474CA8",
       "kind": "data"
     },
-    "_data_00474ca0": {
+    "_g_globals_flags": {
       "address": "0x00474CA0",
       "kind": "data"
     },
@@ -662,7 +662,7 @@
       "address": "0x0042F540",
       "kind": "code"
     },
-    "_data_0047783c": {
+    "_g_score": {
       "address": "0x0047783C",
       "kind": "data"
     },
@@ -706,7 +706,7 @@
       "address": "0x00491C00",
       "kind": "data"
     },
-    "_data_00477710": {
+    "_g_replay_path": {
       "address": "0x00477710",
       "kind": "data"
     },
@@ -766,7 +766,7 @@
       "address": "0x00420B10",
       "kind": "code"
     },
-    "_data_00477838": {
+    "_g_replay": {
       "address": "0x00477838",
       "kind": "data"
     },

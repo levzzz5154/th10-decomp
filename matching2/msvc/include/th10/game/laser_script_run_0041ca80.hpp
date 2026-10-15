@@ -157,7 +157,7 @@ struct BulletAnimationResourceSource {
     unsigned char reserved_000[0x3E0B50];
     void* resource;                    // +0x3E0B50
 };
-extern "C" BulletAnimationResourceSource* data_004776f0;
+extern "C" BulletAnimationResourceSource* g_bullet_manager;
 extern "C" const int data_00474170[];
 extern "C" float data_00470b04, data_00470b50, data_00470cc8, data_00470ccc;
 

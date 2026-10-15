@@ -73,7 +73,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041afd0_0041afd0() {
     L_0041b023:
         jns asm_target_0041b85a
     L_0041b029:
-        mov ecx,dword ptr [data_004776f0]
+        mov ecx,dword ptr [g_bullet_manager]
     L_0041b02f:
         mov eax,dword ptr [ebp+30h]
     L_0041b032:
@@ -573,7 +573,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041afd0_0041afd0() {
     L_0041b3e0:
         mov ebx,eax
     L_0041b3e2:
-        movsx eax,word ptr [data_00474c48]
+        movsx eax,word ptr [g_globals_power]
     L_0041b3e9:
         cdq
     L_0041b3ea:
@@ -633,7 +633,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041afd0_0041afd0() {
     L_0041b446:
         call asm_FUN_0043dd10_0043dd10
     L_0041b44b:
-        cmp word ptr [data_00474c48],64h
+        cmp word ptr [g_globals_power],64h
     L_0041b453:
         jl short L_0041b45d
     L_0041b455:
@@ -653,7 +653,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041afd0_0041afd0() {
     L_0041b478:
         jmp asm_target_0041b718
     L_0041b47d:
-        movsx eax,word ptr [data_00474c48]
+        movsx eax,word ptr [g_globals_power]
     L_0041b484:
         mov esi,dword ptr [g_smoll_score]
     L_0041b48a:
@@ -685,7 +685,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041afd0_0041afd0() {
     L_0041b4bb:
         jp short L_0041b4d5
     L_0041b4bd:
-        mov eax,dword ptr [data_00474c4c]
+        mov eax,dword ptr [g_globals_gauge]
     L_0041b4c2:
         lea ebx,[eax+eax*4]
     L_0041b4c5:
@@ -709,7 +709,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041afd0_0041afd0() {
     L_0041b4e1:
         fmul dword ptr [data_00470cd0]
     L_0041b4e7:
-        fild dword ptr [data_00474c4c]
+        fild dword ptr [g_globals_gauge]
     L_0041b4ed:
         fmul dword ptr [data_00470b0c]
     L_0041b4f3:
@@ -721,7 +721,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041afd0_0041afd0() {
     L_0041b500:
         mov ecx,eax
     L_0041b502:
-        mov eax,dword ptr [data_00474c4c]
+        mov eax,dword ptr [g_globals_gauge]
     L_0041b507:
         lea eax,[eax+eax*4]
     L_0041b50a:
@@ -759,7 +759,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041afd0_0041afd0() {
     L_0041b535:
         jmp short L_0041b559
     L_0041b537:
-        mov ebx,dword ptr [data_00474c4c]
+        mov ebx,dword ptr [g_globals_gauge]
     L_0041b53d:
         lea ebx,[ebx+ebx*4]
     L_0041b540:
@@ -793,7 +793,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041afd0_0041afd0() {
     L_0041b57a:
         jmp asm_target_0041b718
     L_0041b57f:
-        mov eax,dword ptr [data_00474c74]
+        mov eax,dword ptr [g_globals_difficulty]
     L_0041b584:
         cmp eax,4
     L_0041b587:
@@ -885,7 +885,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041afd0_0041afd0() {
     L_0041b63a:
         mov ebx,eax
     L_0041b63c:
-        movsx eax,word ptr [data_00474c48]
+        movsx eax,word ptr [g_globals_power]
     L_0041b643:
         cdq
     L_0041b644:
@@ -951,7 +951,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041afd0_0041afd0() {
     L_0041b6ae:
         call asm_Player_AdjustPower_00405b60
     L_0041b6b3:
-        cmp word ptr [data_00474c48],64h
+        cmp word ptr [g_globals_power],64h
     L_0041b6bb:
         jl short L_0041b6ef
     L_0041b6bd:
@@ -965,7 +965,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041afd0_0041afd0() {
     L_0041b6d1:
         jmp short L_0041b718
     L_0041b6d3:
-        movsx eax,word ptr [data_00474c48]
+        movsx eax,word ptr [g_globals_power]
     L_0041b6da:
         mov esi,dword ptr [g_smoll_score]
     L_0041b6e0:

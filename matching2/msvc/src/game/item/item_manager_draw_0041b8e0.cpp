@@ -23,9 +23,9 @@ __declspec(noinline) int ItemManager_0041b8e0::Draw() {
             else
                 item->sprite_alpha = (unsigned char)(255.0f * (distance / 32.0f));
             if (item->sprite_index != item->type + 0x161)
-                data_004776f0->item_sprites->ConfigureObject(item->Sprite(), item->type + 0x160);
+                g_bullet_manager->item_sprites->ConfigureObject(item->Sprite(), item->type + 0x160);
         } else if (item->sprite_index != item->type + 0x158) {
-            data_004776f0->item_sprites->ConfigureObject(item->Sprite(), item->type + 0x157);
+            g_bullet_manager->item_sprites->ConfigureObject(item->Sprite(), item->type + 0x157);
             item->sprite_alpha = 0xFF;
         }
         asm_FUN_004451c0_004451c0(item->Sprite(), g_sprt_ctrl);

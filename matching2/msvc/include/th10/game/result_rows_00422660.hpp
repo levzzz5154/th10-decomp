@@ -31,8 +31,8 @@ extern "C" void __stdcall DrawNameEntry_004224c0(
     ResultMenu_00422660* state, Vec3_00401530 position);
 
 extern "C" {
-extern int data_00474c74;             // the difficulty the run was played on
-extern int data_00474c7c;             // the stage the run ended on
+extern int g_globals_difficulty;             // the difficulty the run was played on
+extern int g_globals_stage;             // the stage the run ended on
 extern const char* data_00474708[];   // "E", "N", "H", "L", "X": difficulty initials
 extern const char data_0046e0e8[];    // "%2d %s %.9ld%d --/--/-- Stage -"
 extern const char data_0046e108[];    // "%2d %s %.9ld%d %.2d/%.2d/%.2d %s"

@@ -198,11 +198,11 @@
       "address": "0x00477848",
       "kind": "data"
     },
-    "_data_00474c44": {
+    "_g_globals_score": {
       "address": "0x00474C44",
       "kind": "data"
     },
-    "_data_00474c68": {
+    "_g_globals_character": {
       "address": "0x00474C68",
       "kind": "data"
     },

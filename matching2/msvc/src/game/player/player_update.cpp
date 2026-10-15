@@ -41,7 +41,7 @@ static __forceinline ScaledVec3 operator*(const Vec3& a, float f) {
     return ScaledVec3(a.x * f, a.y * f, a.z * f);
 }
 static inline void ActivatePlayerCollisions(bool idle_only) {
-    PlayerCollisionRecord* record = data_004776f0->records;
+    PlayerCollisionRecord* record = g_bullet_manager->records;
     for (int remaining = 2000; remaining; --remaining, ++record)
         if (record->state != 0 && record->state != 3 &&
                 (!idle_only || record->countdown == 0))
@@ -76,8 +76,8 @@ extern "C" __declspec(noinline) int __stdcall Player_Update(Player* player) {
             }
         } else {
             float radius = float(player->state_timer.current) * (512.0f / 30.0f) + 64.0f;
-            data_004776f0->Check(&player->death_position, radius, 0, 1);
-            data_004776f0->Check(&player->death_position, radius * 0.25f, 0, 0);
+            g_bullet_manager->Check(&player->death_position, radius, 0, 1);
+            g_bullet_manager->Check(&player->death_position, radius * 0.25f, 0, 0);
             g_laser_manager->Evaluate(&player->death_position, radius, 0);
         }
         if (player->state_timer.current < 60) break;
@@ -142,13 +142,13 @@ extern "C" __declspec(noinline) int __stdcall Player_Update(Player* player) {
             for (int fan_index = 0; fan_index < 7; ++fan_index) {
                 float direction = (float(fan_index) * 0.11219974f + angle) - 0.39269909f;
                 int kind = fan_index == 1 || fan_index == 3 || fan_index == 5 ? 4 : 1;
-                data_00477818->Spawn(reinterpret_cast<const Vector3*>(&player->position), kind, 0xffffff, direction, 3.0f);
+                g_item_manager->Spawn(reinterpret_cast<const Vector3*>(&player->position), kind, 0xffffff, direction, 3.0f);
             }
             Player_RefreshOptions(player);
         }
         if (player->state_timer.current >= 30) {
             if (g_globals.lives < 0) {
-                if (data_00477838->mode != 1) g_pause->OpenPause();
+                if (g_replay->mode != 1) g_pause->OpenPause();
                 else g_application.Set(4);
             } else {
                 player->state = PLAYER_RESPAWNING;

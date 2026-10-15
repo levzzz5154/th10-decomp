@@ -350,11 +350,11 @@
       "address": "0x00477848",
       "kind": "data"
     },
-    "_data_00474c44": {
+    "_g_globals_score": {
       "address": "0x00474C44",
       "kind": "data"
     },
-    "_data_00474c68": {
+    "_g_globals_character": {
       "address": "0x00474C68",
       "kind": "data"
     },
@@ -454,7 +454,7 @@
       "address": "0x00474E36",
       "kind": "data"
     },
-    "_data_00474c74": {
+    "_g_globals_difficulty": {
       "address": "0x00474C74",
       "kind": "data"
     },
@@ -594,7 +594,7 @@
       "address": "0x00476FD8",
       "kind": "data"
     },
-    "_data_00474c7c": {
+    "_g_globals_stage": {
       "address": "0x00474C7C",
       "kind": "data"
     }

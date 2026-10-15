@@ -52,15 +52,15 @@ struct GameSelection_00409280 {
 };
 
 extern "C" {
-extern GameMode_00409280* data_00477838;
+extern GameMode_00409280* g_replay;
 extern FrontResources_00409280* g_front;
 extern GameThread_00409280* g_ascii_manager;
-extern BulletResourceView_00409280* data_004776f0;
-extern ScoreManager* data_0047783c;
+extern BulletResourceView_00409280* g_bullet_manager;
+extern ScoreManager* g_score;
 extern EnemyCtrlCardView* g_enemy_ctrl;
 extern GameSelection_00409280 g_selection;         // 0x00474C68
-extern int data_00474c4c;
-extern int data_00474c7c;                          // stage number
+extern int g_globals_gauge;
+extern int g_globals_stage;                          // stage number
 extern int data_00474c84;
 void __stdcall LoadScript_0043e710(AnimationResource_0043e710* resource,
                                    AnimationObject_0043e710* object, int index);
@@ -144,11 +144,11 @@ void Card_00408d60::StartSpell(int index, const char* name, int duration) {
         ;
     flags = (flags & ~0x18u) | 3;
 
-    if (data_00477838->replay != 1) {
-        CopyRecordName(data_0047783c->records[g_selection.shot_type + g_selection.character * 3].spells[index].name, name);
-        CountAttempt(&data_0047783c->records[g_selection.shot_type + g_selection.character * 3].spells[index]);
-        CopyName(data_0047783c->records[6].spells[index].name, name);
-        CountAttempt(&data_0047783c->records[6].spells[index]);
+    if (g_replay->replay != 1) {
+        CopyRecordName(g_score->records[g_selection.shot_type + g_selection.character * 3].spells[index].name, name);
+        CountAttempt(&g_score->records[g_selection.shot_type + g_selection.character * 3].spells[index]);
+        CopyName(g_score->records[6].spells[index].name, name);
+        CountAttempt(&g_score->records[6].spells[index]);
     }
 
     int i;
@@ -165,7 +165,7 @@ void Card_00408d60::StartSpell(int index, const char* name, int duration) {
         ->FormatRightAligned(g_sprt_ctrl, 0x00FFFFFFu, name);
     g_sound_manager.Queue(14, 0);
 
-    marker_handle.value = CreateAnimation(data_004776f0->effects, 417).value;
+    marker_handle.value = CreateAnimation(g_bullet_manager->effects, 417).value;
     marker_position = g_enemy_ctrl->target->position;
     SetAnimationTranslatedPosition_00449350(
         reinterpret_cast<const PositionVector_004492f0*>(&marker_position), g_sprt_ctrl,
@@ -174,12 +174,12 @@ void Card_00408d60::StartSpell(int index, const char* name, int duration) {
     FindChild(marker_handle.value, 416)->ScriptIntegerVariables()[2] = duration;
 
     bonus_duration = duration;
-    bonus = (g_selection.stage * 3 + 10) * data_00474c4c * 10;
+    bonus = (g_selection.stage * 3 + 10) * g_globals_gauge * 10;
     bonus_start = bonus;
     if (bonus >= 100000000)
         bonus_start = 99999999;
 
-    CreateAnimation(data_004776f0->effects, 427);
+    CreateAnimation(g_bullet_manager->effects, 427);
     switch (g_selection.stage) {
     case 1:
         StartScript(&frame_sprite, 12);

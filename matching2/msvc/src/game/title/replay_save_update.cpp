@@ -38,8 +38,8 @@ __declspec(noinline) int __stdcall TitleMode16_00433570(Title* room) {
         room->cursor.wrap = 1;
         SelectItem_00433570(room->cursor, 0);
         data_00477848 = data_00474788 + 8 * 0x30;
-        data_00474c7c = 8;
-        data_00474c80 = 8;
+        g_globals_stage = 8;
+        g_globals_stage_shown = 8;
         for (int number = 1; number <= 25; ++number) {
             sprintf(path, "th10_%.2d.rpy", number);
             save->replays[number - 1] = ReplayFile_Open_004296f0(path);
@@ -66,10 +66,10 @@ __declspec(noinline) int __stdcall TitleMode16_00433570(Title* room) {
             SelectItem_00433570(*grid, 0);
             save->grid.item_count = strlen(data_004746d8);
             save->grid.wrap = 1;
-            ReplayFileHeader_004315c0** header = &data_00477838->header;
+            ReplayFileHeader_004315c0** header = &g_replay->header;
             time_00452b71(&(*header)->date);
             (*header)->stage = 8;
-            strcpy(save->name, data_0047783c->last_name);
+            strcpy(save->name, g_score->last_name);
             save->name_length = 0;
             if (strcmp(save->name, "        ") != 0)
                 grid->Advance(-1);
@@ -134,10 +134,10 @@ __declspec(noinline) int __stdcall TitleMode16_00433570(Title* room) {
                 g_sound_manager.Queue(0x2c, 0);
                 sprintf(path, "th10_%.2d.rpy", room->cursor.selection + 1);
                 ReplayFile_Delete_004297b0(save->replays[room->cursor.selection]);
-                ReplayFile_Save_00429b60(data_00477838, path, save->name);
+                ReplayFile_Save_00429b60(g_replay, path, save->name);
                 int slot = room->cursor.selection;
                 save->replays[slot] = ReplayFile_Open_004296f0(path);
-                strcpy(data_0047783c->last_name, save->name);
+                strcpy(g_score->last_name, save->name);
                 room->SetTimerTarget(2);
             }
             g_sound_manager.Queue(10, 0);
@@ -162,7 +162,7 @@ __declspec(noinline) int __stdcall TitleMode16_00433570(Title* room) {
             RecoveryMusicStopHandle_00409e50(&room->fallback_handle);
             room->DisableTimerWithOwner(2);
             room->cursor.PopSelection();
-            ReplayFile_004315c0* recorded = data_00477838;
+            ReplayFile_004315c0* recorded = g_replay;
             if (recorded != 0) {
                 ReplayFile_Destroy_004294a0(recorded);
                 free(recorded);

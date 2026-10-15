@@ -152,7 +152,7 @@ __declspec(noinline) int ReplayManager_004296f0::Start(int start_mode, const cha
         // Recording: publish the manager, drop the stage's old pools, append
         // a fresh page, then build header, configuration and stage record.
         int stage = g_globals.stage;
-        data_00477838 = this;
+        g_replay = this;
         ClearStage(stage);
         current_pool = (ReplayPoolLink_0042aa50*)((PoolOwner_0042aa50*)this)->AppendPage(g_globals.stage);
 
@@ -222,7 +222,7 @@ __declspec(noinline) int ReplayManager_004296f0::Start(int start_mode, const cha
     if (start_mode == 1) {
         // Play back: load the file, mirror the configuration back into the
         // profile, rewind the stage's input list and restore the run state.
-        data_00477838 = this;
+        g_replay = this;
         if (ReplayManager_LoadFile_00428f60(this, replay_path))
             return -1;
 

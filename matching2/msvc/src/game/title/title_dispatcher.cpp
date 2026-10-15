@@ -50,11 +50,11 @@ struct TitleGameState {
 typedef char TitleGameStateFlags[offsetof(TitleGameState, flags) == 0x5c ? 1 : -1];
 extern "C" {
     extern unsigned int data_00474e30;
-    extern TitleGameState data_00474c44;
+    extern TitleGameState g_globals_score;
     extern int data_00491fb8, data_00491c00;
     extern unsigned int data_00491ff4;
     extern const char* data_00476ff8[4];
-    extern char data_00477710[];
+    extern char g_replay_path[];
     extern unsigned char data_00474788[];
     extern unsigned char* data_00477848;
     extern GameThread_0040c540* g_ascii_manager;
@@ -94,30 +94,30 @@ static __forceinline void MarkTitleCallback(Title* room) {
 // set up the next demo replay.  Returns how the title is to be entered.
 static __forceinline int UpdateIdleDemo(TitlePrefix* title) {
     switch (title->mode) { case 1: case 2:
-        ++data_00474c44.idle_frames;
+        ++g_globals_score.idle_frames;
         if ((data_00474e30 & 0x160b) != 0) {
-            data_00474c44.idle_frames = 0;
-        } else if (data_00474c44.idle_frames >= 900) {
-            data_00474c44.flags = (data_00474c44.flags & ~0x40u) | 0x20;
-            strcpy(data_00477710, data_00476ff8[data_00474c44.next_demo]);
-            DemoFile* file = TitleLoadDemo_004296f0(data_00477710);
-            data_00474c44.next_demo = (data_00474c44.next_demo + 1) % 4;
+            g_globals_score.idle_frames = 0;
+        } else if (g_globals_score.idle_frames >= 900) {
+            g_globals_score.flags = (g_globals_score.flags & ~0x40u) | 0x20;
+            strcpy(g_replay_path, data_00476ff8[g_globals_score.next_demo]);
+            DemoFile* file = TitleLoadDemo_004296f0(g_replay_path);
+            g_globals_score.next_demo = (g_globals_score.next_demo + 1) % 4;
             int stage = 0;
             while (stage < 8 && file->stages[stage].present == 0)
                 ++stage;
             data_00477848 = data_00474788 + stage * 0x30;
-            data_00474c44.stage = stage;
-            data_00474c44.first_stage = stage;
+            g_globals_score.stage = stage;
+            g_globals_score.first_stage = stage;
             data_00491fb8 = 12;
             DemoHeader* header = file->header;
-            data_00474c44.character = header->character;
-            data_00474c44.menu_difficulty = data_00474c44.difficulty;
-            data_00474c44.shot = header->shot;
-            data_00474c44.difficulty = header->difficulty;
+            g_globals_score.character = header->character;
+            g_globals_score.menu_difficulty = g_globals_score.difficulty;
+            g_globals_score.shot = header->shot;
+            g_globals_score.difficulty = header->difficulty;
             TitleReleaseDemo_004294a0(file);
             free(file);
             int mode = title->mode;
-            data_00474c44.idle_frames = 0;
+            g_globals_score.idle_frames = 0;
             return data_00491c00 = mode != 1;
         }
     }
@@ -155,19 +155,19 @@ __declspec(noinline) int __stdcall TitleDispatcher_Model_0042cdf0(
             TitleNameEntry_00432cb0(room);
             break;
         }
-        if ((data_00474c44.flags & 0x20) == 0) {
+        if ((g_globals_score.flags & 0x20) == 0) {
             TitleSetMusicFile_00420a90(0, "bgm/th10_02.wav");
             TitlePlayMusic_00420b10(0, 0);
             transition = data_00491c00;
         } else {
-            data_00474c44.difficulty = data_00474c44.menu_difficulty;
+            g_globals_score.difficulty = g_globals_score.menu_difficulty;
         }
-        data_00474c44.flags &= ~0x20u;
+        g_globals_score.flags &= ~0x20u;
         if (transition == 0) {
             room->DisableTimerWithOwner(1);
             data_00491c00 = 1;
         } else if (transition == 1) {
-            if (data_00474c44.difficulty == 4)
+            if (g_globals_score.difficulty == 4)
                 SetSelection(&room->cursor, 1);
             room->DisableTimerWithOwner(2);
             RecoveryMusicInstallSlot_0042c670(room, 91);
@@ -228,6 +228,6 @@ int TitleModel_0042cdf0::Update() {
     return TitleDispatcher_Model_0042cdf0(reinterpret_cast<Title*>(this));
 }
 extern "C" void __stdcall TitleDispatcherEscape_0042cdf0(void** objects) {
-    objects[0] = &data_00474c44;
+    objects[0] = &g_globals_score;
 }
 #pragma code_seg()

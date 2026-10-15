@@ -332,7 +332,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00477838",
+      "symbol": "_g_replay",
       "address": "0x477838",
       "kind": "data"
     },
@@ -407,7 +407,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_0047783c",
+      "symbol": "_g_score",
       "address": "0x47783c",
       "kind": "data"
     },

@@ -357,7 +357,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_004160ca:
         jmp asm_target_00416f09
     L_004160cf:
-        mov eax,dword ptr [data_00474c68]
+        mov eax,dword ptr [g_globals_character]
     L_004160d4:
         sub eax,0
     L_004160d7:
@@ -407,13 +407,13 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_00416122:
         jmp asm_target_00416f09
     L_00416127:
-        mov eax,dword ptr [data_00474c7c]
+        mov eax,dword ptr [g_globals_stage]
     L_0041612c:
         cmp eax,6
     L_0041612f:
         jne short L_00416186
     L_00416131:
-        mov eax,dword ptr [data_00474c68]
+        mov eax,dword ptr [g_globals_character]
     L_00416136:
         sub eax,0
     L_00416139:
@@ -471,7 +471,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_0041618f:
         jge short L_004161e7
     L_00416191:
-        mov eax,dword ptr [data_00474c68]
+        mov eax,dword ptr [g_globals_character]
     L_00416196:
         sub eax,0
     L_00416199:
@@ -521,7 +521,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_004161e2:
         jmp asm_target_00416f09
     L_004161e7:
-        mov eax,dword ptr [data_00474c68]
+        mov eax,dword ptr [g_globals_character]
     L_004161ec:
         sub eax,0
     L_004161ef:
@@ -729,7 +729,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_0041636d:
         jmp asm_target_00416f09
     L_00416372:
-        mov ecx,dword ptr [data_00474c68]
+        mov ecx,dword ptr [g_globals_character]
     L_00416378:
         sub ecx,0
     L_0041637b:
@@ -807,7 +807,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_00416403:
         jmp asm_target_00416f09
     L_00416408:
-        mov ecx,dword ptr [data_00474c7c]
+        mov ecx,dword ptr [g_globals_stage]
     L_0041640e:
         dec ecx
     L_0041640f:
@@ -817,7 +817,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_00416418:
         jmp dword ptr [ecx*4+416FC4h]
     L_0041641f:
-        mov ecx,dword ptr [data_00474c68]
+        mov ecx,dword ptr [g_globals_character]
     L_00416425:
         sub ecx,0
     L_00416428:
@@ -919,7 +919,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_004164d8:
         jmp asm_target_00416f09
     L_004164dd:
-        mov ecx,dword ptr [data_00474c68]
+        mov ecx,dword ptr [g_globals_character]
     L_004164e3:
         sub ecx,0
     L_004164e6:
@@ -1021,7 +1021,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_00416596:
         jmp asm_target_00416f09
     L_0041659b:
-        mov ecx,dword ptr [data_00474c68]
+        mov ecx,dword ptr [g_globals_character]
     L_004165a1:
         sub ecx,0
     L_004165a4:
@@ -1123,7 +1123,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_00416654:
         jmp asm_target_00416f09
     L_00416659:
-        mov ecx,dword ptr [data_00474c68]
+        mov ecx,dword ptr [g_globals_character]
     L_0041665f:
         sub ecx,0
     L_00416662:
@@ -1225,7 +1225,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_0041670f:
         jmp asm_target_00416f09
     L_00416714:
-        mov ecx,dword ptr [data_00474c68]
+        mov ecx,dword ptr [g_globals_character]
     L_0041671a:
         sub ecx,0
     L_0041671d:
@@ -1327,7 +1327,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_004167c7:
         jmp asm_target_00416f09
     L_004167cc:
-        mov ecx,dword ptr [data_00474c68]
+        mov ecx,dword ptr [g_globals_character]
     L_004167d2:
         sub ecx,0
     L_004167d5:
@@ -1431,7 +1431,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_00416884:
         cmp dword ptr [ebp],1
     L_00416888:
-        mov ecx,dword ptr [data_00474c68]
+        mov ecx,dword ptr [g_globals_character]
     L_0041688e:
         jge asm_target_00416949
     L_00416894:
@@ -1733,7 +1733,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_00416abe:
         jmp asm_target_00416f09
     L_00416ac3:
-        mov eax,dword ptr [data_00474c7c]
+        mov eax,dword ptr [g_globals_stage]
     L_00416ac8:
         dec eax
     L_00416ac9:
@@ -1883,15 +1883,15 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_00416bce:
         jmp asm_target_00416f09
     L_00416bd3:
-        mov ecx,dword ptr [data_00474c74]
+        mov ecx,dword ptr [g_globals_difficulty]
     L_00416bd9:
         cmp ecx,4
     L_00416bdc:
         je short L_00416c3d
     L_00416bde:
-        mov eax,dword ptr [data_00474c68]
+        mov eax,dword ptr [g_globals_character]
     L_00416be3:
-        mov edx,dword ptr [data_00474c6c]
+        mov edx,dword ptr [g_globals_shot_type]
     L_00416be9:
         lea edx,[edx+eax*2]
     L_00416bec:
@@ -1901,27 +1901,27 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_00416bf4:
         lea eax,[ecx+ecx*2]
     L_00416bf7:
-        mov ecx,dword ptr [data_00474c7c]
+        mov ecx,dword ptr [g_globals_stage]
     L_00416bfd:
         lea eax,[ecx+eax*2]
     L_00416c00:
-        mov ecx,dword ptr [data_0047783c]
+        mov ecx,dword ptr [g_score]
     L_00416c06:
         add edx,ecx
     L_00416c08:
         mov byte ptr [edx+eax*8+4E1h],1
     L_00416c10:
-        mov eax,dword ptr [data_00474c74]
+        mov eax,dword ptr [g_globals_difficulty]
     L_00416c15:
-        mov esi,dword ptr [data_00474c6c]
+        mov esi,dword ptr [g_globals_shot_type]
     L_00416c1b:
         lea edx,[eax+eax*2+4Eh]
     L_00416c1f:
-        mov eax,dword ptr [data_00474c7c]
+        mov eax,dword ptr [g_globals_stage]
     L_00416c24:
         lea edx,[eax+edx*2]
     L_00416c27:
-        mov eax,dword ptr [data_00474c68]
+        mov eax,dword ptr [g_globals_character]
     L_00416c2c:
         lea esi,[esi+eax*2]
     L_00416c2f:
@@ -1933,7 +1933,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_00416c39:
         mov byte ptr [esi+edx*8],1
     L_00416c3d:
-        test byte ptr [data_00474ca0],10h
+        test byte ptr [g_globals_flags],10h
     L_00416c44:
         je short L_00416c56
     L_00416c46:
@@ -1943,7 +1943,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_00416c51:
         jmp asm_target_00416f09
     L_00416c56:
-        mov eax,dword ptr [data_00474c7c]
+        mov eax,dword ptr [g_globals_stage]
     L_00416c5b:
         cmp eax,6
     L_00416c5e:
@@ -1953,7 +1953,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_00416c69:
         or dword ptr [eax+9EB4h],20h
     L_00416c70:
-        mov eax,dword ptr [data_00474c4c]
+        mov eax,dword ptr [g_globals_gauge]
     L_00416c75:
         imul eax,3E8h
     L_00416c7b:
@@ -1963,7 +1963,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_00416c81:
         call asm_AddScaled_GameScore_00409d90
     L_00416c86:
-        mov eax,dword ptr [data_00474c74]
+        mov eax,dword ptr [g_globals_difficulty]
     L_00416c8b:
         cmp eax,4
     L_00416c8e:
@@ -1971,7 +1971,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_00416c94:
         jmp dword ptr [eax*4+416FFCh]
     L_00416c9b:
-        mov ecx,dword ptr [data_00474c70]
+        mov ecx,dword ptr [g_globals_lives]
     L_00416ca1:
         imul ecx,1312D00h
     L_00416ca7:
@@ -1981,7 +1981,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_00416cad:
         call asm_AddScaled_GameScore_00409d90
     L_00416cb2:
-        movsx edx,word ptr [data_00474c48]
+        movsx edx,word ptr [g_globals_power]
     L_00416cb9:
         imul edx,186A0h
     L_00416cbf:
@@ -1989,7 +1989,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_00416cc0:
         jmp asm_target_00416d5c
     L_00416cc5:
-        mov eax,dword ptr [data_00474c70]
+        mov eax,dword ptr [g_globals_lives]
     L_00416cca:
         imul eax,17D7840h
     L_00416cd0:
@@ -1999,13 +1999,13 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_00416cd6:
         call asm_AddScaled_GameScore_00409d90
     L_00416cdb:
-        movsx ecx,word ptr [data_00474c48]
+        movsx ecx,word ptr [g_globals_power]
     L_00416ce2:
         imul ecx,186A0h
     L_00416ce8:
         jmp short L_00416d5b
     L_00416cea:
-        mov edx,dword ptr [data_00474c70]
+        mov edx,dword ptr [g_globals_lives]
     L_00416cf0:
         imul edx,2160EC0h
     L_00416cf6:
@@ -2015,7 +2015,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_00416cfc:
         call asm_AddScaled_GameScore_00409d90
     L_00416d01:
-        movsx eax,word ptr [data_00474c48]
+        movsx eax,word ptr [g_globals_power]
     L_00416d08:
         imul eax,30D40h
     L_00416d0e:
@@ -2023,7 +2023,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_00416d0f:
         jmp short L_00416d5c
     L_00416d11:
-        mov ecx,dword ptr [data_00474c70]
+        mov ecx,dword ptr [g_globals_lives]
     L_00416d17:
         imul ecx,2625A00h
     L_00416d1d:
@@ -2033,7 +2033,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_00416d23:
         call asm_AddScaled_GameScore_00409d90
     L_00416d28:
-        movsx edx,word ptr [data_00474c48]
+        movsx edx,word ptr [g_globals_power]
     L_00416d2f:
         imul edx,493E0h
     L_00416d35:
@@ -2041,7 +2041,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_00416d36:
         jmp short L_00416d5c
     L_00416d38:
-        mov eax,dword ptr [data_00474c70]
+        mov eax,dword ptr [g_globals_lives]
     L_00416d3d:
         imul eax,2625A00h
     L_00416d43:
@@ -2051,7 +2051,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_00416d49:
         call asm_AddScaled_GameScore_00409d90
     L_00416d4e:
-        movsx ecx,word ptr [data_00474c48]
+        movsx ecx,word ptr [g_globals_power]
     L_00416d55:
         imul ecx,61A80h
     L_00416d5b:
@@ -2061,7 +2061,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_00416d61:
         call asm_AddScaled_GameScore_00409d90
     L_00416d66:
-        mov edx,dword ptr [data_00477838]
+        mov edx,dword ptr [g_replay]
     L_00416d6c:
         cmp dword ptr [edx+10h],1
     L_00416d70:
@@ -2091,17 +2091,17 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_00416da2:
         mov dword ptr [eax+9EB4h],ebx
     L_00416da8:
-        mov eax,dword ptr [data_00474c68]
+        mov eax,dword ptr [g_globals_character]
     L_00416dad:
-        mov ecx,dword ptr [data_00474c6c]
+        mov ecx,dword ptr [g_globals_shot_type]
     L_00416db3:
-        mov esi,dword ptr [data_00474c74]
+        mov esi,dword ptr [g_globals_difficulty]
     L_00416db9:
         lea edx,[ecx+eax*2]
     L_00416dbc:
         add edx,eax
     L_00416dbe:
-        mov eax,dword ptr [data_0047783c]
+        mov eax,dword ptr [g_score]
     L_00416dc3:
         imul edx,10DFh
     L_00416dc9:
@@ -2129,7 +2129,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_00416df6:
         or dword ptr [eax+9EB4h],20h
     L_00416dfd:
-        mov ecx,dword ptr [data_00474c4c]
+        mov ecx,dword ptr [g_globals_gauge]
     L_00416e03:
         imul ecx,3E8h
     L_00416e09:
@@ -2139,7 +2139,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_00416e0f:
         call asm_AddScaled_GameScore_00409d90
     L_00416e14:
-        mov edx,dword ptr [data_00474c70]
+        mov edx,dword ptr [g_globals_lives]
     L_00416e1a:
         imul edx,2625A00h
     L_00416e20:
@@ -2149,7 +2149,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_00416e26:
         call asm_AddScaled_GameScore_00409d90
     L_00416e2b:
-        movsx eax,word ptr [data_00474c48]
+        movsx eax,word ptr [g_globals_power]
     L_00416e32:
         imul eax,61A80h
     L_00416e38:
@@ -2159,7 +2159,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_00416e3e:
         call asm_AddScaled_GameScore_00409d90
     L_00416e43:
-        mov ecx,dword ptr [data_00477838]
+        mov ecx,dword ptr [g_replay]
     L_00416e49:
         cmp dword ptr [ecx+10h],1
     L_00416e4d:
@@ -2169,13 +2169,13 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_00416e55:
         call asm_FUN_00423370_00423370
     L_00416e5a:
-        mov eax,dword ptr [data_00474c68]
+        mov eax,dword ptr [g_globals_character]
     L_00416e5f:
-        mov edx,dword ptr [data_00474c6c]
+        mov edx,dword ptr [g_globals_shot_type]
     L_00416e65:
         lea ecx,[edx+eax*2]
     L_00416e68:
-        mov edx,dword ptr [data_00474c74]
+        mov edx,dword ptr [g_globals_difficulty]
     L_00416e6e:
         add ecx,eax
     L_00416e70:
@@ -2183,7 +2183,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_00416e76:
         add ecx,edx
     L_00416e78:
-        mov edx,dword ptr [data_0047783c]
+        mov edx,dword ptr [g_score]
     L_00416e7e:
         lea eax,[edx+ecx*4+4D0h]
     L_00416e85:
@@ -2239,7 +2239,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_00416eed:
         jmp short L_00416f09
     L_00416eef:
-        cmp dword ptr [data_00474c7c],6
+        cmp dword ptr [g_globals_stage],6
     L_00416ef6:
         je short L_00416eff
     L_00416ef8:

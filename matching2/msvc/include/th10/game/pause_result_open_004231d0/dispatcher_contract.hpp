@@ -146,20 +146,20 @@ struct DispatcherMusicRecord {
 };
 
 extern "C" DispatcherStageResourceOwner* g_enemy_ctrl;
-extern "C" DispatcherReplayOwner* data_00477838;
+extern "C" DispatcherReplayOwner* g_replay;
 extern "C" void* g_sprt_ctrl;
 extern "C" DispatcherInputState g_application;
 extern "C" ScoreState g_globals;
-extern "C" short data_00474c48;
-extern "C" int data_00474c4c;
-extern "C" int data_00474c68;
-extern "C" int data_00474c6c;
-extern "C" int data_00474c70;
-extern "C" int data_00474c74;
-extern "C" int data_00474c7c;
+extern "C" short g_globals_power;
+extern "C" int g_globals_gauge;
+extern "C" int g_globals_character;
+extern "C" int g_globals_shot_type;
+extern "C" int g_globals_lives;
+extern "C" int g_globals_difficulty;
+extern "C" int g_globals_stage;
 extern "C" int data_00474c84;
 extern "C" int data_00474c8c;
-extern "C" unsigned data_00474ca0;
+extern "C" unsigned g_globals_flags;
 extern "C" unsigned g_input;
 extern "C" unsigned data_00474e62;
 

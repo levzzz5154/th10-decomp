@@ -28,13 +28,13 @@ struct DemoFile {
 typedef char DemoStageOffset[offsetof(DemoFile, stages) == 0xb0 ? 1 : -1];
 extern "C" {
     extern unsigned int data_00474e30;
-    extern unsigned int data_00474ca0;
+    extern unsigned int g_globals_flags;
     extern int data_00474ca4, data_00474ca8;
-    extern int data_00474c68, data_00474c6c, data_00474c74, data_00474c78;
-    extern int data_00474c7c, data_00474c80, data_00491fb8, data_00491c00;
+    extern int g_globals_character, g_globals_shot_type, g_globals_difficulty, data_00474c78;
+    extern int g_globals_stage, g_globals_stage_shown, data_00491fb8, data_00491c00;
     extern unsigned int data_00491ff4;
     extern const char* data_00476ff8[4];
-    extern char data_00477710[];
+    extern char g_replay_path[];
     extern unsigned char data_00474788[];
     extern unsigned char* data_00477848;
     extern GameThread_0040c540* g_ascii_manager;
@@ -81,24 +81,24 @@ __declspec(noinline) int __stdcall Title_DispatchUpdate(
         if ((data_00474e30 & 0x160b) != 0) {
             data_00474ca4 = 0;
         } else if (data_00474ca4 >= 900) {
-            data_00474ca0 = (data_00474ca0 & ~0x40u) | 0x20;
+            g_globals_flags = (g_globals_flags & ~0x40u) | 0x20;
             const char* source = data_00476ff8[data_00474ca8];
-            char* destination = data_00477710;
+            char* destination = g_replay_path;
             do { *destination++ = *source; } while (*source++ != '\0');
-            DemoFile* file = TitleLoadDemo_004296f0(data_00477710);
+            DemoFile* file = TitleLoadDemo_004296f0(g_replay_path);
             data_00474ca8 = (data_00474ca8 + 1) % 4;
             int stage = 0;
             while (stage < 8 && file->stages[stage].present == 0)
                 ++stage;
-            data_00474c7c = stage;
-            data_00474c80 = stage;
+            g_globals_stage = stage;
+            g_globals_stage_shown = stage;
             data_00491fb8 = 12;
             DemoHeader* header = file->header;
-            data_00474c68 = header->character;
+            g_globals_character = header->character;
             data_00477848 = data_00474788 + stage * 0x30;
-            data_00474c6c = header->shot;
-            data_00474c78 = data_00474c74;
-            data_00474c74 = header->difficulty;
+            g_globals_shot_type = header->shot;
+            data_00474c78 = g_globals_difficulty;
+            g_globals_difficulty = header->difficulty;
             TitleReleaseDemo_004294a0(file);
             free(file);
             data_00474ca4 = 0;
@@ -131,19 +131,19 @@ __declspec(noinline) int __stdcall Title_DispatchUpdate(
             TitleNameEntry_00432cb0(room);
             break;
         }
-        if ((data_00474ca0 & 0x20) == 0) {
+        if ((g_globals_flags & 0x20) == 0) {
             TitleSetMusicFile_00420a90(0, "bgm/th10_02.wav");
             TitlePlayMusic_00420b10(0, 0);
             transition = data_00491c00;
         } else {
-            data_00474c74 = data_00474c78;
+            g_globals_difficulty = data_00474c78;
         }
-        data_00474ca0 &= ~0x20u;
+        g_globals_flags &= ~0x20u;
         if (transition == 0) {
             room->DisableTimerWithOwner(1);
             data_00491c00 = 1;
         } else if (transition == 1) {
-            if (data_00474c74 == 4)
+            if (g_globals_difficulty == 4)
                 SetSelection(&room->cursor, 1);
             room->DisableTimerWithOwner(2);
             RecoveryMusicInstallSlot_0042c670(room, 91);

@@ -3681,7 +3681,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0040e770_0040e770() {
     L_0041009a:
         ret
     L_0041009b:
-        mov eax,dword ptr [data_00474c74]
+        mov eax,dword ptr [g_globals_difficulty]
     L_004100a0:
         cmp eax,4
     L_004100a3:
@@ -3737,7 +3737,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0040e770_0040e770() {
     L_004100e8:
         jmp short L_004100b2
     L_004100ea:
-        mov eax,dword ptr [data_00474c74]
+        mov eax,dword ptr [g_globals_difficulty]
     L_004100ef:
         cmp eax,4
     L_004100f2:
@@ -3971,7 +3971,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0040e770_0040e770() {
     L_004102ac:
         jp asm_target_00411d18
     L_004102b2:
-        mov ecx,dword ptr [data_004776f0]
+        mov ecx,dword ptr [g_bullet_manager]
     L_004102b8:
         lea eax,[edx+2C4h]
     L_004102be:
@@ -4259,7 +4259,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0040e770_0040e770() {
     L_004104aa:
         mov esi,eax
     L_004104ac:
-        mov eax,dword ptr [data_00474c74]
+        mov eax,dword ptr [g_globals_difficulty]
     L_004104b1:
         test eax,eax
     L_004104b3:
@@ -4295,7 +4295,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0040e770_0040e770() {
     L_004104eb:
         fstp dword ptr [esi+ebx+2DCh]
     L_004104f2:
-        mov eax,dword ptr [data_00474c74]
+        mov eax,dword ptr [g_globals_difficulty]
     L_004104f7:
         add esi,ebx
     L_004104f9:
@@ -4359,7 +4359,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0040e770_0040e770() {
     L_00410554:
         mov esi,eax
     L_00410556:
-        mov eax,dword ptr [data_00474c74]
+        mov eax,dword ptr [g_globals_difficulty]
     L_0041055b:
         test eax,eax
     L_0041055d:
@@ -4399,7 +4399,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0040e770_0040e770() {
     L_0041058d:
         mov word ptr [esi+4B8h],ax
     L_00410594:
-        mov eax,dword ptr [data_00474c74]
+        mov eax,dword ptr [g_globals_difficulty]
     L_00410599:
         test eax,eax
     L_0041059b:
@@ -5465,7 +5465,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0040e770_0040e770() {
     L_00410d10:
         ret
     L_00410d11:
-        mov ebx,dword ptr [data_004776f0]
+        mov ebx,dword ptr [g_bullet_manager]
     L_00410d17:
         push 1
     L_00410d19:
@@ -5603,7 +5603,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0040e770_0040e770() {
     L_00410ddb:
         call asm_FUN_00415db0_00415db0
     L_00410de0:
-        mov ebx,dword ptr [data_004776f0]
+        mov ebx,dword ptr [g_bullet_manager]
     L_00410de6:
         push 0
     L_00410de8:
@@ -5777,19 +5777,19 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0040e770_0040e770() {
     L_00410ee7:
         jne short L_00410f06
     L_00410ee9:
-        mov eax,dword ptr [data_00474c74]
+        mov eax,dword ptr [g_globals_difficulty]
     L_00410eee:
         lea esi,[esi+eax-2]
     L_00410ef2:
         jmp short L_00410f06
     L_00410ef4:
-        mov ecx,dword ptr [data_00474c74]
+        mov ecx,dword ptr [g_globals_difficulty]
     L_00410efa:
         lea esi,[esi+ecx-1]
     L_00410efe:
         jmp short L_00410f06
     L_00410f00:
-        add esi,dword ptr [data_00474c74]
+        add esi,dword ptr [g_globals_difficulty]
     L_00410f06:
         mov eax,dword ptr [ebx+14D8h]
     L_00410f0c:
@@ -7025,7 +7025,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0040e770_0040e770() {
     L_0041180d:
         mov esi,dword ptr [esp+10h]
     L_00411811:
-        mov eax,dword ptr [data_004776f0]
+        mov eax,dword ptr [g_bullet_manager]
     L_00411816:
         push 0
     L_00411818:
@@ -7075,7 +7075,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0040e770_0040e770() {
     L_00411855:
         mov esi,dword ptr [esp+10h]
     L_00411859:
-        mov eax,dword ptr [data_004776f0]
+        mov eax,dword ptr [g_bullet_manager]
     L_0041185e:
         push 0
     L_00411860:
@@ -7775,7 +7775,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0040e770_0040e770() {
     L_00411ca1:
         jmp asm_target_00411956
     L_00411ca6:
-        mov eax,dword ptr [data_00474c74]
+        mov eax,dword ptr [g_globals_difficulty]
     L_00411cab:
         test eax,eax
     L_00411cad:

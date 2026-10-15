@@ -23,7 +23,7 @@ int __stdcall Enemy_ReleaseOnDeath_0040e5f0(Enemy_0040e5f0* enemy) {
     DropSource_0040c9a0* source = &enemy->position;
     ItemDrops_0040c9a0* drops = &enemy->drops;
     if (drops->main_item > 0)
-        data_00477818->Spawn(source->position, drops->main_item, -1, -1.5707964f, 2.2f);
+        g_item_manager->Spawn(source->position, drops->main_item, -1, -1.5707964f, 2.2f);
     source->ScatterDrops(drops);
     drops->main_item = 0;
     g_globals.AdvanceGaugeTimer(10);

@@ -179,7 +179,7 @@ __declspec(noinline) int __stdcall TitleMode11_00431ee0(Title* room) {
                 for (int key = 0; key < 256; ++key)
                     data_004979a8[key] = (data_00497d90[key] ^ data_00497e90[key]) & data_00497e90[key];
                 if (data_004979a4 >= 22) {
-                    UnlockAllStages_0042c8c0(reinterpret_cast<GameProgress_0042c8c0*>(data_0047783c));
+                    UnlockAllStages_0042c8c0(reinterpret_cast<GameProgress_0042c8c0*>(g_score));
                     g_sound_manager.Queue(44, 0);
                     data_004979a4 = 0;
                 } else if (data_004979a8[data_0046ef10[data_004979a4]] & 0x80) {

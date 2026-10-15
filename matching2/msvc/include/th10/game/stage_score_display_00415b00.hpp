@@ -38,7 +38,7 @@ struct StageCollisionEngine {
         float radius, int spawn_item, int filter_countdown);
     __declspec(noinline) void ActivateAll(int idle_only);
 };
-extern "C" StageCollisionEngine* data_004776f0;
+extern "C" StageCollisionEngine* g_bullet_manager;
 
 struct SlotTimer {
     int previous, current;

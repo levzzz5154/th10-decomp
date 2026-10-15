@@ -9,6 +9,6 @@
 // what makes the refresh reload the character and shot type after stores.
 #pragma code_seg(".text$02entry")
 extern "C" void* __stdcall FamiliarRefreshEscape() {
-    return &data_00474c44;
+    return &g_globals_score;
 }
 #pragma code_seg()

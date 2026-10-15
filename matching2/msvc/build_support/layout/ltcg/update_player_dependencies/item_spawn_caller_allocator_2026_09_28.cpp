@@ -8,9 +8,9 @@ struct ItemAnimationResources_0041bb00 {
     void* item_animation;
 };
 extern "C" {
-extern short data_00474c48;
+extern short g_globals_power;
 extern float g_game_speed;
-extern ItemAnimationResources_0041bb00* data_004776f0;
+extern ItemAnimationResources_0041bb00* g_bullet_manager;
 }
 #include "th10/game/player_update_animation_context.hpp"
 struct ConfigureResource_00404f30 { void* value; };
@@ -62,21 +62,21 @@ __declspec(noinline) int ItemSpawnManager_0041bb00::Spawn(
         item->velocity.SetPolar(angle,speed);
         ResetSpawnTimer_0041bb00(item);
         int mapped_kind=kind;
-        if (data_00474c48>=100) {
+        if (g_globals_power>=100) {
             switch(mapped_kind) {
             case 1: case 4: mapped_kind=9; break;
             case 10: case 11: mapped_kind=5; break;
             }
         }
         if (item->kind==3)
-            ItemAnimation_CreateOffset_00448db0(data_004776f0->item_animation,
+            ItemAnimation_CreateOffset_00448db0(g_bullet_manager->item_animation,
                 reinterpret_cast<void**>(&speed),393,
                 reinterpret_cast<const Vector3*>(location));
         item->kind=mapped_kind;
         item->display_kind=mapped_kind;
         if (mapped_kind==10) {
             item->display_kind=1;
-            ConfigureResource_00404f30 resource={data_004776f0->item_animation};
+            ConfigureResource_00404f30 resource={g_bullet_manager->item_animation};
             reinterpret_cast<ItemConfiguredEntity_00404f30*>(item)->Configure(375,resource);
             item->identifier=identifier;
             return 0;
@@ -84,7 +84,7 @@ __declspec(noinline) int ItemSpawnManager_0041bb00::Spawn(
         int script;
         if (mapped_kind==11) { item->display_kind=4; script=378; }
         else script=mapped_kind+374;
-        ConfigureResource_00404f30 resource={data_004776f0->item_animation};
+        ConfigureResource_00404f30 resource={g_bullet_manager->item_animation};
         reinterpret_cast<ItemConfiguredEntity_00404f30*>(item)->Configure(script,resource);
         item->identifier=identifier;
         return 0;

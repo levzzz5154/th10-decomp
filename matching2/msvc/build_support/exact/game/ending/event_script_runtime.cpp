@@ -466,7 +466,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0040bd80_0040bd80() {
     L_0040c072:
         jmp asm_target_0040c25f
     L_0040c077:
-        cmp dword ptr [data_00474c74],1
+        cmp dword ptr [g_globals_difficulty],1
     L_0040c07e:
         jne asm_target_0040c25f
     L_0040c084:
@@ -504,7 +504,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0040bd80_0040bd80() {
     L_0040c0bf:
         jmp asm_target_0040c25f
     L_0040c0c4:
-        cmp dword ptr [data_00474c74],2
+        cmp dword ptr [g_globals_difficulty],2
     L_0040c0cb:
         jne asm_target_0040c25f
     L_0040c0d1:
@@ -542,7 +542,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0040bd80_0040bd80() {
     L_0040c10c:
         jmp asm_target_0040c25f
     L_0040c111:
-        cmp dword ptr [data_00474c74],3
+        cmp dword ptr [g_globals_difficulty],3
     L_0040c118:
         jne asm_target_0040c25f
     L_0040c11e:

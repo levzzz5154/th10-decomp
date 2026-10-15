@@ -107,7 +107,7 @@ int SoundQueue::Queue(int sound_id, int request) {
 #pragma code_seg(".text$01b_context")
 void __stdcall CardEndCompilerContext(Card_00409c00** cards, int count) {
     // The game counters' address escapes, as it does in the whole program.
-    CardStandIn_Allocate(&data_00474c44);
+    CardStandIn_Allocate(&g_globals_score);
     while (count--) (*cards++)->End();
 }
 #pragma code_seg()

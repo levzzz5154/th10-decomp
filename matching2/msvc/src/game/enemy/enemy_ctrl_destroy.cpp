@@ -14,7 +14,7 @@
 
 extern "C" FuncCtrl *g_func_ctrl;
 extern "C" void *g_enemy_ctrl;
-extern "C" unsigned char data_00474ca0;
+extern "C" unsigned char g_globals_flags;
 
 extern "C" void __cdecl entry_free_004524a1(void *memory);
 extern "C" void __cdecl entry_free_00452422(void *memory);
@@ -79,7 +79,7 @@ void EnemyCtrl::Destroy() {
     blocks_054 = 0;
 
     _ReadWriteBarrier();
-    if ((data_00474ca0 & 9u) == 0) {
+    if ((g_globals_flags & 9u) == 0) {
         for (int i = 0; i < 4; ++i) {
             int index = 9 + i;
             if (index < 0)

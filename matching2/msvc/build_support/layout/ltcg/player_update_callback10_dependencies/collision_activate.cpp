@@ -16,7 +16,7 @@ int CollisionRecord_00408100::Activate() {
     }
     if (animation_index >= 0) {
         void* output;
-        ItemAnimation_CreateOffset_00448db0(data_004776f0->item_animation, &output,
+        ItemAnimation_CreateOffset_00448db0(g_bullet_manager->item_animation, &output,
             animation_index, reinterpret_cast<const Vector3*>(&position));
     }
     if (!(timer_flags & 1u)) {

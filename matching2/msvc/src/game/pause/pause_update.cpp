@@ -19,7 +19,7 @@ struct PauseMenuRuntime {
     unsigned char unknown_0c[8];
     int elapsed;
 };
-extern "C" unsigned char data_00474ca0;
+extern "C" unsigned char g_globals_flags;
 extern "C" unsigned char data_00474e36;
 extern "C" unsigned char data_00491ff4;
 extern "C" PauseMenuRuntime* g_game;
@@ -44,7 +44,7 @@ extern "C" void __stdcall ReplayMenu_Update_004236f0(PauseUpdateView* state);
 int PauseUpdateView::Update() {
     switch (phase) {
     case 0:
-        if (!(data_00474ca0 & 0x20) &&
+        if (!(g_globals_flags & 0x20) &&
             ((data_00474e36 & 8) || (data_00491ff4 & 0x10)) &&
             g_game->active_frame &&
             (g_game->active_frame->flags & 2) &&

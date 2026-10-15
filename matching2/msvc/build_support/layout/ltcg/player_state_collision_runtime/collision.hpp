@@ -35,8 +35,8 @@ struct PlayerCollisionEngine {
 };
 struct PlayerItemManager;
 extern "C" {
-extern PlayerCollisionEngine* data_004776f0;
-extern PlayerItemManager* data_00477818;
+extern PlayerCollisionEngine* g_bullet_manager;
+extern PlayerItemManager* g_item_manager;
 extern float data_00470b0c;
 }
 struct AnimationResource_0043e710 {

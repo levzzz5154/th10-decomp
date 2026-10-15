@@ -18,27 +18,27 @@
       "address": "0x474E36",
       "kind": "data"
     },
-    "_data_00474ca0": {
+    "_g_globals_flags": {
       "address": "0x474CA0",
       "kind": "data"
     },
-    "_data_00474c68": {
+    "_g_globals_character": {
       "address": "0x474C68",
       "kind": "data"
     },
-    "_data_00474c6c": {
+    "_g_globals_shot_type": {
       "address": "0x474C6C",
       "kind": "data"
     },
-    "_data_00474c74": {
+    "_g_globals_difficulty": {
       "address": "0x474C74",
       "kind": "data"
     },
-    "_data_00474c7c": {
+    "_g_globals_stage": {
       "address": "0x474C7C",
       "kind": "data"
     },
-    "_data_00474c44": {
+    "_g_globals_score": {
       "address": "0x474C44",
       "kind": "data"
     },
@@ -74,11 +74,11 @@
       "address": "0x4746D8",
       "kind": "data"
     },
-    "_data_0047783c": {
+    "_g_score": {
       "address": "0x47783C",
       "kind": "data"
     },
-    "_data_00477838": {
+    "_g_replay": {
       "address": "0x477838",
       "kind": "data"
     },

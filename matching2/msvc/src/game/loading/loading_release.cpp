@@ -39,8 +39,8 @@ TitleState_0041FB50::~TitleState_0041FB50() {
         entry_free_004524a1(thread);
     }
     ReleaseLoadingBank(0);
-    static_cast<ScoreArchive_0042B1E0*>(data_0047783c)->Save();
-    ScoreArchive_0042B1E0* archive = static_cast<ScoreArchive_0042B1E0*>(data_0047783c);
+    static_cast<ScoreArchive_0042B1E0*>(g_score)->Save();
+    ScoreArchive_0042B1E0* archive = static_cast<ScoreArchive_0042B1E0*>(g_score);
     if (archive) {
         if (archive->file) {
             entry_free_00452422(archive->file);
@@ -52,6 +52,6 @@ TitleState_0041FB50::~TitleState_0041FB50() {
         }
         entry_free_004524a1(archive);
     }
-    data_0047783c = 0;
+    g_score = 0;
 }
 #pragma code_seg()

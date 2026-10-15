@@ -21,7 +21,7 @@ typedef char ReplaySaveRoomGrid_00433570[offsetof(TitleReplaySaveView, grid) == 
 typedef char ReplaySaveRoomSize_00433570[sizeof(TitleReplaySaveView) == 0x5AAC ? 1 : -1];
 
 extern "C" {
-extern ReplayFile_004315c0* data_00477838;  // the replay just recorded
+extern ReplayFile_004315c0* g_replay;  // the replay just recorded
 extern const char* data_004746d8;           // the name entry character grid
 int __cdecl time_00452b71(int* out);
 }

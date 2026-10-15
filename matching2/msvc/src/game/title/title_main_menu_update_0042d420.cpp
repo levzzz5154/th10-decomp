@@ -50,11 +50,11 @@ __declspec(noinline) int __stdcall TitleMainMenu_0042d420(Title* room) {
     switch (room->phase) {
     case 0:
         room->cursor.item_count = 8;
-        if (!reinterpret_cast<ScoreFileProgress_0042c850*>(data_0047783c)->HasAnyClear())
+        if (!reinterpret_cast<ScoreFileProgress_0042c850*>(g_score)->HasAnyClear())
             DisableItem_0042d420(room->cursor, 1);
-        if (data_00474ca0 & 0x10) {
+        if (g_globals_flags & 0x10) {
             SelectItem_0042d420(room->cursor, 2);
-            data_00474ca0 &= ~0x10u;
+            g_globals_flags &= ~0x10u;
         }
         if (reinterpret_cast<RecoveryLookup_0040bd80*>(g_sprt_ctrl)->Find(
                 reinterpret_cast<RecoveryLookupContext_0040bd80*>(g_sprt_ctrl),
@@ -127,31 +127,31 @@ __declspec(noinline) int __stdcall TitleMainMenu_0042d420(Title* room) {
             MenuCursor* cursor = &room->cursor;
             switch (cursor->selection) {
             case 0:
-                data_00474ca0 &= ~0x10u;
+                g_globals_flags &= ~0x10u;
                 room->ClearAnimationSlot(88);
                 room->DisableTimerWithOwner(6);
                 cursor->PushSelection();
-                if (data_00474c74 >= 4)
-                    data_00474c74 = 1;
-                UpdateBoundedCounter(data_00474c74, reinterpret_cast<unsigned int*>(cursor));
+                if (g_globals_difficulty >= 4)
+                    g_globals_difficulty = 1;
+                UpdateBoundedCounter(g_globals_difficulty, reinterpret_cast<unsigned int*>(cursor));
                 break;
             case 1:
-                data_00474ca0 &= ~0x10u;
+                g_globals_flags &= ~0x10u;
                 room->ClearAnimationSlot(88);
                 room->DisableTimerWithOwner(6);
                 cursor->PushSelection();
-                reinterpret_cast<TitleDifficultyView*>(room)->saved_difficulty = data_00474c74;
-                data_00474c74 = 4;
+                reinterpret_cast<TitleDifficultyView*>(room)->saved_difficulty = g_globals_difficulty;
+                g_globals_difficulty = 4;
                 SelectItem_0042d420(*cursor, 0);
                 break;
             case 2:
-                data_00474ca0 |= 0x10;
+                g_globals_flags |= 0x10;
                 room->ClearAnimationSlot(88);
                 room->DisableTimerWithOwner(6);
                 cursor->PushSelection();
-                if (data_00474c74 >= 4)
-                    data_00474c74 = 1;
-                UpdateBoundedCounter(data_00474c74, reinterpret_cast<unsigned int*>(cursor));
+                if (g_globals_difficulty >= 4)
+                    g_globals_difficulty = 1;
+                UpdateBoundedCounter(g_globals_difficulty, reinterpret_cast<unsigned int*>(cursor));
                 break;
             case 3:
                 room->ClearAnimationSlot(88);

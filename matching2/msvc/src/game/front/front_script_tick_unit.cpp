@@ -46,13 +46,13 @@ int* __stdcall DispatcherCreateAt(
 #pragma code_seg(".text$02entry")
 extern "C" void* __stdcall FrontScriptTickEscape(int which) {
     switch (which) {
-    case 0: return &data_00474c68;
-    case 1: return &data_00474c6c;
-    case 2: return &data_00474c74;
-    case 3: return &data_00474c7c;
-    case 4: return &data_00474c70;
-    case 5: return &data_00474c4c;
-    case 6: return &data_00474c48;
+    case 0: return &g_globals_character;
+    case 1: return &g_globals_shot_type;
+    case 2: return &g_globals_difficulty;
+    case 3: return &g_globals_stage;
+    case 4: return &g_globals_lives;
+    case 5: return &g_globals_gauge;
+    case 6: return &g_globals_power;
     default: return &data_00474c84;
     }
 }
