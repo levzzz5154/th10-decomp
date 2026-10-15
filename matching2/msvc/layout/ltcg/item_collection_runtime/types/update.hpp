@@ -1,22 +1,9 @@
 #pragma once
 #include "item_spawn.hpp"
 #include "th10/platform/sound_queue.hpp"
+#include "th10/game/player.hpp"
 #include "th10/render/animation_object_0043e5a0.hpp"
 
-struct ItemMovementProperties { int reserved_00[2]; float seek_speed; };
-struct ItemCollectionBox { Vector3 minimum, maximum; };
-struct ItemCollector {
-    unsigned char reserved_000[0x3C0];
-    Vector3 position;
-    unsigned char reserved_3cc[0x458-0x3CC];
-    int state;
-    ItemMovementProperties* movement;
-    unsigned char reserved_460[0x4324-0x460];
-    ItemCollectionBox collection;
-    ItemCollectionBox focused_magnet;
-    ItemCollectionBox unfocused_magnet;
-    __declspec(noinline) float AngleFromPoint(const Vector3* point);
-};
 struct ItemCollectionBlocker {
     unsigned char reserved_000[0x28];
     int active;
@@ -92,7 +79,6 @@ struct ItemFloatingTextPool {
 extern "C" {
 extern ItemRunState data_00474c40;
 extern ItemHud* data_0047770c;
-extern ItemCollector* g_player;
 extern ItemFloatingTextPool* data_00477840;
 extern ItemCollectionBlocker* g_bomb;
 extern unsigned int g_input;
@@ -100,16 +86,13 @@ extern float data_00476f78;
 extern float data_00470b04, data_00470b94, data_00470bf4, data_00470cdc;
 extern float data_00470b08, data_00470be0, data_00470cd8, data_00470c38;
 extern float data_00470cc4, data_00470cd4, data_00470cd0, data_00470ce0;
-__declspec(noinline) void __stdcall ItemCollector_PowerChanged(ItemCollector* player);
+// 0x00426F70: rebuild the options after a power change.
+__declspec(noinline) void __stdcall Player_RefreshOptions(Player* player);
 __declspec(noinline) int __stdcall ItemManager_UpdateItems(ItemSpawnManager_0041bb00* manager);
 }
 __declspec(noinline) void** __stdcall ItemAnimation_CreatePrimaryBack(
     void* resource, void** output, int script, int layer);
 
-typedef char ItemCollectorStateOffset[offsetof(ItemCollector,state)==0x458?1:-1];
-typedef char ItemCollectorBoxesOffset[offsetof(ItemCollector,collection)==0x4324?1:-1];
-typedef char ItemCollectorFocusedBoxOffset[offsetof(ItemCollector,focused_magnet)==0x433C?1:-1];
-typedef char ItemCollectorUnfocusedBoxOffset[offsetof(ItemCollector,unfocused_magnet)==0x4354?1:-1];
 typedef char ItemRunPowerOffset[offsetof(ItemRunState,power)==8?1:-1];
 typedef char ItemRunGaugeOffset[offsetof(ItemRunState,gauge)==12?1:-1];
 typedef char ItemRunLivesOffset[offsetof(ItemRunState,lives)==0x30?1:-1];

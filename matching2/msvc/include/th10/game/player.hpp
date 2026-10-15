@@ -116,7 +116,16 @@ struct ShotList {
 // A loaded shot-type file: one shot list per power level, unfocused then
 // focused.
 struct ShotTypeFile {
-    unsigned char unknown_000[0x110];
+    unsigned short version;                  // +0x00
+    unsigned short unknown_002;
+    float hitbox_size;                       // +0x04, set per shot type at start
+    float item_seek_speed;                   // +0x08, items flying to the player
+    float item_box_size;                     // +0x0C
+    float speed;                             // +0x10, pixels per frame
+    float focused_speed;                     // +0x14
+    float diagonal_speed;                    // +0x18
+    float focused_diagonal_speed;            // +0x1C
+    unsigned char option_offsets[0xF0];      // +0x20, 12-byte rows, unfocused then focused
     ShotList lists[10];
 };
 

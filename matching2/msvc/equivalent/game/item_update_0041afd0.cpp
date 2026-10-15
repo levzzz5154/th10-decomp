@@ -39,9 +39,9 @@ static __forceinline void IntegrateItem(ItemMotionY_0041afd0* motion) {
 
 // Express rejection tests, so unordered coordinates follow the same branch
 // as retail's x87 comparisons rather than failing a positive <= chain.
-static __forceinline bool OutsideItemBox(float point_x,float point_y,const ItemCollectionBox& box) {
-    return box.minimum.x>point_x || box.minimum.y>point_y ||
-        box.maximum.x<point_x || box.maximum.y<point_y;
+static __forceinline bool OutsideItemBox(float point_x,float point_y,const PlayerBox& box) {
+    return box.min.x>point_x || box.min.y>point_y ||
+        box.max.x<point_x || box.max.y<point_y;
 }
 
 #pragma code_seg(".text$00update")
@@ -65,12 +65,12 @@ extern "C" __declspec(noinline) int __stdcall ItemManager_UpdateItems(ItemSpawnM
             }
             goto step;
         }
-        ItemCollector* player;
+        Player* player;
         if (motion->state==seeking) {
             player=g_player;
             if ((player->state!=2 && player->state!=4 && player->position.y<data_00470bf4) ||
                 g_bomb->active!=idle) {
-                motion->magnet_speed=player->movement->seek_speed;
+                motion->magnet_speed=player->shot_type->item_seek_speed;
                 motion->state=3;
                 goto seek_player;
             }
@@ -99,7 +99,7 @@ extern "C" __declspec(noinline) int __stdcall ItemManager_UpdateItems(ItemSpawnM
             motion->velocity.y+=data_00476f78*data_00470cdc;
             if (motion->velocity.y>=data_00470b04) {
                 player=g_player;
-                motion->magnet_speed=player->movement->seek_speed;
+                motion->magnet_speed=player->shot_type->item_seek_speed;
                 motion->state=3;
                 goto seek_player;
             }
@@ -127,8 +127,8 @@ extern "C" __declspec(noinline) int __stdcall ItemManager_UpdateItems(ItemSpawnM
                 motion->velocity.y=0.0f;
             }
         } else if (motion->state==4) {
-            ItemCollector* target=g_player;
-            motion->velocity.SetPolar(target->AngleFromPoint(&motion->position()),motion->magnet_speed);
+            Player* target=g_player;
+            motion->velocity.SetPolar(target->AngleFromPoint(&motion->position().x),motion->magnet_speed);
             IntegrateItem(motion);
             if (motion->magnet_speed<data_00470cd8) motion->magnet_speed+=data_00470c38;
             int player_state=target->state;
@@ -143,14 +143,14 @@ extern "C" __declspec(noinline) int __stdcall ItemManager_UpdateItems(ItemSpawnM
         }
 
         if (player->state!=2) {
-            if (!OutsideItemBox(motion->position().x,motion->position().y,player->collection)) {
+            if (!OutsideItemBox(motion->position().x,motion->position().y,player->item_collect_box)) {
                 switch (motion->kind) {
                 case 1: case 10: {
                     int changed=data_00474c40.AddPower(1);
                     int power=data_00474c40.power;
                     data_0047770c->SetPowerDigits(power/20,(power%20)*100/20);
                     if (changed) {
-                        ItemCollector_PowerChanged(g_player);
+                        Player_RefreshOptions(g_player);
                         data_00477840->Spawn(-1,&motion->position(),0xFFFFFF40u);
                         data_00492590.QueuePan(29,motion->position().x);
                         if (data_00474c40.power>=100) convert_items=1;
@@ -216,7 +216,7 @@ extern "C" __declspec(noinline) int __stdcall ItemManager_UpdateItems(ItemSpawnM
                     int power=data_00474c40.power;
                     data_0047770c->SetPowerDigits(power/20,(power%20)*100/20);
                     if (changed) {
-                        ItemCollector_PowerChanged(g_player);
+                        Player_RefreshOptions(g_player);
                         data_00492590.QueuePan(29,motion->position().x);
                         data_00477840->Spawn(-1,&motion->position(),0xFFFFFF40u);
                         data_00474c40.AdjustPower(24);
@@ -238,11 +238,11 @@ extern "C" __declspec(noinline) int __stdcall ItemManager_UpdateItems(ItemSpawnM
             }
             if (motion->state!=4 && motion->state!=3) {
                 unsigned int focused=g_input&4;
-                bool magnet=(focused && !OutsideItemBox(motion->position().x,motion->position().y,player->focused_magnet)) ||
-                    (!focused && !OutsideItemBox(motion->position().x,motion->position().y,player->unfocused_magnet));
+                bool magnet=(focused && !OutsideItemBox(motion->position().x,motion->position().y,player->focused_item_attract_box)) ||
+                    (!focused && !OutsideItemBox(motion->position().x,motion->position().y,player->item_attract_box));
                 if (magnet) {
                     motion->state=4;
-                    motion->magnet_speed=player->movement->seek_speed*data_00470cc4;
+                    motion->magnet_speed=player->shot_type->item_seek_speed*data_00470cc4;
                 }
             }
         }

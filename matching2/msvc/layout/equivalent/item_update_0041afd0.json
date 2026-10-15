@@ -17,7 +17,7 @@
       "address": "0x00463B2C",
       "kind": "code"
     },
-    "_ItemCollector_PowerChanged@4": {
+    "_Player_RefreshOptions@4": {
       "address": "0x00426F70",
       "kind": "code"
     },
@@ -183,7 +183,7 @@
     "?AddPower@ItemRunState@@QAEHH@Z": "0x00418930",
     "?ConvertItems@ItemSpawnManager_0041bb00@@QAEHXZ": "0x0041BA50",
     "?SetPolar@ItemPolarVelocity_0041bb00@@QAEPAU1@MM@Z": "0x0041BEB0",
-    "?AngleFromPoint@ItemCollector@@QAEMPBUVector3@@@Z": "0x00426660",
+    "?AngleFromPoint@Player@@QAEMPBM@Z": "0x00426660",
     "?Spawn@ItemFloatingTextPool@@QAEXHPBUVector3@@I@Z": "0x0042B9C0",
     "?QueuePan@SoundQueue@@QAEXHM@Z": "0x0043DD10"
   },

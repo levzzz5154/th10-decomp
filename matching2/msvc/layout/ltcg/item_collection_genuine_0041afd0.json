@@ -34,7 +34,8 @@
     "layout/ltcg/item_collection_runtime/types/animation_public.hpp",
     "layout/ltcg/item_collection_runtime/types/item_spawn.hpp",
     "layout/ltcg/item_collection_runtime/types/line_sweeps.hpp",
-    "layout/ltcg/item_collection_runtime/types/update.hpp"
+    "layout/ltcg/item_collection_runtime/types/update.hpp",
+    "include/th10/game/player.hpp"
   ],
   "image_base": "0x00400000",
   "description": "Existing conversion/power/life recoveries under the complete genuine item-update, line, animation and sound graph. No synthetic caller or compiler entry.",
@@ -186,7 +187,7 @@
     },
     {
       "name": "function_00426660",
-      "symbol": "?AngleFromPoint@ItemCollector@@QAEMPBUVector3@@@Z",
+      "symbol": "?AngleFromPoint@Player@@QAEMPBM@Z",
       "section": ".text$f00426660F",
       "address": "0x426660",
       "size": 67
@@ -580,7 +581,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_ItemCollector_PowerChanged@4",
+      "symbol": "_Player_RefreshOptions@4",
       "address": "0x426f70",
       "kind": "relative_code"
     },

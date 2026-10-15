@@ -111,9 +111,9 @@ void ItemFloatingTextPool::Spawn(int value,const Vector3* position,unsigned int 
     ++next_text;
 }
 #pragma code_seg(".text$f00426660F")
-float ItemCollector::AngleFromPoint(const Vector3* point) {
-    float dx=position.x-point->x;
-    float dy=position.y-point->y;
+float Player::AngleFromPoint(const float* point) {
+    float dx=position.x-point[0];
+    float dy=position.y-point[1];
     if (dy==data_00470b04 && dx==data_00470b04) return data_00470b94;
     return static_cast<float>(atan2(static_cast<double>(dy),static_cast<double>(dx)));
 }
