@@ -1,4 +1,4 @@
-#include "../../../layout/ltcg/title_teardown_0041fb50/title_teardown_dependencies.hpp"
+#include "../../../build_support/layout/ltcg/title_teardown_0041fb50/title_teardown_dependencies.hpp"
 
 inline void ReleaseLoadingBank(int index) {
     AnimationResource_00447810*& bank = reinterpret_cast<AnimationResource_00447810*&>(g_sprt_ctrl->banks[index]);

@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "name": "animation_variable_resolvers",
+  "source": "src/core/sprtanim/animation_object_resolve_float_variable_0043ed00.cpp",
+  "additional_sources": [
+    "src/core/sprtanim/animation_object_resolve_integer_variable_0043eda0.cpp"
+  ],
+  "driver": "build_support/layout/ltcg/animation_variable_resolvers_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "Float and integer animation-variable resolvers compiled together with a dynamic-selector context to preserve their private register arguments and jump tables.",
+  "functions": [
+    {
+      "name": "ResolveFloatVariable_0043ed00",
+      "symbol": "_ResolveFloatVariable_0043ed00@16",
+      "section": ".text$01resolvefloat",
+      "address": "0x0043ED00",
+      "size": 156,
+      "actual_abi": "selector in CL; operand in EDI; object in ESI; mask at stack +4; result in EAX; RET 4",
+      "source": "src/core/sprtanim/animation_object_resolve_float_variable_0043ed00.cpp"
+    },
+    {
+      "name": "ResolveIntegerVariable_0043eda0",
+      "symbol": "_ResolveIntegerVariable_0043eda0@16",
+      "section": ".text$03resolveinteger",
+      "address": "0x0043EDA0",
+      "size": 132,
+      "actual_abi": "operand in EAX; object in EDX; selector in CL; mask at stack +4; result in EAX; RET 4",
+      "source": "src/core/sprtanim/animation_object_resolve_integer_variable_0043eda0.cpp"
+    }
+  ],
+  "context": {
+    "symbol": "?AnimationVariableResolversContext@@YGHPAEPAPAMPAPAHPAPAEPAGH@Z",
+    "section": ".text$05context",
+    "address": "0x0043EE30",
+    "size": 145,
+    "description": "Dynamic-selector array context; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00alayout",
+      "address": "0x00401000",
+      "size": 126976
+    },
+    {
+      "section": ".text$00blayout",
+      "address": "0x00420000",
+      "size": 126208
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x0043ED9C",
+      "size": 4
+    },
+    {
+      "section": ".text$04layout",
+      "address": "0x0043EE24",
+      "size": 12
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "__ftol2",
+      "address": "0x00463B2C",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__fltused",
+      "address": "0x00000000",
+      "kind": "metadata"
+    }
+  ],
+  "included_sources": []
+}

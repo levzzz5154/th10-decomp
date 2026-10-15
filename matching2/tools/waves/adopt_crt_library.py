@@ -306,6 +306,7 @@ def rewrite(manifest, chosen, project, dry_run):
     return orphaned
 
 
+from matching2.tools.common.project_paths import project_support
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--project", type=Path, default=PROJECT)
@@ -314,7 +315,7 @@ def main():
     parser.add_argument("--dry-run", action="store_true")
     args = parser.parse_args()
     project = args.project.resolve()
-    manifest_path = project / "regions.json"
+    manifest_path = project_support(project, 'regions.json')
     manifest = json.loads(manifest_path.read_text())
     text = PEImage(args.oracle.read_bytes()).read(int(manifest["text_start"], 0), manifest["text_bytes"])
     clustered = set()

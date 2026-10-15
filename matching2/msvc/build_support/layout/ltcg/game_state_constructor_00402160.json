@@ -1,0 +1,124 @@
+{
+  "schema_version": 1,
+  "image_base": "0x00400000",
+  "constants": [],
+  "exceptions": true,
+  "name": "game_state_constructor_00402160",
+  "source": "src/game/background/background_construct.cpp",
+  "driver": "build_support/layout/ltcg/game_state_constructor_00402160_context.cpp",
+  "headers": [
+    "include/th10/game/background.hpp",
+    "include/th10/game/entity.hpp",
+    "include/th10/types.hpp",
+    "include/th10/core/func_ctrl.hpp",
+    "include/th10/math/timer.hpp",
+    "include/th10/render/camera_batch.hpp",
+    "include/th10/render/quad_batch.hpp"
+  ],
+  "description": "GameState constructor with its member-array unwind funclet and EH handler; a new-expression caller is the compiler-only context.",
+  "functions": [
+    {
+      "name": "GameState_Constructor",
+      "symbol": "??0BackGround@@QAE@XZ",
+      "section": ".text$01ctor",
+      "address": "0x00402160",
+      "size": 188,
+      "actual_abi": "this on stack, RET4"
+    },
+    {
+      "name": "GameStateConstructorUnwind",
+      "symbol": "_GameStateConstructorUnwind_00465550",
+      "section": ".text$x",
+      "address": "0x00465550",
+      "size": 27,
+      "actual_abi": "destroys the eight-entity array",
+      "generated": true,
+      "native_symbol_pattern": "\\$L[0-9]+"
+    },
+    {
+      "name": "GameStateConstructorHandler",
+      "symbol": "__ehhandler$??0BackGround@@QAE@XZ",
+      "section": ".text$x",
+      "address": "0x0046556B",
+      "size": 10,
+      "actual_abi": "compiler-generated EH handler",
+      "generated": true
+    }
+  ],
+  "anchors": [],
+  "context": {
+    "symbol": "_GameStateConstructorContext_00402160@0",
+    "section": ".text$02context",
+    "address": "0x00402220",
+    "size": 27,
+    "description": "Compiler-only allocating caller."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x401000",
+      "size": 4448
+    },
+    {
+      "section": ".text$03layout",
+      "address": "0x40223b",
+      "size": 406293
+    },
+    {
+      "section": ".rdata$0before",
+      "address": "0x466000",
+      "size": 46544
+    }
+  ],
+  "native_data": [
+    {
+      "section": ".xdata$x",
+      "address": "0x004715D0",
+      "bytes": "ffffffff505546002005931901000000d015470000000000000000000000000000000000",
+      "description": "Unwind map and FuncInfo of the constructor; validation only"
+    }
+  ],
+  "absolute_symbols": [
+    {
+      "symbol": "??2@YAPAXI@Z",
+      "address": "0x452493",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "??3@YAXPAX@Z",
+      "address": "0x4524a1",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "??_L@YGXPAXIHP6EX0@Z1@Z",
+      "address": "0x45252d",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "??_M@YGXPAXIHP6EX0@Z@Z",
+      "address": "0x4525ff",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "___CxxFrameHandler",
+      "address": "0x46276d",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__except_list",
+      "address": "0x0",
+      "kind": "metadata"
+    },
+    {
+      "symbol": "??0BackGroundEntity@@QAE@XZ",
+      "address": "0x402050",
+      "kind": "data"
+    },
+    {
+      "symbol": "??1BackGroundEntity@@QAE@XZ",
+      "address": "0x401ff0",
+      "kind": "data"
+    }
+  ],
+  "included_sources": []
+}

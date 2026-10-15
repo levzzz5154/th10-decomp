@@ -1,7 +1,7 @@
 // 0x00412E00: clear the object field at +0x34.
 // The object pointer arrives in EAX, which only a native LTCG link
 // chooses, so this region is compiled as a cluster
-// (layout/ltcg/accessor_00412e00.json).
+// (build_support/layout/ltcg/accessor_00412e00.json).
 // The neighbour at 0x00412DF0 loads the same +0x34 word.
 
 struct ObjectAccessor_00412e00 {

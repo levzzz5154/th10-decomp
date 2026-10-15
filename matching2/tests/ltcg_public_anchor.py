@@ -35,6 +35,7 @@ def rejected(action, message):
     raise AssertionError('invalid control was accepted: ' + message)
 
 
+from matching2.tools.common.project_paths import project_support
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--project', type=Path, default=DEFAULT_PROJECT)
@@ -45,7 +46,7 @@ def main():
     args = parser.parse_args()
     project, output = args.project.resolve(), args.output.resolve()
     output.mkdir(parents=True, exist_ok=True)
-    config = json.loads((project / 'regions.json').read_text())
+    config = json.loads((project_support(project, 'regions.json')).read_text())
     spec = load_cluster(project, LAYOUT, config['regions'])
     positive = build_cluster(spec, args.toolkit.resolve(), output / 'positive', config['flags'])['native_build']
     native = PEImage.from_path(Path(positive['native_executable']))

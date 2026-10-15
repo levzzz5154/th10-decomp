@@ -5,7 +5,7 @@
 // flags is set, hands the object to the CRT free entry at 0x004524A1, and
 // finally returns the object in EAX.  The object lives in ESI across both calls,
 // a receiver no C++ declaration names, so the body is compiled in the
-// native-LTCG cluster layout/ltcg/dtor_delete_0040a410.json whose array-walking synthetic
+// native-LTCG cluster build_support/layout/ltcg/dtor_delete_0040a410.json whose array-walking synthetic
 // caller establishes that convention.
 
 extern "C" void asm_FUN_0040a1a0_0040a1a0(void* object);

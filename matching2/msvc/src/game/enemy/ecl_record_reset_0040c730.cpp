@@ -7,7 +7,7 @@
 //
 // The record is entered by the game's internal EAX convention rather than by
 // the ordinary MSVC thiscall ABI.  The native-LTCG cluster in
-// layout/ltcg/ecl_record_reset_0040c730.json supplies that convention while
+// build_support/layout/ltcg/ecl_record_reset_0040c730.json supplies that convention while
 // keeping the recovered operation readable.
 
 struct EclInstance_0040c730;

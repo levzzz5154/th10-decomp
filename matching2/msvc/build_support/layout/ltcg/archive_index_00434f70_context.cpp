@@ -1,0 +1,16 @@
+// Complete real Version -> disk Open -> LoadIndex graph.
+// Only LoadIndex is selected; all complete caller/dependency copies are unselected.
+#define ARCHIVE_READ_SECTION ".text$a06read"
+#define ARCHIVE_FIND_SECTION ".text$a08find"
+#define ARCHIVE_DECRYPT_SECTION ".text$a20cipher"
+#define ARCHIVE_LOAD_SECTION ".text$a22load"
+#include "archive_index_00434f70/version.cpp"
+#include "archive_index_00434f70/open.cpp"
+#include "archive_index_00434f70/close.cpp"
+#include "../../../src/pack/arcmngr/dat_archive_load_index_00434f70.cpp"
+#include "archive_index_00434f70/duplicate.cpp"
+#include "archive_index_00434f70/read.cpp"
+#include "archive_index_00434f70/find.cpp"
+#include "archive_index_00434f70/decrypt.cpp"
+#include "archive_index_00434f70/load.cpp"
+#include "archive_index_00434f70/log.cpp"

@@ -4,7 +4,7 @@
 // The retail body stores the type marker, retires the flag bits of the two
 // per-player slots, clears them and publishes a handful of scalar defaults.
 // The object pointer arrives in ESI and is returned in EAX, so the body is
-// compiled as a native LTCG cluster (see layout/ltcg/game_thread.json).
+// compiled as a native LTCG cluster (see build_support/layout/ltcg/game_thread.json).
 // The including driver selects the code section.
 
 #include <string.h>

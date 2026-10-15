@@ -12,7 +12,7 @@
 #include <string.h>
 #include "th10/app/supervisor.hpp"
 #include "th10/game/loading_view.hpp"
-#include "../../../layout/ltcg/sound_interfaces_dependencies/sound_wave_types.hpp"
+#include "../../../build_support/layout/ltcg/sound_interfaces_dependencies/sound_wave_types.hpp"
 #pragma intrinsic(strcpy)
 
 extern "C" {

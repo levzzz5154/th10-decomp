@@ -198,6 +198,10 @@ class BackendFixture(unittest.TestCase):
             return backend.compile_gcc_llvm(self.project, self.output, 3, self.source, profile)
 
 
+import sys as _project_sys
+from pathlib import Path as _ProjectPath
+_project_sys.path.insert(0, str(_ProjectPath(__file__).resolve().parents[3]))
+from matching2.tools.common.project_paths import project_support
 class ProfileValidationTests(BackendFixture):
     def test_valid_profile_loads_without_invoking_tools(self):
         profile = self.profile()
@@ -250,7 +254,7 @@ class ProfileValidationTests(BackendFixture):
         for name in ["../outside.json", str(outside), "layout/../compilers/gcc.json"]:
             with self.subTest(name=name), self.assertRaises(backend.GCCBackendError):
                 backend.load_profile(self.project, name)
-        link = self.project / "layout/compilers/escape.json"
+        link = project_support(self.project, 'layout/compilers/escape.json')
         link.symlink_to(outside)
         with self.assertRaisesRegex(backend.GCCBackendError, "existing project file"):
             backend.load_profile(self.project, "layout/compilers/escape.json")
@@ -312,7 +316,7 @@ class SourceOwnershipTests(BackendFixture):
             with self.subTest(cluster=cluster):
                 with self.assertRaisesRegex(backend.GCCBackendError, "overlaps native LTCG"):
                     self.validate([cluster])
-        native = self.project / "layout/native.json"
+        native = project_support(self.project, 'layout/native.json')
         native.write_text(json.dumps({"source": "src/other.cpp", "included_sources": [self.source]}))
         self.config["ltcg_clusters"] = ["layout/native.json"]
         with self.assertRaisesRegex(backend.GCCBackendError, "overlaps native LTCG"):

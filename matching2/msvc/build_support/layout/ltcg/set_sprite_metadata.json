@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "headers": [
+    "include/th10/game/entity.hpp",
+    "include/th10/types.hpp"
+  ],
+  "image_base": "0x00400000",
+  "constants": [],
+  "absolute_symbols": [],
+  "name": "set_sprite_metadata",
+  "source": "src/unreferenced/FUN_00401d10_00401d10.cpp",
+  "driver": "build_support/layout/ltcg/set_sprite_metadata_context.cpp",
+  "description": "Entity sprite-metadata store compiled with native LTCG so the internal register convention (entity in EAX, pointer in ECX) matches retail.",
+  "functions": [
+    {
+      "name": "SetSpriteMetadata",
+      "symbol": "?SetSpriteMetadata@Entity@@QAEXPAX@Z",
+      "section": ".text$01setmeta",
+      "address": "0x00401D10",
+      "size": 7,
+      "actual_abi": "entity in EAX; metadata pointer in ECX; plain RET"
+    }
+  ],
+  "context": {
+    "symbol": "?SetSpriteMetadataCompilerContext@@YGHPAPAUEntity@@HPAX@Z",
+    "section": ".text$03context",
+    "address": "0x00401D20",
+    "size": 41,
+    "description": "Synthetic array-processing caller that establishes the observed register convention; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 3344
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x401d17",
+      "size": 1
+    }
+  ],
+  "included_sources": []
+}

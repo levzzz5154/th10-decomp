@@ -3,7 +3,7 @@
 // Retail enters with the manager singleton in EBX and the slot index in ESI,
 // and hands the slot's record to the release routine at 0x00447810 in EDI:
 // conventions only a native /LTCG link of this source chooses.  They come from
-// this region's place in layout/ltcg/animation_manager_mark_resource_for_removal_004493e0.json,
+// this region's place in build_support/layout/ltcg/animation_manager_mark_resource_for_removal_004493e0.json,
 // whose synthetic caller keeps the manager and the index in those registers and
 // whose co-compiled release body is the real recovered 0x00447810 model.
 //

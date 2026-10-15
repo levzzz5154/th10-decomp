@@ -4,7 +4,7 @@
 // The entity arrives in EAX and the manager on the stack, with the callee
 // popping it; no C++ prototype can declare that entry convention, so the body
 // is compiled inside the native-LTCG cluster
-// layout/ltcg/entity_quad_projection_00444240.json (driver and layout gaps are
+// build_support/layout/ltcg/entity_quad_projection_00444240.json (driver and layout gaps are
 // never selected as game code).
 
 struct ProjectionMatrix_00444240 {

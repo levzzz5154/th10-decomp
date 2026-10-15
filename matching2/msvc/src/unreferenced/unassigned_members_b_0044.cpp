@@ -1,7 +1,7 @@
 // Out-of-line copies of small object methods whose receiver arrives in EAX.
 // Each reads the object at the head of its entry state and takes no argument in
 // a declaration-visible register, which only the native /LTCG pass chooses, so
-// the family is compiled as one cluster (see layout/ltcg/unassigned_members_b_0044.json).
+// the family is compiled as one cluster (see build_support/layout/ltcg/unassigned_members_b_0044.json).
 #include <math.h>
 
 extern "C" void (__stdcall* data_00466130)(void*);

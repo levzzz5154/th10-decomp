@@ -14,7 +14,7 @@
 // The clamp has to keep the receiver alive across the advance call, and the
 // embedded FrameTimer can only reach its Advance (receiver in ESI, measured in
 // this same native link) by co-compiling frame_timer.cpp, so this source sits in
-// layout/ltcg/frame_timer.json instead of a cluster of its own.
+// build_support/layout/ltcg/frame_timer.json instead of a cluster of its own.
 //
 // Retail, in order:
 //     83 7F 18 82        cmp dword [edi+18h],130    ; gauge_timer.current

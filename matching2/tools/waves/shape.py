@@ -49,6 +49,7 @@ def listing(data, address):
     return [normalise(text) for _, (_, text) in sorted(disassemble(data, address).items())]
 
 
+from matching2.tools.common.project_paths import project_support
 def main():
     parser = argparse.ArgumentParser(description=__doc__,
                                      formatter_class=argparse.RawDescriptionHelpFormatter)
@@ -63,7 +64,7 @@ def main():
     args = parser.parse_args()
 
     project = args.project.resolve()
-    config = load_manifest(project / "regions.json")
+    config = load_manifest(project_support(project, 'regions.json'))
     oracle = load_oracle(ROOT / "matching2/build/oracle/th10.exe", config)
     text_start = int(config["text_start"], 0)
     from matching2.tools.matching.build_msvc import compile_raw

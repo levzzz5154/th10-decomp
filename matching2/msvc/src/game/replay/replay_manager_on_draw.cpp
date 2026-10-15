@@ -1,4 +1,4 @@
-#include "asm_symbols.hpp"
+#include "../../../build_support/include/asm_symbols.hpp"
 
 // 0x0042A430: the replay manager's draw task (registered by 0x00428F60).
 // The scene arrives in ECX. The routine reports whether the active global scene

@@ -3,12 +3,12 @@
 //
 // The dispatcher reaches this routine with the entity in EDI and the manager in
 // ESI, which no declaration names, so the body is a selected function of the
-// render-batch cluster (layout/ltcg/anm_batch_flush_00442f50.json).  Both
+// render-batch cluster (build_support/layout/ltcg/anm_batch_flush_00442f50.json).  Both
 // callees enter on registers no prototype expresses either - the billboard
 // projection takes its source in EAX with no arguments, and the quad projection
 // takes its source in EAX with the manager pushed on the stack - so their
 // bodies are co-compiled as ABI anchors placed at their retail addresses; see
-// the anchor block of layout/ltcg/render_batch_context.cpp.
+// the anchor block of build_support/layout/ltcg/render_batch_context.cpp.
 //
 // Four source shapes are load-bearing, not cosmetic, and each was found by
 // bisecting the emitted code against retail's:

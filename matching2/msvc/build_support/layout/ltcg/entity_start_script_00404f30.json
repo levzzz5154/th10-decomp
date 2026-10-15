@@ -1,0 +1,180 @@
+{
+  "schema_version": 1,
+  "name": "entity_start_script_00404f30",
+  "source": "src/game/background/entity_start_script_00404f30.cpp",
+  "driver": "build_support/layout/ltcg/entity_start_script_00404f30_context.cpp",
+  "headers": [
+    "include/th10/game/entity.hpp",
+    "include/th10/types.hpp",
+    "include/th10/game/entity_script_start.hpp",
+    "include/th10/math/timer.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Entity script start compiled with native LTCG against the compiled script loader (object EAX, resource ECX, index EBX); Entity_Init keeps its public fastcall entry. Both beam and moving line laser initializers retain their public virtual thiscall entries.",
+  "functions": [
+    {
+      "name": "Entity_StartScript_00404f30",
+      "symbol": "?Entity_StartScript_00404f30@@YGXPAUAnimationResource_0043e710@@PAUEntity@@H@Z",
+      "section": ".text$00p_start",
+      "address": "0x00404F30",
+      "size": 202,
+      "actual_abi": "entity in ESI, script index in EAX, resource on the stack; RET 4",
+      "source": "src/game/background/entity_start_script_00404f30.cpp"
+    },
+    {
+      "name": "Laser_Initialize_0041e5c0",
+      "symbol": "?Initialize@Laser_0041e5c0@@QAEHPBULaserParams_0041e5c0@@@Z",
+      "section": ".text$00zza_laser",
+      "address": "0x0041E5C0",
+      "size": 309,
+      "actual_abi": "virtual thiscall: laser in ECX, parameters on the stack; RET 4",
+      "source": "src/game/laser/laser_initialize_0041e5c0.cpp"
+    },
+    {
+      "name": "Stage_StartQuadScripts_00404450",
+      "symbol": "?Stage_StartQuadScripts_00404450@@YGXPAUStage_00404450@@@Z",
+      "section": ".text$00m_stage",
+      "address": "0x00404450",
+      "size": 214,
+      "actual_abi": "stage on the stack; RET 4",
+      "source": "src/game/background/stage_start_quad_scripts_00404450.cpp"
+    },
+    {
+      "name": "LineLaser_Initialize_0041c8c0",
+      "symbol": "?Initialize@LineLaser_0041c8c0@@QAEHPBULineLaserParams_0041c8c0@@@Z",
+      "section": ".text$00zline",
+      "address": "0x0041C8C0",
+      "size": 442,
+      "source": "src/game/laser/line_laser_initialize_0041c8c0.cpp",
+      "actual_abi": "virtual thiscall: laser in ECX, parameters on the stack; result 0; RET 4"
+    }
+  ],
+  "anchors": [
+    {
+      "name": "Entity_Init_anchor",
+      "symbol": "?Entity_Init@@YIXPAXPAUEntity@@@Z",
+      "section": ".text$00h_init",
+      "address": "0x00401DE0",
+      "size": 23
+    },
+    {
+      "name": "LoadScript_anchor",
+      "symbol": "_LoadScript_0043e710@12",
+      "section": ".text$01accessor",
+      "address": "0x0043E710",
+      "size": 203
+    }
+  ],
+  "context": {
+    "symbol": "_EntityStartScriptContext_00404f30@16",
+    "section": ".text$03context",
+    "address": "0x0043E7E0",
+    "size": 126,
+    "description": "Synthetic array-walking caller; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00alayout",
+      "address": "0x00401000",
+      "size": 3552
+    },
+    {
+      "section": ".text$00k_layout",
+      "address": "0x00401DF7",
+      "size": 9817
+    },
+    {
+      "section": ".text$00n_layout",
+      "address": "0x00404526",
+      "size": 2570
+    },
+    {
+      "section": ".text$00zlayout",
+      "address": "0x00404FFA",
+      "size": 96454
+    },
+    {
+      "section": ".text$00zm_layout",
+      "address": "0x0041CA7A",
+      "size": 6982
+    },
+    {
+      "section": ".text$00zzb_layout",
+      "address": "0x0041E6F5",
+      "size": 131099
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x0043E7DB",
+      "size": 5
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_g_sprt_ctrl",
+      "address": "0x00491C10",
+      "kind": "data"
+    },
+    {
+      "symbol": "_asm_FUN_0043ee30_0043ee30@4",
+      "address": "0x0043EE30",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_00476f78",
+      "address": "0x00476F78",
+      "kind": "data"
+    },
+    {
+      "symbol": "__fltused",
+      "address": "0x00000000",
+      "kind": "metadata"
+    },
+    {
+      "symbol": "_EntityInitTail_00404f30",
+      "address": "0x00401EF1",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_g_laser_manager",
+      "address": "0x0047781C",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00474170",
+      "address": "0x00474170",
+      "kind": "data"
+    },
+    {
+      "symbol": "?SetPolar@LineVelocity_0041c8c0@@QAEPAU1@MM@Z",
+      "address": "0x0041F800",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?g_score_default_speed@@3MA",
+      "address": "0x00476F78",
+      "kind": "data"
+    }
+  ],
+  "included_sources": [
+    "src/core/sprtanim/animation_object_load_script_0043e710.cpp"
+  ],
+  "roots": [
+    "?Initialize@Laser_0041e5c0@@QAEHPBULaserParams_0041e5c0@@@Z",
+    "?Stage_StartQuadScripts_00404450@@YGXPAUStage_00404450@@@Z",
+    "?Initialize@LineLaser_0041c8c0@@QAEHPBULineLaserParams_0041c8c0@@@Z"
+  ],
+  "additional_sources": [
+    "src/game/laser/laser_initialize_0041e5c0.cpp",
+    "src/game/background/stage_start_quad_scripts_00404450.cpp",
+    "src/game/laser/line_laser_initialize_0041c8c0.cpp"
+  ],
+  "constant_aliases": [
+    {
+      "symbol": "__real@00000000",
+      "address": "0x00470B04",
+      "value": 0.0
+    }
+  ]
+}

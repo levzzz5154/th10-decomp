@@ -9,7 +9,7 @@
 //
 // The room arrives in EBX from the title dispatcher (0x0042CDF0); that private
 // convention needs the dispatcher and the real slot/timer leaves in one
-// whole-program link (layout/ltcg/ending_screen_0042d300.json).
+// whole-program link (build_support/layout/ltcg/ending_screen_0042d300.json).
 //
 // Two shapes are load-bearing (each measured against the image):
 //

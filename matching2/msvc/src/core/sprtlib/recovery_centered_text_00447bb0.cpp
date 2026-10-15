@@ -6,7 +6,7 @@
 
 #include <stdarg.h>
 #include <string.h>
-#include "th10/game/right_aligned_text_context/recovery_script_executor_text_sibling_anchors.hpp"
+#include "../../../build_support/include/contexts/game/right_aligned_text_context/recovery_script_executor_text_sibling_anchors.hpp"
 
 extern "C" int __cdecl recovery_vsprintf_004524a6(
     char* buffer, const char* format, char* args);

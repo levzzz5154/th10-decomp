@@ -54,11 +54,12 @@ def compile_candidate(output, config):
                    check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=180)
 
 
+from matching2.tools.common.project_paths import project_support
 def load_candidate(path, config, requested_symbol="Lzss_Compress_004359B0", extra_bindings=None,
                    code_address=CANDIDATE):
     symbol, raw, _ = read_coff_function(path, requested_symbol)
     bindings = region_directory(config, config["regions"])
-    cluster = json.loads((ROOT / "matching2/msvc/layout/ltcg/lzss.json").read_text())
+    cluster = json.loads((project_support((ROOT) / 'matching2/msvc', 'layout/ltcg/lzss.json')).read_text())
     bindings.update({row["symbol"]: int(row["address"], 0)
                      for row in cluster["absolute_symbols"]})
     # The archived candidates still name the match tree as one object.
@@ -182,7 +183,7 @@ def main():
     parser.add_argument("--object", type=Path)
     parser.add_argument("--oracle", type=Path, default=ROOT / "matching2/build/oracle/th10.exe")
     args = parser.parse_args()
-    config = load_manifest(ROOT / "matching2/msvc/regions.json")
+    config = load_manifest(project_support((ROOT) / 'matching2/msvc', 'regions.json'))
     load_oracle(args.oracle, config)  # Refuse an unverified retail text section.
     image = PEImage(args.oracle.read_bytes())
     with tempfile.TemporaryDirectory(prefix="th10-lzss-") as temporary:

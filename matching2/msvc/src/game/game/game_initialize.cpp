@@ -3,16 +3,16 @@
 // cluster. The public entry takes the UI context on the stack and returns
 // 0 on success or -1 after notifying the worker and retiring callbacks.
 // The private helper conventions come from their complete C++ bodies in
-// layout/ltcg/stage_startup_00417870.json.
+// build_support/layout/ltcg/stage_startup_00417870.json.
 #include <string.h>
 #include "th10/game/stage_startup_00417870.hpp"
 #include "th10/game/title_draw.hpp"
 #include "th10/game/score_file.hpp"
 #include "th10/core/func_ctrl.hpp"
-#include "../../../layout/ltcg/stage_startup_00417870/callback_task.hpp"
-#include "../../../layout/ltcg/stage_startup_00417870/path_reset.cpp"
-#include "../../../layout/ltcg/stage_startup_00417870/set_clock.cpp"
-#include "../../../layout/ltcg/stage_startup_00417870/retire_callbacks.cpp"
+#include "../../../build_support/layout/ltcg/stage_startup_00417870/callback_task.hpp"
+#include "../../../build_support/layout/ltcg/stage_startup_00417870/path_reset.cpp"
+#include "../../../build_support/layout/ltcg/stage_startup_00417870/set_clock.cpp"
+#include "../../../build_support/layout/ltcg/stage_startup_00417870/retire_callbacks.cpp"
 
 struct Game {
     CallbackPair callbacks;

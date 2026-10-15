@@ -11,7 +11,7 @@
 // The room is a stack argument here (the title dispatcher 0x0042CDF0 calls
 // with the room pushed); the handler needs the dispatcher and the real bodies
 // of its leaves in one whole-program link
-// (layout/ltcg/difficulty_select_update_00430320.json).
+// (build_support/layout/ltcg/difficulty_select_update_00430320.json).
 //
 // Shapes that are load-bearing (each measured against the image):
 //

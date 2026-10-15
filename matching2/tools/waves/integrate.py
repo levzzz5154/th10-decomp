@@ -32,7 +32,8 @@ from matching2.tools.waves.integration_gates import (
 )
 
 WAVE = ROOT / "matching2/build/waves"
-MANIFEST = ROOT / "matching2/msvc/regions.json"
+from matching2.tools.common.project_paths import project_support
+MANIFEST = project_support((ROOT) / 'matching2/msvc', 'regions.json')
 PROBE = ROOT / "matching2/tools/matching/probe.py"
 
 
@@ -124,7 +125,7 @@ def preintegration_gates(project, manifest, changed, output):
     with tempfile.TemporaryDirectory(prefix="th10-integrate-") as directory:
         staged = Path(directory) / "msvc"
         shutil.copytree(project, staged)
-        (staged / "regions.json").write_text(json.dumps(manifest, indent=2) + "\n")
+        (project_support(staged, 'regions.json')).write_text(json.dumps(manifest, indent=2) + "\n")
         try:
             manifest_result, clusters, _ = manifest_gate(staged)
         except Exception as error:
@@ -153,7 +154,7 @@ def main():
                         help="manual commit object id to record after the full hash gate")
     args = parser.parse_args()
     project = args.project.resolve()
-    manifest_path = project / "regions.json"
+    manifest_path = project_support(project, 'regions.json')
     manifest = json.loads(manifest_path.read_text())
     manifest_index = {int(region["address"], 0): region for region in manifest["regions"]}
     try:

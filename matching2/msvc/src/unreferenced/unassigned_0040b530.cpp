@@ -1,5 +1,5 @@
 #include <string.h>
-#include "asm_symbols.hpp"
+#include "../../build_support/include/asm_symbols.hpp"
 
 struct SmallState_0040B530 {
     unsigned int flags;

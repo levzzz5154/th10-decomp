@@ -1,0 +1,259 @@
+{
+  "schema_version": 1,
+  "name": "sound_restart_context",
+  "source": "src/core/zwave/streamer_restart_retail_0044dad0.cpp",
+  "driver": "build_support/layout/ltcg/sound_restart_context.cpp",
+  "included_sources": [
+    "build_support/layout/ltcg/sound_restart_dependencies/sound_start_platform_run_interface_0044d300.cpp",
+    "build_support/layout/ltcg/sound_restart_dependencies/sound_start_sound_stream_fill_model.cpp",
+    "build_support/layout/ltcg/sound_restart_dependencies/sound_start_sound_fill_rewind.cpp",
+    "build_support/layout/ltcg/sound_restart_dependencies/sound_start_sound_fill_read.cpp",
+    "build_support/layout/ltcg/sound_restart_dependencies/commands.cpp"
+  ],
+  "headers": [
+    "include/th10/game/sound_start_context.hpp",
+    "include/th10/platform/sound_fade_0044d4e0.hpp",
+    "build_support/layout/ltcg/sound_restart_dependencies/sound_wave_types.hpp",
+    "build_support/layout/ltcg/sound_restart_dependencies/sound_memory_words.hpp",
+    "build_support/layout/ltcg/sound_restart_dependencies/sound_effect_support.hpp"
+  ],
+  "description": "Restart native diagnostic with complete genuine dispatcher and real helper models.",
+  "image_base": "0x00400000",
+  "functions": [
+    {
+      "name": "SoundStreamRestart",
+      "symbol": "_SoundStream_Restart_0044dad0@4",
+      "address": "0x0044DAD0",
+      "section": ".text$07restart",
+      "size": 213,
+      "actual_abi": "Expected EDI stream, plain RET"
+    }
+  ],
+  "context": {
+    "symbol": "_Sound_ProcessCommands_0043ddf0@4",
+    "section": ".text$01commands",
+    "address": "0x0043DDF0",
+    "size": 1583,
+    "description": "Actual complete dispatcher source, unselected diagnostic public/boundary ABI"
+  },
+  "anchors": [
+    {
+      "name": "PlatformD300Entry_Run",
+      "symbol": "?Run@PlatformD300Entry@@QAEHPAI@Z",
+      "address": "0x0044D300",
+      "size": 98,
+      "section": ".text$05run"
+    },
+    {
+      "name": "SoundStreamFill",
+      "symbol": "_SoundStreamFill@12",
+      "address": "0x0044D110",
+      "size": 483,
+      "section": ".text$03fill"
+    },
+    {
+      "name": "ArchiveRewind",
+      "symbol": "_ArchiveRewind@8",
+      "address": "0x0044DD40",
+      "size": 194,
+      "section": ".text$09rewind"
+    },
+    {
+      "name": "ArchiveRead",
+      "symbol": "_ArchiveRead@16",
+      "address": "0x0044DE10",
+      "size": 202,
+      "section": ".text$11read"
+    }
+  ],
+  "gaps": [
+    {
+      "section": ".text$00gap",
+      "address": "0x401000",
+      "size": 249328
+    },
+    {
+      "section": ".text$02gap",
+      "address": "0x0043E41F",
+      "size": 60657
+    },
+    {
+      "section": ".text$04gap",
+      "address": "0x44d2f3",
+      "size": 13
+    },
+    {
+      "section": ".text$06gap",
+      "address": "0x44d362",
+      "size": 1902
+    },
+    {
+      "section": ".text$08gap",
+      "address": "0x44dba5",
+      "size": 411
+    },
+    {
+      "section": ".text$10gap",
+      "address": "0x44de02",
+      "size": 14
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "__imp__Sleep@4",
+      "address": "0x004660AC",
+      "kind": "data"
+    },
+    {
+      "symbol": "__ftol2",
+      "address": "0x00463B2C",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__fltused",
+      "address": "0x00000000",
+      "kind": "metadata"
+    },
+    {
+      "symbol": "_data_004660ac",
+      "address": "0x004660AC",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004660c8",
+      "address": "0x004660C8",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004977a4",
+      "address": "0x004977A4",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__ReadFile@20",
+      "address": "0x004660D0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_sound_mode_flags",
+      "address": "0x491d78",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_music_enabled",
+      "address": "0x491d63",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_sound_effects_enabled",
+      "address": "0x491d64",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_sound_fade_stream",
+      "address": "0x497798",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_sound_effects_volume",
+      "address": "0x497858",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_sound_fade_scale",
+      "address": "0x470b1c",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_sound_volume_scale",
+      "address": "0x470b00",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_sound_volume_one",
+      "address": "0x470afc",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_sound_effect_settings",
+      "address": "0x4749c8",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_sound_post_thread_message",
+      "address": "0x466210",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_sound_wait_for_object",
+      "address": "0x46611c",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_sound_close_handle",
+      "address": "0x4660cc",
+      "kind": "data"
+    },
+    {
+      "symbol": "_Sound_CacheMusic_0043d7d0@12",
+      "address": "0x43d7d0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_SoundStream_LaunchCached_0043d950@8",
+      "address": "0x43d950",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_SoundStream_RecreateBuffers_0044cf20@4",
+      "address": "0x44cf20",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_SoundStream_FillBuffer_0044d110@12",
+      "address": "0x44d110",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "@SoundStream_StopFirst_0044d5b0@4",
+      "address": "0x44d5b0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_SoundStream_Start_0044d440@12",
+      "address": "0x44d440",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_Sound_StopMusicWorker_0043dab0@4",
+      "address": "0x43dab0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?StopAndRewind@CommandSoundStream@@QAEHXZ",
+      "address": "0x44d550",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?ResumeConfigured@CommandSoundStream@@QAEHXZ",
+      "address": "0x44d5d0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?SetVolume@CommandSoundStream@@QAEHH@Z",
+      "address": "0x44d4e0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?SelectRecord@MusicReadCursor@@QAEHPAUMusicTrackRecord@@@Z",
+      "address": "0x44dca0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?FindBasenameSlot_0043d2a0@PathName_0043d2a0@@QAEHPAX@Z",
+      "address": "0x43d2a0",
+      "kind": "relative_code"
+    }
+  ]
+}

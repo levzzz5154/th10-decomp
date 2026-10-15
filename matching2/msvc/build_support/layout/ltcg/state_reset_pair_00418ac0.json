@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "name": "state_reset_pair_00418ac0",
+  "source": "src/unreferenced/FUN_00418ac0_00418ac0.cpp",
+  "driver": "build_support/layout/ltcg/state_reset_pair_00418ac0_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "Two-default setter compiled with native LTCG so the object pointer arrives in EAX.",
+  "functions": [
+    {
+      "name": "GameAppStateReset_00418ac0_ResetPair",
+      "symbol": "?ResetPair@GameAppStateReset_00418ac0@@QAEXXZ",
+      "section": ".text$01resetpair00418ac0",
+      "address": "0x418ac0",
+      "size": 15,
+      "actual_abi": "object in EAX; plain RET"
+    }
+  ],
+  "context": {
+    "symbol": "?ResetPairCompilerContext@@YGHPAPAUGameAppStateReset_00418ac0@@H@Z",
+    "section": ".text$03context",
+    "address": "0x418ad0",
+    "size": 39,
+    "description": "Synthetic array-processing caller that establishes the observed register convention; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 96960
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x418acf",
+      "size": 1
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [],
+  "included_sources": []
+}

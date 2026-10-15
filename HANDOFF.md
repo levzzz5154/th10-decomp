@@ -1,3 +1,5 @@
+> Readability checkpoint (2026-10-16): steps 5/6 are done and verified; see [TH10_READABILITY_HANDOFF.md](TH10_READABILITY_HANDOFF.md). Older source paths below predate the build_support migration.
+
 # th10 decompilation handoff — 2026-10-14
 
 ## Where the project stands

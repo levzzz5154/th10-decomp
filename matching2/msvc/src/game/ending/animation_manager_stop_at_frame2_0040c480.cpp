@@ -6,7 +6,7 @@
 // receiver, so the whole-program pass leaves EAX holding the dereferenced
 // pointer and hands the lookup's id back on the stack.  Both are conventions
 // only a native-LTCG cluster reaches
-// (layout/ltcg/stop_at_frame_pair_0040c480.json).
+// (build_support/layout/ltcg/stop_at_frame_pair_0040c480.json).
 
 struct AnimationLookupContext;
 

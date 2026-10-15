@@ -11,7 +11,7 @@
 //
 // The source vector arrives in EDI, the destination in ESI, the rate on the
 // stack, and the destination is returned in EAX, so the scaler is compiled as
-// a native LTCG cluster (layout/ltcg/random_vector_store_rounded_scalar.json).
+// a native LTCG cluster (build_support/layout/ltcg/random_vector_store_rounded_scalar.json).
 //
 // The three products are computed in the order y, z, x and stored in the order
 // +8, +0, +4. MSVC rotates the statement sequence left by one, so writing the

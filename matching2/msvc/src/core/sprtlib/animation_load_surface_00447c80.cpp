@@ -11,7 +11,7 @@
 // label; that is what places the failure cleanup ahead of the success path.
 #include "th10/render/resource_surface_loading.hpp"
 #include "th10/platform/archive_file.hpp"
-#include "../../../layout/ltcg/resource_surface_loading_log.hpp"
+#include "../../../build_support/layout/ltcg/resource_surface_loading_log.hpp"
 
 // The device is always reached through this accessor: it makes the compiler
 // load the device and its vtable before the arguments, as retail does.

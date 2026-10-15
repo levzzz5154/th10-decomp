@@ -9,7 +9,7 @@
 // centred formatter in ESI.
 #include <string.h>
 
-#include "th10/game/right_aligned_text_context/recovery_script_executor_caller_00419120.hpp"
+#include "../../../build_support/include/contexts/game/right_aligned_text_context/recovery_script_executor_caller_00419120.hpp"
 #include "th10/game/score_file.hpp"
 #include "th10/game/title_draw.hpp"
 

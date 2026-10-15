@@ -1,0 +1,209 @@
+{
+  "schema_version": 1,
+  "name": "title_worker_start_0041fac0",
+  "source": "src/game/loading/loading_start_worker.cpp",
+  "driver": "build_support/layout/ltcg/title_worker_start_0041fac0_context.cpp",
+  "headers": [
+    "include/th10/core/func_ctrl.hpp",
+    "include/th10/platform/thread_sync.hpp",
+    "include/th10/platform/worker.hpp",
+    "include/th10/game/anm_vm.hpp",
+    "include/th10/game/loading.hpp",
+    "include/th10/game/loading_view.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Complete state constructor, worker starter, and factory with genuine C++ scheduler registration and worker stop ABI anchors; full absolute callback addresses.",
+  "functions": [
+    {
+      "name": "LoadingOwner_StartWorker",
+      "symbol": "?StartWorker@LoadingView@@QAEHXZ",
+      "section": ".text$02starter",
+      "address": "0x0041FAC0",
+      "size": 140,
+      "actual_abi": "receiver in EBX; returns zero in EAX; plain RET"
+    },
+    {
+      "name": "StateTable_Construct_0041f850",
+      "symbol": "??0Loading@@QAE@XZ",
+      "section": ".text$00bstatector",
+      "address": "0x0041F850",
+      "size": 128,
+      "source": "src/game/loading/loading_construct.cpp",
+      "actual_abi": "this ESI; EAX result; RET"
+    },
+    {
+      "name": "TitleState_Create_0041fd00",
+      "symbol": "_Loading_Create",
+      "section": ".text$04factory",
+      "address": "0x0041FD00",
+      "size": 69,
+      "source": "src/game/loading/loading_create.cpp",
+      "actual_abi": "no arguments; state EBX; EAX result; RET"
+    }
+  ],
+  "anchors": [
+    {
+      "name": "FuncCtrl_RegisterPrimary",
+      "symbol": "_FuncCtrl_RegisterPrimary@12",
+      "section": ".text$10primary",
+      "address": "0x00449AE0",
+      "size": 131
+    },
+    {
+      "name": "FuncCtrl_RegisterSecondary",
+      "symbol": "_FuncCtrl_RegisterSecondary@12",
+      "section": ".text$12secondary",
+      "address": "0x00449B70",
+      "size": 131
+    },
+    {
+      "name": "PlatformWorker_Stop",
+      "symbol": "?Stop@PlatformWorker@@QAEXXZ",
+      "section": ".text$20stop",
+      "address": "0x0044C150",
+      "size": 101
+    }
+  ],
+  "context": {
+    "symbol": "LoadingStartCompilerContext",
+    "section": ".text$30context",
+    "address": "0x0044C1C0",
+    "size": 44,
+    "description": "Synthetic array-walking caller establishing the receiver register; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00astatelayout",
+      "address": "0x00401000",
+      "size": 125008
+    },
+    {
+      "section": ".text$03layout",
+      "address": "0x0041FB4C",
+      "size": 436
+    },
+    {
+      "section": ".text$11layout",
+      "address": "0x00449B63",
+      "size": 13
+    },
+    {
+      "section": ".text$13layout",
+      "address": "0x00449BF3",
+      "size": 9565
+    },
+    {
+      "section": ".text$21layout",
+      "address": "0x0044C1B5",
+      "size": 11
+    },
+    {
+      "section": ".text$00cstatectorz",
+      "address": "0x0041F8D0",
+      "size": 496
+    },
+    {
+      "section": ".text$05factoryz",
+      "address": "0x0041FD45",
+      "size": 171419
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_SchedulerCallback_Create_00449ed0@4",
+      "address": "0x00449ED0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_g_func_ctrl",
+      "address": "0x00491BE4",
+      "kind": "data"
+    },
+    {
+      "symbol": "@LoadingPrimary@4",
+      "address": "0x0041FEB0",
+      "kind": "data"
+    },
+    {
+      "symbol": "@LoadingSecondary@4",
+      "address": "0x0041FEF0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_LoadingThreadMain@4",
+      "address": "0x0041F990",
+      "kind": "data"
+    },
+    {
+      "symbol": "_asm_beginthreadex_00453683",
+      "address": "0x00453683",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?g_thread_synchronization@@3UThreadSynchronization@@A",
+      "address": "0x00492274",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__EnterCriticalSection@4",
+      "address": "0x004660B0",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__LeaveCriticalSection@4",
+      "address": "0x004660B4",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__WaitForSingleObject@8",
+      "address": "0x0046611C",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__Sleep@4",
+      "address": "0x004660AC",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__CloseHandle@4",
+      "address": "0x004660CC",
+      "kind": "data"
+    },
+    {
+      "symbol": "__fltused",
+      "address": "0x00000000",
+      "kind": "metadata"
+    },
+    {
+      "symbol": "_data_004703e4",
+      "address": "0x004703E4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_loading",
+      "address": "0x00477820",
+      "kind": "data"
+    },
+    {
+      "symbol": "??2@YAPAXI@Z",
+      "address": "0x00452493",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_entry_free_004524a1",
+      "address": "0x004524A1",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_Loading_Release@4",
+      "address": "0x0041FB50",
+      "kind": "relative_code"
+    }
+  ],
+  "additional_sources": [
+    "src/game/loading/loading_construct.cpp",
+    "src/game/loading/loading_create.cpp"
+  ],
+  "included_sources": []
+}

@@ -1,7 +1,7 @@
 // 0x00427E90: fire one shot from the first free bullet slot.
-#include "../../../layout/ltcg/player_state_collision_runtime/effect_update.hpp"
-#include "../../../layout/ltcg/player_state_collision_runtime/animation_public_callers.hpp"
-#include "../../../layout/ltcg/player_state_collision_runtime/sound_queue.hpp"
+#include "../../../build_support/layout/ltcg/player_state_collision_runtime/effect_update.hpp"
+#include "../../../build_support/layout/ltcg/player_state_collision_runtime/animation_public_callers.hpp"
+#include "../../../build_support/layout/ltcg/player_state_collision_runtime/sound_queue.hpp"
 
 // Looks an animation up by handle and clears a stale handle.
 static __forceinline AnimationObject* ResolveOrClear(unsigned int* handle) {

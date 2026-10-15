@@ -134,11 +134,15 @@ def cases():
         yield Case(consumed=consumed, midi=True, thread=True, owner=False)
 
 
+import sys as _project_sys
+from pathlib import Path as _ProjectPath
+_project_sys.path.insert(0, str(_ProjectPath(__file__).resolve().parents[2]))
+from matching2.tools.common.project_paths import project_support
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--oracle", type=Path, default=preload.ROOT / "matching2/build/oracle/th10.exe")
     options = parser.parse_args()
-    config = preload.load_manifest(preload.ROOT / "matching2/msvc/regions.json")
+    config = preload.load_manifest(project_support((preload.ROOT) / 'matching2/msvc', 'regions.json'))
     preload.load_oracle(options.oracle, config)
     image = preload.PEImage(options.oracle.read_bytes())
     names = preload.names_from_image(image)

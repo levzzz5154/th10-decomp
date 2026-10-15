@@ -1,0 +1,1585 @@
+{
+  "schema_version": 1,
+  "name": "anm_batch_flush_00442f50",
+  "source": "src/core/screen/texture_stage_reset.cpp",
+  "headers": [
+    "include/th10/render/quad_batch.hpp",
+    "include/th10/render/camera_batch.hpp",
+    "include/th10/math/angle.hpp",
+    "include/th10/game/card_runtime.hpp",
+    "include/th10/game/ascii_manager.hpp",
+    "include/th10/game/background_draw.hpp",
+    "include/th10/render/stage_fog.hpp",
+    "include/th10/math/interpolator.hpp",
+    "include/th10/math/vector.hpp",
+    "include/th10/math/timer.hpp",
+    "include/th10/core/screen.hpp",
+    "include/th10/core/func_ctrl.hpp",
+    "include/th10/platform/thread_sync.hpp",
+    "include/th10/source_views/fun_a1dd06_0.hpp",
+    "include/th10/source_views/fun_a1dd06_1.hpp",
+    "include/th10/source_views/fun_a1dd06_2.hpp",
+    "include/th10/source_views/fun_a1dd06_3.hpp",
+    "include/th10/source_views/fun_a1dd06_4.hpp",
+    "include/th10/source_views/fun_a1dd06_5.hpp",
+    "include/th10/source_views/fun_a1dd06_6.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Native-LTCG render batch with compiler-visible camera application, state synchronization, quad appending, and primitive callers. RenderCamera::ApplyDefault and RenderStageState_00405300::SelectDefaultStage are co-compiled so the whole-program pass gives both private conventions; no ABI anchor remains. The existing public entries, three AsciiOverlay callbacks, and paired BossOverlay draw callbacks are rooted to retain their public ECX receivers. The array-loop context establishes private conventions and contributes zero recovered game-code bytes.",
+  "functions": [
+    {
+      "name": "RenderStageState_SelectStage_00401d20",
+      "symbol": "?SelectStage@RenderStageState@@QAEXH@Z",
+      "section": ".text$000pgselect",
+      "address": "0x00401D20",
+      "size": 60,
+      "actual_abi": "state in ESI; stage index in EBX; plain RET",
+      "source": "src/game/ascii/render_stage_select.cpp"
+    },
+    {
+      "name": "RenderStageState_00405300_SelectDefaultStage",
+      "symbol": "?SelectDefaultStage@RenderStageState_00405300@@QAEXH@Z",
+      "section": ".text$000zselect",
+      "address": "0x00405300",
+      "size": 60,
+      "actual_abi": "state in ESI; index in EBX; plain RET",
+      "source": "src/game/background/fun_00405300_00405300.cpp"
+    },
+    {
+      "name": "CardRuntime_ReleaseFlaggedEntityArrays",
+      "source": "src/game/card/card_release_flagged_entity_arrays.cpp",
+      "symbol": "?ReleaseFlaggedEntityArrays@CardRuntime_004091c0@@QAEHXZ",
+      "section": ".text$001arrays",
+      "address": "0x004091C0",
+      "size": 95,
+      "actual_abi": "receiver in EBX; manager in ECX and VM in EAX at every call; plain RET"
+    },
+    {
+      "name": "CardRuntime_ReleaseFlaggedEntities",
+      "source": "src/game/card/card_release_flagged_entities.cpp",
+      "symbol": "?ReleaseFlaggedEntities@CardRuntime_00409230@@QAEHXZ",
+      "section": ".text$001release",
+      "address": "0x00409230",
+      "size": 50,
+      "actual_abi": "this in ECX; manager in ECX and VM in EAX at both calls; plain RET"
+    },
+    {
+      "name": "CardRuntime_RunArrayReleaseCallback",
+      "symbol": "?RunArrayReleaseCallback@CardRuntime_004091c0@@QAEHXZ",
+      "section": ".text$001releasezc",
+      "address": "0x00409270",
+      "size": 10,
+      "actual_abi": "state in ECX; saves EBX and passes the state in EBX to 0x004091C0; plain RET",
+      "source": "src/game/card/card_run_array_release_callback.cpp"
+    },
+    {
+      "name": "RenderCamera_ApplyDefault",
+      "symbol": "?ApplyDefault@RenderCamera@@QAEXXZ",
+      "section": ".text$00adefault",
+      "address": "0x00421480",
+      "size": 287,
+      "actual_abi": "EDI camera; plain RET",
+      "source": "src/game/mother/camera_setup.cpp"
+    },
+    {
+      "name": "RenderCamera_Apply",
+      "source": "src/game/mother/camera_apply.cpp",
+      "symbol": "?Apply@RenderCamera@@QAEXXZ",
+      "section": ".text$00bcamera",
+      "address": "0x004215A0",
+      "size": 330,
+      "actual_abi": "EDI camera; plain RET"
+    },
+    {
+      "name": "GameFrameAdvance_00439390",
+      "symbol": "?GameFrameAdvance_00439390@@YGHPAUGameFrame_00439390@@@Z",
+      "section": ".text$00clayoutfa",
+      "address": "0x00439390",
+      "size": 425,
+      "actual_abi": "frame state on the stack in EBP; ESI/EDI saved; result in EAX; RET 4",
+      "source": "src/core/main/game_frame_advance.cpp"
+    },
+    {
+      "name": "ClearAndPresentTwice",
+      "source": "src/core/screen/recovery_reset_device_streams_0043bc40.cpp",
+      "symbol": "?ClearAndPresentTwice@@YGHI@Z",
+      "section": ".text$01aclear",
+      "address": "0x0043BC40",
+      "size": 135,
+      "actual_abi": "color in ESI; plain RET"
+    },
+    {
+      "name": "ApplyDefaultViewport",
+      "source": "src/core/screen/viewport_apply_default_retail_0043bcd0.cpp",
+      "symbol": "?ApplyDefaultViewport@@YGHI@Z",
+      "section": ".text$01capply",
+      "address": "0x0043BCD0",
+      "size": 108,
+      "actual_abi": "color on stack; RET 4"
+    },
+    {
+      "name": "DrawSolidQuad",
+      "source": "src/core/screen/special_quad.cpp",
+      "symbol": "?DrawSolidQuad@@YGHPBUScreenRect@@I@Z",
+      "section": ".text$01quad",
+      "address": "0x0043BDA0",
+      "size": 483,
+      "actual_abi": "EDI rect; EBX color"
+    },
+    {
+      "name": "DrawGradientQuad",
+      "source": "src/core/screen/texture_stage_reset.cpp",
+      "symbol": "?DrawGradientQuad@@YGHPBUScreenRect@@IIII@Z",
+      "section": ".text$02gradient",
+      "address": "0x0043BFA0",
+      "size": 501,
+      "actual_abi": "rect in EDI; four colors on stack; RET 16"
+    },
+    {
+      "name": "ColorViewport_Draw",
+      "source": "src/core/screen/draws.cpp",
+      "symbol": "?Draw@ColorViewport@@QAEHXZ",
+      "section": ".text$03viewport",
+      "address": "0x0043C1A0",
+      "size": 134,
+      "actual_abi": "ECX this"
+    },
+    {
+      "name": "AnimationColor_MultiplyChannel",
+      "symbol": "?AnimationColor_MultiplyChannel@@YGIEE@Z",
+      "section": ".text$04amult",
+      "address": "0x004423C0",
+      "size": 25,
+      "actual_abi": "value in AL; scale in CL; result in EAX",
+      "source": "src/core/sprtfunc/animation_color_multiply_channel_004423c0.cpp"
+    },
+    {
+      "name": "SyncRenderState",
+      "source": "src/core/sprtfunc/render_state_sync.cpp",
+      "symbol": "?SyncRenderState@SprtCtrlBatchView@@QAEXPBURenderEntity@@@Z",
+      "section": ".text$04bsync",
+      "address": "0x004425A0",
+      "size": 201,
+      "actual_abi": "EAX manager; EDI entity"
+    },
+    {
+      "name": "SubmitSpriteQuad",
+      "symbol": "?SubmitSpriteQuad@SprtCtrlBatchView@@QAEHPBURenderEntity@@I@Z",
+      "section": ".text$04c2quad",
+      "address": "0x00442670",
+      "size": 1111,
+      "actual_abi": "EAX entity; ECX manager; mode on stack; plain RET 4",
+      "source": "src/core/sprtfunc/sprite_quad_submit.cpp"
+    },
+    {
+      "name": "SubmitSpriteQuadMirrored",
+      "symbol": "?SubmitSpriteQuadMirrored@SprtCtrlBatchView@@QAEHPBURenderEntity@@I@Z",
+      "section": ".text$04c4mirror",
+      "address": "0x00442AD0",
+      "size": 1111,
+      "actual_abi": "EAX entity; ECX manager; mode on stack; plain RET 4",
+      "source": "src/core/sprtfunc/sprite_quad_submit_mirrored.cpp"
+    },
+    {
+      "name": "SprtCtrlBatchView_Flush",
+      "symbol": "?Flush@SprtCtrlBatchView@@QAEHXZ",
+      "section": ".text$05flush",
+      "address": "0x00442F50",
+      "size": 133,
+      "actual_abi": "manager in ESI; draw-call result in EAX; plain RET",
+      "source": "src/core/sprtfunc/anm_batch_flush.cpp"
+    },
+    {
+      "name": "AppendQuad",
+      "source": "src/core/sprtfunc/quad_vertex_append.cpp",
+      "symbol": "?AppendQuad@SprtCtrlBatchView@@QAEHPBUTexturedVertex@@@Z",
+      "section": ".text$05happend",
+      "address": "0x00442FE0",
+      "size": 157,
+      "actual_abi": "EAX manager; EDX vertices; plain RET"
+    },
+    {
+      "name": "BuildAnchoredQuad_00443290",
+      "source": "src/core/sprtfunc/anchored_quad_build_00443290.cpp",
+      "symbol": "_EntityDraw_00443290@8",
+      "section": ".text$06b02z00build",
+      "address": "0x443290",
+      "size": 486,
+      "actual_abi": "entity in EAX; manager on the stack; RET 4"
+    },
+    {
+      "name": "BuildAnchoredQuadMirrored_00443480",
+      "source": "src/core/sprtfunc/anchored_quad_build_mirrored_00443480.cpp",
+      "symbol": "_EntityDrawMirrored_00443480@8",
+      "section": ".text$06b02z02mirror",
+      "address": "0x443480",
+      "size": 505,
+      "actual_abi": "entity in EAX; manager on the stack; RET 4"
+    },
+    {
+      "name": "BuildRotatedQuad_004436c0",
+      "source": "src/core/sprtfunc/quad_build_rotated.cpp",
+      "symbol": "_BuildRotatedQuad_004436c0@8",
+      "section": ".text$06b03rotquad",
+      "address": "0x4436C0",
+      "size": 591,
+      "actual_abi": "manager in ECX; entity in EDX; plain RET"
+    },
+    {
+      "name": "BuildRotatedQuadAlt_00443910",
+      "source": "src/core/sprtfunc/quad_build_rotated.cpp",
+      "symbol": "_BuildRotatedQuadAlt_00443910@8",
+      "section": ".text$06b04rotquad",
+      "address": "0x443910",
+      "size": 591,
+      "actual_abi": "manager in ECX; entity in EDX; plain RET"
+    },
+    {
+      "name": "SubmitProjectedQuad_00443f80",
+      "source": "src/core/sprtfunc/entity_submit_projected_00443f80.cpp",
+      "symbol": "?SubmitProjectedQuad@RenderEntity@@QAEHPAUSprtCtrlBatchView@@@Z",
+      "section": ".text$06b05z00projected",
+      "address": "0x443f80",
+      "size": 33,
+      "actual_abi": "entity in ESI; manager on the stack; RET 4"
+    },
+    {
+      "name": "EntityDraw_00443fb0",
+      "source": "src/core/sprtfunc/anm_distance_color.cpp",
+      "symbol": "_EntityDraw_00443fb0@8",
+      "section": ".text$06b0600distance",
+      "address": "0x443fb0",
+      "size": 643,
+      "actual_abi": "entity in EDI; manager in ESI; plain RET"
+    },
+    {
+      "name": "EntityDraw_00444580",
+      "source": "src/core/sprtfunc/fun_00444580_00444580.cpp",
+      "symbol": "_EntityDraw_00444580@8",
+      "section": ".text$06b07fade",
+      "address": "0x444580",
+      "size": 60,
+      "actual_abi": "entity in ESI; manager in EDI; plain RET"
+    },
+    {
+      "name": "DrawStrip",
+      "source": "src/core/sprtfunc/edge_strip_draw.cpp",
+      "symbol": "?DrawStrip@SprtCtrlBatchView@@QAEHPBURenderEntity@@PBXI@Z",
+      "section": ".text$06bstrip",
+      "address": "0x00444CE0",
+      "size": 224,
+      "actual_abi": "ECX manager; EAX entity; vertices and count on stack; RET 8"
+    },
+    {
+      "name": "DrawQuad",
+      "source": "src/unreferenced/unassigned_00444dc0.cpp",
+      "symbol": "?DrawQuad@SprtCtrlBatchView@@QAEHPBURenderEntity@@PBUTexturedVertex@@@Z",
+      "section": ".text$06dquad",
+      "address": "0x00444DC0",
+      "size": 145,
+      "actual_abi": "ECX manager; EAX entity; vertices on stack; RET 4"
+    },
+    {
+      "name": "DrawSolidStrip",
+      "source": "src/unreferenced/unassigned_00444e60.cpp",
+      "symbol": "?DrawSolidStrip@SprtCtrlBatchView@@QAEHPBURenderEntity@@PBXI@Z",
+      "section": ".text$06ebstrip",
+      "address": "0x00444E60",
+      "size": 315,
+      "actual_abi": "EAX manager; EDI entity; vertices/count on stack; RET 8"
+    },
+    {
+      "name": "DrawSolidFan",
+      "source": "src/unreferenced/unassigned_00444fa0.cpp",
+      "symbol": "?DrawSolidFan@SprtCtrlBatchView@@QAEHPBURenderEntity@@PBXI@Z",
+      "section": ".text$06edfan",
+      "address": "0x00444FA0",
+      "size": 315,
+      "actual_abi": "EAX manager; EDI entity; vertices/count on stack; RET 8"
+    },
+    {
+      "name": "DrawFan",
+      "source": "src/core/sprtfunc/rect_fan_draw.cpp",
+      "symbol": "?DrawFan@SprtCtrlBatchView@@QAEHPBURenderEntity@@PBXI@Z",
+      "section": ".text$06ffan",
+      "address": "0x004450E0",
+      "size": 211,
+      "actual_abi": "ECX manager; EAX entity; vertices/count on stack; RET 8"
+    },
+    {
+      "name": "AnmVmDrawDispatch",
+      "source": "src/core/sprtfunc/anm_vm_draw_dispatch.cpp",
+      "symbol": "_asm_FUN_004451c0_004451c0",
+      "section": ".text$06hdispatch",
+      "address": "0x4451c0",
+      "size": 216,
+      "actual_abi": "manager in ECX; entity in EAX; plain RET"
+    },
+    {
+      "name": "AnimationManager_00448620_RenderStage0Bucket3",
+      "symbol": "?RenderStage0Bucket3@SprtCtrlBatchView@@QAEHXZ",
+      "section": ".text$08layer3",
+      "address": "0x00448620",
+      "size": 115,
+      "actual_abi": "manager in ECX; manager in EBX across the mid-body calls; bucket index 3 in EAX and the manager in EDI for the 0x00448980 call; result in EAX; plain RET",
+      "source": "src/core/sprtlib/animation_manager_draw_stage0_bucket3.cpp"
+    },
+    {
+      "name": "AnimationManager_00448770_RenderStage1Bucket0F",
+      "symbol": "?RenderStage1Bucket0F@SprtCtrlBatchView@@QAEHXZ",
+      "section": ".text$08stage0f",
+      "address": "0x00448770",
+      "size": 72,
+      "actual_abi": "manager in ECX; bucket index EAX / manager EDI passed on; plain RET",
+      "source": "src/core/sprtlib/animation_manager_draw_stage1_bucket0f.cpp"
+    },
+    {
+      "name": "AnimationManager_004487c0_RenderStage1Bucket10",
+      "symbol": "?RenderStage1Bucket10@SprtCtrlBatchView@@QAEHXZ",
+      "section": ".text$08stage10",
+      "address": "0x004487c0",
+      "size": 72,
+      "actual_abi": "manager in ECX; bucket index EAX / manager EDI passed on; plain RET",
+      "source": "src/core/sprtlib/animation_manager_draw_stage1_bucket10.cpp"
+    },
+    {
+      "name": "AnimationManager_00448810_RenderStage1Bucket13",
+      "symbol": "?RenderStage1Bucket13@SprtCtrlBatchView@@QAEHXZ",
+      "section": ".text$08stage13",
+      "address": "0x00448810",
+      "size": 72,
+      "actual_abi": "manager in ECX; bucket index EAX / manager EDI passed on; plain RET",
+      "source": "src/core/sprtlib/animation_manager_draw_stage1_bucket13.cpp"
+    },
+    {
+      "name": "EntityDraw_00444760",
+      "source": "src/core/sprtfunc/quad_transform_draw_00444760.cpp",
+      "symbol": "_EntityDraw_00444760@8",
+      "section": ".text$06b09z00transform",
+      "address": "0x444760",
+      "size": 929,
+      "actual_abi": "entity in EAX; manager on the stack; RET 4"
+    },
+    {
+      "name": "AsciiOverlay_0043C2C0_Draw",
+      "symbol": "?Draw@ScreenFadeOutQuad@@QAEHXZ",
+      "section": ".text$03w0overlay",
+      "address": "0x0043C2C0",
+      "size": 68,
+      "actual_abi": "ECX receiver; EDI rectangle and EBX color for DrawSolidQuad; plain RET",
+      "source": "src/core/screen/draws.cpp"
+    },
+    {
+      "name": "AsciiOverlay_0043C3C0_Draw",
+      "symbol": "?Draw@ScreenDimFullQuad@@QAEHXZ",
+      "section": ".text$03w2overlay",
+      "address": "0x0043C3C0",
+      "size": 68,
+      "actual_abi": "ECX receiver; EDI rectangle and EBX color for DrawSolidQuad; plain RET",
+      "source": "src/core/screen/draws.cpp"
+    },
+    {
+      "name": "AsciiOverlay_0043C410_Draw",
+      "symbol": "?Draw@ScreenDimPlayfieldQuad@@QAEHXZ",
+      "section": ".text$03w4overlay",
+      "address": "0x0043C410",
+      "size": 68,
+      "actual_abi": "ECX receiver; EDI rectangle and EBX color for DrawSolidQuad; plain RET",
+      "source": "src/core/screen/draws.cpp"
+    },
+    {
+      "name": "BossOverlay_0041D7C0_Draw",
+      "symbol": "?Draw@LineLaser@@QAEHXZ",
+      "section": ".text$001z0boss",
+      "address": "0x0041D7C0",
+      "size": 173,
+      "actual_abi": "public ECX receiver; manager ECX and entity EAX at dispatcher calls; plain RET",
+      "source": "src/game/laser/laser_line_draw.cpp"
+    },
+    {
+      "name": "BossOverlay_0041EA40_Draw",
+      "symbol": "?Draw@GrowLaser@@QAEHXZ",
+      "section": ".text$001z2boss",
+      "address": "0x0041EA40",
+      "size": 173,
+      "actual_abi": "public ECX receiver; manager ECX and entity EAX at dispatcher calls; plain RET",
+      "source": "src/game/laser/laser_grow_draw.cpp"
+    },
+    {
+      "name": "GameStateOverlay_Draw_00415800",
+      "source": "src/game/front/game_state_overlay_draw.cpp",
+      "symbol": "_GameStateOverlay_Draw_00415800@4",
+      "section": ".text$001soverlay",
+      "address": "0x00415800",
+      "size": 724,
+      "actual_abi": "state on stack; result1 in EAX; RET4"
+    },
+    {
+      "name": "DrawFan33_00445880",
+      "symbol": "?DrawFan33@RenderEntity@@QAEHXZ",
+      "section": ".text$07contextzb",
+      "address": "0x00445880",
+      "size": 25,
+      "actual_abi": "entity in ECX; passes the manager in ECX and the entity in EAX to 0x004450E0; returns 0; plain RET",
+      "source": "src/core/sprtfunc/render_entity_draw_fan.cpp"
+    },
+    {
+      "name": "Run_004200d0",
+      "symbol": "?Run@AppDrawFlush@@QAEHXZ",
+      "section": ".text$001z3gapb",
+      "address": "0x004200D0",
+      "size": 39,
+      "actual_abi": "saves ESI and passes the manager in ESI to 0x00442F50; returns 1; plain RET",
+      "source": "src/game/mother/app_on_draw_flush.cpp"
+    },
+    {
+      "name": "RenderStageState_EnableFog",
+      "symbol": "?EnableFog@RenderStageState_00439390@@QAEHXZ",
+      "section": ".text$00a420c90",
+      "address": "0x00420C90",
+      "size": 52,
+      "actual_abi": "state in EDI; saves ESI and passes the manager in ESI to 0x00442F50; plain RET",
+      "source": "src/game/mother/render_stage_state.cpp"
+    },
+    {
+      "name": "RenderStageState_DisableFog",
+      "symbol": "?DisableFog@RenderStageState_00439390@@QAEHXZ",
+      "section": ".text$00a420cd0",
+      "address": "0x00420CD0",
+      "size": 53,
+      "actual_abi": "state in EDI; saves ESI and passes the manager in ESI to 0x00442F50; plain RET",
+      "source": "src/game/mother/render_stage_state.cpp"
+    },
+    {
+      "name": "RenderStageState_EnableDepthWrite",
+      "symbol": "?EnableDepthWrite@RenderStageState_00439390@@QAEHXZ",
+      "section": ".text$00a420d10",
+      "address": "0x00420D10",
+      "size": 52,
+      "actual_abi": "state in EDI; saves ESI and passes the manager in ESI to 0x00442F50; plain RET",
+      "source": "src/game/mother/render_stage_state.cpp"
+    },
+    {
+      "name": "RenderStageState_DisableDepthWrite",
+      "symbol": "?DisableDepthWrite@RenderStageState_00439390@@QAEHXZ",
+      "section": ".text$00a420d50",
+      "address": "0x00420D50",
+      "size": 53,
+      "actual_abi": "state in EDI; saves ESI and passes the manager in ESI to 0x00442F50; plain RET",
+      "source": "src/game/mother/render_stage_state.cpp"
+    },
+    {
+      "name": "RenderStageState_SetRenderState",
+      "symbol": "?RenderStageState_SetRenderState@@YGHPAURenderStageState_00439390@@II@Z",
+      "section": ".text$00a420d90",
+      "address": "0x00420D90",
+      "size": 32,
+      "actual_abi": "__stdcall (stage, state, value); saves ESI for 0x00442F50 and tail-jumps to IDirect3DDevice9::SetRenderState",
+      "source": "src/game/mother/render_stage_state.cpp"
+    },
+    {
+      "name": "AsciiManager_DrawStrings",
+      "symbol": "?AsciiManager_DrawStrings@@YGHPAUAsciiManager@@@Z",
+      "section": ".text$000m1records",
+      "address": "0x00401760",
+      "size": 738,
+      "actual_abi": "__stdcall: thread on the stack; manager ESI to 0x00442F50, camera EDI to 0x004215A0, glyph ESI to 0x00443080; RET 4",
+      "source": "src/game/ascii/draw.cpp"
+    },
+    {
+      "name": "AsciiManager_OnDrawLate",
+      "symbol": "?AsciiManager_OnDrawLate@@YIHPAUAsciiManager@@@Z",
+      "section": ".text$000lb1task",
+      "address": "0x00401520",
+      "size": 10,
+      "actual_abi": "__fastcall: thread ECX; saves EBX and passes the thread in EBX to 0x00401A50; plain RET",
+      "source": "src/game/ascii/draw.cpp"
+    },
+    {
+      "name": "GameThreadText_DrawLateRecords",
+      "symbol": "?DrawLateRecords@AsciiManager@@QAEHXZ",
+      "section": ".text$000m3late",
+      "address": "0x00401A50",
+      "size": 570,
+      "actual_abi": "thread in EBX; manager ESI to 0x00442F50, camera EDI to 0x004215A0; EAX=1; plain RET",
+      "source": "src/game/ascii/draw.cpp"
+    },
+    {
+      "name": "RenderStageState_BeginFrame_00420000",
+      "symbol": "?BeginFrame@RenderStageState_00420000@@QAEHXZ",
+      "section": ".text$001z3gapa0frame",
+      "address": "0x00420000",
+      "size": 177,
+      "actual_abi": "state in ECX; camera in EDI to 0x004215A0; returns 1; plain RET",
+      "source": "src/game/mother/app_begin_frame_00420000.cpp"
+    },
+    {
+      "name": "StageObject_IsOutsideView_00403090",
+      "source": "src/game/background/background_draw_layer.cpp",
+      "symbol": "?IsOutsideView@StageObject@@QBEHPBUStageVector@@PBURenderCamera@@M@Z",
+      "section": ".text$000q1cull",
+      "address": "0x00403090",
+      "size": 1984,
+      "actual_abi": "object in ECX; instance position in EDX; camera in EAX; distance on the stack; RET 4"
+    },
+    {
+      "name": "BackGround_DrawLayer_00403a30",
+      "source": "src/game/background/background_draw_layer.cpp",
+      "symbol": "?BackGround_DrawLayer@@YGHPAUBackGround@@H@Z",
+      "section": ".text$000q3draw",
+      "address": "0x00403A30",
+      "size": 592,
+      "actual_abi": "__stdcall: stage and layer on the stack; RET 8"
+    },
+    {
+      "name": "BackGround_Draw_00402ca0",
+      "source": "src/game/background/background_draw.cpp",
+      "symbol": "?BackGround_Draw@@YGHPAUBackGround@@@Z",
+      "section": ".text$000pm_stagedraw",
+      "address": "0x00402CA0",
+      "size": 929,
+      "actual_abi": "__stdcall: stage on the stack; RET 4"
+    },
+    {
+      "name": "BackGround_DrawBackground_00402850",
+      "source": "src/game/background/background_draw_background.cpp",
+      "symbol": "?BackGround_DrawBackground@@YGHPAUBackGround@@@Z",
+      "section": ".text$000pl_stagebg",
+      "address": "0x00402850",
+      "size": 1099,
+      "actual_abi": "__stdcall: stage on the stack; RET 4"
+    }
+  ],
+  "gaps": [
+    {
+      "section": ".text$000layout",
+      "address": "0x401000",
+      "size": 1312
+    },
+    {
+      "section": ".text$000lb2gap",
+      "address": "0x40152a",
+      "size": 566
+    },
+    {
+      "section": ".text$000m2gap",
+      "address": "0x401a42",
+      "size": 14
+    },
+    {
+      "section": ".text$000m4gap",
+      "address": "0x401c8a",
+      "size": 150
+    },
+    {
+      "section": ".text$000pk_gap",
+      "address": "0x401d5c",
+      "size": 2804
+    },
+    {
+      "section": ".text$000plz_gap",
+      "address": "0x402c9b",
+      "size": 5
+    },
+    {
+      "section": ".text$000pz_gap",
+      "address": "0x403041",
+      "size": 79
+    },
+    {
+      "section": ".text$000q2gap",
+      "address": "0x403850",
+      "size": 480
+    },
+    {
+      "section": ".text$000q4gap",
+      "address": "0x403c80",
+      "size": 5760
+    },
+    {
+      "section": ".text$000zselectz",
+      "address": "0x40533c",
+      "size": 212
+    },
+    {
+      "section": ".text$000zu_gap",
+      "address": "0x405449",
+      "size": 15735
+    },
+    {
+      "section": ".text$001arraysz",
+      "address": "0x40921f",
+      "size": 17
+    },
+    {
+      "section": ".text$001releasez",
+      "address": "0x409262",
+      "size": 14
+    },
+    {
+      "section": ".text$001releasezd",
+      "address": "0x40927a",
+      "size": 50566
+    },
+    {
+      "section": ".text$001soverlayz",
+      "address": "0x415ad4",
+      "size": 31980
+    },
+    {
+      "section": ".text$001z1gap",
+      "address": "0x41d86d",
+      "size": 4563
+    },
+    {
+      "section": ".text$001z3gap",
+      "address": "0x41eaed",
+      "size": 5395
+    },
+    {
+      "section": ".text$001z3gapa1",
+      "address": "0x004200B1",
+      "size": 31
+    },
+    {
+      "section": ".text$001z3gapbz",
+      "address": "0x004200F7",
+      "size": 2969
+    },
+    {
+      "section": ".text$00a420c90z",
+      "address": "0x00420CC4",
+      "size": 12
+    },
+    {
+      "section": ".text$00a420cd0z",
+      "address": "0x00420D05",
+      "size": 11
+    },
+    {
+      "section": ".text$00a420d10z",
+      "address": "0x00420D44",
+      "size": 12
+    },
+    {
+      "section": ".text$00a420d50z",
+      "address": "0x00420D85",
+      "size": 11
+    },
+    {
+      "section": ".text$00a420d90z",
+      "address": "0x00420DB0",
+      "size": 1744
+    },
+    {
+      "section": ".text$00adefaultz",
+      "address": "0x42159f",
+      "size": 1
+    },
+    {
+      "section": ".text$00clayout",
+      "address": "0x4216ea",
+      "size": 97446
+    },
+    {
+      "section": ".text$00clayoutfaz",
+      "address": "0x439539",
+      "size": 9991
+    },
+    {
+      "section": ".text$01blayout",
+      "address": "0x43bcc7",
+      "size": 9
+    },
+    {
+      "section": ".text$01dlayout",
+      "address": "0x43bd3c",
+      "size": 100
+    },
+    {
+      "section": ".text$02alayout",
+      "address": "0x43bf83",
+      "size": 29
+    },
+    {
+      "section": ".text$02zlayout",
+      "address": "0x43c195",
+      "size": 11
+    },
+    {
+      "section": ".text$03w0layout",
+      "address": "0x43c226",
+      "size": 154
+    },
+    {
+      "section": ".text$03w2layout",
+      "address": "0x43c304",
+      "size": 188
+    },
+    {
+      "section": ".text$03w4layout",
+      "address": "0x43c404",
+      "size": 12
+    },
+    {
+      "section": ".text$03w5layout",
+      "address": "0x43c454",
+      "size": 1116
+    },
+    {
+      "section": ".text$03w7layout",
+      "address": "0x43c902",
+      "size": 110
+    },
+    {
+      "section": ".text$04alayout",
+      "address": "0x43cafc",
+      "size": 22724
+    },
+    {
+      "section": ".text$04an",
+      "address": "0x4423d9",
+      "size": 7
+    },
+    {
+      "section": ".text$04azlayout",
+      "address": "0x442421",
+      "size": 383
+    },
+    {
+      "section": ".text$04c1layout",
+      "address": "0x442669",
+      "size": 7
+    },
+    {
+      "section": ".text$04c3layout",
+      "address": "0x442ac7",
+      "size": 9
+    },
+    {
+      "section": ".text$04c5layout",
+      "address": "0x442f27",
+      "size": 41
+    },
+    {
+      "section": ".text$05glayout",
+      "address": "0x442fd5",
+      "size": 11
+    },
+    {
+      "section": ".text$06alayout",
+      "address": "0x44307d",
+      "size": 3
+    },
+    {
+      "section": ".text$06b01zgap",
+      "address": "0x4430b8",
+      "size": 472
+    },
+    {
+      "section": ".text$06b02z00buildz",
+      "address": "0x443476",
+      "size": 10
+    },
+    {
+      "section": ".text$06b02z02mirrorz",
+      "address": "0x443679",
+      "size": 71
+    },
+    {
+      "section": ".text$06b03rotquadz",
+      "address": "0x44390f",
+      "size": 1
+    },
+    {
+      "section": ".text$06b04rotquadz",
+      "address": "0x443b5f",
+      "size": 1
+    },
+    {
+      "section": ".text$06b04z02gap",
+      "address": "0x443b6c",
+      "size": 1044
+    },
+    {
+      "section": ".text$06b05zgap",
+      "address": "0x443fa1",
+      "size": 15
+    },
+    {
+      "section": ".text$06b0601gap",
+      "address": "0x444233",
+      "size": 13
+    },
+    {
+      "section": ".text$06b0603gap",
+      "address": "0x444258",
+      "size": 808
+    },
+    {
+      "section": ".text$06b07zgap",
+      "address": "0x4445bc",
+      "size": 4
+    },
+    {
+      "section": ".text$06b08zgap",
+      "address": "0x4445e3",
+      "size": 381
+    },
+    {
+      "section": ".text$06b09z01gap",
+      "address": "0x444b01",
+      "size": 479
+    },
+    {
+      "section": ".text$06ealayout",
+      "address": "0x444e51",
+      "size": 15
+    },
+    {
+      "section": ".text$06eclayout",
+      "address": "0x444f9b",
+      "size": 5
+    },
+    {
+      "section": ".text$06eelayout",
+      "address": "0x4450db",
+      "size": 5
+    },
+    {
+      "section": ".text$06glayout",
+      "address": "0x4451b3",
+      "size": 13
+    },
+    {
+      "section": ".text$06zdispatchz",
+      "address": "0x445298",
+      "size": 8
+    },
+    {
+      "section": ".text$07contextz",
+      "address": "0x00445416",
+      "size": 1130
+    },
+    {
+      "section": ".text$07contextzbz",
+      "address": "0x00445899",
+      "size": 11655
+    },
+    {
+      "section": ".text$08layer3z",
+      "address": "0x448693",
+      "size": 221
+    },
+    {
+      "section": ".text$08stage0fz",
+      "address": "0x4487b8",
+      "size": 8
+    },
+    {
+      "section": ".text$08stage10z",
+      "address": "0x448808",
+      "size": 8
+    },
+    {
+      "section": ".text$08stage13z",
+      "address": "0x448858",
+      "size": 296
+    },
+    {
+      "section": ".text$09bucketk_gap",
+      "address": "0x4489c2",
+      "size": 4382
+    },
+    {
+      "section": ".text$09bucketkb_gap",
+      "address": "0x449b63",
+      "size": 13
+    },
+    {
+      "section": ".text$09bucketkd_gap",
+      "address": "0x449bf3",
+      "size": 1037
+    },
+    {
+      "section": ".text$09bucketkf_gap",
+      "address": "0x44a02b",
+      "size": 5
+    },
+    {
+      "section": ".text$09bucketkh_gap",
+      "address": "0x44a05b",
+      "size": 7909
+    },
+    {
+      "section": ".text$09bucketp_gap",
+      "address": "0x44bf98",
+      "size": 440
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_g_sprt_ctrl",
+      "address": "0x00491C10",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491c30",
+      "address": "0x00491C30",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491cf4",
+      "address": "0x00491CF4",
+      "kind": "data"
+    },
+    {
+      "symbol": "__fltused",
+      "address": "0x00000000",
+      "kind": "metadata"
+    },
+    {
+      "symbol": "_data_00491d0c",
+      "address": "0x00491D0C",
+      "kind": "data"
+    },
+    {
+      "symbol": "_CameraLookAt@16",
+      "address": "0x00452194",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_CameraPerspective@20",
+      "address": "0x0045219A",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_CameraNormalize@8",
+      "address": "0x0045217C",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_004978c0",
+      "address": "0x004978C0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491fac",
+      "address": "0x00491FAC",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00470e8",
+      "address": "0x004700E8",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00470ec",
+      "address": "0x004700EC",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491c28",
+      "address": "0x00491C28",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00470ba0",
+      "address": "0x00470BA0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_FrameTimer_GetDelta",
+      "address": "0x00439540",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_asm_FUN_004391f0_004391f0",
+      "address": "0x004391F0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_asm_FUN_00449c00_00449c00@4",
+      "address": "0x00449C00",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_asm_FUN_00449d40_00449d40@4",
+      "address": "0x00449D40",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_asm_FUN_0043ddf0_0043ddf0@4",
+      "address": "0x0043DDF0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_entry_free_004524a1",
+      "address": "0x004524A1",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_004924f0",
+      "address": "0x004924F0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00492254",
+      "address": "0x00492254",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_func_ctrl",
+      "address": "0x00491BE4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00492590",
+      "address": "0x00492590",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004923a0",
+      "address": "0x004923A0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491d66",
+      "address": "0x00491D66",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004660ac",
+      "address": "0x004660AC",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491d7c",
+      "address": "0x00491D7C",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491d80",
+      "address": "0x00491D80",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491d84",
+      "address": "0x00491D84",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491e78",
+      "address": "0x00491E78",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491e7c",
+      "address": "0x00491E7C",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491e80",
+      "address": "0x00491E80",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491e84",
+      "address": "0x00491E84",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491e88",
+      "address": "0x00491E88",
+      "kind": "data"
+    },
+    {
+      "symbol": "__ftol2",
+      "address": "0x00463B2C",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_00470b70",
+      "address": "0x00470B70",
+      "kind": "data"
+    },
+    {
+      "symbol": "_asm_D3DXMatrixRotationX_004521ac@8",
+      "address": "0x004521AC",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_asm_D3DXMatrixRotationY_004521b8@8",
+      "address": "0x004521B8",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_asm_D3DXMatrixRotationZ_004521be@8",
+      "address": "0x004521BE",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_asm_D3DXMatrixMultiply_004521b2@12",
+      "address": "0x004521B2",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?Angle_NormalizeSum@@YGMMM@Z",
+      "address": "0x0044BC10",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_00474c58",
+      "address": "0x00474C58",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_enemy_ctrl",
+      "address": "0x00477704",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491e64",
+      "address": "0x00491E64",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491e68",
+      "address": "0x00491E68",
+      "kind": "data"
+    },
+    {
+      "symbol": "_D3DXMatrixTranslation@16",
+      "address": "0x00452182",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_D3DXVec3ProjectArray@36",
+      "address": "0x00452188",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?g_frame_timer_normal_lower@@3MA",
+      "address": "0x00470B68",
+      "kind": "data"
+    },
+    {
+      "symbol": "?g_frame_timer_normal_upper@@3MA",
+      "address": "0x00470B64",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00476f78",
+      "address": "0x476f78",
+      "kind": "data"
+    },
+    {
+      "symbol": "??2@YAPAXI@Z",
+      "address": "0x452493",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_SchedulerCallback_Create_00449ed0@4",
+      "address": "0x449ed0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_memset",
+      "address": "0x45bed0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?g_thread_synchronization@@3UThreadSynchronization@@A",
+      "address": "0x492274",
+      "kind": "data"
+    },
+    {
+      "symbol": "@FadeOutUpdate_0043bd40@4",
+      "address": "0x43bd40",
+      "kind": "data"
+    },
+    {
+      "symbol": "@ViewportOverlayDraw_0043c1a0@4",
+      "address": "0x43c1a0",
+      "kind": "data"
+    },
+    {
+      "symbol": "@FadeInUpdate_0043c230@4",
+      "address": "0x43c230",
+      "kind": "data"
+    },
+    {
+      "symbol": "@PlayfieldOverlayDraw_0043c2c0@4",
+      "address": "0x43c2c0",
+      "kind": "data"
+    },
+    {
+      "symbol": "@HalfOpacityFadeUpdate_0043c310@4",
+      "address": "0x43c310",
+      "kind": "data"
+    },
+    {
+      "symbol": "@ScreenOverlayDraw_0043c3c0@4",
+      "address": "0x43c3c0",
+      "kind": "data"
+    },
+    {
+      "symbol": "@PlayfieldHalfOpacityDraw_0043c410@4",
+      "address": "0x43c410",
+      "kind": "data"
+    },
+    {
+      "symbol": "@ColorPulseUpdate_0043c460@4",
+      "address": "0x43c460",
+      "kind": "data"
+    },
+    {
+      "symbol": "@ColorPulseDraw_0043c500@4",
+      "address": "0x43c500",
+      "kind": "data"
+    },
+    {
+      "symbol": "@LinearShakeUpdate_0043c550@4",
+      "address": "0x43c550",
+      "kind": "data"
+    },
+    {
+      "symbol": "@EnvelopeShakeUpdate_0043c710@4",
+      "address": "0x43c710",
+      "kind": "data"
+    },
+    {
+      "symbol": "@ScreenEffectRemove_0043c870@4",
+      "address": "0x43c870",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__LeaveCriticalSection@4",
+      "address": "0x4660b4",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__EnterCriticalSection@4",
+      "address": "0x4660b0",
+      "kind": "data"
+    }
+  ],
+  "additional_sources": [
+    "src/core/screen/draws.cpp",
+    "src/game/laser/laser_line_draw.cpp",
+    "src/game/background/fun_00405300_00405300.cpp",
+    "src/game/front/game_state_overlay_draw.cpp",
+    "src/core/screen/recovery_reset_device_streams_0043bc40.cpp",
+    "src/game/card/card_release_flagged_entities.cpp",
+    "src/game/card/card_release_flagged_entity_arrays.cpp",
+    "src/game/card/card_run_array_release_callback.cpp",
+    "src/game/mother/render_stage_state.cpp",
+    "src/core/sprtfunc/anchored_quad_build_00443290.cpp",
+    "src/core/sprtfunc/animation_color_multiply_channel_004423c0.cpp",
+    "src/core/sprtfunc/anm_batch_flush.cpp",
+    "src/core/sprtfunc/anm_distance_color.cpp",
+    "src/core/sprtfunc/anm_vm_draw_dispatch.cpp",
+    "src/game/mother/camera_apply.cpp",
+    "src/game/mother/camera_setup.cpp",
+    "src/core/sprtfunc/edge_strip_draw.cpp",
+    "src/core/sprtfunc/entity_submit_projected_00443f80.cpp",
+    "src/core/sprtfunc/fun_00444580_00444580.cpp",
+    "src/core/sprtfunc/quad_build_rotated.cpp",
+    "src/core/sprtfunc/quad_transform_draw_00444760.cpp",
+    "src/core/sprtfunc/quad_vertex_append.cpp",
+    "src/core/sprtfunc/rect_fan_draw.cpp",
+    "src/game/ascii/render_stage_select.cpp",
+    "src/core/sprtfunc/render_state_sync.cpp",
+    "src/core/screen/special_quad.cpp",
+    "src/core/sprtfunc/sprite_quad_submit.cpp",
+    "src/core/sprtfunc/sprite_quad_submit_mirrored.cpp",
+    "src/core/screen/viewport_apply_default_retail_0043bcd0.cpp",
+    "src/game/laser/laser_grow_draw.cpp",
+    "src/game/mother/app_on_draw_flush.cpp",
+    "src/core/sprtfunc/render_entity_draw_fan.cpp",
+    "src/core/sprtlib/animation_manager_draw_stage0_bucket3.cpp",
+    "src/core/sprtlib/animation_manager_draw_stage1_bucket0f.cpp",
+    "src/core/sprtlib/animation_manager_draw_stage1_bucket10.cpp",
+    "src/core/sprtlib/animation_manager_draw_stage1_bucket13.cpp",
+    "src/unreferenced/unassigned_00444dc0.cpp",
+    "src/unreferenced/unassigned_00444e60.cpp",
+    "src/unreferenced/unassigned_00444fa0.cpp",
+    "src/game/ascii/draw.cpp",
+    "src/game/mother/app_begin_frame_00420000.cpp",
+    "src/core/sprtfunc/anchored_quad_build_mirrored_00443480.cpp",
+    "src/game/background/background_draw_layer.cpp",
+    "src/game/background/background_draw.cpp",
+    "build_support/layout/ltcg/render_batch_frame_timer_anchor.cpp",
+    "src/game/background/background_draw_background.cpp",
+    "build_support/layout/ltcg/render_batch_stage_anchors.cpp",
+    "build_support/layout/ltcg/render_batch/scheduler_register.cpp",
+    "build_support/layout/ltcg/render_batch/scheduler_create.cpp",
+    "build_support/layout/ltcg/render_batch/screen_effect_configure.cpp",
+    "build_support/layout/ltcg/render_batch/screen_effect_create.cpp"
+  ],
+  "roots": [
+    "?ApplyDefaultViewport@@YGHI@Z",
+    "?Draw@ColorViewport@@QAEHXZ",
+    "?RenderStage1Bucket0F@SprtCtrlBatchView@@QAEHXZ",
+    "?RenderStage1Bucket10@SprtCtrlBatchView@@QAEHXZ",
+    "?RenderStage1Bucket13@SprtCtrlBatchView@@QAEHXZ",
+    "?RenderStage0Bucket3@SprtCtrlBatchView@@QAEHXZ",
+    "?ReleaseFlaggedEntities@CardRuntime_00409230@@QAEHXZ",
+    "?Draw@ScreenFadeOutQuad@@QAEHXZ",
+    "?Draw@ScreenDimFullQuad@@QAEHXZ",
+    "?Draw@ScreenDimPlayfieldQuad@@QAEHXZ",
+    "?Draw@LineLaser@@QAEHXZ",
+    "?Draw@GrowLaser@@QAEHXZ",
+    "_GameStateOverlay_Draw_00415800@4",
+    "?RunArrayReleaseCallback@CardRuntime_004091c0@@QAEHXZ",
+    "?DrawFan33@RenderEntity@@QAEHXZ",
+    "?Run@AppDrawFlush@@QAEHXZ",
+    "?RenderStageState_SetRenderState@@YGHPAURenderStageState_00439390@@II@Z",
+    "?AsciiManager_DrawStrings@@YGHPAUAsciiManager@@@Z",
+    "?AsciiManager_OnDrawLate@@YIHPAUAsciiManager@@@Z",
+    "?BeginFrame@RenderStageState_00420000@@QAEHXZ",
+    "?BackGround_DrawLayer@@YGHPAUBackGround@@H@Z",
+    "?BackGround_Draw@@YGHPAUBackGround@@@Z",
+    "?BackGround_DrawBackground@@YGHPAUBackGround@@@Z"
+  ],
+  "driver": "build_support/layout/ltcg/render_batch_context.cpp",
+  "context": {
+    "symbol": "?RenderBatchContext@@YGHPAPBUScreenRect@@PBIHPAPBURenderEntity@@PAPBXPAPAURenderCamera@@@Z",
+    "section": ".text$07context",
+    "address": "0x4452a0",
+    "size": 374,
+    "description": "Synthetic caller of gradient, entity primitive draws, sprite quad submission, and camera application; not recovered game code."
+  },
+  "constant_aliases": [
+    {
+      "symbol": "__real@3f000000",
+      "address": "0x00470B0C",
+      "value": 0.5
+    },
+    {
+      "symbol": "__real@4f800000",
+      "address": "0x00470B98",
+      "value": 4294967296.0
+    },
+    {
+      "symbol": "__real@00000000",
+      "address": "0x00470B04",
+      "value": 0.0
+    },
+    {
+      "symbol": "__real@bf000000",
+      "address": "0x00470B78",
+      "value": -0.5
+    },
+    {
+      "symbol": "__real@3f800000",
+      "address": "0x00470AFC",
+      "value": 1.0
+    },
+    {
+      "symbol": "__real@43600000",
+      "address": "0x00470B4C",
+      "value": 224.0
+    },
+    {
+      "symbol": "__real@41800000",
+      "address": "0x00470B48",
+      "value": 16.0
+    },
+    {
+      "symbol": "__real@3e95a95b",
+      "address": "0x00470CB8",
+      "value": 0.29230770468711853
+    },
+    {
+      "symbol": "__real@424c0000",
+      "address": "0x00470D2C",
+      "value": 51.0
+    },
+    {
+      "symbol": "__real@43ab0000",
+      "address": "0x00470D28",
+      "value": 342.0
+    },
+    {
+      "symbol": "__real@42240000",
+      "address": "0x00470D24",
+      "value": 41.0
+    },
+    {
+      "symbol": "__real@42200000",
+      "address": "0x00470C64",
+      "value": 40.0
+    },
+    {
+      "symbol": "__real@40000000",
+      "address": "0x00470B08",
+      "value": 2.0
+    },
+    {
+      "symbol": "__real@41600000",
+      "address": "0x00470C88",
+      "value": 14.0
+    },
+    {
+      "symbol": "__real@41c00000",
+      "address": "0x00470BE8",
+      "value": 24.0
+    },
+    {
+      "symbol": "__real@43d40000",
+      "address": "0x00470BE4",
+      "value": 424.0
+    },
+    {
+      "symbol": "__real@43ec0000",
+      "address": "0x00470BE0",
+      "value": 472.0
+    },
+    {
+      "symbol": "__real@41000000",
+      "address": "0x00470BD0",
+      "value": 8.0
+    },
+    {
+      "symbol": "__real@42000000",
+      "address": "0x00470BCC",
+      "value": 32.0
+    },
+    {
+      "symbol": "__real@43d00000",
+      "address": "0x00470BDC",
+      "value": 416.0
+    },
+    {
+      "symbol": "__real@43e80000",
+      "address": "0x00470BD8",
+      "value": 464.0
+    }
+  ],
+  "anchors": [
+    {
+      "name": "EntityDraw_00443080_abi_anchor",
+      "symbol": "_EntityDraw_00443080@8",
+      "section": ".text$06b01anchor",
+      "address": "0x443080",
+      "size": 56
+    },
+    {
+      "name": "BillboardSource_BuildProjectedQuad_00443b60_abi_anchor",
+      "symbol": "?BuildProjectedQuad@BillboardSource_00443B60@@QAEHXZ",
+      "section": ".text$06b04z01anchor",
+      "address": "0x443b60",
+      "size": 12
+    },
+    {
+      "name": "ProjectedEntity_ProjectQuad_00444240_abi_anchor",
+      "symbol": "?ProjectQuad@ProjectedEntity_00444240@@QAEHPAUProjectionManager_00444240@@@Z",
+      "section": ".text$06b0602anchor",
+      "address": "0x444240",
+      "size": 24
+    },
+    {
+      "name": "FadedQuadDraw_004445c0_abi_anchor",
+      "symbol": "_FadedQuadDraw_004445c0@8",
+      "section": ".text$06b08anchor",
+      "address": "0x4445c0",
+      "size": 35
+    },
+    {
+      "name": "AnimationManager_RenderBucket_00448980_abi_anchor",
+      "symbol": "_asm_AnimationManager_RenderBucket_00448980",
+      "section": ".text$09bucket",
+      "address": "0x00448980",
+      "size": 66
+    },
+    {
+      "name": "WorkerThread_00439390_Stop",
+      "symbol": "?Stop@WorkerThread_00439390@@QAEPAXXZ",
+      "section": ".text$09bucketzf44c150",
+      "address": "0x0044C150",
+      "size": 95
+    },
+    {
+      "name": "SyncRenderState_004423e0_abi_anchor",
+      "symbol": "_SyncRenderState_004423e0@8",
+      "section": ".text$04ap",
+      "address": "0x4423E0",
+      "size": 65
+    },
+    {
+      "name": "FrameTimer_Advance_0044bf40_abi_anchor",
+      "symbol": "?Advance@FrameTimer@@QAEXM@Z",
+      "section": ".text$09bucketm_timer",
+      "address": "0x0044BF40",
+      "size": 88
+    },
+    {
+      "name": "FrameTimer_Set_00405410_abi_anchor",
+      "symbol": "?SetSchedulerValue@PlayerSchedulerRecord@@QAEXH@Z",
+      "section": ".text$000zt_timerset",
+      "address": "0x00405410",
+      "size": 57
+    },
+    {
+      "name": "Screen_Create_abi_anchor",
+      "symbol": "?Screen_Create@@YGPAUScreen@@HHHHHH@Z",
+      "section": ".text$03w6effect",
+      "address": "0x0043C8B0",
+      "size": 82
+    },
+    {
+      "name": "ScreenEffect_Configure_0043c970_abi_anchor",
+      "symbol": "?Configure@Screen@@QAEXHHHHHH@Z",
+      "section": ".text$03w8configure",
+      "address": "0x0043C970",
+      "size": 396
+    },
+    {
+      "name": "FuncCtrl_RegisterPrimary_00449ae0_abi_anchor",
+      "symbol": "_FuncCtrl_RegisterPrimary@12",
+      "section": ".text$09bucketka_regp",
+      "address": "0x00449AE0",
+      "size": 131
+    },
+    {
+      "name": "FuncCtrl_RegisterSecondary_00449b70_abi_anchor",
+      "symbol": "_FuncCtrl_RegisterSecondary@12",
+      "section": ".text$09bucketkc_regs",
+      "address": "0x00449B70",
+      "size": 131
+    },
+    {
+      "name": "CreateEffectPrimary_0044a000_abi_anchor",
+      "symbol": "?CreateEffectPrimary@@YGPAUSchedulerTask@@PAXH0@Z",
+      "section": ".text$09bucketke_prim",
+      "address": "0x0044A000",
+      "size": 43
+    },
+    {
+      "name": "CreateEffectSecondary_0044a030_abi_anchor",
+      "symbol": "?CreateEffectSecondary@@YGPAUSchedulerTask@@PAXH0@Z",
+      "section": ".text$09bucketkg_sec",
+      "address": "0x0044A030",
+      "size": 43
+    }
+  ],
+  "data_aliases": [
+    {
+      "symbol": "__real@3f91111111111111",
+      "address": "0x00470C90",
+      "bytes": "111111111111913f"
+    }
+  ],
+  "owned_includes": {
+    "src/core/main/game_frame_advance.cpp": "src/game/mother/render_stage_state.cpp"
+  },
+  "compilation_units": {
+    "src/game/mother/render_stage_state.cpp": "build_support/layout/units/fun_a1dd06.cpp"
+  },
+  "included_sources": [
+    "build_support/layout/units/fun_a1dd06.cpp",
+    "src/core/main/game_frame_advance.cpp"
+  ]
+}

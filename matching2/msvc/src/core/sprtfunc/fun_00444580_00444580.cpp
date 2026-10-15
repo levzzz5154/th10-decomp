@@ -4,7 +4,7 @@
 //
 // The dispatcher reaches this helper with the entity in ESI and the manager in
 // EDI, which no declaration names, so the body is a selected function of the
-// render-batch cluster (layout/ltcg/anm_batch_flush_00442f50.json).
+// render-batch cluster (build_support/layout/ltcg/anm_batch_flush_00442f50.json).
 //
 // Both callees enter on registers no prototype expresses either: the entity
 // quad projection takes its source in EAX with the manager on the stack - the
@@ -12,7 +12,7 @@
 // pops it - and SubmitSpriteQuad (0x00442670, a definition of this cluster)
 // takes the entity in EAX as well.  Their bodies are co-compiled as ABI anchors
 // so the pass reproduces those conventions; see the anchor block of
-// layout/ltcg/render_batch_context.cpp.
+// build_support/layout/ltcg/render_batch_context.cpp.
 //
 // The four depth stores run back to front in retail (0x497920, 0x497904,
 // 0x4978E8, 0x4978CC), which is the order the source lists them in.

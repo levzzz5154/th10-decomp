@@ -1,0 +1,198 @@
+{
+  "schema_version": 1,
+  "name": "replay_manager_create_00429610",
+  "source": "src/game/replay/replay_manager_create_00429610.cpp",
+  "driver": "build_support/layout/ltcg/replay_manager_create_00429610/context.cpp",
+  "headers": [
+    "include/th10/game/replay_manager_create_004296f0.hpp",
+    "include/th10/platform/thread_sync.hpp",
+    "include/th10/core/func_ctrl.hpp",
+    "include/th10/game/replay_pool_append_0042aa50.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Replay manager start factory with its inlined constructor and compiler-generated new-expression cleanup, compiled with stand-in starter and destructor shaped for their receivers.",
+  "functions": [
+    {
+      "name": "ReplayManager_CreateStarted",
+      "symbol": "?ReplayManager_Create_00429610@@YGPAUReplayManager_004296f0@@HPBD@Z",
+      "section": ".text$04create",
+      "address": "0x00429610",
+      "actual_abi": "mode and path on the stack, RET 8; manager returned in EAX; compiler-generated EH frame",
+      "size": 185
+    },
+    {
+      "name": "ReplayManagerCreateStartedUnwind",
+      "symbol": "_ReplayManagerCreateStartedUnwind_00465660",
+      "section": ".text$x",
+      "address": "0x00465660",
+      "actual_abi": "frees the block when a node constructor throws",
+      "generated": true,
+      "native_symbol_pattern": "\\$L[0-9]+",
+      "size": 11
+    },
+    {
+      "name": "ReplayManagerCreateStartedHandler",
+      "symbol": "__ehhandler$?ReplayManager_Create_00429610@@YGPAUReplayManager_004296f0@@HPBD@Z",
+      "section": ".text$x",
+      "address": "0x0046566B",
+      "actual_abi": "compiler-generated EH handler",
+      "generated": true,
+      "size": 10
+    }
+  ],
+  "context": {
+    "symbol": "?ReplayManagerStartCompilerContext@@YGHHPBD@Z",
+    "section": ".text$05context",
+    "address": "0x004296D0",
+    "size": 24,
+    "description": "Synthetic caller; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00before",
+      "address": 4198400,
+      "size": 163680
+    },
+    {
+      "section": ".text$01startz",
+      "address": 4362177,
+      "size": 1247
+    },
+    {
+      "section": ".text$03dtorz",
+      "address": 4363586,
+      "size": 206
+    },
+    {
+      "section": ".text$04createz",
+      "address": 4363977,
+      "size": 7
+    },
+    {
+      "section": ".text$05contextz",
+      "address": 4364008,
+      "size": 132088
+    },
+    {
+      "section": ".text$06primaryz",
+      "address": 4496227,
+      "size": 113405
+    },
+    {
+      "section": ".rdata$0before",
+      "address": 4612096,
+      "size": 46776
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "??2@YAPAXI@Z",
+      "address": "0x00452493",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "??3@YAXPAX@Z",
+      "address": "0x004524A1",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "___CxxFrameHandler",
+      "address": "0x0046276D",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__except_list",
+      "address": "0x00000000",
+      "kind": "metadata"
+    },
+    {
+      "symbol": "??_L@YGXPAXIHP6EX0@Z1@Z",
+      "address": "0x0045252D",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "??_M@YGXPAXIHP6EX0@Z@Z",
+      "address": "0x004525FF",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "??0ReplayManagerNode_004296f0@@QAE@XZ",
+      "address": "0x0042AC20",
+      "kind": "data"
+    },
+    {
+      "symbol": "??1ReplayManagerNode_004296f0@@QAE@XZ",
+      "address": "0x0042AC60",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_func_ctrl",
+      "address": "0x00491BE4",
+      "kind": "data"
+    },
+    {
+      "symbol": "?g_thread_synchronization@@3UThreadSynchronization@@A",
+      "address": "0x00492274",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__EnterCriticalSection@4",
+      "address": "0x004660B0",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__LeaveCriticalSection@4",
+      "address": "0x004660B4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_ReplayManagerStandIn_Remove@8",
+      "address": "0x00449F60",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_ReplayManagerStandIn_Load@4",
+      "address": "0x0042A400",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_ReplayManagerStandIn_Task@4",
+      "address": "0x00449ED0",
+      "kind": "relative_code"
+    }
+  ],
+  "exceptions": true,
+  "native_data": [
+    {
+      "section": ".xdata$x",
+      "address": "0x004716B8",
+      "bytes": "ffffffff605646002005931901000000b816470000000000000000000000000000000000",
+      "description": "Unwind map and FuncInfo of the factory; validation only"
+    }
+  ],
+  "anchors": [
+    {
+      "name": "StartStandIn",
+      "symbol": "?Start@ReplayManager_004296f0@@QAEHHPBD@Z",
+      "section": ".text$01start",
+      "address": "0x00428F60",
+      "size": 97
+    },
+    {
+      "name": "DestructorStandIn",
+      "symbol": "??1ReplayManager_004296f0@@QAE@XZ",
+      "section": ".text$03dtor",
+      "address": "0x004294A0",
+      "size": 162
+    },
+    {
+      "name": "ActualSchedulerRegisterPrimary",
+      "symbol": "_FuncCtrl_RegisterPrimary@12",
+      "section": ".text$06primary",
+      "address": "0x00449AE0",
+      "size": 131
+    }
+  ],
+  "included_sources": []
+}

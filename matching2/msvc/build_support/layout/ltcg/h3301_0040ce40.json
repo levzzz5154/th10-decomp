@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "name": "h3301_0040ce40",
+  "source": "src/unreferenced/FUN_0040ce40_0040ce40.cpp",
+  "driver": "build_support/layout/ltcg/h3301_0040ce40_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "Native-LTCG nested accessor recovered from the H3301 exact 10-byte context probe.",
+  "functions": [
+    {
+      "name": "H3301Outer_0040ce40_GetValue",
+      "symbol": "?GetValue@H3301Outer_0040ce40@@QBEHXZ",
+      "section": ".text$01target",
+      "address": "0x0040CE40",
+      "size": 10,
+      "actual_abi": "nested object in EAX; plain RET"
+    }
+  ],
+  "context": {
+    "symbol": "H3301Context_0040ce40@8",
+    "section": ".text$03context",
+    "address": "0x0040CE80",
+    "size": 38,
+    "description": "Synthetic array-walking caller used only to establish the native-LTCG nested-accessor convention; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 48704
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x0040CE4A",
+      "size": 54
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [],
+  "roots": [],
+  "included_sources": []
+}

@@ -1,0 +1,244 @@
+{
+  "schema_version": 1,
+  "name": "sound_queue_pan",
+  "source": "src/game/bullet/fun_00407780_00407780.cpp",
+  "additional_sources": [
+    "src/game/laser/laser_line_decelerate.cpp",
+    "src/core/sound/animation_manager_queue_resource_0043dc90.cpp",
+    "src/game/bullet/fun_00407a30_00407a30.cpp",
+    "src/game/bullet/fun_00407be0_00407be0.cpp",
+    "src/core/sound/sound_queue_pan_0043dd10.cpp"
+  ],
+  "headers": [
+    "include/th10/platform/sound_queue.hpp",
+    "include/th10/game/bullet_deceleration.hpp",
+    "include/th10/math/angle.hpp",
+    "include/th10/game/player.hpp",
+    "include/th10/game/entity.hpp",
+    "include/th10/types.hpp",
+    "include/th10/math/timer.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Three ESI-entry bullet motion routines, rooted ECX projectile callback, and both genuine sound-queue entries in one native LTCG scope. QueuePan receives ESI queue, EBX sound id, and one stack float. Compiler context is unselected.",
+  "functions": [
+    {
+      "name": "BulletDeceleration_TurnStep",
+      "source": "src/game/bullet/fun_00407780_00407780.cpp",
+      "symbol": "?TurnStep@BulletDeceleration@@QAEXXZ",
+      "address": "0x00407780",
+      "size": 338,
+      "section": ".text$01bullet",
+      "actual_abi": "this in ESI; plain RET"
+    },
+    {
+      "name": "BulletDeceleration_AimStep",
+      "source": "src/game/bullet/fun_00407a30_00407a30.cpp",
+      "symbol": "?AimStep@BulletDeceleration@@QAEXXZ",
+      "address": "0x00407A30",
+      "size": 431,
+      "section": ".text$01haim",
+      "actual_abi": "this in ESI; plain RET"
+    },
+    {
+      "name": "BulletDeceleration_Bounce",
+      "source": "src/game/bullet/fun_00407be0_00407be0.cpp",
+      "symbol": "?Bounce@BulletDeceleration@@QAEXXZ",
+      "address": "0x00407BE0",
+      "size": 446,
+      "section": ".text$01jbounce",
+      "actual_abi": "this in ESI; plain RET"
+    },
+    {
+      "name": "ProjectileDeceleration_Update",
+      "source": "src/game/laser/laser_line_decelerate.cpp",
+      "symbol": "?Motion0040@LineLaser@@QAEXXZ",
+      "section": ".text$03deceleration",
+      "address": "0x0041D170",
+      "size": 329,
+      "actual_abi": "ECX this"
+    },
+    {
+      "name": "SoundQueue_Queue",
+      "source": "src/core/sound/animation_manager_queue_resource_0043dc90.cpp",
+      "symbol": "?Queue@SoundQueue@@QAEHHH@Z",
+      "section": ".text$05queue",
+      "address": "0x0043DC90",
+      "size": 123,
+      "actual_abi": "ECX this; EDI sound_id; request on stack; RET 4"
+    },
+    {
+      "name": "SoundQueue_QueuePan",
+      "source": "src/core/sound/sound_queue_pan_0043dd10.cpp",
+      "symbol": "?QueuePan@SoundQueue@@QAEXHM@Z",
+      "address": "0x0043DD10",
+      "size": 149,
+      "section": ".text$05rpan",
+      "actual_abi": "this ESI; sound_id EBX; pan stack; RET4"
+    }
+  ],
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 26496
+    },
+    {
+      "section": ".text$01clayout",
+      "address": "0x004078D2",
+      "size": 350
+    },
+    {
+      "section": ".text$01ilayout",
+      "address": "0x00407BDF",
+      "size": 1
+    },
+    {
+      "section": ".text$04layout",
+      "address": "0x0041D2B9",
+      "size": 133591
+    },
+    {
+      "section": ".text$05queuezlayout",
+      "address": "0x0043DD0B",
+      "size": 5
+    },
+    {
+      "section": ".rdata",
+      "address": "0x0043E000",
+      "size": 207612
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x00407D9E",
+      "size": 86994
+    },
+    {
+      "section": ".text$06blayout",
+      "address": "0x0043DDA5",
+      "size": 11
+    }
+  ],
+  "constants": [
+    {
+      "symbol": "__real@3f800000",
+      "address": "0x00470AFC",
+      "value": 1.0
+    }
+  ],
+  "absolute_symbols": [
+    {
+      "symbol": "_data_004749ce",
+      "address": "0x004749CE",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00492590",
+      "address": "0x00492590",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00470b68",
+      "address": "0x00470B68",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00470b64",
+      "address": "0x00470B64",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00476f78",
+      "address": "0x00476F78",
+      "kind": "data"
+    },
+    {
+      "symbol": "?SetPolar@DecelerationVector2@@QAEXMM@Z",
+      "address": "0x0041F800",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__ftol2",
+      "address": "0x00463B2C",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__fltused",
+      "address": "0x00000000",
+      "kind": "metadata"
+    },
+    {
+      "symbol": "?SetPolar@BulletDecelerationVector2@@QAEXMM@Z",
+      "address": "0x00408750",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_g_player",
+      "address": "0x00477834",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00470b04",
+      "address": "0x00470B04",
+      "kind": "data"
+    },
+    {
+      "symbol": "?Angle_NormalizeSum@@YGMMM@Z",
+      "address": "0x0044BC10",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_00470b40",
+      "address": "0x00470B40",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00470b3c",
+      "address": "0x00470B3C",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00470b38",
+      "address": "0x00470B38",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00470b18",
+      "address": "0x00470B18",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00470b58",
+      "address": "0x00470B58",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00470b54",
+      "address": "0x00470B54",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00470b50",
+      "address": "0x00470B50",
+      "kind": "data"
+    }
+  ],
+  "roots": [
+    "?Motion0040@LineLaser@@QAEXXZ"
+  ],
+  "driver": "build_support/layout/ltcg/sound_queue_pan_context.cpp",
+  "context": {
+    "symbol": "?SoundQueueMotionContext@@YGHPAPAUBulletDeceleration@@H@Z",
+    "address": "0x0043DDB0",
+    "size": 76,
+    "section": ".text$07context",
+    "description": "Synthetic pointer-array caller retains ESI motion receiver; not selected as game code"
+  },
+  "constant_aliases": [
+    {
+      "symbol": "__real@40a6aaab",
+      "address": "0x00470B20",
+      "value": 5.208333492279053
+    }
+  ],
+  "included_sources": []
+}

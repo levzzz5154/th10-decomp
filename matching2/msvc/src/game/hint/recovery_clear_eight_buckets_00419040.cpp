@@ -3,7 +3,7 @@
 //
 // The region is entered by the game's internal EAX convention rather than by
 // the ordinary MSVC thiscall ABI.  The native-LTCG cluster in
-// layout/ltcg/recovery_clear_eight_buckets_00419040.json supplies that
+// build_support/layout/ltcg/recovery_clear_eight_buckets_00419040.json supplies that
 // convention while keeping the recovered operation readable.
 
 extern "C" void __cdecl entry_free_004524a1(void* memory);   // 0x004524A1

@@ -7,7 +7,7 @@
 // which retail's callers never write because this lookup never reads its own
 // receiver.  Both shapes are what the retail callers and the StopAtFrame pair
 // require, so this unit is compiled as a cluster
-// (layout/ltcg/stop_at_frame_pair_0040c480.json).
+// (build_support/layout/ltcg/stop_at_frame_pair_0040c480.json).
 
 // One node of a lookup bucket; the object it registers carries its script id
 // in its first word.

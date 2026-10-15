@@ -8,7 +8,7 @@
 // 0x00491C28 into ESI and zeroes EBX - and 0x00421480 reads its record from
 // EDI.  Those are whole-program register choices, so both the body and its
 // callee are compiled in the native-LTCG cluster
-// layout/ltcg/anm_batch_flush_00442f50.json; the callee is now the recovered
+// build_support/layout/ltcg/anm_batch_flush_00442f50.json; the callee is now the recovered
 // member, so no ABI anchor stands in for it.
 #include "th10/render/camera_batch.hpp"
 

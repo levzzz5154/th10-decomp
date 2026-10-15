@@ -79,6 +79,7 @@ def match_symbols(regions, defined):
     return mapping
 
 
+from matching2.tools.common.project_paths import project_support
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--project", type=Path, default=DEFAULT_PROJECT)
@@ -87,7 +88,7 @@ def main():
     parser.add_argument("--apply", action="store_true")
     args = parser.parse_args()
     project = args.project.resolve()
-    manifest_path = project / "regions.json"
+    manifest_path = project_support(project, 'regions.json')
     manifest = json.loads(manifest_path.read_text())
     by_source = defaultdict(list)
     for region in manifest["regions"]:

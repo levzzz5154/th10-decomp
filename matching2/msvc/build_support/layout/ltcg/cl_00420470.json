@@ -1,0 +1,146 @@
+{
+  "schema_version": 1,
+  "name": "cl_00420470",
+  "source": "src/game/mother/app_register_tasks_00420470.cpp",
+  "driver": "build_support/layout/ltcg/cl_00420470_context.cpp",
+  "headers": [
+    "include/th10/core/func_ctrl.hpp",
+    "include/th10/platform/thread_sync.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "FuncCtrl task installer compiled with native LTCG against the full scheduler registration anchors.",
+  "functions": [
+    {
+      "name": "App_RegisterTasks_00420470_00420470",
+      "symbol": "_App_RegisterTasks_00420470@0",
+      "section": ".text$00fn",
+      "address": "0x00420470",
+      "size": 204,
+      "actual_abi": "no arguments; plain RET",
+      "source": "src/game/mother/app_register_tasks_00420470.cpp"
+    }
+  ],
+  "anchors": [
+    {
+      "name": "FuncCtrl_RegisterPrimary",
+      "symbol": "_FuncCtrl_RegisterPrimary@12",
+      "section": ".text$10primary",
+      "address": "0x00449AE0",
+      "size": 131
+    },
+    {
+      "name": "FuncCtrl_RegisterSecondary",
+      "symbol": "_FuncCtrl_RegisterSecondary@12",
+      "section": ".text$12secondary",
+      "address": "0x00449B70",
+      "size": 131
+    }
+  ],
+  "context": {
+    "symbol": "?AppRegisterTasksContext_00420470@@YGHH@Z",
+    "section": ".text$30context",
+    "address": "0x00449C00",
+    "size": 33,
+    "description": "Synthetic array-walking caller; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00alayout",
+      "address": "0x00401000",
+      "size": 128112
+    },
+    {
+      "section": ".text$01layout",
+      "address": "0x0042053C",
+      "size": 169380
+    },
+    {
+      "section": ".text$11layout",
+      "address": "0x00449B63",
+      "size": 13
+    },
+    {
+      "section": ".text$13layout",
+      "address": "0x00449BF3",
+      "size": 13
+    }
+  ],
+  "constants": [],
+  "constant_aliases": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_SchedulerCallback_Create_00449ed0@4",
+      "address": "0x00449ED0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_g_func_ctrl",
+      "address": "0x00491BE4",
+      "kind": "data"
+    },
+    {
+      "symbol": "?g_thread_synchronization@@3UThreadSynchronization@@A",
+      "address": "0x00492274",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__EnterCriticalSection@4",
+      "address": "0x004660B0",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__LeaveCriticalSection@4",
+      "address": "0x004660B4",
+      "kind": "data"
+    },
+    {
+      "symbol": "@AppUpdate_0041ff80@4",
+      "address": "0x0041FF80",
+      "kind": "data"
+    },
+    {
+      "symbol": "@AppDraw_00420000@4",
+      "address": "0x00420000",
+      "kind": "data"
+    },
+    {
+      "symbol": "@AppPresent_004200c0@4",
+      "address": "0x004200C0",
+      "kind": "data"
+    },
+    {
+      "symbol": "@AppFlush_004200d0@4",
+      "address": "0x004200D0",
+      "kind": "data"
+    },
+    {
+      "symbol": "@AppOnRegister_004201b0@4",
+      "address": "0x004201B0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491c28",
+      "address": "0x00491C28",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491fb4",
+      "address": "0x00491FB4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491fb8",
+      "address": "0x00491FB8",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491fc0",
+      "address": "0x00491FC0",
+      "kind": "data"
+    }
+  ],
+  "included_sources": [
+    "build_support/layout/ltcg/scheduler_register_anchors.cpp"
+  ],
+  "roots": []
+}

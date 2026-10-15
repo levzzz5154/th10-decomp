@@ -21,7 +21,8 @@ import tempfile
 
 from matching2.tools.common.pe import PEImage
 
-MANIFEST = ROOT / "matching2/msvc/regions.json"
+from matching2.tools.common.project_paths import project_support
+MANIFEST = project_support((ROOT) / 'matching2/msvc', 'regions.json')
 ORACLE = ROOT / "matching2/build/oracle/th10.exe"
 OPERAND = re.compile(r"0x([0-9a-f]+)")
 

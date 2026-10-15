@@ -2,7 +2,7 @@
 //
 // Retail addresses the list through EAX and returns without touching the stack,
 // a convention MSVC only chooses during a native /GL link, so the body is
-// compiled as a cluster (layout/ltcg/d3d_resource_list_clear_pending_00449a90.json).
+// compiled as a cluster (build_support/layout/ltcg/d3d_resource_list_clear_pending_00449a90.json).
 
 struct D3DResourceList_ClearPending_00449a90 {
     unsigned char pad_000[8];

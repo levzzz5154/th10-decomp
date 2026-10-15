@@ -12,7 +12,7 @@
 //
 // The room arrives in EBX from the title dispatcher (0x0042CDF0); that private
 // convention needs the dispatcher and the real bodies of the leaves in one
-// whole-program link (layout/ltcg/key_config_update_0042f540.json).
+// whole-program link (build_support/layout/ltcg/key_config_update_0042f540.json).
 //
 // Shapes that are load-bearing (each measured against the image):
 //

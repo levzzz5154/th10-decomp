@@ -113,6 +113,7 @@ def record_of(manifest, address):
     raise SystemExit(f'no region at {address:#x}')
 
 
+from matching2.tools.common.project_paths import project_support
 def main():
     parser = argparse.ArgumentParser(description=__doc__,
                                      formatter_class=argparse.RawDescriptionHelpFormatter)
@@ -128,11 +129,11 @@ def main():
     args = parser.parse_args()
 
     scratch = args.scratch.resolve()
-    if not (scratch / 'regions.json').exists():
+    if not (project_support(scratch, 'regions.json')).exists():
         raise SystemExit(f'{scratch} is not a project copy (no regions.json)')
 
-    scratch_manifest = load(scratch / 'regions.json')
-    maintained_path = MAINTAINED / 'regions.json'
+    scratch_manifest = load(project_support(scratch, 'regions.json'))
+    maintained_path = project_support(MAINTAINED, 'regions.json')
     maintained = load(maintained_path)
 
     source = record_of(scratch_manifest, args.address)
@@ -155,7 +156,7 @@ def main():
         if rel not in maintained_clusters:
             layouts.append(rel)
     # A layout already registered may still have grown a function (merge pattern).
-    for candidate in sorted((scratch / 'layout/ltcg').glob('*.json')):
+    for candidate in sorted((project_support(scratch, 'layout/ltcg')).glob('*.json')):
         rel = str(candidate.relative_to(scratch))
         if rel in maintained_clusters:
             layout = load(candidate)
@@ -207,7 +208,7 @@ def main():
     probes = {'passed': False, 'status': 'not_run', 'cluster_count': 0, 'clusters': []}
     applied = False
     problem = ''
-    with open(MAINTAINED / 'regions.json.lock', 'w') as lock:
+    with open(project_support(MAINTAINED, 'regions.json').with_name('regions.json.lock'), 'w') as lock:
         fcntl.flock(lock, fcntl.LOCK_EX)
         current_manifest = load(maintained_path)
         current_clusters = set(current_manifest.get('ltcg_clusters') or [])
@@ -230,7 +231,7 @@ def main():
                     merged = merge_layout(load(MAINTAINED / rel), load(scratch / rel))
                     (staged / rel).write_text(json.dumps(merged, indent=2) + '\n')
 
-            staged_manifest_path = staged / 'regions.json'
+            staged_manifest_path = project_support(staged, 'regions.json')
             staged_manifest = load(staged_manifest_path)
             staged_record = record_of(staged_manifest, args.address)
             staged_record.clear()

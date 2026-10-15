@@ -1,7 +1,7 @@
 // 0x0044DAD0, complete 213-byte restart. Native LTCG passes the stream in
 // EDI and emits plain RET; the exported spelling records the source prototype.
 #include "th10/game/sound_start_context.hpp"
-#include "../../../layout/ltcg/sound_restart_dependencies/sound_wave_types.hpp"
+#include "../../../build_support/layout/ltcg/sound_restart_dependencies/sound_wave_types.hpp"
 
 typedef unsigned int (__stdcall* RestartSeekFile)(void*, int, int*, unsigned int);
 extern "C" {

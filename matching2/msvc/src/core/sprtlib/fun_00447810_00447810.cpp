@@ -7,7 +7,7 @@
 // prototype names, and no MSVC convention puts an argument in EAX.  Both are
 // choices of the native /LTCG pass, so this model lives in the same
 // whole-program link as that helper: the merged
-// layout/ltcg/animation_manager_mark_resource_for_removal_004493e0.json
+// build_support/layout/ltcg/animation_manager_mark_resource_for_removal_004493e0.json
 // cluster, whose driver carries the synthetic caller that establishes the
 // record in EDI.
 //

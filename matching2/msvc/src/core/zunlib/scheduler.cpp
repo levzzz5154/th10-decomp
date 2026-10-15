@@ -1,7 +1,7 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+#include "../../../build_support/include/asm_encoding.hpp"
+#include "../../../build_support/include/asm_symbols.hpp"
 
-// 0x00420C00: recovered in src/game/music_requests_00420a90.cpp.
+// 0x00420C00: recovered in build_support/layout/units/music_requests_0b68f8.cpp.
 
 // 0x00421F60: recovered in src/game/mother/game_state_update_frame_maximum_00421f60.cpp.
 

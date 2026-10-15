@@ -1,4 +1,4 @@
-#include "../../../layout/ltcg/player_state_collision_runtime/collision.hpp"
+#include "../../../build_support/layout/ltcg/player_state_collision_runtime/collision.hpp"
 
 // 0x00408030: start a live record's vanish.
 //
@@ -35,7 +35,7 @@ int PlayerCollisionRecord::Activate() {
 }
 #pragma code_seg()
 
-#include "../../../layout/ltcg/player_state_collision_runtime/item_spawn.hpp"
+#include "../../../build_support/layout/ltcg/player_state_collision_runtime/item_spawn.hpp"
 extern "C" void _ReadWriteBarrier();
 #pragma intrinsic(_ReadWriteBarrier)
 

@@ -134,6 +134,18 @@ def extract_library_unit(toolkit, output, index, source):
     return {'source': source, 'object': str(obj), 'command': None, 'member_sha256': sha(blob)}
 
 
+def compilation_source(project, source, config):
+    """Resolve the private compiler wrapper without changing maintained ownership."""
+    units = config.get('compilation_units', {})
+    if not isinstance(units, dict) or any(not isinstance(k, str) or not isinstance(v, str)
+                                          for k, v in units.items()):
+        raise ValueError('compilation_units must map sources to project C++ files')
+    path = (project / units.get(source, source)).resolve()
+    if not path.is_relative_to(project) or path.suffix != '.cpp' or not path.is_file():
+        raise ValueError('compiler translation unit must be a project C++ source: ' + str(path))
+    return path
+
+
 def compile_raw(project, toolkit, output, index, source, config, *, compiler_profiles=None):
     """Compile one maintained source to a raw COFF object without selecting regions."""
     profiles = (validate_source_compilers(project, config) if compiler_profiles is None
@@ -146,7 +158,7 @@ def compile_raw(project, toolkit, output, index, source, config, *, compiler_pro
         raise ValueError('unsupported compiler profile kind: ' + profiles[source]['kind'])
     if is_library_source(source):
         return extract_library_unit(toolkit, output, index, source)
-    source_path = (project / source).resolve()
+    source_path = compilation_source(project, source, config)
     if not source_path.is_relative_to(project) or source_path.suffix != '.cpp':
         raise ValueError('translation unit must be a project C++ source: ' + source)
     objects, logs = output / 'objects', output / 'logs'
@@ -160,7 +172,7 @@ def compile_raw(project, toolkit, output, index, source, config, *, compiler_pro
     command = ['wine', str(compiler), *config['flags'],
                *config.get('source_flags', {}).get(source, []),
                '/I' + win_project + '\\include',
-               '/Fo' + win_objects + '\\' + obj.name, win_project + '\\' + source.replace('/', '\\')]
+               '/Fo' + win_objects + '\\' + obj.name, winpath(source_path)]
     result = subprocess.run(command, env=env, cwd=output, capture_output=True, text=True, timeout=180)
     (logs / f'unit{index:04d}.log').write_text(result.stdout + result.stderr)
     if result.returncode:
@@ -252,11 +264,11 @@ class UnitCache:
         if cluster is not None:
             roots = [cluster['path'], *cluster['source_paths'], *cluster['included_source_paths'],
                      *cluster['header_paths'], *cluster['additional_source_paths'],
-                     *cluster.get('ordinary_source_paths', [])]
+                     *cluster.get('ordinary_source_paths', []), *cluster.get('compilation_paths', [])]
             if cluster['driver_path']:
                 roots.append(cluster['driver_path'])
         else:
-            roots = [self.project / source]
+            roots = [self.project / source, compilation_source(self.project, source, config)]
         files = set()
         for root in roots:
             root = Path(root).resolve()
@@ -299,7 +311,9 @@ def compile_unit_cached(cache, project, toolkit, output, config, by_source, clus
     if cache is None or is_library_source(source) or source in compiler_profiles:
         return compile_unit(project, toolkit, output, config, by_source, cluster_by_source, index,
                             source, compiler_profiles), False
-    key = cache.key(source, config, by_source[source], cluster_by_source.get(source), None)
+    cluster = cluster_by_source.get(source)
+    owned_regions = cluster['regions'] if cluster else by_source[source]
+    key = cache.key(source, config, owned_regions, cluster, None)
     result = cache.load(key)
     if result is not None:
         return result, True
@@ -308,6 +322,7 @@ def compile_unit_cached(cache, project, toolkit, output, config, by_source, clus
     return cache.store(key, result), False
 
 
+from matching2.tools.common.project_paths import project_support
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--project', type=Path, default=DEFAULT_PROJECT)
@@ -326,14 +341,15 @@ def main():
     output.mkdir(parents=True, exist_ok=True)
     for name in ('th10.exe', 'port-report.json', 'text.bin', 'report.json', 'linked.exe'):
         (output / name).unlink(missing_ok=True)
-    config = json.loads((project / 'regions.json').read_text())
-    reference = json.loads((project / 'pe_layout.json').read_text())['reference']
+    config = json.loads((project_support(project, 'regions.json')).read_text())
+    reference = json.loads((project_support(project, 'pe_layout.json')).read_text())['reference']
     regions, units = validate_project(config, reference)
     clusters = load_clusters(project, config, regions)
     compiler_profiles = validate_source_compilers(project, config, clusters)
     cluster_by_source = {source: cluster for cluster in clusters for source in cluster['source_names']}
     cluster_additional_sources = {
-        source for cluster in clusters for source in cluster['additional_sources']
+        source for cluster in clusters
+        for source in [*cluster['additional_sources'], *cluster.get('owned_includes', {})]
     }
     dos_regions = config['dos_regions']
     dos_units = sorted({region['source'] for region in dos_regions})
@@ -406,7 +422,7 @@ def main():
             raise ValueError('DOS payload must have no relocations')
         _, payload, _ = read_coff_function(item['object'], region['symbol'])
         dos_code.extend(payload)
-    package = build_image(project / 'pe_layout.json', packed, output / 'th10.exe',
+    package = build_image(project_support(project, 'pe_layout.json'), packed, output / 'th10.exe',
                           args.verify.resolve() if args.verify else None, dos_code=bytes(dos_code),
                           exact=packed == output / 'text.bin')
     summary = summarize(regions, config.get('equivalent_recoveries', ()))

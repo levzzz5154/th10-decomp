@@ -7,7 +7,7 @@
 // into the +0x0C vector and the state word at +0x14 is cleared.
 //
 // The record arrives in ESI, a receiver no C++ declaration names, so the body
-// is compiled in the native-LTCG cluster layout/ltcg/polar_update_0044c260.json
+// is compiled in the native-LTCG cluster build_support/layout/ltcg/polar_update_0044c260.json
 // whose array-walking synthetic caller establishes that convention. Both
 // callees keep the conventions a declaration already names: 0x0044C5D0 is a
 // __fastcall reached with its destination pointer in ECX and the two floats on

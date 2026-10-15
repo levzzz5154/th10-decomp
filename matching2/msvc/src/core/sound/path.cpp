@@ -1,5 +1,5 @@
 #include <string.h>
-#include "asm_encoding.hpp"
+#include "../../../build_support/include/asm_encoding.hpp"
 
 // Retail strrchr at 0x00452930 (cdecl: string, character).
 extern "C" char* __cdecl asm_strrchr_00452930(const char* text, int character);

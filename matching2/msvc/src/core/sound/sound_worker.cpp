@@ -14,7 +14,7 @@
 //               loops, then CloseHandle on both and clear the handles.
 //
 // The body is compiled in the native LTCG cluster of
-// layout/ltcg/sound_worker.json, whose synthetic caller keeps the object
+// build_support/layout/ltcg/sound_worker.json, whose synthetic caller keeps the object
 // pointer live in ESI across both wait loops.
 
 typedef void* HANDLE;

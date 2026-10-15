@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "name": "platform_resource_destroy",
+  "source": "src/game/replay/platform_deleting_destructor_with_release_004297b0.cpp",
+  "driver": "build_support/layout/ltcg/platform_resource_destroy_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "Native-LTCG cluster recovering the platform-resource teardown whose pointer lives in ESI across resource release and operator delete.",
+  "functions": [
+    {
+      "name": "PlatformResource_Destroy",
+      "symbol": "?PlatformResource_Destroy@@YGXPAUPlatformResource@@@Z",
+      "section": ".text$01destroy",
+      "address": "0x004297B0",
+      "size": 18,
+      "actual_abi": "resource pointer in ESI (live across both calls); plain RET"
+    }
+  ],
+  "context": {
+    "symbol": "?PlatformResourceDestroyCompilerContext@@YGHPAPAUPlatformResource@@H@Z",
+    "section": ".text$03context",
+    "address": "0x004297D0",
+    "size": 53,
+    "description": "Synthetic caller that establishes the observed register convention; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 165808
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x004297C2",
+      "size": 14
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_Platform_ReleaseResources@4",
+      "address": "0x004294A0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "??3@YAXPAX@Z",
+      "address": "0x004524A1",
+      "kind": "relative_code"
+    }
+  ],
+  "included_sources": []
+}

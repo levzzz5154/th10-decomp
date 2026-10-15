@@ -1,0 +1,180 @@
+{
+  "schema_version": 1,
+  "name": "resource_load",
+  "source": "src/pack/file/resource_load_00435800.cpp",
+  "driver": "build_support/layout/ltcg/resource_load_context.cpp",
+  "included_sources": [
+    "build_support/layout/ltcg/resource_load_lifetime.cpp",
+    "build_support/layout/ltcg/resource_load_buffer_caller.cpp"
+  ],
+  "headers": [
+    "include/th10/archive/dat_archive_types.hpp",
+    "include/th10/platform/file.hpp",
+    "include/th10/platform/windows_types.hpp",
+    "include/th10/platform/memory_file.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Full normal resource Load and compiler-generated cleanup/handler, using a complete explicit FileHandle lifetime layout and the full genuine BufferFile::Open caller. Native LTCG derives path ECX, optional output stack, RET 4; every original byte is checked. The already-semantic destructor and caller remain unselected anchors.",
+  "exceptions": true,
+  "roots": [],
+  "functions": [
+    {
+      "name": "ResourceLoad",
+      "symbol": "?ResourceLoadRetail@@YGPAEPBDPAE@Z",
+      "section": ".text$09load",
+      "address": "0x00435800",
+      "size": 214,
+      "actual_abi": "path ECX; optional output [ESP+4]; result EAX; RET 4"
+    },
+    {
+      "name": "ResourceLoadUnwind",
+      "symbol": "_ResourceLoadUnwind_004653a0",
+      "section": ".text$x",
+      "address": "0x004653A0",
+      "size": 8,
+      "actual_abi": "frame EBP; stack FileHandle at EBP-18h",
+      "generated": true,
+      "native_symbol_pattern": "\\$L[0-9]+"
+    },
+    {
+      "name": "ResourceLoadExceptionHandler",
+      "symbol": "__ehhandler$?ResourceLoadRetail@@YGPAEPBDPAE@Z",
+      "section": ".text$x",
+      "address": "0x004653A8",
+      "size": 10,
+      "actual_abi": "compiler C++ exception handler",
+      "generated": true
+    }
+  ],
+  "anchors": [
+    {
+      "name": "FileDestructor",
+      "symbol": "??1FileHandleOwner@@QAE@XZ",
+      "section": ".text$03dtor",
+      "address": "0x435340",
+      "size": 46
+    },
+    {
+      "name": "BufferFileOpen",
+      "symbol": "?Open@BufferFile@@UAEEPBD0@Z",
+      "section": ".text$13buffer",
+      "address": "0x00436400",
+      "size": 46
+    }
+  ],
+  "context": {
+    "symbol": "_ResourceLoadContext@8",
+    "section": ".text$11context",
+    "address": "0x004359b0",
+    "size": 19,
+    "description": "Unselected ordinary caller retaining the genuine BufferFile::Open function; no context bytes count as recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 213824
+    },
+    {
+      "section": ".text$08layout",
+      "address": "0x0043536E",
+      "size": 1170
+    },
+    {
+      "section": ".text$10layout",
+      "address": "0x004358D6",
+      "size": 218
+    },
+    {
+      "section": ".text$12layout",
+      "address": "0x004359C3",
+      "size": 2621
+    },
+    {
+      "section": ".text$14layout",
+      "address": "0x0043642E",
+      "size": 192370
+    },
+    {
+      "section": ".rdata$00layout",
+      "address": "0x00466000",
+      "size": 46216
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "___CxxFrameHandler",
+      "address": "0x46276d",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__except_list",
+      "address": "0x0",
+      "kind": "metadata"
+    },
+    {
+      "symbol": "_FirstByteSearch_00452730",
+      "address": "0x452730",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?Find@ArchiveName_004356f0@@QBEPBUArchiveEntry_004356f0@@XZ",
+      "address": "0x4356f0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?Open@FileHandleOwner@@QAEEPBD0@Z",
+      "address": "0x435370",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_00474908",
+      "address": "0x474908",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__GetFileSize@8",
+      "address": "0x4660d8",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__CloseHandle@4",
+      "address": "0x4660cc",
+      "kind": "data"
+    },
+    {
+      "symbol": "?Read@ArchiveResourceName@@QBEPAEPAUDatArchive@@PAE@Z",
+      "address": "0x00434DD0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?ReadWhole@FileHandleOwner@@QAEPAXI@Z",
+      "address": "0x00435580",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_file_handle_vtable",
+      "address": "0x0046F230",
+      "kind": "data"
+    },
+    {
+      "symbol": "_file_interface_vtable",
+      "address": "0x0046F210",
+      "kind": "data"
+    },
+    {
+      "symbol": "?GetFileSize@ResourcePath@@QBEIXZ",
+      "address": "0x004358E0",
+      "kind": "relative_code"
+    }
+  ],
+  "native_data": [
+    {
+      "section": ".xdata$x",
+      "address": "0x00471488",
+      "bytes": "ffffffffa053460020059319010000008814470000000000000000000000000000000000",
+      "description": "Native unwind map and FuncInfo for complete Load."
+    }
+  ]
+}

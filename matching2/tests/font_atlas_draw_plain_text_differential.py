@@ -120,13 +120,14 @@ class Execution:
         return self.trace
 
 
+from matching2.tools.common.project_paths import project_support
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--project', type=Path, default=ROOT / 'matching2/msvc')
     parser.add_argument('--oracle', type=Path, default=ROOT / 'matching2/build/oracle/th10.exe')
     args = parser.parse_args()
     project = args.project.resolve()
-    config = load_manifest(project / 'regions.json')
+    config = load_manifest(project_support(project, 'regions.json'))
     text = load_oracle(args.oracle, config)
     recovery, = [r for r in load_recoveries(project, config, config['regions'])
                  if r['name'] == 'font_atlas_draw_text_00437fe0']

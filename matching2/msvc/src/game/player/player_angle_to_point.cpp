@@ -1,6 +1,6 @@
 // 0x00426610: the angle from the player to a point, or the default angle
 // when the point is exactly 0,0 away.
-#include "../../../layout/ltcg/player_state_collision_runtime/player_state.hpp"
+#include "../../../build_support/layout/ltcg/player_state_collision_runtime/player_state.hpp"
 #pragma intrinsic(atan2)
 
 extern "C" const float data_00470b04, data_00470b94;

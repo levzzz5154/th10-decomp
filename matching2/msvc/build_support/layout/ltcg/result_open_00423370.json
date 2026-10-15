@@ -1,0 +1,865 @@
+{
+  "schema_version": 1,
+  "name": "result_open_00423370",
+  "source": "src/game/pause/result_menu_open.cpp",
+  "driver": "build_support/layout/ltcg/result_open_00423370_context.cpp",
+  "headers": [
+    "include/th10/game/pause_result_open_004231d0/descriptor.hpp",
+    "include/th10/game/pause_result_open_004231d0/dispatcher_contract.hpp",
+    "include/th10/game/pause_result_open_004231d0/music.hpp",
+    "include/th10/game/pause_result_open_004231d0/open_animation.hpp",
+    "include/th10/game/pause_result_open_004231d0/open_state.hpp",
+    "include/th10/game/entity.hpp",
+    "include/th10/game/recovery_mark_text_and_dispatcher_004479d0.hpp",
+    "include/th10/core/screen.hpp",
+    "include/th10/core/func_ctrl.hpp",
+    "include/th10/game/score.hpp",
+    "include/th10/math/timer.hpp",
+    "include/th10/platform/sound_queue.hpp",
+    "include/th10/platform/thread_sync.hpp",
+    "include/th10/render/animation_object_0043e5a0.hpp",
+    "include/th10/render/resource_registrar_0043e460.hpp",
+    "include/th10/types.hpp",
+    "include/th10/game/player.hpp"
+  ],
+  "included_sources": [
+    "build_support/layout/ltcg/result_open_00423370/allocate.cpp",
+    "build_support/layout/ltcg/result_open_00423370/descriptor.cpp",
+    "build_support/layout/ltcg/result_open_00423370/dispatcher_animation_helpers.cpp",
+    "build_support/layout/ltcg/result_open_00423370/dispatcher_handle_helpers.cpp",
+    "build_support/layout/ltcg/result_open_00423370/dispatcher_input_mode.cpp",
+    "build_support/layout/ltcg/result_open_00423370/entity_init.cpp",
+    "build_support/layout/ltcg/result_open_00423370/find.cpp",
+    "build_support/layout/ltcg/result_open_00423370/music.cpp",
+    "build_support/layout/ltcg/result_open_00423370/registrar.cpp",
+    "build_support/layout/ltcg/result_open_00423370/result_dispatcher.cpp",
+    "build_support/layout/ltcg/result_open_00423370/secondary_back.cpp",
+    "build_support/layout/ltcg/result_open_00423370/runtime_selector_0043c970_scheduler_create.cpp",
+    "build_support/layout/ltcg/result_open_00423370/animation_object_configure_from_resource_0043e5a0.cpp",
+    "build_support/layout/ltcg/result_open_00423370/ascii_manager_create_retail_0043c8b0.cpp",
+    "build_support/layout/ltcg/result_open_00423370/fun_0043c970_0043c970.cpp",
+    "build_support/layout/ltcg/result_open_00423370/recovery_mark_text_and_dispatcher_004479d0.cpp",
+    "build_support/layout/ltcg/result_open_00423370/scheduler_tasks.cpp",
+    "build_support/layout/ltcg/result_open_00423370/score_bookkeeping.cpp",
+    "build_support/layout/ltcg/result_open_00423370/frame_timer.cpp",
+    "build_support/layout/ltcg/result_open_00423370/path_decode_xor_00417010.cpp",
+    "build_support/layout/ltcg/result_open_00423370/animation_manager_queue_resource_0043dc90.cpp"
+  ],
+  "image_base": "0x400000",
+  "description": "Full 411-byte ResultOpen through its complete genuine command dispatcher and ordinary private helper graph. Only ResultOpen is recovered; all full native contexts/helpers remain unselected.",
+  "functions": [
+    {
+      "name": "ResultOpen",
+      "symbol": "?OpenResult@PauseOpenState@@QAEXXZ",
+      "section": ".text$00423370_fn",
+      "address": "0x423370",
+      "size": 411,
+      "actual_abi": "One real menu-state receiver in EDI, no incoming ECX input, plain RET. Derived through complete genuine public ResultDispatcher one-stack-state-pointer RET4 context."
+    }
+  ],
+  "context": {
+    "symbol": "_ResultDispatcher_00415e90@4",
+    "section": ".text$00415e90_fn",
+    "address": "0x00415E90",
+    "size": 2820,
+    "description": "Complete genuine public stdcall one-state-pointer dispatcher. Retail owner includes dispatch tables; native complete contribution size must be measured adaptively. Zero credit."
+  },
+  "roots": [],
+  "anchors": [
+    {
+      "name": "Init",
+      "symbol": "?Entity_Init@@YGXPAUEntity@@@Z",
+      "section": ".text$00401de0_fn",
+      "address": "0x401de0",
+      "size": 273
+    },
+    {
+      "name": "Music",
+      "symbol": "?Music_Load@@YGHHPBD@Z",
+      "section": ".text$00420a90_fn",
+      "address": "0x420a90",
+      "size": 120
+    },
+    {
+      "name": "Descriptor",
+      "symbol": "?BindToAnimation@SpriteRegion_00424480@@QAEHUAnimationHandle_00424480@@HHHH@Z",
+      "section": ".text$00424480_fn",
+      "address": "0x424480",
+      "size": 162
+    },
+    {
+      "name": "Registrar",
+      "symbol": "?RegisterResource@AnimationManager_0043e460@@QAEPADPBDHH@Z",
+      "section": ".text$0043e460_fn",
+      "address": "0x43e460",
+      "size": 104
+    },
+    {
+      "name": "Secondary",
+      "symbol": "?RegisterSecondaryBack@AnimationListsOpen@@QAE?AUAnimationScriptId@@PAUEntity@@@Z",
+      "section": ".text$00448ac0_fn",
+      "address": "0x448ac0",
+      "size": 117
+    },
+    {
+      "name": "Find",
+      "symbol": "?AnimationManager_Find_004491c0@@YIPAXPAUAnimationLookupContext@@UAnimationScriptId@@@Z",
+      "section": ".text$004491c0_fn",
+      "address": "0x4491c0",
+      "size": 73
+    },
+    {
+      "name": "Allocate",
+      "symbol": "?Allocate@AnimationPool@@QAEPAUEntity@@XZ",
+      "section": ".text$00449950_fn",
+      "address": "0x449950",
+      "size": 161
+    },
+    {
+      "name": "wait_set",
+      "symbol": "?SetSchedulerValue@DispatcherWaitTimer@@QAEXH@Z",
+      "section": ".text$00405410_fn",
+      "address": "0x00405410",
+      "size": 57
+    },
+    {
+      "name": "rank_advance",
+      "symbol": "?AdvanceLevel@DispatcherRankState@@QAEXXZ",
+      "section": ".text$004175e0_fn",
+      "address": "0x004175E0",
+      "size": 32
+    },
+    {
+      "name": "stop1",
+      "symbol": "?StopAtFrame1@DispatcherHandle@@QAEXXZ",
+      "section": ".text$00409e50_fn",
+      "address": "0x00409E50",
+      "size": 65
+    },
+    {
+      "name": "stop2",
+      "symbol": "?StopAtFrame2@DispatcherHandle@@QAEXXZ",
+      "section": ".text$0040c480_fn",
+      "address": "0x0040C480",
+      "size": 65
+    },
+    {
+      "name": "stop3",
+      "symbol": "?StopAtFrame3@DispatcherHandle@@QAEXXZ",
+      "section": ".text$0040c4d0_fn",
+      "address": "0x0040C4D0",
+      "size": 65
+    },
+    {
+      "name": "set_stop",
+      "symbol": "?SetStopFrame@DispatcherHandle@@QAEXF@Z",
+      "section": ".text$00449470_fn",
+      "address": "0x00449470",
+      "size": 65
+    },
+    {
+      "name": "child",
+      "symbol": "?FindChildRef@DispatcherHandle@@QAE?AUDispatcherRef@@H@Z",
+      "section": ".text$004497d0_fn",
+      "address": "0x004497D0",
+      "size": 70
+    },
+    {
+      "name": "current_sprite",
+      "symbol": "?SelectCurrentSprite@DispatcherRef@@QAEXH@Z",
+      "section": ".text$00449670_fn",
+      "address": "0x00449670",
+      "size": 36
+    },
+    {
+      "name": "resource_sprite",
+      "symbol": "?SelectResourceSprite@DispatcherRef@@QAEXPAUAnimationResource_00449870@@H@Z",
+      "section": ".text$004496a0_fn",
+      "address": "0x004496A0",
+      "size": 34
+    },
+    {
+      "name": "primary_back",
+      "symbol": "?RegisterPrimaryBack@DispatcherPrimaryLists@@QAE?AUDispatcherRef@@PAUEntity@@@Z",
+      "section": ".text$004489d0_fn",
+      "address": "0x004489D0",
+      "size": 117
+    },
+    {
+      "name": "create_primary_back",
+      "symbol": "?DispatcherCreateAnimation@@YG?AUDispatcherRef@@PAUAnimationResource_00449870@@HH@Z",
+      "section": ".text$00448d00_fn",
+      "address": "0x00448D00",
+      "size": 73
+    },
+    {
+      "name": "mark_removal",
+      "symbol": "?DispatcherRemoveAnimation@@YIPAXPAUAnimationLookupContext@@UAnimationScriptId@@@Z",
+      "section": ".text$004492a0_fn",
+      "address": "0x004492A0",
+      "size": 66
+    },
+    {
+      "name": "set_position",
+      "symbol": "?DispatcherSetPosition@@YGXPBUDispatcherVec3@@PAUAnimationLookupContext@@UAnimationScriptId@@@Z",
+      "section": ".text$004492f0_fn",
+      "address": "0x004492F0",
+      "size": 90
+    },
+    {
+      "name": "input_mode",
+      "symbol": "?SetInputMode@@YGXPAUDispatcherInputState@@H@Z",
+      "section": ".text$0040ac90_fn",
+      "address": "0x0040AC90",
+      "size": 37
+    },
+    {
+      "name": "FrameTimer_Tick",
+      "symbol": "?Tick@FrameTimer@@QAEXXZ",
+      "section": ".text$00404ed0_fn",
+      "address": "0x00404ED0",
+      "size": 72
+    },
+    {
+      "name": "FrameTimer_Advance",
+      "symbol": "?Advance@FrameTimer@@QAEXM@Z",
+      "section": ".text$0044bf40_fn",
+      "address": "0x0044BF40",
+      "size": 88
+    },
+    {
+      "name": "Path_DecodeXor",
+      "symbol": "?Path_DecodeXor@@YGPADPBD@Z",
+      "section": ".text$00417010_fn",
+      "address": "0x00417010",
+      "size": 41
+    },
+    {
+      "name": "ScoreState_AddScore",
+      "symbol": "?AddScore@ScoreState@@QAEXH@Z",
+      "section": ".text$00409d90_fn",
+      "address": "0x00409D90",
+      "size": 46
+    },
+    {
+      "name": "RecoveryDispatchText_004479d0",
+      "symbol": "?RecoveryDispatchText_004479d0@@YGXPAURecoveryTextResource_004479d0@@PAXHHIPBDH@Z",
+      "section": ".text$004479d0_fn",
+      "address": "0x004479D0",
+      "size": 127
+    },
+    {
+      "name": "RecoveryTextVm_00447a50::MarkText",
+      "symbol": "?MarkText@RecoveryTextVm_00447a50@@QAAXPAXZZ",
+      "section": ".text$00447a50_fn",
+      "address": "0x00447A50",
+      "size": 141
+    },
+    {
+      "name": "RuntimeSelector_Configure",
+      "symbol": "?Configure@Screen@@QAEXHHHHHH@Z",
+      "section": ".text$0043c970_fn",
+      "address": "0x0043C970",
+      "size": 396
+    },
+    {
+      "name": "Factory",
+      "symbol": "?Screen_Create@@YGPAUScreen@@HHHHHH@Z",
+      "section": ".text$0043c8b0_fn",
+      "address": "0x43c8b0",
+      "size": 82
+    },
+    {
+      "name": "PrimaryRegister",
+      "symbol": "_FuncCtrl_RegisterPrimary@12",
+      "section": ".text$00449ae0_fn",
+      "address": "0x449ae0",
+      "size": 131
+    },
+    {
+      "name": "SecondaryRegister",
+      "symbol": "_FuncCtrl_RegisterSecondary@12",
+      "section": ".text$00449b70_fn",
+      "address": "0x449b70",
+      "size": 131
+    },
+    {
+      "name": "PrimaryCreate",
+      "symbol": "?CreateEffectPrimary@@YGPAUSchedulerTask@@PAXH0@Z",
+      "section": ".text$0044a000_fn",
+      "address": "0x44a000",
+      "size": 43
+    },
+    {
+      "name": "SecondaryCreate",
+      "symbol": "?CreateEffectSecondary@@YGPAUSchedulerTask@@PAXH0@Z",
+      "section": ".text$0044a030_fn",
+      "address": "0x44a030",
+      "size": 43
+    },
+    {
+      "name": "semantic_SoundQueue_Queue_0043dc90",
+      "symbol": "?Queue@SoundQueue@@QAEHHH@Z",
+      "section": ".text$0043dc90_fn",
+      "address": "0x0043DC90",
+      "size": 123
+    },
+    {
+      "name": "semantic_AnimationObject_0043e5a0_ConfigureFromResource_0043e5a0",
+      "symbol": "?ConfigureObject@Resource_0043e5a0@@QAEHPAUAnimationObject_0043e5a0@@H@Z",
+      "section": ".text$0043e5a0_fn",
+      "address": "0x0043E5A0",
+      "size": 356
+    }
+  ],
+  "gaps": [
+    {
+      "section": ".text$00401de0_0gap",
+      "address": "0x401000",
+      "size": 3552
+    },
+    {
+      "section": ".text$00404ed0_0gap",
+      "address": "0x401ef1",
+      "size": 12255
+    },
+    {
+      "section": ".text$00405410_0gap",
+      "address": "0x404f18",
+      "size": 1272
+    },
+    {
+      "section": ".text$00409d90_0gap",
+      "address": "0x405449",
+      "size": 18759
+    },
+    {
+      "section": ".text$00409e50_0gap",
+      "address": "0x409dbe",
+      "size": 146
+    },
+    {
+      "section": ".text$0040ac90_0gap",
+      "address": "0x409e91",
+      "size": 3583
+    },
+    {
+      "section": ".text$0040c480_0gap",
+      "address": "0x40acb5",
+      "size": 6091
+    },
+    {
+      "section": ".text$0040c4d0_0gap",
+      "address": "0x40c4c1",
+      "size": 15
+    },
+    {
+      "section": ".text$00415e90_0gap",
+      "address": "0x40c511",
+      "size": 39295
+    },
+    {
+      "section": ".text$00417010_0gap",
+      "address": "0x416994",
+      "size": 1660
+    },
+    {
+      "section": ".text$004175e0_0gap",
+      "address": "0x417039",
+      "size": 1447
+    },
+    {
+      "section": ".text$00420a90_0gap",
+      "address": "0x417600",
+      "size": 38032
+    },
+    {
+      "section": ".text$00423370_0gap",
+      "address": "0x420b08",
+      "size": 10344
+    },
+    {
+      "section": ".text$00424480_0gap",
+      "address": "0x42350b",
+      "size": 3957
+    },
+    {
+      "section": ".text$0043c8b0_0gap",
+      "address": "0x424522",
+      "size": 99214
+    },
+    {
+      "section": ".text$0043c970_0gap",
+      "address": "0x43c902",
+      "size": 110
+    },
+    {
+      "section": ".text$0043dc90_0gap",
+      "address": "0x43cafc",
+      "size": 4500
+    },
+    {
+      "section": ".text$0043e460_0gap",
+      "address": "0x43dd0b",
+      "size": 1877
+    },
+    {
+      "section": ".text$0043e5a0_0gap",
+      "address": "0x43e4c8",
+      "size": 216
+    },
+    {
+      "section": ".text$004479d0_0gap",
+      "address": "0x43e704",
+      "size": 37580
+    },
+    {
+      "section": ".text$00447a50_0gap",
+      "address": "0x447a4f",
+      "size": 1
+    },
+    {
+      "section": ".text$004489d0_0gap",
+      "address": "0x447add",
+      "size": 3827
+    },
+    {
+      "section": ".text$00448ac0_0gap",
+      "address": "0x448a45",
+      "size": 123
+    },
+    {
+      "section": ".text$00448d00_0gap",
+      "address": "0x448b35",
+      "size": 459
+    },
+    {
+      "section": ".text$004491c0_0gap",
+      "address": "0x448d49",
+      "size": 1143
+    },
+    {
+      "section": ".text$004492a0_0gap",
+      "address": "0x449209",
+      "size": 151
+    },
+    {
+      "section": ".text$004492f0_0gap",
+      "address": "0x4492e2",
+      "size": 14
+    },
+    {
+      "section": ".text$00449470_0gap",
+      "address": "0x44934a",
+      "size": 294
+    },
+    {
+      "section": ".text$00449670_0gap",
+      "address": "0x4494b1",
+      "size": 447
+    },
+    {
+      "section": ".text$004496a0_0gap",
+      "address": "0x449694",
+      "size": 12
+    },
+    {
+      "section": ".text$004497d0_0gap",
+      "address": "0x4496c2",
+      "size": 270
+    },
+    {
+      "section": ".text$00449950_0gap",
+      "address": "0x449816",
+      "size": 314
+    },
+    {
+      "section": ".text$00449ae0_0gap",
+      "address": "0x4499f1",
+      "size": 239
+    },
+    {
+      "section": ".text$00449b70_0gap",
+      "address": "0x449b63",
+      "size": 13
+    },
+    {
+      "section": ".text$0044a000_0gap",
+      "address": "0x449bf3",
+      "size": 1037
+    },
+    {
+      "section": ".text$0044a030_0gap",
+      "address": "0x44a02b",
+      "size": 5
+    },
+    {
+      "section": ".text$0044bf40_0gap",
+      "address": "0x44a05b",
+      "size": 7909
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_g_sprt_ctrl",
+      "address": "0x00491C10",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00476f78",
+      "address": "0x00476F78",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_game",
+      "address": "0x477810",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491ff4",
+      "address": "0x491ff4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491fb8",
+      "address": "0x491fb8",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_ascii_manager",
+      "address": "0x4776e0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_front",
+      "address": "0x0047770C",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491d78",
+      "address": "0x491d78",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0047783c",
+      "address": "0x0047783C",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0046e0d8",
+      "address": "0x46e0d8",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0046df98",
+      "address": "0x46df98",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_pause",
+      "address": "0x00477830",
+      "kind": "data"
+    },
+    {
+      "symbol": "?g_music_requests@@3UAnimationManager_0043e460@@A",
+      "address": "0x492590",
+      "kind": "data"
+    },
+    {
+      "symbol": "___security_cookie",
+      "address": "0x00473660",
+      "kind": "data"
+    },
+    {
+      "symbol": "?Entity_Constructor@@YIPAUEntity@@PAU1@@Z",
+      "address": "0x402050",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "??2@YAPAXI@Z",
+      "address": "0x00452493",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_RunAnimationVm_0043ee30@4",
+      "address": "0x43ee30",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_strcpy",
+      "address": "0x45bd80",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_strrchr",
+      "address": "0x452930",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__ftol2",
+      "address": "0x00463B2C",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "@__security_check_cookie@4",
+      "address": "0x00458EA5",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_memset",
+      "address": "0x0045BED0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__fltused",
+      "address": "0x00000000",
+      "kind": "metadata"
+    },
+    {
+      "symbol": "?InitializeObject@AnimationResource_00449870@@QAEXPAUEntity@@H@Z",
+      "address": "0x449870",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_asm_Sound_PlayDummyRetail_00420b10@8",
+      "address": "0x00420B10",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_asm_Sound_PlayRandomVoiceRetail_00420c30@4",
+      "address": "0x00420C30",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_00474788",
+      "address": "0x00474788",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00474c40",
+      "address": "0x00474C40",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00474c48",
+      "address": "0x00474C48",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00474c4c",
+      "address": "0x00474C4C",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00474c68",
+      "address": "0x00474C68",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00474c6c",
+      "address": "0x00474C6C",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00474c70",
+      "address": "0x00474C70",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00474c74",
+      "address": "0x00474C74",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00474c7c",
+      "address": "0x00474C7C",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00474c84",
+      "address": "0x00474C84",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00474c8c",
+      "address": "0x00474C8C",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00474ca0",
+      "address": "0x00474CA0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_input",
+      "address": "0x00474E5C",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00474e62",
+      "address": "0x00474E62",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_enemy_ctrl",
+      "address": "0x00477704",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_player",
+      "address": "0x00477834",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00477838",
+      "address": "0x00477838",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00477848",
+      "address": "0x00477848",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491c28",
+      "address": "0x00491C28",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00492590",
+      "address": "0x00492590",
+      "kind": "data"
+    },
+    {
+      "symbol": "?g_frame_timer_normal_lower@@3MA",
+      "address": "0x00470B68",
+      "kind": "data"
+    },
+    {
+      "symbol": "?g_frame_timer_normal_upper@@3MA",
+      "address": "0x00470B64",
+      "kind": "data"
+    },
+    {
+      "symbol": "?g_decoded_text_00497d40@@3PADA",
+      "address": "0x00497D40",
+      "kind": "data"
+    },
+    {
+      "symbol": "?g_score_default_speed@@3MA",
+      "address": "0x00476F78",
+      "kind": "data"
+    },
+    {
+      "symbol": "_recovery_vsprintf_004524a6",
+      "address": "0x004524A6",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_recovery_draw_shadowed_00437db0@24",
+      "address": "0x00437DB0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_recovery_draw_unshadowed_00437fe0@24",
+      "address": "0x00437FE0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_SchedulerCallback_Create_00449ed0@4",
+      "address": "0x00449ED0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_g_func_ctrl",
+      "address": "0x00491BE4",
+      "kind": "data"
+    },
+    {
+      "symbol": "?g_thread_synchronization@@3UThreadSynchronization@@A",
+      "address": "0x00492274",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__EnterCriticalSection@4",
+      "address": "0x004660B0",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__LeaveCriticalSection@4",
+      "address": "0x004660B4",
+      "kind": "data"
+    },
+    {
+      "symbol": "@FadeOutUpdate_0043bd40@4",
+      "address": "0x43bd40",
+      "kind": "data"
+    },
+    {
+      "symbol": "@ViewportOverlayDraw_0043c1a0@4",
+      "address": "0x43c1a0",
+      "kind": "data"
+    },
+    {
+      "symbol": "@FadeInUpdate_0043c230@4",
+      "address": "0x43c230",
+      "kind": "data"
+    },
+    {
+      "symbol": "@PlayfieldOverlayDraw_0043c2c0@4",
+      "address": "0x43c2c0",
+      "kind": "data"
+    },
+    {
+      "symbol": "@HalfOpacityFadeUpdate_0043c310@4",
+      "address": "0x43c310",
+      "kind": "data"
+    },
+    {
+      "symbol": "@ScreenOverlayDraw_0043c3c0@4",
+      "address": "0x43c3c0",
+      "kind": "data"
+    },
+    {
+      "symbol": "@PlayfieldHalfOpacityDraw_0043c410@4",
+      "address": "0x43c410",
+      "kind": "data"
+    },
+    {
+      "symbol": "@ColorPulseUpdate_0043c460@4",
+      "address": "0x43c460",
+      "kind": "data"
+    },
+    {
+      "symbol": "@ColorPulseDraw_0043c500@4",
+      "address": "0x43c500",
+      "kind": "data"
+    },
+    {
+      "symbol": "@LinearShakeUpdate_0043c550@4",
+      "address": "0x43c550",
+      "kind": "data"
+    },
+    {
+      "symbol": "@EnvelopeShakeUpdate_0043c710@4",
+      "address": "0x43c710",
+      "kind": "data"
+    },
+    {
+      "symbol": "@ScreenEffectRemove_0043c870@4",
+      "address": "0x43c870",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004749ce",
+      "address": "0x4749ce",
+      "kind": "data"
+    },
+    {
+      "symbol": "??3@YAXPAX@Z",
+      "address": "0x4524a1",
+      "kind": "relative_code"
+    }
+  ]
+}

@@ -122,9 +122,13 @@ def calls(insns, lo, hi):
     return out
 
 
+import sys as _project_sys
+from pathlib import Path as _ProjectPath
+_project_sys.path.insert(0, str(_ProjectPath(__file__).resolve().parents[3]))
+from matching2.tools.common.project_paths import project_support
 def regions():
-    layout = ROOT / 'msvc' / 'layout' / 'equivalent'
-    table = {r['name']: r for r in json.loads((ROOT / 'msvc' / 'regions.json').read_text())['regions']}
+    layout = project_support(ROOT / 'msvc', 'layout') / 'equivalent'
+    table = {r['name']: r for r in json.loads((project_support(ROOT / 'msvc', 'regions.json')).read_text())['regions']}
     for path in sorted(layout.glob('*.json')):
         meta = json.loads(path.read_text())
         region = table[meta['region']]

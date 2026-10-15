@@ -4,7 +4,7 @@
 // 0x0043CB00 (the callee takes the object as a stack argument and cleans it,
 // RET 4) and hands the object to the CRT free entry at 0x004524A1. The object
 // lives in ESI, so the body is compiled in the native-LTCG cluster
-// layout/ltcg/dtor_release_0043c910.json whose array-walking synthetic caller
+// build_support/layout/ltcg/dtor_release_0043c910.json whose array-walking synthetic caller
 // establishes that convention.
 
 extern "C" void asm_Recovery_ReleaseRawPair_0043cb00(void* object);

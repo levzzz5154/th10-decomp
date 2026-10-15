@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "name": "busy_state_427e50",
+  "source": "src/unreferenced/unassigned_00427e50.cpp",
+  "driver": "build_support/layout/ltcg/busy_state_427e50_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "BusyState::IsBusy compiled with a synthetic array caller so the native LTCG register allocator keeps the state in EAX as retail does.",
+  "functions": [
+    {
+      "name": "BusyState_00427e50_IsBusy",
+      "symbol": "?IsBusy@BusyState_00427e50@@QAEHXZ",
+      "section": ".text$01busy",
+      "address": "0x427E50",
+      "size": 26,
+      "actual_abi": "state in EAX; result in EAX; plain RET"
+    }
+  ],
+  "context": {
+    "symbol": "BusyStateIsBusyContext_00427e50@8",
+    "section": ".text$03context",
+    "address": "0x427e70",
+    "size": 37,
+    "description": "Synthetic array-walking caller that establishes the observed register convention; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00gap",
+      "address": "0x401000",
+      "size": 159312
+    },
+    {
+      "section": ".text$02end",
+      "address": "0x427e6a",
+      "size": 6
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [],
+  "additional_sources": [],
+  "included_sources": []
+}

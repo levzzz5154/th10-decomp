@@ -6,7 +6,7 @@
 // ESI is saved and restored around the call, so the receiver arrives in a
 // caller-saved register while ESI stays a callee-saved one; no C++ declaration
 // names that arrangement, so the body is compiled in the native-LTCG cluster
-// layout/ltcg/dtor_delete_0040d660.json, whose callee is compiled into the same link as an
+// build_support/layout/ltcg/dtor_delete_0040d660.json, whose callee is compiled into the same link as an
 // ABI anchor.
 
 extern "C" void __cdecl entry_free_004524a1(void* block);

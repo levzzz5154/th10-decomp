@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "name": "slot_table_cancel_00428ca0",
+  "source": "src/unreferenced/unassigned_00428ca0.cpp",
+  "driver": "build_support/layout/ltcg/slot_table_cancel_00428ca0_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "SlotTable_00428ca0_Cancel compiled with a synthetic caller that establishes the register pair the native LTCG register allocator picked for retail.",
+  "functions": [
+    {
+      "name": "SlotTable_00428ca0_Cancel",
+      "symbol": "?Cancel@SlotTable_00428ca0@@QAEXH@Z",
+      "section": ".text$01cancel",
+      "address": "0x00428CA0",
+      "size": 52,
+      "actual_abi": "record in EAX; id in EDX; result in EAX; plain RET"
+    }
+  ],
+  "context": {
+    "symbol": "SlotTableCancelContext_00428ca0@12",
+    "section": ".text$03context",
+    "address": "0x428ce0",
+    "size": 38,
+    "description": "Synthetic array-walking caller that establishes the observed register convention; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00gap",
+      "address": "0x401000",
+      "size": 162976
+    },
+    {
+      "section": ".text$02end",
+      "address": "0x428cd4",
+      "size": 12
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [],
+  "additional_sources": [],
+  "included_sources": []
+}

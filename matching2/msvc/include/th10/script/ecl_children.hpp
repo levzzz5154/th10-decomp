@@ -39,7 +39,7 @@ typedef char EclChildrenOffset[offsetof(EclChildOwner, children) == 0x1030 ? 1 :
 
 // Native LTCG supplies the observed private conventions: the interpreter
 // enters 0x0044E1A0 in EAX; the owner enters 0x0044FD10 in EDI. Both take delta
-// on the stack and remove one word. See layout/ltcg/ecl_tick_children.json.
+// on the stack and remove one word. See build_support/layout/ltcg/ecl_tick_children.json.
 extern "C" __declspec(noinline) int __stdcall
 EclVm_RunInterpreter(EclChildState* state, float delta);
 extern "C" __declspec(noinline) int __stdcall

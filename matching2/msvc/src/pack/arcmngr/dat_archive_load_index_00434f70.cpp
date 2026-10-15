@@ -1,7 +1,7 @@
 // 0x00434F70: open, decode and publish a DAT archive index.
 // The complete Version -> Open caller graph derives the private ESI receiver.
-#include "../../../layout/ltcg/archive_index_00434f70/archive.hpp"
-#include "../../../layout/ltcg/archive_index_00434f70/parser.hpp"
+#include "../../../build_support/layout/ltcg/archive_index_00434f70/archive.hpp"
+#include "../../../build_support/layout/ltcg/archive_index_00434f70/parser.hpp"
 extern "C" const char* g_dat_archive_read_mode;
 #pragma code_seg(".text$a10index")
 struct EncodedDatHeader {

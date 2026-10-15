@@ -5,7 +5,7 @@
 //
 // The application object arrives in EAX and almost every callee takes its
 // argument in a register chosen by the whole-program link, so the body is
-// compiled in the native-LTCG cluster layout/ltcg/app_shutdown_00420270.json.
+// compiled in the native-LTCG cluster build_support/layout/ltcg/app_shutdown_00420270.json.
 #include "th10/platform/worker.hpp"
 #include "th10/platform/win32_timer.hpp"
 #include "th10/game/published_block.hpp"

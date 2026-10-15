@@ -50,9 +50,10 @@ def default_oracle():
     return ORACLE_CANDIDATES[-1]
 
 
+from matching2.tools.common.project_paths import project_support
 def load_manifest(path):
     config = json.loads(path.read_text())
-    reference = json.loads((path.parent / "pe_layout.json").read_text())["reference"]
+    reference = json.loads((project_support(path.parent, 'pe_layout.json')).read_text())["reference"]
     if config["text_sha256"] != reference["text_section_sha256"]:
         raise ValueError("project manifest does not match the supported retail image")
     return config
@@ -323,7 +324,7 @@ def main():
                         help="write the resolved regions of exact units for manifest integration")
     args = parser.parse_args()
     project = args.project.resolve()
-    config = load_manifest(project / "regions.json")
+    config = load_manifest(project_support(project, 'regions.json'))
     oracle = load_oracle(args.oracle or default_oracle(), config)
     text_start = int(config["text_start"], 0)
     bindings = region_directory(config, [*config["regions"], *config["dos_regions"]])

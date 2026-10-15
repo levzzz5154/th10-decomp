@@ -30,7 +30,8 @@ from matching2.tools.common.library import ar_members
 from matching2.tools.common.pe import PEImage
 from matching2.tools.common.wine import DEFAULT_TOOLKIT
 
-MANIFEST = ROOT / "matching2/msvc/regions.json"
+from matching2.tools.common.project_paths import project_support
+MANIFEST = project_support((ROOT) / 'matching2/msvc', 'regions.json')
 ORACLE = ROOT / "matching2/build/oracle/th10.exe"
 
 
@@ -69,7 +70,7 @@ def main():
     parser.add_argument("--min-size", type=int, default=8)
     parser.add_argument("--limit", type=int, default=0, help="stop after this many matches")
     args = parser.parse_args()
-    manifest = json.loads((args.project.resolve() / "regions.json").read_text())
+    manifest = json.loads((project_support(args.project.resolve(), 'regions.json')).read_text())
     text_start = int(manifest["text_start"], 0)
     raw = PEImage(ORACLE.read_bytes()).read(text_start, manifest["text_bytes"])
     pending = [region for region in manifest["regions"]

@@ -1,0 +1,119 @@
+{
+  "schema_version": 1,
+  "name": "player_animation_frame",
+  "source": "src/game/bullet/player_animation_advance_frame_004074b0.cpp",
+  "driver": "build_support/layout/ltcg/player_animation_frame_context.cpp",
+  "headers": [
+    "include/th10/game/player_motion_helpers_004074b0_004076a0.hpp",
+    "include/th10/math/timer.hpp",
+    "include/th10/math/angle.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Complete player animation timer/trail update, native ESI receiver; genuine external thiscall polar setter at00408750.",
+  "functions": [
+    {
+      "name": "AdvanceAnimationFrame",
+      "symbol": "?AdvanceAnimationFrame@PlayerAnimationState_004074B0@@QAEXXZ",
+      "section": ".text$01animation",
+      "address": "0x004074B0",
+      "size": 164,
+      "actual_abi": "receiver ESI; plain RET"
+    }
+  ],
+  "context": {
+    "symbol": "_PlayerAnimationFrameContext@8",
+    "section": ".text$03context",
+    "address": "0x00407560",
+    "size": 35,
+    "description": "Synthetic player array walker, unselected"
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 25776
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x00407554",
+      "size": 12
+    },
+    {
+      "section": ".text$04layout",
+      "address": "0x00407583",
+      "size": 428669
+    },
+    {
+      "section": ".rdata",
+      "address": "0x00470000",
+      "size": 2812
+    }
+  ],
+  "constants": [
+    {
+      "symbol": "__real@3f800000",
+      "address": "0x00470AFC",
+      "value": 1.0
+    }
+  ],
+  "absolute_symbols": [
+    {
+      "symbol": "?SetPolar@PolarVector2_00408750@@QAEPAU1@MM@Z",
+      "address": "0x00408750",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?Angle_NormalizeSum@@YGMMM@Z",
+      "address": "0x0044BC10",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__ftol2",
+      "address": "0x00463B2C",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__fltused",
+      "address": 0,
+      "kind": "metadata"
+    },
+    {
+      "symbol": "_data_00470afc",
+      "address": "0x00470afc",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00470b64",
+      "address": "0x00470b64",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00470b68",
+      "address": "0x00470b68",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00470c68",
+      "address": "0x00470c68",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00470c6c",
+      "address": "0x00470c6c",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00476f78",
+      "address": "0x00476f78",
+      "kind": "data"
+    }
+  ],
+  "constant_aliases": [
+    {
+      "symbol": "__real@3ea00000",
+      "address": "0x00470C6C",
+      "value": 0.3125
+    }
+  ],
+  "included_sources": []
+}

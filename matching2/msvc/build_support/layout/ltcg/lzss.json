@@ -1,0 +1,162 @@
+{
+  "schema_version": 1,
+  "name": "lzss",
+  "source": "src/pack/lzssutil/lzss.cpp",
+  "driver": "build_support/layout/ltcg/lzss_context.cpp",
+  "headers": [
+    "include/th10/archive/lzss.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "The whole LZSS codec compiled as one unit with native LTCG, as retail built it: the compressor inlines one level of string deletion and the tree helpers receive their private register conventions from their real callers. The decompressor and Lzss_InitEncoder have no out-of-line callers and are rooted; Lzss_InitTree is kept by the context's direct call because rooting it would force the declared stack convention.",
+  "functions": [
+    {
+      "name": "Lzss_Compress",
+      "symbol": "?Lzss_Compress@@YGPAEPBEHPAH@Z",
+      "section": ".text$lzss01_compress",
+      "address": "0x004359B0",
+      "size": 1029,
+      "actual_abi": "three stack arguments; result in EAX; RET 12"
+    },
+    {
+      "name": "DecompressDatLzss",
+      "symbol": "_DecompressDatLzss_00435dc0@16",
+      "section": ".text$lzss03_decompress",
+      "address": "0x00435DC0",
+      "size": 475,
+      "actual_abi": "four stack arguments; result in EAX; RET 16"
+    },
+    {
+      "name": "Lzss_InitTree",
+      "symbol": "?Lzss_InitTree@@YGXH@Z",
+      "section": ".text$lzss05_inittree",
+      "address": "0x00435FA0",
+      "size": 36,
+      "actual_abi": "node in EAX; plain RET"
+    },
+    {
+      "name": "Lzss_InitEncoder",
+      "symbol": "?Lzss_InitEncoder@@YGXXZ",
+      "section": ".text$lzss07_initencoder",
+      "address": "0x00435FD0",
+      "size": 42,
+      "actual_abi": "no arguments; plain RET"
+    },
+    {
+      "name": "Lzss_AddString",
+      "symbol": "?Lzss_AddString@@YGHHPAH@Z",
+      "section": ".text$lzss09_addstring",
+      "address": "0x00436000",
+      "size": 516,
+      "actual_abi": "new node in EDX; match position pointer on the stack; result in EAX; RET 4"
+    },
+    {
+      "name": "Lzss_DeleteString",
+      "symbol": "?Lzss_DeleteString@@YIXH@Z",
+      "section": ".text$lzss11_deletestring",
+      "address": "0x00436210",
+      "size": 80,
+      "actual_abi": "node in ECX; plain RET"
+    },
+    {
+      "name": "Lzss_ContractNode",
+      "symbol": "?Lzss_ContractNode@@YGXHH@Z",
+      "section": ".text$lzss12_contractnode",
+      "address": "0x00436260",
+      "size": 79,
+      "actual_abi": "old node in ESI; new node in EDX; plain RET"
+    },
+    {
+      "name": "Lzss_ReplaceNode",
+      "symbol": "?Lzss_ReplaceNode@@YGXHH@Z",
+      "section": ".text$lzss14_replacenode",
+      "address": "0x004362B0",
+      "size": 117,
+      "actual_abi": "old node in EAX; new node in ECX; plain RET"
+    },
+    {
+      "name": "Lzss_FindNextNode",
+      "symbol": "?Lzss_FindNextNode@@YGHH@Z",
+      "section": ".text$lzss16_findnextnode",
+      "address": "0x00436330",
+      "size": 49,
+      "actual_abi": "node in EAX; result in EAX; plain RET"
+    }
+  ],
+  "context": {
+    "symbol": "_LzssCompilerContext@16",
+    "section": ".text$lzss18_context",
+    "address": "0x00436370",
+    "size": 32,
+    "description": "Synthetic caller of the compressor and of the stand-alone Lzss_InitTree; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$lzss00_layout",
+      "address": "0x00401000",
+      "size": 215472
+    },
+    {
+      "section": ".text$lzss02_layout",
+      "address": "0x00435DB5",
+      "size": 11
+    },
+    {
+      "section": ".text$lzss04_layout",
+      "address": "0x00435F9B",
+      "size": 5
+    },
+    {
+      "section": ".text$lzss06_layout",
+      "address": "0x00435FC4",
+      "size": 12
+    },
+    {
+      "section": ".text$lzss08_layout",
+      "address": "0x00435FFA",
+      "size": 6
+    },
+    {
+      "section": ".text$lzss10_layout",
+      "address": "0x00436204",
+      "size": 12
+    },
+    {
+      "section": ".text$lzss13_layout",
+      "address": "0x004362AF",
+      "size": 1
+    },
+    {
+      "section": ".text$lzss15_layout",
+      "address": "0x00436325",
+      "size": 11
+    },
+    {
+      "section": ".text$lzss17_layout",
+      "address": "0x00436361",
+      "size": 15
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "?g_LzssTree@@3PAULzssNode@@A",
+      "address": "0x00477858",
+      "kind": "data"
+    },
+    {
+      "symbol": "?g_LzssWindow@@3PAEA",
+      "address": "0x0048F868",
+      "kind": "data"
+    },
+    {
+      "symbol": "_asm_malloc_00452706",
+      "address": "0x00452706",
+      "kind": "relative_code"
+    }
+  ],
+  "roots": [
+    "?Lzss_InitEncoder@@YGXXZ",
+    "_DecompressDatLzss_00435dc0@16"
+  ],
+  "included_sources": []
+}

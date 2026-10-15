@@ -9,7 +9,7 @@
 // registers of any MSVC convention, they are whole-program agreements.  This
 // source is therefore compiled in the same native-LTCG link as the scheduler
 // registration functions and the constant-log formatter it calls (see
-// layout/ltcg/bullet_manager_load_scripts_0040ae70.json).
+// build_support/layout/ltcg/bullet_manager_load_scripts_0040ae70.json).
 #include "th10/core/func_ctrl.hpp"
 
 struct LaserManagerView {

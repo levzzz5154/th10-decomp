@@ -1,0 +1,124 @@
+{
+  "schema_version": 1,
+  "name": "enemy_grid_scan_004073e0",
+  "source": "src/game/bullet/enemy_grid_scan.cpp",
+  "driver": "build_support/layout/ltcg/enemy_grid_scan_004073e0_context.cpp",
+  "headers": [
+    "include/th10/game/enemy_grid_scan_004073e0.hpp",
+    "include/th10/platform/sound_queue.hpp",
+    "include/th10/game/player.hpp",
+    "include/th10/game/entity.hpp",
+    "include/th10/types.hpp",
+    "include/th10/math/timer.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "The projectile pattern spawner compiled with native LTCG beside a stand-in for the cell spawner 0x004067D0, the real sound queue entry and a synthetic caller.",
+  "functions": [
+    {
+      "name": "EnemyGrid_ScanCells",
+      "symbol": "?EnemyGrid_ScanCells_004073e0@@YGHPAUProjectilePattern_004073e0@@PAUProjectileManager_004073e0@@@Z",
+      "section": ".text$004073e0_fn",
+      "address": "0x004073E0",
+      "size": 194,
+      "actual_abi": "pattern in EAX; manager on the stack; RET 4"
+    }
+  ],
+  "context": {
+    "symbol": "_EnemyGridScanContext@12",
+    "section": ".text$0040a000_context",
+    "address": "0x0040A000",
+    "size": 50,
+    "description": "Synthetic caller compiled with inlining off; not recovered game code."
+  },
+  "anchors": [
+    {
+      "name": "SpawnPatternCell",
+      "symbol": "?SpawnPatternCell_004067d0@@YGHPAUProjectilePattern_004073e0@@PAUProjectileManager_004073e0@@HHM@Z",
+      "section": ".text$004067d0_fn",
+      "address": "0x004067D0",
+      "size": 170
+    },
+    {
+      "name": "SoundQueue_QueuePan",
+      "symbol": "?QueuePan@SoundQueue@@QAEXHM@Z",
+      "section": ".text$a05pan",
+      "address": "0x0043DD10",
+      "size": 149
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_g_player",
+      "address": "0x00477834",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00492590",
+      "address": "0x00492590",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004749ce",
+      "address": "0x004749CE",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00470b20",
+      "address": "0x00470B20",
+      "kind": "data"
+    },
+    {
+      "symbol": "__ftol2",
+      "address": "0x00463B2C",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__fltused",
+      "address": "0x00000000",
+      "kind": "metadata"
+    },
+    {
+      "symbol": "_EnemyGridScanLeaf",
+      "address": "0x004524A1",
+      "kind": "relative_code"
+    }
+  ],
+  "roots": [],
+  "gaps": [
+    {
+      "section": ".text$00401000_gap",
+      "address": "0x00401000",
+      "size": 22480
+    },
+    {
+      "section": ".text$004067d0_z_gap",
+      "address": "0x0040687A",
+      "size": 2918
+    },
+    {
+      "section": ".text$004074a2_gap",
+      "address": "0x004074A2",
+      "size": 11102
+    },
+    {
+      "section": ".text$0040a032_gap",
+      "address": "0x0040A032",
+      "size": 212190
+    }
+  ],
+  "additional_sources": [
+    "build_support/layout/ltcg/enemy_grid_scan_004073e0_anchors.cpp"
+  ],
+  "included_sources": [
+    "build_support/layout/ltcg/enemy_grid_scan_dependencies/sound_pan.cpp",
+    "build_support/layout/ltcg/player_initialize_00405860_dependencies/sound_pan.cpp"
+  ],
+  "constant_aliases": [
+    {
+      "symbol": "__real@00000000",
+      "address": "0x00470B04",
+      "value": 0.0
+    }
+  ]
+}

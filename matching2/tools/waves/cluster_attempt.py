@@ -51,8 +51,9 @@ PROJECT = ROOT / 'matching2/msvc'
 BUILD = Path('/tmp/cluster-attempts')
 
 
+from matching2.tools.common.project_paths import project_support
 def oracle_bytes(address, size):
-    config = load_manifest(PROJECT / 'regions.json')
+    config = load_manifest(project_support(PROJECT, 'regions.json'))
     oracle = load_oracle(ROOT / 'matching2/build/oracle/th10.exe', config)
     start = int(config['text_start'], 0)
     return bytes(oracle[address - start:address - start + size])
@@ -155,7 +156,7 @@ def attempt(name, source_rel, address, size, symbol, fn_name, context_symbol,
             # the adaptive retries rewrite it with whatever the compiler emitted
             write_layout(size, context_size, (address + size + 31) & ~15)
             for attempt_index in range(4):
-                config = load_manifest(PROJECT / 'regions.json')
+                config = load_manifest(project_support(PROJECT, 'regions.json'))
                 if attempt_index == 0:
                     spec = load_cluster(PROJECT, layout_rel, config['regions'])
                 spec['functions'][0]['size'] = fn_size

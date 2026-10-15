@@ -3,7 +3,7 @@
 // Retail: 89 88 8C 89 00 00   mov [eax+0x898C], ecx
 //         C3                  ret
 // The object pointer arrives in EAX and the stored value in ECX, so this is
-// compiled as a native LTCG cluster (see layout/ltcg/fun_00401fb0.json).
+// compiled as a native LTCG cluster (see build_support/layout/ltcg/fun_00401fb0.json).
 
 struct FUN_00401fb0_State {
     char unknown[0x898C];

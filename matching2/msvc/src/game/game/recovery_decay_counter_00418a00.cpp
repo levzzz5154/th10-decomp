@@ -36,7 +36,7 @@
 // The receiver arrives in EAX and the nested timer in ESI. Neither is a
 // register an MSVC convention can express, so this source is compiled in the
 // native-LTCG link that also carries FrameTimer::Advance
-// (see layout/ltcg/frame_timer.json): the whole-program pass selects EAX for
+// (see build_support/layout/ltcg/frame_timer.json): the whole-program pass selects EAX for
 // the gauge record and ESI for the timer the advance call is handed.
 #include "th10/game/score.hpp"
 

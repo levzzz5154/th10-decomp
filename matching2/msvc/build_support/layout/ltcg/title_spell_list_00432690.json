@@ -1,0 +1,157 @@
+{
+  "schema_version": 1,
+  "name": "title_spell_list_00432690",
+  "source": "src/game/title/title_spell_list.cpp",
+  "driver": "build_support/layout/ltcg/title_spell_list/driver.cpp",
+  "additional_sources": [
+    "build_support/layout/ltcg/title_spell_list/centered_text.cpp",
+    "build_support/layout/ltcg/title_spell_list/text_dispatcher.cpp"
+  ],
+  "included_sources": [
+    "src/core/sprtlib/recovery_centered_text_00447bb0.cpp",
+    "build_support/layout/ltcg/right_aligned_text_context/exact_text_dispatcher_anchor.cpp"
+  ],
+  "headers": [
+    "build_support/include/contexts/game/right_aligned_text_context/recovery_script_executor_caller_00419120.hpp",
+    "build_support/include/contexts/game/right_aligned_text_context/recovery_script_executor_0040bd80.hpp",
+    "build_support/include/contexts/game/right_aligned_text_context/worker.hpp",
+    "build_support/include/contexts/game/right_aligned_text_context/archive_callers.hpp",
+    "build_support/include/contexts/game/right_aligned_text_context/archive_file.hpp",
+    "build_support/include/contexts/game/right_aligned_text_context/sound_queue.hpp",
+    "build_support/include/contexts/game/right_aligned_text_context/recovery_mark_text_and_dispatcher_004479d0.hpp",
+    "build_support/include/contexts/game/right_aligned_text_context/recovery_script_executor_ascii_anchors.hpp",
+    "build_support/include/contexts/game/right_aligned_text_context/scheduler.hpp",
+    "build_support/include/contexts/game/right_aligned_text_context/timer.hpp",
+    "build_support/include/contexts/game/right_aligned_text_context/entity_movement_slot_0041ab70.hpp",
+    "include/th10/game/score_file.hpp",
+    "include/th10/game/title_draw.hpp",
+    "include/th10/game/game_thread_queue_native.hpp",
+    "build_support/include/contexts/game/right_aligned_text_context/recovery_script_executor_text_sibling_anchors.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "The title spell-list builder with the exact centred formatter and text dispatcher it calls, entered through a stand-in for its assembly caller. Neither callee is selected here.",
+  "functions": [
+    {
+      "name": "TitleMenu_BuildSpellList",
+      "symbol": "?BuildSpellList@TitleDrawView@@QAEHXZ",
+      "section": ".text$00432690_fn",
+      "address": "0x00432690",
+      "size": 850,
+      "actual_abi": "menu in ECX; plain RET"
+    }
+  ],
+  "context": {
+    "symbol": "_TitleSpellListCaller@4",
+    "section": ".text$0040a000_context",
+    "address": "0x0040A000",
+    "size": 12,
+    "description": "Stand-in for the title menu update that calls the builder; compiler context only, not recovered code."
+  },
+  "anchors": [
+    {
+      "name": "RecoveryDispatchText",
+      "symbol": "?RecoveryDispatchText_004479d0@@YGXPAURecoveryTextResource_004479d0@@PAXHHIPBDH@Z",
+      "section": ".text$004479d0_fn",
+      "address": "0x004479D0",
+      "size": 127
+    },
+    {
+      "name": "HintVm_FormatCentered",
+      "symbol": "?FormatCentered@HintVm_00419120@@QAAXPAXZZ",
+      "section": ".text$00447bb0_fn",
+      "address": "0x00447BB0",
+      "size": 194
+    }
+  ],
+  "roots": [],
+  "gaps": [
+    {
+      "section": ".text$00401000_gap",
+      "address": "0x00401000",
+      "size": 36864
+    },
+    {
+      "section": ".text$0040a00c_gap",
+      "address": "0x0040A00C",
+      "size": 165508
+    },
+    {
+      "section": ".text$004329e2_gap",
+      "address": "0x004329E2",
+      "size": 85998
+    },
+    {
+      "section": ".text$00447a4f_gap",
+      "address": "0x00447A4F",
+      "size": 353
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_g_sprt_ctrl",
+      "address": "0x491c10",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0047783c",
+      "address": "0x47783c",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_spell_difficulty",
+      "address": "0x4743c0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_NamedCardFormat",
+      "address": "0x46eef8",
+      "kind": "data"
+    },
+    {
+      "symbol": "_MaskedCardFormat",
+      "address": "0x46eebc",
+      "kind": "data"
+    },
+    {
+      "symbol": "_EmptyCardText",
+      "address": "0x46cfd4",
+      "kind": "data"
+    },
+    {
+      "symbol": "___security_cookie",
+      "address": "0x473660",
+      "kind": "data"
+    },
+    {
+      "symbol": "@__security_check_cookie@4",
+      "address": "0x458ea5",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_recovery_vsprintf_004524a6",
+      "address": "0x4524a6",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_recovery_draw_shadowed_00437db0@24",
+      "address": "0x437db0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_recovery_draw_unshadowed_00437fe0@24",
+      "address": "0x437fe0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__ftol2",
+      "address": "0x463b2c",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__fltused",
+      "address": "0x0",
+      "kind": "metadata"
+    }
+  ]
+}

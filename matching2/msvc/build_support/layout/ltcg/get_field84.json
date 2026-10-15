@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "name": "get_field84",
+  "source": "src/unreferenced/FUN_00404ce0_00404ce0.cpp",
+  "driver": "build_support/layout/ltcg/get_field84_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "Native-LTCG cluster recovering an internal register convention (argument in EAX/ECX).",
+  "functions": [
+    {
+      "name": "Field84Holder_GetField84",
+      "symbol": "?GetField84@Field84Holder@@QAEHXZ",
+      "section": ".text$01get84",
+      "address": "0x00404CE0",
+      "size": 7,
+      "actual_abi": "object pointer in EAX; value returned in EAX; plain RET"
+    }
+  ],
+  "context": {
+    "symbol": "?GetField84CompilerContext@@YGHPAPAUField84Holder@@H@Z",
+    "section": ".text$03context",
+    "address": "0x00404CF0",
+    "size": 37,
+    "description": "Synthetic caller that establishes the observed register convention; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 15584
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x00404CE7",
+      "size": 1
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [],
+  "included_sources": []
+}

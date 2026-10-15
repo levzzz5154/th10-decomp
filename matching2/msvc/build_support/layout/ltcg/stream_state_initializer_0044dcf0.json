@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "name": "stream_state_initializer_0044dcf0",
+  "source": "src/unreferenced/unassigned_0044dcf0.cpp",
+  "driver": "build_support/layout/ltcg/stream_state_initializer_0044dcf0_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "Stream-state initializer compiled with native LTCG so the state arrives in EAX, the two pointer values in EDX and ECX, and the two integer arguments remain on the stack.",
+  "functions": [
+    {
+      "name": "StreamState_0044DCF0::Initialize",
+      "symbol": "?Initialize@StreamState_0044DCF0@@QAEHPAX0HH@Z",
+      "section": ".text$01initializer",
+      "address": "0x0044DCF0",
+      "size": 52,
+      "actual_abi": "state in EAX; pointer values in EDX and ECX; two integer arguments on stack; HRESULT in EAX; RET 8"
+    }
+  ],
+  "context": {
+    "symbol": "?StreamStateInitializer0044DCF0CompilerContext@@YGHPAPAUStreamState_0044DCF0@@PAPAX1PAH2H@Z",
+    "section": ".text$03context",
+    "address": "0x0044DD30",
+    "size": 135,
+    "description": "Synthetic pointer-array caller used only to establish the private register and stack convention; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 314608
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x0044DD24",
+      "size": 12
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [],
+  "included_sources": []
+}

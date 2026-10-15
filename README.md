@@ -54,9 +54,10 @@ Three checks now cover that:
 Some functions have C++ accepted with recorded instruction differences,
 including compiler choices such as which of two registers is encoded as base
 and which as index. These are called *equivalent recoveries*:
-`equivalent_recoveries` in `regions.json` names a layout under
-`matching2/msvc/layout/equivalent/` for the C++ in
-`matching2/msvc/equivalent/`. Every `make` first links the whole image from
+`equivalent_recoveries` in `matching2/msvc/build_support/regions.json` names
+a layout under `build_support/layout/equivalent/` for the maintained C++ in
+the corresponding retail folder under `matching2/msvc/src/`. Exact-only
+counterparts live under `build_support/exact/`. Every `make` first links the whole image from
 exact sources (the region's inline assembly included) and requires the retail
 `.text` hash, then compiles the C++, relocates it to the region's address, and
 compares it with the exact bytes instruction by instruction. The executable
@@ -71,9 +72,9 @@ difference of a tie-break class changes calls or branches, or when the
 differences exceed their budget (structural classes, `block-order`,
 `branch-target` and `code-shape`, over an eighth of the region's instructions;
 all classes over a third). A model outside those limits is a draft: its layout
-stays under `layout/equivalent/` without an `equivalent_recoveries` entry, it is
+stays under `build_support/layout/equivalent/` without an `equivalent_recoveries` entry, it is
 not built into the executable and not counted, and
-`python3 matching2/tools/matching/equivalence.py --layout layout/equivalent/<name>.json`
+`python3 matching2/tools/matching/equivalence.py --layout build_support/layout/equivalent/<name>.json`
 prints its differences and what keeps it out. The gate does not prove that a
 call site loads the registers its callee expects, so a model's link context
 must carry the callee bodies that give retail's private conventions;
@@ -156,10 +157,12 @@ This reproduces exact separate-source and combined-source builds, five controls
 that retain the public ABI, and a fresh-build repeat. It records commands,
 toolchain hashes, native PE/MAP files, disassembly, and byte comparisons.
 
-- `matching2/msvc/src/` and `include/`: matching implementations and types.
-- `matching2/msvc/regions.json` and `layout/`: code placement and compiler settings.
-- `matching2/msvc/pe_layout.json` and `matching2/reference/data/`: executable
-  layout and preserved non-code bytes.
+- `matching2/msvc/src/` and `include/`: maintained implementations and types,
+  organized by ZUN's retail files; see [the source map](matching2/msvc/src/README.md).
+- `matching2/msvc/build_support/`: placement manifests, private compiler units,
+  exact-only counterparts, ABI contexts, import thunks and embedded data.
+  See [the build-support guide](matching2/msvc/build_support/README.md).
+- `matching2/reference/data/`: preserved non-code executable bytes.
 - `matching2/reference/legacy_semantic/`: archived runtime-oriented C++ models
   for reverse-engineering reference; they are not exact-build inputs.
 - `matching2/tools/`: compiler, linker, byte verification, and progress tools.

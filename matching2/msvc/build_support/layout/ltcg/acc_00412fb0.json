@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "name": "acc_00412fb0",
+  "source": "src/unreferenced/unassigned_00412fb0.cpp",
+  "driver": "build_support/layout/ltcg/acc_00412fb0_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "product of the floats at +0x4C and +0x3C",
+  "functions": [
+    {
+      "name": "ObjectAccessor_00412fb0_LoadValue",
+      "symbol": "?LoadValue@ObjectAccessor_00412fb0@@QBEMXZ",
+      "section": ".text$01accessor",
+      "address": "0x00412FB0",
+      "size": 7,
+      "actual_abi": "object in EAX; plain RET"
+    }
+  ],
+  "context": {
+    "symbol": "?AccessorContext_00412fb0@@YGMPAPAUObjectAccessor_00412fb0@@H@Z",
+    "section": ".text$03context",
+    "address": "0x00412FD0",
+    "size": 36,
+    "description": "Synthetic array-walking caller that establishes the observed register convention; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 73648
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x00412FB7",
+      "size": 25
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "__fltused",
+      "address": "0x00000000",
+      "kind": "metadata"
+    }
+  ],
+  "additional_sources": [],
+  "included_sources": []
+}

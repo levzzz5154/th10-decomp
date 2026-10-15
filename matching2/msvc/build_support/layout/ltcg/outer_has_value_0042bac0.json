@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "name": "outer_has_value_0042bac0",
+  "source": "src/unreferenced/unassigned_0042bac0.cpp",
+  "driver": "build_support/layout/ltcg/outer_has_value_0042bac0_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "Outer_0042bac0::HasValue compiled with a synthetic array caller so the native LTCG register allocator keeps the record in EAX as retail does.",
+  "functions": [
+    {
+      "name": "Outer_0042bac0_HasValue",
+      "symbol": "?HasValue@Outer_0042bac0@@QAEHXZ",
+      "section": ".text$01has",
+      "address": "0x42BAC0",
+      "size": 14,
+      "actual_abi": "outer record in EAX; result in EAX; plain RET"
+    }
+  ],
+  "context": {
+    "symbol": "OuterHasValueContext_0042bac0@8",
+    "section": ".text$03context",
+    "address": "0x42bad0",
+    "size": 40,
+    "description": "Synthetic array-walking caller that establishes the observed register convention; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00gap",
+      "address": "0x401000",
+      "size": 174784
+    },
+    {
+      "section": ".text$02end",
+      "address": "0x42bace",
+      "size": 2
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [],
+  "additional_sources": [],
+  "included_sources": []
+}

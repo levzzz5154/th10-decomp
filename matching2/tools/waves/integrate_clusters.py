@@ -51,12 +51,13 @@ def carve(original, symbol):
     original.write_text(text[:match.start()] + text[match.end():])
 
 
+from matching2.tools.common.project_paths import project_support
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--results", type=Path, default=WAVE / "results3")
     parser.add_argument("--apply", action="store_true")
     args = parser.parse_args()
-    manifest_path = PROJECT / "regions.json"
+    manifest_path = project_support(PROJECT, 'regions.json')
     manifest = json.loads(manifest_path.read_text())
     index = {int(region["address"], 0): position for position, region in enumerate(manifest["regions"])}
     entries = collected(args.results)

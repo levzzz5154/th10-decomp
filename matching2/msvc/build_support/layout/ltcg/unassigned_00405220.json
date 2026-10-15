@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "name": "unassigned_00405220",
+  "source": "src/unreferenced/unassigned_00405220.cpp",
+  "driver": "build_support/layout/ltcg/unassigned_00405220_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "Vector length-squared member compiled with native LTCG so the object arrives in EAX.",
+  "functions": [
+    {
+      "name": "Vector3_00405220_LengthSquared",
+      "symbol": "?LengthSquared@Vector3_00405220@@QBEMXZ",
+      "section": ".text$01",
+      "address": "0x00405220",
+      "size": 31,
+      "actual_abi": "object in EAX; float returned in ST(0); plain RET"
+    }
+  ],
+  "anchors": [],
+  "context": {
+    "symbol": "?Vector3CompilerContext_00405220@@YGMPAPAUVector3_00405220@@H@Z",
+    "section": ".text$03context",
+    "address": "0x00405300",
+    "size": 52,
+    "description": "Synthetic caller that establishes the observed private register convention; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 16928
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x0040523F",
+      "size": 193
+    }
+  ],
+  "constants": [],
+  "constant_aliases": [],
+  "absolute_symbols": [
+    {
+      "symbol": "__fltused",
+      "address": "0x00000000",
+      "kind": "metadata"
+    }
+  ],
+  "roots": [],
+  "included_sources": []
+}

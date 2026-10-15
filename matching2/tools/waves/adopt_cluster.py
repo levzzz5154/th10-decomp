@@ -16,9 +16,13 @@ TEXT_START, RDATA_START = 0x401000, 0x470000
 XDATA_BASE = 0x466000
 
 
+import sys as _project_sys
+from pathlib import Path as _ProjectPath
+_project_sys.path.insert(0, str(_ProjectPath(__file__).resolve().parents[3]))
+from matching2.tools.common.project_paths import project_support
 def main():
     spec = json.loads(Path(sys.argv[1]).read_text())
-    text = (ROOT / 'regions.json').read_text()
+    text = (project_support(ROOT, 'regions.json')).read_text()
     manifest = json.loads(text)
     by_address = {int(r['address'], 16): r for r in manifest['regions']}
     old_sources = set()
@@ -72,7 +76,7 @@ def main():
         units.append(spec['source'])
     if layout_name not in manifest['ltcg_clusters']:
         manifest['ltcg_clusters'].append(layout_name)
-    (ROOT / 'regions.json').write_text(json.dumps(manifest, indent=2) + '\n')
+    (project_support(ROOT, 'regions.json')).write_text(json.dumps(manifest, indent=2) + '\n')
     print('wrote', layout_name, 'dropped units', sorted(old_sources - still_used))
 
 

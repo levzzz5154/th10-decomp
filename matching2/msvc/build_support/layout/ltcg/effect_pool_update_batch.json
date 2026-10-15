@@ -1,0 +1,106 @@
+{
+  "schema_version": 2,
+  "name": "effect_pool_update_batch",
+  "source": "src/game/smollscore/smoll_score_update.cpp",
+  "additional_sources": [
+    "src/game/smollscore/smoll_score_on_update.cpp"
+  ],
+  "headers": [
+    "include/th10/game/smoll_score_view.hpp",
+    "include/th10/game/entity.hpp",
+    "include/th10/types.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Real tail wrapper and drop-update callee linked together so LTCG selects retail's EAX pool convention.",
+  "functions": [
+    {
+      "name": "SmollScore_UpdatePopups",
+      "symbol": "?UpdatePopups@SmollScoreView@@QAEHXZ",
+      "section": ".text$01drops",
+      "address": "0x0042B6F0",
+      "size": 134,
+      "actual_abi": "pool in EAX; result in EAX; plain RET",
+      "source": "src/game/smollscore/smoll_score_update.cpp"
+    },
+    {
+      "name": "SmollScore_Update",
+      "symbol": "?Update@SmollScoreView@@QAEHXZ",
+      "section": ".text$02wrapper",
+      "address": "0x0042B9A0",
+      "size": 7,
+      "actual_abi": "this in ECX; moves to EAX and tail-jumps to UpdatePopups",
+      "source": "src/game/smollscore/smoll_score_on_update.cpp"
+    }
+  ],
+  "entry": "?Update@SmollScoreView@@QAEHXZ",
+  "calls": [
+    {
+      "caller": "?Update@SmollScoreView@@QAEHXZ",
+      "callee": "?UpdatePopups@SmollScoreView@@QAEHXZ",
+      "address": "0x0042B9A2",
+      "instruction": "jmp"
+    }
+  ],
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 173808
+    },
+    {
+      "section": ".text$01zlayout",
+      "address": "0x0042B776",
+      "size": 554
+    },
+    {
+      "section": ".text$03layout",
+      "address": "0x0042B9A7",
+      "size": 280153
+    },
+    {
+      "section": ".rdata",
+      "address": "0x00470000",
+      "size": 2812
+    }
+  ],
+  "constants": [
+    {
+      "symbol": "__real@3f800000",
+      "address": "0x00470AFC",
+      "value": 1.0
+    }
+  ],
+  "absolute_symbols": [
+    {
+      "symbol": "_data_00476f78",
+      "address": "0x00476F78",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00470b0c",
+      "address": "0x00470B0C",
+      "kind": "data"
+    },
+    {
+      "symbol": "?g_frame_timer_normal_lower@@3MA",
+      "address": "0x00470B68",
+      "kind": "data"
+    },
+    {
+      "symbol": "?g_frame_timer_normal_upper@@3MA",
+      "address": "0x00470B64",
+      "kind": "data"
+    },
+    {
+      "symbol": "__ftol2",
+      "address": "0x00463B2C",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__fltused",
+      "address": "0x00000000",
+      "kind": "metadata"
+    }
+  ],
+  "included_sources": []
+}

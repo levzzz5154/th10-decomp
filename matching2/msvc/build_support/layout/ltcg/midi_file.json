@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "name": "midi_file",
+  "source": "src/core/midilib/midi_file.cpp",
+  "driver": "build_support/layout/ltcg/midi_file_context.cpp",
+  "headers": [
+    "include/th10/platform/midi_sequencer.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Ordinary C++ MIDI file parsing and owned-track cleanup compiled together to preserve their native register arguments and compiler-generated stack protection. Only the two complete functions are selected as game code.",
+  "functions": [
+    {
+      "name": "MidiSequencer_ReleaseTracks",
+      "symbol": "?ReleaseTracks@MidiSequencer@@QAEXXZ",
+      "section": ".text$10release",
+      "address": "0x0043AA60",
+      "size": 107,
+      "actual_abi": "this in ESI; plain RET"
+    },
+    {
+      "name": "MidiSequencer_ParseLoadedFile",
+      "symbol": "?ParseLoadedFile@MidiSequencer@@QAEHH@Z",
+      "section": ".text$30parse",
+      "address": "0x0043AAD0",
+      "size": 448,
+      "actual_abi": "this in EBX; file slot at [ESP+4]; result in EAX; RET 4"
+    }
+  ],
+  "context": {
+    "symbol": "?MidiFileCompilerContext@@YGHPAUMidiSequencer@@HH@Z",
+    "section": ".text$50context",
+    "address": "0x0043AC90",
+    "size": 42,
+    "description": "Synthetic repeated parser caller used only for internal register allocation; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 236128
+    },
+    {
+      "section": ".text$20layout",
+      "address": "0x0043AACB",
+      "size": 5
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_entry_malloc_00452706",
+      "address": "0x00452706",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_entry_free_00452422",
+      "address": "0x00452422",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "___security_cookie",
+      "address": "0x00473660",
+      "kind": "data"
+    },
+    {
+      "symbol": "@__security_check_cookie@4",
+      "address": "0x00458EA5",
+      "kind": "relative_code"
+    }
+  ],
+  "included_sources": []
+}

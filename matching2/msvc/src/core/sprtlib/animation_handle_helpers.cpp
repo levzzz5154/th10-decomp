@@ -1,7 +1,7 @@
 // 0x00449210 and 0x004492F0: set the stop frame or the position of an
 // animation and of its children, looked up by handle.
-#include "../../../layout/ltcg/player_state_collision_runtime/movement.hpp"
-#include "../../../layout/ltcg/player_state_collision_runtime/animation_tree.hpp"
+#include "../../../build_support/layout/ltcg/player_state_collision_runtime/movement.hpp"
+#include "../../../build_support/layout/ltcg/player_state_collision_runtime/animation_tree.hpp"
 
 #pragma code_seg(".text$f00449210F")
 void __fastcall Animation_SetStopFrame(

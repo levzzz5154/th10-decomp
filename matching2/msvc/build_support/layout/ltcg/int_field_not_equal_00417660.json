@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "name": "int_field_not_equal_00417660",
+  "source": "src/unreferenced/unassigned_00417660.cpp",
+  "driver": "build_support/layout/ltcg/int_field_not_equal_00417660_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "Integer field inequality member compiled under native LTCG, whose register allocation loads the field into EDX and the argument into ECX.",
+  "functions": [
+    {
+      "name": "IntFieldNotEqual_00417660",
+      "symbol": "?IsNotEqualTo@UnidentifiedIntField_00417660@@QBEHH@Z",
+      "section": ".text$01accessor",
+      "address": "0x00417660",
+      "size": 16,
+      "actual_abi": "this in ECX; other at stack +4; RET 4"
+    }
+  ],
+  "context": {
+    "symbol": "?IntFieldNotEqualContext_00417660@@YGHPAPAUUnidentifiedIntField_00417660@@PAHH@Z",
+    "section": ".text$03context",
+    "address": "0x00417680",
+    "size": 52,
+    "description": "Synthetic array-walking caller that keeps the public thiscall entry; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 91744
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x00417670",
+      "size": 16
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [],
+  "roots": [],
+  "included_sources": []
+}

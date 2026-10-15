@@ -1,6 +1,6 @@
 // 0x0040B7B0: detach the ending's tasks, release its animation banks and
 // script storage, then clear the published ending (g_ending).
-#include "../../../layout/ltcg/message_teardown_dependencies.hpp"
+#include "../../../build_support/layout/ltcg/message_teardown_dependencies.hpp"
 extern "C" void* g_func_ctrl;
 extern "C" void* g_ending;
 extern "C" int data_004918a4;

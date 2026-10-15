@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "name": "d3505_recovery_append",
+  "source": "src/game/item/recovery_append_node_0041ab10.cpp",
+  "driver": "build_support/layout/ltcg/d3505_recovery_append_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "RecoveryNode_0041ab10::Append compiled with native LTCG so the private EAX/EDX pair is selected.",
+  "functions": [
+    {
+      "name": "RecoveryNode_0041ab10::Append",
+      "symbol": "?Append@RecoveryNode_0041ab10@@QAEXPAU1@@Z",
+      "section": ".text$01accessor",
+      "address": "0x0041AB10",
+      "size": 52,
+      "actual_abi": "receiver in EAX; node in EDX; plain RET"
+    }
+  ],
+  "context": {
+    "symbol": "?RecoveryAppendCompilerContext@@YGHPAPAURecoveryNode_0041ab10@@0H@Z",
+    "section": ".text$03context",
+    "address": "0x0041AB60",
+    "size": 45,
+    "description": "Synthetic two-array caller used only to establish the private EAX/EDX convention."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 105232
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x0041AB44",
+      "size": 28
+    }
+  ],
+  "constants": [],
+  "roots": [],
+  "absolute_symbols": [],
+  "included_sources": []
+}

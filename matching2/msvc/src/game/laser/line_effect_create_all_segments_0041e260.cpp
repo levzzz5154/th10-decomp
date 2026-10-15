@@ -2,7 +2,7 @@
 // units along it and, when asked, drop a kind-8 item for each segment inside
 // the inner screen rectangle. The animation list registration is the
 // registrar at 0x004489D0 expanded in place.
-#include "../../../layout/ltcg/item_line_runtime_0041e260/types/line_sweeps.hpp"
+#include "../../../build_support/layout/ltcg/item_line_runtime_0041e260/types/line_sweeps.hpp"
 #pragma code_seg(".text$45allsegments")
 struct LineRef_0041e260 {
     unsigned int value;

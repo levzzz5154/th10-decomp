@@ -1,6 +1,6 @@
 // 0x00405170: set the Y scale and mark the transform dirty.
 // The object arrives in EAX and the float on the stack (RET 4); the body is
-// compiled in the native-LTCG cluster layout/ltcg/setscaley_00405170.json.
+// compiled in the native-LTCG cluster build_support/layout/ltcg/setscaley_00405170.json.
 struct AnmVm_00405170 {
     unsigned char reserved_000[0x40];
     float scale_y;                 // +0x40

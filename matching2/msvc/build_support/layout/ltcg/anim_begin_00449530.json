@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "name": "anim_begin_00449530",
+  "source": "src/unreferenced/unassigned_00449530.cpp",
+  "driver": "build_support/layout/ltcg/anim_begin_00449530_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "anim_begin_00449530",
+  "functions": [
+    {
+      "name": "AnimationNode_00449530_Begin",
+      "symbol": "?Begin@AnimationNode_00449530@@QAEXXZ",
+      "section": ".text$01accessor",
+      "address": "0x00449530",
+      "size": 92,
+      "actual_abi": "argument in EAX"
+    }
+  ],
+  "context": {
+    "symbol": "?AnimBeginCompilerContext@@YGHPAPAUAnimationNode_00449530@@H@Z",
+    "section": ".text$03context",
+    "address": "0x004495A0",
+    "size": 36,
+    "description": "Synthetic caller; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 296240
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x0044958C",
+      "size": 16
+    }
+  ],
+  "constants": [],
+  "roots": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_g_sprt_ctrl",
+      "address": "0x00491C10",
+      "kind": "data"
+    },
+    {
+      "symbol": "@AnimationManager_Find_004491c0@12",
+      "address": "0x004491C0",
+      "kind": "relative_code"
+    }
+  ],
+  "included_sources": []
+}

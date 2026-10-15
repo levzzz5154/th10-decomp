@@ -1,5 +1,5 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+#include "../../../build_support/include/asm_encoding.hpp"
+#include "../../../build_support/include/asm_symbols.hpp"
 
 // 0x00406770..0x00406797: the bullet manager's update task (registered by
 // 0x00405E20 at priority 0x14); runs the bullet update 0x004065C0.

@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "name": "stage_text_extract_line_00434a20",
+  "source": "src/game/title/stage_text_extract_line_00434a20.cpp",
+  "driver": "build_support/layout/ltcg/stage_text_extract_line_00434a20_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "Stage-text line extraction compiled with native LTCG so the cursor arrives in ECX, the remaining-byte pointer in EDI and the destination remains on the stack, matching the retail internal register convention.",
+  "functions": [
+    {
+      "name": "StageText_ExtractLine",
+      "symbol": "?StageText_ExtractLine@@YGPADPAD0PAH@Z",
+      "section": ".text$01extractline",
+      "address": "0x00434A20",
+      "size": 92,
+      "actual_abi": "cursor in ECX; remaining-byte pointer in EDI; destination at [ESP+4]; RET 4"
+    }
+  ],
+  "context": {
+    "symbol": "?StageTextExtractLineCompilerContext@@YGHPAPAD0PAPAHH@Z",
+    "section": ".text$03context",
+    "address": "0x00434A80",
+    "size": 79,
+    "description": "Synthetic array-processing caller that establishes the observed internal register convention; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 211488
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x00434A7C",
+      "size": 4
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [],
+  "included_sources": []
+}

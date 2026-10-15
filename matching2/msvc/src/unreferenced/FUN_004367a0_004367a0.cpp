@@ -1,5 +1,5 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+#include "../../build_support/include/asm_encoding.hpp"
+#include "../../build_support/include/asm_symbols.hpp"
 #include <string.h>
 
 // 0x004367A0..0x004367C2: FUN_004367a0

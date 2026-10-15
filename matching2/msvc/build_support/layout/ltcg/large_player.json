@@ -1,0 +1,531 @@
+{
+  "schema_version": 1,
+  "name": "large_player",
+  "source": "src/game/player/recovery_create_large_resource_state_00425020.cpp",
+  "driver": "build_support/layout/ltcg/large_player_context.cpp",
+  "included_sources": [
+    "build_support/contexts/legacy/game/player_reset.cpp",
+    "build_support/layout/ltcg/large_player_dependencies/runtime.cpp",
+    "build_support/layout/ltcg/large_player_dependencies/configure.cpp",
+    "build_support/layout/ltcg/large_player_dependencies/script.cpp",
+    "build_support/layout/ltcg/large_player_dependencies/parameter.cpp",
+    "build_support/layout/ltcg/large_player_dependencies/archive.cpp",
+    "build_support/layout/ltcg/large_player_dependencies/logger.cpp",
+    "build_support/layout/ltcg/large_player_dependencies/scheduler.cpp",
+    "build_support/layout/ltcg/large_player_dependencies/callback.cpp",
+    "build_support/layout/ltcg/large_player_dependencies/menu.cpp",
+    "build_support/layout/ltcg/large_player_dependencies/caller.cpp"
+  ],
+  "headers": [
+    "include/th10/game/large_player_native.hpp",
+    "include/th10/game/menu_cursor.hpp",
+    "include/th10/game/entity.hpp",
+    "include/th10/types.hpp",
+    "include/th10/platform/archive_callers.hpp",
+    "include/th10/platform/archive_file.hpp",
+    "include/th10/platform/text_log.hpp",
+    "include/th10/platform/thread_sync.hpp",
+    "include/th10/core/func_ctrl.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Complete native factory and PlayerResetBlock constructor with genuine implicit member/array construction. Full real initializer and caller supply compiler context; their nonmatching complete bodies remain unselected.",
+  "functions": [
+    {
+      "name": "Factory",
+      "symbol": "?Create_00425020@@YAPAUPlayerResetBlock@@XZ",
+      "address": "0x425020",
+      "size": 69,
+      "section": ".text$a09body",
+      "actual_abi": "Native diagnostic, original private receiver and complete extent required"
+    },
+    {
+      "name": "Reset",
+      "symbol": "??0PlayerResetBlock@@QAE@XZ",
+      "address": "0x4246c0",
+      "size": 244,
+      "section": ".text$a05body",
+      "source": "src/game/player/recovery_create_large_resource_state_00425020.cpp",
+      "actual_abi": "Original complete constructor: receiver ESI, returned owner EAX, plain RET. Member construction precedes full4478 wipe and global publication."
+    }
+  ],
+  "anchors": [
+    {
+      "name": "Configure",
+      "symbol": "?Configure@ItemConfiguredEntity_00404f30@@QAEXHUConfigureResource_00404f30@@@Z",
+      "address": "0x404f30",
+      "size": 204,
+      "section": ".text$a01body"
+    },
+    {
+      "name": "ParameterLoad",
+      "symbol": "?Load@ParameterLoader@@QAEHPBD@Z",
+      "address": "0x426520",
+      "size": 229,
+      "section": ".text$a11body"
+    },
+    {
+      "name": "ScriptLoad",
+      "symbol": "_LoadScript_0043e710@12",
+      "address": "0x43e710",
+      "size": 203,
+      "section": ".text$a13body"
+    },
+    {
+      "name": "Primary",
+      "symbol": "_FuncCtrl_RegisterPrimary@12",
+      "address": "0x449ae0",
+      "size": 131,
+      "section": ".text$a15body"
+    },
+    {
+      "name": "Secondary",
+      "symbol": "_FuncCtrl_RegisterSecondary@12",
+      "address": "0x449b70",
+      "size": 131,
+      "section": ".text$a17body"
+    },
+    {
+      "name": "Menu",
+      "symbol": "?Advance@MenuCursor@@QAEHH@Z",
+      "address": "0x0044BEA0",
+      "size": 128,
+      "section": ".text$a25body"
+    },
+    {
+      "name": "CallbackCreate",
+      "symbol": "_LargePlayerCallbackCreate@4",
+      "address": "0x449ed0",
+      "size": 74,
+      "section": ".text$a19body"
+    },
+    {
+      "name": "Archive",
+      "symbol": "_Archive_LoadFile@12",
+      "address": "0x44b360",
+      "size": 360,
+      "section": ".text$a21body"
+    },
+    {
+      "name": "Logger",
+      "symbol": "?Append@TextLog_0044b810@@QAAPADPADZZ",
+      "address": "0x44b810",
+      "size": 201,
+      "section": ".text$a23body"
+    },
+    {
+      "name": "Initialize",
+      "symbol": "?Initialize@PlayerResetBlock@@QAEHXZ",
+      "address": "0x4247f0",
+      "size": 1415,
+      "section": ".text$a07body"
+    }
+  ],
+  "context": {
+    "symbol": "_EnemyFactoryCaller_0040a350@4",
+    "address": "0x0040A350",
+    "section": ".text$a03body",
+    "size": 109,
+    "description": "Complete genuine original caller with conventional external factory boundaries; no credit"
+  },
+  "gaps": [
+    {
+      "section": ".text$a00gap",
+      "address": "0x401000",
+      "size": 16176
+    },
+    {
+      "section": ".text$a02gap",
+      "address": "0x404ffc",
+      "size": 21332
+    },
+    {
+      "section": ".text$a04gap",
+      "address": "0x40a3bd",
+      "size": 107267
+    },
+    {
+      "section": ".text$a06gap",
+      "address": "0x4247b4",
+      "size": 60
+    },
+    {
+      "section": ".text$a08gap",
+      "address": "0x424d77",
+      "size": 681
+    },
+    {
+      "section": ".text$a10gap",
+      "address": "0x425065",
+      "size": 5307
+    },
+    {
+      "section": ".text$a12gap",
+      "address": "0x426605",
+      "size": 98571
+    },
+    {
+      "section": ".text$a14gap",
+      "address": "0x43e7db",
+      "size": 45829
+    },
+    {
+      "section": ".text$a16gap",
+      "address": "0x449b63",
+      "size": 13
+    },
+    {
+      "section": ".text$a18gap",
+      "address": "0x449bf3",
+      "size": 733
+    },
+    {
+      "section": ".text$a20gap",
+      "address": "0x449f1a",
+      "size": 5190
+    },
+    {
+      "section": ".text$a22gap",
+      "address": "0x44b4c8",
+      "size": 840
+    },
+    {
+      "section": ".text$a24gap",
+      "address": "0x44b8d9",
+      "size": 1479
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_LargePlayerCleanup@4",
+      "address": "0x424ed0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_LargePlayerRefresh@4",
+      "address": "0x426f70",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "@LargePlayerTick@4",
+      "address": "0x426500",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "@LargePlayerDraw@4",
+      "address": "0x426510",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?Recovery_LoadCachedResource@@YIPAUCachedResource@@HPAXPBD@Z",
+      "address": "0x447280",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "??2@YAPAXI@Z",
+      "address": "0x452493",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "??3@YAXPAX@Z",
+      "address": "0x4524a1",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_Create_00406060",
+      "address": "0x406060",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_Create_004056b0",
+      "address": "0x4056b0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_Create_0041aed0",
+      "address": "0x41aed0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_Create_0042b660",
+      "address": "0x42b660",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_Create_00414830",
+      "address": "0x414830",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_EnemyCtrl_Create@4",
+      "address": "0x40d6b0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_asm_FUN_0043ee30_0043ee30@4",
+      "address": "0x43ee30",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__ftol2",
+      "address": "0x463b2c",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__fltused",
+      "address": "0x0",
+      "kind": "metadata"
+    },
+    {
+      "symbol": "_asm_strrchr_00452930",
+      "address": "0x452930",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_asm_stricmp_0046054e",
+      "address": "0x46054e",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_asm_malloc_00452706",
+      "address": "0x452706",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_asm_vsprintf_004524a6",
+      "address": "0x4524a6",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__imp__EnterCriticalSection@4",
+      "address": "0x4660b0",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__LeaveCriticalSection@4",
+      "address": "0x4660b4",
+      "kind": "data"
+    },
+    {
+      "symbol": "@__security_check_cookie@4",
+      "address": "0x458ea5",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "___security_cookie",
+      "address": "0x473660",
+      "kind": "data"
+    },
+    {
+      "symbol": "___CxxFrameHandler",
+      "address": "0x46276d",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_memset",
+      "address": "0x45bed0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_strlen",
+      "address": "0x456720",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_strcpy",
+      "address": "0x45bd80",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_0046e3ec",
+      "address": "0x46e3ec",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0046e420",
+      "address": "0x46e420",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0046e42c",
+      "address": "0x46e42c",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00470b0c",
+      "address": "0x470b0c",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00470b44",
+      "address": "0x470b44",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00474c68",
+      "address": "0x474c68",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00474c6c",
+      "address": "0x474c6c",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00474f70",
+      "address": "0x474f70",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00476f78",
+      "address": "0x476f78",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00476fa0",
+      "address": "0x476fa0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00476fa8",
+      "address": "0x476fa8",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00476fb0",
+      "address": "0x476fb0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00476fb8",
+      "address": "0x476fb8",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00476fc0",
+      "address": "0x476fc0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_func_ctrl",
+      "address": "0x491be4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491bf0",
+      "address": "0x491bf0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_sprt_ctrl",
+      "address": "0x491c10",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_player",
+      "address": "0x477834",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004660b0",
+      "address": "0x4660b0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004660b4",
+      "address": "0x4660b4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004660c4",
+      "address": "0x4660c4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004660cc",
+      "address": "0x4660cc",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004660d0",
+      "address": "0x4660d0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004660d8",
+      "address": "0x4660d8",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004922a4",
+      "address": "0x4922a4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0049231e",
+      "address": "0x49231e",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00497990",
+      "address": "0x497990",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00497994",
+      "address": "0x497994",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00470c50",
+      "address": "0x470c50",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0047476c",
+      "address": "0x47476c",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00474778",
+      "address": "0x474778",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491bf4",
+      "address": "0x491bf4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491bf8",
+      "address": "0x491bf8",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_enemy_ctrl",
+      "address": "0x477704",
+      "kind": "data"
+    },
+    {
+      "symbol": "?Entity_Init@@YIXPAXPAUEntity@@@Z",
+      "address": "0x401de0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?g_thread_synchronization@@3UThreadSynchronization@@A",
+      "address": "0x492274",
+      "kind": "data"
+    },
+    {
+      "symbol": "?Read@ArchiveReader@@QAEPADPBXPAD@Z",
+      "address": "0x434dd0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__chkstk",
+      "address": "0x00458EC0",
+      "kind": "relative_code"
+    }
+  ],
+  "exceptions": true
+}

@@ -1,0 +1,271 @@
+{
+  "schema_version": 1,
+  "name": "dat_archive_open_00434c30",
+  "source": "src/pack/arcmngr/dat_archive_open_00434c30.cpp",
+  "driver": "build_support/layout/ltcg/dat_archive_open_00434c30_context.cpp",
+  "headers": [
+    "include/th10/archive/dat_archive_types.hpp",
+    "include/th10/platform/file.hpp",
+    "include/th10/platform/memory_file.hpp",
+    "include/th10/platform/windows_types.hpp",
+    "include/th10/types.hpp",
+    "include/th10/util/heap.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "DAT archive disk and resource openers compiled with native LTCG against the recovered Close and string-duplicate helpers and a LoadIndex ABI model.",
+  "functions": [
+    {
+      "name": "DatArchive_Open",
+      "symbol": "?Open@DatArchive@@QAE_NPBD@Z",
+      "section": ".text$01open",
+      "address": "0x00434C30",
+      "size": 108,
+      "actual_abi": "archive in ECX, path in EAX; AL result; plain RET",
+      "source": "src/pack/arcmngr/dat_archive_open_00434c30.cpp"
+    },
+    {
+      "name": "DatArchive_OpenResource",
+      "symbol": "?OpenResource@DatArchive@@QAE_NPBD@Z",
+      "section": ".text$01openresource",
+      "address": "0x00434CA0",
+      "size": 100,
+      "actual_abi": "archive in ECX, resource name in EAX; AL result; plain RET",
+      "source": "src/pack/arcmngr/dat_archive_open_00434c30.cpp"
+    },
+    {
+      "name": "DatArchive_OpenNext",
+      "symbol": "?DatArchive_OpenNext@@YG_NPBD@Z",
+      "section": ".text$08opennext",
+      "address": "0x004357D0",
+      "size": 36,
+      "actual_abi": "path in EAX; AL result; plain RET",
+      "source": "src/pack/file/dat_archive_open_next_004357d0.cpp"
+    }
+  ],
+  "anchors": [
+    {
+      "name": "DatArchive_Close",
+      "symbol": "?Close@DatArchive@@QAEXXZ",
+      "section": ".text$02close",
+      "address": "0x00434D10",
+      "size": 86
+    },
+    {
+      "name": "DatArchive_LoadIndex_abi_model",
+      "symbol": "?LoadIndex@DatArchive@@QAE_NPBD@Z",
+      "section": ".text$05loadindex",
+      "address": "0x00434F70",
+      "size": 107
+    },
+    {
+      "name": "LegacyString_Duplicate",
+      "symbol": "?LegacyString_Duplicate@@YGPADPBD@Z",
+      "section": ".text$07duplicate",
+      "address": "0x00435220",
+      "size": 47
+    }
+  ],
+  "context": {
+    "symbol": "?DatArchiveOpenContext_00434c30@@YGHPAUDatArchive@@PAPBDH@Z",
+    "section": ".text$09context",
+    "address": "0x00435800",
+    "size": 110,
+    "description": "Synthetic array-walking caller; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00a",
+      "address": "0x00401000",
+      "size": 212016
+    },
+    {
+      "section": ".text$03gap",
+      "address": "0x00434D66",
+      "size": 522
+    },
+    {
+      "section": ".text$06gap",
+      "address": "0x00434FDB",
+      "size": 581
+    },
+    {
+      "section": ".text$07zgap",
+      "address": "0x0043524F",
+      "size": 1409
+    }
+  ],
+  "constants": [],
+  "constant_aliases": [],
+  "data_aliases": [
+    {
+      "symbol": "??_7FileHandle@@6B@",
+      "address": "0x0046F230",
+      "bytes": "705343006054430090544300d054430010554300305543005055430020534300"
+    },
+    {
+      "symbol": "??_7ResourceFile@@6B@",
+      "address": "0x0046F328",
+      "bytes": "c0664300306443006064430070634300d0644300e0644300f064430060664300"
+    }
+  ],
+  "absolute_symbols": [
+    {
+      "symbol": "_asm_operator_new_00452493",
+      "address": "0x00452493",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_asm_malloc_00452706",
+      "address": "0x00452706",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_g_dat_archive_read_mode",
+      "address": "0x00474908",
+      "kind": "data"
+    },
+    {
+      "symbol": "_asm_free_00452422",
+      "address": "0x00452422",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_asm_free_004524a1",
+      "address": "0x004524A1",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_asm_eh_vector_destructor_iterator_004525ff@16",
+      "address": "0x004525FF",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?HeapBuffer_Release@@YIXPAUHeapBuffer@@@Z",
+      "address": "0x00435250",
+      "kind": "data"
+    },
+    {
+      "symbol": "_DatIndexDecode_0044b0d0@12",
+      "address": "0x0044B0D0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "??1BufferFile@@UAE@XZ",
+      "address": "0x004363C0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "??1FileHandle@@UAE@XZ",
+      "address": "0x00435340",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "??1ResourceFile@@UAE@XZ",
+      "address": "0x00436680",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "??3@YAXPAX@Z",
+      "address": "0x004524A1",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?Close@BufferFile@@UAEXXZ",
+      "address": "0x00436430",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?Close@FileHandle@@UAEXXZ",
+      "address": "0x00435460",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?GetSize@BufferFile@@UBEIXZ",
+      "address": "0x004364E0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?GetSize@FileHandle@@UBEIXZ",
+      "address": "0x00435530",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?Open@BufferFile@@UAEEPBD0@Z",
+      "address": "0x00436400",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?Open@FileHandle@@UAEEPBD0@Z",
+      "address": "0x00435370",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?Open@ResourceFile@@UAEEPBD0@Z",
+      "address": "0x004366C0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?Read@BufferFile@@UAEIPAXI@Z",
+      "address": "0x00436460",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?Read@FileHandle@@UAEIPAXI@Z",
+      "address": "0x00435490",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?Seek@BufferFile@@UAEEJI@Z",
+      "address": "0x004364F0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?Seek@FileHandle@@UAEEJI@Z",
+      "address": "0x00435550",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?Tell@BufferFile@@UBEIXZ",
+      "address": "0x004364D0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?Tell@FileHandle@@UBEIXZ",
+      "address": "0x00435510",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?Write@BufferFile@@UAEEPBXI@Z",
+      "address": "0x00436370",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?Write@FileHandle@@UAEEPBXI@Z",
+      "address": "0x004354D0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__purecall",
+      "address": "0x00401000",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?g_dat_archives@@3PAUDatArchive@@A",
+      "address": "0x004923B0",
+      "kind": "data"
+    },
+    {
+      "symbol": "?g_dat_archive_count@@3HA",
+      "address": "0x00477850",
+      "kind": "data"
+    }
+  ],
+  "roots": [],
+  "included_sources": [
+    "src/pack/arcmngr/dat_archive_close_00434d10.cpp",
+    "src/pack/arcmngr/legacy_string_duplicate_00435220.cpp"
+  ],
+  "additional_sources": [
+    "src/pack/file/dat_archive_open_next_004357d0.cpp"
+  ]
+}

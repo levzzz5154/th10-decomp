@@ -7,7 +7,7 @@
 // The field is a vtable-bearing pointer: 0x00405300 loads it into EAX, reads
 // [EAX] as the vtable and calls slot +0xBC with the slot record as the second
 // argument. Plain C++ cannot name EAX, so the body is compiled as part of the
-// native LTCG cluster in layout/ltcg/object_interface_getter.json, where the
+// native LTCG cluster in build_support/layout/ltcg/object_interface_getter.json, where the
 // synthetic caller makes MSVC pick EAX for both the argument and the result.
 
 struct ManagedObject {

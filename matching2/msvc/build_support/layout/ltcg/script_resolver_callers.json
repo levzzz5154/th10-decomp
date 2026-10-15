@@ -1,0 +1,118 @@
+{
+  "schema_version": 1,
+  "name": "script_resolver_callers",
+  "source": "src/script/sptlib/fun_00450700_00450700.cpp",
+  "driver": "build_support/layout/ltcg/script_resolver_callers_context.cpp",
+  "headers": [
+    "include/script_resolver_00450470.hpp",
+    "include/script_vm_00450560.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Sorted script-table resolver compiled with native LTCG so the table receiver arrives in EAX, the script name remains on the stack, and the result is returned with RET 4.",
+  "functions": [
+    {
+      "name": "ScriptTable_00450470_Resolve",
+      "symbol": "?Resolve@ScriptTable_00450470@@QAEHPBD@Z",
+      "section": ".text$01resolve",
+      "address": "0x00450470",
+      "size": 136,
+      "actual_abi": "this in EAX; name at [ESP+4]; integer result in EAX; RET 4",
+      "source": "src/script/sptlib/final_script_runtime.cpp"
+    },
+    {
+      "name": "ScriptVm_BindName",
+      "symbol": "?BindName_00450700@@YIHPBDPAUScriptVm_00450560@@@Z",
+      "section": ".text$05bindname",
+      "address": "0x00450700",
+      "size": 30,
+      "actual_abi": "owner ESI; name ECX; result EAX; RET",
+      "source": "src/script/sptlib/fun_00450700_00450700.cpp"
+    },
+    {
+      "name": "BindTable",
+      "symbol": "?BindTable@ScriptVm_00450560@@QAEHPAUScriptTable_00450470@@PBD@Z",
+      "section": ".text$03bindtable",
+      "address": "0x00450560",
+      "size": 30,
+      "actual_abi": "ESI owner; private register arguments",
+      "source": "src/unreferenced/unassigned_00450560.cpp"
+    },
+    {
+      "name": "TryBind",
+      "symbol": "?TryBind@ScriptVm_00450560@@QAEHPAUScriptTable_00450470@@PBD@Z",
+      "section": ".text$04trybind",
+      "address": "0x00450580",
+      "size": 43,
+      "actual_abi": "ESI owner; private register arguments",
+      "source": "src/unreferenced/unassigned_00450580.cpp"
+    },
+    {
+      "name": "ScriptTable_CreateVm",
+      "symbol": "?CreateVm@ScriptTable_00450470@@QAEPAUScriptVm_00450560@@PBD@Z",
+      "section": ".text$02create",
+      "address": "0x00450500",
+      "size": 89,
+      "actual_abi": "table EDI; name stack; returned VM EAX; RET4",
+      "source": "src/script/sptlib/script_table_create_vm.cpp"
+    }
+  ],
+  "context": {
+    "symbol": "ScriptResolverContext@16",
+    "section": ".text$07context",
+    "address": "0x00450720",
+    "size": 145,
+    "description": "Compiler-only array context."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 324720
+    },
+    {
+      "section": ".text$01zpad",
+      "address": "0x004504F8",
+      "size": 8
+    },
+    {
+      "section": ".text$03zpad",
+      "address": "0x0045057E",
+      "size": 2
+    },
+    {
+      "section": ".text$04zpad",
+      "address": "0x004505AB",
+      "size": 341
+    },
+    {
+      "section": ".text$06layout",
+      "address": "0x0045071E",
+      "size": 2
+    },
+    {
+      "section": ".text$02zpad",
+      "address": "0x00450559",
+      "size": 7
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "??2@YAPAXI@Z",
+      "address": "0x00452493",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_0046d0d8",
+      "address": "0x0046D0D8",
+      "kind": "data"
+    }
+  ],
+  "additional_sources": [
+    "src/script/sptlib/final_script_runtime.cpp",
+    "src/unreferenced/unassigned_00450560.cpp",
+    "src/unreferenced/unassigned_00450580.cpp",
+    "src/script/sptlib/script_table_create_vm.cpp"
+  ],
+  "included_sources": []
+}

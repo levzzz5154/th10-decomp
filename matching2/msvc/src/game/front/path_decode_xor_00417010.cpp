@@ -7,7 +7,7 @@
 //
 // Retail passes the encoded text in EAX; native LTCG picks that register
 // from the callers, so the body is compiled in the cluster
-// layout/ltcg/path_decode_xor_00417010.json.
+// build_support/layout/ltcg/path_decode_xor_00417010.json.
 
 // Static result buffer in .bss (0x00497D40).
 extern char g_decoded_text_00497d40[];

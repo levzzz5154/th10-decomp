@@ -1,0 +1,296 @@
+{
+  "schema_version": 1,
+  "name": "laser_grow_0041e700",
+  "source": "src/game/laser/laser_grow_update.cpp",
+  "driver": "build_support/layout/ltcg/laser_grow_0041e700/driver.cpp",
+  "additional_sources": [
+    "build_support/layout/ltcg/laser_grow_0041e700/scheduler.cpp",
+    "build_support/layout/ltcg/laser_grow_0041e700/classifier.cpp",
+    "build_support/layout/ltcg/laser_grow_0041e700/sound.cpp",
+    "build_support/layout/ltcg/laser_grow_0041e700/create.cpp",
+    "build_support/layout/ltcg/laser_grow_0041e700/dependencies.cpp",
+    "build_support/layout/ltcg/laser_grow_0041e700/loader.cpp"
+  ],
+  "headers": [
+    "build_support/layout/ltcg/laser_grow_0041e700/types.hpp",
+    "include/th10/game/entity.hpp",
+    "include/th10/types.hpp",
+    "include/th10/game/trigger_region_004267f0.hpp",
+    "include/th10/math/oriented_rect_contact.hpp",
+    "include/th10/render/animation_public_callers.hpp",
+    "include/th10/platform/sound_queue.hpp",
+    "include/th10/game/player.hpp",
+    "include/th10/math/timer.hpp"
+  ],
+  "included_sources": [],
+  "image_base": "0x00400000",
+  "description": "Complete growth, motion, wait/grow/active/shrink fallthrough, player collision and graze, and dual-animation update callback. Full native dependency bodies; actual 4187C0 wrapper as unselected link entry.",
+  "functions": [
+    {
+      "name": "GrowLaser_Update",
+      "symbol": "?Update@GrowLaser@@QAEHXZ",
+      "section": ".text$20laser",
+      "address": "0x0041E700",
+      "size": 832,
+      "actual_abi": "Public virtual-callback member entry: laser ECX; integer EAX result; no stack arguments, plain RET. Complete 816-byte code and 16-byte switch table."
+    }
+  ],
+  "anchors": [
+    {
+      "name": "?Set@LaserScheduler@@QAEXH@Z",
+      "symbol": "?Set@LaserScheduler@@QAEXH@Z",
+      "section": ".text$00scheduler",
+      "address": "0x405410",
+      "size": 57
+    },
+    {
+      "name": "?CheckLaserHit@Player@@QAEHPBUPoint3_OrientedRect@@MMM@Z",
+      "symbol": "?CheckLaserHit@Player@@QAEHPBUPoint3_OrientedRect@@MMM@Z",
+      "section": ".text$30classifier",
+      "address": "0x4267f0",
+      "size": 471
+    },
+    {
+      "name": "?QueuePan@SoundQueue@@QAEXHM@Z",
+      "symbol": "?QueuePan@SoundQueue@@QAEXHM@Z",
+      "section": ".text$40pan",
+      "address": "0x43dd10",
+      "size": 149
+    },
+    {
+      "name": "?ItemAnimation_CreateOffset_00448db0@@YGPAPAXPAXPAPAXHPBUPoint3_OrientedRect@@@Z",
+      "symbol": "?ItemAnimation_CreateOffset_00448db0@@YGPAPAXPAXPAPAXHPBUPoint3_OrientedRect@@@Z",
+      "section": ".text$70create",
+      "address": "0x448db0",
+      "size": 111
+    },
+    {
+      "name": "_asm_AnimationManager_RegisterPrimaryBack_004489d0",
+      "symbol": "_asm_AnimationManager_RegisterPrimaryBack_004489d0",
+      "section": ".text$60register",
+      "address": "0x4489d0",
+      "size": 114
+    },
+    {
+      "name": "?Allocate@AnimationPool@@QAEPAUEntity@@XZ",
+      "symbol": "?Allocate@AnimationPool@@QAEPAUEntity@@XZ",
+      "section": ".text$80allocate",
+      "address": "0x449950",
+      "size": 165
+    },
+    {
+      "name": "_LoadScript_0043e710@12",
+      "symbol": "_LoadScript_0043e710@12",
+      "section": ".text$50loader",
+      "address": "0x43e710",
+      "size": 203
+    }
+  ],
+  "context": {
+    "symbol": "?Game_UpdateCompilerCaller_004187c0@@YIXPAX@Z",
+    "section": ".text$10entry",
+    "address": "0x004187C0",
+    "size": 7,
+    "description": "Complete actual 4187C0 fastcall wrapper to the existing public Game_Update stack entry; unselected native link entry, no synthetic caller or new game-code credit."
+  },
+  "gaps": [
+    {
+      "section": ".text$00agap",
+      "address": "0x401000",
+      "size": 17424
+    },
+    {
+      "section": ".text$10agap",
+      "address": "0x405449",
+      "size": 78711
+    },
+    {
+      "section": ".text$20agap",
+      "address": "0x4187c7",
+      "size": 24377
+    },
+    {
+      "section": ".text$30agap",
+      "address": "0x41ea40",
+      "size": 32176
+    },
+    {
+      "section": ".text$40agap",
+      "address": "0x4269c7",
+      "size": 95049
+    },
+    {
+      "section": ".text$50agap",
+      "address": "0x43dda5",
+      "size": 2411
+    },
+    {
+      "section": ".text$60agap",
+      "address": "0x43e7db",
+      "size": 41461
+    },
+    {
+      "section": ".text$70agap",
+      "address": "0x448a42",
+      "size": 878
+    },
+    {
+      "section": ".text$80agap",
+      "address": "0x448e1f",
+      "size": 2865
+    }
+  ],
+  "constants": [],
+  "constant_aliases": [
+    {
+      "symbol": "__real@3dcccccd",
+      "address": "0x470c18",
+      "value": 0.10000000149011612
+    },
+    {
+      "symbol": "__real@3eaaaaab",
+      "address": "0x470cc4",
+      "value": 0.3333333432674408
+    },
+    {
+      "symbol": "__real@3f4ccccd",
+      "address": "0x470cc0",
+      "value": 0.800000011920929
+    },
+    {
+      "symbol": "__real@3f000000",
+      "address": "0x470b0c",
+      "value": 0.5
+    },
+    {
+      "symbol": "__real@41800000",
+      "address": "0x470b48",
+      "value": 16.0
+    },
+    {
+      "symbol": "__real@42000000",
+      "address": "0x470bcc",
+      "value": 32.0
+    },
+    {
+      "symbol": "__real@00000000",
+      "address": "0x470b04",
+      "value": 0.0
+    }
+  ],
+  "absolute_symbols": [
+    {
+      "symbol": "_data_00476f78",
+      "address": "0x476f78",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_enemy_ctrl",
+      "address": "0x477704",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_player",
+      "address": "0x477834",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004776f0",
+      "address": "0x4776f0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00492590",
+      "address": "0x492590",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_front",
+      "address": "0x47770c",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004749ce",
+      "address": "0x4749ce",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00470b20",
+      "address": "0x470b20",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00470b4c",
+      "address": "0x470b4c",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00470b48",
+      "address": "0x470b48",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_sprt_ctrl",
+      "address": "0x491c10",
+      "kind": "data"
+    },
+    {
+      "symbol": "__fltused",
+      "address": "0x0",
+      "kind": "metadata"
+    },
+    {
+      "symbol": "_RunLaserAnimation_0043ee30@4",
+      "address": "0x43ee30",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_asm_FUN_0043ee30_0043ee30@4",
+      "address": "0x43ee30",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?SetPolar@LaserPolarPoint@@QAEPAU1@MM@Z",
+      "address": "0x41f800",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_Player_Hit@4",
+      "address": "0x426cf0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "??2@YAPAXI@Z",
+      "address": "0x452493",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?Entity_Constructor@@YIPAUEntity@@PAU1@@Z",
+      "address": "0x402050",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?Entity_Init@@YIXPAXPAUEntity@@@Z",
+      "address": "0x401de0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__ftol2",
+      "address": "0x463b2c",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_NormalizeAngle_0044bc10@8",
+      "address": "0x44bc10",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_Game_Update@4",
+      "address": "0x418190",
+      "kind": "relative_code"
+    }
+  ],
+  "roots": [
+    "?Update@GrowLaser@@QAEHXZ"
+  ]
+}

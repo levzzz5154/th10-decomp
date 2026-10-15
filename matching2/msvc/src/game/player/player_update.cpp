@@ -1,8 +1,8 @@
 // 0x00425730: the per-frame update of the player's state machine: respawn
 // entry, the live state, death and its item fan, then the collision regions,
 // timers and bounding boxes shared by every state.
-#include "../../../layout/ltcg/player_state_collision_runtime/runtime.hpp"
-#include "../../../layout/ltcg/player_state_collision_runtime/player_state.hpp"
+#include "../../../build_support/layout/ltcg/player_state_collision_runtime/runtime.hpp"
+#include "../../../build_support/layout/ltcg/player_state_collision_runtime/player_state.hpp"
 
 // These are inline expansions of the real embedded timer operations.
 static inline void ResetPlayerTimer(FrameTimer& timer, int frame) {

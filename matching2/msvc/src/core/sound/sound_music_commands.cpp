@@ -1,5 +1,5 @@
 // 0x0043DDF0: run the music command queue and the pending sound effects.
-#include "../../../layout/ltcg/sound_interfaces_dependencies/sound_wave_types.hpp"
+#include "../../../build_support/layout/ltcg/sound_interfaces_dependencies/sound_wave_types.hpp"
 #include "th10/app/supervisor.hpp"
 #include "th10/platform/sound_fade_0044d4e0.hpp"
 #include <string.h>

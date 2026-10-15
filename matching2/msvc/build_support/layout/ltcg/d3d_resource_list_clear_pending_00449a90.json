@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "name": "d3d_resource_list_clear_pending_00449a90",
+  "source": "src/core/zunlib/d3d_resource_manager.cpp",
+  "driver": "build_support/layout/ltcg/d3d_resource_list_clear_pending_00449a90_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "D3D resource list pointer in EAX; three zero stores through it, plain RET.",
+  "functions": [
+    {
+      "name": "D3DResourceList_ClearPending_00449a90",
+      "symbol": "?ClearPending@D3DResourceList_ClearPending_00449a90@@QAEXXZ",
+      "section": ".text$01clear",
+      "address": "0x00449A90",
+      "size": 12,
+      "actual_abi": "list in EAX; plain RET"
+    }
+  ],
+  "context": {
+    "symbol": "?D3DResourceListClearCompilerContext@@YGXPAPAUD3DResourceList_ClearPending_00449a90@@H@Z",
+    "section": ".text$03context",
+    "address": "0x00449AA0",
+    "size": 33,
+    "description": "Synthetic array-walking caller that establishes the observed register convention; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 297616
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x00449A9C",
+      "size": 4
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [],
+  "included_sources": []
+}

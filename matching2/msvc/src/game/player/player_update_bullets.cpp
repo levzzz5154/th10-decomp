@@ -1,6 +1,6 @@
 // 0x00428280: update the player's 128 bullets: move them, keep their
 // animations in place, and retire lasers and bullets that left the screen.
-#include "../../../layout/ltcg/player_state_collision_runtime/effect_update.hpp"
+#include "../../../build_support/layout/ltcg/player_state_collision_runtime/effect_update.hpp"
 
 // The shared record declares its handles volatile; the update reads them plainly.
 #define REF(h) (*reinterpret_cast<AnimationRef*>(const_cast<unsigned int*>(&(h).value)))

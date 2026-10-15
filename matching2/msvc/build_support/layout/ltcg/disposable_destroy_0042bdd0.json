@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "name": "disposable_destroy_0042bdd0",
+  "source": "src/unreferenced/unassigned_0042bdd0.cpp",
+  "driver": "build_support/layout/ltcg/disposable_destroy_0042bdd0_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "Disposable_0042bdd0_Destroy compiled with a synthetic array caller so the native LTCG register allocator keeps the object in ESI across both frees as retail does.",
+  "functions": [
+    {
+      "name": "Disposable_0042bdd0_Destroy",
+      "symbol": "?Disposable_0042bdd0_Destroy@@YGPAXPAUDisposable_0042bdd0@@H@Z",
+      "section": ".text$01del",
+      "address": "0x0042BDD0",
+      "size": 56,
+      "actual_abi": "object in ESI across both frees; result in EAX; RET 4"
+    }
+  ],
+  "context": {
+    "symbol": "DisposableDestroyContext_0042bdd0@8",
+    "section": ".text$03context",
+    "address": "0x42be20",
+    "size": 39,
+    "description": "Synthetic array-walking caller that establishes the observed register convention; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00gap",
+      "address": "0x401000",
+      "size": 175568
+    },
+    {
+      "section": ".text$02end",
+      "address": "0x42be08",
+      "size": 24
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_data_0046d0f0",
+      "address": "0x0046D0F0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_entry_free_00452422",
+      "address": "0x00452422",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_entry_free_004524a1",
+      "address": "0x004524A1",
+      "kind": "relative_code"
+    }
+  ],
+  "additional_sources": [],
+  "included_sources": []
+}

@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "name": "game_state_field3788_getter",
+  "source": "src/unreferenced/FUN_00405580_00405580.cpp",
+  "driver": "build_support/layout/ltcg/game_state_field3788_getter_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "Ordinary C++ accessor for the game-state dword at +0x3788. The synthetic caller loads the singleton pointer from the retail global 0x004776F4, which is what puts the pointer in EAX as retail does.",
+  "functions": [
+    {
+      "name": "GameState_GetField3788",
+      "symbol": "?GameState_GetField3788@@YGHPAUGameState@@@Z",
+      "section": ".text$01get",
+      "address": "0x00405580",
+      "size": 7,
+      "actual_abi": "state in EAX; result in EAX; plain RET"
+    }
+  ],
+  "context": {
+    "symbol": "?GameStateField3788GetterCompilerContext@@YGHH@Z",
+    "section": ".text$03context",
+    "address": "0x00405590",
+    "size": 35,
+    "description": "Synthetic caller that establishes the observed register convention; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 17792
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x00405587",
+      "size": 1
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_g_card",
+      "address": "0x004776F4",
+      "kind": "data"
+    }
+  ],
+  "included_sources": []
+}

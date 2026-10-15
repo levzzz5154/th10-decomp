@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "name": "dat_crypt",
+  "source": "src/core/zunlib/crypt.cpp",
+  "driver": "build_support/layout/ltcg/dat_crypt_context.cpp",
+  "headers": [
+    "include/th10/archive/crypt.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "The dat/score/replay byte cipher compiled with native LTCG, which passes the key in AL and leaves the other five arguments on the stack. The synthetic context only supplies callers; the two complete retail functions are the recovered code.",
+  "functions": [
+    {
+      "name": "Dat_Decrypt",
+      "symbol": "?Dat_Decrypt@@YGPAEPAEHEEHH@Z",
+      "section": ".text$crypt01_decrypt",
+      "address": "0x0044B0D0",
+      "size": 323,
+      "actual_abi": "key in AL; data, size, step, block size and limit on the stack; result in EAX; RET 20"
+    },
+    {
+      "name": "Dat_Encrypt",
+      "symbol": "?Dat_Encrypt@@YGPAEPAEHEEHH@Z",
+      "section": ".text$crypt03_encrypt",
+      "address": "0x0044B220",
+      "size": 307,
+      "actual_abi": "key in AL; data, size, step, block size and limit on the stack; result in EAX; RET 20"
+    }
+  ],
+  "context": {
+    "symbol": "_DatCryptCompilerContext@16",
+    "section": ".text$crypt05_context",
+    "address": "0x0044B360",
+    "size": 174,
+    "description": "Synthetic caller with constant and per-file keys; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$crypt00_layout",
+      "address": "0x00401000",
+      "size": 303312
+    },
+    {
+      "section": ".text$crypt02_layout",
+      "address": "0x0044B213",
+      "size": 13
+    },
+    {
+      "section": ".text$crypt04_layout",
+      "address": "0x0044B353",
+      "size": 13
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_asm_malloc_00452706",
+      "address": "0x00452706",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_asm_free_00452422",
+      "address": "0x00452422",
+      "kind": "relative_code"
+    }
+  ],
+  "roots": [],
+  "included_sources": []
+}

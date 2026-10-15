@@ -76,6 +76,10 @@ def command(kind, argument=1, step=0, name=b"track1.wav"):
     return kind, argument, step, name
 
 
+import sys as _project_sys
+from pathlib import Path as _ProjectPath
+_project_sys.path.insert(0, str(_ProjectPath(__file__).resolve().parents[2]))
+from matching2.tools.common.project_paths import project_support
 def compile_candidates(directory):
     launch = compile_launch(directory)
     obj = directory / "command-aggregate.obj"
@@ -134,7 +138,7 @@ def compile_candidates(directory):
                     str(ROOT / "matching2/msvc/src/platform/process.cpp"), "-o", str(obj)], check=True, timeout=60)
     first_symbol = "?Platform_InvokeInterface@@YIHPAUSoundBuffer@@@Z"
     first_address = COMMAND_BASE + 0xB000
-    first_body = load_candidate(obj, load_manifest(ROOT / "matching2/msvc/regions.json"), first_symbol, code_address=first_address)
+    first_body = load_candidate(obj, load_manifest(project_support((ROOT) / 'matching2/msvc', 'regions.json')), first_symbol, code_address=first_address)
     support.append(Module(first_address, first_body, {first_symbol: first_address}, ()))
     entries["stop-first"] = first_address
     # Restore the dispatcher object: the helper loop reuses the obj variable.
@@ -378,7 +382,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--oracle", type=Path, default=ROOT / "matching2/build/oracle/th10.exe")
     options = parser.parse_args()
-    config = load_manifest(ROOT / "matching2/msvc/regions.json")
+    config = load_manifest(project_support((ROOT) / 'matching2/msvc', 'regions.json'))
     load_oracle(options.oracle, config)
     image = PEImage(options.oracle.read_bytes())
     with tempfile.TemporaryDirectory(prefix="th10-sound-commands-") as temporary:

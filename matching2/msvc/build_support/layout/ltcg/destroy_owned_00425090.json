@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "name": "destroy_owned_00425090",
+  "source": "src/game/player/player_delete.cpp",
+  "driver": "build_support/layout/ltcg/destroy_owned_00425090_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "Destroy/free wrapper compiled with native LTCG so object arrives in ESI.",
+  "functions": [
+    {
+      "name": "Player_Delete",
+      "symbol": "?Player_Delete@@YGXPAUPlayer@@@Z",
+      "section": ".text$01destroy00425090",
+      "address": "0x00425090",
+      "size": 18,
+      "actual_abi": "object in ESI; plain RET"
+    }
+  ],
+  "context": {
+    "symbol": "?DestroyOwnedCompilerContext_00425090@@YGXPAPAUPlayer@@H@Z",
+    "section": ".text$03context",
+    "address": "0x004250B0",
+    "size": 39,
+    "description": "Synthetic array caller; not game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 147600
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x004250A2",
+      "size": 14
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_asm_FUN_00424ed0_00424ed0@4",
+      "address": "0x00424ED0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_entry_free_004524a1",
+      "address": "0x004524A1",
+      "kind": "relative_code"
+    }
+  ],
+  "included_sources": []
+}

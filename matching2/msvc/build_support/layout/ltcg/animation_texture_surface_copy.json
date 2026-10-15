@@ -1,0 +1,135 @@
+{
+  "schema_version": 1,
+  "name": "animation_texture_surface_copy",
+  "source": "src/core/sprtlib/animation_texture_surface_copy.cpp",
+  "driver": "build_support/layout/ltcg/animation_texture_surface_copy/context.cpp",
+  "headers": [
+    "include/th10/render/quad_batch.hpp",
+    "include/th10/render/resource_surface_loading.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Back buffer captures and texture-to-texture copy compiled with the real batch flush and indexed-resource clear under native LTCG; a synthetic array caller supplies the private register arguments.",
+  "functions": [
+    {
+      "name": "AnimationManagerIndexed_CopyRectToBackBuffer",
+      "symbol": "?CopyRectToBackBuffer@AnimationManagerIndexed_00447f70@@QAEXHHHHHHH@Z",
+      "section": ".text$02rect",
+      "address": "0x00448120",
+      "size": 325,
+      "actual_abi": "manager on the stack; index EBX; six further stack arguments; RET 28"
+    },
+    {
+      "name": "AnimationTextureManager_CaptureBackBuffer",
+      "symbol": "?CaptureBackBuffer@AnimationTextureManager_00448270@@QAEXHHHHHHHHHH@Z",
+      "section": ".text$03capture",
+      "address": "0x00448270",
+      "actual_abi": "manager ECX; resource EBX; entry EAX; eight stack arguments; RET 32",
+      "size": 240
+    },
+    {
+      "name": "AnimationTextureManager_CopyTexture",
+      "symbol": "?CopyTexture@AnimationTextureManager_00448270@@QAEXHHHHPBUSurfaceRect_00447fd0@@0@Z",
+      "section": ".text$05copy",
+      "address": "0x00448360",
+      "actual_abi": "manager EDX; entries EAX and ECX; four stack arguments; RET 16",
+      "size": 227
+    },
+    {
+      "name": "AnimationManagerIndexed_CaptureBackBufferImage",
+      "symbol": "?CaptureBackBufferImage@AnimationManagerIndexed_00447f70@@QAEXHHHHHHHHH@Z",
+      "section": ".text$06image",
+      "address": "0x00448450",
+      "size": 379,
+      "actual_abi": "manager EAX; nine stack arguments; RET 36"
+    }
+  ],
+  "context": {
+    "symbol": "_AnimationTextureSurfaceCopyContext@24",
+    "section": ".text$07context",
+    "address": "0x004485D0",
+    "size": 309,
+    "description": "Synthetic array caller; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00before",
+      "address": "0x00401000",
+      "size": 270160
+    },
+    {
+      "section": ".text$01flushz",
+      "address": "0x00442FD5",
+      "size": 20379
+    },
+    {
+      "section": ".text$02clearz",
+      "address": "0x00447FC7",
+      "size": 345
+    },
+    {
+      "section": ".text$05copyz",
+      "address": "0x00448443",
+      "size": 13
+    },
+    {
+      "section": ".text$06imagez",
+      "address": "0x004485CB",
+      "size": 5
+    },
+    {
+      "section": ".text$02rectz",
+      "address": "0x00448265",
+      "size": 11
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_data_00491c30",
+      "address": "0x00491C30",
+      "kind": "data"
+    },
+    {
+      "symbol": "_LoadSurfaceCopy_004521d6@32",
+      "address": "0x004521D6",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_00491d14",
+      "address": "0x00491D14",
+      "kind": "data"
+    },
+    {
+      "symbol": "_ReleaseHeapMemory_00452422",
+      "address": "0x00452422",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_00491c28",
+      "address": "0x00491C28",
+      "kind": "data"
+    }
+  ],
+  "anchors": [
+    {
+      "name": "flush",
+      "symbol": "?Flush@SprtCtrlBatchView@@QAEHXZ",
+      "section": ".text$01flush",
+      "address": "0x00442F50",
+      "size": 133
+    },
+    {
+      "name": "clear",
+      "symbol": "?Clear@AnimationManagerIndexed_00447f70@@QAEXH@Z",
+      "section": ".text$02clear",
+      "address": "0x00447F70",
+      "size": 87
+    }
+  ],
+  "additional_sources": [
+    "build_support/layout/ltcg/animation_texture_surface_copy/flush.cpp"
+  ],
+  "included_sources": [
+    "build_support/layout/ltcg/animation_texture_surface_copy/clear.cpp"
+  ]
+}

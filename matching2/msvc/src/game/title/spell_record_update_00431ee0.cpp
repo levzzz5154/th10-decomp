@@ -11,7 +11,7 @@
 //
 // The room is a stack argument; the handler is linked with the title
 // dispatcher and the real bodies of its leaves
-// (layout/ltcg/difficulty_select_update_00430320.json).
+// (build_support/layout/ltcg/difficulty_select_update_00430320.json).
 #include <string.h>
 
 #include "th10/game/spell_record_update_00431ee0.hpp"

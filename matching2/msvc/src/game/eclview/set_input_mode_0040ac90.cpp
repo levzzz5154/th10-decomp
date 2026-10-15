@@ -14,7 +14,7 @@
 //
 // Every retail caller loads the object from a fixed global (0x00491C28) into
 // EAX and pushes a literal mode, which is the shape the synthetic caller in
-// layout/ltcg/set_input_mode.json reproduces. The body was carved out of
+// build_support/layout/ltcg/set_input_mode.json reproduces. The body was carved out of
 // src/game/eclview/score.cpp, where the same offsets are used by other state code.
 
 struct InputState {

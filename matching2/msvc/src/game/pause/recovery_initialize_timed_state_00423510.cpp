@@ -4,7 +4,7 @@
 //
 // Retail enters this member with the record in ESI, a receiver no C++
 // declaration names, so the body is compiled in the native-LTCG cluster
-// layout/ltcg/stop_at_frame_pair_0040c480.json whose synthetic caller
+// build_support/layout/ltcg/stop_at_frame_pair_0040c480.json whose synthetic caller
 // establishes that register.  The two handles at +0x1D4/+0x1D8 are
 // AnimationHandles, so the calls reach the StopAtFrame1 body that same cluster
 // already carries with its address in EAX.

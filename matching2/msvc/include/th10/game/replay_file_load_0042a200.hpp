@@ -4,7 +4,7 @@
 
 extern "C" unsigned int data_00474ca0;     // game flags; 0x20 = replays come from the data archive
 
-// The shared-handle file helpers (src/platform/file.cpp, 0x0044B790).
+// The shared-handle file helpers (build_support/layout/units/file_581343.cpp, 0x0044B790).
 int __stdcall asm_File_ProbeExists_0044b4d0(const char* path);
 int __stdcall asm_File_OpenSharedRead_0044b6b0(const char* path);
 int File_CloseProbeHandle();

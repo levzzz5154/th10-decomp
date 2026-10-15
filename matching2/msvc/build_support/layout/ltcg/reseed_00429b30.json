@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "name": "reseed_00429b30",
+  "source": "src/unreferenced/unassigned_00429b30.cpp",
+  "driver": "build_support/layout/ltcg/reseed_00429b30_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "Reseed_00429b30 compiled with a synthetic array caller so the native LTCG register allocator keeps the record in EDI and the value in ESI as retail does.",
+  "functions": [
+    {
+      "name": "Reseed_00429b30",
+      "symbol": "?Reseed_00429b30@@YGHPAUTimerRecord_00429b30@@H@Z",
+      "section": ".text$01reseed",
+      "address": "0x00429B30",
+      "size": 36,
+      "actual_abi": "record in EDI; value in ESI; result in EAX; plain RET"
+    }
+  ],
+  "context": {
+    "symbol": "ReseedContext_00429b30@12",
+    "section": ".text$03context",
+    "address": "0x00429B60",
+    "size": 79,
+    "description": "Synthetic array-walking caller that establishes the observed register convention; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00gap",
+      "address": "0x00401000",
+      "size": 166704
+    },
+    {
+      "section": ".text$02end",
+      "address": "0x00429B54",
+      "size": 12
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_asm_FID_conflict___time32_00452b71",
+      "address": "0x00452B71",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_00474c7c",
+      "address": "0x00474C7C",
+      "kind": "data"
+    }
+  ],
+  "additional_sources": [],
+  "included_sources": []
+}

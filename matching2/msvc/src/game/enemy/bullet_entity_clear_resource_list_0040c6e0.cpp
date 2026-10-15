@@ -2,7 +2,7 @@
 //
 // This member is entered by the game's internal EAX convention rather than by
 // the ordinary MSVC thiscall ABI.  The native-LTCG cluster in
-// layout/ltcg/bullet_entity_clear_resource_list_0040c6e0.json supplies that
+// build_support/layout/ltcg/bullet_entity_clear_resource_list_0040c6e0.json supplies that
 // convention while keeping the recovered operation readable.
 
 extern "C" void __cdecl entry_free_004524a1(void* memory);

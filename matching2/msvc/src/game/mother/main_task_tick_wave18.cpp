@@ -20,4 +20,4 @@ __declspec(noinline) int __fastcall MainTaskTickWave18(MainTaskStateWave18* stat
 #pragma code_seg()
 
 // The mode update's private callees.
-#include "../../../layout/ltcg/sound_fade_wave18_dependencies.cpp"
+#include "../../../build_support/layout/ltcg/sound_fade_wave18_dependencies.cpp"

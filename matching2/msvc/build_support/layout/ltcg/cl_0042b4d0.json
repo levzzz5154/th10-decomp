@@ -1,0 +1,218 @@
+{
+  "schema_version": 1,
+  "name": "cl_0042b4d0",
+  "source": "src/game/smollscore/smoll_score_initialize.cpp",
+  "driver": "build_support/layout/ltcg/cl_0042b4d0_context.cpp",
+  "headers": [
+    "include/th10/game/smoll_score_view.hpp",
+    "include/th10/game/entity.hpp",
+    "include/th10/types.hpp",
+    "include/th10/core/func_ctrl.hpp",
+    "include/th10/render/animation_object_0043e5a0.hpp",
+    "include/th10/platform/thread_sync.hpp",
+    "include/th10/game/anm_vm.hpp",
+    "include/th10/game/smoll_score.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Complete factory, actual constructor and initializer under ordinary native LTCG with real entity/resource/scheduler ABI anchors.",
+  "functions": [
+    {
+      "name": "SmollScore_Initialize_0042b4d0",
+      "symbol": "?Initialize@SmollScoreView@@QAEHXZ",
+      "section": ".text$00yfn",
+      "address": "0x0042B4D0",
+      "size": 145,
+      "actual_abi": "pool in EAX; plain RET",
+      "source": "src/game/smollscore/smoll_score_initialize.cpp"
+    },
+    {
+      "name": "SmollScore_Construct_0042b430",
+      "symbol": "??0SmollScore@@QAE@XZ",
+      "section": ".text$00nctor",
+      "address": "0x0042B430",
+      "size": 134,
+      "source": "src/game/smollscore/smoll_score_construct.cpp",
+      "actual_abi": "this EBX; EAX result; RET"
+    },
+    {
+      "name": "HugeResource_Create_0042b660",
+      "symbol": "_SmollScore_Create",
+      "section": ".text$00zbfactory",
+      "address": "0x0042B660",
+      "size": 71,
+      "source": "src/game/smollscore/smoll_score_create.cpp",
+      "actual_abi": "no arguments; ESI state; EAX result; RET"
+    },
+    {
+      "name": "ConfigureObject",
+      "symbol": "?ConfigureObject@Resource_0043e5a0@@QAEHPAUAnimationObject_0043e5a0@@H@Z",
+      "section": ".text$01configure",
+      "address": "0x0043E5A0",
+      "size": 356,
+      "source": "src/core/sprtanim/animation_object_configure_from_resource_0043e5a0.cpp",
+      "actual_abi": "resource in ECX (copied to ESI at entry), object in EAX, index in EDX; result in EAX; plain RET"
+    }
+  ],
+  "anchors": [
+    {
+      "name": "Entity_Init",
+      "symbol": "?Entity_Init@@YIXPAXPAUEntity@@@Z",
+      "section": ".text$00h_init",
+      "address": "0x00401DE0",
+      "size": 273
+    },
+    {
+      "name": "FuncCtrl_RegisterPrimary",
+      "symbol": "_FuncCtrl_RegisterPrimary@12",
+      "section": ".text$10primary",
+      "address": "0x00449AE0",
+      "size": 131
+    },
+    {
+      "name": "FuncCtrl_RegisterSecondary",
+      "symbol": "_FuncCtrl_RegisterSecondary@12",
+      "section": ".text$12secondary",
+      "address": "0x00449B70",
+      "size": 131
+    }
+  ],
+  "context": {
+    "symbol": "?SmollScoreContext_0042b4d0@@YGHIPAUSchedulerTask@@@Z",
+    "section": ".text$30context",
+    "address": "0x00449C00",
+    "size": 58,
+    "description": "Synthetic array-walking caller; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00alayout",
+      "address": "0x00401000",
+      "size": 3552
+    },
+    {
+      "section": ".text$00m_layout",
+      "address": "0x00401EF1",
+      "size": 169279
+    },
+    {
+      "section": ".text$00zalayout",
+      "address": "0x0042B561",
+      "size": 255
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x0043E704",
+      "size": 46044
+    },
+    {
+      "section": ".text$11layout",
+      "address": "0x00449B63",
+      "size": 13
+    },
+    {
+      "section": ".text$13layout",
+      "address": "0x00449BF3",
+      "size": 13
+    },
+    {
+      "section": ".text$00octorz",
+      "address": "0x0042B4B6",
+      "size": 26
+    },
+    {
+      "section": ".text$00zcfactoryz",
+      "address": "0x0042B6A7",
+      "size": 77561
+    }
+  ],
+  "constants": [],
+  "constant_aliases": [
+    {
+      "symbol": "__real@3b800000",
+      "address": "0x00470B7C",
+      "value": 0.00390625
+    }
+  ],
+  "absolute_symbols": [
+    {
+      "symbol": "_SchedulerCallback_Create_00449ed0@4",
+      "address": "0x00449ED0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_g_func_ctrl",
+      "address": "0x00491BE4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_ascii_manager",
+      "address": "0x004776E0",
+      "kind": "data"
+    },
+    {
+      "symbol": "?g_thread_synchronization@@3UThreadSynchronization@@A",
+      "address": "0x00492274",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__EnterCriticalSection@4",
+      "address": "0x004660B0",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__LeaveCriticalSection@4",
+      "address": "0x004660B4",
+      "kind": "data"
+    },
+    {
+      "symbol": "@SmollScoreUpdateTask_0042b9a0@4",
+      "address": "0x0042B9A0",
+      "kind": "data"
+    },
+    {
+      "symbol": "@SmollScoreDrawTask_0042b9b0@4",
+      "address": "0x0042B9B0",
+      "kind": "data"
+    },
+    {
+      "symbol": "__fltused",
+      "address": "0x00000000",
+      "kind": "metadata"
+    },
+    {
+      "symbol": "??2@YAPAXI@Z",
+      "address": "0x00452493",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_004703e4",
+      "address": "0x004703E4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_smoll_score",
+      "address": "0x00477840",
+      "kind": "data"
+    },
+    {
+      "symbol": "_entry_free_004524a1",
+      "address": "0x004524A1",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_asm_FUN_0042b570_0042b570@4",
+      "address": "0x0042B570",
+      "kind": "relative_code"
+    }
+  ],
+  "included_sources": [
+    "build_support/contexts/legacy/game/entity_initialize_00401de0.cpp",
+    "build_support/layout/ltcg/scheduler_register_anchors.cpp"
+  ],
+  "roots": [],
+  "additional_sources": [
+    "src/game/smollscore/smoll_score_construct.cpp",
+    "src/game/smollscore/smoll_score_create.cpp",
+    "src/core/sprtanim/animation_object_configure_from_resource_0043e5a0.cpp"
+  ]
+}

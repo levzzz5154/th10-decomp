@@ -1,0 +1,166 @@
+{
+ "schema_version": 1,
+ "name": "joystick_poll_0044a190",
+ "region": "asm_FUN_0044a190_0044a190",
+ "sources": [
+  "src/core/zunlib/joystick_poll.cpp"
+ ],
+ "entry_symbol": "_JoystickPollEntry@12",
+ "function": "?ReadPad@@YGGGHH@Z",
+ "code_bytes": 833,
+ "absolute_symbols": {
+  "_data_00474e30": {
+   "address": "0x00474E30",
+   "kind": "data"
+  },
+  "_data_004918b8": {
+   "address": "0x004918B8",
+   "kind": "data"
+  },
+  "_data_00491c3c": {
+   "address": "0x00491C3C",
+   "kind": "data"
+  },
+  "_data_00491d5e": {
+   "address": "0x00491D5E",
+   "kind": "data"
+  },
+  "_data_00491d60": {
+   "address": "0x00491D60",
+   "kind": "data"
+  },
+  "_data_00491ff4": {
+   "address": "0x00491FF4",
+   "kind": "data"
+  },
+  "__imp__joyGetPosEx@8": {
+   "address": "0x00466280",
+   "kind": "data"
+  },
+  "___security_cookie": {
+   "address": "0x00473660",
+   "kind": "data"
+  },
+  "@__security_check_cookie@4": {
+   "address": "0x00458EA5",
+   "kind": "code"
+  }
+ },
+ "bindings": {},
+ "base_index_order": 0,
+ "differences": [
+  {
+   "class": "code-shape",
+   "offset": "0x6",
+   "retail": [
+    "sub esp,0x154"
+   ],
+   "model": [
+    "sub esp,0x14c"
+   ]
+  },
+  {
+   "class": "evaluation-order",
+   "offset": "0x147",
+   "retail": [],
+   "model": [
+    "mov ebx,DWORD PTR [esp+0x18]"
+   ]
+  },
+  {
+   "class": "code-shape",
+   "offset": "0x15a",
+   "retail": [
+    "mov ebx,edi",
+    "add ebx,edx"
+   ],
+   "model": [
+    "mov eax,edi",
+    "add eax,edx",
+    "shr eax,1"
+   ]
+  },
+  {
+   "class": "code-shape",
+   "offset": "0x165",
+   "retail": [
+    "shr ebx,1",
+    "sub ebx,ecx",
+    "mov eax,ebx",
+    "mov ebx,DWORD PTR [esp+0x20]"
+   ],
+   "model": [
+    "sub eax,ecx"
+   ]
+  },
+  {
+   "class": "code-shape",
+   "offset": "0x1cb",
+   "retail": [
+    "jmp L+0x1d0",
+    "lea ecx,[ecx+0x0]"
+   ],
+   "model": [
+    "lea esp,[esp+0x0]"
+   ]
+  },
+  {
+   "class": "stack-slot-order",
+   "offset": "0x258",
+   "retail": [
+    "movzx eax,BYTE PTR [esp+eax*1+0x78]"
+   ],
+   "model": [
+    "movzx eax,BYTE PTR [esp+eax*1+0x70]"
+   ]
+  },
+  {
+   "class": "stack-slot-order",
+   "offset": "0x26e",
+   "retail": [
+    "movzx eax,BYTE PTR [esp+ecx*1+0x78]"
+   ],
+   "model": [
+    "movzx eax,BYTE PTR [esp+ecx*1+0x70]"
+   ]
+  },
+  {
+   "class": "stack-slot-order",
+   "offset": "0x287",
+   "retail": [
+    "movzx eax,BYTE PTR [esp+edx*1+0x78]"
+   ],
+   "model": [
+    "movzx eax,BYTE PTR [esp+edx*1+0x70]"
+   ]
+  },
+  {
+   "class": "stack-slot-order",
+   "offset": "0x2a0",
+   "retail": [
+    "movzx eax,BYTE PTR [esp+eax*1+0x78]"
+   ],
+   "model": [
+    "movzx eax,BYTE PTR [esp+eax*1+0x70]"
+   ]
+  },
+  {
+   "class": "stack-slot-order",
+   "offset": "0x2b9",
+   "retail": [
+    "movzx eax,BYTE PTR [esp+ecx*1+0x78]"
+   ],
+   "model": [
+    "movzx eax,BYTE PTR [esp+ecx*1+0x70]"
+   ]
+  }
+ ],
+ "note": "reference/recovery_notes/joystick_binding_reader_0044a190_accepted_2026_10_14.md",
+ "listed_branch_targets": true,
+ "frame_shift": {
+  "deltas": [
+   8
+  ],
+  "count": 17
+ }
+}

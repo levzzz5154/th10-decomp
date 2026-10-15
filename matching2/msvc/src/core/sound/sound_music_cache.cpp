@@ -11,7 +11,7 @@
 // the track size is read through an inline accessor: as a call argument it is
 // evaluated ahead of the other ReadFile arguments, which is what gives retail
 // its register order there.
-#include "../../../layout/ltcg/sound_interfaces_dependencies/sound_wave_types.hpp"
+#include "../../../build_support/layout/ltcg/sound_interfaces_dependencies/sound_wave_types.hpp"
 #include "th10/app/supervisor.hpp"
 #include <string.h>
 #pragma intrinsic(strcmp)

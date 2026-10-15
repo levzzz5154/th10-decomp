@@ -1,0 +1,78 @@
+{
+  "schema_version": 2,
+  "name": "trail_sprite_update_00427960",
+  "source": "src/game/player/player_option_follow_trail.cpp",
+  "headers": [
+    "include/th10/game/player.hpp",
+    "include/th10/game/entity.hpp",
+    "include/th10/types.hpp",
+    "include/th10/math/timer.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Actual trail sprite update callback and complete worker body.",
+  "entry": "?PlayerOption_FollowTrail@@YIHPAUPlayerOption@@@Z",
+  "functions": [
+    {
+      "name": "TrailSpriteUpdateCallback_00427950",
+      "symbol": "?PlayerOption_FollowTrail@@YIHPAUPlayerOption@@@Z",
+      "address": "0x00427950",
+      "size": 12,
+      "section": ".text$01callback",
+      "actual_abi": "callback context ECX; int result0"
+    },
+    {
+      "name": "TrailSpriteUpdate_00427960",
+      "symbol": "?FollowTrail@PlayerOption@@QAEXXZ",
+      "address": "0x00427960",
+      "size": 359,
+      "section": ".text$03worker",
+      "actual_abi": "sprite ESI; plain RET"
+    }
+  ],
+  "calls": [
+    {
+      "caller": "?PlayerOption_FollowTrail@@YIHPAUPlayerOption@@@Z",
+      "callee": "?FollowTrail@PlayerOption@@QAEXXZ",
+      "address": "0x00427953",
+      "instruction": "call"
+    }
+  ],
+  "gaps": [
+    {
+      "section": ".text$00gap",
+      "address": "0x00401000",
+      "size": 158032
+    },
+    {
+      "section": ".text$02gap",
+      "address": "0x0042795C",
+      "size": 4
+    }
+  ],
+  "constants": [],
+  "constant_aliases": [
+    {
+      "symbol": "__real@3e000000",
+      "address": "0x00470B90",
+      "value": 0.125
+    }
+  ],
+  "absolute_symbols": [
+    {
+      "symbol": "_g_player",
+      "address": "0x00477834",
+      "kind": "data"
+    },
+    {
+      "symbol": "__ftol2",
+      "address": "0x00463B2C",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__fltused",
+      "address": "0x0",
+      "kind": "metadata"
+    }
+  ],
+  "included_sources": []
+}

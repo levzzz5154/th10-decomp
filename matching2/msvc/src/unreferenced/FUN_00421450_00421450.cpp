@@ -1,4 +1,4 @@
-#include "asm_symbols.hpp"
+#include "../../build_support/include/asm_symbols.hpp"
 
 // 0x00421450..0x00421472: delete seven critical sections in the state.
 extern "C" unsigned char data_004660bc;

@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "name": "archive_find_size_native",
+  "source": "src/pack/arcmngr/dat_archive_find_size_00434ef0.cpp",
+  "driver": "build_support/layout/ltcg/archive_find_size_native_context.cpp",
+  "headers": [
+    "include/th10/archive/dat_archive_types.hpp",
+    "include/th10/platform/file.hpp",
+    "include/th10/platform/windows_types.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Native LTCG caller context for the EAX archive / EBX name DatArchive size lookup.",
+  "functions": [
+    {
+      "name": "DatArchive_FindSize",
+      "symbol": "?DatArchive_FindSize@@YGIPAUDatArchive@@PBD@Z",
+      "section": ".text$01findsize",
+      "address": "0x00434EF0",
+      "size": 51,
+      "actual_abi": "archive in EAX; requested name in EBX; result in EAX; plain RET"
+    }
+  ],
+  "context": {
+    "symbol": "ArchiveFindSizeCompilerContext@12",
+    "section": ".text$03context",
+    "address": "0x00435000",
+    "size": 68,
+    "description": "Compiler-only direct caller that keeps the lookup return live; not recovered application code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 212720
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x00434F23",
+      "size": 221
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_asm_stricmp_0046054e",
+      "address": "0x0046054E",
+      "kind": "relative_code"
+    }
+  ],
+  "included_sources": []
+}

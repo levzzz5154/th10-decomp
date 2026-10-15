@@ -2,7 +2,7 @@
 // array construction EH. The real Version -> Open -> LoadIndex caller graph
 // establishes all three stack inputs and RET12. No register adapter is used.
 #include <string.h>
-#include "../../../layout/ltcg/native_archive_index/parser.hpp"
+#include "../../../build_support/layout/ltcg/native_archive_index/parser.hpp"
 extern "C" void* __cdecl asm_malloc_00452706(unsigned int);
 #pragma code_seg(".text$a18ctor")
 ArchiveEntry::ArchiveEntry(): name(0) {}

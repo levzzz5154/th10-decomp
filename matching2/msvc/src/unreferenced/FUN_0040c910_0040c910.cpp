@@ -13,5 +13,5 @@ int ObjectAccessor_0040c910::StoreValue(int value) {
     return value;
 }
 #pragma code_seg()
-// The former naked entry is retained only as regions.json previous_record
+// The former naked entry is retained only as build_support/regions.json previous_record
 // history; the live region targets ObjectAccessor_0040c910::StoreValue.

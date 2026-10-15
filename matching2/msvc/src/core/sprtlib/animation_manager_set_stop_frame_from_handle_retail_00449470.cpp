@@ -4,7 +4,7 @@
 // Retail enters this member through the native-LTCG cluster with the handle in
 // EAX, the animation id in ECX, and the frame value in SI.  The ordinary C++
 // body below remains readable; the synthetic caller in
-// layout/ltcg/stop_at_frame_pair_0040c480_context.cpp establishes that private
+// build_support/layout/ltcg/stop_at_frame_pair_0040c480_context.cpp establishes that private
 // register convention.
 
 #include "th10/render/animation_stop_frame_handle.hpp"

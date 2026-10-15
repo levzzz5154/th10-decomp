@@ -26,7 +26,11 @@ args = parser.parse_args()
 if not args.revert and not args.source:
     parser.error('--source is required')
 
-path = Path(args.project) / 'regions.json'
+import sys as _project_sys
+from pathlib import Path as _ProjectPath
+_project_sys.path.insert(0, str(_ProjectPath(__file__).resolve().parents[3]))
+from matching2.tools.common.project_paths import project_support
+path = project_support(Path(args.project), 'regions.json')
 # Other tools and agents update the manifest concurrently; hold the shared lock.
 lock = open(path.with_suffix('.json.lock'), 'w')
 fcntl.flock(lock, fcntl.LOCK_EX)

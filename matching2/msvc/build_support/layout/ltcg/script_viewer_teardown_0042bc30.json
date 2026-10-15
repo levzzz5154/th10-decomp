@@ -1,0 +1,268 @@
+{
+  "schema_version": 1,
+  "name": "script_viewer_teardown_0042bc30",
+  "source": "src/game/spttest/spt_test_teardown.cpp",
+  "driver": "build_support/layout/ltcg/script_viewer_teardown_0042bc30/context.cpp",
+  "headers": [
+    "include/th10/game/spt_test_teardown.hpp",
+    "include/th10/game/spt_test.hpp",
+    "include/th10/platform/archive_file.hpp",
+    "include/th10/core/func_ctrl.hpp",
+    "include/th10/platform/thread_sync.hpp",
+    "include/th10/platform/worker.hpp",
+    "include/th10/game/menu_cursor.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Spt Test screen destructor with its compiler-generated worker-member cleanup and the ESI script-name clear; real scheduler unlink and worker stop, an EDI stand-in for the animation release and the owned-delete caller.",
+  "functions": [
+    {
+      "name": "SptTest_ClearScriptNames",
+      "symbol": "?ClearScriptNames@SptTest_0042be20@@QAEXXZ",
+      "section": ".text$01names",
+      "address": "0x0042BAD0",
+      "actual_abi": "screen in ESI; plain RET",
+      "size": 86
+    },
+    {
+      "name": "SptTest_Destructor",
+      "symbol": "??1SptTest_0042be20@@QAE@XZ",
+      "section": ".text$03dtor",
+      "address": "0x0042BC30",
+      "actual_abi": "receiver on the stack; RET 4; compiler-generated EH frame",
+      "size": 405
+    },
+    {
+      "name": "SptTestWorkerUnwind",
+      "symbol": "_SptTestWorkerUnwind_004653e0",
+      "section": ".text$x",
+      "address": "0x004653E0",
+      "actual_abi": "worker member at receiver+0x10, destructor 0x0044C130",
+      "generated": true,
+      "native_symbol_pattern": "\\$L[0-9]+",
+      "size": 11
+    },
+    {
+      "name": "SptTestHandler",
+      "symbol": "__ehhandler$??1SptTest_0042be20@@QAE@XZ",
+      "section": ".text$x",
+      "address": "0x004653EB",
+      "actual_abi": "compiler-generated EH handler",
+      "generated": true,
+      "size": 10
+    }
+  ],
+  "context": {
+    "symbol": "?SptTest_DestroyOwned_0042bc30@@YGXPAUSptTest_0042be20@@PAUSptTestWorkerArrayStandIn@@@Z",
+    "section": ".text$05owned_delete",
+    "address": "0x0042BF80",
+    "size": 37,
+    "description": "Owned-delete caller; not selected as recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00before",
+      "address": 4198400,
+      "size": 174800
+    },
+    {
+      "section": ".text$01namesz",
+      "address": 4373286,
+      "size": 266
+    },
+    {
+      "section": ".text$03dtorz",
+      "address": 4373957,
+      "size": 443
+    },
+    {
+      "section": ".text$05owned_deletez",
+      "address": 4374437,
+      "size": 11
+    },
+    {
+      "section": ".text$05zarrayz",
+      "address": 4374464,
+      "size": 112720
+    },
+    {
+      "section": ".text$06releasez",
+      "address": 4487313,
+      "size": 9935
+    },
+    {
+      "section": ".text$07removez",
+      "address": 4497362,
+      "size": 8542
+    },
+    {
+      "section": ".text$10workerz",
+      "address": 4505920,
+      "size": 16
+    },
+    {
+      "section": ".text$20calleez",
+      "address": 4506037,
+      "size": 102955
+    },
+    {
+      "section": ".rdata$0before",
+      "address": 4612096,
+      "size": 46288
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "??3@YAXPAX@Z",
+      "address": "0x004524A1",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_free",
+      "address": "0x00452422",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_entry_free_00452422",
+      "address": "0x00452422",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "___CxxFrameHandler",
+      "address": "0x0046276D",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__except_list",
+      "address": "0x00000000",
+      "kind": "metadata"
+    },
+    {
+      "symbol": "_g_func_ctrl",
+      "address": "0x00491BE4",
+      "kind": "data"
+    },
+    {
+      "symbol": "?g_thread_synchronization@@3UThreadSynchronization@@A",
+      "address": "0x00492274",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__EnterCriticalSection@4",
+      "address": "0x004660B0",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__LeaveCriticalSection@4",
+      "address": "0x004660B4",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__WaitForSingleObject@8",
+      "address": "0x0046611C",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__Sleep@4",
+      "address": "0x004660AC",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__CloseHandle@4",
+      "address": "0x004660CC",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00477844",
+      "address": "0x00477844",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_sprt_ctrl",
+      "address": "0x00491C10",
+      "kind": "data"
+    },
+    {
+      "symbol": "?platform_worker_vtable@@3DA",
+      "address": "0x004703E4",
+      "kind": "data"
+    },
+    {
+      "symbol": "?Load@ScriptParser_0042be20@@UAEHPAD@Z",
+      "address": "0x00450220",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?Slot04@ScriptParser_0042be20@@UAEXXZ",
+      "address": "0x0040C810",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "??_M@YGXPAXIHP6EX0@Z@Z",
+      "address": "0x004525FF",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "??_L@YGXPAXIHP6EX0@Z1@Z",
+      "address": "0x0045252D",
+      "kind": "relative_code"
+    }
+  ],
+  "exceptions": true,
+  "native_data": [
+    {
+      "section": ".xdata$x",
+      "address": "0x004714D0",
+      "bytes": "ffffffffe05346002005931901000000d014470000000000000000000000000000000000",
+      "description": "Unwind map and FuncInfo of the destructor; validation only"
+    }
+  ],
+  "anchors": [
+    {
+      "name": "WorkerArrayStandIn",
+      "symbol": "??1SptTestWorkerArrayStandIn@@QAE@XZ",
+      "section": ".text$05zarray",
+      "address": "0x0042BFB0",
+      "size": 16
+    },
+    {
+      "name": "AnimationReleaseStandIn",
+      "symbol": "?Release@AnimationResource_00447810@@QAEXXZ",
+      "section": ".text$06release",
+      "address": "0x00447810",
+      "size": 129
+    },
+    {
+      "name": "ActualSchedulerRemove",
+      "symbol": "?ManagerTeardownFuncCtrl_Remove_00449F60@@YGXPAUFuncCtrl@@PAUSchedulerTask@@@Z",
+      "section": ".text$07remove",
+      "address": "0x00449F60",
+      "size": 114
+    },
+    {
+      "name": "WorkerDestructor",
+      "symbol": "??1SptTestWorker_0042be20@@QAE@XZ",
+      "section": ".text$10worker",
+      "address": "0x0044C130",
+      "size": 16
+    },
+    {
+      "name": "WorkerStop",
+      "symbol": "?Stop@PlatformWorker@@QAEXXZ",
+      "section": ".text$20callee",
+      "address": "0x0044C150",
+      "size": 101
+    }
+  ],
+  "included_sources": [
+    "build_support/layout/ltcg/manager_teardown_native_0041adf0/scheduler.cpp",
+    "src/core/zunlib/platform_stop_worker_0044c150.cpp"
+  ],
+  "data_aliases": [
+    {
+      "symbol": "??_7ScriptParser_0042be20@@6B@",
+      "address": "0x0046D0F0",
+      "bytes": "2002450010c84000"
+    }
+  ]
+}

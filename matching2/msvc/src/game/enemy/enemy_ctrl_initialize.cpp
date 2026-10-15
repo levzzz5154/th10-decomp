@@ -12,7 +12,7 @@
 // both scheduler registrations, while the node under construction occupies ESI
 // and the registration priority EDI.  This source is therefore compiled in the
 // same native-LTCG link as the scheduler registration bodies it calls (see
-// layout/ltcg/bullet_manager_load_scripts_0040ae70.json).
+// build_support/layout/ltcg/bullet_manager_load_scripts_0040ae70.json).
 #include <stddef.h>
 #include "th10/core/func_ctrl.hpp"
 

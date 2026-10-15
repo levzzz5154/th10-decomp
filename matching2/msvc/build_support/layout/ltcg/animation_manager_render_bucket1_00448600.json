@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "name": "animation_manager_render_bucket1_00448600",
+  "source": "src/core/sprtlib/animation_manager_draw_bucket1.cpp",
+  "included_sources": [
+    "src/core/sprtlib/animation_manager_render_bucket_00448980.cpp"
+  ],
+  "driver": "build_support/layout/ltcg/animation_manager_render_bucket1_00448600_context.cpp",
+  "headers": [
+    "include/th10/render/quad_batch.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "0x00448600 is a slot-1 task method. Its native-LTCG context includes the semantic RenderBucket implementation at 0x00448980 as an ABI anchor, allowing the call to carry the manager in EDI and bucket index 1 in EAX while the wrapper keeps its thiscall entry and return ABI.",
+  "functions": [
+    {
+      "name": "AnimationManagerBucket1_00448600_RenderBucket1",
+      "symbol": "?RenderBucket1@AnimationManagerBucket1_00448600@@QAEHXZ",
+      "section": ".text$01slot1",
+      "address": "0x00448600",
+      "size": 15,
+      "actual_abi": "manager in ECX; preserves EDI; returns the bucket renderer result in EAX; plain RET"
+    }
+  ],
+  "roots": [
+    "?RenderBucket1@AnimationManagerBucket1_00448600@@QAEHXZ"
+  ],
+  "anchors": [
+    {
+      "name": "AnimationManager_RenderBucket_00448980_abi_anchor",
+      "symbol": "?RenderBucket@SprtCtrlBatchView@@QAEHH@Z",
+      "section": ".text$03bucket",
+      "address": "0x00448980",
+      "size": 68
+    }
+  ],
+  "context": {
+    "symbol": "?AnimationManagerRenderBucket1Context@@YGHPAPAUAnimationManagerBucket1_00448600@@H@Z",
+    "section": ".text$05context",
+    "address": "0x00448A10",
+    "size": 38,
+    "description": "Synthetic loop that calls the slot-1 method through manager pointers; establishes the wrapper entry convention. Not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 292352
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x0044860F",
+      "size": 881
+    },
+    {
+      "section": ".text$04layout",
+      "address": "0x004489C4",
+      "size": 76
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_asm_FUN_004451c0_004451c0",
+      "address": "0x004451C0",
+      "kind": "relative_code"
+    }
+  ]
+}

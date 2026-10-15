@@ -59,7 +59,7 @@ def compile_candidates(directory, config):
         "clang++", "--target=i686-pc-windows-msvc", "-std=c++03", "-O2", "-mno-sse", "-mno-sse2",
         "-fno-exceptions", "-fno-rtti", "-fno-stack-protector", "-ffunction-sections",
         "-I", str(ROOT / "matching2/msvc/include"), "-c",
-        str(ROOT / "matching2/msvc/src/platform/file.cpp"), "-o", str(obj)],
+        str(ROOT / 'matching2/msvc' / json.loads(project_support(ROOT / 'matching2/msvc', 'regions.json').read_text()).get('compilation_units', {}).get('src/pack/file/file_handle.cpp', 'src/pack/file/file_handle.cpp')), "-o", str(obj)],
         check=True, timeout=60)
     bodies[WHOLE] = load_candidate(obj, config, "?ReadWhole@FileHandle@@QAEPAXI@Z", code_address=WHOLE)
     bodies.update((module.base, module.data) for module in files.values())
@@ -186,11 +186,15 @@ def cases():
     yield Case(seek_failure=True)
 
 
+import sys as _project_sys
+from pathlib import Path as _ProjectPath
+_project_sys.path.insert(0, str(_ProjectPath(__file__).resolve().parents[2]))
+from matching2.tools.common.project_paths import project_support
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--oracle", type=Path, default=ROOT / "matching2/build/oracle/th10.exe")
     options = parser.parse_args()
-    config = load_manifest(ROOT / "matching2/msvc/regions.json")
+    config = load_manifest(project_support((ROOT) / 'matching2/msvc', 'regions.json'))
     load_oracle(options.oracle, config)
     image = PEImage(options.oracle.read_bytes())
     with tempfile.TemporaryDirectory(prefix="th10-loose-file-") as temporary:

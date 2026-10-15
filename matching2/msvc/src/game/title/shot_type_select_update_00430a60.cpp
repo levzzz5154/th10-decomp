@@ -14,7 +14,7 @@
 //
 // The room is a stack argument; the handler is linked with the title
 // dispatcher and the real bodies of its leaves
-// (layout/ltcg/difficulty_select_update_00430320.json).  The chosen
+// (build_support/layout/ltcg/difficulty_select_update_00430320.json).  The chosen
 // character is read from its global at every use, as in the image.
 #include "th10/game/shot_type_select_update_00430a60.hpp"
 

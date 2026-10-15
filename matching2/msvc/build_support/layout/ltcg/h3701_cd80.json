@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "name": "h3701_cd80",
+  "source": "src/unreferenced/FUN_0040cd80_0040cd80.cpp",
+  "driver": "build_support/layout/ltcg/h3701_cd80_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "Native-LTCG typed fastcall indexed store preserving the private register order.",
+  "functions": [
+    {
+      "name": "H3701CD80_Fast2",
+      "symbol": "@H3701CD80_Fast2@12",
+      "section": ".text$01f",
+      "address": "0x0040CD80",
+      "size": 5,
+      "actual_abi": "fastcall reordered: object in ECX, index in EDX, value in EAX"
+    }
+  ],
+  "context": {
+    "symbol": "?H3701CD80Fast2Context@@YGHPAPAHHHH@Z",
+    "section": ".text$03ctx",
+    "address": "0x0040CD90",
+    "size": 42,
+    "description": "Synthetic array-walking caller; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00gap",
+      "address": "0x00401000",
+      "size": 48512
+    },
+    {
+      "section": ".text$02gap",
+      "address": "0x0040CD85",
+      "size": 11
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [],
+  "included_sources": []
+}

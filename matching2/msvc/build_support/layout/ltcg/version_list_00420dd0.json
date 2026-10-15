@@ -1,0 +1,84 @@
+{
+  "schema_version": 1,
+  "name": "version_list_00420dd0",
+  "source": "src/game/mother/version_list.cpp",
+  "driver": "build_support/layout/ltcg/version_list_00420dd0_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "Version-list matcher with compiler-visible fixed strings rebound to retail rdata addresses.",
+  "functions": [
+    {
+      "name": "VersionList_00420dd0_Match",
+      "symbol": "?Match@VersionList_00420dd0@@QAEHPBDHH@Z",
+      "section": ".text$01version",
+      "address": "0x00420DD0",
+      "size": 205,
+      "actual_abi": "this in EAX; three stack arguments; RET 12"
+    }
+  ],
+  "context": {
+    "symbol": "?VersionList00420dd0CompilerContext@@YGHPAUVersionList_00420dd0@@PBDHH@Z",
+    "section": ".text$03context",
+    "address": "0x00420EC0",
+    "size": 27,
+    "description": "Direct synthetic caller establishes EAX receiver."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 130512
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x00420E9D",
+      "size": 35
+    }
+  ],
+  "constants": [],
+  "data_aliases": [
+    {
+      "symbol": "?version_format_00420dd0@@3QBDB",
+      "address": "0x0046DC94",
+      "bytes": "256420256400"
+    },
+    {
+      "symbol": "?version_0100a_00420dd0@@3QBDB",
+      "address": "0x0046DC9C",
+      "bytes": "303130306100"
+    },
+    {
+      "symbol": "??_C@_05HOKAIPBA@0100a?$AA@",
+      "address": "0x0046DC9C",
+      "bytes": "303130306100"
+    },
+    {
+      "symbol": "?version_debug_00420dd0@@3QBDB",
+      "address": "0x0046DCA4",
+      "bytes": "646562756700"
+    },
+    {
+      "symbol": "??_C@_05GFCDIDHO@debug?$AA@",
+      "address": "0x0046DCA4",
+      "bytes": "646562756700"
+    }
+  ],
+  "absolute_symbols": [
+    {
+      "symbol": "_asm_strncmp_00452f80",
+      "address": "0x00452F80",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_asm_sscanf_00452fb9",
+      "address": "0x00452FB9",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_asm_FUN_00452730_00452730",
+      "address": "0x00452730",
+      "kind": "relative_code"
+    }
+  ],
+  "included_sources": []
+}

@@ -1,0 +1,172 @@
+{
+  "schema_version": 1,
+  "name": "win32_timer",
+  "source": "src/game/mother/win32_timer_delete.cpp",
+  "driver": "build_support/layout/ltcg/win32_timer_context.cpp",
+  "headers": [
+    "include/th10/platform/win32_timer.hpp",
+    "include/th10/platform/midi_timer.hpp",
+    "include/th10/source_views/win32_timer_c08c99_0.hpp",
+    "include/th10/source_views/win32_timer_c08c99_1.hpp",
+    "include/th10/source_views/win32_timer_c08c99_2.hpp",
+    "include/th10/source_views/win32_timer_c08c99_3.hpp",
+    "include/th10/source_views/win32_timer_c08c99_4.hpp",
+    "include/th10/source_views/win32_timer_c08c99_5.hpp",
+    "include/th10/source_views/win32_timer_c08c99_6.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Ordinary C++ multimedia timer lifecycle. A synthetic caller establishes the observed internal register ABI; only complete timer function bodies are selected.",
+  "functions": [
+    {
+      "name": "Win32Timer_Delete",
+      "symbol": "?Delete@Win32Timer@@QAEPAU1@I@Z",
+      "section": ".text$10delete",
+      "address": "0x004203A0",
+      "size": 30,
+      "actual_abi": "this in EAX; flags at [ESP+4]; RET 4",
+      "source": "src/game/mother/win32_timer_delete.cpp"
+    },
+    {
+      "name": "Win32Timer_Release",
+      "symbol": "?Release@Win32Timer@@QAEXXZ",
+      "section": ".text$30release",
+      "address": "0x004203C0",
+      "size": 48,
+      "actual_abi": "this in ESI; plain RET",
+      "source": "src/game/mother/win32_timer_release.cpp"
+    },
+    {
+      "name": "Win32Timer_Construct",
+      "symbol": "??0Win32Timer@@QAE@XZ",
+      "section": ".text$50construct",
+      "address": "0x0043A600",
+      "size": 28,
+      "actual_abi": "this in ESI; returns this in EAX; plain RET",
+      "source": "src/core/midilib/win32_timer_construct.cpp"
+    },
+    {
+      "name": "Win32Timer_Destruct",
+      "symbol": "??1Win32Timer@@QAE@XZ",
+      "section": ".text$70destruct",
+      "address": "0x0043A620",
+      "size": 48,
+      "actual_abi": "this in ESI; plain RET",
+      "source": "src/core/midilib/win32_timer.cpp"
+    },
+    {
+      "name": "Win32Timer_Start",
+      "symbol": "?Start@Win32Timer@@QAEIIP6GXIIIII@ZI@Z",
+      "section": ".text$80start",
+      "address": "0x0043A650",
+      "size": 93,
+      "actual_abi": "this in ESI; delay in EBX; callback in EDI; user at [ESP+4]; RET 4",
+      "source": "src/core/midilib/win32_timer.cpp"
+    },
+    {
+      "name": "Win32Timer_Stop",
+      "symbol": "?Stop@Win32Timer@@QAEHXZ",
+      "section": ".text$90stop",
+      "address": "0x0043A6B0",
+      "size": 37,
+      "actual_abi": "this in ESI; result in EAX; plain RET",
+      "source": "src/core/midilib/win32_timer.cpp"
+    }
+  ],
+  "context": {
+    "symbol": "?Win32TimerCompilerContext@@YGXPAUWin32Timer@@HIP6GXIIIII@ZII@Z",
+    "section": ".text$B0context",
+    "address": "0x0043A700",
+    "size": 99,
+    "description": "Synthetic array-processing caller only; not recovered application code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 127904
+    },
+    {
+      "section": ".text$20layout",
+      "address": "0x004203BE",
+      "size": 2
+    },
+    {
+      "section": ".text$40layout",
+      "address": "0x004203F0",
+      "size": 107024
+    },
+    {
+      "section": ".text$60layout",
+      "address": "0x0043A61C",
+      "size": 4
+    },
+    {
+      "section": ".text$85layout",
+      "address": "0x0043A6AD",
+      "size": 3
+    },
+    {
+      "section": ".text$A0layout",
+      "address": "0x0043A6D5",
+      "size": 43
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "?g_win32_timer_vtable@@3UWin32TimerVtable@@A",
+      "address": "0x0046F810",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__timeKillEvent@4",
+      "address": "0x00466288",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__timeEndPeriod@4",
+      "address": "0x00466274",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__timeBeginPeriod@4",
+      "address": "0x00466278",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__timeGetDevCaps@8",
+      "address": "0x00466290",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__timeSetEvent@20",
+      "address": "0x0046628C",
+      "kind": "data"
+    },
+    {
+      "symbol": "_free",
+      "address": "0x004524A1",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?MidiTimer_Callback@@YGXIIPAUMidiTimerTarget@@II@Z",
+      "address": "0x0043A6E0",
+      "kind": "data"
+    }
+  ],
+  "additional_sources": [],
+  "owned_includes": {
+    "src/game/mother/win32_timer_release.cpp": "src/game/mother/win32_timer_delete.cpp",
+    "src/core/midilib/win32_timer_construct.cpp": "src/game/mother/win32_timer_delete.cpp",
+    "src/core/midilib/win32_timer.cpp": "src/game/mother/win32_timer_delete.cpp"
+  },
+  "compilation_units": {
+    "src/game/mother/win32_timer_delete.cpp": "build_support/layout/units/win32_timer_c08c99.cpp"
+  },
+  "included_sources": [
+    "build_support/layout/units/win32_timer_c08c99.cpp",
+    "src/core/midilib/win32_timer_construct.cpp",
+    "src/game/mother/win32_timer_release.cpp",
+    "src/core/midilib/win32_timer.cpp"
+  ]
+}

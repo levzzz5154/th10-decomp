@@ -1,0 +1,893 @@
+{
+  "schema_version": 1,
+  "name": "item_update_0041afd0",
+  "region": "asm_FUN_0041afd0_0041afd0",
+  "sources": [
+    "src/game/item/item_update.cpp"
+  ],
+  "entry_symbol": "_ItemUpdateEntry@4",
+  "function": "_ItemManager_UpdateItems@4",
+  "code_bytes": 2256,
+  "absolute_symbols": {
+    "__fltused": {
+      "address": "0x00000000",
+      "kind": "data"
+    },
+    "__ftol2": {
+      "address": "0x00463B2C",
+      "kind": "code"
+    },
+    "_Player_RefreshOptions@4": {
+      "address": "0x00426F70",
+      "kind": "code"
+    },
+    "_asm_FUN_0043ee30_0043ee30@4": {
+      "address": "0x0043EE30",
+      "kind": "code"
+    },
+    "_data_00474c40": {
+      "address": "0x00474C40",
+      "kind": "data"
+    },
+    "_data_00474c48": {
+      "address": "0x00474C48",
+      "kind": "data"
+    },
+    "_g_input": {
+      "address": "0x00474E5C",
+      "kind": "data"
+    },
+    "_data_004749ce": {
+      "address": "0x004749CE",
+      "kind": "data"
+    },
+    "_data_00476f78": {
+      "address": "0x00476F78",
+      "kind": "data"
+    },
+    "_g_bomb": {
+      "address": "0x004776EC",
+      "kind": "data"
+    },
+    "_data_004776f0": {
+      "address": "0x004776F0",
+      "kind": "data"
+    },
+    "_g_front": {
+      "address": "0x0047770C",
+      "kind": "data"
+    },
+    "_data_00477818": {
+      "address": "0x00477818",
+      "kind": "data"
+    },
+    "_g_laser_manager": {
+      "address": "0x0047781C",
+      "kind": "data"
+    },
+    "_g_player": {
+      "address": "0x00477834",
+      "kind": "data"
+    },
+    "_g_smoll_score": {
+      "address": "0x00477840",
+      "kind": "data"
+    },
+    "_g_sprt_ctrl": {
+      "address": "0x00491C10",
+      "kind": "data"
+    },
+    "_data_00492590": {
+      "address": "0x00492590",
+      "kind": "data"
+    },
+    "_data_00470afc": {
+      "address": "0x00470AFC",
+      "kind": "data"
+    },
+    "_data_00470b04": {
+      "address": "0x00470B04",
+      "kind": "data"
+    },
+    "_data_00470b08": {
+      "address": "0x00470B08",
+      "kind": "data"
+    },
+    "_data_00470b48": {
+      "address": "0x00470B48",
+      "kind": "data"
+    },
+    "_data_00470b4c": {
+      "address": "0x00470B4C",
+      "kind": "data"
+    },
+    "_data_00470b64": {
+      "address": "0x00470B64",
+      "kind": "data"
+    },
+    "_data_00470b68": {
+      "address": "0x00470B68",
+      "kind": "data"
+    },
+    "_data_00470b94": {
+      "address": "0x00470B94",
+      "kind": "data"
+    },
+    "_data_00470be0": {
+      "address": "0x00470BE0",
+      "kind": "data"
+    },
+    "_data_00470bf4": {
+      "address": "0x00470BF4",
+      "kind": "data"
+    },
+    "_data_00470c38": {
+      "address": "0x00470C38",
+      "kind": "data"
+    },
+    "_data_00470cc4": {
+      "address": "0x00470CC4",
+      "kind": "data"
+    },
+    "_data_00470cd0": {
+      "address": "0x00470CD0",
+      "kind": "data"
+    },
+    "_data_00470cd4": {
+      "address": "0x00470CD4",
+      "kind": "data"
+    },
+    "_data_00470cd8": {
+      "address": "0x00470CD8",
+      "kind": "data"
+    },
+    "_data_00470cdc": {
+      "address": "0x00470CDC",
+      "kind": "data"
+    },
+    "_data_00470ce0": {
+      "address": "0x00470CE0",
+      "kind": "data"
+    },
+    "?Entity_Constructor@@YIPAUEntity@@PAU1@@Z": {
+      "address": "0x00402050",
+      "kind": "code"
+    },
+    "??2@YAPAXI@Z": {
+      "address": "0x00452493",
+      "kind": "code"
+    },
+    "?g_frame_timer_normal_lower@@3MA": {
+      "address": "0x00470B68",
+      "kind": "data"
+    },
+    "?g_frame_timer_normal_upper@@3MA": {
+      "address": "0x00470B64",
+      "kind": "data"
+    },
+    "?g_score_default_speed@@3MA": {
+      "address": "0x00476F78",
+      "kind": "data"
+    }
+  },
+  "bindings": {
+    "__real@3f800000": "0x00470AFC",
+    "__real@3f000000": "0x00470B0C",
+    "?Entity_StartScript_00404f30@@YGXPAUAnimationResource_0043e710@@PAUEntity@@H@Z": "0x00404F30",
+    "?SetPowerDigits@ItemHud@@QAEXHH@Z": "0x004054B0",
+    "?AdjustPower@ItemRunState@@QAEXH@Z": "0x00405B60",
+    "?AddScore@ItemRunState@@QAEXH@Z": "0x00409D90",
+    "?AddGauge@ItemRunState@@QAEXH@Z": "0x0041BE80",
+    "?AdvanceGaugeTimer@ItemRunState@@QAEXH@Z": "0x00412FF0",
+    "?AddLives@ItemRunState@@QAEXH@Z": "0x004188A0",
+    "?AddPower@ItemRunState@@QAEHH@Z": "0x00418930",
+    "?ConvertItems@ItemSpawnManager_0041bb00@@QAEHXZ": "0x0041BA50",
+    "?SetPolar@ItemPolarVelocity_0041bb00@@QAEPAU1@MM@Z": "0x0041BEB0",
+    "?AngleFromPoint@Player@@QAEMPBM@Z": "0x00426660",
+    "?Spawn@ItemSmollScoreView@@QAEXHPBUVector3@@I@Z": "0x0042B9C0",
+    "?QueuePan@SoundQueue@@QAEXHM@Z": "0x0043DD10"
+  },
+  "base_index_order": 0,
+  "listed_branch_targets": true,
+  "differences": [
+    {
+      "class": "stack-slot-order",
+      "offset": "0x0",
+      "retail": [
+        "sub esp,0x58"
+      ],
+      "model": [
+        "sub esp,0x50"
+      ]
+    },
+    {
+      "class": "evaluation-order",
+      "offset": "0xa",
+      "retail": [
+        "xor ecx,ecx"
+      ],
+      "model": [
+        "push edi",
+        "xor edi,edi"
+      ]
+    },
+    {
+      "class": "evaluation-order",
+      "offset": "0xf",
+      "retail": [
+        "push edi"
+      ],
+      "model": [
+        "mov DWORD PTR [esp+0x14],edi",
+        "mov DWORD PTR [eax+0x21cebc],edi",
+        "mov DWORD PTR [eax+0x21ceb4],edi"
+      ]
+    },
+    {
+      "class": "evaluation-order",
+      "offset": "0x14",
+      "retail": [
+        "mov DWORD PTR [esp+0x14],ecx",
+        "mov DWORD PTR [eax+0x21cebc],ecx",
+        "mov DWORD PTR [eax+0x21ceb4],ecx"
+      ],
+      "model": []
+    },
+    {
+      "class": "register-choice",
+      "offset": "0x34",
+      "retail": [
+        "xor ecx,ecx"
+      ],
+      "model": [
+        "xor edi,edi"
+      ]
+    },
+    {
+      "class": "register-choice",
+      "offset": "0x43",
+      "retail": [
+        "cmp eax,ecx"
+      ],
+      "model": [
+        "cmp eax,edi"
+      ]
+    },
+    {
+      "class": "register-choice",
+      "offset": "0xba",
+      "retail": [
+        "cmp DWORD PTR [eax+0x28],ecx"
+      ],
+      "model": [
+        "cmp DWORD PTR [eax+0x28],edi"
+      ]
+    },
+    {
+      "class": "evaluation-order",
+      "offset": "0xd7",
+      "retail": [
+        "fld DWORD PTR ds:0x476f78",
+        "fmul DWORD PTR [ebp+0x8]",
+        "fld DWORD PTR ds:0x476f78",
+        "fmul DWORD PTR [ebp+0xc]"
+      ],
+      "model": [
+        "fld DWORD PTR [ebp+0xc]",
+        "fmul DWORD PTR ds:0x476f78"
+      ]
+    },
+    {
+      "class": "evaluation-order",
+      "offset": "0xf6",
+      "retail": [
+        "fxch st(1)"
+      ],
+      "model": [
+        "fld DWORD PTR [ebp+0x8]",
+        "fmul DWORD PTR ds:0x476f78"
+      ]
+    },
+    {
+      "class": "code-shape",
+      "offset": "0xfe",
+      "retail": [
+        "fadd DWORD PTR [ebp+0x0]"
+      ],
+      "model": [
+        "fld DWORD PTR [ebp+0x0]",
+        "fadd st,st(1)"
+      ]
+    },
+    {
+      "class": "code-shape",
+      "offset": "0x104",
+      "retail": [],
+      "model": [
+        "fstp st(0)"
+      ]
+    },
+    {
+      "class": "evaluation-order",
+      "offset": "0x10e",
+      "retail": [
+        "fld DWORD PTR ds:0x476f78",
+        "fmul DWORD PTR ds:0x470cdc"
+      ],
+      "model": [
+        "fld DWORD PTR ds:0x470cdc",
+        "fmul DWORD PTR ds:0x476f78"
+      ]
+    },
+    {
+      "class": "register-choice",
+      "offset": "0x12d",
+      "retail": [
+        "mov DWORD PTR [ebp+0x8],ecx"
+      ],
+      "model": [
+        "mov DWORD PTR [ebp+0x8],edi"
+      ]
+    },
+    {
+      "class": "register-choice",
+      "offset": "0x15b",
+      "retail": [
+        "mov DWORD PTR [ebp+0x2c],ecx"
+      ],
+      "model": [
+        "mov DWORD PTR [ebp+0x2c],edi"
+      ]
+    },
+    {
+      "class": "evaluation-order",
+      "offset": "0x1a3",
+      "retail": [
+        "fld DWORD PTR ds:0x476f78",
+        "fmul DWORD PTR ds:0x470cdc"
+      ],
+      "model": [
+        "fld DWORD PTR ds:0x470cdc",
+        "fmul DWORD PTR ds:0x476f78"
+      ]
+    },
+    {
+      "class": "code-shape",
+      "offset": "0x1c2",
+      "retail": [
+        "mov ecx,DWORD PTR ds:0x477834",
+        "mov edx,DWORD PTR [ecx+0x45c]",
+        "mov eax,DWORD PTR [edx+0x8]",
+        "mov DWORD PTR [ebp+0x38],eax",
+        "mov DWORD PTR [ebp+0x2c],0x3"
+      ],
+      "model": [
+        "mov edx,DWORD PTR ds:0x477834"
+      ]
+    },
+    {
+      "class": "branch-target",
+      "offset": "0x1db",
+      "retail": [
+        "jmp L+0x211"
+      ],
+      "model": [
+        "jmp L+0xbf"
+      ]
+    },
+    {
+      "class": "evaluation-order",
+      "offset": "0x1f1",
+      "retail": [
+        "mov DWORD PTR [ebp+0x2c],ecx"
+      ],
+      "model": []
+    },
+    {
+      "class": "evaluation-order",
+      "offset": "0x1fe",
+      "retail": [],
+      "model": [
+        "mov DWORD PTR [ebp+0x2c],edi"
+      ]
+    },
+    {
+      "class": "register-choice",
+      "offset": "0x261",
+      "retail": [
+        "mov ecx,DWORD PTR [ebp+0x38]"
+      ],
+      "model": [
+        "mov eax,DWORD PTR [ebp+0x38]",
+        "push eax"
+      ]
+    },
+    {
+      "class": "register-choice",
+      "offset": "0x268",
+      "retail": [
+        "push ecx",
+        "lea edi,[ebp+0x8]"
+      ],
+      "model": [
+        "lea ecx,[ebp+0x8]"
+      ]
+    },
+    {
+      "class": "register-choice",
+      "offset": "0x26d",
+      "retail": [
+        "mov ecx,edi"
+      ],
+      "model": []
+    },
+    {
+      "class": "register-choice",
+      "offset": "0x27a",
+      "retail": [
+        "fmul DWORD PTR [edi]"
+      ],
+      "model": [
+        "fmul DWORD PTR [ecx]"
+      ]
+    },
+    {
+      "class": "evaluation-order",
+      "offset": "0x2ba",
+      "retail": [
+        "fld DWORD PTR [ebp+0x38]",
+        "fadd DWORD PTR ds:0x470c38"
+      ],
+      "model": [
+        "fld DWORD PTR ds:0x470c38",
+        "fadd DWORD PTR [ebp+0x38]"
+      ]
+    },
+    {
+      "class": "code-shape",
+      "offset": "0x2c6",
+      "retail": [
+        "mov eax,DWORD PTR [edx+0x458]"
+      ],
+      "model": [
+        "cmp DWORD PTR [edx+0x458],0x4",
+        "jne L+0x36e",
+        "mov DWORD PTR [ebp+0x2c],ebx",
+        "mov DWORD PTR [ecx],edi",
+        "mov DWORD PTR [ebp+0xc],edi"
+      ]
+    },
+    {
+      "class": "branch-target",
+      "offset": "0x2cc",
+      "retail": [
+        "jmp L+0x35a"
+      ],
+      "model": [
+        "jmp L+0x36e"
+      ]
+    },
+    {
+      "class": "register-choice",
+      "offset": "0x2dd",
+      "retail": [
+        "mov esi,DWORD PTR ds:0x477834",
+        "lea edx,[ebp-0x4]"
+      ],
+      "model": [
+        "mov edx,DWORD PTR ds:0x477834",
+        "lea edi,[ebp-0x4]"
+      ]
+    },
+    {
+      "class": "register-choice",
+      "offset": "0x2e7",
+      "retail": [
+        "mov eax,edx",
+        "mov ecx,esi",
+        "lea edi,[ebp+0x8]"
+      ],
+      "model": [
+        "mov eax,edi",
+        "mov ecx,edx",
+        "lea esi,[ebp+0x8]"
+      ]
+    },
+    {
+      "class": "register-choice",
+      "offset": "0x2f4",
+      "retail": [
+        "mov ecx,edi"
+      ],
+      "model": [
+        "mov ecx,esi"
+      ]
+    },
+    {
+      "class": "register-choice",
+      "offset": "0x304",
+      "retail": [
+        "fmul DWORD PTR [edi]"
+      ],
+      "model": [
+        "fmul DWORD PTR [esi]"
+      ]
+    },
+    {
+      "class": "register-choice",
+      "offset": "0x31e",
+      "retail": [
+        "fadd DWORD PTR [edx]",
+        "fstp DWORD PTR [edx]"
+      ],
+      "model": [
+        "fadd DWORD PTR [edi]",
+        "fstp DWORD PTR [edi]"
+      ]
+    },
+    {
+      "class": "evaluation-order",
+      "offset": "0x342",
+      "retail": [
+        "fld DWORD PTR [ebp+0x38]",
+        "fadd DWORD PTR ds:0x470c38"
+      ],
+      "model": [
+        "fld DWORD PTR ds:0x470c38",
+        "fadd DWORD PTR [ebp+0x38]"
+      ]
+    },
+    {
+      "class": "code-shape",
+      "offset": "0x34e",
+      "retail": [
+        "mov eax,DWORD PTR [esi+0x458]",
+        "mov edx,DWORD PTR ds:0x477834",
+        "cmp eax,0x4"
+      ],
+      "model": [
+        "cmp DWORD PTR [edx+0x458],0x4"
+      ]
+    },
+    {
+      "class": "register-choice",
+      "offset": "0x362",
+      "retail": [
+        "mov DWORD PTR [edi],0x0"
+      ],
+      "model": [
+        "mov DWORD PTR [esi],0x0"
+      ]
+    },
+    {
+      "class": "register-choice",
+      "offset": "0x384",
+      "retail": [
+        "mov eax,DWORD PTR [ebp-0x4]"
+      ],
+      "model": [
+        "mov ecx,DWORD PTR [ebp-0x4]"
+      ]
+    },
+    {
+      "class": "register-choice",
+      "offset": "0x38d",
+      "retail": [
+        "mov ecx,DWORD PTR [ebp+0x0]"
+      ],
+      "model": [
+        "mov eax,DWORD PTR [ebp+0x0]"
+      ]
+    },
+    {
+      "class": "stack-slot-order",
+      "offset": "0x393",
+      "retail": [
+        "mov DWORD PTR [esp+0x20],eax"
+      ],
+      "model": [
+        "mov DWORD PTR [esp+0x1c],ecx"
+      ]
+    },
+    {
+      "class": "stack-slot-order",
+      "offset": "0x39f",
+      "retail": [
+        "mov DWORD PTR [esp+0x30],ecx",
+        "mov DWORD PTR [esp+0x24],ecx"
+      ],
+      "model": []
+    },
+    {
+      "class": "register-choice",
+      "offset": "0x49e",
+      "retail": [
+        "mov edi,0x474c40"
+      ],
+      "model": [
+        "mov edi,eax"
+      ]
+    },
+    {
+      "class": "evaluation-order",
+      "offset": "0x505",
+      "retail": [
+        "fld DWORD PTR [edx+0x3c4]",
+        "fsub DWORD PTR ds:0x470cd4",
+        "fmul DWORD PTR ds:0x470cd0"
+      ],
+      "model": []
+    },
+    {
+      "class": "evaluation-order",
+      "offset": "0x529",
+      "retail": [],
+      "model": [
+        "fld DWORD PTR [edx+0x3c4]",
+        "fsub DWORD PTR ds:0x470cd4"
+      ]
+    },
+    {
+      "class": "evaluation-order",
+      "offset": "0x52b",
+      "retail": [],
+      "model": [
+        "fmul DWORD PTR ds:0x470cd0"
+      ]
+    },
+    {
+      "class": "register-choice",
+      "offset": "0x594",
+      "retail": [
+        "mov ecx,0x474c40"
+      ],
+      "model": [
+        "mov ecx,eax"
+      ]
+    },
+    {
+      "class": "register-choice",
+      "offset": "0x5a0",
+      "retail": [
+        "mov edi,0x474c40"
+      ],
+      "model": [
+        "mov edi,ecx"
+      ]
+    },
+    {
+      "class": "register-choice",
+      "offset": "0x5f7",
+      "retail": [
+        "mov edi,0x474c40"
+      ],
+      "model": [
+        "mov edi,ecx"
+      ]
+    },
+    {
+      "class": "register-choice",
+      "offset": "0x614",
+      "retail": [
+        "mov edi,0x474c40"
+      ],
+      "model": [
+        "mov edi,ecx"
+      ]
+    },
+    {
+      "class": "register-choice",
+      "offset": "0x64f",
+      "retail": [
+        "mov edi,0x474c40"
+      ],
+      "model": [
+        "mov edi,ecx"
+      ]
+    },
+    {
+      "class": "register-choice",
+      "offset": "0x6ef",
+      "retail": [
+        "mov edi,0x474c40"
+      ],
+      "model": [
+        "mov edi,eax"
+      ]
+    },
+    {
+      "class": "evaluation-order",
+      "offset": "0x782",
+      "retail": [],
+      "model": [
+        "mov eax,DWORD PTR [ebp+0x0]"
+      ]
+    },
+    {
+      "class": "evaluation-order",
+      "offset": "0x785",
+      "retail": [],
+      "model": [
+        "mov DWORD PTR [esp+0x38],ecx",
+        "mov ecx,DWORD PTR [edi]"
+      ]
+    },
+    {
+      "class": "branch-target",
+      "offset": "0x785",
+      "retail": [
+        "je L+0x7cb"
+      ],
+      "model": [
+        "je L+0x7c0"
+      ]
+    },
+    {
+      "class": "stack-slot-order",
+      "offset": "0x78d",
+      "retail": [],
+      "model": [
+        "mov DWORD PTR [esp+0x24],ecx"
+      ]
+    },
+    {
+      "class": "stack-slot-order",
+      "offset": "0x791",
+      "retail": [],
+      "model": [
+        "mov DWORD PTR [esp+0x28],eax"
+      ]
+    },
+    {
+      "class": "branch-target",
+      "offset": "0x796",
+      "retail": [
+        "je L+0x7cb"
+      ],
+      "model": [
+        "je L+0x825"
+      ]
+    },
+    {
+      "class": "branch-target",
+      "offset": "0x7a7",
+      "retail": [
+        "je L+0x7cb"
+      ],
+      "model": [
+        "je L+0x825"
+      ]
+    },
+    {
+      "class": "branch-target",
+      "offset": "0x7b8",
+      "retail": [
+        "jnp L+0x7cb"
+      ],
+      "model": [
+        "jnp L+0x825"
+      ]
+    },
+    {
+      "class": "code-shape",
+      "offset": "0x7cb",
+      "retail": [
+        "test cx,cx",
+        "jne L+0x82d"
+      ],
+      "model": [
+        "jmp L+0x825"
+      ]
+    },
+    {
+      "class": "stack-slot-order",
+      "offset": "0x7d6",
+      "retail": [],
+      "model": [
+        "mov DWORD PTR [esp+0x2c],ecx"
+      ]
+    },
+    {
+      "class": "stack-slot-order",
+      "offset": "0x7da",
+      "retail": [],
+      "model": [
+        "mov DWORD PTR [esp+0x30],eax"
+      ]
+    },
+    {
+      "class": "evaluation-order",
+      "offset": "0x814",
+      "retail": [
+        "mov ecx,DWORD PTR [edx+0x45c]",
+        "fld DWORD PTR [ecx+0x8]"
+      ],
+      "model": [
+        "fld DWORD PTR ds:0x470cc4"
+      ]
+    },
+    {
+      "class": "evaluation-order",
+      "offset": "0x824",
+      "retail": [
+        "fmul DWORD PTR ds:0x470cc4"
+      ],
+      "model": [
+        "mov edx,DWORD PTR [edx+0x45c]",
+        "fmul DWORD PTR [edx+0x8]"
+      ]
+    },
+    {
+      "class": "register-choice",
+      "offset": "0x82d",
+      "retail": [
+        "mov edx,DWORD PTR [esp+0x10]",
+        "push edx"
+      ],
+      "model": [
+        "mov eax,DWORD PTR [esp+0x10]",
+        "push eax"
+      ]
+    },
+    {
+      "class": "evaluation-order",
+      "offset": "0x870",
+      "retail": [
+        "fld DWORD PTR [ebp+0x20]",
+        "fadd DWORD PTR [ecx]"
+      ],
+      "model": [
+        "fld DWORD PTR [ecx]",
+        "fadd DWORD PTR [ebp+0x20]"
+      ]
+    },
+    {
+      "class": "stack-slot-order",
+      "offset": "0x8c7",
+      "retail": [
+        "add esp,0x58"
+      ],
+      "model": [
+        "add esp,0x50"
+      ]
+    }
+  ],
+  "note": "reference/recovery_notes/item_update_0041afd0_equivalent_2026_10_13.md",
+  "frame_shift": {
+    "deltas": [
+      4,
+      8,
+      12,
+      16,
+      20,
+      24,
+      28,
+      32,
+      36,
+      40,
+      44,
+      48,
+      52,
+      56,
+      60,
+      64,
+      -4,
+      -8,
+      -12,
+      -16,
+      -20,
+      -24,
+      -28,
+      -32,
+      -36,
+      -40,
+      -44,
+      -48,
+      -52,
+      -56,
+      -60,
+      -64
+    ],
+    "count": 26
+  }
+}

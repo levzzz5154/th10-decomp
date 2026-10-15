@@ -1,4 +1,4 @@
-#include "asm_symbols.hpp"
+#include "../../build_support/include/asm_symbols.hpp"
 typedef void (__cdecl *ImportThunkTarget)();
 
 // Structural ownership is intentionally one retail import thunk per six-byte

@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "name": "recovery_linked_cleanup_00417770",
+  "source": "src/game/front/recovery_linked_cleanup_00417770.cpp",
+  "driver": "build_support/layout/ltcg/recovery_linked_cleanup_00417770_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "Score chain release compiled with native LTCG so the owning score object arrives in EAX.",
+  "functions": [
+    {
+      "name": "ScoreChain_00417770_ReleaseChain",
+      "symbol": "?ReleaseChain@ScoreChain_00417770@@QAEXXZ",
+      "section": ".text$01release",
+      "address": "0x00417770",
+      "size": 66,
+      "actual_abi": "owner in EAX; plain RET"
+    }
+  ],
+  "context": {
+    "symbol": "?RecoveryLinkedCleanupCompilerContext@@YGHXZ",
+    "section": ".text$03context",
+    "address": "0x004177D0",
+    "size": 13,
+    "description": "Synthetic manager-calling entry that establishes the observed register convention; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 92016
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x004177B2",
+      "size": 30
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_entry_free_004524a1",
+      "address": "0x004524A1",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_g_laser_manager",
+      "address": "0x0047781C",
+      "kind": "data"
+    }
+  ],
+  "included_sources": []
+}

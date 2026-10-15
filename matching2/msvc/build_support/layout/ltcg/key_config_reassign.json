@@ -1,0 +1,118 @@
+{
+  "schema_version": 1,
+  "name": "key_config_reassign",
+  "source": "src/game/title/key_config.cpp",
+  "included_sources": [
+    "src/game/title/fun_0042f8b0_0042f8b0.cpp",
+    "src/core/sound/animation_manager_queue_resource_0043dc90.cpp"
+  ],
+  "driver": "build_support/layout/ltcg/key_config_reassign_context.cpp",
+  "headers": [
+    "include/th10/game/key_config_refresh_0042f8b0.hpp",
+    "include/th10/platform/sound_queue.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Complete explicit five-slot reassignment with genuine full label-refresh, sound-queue, configuration and lookup bodies visible to native LTCG. Only reassignment is selected.",
+  "functions": [
+    {
+      "name": "semantic_KeyConfig_ReassignSlot_00430250",
+      "symbol": "_KeyConfigReassignSlot_00430250@12",
+      "section": ".text$03reassign",
+      "address": "0x430250",
+      "size": 200,
+      "actual_abi": "state EAX; slot ECX; key EDX; plain RET"
+    }
+  ],
+  "anchors": [
+    {
+      "name": "RefreshKeyConfigLabels",
+      "symbol": "_RefreshTitleKeyConfigView@4",
+      "section": ".text$01refresh",
+      "address": "0x42f8b0",
+      "size": 2452
+    },
+    {
+      "name": "Queue",
+      "symbol": "?Queue@SoundQueue@@QAEHHH@Z",
+      "section": ".text$05queue",
+      "address": "0x43dc90",
+      "size": 123
+    },
+    {
+      "name": "Configure",
+      "symbol": "_ConfigureKeyConfigDigit_0043e5a0@12",
+      "section": ".text$07configure",
+      "address": "0x43e5a0",
+      "size": 356
+    },
+    {
+      "name": "Find",
+      "symbol": "?Find@KeyConfigAnimationManager_0042f8b0@@QAIPAXPAUKeyConfigLookupContext_0042f8b0@@UKeyConfigScriptId_0042f8b0@@@Z",
+      "section": ".text$09find",
+      "address": "0x4491c0",
+      "size": 73
+    }
+  ],
+  "context": {
+    "symbol": "_KeyConfigReassignContext@16",
+    "section": ".text$11context",
+    "address": "0x00449210",
+    "size": 62,
+    "description": "Synthetic array caller; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x401000",
+      "size": 190640
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x430244",
+      "size": 12
+    },
+    {
+      "section": ".text$04layout",
+      "address": "0x430318",
+      "size": 55672
+    },
+    {
+      "section": ".text$06layout",
+      "address": "0x43dd0b",
+      "size": 2197
+    },
+    {
+      "section": ".text$08layout",
+      "address": "0x43e704",
+      "size": 43708
+    },
+    {
+      "section": ".text$10layout",
+      "address": "0x449209",
+      "size": 7
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_g_sprt_ctrl",
+      "address": "0x491c10",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00492590",
+      "address": "0x492590",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004749ce",
+      "address": "0x4749ce",
+      "kind": "data"
+    },
+    {
+      "symbol": "__fltused",
+      "address": "0x0",
+      "kind": "metadata"
+    }
+  ]
+}

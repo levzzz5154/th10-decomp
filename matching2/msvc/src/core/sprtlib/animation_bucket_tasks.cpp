@@ -5,7 +5,7 @@
 // the bucket renderer's result. The renderer at 0x00448980 takes the manager in
 // EDI and the bucket index in EAX, a convention native LTCG assigns only when
 // its body is in the same link, so these bodies are compiled in the cluster
-// layout/ltcg/animation_bucket_tasks.json with that body as an ABI anchor.
+// build_support/layout/ltcg/animation_bucket_tasks.json with that body as an ABI anchor.
 // Buckets 1 (0x00448600) and 3 (0x00448620, which also selects a render stage)
 // have their own sources.
 #include "th10/render/quad_batch.hpp"

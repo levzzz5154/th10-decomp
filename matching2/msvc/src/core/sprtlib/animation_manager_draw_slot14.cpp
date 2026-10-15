@@ -21,7 +21,7 @@
 //    that split is the compiler's, and it is what the pointer form reproduces.
 // 2. 0x00448980 reads the manager from EDI and the slot index from EAX -
 //    registers no MSVC declaration names - so its body is compiled in the
-//    native-LTCG cluster layout/ltcg/fun_00448740_wave11.json as an ABI anchor:
+//    native-LTCG cluster build_support/layout/ltcg/fun_00448740_wave11.json as an ABI anchor:
 //    a C++ body placed at the retail address, validated, and never exported as
 //    recovered code.  With its body visible the pass enters it with the manager
 //    in EDI (which the body keeps across its loop) and the index in EAX, and the

@@ -10,7 +10,7 @@
 // exists while the callee's body is visible to the whole-program pass *and* the
 // callee is not rooted - rooting pins the declared public __thiscall (ECX) ABI,
 // which is the wrong register.  The synthetic batch context therefore names the
-// call that keeps this model in the link (layout/ltcg/render_batch_context.cpp);
+// call that keeps this model in the link (build_support/layout/ltcg/render_batch_context.cpp);
 // the callee itself needs no `roots` entry.
 //
 // Every call uses 0x004451C0's private (manager in ECX, VM in EAX) entry, which

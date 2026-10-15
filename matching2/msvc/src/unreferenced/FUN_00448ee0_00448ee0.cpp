@@ -7,7 +7,7 @@
 //
 // Like its twin, the body enters with the position in EDI and the other three
 // arguments on the stack, and its callees take registers no declaration can
-// name, so it is compiled in the cluster layout/ltcg/positioned_primary_front_00448e80_wave12.json.
+// name, so it is compiled in the cluster build_support/layout/ltcg/positioned_primary_front_00448e80_wave12.json.
 #pragma code_seg(".text$05ad_screen")
 
 struct AnimationPosition_00448ee0 {

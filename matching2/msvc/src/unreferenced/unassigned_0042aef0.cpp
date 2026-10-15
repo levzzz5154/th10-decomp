@@ -5,7 +5,7 @@
 // callee-saved register that survives both calls, and EAX carries the loaded
 // pointer, so the receiver is a register no C++ declaration names: the body is
 // compiled in the native-LTCG cluster
-// layout/ltcg/raw_pair_release_0042aef0.json whose array-walking synthetic
+// build_support/layout/ltcg/raw_pair_release_0042aef0.json whose array-walking synthetic
 // caller establishes that convention.
 //
 // The allocator at 0x00452422 is bound as an absolute address, the shape the

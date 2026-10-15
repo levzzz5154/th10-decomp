@@ -1,0 +1,120 @@
+{
+  "schema_version": 1,
+  "name": "window_create_00439730",
+  "source": "src/core/main/window_create_00439730.cpp",
+  "driver": "build_support/layout/ltcg/window_create_00439730_context.cpp",
+  "headers": [
+    "include/th10/platform/window_create_00439730.hpp",
+    "include/th10/platform/windows_types.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "The game window creation compiled with native LTCG beside a synthetic caller that keeps the instance live, so it arrives in EBX.",
+  "functions": [
+    {
+      "name": "CreateGameWindow",
+      "symbol": "?CreateGameWindow_00439730@@YIHPAX@Z",
+      "section": ".text$00439730_fn",
+      "address": "0x00439730",
+      "size": 341,
+      "actual_abi": "instance in EBX; result in EAX; plain RET"
+    }
+  ],
+  "context": {
+    "symbol": "_WindowCreateContext@8",
+    "section": ".text$0040a000_context",
+    "address": "0x0040A000",
+    "size": 88,
+    "description": "Synthetic caller compiled with inlining off; not recovered game code."
+  },
+  "anchors": [],
+  "constants": [],
+  "data_aliases": [
+    {
+      "symbol": "??_C@_04NLLCBHDK@BASE?$AA@",
+      "address": "0x0046F698",
+      "bytes": "4241534500"
+    }
+  ],
+  "absolute_symbols": [
+    {
+      "symbol": "__imp__GetStockObject@4",
+      "address": "0x00466010",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__LoadCursorA@8",
+      "address": "0x00466260",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__RegisterClassA@4",
+      "address": "0x004661F8",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__CreateWindowExA@48",
+      "address": "0x00466238",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__GetSystemMetrics@4",
+      "address": "0x0046625C",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__SendMessageA@16",
+      "address": "0x00466228",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__Sleep@4",
+      "address": "0x004660AC",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004924f0",
+      "address": "0x004924F0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491c70",
+      "address": "0x00491C70",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491d65",
+      "address": "0x00491D65",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0046f66c",
+      "address": "0x0046F66C",
+      "kind": "data"
+    },
+    {
+      "symbol": "_WindowProcedure_004390e0@16",
+      "address": "0x004390E0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_WindowCreateEscape",
+      "address": "0x004524A1",
+      "kind": "relative_code"
+    }
+  ],
+  "roots": [],
+  "gaps": [
+    {
+      "section": ".text$00401000_gap",
+      "address": "0x00401000",
+      "size": 36864
+    },
+    {
+      "section": ".text$0040a058_gap",
+      "address": "0x0040A058",
+      "size": 194264
+    }
+  ],
+  "additional_sources": [],
+  "included_sources": []
+}

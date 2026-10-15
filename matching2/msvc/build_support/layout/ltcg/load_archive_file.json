@@ -1,0 +1,502 @@
+{
+  "schema_version": 1,
+  "name": "load_archive_file",
+  "source": "src/game/effect/asset_buffer.cpp",
+  "headers": [
+    "include/th10/platform/archive_file.hpp",
+    "include/th10/platform/archive_callers.hpp",
+    "include/th10/game/background.hpp",
+    "build_support/layout/ltcg/native_archive_read/archive.hpp",
+    "include/th10/archive/dat_archive_types.hpp",
+    "include/th10/platform/file.hpp",
+    "include/th10/platform/windows_types.hpp",
+    "include/th10/game/entity.hpp",
+    "include/th10/core/func_ctrl.hpp",
+    "include/th10/math/timer.hpp",
+    "include/th10/render/camera_batch.hpp",
+    "include/th10/render/quad_batch.hpp",
+    "include/th10/types.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Inherited archive caller cluster retains its eight unrelated selected owners. LoadFile360 is now a complete truthful free-Read ABI anchor with complete Read279/Find53/cipher323 bodies; checksum207 and LoadFile360 are selected by the genuine native_archive_read cluster. Other inherited synthetic caller conventions remain explicit.",
+  "functions": [
+    {
+      "name": "LoadAsset",
+      "source": "src/game/effect/asset_buffer.cpp",
+      "symbol": "?LoadAsset@@YGPADPBDPAUAssetBuffer@@@Z",
+      "section": ".text$01asset",
+      "address": "0x0040B480",
+      "size": 106,
+      "actual_abi": "EAX name; buffer on stack; RET 4"
+    },
+    {
+      "name": "ScriptFileLoader_Load",
+      "source": "src/game/enemy/fun_0040cd20_0040cd20.cpp",
+      "symbol": "?Load@ScriptFileLoader@@QAEHPBD@Z",
+      "section": ".text$02script",
+      "address": "0x0040CD20",
+      "size": 95,
+      "actual_abi": "this in ECX; name on stack; RET 4"
+    },
+    {
+      "name": "MapResource_LoadMap",
+      "source": "src/unreferenced/FUN_0043e9d0_0043e9d0.cpp",
+      "symbol": "?LoadMap@MapResource@@QAEXPBD@Z",
+      "section": ".text$04map",
+      "address": "0x0043E9D0",
+      "size": 228,
+      "actual_abi": "ESI this; name on stack; RET 4"
+    },
+    {
+      "name": "ParameterLoader_Load",
+      "source": "src/game/player/music_room.cpp",
+      "symbol": "?Load@ParameterLoader@@QAEHPBD@Z",
+      "section": ".text$02zparameter",
+      "address": "0x00426520",
+      "size": 229,
+      "actual_abi": "ESI this; EAX name; plain RET"
+    },
+    {
+      "name": "SoundManager_0043a9b0_LoadTrack",
+      "source": "src/core/midilib/midi_load_track.cpp",
+      "symbol": "?LoadTrack@SoundManager_0043a9b0@@QAEHHPBD@Z",
+      "section": ".text$03zn9b0track",
+      "address": "0x0043A9B0",
+      "size": 116,
+      "actual_abi": "manager in EAX; index in ESI; name at [ESP+4]; RET 4"
+    },
+    {
+      "name": "Sound_LoadMusicTable_0043d670",
+      "source": "src/unreferenced/unassigned_0043d670.cpp",
+      "symbol": "_Sound_LoadMusicTable_0043d670@8",
+      "section": ".text$03zrc_music",
+      "address": "0x0043D670",
+      "size": 32,
+      "actual_abi": "filename in EAX; owner on stack; RET 4"
+    },
+    {
+      "name": "BackGround_Load",
+      "source": "src/game/background/background_load.cpp",
+      "symbol": "?Load@BackGround@@QAEHPBD@Z",
+      "section": ".text$00stage",
+      "address": "0x00403850",
+      "size": 308,
+      "actual_abi": "EBX receiver; name on stack; RET 4"
+    },
+    {
+      "name": "ScoreTask_Setup_00413a20",
+      "source": "src/game/front/score_tasks.cpp",
+      "symbol": "_ScoreTask_Setup_00413a20@4",
+      "section": ".text$02xscore",
+      "address": "0x00413A20",
+      "size": 289,
+      "actual_abi": "state pointer at [ESP+4]; int result in EAX; RET 4"
+    },
+    {
+      "name": "Sound_LoadPendingSlot_0043d640",
+      "source": "src/core/sound/sound_load_pending_slot_0043d640.cpp",
+      "symbol": "?LoadPendingSlot@SoundPendingSlots_0043d640@@QAEHPBDH@Z",
+      "section": ".text$03zr5_slot",
+      "address": "0x0043D640",
+      "size": 37,
+      "actual_abi": "filename in EAX; owner and index on stack; RET 8"
+    }
+  ],
+  "gaps": [
+    {
+      "section": ".text$00zlayout",
+      "address": "0x00403984",
+      "size": 31484
+    },
+    {
+      "section": ".text$01zlayout",
+      "address": "0x0040B4EA",
+      "size": 6198
+    },
+    {
+      "section": ".text$03zolayout",
+      "address": "0x0043AA24",
+      "size": 1020
+    },
+    {
+      "section": ".text$03zqlayout",
+      "address": "0x0043AE71",
+      "size": 10191
+    },
+    {
+      "section": ".text$03zrd_gap",
+      "address": "0x0043D690",
+      "size": 4928
+    },
+    {
+      "section": ".text$06layout",
+      "address": "0x0044B4C8",
+      "size": 56
+    },
+    {
+      "section": ".text$08layout",
+      "address": "0x0044B5CB",
+      "size": 581
+    },
+    {
+      "section": ".text$00alayout",
+      "address": "0x00401000",
+      "size": 10320
+    },
+    {
+      "section": ".text$02ylayout",
+      "address": "0x00413B41",
+      "size": 76255
+    },
+    {
+      "section": ".text$02wlayout",
+      "address": "0x0040CD7F",
+      "size": 27809
+    },
+    {
+      "section": ".text$02zzlayout",
+      "address": "0x426605",
+      "size": 59339
+    },
+    {
+      "section": ".text$03areadz",
+      "address": "0x434ee7",
+      "size": 73
+    },
+    {
+      "section": ".text$03bfindz",
+      "address": "0x434f65",
+      "size": 23115
+    },
+    {
+      "section": ".text$04ylayout",
+      "address": "0x43eab4",
+      "size": 50716
+    },
+    {
+      "section": ".text$04zdecryptz",
+      "address": "0x44b213",
+      "size": 333
+    },
+    {
+      "section": ".text$03zr7_gap",
+      "address": "0x0043D665",
+      "size": 11
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_data_00497990",
+      "address": "0x00497990",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0049231e",
+      "address": "0x0049231e",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004922a4",
+      "address": "0x004922a4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004660b0",
+      "address": "0x004660b0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004660b4",
+      "address": "0x004660b4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004660c4",
+      "address": "0x004660c4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004660cc",
+      "address": "0x004660cc",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004660d0",
+      "address": "0x004660d0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004660d8",
+      "address": "0x004660d8",
+      "kind": "data"
+    },
+    {
+      "symbol": "_asm_strrchr_00452930",
+      "address": "0x00452930",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_asm_stricmp_0046054e",
+      "address": "0x0046054e",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_asm_malloc_00452706",
+      "address": "0x00452706",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_00497c38",
+      "address": "0x00497C38",
+      "kind": "data"
+    },
+    {
+      "symbol": "?Parse@ScriptFileLoader@@QAEHPAD@Z",
+      "address": "0x00450220",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_004660dc",
+      "address": "0x004660DC",
+      "kind": "data"
+    },
+    {
+      "symbol": "_entry_free_00452422",
+      "address": "0x00452422",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_00492380",
+      "address": "0x00492380",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00492384",
+      "address": "0x00492384",
+      "kind": "data"
+    },
+    {
+      "symbol": "___security_cookie",
+      "address": "0x00473660",
+      "kind": "data"
+    },
+    {
+      "symbol": "@__security_check_cookie@4",
+      "address": "0x00458EA5",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_0046e1c8",
+      "address": "0x0046E1C8",
+      "kind": "data"
+    },
+    {
+      "symbol": "_sprintf",
+      "address": "0x00452AE8",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_ProbeFileExists@4",
+      "address": "0x0044B4D0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_00470c50",
+      "address": "0x00470C50",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0047476c",
+      "address": "0x0047476C",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00474778",
+      "address": "0x00474778",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491bf4",
+      "address": "0x00491BF4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491bf8",
+      "address": "0x00491BF8",
+      "kind": "data"
+    },
+    {
+      "symbol": "__fltused",
+      "address": "0x00000000",
+      "kind": "metadata"
+    },
+    {
+      "symbol": "_asm_vsprintf_004524a6",
+      "address": "0x004524A6",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__chkstk",
+      "address": "0x00458EC0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_004922bc",
+      "address": "0x004922BC",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0049231f",
+      "address": "0x0049231F",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__EnterCriticalSection@4",
+      "address": "0x004660B0",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__LeaveCriticalSection@4",
+      "address": "0x004660B4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_sprt_ctrl",
+      "address": "0x00491c10",
+      "kind": "data"
+    },
+    {
+      "symbol": "@LoadCachedResource_00447280@12",
+      "address": "0x00447280",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_malloc",
+      "address": "0x00452706",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_00477848",
+      "address": "0x00477848",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00474c44",
+      "address": "0x00474C44",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00474c68",
+      "address": "0x00474C68",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491be8",
+      "address": "0x00491BE8",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00476f78",
+      "address": "0x00476F78",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00474f70",
+      "address": "0x00474F70",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0046cb68",
+      "address": "0x0046CB68",
+      "kind": "data"
+    },
+    {
+      "symbol": "_asm_free_00452422",
+      "address": "0x452422",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_DecompressDatLzss_00435dc0@16",
+      "address": "0x435dc0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_g_dat_read_crypt_parameters",
+      "address": "0x474bd8",
+      "kind": "data"
+    }
+  ],
+  "additional_sources": [
+    "src/game/enemy/fun_0040cd20_0040cd20.cpp",
+    "src/unreferenced/FUN_0043e9d0_0043e9d0.cpp",
+    "src/game/player/music_room.cpp",
+    "src/core/midilib/midi_load_track.cpp",
+    "src/game/background/background_load.cpp",
+    "src/game/front/score_tasks.cpp",
+    "src/unreferenced/unassigned_0043d670.cpp",
+    "src/core/sound/sound_load_pending_slot_0043d640.cpp"
+  ],
+  "roots": [
+    "?Load@ScriptFileLoader@@QAEHPBD@Z",
+    "_ScoreTask_Setup_00413a20@4"
+  ],
+  "driver": "build_support/layout/ltcg/archive_callers_context.cpp",
+  "context": {
+    "symbol": "?ArchiveCallersContext@@YGHPAPAUAssetBuffer@@PAPBDPAPAUMapResource@@PAPAUParameterLoader@@PAPAUSoundManager_0043a9b0@@PBDHPAPAUBackGround@@@Z",
+    "section": ".text$07context",
+    "address": "0x0044B500",
+    "size": 203,
+    "description": "synthetic archive caller; not recovered game code"
+  },
+  "anchors": [
+    {
+      "name": "SoundManager_0043a9b0_MidiStop",
+      "symbol": "?MidiStop@SoundManager_0043a9b0@@QAEXXZ",
+      "section": ".text$03zpanchor",
+      "address": "0x0043AE20",
+      "size": 81
+    },
+    {
+      "name": "TextLog_0044b810_Append_abi_anchor",
+      "symbol": "?Append@TextLog_0044b810@@QAAPADPADZZ",
+      "section": ".text$09append",
+      "address": "0x0044B810",
+      "size": 201
+    },
+    {
+      "name": "ArchiveRead",
+      "symbol": "_DatArchiveRead@12",
+      "address": "0x434dd0",
+      "size": 279,
+      "section": ".text$03aread"
+    },
+    {
+      "name": "ArchiveFind",
+      "symbol": "_ArchiveFind@8",
+      "address": "0x434f30",
+      "size": 53,
+      "section": ".text$03bfind"
+    },
+    {
+      "name": "DatDecrypt",
+      "symbol": "_DatDecrypt@24",
+      "address": "0x44b0d0",
+      "size": 323,
+      "section": ".text$04zdecrypt"
+    },
+    {
+      "name": "ArchiveLoadFile",
+      "symbol": "_Archive_LoadFile@12",
+      "address": "0x44b360",
+      "size": 360,
+      "section": ".text$05load"
+    }
+  ],
+  "included_sources": [
+    "build_support/layout/ltcg/native_archive_read/read.cpp",
+    "src/pack/arcmngr/archive_find.cpp",
+    "build_support/layout/ltcg/native_archive_read/decrypt.cpp",
+    "src/core/zunlib/archive_load_file.cpp"
+  ]
+}

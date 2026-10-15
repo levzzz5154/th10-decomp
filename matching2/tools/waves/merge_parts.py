@@ -25,7 +25,8 @@ import struct
 
 from matching2.tools.common.pe import PEImage
 
-MANIFEST = ROOT / "matching2/msvc/regions.json"
+from matching2.tools.common.project_paths import project_support
+MANIFEST = project_support((ROOT) / 'matching2/msvc', 'regions.json')
 ORACLE = ROOT / "matching2/build/oracle/th10.exe"
 BLOCK = re.compile(r'extern "C" __declspec\(naked\) void __cdecl (\w+)\(\)\s*\{\s*__asm \{(.*?)\n    \}\n\}', re.S)
 
@@ -184,7 +185,7 @@ def main():
     args = parser.parse_args()
     global manifest_start
     project = args.project.resolve()
-    manifest_path = project / "regions.json"
+    manifest_path = project_support(project, 'regions.json')
     manifest = json.loads(manifest_path.read_text())
     manifest_start = manifest["text_start"]
     raw = PEImage(ORACLE.read_bytes()).read(int(manifest["text_start"], 0), manifest["text_bytes"])

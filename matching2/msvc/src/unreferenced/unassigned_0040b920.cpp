@@ -5,7 +5,7 @@
 // which reads its object from EAX, then frees the object when bit 0 of the
 // incoming flags is set and returns it in EAX.  The object stays in ESI across
 // the call, a receiver no C++ declaration names, so this body and 0x0040B3A0
-// are compiled in the native-LTCG cluster layout/ltcg/dtor_delete_0040b920.json.
+// are compiled in the native-LTCG cluster build_support/layout/ltcg/dtor_delete_0040b920.json.
 #include "th10/game/ending_text_view.hpp"
 
 extern "C" void __cdecl entry_free_004524a1(void* block);

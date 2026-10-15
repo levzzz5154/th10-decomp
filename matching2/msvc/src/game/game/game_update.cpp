@@ -1,7 +1,7 @@
 // 0x00418190: complete stage callback, all 1,544 retail bytes.
 // The native cluster co-compiles full helpers to derive their register ABIs.
 // The callback itself keeps its public stdcall context and RET4.
-#include "../../../layout/ltcg/stage_update_00418190/types.hpp"
+#include "../../../build_support/layout/ltcg/stage_update_00418190/types.hpp"
 #include <stddef.h>
 #include <string.h>
 

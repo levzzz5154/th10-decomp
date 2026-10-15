@@ -1,4 +1,4 @@
-#include "../../../layout/ltcg/archive_read_00434dd0/archive.hpp"
+#include "../../../build_support/layout/ltcg/archive_read_00434dd0/archive.hpp"
 #ifndef ARCHIVE_READ_SECTION
 #define ARCHIVE_READ_SECTION ".text$a00read"
 #endif

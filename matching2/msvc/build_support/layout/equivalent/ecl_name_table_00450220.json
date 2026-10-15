@@ -1,0 +1,154 @@
+{
+  "schema_version": 1,
+  "name": "ecl_name_table_00450220",
+  "region": "asm_FUN_00450220_00450220",
+  "sources": [
+    "src/script/sptlib/ecl_name_table.cpp"
+  ],
+  "entry_symbol": "?Parse@ScriptFileLoader@@QAEHPAH@Z",
+  "function": "?Parse@ScriptFileLoader@@QAEHPAH@Z",
+  "code_bytes": 589,
+  "absolute_symbols": {
+    "_entry_malloc_00452706": {
+      "address": "0x00452706",
+      "kind": "code"
+    },
+    "_entry_free_00452422": {
+      "address": "0x00452422",
+      "kind": "code"
+    }
+  },
+  "bindings": {},
+  "base_index_order": 0,
+  "listed_branch_targets": true,
+  "differences": [
+    {
+      "class": "evaluation-order",
+      "offset": "0x41",
+      "retail": [
+        "mov edx,DWORD PTR [ebx+0x8]"
+      ],
+      "model": []
+    },
+    {
+      "class": "register-choice",
+      "offset": "0x55",
+      "retail": [
+        "add edx,eax"
+      ],
+      "model": [
+        "mov ecx,DWORD PTR [ebx+0x8]",
+        "add ecx,eax"
+      ]
+    },
+    {
+      "class": "register-choice",
+      "offset": "0x5e",
+      "retail": [
+        "mov eax,edx"
+      ],
+      "model": [
+        "mov eax,ecx"
+      ]
+    },
+    {
+      "class": "register-choice",
+      "offset": "0x68",
+      "retail": [
+        "mov DWORD PTR [ebx+0x8],edx"
+      ],
+      "model": [
+        "mov DWORD PTR [ebx+0x8],ecx"
+      ]
+    },
+    {
+      "class": "code-shape",
+      "offset": "0xe5",
+      "retail": [
+        "movzx ecx,WORD PTR [ecx+0x10]",
+        "mov edx,DWORD PTR [ebx+0x8]",
+        "sub edx,ecx"
+      ],
+      "model": [
+        "movzx edx,WORD PTR [ecx+0x10]",
+        "mov ecx,DWORD PTR [ebx+0x8]",
+        "sub ecx,edx",
+        "mov DWORD PTR [esp+0x14],ecx",
+        "add ecx,ecx"
+      ]
+    },
+    {
+      "class": "code-shape",
+      "offset": "0xf0",
+      "retail": [
+        "lea ecx,[edx+edx*1]"
+      ],
+      "model": []
+    },
+    {
+      "class": "code-shape",
+      "offset": "0xf7",
+      "retail": [
+        "mov DWORD PTR [esp+0x14],edx"
+      ],
+      "model": []
+    },
+    {
+      "class": "code-shape",
+      "offset": "0x105",
+      "retail": [
+        "mov edx,DWORD PTR [esp+0x18]"
+      ],
+      "model": []
+    },
+    {
+      "class": "code-shape",
+      "offset": "0x126",
+      "retail": [
+        "jmp L+0x130",
+        "mov edx,DWORD PTR [esp+0x14]",
+        "lea esp,[esp+0x0]"
+      ],
+      "model": [
+        "mov eax,DWORD PTR [esp+0x14]"
+      ]
+    },
+    {
+      "class": "register-choice",
+      "offset": "0x132",
+      "retail": [
+        "test edx,edx"
+      ],
+      "model": [
+        "test eax,eax"
+      ]
+    },
+    {
+      "class": "alignment-padding",
+      "offset": "0x14c",
+      "retail": [
+        "lea esp,[esp+0x0]"
+      ],
+      "model": []
+    },
+    {
+      "class": "alignment-padding",
+      "offset": "0x19f",
+      "retail": [
+        "nop"
+      ],
+      "model": []
+    },
+    {
+      "class": "branch-target",
+      "offset": "0x21c",
+      "retail": [
+        "jl L+0x128"
+      ],
+      "model": [
+        "jl L+0x121"
+      ]
+    }
+  ],
+  "note": "reference/recovery_notes/ecl_name_table_00450220_equivalent_2026_10_11.md"
+}

@@ -138,6 +138,7 @@ def unregister(manifest_path, layout_rel, apply):
     return "", manifest
 
 
+from matching2.tools.common.project_paths import project_support
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--project", type=Path, default=ROOT / "matching2/msvc")
@@ -146,7 +147,7 @@ def main():
     parser.add_argument("--unregister", action="store_true",
                         help="remove the registration and return its region to assembly")
     args = parser.parse_args()
-    manifest_path = args.project.resolve() / "regions.json"
+    manifest_path = project_support(args.project.resolve(), 'regions.json')
     if args.unregister:
         problem, manifest = unregister(manifest_path, args.layout, args.apply)
         if problem:

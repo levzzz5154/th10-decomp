@@ -4,7 +4,7 @@
 //
 // Retail passes the source string in EDI; native LTCG picks that register
 // from the callers, so the body is compiled in the cluster
-// layout/ltcg/legacy_string_duplicate_00435220.json.
+// build_support/layout/ltcg/legacy_string_duplicate_00435220.json.
 #include <string.h>
 
 extern "C" void* __cdecl asm_malloc_00452706(unsigned int size);

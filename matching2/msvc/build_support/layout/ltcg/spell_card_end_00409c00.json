@@ -1,0 +1,172 @@
+{
+  "schema_version": 1,
+  "name": "spell_card_end_00409c00",
+  "source": "src/game/card/card_end.cpp",
+  "driver": "build_support/layout/ltcg/spell_card_end_00409c00/context.cpp",
+  "headers": [
+    "include/th10/game/card_end.hpp",
+    "include/th10/render/animation_handle.hpp",
+    "include/th10/platform/sound_queue.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Spell card end with the card in EAX, compiled with the real sound queue and stand-ins for the effect stop, caption, animation create and animation release so each keeps its private registers.",
+  "functions": [
+    {
+      "name": "Card_End",
+      "symbol": "?End@Card_00409c00@@QAEXXZ",
+      "section": ".text$01a_end",
+      "address": "0x00409C00",
+      "actual_abi": "card in EAX; plain RET",
+      "size": 399
+    }
+  ],
+  "context": {
+    "symbol": "?CardEndCompilerContext@@YGXPAPAUCard_00409c00@@H@Z",
+    "section": ".text$01b_context",
+    "address": "0x00409D90",
+    "size": 50,
+    "description": "Synthetic array-walking caller; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00before",
+      "address": 4198400,
+      "size": 35840
+    },
+    {
+      "section": ".text$01a_endz",
+      "address": 4234639,
+      "size": 1
+    },
+    {
+      "section": ".text$01b_contextz",
+      "address": 4234690,
+      "size": 142
+    },
+    {
+      "section": ".text$01c_stopz",
+      "address": 4234896,
+      "size": 54352
+    },
+    {
+      "section": ".text$01d_captionz",
+      "address": 4289428,
+      "size": 157948
+    },
+    {
+      "section": ".text$01e_queuez",
+      "address": 4447499,
+      "size": 45045
+    },
+    {
+      "section": ".text$01f_createz",
+      "address": 4492631,
+      "size": 1129
+    },
+    {
+      "section": ".text$02findz",
+      "address": 4493833,
+      "size": 151
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_g_background",
+      "address": "0x004776E8",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_sprt_ctrl",
+      "address": "0x00491C10",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_front",
+      "address": "0x0047770C",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00477838",
+      "address": "0x00477838",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0047783c",
+      "address": "0x0047783C",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00474c44",
+      "address": "0x00474C44",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00492590",
+      "address": "0x00492590",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004749ce",
+      "address": "0x004749CE",
+      "kind": "data"
+    },
+    {
+      "symbol": "_CardStandIn_Allocate@4",
+      "address": "0x00449950",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_CardStandIn_Register@12",
+      "address": "0x004489D0",
+      "kind": "relative_code"
+    }
+  ],
+  "anchors": [
+    {
+      "name": "StopAtFrame1",
+      "symbol": "?StopAtFrame1@AnimationHandle@@QAEXXZ",
+      "section": ".text$01c_stop",
+      "address": "0x00409E50",
+      "size": 64
+    },
+    {
+      "name": "ShowCaption",
+      "symbol": "?Card_ShowCaption_004172e0@@YGXHPAUCardFront_00409c00@@H@Z",
+      "section": ".text$01d_caption",
+      "address": "0x004172E0",
+      "size": 180
+    },
+    {
+      "name": "SoundQueue",
+      "symbol": "?Queue@SoundQueue@@QAEHHH@Z",
+      "section": ".text$01e_queue",
+      "address": "0x0043DC90",
+      "size": 123
+    },
+    {
+      "name": "CreateAnimation",
+      "symbol": "?Card_CreateAnimation_00448d00@@YG?AUAnimationScriptId@@PAXHH@Z",
+      "section": ".text$01f_create",
+      "address": "0x00448D00",
+      "size": 87
+    },
+    {
+      "name": "Find",
+      "symbol": "?AnimationManager_Find_004491c0@@YIPAXPAUAnimationLookupContext@@UAnimationScriptId@@@Z",
+      "section": ".text$02find",
+      "address": "0x004491C0",
+      "size": 73
+    },
+    {
+      "name": "SetFlag",
+      "symbol": "?AnimationManager_SetFlag_004492a0@@YIPAXPAUAnimationLookupContext@@UAnimationScriptId@@@Z",
+      "section": ".text$04setflag",
+      "address": "0x004492A0",
+      "size": 66
+    }
+  ],
+  "included_sources": [
+    "build_support/layout/ltcg/animation_lookup_anchors.cpp"
+  ]
+}

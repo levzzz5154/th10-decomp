@@ -1,0 +1,74 @@
+{
+  "schema_version": 1,
+  "name": "recovery_tick_state_00415e30",
+  "source": "src/unreferenced/unassigned_00415e30.cpp",
+  "driver": "build_support/layout/ltcg/recovery_tick_state_00415e30_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "Guarded script-state frame tick compiled with native LTCG so the state arrives in ESI and the call returns with a plain RET.",
+  "functions": [
+    {
+      "name": "TickRecoveryState_00415e30",
+      "symbol": "?TickRecoveryState_00415e30@@YGHPAURecoveryTickState_00415e30@@@Z",
+      "section": ".text$01tick",
+      "address": "0x00415E30",
+      "size": 93,
+      "actual_abi": "state in ESI; plain RET"
+    }
+  ],
+  "context": {
+    "symbol": "?RecoveryTickStateCompilerContext_00415e30@@YGHPAPAURecoveryTickState_00415e30@@H@Z",
+    "section": ".text$03context",
+    "address": "0x00415EA0",
+    "size": 41,
+    "description": "Synthetic array-walking caller that establishes the observed internal register convention; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 85552
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x00415E8D",
+      "size": 19
+    }
+  ],
+  "constants": [],
+  "constant_aliases": [
+    {
+      "symbol": "__real@3f800000",
+      "address": "0x00470AFC",
+      "value": 1.0
+    }
+  ],
+  "absolute_symbols": [
+    {
+      "symbol": "?g_frame_timer_normal_lower@@3MA",
+      "address": "0x00470B68",
+      "kind": "data"
+    },
+    {
+      "symbol": "?g_frame_timer_normal_upper@@3MA",
+      "address": "0x00470B64",
+      "kind": "data"
+    },
+    {
+      "symbol": "_asm_FUN_00415e90_00415e90@4",
+      "address": "0x00415E90",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__ftol2",
+      "address": "0x00463B2C",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__fltused",
+      "address": "0x00000000",
+      "kind": "metadata"
+    }
+  ],
+  "included_sources": []
+}

@@ -1,0 +1,386 @@
+{
+  "schema_version": 2,
+  "name": "sound_fade_real_tasks",
+  "headers": [
+    "include/th10/app/main_task_mode.hpp",
+    "include/th10/game/stage_startup_00417870.hpp",
+    "include/th10/math/rng.hpp",
+    "include/th10/math/timer.hpp",
+    "include/th10/platform/sound_fade_0044d4e0.hpp",
+    "include/th10/platform/sound_fade_manager_wave18.hpp",
+    "include/th10/game/player.hpp",
+    "include/th10/game/entity.hpp",
+    "include/th10/types.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Complete real MainTasks113, the mode update666 and inlined sound fades225 with all old deadline/fade helper owners retained. The lifetime leaves are unselected anchors. No synthetic context.",
+  "constants": [
+    {
+      "symbol": "__real@3f800000",
+      "address": "0x00470AFC",
+      "value": 1.0
+    },
+    {
+      "symbol": "__real@3c23d70a",
+      "address": "0x00470B00",
+      "value": 0.01
+    }
+  ],
+  "absolute_symbols": [
+    {
+      "symbol": "_data_00497854",
+      "address": "0x00497854",
+      "kind": "data"
+    },
+    {
+      "symbol": "__ftol2",
+      "address": "0x00463B2C",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__fltused",
+      "address": "0x00000000",
+      "kind": "metadata"
+    },
+    {
+      "symbol": "_data_00492590",
+      "address": "0x00492590",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491fb8",
+      "address": "0x00491FB8",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_sprt_ctrl",
+      "address": "0x00491C10",
+      "kind": "data"
+    },
+    {
+      "symbol": "@PollInputWave18@4",
+      "address": "0x0044A5F0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_AnmPendingWave18@4",
+      "address": "0x00447700",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_ModeCreateStateWave18",
+      "address": "0x0041FD00",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_ModeReleaseGlobalsWave18@0",
+      "address": "0x004203F0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_ModeCreateProgressWave18",
+      "address": "0x0042CD50",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_ModeCreateUiWave18@4",
+      "address": "0x004180E0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_ModeCreateSmallWave18@0",
+      "address": "0x0040B940",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_ModeDestroyUiWave18@4",
+      "address": "0x00417C80",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_ModeDestroyScriptWave18@4",
+      "address": "0x0042CB60",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_ModeDestroySmallWave18@4",
+      "address": "0x0040B7B0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_ModeFreeWave18",
+      "address": "0x004524A1",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_g_game",
+      "address": "0x00477810",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_title",
+      "address": "0x0047784C",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_ending",
+      "address": "0x00477700",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491c00",
+      "address": "0x00491C00",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00474788",
+      "address": "0x00474788",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00477848",
+      "address": "0x00477848",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004660b0",
+      "address": "0x004660B0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004660b4",
+      "address": "0x004660B4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00474c40",
+      "address": "0x00474C40",
+      "kind": "data"
+    }
+  ],
+  "source": "src/game/mother/main_task_tick_wave18.cpp",
+  "additional_sources": [
+    "src/game/mother/main_task_update_mode.cpp",
+    "src/game/mother/sound_fade_tick_wave18.cpp",
+    "src/core/zwave/platform_set_operation_deadline_0044d4e0.cpp",
+    "src/core/zwave/sound_fade_steps_0044d740.cpp"
+  ],
+  "entry": "?MainTaskTickWave18@@YIHPAUMainTaskStateWave18@@@Z",
+  "functions": [
+    {
+      "name": "MainTaskTick",
+      "symbol": "?MainTaskTickWave18@@YIHPAUMainTaskStateWave18@@@Z",
+      "section": ".text$00b2_main",
+      "address": "0x0041FF80",
+      "size": 113,
+      "actual_abi": "owner ECX; no stack arguments; plain RET",
+      "source": "src/game/mother/main_task_tick_wave18.cpp"
+    },
+    {
+      "name": "MainTaskUpdateMode",
+      "symbol": "?UpdateMode@MainTaskStateWave18@@QAEHXZ",
+      "section": ".text$00c_mode",
+      "address": "0x004218D0",
+      "size": 666,
+      "actual_abi": "owner EAX; result in EAX; plain RET; switch tables follow the body",
+      "source": "src/game/mother/main_task_update_mode.cpp"
+    },
+    {
+      "name": "SoundFadeTick",
+      "symbol": "?TickFades@SoundFadeManagerWave18@@QAEXXZ",
+      "section": ".text$00e_fade",
+      "address": "0x00421E00",
+      "size": 225,
+      "actual_abi": "owner EAX; plain RET",
+      "source": "src/game/mother/sound_fade_tick_wave18.cpp"
+    },
+    {
+      "name": "PlatformInterfaceState_0044D4E0_SetOperationDeadline",
+      "symbol": "?SetOperationDeadline@PlatformInterfaceState_0044D4E0@@QAEHH@Z",
+      "section": ".text$01deadline",
+      "address": "0x0044D4E0",
+      "size": 106,
+      "actual_abi": "owner in EAX; deadline at [ESP+4]; HRESULT in EAX; RET 4",
+      "source": "src/core/zwave/platform_set_operation_deadline_0044d4e0.cpp"
+    },
+    {
+      "name": "FadeOutAndStop_0044d740",
+      "symbol": "?FadeOutAndStop@PlatformInterfaceState_0044D4E0@@QAEHXZ",
+      "section": ".text$02layoutb",
+      "address": "0x0044D740",
+      "size": 67,
+      "actual_abi": "state in ECX; passes the state in EAX to 0x0044D4E0; plain RET",
+      "source": "src/core/zwave/sound_fade_steps_0044d740.cpp"
+    },
+    {
+      "name": "FadeDownHalf_0044d790",
+      "symbol": "?FadeDownHalf@PlatformInterfaceState_0044D4E0@@QAEHXZ",
+      "section": ".text$02layoutc",
+      "address": "0x0044D790",
+      "size": 51,
+      "actual_abi": "state in ECX; passes the state in EAX to 0x0044D4E0; plain RET",
+      "source": "src/core/zwave/sound_fade_steps_0044d740.cpp"
+    },
+    {
+      "name": "FadeDownSlight_0044d7d0",
+      "symbol": "?FadeDownSlight@PlatformInterfaceState_0044D4E0@@QAEHXZ",
+      "section": ".text$02layoutd",
+      "address": "0x0044D7D0",
+      "size": 51,
+      "actual_abi": "state in ECX; passes the state in EAX to 0x0044D4E0; plain RET",
+      "source": "src/core/zwave/sound_fade_steps_0044d740.cpp"
+    },
+    {
+      "name": "FadeUpSlight_0044d810",
+      "symbol": "?FadeUpSlight@PlatformInterfaceState_0044D4E0@@QAEHXZ",
+      "section": ".text$02layoute",
+      "address": "0x0044D810",
+      "size": 56,
+      "actual_abi": "state in ECX; passes the state in EAX to 0x0044D4E0; plain RET",
+      "source": "src/core/zwave/sound_fade_steps_0044d740.cpp"
+    }
+  ],
+  "roots": [
+    "?FadeOutAndStop@PlatformInterfaceState_0044D4E0@@QAEHXZ",
+    "?FadeDownHalf@PlatformInterfaceState_0044D4E0@@QAEHXZ",
+    "?FadeDownSlight@PlatformInterfaceState_0044D4E0@@QAEHXZ",
+    "?FadeUpSlight@PlatformInterfaceState_0044D4E0@@QAEHXZ"
+  ],
+  "gaps": [
+    {
+      "section": ".text$00a0_gap",
+      "address": "0x00401000",
+      "size": 43472
+    },
+    {
+      "section": ".text$00b0_gap",
+      "address": "0x0040B9E2",
+      "size": 51054
+    },
+    {
+      "section": ".text$00b1_gap",
+      "address": "0x00418162",
+      "size": 32286
+    },
+    {
+      "section": ".text$00b3_gap",
+      "address": "0x0041FFF1",
+      "size": 6367
+    },
+    {
+      "section": ".text$00c_mode_gap",
+      "address": "0x00421B6A",
+      "size": 230
+    },
+    {
+      "section": ".text$00d_leave_gap",
+      "address": "0x00421C69",
+      "size": 407
+    },
+    {
+      "section": ".text$00f0_gap",
+      "address": "0x00421EE1",
+      "size": 44751
+    },
+    {
+      "section": ".text$00g_gap",
+      "address": "0x0042CDC2",
+      "size": 132894
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x0044D54A",
+      "size": 502
+    },
+    {
+      "section": ".rdata",
+      "address": "0x00470000",
+      "size": 2812
+    },
+    {
+      "section": ".text$02layoutbz",
+      "address": "0x0044D783",
+      "size": 13
+    },
+    {
+      "section": ".text$02layoutcz",
+      "address": "0x0044D7C3",
+      "size": 13
+    },
+    {
+      "section": ".text$02layoutdz",
+      "address": "0x0044D803",
+      "size": 13
+    },
+    {
+      "section": ".text$02layoutez",
+      "address": "0x0044D848",
+      "size": 141240
+    }
+  ],
+  "calls": [
+    {
+      "caller": "?MainTaskTickWave18@@YIHPAUMainTaskStateWave18@@@Z",
+      "callee": "?TickFades@SoundFadeManagerWave18@@QAEXXZ",
+      "address": "0x0041FFA6",
+      "instruction": "call"
+    },
+    {
+      "caller": "?TickFades@SoundFadeManagerWave18@@QAEXXZ",
+      "callee": "?SetOperationDeadline@PlatformInterfaceState_0044D4E0@@QAEHH@Z",
+      "address": "0x00421E47",
+      "instruction": "call"
+    },
+    {
+      "caller": "?TickFades@SoundFadeManagerWave18@@QAEXXZ",
+      "callee": "?SetOperationDeadline@PlatformInterfaceState_0044D4E0@@QAEHH@Z",
+      "address": "0x00421E75",
+      "instruction": "call"
+    },
+    {
+      "caller": "?TickFades@SoundFadeManagerWave18@@QAEXXZ",
+      "callee": "?SetOperationDeadline@PlatformInterfaceState_0044D4E0@@QAEHH@Z",
+      "address": "0x00421EA8",
+      "instruction": "call"
+    },
+    {
+      "caller": "?TickFades@SoundFadeManagerWave18@@QAEXXZ",
+      "callee": "?SetOperationDeadline@PlatformInterfaceState_0044D4E0@@QAEHH@Z",
+      "address": "0x00421ED9",
+      "instruction": "call"
+    }
+  ],
+  "included_sources": [
+    "build_support/layout/ltcg/sound_fade_wave18_dependencies.cpp"
+  ],
+  "anchors": [
+    {
+      "name": "ScoreOwnedDestroy",
+      "symbol": "?ScoreOwnedObject_Destroy@@YGXPAUScoreOwnedObject@@@Z",
+      "section": ".text$00a_score_destroy",
+      "address": "0x0040B9D0",
+      "size": 18
+    },
+    {
+      "name": "UiOwnedDestroy",
+      "symbol": "?Game_Delete@@YGXPAUGame@@@Z",
+      "section": ".text$00b0_ui_destroy",
+      "address": "0x00418150",
+      "size": 18
+    },
+    {
+      "name": "MainLeaveSlot",
+      "symbol": "?LeaveSlot@MainTaskStateWave18@@QAEXH@Z",
+      "section": ".text$00d_leave",
+      "address": "0x00421C50",
+      "size": 25
+    },
+    {
+      "name": "ScriptOwnedDestroy",
+      "symbol": "?Title_Delete@@YGXPAUTitle@@@Z",
+      "section": ".text$00f_script_destroy",
+      "address": "0x0042CDB0",
+      "size": 18
+    }
+  ]
+}

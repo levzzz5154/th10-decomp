@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "name": "cl_0040c440",
+  "source": "src/unreferenced/unassigned_0040c440.cpp",
+  "driver": "build_support/layout/ltcg/cl_0040c440_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "Region compiled with native LTCG so its entry register is retail's.",
+  "functions": [
+    {
+      "name": "StopHandleAndClear_0040c440",
+      "symbol": "?StopHandleAndClear@Entity_0040c440@@QAEXXZ",
+      "section": ".text$03stop",
+      "address": "0x0040C440",
+      "size": 24,
+      "actual_abi": "entity in EAX; plain RET",
+      "source": "src/unreferenced/unassigned_0040c440.cpp"
+    }
+  ],
+  "anchors": [
+    {
+      "name": "StopHandleAnchor",
+      "symbol": "?StopHandleAnchor_00409e50@@YGXPAUAnimationHandle_0040c440@@@Z",
+      "section": ".text$01anchor",
+      "address": "0x00409E50",
+      "size": 65
+    }
+  ],
+  "context": {
+    "symbol": "?StopContext_0040c440@@YGHPAPAUEntity_0040c440@@H@Z",
+    "section": ".text$05context",
+    "address": "0x0040C470",
+    "size": 36,
+    "description": "Synthetic array-walking caller that establishes the observed register convention; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 36432
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x00409E91",
+      "size": 9647
+    },
+    {
+      "section": ".text$04layout",
+      "address": "0x0040C458",
+      "size": 24
+    }
+  ],
+  "constants": [],
+  "constant_aliases": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_find_opaque_004491c0@4",
+      "address": "0x004491C0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_g_sprt_ctrl",
+      "address": "0x00491C10",
+      "kind": "data"
+    }
+  ],
+  "roots": [],
+  "included_sources": []
+}

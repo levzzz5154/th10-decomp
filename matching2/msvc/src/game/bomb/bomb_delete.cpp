@@ -9,7 +9,7 @@
 //         59              pop  ecx
 //         C3              ret
 // The pair pointer arrives in ESI, so the release helper is compiled as a
-// native LTCG cluster (see layout/ltcg/fun_00405730.json).
+// native LTCG cluster (see build_support/layout/ltcg/fun_00405730.json).
 
 extern "C" void __stdcall asm_Recovery_ReleaseRawPairAndReset_00405620(void* pair);
 extern "C" void __cdecl entry_free_004524a1(void* block);

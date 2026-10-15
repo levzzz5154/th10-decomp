@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "name": "record_links_0042",
+  "source": "src/unreferenced/record_links_0042.cpp",
+  "driver": "build_support/layout/ltcg/record_links_0042_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "record_links_0042 compiled with native LTCG so the record arrives in EAX.",
+  "functions": [
+    {
+      "name": "Init_0042aae0",
+      "symbol": "@Init_0042aae0@8",
+      "section": ".text$01init",
+      "address": "0x42aae0",
+      "size": 54,
+      "actual_abi": "record in EDX; result in EAX"
+    },
+    {
+      "name": "ListHolder_0042abd0_Clear",
+      "symbol": "?Clear@ListHolder_0042abd0@@QAEXXZ",
+      "section": ".text$03unlink",
+      "address": "0x42abd0",
+      "size": 55,
+      "actual_abi": "record in EAX"
+    },
+    {
+      "name": "Init_0043bc20",
+      "symbol": "@Init_0043bc20@8",
+      "section": ".text$05init2",
+      "address": "0x43bc20",
+      "size": 23,
+      "actual_abi": "record in EDX; result in EAX"
+    }
+  ],
+  "context": {
+    "symbol": "RecordLinksCompilerContext@8",
+    "section": ".text$07context",
+    "address": "0x43bc60",
+    "size": 76,
+    "description": "Synthetic array-walking caller; not recovered code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00lead",
+      "address": "0x00401000",
+      "size": 170720
+    },
+    {
+      "section": ".text$02gap",
+      "address": "0x42ab16",
+      "size": 186
+    },
+    {
+      "section": ".text$04gap",
+      "address": "0x42ac07",
+      "size": 69657
+    },
+    {
+      "section": ".text$06gap",
+      "address": "0x43bc37",
+      "size": 41
+    }
+  ],
+  "constants": [],
+  "roots": [],
+  "absolute_symbols": [],
+  "included_sources": []
+}

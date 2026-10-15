@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "name": "pair_set_0040ce10",
+  "source": "src/unreferenced/unassigned_0040ce10.cpp",
+  "driver": "build_support/layout/ltcg/pair_set_0040ce10_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "Indexed pair store with the table in ECX, the index in EAX, the tag in EDX and the float on the stack (RET 4).",
+  "functions": [
+    {
+      "name": "PairTable_0040ce10_Set",
+      "symbol": "?Set@PairTable_0040ce10@@QAEXHHM@Z",
+      "section": ".text$01accessor",
+      "address": "0x0040CE10",
+      "size": 21,
+      "actual_abi": "table in ECX; index in EAX; tag in EDX; float on the stack; RET 4"
+    }
+  ],
+  "context": {
+    "symbol": "?Ctx@@YGHPAUPairTable_0040ce10@@HHM@Z",
+    "section": ".text$03context",
+    "address": "0x0040CE40",
+    "size": 42,
+    "description": "Synthetic array-walking caller that establishes the observed register convention; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 48656
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x0040CE25",
+      "size": 27
+    }
+  ],
+  "constants": [],
+  "roots": [],
+  "absolute_symbols": [
+    {
+      "symbol": "__fltused",
+      "address": "0x00000000",
+      "kind": "metadata"
+    }
+  ],
+  "included_sources": []
+}

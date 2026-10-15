@@ -150,13 +150,17 @@ def plan(project, manifest):
     return items
 
 
+import sys as _project_sys
+from pathlib import Path as _ProjectPath
+_project_sys.path.insert(0, str(_ProjectPath(__file__).resolve().parents[3]))
+from matching2.tools.common.project_paths import project_support
 def apply_item(project, manifest, item):
     """Copy one unit into the project and update the manifest in place."""
     sandbox = LAB / item["agent"] / "msvc"
     source = project / item["source"]
     source.parent.mkdir(parents=True, exist_ok=True)
     shutil.copy2(sandbox / item["source"], source)
-    (project / "layout/ltcg").mkdir(parents=True, exist_ok=True)
+    (project_support(project, 'layout/ltcg')).mkdir(parents=True, exist_ok=True)
     shutil.copy2(item["layout"], project / f"layout/ltcg/{item['name']}.json")
     shutil.copy2(sandbox / item["driver"], project / item["driver"])
     if item["carve"]:
@@ -202,7 +206,7 @@ def main():
                        help="verify the promoted units in the project as it stands")
     args = parser.parse_args()
     project = args.project.resolve()
-    manifest_path = project / "regions.json"
+    manifest_path = project_support(project, 'regions.json')
     manifest = json.loads(manifest_path.read_text())
     items = plan(project, manifest)
     print(f"{len(items)} cluster unit(s) ready to promote")

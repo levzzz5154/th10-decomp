@@ -23,7 +23,7 @@
 //         C2 04 00           ret 4
 // The record pointer arrives in EAX while the value stays on the stack, so the
 // setter is compiled as a native LTCG cluster.
-// Carved out of src/game/player.cpp (asm_Player_SetSchedulerValue_00405410).
+// Carved out of build_support/contexts/legacy/game/player.cpp (asm_Player_SetSchedulerValue_00405410).
 
 struct PlayerSchedulerRecord {
     int field_00;    // 0x00 value, stored one below the raw value

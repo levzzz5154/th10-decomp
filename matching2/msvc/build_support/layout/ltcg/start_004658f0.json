@@ -1,0 +1,99 @@
+{
+  "schema_version": 1,
+  "name": "start_004658f0",
+  "source": "src/static_init/render_state_init.cpp",
+  "driver": "build_support/layout/ltcg/start_004658f0_context.cpp",
+  "headers": [
+    "include/th10/game/large_initialization_state_00421f00.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Region compiled with native LTCG so its entry register is retail's.",
+  "functions": [
+    {
+      "name": "StaticInit_RenderState",
+      "symbol": "?StaticInit_RenderState@@YGXXZ",
+      "section": ".text$03start",
+      "address": "0x4658f0",
+      "size": 26,
+      "source": "src/static_init/render_state_init.cpp",
+      "actual_abi": "retail entry"
+    },
+    {
+      "name": "InitObj",
+      "symbol": "_Init_00421f00@4",
+      "section": ".text$01anchor",
+      "address": "0x00421F00",
+      "size": 71,
+      "source": "src/game/mother/recovery_initialize_large_state_00421f00.cpp",
+      "actual_abi": "state ESI; EAX pointer result; RET"
+    },
+    {
+      "name": "GameConfig_Defaults",
+      "symbol": "?GameConfig_InitializeDefaults@@YIDHPAUGameConfig@@@Z",
+      "section": ".text$00bconfig",
+      "address": "0x00418C40",
+      "size": 125,
+      "source": "src/game/game/game_config_defaults.cpp",
+      "actual_abi": "config EDX; unused ECX slot elided; char result AL; RET"
+    }
+  ],
+  "context": {
+    "symbol": "?StartContext_004658f0@@YGHH@Z",
+    "section": ".text$05context",
+    "address": "0x465920",
+    "size": 35,
+    "description": "Synthetic caller; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00aconfiglayout",
+      "address": 4198400,
+      "size": 97344
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x00421F47",
+      "size": 276905
+    },
+    {
+      "section": ".text$04layout",
+      "address": 4610314,
+      "size": 22
+    },
+    {
+      "section": ".text$00cconfigz",
+      "address": "0x00418CBD",
+      "size": 37443
+    }
+  ],
+  "constants": [],
+  "constant_aliases": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_Register_00452e0a",
+      "address": "0x00452E0A",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_00491c28",
+      "address": "0x00491C28",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00474e88",
+      "address": "0x00474E88",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004703e4",
+      "address": "0x004703E4",
+      "kind": "data"
+    }
+  ],
+  "roots": [],
+  "additional_sources": [
+    "src/game/mother/recovery_initialize_large_state_00421f00.cpp",
+    "src/game/game/game_config_defaults.cpp"
+  ],
+  "included_sources": []
+}

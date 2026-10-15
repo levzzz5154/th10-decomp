@@ -15,7 +15,7 @@
 // registers no MSVC declaration names (EAX, EDX, ESI, EDI or the stack), so
 // each is compiled into this cluster as a compiled ABI anchor placed at its
 // retail address by the layout's gaps: see the dispatcher anchor block in
-// layout/ltcg/render_batch_context.cpp.  None of those bodies is recovered
+// build_support/layout/ltcg/render_batch_context.cpp.  None of those bodies is recovered
 // code; only their parameter homes matter.
 //
 // The tenth, 0x00444CE0, is the recovered SprtCtrl::DrawStrip, whose

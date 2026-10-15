@@ -44,10 +44,10 @@ __forceinline void PauseOpenState::Open(bool result) {
 #pragma code_seg(".text$00423370_fn")
 void PauseOpenState::OpenResult() { Open(true); }
 #pragma code_seg()
-#include "../../../layout/ltcg/result_open_00423370/allocate.cpp"
-#include "../../../layout/ltcg/result_open_00423370/descriptor.cpp"
-#include "../../../layout/ltcg/result_open_00423370/entity_init.cpp"
-#include "../../../layout/ltcg/result_open_00423370/find.cpp"
-#include "../../../layout/ltcg/result_open_00423370/music.cpp"
-#include "../../../layout/ltcg/result_open_00423370/registrar.cpp"
-#include "../../../layout/ltcg/result_open_00423370/secondary_back.cpp"
+#include "../../../build_support/layout/ltcg/result_open_00423370/allocate.cpp"
+#include "../../../build_support/layout/ltcg/result_open_00423370/descriptor.cpp"
+#include "../../../build_support/layout/ltcg/result_open_00423370/entity_init.cpp"
+#include "../../../build_support/layout/ltcg/result_open_00423370/find.cpp"
+#include "../../../build_support/layout/ltcg/result_open_00423370/music.cpp"
+#include "../../../build_support/layout/ltcg/result_open_00423370/registrar.cpp"
+#include "../../../build_support/layout/ltcg/result_open_00423370/secondary_back.cpp"

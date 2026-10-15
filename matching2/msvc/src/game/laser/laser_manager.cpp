@@ -1,6 +1,6 @@
 // 0x0041C800 and 0x0041C850: the player's view of the laser list: test every
 // laser against a point, or retire them all.
-#include "../../../layout/ltcg/player_state_collision_runtime/player_state.hpp"
+#include "../../../build_support/layout/ltcg/player_state_collision_runtime/player_state.hpp"
 
 #pragma code_seg(".text$f0041c800F")
 int LaserManager::Evaluate(const Vec3* point, float radius, int mode) {

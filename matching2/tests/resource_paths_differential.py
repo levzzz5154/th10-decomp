@@ -305,11 +305,15 @@ def path_cases():
         yield Case(change_after_size=changed_size, change_after_read=changed_read)
 
 
+import sys as _project_sys
+from pathlib import Path as _ProjectPath
+_project_sys.path.insert(0, str(_ProjectPath(__file__).resolve().parents[2]))
+from matching2.tools.common.project_paths import project_support
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--oracle", type=Path, default=ROOT / "matching2/build/oracle/th10.exe")
     options = parser.parse_args()
-    config = load_manifest(ROOT / "matching2/msvc/regions.json")
+    config = load_manifest(project_support((ROOT) / 'matching2/msvc', 'regions.json'))
     load_oracle(options.oracle, config)
     image = PEImage(options.oracle.read_bytes())
     with tempfile.TemporaryDirectory(prefix="th10-resource-paths-") as temporary:

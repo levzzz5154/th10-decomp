@@ -99,11 +99,12 @@ def validate_result_payload(payload: Any, where: str) -> None:
     visit(payload, where)
 
 
+from matching2.tools.common.project_paths import project_support
 def manifest_gate(project: Path) -> tuple[dict[str, Any], list[dict[str, Any]], dict[str, Any]]:
     """Validate the project manifest and load every registered LTCG cluster."""
-    manifest_path = project / "regions.json"
+    manifest_path = project_support(project, 'regions.json')
     config = json.loads(manifest_path.read_text())
-    reference = json.loads((project / "pe_layout.json").read_text())["reference"]
+    reference = json.loads((project_support(project, 'pe_layout.json')).read_text())["reference"]
     regions, units = validate_project(config, reference)
     clusters = load_clusters(project, config, regions)
     return ({
@@ -205,13 +206,13 @@ def full_hash_gate(project: Path, report_path: Path | None) -> dict[str, Any]:
         return {"passed": False, "status": "not_run", "report": None, "command": command}
     try:
         report = json.loads(report_path.read_text())
-        config = json.loads((project / "regions.json").read_text())
+        config = json.loads((project_support(project, 'regions.json')).read_text())
         package = report["package"]
-        reference = json.loads((project / "pe_layout.json").read_text())["reference"]
+        reference = json.loads((project_support(project, 'pe_layout.json')).read_text())["reference"]
         expected_image = config["retail_sha256"]
         expected_text = config["text_sha256"]
-        manifest_hash = hashlib.sha256((project / "regions.json").read_bytes()).hexdigest()
-        reported_manifest_hash = report.get("source_sha256", {}).get("regions.json")
+        manifest_hash = hashlib.sha256((project_support(project, 'regions.json')).read_bytes()).hexdigest()
+        reported_manifest_hash = report.get("source_sha256", {}).get("build_support/regions.json", report.get("source_sha256", {}).get("regions.json"))
         passed = (package.get("sha256") == expected_image
                   and package.get("text_sha256") == expected_text
                   and package.get("size") == reference["file_size"]

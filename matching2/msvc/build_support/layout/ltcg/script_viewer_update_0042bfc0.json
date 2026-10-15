@@ -1,0 +1,267 @@
+{
+  "schema_version": 1,
+  "name": "script_viewer_update_0042bfc0",
+  "source": "src/game/spttest/spt_test_update.cpp",
+  "driver": "build_support/layout/ltcg/script_viewer_update_0042bfc0_context.cpp",
+  "headers": [
+    "include/th10/game/spt_test_update.hpp",
+    "include/th10/game/spt_test.hpp",
+    "include/th10/platform/archive_file.hpp",
+    "include/th10/game/menu_cursor.hpp",
+    "include/th10/platform/worker.hpp",
+    "include/th10/script/ecl_children.hpp",
+    "include/script_vm_00450560.hpp",
+    "include/script_resolver_00450470.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Spt Test screen update with the screen in ECX and its tail-jump scheduler callback, compiled with copies of the mode switch, key test, name clear, cursor advance, worker start/stop, interpreter tick and interpreter create so each keeps its private registers.",
+  "functions": [
+    {
+      "name": "SptTest_Update",
+      "symbol": "?Update@SptTest_0042be20@@QAEHXZ",
+      "section": ".text$b1update",
+      "address": "0x0042BFC0",
+      "actual_abi": "screen in ECX; plain RET",
+      "size": 926
+    },
+    {
+      "name": "SptTest_UpdateTask",
+      "symbol": "?SptTest_UpdateTask_0042c580@@YIHPAUSptTest_0042be20@@@Z",
+      "section": ".text$b2task",
+      "address": "0x0042C580",
+      "actual_abi": "context in ECX; tail jump",
+      "size": 5
+    }
+  ],
+  "context": {
+    "symbol": "?SptTestUpdateCompilerContext@@YGPAXXZ",
+    "section": ".text$b3context",
+    "address": "0x0042C590",
+    "size": 6,
+    "description": "Synthetic callback publisher; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00before",
+      "address": 4198400,
+      "size": 40080
+    },
+    {
+      "section": ".text$a1modez",
+      "address": 4238517,
+      "size": 43
+    },
+    {
+      "section": ".text$a2maskz",
+      "address": 4238593,
+      "size": 134607
+    },
+    {
+      "section": ".text$a3namesz",
+      "address": 4373286,
+      "size": 1178
+    },
+    {
+      "section": ".text$b1updatez",
+      "address": 4375390,
+      "size": 546
+    },
+    {
+      "section": ".text$b2taskz",
+      "address": 4375941,
+      "size": 11
+    },
+    {
+      "section": ".text$b3contextz",
+      "address": 4375958,
+      "size": 129290
+    },
+    {
+      "section": ".text$c1advancez",
+      "address": 4505376,
+      "size": 560
+    },
+    {
+      "section": ".text$c2stopz",
+      "address": 4506037,
+      "size": 11
+    },
+    {
+      "section": ".text$c3startz",
+      "address": 4506104,
+      "size": 15128
+    },
+    {
+      "section": ".text$c4tickz",
+      "address": 4521380,
+      "size": 1884
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_data_00474e30",
+      "address": "0x00474E30",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491c28",
+      "address": "0x00491C28",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0046d0d8",
+      "address": "0x0046D0D8",
+      "kind": "data"
+    },
+    {
+      "symbol": "_malloc",
+      "address": "0x00452706",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_free",
+      "address": "0x00452422",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "??2@YAPAXI@Z",
+      "address": "0x00452493",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_asm_beginthreadex_00453683",
+      "address": "0x00453683",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__imp__FindFirstFileA@8",
+      "address": "0x004660A0",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__FindNextFileA@8",
+      "address": "0x004660A4",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__FindClose@4",
+      "address": "0x004660A8",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__WaitForSingleObject@8",
+      "address": "0x0046611C",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__Sleep@4",
+      "address": "0x004660AC",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__CloseHandle@4",
+      "address": "0x004660CC",
+      "kind": "data"
+    },
+    {
+      "symbol": "___security_cookie",
+      "address": "0x00473660",
+      "kind": "data"
+    },
+    {
+      "symbol": "@__security_check_cookie@4",
+      "address": "0x00458EA5",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__fltused",
+      "address": "0x00000000",
+      "kind": "metadata"
+    },
+    {
+      "symbol": "?SptTest_LoadThread_0042be10@@YGIPAX@Z",
+      "address": "0x0042BE10",
+      "kind": "data"
+    },
+    {
+      "symbol": "_EclVm_RunInterpreter@8",
+      "address": "0x0044E1A0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?Resolve@ScriptTable_00450470@@QAEHPBD@Z",
+      "address": "0x00450470",
+      "kind": "relative_code"
+    }
+  ],
+  "anchors": [
+    {
+      "name": "SetGameMode",
+      "symbol": "?SptTest_SetGameMode_0040ac90@@YGXPAUSptTestGameState_0042bfc0@@H@Z",
+      "section": ".text$a1mode",
+      "address": "0x0040AC90",
+      "size": 37
+    },
+    {
+      "name": "MaskActive",
+      "symbol": "?MaskActive@SptTestInput_0042bfc0@@QAEGG@Z",
+      "section": ".text$a2mask",
+      "address": "0x0040ACE0",
+      "size": 33
+    },
+    {
+      "name": "ClearScriptNames",
+      "symbol": "?ClearScriptNames@SptTest_0042be20@@QAEXXZ",
+      "section": ".text$a3names",
+      "address": "0x0042BAD0",
+      "size": 86
+    },
+    {
+      "name": "CursorAdvance",
+      "symbol": "?Advance@MenuCursor@@QAEHH@Z",
+      "section": ".text$c1advance",
+      "address": "0x0044BEA0",
+      "size": 128
+    },
+    {
+      "name": "WorkerStop",
+      "symbol": "?Stop@PlatformWorker@@QAEXXZ",
+      "section": ".text$c2stop",
+      "address": "0x0044C150",
+      "size": 101
+    },
+    {
+      "name": "WorkerStart",
+      "symbol": "?Start@PlatformWorker@@QAEXPAXP6GI0@Z@Z",
+      "section": ".text$c3start",
+      "address": "0x0044C1C0",
+      "size": 56
+    },
+    {
+      "name": "TickVm",
+      "symbol": "_SptTest_TickVm_0044fd10@8",
+      "section": ".text$c4tick",
+      "address": "0x0044FD10",
+      "size": 148
+    },
+    {
+      "name": "CreateVm",
+      "symbol": "?CreateVm@ScriptParser_0042be20@@QAEPAUSptTestResource_0042be20@@PBD@Z",
+      "section": ".text$c5create",
+      "address": "0x00450500",
+      "size": 89
+    }
+  ],
+  "roots": [
+    "?Update@SptTest_0042be20@@QAEHXZ"
+  ],
+  "data_aliases": [
+    {
+      "symbol": "??_C@_0BB@JGJBIKME@?4?4?1?4?4?1data?1?$CK?4ecl?$AA@",
+      "address": "0x0046CEA8",
+      "bytes": "2e2e2f2e2e2f646174612f2a2e65636c00"
+    }
+  ],
+  "included_sources": []
+}

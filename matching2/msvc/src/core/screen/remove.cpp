@@ -1,7 +1,7 @@
 // 0x0043C870..0x0043C889: the screen effect's on_remove callback, installed on
 // its update task by Configure: release the effect's task pair, return the
 // object to the CRT heap and report 0. The object arrives in ECX.
-#include "asm_symbols.hpp"
+#include "../../../build_support/include/asm_symbols.hpp"
 
 typedef void (__stdcall* RawPairReleaseFn)(void* pair);
 extern "C" void __cdecl entry_free_004524a1(void* memory);

@@ -1,7 +1,7 @@
 // 0x004356C0: install the FileInterface vtable (0x0046F210).
 // The object pointer arrives in EAX, which only a native LTCG link
 // chooses, so this region is compiled as a cluster
-// (layout/ltcg/file_interface_install.json).
+// (build_support/layout/ltcg/file_interface_install.json).
 // ??_7FileInterface@@6B@ lives at 0x0046F210.
 
 struct FileInterface_004356c0 {

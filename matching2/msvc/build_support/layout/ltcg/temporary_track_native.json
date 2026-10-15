@@ -1,0 +1,357 @@
+{
+  "schema_version": 1,
+  "name": "temporary_track_native",
+  "source": "src/unreferenced/FUN_0043ac90_0043ac90.cpp",
+  "driver": "build_support/layout/ltcg/temporary_track_context.cpp",
+  "headers": [
+    "include/th10/platform/temporary_track_0043ac90.hpp",
+    "include/th10/platform/midi_sequencer.hpp",
+    "include/th10/platform/archive_file.hpp"
+  ],
+  "included_sources": [
+    "build_support/layout/ltcg/temporary_track_canonical_anchors.cpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Temporary track real caller with compiler-only canonical dependency bodies; only caller exported.",
+  "functions": [
+    {
+      "name": "LoadTemporaryTrack_0043ac90",
+      "symbol": "?LoadTemporaryTrack_0043ac90@@YGHPAUMidiSequencer@@PBD@Z",
+      "section": ".text$40temporary",
+      "address": "0x0043AC90",
+      "size": 72,
+      "actual_abi": "manager ECX name EAX plain RET"
+    }
+  ],
+  "anchors": [
+    {
+      "name": "LoadTrack",
+      "symbol": "?LoadTrack@SoundManager_0043a9b0@@QAEHHPBD@Z",
+      "section": ".text$10loadtrack",
+      "address": "0x43a9b0",
+      "size": 116
+    },
+    {
+      "name": "ReleaseTracks",
+      "symbol": "?ReleaseTracks@MidiSequencer@@QAEXXZ",
+      "section": ".text$20release",
+      "address": "0x43aa60",
+      "size": 107
+    },
+    {
+      "name": "ParseLoadedFile",
+      "symbol": "?ParseLoadedFile@MidiSequencer@@QAEHH@Z",
+      "section": ".text$30parse",
+      "address": "0x43aad0",
+      "size": 448
+    },
+    {
+      "name": "MidiStop",
+      "symbol": "?MidiStop@SoundManager_0043a9b0@@QAEXXZ",
+      "section": ".text$50stop",
+      "address": "0x43ae20",
+      "size": 81
+    },
+    {
+      "name": "Archive",
+      "symbol": "_Archive_LoadFile@12",
+      "section": ".text$60archive",
+      "address": "0x44b360",
+      "size": 360
+    },
+    {
+      "name": "Append",
+      "symbol": "?Append@TextLog_0044b810@@QAAPADPADZZ",
+      "section": ".text$70append",
+      "address": "0x44b810",
+      "size": 201
+    }
+  ],
+  "gaps": [
+    {
+      "section": ".text$05gap",
+      "address": "0x401000",
+      "size": 235952
+    },
+    {
+      "section": ".text$15gap",
+      "address": "0x43aa24",
+      "size": 60
+    },
+    {
+      "section": ".text$25gap",
+      "address": "0x43aacb",
+      "size": 5
+    },
+    {
+      "section": ".text$45gap",
+      "address": "0x43acd8",
+      "size": 328
+    },
+    {
+      "section": ".text$55gap",
+      "address": "0x43ae71",
+      "size": 66799
+    },
+    {
+      "section": ".text$65gap",
+      "address": "0x44b4c8",
+      "size": 840
+    },
+    {
+      "section": ".text$75gap",
+      "address": "0x44b8d9",
+      "size": 39
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_data_00497990",
+      "address": "0x00497990",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00497994",
+      "address": "0x00497994",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0049231e",
+      "address": "0x0049231e",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004922a4",
+      "address": "0x004922a4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004660b0",
+      "address": "0x004660b0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004660b4",
+      "address": "0x004660b4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004660c4",
+      "address": "0x004660c4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004660cc",
+      "address": "0x004660cc",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004660d0",
+      "address": "0x004660d0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004660d8",
+      "address": "0x004660d8",
+      "kind": "data"
+    },
+    {
+      "symbol": "_asm_strrchr_00452930",
+      "address": "0x00452930",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_asm_stricmp_0046054e",
+      "address": "0x0046054e",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_asm_malloc_00452706",
+      "address": "0x00452706",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?Read@ArchiveReader@@QAEPADPBXPAD@Z",
+      "address": "0x00434DD0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_00497c38",
+      "address": "0x00497C38",
+      "kind": "data"
+    },
+    {
+      "symbol": "?Parse@ScriptFileLoader@@QAEHPAD@Z",
+      "address": "0x00450220",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_004660dc",
+      "address": "0x004660DC",
+      "kind": "data"
+    },
+    {
+      "symbol": "_entry_free_00452422",
+      "address": "0x00452422",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_00492380",
+      "address": "0x00492380",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00492384",
+      "address": "0x00492384",
+      "kind": "data"
+    },
+    {
+      "symbol": "___security_cookie",
+      "address": "0x00473660",
+      "kind": "data"
+    },
+    {
+      "symbol": "@__security_check_cookie@4",
+      "address": "0x00458EA5",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_0046e1c8",
+      "address": "0x0046E1C8",
+      "kind": "data"
+    },
+    {
+      "symbol": "_sprintf",
+      "address": "0x00452AE8",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_ProbeFileExists@4",
+      "address": "0x0044B4D0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_00470c50",
+      "address": "0x00470C50",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0047476c",
+      "address": "0x0047476C",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00474778",
+      "address": "0x00474778",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491bf4",
+      "address": "0x00491BF4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491bf8",
+      "address": "0x00491BF8",
+      "kind": "data"
+    },
+    {
+      "symbol": "__fltused",
+      "address": "0x00000000",
+      "kind": "metadata"
+    },
+    {
+      "symbol": "_asm_vsprintf_004524a6",
+      "address": "0x004524A6",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__chkstk",
+      "address": "0x00458EC0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_004922bc",
+      "address": "0x004922BC",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0049231f",
+      "address": "0x0049231F",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__EnterCriticalSection@4",
+      "address": "0x004660B0",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__LeaveCriticalSection@4",
+      "address": "0x004660B4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_sprt_ctrl",
+      "address": "0x00491c10",
+      "kind": "data"
+    },
+    {
+      "symbol": "@LoadCachedResource_00447280@12",
+      "address": "0x00447280",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_malloc",
+      "address": "0x00452706",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_00477848",
+      "address": "0x00477848",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00474c44",
+      "address": "0x00474C44",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00474c68",
+      "address": "0x00474C68",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491be8",
+      "address": "0x00491BE8",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00476f78",
+      "address": "0x00476F78",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00474f70",
+      "address": "0x00474F70",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0046cb68",
+      "address": "0x0046CB68",
+      "kind": "data"
+    },
+    {
+      "symbol": "_entry_malloc_00452706",
+      "address": "0x00452706",
+      "kind": "relative_code"
+    }
+  ],
+  "context": {
+    "symbol": "?TemporaryTrackContext@@YGHPAPAUMidiSequencer@@PAPBDH@Z",
+    "section": ".text$80context",
+    "address": "0x44b900",
+    "size": 59,
+    "description": "Compiler-only loop invoking actual temporary-track operations."
+  }
+}

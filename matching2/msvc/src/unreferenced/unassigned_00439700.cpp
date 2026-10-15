@@ -1,4 +1,4 @@
-#include "../../layout/ltcg/resource_surface_loading_log.hpp"
+#include "../../build_support/layout/ltcg/resource_surface_loading_log.hpp"
 
 extern "C" void* __stdcall Direct3DCreate9_00452176(unsigned sdk_version);
 extern "C" void* data_00491c2c;

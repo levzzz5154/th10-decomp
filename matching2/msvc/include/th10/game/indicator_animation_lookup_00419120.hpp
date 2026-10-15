@@ -3,7 +3,7 @@
 // them. Retail has out-of-line copies of each (0x004491C0, 0x004492A0,
 // 0x00449450, 0x00449630); the whole-program pass expanded some call sites in
 // place, and those call sites use the *Inline spellings here.
-#include "th10/game/marktext_dispatcher_context/recovery_script_executor_caller_00419120.hpp"
+#include "../../../build_support/include/contexts/game/marktext_dispatcher_context/recovery_script_executor_caller_00419120.hpp"
 
 extern "C" void* g_sprt_ctrl;
 

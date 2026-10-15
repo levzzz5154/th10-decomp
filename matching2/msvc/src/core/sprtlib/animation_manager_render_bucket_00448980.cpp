@@ -4,7 +4,7 @@
 // its receiver - in EDI, and EDI is not preserved: it is an argument register
 // here, not a saved one.  No MSVC declaration names that pair, so the function is
 // compiled in the native-LTCG cluster
-// layout/ltcg/animation_manager_render_bucket_00448980.json, whose synthetic
+// build_support/layout/ltcg/animation_manager_render_bucket_00448980.json, whose synthetic
 // context walks an array of managers and calls it in a loop: the whole-program
 // pass then assigns retail's own convention to the selected member (index in EAX,
 // `this` in EDI, plain RET).  The function is deliberately *not* in the layout's

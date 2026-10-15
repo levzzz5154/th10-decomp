@@ -1,7 +1,7 @@
 // 0x0043B110: the MIDI event parser. It reads one event from a track, updates
 // the sequencer's channel state, forwards the message to the output device and
 // schedules the track's next event.
-#include "asm_symbols.hpp"
+#include "../../../build_support/include/asm_symbols.hpp"
 #include <string.h>
 #include "th10/platform/midi_sequencer.hpp"
 

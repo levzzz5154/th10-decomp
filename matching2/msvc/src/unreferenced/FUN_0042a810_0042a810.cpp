@@ -1,7 +1,7 @@
 // 0x0042A810: stamp the replay-header magic "USER" (0x52455355).
 // The object pointer arrives in EAX, which only a native LTCG link
 // chooses, so this region is compiled as a cluster
-// (layout/ltcg/replay_header_stamp.json).
+// (build_support/layout/ltcg/replay_header_stamp.json).
 // Same immediate is written inline at 0x00429F6A/0x0042A136 when a
 // replay header is built.
 

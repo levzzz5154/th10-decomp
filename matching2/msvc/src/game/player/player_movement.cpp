@@ -1,10 +1,10 @@
 // 0x004250B0: the player's per-frame movement: the held direction, focus and
 // its marker animation, the lean scripts, the clamped position, the trail and
 // the four option orbits.
-#include "../../../layout/ltcg/player_state_collision_runtime/runtime.hpp"
-#include "../../../layout/ltcg/player_state_collision_runtime/item_spawn.hpp"
-#include "../../../layout/ltcg/player_state_collision_runtime/animation_public_callers.hpp"
-#include "../../../layout/ltcg/player_state_collision_runtime/movement.hpp"
+#include "../../../build_support/layout/ltcg/player_state_collision_runtime/runtime.hpp"
+#include "../../../build_support/layout/ltcg/player_state_collision_runtime/item_spawn.hpp"
+#include "../../../build_support/layout/ltcg/player_state_collision_runtime/animation_public_callers.hpp"
+#include "../../../build_support/layout/ltcg/player_state_collision_runtime/movement.hpp"
 
 // Start one of the sprite's lean scripts (1/2 into and out of a left turn,
 // 3/4 for the right).

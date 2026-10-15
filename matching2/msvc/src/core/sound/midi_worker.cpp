@@ -1,5 +1,5 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+#include "../../../build_support/include/asm_encoding.hpp"
+#include "../../../build_support/include/asm_symbols.hpp"
 
 
 // 0x0043E3A0..0x0043E45C: MidiWorker_MessageLoopRetail

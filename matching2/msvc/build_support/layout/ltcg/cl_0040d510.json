@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "name": "cl_0040d510",
+  "source": "src/game/enemy/enemy_ctrl_suspend.cpp",
+  "driver": "build_support/layout/ltcg/cl_0040d510_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "Accessor compiled with native LTCG so the object pointer arrives in EAX.",
+  "functions": [
+    {
+      "name": "EnemyCtrl_SuspendTasks",
+      "symbol": "?EnemyCtrl_SuspendTasks@@YGXPAUEnemyCtrl@@@Z",
+      "section": ".text$01accessor",
+      "address": "0x0040D510",
+      "size": 28,
+      "actual_abi": "object in EAX; plain RET"
+    }
+  ],
+  "context": {
+    "symbol": "?SetContext_0040d510@@YGHPAPAUEnemyCtrl@@H@Z",
+    "section": ".text$03context",
+    "address": "0x0040D540",
+    "size": 36,
+    "description": "Synthetic array-walking caller that establishes the observed register convention; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 50448
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x0040D52C",
+      "size": 20
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [],
+  "additional_sources": [],
+  "included_sources": []
+}

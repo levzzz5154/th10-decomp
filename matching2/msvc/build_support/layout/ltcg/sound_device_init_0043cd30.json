@@ -1,0 +1,242 @@
+{
+  "schema_version": 1,
+  "name": "sound_device_init_0043cd30",
+  "source": "src/core/sound/sound_device_init.cpp",
+  "driver": "build_support/layout/ltcg/sound_device_init_0043cd30/context.cpp",
+  "included_sources": [
+    "build_support/layout/ltcg/sound_device_init_0043cd30/primary_format.cpp",
+    "build_support/layout/ltcg/sound_device_init_0043cd30/wave_load.cpp",
+    "build_support/layout/ltcg/sound_wave_load/chunks.cpp",
+    "build_support/layout/ltcg/sound_wave_load/log.cpp"
+  ],
+  "headers": [
+    "include/th10/platform/file.hpp",
+    "include/th10/platform/memory_file.hpp",
+    "include/th10/platform/sound_wave_load.hpp",
+    "include/th10/platform/text_log.hpp",
+    "include/th10/platform/thread_sync.hpp",
+    "include/th10/platform/windows_types.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Complete DirectSound initializer with native primary-format, WAVE-loader, chunk-walker and text-log contexts; only the initializer is selected.",
+  "functions": [
+    {
+      "name": "SoundDeviceInitialize",
+      "symbol": "?Initialize@WaveSoundManager@@QAEHPAX@Z",
+      "section": ".text$0043cd30_fn",
+      "address": "0x0043CD30",
+      "size": 786,
+      "actual_abi": "manager in ECX, window on stack; RET 4"
+    }
+  ],
+  "context": {
+    "symbol": "_SoundInitializeContext@8",
+    "section": ".text$0044ba00_context",
+    "address": "0x0044BA00",
+    "size": 17,
+    "description": "Direct compiler caller; the selected public member entry is explicitly rooted."
+  },
+  "anchors": [
+    {
+      "name": "ChunkWalker",
+      "symbol": "?FindWaveChunk@@YGPBEPBEPAIIQBD@Z",
+      "section": ".text$0043d250_fn",
+      "address": "0x0043D250",
+      "size": 71
+    },
+    {
+      "name": "WaveLoader",
+      "symbol": "_NativeWave_LoadPending@12",
+      "section": ".text$0043d390_fn",
+      "address": "0x0043D390",
+      "size": 684
+    },
+    {
+      "name": "TextLog",
+      "symbol": "?Append@TextLog_0044b810@@QAAPADPADZZ",
+      "section": ".text$0044b810_fn",
+      "address": "0x0044B810",
+      "size": 201
+    },
+    {
+      "name": "PrimaryFormat",
+      "symbol": "_Sound_SetPrimaryFormat_0044c7e0@16",
+      "section": ".text$0044c7e0_fn",
+      "address": "0x0044C7E0",
+      "size": 260
+    }
+  ],
+  "gaps": [
+    {
+      "section": ".text$00401000_gap",
+      "address": "0x401000",
+      "size": 245040
+    },
+    {
+      "section": ".text$0043d042_gap",
+      "address": "0x43d042",
+      "size": 526
+    },
+    {
+      "section": ".text$0043d297_gap",
+      "address": "0x43d297",
+      "size": 249
+    },
+    {
+      "section": ".text$0043d63c_gap",
+      "address": "0x43d63c",
+      "size": 57812
+    },
+    {
+      "section": ".text$0044b8d9_gap",
+      "address": "0x44b8d9",
+      "size": 295
+    },
+    {
+      "section": ".text$0044ba11_gap",
+      "address": "0x44ba11",
+      "size": 3535
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_entry_free_00452422",
+      "address": "0x452422",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_strncmp",
+      "address": "0x452f80",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_g_sound_sleep",
+      "address": "0x4660ac",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_sound_shutdown_state",
+      "address": "0x4977b4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_wave_error_log",
+      "address": "0x474f70",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_wave_invalid_riff_message",
+      "address": "0x46fd88",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_wave_invalid_format_message",
+      "address": "0x46fd64",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_wave_riff_tag",
+      "address": "0x46fda4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_wave_wave_tag",
+      "address": "0x46fd80",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_wave_format_tag",
+      "address": "0x46fd5c",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_wave_data_tag",
+      "address": "0x46fd54",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__EnterCriticalSection@4",
+      "address": "0x004660B0",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__LeaveCriticalSection@4",
+      "address": "0x004660B4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_asm_vsprintf_004524a6",
+      "address": "0x004524A6",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__chkstk",
+      "address": "0x00458EC0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "___security_cookie",
+      "address": "0x00473660",
+      "kind": "data"
+    },
+    {
+      "symbol": "@__security_check_cookie@4",
+      "address": "0x00458EA5",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?g_thread_synchronization@@3UThreadSynchronization@@A",
+      "address": "0x00492274",
+      "kind": "data"
+    },
+    {
+      "symbol": "_asm_free_004524a1",
+      "address": "0x4524a1",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_Ordinal_11_00452170@12",
+      "address": "0x452170",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_g_sound_set_timer",
+      "address": "0x466218",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_wave_sound_manager",
+      "address": "0x492590",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_sound_preload_names",
+      "address": "0x474b40",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_sound_initialize_error",
+      "address": "0x46fe0c",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_sound_initialize_ready",
+      "address": "0x46fdac",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_sound_preload_error",
+      "address": "0x46fdd4",
+      "kind": "data"
+    },
+    {
+      "symbol": "??2@YAPAXI@Z",
+      "address": "0x452493",
+      "kind": "relative_code"
+    }
+  ],
+  "roots": [
+    "?Initialize@WaveSoundManager@@QAEHPAX@Z"
+  ]
+}

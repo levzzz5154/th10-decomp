@@ -1,0 +1,184 @@
+{
+  "schema_version": 1,
+  "name": "cl_00438950",
+  "source": "src/core/main/text_log_write_to_file_00438950.cpp",
+  "driver": "build_support/layout/ltcg/cl_00438950_context.cpp",
+  "headers": [
+    "include/th10/platform/text_log.hpp",
+    "include/th10/platform/thread_sync.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Text-log save compiled with native LTCG against the whole-file writer and text-log anchors.",
+  "functions": [
+    {
+      "name": "TextLog_WriteToFile_00438950",
+      "symbol": "?WriteToFile@TextLog_0044b810@@QAEXXZ",
+      "section": ".text$00fn",
+      "address": "0x00438950",
+      "size": 79,
+      "actual_abi": "log in ESI; plain RET",
+      "source": "src/core/main/text_log_write_to_file_00438950.cpp"
+    }
+  ],
+  "anchors": [
+    {
+      "name": "File_WriteWholeFile",
+      "symbol": "?File_WriteWholeFile@@YGHPBDPBXK@Z",
+      "section": ".text$01write",
+      "address": "0x0044B540",
+      "size": 218
+    },
+    {
+      "name": "TextLog_Append",
+      "symbol": "?Append@TextLog_0044b810@@QAAPADPADZZ",
+      "section": ".text$85textlog",
+      "address": "0x0044B810",
+      "size": 201
+    }
+  ],
+  "context": {
+    "symbol": "?TextLogWriteContext_00438950@@YGHPAPAUTextLog_0044b810@@H@Z",
+    "section": ".text$90context",
+    "address": "0x0044B900",
+    "size": 37,
+    "description": "Synthetic array-walking caller; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00a",
+      "address": "0x00401000",
+      "size": 227664
+    },
+    {
+      "section": ".text$00z",
+      "address": "0x0043899F",
+      "size": 76705
+    },
+    {
+      "section": ".text$02",
+      "address": "0x0044B61A",
+      "size": 502
+    },
+    {
+      "section": ".text$86layout",
+      "address": "0x0044B8D9",
+      "size": 39
+    }
+  ],
+  "constants": [],
+  "constant_aliases": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_data_004660b0",
+      "address": "0x004660B0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004660b4",
+      "address": "0x004660B4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004660c4",
+      "address": "0x004660C4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004660cc",
+      "address": "0x004660CC",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004660d4",
+      "address": "0x004660D4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0046610c",
+      "address": "0x0046610C",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00466124",
+      "address": "0x00466124",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00466128",
+      "address": "0x00466128",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004922a4",
+      "address": "0x004922A4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0049231e",
+      "address": "0x0049231E",
+      "kind": "data"
+    },
+    {
+      "symbol": "?g_thread_synchronization@@3UThreadSynchronization@@A",
+      "address": "0x00492274",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__EnterCriticalSection@4",
+      "address": "0x004660B0",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__LeaveCriticalSection@4",
+      "address": "0x004660B4",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__MessageBoxA@16",
+      "address": "0x00466234",
+      "kind": "data"
+    },
+    {
+      "symbol": "_asm_vsprintf_004524a6",
+      "address": "0x004524A6",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__chkstk",
+      "address": "0x00458EC0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "___security_cookie",
+      "address": "0x00473660",
+      "kind": "data"
+    },
+    {
+      "symbol": "@__security_check_cookie@4",
+      "address": "0x00458EA5",
+      "kind": "relative_code"
+    }
+  ],
+  "included_sources": [
+    "src/core/zunlib/file_write_whole_file_0044b540.cpp",
+    "src/core/zunlib/text_log.cpp"
+  ],
+  "roots": [],
+  "data_aliases": [
+    {
+      "symbol": "??_C@_09HEPPHMDG@?4?1log?4txt?$AA@",
+      "address": "0x0046F7BC",
+      "bytes": "2e2f6c6f672e74787400"
+    },
+    {
+      "symbol": "??_C@_03MGHMBJCF@log?$AA@",
+      "address": "0x0046F7C8",
+      "bytes": "6c6f6700"
+    },
+    {
+      "symbol": "??_C@_0DO@MLBKKHLL@?9?9?9?9?9?9?9?9?9?9?9?9?9?9?9?9?9?9?9?9?9?9?9?9?9?9?9?9?9?9?9?9@",
+      "address": "0x0046F7CC",
+      "bytes": "2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d200d0a00"
+    }
+  ]
+}

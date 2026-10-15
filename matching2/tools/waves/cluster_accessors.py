@@ -31,7 +31,8 @@ sys.path.insert(0, str(ROOT))
 from matching2.tools.common.pe import PEImage
 from matching2.tools.matching.probe import DEFAULT_PROJECT
 
-MANIFEST = ROOT / "matching2/msvc/regions.json"
+from matching2.tools.common.project_paths import project_support
+MANIFEST = project_support((ROOT) / 'matching2/msvc', 'regions.json')
 ORACLE = ROOT / "matching2/build/oracle/th10.exe"
 WAVE = ROOT / "matching2/build/waves"
 PROBE = ROOT / "matching2/tools/matching/probe.py"
@@ -169,7 +170,7 @@ def main():
     parser.add_argument("--apply", action="store_true")
     args = parser.parse_args()
     project = args.project.resolve()
-    manifest_path = project / "regions.json"
+    manifest_path = project_support(project, 'regions.json')
     manifest = json.loads(manifest_path.read_text())
     text_start = int(manifest["text_start"], 0)
     raw = PEImage(ORACLE.read_bytes()).read(text_start, manifest["text_bytes"])

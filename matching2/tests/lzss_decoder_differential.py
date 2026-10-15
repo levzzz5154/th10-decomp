@@ -140,12 +140,16 @@ def encode(tokens):
     return packed, bytes(output)
 
 
+import sys as _project_sys
+from pathlib import Path as _ProjectPath
+_project_sys.path.insert(0, str(_ProjectPath(__file__).resolve().parents[2]))
+from matching2.tools.common.project_paths import project_support
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--object", type=Path)
     parser.add_argument("--oracle", type=Path, default=ROOT / "matching2/build/oracle/th10.exe")
     args = parser.parse_args()
-    config = load_manifest(ROOT / "matching2/msvc/regions.json")
+    config = load_manifest(project_support((ROOT) / 'matching2/msvc', 'regions.json'))
     load_oracle(args.oracle, config)
     image = PEImage(args.oracle.read_bytes())
     with tempfile.TemporaryDirectory(prefix="th10-lzss-decode-") as temporary:

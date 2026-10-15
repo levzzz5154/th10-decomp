@@ -71,6 +71,7 @@ def aligned(expected, actual, start):
     return rows
 
 
+from matching2.tools.common.project_paths import project_support
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--project", type=Path, default=BUILD_ROOT / "matching2/msvc")
@@ -84,7 +85,7 @@ def main():
     parser.add_argument("--json", action="store_true")
     args = parser.parse_args()
     project = args.project.resolve()
-    config = load_manifest(project / "regions.json")
+    config = load_manifest(project_support(project, 'regions.json'))
     oracle = load_oracle(ROOT / "matching2/build/oracle/th10.exe", config)
     text_start = int(config["text_start"], 0)
     proposals = []

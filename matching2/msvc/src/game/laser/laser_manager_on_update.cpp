@@ -20,7 +20,7 @@
 // Retail reaches the body with the records object in ECX and hands it to
 // 0x0041C330 in EDI; EDI is not the parameter register of any declaration, so
 // the body is compiled in the native-LTCG cluster
-// layout/ltcg/score_records_advance_frame_0041c480.json together with that
+// build_support/layout/ltcg/score_records_advance_frame_0041c480.json together with that
 // callee (src/game/laser/laser_manager_update_lasers.cpp).
 #include <stddef.h>
 

@@ -1,0 +1,111 @@
+{
+  "schema_version": 1,
+  "name": "score_records_advance_frame_0041c480",
+  "source": "src/game/laser/laser_manager_on_update.cpp",
+  "driver": "build_support/layout/ltcg/score_records_advance_frame_0041c480_context.cpp",
+  "headers": [
+    "include/th10/game/laser_list.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "The score display's per-frame record advance and the record list tick it calls, compiled with native LTCG so the records object arrives in ECX and the 0x0041C330 call receives it in EDI.",
+  "functions": [
+    {
+      "name": "ScoreRecords_Tick",
+      "symbol": "_LaserManager_UpdateLasers",
+      "source": "src/game/laser/laser_manager_update_lasers.cpp",
+      "section": ".text$01callee",
+      "address": "0x0041C330",
+      "size": 274,
+      "actual_abi": "records in EDI; returns 1 in EAX; plain RET"
+    },
+    {
+      "name": "LaserManager_OnUpdate",
+      "symbol": "?AdvanceFrame@LaserManagerUpdateView@@QAEHXZ",
+      "section": ".text$03advance",
+      "address": "0x0041C480",
+      "size": 91,
+      "actual_abi": "records object in ECX; the 0x0041C330 call receives it in EDI; result in EAX; plain RET"
+    }
+  ],
+  "roots": [
+    "?AdvanceFrame@LaserManagerUpdateView@@QAEHXZ"
+  ],
+  "context": {
+    "symbol": "?ScoreRecordsAdvanceFrameCompilerContext@@YGHXZ",
+    "section": ".text$05context",
+    "address": "0x0041C510",
+    "size": 10,
+    "description": "Synthetic entry that materialises the records object's link-time address and calls the modelled callback; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 111408
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x0041C442",
+      "size": 62
+    },
+    {
+      "section": ".text$04layout",
+      "address": "0x0041C4DB",
+      "size": 53
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "__fltused",
+      "address": "0x00000000",
+      "kind": "metadata"
+    },
+    {
+      "symbol": "_entry_free_004524a1",
+      "address": "0x004524A1",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_g_laser_manager",
+      "address": "0x0047781C",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_game",
+      "address": "0x00477810",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00476f78",
+      "address": "0x00476F78",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00470b68",
+      "address": "0x00470B68",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00470b64",
+      "address": "0x00470B64",
+      "kind": "data"
+    },
+    {
+      "symbol": "__ftol2",
+      "address": "0x00463B2C",
+      "kind": "relative_code"
+    }
+  ],
+  "additional_sources": [
+    "src/game/laser/laser_manager_update_lasers.cpp"
+  ],
+  "constant_aliases": [
+    {
+      "symbol": "__real@3f800000",
+      "address": "0x00470AFC",
+      "value": 1.0
+    }
+  ],
+  "included_sources": []
+}

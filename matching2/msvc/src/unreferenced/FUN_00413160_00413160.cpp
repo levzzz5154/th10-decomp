@@ -1,5 +1,5 @@
-#include "asm_encoding.hpp"
-#include "asm_symbols.hpp"
+#include "../../build_support/include/asm_encoding.hpp"
+#include "../../build_support/include/asm_symbols.hpp"
 
 // 0x00413160..0x00413169: FUN_00413160
 // The value arrives on the stack and the object in ECX, so this is a

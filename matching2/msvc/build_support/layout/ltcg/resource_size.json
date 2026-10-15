@@ -1,0 +1,171 @@
+{
+  "schema_version": 1,
+  "name": "resource_size",
+  "source": "src/pack/file/resource_get_file_size_retail_004358e0.cpp",
+  "driver": "build_support/layout/ltcg/resource_size_context.cpp",
+  "included_sources": [
+    "src/pack/arcmngr/dat_archive_find_size_00434ef0.cpp"
+  ],
+  "headers": [
+    "include/th10/archive/dat_archive_types.hpp",
+    "include/th10/platform/file.hpp",
+    "include/th10/platform/windows_types.hpp",
+    "build_support/layout/ltcg/resource_size_file.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Complete size-query and generated exception contributions, with full genuine archive FindSize and FileHandle lifetime functions.",
+  "exceptions": true,
+  "roots": [
+    "?ResourceGetFileSize_004358e0@@YIIPBD@Z"
+  ],
+  "functions": [
+    {
+      "name": "semantic_Resource_GetFileSize_004358e0",
+      "symbol": "?ResourceGetFileSize_004358e0@@YIIPBD@Z",
+      "section": ".text$09query",
+      "address": "0x4358e0",
+      "size": 190,
+      "actual_abi": "path ECX; unsigned size EAX; plain RET"
+    },
+    {
+      "name": "semantic_Resource_GetFileSize_UnwindFile_00465380",
+      "symbol": "_ResourceSizeUnwind_00465380",
+      "section": ".text$x",
+      "address": "0x465380",
+      "size": 8,
+      "actual_abi": "frame EBP; stack FileHandle at EBP-18h",
+      "generated": true,
+      "native_symbol_pattern": "\\$L[0-9]+"
+    },
+    {
+      "name": "semantic_Resource_GetFileSize_ExceptionHandler_00465388",
+      "symbol": "__ehhandler$?ResourceGetFileSize_004358e0@@YIIPBD@Z",
+      "section": ".text$x",
+      "address": "0x465388",
+      "size": 10,
+      "actual_abi": "compiler C++ exception handler",
+      "generated": true
+    }
+  ],
+  "anchors": [
+    {
+      "name": "FindSize",
+      "symbol": "?DatArchive_FindSize@@YGIPAUDatArchive@@PBD@Z",
+      "section": ".text$01findsize",
+      "address": "0x434ef0",
+      "size": 51
+    },
+    {
+      "name": "FileDestructor",
+      "symbol": "??1ResourceSizeFile_004358e0@@QAE@XZ",
+      "section": ".text$03dtor",
+      "address": "0x435340",
+      "size": 46
+    }
+  ],
+  "context": {
+    "symbol": "_ResourceSizeContext@8",
+    "section": ".text$11context",
+    "address": "0x004359b0",
+    "size": 45,
+    "description": "Unselected synthetic array caller."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 212720
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x434f23",
+      "size": 1053
+    },
+    {
+      "section": ".text$08layout",
+      "address": "0x0043536E",
+      "size": 1394
+    },
+    {
+      "section": ".text$10layout",
+      "address": "0x43599e",
+      "size": 18
+    },
+    {
+      "section": ".text$12layout",
+      "address": "0x004359DD",
+      "size": 194979
+    },
+    {
+      "section": ".rdata$00layout",
+      "address": "0x00466000",
+      "size": 46180
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "___CxxFrameHandler",
+      "address": "0x46276d",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__except_list",
+      "address": "0x0",
+      "kind": "metadata"
+    },
+    {
+      "symbol": "_FirstByteSearch_00452730",
+      "address": "0x452730",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_asm_stricmp_0046054e",
+      "address": "0x46054e",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?Find@ArchiveName_004356f0@@QBEPBUArchiveEntry_004356f0@@XZ",
+      "address": "0x4356f0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?Open@ResourceSizeFile_004358e0@@QAEEPBD0@Z",
+      "address": "0x435370",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_00474908",
+      "address": "0x474908",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__GetFileSize@8",
+      "address": "0x4660d8",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__CloseHandle@4",
+      "address": "0x4660cc",
+      "kind": "data"
+    },
+    {
+      "symbol": "_ResourceFileVtable_0046f230",
+      "address": "0x0046F230",
+      "kind": "data"
+    },
+    {
+      "symbol": "_ResourceBaseVtable_0046f210",
+      "address": "0x0046F210",
+      "kind": "data"
+    }
+  ],
+  "native_data": [
+    {
+      "section": ".xdata$x",
+      "address": "0x471464",
+      "bytes": "ffffffff8053460020059319010000006414470000000000000000000000000000000000",
+      "description": "Complete compiler-generated size-query unwind map and FuncInfo."
+    }
+  ]
+}

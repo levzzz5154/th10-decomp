@@ -9,7 +9,7 @@
 //
 // The record arrives in EDI and the value in ESI, receivers no C++ declaration
 // names, so the body is compiled in the native-LTCG cluster
-// layout/ltcg/reseed_00429b30.json whose synthetic caller establishes that
+// build_support/layout/ltcg/reseed_00429b30.json whose synthetic caller establishes that
 // convention. _time32 is an ordinary __cdecl leaf the declaration names.
 
 struct TimerBlock_00429b30 {

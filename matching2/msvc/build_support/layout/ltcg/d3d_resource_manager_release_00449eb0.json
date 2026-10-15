@@ -1,0 +1,116 @@
+{
+  "schema_version": 1,
+  "name": "d3d_resource_manager_release_00449eb0",
+  "source": "src/core/zunlib/func_ctrl_release.cpp",
+  "driver": "build_support/layout/ltcg/d3d_resource_manager_release_00449eb0_context.cpp",
+  "headers": [
+    "include/th10/core/func_ctrl.hpp",
+    "include/th10/platform/thread_sync.hpp",
+    "include/th10/game/resource_list_destroy_abi.hpp",
+    "include/th10/platform/worker.hpp",
+    "include/th10/render/d3d_resource_manager_00449eb0.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Out-of-line resource manager release compiled with native LTCG against the list release (list EAX) and worker stop (worker ESI).",
+  "functions": [
+    {
+      "name": "FuncCtrl_Release",
+      "symbol": "?ReleaseResources@FuncCtrlReleaseView@@QAEXXZ",
+      "section": ".text$08manager",
+      "address": "0x00449EB0",
+      "size": 30,
+      "actual_abi": "manager in EDI; plain RET"
+    }
+  ],
+  "context": {
+    "symbol": "_D3DResourceManagerReleaseContext_00449eb0@8",
+    "section": ".text$30context",
+    "address": "0x0044C1C0",
+    "size": 35,
+    "description": "Synthetic array caller; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 298576
+    },
+    {
+      "section": ".text$07z_layout",
+      "address": "0x00449EA2",
+      "size": 14
+    },
+    {
+      "section": ".text$09layout",
+      "address": "0x00449ECE",
+      "size": 8834
+    },
+    {
+      "section": ".text$25gap",
+      "address": "0x0044C1B5",
+      "size": 11
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "__imp__EnterCriticalSection@4",
+      "address": "0x004660B0",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__LeaveCriticalSection@4",
+      "address": "0x004660B4",
+      "kind": "data"
+    },
+    {
+      "symbol": "?g_thread_synchronization@@3UThreadSynchronization@@A",
+      "address": "0x00492274",
+      "kind": "data"
+    },
+    {
+      "symbol": "@FuncCtrl_RemoveTask@8",
+      "address": "0x00449F60",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?g_destroy_worker_00438880@@3UPlatformWorker@@A",
+      "address": "0x492254",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__WaitForSingleObject@8",
+      "address": "0x46611c",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__Sleep@4",
+      "address": "0x4660ac",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__CloseHandle@4",
+      "address": "0x4660cc",
+      "kind": "data"
+    }
+  ],
+  "anchors": [
+    {
+      "name": "Release",
+      "symbol": "?ReleaseResourceList_00449eb0@@YGXPAUFuncCtrl@@PAUResourceList_DestroyABI_00449e50@@@Z",
+      "section": ".text$07release",
+      "address": "0x00449E50",
+      "size": 82
+    },
+    {
+      "name": "WorkerStop",
+      "symbol": "?Stop@PlatformWorker@@QAEXXZ",
+      "section": ".text$20callee",
+      "address": "0x0044C150",
+      "size": 101
+    }
+  ],
+  "included_sources": [
+    "src/core/zunlib/platform_stop_worker_0044c150.cpp"
+  ]
+}

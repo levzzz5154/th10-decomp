@@ -1,0 +1,624 @@
+{
+  "schema_version": 1,
+  "name": "bullet_runtime_caller",
+  "source": "src/game/bullet/bullet_runtime_update.cpp",
+  "additional_sources": [
+    "build_support/layout/ltcg/bullet_runtime_dependencies/animation_manager_queue_resource_0043dc90.cpp",
+    "build_support/layout/ltcg/bullet_runtime_dependencies/fun_00407a30_00407a30.cpp",
+    "build_support/layout/ltcg/bullet_runtime_dependencies/fun_00407be0_00407be0.cpp",
+    "src/game/bullet/player_wrap_horizontal_00407da0.cpp",
+    "build_support/layout/ltcg/bullet_runtime_dependencies/fun_00407780_00407780.cpp",
+    "src/game/bullet/player_wrap_vertical_00407e40.cpp",
+    "build_support/layout/ltcg/bullet_runtime_dependencies/player_animation_advance_frame_004074b0.cpp",
+    "build_support/layout/ltcg/bullet_runtime_dependencies/field_contact_004266b0.cpp",
+    "build_support/layout/ltcg/bullet_runtime_dependencies/player_animation_create_00448db0.cpp",
+    "src/game/bullet/player_death_shrink_004076a0.cpp",
+    "build_support/layout/ltcg/bullet_runtime_dependencies/enemy_motion_steps.cpp",
+    "build_support/layout/ltcg/bullet_runtime_dependencies/sound_queue_pan_0043dd10.cpp",
+    "src/game/bullet/bullet_ease_step_004078e0.cpp",
+    "build_support/layout/ltcg/bullet_runtime_dependencies/player_homing_00407ef0.cpp"
+  ],
+  "headers": [
+    "include/th10/platform/sound_queue.hpp",
+    "include/th10/math/angle.hpp",
+    "include/th10/math/timer.hpp",
+    "include/th10/game/player_wrap.hpp",
+    "include/th10/game/bullet_runtime_state.hpp",
+    "include/th10/game/bullet_runtime_actions.hpp",
+    "include/th10/game/bullet_reset_anchor.hpp",
+    "include/th10/game/field_contact_004266b0.hpp",
+    "include/th10/game/player_motion_helpers_004074b0_004076a0.hpp",
+    "include/th10/game/bullet_runtime_deceleration.hpp",
+    "include/th10/game/player_homing_00407ef0.hpp",
+    "include/th10/game/player.hpp",
+    "include/th10/game/entity.hpp",
+    "include/th10/types.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Complete original885-byte runtime callback. Every private callee is compiled from its full genuine body as an ABI anchor; only callback885 is selected recovered game code.",
+  "functions": [
+    {
+      "name": "BulletRuntimeTick",
+      "symbol": "_BulletRuntimeTick@4",
+      "section": ".text$00fruntime",
+      "address": "0x00406240",
+      "size": 885,
+      "actual_abi": "state stack; RET4",
+      "source": "src/game/bullet/bullet_runtime_update.cpp"
+    },
+    {
+      "name": "EaseStep",
+      "symbol": "?EaseStep@BulletRuntimeDeceleration@@QAEXXZ",
+      "section": ".text$01gease",
+      "address": "0x4078e0",
+      "size": 335,
+      "actual_abi": "state in ESI; plain RET",
+      "source": "src/game/bullet/bullet_ease_step_004078e0.cpp"
+    },
+    {
+      "name": "DeathShrink",
+      "symbol": "?AdvanceDeathShrink@PlayerDeathShrinkState_004076A0@@QAEXXZ",
+      "section": ".text$01acdeath",
+      "address": "0x004076A0",
+      "size": 209,
+      "actual_abi": "state in ESI; plain RET",
+      "source": "src/game/bullet/player_death_shrink_004076a0.cpp"
+    },
+    {
+      "name": "Player_WrapHorizontal",
+      "symbol": "?WrapHorizontal@PlayerWrapHorizontalState_00407DA0@@QAEXXZ",
+      "section": ".text$01lwrap",
+      "address": "0x00407DA0",
+      "size": 148,
+      "actual_abi": "object in EBX; plain RET",
+      "source": "src/game/bullet/player_wrap_horizontal_00407da0.cpp"
+    },
+    {
+      "name": "Player_WrapVertical",
+      "symbol": "?WrapVertical@PlayerWrapHorizontalState_00407DA0@@QAEXXZ",
+      "section": ".text$01mvertical",
+      "address": "0x00407E40",
+      "size": 172,
+      "actual_abi": "object in EBX; plain RET",
+      "source": "src/game/bullet/player_wrap_vertical_00407e40.cpp"
+    }
+  ],
+  "gaps": [
+    {
+      "section": ".rdata",
+      "address": 4505600,
+      "size": 150268
+    },
+    {
+      "section": ".text$00brese0gap0",
+      "address": "0x401000",
+      "size": 19424
+    },
+    {
+      "section": ".text$00dbound0gap1",
+      "address": "0x405c7e",
+      "size": 1250
+    },
+    {
+      "section": ".text$00ebound0gap2",
+      "address": "0x4061cd",
+      "size": 3
+    },
+    {
+      "section": ".text$00fruntim0gap3",
+      "address": "0x40623d",
+      "size": 3
+    },
+    {
+      "section": ".text$01aanimatio0gap4",
+      "address": "0x4065b5",
+      "size": 3835
+    },
+    {
+      "section": ".text$01abeffec0gap5",
+      "address": "0x407554",
+      "size": 12
+    },
+    {
+      "section": ".text$01acdeat0gap6",
+      "address": "0x407691",
+      "size": 15
+    },
+    {
+      "section": ".text$01bulle0gap7",
+      "address": "0x407771",
+      "size": 15
+    },
+    {
+      "section": ".text$01geas0gap8",
+      "address": "0x4078d2",
+      "size": 14
+    },
+    {
+      "section": ".text$01hai0gap9",
+      "address": "0x407a2f",
+      "size": 1
+    },
+    {
+      "section": ".text$01jbounc0gap10",
+      "address": "0x407bdf",
+      "size": 1
+    },
+    {
+      "section": ".text$01lwra0gap11",
+      "address": "0x407d9e",
+      "size": 2
+    },
+    {
+      "section": ".text$01mvertica0gap12",
+      "address": "0x407e34",
+      "size": 12
+    },
+    {
+      "section": ".text$02ahomin0gap13",
+      "address": "0x407eec",
+      "size": 4
+    },
+    {
+      "section": ".text$03fcontac0gap14",
+      "address": "0x408022",
+      "size": 124558
+    },
+    {
+      "section": ".text$05queu0gap15",
+      "address": "0x4267ec",
+      "size": 95396
+    },
+    {
+      "section": ".text$05rpa0gap16",
+      "address": "0x43dd0b",
+      "size": 5
+    },
+    {
+      "section": ".text$06loa0gap17",
+      "address": "0x43dda5",
+      "size": 2411
+    },
+    {
+      "section": ".text$08registe0gap18",
+      "address": "0x43e7df",
+      "size": 41457
+    },
+    {
+      "section": ".text$09creat0gap19",
+      "address": "0x448a37",
+      "size": 889
+    },
+    {
+      "section": ".text$09zallocat0gap20",
+      "address": "0x448e26",
+      "size": 2858
+    },
+    {
+      "section": ".text$10contex0gap21",
+      "address": "0x4499fb",
+      "size": 261
+    },
+    {
+      "section": ".text$13advanc0gap22",
+      "address": "0x449b55",
+      "size": 9195
+    }
+  ],
+  "constants": [
+    {
+      "symbol": "__real@3f800000",
+      "address": "0x00470AFC",
+      "value": 1.0
+    }
+  ],
+  "absolute_symbols": [
+    {
+      "symbol": "_data_004749ce",
+      "address": "0x004749CE",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00492590",
+      "address": "0x00492590",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00470b68",
+      "address": "0x00470B68",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00470b64",
+      "address": "0x00470B64",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00476f78",
+      "address": "0x00476F78",
+      "kind": "data"
+    },
+    {
+      "symbol": "__ftol2",
+      "address": "0x00463B2C",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__fltused",
+      "address": "0x00000000",
+      "kind": "metadata"
+    },
+    {
+      "symbol": "?SetPolar@BulletRuntimeDecelerationVector2@@QAEXMM@Z",
+      "address": "0x00408750",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_g_player",
+      "address": "0x00477834",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00470b04",
+      "address": "0x00470B04",
+      "kind": "data"
+    },
+    {
+      "symbol": "?Angle_NormalizeSum@@YGMMM@Z",
+      "address": "0x0044BC10",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_00470b40",
+      "address": "0x00470B40",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00470b3c",
+      "address": "0x00470B3C",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00470b38",
+      "address": "0x00470B38",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00470b18",
+      "address": "0x00470B18",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00470b58",
+      "address": "0x00470B58",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00470b54",
+      "address": "0x00470B54",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00470b50",
+      "address": "0x00470B50",
+      "kind": "data"
+    },
+    {
+      "symbol": "?g_playfield_min_x@@3MA",
+      "address": "0x470b40",
+      "kind": "data"
+    },
+    {
+      "symbol": "?g_playfield_max_x@@3MA",
+      "address": "0x470b3c",
+      "kind": "data"
+    },
+    {
+      "symbol": "?g_playfield_min_y@@3MA",
+      "address": "0x470b04",
+      "kind": "data"
+    },
+    {
+      "symbol": "?g_playfield_max_y@@3MA",
+      "address": "0x470b38",
+      "kind": "data"
+    },
+    {
+      "symbol": "?g_frame_timer_normal_lower@@3MA",
+      "address": "0x470b68",
+      "kind": "data"
+    },
+    {
+      "symbol": "?g_frame_timer_normal_upper@@3MA",
+      "address": "0x470b64",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00470b0c",
+      "address": "0x00470B0C",
+      "kind": "data"
+    },
+    {
+      "symbol": "?Tick@ProjectileCommandRuntime@@QAEXXZ",
+      "address": "0x00406D90",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_RunAnimationVm@4",
+      "address": "0x0043EE30",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_ActivateField00426CF0@4",
+      "address": "0x00426CF0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_004776f0",
+      "address": "0x004776F0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_front",
+      "address": "0x0047770C",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00470b70",
+      "address": "0x00470B70",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00470be8",
+      "address": "0x470be8",
+      "kind": "data"
+    },
+    {
+      "symbol": "?SetPolar@PolarVector2_00408750@@QAEPAU1@MM@Z",
+      "address": "0x00408750",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_00470c68",
+      "address": "0x00470C68",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00470b5c",
+      "address": "0x00470B5C",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_sprt_ctrl",
+      "address": "0x00491C10",
+      "kind": "data"
+    },
+    {
+      "symbol": "_operator_new_00452493",
+      "address": "0x00452493",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_Entity_Constructor_00402050",
+      "address": "0x00402050",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_Entity_Init_00401de0",
+      "address": "0x00401DE0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_asm_AnimationObject_LoadScriptTail_0043ee30",
+      "address": "0x0043EE30",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?InitializeObject@AnimationResource_00449870@@QAEPAXPAXH@Z",
+      "address": "0x00449870",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_00470c58",
+      "address": "0x00470C58",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00470b20",
+      "address": "0x470b20",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00470afc",
+      "address": "0x00470AFC",
+      "kind": "data"
+    },
+    {
+      "symbol": "?WrappedAngleDifference@@YGMMM@Z",
+      "address": "0x00408660",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_00470c6c",
+      "address": "0x470c6c",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00470b4c",
+      "address": "0x470b4c",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00470b48",
+      "address": "0x470b48",
+      "kind": "data"
+    }
+  ],
+  "roots": [
+    "_BulletRuntimeTick@4"
+  ],
+  "driver": "build_support/layout/ltcg/bullet_runtime_caller_context.cpp",
+  "context": {
+    "symbol": "?SoundQueueMotionContext@@YGHPAPAUBulletRuntimeDeceleration@@H@Z",
+    "address": "0x00449B00",
+    "size": 85,
+    "section": ".text$10context",
+    "description": "Synthetic pointer-array caller retains ESI motion receiver; not selected as game code"
+  },
+  "anchors": [
+    {
+      "name": "BulletDeceleration_TurnStep",
+      "symbol": "?TurnStep@BulletRuntimeDeceleration@@QAEXXZ",
+      "section": ".text$01bullet",
+      "address": "0x00407780",
+      "size": 338
+    },
+    {
+      "name": "BulletDeceleration_AimStep",
+      "symbol": "?AimStep@BulletRuntimeDeceleration@@QAEXXZ",
+      "section": ".text$01haim",
+      "address": "0x00407A30",
+      "size": 431
+    },
+    {
+      "name": "BulletDeceleration_Bounce",
+      "symbol": "?Bounce@BulletRuntimeDeceleration@@QAEXXZ",
+      "section": ".text$01jbounce",
+      "address": "0x00407BE0",
+      "size": 446
+    },
+    {
+      "name": "SoundQueue_Queue",
+      "symbol": "?Queue@SoundQueue@@QAEHHH@Z",
+      "section": ".text$05queue",
+      "address": "0x0043DC90",
+      "size": 123
+    },
+    {
+      "name": "ActualFieldContact",
+      "symbol": "@FieldContact004266B0@12",
+      "section": ".text$03fcontact",
+      "address": "0x004266B0",
+      "size": 316
+    },
+    {
+      "name": "AdvanceAnimationFrame",
+      "symbol": "?AdvanceAnimationFrame@PlayerAnimationState_004074B0@@QAEXXZ",
+      "section": ".text$01aanimation",
+      "address": "0x004074B0",
+      "size": 164
+    },
+    {
+      "name": "CreateScreenAnimation",
+      "symbol": "?AnimationManager_CreateScreenPositionedPrimary_00448db0@@YGPAPAXPAXPAPAXHPBUAnimationPosition_00448db0@@@Z",
+      "section": ".text$09create",
+      "address": "0x00448DB0",
+      "size": 118
+    },
+    {
+      "name": "EffectAccel",
+      "symbol": "?Update@EffectAccel_00407560@@QAEXXZ",
+      "section": ".text$01abeffect",
+      "address": "0x00407560",
+      "size": 305
+    },
+    {
+      "name": "QueuePan",
+      "symbol": "?QueuePan@SoundQueue@@QAEXHM@Z",
+      "section": ".text$05rpan",
+      "address": "0x0043DD10",
+      "size": 149
+    },
+    {
+      "name": "HomeTowardTarget",
+      "symbol": "?HomeTowardTarget@PlayerHomingState_00407EF0@@QAEXXZ",
+      "section": ".text$02ahoming",
+      "address": "0x407ef0",
+      "size": 306
+    },
+    {
+      "name": "ActualBoundsInclusive",
+      "symbol": "?OutsidePlayfieldInclusive@PlayfieldPoint@@QBEHMM@Z",
+      "section": ".text$00ebounds",
+      "address": "0x004061D0",
+      "size": 109
+    },
+    {
+      "name": "ActualFrameAdvance",
+      "symbol": "?Advance@FrameTimer@@QAEXM@Z",
+      "section": ".text$13advance",
+      "address": "0x0044BF40",
+      "size": 88
+    },
+    {
+      "name": "ResetSchedulerLinks",
+      "symbol": "?ResetSchedulerLinks@Player_00405be0@@QAEXXZ",
+      "section": ".text$00breset",
+      "address": "0x00405BE0",
+      "size": 158
+    },
+    {
+      "name": "ActualBounds",
+      "symbol": "?OutsidePlayfield@PlayfieldPoint@@QBEHMM@Z",
+      "section": ".text$00dbounds",
+      "address": "0x00406160",
+      "size": 109
+    },
+    {
+      "name": "AnimationObject_LoadScript_0043e710_abi_anchor",
+      "symbol": "_asm_AnimationObject_LoadScript_0043e710",
+      "section": ".text$06load",
+      "address": "0x0043E710",
+      "size": 207
+    },
+    {
+      "name": "AnimationManager_RegisterPrimaryBack_004489d0_abi_anchor",
+      "symbol": "_asm_AnimationManager_RegisterPrimaryBack_004489d0",
+      "section": ".text$08register",
+      "address": "0x004489D0",
+      "size": 103
+    },
+    {
+      "name": "FUN_00449950_00449950_abi_anchor",
+      "symbol": "_asm_FUN_00449950_00449950",
+      "section": ".text$09zallocate",
+      "address": "0x00449950",
+      "size": 171
+    }
+  ],
+  "constant_aliases": [
+    {
+      "symbol": "__real@3f000000",
+      "address": "0x00470B0C",
+      "value": 0.5
+    }
+  ],
+  "data_aliases": [
+    {
+      "symbol": "__real@43c00000",
+      "address": "0x00470B54",
+      "bytes": "0000c043"
+    },
+    {
+      "symbol": "__real@c3400000",
+      "address": "0x00470B40",
+      "bytes": "000040c3"
+    },
+    {
+      "symbol": "__real@43400000",
+      "address": "0x00470B3C",
+      "bytes": "00004043"
+    },
+    {
+      "symbol": "__real@43e00000",
+      "address": "0x00470B38",
+      "bytes": "0000e043"
+    },
+    {
+      "symbol": "__real@0000000000000000",
+      "address": "0x00470B70",
+      "bytes": "0000000000000000"
+    }
+  ],
+  "included_sources": []
+}

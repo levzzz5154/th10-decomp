@@ -4,7 +4,7 @@ void* __cdecl operator new(unsigned int bytes);
 // The native compiler supplies the ESI receiver and four argument stack slots.
 // Allocation is unchecked; callback results are ignored and current buffer
 // ownership is reloaded after refill. Native proof includes real caller EH.
-#include "../../../layout/ltcg/sound_interfaces_dependencies/sound_wave_types.hpp"
+#include "../../../build_support/layout/ltcg/sound_interfaces_dependencies/sound_wave_types.hpp"
 
 extern "C" {
     extern SoundStreamMethods g_sound_base_methods;

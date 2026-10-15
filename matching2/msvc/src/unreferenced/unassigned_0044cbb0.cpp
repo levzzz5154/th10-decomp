@@ -5,7 +5,7 @@
 // -1 over it; when bit 0 of the incoming flags is set it then hands the object
 // to the CRT free entry at 0x004524A1 and returns the object in EAX. The object
 // arrives in ESI, a receiver no C++ declaration names, so the body is compiled
-// in the native-LTCG cluster layout/ltcg/dtor_delete_0044cbb0.json whose
+// in the native-LTCG cluster build_support/layout/ltcg/dtor_delete_0044cbb0.json whose
 // array-walking synthetic caller establishes that convention.
 
 extern "C" void __cdecl entry_free_004524a1(void* block);

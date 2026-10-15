@@ -4,7 +4,7 @@
 // 0x0042bc30 (the callee takes the object as a stack argument and cleans it,
 // RET 4), hands the object to the CRT free entry at 0x004524A1 and returns.
 // The object lives in ESI, so the body is compiled in the native-LTCG cluster
-// layout/ltcg/dtor_release_0042bfa0.json whose array-walking synthetic caller establishes
+// build_support/layout/ltcg/dtor_release_0042bfa0.json whose array-walking synthetic caller establishes
 // that convention.
 
 extern "C" void Cleanup_0042bc30(void* object);

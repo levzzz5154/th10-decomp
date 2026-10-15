@@ -1,7 +1,7 @@
 // Out-of-line copies of six single-field object methods. Each region reads the
 // object from EAX and takes no argument, a private /LTCG receiver, so the six
 // are compiled together as one cluster with an array-walking compiler context
-// that establishes the register (see layout/ltcg/unassigned_members_0044.json).
+// that establishes the register (see build_support/layout/ltcg/unassigned_members_0044.json).
 
 struct UnassignedFlagged_004452e0 {
     unsigned char pad_000[0x35C];

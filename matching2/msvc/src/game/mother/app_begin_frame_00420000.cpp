@@ -4,7 +4,7 @@
 //
 // The task receives the application state (0x00491C28) in ECX and calls
 // RenderCamera::Apply with the camera in EDI, so the body is compiled in the
-// native-LTCG cluster layout/ltcg/anm_batch_flush_00442f50.json.
+// native-LTCG cluster build_support/layout/ltcg/anm_batch_flush_00442f50.json.
 #include "th10/render/camera_batch.hpp"
 
 struct RenderStage_00420000 {

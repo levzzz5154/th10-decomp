@@ -21,7 +21,7 @@ ScoreArchiveManager_0042ae60::ScoreArchiveManager_0042ae60() {
 #pragma code_seg()
 
 // Complete original allocating caller and private compiler-visible helpers.
-#include "../../../layout/ltcg/score_manager_factory_context.cpp"
+#include "score_manager_create.cpp"
 
-#include "../../../layout/ltcg/score_manager_dependencies/decrypt.cpp"
-#include "../../../layout/ltcg/score_manager_dependencies/archive_load.cpp"
+#include "../../../build_support/layout/ltcg/score_manager_dependencies/decrypt.cpp"
+#include "../../../build_support/layout/ltcg/score_manager_dependencies/archive_load.cpp"

@@ -134,6 +134,7 @@ def control(name, spec, production, output, toolkit):
                   'layout_objects_from': str(native_dir)}
 
 
+from matching2.tools.common.project_paths import project_support
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--project', type=Path, default=DEFAULT_PROJECT)
@@ -142,7 +143,7 @@ def main():
     parser.add_argument('--output', type=Path, default=DEFAULT_PROJECT.parent / 'build/ltcg-experiment')
     args = parser.parse_args()
     project, toolkit, output = args.project.resolve(), args.toolkit.resolve(), args.output.resolve()
-    config = json.loads((project / 'regions.json').read_text())
+    config = json.loads((project_support(project, 'regions.json')).read_text())
     spec = load_cluster(project, MANIFEST, config['regions'])
     inputs = _snapshot(spec)
     output.mkdir(parents=True, exist_ok=True)

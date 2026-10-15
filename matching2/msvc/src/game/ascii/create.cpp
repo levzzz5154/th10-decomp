@@ -14,7 +14,7 @@
 //
 // Native LTCG passes the manager in EBX, so this is compiled in the same link
 // as the scheduler registration functions and the text log it calls
-// (layout/ltcg/bullet_manager_load_scripts_0040ae70.json).
+// (build_support/layout/ltcg/bullet_manager_load_scripts_0040ae70.json).
 
 struct AsciiManager_00401110 {
     unsigned char pad_000[0x0C];

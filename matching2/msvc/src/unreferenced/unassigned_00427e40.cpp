@@ -14,7 +14,7 @@
 // into: its per-slot fields sit at +0x00, +0x08, +0x10 and +0x18 of each record.
 //
 // Plain C++ cannot name EAX, so the body is compiled in the native-LTCG
-// cluster layout/ltcg/gauge_slot_00427e40.json, whose synthetic caller keeps the
+// cluster build_support/layout/ltcg/gauge_slot_00427e40.json, whose synthetic caller keeps the
 // state in ECX and the index in EAX.
 
 struct GaugeSlot_00427e40 {

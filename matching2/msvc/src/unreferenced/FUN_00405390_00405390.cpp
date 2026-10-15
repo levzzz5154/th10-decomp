@@ -6,7 +6,7 @@
 // The accessor sits in the same 16-byte-slot table as 0x00405360 and is only
 // reached indirectly in retail, so the field's role is unknown; the object is
 // the one whose +0x8 pointer 0x00405300 calls a vtable slot through. The body
-// is compiled in the native LTCG cluster of layout/ltcg/object_field04_getter.json
+// is compiled in the native LTCG cluster of build_support/layout/ltcg/object_field04_getter.json
 // so MSVC keeps the argument and the result in EAX.
 
 struct ManagedObject {

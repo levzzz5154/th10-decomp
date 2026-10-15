@@ -9,7 +9,7 @@
 //
 // Retail enters this body with the game thread in ESI (a register no MSVC
 // declaration names for a member function), so the region is compiled in the
-// cluster layout/ltcg/lazy_animation_resource_0040c540_wave11.json.  Its driver
+// cluster build_support/layout/ltcg/lazy_animation_resource_0040c540_wave11.json.  Its driver
 // carries the compiled body of 0x00448D50 as an ABI anchor - retail hands that
 // callee the position record in **EDI**, which only a native /LTCG link that
 // can see the callee's body assigns - together with the three callees

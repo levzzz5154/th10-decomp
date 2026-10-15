@@ -1,6 +1,6 @@
 // 0x0040C960: store two floats at +0x34/+0x38.
 // The object arrives in EAX and both floats on the stack (RET 8); the body is
-// compiled in the native-LTCG cluster layout/ltcg/setpair_0040c960.json.
+// compiled in the native-LTCG cluster build_support/layout/ltcg/setpair_0040c960.json.
 struct Pair_0040c960 {
     unsigned char reserved_000[0x34];
     float first;                   // +0x34

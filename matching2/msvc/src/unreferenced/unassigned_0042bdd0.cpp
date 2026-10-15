@@ -7,7 +7,7 @@
 // the object itself to the CRT free entry at 0x004524A1, and finally returns
 // the object in EAX.  The object lives in ESI across both calls, a receiver no
 // C++ declaration names, so the body is compiled in the native-LTCG cluster
-// layout/ltcg/disposable_destroy_0042bdd0.json whose array-walking synthetic
+// build_support/layout/ltcg/disposable_destroy_0042bdd0.json whose array-walking synthetic
 // caller establishes that convention.
 //
 // The vtable address is taken through an array declaration, which is the shape

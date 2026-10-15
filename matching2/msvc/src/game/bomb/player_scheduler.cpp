@@ -2,7 +2,7 @@
 //
 // Retail enters this member with the player record in EAX, a convention no C++
 // declaration names, so the body is compiled in the native-LTCG cluster
-// layout/ltcg/player_scheduler_links_00405be0.json, whose synthetic caller
+// build_support/layout/ltcg/player_scheduler_links_00405be0.json, whose synthetic caller
 // walks an array of records and leaves the receiver in EAX.
 //
 // Each link is the same previous/current/elapsed/speed/flags timer block the

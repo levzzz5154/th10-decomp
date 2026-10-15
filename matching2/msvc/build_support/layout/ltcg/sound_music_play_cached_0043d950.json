@@ -1,0 +1,163 @@
+{
+  "schema_version": 1,
+  "name": "sound_music_play_cached_0043d950",
+  "source": "src/core/sound/sound_music_play_cached.cpp",
+  "driver": "build_support/layout/ltcg/sound_music_play_cached_0043d950_context.cpp",
+  "headers": [
+    "include/th10/app/supervisor.hpp",
+    "build_support/layout/ltcg/sound_interfaces_dependencies/sound_wave_types.hpp",
+    "include/th10/platform/text_log.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "The cached music launcher compiled with a model of its call site in the music command handler, the real track selector it tail-calls and a stand-in for the memory stream factory, so the pass hands the manager over in ESI and the slot in EAX and orders the factory arguments by its parameter list.",
+  "functions": [
+    {
+      "name": "WaveSoundManager_PlayCachedMusic",
+      "symbol": "?PlayCachedMusic@WaveSoundManager@@QAEHH@Z",
+      "section": ".text$01play",
+      "address": "0x0043D950",
+      "size": 298,
+      "actual_abi": "manager in ESI; slot in EAX; plain RET"
+    }
+  ],
+  "anchors": [
+    {
+      "name": "SelectArchiveEntry",
+      "symbol": "?SelectArchiveEntry@PathName_0043d2a0@@QAEHPAUPlatformD790ArchiveOwner@@@Z",
+      "section": ".text$01archive",
+      "address": "0x0043D790",
+      "size": 55
+    },
+    {
+      "name": "StreamSelect",
+      "symbol": "?Select@PlatformStreamState_0044DCA0@@QAEHPAUPlatformStreamRecord_0044DCA0@@@Z",
+      "section": ".text$01select",
+      "address": "0x0044DCA0",
+      "size": 78
+    },
+    {
+      "name": "CreateMemoryStream",
+      "symbol": "?CreateMemoryStream@SoundDeviceOwner@@QAEHPAPAUSoundStreamingState@@PAEIPAUMusicTrackRecord@@IUWaveGuidImage@@IIPAX@Z",
+      "section": ".text$01reader",
+      "address": "0x0044CBF0",
+      "size": 639
+    }
+  ],
+  "context": {
+    "symbol": "?SoundMusicPlayCachedContext@@YGHPAUWaveSoundManager@@PAUMusicCommand@@PAPAUSupervisor@@@Z",
+    "section": ".text$95context",
+    "address": "0x0044E100",
+    "size": 66,
+    "description": "Synthetic caller; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00before",
+      "address": "0x401000",
+      "size": 247696
+    },
+    {
+      "section": ".text$01archivez",
+      "address": "0x43d7c7",
+      "size": 393
+    },
+    {
+      "section": ".text$01playz",
+      "address": "0x43da7a",
+      "size": 61814
+    },
+    {
+      "section": ".text$01readerz",
+      "address": "0x44ce6f",
+      "size": 3633
+    },
+    {
+      "section": ".text$01selectz",
+      "address": "0x44dcee",
+      "size": 1042
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "__imp__CreateEventA@16",
+      "address": "0x00466120",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__CreateThread@24",
+      "address": "0x00466118",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__SetFilePointer@16",
+      "address": "0x004660C8",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004977a4",
+      "address": "0x004977A4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0046a67c",
+      "address": "0x0046A67C",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_supervisor",
+      "address": "0x00491C00",
+      "kind": "data"
+    },
+    {
+      "symbol": "_SoundStream_Worker_0043e3a0@4",
+      "address": "0x0043E3A0",
+      "kind": "data"
+    },
+    {
+      "symbol": "?FindBasenameSlot_0043d2a0@PathName_0043d2a0@@QAEHPAX@Z",
+      "address": "0x0043D2A0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_g_wave_notification_iid",
+      "address": "0x0046743C",
+      "kind": "data"
+    },
+    {
+      "symbol": "_SoundStream_Construct_0044d6a0@20",
+      "address": "0x0044D6A0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "??2@YAPAXI@Z",
+      "address": "0x00452493",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "??3@YAXPAX@Z",
+      "address": "0x004524A1",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "___security_cookie",
+      "address": "0x00473660",
+      "kind": "data"
+    },
+    {
+      "symbol": "@__security_check_cookie@4",
+      "address": "0x00458EA5",
+      "kind": "relative_code"
+    }
+  ],
+  "roots": [],
+  "additional_sources": [
+    "build_support/layout/ltcg/sound_music_play_cached_dependencies/select_entry.cpp",
+    "build_support/layout/ltcg/sound_music_play_cached_dependencies/select_record.cpp",
+    "build_support/layout/ltcg/sound_music_play_cached_dependencies/create_memory.cpp"
+  ],
+  "included_sources": [
+    "src/core/sound/recovery_select_archive_entry_0043d790.cpp",
+    "src/core/zwave/platform_select_stream_record_0044dca0.cpp"
+  ]
+}

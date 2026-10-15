@@ -19,7 +19,7 @@
 // manager from EDX, the entity from EBX and the handle record from EAX.  Only
 // a native /LTCG link that can see the callees' bodies assigns those
 // registers, so the region is compiled in the cluster
-// layout/ltcg/positioned_secondary_back_00448fb0.json, whose driver carries a
+// build_support/layout/ltcg/positioned_secondary_back_00448fb0.json, whose driver carries a
 // compiled ABI anchor for each of the three - placed at the retail address,
 // resolving the call displacements without a relocation, and never exported as
 // recovered code.

@@ -7,7 +7,7 @@
 //
 // The receiver arrives in EBX and the queue head goes to the drain in EAX;
 // both come from the whole-program pass, so this unit is compiled in the
-// cluster layout/ltcg/recovery_mark_text_and_dispatcher_004479d0.json.
+// cluster build_support/layout/ltcg/recovery_mark_text_and_dispatcher_004479d0.json.
 #include <math.h>
 
 #include "th10/game/indicator_animation_lookup_00419120.hpp"

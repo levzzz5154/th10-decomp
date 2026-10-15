@@ -22,7 +22,8 @@ import subprocess
 from matching2.tools.common.pe import PEImage
 from matching2.tools.waves.candidates import GAME_TEXT_END, classify, is_candidate
 
-CONFIG = json.loads((ROOT / "matching2/msvc/regions.json").read_text())
+from matching2.tools.common.project_paths import project_support
+CONFIG = json.loads((project_support((ROOT) / 'matching2/msvc', 'regions.json')).read_text())
 TEXT_START = int(CONFIG["text_start"], 0)
 ORACLE = PEImage((ROOT / "matching2/build/oracle/th10.exe").read_bytes()).read(
     TEXT_START, CONFIG["text_bytes"])

@@ -3,7 +3,7 @@
 // convention of its inlined uses - the entity arrives in EAX and passes
 // straight through to 0x004451C0, which takes (EAX entity, ECX manager), so
 // the body is one load of the manager and a tail jump. The layout
-// layout/ltcg/draw_global_animation_00449440.json reproduces that convention.
+// build_support/layout/ltcg/draw_global_animation_00449440.json reproduces that convention.
 struct AnimationManager_00449440;
 struct RenderEntity_00449440;
 

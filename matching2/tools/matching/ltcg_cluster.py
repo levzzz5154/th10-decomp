@@ -125,7 +125,7 @@ def load_cluster(project: Path, manifest_path: str, regions: Sequence[Mapping[st
     # constant_aliases rebind a compiler-generated float literal to the
     # retail address instead of placing its pooled copy; see the docstring.
     allowed = required | {'additional_sources', 'included_sources', 'roots', 'constant_aliases', 'data_aliases',
-                          'anchors', 'exceptions', 'native_data', 'ordinary_sources', 'anchor_roots'}
+                          'anchors', 'exceptions', 'native_data', 'ordinary_sources', 'anchor_roots', 'owned_includes', 'compilation_units'}
     spec = _fields(raw, allowed, required, 'cluster manifest')
     exceptions = spec.get('exceptions', False)
     if type(exceptions) is not bool:
@@ -153,6 +153,26 @@ def load_cluster(project: Path, manifest_path: str, regions: Sequence[Mapping[st
     included_paths = [_project_file(project, item, 'included source', '.cpp') for item in included_names]
     if len(included_paths) != len(set(included_paths)) or any(item in source_paths for item in included_paths):
         raise LTCGClusterError('included_sources must be distinct from maintained cluster sources and each other')
+    # Source ownership and compiler translation units are separate: selected
+    # bodies may live in included files while their established native unit
+    # stays intact. Every owned include must remain a declared dependency.
+    owned_includes = spec.get('owned_includes', {})
+    if (not isinstance(owned_includes, dict)
+            or any(not isinstance(k, str) or not isinstance(v, str)
+                   for k, v in owned_includes.items())):
+        raise LTCGClusterError('owned_includes must map included C++ sources to maintained source owners')
+    if any(k not in included_names or v not in source_names for k, v in owned_includes.items()):
+        raise LTCGClusterError('owned includes require a declared include and a compiled source owner')
+    ownership_names = [*source_names, *owned_includes]
+    compilation_units = spec.get('compilation_units', {})
+    if (not isinstance(compilation_units, dict)
+            or any(k not in source_names or not isinstance(v, str)
+                   for k, v in compilation_units.items())):
+        raise LTCGClusterError('compilation_units must map maintained sources to compiler C++ units')
+    compilation_paths = [_project_file(project, compilation_units.get(n, n),
+                                       'compiler translation unit', '.cpp') for n in source_names]
+    if len(set(compilation_paths)) != len(compilation_paths):
+        raise LTCGClusterError('compiler translation units must be distinct')
     raw_ordinary = spec.get('ordinary_sources', [])
     if not isinstance(raw_ordinary, list):
         raise LTCGClusterError('ordinary_sources must be an array')
@@ -209,7 +229,7 @@ def load_cluster(project: Path, manifest_path: str, regions: Sequence[Mapping[st
         function['address'] = _integer(function['address'], 'function address', minimum=image_base)
         function['size'] = _integer(function['size'], 'function size', minimum=1)
         function_source = _string(function.get('source', spec['source']), 'function source')
-        if function_source not in source_names:
+        if function_source not in ownership_names:
             raise LTCGClusterError('function source is not declared by the cluster: ' + function_source)
         function['_source'] = function_source
         generated = function.get('generated', False)
@@ -228,7 +248,7 @@ def load_cluster(project: Path, manifest_path: str, regions: Sequence[Mapping[st
         if len(members) > 1 and (not all(item.get('generated') for item in members)
                                 or len({item['_source'] for item in members}) != 1):
             raise LTCGClusterError('each function needs a distinct complete contribution')
-    owned = [region for region in regions if region['source'] in source_names]
+    owned = [region for region in regions if region['source'] in ownership_names]
     if (len(owned) != len(functions)
             or {region['symbol'] for region in owned} != {item['symbol'] for item in functions}):
         raise LTCGClusterError('cluster functions disagree with maintained source ownership')
@@ -271,7 +291,7 @@ def load_cluster(project: Path, manifest_path: str, regions: Sequence[Mapping[st
         if entry_symbol not in by_symbol:
             raise LTCGClusterError('whole-program entry must be a selected real function')
         entry = by_symbol[entry_symbol]
-        if set(source_names) != {item['_source'] for item in functions}:
+        if set(source_names) != {owned_includes.get(item['_source'], item['_source']) for item in functions}:
             raise LTCGClusterError('every whole-program source must own selected functions')
         if not isinstance(spec['calls'], list) or not spec['calls']:
             raise LTCGClusterError('whole-program calls must declare at least one real caller/callee edge')
@@ -520,6 +540,8 @@ def load_cluster(project: Path, manifest_path: str, regions: Sequence[Mapping[st
                 raise LTCGClusterError('overlapping data aliases must describe identical bytes at one address')
     return {**spec, 'path': path, 'project': project, 'source_path': source,
             'source_paths': source_paths, 'source_names': source_names,
+            'owned_includes': owned_includes, 'ownership_names': ownership_names,
+            'compilation_paths': compilation_paths,
             'additional_source_paths': additional_paths, 'driver_path': driver,
             'ordinary_sources': ordinary_sources, 'ordinary_source_paths': ordinary_paths,
             'anchor_roots': anchor_roots,
@@ -543,14 +565,14 @@ def load_clusters(project: Path, config: Mapping[str, Any], regions: Sequence[Ma
     clusters = [load_cluster(project, manifest, regions) for manifest in manifests]
     if len({item['name'] for item in clusters}) != len(clusters):
         raise LTCGClusterError('clusters must have distinct names')
-    source_names = [source for cluster in clusters for source in cluster['source_names']]
+    source_names = [source for cluster in clusters for source in cluster['ownership_names']]
     if len(set(source_names)) != len(source_names):
         raise LTCGClusterError('clusters must have distinct maintained sources')
     return clusters
 
 
 def _snapshot(spec: Mapping[str, Any]) -> dict[str, str]:
-    paths = [spec['path'], *spec['source_paths'], *spec['included_source_paths'], *spec['header_paths'],
+    paths = [spec['path'], *spec['source_paths'], *spec.get('compilation_paths', []), *spec['included_source_paths'], *spec['header_paths'],
              *spec.get('ordinary_source_paths', [])]
     if spec['driver_path']:
         paths.append(spec['driver_path'])
@@ -1043,7 +1065,7 @@ def export_bodies(path: Path, functions: Sequence[Mapping[str, Any]]) -> dict[st
 
 def _verify_includes(log: str, spec: Mapping[str, Any], toolkit: Path,
                      direct_sources: Sequence[Path] = ()) -> list[dict[str, str]]:
-    permitted = {path.resolve() for path in [*spec['source_paths'], *spec['included_source_paths'], *spec['header_paths'],
+    permitted = {path.resolve() for path in [*spec['source_paths'], *spec.get('compilation_paths', []), *spec['included_source_paths'], *spec['header_paths'],
                                            *spec.get('ordinary_source_paths', [])]}
     roots = [(winpath(spec['project']).rstrip('\\'), spec['project']),
              (winpath(toolkit).rstrip('\\'), toolkit)]
@@ -1129,12 +1151,12 @@ def build_cluster(spec: Mapping[str, Any], toolkit: Path, output: Path, flags: S
     if spec['context']:
         gl_inputs = [(spec['driver_path'], 'cluster.obj'),
                      *[(path, f'source_{index:03d}.obj')
-                       for index, path in enumerate(spec['additional_source_paths'])]]
-        direct_sources = spec['additional_source_paths']
+                       for index, path in enumerate(spec.get('compilation_paths', spec['source_paths'])[1:])]]
+        direct_sources = [spec['driver_path'], *spec.get('compilation_paths', spec['source_paths'])[1:]]
     else:
         gl_inputs = [(path, f'source_{index:03d}.obj')
-                     for index, path in enumerate(spec['source_paths'])]
-        direct_sources = spec['source_paths']
+                     for index, path in enumerate(spec.get('compilation_paths', spec['source_paths']))]
+        direct_sources = spec.get('compilation_paths', spec['source_paths'])
     ordinary_inputs = [(path, f'ordinary_{index:03d}-original.obj')
                        for index, path in enumerate(spec.get('ordinary_source_paths', []))]
     direct_sources = [*direct_sources, *spec.get('ordinary_source_paths', [])]
@@ -1195,9 +1217,12 @@ def build_cluster(spec: Mapping[str, Any], toolkit: Path, output: Path, flags: S
     current_tools = toolchain_hashes(toolkit, TOOL_FILES)
     if any(tool_hashes['bin/' + name] != digest for name, digest in current_tools.items()):
         raise LTCGClusterError('compiler/linker changed during the native build')
+    source_origins = dict(zip(spec['source_names'], [name for _, name in gl_inputs]))
+    source_origins.update({name: source_origins[owner]
+                           for name, owner in spec.get('owned_includes', {}).items()})
     functions, native = validate_native_output(
         spec, executable, map_path, [name for _, name in gl_inputs],
-        None if spec['context'] else dict(zip(spec['source_names'], [name for _, name in gl_inputs])),
+        None if spec['context'] else source_origins,
         ordinary_objects)
     normalization = export_bodies(destination, functions)
     report = {'schema_version': spec['schema_version'], 'name': spec['name'], 'compiler_kind': 'native-ltcg',

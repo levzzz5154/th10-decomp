@@ -23,6 +23,7 @@ import matching2.tools.waves.plan as plan
 CARVE = ROOT / "matching2/tools/waves/carve_region.py"
 
 
+from matching2.tools.common.project_paths import project_support
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--max-size", type=int, default=1024)
@@ -32,7 +33,7 @@ def main():
     items = plan.candidates(1, args.max_size, 0x452000, signatures)
     targets = [item for item in items if item["cluster_needed"]]
     project = ROOT / "matching2/msvc"
-    manifest = json.loads((project / "regions.json").read_text())
+    manifest = json.loads((project_support(project, 'regions.json')).read_text())
     owned = {}
     for region in manifest["regions"]:
         owned.setdefault(region["source"], []).append(region)
@@ -50,7 +51,7 @@ def main():
             done += 1
             tail = (result.stdout.strip().splitlines() or [""])[-1]
             print(f"carved {item['address']} {source}: {tail}", flush=True)
-            manifest = json.loads((project / "regions.json").read_text())
+            manifest = json.loads((project_support(project, 'regions.json')).read_text())
             owned = {}
             for region in manifest["regions"]:
                 owned.setdefault(region["source"], []).append(region)

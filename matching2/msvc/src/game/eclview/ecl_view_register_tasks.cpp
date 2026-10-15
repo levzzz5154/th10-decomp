@@ -6,7 +6,7 @@
 // from the state being live across both registration calls while the freshly
 // created task occupies ESI and the priority occupies EDI: this source is
 // therefore compiled in the same native-LTCG link as the registration pair it
-// calls (see layout/ltcg/bullet_manager_load_scripts_0040ae70.json).
+// calls (see build_support/layout/ltcg/bullet_manager_load_scripts_0040ae70.json).
 #include "th10/core/func_ctrl.hpp"
 
 struct RawState_0040a130 {

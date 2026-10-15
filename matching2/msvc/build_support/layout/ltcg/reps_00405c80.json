@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "name": "reps_00405c80",
+  "source": "src/unreferenced/unassigned_00405c80.cpp",
+  "driver": "build_support/layout/ltcg/reps_00405c80_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "reps_00405c80 compiled with native LTCG so the argument arrives in EAX.",
+  "functions": [
+    {
+      "name": "reps_00405c80",
+      "symbol": "@Init_00405c80@4",
+      "section": ".text$01accessor",
+      "address": "0x00405C80",
+      "size": 28,
+      "actual_abi": "argument in EAX"
+    }
+  ],
+  "context": {
+    "symbol": "?RepsContext_00405c80@@YGHPAPAURec_00405c80@@H@Z",
+    "section": ".text$03context",
+    "address": "0x00405CB0",
+    "size": 36,
+    "description": "Synthetic array-walking caller that establishes the observed register convention; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 19584
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x00405C9C",
+      "size": 20
+    }
+  ],
+  "constants": [],
+  "roots": [],
+  "absolute_symbols": [],
+  "additional_sources": [],
+  "included_sources": []
+}

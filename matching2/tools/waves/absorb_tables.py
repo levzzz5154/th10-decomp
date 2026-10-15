@@ -271,6 +271,7 @@ def unit_status(report, sources):
     return status
 
 
+from matching2.tools.common.project_paths import project_support
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--project", type=Path, default=ROOT / "matching2/msvc")
@@ -283,7 +284,7 @@ def main():
     args = parser.parse_args()
     results = args.results or [ROOT / "matching2/build/waves/results5"]
     project = args.project.resolve()
-    manifest_path = project / "regions.json"
+    manifest_path = project_support(project, 'regions.json')
     manifest = json.loads(manifest_path.read_text())
     text_start = int(manifest["text_start"], 0)
     raw = PEImage(ORACLE.read_bytes()).read(text_start, manifest["text_bytes"])

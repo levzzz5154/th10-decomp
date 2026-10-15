@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "name": "bullet_entity_find_by_id_0040cf90",
+  "source": "src/game/enemy/bullet_entity_find_by_id_0040cf90.cpp",
+  "driver": "build_support/layout/ltcg/bullet_entity_find_by_id_0040cf90_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "Bullet linked-list lookup compiled with native LTCG so the manager arrives in EAX and the runtime ID arrives in ECX, matching retail.",
+  "functions": [
+    {
+      "name": "BulletEntityFindById",
+      "symbol": "?FindById@BulletEntityFindByIdManager_0040cf90@@QAEPAUBulletEntityFindByIdNode_0040cf90@@H@Z",
+      "section": ".text$01findbyid",
+      "address": "0x0040CF90",
+      "size": 22,
+      "actual_abi": "manager in EAX; ID in ECX; result in EAX; plain RET"
+    }
+  ],
+  "context": {
+    "symbol": "?BulletEntityFindByIdCompilerContext@@YGHPAPAUBulletEntityFindByIdManager_0040cf90@@HH@Z",
+    "section": ".text$03context",
+    "address": "0x0040CFB0",
+    "size": 47,
+    "description": "Synthetic array-processing caller that establishes the retail register convention; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 49040
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x0040CFA6",
+      "size": 10
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [],
+  "included_sources": []
+}

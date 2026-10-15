@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "name": "ecl_tick_children",
+  "source": "src/script/sptcmd/ecl_vm_children.cpp",
+  "driver": "build_support/layout/ltcg/ecl_tick_children_context.cpp",
+  "headers": [
+    "include/th10/script/ecl_children.hpp"
+  ],
+  "image_base": "0x00400000",
+  "functions": [
+    {
+      "name": "EclVm_TickChildren",
+      "symbol": "_EclVm_TickChildren@8",
+      "section": ".text$03tick",
+      "address": "0x0044FD10",
+      "size": 146,
+      "actual_abi": "owner EDI, delta stack; EAX status; RET4"
+    }
+  ],
+  "anchors": [
+    {
+      "name": "EclVm_RunInterpreter_abi_anchor",
+      "symbol": "_EclVm_RunInterpreter@8",
+      "section": ".text$01execution",
+      "address": "0x0044E1A0",
+      "size": 14
+    }
+  ],
+  "context": {
+    "symbol": "_EclChildrenContext@12",
+    "section": ".text$05context",
+    "address": "0x0044FE10",
+    "size": 47,
+    "description": "Synthetic context, never selected as recovered code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 315808
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x0044E1AE",
+      "size": 7010
+    },
+    {
+      "section": ".text$04layout",
+      "address": "0x0044FDA2",
+      "size": 110
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_free",
+      "address": "0x004524A1",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__fltused",
+      "address": "0x00000000",
+      "kind": "metadata"
+    }
+  ],
+  "description": "Complete ECL root/child traversal compiled with native LTCG; unselected dispatcher stand-in establishes its EAX input and stack delta.",
+  "included_sources": []
+}

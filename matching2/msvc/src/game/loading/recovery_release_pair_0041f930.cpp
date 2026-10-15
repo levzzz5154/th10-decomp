@@ -5,7 +5,7 @@
 // native /LTCG register choice, not a declared convention - and frees through
 // the CRT entry at 0x004524A1.  The region therefore joins the whole-program
 // link that already carries the recovered release body,
-// layout/ltcg/animation_manager_mark_resource_for_removal_004493e0.json.
+// build_support/layout/ltcg/animation_manager_mark_resource_for_removal_004493e0.json.
 //
 // The two slots are indices 6 and 7 of the 0x21-entry resource-slot array at
 // +0x3AD06C that AnimationManager_ClearResourceSlot indexes.  Retail holds the

@@ -12,7 +12,7 @@
 //
 // The room is a stack argument; the handler is linked with the title
 // dispatcher and the real bodies of its leaves
-// (layout/ltcg/difficulty_select_update_00430320.json).
+// (build_support/layout/ltcg/difficulty_select_update_00430320.json).
 #include "th10/game/options_update_0042d920.hpp"
 
 // Select an item, clamped to the last one when the menu has items.

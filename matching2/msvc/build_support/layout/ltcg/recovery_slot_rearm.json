@@ -1,0 +1,109 @@
+{
+  "schema_version": 1,
+  "name": "recovery_slot_rearm",
+  "source": "src/game/bullet/bullet_manager_on_update.cpp",
+  "additional_sources": [
+    "src/game/bullet/fun_004065c0_004065c0.cpp"
+  ],
+  "driver": "build_support/layout/ltcg/recovery_slot_rearm_context.cpp",
+  "headers": [
+    "build_support/include/asm_encoding.hpp",
+    "build_support/include/asm_symbols.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Effect-slot gate and re-arm compiled together with native LTCG so the gate tail passes this in ESI.",
+  "functions": [
+    {
+      "name": "RecoverySlotTable_Rearm",
+      "symbol": "?Rearm@RecoverySlotTable_004065c0@@QAEHXZ",
+      "section": ".text$01rearm",
+      "address": "0x004065C0",
+      "size": 249,
+      "actual_abi": "slot table in ESI; result in EAX; plain RET",
+      "source": "src/game/bullet/fun_004065c0_004065c0.cpp"
+    },
+    {
+      "name": "RecoverySlotTable_CanRearm",
+      "symbol": "?OnUpdate@RecoverySlotTable_004065c0@@QAEHXZ",
+      "section": ".text$05canrearm",
+      "address": "0x00406770",
+      "size": 40,
+      "actual_abi": "object in ECX at entry; calls Rearm with object in ESI; result in EAX; plain RET",
+      "source": "src/game/bullet/bullet_manager_on_update.cpp"
+    }
+  ],
+  "context": {
+    "symbol": "?RecoverySlotRearmCompilerContext@@YGHPAURecoverySlotTable_004065c0@@H@Z",
+    "section": ".text$03context",
+    "address": "0x004066C0",
+    "size": 47,
+    "description": "Synthetic member-pointer caller that keeps the external gate thiscall ABI live; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 21952
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x004066B9",
+      "size": 7
+    },
+    {
+      "section": ".text$04layout",
+      "address": "0x004066EF",
+      "size": 129
+    },
+    {
+      "section": ".text$06layout",
+      "address": "0x00406798",
+      "size": 432232
+    },
+    {
+      "section": ".rdata",
+      "address": "0x00470000",
+      "size": 2812
+    }
+  ],
+  "constants": [
+    {
+      "symbol": "__real@3f800000",
+      "address": "0x00470AFC",
+      "value": 1.0
+    }
+  ],
+  "absolute_symbols": [
+    {
+      "symbol": "_asm_FUN_00406240_00406240@4",
+      "address": "0x00406240",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__ftol2",
+      "address": "0x00463B2C",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_00470b64",
+      "address": "0x00470B64",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00470b68",
+      "address": "0x00470B68",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_game",
+      "address": "0x00477810",
+      "kind": "data"
+    },
+    {
+      "symbol": "__fltused",
+      "address": "0x00000000",
+      "kind": "metadata"
+    }
+  ],
+  "included_sources": []
+}

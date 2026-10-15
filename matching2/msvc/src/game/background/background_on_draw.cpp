@@ -6,7 +6,7 @@
 //         C3              ret
 // The pushed register is ECX by the declared fastcall convention, so
 // the forwarder is compiled as a native LTCG cluster
-// (see layout/ltcg/fun_00403070.json).
+// (see build_support/layout/ltcg/fun_00403070.json).
 
 extern "C" void __stdcall asm_FUN_00402ca0_00402ca0(int value);
 

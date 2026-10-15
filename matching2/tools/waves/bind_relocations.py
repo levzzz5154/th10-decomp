@@ -17,7 +17,8 @@ import json
 import re
 import subprocess
 
-MANIFEST = ROOT / "matching2/msvc/regions.json"
+from matching2.tools.common.project_paths import project_support
+MANIFEST = project_support((ROOT) / 'matching2/msvc', 'regions.json')
 PROBE = ROOT / "matching2/tools/matching/probe.py"
 BINDABLE = re.compile(r"^(__real@[0-9a-f]{8}(?:[0-9a-f]{8})?|__imp__.*|_data_[0-9a-f]{8})$")
 
@@ -30,7 +31,7 @@ def main():
                         help="proposal JSON to probe with, as the agent would")
     parser.add_argument("--apply", action="store_true")
     args = parser.parse_args()
-    manifest_path = args.project.resolve() / "regions.json"
+    manifest_path = project_support(args.project.resolve(), 'regions.json')
     manifest = json.loads(manifest_path.read_text())
     command = [sys.executable, str(PROBE), *sum((["--source", item] for item in args.source), []),
                *sum((["--proposal", item] for item in args.proposal), []),

@@ -1,4 +1,4 @@
-#include "asm_symbols.hpp"
+#include "../../../build_support/include/asm_symbols.hpp"
 
 // 0x0043CD30 is the sound-device/window initialisation routine that follows
 // this entry point. It takes its target object in ECX and the window handle on

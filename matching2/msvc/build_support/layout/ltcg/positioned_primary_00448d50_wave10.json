@@ -1,0 +1,165 @@
+{
+  "schema_version": 1,
+  "name": "positioned_primary_00448d50_wave10",
+  "source": "src/core/sprtlib/animation_manager_create_positioned_primary_00448d50.cpp",
+  "driver": "build_support/layout/ltcg/positioned_primary_00448d50_wave10_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "0x00448D50 compiled with native LTCG so the position stays in EDI, the other three arguments stay on the stack and the three callees keep their retail entry registers (0x00449950 manager in ESI, 0x0043E710 resource in ECX / object in EAX / index in EBX, 0x004489D0 manager in EDX / entity in EBX / handle record in EAX). The .text$01loadscript, .text$03regprimary and .text$07alloc sections are compiled ABI anchors for the assembly regions at 0x0043E710, 0x004489D0 and 0x00449950: placed at the retail addresses so the calls carry retail's displacements, and never exported as recovered code.",
+  "functions": [
+    {
+      "name": "AnimationManager_CreatePrimaryBack_00448d00",
+      "symbol": "?AnimationManager_CreatePrimaryBack_00448d00@@YGPAPAXPAXPAPAXHH@Z",
+      "section": ".text$05aa_back",
+      "address": "0x00448D00",
+      "size": 73,
+      "actual_abi": "out in EDI; resource, index and render bucket on stack; out returned in EAX; ret 0xC",
+      "source": "src/core/sprtlib/animation_manager_create_primary_back_00448d00.cpp"
+    },
+    {
+      "name": "AnimationManager_CreatePositionedPrimary_00448d50",
+      "symbol": "?AnimationManager_CreatePositionedPrimary_00448d50@@YGPAPAXPAXPAPAXHPBUAnimationPosition_00448d50@@@Z",
+      "section": ".text$05accessor",
+      "address": "0x00448D50",
+      "size": 95,
+      "actual_abi": "position in EDI; resource, out and index on the stack; out returned in EAX; ret 0xC"
+    },
+    {
+      "name": "AnimationManager_CreateScreenPositionedPrimary_00448db0",
+      "symbol": "?AnimationManager_CreateScreenPositionedPrimary_00448db0@@YGPAPAXPAXPAPAXHPBUAnimationPosition_00448db0@@@Z",
+      "section": ".text$05ad_screen",
+      "address": "0x00448DB0",
+      "size": 118,
+      "source": "src/core/sprtlib/player_animation_create_00448db0.cpp",
+      "actual_abi": "position in EDI, three stack args; RET 12"
+    }
+  ],
+  "anchors": [
+    {
+      "name": "AnimationObject_LoadScript_0043e710_abi_anchor",
+      "symbol": "_asm_AnimationObject_LoadScript_0043e710",
+      "section": ".text$01loadscript",
+      "address": "0x0043E710",
+      "size": 207
+    },
+    {
+      "name": "AnimationManager_RegisterPrimaryBack_004489d0_abi_anchor",
+      "symbol": "_asm_AnimationManager_RegisterPrimaryBack_004489d0",
+      "section": ".text$03regprimary",
+      "address": "0x004489D0",
+      "size": 103
+    },
+    {
+      "name": "FUN_00449950_00449950_abi_anchor",
+      "symbol": "_asm_FUN_00449950_00449950",
+      "section": ".text$07alloc",
+      "address": "0x00449950",
+      "size": 171
+    }
+  ],
+  "context": {
+    "symbol": "?PositionedPrimaryContext@@YGHPAPAXPAPAPAXPAHPAPBUAnimationPosition_00448d50@@H@Z",
+    "section": ".text$09context",
+    "address": "0x00449A00",
+    "size": 136,
+    "description": "Synthetic array-walking caller that establishes the region's register convention; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00alayout",
+      "address": "0x00401000",
+      "size": 126976
+    },
+    {
+      "section": ".text$00blayout",
+      "address": "0x00420000",
+      "size": 124688
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x0043E7DF",
+      "size": 41457
+    },
+    {
+      "section": ".text$04layout",
+      "address": "0x00448A37",
+      "size": 713
+    },
+    {
+      "section": ".text$05ab_gap",
+      "address": "0x00448D49",
+      "size": 7
+    },
+    {
+      "section": ".text$06layout",
+      "address": "0x00448E26",
+      "size": 2858
+    },
+    {
+      "section": ".text$08layout",
+      "address": "0x004499FB",
+      "size": 5
+    },
+    {
+      "section": ".text$05acz_gap",
+      "address": "0x00448DAF",
+      "size": 1
+    }
+  ],
+  "constants": [],
+  "roots": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_g_sprt_ctrl",
+      "address": "0x00491C10",
+      "kind": "data"
+    },
+    {
+      "symbol": "_operator_new_00452493",
+      "address": "0x00452493",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_Entity_Constructor_00402050",
+      "address": "0x00402050",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_Entity_Init_00401de0",
+      "address": "0x00401DE0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_asm_AnimationObject_LoadScriptTail_0043ee30",
+      "address": "0x0043EE30",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__fltused",
+      "address": "0x00000000",
+      "kind": "metadata"
+    },
+    {
+      "symbol": "?InitializeObject@AnimationResource_00449870@@QAEPAXPAXH@Z",
+      "address": "0x00449870",
+      "kind": "relative_code"
+    }
+  ],
+  "additional_sources": [
+    "src/core/sprtlib/animation_manager_create_primary_back_00448d00.cpp",
+    "src/core/sprtlib/player_animation_create_00448db0.cpp"
+  ],
+  "constant_aliases": [
+    {
+      "symbol": "__real@43600000",
+      "address": "0x00470B4C",
+      "value": 224.0
+    },
+    {
+      "symbol": "__real@41800000",
+      "address": "0x00470B48",
+      "value": 16.0
+    }
+  ],
+  "included_sources": []
+}

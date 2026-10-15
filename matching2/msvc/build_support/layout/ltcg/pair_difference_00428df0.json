@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "name": "pair_difference_00428df0",
+  "source": "src/unreferenced/unassigned_00428df0.cpp",
+  "driver": "build_support/layout/ltcg/pair_difference_00428df0_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "Pair inequality compiled with native LTCG to preserve the retail EAX input allocation.",
+  "functions": [
+    {
+      "name": "PairDifference_00428df0_IsDifferent",
+      "symbol": "?PairDifference_00428df0_IsDifferent@@YGHPAUPairDifference_00428df0@@@Z",
+      "section": ".text$01different",
+      "address": "0x00428DF0",
+      "size": 17,
+      "actual_abi": "pair in EAX, result in EAX"
+    }
+  ],
+  "context": {
+    "symbol": "PairDifferenceCompilerContext_00428df0@8",
+    "section": ".text$03context",
+    "address": "0x00428E10",
+    "size": 40,
+    "description": "Synthetic caller only."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 163312
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x00428E01",
+      "size": 15
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [],
+  "included_sources": []
+}

@@ -1,0 +1,196 @@
+{
+  "schema_version": 1,
+  "name": "archive_read_00434dd0",
+  "source": "src/pack/arcmngr/dat_archive_read_00434dd0.cpp",
+  "driver": "build_support/layout/ltcg/archive_read_00434dd0_context.cpp",
+  "headers": [
+    "build_support/layout/ltcg/archive_read_00434dd0/archive.hpp",
+    "include/th10/archive/dat_archive_types.hpp",
+    "include/th10/platform/file.hpp",
+    "include/th10/platform/windows_types.hpp",
+    "include/th10/platform/archive_file.hpp"
+  ],
+  "included_sources": [
+    "build_support/layout/ltcg/archive_read_00434dd0/find.cpp",
+    "build_support/layout/ltcg/archive_read_00434dd0/decrypt.cpp",
+    "build_support/layout/ltcg/archive_read_00434dd0/load.cpp",
+    "build_support/layout/ltcg/archive_read_00434dd0/checksum.cpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Complete genuine executable-checksum207 -> file-loader360 -> archive-reader281 graph, with complete Find53 and cipher323 dependencies. Only Read281 selected; all caller/dependency bodies unselected with zero recovery credit. Native LTCG selects requested name ECX, archive/output stack and RET8.",
+  "functions": [
+    {
+      "name": "DatArchiveRead",
+      "symbol": "_DatArchiveRead@12",
+      "address": "0x00434DD0",
+      "size": 281,
+      "section": ".text$a00read",
+      "actual_abi": "name ECX; archive and original output as two stack arguments; pointer result EAX; RET8; complete buffer-reference allocation/I/O helper inlined."
+    }
+  ],
+  "anchors": [
+    {
+      "name": "ArchiveFind",
+      "symbol": "_ArchiveFind@8",
+      "address": "0x00434F30",
+      "size": 53,
+      "section": ".text$a02find"
+    },
+    {
+      "name": "DatDecrypt",
+      "symbol": "_DatDecrypt@24",
+      "address": "0x0044B0D0",
+      "size": 323,
+      "section": ".text$a04decrypt"
+    },
+    {
+      "name": "ArchiveLoadFile",
+      "symbol": "_Archive_LoadFile@12",
+      "address": "0x0044B360",
+      "size": 360,
+      "section": ".text$a06load"
+    }
+  ],
+  "context": {
+    "symbol": "?ComputeExecutableChecksum@@YGHXZ",
+    "section": ".text$a03checksum",
+    "address": "0x0043A1C0",
+    "size": 207,
+    "description": "Complete genuine no-argument executable checksum function; calls the full actual loader at0x0043A1FD. Both context and loader are unselected, with zero recovery credit."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x401000",
+      "size": 212432
+    },
+    {
+      "section": ".text$a00readz",
+      "address": "0x00434EE9",
+      "size": 71
+    },
+    {
+      "section": ".text$a02findz",
+      "address": "0x434f65",
+      "size": 21083
+    },
+    {
+      "section": ".text$a04decryptz",
+      "address": "0x44b213",
+      "size": 333
+    },
+    {
+      "section": ".text$a03checksumz",
+      "address": "0x43a28f",
+      "size": 69185
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_asm_malloc_00452706",
+      "address": "0x452706",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_asm_free_00452422",
+      "address": "0x452422",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_asm_stricmp_0046054e",
+      "address": "0x46054e",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_asm_strrchr_00452930",
+      "address": "0x452930",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_DecompressDatLzss_00435dc0@16",
+      "address": "0x435dc0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_g_dat_read_crypt_parameters",
+      "address": "0x474bd8",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00497990",
+      "address": "0x497990",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0049231e",
+      "address": "0x49231e",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004922a4",
+      "address": "0x4922a4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004660b0",
+      "address": "0x4660b0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004660b4",
+      "address": "0x4660b4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004660c4",
+      "address": "0x4660c4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004660cc",
+      "address": "0x4660cc",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004660d0",
+      "address": "0x4660d0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004660d8",
+      "address": "0x4660d8",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004660dc",
+      "address": "0x4660dc",
+      "kind": "data"
+    },
+    {
+      "symbol": "_entry_free_00452422",
+      "address": "0x452422",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_00492380",
+      "address": "0x492380",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00492384",
+      "address": "0x492384",
+      "kind": "data"
+    },
+    {
+      "symbol": "___security_cookie",
+      "address": "0x473660",
+      "kind": "data"
+    },
+    {
+      "symbol": "@__security_check_cookie@4",
+      "address": "0x458ea5",
+      "kind": "relative_code"
+    }
+  ]
+}

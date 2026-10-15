@@ -4,7 +4,7 @@
 // incoming flags is set, hands the object to the CRT free entry at 0x004524A1,
 // returning the object in EAX. The object arrives in ESI, a receiver no C++
 // declaration names, so the body is compiled in the native-LTCG cluster
-// layout/ltcg/dtor_delete_00449fe0.json whose array-walking synthetic caller
+// build_support/layout/ltcg/dtor_delete_00449fe0.json whose array-walking synthetic caller
 // establishes that convention.
 
 extern "C" void __cdecl entry_free_004524a1(void* block);

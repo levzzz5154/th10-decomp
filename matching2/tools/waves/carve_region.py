@@ -64,6 +64,7 @@ def probe(project, sources, output):
         return None
 
 
+from matching2.tools.common.project_paths import project_support
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--project", type=Path, default=ROOT / "matching2/msvc")
@@ -73,7 +74,7 @@ def main():
     parser.add_argument("--apply", action="store_true")
     args = parser.parse_args()
     project = args.project.resolve()
-    manifest_path = project / "regions.json"
+    manifest_path = project_support(project, 'regions.json')
     manifest = json.loads(manifest_path.read_text())
     region = next((item for item in manifest["regions"]
                    if int(item["address"], 0) == args.address), None)

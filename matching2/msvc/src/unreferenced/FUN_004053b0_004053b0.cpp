@@ -11,7 +11,7 @@
 // The interleaved dword-pair copy and the 12 bytes of callee-popped stack show
 // a by-value three-dword record argument, while the destination arrives in EAX,
 // so the store is compiled as a native LTCG cluster
-// (see layout/ltcg/fun_004053b0.json).
+// (see build_support/layout/ltcg/fun_004053b0.json).
 
 struct FUN_004053b0_Triple {
     int values[3];

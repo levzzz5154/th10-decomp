@@ -5,7 +5,7 @@
 //
 // Same indirectly-called accessor table as 0x00405360/0x00405390; +0x3C is
 // beyond the two pointers those two read. The body is compiled in the native
-// LTCG cluster of layout/ltcg/object_field3c_getter.json so MSVC keeps the
+// LTCG cluster of build_support/layout/ltcg/object_field3c_getter.json so MSVC keeps the
 // argument and the result in EAX.
 
 struct ManagedObject {

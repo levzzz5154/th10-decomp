@@ -20,7 +20,11 @@ for line in lines:
         entries.append((int(m.group(3), 16), m.group(2)))
 entries.sort()
 
-mpath = ROOT / 'matching2/msvc/layout/ltcg/familiar_refresh_00426f70.json'
+import sys as _project_sys
+from pathlib import Path as _ProjectPath
+_project_sys.path.insert(0, str(_ProjectPath(__file__).resolve().parents[3]))
+from matching2.tools.common.project_paths import project_support
+mpath = project_support((ROOT) / 'matching2/msvc', 'layout/ltcg/familiar_refresh_00426f70.json')
 man = json.loads(mpath.read_text())
 
 # declared target for every function and anchor
@@ -72,6 +76,6 @@ if covered_to < TEXT_END:
                  'address': f'{covered_to:#08x}', 'size': TEXT_END - covered_to})
 man['gaps'] = gaps
 
-for p in [mpath, ROOT / 'scratch/gfr/msvc/layout/ltcg/familiar_refresh_00426f70.json']:
+for p in [mpath, project_support((ROOT) / 'scratch/gfr/msvc', 'layout/ltcg/familiar_refresh_00426f70.json')]:
     Path(p).write_text(json.dumps(man, indent=1) + '\n')
 print('gaps:', [(g['address'], g['size']) for g in gaps])

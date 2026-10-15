@@ -1,7 +1,7 @@
 // Full 0041F400..0041F66E (623 bytes) C++ recovery model.
 // This routine is distinct from 0041E260: it conditionally creates an
 // animation after an outer rectangle check and calls the outlined registrar.
-#include "../../../layout/ltcg/item_line_runtime_0041e260/types/line_sweeps.hpp"
+#include "../../../build_support/layout/ltcg/item_line_runtime_0041e260/types/line_sweeps.hpp"
 extern "C" void _ReadWriteBarrier();
 #pragma intrinsic(_ReadWriteBarrier)
 

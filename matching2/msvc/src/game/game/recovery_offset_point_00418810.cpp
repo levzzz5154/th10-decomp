@@ -13,7 +13,7 @@
 // receiver is EAX.  No C++ declaration names that register (a member receives
 // `this` in ECX, a parameter travels on the stack), so the body is compiled as a
 // member of the point type through the native-LTCG cluster path
-// (layout/ltcg/recovery_offset_point_00418810.json): the array-walking context
+// (build_support/layout/ltcg/recovery_offset_point_00418810.json): the array-walking context
 // in the layout's driver keeps ECX and EDX live at the call, and the
 // whole-program pass then hands the receiver EAX on its own.
 //

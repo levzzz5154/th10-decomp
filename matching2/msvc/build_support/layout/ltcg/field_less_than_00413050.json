@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "name": "field_less_than_00413050",
+  "source": "src/unreferenced/unassigned_00413050.cpp",
+  "driver": "build_support/layout/ltcg/field_less_than_00413050_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "Signed field comparison (<) compiled under native LTCG, which loads the field into EDX and the argument into ECX.",
+  "functions": [
+    {
+      "name": "FieldComparison_00413050",
+      "symbol": "?IsValueAt0004LessThan@FieldComparison_00413050@@QBEHH@Z",
+      "section": ".text$01accessor",
+      "address": "0x00413050",
+      "size": 17,
+      "actual_abi": "this in ECX; value at stack +4; RET 4"
+    }
+  ],
+  "context": {
+    "symbol": "?IsValueAt0004LessThanContext_00413050@@YGHPAPAUFieldComparison_00413050@@PAHH@Z",
+    "section": ".text$03context",
+    "address": "0x00413080",
+    "size": 52,
+    "description": "Synthetic caller that keeps the observed entry convention; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 73808
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x00413061",
+      "size": 31
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [],
+  "roots": [],
+  "included_sources": []
+}

@@ -1,0 +1,386 @@
+{
+  "schema_version": 1,
+  "name": "config_load_00420870",
+  "source": "src/game/mother/config_load_00420870.cpp",
+  "driver": "build_support/layout/ltcg/config_load_00420870_context.cpp",
+  "headers": [
+    "include/th10/app/config_load_00420870.hpp",
+    "include/th10/game/large_initialization_state_00421f00.hpp",
+    "build_support/layout/ltcg/native_archive_read/archive.hpp",
+    "include/th10/archive/dat_archive_types.hpp",
+    "include/th10/platform/file.hpp",
+    "include/th10/platform/windows_types.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "The configuration load compiled with native LTCG beside the bodies of the defaults routine, the archive loader, the file writer and the log appenders, and a synthetic caller.",
+  "functions": [
+    {
+      "name": "GameApp_LoadConfig",
+      "symbol": "?LoadConfig@GameApp_00420870@@QAEHPBD@Z",
+      "section": ".text$00cload",
+      "address": "0x00420870",
+      "size": 534,
+      "actual_abi": "application object at [ESP+4]; path in EBX; result in EAX; RET 4"
+    }
+  ],
+  "context": {
+    "symbol": "_ConfigLoadContext@12",
+    "section": ".text$0040a000_context",
+    "address": "0x0040A000",
+    "size": 96,
+    "description": "Synthetic caller compiled with inlining off; not recovered game code."
+  },
+  "anchors": [
+    {
+      "name": "GameConfig_InitializeDefaults",
+      "symbol": "?GameConfig_InitializeDefaults@@YIDHPAUGameConfig@@@Z",
+      "section": ".text$00bconfig",
+      "address": "0x00418C40",
+      "size": 125
+    },
+    {
+      "name": "DatArchiveRead",
+      "symbol": "_DatArchiveRead@12",
+      "section": ".text$00d_read",
+      "address": "0x00434DD0",
+      "size": 279
+    },
+    {
+      "name": "ArchiveFind",
+      "symbol": "_ArchiveFind@8",
+      "section": ".text$00e_find",
+      "address": "0x00434F30",
+      "size": 53
+    },
+    {
+      "name": "DatDecrypt",
+      "symbol": "_DatDecrypt@24",
+      "section": ".text$00f_decrypt",
+      "address": "0x0044B0D0",
+      "size": 323
+    },
+    {
+      "name": "Archive_LoadFile",
+      "symbol": "_Archive_LoadFile@12",
+      "section": ".text$00g_load",
+      "address": "0x0044B360",
+      "size": 360
+    },
+    {
+      "name": "File_WriteWholeFile",
+      "symbol": "?File_WriteWholeFile@@YGHPBDPBXK@Z",
+      "section": ".text$00h_write",
+      "address": "0x0044B540",
+      "size": 218
+    },
+    {
+      "name": "TextLog_Append",
+      "symbol": "?Append@TextLog_00420870@@QAAPADPADZZ",
+      "section": ".text$00i_append",
+      "address": "0x0044B810",
+      "size": 201
+    },
+    {
+      "name": "TextLog_AppendLine",
+      "symbol": "?AppendLine@TextLog_00420870@@QAAPADPADZZ",
+      "section": ".text$00j_line",
+      "address": "0x0044B8E0",
+      "size": 201
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "__fltused",
+      "address": "0x00000000",
+      "kind": "metadata"
+    },
+    {
+      "symbol": "___security_cookie",
+      "address": "0x00473660",
+      "kind": "data"
+    },
+    {
+      "symbol": "@__security_check_cookie@4",
+      "address": "0x00458EA5",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_00497990",
+      "address": "0x00497990",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0049231e",
+      "address": "0x0049231e",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004922a4",
+      "address": "0x004922a4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004660b0",
+      "address": "0x004660b0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004660b4",
+      "address": "0x004660b4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004660c4",
+      "address": "0x004660c4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004660cc",
+      "address": "0x004660cc",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004660d0",
+      "address": "0x004660d0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004660d8",
+      "address": "0x004660d8",
+      "kind": "data"
+    },
+    {
+      "symbol": "_asm_strrchr_00452930",
+      "address": "0x00452930",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_asm_stricmp_0046054e",
+      "address": "0x0046054e",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_asm_malloc_00452706",
+      "address": "0x00452706",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_asm_vsprintf_004524a6",
+      "address": "0x004524A6",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__chkstk",
+      "address": "0x00458EC0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_004922bc",
+      "address": "0x004922BC",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0049231f",
+      "address": "0x0049231F",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__EnterCriticalSection@4",
+      "address": "0x004660B0",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__LeaveCriticalSection@4",
+      "address": "0x004660B4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_asm_free_00452422",
+      "address": "0x452422",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_DecompressDatLzss_00435dc0@16",
+      "address": "0x435dc0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_g_dat_read_crypt_parameters",
+      "address": "0x474bd8",
+      "kind": "data"
+    },
+    {
+      "symbol": "_memset",
+      "address": "0x00452000",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_free",
+      "address": "0x00452422",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_004660d4",
+      "address": "0x004660D4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0046610c",
+      "address": "0x0046610C",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00466124",
+      "address": "0x00466124",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00466128",
+      "address": "0x00466128",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491c28",
+      "address": "0x00491C28",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00474f70",
+      "address": "0x00474F70",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00474e88",
+      "address": "0x00474E88",
+      "kind": "data"
+    },
+    {
+      "symbol": "_ConfigLoadEscape",
+      "address": "0x004524A1",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_0046de7c",
+      "address": "0x0046DE7C",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0046de48",
+      "address": "0x0046DE48",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0046de2c",
+      "address": "0x0046DE2C",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0046de04",
+      "address": "0x0046DE04",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0046dde4",
+      "address": "0x0046DDE4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0046ddbc",
+      "address": "0x0046DDBC",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0046dd84",
+      "address": "0x0046DD84",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0046dd64",
+      "address": "0x0046DD64",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0046dd4c",
+      "address": "0x0046DD4C",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0046dd28",
+      "address": "0x0046DD28",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0046dd08",
+      "address": "0x0046DD08",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0046dcb0",
+      "address": "0x0046DCB0",
+      "kind": "data"
+    }
+  ],
+  "roots": [],
+  "gaps": [
+    {
+      "section": ".text$00401000_gap",
+      "address": "0x00401000",
+      "size": 36864
+    },
+    {
+      "section": ".text$00a_gap",
+      "address": "0x0040A060",
+      "size": 60384
+    },
+    {
+      "section": ".text$00bz_gap",
+      "address": "0x00418CBD",
+      "size": 31667
+    },
+    {
+      "section": ".text$00cz_gap",
+      "address": "0x00420A86",
+      "size": 82762
+    },
+    {
+      "section": ".text$00dz_gap",
+      "address": "0x00434EE7",
+      "size": 73
+    },
+    {
+      "section": ".text$00ez_gap",
+      "address": "0x00434F65",
+      "size": 90475
+    },
+    {
+      "section": ".text$00fz_gap",
+      "address": "0x0044B213",
+      "size": 333
+    },
+    {
+      "section": ".text$00gz_gap",
+      "address": "0x0044B4C8",
+      "size": 120
+    },
+    {
+      "section": ".text$00hz_gap",
+      "address": "0x0044B61A",
+      "size": 502
+    },
+    {
+      "section": ".text$00iz_gap",
+      "address": "0x0044B8D9",
+      "size": 7
+    }
+  ],
+  "additional_sources": [],
+  "included_sources": [
+    "build_support/layout/ltcg/config_load_dependencies/config_defaults.cpp",
+    "src/game/game/game_config_defaults.cpp",
+    "build_support/layout/ltcg/native_archive_read/read.cpp",
+    "src/pack/arcmngr/archive_find.cpp",
+    "build_support/layout/ltcg/native_archive_read/decrypt.cpp",
+    "src/core/zunlib/archive_load_file.cpp"
+  ]
+}

@@ -17,13 +17,17 @@ from matching2.tools.matching.ltcg_semantic import (
 )
 
 
+import sys as _project_sys
+from pathlib import Path as _ProjectPath
+_project_sys.path.insert(0, str(_ProjectPath(__file__).resolve().parents[3]))
+from matching2.tools.common.project_paths import project_support
 class ClusterSourceOwnershipTests(unittest.TestCase):
     def _write_manifest(self, project, *, multi_source):
         (project / "src").mkdir()
-        (project / "layout" / "ltcg").mkdir(parents=True)
+        (project_support(project, 'layout') / "ltcg").mkdir(parents=True)
         (project / "src" / "primary.cpp").write_text("// primary\n")
         (project / "src" / "secondary.cpp").write_text("// secondary\n")
-        (project / "layout" / "ltcg" / "context.cpp").write_text("// context\n")
+        (project_support(project, 'layout') / "ltcg" / "context.cpp").write_text("// context\n")
         functions = [{
             "name": "Primary",
             "symbol": "?Primary@@YAHXZ",
@@ -87,7 +91,7 @@ class ClusterSourceOwnershipTests(unittest.TestCase):
         }
         if multi_source:
             manifest["additional_sources"] = ["src/secondary.cpp"]
-        (project / "layout" / "ltcg" / "source_ownership_test.json").write_text(
+        (project_support(project, 'layout') / "ltcg" / "source_ownership_test.json").write_text(
             json.dumps(manifest)
         )
         return regions
@@ -123,7 +127,7 @@ class ClusterSourceOwnershipTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             project = Path(directory)
             regions = self._write_manifest(project, multi_source=False)
-            path = project / "layout" / "ltcg" / "source_ownership_test.json"
+            path = project_support(project, 'layout') / "ltcg" / "source_ownership_test.json"
             manifest = json.loads(path.read_text())
             manifest["roots"] = [manifest["functions"][0]["symbol"]]
             path.write_text(json.dumps(manifest))
@@ -141,7 +145,7 @@ class ClusterSourceOwnershipTests(unittest.TestCase):
                 load_cluster(project, "layout/ltcg/source_ownership_test.json", regions)
 
     def _alias_manifest(self, project, aliases):
-        path = project / "layout" / "ltcg" / "source_ownership_test.json"
+        path = project_support(project, 'layout') / "ltcg" / "source_ownership_test.json"
         manifest = json.loads(path.read_text())
         manifest["constant_aliases"] = aliases
         path.write_text(json.dumps(manifest))
@@ -205,7 +209,7 @@ class ClusterSourceOwnershipTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             project = Path(directory)
             regions = self._write_manifest(project, multi_source=False)
-            path = project / "layout" / "ltcg" / "source_ownership_test.json"
+            path = project_support(project, 'layout') / "ltcg" / "source_ownership_test.json"
             manifest = json.loads(path.read_text())
             manifest["data_aliases"] = [{"symbol": "?literal@@3QBDB", "address": "0x00401030", "bytes": "646562756700"}]
             path.write_text(json.dumps(manifest))
@@ -218,7 +222,7 @@ class ClusterSourceOwnershipTests(unittest.TestCase):
 
     def _whole_program(self, project, change=None):
         regions = self._write_manifest(project, multi_source=True)
-        path = project / 'layout/ltcg/source_ownership_test.json'
+        path = project_support(project, 'layout/ltcg/source_ownership_test.json')
         manifest = json.loads(path.read_text())
         manifest['schema_version'] = 2
         del manifest['driver'], manifest['context']
@@ -282,6 +286,69 @@ class ClusterSourceOwnershipTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             with self.assertRaisesRegex(LTCGClusterError, 'outside its caller'):
                 self._whole_program(Path(directory), lambda m: m['calls'][0].update(address='0x00401001'))
+
+
+    def _owned_include_manifest(self, project):
+        regions = self._write_manifest(project, multi_source=True)
+        path = project_support(project, 'layout/ltcg/source_ownership_test.json')
+        manifest = json.loads(path.read_text())
+        manifest["additional_sources"] = []
+        manifest["included_sources"] = ["src/secondary.cpp"]
+        manifest["owned_includes"] = {"src/secondary.cpp": "src/primary.cpp"}
+        return regions, path, manifest
+
+    def test_owned_include_retains_source_attribution_without_an_extra_unit(self):
+        with tempfile.TemporaryDirectory() as directory:
+            project = Path(directory)
+            regions, path, manifest = self._owned_include_manifest(project)
+            path.write_text(json.dumps(manifest))
+            loaded = load_cluster(project, str(path.relative_to(project)), regions)
+        self.assertEqual(loaded["source_names"], ["src/primary.cpp"])
+        self.assertEqual(loaded["ownership_names"], ["src/primary.cpp", "src/secondary.cpp"])
+        self.assertEqual(loaded["functions"][1]["_source"], "src/secondary.cpp")
+
+    def test_owned_include_must_be_a_declared_dependency(self):
+        with tempfile.TemporaryDirectory() as directory:
+            project = Path(directory)
+            regions, path, manifest = self._owned_include_manifest(project)
+            manifest["included_sources"] = []
+            path.write_text(json.dumps(manifest))
+            with self.assertRaisesRegex(LTCGClusterError, "declared include"):
+                load_cluster(project, str(path.relative_to(project)), regions)
+
+    def test_owned_include_cannot_claim_an_unknown_compiler_unit(self):
+        with tempfile.TemporaryDirectory() as directory:
+            project = Path(directory)
+            regions, path, manifest = self._owned_include_manifest(project)
+            manifest["owned_includes"]["src/secondary.cpp"] = "src/missing.cpp"
+            path.write_text(json.dumps(manifest))
+            with self.assertRaisesRegex(LTCGClusterError, "compiled source owner"):
+                load_cluster(project, str(path.relative_to(project)), regions)
+
+    def test_compiler_wrapper_is_separate_and_included_in_the_snapshot(self):
+        with tempfile.TemporaryDirectory() as directory:
+            project = Path(directory)
+            regions, path, manifest = self._owned_include_manifest(project)
+            wrapper = project_support(project, 'layout/ltcg/unit.cpp')
+            wrapper.write_text('#include "../../src/primary.cpp"\n')
+            manifest["compilation_units"] = {"src/primary.cpp": "layout/ltcg/unit.cpp"}
+            path.write_text(json.dumps(manifest))
+            loaded = load_cluster(project, str(path.relative_to(project)), regions)
+            self.assertEqual(loaded["compilation_paths"], [wrapper.resolve()])
+            snapshot = _snapshot(loaded)
+            self.assertIn(str(wrapper.resolve()), snapshot)
+            wrapper.write_text("// changed compiler wrapper\n")
+            with self.assertRaisesRegex(LTCGClusterError, "input changed"):
+                _verify_snapshot(snapshot)
+
+    def test_compiler_wrapper_cannot_reassign_an_unknown_source(self):
+        with tempfile.TemporaryDirectory() as directory:
+            project = Path(directory)
+            regions, path, manifest = self._owned_include_manifest(project)
+            manifest["compilation_units"] = {"src/missing.cpp": "layout/ltcg/context.cpp"}
+            path.write_text(json.dumps(manifest))
+            with self.assertRaisesRegex(LTCGClusterError, "map maintained sources"):
+                load_cluster(project, str(path.relative_to(project)), regions)
 
 
 class ConstantAliasLinkTests(unittest.TestCase):
@@ -424,7 +491,7 @@ class DataAliasReferenceScopeManifestTests(unittest.TestCase):
 
     def _load_alias(self, project, alias):
         regions = self._write_manifest(project, multi_source=False)
-        path = project / 'layout/ltcg/source_ownership_test.json'
+        path = project_support(project, 'layout/ltcg/source_ownership_test.json')
         manifest = json.loads(path.read_text())
         manifest['data_aliases'] = [alias]
         path.write_text(json.dumps(manifest))
@@ -470,7 +537,7 @@ class DataAliasReferenceScopeManifestTests(unittest.TestCase):
             with self.subTest(mutation=mutation), tempfile.TemporaryDirectory() as directory:
                 project = Path(directory)
                 regions = self._write_manifest(project, multi_source=False)
-                path = project / 'layout/ltcg/source_ownership_test.json'
+                path = project_support(project, 'layout/ltcg/source_ownership_test.json')
                 manifest = json.loads(path.read_text())
                 alias = {'symbol': '?vtable@@', 'address': '0x00401030', 'bytes': '01020304',
                          'reference_scope': 'compiled_graph'}
@@ -526,6 +593,7 @@ class NativeDataAliasReferenceTests(unittest.TestCase):
             'anchors': [{'name': 'Anchor', 'symbol': '_anchor', 'section': '.text$03anchor',
                          'address': 0x401010, 'size': 6}],
             'gaps': [], 'constants': [], 'absolute_symbols': [], 'constant_aliases': [],
+            'anchor_roots': [],
             'data_aliases': [{'symbol': alias_symbol, 'address': self.ALIAS_ADDRESS,
                              'size': 32, 'reference_scope': scope}], 'calls': [],
         }
@@ -660,8 +728,8 @@ class NativeDataAliasReferenceTests(unittest.TestCase):
 class OrdinarySourceManifestTests(unittest.TestCase):
     def _manifest(self, project):
         regions = ClusterSourceOwnershipTests._write_manifest(self, project, multi_source=False)
-        (project / 'layout/ltcg/ordinary.cpp').write_text('// complete ordinary input\n')
-        path = project / 'layout/ltcg/source_ownership_test.json'
+        (project_support(project, 'layout/ltcg/ordinary.cpp')).write_text('// complete ordinary input\n')
+        path = project_support(project, 'layout/ltcg/source_ownership_test.json')
         manifest = json.loads(path.read_text())
         manifest['exceptions'] = True
         source = 'layout/ltcg/ordinary.cpp'
@@ -691,7 +759,7 @@ class OrdinarySourceManifestTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             project = Path(directory)
             loaded = self._load(project)
-            self.assertEqual(loaded['ordinary_source_paths'], [(project/'layout/ltcg/ordinary.cpp').resolve()])
+            self.assertEqual(loaded['ordinary_source_paths'], [(project_support(project, 'layout/ltcg/ordinary.cpp')).resolve()])
             self.assertEqual(loaded['anchor_roots'], ['_ordinary'])
             self.assertEqual(len(loaded['functions']), 1)
             self.assertEqual(len(loaded['regions']), 1)

@@ -20,7 +20,7 @@
 // 32-bit AND and then test the 16-bit halves. Both retail call sites load the
 // object address (0x00474E30, the same global that ?Update@KeyRepeatState@@
 // runs on) into ECX and a literal mask (0x80) into EAX, so the body is
-// compiled in the native LTCG cluster of layout/ltcg/input_mask_active.json.
+// compiled in the native LTCG cluster of build_support/layout/ltcg/input_mask_active.json.
 
 struct KeyRepeatState {
     unsigned char  unknown_00[4];

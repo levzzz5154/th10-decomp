@@ -3,7 +3,7 @@
 // Retail subtracts the incoming value from the field in place and returns
 // nothing.  The object arrives in EAX and the value in ECX, so the two are
 // register arguments no C++ declaration names; the body is compiled in the
-// native-LTCG cluster layout/ltcg/counter_subtract_00427c40.json whose
+// native-LTCG cluster build_support/layout/ltcg/counter_subtract_00427c40.json whose
 // synthetic caller establishes that pair.
 
 struct Counter_00427c40 {

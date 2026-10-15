@@ -7,7 +7,7 @@
 // 0x00491C28 into ESI and zeroes EBX - and it calls RenderCamera::Apply with
 // the camera in EDI. Those are whole-program register choices, so the body is
 // compiled inside the native-LTCG cluster
-// layout/ltcg/anm_batch_flush_00442f50.json, whose link already contains
+// build_support/layout/ltcg/anm_batch_flush_00442f50.json, whose link already contains
 // RenderCamera::Apply (src/game/mother/camera_apply.cpp).
 #include "th10/render/camera_batch.hpp"
 

@@ -1,0 +1,22 @@
+{
+  "regions": [
+    {
+      "source": "build_support/imports/D3DXVec3Transform_004521c4.cpp",
+      "address": "0x004521C4",
+      "name": "semantic_D3DXVec3Transform_004521c4",
+      "symbol": "_D3DXVec3Transform@12",
+      "size": 6,
+      "relocations": [
+        {
+          "offset": 2,
+          "type": "IMAGE_REL_I386_DIR32",
+          "symbol": "_data_004662cc",
+          "original_operand": "cc624600",
+          "original_target": "0x004662CC"
+        }
+      ],
+      "kind": "semantic",
+      "owner": "0x004521C4"
+    }
+  ]
+}

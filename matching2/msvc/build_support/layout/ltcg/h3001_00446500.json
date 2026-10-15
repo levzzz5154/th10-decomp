@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "name": "h3001_00446500",
+  "source": "src/unreferenced/FUN_00446500_00446500.cpp",
+  "driver": "build_support/layout/ltcg/h3001_00446500_context.cpp",
+  "headers": [
+    "build_support/include/asm_symbols.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Native-LTCG ABI experiment for the private EAX/EDX/ECX record accumulator at 0x00446500.",
+  "functions": [
+    {
+      "name": "H3001_AccumulateColor_00446500",
+      "symbol": "_asm_FUN_00446500_00446500",
+      "section": ".text$01target",
+      "address": "0x00446500",
+      "size": 46,
+      "actual_abi": "accumulator in private EAX, count in EDX, record in ECX; plain RET"
+    }
+  ],
+  "context": {
+    "symbol": "H3001Context_00446500",
+    "section": ".text$03context",
+    "address": "0x00465d00",
+    "size": 24,
+    "description": "Synthetic caller used only to establish the internal EAX/EDX/ECX argument allocation."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 283904
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x0044652e",
+      "size": 128978
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [],
+  "roots": [],
+  "included_sources": []
+}

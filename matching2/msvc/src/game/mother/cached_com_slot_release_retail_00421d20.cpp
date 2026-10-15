@@ -1,6 +1,6 @@
 // 0x00421D20: release the cached COM interface, then clear its slot.
 // The surrounding DirectInput state reaches this member through the native
-// LTCG cluster in layout/ltcg/cached_com_slot_release_retail_00421d20.json;
+// LTCG cluster in build_support/layout/ltcg/cached_com_slot_release_retail_00421d20.json;
 // that cluster preserves the retail ESI this-pointer convention.
 
 struct CachedComInterfaceVtable_00421d20 {

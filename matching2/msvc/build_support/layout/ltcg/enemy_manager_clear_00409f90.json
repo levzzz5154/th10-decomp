@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "name": "enemy_manager_clear_00409f90",
+  "source": "src/game/eclview/enemy_manager_clear_00409f90.cpp",
+  "driver": "build_support/layout/ltcg/enemy_manager_clear_00409f90/context.cpp",
+  "headers": [
+    "include/th10/game/enemy_manager_clear_00409f90.hpp",
+    "include/th10/render/animation_resource_removal.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Enemy manager clear with the manager on the stack, compiled with the real animation-resource marker so it keeps its EAX/EDX registers.",
+  "functions": [
+    {
+      "name": "EnemyCtrl_Clear",
+      "symbol": "?Clear@EnemyCtrlClearView@@QAEXXZ",
+      "section": ".text$10clear",
+      "address": "0x00409F90",
+      "actual_abi": "manager on the stack; RET 4",
+      "size": 118
+    }
+  ],
+  "context": {
+    "symbol": "?EnemyManagerClearCompilerContext@@YGXPAPAUEnemyCtrlClearView@@H@Z",
+    "section": ".text$15context",
+    "address": "0x0040A010",
+    "size": 35,
+    "description": "Synthetic array-walking caller; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00before",
+      "address": 4198400,
+      "size": 36752
+    },
+    {
+      "section": ".text$10clearz",
+      "address": 4235270,
+      "size": 10
+    },
+    {
+      "section": ".text$15contextz",
+      "address": 4235315,
+      "size": 258989
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_g_sprt_ctrl",
+      "address": "0x00491C10",
+      "kind": "data"
+    }
+  ],
+  "anchors": [
+    {
+      "name": "MarkResourceForRemoval",
+      "symbol": "?MarkResourceForRemoval@SprtCtrl@@QAEXPAX@Z",
+      "section": ".text$20helper",
+      "address": "0x004493E0",
+      "size": 92
+    }
+  ],
+  "included_sources": [
+    "src/core/sprtlib/animation_manager_mark_resource_for_removal_004493e0.cpp"
+  ]
+}

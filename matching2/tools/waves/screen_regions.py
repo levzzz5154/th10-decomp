@@ -119,6 +119,7 @@ def calls_expressed(block):
     return calls > 0, calls
 
 
+from matching2.tools.common.project_paths import project_support
 def main():
     parser = argparse.ArgumentParser(description=__doc__,
                                      formatter_class=argparse.RawDescriptionHelpFormatter)
@@ -135,7 +136,7 @@ def main():
     parser.add_argument("--limit", type=int, default=20)
     args = parser.parse_args()
 
-    config = json.loads((PROJECT / "regions.json").read_text())
+    config = json.loads((project_support(PROJECT, 'regions.json')).read_text())
     cache, rows = {}, []
     for region in config["regions"]:
         if not is_candidate(region, game_only=args.game_only):

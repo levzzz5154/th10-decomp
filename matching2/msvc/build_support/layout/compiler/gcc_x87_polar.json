@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "kind": "gcc-llvm-coff",
+  "description": "Complete x87 polar setters using the independently reviewed generic word-home initialization pass and unchanged compiler assembly.",
+  "flags": [
+    "-mfpmath=387",
+    "-mno-sse",
+    "-mno-sse2",
+    "-funsafe-math-optimizations",
+    "-fno-asynchronous-unwind-tables",
+    "-fno-unwind-tables",
+    "-fno-exceptions",
+    "-fno-rtti",
+    "-fno-stack-protector",
+    "-fno-ident",
+    "-ffunction-sections",
+    "-falign-functions=1",
+    "-falign-jumps=1",
+    "-falign-loops=1",
+    "-falign-labels=1",
+    "-Oz",
+    "-mpreferred-stack-boundary=2",
+    "-mincoming-stack-boundary=2",
+    "-fomit-frame-pointer",
+    "-fcall-saved-edx"
+  ],
+  "tools": {
+    "gcc": {
+      "path": "/usr/bin/i686-w64-mingw32-g++",
+      "sha256": "0bf6128d4f161da3a8a9a9b480bbdaa4b403ebd2b65035e9819035284559f6cd"
+    },
+    "cc1plus": {
+      "path": "/usr/lib/gcc/i686-w64-mingw32/16.2.0/cc1plus",
+      "sha256": "1b0d277fb325f46537ae645118bbeb81804beee8f46a72b57c4195d95aeab76a"
+    },
+    "llvm_mc": {
+      "path": "/usr/bin/llvm-mc",
+      "sha256": "bba45da0c1b09df344127809f9adf7d55a03571b3a0ec2975a1e58d808917d96"
+    },
+    "host_cxx": {
+      "path": "/usr/bin/g++",
+      "sha256": "ec99e5202f3f819997a480cb3cbc95505e07213be0ffe6a51f8900b91a5b716a"
+    },
+    "host_cc1plus": {
+      "path": "/usr/lib/gcc/x86_64-pc-linux-gnu/16/cc1plus",
+      "sha256": "8576390823ffa374373b0918bef305c1da0638148587689a5b4f0bd1aa11162d"
+    },
+    "host_as": {
+      "path": "/usr/bin/as",
+      "sha256": "e6a1297b03cf3318b6a0f889bdecbdd9d41201fc888b11e05e8acd2f7aa145fd"
+    },
+    "host_ld": {
+      "path": "/usr/bin/ld",
+      "sha256": "239eadb638b144619992d527efbd85cb545977807cee349606b8ade9bc0a47aa"
+    },
+    "host_collect2": {
+      "path": "/usr/lib/gcc/x86_64-pc-linux-gnu/16/collect2",
+      "sha256": "d32bc494c707259e3ef7bf671ded789d6a25a211fa49e5476ade9e8ddd08f1e8"
+    }
+  },
+  "plugin": {
+    "source": "build_support/layout/compiler/initialize_stack_home.cc",
+    "source_sha256": "1c15cdad3b2785c53a8f6e7a49c5e9e480cff1975760cd33a636f8555e6da72c",
+    "sdk": "/usr/lib/gcc/i686-w64-mingw32/16.2.0/plugin/include",
+    "sdk_sha256": "8b45cb9d3b07285da5beb77f5cbdf76e65240a703be6200c2503b70d69c0aa46"
+  }
+}

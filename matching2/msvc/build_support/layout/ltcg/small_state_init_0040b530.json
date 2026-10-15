@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "name": "small_state_init_0040b530",
+  "source": "src/unreferenced/unassigned_0040b530.cpp",
+  "driver": "build_support/layout/ltcg/small_state_init_0040b530_context.cpp",
+  "headers": [
+    "build_support/include/asm_symbols.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Native LTCG probe for ten-word state initialization with private EAX receiver.",
+  "functions": [
+    {
+      "name": "SmallState_Initialize",
+      "symbol": "?Initialize@SmallState_0040B530@@QAEXXZ",
+      "section": ".text$01init",
+      "address": "0x0040B530",
+      "size": 42,
+      "actual_abi": "state in EAX; plain RET"
+    }
+  ],
+  "context": {
+    "symbol": "SmallStateInitCompilerContext@8",
+    "section": ".text$03context",
+    "address": "0x0040B600",
+    "size": 36,
+    "description": "Synthetic array caller used only for register allocation"
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 42288
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x0040B55A",
+      "size": 166
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_g_ending",
+      "address": "0x00477700",
+      "kind": "data"
+    }
+  ],
+  "included_sources": []
+}

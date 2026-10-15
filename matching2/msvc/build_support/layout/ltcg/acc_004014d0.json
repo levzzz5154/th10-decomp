@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "name": "acc_004014d0",
+  "source": "src/unreferenced/unassigned_004014d0.cpp",
+  "driver": "build_support/layout/ltcg/acc_004014d0_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "EAX-receiver leaf with synthetic array-walking caller",
+  "functions": [
+    {
+      "name": "WidgetHost_ClearPending_004014d0",
+      "symbol": "?ClearPending_004014d0@WidgetHost_004014d0@@QAEHXZ",
+      "section": ".text$01accessor",
+      "address": "0x004014D0",
+      "size": 26,
+      "actual_abi": "object in EAX"
+    }
+  ],
+  "context": {
+    "symbol": "?PendingCompilerContext@@YGHPAPAUWidgetHost_004014d0@@H@Z",
+    "section": ".text$03context",
+    "address": "0x004014F0",
+    "size": 35,
+    "description": "Synthetic caller; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 1232
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x004014EA",
+      "size": 6
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [],
+  "additional_sources": [],
+  "included_sources": []
+}

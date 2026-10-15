@@ -24,7 +24,8 @@ import tempfile
 def sha256(data):
     return hashlib.sha256(data).hexdigest()
 
-CONFIG = json.loads((ROOT / "matching2/msvc/regions.json").read_text())
+from matching2.tools.common.project_paths import project_support
+CONFIG = json.loads((project_support((ROOT) / 'matching2/msvc', 'regions.json')).read_text())
 ORACLE_CANDIDATES = (ROOT / "matching2/build/oracle/th10.exe",
                      ROOT / "matching2/build/msvc/th10.exe")
 TEXT_START = int(CONFIG["text_start"], 0)

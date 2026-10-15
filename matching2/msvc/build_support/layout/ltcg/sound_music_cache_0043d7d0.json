@@ -1,0 +1,94 @@
+{
+  "schema_version": 1,
+  "name": "sound_music_cache_0043d7d0",
+  "source": "src/core/sound/sound_music_cache.cpp",
+  "driver": "build_support/layout/ltcg/sound_music_cache_0043d7d0_context.cpp",
+  "headers": [
+    "include/th10/app/supervisor.hpp",
+    "build_support/layout/ltcg/sound_interfaces_dependencies/sound_wave_types.hpp",
+    "include/th10/platform/text_log.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "The music slot cache compiled with a model of its two call sites in the music command handler, so the pass hands the manager over in ESI and the name in EAX.",
+  "functions": [
+    {
+      "name": "WaveSoundManager_CacheMusic",
+      "symbol": "?CacheMusic@WaveSoundManager@@QAEHHPBD@Z",
+      "section": ".text$03cache",
+      "address": "0x0043D7D0",
+      "size": 369,
+      "actual_abi": "manager in ESI; name in EAX; slot on the stack; RET 4"
+    }
+  ],
+  "anchors": [],
+  "context": {
+    "symbol": "?SoundMusicCacheContext@@YGHPAUWaveSoundManager@@PAUMusicCommand@@PAPAUSupervisor@@@Z",
+    "section": ".text$95context",
+    "address": "0x0044E100",
+    "size": 88,
+    "description": "Synthetic caller; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00before",
+      "address": "0x401000",
+      "size": 247760
+    },
+    {
+      "section": ".text$03cachez",
+      "address": "0x43d941",
+      "size": 67519
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "__imp__CreateFileA@28",
+      "address": "0x004660C4",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__SetFilePointer@16",
+      "address": "0x004660C8",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__CloseHandle@4",
+      "address": "0x004660CC",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__ReadFile@20",
+      "address": "0x004660D0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_wave_sound_manager",
+      "address": "0x00492590",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_supervisor",
+      "address": "0x00491C00",
+      "kind": "data"
+    },
+    {
+      "symbol": "_asm_malloc_00452706",
+      "address": "0x00452706",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_asm_free_00452422",
+      "address": "0x00452422",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?FindBasenameSlot_0043d2a0@PathName_0043d2a0@@QAEHPAX@Z",
+      "address": "0x0043D2A0",
+      "kind": "relative_code"
+    }
+  ],
+  "roots": [],
+  "additional_sources": [],
+  "included_sources": []
+}

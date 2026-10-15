@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "name": "small_private_abi_a",
+  "source": "src/unreferenced/unassigned_0040ae50.cpp",
+  "driver": "build_support/layout/ltcg/small_private_abi_a_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "EAX-entry state initializer and ESI-entry cached-slot release compiled together under a purpose-built native-LTCG context; proposal only and intentionally unregistered.",
+  "functions": [
+    {
+      "name": "EffectInitView_Initialize",
+      "symbol": "?Initialize@EffectInitView@@QAEXXZ",
+      "section": ".text$01init",
+      "address": "0x0040AE50",
+      "size": 30,
+      "actual_abi": "state in EAX; plain RET",
+      "source": "src/unreferenced/unassigned_0040ae50.cpp"
+    },
+    {
+      "name": "CachedSlot_00421d50_Release",
+      "symbol": "?Release@CachedSlot_00421d50@@QAEXXZ",
+      "section": ".text$03rel",
+      "address": "0x00421D50",
+      "size": 27,
+      "actual_abi": "slot in ESI; plain RET",
+      "source": "src/unreferenced/unassigned_00421d50.cpp"
+    }
+  ],
+  "context": {
+    "symbol": "SmallPrivateAbiAContext@16",
+    "section": ".text$05context",
+    "address": "0x00421D70",
+    "size": 69,
+    "description": "Synthetic dual-array caller that pins the initializer in EAX and release slot in ESI; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00gap",
+      "address": "0x00401000",
+      "size": 40528
+    },
+    {
+      "section": ".text$02gap",
+      "address": "0x0040AE6E",
+      "size": 93922
+    },
+    {
+      "section": ".text$04gap",
+      "address": "0x00421D6B",
+      "size": 5
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_g_effect",
+      "address": "0x004776FC",
+      "kind": "data"
+    }
+  ],
+  "additional_sources": [
+    "src/unreferenced/unassigned_00421d50.cpp"
+  ],
+  "included_sources": []
+}

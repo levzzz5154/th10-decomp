@@ -1,0 +1,5 @@
+#include "../ltcg/native_archive_read/read.cpp"
+#include "../../../src/pack/arcmngr/archive_find.cpp"
+#include "../ltcg/native_archive_read/decrypt.cpp"
+#include "../../../src/core/zunlib/archive_load_file.cpp"
+#include "../../../src/core/main/compute_executable_checksum.cpp"

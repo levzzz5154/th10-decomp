@@ -5,7 +5,7 @@
 // unused ECX slot, so the whole-program pass drops that dead argument at every
 // call site (retail's callers only set up EDX).  That is why this unit lives in
 // the same native-LTCG link as the factory that calls it (see
-// layout/ltcg/bullet_manager_load_scripts_0040ae70.json).
+// build_support/layout/ltcg/bullet_manager_load_scripts_0040ae70.json).
 #include "th10/math/timer.hpp"
 
 extern "C" unsigned char data_0046dab0;

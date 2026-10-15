@@ -1,0 +1,376 @@
+{
+  "schema_version": 1,
+  "name": "cl_0043d080",
+  "source": "src/core/sound/sound_preload_worker_0043d080.cpp",
+  "driver": "build_support/layout/ltcg/cl_0043d080_context.cpp",
+  "headers": [
+    "include/th10/platform/archive_file.hpp",
+    "include/th10/platform/text_log.hpp",
+    "include/th10/platform/thread_sync.hpp",
+    "build_support/layout/ltcg/native_archive_read/archive.hpp",
+    "include/th10/archive/dat_archive_types.hpp",
+    "include/th10/platform/file.hpp",
+    "include/th10/platform/windows_types.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Existing complete sound preload107 owner and text-log201 anchor preserved. Loader360 uses a genuine free Read call, backed by complete Read279/Find53/cipher323 native ABI anchors. Read279/cipher323 remain unmatched diagnostics, never selected recovery. The inherited thread-start address context remains explicit.",
+  "functions": [
+    {
+      "name": "Sound_PreloadWorker_0043d080",
+      "symbol": "_Sound_PreloadWorker_0043d080",
+      "section": ".text$03fn",
+      "address": "0x0043D080",
+      "size": 107,
+      "actual_abi": "no arguments; plain RET",
+      "source": "src/core/sound/sound_preload_worker_0043d080.cpp"
+    }
+  ],
+  "anchors": [
+    {
+      "name": "Archive_LoadFile",
+      "symbol": "_Archive_LoadFile@12",
+      "section": ".text$05load",
+      "address": "0x0044B360",
+      "size": 360
+    },
+    {
+      "name": "TextLog_Append",
+      "symbol": "?Append@TextLog_0044b810@@QAAPADPADZZ",
+      "section": ".text$85textlog",
+      "address": "0x0044B810",
+      "size": 201
+    },
+    {
+      "name": "ArchiveRead",
+      "symbol": "_DatArchiveRead@12",
+      "address": "0x434dd0",
+      "size": 279,
+      "section": ".text$01read"
+    },
+    {
+      "name": "ArchiveFind",
+      "symbol": "_ArchiveFind@8",
+      "address": "0x434f30",
+      "size": 53,
+      "section": ".text$02find"
+    },
+    {
+      "name": "DatDecrypt",
+      "symbol": "_DatDecrypt@24",
+      "address": "0x44b0d0",
+      "size": 323,
+      "section": ".text$04decrypt"
+    }
+  ],
+  "context": {
+    "symbol": "?SoundPreloadContext_0043d080@@YGHPAP6AXXZ@Z",
+    "section": ".text$90context",
+    "address": "0x0044B900",
+    "size": 15,
+    "description": "Synthetic thread start; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$06",
+      "address": "0x0044B4C8",
+      "size": 840
+    },
+    {
+      "section": ".text$86layout",
+      "address": "0x0044B8D9",
+      "size": 39
+    },
+    {
+      "section": ".text$00",
+      "address": "0x401000",
+      "size": 212432
+    },
+    {
+      "section": ".text$01readz",
+      "address": "0x434ee7",
+      "size": 73
+    },
+    {
+      "section": ".text$02findz",
+      "address": "0x434f65",
+      "size": 33051
+    },
+    {
+      "section": ".text$04",
+      "address": "0x43d0eb",
+      "size": 57317
+    },
+    {
+      "section": ".text$04decryptz",
+      "address": "0x44b213",
+      "size": 333
+    }
+  ],
+  "constants": [],
+  "constant_aliases": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_data_00497990",
+      "address": "0x00497990",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0049231e",
+      "address": "0x0049231e",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004922a4",
+      "address": "0x004922a4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004660b0",
+      "address": "0x004660b0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004660b4",
+      "address": "0x004660b4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004660c4",
+      "address": "0x004660c4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004660cc",
+      "address": "0x004660cc",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004660d0",
+      "address": "0x004660d0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_004660d8",
+      "address": "0x004660d8",
+      "kind": "data"
+    },
+    {
+      "symbol": "_asm_strrchr_00452930",
+      "address": "0x00452930",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_asm_stricmp_0046054e",
+      "address": "0x0046054e",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_asm_malloc_00452706",
+      "address": "0x00452706",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_00497c38",
+      "address": "0x00497C38",
+      "kind": "data"
+    },
+    {
+      "symbol": "?Parse@ScriptFileLoader@@QAEHPAD@Z",
+      "address": "0x00450220",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_004660dc",
+      "address": "0x004660DC",
+      "kind": "data"
+    },
+    {
+      "symbol": "_entry_free_00452422",
+      "address": "0x00452422",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_00492380",
+      "address": "0x00492380",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00492384",
+      "address": "0x00492384",
+      "kind": "data"
+    },
+    {
+      "symbol": "___security_cookie",
+      "address": "0x00473660",
+      "kind": "data"
+    },
+    {
+      "symbol": "@__security_check_cookie@4",
+      "address": "0x00458EA5",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_0046e1c8",
+      "address": "0x0046E1C8",
+      "kind": "data"
+    },
+    {
+      "symbol": "_sprintf",
+      "address": "0x00452AE8",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_ProbeFileExists@4",
+      "address": "0x0044B4D0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_00470c50",
+      "address": "0x00470C50",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_0047476c",
+      "address": "0x0047476C",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00474778",
+      "address": "0x00474778",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491bf4",
+      "address": "0x00491BF4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491bf8",
+      "address": "0x00491BF8",
+      "kind": "data"
+    },
+    {
+      "symbol": "__fltused",
+      "address": "0x00000000",
+      "kind": "metadata"
+    },
+    {
+      "symbol": "_asm_vsprintf_004524a6",
+      "address": "0x004524A6",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__chkstk",
+      "address": "0x00458EC0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__imp__EnterCriticalSection@4",
+      "address": "0x004660B0",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__LeaveCriticalSection@4",
+      "address": "0x004660B4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_sprt_ctrl",
+      "address": "0x00491c10",
+      "kind": "data"
+    },
+    {
+      "symbol": "_malloc",
+      "address": "0x00452706",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_data_00477848",
+      "address": "0x00477848",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00474c44",
+      "address": "0x00474C44",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00474c68",
+      "address": "0x00474C68",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00491be8",
+      "address": "0x00491BE8",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00476f78",
+      "address": "0x00476F78",
+      "kind": "data"
+    },
+    {
+      "symbol": "?g_thread_synchronization@@3UThreadSynchronization@@A",
+      "address": "0x00492274",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__Sleep@4",
+      "address": "0x004660AC",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_sound_effect_files",
+      "address": "0x00474B40",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_pending_sound_effects",
+      "address": "0x004977C0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_sound_thread_state",
+      "address": "0x004977B4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_sound_load_error_format",
+      "address": "0x0046FDD4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_text_log",
+      "address": "0x00474F70",
+      "kind": "data"
+    },
+    {
+      "symbol": "_asm_free_00452422",
+      "address": "0x452422",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_DecompressDatLzss_00435dc0@16",
+      "address": "0x435dc0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_g_dat_read_crypt_parameters",
+      "address": "0x474bd8",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__SoundThread_Sleep@4",
+      "address": "0x4660ac",
+      "kind": "data"
+    }
+  ],
+  "included_sources": [
+    "src/core/zunlib/text_log.cpp",
+    "build_support/layout/ltcg/native_archive_read/read.cpp",
+    "src/pack/arcmngr/archive_find.cpp",
+    "build_support/layout/ltcg/native_archive_read/decrypt.cpp",
+    "src/core/zunlib/archive_load_file.cpp"
+  ],
+  "roots": []
+}

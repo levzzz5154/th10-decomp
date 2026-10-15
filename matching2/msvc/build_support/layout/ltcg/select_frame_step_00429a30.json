@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "name": "select_frame_step_00429a30",
+  "source": "src/unreferenced/unassigned_00429a30.cpp",
+  "driver": "build_support/layout/ltcg/select_frame_step_00429a30_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "?SelectFrameStep@Entity_00429a30@@QAEHXZ compiled with native LTCG.",
+  "functions": [
+    {
+      "name": "select_frame_step_00429a30",
+      "symbol": "?SelectFrameStep@Entity_00429a30@@QAEHXZ",
+      "section": ".text$01accessor",
+      "address": "0x00429A30",
+      "size": 58,
+      "actual_abi": "private LTCG convention"
+    }
+  ],
+  "context": {
+    "symbol": "?Ctx@@YGHPAPAUEntity_00429a30@@H@Z",
+    "section": ".text$zzcontext",
+    "address": "0x00429A70",
+    "size": 42,
+    "description": "Synthetic caller that establishes the observed register convention; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$0000",
+      "address": "0x00401000",
+      "size": 166448
+    },
+    {
+      "section": ".text$01accessorz",
+      "address": "0x00429A6A",
+      "size": 6
+    }
+  ],
+  "constants": [],
+  "roots": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_g_game",
+      "address": "0x00477810",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00474e30",
+      "address": "0x00474E30",
+      "kind": "data"
+    }
+  ],
+  "constant_aliases": [],
+  "included_sources": []
+}

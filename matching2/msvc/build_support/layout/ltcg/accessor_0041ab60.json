@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "name": "accessor_0041ab60",
+  "source": "src/unreferenced/FUN_0041ab60_0041ab60.cpp",
+  "additional_sources": [
+    "src/game/item/entity_movement_slot.cpp"
+  ],
+  "driver": "build_support/layout/ltcg/accessor_0041ab60_context.cpp",
+  "headers": [
+    "include/th10/game/entity_movement_slot_0041ab70.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Adjacent accessor and movement-slot initializer compiled together so their private EAX/EDX/ECX conventions remain compiler-selected.",
+  "functions": [
+    {
+      "name": "ObjectAccessor_Accessor",
+      "symbol": "?LoadValue@ObjectAccessor_0041ab60@@QBEHXZ",
+      "section": ".text$01accessor",
+      "address": "0x0041AB60",
+      "size": 4,
+      "actual_abi": "object in EAX; plain RET",
+      "source": "src/unreferenced/FUN_0041ab60_0041ab60.cpp"
+    },
+    {
+      "name": "EntityMovementSlot_Initialise",
+      "symbol": "?Initialise@EntityMovementSlot_0041ab70@@QAEXPBUMovementPair_0041ab70@@0HE@Z",
+      "section": ".text$03movement",
+      "address": "0x0041AB70",
+      "size": 136,
+      "actual_abi": "slot in EAX; pair inputs in EDX and ECX; two stack arguments; RET 8",
+      "source": "src/game/item/entity_movement_slot.cpp"
+    }
+  ],
+  "context": {
+    "symbol": "?AccessorCompilerContext@@YGHPAPAUObjectAccessor_0041ab60@@PAPAUEntityMovementSlot_0041ab70@@PBUMovementPair_0041ab70@@2H@Z",
+    "section": ".text$05context",
+    "address": "0x0041AC00",
+    "size": 111,
+    "description": "Synthetic array-walking caller that establishes the observed register conventions; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 105312
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x0041AB64",
+      "size": 12
+    },
+    {
+      "section": ".text$04layout",
+      "address": "0x0041ABF8",
+      "size": 8
+    }
+  ],
+  "constants": [],
+  "constant_aliases": [],
+  "absolute_symbols": [],
+  "included_sources": []
+}

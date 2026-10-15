@@ -1,6 +1,6 @@
 // 0x00428630: the damage the player's bullets, bomb and damage sources deal
 // to a box this frame (an enemy's position and size).
-#include "../../../layout/ltcg/player_state_collision_runtime/runtime.hpp"
+#include "../../../build_support/layout/ltcg/player_state_collision_runtime/runtime.hpp"
 #include <math.h>
 #pragma intrinsic(sin,cos)
 

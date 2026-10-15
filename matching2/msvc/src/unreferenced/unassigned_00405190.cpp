@@ -1,6 +1,6 @@
 // 0x00405190: set the X scale and mark the transform dirty.
 // The object arrives in EAX and the float on the stack (RET 4); the body is
-// compiled in the native-LTCG cluster layout/ltcg/setscalex_00405190.json.
+// compiled in the native-LTCG cluster build_support/layout/ltcg/setscalex_00405190.json.
 struct AnmVm_00405190 {
     unsigned char reserved_000[0x3C];
     float scale_x;                 // +0x3C

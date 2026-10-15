@@ -16,7 +16,7 @@
 // so the record is the screen state the option screen publishes.
 //
 // No C++ declaration names EAX, so the seven leaves are compiled in the
-// native-LTCG cluster layout/ltcg/ui_state_accessors_00421c90.json, whose
+// native-LTCG cluster build_support/layout/ltcg/ui_state_accessors_00421c90.json, whose
 // array-walking synthetic caller makes the register allocator hand each
 // accessor its record in EAX.  The bodies themselves are ordinary C++.
 

@@ -12,7 +12,7 @@
 //
 // 0x0040B7B0 unlinks the object from the animation manager under its lock; the
 // release call is the statically linked CRT free at 0x004524A1. The body is
-// compiled in the native LTCG cluster of layout/ltcg/score_owned_destroy.json,
+// compiled in the native LTCG cluster of build_support/layout/ltcg/score_owned_destroy.json,
 // whose synthetic array caller keeps the pointer in ESI across both calls.
 
 struct ScoreOwnedObject;

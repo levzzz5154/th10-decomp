@@ -121,6 +121,7 @@ def canonical_sib(text):
     return SIB.sub(lambda m: '[' + '+'.join(sorted((m[1], m[2]))) + '*1' + m[3] + ']', text)
 
 
+from matching2.tools.common.project_paths import project_support
 def load_recoveries(project, config, regions):
     """Read and validate every equivalent recovery the manifest declares."""
     by_name = {region['name']: region for region in regions}
@@ -153,8 +154,9 @@ def load_recoveries(project, config, regions):
         sources = []
         for source in layout['sources']:
             source_path = (project / source).resolve()
-            if not source_path.is_relative_to(project / 'equivalent') or source_path.suffix != '.cpp':
-                raise EquivalenceError('model sources live under equivalent/: ' + source)
+            if (not any(source_path.is_relative_to(root) for root in (project / 'src', project_support(project, 'equivalent')))
+                    or source_path.suffix != '.cpp'):
+                raise EquivalenceError('model sources live under src/ or legacy equivalent/: ' + source)
             sources.append(source_path)
         # Recovered sources of the callees, linked in so that the whole-program link derives the
         # register conventions retail has for them. They are context only; nothing of theirs is compared.
@@ -197,11 +199,12 @@ def cluster_context(project, name, models, where):
     does not name come first.
     """
     path = (project / name).resolve()
-    if not path.is_relative_to(project / 'layout/ltcg') or path.suffix != '.json':
+    if not path.is_relative_to(project_support(project, 'layout/ltcg')) or path.suffix != '.json':
         raise EquivalenceError('context cluster must be a layout/ltcg JSON file: ' + where)
     cluster = json.loads(path.read_text())
     context = []
-    for source in [cluster['driver'], *cluster.get('additional_sources', [])]:
+    for source in [cluster['driver'], *[cluster.get('compilation_units', {}).get(s, s)
+                                        for s in cluster.get('additional_sources', [])]]:
         source_path = (project / source).resolve()
         if not source_path.is_relative_to(project) or source_path.suffix != '.cpp':
             raise EquivalenceError('context cluster source must be a project C++ file: ' + source)
@@ -666,7 +669,7 @@ def verify_recovery(recovery, project, toolkit, flags, text, output, *, record=F
     start, size, code_bytes = recovery['address'], recovery['size'], recovery['code_bytes']
     retail = text[start - TEXT_START:start - TEXT_START + size]
     validate_code_extent(retail, start, code_bytes)
-    work_root = output / 'equivalent'
+    work_root = project_support(output, 'equivalent')
     work_root.mkdir(parents=True, exist_ok=True)
     work = Path(tempfile.mkdtemp(prefix=recovery['name'] + '-', dir=work_root))
     try:
@@ -771,13 +774,18 @@ def verify_all(project, config, regions, toolkit, text, output):
     recoveries = load_recoveries(project, config, regions)
     if not recoveries:
         return reports, bodies
+    # Models now live beside maintained game code. Hash their source/header
+    # graph conservatively so a moved or edited ABI context cannot reuse a
+    # previous verification result. Digest the shared inputs once per build.
     shared = [Path(__file__).read_bytes(), json.dumps(config['flags']).encode(),
-              *[path.read_bytes() for path in sorted((project / 'equivalent').rglob('*')) if path.is_file()]]
+              *[path.read_bytes() for path in sorted(project.rglob('*'))
+                if path.is_file() and path.suffix in ('.cpp', '.hpp', '.h', '.inc', '.json', '.cc')]]
+    shared_digest = sha(b'\0'.join(sha(part).encode() for part in shared)).encode()
     for recovery in recoveries:
         offset = recovery['address'] - TEXT_START
         key = sha(b'\0'.join(sha(part).encode() for part in
-                             [*shared, recovery['path'].read_bytes(), text[offset:offset + recovery['size']]]))
-        cache = output / 'equivalent' / (recovery['name'] + '.json')
+                             [shared_digest, recovery['path'].read_bytes(), text[offset:offset + recovery['size']]]))
+        cache = project_support(output, 'equivalent') / (recovery['name'] + '.json')
         stored = cache.with_suffix('.bin')
         if cache.is_file() and stored.is_file():
             saved = json.loads(cache.read_text())
@@ -827,7 +835,7 @@ def main():
                         help='print the current differences for review instead of checking them')
     args = parser.parse_args()
     project, toolkit, output = args.project.resolve(), args.toolkit.resolve(), args.output.resolve()
-    config = json.loads((project / 'regions.json').read_text())
+    config = json.loads((project_support(project, 'regions.json')).read_text())
     text_path = output / 'text.bin'
     if not text_path.is_file():
         parser.error('no built .text image; run make first')

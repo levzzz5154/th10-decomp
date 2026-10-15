@@ -3,7 +3,7 @@
 // segment_count segments, asks for a position notification at the end of each
 // segment and wraps the buffer in a streaming sound. The compiler-generated
 // cleanup at 0x00465330 frees the sound's block if its constructor throws.
-#include "../../../layout/ltcg/sound_interfaces_dependencies/sound_wave_types.hpp"
+#include "../../../build_support/layout/ltcg/sound_interfaces_dependencies/sound_wave_types.hpp"
 
 #include <string.h>
 #pragma intrinsic(memset)

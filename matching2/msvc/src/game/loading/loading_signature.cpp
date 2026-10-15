@@ -49,4 +49,4 @@ extern "C" int __stdcall TitleEffectsAdvance_0041fdd0(TitleEffectState_0041fdd0*
 
 // Complete existing animation dependencies provide the private LTCG ABIs.
 // The layout exports only this worker and its real scheduler callback.
-#include "../../../layout/ltcg/animation_public_callers_anchors.cpp"
+#include "../../../build_support/layout/ltcg/animation_public_callers_anchors.cpp"

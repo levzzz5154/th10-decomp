@@ -1,0 +1,4 @@
+{
+ "driver": "build_support/layout/ltcg/replay_submenu_004236f0_context.cpp",
+ "additional_sources": ["src/game/eclview/input_mask_active_0040ace0.cpp"]
+}

@@ -7,7 +7,11 @@ import json
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[3]
-MANIFEST = ROOT / "matching2/msvc/regions.json"
+import sys as _project_sys
+from pathlib import Path as _ProjectPath
+_project_sys.path.insert(0, str(_ProjectPath(__file__).resolve().parents[3]))
+from matching2.tools.common.project_paths import project_support
+MANIFEST = project_support((ROOT) / 'matching2/msvc', 'regions.json')
 KINDS = ("semantic", "asm", "library", "data", "padding")
 REPORTED = ("semantic", "equivalent", "asm", "library", "data", "padding")
 LABELS = {
