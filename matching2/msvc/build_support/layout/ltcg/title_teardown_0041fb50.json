@@ -462,17 +462,17 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_data_004660cc",
+      "symbol": "_imp_CloseHandle",
       "address": "0x4660cc",
       "kind": "data"
     },
     {
-      "symbol": "_data_004660d4",
+      "symbol": "_imp_WriteFile",
       "address": "0x4660d4",
       "kind": "data"
     },
     {
-      "symbol": "_data_004660b4",
+      "symbol": "_imp_LeaveCriticalSection",
       "address": "0x4660b4",
       "kind": "data"
     },

@@ -77,13 +77,13 @@ __declspec(noinline) int __stdcall TitleMode7_004306a0(Title* room) {
         if ((short)data_00474e30.InputMaskActive(0x40)) cursor->Advance(-1);
         if ((short)data_00474e30.InputMaskActive(0x80)) cursor->Advance(1);
         if (cursor->previous_selection != cursor->selection) {
-            data_00492590.Queue(12, 0);
+            g_sound_manager.Queue(12, 0);
             reinterpret_cast<TitleAnimationSlotView*>(room)->RestartSlot(125);
             room->SetSlotFrame(125, cursor->selection + 7);
         }
         if (data_00474e36 & 0xa) {
             room->SetTimerTarget(4);
-            data_00492590.Queue(11, 0);
+            g_sound_manager.Queue(11, 0);
         } else if (data_00474e36 & 0x1001) {
             AnimationHandle_004497d0* handle =
                 reinterpret_cast<AnimationHandle_004497d0*>(&room->animation_slots[125]);
@@ -103,7 +103,7 @@ __declspec(noinline) int __stdcall TitleMode7_004306a0(Title* room) {
                 AnimationRef_004497d0 child = handle->FindChildRef(0x7c - room->cursor.selection);
                 reinterpret_cast<AnimationHandle_00449470*>(&child)->SetStopFrame(1);
             }
-            data_00492590.Queue(10, 0);
+            g_sound_manager.Queue(10, 0);
             room->SetTimerTarget(3);
         }
         break;

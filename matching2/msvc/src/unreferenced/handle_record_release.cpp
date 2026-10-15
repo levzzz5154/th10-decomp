@@ -2,8 +2,8 @@
 // The adjacent RET at 0x0043B8B0 is a separate empty C++ function so native
 // LTCG can keep both retail bytes without embedding an instruction in this body.
 // The cluster supplies the retail private ESI receiver convention.
-extern "C" void (*data_00466288)(void* handle);
-extern "C" void (*data_00466274)(void* memory);
+extern "C" void (*imp_timeKillEvent)(void* handle);
+extern "C" void (*imp_timeEndPeriod)(void* memory);
 
 struct Record_0043b890 {
     unsigned char pad_000[4];
@@ -15,8 +15,8 @@ struct Record_0043b890 {
 
 #pragma code_seg(".text$01release")
 void Record_0043b890::Release() {
-    if (handle_004 != 0) data_00466288((void*)handle_004);
-    data_00466274(memory_008);
+    if (handle_004 != 0) imp_timeKillEvent((void*)handle_004);
+    imp_timeEndPeriod(memory_008);
     handle_004 = 0;
     return;
 }

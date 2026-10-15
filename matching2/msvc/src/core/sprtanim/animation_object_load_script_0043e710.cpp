@@ -49,7 +49,7 @@ struct AnimationManager_0043e710 {
 };
 
 extern "C" AnimationManager_0043e710* g_sprt_ctrl;
-extern "C" float data_00476f78;
+extern "C" float g_game_speed;
 extern "C" void __stdcall asm_FUN_0043ee30_0043ee30(Entity* object);
 extern "C" void __stdcall LoadScript_0043e710(AnimationResource_0043e710* resource,
                                              AnimationObject_0043e710* object,
@@ -77,7 +77,7 @@ __declspec(noinline) void __stdcall LoadScript_0043e710(
         object->current_frame = 0;
         object->previous_frame = static_cast<int32_t>(0xFFF0BDC1u);
         object->frame_elapsed = 0.0f;
-        object->time_scale = &data_00476f78;
+        object->time_scale = &g_game_speed;
         object->flags_06C |= 1;
     }
     object->current_frame = 0;

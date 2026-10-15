@@ -327,7 +327,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00497990",
+      "symbol": "_g_archive",
       "address": 4815248,
       "kind": "data"
     },
@@ -342,37 +342,37 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_004660b0",
+      "symbol": "_imp_EnterCriticalSection",
       "address": 4612272,
       "kind": "data"
     },
     {
-      "symbol": "_data_004660b4",
+      "symbol": "_imp_LeaveCriticalSection",
       "address": 4612276,
       "kind": "data"
     },
     {
-      "symbol": "_data_004660c4",
+      "symbol": "_imp_CreateFileA",
       "address": 4612292,
       "kind": "data"
     },
     {
-      "symbol": "_data_004660cc",
+      "symbol": "_imp_CloseHandle",
       "address": 4612300,
       "kind": "data"
     },
     {
-      "symbol": "_data_004660d0",
+      "symbol": "_imp_ReadFile",
       "address": 4612304,
       "kind": "data"
     },
     {
-      "symbol": "_data_004660d8",
+      "symbol": "_imp_GetFileSize",
       "address": 4612312,
       "kind": "data"
     },
     {
-      "symbol": "_data_004660dc",
+      "symbol": "_imp_GetModuleFileNameA",
       "address": 4612316,
       "kind": "data"
     },
@@ -467,7 +467,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_data_00474f70",
+      "symbol": "_g_log",
       "address": 4673392,
       "kind": "data"
     },

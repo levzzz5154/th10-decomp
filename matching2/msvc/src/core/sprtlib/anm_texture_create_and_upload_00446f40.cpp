@@ -23,7 +23,7 @@ int __stdcall AnmTexture_CreateAndUpload_00446f40(AnmTexture_00446c70* texture, 
     rect.top = 0;
     rect.right = thtx->width;
     rect.bottom = thtx->height;
-    if (asm_D3DXCreateTexture_004521a0(data_00491c30, width, height, 1, 0,
+    if (asm_D3DXCreateTexture_004521a0(g_d3d_device, width, height, 1, 0,
                                        data_0046f288[stored_format], 1,
                                        reinterpret_cast<void**>(&texture->texture)) != 0) {
         if (surface)

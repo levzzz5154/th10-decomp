@@ -1,8 +1,8 @@
 #include "archive.hpp"
 #include "log.hpp"
 extern "C" int __cdecl archive_sprintf(char*,const char*,...);
-extern "C" DatArchive data_00497990;
-extern "C" TextLog_0044b8e0 data_00474f70;
+extern "C" DatArchive g_archive;
+extern "C" TextLog_0044b8e0 g_log;
 extern "C" char* data_0049238c;
 extern "C" int data_00492388;
 extern "C" char version_archive_name[],version_filename_format[];
@@ -12,15 +12,15 @@ extern "C" char* __stdcall Archive_LoadFile(const char*,int*,int);
 __declspec(noinline) int CheckVersion() {
     int size;
     char name[128];
-    if (data_00497990.Open(version_archive_name)) {
+    if (g_archive.Open(version_archive_name)) {
         archive_sprintf(name,version_filename_format,0x100,0x61);
         char* buffer=Archive_LoadFile(name,&size,0);
         data_0049238c=buffer;
         data_00492388=size;
         if(buffer) return 0;
-        data_00474f70.AppendLine(version_missing_message);
+        g_log.AppendLine(version_missing_message);
     } else {
-        data_00474f70.AppendLine(archive_missing_message);
+        g_log.AppendLine(archive_missing_message);
     }
     return -1;
 }

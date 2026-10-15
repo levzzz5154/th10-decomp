@@ -72,8 +72,8 @@ extern BYTE startupReplay;
 extern TextLog_0044b8e0 startupLog;
 extern CriticalSection data_004922bc, g_file_critical_section;
 extern BYTE data_0049231f, g_file_critical_depth;
-extern void* data_004660b0;
-extern void* data_004660c4;
+extern void* imp_EnterCriticalSection;
+extern void* imp_CreateFileA;
 }
 __declspec(noinline) int __stdcall asm_File_ProbeExists_0044b4d0(const char*);
 // The complete real caller lets LTCG assign target to EBX and capacity to EDI.

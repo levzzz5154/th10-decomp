@@ -4,12 +4,12 @@
 #include "th10/app/main_task_mode.hpp"
 #include "th10/game/stage_startup_00417870.hpp"
 
-inline StageRunState_00417870* GameState() { return &data_00474c40; }
+inline StageRunState_00417870* GameState() { return &g_globals; }
 
 #pragma code_seg(".text$00c_mode")
 int MainTaskStateWave18::UpdateMode() {
     if (current_mode != next_mode) {
-        data_004660b0(critical_sections[5]);
+        imp_EnterCriticalSection(critical_sections[5]);
         int previous = current_mode;
         ++lock_depth[5];
         previous_mode = previous;
@@ -104,7 +104,7 @@ int MainTaskStateWave18::UpdateMode() {
         }
     done:
         current_mode = next_mode;
-        data_004660b4(critical_sections[5]);
+        imp_LeaveCriticalSection(critical_sections[5]);
         --lock_depth[5];
     }
     return 1;

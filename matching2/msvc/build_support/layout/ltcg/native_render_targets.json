@@ -233,12 +233,12 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00491c30",
+      "symbol": "_g_d3d_device",
       "address": "0x491c30",
       "kind": "data"
     },
     {
-      "symbol": "_data_00491c28",
+      "symbol": "_g_application",
       "address": "0x491c28",
       "kind": "data"
     },
@@ -293,12 +293,12 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_004660ac",
+      "symbol": "_imp_Sleep",
       "address": "0x4660ac",
       "kind": "data"
     },
     {
-      "symbol": "_data_00474f70",
+      "symbol": "_g_log",
       "address": "0x474f70",
       "kind": "data"
     }

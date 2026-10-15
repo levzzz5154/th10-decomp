@@ -116,7 +116,7 @@ __declspec(noinline) int __stdcall TitleMode11_00431ee0(Title* room) {
                 *reinterpret_cast<RecoveryScriptId_0040bd80*>(&room->animation_slots[171]));
         }
         if (difficulty->previous_selection != difficulty->selection) {
-            data_00492590.Queue(12, 0);
+            g_sound_manager.Queue(12, 0);
             room->ClearAnimationSlot(records->difficulty.previous_selection + 160);
             RecoveryMusicInstallSlot_0042c670(room, difficulty->selection + 160);
             if (records->page.selection > 0) {
@@ -138,7 +138,7 @@ __declspec(noinline) int __stdcall TitleMode11_00431ee0(Title* room) {
                 *reinterpret_cast<RecoveryScriptId_0040bd80*>(&room->animation_slots[169]));
         }
         if (room->cursor.previous_selection != room->cursor.selection) {
-            data_00492590.Queue(12, 0);
+            g_sound_manager.Queue(12, 0);
             if (room->cursor.selection / 3 != room->cursor.previous_selection / 3) {
                 room->ClearAnimationSlot(room->cursor.previous_selection / 3 + 152);
                 RecoveryMusicInstallSlot_0042c670(room, room->cursor.selection / 3 + 152);
@@ -166,7 +166,7 @@ __declspec(noinline) int __stdcall TitleMode11_00431ee0(Title* room) {
             } else {
                 reinterpret_cast<TitleDrawView*>(room)->BuildSpellList();
             }
-            data_00492590.Queue(10, 0);
+            g_sound_manager.Queue(10, 0);
         }
         if (records->difficulty.selection == 4 && room->cursor.selection == 2) {
             // Any game key restarts the sequence.
@@ -180,7 +180,7 @@ __declspec(noinline) int __stdcall TitleMode11_00431ee0(Title* room) {
                     data_004979a8[key] = (data_00497d90[key] ^ data_00497e90[key]) & data_00497e90[key];
                 if (data_004979a4 >= 22) {
                     UnlockAllStages_0042c8c0(reinterpret_cast<GameProgress_0042c8c0*>(data_0047783c));
-                    data_00492590.Queue(44, 0);
+                    g_sound_manager.Queue(44, 0);
                     data_004979a4 = 0;
                 } else if (data_004979a8[data_0046ef10[data_004979a4]] & 0x80) {
                     ++data_004979a4;
@@ -201,7 +201,7 @@ __declspec(noinline) int __stdcall TitleMode11_00431ee0(Title* room) {
         }
         if (data_00474e36 & 0xa) {
             room->SetTimerTarget(3);
-            data_00492590.Queue(11, 0);
+            g_sound_manager.Queue(11, 0);
             room->ClearAnimationSlot(records->difficulty.selection + 160);
             room->ClearAnimationSlot(room->cursor.selection + 154);
             room->ClearAnimationSlot(room->cursor.selection / 3 + 152);

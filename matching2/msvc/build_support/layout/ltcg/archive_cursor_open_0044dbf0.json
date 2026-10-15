@@ -44,12 +44,12 @@
       "kind": "metadata"
     },
     {
-      "symbol": "_data_004660c4",
+      "symbol": "_imp_CreateFileA",
       "address": "0x004660C4",
       "kind": "data"
     },
     {
-      "symbol": "_data_004660c8",
+      "symbol": "_imp_SetFilePointer",
       "address": "0x004660C8",
       "kind": "data"
     },

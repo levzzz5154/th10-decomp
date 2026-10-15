@@ -4,7 +4,7 @@ extern "C" float data_00470b64;
 extern "C" float data_00470b68;
 extern "C" float data_00470c68;
 extern "C" float data_00470c6c;
-extern "C" float data_00476f78;
+extern "C" float g_game_speed;
 // 0x004076A0. While the death clock runs, turn the heading and grow the
 // speed by the frame scale and refresh the velocity; at the deadline clear the
 // shrink flag. Either way advance the embedded frame clock. The object arrives
@@ -16,8 +16,8 @@ void PlayerDeathShrinkState_004076A0::AdvanceDeathShrink() {
         flags_43C &= ~0x20u;
     } else {
         float* heading = &angle_3E4;
-        *heading = Angle_NormalizeSum(*heading, data_00476f78 * angle_rate_694);
-        scalar_3D8 = data_00476f78 * fall_rate_690 + scalar_3D8;
+        *heading = Angle_NormalizeSum(*heading, g_game_speed * angle_rate_694);
+        scalar_3D8 = g_game_speed * fall_rate_690 + scalar_3D8;
         velocity.SetPolar(angle_3E4, scalar_3D8);
     }
 

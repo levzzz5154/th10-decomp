@@ -12,7 +12,7 @@ void FrontStagePartsView::ReleaseStageParts() {
         operator delete(slot);
         stage_slot = 0;
     }
-    if (data_00474c40.flags & 9)
+    if (g_globals.flags & 9)
         return;
     PanelResource_00447810** resource = &g_sprt_ctrl->stage_resource;
     if (*resource) {

@@ -60,7 +60,7 @@ int StageObject::IsOutsideView(const StageVector* offset, const RenderCamera* ca
 #pragma code_seg(".text$000q3draw")
 int __stdcall BackGround_DrawLayer(BackGround* stage, int layer) {
     StageInstance* instance = stage->instances;
-    data_00491c28.SelectStage(0);
+    g_application.SelectStage(0);
     g_sprt_ctrl->cached_unknown_6c = 1;
     for (; instance->object >= 0; ++instance) {
         StageObject* object = stage->objects[instance->object];
@@ -71,7 +71,7 @@ int __stdcall BackGround_DrawLayer(BackGround* stage, int layer) {
         position.x = instance->position.x;
         position.y = instance->position.y;
         position.z = instance->position.z;
-        if (object->IsOutsideView(&position, &data_00491c28.stages[0].camera,
+        if (object->IsOutsideView(&position, &g_application.stages[0].camera,
                                   stage->max_distance_squared)) {
             ++stage->culled_objects;
             continue;

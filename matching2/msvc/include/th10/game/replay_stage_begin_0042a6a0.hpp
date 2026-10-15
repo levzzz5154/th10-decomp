@@ -137,8 +137,8 @@ struct ReplayManager_0042a6a0 {
 };
 typedef char ReplayManagerNodes_0042a6a0[offsetof(ReplayManager_0042a6a0, nodes) == 0xA0 ? 1 : -1];
 
-extern "C" GameState_0042a6a0 data_00474c40;
-extern "C" RngState data_004918b0;
+extern "C" GameState_0042a6a0 g_globals;
+extern "C" RngState g_rng;
 extern "C" int data_00491fc4;      // a configuration word; bit 0 is saved with the stage
 
 #endif

@@ -141,7 +141,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00476f78",
+      "symbol": "_g_game_speed",
       "address": "0x00476F78",
       "kind": "data"
     },
@@ -391,7 +391,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00474c40",
+      "symbol": "_g_globals",
       "address": "0x00474c40",
       "kind": "data"
     },
@@ -486,7 +486,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00491c28",
+      "symbol": "_g_application",
       "address": "0x00491c28",
       "kind": "data"
     },
@@ -496,7 +496,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00492590",
+      "symbol": "_g_sound_manager",
       "address": "0x00492590",
       "kind": "data"
     }

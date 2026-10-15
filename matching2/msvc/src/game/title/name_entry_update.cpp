@@ -108,7 +108,7 @@ __declspec(noinline) int __stdcall TitleNameEntry_00432cb0(Title* room) {
                     grid->Advance(-12);
             }
             if (grid->previous_selection != grid->selection)
-                data_00492590.Queue(12, 0);
+                g_sound_manager.Queue(12, 0);
         }
         if (data_00474e36 & 0x1001) {
             if (entry->name_confirmed == 0) {
@@ -124,7 +124,7 @@ __declspec(noinline) int __stdcall TitleNameEntry_00432cb0(Title* room) {
                     } else {
                         entry->name[entry->name_length - 1] = characters[cell];
                     }
-                    data_00492590.Queue(10, 0);
+                    g_sound_manager.Queue(10, 0);
                 } else if (cell == count - 3) {
                     if (entry->name_length < 8) {
                         entry->name[entry->name_length] = ' ';
@@ -134,38 +134,38 @@ __declspec(noinline) int __stdcall TitleNameEntry_00432cb0(Title* room) {
                     } else {
                         entry->name[entry->name_length - 1] = ' ';
                     }
-                    data_00492590.Queue(10, 0);
+                    g_sound_manager.Queue(10, 0);
                 } else if (cell == count - 2) {
                     if (entry->name_length == 0)
                         break;
                     --entry->name_length;
                     entry->name[entry->name_length] = ' ';
-                    data_00492590.Queue(10, 0);
+                    g_sound_manager.Queue(10, 0);
                 } else if (cell == count - 1) {
                     strcpy(ScoreFile_00432cb0()->shots[data_00474c68][data_00474c6c]
                                .table.records[data_00474c74][room->cursor.selection].name,
                            entry->name);
                     strcpy(ScoreFile_00432cb0()->last_name, entry->name);
                     room->SetTimerTarget(3);
-                    data_00492590.Queue(10, 0);
+                    g_sound_manager.Queue(10, 0);
                 } else {
-                    data_00492590.Queue(10, 0);
+                    g_sound_manager.Queue(10, 0);
                 }
             } else {
                 room->SetTimerTarget(3);
-                data_00492590.Queue(10, 0);
+                g_sound_manager.Queue(10, 0);
             }
         }
         if (data_00474e36 & 0xa) {
             if (entry->name_confirmed == 0) {
                 if (entry->name_length == 0)
                     break;
-                data_00492590.Queue(11, 0);
+                g_sound_manager.Queue(11, 0);
                 --entry->name_length;
                 entry->name[entry->name_length] = ' ';
             } else {
                 room->SetTimerTarget(3);
-                data_00492590.Queue(10, 0);
+                g_sound_manager.Queue(10, 0);
             }
         }
         break;

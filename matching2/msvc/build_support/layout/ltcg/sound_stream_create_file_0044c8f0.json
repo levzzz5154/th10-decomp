@@ -165,12 +165,12 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_004660ac",
+      "symbol": "_imp_Sleep",
       "address": "0x004660AC",
       "kind": "data"
     },
     {
-      "symbol": "_data_004660c8",
+      "symbol": "_imp_SetFilePointer",
       "address": "0x004660C8",
       "kind": "data"
     },
@@ -185,32 +185,32 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_004660c4",
+      "symbol": "_imp_CreateFileA",
       "address": "0x004660C4",
       "kind": "data"
     },
     {
-      "symbol": "_data_004660cc",
+      "symbol": "_imp_CloseHandle",
       "address": "0x004660CC",
       "kind": "data"
     },
     {
-      "symbol": "_data_00466210",
+      "symbol": "_imp_PostThreadMessageA",
       "address": "0x00466210",
       "kind": "data"
     },
     {
-      "symbol": "_data_0046611c",
+      "symbol": "_imp_WaitForSingleObject",
       "address": "0x0046611C",
       "kind": "data"
     },
     {
-      "symbol": "_data_00466120",
+      "symbol": "_imp_CreateEventA",
       "address": "0x00466120",
       "kind": "data"
     },
     {
-      "symbol": "_data_00466118",
+      "symbol": "_imp_CreateThread",
       "address": "0x00466118",
       "kind": "data"
     },

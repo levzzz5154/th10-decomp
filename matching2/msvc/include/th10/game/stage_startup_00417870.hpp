@@ -140,8 +140,8 @@ struct ReplayManager_0042a6a0 {
 };
 typedef char ReplayManagerNodes_0042a6a0[offsetof(ReplayManager_0042a6a0, nodes) == 0xA0 ? 1 : -1];
 
-extern "C" StageRunState_00417870 data_00474c40;
-extern "C" RngState data_004918b0;
+extern "C" StageRunState_00417870 g_globals;
+extern "C" RngState g_rng;
 // The application object already passed to the animation cleanup functions.
 struct StageApplication_00417870 {
     unsigned char reserved_000[0x120];
@@ -160,7 +160,7 @@ typedef char StageApplicationWorkerState[offsetof(StageApplication_00417870, wor
 typedef char StageApplicationStatus[offsetof(StageApplication_00417870, status) == 0x3CC ? 1 : -1];
 typedef char StageRunFlags[offsetof(StageRunState_00417870, flags) == 0x60 ? 1 : -1];
 typedef char StageRunLives[offsetof(StageRunState_00417870, initial_lives) == 0x6C ? 1 : -1];
-extern "C" StageApplication_00417870 data_00491c28;
+extern "C" StageApplication_00417870 g_application;
 
 // The published UI context is passed to the startup worker on the stack.
 struct Game;

@@ -46,15 +46,15 @@
    "address": "0x0044B620",
    "kind": "code"
   },
-  "_data_004660b4": {
+  "_imp_LeaveCriticalSection": {
    "address": "0x004660B4",
    "kind": "data"
   },
-  "_data_004660cc": {
+  "_imp_CloseHandle": {
    "address": "0x004660CC",
    "kind": "data"
   },
-  "_data_004660d4": {
+  "_imp_WriteFile": {
    "address": "0x004660D4",
    "kind": "data"
   },

@@ -138,14 +138,14 @@ extern "C" __declspec(noinline) int __cdecl asm_AnimationManager_RenderBucket_00
 // Flush the sprite batch, then change one device render state.
 inline void StageSetRenderState(unsigned int state, unsigned int value) {
     g_sprt_ctrl->Flush();
-    data_00491c30->State(state, value);
+    g_d3d_device->State(state, value);
 }
 // Switch device fog (render state 0x1C) unless it already has that setting.
 inline void StageSetFog(int enabled) {
-    if (data_00491c28.fog_enabled != enabled) {
+    if (g_application.fog_enabled != enabled) {
         g_sprt_ctrl->Flush();
-        data_00491c28.fog_enabled = enabled;
-        data_00491c30->State(0x1C, enabled);
+        g_application.fog_enabled = enabled;
+        g_d3d_device->State(0x1C, enabled);
     }
 }
 

@@ -14,7 +14,7 @@ void Game_Delete(Game* object) {
 }
 #pragma code_seg(".text$00d_leave")
 void MainTaskStateWave18::LeaveSlot(int index) {
-    data_004660b4(critical_sections[index]);
+    imp_LeaveCriticalSection(critical_sections[index]);
     --lock_depth[index];
 }
 #pragma code_seg(".text$00f_script_destroy")

@@ -102,8 +102,8 @@ typedef char DeviceCreateTarget[offsetof(RenderDeviceMethods,CreateRenderTarget)
 typedef char DeviceCreatePlain[offsetof(RenderDeviceMethods,CreatePlain)==0x90?1:-1];
 extern "C" {
 extern SprtCtrlTargetsView* g_sprt_ctrl;
-extern RenderDevice* data_00491c30;
-extern ScreenshotState data_00491c28;
+extern RenderDevice* g_d3d_device;
+extern ScreenshotState g_application;
 extern unsigned int data_00491fd4,data_00474e36,data_00492134,data_00491d14;
 extern char data_00491d0c[],data_0046f6e4[],data_0046f6d0[],data_0046deb0[],data_0046df38[],data_0046def0[];
 void __cdecl Renderer_ApplyDeviceDefaults();
@@ -115,5 +115,5 @@ void __cdecl entry_free_00452422(void*);
 void* __cdecl retail_malloc_00452706(unsigned int);
 unsigned int __cdecl retail_beginthread_00452eec(void (__cdecl*)(void*),unsigned int,void*);
 void __cdecl ScreenshotWriter(void*);
-extern void (__stdcall* data_004660ac)(unsigned int);
+extern void (__stdcall* imp_Sleep)(unsigned int);
 }

@@ -15,27 +15,27 @@ __declspec(dllimport) unsigned long __stdcall timeGetTime();
 typedef unsigned long (__stdcall *RawThreadEntry)(void*);
 __declspec(dllimport) void *__stdcall CreateThread(void*,unsigned long,RawThreadEntry,void*,unsigned long,unsigned long*);
 unsigned int __cdecl beginthreadex_00453683(void*,unsigned int,PlatformWorkerEntry,void*,unsigned int,unsigned int*);
-extern float data_00476f78;
+extern float g_game_speed;
 extern unsigned int data_004923a8,data_00491ff8;
 extern unsigned short data_004918a8;
-extern unsigned char data_00492590;
+extern unsigned char g_sound_manager;
 extern void *data_004977ac;
 extern PlatformWorker data_00474dd4;
 }
 #pragma code_seg(".text$a00worker")
 extern "C" __declspec(noinline) int __cdecl App_StartWorkers() {
     InitializeVersionMarker_00420100();
-    data_00476f78=1.0f;data_004923a8=0xff000000;
+    g_game_speed=1.0f;data_004923a8=0xff000000;
     RenderCamera_InitializeDefaults_004216f0();
     unsigned long now=timeGetTime();data_00491ff8=now;
-    data_004918b0.seed=(unsigned short)now;data_004918a8=(unsigned short)now;
+    g_rng.seed=(unsigned short)now;data_004918a8=(unsigned short)now;
     unsigned long thread_id;
-    data_004977ac=CreateThread(0,0,reinterpret_cast<RawThreadEntry>(&Sound_PreloadWorker_0043d080),&data_00492590,0,&thread_id);
+    data_004977ac=CreateThread(0,0,reinterpret_cast<RawThreadEntry>(&Sound_PreloadWorker_0043d080),&g_sound_manager,0,&thread_id);
     CreateStatsTaskOwner_00413350();
     data_00474dd4.Stop();
     data_00474dd4.entry=reinterpret_cast<PlatformWorkerEntry>(&Input_InitThread);
     data_00474dd4.running=1;data_00474dd4.stop_requested=0;
-    data_00474dd4.thread=reinterpret_cast<void*>(beginthreadex_00453683(0,0,reinterpret_cast<PlatformWorkerEntry>(&Input_InitThread),&data_00491c28,0,&data_00474dd4.thread_id));
+    data_00474dd4.thread=reinterpret_cast<void*>(beginthreadex_00453683(0,0,reinterpret_cast<PlatformWorkerEntry>(&Input_InitThread),&g_application,0,&data_00474dd4.thread_id));
     g_sprt_ctrl->InitializeClip();
     InitializeFontCache_00437a00();
     return 0;

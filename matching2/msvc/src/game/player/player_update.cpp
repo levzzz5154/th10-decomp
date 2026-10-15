@@ -87,17 +87,17 @@ extern "C" __declspec(noinline) int __stdcall Player_Update(Player* player) {
     }
     case PLAYER_ALIVE:
         if (g_front && !g_front->script && g_bomb &&
-                !g_bomb->active && static_cast<short>(data_00474c40.power / 20) != 0 &&
+                !g_bomb->active && static_cast<short>(g_globals.power / 20) != 0 &&
                 g_input.revive) {
             reinterpret_cast<PlayerSchedulerRecord*>(&player->invulnerability_timer)->SetSchedulerValue(270);
             Bomb_Start(g_bomb);
-            data_00474c40.power -= 20;
+            g_globals.power -= 20;
             Player_RefreshOptions(player);
             {
-                int power = data_00474c40.power;
+                int power = g_globals.power;
                 reinterpret_cast<PowerDisplayOwner_004054b0*>(g_front)->SetPowerDigits(power / 20, (power % 20) * 100 / 20);
             }
-            data_00474c40.AddWithMinimum(3000);
+            g_globals.AddWithMinimum(3000);
         }
         if (player->state_timer.current < 30) {
             ActivatePlayerCollisions(true);
@@ -115,14 +115,14 @@ extern "C" __declspec(noinline) int __stdcall Player_Update(Player* player) {
             // Once contact has been updated, state 4 shares the full death path.
         } else {
             if (g_bomb && !g_bomb->active &&
-                    static_cast<short>(data_00474c40.power / 20) != 0 && g_input.revive) {
+                    static_cast<short>(g_globals.power / 20) != 0 && g_input.revive) {
                 reinterpret_cast<PlayerSchedulerRecord*>(&player->state_timer)->SetSchedulerValue(60);
                 reinterpret_cast<PlayerSchedulerRecord*>(&player->invulnerability_timer)->SetSchedulerValue(200);
                 Bomb_Start(g_bomb);
-                data_00474c40.power -= 20;
+                g_globals.power -= 20;
                 Player_RefreshOptions(player);
                 {
-                int power = data_00474c40.power;
+                int power = g_globals.power;
                 reinterpret_cast<PowerDisplayOwner_004054b0*>(g_front)->SetPowerDigits(power / 20, (power % 20) * 100 / 20);
             }
                 player->state = PLAYER_ALIVE;
@@ -131,10 +131,10 @@ extern "C" __declspec(noinline) int __stdcall Player_Update(Player* player) {
         }
     case PLAYER_DYING:
         if (player->state_timer.current == 3) {
-            data_00474c40.power -= 64;
-            if (data_00474c40.power < 0) data_00474c40.power = 0;
+            g_globals.power -= 64;
+            if (g_globals.power < 0) g_globals.power = 0;
             {
-                int power = data_00474c40.power;
+                int power = g_globals.power;
                 reinterpret_cast<PowerDisplayOwner_004054b0*>(g_front)->SetPowerDigits(power / 20, (power % 20) * 100 / 20);
             }
             Vec3 target = {0.0f, player->position.y - 224.0f, 0.0f};
@@ -147,9 +147,9 @@ extern "C" __declspec(noinline) int __stdcall Player_Update(Player* player) {
             Player_RefreshOptions(player);
         }
         if (player->state_timer.current >= 30) {
-            if (data_00474c40.lives < 0) {
+            if (g_globals.lives < 0) {
                 if (data_00477838->mode != 1) g_pause->OpenPause();
-                else data_00491c28.Set(4);
+                else g_application.Set(4);
             } else {
                 player->state = PLAYER_RESPAWNING;
                 g_score_default_speed = 1.0f;
@@ -207,9 +207,9 @@ extern "C" __declspec(noinline) int __stdcall Player_Update(Player* player) {
 
     if (!g_front->script && g_enemy_ctrl && g_enemy_ctrl->enabled &&
             player->state_timer.current % 60 == 0) {
-        ++data_00474c40.field_58;
-        if (data_00474c40.field_58 > 1024) data_00474c40.field_58 = 1024;
-        else if (data_00474c40.field_58 < -1024) data_00474c40.field_58 = -1024;
+        ++g_globals.field_58;
+        if (g_globals.field_58 > 1024) g_globals.field_58 = 1024;
+        else if (g_globals.field_58 < -1024) g_globals.field_58 = -1024;
     }
     if (!g_front->script && g_enemy_ctrl && g_enemy_ctrl->enabled)
         player->UpdateShooting();

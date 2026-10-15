@@ -13,10 +13,10 @@ int __stdcall BackGround_Draw(BackGround* stage) {
     if (stage->flags & 8) return 1;
     if (!(stage->flags & 4) || stage->fade_timer.current < 60) {
         g_sprt_ctrl->Flush();
-        stage->view.camera.clip_x = data_00491c28.stages[0].camera.clip_x;
-        stage->view.camera.clip_y = data_00491c28.stages[0].camera.clip_y;
-        data_00491c28.stages[0] = stage->view;
-        data_00491c28.SelectStage(0);
+        stage->view.camera.clip_x = g_application.stages[0].camera.clip_x;
+        stage->view.camera.clip_y = g_application.stages[0].camera.clip_y;
+        g_application.stages[0] = stage->view;
+        g_application.SelectStage(0);
         StageSetFog(1);
         StageSetRenderState(0x0E, 0);
         StageSetRenderState(0x17, 8);

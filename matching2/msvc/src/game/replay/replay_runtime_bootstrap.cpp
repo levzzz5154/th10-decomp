@@ -151,10 +151,10 @@ __declspec(noinline) int ReplayManager_004296f0::Start(int start_mode, const cha
     if (start_mode == 0) {
         // Recording: publish the manager, drop the stage's old pools, append
         // a fresh page, then build header, configuration and stage record.
-        int stage = data_00474c40.stage;
+        int stage = g_globals.stage;
         data_00477838 = this;
         ClearStage(stage);
-        current_pool = (ReplayPoolLink_0042aa50*)((PoolOwner_0042aa50*)this)->AppendPage(data_00474c40.stage);
+        current_pool = (ReplayPoolLink_0042aa50*)((PoolOwner_0042aa50*)this)->AppendPage(g_globals.stage);
 
         ReplayFileHeader_00428f60* file_header = new ReplayFileHeader_00428f60;
         header = (ReplayHeader_004296f0*)file_header;
@@ -163,12 +163,12 @@ __declspec(noinline) int ReplayManager_004296f0::Start(int start_mode, const cha
         summary = (ReplaySummary_004296f0*)config;
 
         ReplayStage_0042a6a0* stage_record = new ReplayStage_0042a6a0;
-        stage_data[data_00474c40.stage] = (ReplayStageData_004296f0*)stage_record;
-        stage_record = (ReplayStage_0042a6a0*)stage_data[data_00474c40.stage];
+        stage_data[g_globals.stage] = (ReplayStageData_004296f0*)stage_record;
+        stage_record = (ReplayStage_0042a6a0*)stage_data[g_globals.stage];
 
-        ((ReplayConfigBlock_00428f60*)summary)->character = data_00474c40.character;
-        ((ReplayConfigBlock_00428f60*)summary)->shot_type = data_00474c40.shot_type;
-        ((ReplayConfigBlock_00428f60*)summary)->difficulty = data_00474c40.difficulty;
+        ((ReplayConfigBlock_00428f60*)summary)->character = g_globals.character;
+        ((ReplayConfigBlock_00428f60*)summary)->shot_type = g_globals.shot_type;
+        ((ReplayConfigBlock_00428f60*)summary)->difficulty = g_globals.difficulty;
         if (g_game)
             memcpy(((ReplayConfigBlock_00428f60*)summary)->profile_mirror,
                    (char*)g_game + 0x24, 0x34);
@@ -179,12 +179,12 @@ __declspec(noinline) int ReplayManager_004296f0::Start(int start_mode, const cha
         // retail schedules them, and the gauge test re-reads the configuration
         // word through its retail address so the compare is a fresh memory
         // read (the parity line above consumed the loaded copy).
-        stage_record->stage = (short)data_00474c40.stage;
+        stage_record->stage = (short)g_globals.stage;
         _ReadWriteBarrier();
-        stage_record->seed = data_004918b0.seed;
+        stage_record->seed = g_rng.seed;
         _ReadWriteBarrier();
         int config_word = data_00491fc4;
-        data_004918b0.generation = 0;
+        g_rng.generation = 0;
         _ReadWriteBarrier();
         stage_record->flag = stage_record->flag ^ ((stage_record->flag ^ config_word) & 1);
         _ReadWriteBarrier();
@@ -192,14 +192,14 @@ __declspec(noinline) int ReplayManager_004296f0::Start(int start_mode, const cha
             stage_record->player_position.x = 0;
             stage_record->player_position.y = 0;
         }
-        stage_record->score = data_00474c40.score;
-        stage_record->word_10 = data_00474c40.word_08;
-        stage_record->gauge = data_00474c40.gauge;
-        stage_record->gauge_frame = data_00474c40.gauge_timer.current;
-        stage_record->field_1c = data_00474c40.field_30;
-        stage_record->field_20 = data_00474c40.field_58;
-        stage_record->continues = data_00474c40.continues;
-        ((ReplayConfigBlock_00428f60*)summary)->continues = data_00474c40.continues;
+        stage_record->score = g_globals.score;
+        stage_record->word_10 = g_globals.word_08;
+        stage_record->gauge = g_globals.gauge;
+        stage_record->gauge_frame = g_globals.gauge_timer.current;
+        stage_record->field_1c = g_globals.field_30;
+        stage_record->field_20 = g_globals.field_58;
+        stage_record->continues = g_globals.continues;
+        ((ReplayConfigBlock_00428f60*)summary)->continues = g_globals.continues;
 
         SchedulerTask* update =
             (SchedulerTask*)BuildCallbackNode_00428f60((void*)0x0042A3D0, this);
@@ -216,7 +216,7 @@ __declspec(noinline) int ReplayManager_004296f0::Start(int start_mode, const cha
         FuncCtrl_RegisterSecondary((FuncCtrl*)g_func_ctrl, draw, 5);
         draw_task = draw;
 
-        reserved_1d0 = (unsigned int)data_00474c40.stage;
+        reserved_1d0 = (unsigned int)g_globals.stage;
         return 0;
     }
     if (start_mode == 1) {
@@ -233,7 +233,7 @@ __declspec(noinline) int ReplayManager_004296f0::Start(int start_mode, const cha
         // the scaled stage index (ebx+edx*4+disp) and only materialises the
         // node pointer for the cursor_end pair, so the array view keeps that
         // shape (the layout records the two stores' refolded encodings).
-        const int stage = data_00474c40.stage;
+        const int stage = g_globals.stage;
         unsigned int (*node_view)[9] = (unsigned int (*)[9])nodes;
         node_view[stage][1] = node_view[stage][0];
         ReplayStage_0042a6a0* stage_record =
@@ -242,23 +242,23 @@ __declspec(noinline) int ReplayManager_004296f0::Start(int start_mode, const cha
         ReplayNode_0042a6a0* current = (ReplayNode_0042a6a0*)(node_view + stage);
         current->cursor_end = current->inputs_end;
 
-        data_00474c40.character = ((ReplayConfigBlock_00428f60*)summary)->character;
-        data_00474c40.shot_type = ((ReplayConfigBlock_00428f60*)summary)->shot_type;
-        data_00474c40.difficulty = ((ReplayConfigBlock_00428f60*)summary)->difficulty;
+        g_globals.character = ((ReplayConfigBlock_00428f60*)summary)->character;
+        g_globals.shot_type = ((ReplayConfigBlock_00428f60*)summary)->shot_type;
+        g_globals.difficulty = ((ReplayConfigBlock_00428f60*)summary)->difficulty;
 
-        data_004918b0.seed = stage_record->seed;
+        g_rng.seed = stage_record->seed;
         _ReadWriteBarrier();
-        data_004918b0.generation = 0;
+        g_rng.generation = 0;
         _ReadWriteBarrier();
-        data_00474c40.score = stage_record->score;
-        data_00474c40.word_08 = stage_record->word_10;
+        g_globals.score = stage_record->score;
+        g_globals.word_08 = stage_record->word_10;
         ((ScoreState*)0x00474C40)->SetGauge(stage_record->gauge * 10);
         ((EmbeddedTimerState_0042a930*)0x00474C40)->SetCountdown(stage_record->gauge_frame);
-        data_00474c40.field_30 = stage_record->field_1c;
-        data_00474c40.field_58 = stage_record->field_20;
-        data_00474c40.continues = stage_record->continues;
-        data_00474c40.field_5c =
-            ((ReplayNode_0042a6a0*)nodes)[data_00474c40.stage].stage->field_1b8;
+        g_globals.field_30 = stage_record->field_1c;
+        g_globals.field_58 = stage_record->field_20;
+        g_globals.continues = stage_record->continues;
+        g_globals.field_5c =
+            ((ReplayNode_0042a6a0*)nodes)[g_globals.stage].stage->field_1b8;
 
         SchedulerTask* update =
             (SchedulerTask*)BuildCallbackNode_00428f60((void*)0x0042A3D0, this);

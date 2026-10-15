@@ -50,7 +50,7 @@ struct RenderStageState_00448620 {
     unsigned char reserved_38C[0x750 - 0x38C];
     int fog_dirty;                               // +0x750
 };
-extern "C" RenderStageState_00448620 data_00491c28;
+extern "C" RenderStageState_00448620 g_application;
 
 // 0x00448980 reads its manager from EDI and its bucket index from EAX; the
 // declaration only fixes the argument shape, the cluster anchor supplies the
@@ -59,15 +59,15 @@ extern "C" int __cdecl asm_AnimationManager_RenderBucket_00448980(void* manager,
 
 #pragma code_seg(".text$08layer3")
 int SprtCtrlBatchView::RenderStage0Bucket3() {
-    RenderStage_00448620* stage = &data_00491c28.stages[0];
-    data_00491c28.active_stage = stage;
+    RenderStage_00448620* stage = &g_application.stages[0];
+    g_application.active_stage = stage;
     stage->camera.ApplyDefault();
-    data_00491c30->Viewport(&data_00491c28.active_stage->camera.viewport_x);
-    data_00491c28.stage_index = 0;
-    if (data_00491c28.fog_dirty) {
+    g_d3d_device->Viewport(&g_application.active_stage->camera.viewport_x);
+    g_application.stage_index = 0;
+    if (g_application.fog_dirty) {
         g_sprt_ctrl->Flush();
-        data_00491c28.fog_dirty = 0;
-        data_00491c30->State(0x1C, 0);
+        g_application.fog_dirty = 0;
+        g_d3d_device->State(0x1C, 0);
     }
     return asm_AnimationManager_RenderBucket_00448980(this, 3);
 }

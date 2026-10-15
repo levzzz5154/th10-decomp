@@ -9,7 +9,7 @@ struct ItemAnimationResources_0041bb00 {
 };
 extern "C" {
 extern short data_00474c48;
-extern float data_00476f78;
+extern float g_game_speed;
 extern ItemAnimationResources_0041bb00* data_004776f0;
 }
 struct ItemBankSnapshot {
@@ -29,7 +29,7 @@ static __forceinline void ResetSpawnTimer_0041bb00(SpawnItem_0041bb00* item) {
         item->motion.timer.current=0;
         item->motion.timer.previous=-999999;
         item->motion.timer.elapsed=0.0f;
-        item->motion.timer.speed=&data_00476f78;
+        item->motion.timer.speed=&g_game_speed;
         item->motion.timer.flags=flags;
     }
     item->motion.timer.current=0;

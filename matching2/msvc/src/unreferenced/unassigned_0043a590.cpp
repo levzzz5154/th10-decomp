@@ -1,5 +1,5 @@
 // 0x0043A590: send a three-byte short MIDI message; the fourth byte is left unset.
-extern "C" unsigned int (__stdcall* data_00466298)(void* handle, unsigned int message);
+extern "C" unsigned int (__stdcall* imp_midiOutShortMsg)(void* handle, unsigned int message);
 struct MidiOutput_0043a590 {
     void* handle;
     unsigned int device;
@@ -15,6 +15,6 @@ __declspec(noinline) int __stdcall SendShortMessage_0043a590(MidiOutput_0043a590
     message.bytes[0] = status;
     message.bytes[1] = first;
     message.bytes[2] = second;
-    return data_00466298(output->handle, message.packed) != 0;
+    return imp_midiOutShortMsg(output->handle, message.packed) != 0;
 }
 #pragma code_seg()

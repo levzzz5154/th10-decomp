@@ -70,7 +70,7 @@
   "constants": [],
   "absolute_symbols": [
     {
-      "symbol": "_data_004660b0",
+      "symbol": "_imp_EnterCriticalSection",
       "address": "0x004660B0",
       "kind": "data"
     },

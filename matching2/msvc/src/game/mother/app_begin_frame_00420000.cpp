@@ -25,9 +25,9 @@ struct RenderStageState_00420000 {
     __declspec(noinline) int BeginFrame();
 };
 
-// The one application state object; data_00491c30 and data_004923a8 are its
+// The one application state object; g_d3d_device and data_004923a8 are its
 // device and clear colour.
-extern "C" RenderStageState_00420000 data_00491c28;
+extern "C" RenderStageState_00420000 g_application;
 
 // The manager's fade colour is four byte channels written as one word here.
 inline unsigned int& ManagerFadeColor(SprtCtrlBatchView* manager) {
@@ -58,7 +58,7 @@ int RenderStageState_00420000::BeginFrame() {
     active_stage->camera.Apply();
     device->Viewport(&active_stage->camera.viewport_x);
     stage_index = 1;
-    data_00491c28.device->Clear(0, 0, 1, data_00491c28.clear_color, 1.0f, 0);
+    g_application.device->Clear(0, 0, 1, g_application.clear_color, 1.0f, 0);
     return 1;
 }
 #pragma code_seg()

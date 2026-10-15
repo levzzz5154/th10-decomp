@@ -12,7 +12,7 @@ struct TextLog_0044b8e0 {
 };
 extern "C" {
 extern unsigned int data_00474c7c; extern BackGroundCameraSnapshot data_00491d7c;
-extern FuncCtrl* g_func_ctrl; extern float data_00476f78;
+extern FuncCtrl* g_func_ctrl; extern float g_game_speed;
 SchedulerTask* __stdcall SchedulerCallback_Create_00449ed0(void* callback);
 }
 #pragma code_seg(".text$01init")
@@ -47,7 +47,7 @@ extern "C" __declspec(noinline) int __stdcall BackGround_Initialize(BackGround* 
         state->timer_0038.current=0;
         state->timer_0038.previous=(int)0xfff0bdc1;
         state->timer_0038.elapsed=0;
-        state->timer_0038.speed=&data_00476f78; state->timer_0038.flags=timer_flags;
+        state->timer_0038.speed=&g_game_speed; state->timer_0038.flags=timer_flags;
     }
     // The lazy defaults and the following reset are separate observed writes.
     _ReadWriteBarrier();

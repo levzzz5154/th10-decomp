@@ -39,7 +39,7 @@ int Enemy::Execute_0040e770() {
             float y = position.y;
             world.y = y + FloatValue_00412aa0(2, ins->f[n + 1]);
             world.z = position.z;
-            data_00491c28.SelectStage_00401d20(0);
+            g_application.SelectStage_00401d20(0);
             D3DXVec3Project_0045218e(&spawn.position, &world, data_00491e48, data_00491e08, data_00491dc8, data_00474df0);
             spawn.position.x -= 224.0f;
             spawn.position.z = 0.0f;
@@ -732,7 +732,7 @@ int Enemy::Execute_0040e770() {
         g_laser_manager->Cleanup_0041c850(1);
         return 0;
     case 0x150:
-        data_00492590.QueuePan_0043dd10(IOP(0), position.x);
+        g_sound_manager.QueuePan_0043dd10(IOP(0), position.x);
         return 0;
     case 0x151:
         Screen_Create(0x31, 1, IOP(0), IOP(1), IOP(2), 0);
@@ -907,7 +907,7 @@ int Enemy::Execute_0040e770() {
         return 0;
     }
     case 0x158:
-        Score_SetMode_00412ed0(&data_00474c40, IntArg_00412a00(0));
+        Score_SetMode_00412ed0(&g_globals, IntArg_00412a00(0));
         return 0;
     case 0x15d:
         if (g_rank_00474c98 >= 0x200) *FloatDest(0) = FOP(2);
@@ -982,7 +982,7 @@ int Enemy::Execute_0040e770() {
         f144c = anm_base_script;
         return 0;
     case 0x16f:
-        g_game_speed_00476f78 = FOP(0);
+        g_game_speed = FOP(0);
         return 0;
     case 0x1ae:
         *FloatDest(0) = (float)atan2(g_player->position.y - FOP(2), g_player->position.x - FOP(1));

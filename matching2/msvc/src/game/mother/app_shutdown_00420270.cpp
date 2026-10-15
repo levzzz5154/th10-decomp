@@ -54,12 +54,12 @@ struct App_00420270 {
     __declspec(noinline) int Shutdown();
 };
 
-extern "C" App_00420270 data_00491c28;
+extern "C" App_00420270 g_application;
 extern "C" PlatformWorker data_00474dd4;
 extern "C" int data_004977b4;
 extern "C" AnimationManagerSurface_00420270* g_sprt_ctrl;
-extern "C" AnimationManager_0043e460 data_00492590;
-extern "C" DatArchive data_00497990;
+extern "C" AnimationManager_0043e460 g_sound_manager;
+extern "C" DatArchive g_archive;
 extern "C" const char data_0046df98[];
 
 static inline void DeleteTimer(Win32Timer* timer) {
@@ -73,10 +73,10 @@ static inline void DeleteTimer(Win32Timer* timer) {
 int App_00420270::Shutdown() {
     data_00474dd4.Stop();
     data_004977b4 = 2;
-    data_00491c28.worker.Stop();
-    if (data_00491c28.buffer_764) {
-        asm_free_00452422(data_00491c28.buffer_764);
-        data_00491c28.buffer_764 = 0;
+    g_application.worker.Stop();
+    if (g_application.buffer_764) {
+        asm_free_00452422(g_application.buffer_764);
+        g_application.buffer_764 = 0;
     }
     Recovery_ReleaseGlobalStates();
     DeletePublishedBlock(g_fps);
@@ -85,7 +85,7 @@ int App_00420270::Shutdown() {
         (*back_buffer)->vtable->Release(*back_buffer);
         *back_buffer = 0;
     }
-    data_00492590.RegisterResource(data_0046df98, 4, 0);
+    g_sound_manager.RegisterResource(data_0046df98, 4, 0);
     DeleteFontCacheObjects_00437d10();
     if (keyboard) {
         keyboard->vtable->Unacquire(keyboard);
@@ -105,12 +105,12 @@ int App_00420270::Shutdown() {
         input->vtable->Release(input);
         input = 0;
     }
-    if (data_00491c28.timer) {
-        data_00491c28.timer->Cancel();
-        DeleteTimer(data_00491c28.timer);
-        data_00491c28.timer = 0;
+    if (g_application.timer) {
+        g_application.timer->Cancel();
+        DeleteTimer(g_application.timer);
+        g_application.timer = 0;
     }
-    data_00497990.Close();
+    g_archive.Close();
     return 0;
 }
 #pragma code_seg()

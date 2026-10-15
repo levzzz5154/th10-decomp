@@ -20,7 +20,7 @@ int __stdcall AnmTexture_CreateFromMemory_00446eb0(AnmUploadTag_00446c70 tag,
             stored_format = 3;
     }
     if (asm_D3DXCreateTextureFromFileInMemoryEx_004521ca(
-            data_00491c30, texture->file_data, texture->data_size, width, height, 0, 0,
+            g_d3d_device, texture->file_data, texture->data_size, width, height, 0, 0,
             data_0046f288[stored_format], 1, 1, 0xFFFFFFFF, color_key, 0, 0, &texture->texture) != 0)
         return -1;
     texture->FillTransparentPixels();

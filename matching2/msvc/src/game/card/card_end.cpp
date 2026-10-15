@@ -24,7 +24,7 @@ void Card_00409c00::End() {
                 history = &data_0047783c->shots[6].spells[spell_id];
                 if (history->captures < 99999) history->captures++;
             }
-            data_00492590.Queue(0x2D, 0);
+            g_sound_manager.Queue(0x2D, 0);
         } else {
             // The slot is located before the create call, which may replace
             // the front manager.

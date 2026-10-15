@@ -12,14 +12,14 @@
 // section object and its nesting counter are the retail globals at 0x004922A4
 // and 0x0049231E.
 
-extern "C" unsigned char data_004660b0;   // EnterCriticalSection
-extern "C" unsigned char data_004660b4;   // LeaveCriticalSection
-extern "C" unsigned char data_004660c4;   // CreateFileA
-extern "C" unsigned char data_004660cc;   // CloseHandle
-extern "C" unsigned char data_004660d4;   // WriteFile
-extern "C" unsigned char data_0046610c;   // GetLastError
-extern "C" unsigned char data_00466124;   // FormatMessageA
-extern "C" unsigned char data_00466128;   // LocalFree
+extern "C" unsigned char imp_EnterCriticalSection;   // EnterCriticalSection
+extern "C" unsigned char imp_LeaveCriticalSection;   // LeaveCriticalSection
+extern "C" unsigned char imp_CreateFileA;   // CreateFileA
+extern "C" unsigned char imp_CloseHandle;   // CloseHandle
+extern "C" unsigned char imp_WriteFile;   // WriteFile
+extern "C" unsigned char imp_GetLastError;   // GetLastError
+extern "C" unsigned char imp_FormatMessageA;   // FormatMessageA
+extern "C" unsigned char imp_LocalFree;   // LocalFree
 extern "C" unsigned char data_004922a4;   // the file subsystem lock object
 extern "C" unsigned char data_0049231e;   // the lock's nesting counter
 
@@ -46,28 +46,28 @@ __declspec(noinline) int File_WriteWholeFile(const char* path, const void* buffe
 
 #pragma code_seg(".text$01write")
 int File_WriteWholeFile(const char* path, const void* buffer, unsigned long size) {
-    (*(EnterCriticalSectionFn*)&data_004660b0)(&data_004922a4);
+    (*(EnterCriticalSectionFn*)&imp_EnterCriticalSection)(&data_004922a4);
     ++data_0049231e;
-    void* handle = (*(CreateFileFn*)&data_004660c4)(path, 0x40000000, 1, 0, 2, 0x80, 0);
+    void* handle = (*(CreateFileFn*)&imp_CreateFileA)(path, 0x40000000, 1, 0, 2, 0x80, 0);
     if (handle == (void*)-1) {
         char* message;
-        (*(FormatMessageFn*)&data_00466124)(
-            0x1300, 0, (*(GetLastErrorFn*)&data_0046610c)(), 0x400, &message, 0, 0);
-        (*(LocalFreeFn*)&data_00466128)(message);
-        (*(LeaveCriticalSectionFn*)&data_004660b4)(&data_004922a4);
+        (*(FormatMessageFn*)&imp_FormatMessageA)(
+            0x1300, 0, (*(GetLastErrorFn*)&imp_GetLastError)(), 0x400, &message, 0, 0);
+        (*(LocalFreeFn*)&imp_LocalFree)(message);
+        (*(LeaveCriticalSectionFn*)&imp_LeaveCriticalSection)(&data_004922a4);
         --data_0049231e;
         return -1;
     }
     unsigned long written;
-    (*(WriteFileFn*)&data_004660d4)(handle, buffer, size, &written, 0);
+    (*(WriteFileFn*)&imp_WriteFile)(handle, buffer, size, &written, 0);
     if (size != written) {
-        (*(CloseHandleFn*)&data_004660cc)(handle);
-        (*(LeaveCriticalSectionFn*)&data_004660b4)(&data_004922a4);
+        (*(CloseHandleFn*)&imp_CloseHandle)(handle);
+        (*(LeaveCriticalSectionFn*)&imp_LeaveCriticalSection)(&data_004922a4);
         --data_0049231e;
         return -2;
     }
-    (*(CloseHandleFn*)&data_004660cc)(handle);
-    (*(LeaveCriticalSectionFn*)&data_004660b4)(&data_004922a4);
+    (*(CloseHandleFn*)&imp_CloseHandle)(handle);
+    (*(LeaveCriticalSectionFn*)&imp_LeaveCriticalSection)(&data_004922a4);
     --data_0049231e;
     return 0;
 }

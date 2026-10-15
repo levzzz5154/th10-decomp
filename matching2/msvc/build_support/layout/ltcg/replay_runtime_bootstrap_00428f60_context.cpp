@@ -18,7 +18,7 @@
 extern "C" void __stdcall ReplayManagerStandIn_Remove(void* scheduler, void* task);
 extern "C" int __stdcall ReplayManagerStandIn_Load(const char* path);
 extern "C" char data_00474e88[];
-extern "C" float data_00476f78;
+extern "C" float g_game_speed;
 
 // Same shape the equivalent body declares; the member definition lands here.
 struct EmbeddedTimerState_0042a930 {
@@ -67,7 +67,7 @@ void EmbeddedTimerState_0042a930::SetCountdown(int frames) {
         this->current_18 = 0;
         this->target_14 = 0xFFF0BDC1;
         this->previous_1c = 0.0f;
-        this->speed_20 = &data_00476f78;
+        this->speed_20 = &g_game_speed;
         this->flags_24 |= 1;
     }
     this->current_18 = frames;

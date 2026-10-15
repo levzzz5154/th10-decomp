@@ -61,10 +61,10 @@ typedef int (__stdcall* SoundPost)(unsigned int,unsigned int,unsigned int,unsign
 typedef unsigned int (__stdcall* SoundWait)(void*,unsigned int);
 typedef int (__stdcall* SoundClose)(void*);
 extern "C" {
-extern SoundPost data_00466210;
-extern SoundWait data_0046611c;
-extern SoundClose data_004660cc;
-extern int (__stdcall* data_00466214)(void*,unsigned int);
+extern SoundPost imp_PostThreadMessageA;
+extern SoundWait imp_WaitForSingleObject;
+extern SoundClose imp_CloseHandle;
+extern int (__stdcall* imp_KillTimer)(void*,unsigned int);
 void __cdecl entry_free_00452422(void*);
 void __cdecl owner_free_004524a1(void*);
 }

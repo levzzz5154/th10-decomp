@@ -1,7 +1,7 @@
 // 0x0043A1C0: checksum the executable, excluding its final complete dword.
 #include "../../../build_support/layout/ltcg/native_archive_read/archive.hpp"
 #include "th10/platform/archive_file.hpp"
-extern "C" unsigned long (__stdcall *data_004660dc)(void*, char*, unsigned long);
+extern "C" unsigned long (__stdcall *imp_GetModuleFileNameA)(void*, char*, unsigned long);
 extern "C" void __cdecl entry_free_00452422(void*);
 extern "C" int data_00492380;
 extern "C" int data_00492384;
@@ -9,7 +9,7 @@ extern "C" int data_00492384;
 __declspec(noinline) int __stdcall ComputeExecutableChecksum() {
     int size;
     char filename[264];
-    if (data_004660dc(0, filename, 0x105)) {
+    if (imp_GetModuleFileNameA(0, filename, 0x105)) {
         int sum = 0;
         int* cursor = (int*)Archive_LoadFile(filename, &size, 1);
         int* block = cursor;

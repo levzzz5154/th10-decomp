@@ -113,11 +113,11 @@
       "address": "0x0046F640",
       "kind": "data"
     },
-    "_data_00474f70": {
+    "_g_log": {
       "address": "0x00474F70",
       "kind": "data"
     },
-    "_data_00491c28": {
+    "_g_application": {
       "address": "0x00491C28",
       "kind": "data"
     },

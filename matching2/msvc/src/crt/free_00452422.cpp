@@ -6,7 +6,7 @@ extern void __cdecl asm_lock_00453c0c(int lock_number);
 extern void* __cdecl asm_sbh_find_block_00453c9a(void* block);
 extern void __cdecl asm_sbh_free_block_00453cc5(void* header, void* block);
 extern void __cdecl asm_FUN_00453b3f_00453b3f(int lock_number);
-extern int (__stdcall *data_004661e8)(void* heap, unsigned long flags, void* block);
+extern int (__stdcall *imp_HeapFree)(void* heap, unsigned long flags, void* block);
 
 void __cdecl free_00452422(void* block) {
     int result = 0;
@@ -25,9 +25,9 @@ void __cdecl free_00452422(void* block) {
             asm_FUN_00453b3f_00453b3f(4);
         }
         if (header == 0) {
-            result = data_004661e8(data_00499340, 0, block);
+            result = imp_HeapFree(data_00499340, 0, block);
         }
     } else {
-        result = data_004661e8(data_00499340, 0, block);
+        result = imp_HeapFree(data_00499340, 0, block);
     }
 }

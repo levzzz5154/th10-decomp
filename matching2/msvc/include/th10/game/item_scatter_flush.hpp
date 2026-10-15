@@ -3,25 +3,25 @@
 
 #include "th10/math/rng.hpp"
 
-extern "C" RngState data_004918b0;
+extern "C" RngState g_rng;
 extern "C" float __stdcall Angle_Normalize_0044bc70(float value);
 
 // The gameplay code draws from the shared generator inline: two steps through
 // a 32-bit read of the seed, with the final word filling both halves.
 __forceinline unsigned int ItemScatter_NextU32() {
-    unsigned int value = *(unsigned int*)&data_004918b0.seed;
+    unsigned int value = *(unsigned int*)&g_rng.seed;
     value ^= 0x9630;
     value -= 0x6553;
     unsigned int high = ((unsigned short)value) >> 14;
-    data_004918b0.seed = (unsigned short)(high + (value << 2));
-    ++data_004918b0.generation;
-    value = *(unsigned int*)&data_004918b0.seed;
+    g_rng.seed = (unsigned short)(high + (value << 2));
+    ++g_rng.generation;
+    value = *(unsigned int*)&g_rng.seed;
     value ^= 0x9630;
     value -= 0x6553;
     high = ((unsigned short)value) >> 14;
-    data_004918b0.seed = (unsigned short)(high + (value << 2));
-    ++data_004918b0.generation;
-    unsigned int word = data_004918b0.seed;
+    g_rng.seed = (unsigned short)(high + (value << 2));
+    ++g_rng.generation;
+    unsigned int word = g_rng.seed;
     return (word << 16) | word;
 }
 

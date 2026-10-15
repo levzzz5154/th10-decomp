@@ -17,7 +17,7 @@
 // compare slot of the flag test (`test cl,1` / store / `jne`), which is two
 // bytes and three instructions away from retail's schedule; with it the two
 // stores stay adjacent before the flag load, exactly as retail emits them.
-extern "C" float data_00476f78;
+extern "C" float g_game_speed;
 
 struct Title {
     unsigned char unknown_00[0x1C];
@@ -45,7 +45,7 @@ void Title::DisableTimerWithOwner(int owner) {
         timer_current = 0;
         timer_previous = 0xFFF0BDC1;
         timer_elapsed = 0;
-        timer_speed = &data_00476f78;
+        timer_speed = &g_game_speed;
         timer_flags |= 1;
     }
     timer_current = 0;

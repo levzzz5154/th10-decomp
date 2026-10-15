@@ -16,9 +16,9 @@ void RenderCamera::Apply() {
     CameraLookAt(&view, &eye, &target, &up);
     CameraPerspective(&projection, field_of_view, (float)width / (float)height, 30.0f, 1800.0f);
     typedef long (__stdcall *SetTransform)(void*, unsigned int, const CameraMatrix*);
-    RenderDevice* device = data_00491c30;
+    RenderDevice* device = g_d3d_device;
     ((SetTransform)device->vtable[0xB0 / 4])(device, 2, &view);
-    device = data_00491c30;
+    device = g_d3d_device;
     ((SetTransform)device->vtable[0xB0 / 4])(device, 3, &projection);
     CameraCross(&right, &direction, &up);
     CameraNormalize(&right, &right);

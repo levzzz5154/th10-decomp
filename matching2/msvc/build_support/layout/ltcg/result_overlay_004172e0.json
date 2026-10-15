@@ -255,12 +255,12 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00492590",
+      "symbol": "_g_sound_manager",
       "address": "0x00492590",
       "kind": "data"
     },
     {
-      "symbol": "_data_004749ce",
+      "symbol": "_g_sound_priority",
       "address": "0x004749CE",
       "kind": "data"
     },
@@ -285,7 +285,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_data_00476f78",
+      "symbol": "_g_game_speed",
       "address": "0x476f78",
       "kind": "data"
     }

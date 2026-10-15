@@ -107,7 +107,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00497990",
+      "symbol": "_g_archive",
       "address": "0x497990",
       "kind": "data"
     },
@@ -122,37 +122,37 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_004660b0",
+      "symbol": "_imp_EnterCriticalSection",
       "address": "0x4660b0",
       "kind": "data"
     },
     {
-      "symbol": "_data_004660b4",
+      "symbol": "_imp_LeaveCriticalSection",
       "address": "0x4660b4",
       "kind": "data"
     },
     {
-      "symbol": "_data_004660c4",
+      "symbol": "_imp_CreateFileA",
       "address": "0x4660c4",
       "kind": "data"
     },
     {
-      "symbol": "_data_004660cc",
+      "symbol": "_imp_CloseHandle",
       "address": "0x4660cc",
       "kind": "data"
     },
     {
-      "symbol": "_data_004660d0",
+      "symbol": "_imp_ReadFile",
       "address": "0x4660d0",
       "kind": "data"
     },
     {
-      "symbol": "_data_004660d8",
+      "symbol": "_imp_GetFileSize",
       "address": "0x4660d8",
       "kind": "data"
     },
     {
-      "symbol": "_data_004660dc",
+      "symbol": "_imp_GetModuleFileNameA",
       "address": "0x4660dc",
       "kind": "data"
     },

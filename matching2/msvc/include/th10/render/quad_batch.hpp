@@ -104,7 +104,7 @@ struct RenderEntity {
     __declspec(noinline) int DrawFan33();
 };
 // The shared sprite quad both submit pipelines finish and append.
-extern "C" TexturedVertex data_004978c0[4];
+extern "C" TexturedVertex g_quad_vertices[4];
 // The half-pixel the two submit pipelines pull their snapped edges back by.
 // Retail kept one .rdata copy per pipeline instead of the shared 0.5f pool.
 extern "C" float data_00470e8;
@@ -165,7 +165,7 @@ struct RenderDevice {
         return ((Call)vtable[0xBC / 4])(this, viewport);
     }
 };
-extern "C" RenderDevice* data_00491c30;
+extern "C" RenderDevice* g_d3d_device;
 struct DeviceViewport { unsigned int x, y, width, height; float min_z, max_z; };
 extern "C" DeviceViewport data_00491cf4;
 extern "C" char data_00491d0c[];

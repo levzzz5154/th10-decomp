@@ -9,7 +9,7 @@
 
 #pragma code_seg(".text$00414370_fn")
 void __stdcall SidePanel_ReleaseContents_00414370(SidePanel_00414370* panel) {
-    if (!(data_00474c40.flags & 9)) {
+    if (!(g_globals.flags & 9)) {
         PanelResource_00414370** resource = &g_sprt_ctrl->stage_resource;
         if (*resource) {
             (*resource)->Release();
@@ -28,7 +28,7 @@ void __stdcall SidePanel_ReleaseContents_00414370(SidePanel_00414370* panel) {
         panel->stage_slot = 0;
     }
 
-    if (!(data_00474c40.flags & 9)) {
+    if (!(g_globals.flags & 9)) {
         if (panel->stage_buffer) {
             entry_free_00452422(panel->stage_buffer);
             panel->stage_buffer = 0;

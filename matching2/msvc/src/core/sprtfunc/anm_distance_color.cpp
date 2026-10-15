@@ -88,7 +88,7 @@ extern "C" __declspec(noinline) int EntityDraw_00443fb0(SprtCtrlBatchView* manag
         if (fade >= 1.0f) {
             return -1;
         }
-        unsigned char* out = (unsigned char*)&data_004978c0[0].color;
+        unsigned char* out = (unsigned char*)&g_quad_vertices[0].color;
         out[0] = (unsigned char)(((unsigned char*)&color)[0]
                                  - (unsigned char)(int)((float)(((unsigned char*)&color)[0]
                                                                 - (int)data_00491e80) * fade));
@@ -100,11 +100,11 @@ extern "C" __declspec(noinline) int EntityDraw_00443fb0(SprtCtrlBatchView* manag
                                                                 - (int)data_00491e88) * fade));
         out[3] = (unsigned char)(int)((1.0f - fade) * (float)((unsigned char*)&color)[3]);
     } else {
-        data_004978c0[0].color = color;
+        g_quad_vertices[0].color = color;
     }
-    data_004978c0[1].color = data_004978c0[0].color;
-    data_004978c0[2].color = data_004978c0[0].color;
-    data_004978c0[3].color = data_004978c0[0].color;
+    g_quad_vertices[1].color = g_quad_vertices[0].color;
+    g_quad_vertices[2].color = g_quad_vertices[0].color;
+    g_quad_vertices[3].color = g_quad_vertices[0].color;
     return manager->SubmitSpriteQuad(entity, 2);
 }
 #pragma code_seg()

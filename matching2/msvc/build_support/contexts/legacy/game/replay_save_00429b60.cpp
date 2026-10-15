@@ -59,8 +59,8 @@ int __stdcall asm_File_OpenSharedWrite_0044b620(const char* path);
 
 // Closes the shared file and leaves the file lock.
 inline void File_CloseShared() {
-    data_004660cc(data_00474c38);
-    data_004660b4(&data_004922a4);
+    imp_CloseHandle(data_00474c38);
+    imp_LeaveCriticalSection(&data_004922a4);
     --data_0049231e;
 }
 
@@ -161,7 +161,7 @@ int __fastcall ReplaySaveManager_00429b60::Save(const char* file_name, const cha
     asm_File_OpenSharedWrite_0044b620(path);
     if (data_00474c38 != (void*)-1) {
         int (__stdcall* write_file)(void*, const void*, unsigned int, unsigned int*, void*) =
-            data_004660d4;
+            imp_WriteFile;
         int sent = written;
         write_file(data_00474c38, manager->header, 0x24, (unsigned int*)&written, 0);
         if (written != 0x24) {
@@ -217,7 +217,7 @@ int __fastcall ReplaySaveManager_00429b60::Save(const char* file_name, const cha
     }
     chunk->size = (unsigned int)(out - (char*)chunk);
     if (data_00474c38 != (void*)-1) {
-        data_004660d4(data_00474c38, chunk, (unsigned int)(out - (char*)chunk), &user_written, 0);
+        imp_WriteFile(data_00474c38, chunk, (unsigned int)(out - (char*)chunk), &user_written, 0);
         if ((unsigned int)(out - (char*)chunk) != user_written) {
             File_CloseShared();
         }
@@ -235,7 +235,7 @@ int __fastcall ReplaySaveManager_00429b60::Save(const char* file_name, const cha
     }
     chunk->size = (unsigned int)(out - (char*)chunk);
     if (data_00474c38 != (void*)-1) {
-        data_004660d4(data_00474c38, chunk, (unsigned int)(out - (char*)chunk), &user_written, 0);
+        imp_WriteFile(data_00474c38, chunk, (unsigned int)(out - (char*)chunk), &user_written, 0);
         if ((unsigned int)(out - (char*)chunk) != user_written) {
             File_CloseShared();
         }

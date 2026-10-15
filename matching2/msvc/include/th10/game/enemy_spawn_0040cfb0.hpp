@@ -105,6 +105,6 @@ struct RunState_0040cfb0 {
     unsigned char reserved_00[0x34];
     int difficulty;                     // +0x34 (0x00474C74)
 };
-extern "C" RunState_0040cfb0 data_00474c40;
+extern "C" RunState_0040cfb0 g_globals;
 
 #endif

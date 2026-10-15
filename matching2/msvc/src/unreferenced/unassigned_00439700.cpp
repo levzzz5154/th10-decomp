@@ -11,7 +11,7 @@ extern "C" __declspec(noinline) int __cdecl GraphicsInit_00439700() {
     const bool created = device != 0;
     data_00491c2c = device;
     if (!created) {
-        data_00474f70.AppendLine(data_0046f6a0);
+        g_log.AppendLine(data_0046f6a0);
         return 1;
     }
     return 0;

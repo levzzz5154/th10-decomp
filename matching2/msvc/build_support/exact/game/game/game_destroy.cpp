@@ -41,7 +41,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00417c80_00417c80() {
     L_00417ca3:
         mov dword ptr [data_00474ca0],edx
     L_00417ca9:
-        mov dword ptr [data_00476f78],3F800000h
+        mov dword ptr [g_game_speed],3F800000h
     L_00417cb3:
         mov ebx,2
     L_00417cb8:
@@ -531,9 +531,9 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00417c80_00417c80() {
     L_00418005:
         mov edi,dword ptr [g_func_ctrl]
     L_0041800b:
-        mov ebx,dword ptr [data_004660b0]
+        mov ebx,dword ptr [imp_EnterCriticalSection]
     L_00418011:
-        mov ebp,dword ptr [data_004660b4]
+        mov ebp,dword ptr [imp_LeaveCriticalSection]
     L_00418017:
         je short L_0041803c
     L_00418019:

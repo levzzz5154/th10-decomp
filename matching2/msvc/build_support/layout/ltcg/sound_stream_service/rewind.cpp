@@ -19,7 +19,7 @@ extern "C" __declspec(noinline) int __stdcall ArchiveRewind(MusicCursor* cursor,
         MusicRecord* record = cursor->record;
         if (record->start > 0) {
             unsigned int offset = record->offset + static_cast<unsigned int>(record->start) + data_004977a4;
-            data_004660c8(file, static_cast<int>(offset), 0, 0);
+            imp_SetFilePointer(file, static_cast<int>(offset), 0, 0);
             record = cursor->record;
             cursor->remaining = static_cast<unsigned int>(record->end) -
                 static_cast<unsigned int>(record->start);
@@ -27,7 +27,7 @@ extern "C" __declspec(noinline) int __stdcall ArchiveRewind(MusicCursor* cursor,
         }
     }
     MusicRecord* record = cursor->record;
-    data_004660c8(file, static_cast<int>(record->offset + data_004977a4), 0, 0);
+    imp_SetFilePointer(file, static_cast<int>(record->offset + data_004977a4), 0, 0);
     cursor->remaining = static_cast<unsigned int>(cursor->record->end);
     return 0;
 }

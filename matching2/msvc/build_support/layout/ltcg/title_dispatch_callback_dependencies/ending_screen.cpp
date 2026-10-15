@@ -43,7 +43,7 @@ __declspec(noinline) int __stdcall EndingScreen_Update_0042d300(
         if ((data_00474e36 & 0x160b) != 0) {
             room->SetSlotFrame(90, 6);
             room->SetTimerTarget(4);
-            data_00492590.Queue(32, 0);
+            g_sound_manager.Queue(32, 0);
             StopHandle_00409e50(reinterpret_cast<AnimationHandle_0040c3c0*>(
                 &room->reserved_684));
         }

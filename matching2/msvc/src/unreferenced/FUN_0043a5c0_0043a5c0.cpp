@@ -20,12 +20,12 @@ struct MidiOutCaps_0043a5c0 {
 typedef unsigned int (__stdcall *MidiOutGetDevCapsFn_0043a5c0)(
         unsigned int device, MidiOutCaps_0043a5c0* caps, unsigned int size);
 
-extern "C" MidiOutGetDevCapsFn_0043a5c0 data_00466294;
+extern "C" MidiOutGetDevCapsFn_0043a5c0 imp_midiOutGetDevCapsA;
 
 #pragma code_seg(".text$01midi")
 __declspec(noinline) void MidiOut_GetDeviceName_0043a5c0(unsigned int device, char* name) {
     MidiOutCaps_0043a5c0 caps;
-    data_00466294(device, &caps, sizeof(caps));
+    imp_midiOutGetDevCapsA(device, &caps, sizeof(caps));
     strcpy(name, caps.szPname);
 }
 #pragma code_seg()

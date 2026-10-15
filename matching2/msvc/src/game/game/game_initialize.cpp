@@ -81,19 +81,19 @@ int __fastcall StageDrawCallback(void* context);
 extern "C" __declspec(noinline) int __stdcall Game_Initialize(Game* context) {
     context->flags |= 4;
     while (g_sprt_ctrl->primary_pending >= 0 || g_sprt_ctrl->secondary_pending >= 0) {
-        if (data_00491c28.status & 0x80)
+        if (g_application.status & 0x80)
             goto failed;
         Sleep(1);
     }
-    data_00476f78 = 1.0f;
-    data_00474c40.reserved_44[1] = 0;
-    data_00474c40.reserved_44[2] = 0;
-    if (data_00491c28.stage_reset) {
-        if (data_00474c40.stage == 7)
-            data_00474c40.difficulty = 4;
+    g_game_speed = 1.0f;
+    g_globals.reserved_44[1] = 0;
+    g_globals.reserved_44[2] = 0;
+    if (g_application.stage_reset) {
+        if (g_globals.stage == 7)
+            g_globals.difficulty = 4;
         ScoreManager* scores = reinterpret_cast<ScoreManager*>(data_0047783c);
-        const int shot = data_00474c40.character * 3 + data_00474c40.shot_type;
-        const int difficulty = data_00474c40.difficulty;
+        const int shot = g_globals.character * 3 + g_globals.shot_type;
+        const int difficulty = g_globals.difficulty;
         // A difficulty page occupies ten rank entries. Keep its byte origin
         // at the manager's prefix; the named offsets still describe the real
         // score-file fields and scalar memcpy avoids an overlapping type view.
@@ -101,21 +101,21 @@ extern "C" __declspec(noinline) int __stdcall Game_Initialize(Game* context) {
             shot * sizeof(ScoreRecordSection) +
             difficulty * sizeof(ScoreRankEntry[SCORE_RANKS_PER_DIFFICULTY]);
         const size_t rank_offset = offsetof(ScoreManager, records) + offsetof(ScoreRecordSection, ranks);
-        memcpy(&data_00474c40.high_score, page + rank_offset, sizeof(data_00474c40.high_score));
-        data_00474c40.high_score_continues = static_cast<signed char>(page[rank_offset + offsetof(ScoreRankEntry, continues)]);
-        if (!(data_00474c40.flags & 8))
-            data_00474c40.continues = 0;
-        data_00474c40.score = 0;
-        data_00474c40.SetGauge(50000);
-        if (!(data_00474c40.flags & 0x10))
-            data_00474c40.lives = 2;
+        memcpy(&g_globals.high_score, page + rank_offset, sizeof(g_globals.high_score));
+        g_globals.high_score_continues = static_cast<signed char>(page[rank_offset + offsetof(ScoreRankEntry, continues)]);
+        if (!(g_globals.flags & 8))
+            g_globals.continues = 0;
+        g_globals.score = 0;
+        g_globals.SetGauge(50000);
+        if (!(g_globals.flags & 0x10))
+            g_globals.lives = 2;
         else
-            data_00474c40.lives = data_00474c40.initial_lives == 0 ? 9 : data_00474c40.initial_lives - 1;
-        data_00474c40.word_08 = data_00474c40.stage == 1 ? 0 : 80;
-        data_00474c40.flags &= ~4u;
+            g_globals.lives = g_globals.initial_lives == 0 ? 9 : g_globals.initial_lives - 1;
+        g_globals.word_08 = g_globals.stage == 1 ? 0 : 80;
+        g_globals.flags &= ~4u;
         if (context->replay_mode == 0) {
             // The play counter is the first word of this record's runtime tail.
-            unsigned char* count_bytes = scores->records[data_00474c40.character * 3 + data_00474c40.shot_type].reserved_4c0;
+            unsigned char* count_bytes = scores->records[g_globals.character * 3 + g_globals.shot_type].reserved_4c0;
             int plays;
             memcpy(&plays, count_bytes, sizeof(plays));
             if (plays < 99999) {
@@ -123,13 +123,13 @@ extern "C" __declspec(noinline) int __stdcall Game_Initialize(Game* context) {
                 memcpy(count_bytes, &plays, sizeof(plays));
             }
         }
-        data_00474c40.field_5c = 0;
-        data_00474c40.field_58 = (static_cast<unsigned char>(data_00474c40.flags) & 8) ? -512 : 0;
+        g_globals.field_5c = 0;
+        g_globals.field_58 = (static_cast<unsigned char>(g_globals.flags) & 8) ? -512 : 0;
     } else {
-        if (data_00474c40.score > data_00474c40.high_score)
-            data_00474c40.high_score = data_00474c40.score;
+        if (g_globals.score > g_globals.high_score)
+            g_globals.high_score = g_globals.score;
     }
-    data_00474c40.gauge_decay = 9;
+    g_globals.gauge_decay = 9;
     {
         CallbackTask* task = reinterpret_cast<CallbackTask*>(SchedulerCallback_Create_00449ed0(reinterpret_cast<int>(&Game_UpdateCallback)));
         unsigned int active_flags = task->flags & ~2u;
@@ -143,10 +143,10 @@ extern "C" __declspec(noinline) int __stdcall Game_Initialize(Game* context) {
         FuncCtrl_RegisterSecondary(g_func_ctrl, reinterpret_cast<SchedulerTask*>(task), 4);
         context->callbacks.secondary_task = reinterpret_cast<SchedulerCallback*>(task);
     }
-    memcpy(context->configuration, data_00491c28.configuration, sizeof(context->configuration));
+    memcpy(context->configuration, g_application.configuration, sizeof(context->configuration));
     // The callback pair's second prefix word stores the stage kind.
     memcpy(context->callbacks.unknown_00 + sizeof(int), &data_00477848->stage_kind, sizeof(int));
-    if (!(data_00474c40.flags & 2)) {
+    if (!(g_globals.flags & 2)) {
         if (!ReplayCreate(context->replay_mode, data_00477710)) goto failed;
         if (!CreateStageState(data_00477848->stage_file, 0)) goto failed;
         if (!CreateItems()) goto failed;
@@ -162,7 +162,7 @@ extern "C" __declspec(noinline) int __stdcall Game_Initialize(Game* context) {
         SetupScoreTask(g_front);
         if (!CreateStageState(data_00477848->stage_file, 0)) goto failed;
     }
-    if (!(data_00474c40.flags & 9)) {
+    if (!(g_globals.flags & 9)) {
         if (!CreateEnemies(data_00477848->enemy_file)) goto failed;
     } else {
         g_enemy_ctrl->Reset();
@@ -170,7 +170,7 @@ extern "C" __declspec(noinline) int __stdcall Game_Initialize(Game* context) {
     if (!CreateBulletState()) goto failed;
     if (!CreateFixedState()) goto failed;
     if (!CreatePlayer()) goto failed;
-    if (!(data_00474c40.flags & 0x20)) {
+    if (!(g_globals.flags & 0x20)) {
         StopMusic();
         LoadMusic(0, data_00477848->music[0]);
         LoadMusic(1, data_00477848->music[1]);
@@ -180,22 +180,22 @@ extern "C" __declspec(noinline) int __stdcall Game_Initialize(Game* context) {
     context->clock.SetSchedulerValue(0);
     while (data_00494518)
         Sleep(16);
-    if (data_00474c40.reserved_44[0])
-        data_00474c40.reserved_44[2] = 0;
-    data_00474c40.reserved_44[0] = 0;
-    CleanupAnimations(&data_00491c28);
+    if (g_globals.reserved_44[0])
+        g_globals.reserved_44[2] = 0;
+    g_globals.reserved_44[0] = 0;
+    CleanupAnimations(&g_application);
     context->flags &= ~4u;
-    data_00474c40.flags &= ~11u;
-    data_00491c28.worker_running = 0;
-    data_00491c28.worker_stop_requested = 1;
+    g_globals.flags &= ~11u;
+    g_application.worker_running = 0;
+    g_application.worker_stop_requested = 1;
     data_004918a4 = 0;
     context->callbacks.RetireCallbacks();
     return 0;
 failed:
     context->flags |= 8;
-    ReleaseAnimations(&data_00491c28);
-    data_00491c28.worker_running = 0;
-    data_00491c28.worker_stop_requested = 1;
+    ReleaseAnimations(&g_application);
+    g_application.worker_running = 0;
+    g_application.worker_stop_requested = 1;
     if (context->callbacks.primary_task)
         context->callbacks.primary_task->flags_04 |= 2;
     if (context->callbacks.secondary_task)

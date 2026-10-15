@@ -20,12 +20,12 @@ int BackGround::Update() {
     for (int i = 0; i < 8; ++i)
         RunAnimationVm(&layers[i]);
     if (overlay_active) {
-        float game_speed = data_00476f78;
-        data_00476f78 = 1.0f;
+        float game_speed = g_game_speed;
+        g_game_speed = 1.0f;
         RunAnimationVm(&overlays[0]);
         RunAnimationVm(&overlays[1]);
         RunAnimationVm(&overlays[2]);
-        data_00476f78 = game_speed;
+        g_game_speed = game_speed;
     }
     overlay_active = 0;
     memcpy(&data_00491d7c, &camera, sizeof(BackGroundCamera));

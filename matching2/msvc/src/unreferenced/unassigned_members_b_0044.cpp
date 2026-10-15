@@ -4,7 +4,7 @@
 // the family is compiled as one cluster (see build_support/layout/ltcg/unassigned_members_b_0044.json).
 #include <math.h>
 
-extern "C" void (__stdcall* data_00466130)(void*);
+extern "C" void (__stdcall* imp_ResumeThread)(void*);
 
 struct UnassignedData_0044bff0 {
     unsigned char pad_000[0x0C];
@@ -168,7 +168,7 @@ float UnassignedData_0044bff0::Value() const {
 void UnassignedHandle_0044c240::Close() {
     void* handle = handle_004;
     if (handle != 0)
-        data_00466130(handle);
+        imp_ResumeThread(handle);
 }
 #pragma code_seg()
 

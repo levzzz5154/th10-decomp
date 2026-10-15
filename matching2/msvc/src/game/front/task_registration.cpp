@@ -15,7 +15,7 @@ SchedulerTask* __stdcall SchedulerCallback_Create_00449ed0(TaskRoutine routine);
 int __stdcall ScoreTask_Setup_00413a20(void* state);
 extern BulletResourceCache_0040ae70* g_sprt_ctrl;
 extern FuncCtrl* g_func_ctrl;
-extern TextLog_0044b810 data_00474f70;
+extern TextLog_0044b810 g_log;
 extern char data_0046cb68[];
 extern char data_0046d254[];
 int __fastcall ItemFront_UpdateThunk_00415ae0(void* state);
@@ -29,7 +29,7 @@ Front_RegisterTasks(FrontTaskView* state) {
         6, g_sprt_ctrl, data_0046d254);
     state->front_resource = resource;
     if (!resource) {
-        data_00474f70.Append(data_0046cb68);
+        g_log.Append(data_0046cb68);
         return -1;
     }
     if (ScoreTask_Setup_00413a20(state) != 0)

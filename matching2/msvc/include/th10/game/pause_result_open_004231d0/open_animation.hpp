@@ -12,7 +12,7 @@ struct AnimationLookupContext;
 __declspec(noinline) void* __fastcall AnimationManager_Find_004491c0(
     AnimationLookupContext* context, AnimationScriptId id);
 extern "C" void* g_sprt_ctrl;
-extern "C" float data_00476f78;
+extern "C" float g_game_speed;
 __declspec(noinline) void __stdcall Entity_Init(Entity* entity);
 Entity* __fastcall Entity_Constructor(Entity* self);
 void* __cdecl operator new(unsigned int size);

@@ -145,12 +145,12 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_004660b0",
+      "symbol": "_imp_EnterCriticalSection",
       "address": "0x4660b0",
       "kind": "data"
     },
     {
-      "symbol": "_data_004660c4",
+      "symbol": "_imp_CreateFileA",
       "address": "0x4660c4",
       "kind": "data"
     },

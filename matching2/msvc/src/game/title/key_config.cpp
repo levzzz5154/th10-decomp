@@ -22,6 +22,6 @@ extern "C" __declspec(noinline) void __stdcall KeyConfigReassignSlot_00430250(
         state->bindings_59cc[4] = state->bindings_59cc[slot];
     state->bindings_59cc[slot] = static_cast<short>(key);
     RefreshTitleKeyConfigView(state);
-    data_00492590.Queue(10, 0);
+    g_sound_manager.Queue(10, 0);
 }
 #pragma code_seg()

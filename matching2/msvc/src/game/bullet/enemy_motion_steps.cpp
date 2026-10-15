@@ -2,7 +2,7 @@ extern "C" float data_00470afc;
 extern "C" float data_00470b64;
 extern "C" float data_00470b68;
 extern "C" float data_00470c58;
-extern "C" float data_00476f78;
+extern "C" float g_game_speed;
 #include <math.h>
 
 extern "C" double __cdecl atan2(double, double);
@@ -58,8 +58,8 @@ void EffectAccel_00407560::Update() {
     if (current >= duration) {
         flags &= ~0x10u;
     } else {
-        auxiliary += data_00476f78 * auxiliary_acceleration;
-        velocity += acceleration * data_00476f78;
+        auxiliary += g_game_speed * auxiliary_acceleration;
+        velocity += acceleration * g_game_speed;
         if (fabs(velocity.x) > data_00470c58 ||
             fabs(velocity.y) > data_00470c58)
             angle = (float)atan2((double)velocity.y, (double)velocity.x);

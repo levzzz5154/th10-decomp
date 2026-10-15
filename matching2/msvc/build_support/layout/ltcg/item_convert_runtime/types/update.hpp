@@ -76,13 +76,13 @@ struct ItemSmollScoreView {
 };
 
 extern "C" {
-extern ItemRunState data_00474c40;
+extern ItemRunState g_globals;
 extern ItemHud* g_front;
 extern ItemCollector* g_player;
 extern ItemSmollScoreView* g_smoll_score;
 extern ItemCollectionBlocker* g_bomb;
 extern unsigned int g_input;
-extern float data_00476f78;
+extern float g_game_speed;
 extern float data_00470b04, data_00470b94, data_00470bf4, data_00470cdc;
 extern float data_00470b08, data_00470be0, data_00470cd8, data_00470c38;
 extern float data_00470cc4, data_00470cd4, data_00470cd0, data_00470ce0;

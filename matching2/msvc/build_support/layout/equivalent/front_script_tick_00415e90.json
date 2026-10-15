@@ -88,19 +88,19 @@
       "address": "0x00491C10",
       "kind": "data"
     },
-    "_data_00491c28": {
+    "_g_application": {
       "address": "0x00491C28",
       "kind": "data"
     },
-    "_data_00492590": {
+    "_g_sound_manager": {
       "address": "0x00492590",
       "kind": "data"
     },
-    "_data_00476f78": {
+    "_g_game_speed": {
       "address": "0x00476F78",
       "kind": "data"
     },
-    "_data_004749ce": {
+    "_g_sound_priority": {
       "address": "0x004749CE",
       "kind": "data"
     },
@@ -356,7 +356,7 @@
       "address": "0x00470D10",
       "kind": "data"
     },
-    "_data_00474c40": {
+    "_g_globals": {
       "address": "0x00474C40",
       "kind": "data"
     },
@@ -405,10 +405,10 @@
     "_data_0047783c": "0x0047783C",
     "_data_00477848": "0x00477848",
     "_g_sprt_ctrl": "0x00491C10",
-    "_data_00491c28": "0x00491C28",
-    "_data_00492590": "0x00492590",
-    "_data_00476f78": "0x00476F78",
-    "_data_004749ce": "0x004749CE",
+    "_g_application": "0x00491C28",
+    "_g_sound_manager": "0x00492590",
+    "_g_game_speed": "0x00476F78",
+    "_g_sound_priority": "0x004749CE",
     "_data_0046cfd4": "0x0046CFD4",
     "_data_00491d78": "0x00491D78",
     "_data_0046e0d8": "0x0046E0D8",
@@ -511,7 +511,7 @@
     "_data_00470d00": "0x00470D00",
     "_data_00470d08": "0x00470D08",
     "_data_00470d10": "0x00470D10",
-    "_data_00474c40": "0x00474C40",
+    "_g_globals": "0x00474C40",
     "_data_00474c4c": "0x00474C4C",
     "_g_card": "0x004776F4",
     "_data_00491fb8": "0x00491FB8",

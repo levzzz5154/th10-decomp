@@ -26,7 +26,7 @@ struct AnimationResource_0043e710;
 void __stdcall Entity_StartScript_00404f30(AnimationResource_0043e710* resource,
                                            Entity* entity, int script);
 extern "C" int __stdcall RunAnimationVm(void* object);
-extern "C" RngState data_004918b0;
+extern "C" RngState g_rng;
 
 // The command interpreter the spawned slot runs once (0x00406D90, recovered in
 // src/game/bullet/projectile_command_runtime.cpp).
@@ -130,19 +130,19 @@ int __stdcall SpawnPatternCell_004067d0(ProjectilePattern_004073e0* pattern,
         break;
     }
     case 6:
-        x = Rng_RangeFloat(&data_004918b0, blueprint->x_base - blueprint->x_spacing) +
+        x = Rng_RangeFloat(&g_rng, blueprint->x_base - blueprint->x_spacing) +
             blueprint->x_spacing;
         break;
     case 7:
-        y = Rng_RangeFloat(&data_004918b0, blueprint->y_head - blueprint->y_tail) +
+        y = Rng_RangeFloat(&g_rng, blueprint->y_head - blueprint->y_tail) +
             blueprint->y_tail;
         x = (float)column * data_00470b14 / (float)blueprint->columns +
             row * blueprint->x_spacing + blueprint->x_base;
         break;
     case 8:
-        x = Rng_RangeFloat(&data_004918b0, blueprint->x_base - blueprint->x_spacing) +
+        x = Rng_RangeFloat(&g_rng, blueprint->x_base - blueprint->x_spacing) +
             blueprint->x_spacing;
-        y = Rng_RangeFloat(&data_004918b0, blueprint->y_head - blueprint->y_tail) +
+        y = Rng_RangeFloat(&g_rng, blueprint->y_head - blueprint->y_tail) +
             blueprint->y_tail;
         break;
     }
@@ -153,7 +153,7 @@ int __stdcall SpawnPatternCell_004067d0(ProjectilePattern_004073e0* pattern,
         record->timer_3f8.current = 0;
         record->timer_3f8.previous = -999999;
         record->timer_3f8.elapsed = 0.0f;
-        record->timer_3f8.speed = &data_00476f78;
+        record->timer_3f8.speed = &g_game_speed;
         record->timer_3f8.flags |= 1u;
     }
     record->timer_3f8.current = 0;
@@ -163,7 +163,7 @@ int __stdcall SpawnPatternCell_004067d0(ProjectilePattern_004073e0* pattern,
         record->timer_40c.current = 0;
         record->timer_40c.previous = -999999;
         record->timer_40c.elapsed = 0.0f;
-        record->timer_40c.speed = &data_00476f78;
+        record->timer_40c.speed = &g_game_speed;
         record->timer_40c.flags |= 1u;
     }
     record->timer_40c.current = 0;

@@ -20,7 +20,7 @@
 
 #include "th10/render/animation_handle.hpp"
 
-extern "C" float data_00476f78;
+extern "C" float g_game_speed;
 
 struct RecoveryTimedState_00423510 {
     unsigned char unknown_00[0x04];
@@ -51,7 +51,7 @@ void RecoveryTimedState_00423510::InitializeTimedState() {
         timer_current = 0;
         timer_previous = 0xFFF0BDC1;
         timer_elapsed = 0;
-        timer_speed = &data_00476f78;
+        timer_speed = &g_game_speed;
         timer_flags |= 1;
     }
     timer_current = 0;
@@ -59,6 +59,6 @@ void RecoveryTimedState_00423510::InitializeTimedState() {
     timer_previous = -1;
     handle_1d8.StopAtFrame1();
     handle_1d4.StopAtFrame1();
-    data_00476f78 = speed;
+    g_game_speed = speed;
 }
 #pragma code_seg()

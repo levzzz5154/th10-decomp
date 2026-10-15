@@ -23,7 +23,7 @@ int CollisionRecord_00408100::Activate() {
         timer_current = 0;
         timer_previous = -999999;
         timer_elapsed = 0.0f;
-        timer_speed = &data_00476f78;
+        timer_speed = &g_game_speed;
         timer_flags |= 1u;
     }
     timer_current = 0;

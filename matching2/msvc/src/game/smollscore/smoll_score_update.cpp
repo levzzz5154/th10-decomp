@@ -1,7 +1,7 @@
 // 0x0042B6F0: raise every active score popup and retire it after 60 frames.
 #include "th10/game/smoll_score_view.hpp"
 
-extern "C" float data_00476f78;
+extern "C" float g_game_speed;
 extern "C" float data_00470b0c;
 extern float g_frame_timer_normal_lower;
 extern float g_frame_timer_normal_upper;
@@ -24,7 +24,7 @@ int SmollScoreView::UpdatePopups() {
     for (int index = 0; index < 0x2D3; index++) {
         SmollScorePopup* popup = &popups[index];
         if (!popup->active) continue;
-        popup->position -= data_00470b0c * data_00476f78;
+        popup->position -= data_00470b0c * g_game_speed;
         popup->timer.Tick();
         if (popup->timer.current > 60) popup->active = 0;
     }

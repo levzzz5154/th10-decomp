@@ -1,9 +1,9 @@
 #include "th10/platform/text_log.hpp"
-extern "C" TextLog_0044b810 data_00474f70;
+extern "C" TextLog_0044b810 g_log;
 #include "logger.cpp"
 #pragma code_seg(".text$a00screenshot")
 int ScreenshotState::CaptureScreenshot(const char* name) {
-    while (thread!=0) data_004660ac(10);
+    while (thread!=0) imp_Sleep(10);
     RenderSurface* back=0;
     device->methods->GetBackBuffer(device,0,0,0,&back);
     memset(&file_image,0,sizeof(file_image));
@@ -40,12 +40,12 @@ int ScreenshotState::CaptureScreenshot(const char* name) {
         }
         back->methods->Unlock(back);
         data_00492134=retail_beginthread_00452eec(&ScreenshotWriter,0,0);
-    } else if (format==0x17) data_00474f70.Append(data_0046df38);
-    else { data_00474f70.Append(data_0046deb0);return 1; }
+    } else if (format==0x17) g_log.Append(data_0046df38);
+    else { g_log.Append(data_0046deb0);return 1; }
     if (back) back->methods->Release(back);
     return 0;
 allocation_failed:
-    data_00474f70.Append(data_0046def0);
+    g_log.Append(data_0046def0);
     if (back) back->methods->Release(back);
     return 0;
 }
@@ -64,11 +64,11 @@ void SprtCtrlTargetsView::ReleaseTargets() {
 int SprtCtrlTargetsView::Flush() {
     int result=quad_count;
     if (result) {
-        data_00491c30->methods->Stage(data_00491c30,0,6,0);
-        data_00491c30->methods->Stage(data_00491c30,0,3,0);
-        data_00491c30->methods->SetFVF(data_00491c30,0x144);
+        g_d3d_device->methods->Stage(g_d3d_device,0,6,0);
+        g_d3d_device->methods->Stage(g_d3d_device,0,3,0);
+        g_d3d_device->methods->SetFVF(g_d3d_device,0x144);
         const void* start=batch_start;
-        data_00491c30->methods->Draw(data_00491c30,4,(unsigned int)(quad_count<<1),start,0x1c);
+        g_d3d_device->methods->Draw(g_d3d_device,4,(unsigned int)(quad_count<<1),start,0x1c);
         batch_start=cursor;
         quad_count=0;
         result=++draw_calls;

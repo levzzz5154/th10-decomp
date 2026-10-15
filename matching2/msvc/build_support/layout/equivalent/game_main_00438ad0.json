@@ -17,43 +17,43 @@
       "address": "0x00449D40",
       "kind": "code"
     },
-    "_data_004660ac": {
+    "_imp_Sleep": {
       "address": "0x004660AC",
       "kind": "data"
     },
-    "_data_004660b0": {
+    "_imp_EnterCriticalSection": {
       "address": "0x004660B0",
       "kind": "data"
     },
-    "_data_004660b4": {
+    "_imp_LeaveCriticalSection": {
       "address": "0x004660B4",
       "kind": "data"
     },
-    "_data_004660c4": {
+    "_imp_CreateFileA": {
       "address": "0x004660C4",
       "kind": "data"
     },
-    "_data_004660cc": {
+    "_imp_CloseHandle": {
       "address": "0x004660CC",
       "kind": "data"
     },
-    "_data_004660d4": {
+    "_imp_WriteFile": {
       "address": "0x004660D4",
       "kind": "data"
     },
-    "_data_0046610c": {
+    "_imp_GetLastError": {
       "address": "0x0046610C",
       "kind": "data"
     },
-    "_data_00466124": {
+    "_imp_FormatMessageA": {
       "address": "0x00466124",
       "kind": "data"
     },
-    "_data_00466128": {
+    "_imp_LocalFree": {
       "address": "0x00466128",
       "kind": "data"
     },
-    "_data_00466214": {
+    "_imp_KillTimer": {
       "address": "0x00466214",
       "kind": "data"
     },
@@ -257,7 +257,7 @@
       "address": "0x004977B4",
       "kind": "data"
     },
-    "_data_00497990": {
+    "_g_archive": {
       "address": "0x00497990",
       "kind": "data"
     },
@@ -329,7 +329,7 @@
       "address": "0x00452422",
       "kind": "code"
     },
-    "_data_00491c30": {
+    "_g_d3d_device": {
       "address": "0x00491C30",
       "kind": "data"
     },
@@ -629,7 +629,7 @@
       "address": "0x00491C10",
       "kind": "data"
     },
-    "_data_00491c28": {
+    "_g_application": {
       "address": "0x00491C28",
       "kind": "data"
     },
@@ -761,7 +761,7 @@
       "address": "0x0046F7CC",
       "kind": "data"
     },
-    "_data_00474f70": {
+    "_g_log": {
       "address": "0x00474F70",
       "kind": "data"
     },
@@ -769,7 +769,7 @@
       "address": "0x00491BE0",
       "kind": "data"
     },
-    "_data_00492590": {
+    "_g_sound_manager": {
       "address": "0x00492590",
       "kind": "data"
     },

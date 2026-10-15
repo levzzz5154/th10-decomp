@@ -44,7 +44,7 @@ struct TriggerPlayer {
 extern "C" TriggerResources* data_004776f0;
 
 extern "C" TriggerPlayer* g_card;
-extern "C" SoundQueue data_00492590;
+extern "C" SoundQueue g_sound_manager;
 struct AnimationResource_0043e710;
 struct AnimationObject_0043e710;
 extern "C" void __stdcall LoadScript_0043e710(
@@ -87,7 +87,7 @@ extern "C" __declspec(noinline) void __stdcall Player_Hit(Player* player) {
         SpawnTriggerParticle(data_004776f0->resource, 0x163, &position);
     target->timer.Set(0);
     if (g_game && !(g_game->flags & 0x200))
-        data_00492590.Queue(4, 0);
+        g_sound_manager.Queue(4, 0);
     target->activation_timer.Set(6);
     LoadScript_0043e710(reinterpret_cast<AnimationResource_0043e710*>(target->resource),
         reinterpret_cast<AnimationObject_0043e710*>(&target->animation), 0);

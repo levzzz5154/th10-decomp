@@ -42,7 +42,7 @@
       "address": "0x474C44",
       "kind": "data"
     },
-    "_data_00474c40": {
+    "_g_globals": {
       "address": "0x474C40",
       "kind": "data"
     },
@@ -50,7 +50,7 @@
       "address": "0x47770C",
       "kind": "data"
     },
-    "_data_00491c28": {
+    "_g_application": {
       "address": "0x491C28",
       "kind": "data"
     },
@@ -58,11 +58,11 @@
       "address": "0x491FB8",
       "kind": "data"
     },
-    "_data_00492590": {
+    "_g_sound_manager": {
       "address": "0x492590",
       "kind": "data"
     },
-    "_data_004749ce": {
+    "_g_sound_priority": {
       "address": "0x4749CE",
       "kind": "data"
     },
@@ -82,7 +82,7 @@
       "address": "0x477838",
       "kind": "data"
     },
-    "_data_00476f78": {
+    "_g_game_speed": {
       "address": "0x476F78",
       "kind": "data"
     },

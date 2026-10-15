@@ -3,7 +3,7 @@ void SprtCtrlTargetsView::Capture(int bank,int index,int sx,int sy,int sw,int sh
     if (!banks[bank]->entries[index].texture) return;
     Flush();
     RenderSurface* back;
-    if (data_00491c30->methods->GetBackBuffer(data_00491c30,0,0,0,&back)!=0) return;
+    if (g_d3d_device->methods->GetBackBuffer(g_d3d_device,0,0,0,&back)!=0) return;
     RenderSurface* destination;
     RenderTexture* texture=banks[bank]->entries[index].texture;
     if (texture->methods->GetLevel(texture,0,&destination)==0) {

@@ -21,7 +21,7 @@ Enemy_0040cfb0* EnemySpawn_0040cfb0::Create(EnemyCtrlSpawnView* manager, const c
     enemy->data.score = score;
     enemy->data.drop_item = drop_item;
     enemy->data.flags.mirrored = mirrored;
-    enemy->difficulty_mask = (unsigned char)(1 << data_00474c40.difficulty);
+    enemy->difficulty_mask = (unsigned char)(1 << g_globals.difficulty);
     memcpy(enemy->data.variables, variables, sizeof(variables));
     enemy->data.invulnerable_timer.Set(2);
     enemy->data.flags.quiet = quiet;

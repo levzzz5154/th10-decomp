@@ -17,7 +17,7 @@ extern "C" __declspec(noinline) int __stdcall SoundStreamFill(SoundStream* strea
     if (result < 0)
         return result;
     if (status & 2) {
-        StreamSleep sleep = data_004660ac;
+        StreamSleep sleep = imp_Sleep;
         do {
             if (buffer->methods->restore(buffer) == static_cast<int>(0x88780096u))
                 sleep(10);
@@ -40,7 +40,7 @@ extern "C" __declspec(noinline) int __stdcall SoundStreamFill(SoundStream* strea
         void* file = reader->file;
         if (file) {
             MusicRecord* record = reader->record;
-            data_004660c8(file, static_cast<int>(record->offset + data_004977a4), 0, 0);
+            imp_SetFilePointer(file, static_cast<int>(record->offset + data_004977a4), 0, 0);
             reader->remaining = static_cast<unsigned int>(reader->record->end);
         }
     }

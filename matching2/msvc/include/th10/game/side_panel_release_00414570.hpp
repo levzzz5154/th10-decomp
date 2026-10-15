@@ -29,7 +29,7 @@ struct RunState_00414570 {
     unsigned int flags;                       // +0x60
 };
 
-extern "C" RunState_00414570 data_00474c40;
+extern "C" RunState_00414570 g_globals;
 
 // The side panel's stage-owned parts.
 struct FrontStagePartsView {

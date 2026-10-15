@@ -69,7 +69,7 @@ extern "C" PlayerDamageSource* __fastcall Player_AddDamageSource(
             slot->lifetime.current=0;
             slot->lifetime.previous=-999999;
             slot->lifetime.elapsed=0.0f;
-            slot->lifetime.speed=&data_00476f78;
+            slot->lifetime.speed=&g_game_speed;
             slot->lifetime.flags |= 1u;
         }
         slot->lifetime.current=countdown;

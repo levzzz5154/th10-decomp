@@ -74,6 +74,6 @@ struct RunCounters_004188a0 {
     __declspec(noinline) void AddLives(int amount);
 };
 
-extern "C" RunCounters_004188a0 data_00474c40;
+extern "C" RunCounters_004188a0 g_globals;
 
 #endif

@@ -10,7 +10,7 @@ __declspec(noinline) int __stdcall ApplyDefaultViewport(unsigned int color) {
     data_00491cf4.height = 480;
     data_00491cf4.min_z = 0.0f;
     data_00491cf4.max_z = 1.0f;
-    data_00491c30->Viewport(&data_00491cf4);
+    g_d3d_device->Viewport(&data_00491cf4);
     return ClearAndPresentTwice(color);
 }
 #pragma code_seg()

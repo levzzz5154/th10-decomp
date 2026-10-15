@@ -10,7 +10,7 @@ SchedulerTask* __stdcall SchedulerCallback_Create_00449ed0(TaskRoutine callback)
 int __fastcall Pause_UpdateTask_00422a90(void* state);
 int __fastcall Pause_DrawTask_00422aa0(void* state);
 extern FuncCtrl* g_func_ctrl;
-extern const float data_00476f78;
+extern const float g_game_speed;
 }
 
 __declspec(noinline) int __cdecl Pause_RegisterTasks(Pause* state) {
@@ -32,7 +32,7 @@ __declspec(noinline) int __cdecl Pause_RegisterTasks(Pause* state) {
         timer.current = 0;
         timer.previous = -999999;
         timer.elapsed = 0.0f;
-        timer.speed = &data_00476f78;
+        timer.speed = &g_game_speed;
         timer.flags = flags | 1u;
     }
     timer.current = 0;

@@ -45,7 +45,7 @@ static __forceinline void ResetTimer_004315c0(RecoveryTimer_0040bd80* timer) {
         timer->current = 0;
         timer->previous = -999999;
         timer->elapsed = 0;
-        timer->speed = &data_00476f78;
+        timer->speed = &g_game_speed;
         timer->flags |= 1u;
     }
     timer->current = 0;
@@ -109,16 +109,16 @@ __declspec(noinline) int __stdcall TitleMode12_004315c0(Title* room) {
         if ((short)data_00474e30.InputMaskActive(0x10)) cursor->Advance(-1);
         if ((short)data_00474e30.InputMaskActive(0x20)) cursor->Advance(1);
         if (cursor->previous_selection != cursor->selection)
-            data_00492590.Queue(12, 0);
+            g_sound_manager.Queue(12, 0);
         if (data_00474e36 & 0xa) {
             room->SetTimerTarget(5);
-            data_00492590.Queue(11, 0);
+            g_sound_manager.Queue(11, 0);
         } else if (data_00474e36 & 0x1001) {
             if (replays->replays[cursor->selection] != 0) {
                 room->SetTimerTarget(4);
                 replays->selected_replay = cursor->selection;
                 cursor->PushSelection();
-                data_00492590.Queue(10, 0);
+                g_sound_manager.Queue(10, 0);
                 room->cursor.item_count = 7;
                 SelectItem_004315c0(*cursor, 0);
                 int stage = 0;
@@ -140,13 +140,13 @@ __declspec(noinline) int __stdcall TitleMode12_004315c0(Title* room) {
             if ((short)data_00474e30.InputMaskActive(0x10)) cursor->Advance(-1);
             if ((short)data_00474e30.InputMaskActive(0x20)) cursor->Advance(1);
             if (cursor->previous_selection != cursor->selection)
-                data_00492590.Queue(12, 0);
+                g_sound_manager.Queue(12, 0);
             if (data_00474e36 & 0xa) {
                 cursor->PopSelection();
                 room->cursor.item_count = 25;
                 room->cursor.disabled_count = 0;
                 room->SetTimerTarget(2);
-                data_00492590.Queue(11, 0);
+                g_sound_manager.Queue(11, 0);
             } else if (data_00474e36 & 0x1001) {
                 replays->selected_stage = cursor->selection;
                 room->SetTimerTarget(3);

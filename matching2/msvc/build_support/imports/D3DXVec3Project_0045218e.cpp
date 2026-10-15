@@ -7,10 +7,10 @@ typedef void* (__stdcall *D3DXVec3ProjectImport_0045218e)(
     void* out, const void* vector, const void* viewport,
     const void* projection, const void* view, const void* world);
 
-extern "C" D3DXVec3ProjectImport_0045218e data_004662f0;
+extern "C" D3DXVec3ProjectImport_0045218e imp_D3DXVec3Project;
 
 extern "C" void* __stdcall D3DXVec3Project_0045218e(
     void* out, const void* vector, const void* viewport,
     const void* projection, const void* view, const void* world) {
-    return data_004662f0(out, vector, viewport, projection, view, world);
+    return imp_D3DXVec3Project(out, vector, viewport, projection, view, world);
 }

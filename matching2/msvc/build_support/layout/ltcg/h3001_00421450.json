@@ -40,7 +40,7 @@
   "constants": [],
   "absolute_symbols": [
     {
-      "symbol": "_data_004660bc",
+      "symbol": "_imp_DeleteCriticalSection",
       "address": "0x004660BC",
       "kind": "data"
     }

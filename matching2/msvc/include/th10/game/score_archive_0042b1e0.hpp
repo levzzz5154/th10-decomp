@@ -30,10 +30,10 @@ __declspec(noinline) unsigned char* __stdcall EncryptDatBuffer(
     unsigned char* data, int size, unsigned char key, unsigned char step,
     int block_size, int limit);
 
-extern int (__stdcall* data_004660cc)(void* handle);
-extern int (__stdcall* data_004660d4)(void* handle, const void* data,
+extern int (__stdcall* imp_CloseHandle)(void* handle);
+extern int (__stdcall* imp_WriteFile)(void* handle, const void* data,
     unsigned int size, unsigned int* written, void* overlapped);
-extern void (__stdcall* data_004660b4)(CriticalSection* section);
+extern void (__stdcall* imp_LeaveCriticalSection)(CriticalSection* section);
 extern void* data_00474c38;
 extern unsigned char data_0049231e;
 extern CriticalSection data_004922a4;

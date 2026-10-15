@@ -4,12 +4,12 @@ void HudGameState::AddLives(int amount) {
     lives += amount;
     if (lives > 9) lives = 9;
     else {
-        data_00492590.Queue(44,0);
+        g_sound_manager.Queue(44,0);
         ResultAnimationHandle* banner = &g_front->secondary;
         banner->Release();
         banner->id = ResultAnimation_CreatePrimary(g_front->captions,75,15);
     }
-    g_front->SetActiveCount(data_00474c40.lives);
+    g_front->SetActiveCount(g_globals.lives);
 }
 #pragma code_seg(".text$00413790_fn")
 void FrontScoreView::SetActiveCount(int count) {

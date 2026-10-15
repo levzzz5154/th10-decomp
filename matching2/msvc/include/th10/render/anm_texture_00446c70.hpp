@@ -140,7 +140,7 @@ extern "C" unsigned int __stdcall asm_D3DXLoadSurfaceFromMemory_004521a6(
     const void* source_palette, const void* source_rect, unsigned int filter,
     unsigned int color_key);
 
-extern "C" void* data_00491c30;                        // Direct3D device
+extern "C" void* g_d3d_device;                        // Direct3D device
 extern "C" char data_0046e1c8[];                       // "%s"
 extern "C" int __cdecl sprintf(char* buffer, const char* format, ...);
 extern "C" void __cdecl entry_free_00452422(void*);

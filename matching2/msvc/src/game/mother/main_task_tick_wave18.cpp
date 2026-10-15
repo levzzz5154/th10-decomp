@@ -3,7 +3,7 @@
 __declspec(noinline) int __fastcall MainTaskTickWave18(MainTaskStateWave18* state) {
     if ((state->flags_3CC & 0x80) != 0 && state->state_63C == 0)
         data_00491fb8 = 3;
-    data_00492590.TickFades();
+    g_sound_manager.TickFades();
     PollInputWave18(0);
     if (AnmPendingWave18(g_sprt_ctrl)) return 4;
     int request = state->request_648;

@@ -9,7 +9,7 @@ extern "C" void __cdecl SidePanelReleaseBarrier(void* value);
 #pragma code_seg(".text$0040a000_context")
 extern "C" int __stdcall SidePanelReleaseContext(int count) {
     // The run state is reachable through pointers in the real program.
-    SidePanelReleaseBarrier(&data_00474c40);
+    SidePanelReleaseBarrier(&g_globals);
     for (int index = 0; index < count; ++index)
         g_front->ReleaseStageParts();
     return count;

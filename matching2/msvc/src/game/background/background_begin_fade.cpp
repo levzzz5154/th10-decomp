@@ -1,6 +1,6 @@
 #include "th10/game/background_fade.hpp"
 #include "th10/core/screen.hpp"
-extern "C" float data_00476f78;
+extern "C" float g_game_speed;
 extern "C" void _ReadWriteBarrier();
 #pragma intrinsic(_ReadWriteBarrier)
 #pragma code_seg(".text$00bFade")
@@ -10,7 +10,7 @@ void BackGround::BeginFade() {
         timer.current = 0;
         timer.previous = -999999;
         timer.elapsed = 0;
-        timer.speed = &data_00476f78;
+        timer.speed = &g_game_speed;
         timer.flags |= 1u;
     }
     timer.current = 30;

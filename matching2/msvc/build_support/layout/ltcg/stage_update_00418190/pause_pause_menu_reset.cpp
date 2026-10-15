@@ -1,16 +1,16 @@
 #include "hud_view.hpp"
 #define g_sprt_ctrl stage_pause_g_sprt_ctrl
 #define g_front stage_pause_g_front
-#define data_00474c40 stage_pause_data_00474c40
+#define g_globals stage_pause_data_00474c40
 #define g_ascii_manager stage_pause_data_004776e0
 #define g_enemy_ctrl stage_pause_g_enemy_ctrl
 #define g_player stage_pause_data_00477834
 #define data_00477838 stage_pause_data_00477838
 #define data_0047783c stage_pause_data_0047783c
-#define data_00476f78 stage_pause_data_00476f78
+#define g_game_speed stage_pause_data_00476f78
 #define data_00491fc4 stage_pause_data_00491fc4
 #define data_00491fb8 stage_pause_data_00491fb8
-#define data_00492590 stage_pause_data_00492590
+#define g_sound_manager stage_pause_data_00492590
 // Complete pause timer/animation reset, 0x00424D90..0x00424EA0.
 // Source declaration is ordinary C++; native LTCG selects the observed ESI
 // owner and plain RET. The active-count dependency below is the complete
@@ -115,13 +115,13 @@ extern "C" __declspec(noinline) void __stdcall ReplayPauseReset_00424d90(PauseSt
 #pragma code_seg()
 #undef g_sprt_ctrl
 #undef g_front
-#undef data_00474c40
+#undef g_globals
 #undef g_ascii_manager
 #undef g_enemy_ctrl
 #undef g_player
 #undef data_00477838
 #undef data_0047783c
-#undef data_00476f78
+#undef g_game_speed
 #undef data_00491fc4
 #undef data_00491fb8
-#undef data_00492590
+#undef g_sound_manager

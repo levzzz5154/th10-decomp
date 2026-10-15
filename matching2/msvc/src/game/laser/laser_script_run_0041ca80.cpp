@@ -60,7 +60,7 @@ void LaserScriptRun_0041ca80::Run() {
             sound_B4 = cmd.param2.i;
             polar_A8.SetPolar(angle_A4, speed_A0);
             if (pc_400 != 0 && sound_id_40C >= 0)
-                data_00492590.Queue(sound_id_40C, 0);
+                g_sound_manager.Queue(sound_id_40C, 0);
             break;
         case 0x20u:
             flags_404 |= 0x20u;
@@ -69,7 +69,7 @@ void LaserScriptRun_0041ca80::Run() {
             reinterpret_cast<PlayerSchedulerRecord*>(&timer_C0)->SetSchedulerValue(0);
             sound_E8 = cmd.param2.i;
             if (pc_400 != 0 && sound_id_40C >= 0)
-                data_00492590.Queue(sound_id_40C, 0);
+                g_sound_manager.Queue(sound_id_40C, 0);
             break;
         case 0x40u:
         case 0x80u:
@@ -94,7 +94,7 @@ void LaserScriptRun_0041ca80::Run() {
             timer_15C.SetSchedulerValue(cmd.param2.i);
             break;
         case 0x20000u:
-            data_00492590.QueuePan(cmd.param2.i, position_x_24);
+            g_sound_manager.QueuePan(cmd.param2.i, position_x_24);
             break;
         case 0x10000u:
             state_C = 3;

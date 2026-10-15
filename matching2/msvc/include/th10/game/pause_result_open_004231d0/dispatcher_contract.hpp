@@ -148,8 +148,8 @@ struct DispatcherMusicRecord {
 extern "C" DispatcherStageResourceOwner* g_enemy_ctrl;
 extern "C" DispatcherReplayOwner* data_00477838;
 extern "C" void* g_sprt_ctrl;
-extern "C" DispatcherInputState data_00491c28;
-extern "C" ScoreState data_00474c40;
+extern "C" DispatcherInputState g_application;
+extern "C" ScoreState g_globals;
 extern "C" short data_00474c48;
 extern "C" int data_00474c4c;
 extern "C" int data_00474c68;

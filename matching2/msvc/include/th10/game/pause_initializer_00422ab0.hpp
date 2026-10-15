@@ -144,7 +144,7 @@ extern "C" PauseResourceOwner1* g_ascii_manager;
 extern "C" PauseResourceOwner2* g_front;
 extern "C" float data_00470b68;
 extern "C" float data_00470b64;
-extern "C" float data_00476f78;
+extern "C" float g_game_speed;
 extern "C" char data_0046e0c0[];
 extern "C" void __stdcall PauseMenu_Initialize_00422ab0(PauseUpdateView*);
 extern "C" void __stdcall PauseMenu_Update_00422c80(PauseUpdateView*);

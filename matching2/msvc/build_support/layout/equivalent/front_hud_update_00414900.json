@@ -40,7 +40,7 @@
       "address": "0x004776F4",
       "kind": "data"
     },
-    "_data_00492590": {
+    "_g_sound_manager": {
       "address": "0x00492590",
       "kind": "data"
     },
@@ -244,11 +244,11 @@
       "address": "0x00474788",
       "kind": "data"
     },
-    "_data_004749ce": {
+    "_g_sound_priority": {
       "address": "0x004749CE",
       "kind": "data"
     },
-    "_data_00474c40": {
+    "_g_globals": {
       "address": "0x00474C40",
       "kind": "data"
     },
@@ -296,7 +296,7 @@
       "address": "0x00474E62",
       "kind": "data"
     },
-    "_data_00476f78": {
+    "_g_game_speed": {
       "address": "0x00476F78",
       "kind": "data"
     },
@@ -332,7 +332,7 @@
       "address": "0x00491BE4",
       "kind": "data"
     },
-    "_data_00491c28": {
+    "_g_application": {
       "address": "0x00491C28",
       "kind": "data"
     },
@@ -365,7 +365,7 @@
     "_g_enemy_ctrl": "0x00477704",
     "_g_sprt_ctrl": "0x00491C10",
     "_g_card": "0x004776F4",
-    "_data_00492590": "0x00492590",
+    "_g_sound_manager": "0x00492590",
     "_AnmVm_Run_0043ee30@4": "0x0043EE30",
     "_FrontFree_004524a1": "0x004524A1",
     "__ftol2": "0x00463B2C",
@@ -458,8 +458,8 @@
     "_data_00470d08": "0x00470D08",
     "_data_00470d10": "0x00470D10",
     "_data_00474788": "0x00474788",
-    "_data_004749ce": "0x004749CE",
-    "_data_00474c40": "0x00474C40",
+    "_g_sound_priority": "0x004749CE",
+    "_g_globals": "0x00474C40",
     "_data_00474c48": "0x00474C48",
     "_data_00474c68": "0x00474C68",
     "_data_00474c6c": "0x00474C6C",
@@ -471,7 +471,7 @@
     "_data_00474ca0": "0x00474CA0",
     "_g_input": "0x00474E5C",
     "_data_00474e62": "0x00474E62",
-    "_data_00476f78": "0x00476F78",
+    "_g_game_speed": "0x00476F78",
     "_g_ascii_manager": "0x004776E0",
     "_g_front": "0x0047770C",
     "_g_game": "0x00477810",
@@ -480,7 +480,7 @@
     "_data_0047783c": "0x0047783C",
     "_data_00477848": "0x00477848",
     "_g_func_ctrl": "0x00491BE4",
-    "_data_00491c28": "0x00491C28",
+    "_g_application": "0x00491C28",
     "_data_00491d78": "0x00491D78",
     "_recovery_draw_shadowed_00437db0@24": "0x00437DB0",
     "_recovery_draw_unshadowed_00437fe0@24": "0x00437FE0",

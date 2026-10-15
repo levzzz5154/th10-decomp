@@ -351,27 +351,27 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_data_004660ac",
+      "symbol": "_imp_Sleep",
       "address": "0x004660AC",
       "kind": "data"
     },
     {
-      "symbol": "_data_004660c8",
+      "symbol": "_imp_SetFilePointer",
       "address": "0x004660C8",
       "kind": "data"
     },
     {
-      "symbol": "_data_004660cc",
+      "symbol": "_imp_CloseHandle",
       "address": "0x4660cc",
       "kind": "data"
     },
     {
-      "symbol": "_data_0046611c",
+      "symbol": "_imp_WaitForSingleObject",
       "address": "0x0046611C",
       "kind": "data"
     },
     {
-      "symbol": "_data_00466210",
+      "symbol": "_imp_PostThreadMessageA",
       "address": "0x00466210",
       "kind": "data"
     },

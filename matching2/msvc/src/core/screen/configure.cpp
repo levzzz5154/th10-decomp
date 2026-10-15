@@ -33,7 +33,7 @@ extern "C" int __fastcall ColorPulseDraw_0043c500(void*);
 extern "C" int __fastcall LinearShakeUpdate_0043c550(void*);
 extern "C" int __fastcall EnvelopeShakeUpdate_0043c710(void*);
 extern "C" int __fastcall ScreenEffectRemove_0043c870(void*);
-extern "C" float data_00476f78;
+extern "C" float g_game_speed;
 #pragma code_seg(".text$03selector")
 void Screen::Configure(int priority, int selected_mode,
         int first, int second, int third, int fourth) {
@@ -82,7 +82,7 @@ void Screen::Configure(int priority, int selected_mode,
         timer.current = 0;
         timer.previous = -999999;
         timer.elapsed = 0;
-        timer.speed = &data_00476f78;
+        timer.speed = &g_game_speed;
         timer.flags |= 1u;
     }
     // Reset the first three timer words together. The zero bits stored in

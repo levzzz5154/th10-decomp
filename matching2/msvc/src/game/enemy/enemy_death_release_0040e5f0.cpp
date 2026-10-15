@@ -13,7 +13,7 @@ void** __stdcall ItemAnimation_CreateOffset_00448db0(
 #pragma code_seg(".text$079k_death")
 int __stdcall Enemy_ReleaseOnDeath_0040e5f0(Enemy_0040e5f0* enemy) {
     if (enemy->death_sound >= 0)
-        data_00492590.QueuePan(enemy->death_sound, enemy->position.position[0]);
+        g_sound_manager.QueuePan(enemy->death_sound, enemy->position.position[0]);
     if (enemy->death_script >= 0) {
         void* burst;
         ItemAnimation_CreateOffset_00448db0(
@@ -26,7 +26,7 @@ int __stdcall Enemy_ReleaseOnDeath_0040e5f0(Enemy_0040e5f0* enemy) {
         data_00477818->Spawn(source->position, drops->main_item, -1, -1.5707964f, 2.2f);
     source->ScatterDrops(drops);
     drops->main_item = 0;
-    data_00474c40.AdvanceGaugeTimer(10);
+    g_globals.AdvanceGaugeTimer(10);
     return 1;
 }
 #pragma code_seg()

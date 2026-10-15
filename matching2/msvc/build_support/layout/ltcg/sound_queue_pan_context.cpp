@@ -7,7 +7,7 @@ int __stdcall SoundQueueMotionContext(BulletDeceleration** bullets, int count) {
         bullets[i]->TurnStep();
         bullets[i]->AimStep();
         bullets[i]->Bounce();
-        data_00492590.QueuePan(i, bullets[i]->position_x);
+        g_sound_manager.QueuePan(i, bullets[i]->position_x);
     }
     return count;
 }

@@ -15,7 +15,7 @@ extern "C" __declspec(noinline) int __stdcall FloatingText_DrawEntity_00443080(S
     entry_free_004524a1(entity);
     a += (int)entity->y;
     entry_free_004524a1((void*)&manager);
-    entry_free_004524a1(&data_00491c28);
+    entry_free_004524a1(&g_application);
     return a + (int)entity->sprite_width;
 }
 #pragma code_seg()

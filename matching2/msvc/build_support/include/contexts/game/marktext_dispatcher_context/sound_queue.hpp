@@ -8,5 +8,5 @@ struct SoundQueue {
     int requests[12][128];
     __declspec(noinline) int Queue(int sound_id, int request);
 };
-extern "C" SoundQueue data_00492590;
+extern "C" SoundQueue g_sound_manager;
 #endif

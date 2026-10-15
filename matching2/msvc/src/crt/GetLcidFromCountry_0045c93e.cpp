@@ -4,7 +4,7 @@ typedef int (__stdcall *EnumLocaleCallback_0045c93e)(char* locale_name);
 typedef int (__stdcall *EnumSystemLocalesAFunction_0045c93e)(
     EnumLocaleCallback_0045c93e callback, std::uint32_t flags);
 
-extern "C" unsigned char data_00466058;
+extern "C" unsigned char imp_EnumSystemLocalesA;
 extern "C" unsigned char data_00477628;
 extern "C" unsigned char data_00477638;
 extern "C" unsigned char data_0047763c;
@@ -20,7 +20,7 @@ extern "C" void __cdecl asm_GetLcidFromCountry_0045c93e() {
 
     const EnumSystemLocalesAFunction_0045c93e enum_system_locales_a =
         *reinterpret_cast<EnumSystemLocalesAFunction_0045c93e const*>(
-            &data_00466058);
+            &imp_EnumSystemLocalesA);
     enum_system_locales_a(&asm_FUN_0045c544_0045c544, 1);
 
     const std::uint8_t locale_match_state_low_byte =

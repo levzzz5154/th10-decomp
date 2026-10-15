@@ -43,7 +43,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_data_004660cc",
+      "symbol": "_imp_CloseHandle",
       "address": "0x004660CC",
       "kind": "data"
     }

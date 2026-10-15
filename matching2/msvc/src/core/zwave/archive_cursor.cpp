@@ -1,7 +1,7 @@
 // 0x0044DD40: move an archive cursor back to the start of its entry, optionally past the entry header.
 #include <string.h>
-extern "C" unsigned long (__stdcall* data_004660c8)(void* file, long distance, long* distance_high, unsigned long method);
-extern "C" int (__stdcall* data_004660d0)(void* file, void* buffer, unsigned long size, unsigned long* read, void* overlapped);
+extern "C" unsigned long (__stdcall* imp_SetFilePointer)(void* file, long distance, long* distance_high, unsigned long method);
+extern "C" int (__stdcall* imp_ReadFile)(void* file, void* buffer, unsigned long size, unsigned long* read, void* overlapped);
 extern "C" int data_004977a4;
 
 struct ArchiveEntry_0044dd40 {
@@ -33,11 +33,11 @@ __declspec(noinline) long __stdcall Rewind_0044dd40(ArchiveCursor_0044dd40* curs
     }
     if (!cursor->file) return 0x800401F0;
     if (skip_header && cursor->entry->header_size > 0) {
-        data_004660c8(cursor->file, cursor->entry->offset + cursor->entry->header_size + data_004977a4, 0, 0);
+        imp_SetFilePointer(cursor->file, cursor->entry->offset + cursor->entry->header_size + data_004977a4, 0, 0);
         cursor->size = cursor->entry->size - cursor->entry->header_size;
         return 0;
     }
-    data_004660c8(cursor->file, cursor->entry->offset + data_004977a4, 0, 0);
+    imp_SetFilePointer(cursor->file, cursor->entry->offset + data_004977a4, 0, 0);
     cursor->size = cursor->entry->size;
     return 0;
 }

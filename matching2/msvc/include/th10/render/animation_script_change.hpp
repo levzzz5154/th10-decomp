@@ -26,7 +26,7 @@ struct ScriptChangeHandle {
     __declspec(noinline) void ChangeScript(int index);
 };
 extern "C" ScriptChangeContext* g_sprt_ctrl;
-extern "C" float data_00476f78;
+extern "C" float g_game_speed;
 extern "C" float data_00470b60;
 extern "C" void __stdcall RunChangeScriptVm(Entity* object);
 extern "C" __declspec(noinline) void __stdcall ChangeAnimationScript(ScriptChangeResource* resource, Entity* object, int index);

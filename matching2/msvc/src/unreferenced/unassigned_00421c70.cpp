@@ -7,12 +7,12 @@ struct SlotLockTable_00421c70 {
     unsigned char reserved_000[0x64C];
 };
 
-extern "C" void (__stdcall *data_004660b0)(void*);
+extern "C" void (__stdcall *imp_EnterCriticalSection)(void*);
 
 #pragma code_seg(".text$01slot")
 extern "C" __declspec(noinline) void SlotLockTable_EnterRetail_00421c70(
         int slot, SlotLockTable_00421c70* table) {
-    data_004660b0((unsigned char*)table + 0x64C + slot * 0x18);
+    imp_EnterCriticalSection((unsigned char*)table + 0x64C + slot * 0x18);
     ++*((unsigned char*)table + 0x6F4 + slot);
 }
 #pragma code_seg()

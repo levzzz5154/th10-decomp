@@ -4,11 +4,11 @@
 extern "C" int __stdcall D3DXCreateTexture_004521a0(
     void* device, unsigned int width, unsigned int height, unsigned int mip_levels,
     unsigned int usage, unsigned int format, unsigned int pool, void** texture);
-extern "C" void* data_00491c30;
+extern "C" void* g_d3d_device;
 
 #pragma code_seg(".text$01accessor")
 __declspec(noinline) void* __fastcall CreateTexture_004379e0(unsigned int height, unsigned int width) {
-    void* device = data_00491c30;
+    void* device = g_d3d_device;
     void* texture;
     D3DXCreateTexture_004521a0(device, width, height, 1, 0, 0x19, 1, &texture);
     return texture;

@@ -173,7 +173,7 @@ int ScreenFlash::Tick() {
 #pragma code_seg()
 
 extern "C" int data_004918a4;                     // 0x004918A4, effects frozen
-extern "C" EntityScriptRng_0043cb80 data_004918b0;  // 0x004918B0, effect RNG
+extern "C" EntityScriptRng_0043cb80 g_rng;  // 0x004918B0, effect RNG
 extern "C" float data_00491e64;                   // 0x00491E64, screen shake x
 extern "C" float data_00491e68;                   // 0x00491E68, screen shake y
 
@@ -203,12 +203,12 @@ int Screen::UpdateEnvelopeShake() {
         return 7;
 
     float amount = duration_or_strength * ratio;
-    switch (data_004918b0.NextRandomModulo(3)) {
+    switch (g_rng.NextRandomModulo(3)) {
     case 0: data_00491e64 = 0.0f; break;
     case 1: data_00491e64 = amount; break;
     case 2: data_00491e64 = -amount; break;
     }
-    switch (data_004918b0.NextRandomModulo(3)) {
+    switch (g_rng.NextRandomModulo(3)) {
     case 0: data_00491e68 = 0.0f; break;
     case 1: data_00491e68 = amount; break;
     case 2: data_00491e68 = -amount; break;

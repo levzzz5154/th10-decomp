@@ -28,10 +28,10 @@ void __cdecl asm_free_00452422(void* memory);
 int __cdecl time_00452b71(int* output);
 
 // KERNEL32 slots the retail layout binds under their thunks.
-extern int (__stdcall* data_004660cc)(void* handle);              // CloseHandle
-extern int (__stdcall* data_004660d4)(void* handle, const void* buffer,
+extern int (__stdcall* imp_CloseHandle)(void* handle);              // CloseHandle
+extern int (__stdcall* imp_WriteFile)(void* handle, const void* buffer,
     unsigned int size, unsigned int* written, void* overlapped);  // WriteFile
-extern void (__stdcall* data_004660b4)(void* section);            // LeaveCriticalSection
+extern void (__stdcall* imp_LeaveCriticalSection)(void* section);            // LeaveCriticalSection
 extern void* data_00474c38;                                       // shared file handle
 extern unsigned char data_0049231e;                               // file lock depth
 

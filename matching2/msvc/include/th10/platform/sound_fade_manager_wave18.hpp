@@ -33,7 +33,7 @@ typedef char FadeStreamOffset[offsetof(SoundFadeManagerWave18, stream)==0x5208?1
 typedef char MainFlagsOffset[offsetof(MainTaskStateWave18, flags_3CC)==0x3CC?1:-1];
 typedef char MainStateOffset[offsetof(MainTaskStateWave18, state_63C)==0x63C?1:-1];
 typedef char MainRequestOffset[offsetof(MainTaskStateWave18, request_648)==0x648?1:-1];
-extern "C" SoundFadeManagerWave18 data_00492590;
+extern "C" SoundFadeManagerWave18 g_sound_manager;
 extern "C" int data_00491fb8;
 extern "C" void* g_sprt_ctrl;
 extern "C" unsigned short __fastcall PollInputWave18(unsigned int binding_index);

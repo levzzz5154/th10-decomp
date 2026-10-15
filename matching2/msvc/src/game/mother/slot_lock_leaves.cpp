@@ -1,4 +1,4 @@
-extern "C" void (__stdcall *data_004660b4)(void*);
+extern "C" void (__stdcall *imp_LeaveCriticalSection)(void*);
 
 struct SlotLockManager {
     unsigned char reserved_000[0x64c];
@@ -8,7 +8,7 @@ struct SlotLockManager {
 
 #pragma code_seg(".text$01leave")
 void SlotLockManager::Leave(int index) {
-    data_004660b4((unsigned char*)this + 0x64c + index * 0x18);
+    imp_LeaveCriticalSection((unsigned char*)this + 0x64c + index * 0x18);
     ((unsigned char*)this + 0x6f4)[index]--;
 }
 #pragma code_seg()

@@ -176,7 +176,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_004918b0",
+      "symbol": "_g_rng",
       "address": "0x4918b0",
       "kind": "data"
     },
@@ -191,12 +191,12 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00466024",
+      "symbol": "_imp_CreateDIBSection",
       "address": "0x466024",
       "kind": "data"
     },
     {
-      "symbol": "_data_00466020",
+      "symbol": "_imp_CreateCompatibleDC",
       "address": "0x466020",
       "kind": "data"
     },
@@ -206,17 +206,17 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_0046602c",
+      "symbol": "_imp_SelectObject",
       "address": "0x46602c",
       "kind": "data"
     },
     {
-      "symbol": "_data_00466028",
+      "symbol": "_imp_DeleteDC",
       "address": "0x466028",
       "kind": "data"
     },
     {
-      "symbol": "_data_00466030",
+      "symbol": "_imp_DeleteObject",
       "address": "0x466030",
       "kind": "data"
     },
@@ -261,7 +261,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_data_00476f78",
+      "symbol": "_g_game_speed",
       "address": "0x476f78",
       "kind": "data"
     },
@@ -281,12 +281,12 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00492590",
+      "symbol": "_g_sound_manager",
       "address": "0x492590",
       "kind": "data"
     },
     {
-      "symbol": "_data_00491c28",
+      "symbol": "_g_application",
       "address": "0x491c28",
       "kind": "data"
     },
@@ -306,7 +306,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00491c30",
+      "symbol": "_g_d3d_device",
       "address": "0x491c30",
       "kind": "data"
     },
@@ -341,7 +341,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_0046621c",
+      "symbol": "_imp_GetWindowLongA",
       "address": "0x46621c",
       "kind": "data"
     },
@@ -406,7 +406,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00474f70",
+      "symbol": "_g_log",
       "address": "0x474f70",
       "kind": "data"
     },

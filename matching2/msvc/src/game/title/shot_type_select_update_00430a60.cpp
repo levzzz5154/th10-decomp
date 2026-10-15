@@ -100,16 +100,16 @@ __declspec(noinline) int __stdcall TitleMode8_00430a60(Title* room) {
         if ((short)data_00474e30.InputMaskActive(0x10)) cursor->Advance(-1);
         if ((short)data_00474e30.InputMaskActive(0x20)) cursor->Advance(1);
         if (cursor->previous_selection != cursor->selection) {
-            data_00492590.Queue(12, 0);
+            g_sound_manager.Queue(12, 0);
             reinterpret_cast<TitleAnimationSlotView*>(room)->RestartSlot(data_00474c68 + 150);
             room->SetSlotFrame(data_00474c68 + 150, cursor->selection + 7);
         }
         if (data_00474e36 & 0xa) {
             room->SetTimerTarget(4);
-            data_00492590.Queue(11, 0);
+            g_sound_manager.Queue(11, 0);
         } else if (data_00474e36 & 0x1001) {
             room->SetTimerTarget(3);
-            data_00492590.Queue(10, 0);
+            g_sound_manager.Queue(10, 0);
             AnimationRef_004497d0 child = reinterpret_cast<AnimationHandle_004497d0*>(
                 &room->animation_slots[data_00474c68 + 150])->FindChildRef(
                     cursor->selection + (data_00474c68 * 3 + 0x3f) * 2);

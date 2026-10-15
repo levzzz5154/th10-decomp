@@ -9,7 +9,7 @@ int __fastcall CardPrimary_00409220(void* owner);
 int __fastcall CardRender_00409230(void* owner);
 int __fastcall CardTrailing_00409270(void* owner);
 extern FuncCtrl* g_func_ctrl;
-extern float data_00476f78;
+extern float g_game_speed;
 }
 
 // 0x004089C0 (211 bytes): register the manager's update and two render tasks.
@@ -43,7 +43,7 @@ int CardTasks_004089c0::InitializeTasks() {
         frame_timer.current = 0;
         frame_timer.previous = (int)0xfff0bdc1;
         frame_timer.elapsed = 0;
-        frame_timer.speed = &data_00476f78;
+        frame_timer.speed = &g_game_speed;
         frame_timer.flags = flags;
     }
     // Lazy defaults and the subsequent reset are distinct observed writes.

@@ -81,20 +81,20 @@ extern "C" __declspec(noinline) int BuildRotatedQuad_004436c0(
         break;
     }
 
-    data_004978c0[0].x = xs[0] * ca - ys[0] * sa + px;
-    data_004978c0[0].y = xs[0] * sa + ys[0] * ca + py;
-    data_004978c0[1].x = xs[1] * ca - ys[1] * sa + px;
-    data_004978c0[1].y = xs[1] * sa + ys[1] * ca + py;
-    data_004978c0[2].x = xs[2] * ca - ys[2] * sa + px;
-    data_004978c0[2].y = xs[2] * sa + ys[2] * ca + py;
-    data_004978c0[3].x = xs[3] * ca - ys[3] * sa + px;
-    data_004978c0[3].y = xs[3] * sa + ys[3] * ca + py;
+    g_quad_vertices[0].x = xs[0] * ca - ys[0] * sa + px;
+    g_quad_vertices[0].y = xs[0] * sa + ys[0] * ca + py;
+    g_quad_vertices[1].x = xs[1] * ca - ys[1] * sa + px;
+    g_quad_vertices[1].y = xs[1] * sa + ys[1] * ca + py;
+    g_quad_vertices[2].x = xs[2] * ca - ys[2] * sa + px;
+    g_quad_vertices[2].y = xs[2] * sa + ys[2] * ca + py;
+    g_quad_vertices[3].x = xs[3] * ca - ys[3] * sa + px;
+    g_quad_vertices[3].y = xs[3] * sa + ys[3] * ca + py;
 
     pz = entity->render_offset.z + entity->position.z + entity->base_position.z;
-    data_004978c0[3].z = pz;
-    data_004978c0[2].z = pz;
-    data_004978c0[1].z = pz;
-    data_004978c0[0].z = pz;
+    g_quad_vertices[3].z = pz;
+    g_quad_vertices[2].z = pz;
+    g_quad_vertices[1].z = pz;
+    g_quad_vertices[0].z = pz;
 
     return manager->SubmitSpriteQuad(entity, 0);
 }
@@ -154,20 +154,20 @@ extern "C" __declspec(noinline) int BuildRotatedQuadAlt_00443910(
         break;
     }
 
-    data_004978c0[0].x = xs[0] * ca - ys[0] * sa + px;
-    data_004978c0[0].y = xs[0] * sa + ys[0] * ca + py;
-    data_004978c0[1].x = xs[1] * ca - ys[1] * sa + px;
-    data_004978c0[1].y = xs[1] * sa + ys[1] * ca + py;
-    data_004978c0[2].x = xs[2] * ca - ys[2] * sa + px;
-    data_004978c0[2].y = xs[2] * sa + ys[2] * ca + py;
-    data_004978c0[3].x = xs[3] * ca - ys[3] * sa + px;
-    data_004978c0[3].y = xs[3] * sa + ys[3] * ca + py;
+    g_quad_vertices[0].x = xs[0] * ca - ys[0] * sa + px;
+    g_quad_vertices[0].y = xs[0] * sa + ys[0] * ca + py;
+    g_quad_vertices[1].x = xs[1] * ca - ys[1] * sa + px;
+    g_quad_vertices[1].y = xs[1] * sa + ys[1] * ca + py;
+    g_quad_vertices[2].x = xs[2] * ca - ys[2] * sa + px;
+    g_quad_vertices[2].y = xs[2] * sa + ys[2] * ca + py;
+    g_quad_vertices[3].x = xs[3] * ca - ys[3] * sa + px;
+    g_quad_vertices[3].y = xs[3] * sa + ys[3] * ca + py;
 
     pz = entity->render_offset.z + entity->position.z + entity->base_position.z;
-    data_004978c0[3].z = pz;
-    data_004978c0[2].z = pz;
-    data_004978c0[1].z = pz;
-    data_004978c0[0].z = pz;
+    g_quad_vertices[3].z = pz;
+    g_quad_vertices[2].z = pz;
+    g_quad_vertices[1].z = pz;
+    g_quad_vertices[0].z = pz;
 
     return manager->SubmitSpriteQuad(entity, 0);
 }

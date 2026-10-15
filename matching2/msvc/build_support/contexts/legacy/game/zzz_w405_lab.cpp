@@ -20,8 +20,8 @@ struct RecoveryRawPair {
 };
 
 void __stdcall LabRecovery(RecoveryRawPair* pair) {
-    EnterCriticalSectionFn enter = *(EnterCriticalSectionFn*)&data_004660b0;
-    LeaveCriticalSectionFn leave = *(LeaveCriticalSectionFn*)&data_004660b4;
+    EnterCriticalSectionFn enter = *(EnterCriticalSectionFn*)&imp_EnterCriticalSection;
+    LeaveCriticalSectionFn leave = *(LeaveCriticalSectionFn*)&imp_LeaveCriticalSection;
     FuncCtrl* const scheduler = *(FuncCtrl**)&g_func_ctrl;
     SchedulerTask* task = pair->primary;
     if (task) {

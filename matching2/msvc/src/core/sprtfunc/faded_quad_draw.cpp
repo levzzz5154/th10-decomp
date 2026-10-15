@@ -127,8 +127,8 @@ extern "C" __declspec(noinline) int FadedQuadDraw_004445c0(SprtCtrlBatchView* ma
     FadeProbe4_004445C0 projected[4];
     // Traverse packed colors by their alpha-byte address, at one vertex stride.
     // Keep a signed integer sentinel so it never forms a pointer past the quad.
-    int color_cursor = (int)&data_004978c0[0].color + 3;
-    int color_end = color_cursor + sizeof(data_004978c0);
+    int color_cursor = (int)&g_quad_vertices[0].color + 3;
+    int color_end = color_cursor + sizeof(g_quad_vertices);
     for (int i = 0; color_cursor < color_end; ++i, color_cursor += sizeof(TexturedVertex)) {
         unsigned char* out = (unsigned char*)(color_cursor - 3);
         D3DXVec3Transform_004521c4(&projected[i], &view->probes[i].x, &view->projected_world);
@@ -158,10 +158,10 @@ extern "C" __declspec(noinline) int FadedQuadDraw_004445c0(SprtCtrlBatchView* ma
         }
     }
     int result = manager->SubmitSpriteQuad(entity, 2);
-    data_004978c0[3].rhw = 1.0f;
-    data_004978c0[2].rhw = 1.0f;
-    data_004978c0[1].rhw = 1.0f;
-    data_004978c0[0].rhw = 1.0f;
+    g_quad_vertices[3].rhw = 1.0f;
+    g_quad_vertices[2].rhw = 1.0f;
+    g_quad_vertices[1].rhw = 1.0f;
+    g_quad_vertices[0].rhw = 1.0f;
     return result;
 }
 #pragma code_seg()

@@ -1,13 +1,13 @@
 #include "th10/platform/native_game_input.hpp"
 #include "th10/platform/text_log.hpp"
-extern "C" TextLog_0044b810 data_00474f70;
+extern "C" TextLog_0044b810 g_log;
 #pragma code_seg(".text$a10input")
 int GameInputSystem::InitializeDevices() {
-    void* instance=(void*)data_0046621c(window,-6);
+    void* instance=(void*)imp_GetWindowLongA(window,-6);
     if (flags&8U) return -1;
     if (DirectInput8Create_0045071e(instance,0x800,&data_00467aac,&direct_input,0)<0) {
         direct_input=0;
-        data_00474f70.Append(data_0046f9e0);
+        g_log.Append(data_0046f9e0);
         return -1;
     }
     if (direct_input->vtable->CreateDevice(direct_input,&data_0046793c,&keyboard,0)<0) {
@@ -15,7 +15,7 @@ int GameInputSystem::InitializeDevices() {
             direct_input->vtable->Release(direct_input);
             direct_input=0;
         }
-        data_00474f70.Append(data_0046f9e0);
+        g_log.Append(data_0046f9e0);
         return -1;
     }
     if (keyboard->vtable->SetDataFormat(keyboard,&data_004664fc)<0) {
@@ -27,7 +27,7 @@ int GameInputSystem::InitializeDevices() {
             direct_input->vtable->Release(direct_input);
             direct_input=0;
         }
-        data_00474f70.Append(data_0046f9b0);
+        g_log.Append(data_0046f9b0);
         return -1;
     }
     if (keyboard->vtable->SetCooperativeLevel(keyboard,window,0x16)<0) {
@@ -36,19 +36,19 @@ int GameInputSystem::InitializeDevices() {
             keyboard=0;
         }
         ReleaseInput();
-        data_00474f70.Append(data_0046f97c);
+        g_log.Append(data_0046f97c);
         return -1;
     }
     keyboard->vtable->Acquire(keyboard);
-    data_00474f70.Append(data_0046f954);
+    g_log.Append(data_0046f954);
     direct_input->vtable->EnumDevices(direct_input,4,&GameInput_EnumDevice_0043baf0,0,1);
     if (joystick) {
         joystick->vtable->SetDataFormat(joystick,&data_00466704);
         joystick->vtable->SetCooperativeLevel(joystick,window,10);
-        data_00491c28.capabilities.size=44;
-        joystick->vtable->GetCapabilities(joystick,&data_00491c28.capabilities);
+        g_application.capabilities.size=44;
+        joystick->vtable->GetCapabilities(joystick,&g_application.capabilities);
         joystick->vtable->EnumObjects(joystick,&GameInput_EnumObject_0043bb30,0,0);
-        data_00474f70.Append(data_0046f934);
+        g_log.Append(data_0046f934);
     }
     return 0;
 }
@@ -61,10 +61,10 @@ int GameInputSystem::InitializeDevices() {
 #pragma code_seg(".text$a12game")
 extern "C" unsigned int __cdecl Input_InitThread() {
     data_00491ff4&=~0x600U;
-    data_00491c28.InitializeDevices();
+    g_application.InitializeDevices();
     unsigned int flags=data_00491ff4;
-    flags^=(((unsigned int)(data_00491c28.keyboard!=0)<<9)^flags)&0x200U;
-    flags^=(((unsigned int)(data_00491c28.joystick!=0)<<10)^flags)&0x400U;
+    flags^=(((unsigned int)(g_application.keyboard!=0)<<9)^flags)&0x200U;
+    flags^=(((unsigned int)(g_application.joystick!=0)<<10)^flags)&0x400U;
     data_00491ff4=flags;
     return flags;
 }

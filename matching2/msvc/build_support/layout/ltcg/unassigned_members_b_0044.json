@@ -155,7 +155,7 @@
   "constants": [],
   "absolute_symbols": [
     {
-      "symbol": "_data_00466130",
+      "symbol": "_imp_ResumeThread",
       "address": "0x00466130",
       "kind": "data"
     },

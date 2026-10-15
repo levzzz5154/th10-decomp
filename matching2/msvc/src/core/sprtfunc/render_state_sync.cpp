@@ -6,19 +6,19 @@ void SprtCtrlBatchView::SyncRenderState(const RenderEntity* entity) {
         Flush();
         cached_blend = (unsigned char)((entity->flags >> 4) & 3);
         switch (cached_blend) {
-        case 0: data_00491c30->State(20, 6); break;
-        case 1: data_00491c30->State(20, 2); break;
+        case 0: g_d3d_device->State(20, 6); break;
+        case 1: g_d3d_device->State(20, 2); break;
         }
     }
     if (cached_filter != (unsigned char)(entity->flags >> 31)) {
         Flush();
         cached_filter = (unsigned char)((entity->flags >> 31) & 1);
         if (cached_filter == 0) {
-            data_00491c30->Sampler(0, 5, 2);
-            data_00491c30->Sampler(0, 6, 2);
+            g_d3d_device->Sampler(0, 5, 2);
+            g_d3d_device->Sampler(0, 6, 2);
         } else {
-            data_00491c30->Sampler(0, 5, 1);
-            data_00491c30->Sampler(0, 6, 1);
+            g_d3d_device->Sampler(0, 5, 1);
+            g_d3d_device->Sampler(0, 6, 1);
         }
     }
     ++state_changes;

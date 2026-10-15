@@ -2,7 +2,7 @@
 // The actual constructor passes one section pointer; native LTCG keeps it in EDX.
 #include <string.h>
 extern "C" unsigned char data_0046e354[];
-extern "C" unsigned char data_004918b0[4], data_004918b4[4];
+extern "C" unsigned char g_rng[4], data_004918b4[4];
 #pragma code_seg(".text$01b")
 extern "C" void __stdcall Recovery_InitializeRandomTable_0042add0(char* table) {
     memset(table, 0, 0x448);
@@ -13,14 +13,14 @@ extern "C" void __stdcall Recovery_InitializeRandomTable_0042add0(char* table) {
     char* out = table + 70;
     int remaining = 512;
     do {
-        unsigned int value = *(unsigned int*)&data_004918b0;
+        unsigned int value = *(unsigned int*)&g_rng;
         unsigned int calls = *(unsigned int*)data_004918b4;
         value ^= 0x9630;
         value -= 0x6553;
         unsigned short high = (unsigned short)value;
         high >>= 14;
         unsigned short word = (unsigned short)(high + (value << 2));
-        *(unsigned short*)&data_004918b0 = word;
+        *(unsigned short*)&g_rng = word;
         *(unsigned int*)data_004918b4 = calls + 1;
         *(unsigned short*)out = word;
         out += 2;

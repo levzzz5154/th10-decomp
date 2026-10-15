@@ -1,15 +1,15 @@
 #define g_sprt_ctrl stage_replay_g_sprt_ctrl
 #define g_front stage_replay_g_front
-#define data_00474c40 stage_replay_data_00474c40
+#define g_globals stage_replay_data_00474c40
 #define g_ascii_manager stage_replay_data_004776e0
 #define g_enemy_ctrl stage_replay_g_enemy_ctrl
 #define g_player stage_replay_data_00477834
 #define data_00477838 stage_replay_data_00477838
 #define data_0047783c stage_replay_data_0047783c
-#define data_00476f78 stage_replay_data_00476f78
+#define g_game_speed stage_replay_data_00476f78
 #define data_00491fc4 stage_replay_data_00491fc4
 #define data_00491fb8 stage_replay_data_00491fb8
-#define data_00492590 stage_replay_data_00492590
+#define g_sound_manager stage_replay_data_00492590
 // 0x0042A450..0x0042A696: close the current stage in the replay manager.
 //
 // The manager's tasks are paused for the frame. While recording, the stage's
@@ -31,33 +31,33 @@ void ReplayManager_0042a6a0::FinishStage() {
     if (draw_task)
         draw_task->flags |= 2;
     if (mode == 0) {
-        ReplayStage_0042a6a0* record = stage_data[data_00474c40.stage];
-        ReplayFinishClearPools_0042ab20(this, data_00474c40.stage);
-        current_pool = AppendPage(data_00474c40.stage);
+        ReplayStage_0042a6a0* record = stage_data[g_globals.stage];
+        ReplayFinishClearPools_0042ab20(this, g_globals.stage);
+        current_pool = AppendPage(g_globals.stage);
         if (data_00491fc4 == 0) {
-            record->score = data_00474c40.score;
-            record->word_10 = data_00474c40.word_08;
-            record->gauge = data_00474c40.gauge;
-            record->gauge_frame = data_00474c40.gauge_timer.current;
-            record->field_1c = data_00474c40.field_30;
-            record->field_20 = data_00474c40.field_58;
-            record->continues = data_00474c40.continues;
+            record->score = g_globals.score;
+            record->word_10 = g_globals.word_08;
+            record->gauge = g_globals.gauge;
+            record->gauge_frame = g_globals.gauge_timer.current;
+            record->field_1c = g_globals.field_30;
+            record->field_20 = g_globals.field_58;
+            record->continues = g_globals.continues;
         }
         Player* player = g_player;
         record->player_position = player->fixed_position;
-        memcpy(stage_data[data_00474c40.stage]->player_position_history, player->position_history,
+        memcpy(stage_data[g_globals.stage]->player_position_history, player->position_history,
                sizeof(player->position_history));
         for (int index = 0; index < 4; ++index) {
             for (int kind = 0; kind < 4; ++kind)
                 record->options[kind][index] = player->options[index].Point(kind);
         }
-        record->field_1b8 = data_00474c40.field_5c;
-        stage = data_00474c40.stage;
+        record->field_1b8 = g_globals.field_5c;
+        stage = g_globals.stage;
         stage_data[stage]->player_focused = player->focused;
     } else if (mode == 1) {
-        ReplayStage_0042a6a0* record = nodes[data_00474c40.stage].stage;
+        ReplayStage_0042a6a0* record = nodes[g_globals.stage].stage;
         Player* player = g_player;
-        stage = data_00474c40.stage;
+        stage = g_globals.stage;
         player->SetFixedPosition(&record->player_position);
         Player* current = g_player;
         memcpy(player->position_history, record->player_position_history,
@@ -70,7 +70,7 @@ void ReplayManager_0042a6a0::FinishStage() {
             player->options[index].position = record->options[1][index];
             player->options[index].unfocused_offset = record->options[2][index];
             player->options[index].focused_offset = record->options[3][index];
-            if (data_00474c40.shot_type + data_00474c40.character * 3 == 5)
+            if (g_globals.shot_type + g_globals.character * 3 == 5)
                 player->options[index].focused_offset = record->options[0][index];
         }
         for (int index = 0; index < 4; ++index)
@@ -82,13 +82,13 @@ void ReplayManager_0042a6a0::FinishStage() {
 #pragma code_seg()
 #undef g_sprt_ctrl
 #undef g_front
-#undef data_00474c40
+#undef g_globals
 #undef g_ascii_manager
 #undef g_enemy_ctrl
 #undef g_player
 #undef data_00477838
 #undef data_0047783c
-#undef data_00476f78
+#undef g_game_speed
 #undef data_00491fc4
 #undef data_00491fb8
-#undef data_00492590
+#undef g_sound_manager

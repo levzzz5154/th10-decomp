@@ -12,13 +12,13 @@ int __stdcall DrawGradientQuad(const ScreenRect* rect, unsigned int top_left, un
     vertices[1].color = top_right;
     vertices[2].color = bottom_left;
     vertices[3].color = bottom_right;
-    data_00491c30->Stage(0, 4, 2);
-    data_00491c30->Stage(0, 1, 2);
-    data_00491c30->Stage(0, 5, 0);
-    data_00491c30->Stage(0, 2, 0);
-    data_00491c30->State(20, 6);
-    data_00491c30->Format(0x44);
-    data_00491c30->Draw(5, 2, vertices, sizeof(SolidVertex));
+    g_d3d_device->Stage(0, 4, 2);
+    g_d3d_device->Stage(0, 1, 2);
+    g_d3d_device->Stage(0, 5, 0);
+    g_d3d_device->Stage(0, 2, 0);
+    g_d3d_device->State(20, 6);
+    g_d3d_device->Format(0x44);
+    g_d3d_device->Draw(5, 2, vertices, sizeof(SolidVertex));
     unsigned char* cache = (unsigned char*)g_sprt_ctrl;
     cache[0x3ADA6A] = 0xFF;
     *(int*)(cache + 0x3ADA70) = 0;
@@ -26,9 +26,9 @@ int __stdcall DrawGradientQuad(const ScreenRect* rect, unsigned int top_left, un
     cache[0x3ADA69] = 0xFF;
     cache[0x3ADA68] = 3;
     cache[0x3ADA6B] = 0xFF;
-    data_00491c30->Stage(0, 4, 4);
-    data_00491c30->Stage(0, 1, 4);
-    data_00491c30->Stage(0, 5, 2);
-    return data_00491c30->Stage(0, 2, 2);
+    g_d3d_device->Stage(0, 4, 4);
+    g_d3d_device->Stage(0, 1, 4);
+    g_d3d_device->Stage(0, 5, 2);
+    return g_d3d_device->Stage(0, 2, 2);
 }
 #pragma code_seg()

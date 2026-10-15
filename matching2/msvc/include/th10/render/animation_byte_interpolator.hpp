@@ -1,7 +1,7 @@
 #pragma once
 #include "th10/math/timer.hpp"
 
-extern "C" float data_00476f78;                        // shared game speed
+extern "C" float g_game_speed;                        // shared game speed
 
 // Restart a frame timer from zero, initializing it on first use.
 inline void FrameTimer_Restart(FrameTimer* timer) {
@@ -9,7 +9,7 @@ inline void FrameTimer_Restart(FrameTimer* timer) {
         timer->current = 0;
         timer->previous = -999999;
         timer->elapsed = 0;
-        timer->speed = &data_00476f78;
+        timer->speed = &g_game_speed;
         timer->flags |= 1u;
     }
     timer->current = 0;

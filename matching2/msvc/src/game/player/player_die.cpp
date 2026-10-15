@@ -108,7 +108,7 @@ static __forceinline void SetTimer(FrameTimer& timer, int frame) {
         timer.current = 0;
         timer.previous = -999999;
         timer.elapsed = 0.0f;
-        timer.speed = &data_00476f78;
+        timer.speed = &g_game_speed;
         timer.flags |= 1;
     }
     timer.current = frame;

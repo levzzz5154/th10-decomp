@@ -56,7 +56,7 @@ extern LaserManager* g_laser_manager;
 extern PlayerItemManager* data_00477818;
 extern PauseOpenState* g_pause;
 extern PlayerPracticeState* data_00477838;
-extern PlayerInputMode data_00491c28;
+extern PlayerInputMode g_application;
 __declspec(noinline) int __stdcall Player_RefreshOptions(Player* player);
 __declspec(noinline) int __stdcall Player_Die(Player* player);
 __declspec(noinline) double __stdcall Player_AngleToPoint(const Player* player, const Vec3* point);

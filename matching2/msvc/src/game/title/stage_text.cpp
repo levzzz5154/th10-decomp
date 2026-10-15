@@ -12,7 +12,7 @@ struct StageTextVector_00434a80 {
 // Shared default triple copied into the record's two colour/scale slots.
 extern "C" StageTextVector_00434a80 data_00491c14;
 // Default time scale; the record's +0x0AC slot points at it.
-extern "C" float data_00476f78;
+extern "C" float g_game_speed;
 
 struct StageText_00434a80 {
     unsigned char unknown_000[0x70];
@@ -51,7 +51,7 @@ void StageText_00434a80::Initialize(const StageTextVector_00434a80* base,
         this->field_0A4 = 0;
         this->field_0A0 = -999999;
         this->field_0A8 = 0;
-        this->field_0AC = &data_00476f78;
+        this->field_0AC = &g_game_speed;
         this->flags_0B0 = flags | 1;
     }
     this->field_0A4 = 0;

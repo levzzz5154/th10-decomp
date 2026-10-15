@@ -35,36 +35,36 @@ extern "C" int __stdcall ConfigLoadContext(GameApp_00420870** apps, const char**
 
 // The body of 0x0044B540 (src/core/zunlib/file_write_whole_file_0044b540.cpp),
 // which takes its size in EDI.
-extern "C" void* (__stdcall *data_004660c4)(const char*, unsigned int, unsigned int, void*, unsigned int,
+extern "C" void* (__stdcall *imp_CreateFileA)(const char*, unsigned int, unsigned int, void*, unsigned int,
                                             unsigned int, void*);
-extern "C" int (__stdcall *data_004660d4)(void*, const void*, unsigned long, unsigned long*, void*);
-extern "C" unsigned long (__stdcall *data_0046610c)(void);
-extern "C" unsigned long (__stdcall *data_00466124)(unsigned long, void*, unsigned long, unsigned long, char**,
+extern "C" int (__stdcall *imp_WriteFile)(void*, const void*, unsigned long, unsigned long*, void*);
+extern "C" unsigned long (__stdcall *imp_GetLastError)(void);
+extern "C" unsigned long (__stdcall *imp_FormatMessageA)(unsigned long, void*, unsigned long, unsigned long, char**,
                                                     unsigned long, void*);
-extern "C" void* (__stdcall *data_00466128)(void*);
+extern "C" void* (__stdcall *imp_LocalFree)(void*);
 #pragma code_seg(".text$00h_write")
 __declspec(noinline) int __stdcall File_WriteWholeFile(const char* path, const void* buffer, unsigned long size) {
-    data_004660b0(data_004922a4);
+    imp_EnterCriticalSection(data_004922a4);
     ++data_0049231e;
-    void* handle = data_004660c4(path, 0x40000000, 1, 0, 2, 0x80, 0);
+    void* handle = imp_CreateFileA(path, 0x40000000, 1, 0, 2, 0x80, 0);
     if (handle == (void*)-1) {
         char* message;
-        data_00466124(0x1300, 0, data_0046610c(), 0x400, &message, 0, 0);
-        data_00466128(message);
-        data_004660b4(data_004922a4);
+        imp_FormatMessageA(0x1300, 0, imp_GetLastError(), 0x400, &message, 0, 0);
+        imp_LocalFree(message);
+        imp_LeaveCriticalSection(data_004922a4);
         --data_0049231e;
         return -1;
     }
     unsigned long written;
-    data_004660d4(handle, buffer, size, &written, 0);
+    imp_WriteFile(handle, buffer, size, &written, 0);
     if (size != written) {
-        data_004660cc(handle);
-        data_004660b4(data_004922a4);
+        imp_CloseHandle(handle);
+        imp_LeaveCriticalSection(data_004922a4);
         --data_0049231e;
         return -2;
     }
-    data_004660cc(handle);
-    data_004660b4(data_004922a4);
+    imp_CloseHandle(handle);
+    imp_LeaveCriticalSection(data_004922a4);
     --data_0049231e;
     return 0;
 }

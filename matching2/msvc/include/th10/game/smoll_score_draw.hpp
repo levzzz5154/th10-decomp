@@ -77,7 +77,7 @@ struct FloatingTextRenderState_0042b780 {
 };
 
 extern "C" {
-extern FloatingTextRenderState_0042b780 data_00491c28;
+extern FloatingTextRenderState_0042b780 g_application;
 // 0x00443080: draw one entity; the manager is on the stack and the entity
 // arrives in ESI.
 __declspec(noinline) int __stdcall FloatingText_DrawEntity_00443080(SprtCtrlBatchView* manager, FloatingTextSprite_0042b780* entity);

@@ -47,7 +47,7 @@ typedef char RuntimeFlagsOffset[(offsetof(BulletRuntimeState, motion_flags) == 0
 typedef char RuntimeModeOffset[(offsetof(BulletRuntimeState, mode) == 0x446) ? 1 : -1];
 typedef char
     RuntimeImmunityOffset[(offsetof(BulletRuntimeState, immunity_timer) == 0x718) ? 1 : -1];
-extern "C" float data_00476f78;
+extern "C" float g_game_speed;
 struct BulletAnimationResourceSource {
     unsigned char reserved_000[0x3e0b50];
     void* resource;

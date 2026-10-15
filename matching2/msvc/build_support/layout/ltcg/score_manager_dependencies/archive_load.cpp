@@ -12,18 +12,18 @@ struct ArchiveReader {
     char* Read(const void* table, char* block);
 };
 
-extern "C" ArchiveEntry* data_00497990;
+extern "C" ArchiveEntry* g_archive;
 extern "C" int data_00497994;
 extern "C" unsigned char data_0049231e;
 extern "C" unsigned char data_004922a4[];
 
-extern "C" void (__stdcall *data_004660b0)(void*);
-extern "C" void (__stdcall *data_004660b4)(void*);
-extern "C" void* (__stdcall *data_004660c4)(const char*, unsigned int, unsigned int, void*,
+extern "C" void (__stdcall *imp_EnterCriticalSection)(void*);
+extern "C" void (__stdcall *imp_LeaveCriticalSection)(void*);
+extern "C" void* (__stdcall *imp_CreateFileA)(const char*, unsigned int, unsigned int, void*,
                                             unsigned int, unsigned int, void*);
-extern "C" int (__stdcall *data_004660cc)(void*);
-extern "C" int (__stdcall *data_004660d0)(void*, void*, unsigned int, unsigned int*, void*);
-extern "C" unsigned int (__stdcall *data_004660d8)(void*, unsigned int*);
+extern "C" int (__stdcall *imp_CloseHandle)(void*);
+extern "C" int (__stdcall *imp_ReadFile)(void*, void*, unsigned int, unsigned int*, void*);
+extern "C" unsigned int (__stdcall *imp_GetFileSize)(void*, unsigned int*);
 
 extern "C" char* __cdecl asm_strrchr_00452930(const char*, int);
 extern "C" int __cdecl asm_stricmp_0046054e(const char*, const char*);
@@ -34,7 +34,7 @@ __declspec(noinline) char* __stdcall Archive_LoadFile(const char* name, int* out
                                                                  int fromDisk) {
     char* buffer;
     unsigned int size;
-    data_004660b0(data_004922a4);
+    imp_EnterCriticalSection(data_004922a4);
     ++data_0049231e;
     if (!fromDisk) {
         const char* slash = asm_strrchr_00452930(name, '\\');
@@ -43,8 +43,8 @@ __declspec(noinline) char* __stdcall Archive_LoadFile(const char* name, int* out
         if (forward == 0) forward = name; else ++forward;
         base = forward;
 
-        if (data_00497990 != 0 && data_00497994 > 0) {
-            ArchiveEntry* entry = data_00497990;
+        if (g_archive != 0 && data_00497994 > 0) {
+            ArchiveEntry* entry = g_archive;
             int remaining = data_00497994;
             do {
                 if (asm_stricmp_0046054e(base, entry->name) == 0) {
@@ -64,31 +64,31 @@ looked_up:
         buffer = (char*)asm_malloc_00452706(size);
         if (!buffer)
             goto failed;
-        ((ArchiveReader*)base)->Read(&data_00497990, buffer);
+        ((ArchiveReader*)base)->Read(&g_archive, buffer);
         goto done;
     }
 
     {
-        void* file = data_004660c4(name, 0x80000000, 1, 0, 3, 0x8000080, 0);
+        void* file = imp_CreateFileA(name, 0x80000000, 1, 0, 3, 0x8000080, 0);
         if (file == (void*)-1)
             goto failed;
-        size = data_004660d8(file, 0);
+        size = imp_GetFileSize(file, 0);
         buffer = (char*)asm_malloc_00452706(size);
         if (!buffer) {
-            data_004660cc(file);
+            imp_CloseHandle(file);
             goto failed;
         }
-        data_004660d0(file, buffer, size, &size, 0);
+        imp_ReadFile(file, buffer, size, &size, 0);
         if (outSize)
             *outSize = size;
-        data_004660cc(file);
+        imp_CloseHandle(file);
     }
 done:
-    data_004660b4(data_004922a4);
+    imp_LeaveCriticalSection(data_004922a4);
     --data_0049231e;
     return buffer;
 failed:
-    data_004660b4(data_004922a4);
+    imp_LeaveCriticalSection(data_004922a4);
     --data_0049231e;
     return 0;
 }

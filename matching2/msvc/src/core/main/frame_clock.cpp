@@ -96,11 +96,11 @@ struct D3D9Device {
 };
 
 extern "C" unsigned char g_sprt_ctrl;             // 0x00491C10  game state object
-extern "C" unsigned char data_00491c30;             // 0x00491C30  IDirect3DDevice9*
+extern "C" unsigned char g_d3d_device;             // 0x00491C30  IDirect3DDevice9*
 
 // Every call site reads the global again: the device is published around a
 // Reset (0x00438AD0), so the pointer is not allowed to live in a register.
-#define D3D9_DEVICE (*(D3D9Device**)&data_00491c30)
+#define D3D9_DEVICE (*(D3D9Device**)&g_d3d_device)
 
 // D3DRENDERSTATETYPE values used by the default 2D state.
 enum {

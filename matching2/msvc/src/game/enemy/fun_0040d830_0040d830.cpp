@@ -8,7 +8,7 @@
 #include "th10/game/enemy_script_bind_0040d830.hpp"
 #include <string.h>
 
-extern "C" float data_00476f78;
+extern "C" float g_game_speed;
 extern "C" unsigned char data_0046d0c0;
 struct BindGameState_0040d830 {
     unsigned char reserved[0x54];
@@ -28,7 +28,7 @@ struct BindFrameTimer_0040d830 {
             current = 0;
             previous = 0xFFF0BDC1;
             elapsed = 0.0f;
-            speed = &data_00476f78;
+            speed = &g_game_speed;
             flags |= 1;
         }
         int* tail = &current;

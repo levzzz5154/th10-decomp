@@ -1,12 +1,12 @@
 #include "th10/platform/sound_queue.hpp"
 
-extern "C" short data_004749ce[];
+extern "C" short g_sound_priority[];
 
 // Scale pan to an integer request, merging repeated sound ids into an
 // existing slot. Each of the twelve slots holds up to 128 requests.
 #pragma code_seg(".text$05rpan")
 void SoundQueue::QueuePan(int sound_id, float pan) {
-    int priority = data_004749ce[sound_id * 4];
+    int priority = g_sound_priority[sound_id * 4];
     int request = int(pan * (1000.0f / 192.0f));
     int slot;
     for (slot = 0; slot < 12; ++slot) {

@@ -48,7 +48,7 @@ ResultDispatcher_00415e90(ResultDispatcherState* state) {
             timer->current = 0;
             timer->previous = -999999;
             timer->elapsed = 0.0f;
-            timer->speed = &data_00476f78;
+            timer->speed = &g_game_speed;
             timer->flags |= 1;
         }
         timer->current = frame;
@@ -135,7 +135,7 @@ ResultDispatcher_00415e90(ResultDispatcherState* state) {
                     state->wait.SetSchedulerValue(0);
                     state->alternate_text = 0;
                 } else {
-                    data_00492590.Queue(0, 0);
+                    g_sound_manager.Queue(0, 0);
                     state->wait.SetSchedulerValue(0);
                     state->alternate_text = 0;
                 }
@@ -254,31 +254,31 @@ ResultDispatcher_00415e90(ResultDispatcherState* state) {
                 }
                 if (data_00474c7c == 6) {
                     StageState()->flags |= 0x20;
-                    data_00474c40.AddScore(data_00474c4c * 1000);
+                    g_globals.AddScore(data_00474c4c * 1000);
                     switch (data_00474c74) {
                     case 0:
-                        data_00474c40.AddScore(data_00474c70 * 20000000);
-                        data_00474c40.AddScore(data_00474c48 * 100000);
+                        g_globals.AddScore(data_00474c70 * 20000000);
+                        g_globals.AddScore(data_00474c48 * 100000);
                         break;
                     case 1:
-                        data_00474c40.AddScore(data_00474c70 * 25000000);
-                        data_00474c40.AddScore(data_00474c48 * 100000);
+                        g_globals.AddScore(data_00474c70 * 25000000);
+                        g_globals.AddScore(data_00474c48 * 100000);
                         break;
                     case 2:
-                        data_00474c40.AddScore(data_00474c70 * 35000000);
-                        data_00474c40.AddScore(data_00474c48 * 200000);
+                        g_globals.AddScore(data_00474c70 * 35000000);
+                        g_globals.AddScore(data_00474c48 * 200000);
                         break;
                     case 3:
-                        data_00474c40.AddScore(data_00474c70 * 40000000);
-                        data_00474c40.AddScore(data_00474c48 * 300000);
+                        g_globals.AddScore(data_00474c70 * 40000000);
+                        g_globals.AddScore(data_00474c48 * 300000);
                         break;
                     case 4:
-                        data_00474c40.AddScore(data_00474c70 * 40000000);
-                        data_00474c40.AddScore(data_00474c48 * 400000);
+                        g_globals.AddScore(data_00474c70 * 40000000);
+                        g_globals.AddScore(data_00474c48 * 400000);
                         break;
                     }
                     if (data_00477838->replay_mode == 1) {
-                        SetInputMode(&data_00491c28, 4);
+                        SetInputMode(&g_application, 4);
                         break;
                     }
                     Screen_Create(0x31, 5, 0x78, 0, 0, 0);
@@ -290,11 +290,11 @@ ResultDispatcher_00415e90(ResultDispatcherState* state) {
                         ++*count;
                 } else if (data_00474c7c == 7) {
                     StageState()->flags |= 0x20;
-                    data_00474c40.AddScore(data_00474c4c * 1000);
-                    data_00474c40.AddScore(data_00474c70 * 40000000);
-                    data_00474c40.AddScore(data_00474c48 * 400000);
+                    g_globals.AddScore(data_00474c4c * 1000);
+                    g_globals.AddScore(data_00474c70 * 40000000);
+                    g_globals.AddScore(data_00474c48 * 400000);
                     if (data_00477838->replay_mode == 1) {
-                        SetInputMode(&data_00491c28, 4);
+                        SetInputMode(&g_application, 4);
                         break;
                     }
                     g_pause->OpenResult();
@@ -308,8 +308,8 @@ ResultDispatcher_00415e90(ResultDispatcherState* state) {
                     stage->transition_animation.value = 0;
                     stage->transition_animation.value =
                         DispatcherCreateAnimation(stage->resource, 0x4C, 15).value;
-                    SetInputMode(&data_00491c28, 11);
-                    reinterpret_cast<DispatcherRankState*>(&data_00474c40)->AdvanceLevel();
+                    SetInputMode(&g_application, 11);
+                    reinterpret_cast<DispatcherRankState*>(&g_globals)->AdvanceLevel();
                 }
                 break;
             }

@@ -14,8 +14,8 @@ extern "C" {
     extern FuncCtrl* g_func_ctrl;
     extern char data_0046e42c[],data_0046e420[],data_0046e3ec[];
     extern const char* data_00476fc0[];
-    extern TextLog_0044b810 data_00474f70;
-    extern float data_00470b44,data_00470b0c,data_00476f78;
+    extern TextLog_0044b810 g_log;
+    extern float data_00470b44,data_00470b0c,g_game_speed;
     extern float data_00476fb8[],data_00476fb0[],data_00476fa0[],data_00476fa8[];
     int __fastcall LargePlayerTick(void*);
     int __fastcall LargePlayerDraw(void*);
@@ -26,7 +26,7 @@ extern "C" {
 static __forceinline void InitializeTimer(PlayerTimerRecord14* timer) {
     if (!(timer->flags&1)) {
         timer->current=0;timer->previous=(int)0xfff0bdc1u;
-        timer->elapsed=0;timer->speed=&data_00476f78;timer->flags|=1;
+        timer->elapsed=0;timer->speed=&g_game_speed;timer->flags|=1;
     }
 }
 #pragma code_seg(".text$a07body")
@@ -39,13 +39,13 @@ int PlayerResetBlock::Initialize() {
     if (!data_00474c68.shot_type) name=data_0046e42c; else name=data_0046e420;
     CachedResource* resource=Recovery_LoadCachedResource(8,g_sprt_ctrl,name);
     Word(0x10)=(unsigned int)resource;
-    if (!resource) { data_00474f70.Append(data_0046e3ec); return -1; }
+    if (!resource) { g_log.Append(data_0046e3ec); return -1; }
     if (data_00491bf0) {
         Word(0x45c)=(unsigned int)data_00491bf0;data_00491bf0=0;
     } else {
         const char* parameter_name=data_00476fc0[data_00474c68.character+3*data_00474c68.shot_type];
         if (((ParameterLoader*)this)->Load(parameter_name)) {
-            data_00474f70.Append(data_0046e3ec);return -1;
+            g_log.Append(data_0046e3ec);return -1;
         }
     }
     SchedulerTask* task=LargePlayerCallbackCreate(LargePlayerTick);

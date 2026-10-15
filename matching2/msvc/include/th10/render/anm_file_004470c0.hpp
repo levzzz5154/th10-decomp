@@ -78,7 +78,7 @@ struct TextLog_0044b8e0 {
     char* AppendLine(char* format, ...);
 };
 
-extern "C" TextLog_0044b8e0 data_00474f70;
+extern "C" TextLog_0044b8e0 g_log;
 #endif
 
 extern "C" char data_00470210[], data_00470254[], data_00470274[], data_00470384[];

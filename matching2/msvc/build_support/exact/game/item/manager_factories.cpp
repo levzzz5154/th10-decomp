@@ -133,15 +133,15 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041afd0_0041afd0() {
     L_0041b0a2:
         jmp asm_target_0041b1e7
     L_0041b0a7:
-        fld dword ptr [data_00476f78]
+        fld dword ptr [g_game_speed]
     L_0041b0ad:
         fmul dword ptr [ebp+8]
     L_0041b0b0:
-        fld dword ptr [data_00476f78]
+        fld dword ptr [g_game_speed]
     L_0041b0b6:
         fmul dword ptr [ebp+0Ch]
     L_0041b0b9:
-        fld dword ptr [data_00476f78]
+        fld dword ptr [g_game_speed]
     L_0041b0bf:
         fmul dword ptr [ebp+10h]
     L_0041b0c2:
@@ -163,7 +163,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041afd0_0041afd0() {
     L_0041b0db:
         fstp dword ptr [ebp+4]
     L_0041b0de:
-        fld dword ptr [data_00476f78]
+        fld dword ptr [g_game_speed]
     L_0041b0e4:
         fmul dword ptr [data_00470cdc]
     L_0041b0ea:
@@ -211,15 +211,15 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041afd0_0041afd0() {
     L_0041b136:
         jne asm_target_0041b1d8
     L_0041b13c:
-        fld dword ptr [data_00476f78]
+        fld dword ptr [g_game_speed]
     L_0041b142:
         fmul dword ptr [ebp+8]
     L_0041b145:
-        fld dword ptr [data_00476f78]
+        fld dword ptr [g_game_speed]
     L_0041b14b:
         fmul dword ptr [ebp+0Ch]
     L_0041b14e:
-        fld dword ptr [data_00476f78]
+        fld dword ptr [g_game_speed]
     L_0041b154:
         fmul dword ptr [ebp+10h]
     L_0041b157:
@@ -241,7 +241,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041afd0_0041afd0() {
     L_0041b170:
         fstp dword ptr [ebp+4]
     L_0041b173:
-        fld dword ptr [data_00476f78]
+        fld dword ptr [g_game_speed]
     L_0041b179:
         fmul dword ptr [data_00470cdc]
     L_0041b17f:
@@ -355,15 +355,15 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041afd0_0041afd0() {
     L_0041b23f:
         call asm_FUN_0041beb0_0041beb0
     L_0041b244:
-        fld dword ptr [data_00476f78]
+        fld dword ptr [g_game_speed]
     L_0041b24a:
         fmul dword ptr [edi]
     L_0041b24c:
-        fld dword ptr [data_00476f78]
+        fld dword ptr [g_game_speed]
     L_0041b252:
         fmul dword ptr [ebp+0Ch]
     L_0041b255:
-        fld dword ptr [data_00476f78]
+        fld dword ptr [g_game_speed]
     L_0041b25b:
         fmul dword ptr [ebp+10h]
     L_0041b25e:
@@ -433,15 +433,15 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041afd0_0041afd0() {
     L_0041b2c9:
         call asm_FUN_0041beb0_0041beb0
     L_0041b2ce:
-        fld dword ptr [data_00476f78]
+        fld dword ptr [g_game_speed]
     L_0041b2d4:
         fmul dword ptr [edi]
     L_0041b2d6:
-        fld dword ptr [data_00476f78]
+        fld dword ptr [g_game_speed]
     L_0041b2dc:
         fmul dword ptr [ebp+0Ch]
     L_0041b2df:
-        fld dword ptr [data_00476f78]
+        fld dword ptr [g_game_speed]
     L_0041b2e5:
         fmul dword ptr [ebp+10h]
     L_0041b2e8:

@@ -35,7 +35,7 @@ extern "C" __declspec(noinline) void __stdcall SubmenuUpdate_004236f0(SubmenuSta
         // The confirm gate: after ten ticks, sound 10 and start the setup.
         if (state->timer.field_04 < 10) break;
         if ((data_00474e36 & 0x1001) == 0) break;
-        data_00492590.Queue(10, 0);
+        g_sound_manager.Queue(10, 0);
         state->state = 7;
         state->background.SetStopFrame(2);
         state->timer.SetSchedulerValue(0);
@@ -84,11 +84,11 @@ extern "C" __declspec(noinline) void __stdcall SubmenuUpdate_004236f0(SubmenuSta
             rows->Advance(1);
         if (rows->previous_selection != rows->selection) {
             state->background.SetStopFrame((unsigned short)rows->selection + 7);
-            data_00492590.Queue(12, 0);
+            g_sound_manager.Queue(12, 0);
         }
         if (data_00474e36 & 0x1001) {
             state->background.FindChildRef(rows->selection + 0x7C).StopAtFrame6();
-            data_00492590.Queue(10, 0);
+            g_sound_manager.Queue(10, 0);
             state->state = 13;
             state->timer.SetSchedulerValue(0);
             SubUpdateFrameMaximum_004236f0(g_front);
@@ -109,12 +109,12 @@ extern "C" __declspec(noinline) void __stdcall SubmenuUpdate_004236f0(SubmenuSta
             case 2:
                 state->timer.SetSchedulerValue(0);
                 state->state = 13;
-                data_00492590.Queue(10, 0);
+                g_sound_manager.Queue(10, 0);
                 break;
             }
         }
         if (data_00474e36 & 0xA) {
-            data_00492590.Queue(11, 0);
+            g_sound_manager.Queue(11, 0);
             if (rows->selection != 2) {
                 SelectInList(rows, 2);
                 state->background.SetStopFrame((short)rows->selection + 7);
@@ -134,7 +134,7 @@ extern "C" __declspec(noinline) void __stdcall SubmenuUpdate_004236f0(SubmenuSta
         if ((short)data_00474e30.InputMaskActive(0x20))
             rows->Advance(1);
         if (rows->previous_selection != rows->selection)
-            data_00492590.Queue(12, 0);
+            g_sound_manager.Queue(12, 0);
         if (data_00474e36 & 0x1001) {
             state->state = 11;
             state->timer.SetSchedulerValue(0);
@@ -163,7 +163,7 @@ extern "C" __declspec(noinline) void __stdcall SubmenuUpdate_004236f0(SubmenuSta
             } while (length > 0);
 timed_length:
             state->name_length = length;
-            data_00492590.Queue(10, 0);
+            g_sound_manager.Queue(10, 0);
             return;
         }
         if (data_00474e36 & 0xA) {
@@ -185,7 +185,7 @@ timed_length:
             }
             state->state = 8;
             state->timer.SetSchedulerValue(0);
-            data_00492590.Queue(11, 0);
+            g_sound_manager.Queue(11, 0);
         }
         return;
     }
@@ -211,7 +211,7 @@ timed_length:
                 list->Advance(1);
         }
         if (list->previous_selection != list->selection)
-            data_00492590.Queue(12, 0);
+            g_sound_manager.Queue(12, 0);
         if (data_00474e36 & 0x1001) {
             const char* grid = data_004746d8;
             int selection = list->selection;
@@ -231,11 +231,11 @@ timed_length:
                     return;
                 --state->name_length;
                 state->name[state->name_length] = ' ';
-                data_00492590.Queue(11, 0);
+                g_sound_manager.Queue(11, 0);
                 return;
             } else if (selection == length - 1) {
                 // The save column: serialize the replay under the typed name.
-                data_00492590.Queue(44, 0);
+                g_sound_manager.Queue(44, 0);
                 asm_sprintf_00452ae8(path, "th10_%.2d.rpy", selection + 1);
                 SubPlatformResource_Destroy_004236f0(
                     reinterpret_cast<PlatformResource*>(state->handles[selection]));
@@ -252,10 +252,10 @@ timed_length:
             ++state->name_length;
             if (state->name_length >= 8)
                 UpdateBoundedCounter(length - 1, (unsigned int*)&list->selection);
-            data_00492590.Queue(10, 0);
+            g_sound_manager.Queue(10, 0);
         }
         if (data_00474e36 & 0xA) {
-            data_00492590.Queue(11, 0);
+            g_sound_manager.Queue(11, 0);
             if (state->name_length != 0) {
                 --state->name_length;
                 state->name[state->name_length] = ' ';
@@ -289,7 +289,7 @@ timed_length:
                     list->Advance(1);
             }
             if (list->previous_selection != list->selection)
-                data_00492590.Queue(12, 0);
+                g_sound_manager.Queue(12, 0);
         }
         if (data_00474e36 & 0x1001) {
             if (state->no_entry == 0) {
@@ -333,7 +333,7 @@ timed_length:
                     state->background.StopAtFrame3();
                     state->background.SetStopFrame((short)(state->rows.selection + 7));
                 }
-                data_00492590.Queue(10, 0);
+                g_sound_manager.Queue(10, 0);
                 goto cancel_check;
             }
             reinterpret_cast<SubAnimNode_004236f0&>(state->background).SetFlag();
@@ -349,7 +349,7 @@ timed_length:
             if (state->rows.selection >= 0) {
                 if (state->name_length == 0)
                     return;
-                data_00492590.Queue(11, 0);
+                g_sound_manager.Queue(11, 0);
                 --state->name_length;
                 state->name[state->name_length] = ' ';
                 return;
@@ -358,7 +358,7 @@ timed_length:
             state->rows.item_count = 3;
             SelectInList(&state->rows, 0);
             state->timer.SetSchedulerValue(0);
-            data_00492590.Queue(10, 0);
+            g_sound_manager.Queue(10, 0);
         }
         return;
     }
@@ -373,7 +373,7 @@ timed_length:
             return;
         case 1:
         case 2:
-            SubSetInputMode_004236f0(&data_00491c28, 4);
+            SubSetInputMode_004236f0(&g_application, 4);
             return;
         }
         return;

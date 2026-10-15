@@ -25,16 +25,16 @@ static __forceinline Point3_OrientedRect& LaserAddPosition(
 #pragma code_seg(".text$20laser")
 int GrowLaser::Update() {
     if (length < target_length) {
-        length += data_00476f78 * length_growth;
+        length += g_game_speed * length_growth;
         if (length > target_length)
             length = target_length;
     }
-    angle = NormalizeAngle_0044bc10(angle, data_00476f78 * angular_velocity);
+    angle = NormalizeAngle_0044bc10(angle, g_game_speed * angular_velocity);
     if ((flags & 1u) && g_enemy_ctrl->target)
         position = g_enemy_ctrl->target->position;
 
-    Point3_OrientedRect delta(data_00476f78 * velocity.x,
-        data_00476f78 * velocity.y, data_00476f78 * velocity.z);
+    Point3_OrientedRect delta(g_game_speed * velocity.x,
+        g_game_speed * velocity.y, g_game_speed * velocity.z);
     LaserAddPosition(position, delta);
 
     switch (state) {
@@ -93,7 +93,7 @@ int GrowLaser::Update() {
             void* handle;
             ItemAnimation_CreateOffset_00448db0(data_004776f0->resource,
                 &handle, 434, PlayerPoint());
-            data_00492590.QueuePan(28, position.x);
+            g_sound_manager.QueuePan(28, position.x);
         }
     }
 

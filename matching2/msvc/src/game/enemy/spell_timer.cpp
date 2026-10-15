@@ -3,7 +3,7 @@ extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
 
 extern "C" int data_00474c4c;
-extern "C" float data_00476f78;
+extern "C" float g_game_speed;
 
 struct SpellTimerDisplay_004127a0 {
     unsigned char reserved_0000[0x9ec0];
@@ -50,7 +50,7 @@ struct SpellTimerClock_004127a0 {
             current_frame = 0;
             previous_frame = -999999;
             elapsed = 0.0f;
-            speed = &data_00476f78;
+            speed = &g_game_speed;
             flags |= 1u;
         }
         current_frame = 0;

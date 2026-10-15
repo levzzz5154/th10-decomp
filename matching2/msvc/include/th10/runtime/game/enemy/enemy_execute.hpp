@@ -17,7 +17,7 @@ static __forceinline Float3 operator+(const Float3& a, const Float3& b) {
 extern "C" Float3 g_zero_vector_00491c14;
 extern "C" Float2 g_zero_vector2_00491c20;
 extern "C" Float3 g_camera_offset_00491d7c;
-extern "C" float g_game_speed_00476f78;
+extern "C" float g_game_speed;
 extern "C" int g_difficulty_00474c74;
 extern "C" int g_rank_00474c98;
 
@@ -92,7 +92,7 @@ __declspec(noinline) AnmVm* __stdcall Anm_Resolve_00449450(AnmHandle* handle);
 __declspec(noinline) Float3* __stdcall OffsetPoint_00418810(const Float3* point);
 
 struct RenderStageState { __declspec(noinline) void SelectStage_00401d20(int index); };
-extern "C" RenderStageState data_00491c28;
+extern "C" RenderStageState g_application;
 extern "C" unsigned char data_00491e48[], data_00491e08[], data_00491dc8[], data_00474df0[];
 extern "C" Float3* __stdcall D3DXVec3Project_0045218e(Float3* out, const Float3* vector, const void* viewport,
                                                       const void* projection, const void* view, const void* world);
@@ -231,9 +231,9 @@ extern "C" Card* g_card;
 __declspec(noinline) void __stdcall Card_Start_00409280(Card* card, int id, const char* name, int time, int unused);
 
 struct SoundQueue { __declspec(noinline) void QueuePan_0043dd10(int sound, float pan); };
-extern "C" SoundQueue data_00492590;
+extern "C" SoundQueue g_sound_manager;
 struct ScoreState { int fields[20]; };
-extern "C" ScoreState data_00474c40;
+extern "C" ScoreState g_globals;
 __declspec(noinline) void __stdcall Score_SetMode_00412ed0(ScoreState* state, int mode);
 __declspec(noinline) void* __stdcall Screen_Create(int priority, int mode, int a, int b, int c, int d);
 

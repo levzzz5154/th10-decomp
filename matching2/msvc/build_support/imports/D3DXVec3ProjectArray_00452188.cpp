@@ -7,13 +7,13 @@ typedef void* (__stdcall *D3DXVec3ProjectArrayImport_00452188)(
     unsigned int vector_stride, unsigned int count, const void* viewport,
     const void* projection, const void* view, const void* world);
 
-extern "C" D3DXVec3ProjectArrayImport_00452188 data_004662f4;
+extern "C" D3DXVec3ProjectArrayImport_00452188 imp_D3DXVec3ProjectArray;
 
 // 0x00452188..0x0045218D: D3DXVec3ProjectArray import thunk.
 extern "C" void* __stdcall asm_D3DXVec3ProjectArray_00452188(
     void* out, unsigned int out_stride, const void* vectors,
     unsigned int vector_stride, unsigned int count, const void* viewport,
     const void* projection, const void* view, const void* world) {
-    return data_004662f4(out, out_stride, vectors, vector_stride, count,
+    return imp_D3DXVec3ProjectArray(out, out_stride, vectors, vector_stride, count,
                          viewport, projection, view, world);
 }

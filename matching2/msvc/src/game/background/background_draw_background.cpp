@@ -30,22 +30,22 @@ int __stdcall BackGround_DrawBackground(BackGround* stage) {
     if (stage->flags & 8) return 1;
     if (!(stage->flags & 4) || stage->fade_timer.current < 60) {
         g_sprt_ctrl->Flush();
-        stage->view.camera.clip_x = data_00491c28.stages[0].camera.clip_x;
-        stage->view.camera.clip_y = data_00491c28.stages[0].camera.clip_y;
-        data_00491c28.stages[0] = stage->view;
-        data_00491c28.SelectStage(0);
+        stage->view.camera.clip_x = g_application.stages[0].camera.clip_x;
+        stage->view.camera.clip_y = g_application.stages[0].camera.clip_y;
+        g_application.stages[0] = stage->view;
+        g_application.SelectStage(0);
         StageSetRenderState(0x0E, 1);
         StageSetRenderState(0x17, 4);
         StageSetRenderState(0x22, stage->view.fog_color);
         StageSetRenderState(0x24, stage->view.fog_start);
         StageSetRenderState(0x25, stage->view.fog_end);
-        data_00491c30->Clear(0, 0, 2, 0, 1.0f, 0);
+        g_d3d_device->Clear(0, 0, 2, 0, 1.0f, 0);
         if ((stage->flags & 4) && stage->clear_timer.current < 34) {
             PlayfieldRect rect = {32, 16, 416, 464};
-            data_00491c30->Clear(1, &rect, 1, 0, 1.0f, 0);
+            g_d3d_device->Clear(1, &rect, 1, 0, 1.0f, 0);
         } else {
             PlayfieldRect rect = {32, 16, 416, 464};
-            data_00491c30->Clear(1, &rect, 1, stage->view.fog_color & 0xFFFFFF, 1.0f, 0);
+            g_d3d_device->Clear(1, &rect, 1, stage->view.fog_color & 0xFFFFFF, 1.0f, 0);
         }
     }
     if (stage->flags & 4) {
@@ -68,8 +68,8 @@ int __stdcall BackGround_DrawBackground(BackGround* stage) {
     stage->drawn_quads = 0;
     if (stage->flags & 1) {
         if (stage->sprites[0].texture) {
-            reinterpret_cast<RenderStageState_00405300*>(&data_00491c28)->SelectDefaultStage(0);
-            reinterpret_cast<RenderStageState_00439390*>(&data_00491c28)->DisableFog();
+            reinterpret_cast<RenderStageState_00405300*>(&g_application)->SelectDefaultStage(0);
+            reinterpret_cast<RenderStageState_00439390*>(&g_application)->DisableFog();
             g_sprt_ctrl->Flush();
             StageSetRenderState(0x0E, 0);
             for (int i = 0; i < 8; ++i) {
@@ -78,7 +78,7 @@ int __stdcall BackGround_DrawBackground(BackGround* stage) {
                 }
             }
             StageSetRenderState(0x0E, 1);
-            data_00491c28.SelectStage(0);
+            g_application.SelectStage(0);
         }
         StageSetFog(1);
         BackGround_DrawLayer(stage, 0);

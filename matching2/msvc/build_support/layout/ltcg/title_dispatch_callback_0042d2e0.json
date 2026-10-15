@@ -255,7 +255,7 @@
   "constants": [],
   "absolute_symbols": [
     {
-      "symbol": "_data_004749ce",
+      "symbol": "_g_sound_priority",
       "kind": "data",
       "address": 4671950
     },
@@ -265,7 +265,7 @@
       "address": 4791312
     },
     {
-      "symbol": "_data_00476f78",
+      "symbol": "_g_game_speed",
       "kind": "data",
       "address": 4681592
     },
@@ -330,7 +330,7 @@
       "address": 4656228
     },
     {
-      "symbol": "_data_00492590",
+      "symbol": "_g_sound_manager",
       "kind": "data",
       "address": 4793744
     },

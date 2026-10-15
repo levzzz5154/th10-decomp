@@ -10,7 +10,7 @@
 // (src/game/pause/recovery_initialize_timed_state_00423510.cpp) carry: current and
 // elapsed are cleared, previous takes the inactive sentinel -1, and while the
 // block is not yet running the countdown is armed with 0xFFF0BDC1 and the
-// shared float data_00476f78 as its speed before the running bit is raised.
+// shared float g_game_speed as its speed before the running bit is raised.
 // The low half of the record's scheduler counter at +0x446 is cleared first.
 //
 // Every write to the record goes through a pointer to the field rather than
@@ -26,7 +26,7 @@
 //    compare slot - the second flag load is hoisted above them - 27 differing
 //    bytes;
 //  * the shared pointer value keeps all three in front of that load: 0.
-extern "C" float data_00476f78;
+extern "C" float g_game_speed;
 
 struct Player_00405be0 {
     unsigned char unknown_0000[0x3F8];
@@ -54,7 +54,7 @@ void Player_00405be0::ResetSchedulerLinks() {
         link_1_current = 0;
         link_1_previous = 0xFFF0BDC1;
         link_1_elapsed = 0;
-        link_1_speed = &data_00476f78;
+        link_1_speed = &g_game_speed;
         link_1_flags |= 1;
     }
     int* tail_1 = &link_1_current;
@@ -65,7 +65,7 @@ void Player_00405be0::ResetSchedulerLinks() {
         link_2_current = 0;
         link_2_previous = 0xFFF0BDC1;
         link_2_elapsed = 0;
-        link_2_speed = &data_00476f78;
+        link_2_speed = &g_game_speed;
         link_2_flags |= 1;
     }
     int* tail_2 = &link_2_current;

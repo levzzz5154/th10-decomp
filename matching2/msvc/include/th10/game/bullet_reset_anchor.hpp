@@ -4,7 +4,7 @@
 // 0x00405BE0..0x00405C7D: clear the mode and reset both scheduler timers.
 // Native LTCG supplies the retail EAX receiver. The shared tail pointers keep
 // each timer reset together before the next timer flag is read.
-extern "C" float data_00476f78;
+extern "C" float g_game_speed;
 
 struct Player_00405be0 {
     unsigned char unknown_0000[0x3F8];
@@ -32,7 +32,7 @@ void Player_00405be0::ResetSchedulerLinks() {
         link_1_current = 0;
         link_1_previous = 0xFFF0BDC1;
         link_1_elapsed = 0;
-        link_1_speed = &data_00476f78;
+        link_1_speed = &g_game_speed;
         link_1_flags |= 1;
     }
     int* tail_1 = &link_1_current;
@@ -43,7 +43,7 @@ void Player_00405be0::ResetSchedulerLinks() {
         link_2_current = 0;
         link_2_previous = 0xFFF0BDC1;
         link_2_elapsed = 0;
-        link_2_speed = &data_00476f78;
+        link_2_speed = &g_game_speed;
         link_2_flags |= 1;
     }
     int* tail_2 = &link_2_current;

@@ -9,200 +9,200 @@ typedef void (__cdecl *ImportThunkTarget)();
 
 // 0x00452332: import jump thunk.
 extern "C" __declspec(noinline) void __cdecl semantic_import_thunk_00452332() {
-    ((ImportThunkTarget)(*(void **)(&data_00466264)))();
+    ((ImportThunkTarget)(*(void **)(&imp_DialogBoxParamA)))();
 }
 
 // 0x00452338: import jump thunk.
 extern "C" __declspec(noinline) void __cdecl semantic_import_thunk_00452338() {
-    ((ImportThunkTarget)(*(void **)(&data_00466260)))();
+    ((ImportThunkTarget)(*(void **)(&imp_LoadCursorA)))();
 }
 
 // 0x0045233E: import jump thunk.
 extern "C" __declspec(noinline) void __cdecl semantic_import_thunk_0045233e() {
-    ((ImportThunkTarget)(*(void **)(&data_0046625c)))();
+    ((ImportThunkTarget)(*(void **)(&imp_GetSystemMetrics)))();
 }
 
 // 0x00452344: import jump thunk.
 extern "C" __declspec(noinline) void __cdecl semantic_import_thunk_00452344() {
-    ((ImportThunkTarget)(*(void **)(&data_00466258)))();
+    ((ImportThunkTarget)(*(void **)(&imp_SystemParametersInfoA)))();
 }
 
 // 0x0045234A: import jump thunk.
 extern "C" __declspec(noinline) void __cdecl semantic_import_thunk_0045234a() {
-    ((ImportThunkTarget)(*(void **)(&data_00466254)))();
+    ((ImportThunkTarget)(*(void **)(&imp_DispatchMessageA)))();
 }
 
 // 0x00452350: import jump thunk.
 extern "C" __declspec(noinline) void __cdecl semantic_import_thunk_00452350() {
-    ((ImportThunkTarget)(*(void **)(&data_00466250)))();
+    ((ImportThunkTarget)(*(void **)(&imp_IsDlgButtonChecked)))();
 }
 
 // 0x00452356: import jump thunk.
 extern "C" __declspec(noinline) void __cdecl semantic_import_thunk_00452356() {
-    ((ImportThunkTarget)(*(void **)(&data_0046624c)))();
+    ((ImportThunkTarget)(*(void **)(&imp_ShowWindow)))();
 }
 
 // 0x0045235C: import jump thunk.
 extern "C" __declspec(noinline) void __cdecl semantic_import_thunk_0045235c() {
-    ((ImportThunkTarget)(*(void **)(&data_00466248)))();
+    ((ImportThunkTarget)(*(void **)(&imp_DefWindowProcA)))();
 }
 
 // 0x00452362: import jump thunk.
 extern "C" __declspec(noinline) void __cdecl semantic_import_thunk_00452362() {
-    ((ImportThunkTarget)(*(void **)(&data_00466244)))();
+    ((ImportThunkTarget)(*(void **)(&imp_EndDialog)))();
 }
 
 // 0x00452368: import jump thunk.
 extern "C" __declspec(noinline) void __cdecl semantic_import_thunk_00452368() {
-    ((ImportThunkTarget)(*(void **)(&data_00466240)))();
+    ((ImportThunkTarget)(*(void **)(&imp_GetDlgItem)))();
 }
 
 // 0x0045236E: import jump thunk.
 extern "C" __declspec(noinline) void __cdecl semantic_import_thunk_0045236e() {
-    ((ImportThunkTarget)(*(void **)(&data_0046623c)))();
+    ((ImportThunkTarget)(*(void **)(&imp_PeekMessageA)))();
 }
 
 // 0x00452374: import jump thunk.
 extern "C" __declspec(noinline) void __cdecl semantic_import_thunk_00452374() {
-    ((ImportThunkTarget)(*(void **)(&data_00466238)))();
+    ((ImportThunkTarget)(*(void **)(&imp_CreateWindowExA)))();
 }
 
 // 0x0045237A: import jump thunk.
 extern "C" __declspec(noinline) void __cdecl semantic_import_thunk_0045237a() {
-    ((ImportThunkTarget)(*(void **)(&data_00466234)))();
+    ((ImportThunkTarget)(*(void **)(&imp_MessageBoxA)))();
 }
 
 // 0x00452380: import jump thunk.
 extern "C" __declspec(noinline) void __cdecl semantic_import_thunk_00452380() {
-    ((ImportThunkTarget)(*(void **)(&data_00466230)))();
+    ((ImportThunkTarget)(*(void **)(&imp_ShowCursor)))();
 }
 
 // 0x00452386: import jump thunk.
 extern "C" __declspec(noinline) void __cdecl semantic_import_thunk_00452386() {
-    ((ImportThunkTarget)(*(void **)(&data_0046622c)))();
+    ((ImportThunkTarget)(*(void **)(&imp_TranslateMessage)))();
 }
 
 // 0x0045238C: import jump thunk.
 extern "C" __declspec(noinline) void __cdecl semantic_import_thunk_0045238c() {
-    ((ImportThunkTarget)(*(void **)(&data_00466228)))();
+    ((ImportThunkTarget)(*(void **)(&imp_SendMessageA)))();
 }
 
 // 0x00452392: import jump thunk.
 extern "C" __declspec(noinline) void __cdecl semantic_import_thunk_00452392() {
-    ((ImportThunkTarget)(*(void **)(&data_004661f0)))();
+    ((ImportThunkTarget)(*(void **)(&imp_SetForegroundWindow)))();
 }
 
 // 0x00452398: import jump thunk.
 extern "C" __declspec(noinline) void __cdecl semantic_import_thunk_00452398() {
-    ((ImportThunkTarget)(*(void **)(&data_00466224)))();
+    ((ImportThunkTarget)(*(void **)(&imp_SetCursor)))();
 }
 
 // 0x0045239E: import jump thunk.
 extern "C" __declspec(noinline) void __cdecl semantic_import_thunk_0045239e() {
-    ((ImportThunkTarget)(*(void **)(&data_00466220)))();
+    ((ImportThunkTarget)(*(void **)(&imp_DestroyWindow)))();
 }
 
 // 0x004523A4: import jump thunk.
 extern "C" __declspec(noinline) void __cdecl semantic_import_thunk_004523a4() {
-    ((ImportThunkTarget)(*(void **)(&data_0046621c)))();
+    ((ImportThunkTarget)(*(void **)(&imp_GetWindowLongA)))();
 }
 
 // 0x004523AA: import jump thunk.
 extern "C" __declspec(noinline) void __cdecl semantic_import_thunk_004523aa() {
-    ((ImportThunkTarget)(*(void **)(&data_00466218)))();
+    ((ImportThunkTarget)(*(void **)(&imp_SetTimer)))();
 }
 
 // 0x004523B0: import jump thunk.
 extern "C" __declspec(noinline) void __cdecl semantic_import_thunk_004523b0() {
-    ((ImportThunkTarget)(*(void **)(&data_00466214)))();
+    ((ImportThunkTarget)(*(void **)(&imp_KillTimer)))();
 }
 
 // 0x004523B6: import jump thunk.
 extern "C" __declspec(noinline) void __cdecl semantic_import_thunk_004523b6() {
-    ((ImportThunkTarget)(*(void **)(&data_00466210)))();
+    ((ImportThunkTarget)(*(void **)(&imp_PostThreadMessageA)))();
 }
 
 // 0x004523BC: import jump thunk.
 extern "C" __declspec(noinline) void __cdecl semantic_import_thunk_004523bc() {
-    ((ImportThunkTarget)(*(void **)(&data_0046620c)))();
+    ((ImportThunkTarget)(*(void **)(&imp_MsgWaitForMultipleObjects)))();
 }
 
 // 0x004523C2: import jump thunk.
 extern "C" __declspec(noinline) void __cdecl semantic_import_thunk_004523c2() {
-    ((ImportThunkTarget)(*(void **)(&data_00466208)))();
+    ((ImportThunkTarget)(*(void **)(&imp_GetKeyboardState)))();
 }
 
 // 0x004523C8: import jump thunk.
 extern "C" __declspec(noinline) void __cdecl semantic_import_thunk_004523c8() {
-    ((ImportThunkTarget)(*(void **)(&data_00466204)))();
+    ((ImportThunkTarget)(*(void **)(&imp_SetKeyboardState)))();
 }
 
 // 0x004523CE: import jump thunk.
 extern "C" __declspec(noinline) void __cdecl semantic_import_thunk_004523ce() {
-    ((ImportThunkTarget)(*(void **)(&data_00466200)))();
+    ((ImportThunkTarget)(*(void **)(&imp_FindWindowA)))();
 }
 
 // 0x004523D4: import jump thunk.
 extern "C" __declspec(noinline) void __cdecl semantic_import_thunk_004523d4() {
-    ((ImportThunkTarget)(*(void **)(&data_00466034)))();
+    ((ImportThunkTarget)(*(void **)(&imp_CreateFontA)))();
 }
 
 // 0x004523DA: import jump thunk.
 extern "C" __declspec(noinline) void __cdecl semantic_import_thunk_004523da() {
-    ((ImportThunkTarget)(*(void **)(&data_00466030)))();
+    ((ImportThunkTarget)(*(void **)(&imp_DeleteObject)))();
 }
 
 // 0x004523E0: import jump thunk.
 extern "C" __declspec(noinline) void __cdecl semantic_import_thunk_004523e0() {
-    ((ImportThunkTarget)(*(void **)(&data_0046602c)))();
+    ((ImportThunkTarget)(*(void **)(&imp_SelectObject)))();
 }
 
 // 0x004523E6: import jump thunk.
 extern "C" __declspec(noinline) void __cdecl semantic_import_thunk_004523e6() {
-    ((ImportThunkTarget)(*(void **)(&data_00466028)))();
+    ((ImportThunkTarget)(*(void **)(&imp_DeleteDC)))();
 }
 
 // 0x004523EC: import jump thunk.
 extern "C" __declspec(noinline) void __cdecl semantic_import_thunk_004523ec() {
-    ((ImportThunkTarget)(*(void **)(&data_00466024)))();
+    ((ImportThunkTarget)(*(void **)(&imp_CreateDIBSection)))();
 }
 
 // 0x004523F2: import jump thunk.
 extern "C" __declspec(noinline) void __cdecl semantic_import_thunk_004523f2() {
-    ((ImportThunkTarget)(*(void **)(&data_00466020)))();
+    ((ImportThunkTarget)(*(void **)(&imp_CreateCompatibleDC)))();
 }
 
 // 0x004523F8: import jump thunk.
 extern "C" __declspec(noinline) void __cdecl semantic_import_thunk_004523f8() {
-    ((ImportThunkTarget)(*(void **)(&data_0046601c)))();
+    ((ImportThunkTarget)(*(void **)(&imp_SetBkMode)))();
 }
 
 // 0x004523FE: import jump thunk.
 extern "C" __declspec(noinline) void __cdecl semantic_import_thunk_004523fe() {
-    ((ImportThunkTarget)(*(void **)(&data_00466018)))();
+    ((ImportThunkTarget)(*(void **)(&imp_SetTextColor)))();
 }
 
 // 0x00452404: import jump thunk.
 extern "C" __declspec(noinline) void __cdecl semantic_import_thunk_00452404() {
-    ((ImportThunkTarget)(*(void **)(&data_00466014)))();
+    ((ImportThunkTarget)(*(void **)(&imp_TextOutA)))();
 }
 
 // 0x0045240A: import jump thunk.
 extern "C" __declspec(noinline) void __cdecl semantic_import_thunk_0045240a() {
-    ((ImportThunkTarget)(*(void **)(&data_00466010)))();
+    ((ImportThunkTarget)(*(void **)(&imp_GetStockObject)))();
 }
 
 // 0x00452410: import jump thunk.
 extern "C" __declspec(noinline) void __cdecl semantic_import_thunk_00452410() {
-    ((ImportThunkTarget)(*(void **)(&data_00466304)))();
+    ((ImportThunkTarget)(*(void **)(&imp_CoCreateInstance)))();
 }
 
 // 0x00452416: import jump thunk.
 extern "C" __declspec(noinline) void __cdecl semantic_import_thunk_00452416() {
-    ((ImportThunkTarget)(*(void **)(&data_00466300)))();
+    ((ImportThunkTarget)(*(void **)(&imp_CoUninitialize)))();
 }
 
 // 0x0045241C: import jump thunk.
 extern "C" __declspec(noinline) void __cdecl semantic_import_thunk_0045241c() {
-    ((ImportThunkTarget)(*(void **)(&data_00466308)))();
+    ((ImportThunkTarget)(*(void **)(&imp_CoInitialize)))();
 }

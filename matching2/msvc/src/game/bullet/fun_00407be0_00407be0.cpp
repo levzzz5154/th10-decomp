@@ -10,7 +10,7 @@ void BulletDeceleration::Bounce() {
         position_y <= data_00470b04 || position_y >= data_00470b38) {
         int bounced = 0;
         if (sound_id >= 0)
-            data_00492590.Queue(sound_id, 0);
+            g_sound_manager.Queue(sound_id, 0);
         if (position_x < data_00470b40 || position_x >= data_00470b3c) {
             angle = Angle_NormalizeSum(-angle - data_00470b18, 0.0f);
             bounced = 1;

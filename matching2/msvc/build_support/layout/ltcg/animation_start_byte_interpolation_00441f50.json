@@ -80,7 +80,7 @@
   "constants": [],
   "absolute_symbols": [
     {
-      "symbol": "_data_00476f78",
+      "symbol": "_g_game_speed",
       "address": "0x00476F78",
       "kind": "data"
     },

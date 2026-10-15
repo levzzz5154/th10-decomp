@@ -30,8 +30,8 @@ struct TextLog_00420870 {
 };
 
 extern "C" {
-extern GameApp_00420870 data_00491c28;
-extern TextLog_00420870 data_00474f70;
+extern GameApp_00420870 g_application;
+extern TextLog_00420870 g_log;
 extern char data_00474e88[];      // the key configuration in use (18 bytes)
 
 // Log lines (Shift-JIS).

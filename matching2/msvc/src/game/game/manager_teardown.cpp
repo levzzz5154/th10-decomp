@@ -127,7 +127,7 @@ void __stdcall Game_Destroy(Game* state) {
         GameThread_0040c540* thread = g_ascii_manager;
         thread->EnsureAnimationResource(480.0f, 392.0f);
         if (data_00474c80 != data_00474c7c) {
-            data_00474c40.IncrementCappedCount();
+            g_globals.IncrementCappedCount();
             data_00474ca0 |= 8u;
         }
         data_00474ca0 |= 1u;
@@ -272,7 +272,7 @@ void __stdcall Game_Destroy(Game* state) {
         // Re-register the shared animation resource for the next run; the
         // resource index is 4 when the extra-content flag is set. Retail
         // hands the registrar its manager in EAX and the name in EDX.
-        data_00492590.RegisterResource(
+        g_sound_manager.RegisterResource(
             data_0046df98, (data_00491d78 & 0x10u) ? 4 : 3, 0);
     }
 

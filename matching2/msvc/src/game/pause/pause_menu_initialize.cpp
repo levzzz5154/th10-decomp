@@ -8,7 +8,7 @@ extern "C" __declspec(noinline) void __stdcall PauseMenu_Initialize_00422ab0(Pau
         state->current_frame = 0;
         state->previous_frame = 0xFFF0BDC1;
         state->elapsed = 0.0f;
-        state->speed = &data_00476f78;
+        state->speed = &g_game_speed;
         state->timer_flags |= 1;
     }
     state->current_frame = 0;
@@ -38,12 +38,12 @@ extern "C" __declspec(noinline) void __stdcall PauseMenu_Initialize_00422ab0(Pau
     reinterpret_cast<AnimationSecondaryLists*>(g_sprt_ctrl)->RegisterSecondaryBack(&handle, second);
     state->background = handle;
     state->background.StopAtFrame3();
-    data_00492590.Queue(32, 0);
-    reinterpret_cast<AnimationManager_0043e460*>(&data_00492590)->RegisterResource(data_0046e0c0, 6, 0);
+    g_sound_manager.Queue(32, 0);
+    reinterpret_cast<AnimationManager_0043e460*>(&g_sound_manager)->RegisterResource(data_0046e0c0, 6, 0);
     if (g_game->replay_mode) {
         state->background.FindChildRef(117).MarkAndClear();
     }
-    state->saved_speed = data_00476f78;
-    data_00476f78 = 1.0f;
+    state->saved_speed = g_game_speed;
+    g_game_speed = 1.0f;
 }
 #pragma code_seg()

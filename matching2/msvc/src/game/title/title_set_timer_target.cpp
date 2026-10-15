@@ -3,7 +3,7 @@
 // Retail enters this member with the state in EAX and the target in ECX.  The
 // task-local native-LTCG layout supplies that internal convention; the body
 // remains ordinary, readable C++.
-extern "C" float data_00476f78;
+extern "C" float g_game_speed;
 
 struct Title {
     unsigned char unknown_00[0x20];
@@ -28,7 +28,7 @@ void Title::SetTimerTarget(int target) {
         timer_current = 0;
         timer_previous = 0xFFF0BDC1;
         timer_elapsed = 0;
-        timer_speed = &data_00476f78;
+        timer_speed = &g_game_speed;
         timer_flags |= 1;
     }
     timer_current = 0;

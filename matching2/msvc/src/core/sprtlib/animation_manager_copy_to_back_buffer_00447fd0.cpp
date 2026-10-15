@@ -10,7 +10,7 @@
 
 // The device is always reached through this accessor: it makes the compiler
 // load the device and its vtable before the arguments, as retail does.
-static inline SurfaceDevice_00447c80* Device() { return data_00491c30; }
+static inline SurfaceDevice_00447c80* Device() { return g_d3d_device; }
 
 #pragma code_seg(".text$03copy")
 void AnimationManagerIndexed_00447f70::CopyToBackBuffer(int index, int left, int top, int x, int y) {

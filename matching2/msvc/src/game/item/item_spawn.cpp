@@ -9,7 +9,7 @@ static __forceinline void ResetTimer(FrameTimer* timer) {
         timer->current = 0;
         timer->previous = -999999;
         timer->elapsed = 0.0f;
-        timer->speed = &data_00476f78;
+        timer->speed = &g_game_speed;
         timer->flags = flags;
     }
     timer->current = 0;
@@ -50,7 +50,7 @@ __declspec(noinline) int PlayerItemManager::Spawn(
         item->velocity.SetPolar(angle, speed);
         ResetMotion(item);
         // At full power, power items turn into point-value ones.
-        if (data_00474c40.power >= 100) {
+        if (g_globals.power >= 100) {
             switch (kind) {
             case 10: case 11: kind = 5; break;
             case 1: case 4: kind = 9; break;

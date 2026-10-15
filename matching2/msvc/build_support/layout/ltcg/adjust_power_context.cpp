@@ -2,11 +2,11 @@
 
 #pragma code_seg(".text$03context")
 // Compiler context only; never selected as recovered game code.
-extern "C" PlayerPowerState data_00474c40;
+extern "C" PlayerPowerState g_globals;
 
 int __stdcall AdjustPowerCompilerContext(int* deltas, int count) {
     while (count--)
-        data_00474c40.AdjustPower(*deltas++);
+        g_globals.AdjustPower(*deltas++);
     return 0;
 }
 #pragma code_seg()

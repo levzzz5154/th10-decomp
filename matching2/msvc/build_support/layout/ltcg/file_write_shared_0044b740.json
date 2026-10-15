@@ -44,17 +44,17 @@
       "kind": "metadata"
     },
     {
-      "symbol": "_data_004660cc",
+      "symbol": "_imp_CloseHandle",
       "address": "0x004660CC",
       "kind": "data"
     },
     {
-      "symbol": "_data_004660d4",
+      "symbol": "_imp_WriteFile",
       "address": "0x004660D4",
       "kind": "data"
     },
     {
-      "symbol": "_data_004660b4",
+      "symbol": "_imp_LeaveCriticalSection",
       "address": "0x004660B4",
       "kind": "data"
     },

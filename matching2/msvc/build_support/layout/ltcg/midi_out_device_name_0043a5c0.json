@@ -39,7 +39,7 @@
   "roots": [],
   "absolute_symbols": [
     {
-      "symbol": "_data_00466294",
+      "symbol": "_imp_midiOutGetDevCapsA",
       "address": "0x00466294",
       "kind": "data"
     },

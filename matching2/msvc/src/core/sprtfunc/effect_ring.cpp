@@ -6,26 +6,26 @@
 // unit circle and a radial drift that random-walks inside +-1/15.
 #include "th10/math/rng.hpp"
 
-extern "C" RngState data_004918b0;
+extern "C" RngState g_rng;
 extern "C" void* __cdecl asm_malloc_00452706(unsigned int size);
 extern "C" void __cdecl entry_free_00452422(void* block);
 
 // The loop draws from the shared generator inline: two steps through a 32-bit
 // read of the seed, with the final word filling both halves.
 __forceinline unsigned int SharedRng_NextU32() {
-    unsigned int value = *(unsigned int*)&data_004918b0.seed;
+    unsigned int value = *(unsigned int*)&g_rng.seed;
     value ^= 0x9630;
     value -= 0x6553;
     unsigned int high = ((unsigned short)value) >> 14;
-    data_004918b0.seed = (unsigned short)(high + (value << 2));
-    ++data_004918b0.generation;
-    value = *(unsigned int*)&data_004918b0.seed;
+    g_rng.seed = (unsigned short)(high + (value << 2));
+    ++g_rng.generation;
+    value = *(unsigned int*)&g_rng.seed;
     value ^= 0x9630;
     value -= 0x6553;
     high = ((unsigned short)value) >> 14;
-    data_004918b0.seed = (unsigned short)(high + (value << 2));
-    ++data_004918b0.generation;
-    unsigned int word = data_004918b0.seed;
+    g_rng.seed = (unsigned short)(high + (value << 2));
+    ++g_rng.generation;
+    unsigned int word = g_rng.seed;
     return (word << 16) | word;
 }
 __forceinline float SharedRng_NextFloatSigned() {
@@ -96,8 +96,8 @@ int RingEntity_004452f0::BuildRing() {
     state = ring;
     on_update = &RingEntity_004452f0::Advance;
     on_draw = &RingEntity_004452f0::DrawFan33;
-    ring->scroll_rate = Rng_NextFloatSigned(&data_004918b0) * (1.0f / 120.0f);
-    ring->spare_rate = Rng_NextFloatSigned(&data_004918b0) * (1.0f / 120.0f);
+    ring->scroll_rate = Rng_NextFloatSigned(&g_rng) * (1.0f / 120.0f);
+    ring->spare_rate = Rng_NextFloatSigned(&g_rng) * (1.0f / 120.0f);
 
     float angle = -3.14159265358979323846f;
     RingParticle_004452f0* particle = ring->particles;
@@ -106,7 +106,7 @@ int RingEntity_004452f0::BuildRing() {
     particle->u = 0.5f;
     particle->v = 0.5f;
     ++particle;
-    float drift = Rng_NextFloatSigned(&data_004918b0) * (1.0f / 15.0f);
+    float drift = Rng_NextFloatSigned(&g_rng) * (1.0f / 15.0f);
 
     int index = 0;
     do {

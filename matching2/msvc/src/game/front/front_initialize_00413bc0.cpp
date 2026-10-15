@@ -52,10 +52,10 @@ void FrontInitializeView::Initialize() {
                                 reinterpret_cast<AnimationObject_0043e710 *>(&animations[35 + i]),
                                 51 + i);
     }
-    SetLifeIcons(data_00474c40.lives);
+    SetLifeIcons(g_globals.lives);
     // Split the signed power word into its whole value and two decimal digits.
-    int whole = data_00474c40.power_units / 20;
-    int fraction = (data_00474c40.power_units % 20) * 100 / 20;
+    int whole = g_globals.power_units / 20;
+    int fraction = (g_globals.power_units % 20) * 100 / 20;
     reinterpret_cast<Resource_0043e5a0 *>(captions)->ConfigureObject(
         reinterpret_cast<AnimationObject_0043e5a0 *>(&animations[29]), whole + 8);
     int digit = fraction % 10;
@@ -64,32 +64,32 @@ void FrontInitializeView::Initialize() {
     reinterpret_cast<Resource_0043e5a0 *>(captions)->ConfigureObject(
         reinterpret_cast<AnimationObject_0043e5a0 *>(&animations[32]), digit + 8);
     if (data_00491fb8 != 8) {
-        if (!(data_00474c40.flags.bytes[0] & 0x20)) {
+        if (!(g_globals.flags.bytes[0] & 0x20)) {
             Entity *object = AllocateFrontObject(alternate_resource, 0);
             RegisterFrontInline(reinterpret_cast<FrontAnimationLists *>(g_sprt_ctrl), object);
             object = AllocateFrontObject(alternate_resource, 1);
             RegisterFrontInline(reinterpret_cast<FrontAnimationLists *>(g_sprt_ctrl), object);
         }
     }
-    if (data_00474c40.flags.bytes[0] & 0x20) {
+    if (g_globals.flags.bytes[0] & 0x20) {
         Entity *object = AllocateFrontObject(captions, 113);
         RegisterFrontInline(reinterpret_cast<FrontAnimationLists *>(g_sprt_ctrl), object);
     }
     LoadScript_0043e710(
         reinterpret_cast<AnimationResource_0043e710 *>(g_ascii_manager->title_resource),
         reinterpret_cast<AnimationObject_0043e710 *>(&animations[42]), 0);
-    if (data_00474c40.stage == 1 && !g_game->stage_one_gate && !data_00474c40.continues) {
+    if (g_globals.stage == 1 && !g_game->stage_one_gate && !g_globals.continues) {
         Entity *object = AllocateFrontObject(captions, 79);
         RegisterFrontInline(reinterpret_cast<FrontAnimationLists *>(g_sprt_ctrl), object);
     }
     if (data_00491fc4) {
-        Entity *object = AllocateFrontObject(captions, data_00474c40.difficulty, 102);
+        Entity *object = AllocateFrontObject(captions, g_globals.difficulty, 102);
         FrontAnimationLists *lists = reinterpret_cast<FrontAnimationLists *>(g_sprt_ctrl);
         RegisterFrontInline(lists, object);
         difficulty_caption.value = lists->next_id.value;
         g_sprt_ctrl->SetFrame3Inline(difficulty_caption);
     }
-    Entity *object = AllocateFrontObject(captions, data_00474c40.difficulty, 107);
+    Entity *object = AllocateFrontObject(captions, g_globals.difficulty, 107);
     FrontAnimationLists *lists = reinterpret_cast<FrontAnimationLists *>(g_sprt_ctrl);
     RegisterFrontInline(lists, object);
     FrontAnimationId caption_id = difficulty_caption;

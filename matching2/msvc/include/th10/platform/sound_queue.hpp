@@ -14,5 +14,5 @@ struct SoundQueue {
 typedef char SoundQueueIdsOffset[offsetof(SoundQueue, sound_ids) == 0x620 ? 1 : -1];
 typedef char SoundQueueCountsOffset[offsetof(SoundQueue, counts) == 0x650 ? 1 : -1];
 typedef char SoundQueueRequestsOffset[offsetof(SoundQueue, requests) == 0x680 ? 1 : -1];
-extern "C" SoundQueue data_00492590;
+extern "C" SoundQueue g_sound_manager;
 #endif

@@ -110,7 +110,7 @@
   "constants": [],
   "absolute_symbols": [
     {
-      "symbol": "_data_00491c30",
+      "symbol": "_g_d3d_device",
       "address": "0x00491C30",
       "kind": "data"
     },
@@ -120,7 +120,7 @@
       "kind": "metadata"
     },
     {
-      "symbol": "_data_004978c0",
+      "symbol": "_g_quad_vertices",
       "address": "0x004978C0",
       "kind": "data"
     },

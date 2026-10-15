@@ -8,7 +8,7 @@ extern "C" int __cdecl EnemySpawnEscape(void* pointer, int value);
 extern "C" int __stdcall EnemySpawnContext(EnemySpawn_0040cfb0** spawns, EnemyCtrlSpawnView** managers,
                                            const char** entries, int count) {
     // The run state is reachable through pointers in the real program.
-    int total = EnemySpawnEscape(&data_00474c40, 0);
+    int total = EnemySpawnEscape(&g_globals, 0);
     for (int index = 0; index < count; ++index) {
         total += EnemySpawnEscape(spawns[index], index);
         total += EnemySpawnEscape(spawns[index]->Create(managers[index], entries[index]), total);

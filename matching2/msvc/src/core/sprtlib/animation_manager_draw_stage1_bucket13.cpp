@@ -19,17 +19,17 @@ struct RenderStageState_00448810 {
     RenderStage_00448810* active_stage;          // +0x384
     int stage_index;                             // +0x388
 };
-extern "C" RenderStageState_00448810 data_00491c28;
+extern "C" RenderStageState_00448810 g_application;
 
 extern "C" int __cdecl asm_AnimationManager_RenderBucket_00448980(void* manager, int index);
 
 #pragma code_seg(".text$08stage13")
 int SprtCtrlBatchView::RenderStage1Bucket13() {
-    RenderStage_00448810* stage = &data_00491c28.stages[1];
-    data_00491c28.active_stage = stage;
+    RenderStage_00448810* stage = &g_application.stages[1];
+    g_application.active_stage = stage;
     stage->camera.ApplyDefault();
-    data_00491c30->Viewport(&data_00491c28.active_stage->camera.viewport_x);
-    data_00491c28.stage_index = 1;
+    g_d3d_device->Viewport(&g_application.active_stage->camera.viewport_x);
+    g_application.stage_index = 1;
     return asm_AnimationManager_RenderBucket_00448980(this, 0x13);
 }
 #pragma code_seg()

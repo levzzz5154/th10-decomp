@@ -475,7 +475,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00439890_00439890() {
     L_00439c05:
         call asm_D3DXMatrixPerspectiveFovLH_0045219a
     L_00439c0a:
-        mov eax,dword ptr [data_00491c30]
+        mov eax,dword ptr [g_d3d_device]
     L_00439c0f:
         mov edx,dword ptr [eax]
     L_00439c11:
@@ -487,7 +487,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00439890_00439890() {
     L_00439c19:
         call dword ptr [edx+0B0h]
     L_00439c1f:
-        mov eax,dword ptr [data_00491c30]
+        mov eax,dword ptr [g_d3d_device]
     L_00439c24:
         mov ecx,dword ptr [eax]
     L_00439c26:
@@ -499,7 +499,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00439890_00439890() {
     L_00439c2e:
         call dword ptr [ecx+0B0h]
     L_00439c34:
-        mov eax,dword ptr [data_00491c30]
+        mov eax,dword ptr [g_d3d_device]
     L_00439c39:
         mov edx,dword ptr [eax]
     L_00439c3b:
@@ -509,7 +509,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00439890_00439890() {
     L_00439c41:
         call dword ptr [edx+0C0h]
     L_00439c47:
-        mov eax,dword ptr [data_00491c30]
+        mov eax,dword ptr [g_d3d_device]
     L_00439c4c:
         mov ecx,dword ptr [eax]
     L_00439c4e:

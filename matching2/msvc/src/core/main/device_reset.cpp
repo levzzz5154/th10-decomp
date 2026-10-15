@@ -1,9 +1,9 @@
 #include "th10/source_views/device_reset_24c334_0.hpp"
 extern "C" __declspec(noinline) void __cdecl DeviceReset_004391f0() {
     char filename[256];
-    if (data_00491c30->methods->Present(data_00491c30,0,0,0,0)<0) {
+    if (g_d3d_device->methods->Present(g_d3d_device,0,0,0,0)<0) {
         g_sprt_ctrl->ReleaseTargets();
-        data_00491c30->methods->Reset(data_00491c30,data_00491d0c);
+        g_d3d_device->methods->Reset(g_d3d_device,data_00491d0c);
         Renderer_ApplyDeviceDefaults();
         data_00491fd4=2;
     }
@@ -16,6 +16,6 @@ extern "C" __declspec(noinline) void __cdecl DeviceReset_004391f0() {
             if (!FileProbe_0044b4d0(filename)) break;
         }
         if (index>=1000) return;
-        if (index<1000) data_00491c28.CaptureScreenshot(filename);
+        if (index<1000) g_application.CaptureScreenshot(filename);
     }
 }

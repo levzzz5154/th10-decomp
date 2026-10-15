@@ -1,5 +1,5 @@
 #include "th10/core/screen.hpp"
-extern "C" float data_00476f78;
+extern "C" float g_game_speed;
 #include "runtime_selector_0043c970_scheduler_create.cpp"
 #include "th10/core/func_ctrl.hpp"
 #include "th10/platform/thread_sync.hpp"

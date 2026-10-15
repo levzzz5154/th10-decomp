@@ -29,10 +29,10 @@ extern "C" __declspec(noinline) void __stdcall PauseMenu_Update_00422c80(PauseCh
             cursor->Advance(1);
         if (cursor->previous_selection != cursor->selection) {
             state->background.SetStopFrame((unsigned short)(cursor->selection + 7));
-            data_00492590.Queue(12, 0);
+            g_sound_manager.Queue(12, 0);
         }
         if (data_00474e36 & 0x1001) {
-            data_00492590.Queue(10, 0);
+            g_sound_manager.Queue(10, 0);
             switch (cursor->selection) {
             case 2:
                 state->background.FindChildRef(117).StopAtFrame6();
@@ -52,7 +52,7 @@ extern "C" __declspec(noinline) void __stdcall PauseMenu_Update_00422c80(PauseCh
             state->timer.SetSchedulerValue(0);
         }
         if (data_00474e36 & 0x4000) {
-            data_00492590.Queue(10, 0);
+            g_sound_manager.Queue(10, 0);
             state->background.FindChildRef(117).StopAtFrame6();
             state->phase = 3;
             state->timer.SetSchedulerValue(0);
@@ -60,7 +60,7 @@ extern "C" __declspec(noinline) void __stdcall PauseMenu_Update_00422c80(PauseCh
             state->cursor_animation.StopAtFrame1();
         }
         if (data_00474e36 & 0x200) {
-            data_00492590.Queue(10, 0);
+            g_sound_manager.Queue(10, 0);
             state->background.FindChildRef(116).StopAtFrame6();
             state->phase = 3;
             state->timer.SetSchedulerValue(0);
@@ -86,10 +86,10 @@ extern "C" __declspec(noinline) void __stdcall PauseMenu_Update_00422c80(PauseCh
         if ((short)data_00474e30.InputMaskActive(0x20)) cursor->Advance(1);
         if (cursor->previous_selection != cursor->selection) {
             state->background.SetStopFrame((unsigned short)(cursor->selection + 15));
-            data_00492590.Queue(12, 0);
+            g_sound_manager.Queue(12, 0);
         }
         if (data_00474e36 & 0x1001) {
-            data_00492590.Queue(10, 0);
+            g_sound_manager.Queue(10, 0);
             switch (cursor->selection) {
             case 1:
                 state->background.FindChildRef(120).StopAtFrame6();
@@ -136,7 +136,7 @@ extern "C" __declspec(noinline) void __stdcall PauseMenu_Update_00422c80(PauseCh
         case 1:
             state->cursor_animation.StopAtFrame1();
             state->background.StopAtFrame1();
-            SetInputMode(&data_00491c28, 4);
+            SetInputMode(&g_application, 4);
             return;
         case 0:
             reinterpret_cast<PauseOwner_00422c30*>(state)->Unpause();

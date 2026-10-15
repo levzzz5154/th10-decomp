@@ -80,7 +80,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0044a190_0044a190() {
     L_0044a1f6:
         push ecx
     L_0044a1f7:
-        call dword ptr [data_00466280]
+        call dword ptr [imp_joyGetPosEx]
     L_0044a1fd:
         test eax,eax
     L_0044a1ff:

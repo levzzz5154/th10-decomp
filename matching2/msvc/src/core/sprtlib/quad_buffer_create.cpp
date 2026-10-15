@@ -35,13 +35,13 @@ void ClipHost_004462f0::InitializeClip() {
     data_00497930[3].u = vertices[3].u;
     data_00497930[3].v = vertices[3].v;
 
-    ClipDevice* device = data_00491c30;
+    ClipDevice* device = g_d3d_device;
     device->vtable->CreateVertexBuffer(device, sizeof(vertices), 0, 0x102, 1, &buffer, 0);
     void* mapped;
     buffer->vtable->Lock(buffer, 0, 0, &mapped, 0);
     memcpy(mapped, vertices, sizeof(vertices));
     buffer->vtable->Unlock(buffer);
-    device = data_00491c30;
+    device = g_d3d_device;
     device->vtable->SetStreamSource(device, 0, buffer, 0, sizeof(ClipVertex));
 }
 #pragma code_seg()

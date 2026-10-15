@@ -30,6 +30,6 @@ typedef char ClipBufferOffset[offsetof(ClipHost_004462f0,buffer)==0x3ada74?1:-1]
 typedef char ClipVerticesOffset[offsetof(ClipHost_004462f0,vertices)==0x3ada78?1:-1];
 typedef char ClipCreateOffset[offsetof(ClipDeviceVtable,CreateVertexBuffer)==0x68?1:-1];
 typedef char ClipStreamOffset[offsetof(ClipDeviceVtable,SetStreamSource)==0x190?1:-1];
-extern "C" ClipDevice *data_00491c30;
+extern "C" ClipDevice *g_d3d_device;
 extern "C" ClipHost_004462f0 *g_sprt_ctrl;
 extern "C" ClipMirrorVertex data_00497930[4];

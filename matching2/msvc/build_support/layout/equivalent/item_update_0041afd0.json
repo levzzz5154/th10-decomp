@@ -25,7 +25,7 @@
       "address": "0x0043EE30",
       "kind": "code"
     },
-    "_data_00474c40": {
+    "_g_globals": {
       "address": "0x00474C40",
       "kind": "data"
     },
@@ -37,11 +37,11 @@
       "address": "0x00474E5C",
       "kind": "data"
     },
-    "_data_004749ce": {
+    "_g_sound_priority": {
       "address": "0x004749CE",
       "kind": "data"
     },
-    "_data_00476f78": {
+    "_g_game_speed": {
       "address": "0x00476F78",
       "kind": "data"
     },
@@ -77,7 +77,7 @@
       "address": "0x00491C10",
       "kind": "data"
     },
-    "_data_00492590": {
+    "_g_sound_manager": {
       "address": "0x00492590",
       "kind": "data"
     },

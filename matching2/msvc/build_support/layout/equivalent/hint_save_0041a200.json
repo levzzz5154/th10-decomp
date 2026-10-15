@@ -48,15 +48,15 @@
       "address": "0x00452BAA",
       "kind": "code"
     },
-    "_data_004660cc": {
+    "_imp_CloseHandle": {
       "address": "0x004660CC",
       "kind": "data"
     },
-    "_data_004660d4": {
+    "_imp_WriteFile": {
       "address": "0x004660D4",
       "kind": "data"
     },
-    "_data_004660b4": {
+    "_imp_LeaveCriticalSection": {
       "address": "0x004660B4",
       "kind": "data"
     },
@@ -187,9 +187,9 @@
     "_asm_sprintf_00452ae8": "0x00452AE8",
     "_time_00452b71": "0x00452B71",
     "_localtime": "0x00452BAA",
-    "_data_004660cc": "0x004660CC",
-    "_data_004660d4": "0x004660D4",
-    "_data_004660b4": "0x004660B4",
+    "_imp_CloseHandle": "0x004660CC",
+    "_imp_WriteFile": "0x004660D4",
+    "_imp_LeaveCriticalSection": "0x004660B4",
     "_data_00474c38": "0x00474C38",
     "_data_0049231e": "0x0049231E",
     "_data_00474494": "0x00474494",

@@ -3,7 +3,7 @@
 #include "th10/game/pause_result_open_004231d0/open_animation.hpp"
 #include "th10/game/pause_result_open_004231d0/descriptor.hpp"
 #include "th10/game/pause_result_open_004231d0/music.hpp"
-extern "C" float data_00476f78;
+extern "C" float g_game_speed;
 struct OpenTimer {
     int previous_frame;
     int current_frame;
@@ -15,7 +15,7 @@ struct OpenTimer {
             current_frame = 0;
             previous_frame = -999999;
             elapsed = 0.0f;
-            speed = &data_00476f78;
+            speed = &g_game_speed;
             flags |= 1;
         }
         current_frame = frame;

@@ -229,7 +229,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00491c28",
+      "symbol": "_g_application",
       "address": "0x491c28",
       "kind": "data"
     },
@@ -244,12 +244,12 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00492590",
+      "symbol": "_g_sound_manager",
       "address": "0x492590",
       "kind": "data"
     },
     {
-      "symbol": "_data_004749ce",
+      "symbol": "_g_sound_priority",
       "address": "0x4749ce",
       "kind": "data"
     },

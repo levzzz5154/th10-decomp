@@ -70,7 +70,7 @@ extern int data_00491fb8;
 // Shared score-animation speed, reset to 1.0 for the next run.
 extern float g_score_default_speed;
 // The run's score record; the capped fail counter sits at +0x50.
-extern struct ScoreState data_00474c40;
+extern struct ScoreState g_globals;
 // The score archive; flushed first so the run's record file is written.
 extern struct ScoreArchive_0042B1E0* data_0047783c;
 // The game thread.
@@ -110,7 +110,7 @@ extern void* g_card;
 extern struct FuncCtrl* g_func_ctrl;
 // The shared animation resource name and the manager that re-registers it.
 extern char data_0046df98[];
-extern struct AnimationManager_0043e460 data_00492590;
+extern struct AnimationManager_0043e460 g_sound_manager;
 // Extra-content flag byte for the resource index choice.
 extern unsigned char data_00491d78;
 // The published manager-state pointer, cleared with the state.

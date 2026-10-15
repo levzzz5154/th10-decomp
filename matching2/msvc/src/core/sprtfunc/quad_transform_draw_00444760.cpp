@@ -97,14 +97,14 @@ int EntityDraw_00444760(RenderEntity* entity, SprtCtrlBatchView* manager) {
     SyncRenderState_004423e0(manager, entity);
     world.m[14] = entity->render_offset.z + entity->base_position.z + entity->position.z;
 
-    RenderDevice* device = data_00491c30;
+    RenderDevice* device = g_d3d_device;
     typedef long (__stdcall *SetTransform)(void*, unsigned int, const void*);
     ((SetTransform)device->vtable[0xB0 / 4])(device, 0x100, &world);
 
     if (manager->cached_texture != entity->texture->texture) {
         void* texture = entity->texture->texture;
         manager->cached_texture = texture;
-        RenderDevice* const volatile& current_device = data_00491c30;
+        RenderDevice* const volatile& current_device = g_d3d_device;
         RenderDevice* texture_device = current_device;
         typedef long (__stdcall *SetTexture)(void*, unsigned int, void*);
         ((SetTexture)texture_device->vtable[0x104 / 4])(texture_device, 0, texture);
@@ -120,22 +120,22 @@ update_stage:
         tex_matrix = view->texture_transform;
         tex_matrix.m[8] = entity->texture->u0 + entity->uv_scroll_x;
         tex_matrix.m[9] = entity->texture->v0 + entity->uv_scroll_y;
-        RenderDevice* tex_device = data_00491c30;
+        RenderDevice* tex_device = g_d3d_device;
         ((SetTransform)tex_device->vtable[0xB0 / 4])(tex_device, 0x10, &tex_matrix);
     }
 skip_stage:
 
     if (manager->cached_format != format) {
-        RenderDevice* stream_device = data_00491c30;
+        RenderDevice* stream_device = g_d3d_device;
         typedef long (__stdcall *SetStreamSource)(void*, unsigned int, void*, unsigned int, unsigned int);
         ((SetStreamSource)stream_device->vtable[0x190 / 4])(
             stream_device, 0, *(void**)((unsigned char*)manager + 0x3ADA74), 0, 20);
-        data_00491c30->Format(0x102);
-        data_00491c30->Stage(0, 6, 3);
-        data_00491c30->Stage(0, 3, 3);
+        g_d3d_device->Format(0x102);
+        g_d3d_device->Stage(0, 6, 3);
+        g_d3d_device->Stage(0, 3, 3);
         manager->cached_format = format;
     }
-    RenderDevice* draw_device = data_00491c30;
+    RenderDevice* draw_device = g_d3d_device;
     typedef long (__stdcall *DrawPrimitive)(void*, unsigned int, unsigned int, unsigned int);
     ((DrawPrimitive)draw_device->vtable[0x144 / 4])(draw_device, 5, 0, format);
     return 0;

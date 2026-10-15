@@ -178,6 +178,6 @@ extern "C" float data_00470b60;                 // -1
 extern "C" float data_00470c40;                 // 4
 extern "C" float data_00470cc8;                 // -999
 extern "C" float data_00470ccc;                 // 990
-extern "C" float data_00476f78;                 // frame delta, 1.0 normally
+extern "C" float g_game_speed;                 // frame delta, 1.0 normally
 
 #endif

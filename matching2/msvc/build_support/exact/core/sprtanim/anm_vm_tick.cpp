@@ -54,13 +54,13 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0043ee30_0043ee30() {
     L_0043ee70:
         test eax,20000000h
     L_0043ee75:
-        mov ecx,dword ptr [data_00476f78]
+        mov ecx,dword ptr [g_game_speed]
     L_0043ee7b:
         mov dword ptr [esp+98h],ecx
     L_0043ee82:
         je short L_0043ee8e
     L_0043ee84:
-        mov dword ptr [data_00476f78],3F800000h
+        mov dword ptr [g_game_speed],3F800000h
     L_0043ee8e:
         mov ax,word ptr [ebp+304h]
     L_0043ee95:
@@ -4790,7 +4790,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0043ee30_0043ee30() {
     L_00440e16:
         pop ebx
     L_00440e17:
-        mov dword ptr [data_00476f78],eax
+        mov dword ptr [g_game_speed],eax
     L_00440e1c:
         mov eax,1
     L_00440e21:
@@ -4820,7 +4820,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0043ee30_0043ee30() {
     L_00440e52:
         jnp short L_00440e82
     L_00440e54:
-        fld dword ptr [data_00476f78]
+        fld dword ptr [g_game_speed]
     L_00440e5a:
         push ecx
     L_00440e5b:
@@ -4860,7 +4860,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0043ee30_0043ee30() {
     L_00440e97:
         jnp short L_00440eb8
     L_00440e99:
-        fld dword ptr [data_00476f78]
+        fld dword ptr [g_game_speed]
     L_00440e9f:
         mov edx,dword ptr [ebp+28h]
     L_00440ea2:
@@ -4890,7 +4890,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0043ee30_0043ee30() {
     L_00440ec8:
         jnp short L_00440ee9
     L_00440eca:
-        fld dword ptr [data_00476f78]
+        fld dword ptr [g_game_speed]
     L_00440ed0:
         mov eax,dword ptr [ebp+2Ch]
     L_00440ed3:
@@ -4920,7 +4920,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0043ee30_0043ee30() {
     L_00440ef9:
         jnp short L_00440f19
     L_00440efb:
-        fld dword ptr [data_00476f78]
+        fld dword ptr [g_game_speed]
     L_00440f01:
         mov eax,dword ptr [ebp+35Ch]
     L_00440f07:
@@ -4946,7 +4946,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0043ee30_0043ee30() {
     L_00440f29:
         jnp short L_00440f49
     L_00440f2b:
-        fld dword ptr [data_00476f78]
+        fld dword ptr [g_game_speed]
     L_00440f31:
         mov eax,dword ptr [ebp+35Ch]
     L_00440f37:
@@ -4960,7 +4960,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0043ee30_0043ee30() {
     L_00440f46:
         fstp dword ptr [ebp+3Ch]
     L_00440f49:
-        fld dword ptr [data_00476f78]
+        fld dword ptr [g_game_speed]
     L_00440f4f:
         fmul dword ptr [ebp+234h]
     L_00440f55:
@@ -4998,7 +4998,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0043ee30_0043ee30() {
     L_00440f8b:
         fstp st(0)
     L_00440f8d:
-        fld dword ptr [data_00476f78]
+        fld dword ptr [g_game_speed]
     L_00440f93:
         fmul dword ptr [ebp+238h]
     L_00440f99:
@@ -5526,7 +5526,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0043ee30_0043ee30() {
     L_00441390:
         pop ebx
     L_00441391:
-        mov dword ptr [data_00476f78],ecx
+        mov dword ptr [g_game_speed],ecx
     L_00441397:
         xor eax,eax
     L_00441399:

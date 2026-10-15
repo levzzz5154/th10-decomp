@@ -46,7 +46,7 @@ extern "C" __declspec(naked) void __cdecl asm_GameMain_00438ad0() {
     L_00438b0d:
         push ebx
     L_00438b0e:
-        mov ebx,dword ptr [data_004660b8]
+        mov ebx,dword ptr [imp_InitializeCriticalSection]
     L_00438b14:
         mov dword ptr [data_00491be0],edx
     L_00438b1a:
@@ -80,7 +80,7 @@ extern "C" __declspec(naked) void __cdecl asm_GameMain_00438ad0() {
     L_00438b4d:
         mov esi,dword ptr [esp+34h]
     L_00438b51:
-        mov dword ptr [data_00491c28],esi
+        mov dword ptr [g_application],esi
     L_00438b57:
         call asm_SaveSystemSettingsRetail_004392e0
     L_00438b5c:
@@ -110,7 +110,7 @@ extern "C" __declspec(naked) void __cdecl asm_GameMain_00438ad0() {
     L_00438b8b:
         push esi
     L_00438b8c:
-        call dword ptr [data_00466264]
+        call dword ptr [imp_DialogBoxParamA]
     L_00438b92:
         cmp eax,6
     L_00438b95:
@@ -190,7 +190,7 @@ extern "C" __declspec(naked) void __cdecl asm_GameMain_00438ad0() {
     L_00438c1b:
         mov dword ptr [data_004977b8],edx
     L_00438c21:
-        call dword ptr [data_00466118]
+        call dword ptr [imp_CreateThread]
     L_00438c27:
         mov dword ptr [data_004977a8],eax
     L_00438c2c:
@@ -238,11 +238,11 @@ extern "C" __declspec(naked) void __cdecl asm_GameMain_00438ad0() {
     L_00438c74:
         push ebx
     L_00438c75:
-        call dword ptr [data_00466230]
+        call dword ptr [imp_ShowCursor]
     L_00438c7b:
         push ebx
     L_00438c7c:
-        call dword ptr [data_00466224]
+        call dword ptr [imp_SetCursor]
     L_00438c82:
         fld qword ptr [data_00470b70]
     L_00438c88:
@@ -262,7 +262,7 @@ extern "C" __declspec(naked) void __cdecl asm_GameMain_00438ad0() {
     L_00438cab:
         fstp qword ptr [data_00492530]
     L_00438cb1:
-        call dword ptr [data_004661f0]
+        call dword ptr [imp_SetForegroundWindow]
     L_00438cb7:
         call asm_FUN_00420470_00420470
     L_00438cbc:
@@ -300,7 +300,7 @@ extern "C" __declspec(naked) void __cdecl asm_GameMain_00438ad0() {
     L_00438cfa:
         push ecx
     L_00438cfb:
-        call dword ptr [data_0046623c]
+        call dword ptr [imp_PeekMessageA]
     L_00438d01:
         test eax,eax
     L_00438d03:
@@ -310,17 +310,17 @@ extern "C" __declspec(naked) void __cdecl asm_GameMain_00438ad0() {
     L_00438d09:
         push edx
     L_00438d0a:
-        call dword ptr [data_0046622c]
+        call dword ptr [imp_TranslateMessage]
     L_00438d10:
         lea eax,[esp+14h]
     L_00438d14:
         push eax
     L_00438d15:
-        call dword ptr [data_00466254]
+        call dword ptr [imp_DispatchMessageA]
     L_00438d1b:
         jmp short L_00438d89
     L_00438d1d:
-        mov eax,dword ptr [data_00491c30]
+        mov eax,dword ptr [g_d3d_device]
     L_00438d22:
         mov ecx,dword ptr [eax]
     L_00438d24:
@@ -356,7 +356,7 @@ extern "C" __declspec(naked) void __cdecl asm_GameMain_00438ad0() {
     L_00438d54:
         call asm_DestroyEntityList_00438a30
     L_00438d59:
-        mov eax,dword ptr [data_00491c30]
+        mov eax,dword ptr [g_d3d_device]
     L_00438d5e:
         mov edx,dword ptr [eax]
     L_00438d60:
@@ -450,7 +450,7 @@ extern "C" __declspec(naked) void __cdecl asm_GameMain_00438ad0() {
     L_00438e03:
         add esp,4
     L_00438e06:
-        mov eax,dword ptr [data_00491c30]
+        mov eax,dword ptr [g_d3d_device]
     L_00438e0b:
         cmp eax,ebp
     L_00438e0d:
@@ -466,7 +466,7 @@ extern "C" __declspec(naked) void __cdecl asm_GameMain_00438ad0() {
     L_00438e1d:
         call dword ptr [ecx+40h]
     L_00438e20:
-        mov eax,dword ptr [data_00491c30]
+        mov eax,dword ptr [g_d3d_device]
     L_00438e25:
         cmp eax,ebp
     L_00438e27:
@@ -478,7 +478,7 @@ extern "C" __declspec(naked) void __cdecl asm_GameMain_00438ad0() {
     L_00438e2c:
         call dword ptr [edx+8]
     L_00438e2f:
-        mov dword ptr [data_00491c30],ebp
+        mov dword ptr [g_d3d_device],ebp
     L_00438e35:
         mov eax,dword ptr [data_00491c2c]
     L_00438e3a:
@@ -504,7 +504,7 @@ extern "C" __declspec(naked) void __cdecl asm_GameMain_00438ad0() {
     L_00438e54:
         push eax
     L_00438e55:
-        call dword ptr [data_0046624c]
+        call dword ptr [imp_ShowWindow]
     L_00438e5b:
         mov edx,dword ptr [data_004924f0]
     L_00438e61:
@@ -520,19 +520,19 @@ extern "C" __declspec(naked) void __cdecl asm_GameMain_00438ad0() {
     L_00438e66:
         push edx
     L_00438e67:
-        call dword ptr [data_004661f4]
+        call dword ptr [imp_MoveWindow]
     L_00438e6d:
         mov eax,dword ptr [data_004924f0]
     L_00438e72:
         push eax
     L_00438e73:
-        call dword ptr [data_00466220]
+        call dword ptr [imp_DestroyWindow]
     L_00438e79:
         mov dword ptr [data_004924f0],ebp
     L_00438e7f:
         push 1
     L_00438e81:
-        call dword ptr [data_00466230]
+        call dword ptr [imp_ShowCursor]
     L_00438e87:
         cmp dword ptr [esp+10h],edi
     L_00438e8b:
@@ -544,7 +544,7 @@ extern "C" __declspec(naked) void __cdecl asm_GameMain_00438ad0() {
     L_00438e97:
         mov dword ptr [data_00476f70],ecx
     L_00438e9d:
-        mov byte ptr [data_00474f70],0
+        mov byte ptr [g_log],0
     L_00438ea4:
         call asm_TextLog_Append_0044b810
     L_00438ea9:
@@ -562,7 +562,7 @@ extern "C" __declspec(naked) void __cdecl asm_GameMain_00438ad0() {
     L_00438eb8:
         call asm_WINNLSEnableIME_0045232c
     L_00438ebd:
-        mov edi,dword ptr [data_0046623c]
+        mov edi,dword ptr [imp_PeekMessageA]
     L_00438ec3:
         mov esi,3Ch
     L_00438ec8:
@@ -588,13 +588,13 @@ extern "C" __declspec(naked) void __cdecl asm_GameMain_00438ad0() {
     L_00438edc:
         push edx
     L_00438edd:
-        call dword ptr [data_0046622c]
+        call dword ptr [imp_TranslateMessage]
     L_00438ee3:
         lea eax,[esp+14h]
     L_00438ee7:
         push eax
     L_00438ee8:
-        call dword ptr [data_00466254]
+        call dword ptr [imp_DispatchMessageA]
     L_00438eee:
         dec esi
     L_00438eef:
@@ -666,7 +666,7 @@ extern "C" __declspec(naked) void __cdecl asm_GameMain_00438ad0() {
     L_00438f70:
         push ebp
     L_00438f71:
-        call dword ptr [data_00466234]
+        call dword ptr [imp_MessageBoxA]
     L_00438f77:
         mov eax,474F70h
     L_00438f7c:
@@ -692,7 +692,7 @@ extern "C" __declspec(naked) void __cdecl asm_GameMain_00438ad0() {
     L_00438f95:
         call asm_File_WriteWholeFile_0044b540
     L_00438f9a:
-        mov ebp,dword ptr [data_004660bc]
+        mov ebp,dword ptr [imp_DeleteCriticalSection]
     L_00438fa0:
         mov esi,492274h
     L_00438fa5:
@@ -712,7 +712,7 @@ extern "C" __declspec(naked) void __cdecl asm_GameMain_00438ad0() {
     L_00438fb9:
         mov ecx,dword ptr [data_0049251c]
     L_00438fbf:
-        mov esi,dword ptr [data_00466258]
+        mov esi,dword ptr [imp_SystemParametersInfoA]
     L_00438fc5:
         push 2
     L_00438fc7:

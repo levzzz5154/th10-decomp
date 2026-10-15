@@ -33,7 +33,7 @@ int __stdcall EnemyGrid_ScanCells_004073e0(ProjectilePattern_004073e0* pattern,
     }
 full:
     if (pattern->flags & 0x200)
-        data_00492590.QueuePan(pattern->sound, pattern->x);
+        g_sound_manager.QueuePan(pattern->sound, pattern->x);
     return 0;
 }
 #pragma code_seg()

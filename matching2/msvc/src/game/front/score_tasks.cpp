@@ -28,8 +28,8 @@ typedef char ScoreTaskResourceNames_00413a20_offsets_check[
     offsetof(ScoreTaskResourceNames_00413a20, cached_resource_name) == 0x20
         ? 1 : -1];
 
-extern "C" float data_00476f78;
-extern "C" TextLog_0044b810 data_00474f70;
+extern "C" float g_game_speed;
+extern "C" TextLog_0044b810 g_log;
 extern "C" char data_0046cb68[];
 
 // The addressed bytes are linker-owned game globals. Their uses here match
@@ -54,7 +54,7 @@ struct ScoreTaskClock_00413a20 {
             current_frame = 0;
             previous_frame = -999999;
             elapsed = 0.0f;
-            speed = &data_00476f78;
+            speed = &g_game_speed;
             flags |= 1u;
         }
         current_frame = 0;
@@ -90,7 +90,7 @@ typedef char FrontResourcesView_field_offsets_are_correct[
         : -1];
 
 static void LogResourceLoadFailure_00413a20() {
-    data_00474f70.Append(data_0046cb68);
+    g_log.Append(data_0046cb68);
 }
 
 // Public stdcall task callback: state pointer on the stack and result in EAX.

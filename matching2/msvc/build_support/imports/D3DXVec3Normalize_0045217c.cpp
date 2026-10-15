@@ -7,10 +7,10 @@
 typedef void* (__stdcall *D3DXVec3NormalizeImport_0045217c)(
     void* out, const void* vector);
 
-extern "C" D3DXVec3NormalizeImport_0045217c data_004662bc;
+extern "C" D3DXVec3NormalizeImport_0045217c imp_D3DXVec3Normalize;
 
 // 0x0045217C..0x00452181: D3DXVec3Normalize import thunk.
 extern "C" void* __stdcall D3DXVec3Normalize(
     void* out, const void* vector) {
-    return data_004662bc(out, vector);
+    return imp_D3DXVec3Normalize(out, vector);
 }

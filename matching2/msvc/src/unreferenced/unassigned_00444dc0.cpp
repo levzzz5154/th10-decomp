@@ -8,7 +8,7 @@ int SprtCtrlBatchView::DrawQuad(const RenderEntity* entity, const TexturedVertex
     if (cached_texture != entity->texture->texture) {
         cached_texture = entity->texture->texture;
         Flush();
-        data_00491c30->Texture(0, cached_texture);
+        g_d3d_device->Texture(0, cached_texture);
     }
     if (cached_format != 1) {
         Flush();

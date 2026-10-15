@@ -66,7 +66,7 @@ struct InitDevice;
 typedef long (__stdcall *SetSoftwareVertexProcessing)(InitDevice*, int);
 struct InitDeviceMethods { void* reserved[92]; SetSoftwareVertexProcessing software_vertex_processing; };
 struct InitDevice { InitDeviceMethods* methods; };
-extern "C" InitDevice* data_00491c30;
+extern "C" InitDevice* g_d3d_device;
 inline void AddPrimaryTask(void* owner, TaskRoutine callback, int priority) {
     SchedulerTask* task = new InitTask;
     task->on_tick = callback; task->on_register = 0; task->on_remove = 0;
@@ -177,7 +177,7 @@ SprtCtrl::SprtCtrl() {
     AddSecondaryTask(this, AnmCallback_00448770, 41);
     AddSecondaryTask(this, AnmCallback_004487c0, 42);
     AddSecondaryTask(this, AnmCallback_00448810, 45);
-    InitDevice* device = data_00491c30;
+    InitDevice* device = g_d3d_device;
     device->methods->software_vertex_processing(device, 0);
 }
 #pragma code_seg()

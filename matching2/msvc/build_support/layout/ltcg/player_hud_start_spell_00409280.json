@@ -192,7 +192,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_data_004749ce",
+      "symbol": "_g_sound_priority",
       "address": 4671950,
       "kind": "data"
     },
@@ -212,7 +212,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00476f78",
+      "symbol": "_g_game_speed",
       "address": 4681592,
       "kind": "data"
     },
@@ -252,7 +252,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00492590",
+      "symbol": "_g_sound_manager",
       "address": 4793744,
       "kind": "data"
     },

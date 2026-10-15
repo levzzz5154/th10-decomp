@@ -9,7 +9,7 @@
 // array-walking synthetic caller establishes that convention.
 
 extern "C" void __cdecl entry_free_004524a1(void* block);
-extern "C" void (__stdcall* data_004660cc)(void* handle);
+extern "C" void (__stdcall* imp_CloseHandle)(void* handle);
 
 struct Deletable_0044cbb0 {
     unsigned char unknown_0000[0x78];
@@ -23,7 +23,7 @@ __declspec(noinline) void* Deletable_0044cbb0_Delete(Deletable_0044cbb0* object,
 #pragma code_seg(".text$01del")
 void* Deletable_0044cbb0_Delete(Deletable_0044cbb0* object, int flags) {
     if (object->field_78 == 1) {
-        data_004660cc((void*)object->field_8C);
+        imp_CloseHandle((void*)object->field_8C);
         object->field_8C = -1;
     }
     if ((flags & 1) != 0) {

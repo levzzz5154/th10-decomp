@@ -15,7 +15,7 @@
 
 // The device is always reached through this accessor: it makes the compiler
 // load the device and its vtable before the arguments, as retail does.
-static inline SurfaceDevice_00447c80* Device() { return data_00491c30; }
+static inline SurfaceDevice_00447c80* Device() { return g_d3d_device; }
 
 #pragma code_seg(".text$02surface")
 extern "C" __declspec(noinline) int __fastcall AnimationLoadSurface_00447c80(
@@ -30,7 +30,7 @@ extern "C" __declspec(noinline) int __fastcall AnimationLoadSurface_00447c80(
         sprintf(path, data_0046e1c8, name);
         data = Archive_LoadFile(path, &size, 0);
         if (!data) {
-            data_00474f70.AppendLine(data_00470150, name);
+            g_log.AppendLine(data_00470150, name);
             return -1;
         }
     } else {

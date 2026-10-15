@@ -38,42 +38,42 @@
   "constants": [],
   "absolute_symbols": [
     {
-      "symbol": "_data_004660b0",
+      "symbol": "_imp_EnterCriticalSection",
       "address": "0x004660B0",
       "kind": "data"
     },
     {
-      "symbol": "_data_004660b4",
+      "symbol": "_imp_LeaveCriticalSection",
       "address": "0x004660B4",
       "kind": "data"
     },
     {
-      "symbol": "_data_004660c4",
+      "symbol": "_imp_CreateFileA",
       "address": "0x004660C4",
       "kind": "data"
     },
     {
-      "symbol": "_data_004660cc",
+      "symbol": "_imp_CloseHandle",
       "address": "0x004660CC",
       "kind": "data"
     },
     {
-      "symbol": "_data_004660d4",
+      "symbol": "_imp_WriteFile",
       "address": "0x004660D4",
       "kind": "data"
     },
     {
-      "symbol": "_data_0046610c",
+      "symbol": "_imp_GetLastError",
       "address": "0x0046610C",
       "kind": "data"
     },
     {
-      "symbol": "_data_00466124",
+      "symbol": "_imp_FormatMessageA",
       "address": "0x00466124",
       "kind": "data"
     },
     {
-      "symbol": "_data_00466128",
+      "symbol": "_imp_LocalFree",
       "address": "0x00466128",
       "kind": "data"
     },

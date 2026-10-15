@@ -13,7 +13,7 @@ AnmFile_004470c0* __stdcall AnmManager_LoadFile_004470c0(AnmManager_004470c0* ma
                                                          const char* name) {
     char path[260];
     if (slot >= 33) {
-        data_00474f70.AppendLine(data_00470384);
+        g_log.AppendLine(data_00470384);
         return 0;
     }
     sprintf(path, data_0046e1c8, name);

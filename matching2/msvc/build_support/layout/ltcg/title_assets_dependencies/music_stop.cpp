@@ -3,24 +3,24 @@
 // and placement sections differ.
 struct SoundStreamDestroyView { virtual void* Destroy(unsigned int flags) = 0; };
 extern "C" {
-    extern int (__stdcall* data_00466210)(unsigned int, unsigned int, unsigned int, unsigned int);
-    extern unsigned int (__stdcall* data_0046611c)(void*, unsigned int);
-    extern int (__stdcall* data_004660cc)(void*);
+    extern int (__stdcall* imp_PostThreadMessageA)(unsigned int, unsigned int, unsigned int, unsigned int);
+    extern unsigned int (__stdcall* imp_WaitForSingleObject)(void*, unsigned int);
+    extern int (__stdcall* imp_CloseHandle)(void*);
 }
 #pragma code_seg(".text$04worker")
 void WaveSoundManager::StopMusicWorker() {
     if (!music_stream) return;
     music_stream->StopAndRewind();
     if (music_thread) {
-        int (__stdcall* const post)(unsigned int, unsigned int, unsigned int, unsigned int) = data_00466210;
+        int (__stdcall* const post)(unsigned int, unsigned int, unsigned int, unsigned int) = imp_PostThreadMessageA;
         post(music_thread_id, 0x12, 0, 0);
-        unsigned int (__stdcall* const wait)(void*, unsigned int) = data_0046611c;
+        unsigned int (__stdcall* const wait)(void*, unsigned int) = imp_WaitForSingleObject;
         unsigned int result = wait(music_thread, 0x100);
         while (result != 0) {
             post(music_thread_id, 0x12, 0, 0);
             result = wait(music_thread, 0x100);
         }
-        int (__stdcall* const close)(void*) = data_004660cc;
+        int (__stdcall* const close)(void*) = imp_CloseHandle;
         close(music_thread);
         close(music_worker_event);
         music_thread = 0;

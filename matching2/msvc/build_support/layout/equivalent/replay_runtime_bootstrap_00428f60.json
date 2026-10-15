@@ -64,7 +64,7 @@
       "address": "0x00418B80",
       "kind": "code"
     },
-    "_data_00474c40": {
+    "_g_globals": {
       "address": "0x00474C40",
       "kind": "data"
     },
@@ -80,11 +80,11 @@
       "address": "0x00474E88",
       "kind": "data"
     },
-    "_data_00476f78": {
+    "_g_game_speed": {
       "address": "0x00476F78",
       "kind": "data"
     },
-    "_data_004918b0": {
+    "_g_rng": {
       "address": "0x004918B0",
       "kind": "data"
     },

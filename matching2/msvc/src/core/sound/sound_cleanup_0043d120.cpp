@@ -25,7 +25,7 @@ int WaveSoundManager::Cleanup() {
         }
     }
     if (owner) {
-        data_00466214(window,1);
+        imp_KillTimer(window,1);
         StopMusicWorker();
         SoundBuffer* buffer=stream_buffer;
         device=0;

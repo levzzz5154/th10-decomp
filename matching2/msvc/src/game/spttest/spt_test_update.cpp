@@ -23,7 +23,7 @@ int SptTest_0042be20::Update() {
         switch (menu.selection) {
         case 2:
             if (data_00474e30.repeated & 0x1001)
-                SptTest_SetGameMode_0040ac90(&data_00491c28, 3);
+                SptTest_SetGameMode_0040ac90(&g_application, 3);
             break;
         case 1:
             if (parser) {

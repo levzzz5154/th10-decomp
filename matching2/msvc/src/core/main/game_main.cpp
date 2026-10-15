@@ -176,10 +176,10 @@ extern "C" {
 extern ReplayTable_00438ad0* data_00491be0;
 extern D3DResourceManager_00438ad0* g_func_ctrl;
 extern AnimationManager_00438ad0* g_sprt_ctrl;
-extern Application data_00491c28;
+extern Application g_application;
 extern MainWindow data_004924f0;
-extern SoundManager_00438ad0 data_00492590;
-extern TextLog_0044b810 data_00474f70;
+extern SoundManager_00438ad0 g_sound_manager;
+extern TextLog_0044b810 g_log;
 extern ThreadSynchronization data_00492274;
 }
 
@@ -201,17 +201,17 @@ __declspec(noinline) int __stdcall GameMain_00438ad0(
     data_00491be0 = replays;
     for (section = data_00492274.critical_sections, index = 7; index != 0; --index, ++section)
         InitializeCriticalSection(section);
-    data_00474f70.Append(data_0046f77c);
+    g_log.Append(data_0046f77c);
 
     if (Startup_InstanceCheck_00439ff0() == -1)
         goto close_pass;
-    data_00491c28.instance = instance;
+    g_application.instance = instance;
     SaveSystemSettingsRetail_004392e0();
-    if (reinterpret_cast<GameApp_00420870*>(&data_00491c28)->LoadConfig("th10.cfg") != 0)
+    if (reinterpret_cast<GameApp_00420870*>(&g_application)->LoadConfig("th10.cfg") != 0)
         goto close_pass;
-    if (data_00491c28.config.flags & 0x100) {
+    if (g_application.config.flags & 0x100) {
         // The start-up dialog: "run full screen?"; 6 is its Yes button.
-        data_00491c28.config.field_1d = DialogBoxParamA(instance,
+        g_application.config.field_1d = DialogBoxParamA(instance,
             reinterpret_cast<const char*>(0xCB), 0, &StartupDialog_Procedure, 0) != 6;
     }
     ComputeExecutableChecksum();
@@ -219,21 +219,21 @@ __declspec(noinline) int __stdcall GameMain_00438ad0(
     for (;;) {
         D3DResourceManager_00438ad0* resources = new D3DResourceManager_00438ad0;
         g_func_ctrl = resources;
-        data_00491c28.direct3d = static_cast<Direct3D*>(Direct3DCreate9_00452176(0x20));
-        if (data_00491c28.direct3d == 0) {
-            reinterpret_cast<TextLog_0044b8e0*>(&data_00474f70)->AppendLine(data_0046f6a0);
+        g_application.direct3d = static_cast<Direct3D*>(Direct3DCreate9_00452176(0x20));
+        if (g_application.direct3d == 0) {
+            reinterpret_cast<TextLog_0044b8e0*>(&g_log)->AppendLine(data_0046f6a0);
             goto close_pass;
         }
         if (CreateGameWindow_00439730(instance) != 0)
             goto close_pass;
-        data_00492590.Start(data_004924f0.window);
+        g_sound_manager.Start(data_004924f0.window);
         if (asm_FUN_00439890_00439890() != 0)
             goto close_pass;
         Joystick_Probe_0044a0c0();
         Input_NormalizeKeyboardState();
         AnimationManager_00438ad0* animations = new AnimationManager_00438ad0;
         g_sprt_ctrl = animations;
-        if (!data_00491c28.config.field_1d) {
+        if (!g_application.config.field_1d) {
             asm_WINNLSEnableIME_0045232c(0, 0);
             ShowCursor(0);
             SetCursor(0);
@@ -255,44 +255,44 @@ __declspec(noinline) int __stdcall GameMain_00438ad0(
                     PumpMessage(&message);
                     continue;
                 }
-                long state = data_00491c28.device->TestCooperativeLevel();
+                long state = g_application.device->TestCooperativeLevel();
                 if (state == 0) {
                     exit_code = GameFrameAdvance_00439390(
                         reinterpret_cast<GameFrame_00439390*>(&data_004924f0));
                     if (exit_code != 0)
                         break;
-                    data_00491c28.flags &= ~0x10u;
+                    g_application.flags &= ~0x10u;
                 } else if (state == 0x88760869) {
                     // D3DERR_DEVICENOTRESET
                     ReleaseAll_00438a30(reinterpret_cast<Holder_00438a30*>(g_sprt_ctrl));
-                    if (data_00491c28.device->Reset(&data_00491c28.present_parameters) != 0)
+                    if (g_application.device->Reset(&g_application.present_parameters) != 0)
                         break;
                     Renderer_ApplyDeviceDefaults();
-                    data_00491c28.mode = 3;
-                    data_00491c28.flags |= 0x10;
+                    g_application.mode = 3;
+                    g_application.flags |= 0x10;
                 }
             }
         }
 
-        reinterpret_cast<App_00420270*>(&data_00491c28)->Shutdown();
+        reinterpret_cast<App_00420270*>(&g_application)->Shutdown();
         delete g_func_ctrl;
         g_func_ctrl = 0;
-        while (reinterpret_cast<WaveSoundManager*>(&data_00492590)->ProcessCommands() != 0) {
+        while (reinterpret_cast<WaveSoundManager*>(&g_sound_manager)->ProcessCommands() != 0) {
         }
 close_pass:
-        data_00492590.Stop();
+        g_sound_manager.Stop();
         delete g_sprt_ctrl;
         g_sprt_ctrl = 0;
-        if (data_00491c28.device != 0) {
-            data_00491c28.device->Reset(&data_00491c28.present_parameters);
-            if (data_00491c28.device != 0) {
-                data_00491c28.device->Release();
-                data_00491c28.device = 0;
+        if (g_application.device != 0) {
+            g_application.device->Reset(&g_application.present_parameters);
+            if (g_application.device != 0) {
+                g_application.device->Release();
+                g_application.device = 0;
             }
         }
-        if (data_00491c28.direct3d != 0) {
-            data_00491c28.direct3d->Release();
-            data_00491c28.direct3d = 0;
+        if (g_application.direct3d != 0) {
+            g_application.direct3d->Release();
+            g_application.direct3d = 0;
         }
         if (data_004924f0.window != 0) {
             ShowWindow(data_004924f0.window, 0);
@@ -305,11 +305,11 @@ close_pass:
             break;
 
         // Start the log over for the next run.
-        TextLog_0044b810* log = &data_00474f70;
+        TextLog_0044b810* log = &g_log;
         log->cursor = log->text;
         log->text[0] = 0;
         log->Append(data_0046f6f0);
-        if (!data_00491c28.config.field_1d)
+        if (!g_application.config.field_1d)
             asm_WINNLSEnableIME_0045232c(0, 1);
         for (index = 0; index < 60; ++index) {
             if (PeekMessageA(&message, 0, 0, 0, 1))
@@ -317,17 +317,17 @@ close_pass:
         }
     }
 
-    File_WriteWholeFile("th10.cfg", &data_00491c28.config, 0x34);
-    if (data_00491c28.midi != 0) {
-        ShutdownMidi_0043ae20(reinterpret_cast<MidiSequencer*>(data_00491c28.midi));
-        delete data_00491c28.midi;
-        data_00491c28.midi = 0;
+    File_WriteWholeFile("th10.cfg", &g_application.config, 0x34);
+    if (g_application.midi != 0) {
+        ShutdownMidi_0043ae20(reinterpret_cast<MidiSequencer*>(g_application.midi));
+        delete g_application.midi;
+        g_application.midi = 0;
     }
-    if (data_00474f70.cursor != data_00474f70.text) {
-        data_00474f70.Append(data_0046f7cc);
-        if (data_00474f70.dirty)
-            MessageBoxA(0, data_00474f70.text, "log", 0x10);
-        File_WriteWholeFile("./log.txt", data_00474f70.text, strlen(data_00474f70.text));
+    if (g_log.cursor != g_log.text) {
+        g_log.Append(data_0046f7cc);
+        if (g_log.dirty)
+            MessageBoxA(0, g_log.text, "log", 0x10);
+        File_WriteWholeFile("./log.txt", g_log.text, strlen(g_log.text));
     }
     for (section = data_00492274.critical_sections, index = 7; index != 0; --index, ++section)
         DeleteCriticalSection(section);

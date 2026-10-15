@@ -77,7 +77,7 @@ struct AnimationTextureManager_00448270 {
 
 // The device is always reached through this accessor: it makes the compiler
 // load the device and its vtable before the arguments, as retail does.
-static inline SurfaceDevice_00447c80* Device() { return data_00491c30; }
+static inline SurfaceDevice_00447c80* Device() { return g_d3d_device; }
 
 #pragma code_seg(".text$02rect")
 void AnimationManagerIndexed_00447f70::CopyRectToBackBuffer(int index, int x, int y,
@@ -182,9 +182,9 @@ struct RenderState_00448450 {
     unsigned char pad_0C[0xEC - 0x0C];
     int format;                          // +0xEC
 };
-extern "C" RenderState_00448450 data_00491c28;
+extern "C" RenderState_00448450 g_application;
 
-static inline SurfaceDevice_00447c80* StateDevice() { return data_00491c28.device; }
+static inline SurfaceDevice_00447c80* StateDevice() { return g_application.device; }
 
 #pragma code_seg(".text$06image")
 void AnimationManagerIndexed_00447f70::CaptureBackBufferImage(int index, int left, int top,
@@ -209,12 +209,12 @@ void AnimationManagerIndexed_00447f70::CaptureBackBufferImage(int index, int lef
         return;
     info[index].width = target_width;
     info[index].height = target_height;
-    if ((StateDevice()->CreateRenderTarget(info[index].width, info[index].height, data_00491c28.format,
+    if ((StateDevice()->CreateRenderTarget(info[index].width, info[index].height, g_application.format,
                                       0, 0, 1, &primary[index], 0) == 0 ||
          StateDevice()->CreateOffscreenPlainSurface(info[index].width, info[index].height,
-                                               data_00491c28.format, 3, &primary[index], 0) == 0) &&
+                                               g_application.format, 3, &primary[index], 0) == 0) &&
         StateDevice()->CreateOffscreenPlainSurface(info[index].width, info[index].height,
-                                              data_00491c28.format, 3, &secondary[index], 0) == 0 &&
+                                              g_application.format, 3, &secondary[index], 0) == 0 &&
         LoadSurfaceCopy_004521d6(primary[index], 0, &target, back_buffer, 0, &source,
                                  0xFFFFFFFF, 0) == 0) {
         LoadSurfaceCopy_004521d6(secondary[index], 0, 0, primary[index], 0, 0, 0xFFFFFFFF, 0);

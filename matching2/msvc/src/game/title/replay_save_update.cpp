@@ -56,10 +56,10 @@ __declspec(noinline) int __stdcall TitleMode16_00433570(Title* room) {
         if ((short)data_00474e30.InputMaskActive(0x10)) cursor->Advance(-1);
         if ((short)data_00474e30.InputMaskActive(0x20)) cursor->Advance(1);
         if (cursor->previous_selection != cursor->selection)
-            data_00492590.Queue(12, 0);
+            g_sound_manager.Queue(12, 0);
         if (data_00474e36 & 0xa) {
             room->SetTimerTarget(4);
-            data_00492590.Queue(11, 0);
+            g_sound_manager.Queue(11, 0);
         } else if (data_00474e36 & 0x1001) {
             MenuCursor* grid = &save->grid;
             save->selected_replay = cursor->selection;
@@ -79,7 +79,7 @@ __declspec(noinline) int __stdcall TitleMode16_00433570(Title* room) {
                     break;
             }
             save->name_length = length;
-            data_00492590.Queue(10, 0);
+            g_sound_manager.Queue(10, 0);
             room->SetTimerTarget(3);
         }
         break;
@@ -102,7 +102,7 @@ __declspec(noinline) int __stdcall TitleMode16_00433570(Title* room) {
                 grid->Advance(-12);
         }
         if (grid->previous_selection != grid->selection)
-            data_00492590.Queue(12, 0);
+            g_sound_manager.Queue(12, 0);
         if (data_00474e36 & 0x1001) {
             const char* characters = data_004746d8;
             int count = strlen(characters);
@@ -131,7 +131,7 @@ __declspec(noinline) int __stdcall TitleMode16_00433570(Title* room) {
                 --save->name_length;
                 save->name[save->name_length] = ' ';
             } else if (cell == count - 1) {
-                data_00492590.Queue(0x2c, 0);
+                g_sound_manager.Queue(0x2c, 0);
                 sprintf(path, "th10_%.2d.rpy", room->cursor.selection + 1);
                 ReplayFile_Delete_004297b0(save->replays[room->cursor.selection]);
                 ReplayFile_Save_00429b60(data_00477838, path, save->name);
@@ -140,13 +140,13 @@ __declspec(noinline) int __stdcall TitleMode16_00433570(Title* room) {
                 strcpy(data_0047783c->last_name, save->name);
                 room->SetTimerTarget(2);
             }
-            data_00492590.Queue(10, 0);
+            g_sound_manager.Queue(10, 0);
         }
         if (data_00474e36 & 0xa) {
             if (save->name_length == 0) {
                 room->SetTimerTarget(2);
             } else {
-                data_00492590.Queue(11, 0);
+                g_sound_manager.Queue(11, 0);
                 --save->name_length;
                 save->name[save->name_length] = ' ';
             }

@@ -1,15 +1,15 @@
 #define g_sprt_ctrl stage_bind_g_sprt_ctrl
 #define g_front stage_bind_g_front
-#define data_00474c40 stage_bind_data_00474c40
+#define g_globals stage_bind_data_00474c40
 #define g_ascii_manager stage_bind_data_004776e0
 #define g_enemy_ctrl stage_bind_g_enemy_ctrl
 #define g_player stage_bind_data_00477834
 #define data_00477838 stage_bind_data_00477838
 #define data_0047783c stage_bind_data_0047783c
-#define data_00476f78 stage_bind_data_00476f78
+#define g_game_speed stage_bind_data_00476f78
 #define data_00491fc4 stage_bind_data_00491fc4
 #define data_00491fb8 stage_bind_data_00491fb8
-#define data_00492590 stage_bind_data_00492590
+#define g_sound_manager stage_bind_data_00492590
 // 0x0040D830: initialize an enemy script record and bind its first instruction.
 // The record embeds the interpreter instance at +0x8, its own instance link at
 // +0x1030, and the animation/entity payload at +0x103C. The retail entry uses
@@ -20,7 +20,7 @@
 #include "th10/game/enemy_script_bind_0040d830.hpp"
 #include <string.h>
 
-extern "C" float data_00476f78;
+extern "C" float g_game_speed;
 extern "C" unsigned char data_0046d0c0;
 struct BindGameState_0040d830 {
     unsigned char reserved[0x54];
@@ -40,7 +40,7 @@ struct BindFrameTimer_0040d830 {
             current = 0;
             previous = 0xFFF0BDC1;
             elapsed = 0.0f;
-            speed = &data_00476f78;
+            speed = &g_game_speed;
             flags |= 1;
         }
         int* tail = &current;
@@ -210,13 +210,13 @@ __declspec(noinline) EnemyScriptEntity_0040d830* __fastcall InitializeEnemyScrip
 #pragma code_seg()
 #undef g_sprt_ctrl
 #undef g_front
-#undef data_00474c40
+#undef g_globals
 #undef g_ascii_manager
 #undef g_enemy_ctrl
 #undef g_player
 #undef data_00477838
 #undef data_0047783c
-#undef data_00476f78
+#undef g_game_speed
 #undef data_00491fc4
 #undef data_00491fb8
-#undef data_00492590
+#undef g_sound_manager

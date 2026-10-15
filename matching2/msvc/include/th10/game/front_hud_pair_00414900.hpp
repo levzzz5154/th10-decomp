@@ -25,7 +25,7 @@
 extern "C" unsigned char g_input;              // raw input edges
 extern "C" unsigned char data_00474e62;              // secondary input edges
 extern "C" unsigned short data_00474c48;             // graze counter (word)
-extern "C" unsigned int data_00474c40;               // score state object
+extern "C" unsigned int g_globals;               // score state object
 extern "C" unsigned int data_00474c4c;               // current score
 extern "C" unsigned int data_00474c68;               // sequence mode select
 extern "C" unsigned int data_00474c6c;               // sequence stage number
@@ -35,7 +35,7 @@ extern "C" unsigned int data_00474c7c;               // difficulty
 extern "C" unsigned int data_00474c84;               // stage progress counter
 extern "C" unsigned int data_00474c8c;               // progress echo
 extern "C" unsigned char data_00474ca0;              // clear flags (bit 0x10)
-extern "C" unsigned char data_00491c28;              // input mode state object
+extern "C" unsigned char g_application;              // input mode state object
 extern "C" unsigned int data_00491fb8;               // front mode word
 extern "C" void* g_card;                      // game state arena
 extern "C" void* g_enemy_ctrl;                      // sequence record
@@ -43,7 +43,7 @@ extern "C" void* g_pause;                      // clear state object
 extern "C" void* data_00477838;                      // replay state record
 extern "C" void* data_0047783c;                      // notice table
 extern "C" void* data_00477848;                      // bgm state record
-extern "C" short data_004749ce[];                    // sound priority table
+extern "C" short g_sound_priority[];                    // sound priority table
 extern "C" float data_00470afc;                      // 1.0f
 extern "C" float data_00470b04;                      // gauge threshold (slow)
 extern "C" float data_00470b3c;                      // boss fade window high
@@ -60,7 +60,7 @@ extern "C" float data_00470d08;                      // banner close threshold 2
 extern "C" double data_00470d10;                     // banner open threshold 2
 
 // The music/sound request table the queue helper posts through (0x00492590).
-extern "C" SoundQueue data_00492590;
+extern "C" SoundQueue g_sound_manager;
 
 extern "C" float data_00470b4c;                      // boss anchor offset
 extern "C" int __stdcall AnmVm_Run_0043ee30(void* vm);          // 0x0043EE30

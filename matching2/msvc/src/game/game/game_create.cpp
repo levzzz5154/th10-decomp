@@ -33,20 +33,20 @@ struct UiEvictionDevice_004180e0 {
     virtual void __stdcall Slot04() = 0;
     virtual long __stdcall EvictManagedResources() = 0;
 };
-extern "C" UiEvictionDevice_004180e0* data_00491c30;
+extern "C" UiEvictionDevice_004180e0* g_d3d_device;
 extern "C" Game* g_game;
-extern "C" GameUiThreadHost data_00491c28;
+extern "C" GameUiThreadHost g_application;
 extern "C" void __cdecl Game_LoadThread(void);
 
 #pragma code_seg(".text$00uicreate")
 extern "C" __declspec(noinline) Game* __stdcall Game_Create(unsigned int argument) {
     Game* ui = new Game;
-    data_00491c30->EvictManagedResources();
+    g_d3d_device->EvictManagedResources();
     ui->argument_5c = argument;
     g_game = ui;
     ui->flags_58 |= 4;
     // Retail passes the no-argument thunk as the worker entry.
-    data_00491c28.Spawn(reinterpret_cast<PlatformWorkerEntry>(Game_LoadThread), 0);
+    g_application.Spawn(reinterpret_cast<PlatformWorkerEntry>(Game_LoadThread), 0);
     return ui;
 }
 #pragma code_seg()

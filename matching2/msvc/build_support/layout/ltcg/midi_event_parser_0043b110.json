@@ -105,17 +105,17 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_data_004662a0",
+      "symbol": "_imp_midiOutPrepareHeader",
       "address": "0x4662a0",
       "kind": "data"
     },
     {
-      "symbol": "_data_0046629c",
+      "symbol": "_imp_midiOutLongMsg",
       "address": "0x46629c",
       "kind": "data"
     },
     {
-      "symbol": "_data_00466298",
+      "symbol": "_imp_midiOutShortMsg",
       "address": "0x466298",
       "kind": "data"
     },

@@ -88,7 +88,7 @@ struct GameThreadRenderState {
         stage_index = index;
     }
 };
-extern "C" GameThreadRenderState data_00491c28;
+extern "C" GameThreadRenderState g_application;
 
 extern "C" __declspec(noinline) int EntityDraw_00443080(RenderEntity* entity,
                                                        SprtCtrlBatchView* manager);

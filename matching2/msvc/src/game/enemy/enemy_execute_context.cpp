@@ -5,7 +5,7 @@
 
 float data_00470b04 = 0.0f;
 float data_00470b60 = -1.0f;
-float g_game_speed_00476f78 = 1.0f;
+float g_game_speed = 1.0f;
 int g_difficulty_00474c74;
 int g_rank_00474c98;
 Float3 g_zero_vector_00491c14;
@@ -18,14 +18,14 @@ LaserManager* g_laser_manager;
 Gui* g_front;
 Player* g_player;
 Card* g_card;
-RenderStageState data_00491c28;
+RenderStageState g_application;
 unsigned char data_00491e48[64], data_00491e08[64], data_00491dc8[64], data_00474df0[24];
-ScoreState data_00474c40;
-SoundQueue data_00492590;
+ScoreState g_globals;
+SoundQueue g_sound_manager;
 extern "C" void* g_sprt_ctrl;
 extern "C" void* data_00477818;
 extern "C" int data_00474c84, data_00474c8c;
-extern "C" short data_004749ce[];
+extern "C" short g_sound_priority[];
 extern "C" Float3 g_offset_point_00497d80;
 extern "C" unsigned int g_offset_point_state_00497d8c;
 
@@ -158,7 +158,7 @@ void FrameTimer::Set_00405410(int value) {
         current = 0;
         previous = 0xFFF0BDC1;
         elapsed = 0.0f;
-        speed = &g_game_speed_00476f78;
+        speed = &g_game_speed;
         flags |= 1;
     }
     current = value;
@@ -170,7 +170,7 @@ static __forceinline void RestartTimer(FrameTimer* timer) {
         timer->current = 0;
         timer->previous = -999999;
         timer->elapsed = 0;
-        timer->speed = &g_game_speed_00476f78;
+        timer->speed = &g_game_speed;
         timer->flags |= 1u;
     }
     timer->current = 0;
@@ -282,7 +282,7 @@ EnemyFull* __stdcall EnemyCtrl_Spawn_0040cfb0(const EnemySpawn* p, EnemyCtrl* ma
         *(int*)(enemy + 0x245C) = 0;
         *(int*)(enemy + 0x2458) = -999999;
         *(float*)(enemy + 0x2460) = 0.0f;
-        *(float**)(enemy + 0x2464) = &g_game_speed_00476f78;
+        *(float**)(enemy + 0x2464) = &g_game_speed;
         *(unsigned int*)(enemy + 0x2468) |= 1;
     }
     *(int*)(enemy + 0x245C) = 2;
@@ -307,7 +307,7 @@ EnemyFull* __stdcall EnemyCtrl_Spawn_0040cfb0(const EnemySpawn* p, EnemyCtrl* ma
         }
     }
     // Stand-in for retail reusing EBX after the parameters are consumed.
-    if (*(int*)(enemy + 0x2444) == 99) data_00492590.QueuePan_0043dd10(*(int*)(enemy + 0x2448), 0.0f);
+    if (*(int*)(enemy + 0x2444) == 99) g_sound_manager.QueuePan_0043dd10(*(int*)(enemy + 0x2448), 0.0f);
     *(int*)(enemy + 0x244C) = 0;
     void** node = (void**)(enemy + 0x116C);
     void*** first = (void***)((char*)manager + 0x58);
@@ -387,7 +387,7 @@ int Shooter::Shoot_004073e0(BulletManager* manager) {
     }
 done:
     if (flags & 0x400) ((RigCamera*)g_player)->Apply();
-    if (flags & 0x200) data_00492590.QueuePan_0043dd10(sound, position.x);
+    if (flags & 0x200) g_sound_manager.QueuePan_0043dd10(sound, position.x);
     return 0;
 }
 int BulletManager::Sweep_00408210(int convert) {
@@ -415,7 +415,7 @@ int BulletManager::Sweep_00408210(int convert) {
             ext_register(0x173, *(void**)(self + 0x3E0B50), &handle, &low);
             unsigned char* vm = (unsigned char*)ext_find(g_sprt_ctrl, handle.id);
             unsigned char* shape = *(unsigned char**)(record + 0x39C);
-            if (shape) *(int*)(vm + 0x2FC) = data_004749ce[*(short*)(record + 0x7EC)];
+            if (shape) *(int*)(vm + 0x2FC) = g_sound_priority[*(short*)(record + 0x7EC)];
             *(int*)(record + 0x450) = 0;
         }
     }
@@ -585,7 +585,7 @@ void Gui::CreateScoreDisplay_00415db0(int stage) {
 }
 void SoundQueue::QueuePan_0043dd10(int sound, float pan) {
     int* self = (int*)this;
-    int priority = data_004749ce[sound * 4];
+    int priority = g_sound_priority[sound * 4];
     int request = int(pan * (1000.0f / 192.0f));
     int slot;
     for (slot = 0; slot < 12; ++slot) {
@@ -653,10 +653,10 @@ void Card::End_00409c00() {
         ext_set_flag(0, g_sprt_ctrl, *(int*)(self + 0x774));
         *(int*)(self + 0x774) = 0;
         if (flags & 2) {
-            data_00474c40.fields[1] += *(int*)(self + 0x3790) / 10;
-            if (data_00474c40.fields[1] >= 1000000000) data_00474c40.fields[1] = 999999999;
+            g_globals.fields[1] += *(int*)(self + 0x3790) / 10;
+            if (g_globals.fields[1] >= 1000000000) g_globals.fields[1] = 999999999;
             ext_call(g_front, *(int*)(self + 0x3790));
-            ext_call(&data_00492590, 0x2D);
+            ext_call(&g_sound_manager, 0x2D);
         } else {
             AnmHandle* caption = (AnmHandle*)((unsigned char*)g_front + 0x9E14);
             ext_set_flag(0, g_sprt_ctrl, caption->id);

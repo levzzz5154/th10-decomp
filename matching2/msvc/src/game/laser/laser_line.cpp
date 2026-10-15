@@ -45,14 +45,14 @@ int LineLaser::Update() {
     }
 
     if (length < length_limit) {
-        length += data_00476f78 * grow_speed;
+        length += g_game_speed * grow_speed;
         if (length > length_limit)
             length = length_limit;
     } else {
         // Once fully emitted, move the tail and reduce the remaining beam.
-        traveled += data_00476f78 * grow_speed;
-        Point3_OrientedRect delta(data_00476f78 * velocity.x,
-            data_00476f78 * velocity.y, data_00476f78 * velocity.z);
+        traveled += g_game_speed * grow_speed;
+        Point3_OrientedRect delta(g_game_speed * velocity.x,
+            g_game_speed * velocity.y, g_game_speed * velocity.z);
         LaserAddPosition(position, delta);
         if (total_length > 0.0f && traveled + length > total_length) {
             length = total_length - traveled;
@@ -95,7 +95,7 @@ int LineLaser::Update() {
             void* handle;
             ItemAnimation_CreateOffset_00448db0(data_004776f0->resource,
                 &handle, 434, PlayerPoint());
-            data_00492590.QueuePan(28, position.x);
+            g_sound_manager.QueuePan(28, position.x);
         }
     }
 

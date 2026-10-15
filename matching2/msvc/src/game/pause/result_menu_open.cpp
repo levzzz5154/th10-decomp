@@ -38,8 +38,8 @@ __forceinline void PauseOpenState::Open(bool result) {
     g_music_requests.RegisterResource(data_0046df98, 2, 0);
     data_0047783c->result_track_heard = 1;
     result_flag = result ? 1 : 0;
-    saved_speed = data_00476f78;
-    data_00476f78 = 1.0f;
+    saved_speed = g_game_speed;
+    g_game_speed = 1.0f;
 }
 #pragma code_seg(".text$00423370_fn")
 void PauseOpenState::OpenResult() { Open(true); }

@@ -8,7 +8,7 @@ typedef long (__stdcall *D3DXCreateTextureFromFileInMemoryExImport_004521ca)(
     unsigned long filter, unsigned long mip_filter, unsigned long color_key,
     void* source_info, void* palette, void* texture);
 
-extern "C" D3DXCreateTextureFromFileInMemoryExImport_004521ca data_004662c8;
+extern "C" D3DXCreateTextureFromFileInMemoryExImport_004521ca imp_D3DXCreateTextureFromFileInMemoryEx;
 
 extern "C" long __stdcall D3DXCreateTextureFromFileInMemoryEx_004521ca(
     void* device, const void* source_data, unsigned long source_data_size,
@@ -16,7 +16,7 @@ extern "C" long __stdcall D3DXCreateTextureFromFileInMemoryEx_004521ca(
     unsigned long usage, unsigned long format, unsigned long pool,
     unsigned long filter, unsigned long mip_filter, unsigned long color_key,
     void* source_info, void* palette, void* texture) {
-    return data_004662c8(device, source_data, source_data_size, width, height,
+    return imp_D3DXCreateTextureFromFileInMemoryEx(device, source_data, source_data_size, width, height,
                           mip_levels, usage, format, pool, filter, mip_filter,
                           color_key, source_info, palette, texture);
 }

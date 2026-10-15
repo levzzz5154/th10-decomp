@@ -101,7 +101,7 @@ struct GameArchiveOwner_0040d280 {
 };
 
 extern "C" GameArchiveOwner_0040d280 *data_004776f0;
-extern "C" unsigned char data_00476f78;
+extern "C" unsigned char g_game_speed;
 extern "C" FuncCtrl *g_func_ctrl;
 
 // Both callback nodes are built by the same sequence: construct, re-clear the
@@ -143,7 +143,7 @@ EnemyCtrl_Initialize(EnemyCtrl *host, int script_name) {
         host->timer_current_044 = 0;
         host->timer_previous_040 = -999999;
         host->timer_elapsed_048 = 0.0f;
-        host->timer_speed_04C = (const float *)&data_00476f78;
+        host->timer_speed_04C = (const float *)&g_game_speed;
         host->timer_flags_050 = timer_flags | 1u;
     }
     host->timer_current_044 = 0;

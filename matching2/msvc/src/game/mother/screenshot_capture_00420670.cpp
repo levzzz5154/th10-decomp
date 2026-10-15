@@ -29,13 +29,13 @@ int GameApp_00420670::CaptureScreenshot(const char* name) {
     case 0x16: {
         info_header = (BitmapInfoHeader_00420670*)asm_malloc_00452706(sizeof(BitmapInfoHeader_00420670));
         if (info_header == 0) {
-            data_00474f70.Append(data_0046def0);
+            g_log.Append(data_0046def0);
             goto done;
         }
         memset(info_header, 0, sizeof(BitmapInfoHeader_00420670));
         pixels = (unsigned char*)asm_malloc_00452706(640 * 480 * 3);
         if (pixels == 0) {
-            data_00474f70.Append(data_0046def0);
+            g_log.Append(data_0046def0);
             goto done;
         }
         file_header.size += 640 * 480 * 3;
@@ -64,14 +64,14 @@ int GameApp_00420670::CaptureScreenshot(const char* name) {
         } while (row > -1);
         back_buffer->methods->UnlockRect(back_buffer);
 
-        data_00491c28.screenshot_thread = asm_beginthread_00452eec(ScreenshotWriter, 0, 0);
+        g_application.screenshot_thread = asm_beginthread_00452eec(ScreenshotWriter, 0, 0);
         break;
     }
     case 0x17:
-        data_00474f70.Append(data_0046df38);
+        g_log.Append(data_0046df38);
         break;
     default:
-        data_00474f70.Append(data_0046deb0);
+        g_log.Append(data_0046deb0);
         return 1;
     }
 

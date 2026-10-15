@@ -21,19 +21,19 @@ extern "C" __declspec(noinline) int EntityDraw_00443080(RenderEntity* entity,
     case 0:
         left = (float)floor(entity->render_offset.x + entity->position.x
                             + entity->base_position.x - width * 0.5f);
-        data_004978c0[0].x = data_004978c0[2].x = left;
-        data_004978c0[1].x = data_004978c0[3].x = data_004978c0[2].x + width;
+        g_quad_vertices[0].x = g_quad_vertices[2].x = left;
+        g_quad_vertices[1].x = g_quad_vertices[3].x = g_quad_vertices[2].x + width;
         break;
     case 1:
         left = entity->base_position.x + entity->position.x + entity->render_offset.x;
-        data_004978c0[0].x = data_004978c0[2].x = left;
-        data_004978c0[1].x = data_004978c0[3].x =
+        g_quad_vertices[0].x = g_quad_vertices[2].x = left;
+        g_quad_vertices[1].x = g_quad_vertices[3].x =
             entity->base_position.x + entity->position.x + width + entity->render_offset.x;
         break;
     case 2:
-        data_004978c0[0].x = data_004978c0[2].x =
+        g_quad_vertices[0].x = g_quad_vertices[2].x =
             entity->base_position.x + entity->position.x + entity->render_offset.x - width;
-        data_004978c0[1].x = data_004978c0[3].x =
+        g_quad_vertices[1].x = g_quad_vertices[3].x =
             entity->base_position.x + entity->position.x + entity->render_offset.x;
         break;
     }
@@ -42,25 +42,25 @@ extern "C" __declspec(noinline) int EntityDraw_00443080(RenderEntity* entity,
     case 0:
         top = (float)floor(entity->render_offset.y + entity->position.y
                            + entity->base_position.y - half_height);
-        data_004978c0[0].y = data_004978c0[1].y = top;
-        data_004978c0[2].y = data_004978c0[3].y = data_004978c0[1].y + height;
+        g_quad_vertices[0].y = g_quad_vertices[1].y = top;
+        g_quad_vertices[2].y = g_quad_vertices[3].y = g_quad_vertices[1].y + height;
         break;
     case 1:
         top = (entity->position.y + entity->render_offset.y) + entity->base_position.y;
-        data_004978c0[0].y = data_004978c0[1].y = top;
-        data_004978c0[2].y = data_004978c0[3].y =
+        g_quad_vertices[0].y = g_quad_vertices[1].y = top;
+        g_quad_vertices[2].y = g_quad_vertices[3].y =
             ((entity->position.y + entity->render_offset.y) + entity->base_position.y) + height;
         break;
     case 2:
-        data_004978c0[0].y = data_004978c0[1].y =
+        g_quad_vertices[0].y = g_quad_vertices[1].y =
             (entity->position.y + entity->render_offset.y) + entity->base_position.y - height;
-        data_004978c0[2].y = data_004978c0[3].y =
+        g_quad_vertices[2].y = g_quad_vertices[3].y =
             (entity->position.y + entity->render_offset.y) + entity->base_position.y;
         break;
     }
 
     float bottom = entity->render_offset.z + entity->position.z + entity->base_position.z;
-    data_004978c0[0].z = data_004978c0[1].z = data_004978c0[2].z = data_004978c0[3].z = bottom;
+    g_quad_vertices[0].z = g_quad_vertices[1].z = g_quad_vertices[2].z = g_quad_vertices[3].z = bottom;
 
     return manager->SubmitSpriteQuad(entity, 1);
 }

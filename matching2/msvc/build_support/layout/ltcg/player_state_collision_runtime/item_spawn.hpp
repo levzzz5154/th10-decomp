@@ -56,4 +56,4 @@ struct PlayerScoreGauge {
     int field_58;
     __declspec(noinline) void AddWithMinimum(int amount);
 };
-extern "C" PlayerScoreGauge data_00474c40;
+extern "C" PlayerScoreGauge g_globals;

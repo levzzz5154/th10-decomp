@@ -11,7 +11,7 @@ void* __cdecl operator new(unsigned int bytes);
 void __cdecl operator delete(void* pointer);
 extern "C" {
     extern const unsigned char g_wave_notification_iid[16];
-    extern int (__stdcall* data_004660cc)(void*);
+    extern int (__stdcall* imp_CloseHandle)(void*);
 }
 
 // The read cursor as the factory creates and discards it.
@@ -24,7 +24,7 @@ struct MusicFileCursor : MusicReadCursor {
     }
     ~MusicFileCursor() {
         if (open_mode == 1) {
-            data_004660cc(file);
+            imp_CloseHandle(file);
             file = reinterpret_cast<void*>(-1);
         }
     }

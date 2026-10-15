@@ -43,7 +43,7 @@ struct CollisionEngine_00408100 {
 };
 extern "C" CollisionEngine_00408100* data_004776f0;
 extern "C" ItemSpawnManager_0041bb00* data_00477818;
-extern "C" float data_00476f78;
+extern "C" float g_game_speed;
 extern "C" float data_00470b0c;
 typedef char CollisionRecordSize[sizeof(CollisionRecord_00408100) == 0x7F0 ? 1 : -1];
 typedef char CollisionRecordPosition[offsetof(CollisionRecord_00408100, position) == 0x3B4 ? 1 : -1];

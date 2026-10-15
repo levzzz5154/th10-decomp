@@ -9,7 +9,7 @@
 #include "th10/math/timer.hpp"
 
 extern "C" unsigned char data_0046dab0;
-extern "C" unsigned char data_00476f78;
+extern "C" unsigned char g_game_speed;
 extern "C" void *__cdecl memset(void *destination, int value, unsigned int size);
 
 struct ScoreRecord {
@@ -46,7 +46,7 @@ Laser_Construct(void *, LaserBaseView *self) {
         self->timer.current = 0;
         self->timer.previous = -999999;
         self->timer.elapsed = 0.0f;
-        self->timer.speed = (const float *)&data_00476f78;
+        self->timer.speed = (const float *)&g_game_speed;
         self->timer.flags = flags | 1u;
     }
     self->timer.current = 0;

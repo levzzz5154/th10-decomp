@@ -81,20 +81,20 @@ __declspec(noinline) int __stdcall TitleMode6_00430320(Title* room) {
             if ((short)data_00474e30.InputMaskActive(0x10)) cursor->Advance(-1);
             if ((short)data_00474e30.InputMaskActive(0x20)) cursor->Advance(1);
             if (cursor->previous_selection != cursor->selection) {
-                data_00492590.Queue(12, 0);
+                g_sound_manager.Queue(12, 0);
                 reinterpret_cast<TitleAnimationSlotView*>(room)->RestartSlot(slot);
                 room->SetSlotFrame(slot, (short)cursor->selection + 7);
             }
         }
         if (data_00474e36 & 0xa) {
             room->SetTimerTarget(4);
-            data_00492590.Queue(11, 0);
+            g_sound_manager.Queue(11, 0);
             room->ClearAnimationSlot(slot);
         } else if (data_00474e36 & 0x1001) {
             room->SetSlotFrame(slot, 6);
             StopConfirmedChild_00430320(room, slot);
             room->SetTimerTarget(3);
-            data_00492590.Queue(10, 0);
+            g_sound_manager.Queue(10, 0);
         }
         break;
     case 3:

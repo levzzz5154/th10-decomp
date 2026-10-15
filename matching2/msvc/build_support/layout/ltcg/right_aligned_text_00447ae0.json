@@ -854,7 +854,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00491c30",
+      "symbol": "_g_d3d_device",
       "address": "0x00491C30",
       "kind": "data"
     },
@@ -864,7 +864,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00491c28",
+      "symbol": "_g_application",
       "address": "0x00491C28",
       "kind": "data"
     },
@@ -874,7 +874,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_data_00497990",
+      "symbol": "_g_archive",
       "address": "0x00497990",
       "kind": "data"
     },
@@ -894,32 +894,32 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_004660b0",
+      "symbol": "_imp_EnterCriticalSection",
       "address": "0x004660b0",
       "kind": "data"
     },
     {
-      "symbol": "_data_004660b4",
+      "symbol": "_imp_LeaveCriticalSection",
       "address": "0x004660b4",
       "kind": "data"
     },
     {
-      "symbol": "_data_004660c4",
+      "symbol": "_imp_CreateFileA",
       "address": "0x004660c4",
       "kind": "data"
     },
     {
-      "symbol": "_data_004660cc",
+      "symbol": "_imp_CloseHandle",
       "address": "0x004660cc",
       "kind": "data"
     },
     {
-      "symbol": "_data_004660d0",
+      "symbol": "_imp_ReadFile",
       "address": "0x004660d0",
       "kind": "data"
     },
     {
-      "symbol": "_data_004660d8",
+      "symbol": "_imp_GetFileSize",
       "address": "0x004660d8",
       "kind": "data"
     },
@@ -954,7 +954,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_data_004660dc",
+      "symbol": "_imp_GetModuleFileNameA",
       "address": "0x004660DC",
       "kind": "data"
     },
@@ -1059,12 +1059,12 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00476f78",
+      "symbol": "_g_game_speed",
       "address": "0x00476F78",
       "kind": "data"
     },
     {
-      "symbol": "_data_00474f70",
+      "symbol": "_g_log",
       "address": "0x00474F70",
       "kind": "data"
     },
@@ -1074,12 +1074,12 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_004749ce",
+      "symbol": "_g_sound_priority",
       "address": "0x004749CE",
       "kind": "data"
     },
     {
-      "symbol": "_data_00492590",
+      "symbol": "_g_sound_manager",
       "address": "0x00492590",
       "kind": "data"
     },

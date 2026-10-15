@@ -37,7 +37,7 @@ int Player::Move() {
     if (g_enemy_ctrl != 0 && g_enemy_ctrl->enabled != 0 &&
         focus_timer.current >= 4) {
         focused = (movement_input.word >> 2) & 1;
-        if (data_00474c40.character * 3 + data_00474c40.shot_type == 5) {
+        if (g_globals.character * 3 + g_globals.shot_type == 5) {
             if (movement_input.bytes[0] & 4)
                 focus_transition_age = 0;
             else if (focus_transition_age < 30)
@@ -93,8 +93,8 @@ int Player::Move() {
     else if (move_x == 0 && previous_velocity.x > 0) Lean(this, 4);
     previous_velocity.x = move_x;
     previous_velocity.y = move_y;
-    velocity.x = static_cast<int>(static_cast<float>(move_x) * data_00476f78);
-    velocity.y = static_cast<int>(static_cast<float>(move_y) * data_00476f78);
+    velocity.x = static_cast<int>(static_cast<float>(move_x) * g_game_speed);
+    velocity.y = static_cast<int>(static_cast<float>(move_y) * g_game_speed);
     fixed_position.x += velocity.x;
     fixed_position.y += velocity.y;
     if (fixed_position.x < -18400) fixed_position.x = -18400;

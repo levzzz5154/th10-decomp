@@ -3,7 +3,7 @@ typedef unsigned int uint32_t;
 typedef int int32_t;
 #include <string.h>
 
-extern "C" float data_00476f78;
+extern "C" float g_game_speed;
 
 struct EffectIndicatorTimerRetail {
     uint32_t previous_frame_bits;  // +0x00; -999999 before the first countdown
@@ -79,7 +79,7 @@ EffectIndicatorPool_AllocateRetail_00427b50(
             slot->timer.current_frame_bits = 0;
             slot->timer.previous_frame_bits = 0xfff0bdc1u;
             slot->timer.elapsed = 0.0f;
-            slot->timer.speed = &data_00476f78;
+            slot->timer.speed = &g_game_speed;
             slot->timer.flags |= 1u;
         }
         slot->timer.current_frame_bits = static_cast<uint32_t>(countdown_frames);

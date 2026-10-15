@@ -38,7 +38,7 @@ struct RecoveryMusicVm_00433ef0 {
         const RecoveryMusicVector_00433ef0* target, int mode, unsigned char flag);
 };
 
-extern "C" float data_00476f78;
+extern "C" float g_game_speed;
 
 #pragma code_seg(push, ".text$0042c620_fn")
 // This view ends at the last word used by the complete music-room handler.
@@ -79,7 +79,7 @@ struct Title {
             timer.current = 0;
             timer.previous = -999999;
             timer.elapsed = 0;
-            timer.speed = &data_00476f78;
+            timer.speed = &g_game_speed;
             timer.flags |= 1u;
         }
         timer.current = 0;

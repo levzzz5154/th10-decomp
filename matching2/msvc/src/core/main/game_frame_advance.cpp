@@ -6,13 +6,13 @@ int GameFrameAdvance_00439390(GameFrame_00439390* frame) {
     if (frame->frame_time > frame->next_tick_time) {
         while (frame->next_tick_time < frame->frame_time) frame->next_tick_time += 1.0 / 60.0;
         g_sprt_ctrl->Flush();
-        RenderStage_00439390* stage = &data_00491c28.stages[1];
-        data_00491c28.active_stage = stage;
+        RenderStage_00439390* stage = &g_application.stages[1];
+        g_application.active_stage = stage;
         stage->camera.ApplyDefault();
-        data_00491c30->Viewport(&data_00491c28.active_stage->camera.viewport_x);
-        data_00491c28.stage_index = 1;
+        g_d3d_device->Viewport(&g_application.active_stage->camera.viewport_x);
+        g_application.stage_index = 1;
         int task = asm_FUN_00449c00_00449c00(g_func_ctrl);
-        asm_FUN_0043ddf0_0043ddf0(data_00492590);
+        asm_FUN_0043ddf0_0043ddf0(g_sound_manager);
         if (task == 0) {
             data_00492254.Stop();
             return 1;
@@ -25,27 +25,27 @@ int GameFrameAdvance_00439390(GameFrame_00439390* frame) {
         ++frame->tick;
         if (limit + 1 <= frame->tick) {
             typedef long (__stdcall *BeginScene_00439390)(void*);
-            RenderDevice* device = data_00491c30;
+            RenderDevice* device = g_d3d_device;
             ((BeginScene_00439390)device->vtable[0xA4 / 4])(device);
             SprtCtrlBatchView* manager = g_sprt_ctrl;
             TexturedVertex* buffer = (TexturedVertex*)((unsigned char*)manager + 0x3ADACC);
             manager->quad_count = 0;
             manager->cursor = buffer;
             manager->batch_start = buffer;
-            data_00491c28.fog_enabled = 0xFF;
-            data_00491c28.DisableFog();
+            g_application.fog_enabled = 0xFF;
+            g_application.DisableFog();
             asm_FUN_00449d40_00449d40(g_func_ctrl);
             g_sprt_ctrl->Flush();
-            data_00491c30->Texture(0, 0);
+            g_d3d_device->Texture(0, 0);
             typedef long (__stdcall *EndScene_00439390)(void*);
-            device = data_00491c30;
+            device = g_d3d_device;
             ((EndScene_00439390)device->vtable[0xA8 / 4])(device);
             frame->tick = 0;
             asm_FUN_004391f0_004391f0();
         }
         data_004923a0 = FrameTimer_GetDelta() - frame->frame_time;
     } else {
-        data_004660ac(0);
+        imp_Sleep(0);
     }
     return 0;
 }

@@ -5,7 +5,7 @@ extern "C" float data_00470b64;
 extern "C" float data_00470b68;
 extern "C" float data_00470c68;
 extern "C" const float data_00470c6c;
-extern "C" float data_00476f78;
+extern "C" float g_game_speed;
 // 0x004074B0. Advance the animation timer and update the player's trail
 // velocity while its frame counter is below the trail cutoff.
 #pragma code_seg(".text$01aanimation")

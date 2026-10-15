@@ -39,7 +39,7 @@ void __stdcall ChangeAnimationScript(ScriptChangeResource* resource, Entity* obj
         object->current_frame = 0;
         object->previous_frame = (int)0xFFF0BDC1u;
         object->frame_elapsed = 0.0f;
-        object->time_scale = &data_00476f78;
+        object->time_scale = &g_game_speed;
         object->flags_06C |= 1;
     }
     object->current_frame = 0;

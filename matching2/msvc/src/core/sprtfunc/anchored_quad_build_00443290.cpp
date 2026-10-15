@@ -44,19 +44,19 @@ int EntityDraw_00443290(RenderEntity* entity, SprtCtrlBatchView* manager) {
     switch ((entity->flags >> 18) & 3) {
     case 0:
         left = entity->render_offset.x + entity->position.x + entity->base_position.x - width * 0.5f;
-        data_004978c0[0].x = data_004978c0[2].x = left;
-        data_004978c0[1].x = data_004978c0[3].x = data_004978c0[2].x + width;
+        g_quad_vertices[0].x = g_quad_vertices[2].x = left;
+        g_quad_vertices[1].x = g_quad_vertices[3].x = g_quad_vertices[2].x + width;
         break;
     case 1:
         left = (entity->base_position.x + entity->position.x) + entity->render_offset.x;
-        data_004978c0[0].x = data_004978c0[2].x = left;
-        data_004978c0[1].x = data_004978c0[3].x =
+        g_quad_vertices[0].x = g_quad_vertices[2].x = left;
+        g_quad_vertices[1].x = g_quad_vertices[3].x =
             width + entity->base_position.x + entity->position.x + entity->render_offset.x;
         break;
     case 2:
-        data_004978c0[0].x = data_004978c0[2].x =
+        g_quad_vertices[0].x = g_quad_vertices[2].x =
             entity->base_position.x + entity->position.x + entity->render_offset.x - width;
-        data_004978c0[1].x = data_004978c0[3].x =
+        g_quad_vertices[1].x = g_quad_vertices[3].x =
             entity->base_position.x + entity->position.x + entity->render_offset.x;
         break;
     }
@@ -64,29 +64,29 @@ int EntityDraw_00443290(RenderEntity* entity, SprtCtrlBatchView* manager) {
     switch ((entity->flags >> 20) & 3) {
     case 0:
         top = entity->render_offset.y + entity->position.y + entity->base_position.y - half_height;
-        data_004978c0[0].y = data_004978c0[1].y = top;
-        data_004978c0[2].y = data_004978c0[3].y = data_004978c0[1].y + height;
+        g_quad_vertices[0].y = g_quad_vertices[1].y = top;
+        g_quad_vertices[2].y = g_quad_vertices[3].y = g_quad_vertices[1].y + height;
         break;
     case 1: {
         float near = entity->render_offset.y;
         near = near + entity->base_position.y;
         near = near + entity->position.y;
-        data_004978c0[0].y = data_004978c0[1].y = near;
+        g_quad_vertices[0].y = g_quad_vertices[1].y = near;
         float far = entity->render_offset.y;
         far = far + entity->base_position.y;
         far = far + height;
         far = far + entity->position.y;
-        data_004978c0[2].y = data_004978c0[3].y = far;
+        g_quad_vertices[2].y = g_quad_vertices[3].y = far;
         break; }
     case 2: {
         float near = entity->render_offset.y;
         near = near + entity->base_position.y;
         near = near + entity->position.y;
-        data_004978c0[0].y = data_004978c0[1].y = near - height;
+        g_quad_vertices[0].y = g_quad_vertices[1].y = near - height;
         float far = entity->render_offset.y;
         far = far + entity->base_position.y;
         far = far + entity->position.y;
-        data_004978c0[2].y = data_004978c0[3].y = far;
+        g_quad_vertices[2].y = g_quad_vertices[3].y = far;
         break; }
     }
 
@@ -95,10 +95,10 @@ int EntityDraw_00443290(RenderEntity* entity, SprtCtrlBatchView* manager) {
     // touched by this function.  The two siblings (0x00443080, 0x004436C0) do
     // read 0x354, so this is this body's own quirk and it is reproduced.
     bottom = entity->render_offset.y + entity->position.z + entity->base_position.z;
-    data_004978c0[3].z = bottom;
-    data_004978c0[2].z = bottom;
-    data_004978c0[1].z = bottom;
-    data_004978c0[0].z = bottom;
+    g_quad_vertices[3].z = bottom;
+    g_quad_vertices[2].z = bottom;
+    g_quad_vertices[1].z = bottom;
+    g_quad_vertices[0].z = bottom;
 
     return manager->SubmitSpriteQuad(entity, 0);
 }

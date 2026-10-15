@@ -8,7 +8,7 @@ int __stdcall SoundQueueMotionContext(BulletRuntimeDeceleration** bullets, int c
         bullets[i]->AimStep();
         bullets[i]->Bounce();
         BulletRuntimeTick(reinterpret_cast<BulletRuntimeState*>(bullets[i]));
-        data_00492590.QueuePan(i, reinterpret_cast<BulletRuntimeState*>(bullets[i])->position.x);
+        g_sound_manager.QueuePan(i, reinterpret_cast<BulletRuntimeState*>(bullets[i])->position.x);
     }
     return count;
 }

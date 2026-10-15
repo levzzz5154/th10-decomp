@@ -161,7 +161,7 @@
       "address": "0x00476F78",
       "kind": "data"
     },
-    "_data_00474c40": {
+    "_g_globals": {
       "address": "0x00474C40",
       "kind": "data"
     },
@@ -249,7 +249,7 @@
       "address": "0x0046DF98",
       "kind": "data"
     },
-    "_data_00492590": {
+    "_g_sound_manager": {
       "address": "0x00492590",
       "kind": "data"
     },
@@ -281,15 +281,15 @@
       "address": "0x004922A4",
       "kind": "data"
     },
-    "_data_004660cc": {
+    "_imp_CloseHandle": {
       "address": "0x004660CC",
       "kind": "data"
     },
-    "_data_004660d4": {
+    "_imp_WriteFile": {
       "address": "0x004660D4",
       "kind": "data"
     },
-    "_data_004660b4": {
+    "_imp_LeaveCriticalSection": {
       "address": "0x004660B4",
       "kind": "data"
     },

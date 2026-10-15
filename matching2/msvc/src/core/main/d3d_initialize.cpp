@@ -23,9 +23,9 @@ Direct3DMatrix* __stdcall asm_D3DXMatrixPerspectiveFovLH_0045219a(Direct3DMatrix
     float fov_y, float aspect, float near_z, float far_z);
 SprtCtrlStateCacheView* __cdecl Renderer_ApplyDeviceDefaults(void);
 
-extern Application data_00491c28;
+extern Application g_application;
 extern MainWindow data_004924f0;
-extern TextLog_0044b810 data_00474f70;
+extern TextLog_0044b810 g_log;
 
 // Log lines (Shift-JIS).
 extern char data_0046f640[];    // "first run, the screen was initialised at 32 bits"
@@ -63,33 +63,33 @@ __declspec(noinline) int __stdcall D3DInitialize_00439890() {
 
     memset(&parameters, 0, sizeof(parameters));
     hardware = true;
-    data_00491c28.direct3d->GetAdapterDisplayMode(0, &desktop);
-    if (!data_00491c28.config.field_1d) {
-        if (data_00491c28.config.flags & 1) {
+    g_application.direct3d->GetAdapterDisplayMode(0, &desktop);
+    if (!g_application.config.field_1d) {
+        if (g_application.config.flags & 1) {
             parameters.back_buffer_format = 23;         // D3DFMT_R5G6B5
-            data_00491c28.config.field_1a = 1;
-        } else if (data_00491c28.config.field_1a == 0xFF) {
+            g_application.config.field_1a = 1;
+        } else if (g_application.config.field_1a == 0xFF) {
             parameters.back_buffer_format = 22;         // D3DFMT_X8R8G8B8
-            data_00491c28.config.field_1a = 0;
-            data_00474f70.Append(data_0046f640);
+            g_application.config.field_1a = 0;
+            g_log.Append(data_0046f640);
         } else {
-            parameters.back_buffer_format = data_00491c28.config.field_1a == 0 ? 22 : 23;
+            parameters.back_buffer_format = g_application.config.field_1a == 0 ? 22 : 23;
         }
         if (data_004924f0.force_no_vsync) {
-            data_00491c28.no_vsync = 1;
+            g_application.no_vsync = 1;
             goto immediate;
         }
-        if (data_00491c28.no_vsync == 0) {
+        if (g_application.no_vsync == 0) {
             parameters.refresh_rate = 60;
             parameters.presentation_interval = 1;
-            data_00474f70.Append(data_0046f614);
+            g_log.Append(data_0046f614);
             parameters.swap_effect = 1;
         } else {
 immediate:
             parameters.refresh_rate = 0;
             parameters.swap_effect = 1;
             parameters.presentation_interval = 0x80000000;
-            data_00474f70.Append(data_0046f5f0);
+            g_log.Append(data_0046f5f0);
         }
     } else {
         parameters.back_buffer_format = desktop.format;
@@ -101,60 +101,60 @@ immediate:
     parameters.enable_auto_depth_stencil = 1;
     parameters.auto_depth_stencil_format = 80;          // D3DFMT_D16
     parameters.flags = 1;
-    data_00491c28.flags |= 2;
-    data_00491c28.fixed_refresh = 1;
+    g_application.flags |= 2;
+    g_application.fixed_refresh = 1;
 
     retried = 0;
     for (;;) {
-        if (data_00491c28.config.flags & 2)
+        if (g_application.config.flags & 2)
             goto reference;
-        if (data_00491c28.direct3d->CreateDevice(0, 1, data_004924f0.window, 0x40,
-                &parameters, &data_00491c28.device) < 0) {
+        if (g_application.direct3d->CreateDevice(0, 1, data_004924f0.window, 0x40,
+                &parameters, &g_application.device) < 0) {
             if (retried)
-                data_00474f70.Append(data_0046f5cc);
-            if (data_00491c28.direct3d->CreateDevice(0, 1, data_004924f0.window, 0x20,
-                    &parameters, &data_00491c28.device) < 0) {
+                g_log.Append(data_0046f5cc);
+            if (g_application.direct3d->CreateDevice(0, 1, data_004924f0.window, 0x20,
+                    &parameters, &g_application.device) < 0) {
                 if (retried)
-                    data_00474f70.Append(data_0046f5ac);
+                    g_log.Append(data_0046f5ac);
 reference:
-                if (data_00491c28.direct3d->CreateDevice(0, 2, data_004924f0.window, 0x20,
-                        &parameters, &data_00491c28.device) < 0) {
-                    if (data_00491c28.no_vsync == 0) {
-                        data_00474f70.Append(data_0046f584);
+                if (g_application.direct3d->CreateDevice(0, 2, data_004924f0.window, 0x20,
+                        &parameters, &g_application.device) < 0) {
+                    if (g_application.no_vsync == 0) {
+                        g_log.Append(data_0046f584);
                         parameters.refresh_rate = 0;
-                        data_00491c28.fixed_refresh = 0;
+                        g_application.fixed_refresh = 0;
                         retried = 1;
                         continue;
                     }
                     if (parameters.presentation_interval == 0x80000000) {
-                        data_00474f70.Append(data_0046f54c);
+                        g_log.Append(data_0046f54c);
                         parameters.presentation_interval = 1;
                         parameters.swap_effect = 3;
                         continue;
                     }
-                    reinterpret_cast<TextLog_0044b8e0*>(&data_00474f70)->AppendLine(data_0046f514);
-                    if (data_00491c28.direct3d != 0) {
-                        data_00491c28.direct3d->Release();
-                        data_00491c28.direct3d = 0;
+                    reinterpret_cast<TextLog_0044b8e0*>(&g_log)->AppendLine(data_0046f514);
+                    if (g_application.direct3d != 0) {
+                        g_application.direct3d->Release();
+                        g_application.direct3d = 0;
                     }
                     return 1;
                 } else {
-                    data_00474f70.Append(data_0046f4d8);
-                    data_00491c28.flags &= ~1u;
+                    g_log.Append(data_0046f4d8);
+                    g_application.flags &= ~1u;
                     hardware = false;
                 }
             } else {
-                data_00474f70.Append(data_0046f4c4);
-                data_00491c28.flags &= ~1u;
+                g_log.Append(data_0046f4c4);
+                g_application.flags &= ~1u;
             }
         } else {
-            data_00474f70.Append(data_0046f4a8);
-            data_00491c28.flags |= 1;
+            g_log.Append(data_0046f4a8);
+            g_application.flags |= 1;
         }
         break;
     }
 
-    data_00491c28.present_parameters = parameters;
+    g_application.present_parameters = parameters;
     // The camera looks straight at the middle of the 640x480 field from the
     // distance at which a 30 degree field of view spans its height.
     float field_of_view = 0.5235988f;
@@ -167,31 +167,31 @@ reference:
     up.y = 1.0f;
     up.z = 0.0f;
     eye.z = -(240.0f / (float)tan(field_of_view / 2));
-    asm_D3DXMatrixLookAtLH_00452194(&data_00491c28.view, &eye, &at, &up);
-    asm_D3DXMatrixPerspectiveFovLH_0045219a(&data_00491c28.projection, field_of_view,
+    asm_D3DXMatrixLookAtLH_00452194(&g_application.view, &eye, &at, &up);
+    asm_D3DXMatrixPerspectiveFovLH_0045219a(&g_application.projection, field_of_view,
                                             640.0f / 480.0f, 100.0f, 10000.0f);
-    data_00491c28.device->SetTransform(2, &data_00491c28.view);
-    data_00491c28.device->SetTransform(3, &data_00491c28.projection);
-    data_00491c28.device->GetViewport(&data_00491c28.viewport);
-    data_00491c28.device->GetDeviceCaps(&data_00491c28.caps);
-    if (!(data_00491c28.caps.texture_op_caps & 0x40))
-        data_00474f70.Append(data_0046f458);
-    if (data_00491c28.caps.max_texture_width <= 256)
-        data_00474f70.Append(data_0046f408);
-    if (!(data_00491c28.config.flags & 1) && hardware) {
-        if (data_00491c28.direct3d->CheckDeviceFormat(0, 1, parameters.back_buffer_format,
+    g_application.device->SetTransform(2, &g_application.view);
+    g_application.device->SetTransform(3, &g_application.projection);
+    g_application.device->GetViewport(&g_application.viewport);
+    g_application.device->GetDeviceCaps(&g_application.caps);
+    if (!(g_application.caps.texture_op_caps & 0x40))
+        g_log.Append(data_0046f458);
+    if (g_application.caps.max_texture_width <= 256)
+        g_log.Append(data_0046f408);
+    if (!(g_application.config.flags & 1) && hardware) {
+        if (g_application.direct3d->CheckDeviceFormat(0, 1, parameters.back_buffer_format,
                 0, 3, 21) == 0) {
-            data_00491c28.flags |= 4;
+            g_application.flags |= 4;
         } else {
-            data_00491c28.flags &= ~4u;
-            data_00491c28.config.flags |= 1;
-            data_00474f70.Append(data_0046f3c0);
+            g_application.flags &= ~4u;
+            g_application.config.flags |= 1;
+            g_log.Append(data_0046f3c0);
         }
     }
     Renderer_ApplyDeviceDefaults();
     ApplyDefaultViewport(0xFF000000);
     data_004924f0.quit = 0;
-    data_00491c28.frames_presented = 0;
+    g_application.frames_presented = 0;
     return 0;
 }
 #pragma code_seg()

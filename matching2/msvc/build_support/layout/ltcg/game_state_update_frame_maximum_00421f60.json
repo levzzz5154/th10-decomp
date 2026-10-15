@@ -38,7 +38,7 @@
   "constants": [],
   "absolute_symbols": [
     {
-      "symbol": "_data_00474c40",
+      "symbol": "_g_globals",
       "address": "0x00474C40",
       "kind": "data"
     },

@@ -4,7 +4,7 @@ extern "C" void __cdecl InitializeFontCache_00437a00() {
         FontSurface_Create_00436af0(&data_00474cb0,0x400,0x40,0x15);
     unsigned char* bytes=(unsigned char*)&data_00474cb0;
     for (unsigned int index=0;index<256;++index) {
-        unsigned short next=data_004918b0.Next();
+        unsigned short next=g_rng.Next();
         bytes[index]=(unsigned char)(next>>9);
     }
     data_00491868[14]=CreateFontA(32,0,0,0,400,0,0,0,0x80,0,0,4,0x11,data_0046f36c);

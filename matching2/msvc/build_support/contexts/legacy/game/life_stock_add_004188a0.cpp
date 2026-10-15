@@ -11,7 +11,7 @@ void RunCounters_004188a0::AddLives(int amount) {
     if (lives > 9) {
         lives = 9;
     } else {
-        data_00492590.Queue(44, 0);
+        g_sound_manager.Queue(44, 0);
         AnimationHandle_004188a0* banner = &g_front->extend_banner;
         g_sprt_ctrl->MarkForRemoval(*banner);
         banner->value = 0;
@@ -20,7 +20,7 @@ void RunCounters_004188a0::AddLives(int amount) {
             AnimationManager_CreatePrimaryBack_00448d00(
                 g_front->animation_resource, reinterpret_cast<void**>(&created), 75, 15));
     }
-    g_front->SetActiveCount(data_00474c40.lives);
+    g_front->SetActiveCount(g_globals.lives);
 }
 
 // 0x00418930: add power, capped at 100.

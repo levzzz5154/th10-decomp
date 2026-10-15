@@ -7,5 +7,5 @@ struct TextLog_0044b8e0 {
     char* AppendLine(char* format, ...);
 };
 
-extern "C" TextLog_0044b8e0 data_00474f70;
+extern "C" TextLog_0044b8e0 g_log;
 #endif

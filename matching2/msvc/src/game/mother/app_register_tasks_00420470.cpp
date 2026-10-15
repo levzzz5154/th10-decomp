@@ -14,7 +14,7 @@ int __fastcall AppPresent_004200c0(void* app);
 int __fastcall AppFlush_004200d0(void* app);
 int __fastcall AppOnRegister_004201b0(void* app);
 extern FuncCtrl* g_func_ctrl;
-extern App_00491c28 data_00491c28;
+extern App_00491c28 g_application;
 extern int data_00491fb4;
 extern int data_00491fb8;
 extern int data_00491fc0;
@@ -27,7 +27,7 @@ extern "C" __declspec(noinline) int __stdcall App_RegisterTasks_00420470() {
     data_00491fc0 = 0;
 
     SchedulerTask* task = SchedulerCallback_Create_00449ed0(AppUpdate_0041ff80);
-    task->context = &data_00491c28;
+    task->context = &g_application;
     task->reserved_flags |= 1;
     task->on_register = AppOnRegister_004201b0;
     int result = FuncCtrl_RegisterPrimary(g_func_ctrl, task, 1);
@@ -35,17 +35,17 @@ extern "C" __declspec(noinline) int __stdcall App_RegisterTasks_00420470() {
         return result;
 
     task = SchedulerCallback_Create_00449ed0(AppDraw_00420000);
-    task->context = &data_00491c28;
+    task->context = &g_application;
     task->reserved_flags |= 1;
     FuncCtrl_RegisterSecondary(g_func_ctrl, task, 1);
 
     task = SchedulerCallback_Create_00449ed0(AppPresent_004200c0);
-    task->context = &data_00491c28;
+    task->context = &g_application;
     task->reserved_flags |= 1;
     FuncCtrl_RegisterSecondary(g_func_ctrl, task, 0x28);
 
     task = SchedulerCallback_Create_00449ed0(AppFlush_004200d0);
-    task->context = &data_00491c28;
+    task->context = &g_application;
     task->reserved_flags |= 1;
     FuncCtrl_RegisterSecondary(g_func_ctrl, task, 0x32);
     return 0;

@@ -13,28 +13,28 @@
 #pragma code_seg(".text$0042a6a0_fn")
 void ReplayManager_0042a6a0::BeginStage() {
     if (mode == 0) {
-        stage_data[data_00474c40.stage] = new ReplayStage_0042a6a0;
-        ReplayStage_0042a6a0* stage = stage_data[data_00474c40.stage];
-        stage->seed = data_004918b0.seed;
-        data_004918b0.generation = 0;
-        stage->stage = (short)data_00474c40.stage;
+        stage_data[g_globals.stage] = new ReplayStage_0042a6a0;
+        ReplayStage_0042a6a0* stage = stage_data[g_globals.stage];
+        stage->seed = g_rng.seed;
+        g_rng.generation = 0;
+        stage->stage = (short)g_globals.stage;
         stage->flag = data_00491fc4;
     } else if (mode == 1) {
-        ReplayNode_0042a6a0* node = &nodes[data_00474c40.stage];
+        ReplayNode_0042a6a0* node = &nodes[g_globals.stage];
         node->cursor = node->inputs;
         node->cursor_end = node->inputs_end;
         node->count = 0;
         ReplayStage_0042a6a0* stage = node->stage;
-        data_004918b0.seed = stage->seed;
-        data_004918b0.generation = 0;
-        data_00474c40.score = stage->score;
-        data_00474c40.word_08 = stage->word_10;
-        data_00474c40.SetGauge(stage->gauge * 10);
-        data_00474c40.gauge_timer.Set(stage->gauge_frame);
-        data_00474c40.field_30 = stage->field_1c;
-        data_00474c40.field_58 = stage->field_20;
-        data_00474c40.continues = stage->continues;
-        data_00474c40.field_5c = nodes[data_00474c40.stage].stage->field_1b8;
+        g_rng.seed = stage->seed;
+        g_rng.generation = 0;
+        g_globals.score = stage->score;
+        g_globals.word_08 = stage->word_10;
+        g_globals.SetGauge(stage->gauge * 10);
+        g_globals.gauge_timer.Set(stage->gauge_frame);
+        g_globals.field_30 = stage->field_1c;
+        g_globals.field_58 = stage->field_20;
+        g_globals.continues = stage->continues;
+        g_globals.field_5c = nodes[g_globals.stage].stage->field_1b8;
     }
 }
 #pragma code_seg()

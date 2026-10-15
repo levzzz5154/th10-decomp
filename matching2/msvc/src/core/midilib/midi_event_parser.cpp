@@ -69,15 +69,15 @@ typedef unsigned int (__stdcall *MidiOutLongMsgCall)(void*, MidiEventHeader*, un
 typedef unsigned int (__stdcall *MidiOutShortMsgCall)(void*, unsigned int);
 
 static __forceinline MidiOutPrepareHeaderCall MidiOutPrepareHeaderImport() {
-    return *reinterpret_cast<MidiOutPrepareHeaderCall*>(&data_004662a0);
+    return *reinterpret_cast<MidiOutPrepareHeaderCall*>(&imp_midiOutPrepareHeader);
 }
 
 static __forceinline MidiOutLongMsgCall MidiOutLongMsgImport() {
-    return *reinterpret_cast<MidiOutLongMsgCall*>(&data_0046629c);
+    return *reinterpret_cast<MidiOutLongMsgCall*>(&imp_midiOutLongMsg);
 }
 
 static __forceinline MidiOutShortMsgCall MidiOutShortMsgImport() {
-    return *reinterpret_cast<MidiOutShortMsgCall*>(&data_00466298);
+    return *reinterpret_cast<MidiOutShortMsgCall*>(&imp_midiOutShortMsg);
 }
 
 static __forceinline unsigned int ReadMidiEventValue(const unsigned char*& cursor) {

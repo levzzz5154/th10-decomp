@@ -7719,7 +7719,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0040e770_0040e770() {
     L_00411c38:
         call asm_ECL_ResolveFloatOperand_0044fe40
     L_00411c3d:
-        fstp dword ptr [data_00476f78]
+        fstp dword ptr [g_game_speed]
     L_00411c43:
         xor eax,eax
     L_00411c45:

@@ -34,7 +34,7 @@ struct EnemyNode_0040e6a0 {
 };
 
 extern "C" EnemyCtrlDeathView* g_enemy_ctrl;
-extern "C" ScoreState data_00474c40;
+extern "C" ScoreState g_globals;
 
 // 0x0040E5F0: sound, burst, drops and gauge hold of a dying enemy.
 int __stdcall Enemy_ReleaseOnDeath_0040e5f0(Enemy_0040e5f0* enemy);

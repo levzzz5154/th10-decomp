@@ -1,9 +1,9 @@
 extern "C" const float data_00470b20;
 #include "th10/platform/sound_queue.hpp"
-extern "C" short data_004749ce[];
+extern "C" short g_sound_priority[];
 #pragma code_seg(".text$40pan")
 void SoundQueue::QueuePan(int sound_id, float pan) {
-    int priority = data_004749ce[sound_id * 4];
+    int priority = g_sound_priority[sound_id * 4];
     int request = int(pan * data_00470b20);
     int slot;
     for (slot = 0; slot < 12; ++slot) {

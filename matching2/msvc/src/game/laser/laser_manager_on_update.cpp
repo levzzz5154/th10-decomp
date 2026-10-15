@@ -6,7 +6,7 @@
 // frame state published at g_game says when the display must not advance
 // - bit 0, bit 2 and bit 0x400 of its +0x58 flag word each report success
 // without touching the records.  When the same word carries bit 1 (the frozen
-// step), the time scale at data_00476f78 is zeroed around the call, so the
+// step), the time scale at g_game_speed is zeroed around the call, so the
 // records advance by their own per-record step only, and the global scale is
 // restored afterwards.
 //
@@ -43,7 +43,7 @@ struct FrameState_0041c480 {
 #include "th10/game/laser_list.hpp"
 
 extern "C" FrameState_0041c480* g_game;
-extern "C" float data_00476f78;
+extern "C" float g_game_speed;
 
 // 0x0041C330 (src/game/laser/laser_manager_update_lasers.cpp).  Its records object
 // arrives in EDI: this region, its only caller, sets it there.
@@ -56,10 +56,10 @@ int LaserManagerUpdateView::AdvanceFrame() {
     if (g_game->flags_58.deferred)
         return 1;
     if (g_game->flags_58.frozen) {
-        float saved = data_00476f78;
-        data_00476f78 = 0.0f;
+        float saved = g_game_speed;
+        g_game_speed = 0.0f;
         int result = LaserManager_UpdateLasers(this);
-        data_00476f78 = saved;
+        g_game_speed = saved;
         return result;
     }
     return LaserManager_UpdateLasers(this);

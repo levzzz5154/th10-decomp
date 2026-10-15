@@ -11,7 +11,7 @@ CachedResource* __fastcall Recovery_LoadCachedResource(int index, void* owner, c
     entry = ((ResourceLoadFn)asm_FUN_004470c0_004470c0)(owner, index, name);
     if (entry == 0)
         return 0;
-    SleepFn sleep = *(SleepFn*)&data_004660ac;
+    SleepFn sleep = *(SleepFn*)&imp_Sleep;
     entry->busy = 1;
     do {
         if (data_00491ff4 & 0x80)

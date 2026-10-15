@@ -23,10 +23,10 @@ __forceinline int WriteHintLine(const char* buffer, unsigned int length) {
     unsigned int written;
     if (data_00474c38 == (void*)-1)
         return (int)data_00474c38;
-    data_004660d4(data_00474c38, buffer, length, &written, 0);
+    imp_WriteFile(data_00474c38, buffer, length, &written, 0);
     if (length != written) {
-        data_004660cc(data_00474c38);
-        data_004660b4((void*)0x004922A4);
+        imp_CloseHandle(data_00474c38);
+        imp_LeaveCriticalSection((void*)0x004922A4);
         --data_0049231e;
     }
     return 0;
@@ -146,8 +146,8 @@ extern "C" __declspec(noinline) int __stdcall SaveHints(Manager_00419040* manage
         } while (stage < 8);
     }
     if (data_00474c38 != (void*)-1) {
-        data_004660cc(data_00474c38);
-        data_004660b4((void*)0x004922A4);
+        imp_CloseHandle(data_00474c38);
+        imp_LeaveCriticalSection((void*)0x004922A4);
         --data_0049231e;
     }
     asm_free_00452422(buffer);

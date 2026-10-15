@@ -1,15 +1,15 @@
 #define g_sprt_ctrl stage_effect_g_sprt_ctrl
 #define g_front stage_effect_g_front
-#define data_00474c40 stage_effect_data_00474c40
+#define g_globals stage_effect_data_00474c40
 #define g_ascii_manager stage_effect_data_004776e0
 #define g_enemy_ctrl stage_effect_g_enemy_ctrl
 #define g_player stage_effect_data_00477834
 #define data_00477838 stage_effect_data_00477838
 #define data_0047783c stage_effect_data_0047783c
-#define data_00476f78 stage_effect_data_00476f78
+#define g_game_speed stage_effect_data_00476f78
 #define data_00491fc4 stage_effect_data_00491fc4
 #define data_00491fb8 stage_effect_data_00491fb8
-#define data_00492590 stage_effect_data_00492590
+#define g_sound_manager stage_effect_data_00492590
 // 0x0043C970..0x0043CAFB: screen fade/pulse/shake selector and its nine-way
 // compiler-generated switch table. Native LTCG agrees on this in ESI,
 // priority in EBX, and selected mode plus four parameters on the stack.
@@ -29,7 +29,7 @@ extern "C" int __fastcall ColorPulseDraw_0043c500(void*);
 extern "C" int __fastcall LinearShakeUpdate_0043c550(void*);
 extern "C" int __fastcall EnvelopeShakeUpdate_0043c710(void*);
 extern "C" int __fastcall ScreenEffectRemove_0043c870(void*);
-extern "C" float data_00476f78;
+extern "C" float g_game_speed;
 #pragma code_seg(".text$0043c970_fn")
 void Screen::Configure(int priority, int selected_mode,
         int first, int second, int third, int fourth) {
@@ -78,7 +78,7 @@ void Screen::Configure(int priority, int selected_mode,
         timer.current = 0;
         timer.previous = -999999;
         timer.elapsed = 0;
-        timer.speed = &data_00476f78;
+        timer.speed = &g_game_speed;
         timer.flags |= 1u;
     }
     // Reset the first three timer words together. The zero bits stored in
@@ -96,13 +96,13 @@ void Screen::Configure(int priority, int selected_mode,
 #pragma code_seg()
 #undef g_sprt_ctrl
 #undef g_front
-#undef data_00474c40
+#undef g_globals
 #undef g_ascii_manager
 #undef g_enemy_ctrl
 #undef g_player
 #undef data_00477838
 #undef data_0047783c
-#undef data_00476f78
+#undef g_game_speed
 #undef data_00491fc4
 #undef data_00491fb8
-#undef data_00492590
+#undef g_sound_manager

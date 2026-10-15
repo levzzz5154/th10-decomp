@@ -70,12 +70,12 @@
   "constants": [],
   "absolute_symbols": [
     {
-      "symbol": "_data_004660ac",
+      "symbol": "_imp_Sleep",
       "address": "0x004660AC",
       "kind": "data"
     },
     {
-      "symbol": "_data_004660c8",
+      "symbol": "_imp_SetFilePointer",
       "address": "0x004660C8",
       "kind": "data"
     },

@@ -24,7 +24,7 @@ extern "C" GameCounters_0040b560 data_00474c44;
 extern "C" const char* data_00474440[12];
 extern "C" char data_00497c38[260];
 extern "C" char data_0046cb68[];
-extern "C" TextLog_0044b810 data_00474f70;
+extern "C" TextLog_0044b810 g_log;
 struct EndingUnlocks {
     unsigned char reserved[0x1D882];
     unsigned char endings[12];
@@ -92,7 +92,7 @@ int Ending::Initialize() {
     data_00497c38[0] = 0;
     strcat(data_00497c38, filename);
     file = Archive_LoadFile(data_00497c38, 0, 0);
-    if (!file) { data_00474f70.Append(data_0046cb68); return -1; }
+    if (!file) { g_log.Append(data_0046cb68); return -1; }
     text = new EndingText(file + *(int*)(file + 4));
     return 0;
 }

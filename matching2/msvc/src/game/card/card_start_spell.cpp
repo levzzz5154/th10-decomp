@@ -163,7 +163,7 @@ void Card_00408d60::StartSpell(int index, const char* name, int duration) {
     reinterpret_cast<HintVm_00419120*>(
         GetAnimation(reinterpret_cast<int&>(panel_handles[1].value)))
         ->FormatRightAligned(g_sprt_ctrl, 0x00FFFFFFu, name);
-    data_00492590.Queue(14, 0);
+    g_sound_manager.Queue(14, 0);
 
     marker_handle.value = CreateAnimation(data_004776f0->effects, 417).value;
     marker_position = g_enemy_ctrl->target->position;

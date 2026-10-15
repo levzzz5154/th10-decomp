@@ -4,7 +4,7 @@ struct AnimationObject_0043e7e0 : Entity {};
 struct AnimationResource_0043e7e0 { unsigned short id; unsigned char reserved_002[0x11A]; void** scripts; unsigned char reserved_120[4]; int loading; };
 struct AnimationManager_0043e7e0 { unsigned char reserved[0x4C]; int script_tick_counter; };
 extern "C" void* g_sprt_ctrl;
-extern "C" float data_00476f78;
+extern "C" float g_game_speed;
 extern "C" void __stdcall asm_FUN_0043ee30_0043ee30(Entity* object);
 #pragma code_seg(".text$f0043e7e0F")
 __declspec(noinline) void __stdcall LoadScriptPreservingState_0043e7e0(
@@ -26,7 +26,7 @@ __declspec(noinline) void __stdcall LoadScriptPreservingState_0043e7e0(
         object->current_frame = 0;
         object->previous_frame = (int)0xFFF0BDC1u;
         object->frame_elapsed = 0.0f;
-        object->time_scale = &data_00476f78;
+        object->time_scale = &g_game_speed;
         object->flags_06C |= 1;
     }
     object->current_frame = 0;

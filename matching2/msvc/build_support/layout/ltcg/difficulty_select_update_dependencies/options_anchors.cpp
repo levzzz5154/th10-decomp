@@ -34,7 +34,7 @@ void SpriteHandle_00449670::SelectSprite(int sprite) {
 void __stdcall RefreshOptions_0042e5a0(Title* room) {
     data_00497854 = data_00491d4c.music_volume;
     for (int kind = 8; kind < 12; ++kind) {
-        reinterpret_cast<RecoveryMusicResourceQueue_0043e460*>(&data_00492590)->RegisterResource(
+        reinterpret_cast<RecoveryMusicResourceQueue_0043e460*>(&g_sound_manager)->RegisterResource(
             data_0046ece8, kind, kind);
         room->animation_slots[2] = 0;
     }

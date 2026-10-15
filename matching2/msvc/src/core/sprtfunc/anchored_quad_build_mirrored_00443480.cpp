@@ -29,23 +29,23 @@ int EntityDrawMirrored_00443480(RenderEntity *entity, SprtCtrlBatchView *manager
         float left = entity->position.x;
         left = left + entity->render_offset.x;
         left = left + entity->base_position.x;
-        data_004978c0[0].x = data_004978c0[2].x = left - half_width;
+        g_quad_vertices[0].x = g_quad_vertices[2].x = left - half_width;
         float right = entity->position.x;
         right = right + entity->render_offset.x;
         right = right + entity->base_position.x;
-        data_004978c0[1].x = data_004978c0[3].x = right + half_width;
+        g_quad_vertices[1].x = g_quad_vertices[3].x = right + half_width;
         break;
     }
     case 1: {
         float left = entity->position.x;
         left = left + entity->render_offset.x;
         left = left + entity->base_position.x;
-        data_004978c0[0].x = data_004978c0[2].x = left;
+        g_quad_vertices[0].x = g_quad_vertices[2].x = left;
         float right = half_width + half_width;
         right = right + entity->position.x;
         right = right + entity->render_offset.x;
         right = right + entity->base_position.x;
-        data_004978c0[1].x = data_004978c0[3].x = right;
+        g_quad_vertices[1].x = g_quad_vertices[3].x = right;
         break;
     }
     case 2: {
@@ -54,11 +54,11 @@ int EntityDrawMirrored_00443480(RenderEntity *entity, SprtCtrlBatchView *manager
         left = left + entity->base_position.x;
         left = left - half_width;
         left = left - half_width;
-        data_004978c0[0].x = data_004978c0[2].x = left;
+        g_quad_vertices[0].x = g_quad_vertices[2].x = left;
         float right = entity->position.x;
         right = right + entity->render_offset.x;
         right = right + entity->base_position.x;
-        data_004978c0[1].x = data_004978c0[3].x = right;
+        g_quad_vertices[1].x = g_quad_vertices[3].x = right;
         break;
     }
     }
@@ -67,24 +67,24 @@ int EntityDrawMirrored_00443480(RenderEntity *entity, SprtCtrlBatchView *manager
         float top = entity->position.y;
         top = top + entity->render_offset.y;
         top = top + entity->base_position.y;
-        data_004978c0[0].y = data_004978c0[1].y = top - half_height;
+        g_quad_vertices[0].y = g_quad_vertices[1].y = top - half_height;
         float bottom = entity->position.y;
         bottom = bottom + entity->render_offset.y;
         bottom = bottom + half_height;
         bottom = bottom + entity->base_position.y;
-        data_004978c0[2].y = data_004978c0[3].y = bottom;
+        g_quad_vertices[2].y = g_quad_vertices[3].y = bottom;
         break;
     }
     case 1: {
         float top = entity->position.y;
         top = top + entity->render_offset.y;
         top = top + entity->base_position.y;
-        data_004978c0[0].y = data_004978c0[1].y = top;
+        g_quad_vertices[0].y = g_quad_vertices[1].y = top;
         float bottom = half_height + half_height;
         bottom = bottom + entity->position.y;
         bottom = bottom + entity->render_offset.y;
         bottom = bottom + entity->base_position.y;
-        data_004978c0[2].y = data_004978c0[3].y = bottom;
+        g_quad_vertices[2].y = g_quad_vertices[3].y = bottom;
         break;
     }
     case 2: {
@@ -93,19 +93,19 @@ int EntityDrawMirrored_00443480(RenderEntity *entity, SprtCtrlBatchView *manager
         top = top + entity->base_position.y;
         top = top - half_height;
         top = top - half_height;
-        data_004978c0[0].y = data_004978c0[1].y = top;
+        g_quad_vertices[0].y = g_quad_vertices[1].y = top;
         float bottom = entity->position.y;
         bottom = bottom + entity->render_offset.y;
         bottom = bottom + entity->base_position.y;
-        data_004978c0[2].y = data_004978c0[3].y = bottom;
+        g_quad_vertices[2].y = g_quad_vertices[3].y = bottom;
         break;
     }
     }
     float z = entity->render_offset.z + entity->position.z + entity->base_position.z;
-    data_004978c0[3].z = z;
-    data_004978c0[2].z = z;
-    data_004978c0[1].z = z;
-    data_004978c0[0].z = z;
+    g_quad_vertices[3].z = z;
+    g_quad_vertices[2].z = z;
+    g_quad_vertices[1].z = z;
+    g_quad_vertices[0].z = z;
     return manager->SubmitSpriteQuadMirrored(entity, 1);
 }
 #pragma code_seg()

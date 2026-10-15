@@ -391,11 +391,11 @@ __declspec(noinline) int __stdcall FrontHudUpdate_00414900(
                     if (position <= 5) {
                         front->objects[13].stop_frame = 9;
                         front->objects[14].stop_frame = 9;
-                        data_00492590.Queue(0x24, 0);
+                        g_sound_manager.Queue(0x24, 0);
                     } else if (position <= 0xA) {
                         front->objects[13].stop_frame = 8;
                         front->objects[14].stop_frame = 8;
-                        data_00492590.Queue(0x1B, 0);
+                        g_sound_manager.Queue(0x1B, 0);
                     }
                 } else if (position > front->script_marked_9ec4) {
                     front->objects[13].stop_frame = 7;

@@ -86,7 +86,7 @@ void ProjectileCommandRuntime::Tick() {
             record.field_670 = command->value_c;
             record.polar_664.SetScorePolar(record.field_660, record.field_65c);
             if (record.command_index != 0 && record.field_458 >= 0)
-                data_00492590.Queue(record.field_458, 0);
+                g_sound_manager.Queue(record.field_458, 0);
             break;
         case 0x20:
             record.motion_flags |= 0x20u;
@@ -95,7 +95,7 @@ void ProjectileCommandRuntime::Tick() {
             record.scheduler_67c.SetSchedulerValue(0);
             record.field_6a4 = command->value_c;
             if (record.command_index != 0 && record.field_458 >= 0)
-                data_00492590.Queue(record.field_458, 0);
+                g_sound_manager.Queue(record.field_458, 0);
             break;
         case 0x40:
         case 0x80:
@@ -109,7 +109,7 @@ void ProjectileCommandRuntime::Tick() {
                 record.timer_6b0.current = 0;
                 record.timer_6b0.previous = -999999;
                 record.timer_6b0.elapsed = 0.0f;
-                record.timer_6b0.speed = &data_00476f78;
+                record.timer_6b0.speed = &g_game_speed;
             }
             record.timer_6b0.current = 0;
             record.timer_6b0.elapsed = 0.0f;
@@ -149,7 +149,7 @@ void ProjectileCommandRuntime::Tick() {
             reinterpret_cast<PlayerCollisionRecord*>(this)->Activate();
             break;
         case 0x20000:
-            data_00492590.QueuePan(command->value_c, record.position.x);
+            g_sound_manager.QueuePan(command->value_c, record.position.x);
             break;
         case 0x100000:
             record.motion_flags |= cmd;
@@ -209,7 +209,7 @@ void ProjectileCommandRuntime::Tick() {
                 record.timer_7b4.current = 0;
                 record.timer_7b4.previous = -999999;
                 record.timer_7b4.elapsed = 0.0f;
-                record.timer_7b4.speed = &data_00476f78;
+                record.timer_7b4.speed = &g_game_speed;
             }
             record.timer_7b4.current = 0;
             record.timer_7b4.elapsed = 0.0f;

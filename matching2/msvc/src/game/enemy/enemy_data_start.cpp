@@ -141,7 +141,7 @@ extern "C" __declspec(noinline) int __stdcall EnemyDataStart_0040dc80(EnemyTick_
                     return -1;
             }
             if (((enemy->health <= 0) & ~(enemy->flags >> 6)) & 1) {
-                data_00474c40.AddScore(enemy->bonus);
+                g_globals.AddScore(enemy->bonus);
                 if (Enemy_ReleaseOnDeath_0040e5f0(enemy->record))
                     return 1;
             }
@@ -233,9 +233,9 @@ extern "C" __declspec(noinline) int __stdcall EnemyDataStart_0040dc80(EnemyTick_
                     && (mode = g_card->flags, !((mode & 1) && (mode & 8)))
                     && (((mode & 1) && enemy->record->data.spell_delta < 300)
                         || (!(mode & 1) && enemy->record->data.spell_delta < 900)))
-                    data_00492590.QueuePan(0x23, enemy->final.position.x);
+                    g_sound_manager.QueuePan(0x23, enemy->final.position.x);
                 else
-                    data_00492590.QueuePan(0x13, enemy->final.position.x);
+                    g_sound_manager.QueuePan(0x13, enemy->final.position.x);
             }
         } else {
             animation->flags &= ~0x8000u;

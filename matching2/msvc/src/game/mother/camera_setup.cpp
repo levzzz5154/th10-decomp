@@ -25,9 +25,9 @@ void RenderCamera::ApplyDefault() {
     CameraLookAt(&view, &eye, &target, &view_up);
     CameraPerspective(&projection, 0.31415927f, aspect, 1.0f, 10000.0f);
     typedef long (__stdcall *SetTransform)(void*, unsigned int, const CameraMatrix*);
-    RenderDevice* device = data_00491c30;
+    RenderDevice* device = g_d3d_device;
     ((SetTransform)device->vtable[0xB0 / 4])(device, 2, &view);
-    device = data_00491c30;
+    device = g_d3d_device;
     ((SetTransform)device->vtable[0xB0 / 4])(device, 3, &projection);
     if (g_sprt_ctrl) {
         ((int*)g_sprt_ctrl)[0x5C / 4] = clip_x;

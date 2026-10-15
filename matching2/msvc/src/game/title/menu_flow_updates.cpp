@@ -66,7 +66,7 @@ static __forceinline void HandleInput_0042f540(Title* room) {
     if (data_00474e30.Active(0x20))
         cursor->Advance(1);
     if (cursor->previous_selection != cursor->selection) {
-        data_00492590.Queue(12, 0);
+        g_sound_manager.Queue(12, 0);
         RunCursorSlot_0042f540(room);
         room->SetSlotFrame(2, cursor->selection + 7);
     }
@@ -89,7 +89,7 @@ static __forceinline void HandleInput_0042f540(Title* room) {
         switch (cursor->selection) {
         case 5:
             LoadBindings_0042f540(room);
-            data_00492590.Queue(10, 0);
+            g_sound_manager.Queue(10, 0);
             return;
         case 6: {
             TitleKeyConfigView* labels = reinterpret_cast<TitleKeyConfigView*>(room);
@@ -105,7 +105,7 @@ static __forceinline void HandleInput_0042f540(Title* room) {
             return;
         }
     }
-    data_00492590.Queue(11, 0);
+    g_sound_manager.Queue(11, 0);
     room->SetSlotFrame(2, 6);
     room->SetTimerTarget(4);
 }

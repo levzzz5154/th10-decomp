@@ -26,8 +26,8 @@ struct GameUiArgumentWave18 {
     unsigned int argument;
 };
 
-extern "C" void (__stdcall *data_004660b0)(void*);   // EnterCriticalSection
-extern "C" void (__stdcall *data_004660b4)(void*);   // LeaveCriticalSection
+extern "C" void (__stdcall *imp_EnterCriticalSection)(void*);   // EnterCriticalSection
+extern "C" void (__stdcall *imp_LeaveCriticalSection)(void*);   // LeaveCriticalSection
 
 extern "C" void* __cdecl ModeCreateStateWave18();
 extern "C" void __stdcall ModeReleaseGlobalsWave18();

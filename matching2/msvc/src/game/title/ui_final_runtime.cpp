@@ -18,13 +18,13 @@
 
 extern "C" void* g_sprt_ctrl;
 extern "C" GameThread_0040c540* g_ascii_manager;
-extern "C" SoundQueue data_00492590;
+extern "C" SoundQueue g_sound_manager;
 extern "C" unsigned int data_00474e36;
 extern "C" unsigned short recovery_music_repeat_00474e34;
 extern "C" unsigned char* recovery_music_player_0047783c;
 extern "C" unsigned char recovery_music_mode_00491d78;
 extern "C" void* recovery_music_preview_resource_00491fec;
-extern "C" float data_00476f78;
+extern "C" float g_game_speed;
 extern "C" RecoveryMusicVector_00433ef0 recovery_music_defaults_00491c14;
 extern "C" const char recovery_music_locked_format_0046ecf4[];
 extern "C" const char recovery_music_comment_file_0046ed14[];
@@ -64,7 +64,7 @@ static __forceinline void MusicResetTimer(RecoveryTimer_0040bd80* timer) {
         timer->current = 0;
         timer->previous = -999999;
         timer->elapsed = 0;
-        timer->speed = &data_00476f78;
+        timer->speed = &g_game_speed;
         timer->flags |= 1u;
     }
     timer->current = 0;
@@ -259,7 +259,7 @@ __declspec(noinline) int __stdcall TitleMusicRoom_00433ef0(Title* room) {
         if (data_00474e30.InputMaskActive(0x20))
             cursor->Advance(1);
         if (cursor->previous_selection != cursor->selection) {
-            data_00492590.Queue(12, 0);
+            g_sound_manager.Queue(12, 0);
             // Keep the cursor inside the ten visible rows.
             int scroll = room->scroll_origin;
             int selection = cursor->selection;
@@ -298,7 +298,7 @@ __declspec(noinline) int __stdcall TitleMusicRoom_00433ef0(Title* room) {
             room->displayed_track = room->cursor.selection;
             room->preview_cursor = 0;
             MusicResetTimer(&room->timer);
-            requests = reinterpret_cast<AnimationManager_0043e460*>(&data_00492590);
+            requests = reinterpret_cast<AnimationManager_0043e460*>(&g_sound_manager);
             if (!recovery_music_player_0047783c[0x1D892 + room->displayed_track]
                     && !room->preview_armed) {
                 if (recovery_music_mode_00491d78 & 0x10u)
@@ -333,7 +333,7 @@ leave_room:
             MusicSetTreeFrame(MusicFindInPlace(
                 reinterpret_cast<RecoveryLookupContext_0040bd80*>(g_sprt_ctrl),
                 room->preview_handles[row].value), 1);
-        data_00492590.Queue(11, 0);
+        g_sound_manager.Queue(11, 0);
         room->phase = 3;
         MusicResetTimer(&room->timer);
         break;

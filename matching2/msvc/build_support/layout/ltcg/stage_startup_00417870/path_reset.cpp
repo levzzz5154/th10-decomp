@@ -1,4 +1,4 @@
-extern "C" float data_00476f78;
+extern "C" float g_game_speed;
 
 struct PathState_00417800 {
     unsigned char unknown_00[0x40];
@@ -20,7 +20,7 @@ int PathState_00417800::Reset() {
         this->reset_value_44 = 0;
         this->reset_value_40 = -999999;
         this->reset_value_48 = 0;
-        this->default_time_scale_4c = &data_00476f78;
+        this->default_time_scale_4c = &g_game_speed;
         this->flags_50 |= 1;
     }
     this->reset_value_44 = 0;

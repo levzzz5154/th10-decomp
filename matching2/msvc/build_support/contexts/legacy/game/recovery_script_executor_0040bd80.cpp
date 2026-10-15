@@ -86,7 +86,7 @@ extern "C" __declspec(noinline) int __stdcall RecoveryScript_Execute_0040bd80(Re
                     return 0;
                 state->wait_timer.Set(0);
             } else {
-                data_00492590.Queue(0, 0);
+                g_sound_manager.Queue(0, 0);
                 state->wait_timer.Set(0);
             }
             break;
@@ -102,7 +102,7 @@ extern "C" __declspec(noinline) int __stdcall RecoveryScript_Execute_0040bd80(Re
                 if (state->wait_timer.current % 6 != 0)
                     return 0;
             } else {
-                data_00492590.Queue(0, 0);
+                g_sound_manager.Queue(0, 0);
             }
             state->wait_timer.Set(0);
             state->text_ring_position = 0;

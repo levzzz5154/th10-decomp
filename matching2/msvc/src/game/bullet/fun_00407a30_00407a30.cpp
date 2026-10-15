@@ -2,7 +2,7 @@
 #include <math.h>
 #include "th10/math/angle.hpp"
 #include "th10/platform/sound_queue.hpp"
-extern "C" float data_00470b68, data_00470b64, data_00476f78;
+extern "C" float data_00470b68, data_00470b64, g_game_speed;
 #include "th10/game/bullet_deceleration.hpp"
 #include "th10/game/player.hpp"
 extern "C" float data_00470b04;
@@ -12,7 +12,7 @@ void BulletDeceleration::AimStep() {
     float magnitude;
     if (current >= length) {
         if (sound_id >= 0)
-            data_00492590.Queue(sound_id, 0);
+            g_sound_manager.Queue(sound_id, 0);
         if (++iteration >= limit)
             flags &= ~0x80u;
         double dx = g_player->position.x - position_x;
@@ -29,7 +29,7 @@ void BulletDeceleration::AimStep() {
             current = 0;
             previous = -999999;
             elapsed = 0;
-            time_scale = &data_00476f78;
+            time_scale = &g_game_speed;
             timer_flags = initial_flags | 1;
         }
         current = 0;

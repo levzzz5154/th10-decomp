@@ -71,7 +71,7 @@ void LineLaserBounce_0041cfd0::Bounce() {
         next.y <= data_00470b04 || next.y >= data_00470b38) {
         int reflected = 0;
         if (sound_id >= 0)
-            data_00492590.Queue(sound_id, 0);
+            g_sound_manager.Queue(sound_id, 0);
         if (next.x < data_00470b40 || next.x >= data_00470b3c) {
             parameters.position = next;
             parameters.angle = Angle_Normalize_0044bc70(-angle - data_00470b18);

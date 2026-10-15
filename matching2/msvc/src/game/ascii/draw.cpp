@@ -50,9 +50,9 @@ int __stdcall AsciiManager_DrawStrings(AsciiManager* thread) {
             in_game_view = record->in_game_view;
             g_sprt_ctrl->Flush();
             if (in_game_view)
-                data_00491c28.SelectStage(0);
+                g_application.SelectStage(0);
             else
-                data_00491c28.SelectStage(1);
+                g_application.SelectStage(1);
         }
         for (; *text != 0; ++text) {
             if (*text == '\n') {
@@ -85,7 +85,7 @@ int __stdcall AsciiManager_DrawStrings(AsciiManager* thread) {
     }
     if (in_game_view) {
         g_sprt_ctrl->Flush();
-        data_00491c28.SelectStage(1);
+        g_application.SelectStage(1);
     }
     return 1;
 }
@@ -116,9 +116,9 @@ int AsciiManager::DrawLateRecords() {
             in_game_view = record->in_game_view;
             g_sprt_ctrl->Flush();
             if (in_game_view)
-                data_00491c28.SelectStage(0);
+                g_application.SelectStage(0);
             else
-                data_00491c28.SelectStage(1);
+                g_application.SelectStage(1);
         }
         for (; *text != 0; ++text) {
             if (*text == '\n') {
@@ -142,7 +142,7 @@ int AsciiManager::DrawLateRecords() {
     }
     if (in_game_view) {
         g_sprt_ctrl->Flush();
-        data_00491c28.SelectStage(1);
+        g_application.SelectStage(1);
     }
     return 1;
 }

@@ -31,7 +31,7 @@ extern unsigned char* g_smoll_score;
 extern unsigned char* data_00477848;
 extern unsigned int data_00474ca0,data_00474e30,data_00491ff4,data_00491d78;
 extern int data_00491fb8,data_00474c88,data_00474c8c,data_00474c68,data_00474c6c;
-extern unsigned char data_00492254[],data_00492590[],data_00491c28[],data_00474c40[];
+extern unsigned char data_00492254[],g_sound_manager[],g_application[],g_globals[];
 extern const char data_0046d278[],data_0046df98[];
 // These declarations represent genuine logical parameters observed in retail.
 // Without the full helper closure, native calls do not claim their private ABI.
@@ -97,7 +97,7 @@ static __forceinline void StageReset(StageContextFade_00418190* context,int* loc
     StageWord(reinterpret_cast<unsigned char*>(StageWord(g_card,0x37AC)),4)|=2u;
     StageKillPair(g_hint);
     if (delayed) {
-        StageRegisterMusic_0043e460(data_00492590,data_0046df98,(data_00491d78&0x10u)?4:3,0);
+        StageRegisterMusic_0043e460(g_sound_manager,data_0046df98,(data_00491d78&0x10u)?4:3,0);
         StagePlayMusic_00420b10(0,StageWord(data_00477848,0x24));
         unsigned char* thread=g_ascii_manager;
         StageStopAnimation_00409e50(thread+0x89A4);
@@ -150,7 +150,7 @@ extern "C" int __stdcall StageContextUpdate_00418190(StageContextFade_00418190* 
         if (context->frame==0xB7C)
             Screen_Create(43,5,60,0,0,0);
         else if (context->frame==3000)
-            StageSetInputMode_0040ac90(data_00491c28,4);
+            StageSetInputMode_0040ac90(g_application,4);
     }
     StageTickThread_00417040(g_front);
     if ((context->flags&0x10u)||(context->flags&0x20u)||(context->flags&0x40u))
@@ -161,7 +161,7 @@ extern "C" int __stdcall StageContextUpdate_00418190(StageContextFade_00418190* 
         if (*frames<215999999) ++*frames;
     }
     if (StageWord(g_enemy_ctrl,0x10)==0 && StageWord(g_front,0x9EB8)==0 && context->frame>=90)
-        StageDecayScore_00418a00(data_00474c40);
+        StageDecayScore_00418a00(g_globals);
     ++data_00474c88;
     ++data_00474c8c;
     StageTickTimer_00404ed0(reinterpret_cast<unsigned char*>(context)+0x10);

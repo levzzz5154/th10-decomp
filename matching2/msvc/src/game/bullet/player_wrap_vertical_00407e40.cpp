@@ -14,12 +14,12 @@ void PlayerWrapHorizontalState_00407DA0::WrapVertical() {
         position_3B4.y = bounds_39C->extent_30 + position_3B4.y + 448.0f;
         vertical_timer_780.Advance(-1.0f);
         if (effect_slot_458 >= 0)
-            data_00492590.Queue(effect_slot_458, 0);
+            g_sound_manager.Queue(effect_slot_458, 0);
     } else if (position_3B4.y > 448.0f) {
         position_3B4.y = position_3B4.y - (bounds_39C->extent_30 + 448.0f);
         vertical_timer_780.Advance(-1.0f);
         if (effect_slot_458 >= 0)
-            data_00492590.Queue(effect_slot_458, 0);
+            g_sound_manager.Queue(effect_slot_458, 0);
     }
     if (vertical_timer_780.current <= 0)
         flags_43C ^= 0x00200000u;

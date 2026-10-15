@@ -34,10 +34,10 @@ __forceinline void SmollScoreDrawView::DrawGlyphs(const FloatingText_0042b780* t
 int SmollScoreDrawView::Draw() {
     FloatingText_0042b780* text = texts;
     int alpha;
-    if (!(data_00491c28.options & 4) && data_00491c28.fog_dirty) {
+    if (!(g_application.options & 4) && g_application.fog_dirty) {
         g_sprt_ctrl->Flush();
-        data_00491c28.fog_dirty = 0;
-        data_00491c30->State(0x1C, 0);
+        g_application.fog_dirty = 0;
+        g_d3d_device->State(0x1C, 0);
     }
     for (int index = 0; index < 0x2D3; index++, text++) {
         if (text->active) {

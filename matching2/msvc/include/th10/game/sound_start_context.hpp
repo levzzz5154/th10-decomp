@@ -60,9 +60,9 @@ struct SoundStream {
 
 typedef void (__stdcall* StreamSleep)(unsigned int);
 extern "C" {
-    extern StreamSleep data_004660ac;
+    extern StreamSleep imp_Sleep;
     extern unsigned int data_004977a4;
-    extern unsigned int (__stdcall* data_004660c8)(
+    extern unsigned int (__stdcall* imp_SetFilePointer)(
         void*, int, int*, unsigned int);
     __declspec(dllimport) int __stdcall ReadFile(
         void*, void*, unsigned int, unsigned int*, void*);

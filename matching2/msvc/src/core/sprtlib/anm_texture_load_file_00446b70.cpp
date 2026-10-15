@@ -31,7 +31,7 @@ int AnmTexture_00446c70::LoadFile(int format, void* size_slot, const char* name,
         return -1;
     data_size = reinterpret_cast<int>(size_slot);
     if (asm_D3DXCreateTextureFromFileInMemoryEx_004521ca(
-            data_00491c30, file, reinterpret_cast<unsigned int>(size_slot), 0, 0, 0, 0,
+            g_d3d_device, file, reinterpret_cast<unsigned int>(size_slot), 0, 0, 0, 0,
             data_0046f288[stored_format], 1, 3,
             0xFFFFFFFF, color_key, 0, 0, &texture) != 0) {
         entry_free_00452422(file);

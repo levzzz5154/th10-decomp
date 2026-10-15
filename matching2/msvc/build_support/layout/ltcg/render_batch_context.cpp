@@ -8,7 +8,7 @@ struct RenderStageState {
     unsigned char reserved_000[0x388];
     __declspec(noinline) void SelectStage(int index);
 };
-extern "C" RenderStageState data_00491c28;
+extern "C" RenderStageState g_application;
 
 // 0x00405300's body is the modelled member of the recovered source; declared
 // here so this context keeps it alive without pinning its declared __thiscall
@@ -61,13 +61,13 @@ int __stdcall RenderBatchContext(const ScreenRect** rects, const unsigned int* c
         cameras[i]->ApplyDefault();
         GameFrameAdvance_00439390(&data_004924f0);
     }
-    data_00491c28.SelectStage(0);
-    ((RenderStageState_00405300*)&data_00491c28)->SelectDefaultStage(0);
+    g_application.SelectStage(0);
+    ((RenderStageState_00405300*)&g_application)->SelectDefaultStage(0);
     // keeps the 0x004091C0 model in the link without pinning its receiver
-    ((CardRuntime_004091c0*)&data_00491c28)->ReleaseFlaggedEntityArrays();
-    count += ((RenderStageState_00439390*)&data_00491c28)->EnableFog();
-    count += ((RenderStageState_00439390*)&data_00491c28)->EnableDepthWrite();
-    count += ((RenderStageState_00439390*)&data_00491c28)->DisableDepthWrite();
+    ((CardRuntime_004091c0*)&g_application)->ReleaseFlaggedEntityArrays();
+    count += ((RenderStageState_00439390*)&g_application)->EnableFog();
+    count += ((RenderStageState_00439390*)&g_application)->EnableDepthWrite();
+    count += ((RenderStageState_00439390*)&g_application)->DisableDepthWrite();
     return count;
 }
 #pragma code_seg()

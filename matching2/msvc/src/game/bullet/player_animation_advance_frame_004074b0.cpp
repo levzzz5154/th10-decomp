@@ -4,7 +4,7 @@ extern "C" float data_00470b64;
 extern "C" float data_00470b68;
 extern "C" float data_00470c68;
 extern "C" float data_00470c6c;
-extern "C" float data_00476f78;
+extern "C" float g_game_speed;
 // 0x004074B0: update the trail velocity through frame16, then toggle bit0.
 // Native LTCG retains the player in ESI; SetPolar is the genuine thiscall
 // helper at00408750, with a vector in ECX and two float stack arguments.

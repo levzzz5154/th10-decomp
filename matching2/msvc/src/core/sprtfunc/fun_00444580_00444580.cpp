@@ -29,9 +29,9 @@ extern "C" __declspec(noinline) void EntityDraw_00444580(SprtCtrlBatchView* mana
                                                          RenderEntity* entity) {
     ((ProjectedEntity_00444240*)entity)->ProjectQuad((ProjectionManager_00444240*)manager);
     manager->SubmitSpriteQuad(entity, 0);
-    data_004978c0[3].rhw = 1.0f;
-    data_004978c0[2].rhw = 1.0f;
-    data_004978c0[1].rhw = 1.0f;
-    data_004978c0[0].rhw = 1.0f;
+    g_quad_vertices[3].rhw = 1.0f;
+    g_quad_vertices[2].rhw = 1.0f;
+    g_quad_vertices[1].rhw = 1.0f;
+    g_quad_vertices[0].rhw = 1.0f;
 }
 #pragma code_seg()

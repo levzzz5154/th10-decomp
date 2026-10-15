@@ -91,7 +91,7 @@ extern "C" __declspec(naked) void __cdecl ScreenShake_Update() {
     L_0043c5c6:
         mov dword ptr [esp+0Ch],eax
     L_0043c5ca:
-        mov eax,dword ptr [data_004918b0]
+        mov eax,dword ptr [g_rng]
     L_0043c5cf:
         xor eax,9630h
     L_0043c5d4:
@@ -117,9 +117,9 @@ extern "C" __declspec(naked) void __cdecl ScreenShake_Update() {
     L_0043c5f8:
         add edx,eax
     L_0043c5fa:
-        mov word ptr [data_004918b0],dx
+        mov word ptr [g_rng],dx
     L_0043c601:
-        mov eax,dword ptr [data_004918b0]
+        mov eax,dword ptr [g_rng]
     L_0043c606:
         xor eax,9630h
     L_0043c60b:
@@ -137,7 +137,7 @@ extern "C" __declspec(naked) void __cdecl ScreenShake_Update() {
     L_0043c623:
         add ecx,edx
     L_0043c625:
-        mov word ptr [data_004918b0],cx
+        mov word ptr [g_rng],cx
     L_0043c62c:
         movzx ecx,cx
     L_0043c62f:
@@ -183,7 +183,7 @@ extern "C" __declspec(naked) void __cdecl ScreenShake_Update() {
     L_0043c663:
         mov dword ptr [data_00491e64],0
     L_0043c66d:
-        mov eax,dword ptr [data_004918b0]
+        mov eax,dword ptr [g_rng]
     L_0043c672:
         xor eax,9630h
     L_0043c677:
@@ -201,9 +201,9 @@ extern "C" __declspec(naked) void __cdecl ScreenShake_Update() {
     L_0043c68a:
         add edx,eax
     L_0043c68c:
-        mov word ptr [data_004918b0],dx
+        mov word ptr [g_rng],dx
     L_0043c693:
-        mov eax,dword ptr [data_004918b0]
+        mov eax,dword ptr [g_rng]
     L_0043c698:
         xor eax,9630h
     L_0043c69d:
@@ -219,7 +219,7 @@ extern "C" __declspec(naked) void __cdecl ScreenShake_Update() {
     L_0043c6b1:
         add ecx,edx
     L_0043c6b3:
-        mov word ptr [data_004918b0],cx
+        mov word ptr [g_rng],cx
     L_0043c6ba:
         movzx ecx,cx
     L_0043c6bd:

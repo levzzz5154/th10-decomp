@@ -16,49 +16,49 @@ int GameApp_00420870::LoadConfig(const char* path) {
     int size;
     bool valid = false;
 
-    GameConfig_InitializeDefaults(0, &data_00491c28.config);
+    GameConfig_InitializeDefaults(0, &g_application.config);
     char* file = Archive_LoadFile(path, &size, 1);
     if (file == 0) {
-        data_00474f70.Append(data_0046de7c);
+        g_log.Append(data_0046de7c);
     } else {
-        memcpy(&data_00491c28.config, file, sizeof(GameConfig));
+        memcpy(&g_application.config, file, sizeof(GameConfig));
         free(file);
-        if (data_00491c28.config.field_1a >= 2 || data_00491c28.config.field_1b >= 3 ||
-            data_00491c28.config.field_1c >= 2 || data_00491c28.config.field_1d >= 2 ||
-            data_00491c28.config.field_1e >= 3 || data_00491c28.config.field_1f >= 3 ||
-            data_00491c28.config.version_marker != 0x100003 || size != sizeof(GameConfig)) {
-            data_00474f70.Append(data_0046de48);
+        if (g_application.config.field_1a >= 2 || g_application.config.field_1b >= 3 ||
+            g_application.config.field_1c >= 2 || g_application.config.field_1d >= 2 ||
+            g_application.config.field_1e >= 3 || g_application.config.field_1f >= 3 ||
+            g_application.config.version_marker != 0x100003 || size != sizeof(GameConfig)) {
+            g_log.Append(data_0046de48);
         } else {
-            memcpy(data_00474e88, data_00491c28.config.version_prefix, 18);
+            memcpy(data_00474e88, g_application.config.version_prefix, 18);
             valid = true;
         }
     }
     if (!valid)
-        GameConfig_InitializeDefaults(0, &data_00491c28.config);
+        GameConfig_InitializeDefaults(0, &g_application.config);
 
     no_vsync = 0;
     if (config.flags & 4)
-        data_00474f70.Append(data_0046de2c);
+        g_log.Append(data_0046de2c);
     if (config.flags & 1)
-        data_00474f70.Append(data_0046de04);
+        g_log.Append(data_0046de04);
     if (config.field_1d)
-        data_00474f70.Append(data_0046dde4);
+        g_log.Append(data_0046dde4);
     if (config.flags & 2)
-        data_00474f70.Append(data_0046ddbc);
+        g_log.Append(data_0046ddbc);
     if (config.flags & 8)
-        data_00474f70.Append(data_0046dd84);
+        g_log.Append(data_0046dd84);
     if (config.flags & 0x10)
-        data_00474f70.Append(data_0046dd64);
+        g_log.Append(data_0046dd64);
     if (config.flags & 0x20) {
-        data_00474f70.Append(data_0046dd4c);
-        data_00491c28.no_vsync = 1;
+        g_log.Append(data_0046dd4c);
+        g_application.no_vsync = 1;
     }
     if (config.flags & 0x40)
-        data_00474f70.Append(data_0046dd28);
+        g_log.Append(data_0046dd28);
 
-    if (File_WriteWholeFile(path, &data_00491c28.config, sizeof(GameConfig)) != 0) {
-        data_00474f70.AppendLine(data_0046dd08, path);
-        data_00474f70.AppendLine(data_0046dcb0);
+    if (File_WriteWholeFile(path, &g_application.config, sizeof(GameConfig)) != 0) {
+        g_log.AppendLine(data_0046dd08, path);
+        g_log.AppendLine(data_0046dcb0);
         return -1;
     }
     return 0;

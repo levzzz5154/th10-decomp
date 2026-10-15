@@ -39,7 +39,7 @@ struct RenderStageState_00448770 {
     RenderStage_00448770* active_stage;          // +0x384
     int stage_index;                             // +0x388
 };
-extern "C" RenderStageState_00448770 data_00491c28;
+extern "C" RenderStageState_00448770 g_application;
 
 // 0x00448980 reads its manager from EDI and its bucket index from EAX; the
 // declaration only fixes the argument shape, the compiled anchor below supplies
@@ -48,11 +48,11 @@ extern "C" int __cdecl asm_AnimationManager_RenderBucket_00448980(void* manager,
 
 #pragma code_seg(".text$08stage0f")
 int SprtCtrlBatchView::RenderStage1Bucket0F() {
-    RenderStage_00448770* stage = &data_00491c28.stages[1];
-    data_00491c28.active_stage = stage;
+    RenderStage_00448770* stage = &g_application.stages[1];
+    g_application.active_stage = stage;
     stage->camera.ApplyDefault();
-    data_00491c30->Viewport(&data_00491c28.active_stage->camera.viewport_x);
-    data_00491c28.stage_index = 1;
+    g_d3d_device->Viewport(&g_application.active_stage->camera.viewport_x);
+    g_application.stage_index = 1;
     return asm_AnimationManager_RenderBucket_00448980(this, 0x0F);
 }
 #pragma code_seg()

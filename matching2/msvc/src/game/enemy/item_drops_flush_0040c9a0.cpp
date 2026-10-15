@@ -22,7 +22,7 @@ void DropSource_0040c9a0::FlushDrops(ItemDrops_0040c9a0* drops) {
 // arrives in ESI and the drops on the stack.
 #pragma code_seg(".text$079i_scatter")
 void DropSource_0040c9a0::ScatterDrops(ItemDrops_0040c9a0* drops) {
-    float angle = Rng_NextFloatSigned(&data_004918b0) * 3.1415927f;
+    float angle = Rng_NextFloatSigned(&g_rng) * 3.1415927f;
     for (int kind = 0; kind < 11; ++kind) {
         for (int i = 0; i < drops->counts[kind]; ++i) {
             ScatterOffset_0040c9d0 target;

@@ -4,7 +4,7 @@
 // The retail caller supplies the timer object in EAX and the frame count on
 // the stack. Native MSVC LTCG recovers that internal register convention when
 // this method is compiled with its task-specific compiler context.
-extern "C" float data_00476f78;
+extern "C" float g_game_speed;
 
 struct EmbeddedTimerState_0042a930 {
     unsigned char unknown_00[0x14];
@@ -23,7 +23,7 @@ void EmbeddedTimerState_0042a930::SetCountdown(int frames) {
         this->current_18 = 0;
         this->target_14 = 0xFFF0BDC1;
         this->previous_1c = 0.0f;
-        this->speed_20 = &data_00476f78;
+        this->speed_20 = &g_game_speed;
         this->flags_24 |= 1;
     }
     this->current_18 = frames;

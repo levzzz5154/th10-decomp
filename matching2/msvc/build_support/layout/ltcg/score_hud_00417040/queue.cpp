@@ -1,9 +1,9 @@
 #include "th10/game/score_hud_00417040.hpp"
-extern "C" short data_004749ce[];
+extern "C" short g_sound_priority[];
 // 0x0043DC90
 #pragma code_seg(".text$0043dc90_fn")
 int SoundQueue::Queue(int sound_id, int request) {
-    int priority = data_004749ce[sound_id * 4];
+    int priority = g_sound_priority[sound_id * 4];
     int slot;
     for (slot = 0; slot < 12; ++slot) {
         if (sound_ids[slot] < 0)

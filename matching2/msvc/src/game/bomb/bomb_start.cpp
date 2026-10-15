@@ -19,7 +19,7 @@ int __stdcall Bomb_Start(Bomb* bomb) {
     int handle;
     bomb->animation = *CreateScreenPositionedPrimary_00448db0(
         data_004776f0->resource, &handle, index, &bomb->position);
-    data_00492590.QueuePan(0x26, bomb->position.x);
+    g_sound_manager.QueuePan(0x26, bomb->position.x);
     int power = data_00474c48;
     g_front->SetPowerDigits(power / 20, (power % 20) * 100 / 20);
     PlayerInitializeGlobal* state = g_card;

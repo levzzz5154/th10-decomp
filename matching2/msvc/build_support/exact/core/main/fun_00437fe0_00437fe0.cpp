@@ -145,7 +145,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00437fe0_00437fe0() {
     L_004380c9:
         mov esi,dword ptr [data_00474dc4]
     L_004380cf:
-        mov ebx,dword ptr [data_0046602c]
+        mov ebx,dword ptr [imp_SelectObject]
     L_004380d5:
         push edi
     L_004380d6:
@@ -167,7 +167,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00437fe0_00437fe0() {
     L_004380ee:
         push esi
     L_004380ef:
-        call dword ptr [data_0046601c]
+        call dword ptr [imp_SetBkMode]
     L_004380f5:
         mov eax,dword ptr [esp+38h]
     L_004380f9:
@@ -193,7 +193,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00437fe0_00437fe0() {
     L_00438112:
         push esi
     L_00438113:
-        call dword ptr [data_00466018]
+        call dword ptr [imp_SetTextColor]
     L_00438119:
         mov ecx,dword ptr [esp+10h]
     L_0043811d:
@@ -213,7 +213,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00437fe0_00437fe0() {
     L_0043812d:
         push esi
     L_0043812e:
-        call dword ptr [data_00466014]
+        call dword ptr [imp_TextOutA]
     L_00438134:
         mov edx,dword ptr [esp+30h]
     L_00438138:

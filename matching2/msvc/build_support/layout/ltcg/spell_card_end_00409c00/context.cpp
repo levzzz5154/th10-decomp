@@ -4,7 +4,7 @@
 #include "../../../../src/game/card/card_end.cpp"
 #include "../animation_lookup_anchors.cpp"
 
-extern "C" short data_004749ce[];
+extern "C" short g_sound_priority[];
 
 extern "C" __declspec(noinline) void* __stdcall CardStandIn_Allocate(void* manager);
 extern "C" __declspec(noinline) void __stdcall CardStandIn_Register(void* manager, int* out, void* object);
@@ -80,7 +80,7 @@ AnimationScriptId __stdcall Card_CreateAnimation_00448d00(void* file, int script
 // 0x0043DC90
 #pragma code_seg(".text$01e_queue")
 int SoundQueue::Queue(int sound_id, int request) {
-    int priority = data_004749ce[sound_id * 4];
+    int priority = g_sound_priority[sound_id * 4];
     int slot;
     for (slot = 0; slot < 12; ++slot) {
         if (sound_ids[slot] < 0)

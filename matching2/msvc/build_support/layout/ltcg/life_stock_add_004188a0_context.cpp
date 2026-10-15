@@ -7,9 +7,9 @@
 #pragma code_seg(".text$0040a000_context")
 extern "C" int __stdcall LifeStockAddContext(const int* amounts, int count) {
     for (int index = 0; index < count; ++index)
-        data_00474c40.AddLives(amounts[index]);
+        g_globals.AddLives(amounts[index]);
     for (int index = 0; index < count; ++index)
-        data_00474c40.AddPower(amounts[index]);
+        g_globals.AddPower(amounts[index]);
     return count;
 }
 #pragma code_seg()

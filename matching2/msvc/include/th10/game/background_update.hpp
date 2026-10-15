@@ -40,6 +40,6 @@ typedef char StageCameraSize[sizeof(BackGroundCamera) == 0x118 ? 1 : -1];
 extern "C" {
 // 0x00403C80: the stage script interpreter, one stack argument.
 void __stdcall BackGround_RunScript(BackGround* stage);
-extern float data_00476f78;
+extern float g_game_speed;
 extern BackGroundCamera data_00491d7c;
 }

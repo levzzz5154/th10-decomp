@@ -49,18 +49,18 @@ __declspec(noinline) int __stdcall TitleMode9_00430ff0(Title* room) {
         if ((short)data_00474e30.InputMaskActive(0x10)) cursor->Advance(-1);
         if ((short)data_00474e30.InputMaskActive(0x20)) cursor->Advance(1);
         if (cursor->previous_selection != cursor->selection)
-            data_00492590.Queue(12, 0);
+            g_sound_manager.Queue(12, 0);
         if (data_00474e36 & 0xa) {
             room->SetTimerTarget(4);
-            data_00492590.Queue(11, 0);
+            g_sound_manager.Queue(11, 0);
             data_00491c08 = cursor->selection;
         } else if (data_00474e36 & 0x1001) {
             if (data_0047783c->shots[data_00474c68][data_00474c6c]
                     .practice[data_00474c74][cursor->selection].unlocked == 0) {
-                data_00492590.Queue(0x25, 0);
+                g_sound_manager.Queue(0x25, 0);
             } else {
                 room->SetTimerTarget(3);
-                data_00492590.Queue(10, 0);
+                g_sound_manager.Queue(10, 0);
             }
             data_00491c08 = cursor->selection;
             data_00474cac = 0;

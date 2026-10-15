@@ -26,11 +26,11 @@ bool __stdcall FontSurface_Create_00436af0(GdiSurface_00436a30* surface,int widt
         bitmap.blue_mask=entry->blue_mask;bitmap.alpha_mask=entry->alpha_mask;
     }
     void* pixels;
-    void* dib=data_00466024(0,&bitmap,0,&pixels,0,0);
+    void* dib=imp_CreateDIBSection(0,&bitmap,0,&pixels,0,0);
     if (!dib) return false;
     memset(pixels,0,bitmap.image_size);
-    void* dc=data_00466020(0);
-    void* previous=data_0046602c(dc,dib);
+    void* dc=imp_CreateCompatibleDC(0);
+    void* previous=imp_SelectObject(dc,dib);
     surface->pixels=pixels;
     surface->previous_bitmap=previous;
     surface->stride=stride;

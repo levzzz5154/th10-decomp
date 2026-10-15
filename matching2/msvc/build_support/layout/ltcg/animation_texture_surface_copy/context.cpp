@@ -11,7 +11,7 @@ extern "C" int __stdcall AnimationTextureSurfaceCopyContext(
         RenderState_00448450** state) {
     // The render state object is reachable through pointers in the game, so
     // stores through other pointers may alias its members.
-    *state = &data_00491c28;
+    *state = &g_application;
     for (int i = 0; i < count; ++i)
         managers[i]->CaptureBackBuffer(values[i], values[i + 1], i, count - i, count + i,
                                        count ^ i, values[i + 2], values[i + 3],

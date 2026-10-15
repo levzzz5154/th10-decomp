@@ -3,7 +3,7 @@
 #include <math.h>
 #include "th10/game/player.hpp"
 
-extern "C" float data_00470b04, data_00470b64, data_00470b68, data_00476f78;
+extern "C" float data_00470b04, data_00470b64, data_00470b68, g_game_speed;
 
 // Steer toward the target with an angular offset and scaled turn rate until
 // the deadline, then clear the homing flag. The homing timer always advances.
@@ -29,7 +29,7 @@ void PlayerHomingState_00407EF0::HomeTowardTarget() {
         angle_3E4 = Angle_NormalizeSum(
             angle_3E4, WrappedAngleDifference(Angle_NormalizeSum(heading_offset_7CC, target_angle),
                                               angle_3E4) *
-                           turn_rate_7C8 * data_00476f78);
+                           turn_rate_7C8 * g_game_speed);
         velocity.SetPolar(angle_3E4, scalar_3D8);
     }
 

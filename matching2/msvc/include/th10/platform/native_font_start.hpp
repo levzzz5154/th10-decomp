@@ -28,12 +28,12 @@ typedef char FontBitmapSize[sizeof(FontBitmapV4)==108?1:-1];
 extern "C" {
  extern FontFormatRecord data_00474918[];
  extern GdiSurface_00436a30 data_00474cb0;
- extern FontRandomState data_004918b0;
+ extern FontRandomState g_rng;
 
  extern void* data_00491868[15];
  extern const char data_0046f36c[];
- extern void* (__stdcall* data_00466024)(void*,const FontBitmapV4*,unsigned int,void**,void*,unsigned int);
- extern void* (__stdcall* data_00466020)(void*);
+ extern void* (__stdcall* imp_CreateDIBSection)(void*,const FontBitmapV4*,unsigned int,void**,void*,unsigned int);
+ extern void* (__stdcall* imp_CreateCompatibleDC)(void*);
  __declspec(dllimport) void* __stdcall CreateFontA(int,int,int,int,int,unsigned int,unsigned int,unsigned int,unsigned int,unsigned int,unsigned int,unsigned int,unsigned int,const char*);
 }
 __declspec(noinline) bool __stdcall FontSurface_Create_00436af0(GdiSurface_00436a30*,int,int,int);

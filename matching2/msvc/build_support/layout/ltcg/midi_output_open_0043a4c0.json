@@ -44,17 +44,17 @@
       "kind": "metadata"
     },
     {
-      "symbol": "_data_004662a4",
+      "symbol": "_imp_midiOutClose",
       "address": "0x004662A4",
       "kind": "data"
     },
     {
-      "symbol": "_data_004662a8",
+      "symbol": "_imp_midiOutReset",
       "address": "0x004662A8",
       "kind": "data"
     },
     {
-      "symbol": "_data_004662ac",
+      "symbol": "_imp_midiOutOpen",
       "address": "0x004662AC",
       "kind": "data"
     },

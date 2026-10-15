@@ -15,13 +15,13 @@ Bomb* g_bomb;
 GameThread_0040dc80* g_card;
 Gui_0040dc80* g_front;
 AnimationManager_0040dc80* g_sprt_ctrl;
-ScoreState_0040dc80 data_00474c40;
-SoundQueue data_00492590;
+ScoreState_0040dc80 g_globals;
+SoundQueue g_sound_manager;
 int data_00474c50;
 PolarVec3 data_00491e6c;
 }
 
-extern "C" short data_004749ce[];
+extern "C" short g_sound_priority[];
 extern "C" void __stdcall ext_call(void* a, int b);
 extern "C" void __cdecl ext_free(void* memory);
 extern "C" int __stdcall ext_run(EclChildState* state, float delta);
@@ -228,7 +228,7 @@ int __fastcall FieldContact_004266b0(
 
 // src/core/sound/sound_queue_pan_0043dd10.cpp
 void SoundQueue::QueuePan(int sound_id, float pan) {
-    int priority = data_004749ce[sound_id * 4];
+    int priority = g_sound_priority[sound_id * 4];
     int request = int(pan * (1000.0f / 192.0f));
     int slot;
     for (slot = 0; slot < 12; ++slot) {

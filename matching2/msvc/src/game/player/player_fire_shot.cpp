@@ -84,7 +84,7 @@ extern "C" __declspec(noinline) int __stdcall Player_FireShot(
             if (shot->on_fire)
                 shot->on_fire(player, bullet, frame);
             if (shot->sound >= 0)
-                data_00492590.QueuePan(shot->sound, bullet->motion.position.x);
+                g_sound_manager.QueuePan(shot->sound, bullet->motion.position.x);
             return 0;
         }
     }

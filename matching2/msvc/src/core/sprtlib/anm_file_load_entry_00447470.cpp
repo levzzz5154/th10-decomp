@@ -17,11 +17,11 @@ int __stdcall AnmFile_LoadEntry_00447470(AnmUploadTag_00446c70 manager, AnmFile_
                                          int sprite_base, int script_base,
                                          const AnmEntryHeader_00446c70* entry, int index) {
     if (!entry) {
-        data_00474f70.AppendLine(data_00470274);
+        g_log.AppendLine(data_00470274);
         return -1;
     }
     if (entry->version != 4) {
-        data_00474f70.AppendLine(data_00470254);
+        g_log.AppendLine(data_00470254);
         return -1;
     }
     if (!entry->has_data) {
@@ -32,7 +32,7 @@ int __stdcall AnmFile_LoadEntry_00447470(AnmUploadTag_00446c70 manager, AnmFile_
         } else if (AnmTexture_CreateFromMemory_00446eb0(manager, &file->textures[index],
                                                         entry->format, entry->color_key,
                                                         entry->width, entry->height) != 0) {
-            data_00474f70.AppendLine(data_004701b0, name);
+            g_log.AppendLine(data_004701b0, name);
             return -1;
         }
     } else if (AnmTexture_CreateAndUpload_00446f40(
@@ -40,7 +40,7 @@ int __stdcall AnmFile_LoadEntry_00447470(AnmUploadTag_00446c70 manager, AnmFile_
                    reinterpret_cast<const AnmThtxHeader_00446c70*>(
                        reinterpret_cast<const unsigned char*>(entry) + entry->thtx_offset),
                    entry->format, entry->width, entry->height) != 0) {
-        data_00474f70.AppendLine(data_0047016c);
+        g_log.AppendLine(data_0047016c);
         return -1;
     }
     file->textures[index].texture->SetPriority(entry->priority);

@@ -101,7 +101,7 @@ struct HudGameState {
 typedef char GameStateField5c_0042a6a0[offsetof(HudGameState, next_extend) == 0x5C ? 1 : -1];
 
 
-extern "C" HudGameState data_00474c40;
+extern "C" HudGameState g_globals;
 extern "C" FrontScoreView* g_front;
 extern "C" const int data_00474474[5];
 extern "C" const int data_00474488[5];

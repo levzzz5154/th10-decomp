@@ -1,6 +1,6 @@
 #include "th10/game/laser_spawn_0041c510.hpp"
 extern "C" unsigned char data_0046dab0;
-extern "C" unsigned char data_00476f78;
+extern "C" unsigned char g_game_speed;
 #pragma code_seg(".text$f0041c030F")
 __declspec(noinline) LaserBase_0041c030 *__fastcall
 LaserBase_Construct_0041c030(void *, LaserBase_0041c030 *self) {
@@ -19,7 +19,7 @@ LaserBase_Construct_0041c030(void *, LaserBase_0041c030 *self) {
         self->timer.current = 0;
         self->timer.previous = -999999;
         self->timer.elapsed = 0.0f;
-        self->timer.speed = (const float *)&data_00476f78;
+        self->timer.speed = (const float *)&g_game_speed;
         self->timer.flags = flags | 1u;
     }
     self->timer.current = 0;

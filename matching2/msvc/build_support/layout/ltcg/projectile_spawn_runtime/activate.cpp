@@ -5,7 +5,7 @@
 #include "th10/game/projectile_spawn_runtime_004067d0.hpp"
 
 extern "C" void* data_004776f0;
-extern "C" float data_00476f78;
+extern "C" float g_game_speed;
 
 struct PlayfieldPoint {
     float x, y;
@@ -64,7 +64,7 @@ int PlayerCollisionRecord::Activate() {
             timer_current = 0;
             timer_previous = -999999;
             timer_elapsed = 0.0f;
-            timer_speed = &data_00476f78;
+            timer_speed = &g_game_speed;
             timer_flags |= 1u;
         }
         timer_current = 0;

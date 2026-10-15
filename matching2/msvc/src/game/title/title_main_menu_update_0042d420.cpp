@@ -75,14 +75,14 @@ __declspec(noinline) int __stdcall TitleMainMenu_0042d420(Title* room) {
         if ((short)data_00474e30.InputMaskActive(0x10)) cursor->Advance(-1);
         if ((short)data_00474e30.InputMaskActive(0x20)) cursor->Advance(1);
         if (cursor->previous_selection != cursor->selection) {
-            data_00492590.Queue(12, 0);
+            g_sound_manager.Queue(12, 0);
             RunCursorSlot_0042d420(room);
             room->SetSlotFrame(0, cursor->selection + 7);
         }
         if (data_00474e36 & 0xa) {
             if (cursor->selection == 7)
                 goto quit;
-            data_00492590.Queue(11, 0);
+            g_sound_manager.Queue(11, 0);
             SelectItem_0042d420(*cursor, 7);
             reinterpret_cast<TitleAnimationSlotView*>(room)->RestartSlot(0);
             room->SetSlotFrame(0, cursor->selection + 7);
@@ -95,27 +95,27 @@ __declspec(noinline) int __stdcall TitleMainMenu_0042d420(Title* room) {
             case 2:
             case 3:
             case 4:
-                data_00492590.Queue(10, 0);
+                g_sound_manager.Queue(10, 0);
                 room->SetSlotFrame(0x5a, 7);
                 room->SetSlotFrame(0x5b, 7);
                 room->SetTimerTarget(4);
                 break;
             case 5:
-                data_00492590.Queue(10, 0);
+                g_sound_manager.Queue(10, 0);
                 room->SetSlotFrame(0x5a, 7);
                 room->SetSlotFrame(0x5b, 7);
                 room->SetTimerTarget(4);
-                data_00492590.Queue(10, 0);
+                g_sound_manager.Queue(10, 0);
                 break;
             case 6:
-                data_00492590.Queue(10, 0);
+                g_sound_manager.Queue(10, 0);
                 room->SetTimerTarget(4);
                 reinterpret_cast<TitleAnimationSlotView*>(room)->RestartSlot(0x5a);
                 reinterpret_cast<TitleAnimationSlotView*>(room)->RestartSlot(0x5b);
                 break;
             case 7:
             quit:
-                data_00492590.Queue(11, 0);
+                g_sound_manager.Queue(11, 0);
                 room->SetTimerTarget(4);
                 break;
             }

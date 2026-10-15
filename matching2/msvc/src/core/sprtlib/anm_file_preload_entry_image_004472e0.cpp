@@ -15,11 +15,11 @@ int __stdcall AnmFile_PreloadEntryImage_004472e0(AnmFile_004470c0* file,
     char path[260];
     int size;
     if (!entry) {
-        data_00474f70.AppendLine(data_00470274);
+        g_log.AppendLine(data_00470274);
         return -1;
     }
     if (entry->version != 4) {
-        data_00474f70.AppendLine(data_00470254);
+        g_log.AppendLine(data_00470254);
         return -1;
     }
     if (!entry->has_data) {
@@ -28,7 +28,7 @@ int __stdcall AnmFile_PreloadEntryImage_004472e0(AnmFile_004470c0* file,
             sprintf(path, data_0046e1c8, name);
             char* data = Archive_LoadFile(path, &size, 1);
             if (!data) {
-                data_00474f70.AppendLine(data_00470210, name);
+                g_log.AppendLine(data_00470210, name);
                 return -1;
             }
             file->textures[index].data_size = size;

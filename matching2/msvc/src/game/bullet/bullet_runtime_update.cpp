@@ -12,12 +12,12 @@ extern "C" int __stdcall BulletRuntimeTick(BulletRuntimeState* state) {
     }
     switch (state->mode) {
     case 3: {
-        MotionVector3 movement = state->velocity * data_00476f78;
+        MotionVector3 movement = state->velocity * g_game_speed;
         state->position += movement * 0.5f;
         break;
     }
     case 2: {
-        MotionVector3 movement = state->velocity * data_00476f78;
+        MotionVector3 movement = state->velocity * g_game_speed;
         state->position += movement * 0.5f;
         if (!state->animation_progress)
             break;
@@ -50,7 +50,7 @@ extern "C" int __stdcall BulletRuntimeTick(BulletRuntimeState* state) {
                     state->immunity_timer.Advance(-1.0f);
             }
         }
-        state->position += state->velocity * data_00476f78;
+        state->position += state->velocity * g_game_speed;
         if (state->flags & 2u) {
             int contact = FieldContact004266B0(
                 reinterpret_cast<const ContactVector2*>(&state->position),
@@ -69,7 +69,7 @@ extern "C" int __stdcall BulletRuntimeTick(BulletRuntimeState* state) {
                 AnimationManager_CreateScreenPositionedPrimary_00448db0(
                     data_004776f0->resource, &result, 434,
                     reinterpret_cast<const AnimationPosition_00448db0*>(&state->position));
-                data_00492590.QueuePan(28, state->position.x);
+                g_sound_manager.QueuePan(28, state->position.x);
             }
         }
         break;

@@ -19,7 +19,7 @@ int ColorViewport::Draw() {
     data_00491cf4.y = 0;
     data_00491cf4.width = 640;
     data_00491cf4.height = 480;
-    data_00491c30->Viewport(&data_00491cf4);
+    g_d3d_device->Viewport(&data_00491cf4);
     DrawSolidQuad(&rect, color | (alpha << 24));
     return 1;
 }

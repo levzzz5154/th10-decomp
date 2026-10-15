@@ -1,15 +1,15 @@
 #define g_sprt_ctrl stage_front_g_sprt_ctrl
 #define g_front stage_front_g_front
-#define data_00474c40 stage_front_data_00474c40
+#define g_globals stage_front_data_00474c40
 #define g_ascii_manager stage_front_data_004776e0
 #define g_enemy_ctrl stage_front_g_enemy_ctrl
 #define g_player stage_front_data_00477834
 #define data_00477838 stage_front_data_00477838
 #define data_0047783c stage_front_data_0047783c
-#define data_00476f78 stage_front_data_00476f78
+#define g_game_speed stage_front_data_00476f78
 #define data_00491fc4 stage_front_data_00491fc4
 #define data_00491fb8 stage_front_data_00491fb8
-#define data_00492590 stage_front_data_00492590
+#define g_sound_manager stage_front_data_00492590
 #include "front_view.hpp"
 static __forceinline Entity *AllocateFrontObject(void *resource, int script, int offset = 0) {
     Entity *object = reinterpret_cast<FrontAnimationPool *>(g_sprt_ctrl)->Allocate();
@@ -64,10 +64,10 @@ void FrontInitializeView::Initialize() {
                                 reinterpret_cast<AnimationObject_0043e710 *>(&animations[35 + i]),
                                 51 + i);
     }
-    SetLifeIcons(data_00474c40.lives);
+    SetLifeIcons(g_globals.lives);
     // Split the signed power word into its whole value and two decimal digits.
-    int whole = data_00474c40.power_units / 20;
-    int fraction = (data_00474c40.power_units % 20) * 100 / 20;
+    int whole = g_globals.power_units / 20;
+    int fraction = (g_globals.power_units % 20) * 100 / 20;
     reinterpret_cast<Resource_0043e5a0 *>(captions)->ConfigureObject(
         reinterpret_cast<AnimationObject_0043e5a0 *>(&animations[29]), whole + 8);
     int digit = fraction % 10;
@@ -76,32 +76,32 @@ void FrontInitializeView::Initialize() {
     reinterpret_cast<Resource_0043e5a0 *>(captions)->ConfigureObject(
         reinterpret_cast<AnimationObject_0043e5a0 *>(&animations[32]), digit + 8);
     if (data_00491fb8 != 8) {
-        if (!(data_00474c40.flags.bytes[0] & 0x20)) {
+        if (!(g_globals.flags.bytes[0] & 0x20)) {
             Entity *object = AllocateFrontObject(alternate_resource, 0);
             RegisterFrontInline(reinterpret_cast<FrontAnimationLists *>(g_sprt_ctrl), object);
             object = AllocateFrontObject(alternate_resource, 1);
             RegisterFrontInline(reinterpret_cast<FrontAnimationLists *>(g_sprt_ctrl), object);
         }
     }
-    if (data_00474c40.flags.bytes[0] & 0x20) {
+    if (g_globals.flags.bytes[0] & 0x20) {
         Entity *object = AllocateFrontObject(captions, 113);
         RegisterFrontInline(reinterpret_cast<FrontAnimationLists *>(g_sprt_ctrl), object);
     }
     LoadScript_0043e710(
         reinterpret_cast<AnimationResource_0043e710 *>(g_ascii_manager->title_resource),
         reinterpret_cast<AnimationObject_0043e710 *>(&animations[42]), 0);
-    if (data_00474c40.stage == 1 && !g_game->stage_one_gate && !data_00474c40.continues) {
+    if (g_globals.stage == 1 && !g_game->stage_one_gate && !g_globals.continues) {
         Entity *object = AllocateFrontObject(captions, 79);
         RegisterFrontInline(reinterpret_cast<FrontAnimationLists *>(g_sprt_ctrl), object);
     }
     if (data_00491fc4) {
-        Entity *object = AllocateFrontObject(captions, data_00474c40.difficulty, 102);
+        Entity *object = AllocateFrontObject(captions, g_globals.difficulty, 102);
         FrontAnimationLists *lists = reinterpret_cast<FrontAnimationLists *>(g_sprt_ctrl);
         RegisterFrontInline(lists, object);
         difficulty_caption.value = lists->next_id.value;
         g_sprt_ctrl->SetFrame3Inline(difficulty_caption);
     }
-    Entity *object = AllocateFrontObject(captions, data_00474c40.difficulty, 107);
+    Entity *object = AllocateFrontObject(captions, g_globals.difficulty, 107);
     FrontAnimationLists *lists = reinterpret_cast<FrontAnimationLists *>(g_sprt_ctrl);
     RegisterFrontInline(lists, object);
     FrontAnimationId caption_id = difficulty_caption;
@@ -113,13 +113,13 @@ void FrontInitializeView::Initialize() {
 #pragma code_seg()
 #undef g_sprt_ctrl
 #undef g_front
-#undef data_00474c40
+#undef g_globals
 #undef g_ascii_manager
 #undef g_enemy_ctrl
 #undef g_player
 #undef data_00477838
 #undef data_0047783c
-#undef data_00476f78
+#undef g_game_speed
 #undef data_00491fc4
 #undef data_00491fb8
-#undef data_00492590
+#undef g_sound_manager

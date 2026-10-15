@@ -4,15 +4,15 @@ void WaveSoundManager::StopMusicWorker() {
     if (!music) return;
     music->Aggregate();
     if (thread) {
-        const SoundPost post=data_00466210;
+        const SoundPost post=imp_PostThreadMessageA;
         post(thread_id,0x12,0,0);
-        const SoundWait wait=data_0046611c;
+        const SoundWait wait=imp_WaitForSingleObject;
         unsigned int result=wait(thread,0x100);
         while (result!=0) {
             post(thread_id,0x12,0,0);
             result=wait(thread,0x100);
         }
-        const SoundClose close=data_004660cc;
+        const SoundClose close=imp_CloseHandle;
         close(thread);
         close(event);
         thread=0;

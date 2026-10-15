@@ -725,12 +725,12 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_0046627c",
+      "symbol": "_imp_joyGetDevCapsA",
       "address": "0x0046627C",
       "kind": "data"
     },
     {
-      "symbol": "_data_00466280",
+      "symbol": "_imp_joyGetPosEx",
       "address": "0x00466280",
       "kind": "data"
     },
@@ -760,7 +760,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00476f78",
+      "symbol": "_g_game_speed",
       "address": "0x00476F78",
       "kind": "data"
     },
@@ -835,7 +835,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_data_00474f70",
+      "symbol": "_g_log",
       "address": "0x00474F70",
       "kind": "data"
     },

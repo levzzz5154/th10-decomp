@@ -72,7 +72,7 @@ void ItemRunState::AddLives(int amount) {
     lives+=amount;
     if (lives>9) lives=9;
     else {
-        data_00492590.Queue(44,0);
+        g_sound_manager.Queue(44,0);
         ItemAnimationHandle* banner=&g_front->ExtendBanner();
         static_cast<ItemAnimationLists*>(g_sprt_ctrl)->MarkForRemoval(*banner);
         banner->value=0;
@@ -80,7 +80,7 @@ void ItemRunState::AddLives(int amount) {
         void** output=ItemAnimation_CreatePrimaryBack(g_front->AnimationResource(),&created,75,15);
         memcpy(banner,output,sizeof(*banner));
     }
-    g_front->SetActiveCount(data_00474c40.lives);
+    g_front->SetActiveCount(g_globals.lives);
 }
 #pragma code_seg(".text$f004054b0F")
 void ItemHud::SetPowerDigits(int whole,int fraction) {
@@ -118,9 +118,9 @@ float ItemCollector::AngleFromPoint(const Vector3* point) {
     return static_cast<float>(atan2(static_cast<double>(dy),static_cast<double>(dx)));
 }
 #pragma code_seg(".text$f0043dd10F")
-extern "C" short data_004749ce[];
+extern "C" short g_sound_priority[];
 void SoundQueue::QueuePan(int sound_id,float pan) {
-    int priority=data_004749ce[sound_id*4];
+    int priority=g_sound_priority[sound_id*4];
     int request=int(pan*(1000.0f/192.0f));
     int slot;
     for (slot=0;slot<12;++slot) {

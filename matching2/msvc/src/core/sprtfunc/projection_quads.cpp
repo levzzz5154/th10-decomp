@@ -32,7 +32,7 @@ extern "C" float data_00470b0c;            //  0.5f
 extern "C" float data_00470b78;            // -0.5f
 
 extern "C" ProjectionDevice_00443B60* data_00491fac;
-extern "C" ProjectionVertex data_004978c0[4];
+extern "C" ProjectionVertex g_quad_vertices[4];
 
 // The projection helper the renderer reaches through its own import stub.
 extern "C" int __stdcall D3DXVec3Project(void* out, const void* in, const void* viewport,
@@ -119,10 +119,10 @@ int BillboardSource_00443B60::BuildProjectedQuad() {
     extent_x = this->scale_x * this->size_x * half;
     extent_y = this->scale_y * this->size_y * half;
 
-    data_004978c0[3].z = center.z;
-    data_004978c0[2].z = center.z;
-    data_004978c0[1].z = center.z;
-    data_004978c0[0].z = center.z;
+    g_quad_vertices[3].z = center.z;
+    g_quad_vertices[2].z = center.z;
+    g_quad_vertices[1].z = center.z;
+    g_quad_vertices[0].z = center.z;
 
     __asm {
         fld angle
@@ -163,14 +163,14 @@ int BillboardSource_00443B60::BuildProjectedQuad() {
         break;
     }
 
-    data_004978c0[0].x = xs[0] * ca - ys[0] * sa + center_x;
-    data_004978c0[0].y = xs[0] * sa + ys[0] * ca + center_y;
-    data_004978c0[1].x = xs[1] * ca - ys[1] * sa + center_x;
-    data_004978c0[1].y = xs[1] * sa + ys[1] * ca + center_y;
-    data_004978c0[2].x = xs[2] * ca - ys[2] * sa + center_x;
-    data_004978c0[2].y = xs[2] * sa + ys[2] * ca + center_y;
-    data_004978c0[3].x = xs[3] * ca - ys[3] * sa + center_x;
-    data_004978c0[3].y = xs[3] * sa + ys[3] * ca + center_y;
+    g_quad_vertices[0].x = xs[0] * ca - ys[0] * sa + center_x;
+    g_quad_vertices[0].y = xs[0] * sa + ys[0] * ca + center_y;
+    g_quad_vertices[1].x = xs[1] * ca - ys[1] * sa + center_x;
+    g_quad_vertices[1].y = xs[1] * sa + ys[1] * ca + center_y;
+    g_quad_vertices[2].x = xs[2] * ca - ys[2] * sa + center_x;
+    g_quad_vertices[2].y = xs[2] * sa + ys[2] * ca + center_y;
+    g_quad_vertices[3].x = xs[3] * ca - ys[3] * sa + center_x;
+    g_quad_vertices[3].y = xs[3] * sa + ys[3] * ca + center_y;
     return 0;
 }
 #pragma code_seg()

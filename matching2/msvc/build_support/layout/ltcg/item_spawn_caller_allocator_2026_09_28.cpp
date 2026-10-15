@@ -9,7 +9,7 @@ struct ItemAnimationResources_0041bb00 {
 };
 extern "C" {
 extern short data_00474c48;
-extern float data_00476f78;
+extern float g_game_speed;
 extern ItemAnimationResources_0041bb00* data_004776f0;
 }
 #include "th10/render/animation_public_callers.hpp"
@@ -29,7 +29,7 @@ static __forceinline void ResetSpawnTimer_0041bb00(SpawnItem_0041bb00* item) {
         item->timer_current=0;
         item->timer_previous=-999999;
         item->timer_elapsed=0.0f;
-        item->timer_speed=&data_00476f78;
+        item->timer_speed=&g_game_speed;
         item->timer_flags=flags;
     }
     item->timer_current=0;

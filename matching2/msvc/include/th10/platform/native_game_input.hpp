@@ -57,12 +57,12 @@ typedef char GameInputFormatOffset[offsetof(GameInputDeviceVtable,SetDataFormat)
 typedef char GameInputCooperativeOffset[offsetof(GameInputDeviceVtable,SetCooperativeLevel)==0x34?1:-1];
 typedef char GameInputCapabilitiesSize[sizeof(GameInputCapabilities)==44?1:-1];
 extern "C" {
-extern GameInputSystem data_00491c28;
+extern GameInputSystem g_application;
 extern unsigned int data_00491ff4;
 extern const GameInputGuid data_00467aac,data_0046793c;
 extern const GameInputDataFormat data_004664fc,data_00466704;
 extern char data_0046f9e0[],data_0046f9b0[],data_0046f97c[],data_0046f954[],data_0046f934[];
-extern long (__stdcall* data_0046621c)(void*,int);
+extern long (__stdcall* imp_GetWindowLongA)(void*,int);
 long __stdcall DirectInput8Create_0045071e(void*,unsigned int,const GameInputGuid*,GameDirectInput**,void*);
 int __stdcall GameInput_EnumDevice_0043baf0(const GameInputDeviceInstance*,void*);
 int __stdcall GameInput_EnumObject_0043bb30(const GameInputDeviceObject*,void*);
