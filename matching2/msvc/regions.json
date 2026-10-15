@@ -22573,9 +22573,9 @@
       "kind": "padding"
     },
     {
-      "name": "semantic_TriggerField_ClassifyRotatedRegion_004267f0",
+      "name": "semantic_Player_CheckLaserHit_004267f0",
       "source": "src/game/trigger_region_004267f0.cpp",
-      "symbol": "?ClassifyRotatedRegion@TriggerField_004267f0@@QAEHPBUPoint3_OrientedRect@@MMM@Z",
+      "symbol": "?CheckLaserHit@Player@@QAEHPBUPoint3_OrientedRect@@MMM@Z",
       "address": "0x004267F0",
       "size": 471,
       "kind": "semantic",
@@ -22625,9 +22625,9 @@
       "kind": "padding"
     },
     {
-      "name": "ActivateField_00426cf0",
+      "name": "Player_Hit_00426cf0",
       "source": "src/game/trigger_activation.cpp",
-      "symbol": "_ActivateField_00426cf0@4",
+      "symbol": "_Player_Hit@4",
       "address": "0x00426CF0",
       "size": 627,
       "kind": "semantic",

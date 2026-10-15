@@ -1,5 +1,6 @@
 #include "th10/game/pause_result_open_004231d0/dispatcher_contract.hpp"
 #include "th10/math/timer.hpp"
+#include "th10/game/player.hpp"
 
 // The screen position of the activation animations. A value constructor keeps
 // all three components together while adding the playfield's screen offset.
@@ -75,11 +76,10 @@ static __forceinline void SpawnTriggerParticle(AnimationResource_00449870* resou
     DispatcherSetPosition(manager, position, AnimationScriptId(handle.value));
 }
 #pragma code_seg(".text$00426cf0_fn")
-struct TriggerField_004267f0;
-extern "C" __declspec(noinline) void __stdcall ActivateField_00426cf0(TriggerField_004267f0* field) {
-    // This view also exposes the embedded animation and timers beyond the
-    // fields used by the rotated-region classifier's narrower declaration.
-    TriggerAnimationField* target = reinterpret_cast<TriggerAnimationField*>(field);
+extern "C" __declspec(noinline) void __stdcall Player_Hit(Player* player) {
+    // Retail sets the two timers through an inline Set that stores in a
+    // different order from FrameTimer::Set; this view keeps that copy.
+    TriggerAnimationField* target = reinterpret_cast<TriggerAnimationField*>(player);
     target->mode = 4;
     TriggerPosition position(target->position);
     SpawnTriggerParticle(data_004776f0->resource, 0x162, &position);
@@ -91,14 +91,14 @@ extern "C" __declspec(noinline) void __stdcall ActivateField_00426cf0(TriggerFie
     target->activation_timer.Set(6);
     LoadScript_0043e710(reinterpret_cast<AnimationResource_0043e710*>(target->resource),
         reinterpret_cast<AnimationObject_0043e710*>(&target->animation), 0);
-    TriggerPlayer* player = data_004776f4;
-    if (player->elapsed_frames >= 60) {
-        player->pending_state = 0;
-        player->flags &= ~2u;
+    TriggerPlayer* state = data_004776f4;
+    if (state->elapsed_frames >= 60) {
+        state->pending_state = 0;
+        state->flags &= ~2u;
         // Slot 2 retains its pending flag, as in the standalone cleanup.
         for (int i = 0; i < 8; ++i)
             if (i != 2)
-                player->entities[i].flags &= ~2u;
+                state->entities[i].flags &= ~2u;
     }
 }
 #pragma code_seg()

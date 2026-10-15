@@ -57,7 +57,6 @@ struct LineLaser {
 struct LaserAnimationBank {unsigned char reserved[0x3e0b50];void* resource;};
 extern "C" {
 extern float data_00476f78;
-extern TriggerField_004267f0* data_00477834;
 extern LaserAnimationBank* data_004776f0;
 void __stdcall RunLaserAnimation_0043ee30(Entity* object);
 }

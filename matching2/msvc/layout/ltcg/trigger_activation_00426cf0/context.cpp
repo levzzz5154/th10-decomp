@@ -13,8 +13,8 @@
 #pragma code_seg()
 
 #pragma code_seg(".text$0044ba00_context")
-extern "C" int __stdcall TriggerActivationContext(TriggerField_004267f0* field) {
-    ActivateField_00426cf0(field);
+extern "C" int __stdcall TriggerActivationContext(Player* player) {
+    Player_Hit(player);
     return 1;
 }
 #pragma code_seg()

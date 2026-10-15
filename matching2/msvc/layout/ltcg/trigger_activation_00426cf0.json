@@ -25,14 +25,15 @@
     "include/th10/math/timer.hpp",
     "include/th10/platform/sound_queue.hpp",
     "include/th10/render/resource_registrar_0043e460.hpp",
-    "include/th10/types.hpp"
+    "include/th10/types.hpp",
+    "include/th10/game/player.hpp"
   ],
   "image_base": "0x00400000",
   "description": "Complete trigger activation with native allocation, list, position, sound-queue and script-loader contexts; only the activation is selected.",
   "functions": [
     {
-      "name": "ActivateField_00426cf0",
-      "symbol": "_ActivateField_00426cf0@4",
+      "name": "Player_Hit_00426cf0",
+      "symbol": "_Player_Hit@4",
       "section": ".text$00426cf0_fn",
       "address": "0x00426CF0",
       "size": 627,
@@ -228,6 +229,6 @@
     }
   ],
   "roots": [
-    "_ActivateField_00426cf0@4"
+    "_Player_Hit@4"
   ]
 }

@@ -3,6 +3,11 @@
 // the four-entry phase switch table at 0x0041EA30.
 #include "../../layout/ltcg/laser_grow_0041e700/types.hpp"
 
+// The lasers pass the player position as an oriented-rectangle point.
+static inline const Point3_OrientedRect* PlayerPoint() {
+    return reinterpret_cast<const Point3_OrientedRect*>(&g_player->position);
+}
+
 static __forceinline void LaserSetScaleComponent(float& component,
         unsigned int& flags, float value) {
     flags |= 8u;
@@ -79,15 +84,15 @@ int GrowLaser::Update() {
             collision_width = width * 0.5f;
         else
             collision_width = width - (width + 16.0f) * 0.3333333432674408f;
-        int collision = data_00477834->ClassifyRotatedRegion(&point,
+        int collision = g_player->CheckLaserHit(&point,
             angle, collision_width, length * 0.800000011920929f);
         if (collision == 1) {
             Point3_OrientedRect hit_size(32.0f, 32.0f, 0.0f);
-            OnPlayerHit(&data_00477834->position, &hit_size, 0);
+            OnPlayerHit(PlayerPoint(), &hit_size, 0);
         } else if (collision == 2 && timer.current % 5 == 0) {
             void* handle;
             ItemAnimation_CreateOffset_00448db0(data_004776f0->resource,
-                &handle, 434, &data_00477834->position);
+                &handle, 434, PlayerPoint());
             data_00492590.QueuePan(28, position.x);
         }
     }

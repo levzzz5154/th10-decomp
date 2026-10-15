@@ -12,6 +12,7 @@
 struct SchedulerTask;
 struct ShotTypeFile;      // the loaded shot-type (.sht) file
 struct ShotDefinition;    // one shot entry of a shot-type file
+struct Point3_OrientedRect;
 
 // Player positions are kept in hundredths of a pixel; Player::position is the
 // same point as floats.
@@ -138,6 +139,13 @@ struct Player {
     PlayerBox item_attract_box;              // +0x4354, position +- item_box_size
     FixedPoint position_history[33];         // +0x436C, newest first; the options trail it
     int focused;                             // +0x4474
+
+    // 0x004267F0: test the player against a laser: a rectangle that starts at
+    // `origin`, runs `length` along `angle` and is `width` wide. Returns 1 for
+    // a hit (and calls Player_Hit), 2 for a graze (within 1.5 widths of the
+    // centre line), 0 otherwise.
+    __declspec(noinline) int CheckLaserHit(const Point3_OrientedRect* origin, float angle, float width,
+                                           float length);
 };
 
 #define PLAYER_CHECK(name, expression) typedef char player_check_##name[(expression) ? 1 : -1]
@@ -162,4 +170,9 @@ PLAYER_CHECK(position_history, offsetof(Player, position_history) == 0x436C);
 PLAYER_CHECK(focused, offsetof(Player, focused) == 0x4474);
 #undef PLAYER_CHECK
 
-extern "C" Player* g_player;  // 0x00477834
+extern "C" {
+extern Player* g_player;  // 0x00477834
+// 0x00426CF0: the player was hit. Enters PLAYER_HIT, plays the hit effect and
+// sound and starts the deathbomb window.
+void __stdcall Player_Hit(Player* player);
+}
