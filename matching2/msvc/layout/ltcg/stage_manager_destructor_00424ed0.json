@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "stage_manager_destructor_00424ed0",
-  "source": "src/game/stage_manager_destructor_00424ed0.cpp",
+  "source": "src/game/player_destructor.cpp",
   "driver": "layout/ltcg/stage_manager_destructor_00424ed0_context.cpp",
   "included_sources": [
     "layout/ltcg/game_state_anchor_00402160.cpp",
@@ -13,16 +13,20 @@
     "include/th10/game/manager_teardown_helpers.hpp",
     "include/th10/game/enemy_manager_dependencies_0040d530.hpp",
     "include/th10/render/animation_resource_removal.hpp",
-    "include/th10/platform/thread_sync.hpp"
+    "include/th10/platform/thread_sync.hpp",
+    "include/th10/game/player.hpp",
+    "include/th10/game/entity.hpp",
+    "include/th10/types.hpp",
+    "include/th10/math/timer.hpp"
   ],
   "image_base": "0x00400000",
   "exceptions": true,
   "constants": [],
-  "description": "Stage manager destructor with owned sprite exception cleanup.",
+  "description": "Player destructor with owned sprite exception cleanup.",
   "functions": [
     {
-      "name": "StageManager_Destructor",
-      "symbol": "??1StageManager_00424ed0@@QAE@XZ",
+      "name": "Player_Destructor",
+      "symbol": "??1Player@@QAE@XZ",
       "section": ".text$01dtor",
       "address": "0x00424ED0",
       "size": 325,
@@ -40,7 +44,7 @@
     },
     {
       "name": "StageManagerDestructorHandler",
-      "symbol": "__ehhandler$??1StageManager_00424ed0@@QAE@XZ",
+      "symbol": "__ehhandler$??1Player@@QAE@XZ",
       "section": ".text$x",
       "address": "0x0046528B",
       "size": 10,
@@ -51,7 +55,7 @@
   "anchors": [
     {
       "name": "SlotDestructor",
-      "symbol": "??1GameThreadSlot@@QAE@XZ",
+      "symbol": "??1PlayerSprite@@QAE@XZ",
       "section": ".text$00bslot",
       "address": "0x00401FF0",
       "size": 34

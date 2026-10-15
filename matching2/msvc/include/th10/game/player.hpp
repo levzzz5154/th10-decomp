@@ -10,6 +10,21 @@
 #include "th10/math/timer.hpp"
 
 struct SchedulerTask;
+extern "C" void __cdecl entry_free_00452422(void*);
+
+// The player's own sprite. Its destructor (0x00401FF0, shared with the other
+// 0x3AC-byte sprites) frees the sprite's resource block.
+struct PlayerSprite : Entity {
+    // The destructor cluster exports this at its public thiscall ABI.
+#ifdef TH10_PLAYER_SPRITE_EXPORTED_ABI
+    __declspec(dllexport)
+#endif
+    ~PlayerSprite() {
+        if (resource)
+            entry_free_00452422(resource);
+        resource = 0;
+    }
+};
 struct Point3_OrientedRect;
 struct PickupAnimation;   // an animation object, as the player's records see it
 struct Player;
@@ -195,7 +210,7 @@ struct Player {
     SchedulerTask* update_task;              // +0x008
     SchedulerTask* draw_task;                // +0x00C
     void* animation_file;                    // +0x010, the character's ANM
-    Entity sprite;                           // +0x014
+    PlayerSprite sprite;                     // +0x014
     Vector3 position;                        // +0x3C0
     FixedPoint fixed_position;               // +0x3CC
     int speed;                               // +0x3D4, fixed-point units per frame
@@ -260,6 +275,9 @@ struct Player {
     // 0x00426660: the angle from `point` to the player (0 when they meet).
     // LTCG callers pass the point in EAX.
     __declspec(noinline) float AngleFromPoint(const float* point);
+
+    // 0x00424ED0
+    __declspec(noinline) ~Player();
 };
 
 #define PLAYER_CHECK(name, expression) typedef char player_check_##name[(expression) ? 1 : -1]
