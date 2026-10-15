@@ -1,12 +1,12 @@
 // Compiler context only; never selected as recovered game code.
-#include "../../src/game/spttest/effect_pool_install_tasks.cpp"
+#include "../../src/game/spttest/spt_test_register_tasks.cpp"
 #include "scheduler_register_anchors.cpp"
 
-struct EffectPoolState;
-extern "C" EffectPoolState *__cdecl asm_FUN_0042bf30_0042bf30();
+struct SptTestState;
+extern "C" SptTestState *__cdecl asm_FUN_0042bf30_0042bf30();
 
 #pragma code_seg(".text$30context")
-int __stdcall EffectPoolContext_0042bbd0(EffectPool_0042bbd0** pools, int count) {
+int __stdcall EffectPoolContext_0042bbd0(SptTestTaskView** pools, int count) {
     int result = 0;
     while (count--)
         result += (*pools++)->InstallTasks();

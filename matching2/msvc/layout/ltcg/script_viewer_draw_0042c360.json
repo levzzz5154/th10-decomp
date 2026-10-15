@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
   "name": "script_viewer_draw_0042c360",
-  "source": "src/game/spttest/script_viewer_draw_0042c360.cpp",
+  "source": "src/game/spttest/spt_test_draw.cpp",
   "driver": "layout/ltcg/script_viewer_draw_0042c360_context.cpp",
   "headers": [
-    "include/th10/game/script_viewer_load_0042be20.hpp",
+    "include/th10/game/spt_test.hpp",
     "include/th10/platform/archive_file.hpp",
     "include/th10/game/game_thread_queue_native.hpp",
     "include/th10/game/menu_cursor.hpp"
@@ -13,16 +13,16 @@
   "description": "Spt Test debug text draw with the viewer in EDI and its ECX scheduler callback, compiled with the real marked-text writer (thread ESI, position EBX).",
   "functions": [
     {
-      "name": "ScriptViewer_Draw",
-      "symbol": "?Draw@ScriptViewer_0042be20@@QAEHXZ",
+      "name": "SptTest_Draw",
+      "symbol": "?Draw@SptTest_0042be20@@QAEHXZ",
       "section": ".text$05draw",
       "address": "0x0042C360",
       "actual_abi": "viewer in EDI; plain RET",
       "size": 531
     },
     {
-      "name": "ScriptViewer_DrawTask",
-      "symbol": "?ScriptViewer_DrawTask_0042c590@@YIHPAUScriptViewer_0042be20@@@Z",
+      "name": "SptTest_DrawTask",
+      "symbol": "?SptTest_DrawTask_0042c590@@YIHPAUSptTest_0042be20@@@Z",
       "section": ".text$06task",
       "address": "0x0042C590",
       "actual_abi": "context in ECX; moved to EDI around the call",
@@ -30,7 +30,7 @@
     }
   ],
   "context": {
-    "symbol": "?ScriptViewerDrawCompilerContext@@YGPAXXZ",
+    "symbol": "?SptTestDrawCompilerContext@@YGPAXXZ",
     "section": ".text$07context",
     "address": "0x0042C5A0",
     "size": 6,

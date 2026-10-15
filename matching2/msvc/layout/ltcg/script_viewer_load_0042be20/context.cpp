@@ -4,10 +4,10 @@
 #include "../native_archive_read/find.cpp"
 #include "../native_archive_read/decrypt.cpp"
 #include "../native_archive_read/load.cpp"
-#include "../../../src/game/spttest/script_viewer_load_0042be20.cpp"
+#include "../../../src/game/spttest/spt_test_load.cpp"
 
 #pragma code_seg(".text$z9context")
-void* __stdcall ScriptViewerCompilerContext() {
-    return reinterpret_cast<void*>(ScriptViewer_LoadTask_0042be10);
+void* __stdcall SptTestCompilerContext() {
+    return reinterpret_cast<void*>(SptTest_LoadTask_0042be10);
 }
 #pragma code_seg()

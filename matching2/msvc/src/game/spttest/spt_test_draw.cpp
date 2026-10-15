@@ -2,13 +2,13 @@
 // Native LTCG keeps the viewer in EDI and passes the game thread in ESI and
 // the text position in EBX to the marked-text writer.
 // 0x0042C590: the scheduler callback, which forwards its ECX context.
-#include "th10/game/script_viewer_load_0042be20.hpp"
+#include "th10/game/spt_test.hpp"
 #include "th10/game/game_thread_queue_native.hpp"
 
 extern "C" GameThread_00401530* g_ascii_manager;
 
 #pragma code_seg(".text$05draw")
-int ScriptViewer_0042be20::Draw() {
+int SptTest_0042be20::Draw() {
     Vec3_00401530 position = {0.0f, 0.0f, 0.0f};
     AsciiManager_AddFormattedMarked(g_ascii_manager, &position, "Spt Test\n");
     switch (state) {
@@ -53,7 +53,7 @@ int ScriptViewer_0042be20::Draw() {
 #pragma code_seg()
 
 #pragma code_seg(".text$06task")
-int __fastcall ScriptViewer_DrawTask_0042c590(ScriptViewer_0042be20* viewer) {
+int __fastcall SptTest_DrawTask_0042c590(SptTest_0042be20* viewer) {
     return viewer->Draw();
 }
 #pragma code_seg()

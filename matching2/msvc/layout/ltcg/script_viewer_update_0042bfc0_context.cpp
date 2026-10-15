@@ -5,7 +5,7 @@
 // order when combined.
 #include "th10/script/ecl_children.hpp"
 #include "script_vm_00450560.hpp"
-#include "../../src/game/spttest/script_viewer_update_0042bfc0.cpp"
+#include "../../src/game/spttest/spt_test_update.cpp"
 
 extern "C" void __cdecl entry_free_00452422(void* memory);
 extern "C" unsigned int __cdecl asm_beginthreadex_00453683(
@@ -14,7 +14,7 @@ extern "C" unsigned int __cdecl asm_beginthreadex_00453683(
 
 // 0x0040AC90
 #pragma code_seg(".text$a1mode")
-void __stdcall ScriptViewer_SetGameMode_0040ac90(ScriptViewerGameState_0042bfc0* state, int mode) {
+void __stdcall SptTest_SetGameMode_0040ac90(SptTestGameState_0042bfc0* state, int mode) {
     if ((state->flags & 0x1000) == 0) {
         state->mode = mode;
     } else {
@@ -24,13 +24,13 @@ void __stdcall ScriptViewer_SetGameMode_0040ac90(ScriptViewerGameState_0042bfc0*
 
 // 0x0040ACE0
 #pragma code_seg(".text$a2mask")
-unsigned short ScriptViewerInput_0042bfc0::MaskActive(unsigned short mask) {
+unsigned short SptTestInput_0042bfc0::MaskActive(unsigned short mask) {
     return (mask & repeated) != 0 || (mask & held) != 0;
 }
 
 // 0x0042BAD0
 #pragma code_seg(".text$a3names")
-void ScriptViewer_0042be20::ClearScriptNames() {
+void SptTest_0042be20::ClearScriptNames() {
     if (script_names) {
         for (int i = 0; i < script_count; ++i) {
             if (script_names[i]) {
@@ -102,7 +102,7 @@ void PlatformWorker::Start(void* context, PlatformWorkerEntry start) {
 
 // 0x0044FD10
 #pragma code_seg(".text$c4tick")
-extern "C" __declspec(noinline) int __stdcall ScriptViewer_TickVm_0044fd10(ScriptViewerResource_0042be20* vm, float delta) {
+extern "C" __declspec(noinline) int __stdcall SptTest_TickVm_0044fd10(SptTestResource_0042be20* vm, float delta) {
     EclChildOwner* owner = reinterpret_cast<EclChildOwner*>(vm);
     EclChildNode* node = &owner->children;
     int first = 1;
@@ -128,17 +128,17 @@ extern "C" const unsigned int data_0046d0d8[];
 inline ScriptVm_00450560::ScriptVm_00450560()
     : vtable(reinterpret_cast<unsigned int>(data_0046d0d8)), field_1010(0), field_1014(0) {}
 #pragma code_seg(".text$c5create")
-ScriptViewerResource_0042be20* ScriptParser_0042be20::CreateVm(const char* name) {
+SptTestResource_0042be20* ScriptParser_0042be20::CreateVm(const char* name) {
     ScriptVm_00450560* vm = new ScriptVm_00450560;
     vm->table = reinterpret_cast<ScriptTable_00450470*>(this);
     vm->current->instruction = vm->table->Resolve(name);
     vm->current->time = 0;
-    return reinterpret_cast<ScriptViewerResource_0042be20*>(vm);
+    return reinterpret_cast<SptTestResource_0042be20*>(vm);
 }
 #pragma code_seg()
 
 #pragma code_seg(".text$b3context")
-void* __stdcall ScriptViewerUpdateCompilerContext() {
-    return reinterpret_cast<void*>(ScriptViewer_UpdateTask_0042c580);
+void* __stdcall SptTestUpdateCompilerContext() {
+    return reinterpret_cast<void*>(SptTest_UpdateTask_0042c580);
 }
 #pragma code_seg()

@@ -1,6 +1,6 @@
 #pragma once
 
-struct EffectPoolState {
+struct SptTestState {
     int unknown_00[4];
     int vtable;
     int field_14;
@@ -36,4 +36,4 @@ struct EffectPoolState {
 };
 
 typedef char EffectPoolState_size_must_be_2E4[
-    sizeof(EffectPoolState) == 0x2E4 ? 1 : -1];
+    sizeof(SptTestState) == 0x2E4 ? 1 : -1];

@@ -25783,9 +25783,9 @@
       "kind": "padding"
     },
     {
-      "name": "semantic_ScriptViewer_ClearScriptNames_0042bad0",
-      "source": "src/game/spttest/script_viewer_teardown_0042bc30.cpp",
-      "symbol": "?ClearScriptNames@ScriptViewer_0042be20@@QAEXXZ",
+      "name": "semantic_SptTest_ClearScriptNames_0042bad0",
+      "source": "src/game/spttest/spt_test_teardown.cpp",
+      "symbol": "?ClearScriptNames@SptTest_0042be20@@QAEXXZ",
       "address": "0x0042BAD0",
       "size": 86,
       "kind": "semantic",
@@ -25810,8 +25810,8 @@
     },
     {
       "name": "semantic_FUN_0042bb30_0042bb30",
-      "source": "src/game/spttest/effect_pool_state_construct.cpp",
-      "symbol": "@EffectPoolState_Construct@8",
+      "source": "src/game/spttest/spt_test_construct.cpp",
+      "symbol": "@SptTest_Construct@8",
       "address": "0x0042BB30",
       "size": 145,
       "kind": "semantic",
@@ -25827,8 +25827,8 @@
     },
     {
       "name": "semantic_InstallTasks_0042bbd0",
-      "source": "src/game/spttest/effect_pool_install_tasks.cpp",
-      "symbol": "?InstallTasks@EffectPool_0042bbd0@@QAEHXZ",
+      "source": "src/game/spttest/spt_test_register_tasks.cpp",
+      "symbol": "?InstallTasks@SptTestTaskView@@QAEHXZ",
       "address": "0x0042BBD0",
       "size": 84,
       "kind": "semantic",
@@ -25852,9 +25852,9 @@
       "kind": "padding"
     },
     {
-      "name": "semantic_ScriptViewer_Destructor_0042bc30",
-      "source": "src/game/spttest/script_viewer_teardown_0042bc30.cpp",
-      "symbol": "??1ScriptViewer_0042be20@@QAE@XZ",
+      "name": "semantic_SptTest_Destructor_0042bc30",
+      "source": "src/game/spttest/spt_test_teardown.cpp",
+      "symbol": "??1SptTest_0042be20@@QAE@XZ",
       "address": "0x0042BC30",
       "size": 405,
       "kind": "semantic",
@@ -25904,9 +25904,9 @@
       "kind": "padding"
     },
     {
-      "name": "semantic_ScriptViewer_LoadTask_0042be10",
-      "source": "src/game/spttest/script_viewer_load_0042be20.cpp",
-      "symbol": "?ScriptViewer_LoadTask_0042be10@@YGHXZ",
+      "name": "semantic_SptTest_LoadTask_0042be10",
+      "source": "src/game/spttest/spt_test_load.cpp",
+      "symbol": "?SptTest_LoadTask_0042be10@@YGHXZ",
       "address": "0x0042BE10",
       "size": 16,
       "kind": "semantic",
@@ -25922,9 +25922,9 @@
       }
     },
     {
-      "name": "semantic_ScriptViewer_LoadScript_0042be20",
-      "source": "src/game/spttest/script_viewer_load_0042be20.cpp",
-      "symbol": "?LoadScript@ScriptViewer_0042be20@@QAEHXZ",
+      "name": "semantic_SptTest_LoadScript_0042be20",
+      "source": "src/game/spttest/spt_test_load.cpp",
+      "symbol": "?LoadScript@SptTest_0042be20@@QAEHXZ",
       "address": "0x0042BE20",
       "size": 261,
       "kind": "semantic",
@@ -26026,9 +26026,9 @@
       "kind": "padding"
     },
     {
-      "name": "semantic_ScriptViewer_Update_0042bfc0",
-      "source": "src/game/spttest/script_viewer_update_0042bfc0.cpp",
-      "symbol": "?Update@ScriptViewer_0042be20@@QAEHXZ",
+      "name": "semantic_SptTest_Update_0042bfc0",
+      "source": "src/game/spttest/spt_test_update.cpp",
+      "symbol": "?Update@SptTest_0042be20@@QAEHXZ",
       "address": "0x0042BFC0",
       "size": 926,
       "kind": "semantic",
@@ -26052,9 +26052,9 @@
       "kind": "padding"
     },
     {
-      "name": "semantic_ScriptViewer_Draw_0042c360",
-      "source": "src/game/spttest/script_viewer_draw_0042c360.cpp",
-      "symbol": "?Draw@ScriptViewer_0042be20@@QAEHXZ",
+      "name": "semantic_SptTest_Draw_0042c360",
+      "source": "src/game/spttest/spt_test_draw.cpp",
+      "symbol": "?Draw@SptTest_0042be20@@QAEHXZ",
       "address": "0x0042C360",
       "size": 531,
       "kind": "semantic",
@@ -26078,9 +26078,9 @@
       "kind": "padding"
     },
     {
-      "name": "semantic_ScriptViewer_UpdateTask_0042c580",
-      "source": "src/game/spttest/script_viewer_update_0042bfc0.cpp",
-      "symbol": "?ScriptViewer_UpdateTask_0042c580@@YIHPAUScriptViewer_0042be20@@@Z",
+      "name": "semantic_SptTest_UpdateTask_0042c580",
+      "source": "src/game/spttest/spt_test_update.cpp",
+      "symbol": "?SptTest_UpdateTask_0042c580@@YIHPAUSptTest_0042be20@@@Z",
       "address": "0x0042C580",
       "size": 5,
       "kind": "semantic",
@@ -26113,9 +26113,9 @@
       "kind": "padding"
     },
     {
-      "name": "semantic_ScriptViewer_DrawTask_0042c590",
-      "source": "src/game/spttest/script_viewer_draw_0042c360.cpp",
-      "symbol": "?ScriptViewer_DrawTask_0042c590@@YIHPAUScriptViewer_0042be20@@@Z",
+      "name": "semantic_SptTest_DrawTask_0042c590",
+      "source": "src/game/spttest/spt_test_draw.cpp",
+      "symbol": "?SptTest_DrawTask_0042c590@@YIHPAUSptTest_0042be20@@@Z",
       "address": "0x0042C590",
       "size": 10,
       "kind": "semantic",
@@ -51869,9 +51869,9 @@
       "kind": "padding"
     },
     {
-      "name": "semantic_ScriptViewerWorkerUnwind_004653e0",
-      "source": "src/game/spttest/script_viewer_teardown_0042bc30.cpp",
-      "symbol": "_ScriptViewerWorkerUnwind_004653e0",
+      "name": "semantic_SptTestWorkerUnwind_004653e0",
+      "source": "src/game/spttest/spt_test_teardown.cpp",
+      "symbol": "_SptTestWorkerUnwind_004653e0",
       "address": "0x004653E0",
       "size": 11,
       "kind": "semantic",
@@ -51887,9 +51887,9 @@
       }
     },
     {
-      "name": "semantic_ScriptViewerHandler_004653eb",
-      "source": "src/game/spttest/script_viewer_teardown_0042bc30.cpp",
-      "symbol": "__ehhandler$??1ScriptViewer_0042be20@@QAE@XZ",
+      "name": "semantic_SptTestHandler_004653eb",
+      "source": "src/game/spttest/spt_test_teardown.cpp",
+      "symbol": "__ehhandler$??1SptTest_0042be20@@QAE@XZ",
       "address": "0x004653EB",
       "size": 10,
       "kind": "semantic",
@@ -60788,10 +60788,10 @@
     "src/game/title/score_timer_leaves.cpp",
     "src/core/screen/updates.cpp",
     "src/game/title/script_state_destructor_0042cb60.cpp",
-    "src/game/spttest/script_viewer_draw_0042c360.cpp",
-    "src/game/spttest/script_viewer_load_0042be20.cpp",
-    "src/game/spttest/script_viewer_teardown_0042bc30.cpp",
-    "src/game/spttest/script_viewer_update_0042bfc0.cpp",
+    "src/game/spttest/spt_test_draw.cpp",
+    "src/game/spttest/spt_test_load.cpp",
+    "src/game/spttest/spt_test_teardown.cpp",
+    "src/game/spttest/spt_test_update.cpp",
     "src/game/eclview/set_input_mode_0040ac90.cpp",
     "src/game/title/shot_type_select_update_00430a60.cpp",
     "src/game/front/side_panel_contents_release_00414370.cpp",
@@ -61349,7 +61349,7 @@
     "src/game/smollscore/effect_pool_update.cpp",
     "src/unreferenced/FUN_0042ba90_0042ba90.cpp",
     "src/unreferenced/FUN_0042baa0_0042baa0.cpp",
-    "src/game/spttest/effect_pool_state_construct.cpp",
+    "src/game/spttest/spt_test_construct.cpp",
     "src/unreferenced/FUN_0042bf30_0042bf30.cpp",
     "src/game/spttest/progress_manager_size.cpp",
     "src/unreferenced/FUN_0042c830_0042c830.cpp",
@@ -61546,7 +61546,7 @@
     "src/unreferenced/copy_second_block_00404c70.cpp",
     "src/crt/crtInitCritSecNoSpinCount_8_004597fe.cpp",
     "src/crt/dosmaperr_00456b04.cpp",
-    "src/game/spttest/effect_pool_install_tasks.cpp",
+    "src/game/spttest/spt_test_register_tasks.cpp",
     "src/unreferenced/empty_bodies_00420dc0.cpp",
     "src/unreferenced/entry_at_00401d00.cpp",
     "src/crt/exception_00462c01.cpp",

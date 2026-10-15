@@ -3,31 +3,31 @@
 // loader thread, run an entry of the loaded script, or quit), state 4 steps
 // the running entry until it ends.
 // 0x0042C580: the scheduler callback, a tail jump with the screen in ECX.
-#include "th10/game/script_viewer_update_0042bfc0.hpp"
+#include "th10/game/spt_test_update.hpp"
 
 #pragma code_seg(".text$b1update")
-int ScriptViewer_0042be20::Update() {
-    ScriptViewerFindData_0042bfc0 find;
+int SptTest_0042be20::Update() {
+    SptTestFindData_0042bfc0 find;
     switch (state) {
     case 4:
-        ScriptViewer_TickVm_0044fd10(resource, 1.0f);
+        SptTest_TickVm_0044fd10(resource, 1.0f);
         if (resource && resource->active->running) break;
         if (resource) resource->Retire(1);
         resource = 0;
         state = 1;
         break;
     case 1:
-        ScriptViewer_Remember(&menu);
+        SptTest_Remember(&menu);
         if (data_00474e30.Active(0x20)) menu.Advance(1);
         if (data_00474e30.Active(0x10)) menu.Advance(-1);
         switch (menu.selection) {
         case 2:
             if (data_00474e30.repeated & 0x1001)
-                ScriptViewer_SetGameMode_0040ac90(&data_00491c28, 3);
+                SptTest_SetGameMode_0040ac90(&data_00491c28, 3);
             break;
         case 1:
             if (parser) {
-                ScriptViewer_Remember(&entry_cursor);
+                SptTest_Remember(&entry_cursor);
                 if (data_00474e30.MaskActive(0x80)) entry_cursor.Advance(1);
                 if (data_00474e30.MaskActive(0x40)) entry_cursor.Advance(-1);
                 if (data_00474e30.pressed & 0x1001) {
@@ -42,12 +42,12 @@ int ScriptViewer_0042be20::Update() {
             }
             break;
         case 0:
-            ScriptViewer_Remember(&file_cursor);
+            SptTest_Remember(&file_cursor);
             if (data_00474e30.Active(0x80)) file_cursor.Advance(1);
             if (data_00474e30.Active(0x40)) file_cursor.Advance(-1);
             if (data_00474e30.repeated & 0x1001) {
                 flags &= ~2u;
-                reinterpret_cast<PlatformWorker*>(&worker)->Start(this, ScriptViewer_LoadThread_0042be10);
+                reinterpret_cast<PlatformWorker*>(&worker)->Start(this, SptTest_LoadThread_0042be10);
                 state = 2;
             }
             break;
@@ -76,13 +76,13 @@ int ScriptViewer_0042be20::Update() {
         }
         menu.item_count = 3;
         menu.wrap = 1;
-        ScriptViewer_Select(menu, 0);
+        SptTest_Select(menu, 0);
         file_cursor.item_count = count;
         file_cursor.wrap = 1;
-        ScriptViewer_Select(file_cursor, 0);
+        SptTest_Select(file_cursor, 0);
         entry_cursor.item_count = 1;
         entry_cursor.wrap = 1;
-        ScriptViewer_Select(entry_cursor, 0);
+        SptTest_Select(entry_cursor, 0);
         state = 1;
         position_x = 0.0f;
         position_y = 32.0f;
@@ -96,7 +96,7 @@ int ScriptViewer_0042be20::Update() {
 #pragma code_seg()
 
 #pragma code_seg(".text$b2task")
-int __fastcall ScriptViewer_UpdateTask_0042c580(ScriptViewer_0042be20* viewer) {
+int __fastcall SptTest_UpdateTask_0042c580(SptTest_0042be20* viewer) {
     return viewer->Update();
 }
 #pragma code_seg()

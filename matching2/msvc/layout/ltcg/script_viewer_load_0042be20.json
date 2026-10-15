@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
   "name": "script_viewer_load_0042be20",
-  "source": "src/game/spttest/script_viewer_load_0042be20.cpp",
+  "source": "src/game/spttest/spt_test_load.cpp",
   "driver": "layout/ltcg/script_viewer_load_0042be20/context.cpp",
   "headers": [
-    "include/th10/game/script_viewer_load_0042be20.hpp",
+    "include/th10/game/spt_test.hpp",
     "include/th10/platform/archive_file.hpp",
     "layout/ltcg/native_archive_read/archive.hpp",
     "include/th10/archive/dat_archive_types.hpp",
@@ -16,16 +16,16 @@
   "description": "Script viewer loader with the viewer in ESI and its argument-less callback, compiled with the real archive reader so the file name is passed in EAX.",
   "functions": [
     {
-      "name": "ScriptViewer_LoadTask",
-      "symbol": "?ScriptViewer_LoadTask_0042be10@@YGHXZ",
+      "name": "SptTest_LoadTask",
+      "symbol": "?SptTest_LoadTask_0042be10@@YGHXZ",
       "section": ".text$00task",
       "address": "0x0042BE10",
       "actual_abi": "no arguments; loads the global viewer into ESI; plain RET",
       "size": 16
     },
     {
-      "name": "ScriptViewer_LoadScript",
-      "symbol": "?LoadScript@ScriptViewer_0042be20@@QAEHXZ",
+      "name": "SptTest_LoadScript",
+      "symbol": "?LoadScript@SptTest_0042be20@@QAEHXZ",
       "section": ".text$01load",
       "address": "0x0042BE20",
       "actual_abi": "viewer in ESI; plain RET",
@@ -33,7 +33,7 @@
     }
   ],
   "context": {
-    "symbol": "?ScriptViewerCompilerContext@@YGPAXXZ",
+    "symbol": "?SptTestCompilerContext@@YGPAXXZ",
     "section": ".text$z9context",
     "address": "0x0044B4D0",
     "size": 6,

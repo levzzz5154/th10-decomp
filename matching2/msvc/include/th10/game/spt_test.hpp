@@ -38,7 +38,7 @@ struct ScriptParser_0042be20 {
         memset(this, 0, sizeof(ScriptParser_0042be20));
     }
     // 0x00450500: create an interpreter positioned at the named entry.
-    __declspec(noinline) struct ScriptViewerResource_0042be20* CreateVm(const char* name);
+    __declspec(noinline) struct SptTestResource_0042be20* CreateVm(const char* name);
     ~ScriptParser_0042be20() {
         if (entries) {
             free(entries);
@@ -50,14 +50,14 @@ typedef char ScriptParserSize_0042be20[sizeof(ScriptParser_0042be20) == 0x1098 ?
 
 // The interpreter state the running script is in; `running` stays nonzero
 // until the script ends.
-struct ScriptViewerVmState_0042be20 {
+struct SptTestVmState_0042be20 {
     int time;
     int running;
 };
 
 // The script interpreter the screen runs an entry with. Only its retire entry
 // in slot 5 is called.
-struct ScriptViewerResource_0042be20 {
+struct SptTestResource_0042be20 {
     virtual void Slot00() = 0;
     virtual void Slot04() = 0;
     virtual void Slot08() = 0;
@@ -65,11 +65,11 @@ struct ScriptViewerResource_0042be20 {
     virtual void Slot10() = 0;
     virtual void Retire(int release) = 0;
 
-    ScriptViewerVmState_0042be20* active;
+    SptTestVmState_0042be20* active;
 };
 
 // Clamp a wanted selection to a cursor's last item.
-inline void ScriptViewer_ClampSelection(const MenuCursor& cursor, int& index) {
+inline void SptTest_ClampSelection(const MenuCursor& cursor, int& index) {
     if (cursor.item_count != 0 && index >= cursor.item_count)
         index = cursor.item_count - 1;
 }
@@ -79,7 +79,7 @@ struct SchedulerTask;
 // The screen's loader thread: a PlatformWorker (th10/platform/worker.hpp).
 // Its destructor (0x0044C130) republishes the worker dispatch table and stops
 // the thread.
-struct ScriptViewerWorker_0042be20 {
+struct SptTestWorker_0042be20 {
     const void* vtable;
     void* thread;
     unsigned int thread_id;
@@ -88,16 +88,16 @@ struct ScriptViewerWorker_0042be20 {
     unsigned int reserved_14;
     void* entry;
 
-    ~ScriptViewerWorker_0042be20();
+    ~SptTestWorker_0042be20();
 };
 
 // The "Spt Test" debug screen: picks a script file, loads it and shows one of
 // its entries.
-struct ScriptViewer_0042be20 {
+struct SptTest_0042be20 {
     unsigned char reserved_000[8];
     SchedulerTask* update_task;
     SchedulerTask* draw_task;
-    ScriptViewerWorker_0042be20 worker;
+    SptTestWorker_0042be20 worker;
     unsigned char reserved_02c[4];
     int state;                 // 1 = menu, 2 = loading, 3 = running
     const char** script_names;
@@ -111,17 +111,17 @@ struct ScriptViewer_0042be20 {
     int field_2d0;
     unsigned int flags;
     ScriptParser_0042be20* parser;
-    ScriptViewerResource_0042be20* resource;
+    SptTestResource_0042be20* resource;
     char* script_data;
 
-    __declspec(noinline) ~ScriptViewer_0042be20();
+    __declspec(noinline) ~SptTest_0042be20();
     __declspec(noinline) void ClearScriptNames();
     __declspec(noinline) int Update();
     __declspec(noinline) int LoadScript();
     __declspec(noinline) int Draw();
 };
-typedef char ScriptViewerStateOffset_0042be20[offsetof(ScriptViewer_0042be20, state) == 0x30 ? 1 : -1];
-typedef char ScriptViewerCursorOffset_0042be20[offsetof(ScriptViewer_0042be20, entry_cursor) == 0x1EC ? 1 : -1];
-typedef char ScriptViewerParserOffset_0042be20[offsetof(ScriptViewer_0042be20, parser) == 0x2D8 ? 1 : -1];
+typedef char SptTestStateOffset_0042be20[offsetof(SptTest_0042be20, state) == 0x30 ? 1 : -1];
+typedef char SptTestCursorOffset_0042be20[offsetof(SptTest_0042be20, entry_cursor) == 0x1EC ? 1 : -1];
+typedef char SptTestParserOffset_0042be20[offsetof(SptTest_0042be20, parser) == 0x2D8 ? 1 : -1];
 
-extern "C" ScriptViewer_0042be20* data_00477844;
+extern "C" SptTest_0042be20* data_00477844;

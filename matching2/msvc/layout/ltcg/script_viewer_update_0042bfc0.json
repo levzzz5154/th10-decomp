@@ -1,11 +1,11 @@
 {
   "schema_version": 1,
   "name": "script_viewer_update_0042bfc0",
-  "source": "src/game/spttest/script_viewer_update_0042bfc0.cpp",
+  "source": "src/game/spttest/spt_test_update.cpp",
   "driver": "layout/ltcg/script_viewer_update_0042bfc0_context.cpp",
   "headers": [
-    "include/th10/game/script_viewer_update_0042bfc0.hpp",
-    "include/th10/game/script_viewer_load_0042be20.hpp",
+    "include/th10/game/spt_test_update.hpp",
+    "include/th10/game/spt_test.hpp",
     "include/th10/platform/archive_file.hpp",
     "include/th10/game/menu_cursor.hpp",
     "include/th10/platform/worker.hpp",
@@ -17,16 +17,16 @@
   "description": "Spt Test screen update with the screen in ECX and its tail-jump scheduler callback, compiled with copies of the mode switch, key test, name clear, cursor advance, worker start/stop, interpreter tick and interpreter create so each keeps its private registers.",
   "functions": [
     {
-      "name": "ScriptViewer_Update",
-      "symbol": "?Update@ScriptViewer_0042be20@@QAEHXZ",
+      "name": "SptTest_Update",
+      "symbol": "?Update@SptTest_0042be20@@QAEHXZ",
       "section": ".text$b1update",
       "address": "0x0042BFC0",
       "actual_abi": "screen in ECX; plain RET",
       "size": 926
     },
     {
-      "name": "ScriptViewer_UpdateTask",
-      "symbol": "?ScriptViewer_UpdateTask_0042c580@@YIHPAUScriptViewer_0042be20@@@Z",
+      "name": "SptTest_UpdateTask",
+      "symbol": "?SptTest_UpdateTask_0042c580@@YIHPAUSptTest_0042be20@@@Z",
       "section": ".text$b2task",
       "address": "0x0042C580",
       "actual_abi": "context in ECX; tail jump",
@@ -34,7 +34,7 @@
     }
   ],
   "context": {
-    "symbol": "?ScriptViewerUpdateCompilerContext@@YGPAXXZ",
+    "symbol": "?SptTestUpdateCompilerContext@@YGPAXXZ",
     "section": ".text$b3context",
     "address": "0x0042C590",
     "size": 6,
@@ -180,7 +180,7 @@
       "kind": "metadata"
     },
     {
-      "symbol": "?ScriptViewer_LoadThread_0042be10@@YGIPAX@Z",
+      "symbol": "?SptTest_LoadThread_0042be10@@YGIPAX@Z",
       "address": "0x0042BE10",
       "kind": "data"
     },
@@ -198,21 +198,21 @@
   "anchors": [
     {
       "name": "SetGameMode",
-      "symbol": "?ScriptViewer_SetGameMode_0040ac90@@YGXPAUScriptViewerGameState_0042bfc0@@H@Z",
+      "symbol": "?SptTest_SetGameMode_0040ac90@@YGXPAUSptTestGameState_0042bfc0@@H@Z",
       "section": ".text$a1mode",
       "address": "0x0040AC90",
       "size": 37
     },
     {
       "name": "MaskActive",
-      "symbol": "?MaskActive@ScriptViewerInput_0042bfc0@@QAEGG@Z",
+      "symbol": "?MaskActive@SptTestInput_0042bfc0@@QAEGG@Z",
       "section": ".text$a2mask",
       "address": "0x0040ACE0",
       "size": 33
     },
     {
       "name": "ClearScriptNames",
-      "symbol": "?ClearScriptNames@ScriptViewer_0042be20@@QAEXXZ",
+      "symbol": "?ClearScriptNames@SptTest_0042be20@@QAEXXZ",
       "section": ".text$a3names",
       "address": "0x0042BAD0",
       "size": 86
@@ -240,21 +240,21 @@
     },
     {
       "name": "TickVm",
-      "symbol": "_ScriptViewer_TickVm_0044fd10@8",
+      "symbol": "_SptTest_TickVm_0044fd10@8",
       "section": ".text$c4tick",
       "address": "0x0044FD10",
       "size": 148
     },
     {
       "name": "CreateVm",
-      "symbol": "?CreateVm@ScriptParser_0042be20@@QAEPAUScriptViewerResource_0042be20@@PBD@Z",
+      "symbol": "?CreateVm@ScriptParser_0042be20@@QAEPAUSptTestResource_0042be20@@PBD@Z",
       "section": ".text$c5create",
       "address": "0x00450500",
       "size": 89
     }
   ],
   "roots": [
-    "?Update@ScriptViewer_0042be20@@QAEHXZ"
+    "?Update@SptTest_0042be20@@QAEHXZ"
   ],
   "data_aliases": [
     {

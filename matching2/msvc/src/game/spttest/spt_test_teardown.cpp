@@ -5,17 +5,17 @@
 // also what the compiler-generated unwind funclet at 0x004653E0 runs).
 // 0x0042BAD0: free every script name and the list itself; native LTCG passes
 // the screen in ESI.
-#include "th10/game/script_viewer_teardown_0042bc30.hpp"
+#include "th10/game/spt_test_teardown.hpp"
 
 #pragma code_seg(".text$10worker")
-inline ScriptViewerWorker_0042be20::~ScriptViewerWorker_0042be20() {
+inline SptTestWorker_0042be20::~SptTestWorker_0042be20() {
     vtable = &platform_worker_vtable;
     reinterpret_cast<PlatformWorker*>(this)->Stop();
 }
 #pragma code_seg()
 
 #pragma code_seg(".text$01names")
-void ScriptViewer_0042be20::ClearScriptNames() {
+void SptTest_0042be20::ClearScriptNames() {
     if (script_names) {
         for (int i = 0; i < script_count; ++i) {
             if (script_names[i]) {
@@ -33,7 +33,7 @@ void ScriptViewer_0042be20::ClearScriptNames() {
 #pragma code_seg()
 
 #pragma code_seg(".text$03dtor")
-ScriptViewer_0042be20::~ScriptViewer_0042be20() {
+SptTest_0042be20::~SptTest_0042be20() {
     ClearScriptNames();
     SchedulerTask* task = update_task;
     Scheduler* scheduler = static_cast<Scheduler*>(data_00491be4);

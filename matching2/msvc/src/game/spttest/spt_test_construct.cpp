@@ -1,11 +1,11 @@
-#include "th10/game/effect_pool_state_0042bb30.hpp"
+#include "th10/game/spt_test_state.hpp"
 extern "C" void* __cdecl memset(void*, int, unsigned int);
 extern "C" unsigned char data_00477844;
 
 #pragma code_seg(".text$00binit")
-// 0x0042BB30..0x0042BBC0: construct the effect pool state (vtable 0x004703E4).
-extern "C" __declspec(noinline) EffectPoolState* __fastcall EffectPoolState_Construct(
-    int unused, EffectPoolState* state) {
+// 0x0042BB30..0x0042BBC0: construct the script tester (SptTest; its embedded script object has vtable 0x004703E4). Nothing calls it: the debug tool is unreachable in retail.
+extern "C" __declspec(noinline) SptTestState* __fastcall SptTest_Construct(
+    int unused, SptTestState* state) {
     (void)unused;
     state->field_14 = 0;
     state->field_18 = 0;

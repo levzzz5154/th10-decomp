@@ -1,20 +1,20 @@
 // Complete effect-pool allocation/initialization/registration factory.
-#include "th10/game/effect_pool_state_0042bb30.hpp"
-#include "th10/game/effect_pool_tasks_0042bbd0.hpp"
+#include "th10/game/spt_test_state.hpp"
+#include "th10/game/spt_test_tasks.hpp"
 void* __cdecl operator new(unsigned int);
-extern "C" EffectPoolState* __fastcall EffectPoolState_Construct(int, EffectPoolState*);
-extern "C" void __stdcall asm_FUN_0042bc30_0042bc30(EffectPoolState*);
+extern "C" SptTestState* __fastcall SptTest_Construct(int, SptTestState*);
+extern "C" void __stdcall asm_FUN_0042bc30_0042bc30(SptTestState*);
 extern "C" void __cdecl entry_free_004524a1(void*);
 
 #pragma code_seg(".text$02factory")
-extern "C" __declspec(noinline) EffectPoolState* __cdecl
+extern "C" __declspec(noinline) SptTestState* __cdecl
 asm_FUN_0042bf30_0042bf30() {
-    EffectPoolState* state = new EffectPoolState;
+    SptTestState* state = new SptTestState;
     if (state)
-        state = EffectPoolState_Construct(0, state);
+        state = SptTest_Construct(0, state);
     else
         state = 0;
-    if (reinterpret_cast<EffectPool_0042bbd0*>(state)->InstallTasks()) {
+    if (reinterpret_cast<SptTestTaskView*>(state)->InstallTasks()) {
         if (state) {
             asm_FUN_0042bc30_0042bc30(state);
             entry_free_004524a1(state);

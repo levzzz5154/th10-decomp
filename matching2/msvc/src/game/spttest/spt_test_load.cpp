@@ -2,10 +2,10 @@
 // resource and data, reads the named file from the archive, parses it with a
 // fresh parser and resets the cursor. Native LTCG keeps the viewer in ESI.
 // 0x0042BE10: the argument-less callback that loads for the global viewer.
-#include "th10/game/script_viewer_load_0042be20.hpp"
+#include "th10/game/spt_test.hpp"
 
 #pragma code_seg(".text$01load")
-int ScriptViewer_0042be20::LoadScript() {
+int SptTest_0042be20::LoadScript() {
     char path[260];
     sprintf(path, "%s", script_names[file_cursor.selection]);
     int selected = 0;
@@ -22,7 +22,7 @@ int ScriptViewer_0042be20::LoadScript() {
     parser = new ScriptParser_0042be20;
     parser->Load(script_data);
     entry_cursor.item_count = parser->entry_count;
-    ScriptViewer_ClampSelection(entry_cursor, selected);
+    SptTest_ClampSelection(entry_cursor, selected);
     entry_cursor.selection = selected;
     state = 1;
     return 0;
@@ -30,7 +30,7 @@ int ScriptViewer_0042be20::LoadScript() {
 #pragma code_seg()
 
 #pragma code_seg(".text$00task")
-int __stdcall ScriptViewer_LoadTask_0042be10() {
+int __stdcall SptTest_LoadTask_0042be10() {
     data_00477844->LoadScript();
     return 0;
 }
