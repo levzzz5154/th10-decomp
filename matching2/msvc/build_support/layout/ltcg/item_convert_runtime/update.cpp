@@ -4,7 +4,7 @@
 #include "types/update.hpp"
 #include "th10/game/entity_script_start.hpp"
 
-static __forceinline void IntegrateItem(SpawnItem_0041bb00* item) {
+static __forceinline void IntegrateItem(SpawnItem* item) {
     Vector3Value displacement(g_game_speed*item->velocity.x,
         g_game_speed*item->velocity.y,g_game_speed*item->velocity.z);
     item->position.x+=displacement.x;
@@ -20,11 +20,11 @@ static __forceinline bool OutsideItemBox(const Vector3& point,const ItemCollecti
 }
 
 #pragma code_seg(".text$f0041afd0F")
-extern "C" __declspec(noinline) int __stdcall ItemManager_UpdateItems(ItemSpawnManager_0041bb00* manager) {
+extern "C" __declspec(noinline) int __stdcall ItemManager_UpdateItems(ItemSpawnManager* manager) {
     bool convert_items=false;
     manager->special_count=0;
     manager->live_count=0;
-    SpawnItem_0041bb00* item=manager->items;
+    SpawnItem* item=manager->items;
     for (int remaining=2198;remaining;--remaining,++item) {
         if (item->state==0) continue;
         if (item->state==5) {

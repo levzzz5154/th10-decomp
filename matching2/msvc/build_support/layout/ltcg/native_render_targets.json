@@ -148,22 +148,22 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_MakeDirectory_00452abc",
+      "symbol": "_MakeDirectory",
       "address": "0x452abc",
       "kind": "relative_code"
     },
     {
-      "symbol": "_FormatString_00452ae8",
+      "symbol": "_FormatString",
       "address": "0x452ae8",
       "kind": "relative_code"
     },
     {
-      "symbol": "_FileProbe_0044b4d0@4",
+      "symbol": "_FileProbe@4",
       "address": "0x44b4d0",
       "kind": "relative_code"
     },
     {
-      "symbol": "_CopySurface_004521d6@32",
+      "symbol": "_CopySurface@32",
       "address": "0x4521d6",
       "kind": "relative_code"
     },
@@ -173,12 +173,12 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_retail_malloc_00452706",
+      "symbol": "_retail_malloc",
       "address": "0x452706",
       "kind": "relative_code"
     },
     {
-      "symbol": "_retail_beginthread_00452eec",
+      "symbol": "_retail_beginthread",
       "address": "0x452eec",
       "kind": "relative_code"
     },

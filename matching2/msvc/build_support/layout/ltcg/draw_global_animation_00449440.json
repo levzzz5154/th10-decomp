@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "name": "draw_global_animation_00449440",
+  "name": "draw_global_animation",
   "source": "src/unreferenced/FUN_00449440_00449440.cpp",
   "driver": "build_support/layout/ltcg/draw_global_animation_00449440_context.cpp",
   "headers": [],
@@ -8,8 +8,8 @@
   "description": "Global-manager draw thunk compiled with native LTCG so the entity arrives in EAX and passes through to the dispatcher.",
   "functions": [
     {
-      "name": "DrawGlobalAnimation_00449440",
-      "symbol": "?DrawGlobalAnimation_00449440@@YGHPAURenderEntity_00449440@@@Z",
+      "name": "DrawGlobalAnimation",
+      "symbol": "?DrawGlobalAnimation@@YGHPAURenderEntity_00449440@@@Z",
       "section": ".text$03draw",
       "address": "0x00449440",
       "size": 11,

@@ -1,5 +1,5 @@
 
-extern "C" void* __stdcall find_opaque_004491c0(unsigned int id);
+extern "C" void* __stdcall find_opaque(unsigned int id);
 extern "C" char* g_sprt_ctrl;
 
 struct AnimationNode_00417720 {

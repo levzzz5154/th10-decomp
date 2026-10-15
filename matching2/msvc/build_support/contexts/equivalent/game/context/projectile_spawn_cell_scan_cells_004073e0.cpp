@@ -14,7 +14,7 @@ extern "C" const float flt_5_2083335;
 #pragma inline_depth(0)
 #pragma code_seg(".text$zz_004073e0_entry")
 extern "C" int __stdcall ProjectileSpawnCellContext(
-        ProjectilePattern_004073e0* patterns, ProjectileManager_004073e0* manager, int count) {
+        ProjectilePattern* patterns, ProjectileManager_004073e0* manager, int count) {
     int total = 0;
     for (int index = 0; index < count; ++index)
         total += EnemyGrid_ScanCells_004073e0(&patterns[index], manager);

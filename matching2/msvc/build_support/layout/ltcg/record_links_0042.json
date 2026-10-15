@@ -17,7 +17,7 @@
     },
     {
       "name": "ListHolder_0042abd0_Clear",
-      "symbol": "?Clear@ListHolder_0042abd0@@QAEXXZ",
+      "symbol": "?Clear@ListHolder@@QAEXXZ",
       "section": ".text$03unlink",
       "address": "0x42abd0",
       "size": 55,

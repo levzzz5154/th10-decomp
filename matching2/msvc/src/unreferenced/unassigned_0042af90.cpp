@@ -3,7 +3,7 @@
 extern "C" void* g_score;
 extern "C" void __cdecl crt_free(void* memory);
 extern "C" void __cdecl crt_free_startup(void* memory);
-extern "C" void FlushHolder_0042af90(void) {
+extern "C" void FlushHolder(void) {
     void** record = (void**)g_score;
     if (record) {
         if (record[0]) { crt_free(record[0]); record[0] = 0; }

@@ -16,9 +16,9 @@ extern "C" __declspec(noinline) int __fastcall ReplaySaveModelPad_00429b60(int s
 
 #pragma code_seg(".text$rsave04")
 int __stdcall ReplaySaveCompilerContext_00429b60(
-    ReplaySaveManager_00429b60* manager, const char* file_name, const char* name) {
-    int (__fastcall ReplaySaveManager_00429b60::*volatile save)(const char*, const char*) =
-        &ReplaySaveManager_00429b60::Save;
+    ReplaySaveManager* manager, const char* file_name, const char* name) {
+    int (__fastcall ReplaySaveManager::*volatile save)(const char*, const char*) =
+        &ReplaySaveManager::Save;
     int (__fastcall *volatile pad)(int) = &ReplaySaveModelPad_00429b60;
     return (manager->*save)(file_name, name) + pad(2);
 }

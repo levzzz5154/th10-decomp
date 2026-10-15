@@ -11,7 +11,7 @@ int NativeDeviceOwner::Configure(void* window, unsigned int level, unsigned shor
         current=device;
         result=current->methods->set_cooperative_level(current,window,level);
         if (result>=0) {
-            Sound_SetPrimaryFormat_0044c7e0(bits,channels,rate,&device);
+            Sound_SetPrimaryFormat(bits,channels,rate,&device);
             result=0;
         }
     }

@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "H3301Table_00409f40_GetValue",
-      "symbol": "?GetValue@H3301Table_00409f40@@QBEHH@Z",
+      "symbol": "?GetValue@H3301Table@@QBEHH@Z",
       "section": ".text$01target",
       "address": "0x00409F40",
       "size": 10,

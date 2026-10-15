@@ -1,4 +1,4 @@
-// 0x00415E30..0x00415E8C: TickRecoveryState_00415e30
+// 0x00415E30..0x00415E8C: TickRecoveryState
 //
 // This guarded script-state tick first asks 0x00415E90 whether to stop. If it
 // keeps running, it copies the current frame counter to the previous counter
@@ -11,7 +11,7 @@ extern float g_frame_timer_normal_upper;  // 0x00470B64
 
 extern "C" int __stdcall asm_FUN_00415e90_00415e90(void* state);
 
-struct RecoveryTickState_00415e30 {
+struct RecoveryTickState {
     int pad_00;             // +0x00
     int previous;           // +0x04
     int current;            // +0x08
@@ -20,7 +20,7 @@ struct RecoveryTickState_00415e30 {
 };
 
 #pragma code_seg(".text$01tick")
-__declspec(noinline) int __stdcall TickRecoveryState_00415e30(RecoveryTickState_00415e30* state) {
+__declspec(noinline) int __stdcall TickRecoveryState(RecoveryTickState* state) {
     if (asm_FUN_00415e90_00415e90(state))
         return 1;
 

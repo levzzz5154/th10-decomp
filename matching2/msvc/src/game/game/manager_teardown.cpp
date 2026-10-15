@@ -26,7 +26,7 @@
 // registrar takes the manager in EAX and the name in EDX, and the side panel
 // reaches ReleaseStageParts in EBX. Only a native /LTCG link that can see the
 // callees' bodies assigns those registers, so the region is compiled in the
-// cluster build_support/layout/ltcg/manager_state_release_00417c80.json, whose driver and
+// cluster build_support/layout/ltcg/manager_state_release.json, whose driver and
 // anchor sources carry a compiled body for each of them, placed at the retail
 // address and never exported as recovered code.
 #include "th10/game/manager_teardown_00417c80.hpp"
@@ -40,17 +40,17 @@ extern "C" void __cdecl crt_free_startup(void* memory);
 // The stack-argument destroy callees, each spelled with its fixed retail
 // prototype (receiver at [ESP+4], RET 4).
 extern "C" void __stdcall BackGround_Destroy(void* state);
-extern "C" void __stdcall Manager_Release_00422220(void* manager);
+extern "C" void __stdcall Manager_Release(void* manager);
 extern "C" void __stdcall Front_Destroy(void* manager);
-extern "C" void __stdcall StageManager_Destroy_00424ed0(void* manager);
-extern "C" void __stdcall BulletManager_Destroy_00405f70(void* manager);
-extern "C" void __stdcall ItemManager_Destroy_0041adf0(void* manager);
-extern "C" void __stdcall ScoreExtendedObject_DestroyRetail_0041c1c0(void* object);
+extern "C" void __stdcall StageManager_Destroy(void* manager);
+extern "C" void __stdcall BulletManager_Destroy(void* manager);
+extern "C" void __stdcall ItemManager_Destroy(void* manager);
+extern "C" void __stdcall ScoreExtendedObject_DestroyRetail(void* object);
 extern "C" void __stdcall ResourceCleanup_00418ee0(void* state);
-extern "C" void __stdcall EffectManager_Destroy_0042b570(void* manager);
-extern "C" void __stdcall ManagerOwned_Destroy_004294a0(void* manager);
+extern "C" void __stdcall EffectManager_Destroy(void* manager);
+extern "C" void __stdcall ManagerOwned_Destroy(void* manager);
 extern "C" void __stdcall EnemyCtrl_Clear_00409f90(void* manager);
-extern "C" void __stdcall BulletManager_Release_0040af00(void* manager);
+extern "C" void __stdcall BulletManager_Release(void* manager);
 extern "C" void __stdcall Bomb_Release(void* state);
 extern "C" void __stdcall Card_Destroy_00408af0(void* manager);
 
@@ -62,24 +62,24 @@ struct Game {
 };
 
 // A task-holder record whose active flag sits at +4.
-struct TaskFlagRecord_00417c80 {
+struct TaskFlagRecord {
     unsigned char reserved_000[4];
     unsigned int flags_004;                         // +0x04
 };
 
 // The pause-menu and bullet managers publish two records each, at +8 and +0xC.
-struct TaskPairOwner_00417c80 {
+struct TaskPairOwner {
     unsigned char reserved_000[8];
-    TaskFlagRecord_00417c80* node_008;              // +0x08
-    TaskFlagRecord_00417c80* node_00C;              // +0x0C
+    TaskFlagRecord* node_008;              // +0x08
+    TaskFlagRecord* node_00C;              // +0x0C
 };
 
 // The replay manager publishes one record at +0x1CC and one at +0xC.
-struct ReplayTaskPairOwner_00417c80 {
+struct ReplayTaskPairOwner {
     unsigned char reserved_000[0x0C];
-    TaskFlagRecord_00417c80* node_00C;              // +0x0C
+    TaskFlagRecord* node_00C;              // +0x0C
     unsigned char reserved_010[0x1CC - 0x10];
-    TaskFlagRecord_00417c80* node_1CC;              // +0x1CC
+    TaskFlagRecord* node_1CC;              // +0x1CC
 };
 
 #pragma code_seg(".text$9release")
@@ -107,7 +107,7 @@ void __stdcall Game_Destroy(Game* state) {
         position.z = 0.0f;
         if (*handle_slot == 0) {
             void* slot_handle;
-            void** slot = AnimationManager_CreatePositionedPrimary_00448d50(
+            void** slot = AnimationManager_CreatePositionedPrimary(
                 g_ascii_manager->animation_resource, &slot_handle, 6, &position);
             *handle_slot = *slot;
         }
@@ -138,7 +138,7 @@ void __stdcall Game_Destroy(Game* state) {
         if (g_main_state != 0xE && g_main_state != 0xF) {
             void* replay_manager = g_replay;
             if (replay_manager) {
-                ManagerOwned_Destroy_004294a0(replay_manager);
+                ManagerOwned_Destroy(replay_manager);
                 crt_free_startup(replay_manager);
             }
         }
@@ -154,7 +154,7 @@ void __stdcall Game_Destroy(Game* state) {
         }
         void* pause_menu = g_pause;
         if (pause_menu) {
-            Manager_Release_00422220(pause_menu);
+            Manager_Release(pause_menu);
             crt_free_startup(pause_menu);
         }
         void* items = g_front;
@@ -164,22 +164,22 @@ void __stdcall Game_Destroy(Game* state) {
         }
         void* stage = g_player;
         if (stage) {
-            StageManager_Destroy_00424ed0(stage);
+            StageManager_Destroy(stage);
             crt_free_startup(stage);
         }
         void* bullets = g_bullet_manager;
         if (bullets) {
-            BulletManager_Destroy_00405f70(bullets);
+            BulletManager_Destroy(bullets);
             crt_free_startup(bullets);
         }
         void* native_effects = g_item_manager;
         if (native_effects) {
-            ItemManager_Destroy_0041adf0(native_effects);
+            ItemManager_Destroy(native_effects);
             crt_free_startup(native_effects);
         }
         void* score_extended = g_laser_manager;
         if (score_extended) {
-            ScoreExtendedObject_DestroyRetail_0041c1c0(score_extended);
+            ScoreExtendedObject_DestroyRetail(score_extended);
             crt_free_startup(score_extended);
         }
         void* resource_state = g_hint;
@@ -189,7 +189,7 @@ void __stdcall Game_Destroy(Game* state) {
         }
         void* effects = g_smoll_score;
         if (effects) {
-            EffectManager_Destroy_0042b570(effects);
+            EffectManager_Destroy(effects);
             crt_free_startup(effects);
         }
     } else {
@@ -205,14 +205,14 @@ void __stdcall Game_Destroy(Game* state) {
         }
         g_background_prev = g_background;
 
-        TaskPairOwner_00417c80* pause = (TaskPairOwner_00417c80*)g_pause;
+        TaskPairOwner* pause = (TaskPairOwner*)g_pause;
         if (pause->node_008) pause->node_008->flags_004 &= ~2u;
         if (pause->node_00C) pause->node_00C->flags_004 &= ~2u;
-        TaskPairOwner_00417c80* bullet = (TaskPairOwner_00417c80*)g_bullet_manager;
+        TaskPairOwner* bullet = (TaskPairOwner*)g_bullet_manager;
         if (bullet->node_008) bullet->node_008->flags_004 &= ~2u;
         if (bullet->node_00C) bullet->node_00C->flags_004 &= ~2u;
-        ReplayTaskPairOwner_00417c80* replay =
-            (ReplayTaskPairOwner_00417c80*)g_replay;
+        ReplayTaskPairOwner* replay =
+            (ReplayTaskPairOwner*)g_replay;
         if (replay->node_1CC) replay->node_1CC->flags_004 &= ~2u;
         if (replay->node_00C) replay->node_00C->flags_004 &= ~2u;
         // The native effect manager's element storage is wiped for the next
@@ -233,7 +233,7 @@ void __stdcall Game_Destroy(Game* state) {
     }
     void* bullet_release = g_effect;
     if (bullet_release) {
-        BulletManager_Release_0040af00(bullet_release);
+        BulletManager_Release(bullet_release);
         crt_free_startup(bullet_release);
     }
     void* recovery_pair = g_bomb;

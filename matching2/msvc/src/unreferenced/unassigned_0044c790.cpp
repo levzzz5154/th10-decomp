@@ -2,7 +2,7 @@
 
 extern "C" void __cdecl asm_Ordinal_11_00452170();
 struct JoystickInterface_0044c790;
-struct PropertyOwner_0044c790 {
+struct PropertyOwner {
     void Apply(JoystickInterface_0044c790** slot);
 };
 
@@ -39,7 +39,7 @@ int JoystickSlot_0044c790::Configure(int device, int flags, int property_owner) 
         interface_pointer = this->interface_pointer;
         result = interface_pointer->vtable->configure(interface_pointer, device, flags);
         if (result >= 0) {
-            reinterpret_cast<PropertyOwner_0044c790*>(property_owner)->Apply(
+            reinterpret_cast<PropertyOwner*>(property_owner)->Apply(
                 &this->interface_pointer);
             result = 0;
         }

@@ -4,9 +4,9 @@
 
 #pragma code_seg(".text$05context")
 int __stdcall AccessorCompilerContext(ObjectAccessor_0041ab60** items,
-                                      EntityMovementSlot_0041ab70** slots,
-                                      const MovementPair_0041ab70* sources,
-                                      const MovementPair_0041ab70* destinations,
+                                      EntityMovementSlot** slots,
+                                      const MovementPair* sources,
+                                      const MovementPair* destinations,
                                       int count) {
     int total = 0;
     while (count--) {

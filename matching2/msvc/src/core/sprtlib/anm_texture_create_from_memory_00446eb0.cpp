@@ -8,8 +8,8 @@
 #include "th10/render/anm_texture_00446c70.hpp"
 
 #pragma code_seg(".text$04create")
-int __stdcall AnmTexture_CreateFromMemory_00446eb0(AnmUploadTag_00446c70 tag,
-                                                   AnmTexture_00446c70* texture, int format,
+int __stdcall AnmTexture_CreateFromMemory(AnmUploadTag tag,
+                                                   AnmTexture* texture, int format,
                                                    unsigned int color_key, int width, int height) {
     int stored_format = format;
     if (g_sound_flags & 1) {

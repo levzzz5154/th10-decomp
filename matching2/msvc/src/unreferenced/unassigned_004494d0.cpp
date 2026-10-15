@@ -10,15 +10,15 @@ extern "C" void* g_sprt_ctrl;
 
 struct AnimationNode_004494D0;
 
-struct AnimationObjectLink_004494D0 {
+struct AnimationObjectLink {
     AnimationNode_004494D0* object;       // +0x00
-    AnimationObjectLink_004494D0* next;   // +0x04
+    AnimationObjectLink* next;   // +0x04
 };
 
 struct AnimationNode_004494D0 {
     void* field_000;                      // +0x00: value passed to Find
     unsigned char unknown_004[0x10];      // +0x04
-    AnimationObjectLink_004494D0* field_014;
+    AnimationObjectLink* field_014;
     unsigned int field_018;
     unsigned char unknown_01c[0x340];
     unsigned int flags_35c;
@@ -42,7 +42,7 @@ void AnimationNode_004494D0::UpdateFlags() {
         return;
     }
 
-    for (AnimationObjectLink_004494D0* child = node->field_014;
+    for (AnimationObjectLink* child = node->field_014;
          child != 0;
          child = child->next) {
         child->object->flags_35c &= ~2u;

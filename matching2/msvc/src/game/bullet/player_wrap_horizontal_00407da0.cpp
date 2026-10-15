@@ -7,7 +7,7 @@
 #include "th10/game/player_wrap.hpp"
 
 #pragma code_seg(".text$01lwrap")
-void PlayerWrapHorizontalState_00407DA0::WrapHorizontal() {
+void PlayerWrapHorizontalState::WrapHorizontal() {
     if (!position_3B4.OutsidePlayfieldInclusive(bounds_39C->extent_34, bounds_39C->extent_30))
         return;
 

@@ -105,21 +105,21 @@
     },
     {
       "name": "query",
-      "symbol": "?Query@PlatformQueryInterfaces_0044D600@@QAEHXZ",
+      "symbol": "?Query@PlatformQueryInterfaces@@QAEHXZ",
       "section": ".text$a05q",
       "address": "0x0044D600",
       "size": 61
     },
     {
       "name": "Restart",
-      "symbol": "_SoundStream_Restart_0044dad0@4",
+      "symbol": "_SoundStream_Restart@4",
       "section": ".text$a06restart",
       "address": "0x0044DAD0",
       "size": 213
     },
     {
       "name": "Select",
-      "symbol": "?Select@PlatformStreamState_0044DCA0@@QAEHPAUPlatformStreamRecord_0044DCA0@@@Z",
+      "symbol": "?Select@PlatformStreamState@@QAEHPAUPlatformStreamRecord@@@Z",
       "section": ".text$a07select",
       "address": "0x0044DCA0",
       "size": 78
@@ -286,7 +286,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "?FindBasenameSlot_0043d2a0@PathName_0043d2a0@@QAEHPAX@Z",
+      "symbol": "?FindBasenameSlot@PathName@@QAEHPAX@Z",
       "address": "0x0043D2A0",
       "kind": "relative_code"
     },
@@ -306,12 +306,12 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "?SelectArchiveEntry@PathName_0043d2a0@@QAEHPAUPlatformD790ArchiveOwner@@@Z",
+      "symbol": "?SelectArchiveEntry@PathName@@QAEHPAUPlatformD790ArchiveOwner@@@Z",
       "address": "0x0043D790",
       "kind": "relative_code"
     },
     {
-      "symbol": "_SoundStream_Worker_0043e3a0@4",
+      "symbol": "_SoundStream_Worker@4",
       "address": "0x0043E3A0",
       "kind": "data"
     },

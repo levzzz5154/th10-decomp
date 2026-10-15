@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "name": "progress_record_0042c850",
+  "name": "progress_record",
   "source": "src/game/title/progress.cpp",
   "driver": "build_support/layout/ltcg/progress_record_0042c850_context.cpp",
   "headers": [],

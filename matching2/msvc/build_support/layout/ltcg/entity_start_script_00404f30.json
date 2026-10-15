@@ -31,8 +31,8 @@
       "source": "src/game/laser/laser_initialize_0041e5c0.cpp"
     },
     {
-      "name": "Stage_StartQuadScripts_00404450",
-      "symbol": "?Stage_StartQuadScripts_00404450@@YGXPAUStage_00404450@@@Z",
+      "name": "Stage_StartQuadScripts",
+      "symbol": "?Stage_StartQuadScripts@@YGXPAUStage_00404450@@@Z",
       "section": ".text$00m_stage",
       "address": "0x00404450",
       "size": 214,
@@ -147,7 +147,7 @@
       "kind": "data"
     },
     {
-      "symbol": "?SetPolar@LineVelocity_0041c8c0@@QAEPAU1@MM@Z",
+      "symbol": "?SetPolar@LineVelocity@@QAEPAU1@MM@Z",
       "address": "0x0041F800",
       "kind": "relative_code"
     },
@@ -162,7 +162,7 @@
   ],
   "roots": [
     "?Initialize@Laser_0041e5c0@@QAEHPBULaserParams_0041e5c0@@@Z",
-    "?Stage_StartQuadScripts_00404450@@YGXPAUStage_00404450@@@Z",
+    "?Stage_StartQuadScripts@@YGXPAUStage_00404450@@@Z",
     "?Initialize@LineLaser_0041c8c0@@QAEHPBULineLaserParams_0041c8c0@@@Z"
   ],
   "additional_sources": [

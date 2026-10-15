@@ -1,7 +1,7 @@
 // Complete 0x00449470 variable stop-frame propagation.
 #include "animation.hpp"
 #pragma code_seg(".text$02r")
-void SubHandle4_004236f0::SetStopFrame(short frame) {
+void SubHandle4::SetStopFrame(short frame) {
     AnimationScriptId id;
     id.value = (int)value;
     AnimationTreeNode* node = reinterpret_cast<AnimationTreeNode*>(

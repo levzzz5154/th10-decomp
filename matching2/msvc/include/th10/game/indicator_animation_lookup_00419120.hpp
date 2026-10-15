@@ -7,11 +7,11 @@
 
 extern "C" void* g_sprt_ctrl;
 
-struct IndicatorAnimationManager_00419120 : RecoveryLookupContext {
+struct IndicatorAnimationManager : RecoveryLookupContext {
     __forceinline HintVm* FindInline(unsigned int id) {
         if (id == 0)
             return 0;
-        RecoveryLookupNode_0040bd80* node;
+        RecoveryLookupNode* node;
         for (node = primary; node != 0; node = node->next)
             if (*reinterpret_cast<unsigned int*>(node->object) == id)
                 return reinterpret_cast<HintVm*>(node->object);
@@ -27,26 +27,26 @@ struct IndicatorAnimationManager_00419120 : RecoveryLookupContext {
         if (vm != 0) {
             vm->flags |= 0x04000000u;
             if (!vm->children_flagged)
-                for (HintVmLink_00419120* child = vm->children;
+                for (HintVmLink* child = vm->children;
                      child != 0; child = child->next)
                     child->object->flags |= 0x04000000u;
         }
     }
 };
 
-static __forceinline IndicatorAnimationManager_00419120* IndicatorAnimations() {
-    return static_cast<IndicatorAnimationManager_00419120*>(g_sprt_ctrl);
+static __forceinline IndicatorAnimationManager* IndicatorAnimations() {
+    return static_cast<IndicatorAnimationManager*>(g_sprt_ctrl);
 }
 
 // Removes the handle's VM and forgets it.
-static __forceinline void IndicatorHandle_Remove(HintHandle_00419120& handle) {
+static __forceinline void IndicatorHandle_Remove(HintHandle& handle) {
     IndicatorAnimations()->MarkRemovedInline(handle.value);
     handle.value = 0;
 }
 
 // The handle's VM; a stale handle is cleared.
 static __forceinline HintVm* IndicatorHandle_GetInline(
-        HintHandle_00419120& handle) {
+        HintHandle& handle) {
     HintVm* vm = IndicatorAnimations()->FindInline(handle.value);
     if (vm == 0)
         handle.value = 0;
@@ -56,9 +56,9 @@ static __forceinline HintVm* IndicatorHandle_GetInline(
 // The same through the out-of-line lookup at 0x004491C0, which takes the
 // handle by value.
 static inline HintVm* IndicatorHandle_Get(
-        HintHandle_00419120& handle) {
+        HintHandle& handle) {
     HintVm* vm = static_cast<HintVm*>(
-        static_cast<RecoveryLookup_0040bd80*>(g_sprt_ctrl)->Find(
+        static_cast<RecoveryLookup*>(g_sprt_ctrl)->Find(
             static_cast<RecoveryLookupContext*>(g_sprt_ctrl),
             *reinterpret_cast<RecoveryScriptId*>(&handle)));
     if (vm == 0)

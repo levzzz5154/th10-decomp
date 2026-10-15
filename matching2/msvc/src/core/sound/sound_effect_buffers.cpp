@@ -25,7 +25,7 @@ int WaveSoundManager::InitializeEffects() {
     for (int slot = 0; slot < 12; ++slot)
         pending_sound_indices[slot] = -1;
     // The workers always belong to the global manager, whatever the receiver.
-    reinterpret_cast<SoundWorkerPair_0043cc40*>(&g_wave_sound_manager)->Stop();
+    reinterpret_cast<SoundWorkerPair*>(&g_wave_sound_manager)->Stop();
     if (!device_owner)
         return -1;
     if (!device)

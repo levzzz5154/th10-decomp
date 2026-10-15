@@ -7,7 +7,7 @@ struct EclOwner_00412a70 {
     EclVm_00450070* vm;  // +0x0004
 };
 
-struct EclHolder_00412a70 {
+struct EclHolder {
     unsigned char unknown_0000[0x14D8];
     EclOwner_00412a70* owner;  // +0x14D8
 
@@ -15,7 +15,7 @@ struct EclHolder_00412a70 {
 };
 
 #pragma code_seg(".text$01_")
-__declspec(noinline) float* EclHolder_00412a70::ResolveFloatDestination(int index) {
+__declspec(noinline) float* EclHolder::ResolveFloatDestination(int index) {
     EclOwner_00412a70* target = owner;
     return target->vm->ResolveFloatDestination(index);
 }

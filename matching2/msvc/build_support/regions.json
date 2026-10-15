@@ -194,7 +194,7 @@
     {
       "name": "semantic_PendingState_004014d0_ClearPending",
       "source": "src/unreferenced/unassigned_004014d0.cpp",
-      "symbol": "?ClearPending_004014d0@WidgetHost_004014d0@@QAEHXZ",
+      "symbol": "?ClearPending_004014d0@WidgetHost@@QAEHXZ",
       "address": "0x004014D0",
       "size": 26,
       "kind": "semantic",
@@ -586,7 +586,7 @@
     {
       "name": "semantic_RecordTable_00401d00_At_00401d00",
       "source": "src/unreferenced/entry_at_00401d00.cpp",
-      "symbol": "?At@RecordTable_00401d00@@QAEPAURecord_00401d00@@H@Z",
+      "symbol": "?At@RecordTable@@QAEPAURecord_00401d00@@H@Z",
       "address": "0x00401D00",
       "size": 12,
       "kind": "semantic",
@@ -1016,7 +1016,7 @@
     {
       "name": "semantic_EffectAnimation_Destructor_00401FF0",
       "source": "src/game/ascii/effect_animation_destroy.cpp",
-      "symbol": "??1EffectAnimation_00401FF0@@QAE@XZ",
+      "symbol": "??1EffectAnimation@@QAE@XZ",
       "address": "0x00401FF0",
       "size": 34,
       "relocations": [
@@ -1093,7 +1093,7 @@
     {
       "name": "semantic_FreeBlock_00402040_00402040",
       "source": "src/unreferenced/unassigned_00402040.cpp",
-      "symbol": "?FreeBlock_00402040@@YGXPAX@Z",
+      "symbol": "?FreeBlock@@YGXPAX@Z",
       "address": "0x00402040",
       "size": 8,
       "kind": "semantic",
@@ -1785,7 +1785,7 @@
     {
       "name": "semantic_set_two_vectors_004043d0_004043d0",
       "source": "src/unreferenced/unassigned_004043d0.cpp",
-      "symbol": "?SetVectors_004043d0@@YGXPAUObject_004043d0@@PBUVec3_004043d0@@1@Z",
+      "symbol": "?SetVectors@@YGXPAUObject_004043d0@@PBUVec3_004043d0@@1@Z",
       "address": "0x004043D0",
       "size": 59,
       "kind": "semantic",
@@ -1828,7 +1828,7 @@
     {
       "name": "semantic_AnimationPairOwner_ReleaseAnimations_00404420",
       "source": "src/unreferenced/unassigned_00404420.cpp",
-      "symbol": "?ReleaseAnimations@AnimationPairOwner_00404420@@QAEXXZ",
+      "symbol": "?ReleaseAnimations@AnimationPairOwner@@QAEXXZ",
       "address": "0x00404420",
       "size": 47,
       "kind": "semantic",
@@ -1854,7 +1854,7 @@
     {
       "name": "semantic_Stage_StartQuadScripts_00404450_00404450",
       "source": "src/game/background/stage_start_quad_scripts_00404450.cpp",
-      "symbol": "?Stage_StartQuadScripts_00404450@@YGXPAUStage_00404450@@@Z",
+      "symbol": "?Stage_StartQuadScripts@@YGXPAUStage_00404450@@@Z",
       "address": "0x00404450",
       "size": 214,
       "kind": "semantic",
@@ -2011,7 +2011,7 @@
     {
       "name": "semantic_copy_second_block_00404c70_00404c70",
       "source": "src/unreferenced/copy_second_block_00404c70.cpp",
-      "symbol": "?CopySecond_00404c70@@YGXPAUBlockPair_00404c70@@PBUBlock_00404c60@@@Z",
+      "symbol": "?CopySecond@@YGXPAUBlockPair@@PBUBlock_00404c60@@@Z",
       "address": "0x00404C70",
       "size": 19,
       "kind": "semantic",
@@ -2247,7 +2247,7 @@
     {
       "name": "semantic_VectorScale_00404e70_Scale_00404e70",
       "source": "src/unreferenced/unassigned_00404e70.cpp",
-      "symbol": "?Scale@VectorScale_00404e70@@QBE?AUVector3_00404e70@@M@Z",
+      "symbol": "?Scale@VectorScale@@QBE?AUVector3_00404e70@@M@Z",
       "address": "0x00404E70",
       "size": 31,
       "kind": "semantic",
@@ -2515,7 +2515,7 @@
     {
       "name": "semantic_EmbeddedTimer_004050d0_Reset",
       "source": "src/game/background/embedded_timer_reset_004050d0.cpp",
-      "symbol": "?Reset@EmbeddedTimer_004050d0@@QAEXXZ",
+      "symbol": "?Reset@EmbeddedTimer@@QAEXXZ",
       "address": "0x004050D0",
       "size": 50,
       "kind": "semantic",
@@ -2695,7 +2695,7 @@
     {
       "name": "semantic_RetireBlock_004051d0_004051d0",
       "source": "src/unreferenced/unassigned_004051d0.cpp",
-      "symbol": "?RetireBlock_004051d0@@YGHPAX@Z",
+      "symbol": "?RetireBlock@@YGHPAX@Z",
       "address": "0x004051D0",
       "size": 7,
       "kind": "semantic",
@@ -2721,7 +2721,7 @@
     {
       "name": "semantic_AllocateBlock_004051e0_004051e0",
       "source": "src/unreferenced/unassigned_004051e0.cpp",
-      "symbol": "?AllocateBlock_004051e0@@YGPAXI@Z",
+      "symbol": "?AllocateBlock@@YGPAXI@Z",
       "address": "0x004051E0",
       "size": 10,
       "kind": "semantic",
@@ -2747,7 +2747,7 @@
     {
       "name": "semantic_vec3_divide_004051f0_004051f0",
       "source": "src/unreferenced/unassigned_004051f0.cpp",
-      "symbol": "?Divided_004051f0@@YG?AUVec3_004051f0@@PBU1@M@Z",
+      "symbol": "?Divided@@YG?AUVec3_004051f0@@PBU1@M@Z",
       "address": "0x004051F0",
       "size": 41,
       "kind": "semantic",
@@ -2799,7 +2799,7 @@
     {
       "name": "semantic_VectorSubtract_00405240_00405240",
       "source": "src/unreferenced/unassigned_00405240.cpp",
-      "symbol": "?VectorSubtract_00405240@@YI?AUVector3_00405240@@ABU1@0@Z",
+      "symbol": "?VectorSubtract@@YI?AUVector3_00405240@@ABU1@0@Z",
       "address": "0x00405240",
       "size": 25,
       "kind": "semantic",
@@ -2851,7 +2851,7 @@
     {
       "name": "semantic_PlayerValueAtMost_00405280_00405280",
       "source": "src/unreferenced/unassigned_00405280.cpp",
-      "symbol": "?IsUnknownValueAt0004AtMost@PlayerLeafComparison_00405280@@QBEHH@Z",
+      "symbol": "?IsUnknownValueAt0004AtMost@PlayerLeafComparison@@QBEHH@Z",
       "address": "0x00405280",
       "size": 17,
       "kind": "semantic",
@@ -2877,7 +2877,7 @@
     {
       "name": "semantic_004052a0",
       "source": "src/unreferenced/unassigned_004052a0.cpp",
-      "symbol": "?Rewind@TimerResetter_004052a0@@QAEXXZ",
+      "symbol": "?Rewind@TimerResetter@@QAEXXZ",
       "address": "0x004052A0",
       "size": 11,
       "kind": "semantic",
@@ -2894,7 +2894,7 @@
     {
       "name": "semantic_TimerDecrementer_004052b0_Decrement_004052b0",
       "source": "src/unreferenced/unassigned_004052b0.cpp",
-      "symbol": "?Decrement@TimerDecrementer_004052b0@@QAEXH@Z",
+      "symbol": "?Decrement@TimerDecrementer@@QAEXH@Z",
       "address": "0x004052B0",
       "size": 20,
       "kind": "semantic",
@@ -2920,7 +2920,7 @@
     {
       "name": "semantic_004052d0",
       "source": "src/unreferenced/unassigned_004052d0.cpp",
-      "symbol": "?AdvanceCount@TimerAdvancer_004052d0@@QAEXH@Z",
+      "symbol": "?AdvanceCount@TimerAdvancer@@QAEXH@Z",
       "address": "0x004052D0",
       "size": 16,
       "kind": "semantic",
@@ -3203,7 +3203,7 @@
     {
       "name": "semantic_TimerArm_00405450_Arm_00405450",
       "source": "src/unreferenced/timer_arm_float_00405450.cpp",
-      "symbol": "?Arm@TimerArm_00405450@@QAEXH@Z",
+      "symbol": "?Arm@TimerArm@@QAEXH@Z",
       "address": "0x00405450",
       "size": 57,
       "kind": "semantic",
@@ -3281,7 +3281,7 @@
     {
       "name": "semantic_PowerDisplayOwner_SetPowerDigits_004054b0",
       "source": "src/game/background/power_display_set_digits_004054b0.cpp",
-      "symbol": "?SetPowerDigits@PowerDisplayOwner_004054b0@@QAEXHH@Z",
+      "symbol": "?SetPowerDigits@PowerDisplayOwner@@QAEXHH@Z",
       "address": "0x004054B0",
       "size": 79,
       "kind": "semantic",
@@ -3308,7 +3308,7 @@
     {
       "name": "semantic_PlayerFlags_ClearExpiredFlags_00405500",
       "source": "src/game/background/player_clear_expired_flags_00405500.cpp",
-      "symbol": "?ClearExpiredFlags@PlayerFlags_00405500@@QAEXXZ",
+      "symbol": "?ClearExpiredFlags@PlayerFlags@@QAEXXZ",
       "address": "0x00405500",
       "size": 81,
       "kind": "semantic",
@@ -3775,7 +3775,7 @@
     {
       "name": "semantic_ShortAccessor_00405b90_Load_00405b90",
       "source": "src/unreferenced/FUN_00405b90_00405b90.cpp",
-      "symbol": "?Load@ShortAccessor_00405b90@@QBEFXZ",
+      "symbol": "?Load@ShortAccessor@@QBEFXZ",
       "address": "0x00405B90",
       "size": 5,
       "kind": "semantic",
@@ -4077,7 +4077,7 @@
     {
       "name": "semantic_00405e10",
       "source": "src/unreferenced/unassigned_00405e10.cpp",
-      "symbol": "?Clear@ObjectClearer_00405e10@@QAEPAU1@XZ",
+      "symbol": "?Clear@ObjectClearer@@QAEPAU1@XZ",
       "address": "0x00405E10",
       "size": 7,
       "kind": "semantic",
@@ -4094,7 +4094,7 @@
     {
       "name": "semantic_BulletManager_Initialize_00405e20",
       "source": "src/game/bullet/bullet_manager_initialize_00405e20.cpp",
-      "symbol": "_BulletManager_Initialize_00405e20@4",
+      "symbol": "_BulletManager_Initialize@4",
       "address": "0x00405E20",
       "size": 163,
       "kind": "semantic",
@@ -4146,7 +4146,7 @@
     {
       "name": "semantic_LoadBulletAnm_00405f00_00405f00",
       "source": "src/unreferenced/unassigned_00405f00.cpp",
-      "symbol": "_LoadBulletAnm_00405f00",
+      "symbol": "_LoadBulletAnm",
       "address": "0x00405F00",
       "size": 50,
       "kind": "semantic",
@@ -4371,7 +4371,7 @@
     {
       "name": "semantic_RecoverySlotTable_Rearm_004065c0",
       "source": "src/game/bullet/fun_004065c0_004065c0.cpp",
-      "symbol": "?Rearm@RecoverySlotTable_004065c0@@QAEHXZ",
+      "symbol": "?Rearm@RecoverySlotTable@@QAEHXZ",
       "address": "0x004065C0",
       "size": 249,
       "kind": "semantic",
@@ -4397,7 +4397,7 @@
     {
       "name": "semantic_UpdateAllSlotChains_004066C0",
       "source": "src/unreferenced/unassigned_004066c0.cpp",
-      "symbol": "?UpdateAllSlotChains@SlotChainOwner_004066C0@@QAEHXZ",
+      "symbol": "?UpdateAllSlotChains@SlotChainOwner@@QAEHXZ",
       "address": "0x004066C0",
       "size": 25,
       "kind": "semantic",
@@ -4423,7 +4423,7 @@
     {
       "name": "semantic_SlotOwner_AdvanceSlot_004066e0",
       "source": "src/game/bullet/bullet_manager_on_draw.cpp",
-      "symbol": "?AdvanceSlot@SlotOwner_004067a0@@QAEHH@Z",
+      "symbol": "?AdvanceSlot@SlotOwner@@QAEHH@Z",
       "address": "0x004066E0",
       "size": 134,
       "kind": "semantic",
@@ -4449,7 +4449,7 @@
     {
       "name": "semantic_RecoverySlotTable_CanRearm_00406770",
       "source": "src/game/bullet/bullet_manager_on_update.cpp",
-      "symbol": "?OnUpdate@RecoverySlotTable_004065c0@@QAEHXZ",
+      "symbol": "?OnUpdate@RecoverySlotTable@@QAEHXZ",
       "address": "0x00406770",
       "size": 40,
       "kind": "semantic",
@@ -4466,7 +4466,7 @@
     {
       "name": "semantic_SlotOwner_004067a0_AdvanceAllSlots_004067a0",
       "source": "src/game/bullet/bullet_manager_on_draw.cpp",
-      "symbol": "?OnDraw@SlotOwner_004067a0@@QAEHXZ",
+      "symbol": "?OnDraw@SlotOwner@@QAEHXZ",
       "address": "0x004067A0",
       "size": 44,
       "kind": "semantic",
@@ -4518,7 +4518,7 @@
     {
       "name": "semantic_EnemyGrid_ScanCells_004073e0",
       "source": "src/game/bullet/enemy_grid_scan.cpp",
-      "symbol": "?EnemyGrid_ScanCells_004073e0@@YGHPAUProjectilePattern_004073e0@@PAUProjectileManager_004073e0@@@Z",
+      "symbol": "?EnemyGrid_ScanCells_004073e0@@YGHPAUProjectilePattern@@PAUProjectileManager_004073e0@@@Z",
       "address": "0x004073E0",
       "size": 194,
       "kind": "semantic",
@@ -4544,7 +4544,7 @@
     {
       "name": "semantic_PlayerAnimation_AdvanceFrame_004074b0",
       "source": "src/game/bullet/player_animation_advance_frame_004074b0.cpp",
-      "symbol": "?AdvanceAnimationFrame@PlayerAnimationState_004074B0@@QAEXXZ",
+      "symbol": "?AdvanceAnimationFrame@PlayerAnimationState@@QAEXXZ",
       "address": "0x004074B0",
       "size": 164,
       "kind": "semantic",
@@ -4587,7 +4587,7 @@
     {
       "name": "semantic_PlayerDeathShrinkState_AdvanceDeathShrink_004076a0",
       "source": "src/game/bullet/player_death_shrink_004076a0.cpp",
-      "symbol": "?AdvanceDeathShrink@PlayerDeathShrinkState_004076A0@@QAEXXZ",
+      "symbol": "?AdvanceDeathShrink@PlayerDeathShrinkState@@QAEXXZ",
       "address": "0x004076A0",
       "size": 209,
       "kind": "semantic",
@@ -4717,7 +4717,7 @@
     {
       "name": "semantic_PlayerWrap_WrapHorizontal_00407da0",
       "source": "src/game/bullet/player_wrap_horizontal_00407da0.cpp",
-      "symbol": "?WrapHorizontal@PlayerWrapHorizontalState_00407DA0@@QAEXXZ",
+      "symbol": "?WrapHorizontal@PlayerWrapHorizontalState@@QAEXXZ",
       "address": "0x00407DA0",
       "size": 148,
       "kind": "semantic",
@@ -4743,7 +4743,7 @@
     {
       "name": "semantic_PlayerWrap_WrapVertical_00407e40",
       "source": "src/game/bullet/player_wrap_vertical_00407e40.cpp",
-      "symbol": "?WrapVertical@PlayerWrapHorizontalState_00407DA0@@QAEXXZ",
+      "symbol": "?WrapVertical@PlayerWrapHorizontalState@@QAEXXZ",
       "address": "0x00407E40",
       "size": 172,
       "kind": "semantic",
@@ -4769,7 +4769,7 @@
     {
       "name": "semantic_PlayerHoming_HomeTowardTarget_00407ef0",
       "source": "src/game/bullet/player_homing_00407ef0.cpp",
-      "symbol": "?HomeTowardTarget@PlayerHomingState_00407EF0@@QAEXXZ",
+      "symbol": "?HomeTowardTarget@PlayerHomingState@@QAEXXZ",
       "address": "0x00407EF0",
       "size": 306,
       "kind": "semantic",
@@ -4876,7 +4876,7 @@
     {
       "name": "semantic_CollisionEngine_ActivateAll_00408460",
       "source": "src/game/bullet/collision_engine_activate_all_00408460.cpp",
-      "symbol": "?ActivateAll@CollisionEngine_00408100@@QAEXH@Z",
+      "symbol": "?ActivateAll@CollisionEngine@@QAEXH@Z",
       "address": "0x00408460",
       "size": 62,
       "kind": "semantic",
@@ -5143,7 +5143,7 @@
     {
       "name": "semantic_00408770",
       "source": "src/unreferenced/unassigned_00408770.cpp",
-      "symbol": "?Scale@RngScaler_00408770@@QBEMM@Z",
+      "symbol": "?Scale@RngScaler@@QBEMM@Z",
       "address": "0x00408770",
       "size": 12,
       "kind": "semantic",
@@ -5264,7 +5264,7 @@
     {
       "name": "semantic_H3401ShortField_004087d0_Set_004087d0",
       "source": "src/unreferenced/FUN_004087d0_004087d0.cpp",
-      "symbol": "?Set@H3401ShortField_004087d0@@QAEXG@Z",
+      "symbol": "?Set@H3401ShortField@@QAEXG@Z",
       "address": "0x004087D0",
       "size": 8,
       "kind": "semantic",
@@ -5506,7 +5506,7 @@
     {
       "name": "semantic_SlotIndex_004088a0_004088a0",
       "source": "src/unreferenced/unassigned_004088a0.cpp",
-      "symbol": "?SlotIndex_004088a0@@YGHHH@Z",
+      "symbol": "?SlotIndex@@YGHHH@Z",
       "address": "0x004088A0",
       "size": 11,
       "kind": "semantic",
@@ -5621,7 +5621,7 @@
     {
       "name": "semantic_PlayerManagerTasks_InitializeTasks_004089c0",
       "source": "src/game/card/card_register_tasks.cpp",
-      "symbol": "?InitializeTasks@CardTasks_004089c0@@QAEHXZ",
+      "symbol": "?InitializeTasks@CardTasks@@QAEHXZ",
       "address": "0x004089C0",
       "size": 211,
       "kind": "semantic",
@@ -5880,7 +5880,7 @@
     {
       "name": "semantic_PlayerManagerPrimary_00409220",
       "source": "src/game/card/card_update.cpp",
-      "symbol": "@CardPrimary_00409220@4",
+      "symbol": "@CardPrimary@4",
       "address": "0x00409220",
       "size": 10,
       "kind": "semantic",
@@ -6189,7 +6189,7 @@
     {
       "name": "semantic_EclView_ClearScriptNames_00409eb0",
       "source": "src/game/eclview/ecl_view_teardown.cpp",
-      "symbol": "?ClearScriptNames@EclView_0040a940@@QAEXXZ",
+      "symbol": "?ClearScriptNames@EclView@@QAEXXZ",
       "address": "0x00409EB0",
       "size": 86,
       "kind": "semantic",
@@ -6258,7 +6258,7 @@
     {
       "name": "semantic_H3301Table_00409f40_GetValue_00409f40",
       "source": "src/unreferenced/FUN_00409f40_00409f40.cpp",
-      "symbol": "?GetValue@H3301Table_00409f40@@QBEHH@Z",
+      "symbol": "?GetValue@H3301Table@@QBEHH@Z",
       "address": "0x00409F40",
       "size": 10,
       "kind": "semantic",
@@ -6457,7 +6457,7 @@
     {
       "name": "semantic_EclView_Destructor_0040a1a0",
       "source": "src/game/eclview/ecl_view_teardown.cpp",
-      "symbol": "??1EclView_0040a940@@QAE@XZ",
+      "symbol": "??1EclView@@QAE@XZ",
       "address": "0x0040A1A0",
       "size": 412,
       "kind": "semantic",
@@ -6605,7 +6605,7 @@
     {
       "name": "semantic_EclView_Update_0040a450",
       "source": "src/game/eclview/ecl_view_update.cpp",
-      "symbol": "?Update@EclView_0040a940@@QAEHXZ",
+      "symbol": "?Update@EclView@@QAEHXZ",
       "address": "0x0040A450",
       "size": 1251,
       "kind": "semantic",
@@ -6631,7 +6631,7 @@
     {
       "name": "semantic_EclView_Draw_0040a940",
       "source": "src/game/eclview/ecl_view_draw.cpp",
-      "symbol": "?Draw@EclView_0040a940@@QAEHXZ",
+      "symbol": "?Draw@EclView@@QAEHXZ",
       "address": "0x0040A940",
       "size": 664,
       "kind": "semantic",
@@ -6657,7 +6657,7 @@
     {
       "name": "semantic_EclView_UpdateTask_0040abe0",
       "source": "src/game/eclview/ecl_view_update.cpp",
-      "symbol": "?EclView_UpdateTask_0040abe0@@YIHPAUEclView_0040a940@@@Z",
+      "symbol": "?EclView_UpdateTask_0040abe0@@YIHPAUEclView@@@Z",
       "address": "0x0040ABE0",
       "size": 7,
       "kind": "semantic",
@@ -6692,7 +6692,7 @@
     {
       "name": "semantic_EclView_DrawTask_0040abf0",
       "source": "src/game/eclview/ecl_view_draw.cpp",
-      "symbol": "?EclView_DrawTask_0040abf0@@YIHPAUEclView_0040a940@@@Z",
+      "symbol": "?EclView_DrawTask_0040abf0@@YIHPAUEclView@@@Z",
       "address": "0x0040ABF0",
       "size": 10,
       "kind": "semantic",
@@ -6864,7 +6864,7 @@
     {
       "name": "semantic_CopyPair_0040ad10_CopyFirstToSecond_0040ad10",
       "source": "src/unreferenced/FUN_0040ad10_0040ad10.cpp",
-      "symbol": "?CopyFirstToSecond@CopyPair_0040ad10@@QAEXXZ",
+      "symbol": "?CopyFirstToSecond@CopyPair@@QAEXXZ",
       "address": "0x0040AD10",
       "size": 6,
       "kind": "semantic",
@@ -7538,7 +7538,7 @@
     {
       "name": "semantic_Worker_0040b2a0_Update_0040b2a0",
       "source": "src/unreferenced/unassigned_0040b2a0.cpp",
-      "symbol": "?Update@Worker_0040b2a0@@QAEHXZ",
+      "symbol": "?Update@Worker@@QAEHXZ",
       "address": "0x0040B2A0",
       "size": 100,
       "kind": "semantic",
@@ -7746,7 +7746,7 @@
     {
       "name": "semantic_StageOwner_ReloadStageAnm_0040b4f0",
       "source": "src/game/effect/stage_owner_reload_stage_anm.cpp",
-      "symbol": "?ReloadStageAnm@StageOwner_0040c3c0@@QAEHXZ",
+      "symbol": "?ReloadStageAnm@StageOwner@@QAEHXZ",
       "address": "0x0040B4F0",
       "size": 11,
       "kind": "semantic",
@@ -7850,7 +7850,7 @@
     {
       "name": "semantic_SmallState_Initialize_0040b530",
       "source": "src/unreferenced/unassigned_0040b530.cpp",
-      "symbol": "?Initialize@SmallState_0040B530@@QAEXXZ",
+      "symbol": "?Initialize@SmallState@@QAEXXZ",
       "address": "0x0040B530",
       "size": 42,
       "kind": "semantic",
@@ -8430,7 +8430,7 @@
     {
       "name": "semantic_id_matches_0040c590_0040c590",
       "source": "src/unreferenced/unassigned_0040c590.cpp",
-      "symbol": "?Matches@IdHolder_0040c590@@QAEHH@Z",
+      "symbol": "?Matches@IdHolder@@QAEHH@Z",
       "address": "0x0040C590",
       "size": 16,
       "kind": "semantic",
@@ -8551,7 +8551,7 @@
     {
       "name": "semantic_Resolve_0040c5f0_0040c5f0",
       "source": "src/unreferenced/unassigned_0040c5f0.cpp",
-      "symbol": "?Resolve@OperandSource_0040c5f0@@QAEHH@Z",
+      "symbol": "?Resolve@OperandSource@@QAEHH@Z",
       "address": "0x0040C5F0",
       "size": 10,
       "kind": "semantic",
@@ -8603,7 +8603,7 @@
     {
       "name": "semantic_FUN_0040c650_0040c650",
       "source": "src/unreferenced/FUN_0040c650_0040c650.cpp",
-      "symbol": "?ResolveSlotFloatOperand_0040c650@@YGMPAUEclOperandSlot@@H@Z",
+      "symbol": "?ResolveSlotFloatOperand@@YGMPAUEclOperandSlot@@H@Z",
       "address": "0x0040C650",
       "size": 8,
       "kind": "semantic",
@@ -8655,7 +8655,7 @@
     {
       "name": "semantic_Resolve_0040c670_0040c670",
       "source": "src/unreferenced/unassigned_0040c670.cpp",
-      "symbol": "?Resolve_0040c670@@YGHHPAUEclSource_0040c670@@H@Z",
+      "symbol": "?Resolve_0040c670@@YGHHPAUEclSource@@H@Z",
       "address": "0x0040C670",
       "size": 11,
       "kind": "semantic",
@@ -8681,7 +8681,7 @@
     {
       "name": "semantic_FUN_0040c680_0040c680",
       "source": "src/unreferenced/FUN_0040c680_0040c680.cpp",
-      "symbol": "?ResolveSlotFloatValue_0040c680@@YIMHPAUEclOperandSlot@@M@Z",
+      "symbol": "?ResolveSlotFloatValue@@YIMHPAUEclOperandSlot@@M@Z",
       "address": "0x0040C680",
       "size": 8,
       "kind": "semantic",
@@ -8889,7 +8889,7 @@
     {
       "name": "semantic_EclRecord_0040c730_Reset_0040c730",
       "source": "src/game/enemy/ecl_record_reset_0040c730.cpp",
-      "symbol": "?Reset@EclRecord_0040c730@@QAEXXZ",
+      "symbol": "?Reset@EclRecord@@QAEXXZ",
       "address": "0x0040C730",
       "size": 71,
       "kind": "semantic",
@@ -9414,7 +9414,7 @@
     {
       "name": "semantic_ItemDrops_Flush_0040c9a0",
       "source": "src/game/enemy/item_drops_flush_0040c9a0.cpp",
-      "symbol": "?FlushDrops@DropSource_0040c9a0@@QAEXPAUItemDrops_0040c9a0@@@Z",
+      "symbol": "?FlushDrops@DropSource@@QAEXPAUItemDrops_0040c9a0@@@Z",
       "address": "0x0040C9A0",
       "size": 48,
       "kind": "semantic",
@@ -9432,7 +9432,7 @@
     {
       "name": "semantic_ItemDrops_Scatter_0040c9d0",
       "source": "src/game/enemy/item_drops_flush_0040c9a0.cpp",
-      "symbol": "?ScatterDrops@DropSource_0040c9a0@@QAEXPAUItemDrops_0040c9a0@@@Z",
+      "symbol": "?ScatterDrops@DropSource@@QAEXPAUItemDrops_0040c9a0@@@Z",
       "address": "0x0040C9D0",
       "size": 503,
       "kind": "semantic",
@@ -9804,7 +9804,7 @@
     {
       "name": "semantic_EnemySlotWriter_SetEnemyIfUnmirrored_0040cdc0",
       "source": "src/unreferenced/unassigned_0040cdc0.cpp",
-      "symbol": "?SetEnemyIfUnmirrored@EnemySlotWriter_0040cdc0@@QAEXPAX@Z",
+      "symbol": "?SetEnemyIfUnmirrored@EnemySlotWriter@@QAEXPAX@Z",
       "address": "0x0040CDC0",
       "size": 23,
       "kind": "semantic",
@@ -9881,7 +9881,7 @@
     {
       "name": "semantic_PairTable_0040ce10_Set_0040ce10",
       "source": "src/unreferenced/unassigned_0040ce10.cpp",
-      "symbol": "?Set@PairTable_0040ce10@@QAEXHHM@Z",
+      "symbol": "?Set@PairTable@@QAEXHHM@Z",
       "address": "0x0040CE10",
       "size": 21,
       "kind": "semantic",
@@ -9924,7 +9924,7 @@
     {
       "name": "semantic_H3301Outer_0040ce40_GetValue_0040ce40",
       "source": "src/unreferenced/FUN_0040ce40_0040ce40.cpp",
-      "symbol": "?GetValue@H3301Outer_0040ce40@@QBEHXZ",
+      "symbol": "?GetValue@H3301Outer@@QBEHXZ",
       "address": "0x0040CE40",
       "size": 10,
       "kind": "semantic",
@@ -9950,7 +9950,7 @@
     {
       "name": "semantic_SetMax_0040ce50_0040ce50",
       "source": "src/unreferenced/unassigned_0040ce50.cpp",
-      "symbol": "?SetMax@Options_0040ce50@@QAEXH@Z",
+      "symbol": "?SetMax@Options@@QAEXH@Z",
       "address": "0x0040CE50",
       "size": 17,
       "kind": "semantic",
@@ -10123,7 +10123,7 @@
     {
       "name": "semantic_SetCountdownLimit_0040cf00",
       "source": "src/unreferenced/FUN_0040cf00_0040cf00.cpp",
-      "symbol": "?SetCountdownLimit_0040cf00@TimedOwner@@QAEHH@Z",
+      "symbol": "?SetCountdownLimit@TimedOwner@@QAEHH@Z",
       "address": "0x0040CF00",
       "size": 10,
       "kind": "semantic",
@@ -10245,7 +10245,7 @@
     {
       "name": "semantic_BulletEntity_SetAnimationVector_0040cf60",
       "source": "src/game/enemy/bullet_entity_set_animation_vector_0040cf60.cpp",
-      "symbol": "?SetAnimationVector@BulletEntity_0040cf60@@QAEXABUAnimationVector_0040cf60@@@Z",
+      "symbol": "?SetAnimationVector@BulletEntity_0040cf60@@QAEXABUAnimationVector@@@Z",
       "address": "0x0040CF60",
       "size": 23,
       "kind": "semantic",
@@ -10297,7 +10297,7 @@
     {
       "name": "semantic_BulletEntity_FindById_0040cf90",
       "source": "src/game/enemy/bullet_entity_find_by_id_0040cf90.cpp",
-      "symbol": "?FindById@BulletEntityFindByIdManager_0040cf90@@QAEPAUBulletEntityFindByIdNode_0040cf90@@H@Z",
+      "symbol": "?FindById@BulletEntityFindByIdManager@@QAEPAUBulletEntityFindByIdNode@@H@Z",
       "address": "0x0040CF90",
       "size": 22,
       "kind": "semantic",
@@ -10358,7 +10358,7 @@
     {
       "name": "semantic_RemoveNode_0040d200",
       "source": "src/unreferenced/unassigned_0040d200.cpp",
-      "symbol": "@RemoveNode_0040d200@8",
+      "symbol": "@RemoveNode@8",
       "address": "0x0040D200",
       "size": 82,
       "kind": "semantic",
@@ -10366,7 +10366,7 @@
       "previous_record": {
         "name": "semantic_RemoveNode_0040d200",
         "source": "src/unreferenced/unassigned_0040d200.cpp",
-        "symbol": "_RemoveNode_0040d200@8",
+        "symbol": "_RemoveNode@8",
         "address": "0x0040D200",
         "size": 82,
         "kind": "semantic",
@@ -10462,7 +10462,7 @@
     {
       "name": "semantic_ParseAnimationChunk_0040d400",
       "source": "src/game/enemy/ecl_file_parse_animations.cpp",
-      "symbol": "?ParseAnimationChunk@ScriptFileChunkContext_0040d400@@UAEHPAD@Z",
+      "symbol": "?ParseAnimationChunk@ScriptFileChunkContext@@UAEHPAD@Z",
       "address": "0x0040D400",
       "size": 239,
       "kind": "semantic",
@@ -10574,7 +10574,7 @@
     {
       "name": "semantic_Releaseable_0040d660_Delete_0040d660",
       "source": "src/unreferenced/unassigned_0040d660.cpp",
-      "symbol": "?Delete@Releaseable_0040d660@@QAEPAXH@Z",
+      "symbol": "?Delete@Releaseable@@QAEPAXH@Z",
       "address": "0x0040D660",
       "size": 30,
       "kind": "semantic",
@@ -10808,7 +10808,7 @@
     {
       "name": "semantic_EnemyScriptEntity_Initialize_0040d830",
       "source": "src/game/enemy/fun_0040d830_0040d830.cpp",
-      "symbol": "?InitializeEnemyScriptEntity_0040d830@@YIPAUEnemyScriptEntity_0040d830@@HPAU1@UBindScriptName_0040d830@@@Z",
+      "symbol": "?InitializeEnemyScriptEntity@@YIPAUEnemyScriptEntity@@HPAU1@UBindScriptName@@@Z",
       "address": "0x0040D830",
       "size": 673,
       "kind": "semantic",
@@ -10835,7 +10835,7 @@
     {
       "name": "semantic_Enemy_Release_0040dae0",
       "source": "src/game/enemy/enemy_lifecycle.cpp",
-      "symbol": "?Enemy_Release_0040dae0@@YGXPAUEnemy_0040dae0@@@Z",
+      "symbol": "?Enemy_Release@@YGXPAUEnemy_0040dae0@@@Z",
       "address": "0x0040DAE0",
       "size": 386,
       "kind": "semantic",
@@ -10904,7 +10904,7 @@
     {
       "name": "semantic_Enemy_ReleaseOnDeath_0040e5f0",
       "source": "src/game/enemy/enemy_death_release_0040e5f0.cpp",
-      "symbol": "?Enemy_ReleaseOnDeath_0040e5f0@@YGHPAUEnemy_0040e5f0@@@Z",
+      "symbol": "?Enemy_ReleaseOnDeath@@YGHPAUEnemy_0040e5f0@@@Z",
       "address": "0x0040E5F0",
       "size": 162,
       "kind": "semantic",
@@ -10930,7 +10930,7 @@
     {
       "name": "semantic_EnemyCtrl_SweepDeaths_0040e6a0",
       "source": "src/game/enemy/enemy_manager_sweep_deaths_0040e6a0.cpp",
-      "symbol": "?EnemyCtrl_SweepDeaths_0040e6a0@@YGXPAUEnemyCtrlDeathView@@@Z",
+      "symbol": "?EnemyCtrl_SweepDeaths@@YGXPAUEnemyCtrlDeathView@@@Z",
       "address": "0x0040E6A0",
       "size": 182,
       "kind": "semantic",
@@ -11035,7 +11035,7 @@
     {
       "name": "semantic_EclFloatSource_ResolveFloatValue_00412350",
       "source": "src/game/enemy/ecl_float_value_00412350.cpp",
-      "symbol": "?ResolveFloatValue@EclFloatSource_00412350@@QBEMH@Z",
+      "symbol": "?ResolveFloatValue@EclFloatSource@@QBEMH@Z",
       "address": "0x00412350",
       "size": 884,
       "kind": "semantic",
@@ -11089,7 +11089,7 @@
     {
       "name": "semantic_ecl_resource_slot_bind_00412720_00412720",
       "source": "src/game/enemy/ecl_set_resource_slot_00412720.cpp",
-      "symbol": "?BindSlot_00412720@@YGXPAUSlotTable_00412720@@HHHPBD@Z",
+      "symbol": "?BindSlot@@YGXPAUSlotTable_00412720@@HHHPBD@Z",
       "address": "0x00412720",
       "size": 48,
       "kind": "semantic",
@@ -11107,7 +11107,7 @@
     {
       "name": "semantic_ecl_resource_slot_set_00412750_00412750",
       "source": "src/unreferenced/unassigned_00412750.cpp",
-      "symbol": "?SetSlot_00412750@@YGXPAUSlotTable_00412750@@HHHHH@Z",
+      "symbol": "?SetSlot@@YGXPAUSlotTable_00412750@@HHHHH@Z",
       "address": "0x00412750",
       "size": 56,
       "kind": "semantic",
@@ -11133,7 +11133,7 @@
     {
       "name": "semantic_SetRecord_00412790_00412790",
       "source": "src/unreferenced/unassigned_00412790.cpp",
-      "symbol": "?SetRecord_00412790@@YGXIHPAX@Z",
+      "symbol": "?SetRecord@@YGXIHPAX@Z",
       "address": "0x00412790",
       "size": 12,
       "kind": "semantic",
@@ -11159,7 +11159,7 @@
     {
       "name": "semantic_SpellTimer_AdvanceSlots_004127a0",
       "source": "src/game/enemy/spell_timer.cpp",
-      "symbol": "?AdvanceSlots@SpellTimerState_004127a0@@QAEPAXXZ",
+      "symbol": "?AdvanceSlots@SpellTimerState@@QAEPAXXZ",
       "address": "0x004127A0",
       "size": 593,
       "kind": "semantic",
@@ -11185,7 +11185,7 @@
     {
       "name": "semantic_ECL_ResolveIntFromEntity_00412a00",
       "source": "src/game/enemy/ecl_resolve_int_from_entity_00412a00.cpp",
-      "symbol": "?ResolveEntityIntOperand_00412a00@@YGHPAUEclEntityVm@@H@Z",
+      "symbol": "?ResolveEntityIntOperand@@YGHPAUEclEntityVm@@H@Z",
       "address": "0x00412A00",
       "size": 16,
       "kind": "semantic",
@@ -11255,7 +11255,7 @@
     {
       "name": "semantic_ecl_holder_resolve_float_00412a70_00412a70",
       "source": "src/unreferenced/FUN_00412a70_00412a70.cpp",
-      "symbol": "?ResolveFloatDestination@EclHolder_00412a70@@QAEPAMH@Z",
+      "symbol": "?ResolveFloatDestination@EclHolder@@QAEPAMH@Z",
       "address": "0x00412A70",
       "size": 14,
       "kind": "semantic",
@@ -11281,7 +11281,7 @@
     {
       "name": "semantic_Resolve_00412a80_00412a80",
       "source": "src/unreferenced/unassigned_00412a80.cpp",
-      "symbol": "?Resolve@EclOperandSource_00412a80@@QAEHHH@Z",
+      "symbol": "?Resolve@EclOperandSource@@QAEHHH@Z",
       "address": "0x00412A80",
       "size": 17,
       "kind": "semantic",
@@ -11359,7 +11359,7 @@
     {
       "name": "semantic_StoreResult_00412d50_Store",
       "source": "src/unreferenced/FUN_00412d50_00412d50.cpp",
-      "symbol": "?Store@StoreResult_00412d50@@QAEHH@Z",
+      "symbol": "?Store@StoreResult@@QAEHH@Z",
       "address": "0x00412D50",
       "size": 4,
       "kind": "semantic",
@@ -12581,7 +12581,7 @@
     {
       "name": "semantic_ClearBlock_00413190_00413190",
       "source": "src/unreferenced/unassigned_00413190.cpp",
-      "symbol": "?ClearBlock_00413190@@YGXPAX@Z",
+      "symbol": "?ClearBlock@@YGXPAX@Z",
       "address": "0x00413190",
       "size": 14,
       "kind": "semantic",
@@ -12702,7 +12702,7 @@
     {
       "name": "semantic_ScoreList_InsertAfter_00413200",
       "source": "src/game/enemy/score_list_insert_after_00413200.cpp",
-      "symbol": "?ScoreList_InsertAfter@@YGXPAUScoreListNode_00413200@@0@Z",
+      "symbol": "?ScoreList_InsertAfter@@YGXPAUScoreListNode@@0@Z",
       "address": "0x00413200",
       "size": 23,
       "kind": "semantic",
@@ -12849,7 +12849,7 @@
     {
       "name": "semantic_InitBlock_004132a0_004132a0",
       "source": "src/unreferenced/unassigned_004132a0.cpp",
-      "symbol": "?InitBlock_004132a0@@YGPAUBlock_004132a0@@PAU1@@Z",
+      "symbol": "?InitBlock@@YGPAUBlock_004132a0@@PAU1@@Z",
       "address": "0x004132A0",
       "size": 25,
       "kind": "semantic",
@@ -12875,7 +12875,7 @@
     {
       "name": "semantic_TaskOwner_InstallDrawTask_004132c0",
       "source": "src/unreferenced/unassigned_004132c0.cpp",
-      "symbol": "?InstallDrawTask@TaskOwner_004132c0@@QAEHXZ",
+      "symbol": "?InstallDrawTask@TaskOwner@@QAEHXZ",
       "address": "0x004132C0",
       "size": 50,
       "kind": "semantic",
@@ -13420,7 +13420,7 @@
     {
       "name": "semantic_ScoreTask_Setup_00413a20",
       "source": "src/game/front/score_tasks.cpp",
-      "symbol": "_ScoreTask_Setup_00413a20@4",
+      "symbol": "_ScoreTask_Setup@4",
       "address": "0x00413A20",
       "size": 289,
       "kind": "semantic",
@@ -13446,7 +13446,7 @@
     {
       "name": "semantic_LoadFrontAnm_00413b50_00413b50",
       "source": "src/unreferenced/unassigned_00413b50.cpp",
-      "symbol": "_LoadFrontAnm_00413b50",
+      "symbol": "_LoadFrontAnm",
       "address": "0x00413B50",
       "size": 50,
       "kind": "semantic",
@@ -13524,7 +13524,7 @@
     {
       "name": "semantic_SidePanel_ReleaseContents_00414370",
       "source": "src/game/front/side_panel_contents_release_00414370.cpp",
-      "symbol": "?SidePanel_ReleaseContents_00414370@@YGXPAUSidePanel_00414370@@@Z",
+      "symbol": "?SidePanel_ReleaseContents_00414370@@YGXPAUSidePanel@@@Z",
       "address": "0x00414370",
       "size": 476,
       "kind": "semantic",
@@ -13550,7 +13550,7 @@
     {
       "name": "semantic_DestroySlot_00414550_00414550",
       "source": "src/unreferenced/unassigned_00414550.cpp",
-      "symbol": "?DestroySlot_00414550@@YGPAUAnimationSlot_00414550@@PAU1@I@Z",
+      "symbol": "?DestroySlot@@YGPAUAnimationSlot_00414550@@PAU1@I@Z",
       "address": "0x00414550",
       "size": 30,
       "kind": "semantic",
@@ -13654,7 +13654,7 @@
     {
       "name": "semantic_ReleaseComposite_DeletingDestructor_004148c0_004148c0",
       "source": "src/unreferenced/unassigned_004148c0.cpp",
-      "symbol": "?ReleaseComposite_DeletingDestructor_004148c0@@YGPAXPAUOwnedObject_004148c0@@I@Z",
+      "symbol": "?ReleaseComposite_DeletingDestructor@@YGPAXPAUOwnedObject_004148c0@@I@Z",
       "address": "0x004148C0",
       "size": 27,
       "kind": "semantic",
@@ -13723,7 +13723,7 @@
     {
       "name": "semantic_GameStateOverlay_Draw_00415800_00415800",
       "source": "src/game/front/game_state_overlay_draw.cpp",
-      "symbol": "_GameStateOverlay_Draw_00415800@4",
+      "symbol": "_GameStateOverlay_Draw@4",
       "address": "0x00415800",
       "size": 724,
       "kind": "semantic",
@@ -13844,7 +13844,7 @@
     {
       "name": "semantic_TickRecoveryState_00415e30_00415e30",
       "source": "src/unreferenced/unassigned_00415e30.cpp",
-      "symbol": "?TickRecoveryState_00415e30@@YGHPAURecoveryTickState_00415e30@@@Z",
+      "symbol": "?TickRecoveryState@@YGHPAURecoveryTickState@@@Z",
       "address": "0x00415E30",
       "size": 93,
       "kind": "semantic",
@@ -13922,7 +13922,7 @@
     {
       "name": "semantic_ResultOverlay_SetMode_004172e0",
       "source": "src/game/front/result_overlay.cpp",
-      "symbol": "?ResultOverlay_SetMode@@YGXHPAUResultOverlayState_004172e0@@H@Z",
+      "symbol": "?ResultOverlay_SetMode@@YGXHPAUResultOverlayState@@H@Z",
       "address": "0x004172E0",
       "size": 668,
       "kind": "semantic",
@@ -14224,7 +14224,7 @@
     {
       "name": "semantic_IntFieldNotEqual_00417660_00417660",
       "source": "src/unreferenced/unassigned_00417660.cpp",
-      "symbol": "?IsNotEqualTo@UnidentifiedIntField_00417660@@QBEHH@Z",
+      "symbol": "?IsNotEqualTo@UnidentifiedIntField@@QBEHH@Z",
       "address": "0x00417660",
       "size": 16,
       "kind": "semantic",
@@ -14587,7 +14587,7 @@
     {
       "name": "semantic_ScoreChain_00417770_ReleaseChain_00417770",
       "source": "src/game/front/recovery_linked_cleanup_00417770.cpp",
-      "symbol": "?ReleaseChain@ScoreChain_00417770@@QAEXXZ",
+      "symbol": "?ReleaseChain@ScoreChain@@QAEXXZ",
       "address": "0x00417770",
       "size": 66,
       "kind": "semantic",
@@ -14665,7 +14665,7 @@
     {
       "name": "semantic_PathState_00417800_Reset",
       "source": "src/game/front/path_state_reset_00417800.cpp",
-      "symbol": "?Reset@PathState_00417800@@QAEHXZ",
+      "symbol": "?Reset@PathState@@QAEHXZ",
       "address": "0x00417800",
       "size": 58,
       "kind": "semantic",
@@ -15012,7 +15012,7 @@
     {
       "name": "semantic_scratch_copy_00418850_00418850",
       "source": "src/unreferenced/unassigned_00418850.cpp",
-      "symbol": "?CopyToScratch_00418850@@YGPADPBD@Z",
+      "symbol": "?CopyToScratch@@YGPADPBD@Z",
       "address": "0x00418850",
       "size": 65,
       "kind": "semantic",
@@ -15194,7 +15194,7 @@
     {
       "name": "semantic_ClearFlags_00418a70_00418a70",
       "source": "src/unreferenced/unassigned_00418a70.cpp",
-      "symbol": "?ClearFlags_00418a70@@YGXPAUObjectAccessor_00418a70@@@Z",
+      "symbol": "?ClearFlags@@YGXPAUObjectAccessor_00418a70@@@Z",
       "address": "0x00418A70",
       "size": 31,
       "kind": "semantic",
@@ -15254,7 +15254,7 @@
     {
       "name": "semantic_GameAppStateReset_ResetPair_00418ac0",
       "source": "src/unreferenced/FUN_00418ac0_00418ac0.cpp",
-      "symbol": "?ResetPair@GameAppStateReset_00418ac0@@QAEXXZ",
+      "symbol": "?ResetPair@GameAppStateReset@@QAEXXZ",
       "address": "0x00418AC0",
       "size": 15,
       "kind": "semantic",
@@ -15538,7 +15538,7 @@
     {
       "name": "semantic_GetStateWord_00491fc4",
       "source": "src/unreferenced/FUN_00418c00_00418c00.cpp",
-      "symbol": "?GetStateWord_00491fc4@@YGHXZ",
+      "symbol": "?GetStateWord@@YGHXZ",
       "address": "0x00418C00",
       "size": 6,
       "kind": "semantic",
@@ -15919,7 +15919,7 @@
     {
       "name": "semantic_RecoveryIndicatorLink_00419120_Drain",
       "source": "src/game/hint/hint_drain_queue.cpp",
-      "symbol": "?Drain@HintLink_00419120@@QAEHPAUHintUpdateView@@H@Z",
+      "symbol": "?Drain@HintLink@@QAEHPAUHintUpdateView@@H@Z",
       "address": "0x00419120",
       "size": 1317,
       "kind": "semantic",
@@ -16084,7 +16084,7 @@
     {
       "name": "semantic_FindKey_00419930_00419930",
       "source": "src/unreferenced/unassigned_00419930.cpp",
-      "symbol": "?FindKey_00419930@@YGHPAUSearchRecord_00419930@@HH@Z",
+      "symbol": "?FindKey@@YGHPAUSearchRecord@@HH@Z",
       "address": "0x00419930",
       "size": 35,
       "kind": "semantic",
@@ -16162,7 +16162,7 @@
     {
       "name": "semantic_SplitResourcePath_0041a050_0041a050",
       "source": "src/game/hint/recovery_split_resource_path_0041a050.cpp",
-      "symbol": "_SplitResourcePath_0041a050@12",
+      "symbol": "_SplitResourcePath@12",
       "address": "0x0041A050",
       "size": 75,
       "kind": "semantic",
@@ -16188,7 +16188,7 @@
     {
       "name": "semantic_TrimWhitespace_0041a0a0_0041a0a0",
       "source": "src/game/hint/recovery_trim_whitespace_0041a0a0.cpp",
-      "symbol": "?TrimWhitespace_0041a0a0@@YGPADPAD@Z",
+      "symbol": "?TrimWhitespace@@YGPADPAD@Z",
       "address": "0x0041A0A0",
       "size": 114,
       "kind": "semantic",
@@ -16309,7 +16309,7 @@
     {
       "name": "semantic_RecoveryNode_0041ab10::Append_0041ab10",
       "source": "src/game/item/recovery_append_node_0041ab10.cpp",
-      "symbol": "?Append@RecoveryNode_0041ab10@@QAEXPAU1@@Z",
+      "symbol": "?Append@RecoveryNode@@QAEXPAU1@@Z",
       "address": "0x0041AB10",
       "size": 52,
       "kind": "semantic",
@@ -16369,7 +16369,7 @@
     {
       "name": "semantic_EntityMovementSlot_Initialise_0041ab70",
       "source": "src/game/item/entity_movement_slot.cpp",
-      "symbol": "?Initialise@EntityMovementSlot_0041ab70@@QAEXPBUMovementPair_0041ab70@@0HE@Z",
+      "symbol": "?Initialise@EntityMovementSlot@@QAEXPBUMovementPair@@0HE@Z",
       "address": "0x0041AB70",
       "size": 136,
       "kind": "semantic",
@@ -16577,7 +16577,7 @@
     {
       "name": "semantic_0EffectManager_0041acb0_0041acb0",
       "source": "src/unreferenced/unassigned_0041acb0.cpp",
-      "symbol": "??0EffectManager_0041acb0@@QAE@XZ",
+      "symbol": "??0EffectManager@@QAE@XZ",
       "address": "0x0041ACB0",
       "size": 54,
       "kind": "semantic",
@@ -16873,7 +16873,7 @@
     {
       "name": "semantic_ItemSpawnManager_ConvertItems_0041ba50",
       "source": "src/game/item/item_spawn_manager_convert_items.cpp",
-      "symbol": "?ConvertItems@ItemSpawnManager_0041bb00@@QAEHXZ",
+      "symbol": "?ConvertItems@ItemSpawnManager@@QAEHXZ",
       "address": "0x0041BA50",
       "size": 165,
       "kind": "semantic",
@@ -17047,7 +17047,7 @@
     {
       "name": "semantic_H3401LinkNode_0041bee0_Link_0041bee0",
       "source": "src/unreferenced/FUN_0041bee0_0041bee0.cpp",
-      "symbol": "?Link@H3401LinkNode_0041bee0@@QAEPAU1@PAU1@@Z",
+      "symbol": "?Link@H3401LinkNode@@QAEPAU1@PAU1@@Z",
       "address": "0x0041BEE0",
       "size": 7,
       "kind": "semantic",
@@ -17584,7 +17584,7 @@
     {
       "name": "semantic_Insert_0041c0b0_0041c0b0",
       "source": "src/unreferenced/unassigned_0041c0b0.cpp",
-      "symbol": "?Insert_0041c0b0@@YGXPAUList_0041c0b0@@PAUNode_0041c0b0@@@Z",
+      "symbol": "?Insert@@YGXPAUList_0041c0b0@@PAUNode_0041c0b0@@@Z",
       "address": "0x0041C0B0",
       "size": 25,
       "kind": "semantic",
@@ -17628,7 +17628,7 @@
     {
       "name": "semantic_InitializeManager_0041c100_0041c100",
       "source": "src/unreferenced/unassigned_0041c100.cpp",
-      "symbol": "?InitializeManager_0041c100@@YGPAUScoreManager_0041c100@@PAU1@@Z",
+      "symbol": "?InitializeManager@@YGPAUScoreManager_0041c100@@PAU1@@Z",
       "address": "0x0041C100",
       "size": 30,
       "kind": "semantic",
@@ -17732,7 +17732,7 @@
     {
       "name": "semantic_ScoreExtendedObject_Destroy_DeletingDestructor_0041c2f0_0041c2f0",
       "source": "src/unreferenced/unassigned_0041c2f0.cpp",
-      "symbol": "?ScoreExtendedObject_Destroy_DeletingDestructor_0041c2f0@@YGPAXPAUOwnedObject_0041c2f0@@I@Z",
+      "symbol": "?ScoreExtendedObject_Destroy_DeletingDestructor@@YGPAXPAUOwnedObject_0041c2f0@@I@Z",
       "address": "0x0041C2F0",
       "size": 27,
       "kind": "semantic",
@@ -17888,7 +17888,7 @@
     {
       "name": "semantic_LaserSpawnParameters_SpawnIn_0041c510",
       "source": "src/game/laser/laser_spawn_0041c510.cpp",
-      "symbol": "?SpawnIn@LaserSpawnParameters_0041c510@@QBEHPAULaserManager_0041c510@@H@Z",
+      "symbol": "?SpawnIn@LaserSpawnParameters@@QBEHPAULaserManager_0041c510@@H@Z",
       "address": "0x0041C510",
       "size": 153,
       "kind": "semantic",
@@ -17940,7 +17940,7 @@
     {
       "name": "semantic_BeamLaser_Construct_0041c680",
       "source": "src/game/laser/laser_spawn_0041c510.cpp",
-      "symbol": "?BeamLaser_Construct_0041c680@@YIPAUBeamLaser_0041c680@@PAU1@@Z",
+      "symbol": "?BeamLaser_Construct_0041c680@@YIPAUBeamLaser@@PAU1@@Z",
       "address": "0x0041C680",
       "size": 219,
       "kind": "semantic",
@@ -17966,7 +17966,7 @@
     {
       "name": "ListenerOwner_Broadcast_0041c760",
       "source": "src/game/laser/listener_owner_broadcast_0041c760.cpp",
-      "symbol": "?Broadcast@ListenerOwner_0041c760@@QAEHPBUVector3_0041c760@@0H@Z",
+      "symbol": "?Broadcast@ListenerOwner@@QAEHPBUVector3_0041c760@@0H@Z",
       "address": "0x0041C760",
       "size": 102,
       "kind": "semantic",
@@ -18333,7 +18333,7 @@
     {
       "name": "semantic_LineEffect_CreateAllSegments_0041e260",
       "source": "src/game/laser/line_effect_create_all_segments_0041e260.cpp",
-      "symbol": "?CreateAllSegments@LineEffectSweep_0041e260@@QAEHH@Z",
+      "symbol": "?CreateAllSegments@LineEffectSweep@@QAEHH@Z",
       "address": "0x0041E260",
       "size": 609,
       "kind": "semantic",
@@ -18515,7 +18515,7 @@
     {
       "name": "semantic_LineEffect_CreateSegmentsInBounds_0041f400",
       "source": "src/game/laser/fun_0041f400_0041f400.cpp",
-      "symbol": "?CreateSegmentsInBounds@LineEffectSweep_0041e260@@QAEHH@Z",
+      "symbol": "?CreateSegmentsInBounds@LineEffectSweep@@QAEHH@Z",
       "address": "0x0041F400",
       "size": 623,
       "kind": "semantic",
@@ -18805,7 +18805,7 @@
     {
       "name": "semantic_Loading_LoadAssets_0041f990",
       "source": "src/game/loading/loading_thread.cpp",
-      "symbol": "?Loading_LoadAssets_0041f990@@YIHPAULoadingView@@@Z",
+      "symbol": "?Loading_LoadAssets@@YIHPAULoadingView@@@Z",
       "address": "0x0041F990",
       "size": 299,
       "kind": "semantic",
@@ -18857,7 +18857,7 @@
     {
       "name": "semantic_TitleStateDestructor_0041fb50",
       "source": "src/game/loading/loading_release.cpp",
-      "symbol": "??1TitleState_0041FB50@@QAE@XZ",
+      "symbol": "??1TitleState@@QAE@XZ",
       "address": "0x0041FB50",
       "size": 417,
       "kind": "semantic",
@@ -18987,7 +18987,7 @@
     {
       "name": "semantic_TitleEffectsAdvance_0041fdd0",
       "source": "src/game/loading/loading_signature.cpp",
-      "symbol": "_TitleEffectsAdvance_0041fdd0@4",
+      "symbol": "_TitleEffectsAdvance@4",
       "address": "0x0041FDD0",
       "size": 220,
       "kind": "semantic",
@@ -19160,7 +19160,7 @@
     {
       "name": "semantic_worker_owner_stop_0041ff60_0041ff60",
       "source": "src/unreferenced/FUN_0041ff60_0041ff60.cpp",
-      "symbol": "?StopWorker@WorkerOwner_0041ff60@@QAEXXZ",
+      "symbol": "?StopWorker@WorkerOwner@@QAEXXZ",
       "address": "0x0041FF60",
       "size": 22,
       "kind": "semantic",
@@ -19385,7 +19385,7 @@
     {
       "name": "semantic_App_RegisterTasks_00420470_00420470",
       "source": "src/game/mother/app_register_tasks_00420470.cpp",
-      "symbol": "_App_RegisterTasks_00420470@0",
+      "symbol": "_App_RegisterTasks@0",
       "address": "0x00420470",
       "size": 204,
       "kind": "semantic",
@@ -19840,7 +19840,7 @@
     {
       "name": "VersionList_00420dd0_Match",
       "source": "src/game/mother/version_list.cpp",
-      "symbol": "?Match@VersionList_00420dd0@@QAEHPBDHH@Z",
+      "symbol": "?Match@VersionList@@QAEHPBDHH@Z",
       "address": "0x00420DD0",
       "size": 205,
       "kind": "semantic",
@@ -19909,7 +19909,7 @@
     {
       "name": "semantic_QueuedAnimationCleanup_00421070",
       "source": "src/game/mother/queued_anm_cleanup.cpp",
-      "symbol": "_QueuedAnimationCleanup_00421070@4",
+      "symbol": "_QueuedAnimationCleanup@4",
       "address": "0x00421070",
       "size": 268,
       "kind": "semantic",
@@ -19952,7 +19952,7 @@
     {
       "name": "semantic_ReleaseAnimationHandles_00421300",
       "source": "src/game/mother/anm_handle_release.cpp",
-      "symbol": "_ReleaseAnimationHandles_00421300@4",
+      "symbol": "_ReleaseAnimationHandles@4",
       "address": "0x00421300",
       "size": 269,
       "kind": "semantic",
@@ -20108,7 +20108,7 @@
     {
       "name": "semantic_RenderCamera_InitializeDefaults_004216f0",
       "source": "src/game/mother/camera_defaults.cpp",
-      "symbol": "_RenderCamera_InitializeDefaults_004216f0",
+      "symbol": "_RenderCamera_InitializeDefaults",
       "address": "0x004216F0",
       "size": 465,
       "kind": "semantic",
@@ -20161,7 +20161,7 @@
     {
       "name": "semantic_PhaseCursor_Publish_00421b70",
       "source": "src/unreferenced/unassigned_00421b70.cpp",
-      "symbol": "?Publish@PhaseCursor_00421b70@@QAEXXZ",
+      "symbol": "?Publish@PhaseCursor@@QAEXXZ",
       "address": "0x00421B70",
       "size": 23,
       "kind": "semantic",
@@ -20169,7 +20169,7 @@
       "previous_record": {
         "name": "semantic_PhaseCursor_Publish_00421b70",
         "source": "src/unreferenced/unassigned_00421b70.cpp",
-        "symbol": "?Publish@PhaseCursor_00421b70@@QAEXXZ",
+        "symbol": "?Publish@PhaseCursor@@QAEXXZ",
         "address": "0x00421B70",
         "size": 23,
         "kind": "semantic",
@@ -20187,7 +20187,7 @@
     {
       "name": "semantic_Vector3_Cross_00421b90",
       "source": "src/game/mother/vector3_cross.cpp",
-      "symbol": "?VectorCross_00421b90@@YGPAUCrossVector_00421b90@@PAU1@PBU1@1@Z",
+      "symbol": "?VectorCross@@YGPAUCrossVector@@PAU1@PBU1@1@Z",
       "address": "0x00421B90",
       "size": 77,
       "kind": "semantic",
@@ -20256,7 +20256,7 @@
     {
       "name": "semantic_EmitterSlot_00421c00_Claim_00421c00",
       "source": "src/unreferenced/unassigned_00421c00.cpp",
-      "symbol": "?Claim@EmitterSlot_00421c00@@QAEHHHMMMMMMM@Z",
+      "symbol": "?Claim@EmitterSlot@@QAEHHHMMMMMMM@Z",
       "address": "0x00421C00",
       "size": 74,
       "kind": "semantic",
@@ -20308,7 +20308,7 @@
     {
       "name": "semantic_SlotLockTable_EnterRetail_00421c70_00421c70",
       "source": "src/unreferenced/unassigned_00421c70.cpp",
-      "symbol": "_SlotLockTable_EnterRetail_00421c70@8",
+      "symbol": "_SlotLockTable_EnterRetail@8",
       "address": "0x00421C70",
       "size": 25,
       "kind": "semantic",
@@ -20334,7 +20334,7 @@
     {
       "name": "semantic_UiState_00421c90_Flag6_00421c90",
       "source": "src/unreferenced/unassigned_00421c90.cpp",
-      "symbol": "?UiState_00421c90_Flag6@@YGHPAUUiState_00421c90@@@Z",
+      "symbol": "?UiState_00421c90_Flag6@@YGHPAUUiState@@@Z",
       "address": "0x00421C90",
       "size": 13,
       "kind": "semantic",
@@ -20342,7 +20342,7 @@
       "previous_record": {
         "name": "semantic_UiState_Flag6_00421c90",
         "source": "src/unreferenced/unassigned_00421c90.cpp",
-        "symbol": "?UiState_00421c90_Flag6@@YGHPAUUiState_00421c90@@@Z",
+        "symbol": "?UiState_00421c90_Flag6@@YGHPAUUiState@@@Z",
         "address": "0x00421C90",
         "size": 13,
         "kind": "semantic",
@@ -20360,7 +20360,7 @@
     {
       "name": "semantic_UiState_00421c90_Flag5_00421ca0",
       "source": "src/unreferenced/unassigned_00421c90.cpp",
-      "symbol": "?UiState_00421c90_Flag5@@YGHPAUUiState_00421c90@@@Z",
+      "symbol": "?UiState_00421c90_Flag5@@YGHPAUUiState@@@Z",
       "address": "0x00421CA0",
       "size": 13,
       "kind": "semantic",
@@ -20368,7 +20368,7 @@
       "previous_record": {
         "name": "semantic_UiState_Flag5_00421ca0",
         "source": "src/unreferenced/unassigned_00421c90.cpp",
-        "symbol": "?UiState_00421c90_Flag5@@YGHPAUUiState_00421c90@@@Z",
+        "symbol": "?UiState_00421c90_Flag5@@YGHPAUUiState@@@Z",
         "address": "0x00421CA0",
         "size": 13,
         "kind": "semantic",
@@ -20386,7 +20386,7 @@
     {
       "name": "semantic_UiState_00421c90_Flag3_00421cb0",
       "source": "src/unreferenced/unassigned_00421c90.cpp",
-      "symbol": "?UiState_00421c90_Flag3@@YGHPAUUiState_00421c90@@@Z",
+      "symbol": "?UiState_00421c90_Flag3@@YGHPAUUiState@@@Z",
       "address": "0x00421CB0",
       "size": 13,
       "kind": "semantic",
@@ -20394,7 +20394,7 @@
       "previous_record": {
         "name": "semantic_UiState_Flag3_00421cb0",
         "source": "src/unreferenced/unassigned_00421c90.cpp",
-        "symbol": "?UiState_00421c90_Flag3@@YGHPAUUiState_00421c90@@@Z",
+        "symbol": "?UiState_00421c90_Flag3@@YGHPAUUiState@@@Z",
         "address": "0x00421CB0",
         "size": 13,
         "kind": "semantic",
@@ -20412,7 +20412,7 @@
     {
       "name": "semantic_UiState_00421c90_Flag1_00421cc0",
       "source": "src/unreferenced/unassigned_00421c90.cpp",
-      "symbol": "?UiState_00421c90_Flag1@@YGHPAUUiState_00421c90@@@Z",
+      "symbol": "?UiState_00421c90_Flag1@@YGHPAUUiState@@@Z",
       "address": "0x00421CC0",
       "size": 12,
       "kind": "semantic",
@@ -20420,7 +20420,7 @@
       "previous_record": {
         "name": "semantic_UiState_Flag1_00421cc0",
         "source": "src/unreferenced/unassigned_00421c90.cpp",
-        "symbol": "?UiState_00421c90_Flag1@@YGHPAUUiState_00421c90@@@Z",
+        "symbol": "?UiState_00421c90_Flag1@@YGHPAUUiState@@@Z",
         "address": "0x00421CC0",
         "size": 12,
         "kind": "semantic",
@@ -20438,7 +20438,7 @@
     {
       "name": "semantic_UiState_00421c90_Mode_00421cd0",
       "source": "src/unreferenced/unassigned_00421c90.cpp",
-      "symbol": "?UiState_00421c90_Mode@@YGIPAUUiState_00421c90@@@Z",
+      "symbol": "?UiState_00421c90_Mode@@YGIPAUUiState@@@Z",
       "address": "0x00421CD0",
       "size": 8,
       "kind": "semantic",
@@ -20446,7 +20446,7 @@
       "previous_record": {
         "name": "semantic_UiState_Mode_00421cd0",
         "source": "src/unreferenced/unassigned_00421c90.cpp",
-        "symbol": "?UiState_00421c90_Mode@@YGIPAUUiState_00421c90@@@Z",
+        "symbol": "?UiState_00421c90_Mode@@YGIPAUUiState@@@Z",
         "address": "0x00421CD0",
         "size": 8,
         "kind": "semantic",
@@ -20464,7 +20464,7 @@
     {
       "name": "semantic_UiState_00421c90_Flag0_00421ce0",
       "source": "src/unreferenced/unassigned_00421c90.cpp",
-      "symbol": "?UiState_00421c90_Flag0@@YGHPAUUiState_00421c90@@@Z",
+      "symbol": "?UiState_00421c90_Flag0@@YGHPAUUiState@@@Z",
       "address": "0x00421CE0",
       "size": 10,
       "kind": "semantic",
@@ -20472,7 +20472,7 @@
       "previous_record": {
         "name": "semantic_UiState_Flag0_00421ce0",
         "source": "src/unreferenced/unassigned_00421c90.cpp",
-        "symbol": "?UiState_00421c90_Flag0@@YGHPAUUiState_00421c90@@@Z",
+        "symbol": "?UiState_00421c90_Flag0@@YGHPAUUiState@@@Z",
         "address": "0x00421CE0",
         "size": 10,
         "kind": "semantic",
@@ -20490,7 +20490,7 @@
     {
       "name": "semantic_UiState_00421c90_Flag2_00421cf0",
       "source": "src/unreferenced/unassigned_00421c90.cpp",
-      "symbol": "?UiState_00421c90_Flag2@@YGHPAUUiState_00421c90@@@Z",
+      "symbol": "?UiState_00421c90_Flag2@@YGHPAUUiState@@@Z",
       "address": "0x00421CF0",
       "size": 13,
       "kind": "semantic",
@@ -20498,7 +20498,7 @@
       "previous_record": {
         "name": "semantic_UiState_Flag2_00421cf0",
         "source": "src/unreferenced/unassigned_00421c90.cpp",
-        "symbol": "?UiState_00421c90_Flag2@@YGHPAUUiState_00421c90@@@Z",
+        "symbol": "?UiState_00421c90_Flag2@@YGHPAUUiState@@@Z",
         "address": "0x00421CF0",
         "size": 13,
         "kind": "semantic",
@@ -20516,7 +20516,7 @@
     {
       "name": "semantic_ReplayMarkerClear_Clear_00421d00",
       "source": "src/unreferenced/FUN_00421d00_00421d00.cpp",
-      "symbol": "?Clear@ReplayMarkerClear_00421d00@@QAEXXZ",
+      "symbol": "?Clear@ReplayMarkerClear@@QAEXXZ",
       "address": "0x00421D00",
       "size": 21,
       "kind": "semantic",
@@ -20542,7 +20542,7 @@
     {
       "name": "semantic_CachedComSlot_ReleaseRetail_00421d20",
       "source": "src/game/mother/cached_com_slot_release_retail_00421d20.cpp",
-      "symbol": "?Release@CachedComSlot_00421d20@@QAEXXZ",
+      "symbol": "?Release@CachedComSlot@@QAEXXZ",
       "address": "0x00421D20",
       "size": 21,
       "kind": "semantic",
@@ -20585,7 +20585,7 @@
     {
       "name": "semantic_CachedSlot_00421d50_Release_00421d50",
       "source": "src/unreferenced/unassigned_00421d50.cpp",
-      "symbol": "?Release@CachedSlot_00421d50@@QAEXXZ",
+      "symbol": "?Release@CachedSlot@@QAEXXZ",
       "address": "0x00421D50",
       "size": 27,
       "kind": "semantic",
@@ -20611,7 +20611,7 @@
     {
       "name": "semantic_WordStore_00421d70_Store",
       "source": "src/unreferenced/FUN_00421d70_00421d70.cpp",
-      "symbol": "?Store@WordStore_00421d70@@QAEXF@Z",
+      "symbol": "?Store@WordStore@@QAEXF@Z",
       "address": "0x00421D70",
       "size": 4,
       "kind": "semantic",
@@ -20793,7 +20793,7 @@
     {
       "name": "semantic_ReplaySlotClearA_00421de0_Clear",
       "source": "src/unreferenced/FUN_00421de0_00421de0.cpp",
-      "symbol": "?Clear@ReplaySlotClearA_00421de0@@QAEXXZ",
+      "symbol": "?Clear@ReplaySlotClearA@@QAEXXZ",
       "address": "0x00421DE0",
       "size": 11,
       "kind": "semantic",
@@ -20819,7 +20819,7 @@
     {
       "name": "semantic_ReplaySlotClearB_00421df0_Clear",
       "source": "src/unreferenced/FUN_00421df0_00421df0.cpp",
-      "symbol": "?Clear@ReplaySlotClearB_00421df0@@QAEXXZ",
+      "symbol": "?Clear@ReplaySlotClearB@@QAEXXZ",
       "address": "0x00421DF0",
       "size": 11,
       "kind": "semantic",
@@ -20957,7 +20957,7 @@
     {
       "name": "semantic_Ratio_Remaining_00421f80",
       "source": "src/unreferenced/unassigned_00421f80.cpp",
-      "symbol": "?Remaining@Ratio_00421f80@@QAEMXZ",
+      "symbol": "?Remaining@Ratio@@QAEMXZ",
       "address": "0x00421F80",
       "size": 19,
       "kind": "semantic",
@@ -20965,7 +20965,7 @@
       "previous_record": {
         "name": "semantic_Ratio_Remaining_00421f80",
         "source": "src/unreferenced/unassigned_00421f80.cpp",
-        "symbol": "?Remaining@Ratio_00421f80@@QAEMXZ",
+        "symbol": "?Remaining@Ratio@@QAEMXZ",
         "address": "0x00421F80",
         "size": 19,
         "kind": "semantic",
@@ -21130,7 +21130,7 @@
     {
       "name": "semantic_Manager_Release_00422220_00422220",
       "source": "src/game/pause/pause_release.cpp",
-      "symbol": "_Manager_Release_00422220@4",
+      "symbol": "_Manager_Release@4",
       "address": "0x00422220",
       "size": 311,
       "kind": "semantic",
@@ -21357,7 +21357,7 @@
     {
       "name": "semantic_PauseMenu_Initialize_00422ab0",
       "source": "src/game/pause/pause_menu_initialize.cpp",
-      "symbol": "_PauseMenu_Initialize_00422ab0@4",
+      "symbol": "_PauseMenu_Initialize@4",
       "address": "0x422ab0",
       "size": 382,
       "kind": "semantic",
@@ -21383,7 +21383,7 @@
     {
       "name": "PauseOwner_Unpause",
       "source": "src/game/pause/pause_unpause.cpp",
-      "symbol": "?Unpause@PauseOwner_00422c30@@QAEXXZ",
+      "symbol": "?Unpause@PauseOwner@@QAEXXZ",
       "address": "0x00422C30",
       "size": 74,
       "kind": "semantic",
@@ -21409,7 +21409,7 @@
     {
       "name": "semantic_PauseChoice_Update_00422c80",
       "source": "src/game/pause/pause_choice_update_00422c80.cpp",
-      "symbol": "_PauseMenu_Update_00422c80@4",
+      "symbol": "_PauseMenu_Update@4",
       "address": "0x00422C80",
       "size": 1360,
       "kind": "semantic",
@@ -21479,7 +21479,7 @@
     {
       "name": "semantic_RecoveryTimedState_InitializeTimedState_00423510_00423510",
       "source": "src/game/pause/recovery_initialize_timed_state_00423510.cpp",
-      "symbol": "?InitializeTimedState@RecoveryTimedState_00423510@@QAEXXZ",
+      "symbol": "?InitializeTimedState@RecoveryTimedState@@QAEXXZ",
       "address": "0x00423510",
       "size": 89,
       "kind": "semantic",
@@ -21505,7 +21505,7 @@
     {
       "name": "semantic_NameEntry_Prepare_00423570",
       "source": "src/game/pause/name_entry_prepare_00423570.cpp",
-      "symbol": "?PrepareNameEntry_00423570@@YGXPAUNameEntryMenu_00423570@@@Z",
+      "symbol": "?PrepareNameEntry@@YGXPAUNameEntryMenu@@@Z",
       "address": "0x00423570",
       "size": 377,
       "kind": "semantic",
@@ -21662,7 +21662,7 @@
     {
       "name": "semantic_pair_differs_00424440_00424440",
       "source": "src/unreferenced/unassigned_00424440.cpp",
-      "symbol": "?Changed@ValuePair_00424440@@QBEHXZ",
+      "symbol": "?Changed@ValuePair@@QBEHXZ",
       "address": "0x00424440",
       "size": 17,
       "kind": "semantic",
@@ -21740,7 +21740,7 @@
     {
       "name": "semantic_SpriteRegion_BindToAnimation_00424480",
       "source": "src/game/pause/sprite_region_bind_00424480.cpp",
-      "symbol": "?BindToAnimation@SpriteRegion_00424480@@QAEHUAnimationHandle_00424480@@HHHH@Z",
+      "symbol": "?BindToAnimation@SpriteRegion@@QAEHUAnimationHandle_00424480@@HHHH@Z",
       "address": "0x00424480",
       "size": 162,
       "kind": "semantic",
@@ -21766,7 +21766,7 @@
     {
       "name": "semantic_InitializeRecord_00424530",
       "source": "src/unreferenced/unassigned_00424530.cpp",
-      "symbol": "?InitializeRecord_00424530@@YGHPAURecord_00424530@@HHHHHHHHHH@Z",
+      "symbol": "?InitializeRecord@@YGHPAURecord_00424530@@HHHHHHHHHH@Z",
       "address": "0x00424530",
       "size": 84,
       "kind": "semantic",
@@ -21976,7 +21976,7 @@
     {
       "name": "semantic_set_four_00424620_00424620",
       "source": "src/unreferenced/FUN_00424620_00424620.cpp",
-      "symbol": "?SetAll@SlotSet_00424620@@QAEXH@Z",
+      "symbol": "?SetAll@SlotSet@@QAEXH@Z",
       "address": "0x00424620",
       "size": 25,
       "kind": "semantic",
@@ -22166,7 +22166,7 @@
     {
       "name": "semantic_PauseReset_00424d90_00424d90",
       "source": "src/game/player/pause_menu_reset.cpp",
-      "symbol": "_ReplayPauseReset_00424d90@4",
+      "symbol": "_ReplayPauseReset@4",
       "address": "0x00424D90",
       "size": 273,
       "kind": "semantic",
@@ -22713,7 +22713,7 @@
     {
       "name": "semantic_PlaybackState_OnSwitch_00427ad0",
       "source": "src/game/player/playback_state_on_switch_00427ad0.cpp",
-      "symbol": "?PlaybackState_OnSwitch_00427ad0@@YIHPAUPlaybackState@@@Z",
+      "symbol": "?PlaybackState_OnSwitch@@YIHPAUPlaybackState@@@Z",
       "address": "0x00427AD0",
       "size": 12,
       "kind": "semantic",
@@ -22765,7 +22765,7 @@
     {
       "name": "semantic_EffectIndicatorPool_AllocateRetail_00427b50",
       "source": "src/game/player/effect_indicator_slots.cpp",
-      "symbol": "@EffectIndicatorPool_AllocateRetail_00427b50@28",
+      "symbol": "@EffectIndicatorPool_AllocateRetail@28",
       "address": "0x00427B50",
       "size": 181,
       "kind": "semantic",
@@ -22782,7 +22782,7 @@
     {
       "name": "semantic_ScaleToHundredths_00427c10",
       "source": "src/unreferenced/unassigned_00427c10.cpp",
-      "symbol": "?ScaleToHundredths_00427c10@@YGXPAUIntPair_00427c10@@PBUFloatPair_00427c10@@@Z",
+      "symbol": "?ScaleToHundredths@@YGXPAUIntPair_00427c10@@PBUFloatPair@@@Z",
       "address": "0x00427C10",
       "size": 33,
       "kind": "semantic",
@@ -22808,7 +22808,7 @@
     {
       "name": "semantic_Counter_00427c40_Subtract_00427c40",
       "source": "src/unreferenced/unassigned_00427c40.cpp",
-      "symbol": "?Subtract@Counter_00427c40@@QAEXH@Z",
+      "symbol": "?Subtract@Counter@@QAEXH@Z",
       "address": "0x00427C40",
       "size": 4,
       "kind": "semantic",
@@ -22816,7 +22816,7 @@
       "previous_record": {
         "name": "semantic_Counter_00427c40_Subtract_00427c40",
         "source": "src/unreferenced/unassigned_00427c40.cpp",
-        "symbol": "?Subtract@Counter_00427c40@@QAEXH@Z",
+        "symbol": "?Subtract@Counter@@QAEXH@Z",
         "address": "0x00427C40",
         "size": 4,
         "kind": "semantic",
@@ -23101,7 +23101,7 @@
     {
       "name": "semantic_CellPair_Divide_00427da0_00427da0",
       "source": "src/unreferenced/unassigned_00427da0.cpp",
-      "symbol": "??KCellPairDivide_00427da0@@QBE?AU0@H@Z",
+      "symbol": "??KCellPairDivide@@QBE?AU0@H@Z",
       "address": "0x00427DA0",
       "size": 23,
       "kind": "semantic",
@@ -23520,7 +23520,7 @@
     {
       "name": "semantic_HomingShot_Update_00428b10",
       "source": "src/game/player/homing_shot_update_00428b10.cpp",
-      "symbol": "?HomingShot_Update_00428b10@@YIHPAXPAUHomingShot_00428b10@@@Z",
+      "symbol": "?HomingShot_Update@@YIHPAXPAUHomingShot@@@Z",
       "address": "0x00428B10",
       "size": 266,
       "kind": "semantic",
@@ -23668,7 +23668,7 @@
     {
       "name": "semantic_MotionRecord_GetValue_00428d60",
       "source": "src/unreferenced/unassigned_00428d60.cpp",
-      "symbol": "?GetValue@MotionRecord_00428d60@@QAEMXZ",
+      "symbol": "?GetValue@MotionRecord@@QAEMXZ",
       "address": "0x00428D60",
       "size": 4,
       "kind": "semantic",
@@ -23676,7 +23676,7 @@
       "previous_record": {
         "name": "semantic_MotionRecord_GetValue_00428d60",
         "source": "src/unreferenced/unassigned_00428d60.cpp",
-        "symbol": "?GetValue@MotionRecord_00428d60@@QAEMXZ",
+        "symbol": "?GetValue@MotionRecord@@QAEMXZ",
         "address": "0x00428D60",
         "size": 4,
         "kind": "semantic",
@@ -23758,7 +23758,7 @@
     {
       "name": "semantic_PairDifference_00428df0_IsDifferent_00428df0",
       "source": "src/unreferenced/unassigned_00428df0.cpp",
-      "symbol": "?PairDifference_00428df0_IsDifferent@@YGHPAUPairDifference_00428df0@@@Z",
+      "symbol": "?PairDifference_00428df0_IsDifferent@@YGHPAUPairDifference@@@Z",
       "address": "0x00428DF0",
       "size": 17,
       "kind": "semantic",
@@ -23992,7 +23992,7 @@
     {
       "name": "semantic_ScalarRecord_GetValue_00428f20",
       "source": "src/unreferenced/unassigned_00428f20.cpp",
-      "symbol": "?GetValue@ScalarRecord_00428f20@@QAEMXZ",
+      "symbol": "?GetValue@ScalarRecord@@QAEMXZ",
       "address": "0x00428F20",
       "size": 4,
       "kind": "semantic",
@@ -24000,7 +24000,7 @@
       "previous_record": {
         "name": "semantic_ScalarRecord_GetValue_00428f20",
         "source": "src/unreferenced/unassigned_00428f20.cpp",
-        "symbol": "?GetValue@ScalarRecord_00428f20@@QAEMXZ",
+        "symbol": "?GetValue@ScalarRecord@@QAEMXZ",
         "address": "0x00428F20",
         "size": 4,
         "kind": "semantic",
@@ -24018,7 +24018,7 @@
     {
       "name": "semantic_0PoolBlockOwner_00428f30_00428f30",
       "source": "src/unreferenced/unassigned_00428f30.cpp",
-      "symbol": "??0PoolBlockOwner_00428f30@@QAE@XZ",
+      "symbol": "??0PoolBlockOwner@@QAE@XZ",
       "address": "0x00428F30",
       "size": 42,
       "kind": "semantic",
@@ -24183,7 +24183,7 @@
     {
       "name": "semantic_InputRecorder_Update_004297d0",
       "source": "src/game/replay/input_recorder_update_004297d0.cpp",
-      "symbol": "?Update@InputRecorder_004297D0@@QAEHXZ",
+      "symbol": "?Update@InputRecorder@@QAEHXZ",
       "address": "0x004297D0",
       "size": 596,
       "kind": "semantic",
@@ -24261,7 +24261,7 @@
     {
       "name": "semantic_Reseed_00429b30_00429b30",
       "source": "src/unreferenced/unassigned_00429b30.cpp",
-      "symbol": "?Reseed_00429b30@@YGHPAUTimerRecord_00429b30@@H@Z",
+      "symbol": "?Reseed@@YGHPAUTimerRecord@@H@Z",
       "address": "0x00429B30",
       "size": 36,
       "kind": "semantic",
@@ -24330,7 +24330,7 @@
     {
       "name": "semantic_InputRecorderCallback_0042a3d0",
       "source": "src/game/replay/replay_manager_on_update.cpp",
-      "symbol": "?ReplayManager_OnUpdate@@YIHPAUInputRecorder_004297D0@@@Z",
+      "symbol": "?ReplayManager_OnUpdate@@YIHPAUInputRecorder@@@Z",
       "address": "0x0042A3D0",
       "size": 10,
       "kind": "semantic",
@@ -24468,7 +24468,7 @@
     {
       "name": "semantic_SlotBuffer_ByteOffset_0042a820",
       "source": "src/unreferenced/unassigned_0042a820.cpp",
-      "symbol": "?BytesUsed@SlotBuffer_0042a820@@QAEHXZ",
+      "symbol": "?BytesUsed@SlotBuffer@@QAEHXZ",
       "address": "0x0042A820",
       "size": 14,
       "kind": "semantic",
@@ -24476,7 +24476,7 @@
       "previous_record": {
         "name": "semantic_SlotBuffer_BytesUsed_00442a820",
         "source": "src/unreferenced/unassigned_0042a820.cpp",
-        "symbol": "?BytesUsed@SlotBuffer_0042a820@@QAEHXZ",
+        "symbol": "?BytesUsed@SlotBuffer@@QAEHXZ",
         "address": "0x0042A820",
         "size": 14,
         "kind": "semantic",
@@ -24546,7 +24546,7 @@
     {
       "name": "semantic_ReplayBufferState_GetBufferedBytes_0042a870",
       "source": "src/unreferenced/unassigned_0042a870.cpp",
-      "symbol": "?GetBufferedBytes@ReplayBufferState_0042a870@@QBEHXZ",
+      "symbol": "?GetBufferedBytes@ReplayBufferState@@QBEHXZ",
       "address": "0x0042A870",
       "size": 42,
       "kind": "semantic",
@@ -24598,7 +24598,7 @@
     {
       "name": "semantic_text_append_0042a900_0042a900",
       "source": "src/unreferenced/unassigned_0042a900.cpp",
-      "symbol": "?Append@LineBuffer_0042a900@@QAEHD@Z",
+      "symbol": "?Append@LineBuffer@@QAEHD@Z",
       "address": "0x0042A900",
       "size": 38,
       "kind": "semantic",
@@ -24624,7 +24624,7 @@
     {
       "name": "semantic_EmbeddedTimer_SetCountdownRetail_0042a930",
       "source": "src/game/replay/embedded_timer_set_countdown_retail_0042a930.cpp",
-      "symbol": "?SetCountdown@EmbeddedTimerState_0042a930@@QAEXH@Z",
+      "symbol": "?SetCountdown@EmbeddedTimerState@@QAEXH@Z",
       "address": "0x0042A930",
       "size": 59,
       "kind": "semantic",
@@ -24684,7 +24684,7 @@
     {
       "name": "semantic_cursor_rewind_0042a990_0042a990",
       "source": "src/unreferenced/FUN_0042a990_0042a990.cpp",
-      "symbol": "?Rewind@Cursors_0042a990@@QAEXXZ",
+      "symbol": "?Rewind@Cursors@@QAEXXZ",
       "address": "0x0042A990",
       "size": 19,
       "kind": "semantic",
@@ -24762,7 +24762,7 @@
     {
       "name": "semantic_WordLoad_0042a9d0_Load",
       "source": "src/unreferenced/FUN_0042a9d0_0042a9d0.cpp",
-      "symbol": "?Load@WordLoad_0042a9d0@@QAEFXZ",
+      "symbol": "?Load@WordLoad@@QAEFXZ",
       "address": "0x0042A9D0",
       "size": 4,
       "kind": "semantic",
@@ -24806,7 +24806,7 @@
     {
       "name": "semantic_GameConfigHolder_Construct_0042a9f0",
       "source": "src/unreferenced/unassigned_0042a9f0.cpp",
-      "symbol": "?Construct@GameConfigHolder_0042a9f0@@QAEPAU1@XZ",
+      "symbol": "?Construct@GameConfigHolder@@QAEPAU1@XZ",
       "address": "0x0042A9F0",
       "size": 24,
       "kind": "semantic",
@@ -24858,7 +24858,7 @@
     {
       "name": "semantic_LinkedPool_AppendPage_0042aa50",
       "source": "src/game/replay/linked_pool_append_0042aa50.cpp",
-      "symbol": "?AppendPage@PoolOwner_0042aa50@@QAEPAUPoolLink_0042aa50@@H@Z",
+      "symbol": "?AppendPage@PoolOwner@@QAEPAUPoolLink@@H@Z",
       "address": "0x0042AA50",
       "size": 139,
       "kind": "semantic",
@@ -24910,7 +24910,7 @@
     {
       "name": "semantic_ReplayPool_Clear_0042ab20_0042ab20",
       "source": "src/game/replay/linked_pool_release.cpp",
-      "symbol": "_ReplayPool_Clear_0042ab20@8",
+      "symbol": "_ReplayPool_Clear@8",
       "address": "0x0042AB20",
       "size": 93,
       "kind": "semantic",
@@ -24962,7 +24962,7 @@
     {
       "name": "semantic_ListHolder_0042abd0_Clear_0042abd0",
       "source": "src/unreferenced/record_links_0042.cpp",
-      "symbol": "?Clear@ListHolder_0042abd0@@QAEXXZ",
+      "symbol": "?Clear@ListHolder@@QAEXXZ",
       "address": "0x0042ABD0",
       "size": 55,
       "kind": "semantic",
@@ -25066,7 +25066,7 @@
     {
       "name": "semantic_byte_sum_0042ac90_0042ac90",
       "source": "src/unreferenced/unassigned_0042ac90.cpp",
-      "symbol": "?SumPayload_0042ac90@@YGHPBEH@Z",
+      "symbol": "?SumPayload@@YGHPBEH@Z",
       "address": "0x0042AC90",
       "size": 30,
       "kind": "semantic",
@@ -25118,7 +25118,7 @@
     {
       "name": "semantic_ScoreSettings_InitializeDefaults_0042add0",
       "source": "src/game/score/score_settings_initialize_defaults_0042add0.cpp",
-      "symbol": "_Recovery_InitializeRandomTable_0042add0@4",
+      "symbol": "_Recovery_InitializeRandomTable@4",
       "address": "0x0042ADD0",
       "size": 142,
       "kind": "semantic",
@@ -25135,7 +25135,7 @@
     {
       "name": "semantic_ScoreArchiveManager_Construct_0042ae60",
       "source": "src/game/score/effect_manager_initialize_pools_retail_0042ae60.cpp",
-      "symbol": "??0ScoreArchiveManager_0042ae60@@QAE@XZ",
+      "symbol": "??0ScoreArchiveManager@@QAE@XZ",
       "address": "0x0042AE60",
       "size": 132,
       "kind": "semantic",
@@ -25213,7 +25213,7 @@
     {
       "name": "semantic_FlushHolder_0042af90",
       "source": "src/unreferenced/unassigned_0042af90.cpp",
-      "symbol": "_FlushHolder_0042af90@0",
+      "symbol": "_FlushHolder@0",
       "address": "0x0042AF90",
       "size": 76,
       "kind": "semantic",
@@ -25265,7 +25265,7 @@
     {
       "name": "semantic_ScoreManager_LoadSections_0042b030",
       "source": "src/game/score/score_manager_load_sections.cpp",
-      "symbol": "?LoadSections@ScoreArchiveManager_0042ae60@@QAEHXZ",
+      "symbol": "?LoadSections@ScoreArchiveManager@@QAEHXZ",
       "address": "0x0042B030",
       "size": 423,
       "kind": "semantic",
@@ -25291,7 +25291,7 @@
     {
       "name": "semantic_ScoreManager_Save_0042b1e0",
       "source": "src/game/score/score_manager_save.cpp",
-      "symbol": "?Save@ScoreArchive_0042B1E0@@QAEHXZ",
+      "symbol": "?Save@ScoreArchive@@QAEHXZ",
       "address": "0x0042B1E0",
       "size": 564,
       "kind": "semantic",
@@ -25629,7 +25629,7 @@
     {
       "name": "semantic_FloatingTextPool_Spawn_0042b9c0",
       "source": "src/game/smollscore/smoll_score_draw.cpp",
-      "symbol": "?Spawn@SmollScoreDrawView@@QAEXHPBUFloatingTextPosition_0042b780@@I@Z",
+      "symbol": "?Spawn@SmollScoreDrawView@@QAEXHPBUFloatingTextPosition@@I@Z",
       "address": "0x0042B9C0",
       "size": 167,
       "kind": "semantic",
@@ -25880,7 +25880,7 @@
     {
       "name": "semantic_Disposable_Destroy_0042bdd0",
       "source": "src/unreferenced/unassigned_0042bdd0.cpp",
-      "symbol": "?Disposable_0042bdd0_Destroy@@YGPAXPAUDisposable_0042bdd0@@H@Z",
+      "symbol": "?Disposable_0042bdd0_Destroy@@YGPAXPAUDisposable@@H@Z",
       "address": "0x0042BDD0",
       "size": 56,
       "kind": "semantic",
@@ -25888,7 +25888,7 @@
       "previous_record": {
         "name": "semantic_Disposable_Destroy_0042bdd0",
         "source": "src/unreferenced/unassigned_0042bdd0.cpp",
-        "symbol": "?Disposable_0042bdd0_Destroy@@YGPAXPAUDisposable_0042bdd0@@H@Z",
+        "symbol": "?Disposable_0042bdd0_Destroy@@YGPAXPAUDisposable@@H@Z",
         "address": "0x0042BDD0",
         "size": 56,
         "kind": "semantic",
@@ -26393,7 +26393,7 @@
     {
       "name": "semantic_AnimationTable_HasSlot_0042c7e0_0042c7e0",
       "source": "src/unreferenced/unassigned_0042c7e0.cpp",
-      "symbol": "_AnimationTable_HasSlot_0042c7e0@8",
+      "symbol": "_AnimationTable_HasSlot@8",
       "address": "0x0042C7E0",
       "size": 26,
       "kind": "semantic",
@@ -26419,7 +26419,7 @@
     {
       "name": "semantic_ReleaseSlot1_0042c800_0042c800",
       "source": "src/unreferenced/animation_manager_release_slot1.cpp",
-      "symbol": "_ReleaseSlot1_0042c800",
+      "symbol": "_ReleaseSlot1",
       "address": "0x0042C800",
       "size": 45,
       "kind": "semantic",
@@ -26462,7 +26462,7 @@
     {
       "name": "semantic_ByteTable_0042c840_Read_0042c840",
       "source": "src/unreferenced/unassigned_0042c840.cpp",
-      "symbol": "?Read@ByteTable_0042c840@@QAEHH@Z",
+      "symbol": "?Read@ByteTable@@QAEHH@Z",
       "address": "0x0042C840",
       "size": 9,
       "kind": "semantic",
@@ -26514,7 +26514,7 @@
     {
       "name": "semantic_table_entry_0042c8a0_0042c8a0",
       "source": "src/unreferenced/unassigned_0042c8a0.cpp",
-      "symbol": "?TableEntry_0042c8a0@@YGHPAUTable_0042c8a0@@HH@Z",
+      "symbol": "?TableEntry@@YGHPAUTable_0042c8a0@@HH@Z",
       "address": "0x0042C8A0",
       "size": 22,
       "kind": "semantic",
@@ -26779,7 +26779,7 @@
       "address": "0x0042D2E0",
       "size": 7,
       "kind": "semantic",
-      "owner": "title_dispatch_callback_0042d2e0",
+      "owner": "title_dispatch_callback",
       "previous_record": {
         "name": "asm_Title_OnUpdate",
         "source": "src/unidentified/FUN_0042d2e0_0042d2e0.cpp",
@@ -26845,7 +26845,7 @@
     {
       "name": "semantic_TitleMainMenu_Update_0042d420",
       "source": "src/game/title/title_main_menu_update_0042d420.cpp",
-      "symbol": "?TitleMainMenu_0042d420@@YGHPAUTitle@@@Z",
+      "symbol": "?TitleMainMenu@@YGHPAUTitle@@@Z",
       "address": "0x0042D420",
       "size": 1280,
       "kind": "semantic",
@@ -26863,7 +26863,7 @@
     {
       "name": "semantic_Options_Update_0042d920",
       "source": "src/game/title/options_update_0042d920.cpp",
-      "symbol": "?TitleOptions_0042d920@@YGHPAUTitle@@@Z",
+      "symbol": "?TitleOptions@@YGHPAUTitle@@@Z",
       "address": "0x0042D920",
       "size": 3188,
       "kind": "semantic",
@@ -26906,7 +26906,7 @@
     {
       "name": "semantic_KeyConfig_Update_0042f540",
       "source": "src/game/title/menu_flow_updates.cpp",
-      "symbol": "?TitleMenuFlow_0042f540@@YGHPAUTitle@@@Z",
+      "symbol": "?TitleMenuFlow@@YGHPAUTitle@@@Z",
       "address": "0x0042F540",
       "size": 880,
       "kind": "semantic",
@@ -26976,7 +26976,7 @@
     {
       "name": "semantic_DifficultySelect_Update_00430320",
       "source": "src/game/title/difficulty_select_update_00430320.cpp",
-      "symbol": "?TitleMode6_00430320@@YGHPAUTitle@@@Z",
+      "symbol": "?TitleMode6@@YGHPAUTitle@@@Z",
       "address": "0x00430320",
       "size": 888,
       "kind": "semantic",
@@ -27002,7 +27002,7 @@
     {
       "name": "semantic_CharacterSelect_Update_004306a0",
       "source": "src/game/title/character_select_update_004306a0.cpp",
-      "symbol": "?TitleMode7_004306a0@@YGHPAUTitle@@@Z",
+      "symbol": "?TitleMode7@@YGHPAUTitle@@@Z",
       "address": "0x004306A0",
       "size": 956,
       "kind": "semantic",
@@ -27028,7 +27028,7 @@
     {
       "name": "semantic_ShotTypeSelect_Update_00430a60",
       "source": "src/game/title/shot_type_select_update_00430a60.cpp",
-      "symbol": "?TitleMode8_00430a60@@YGHPAUTitle@@@Z",
+      "symbol": "?TitleMode8@@YGHPAUTitle@@@Z",
       "address": "0x00430A60",
       "size": 1424,
       "kind": "semantic",
@@ -27046,7 +27046,7 @@
     {
       "name": "semantic_PracticeStageSelect_Update_00430ff0",
       "source": "src/game/title/practice_stage_select_update_00430ff0.cpp",
-      "symbol": "?TitleMode9_00430ff0@@YGHPAUTitle@@@Z",
+      "symbol": "?TitleMode9@@YGHPAUTitle@@@Z",
       "address": "0x00430FF0",
       "size": 1052,
       "kind": "semantic",
@@ -27098,7 +27098,7 @@
     {
       "name": "semantic_ReplaySelect_Update_004315c0",
       "source": "src/game/title/replay_select_update_004315c0.cpp",
-      "symbol": "?TitleMode12_004315c0@@YGHPAUTitle@@@Z",
+      "symbol": "?TitleMode12@@YGHPAUTitle@@@Z",
       "address": "0x004315C0",
       "size": 1492,
       "kind": "semantic",
@@ -27150,7 +27150,7 @@
     {
       "name": "semantic_SpellRecord_Update_00431ee0",
       "source": "src/game/title/spell_record_update_00431ee0.cpp",
-      "symbol": "?TitleMode11_00431ee0@@YGHPAUTitle@@@Z",
+      "symbol": "?TitleMode11@@YGHPAUTitle@@@Z",
       "address": "0x00431EE0",
       "size": 1968,
       "kind": "semantic",
@@ -27376,7 +27376,7 @@
     {
       "name": "semantic_StageText_00434a80_Initialize_00434a80",
       "source": "src/game/title/stage_text.cpp",
-      "symbol": "?Initialize@StageText_00434a80@@QAEXPBUStageTextVector_00434a80@@0HE@Z",
+      "symbol": "?Initialize@StageText@@QAEXPBUStageTextVector@@0HE@Z",
       "address": "0x00434A80",
       "size": 206,
       "kind": "semantic",
@@ -27506,7 +27506,7 @@
     {
       "name": "semantic_enable_bit_00434ba0_00434ba0",
       "source": "src/unreferenced/unassigned_00434ba0.cpp",
-      "symbol": "?SetEnabled@FlagWord_00434ba0@@QAEXI@Z",
+      "symbol": "?SetEnabled@FlagWord@@QAEXI@Z",
       "address": "0x00434BA0",
       "size": 17,
       "kind": "semantic",
@@ -27549,7 +27549,7 @@
     {
       "name": "semantic_H3401Slots_00434be0_Get_00434be0",
       "source": "src/unreferenced/FUN_00434be0_00434be0.cpp",
-      "symbol": "?Get@H3401Slots_00434be0@@QBEHH@Z",
+      "symbol": "?Get@H3401Slots@@QBEHH@Z",
       "address": "0x00434BE0",
       "size": 8,
       "kind": "semantic",
@@ -27575,7 +27575,7 @@
     {
       "name": "semantic_H3301Stride9_00434bf0_GetValue_00434bf0",
       "source": "src/unreferenced/FUN_00434bf0_00434bf0.cpp",
-      "symbol": "?GetValue@H3301Stride9_00434bf0@@QBEHH@Z",
+      "symbol": "?GetValue@H3301Stride9@@QBEHH@Z",
       "address": "0x00434BF0",
       "size": 11,
       "kind": "semantic",
@@ -28076,7 +28076,7 @@
     {
       "name": "semantic_FileHandle_Initialize_00435300_00435300",
       "source": "src/unreferenced/FUN_00435300_00435300.cpp",
-      "symbol": "_FileHandle_Initialize_00435300@4",
+      "symbol": "_FileHandle_Initialize@4",
       "address": "0x00435300",
       "size": 21,
       "kind": "semantic",
@@ -28591,7 +28591,7 @@
     {
       "name": "semantic_FUN_004356f0_004356f0",
       "source": "src/pack/file/resource_manager.cpp",
-      "symbol": "?Find@ArchiveName_004356f0@@QBEPBUArchiveEntry_004356f0@@XZ",
+      "symbol": "?Find@ArchiveName@@QBEPBUArchiveEntry_004356f0@@XZ",
       "address": "0x004356F0",
       "size": 212,
       "kind": "semantic",
@@ -28660,7 +28660,7 @@
     {
       "name": "semantic_Resource_GetFileSize_004358e0",
       "source": "src/pack/file/resource_get_file_size_retail_004358e0.cpp",
-      "symbol": "?ResourceGetFileSize_004358e0@@YIIPBD@Z",
+      "symbol": "?ResourceGetFileSize@@YIIPBD@Z",
       "address": "0x004358E0",
       "size": 190,
       "kind": "semantic",
@@ -29187,7 +29187,7 @@
     {
       "name": "semantic_launch_process_00436570_00436570",
       "source": "src/core/main/launch_process_00436570.cpp",
-      "symbol": "?LaunchProcess_00436570@@YGHPADPBDH@Z",
+      "symbol": "?LaunchProcess@@YGHPADPBDH@Z",
       "address": "0x00436570",
       "size": 201,
       "kind": "semantic",
@@ -29353,7 +29353,7 @@
         {
           "offset": 97,
           "type": "IMAGE_REL_I386_REL32",
-          "symbol": "_entry_malloc_00452706",
+          "symbol": "_entry_malloc",
           "original_operand": "e1bf0100",
           "original_target": "0x00452706"
         },
@@ -29379,7 +29379,7 @@
     {
       "name": "semantic_CopyByteReturnSource_00436770",
       "source": "src/unreferenced/FUN_00436770_00436770.cpp",
-      "symbol": "?CopyByteReturnSource_00436770@@YAPAEPAE0@Z",
+      "symbol": "?CopyByteReturnSource@@YAPAEPAE0@Z",
       "address": "0x00436770",
       "size": 13,
       "kind": "semantic",
@@ -29474,7 +29474,7 @@
     {
       "name": "semantic_ResourceSlotInit_004367e0_Init",
       "source": "src/unreferenced/FUN_004367e0_004367e0.cpp",
-      "symbol": "?Init@ResourceSlotInit_004367e0@@QAEXH@Z",
+      "symbol": "?Init@ResourceSlotInit@@QAEXH@Z",
       "address": "0x004367E0",
       "size": 11,
       "kind": "semantic",
@@ -29619,7 +29619,7 @@
     {
       "name": "semantic_HandleHolder_00436860",
       "source": "src/unreferenced/unassigned_00436860.cpp",
-      "symbol": "?HasHandle@HandleHolder_00436860@@QBEHXZ",
+      "symbol": "?HasHandle@HandleHolder@@QBEHXZ",
       "address": "0x00436860",
       "size": 14,
       "kind": "semantic",
@@ -29645,7 +29645,7 @@
     {
       "name": "semantic_ZeroBlock_00436870",
       "source": "src/unreferenced/unassigned_00436870.cpp",
-      "symbol": "?ZeroBlock_00436870@@YIXHPAX@Z",
+      "symbol": "?ZeroBlock@@YIXHPAX@Z",
       "address": "0x00436870",
       "size": 31,
       "kind": "semantic",
@@ -29714,7 +29714,7 @@
     {
       "name": "semantic_AppendText_00436940",
       "source": "src/unreferenced/unassigned_00436940.cpp",
-      "symbol": "?AppendText_00436940@@YIXHPBDPAE@Z",
+      "symbol": "?AppendText@@YIXHPBDPAE@Z",
       "address": "0x00436940",
       "size": 33,
       "kind": "semantic",
@@ -29905,7 +29905,7 @@
     {
       "name": "semantic_FontSurface_Create_00436af0",
       "source": "src/core/main/font_surface_create.cpp",
-      "symbol": "?FontSurface_Create_00436af0@@YG_NPAUGdiSurface_00436a30@@HHH@Z",
+      "symbol": "?FontSurface_Create@@YG_NPAUGdiSurface_00436a30@@HHH@Z",
       "address": "0x00436AF0",
       "size": 421,
       "kind": "semantic",
@@ -29931,7 +29931,7 @@
     {
       "name": "semantic_fill_argb4444_00436ca0_00436ca0",
       "source": "src/core/main/resource_file.cpp",
-      "symbol": "?FillRgb444_00436ca0@@YGXPAUSurface_00436ca0@@I@Z",
+      "symbol": "?FillRgb444@@YGXPAUSurface_00436ca0@@I@Z",
       "address": "0x00436CA0",
       "size": 72,
       "kind": "semantic",
@@ -30043,7 +30043,7 @@
     {
       "name": "ImageAlphaTransform_00437160",
       "source": "src/core/main/image_alpha_transform.cpp",
-      "symbol": "?InvertAlpha@ImageSurface_00437160@@QAEDH@Z",
+      "symbol": "?InvertAlpha@ImageSurface@@QAEDH@Z",
       "address": "0x00437160",
       "size": 157,
       "kind": "semantic",
@@ -30138,7 +30138,7 @@
     {
       "name": "semantic_gdi_surface_read_00437590_00437590",
       "source": "src/unreferenced/unassigned_00437590.cpp",
-      "symbol": "?ReadFrom_00437590@@YG_NPAUGdiSurface_00437590@@PAUSurface_00437590@@@Z",
+      "symbol": "?ReadFrom@@YG_NPAUGdiSurface_00437590@@PAUSurface_00437590@@@Z",
       "address": "0x00437590",
       "size": 214,
       "kind": "semantic",
@@ -30164,7 +30164,7 @@
     {
       "name": "semantic_gdi_surface_write_00437670_00437670",
       "source": "src/unreferenced/unassigned_00437670.cpp",
-      "symbol": "?WriteTo_00437670@@YG_NPAUGdiSurface_00437670@@PAUSurface_00437670@@@Z",
+      "symbol": "?WriteTo@@YG_NPAUGdiSurface_00437670@@PAUSurface_00437670@@@Z",
       "address": "0x00437670",
       "size": 214,
       "kind": "semantic",
@@ -30207,7 +30207,7 @@
     {
       "name": "semantic_CreateTexture_004379e0_004379e0",
       "source": "src/unreferenced/unassigned_004379e0.cpp",
-      "symbol": "?CreateTexture_004379e0@@YIPAXII@Z",
+      "symbol": "?CreateTexture@@YIPAXII@Z",
       "address": "0x004379E0",
       "size": 31,
       "kind": "semantic",
@@ -30233,7 +30233,7 @@
     {
       "name": "semantic_FontCacheInitialize_00437a00",
       "source": "src/core/main/initialize_font_cache.cpp",
-      "symbol": "_InitializeFontCache_00437a00",
+      "symbol": "_InitializeFontCache",
       "address": "0x00437A00",
       "size": 781,
       "kind": "semantic",
@@ -30362,7 +30362,7 @@
     {
       "name": "semantic_AssignText_00438220",
       "source": "src/unreferenced/unassigned_00438220.cpp",
-      "symbol": "?AssignText_00438220@@YIXHPBDPAULegacyString@@@Z",
+      "symbol": "?AssignText@@YIXHPBDPAULegacyString@@@Z",
       "address": "0x00438220",
       "size": 30,
       "kind": "semantic",
@@ -30537,7 +30537,7 @@
     {
       "name": "semantic_LegacyText_004383e0",
       "source": "src/unreferenced/unassigned_004383e0.cpp",
-      "symbol": "?Text@LegacyText_004383e0@@QBEPBDXZ",
+      "symbol": "?Text@LegacyText@@QBEPBDXZ",
       "address": "0x004383E0",
       "size": 14,
       "kind": "semantic",
@@ -30589,7 +30589,7 @@
     {
       "name": "semantic_RecoverySelf_00438400",
       "source": "src/unreferenced/FUN_00438400_00438400.cpp",
-      "symbol": "?Self@RecoverySelf_00438400@@QAEPAU1@XZ",
+      "symbol": "?Self@RecoverySelf@@QAEPAU1@XZ",
       "address": "0x00438400",
       "size": 3,
       "kind": "semantic",
@@ -30858,7 +30858,7 @@
     {
       "name": "semantic_MinusOne_00438850",
       "source": "src/unreferenced/unassigned_00438850.cpp",
-      "symbol": "?MinusOne_00438850@@YGHXZ",
+      "symbol": "?MinusOne@@YGHXZ",
       "address": "0x00438850",
       "size": 4,
       "kind": "semantic",
@@ -31204,7 +31204,7 @@
     {
       "name": "semantic_release_interfaces_00438a30_00438a30",
       "source": "src/core/main/destroy_entity_list_00438a30.cpp",
-      "symbol": "?ReleaseAll_00438a30@@YGXPAUHolder_00438a30@@@Z",
+      "symbol": "?ReleaseAll@@YGXPAUHolder_00438a30@@@Z",
       "address": "0x00438A30",
       "size": 43,
       "kind": "semantic",
@@ -31376,9 +31376,9 @@
       "kind": "padding"
     },
     {
-      "name": "WindowProcedure_004390e0",
+      "name": "WindowProcedure",
       "source": "src/core/main/fun_004390e0_004390e0.cpp",
-      "symbol": "_WindowProcedure_004390e0@16",
+      "symbol": "_WindowProcedure@16",
       "address": "0x004390E0",
       "size": 265,
       "kind": "semantic",
@@ -31457,7 +31457,7 @@
     {
       "name": "semantic_ApplySettings_00439350_00439350",
       "source": "src/unreferenced/unassigned_00439350.cpp",
-      "symbol": "?ApplySettings_00439350@@YGXXZ",
+      "symbol": "?ApplySettings@@YGXXZ",
       "address": "0x00439350",
       "size": 62,
       "kind": "semantic",
@@ -31483,7 +31483,7 @@
     {
       "name": "semantic_GameFrameAdvance_00439390_00439390",
       "source": "src/core/main/game_frame_advance.cpp",
-      "symbol": "?GameFrameAdvance_00439390@@YGHPAUGameFrame_00439390@@@Z",
+      "symbol": "?GameFrameAdvance@@YGHPAUGameFrame@@@Z",
       "address": "0x00439390",
       "size": 425,
       "kind": "semantic",
@@ -31656,7 +31656,7 @@
     {
       "name": "semantic_Startup_InstanceCheck_00439ff0",
       "source": "src/core/main/fun_00439ff0_00439ff0.cpp",
-      "symbol": "_Startup_InstanceCheck_00439ff0",
+      "symbol": "_Startup_InstanceCheck",
       "address": "0x00439FF0",
       "size": 442,
       "kind": "semantic",
@@ -31769,7 +31769,7 @@
     {
       "name": "semantic_SoundPairClear_Clear_0043a490",
       "source": "src/unreferenced/FUN_0043a490_0043a490.cpp",
-      "symbol": "?Clear@SoundPairClear_0043a490@@QAEXXZ",
+      "symbol": "?Clear@SoundPairClear@@QAEXXZ",
       "address": "0x0043A490",
       "size": 14,
       "kind": "semantic",
@@ -31821,7 +31821,7 @@
     {
       "name": "semantic_midi_output_open_0043a4c0_0043a4c0",
       "source": "src/unreferenced/unassigned_0043a4c0.cpp",
-      "symbol": "?OpenMidiOutput_0043a4c0@@YGHPAUMidiOutput_0043a4c0@@I@Z",
+      "symbol": "?OpenMidiOutput@@YGHPAUMidiOutput_0043a4c0@@I@Z",
       "address": "0x0043A4C0",
       "size": 68,
       "kind": "semantic",
@@ -31925,7 +31925,7 @@
     {
       "name": "semantic_midi_output_short_message_0043a590_0043a590",
       "source": "src/unreferenced/unassigned_0043a590.cpp",
-      "symbol": "?SendShortMessage_0043a590@@YGHPAUMidiOutput_0043a590@@EEE@Z",
+      "symbol": "?SendShortMessage@@YGHPAUMidiOutput_0043a590@@EEE@Z",
       "address": "0x0043A590",
       "size": 47,
       "kind": "semantic",
@@ -31951,7 +31951,7 @@
     {
       "name": "semantic_midi_out_device_name_0043a5c0_0043a5c0",
       "source": "src/unreferenced/FUN_0043a5c0_0043a5c0.cpp",
-      "symbol": "?MidiOut_GetDeviceName_0043a5c0@@YGXIPAD@Z",
+      "symbol": "?MidiOut_GetDeviceName@@YGXIPAD@Z",
       "address": "0x0043A5C0",
       "size": 63,
       "kind": "semantic",
@@ -32054,7 +32054,7 @@
     {
       "name": "semantic_SwapLowWordBytes_0043a6f0",
       "source": "src/unreferenced/FUN_0043a6f0_0043a6f0.cpp",
-      "symbol": "?SwapLowWordBytes_0043a6f0@@YGGG@Z",
+      "symbol": "?SwapLowWordBytes@@YGGG@Z",
       "address": "0x0043A6F0",
       "size": 14,
       "kind": "semantic",
@@ -32080,7 +32080,7 @@
     {
       "name": "semantic_ReverseDwordBytes_0043a700",
       "source": "src/core/midilib/midi_reverse_dword_bytes_0043a700.cpp",
-      "symbol": "?ReverseDwordBytes_0043a700@@YGII@Z",
+      "symbol": "?ReverseDwordBytes@@YGII@Z",
       "address": "0x0043A700",
       "size": 37,
       "kind": "semantic",
@@ -32147,9 +32147,9 @@
       "kind": "padding"
     },
     {
-      "name": "CleanupMidi_0043a910",
+      "name": "CleanupMidi",
       "source": "src/core/midilib/fun_0043a910_0043a910.cpp",
-      "symbol": "_CleanupMidi_0043a910@4",
+      "symbol": "_CleanupMidi@4",
       "address": "0x0043A910",
       "size": 156,
       "kind": "semantic",
@@ -32251,9 +32251,9 @@
       "owner": "0x0043AAD0"
     },
     {
-      "name": "LoadTemporaryTrack_0043ac90",
+      "name": "LoadTemporaryTrack",
       "source": "src/unreferenced/FUN_0043ac90_0043ac90.cpp",
-      "symbol": "?LoadTemporaryTrack_0043ac90@@YGHPAUMidiSequencer@@PBD@Z",
+      "symbol": "?LoadTemporaryTrack@@YGHPAUMidiSequencer@@PBD@Z",
       "address": "0x0043AC90",
       "size": 72,
       "kind": "semantic",
@@ -32320,9 +32320,9 @@
       "kind": "padding"
     },
     {
-      "name": "ShutdownMidi_0043ae20",
+      "name": "ShutdownMidi",
       "source": "src/core/midilib/fun_0043ae20_0043ae20.cpp",
-      "symbol": "_ShutdownMidi_0043ae20@4",
+      "symbol": "_ShutdownMidi@4",
       "address": "0x0043AE20",
       "size": 129,
       "kind": "semantic",
@@ -33405,7 +33405,7 @@
     {
       "name": "semantic_EntityScriptRng_NextRandomModulo_0043cb80",
       "source": "src/core/screen/updates.cpp",
-      "symbol": "?NextRandomModulo@EntityScriptRng_0043cb80@@QAEII@Z",
+      "symbol": "?NextRandomModulo@EntityScriptRng@@QAEII@Z",
       "address": "0x0043CB80",
       "size": 88,
       "kind": "semantic",
@@ -33509,7 +33509,7 @@
     {
       "name": "semantic_SoundWorkerPair_0043cc40_Stop_0043cc40",
       "source": "src/core/sound/sound_worker.cpp",
-      "symbol": "?Stop@SoundWorkerPair_0043cc40@@QAEHXZ",
+      "symbol": "?Stop@SoundWorkerPair@@QAEHXZ",
       "address": "0x0043CC40",
       "size": 175,
       "kind": "semantic",
@@ -33613,7 +33613,7 @@
     {
       "name": "semantic_Sound_PreloadWorker_0043d080",
       "source": "src/core/sound/sound_preload_worker_0043d080.cpp",
-      "symbol": "_Sound_PreloadWorker_0043d080",
+      "symbol": "_Sound_PreloadWorker",
       "address": "0x0043D080",
       "size": 107,
       "kind": "semantic",
@@ -33639,7 +33639,7 @@
     {
       "name": "semantic_SpawnThread_0043d0f0",
       "source": "src/unreferenced/unassigned_0043d0f0.cpp",
-      "symbol": "?SpawnThread_0043d0f0@@YGXXZ",
+      "symbol": "?SpawnThread@@YGXXZ",
       "address": "0x0043D0F0",
       "size": 34,
       "kind": "semantic",
@@ -33708,7 +33708,7 @@
     {
       "name": "semantic_Path_FindBasenameSlot_0043d2a0",
       "source": "src/core/sound/path.cpp",
-      "symbol": "?FindBasenameSlot_0043d2a0@PathName_0043d2a0@@QAEHPAX@Z",
+      "symbol": "?FindBasenameSlot@PathName@@QAEHPAX@Z",
       "address": "0x0043D2A0",
       "size": 227,
       "kind": "semantic",
@@ -33751,7 +33751,7 @@
     {
       "name": "semantic_Sound_LoadPendingSlot_0043d640",
       "source": "src/core/sound/sound_load_pending_slot_0043d640.cpp",
-      "symbol": "?LoadPendingSlot@SoundPendingSlots_0043d640@@QAEHPBDH@Z",
+      "symbol": "?LoadPendingSlot@SoundPendingSlots@@QAEHPBDH@Z",
       "address": "0x0043D640",
       "size": 37,
       "kind": "semantic",
@@ -33777,7 +33777,7 @@
     {
       "name": "semantic_Sound_LoadMusicTable_0043d670",
       "source": "src/unreferenced/unassigned_0043d670.cpp",
-      "symbol": "_Sound_LoadMusicTable_0043d670@8",
+      "symbol": "_Sound_LoadMusicTable@8",
       "address": "0x0043D670",
       "size": 32,
       "kind": "semantic",
@@ -33821,7 +33821,7 @@
     {
       "name": "semantic_Recovery_SelectArchiveEntry_0043d790",
       "source": "src/core/sound/recovery_select_archive_entry_0043d790.cpp",
-      "symbol": "?SelectArchiveEntry@PathName_0043d2a0@@QAEHPAUPlatformD790ArchiveOwner@@@Z",
+      "symbol": "?SelectArchiveEntry@PathName@@QAEHPAUPlatformD790ArchiveOwner@@@Z",
       "address": "0x0043D790",
       "size": 55,
       "kind": "semantic",
@@ -34021,7 +34021,7 @@
     {
       "name": "semantic_Sound_QueueEffectStop_0043ddb0_0043ddb0",
       "source": "src/unreferenced/unassigned_0043ddb0.cpp",
-      "symbol": "?QueueEffectStop@StopQueue_0043ddb0@@QAEXH@Z",
+      "symbol": "?QueueEffectStop@StopQueue@@QAEXH@Z",
       "address": "0x0043DDB0",
       "size": 52,
       "kind": "semantic",
@@ -34263,7 +34263,7 @@
     {
       "name": "semantic_ResetState_0043e580",
       "source": "src/unreferenced/unassigned_0043e580.cpp",
-      "symbol": "?ResetState_0043e580@@YIPAXHPAX@Z",
+      "symbol": "?ResetState@@YIPAXHPAX@Z",
       "address": "0x0043E580",
       "size": 32,
       "kind": "semantic",
@@ -34333,7 +34333,7 @@
     {
       "name": "semantic_LoadScriptPreservingState_0043e7e0",
       "source": "src/core/sprtanim/animation_object_load_script_preserving_state_0043e7e0.cpp",
-      "symbol": "?LoadScriptPreservingState_0043e7e0@@YGXPAUAnimationResource_0043e7e0@@PAUAnimationObject_0043e7e0@@H@Z",
+      "symbol": "?LoadScriptPreservingState@@YGXPAUAnimationResource_0043e7e0@@PAUAnimationObject_0043e7e0@@H@Z",
       "address": "0x0043E7E0",
       "size": 194,
       "kind": "semantic",
@@ -34402,7 +34402,7 @@
     {
       "name": "semantic_EffectFieldStore_Get_0043eac0",
       "source": "src/core/sprtanim/fun_0043eac0_0043eac0.cpp",
-      "symbol": "?Get@EffectFieldStore_0043eac0@@QAEMM@Z",
+      "symbol": "?Get@EffectFieldStore@@QAEMM@Z",
       "address": "0x0043EAC0",
       "size": 424,
       "kind": "semantic",
@@ -34428,7 +34428,7 @@
     {
       "name": "semantic_AnimationObject_ReadIntegerVariable_0043ec70",
       "source": "src/core/sprtanim/animation_object_variables_read_integer_variable.cpp",
-      "symbol": "?ReadIntegerVariable@AnimationObjectVariables_0043ec70@@QBEHH@Z",
+      "symbol": "?ReadIntegerVariable@AnimationObjectVariables@@QBEHH@Z",
       "address": "0x0043EC70",
       "size": 144,
       "kind": "semantic",
@@ -34446,7 +34446,7 @@
     {
       "name": "semantic_ResolveFloatVariable_0043ed00_0043ed00",
       "source": "src/core/sprtanim/animation_object_resolve_float_variable_0043ed00.cpp",
-      "symbol": "_ResolveFloatVariable_0043ed00@16",
+      "symbol": "_ResolveFloatVariable@16",
       "address": "0x0043ED00",
       "size": 156,
       "kind": "semantic",
@@ -34472,7 +34472,7 @@
     {
       "name": "semantic_ResolveIntegerVariable_0043eda0_0043eda0",
       "source": "src/core/sprtanim/animation_object_resolve_integer_variable_0043eda0.cpp",
-      "symbol": "_ResolveIntegerVariable_0043eda0@16",
+      "symbol": "_ResolveIntegerVariable@16",
       "address": "0x0043EDA0",
       "size": 132,
       "kind": "semantic",
@@ -34515,7 +34515,7 @@
     {
       "name": "semantic_ApplyEntityStateForLoadedResource_00441520",
       "source": "src/unreferenced/unassigned_00441520.cpp",
-      "symbol": "_ApplyEntityStateForLoadedResource_00441520@12",
+      "symbol": "_ApplyEntityStateForLoadedResource@12",
       "address": "0x00441520",
       "size": 97,
       "kind": "semantic",
@@ -34567,7 +34567,7 @@
     {
       "name": "semantic_EntityArray_StartScripts_004415c0",
       "source": "src/core/sprtanim/entity_array_start_scripts_004415c0.cpp",
-      "symbol": "?EntityArray_StartScripts_004415c0@@YGXPAUEntity@@HHPAUAnimationResourceFile@@@Z",
+      "symbol": "?EntityArray_StartScripts@@YGXPAUEntity@@HHPAUAnimationResourceFile@@@Z",
       "address": "0x004415C0",
       "size": 57,
       "kind": "semantic",
@@ -34783,7 +34783,7 @@
     {
       "name": "semantic_vec2_difference_00441dd0_00441dd0",
       "source": "src/unreferenced/unassigned_00441dd0.cpp",
-      "symbol": "?Difference_00441dd0@@YG?AUVec2_00441dd0@@PBU1@0@Z",
+      "symbol": "?Difference@@YG?AUVec2_00441dd0@@PBU1@0@Z",
       "address": "0x00441DD0",
       "size": 16,
       "kind": "semantic",
@@ -34949,7 +34949,7 @@
     {
       "name": "semantic_ResolveLookup_00441ec0",
       "source": "src/unreferenced/unassigned_00441ec0.cpp",
-      "symbol": "?ResolveLookup_00441ec0@@YGHPAULookupObject_00441ec0@@PAULookupManager_00441ec0@@@Z",
+      "symbol": "?ResolveLookup@@YGHPAULookupObject@@PAULookupManager@@@Z",
       "address": "0x00441EC0",
       "size": 46,
       "kind": "semantic",
@@ -35001,7 +35001,7 @@
     {
       "name": "semantic_FloatAtan_00441f10_00441f10",
       "source": "src/unreferenced/unassigned_00441f10.cpp",
-      "symbol": "?FloatAtan_00441f10@@YGMM@Z",
+      "symbol": "?FloatAtan@@YGMM@Z",
       "address": "0x00441F10",
       "size": 11,
       "kind": "semantic",
@@ -35018,7 +35018,7 @@
     {
       "name": "semantic_FloatAsin_00441f20_00441f20",
       "source": "src/unreferenced/unassigned_00441f20.cpp",
-      "symbol": "?FloatAsin_00441f20@@YGMM@Z",
+      "symbol": "?FloatAsin@@YGMM@Z",
       "address": "0x00441F20",
       "size": 12,
       "kind": "semantic",
@@ -35035,7 +35035,7 @@
     {
       "name": "semantic_FloatCos_00441f30_00441f30",
       "source": "src/unreferenced/unassigned_00441f30.cpp",
-      "symbol": "?FloatCos_00441f30@@YGMM@Z",
+      "symbol": "?FloatCos@@YGMM@Z",
       "address": "0x00441F30",
       "size": 9,
       "kind": "semantic",
@@ -35050,9 +35050,9 @@
       "kind": "padding"
     },
     {
-      "name": "fmod_wrapper_00441f40",
+      "name": "fmod_wrapper",
       "source": "src/unreferenced/unassigned_00441f40.cpp",
-      "symbol": "_fmod_wrapper_00441f40@8",
+      "symbol": "_fmod_wrapper@8",
       "address": "0x00441F40",
       "size": 16,
       "kind": "semantic",
@@ -35503,7 +35503,7 @@
     {
       "name": "semantic_Source_004423a0_CopyTo_004423a0",
       "source": "src/unreferenced/FUN_004423a0_004423a0.cpp",
-      "symbol": "?CopyTo@Source_004423a0@@QBEXPAUDestination_004423a0@@@Z",
+      "symbol": "?CopyTo@Source_004423a0@@QBEXPAUDestination@@@Z",
       "address": "0x004423A0",
       "size": 6,
       "kind": "semantic",
@@ -35667,7 +35667,7 @@
     {
       "name": "semantic_batch_reset_00442f30_00442f30",
       "source": "src/unreferenced/FUN_00442f30_00442f30.cpp",
-      "symbol": "?Reset@QuadBatch_00442f30@@QAEXXZ",
+      "symbol": "?Reset@QuadBatch@@QAEXXZ",
       "address": "0x00442F30",
       "size": 29,
       "kind": "semantic",
@@ -35788,7 +35788,7 @@
     {
       "name": "semantic_EntityDrawMirrored_00443480",
       "source": "src/core/sprtfunc/anchored_quad_build_mirrored_00443480.cpp",
-      "symbol": "_EntityDrawMirrored_00443480@8",
+      "symbol": "_EntityDrawMirrored@8",
       "address": "0x00443480",
       "size": 505,
       "kind": "semantic",
@@ -35831,7 +35831,7 @@
     {
       "name": "semantic_BuildRotatedQuad_004436c0_004436c0",
       "source": "src/core/sprtfunc/quad_build_rotated.cpp",
-      "symbol": "_BuildRotatedQuad_004436c0@8",
+      "symbol": "_BuildRotatedQuad@8",
       "address": "0x004436C0",
       "size": 591,
       "kind": "semantic",
@@ -35857,7 +35857,7 @@
     {
       "name": "semantic_BuildRotatedQuadAlt_00443910_00443910",
       "source": "src/core/sprtfunc/quad_build_rotated.cpp",
-      "symbol": "_BuildRotatedQuadAlt_00443910@8",
+      "symbol": "_BuildRotatedQuadAlt@8",
       "address": "0x00443910",
       "size": 591,
       "kind": "semantic",
@@ -35883,7 +35883,7 @@
     {
       "name": "semantic_Billboard_BuildProjectedQuad_00443b60",
       "source": "src/core/sprtfunc/projection_quads.cpp",
-      "symbol": "?BuildProjectedQuad@BillboardSource_00443B60@@QAEHXZ",
+      "symbol": "?BuildProjectedQuad@BillboardSource@@QAEHXZ",
       "address": "0x00443B60",
       "size": 1047,
       "kind": "semantic",
@@ -35952,7 +35952,7 @@
     {
       "name": "semantic_ProjectedEntity_ProjectQuad_00444240_00444240",
       "source": "src/core/sprtfunc/fun_00444240_00444240.cpp",
-      "symbol": "?ProjectQuad@ProjectedEntity_00444240@@QAEHPAUProjectionManager_00444240@@@Z",
+      "symbol": "?ProjectQuad@ProjectedEntity@@QAEHPAUProjectionManager@@@Z",
       "address": "0x00444240",
       "size": 818,
       "kind": "semantic",
@@ -36004,7 +36004,7 @@
     {
       "name": "semantic_FadedQuadDraw_004445c0",
       "source": "src/core/sprtfunc/faded_quad_draw.cpp",
-      "symbol": "_FadedQuadDraw_004445c0@8",
+      "symbol": "_FadedQuadDraw@8",
       "address": "0x004445C0",
       "size": 402,
       "kind": "semantic",
@@ -36108,7 +36108,7 @@
     {
       "name": "semantic_DestinationCopy_00444cb0",
       "source": "src/unreferenced/unassigned_00444cb0.cpp",
-      "symbol": "?Copy@DestinationCopy_00444cb0@@QAEHPBUDestinationCopySource_00444cb0@@H@Z",
+      "symbol": "?Copy@DestinationCopy@@QAEHPBUDestinationCopySource@@H@Z",
       "address": "0x00444CB0",
       "size": 34,
       "kind": "semantic",
@@ -36290,7 +36290,7 @@
     {
       "name": "semantic_FloatSqrt_004452d0_004452d0",
       "source": "src/unreferenced/unassigned_004452d0.cpp",
-      "symbol": "?FloatSqrt_004452d0@@YGMM@Z",
+      "symbol": "?FloatSqrt@@YGMM@Z",
       "address": "0x004452D0",
       "size": 9,
       "kind": "semantic",
@@ -36324,7 +36324,7 @@
     {
       "name": "semantic_RingEntity_BuildRing_004452f0",
       "source": "src/core/sprtfunc/effect_ring.cpp",
-      "symbol": "?BuildRing@RingEntity_004452f0@@QAEHXZ",
+      "symbol": "?BuildRing@RingEntity@@QAEHXZ",
       "address": "0x004452F0",
       "size": 803,
       "kind": "semantic",
@@ -36548,7 +36548,7 @@
     {
       "name": "semantic_AnimationManagerStorageDestructor",
       "source": "src/core/sprtlib/anm_storage_destructor_00446220.cpp",
-      "symbol": "??1AnimationManagerStorage_00446220@@QAE@XZ",
+      "symbol": "??1AnimationManagerStorage@@QAE@XZ",
       "address": "0x00446220",
       "size": 206,
       "kind": "semantic",
@@ -36574,7 +36574,7 @@
     {
       "name": "semantic_ClipHost_InitializeClip_004462f0",
       "source": "src/core/sprtlib/quad_buffer_create.cpp",
-      "symbol": "?InitializeClip@ClipHost_004462f0@@QAEXXZ",
+      "symbol": "?InitializeClip@ClipHost@@QAEXXZ",
       "address": "0x004462F0",
       "size": 472,
       "kind": "semantic",
@@ -36600,7 +36600,7 @@
     {
       "name": "semantic_remap_mode_004464d0_004464d0",
       "source": "src/unreferenced/unassigned_004464d0.cpp",
-      "symbol": "?RemapFormat_004464d0@@YGHH@Z",
+      "symbol": "?RemapFormat@@YGHH@Z",
       "address": "0x004464D0",
       "size": 42,
       "kind": "semantic",
@@ -36652,7 +36652,7 @@
     {
       "name": "semantic_argb1555_accumulate_00446530_00446530",
       "source": "src/unreferenced/unassigned_00446530.cpp",
-      "symbol": "?AccumulateArgb1555_00446530@@YGXPAUColorSums_00446530@@PBGPAH@Z",
+      "symbol": "?AccumulateArgb1555@@YGXPAUColorSums_00446530@@PBGPAH@Z",
       "address": "0x00446530",
       "size": 55,
       "kind": "semantic",
@@ -36721,7 +36721,7 @@
     {
       "name": "AnmTexture_LoadFile_00446b70",
       "source": "src/core/sprtlib/anm_texture_load_file_00446b70.cpp",
-      "symbol": "?LoadFile@AnmTexture_00446c70@@QAEHHPAXPBDI@Z",
+      "symbol": "?LoadFile@AnmTexture@@QAEHHPAXPBDI@Z",
       "address": "0x00446B70",
       "size": 245,
       "kind": "semantic",
@@ -36729,7 +36729,7 @@
       "previous_record": {
         "name": "AnmTexture_LoadFile_00446b70",
         "source": "src/core/sprtlib/anm_texture_load_file_00446b70.cpp",
-        "symbol": "?LoadFile@AnmTexture_00446c70@@QAEHHPAXPBDI@Z",
+        "symbol": "?LoadFile@AnmTexture@@QAEHHPAXPBDI@Z",
         "address": "0x00446B70",
         "size": 245,
         "kind": "semantic",
@@ -36737,7 +36737,7 @@
         "previous_record": {
           "name": "AnmTexture_LoadFile_00446b70",
           "source": "src/core/sprtlib/anm_texture_load_file_00446b70.cpp",
-          "symbol": "?LoadFile@AnmTexture_00446c70@@QAEHHPAXPBDI@Z",
+          "symbol": "?LoadFile@AnmTexture@@QAEHHPAXPBDI@Z",
           "address": "0x00446B70",
           "size": 245,
           "kind": "semantic",
@@ -36745,7 +36745,7 @@
           "previous_record": {
             "name": "AnmTexture_LoadFile_00446b70",
             "source": "src/core/sprtlib/anm_texture_load_file_00446b70.cpp",
-            "symbol": "?LoadFile@AnmTexture_00446c70@@QAEHHPAXPBDI@Z",
+            "symbol": "?LoadFile@AnmTexture@@QAEHHPAXPBDI@Z",
             "address": "0x00446B70",
             "size": 245,
             "kind": "semantic",
@@ -36774,7 +36774,7 @@
     {
       "name": "AnmTexture_Upload_00446c70",
       "source": "src/core/sprtlib/anm_texture_upload_00446c70.cpp",
-      "symbol": "?Upload@AnmTexture_00446c70@@QAEHUAnmUploadTag_00446c70@@HPBXHH@Z",
+      "symbol": "?Upload@AnmTexture@@QAEHUAnmUploadTag@@HPBXHH@Z",
       "address": "0x00446C70",
       "size": 243,
       "kind": "semantic",
@@ -36798,9 +36798,9 @@
       "kind": "padding"
     },
     {
-      "name": "AnmTexture_UploadAt_00446d70",
+      "name": "AnmTexture_UploadAt",
       "source": "src/core/sprtlib/anm_texture_upload_at_00446d70.cpp",
-      "symbol": "?AnmTexture_UploadAt_00446d70@@YGHUAnmUploadTag_00446c70@@PAUAnmTexture_00446c70@@HPBXHHH@Z",
+      "symbol": "?AnmTexture_UploadAt@@YGHUAnmUploadTag@@PAUAnmTexture@@HPBXHHH@Z",
       "address": "0x00446D70",
       "size": 320,
       "kind": "semantic",
@@ -36816,9 +36816,9 @@
       }
     },
     {
-      "name": "AnmTexture_CreateFromMemory_00446eb0",
+      "name": "AnmTexture_CreateFromMemory",
       "source": "src/core/sprtlib/anm_texture_create_from_memory_00446eb0.cpp",
-      "symbol": "?AnmTexture_CreateFromMemory_00446eb0@@YGHUAnmUploadTag_00446c70@@PAUAnmTexture_00446c70@@HIHH@Z",
+      "symbol": "?AnmTexture_CreateFromMemory@@YGHUAnmUploadTag@@PAUAnmTexture@@HIHH@Z",
       "address": "0x00446EB0",
       "size": 132,
       "kind": "semantic",
@@ -36842,9 +36842,9 @@
       "kind": "padding"
     },
     {
-      "name": "AnmTexture_CreateAndUpload_00446f40",
+      "name": "AnmTexture_CreateAndUpload",
       "source": "src/core/sprtlib/anm_texture_create_and_upload_00446f40.cpp",
-      "symbol": "?AnmTexture_CreateAndUpload_00446f40@@YGHPAUAnmTexture_00446c70@@PBUAnmThtxHeader_00446c70@@HHH@Z",
+      "symbol": "?AnmTexture_CreateAndUpload@@YGHPAUAnmTexture@@PBUAnmThtxHeader@@HHH@Z",
       "address": "0x00446F40",
       "size": 264,
       "kind": "semantic",
@@ -36894,9 +36894,9 @@
       "kind": "padding"
     },
     {
-      "name": "AnmManager_LoadFileNow_00447080",
+      "name": "AnmManager_LoadFileNow",
       "source": "src/core/sprtlib/anm_manager_load_file_now_00447080.cpp",
-      "symbol": "?AnmManager_LoadFileNow_00447080@@YGPAUAnmFile_004470c0@@PAUAnmManager_004470c0@@HPBD@Z",
+      "symbol": "?AnmManager_LoadFileNow@@YGPAUAnmFile@@PAUAnmManager_004470c0@@HPBD@Z",
       "address": "0x00447080",
       "size": 50,
       "kind": "semantic",
@@ -36920,9 +36920,9 @@
       "kind": "padding"
     },
     {
-      "name": "AnmManager_LoadFile_004470c0",
+      "name": "AnmManager_LoadFile",
       "source": "src/core/sprtlib/anm_manager_load_file_004470c0.cpp",
-      "symbol": "?AnmManager_LoadFile_004470c0@@YGPAUAnmFile_004470c0@@PAUAnmManager_004470c0@@HPBD@Z",
+      "symbol": "?AnmManager_LoadFile@@YGPAUAnmFile@@PAUAnmManager_004470c0@@HPBD@Z",
       "address": "0x004470C0",
       "size": 433,
       "kind": "semantic",
@@ -36972,9 +36972,9 @@
       "kind": "padding"
     },
     {
-      "name": "AnmFile_PreloadEntryImage_004472e0",
+      "name": "AnmFile_PreloadEntryImage",
       "source": "src/core/sprtlib/anm_file_preload_entry_image_004472e0.cpp",
-      "symbol": "?AnmFile_PreloadEntryImage_004472e0@@YGHPAUAnmFile_004470c0@@PBUAnmEntryHeader_00446c70@@H@Z",
+      "symbol": "?AnmFile_PreloadEntryImage@@YGHPAUAnmFile@@PBUAnmEntryHeader_00446c70@@H@Z",
       "address": "0x004472E0",
       "size": 214,
       "kind": "semantic",
@@ -36998,9 +36998,9 @@
       "kind": "padding"
     },
     {
-      "name": "AnmManager_LoadNextEntry_004473c0",
+      "name": "AnmManager_LoadNextEntry",
       "source": "src/core/sprtlib/anm_manager_load_next_entry_004473c0.cpp",
-      "symbol": "?AnmManager_LoadNextEntry_004473c0@@YGPAUAnmFile_004470c0@@UAnmUploadTag_00446c70@@PAU1@@Z",
+      "symbol": "?AnmManager_LoadNextEntry@@YGPAUAnmFile@@UAnmUploadTag@@PAU1@@Z",
       "address": "0x004473C0",
       "size": 174,
       "kind": "semantic",
@@ -37024,9 +37024,9 @@
       "kind": "padding"
     },
     {
-      "name": "AnmFile_LoadEntry_00447470",
+      "name": "AnmFile_LoadEntry",
       "source": "src/core/sprtlib/anm_file_load_entry_00447470.cpp",
-      "symbol": "?AnmFile_LoadEntry_00447470@@YGHUAnmUploadTag_00446c70@@PAUAnmFile_004470c0@@HHPBUAnmEntryHeader_00446c70@@H@Z",
+      "symbol": "?AnmFile_LoadEntry@@YGHUAnmUploadTag@@PAUAnmFile@@HHPBUAnmEntryHeader_00446c70@@H@Z",
       "address": "0x00447470",
       "size": 650,
       "kind": "semantic",
@@ -37050,9 +37050,9 @@
       "kind": "padding"
     },
     {
-      "name": "AnmManager_ServicePending_00447700",
+      "name": "AnmManager_ServicePending",
       "source": "src/core/sprtlib/anm_manager_service_pending_00447700.cpp",
-      "symbol": "_AnmManager_ServicePending_00447700@4",
+      "symbol": "_AnmManager_ServicePending@4",
       "address": "0x00447700",
       "size": 135,
       "kind": "semantic",
@@ -37156,7 +37156,7 @@
     {
       "name": "semantic_Release_00447910",
       "source": "src/unreferenced/unassigned_00447910.cpp",
-      "symbol": "?Release@AnimationResourceEntry_00447810@@QAEXXZ",
+      "symbol": "?Release@AnimationResourceEntry@@QAEXXZ",
       "address": "0x00447910",
       "size": 42,
       "kind": "semantic",
@@ -37182,7 +37182,7 @@
     {
       "name": "semantic_CopyPositionRecord_00447940_00447940",
       "source": "src/core/sprtlib/animation_manager_copy_position_record_00447940.cpp",
-      "symbol": "?CopyPositionRecord_00447940@@YGXHPAUAnimationPositionManager_00447940@@PBUAnimationPositionRecord_00447940@@@Z",
+      "symbol": "?CopyPositionRecord_00447940@@YGXHPAUAnimationPositionManager@@PBUAnimationPositionRecord@@@Z",
       "address": "0x00447940",
       "size": 143,
       "kind": "semantic",
@@ -37199,7 +37199,7 @@
     {
       "name": "semantic_RecoveryDispatchText_004479d0",
       "source": "src/core/sprtlib/recovery_mark_text_and_dispatcher_004479d0.cpp",
-      "symbol": "?RecoveryDispatchText_004479d0@@YGXPAURecoveryTextResource_004479d0@@PAXHHIPBDH@Z",
+      "symbol": "?RecoveryDispatchText_004479d0@@YGXPAURecoveryTextResource@@PAXHHIPBDH@Z",
       "address": "0x004479D0",
       "size": 127,
       "kind": "semantic",
@@ -37355,7 +37355,7 @@
       "previous_record": {
         "name": "semantic_AnimationManager_ClearIndexedResources_00447f70",
         "source": "src/core/sprtlib/animation_manager_clear_indexed_resources.cpp",
-        "symbol": "?Clear@AnimationManagerIndexed_00447f70@@QAEXH@Z",
+        "symbol": "?Clear@AnimationManagerIndexed@@QAEXH@Z",
         "address": "0x00447F70",
         "size": 87,
         "kind": "semantic",
@@ -37373,7 +37373,7 @@
     {
       "name": "AnimationManager_CopyToBackBuffer_00447fd0",
       "source": "src/core/sprtlib/animation_manager_copy_to_back_buffer_00447fd0.cpp",
-      "symbol": "?CopyToBackBuffer@AnimationManagerIndexed_00447f70@@QAEXHHHHH@Z",
+      "symbol": "?CopyToBackBuffer@AnimationManagerIndexed@@QAEXHHHHH@Z",
       "address": "0x00447FD0",
       "size": 330,
       "kind": "semantic",
@@ -37399,7 +37399,7 @@
     {
       "name": "semantic_AnimationManagerIndexed_CopyRectToBackBuffer_00448120",
       "source": "src/core/sprtlib/animation_texture_surface_copy.cpp",
-      "symbol": "?CopyRectToBackBuffer@AnimationManagerIndexed_00447f70@@QAEXHHHHHHH@Z",
+      "symbol": "?CopyRectToBackBuffer@AnimationManagerIndexed@@QAEXHHHHHHH@Z",
       "address": "0x00448120",
       "size": 325,
       "kind": "semantic",
@@ -37425,7 +37425,7 @@
     {
       "name": "semantic_AnimationTextureManager_CaptureBackBuffer_00448270",
       "source": "src/core/sprtlib/animation_texture_surface_copy.cpp",
-      "symbol": "?CaptureBackBuffer@AnimationTextureManager_00448270@@QAEXHHHHHHHHHH@Z",
+      "symbol": "?CaptureBackBuffer@AnimationTextureManager@@QAEXHHHHHHHHHH@Z",
       "address": "0x00448270",
       "size": 240,
       "kind": "semantic",
@@ -37443,7 +37443,7 @@
     {
       "name": "semantic_AnimationTextureManager_CopyTexture_00448360",
       "source": "src/core/sprtlib/animation_texture_surface_copy.cpp",
-      "symbol": "?CopyTexture@AnimationTextureManager_00448270@@QAEXHHHHPBUSurfaceRect_00447fd0@@0@Z",
+      "symbol": "?CopyTexture@AnimationTextureManager@@QAEXHHHHPBUSurfaceRect@@0@Z",
       "address": "0x00448360",
       "size": 227,
       "kind": "semantic",
@@ -37469,7 +37469,7 @@
     {
       "name": "semantic_AnimationManagerIndexed_CaptureBackBufferImage_00448450",
       "source": "src/core/sprtlib/animation_texture_surface_copy.cpp",
-      "symbol": "?CaptureBackBufferImage@AnimationManagerIndexed_00447f70@@QAEXHHHHHHHHH@Z",
+      "symbol": "?CaptureBackBufferImage@AnimationManagerIndexed@@QAEXHHHHHHHHH@Z",
       "address": "0x00448450",
       "size": 379,
       "kind": "semantic",
@@ -37573,7 +37573,7 @@
     {
       "name": "semantic_AnimationManagerBucket1_RenderBucket1_00448600",
       "source": "src/core/sprtlib/animation_manager_draw_bucket1.cpp",
-      "symbol": "?RenderBucket1@AnimationManagerBucket1_00448600@@QAEHXZ",
+      "symbol": "?RenderBucket1@AnimationManagerBucket1@@QAEHXZ",
       "address": "0x00448600",
       "size": 15,
       "kind": "semantic",
@@ -38189,7 +38189,7 @@
     {
       "name": "semantic_AnimationManager_CreatePrimaryBack_00448d00",
       "source": "src/core/sprtlib/animation_manager_create_primary_back_00448d00.cpp",
-      "symbol": "?AnimationManager_CreatePrimaryBack_00448d00@@YGPAPAXPAXPAPAXHH@Z",
+      "symbol": "?AnimationManager_CreatePrimaryBack@@YGPAPAXPAXPAPAXHH@Z",
       "address": "0x00448D00",
       "size": 73,
       "kind": "semantic",
@@ -38215,7 +38215,7 @@
     {
       "name": "semantic_AnimationManager_CreatePositionedPrimary_00448d50_00448d50",
       "source": "src/core/sprtlib/animation_manager_create_positioned_primary_00448d50.cpp",
-      "symbol": "?AnimationManager_CreatePositionedPrimary_00448d50@@YGPAPAXPAXPAPAXHPBUAnimationPosition_00448d50@@@Z",
+      "symbol": "?AnimationManager_CreatePositionedPrimary@@YGPAPAXPAXPAPAXHPBUAnimationPosition_00448d50@@@Z",
       "address": "0x00448D50",
       "size": 95,
       "kind": "semantic",
@@ -38241,7 +38241,7 @@
     {
       "name": "semantic_AnimationManager_CreateScreenPositionedPrimary_00448db0",
       "source": "src/core/sprtlib/player_animation_create_00448db0.cpp",
-      "symbol": "?AnimationManager_CreateScreenPositionedPrimary_00448db0@@YGPAPAXPAXPAPAXHPBUAnimationPosition_00448db0@@@Z",
+      "symbol": "?AnimationManager_CreateScreenPositionedPrimary@@YGPAPAXPAXPAPAXHPBUAnimationPosition_00448db0@@@Z",
       "address": "0x00448DB0",
       "size": 118,
       "kind": "semantic",
@@ -38267,7 +38267,7 @@
     {
       "name": "semantic_AnimationManager_CreatePrimaryFront_00448e30_00448e30",
       "source": "src/core/sprtlib/animation_manager_create_primary_front_00448e30.cpp",
-      "symbol": "?AnimationManager_CreatePrimaryFront_00448e30@@YGPAPAXPAXPAPAXHH@Z",
+      "symbol": "?AnimationManager_CreatePrimaryFront@@YGPAPAXPAXPAPAXHH@Z",
       "address": "0x00448E30",
       "size": 73,
       "kind": "semantic",
@@ -38293,7 +38293,7 @@
     {
       "name": "semantic_AnimationManager_CreatePositionedPrimaryFront_00448e80_00448e80",
       "source": "src/unreferenced/FUN_00448e80_00448e80.cpp",
-      "symbol": "?AnimationManager_CreatePositionedPrimaryFront_00448e80@@YGPAPAXPAXPAPAXHPBUAnimationPosition_00448e80@@@Z",
+      "symbol": "?AnimationManager_CreatePositionedPrimaryFront@@YGPAPAXPAXPAPAXHPBUAnimationPosition_00448e80@@@Z",
       "address": "0x00448E80",
       "size": 95,
       "kind": "semantic",
@@ -38319,7 +38319,7 @@
     {
       "name": "semantic_AnimationManager_CreateScreenPositionedPrimaryFront_00448ee0",
       "source": "src/unreferenced/FUN_00448ee0_00448ee0.cpp",
-      "symbol": "?AnimationManager_CreateScreenPositionedPrimaryFront_00448ee0@@YGPAPAXPAXPAPAXHPBUAnimationPosition_00448ee0@@@Z",
+      "symbol": "?AnimationManager_CreateScreenPositionedPrimaryFront@@YGPAPAXPAXPAPAXHPBUAnimationPosition_00448ee0@@@Z",
       "address": "0x00448EE0",
       "size": 118,
       "kind": "semantic",
@@ -38345,7 +38345,7 @@
     {
       "name": "semantic_AnimationManager_CreateSecondaryBack_00448f60_00448f60",
       "source": "src/core/sprtlib/animation_manager_create_secondary_back_00448f60.cpp",
-      "symbol": "?AnimationManager_CreateSecondaryBack_00448f60@@YGPAPAXPAXPAPAXHH@Z",
+      "symbol": "?AnimationManager_CreateSecondaryBack@@YGPAPAXPAXPAPAXHH@Z",
       "address": "0x00448F60",
       "size": 73,
       "kind": "semantic",
@@ -38371,7 +38371,7 @@
     {
       "name": "semantic_AnimationManager_CreatePositionedSecondaryBack_00448fb0_00448fb0",
       "source": "src/unreferenced/FUN_00448fb0_00448fb0.cpp",
-      "symbol": "?AnimationManager_CreatePositionedSecondaryBack_00448fb0@@YGPAPAXPAXPAPAXHPBUAnimationPosition_00448fb0@@@Z",
+      "symbol": "?AnimationManager_CreatePositionedSecondaryBack@@YGPAPAXPAXPAPAXHPBUAnimationPosition_00448fb0@@@Z",
       "address": "0x00448FB0",
       "size": 95,
       "kind": "semantic",
@@ -38397,7 +38397,7 @@
     {
       "name": "semantic_AnimationManager_CreateScreenPositionedSecondaryBack_00449010",
       "source": "src/unreferenced/FUN_00449010_00449010.cpp",
-      "symbol": "?AnimationManager_CreateScreenPositionedSecondaryBack_00449010@@YGPAPAXPAXPAPAXHPBUAnimationPosition_00449010@@@Z",
+      "symbol": "?AnimationManager_CreateScreenPositionedSecondaryBack@@YGPAPAXPAXPAPAXHPBUAnimationPosition_00449010@@@Z",
       "address": "0x00449010",
       "size": 118,
       "kind": "semantic",
@@ -38423,7 +38423,7 @@
     {
       "name": "semantic_AnimationManager_CreateSecondaryFront_00449090_00449090",
       "source": "src/core/sprtlib/animation_manager_create_secondary_front_00449090.cpp",
-      "symbol": "?AnimationManager_CreateSecondaryFront_00449090@@YGPAPAXPAXPAPAXHH@Z",
+      "symbol": "?AnimationManager_CreateSecondaryFront@@YGPAPAXPAXPAPAXHH@Z",
       "address": "0x00449090",
       "size": 73,
       "kind": "semantic",
@@ -38449,7 +38449,7 @@
     {
       "name": "semantic_AnimationManager_CreatePositionedSecondaryFront_004490e0_004490e0",
       "source": "src/unreferenced/FUN_004490e0_004490e0.cpp",
-      "symbol": "?AnimationManager_CreatePositionedSecondaryFront_004490e0@@YGPAPAXPAXPAPAXHPBUAnimationPosition_004490e0@@@Z",
+      "symbol": "?AnimationManager_CreatePositionedSecondaryFront@@YGPAPAXPAXPAPAXHPBUAnimationPosition_004490e0@@@Z",
       "address": "0x004490E0",
       "size": 95,
       "kind": "semantic",
@@ -38475,7 +38475,7 @@
     {
       "name": "semantic_AnimationManager_CreateScreenPositionedSecondaryFront_00449140",
       "source": "src/unreferenced/FUN_00449140_00449140.cpp",
-      "symbol": "?AnimationManager_CreateScreenPositionedSecondaryFront_00449140@@YGPAPAXPAXPAPAXHPBUAnimationPosition_00449140@@@Z",
+      "symbol": "?AnimationManager_CreateScreenPositionedSecondaryFront@@YGPAPAXPAXPAPAXHPBUAnimationPosition_00449140@@@Z",
       "address": "0x00449140",
       "size": 118,
       "kind": "semantic",
@@ -38633,7 +38633,7 @@
     {
       "name": "semantic_AnimationManager_SetTranslatedPosition_00449350",
       "source": "src/core/sprtlib/animation_manager_set_translated_position_00449350.cpp",
-      "symbol": "?SetAnimationTranslatedPosition_00449350@@YIXPBUPositionVector_004492f0@@PAUPositionLookupContext_004492f0@@UPositionScriptId_004492f0@@@Z",
+      "symbol": "?SetAnimationTranslatedPosition@@YIXPBUPositionVector@@PAUPositionLookupContext@@UPositionScriptId@@@Z",
       "address": "0x00449350",
       "size": 111,
       "kind": "semantic",
@@ -38659,7 +38659,7 @@
     {
       "name": "semantic_AnimationManager_FindBlock_004493c0_004493c0",
       "source": "src/unreferenced/unassigned_004493c0.cpp",
-      "symbol": "@AnimationManager_FindBlock_004493c0@12",
+      "symbol": "@AnimationManager_FindBlock@12",
       "address": "0x004493C0",
       "size": 27,
       "kind": "semantic",
@@ -38702,7 +38702,7 @@
     {
       "name": "semantic_DrawGlobalAnimation_00449440",
       "source": "src/unreferenced/FUN_00449440_00449440.cpp",
-      "symbol": "?DrawGlobalAnimation_00449440@@YGHPAURenderEntity_00449440@@@Z",
+      "symbol": "?DrawGlobalAnimation@@YGHPAURenderEntity_00449440@@@Z",
       "address": "0x00449440",
       "size": 11,
       "kind": "semantic",
@@ -38936,7 +38936,7 @@
     {
       "name": "semantic_AnimationNode_SetPosition_00449650",
       "source": "src/unreferenced/unassigned_anim_setters_00449.cpp",
-      "symbol": "?SetPosition@AnimationPositionHandle@@QAEXPBUPositionVector_004492f0@@@Z",
+      "symbol": "?SetPosition@AnimationPositionHandle@@QAEXPBUPositionVector@@@Z",
       "address": "0x00449650",
       "size": 15,
       "kind": "semantic",
@@ -38962,7 +38962,7 @@
     {
       "name": "semantic_AnimationNode_SetTranslatedPosition_00449660",
       "source": "src/unreferenced/unassigned_anim_setters_00449.cpp",
-      "symbol": "?SetTranslatedPosition@AnimationPositionHandle@@QAEXPBUPositionVector_004492f0@@@Z",
+      "symbol": "?SetTranslatedPosition@AnimationPositionHandle@@QAEXPBUPositionVector@@@Z",
       "address": "0x00449660",
       "size": 15,
       "kind": "semantic",
@@ -39066,7 +39066,7 @@
     {
       "name": "semantic_texture_clear_00449700_00449700",
       "source": "src/unreferenced/FUN_00449700_00449700.cpp",
-      "symbol": "?ClearTexture_00449700@@YGXPAUTextureHolder_00449700@@@Z",
+      "symbol": "?ClearTexture@@YGXPAUTextureHolder@@@Z",
       "address": "0x00449700",
       "size": 111,
       "kind": "semantic",
@@ -39284,7 +39284,7 @@
     {
       "name": "semantic_ResetRange_00449a00_Contains_00449a00",
       "source": "src/unreferenced/unassigned_00449a00.cpp",
-      "symbol": "?Contains@ResetRange_00449a00@@QAEHI@Z",
+      "symbol": "?Contains@ResetRange@@QAEHI@Z",
       "address": "0x00449A00",
       "size": 26,
       "kind": "semantic",
@@ -39425,7 +39425,7 @@
     {
       "name": "semantic_D3DResourceList_ClearPending_00449a90_00449a90",
       "source": "src/core/zunlib/d3d_resource_manager.cpp",
-      "symbol": "?ClearPending@D3DResourceList_ClearPending_00449a90@@QAEXXZ",
+      "symbol": "?ClearPending@D3DResourceList_ClearPending@@QAEXXZ",
       "address": "0x00449A90",
       "size": 12,
       "kind": "semantic",
@@ -39502,7 +39502,7 @@
     {
       "name": "semantic_FuncCtrl_RunPrimary_00449c00",
       "source": "src/core/zunlib/scheduler.cpp",
-      "symbol": "_FuncCtrl_RunPrimary_00449c00@4",
+      "symbol": "_FuncCtrl_RunPrimary@4",
       "address": "0x00449C00",
       "size": 308,
       "kind": "semantic",
@@ -39626,7 +39626,7 @@
     {
       "name": "semantic_ResourceListRelease_00449e50",
       "source": "src/core/zunlib/d3_d_resource_list_release_resources_00449e50.cpp",
-      "symbol": "?Release@ResourceList_00449e50@@QAEXUResourceListOwner_00449e50@@@Z",
+      "symbol": "?Release@ResourceList@@QAEXUResourceListOwner@@@Z",
       "address": "0x00449E50",
       "size": 82,
       "kind": "semantic",
@@ -39738,7 +39738,7 @@
     {
       "name": "semantic_SchedulerCreatePrimary_0044A000_0044a000",
       "source": "src/core/zunlib/scheduler_create_and_register_0044a000.cpp",
-      "symbol": "?Create@SchedulerCreatePrimary_0044A000@@QAEPAUSchedulerTask@@PAXH@Z",
+      "symbol": "?Create@SchedulerCreatePrimary@@QAEPAUSchedulerTask@@PAXH@Z",
       "address": "0x0044A000",
       "size": 43,
       "kind": "semantic",
@@ -39764,7 +39764,7 @@
     {
       "name": "semantic_SchedulerCreateSecondary_0044A030_0044a030",
       "source": "src/core/zunlib/scheduler_create_and_register_secondary_0044a030.cpp",
-      "symbol": "?Create@SchedulerCreateSecondary_0044A030@@QAEPAUSchedulerTask@@PAXH@Z",
+      "symbol": "?Create@SchedulerCreateSecondary@@QAEPAUSchedulerTask@@PAXH@Z",
       "address": "0x0044A030",
       "size": 43,
       "kind": "semantic",
@@ -39790,7 +39790,7 @@
     {
       "name": "semantic_Create_0044a060",
       "source": "src/unreferenced/unassigned_0044a060.cpp",
-      "symbol": "?Create@SchedulerCreatePrimaryClear_0044a060@@QAEPAUSchedulerTask@@PAXH@Z",
+      "symbol": "?Create@SchedulerCreatePrimaryClear@@QAEPAUSchedulerTask@@PAXH@Z",
       "address": "0x0044A060",
       "size": 43,
       "kind": "semantic",
@@ -39816,7 +39816,7 @@
     {
       "name": "semantic_Create_0044a090",
       "source": "src/unreferenced/unassigned_0044a090.cpp",
-      "symbol": "?Create@SchedulerCreateSecondaryClear_0044a090@@QAEPAUSchedulerTask@@PAXH@Z",
+      "symbol": "?Create@SchedulerCreateSecondaryClear@@QAEPAUSchedulerTask@@PAXH@Z",
       "address": "0x0044A090",
       "size": 43,
       "kind": "semantic",
@@ -40773,7 +40773,7 @@
     {
       "name": "semantic_vec2_rotate_0044bcd0_0044bcd0",
       "source": "src/unreferenced/unassigned_0044bcd0.cpp",
-      "symbol": "?Rotate_0044bcd0@@YGXPBUVec2_0044bcd0@@PAU1@M@Z",
+      "symbol": "?Rotate@@YGXPBUVec2_0044bcd0@@PAU1@M@Z",
       "address": "0x0044BCD0",
       "size": 40,
       "kind": "semantic",
@@ -41006,7 +41006,7 @@
     {
       "name": "semantic_ByteChecksum_0044c070_0044c070",
       "source": "src/unreferenced/unassigned_0044c070.cpp",
-      "symbol": "@ByteChecksum_0044c070@8",
+      "symbol": "@ByteChecksum@8",
       "address": "0x0044C070",
       "size": 13,
       "kind": "semantic",
@@ -41023,7 +41023,7 @@
     {
       "name": "semantic_SumAlternateBytes_0044c080_0044c080",
       "source": "src/unreferenced/unassigned_0044c080.cpp",
-      "symbol": "@SumAlternateBytes_0044c080@8",
+      "symbol": "@SumAlternateBytes@8",
       "address": "0x0044C080",
       "size": 36,
       "kind": "semantic",
@@ -41049,7 +41049,7 @@
     {
       "name": "semantic_SumEveryFourthByte_0044c0b0_0044c0b0",
       "source": "src/unreferenced/unassigned_0044c0b0.cpp",
-      "symbol": "@SumEveryFourthByte_0044c0b0@8",
+      "symbol": "@SumEveryFourthByte@8",
       "address": "0x0044C0B0",
       "size": 36,
       "kind": "semantic",
@@ -41438,7 +41438,7 @@
     {
       "name": "semantic_CameraPairReset_Reset_0044c620",
       "source": "src/unreferenced/FUN_0044c620_0044c620.cpp",
-      "symbol": "?Reset@CameraPairReset_0044c620@@QAEXXZ",
+      "symbol": "?Reset@CameraPairReset@@QAEXXZ",
       "address": "0x0044C620",
       "size": 14,
       "kind": "semantic",
@@ -41643,7 +41643,7 @@
     {
       "name": "semantic_SoundPrimaryFormat_0044c7e0",
       "source": "src/core/zunlib/joystick_property.cpp",
-      "symbol": "@Sound_SetPrimaryFormat_0044c7e0@16",
+      "symbol": "@Sound_SetPrimaryFormat@16",
       "address": "0x0044C7E0",
       "size": 260,
       "kind": "semantic",
@@ -41946,7 +41946,7 @@
     {
       "name": "semantic_interface_list_query_0044d400_0044d400",
       "source": "src/unreferenced/unassigned_0044d400.cpp",
-      "symbol": "?QueryItem_0044d400@@YGJPAUInterfaceList_0044d400@@IPAPAX@Z",
+      "symbol": "?QueryItem@@YGJPAUInterfaceList_0044d400@@IPAPAX@Z",
       "address": "0x0044D400",
       "size": 52,
       "kind": "semantic",
@@ -42102,7 +42102,7 @@
     {
       "name": "semantic_Platform_QueryInterfaces_0044d600",
       "source": "src/core/zwave/platform_query_interfaces_0044d600.cpp",
-      "symbol": "?Query@PlatformQueryInterfaces_0044D600@@QAEHXZ",
+      "symbol": "?Query@PlatformQueryInterfaces@@QAEHXZ",
       "address": "0x0044D600",
       "size": 61,
       "kind": "semantic",
@@ -42128,7 +42128,7 @@
     {
       "name": "semantic_interface_list_any_flag_0044d640_0044d640",
       "source": "src/unreferenced/unassigned_0044d640.cpp",
-      "symbol": "?AnyFlagSet_0044d640@@YGHPAUInterfaceList_0044d640@@@Z",
+      "symbol": "?AnyFlagSet@@YGHPAUInterfaceList_0044d640@@@Z",
       "address": "0x0044D640",
       "size": 88,
       "kind": "semantic",
@@ -42213,7 +42213,7 @@
         {
           "offset": 2,
           "type": "IMAGE_REL_I386_DIR32",
-          "symbol": "?sound_buffer_vtable_004705d4@@3DA",
+          "symbol": "?sound_buffer_vtable@@3DA",
           "original_operand": "d4054700",
           "original_target": "0x004705D4"
         },
@@ -42368,7 +42368,7 @@
     {
       "name": "semantic_SoundStreamRestart_0044dad0",
       "source": "src/core/zwave/streamer_restart_retail_0044dad0.cpp",
-      "symbol": "_SoundStream_Restart_0044dad0@4",
+      "symbol": "_SoundStream_Restart@4",
       "address": "0x0044DAD0",
       "size": 213,
       "kind": "semantic",
@@ -42437,7 +42437,7 @@
     {
       "name": "semantic_archive_cursor_open_0044dbf0_0044dbf0",
       "source": "src/core/zwave/archive_cursor_open.cpp",
-      "symbol": "?OpenCursor_0044dbf0@@YGJPAUArchiveCursor_0044dbf0@@HPBDPAUArchiveEntry_0044dbf0@@@Z",
+      "symbol": "?OpenCursor@@YGJPAUArchiveCursor_0044dbf0@@HPBDPAUArchiveEntry_0044dbf0@@@Z",
       "address": "0x0044DBF0",
       "size": 173,
       "kind": "semantic",
@@ -42463,7 +42463,7 @@
     {
       "name": "semantic_Platform_SelectStreamRecord_0044dca0",
       "source": "src/core/zwave/platform_select_stream_record_0044dca0.cpp",
-      "symbol": "?Select@PlatformStreamState_0044DCA0@@QAEHPAUPlatformStreamRecord_0044DCA0@@@Z",
+      "symbol": "?Select@PlatformStreamState@@QAEHPAUPlatformStreamRecord@@@Z",
       "address": "0x0044DCA0",
       "size": 78,
       "kind": "semantic",
@@ -42489,7 +42489,7 @@
     {
       "name": "semantic_StreamState_Initialize_0044dcf0",
       "source": "src/unreferenced/unassigned_0044dcf0.cpp",
-      "symbol": "?Initialize@StreamState_0044DCF0@@QAEHPAX0HH@Z",
+      "symbol": "?Initialize@StreamState@@QAEHPAX0HH@Z",
       "address": "0x0044DCF0",
       "size": 52,
       "kind": "semantic",
@@ -42627,7 +42627,7 @@
     {
       "name": "semantic_unassigned_0044df20",
       "source": "src/unreferenced/unassigned_0044df20.cpp",
-      "symbol": "?add@ValueHelper_0044df20@@QAIHH@Z",
+      "symbol": "?add@ValueHelper@@QAIHH@Z",
       "address": "0x0044DF20",
       "size": 11,
       "kind": "semantic",
@@ -42644,7 +42644,7 @@
     {
       "name": "semantic_offset_add_0044df30_0044df30",
       "source": "src/unreferenced/unassigned_0044df30.cpp",
-      "symbol": "?AdvanceBytes_0044df30@@YGPADPADH@Z",
+      "symbol": "?AdvanceBytes@@YGPADPADH@Z",
       "address": "0x0044DF30",
       "size": 3,
       "kind": "semantic",
@@ -42781,7 +42781,7 @@
     {
       "name": "semantic_ECL_ResolveIntOperand_0044fdb0",
       "source": "src/script/sptcmd/resolve_integer.cpp",
-      "symbol": "?ECL_ResolveIntOperand_0044fdb0@@YIHHPAUEclFrame@@H@Z",
+      "symbol": "?ECL_ResolveIntOperand@@YIHHPAUEclFrame@@H@Z",
       "address": "0x0044FDB0",
       "size": 144,
       "kind": "semantic",
@@ -42955,7 +42955,7 @@
     {
       "name": "semantic_EclVariableVm_FindVariable_00450160",
       "source": "src/script/sptcmd/ecl_find_variable_00450160.cpp",
-      "symbol": "?FindVariable@EclVariableVm_00450160@@QAEPAUEclVariableNode_00450160@@H@Z",
+      "symbol": "?FindVariable@EclVariableVm@@QAEPAUEclVariableNode@@H@Z",
       "address": "0x00450160",
       "size": 36,
       "kind": "semantic",
@@ -43076,7 +43076,7 @@
     {
       "name": "semantic_OuterRecord_004501f0_Store_004501f0",
       "source": "src/unreferenced/FUN_004501f0_004501f0.cpp",
-      "symbol": "?Store@OuterRecord_004501f0@@QAEXH@Z",
+      "symbol": "?Store@OuterRecord@@QAEXH@Z",
       "address": "0x004501F0",
       "size": 7,
       "kind": "semantic",
@@ -43128,7 +43128,7 @@
     {
       "name": "semantic_FloatSlot_00450210_Store_00450210",
       "source": "src/unreferenced/FUN_00450210_00450210.cpp",
-      "symbol": "?Store@FloatSlot_00450210@@QAEXM@Z",
+      "symbol": "?Store@FloatSlot@@QAEXM@Z",
       "address": "0x00450210",
       "size": 12,
       "kind": "semantic",
@@ -43197,7 +43197,7 @@
     {
       "name": "semantic_CreateVm_00450500",
       "source": "src/script/sptlib/script_table_create_vm.cpp",
-      "symbol": "?CreateVm@ScriptTable_00450470@@QAEPAUScriptVm_00450560@@PBD@Z",
+      "symbol": "?CreateVm@ScriptTable_00450470@@QAEPAUScriptVm@@PBD@Z",
       "address": "0x00450500",
       "size": 89,
       "kind": "semantic",
@@ -43223,7 +43223,7 @@
     {
       "name": "semantic_BindTable_00450560",
       "source": "src/unreferenced/unassigned_00450560.cpp",
-      "symbol": "?BindTable@ScriptVm_00450560@@QAEHPAUScriptTable_00450470@@PBD@Z",
+      "symbol": "?BindTable@ScriptVm@@QAEHPAUScriptTable_00450470@@PBD@Z",
       "address": "0x00450560",
       "size": 30,
       "kind": "semantic",
@@ -43249,7 +43249,7 @@
     {
       "name": "semantic_TryBind_00450580",
       "source": "src/unreferenced/unassigned_00450580.cpp",
-      "symbol": "?TryBind@ScriptVm_00450560@@QAEHPAUScriptTable_00450470@@PBD@Z",
+      "symbol": "?TryBind@ScriptVm@@QAEHPAUScriptTable_00450470@@PBD@Z",
       "address": "0x00450580",
       "size": 43,
       "kind": "semantic",
@@ -43275,7 +43275,7 @@
     {
       "name": "semantic_EclScratchVm_WriteScratch_004505b0",
       "source": "src/script/sptlib/fun_004505b0_004505b0.cpp",
-      "symbol": "?WriteScratch@EclScratchVm_004505b0@@QAEHDIPBX@Z",
+      "symbol": "?WriteScratch@EclScratchVm@@QAEHDIPBX@Z",
       "address": "0x004505B0",
       "size": 96,
       "kind": "semantic",
@@ -43363,7 +43363,7 @@
     {
       "name": "semantic_ScriptVm_BindName_00450700",
       "source": "src/script/sptlib/fun_00450700_00450700.cpp",
-      "symbol": "?BindName_00450700@@YIHPBDPAUScriptVm_00450560@@@Z",
+      "symbol": "?BindName@@YIHPBDPAUScriptVm@@@Z",
       "address": "0x00450700",
       "size": 30,
       "kind": "semantic",
@@ -49411,7 +49411,7 @@
     {
       "name": "semantic_unassigned_00462363",
       "source": "src/crt/unassigned_00462363.cpp",
-      "symbol": "?Myptr@StringBase_00462363@@QBEPBDXZ",
+      "symbol": "?Myptr@StringBase@@QBEPBDXZ",
       "address": "0x00462363",
       "size": 14,
       "kind": "semantic",
@@ -49572,7 +49572,7 @@
     {
       "name": "semantic_import_HeapFree_0046253e",
       "source": "src/crt/unassigned_0046253e.cpp",
-      "symbol": "_import_HeapFree_0046253e@12",
+      "symbol": "_import_HeapFree@12",
       "address": "0x0046253E",
       "size": 6,
       "kind": "semantic",
@@ -49581,7 +49581,7 @@
     {
       "name": "semantic_import_HeapAlloc_00462544",
       "source": "src/crt/unassigned_0046253e.cpp",
-      "symbol": "_import_HeapAlloc_00462544@12",
+      "symbol": "_import_HeapAlloc@12",
       "address": "0x00462544",
       "size": 6,
       "kind": "semantic",
@@ -49590,7 +49590,7 @@
     {
       "name": "semantic_import_CreateDirectoryA_0046254a",
       "source": "src/crt/unassigned_0046253e.cpp",
-      "symbol": "_import_CreateDirectoryA_0046254a@8",
+      "symbol": "_import_CreateDirectoryA@8",
       "address": "0x0046254A",
       "size": 6,
       "kind": "semantic",
@@ -49599,7 +49599,7 @@
     {
       "name": "semantic_import_GetSystemTimeAsFileTime_00462550",
       "source": "src/crt/unassigned_0046253e.cpp",
-      "symbol": "_import_GetSystemTimeAsFileTime_00462550@4",
+      "symbol": "_import_GetSystemTimeAsFileTime@4",
       "address": "0x00462550",
       "size": 6,
       "kind": "semantic",
@@ -49608,7 +49608,7 @@
     {
       "name": "semantic_import_ExitThread_00462556",
       "source": "src/crt/unassigned_0046253e.cpp",
-      "symbol": "_import_ExitThread_00462556@4",
+      "symbol": "_import_ExitThread@4",
       "address": "0x00462556",
       "size": 6,
       "kind": "semantic",
@@ -49617,7 +49617,7 @@
     {
       "name": "semantic_import_SetEnvironmentVariableA_0046255c",
       "source": "src/crt/unassigned_0046253e.cpp",
-      "symbol": "_import_SetEnvironmentVariableA_0046255c@8",
+      "symbol": "_import_SetEnvironmentVariableA@8",
       "address": "0x0046255C",
       "size": 6,
       "kind": "semantic",
@@ -49626,7 +49626,7 @@
     {
       "name": "semantic_import_GetCurrentDirectoryA_00462562",
       "source": "src/crt/unassigned_0046253e.cpp",
-      "symbol": "_import_GetCurrentDirectoryA_00462562@8",
+      "symbol": "_import_GetCurrentDirectoryA@8",
       "address": "0x00462562",
       "size": 6,
       "kind": "semantic",
@@ -49635,7 +49635,7 @@
     {
       "name": "semantic_import_SetCurrentDirectoryA_00462568",
       "source": "src/crt/unassigned_0046253e.cpp",
-      "symbol": "_import_SetCurrentDirectoryA_00462568@4",
+      "symbol": "_import_SetCurrentDirectoryA@4",
       "address": "0x00462568",
       "size": 6,
       "kind": "semantic",
@@ -49653,7 +49653,7 @@
     {
       "name": "semantic_import_GetModuleHandleA_00462574",
       "source": "src/crt/unassigned_0046253e.cpp",
-      "symbol": "_import_GetModuleHandleA_00462574@4",
+      "symbol": "_import_GetModuleHandleA@4",
       "address": "0x00462574",
       "size": 6,
       "kind": "semantic",
@@ -49662,7 +49662,7 @@
     {
       "name": "semantic_import_GetCommandLineA_0046257a",
       "source": "src/crt/unassigned_0046253e.cpp",
-      "symbol": "_import_GetCommandLineA_0046257a@0",
+      "symbol": "_import_GetCommandLineA@0",
       "address": "0x0046257A",
       "size": 6,
       "kind": "semantic",
@@ -49671,7 +49671,7 @@
     {
       "name": "semantic_import_HeapDestroy_00462580",
       "source": "src/crt/unassigned_0046253e.cpp",
-      "symbol": "_import_HeapDestroy_00462580@4",
+      "symbol": "_import_HeapDestroy@4",
       "address": "0x00462580",
       "size": 6,
       "kind": "semantic",
@@ -49680,7 +49680,7 @@
     {
       "name": "semantic_import_HeapCreate_00462586",
       "source": "src/crt/unassigned_0046253e.cpp",
-      "symbol": "_import_HeapCreate_00462586@12",
+      "symbol": "_import_HeapCreate@12",
       "address": "0x00462586",
       "size": 6,
       "kind": "semantic",
@@ -49689,7 +49689,7 @@
     {
       "name": "semantic_import_VirtualFree_0046258c",
       "source": "src/crt/unassigned_0046253e.cpp",
-      "symbol": "_import_VirtualFree_0046258c@12",
+      "symbol": "_import_VirtualFree@12",
       "address": "0x0046258C",
       "size": 6,
       "kind": "semantic",
@@ -49698,7 +49698,7 @@
     {
       "name": "semantic_import_FatalAppExitA_00462592",
       "source": "src/crt/unassigned_0046253e.cpp",
-      "symbol": "_import_FatalAppExitA_00462592@8",
+      "symbol": "_import_FatalAppExitA@8",
       "address": "0x00462592",
       "size": 6,
       "kind": "semantic",
@@ -49707,7 +49707,7 @@
     {
       "name": "semantic_import_VirtualAlloc_00462598",
       "source": "src/crt/unassigned_0046253e.cpp",
-      "symbol": "_import_VirtualAlloc_00462598@16",
+      "symbol": "_import_VirtualAlloc@16",
       "address": "0x00462598",
       "size": 6,
       "kind": "semantic",
@@ -49716,7 +49716,7 @@
     {
       "name": "semantic_import_HeapReAlloc_0046259e",
       "source": "src/crt/unassigned_0046253e.cpp",
-      "symbol": "_import_HeapReAlloc_0046259e@16",
+      "symbol": "_import_HeapReAlloc@16",
       "address": "0x0046259E",
       "size": 6,
       "kind": "semantic",
@@ -49725,7 +49725,7 @@
     {
       "name": "semantic_import_IsBadWritePtr_004625a4",
       "source": "src/crt/unassigned_0046253e.cpp",
-      "symbol": "_import_IsBadWritePtr_004625a4@8",
+      "symbol": "_import_IsBadWritePtr@8",
       "address": "0x004625A4",
       "size": 6,
       "kind": "semantic",
@@ -49734,7 +49734,7 @@
     {
       "name": "semantic_import_TlsAlloc_004625aa",
       "source": "src/crt/unassigned_0046253e.cpp",
-      "symbol": "_import_TlsAlloc_004625aa@0",
+      "symbol": "_import_TlsAlloc@0",
       "address": "0x004625AA",
       "size": 6,
       "kind": "semantic",
@@ -49743,7 +49743,7 @@
     {
       "name": "semantic_import_SetLastError_004625b0",
       "source": "src/crt/unassigned_0046253e.cpp",
-      "symbol": "_import_SetLastError_004625b0@4",
+      "symbol": "_import_SetLastError@4",
       "address": "0x004625B0",
       "size": 6,
       "kind": "semantic",
@@ -49761,7 +49761,7 @@
     {
       "name": "semantic_import_TlsFree_004625bc",
       "source": "src/crt/unassigned_0046253e.cpp",
-      "symbol": "_import_TlsFree_004625bc@4",
+      "symbol": "_import_TlsFree@4",
       "address": "0x004625BC",
       "size": 6,
       "kind": "semantic",
@@ -49770,7 +49770,7 @@
     {
       "name": "semantic_import_TlsSetValue_004625c2",
       "source": "src/crt/unassigned_0046253e.cpp",
-      "symbol": "_import_TlsSetValue_004625c2@8",
+      "symbol": "_import_TlsSetValue@8",
       "address": "0x004625C2",
       "size": 6,
       "kind": "semantic",
@@ -49779,7 +49779,7 @@
     {
       "name": "semantic_import_TlsGetValue_004625c8",
       "source": "src/crt/unassigned_0046253e.cpp",
-      "symbol": "_import_TlsGetValue_004625c8@4",
+      "symbol": "_import_TlsGetValue@4",
       "address": "0x004625C8",
       "size": 6,
       "kind": "semantic",
@@ -49788,7 +49788,7 @@
     {
       "name": "semantic_import_GetProcAddress_004625ce",
       "source": "src/crt/unassigned_0046253e.cpp",
-      "symbol": "_import_GetProcAddress_004625ce@8",
+      "symbol": "_import_GetProcAddress@8",
       "address": "0x004625CE",
       "size": 6,
       "kind": "semantic",
@@ -49797,7 +49797,7 @@
     {
       "name": "semantic_import_WideCharToMultiByte_004625d4",
       "source": "src/crt/unassigned_0046253e.cpp",
-      "symbol": "_import_WideCharToMultiByte_004625d4@32",
+      "symbol": "_import_WideCharToMultiByte@32",
       "address": "0x004625D4",
       "size": 6,
       "kind": "semantic",
@@ -49806,7 +49806,7 @@
     {
       "name": "semantic_import_GetTimeZoneInformation_004625da",
       "source": "src/crt/unassigned_0046253e.cpp",
-      "symbol": "_import_GetTimeZoneInformation_004625da@4",
+      "symbol": "_import_GetTimeZoneInformation@4",
       "address": "0x004625DA",
       "size": 6,
       "kind": "semantic",
@@ -49815,7 +49815,7 @@
     {
       "name": "semantic_import_ExitProcess_004625e0",
       "source": "src/crt/unassigned_0046253e.cpp",
-      "symbol": "_import_ExitProcess_004625e0@4",
+      "symbol": "_import_ExitProcess@4",
       "address": "0x004625E0",
       "size": 6,
       "kind": "semantic",
@@ -49824,7 +49824,7 @@
     {
       "name": "semantic_import_TerminateProcess_004625e6",
       "source": "src/crt/unassigned_0046253e.cpp",
-      "symbol": "_import_TerminateProcess_004625e6@8",
+      "symbol": "_import_TerminateProcess@8",
       "address": "0x004625E6",
       "size": 6,
       "kind": "semantic",
@@ -49833,7 +49833,7 @@
     {
       "name": "semantic_import_GetCurrentProcess_004625ec",
       "source": "src/crt/unassigned_0046253e.cpp",
-      "symbol": "_import_GetCurrentProcess_004625ec@0",
+      "symbol": "_import_GetCurrentProcess@0",
       "address": "0x004625EC",
       "size": 6,
       "kind": "semantic",
@@ -49842,7 +49842,7 @@
     {
       "name": "semantic_import_HeapSize_004625f2",
       "source": "src/crt/unassigned_0046253e.cpp",
-      "symbol": "_import_HeapSize_004625f2@12",
+      "symbol": "_import_HeapSize@12",
       "address": "0x004625F2",
       "size": 6,
       "kind": "semantic",
@@ -49851,7 +49851,7 @@
     {
       "name": "semantic_import_UnhandledExceptionFilter_004625f8",
       "source": "src/crt/unassigned_0046253e.cpp",
-      "symbol": "_import_UnhandledExceptionFilter_004625f8@4",
+      "symbol": "_import_UnhandledExceptionFilter@4",
       "address": "0x004625F8",
       "size": 6,
       "kind": "semantic",
@@ -49860,7 +49860,7 @@
     {
       "name": "semantic_import_VirtualProtect_004625fe",
       "source": "src/crt/unassigned_0046253e.cpp",
-      "symbol": "_import_VirtualProtect_004625fe@16",
+      "symbol": "_import_VirtualProtect@16",
       "address": "0x004625FE",
       "size": 6,
       "kind": "semantic",
@@ -49869,7 +49869,7 @@
     {
       "name": "semantic_import_GetSystemInfo_00462604",
       "source": "src/crt/unassigned_0046253e.cpp",
-      "symbol": "_import_GetSystemInfo_00462604@4",
+      "symbol": "_import_GetSystemInfo@4",
       "address": "0x00462604",
       "size": 6,
       "kind": "semantic",
@@ -49878,7 +49878,7 @@
     {
       "name": "semantic_import_VirtualQuery_0046260a",
       "source": "src/crt/unassigned_0046253e.cpp",
-      "symbol": "_import_VirtualQuery_0046260a@12",
+      "symbol": "_import_VirtualQuery@12",
       "address": "0x0046260A",
       "size": 6,
       "kind": "semantic",
@@ -49887,7 +49887,7 @@
     {
       "name": "semantic_import_GetStdHandle_00462610",
       "source": "src/crt/unassigned_0046253e.cpp",
-      "symbol": "_import_GetStdHandle_00462610@4",
+      "symbol": "_import_GetStdHandle@4",
       "address": "0x00462610",
       "size": 6,
       "kind": "semantic",
@@ -49896,7 +49896,7 @@
     {
       "name": "semantic_import_FreeEnvironmentStringsA_00462616",
       "source": "src/crt/unassigned_0046253e.cpp",
-      "symbol": "_import_FreeEnvironmentStringsA_00462616@4",
+      "symbol": "_import_FreeEnvironmentStringsA@4",
       "address": "0x00462616",
       "size": 6,
       "kind": "semantic",
@@ -49905,7 +49905,7 @@
     {
       "name": "semantic_import_GetEnvironmentStrings_0046261c",
       "source": "src/crt/unassigned_0046253e.cpp",
-      "symbol": "_import_GetEnvironmentStrings_0046261c@0",
+      "symbol": "_import_GetEnvironmentStrings@0",
       "address": "0x0046261C",
       "size": 6,
       "kind": "semantic",
@@ -49914,7 +49914,7 @@
     {
       "name": "semantic_import_FreeEnvironmentStringsW_00462622",
       "source": "src/crt/unassigned_0046253e.cpp",
-      "symbol": "_import_FreeEnvironmentStringsW_00462622@4",
+      "symbol": "_import_FreeEnvironmentStringsW@4",
       "address": "0x00462622",
       "size": 6,
       "kind": "semantic",
@@ -49923,7 +49923,7 @@
     {
       "name": "semantic_import_GetEnvironmentStringsW_00462628",
       "source": "src/crt/unassigned_0046253e.cpp",
-      "symbol": "_import_GetEnvironmentStringsW_00462628@0",
+      "symbol": "_import_GetEnvironmentStringsW@0",
       "address": "0x00462628",
       "size": 6,
       "kind": "semantic",
@@ -49932,7 +49932,7 @@
     {
       "name": "semantic_import_SetHandleCount_0046262e",
       "source": "src/crt/unassigned_0046253e.cpp",
-      "symbol": "_import_SetHandleCount_0046262e@4",
+      "symbol": "_import_SetHandleCount@4",
       "address": "0x0046262E",
       "size": 6,
       "kind": "semantic",
@@ -49941,7 +49941,7 @@
     {
       "name": "semantic_import_GetFileType_00462634",
       "source": "src/crt/unassigned_0046253e.cpp",
-      "symbol": "_import_GetFileType_00462634@4",
+      "symbol": "_import_GetFileType@4",
       "address": "0x00462634",
       "size": 6,
       "kind": "semantic",
@@ -49959,7 +49959,7 @@
     {
       "name": "semantic_import_InterlockedExchange_00462640",
       "source": "src/crt/unassigned_00462640.cpp",
-      "symbol": "_import_InterlockedExchange_00462640@8",
+      "symbol": "_import_InterlockedExchange@8",
       "address": "0x00462640",
       "size": 6,
       "kind": "semantic",
@@ -49968,7 +49968,7 @@
     {
       "name": "semantic_import_GetStringTypeA_00462646",
       "source": "src/crt/unassigned_00462640.cpp",
-      "symbol": "_import_GetStringTypeA_00462646@20",
+      "symbol": "_import_GetStringTypeA@20",
       "address": "0x00462646",
       "size": 6,
       "kind": "semantic",
@@ -49977,7 +49977,7 @@
     {
       "name": "semantic_import_GetStringTypeW_0046264c",
       "source": "src/crt/unassigned_00462640.cpp",
-      "symbol": "_import_GetStringTypeW_0046264c@16",
+      "symbol": "_import_GetStringTypeW@16",
       "address": "0x0046264C",
       "size": 6,
       "kind": "semantic",
@@ -49986,7 +49986,7 @@
     {
       "name": "semantic_import_GetTimeFormatA_00462652",
       "source": "src/crt/unassigned_00462640.cpp",
-      "symbol": "_import_GetTimeFormatA_00462652@24",
+      "symbol": "_import_GetTimeFormatA@24",
       "address": "0x00462652",
       "size": 6,
       "kind": "semantic",
@@ -49995,7 +49995,7 @@
     {
       "name": "semantic_import_GetDateFormatA_00462658",
       "source": "src/crt/unassigned_00462640.cpp",
-      "symbol": "_import_GetDateFormatA_00462658@24",
+      "symbol": "_import_GetDateFormatA@24",
       "address": "0x00462658",
       "size": 6,
       "kind": "semantic",
@@ -50004,7 +50004,7 @@
     {
       "name": "semantic_import_GetCPInfo_0046265e",
       "source": "src/crt/unassigned_00462640.cpp",
-      "symbol": "_import_GetCPInfo_0046265e@8",
+      "symbol": "_import_GetCPInfo@8",
       "address": "0x0046265E",
       "size": 6,
       "kind": "semantic",
@@ -50013,7 +50013,7 @@
     {
       "name": "semantic_import_GetUserDefaultLCID_00462664",
       "source": "src/crt/unassigned_00462640.cpp",
-      "symbol": "_import_GetUserDefaultLCID_00462664@0",
+      "symbol": "_import_GetUserDefaultLCID@0",
       "address": "0x00462664",
       "size": 6,
       "kind": "semantic",
@@ -50022,7 +50022,7 @@
     {
       "name": "semantic_import_GetLocaleInfoA_0046266a",
       "source": "src/crt/unassigned_00462640.cpp",
-      "symbol": "_import_GetLocaleInfoA_0046266a@16",
+      "symbol": "_import_GetLocaleInfoA@16",
       "address": "0x0046266A",
       "size": 6,
       "kind": "semantic",
@@ -50031,7 +50031,7 @@
     {
       "name": "semantic_import_EnumSystemLocalesA_00462670",
       "source": "src/crt/unassigned_00462640.cpp",
-      "symbol": "_import_EnumSystemLocalesA_00462670@8",
+      "symbol": "_import_EnumSystemLocalesA@8",
       "address": "0x00462670",
       "size": 6,
       "kind": "semantic",
@@ -50040,7 +50040,7 @@
     {
       "name": "semantic_import_IsValidLocale_00462676",
       "source": "src/crt/unassigned_00462640.cpp",
-      "symbol": "_import_IsValidLocale_00462676@8",
+      "symbol": "_import_IsValidLocale@8",
       "address": "0x00462676",
       "size": 6,
       "kind": "semantic",
@@ -50049,7 +50049,7 @@
     {
       "name": "semantic_import_IsValidCodePage_0046267c",
       "source": "src/crt/unassigned_00462640.cpp",
-      "symbol": "_import_IsValidCodePage_0046267c@4",
+      "symbol": "_import_IsValidCodePage@4",
       "address": "0x0046267C",
       "size": 6,
       "kind": "semantic",
@@ -50058,7 +50058,7 @@
     {
       "name": "semantic_import_GetACP_00462682",
       "source": "src/crt/unassigned_00462640.cpp",
-      "symbol": "_import_GetACP_00462682@0",
+      "symbol": "_import_GetACP@0",
       "address": "0x00462682",
       "size": 6,
       "kind": "semantic",
@@ -50067,7 +50067,7 @@
     {
       "name": "semantic_import_GetOEMCP_00462688",
       "source": "src/crt/unassigned_00462640.cpp",
-      "symbol": "_import_GetOEMCP_00462688@0",
+      "symbol": "_import_GetOEMCP@0",
       "address": "0x00462688",
       "size": 6,
       "kind": "semantic",
@@ -50076,7 +50076,7 @@
     {
       "name": "semantic_import_RaiseException_0046268e",
       "source": "src/crt/unassigned_00462640.cpp",
-      "symbol": "_import_RaiseException_0046268e@16",
+      "symbol": "_import_RaiseException@16",
       "address": "0x0046268E",
       "size": 6,
       "kind": "semantic",
@@ -50085,7 +50085,7 @@
     {
       "name": "semantic_import_LCMapStringA_00462694",
       "source": "src/crt/unassigned_00462640.cpp",
-      "symbol": "_import_LCMapStringA_00462694@24",
+      "symbol": "_import_LCMapStringA@24",
       "address": "0x00462694",
       "size": 6,
       "kind": "semantic",
@@ -50094,7 +50094,7 @@
     {
       "name": "semantic_import_LCMapStringW_0046269a",
       "source": "src/crt/unassigned_00462640.cpp",
-      "symbol": "_import_LCMapStringW_0046269a@24",
+      "symbol": "_import_LCMapStringW@24",
       "address": "0x0046269A",
       "size": 6,
       "kind": "semantic",
@@ -50103,7 +50103,7 @@
     {
       "name": "semantic_import_GetTickCount_004626a0",
       "source": "src/crt/unassigned_00462640.cpp",
-      "symbol": "_import_GetTickCount_004626a0@0",
+      "symbol": "_import_GetTickCount@0",
       "address": "0x004626A0",
       "size": 6,
       "kind": "semantic",
@@ -50112,7 +50112,7 @@
     {
       "name": "semantic_import_GetCurrentProcessId_004626a6",
       "source": "src/crt/unassigned_00462640.cpp",
-      "symbol": "_import_GetCurrentProcessId_004626a6@0",
+      "symbol": "_import_GetCurrentProcessId@0",
       "address": "0x004626A6",
       "size": 6,
       "kind": "semantic",
@@ -50121,7 +50121,7 @@
     {
       "name": "semantic_import_LoadLibraryA_004626ac",
       "source": "src/crt/unassigned_00462640.cpp",
-      "symbol": "_import_LoadLibraryA_004626ac@4",
+      "symbol": "_import_LoadLibraryA@4",
       "address": "0x004626AC",
       "size": 6,
       "kind": "semantic",
@@ -50130,7 +50130,7 @@
     {
       "name": "semantic_import_SetStdHandle_004626b2",
       "source": "src/crt/unassigned_00462640.cpp",
-      "symbol": "_import_SetStdHandle_004626b2@8",
+      "symbol": "_import_SetStdHandle@8",
       "address": "0x004626B2",
       "size": 6,
       "kind": "semantic",
@@ -50139,7 +50139,7 @@
     {
       "name": "semantic_import_SetConsoleCtrlHandler_004626b8",
       "source": "src/crt/unassigned_00462640.cpp",
-      "symbol": "_import_SetConsoleCtrlHandler_004626b8@8",
+      "symbol": "_import_SetConsoleCtrlHandler@8",
       "address": "0x004626B8",
       "size": 6,
       "kind": "semantic",
@@ -50148,7 +50148,7 @@
     {
       "name": "semantic_import_FlushFileBuffers_004626be",
       "source": "src/crt/unassigned_00462640.cpp",
-      "symbol": "_import_FlushFileBuffers_004626be@4",
+      "symbol": "_import_FlushFileBuffers@4",
       "address": "0x004626BE",
       "size": 6,
       "kind": "semantic",
@@ -50157,7 +50157,7 @@
     {
       "name": "semantic_import_GetLocaleInfoW_004626c4",
       "source": "src/crt/unassigned_00462640.cpp",
-      "symbol": "_import_GetLocaleInfoW_004626c4@16",
+      "symbol": "_import_GetLocaleInfoW@16",
       "address": "0x004626C4",
       "size": 6,
       "kind": "semantic",
@@ -50166,7 +50166,7 @@
     {
       "name": "semantic_import_CompareStringA_004626ca",
       "source": "src/crt/unassigned_00462640.cpp",
-      "symbol": "_import_CompareStringA_004626ca@24",
+      "symbol": "_import_CompareStringA@24",
       "address": "0x004626CA",
       "size": 6,
       "kind": "semantic",
@@ -50175,7 +50175,7 @@
     {
       "name": "semantic_import_CompareStringW_004626d0",
       "source": "src/crt/unassigned_00462640.cpp",
-      "symbol": "_import_CompareStringW_004626d0@24",
+      "symbol": "_import_CompareStringW@24",
       "address": "0x004626D0",
       "size": 6,
       "kind": "semantic",
@@ -51257,7 +51257,7 @@
     {
       "name": "semantic_ManagerDestructorHandler",
       "source": "src/core/sprtlib/anm_storage_destructor_00446220.cpp",
-      "symbol": "__ehhandler$??1AnimationManagerStorage_00446220@@QAE@XZ",
+      "symbol": "__ehhandler$??1AnimationManagerStorage@@QAE@XZ",
       "address": "0x00465225",
       "size": 10,
       "kind": "semantic",
@@ -51747,7 +51747,7 @@
     },
     {
       "name": "semantic_Resource_GetFileSize_ExceptionHandler_00465388",
-      "symbol": "__ehhandler$?ResourceGetFileSize_004358e0@@YIIPBD@Z",
+      "symbol": "__ehhandler$?ResourceGetFileSize@@YIIPBD@Z",
       "source": "src/pack/file/resource_get_file_size_retail_004358e0.cpp",
       "address": "0x465388",
       "size": 10,
@@ -52623,7 +52623,7 @@
     {
       "name": "semantic_TitleDestructorHandler_00465696",
       "source": "src/game/loading/loading_release.cpp",
-      "symbol": "__ehhandler$??1TitleState_0041FB50@@QAE@XZ",
+      "symbol": "__ehhandler$??1TitleState@@QAE@XZ",
       "address": "0x00465696",
       "size": 10,
       "kind": "semantic",
@@ -52965,7 +52965,7 @@
     {
       "name": "semantic_EclViewHandler_004657e9",
       "source": "src/game/eclview/ecl_view_teardown.cpp",
-      "symbol": "__ehhandler$??1EclView_0040a940@@QAE@XZ",
+      "symbol": "__ehhandler$??1EclView@@QAE@XZ",
       "address": "0x004657E9",
       "size": 10,
       "kind": "semantic",
@@ -53742,7 +53742,7 @@
     "?Destroy@RuntimeException_00462dd9@@QAEPAU1@E@Z": "0x00462DD9",
     "?Destroy@RuntimeException_00462df5@@QAEPAU1@E@Z": "0x00462DF5",
     "?Draw@ScreenFlashQuad@@QAEHXZ": "0x0043C500",
-    "?ECL_ResolveIntOperand_0044fdb0@@YIHHPAUEclFrame@@H@Z": "0x0044FDB0",
+    "?ECL_ResolveIntOperand@@YIHHPAUEclFrame@@H@Z": "0x0044FDB0",
     "?Empty_0043b8b0@@YGXXZ": "0x0043B8B0",
     "?EnsureCapacity@LegacyString@@QAE_NI_N@Z": "0x004385B0",
     "?GetFileSize@ResourcePath@@QAEIXZ": "0x004358E0",
@@ -53764,12 +53764,12 @@
     "?InitAddress@RuntimeException_00462cc2@@QAEPAU1@PAX@Z": "0x00462CCF",
     "?InitValue@RuntimeException_00462cc2@@QAEPAU1@PAX@Z": "0x00462CE8",
     "?InputPattern_CountMatches@@YIHPAXH@Z": "0x004088C0",
-    "?InvertAlpha@ImageSurface_00437160@@QAEDH@Z": "0x00437160",
+    "?InvertAlpha@ImageSurface@@QAEDH@Z": "0x00437160",
     "?IsPartiallyOutside@ViewportPosition@@QBEHMM@Z": "0x0041F7A0",
     "?Load@ResourcePath@@QAEPAEH@Z": "0x00435800",
     "?OutsideBounds@PlayfieldPoint@@QBEHMM@Z": "0x004086B0",
     "?OutsideViewport@SmollScorePosition@@QBEHMM@Z": "0x00428D70",
-    "?ParseAnimationChunk@ScriptFileChunkContext_0040d400@@QAEHPAD@Z": "0x0040D400",
+    "?ParseAnimationChunk@ScriptFileChunkContext@@QAEHPAD@Z": "0x0040D400",
     "?Platform_ReleaseOwnedArray@@YIXPAUPlatformOwnedArray@@@Z": "0x0044D080",
     "?PopScratchValue@EclFrame_00450690@@QAEHXZ": "0x004506D0",
     "?ReadMidiVariableLength@@YGHAAPBE@Z": "0x0043A730",
@@ -53799,17 +53799,17 @@
     "?g_playfield_min_x@@3MA": "0x00470B40",
     "?g_playfield_min_y@@3MA": "0x00470B04",
     "?g_startup_config_flags@@3IA": "0x00491D78",
-    "?sound_buffer_vtable_004705d4@@3DA": "0x004705D4",
+    "?sound_buffer_vtable@@3DA": "0x004705D4",
     "@AnimationManager_Find@12": "0x004491C0",
     "@AnimationManager_SetStopFrame_00449210@12": "0x00449210",
-    "@EffectIndicatorPool_AllocateRetail_00427b50@28": "0x00427B50",
-    "@Entity_ResetRuntimeState_00405D00@4": "0x00405D00",
+    "@EffectIndicatorPool_AllocateRetail@28": "0x00427B50",
+    "@Entity_ResetRuntimeState@4": "0x00405D00",
     "@InitializeProgressWorkerStorageAt0042C920@8": "0x0042C920",
     "@Input_PollJoystickButtons_0044A4E0@4": "0x0044A4E0",
     "@LoadGameThreadResources_00401110@4": "0x00401110",
     "@Platform_LaunchProcess_00436570@16": "0x00436570",
     "@SpellTimer_AdvanceSlots_004127a0@4": "0x004127A0",
-    "@SumEveryFourthByte_0044c0b0@8": "0x0044C0B0",
+    "@SumEveryFourthByte@8": "0x0044C0B0",
     "@__security_check_cookie@4": "0x00458EA5",
     "@asm_AnimationManager_CreatePositionedPrimary_00448d50@12": "0x00448D50",
     "@asm_AnimationManager_CreatePrimaryBack_00448d00@12": "0x00448D00",
@@ -54176,7 +54176,7 @@
     "_Allmul_00456640@16": "0x00456640",
     "_Angle_Normalize_0044bc70@4": "0x0044BC70",
     "_ArrayUnwind_004525A1@16": "0x004525A1",
-    "_ItemManager_Destroy_0041adf0@4": "0x0041ADF0",
+    "_ItemManager_Destroy@4": "0x0041ADF0",
     "_CallMemberFunction0_00462706@8": "0x00462706",
     "_Close_0046218A": "0x0046218A",
     "_CrtExitProcess_00457547": "0x00457547",
@@ -54184,25 +54184,25 @@
     "_DatArchive_BuildIndex_004350d0@12": "0x004350D0",
     "_DecimalConversionRecord_00460E41": "0x00460E41",
     "_DecompressDatLzss_00435dc0@16": "0x00435DC0",
-    "_DestroyGameThread_00401260@4": "0x00401260",
+    "_DestroyGameThread@4": "0x00401260",
     "_Dtold_00460D87": "0x00460D87",
     "_FindMultibyteCharacter_0046227B": "0x0046227B",
-    "_FirstByteSearch_00452730": "0x00452730",
+    "_FirstByteSearch": "0x00452730",
     "_Fptostr_00460D10": "0x00460D10",
     "_Free_004524a1": "0x004524A1",
     "_ItemFieldContact_004266B0": "0x004266B0",
     "_LegacyString_Grow_ExceptionInfo": "0x00471448",
     "_LegacyString_ThrowOutOfRange": "0x00462428",
     "_PauseMenu_Destroy_00422220@4": "0x00422220",
-    "_QueuedAnimationCleanup_00421070@4": "0x00421070",
-    "_ReleaseAnimationHandles_00421300@4": "0x00421300",
-    "_RenderCamera_InitializeDefaults_004216f0": "0x004216F0",
+    "_QueuedAnimationCleanup@4": "0x00421070",
+    "_ReleaseAnimationHandles@4": "0x00421300",
+    "_RenderCamera_InitializeDefaults": "0x004216F0",
     "_RenderStageState_DisableFog_00420CD0": "0x00420CD0",
-    "_RetireCallbackOwner_00426f70@4": "0x00426F70",
+    "_RetireCallbackOwner@4": "0x00426F70",
     "_SchedulerTask_Create@4": "0x00449ED0",
     "_SetExp_0045EBCB": "0x0045EBCB",
     "_Sound_ForwardDouble": "0x00452FF0",
-    "_WindowProcedure_004390e0@16": "0x004390E0",
+    "_WindowProcedure@16": "0x004390E0",
     "_WtombEnviron_004610F4": "0x004610F4",
     "__CIasin": "0x00463BF0",
     "__CxxThrowException@8": "0x00462AFB",
@@ -58915,81 +58915,81 @@
     "_g_crt_cmdline": "0x00499348",
     "_crt_free": "0x00452422",
     "_crt_free_startup": "0x004524A1",
-    "_entry_malloc_00452706": "0x00452706",
+    "_entry_malloc": "0x00452706",
     "_force_disp32_zero": "0x00000000",
     "_force_imm32_zero": "0x00000000",
     "_g_file_critical_depth": "0x0049231E",
     "_g_file_critical_section": "0x004922A4",
     "_g_file_probe_handle": "0x00474C38",
-    "_import_CompareStringA_004626ca@24": "0x004626CA",
-    "_import_CompareStringW_004626d0@24": "0x004626D0",
-    "_import_CreateDirectoryA_0046254a@8": "0x0046254A",
-    "_import_EnumSystemLocalesA_00462670@8": "0x00462670",
-    "_import_ExitProcess_004625e0@4": "0x004625E0",
-    "_import_ExitThread_00462556@4": "0x00462556",
-    "_import_FatalAppExitA_00462592@8": "0x00462592",
-    "_import_FlushFileBuffers_004626be@4": "0x004626BE",
-    "_import_FreeEnvironmentStringsA_00462616@4": "0x00462616",
-    "_import_FreeEnvironmentStringsW_00462622@4": "0x00462622",
-    "_import_GetACP_00462682@0": "0x00462682",
-    "_import_GetCPInfo_0046265e@8": "0x0046265E",
-    "_import_GetCommandLineA_0046257a@0": "0x0046257A",
-    "_import_GetCurrentDirectoryA_00462562@8": "0x00462562",
-    "_import_GetCurrentProcessId_004626a6@0": "0x004626A6",
-    "_import_GetCurrentProcess_004625ec@0": "0x004625EC",
+    "_import_CompareStringA@24": "0x004626CA",
+    "_import_CompareStringW@24": "0x004626D0",
+    "_import_CreateDirectoryA@8": "0x0046254A",
+    "_import_EnumSystemLocalesA@8": "0x00462670",
+    "_import_ExitProcess@4": "0x004625E0",
+    "_import_ExitThread@4": "0x00462556",
+    "_import_FatalAppExitA@8": "0x00462592",
+    "_import_FlushFileBuffers@4": "0x004626BE",
+    "_import_FreeEnvironmentStringsA@4": "0x00462616",
+    "_import_FreeEnvironmentStringsW@4": "0x00462622",
+    "_import_GetACP@0": "0x00462682",
+    "_import_GetCPInfo@8": "0x0046265E",
+    "_import_GetCommandLineA@0": "0x0046257A",
+    "_import_GetCurrentDirectoryA@8": "0x00462562",
+    "_import_GetCurrentProcessId@0": "0x004626A6",
+    "_import_GetCurrentProcess@0": "0x004625EC",
     "_import_GetCurrentThreadId_0045653e@0": "0x0045653E",
     "_import_GetCurrentThreadId_0046256e@0": "0x0046256E",
     "_import_GetCurrentThread_00456544@0": "0x00456544",
     "_import_GetCurrentThread_004625b6@0": "0x004625B6",
-    "_import_GetDateFormatA_00462658@24": "0x00462658",
-    "_import_GetEnvironmentStringsW_00462628@0": "0x00462628",
-    "_import_GetEnvironmentStrings_0046261c@0": "0x0046261C",
-    "_import_GetFileType_00462634@4": "0x00462634",
-    "_import_GetLocaleInfoA_0046266a@16": "0x0046266A",
-    "_import_GetLocaleInfoW_004626c4@16": "0x004626C4",
-    "_import_GetModuleHandleA_00462574@4": "0x00462574",
-    "_import_GetOEMCP_00462688@0": "0x00462688",
-    "_import_GetProcAddress_004625ce@8": "0x004625CE",
-    "_import_GetStdHandle_00462610@4": "0x00462610",
-    "_import_GetStringTypeA_00462646@20": "0x00462646",
-    "_import_GetStringTypeW_0046264c@16": "0x0046264C",
-    "_import_GetSystemInfo_00462604@4": "0x00462604",
-    "_import_GetSystemTimeAsFileTime_00462550@4": "0x00462550",
-    "_import_GetTickCount_004626a0@0": "0x004626A0",
-    "_import_GetTimeFormatA_00462652@24": "0x00462652",
-    "_import_GetTimeZoneInformation_004625da@4": "0x004625DA",
-    "_import_GetUserDefaultLCID_00462664@0": "0x00462664",
-    "_import_HeapAlloc_00462544@12": "0x00462544",
-    "_import_HeapCreate_00462586@12": "0x00462586",
-    "_import_HeapDestroy_00462580@4": "0x00462580",
-    "_import_HeapFree_0046253e@12": "0x0046253E",
-    "_import_HeapReAlloc_0046259e@16": "0x0046259E",
-    "_import_HeapSize_004625f2@12": "0x004625F2",
-    "_import_InterlockedExchange_00462640@8": "0x00462640",
-    "_import_IsBadWritePtr_004625a4@8": "0x004625A4",
-    "_import_IsValidCodePage_0046267c@4": "0x0046267C",
-    "_import_IsValidLocale_00462676@8": "0x00462676",
-    "_import_LCMapStringA_00462694@24": "0x00462694",
-    "_import_LCMapStringW_0046269a@24": "0x0046269A",
-    "_import_LoadLibraryA_004626ac@4": "0x004626AC",
-    "_import_RaiseException_0046268e@16": "0x0046268E",
-    "_import_SetConsoleCtrlHandler_004626b8@8": "0x004626B8",
-    "_import_SetCurrentDirectoryA_00462568@4": "0x00462568",
-    "_import_SetEnvironmentVariableA_0046255c@8": "0x0046255C",
-    "_import_SetHandleCount_0046262e@4": "0x0046262E",
-    "_import_SetLastError_004625b0@4": "0x004625B0",
-    "_import_SetStdHandle_004626b2@8": "0x004626B2",
-    "_import_TerminateProcess_004625e6@8": "0x004625E6",
-    "_import_TlsAlloc_004625aa@0": "0x004625AA",
-    "_import_TlsFree_004625bc@4": "0x004625BC",
-    "_import_TlsGetValue_004625c8@4": "0x004625C8",
-    "_import_TlsSetValue_004625c2@8": "0x004625C2",
-    "_import_UnhandledExceptionFilter_004625f8@4": "0x004625F8",
-    "_import_VirtualAlloc_00462598@16": "0x00462598",
-    "_import_VirtualFree_0046258c@12": "0x0046258C",
-    "_import_VirtualProtect_004625fe@16": "0x004625FE",
-    "_import_VirtualQuery_0046260a@12": "0x0046260A",
-    "_import_WideCharToMultiByte_004625d4@32": "0x004625D4",
+    "_import_GetDateFormatA@24": "0x00462658",
+    "_import_GetEnvironmentStringsW@0": "0x00462628",
+    "_import_GetEnvironmentStrings@0": "0x0046261C",
+    "_import_GetFileType@4": "0x00462634",
+    "_import_GetLocaleInfoA@16": "0x0046266A",
+    "_import_GetLocaleInfoW@16": "0x004626C4",
+    "_import_GetModuleHandleA@4": "0x00462574",
+    "_import_GetOEMCP@0": "0x00462688",
+    "_import_GetProcAddress@8": "0x004625CE",
+    "_import_GetStdHandle@4": "0x00462610",
+    "_import_GetStringTypeA@20": "0x00462646",
+    "_import_GetStringTypeW@16": "0x0046264C",
+    "_import_GetSystemInfo@4": "0x00462604",
+    "_import_GetSystemTimeAsFileTime@4": "0x00462550",
+    "_import_GetTickCount@0": "0x004626A0",
+    "_import_GetTimeFormatA@24": "0x00462652",
+    "_import_GetTimeZoneInformation@4": "0x004625DA",
+    "_import_GetUserDefaultLCID@0": "0x00462664",
+    "_import_HeapAlloc@12": "0x00462544",
+    "_import_HeapCreate@12": "0x00462586",
+    "_import_HeapDestroy@4": "0x00462580",
+    "_import_HeapFree@12": "0x0046253E",
+    "_import_HeapReAlloc@16": "0x0046259E",
+    "_import_HeapSize@12": "0x004625F2",
+    "_import_InterlockedExchange@8": "0x00462640",
+    "_import_IsBadWritePtr@8": "0x004625A4",
+    "_import_IsValidCodePage@4": "0x0046267C",
+    "_import_IsValidLocale@8": "0x00462676",
+    "_import_LCMapStringA@24": "0x00462694",
+    "_import_LCMapStringW@24": "0x0046269A",
+    "_import_LoadLibraryA@4": "0x004626AC",
+    "_import_RaiseException@16": "0x0046268E",
+    "_import_SetConsoleCtrlHandler@8": "0x004626B8",
+    "_import_SetCurrentDirectoryA@4": "0x00462568",
+    "_import_SetEnvironmentVariableA@8": "0x0046255C",
+    "_import_SetHandleCount@4": "0x0046262E",
+    "_import_SetLastError@4": "0x004625B0",
+    "_import_SetStdHandle@8": "0x004626B2",
+    "_import_TerminateProcess@8": "0x004625E6",
+    "_import_TlsAlloc@0": "0x004625AA",
+    "_import_TlsFree@4": "0x004625BC",
+    "_import_TlsGetValue@4": "0x004625C8",
+    "_import_TlsSetValue@8": "0x004625C2",
+    "_import_UnhandledExceptionFilter@4": "0x004625F8",
+    "_import_VirtualAlloc@16": "0x00462598",
+    "_import_VirtualFree@12": "0x0046258C",
+    "_import_VirtualProtect@16": "0x004625FE",
+    "_import_VirtualQuery@12": "0x0046260A",
+    "_import_WideCharToMultiByte@32": "0x004625D4",
     "_memmove": "0x00453280",
     "_operator_new": "0x00452493",
     "_text_data_00404390": "0x00404390",
@@ -59167,11 +59167,11 @@
     "@FUN_0040d530_0040d530@4": "0x0040D530",
     "@Recovery_LoadCachedResource@12": "0x00447280",
     "_FUN_0040d280_0040d280@4": "0x0040D280",
-    "_screenshot_path_00492150": "0x00492150",
+    "_screenshot_path": "0x00492150",
     "_File_OpenSharedWrite_0044b620@4": "0x0044B620",
-    "_screenshot_bitmap_header_00492138": "0x00492138",
-    "_screenshot_dib_header_00492148": "0x00492148",
-    "_screenshot_pixels_0049214c": "0x0049214C",
+    "_screenshot_bitmap_header": "0x00492138",
+    "_screenshot_dib_header": "0x00492148",
+    "_screenshot_pixels": "0x0049214C",
     "_screenshot_thread_00492134": "0x00492134",
     "_asm_unassigned_0045258f": "0x0045258F",
     "_asm_unassigned_004525d0": "0x004525D0",
@@ -60111,8 +60111,8 @@
     "_Cursor_ReadWord_00454eb8": "0x00454EB8",
     "_Cursor_ReadPair_00454ec1": "0x00454EC1",
     "_Cursor_ReadHalf_00454ecd": "0x00454ECD",
-    "_SwapLowWordBytes_0043a6f0": "0x0043A6F0",
-    "_DrawGlobalAnimation_00449440": "0x00449440",
+    "_SwapLowWordBytes": "0x0043A6F0",
+    "_DrawGlobalAnimation": "0x00449440",
     "_asm_FUN_0040c650_0040c650": "0x0040C650",
     "_asm_FUN_0040c680_0040c680": "0x0040C680",
     "_asm_ECL_ResolveFloatValue_0044ff80@12": "0x0044FF80",
@@ -60129,9 +60129,9 @@
     "_crt_libcpmt_string_ehhandler_Copy_basic_string_DU_char_traits_D_std_V_allocator_D_2_std_IAEXII_Z": "0x004653A8",
     "_asm_FUN_0043c500_0043c500": "0x0043C500",
     "?CancelBullets@BombState@@QAEHXZ": "0x00405AC0",
-    "?Check@CollisionEngine_00408100@@QAEHPBUPositionVector_004492f0@@MHH@Z": "0x00408100",
+    "?Check@CollisionEngine@@QAEHPBUPositionVector@@MHH@Z": "0x00408100",
     "_SoundStreamStart@12": "0x0044D440",
-    "_SoundStream_Restart_0044dad0@4": "0x0044DAD0",
+    "_SoundStream_Restart@4": "0x0044DAD0",
     "_asm_FUN_00405840_00405840": "0x00405840",
     "??1FuncCtrlDestroyView@@QAE@XZ": "0x00438880",
     "_D3DManagerUnwindPrimary_00465350": "0x00465350",
@@ -60150,7 +60150,7 @@
     "_SoundMemoryNativeUnwind_00465310": "0x00465310",
     "__ehhandler$?_Init@?$numpunct@D@std@@IAEXABV_Locinfo@2@@Z": "0x0046531B",
     "__ehhandler$?SoundStream_CreateMemory_0044cbf0@@YIHPAPAUSoundStreamingState@@IPAPAUWaveDirectSoundDevice@@PAEIPAUMusicTrackRecord@@UWaveGuidImage@@IIPAX@Z": "0x0046531B",
-    "??0ScoreArchiveManager_0042ae60@@QAE@XZ": "0x0042AE60",
+    "??0ScoreArchiveManager@@QAE@XZ": "0x0042AE60",
     "?ScoreManager_Create_0042af20@@YGXXZ": "0x0042AF20",
     "_asm_Unwind_004655a0_004655a0": "0x004655A0",
     "_ScoreManagerNativeUnwind_004655a0": "0x004655A0",
@@ -60167,28 +60167,28 @@
     "?AsciiManager_AddFormatted@@YAXPAUGameThread_00401530@@PBUVec3_00401530@@PBDZZ": "0x00401630",
     "?ReplayManager_Draw@@YIHPAXPAUReplayManagerPanel@@@Z": "0x00429A70",
     "_App_StartWorkers": "0x004201B0",
-    "_InitializeFontCache_00437a00": "0x00437A00",
+    "_InitializeFontCache": "0x00437A00",
     "_asm_FUN_004201b0_004201b0": "0x004201B0",
     "?InitializeDevices@GameInputSystem@@QAEHXZ": "0x0043B8D0",
     "_Input_InitThread": "0x0043BA90",
     "?StopMusicWorker@WaveSoundManager@@QAEXXZ": "0x0043DAB0",
-    "@Sound_SetPrimaryFormat_0044c7e0@16": "0x0044C7E0",
+    "@Sound_SetPrimaryFormat@16": "0x0044C7E0",
     "?MainTaskTickWave18@@YIHPAUMainTaskStateWave18@@@Z": "0x0041FF80",
     "?TickFades@SoundFadeManagerWave18@@QAEXXZ": "0x00421E00",
     "_asm_FUN_0041ff80_0041ff80": "0x0041FF80",
     "?FinishTargets@SprtCtrlTargetsView@@QAEXXZ": "0x438a60",
     "_DeviceReset_004391f0": "0x4391f0",
     "?Clear@SprtCtrlTargetsView@@QAEXH@Z": "0x447f70",
-    "?Clear@AnimationManagerIndexed_00447f70@@QAEXH@Z": "0x00447F70",
-    "_FuncCtrl_RunPrimary_00449c00@4": "0x00449C00",
+    "?Clear@AnimationManagerIndexed@@QAEXH@Z": "0x00447F70",
+    "_FuncCtrl_RunPrimary@4": "0x00449C00",
     "?Draw@ItemManager_0041b8e0@@QAEHXZ": "0x0041B8E0",
     "?ItemManager_OnDraw_0041ba30@@YIHPAUItemManager_0041b8e0@@@Z": "0x0041BA30",
     "??1ItemManager@@QAE@XZ": "0x0041ADF0",
     "_ManagerArrayUnwind_00465400": "0x00465400",
     "__ehhandler$??1ItemManager@@QAE@XZ": "0x0046541C",
     "??1Item@@QAE@XZ": "0x0041AD60",
-    "?ManagerTeardownFuncCtrl_Remove_00449F60@@YGXPAUFuncCtrl@@PAUSchedulerTask@@@Z": "0x00449F60",
-    "_ReverseDwordBytes_0043a700": "0x0043A700",
+    "?ManagerTeardownFuncCtrl_Remove@@YGXPAUFuncCtrl@@PAUSchedulerTask@@@Z": "0x00449F60",
+    "_ReverseDwordBytes": "0x0043A700",
     "?DrawSprites@CardDrawView@@QAEHXZ": "0x00409190",
     "?Music_PlayFile@@YGHHPBD@Z": "0x00420B80",
     "?MusicRequests_Unpause@@YGXPAUAnimationManager_0043e460@@@Z": "0x00424460",
@@ -60196,41 +60196,41 @@
     "?MusicRequests_SetVolume@@YGXPAUAnimationManager_0043e460@@@Z": "0x00434B80",
     "?Entity_StartScript@@YGXPAUAnimationResourceFile@@PAUEntity@@H@Z": "0x00404F30",
     "_ReplayManager_OnFrameStep": "0x0042A3E0",
-    "?EntityArray_StartScripts_004415c0@@YGXPAUEntity@@HHPAUAnimationResourceFile@@@Z": "0x004415C0",
+    "?EntityArray_StartScripts@@YGXPAUEntity@@HHPAUAnimationResourceFile@@@Z": "0x004415C0",
     "_asm_unassigned_0041be40": "0x0041BE40",
     "?EnterState2@Item_0041b8e0@@QAEHXZ": "0x0041BE40",
-    "?PlaybackState_OnSwitch_00427ad0@@YIHPAUPlaybackState@@@Z": "0x00427AD0",
+    "?PlaybackState_OnSwitch@@YIHPAUPlaybackState@@@Z": "0x00427AD0",
     "?Title_FindAnimationSlotChild@@YI?AUAnimationRef_004497d0@@HPAUTitle@@H@Z": "0x0042C7C0",
     "?ReleaseResources@FuncCtrlReleaseView@@QAEXXZ": "0x00449EB0",
-    "?LoadPendingSlot@SoundPendingSlots_0043d640@@QAEHPBDH@Z": "0x0043D640",
+    "?LoadPendingSlot@SoundPendingSlots@@QAEHPBDH@Z": "0x0043D640",
     "?StartMusicCommand@SoundCommandManager_0043da80@@QAEHI@Z": "0x0043DA80",
     "?EnemyCtrl_Delete@@YGXPAUEnemyCtrl@@@Z": "0x0040D730",
-    "?SetPowerDigits@PowerDisplayOwner_004054b0@@QAEXHH@Z": "0x004054B0",
+    "?SetPowerDigits@PowerDisplayOwner@@QAEXHH@Z": "0x004054B0",
     "?Release@AnimationSlot_004136c0@@QAEXXZ": "0x004136C0",
     "?RecoveryMusicInstallSlot@@YGXPAUTitle@@H@Z": "0x0042C670",
-    "?ClearExpiredFlags@PlayerFlags_00405500@@QAEXXZ": "0x00405500",
+    "?ClearExpiredFlags@PlayerFlags@@QAEXXZ": "0x00405500",
     "?StartChannel208@AnimationInterpolatedObject@@QAEXHEEE@Z": "0x00441F50",
     "_asm_unassigned_00449a70": "0x00449A70",
     "_asm_unassigned_00449a50": "0x00449A50",
     "?StartColor1BC@AnimationInterpolatedObject@@QAEXPBE0HE@Z": "0x00442050",
     "?StartColor0BC@AnimationInterpolatedObject@@QAEXPBE0HE@Z": "0x00442220",
-    "?Broadcast@ListenerOwner_0041c760@@QAEHPBUVector3_0041c760@@0H@Z": "0x0041C760",
-    "?Upload@AnmTexture_00446c70@@QAEHUAnmUploadTag_00446c70@@HPBXHH@Z": "0x00446C70",
-    "?LoadFile@AnmTexture_00446c70@@QAEHHPAXPBDI@Z": "0x00446B70",
-    "?AnmTexture_UploadAt_00446d70@@YGHUAnmUploadTag_00446c70@@PAUAnmTexture_00446c70@@HPBXHHH@Z": "0x00446D70",
-    "?AnmTexture_CreateFromMemory_00446eb0@@YGHUAnmUploadTag_00446c70@@PAUAnmTexture_00446c70@@HIHH@Z": "0x00446EB0",
-    "?AnmTexture_CreateAndUpload_00446f40@@YGHPAUAnmTexture_00446c70@@PBUAnmThtxHeader_00446c70@@HHH@Z": "0x00446F40",
-    "?AnmFile_PreloadEntryImage_004472e0@@YGHPAUAnmFile_004470c0@@PBUAnmEntryHeader_00446c70@@H@Z": "0x004472E0",
-    "?AnmManager_LoadFile_004470c0@@YGPAUAnmFile_004470c0@@PAUAnmManager_004470c0@@HPBD@Z": "0x004470C0",
-    "?AnmFile_LoadEntry_00447470@@YGHUAnmUploadTag_00446c70@@PAUAnmFile_004470c0@@HHPBUAnmEntryHeader_00446c70@@H@Z": "0x00447470",
-    "?AnmManager_LoadNextEntry_004473c0@@YGPAUAnmFile_004470c0@@UAnmUploadTag_00446c70@@PAU1@@Z": "0x004473C0",
-    "?AnmManager_LoadFileNow_00447080@@YGPAUAnmFile_004470c0@@PAUAnmManager_004470c0@@HPBD@Z": "0x00447080",
-    "_AnmManager_ServicePending_00447700@4": "0x00447700",
-    "?CopyToBackBuffer@AnimationManagerIndexed_00447f70@@QAEXHHHHH@Z": "0x00447FD0",
+    "?Broadcast@ListenerOwner@@QAEHPBUVector3_0041c760@@0H@Z": "0x0041C760",
+    "?Upload@AnmTexture@@QAEHUAnmUploadTag@@HPBXHH@Z": "0x00446C70",
+    "?LoadFile@AnmTexture@@QAEHHPAXPBDI@Z": "0x00446B70",
+    "?AnmTexture_UploadAt@@YGHUAnmUploadTag@@PAUAnmTexture@@HPBXHHH@Z": "0x00446D70",
+    "?AnmTexture_CreateFromMemory@@YGHUAnmUploadTag@@PAUAnmTexture@@HIHH@Z": "0x00446EB0",
+    "?AnmTexture_CreateAndUpload@@YGHPAUAnmTexture@@PBUAnmThtxHeader@@HHH@Z": "0x00446F40",
+    "?AnmFile_PreloadEntryImage@@YGHPAUAnmFile@@PBUAnmEntryHeader_00446c70@@H@Z": "0x004472E0",
+    "?AnmManager_LoadFile@@YGPAUAnmFile@@PAUAnmManager_004470c0@@HPBD@Z": "0x004470C0",
+    "?AnmFile_LoadEntry@@YGHUAnmUploadTag@@PAUAnmFile@@HHPBUAnmEntryHeader_00446c70@@H@Z": "0x00447470",
+    "?AnmManager_LoadNextEntry@@YGPAUAnmFile@@UAnmUploadTag@@PAU1@@Z": "0x004473C0",
+    "?AnmManager_LoadFileNow@@YGPAUAnmFile@@PAUAnmManager_004470c0@@HPBD@Z": "0x00447080",
+    "_AnmManager_ServicePending@4": "0x00447700",
+    "?CopyToBackBuffer@AnimationManagerIndexed@@QAEXHHHHH@Z": "0x00447FD0",
     "??1BulletManager_00405F70@@QAE@XZ": "0x00405F70",
     "_BulletManagerArrayUnwind_00465520": "0x00465520",
     "__ehhandler$??1BulletManager_00405F70@@QAE@XZ": "0x0046553C",
-    "??1EffectAnimation_00401FF0@@QAE@XZ": "0x00401FF0",
+    "??1EffectAnimation@@QAE@XZ": "0x00401FF0",
     "??1SmollScoreDestructorView@@QAE@XZ": "0x0042B570",
     "_EffectManagerAnimationUnwind_00465230": "0x00465230",
     "__ehhandler$??1SmollScoreDestructorView@@QAE@XZ": "0x0046523B",
@@ -60239,9 +60239,9 @@
     "?ApplyChannelVolumes@MidiVolumeState@@QAEXH@Z": "0x0043B7A0",
     "?Delete@ArchiveEntryOwner@@QAEPAXUEntryDeletionFlags@@@Z": "0x00434D70",
     "_asm_Recovery_InvokePair_00422a90": "0x00422A90",
-    "_PauseMenu_Initialize_00422ab0@4": "0x00422AB0",
-    "_PauseMenu_Update_00422c80@4": "0x00422C80",
-    "_ReplayMenu_Update_004236f0@4": "0x004236F0",
+    "_PauseMenu_Initialize@4": "0x00422AB0",
+    "_PauseMenu_Update@4": "0x00422C80",
+    "_ReplayMenu_Update@4": "0x004236F0",
     "_asm_Recovery_InvokeZero_00427950": "0x00427950",
     "_asm_FUN_00426510_00426510": "0x00426510",
     "_asm_FUN_0040d400_0040d400": "0x0040D400",
@@ -60249,7 +60249,7 @@
     "_asm_Unwind_0046568b_0046568b": "0x0046568B",
     "__ehhandler$?_Copy@?$basic_string@GU?$char_traits@G@std@@V?$allocator@G@2@@std@@IAEXII@Z": "0x00465696",
     "?Entity_Init@@YIXPAXPAUEntity@@@Z": "0x00401DE0",
-    "_Startup_InstanceCheck_00439ff0": "0x00439FF0",
+    "_Startup_InstanceCheck": "0x00439FF0",
     "?ResolveShortcutTarget@@YGHPBDPADI@Z": "0x0043A290",
     "_asm_unassigned_004567ea": "0x004567EA",
     "_asm_unassigned_00456824": "0x00456824",
@@ -60296,14 +60296,14 @@
     "?LegacyString_Clear@@YIXPAULegacyString@@@Z": "0x004381F0",
     "?Update@BombState@@QAEHXZ": "0x00405750",
     "?EndingScreen_Update_0042d300@@YGHPAUTitle@@@Z": "0x0042D300",
-    "?TitleMenuFlow_0042f540@@YGHPAUTitle@@@Z": "0x0042F540",
+    "?TitleMenuFlow@@YGHPAUTitle@@@Z": "0x0042F540",
     "?ResolveIntegerValue@EclIntegerSource@@QBEHH@Z": "0x00411FC0",
-    "?ResolveFloatValue@EclFloatSource_00412350@@QBEMH@Z": "0x00412350",
+    "?ResolveFloatValue@EclFloatSource@@QBEMH@Z": "0x00412350",
     "??0StageScoreDisplay@@QAE@PBX@Z": "0x00415B00",
     "_Player_Die@4": "0x004269D0",
     "?Initialize@WaveSoundManager@@QAEHPAX@Z": "0x0043CD30",
     "_Game_Initialize@4": "0x00417870",
-    "?ResultOverlay_SetMode@@YGXHPAUResultOverlayState_004172e0@@H@Z": "0x004172E0",
+    "?ResultOverlay_SetMode@@YGXHPAUResultOverlayState@@H@Z": "0x004172E0",
     "?HitTest@Bomb@@QAEHPBUPickupPoint@@@Z": "0x004059F0",
     "_Player_FireShot@12": "0x00427E90",
     "_Player_UpdateBullets@4": "0x00428280",

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "name": "effect_kind_spawn_0040b070",
+  "name": "effect_kind_spawn",
   "source": "src/game/effect/effect_spawn.cpp",
   "driver": "build_support/layout/ltcg/effect_kind_spawn_0040b070_context.cpp",
   "headers": [

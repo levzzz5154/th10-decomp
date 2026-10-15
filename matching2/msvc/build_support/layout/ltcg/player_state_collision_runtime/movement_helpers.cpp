@@ -1,4 +1,4 @@
-// 0x00449350 (src/core/sprtlib/animation_manager_set_translated_position_00449350.cpp),
+// 0x00449350 (src/core/sprtlib/animation_manager_set_translated_position.cpp),
 // present so its callers see its register convention. Compiler context only.
 #include "movement.hpp"
 #include "animation_tree.hpp"

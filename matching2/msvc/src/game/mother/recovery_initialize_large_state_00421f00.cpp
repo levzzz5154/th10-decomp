@@ -6,8 +6,8 @@ extern "C" const void* const g_anm_vm_vtable[];
 extern "C" void _ReadWriteBarrier();
 #pragma intrinsic(_ReadWriteBarrier)
 #pragma code_seg(".text$01anchor")
-extern "C" __declspec(noinline) LargeInitializationState_00421f00* __stdcall
-Init_00421f00(LargeInitializationState_00421f00* state) {
+extern "C" __declspec(noinline) LargeInitializationState* __stdcall
+Init_00421f00(LargeInitializationState* state) {
     GameConfig_InitializeDefaults(0, &state->config);
     state->timer.previous = 0;
     state->timer.current = 0;

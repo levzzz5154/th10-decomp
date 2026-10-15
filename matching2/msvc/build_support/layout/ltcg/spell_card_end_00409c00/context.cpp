@@ -26,7 +26,7 @@ void AnimationHandle::StopAtFrame1() {
 
 // 0x004172E0
 #pragma code_seg(".text$01d_caption")
-void __stdcall Card_ShowCaption_004172e0(int kind, CardFront_00409c00* front, int number) {
+void __stdcall Card_ShowCaption(int kind, CardFront* front, int number) {
     int created[10];
     switch (kind) {
     case 0:
@@ -67,7 +67,7 @@ void __stdcall Card_ShowCaption_004172e0(int kind, CardFront_00409c00* front, in
 
 // 0x00448D00
 #pragma code_seg(".text$01f_create")
-AnimationScriptId __stdcall Card_CreateAnimation_00448d00(void* file, int script, int layer) {
+AnimationScriptId __stdcall Card_CreateAnimation(void* file, int script, int layer) {
     int* object = static_cast<int*>(CardStandIn_Allocate(g_sprt_ctrl));
     object[8] = layer;
     object[0xD7] |= 0x40000000;

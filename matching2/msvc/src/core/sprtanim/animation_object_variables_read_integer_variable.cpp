@@ -1,5 +1,5 @@
 #include "th10/source_views/animation_manager_12b25f_0.hpp"
-int AnimationObjectVariables_0043ec70::ReadIntegerVariable(int variable) const {
+int AnimationObjectVariables::ReadIntegerVariable(int variable) const {
     switch (variable - 10000) {
     case 0: return integer_0;
     case 1: return integer_1;

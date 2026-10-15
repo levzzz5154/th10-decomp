@@ -9,7 +9,7 @@
 
 // The adjacent entry at 0x00412300 selects integer destinations from the
 // same ECL object. This dispatcher reads the corresponding scalar values.
-struct EclFloatSource_00412350 {
+struct EclFloatSource {
     unsigned char padding_0000[0x3C0];
     float origin_x;                         // +0x3C0
     float origin_y;                         // +0x3C4
@@ -52,14 +52,14 @@ struct EclFloatSource_00412350 {
     __declspec(noinline) float ResolveFloatValue(int encoded_selector) const;
 };
 
-struct EclFloatManager_00412350 {
+struct EclFloatManager {
     unsigned char padding_0000[0x10];
-    EclFloatSource_00412350* current_entity;
+    EclFloatSource* current_entity;
 };
 
 
 #define ECL_FLOAT_OFFSET(field, offset) \
-    typedef char EclFloat_##field##_offset[offsetof(EclFloatSource_00412350, field) == offset ? 1 : -1]
+    typedef char EclFloat_##field##_offset[offsetof(EclFloatSource, field) == offset ? 1 : -1]
 ECL_FLOAT_OFFSET(origin_x, 0x3C0);
 ECL_FLOAT_OFFSET(origin_y, 0x3C4);
 ECL_FLOAT_OFFSET(flags_2480, 0x2480);
@@ -88,9 +88,9 @@ ECL_FLOAT_OFFSET(value_1154, 0x1154);
 ECL_FLOAT_OFFSET(value_1160, 0x1160);
 ECL_FLOAT_OFFSET(value_23fc, 0x23FC);
 #undef ECL_FLOAT_OFFSET
-typedef char EclFloat_manager_entity_offset[offsetof(EclFloatManager_00412350, current_entity) == 0x10 ? 1 : -1];
+typedef char EclFloat_manager_entity_offset[offsetof(EclFloatManager, current_entity) == 0x10 ? 1 : -1];
 
-extern "C" EclFloatManager_00412350* g_enemy_ctrl;
+extern "C" EclFloatManager* g_enemy_ctrl;
 extern "C" int g_globals_difficulty;
 extern "C" int g_rank;
 extern "C" float flt_1;
@@ -102,7 +102,7 @@ extern "C" float flt_3;
 
 
 #pragma code_seg(".text$02dispatch")
-float EclFloatSource_00412350::ResolveFloatValue(int encoded_selector) const {
+float EclFloatSource::ResolveFloatValue(int encoded_selector) const {
     // The two origin-selector pairs share values but remain separate switch arms.
     float result;
     switch (encoded_selector) {

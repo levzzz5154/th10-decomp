@@ -8,7 +8,7 @@ struct ItemPolarVelocity_0041bb00 {
     float x, y, z;
     __declspec(noinline) ItemPolarVelocity_0041bb00* SetPolar(float angle, float speed);
 };
-struct SpawnItem_0041bb00 {
+struct SpawnItem {
     Entity animation;
     Vector3 position;
     ItemPolarVelocity_0041bb00 velocity;
@@ -20,9 +20,9 @@ struct SpawnItem_0041bb00 {
     float magnet_speed;
     int variant;
 };
-struct ItemSpawnManager_0041bb00 {
+struct ItemSpawnManager {
     unsigned char reserved_000[0x14];
-    SpawnItem_0041bb00 items[2198];
+    SpawnItem items[2198];
     int live_count;
     int special_cursor;
     int special_count;
@@ -31,15 +31,15 @@ struct ItemSpawnManager_0041bb00 {
     // 0x0041BA50: turn the live items of kinds 1 and 4 into kind 9.
     __declspec(noinline) int ConvertItems();
 };
-typedef char ItemSizeCheck_0041bb00[sizeof(SpawnItem_0041bb00)==0x3f0?1:-1];
-typedef char ItemStateOffsetCheck_0041bb00[offsetof(SpawnItem_0041bb00,state)==0x3dc?1:-1];
-typedef char ItemSpecialOffsetCheck_0041bb00[offsetof(ItemSpawnManager_0041bb00,items)+150*sizeof(SpawnItem_0041bb00)==0x24eb4?1:-1];
-typedef char ItemCursorOffsetCheck_0041bb00[offsetof(ItemSpawnManager_0041bb00,special_cursor)==0x21ceb8?1:-1];
+typedef char ItemSizeCheck[sizeof(SpawnItem)==0x3f0?1:-1];
+typedef char ItemStateOffsetCheck[offsetof(SpawnItem,state)==0x3dc?1:-1];
+typedef char ItemSpecialOffsetCheck[offsetof(ItemSpawnManager,items)+150*sizeof(SpawnItem)==0x24eb4?1:-1];
+typedef char ItemCursorOffsetCheck[offsetof(ItemSpawnManager,special_cursor)==0x21ceb8?1:-1];
 
-typedef char SpawnItemAnimationOffset[offsetof(SpawnItem_0041bb00,animation)==0?1:-1];
-typedef char SpawnItemPositionOffset[offsetof(SpawnItem_0041bb00,position)==0x3AC?1:-1];
-typedef char SpawnItemTimerOffset[offsetof(SpawnItem_0041bb00,timer)==0x3C8?1:-1];
+typedef char SpawnItemAnimationOffset[offsetof(SpawnItem,animation)==0?1:-1];
+typedef char SpawnItemPositionOffset[offsetof(SpawnItem,position)==0x3AC?1:-1];
+typedef char SpawnItemTimerOffset[offsetof(SpawnItem,timer)==0x3C8?1:-1];
 
-typedef char SpawnItemVerticalVelocityOffset[offsetof(SpawnItem_0041bb00,velocity)+offsetof(ItemPolarVelocity_0041bb00,z)==0x3C0?1:-1];
-typedef char SpawnItemMagnetSpeedOffset[offsetof(SpawnItem_0041bb00,magnet_speed)==0x3E8?1:-1];
-typedef char ItemLiveCountOffset[offsetof(ItemSpawnManager_0041bb00,live_count)==0x21CEB4?1:-1];
+typedef char SpawnItemVerticalVelocityOffset[offsetof(SpawnItem,velocity)+offsetof(ItemPolarVelocity_0041bb00,z)==0x3C0?1:-1];
+typedef char SpawnItemMagnetSpeedOffset[offsetof(SpawnItem,magnet_speed)==0x3E8?1:-1];
+typedef char ItemLiveCountOffset[offsetof(ItemSpawnManager,live_count)==0x21CEB4?1:-1];

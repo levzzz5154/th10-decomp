@@ -3,8 +3,8 @@
 
 #pragma code_seg(".text$03context")
 int __stdcall ScoreListInsertAfterCompilerContext(
-        ScoreListNode_00413200** nodes, int count,
-        ScoreListNode_00413200* position) {
+        ScoreListNode** nodes, int count,
+        ScoreListNode* position) {
     while (count--)
         ScoreList_InsertAfter(position, *nodes++);
     return 0;

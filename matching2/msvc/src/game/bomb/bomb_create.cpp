@@ -12,7 +12,7 @@
 // holds the pair across the two scheduler registrations it reaches, which
 // themselves keep the callback in ESI and the priority in EDI, so the pair is
 // left in EBX. This source is therefore compiled in the same native-LTCG link
-// as that callee chain (see build_support/layout/ltcg/bullet_manager_load_scripts_0040ae70.json).
+// as that callee chain (see build_support/layout/ltcg/bullet_manager_load_scripts.json).
 #include <string.h>
 
 void *__cdecl operator new(unsigned int size);

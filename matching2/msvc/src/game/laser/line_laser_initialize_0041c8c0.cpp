@@ -5,9 +5,9 @@
 #include "th10/game/entity_script_start.hpp"
 #include "th10/math/timer.hpp"
 
-struct LineVelocity_0041c8c0 {
+struct LineVelocity {
     float x, y, z;
-    __declspec(noinline) LineVelocity_0041c8c0* SetPolar(float angle, float speed);
+    __declspec(noinline) LineVelocity* SetPolar(float angle, float speed);
 };
 
 struct AnimationResourceFile;
@@ -34,7 +34,7 @@ struct LineLaserParams_0041c8c0 {
     unsigned char reserved_02C[0x1DC - 0x2C];
 };
 
-struct LineStartupTimer_0041c8c0 : FrameTimer {
+struct LineStartupTimer : FrameTimer {
     // The startup reset stores elapsed before previous, as in the retail
     // line-laser initializer; FrameTimer::Set has the same final timer state.
     void Set(int frame) {
@@ -56,7 +56,7 @@ struct LineLaser_0041c8c0 {
     int state;                           // +0x0C
     unsigned char reserved_010[0x24 - 0x10];
     Vector3 position;                    // +0x24
-    LineVelocity_0041c8c0 velocity;
+    LineVelocity velocity;
     float angle;                         // +0x3C
     float length;                        // +0x40
     float length_step;                   // +0x44
@@ -64,7 +64,7 @@ struct LineLaser_0041c8c0 {
     float acceleration;                  // +0x4C
     unsigned char reserved_050[0x40C - 0x50];
     int track_count;                     // +0x40C
-    LineStartupTimer_0041c8c0 startup_timer;
+    LineStartupTimer startup_timer;
     LineLaserParams_0041c8c0 params;         // +0x424
     Entity beam;                         // +0x600
     Entity flare;                        // +0x9AC
@@ -72,9 +72,9 @@ struct LineLaser_0041c8c0 {
     int Initialize(const LineLaserParams_0041c8c0* init);
 };
 
-typedef char LineLaserParamsSize_0041c8c0[sizeof(LineLaserParams_0041c8c0) == 0x1DC ? 1 : -1];
-typedef char LineLaserBeamOffset_0041c8c0[offsetof(LineLaser_0041c8c0, beam) == 0x600 ? 1 : -1];
-typedef char LineLaserFlareOffset_0041c8c0[offsetof(LineLaser_0041c8c0, flare) == 0x9AC ? 1 : -1];
+typedef char LineLaserParamsSize[sizeof(LineLaserParams_0041c8c0) == 0x1DC ? 1 : -1];
+typedef char LineLaserBeamOffset[offsetof(LineLaser_0041c8c0, beam) == 0x600 ? 1 : -1];
+typedef char LineLaserFlareOffset[offsetof(LineLaser_0041c8c0, flare) == 0x9AC ? 1 : -1];
 
 extern "C" LaserAnimationBank_0041e5c0* g_laser_manager;
 extern "C" int g_bullet_script_first[];          // first laser script of each colour

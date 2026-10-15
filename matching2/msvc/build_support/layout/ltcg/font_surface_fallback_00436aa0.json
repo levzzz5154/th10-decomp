@@ -110,12 +110,12 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "?InitializeVersionMarker_00420100@@YAXXZ",
+      "symbol": "?InitializeVersionMarker@@YAXXZ",
       "address": "0x420100",
       "kind": "relative_code"
     },
     {
-      "symbol": "_RenderCamera_InitializeDefaults_004216f0",
+      "symbol": "_RenderCamera_InitializeDefaults",
       "address": "0x4216f0",
       "kind": "relative_code"
     },
@@ -130,12 +130,12 @@
       "kind": "data"
     },
     {
-      "symbol": "_Sound_PreloadWorker_0043d080",
+      "symbol": "_Sound_PreloadWorker",
       "address": "0x43d080",
       "kind": "data"
     },
     {
-      "symbol": "?CreateStatsTaskOwner_00413350@@YAPAUStatsTaskOwner@@XZ",
+      "symbol": "?CreateStatsTaskOwner@@YAPAUStatsTaskOwner@@XZ",
       "address": "0x413350",
       "kind": "relative_code"
     },
@@ -235,12 +235,12 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_GameInput_EnumDevice_0043baf0@8",
+      "symbol": "_GameInput_EnumDevice@8",
       "address": "0x43baf0",
       "kind": "data"
     },
     {
-      "symbol": "_GameInput_EnumObject_0043bb30@8",
+      "symbol": "_GameInput_EnumObject@8",
       "address": "0x43bb30",
       "kind": "data"
     },
@@ -351,7 +351,7 @@
     },
     {
       "name": "SurfaceCreate",
-      "symbol": "?FontSurface_Create_00436af0@@YG_NPAUGdiSurface_00436a30@@HHH@Z",
+      "symbol": "?FontSurface_Create@@YG_NPAUGdiSurface_00436a30@@HHH@Z",
       "section": ".text$a06surface",
       "address": "0x00436AF0",
       "size": 421

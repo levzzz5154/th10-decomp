@@ -6,8 +6,8 @@
 #include "th10/game/player_update_collision.hpp"
 
 #pragma code_seg(".text$069h_all")
-void CollisionEngine_00408100::ActivateAll(int idle_only) {
-    CollisionRecord_00408100* record = records;
+void CollisionEngine::ActivateAll(int idle_only) {
+    CollisionRecord* record = records;
     int remaining = 2000;
     do {
         if (record->state != 0 && record->state != 3 &&

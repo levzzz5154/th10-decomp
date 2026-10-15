@@ -2,15 +2,15 @@
 //
 // The object pointer arrives in EAX, a convention no C++ declaration names, so
 // the body is compiled as a single-function native-LTCG cluster.
-struct ClearTarget_0040ae00 {
+struct ClearTarget {
     unsigned char pad_000[4];
     unsigned int flags;                       // +0x4
 };
 
 struct ObjectAccessor_0040ae00 {
     unsigned char pad_000[8];
-    ClearTarget_0040ae00* first;              // +0x8
-    ClearTarget_0040ae00* second;             // +0xC
+    ClearTarget* first;              // +0x8
+    ClearTarget* second;             // +0xC
     __declspec(noinline) void Clear();
 };
 

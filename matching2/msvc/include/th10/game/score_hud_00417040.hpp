@@ -121,7 +121,7 @@ struct HudGameState {
     // 0x004188A0: award lives and refresh the HUD.
     __declspec(noinline) void AddLives(int amount);
 };
-typedef char GameStateField5c_0042a6a0[offsetof(HudGameState, next_extend) == 0x5C ? 1 : -1];
+typedef char GameStateField5c[offsetof(HudGameState, next_extend) == 0x5C ? 1 : -1];
 
 
 extern "C" HudGameState g_globals;

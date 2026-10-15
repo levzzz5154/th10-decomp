@@ -2,7 +2,7 @@
 #include "../../../src/unreferenced/FUN_00442f30_00442f30.cpp"
 
 #pragma code_seg(".text$03context")
-int __stdcall Ctx(QuadBatch_00442f30** items, int count) {
+int __stdcall Ctx(QuadBatch** items, int count) {
     while (count--) (*items++)->Reset();
     return 0;
 }

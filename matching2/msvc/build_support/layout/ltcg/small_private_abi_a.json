@@ -18,7 +18,7 @@
     },
     {
       "name": "CachedSlot_00421d50_Release",
-      "symbol": "?Release@CachedSlot_00421d50@@QAEXXZ",
+      "symbol": "?Release@CachedSlot@@QAEXXZ",
       "section": ".text$03rel",
       "address": "0x00421D50",
       "size": 27,

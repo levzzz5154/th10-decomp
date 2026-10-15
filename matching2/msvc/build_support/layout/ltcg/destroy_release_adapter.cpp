@@ -1,7 +1,7 @@
 #include "th10/platform/thread_sync.hpp"
 #include "th10/game/resource_list_destroy_abi.hpp"
 #pragma code_seg(".text$07release")
-void ResourceList_DestroyABI_00449e50::Release(FuncCtrl* owner) {
+void ResourceList_DestroyABI::Release(FuncCtrl* owner) {
     TaskLink* node = first;
     if (node) {
         void (__stdcall *enter)(CriticalSection*) = EnterCriticalSection;

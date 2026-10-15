@@ -132,7 +132,7 @@
     },
     {
       "name": "ShowCaption",
-      "symbol": "?Card_ShowCaption_004172e0@@YGXHPAUCardFront_00409c00@@H@Z",
+      "symbol": "?Card_ShowCaption@@YGXHPAUCardFront@@H@Z",
       "section": ".text$01d_caption",
       "address": "0x004172E0",
       "size": 180
@@ -146,7 +146,7 @@
     },
     {
       "name": "CreateAnimation",
-      "symbol": "?Card_CreateAnimation_00448d00@@YG?AUAnimationScriptId@@PAXHH@Z",
+      "symbol": "?Card_CreateAnimation@@YG?AUAnimationScriptId@@PAXHH@Z",
       "section": ".text$01f_create",
       "address": "0x00448D00",
       "size": 87

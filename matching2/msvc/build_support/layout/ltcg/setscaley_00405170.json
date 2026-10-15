@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "name": "setscaley_00405170",
+  "name": "setscaley",
   "source": "src/unreferenced/unassigned_00405170.cpp",
   "driver": "build_support/layout/ltcg/setscaley_00405170_context.cpp",
   "headers": [],

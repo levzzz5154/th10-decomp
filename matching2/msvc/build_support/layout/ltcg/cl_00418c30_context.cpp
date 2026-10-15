@@ -5,7 +5,7 @@
 extern "C" void __cdecl crt_free_startup(void* block);
 
 #pragma code_seg(".text$03anchor")
-__declspec(noinline) char __fastcall InitConfigAnchor_00418c40(int reserved, GameConfig_00418c30* config) {
+__declspec(noinline) char __fastcall InitConfigAnchor(int reserved, GameConfig_00418c30* config) {
     memset(config, 0, 0x34);
     *(int*)(config->bytes + 0x00) = 0x100003;
     *(unsigned short*)(config->bytes + 0x16) = 0x258;

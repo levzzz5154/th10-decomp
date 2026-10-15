@@ -21,7 +21,7 @@ struct Listener_0041c760 {
     int state;                                         // +0x0C
 };
 
-struct ListenerOwner_0041c760 {
+struct ListenerOwner {
     unsigned char reserved_000[0x18];
     Listener_0041c760* listeners;                      // +0x018
     unsigned char reserved_01c[0x440 - 0x1C];
@@ -33,7 +33,7 @@ struct ListenerOwner_0041c760 {
 };
 
 #pragma code_seg(".text$01broadcast")
-int ListenerOwner_0041c760::Broadcast(const Vector3_0041c760* first_value,
+int ListenerOwner::Broadcast(const Vector3_0041c760* first_value,
                                       const Vector3_0041c760* second_value, int argument) {
     int total = 0;
     Listener_0041c760* listener = listeners;

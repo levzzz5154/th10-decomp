@@ -12,7 +12,7 @@
 // both scheduler registrations, while the node under construction occupies ESI
 // and the registration priority EDI.  This source is therefore compiled in the
 // same native-LTCG link as the scheduler registration bodies it calls (see
-// build_support/layout/ltcg/bullet_manager_load_scripts_0040ae70.json).
+// build_support/layout/ltcg/bullet_manager_load_scripts.json).
 #include <stddef.h>
 #include "th10/core/func_ctrl.hpp"
 
@@ -63,30 +63,30 @@ inline SchedulerCallbackTask_0040d280::SchedulerCallbackTask_0040d280() {
 // words the constructor clears before the memset are named.  The tail words go
 // through a pointer local so the two dead stores stay together ahead of the
 // inlined memset.
-struct MessageParser_0040d280 {
+struct MessageParser {
     void *vtable;                          // +0x0000
     unsigned char reserved_004[0x1090 - 0x04];
     unsigned int tail_1090;                // +0x1090
     unsigned int tail_1094;                // +0x1094
 
-    MessageParser_0040d280();
+    MessageParser();
 };
 
 typedef char MessageParser_0040d280_size_must_be_1098[
-    sizeof(MessageParser_0040d280) == 0x1098 ? 1 : -1];
+    sizeof(MessageParser) == 0x1098 ? 1 : -1];
 
-inline MessageParser_0040d280::MessageParser_0040d280() {
+inline MessageParser::MessageParser() {
     unsigned int *tail = (unsigned int *)((char *)this + 0x1090);
     tail[0] = 0;
     tail[1] = 0;
-    memset(this, 0, sizeof(MessageParser_0040d280));
+    memset(this, 0, sizeof(MessageParser));
     vtable = &g_enemy_ctrl_vtable;
 }
 
 // View of the same object as a polymorphic one, so the parser's constructor
 // call in vtable slot 2 compiles to `mov edx,[ecx]; push arg; call [edx+8]`
 // with the object in ECX.
-struct MessageParserVirtual_0040d280 {
+struct MessageParserVirtual {
     virtual void slot_00();
     virtual void slot_04();
     virtual int construct(int argument);   // +0x08
@@ -95,12 +95,12 @@ struct MessageParserVirtual_0040d280 {
 #include "th10/game/enemy_ctrl.hpp"
 
 // The global game object whose archive field is published on the host.
-struct GameArchiveOwner_0040d280 {
+struct GameArchiveOwner {
     unsigned char reserved_000[0x3E0B50];
     void *animation_archive;               // +0x3E0B50
 };
 
-extern "C" GameArchiveOwner_0040d280 *g_bullet_manager;
+extern "C" GameArchiveOwner *g_bullet_manager;
 extern "C" unsigned char g_game_speed;
 extern "C" FuncCtrl *g_func_ctrl;
 
@@ -124,9 +124,9 @@ extern "C" __declspec(noinline) int __stdcall
 EnemyCtrl_Initialize(EnemyCtrl *host, int script_name) {
     host->animation_archive_030 = g_bullet_manager->animation_archive;
 
-    MessageParser_0040d280 *parser = new MessageParser_0040d280;
+    MessageParser *parser = new MessageParser;
     host->parser_054 = parser;
-    ((MessageParserVirtual_0040d280 *)parser)->construct(script_name);
+    ((MessageParserVirtual *)parser)->construct(script_name);
 
     SchedulerTask *update =
         (SchedulerTask *)BuildCallbackNode_0040d280((void *)0x40D810, host);

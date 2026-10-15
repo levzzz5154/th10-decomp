@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "0EffectManager_0041acb0_0041acb0",
-      "symbol": "??0EffectManager_0041acb0@@QAE@XZ",
+      "symbol": "??0EffectManager@@QAE@XZ",
       "section": ".text$01fn",
       "address": "0x0041ACB0",
       "size": 54,
@@ -18,7 +18,7 @@
     }
   ],
   "context": {
-    "symbol": "?EffectManagerContext_0041acb0@@YGHPAPAUEffectManager_0041acb0@@H@Z",
+    "symbol": "?EffectManagerContext_0041acb0@@YGHPAPAUEffectManager@@H@Z",
     "section": ".text$03context",
     "address": "0x0041ACF0",
     "size": 44,

@@ -20,7 +20,7 @@ __forceinline short ChoiceInputActive(const KeyRepeatState* input, unsigned shor
 }
 
 // Select an item, keeping the selection inside a non-empty list.
-__forceinline void SelectInList(SubmenuCursor_004236f0* cursor, int item) {
+__forceinline void SelectInList(SubmenuCursor* cursor, int item) {
     if (cursor->item_count != 0)
         cursor->selection = item >= cursor->item_count ? cursor->item_count - 1 : item;
     else
@@ -28,7 +28,7 @@ __forceinline void SelectInList(SubmenuCursor_004236f0* cursor, int item) {
 }
 
 #pragma code_seg(".text$02h")
-extern "C" __declspec(noinline) void __stdcall SubmenuUpdate_004236f0(SubmenuState_004236f0* state) {
+extern "C" __declspec(noinline) void __stdcall SubmenuUpdate(SubmenuState* state) {
     char path[64];
     switch (state->state) {
     case 6:
@@ -42,7 +42,7 @@ extern "C" __declspec(noinline) void __stdcall SubmenuUpdate_004236f0(SubmenuSta
         return;
     case 7:
         if (state->timer.field_04 < 10) break;
-        SubUpdateFrameMaximum_004236f0(g_front);
+        SubUpdateFrameMaximum(g_front);
         if ((g_globals_flags & 0x10) != 0) {
             // Ranking gate: publish the frame-maximum high score into the
             // stage/mode/subslot/difficulty slot of the score file.
@@ -59,11 +59,11 @@ extern "C" __declspec(noinline) void __stdcall SubmenuUpdate_004236f0(SubmenuSta
             state->background.SetStopFrame((unsigned short)(state->rows.selection + 7));
             return;
         }
-        PrepareNameEntry_00423570(reinterpret_cast<NameEntryMenu_00423570*>(state));
+        PrepareNameEntry(reinterpret_cast<NameEntryMenu*>(state));
         state->timer.SetSchedulerValue(0);
         if (state->no_entry == 0) {
             state->state = 12;
-            reinterpret_cast<SubAnimNode_004236f0&>(state->background).ClearFlag();
+            reinterpret_cast<SubAnimNode&>(state->background).ClearFlag();
             return;
         }
         state->state = 8;
@@ -76,7 +76,7 @@ extern "C" __declspec(noinline) void __stdcall SubmenuUpdate_004236f0(SubmenuSta
     case 8: {
         // The save choice: navigate, confirm into the replay browser or the
         // alternate flow, cancel back to the three rows.
-        SubmenuCursor_004236f0* rows = &state->rows;
+        SubmenuCursor* rows = &state->rows;
         rows->previous_selection = rows->selection;
         if (ChoiceInputActive(&g_input_keys_raw, 0x10))
             rows->Advance(-1);
@@ -91,12 +91,12 @@ extern "C" __declspec(noinline) void __stdcall SubmenuUpdate_004236f0(SubmenuSta
             g_sound_manager.Queue(10, 0);
             state->state = 13;
             state->timer.SetSchedulerValue(0);
-            SubUpdateFrameMaximum_004236f0(g_front);
+            SubUpdateFrameMaximum(g_front);
             switch (rows->selection) {
             case 1:
                 state->timer.SetSchedulerValue(0);
                 state->state = 10;
-                reinterpret_cast<SubAnimNode_004236f0&>(state->background).ClearFlag();
+                reinterpret_cast<SubAnimNode&>(state->background).ClearFlag();
                 rows->PushSelection();
                 state->rows.item_count = 25;
                 state->rows.wrap = 1;
@@ -127,7 +127,7 @@ extern "C" __declspec(noinline) void __stdcall SubmenuUpdate_004236f0(SubmenuSta
         // shared list cursor over to the keyboard editor.
         if (state->timer.field_04 < 10) break;
         {
-        SubmenuCursor_004236f0* rows = &state->rows;
+        SubmenuCursor* rows = &state->rows;
         rows->previous_selection = rows->selection;
         if ((short)g_input_keys_raw.InputMaskActive(0x10))
             rows->Advance(-1);
@@ -138,12 +138,12 @@ extern "C" __declspec(noinline) void __stdcall SubmenuUpdate_004236f0(SubmenuSta
         if (g_input_keys_held & 0x1001) {
             state->state = 11;
             state->timer.SetSchedulerValue(0);
-            SubmenuCursor_004236f0* list = &state->list;
+            SubmenuCursor* list = &state->list;
             SelectInList(list, 0);
             state->list.item_count = (int)strlen(g_name_entry_grid);
             state->list.wrap = 1;
-            ReplayHeaderView_004236f0*& summary =
-                reinterpret_cast<ReplayHeaderView_004236f0*&>(g_replay->summary);
+            ReplayHeaderView*& summary =
+                reinterpret_cast<ReplayHeaderView*&>(g_replay->summary);
             if (state->extra_cleared != 0 && (g_globals_flags & 0x10) == 0) {
                 asm_FID_conflict___time32_00452b71(&summary->saved_time);
                 summary->difficulty_slot = 8;
@@ -170,7 +170,7 @@ timed_length:
             // Cancel: release the 25 replay managers and restore the rows.
             state->state = 8;
             state->timer.SetSchedulerValue(0);
-            reinterpret_cast<SubAnimNode_004236f0&>(state->background).SetFlag();
+            reinterpret_cast<SubAnimNode&>(state->background).SetFlag();
             state->rows.PopSelection();
             state->rows.item_count = 3;
             state->rows.wrap = 1;
@@ -192,7 +192,7 @@ timed_length:
     case 11: {
         // The 13-column keyboard editor: letters, space, backspace, save.
         if (state->timer.field_04 < 10) break;
-        SubmenuCursor_004236f0* list = &state->list;
+        SubmenuCursor* list = &state->list;
         list->previous_selection = list->selection;
         if ((short)g_input_keys_raw.InputMaskActive(0x10))
             list->Advance(-13);
@@ -237,7 +237,7 @@ timed_length:
                 // The save column: serialize the replay under the typed name.
                 g_sound_manager.Queue(44, 0);
                 asm_sprintf_00452ae8(path, "th10_%.2d.rpy", selection + 1);
-                SubPlatformResource_Destroy_004236f0(
+                SubPlatformResource_Destroy(
                     reinterpret_cast<PlatformResource*>(state->handles[selection]));
                 asm_FUN_00429b60_00429b60(g_replay, path, state->name);
                 state->handles[selection] =
@@ -269,7 +269,7 @@ timed_length:
     case 12: {
         // The alternate keyboard path; the no_entry latch swaps the editing
         // pass for the task re-registration.
-        SubmenuCursor_004236f0* list = &state->list;
+        SubmenuCursor* list = &state->list;
         if (state->no_entry == 0) {
             list->previous_selection = list->selection;
             if ((short)g_input_keys_raw.InputMaskActive(0x10))
@@ -325,7 +325,7 @@ timed_length:
                         + (3 * selection + 30 * g_globals_difficulty) * 8 + 0x1E;
                     strcpy(slot, state->name);
                     strcpy(g_score->last_name, state->name);
-                    reinterpret_cast<SubAnimNode_004236f0&>(state->background).SetFlag();
+                    reinterpret_cast<SubAnimNode&>(state->background).SetFlag();
                     state->state = 8;
                     state->rows.item_count = 3;
                     state->rows.wrap = 1;
@@ -336,7 +336,7 @@ timed_length:
                 g_sound_manager.Queue(10, 0);
                 goto cancel_check;
             }
-            reinterpret_cast<SubAnimNode_004236f0&>(state->background).SetFlag();
+            reinterpret_cast<SubAnimNode&>(state->background).SetFlag();
             state->state = 8;
             state->rows.item_count = 3;
             state->rows.wrap = 1;
@@ -365,7 +365,7 @@ timed_length:
     case 13:
         // The final choice: 0 launches the next scene, 1/2 set the input mode.
         if (state->timer.field_04 < 12) break;
-        reinterpret_cast<SubTimedState_004236f0*>(state)->InitializeTimedState();
+        reinterpret_cast<SubTimedState*>(state)->InitializeTimedState();
         state->state = 21;
         switch (state->rows.selection) {
         case 0:
@@ -373,7 +373,7 @@ timed_length:
             return;
         case 1:
         case 2:
-            SubSetInputMode_004236f0(&g_application, 4);
+            SubSetInputMode(&g_application, 4);
             return;
         }
         return;

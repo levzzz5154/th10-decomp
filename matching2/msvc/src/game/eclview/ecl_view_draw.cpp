@@ -6,7 +6,7 @@
 #include "th10/game/ecl_view_draw.hpp"
 
 #pragma code_seg(".text$05draw")
-int EclView_0040a940::Draw() {
+int EclView::Draw() {
     Vec3_00401530 position = {0.0f, 0.0f, 0.0f};
     AsciiManager_AddFormattedMarked(g_ascii_manager, &position, "SprtView\n");
     switch (state) {
@@ -57,14 +57,14 @@ int EclView_0040a940::Draw() {
     }
     if (flags & 2) {
         sprite.base_position = CameraVector(320.0f, 240.0f, 0.0f);
-        EclView_DrawEntity_00443080(g_sprt_ctrl, &sprite);
+        EclView_DrawEntity(g_sprt_ctrl, &sprite);
     }
     return 1;
 }
 #pragma code_seg()
 
 #pragma code_seg(".text$06task")
-int __fastcall EclView_DrawTask_0040abf0(EclView_0040a940* viewer) {
+int __fastcall EclView_DrawTask_0040abf0(EclView* viewer) {
     return viewer->Draw();
 }
 #pragma code_seg()

@@ -14,8 +14,8 @@
   "description": "Three ECL operand thunks compiled with native LTCG so they enter on retail's private registers and pass the selector, stack operand and x87 result through to their resolvers.",
   "functions": [
     {
-      "name": "ResolveSlotFloatOperand_0040c650",
-      "symbol": "?ResolveSlotFloatOperand_0040c650@@YGMPAUEclOperandSlot@@H@Z",
+      "name": "ResolveSlotFloatOperand",
+      "symbol": "?ResolveSlotFloatOperand@@YGMPAUEclOperandSlot@@H@Z",
       "section": ".text$01slot_operand",
       "address": "0x0040C650",
       "size": 8,
@@ -23,8 +23,8 @@
       "source": "src/unreferenced/FUN_0040c650_0040c650.cpp"
     },
     {
-      "name": "ResolveSlotFloatValue_0040c680",
-      "symbol": "?ResolveSlotFloatValue_0040c680@@YIMHPAUEclOperandSlot@@M@Z",
+      "name": "ResolveSlotFloatValue",
+      "symbol": "?ResolveSlotFloatValue@@YIMHPAUEclOperandSlot@@M@Z",
       "section": ".text$03slot_value",
       "address": "0x0040C680",
       "size": 8,
@@ -32,8 +32,8 @@
       "source": "src/unreferenced/FUN_0040c680_0040c680.cpp"
     },
     {
-      "name": "ResolveEntityIntOperand_00412a00",
-      "symbol": "?ResolveEntityIntOperand_00412a00@@YGHPAUEclEntityVm@@H@Z",
+      "name": "ResolveEntityIntOperand",
+      "symbol": "?ResolveEntityIntOperand@@YGHPAUEclEntityVm@@H@Z",
       "section": ".text$05entity_int",
       "address": "0x00412A00",
       "size": 16,
@@ -94,7 +94,7 @@
   "constants": [],
   "absolute_symbols": [
     {
-      "symbol": "?ECL_ResolveIntOperand_0044fdb0@@YIHHPAUEclFrame@@H@Z",
+      "symbol": "?ECL_ResolveIntOperand@@YIHHPAUEclFrame@@H@Z",
       "address": "0x0044FDB0",
       "kind": "relative_code"
     },

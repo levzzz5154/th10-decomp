@@ -7,7 +7,7 @@
 #include "th10/platform/sound_queue.hpp"
 
 // The stage interface at 0x004776E8, as far as the spell card touches it.
-struct CardInterface_00409c00 {
+struct CardInterface {
     unsigned char reserved_0000[0x2A18];
     unsigned int flags;            // +0x2A18, bit 0: the spell card banner is leaving
 };
@@ -41,7 +41,7 @@ struct ResultAnimationHandle {
 };
 
 // The front-layer manager at 0x0047770C, which owns the bonus caption.
-struct ResultOverlayState_004172e0 {
+struct ResultOverlayState {
     unsigned char reserved_0000[0x9DF4];
     ResultAnimationId digits[8];
     ResultAnimationHandle caption;   // +0x9E14
@@ -51,7 +51,7 @@ struct ResultOverlayState_004172e0 {
 };
 // 0x004172E0: show a caption of the given kind with a number; 0 is the spell
 // card bonus.
-__declspec(noinline) void __stdcall ResultOverlay_SetMode(int kind, ResultOverlayState_004172e0* front, int number);
+__declspec(noinline) void __stdcall ResultOverlay_SetMode(int kind, ResultOverlayState* front, int number);
 // 0x00448D00: create a front animation from a file's script.
 __declspec(noinline) ResultAnimationId __stdcall ResultAnimation_CreatePrimary(void* file, int script, int layer);
 
@@ -59,7 +59,7 @@ __declspec(noinline) ResultAnimationId __stdcall ResultAnimation_CreatePrimary(v
 // context. Its existing separately recovered production owner is unchanged.
 
 // The running game's counters at 0x00474C44.
-struct CardGame_00409c00 {
+struct CardGame {
     int score;                     // +0x00
     unsigned char reserved_04[0x20];
     int character;                 // +0x24
@@ -67,30 +67,30 @@ struct CardGame_00409c00 {
 };
 
 // The play mode record at 0x00477838; mode 1 keeps the score file untouched.
-struct CardMode_00409c00 {
+struct CardMode {
     unsigned char reserved_00[0x10];
     int mode;
 };
 
 // The score file at 0x0047783C: per shot type, and once more for all of them,
 // a history of every spell card.
-struct CardHistory_00409c00 {
+struct CardHistory {
     unsigned char reserved_00[0x80];
     int captures;                  // +0x80
     unsigned char reserved_84[0x90 - 0x84];
 };
-struct CardShotScores_00409c00 {
-    CardHistory_00409c00 spells[119];
+struct CardShotScores {
+    CardHistory spells[119];
     unsigned char reserved_42f0[0x437C - 0x42F0];
 };
-struct CardScoreFile_00409c00 {
+struct CardScoreFile {
     unsigned char reserved_000[0x5A4];
-    CardShotScores_00409c00 shots[7];   // six shot types, then the total
+    CardShotScores shots[7];   // six shot types, then the total
 };
-typedef char CardShotScoresSize_00409c00[sizeof(CardShotScores_00409c00) == 0x437C ? 1 : -1];
+typedef char CardShotScoresSize[sizeof(CardShotScores) == 0x437C ? 1 : -1];
 
 // The spell card state at 0x004776F4.
-struct ResultCard_00409c00 {
+struct ResultCard {
     unsigned char reserved_0000[0x768];
     AnimationHandle effects[3];    // +0x768
     ResultAnimationHandle name;      // +0x774, the name banner
@@ -101,14 +101,14 @@ struct ResultCard_00409c00 {
 
     __declspec(noinline) void End();
 };
-typedef char CardFlagsOffset_00409c00[offsetof(ResultCard_00409c00, flags) == 0x378C ? 1 : -1];
+typedef char CardFlagsOffset[offsetof(ResultCard, flags) == 0x378C ? 1 : -1];
 
 extern "C" {
-extern CardInterface_00409c00* g_background;
-extern ResultOverlayState_004172e0* g_front;
-extern CardMode_00409c00* g_replay;
-extern CardScoreFile_00409c00* g_score;
-extern CardGame_00409c00 g_globals_score;
+extern CardInterface* g_background;
+extern ResultOverlayState* g_front;
+extern CardMode* g_replay;
+extern CardScoreFile* g_score;
+extern CardGame g_globals_score;
 }
 
 struct ResultAnimationPool {
@@ -134,10 +134,10 @@ __declspec(noinline) void __stdcall Entity_Init(Entity* entity);
 Entity* __fastcall Entity_Constructor(Entity* entity);
 void* __cdecl operator new(unsigned int size);
 
-typedef char ResultDigitOffset[offsetof(ResultOverlayState_004172e0,digits)==0x9DF4?1:-1];
-typedef char ResultMainCaptionOffset[offsetof(ResultOverlayState_004172e0,caption)==0x9E14?1:-1];
-typedef char ResultSecondaryCaptionOffset[offsetof(ResultOverlayState_004172e0,secondary)==0x9E18?1:-1];
-typedef char ResultCaptionResourceOffset[offsetof(ResultOverlayState_004172e0,captions)==0x9EC8?1:-1];
+typedef char ResultDigitOffset[offsetof(ResultOverlayState,digits)==0x9DF4?1:-1];
+typedef char ResultMainCaptionOffset[offsetof(ResultOverlayState,caption)==0x9E14?1:-1];
+typedef char ResultSecondaryCaptionOffset[offsetof(ResultOverlayState,secondary)==0x9E18?1:-1];
+typedef char ResultCaptionResourceOffset[offsetof(ResultOverlayState,captions)==0x9EC8?1:-1];
 typedef char ResultPoolObjectOffset[offsetof(ResultAnimationPool,objects)==0x68?1:-1];
 typedef char ResultPoolBusyOffset[offsetof(ResultAnimationPool,occupied)==0x3AC068?1:-1];
 typedef char ResultPoolCursorOffset[offsetof(ResultAnimationPool,next_slot)==0x3AD068?1:-1];

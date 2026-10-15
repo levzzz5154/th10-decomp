@@ -12,8 +12,8 @@ struct SoundManager_0043a9b0 {
 };
 // Identical partial declaration to the canonical LoadTrack unit; both adapters
 // describe the same physical 32-bit manager. No second incompatible class exists.
-typedef char TemporaryTrack_files_offset_0043ac90[
+typedef char TemporaryTrack_files_offset[
     offsetof(SoundManager_0043a9b0, tracks) == 0x98 ? 1 : -1];
-typedef char TemporaryTrack_slot31_offset_0043ac90[
+typedef char TemporaryTrack_slot31_offset[
     offsetof(MidiSequencer, file_buffers) + 31 * sizeof(unsigned char*) == 0x114 ? 1 : -1];
-__declspec(noinline) int __stdcall LoadTemporaryTrack_0043ac90(MidiSequencer*, const char*);
+__declspec(noinline) int __stdcall LoadTemporaryTrack(MidiSequencer*, const char*);

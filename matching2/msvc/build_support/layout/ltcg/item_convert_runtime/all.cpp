@@ -4,21 +4,21 @@
 // registrar at 0x004489D0 expanded in place.
 #include "types/line_sweeps.hpp"
 #pragma code_seg(".text$f0041e260F")
-struct LineRef_0041e260 {
+struct LineRef {
     unsigned int value;
-    LineRef_0041e260() {}
-    LineRef_0041e260(unsigned int value_) : value(value_) {}
-    LineRef_0041e260& operator++() { ++value; return *this; }
-    bool operator==(LineRef_0041e260 other) const { return value == other.value; }
+    LineRef() {}
+    LineRef(unsigned int value_) : value(value_) {}
+    LineRef& operator++() { ++value; return *this; }
+    bool operator==(LineRef other) const { return value == other.value; }
 };
-struct LineLists_0041e260 {
+struct LineLists {
     unsigned char reserved_000[0x72dad4];
-    LineAnimationNode_0041e260* primary_head;
-    LineAnimationNode_0041e260* primary_tail;
+    LineAnimationNode* primary_head;
+    LineAnimationNode* primary_tail;
     unsigned char reserved_72dadc[0x732454-0x72dadc];
-    LineRef_0041e260 next_id;
-    inline LineRef_0041e260 RegisterPrimaryBack(Entity* object) {
-        LineAnimationNode_0041e260* node = reinterpret_cast<LineAnimationNode_0041e260*>(
+    LineRef next_id;
+    inline LineRef RegisterPrimaryBack(Entity* object) {
+        LineAnimationNode* node = reinterpret_cast<LineAnimationNode*>(
             &object->manager_node_animation);
         node->object = object;
         node->next = 0;
@@ -26,8 +26,8 @@ struct LineLists_0041e260 {
         if (!primary_head)
             primary_head = node;
         else {
-            LineAnimationNode_0041e260* tail = primary_tail;
-            LineAnimationNode_0041e260* next = tail->next;
+            LineAnimationNode* tail = primary_tail;
+            LineAnimationNode* next = tail->next;
             if (next) {
                 node->next = next;
                 tail->next->previous = node;
@@ -42,14 +42,14 @@ struct LineLists_0041e260 {
         return next_id;
     }
 };
-__declspec(noinline) int LineEffectSweep_0041e260::CreateAllSegments(int spawn_items) {
+__declspec(noinline) int LineEffectSweep::CreateAllSegments(int spawn_items) {
     float progress;
     int count=0;
     progress=6.0f;
-    LineSweepStep_0041e260 step;
+    LineSweepStep step;
     step.velocity.SetPolar(angle,6.0f);
-    LineSweepVector_0041e260 point;
-    point=LineSweepVector_0041e260(step.velocity.x+position.x,step.velocity.y+position.y,position.z);
+    LineSweepVector point;
+    point=LineSweepVector(step.velocity.x+position.x,step.velocity.y+position.y,position.z);
     step.z=0.0f;
     step.velocity.x+=step.velocity.x;
     step.velocity.y+=step.velocity.y;
@@ -68,7 +68,7 @@ __declspec(noinline) int LineEffectSweep_0041e260::CreateAllSegments(int spawn_i
         out->y=point.y+16.0f;
         LoadScript_0043e710(static_cast<AnimationResourceFile*>(resource),
             reinterpret_cast<AnimationObjectFile*>(object),index);
-        static_cast<LineLists_0041e260*>(g_sprt_ctrl)->RegisterPrimaryBack(object);
+        static_cast<LineLists*>(g_sprt_ctrl)->RegisterPrimaryBack(object);
         if (spawn_items &&
             !(point.x+32.0f<=-192.0f) &&
             !(point.x-32.0f>=192.0f) &&

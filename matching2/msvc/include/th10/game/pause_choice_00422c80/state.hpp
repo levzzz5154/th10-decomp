@@ -36,7 +36,7 @@ struct PauseChoiceState {
     int phase;
     unsigned char reserved_08[8];
     PlayerSchedulerRecord timer;
-    PauseChoiceCursor_00422c80 cursor;
+    PauseChoiceCursor cursor;
     unsigned char reserved_fc[0x1D4-0xFC];
     Handle4 background;
     Handle4 cursor_animation;

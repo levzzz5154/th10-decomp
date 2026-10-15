@@ -16,14 +16,14 @@ extern "C" int __cdecl strcmp(const char*, const char*);
 #pragma intrinsic(strcmp)
 
 #pragma code_seg(".text$00450470_fn")
-__declspec(noinline) int BindScriptTable_0040d830::Resolve(const char* name) {
+__declspec(noinline) int BindScriptTable::Resolve(const char* name) {
     int low = 0;
     int high = this->count;
     if (--high >= 0) {
-        const BindScriptEntry_0040d830* entries = this->entries;
+        const BindScriptEntry* entries = this->entries;
         do {
             const int middle = low + (high - low) / 2;
-            const BindScriptEntry_0040d830* entry = &entries[middle];
+            const BindScriptEntry* entry = &entries[middle];
             const int order = strcmp(name, entry->name);
             if (order == 0)
                 return static_cast<int>(entry->value) + 16;

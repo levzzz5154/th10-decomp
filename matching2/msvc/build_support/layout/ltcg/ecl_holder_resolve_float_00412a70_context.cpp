@@ -3,7 +3,7 @@
 #include "../../../src/script/sptcmd/ecl_resolve_float_destination_00450070.cpp"
 
 #pragma code_seg(".text$zzcontext")
-float __stdcall Ctx(EclHolder_00412a70** p, int n) {
+float __stdcall Ctx(EclHolder** p, int n) {
     float r = 0;
     for (int i = 0; i < n; ++i) r += *p[i]->ResolveFloatDestination(i);
     return r;

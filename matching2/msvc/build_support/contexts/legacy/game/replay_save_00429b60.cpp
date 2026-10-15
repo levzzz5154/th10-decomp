@@ -65,8 +65,8 @@ inline void File_CloseShared() {
 }
 
 #pragma code_seg(".text$rsave01")
-int __fastcall ReplaySaveManager_00429b60::Save(const char* file_name, const char* name) {
-    ReplaySaveManager_00429b60* manager = this;
+int __fastcall ReplaySaveManager::Save(const char* file_name, const char* name) {
+    ReplaySaveManager* manager = this;
     int first = 0;
     int last = 0;
     int stage;
@@ -135,12 +135,12 @@ int __fastcall ReplaySaveManager_00429b60::Save(const char* file_name, const cha
             memcpy(buffer + total, manager->stage_data[stage], 0x1C4);
             total += 0x1C4;
             for (link = manager->pools[stage].next; link; link = link->next) {
-                ReplayPool_0042aa50* pool = link->pool;
+                ReplayPool* pool = link->pool;
                 memcpy(buffer + total, pool, (pool->input_cursor - pool->input_records) * 6);
                 total += (pool->input_cursor - pool->input_records) * 6;
             }
             for (link = manager->pools[stage].next; link; link = link->next) {
-                ReplayPool_0042aa50* pool = link->pool;
+                ReplayPool* pool = link->pool;
                 memcpy(buffer + total, pool->state_records, pool->state_cursor - pool->state_records);
                 total += pool->state_cursor - pool->state_records;
             }
@@ -179,7 +179,7 @@ int __fastcall ReplaySaveManager_00429b60::Save(const char* file_name, const cha
     }
 
     // Append the "USER" header-information chunk.
-    ReplayUserChunk_00429b60* chunk = (ReplayUserChunk_00429b60*)asm_malloc_00452706(0xFFFF);
+    ReplayUserChunk* chunk = (ReplayUserChunk*)asm_malloc_00452706(0xFFFF);
     memset(chunk, 0, 0xFFFF);
     chunk->magic = 0x52455355;
     chunk->flag = 0;

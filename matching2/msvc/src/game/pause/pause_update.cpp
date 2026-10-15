@@ -36,9 +36,9 @@ struct PauseUpdateView {
     const float* speed;
     __declspec(noinline) int Update();
 };
-extern "C" void __stdcall PauseMenu_Initialize_00422ab0(PauseUpdateView* state);
-extern "C" void __stdcall PauseMenu_Update_00422c80(PauseUpdateView* state);
-extern "C" void __stdcall ReplayMenu_Update_004236f0(PauseUpdateView* state);
+extern "C" void __stdcall PauseMenu_Initialize(PauseUpdateView* state);
+extern "C" void __stdcall PauseMenu_Update(PauseUpdateView* state);
+extern "C" void __stdcall ReplayMenu_Update(PauseUpdateView* state);
 
 #pragma code_seg(".text$01update")
 int PauseUpdateView::Update() {
@@ -49,13 +49,13 @@ int PauseUpdateView::Update() {
             g_game->active_frame &&
             (g_game->active_frame->flags & 2) &&
             g_game->elapsed >= 30)
-            PauseMenu_Initialize_00422ab0(this);
+            PauseMenu_Initialize(this);
         break;
     case 1: case 2: case 3: case 4: case 5:
-        PauseMenu_Update_00422c80(this);
+        PauseMenu_Update(this);
         break;
     case 6: case 7: case 8: case 9: case 10: case 11: case 12: case 13:
-        ReplayMenu_Update_004236f0(this);
+        ReplayMenu_Update(this);
         break;
     }
     previous_frame = current_frame;

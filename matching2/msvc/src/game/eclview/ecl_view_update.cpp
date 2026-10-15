@@ -6,8 +6,8 @@
 #include "th10/game/ecl_view_update.hpp"
 
 #pragma code_seg(".text$b1update")
-int EclView_0040a940::Update() {
-    EclViewFindData_0040a450 find;
+int EclView::Update() {
+    EclViewFindData find;
     switch (state) {
     case 4:
         g_input_keys_raw.previous_keys = g_input_keys_raw.held_keys;
@@ -33,7 +33,7 @@ int EclView_0040a940::Update() {
         switch (menu.selection) {
         case 2:
             if (g_input_keys_raw.repeated & 0x1001)
-                EclView_SetGameMode_0040ac90(&g_application, 3);
+                EclView_SetGameMode(&g_application, 3);
             break;
         case 1:
             if (g_enemy_ctrl) {
@@ -50,7 +50,7 @@ int EclView_0040a940::Update() {
                     g_front->Reset();
                     g_item_manager->Suspend();
                     memset(g_item_manager->slots, 0, sizeof(g_item_manager->slots));
-                    EclViewSpawn_0040a450 spawn;
+                    EclViewSpawn spawn;
                     memset(&spawn, 0, sizeof(spawn));
                     spawn.x = 0.0f;
                     spawn.y = 0.0f;
@@ -123,7 +123,7 @@ int EclView_0040a940::Update() {
 #pragma code_seg()
 
 #pragma code_seg(".text$b2task")
-int __fastcall EclView_UpdateTask_0040abe0(EclView_0040a940* viewer) {
+int __fastcall EclView_UpdateTask_0040abe0(EclView* viewer) {
     return viewer->Update();
 }
 #pragma code_seg()

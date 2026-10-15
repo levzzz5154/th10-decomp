@@ -10,7 +10,7 @@ extern "C" void __cdecl crt_free_startup(void* memory);
 // and it lets the render state's address escape, as the real draw does, so the
 // caller cannot assume the device and the state never overlap.
 #pragma code_seg(".text$08entity")
-extern "C" __declspec(noinline) int __stdcall FloatingText_DrawEntity_00443080(SprtCtrlBatchView* manager, FloatingTextSprite_0042b780* entity) {
+extern "C" __declspec(noinline) int __stdcall FloatingText_DrawEntity(SprtCtrlBatchView* manager, FloatingTextSprite* entity) {
     int a = (int)entity->x;
     crt_free_startup(entity);
     a += (int)entity->y;
@@ -25,7 +25,7 @@ extern "C" __declspec(noinline) int __stdcall FloatingText_DrawEntity_00443080(S
 // what selects the spawner's EAX/ESI/EDI argument registers.
 extern "C" SmollScoreDrawView* g_smoll_score;
 #pragma code_seg(".text$04zcaller")
-__declspec(noinline) int __stdcall FloatingTextSpawnCaller(FloatingTextPosition_0042b780* position, int kind) {
+__declspec(noinline) int __stdcall FloatingTextSpawnCaller(FloatingTextPosition* position, int kind) {
     int score = position->x > 0 ? 10 : 20;
     switch (kind) {
     case 0:

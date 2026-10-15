@@ -8,8 +8,8 @@
   "description": "Stream-state initializer compiled with native LTCG so the state arrives in EAX, the two pointer values in EDX and ECX, and the two integer arguments remain on the stack.",
   "functions": [
     {
-      "name": "StreamState_0044DCF0::Initialize",
-      "symbol": "?Initialize@StreamState_0044DCF0@@QAEHPAX0HH@Z",
+      "name": "StreamState::Initialize",
+      "symbol": "?Initialize@StreamState@@QAEHPAX0HH@Z",
       "section": ".text$01initializer",
       "address": "0x0044DCF0",
       "size": 52,
@@ -17,7 +17,7 @@
     }
   ],
   "context": {
-    "symbol": "?StreamStateInitializer0044DCF0CompilerContext@@YGHPAPAUStreamState_0044DCF0@@PAPAX1PAH2H@Z",
+    "symbol": "?StreamStateInitializer0044DCF0CompilerContext@@YGHPAPAUStreamState@@PAPAX1PAH2H@Z",
     "section": ".text$03context",
     "address": "0x0044DD30",
     "size": 135,

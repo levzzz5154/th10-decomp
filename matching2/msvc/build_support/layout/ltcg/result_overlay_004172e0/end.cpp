@@ -5,7 +5,7 @@
 #include "th10/game/result_overlay_004172e0.hpp"
 
 #pragma code_seg(".text$00409c00_fn")
-void ResultCard_00409c00::End() {
+void ResultCard::End() {
     if (flags & 1) {
         g_background->flags |= 1;
         effects[0].StopAtFrame1();
@@ -18,7 +18,7 @@ void ResultCard_00409c00::End() {
             if (g_globals_score.score >= 1000000000) g_globals_score.score = 999999999;
             ResultOverlay_SetMode(0, g_front, bonus);
             if (g_replay->mode != 1) {
-                CardHistory_00409c00* history =
+                CardHistory* history =
                     &g_score->shots[g_globals_score.shot_type + g_globals_score.character * 3].spells[spell_id];
                 if (history->captures < 99999) history->captures++;
                 history = &g_score->shots[6].spells[spell_id];

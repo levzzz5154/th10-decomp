@@ -8,7 +8,7 @@
 extern "C" int __stdcall EntityArrayStartScriptsContext_004415c0(
         Entity** arrays, AnimationResourceFile** resources, int count) {
     for (int i = 0; i < count; ++i)
-        EntityArray_StartScripts_004415c0(arrays[i], i + 3, count, resources[i]);
+        EntityArray_StartScripts(arrays[i], i + 3, count, resources[i]);
     return count;
 }
 #pragma code_seg()

@@ -11,7 +11,7 @@ extern "C" int __cdecl EnemyGridScanLeaf(void* pointer, int value);
 // retail; taking the manager's address keeps the manager on the stack.
 #pragma code_seg(".text$004067d0_fn")
 __declspec(noinline) int __stdcall SpawnPatternCell_004067d0(
-        ProjectilePattern_004073e0* pattern, ProjectileManager_004073e0* manager,
+        ProjectilePattern* pattern, ProjectileManager_004073e0* manager,
         int column, int row, float aim) {
     EnemyGridScanLeaf(&manager, 0);
     ProjectileRecord_004073e0* record = manager->current;

@@ -50,7 +50,7 @@ struct Texture_00448270 {
     virtual long __stdcall GetSurfaceLevel(unsigned int level, ResourceView** surface) = 0;
 };
 
-struct AnimationTextureEntry_00448270 {
+struct AnimationTextureEntry {
     Texture_00448270* texture;           // +0x00
     void* allocation;                    // +0x04
     unsigned char pad_08[8];
@@ -58,10 +58,10 @@ struct AnimationTextureEntry_00448270 {
 
 struct AnimationResource_00448270 {
     unsigned char pad_000[0x120];
-    AnimationTextureEntry_00448270* entries;   // +0x120
+    AnimationTextureEntry* entries;   // +0x120
 };
 
-struct AnimationTextureManager_00448270 {
+struct AnimationTextureManager {
     unsigned char pad_000000[0x3AD06C];
     AnimationResource_00448270* resources[0x21];   // +0x3AD06C
 
@@ -71,16 +71,16 @@ struct AnimationTextureManager_00448270 {
                                                 int target_width, int target_height);
     __declspec(noinline) void CopyTexture(int target_resource, int target_entry,
                                           int source_resource, int source_entry,
-                                          const SurfaceRect_00447fd0* target_rect,
-                                          const SurfaceRect_00447fd0* source_rect);
+                                          const SurfaceRect* target_rect,
+                                          const SurfaceRect* source_rect);
 };
 
 // The device is always reached through this accessor: it makes the compiler
 // load the device and its vtable before the arguments, as retail does.
-static inline SurfaceDevice_00447c80* Device() { return g_d3d_device; }
+static inline SurfaceDevice* Device() { return g_d3d_device; }
 
 #pragma code_seg(".text$02rect")
-void AnimationManagerIndexed_00447f70::CopyRectToBackBuffer(int index, int x, int y,
+void AnimationManagerIndexed::CopyRectToBackBuffer(int index, int x, int y,
                                                             int left, int top,
                                                             int width, int height) {
     if (!secondary[index])
@@ -96,17 +96,17 @@ void AnimationManagerIndexed_00447f70::CopyRectToBackBuffer(int index, int x, in
             back_buffer->Release();
             return;
         }
-        if (LoadSurfaceCopy_004521d6(primary[index], 0, 0, secondary[index], 0, 0, 1, 0) != 0) {
+        if (LoadSurfaceCopy(primary[index], 0, 0, secondary[index], 0, 0, 1, 0) != 0) {
             back_buffer->Release();
             return;
         }
     }
-    SurfaceRect_00447fd0 rect;
+    SurfaceRect rect;
     rect.left = left;
     rect.top = top;
     rect.right = left + width;
     rect.bottom = top + height;
-    SurfacePoint_00447fd0 point;
+    SurfacePoint point;
     point.x = x;
     point.y = y;
     Device()->UpdateSurface(primary[index], &rect, back_buffer, &point);
@@ -114,7 +114,7 @@ void AnimationManagerIndexed_00447f70::CopyRectToBackBuffer(int index, int x, in
 }
 
 #pragma code_seg(".text$03capture")
-void AnimationTextureManager_00448270::CaptureBackBuffer(int resource, int entry,
+void AnimationTextureManager::CaptureBackBuffer(int resource, int entry,
                                                          int left, int top, int width, int height,
                                                          int target_left, int target_top,
                                                          int target_width, int target_height) {
@@ -129,17 +129,17 @@ void AnimationTextureManager_00448270::CaptureBackBuffer(int resource, int entry
         back_buffer->Release();
         return;
     }
-    SurfaceRect_00447fd0 source;
+    SurfaceRect source;
     source.left = left;
     source.top = top;
     source.right = left + width;
     source.bottom = top + height;
-    SurfaceRect_00447fd0 target;
+    SurfaceRect target;
     target.left = target_left;
     target.top = target_top;
     target.right = target_left + target_width;
     target.bottom = target_top + target_height;
-    if (LoadSurfaceCopy_004521d6(surface, 0, &target, back_buffer, 0, &source, 2, 0) != 0) {
+    if (LoadSurfaceCopy(surface, 0, &target, back_buffer, 0, &source, 2, 0) != 0) {
         surface->Release();
         back_buffer->Release();
         return;
@@ -149,10 +149,10 @@ void AnimationTextureManager_00448270::CaptureBackBuffer(int resource, int entry
 }
 
 #pragma code_seg(".text$05copy")
-void AnimationTextureManager_00448270::CopyTexture(int target_resource, int target_entry,
+void AnimationTextureManager::CopyTexture(int target_resource, int target_entry,
                                                    int source_resource, int source_entry,
-                                                   const SurfaceRect_00447fd0* target_rect,
-                                                   const SurfaceRect_00447fd0* source_rect) {
+                                                   const SurfaceRect* target_rect,
+                                                   const SurfaceRect* source_rect) {
     if (!resources[target_resource]->entries[target_entry].texture)
         return;
     if (!resources[source_resource]->entries[source_entry].texture)
@@ -166,7 +166,7 @@ void AnimationTextureManager_00448270::CopyTexture(int target_resource, int targ
         target->Release();
         return;
     }
-    if (LoadSurfaceCopy_004521d6(target, 0, target_rect, source, 0, source_rect, 0xFFFFFFFF, 0) != 0) {
+    if (LoadSurfaceCopy(target, 0, target_rect, source, 0, source_rect, 0xFFFFFFFF, 0) != 0) {
         target->Release();
         source->Release();
         return;
@@ -176,30 +176,30 @@ void AnimationTextureManager_00448270::CopyTexture(int target_resource, int targ
 }
 
 // The device and the surface format are members of one render state object.
-struct RenderState_00448450 {
+struct RenderState {
     unsigned char pad_00[0x08];
-    SurfaceDevice_00447c80* device;      // +0x08
+    SurfaceDevice* device;      // +0x08
     unsigned char pad_0C[0xEC - 0x0C];
     int format;                          // +0xEC
 };
-extern "C" RenderState_00448450 g_application;
+extern "C" RenderState g_application;
 
-static inline SurfaceDevice_00447c80* StateDevice() { return g_application.device; }
+static inline SurfaceDevice* StateDevice() { return g_application.device; }
 
 #pragma code_seg(".text$06image")
-void AnimationManagerIndexed_00447f70::CaptureBackBufferImage(int index, int left, int top,
+void AnimationManagerIndexed::CaptureBackBufferImage(int index, int left, int top,
                                                               int width, int height,
                                                               int target_left, int target_top,
                                                               int target_width, int target_height) {
     reinterpret_cast<SprtCtrlBatchView*>(this)->Flush();
     if (primary[index])
         Clear(index);
-    SurfaceRect_00447fd0 source;
+    SurfaceRect source;
     source.left = left;
     source.top = top;
     source.right = left + width;
     source.bottom = top + height;
-    SurfaceRect_00447fd0 target;
+    SurfaceRect target;
     target.left = target_left;
     target.top = target_top;
     target.right = target_left + target_width;
@@ -215,9 +215,9 @@ void AnimationManagerIndexed_00447f70::CaptureBackBufferImage(int index, int lef
                                                g_application.format, 3, &primary[index], 0) == 0) &&
         StateDevice()->CreateOffscreenPlainSurface(info[index].width, info[index].height,
                                               g_application.format, 3, &secondary[index], 0) == 0 &&
-        LoadSurfaceCopy_004521d6(primary[index], 0, &target, back_buffer, 0, &source,
+        LoadSurfaceCopy(primary[index], 0, &target, back_buffer, 0, &source,
                                  0xFFFFFFFF, 0) == 0) {
-        LoadSurfaceCopy_004521d6(secondary[index], 0, 0, primary[index], 0, 0, 0xFFFFFFFF, 0);
+        LoadSurfaceCopy(secondary[index], 0, 0, primary[index], 0, 0, 0xFFFFFFFF, 0);
     }
     if (back_buffer)
         back_buffer->Release();

@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "CopyPair_0040ad10_CopyFirstToSecond",
-      "symbol": "?CopyFirstToSecond@CopyPair_0040ad10@@QAEXXZ",
+      "symbol": "?CopyFirstToSecond@CopyPair@@QAEXXZ",
       "section": ".text$01copy",
       "address": "0x0040AD10",
       "size": 6,

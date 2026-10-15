@@ -16,8 +16,8 @@ __declspec(noinline) int __stdcall Title_DispatchUpdate(Title* room);
 
 #pragma code_seg(".text$0040a000_context")
 extern "C" int __stdcall DifficultySelectUpdateCompilerContext(
-    RecoveryScriptState_0040bd80* script,
-    HintLink_00419120* head,
+    RecoveryScriptState* script,
+    HintLink* head,
     HintUpdateView* indicator, int release,
     Title* music_room, void** objects) {
     objects[0] = &g_globals_difficulty;
@@ -29,7 +29,7 @@ extern "C" int __stdcall DifficultySelectUpdateCompilerContext(
     objects[6] = &g_practice_difficulty;
     objects[7] = g_keyboard_state;
     objects[8] = &g_main_state;
-    objects[9] = &application_state_00491c00;
+    objects[9] = &application_state;
     return RecoveryScript_Execute_0040bd80(script) + head->Drain(indicator, release)
         + Title_UpdateMusicRoom(music_room)
         + Title_DispatchUpdate(music_room);

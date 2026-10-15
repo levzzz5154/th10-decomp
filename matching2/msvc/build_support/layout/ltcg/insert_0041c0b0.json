@@ -5,11 +5,11 @@
   "driver": "build_support/layout/ltcg/insert_0041c0b0_context.cpp",
   "headers": [],
   "image_base": "0x00400000",
-  "description": "Insert_0041c0b0 compiled with native LTCG so the argument arrives in EAX.",
+  "description": "Insert compiled with native LTCG so the argument arrives in EAX.",
   "functions": [
     {
-      "name": "Insert_0041c0b0",
-      "symbol": "?Insert_0041c0b0@@YGXPAUList_0041c0b0@@PAUNode_0041c0b0@@@Z",
+      "name": "Insert",
+      "symbol": "?Insert@@YGXPAUList_0041c0b0@@PAUNode_0041c0b0@@@Z",
       "section": ".text$01accessor",
       "address": "0x0041C0B0",
       "size": 25,

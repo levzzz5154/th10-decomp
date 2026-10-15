@@ -13,7 +13,7 @@ extern "C" {
         unsigned int, unsigned int*);
     extern void* g_supervisor_window;
     extern WaveGuidImage g_guid_wave_format;
-    unsigned int __stdcall SoundStream_Worker_0043e3a0(void*);
+    unsigned int __stdcall SoundStream_Worker(void*);
 }
 #pragma code_seg(".text$00launch")
 int WaveSoundManager::LaunchMusic(const char* name) {
@@ -28,7 +28,7 @@ int WaveSoundManager::LaunchMusic(const char* name) {
     unsigned int align = record->format.block_alignment;
     unsigned int segment_bytes = (record->format.sample_rate * align * 4) >> 4;
     music_worker_event = imp_CreateEventA(0, 0, 0, 0);
-    music_thread = imp_CreateThread(0, 0, SoundStream_Worker_0043e3a0, g_supervisor_window, 0,
+    music_thread = imp_CreateThread(0, 0, SoundStream_Worker, g_supervisor_window, 0,
         &music_thread_id);
     segment_bytes -= segment_bytes % align;
     if (reinterpret_cast<SoundDeviceOwner*>(device_owner)->CreateFileStream(

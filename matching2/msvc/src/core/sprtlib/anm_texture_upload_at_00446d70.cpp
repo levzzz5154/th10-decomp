@@ -11,7 +11,7 @@
 #include "th10/render/anm_texture_00446c70.hpp"
 
 #pragma code_seg(".text$03uploadat")
-int __stdcall AnmTexture_UploadAt_00446d70(AnmUploadTag_00446c70 tag, AnmTexture_00446c70* texture,
+int __stdcall AnmTexture_UploadAt(AnmUploadTag tag, AnmTexture* texture,
                                            int format, const void* data, int top, int size,
                                            int has_thtx) {
     int stored_format = format;
@@ -23,12 +23,12 @@ int __stdcall AnmTexture_UploadAt_00446d70(AnmUploadTag_00446c70 tag, AnmTexture
             stored_format = 3;
     }
     texture->data_size = size;
-    AnmSurface_00446c70* surface = 0;
+    AnmSurface* surface = 0;
     texture->texture->GetSurfaceLevel(0, &surface);
     if (!has_thtx) {
-        AnmSurfaceDesc_00446c70 desc;
+        AnmSurfaceDesc desc;
         surface->GetDesc(&desc);
-        AnmRect_00446c70 destination;
+        AnmRect destination;
         destination.left = 0;
         destination.top = top;
         destination.right = desc.width;
@@ -36,12 +36,12 @@ int __stdcall AnmTexture_UploadAt_00446d70(AnmUploadTag_00446c70 tag, AnmTexture
         asm_D3DXLoadSurfaceFromFileInMemory_004521d0(surface, 0, &destination, data, size, 0, 1, 0, 0);
     } else {
         const AnmEntryHeader_00446c70* entry = static_cast<const AnmEntryHeader_00446c70*>(data);
-        AnmRect_00446c70 source;
+        AnmRect source;
         source.left = 0;
         source.top = 0;
         source.right = entry->Thtx()->width;
         source.bottom = entry->Thtx()->height;
-        AnmRect_00446c70 destination;
+        AnmRect destination;
         destination.left = 0;
         destination.top = top;
         destination.right = entry->Thtx()->width;

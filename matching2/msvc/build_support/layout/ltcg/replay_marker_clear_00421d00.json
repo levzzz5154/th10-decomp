@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "name": "replay_marker_clear_00421d00",
+  "name": "replay_marker_clear",
   "source": "src/unreferenced/FUN_00421d00_00421d00.cpp",
   "driver": "build_support/layout/ltcg/replay_marker_clear_00421d00_context.cpp",
   "headers": [],
@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "ReplayMarkerClear_00421d00_Clear",
-      "symbol": "?Clear@ReplayMarkerClear_00421d00@@QAEXXZ",
+      "symbol": "?Clear@ReplayMarkerClear@@QAEXXZ",
       "section": ".text$01clear00421d00",
       "address": "0x421d00",
       "size": 21,
@@ -17,7 +17,7 @@
     }
   ],
   "context": {
-    "symbol": "?ClearCompilerContext@@YGHPAPAUReplayMarkerClear_00421d00@@H@Z",
+    "symbol": "?ClearCompilerContext@@YGHPAPAUReplayMarkerClear@@H@Z",
     "section": ".text$03context",
     "address": "0x421d20",
     "size": 39,

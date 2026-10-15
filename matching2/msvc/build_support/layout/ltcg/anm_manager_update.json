@@ -114,7 +114,7 @@
   "constant_aliases": [],
   "absolute_symbols": [
     {
-      "symbol": "_AnmVm_Run_0043ee30@4",
+      "symbol": "_AnmVm_Run@4",
       "address": "0x0043EE30",
       "kind": "relative_code"
     },

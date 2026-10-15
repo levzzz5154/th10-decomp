@@ -8,9 +8,9 @@ struct List_0041c0b0 {
     Node_0041c0b0* head_434;
     unsigned int count_438;
 };
-__declspec(noinline) void Insert_0041c0b0(List_0041c0b0* list, Node_0041c0b0* node);
+__declspec(noinline) void Insert(List_0041c0b0* list, Node_0041c0b0* node);
 #pragma code_seg(".text$01accessor")
-void Insert_0041c0b0(List_0041c0b0* list, Node_0041c0b0* node) {
+void Insert(List_0041c0b0* list, Node_0041c0b0* node) {
     Node_0041c0b0* head = list->head_434;
     node->field_004 = head;
     head->field_008 = node;

@@ -9,7 +9,7 @@
 #include "th10/render/anm_texture_00446c70.hpp"
 
 #pragma code_seg(".text$01upload")
-int AnmTexture_00446c70::Upload(AnmUploadTag_00446c70 tag, int format, const void* data, int size,
+int AnmTexture::Upload(AnmUploadTag tag, int format, const void* data, int size,
                                 int has_thtx) {
     int stored_format = format;
     if (g_sound_flags & 1) {
@@ -20,13 +20,13 @@ int AnmTexture_00446c70::Upload(AnmUploadTag_00446c70 tag, int format, const voi
             stored_format = 3;
     }
     data_size = size;
-    AnmSurface_00446c70* surface = 0;
+    AnmSurface* surface = 0;
     texture->GetSurfaceLevel(0, &surface);
     if (!has_thtx) {
         asm_D3DXLoadSurfaceFromFileInMemory_004521d0(surface, 0, 0, data, size, 0, 1, 0, 0);
     } else {
         const AnmEntryHeader_00446c70* entry = static_cast<const AnmEntryHeader_00446c70*>(data);
-        AnmRect_00446c70 rect;
+        AnmRect rect;
         rect.left = 0;
         rect.top = 0;
         rect.right = entry->Thtx()->width;

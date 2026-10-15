@@ -37,14 +37,14 @@
     },
     {
       "name": "Splitter",
-      "symbol": "_SplitResourcePath_0041a050@12",
+      "symbol": "_SplitResourcePath@12",
       "section": ".text$p05split",
       "address": "0x41a050",
       "size": 75
     },
     {
       "name": "Trimmer",
-      "symbol": "?TrimWhitespace_0041a0a0@@YGPADPAD@Z",
+      "symbol": "?TrimWhitespace@@YGPADPAD@Z",
       "section": ".text$p07trim",
       "address": "0x41a0a0",
       "size": 114

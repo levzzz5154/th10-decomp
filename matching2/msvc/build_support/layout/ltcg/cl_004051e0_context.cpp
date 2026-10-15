@@ -5,7 +5,7 @@
 int __stdcall AllocateContext_004051e0(unsigned int* sizes, int count) {
     int total = 0;
     for (int i = 0; i < count; ++i) {
-        total += (int)AllocateBlock_004051e0(sizes[i]);
+        total += (int)AllocateBlock(sizes[i]);
     }
     return total;
 }

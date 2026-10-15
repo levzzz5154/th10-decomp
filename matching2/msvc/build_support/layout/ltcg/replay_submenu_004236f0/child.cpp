@@ -1,7 +1,7 @@
 // Complete 0x004497D0 lookup: the four-byte reference has a genuine value constructor.
 #include "animation.hpp"
 struct SubAnimationChild_004236f0 {
-    SubRef4_004236f0 ref;
+    SubRef4 ref;
     unsigned char reserved_004[0x386];
     short script_id;
 };
@@ -14,7 +14,7 @@ struct SubAnimationNode_004236f0 {
     SubAnimationChildLink_004236f0 children;
 };
 #pragma code_seg(".text$02x")
-SubRef4_004236f0 SubHandle4_004236f0::FindChildRef(int script_id) {
+SubRef4 SubHandle4::FindChildRef(int script_id) {
     AnimationScriptId id;
     id.value = (int)value;
     SubAnimationNode_004236f0* node = reinterpret_cast<SubAnimationNode_004236f0*>(
@@ -24,6 +24,6 @@ SubRef4_004236f0 SubHandle4_004236f0::FindChildRef(int script_id) {
     for (SubAnimationChildLink_004236f0* link = &node->children; link != 0; link = link->next)
         if (link->object->script_id == script_id)
             return link->object->ref;
-    return SubRef4_004236f0(0);
+    return SubRef4(0);
 }
 #pragma code_seg()

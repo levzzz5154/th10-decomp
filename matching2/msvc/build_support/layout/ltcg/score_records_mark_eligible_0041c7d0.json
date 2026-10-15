@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "name": "score_records_mark_eligible_0041c7d0",
+  "name": "score_records_mark_eligible",
   "source": "src/game/laser/score_records_mark_eligible_0041c7d0.cpp",
   "driver": "build_support/layout/ltcg/score_records_mark_eligible_0041c7d0_context.cpp",
   "headers": [],

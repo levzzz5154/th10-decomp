@@ -11,16 +11,16 @@ struct PoolBlock_00428f30 {
     ~PoolBlock_00428f30();
 };
 
-struct PoolBlockOwner_00428f30 {
+struct PoolBlockOwner {
     unsigned char reserved_000[0xA0];
     PoolBlock_00428f30 blocks[8];           // +0x0A0
     unsigned char reserved_1c0[0x2D4 - 0x1C0];
 
-    __declspec(noinline) PoolBlockOwner_00428f30();
+    __declspec(noinline) PoolBlockOwner();
 };
 
 #pragma code_seg(".text$01fn")
-PoolBlockOwner_00428f30::PoolBlockOwner_00428f30() {
+PoolBlockOwner::PoolBlockOwner() {
     memset(this, 0, sizeof(*this));
 }
 #pragma code_seg()

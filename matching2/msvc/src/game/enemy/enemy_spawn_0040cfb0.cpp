@@ -25,7 +25,7 @@ Enemy_0040cfb0* EnemySpawn_0040cfb0::Create(EnemyCtrlSpawnView* manager, const c
     memcpy(enemy->data.variables, variables, sizeof(variables));
     enemy->data.invulnerable_timer.Set(2);
     enemy->data.flags.quiet = quiet;
-    EnemyData_Start_0040dc80(&enemy->data);
+    EnemyData_Start(&enemy->data);
 
     if (enemy->data.flags.boss_items) {
         int item = enemy->data.drop_item;

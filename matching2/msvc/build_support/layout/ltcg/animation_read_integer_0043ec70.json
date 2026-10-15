@@ -14,7 +14,7 @@
   "functions": [
     {
       "name": "AnimationObject_ReadIntegerVariable",
-      "symbol": "?ReadIntegerVariable@AnimationObjectVariables_0043ec70@@QBEHH@Z",
+      "symbol": "?ReadIntegerVariable@AnimationObjectVariables@@QBEHH@Z",
       "section": ".text$01readvar",
       "address": "0x0043EC70",
       "size": 144,
@@ -32,7 +32,7 @@
     }
   ],
   "context": {
-    "symbol": "?AnimationReadIntegerCompilerContext@@YGHPAPAUAnimationObjectVariables_0043ec70@@PAPAVSprtCtrl@@PAPAUAnimationLookupContext@@PBHH@Z",
+    "symbol": "?AnimationReadIntegerCompilerContext@@YGHPAPAUAnimationObjectVariables@@PAPAVSprtCtrl@@PAPAUAnimationLookupContext@@PBHH@Z",
     "section": ".text$05context",
     "address": "0x004492F0",
     "size": 113,

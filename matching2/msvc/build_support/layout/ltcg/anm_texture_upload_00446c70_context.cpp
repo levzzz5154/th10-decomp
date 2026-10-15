@@ -7,35 +7,35 @@ extern "C" void __stdcall entry_external_00446c70(void*, int);
 
 // Stand-in for 0x004465B0: texture in EAX.
 #pragma code_seg(".text$00fill")
-void AnmTexture_00446c70::FillTransparentPixels() {
+void AnmTexture::FillTransparentPixels() {
     entry_external_00446c70(texture, bytes_per_pixel);
 }
 #pragma code_seg()
 
 #pragma code_seg(".text$05scontext")
 extern "C" int __stdcall AnmTextureUploadContext_00446c70(
-        AnmTexture_00446c70** textures, const void** data, int count) {
+        AnmTexture** textures, const void** data, int count) {
     int result = 0;
     for (int i = 0; i < count; ++i) {
-        AnmUploadTag_00446c70 tag = { count ^ i };
+        AnmUploadTag tag = { count ^ i };
         int loaded_size = 0;
         result += *Archive_LoadFile(static_cast<const char*>(data[i]), &loaded_size, i & 1);
         result += loaded_size;
         result += textures[i]->LoadFile(count - i, textures[i]->file_data, static_cast<const char*>(data[i]), count | i);
-        result += AnmTexture_UploadAt_00446d70(tag, textures[i], i, data[i], count + i, count - i, count & i);
-        result += AnmTexture_CreateFromMemory_00446eb0(tag, textures[i], i, count | i, count * i, count + 2 * i);
-        result += AnmTexture_CreateAndUpload_00446f40(
+        result += AnmTexture_UploadAt(tag, textures[i], i, data[i], count + i, count - i, count & i);
+        result += AnmTexture_CreateFromMemory(tag, textures[i], i, count | i, count * i, count + 2 * i);
+        result += AnmTexture_CreateAndUpload(
             textures[i], static_cast<const AnmEntryHeader_00446c70*>(data[i])->Thtx(), i, count * i, count + 3 * i);
-        result += AnmManager_LoadFileNow_00447080(
+        result += AnmManager_LoadFileNow(
             reinterpret_cast<AnmManager_004470c0*>(textures[i]), count - i,
             static_cast<const char*>(data[i]))->slot;
-        result += AnmManager_LoadNextEntry_004473c0(
-            tag, reinterpret_cast<AnmFile_004470c0*>(textures[i]))->slot;
-        result += AnmManager_LoadFile_004470c0(
+        result += AnmManager_LoadNextEntry(
+            tag, reinterpret_cast<AnmFile*>(textures[i]))->slot;
+        result += AnmManager_LoadFile(
             reinterpret_cast<AnmManager_004470c0*>(textures[i]), i,
             static_cast<const char*>(data[i]))->slot;
-        result += AnmFile_PreloadEntryImage_004472e0(
-            reinterpret_cast<AnmFile_004470c0*>(textures[i]),
+        result += AnmFile_PreloadEntryImage(
+            reinterpret_cast<AnmFile*>(textures[i]),
             static_cast<const AnmEntryHeader_00446c70*>(data[i]), i);
         result += textures[i]->Upload(tag, i, data[i], count - i, count & i);
     }

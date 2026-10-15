@@ -46,7 +46,7 @@ extern "C" __declspec(noinline) int __stdcall FuncCtrl_RegisterSecondary(
 
 
 #pragma code_seg(".text$30context")
-extern "C" int __cdecl CardTasksCompilerContext(CardTasks_004089c0** owners, int count) {
+extern "C" int __cdecl CardTasksCompilerContext(CardTasks** owners, int count) {
     while (count--)
         (*owners++)->InitializeTasks();
     return 0;

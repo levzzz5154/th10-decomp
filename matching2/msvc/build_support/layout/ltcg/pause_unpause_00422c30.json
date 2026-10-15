@@ -11,7 +11,7 @@
   "functions": [
     {
       "name": "PauseOwner_Unpause",
-      "symbol": "?Unpause@PauseOwner_00422c30@@QAEXXZ",
+      "symbol": "?Unpause@PauseOwner@@QAEXXZ",
       "section": ".text$00fn",
       "address": "0x00422C30",
       "size": 74,
@@ -43,7 +43,7 @@
     }
   ],
   "context": {
-    "symbol": "?UnpauseContext_00422c30@@YGHPAUPauseOwner_00422c30@@H@Z",
+    "symbol": "?UnpauseContext_00422c30@@YGHPAUPauseOwner@@H@Z",
     "section": ".text$06context",
     "address": "0x00449300",
     "size": 39,
@@ -85,7 +85,7 @@
       "kind": "data"
     },
     {
-      "symbol": "?g_pause_flags@@3PAUPauseFlags_00422c30@@A",
+      "symbol": "?g_pause_flags@@3PAUPauseFlags@@A",
       "address": "0x00477810",
       "kind": "data"
     },

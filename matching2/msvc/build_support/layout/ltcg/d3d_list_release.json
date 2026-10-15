@@ -13,7 +13,7 @@
   "functions": [
     {
       "name": "ResourceListRelease",
-      "symbol": "?Release@ResourceList_00449e50@@QAEXUResourceListOwner_00449e50@@@Z",
+      "symbol": "?Release@ResourceList@@QAEXUResourceListOwner@@@Z",
       "section": ".text$01release",
       "address": "0x00449E50",
       "size": 82,
@@ -21,7 +21,7 @@
     }
   ],
   "context": {
-    "symbol": "?ResourceListReleaseContext@@YGXPAPAUResourceList_00449e50@@HUResourceListOwner_00449e50@@@Z",
+    "symbol": "?ResourceListReleaseContext@@YGXPAPAUResourceList@@HUResourceListOwner@@@Z",
     "section": ".text$03context",
     "address": "0x00449EB0",
     "size": 39,

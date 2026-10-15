@@ -28,8 +28,8 @@
   "description": "Title worker thread body, the sound effect buffer initialiser and the music launcher it calls, compiled with the real worker stop, archive loader, text log and cursor open, and a stand-in for the file stream factory, so the pass hands the sound manager over in EBX/EAX and orders the factory arguments by its parameter list. The supervisor block is one address-taken object, which keeps its stores ahead of pointer loads.",
   "functions": [
     {
-      "name": "Loading_LoadAssets_0041f990",
-      "symbol": "?Loading_LoadAssets_0041f990@@YIHPAULoadingView@@@Z",
+      "name": "Loading_LoadAssets",
+      "symbol": "?Loading_LoadAssets@@YIHPAULoadingView@@@Z",
       "section": ".text$00title",
       "address": "0x0041F990",
       "size": 299,
@@ -57,7 +57,7 @@
   "anchors": [
     {
       "name": "StopWorkers",
-      "symbol": "?Stop@SoundWorkerPair_0043cc40@@QAEHXZ",
+      "symbol": "?Stop@SoundWorkerPair@@QAEHXZ",
       "section": ".text$01stop",
       "address": "0x43cc40",
       "size": 175
@@ -389,7 +389,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_SoundStream_Worker_0043e3a0@4",
+      "symbol": "_SoundStream_Worker@4",
       "address": "0x43e3a0",
       "kind": "data"
     },

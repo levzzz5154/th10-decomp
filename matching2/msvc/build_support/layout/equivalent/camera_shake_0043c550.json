@@ -6,7 +6,7 @@
     "src/core/screen/camera_shake.cpp"
   ],
   "entry_symbol": "_CameraShakeEntry@4",
-  "function": "@LinearShakeUpdate_0043c550@4",
+  "function": "@LinearShakeUpdate@4",
   "code_bytes": 439,
   "absolute_symbols": {
     "__fltused": {

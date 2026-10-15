@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "vec2_rotate_0044bcd0",
-      "symbol": "?Rotate_0044bcd0@@YGXPBUVec2_0044bcd0@@PAU1@M@Z",
+      "symbol": "?Rotate@@YGXPBUVec2_0044bcd0@@PAU1@M@Z",
       "section": ".text$01accessor",
       "address": "0x0044BCD0",
       "size": 40,

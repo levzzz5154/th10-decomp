@@ -1,17 +1,17 @@
 #pragma once
 #include <stddef.h>
 
-struct EnemyTimerSweepEntity_0040d750;
+struct EnemyTimerSweepEntity;
 
 // This link is embedded in the enemy at +0x116C. Its owner points back to the
 // containing enemy, followed by the forward and backward manager-list links.
-struct EnemyTimerSweepLink_0040d750 {
-    EnemyTimerSweepEntity_0040d750* owner;
-    EnemyTimerSweepLink_0040d750* next;
-    EnemyTimerSweepLink_0040d750* previous;
+struct EnemyTimerSweepLink {
+    EnemyTimerSweepEntity* owner;
+    EnemyTimerSweepLink* next;
+    EnemyTimerSweepLink* previous;
 };
 
-struct EnemyTimerSweepFrame_0040d750 {
+struct EnemyTimerSweepFrame {
     int previous_frame;
     int current_frame;
     float elapsed;
@@ -34,11 +34,11 @@ struct EnemyCtrlSweepView {
     unsigned char reserved_010[0x20];
     void* animation_archive_030;
     unsigned char reserved_034[0x0C];
-    EnemyTimerSweepFrame_0040d750 frame_040;
+    EnemyTimerSweepFrame frame_040;
     unsigned int frame_flags_050;
     void* message_parser_054;
-    EnemyTimerSweepLink_0040d750* enemy_list_head_058;
-    EnemyTimerSweepLink_0040d750* enemy_list_tail_05c;
+    EnemyTimerSweepLink* enemy_list_head_058;
+    EnemyTimerSweepLink* enemy_list_tail_05c;
     int enemy_count_060;
     unsigned char reserved_064[4];
 
@@ -48,12 +48,12 @@ struct EnemyCtrlSweepView {
 extern "C" {
 // 0x0040DC80: one enemy update step over the context at enemy+0x103C;
 // nonzero when the enemy has finished.
-int __stdcall EnemyUpdate_0040dc80(void* update_context);
+int __stdcall EnemyUpdate(void* update_context);
 }
 extern float g_frame_timer_normal_lower;
 extern float g_frame_timer_normal_upper;
 
-inline void EnemyTimerSweepFrame_0040d750::Tick() {
+inline void EnemyTimerSweepFrame::Tick() {
     previous_frame = current_frame;
     if (Speed() > g_frame_timer_normal_lower && Speed() < g_frame_timer_normal_upper) {
         ++current_frame;
@@ -63,7 +63,7 @@ inline void EnemyTimerSweepFrame_0040d750::Tick() {
     }
 }
 
-struct EnemyTimerSweepEntity_0040d750 {
+struct EnemyTimerSweepEntity {
     virtual void UnknownVtable00() = 0;
     virtual void UnknownVtable04() = 0;
     virtual void UnknownVtable08() = 0;
@@ -75,7 +75,7 @@ struct EnemyTimerSweepEntity_0040d750 {
     void* free_list_1034;
     unsigned char reserved_1038[4];
     unsigned char update_context_103c[0x130];
-    EnemyTimerSweepLink_0040d750 link_116c;
+    EnemyTimerSweepLink link_116c;
     unsigned char reserved_1178[0x2480 - 0x1178];
     unsigned int flags_2480;
     unsigned char reserved_2484[8];
@@ -86,7 +86,7 @@ struct EnemyTimerSweepEntity_0040d750 {
 typedef char EnemyTimerSweepManager_size_check[
     sizeof(EnemyCtrlSweepView) == 0x68 ? 1 : -1];
 typedef char EnemyTimerSweepFrame_size_check[
-    sizeof(EnemyTimerSweepFrame_0040d750) == 0x10 ? 1 : -1];
+    sizeof(EnemyTimerSweepFrame) == 0x10 ? 1 : -1];
 typedef char EnemyTimerSweepFrame_offset_check[
     offsetof(EnemyCtrlSweepView, frame_040) == 0x40 ? 1 : -1];
 typedef char EnemyTimerSweepListHead_offset_check[
@@ -96,12 +96,12 @@ typedef char EnemyTimerSweepListTail_offset_check[
 typedef char EnemyTimerSweepEnemyCount_offset_check[
     offsetof(EnemyCtrlSweepView, enemy_count_060) == 0x60 ? 1 : -1];
 typedef char EnemyTimerSweepLink_size_check[
-    sizeof(EnemyTimerSweepLink_0040d750) == 0x0C ? 1 : -1];
+    sizeof(EnemyTimerSweepLink) == 0x0C ? 1 : -1];
 typedef char EnemyTimerSweepEntity_link_offset_check[
-    offsetof(EnemyTimerSweepEntity_0040d750, link_116c) == 0x116C ? 1 : -1];
+    offsetof(EnemyTimerSweepEntity, link_116c) == 0x116C ? 1 : -1];
 typedef char EnemyTimerSweepEntity_flags_offset_check[
-    offsetof(EnemyTimerSweepEntity_0040d750, flags_2480) == 0x2480 ? 1 : -1];
+    offsetof(EnemyTimerSweepEntity, flags_2480) == 0x2480 ? 1 : -1];
 typedef char EnemyTimerSweepEntity_size_check[
-    sizeof(EnemyTimerSweepEntity_0040d750) == 0x2518 ? 1 : -1];
+    sizeof(EnemyTimerSweepEntity) == 0x2518 ? 1 : -1];
 typedef char EnemyTimerSweep_x86_pointer_check[
     sizeof(void*) == 4 ? 1 : -1];

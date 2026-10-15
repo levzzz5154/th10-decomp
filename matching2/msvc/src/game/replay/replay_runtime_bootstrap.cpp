@@ -47,7 +47,7 @@ extern "C" void* g_game;
 // The frame countdown timer embedded at the head of the score state: the
 // retail body addresses it with the containing object's base (the timer
 // fields start at +0x14).
-struct EmbeddedTimerState_0042a930 {
+struct EmbeddedTimerState {
     unsigned char unknown_00[0x14];
     int target_14;
     int current_18;
@@ -73,13 +73,13 @@ struct ReplayFileHeader_00428f60 {
         capacity = 0x100;
     }
 };
-typedef char ReplayFileHeaderSize_00428f60[
+typedef char ReplayFileHeaderSize[
     sizeof(ReplayFileHeader_00428f60) == 0x24 ? 1 : -1];
 
 // The 0x64-byte configuration block the bootstrap allocates: the profile
 // mirror at +0x14, the run setup the stage restore reads back, and the
 // continues count at +0x60.
-struct ReplayConfigBlock_00428f60 {
+struct ReplayConfigBlock {
     unsigned char reserved_00[0x14];
     unsigned char profile_mirror[0x34];    // +0x14: 13 dwords from the profile
     unsigned char reserved_48[8];
@@ -89,13 +89,13 @@ struct ReplayConfigBlock_00428f60 {
     unsigned char reserved_5c[4];
     int continues;                         // +0x60
 
-    ReplayConfigBlock_00428f60() {
+    ReplayConfigBlock() {
         GameConfig_InitializeDefaults(0, (GameConfig*)((char*)this + 0x14));
         memset(this, 0, sizeof(*this));
     }
 };
-typedef char ReplayConfigBlockSize_00428f60[
-    sizeof(ReplayConfigBlock_00428f60) == 0x64 ? 1 : -1];
+typedef char ReplayConfigBlockSize[
+    sizeof(ReplayConfigBlock) == 0x64 ? 1 : -1];
 
 // The 0x24-byte scheduler callback node. The flag word is read before it is
 // written, so the heap-owned clear is a load/mask/store rather than a single
@@ -115,7 +115,7 @@ struct SchedulerCallbackTask_00428f60 {
     SchedulerCallbackTask_00428f60();
 };
 
-typedef char SchedulerCallbackTaskSize_00428f60[
+typedef char SchedulerCallbackTaskSize[
     sizeof(SchedulerCallbackTask_00428f60) == 0x24 ? 1 : -1];
 
 inline SchedulerCallbackTask_00428f60::SchedulerCallbackTask_00428f60() {
@@ -154,23 +154,23 @@ __declspec(noinline) int ReplayManager_004296f0::Start(int start_mode, const cha
         int stage = g_globals.stage;
         g_replay = this;
         ClearStage(stage);
-        current_pool = (ReplayPoolLink_0042aa50*)((PoolOwner_0042aa50*)this)->AppendPage(g_globals.stage);
+        current_pool = (ReplayPoolLink_0042aa50*)((PoolOwner*)this)->AppendPage(g_globals.stage);
 
         ReplayFileHeader_00428f60* file_header = new ReplayFileHeader_00428f60;
         header = (ReplayHeader_004296f0*)file_header;
 
-        ReplayConfigBlock_00428f60* config = new ReplayConfigBlock_00428f60;
+        ReplayConfigBlock* config = new ReplayConfigBlock;
         summary = (ReplaySummary_004296f0*)config;
 
         ReplayStage_0042a6a0* stage_record = new ReplayStage_0042a6a0;
-        stage_data[g_globals.stage] = (ReplayStageData_004296f0*)stage_record;
+        stage_data[g_globals.stage] = (ReplayStageData*)stage_record;
         stage_record = (ReplayStage_0042a6a0*)stage_data[g_globals.stage];
 
-        ((ReplayConfigBlock_00428f60*)summary)->character = g_globals.character;
-        ((ReplayConfigBlock_00428f60*)summary)->shot_type = g_globals.shot_type;
-        ((ReplayConfigBlock_00428f60*)summary)->difficulty = g_globals.difficulty;
+        ((ReplayConfigBlock*)summary)->character = g_globals.character;
+        ((ReplayConfigBlock*)summary)->shot_type = g_globals.shot_type;
+        ((ReplayConfigBlock*)summary)->difficulty = g_globals.difficulty;
         if (g_game)
-            memcpy(((ReplayConfigBlock_00428f60*)summary)->profile_mirror,
+            memcpy(((ReplayConfigBlock*)summary)->profile_mirror,
                    (char*)g_game + 0x24, 0x34);
 
         // The flag word's heap-owned bit follows the configuration word's low
@@ -199,7 +199,7 @@ __declspec(noinline) int ReplayManager_004296f0::Start(int start_mode, const cha
         stage_record->field_1c = g_globals.field_30;
         stage_record->field_20 = g_globals.field_58;
         stage_record->continues = g_globals.continues;
-        ((ReplayConfigBlock_00428f60*)summary)->continues = g_globals.continues;
+        ((ReplayConfigBlock*)summary)->continues = g_globals.continues;
 
         SchedulerTask* update =
             (SchedulerTask*)BuildCallbackNode_00428f60((void*)0x0042A3D0, this);
@@ -239,12 +239,12 @@ __declspec(noinline) int ReplayManager_004296f0::Start(int start_mode, const cha
         ReplayStage_0042a6a0* stage_record =
             (ReplayStage_0042a6a0*)node_view[stage][4];
         node_view[stage][5] = 0;
-        ReplayNode_0042a6a0* current = (ReplayNode_0042a6a0*)(node_view + stage);
+        ReplayNode* current = (ReplayNode*)(node_view + stage);
         current->cursor_end = current->inputs_end;
 
-        g_globals.character = ((ReplayConfigBlock_00428f60*)summary)->character;
-        g_globals.shot_type = ((ReplayConfigBlock_00428f60*)summary)->shot_type;
-        g_globals.difficulty = ((ReplayConfigBlock_00428f60*)summary)->difficulty;
+        g_globals.character = ((ReplayConfigBlock*)summary)->character;
+        g_globals.shot_type = ((ReplayConfigBlock*)summary)->shot_type;
+        g_globals.difficulty = ((ReplayConfigBlock*)summary)->difficulty;
 
         g_rng.seed = stage_record->seed;
         _ReadWriteBarrier();
@@ -253,12 +253,12 @@ __declspec(noinline) int ReplayManager_004296f0::Start(int start_mode, const cha
         g_globals.score = stage_record->score;
         g_globals.word_08 = stage_record->word_10;
         ((ScoreState*)0x00474C40)->SetGauge(stage_record->gauge * 10);
-        ((EmbeddedTimerState_0042a930*)0x00474C40)->SetCountdown(stage_record->gauge_frame);
+        ((EmbeddedTimerState*)0x00474C40)->SetCountdown(stage_record->gauge_frame);
         g_globals.field_30 = stage_record->field_1c;
         g_globals.field_58 = stage_record->field_20;
         g_globals.continues = stage_record->continues;
         g_globals.field_5c =
-            ((ReplayNode_0042a6a0*)nodes)[g_globals.stage].stage->field_1b8;
+            ((ReplayNode*)nodes)[g_globals.stage].stage->field_1b8;
 
         SchedulerTask* update =
             (SchedulerTask*)BuildCallbackNode_00428f60((void*)0x0042A3D0, this);

@@ -8,7 +8,7 @@
 #include "th10/game/spt_test_teardown.hpp"
 
 #pragma code_seg(".text$10worker")
-inline SptTestWorker_0042be20::~SptTestWorker_0042be20() {
+inline SptTestWorker::~SptTestWorker() {
     vtable = &platform_worker_vtable;
     reinterpret_cast<PlatformWorker*>(this)->Stop();
 }
@@ -40,7 +40,7 @@ SptTest_0042be20::~SptTest_0042be20() {
     if (task) {
         EnterCriticalSection(&g_thread_synchronization.critical_sections[0]);
         ++g_thread_synchronization.scheduler_lock_depth;
-        ManagerTeardownFuncCtrl_Remove_00449F60(scheduler, task);
+        ManagerTeardownFuncCtrl_Remove(scheduler, task);
         LeaveCriticalSection(&g_thread_synchronization.critical_sections[0]);
         --g_thread_synchronization.scheduler_lock_depth;
     }
@@ -49,7 +49,7 @@ SptTest_0042be20::~SptTest_0042be20() {
     if (task) {
         EnterCriticalSection(&g_thread_synchronization.critical_sections[0]);
         ++g_thread_synchronization.scheduler_lock_depth;
-        ManagerTeardownFuncCtrl_Remove_00449F60(scheduler, task);
+        ManagerTeardownFuncCtrl_Remove(scheduler, task);
         LeaveCriticalSection(&g_thread_synchronization.critical_sections[0]);
         --g_thread_synchronization.scheduler_lock_depth;
     }

@@ -3,7 +3,7 @@
 
 #pragma code_seg(".text$03context")
 extern "C" __declspec(noinline) int __stdcall H3601_004423a0_Context(
-        Source_004423a0** sources, Destination_004423a0** destinations,
+        Source_004423a0** sources, Destination** destinations,
         int count) {
     while (count--)
         (*sources++)->CopyTo(*destinations++);

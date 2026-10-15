@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "name": "archive_read_00434dd0",
+  "name": "archive_read",
   "source": "src/pack/arcmngr/dat_archive_read_00434dd0.cpp",
   "driver": "build_support/layout/ltcg/archive_read_00434dd0_context.cpp",
   "headers": [

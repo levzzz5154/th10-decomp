@@ -8,8 +8,8 @@
 #include "th10/game/title_menu.hpp"
 #pragma code_seg(".text$0040a000_context")
 extern "C" int __stdcall EndingScreenCompilerContext(
-    RecoveryScriptState_0040bd80* script,
-    HintLink_00419120* head,
+    RecoveryScriptState* script,
+    HintLink* head,
     HintUpdateView* indicator, int release,
     Title* music_room) {
     return RecoveryScript_Execute_0040bd80(script) + head->Drain(indicator, release)

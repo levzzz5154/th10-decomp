@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "ScoreList_InsertAfter",
-      "symbol": "?ScoreList_InsertAfter@@YGXPAUScoreListNode_00413200@@0@Z",
+      "symbol": "?ScoreList_InsertAfter@@YGXPAUScoreListNode@@0@Z",
       "section": ".text$01insert",
       "address": "0x00413200",
       "size": 23,
@@ -17,7 +17,7 @@
     }
   ],
   "context": {
-    "symbol": "?ScoreListInsertAfterCompilerContext@@YGHPAPAUScoreListNode_00413200@@HPAU1@@Z",
+    "symbol": "?ScoreListInsertAfterCompilerContext@@YGHPAPAUScoreListNode@@HPAU1@@Z",
     "section": ".text$03context",
     "address": "0x00413220",
     "size": 38,

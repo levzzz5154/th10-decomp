@@ -1,5 +1,5 @@
 
-struct StreamState_0044DCF0 {
+struct StreamState {
     unsigned char reserved_000[0x7c];
     int state_07c;
     void* value_080;
@@ -14,7 +14,7 @@ struct StreamState_0044DCF0 {
 };
 
 #pragma code_seg(".text$01initializer")
-__declspec(noinline) int StreamState_0044DCF0::Initialize(
+__declspec(noinline) int StreamState::Initialize(
         void* value_090_arg, void* value_080_arg,
         int value_088_arg, int count_arg) {
     value_090 = value_090_arg;

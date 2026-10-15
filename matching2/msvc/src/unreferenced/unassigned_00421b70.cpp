@@ -10,7 +10,7 @@
 // `shl eax,4` (index * 0x30, each record being three dwords) rather than an
 // `imul`.
 
-struct PhaseCursor_00421b70 {
+struct PhaseCursor {
     unsigned char unknown_00[0x3C];
     unsigned int published;                 // +0x3C
     unsigned int selected;                  // +0x40
@@ -18,15 +18,15 @@ struct PhaseCursor_00421b70 {
     __declspec(noinline) void Publish();
 };
 
-struct PhaseRecord_00421b70 {
+struct PhaseRecord {
     unsigned int values[0xC];               // 0x30 bytes
 };
 
-extern "C" PhaseRecord_00421b70 g_stage_routes[];
-extern "C" PhaseRecord_00421b70* g_stage_route_current;
+extern "C" PhaseRecord g_stage_routes[];
+extern "C" PhaseRecord* g_stage_route_current;
 
 #pragma code_seg(".text$01publish")
-void PhaseCursor_00421b70::Publish() {
+void PhaseCursor::Publish() {
     unsigned int index = selected;
     published = index;
     g_stage_route_current = &g_stage_routes[index];

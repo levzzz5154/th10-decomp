@@ -9,7 +9,7 @@
 #include "th10/game/player.hpp"
 
 // Draw one number's glyphs left to right, most significant digit first.
-__forceinline void SmollScoreDrawView::DrawGlyphs(const FloatingText_0042b780* text, float advance, int alpha) {
+__forceinline void SmollScoreDrawView::DrawGlyphs(const FloatingText* text, float advance, int alpha) {
     const unsigned char* glyph = &text->glyphs[text->length - 1];
     for (int remaining = text->length; remaining > 0; remaining--, glyph--) {
         if (text->timer.current >= 52 && *glyph != 10) {
@@ -25,14 +25,14 @@ __forceinline void SmollScoreDrawView::DrawGlyphs(const FloatingText_0042b780* t
             sprite.alpha = alpha;
         }
         sprite.SetWidth(sprite.glyph->width);
-        FloatingText_DrawEntity_00443080(g_sprt_ctrl, &sprite);
+        FloatingText_DrawEntity(g_sprt_ctrl, &sprite);
         sprite.x += advance;
     }
 }
 
 #pragma code_seg(".text$01draw")
 int SmollScoreDrawView::Draw() {
-    FloatingText_0042b780* text = texts;
+    FloatingText* text = texts;
     int alpha;
     if (!(g_application.options & 4) && g_application.fog_dirty) {
         g_sprt_ctrl->Flush();
@@ -72,9 +72,9 @@ int __fastcall SmollScore_DrawTask_0042b9b0(SmollScoreDrawView* pool) {
 #pragma code_seg()
 
 #pragma code_seg(".text$03spawn")
-void SmollScoreDrawView::Spawn(int value, const FloatingTextPosition_0042b780* position, unsigned int color) {
+void SmollScoreDrawView::Spawn(int value, const FloatingTextPosition* position, unsigned int color) {
     if (next_text >= 0x2D0) next_text = 0;
-    FloatingText_0042b780* text = &texts[next_text];
+    FloatingText* text = &texts[next_text];
     int length = 0;
     text->active = 1;
     if (value >= 0) {

@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "batch_reset_00442f30",
-      "symbol": "?Reset@QuadBatch_00442f30@@QAEXXZ",
+      "symbol": "?Reset@QuadBatch@@QAEXXZ",
       "section": ".text$01accessor",
       "address": "0x00442F30",
       "size": 29,
@@ -17,7 +17,7 @@
     }
   ],
   "context": {
-    "symbol": "?Ctx@@YGHPAPAUQuadBatch_00442f30@@H@Z",
+    "symbol": "?Ctx@@YGHPAPAUQuadBatch@@H@Z",
     "section": ".text$03context",
     "address": "0x00442F60",
     "size": 35,

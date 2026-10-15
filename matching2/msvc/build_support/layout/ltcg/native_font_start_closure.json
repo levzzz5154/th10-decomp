@@ -27,7 +27,7 @@
   "functions": [
     {
       "name": "FontInitialize",
-      "symbol": "_InitializeFontCache_00437a00",
+      "symbol": "_InitializeFontCache",
       "section": ".text$a08font",
       "address": "0x00437a00",
       "size": 781,
@@ -63,7 +63,7 @@
     },
     {
       "name": "QuadBufferCreate",
-      "symbol": "?InitializeClip@ClipHost_004462f0@@QAEXXZ",
+      "symbol": "?InitializeClip@ClipHost@@QAEXXZ",
       "section": ".text$a14clip",
       "address": "0x4462f0",
       "size": 472,
@@ -72,7 +72,7 @@
     },
     {
       "name": "SurfaceCreate",
-      "symbol": "?FontSurface_Create_00436af0@@YG_NPAUGdiSurface_00436a30@@HHH@Z",
+      "symbol": "?FontSurface_Create@@YG_NPAUGdiSurface_00436a30@@HHH@Z",
       "section": ".text$a06surface",
       "address": "0x436af0",
       "size": 421,
@@ -226,12 +226,12 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "?InitializeVersionMarker_00420100@@YAXXZ",
+      "symbol": "?InitializeVersionMarker@@YAXXZ",
       "address": "0x420100",
       "kind": "relative_code"
     },
     {
-      "symbol": "_RenderCamera_InitializeDefaults_004216f0",
+      "symbol": "_RenderCamera_InitializeDefaults",
       "address": "0x4216f0",
       "kind": "relative_code"
     },
@@ -246,12 +246,12 @@
       "kind": "data"
     },
     {
-      "symbol": "_Sound_PreloadWorker_0043d080",
+      "symbol": "_Sound_PreloadWorker",
       "address": "0x43d080",
       "kind": "data"
     },
     {
-      "symbol": "?CreateStatsTaskOwner_00413350@@YAPAUStatsTaskOwner@@XZ",
+      "symbol": "?CreateStatsTaskOwner@@YAPAUStatsTaskOwner@@XZ",
       "address": "0x413350",
       "kind": "relative_code"
     },
@@ -351,12 +351,12 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_GameInput_EnumDevice_0043baf0@8",
+      "symbol": "_GameInput_EnumDevice@8",
       "address": "0x43baf0",
       "kind": "data"
     },
     {
-      "symbol": "_GameInput_EnumObject_0043bb30@8",
+      "symbol": "_GameInput_EnumObject@8",
       "address": "0x43bb30",
       "kind": "data"
     },
@@ -455,7 +455,7 @@
   "calls": [
     {
       "caller": "_App_StartWorkers",
-      "callee": "_InitializeFontCache_00437a00",
+      "callee": "_InitializeFontCache",
       "address": "0x420260",
       "instruction": "call"
     },

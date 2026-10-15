@@ -4,7 +4,7 @@
 
 #pragma code_seg(".text$05context")
 int __stdcall AnimationManagerRenderBucket1Context(
-        AnimationManagerBucket1_00448600** managers, int count) {
+        AnimationManagerBucket1** managers, int count) {
     int result = 0;
     for (int index = 0; index < count; ++index) {
         result = managers[index]->RenderBucket1();

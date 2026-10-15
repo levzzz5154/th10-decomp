@@ -1,4 +1,4 @@
-struct EmbeddedTimer_004050d0 {
+struct EmbeddedTimer {
     unsigned char unknown_0000[0x30];
     int current;
     int previous;
@@ -9,7 +9,7 @@ struct EmbeddedTimer_004050d0 {
 };
 
 #pragma code_seg(".text$01reset")
-void EmbeddedTimer_004050d0::Reset() {
+void EmbeddedTimer::Reset() {
     if ((flags & 1) == 0) {
         previous = 0;
         current = -999999;

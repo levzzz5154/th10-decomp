@@ -48,13 +48,13 @@ extern "C" void* g_sprt_ctrl;
 extern "C" void* g_ascii_manager;
 extern "C" __declspec(noinline) void** __cdecl asm_AnimationManager_RegisterPrimaryBack_004489d0(
     void* manager, void** out, void* entity);
-__declspec(noinline) void** __stdcall AnimationManager_CreatePositionedPrimary_00448d50(
+__declspec(noinline) void** __stdcall AnimationManager_CreatePositionedPrimary(
     void* resource, void** out, int index, const AnimationPosition_00448d50* position);
-typedef void (__fastcall *AnimationInitializer_0040b1b0)(Entity* object, void* context);
-typedef void (*AnimationCallback_0040b1b0)(Entity* object);
+typedef void (__fastcall *AnimationInitializer)(Entity* object, void* context);
+typedef void (*AnimationCallback)(Entity* object);
 extern "C" __declspec(noinline) AnimationScriptId* __stdcall AnimationCreateWithCallbacks_0040b1b0(
     AnimationScriptId* out, AnimationBank* resource, AnimationScriptId script,
-    void* context, AnimationInitializer_0040b1b0 initialize,
-    AnimationCallback_0040b1b0 update, AnimationCallback_0040b1b0 draw);
-struct TitleEffectState_0041fdd0;
-extern "C" __declspec(noinline) int __stdcall TitleEffectsAdvance_0041fdd0(TitleEffectState_0041fdd0* state);
+    void* context, AnimationInitializer initialize,
+    AnimationCallback update, AnimationCallback draw);
+struct TitleEffectState;
+extern "C" __declspec(noinline) int __stdcall TitleEffectsAdvance(TitleEffectState* state);

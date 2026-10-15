@@ -52,7 +52,7 @@
     },
     {
       "name": "PlatformQueryInterfaces_0044D600_Query",
-      "symbol": "?Query@PlatformQueryInterfaces_0044D600@@QAEHXZ",
+      "symbol": "?Query@PlatformQueryInterfaces@@QAEHXZ",
       "address": "0x0044D600",
       "size": 61,
       "section": ".text$13query"

@@ -15,22 +15,22 @@
   "image_base": "0x00400000",
   "description": "Queued animation cleanup and handle release co-compiled with the full animation lookup ABI anchor.",
   "roots": [
-    "_QueuedAnimationCleanup_00421070@4",
-    "_ReleaseAnimationHandles_00421300@4"
+    "_QueuedAnimationCleanup@4",
+    "_ReleaseAnimationHandles@4"
   ],
   "functions": [
     {
-      "name": "QueuedAnimationCleanup_00421070",
-      "symbol": "_QueuedAnimationCleanup_00421070@4",
+      "name": "QueuedAnimationCleanup",
+      "symbol": "_QueuedAnimationCleanup@4",
       "section": ".text$10cleanup",
       "address": "0x00421070",
       "size": 268,
       "actual_abi": "state stack argument; public stdcall RET4"
     },
     {
-      "name": "ReleaseAnimationHandles_00421300",
+      "name": "ReleaseAnimationHandles",
       "source": "src/game/mother/anm_handle_release.cpp",
-      "symbol": "_ReleaseAnimationHandles_00421300@4",
+      "symbol": "_ReleaseAnimationHandles@4",
       "section": ".text$30release",
       "address": "0x00421300",
       "size": 269,
@@ -38,7 +38,7 @@
     }
   ],
   "context": {
-    "symbol": "?QueuedCleanupCompilerContext_00421070@@YGHPAPAUQueuedAnmState_00421070@@H@Z",
+    "symbol": "?QueuedCleanupCompilerContext_00421070@@YGHPAPAUQueuedAnmState@@H@Z",
     "section": ".text$70context",
     "address": "0x00449220",
     "size": 48,
@@ -47,7 +47,7 @@
   "anchors": [
     {
       "name": "CleanupLookup",
-      "symbol": "?Find@QueuedCleanupManager_00421070@@QAIPAXPAUQueuedCleanupContext_00421070@@UQueuedCleanupScriptId_00421070@@@Z",
+      "symbol": "?Find@QueuedCleanupManager@@QAIPAXPAUQueuedCleanupContext@@UQueuedCleanupScriptId@@@Z",
       "section": ".text$50find",
       "address": "0x004491C0",
       "size": 73

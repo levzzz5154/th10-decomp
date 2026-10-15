@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "AnimationPairOwner_ReleaseAnimations_00404420",
-      "symbol": "?ReleaseAnimations@AnimationPairOwner_00404420@@QAEXXZ",
+      "symbol": "?ReleaseAnimations@AnimationPairOwner@@QAEXXZ",
       "section": ".text$00fn",
       "address": "0x00404420",
       "size": 47,
@@ -34,7 +34,7 @@
     }
   ],
   "context": {
-    "symbol": "?ReleaseAnimationsContext_00404420@@YGHPAUAnimationPairOwner_00404420@@H@Z",
+    "symbol": "?ReleaseAnimationsContext_00404420@@YGHPAUAnimationPairOwner@@H@Z",
     "section": ".text$06context",
     "address": "0x00449300",
     "size": 37,

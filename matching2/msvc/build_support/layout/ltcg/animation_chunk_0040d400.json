@@ -21,7 +21,7 @@
   "functions": [
     {
       "name": "ParseAnimationChunk",
-      "symbol": "?ParseAnimationChunk@ScriptFileChunkContext_0040d400@@UAEHPAD@Z",
+      "symbol": "?ParseAnimationChunk@ScriptFileChunkContext@@UAEHPAD@Z",
       "section": ".text$a01parser",
       "address": "0x0040D400",
       "size": 239,
@@ -29,10 +29,10 @@
     }
   ],
   "roots": [
-    "?ParseAnimationChunk@ScriptFileChunkContext_0040d400@@UAEHPAD@Z"
+    "?ParseAnimationChunk@ScriptFileChunkContext@@UAEHPAD@Z"
   ],
   "context": {
-    "symbol": "_LoadFrontAnm_00413b50",
+    "symbol": "_LoadFrontAnm",
     "section": ".text$a03front",
     "address": "0x00413B50",
     "size": 50,

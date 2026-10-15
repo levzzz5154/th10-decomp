@@ -1,7 +1,7 @@
 // Compiler context and ABI anchors only; none of these bytes enter the image.
 #include "../../../src/game/front/side_panel_contents_release_00414370.cpp"
 
-extern "C" SidePanel_00414370* g_front;
+extern "C" SidePanel* g_front;
 extern "C" void __cdecl SidePanelContentsBarrier(void* value);
 
 #pragma inline_depth(0)
@@ -37,22 +37,22 @@ void PanelResource_00414370::Release() {
 // The bodies of the lookup (0x004491C0), the flag setter (0x004492A0) and the
 // resource marker (0x004493E0).
 #pragma code_seg(".text$004491c0_fn")
-__declspec(noinline) PanelAnimationEntry_00414370* __fastcall PanelAnimation_Find_004491c0(
-        PanelAnimationManager_00414370* manager, PanelAnimationId_00414370 id) {
+__declspec(noinline) PanelAnimationEntry* __fastcall PanelAnimation_Find_004491c0(
+        PanelAnimationManager_00414370* manager, PanelAnimationId id) {
     if (!id.value)
         return 0;
-    for (PanelAnimationEntry_00414370* node = manager->primary; node != 0; node = node->next)
+    for (PanelAnimationEntry* node = manager->primary; node != 0; node = node->next)
         if (*(int*)node->object == id.value)
             return node->object;
-    for (PanelAnimationEntry_00414370* node = manager->secondary; node != 0; node = node->next)
+    for (PanelAnimationEntry* node = manager->secondary; node != 0; node = node->next)
         if (*(int*)node->object == id.value)
             return node->object;
     return 0;
 }
 #pragma code_seg(".text$004492a0_fn")
-__declspec(noinline) PanelAnimationEntry_00414370* __fastcall PanelAnimation_SetFlag_004492a0(
-        PanelAnimationManager_00414370* manager, PanelAnimationId_00414370 id) {
-    PanelAnimationEntry_00414370* entry = PanelAnimation_Find_004491c0(manager, id);
+__declspec(noinline) PanelAnimationEntry* __fastcall PanelAnimation_SetFlag_004492a0(
+        PanelAnimationManager_00414370* manager, PanelAnimationId id) {
+    PanelAnimationEntry* entry = PanelAnimation_Find_004491c0(manager, id);
     if (entry) {
         entry->flags |= 0x4000000;
         if (!entry->children_flagged)
@@ -63,18 +63,18 @@ __declspec(noinline) PanelAnimationEntry_00414370* __fastcall PanelAnimation_Set
 }
 #pragma code_seg(".text$004493e0_fn")
 __declspec(noinline) void PanelAnimationManager_00414370::MarkResourceForRemoval(void* resource) {
-    PanelAnimationEntry_00414370* node = primary;
+    PanelAnimationEntry* node = primary;
     while (node) {
-        PanelAnimationEntry_00414370* next = node->next;
-        PanelAnimationEntry_00414370* object = node->object;
+        PanelAnimationEntry* next = node->next;
+        PanelAnimationEntry* object = node->object;
         if (object->resource == resource)
             object->flags |= 0x04000000u;
         node = next;
     }
     node = secondary;
     while (node) {
-        PanelAnimationEntry_00414370* next = node->next;
-        PanelAnimationEntry_00414370* object = node->object;
+        PanelAnimationEntry* next = node->next;
+        PanelAnimationEntry* object = node->object;
         if (object->resource == resource)
             object->flags |= 0x04000000u;
         node = next;

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "name": "bullet_entity_release_resource_0040d680",
+  "name": "bullet_entity_release_resource",
   "source": "src/game/enemy/bullet_entity_release_resource_0040d680.cpp",
   "driver": "build_support/layout/ltcg/bullet_entity_release_resource_0040d680_context.cpp",
   "headers": [],

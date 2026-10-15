@@ -23,7 +23,7 @@ static __forceinline void CreatePrimaryBack(
 #pragma code_seg(".text$0040b070_fn")
 AnimationHandle_0040b070 __stdcall EffectSpawnView::SpawnEffect(
         void* argument, int kind) {
-    EffectKind_0040b070* entry = &g_effect_kinds[kind];
+    EffectKind* entry = &g_effect_kinds[kind];
     AnimationHandle_0040b070 created;
     CreatePrimaryBack(file, &created, entry->script, 15);
     AnimationNode_0040b070* node = g_sprt_ctrl->Find(created);
@@ -44,7 +44,7 @@ AnimationHandle_0040b070 __stdcall EffectSpawnView::SpawnEffect(
 #pragma code_seg(".text$0040b110_fn")
 AnimationHandle_0040b070 __stdcall SpawnEffectFromFile(
         int kind, AnimationBank* file, void* argument) {
-    EffectKind_0040b070* entry = &g_effect_kinds[kind];
+    EffectKind* entry = &g_effect_kinds[kind];
     AnimationHandle_0040b070 created;
     CreatePrimaryBack(file, &created, entry->script, 15);
     AnimationNode_0040b070* node = g_sprt_ctrl->Find(created);

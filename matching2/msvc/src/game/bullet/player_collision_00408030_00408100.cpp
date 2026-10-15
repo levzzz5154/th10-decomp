@@ -39,8 +39,8 @@ int PlayerCollisionRecord::Activate() {
 extern "C" void _ReadWriteBarrier();
 #pragma intrinsic(_ReadWriteBarrier)
 
-struct CollisionDisplacement_00408100 : Vec3 {
-    CollisionDisplacement_00408100(float px, float py, float pz) {
+struct CollisionDisplacement : Vec3 {
+    CollisionDisplacement(float px, float py, float pz) {
         x = px;
         y = py;
         z = pz;
@@ -58,7 +58,7 @@ int PlayerCollisionEngine::Check(const Vec3* point,
             // Materialize all three displacement components before evaluating
             // the X/Y circle. Retail retains the Z subtraction and each of
             // the three vector-copy operations.
-            Vec3 displacement = CollisionDisplacement_00408100(
+            Vec3 displacement = CollisionDisplacement(
                 record->position.x - point->x,
                 record->position.y - point->y,
                 record->position.z - point->z);

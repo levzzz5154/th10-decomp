@@ -65,7 +65,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_EnemyData_Start_0040dc80@4",
+      "symbol": "_EnemyData_Start@4",
       "address": "0x0040DC80",
       "kind": "relative_code"
     },

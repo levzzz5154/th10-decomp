@@ -95,7 +95,7 @@ extern "C" __declspec(noinline) int __stdcall Player_Update(Player* player) {
             Player_RefreshOptions(player);
             {
                 int power = g_globals.power;
-                reinterpret_cast<PowerDisplayOwner_004054b0*>(g_front)->SetPowerDigits(power / 20, (power % 20) * 100 / 20);
+                reinterpret_cast<PowerDisplayOwner*>(g_front)->SetPowerDigits(power / 20, (power % 20) * 100 / 20);
             }
             g_globals.AddWithMinimum(3000);
         }
@@ -123,7 +123,7 @@ extern "C" __declspec(noinline) int __stdcall Player_Update(Player* player) {
                 Player_RefreshOptions(player);
                 {
                 int power = g_globals.power;
-                reinterpret_cast<PowerDisplayOwner_004054b0*>(g_front)->SetPowerDigits(power / 20, (power % 20) * 100 / 20);
+                reinterpret_cast<PowerDisplayOwner*>(g_front)->SetPowerDigits(power / 20, (power % 20) * 100 / 20);
             }
                 player->state = PLAYER_ALIVE;
             }
@@ -135,7 +135,7 @@ extern "C" __declspec(noinline) int __stdcall Player_Update(Player* player) {
             if (g_globals.power < 0) g_globals.power = 0;
             {
                 int power = g_globals.power;
-                reinterpret_cast<PowerDisplayOwner_004054b0*>(g_front)->SetPowerDigits(power / 20, (power % 20) * 100 / 20);
+                reinterpret_cast<PowerDisplayOwner*>(g_front)->SetPowerDigits(power / 20, (power % 20) * 100 / 20);
             }
             Vec3 target = {0.0f, player->position.y - 224.0f, 0.0f};
             float angle = float(Player_AngleToPoint(player, &target));

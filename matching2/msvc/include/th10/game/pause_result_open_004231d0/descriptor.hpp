@@ -9,7 +9,7 @@ struct AnimationHandle_00424480 {
     unsigned int value;
 };
 
-struct AnimationSprite_00424480 {
+struct AnimationSprite {
     unsigned char reserved_00[0x08];
     float left;                          // +0x08
     float top;                           // +0x0C
@@ -22,12 +22,12 @@ struct AnimationObject_00424480 {
     unsigned char reserved_000[0x308];
     int* texture;                        // +0x308
     unsigned char reserved_30c[0x88];
-    AnimationSprite_00424480* sprite;     // +0x394
+    AnimationSprite* sprite;     // +0x394
 };
 
 // The descriptor passed to BindToAnimation is also the manager's leading
 // screen-region record in the real pause/result opening callers.
-struct SpriteRegion_00424480 {
+struct SpriteRegion {
     int reserved_00;
     int texture;                         // +0x04: negative while unbound
     int left;                            // +0x08
@@ -62,11 +62,11 @@ struct SpriteRegion_00424480 {
         int new_left, int new_top, int new_width, int new_height);
 };
 
-typedef char DescriptorSizeCheck[(sizeof(SpriteRegion_00424480) == 0x2C) ? 1 : -1];
-typedef char DescriptorTextureOffsetCheck[(offsetof(SpriteRegion_00424480, texture) == 4) ? 1 : -1];
+typedef char DescriptorSizeCheck[(sizeof(SpriteRegion) == 0x2C) ? 1 : -1];
+typedef char DescriptorTextureOffsetCheck[(offsetof(SpriteRegion, texture) == 4) ? 1 : -1];
 typedef char AnimationTextureOffsetCheck[(offsetof(AnimationObject_00424480, texture) == 0x308) ? 1 : -1];
 typedef char AnimationSpriteOffsetCheck[(offsetof(AnimationObject_00424480, sprite) == 0x394) ? 1 : -1];
-typedef char SpriteHeightOffsetCheck[(offsetof(AnimationSprite_00424480, height) == 0x30) ? 1 : -1];
-typedef char SpriteWidthOffsetCheck[(offsetof(AnimationSprite_00424480, width) == 0x34) ? 1 : -1];
+typedef char SpriteHeightOffsetCheck[(offsetof(AnimationSprite, height) == 0x30) ? 1 : -1];
+typedef char SpriteWidthOffsetCheck[(offsetof(AnimationSprite, width) == 0x34) ? 1 : -1];
 
 #endif

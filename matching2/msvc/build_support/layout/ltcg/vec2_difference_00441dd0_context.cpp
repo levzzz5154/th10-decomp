@@ -4,7 +4,7 @@
 #pragma code_seg(".text$03context")
 float __stdcall Ctx(Vec2_00441dd0** a, Vec2_00441dd0** b, int n) {
     float s = 0;
-    while (n--) s += Difference_00441dd0(*a++, *b++).x;
+    while (n--) s += Difference(*a++, *b++).x;
     return s;
 }
 #pragma code_seg()

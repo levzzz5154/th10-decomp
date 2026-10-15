@@ -5,7 +5,7 @@
 #include <string.h>
 #include "../../../build_support/include/contexts/game/right_aligned_text_context/recovery_script_executor_text_sibling_anchors.hpp"
 
-extern "C" int __cdecl recovery_vsprintf_004524a6(
+extern "C" int __cdecl recovery_vsprintf(
     char* buffer, const char* format, char* args);
 
 #pragma code_seg(".text$00447ae0_fn")
@@ -21,13 +21,13 @@ void __cdecl HintVm::FormatRightAligned(
     va_list color_home = args;
     (void)va_arg(args, unsigned int);
     const char* format = va_arg(args, const char*);
-    recovery_vsprintf_004524a6(buffer, format, args);
+    recovery_vsprintf(buffer, format, args);
     va_end(args);
     const unsigned int color = va_arg(color_home, unsigned int);
     va_end(color_home);
 
     const unsigned int length = static_cast<unsigned int>(strlen(buffer));
-    RecoveryTextResource_004479d0* text_resource = resource;
+    RecoveryTextResource* text_resource = resource;
     const unsigned int mode = (mode_flags >> 1) & 1;
     const unsigned int text_width = ((height - 1u) * length) >> 1;
     // Keep the unsigned width conversion: retail emits FILD plus a possible

@@ -11,7 +11,7 @@
   "functions": [
     {
       "name": "ecl_holder_resolve_float_00412a70",
-      "symbol": "?ResolveFloatDestination@EclHolder_00412a70@@QAEPAMH@Z",
+      "symbol": "?ResolveFloatDestination@EclHolder@@QAEPAMH@Z",
       "section": ".text$01_",
       "address": "0x00412A70",
       "size": 14,
@@ -19,7 +19,7 @@
     }
   ],
   "context": {
-    "symbol": "?Ctx@@YGMPAPAUEclHolder_00412a70@@H@Z",
+    "symbol": "?Ctx@@YGMPAPAUEclHolder@@H@Z",
     "section": ".text$zzcontext",
     "address": "0x004500F0",
     "size": 68,

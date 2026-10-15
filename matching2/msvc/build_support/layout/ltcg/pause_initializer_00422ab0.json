@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "name": "pause_initializer_00422ab0",
+  "name": "pause_initializer",
   "source": "src/game/ascii/entity_init.cpp",
   "driver": "build_support/layout/ltcg/pause_initializer_00422ab0_context.cpp",
   "included_sources": [
@@ -30,7 +30,7 @@
   "functions": [
     {
       "name": "Initializer",
-      "symbol": "_PauseMenu_Initialize_00422ab0@4",
+      "symbol": "_PauseMenu_Initialize@4",
       "section": ".text$06pause",
       "address": "0x422ab0",
       "size": 382,
@@ -71,7 +71,7 @@
     },
     {
       "name": "Descriptor",
-      "symbol": "?BindToAnimation@SpriteRegion_00424480@@QAEHUAnimationHandle_00424480@@HHHH@Z",
+      "symbol": "?BindToAnimation@SpriteRegion@@QAEHUAnimationHandle_00424480@@HHHH@Z",
       "section": ".text$07descriptor",
       "address": "0x424480",
       "size": 162
@@ -92,7 +92,7 @@
     },
     {
       "name": "Preserve",
-      "symbol": "?LoadScriptPreservingState_0043e7e0@@YGXPAUAnimationResource_0043e7e0@@PAUAnimationObject_0043e7e0@@H@Z",
+      "symbol": "?LoadScriptPreservingState@@YGXPAUAnimationResource_0043e7e0@@PAUAnimationObject_0043e7e0@@H@Z",
       "section": ".text$10preserve",
       "address": "0x43e7e0",
       "size": 194
@@ -297,12 +297,12 @@
       "kind": "data"
     },
     {
-      "symbol": "_PauseMenu_Update_00422c80@4",
+      "symbol": "_PauseMenu_Update@4",
       "address": "0x422c80",
       "kind": "relative_code"
     },
     {
-      "symbol": "_ReplayMenu_Update_004236f0@4",
+      "symbol": "_ReplayMenu_Update@4",
       "address": "0x4236f0",
       "kind": "relative_code"
     },
@@ -328,7 +328,7 @@
     }
   ],
   "roots": [
-    "_PauseMenu_Initialize_00422ab0@4"
+    "_PauseMenu_Initialize@4"
   ],
   "description": "Complete original pause initializer and actual scheduler caller; complete true support bodies. Only the382-byte initializer is selected. No fake argument, volatile/barrier, additional assembly, masking or oracle construction.",
   "additional_sources": [],

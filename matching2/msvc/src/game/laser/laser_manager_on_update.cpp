@@ -20,13 +20,13 @@
 // Retail reaches the body with the records object in ECX and hands it to
 // 0x0041C330 in EDI; EDI is not the parameter register of any declaration, so
 // the body is compiled in the native-LTCG cluster
-// build_support/layout/ltcg/score_records_advance_frame_0041c480.json together with that
+// build_support/layout/ltcg/score_records_advance_frame.json together with that
 // callee (src/game/laser/laser_manager_update_lasers.cpp).
 #include <stddef.h>
 
 // The frame state at g_game; only the flag word this region reads is
 // described.
-struct FrameFlagBits_0041c480 {
+struct FrameFlagBits {
     unsigned int paused:1;              // bit 0
     unsigned int frozen:1;              // bit 1
     unsigned int idle:1;                // bit 2
@@ -37,7 +37,7 @@ struct FrameFlagBits_0041c480 {
 
 struct FrameState_0041c480 {
     unsigned char pad_00[0x58];
-    FrameFlagBits_0041c480 flags_58;    // +0x58
+    FrameFlagBits flags_58;    // +0x58
 };
 
 #include "th10/game/laser_list.hpp"

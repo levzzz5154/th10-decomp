@@ -12,7 +12,7 @@ struct Vector3_00404e70 {
         : x(x_value), y(y_value), z(z_value) {}
 };
 
-struct VectorScale_00404e70 {
+struct VectorScale {
     float x;
     float y;
     float z;
@@ -21,7 +21,7 @@ struct VectorScale_00404e70 {
 };
 
 #pragma code_seg(".text$01scale")
-Vector3_00404e70 VectorScale_00404e70::Scale(float value) const {
+Vector3_00404e70 VectorScale::Scale(float value) const {
     return Vector3_00404e70(x * value, y * value, z * value);
 }
 #pragma code_seg()

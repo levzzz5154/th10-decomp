@@ -41,22 +41,22 @@ extern "C" {
     extern float flt_0_99, flt_1_01, flt_1;
 }
 // These declarations describe logical inputs, not promises about retail ABI.
-__declspec(noinline) DemoFile* __stdcall TitleLoadDemo_004296f0(const char* path);
-__declspec(noinline) void __stdcall TitleReleaseDemo_004294a0(DemoFile* file);
-__declspec(noinline) void __stdcall TitleSetMusicFile_00420a90(int slot, const char* path);
-__declspec(noinline) void __stdcall TitlePlayMusic_00420b10(int first, int second);
-__declspec(noinline) void TitleDispatchGame_00420c00();
-__declspec(noinline) int __stdcall TitleMainMenu_0042d420(Title* room);
-__declspec(noinline) int __stdcall TitleOptions_0042d920(Title* room);
-__declspec(noinline) int __stdcall TitleMenuFlow_0042f540(Title* room);
-__declspec(noinline) int __stdcall TitleMode6_00430320(Title* room);
-__declspec(noinline) int __stdcall TitleMode7_004306a0(Title* room);
-__declspec(noinline) int __stdcall TitleMode8_00430a60(Title* room);
-__declspec(noinline) int __stdcall TitleMode9_00430ff0(Title* room);
-__declspec(noinline) int __stdcall TitleMode11_00431ee0(Title* room);
-__declspec(noinline) int __stdcall TitleMode12_004315c0(Title* room);
-__declspec(noinline) int __stdcall TitleNameEntry_00432cb0(Title* room);
-__declspec(noinline) int __stdcall TitleMode16_00433570(Title* room);
+__declspec(noinline) DemoFile* __stdcall TitleLoadDemo(const char* path);
+__declspec(noinline) void __stdcall TitleReleaseDemo(DemoFile* file);
+__declspec(noinline) void __stdcall TitleSetMusicFile(int slot, const char* path);
+__declspec(noinline) void __stdcall TitlePlayMusic(int first, int second);
+__declspec(noinline) void TitleDispatchGame();
+__declspec(noinline) int __stdcall TitleMainMenu(Title* room);
+__declspec(noinline) int __stdcall TitleOptions(Title* room);
+__declspec(noinline) int __stdcall TitleMenuFlow(Title* room);
+__declspec(noinline) int __stdcall TitleMode6(Title* room);
+__declspec(noinline) int __stdcall TitleMode7(Title* room);
+__declspec(noinline) int __stdcall TitleMode8(Title* room);
+__declspec(noinline) int __stdcall TitleMode9(Title* room);
+__declspec(noinline) int __stdcall TitleMode11(Title* room);
+__declspec(noinline) int __stdcall TitleMode12(Title* room);
+__declspec(noinline) int __stdcall TitleNameEntry(Title* room);
+__declspec(noinline) int __stdcall TitleMode16(Title* room);
 
 static __forceinline void SetSelection(MenuCursor* cursor, int requested) {
     int count = cursor->item_count;
@@ -84,7 +84,7 @@ __declspec(noinline) int __stdcall Title_DispatchUpdate(
             const char* source = g_title_demo_paths[g_title_demo_index];
             char* destination = g_replay_path;
             do { *destination++ = *source; } while (*source++ != '\0');
-            DemoFile* file = TitleLoadDemo_004296f0(g_replay_path);
+            DemoFile* file = TitleLoadDemo(g_replay_path);
             g_title_demo_index = (g_title_demo_index + 1) % 4;
             int stage = 0;
             while (stage < 8 && file->stages[stage].present == 0)
@@ -98,7 +98,7 @@ __declspec(noinline) int __stdcall Title_DispatchUpdate(
             g_globals_shot_type = header->shot;
             g_menu_difficulty_saved = g_globals_difficulty;
             g_globals_difficulty = header->difficulty;
-            TitleReleaseDemo_004294a0(file);
+            TitleReleaseDemo(file);
             free(file);
             g_title_idle_frames = 0;
             g_main_mode_request = title->mode != 1;
@@ -127,12 +127,12 @@ __declspec(noinline) int __stdcall Title_DispatchUpdate(
             room->SetSlotFrame(91, 9);
             g_main_mode_request = 1;
             MarkTitleCallback(room);
-            TitleNameEntry_00432cb0(room);
+            TitleNameEntry(room);
             break;
         }
         if ((g_globals_flags & 0x20) == 0) {
-            TitleSetMusicFile_00420a90(0, "bgm/th10_02.wav");
-            TitlePlayMusic_00420b10(0, 0);
+            TitleSetMusicFile(0, "bgm/th10_02.wav");
+            TitlePlayMusic(0, 0);
             transition = g_main_mode_request;
         } else {
             g_globals_difficulty = g_menu_difficulty_saved;
@@ -147,7 +147,7 @@ __declspec(noinline) int __stdcall Title_DispatchUpdate(
             room->DisableTimerWithOwner(2);
             RecoveryMusicInstallSlot(room, 91);
             MarkTitleCallback(room);
-            TitleMainMenu_0042d420(room);
+            TitleMainMenu(room);
             break;
         } else if (transition == 2) {
             room->cursor.item_count = 10;
@@ -158,29 +158,29 @@ __declspec(noinline) int __stdcall Title_DispatchUpdate(
             room->SetSlotFrame(91, 9);
             g_main_mode_request = 1;
             MarkTitleCallback(room);
-            TitleMode12_004315c0(room);
+            TitleMode12(room);
             break;
         }
         EndingScreen_Update_0042d300(room);
         break;
     }
     case 1: EndingScreen_Update_0042d300(room); break;
-    case 2: MarkTitleCallback(room); TitleMainMenu_0042d420(room); break;
+    case 2: MarkTitleCallback(room); TitleMainMenu(room); break;
     case 3:
         g_main_state = (~(g_app_flags >> 12) & 1) | 2;
         // The same launch path serves modes 3, 10, and 13.
-    case 10: case 13: TitleDispatchGame_00420c00(); break;
-    case 4: TitleOptions_0042d920(room); break;
-    case 5: TitleMenuFlow_0042f540(room); break;
-    case 6: TitleMode6_00430320(room); break;
-    case 7: TitleMode7_004306a0(room); break;
-    case 8: TitleMode8_00430a60(room); break;
-    case 9: TitleMode9_00430ff0(room); break;
-    case 11: TitleMode11_00431ee0(room); break;
-    case 12: TitleMode12_004315c0(room); break;
+    case 10: case 13: TitleDispatchGame(); break;
+    case 4: TitleOptions(room); break;
+    case 5: TitleMenuFlow(room); break;
+    case 6: TitleMode6(room); break;
+    case 7: TitleMode7(room); break;
+    case 8: TitleMode8(room); break;
+    case 9: TitleMode9(room); break;
+    case 11: TitleMode11(room); break;
+    case 12: TitleMode12(room); break;
     case 14: Title_UpdateMusicRoom(room); break;
-    case 15: TitleNameEntry_00432cb0(room); break;
-    case 16: TitleMode16_00433570(room); break;
+    case 15: TitleNameEntry(room); break;
+    case 16: TitleMode16(room); break;
     }
     room->timer.previous = room->timer.current;
     if (flt_0_99 < *room->timer.speed && *room->timer.speed < flt_1_01) {

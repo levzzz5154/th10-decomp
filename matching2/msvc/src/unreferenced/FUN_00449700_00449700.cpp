@@ -52,12 +52,12 @@ struct Texture_00449700 {
     virtual long __stdcall GetLevelDesc(unsigned int level, SurfaceDesc_00449700* desc) = 0;
     virtual long __stdcall GetSurfaceLevel(unsigned int level, Surface_00449700** surface) = 0;
 };
-struct TextureHolder_00449700 {
+struct TextureHolder {
     Texture_00449700* texture;
 };
 
 #pragma code_seg(".text$01accessor")
-__declspec(noinline) void __stdcall ClearTexture_00449700(TextureHolder_00449700* holder) {
+__declspec(noinline) void __stdcall ClearTexture(TextureHolder* holder) {
     Surface_00449700* surface;
     LockedRect_00449700 locked;
     SurfaceDesc_00449700 desc;

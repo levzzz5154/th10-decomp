@@ -10,8 +10,8 @@ extern "C" int __stdcall LaserSpawnContext(const int* kinds, const float* angles
     for (int index = 0; index < count; ++index) {
         struct { float values[16]; } parameters;
         parameters.values[0] = angles[index];
-        total += reinterpret_cast<LaserSpawnParameters_0041c510*>(&parameters)->SpawnIn(g_laser_manager, kinds[index]);
-        total += reinterpret_cast<LaserSpawnParameters_0041c510*>(&parameters)->SpawnIn(g_laser_manager, 1);
+        total += reinterpret_cast<LaserSpawnParameters*>(&parameters)->SpawnIn(g_laser_manager, kinds[index]);
+        total += reinterpret_cast<LaserSpawnParameters*>(&parameters)->SpawnIn(g_laser_manager, 1);
     }
     return total;
 }

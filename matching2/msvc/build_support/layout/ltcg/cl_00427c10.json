@@ -8,8 +8,8 @@
   "description": "Region compiled with native LTCG so its entry registers are retail's.",
   "functions": [
     {
-      "name": "ScaleToHundredths_00427c10",
-      "symbol": "?ScaleToHundredths_00427c10@@YGXPAUIntPair_00427c10@@PBUFloatPair_00427c10@@@Z",
+      "name": "ScaleToHundredths",
+      "symbol": "?ScaleToHundredths@@YGXPAUIntPair_00427c10@@PBUFloatPair@@@Z",
       "section": ".text$01scale",
       "address": "0x00427C10",
       "size": 33,
@@ -18,7 +18,7 @@
     }
   ],
   "context": {
-    "symbol": "?ScaleContext_00427c10@@YGHPAUIntPair_00427c10@@PBUFloatPair_00427c10@@H@Z",
+    "symbol": "?ScaleContext_00427c10@@YGHPAUIntPair_00427c10@@PBUFloatPair@@H@Z",
     "section": ".text$03context",
     "address": "0x00427C40",
     "size": 41,

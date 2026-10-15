@@ -7,7 +7,7 @@
 #include "th10/game/game_thread_queue_native.hpp"
 
 // One high score table row.
-struct ScoreEntry_004329f0 {
+struct ScoreEntry {
     int score;                           // +0x00
     char stage;                          // +0x04
     char continues;                      // +0x05
@@ -16,7 +16,7 @@ struct ScoreEntry_004329f0 {
     float slowdown;                      // +0x14
 };
 
-struct PracticeRecord_00431410 {
+struct PracticeRecord {
     int best_score;                      // +0x00
     unsigned char pad_04;
     unsigned char unlocked;              // +0x05
@@ -26,16 +26,16 @@ struct PracticeRecord_00431410 {
 // The score file's per-character block.
 struct ScoreTable_004329f0 {
     unsigned char pad_00[0x10];
-    ScoreEntry_004329f0 rows[5][10];     // +0x10
+    ScoreEntry rows[5][10];     // +0x10
 };
 
-struct ScoreCharacter_00431410 {
+struct ScoreCharacter {
     unsigned char pad_000[0x08];
     ScoreTable_004329f0 table;           // +0x008
     int play_count;                      // +0x4C8
     int play_time;                       // +0x4CC, in frames
     int clear_count[5];                  // +0x4D0
-    PracticeRecord_00431410 practice[1]; // +0x4E4: six per difficulty
+    PracticeRecord practice[1]; // +0x4E4: six per difficulty
     unsigned char pad_4EC[0x437C - 0x4EC];
 };
 
@@ -70,7 +70,7 @@ struct ReplayStage_00431ba0 {
     int value_1b4;                       // +0x1B4
 };
 
-struct ReplayStageSlot_00431ba0 {
+struct ReplayStageSlot {
     ReplayStage_00431ba0* data;          // +0x00
     unsigned char pad_04[0x20];
 };
@@ -79,7 +79,7 @@ struct ReplayFile_00431ba0 {
     unsigned char pad_00[0x18];
     ReplayHeader_00431ba0* header;       // +0x18
     unsigned char pad_1C[0xB0 - 0x1C];
-    ReplayStageSlot_00431ba0 stages[8];  // +0xB0, indexed by stage number
+    ReplayStageSlot stages[8];  // +0xB0, indexed by stage number
 };
 
 struct TitleDrawView {
@@ -118,7 +118,7 @@ struct TitleDrawView {
 extern "C" {
 extern GameThread_00401530* g_ascii_manager;
 extern GameSelection_00431410 g_globals_character;
-extern ScoreCharacter_00431410* g_score;
+extern ScoreCharacter* g_score;
 extern ReplayFile_00431ba0* g_replay;  // the replay just played
 extern const char* g_name_entry_grid;        // the name entry character grid
 extern const char* g_stage_names_long[];      // "test", "Stage 1" .. "Stage 6", "Extra"
@@ -127,8 +127,8 @@ extern const char* g_difficulty_names[];      // "Easy" .. "Extra"
 extern const char* g_stage_names_short[];      // "tst", "St1" .. "Ex", "All", "ExA"
 }
 
-typedef char ScoreEntry_size[sizeof(ScoreEntry_004329f0) == 0x18 ? 1 : -1];
-typedef char ScoreCharacter_practice[offsetof(ScoreCharacter_00431410, practice) == 0x4E4 ? 1 : -1];
-typedef char ScoreCharacter_size[sizeof(ScoreCharacter_00431410) == 0x437C ? 1 : -1];
+typedef char ScoreEntry_size[sizeof(ScoreEntry) == 0x18 ? 1 : -1];
+typedef char ScoreCharacter_practice[offsetof(ScoreCharacter, practice) == 0x4E4 ? 1 : -1];
+typedef char ScoreCharacter_size[sizeof(ScoreCharacter) == 0x437C ? 1 : -1];
 
 #endif

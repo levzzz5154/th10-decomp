@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "0PoolBlockOwner_00428f30_00428f30",
-      "symbol": "??0PoolBlockOwner_00428f30@@QAE@XZ",
+      "symbol": "??0PoolBlockOwner@@QAE@XZ",
       "section": ".text$01fn",
       "address": "0x00428F30",
       "size": 42,
@@ -18,7 +18,7 @@
     }
   ],
   "context": {
-    "symbol": "?PoolBlockOwnerContext_00428f30@@YGHPAUPoolBlockOwner_00428f30@@H@Z",
+    "symbol": "?PoolBlockOwnerContext_00428f30@@YGHPAUPoolBlockOwner@@H@Z",
     "section": ".text$03context",
     "address": "0x00428F60",
     "size": 41,

@@ -4,7 +4,7 @@
 extern "C" unsigned char g_score_blank_string[];
 extern "C" unsigned char g_rng[4], g_rng_generation[4];
 #pragma code_seg(".text$01b")
-extern "C" void __stdcall Recovery_InitializeRandomTable_0042add0(char* table) {
+extern "C" void __stdcall Recovery_InitializeRandomTable(char* table) {
     memset(table, 0, 0x448);
     *(unsigned short*)(table + 2) = 0;
     *(unsigned short*)table = 0x5453;

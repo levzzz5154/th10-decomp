@@ -4,12 +4,12 @@
 #include <stddef.h>
 #include "th10/game/scheduler_remove_locked.hpp"
 
-struct ChainNode_00419040 {
+struct ChainNode {
     void* block;
-    ChainNode_00419040* next;
+    ChainNode* next;
 };
 struct Bucket_00419040 {
-    ChainNode_00419040* head;
+    ChainNode* head;
     unsigned int reserved_004[2];
 };
 struct Manager_00419040 {

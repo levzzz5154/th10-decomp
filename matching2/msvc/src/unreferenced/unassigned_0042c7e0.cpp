@@ -1,7 +1,7 @@
 // 0x0042C7E0..0x0042C7F9: test whether an indexed animation slot resolves.
 // Native LTCG places the table in EAX and the slot index in ECX, then keeps
 // SprtCtrl::Find's private EDX/context plus stack-id call setup.
-struct AnimationTable_0042c7e0 {
+struct AnimationTable {
     unsigned char reserved_000[0x2C4];
     void* slots[1];
 };
@@ -20,8 +20,8 @@ extern "C" AnimationLookupContext* g_sprt_ctrl;
 #pragma code_seg(".text$05has")
 // Reverse the source-only formal order to make MSVC encode the commutative
 // table-plus-index address with table in EAX and index in ECX, as retail.
-extern "C" __declspec(noinline) int AnimationTable_HasSlot_0042c7e0(
-        int index, AnimationTable_0042c7e0* table) {
+extern "C" __declspec(noinline) int AnimationTable_HasSlot(
+        int index, AnimationTable* table) {
     return reinterpret_cast<SprtCtrl*>(g_sprt_ctrl)
                ->Find(g_sprt_ctrl,
                       *reinterpret_cast<AnimationScriptId*>(

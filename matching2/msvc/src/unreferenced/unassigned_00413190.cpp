@@ -4,9 +4,9 @@
 
 #include <string.h>
 
-__declspec(noinline) void ClearBlock_00413190(void* block);
+__declspec(noinline) void ClearBlock(void* block);
 #pragma code_seg(".text$01accessor")
-void ClearBlock_00413190(void* block) {
+void ClearBlock(void* block) {
     memset(block, 0, 44);
 }
 #pragma code_seg()

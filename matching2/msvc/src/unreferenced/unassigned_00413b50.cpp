@@ -14,7 +14,7 @@ extern "C" void *__fastcall Recovery_LoadCachedResource(
 extern "C" void *g_sprt_ctrl;
 
 #pragma code_seg(".text$00d_clload")
-extern "C" __declspec(noinline) int __cdecl LoadFrontAnm_00413b50() {
+extern "C" __declspec(noinline) int __cdecl LoadFrontAnm() {
     if (!Recovery_LoadCachedResource(
             6, g_sprt_ctrl, (const char *)0x0046D254)) {
         ((TextLog_0044b810 *)0x00474F70)->Append((char *)0x0046CB68);

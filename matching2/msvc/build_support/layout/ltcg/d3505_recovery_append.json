@@ -5,11 +5,11 @@
   "driver": "build_support/layout/ltcg/d3505_recovery_append_context.cpp",
   "headers": [],
   "image_base": "0x00400000",
-  "description": "RecoveryNode_0041ab10::Append compiled with native LTCG so the private EAX/EDX pair is selected.",
+  "description": "RecoveryNode::Append compiled with native LTCG so the private EAX/EDX pair is selected.",
   "functions": [
     {
-      "name": "RecoveryNode_0041ab10::Append",
-      "symbol": "?Append@RecoveryNode_0041ab10@@QAEXPAU1@@Z",
+      "name": "RecoveryNode::Append",
+      "symbol": "?Append@RecoveryNode@@QAEXPAU1@@Z",
       "section": ".text$01accessor",
       "address": "0x0041AB10",
       "size": 52,
@@ -17,7 +17,7 @@
     }
   ],
   "context": {
-    "symbol": "?RecoveryAppendCompilerContext@@YGHPAPAURecoveryNode_0041ab10@@0H@Z",
+    "symbol": "?RecoveryAppendCompilerContext@@YGHPAPAURecoveryNode@@0H@Z",
     "section": ".text$03context",
     "address": "0x0041AB60",
     "size": 45,

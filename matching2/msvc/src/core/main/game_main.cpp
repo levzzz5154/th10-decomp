@@ -46,12 +46,12 @@ __declspec(dllimport) int __stdcall SystemParametersInfoA(unsigned int action,
 void __cdecl free(void* block);
 int __stdcall asm_WINNLSEnableIME_0045232c(void* window, int enable);
 void* __stdcall Direct3DCreate9_00452176(unsigned int sdk_version);
-int __cdecl Startup_InstanceCheck_00439ff0();
+int __cdecl Startup_InstanceCheck();
 int __stdcall asm_FUN_00439890_00439890();          // create the Direct3D device
 double __cdecl FrameTimer_GetDelta(void);
-int __stdcall App_RegisterTasks_00420470();
-int __stdcall ShutdownMidi_0043ae20(MidiSequencer* sequencer);
-void __stdcall CleanupMidi_0043a910(MidiSequencer* sequencer);
+int __stdcall App_RegisterTasks();
+int __stdcall ShutdownMidi(MidiSequencer* sequencer);
+void __stdcall CleanupMidi(MidiSequencer* sequencer);
 
 // Log lines (Shift-JIS).
 extern char str_log_header[];    // "Touhou action log ------ ..."
@@ -67,8 +67,8 @@ int __stdcall StartupDialog_Procedure(void* dialog, unsigned int message,
 void __stdcall Sound_InitThread();                       // the sound thread
 short __stdcall Joystick_Probe_0044a0c0();
 void __stdcall Input_NormalizeKeyboardState();
-int __stdcall GameFrameAdvance_00439390(GameFrame_00439390* frame);
-void __stdcall ReleaseAll_00438a30(Holder_00438a30* holder);
+int __stdcall GameFrameAdvance(GameFrame* frame);
+void __stdcall ReleaseAll(Holder_00438a30* holder);
 extern "C" SprtCtrlStateCacheView* __cdecl Renderer_ApplyDeviceDefaults(void);
 
 int __fastcall CreateGameWindow_00439730(void* instance);
@@ -89,23 +89,23 @@ struct FuncCtrlInitializeView {
     unsigned char lists[0x48];
     __declspec(noinline) void Initialize();
 };
-struct AnimationManagerStorage_00446220 {
-    __declspec(noinline) ~AnimationManagerStorage_00446220();
+struct AnimationManagerStorage {
+    __declspec(noinline) ~AnimationManagerStorage();
 };
 // The animation manager: built by 0x00445900, torn down by 0x00446220.
 struct SprtCtrl {
     unsigned char storage[0x732460];
     SprtCtrl();
     ~SprtCtrl() {
-        reinterpret_cast<AnimationManagerStorage_00446220*>(this)->
-            ~AnimationManagerStorage_00446220();
+        reinterpret_cast<AnimationManagerStorage*>(this)->
+            ~AnimationManagerStorage();
     }
 };
 typedef SprtCtrl AnimationManager_00438ad0;
 struct App_00420270 {
     __declspec(noinline) int Shutdown();
 };
-struct SoundWorkerPair_0043cc40 {
+struct SoundWorkerPair {
     __declspec(noinline) int Stop();
 };
 struct WaveSoundManager {
@@ -114,15 +114,15 @@ struct WaveSoundManager {
 };
 
 // The table of loaded replays: 0x2800 entries and whether any is in use.
-struct ReplayTable_00438ad0 {
+struct ReplayTable {
     void* entries[0x2800];
     int in_use;
 
-    ReplayTable_00438ad0() {
+    ReplayTable() {
         memset(this, 0, sizeof(*this));
         in_use = 0;
     }
-    ~ReplayTable_00438ad0() {
+    ~ReplayTable() {
         if (in_use != 0) {
             for (int index = 0; index < 0x2800; ++index) {
                 if (entries[index] != 0)
@@ -132,19 +132,19 @@ struct ReplayTable_00438ad0 {
     }
 };
 
-struct D3DResourceManager_00438ad0 {
+struct D3DResourceManager {
     unsigned char lists[0x48];
-    D3DResourceManager_00438ad0() {
+    D3DResourceManager() {
         reinterpret_cast<FuncCtrlInitializeView*>(this)->Initialize();
     }
-    ~D3DResourceManager_00438ad0() {
+    ~D3DResourceManager() {
         reinterpret_cast<FuncCtrlDestroyView*>(this)->
             ~FuncCtrlDestroyView();
     }
 };
 
-struct MidiOwner_00438ad0 {
-    ~MidiOwner_00438ad0() { CleanupMidi_0043a910(reinterpret_cast<MidiSequencer*>(this)); }
+struct MidiOwner {
+    ~MidiOwner() { CleanupMidi(reinterpret_cast<MidiSequencer*>(this)); }
 };
 
 // The sound manager at 0x00492590, as far as start-up reaches it.
@@ -166,15 +166,15 @@ struct SoundManager_00438ad0 {
     }
     void Stop() {
         stop_stage = 2;
-        reinterpret_cast<SoundWorkerPair_0043cc40*>(this)->Stop();
+        reinterpret_cast<SoundWorkerPair*>(this)->Stop();
         reinterpret_cast<WaveSoundManager*>(this)->Cleanup();
     }
 };
-typedef char SoundManagerSize_00438ad0[sizeof(SoundManager_00438ad0) == 0x52D0 ? 1 : -1];
+typedef char SoundManagerSize[sizeof(SoundManager_00438ad0) == 0x52D0 ? 1 : -1];
 
 extern "C" {
-extern ReplayTable_00438ad0* g_replay_table;
-extern D3DResourceManager_00438ad0* g_func_ctrl;
+extern ReplayTable* g_replay_table;
+extern D3DResourceManager* g_func_ctrl;
 extern AnimationManager_00438ad0* g_sprt_ctrl;
 extern Application g_application;
 extern MainWindow g_main_window;
@@ -197,13 +197,13 @@ __declspec(noinline) int __stdcall GameMain_00438ad0(
     CriticalSection* section;
 
     g_main_window.instance = instance;
-    ReplayTable_00438ad0* replays = new ReplayTable_00438ad0;
+    ReplayTable* replays = new ReplayTable;
     g_replay_table = replays;
     for (section = g_thread_sync.critical_sections, index = 7; index != 0; --index, ++section)
         InitializeCriticalSection(section);
     g_log.Append(str_log_header);
 
-    if (Startup_InstanceCheck_00439ff0() == -1)
+    if (Startup_InstanceCheck() == -1)
         goto close_pass;
     g_application.instance = instance;
     SaveSystemSettingsRetail_004392e0();
@@ -217,7 +217,7 @@ __declspec(noinline) int __stdcall GameMain_00438ad0(
     ComputeExecutableChecksum();
 
     for (;;) {
-        D3DResourceManager_00438ad0* resources = new D3DResourceManager_00438ad0;
+        D3DResourceManager* resources = new D3DResourceManager;
         g_func_ctrl = resources;
         g_application.direct3d = static_cast<Direct3D*>(Direct3DCreate9_00452176(0x20));
         if (g_application.direct3d == 0) {
@@ -243,7 +243,7 @@ __declspec(noinline) int __stdcall GameMain_00438ad0(
             g_main_window.frame_time = g_main_window.previous_time = FrameTimer_GetDelta();
         SetForegroundWindow(g_main_window.window);
 
-        exit_code = App_RegisterTasks_00420470();
+        exit_code = App_RegisterTasks();
         if (exit_code != 0) {
             if (exit_code != -1)
                 exit_code = 2;
@@ -257,14 +257,14 @@ __declspec(noinline) int __stdcall GameMain_00438ad0(
                 }
                 long state = g_application.device->TestCooperativeLevel();
                 if (state == 0) {
-                    exit_code = GameFrameAdvance_00439390(
-                        reinterpret_cast<GameFrame_00439390*>(&g_main_window));
+                    exit_code = GameFrameAdvance(
+                        reinterpret_cast<GameFrame*>(&g_main_window));
                     if (exit_code != 0)
                         break;
                     g_application.flags &= ~0x10u;
                 } else if (state == 0x88760869) {
                     // D3DERR_DEVICENOTRESET
-                    ReleaseAll_00438a30(reinterpret_cast<Holder_00438a30*>(g_sprt_ctrl));
+                    ReleaseAll(reinterpret_cast<Holder_00438a30*>(g_sprt_ctrl));
                     if (g_application.device->Reset(&g_application.present_parameters) != 0)
                         break;
                     Renderer_ApplyDeviceDefaults();
@@ -319,7 +319,7 @@ close_pass:
 
     File_WriteWholeFile("th10.cfg", &g_application.config, 0x34);
     if (g_application.midi != 0) {
-        ShutdownMidi_0043ae20(reinterpret_cast<MidiSequencer*>(g_application.midi));
+        ShutdownMidi(reinterpret_cast<MidiSequencer*>(g_application.midi));
         delete g_application.midi;
         g_application.midi = 0;
     }

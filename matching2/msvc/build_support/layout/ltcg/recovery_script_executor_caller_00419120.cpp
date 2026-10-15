@@ -2,7 +2,7 @@
 
 extern "C" void* g_sprt_ctrl;
 extern "C" void* g_ascii_manager;
-extern "C" int recovery_indicator_owner_00474c84;
+extern "C" int recovery_indicator_owner;
 extern "C" float recovery_indicator_eight_00470bd0;
 extern "C" float recovery_indicator_one_00470afc;
 extern "C" float recovery_indicator_two_00470b08;
@@ -10,13 +10,13 @@ extern "C" float recovery_indicator_fifteen_00470c08;
 extern "C" float recovery_indicator_three_halves_00470ca8;
 extern "C" float recovery_indicator_half_00470b0c;
 extern "C" float recovery_indicator_three_quarters_00470ce4;
-extern "C" void __cdecl recovery_indicator_free_004524a1(void* object);
+extern "C" void __cdecl recovery_indicator_free(void* object);
 
-struct HintThread_00419120 {
+struct HintThread {
     unsigned char reserved_000[0x899C];
     void* resource;
 };
-struct HintScalePair_00419120 {
+struct HintScalePair {
     float x;
     float y;
 };
@@ -27,11 +27,11 @@ static inline HintVm* FindIndicatorInline(
         return 0;
     RecoveryLookupContext* context =
         static_cast<RecoveryLookupContext*>(manager);
-    for (RecoveryLookupNode_0040bd80* node = context->primary;
+    for (RecoveryLookupNode* node = context->primary;
          node != 0; node = node->next)
         if (*reinterpret_cast<unsigned int*>(node->object) == id)
             return reinterpret_cast<HintVm*>(node->object);
-    for (RecoveryLookupNode_0040bd80* node = context->secondary;
+    for (RecoveryLookupNode* node = context->secondary;
          node != 0; node = node->next)
         if (*reinterpret_cast<unsigned int*>(node->object) == id)
             return reinterpret_cast<HintVm*>(node->object);
@@ -39,15 +39,15 @@ static inline HintVm* FindIndicatorInline(
 }
 
 #pragma code_seg(".text$00419120_fn")
-int HintLink_00419120::Drain(
+int HintLink::Drain(
         HintUpdateView* state, int release) {
-    HintLink_00419120* current = this;
+    HintLink* current = this;
     void* manager = g_sprt_ctrl;
     while (current != 0) {
-        HintLink_00419120* next = current->next;
-        HintEntry_00419120* entry = current->object;
+        HintLink* next = current->next;
+        HintEntry* entry = current->object;
         if (entry->owner_tag == 0 ||
-            entry->owner_tag == recovery_indicator_owner_00474c84)
+            entry->owner_tag == recovery_indicator_owner)
             --entry->countdown;
         if (entry->countdown > 0) {
             current = next;
@@ -60,7 +60,7 @@ int HintLink_00419120::Drain(
         if (old_vm != 0) {
             old_vm->flags |= 0x04000000u;
             if (!old_vm->children_flagged)
-                for (HintVmLink_00419120* child = old_vm->children;
+                for (HintVmLink* child = old_vm->children;
                      child != 0; child = child->next)
                     child->object->flags |= 0x04000000u;
         }
@@ -71,8 +71,8 @@ int HintLink_00419120::Drain(
         if (entry->intensity <= recovery_indicator_one_00470afc) {
             void* result;
             state->handles[state->slot] = reinterpret_cast<unsigned int>(
-                *RecoveryPlayerAnimationCreate_00448db0(
-                    static_cast<HintThread_00419120*>(g_ascii_manager)->resource,
+                *RecoveryPlayerAnimationCreate(
+                    static_cast<HintThread*>(g_ascii_manager)->resource,
                     &result, state->slot + 2, &entry->position));
             manager = g_sprt_ctrl;
             unsigned int* handle = &state->handles[state->slot];
@@ -81,25 +81,25 @@ int HintLink_00419120::Drain(
                 *handle = 0;
             vm->font_width = 15;
             vm->font_height = 15;
-            HintScalePair_00419120 source = {
+            HintScalePair source = {
                 entry->intensity, entry->intensity
             };
-            HintScalePair_00419120 destination = {
+            HintScalePair destination = {
                 entry->intensity * recovery_indicator_three_halves_00470ca8, 0.0f
             };
-            reinterpret_cast<EntityMovementSlot_0041ab70*>(vm)->Initialise(
-                reinterpret_cast<const MovementPair_0041ab70*>(&destination),
-                reinterpret_cast<const MovementPair_0041ab70*>(&source), 8, 4);
+            reinterpret_cast<EntityMovementSlot*>(vm)->Initialise(
+                reinterpret_cast<const MovementPair*>(&destination),
+                reinterpret_cast<const MovementPair*>(&source), 8, 4);
         } else if (entry->intensity <= recovery_indicator_two_00470b08) {
             void* result;
             state->handles[state->slot] = reinterpret_cast<unsigned int>(
-                *RecoveryPlayerAnimationCreate_00448db0(
-                    static_cast<HintThread_00419120*>(g_ascii_manager)->resource,
+                *RecoveryPlayerAnimationCreate(
+                    static_cast<HintThread*>(g_ascii_manager)->resource,
                     &result, state->slot + 12, &entry->position));
             unsigned int* handle = &state->handles[state->slot];
             RecoveryScriptId id = { static_cast<int>(*handle) };
             vm = static_cast<HintVm*>(
-                reinterpret_cast<RecoveryLookup_0040bd80*>(g_sprt_ctrl)->Find(
+                reinterpret_cast<RecoveryLookup*>(g_sprt_ctrl)->Find(
                     static_cast<RecoveryLookupContext*>(g_sprt_ctrl), id));
             if (vm == 0)
                 *handle = 0;
@@ -107,43 +107,43 @@ int HintLink_00419120::Drain(
                 static_cast<int>(entry->intensity * recovery_indicator_fifteen_00470c08));
             vm->font_width = font_size;
             vm->font_height = font_size;
-            HintScalePair_00419120 source = {
+            HintScalePair source = {
                 entry->intensity * recovery_indicator_half_00470b0c,
                 entry->intensity * recovery_indicator_half_00470b0c
             };
-            HintScalePair_00419120 destination = {
+            HintScalePair destination = {
                 entry->intensity * recovery_indicator_three_quarters_00470ce4, 0.0f
             };
-            reinterpret_cast<EntityMovementSlot_0041ab70*>(vm)->Initialise(
-                reinterpret_cast<const MovementPair_0041ab70*>(&destination),
-                reinterpret_cast<const MovementPair_0041ab70*>(&source), 8, 4);
+            reinterpret_cast<EntityMovementSlot*>(vm)->Initialise(
+                reinterpret_cast<const MovementPair*>(&destination),
+                reinterpret_cast<const MovementPair*>(&source), 8, 4);
             manager = g_sprt_ctrl;
         } else {
             void* result;
             state->handles[state->slot] = reinterpret_cast<unsigned int>(
-                *RecoveryPlayerAnimationCreate_00448db0(
-                    static_cast<HintThread_00419120*>(g_ascii_manager)->resource,
+                *RecoveryPlayerAnimationCreate(
+                    static_cast<HintThread*>(g_ascii_manager)->resource,
                     &result, state->slot + 12, &entry->position));
             manager = g_sprt_ctrl;
             unsigned int* handle = &state->handles[state->slot];
             RecoveryScriptId id = { static_cast<int>(*handle) };
             vm = static_cast<HintVm*>(
-                reinterpret_cast<RecoveryLookup_0040bd80*>(manager)->Find(
+                reinterpret_cast<RecoveryLookup*>(manager)->Find(
                     static_cast<RecoveryLookupContext*>(manager), id));
             if (vm == 0)
                 *handle = 0;
             vm->font_width = 30;
             vm->font_height = 30;
-            HintScalePair_00419120 source = {
+            HintScalePair source = {
                 entry->intensity * recovery_indicator_half_00470b0c,
                 entry->intensity * recovery_indicator_half_00470b0c
             };
-            HintScalePair_00419120 destination = {
+            HintScalePair destination = {
                 entry->intensity * recovery_indicator_three_quarters_00470ce4, 0.0f
             };
-            reinterpret_cast<EntityMovementSlot_0041ab70*>(vm)->Initialise(
-                reinterpret_cast<const MovementPair_0041ab70*>(&destination),
-                reinterpret_cast<const MovementPair_0041ab70*>(&source), 8, 4);
+            reinterpret_cast<EntityMovementSlot*>(vm)->Initialise(
+                reinterpret_cast<const MovementPair*>(&destination),
+                reinterpret_cast<const MovementPair*>(&source), 8, 4);
         }
 
         switch (entry->anchor_mode) {
@@ -184,7 +184,7 @@ int HintLink_00419120::Drain(
         entry->next = 0;
         entry->previous = 0;
         if (release != 0) {
-            recovery_indicator_free_004524a1(entry);
+            recovery_indicator_free(entry);
             manager = g_sprt_ctrl;
         }
         current = next;

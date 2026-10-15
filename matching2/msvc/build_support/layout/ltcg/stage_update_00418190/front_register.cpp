@@ -1,6 +1,6 @@
 #define g_sprt_ctrl stage_front_g_sprt_ctrl
 #define g_front stage_front_g_front
-#define g_globals stage_front_data_00474c40
+#define g_globals stage_front_data
 #define g_ascii_manager stage_front_data_004776e0
 #define g_enemy_ctrl stage_front_g_enemy_ctrl
 #define g_player stage_front_data_00477834

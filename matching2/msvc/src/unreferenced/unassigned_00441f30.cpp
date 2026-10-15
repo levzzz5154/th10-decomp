@@ -4,6 +4,6 @@
 // the stack (/Gz).
 #include <math.h>
 
-float FloatCos_00441f30(float value) {
+float FloatCos(float value) {
     return cosf(value);
 }

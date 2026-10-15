@@ -1,6 +1,6 @@
 // Link context for the 0x0040DC80 model: models of the helpers it calls, so
 // the checking LTCG link derives the private register conventions retail
-// has. Only EnemyDataStart_0040dc80 is compared. The bodies follow the
+// has. Only EnemyDataStart is compared. The bodies follow the
 // recovered sources named beside them.
 #include "th10/runtime/game/enemy/enemy_data_start_context.hpp"
 #include <string.h>
@@ -55,7 +55,7 @@ void FrameTimer::Advance(float delta) {
     current = int(elapsed);
 }
 
-// src/core/sprtlib/animation_manager_find_004491c0.cpp
+// src/core/sprtlib/animation_manager_find.cpp
 struct AnimationNode_0040dc80 {
     AnimationNode_0040dc80* object;
     AnimationNode_0040dc80* next;
@@ -71,7 +71,7 @@ struct AnimationManager_0040dc80 {
     int reserved_2;
     AnimationNode_0040dc80* secondary_bucket;
 };
-Animation_0040dc80* __fastcall AnimationFinder_0040dc80::Find(
+Animation_0040dc80* __fastcall AnimationFinder::Find(
         AnimationManager_0040dc80* manager, ScriptChangeHandle id) {
     if (!id.id)
         return 0;
@@ -84,8 +84,8 @@ Animation_0040dc80* __fastcall AnimationFinder_0040dc80::Find(
     return 0;
 }
 
-// src/core/sprtlib/animation_manager_set_translated_position_00449350.cpp
-void __fastcall SetAnimationTranslatedPosition_00449350(
+// src/core/sprtlib/animation_manager_set_translated_position.cpp
+void __fastcall SetAnimationTranslatedPosition(
         AnimationManager_0040dc80* manager, const PolarVec3* position, ScriptChangeHandle id) {
     AnimationNode_0040dc80* entry = (AnimationNode_0040dc80*)AnimationManager_Find(manager, id);
     if (entry != 0) {
@@ -115,7 +115,7 @@ void __fastcall Animation_SetPosition(
     }
 }
 
-// src/core/sprtlib/animation_handle_change_script_004496d0.cpp
+// src/core/sprtlib/animation_handle_change_script.cpp
 void ScriptChangeHandle::ChangeScript(int index) {
     Animation_0040dc80* object = AnimationManager_Find(g_sprt_ctrl, *this);
     if (object) ext_call(object, index);
@@ -142,23 +142,23 @@ extern "C" __declspec(noinline) int __stdcall EclVm_TickChildren(EclChildOwner* 
     return 0;
 }
 
-// src/game/enemy/bullet_entity_clear_resource_list_0040c6e0.cpp
-struct ResourceRecord_0040dc80 {
+// src/game/enemy/bullet_entity_clear_resource_list.cpp
+struct ResourceRecord {
     void* resource;
-    ResourceRecord_0040dc80* next;
+    ResourceRecord* next;
 };
-void EnemyRecord_0040dc80::ClearResourceList() {
-    ResourceRecord_0040dc80* record = *(ResourceRecord_0040dc80**)((unsigned char*)this + 0x1034);
+void EnemyRecord::ClearResourceList() {
+    ResourceRecord* record = *(ResourceRecord**)((unsigned char*)this + 0x1034);
     while (record != 0) {
-        ResourceRecord_0040dc80* next = record->next;
+        ResourceRecord* next = record->next;
         ext_free(record->resource);
         ext_free(record);
         record = next;
     }
 }
 
-// src/game/enemy/ecl_record_reset_0040c730.cpp
-void EnemyRecord_0040dc80::ResetScript() {
+// src/game/enemy/ecl_record_reset.cpp
+void EnemyRecord::ResetScript() {
     unsigned char* self = (unsigned char*)this;
     *(float*)(self + 0x8) = 0.0f;
     *(void**)(self + 0xC) = 0;
@@ -193,8 +193,8 @@ int ScriptTable_00450470::Resolve(const char* name) {
     return 0;
 }
 
-// src/script/sptlib/fun_00450700_00450700.cpp
-int __fastcall BindName_00450700(const char* name, EnemyRecord_0040dc80* record) {
+// src/script/sptlib/fun_00450700.cpp
+int __fastcall BindName(const char* name, EnemyRecord* record) {
     ScriptTable_00450470* script_table = record->table;
     record->table = script_table;
     record->current->instruction = script_table->Resolve(name);
@@ -202,8 +202,8 @@ int __fastcall BindName_00450700(const char* name, EnemyRecord_0040dc80* record)
     return 0;
 }
 
-// src/game/player/field_contact_004266b0.cpp
-int __fastcall FieldContact_004266b0(
+// src/game/player/field_contact.cpp
+int __fastcall FieldContact(
         const PolarVec3* position, Player* player, const Vec2* size) {
     const Vec2* low = (const Vec2*)((unsigned char*)player + 0x404);
     const Vec2* high = (const Vec2*)((unsigned char*)player + 0x410);
@@ -251,8 +251,8 @@ void SoundQueue::QueuePan(int sound_id, float pan) {
     }
 }
 
-extern "C" int __stdcall RigEntry(EnemyTick_0040dc80** enemies, int count) {
+extern "C" int __stdcall RigEntry(EnemyTick** enemies, int count) {
     int total = 0;
-    for (int i = 0; i < count; ++i) total += EnemyDataStart_0040dc80(enemies[i]);
+    for (int i = 0; i < count; ++i) total += EnemyDataStart(enemies[i]);
     return total;
 }

@@ -66,5 +66,5 @@ extern SoundWait imp_WaitForSingleObject;
 extern SoundClose imp_CloseHandle;
 extern int (__stdcall* imp_KillTimer)(void*,unsigned int);
 void __cdecl crt_free(void*);
-void __cdecl owner_free_004524a1(void*);
+void __cdecl owner_free(void*);
 }

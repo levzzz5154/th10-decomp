@@ -16,12 +16,12 @@ __declspec(noinline) int __stdcall EndingScreen_Update_0042d300(
     switch (room->phase) {
     case 0: {
         RecoveryScriptId id = { static_cast<int>(room->animation_slots[88]) };
-        if (reinterpret_cast<RecoveryLookup_0040bd80*>(g_sprt_ctrl)->Find(
+        if (reinterpret_cast<RecoveryLookup*>(g_sprt_ctrl)->Find(
                 reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl), id) == 0) {
             RecoveryMusicInstallSlot(room, 88);
             RecoveryMusicInstallSlot(room, 90);
             void* handle;
-            void** result = AnimationManager_CreatePrimaryBack_00448d00(
+            void** result = AnimationManager_CreatePrimaryBack(
                 reinterpret_cast<void*>(room->reserved_018), &handle, 0, 15);
             room->reserved_684 = reinterpret_cast<unsigned int>(*result);
         }

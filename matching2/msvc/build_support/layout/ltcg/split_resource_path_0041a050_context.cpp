@@ -9,7 +9,7 @@ extern "C" __declspec(noinline) int __stdcall SplitResourcePathCompilerContext(
         char** lines, char** values, char** keys, int count) {
     int total = 0;
     while (count--) {
-        total += (int)SplitResourcePath_0041a050(*lines++, *values++, *keys++);
+        total += (int)SplitResourcePath(*lines++, *values++, *keys++);
     }
     return total;
 }

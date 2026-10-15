@@ -25,4 +25,4 @@ extern "C" __declspec(noinline) float __stdcall asm_ECL_ResolveFloatValue_0044ff
         EclInterpreter* interpreter, int selector, float operand);
 
 // 0x0044FDB0 ignores ECX and takes the frame in EDX and the selector on the stack.
-int __fastcall ECL_ResolveIntOperand_0044fdb0(int unused, EclFrame* frame, int selector);
+int __fastcall ECL_ResolveIntOperand(int unused, EclFrame* frame, int selector);

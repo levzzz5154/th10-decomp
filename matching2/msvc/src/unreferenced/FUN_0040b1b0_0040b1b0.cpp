@@ -3,8 +3,8 @@
 #pragma code_seg(".text$03callbacks")
 extern "C" AnimationScriptId* __stdcall AnimationCreateWithCallbacks_0040b1b0(
         AnimationScriptId* out, AnimationBank* resource, AnimationScriptId script,
-        void* context, AnimationInitializer_0040b1b0 initialize,
-        AnimationCallback_0040b1b0 update, AnimationCallback_0040b1b0 draw) {
+        void* context, AnimationInitializer initialize,
+        AnimationCallback update, AnimationCallback draw) {
     // Retail captures the result pointer before allocation and callback calls.
     AnimationScriptId* result = *(AnimationScriptId* const volatile*)&out;
     Entity* object = ((AnimationPool*)g_sprt_ctrl)->Allocate();
@@ -21,8 +21,8 @@ extern "C" AnimationScriptId* __stdcall AnimationCreateWithCallbacks_0040b1b0(
     object = (Entity*)((SprtCtrl*)manager)->Find((AnimationLookupContext*)manager, handle);
     if (object == 0) handle.value = 0;
     if (initialize != 0) initialize(object, context);
-    *(AnimationCallback_0040b1b0*)((unsigned char*)object + 0x398) = update;
-    *(AnimationCallback_0040b1b0*)((unsigned char*)object + 0x39C) = draw;
+    *(AnimationCallback*)((unsigned char*)object + 0x398) = update;
+    *(AnimationCallback*)((unsigned char*)object + 0x39C) = draw;
     *result = handle;
     return result;
 }

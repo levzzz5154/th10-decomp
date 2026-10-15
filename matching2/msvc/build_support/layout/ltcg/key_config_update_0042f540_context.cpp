@@ -13,8 +13,8 @@ __declspec(noinline) int __stdcall Title_DispatchUpdate(Title* room);
 
 #pragma code_seg(".text$0040a000_context")
 extern "C" int __stdcall KeyConfigUpdateCompilerContext(
-    RecoveryScriptState_0040bd80* script,
-    HintLink_00419120* head,
+    RecoveryScriptState* script,
+    HintLink* head,
     HintUpdateView* indicator, int release,
     Title* music_room, void** objects) {
     objects[0] = &g_key_bindings_current;

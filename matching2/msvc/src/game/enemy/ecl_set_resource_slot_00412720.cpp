@@ -11,7 +11,7 @@ struct SlotTable_00412720 {
 };
 
 #pragma code_seg(".text$01accessor")
-__declspec(noinline) void __stdcall BindSlot_00412720(SlotTable_00412720* table, int index, int id, int value, const char* data) {
+__declspec(noinline) void __stdcall BindSlot(SlotTable_00412720* table, int index, int id, int value, const char* data) {
     table->slots[index].id = id;
     if (id >= 0) {
         table->slots[index].value = value;

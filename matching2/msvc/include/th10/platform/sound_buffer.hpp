@@ -41,4 +41,4 @@ int __fastcall Platform_InvokeInterface(SoundBuffer* sound_buffer);
 void __fastcall Platform_ReleaseOwnedArray(PlatformOwnedArray* owner);
 void __fastcall SoundBuffer_DestructBaseRetail(SoundBuffer* sound_buffer);
 
-extern char sound_buffer_vtable_004705d4;
+extern char sound_buffer_vtable;

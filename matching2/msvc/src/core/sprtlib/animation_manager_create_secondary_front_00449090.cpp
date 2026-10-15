@@ -18,7 +18,7 @@ extern "C" void** __cdecl asm_AnimationManager_RegisterSecondaryFront_00448b40(
 
 #pragma code_seg(".text$05aa_secondaryfront")
 __declspec(noinline)
-void** __stdcall AnimationManager_CreateSecondaryFront_00449090(
+void** __stdcall AnimationManager_CreateSecondaryFront(
         void* resource, void** out, int index, int render_bucket) {
     AnimationObject_00449090* object =
         (AnimationObject_00449090*)asm_FUN_00449950_00449950(g_sprt_ctrl);

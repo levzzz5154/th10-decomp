@@ -3,10 +3,10 @@
 
 #pragma code_seg(".text$03context")
 int __stdcall PathStateReset00417800CompilerContext(
-    PathState_00417800** states, int count) {
-    PathState_00417800** cursor = states;
+    PathState** states, int count) {
+    PathState** cursor = states;
     while (count--) {
-        PathState_00417800* state = *cursor++;
+        PathState* state = *cursor++;
         state->Reset();
     }
     return 0;

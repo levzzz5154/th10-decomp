@@ -4,7 +4,7 @@
 // Retail enters this member with the record in ESI.
 extern "C" float g_game_speed;
 #pragma code_seg(".text$02f")
-void SubTimedState_004236f0::InitializeTimedState() {
+void SubTimedState::InitializeTimedState() {
     int* record = &state;
     record[0] = 13;
     if ((timer_flags & 1) == 0) {

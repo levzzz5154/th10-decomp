@@ -21,9 +21,9 @@
 //    in ESI, and the shared zero gets ESI with the manager in EBP.
 #include "th10/game/bomb_state.hpp"
 
-static inline void* FindAnimationOrClear_00405750(PositionLookupContext_004492f0* manager,
-                                                 PositionScriptId_004492f0* id) {
-    void* node = reinterpret_cast<PositionManager_004492f0*>(manager)->Find(manager, *id);
+static inline void* FindAnimationOrClear(PositionLookupContext* manager,
+                                                 PositionScriptId* id) {
+    void* node = reinterpret_cast<PositionManager*>(manager)->Find(manager, *id);
     if (node == 0)
         id->value = 0;
     return node;
@@ -33,7 +33,7 @@ __forceinline void BombState::Step() {
     switch (active_state) {
     case 1: {
         BombAnimationValue* node = static_cast<BombAnimationValue*>(
-            FindAnimationOrClear_00405750(g_sprt_ctrl, &animation));
+            FindAnimationOrClear(g_sprt_ctrl, &animation));
         if (node == 0) {
             active_state = 0;
             return;
@@ -47,7 +47,7 @@ __forceinline void BombState::Step() {
         } else {
             position.y -= 1.3f;
         }
-        PositionVector_004492f0 render = {position.x + 224.0f, position.y + 16.0f, position.z};
+        PositionVector render = {position.x + 224.0f, position.y + 16.0f, position.z};
         SetAnimationPosition_004492f0(g_sprt_ctrl, &render, animation);
         collision_radius = node->collision_radius;
         CancelBullets();

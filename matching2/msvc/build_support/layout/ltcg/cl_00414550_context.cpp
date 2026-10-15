@@ -23,7 +23,7 @@ int __stdcall DestroyContext_00414550(AnimationSlot_00414550** items, int count)
     int total = 0;
     for (int i = 0; i < count; ++i) {
         AnimationSlot_00414550* one = items[i];
-        total += (int)DestroySlot_00414550(one, (unsigned int)i);
+        total += (int)DestroySlot(one, (unsigned int)i);
     }
     return total;
 }

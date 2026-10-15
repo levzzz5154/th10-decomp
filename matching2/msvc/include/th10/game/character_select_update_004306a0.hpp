@@ -14,5 +14,5 @@ extern int g_globals_shot_type;               // shot type
 extern ScoreFile_004306a0* g_score;
 }
 
-__declspec(noinline) int __stdcall TitleMode7_004306a0(Title* room);
+__declspec(noinline) int __stdcall TitleMode7(Title* room);
 #endif

@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "IntFieldNotEqual_00417660",
-      "symbol": "?IsNotEqualTo@UnidentifiedIntField_00417660@@QBEHH@Z",
+      "symbol": "?IsNotEqualTo@UnidentifiedIntField@@QBEHH@Z",
       "section": ".text$01accessor",
       "address": "0x00417660",
       "size": 16,
@@ -17,7 +17,7 @@
     }
   ],
   "context": {
-    "symbol": "?IntFieldNotEqualContext_00417660@@YGHPAPAUUnidentifiedIntField_00417660@@PAHH@Z",
+    "symbol": "?IntFieldNotEqualContext_00417660@@YGHPAPAUUnidentifiedIntField@@PAHH@Z",
     "section": ".text$03context",
     "address": "0x00417680",
     "size": 52,

@@ -5,7 +5,7 @@
 
 #pragma code_seg(".text$05context")
 extern "C" int __stdcall PowerDisplaySetDigitsContext_004054b0(
-        PowerDisplayOwner_004054b0** owners, int count) {
+        PowerDisplayOwner** owners, int count) {
     for (int i = 0; i < count; ++i)
         owners[i]->SetPowerDigits(i, count);
     return count;

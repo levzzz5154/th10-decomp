@@ -32,7 +32,7 @@ inline int File_WriteShared(const void* buffer, unsigned int size) {
 }
 
 #pragma code_seg(".text$06score")
-int ScoreArchive_0042B1E0::Save() {
+int ScoreArchive::Save() {
     unsigned char* work;
     unsigned char* packed;
     int length;

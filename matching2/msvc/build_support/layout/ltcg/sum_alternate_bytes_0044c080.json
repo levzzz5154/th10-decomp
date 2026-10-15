@@ -8,8 +8,8 @@
   "description": "Strided byte checksum compiled under native LTCG, whose loop keeps the pointer walk and down-counter in ESI.",
   "functions": [
     {
-      "name": "SumAlternateBytes_0044c080",
-      "symbol": "@SumAlternateBytes_0044c080@8",
+      "name": "SumAlternateBytes",
+      "symbol": "@SumAlternateBytes@8",
       "section": ".text$01accessor",
       "address": "0x0044C080",
       "size": 36,
@@ -38,7 +38,7 @@
   "constants": [],
   "absolute_symbols": [],
   "roots": [
-    "@SumAlternateBytes_0044c080@8"
+    "@SumAlternateBytes@8"
   ],
   "included_sources": []
 }

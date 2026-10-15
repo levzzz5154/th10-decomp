@@ -9,63 +9,63 @@ extern "C" unsigned int __cdecl asm_beginthreadex_00453683(
         void* security, unsigned int stack_size, PlatformWorkerEntry start,
         void* arglist, unsigned int initflag, unsigned int* thread_id);
 extern "C" __declspec(noinline) void __stdcall EclViewStandIn_Callee(void* object);
-extern "C" __declspec(noinline) EclViewSpawn_0040a450* __stdcall EclViewStandIn_Init(void* memory, const char* entry);
+extern "C" __declspec(noinline) EclViewSpawn* __stdcall EclViewStandIn_Init(void* memory, const char* entry);
 extern "C" __declspec(noinline) void __stdcall EclViewStandIn_Callee2(void* manager, void* object);
 
 // The seven owned-delete helpers.
 #pragma code_seg(".text$a00")
-void EclView_Release(EclViewLasers_0040a1a0* object) {
+void EclView_Release(EclViewLasers* object) {
     if (object) {
-        object->~EclViewLasers_0040a1a0();
+        object->~EclViewLasers();
         operator delete(object);
     }
 }
 #pragma code_seg(".text$a02")
-void EclView_Release(EclViewBullets_0040a1a0* object) {
+void EclView_Release(EclViewBullets* object) {
     if (object) {
-        object->~EclViewBullets_0040a1a0();
+        object->~EclViewBullets();
         operator delete(object);
     }
 }
 #pragma code_seg(".text$c05")
-void EclView_Release(EclViewEnemies_0040a940* object) {
+void EclView_Release(EclViewEnemies* object) {
     if (object) {
-        object->~EclViewEnemies_0040a940();
+        object->~EclViewEnemies();
         operator delete(object);
     }
 }
 #pragma code_seg(".text$c07")
-void EclView_Release(EclViewItems_0040a1a0* object) {
+void EclView_Release(EclViewItems* object) {
     if (object) {
-        object->~EclViewItems_0040a1a0();
+        object->~EclViewItems();
         operator delete(object);
     }
 }
 #pragma code_seg(".text$c08")
-void EclView_Release(EclViewEffects_0040a1a0* object) {
+void EclView_Release(EclViewEffects* object) {
     if (object) {
-        object->~EclViewEffects_0040a1a0();
+        object->~EclViewEffects();
         operator delete(object);
     }
 }
 #pragma code_seg(".text$c10")
-void EclView_Release(EclViewPlayer_0040a1a0* object) {
+void EclView_Release(EclViewPlayer* object) {
     if (object) {
-        object->~EclViewPlayer_0040a1a0();
+        object->~EclViewPlayer();
         operator delete(object);
     }
 }
 #pragma code_seg(".text$c11")
-void EclView_Release(EclViewPopups_0040a1a0* object) {
+void EclView_Release(EclViewPopups* object) {
     if (object) {
-        object->~EclViewPopups_0040a1a0();
+        object->~EclViewPopups();
         operator delete(object);
     }
 }
 
 // 0x00405ED0
 #pragma code_seg(".text$a01")
-void EclViewBullets_0040a1a0::Reset() {
+void EclViewBullets::Reset() {
     EclViewStandIn_Callee(update_task);
     memset(reserved_000, 0, 8);
     draw_task = 0;
@@ -73,14 +73,14 @@ void EclViewBullets_0040a1a0::Reset() {
 
 // 0x00409E20
 #pragma code_seg(".text$a03")
-void EclViewTaskPair_0040a940::Suspend() {
+void EclViewTaskPair::Suspend() {
     if (update_task) update_task->flags |= 2;
     if (draw_task) draw_task->flags |= 2;
 }
 
 // 0x00409EB0
 #pragma code_seg(".text$a04")
-void EclView_0040a940::ClearScriptNames() {
+void EclView::ClearScriptNames() {
     if (script_names) {
         for (int i = 0; i < script_count; ++i) {
             if (script_names[i]) {
@@ -98,7 +98,7 @@ void EclView_0040a940::ClearScriptNames() {
 
 // 0x00409F90
 #pragma code_seg(".text$a05")
-void EclViewEnemies_0040a940::Clear() {
+void EclViewEnemies::Clear() {
     SprtCtrlBatchView* manager = g_sprt_ctrl;
     void** handle = reinterpret_cast<void**>(reinterpret_cast<char*>(manager) + 0x3AD090);
     for (int i = 4; i; --i) EclViewStandIn_Callee2(manager, *handle++);
@@ -108,7 +108,7 @@ void EclViewEnemies_0040a940::Clear() {
 
 // 0x0040A010
 #pragma code_seg(".text$a06")
-void EclViewPlayer_0040a1a0::SuspendAndStop() {
+void EclViewPlayer::SuspendAndStop() {
     update_task->flags |= 2;
     draw_task->flags |= 2;
     EclViewStandIn_Callee(this);
@@ -116,7 +116,7 @@ void EclViewPlayer_0040a1a0::SuspendAndStop() {
 
 // 0x0040AC20
 #pragma code_seg(".text$c00")
-unsigned short EclViewInput_0040a450::Update() {
+unsigned short EclViewInput::Update() {
     unsigned short keys = held_keys;
     held = 0;
     unsigned short* counter = reinterpret_cast<unsigned short*>(this) + 0x1C;
@@ -143,7 +143,7 @@ unsigned short EclViewInput_0040a450::Update() {
 
 // 0x0040AC90
 #pragma code_seg(".text$c01")
-void __stdcall EclView_SetGameMode_0040ac90(EclViewGameState_0040a450* state, int mode) {
+void __stdcall EclView_SetGameMode(EclViewGameState* state, int mode) {
     if ((state->flags & 0x1000) == 0) {
         state->mode = mode;
     } else {
@@ -153,15 +153,15 @@ void __stdcall EclView_SetGameMode_0040ac90(EclViewGameState_0040a450* state, in
 
 // 0x0040ACE0
 #pragma code_seg(".text$c02")
-unsigned short EclViewInput_0040a450::MaskActive(unsigned short mask) {
+unsigned short EclViewInput::MaskActive(unsigned short mask) {
     return (mask & repeated) != 0 || (mask & held) != 0;
 }
 
 // 0x0040CFB0
 #pragma code_seg(".text$c03")
-void EclViewSpawn_0040a450::Create(EclViewEnemies_0040a940* manager, const char* entry) {
+void EclViewSpawn::Create(EclViewEnemies* manager, const char* entry) {
     void* memory = operator new(0x2518);
-    EclViewSpawn_0040a450* enemy = 0;
+    EclViewSpawn* enemy = 0;
     if (memory) enemy = EclViewStandIn_Init(memory, entry);
     enemy[0x40].x = x;
     enemy[0x40].y = y;
@@ -173,14 +173,14 @@ void EclViewSpawn_0040a450::Create(EclViewEnemies_0040a940* manager, const char*
 
 // 0x0040D510
 #pragma code_seg(".text$c04")
-void EclViewEnemies_0040a940::SuspendTasks() {
+void EclViewEnemies::SuspendTasks() {
     if (update_task) update_task->flags |= 2;
     if (draw_task) draw_task->flags |= 2;
 }
 
 // 0x00413BC0
 #pragma code_seg(".text$c06")
-void EclViewItems_0040a1a0::Reset() {
+void EclViewItems::Reset() {
     if (update_task) update_task->flags |= 2;
     if (draw_task) draw_task->flags |= 2;
     SprtCtrlBatchView* manager = g_sprt_ctrl;
@@ -192,7 +192,7 @@ void EclViewItems_0040a1a0::Reset() {
 
 // 0x00424D90
 #pragma code_seg(".text$c09")
-void EclViewPlayer_0040a1a0::Reset() {
+void EclViewPlayer::Reset() {
     EclViewStandIn_Callee(update_task);
     memset(reserved_000, 0, 8);
     draw_task = 0;

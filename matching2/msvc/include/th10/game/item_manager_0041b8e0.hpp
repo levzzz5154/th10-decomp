@@ -11,14 +11,14 @@ struct ItemManager_0041b8e0 {
     __declspec(noinline) int Draw();
 };
 
-struct ItemPauseState_0041b8e0 {
+struct ItemPauseState {
     unsigned char reserved_00[0x58];
     unsigned char flags;                               // +0x58
 };
 
 struct AnimationManager_0041b8e0;
 
-extern "C" ItemPauseState_0041b8e0* g_game;
+extern "C" ItemPauseState* g_game;
 extern "C" AnimationManager_0041b8e0* g_sprt_ctrl;
 
 // 0x004451C0: entity in EAX, manager in ECX.

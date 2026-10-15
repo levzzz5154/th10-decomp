@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "H3401ShortField_004087d0_Set",
-      "symbol": "?Set@H3401ShortField_004087d0@@QAEXG@Z",
+      "symbol": "?Set@H3401ShortField@@QAEXG@Z",
       "section": ".text$01target",
       "address": "0x004087D0",
       "size": 8,

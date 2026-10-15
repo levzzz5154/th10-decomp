@@ -16,7 +16,7 @@
   "functions": [
     {
       "name": "EnemyGrid_ScanCells",
-      "symbol": "?EnemyGrid_ScanCells_004073e0@@YGHPAUProjectilePattern_004073e0@@PAUProjectileManager_004073e0@@@Z",
+      "symbol": "?EnemyGrid_ScanCells_004073e0@@YGHPAUProjectilePattern@@PAUProjectileManager_004073e0@@@Z",
       "section": ".text$004073e0_fn",
       "address": "0x004073E0",
       "size": 194,
@@ -33,7 +33,7 @@
   "anchors": [
     {
       "name": "SpawnPatternCell",
-      "symbol": "?SpawnPatternCell_004067d0@@YGHPAUProjectilePattern_004073e0@@PAUProjectileManager_004073e0@@HHM@Z",
+      "symbol": "?SpawnPatternCell_004067d0@@YGHPAUProjectilePattern@@PAUProjectileManager_004073e0@@HHM@Z",
       "section": ".text$004067d0_fn",
       "address": "0x004067D0",
       "size": 170

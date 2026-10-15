@@ -4,7 +4,7 @@
 #include "th10/script/ecl_operand_thunks.hpp"
 
 #pragma code_seg(".text$01slot_operand")
-__declspec(noinline) float ResolveSlotFloatOperand_0040c650(EclOperandSlot* slot, int selector) {
+__declspec(noinline) float ResolveSlotFloatOperand(EclOperandSlot* slot, int selector) {
     return asm_ECL_ResolveFloatOperand_0044fe40(slot->interpreter, selector);
 }
 #pragma code_seg()

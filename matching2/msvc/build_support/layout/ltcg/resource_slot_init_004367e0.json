@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "name": "resource_slot_init_004367e0",
+  "name": "resource_slot_init",
   "source": "src/unreferenced/FUN_004367e0_004367e0.cpp",
   "driver": "build_support/layout/ltcg/resource_slot_init_004367e0_context.cpp",
   "headers": [],
@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "ResourceSlotInit_004367e0_Init",
-      "symbol": "?Init@ResourceSlotInit_004367e0@@QAEXH@Z",
+      "symbol": "?Init@ResourceSlotInit@@QAEXH@Z",
       "section": ".text$01init004367e0",
       "address": "0x4367e0",
       "size": 11,
@@ -17,7 +17,7 @@
     }
   ],
   "context": {
-    "symbol": "?InitCompilerContext@@YGHPAPAUResourceSlotInit_004367e0@@HH@Z",
+    "symbol": "?InitCompilerContext@@YGHPAPAUResourceSlotInit@@HH@Z",
     "section": ".text$03context",
     "address": "0x4367f0",
     "size": 36,

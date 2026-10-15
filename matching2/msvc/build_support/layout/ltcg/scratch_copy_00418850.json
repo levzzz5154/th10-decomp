@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "scratch_copy_00418850",
-      "symbol": "?CopyToScratch_00418850@@YGPADPBD@Z",
+      "symbol": "?CopyToScratch@@YGPADPBD@Z",
       "section": ".text$01accessor",
       "address": "0x00418850",
       "size": 65,

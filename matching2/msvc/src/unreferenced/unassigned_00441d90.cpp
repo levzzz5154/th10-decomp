@@ -9,12 +9,12 @@ struct CurveObject_00441d90 {
 };
 
 // Native LTCG retains the retail EAX receiver and the kernel's x87 result.
-float __stdcall EvaluateCurveAnchor_0044c350(unsigned int operation,
+float __stdcall EvaluateCurveAnchor(unsigned int operation,
                                              float elapsed,
                                              float duration);
 
 #pragma code_seg(".text$01evaluate")
 float CurveObject_00441d90::Evaluate() {
-    return EvaluateCurveAnchor_0044c350(operation, elapsed, (float)duration);
+    return EvaluateCurveAnchor(operation, elapsed, (float)duration);
 }
 #pragma code_seg()

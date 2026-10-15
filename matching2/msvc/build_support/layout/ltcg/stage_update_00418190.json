@@ -206,8 +206,8 @@
       "size": 101
     },
     {
-      "name": "?Stage_StartQuadScripts_00404450@@YGXPAUStage_00404450@@@Z",
-      "symbol": "?Stage_StartQuadScripts_00404450@@YGXPAUStage_00404450@@@Z",
+      "name": "?Stage_StartQuadScripts@@YGXPAUStage_00404450@@@Z",
+      "symbol": "?Stage_StartQuadScripts@@YGXPAUStage_00404450@@@Z",
       "section": ".text$00404450_fn",
       "address": "0x404450",
       "size": 214
@@ -234,8 +234,8 @@
       "size": 45
     },
     {
-      "name": "_ReplayPauseReset_00424d90@4",
-      "symbol": "_ReplayPauseReset_00424d90@4",
+      "name": "_ReplayPauseReset@4",
+      "symbol": "_ReplayPauseReset@4",
       "section": ".text$00424d90_fn",
       "address": "0x424d90",
       "size": 273
@@ -255,8 +255,8 @@
       "size": 92
     },
     {
-      "name": "?ReleaseChain@ScoreChain_00417770@@QAEXXZ",
-      "symbol": "?ReleaseChain@ScoreChain_00417770@@QAEXXZ",
+      "name": "?ReleaseChain@ScoreChain@@QAEXXZ",
+      "symbol": "?ReleaseChain@ScoreChain@@QAEXXZ",
       "section": ".text$00417770_fn",
       "address": "0x417770",
       "size": 66
@@ -276,8 +276,8 @@
       "size": 139
     },
     {
-      "name": "_ReplayFinishClearPools_0042ab20@8",
-      "symbol": "_ReplayFinishClearPools_0042ab20@8",
+      "name": "_ReplayFinishClearPools@8",
+      "symbol": "_ReplayFinishClearPools@8",
       "section": ".text$0042ab20_fn",
       "address": "0x42ab20",
       "size": 93
@@ -290,15 +290,15 @@
       "size": 83
     },
     {
-      "name": "?InitializeEnemyScriptEntity_0040d830@@YIPAUEnemyScriptEntity_0040d830@@HPAU1@UBindScriptName_0040d830@@@Z",
-      "symbol": "?InitializeEnemyScriptEntity_0040d830@@YIPAUEnemyScriptEntity_0040d830@@HPAU1@UBindScriptName_0040d830@@@Z",
+      "name": "?InitializeEnemyScriptEntity@@YIPAUEnemyScriptEntity@@HPAU1@UBindScriptName@@@Z",
+      "symbol": "?InitializeEnemyScriptEntity@@YIPAUEnemyScriptEntity@@HPAU1@UBindScriptName@@@Z",
       "section": ".text$0040d830_fn",
       "address": "0x40d830",
       "size": 673
     },
     {
-      "name": "?Resolve@BindScriptTable_0040d830@@QAEHPBD@Z",
-      "symbol": "?Resolve@BindScriptTable_0040d830@@QAEHPBD@Z",
+      "name": "?Resolve@BindScriptTable@@QAEHPBD@Z",
+      "symbol": "?Resolve@BindScriptTable@@QAEHPBD@Z",
       "section": ".text$00450470_fn",
       "address": "0x450470",
       "size": 136
@@ -786,7 +786,7 @@
       "kind": "data"
     },
     {
-      "symbol": "?g_music_progress@@3PAUMusicProgress_00420b80@@A",
+      "symbol": "?g_music_progress@@3PAUMusicProgress@@A",
       "address": "0x47783c",
       "kind": "data"
     },
@@ -831,7 +831,7 @@
       "kind": "data"
     },
     {
-      "symbol": "?ClearBoundAnimations_0040d830@@YIPAUBindAnimationOwner_0040d830@@HPAU1@@Z",
+      "symbol": "?ClearBoundAnimations@@YIPAUBindAnimationOwner@@HPAU1@@Z",
       "address": "0x40cc70",
       "kind": "relative_code"
     },
@@ -846,87 +846,87 @@
       "kind": "metadata"
     },
     {
-      "symbol": "@PauseMarkAnimation_004492a0@12",
+      "symbol": "@PauseMarkAnimation@12",
       "address": "0x4492a0",
       "kind": "relative_code"
     },
     {
-      "symbol": "_pause_timer_speed_00476f78",
+      "symbol": "_pause_timer_speed",
       "address": "0x476f78",
       "kind": "data"
     },
     {
-      "symbol": "_pause_animation_context_00491c10",
+      "symbol": "_pause_animation_context",
       "address": "0x491c10",
       "kind": "data"
     },
     {
-      "symbol": "_pause_count_manager_0047770c",
+      "symbol": "_pause_count_manager",
       "address": "0x47770c",
       "kind": "data"
     },
     {
-      "symbol": "_pause_active_count_00474c70",
+      "symbol": "_pause_active_count",
       "address": "0x474c70",
       "kind": "data"
     },
     {
-      "symbol": "@FadeOutUpdate_0043bd40@4",
+      "symbol": "@FadeOutUpdate@4",
       "address": "0x43bd40",
       "kind": "data"
     },
     {
-      "symbol": "@ViewportOverlayDraw_0043c1a0@4",
+      "symbol": "@ViewportOverlayDraw@4",
       "address": "0x43c1a0",
       "kind": "data"
     },
     {
-      "symbol": "@FadeInUpdate_0043c230@4",
+      "symbol": "@FadeInUpdate@4",
       "address": "0x43c230",
       "kind": "data"
     },
     {
-      "symbol": "@PlayfieldOverlayDraw_0043c2c0@4",
+      "symbol": "@PlayfieldOverlayDraw@4",
       "address": "0x43c2c0",
       "kind": "data"
     },
     {
-      "symbol": "@HalfOpacityFadeUpdate_0043c310@4",
+      "symbol": "@HalfOpacityFadeUpdate@4",
       "address": "0x43c310",
       "kind": "data"
     },
     {
-      "symbol": "@ScreenOverlayDraw_0043c3c0@4",
+      "symbol": "@ScreenOverlayDraw@4",
       "address": "0x43c3c0",
       "kind": "data"
     },
     {
-      "symbol": "@PlayfieldHalfOpacityDraw_0043c410@4",
+      "symbol": "@PlayfieldHalfOpacityDraw@4",
       "address": "0x43c410",
       "kind": "data"
     },
     {
-      "symbol": "@ColorPulseUpdate_0043c460@4",
+      "symbol": "@ColorPulseUpdate@4",
       "address": "0x43c460",
       "kind": "data"
     },
     {
-      "symbol": "@ColorPulseDraw_0043c500@4",
+      "symbol": "@ColorPulseDraw@4",
       "address": "0x43c500",
       "kind": "data"
     },
     {
-      "symbol": "@LinearShakeUpdate_0043c550@4",
+      "symbol": "@LinearShakeUpdate@4",
       "address": "0x43c550",
       "kind": "data"
     },
     {
-      "symbol": "@EnvelopeShakeUpdate_0043c710@4",
+      "symbol": "@EnvelopeShakeUpdate@4",
       "address": "0x43c710",
       "kind": "data"
     },
     {
-      "symbol": "@ScreenEffectRemove_0043c870@4",
+      "symbol": "@ScreenEffectRemove@4",
       "address": "0x43c870",
       "kind": "data"
     },
@@ -981,7 +981,7 @@
       "kind": "data"
     },
     {
-      "symbol": "?Slot04@ScriptParser_0042be20@@UAEXXZ",
+      "symbol": "?Slot04@ScriptParser@@UAEXXZ",
       "address": "0x40c810",
       "kind": "relative_code"
     },
@@ -1011,7 +1011,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "?Validate@RecoveryLookup_0040bd80@@QAAPAXPAURecoveryHandle_0040bd80@@@Z",
+      "symbol": "?Validate@RecoveryLookup@@QAAPAXPAURecoveryHandle@@@Z",
       "address": "0x449450",
       "kind": "relative_code"
     },
@@ -1021,12 +1021,12 @@
       "kind": "data"
     },
     {
-      "symbol": "_EnemyData_Start_0040dc80@4",
+      "symbol": "_EnemyData_Start@4",
       "address": "0x40dc80",
       "kind": "relative_code"
     },
     {
-      "symbol": "?Advance@RingEntity_004452f0@@QAEHXZ",
+      "symbol": "?Advance@RingEntity@@QAEHXZ",
       "address": "0x445620",
       "kind": "data"
     },
@@ -1066,7 +1066,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_stage_front_data_00474c40",
+      "symbol": "_stage_front_data",
       "address": "0x474c40",
       "kind": "data"
     },
@@ -2331,152 +2331,152 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_stage_worker_00492254",
+      "symbol": "_stage_worker",
       "address": "0x492254",
       "kind": "data"
     },
     {
-      "symbol": "_stage_status_00491ff4",
+      "symbol": "_stage_status",
       "address": "0x491ff4",
       "kind": "data"
     },
     {
-      "symbol": "_stage_transition_mask_00474e30",
+      "symbol": "_stage_transition_mask",
       "address": "0x474e30",
       "kind": "data"
     },
     {
-      "symbol": "_stage_config_00491d78",
+      "symbol": "_stage_config",
       "address": "0x491d78",
       "kind": "data"
     },
     {
-      "symbol": "_stage_game_flags_00474ca0",
+      "symbol": "_stage_game_flags",
       "address": "0x474ca0",
       "kind": "data"
     },
     {
-      "symbol": "_stage_result_00491fb8",
+      "symbol": "_stage_result",
       "address": "0x491fb8",
       "kind": "data"
     },
     {
-      "symbol": "_stage_quads_004776e8",
+      "symbol": "_stage_quads",
       "address": "0x4776e8",
       "kind": "data"
     },
     {
-      "symbol": "_stage_fade_004776e4",
+      "symbol": "_stage_fade",
       "address": "0x4776e4",
       "kind": "data"
     },
     {
-      "symbol": "_stage_mode_004776e8",
+      "symbol": "_stage_mode",
       "address": "0x4776e8",
       "kind": "data"
     },
     {
-      "symbol": "_stage_bullets_004776f0",
+      "symbol": "_stage_bullets",
       "address": "0x4776f0",
       "kind": "data"
     },
     {
-      "symbol": "_stage_player_00477834",
+      "symbol": "_stage_player",
       "address": "0x477834",
       "kind": "data"
     },
     {
-      "symbol": "_stage_enemies_00477704",
+      "symbol": "_stage_enemies",
       "address": "0x477704",
       "kind": "data"
     },
     {
-      "symbol": "_stage_spawn_manager_00477704",
+      "symbol": "_stage_spawn_manager",
       "address": "0x477704",
       "kind": "data"
     },
     {
-      "symbol": "_stage_chain_0047781c",
+      "symbol": "_stage_chain",
       "address": "0x47781c",
       "kind": "data"
     },
     {
-      "symbol": "_stage_replay_00477838",
+      "symbol": "_stage_replay",
       "address": "0x477838",
       "kind": "data"
     },
     {
-      "symbol": "_stage_effects_00477818",
+      "symbol": "_stage_effects",
       "address": "0x477818",
       "kind": "data"
     },
     {
-      "symbol": "_stage_tasks_00477830",
+      "symbol": "_stage_tasks",
       "address": "0x477830",
       "kind": "data"
     },
     {
-      "symbol": "_stage_items_004776fc",
+      "symbol": "_stage_items",
       "address": "0x4776fc",
       "kind": "data"
     },
     {
-      "symbol": "_stage_lasers_004776ec",
+      "symbol": "_stage_lasers",
       "address": "0x4776ec",
       "kind": "data"
     },
     {
-      "symbol": "_stage_popups_00477840",
+      "symbol": "_stage_popups",
       "address": "0x477840",
       "kind": "data"
     },
     {
-      "symbol": "_stage_large_004776f4",
+      "symbol": "_stage_large",
       "address": "0x4776f4",
       "kind": "data"
     },
     {
-      "symbol": "_stage_timer_tasks_00477814",
+      "symbol": "_stage_timer_tasks",
       "address": "0x477814",
       "kind": "data"
     },
     {
-      "symbol": "_stage_frames_00474c88",
+      "symbol": "_stage_frames",
       "address": "0x474c88",
       "kind": "data"
     },
     {
-      "symbol": "_stage_other_frames_00474c8c",
+      "symbol": "_stage_other_frames",
       "address": "0x474c8c",
       "kind": "data"
     },
     {
-      "symbol": "_stage_thread_004776e0",
+      "symbol": "_stage_thread",
       "address": "0x4776e0",
       "kind": "data"
     },
     {
-      "symbol": "_stage_assets_00477848",
+      "symbol": "_stage_assets",
       "address": "0x477848",
       "kind": "data"
     },
     {
-      "symbol": "_stage_scores_0047783c",
+      "symbol": "_stage_scores",
       "address": "0x47783c",
       "kind": "data"
     },
     {
-      "symbol": "_stage_application_00491c28",
+      "symbol": "_stage_application",
       "address": "0x491c28",
       "kind": "data"
     },
     {
-      "symbol": "_stage_gauge_00474c40",
+      "symbol": "_stage_gauge",
       "address": "0x474c40",
       "kind": "data"
     },
     {
-      "symbol": "_stage_requests_00492590",
+      "symbol": "_stage_requests",
       "address": "0x492590",
       "kind": "data"
     },
@@ -2511,7 +2511,7 @@
   ],
   "anchor_roots": [
     "?InitializeObject@FrontAnimationResource@@QAEXPAUEntity@@H@Z",
-    "?Stage_StartQuadScripts_00404450@@YGXPAUStage_00404450@@@Z",
+    "?Stage_StartQuadScripts@@YGXPAUStage_00404450@@@Z",
     "?Music_Play@@YGHHH@Z"
   ],
   "included_sources": []

@@ -154,7 +154,7 @@ struct PlatformInterfaceState_0044D370 {
 // arrives in EDI and the result is returned in EAX.
 typedef int (__stdcall *RecoveryLeafD600Query)(void*, unsigned int);
 
-struct PlatformQueryInterfaces_0044D600 {
+struct PlatformQueryInterfaces {
     unsigned char unknown_000[4];
     void** entries_004;
     unsigned char unknown_008[8];

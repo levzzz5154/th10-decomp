@@ -10,7 +10,7 @@
 // from the pair being live across both registration calls while the freshly
 // created callback occupies ESI: this source is therefore compiled in the same
 // native-LTCG link as the registration pair it calls (see
-// build_support/layout/ltcg/bullet_manager_load_scripts_0040ae70.json).
+// build_support/layout/ltcg/bullet_manager_load_scripts.json).
 #include "th10/core/func_ctrl.hpp"
 
 struct RawPair_004055c0 {

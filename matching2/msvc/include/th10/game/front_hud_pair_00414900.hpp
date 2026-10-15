@@ -1,12 +1,12 @@
 #pragma once
 
 // Shared model for the coupled stage-front runtime members:
-//   0x00414900  FrontHudUpdate_00414900   - the scheduler callback body that
+//   0x00414900  FrontHudUpdate   - the scheduler callback body that
 //                                           ticks every front animation bank,
 //                                           drives the boss gauge, the score
 //                                           digits, the stage banner notices
 //                                           and the end-of-stage bonus.
-//   0x00415E90  FrontScriptTick_00415e90  - the front script opcode walker the
+//   0x00415E90  FrontScriptTick  - the front script opcode walker the
 //                                           update drives once per frame.
 // Both receive the stage-front runtime (the object behind 0x0047770C) as their
 // single stack argument and return an int in EAX.
@@ -63,8 +63,8 @@ extern "C" double dbl_neg128;                     // banner open threshold 2
 extern "C" SoundQueue g_sound_manager;
 
 extern "C" float flt_224;                      // boss anchor offset
-extern "C" int __stdcall AnmVm_Run_0043ee30(void* vm);          // 0x0043EE30
-extern "C" void __cdecl FrontFree_004524a1(void* block);        // 0x004524A1
+extern "C" int __stdcall AnmVm_Run(void* vm);          // 0x0043EE30
+extern "C" void __cdecl FrontFree(void* block);        // 0x004524A1
 
 // The stage-front runtime (0x0047770C). Offsets per retail accesses.
 struct FrontUpdateView {
@@ -136,7 +136,7 @@ typedef char FrontBankBase[offsetof(FrontUpdateView, objects) == 0x4980 ? 1 : -1
 typedef char FrontFlagsOffset[offsetof(FrontUpdateView, flags_9eb4) == 0x9EB4 ? 1 : -1];
 
 // The recovered pair: the update and the script walker it drives.
-__declspec(noinline) int __stdcall FrontHudUpdate_00414900(
+__declspec(noinline) int __stdcall FrontHudUpdate(
     FrontUpdateView* front);
 struct ResultDispatcherState;
 extern "C" __declspec(noinline) int __stdcall ResultDispatcher_00415e90(

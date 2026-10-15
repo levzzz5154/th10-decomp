@@ -48,7 +48,7 @@
   "constants": [],
   "absolute_symbols": [
     {
-      "symbol": "_entry_malloc_00452706",
+      "symbol": "_entry_malloc",
       "address": "0x00452706",
       "kind": "relative_code"
     },

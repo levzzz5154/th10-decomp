@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "name": "bullet_entity_mark_animation_for_removal_0040cea0",
+  "name": "bullet_entity_mark_animation_for_removal",
   "source": "src/game/enemy/bullet_entity_mark_animation_for_removal_0040cea0.cpp",
   "driver": "build_support/layout/ltcg/bullet_entity_mark_animation_for_removal_0040cea0_context.cpp",
   "headers": [],

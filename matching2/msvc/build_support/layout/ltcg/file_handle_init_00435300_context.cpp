@@ -5,7 +5,7 @@
 extern "C" int __stdcall FileHandleInitContext_00435300(
     FileHandle_00435300** objects, int count) {
     while (count--) {
-        FileHandle_Initialize_00435300(*objects++);
+        FileHandle_Initialize(*objects++);
     }
     return 0;
 }

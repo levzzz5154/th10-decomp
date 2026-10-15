@@ -1,6 +1,6 @@
 #include "th10/game/pause_choice_00422c80/cursor.hpp"
 #pragma code_seg(".text$90push")
-void PauseChoiceCursor_00422c80::PushSelection() {
+void PauseChoiceCursor::PushSelection() {
     selection_history[history_depth] = selection;
     item_count_history[history_depth] = item_count;
     ++history_depth;
@@ -10,7 +10,7 @@ void PauseChoiceCursor_00422c80::PushSelection() {
 }
 
 #pragma code_seg(".text$92pop")
-void PauseChoiceCursor_00422c80::PopSelection() {
+void PauseChoiceCursor::PopSelection() {
     --history_depth;
     if (history_depth < 0)
         history_depth = 0;
@@ -20,7 +20,7 @@ void PauseChoiceCursor_00422c80::PopSelection() {
 }
 
 #pragma code_seg(".text$94advance")
-int PauseChoiceCursor_00422c80::Advance(int delta) {
+int PauseChoiceCursor::Advance(int delta) {
     int count = item_count;
     if (count > 0) {
     retry_selection:

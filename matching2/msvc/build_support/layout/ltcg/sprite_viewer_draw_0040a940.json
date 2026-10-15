@@ -15,7 +15,7 @@
   "functions": [
     {
       "name": "EclView_Draw",
-      "symbol": "?Draw@EclView_0040a940@@QAEHXZ",
+      "symbol": "?Draw@EclView@@QAEHXZ",
       "section": ".text$05draw",
       "address": "0x0040A940",
       "actual_abi": "viewer in EDI; plain RET; switch table follows the body",
@@ -23,7 +23,7 @@
     },
     {
       "name": "EclView_DrawTask",
-      "symbol": "?EclView_DrawTask_0040abf0@@YIHPAUEclView_0040a940@@@Z",
+      "symbol": "?EclView_DrawTask_0040abf0@@YIHPAUEclView@@@Z",
       "section": ".text$06task",
       "address": "0x0040ABF0",
       "actual_abi": "context in ECX; moved to EDI around the call",
@@ -139,7 +139,7 @@
     },
     {
       "name": "DrawEntityStandIn",
-      "symbol": "_EclView_DrawEntity_00443080@8",
+      "symbol": "_EclView_DrawEntity@8",
       "section": ".text$08entity",
       "address": "0x00443080",
       "size": 63

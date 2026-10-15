@@ -3,19 +3,19 @@
 // The retail routine receives the new node in EAX and the insertion position
 // in ECX. Its native-LTCG cluster supplies that internal register convention
 // while keeping this implementation as ordinary, named C++.
-struct ScoreListNode_00413200 {
+struct ScoreListNode {
     unsigned char reserved_000[4];
-    ScoreListNode_00413200* next;
-    ScoreListNode_00413200* previous;
+    ScoreListNode* next;
+    ScoreListNode* previous;
 };
 
 typedef char ScoreListNode_00413200_size_must_be_0c[
-    sizeof(ScoreListNode_00413200) == 0x0c ? 1 : -1];
+    sizeof(ScoreListNode) == 0x0c ? 1 : -1];
 
 #pragma code_seg(".text$01insert")
 __declspec(noinline) void ScoreList_InsertAfter(
-        ScoreListNode_00413200* position,
-        ScoreListNode_00413200* node) {
+        ScoreListNode* position,
+        ScoreListNode* node) {
     if (position->next != 0) {
         node->next = position->next;
         position->next->previous = node;

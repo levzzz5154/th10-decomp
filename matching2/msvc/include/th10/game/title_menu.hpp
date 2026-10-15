@@ -5,37 +5,37 @@
 #include "th10/game/menu_cursor.hpp"
 #include "th10/game/recovery_script_executor_0040bd80.hpp"
 
-struct RecoveryMusicVector_00433ef0 { float x, y, z; };
+struct RecoveryMusicVector { float x, y, z; };
 struct RecoveryMusicVm;
-struct RecoveryMusicChild_00433ef0 {
+struct RecoveryMusicChild {
     RecoveryMusicVm* object;
-    RecoveryMusicChild_00433ef0* next;
+    RecoveryMusicChild* next;
 };
 struct RecoveryMusicVm {
     unsigned int id;
     unsigned char reserved_004[0x10];
-    RecoveryMusicChild_00433ef0* children;
+    RecoveryMusicChild* children;
     int children_flagged;
     unsigned int reserved_01c;
     int render_bucket;
     unsigned char reserved_024[0x70 - 0x24];
-    RecoveryMusicVector_00433ef0 base_transition;
-    RecoveryMusicVector_00433ef0 target_transition;
-    RecoveryMusicVector_00433ef0 defaults_088;
-    RecoveryMusicVector_00433ef0 defaults_094;
+    RecoveryMusicVector base_transition;
+    RecoveryMusicVector target_transition;
+    RecoveryMusicVector defaults_088;
+    RecoveryMusicVector defaults_094;
     RecoveryTimer_0040bd80 transition_timer;
     int transition_mode;
     unsigned int transition_flag;
     unsigned char reserved_0bc[0x304 - 0xBC];
     unsigned short stop_frame;
     unsigned char reserved_306[0x334 - 0x306];
-    RecoveryMusicVector_00433ef0 position;
+    RecoveryMusicVector position;
     unsigned char reserved_340[0x35C - 0x340];
     unsigned int flags;
 
     __declspec(noinline) void InitializeTransition(
-        const RecoveryMusicVector_00433ef0* base,
-        const RecoveryMusicVector_00433ef0* target, int mode, unsigned char flag);
+        const RecoveryMusicVector* base,
+        const RecoveryMusicVector* target, int mode, unsigned char flag);
 };
 
 extern "C" float g_game_speed;
@@ -54,10 +54,10 @@ struct Title {
     unsigned char reserved_0fc[0x2B0 - 0xFC];
     RecoveryTimer_0040bd80 timer;
     unsigned int animation_slots[195]; // +2C4 through +5CC
-    RecoveryHandle_0040bd80 fallback_handle;
+    RecoveryHandle fallback_handle;
     unsigned char reserved_5d4[0x614 - 0x5D4];
-    RecoveryHandle_0040bd80 row_handles[20];
-    RecoveryHandle_0040bd80 preview_handles[8];
+    RecoveryHandle row_handles[20];
+    RecoveryHandle preview_handles[8];
     unsigned int reserved_684;
     int parsed_track_count;
     int preview_cursor;
@@ -94,7 +94,7 @@ struct Title {
 
 #pragma code_seg(pop)
 
-struct RecoveryMusicResourceQueue_0043e460 {
+struct RecoveryMusicResourceQueue {
     __declspec(noinline) char* RegisterResource(const char* name, int kind, int parameter);
 };
 

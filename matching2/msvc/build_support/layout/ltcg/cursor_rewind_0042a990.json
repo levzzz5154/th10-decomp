@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "cursor_rewind_0042a990",
-      "symbol": "?Rewind@Cursors_0042a990@@QAEXXZ",
+      "symbol": "?Rewind@Cursors@@QAEXXZ",
       "section": ".text$01accessor",
       "address": "0x0042A990",
       "size": 19,
@@ -17,7 +17,7 @@
     }
   ],
   "context": {
-    "symbol": "?Ctx@@YGHPAPAUCursors_0042a990@@H@Z",
+    "symbol": "?Ctx@@YGHPAPAUCursors@@H@Z",
     "section": ".text$03context",
     "address": "0x0042A9C0",
     "size": 36,

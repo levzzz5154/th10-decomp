@@ -8,8 +8,8 @@
   "description": "Region compiled with native LTCG so its entry register is retail's.",
   "functions": [
     {
-      "name": "FindKey_00419930",
-      "symbol": "?FindKey_00419930@@YGHPAUSearchRecord_00419930@@HH@Z",
+      "name": "FindKey",
+      "symbol": "?FindKey@@YGHPAUSearchRecord@@HH@Z",
       "section": ".text$01find",
       "address": "0x00419930",
       "size": 35,
@@ -19,7 +19,7 @@
   ],
   "anchors": [],
   "context": {
-    "symbol": "?FindContext_00419930@@YGHPAUSearchRecord_00419930@@HH@Z",
+    "symbol": "?FindContext_00419930@@YGHPAUSearchRecord@@HH@Z",
     "section": ".text$03context",
     "address": "0x00419970",
     "size": 24,

@@ -8,7 +8,7 @@
 #include <string.h>
 
 #pragma code_seg(".text$079h_flush")
-void DropSource_0040c9a0::FlushDrops(ItemDrops_0040c9a0* drops) {
+void DropSource::FlushDrops(ItemDrops_0040c9a0* drops) {
     if (drops->main_item > 0)
         g_item_manager->Spawn(position, drops->main_item, -1, -1.5707964f, 2.2f);
     ScatterDrops(drops);
@@ -21,11 +21,11 @@ void DropSource_0040c9a0::FlushDrops(ItemDrops_0040c9a0* drops) {
 // radius, and the direction then turns by about a quarter turn. The position
 // arrives in ESI and the drops on the stack.
 #pragma code_seg(".text$079i_scatter")
-void DropSource_0040c9a0::ScatterDrops(ItemDrops_0040c9a0* drops) {
+void DropSource::ScatterDrops(ItemDrops_0040c9a0* drops) {
     float angle = Rng_NextFloatSigned(&g_rng) * 3.1415927f;
     for (int kind = 0; kind < 11; ++kind) {
         for (int i = 0; i < drops->counts[kind]; ++i) {
-            ScatterOffset_0040c9d0 target;
+            ScatterOffset target;
             target.SetEllipticPolar(angle, drops->spread_x, drops->spread_y);
             // The height is read between the draw and its scaling.
             float roll = (float)ItemScatter_NextU32();

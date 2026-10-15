@@ -24,8 +24,8 @@ struct Game {
         memset(this, 0, sizeof(*this));
     }
 };
-typedef char GameUiLayout_004180e0[(sizeof(Game)==0x60 && offsetof(Game, config)==0x24 && offsetof(Game, argument_5c)==0x5c)?1:-1];
-struct UiEvictionDevice_004180e0 {
+typedef char GameUiLayout[(sizeof(Game)==0x60 && offsetof(Game, config)==0x24 && offsetof(Game, argument_5c)==0x5c)?1:-1];
+struct UiEvictionDevice {
     virtual void __stdcall Slot00() = 0;
     virtual void __stdcall Slot01() = 0;
     virtual void __stdcall Slot02() = 0;
@@ -33,7 +33,7 @@ struct UiEvictionDevice_004180e0 {
     virtual void __stdcall Slot04() = 0;
     virtual long __stdcall EvictManagedResources() = 0;
 };
-extern "C" UiEvictionDevice_004180e0* g_d3d_device;
+extern "C" UiEvictionDevice* g_d3d_device;
 extern "C" Game* g_game;
 extern "C" GameUiThreadHost g_application;
 extern "C" void __cdecl Game_LoadThread(void);

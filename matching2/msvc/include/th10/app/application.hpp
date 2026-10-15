@@ -4,7 +4,7 @@
 #include "th10/game/large_initialization_state_00421f00.hpp"
 #include "th10/render/direct3d9_interfaces.hpp"
 
-struct MidiOwner_00438ad0;
+struct MidiOwner;
 
 // The application object at 0x00491C28, as WinMain and the Direct3D start-up
 // reach it. In `config`, field_1a is the colour depth (0 for 32 bits, 1 for
@@ -28,7 +28,7 @@ struct Application {
     int no_vsync;                               // +0x3B4 (0x00491FDC)
     int fixed_refresh;                          // +0x3B8 (0x00491FE0): 60 Hz was obtained
     int frames_presented;                       // +0x3BC (0x00491FE4)
-    MidiOwner_00438ad0* midi;                   // +0x3C0 (0x00491FE8)
+    MidiOwner* midi;                   // +0x3C0 (0x00491FE8)
     unsigned char reserved_3c4[0x3CC - 0x3C4];
     // +0x3CC (0x00491FF4): 1 = hardware vertex processing, 2 = device created,
     // 4 = 32-bit textures, 0x10 = device was reset

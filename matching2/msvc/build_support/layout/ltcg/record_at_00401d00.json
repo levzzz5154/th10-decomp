@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "RecordTable_00401d00_At",
-      "symbol": "?At@RecordTable_00401d00@@QAEPAURecord_00401d00@@H@Z",
+      "symbol": "?At@RecordTable@@QAEPAURecord_00401d00@@H@Z",
       "section": ".text$01accessor",
       "address": "0x00401D00",
       "size": 12,
@@ -17,7 +17,7 @@
     }
   ],
   "context": {
-    "symbol": "?Ctx@@YGHPAURecordTable_00401d00@@H@Z",
+    "symbol": "?Ctx@@YGHPAURecordTable@@H@Z",
     "section": ".text$03context",
     "address": "0x00401D20",
     "size": 45,

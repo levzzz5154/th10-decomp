@@ -16,24 +16,24 @@ extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(void* secti
 extern "C" void* g_file_probe_handle;
 extern "C" unsigned char g_file_critical_section;
 extern "C" unsigned char g_file_critical_depth;
-extern "C" unsigned char screenshot_bitmap_header_00492138[14];
-extern "C" void* screenshot_dib_header_00492148;
-extern "C" void* screenshot_pixels_0049214c;
-extern "C" char screenshot_path_00492150[];
+extern "C" unsigned char screenshot_bitmap_header[14];
+extern "C" void* screenshot_dib_header;
+extern "C" void* screenshot_pixels;
+extern "C" char screenshot_path[];
 extern "C" unsigned long screenshot_thread_00492134;
 
 extern "C" void __cdecl ScreenshotWriter(void*) {
     unsigned long written;
-    File_OpenSharedWrite_0044b620(screenshot_path_00492150);
+    File_OpenSharedWrite_0044b620(screenshot_path);
     if (g_file_probe_handle != (void*)-1) {
-        WriteFile(g_file_probe_handle, screenshot_bitmap_header_00492138, 14, &written, 0);
+        WriteFile(g_file_probe_handle, screenshot_bitmap_header, 14, &written, 0);
         if (written != 14) {
             CloseHandle(g_file_probe_handle);
             LeaveCriticalSection(&g_file_critical_section);
             --g_file_critical_depth;
         }
         if (g_file_probe_handle != (void*)-1) {
-            WriteFile(g_file_probe_handle, screenshot_dib_header_00492148, 40, &written, 0);
+            WriteFile(g_file_probe_handle, screenshot_dib_header, 40, &written, 0);
             if (written != 40) {
                 CloseHandle(g_file_probe_handle);
                 LeaveCriticalSection(&g_file_critical_section);
@@ -41,7 +41,7 @@ extern "C" void __cdecl ScreenshotWriter(void*) {
             }
         }
         if (g_file_probe_handle != (void*)-1) {
-            WriteFile(g_file_probe_handle, screenshot_pixels_0049214c, 0xe1000, &written, 0);
+            WriteFile(g_file_probe_handle, screenshot_pixels, 0xe1000, &written, 0);
             if (written != 0xe1000) {
                 CloseHandle(g_file_probe_handle);
                 LeaveCriticalSection(&g_file_critical_section);
@@ -54,13 +54,13 @@ extern "C" void __cdecl ScreenshotWriter(void*) {
             --g_file_critical_depth;
         }
     }
-    if (screenshot_dib_header_00492148 != 0) {
-        crt_free(screenshot_dib_header_00492148);
-        screenshot_dib_header_00492148 = 0;
+    if (screenshot_dib_header != 0) {
+        crt_free(screenshot_dib_header);
+        screenshot_dib_header = 0;
     }
-    if (screenshot_pixels_0049214c != 0) {
-        crt_free(screenshot_pixels_0049214c);
-        screenshot_pixels_0049214c = 0;
+    if (screenshot_pixels != 0) {
+        crt_free(screenshot_pixels);
+        screenshot_pixels = 0;
     }
     screenshot_thread_00492134 = 0;
 }

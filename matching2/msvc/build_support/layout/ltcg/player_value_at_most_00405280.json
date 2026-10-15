@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "PlayerValueAtMost_00405280",
-      "symbol": "?IsUnknownValueAt0004AtMost@PlayerLeafComparison_00405280@@QBEHH@Z",
+      "symbol": "?IsUnknownValueAt0004AtMost@PlayerLeafComparison@@QBEHH@Z",
       "section": ".text$01accessor",
       "address": "0x00405280",
       "size": 17,
@@ -17,7 +17,7 @@
     }
   ],
   "context": {
-    "symbol": "?PlayerValueAtMostContext_00405280@@YGHPAPAUPlayerLeafComparison_00405280@@PAHH@Z",
+    "symbol": "?PlayerValueAtMostContext_00405280@@YGHPAPAUPlayerLeafComparison@@PAHH@Z",
     "section": ".text$03context",
     "address": "0x004052B0",
     "size": 52,

@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "StoreResult_00412d50_Store",
-      "symbol": "?Store@StoreResult_00412d50@@QAEHH@Z",
+      "symbol": "?Store@StoreResult@@QAEHH@Z",
       "section": ".text$01store00412d50",
       "address": "0x00412D50",
       "size": 4,
@@ -17,7 +17,7 @@
     }
   ],
   "context": {
-    "symbol": "?H3801CompilerContext_00412d50@@YGHPAPAUStoreResult_00412d50@@HH@Z",
+    "symbol": "?H3801CompilerContext_00412d50@@YGHPAPAUStoreResult@@HH@Z",
     "section": ".text$03context",
     "address": "0x00412D60",
     "size": 41,

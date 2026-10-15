@@ -3,7 +3,7 @@
 extern "C" RenderCamera g_back_camera;
 extern "C" RenderCamera g_front_camera;
 // Initialize only the selected camera fields; leave matrices and other state intact.
-extern "C" __declspec(noinline) void __cdecl RenderCamera_InitializeDefaults_004216f0() {
+extern "C" __declspec(noinline) void __cdecl RenderCamera_InitializeDefaults() {
     g_front_camera.position = CameraVector(0.0f, 0.0f, 1000.0f);
     g_front_camera.direction = CameraVector(0.0f, 0.0f, 0.0f);
     g_front_camera.up = CameraVector(0.0f, 1.0f, 0.0f);

@@ -8,7 +8,7 @@ __forceinline short ChoiceInputActive(const KeyRepeatState* input, unsigned shor
 }
 
 #pragma code_seg(".text$30choice")
-extern "C" __declspec(noinline) void __stdcall PauseMenu_Update_00422c80(PauseChoiceState* state) {
+extern "C" __declspec(noinline) void __stdcall PauseMenu_Update(PauseChoiceState* state) {
     switch (state->phase) {
     case 1:
         if (state->timer.field_04 >= 10) {
@@ -21,7 +21,7 @@ extern "C" __declspec(noinline) void __stdcall PauseMenu_Update_00422c80(PauseCh
         }
         break;
     case 2: {
-        PauseChoiceCursor_00422c80* cursor = &state->cursor;
+        PauseChoiceCursor* cursor = &state->cursor;
         cursor->previous_selection = cursor->selection;
         if (ChoiceInputActive(&g_input_keys_raw, 0x10))
             cursor->Advance(-1);
@@ -80,7 +80,7 @@ extern "C" __declspec(noinline) void __stdcall PauseMenu_Update_00422c80(PauseCh
         if (state->timer.field_04 < 30) return;
         if (state->timer.field_04 == 30)
             state->background.SetStopFrame((unsigned short)(state->cursor.selection + 15));
-        PauseChoiceCursor_00422c80* cursor = &state->cursor;
+        PauseChoiceCursor* cursor = &state->cursor;
         cursor->previous_selection = cursor->selection;
         if ((short)g_input_keys_raw.InputMaskActive(0x10)) cursor->Advance(-1);
         if ((short)g_input_keys_raw.InputMaskActive(0x20)) cursor->Advance(1);
@@ -139,7 +139,7 @@ extern "C" __declspec(noinline) void __stdcall PauseMenu_Update_00422c80(PauseCh
             SetInputMode(&g_application, 4);
             return;
         case 0:
-            reinterpret_cast<PauseOwner_00422c30*>(state)->Unpause();
+            reinterpret_cast<PauseOwner*>(state)->Unpause();
             break;
         }
     }

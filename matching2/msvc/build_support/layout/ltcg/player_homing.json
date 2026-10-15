@@ -18,7 +18,7 @@
     {
       "name": "PlayerHoming_HomeTowardTarget",
       "source": "src/game/bullet/player_homing_00407ef0.cpp",
-      "symbol": "?HomeTowardTarget@PlayerHomingState_00407EF0@@QAEXXZ",
+      "symbol": "?HomeTowardTarget@PlayerHomingState@@QAEXXZ",
       "address": "0x00407EF0",
       "size": 306,
       "section": ".text$01homing",
@@ -61,7 +61,7 @@
       "kind": "metadata"
     },
     {
-      "symbol": "?SetPolar@PolarVector2_00408750@@QAEPAU1@MM@Z",
+      "symbol": "?SetPolar@PolarVector2@@QAEPAU1@MM@Z",
       "address": "0x408750",
       "kind": "relative_code"
     },
@@ -104,7 +104,7 @@
   "roots": [],
   "driver": "build_support/layout/ltcg/player_homing_context.cpp",
   "context": {
-    "symbol": "?PlayerHomingContext@@YGHPAPAUPlayerHomingState_00407EF0@@H@Z",
+    "symbol": "?PlayerHomingContext@@YGHPAPAUPlayerHomingState@@H@Z",
     "address": "0x00408100",
     "size": 41,
     "section": ".text$03context",

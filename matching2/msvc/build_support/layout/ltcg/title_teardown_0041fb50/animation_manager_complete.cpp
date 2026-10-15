@@ -3,7 +3,7 @@
 
 // The complete native owner at 0x00446220. The three actual Entity
 // subobjects produce their own full compiler unwind graph.
-struct AnimationManagerStorage_00446220 {
+struct AnimationManagerStorage {
     unsigned char reserved_000[0x68];
     TitleAnimation_00401FF0 pool[4096];
     unsigned char pool_in_use[4096];
@@ -16,14 +16,14 @@ struct AnimationManagerStorage_00446220 {
     AnmVmNode* secondary_tail;
     TitleAnimation_00401FF0 layers[20];
     unsigned char reserved_732454[0xC];
-    __declspec(noinline) ~AnimationManagerStorage_00446220();
+    __declspec(noinline) ~AnimationManagerStorage();
 };
-typedef char PoolOffset[offsetof(AnimationManagerStorage_00446220,pool)==0x68?1:-1];
-typedef char MiddleOffset[offsetof(AnimationManagerStorage_00446220,middle)==0x3ad130?1:-1];
-typedef char LayerOffset[offsetof(AnimationManagerStorage_00446220,layers)==0x72dae4?1:-1];
-typedef char StorageSize[sizeof(AnimationManagerStorage_00446220)==0x732460?1:-1];
+typedef char PoolOffset[offsetof(AnimationManagerStorage,pool)==0x68?1:-1];
+typedef char MiddleOffset[offsetof(AnimationManagerStorage,middle)==0x3ad130?1:-1];
+typedef char LayerOffset[offsetof(AnimationManagerStorage,layers)==0x72dae4?1:-1];
+typedef char StorageSize[sizeof(AnimationManagerStorage)==0x732460?1:-1];
 #pragma code_seg(".text$06zmanager")
-AnimationManagerStorage_00446220::~AnimationManagerStorage_00446220() {
+AnimationManagerStorage::~AnimationManagerStorage() {
     AnmManager* manager = reinterpret_cast<AnmManager*>(this);
     for (AnmVmNode* node=primary_head; node;) {
         AnmVmNode* next=node->next;

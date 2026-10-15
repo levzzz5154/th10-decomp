@@ -51,7 +51,7 @@ extern "C" __declspec(noinline) void** __cdecl asm_AnimationManager_RegisterPrim
 
 #pragma code_seg(".text$00448e30_create")
 __declspec(noinline)
-void** __stdcall AnimationManager_CreatePrimaryFront_00448e30(
+void** __stdcall AnimationManager_CreatePrimaryFront(
         void* resource, void** out, int index, int render_bucket) {
     AnimationObject_00448e30* object =
         (AnimationObject_00448e30*)asm_FUN_00449950_00449950(g_sprt_ctrl);

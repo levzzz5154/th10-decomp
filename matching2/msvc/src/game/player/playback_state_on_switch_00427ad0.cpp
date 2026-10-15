@@ -3,7 +3,7 @@
 #include "th10/game/playback_state.hpp"
 
 #pragma code_seg(".text$45timedzbc5")
-int __fastcall PlaybackState_OnSwitch_00427ad0(PlaybackState* state) {
+int __fastcall PlaybackState_OnSwitch(PlaybackState* state) {
     state->SwitchPlaybackState();
     return 0;
 }

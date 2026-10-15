@@ -19,7 +19,7 @@ static inline void SelectItem_00423570(MenuCursor* cursor, int item) {
 }
 
 #pragma code_seg(".text$00423570_fn")
-void __stdcall PrepareNameEntry_00423570(NameEntryMenu_00423570* menu) {
+void __stdcall PrepareNameEntry(NameEntryMenu* menu) {
     if (g_globals_score.stage == 7 && menu->extra_cleared != 0) {
         g_stage_route_current = &g_stage_routes[8];
         g_globals_score.stage = 8;

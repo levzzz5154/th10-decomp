@@ -31,7 +31,7 @@ struct Pixel4444_00436da0 {
     unsigned short a : 4;
 };
 
-char __stdcall FontAtlas_FillTransparentPixels_00436da0(FontAtlas_00436da0* atlas, unsigned int rows) {
+char __stdcall FontAtlas_FillTransparentPixels(FontAtlas_00436da0* atlas, unsigned int rows) {
     unsigned int i;
     unsigned int j;
     unsigned int sum[3];

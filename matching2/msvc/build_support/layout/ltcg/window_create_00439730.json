@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "name": "window_create_00439730",
+  "name": "window_create",
   "source": "src/core/main/window_create_00439730.cpp",
   "driver": "build_support/layout/ltcg/window_create_00439730_context.cpp",
   "headers": [
@@ -92,7 +92,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_WindowProcedure_004390e0@16",
+      "symbol": "_WindowProcedure@16",
       "address": "0x004390E0",
       "kind": "data"
     },

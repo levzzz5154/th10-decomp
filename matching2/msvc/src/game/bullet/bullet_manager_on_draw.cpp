@@ -20,7 +20,7 @@ extern "C" __declspec(noinline) int __cdecl asm_FUN_004451c0_004451c0(
 
 struct Enemy_004067a0;
 
-struct SlotOwner_004067a0 {
+struct SlotOwner {
     unsigned char pad_000[0x0014];
     Enemy_004067a0* slots[6];                 // +0x0014, indexed by the slot number
     __declspec(noinline) int AdvanceSlot(int index);
@@ -50,15 +50,15 @@ struct Enemy_004067a0 {
     Enemy_004067a0* next;                     // +0x044C
 };
 
-struct SlotState_004067a0 {
+struct SlotState {
     unsigned char pad_000[0x0058];
     unsigned int flags;                       // +0x0058
 };
-extern "C" SlotState_004067a0* g_game;
+extern "C" SlotState* g_game;
 
 #pragma code_seg(".text$03run")
-__declspec(noinline) int SlotOwner_004067a0::OnDraw() {
-    SlotState_004067a0* state = g_game;
+__declspec(noinline) int SlotOwner::OnDraw() {
+    SlotState* state = g_game;
     if (!state || !(state->flags & 4)) {
         for (int index = 0; index < 6; ++index) AdvanceSlot(index);
     }
@@ -74,7 +74,7 @@ __declspec(noinline) int SlotOwner_004067a0::OnDraw() {
 // The position is copied through pointers, which keeps the three stores in
 // source order ahead of the flag test as retail has them.
 #pragma code_seg(".text$01anchor")
-__declspec(noinline) int SlotOwner_004067a0::AdvanceSlot(int index) {
+__declspec(noinline) int SlotOwner::AdvanceSlot(int index) {
     Enemy_004067a0* entity = slots[index];
     while (entity) {
         Vec3_004067a0* drawn = &entity->sprite_position;

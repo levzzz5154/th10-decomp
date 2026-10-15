@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "table_entry_0042c8a0",
-      "symbol": "?TableEntry_0042c8a0@@YGHPAUTable_0042c8a0@@HH@Z",
+      "symbol": "?TableEntry@@YGHPAUTable_0042c8a0@@HH@Z",
       "section": ".text$01accessor",
       "address": "0x0042C8A0",
       "size": 22,

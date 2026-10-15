@@ -6,18 +6,18 @@ extern "C" void _ReadWriteBarrier();
 #pragma intrinsic(_ReadWriteBarrier)
 
 #pragma code_seg(".text$50boundedsegments")
-__declspec(noinline) int LineEffectSweep_0041e260::CreateSegmentsInBounds(int spawn_items) {
+__declspec(noinline) int LineEffectSweep::CreateSegmentsInBounds(int spawn_items) {
     float distance;
     int count = 0;
     distance = 6.0f;
-    LineSweepStep_0041e260 step;
+    LineSweepStep step;
     step.velocity.SetPolar(angle, 6.0f);
 
     // Retail retains a three-word initial-position temporary, then copies it
     // into the point that advances along the line.  Z starts at the owner's Z
     // and the step's Z is zero, so every iteration preserves that coordinate.
-    LineSweepVector_0041e260 point;
-    point = LineSweepVector_0041e260(step.velocity.x + position.x,
+    LineSweepVector point;
+    point = LineSweepVector(step.velocity.x + position.x,
         step.velocity.y + position.y, position.z);
     step.z = 0.0f;
     step.velocity.x = step.velocity.x + step.velocity.x;

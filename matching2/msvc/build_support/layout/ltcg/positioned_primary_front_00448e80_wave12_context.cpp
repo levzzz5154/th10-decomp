@@ -6,7 +6,7 @@ extern "C" void* __cdecl Entity_Constructor_00402050(void* entity);
 extern "C" void __cdecl Entity_Init_00401de0(void* unused, void* entity);
 extern "C" void __cdecl asm_AnimationObject_LoadScriptTail_0043ee30(void* object);
 
-__declspec(noinline) void** __stdcall AnimationManager_CreatePrimaryFront_00448e30(
+__declspec(noinline) void** __stdcall AnimationManager_CreatePrimaryFront(
     void* resource, void** out, int index, int render_bucket);
 
 static unsigned int NextPoolIndex_00449950(unsigned int index) {
@@ -150,17 +150,17 @@ extern "C" __declspec(noinline) void** __cdecl asm_AnimationManager_RegisterPrim
 // 0x00448E80's own caller, shaped like the game's animation-object factories.
 // Not recovered game code.
 struct AnimationPosition_00448ee0;
-__declspec(noinline) void** __stdcall AnimationManager_CreateScreenPositionedPrimaryFront_00448ee0(void*, void**, int, const AnimationPosition_00448ee0*);
+__declspec(noinline) void** __stdcall AnimationManager_CreateScreenPositionedPrimaryFront(void*, void**, int, const AnimationPosition_00448ee0*);
 
 #pragma code_seg(".text$09context")
 int __stdcall PositionedPrimaryFrontContext(void** resources, void*** outs, int* indexes,
                                             const AnimationPosition_00448e80** positions,
                                             int count) {
     for (int i = 0; i < count; ++i) {
-        AnimationManager_CreatePrimaryFront_00448e30(resources[i], outs[i], indexes[i], 15);
-        AnimationManager_CreatePositionedPrimaryFront_00448e80(resources[i], outs[i], indexes[i],
+        AnimationManager_CreatePrimaryFront(resources[i], outs[i], indexes[i], 15);
+        AnimationManager_CreatePositionedPrimaryFront(resources[i], outs[i], indexes[i],
                                                                positions[i]);
-        AnimationManager_CreateScreenPositionedPrimaryFront_00448ee0(resources[i], outs[i], indexes[i], (const AnimationPosition_00448ee0*)positions[i]);
+        AnimationManager_CreateScreenPositionedPrimaryFront(resources[i], outs[i], indexes[i], (const AnimationPosition_00448ee0*)positions[i]);
     }
     return count;
 }

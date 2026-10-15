@@ -4,7 +4,7 @@
 #pragma code_seg(".text$01anchor")
 __declspec(noinline) void StopHandleAnchor_00409e50(AnimationHandle_0040c440* handle) {
     unsigned int id = handle->id;
-    AnimationNode_0040c440* node = (AnimationNode_0040c440*)find_opaque_004491c0(id);
+    AnimationNode_0040c440* node = (AnimationNode_0040c440*)find_opaque(id);
     if (node != 0) {
         node->stop_frame = 1;
         if (!node->children_flagged) {

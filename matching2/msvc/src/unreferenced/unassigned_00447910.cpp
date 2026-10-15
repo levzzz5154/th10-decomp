@@ -11,7 +11,7 @@ struct AnimationHandle_00447810 {
     virtual void __stdcall slot2();
 };
 
-struct AnimationResourceEntry_00447810 {
+struct AnimationResourceEntry {
     AnimationHandle_00447810* handle;   // +0x00
     void* allocation;                   // +0x04
     unsigned char pad_008[8];
@@ -20,7 +20,7 @@ struct AnimationResourceEntry_00447810 {
 };
 
 #pragma code_seg(".text$15layoutb")
-void AnimationResourceEntry_00447810::Release() {
+void AnimationResourceEntry::Release() {
     if (handle != 0) {
         handle->slot2();
         handle = 0;

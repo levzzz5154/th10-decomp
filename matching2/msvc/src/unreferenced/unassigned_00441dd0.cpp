@@ -5,7 +5,7 @@ struct Vec2_00441dd0 {
 };
 
 #pragma code_seg(".text$01accessor")
-__declspec(noinline) Vec2_00441dd0 __stdcall Difference_00441dd0(const Vec2_00441dd0* to, const Vec2_00441dd0* from) {
+__declspec(noinline) Vec2_00441dd0 __stdcall Difference(const Vec2_00441dd0* to, const Vec2_00441dd0* from) {
     return Vec2_00441dd0(to->x - from->x, to->y - from->y);
 }
 #pragma code_seg()

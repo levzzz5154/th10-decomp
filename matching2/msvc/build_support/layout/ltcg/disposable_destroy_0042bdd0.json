@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "name": "disposable_destroy_0042bdd0",
+  "name": "disposable_destroy",
   "source": "src/unreferenced/unassigned_0042bdd0.cpp",
   "driver": "build_support/layout/ltcg/disposable_destroy_0042bdd0_context.cpp",
   "headers": [],
@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "Disposable_0042bdd0_Destroy",
-      "symbol": "?Disposable_0042bdd0_Destroy@@YGPAXPAUDisposable_0042bdd0@@H@Z",
+      "symbol": "?Disposable_0042bdd0_Destroy@@YGPAXPAUDisposable@@H@Z",
       "section": ".text$01del",
       "address": "0x0042BDD0",
       "size": 56,

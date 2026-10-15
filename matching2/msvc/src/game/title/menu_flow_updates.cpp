@@ -12,7 +12,7 @@
 //
 // The room arrives in EBX from the title dispatcher (0x0042CDF0); that private
 // convention needs the dispatcher and the real bodies of the leaves in one
-// whole-program link (build_support/layout/ltcg/key_config_update_0042f540.json).
+// whole-program link (build_support/layout/ltcg/key_config_update.json).
 //
 // Shapes that are load-bearing (each measured against the image):
 //
@@ -41,7 +41,7 @@ static __forceinline void SelectItem_0042f540(MenuCursor& cursor, int index) {
 }
 
 // Copy the bindings in use into the screen and redraw their labels.
-static __forceinline void LoadBindings_0042f540(Title* room) {
+static __forceinline void LoadBindings(Title* room) {
     TitleKeyConfigView* labels = reinterpret_cast<TitleKeyConfigView*>(room);
     labels->bindings_59cc[0] = g_key_bindings_current.keys[0];
     labels->bindings_59cc[1] = g_key_bindings_current.keys[1];
@@ -58,7 +58,7 @@ static __forceinline void RunCursorSlot_0042f540(Title* room) {
 }
 
 // Phase 2: cursor movement, pad button assignment, cancel and confirm.
-static __forceinline void HandleInput_0042f540(Title* room) {
+static __forceinline void HandleInput(Title* room) {
     MenuCursor* cursor = &room->cursor;
     cursor->previous_selection = cursor->selection;
     if (g_input_keys_raw.Active(0x10))
@@ -82,13 +82,13 @@ static __forceinline void HandleInput_0042f540(Title* room) {
     }
 
     if ((g_input_keys_raw.pressed & 0xa) && cursor->selection == 6) {
-        LoadBindings_0042f540(room);
+        LoadBindings(room);
     } else {
         if ((g_input_keys_held & 0x1001) == 0)
             return;
         switch (cursor->selection) {
         case 5:
-            LoadBindings_0042f540(room);
+            LoadBindings(room);
             g_sound_manager.Queue(10, 0);
             return;
         case 6: {
@@ -111,14 +111,14 @@ static __forceinline void HandleInput_0042f540(Title* room) {
 }
 
 #pragma code_seg(".text$0042f540_fn")
-int __stdcall TitleMenuFlow_0042f540(Title* room) {
+int __stdcall TitleMenuFlow(Title* room) {
     switch (room->phase) {
     case 0:
         room->cursor.item_count = 7;
         SelectItem_0042f540(room->cursor, 0);
         RecoveryMusicInstallSlot(room, 2);
         room->SetTimerTarget(1);
-        LoadBindings_0042f540(room);
+        LoadBindings(room);
         // Retail intentionally processes phase 1 on this same frame.
     case 1:
         if (room->timer.current > 6) {
@@ -128,7 +128,7 @@ int __stdcall TitleMenuFlow_0042f540(Title* room) {
         }
         break;
     case 2:
-        HandleInput_0042f540(room);
+        HandleInput(room);
         break;
     case 4:
         if (room->timer.current >= 10) {

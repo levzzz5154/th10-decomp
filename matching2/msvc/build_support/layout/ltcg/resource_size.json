@@ -16,12 +16,12 @@
   "description": "Complete size-query and generated exception contributions, with full genuine archive FindSize and FileHandle lifetime functions.",
   "exceptions": true,
   "roots": [
-    "?ResourceGetFileSize_004358e0@@YIIPBD@Z"
+    "?ResourceGetFileSize@@YIIPBD@Z"
   ],
   "functions": [
     {
       "name": "semantic_Resource_GetFileSize_004358e0",
-      "symbol": "?ResourceGetFileSize_004358e0@@YIIPBD@Z",
+      "symbol": "?ResourceGetFileSize@@YIIPBD@Z",
       "section": ".text$09query",
       "address": "0x4358e0",
       "size": 190,
@@ -39,7 +39,7 @@
     },
     {
       "name": "semantic_Resource_GetFileSize_ExceptionHandler_00465388",
-      "symbol": "__ehhandler$?ResourceGetFileSize_004358e0@@YIIPBD@Z",
+      "symbol": "__ehhandler$?ResourceGetFileSize@@YIIPBD@Z",
       "section": ".text$x",
       "address": "0x465388",
       "size": 10,
@@ -57,7 +57,7 @@
     },
     {
       "name": "FileDestructor",
-      "symbol": "??1ResourceSizeFile_004358e0@@QAE@XZ",
+      "symbol": "??1ResourceSizeFile@@QAE@XZ",
       "section": ".text$03dtor",
       "address": "0x435340",
       "size": 46
@@ -115,7 +115,7 @@
       "kind": "metadata"
     },
     {
-      "symbol": "_FirstByteSearch_00452730",
+      "symbol": "_FirstByteSearch",
       "address": "0x452730",
       "kind": "relative_code"
     },
@@ -125,12 +125,12 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "?Find@ArchiveName_004356f0@@QBEPBUArchiveEntry_004356f0@@XZ",
+      "symbol": "?Find@ArchiveName@@QBEPBUArchiveEntry_004356f0@@XZ",
       "address": "0x4356f0",
       "kind": "relative_code"
     },
     {
-      "symbol": "?Open@ResourceSizeFile_004358e0@@QAEEPBD0@Z",
+      "symbol": "?Open@ResourceSizeFile@@QAEEPBD0@Z",
       "address": "0x435370",
       "kind": "relative_code"
     },

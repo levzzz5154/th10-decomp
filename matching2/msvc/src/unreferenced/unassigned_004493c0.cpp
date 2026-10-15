@@ -10,7 +10,7 @@ struct AnimationNode_004493c0;
 extern "C" AnimationNode_004493c0* __fastcall AnimationManager_Find(
     void* value, void* manager, int unused);
 
-extern "C" AnimationNode_004493c0* __fastcall AnimationManager_FindBlock_004493c0(
+extern "C" AnimationNode_004493c0* __fastcall AnimationManager_FindBlock(
     void* value, void* manager, int key) {
     AnimationNode_004493c0* node =
         AnimationManager_Find(value, manager, key);

@@ -8,8 +8,8 @@
   "description": "Three-dimensional cross product with a staged result and native private argument registers.",
   "functions": [
     {
-      "name": "VectorCross_00421b90",
-      "symbol": "?VectorCross_00421b90@@YGPAUCrossVector_00421b90@@PAU1@PBU1@1@Z",
+      "name": "VectorCross",
+      "symbol": "?VectorCross@@YGPAUCrossVector@@PAU1@PBU1@1@Z",
       "section": ".text$01cross",
       "address": "0x00421B90",
       "size": 77,
@@ -17,7 +17,7 @@
     }
   ],
   "context": {
-    "symbol": "?VectorCrossCompilerContext@@YGXPAUCrossVector_00421b90@@PBU1@1H@Z",
+    "symbol": "?VectorCrossCompilerContext@@YGXPAUCrossVector@@PBU1@1H@Z",
     "section": ".text$03context",
     "address": "0x00421BE0",
     "size": 58,

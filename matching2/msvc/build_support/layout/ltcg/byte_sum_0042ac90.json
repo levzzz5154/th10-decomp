@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "byte_sum_0042ac90",
-      "symbol": "?SumPayload_0042ac90@@YGHPBEH@Z",
+      "symbol": "?SumPayload@@YGHPBEH@Z",
       "section": ".text$01accessor",
       "address": "0x0042AC90",
       "size": 30,

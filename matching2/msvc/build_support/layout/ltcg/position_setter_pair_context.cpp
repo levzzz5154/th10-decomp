@@ -3,11 +3,11 @@
 #include "position_setter_find_anchor.cpp"
 #pragma code_seg(".text$70context")
 int __stdcall PositionSetterCompilerContext_004492f0(
-        PositionVector_004492f0* positions, PositionLookupContext_004492f0* context,
-        PositionScriptId_004492f0* ids, int count) {
+        PositionVector* positions, PositionLookupContext* context,
+        PositionScriptId* ids, int count) {
     while (count--) {
         SetAnimationPosition_004492f0(context, positions, ids[0]);
-        SetAnimationTranslatedPosition_00449350(positions, context, ids[1]);
+        SetAnimationTranslatedPosition(positions, context, ids[1]);
         reinterpret_cast<AnimationPositionHandle*>(ids)->SetPosition(positions);
         reinterpret_cast<AnimationPositionHandle*>(ids + 1)->SetTranslatedPosition(positions);
         ++positions;

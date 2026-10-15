@@ -6,7 +6,7 @@ struct Pixel1555 {
 
 // Ghidra observes a surface receiver in ECX, row_count at [ESP+4], and a
 // byte-sized success result in AL. Only the accessed fields are laid out here.
-struct ImageSurface_00437160 {
+struct ImageSurface {
     unsigned char pad_000[0x100];
     int format;                       // +0x100
     unsigned char pad_104[0x0C];
@@ -19,7 +19,7 @@ struct ImageSurface_00437160 {
 
 // 0x00437160: modify the alpha representation for the selected pixel format.
 #pragma code_seg(".text$01accessor")
-__declspec(noinline) char ImageSurface_00437160::InvertAlpha(int row_count) {
+__declspec(noinline) char ImageSurface::InvertAlpha(int row_count) {
     int byte_count = pitch * row_count;
     unsigned char* bytes = pixels;
 

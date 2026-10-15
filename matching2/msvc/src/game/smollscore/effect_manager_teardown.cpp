@@ -8,7 +8,7 @@ SmollScoreDestructorView::~SmollScoreDestructorView() {
     if (task) {
         EnterCriticalSection(&g_thread_synchronization.critical_sections[0]);
         ++g_thread_synchronization.scheduler_lock_depth;
-        ManagerTeardownFuncCtrl_Remove_00449F60(scheduler, task);
+        ManagerTeardownFuncCtrl_Remove(scheduler, task);
         LeaveCriticalSection(&g_thread_synchronization.critical_sections[0]);
         --g_thread_synchronization.scheduler_lock_depth;
     }
@@ -17,7 +17,7 @@ SmollScoreDestructorView::~SmollScoreDestructorView() {
     if (task) {
         EnterCriticalSection(&g_thread_synchronization.critical_sections[0]);
         ++g_thread_synchronization.scheduler_lock_depth;
-        ManagerTeardownFuncCtrl_Remove_00449F60(scheduler, task);
+        ManagerTeardownFuncCtrl_Remove(scheduler, task);
         LeaveCriticalSection(&g_thread_synchronization.critical_sections[0]);
         --g_thread_synchronization.scheduler_lock_depth;
     }

@@ -9,7 +9,7 @@ struct SlotTable_00412750 {
 };
 
 #pragma code_seg(".text$01accessor")
-__declspec(noinline) void __stdcall SetSlot_00412750(SlotTable_00412750* table, int index, int id, int first, int second, int third) {
+__declspec(noinline) void __stdcall SetSlot(SlotTable_00412750* table, int index, int id, int first, int second, int third) {
     table->slots[index].id = id;
     if (id >= 0) {
         table->slots[index].first = first;

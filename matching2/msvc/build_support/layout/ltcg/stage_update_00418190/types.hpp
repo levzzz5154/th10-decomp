@@ -1,7 +1,7 @@
 #pragma once
 #define g_sprt_ctrl stage_front_g_sprt_ctrl
 #define g_front stage_front_g_front
-#define g_globals stage_front_data_00474c40
+#define g_globals stage_front_data
 #define g_ascii_manager stage_front_data_004776e0
 #define g_enemy_ctrl stage_front_g_enemy_ctrl
 #define g_player stage_front_data_00477834
@@ -36,9 +36,9 @@
 #define g_stage_flags stage_hud_data_00491fc4
 #define g_main_state stage_hud_data_00491fb8
 #define g_sound_manager stage_hud_data_00492590
-#define GameStateField5c_0042a6a0 HudField5cChecked
+#define GameStateField5c HudField5cChecked
 #include "hud_view.hpp"
-#undef GameStateField5c_0042a6a0
+#undef GameStateField5c
 #undef g_sprt_ctrl
 #undef g_front
 #undef g_globals
@@ -73,7 +73,7 @@ struct AnimationResourceFile;
 void __stdcall Entity_StartScript(AnimationResourceFile* resource,
                                            Entity* entity, int script);
 
-struct StageTask_00404450 {
+struct StageTask {
     int priority;
     unsigned int flags;                 // +0x04, bit 1: enabled
 };
@@ -93,15 +93,15 @@ struct StageObject_00404450 {
     StageQuad_00404450 quads[1];        // +0x1c
 };
 
-struct StageFile_00404450 {
+struct StageFile {
     short object_count;
 };
 
 struct Stage_00404450 {
     unsigned char reserved_0000[8];
-    StageTask_00404450* update_task;            // +0x08
-    StageTask_00404450* draw_task;              // +0x0c
-    StageFile_00404450* file;                   // +0x10
+    StageTask* update_task;            // +0x08
+    StageTask* draw_task;              // +0x0c
+    StageFile* file;                   // +0x10
     StageObject_00404450** objects;             // +0x14
     unsigned char reserved_0018[4];
     int initial_value_1c;                       // +0x1c
@@ -111,7 +111,7 @@ struct Stage_00404450 {
     AnimationResourceFile* animation;      // +0x178
     Entity* quad_entities;                      // +0x17c
     unsigned char reserved_0180[0x2a40 - 0x180];
-    StageTask_00404450* after_draw_task;        // +0x2a40
+    StageTask* after_draw_task;        // +0x2a40
 };
 
 #undef g_sprt_ctrl
@@ -266,7 +266,7 @@ struct BulletPool {
 extern "C" void _ReadWriteBarrier();
 #pragma intrinsic(_ReadWriteBarrier)
 
-struct PauseFrameTimer_00424d90 {
+struct PauseFrameTimer {
     int previous;
     int current;
     float elapsed;
@@ -277,19 +277,19 @@ struct PauseState_00424d90 {
     unsigned char reserved_000[0x458];
     int state;
     unsigned char reserved_45c[4];
-    PauseFrameTimer_00424d90 timers[3];
+    PauseFrameTimer timers[3];
     unsigned char reserved_49c[0x329c-0x49c];
     int animation_handle;
 };
-typedef char PauseFrameTimerSize[sizeof(PauseFrameTimer_00424d90)==0x14?1:-1];
+typedef char PauseFrameTimerSize[sizeof(PauseFrameTimer)==0x14?1:-1];
 typedef char PauseResetTimerOffset[offsetof(PauseState_00424d90,timers)==0x460?1:-1];
 typedef char PauseResetHandleOffset[offsetof(PauseState_00424d90,animation_handle)==0x329c?1:-1];
 
-struct PauseAnimationRecord_00413790 {
+struct PauseAnimationRecord {
     unsigned int flags;
     unsigned char reserved_004[0x3ac-4];
 };
-typedef FrontScoreView PauseAnimationCountManager_00413790;
+typedef FrontScoreView PauseAnimationCountManager;
 #undef g_sprt_ctrl
 #undef g_front
 #undef g_globals
@@ -346,7 +346,7 @@ typedef FrontScoreView PauseAnimationCountManager_00413790;
 // Variant A: member with the container walk, head cached in a local.
 extern "C" void __cdecl crt_free_startup(void* memory);
 
-struct LinkedNode_00417770 {
+struct LinkedNode {
     virtual void Slot0();
     virtual void Slot1();
     virtual void Slot2();
@@ -354,14 +354,14 @@ struct LinkedNode_00417770 {
     virtual void Release();
     virtual void Slot5(void* arg);
 
-    LinkedNode_00417770* prev;
-    LinkedNode_00417770* next;
+    LinkedNode* prev;
+    LinkedNode* next;
     int state;
 };
 
-struct ScoreChain_00417770 {
+struct ScoreChain {
     unsigned char reserved_000[0x18];
-    LinkedNode_00417770* head;
+    LinkedNode* head;
 
     __declspec(noinline) void ReleaseChain();
 };
@@ -658,4 +658,4 @@ __declspec(noinline) void SetInputMode(InputState* state, int mode);
 #undef g_main_state
 #undef g_sound_manager
 
-__declspec(noinline) void __stdcall Stage_StartQuadScripts_00404450(Stage_00404450* stage);
+__declspec(noinline) void __stdcall Stage_StartQuadScripts(Stage_00404450* stage);

@@ -19,7 +19,7 @@ struct TitleAnimation_00401FF0 : Entity {
     ~TitleAnimation_00401FF0();
 };
 
-struct TitleState_0041FB50 {
+struct TitleState {
     unsigned int flags;
     unsigned int reserved_004;
     SchedulerTask* update_task;
@@ -28,13 +28,13 @@ struct TitleState_0041FB50 {
     unsigned char reserved_02c[4];
     TitleAnimation_00401FF0 animation;
     unsigned char reserved_3dc[0x14];
-    __declspec(noinline) ~TitleState_0041FB50();
+    __declspec(noinline) ~TitleState();
 };
 
-typedef char LoadingOffset[offsetof(TitleState_0041FB50,worker)==0x10?1:-1];
-typedef char TitleAnimationOffset[offsetof(TitleState_0041FB50,animation)==0x30?1:-1];
-typedef char TitleResourceOffset[offsetof(TitleState_0041FB50,animation)+offsetof(Entity,resource)==0x388?1:-1];
-typedef char TitleSize[sizeof(TitleState_0041FB50)==0x3F0?1:-1];
+typedef char LoadingOffset[offsetof(TitleState,worker)==0x10?1:-1];
+typedef char TitleAnimationOffset[offsetof(TitleState,animation)==0x30?1:-1];
+typedef char TitleResourceOffset[offsetof(TitleState,animation)+offsetof(Entity,resource)==0x388?1:-1];
+typedef char TitleSize[sizeof(TitleState)==0x3F0?1:-1];
 
 struct GameThread;
 extern "C" void* g_func_ctrl;
@@ -46,5 +46,5 @@ extern "C" void* g_title;
 extern "C" void* g_replay;
 extern "C" void* g_ending;
 extern "C" void __cdecl crt_free(void*);
-extern "C" void __stdcall DestroyGameThread_00401260(GameThread*);
+extern "C" void __stdcall DestroyGameThread(GameThread*);
 extern "C" __declspec(noinline) int __cdecl ReleasePair_0041f930();

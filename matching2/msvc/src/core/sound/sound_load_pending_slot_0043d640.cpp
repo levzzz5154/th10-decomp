@@ -5,7 +5,7 @@
 // is neither range-checked nor freed first.
 //
 // Native LTCG passes the filename in EAX; owner and index stay on the stack.
-struct SoundPendingSlots_0043d640 {
+struct SoundPendingSlots {
     unsigned char reserved_0000[0x5230];
     char* pending[1];                                  // +0x5230
 
@@ -13,7 +13,7 @@ struct SoundPendingSlots_0043d640 {
 };
 
 #pragma code_seg(".text$03zr5_slot")
-int SoundPendingSlots_0043d640::LoadPendingSlot(const char* filename, int index) {
+int SoundPendingSlots::LoadPendingSlot(const char* filename, int index) {
     char* loaded = Archive_LoadFile(filename, 0, 0);
     pending[index] = loaded;
     return loaded ? 0 : -1;

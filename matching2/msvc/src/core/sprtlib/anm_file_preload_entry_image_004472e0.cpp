@@ -10,7 +10,7 @@
 #include "th10/platform/archive_file.hpp"
 
 #pragma code_seg(".text$05preload")
-int __stdcall AnmFile_PreloadEntryImage_004472e0(AnmFile_004470c0* file,
+int __stdcall AnmFile_PreloadEntryImage(AnmFile* file,
                                                  const AnmEntryHeader_00446c70* entry, int index) {
     char path[260];
     int size;

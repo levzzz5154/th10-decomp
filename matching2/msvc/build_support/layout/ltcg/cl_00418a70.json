@@ -8,8 +8,8 @@
   "description": "Accessor compiled with native LTCG so the object pointer arrives in EAX.",
   "functions": [
     {
-      "name": "ClearFlags_00418a70",
-      "symbol": "?ClearFlags_00418a70@@YGXPAUObjectAccessor_00418a70@@@Z",
+      "name": "ClearFlags",
+      "symbol": "?ClearFlags@@YGXPAUObjectAccessor_00418a70@@@Z",
       "section": ".text$01accessor",
       "address": "0x00418A70",
       "size": 31,

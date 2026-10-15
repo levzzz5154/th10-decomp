@@ -3,11 +3,11 @@
 
 extern "C" {
 float __stdcall Angle_NormalizeSum_0044bc10(float value, float addend);
-void __fastcall DispatchAnm_004451c0(void* manager, void* object);
+void __fastcall DispatchAnm(void* manager, void* object);
 extern void* g_sprt_ctrl;
 }
 
-struct SlotChainNode_004066c0 {
+struct SlotChainNode {
     unsigned char unknown_000[0x34];
     float field_034;
     unsigned char unknown_038[0x033C - 0x038];
@@ -23,12 +23,12 @@ struct SlotChainNode_004066c0 {
     unsigned char unknown_3C0[0x03E4 - 0x03C0];
     float field_3E4;
     unsigned char unknown_3E8[0x044C - 0x03E8];
-    SlotChainNode_004066c0* next_44C;
+    SlotChainNode* next_44C;
 };
 
-struct SlotChainOwner_004066C0 {
+struct SlotChainOwner {
     unsigned char unknown_000[0x14];
-    SlotChainNode_004066c0* slot_heads[6];
+    SlotChainNode* slot_heads[6];
 
     __declspec(noinline) int UpdateSlotChain(int slot);
     __declspec(noinline) int UpdateAllSlotChains();
@@ -38,8 +38,8 @@ struct SlotChainOwner_004066C0 {
 // owner in EAX and slot index in ECX. This helper is an ABI anchor in the
 // layout, not an independently recovered/exported function.
 #pragma code_seg(".text$03anchor")
-__declspec(noinline) int SlotChainOwner_004066C0::UpdateSlotChain(int slot) {
-    SlotChainNode_004066c0* node = slot_heads[slot];
+__declspec(noinline) int SlotChainOwner::UpdateSlotChain(int slot) {
+    SlotChainNode* node = slot_heads[slot];
     while (node != 0) {
         node->field_33C = node->field_3B4 + 224.0f;
         node->field_340 = node->field_3B8 + 16.0f;
@@ -51,7 +51,7 @@ __declspec(noinline) int SlotChainOwner_004066C0::UpdateSlotChain(int slot) {
             node->flags_364 |= 4;
         }
 
-        DispatchAnm_004451c0(g_sprt_ctrl,
+        DispatchAnm(g_sprt_ctrl,
                              reinterpret_cast<unsigned char*>(node) + 8);
         node = node->next_44C;
     }
@@ -63,7 +63,7 @@ __declspec(noinline) int SlotChainOwner_004066C0::UpdateSlotChain(int slot) {
 // documents the operation; the unrooted LTCG cluster/context models that
 // private entry convention without inline assembly.
 #pragma code_seg(".text$01run")
-__declspec(noinline) int SlotChainOwner_004066C0::UpdateAllSlotChains() {
+__declspec(noinline) int SlotChainOwner::UpdateAllSlotChains() {
     for (int slot = 0; slot < 6; ++slot)
         UpdateSlotChain(slot);
     return 1;

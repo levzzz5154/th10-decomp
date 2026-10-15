@@ -18,4 +18,4 @@ extern "C" midiOutUnprepareHeader_type IatmidiOutUnprepareHeader;
 extern "C" void __cdecl crt_free(void*);
 extern "C" { extern MidiSequencer* window_midi_manager; extern unsigned int window_flags; extern unsigned char window_cursor_enabled; extern unsigned int window_active; extern int window_inactive; }
 
-extern "C" LRESULT __stdcall WindowProcedure_004390e0(HWND, UINT, WPARAM, LPARAM);
+extern "C" LRESULT __stdcall WindowProcedure(HWND, UINT, WPARAM, LPARAM);

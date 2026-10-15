@@ -54,7 +54,7 @@ __forceinline static float SpawnCommand_AimAngle(ProjectileSpawnRecord& record,
 #pragma code_seg(".text$00406d90_fn")
 void ProjectileCommandRuntime::Tick() {
     ProjectileSpawnRecord& record = *reinterpret_cast<ProjectileSpawnRecord*>(this);
-    // The 0x210-byte scan request (a ProjectileBlueprint_004067d0) built by
+    // The 0x210-byte scan request (a ProjectileBlueprint) built by
     // command 0x400000; a word buffer, as retail's frame has no /GS cookie.
     // No __declspec(align(8)): explicit over-alignment marks the function for
     // the /GL pass, which then keeps EBX free in every direct callee and the
@@ -164,8 +164,8 @@ void ProjectileCommandRuntime::Tick() {
         case 0x400000: {
             // A grid spawn: this record and the next one describe the command->
             memset(pattern_words, 0, sizeof(pattern_words));
-            ProjectileBlueprint_004067d0& pattern =
-                *reinterpret_cast<ProjectileBlueprint_004067d0*>(pattern_words);
+            ProjectileBlueprint& pattern =
+                *reinterpret_cast<ProjectileBlueprint*>(pattern_words);
             *reinterpret_cast<Vec3*>(&pattern.field_04) = record.position;
             const unsigned int vanish = command->value_c & 0x80000000u;
             const int word = command->value_c;
@@ -185,7 +185,7 @@ void ProjectileCommandRuntime::Tick() {
             pattern.field_204 = -1;
             memcpy(pattern.commands, record.commands, sizeof(record.commands));
             EnemyGrid_ScanCells_004073e0(
-                reinterpret_cast<ProjectilePattern_004073e0*>(pattern_words),
+                reinterpret_cast<ProjectilePattern*>(pattern_words),
                 reinterpret_cast<ProjectileManager_004073e0*>(g_bullet_manager));
             ++record.command_index;
             if (vanish == 0)

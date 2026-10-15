@@ -4,7 +4,7 @@
 // The entity arrives in EAX and the manager on the stack, with the callee
 // popping it; no C++ prototype can declare that entry convention, so the body
 // is compiled inside the native-LTCG cluster
-// build_support/layout/ltcg/entity_quad_projection_00444240.json (driver and layout gaps are
+// build_support/layout/ltcg/entity_quad_projection.json (driver and layout gaps are
 // never selected as game code).
 
 struct ProjectionMatrix_00444240 {
@@ -15,39 +15,39 @@ struct ProjectionVec3_00444240 {
     float x, y, z;
 };
 
-struct D3DViewport_00444240 {
+struct D3DViewport {
     unsigned int x, y, width, height;
     float min_z, max_z;
 };
 
 // The camera state global the projection pipeline reads: two matrices followed
 // by the active D3D viewport.
-struct ProjectionEnvironment_00444240 {
+struct ProjectionEnvironment {
     unsigned char reserved_000[0x4C];
     ProjectionMatrix_00444240 view;        // +0x4C
     ProjectionMatrix_00444240 projection;  // +0x8C
-    D3DViewport_00444240 viewport;         // +0xCC
+    D3DViewport viewport;         // +0xCC
 };
 
 // One entry of the shared sprite quad the projection writes into.
-struct ProjectedVertex_00444240 {
+struct ProjectedVertex {
     float x, y, z, rhw;
     unsigned int color;
     float u, v;
 };
 
-extern "C" ProjectedVertex_00444240 g_quad_vertices[4];
-extern "C" ProjectionEnvironment_00444240* g_render_stage_active;
+extern "C" ProjectedVertex g_quad_vertices[4];
+extern "C" ProjectionEnvironment* g_render_stage_active;
 
 // The compiler's pooled double 0.0 the three rotation guards compare against.
 extern "C" double dbl_0;
 
-struct ProjectionManager_00444240 {
+struct ProjectionManager {
     unsigned char reserved_00000000[0x3AD0F0];
     ProjectionMatrix_00444240 projected_world;  // +0x3AD0F0
 };
 
-struct ProjectedEntity_00444240 {
+struct ProjectedEntity {
     unsigned char reserved_00000000[0x24];
     float rotation_x;               // +0x24
     float rotation_y;               // +0x28
@@ -65,7 +65,7 @@ struct ProjectedEntity_00444240 {
     float unknown_00000358;                   // +0x358
     unsigned int flags;                       // +0x35C
 
-    __declspec(noinline) int ProjectQuad(ProjectionManager_00444240* manager);
+    __declspec(noinline) int ProjectQuad(ProjectionManager* manager);
 };
 
 // The D3DX entry thunks at 0x45218E/0x4521AC..0x4521BE; their targets pop the
@@ -77,13 +77,13 @@ extern "C" void __stdcall asm_D3DXMatrixMultiply_004521b2(ProjectionMatrix_00444
                                                           const ProjectionMatrix_00444240* left,
                                                           const ProjectionMatrix_00444240* right);
 extern "C" void __stdcall asm_D3DXVec3Project_0045218e(void* out, const void* vector,
-                                                       const D3DViewport_00444240* viewport,
+                                                       const D3DViewport* viewport,
                                                        const ProjectionMatrix_00444240* projection,
                                                        const ProjectionMatrix_00444240* view,
                                                        const ProjectionMatrix_00444240* world);
 
 #pragma code_seg(".text$01quadx")
-int ProjectedEntity_00444240::ProjectQuad(ProjectionManager_00444240* manager) {
+int ProjectedEntity::ProjectQuad(ProjectionManager* manager) {
     if ((flags & 0x4000u) == 0 && (flags & 0x0Cu) != 0) {
         world_matrix = source_matrix;
         world_matrix.m[0] *= scale_x;

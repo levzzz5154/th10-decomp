@@ -11,7 +11,7 @@
   "functions": [
     {
       "name": "SpriteRegion_BindToAnimation",
-      "symbol": "?BindToAnimation@SpriteRegion_00424480@@QAEHUAnimationHandle_00424480@@HHHH@Z",
+      "symbol": "?BindToAnimation@SpriteRegion@@QAEHUAnimationHandle_00424480@@HHHH@Z",
       "section": ".text$00424480_fn",
       "address": "0x00424480",
       "size": 162,

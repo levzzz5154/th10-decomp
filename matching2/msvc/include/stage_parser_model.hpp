@@ -33,8 +33,8 @@ struct TipManager {
 typedef char TipExtent[sizeof(Tip) == 0x88 ? 1 : -1];
 typedef char TipNameOffset[offsetof(Tip, name) == 0x1c ? 1 : -1];
 typedef char TipListsOffset[offsetof(TipManager, lists) == 0x18 ? 1 : -1];
-char* __stdcall TrimWhitespace_0041a0a0(char* text);
-extern "C" void __stdcall SplitResourcePath_0041a050(char* key, char* value, char* line);
+char* __stdcall TrimWhitespace(char* text);
+extern "C" void __stdcall SplitResourcePath(char* key, char* value, char* line);
 extern "C" char* __stdcall ReadLine(char*, char*, int*, unsigned int);
 extern "C" char* __cdecl asm_FUN_00452730_00452730(const char*, int);
 extern "C" long __cdecl parser_atol(const char*);

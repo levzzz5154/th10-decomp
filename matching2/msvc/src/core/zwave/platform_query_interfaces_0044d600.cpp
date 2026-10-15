@@ -4,7 +4,7 @@
 // arrives in EDI and the result is returned in EAX.
 typedef int (__stdcall *RecoveryLeafD600Query)(void*, unsigned int);
 
-struct PlatformQueryInterfaces_0044D600 {
+struct PlatformQueryInterfaces {
     unsigned char unknown_000[4];
     void** entries_004;
     unsigned char unknown_008[8];
@@ -14,7 +14,7 @@ struct PlatformQueryInterfaces_0044D600 {
 };
 
 #pragma code_seg(".text$01query")
-__declspec(noinline) int PlatformQueryInterfaces_0044D600::Query() {
+__declspec(noinline) int PlatformQueryInterfaces::Query() {
     if (entries_004 == 0) return (int)0x800401F0u;
     int result = 0;
     for (unsigned int index = 0; index < count_010; ++index) {

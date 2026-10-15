@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "PauseReset_00424d90",
-      "symbol": "_ReplayPauseReset_00424d90@4",
+      "symbol": "_ReplayPauseReset@4",
       "section": ".text$03pause",
       "address": "0x00424D90",
       "size": 273,
@@ -19,7 +19,7 @@
   "anchors": [
     {
       "name": "SetActiveCount_00413790",
-      "symbol": "?SetActiveCount@PauseAnimationCountManager_00413790@@QAEXH@Z",
+      "symbol": "?SetActiveCount@PauseAnimationCountManager@@QAEXH@Z",
       "section": ".text$01count",
       "address": "0x00413790",
       "size": 77
@@ -52,27 +52,27 @@
   "constants": [],
   "absolute_symbols": [
     {
-      "symbol": "@PauseMarkAnimation_004492a0@12",
+      "symbol": "@PauseMarkAnimation@12",
       "address": "0x004492A0",
       "kind": "relative_code"
     },
     {
-      "symbol": "_pause_timer_speed_00476f78",
+      "symbol": "_pause_timer_speed",
       "address": "0x00476F78",
       "kind": "data"
     },
     {
-      "symbol": "_pause_animation_context_00491c10",
+      "symbol": "_pause_animation_context",
       "address": "0x00491C10",
       "kind": "data"
     },
     {
-      "symbol": "_pause_count_manager_0047770c",
+      "symbol": "_pause_count_manager",
       "address": "0x0047770C",
       "kind": "data"
     },
     {
-      "symbol": "_pause_active_count_00474c70",
+      "symbol": "_pause_active_count",
       "address": "0x00474C70",
       "kind": "data"
     },

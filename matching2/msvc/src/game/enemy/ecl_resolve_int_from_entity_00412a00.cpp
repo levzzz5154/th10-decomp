@@ -4,8 +4,8 @@
 #include "th10/script/ecl_operand_thunks.hpp"
 
 #pragma code_seg(".text$05entity_int")
-__declspec(noinline) int ResolveEntityIntOperand_00412a00(EclEntityVm* vm, int selector) {
+__declspec(noinline) int ResolveEntityIntOperand(EclEntityVm* vm, int selector) {
     EclOperandSlot* slot = vm->slot;
-    return ECL_ResolveIntOperand_0044fdb0(selector, (EclFrame*)slot->interpreter, selector);
+    return ECL_ResolveIntOperand(selector, (EclFrame*)slot->interpreter, selector);
 }
 #pragma code_seg()

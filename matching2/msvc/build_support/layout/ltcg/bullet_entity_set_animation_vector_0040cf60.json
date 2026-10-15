@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "name": "bullet_entity_set_animation_vector_0040cf60",
+  "name": "bullet_entity_set_animation_vector",
   "source": "src/game/enemy/bullet_entity_set_animation_vector_0040cf60.cpp",
   "driver": "build_support/layout/ltcg/bullet_entity_set_animation_vector_0040cf60_context.cpp",
   "headers": [],
@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "BulletEntity_SetAnimationVector",
-      "symbol": "?SetAnimationVector@BulletEntity_0040cf60@@QAEXABUAnimationVector_0040cf60@@@Z",
+      "symbol": "?SetAnimationVector@BulletEntity_0040cf60@@QAEXABUAnimationVector@@@Z",
       "section": ".text$01setanimation",
       "address": "0x0040CF60",
       "size": 23,
@@ -17,7 +17,7 @@
     }
   ],
   "context": {
-    "symbol": "?BulletEntitySetAnimationVectorCompilerContext@@YGHPAPAUBulletEntity_0040cf60@@HPBUAnimationVector_0040cf60@@@Z",
+    "symbol": "?BulletEntitySetAnimationVectorCompilerContext@@YGHPAPAUBulletEntity_0040cf60@@HPBUAnimationVector@@@Z",
     "section": ".text$03context",
     "address": "0x0040CF80",
     "size": 42,

@@ -2,7 +2,7 @@
 #include "../../../src/core/sprtanim/fun_0043eac0_0043eac0.cpp"
 
 #pragma code_seg(".text$03context")
-float __stdcall EffectFieldGetCompilerContext(EffectFieldStore_0043eac0* stores, int count,
+float __stdcall EffectFieldGetCompilerContext(EffectFieldStore* stores, int count,
                                               float index) {
     float total = 0.0f;
     for (int slot = 0; slot < count; ++slot)

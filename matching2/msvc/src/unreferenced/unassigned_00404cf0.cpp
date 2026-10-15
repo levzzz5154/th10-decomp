@@ -7,10 +7,10 @@ struct CurveObject_00404cf0 {
     int field_48;
     __declspec(noinline) float Evaluate();
 };
-float __stdcall EvaluateCurveAnchor_0044c350(unsigned int op, float first, float second);
+float __stdcall EvaluateCurveAnchor(unsigned int op, float first, float second);
 
 #pragma code_seg(".text$01evaluate")
 float CurveObject_00404cf0::Evaluate() {
-    return EvaluateCurveAnchor_0044c350(field_48, field_38, (float)field_44);
+    return EvaluateCurveAnchor(field_48, field_38, (float)field_44);
 }
 #pragma code_seg()

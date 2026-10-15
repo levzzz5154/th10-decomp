@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "interface_list_any_flag_0044d640",
-      "symbol": "?AnyFlagSet_0044d640@@YGHPAUInterfaceList_0044d640@@@Z",
+      "symbol": "?AnyFlagSet@@YGHPAUInterfaceList_0044d640@@@Z",
       "section": ".text$01accessor",
       "address": "0x0044D640",
       "size": 88,

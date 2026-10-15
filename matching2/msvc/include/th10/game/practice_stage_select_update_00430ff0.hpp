@@ -13,5 +13,5 @@ extern unsigned char g_keyboard_state[256];    // keyboard snapshot
 // whether the snapshot holds DirectInput scan codes rather than virtual keys.
 int __stdcall Input_UpdateKeyboardState(unsigned char* destination);
 
-__declspec(noinline) int __stdcall TitleMode9_00430ff0(Title* room);
+__declspec(noinline) int __stdcall TitleMode9(Title* room);
 #endif

@@ -11,7 +11,7 @@
   "functions": [
     {
       "name": "RingEntity_BuildRing",
-      "symbol": "?BuildRing@RingEntity_004452f0@@QAEHXZ",
+      "symbol": "?BuildRing@RingEntity@@QAEHXZ",
       "section": ".text$02buildring",
       "address": "0x004452F0",
       "size": 803,
@@ -138,12 +138,12 @@
       "kind": "metadata"
     },
     {
-      "symbol": "?Advance@RingEntity_004452f0@@QAEHXZ",
+      "symbol": "?Advance@RingEntity@@QAEHXZ",
       "address": "0x00445620",
       "kind": "data"
     },
     {
-      "symbol": "?DrawFan33@RingEntity_004452f0@@QAEHXZ",
+      "symbol": "?DrawFan33@RingEntity@@QAEHXZ",
       "address": "0x00445880",
       "kind": "data"
     },

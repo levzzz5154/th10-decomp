@@ -3,15 +3,15 @@
 // entities (slot 2 keeps it), and reset the pending state.
 //
 // Native LTCG passes the player in EAX.
-struct PlayerOwnedEntity_00405500 {
+struct PlayerOwnedEntity {
     unsigned char reserved_000[0x378];
     unsigned int flags;                                // +0x378
     unsigned char reserved_37c[0x3AC - 0x37C];
 };
 
-struct PlayerFlags_00405500 {
+struct PlayerFlags {
     unsigned char reserved_0000[0x75C];
-    PlayerOwnedEntity_00405500 entities[8];            // +0x75C
+    PlayerOwnedEntity entities[8];            // +0x75C
     unsigned char reserved_24bc[0x3738 - 0x24BC];
     int elapsed_frames;                                // +0x3738
     unsigned char reserved_373c[0x378C - 0x373C];
@@ -22,7 +22,7 @@ struct PlayerFlags_00405500 {
 };
 
 #pragma code_seg(".text$01flags")
-void PlayerFlags_00405500::ClearExpiredFlags() {
+void PlayerFlags::ClearExpiredFlags() {
     if (elapsed_frames >= 60) {
         pending_state = 0;
         flags &= ~2u;

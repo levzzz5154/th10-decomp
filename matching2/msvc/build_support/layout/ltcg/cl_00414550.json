@@ -8,8 +8,8 @@
   "description": "Region compiled with native LTCG so its entry register is retail's.",
   "functions": [
     {
-      "name": "DestroySlot_00414550",
-      "symbol": "?DestroySlot_00414550@@YGPAUAnimationSlot_00414550@@PAU1@I@Z",
+      "name": "DestroySlot",
+      "symbol": "?DestroySlot@@YGPAUAnimationSlot_00414550@@PAU1@I@Z",
       "section": ".text$03destroy",
       "address": "0x00414550",
       "size": 30,

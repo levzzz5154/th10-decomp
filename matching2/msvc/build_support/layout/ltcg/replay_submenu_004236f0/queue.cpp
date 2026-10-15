@@ -3,7 +3,7 @@
 // on the stack).
 extern "C" short g_sound_priority[];
 #pragma code_seg(".text$02n")
-int SubSoundQueue_004236f0::Queue(int sound_id, int request) {
+int SubSoundQueue::Queue(int sound_id, int request) {
     int priority = g_sound_priority[sound_id * 4];
     int slot;
     for (slot = 0; slot < 12; ++slot) {

@@ -11,7 +11,7 @@
 // 0x00423570 prepares. Its phase word picks which of the three row views
 // this callback draws, and the replay slots it lists are the ones the run
 // just filled.
-struct ResultMenu_00422660 {
+struct ResultMenu {
     unsigned char reserved_00[0x04];
     int phase;                          // +0x04
     unsigned char reserved_08[0x14 - 0x08];
@@ -24,11 +24,11 @@ struct ResultMenu_00422660 {
 };
 
 // 0x00422660: draw the result screen's rows.
-extern "C" int __stdcall ResultScreen_DrawRows_00422660(ResultMenu_00422660* state);
+extern "C" int __stdcall ResultScreen_DrawRows(ResultMenu* state);
 
 // 0x004224C0: the name entry overlay (state, position by value; RET16).
 extern "C" void __stdcall DrawNameEntry_004224c0(
-    ResultMenu_00422660* state, Vec3_00401530 position);
+    ResultMenu* state, Vec3_00401530 position);
 
 extern "C" {
 extern int g_globals_difficulty;             // the difficulty the run was played on
@@ -47,10 +47,10 @@ extern const char str_ranking_row_named_format[];    // "No.%.2d %s %.2d/%.2d/%.
 extern "C" int data_00474c68_shot;    // 0x00474C68
 extern "C" int data_00474c68_char;    // 0x00474C6C
 
-typedef char ResultMenu_phase_is_04[offsetof(ResultMenu_00422660, phase) == 0x04 ? 1 : -1];
-typedef char ResultMenu_timer_is_14[offsetof(ResultMenu_00422660, timer) == 0x14 ? 1 : -1];
-typedef char ResultMenu_cursor_is_24[offsetof(ResultMenu_00422660, cursor) == 0x24 ? 1 : -1];
-typedef char ResultMenu_no_entry_is_1e8[offsetof(ResultMenu_00422660, no_entry) == 0x1E8 ? 1 : -1];
-typedef char ResultMenu_records_is_1ec[offsetof(ResultMenu_00422660, records) == 0x1EC ? 1 : -1];
+typedef char ResultMenu_phase_is_04[offsetof(ResultMenu, phase) == 0x04 ? 1 : -1];
+typedef char ResultMenu_timer_is_14[offsetof(ResultMenu, timer) == 0x14 ? 1 : -1];
+typedef char ResultMenu_cursor_is_24[offsetof(ResultMenu, cursor) == 0x24 ? 1 : -1];
+typedef char ResultMenu_no_entry_is_1e8[offsetof(ResultMenu, no_entry) == 0x1E8 ? 1 : -1];
+typedef char ResultMenu_records_is_1ec[offsetof(ResultMenu, records) == 0x1EC ? 1 : -1];
 
 #endif

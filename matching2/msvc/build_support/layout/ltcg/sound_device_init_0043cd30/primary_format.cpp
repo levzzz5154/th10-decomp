@@ -4,7 +4,7 @@
 
 
 #pragma code_seg(".text$0044c7e0_fn")
-extern "C" __declspec(noinline) int __stdcall Sound_SetPrimaryFormat_0044c7e0(unsigned short channels,
+extern "C" __declspec(noinline) int __stdcall Sound_SetPrimaryFormat(unsigned short channels,
         unsigned int rate, unsigned short bits, WaveDirectSoundDevice** owner) {
     WaveSecondaryBuffer* primary = 0;
     WaveDirectSoundDevice* device = *owner;

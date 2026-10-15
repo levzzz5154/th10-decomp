@@ -28,11 +28,11 @@ extern "C" int __stdcall BulletRuntimeTick(BulletRuntimeState* state) {
         reinterpret_cast<ProjectileCommandRuntime*>(state)->Tick();
         if (state->motion_flags) {
             if (state->motion_flags & 1u)
-                reinterpret_cast<PlayerAnimationState_004074B0*>(state)->AdvanceAnimationFrame();
+                reinterpret_cast<PlayerAnimationState*>(state)->AdvanceAnimationFrame();
             if (state->motion_flags & 0x10u)
                 reinterpret_cast<EffectAccel_00407560*>(state)->Update();
             if (state->motion_flags & 0x20u)
-                reinterpret_cast<PlayerDeathShrinkState_004076A0*>(state)->AdvanceDeathShrink();
+                reinterpret_cast<PlayerDeathShrinkState*>(state)->AdvanceDeathShrink();
             if (state->motion_flags & 0x40u)
                 reinterpret_cast<BulletRuntimeDeceleration*>(state)->TurnStep();
             if (state->motion_flags & 0x100u)
@@ -42,7 +42,7 @@ extern "C" int __stdcall BulletRuntimeTick(BulletRuntimeState* state) {
             if (state->motion_flags & 0x08000c00u)
                 reinterpret_cast<BulletRuntimeDeceleration*>(state)->Bounce();
             if (state->motion_flags & 0x04000000u)
-                reinterpret_cast<PlayerHomingState_00407EF0*>(state)->HomeTowardTarget();
+                reinterpret_cast<PlayerHomingState*>(state)->HomeTowardTarget();
             if (state->motion_flags & 0x8000u) {
                 if (state->immunity_timer.current <= 0)
                     state->motion_flags ^= 0x8000u;
@@ -61,12 +61,12 @@ extern "C" int __stdcall BulletRuntimeTick(BulletRuntimeState* state) {
                 state->mode = 3;
                 state->stop_frame = 1;
                 if (state->death_animation >= 0)
-                    AnimationManager_CreateScreenPositionedPrimary_00448db0(
+                    AnimationManager_CreateScreenPositionedPrimary(
                         g_bullet_manager->resource, &result, state->death_animation,
                         reinterpret_cast<const AnimationPosition_00448db0*>(&state->position));
             } else if (contact == 2 && !(state->flags & 4u)) {
                 state->flags |= 4u;
-                AnimationManager_CreateScreenPositionedPrimary_00448db0(
+                AnimationManager_CreateScreenPositionedPrimary(
                     g_bullet_manager->resource, &result, 434,
                     reinterpret_cast<const AnimationPosition_00448db0*>(&state->position));
                 g_sound_manager.QueuePan(28, state->position.x);
@@ -77,9 +77,9 @@ extern "C" int __stdcall BulletRuntimeTick(BulletRuntimeState* state) {
     }
     if (state->bounds) {
         if (state->motion_flags & 0x00100000u)
-            reinterpret_cast<PlayerWrapHorizontalState_00407DA0*>(state)->WrapHorizontal();
+            reinterpret_cast<PlayerWrapHorizontalState*>(state)->WrapHorizontal();
         if (state->motion_flags & 0x00200000u)
-            reinterpret_cast<PlayerWrapHorizontalState_00407DA0*>(state)->WrapVertical();
+            reinterpret_cast<PlayerWrapHorizontalState*>(state)->WrapVertical();
         if (state->bounds_grace <= 0 &&
             reinterpret_cast<PlayfieldPoint*>(&state->position)
                 ->OutsidePlayfield(state->bounds->extent_34, state->bounds->extent_30)) {

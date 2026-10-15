@@ -188,12 +188,12 @@
       "kind": "data"
     },
     {
-      "symbol": "?Load@ScriptParser_0042be20@@UAEHPAD@Z",
+      "symbol": "?Load@ScriptParser@@UAEHPAD@Z",
       "address": "0x00450220",
       "kind": "relative_code"
     },
     {
-      "symbol": "?Slot04@ScriptParser_0042be20@@UAEXXZ",
+      "symbol": "?Slot04@ScriptParser@@UAEXXZ",
       "address": "0x0040C810",
       "kind": "relative_code"
     },
@@ -234,14 +234,14 @@
     },
     {
       "name": "ActualSchedulerRemove",
-      "symbol": "?ManagerTeardownFuncCtrl_Remove_00449F60@@YGXPAUFuncCtrl@@PAUSchedulerTask@@@Z",
+      "symbol": "?ManagerTeardownFuncCtrl_Remove@@YGXPAUFuncCtrl@@PAUSchedulerTask@@@Z",
       "section": ".text$07remove",
       "address": "0x00449F60",
       "size": 114
     },
     {
       "name": "WorkerDestructor",
-      "symbol": "??1SptTestWorker_0042be20@@QAE@XZ",
+      "symbol": "??1SptTestWorker@@QAE@XZ",
       "section": ".text$10worker",
       "address": "0x0044C130",
       "size": 16
@@ -260,7 +260,7 @@
   ],
   "data_aliases": [
     {
-      "symbol": "??_7ScriptParser_0042be20@@6B@",
+      "symbol": "??_7ScriptParser@@6B@",
       "address": "0x0046D0F0",
       "bytes": "2002450010c84000"
     }

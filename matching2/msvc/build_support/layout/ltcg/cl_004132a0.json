@@ -8,8 +8,8 @@
   "description": "Accessor compiled with native LTCG so the object pointer arrives in EAX.",
   "functions": [
     {
-      "name": "InitBlock_004132a0",
-      "symbol": "?InitBlock_004132a0@@YGPAUBlock_004132a0@@PAU1@@Z",
+      "name": "InitBlock",
+      "symbol": "?InitBlock@@YGPAUBlock_004132a0@@PAU1@@Z",
       "section": ".text$01accessor",
       "address": "0x004132A0",
       "size": 25,

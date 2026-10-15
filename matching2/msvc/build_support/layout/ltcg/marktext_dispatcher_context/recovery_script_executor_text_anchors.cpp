@@ -7,7 +7,7 @@
 extern "C" unsigned char recovery_decoded_path_00497d40[];
 
 #pragma code_seg(".text$00417010_fn")
-char* __stdcall RecoveryDecodePath_00417010(const unsigned char* encoded) {
+char* __stdcall RecoveryDecodePath(const unsigned char* encoded) {
     unsigned char* output = recovery_decoded_path_00497d40;
     unsigned char key = 0x77;
     unsigned char increment = 7;

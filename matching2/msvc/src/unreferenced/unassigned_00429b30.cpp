@@ -12,23 +12,23 @@
 // build_support/layout/ltcg/reseed_00429b30.json whose synthetic caller establishes that
 // convention. _time32 is an ordinary __cdecl leaf the declaration names.
 
-struct TimerBlock_00429b30 {
+struct TimerBlock {
     unsigned char unknown_0000[0x5C];
     int field_5C;                       // +0x5C
 };
 
-struct TimerRecord_00429b30 {
+struct TimerRecord {
     unsigned char unknown_0000[0x18];
-    TimerBlock_00429b30* block;         // +0x18
+    TimerBlock* block;         // +0x18
 };
 
 extern "C" int __cdecl asm_FID_conflict___time32_00452b71(int* timer);
 extern "C" int g_globals_stage;
 
-__declspec(noinline) int Reseed_00429b30(TimerRecord_00429b30* record, int value);
+__declspec(noinline) int Reseed(TimerRecord* record, int value);
 
 #pragma code_seg(".text$01reseed")
-int Reseed_00429b30(TimerRecord_00429b30* record, int value) {
+int Reseed(TimerRecord* record, int value) {
     asm_FID_conflict___time32_00452b71((int*)((char*)record->block + 0x0C));
     record->block->field_5C = (value != 0) ? value + 7 : g_globals_stage;
     return 0;

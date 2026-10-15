@@ -12,7 +12,7 @@
   "functions": [
     {
       "name": "EclVariableVm_FindVariable",
-      "symbol": "?FindVariable@EclVariableVm_00450160@@QAEPAUEclVariableNode_00450160@@H@Z",
+      "symbol": "?FindVariable@EclVariableVm@@QAEPAUEclVariableNode@@H@Z",
       "section": ".text$02find",
       "address": "0x00450160",
       "size": 36,
@@ -21,7 +21,7 @@
     },
     {
       "name": "EclScratchVm_WriteScratch",
-      "symbol": "?WriteScratch@EclScratchVm_004505b0@@QAEHDIPBX@Z",
+      "symbol": "?WriteScratch@EclScratchVm@@QAEHDIPBX@Z",
       "section": ".text$03write",
       "address": "0x004505B0",
       "size": 96,
@@ -30,7 +30,7 @@
     }
   ],
   "context": {
-    "symbol": "?EclVariableClusterCompilerContext@@YGHPAPAUEclVariableVm_00450160@@PAPAUEclScratchVm_004505b0@@PAHPBDPBIPBQBXH@Z",
+    "symbol": "?EclVariableClusterCompilerContext@@YGHPAPAUEclVariableVm@@PAPAUEclScratchVm@@PAHPBDPBIPBQBXH@Z",
     "section": ".text$07context",
     "address": "0x00450610",
     "size": 121,

@@ -18,9 +18,9 @@
   "description": "Position setters with compiler-visible animation lookup and a shared long-lived position context. Selected ownership of the movement helper moved to the genuine 40-function player graph. Its original complete body remains an unselected anchor here; the remaining legacy compiler context is unchanged.",
   "functions": [
     {
-      "name": "SetAnimationTranslatedPosition_00449350",
+      "name": "SetAnimationTranslatedPosition",
       "source": "src/core/sprtlib/animation_manager_set_translated_position_00449350.cpp",
-      "symbol": "?SetAnimationTranslatedPosition_00449350@@YIXPBUPositionVector_004492f0@@PAUPositionLookupContext_004492f0@@UPositionScriptId_004492f0@@@Z",
+      "symbol": "?SetAnimationTranslatedPosition@@YIXPBUPositionVector@@PAUPositionLookupContext@@UPositionScriptId@@@Z",
       "section": ".text$50translated",
       "address": "0x00449350",
       "size": 111,
@@ -28,7 +28,7 @@
     },
     {
       "name": "semantic_AnimationNode_SetPosition_00449650",
-      "symbol": "?SetPosition@AnimationPositionHandle@@QAEXPBUPositionVector_004492f0@@@Z",
+      "symbol": "?SetPosition@AnimationPositionHandle@@QAEXPBUPositionVector@@@Z",
       "section": ".text$80positionwrap",
       "address": "0x00449650",
       "size": 15,
@@ -37,7 +37,7 @@
     },
     {
       "name": "semantic_AnimationNode_SetTranslatedPosition_00449660",
-      "symbol": "?SetTranslatedPosition@AnimationPositionHandle@@QAEXPBUPositionVector_004492f0@@@Z",
+      "symbol": "?SetTranslatedPosition@AnimationPositionHandle@@QAEXPBUPositionVector@@@Z",
       "section": ".text$90translatedwrap",
       "address": "0x00449660",
       "size": 15,
@@ -46,7 +46,7 @@
     }
   ],
   "context": {
-    "symbol": "?PositionSetterCompilerContext_004492f0@@YGHPAUPositionVector_004492f0@@PAUPositionLookupContext_004492f0@@PAUPositionScriptId_004492f0@@H@Z",
+    "symbol": "?PositionSetterCompilerContext_004492f0@@YGHPAUPositionVector@@PAUPositionLookupContext@@PAUPositionScriptId@@H@Z",
     "section": ".text$70context",
     "address": "0x004493D0",
     "size": 95,
@@ -55,14 +55,14 @@
   "anchors": [
     {
       "name": "PositionLookup",
-      "symbol": "?Find@PositionManager_004492f0@@QAIPAXPAUPositionLookupContext_004492f0@@UPositionScriptId_004492f0@@@Z",
+      "symbol": "?Find@PositionManager@@QAIPAXPAUPositionLookupContext@@UPositionScriptId@@@Z",
       "section": ".text$10find",
       "address": "0x004491C0",
       "size": 73
     },
     {
       "name": "SetAnimationPosition_004492f0",
-      "symbol": "?SetAnimationPosition_004492f0@@YIXPAUPositionLookupContext_004492f0@@PBUPositionVector_004492f0@@UPositionScriptId_004492f0@@@Z",
+      "symbol": "?SetAnimationPosition_004492f0@@YIXPAUPositionLookupContext@@PBUPositionVector@@UPositionScriptId@@@Z",
       "section": ".text$30position",
       "address": "0x004492F0",
       "size": 90

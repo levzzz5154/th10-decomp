@@ -21,7 +21,7 @@ struct InterfaceList_0044d400 {
 };
 
 #pragma code_seg(".text$01accessor")
-__declspec(noinline) long __stdcall QueryItem_0044d400(InterfaceList_0044d400* list, unsigned int index, void** object) {
+__declspec(noinline) long __stdcall QueryItem(InterfaceList_0044d400* list, unsigned int index, void** object) {
     if (!list->items) return 0x800401F0;
     if (index >= list->count) return 0x80070057;
     *object = 0;

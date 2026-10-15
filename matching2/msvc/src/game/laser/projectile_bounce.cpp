@@ -9,7 +9,7 @@ struct BounceVector2 {
     void SetPolar(float angle, float speed);
 };
 // Parameters passed to the line laser initializer: 0x1DC bytes at +0x424.
-struct BounceSpawnParameters : LaserSpawnParameters_0041c510 {
+struct BounceSpawnParameters : LaserSpawnParameters {
     Vector3 position;
     float angle;
     float reserved_434;

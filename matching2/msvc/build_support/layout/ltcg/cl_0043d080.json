@@ -16,8 +16,8 @@
   "description": "Existing complete sound preload107 owner and text-log201 anchor preserved. Loader360 uses a genuine free Read call, backed by complete Read279/Find53/cipher323 native ABI anchors. Read279/cipher323 remain unmatched diagnostics, never selected recovery. The inherited thread-start address context remains explicit.",
   "functions": [
     {
-      "name": "Sound_PreloadWorker_0043d080",
-      "symbol": "_Sound_PreloadWorker_0043d080",
+      "name": "Sound_PreloadWorker",
+      "symbol": "_Sound_PreloadWorker",
       "section": ".text$03fn",
       "address": "0x0043D080",
       "size": 107,

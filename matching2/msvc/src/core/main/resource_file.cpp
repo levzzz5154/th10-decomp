@@ -7,7 +7,7 @@ struct Surface_00436ca0 {
 };
 
 #pragma code_seg(".text$01accessor")
-__declspec(noinline) void __stdcall FillRgb444_00436ca0(Surface_00436ca0* surface, unsigned int color) {
+__declspec(noinline) void __stdcall FillRgb444(Surface_00436ca0* surface, unsigned int color) {
     unsigned short packed = (unsigned short)(((((color >> 20) & 0xF) << 4 | ((color >> 12) & 0xF)) << 4) | ((color >> 4) & 0xF));
     unsigned short* pixel;
     int i;

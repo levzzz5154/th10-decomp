@@ -34,26 +34,26 @@ ReadLine(char* cursor, char* out, int* remaining, unsigned int capacity) {
             memset(hash, 0, capacity - (unsigned int)(hash - out));
             *hash = 0;
         }
-        TrimWhitespace_0041a0a0(out);
+        TrimWhitespace(out);
     }
     return cursor;
 }
 #pragma code_seg(".text$p05split")
 extern "C" void __stdcall
-SplitResourcePath_0041a050(char* key, char* value, char* line) {
+SplitResourcePath(char* key, char* value, char* line) {
     strcpy(key, line);
     char* colon = asm_FUN_00452730_00452730(key, ':');
     if (!colon) {
-        TrimWhitespace_0041a0a0(key);
+        TrimWhitespace(key);
         return;
     }
     strcpy(value, colon + 1);
     *colon = 0;
-    TrimWhitespace_0041a0a0(key);
-    TrimWhitespace_0041a0a0(value);
+    TrimWhitespace(key);
+    TrimWhitespace(value);
 }
 #pragma code_seg(".text$p07trim")
-__declspec(noinline) char* __stdcall TrimWhitespace_0041a0a0(char* text) {
+__declspec(noinline) char* __stdcall TrimWhitespace(char* text) {
     while (*text == ' ' || *text == '\t' || *text == '\n' || *text == '\r') {
         int length = (int)strlen(text);
         for (int i = 0; i < length; ++i)

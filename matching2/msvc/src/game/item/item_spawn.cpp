@@ -17,13 +17,13 @@ static __forceinline void ResetTimer(FrameTimer* timer) {
     timer->previous = -1;
 }
 
-static __forceinline void ResetMotion(SpawnItem_0041bb00* item) {
+static __forceinline void ResetMotion(SpawnItem* item) {
     item->motion_state = 0;
     ResetTimer(&item->timer);
     item->motion_counter = 0;
 }
 
-static __forceinline SpawnItem_0041bb00* FindFreeItem(SpawnItem_0041bb00* item) {
+static __forceinline SpawnItem* FindFreeItem(SpawnItem* item) {
     for (int slot = 0; slot < 150; ++slot, ++item) {
         if (item->state == 0) return item;
     }
@@ -40,7 +40,7 @@ __declspec(noinline) int PlayerItemManager::Spawn(
     // Ordinary drops scan the first 150 entries. A full pool silently drops
     // the request, and every exit returns zero.
     if (kind != 8) {
-        SpawnItem_0041bb00* item = FindFreeItem(normal);
+        SpawnItem* item = FindFreeItem(normal);
         if (!item) return 0;
         item->state = 1;
         Vector3* location = &item->position;
@@ -74,7 +74,7 @@ __declspec(noinline) int PlayerItemManager::Spawn(
     // Kind 8 uses a 2048-entry ring; its count rises even when this ring slot
     // is occupied. Signed remainders preserve retail's cursor arithmetic.
     int cursor = special_cursor;
-    SpawnItem_0041bb00* item = &special[cursor];
+    SpawnItem* item = &special[cursor];
     int count = ++special_count;
     if (item->state == 0) {
         int variant;

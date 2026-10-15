@@ -11,7 +11,7 @@
 #include <string.h>
 
 #pragma code_seg(".text$02trim")
-char* __stdcall TrimWhitespace_0041a0a0(char* text) {
+char* __stdcall TrimWhitespace(char* text) {
     while (*text == ' ' || *text == '\t' || *text == '\n' || *text == '\r') {
         int length = (int)strlen(text);
         for (int index = 0; index < length; ++index) {

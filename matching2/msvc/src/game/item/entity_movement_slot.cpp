@@ -2,9 +2,9 @@
 
 // 0x0041AB70..0x0041ABF7: initialise one entity movement slot.
 #pragma code_seg(".text$03movement")
-void EntityMovementSlot_0041ab70::Initialise(
-        const MovementPair_0041ab70* source_value,
-        const MovementPair_0041ab70* destination_value,
+void EntityMovementSlot::Initialise(
+        const MovementPair* source_value,
+        const MovementPair* destination_value,
         int mode_value, unsigned char interpolation_value) {
     mode = mode_value;
     interpolation = interpolation_value;

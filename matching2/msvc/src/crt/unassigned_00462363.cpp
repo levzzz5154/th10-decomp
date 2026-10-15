@@ -6,7 +6,7 @@
 // capacity against the small-string size and leaves the buffer arm out of
 // line, so the large arm is the one written first.
 
-struct StringBase_00462363 {
+struct StringBase {
     unsigned char pad_000[0x10];
     union {
         char buffer[0x10];
@@ -17,7 +17,7 @@ struct StringBase_00462363 {
     const char* Myptr() const;
 };
 
-const char* StringBase_00462363::Myptr() const {
+const char* StringBase::Myptr() const {
     if (capacity >= 0x10)
         return storage.pointer;
     return storage.buffer;

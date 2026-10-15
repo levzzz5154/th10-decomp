@@ -13,7 +13,7 @@
 #include "th10/render/anm_file_004470c0.hpp"
 
 #pragma code_seg(".text$05r3entry")
-int __stdcall AnmFile_LoadEntry_00447470(AnmUploadTag_00446c70 manager, AnmFile_004470c0* file,
+int __stdcall AnmFile_LoadEntry(AnmUploadTag manager, AnmFile* file,
                                          int sprite_base, int script_base,
                                          const AnmEntryHeader_00446c70* entry, int index) {
     if (!entry) {
@@ -29,15 +29,15 @@ int __stdcall AnmFile_LoadEntry_00447470(AnmUploadTag_00446c70 manager, AnmFile_
         if (name[0] == '@') {
             AnimationTextureCreate_00447050(entry->width, entry->height, &file->textures[index],
                                             entry->format);
-        } else if (AnmTexture_CreateFromMemory_00446eb0(manager, &file->textures[index],
+        } else if (AnmTexture_CreateFromMemory(manager, &file->textures[index],
                                                         entry->format, entry->color_key,
                                                         entry->width, entry->height) != 0) {
             g_log.AppendLine(str_texture_create_failed_format, name);
             return -1;
         }
-    } else if (AnmTexture_CreateAndUpload_00446f40(
+    } else if (AnmTexture_CreateAndUpload(
                    &file->textures[index],
-                   reinterpret_cast<const AnmThtxHeader_00446c70*>(
+                   reinterpret_cast<const AnmThtxHeader*>(
                        reinterpret_cast<const unsigned char*>(entry) + entry->thtx_offset),
                    entry->format, entry->width, entry->height) != 0) {
         g_log.AppendLine(str_texture_load_failed);
@@ -45,13 +45,13 @@ int __stdcall AnmFile_LoadEntry_00447470(AnmUploadTag_00446c70 manager, AnmFile_
     }
     file->textures[index].texture->SetPriority(entry->priority);
     file->textures[index].texture->PreLoad();
-    AnmSurfaceDesc_00446c70 desc;
+    AnmSurfaceDesc desc;
     file->textures[index].texture->GetLevelDesc(0, &desc);
 
     const int* offset = entry->sprite_offsets;
     for (int i = 0; i < entry->sprite_count; ++i, ++offset) {
-        AnimationPositionRecord_00447940 record;
-        const AnmSpriteSource_00447470* sprite = reinterpret_cast<const AnmSpriteSource_00447470*>(
+        AnimationPositionRecord record;
+        const AnmSpriteSource* sprite = reinterpret_cast<const AnmSpriteSource*>(
             reinterpret_cast<const unsigned char*>(entry) + *offset);
         record.header[0] = file->slot;
         record.header[1] = reinterpret_cast<unsigned int>(file->textures[index].texture);
@@ -66,12 +66,12 @@ int __stdcall AnmFile_LoadEntry_00447470(AnmUploadTag_00446c70 manager, AnmFile_
         record.textureWidth = texture_width;
         record.textureHeight = texture_height;
         CopyPositionRecord_00447940(sprite_base,
-                                    reinterpret_cast<AnimationPositionManager_00447940*>(file),
+                                    reinterpret_cast<AnimationPositionManager*>(file),
                                     &record);
         ++sprite_base;
     }
 
-    const AnmScriptRef_00447470* script = reinterpret_cast<const AnmScriptRef_00447470*>(offset);
+    const AnmScriptRef* script = reinterpret_cast<const AnmScriptRef*>(offset);
     for (int j = 0; j < entry->script_count; ++j, ++script) {
         file->scripts[script_base] = reinterpret_cast<const unsigned char*>(entry) + script->offset;
         ++script_base;

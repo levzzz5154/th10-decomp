@@ -139,7 +139,7 @@ typedef char ProjectileSpawnManager_animations[offsetof(ProjectileSpawnManager, 
 
 // The spawn request: an origin, a command script, a grid and the per-colour
 // layout fields 0x4067D0 interprets.
-struct ProjectileBlueprint_004067d0 {
+struct ProjectileBlueprint {
     short colour;                               // 0x00
     short script_offset;                        // 0x02
     float field_04;                             // 0x04
@@ -160,9 +160,9 @@ struct ProjectileBlueprint_004067d0 {
     int field_204;                              // 0x204
     int command_index;                          // 0x208
 };
-typedef char ProjectileBlueprint_commands[offsetof(ProjectileBlueprint_004067d0, commands) == 0x20 ? 1 : -1];
-typedef char ProjectileBlueprint_columns[offsetof(ProjectileBlueprint_004067d0, columns) == 0x1F4 ? 1 : -1];
-typedef char ProjectileBlueprint_flags[offsetof(ProjectileBlueprint_004067d0, flags) == 0x1FC ? 1 : -1];
+typedef char ProjectileBlueprint_commands[offsetof(ProjectileBlueprint, commands) == 0x20 ? 1 : -1];
+typedef char ProjectileBlueprint_columns[offsetof(ProjectileBlueprint, columns) == 0x1F4 ? 1 : -1];
+typedef char ProjectileBlueprint_flags[offsetof(ProjectileBlueprint, flags) == 0x1FC ? 1 : -1];
 
 // A per-colour constant table (int / float variants).
 extern "C" int g_bullet_script_first[];                 // 0x00474170 first script per colour

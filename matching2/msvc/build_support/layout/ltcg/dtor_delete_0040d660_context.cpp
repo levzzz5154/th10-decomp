@@ -20,7 +20,7 @@ void BulletEntity_0040d680::ReleaseResource() {
 #pragma code_seg()
 
 #pragma code_seg(".text$05context")
-extern "C" int __stdcall DtorDeleteContext_0040d660(Releaseable_0040d660** items, int count) {
+extern "C" int __stdcall DtorDeleteContext_0040d660(Releaseable** items, int count) {
     int freed = 0;
     while (count--) {
         freed += (*items++)->Delete(1) != 0;

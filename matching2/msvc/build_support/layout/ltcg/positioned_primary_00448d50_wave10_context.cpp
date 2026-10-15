@@ -5,11 +5,11 @@ extern "C" void* __cdecl operator_new_00452493(unsigned int size);
 extern "C" void* __cdecl Entity_Constructor_00402050(void* entity);
 extern "C" void __cdecl Entity_Init_00401de0(void* unused, void* entity);
 extern "C" void __cdecl asm_AnimationObject_LoadScriptTail_0043ee30(void* object);
-__declspec(noinline) void** __stdcall AnimationManager_CreatePrimaryBack_00448d00(
+__declspec(noinline) void** __stdcall AnimationManager_CreatePrimaryBack(
     void* resource, void** out, int index, int render_bucket);
 
 struct AnimationPosition_00448db0;
-__declspec(noinline) void** __stdcall AnimationManager_CreateScreenPositionedPrimary_00448db0(void*, void**, int, const AnimationPosition_00448db0*);
+__declspec(noinline) void** __stdcall AnimationManager_CreateScreenPositionedPrimary(void*, void**, int, const AnimationPosition_00448db0*);
 
 static unsigned int NextPoolIndex_00449950(unsigned int index) {
     unsigned int next = (index + 1) & 0x80000FFFu;
@@ -117,10 +117,10 @@ int __stdcall PositionedPrimaryContext(void** resources, void*** outs, int* inde
                                        const AnimationPosition_00448d50** positions,
                                        int count) {
     for (int i = 0; i < count; ++i) {
-        AnimationManager_CreatePrimaryBack_00448d00(resources[i], outs[i], indexes[i], 15);
-        AnimationManager_CreatePositionedPrimary_00448d50(resources[i], outs[i], indexes[i],
+        AnimationManager_CreatePrimaryBack(resources[i], outs[i], indexes[i], 15);
+        AnimationManager_CreatePositionedPrimary(resources[i], outs[i], indexes[i],
                                                           positions[i]);
-        AnimationManager_CreateScreenPositionedPrimary_00448db0(resources[i], outs[i], indexes[i], (const AnimationPosition_00448db0*)positions[i]);
+        AnimationManager_CreateScreenPositionedPrimary(resources[i], outs[i], indexes[i], (const AnimationPosition_00448db0*)positions[i]);
     }
     return count;
 }

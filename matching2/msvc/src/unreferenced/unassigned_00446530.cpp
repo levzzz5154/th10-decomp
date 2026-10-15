@@ -5,7 +5,7 @@ struct ColorSums_00446530 {
 };
 
 #pragma code_seg(".text$01accessor")
-__declspec(noinline) void __stdcall AccumulateArgb1555_00446530(ColorSums_00446530* sums, const unsigned short* texel, int* count) {
+__declspec(noinline) void __stdcall AccumulateArgb1555(ColorSums_00446530* sums, const unsigned short* texel, int* count) {
     if (*texel & 0x8000) {
         sums->red += (*texel >> 10) & 0x1F;
         sums->green += (*texel >> 5) & 0x1F;

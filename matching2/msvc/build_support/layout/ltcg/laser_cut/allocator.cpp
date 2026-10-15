@@ -19,9 +19,9 @@ struct ItemBankSnapshot {
     ItemBankSnapshot(const ItemBankSnapshot& other):value(other.value) {}
 };
 #include "th10/render/animation_public_callers.hpp"
-__declspec(noinline) void** __stdcall ItemAnimation_CreateOffset_00448db0(
+__declspec(noinline) void** __stdcall ItemAnimation_CreateOffset(
     void* resource, void** output, int script, const Vector3* position);
-static __forceinline void ResetSpawnTimer_0041bb00(SpawnItem_0041bb00* item) {
+static __forceinline void ResetSpawnTimer_0041bb00(SpawnItem* item) {
     item->motion_state=0;
     _ReadWriteBarrier();
     unsigned int flags=item->timer.flags;
@@ -40,12 +40,12 @@ static __forceinline void ResetSpawnTimer_0041bb00(SpawnItem_0041bb00* item) {
     _ReadWriteBarrier();
 }
 #pragma code_seg(".text$f0041bb00F")
-__declspec(noinline) int ItemSpawnManager_0041bb00::Spawn(
+__declspec(noinline) int ItemSpawnManager::Spawn(
         const Vector3* position,int kind,int identifier,float angle,float speed) {
     // Ordinary drops scan the first 150 entries. A full pool silently drops
     // the request, and every exit returns zero.
     if (kind != 8) {
-        SpawnItem_0041bb00* item=normal;
+        SpawnItem* item=normal;
         int slot=0;
         do {
             if (item->state==0) goto found;
@@ -90,7 +90,7 @@ __declspec(noinline) int ItemSpawnManager_0041bb00::Spawn(
     // Kind 8 uses a 2048-entry ring; its count rises even when this ring slot
     // is occupied. Signed remainders preserve retail's cursor arithmetic.
     int cursor=special_cursor;
-    SpawnItem_0041bb00* item=&special[cursor];
+    SpawnItem* item=&special[cursor];
     int count=++special_count;
     if (item->state==0) {
         int variant;

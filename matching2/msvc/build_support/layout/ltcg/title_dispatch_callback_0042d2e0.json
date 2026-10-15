@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "name": "title_dispatch_callback_0042d2e0",
+  "name": "title_dispatch_callback",
   "source": "src/game/title/title_on_update.cpp",
   "driver": "build_support/layout/ltcg/title_dispatch_callback_0042d2e0_context.cpp",
   "headers": [
@@ -39,8 +39,8 @@
   },
   "anchors": [
     {
-      "name": "?RecoveryMusicStopHandle_00409e50@@YGXPAURecoveryHandle_0040bd80@@@Z",
-      "symbol": "?RecoveryMusicStopHandle_00409e50@@YGXPAURecoveryHandle_0040bd80@@@Z",
+      "name": "?RecoveryMusicStopHandle@@YGXPAURecoveryHandle@@@Z",
+      "symbol": "?RecoveryMusicStopHandle@@YGXPAURecoveryHandle@@@Z",
       "section": ".text$00409e50_fn",
       "address": 4198400,
       "size": 65
@@ -116,22 +116,22 @@
       "size": 90
     },
     {
-      "name": "?InitializeTransition@RecoveryMusicVm@@QAEXPBURecoveryMusicVector_00433ef0@@0HE@Z",
-      "symbol": "?InitializeTransition@RecoveryMusicVm@@QAEXPBURecoveryMusicVector_00433ef0@@0HE@Z",
+      "name": "?InitializeTransition@RecoveryMusicVm@@QAEXPBURecoveryMusicVector@@0HE@Z",
+      "symbol": "?InitializeTransition@RecoveryMusicVm@@QAEXPBURecoveryMusicVector@@0HE@Z",
       "section": ".text$00434a80_fn",
       "address": 4409968,
       "size": 206
     },
     {
-      "name": "?RegisterResource@RecoveryMusicResourceQueue_0043e460@@QAEPADPBDHH@Z",
-      "symbol": "?RegisterResource@RecoveryMusicResourceQueue_0043e460@@QAEPADPBDHH@Z",
+      "name": "?RegisterResource@RecoveryMusicResourceQueue@@QAEPADPBDHH@Z",
+      "symbol": "?RegisterResource@RecoveryMusicResourceQueue@@QAEPADPBDHH@Z",
       "section": ".text$0043e460_fn",
       "address": 4410176,
       "size": 76
     },
     {
-      "name": "?Find@RecoveryLookup_0040bd80@@QAIPAXPAURecoveryLookupContext@@URecoveryScriptId@@@Z",
-      "symbol": "?Find@RecoveryLookup_0040bd80@@QAIPAXPAURecoveryLookupContext@@URecoveryScriptId@@@Z",
+      "name": "?Find@RecoveryLookup@@QAIPAXPAURecoveryLookupContext@@URecoveryScriptId@@@Z",
+      "symbol": "?Find@RecoveryLookup@@QAIPAXPAURecoveryLookupContext@@URecoveryScriptId@@@Z",
       "section": ".text$004491c0_fn",
       "address": 4410256,
       "size": 73
@@ -275,7 +275,7 @@
       "address": 4655876
     },
     {
-      "symbol": "_recovery_music_defaults_00491c14",
+      "symbol": "_recovery_music_defaults",
       "kind": "relative_code",
       "address": 4791316
     },
@@ -295,12 +295,12 @@
       "address": 4495696
     },
     {
-      "symbol": "_recovery_play_dummy_00420b10@8",
+      "symbol": "_recovery_play_dummy@8",
       "kind": "relative_code",
       "address": 4328208
     },
     {
-      "symbol": "_recovery_music_restore_bgm_0046f018",
+      "symbol": "_recovery_music_restore_bgm",
       "kind": "relative_code",
       "address": 4648984
     },
@@ -310,17 +310,17 @@
       "address": 4531234
     },
     {
-      "symbol": "_recovery_replace_extension_00420a90@8",
+      "symbol": "_recovery_replace_extension@8",
       "kind": "relative_code",
       "address": 4328080
     },
     {
-      "symbol": "_recovery_music_dummy_0046df98",
+      "symbol": "_recovery_music_dummy",
       "kind": "relative_code",
       "address": 4644760
     },
     {
-      "symbol": "_recovery_music_mode_00491d78",
+      "symbol": "_recovery_music_mode",
       "kind": "relative_code",
       "address": 4791672
     },
@@ -335,7 +335,7 @@
       "address": 4793744
     },
     {
-      "symbol": "_recovery_music_repeat_00474e34",
+      "symbol": "_recovery_music_repeat",
       "kind": "relative_code",
       "address": 4673076
     },
@@ -345,12 +345,12 @@
       "address": 4673078
     },
     {
-      "symbol": "_recovery_music_preview_table_00476fd8",
+      "symbol": "_recovery_music_preview_table",
       "kind": "relative_code",
       "address": 4681688
     },
     {
-      "symbol": "?Validate@RecoveryLookup_0040bd80@@QAAPAXPAURecoveryHandle_0040bd80@@@Z",
+      "symbol": "?Validate@RecoveryLookup@@QAAPAXPAURecoveryHandle@@@Z",
       "kind": "relative_code",
       "address": 4494416
     },
@@ -360,7 +360,7 @@
       "address": 4656280
     },
     {
-      "symbol": "_recovery_music_locked_format_0046ecf4",
+      "symbol": "_recovery_music_locked_format",
       "kind": "relative_code",
       "address": 4648180
     },
@@ -370,7 +370,7 @@
       "address": 4487760
     },
     {
-      "symbol": "_recovery_music_player_0047783c",
+      "symbol": "_recovery_music_player",
       "kind": "relative_code",
       "address": 4683836
     },
@@ -385,7 +385,7 @@
       "address": 4656288
     },
     {
-      "symbol": "_recovery_music_preview_resource_00491fec",
+      "symbol": "_recovery_music_preview_resource",
       "kind": "relative_code",
       "address": 4792300
     },
@@ -395,12 +395,12 @@
       "address": 4502368
     },
     {
-      "symbol": "_recovery_music_comment_file_0046ed14",
+      "symbol": "_recovery_music_comment_file",
       "kind": "relative_code",
       "address": 4648212
     },
     {
-      "symbol": "?AnimationManager_CreatePrimaryBack_00448d00@@YGPAPAXPAXPAPAXHH@Z",
+      "symbol": "?AnimationManager_CreatePrimaryBack@@YGPAPAXPAXPAPAXHH@Z",
       "kind": "relative_code",
       "address": 4492544
     },
@@ -425,47 +425,47 @@
       "address": 4655976
     },
     {
-      "symbol": "?TitleMode16_00433570@@YGHPAUTitle@@@Z",
+      "symbol": "?TitleMode16@@YGHPAUTitle@@@Z",
       "kind": "relative_code",
       "address": 4404592
     },
     {
-      "symbol": "?TitleMode11_00431ee0@@YGHPAUTitle@@@Z",
+      "symbol": "?TitleMode11@@YGHPAUTitle@@@Z",
       "kind": "relative_code",
       "address": 4398816
     },
     {
-      "symbol": "?TitleMode9_00430ff0@@YGHPAUTitle@@@Z",
+      "symbol": "?TitleMode9@@YGHPAUTitle@@@Z",
       "kind": "relative_code",
       "address": 4394992
     },
     {
-      "symbol": "?TitleMode8_00430a60@@YGHPAUTitle@@@Z",
+      "symbol": "?TitleMode8@@YGHPAUTitle@@@Z",
       "kind": "relative_code",
       "address": 4393568
     },
     {
-      "symbol": "?TitleMode7_004306a0@@YGHPAUTitle@@@Z",
+      "symbol": "?TitleMode7@@YGHPAUTitle@@@Z",
       "kind": "relative_code",
       "address": 4392608
     },
     {
-      "symbol": "?TitleMode6_00430320@@YGHPAUTitle@@@Z",
+      "symbol": "?TitleMode6@@YGHPAUTitle@@@Z",
       "kind": "relative_code",
       "address": 4391712
     },
     {
-      "symbol": "?TitleMenuFlow_0042f540@@YGHPAUTitle@@@Z",
+      "symbol": "?TitleMenuFlow@@YGHPAUTitle@@@Z",
       "kind": "relative_code",
       "address": 4388160
     },
     {
-      "symbol": "?TitleOptions_0042d920@@YGHPAUTitle@@@Z",
+      "symbol": "?TitleOptions@@YGHPAUTitle@@@Z",
       "kind": "relative_code",
       "address": 4380960
     },
     {
-      "symbol": "?TitleDispatchGame_00420c00@@YGXXZ",
+      "symbol": "?TitleDispatchGame@@YGXXZ",
       "kind": "relative_code",
       "address": 4328448
     },
@@ -475,27 +475,27 @@
       "address": 4792308
     },
     {
-      "symbol": "?TitleMode12_004315c0@@YGHPAUTitle@@@Z",
+      "symbol": "?TitleMode12@@YGHPAUTitle@@@Z",
       "kind": "relative_code",
       "address": 4396480
     },
     {
-      "symbol": "?TitleMainMenu_0042d420@@YGHPAUTitle@@@Z",
+      "symbol": "?TitleMainMenu@@YGHPAUTitle@@@Z",
       "kind": "relative_code",
       "address": 4379680
     },
     {
-      "symbol": "?TitlePlayMusic_00420b10@@YGXHH@Z",
+      "symbol": "?TitlePlayMusic@@YGXHH@Z",
       "kind": "relative_code",
       "address": 4328208
     },
     {
-      "symbol": "?TitleSetMusicFile_00420a90@@YGXHPBD@Z",
+      "symbol": "?TitleSetMusicFile@@YGXHPBD@Z",
       "kind": "relative_code",
       "address": 4328080
     },
     {
-      "symbol": "?TitleNameEntry_00432cb0@@YGHPAUTitle@@@Z",
+      "symbol": "?TitleNameEntry@@YGHPAUTitle@@@Z",
       "kind": "relative_code",
       "address": 4402352
     },
@@ -515,7 +515,7 @@
       "address": 4531361
     },
     {
-      "symbol": "?TitleReleaseDemo_004294a0@@YGXPAUDemoFile@@@Z",
+      "symbol": "?TitleReleaseDemo@@YGXPAUDemoFile@@@Z",
       "kind": "relative_code",
       "address": 4363424
     },
@@ -565,7 +565,7 @@
       "address": 4672636
     },
     {
-      "symbol": "?TitleLoadDemo_004296f0@@YGPAUDemoFile@@PBD@Z",
+      "symbol": "?TitleLoadDemo@@YGPAUDemoFile@@PBD@Z",
       "kind": "relative_code",
       "address": 4364016
     },

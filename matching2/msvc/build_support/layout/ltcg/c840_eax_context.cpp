@@ -3,7 +3,7 @@
 
 #pragma code_seg(".text$03context")
 extern "C" __declspec(noinline) int __stdcall C840EaxContext(
-        ByteTable_0042c840** items, int count) {
+        ByteTable** items, int count) {
     int total = 0;
     int index = 0;
     while (count-- > 0)

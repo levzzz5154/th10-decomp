@@ -10,7 +10,7 @@
 // it), and the supervisor block's address is passed around the program.
 #pragma code_seg(".text$95context")
 void __stdcall TitleAssetsCompilerContext(PlatformWorker* worker, Supervisor** supervisor) {
-    worker->entry = reinterpret_cast<PlatformWorkerEntry>(Loading_LoadAssets_0041f990);
+    worker->entry = reinterpret_cast<PlatformWorkerEntry>(Loading_LoadAssets);
     *supervisor = &g_supervisor;
 }
 #pragma code_seg()

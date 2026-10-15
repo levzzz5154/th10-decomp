@@ -5,7 +5,7 @@ struct Vec2_0044bcd0 {
 };
 
 #pragma code_seg(".text$01accessor")
-__declspec(noinline) void __stdcall Rotate_0044bcd0(const Vec2_0044bcd0* v, Vec2_0044bcd0* out, float angle) {
+__declspec(noinline) void __stdcall Rotate(const Vec2_0044bcd0* v, Vec2_0044bcd0* out, float angle) {
     float s = sinf(angle);
     float c = cosf(angle);
     out->x = c * v->x - s * v->y;

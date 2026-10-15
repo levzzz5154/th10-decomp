@@ -1,6 +1,6 @@
 #include "th10/source_views/ecl_core_interpreter_exact_0.hpp"
 #include "th10/source_views/ecl_core_interpreter_exact_1.hpp"
-int __fastcall ECL_ResolveIntOperand_0044fdb0(
+int __fastcall ECL_ResolveIntOperand(
         int unused, EclFrame* frame, int selector) {
     EclOperandTable* table = frame->operand_table;
     unsigned short mask = table->indirect_mask;

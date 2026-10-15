@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "EmbeddedTimer_004050d0_Reset",
-      "symbol": "?Reset@EmbeddedTimer_004050d0@@QAEXXZ",
+      "symbol": "?Reset@EmbeddedTimer@@QAEXXZ",
       "section": ".text$01reset",
       "address": "0x004050D0",
       "size": 50,
@@ -17,7 +17,7 @@
     }
   ],
   "context": {
-    "symbol": "?EmbeddedTimerReset004050d0CompilerContext@@YGHPAPAUEmbeddedTimer_004050d0@@H@Z",
+    "symbol": "?EmbeddedTimerReset004050d0CompilerContext@@YGHPAPAUEmbeddedTimer@@H@Z",
     "section": ".text$03context",
     "address": "0x00405110",
     "size": 41,

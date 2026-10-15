@@ -6,7 +6,7 @@
     "src/core/main/font_atlas_blend.cpp"
   ],
   "entry_symbol": "_FontAtlasBlendEntry@12",
-  "function": "?FontAtlas_BlendToSurface_00437750@@YGDPAUFontAtlas_00437750@@HHPAUFontSurface_00437750@@HH@Z",
+  "function": "?FontAtlas_BlendToSurface@@YGDPAUFontAtlas_00437750@@HHPAUFontSurface_00437750@@HH@Z",
   "code_bytes": 645,
   "absolute_symbols": {},
   "bindings": {},

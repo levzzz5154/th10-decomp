@@ -6,7 +6,7 @@ struct MidiOutput_0043a590 {
 };
 
 #pragma code_seg(".text$01accessor")
-__declspec(noinline) int __stdcall SendShortMessage_0043a590(MidiOutput_0043a590* output, unsigned char status, unsigned char first, unsigned char second) {
+__declspec(noinline) int __stdcall SendShortMessage(MidiOutput_0043a590* output, unsigned char status, unsigned char first, unsigned char second) {
     union {
         unsigned int packed;
         unsigned char bytes[4];

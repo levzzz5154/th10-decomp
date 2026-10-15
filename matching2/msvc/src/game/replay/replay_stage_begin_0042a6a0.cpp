@@ -20,7 +20,7 @@ void ReplayManager_0042a6a0::BeginStage() {
         stage->stage = (short)g_globals.stage;
         stage->flag = g_stage_flags;
     } else if (mode == 1) {
-        ReplayNode_0042a6a0* node = &nodes[g_globals.stage];
+        ReplayNode* node = &nodes[g_globals.stage];
         node->cursor = node->inputs;
         node->cursor_end = node->inputs_end;
         node->count = 0;

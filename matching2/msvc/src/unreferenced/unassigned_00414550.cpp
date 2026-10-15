@@ -11,11 +11,11 @@ struct AnimationSlot_00414550 {
     __declspec(noinline) void ReleaseRetail();
 };
 
-__declspec(noinline) AnimationSlot_00414550* DestroySlot_00414550(
+__declspec(noinline) AnimationSlot_00414550* DestroySlot(
         AnimationSlot_00414550* slot, unsigned int flags);
 
 #pragma code_seg(".text$03destroy")
-__declspec(noinline) AnimationSlot_00414550* DestroySlot_00414550(
+__declspec(noinline) AnimationSlot_00414550* DestroySlot(
         AnimationSlot_00414550* slot, unsigned int flags) {
     slot->ReleaseRetail();
     if (flags & 1) crt_free_startup(slot);

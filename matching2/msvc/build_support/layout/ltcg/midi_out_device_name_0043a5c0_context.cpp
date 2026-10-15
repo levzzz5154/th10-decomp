@@ -3,6 +3,6 @@
 
 #pragma code_seg(".text$zzcontext")
 void __stdcall Ctx(char (*names)[32], unsigned int count) {
-    for (unsigned int i = 0; i < count; ++i) MidiOut_GetDeviceName_0043a5c0(i, names[i]);
+    for (unsigned int i = 0; i < count; ++i) MidiOut_GetDeviceName(i, names[i]);
 }
 #pragma code_seg()

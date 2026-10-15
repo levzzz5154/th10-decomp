@@ -19,25 +19,25 @@ struct GameConfig {
     int flags;                     // +0x30
 };
 
-struct LargeStateTimer_00421f00 {
+struct LargeStateTimer {
     const void* const* vtable;
     unsigned int previous;
     unsigned int current;
     unsigned int elapsed;
     unsigned int control;
 };
-struct LargeInitializationState_00421f00 {
+struct LargeInitializationState {
     unsigned char before_config[0x120];
     GameConfig config;
     unsigned char before_flags[0x3cc-0x154];
     unsigned int flags;
     unsigned char before_timer[0x62c-0x3d0];
-    LargeStateTimer_00421f00 timer;
+    LargeStateTimer timer;
     unsigned char tail[0x784-0x640];
 };
-typedef char InitState_size_check[sizeof(LargeInitializationState_00421f00)==0x784?1:-1];
-typedef char InitState_config_check[offsetof(LargeInitializationState_00421f00,config)==0x120?1:-1];
-typedef char InitState_flags_check[offsetof(LargeInitializationState_00421f00,flags)==0x3cc?1:-1];
-typedef char InitState_timer_check[offsetof(LargeInitializationState_00421f00,timer)==0x62c?1:-1];
+typedef char InitState_size_check[sizeof(LargeInitializationState)==0x784?1:-1];
+typedef char InitState_config_check[offsetof(LargeInitializationState,config)==0x120?1:-1];
+typedef char InitState_flags_check[offsetof(LargeInitializationState,flags)==0x3cc?1:-1];
+typedef char InitState_timer_check[offsetof(LargeInitializationState,timer)==0x62c?1:-1];
 __declspec(noinline) char __fastcall GameConfig_InitializeDefaults(int, GameConfig*);
-extern "C" __declspec(noinline) LargeInitializationState_00421f00* __stdcall Init_00421f00(LargeInitializationState_00421f00*);
+extern "C" __declspec(noinline) LargeInitializationState* __stdcall Init_00421f00(LargeInitializationState*);

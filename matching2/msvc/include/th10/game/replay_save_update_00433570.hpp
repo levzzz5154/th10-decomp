@@ -17,8 +17,8 @@ struct TitleReplaySaveView {
     int selected_stage;                 // +0x59E0
     ReplayFile_004315c0* replays[50];   // +0x59E4
 };
-typedef char ReplaySaveRoomGrid_00433570[offsetof(TitleReplaySaveView, grid) == 0x58F4 ? 1 : -1];
-typedef char ReplaySaveRoomSize_00433570[sizeof(TitleReplaySaveView) == 0x5AAC ? 1 : -1];
+typedef char ReplaySaveRoomGrid[offsetof(TitleReplaySaveView, grid) == 0x58F4 ? 1 : -1];
+typedef char ReplaySaveRoomSize[sizeof(TitleReplaySaveView) == 0x5AAC ? 1 : -1];
 
 extern "C" {
 extern ReplayFile_004315c0* g_replay;  // the replay just recorded
@@ -26,13 +26,13 @@ extern const char* g_name_entry_grid;           // the name entry character grid
 int __cdecl time_00452b71(int* out);
 }
 // 0x004297B0: destroy and free an opened replay, if there is one.
-__declspec(noinline) void __stdcall ReplayFile_Delete_004297b0(ReplayFile_004315c0* replay);
+__declspec(noinline) void __stdcall ReplayFile_Delete(ReplayFile_004315c0* replay);
 // 0x00429B60: write the recorded replay to `path` under `name`.
-__declspec(noinline) void __fastcall ReplayFile_Save_00429b60(
+__declspec(noinline) void __fastcall ReplayFile_Save(
     ReplayFile_004315c0* replay, const char* path, const char* name);
 // 0x00420A90, 0x00420B10.
 __declspec(noinline) int __stdcall Music_Load_00420a90(int slot, const char* file_name);
 __declspec(noinline) int __stdcall Music_Play_00420b10(int track, int heard_index);
 
-__declspec(noinline) int __stdcall TitleMode16_00433570(Title* room);
+__declspec(noinline) int __stdcall TitleMode16(Title* room);
 #endif

@@ -5,7 +5,7 @@
 
 void* __cdecl operator new(unsigned int size);
 
-struct EnemyVector_0040cfb0 {
+struct EnemyVector {
     float x;
     float y;
     float z;
@@ -18,7 +18,7 @@ struct EnemyNode_0040cfb0 {
     EnemyNode_0040cfb0* previous;
 };
 
-struct EnemyFlags_0040cfb0 {
+struct EnemyFlags {
     unsigned int reserved_00 : 11;
     unsigned int mirrored : 1;          // bit 11
     unsigned int reserved_12 : 3;
@@ -29,9 +29,9 @@ struct EnemyFlags_0040cfb0 {
 };
 
 // The enemy proper (0x14DC bytes at +0x103C of the record).
-struct EnemyData_0040cfb0 {
+struct EnemyData {
     unsigned char reserved_0000[0x58];
-    EnemyVector_0040cfb0 position;      // +0x0058
+    EnemyVector position;      // +0x0058
     unsigned char reserved_0064[0xEC - 0x64];
     int kind;                           // +0x00EC
     int kind_index;                     // +0x00F0
@@ -51,30 +51,30 @@ struct EnemyData_0040cfb0 {
     unsigned char reserved_1414[8];
     FrameTimer invulnerable_timer;      // +0x141C
     unsigned char reserved_1430[0x1444 - 0x1430];
-    EnemyFlags_0040cfb0 flags;          // +0x1444
+    EnemyFlags flags;          // +0x1444
     unsigned char reserved_1448[0x14DC - 0x1448];
 };
-typedef char EnemyDataSize_0040cfb0[sizeof(EnemyData_0040cfb0) == 0x14DC ? 1 : -1];
-typedef char EnemyDataNode_0040cfb0[offsetof(EnemyData_0040cfb0, node) == 0x130 ? 1 : -1];
-typedef char EnemyDataLife_0040cfb0[offsetof(EnemyData_0040cfb0, life) == 0x13BC ? 1 : -1];
-typedef char EnemyDataTimer_0040cfb0[offsetof(EnemyData_0040cfb0, invulnerable_timer) == 0x141C ? 1 : -1];
-typedef char EnemyDataFlags_0040cfb0[offsetof(EnemyData_0040cfb0, flags) == 0x1444 ? 1 : -1];
+typedef char EnemyDataSize[sizeof(EnemyData) == 0x14DC ? 1 : -1];
+typedef char EnemyDataNode[offsetof(EnemyData, node) == 0x130 ? 1 : -1];
+typedef char EnemyDataLife[offsetof(EnemyData, life) == 0x13BC ? 1 : -1];
+typedef char EnemyDataTimer[offsetof(EnemyData, invulnerable_timer) == 0x141C ? 1 : -1];
+typedef char EnemyDataFlags[offsetof(EnemyData, flags) == 0x1444 ? 1 : -1];
 
 // 0x0040DC80: run the enemy's script up to its first wait. The enemy is
 // passed on the stack.
-extern "C" void __stdcall EnemyData_Start_0040dc80(EnemyData_0040cfb0* enemy);
+extern "C" void __stdcall EnemyData_Start(EnemyData* enemy);
 
 // The 0x2518-byte enemy record: script interpreter, then the enemy.
 struct Enemy_0040cfb0 {
     unsigned char reserved_0000[0x1024];
     unsigned char difficulty_mask;      // +0x1024
     unsigned char reserved_1025[0x103C - 0x1025];
-    EnemyData_0040cfb0 data;            // +0x103C
+    EnemyData data;            // +0x103C
 
     // 0x0040D830: bind the record to the named script entry.
     __declspec(noinline) Enemy_0040cfb0(const char* entry);
 };
-typedef char EnemySize_0040cfb0[sizeof(Enemy_0040cfb0) == 0x2518 ? 1 : -1];
+typedef char EnemySize[sizeof(Enemy_0040cfb0) == 0x2518 ? 1 : -1];
 
 struct EnemyCtrlSpawnView {
     unsigned char reserved_00[0x58];
@@ -86,7 +86,7 @@ struct EnemyCtrlSpawnView {
 
 // What an enemy is created with.
 struct EnemySpawn_0040cfb0 {
-    EnemyVector_0040cfb0 position;      // +0x00
+    EnemyVector position;      // +0x00
     int life;                           // +0x0C
     int drop_item;                      // +0x10
     int score;                          // +0x14
@@ -98,7 +98,7 @@ struct EnemySpawn_0040cfb0 {
     // it to the manager's list.
     __declspec(noinline) Enemy_0040cfb0* Create(EnemyCtrlSpawnView* manager, const char* entry);
 };
-typedef char EnemySpawnSize_0040cfb0[sizeof(EnemySpawn_0040cfb0) == 0x40 ? 1 : -1];
+typedef char EnemySpawnSize[sizeof(EnemySpawn_0040cfb0) == 0x40 ? 1 : -1];
 
 // The run's counters, as far as the enemy creation reads them.
 struct RunState_0040cfb0 {

@@ -6,11 +6,11 @@
 float flt_0 = 0.0f;
 float flt_neg1 = -1.0f;
 float g_game_speed = 1.0f;
-int g_difficulty_00474c74;
+int g_difficulty;
 int g_rank;
 Float3 g_zero_vector_00491c14;
 Float2 g_zero_vector2_00491c20;
-Float3 g_camera_offset_00491d7c;
+Float3 g_camera_offset;
 RngState g_effect_rng_004918b0;
 EnemyCtrl* g_enemy_ctrl;
 BulletManager* g_bullet_manager;
@@ -26,8 +26,8 @@ extern "C" void* g_sprt_ctrl;
 extern "C" void* g_item_manager;
 extern "C" int g_stage_progress, g_stage_progress_echo;
 extern "C" short g_sound_priority[];
-extern "C" Float3 g_offset_point_00497d80;
-extern "C" unsigned int g_offset_point_state_00497d8c;
+extern "C" Float3 g_offset_point;
+extern "C" unsigned int g_offset_point_state;
 
 extern "C" void* __cdecl ext_new(unsigned int size);
 extern "C" void __stdcall ext_call(void* a, int b);
@@ -186,7 +186,7 @@ static __forceinline unsigned short NextWord(RngState* s) {
     ++s->generation;
     return s->seed;
 }
-float RngState::NextFloatSigned_0044bb90() {
+float RngState::NextFloatSigned() {
     unsigned short high = NextWord(this);
     unsigned short low = NextWord(this);
     return ((unsigned int)high << 16 | low) * (1.0f / 2147483648.0f) - 1.0f;
@@ -230,19 +230,19 @@ void AnmHandle::Hide_00449590() {
         ext_register(which, g_sprt_ctrl, out, vm); \
         return out; \
     }
-CREATE(Anm_CreateBack_00448d00, 0)
-CREATE(Anm_CreateFront_00448e30, 1)
+CREATE(Anm_CreateBack, 0)
+CREATE(Anm_CreateFront, 1)
 AnmVm* __stdcall Anm_Resolve_00449450(AnmHandle* handle) {
     AnmVm* vm = (AnmVm*)ext_find(g_sprt_ctrl, handle->id);
     if (vm == 0) handle->id = 0;
     return vm;
 }
 Float3* __stdcall OffsetPoint_00418810(const Float3* point) {
-    if (!(g_offset_point_state_00497d8c & 1)) g_offset_point_state_00497d8c |= 1;
-    g_offset_point_00497d80.x = point->x + 224.0f;
-    g_offset_point_00497d80.y = point->y + 16.0f;
-    g_offset_point_00497d80.z = point->z;
-    return &g_offset_point_00497d80;
+    if (!(g_offset_point_state & 1)) g_offset_point_state |= 1;
+    g_offset_point.x = point->x + 224.0f;
+    g_offset_point.y = point->y + 16.0f;
+    g_offset_point.z = point->z;
+    return &g_offset_point;
 }
 struct RigCamera { __declspec(noinline) void Apply(); };
 void RigCamera::Apply() {
@@ -268,7 +268,7 @@ void RenderStageState::SelectStage_00401d20(int index) {
 }
 
 // ---- enemies, items ----
-EnemyFull* __stdcall EnemyCtrl_Spawn_0040cfb0(const EnemySpawn* p, EnemyCtrl* manager, const char* name) {
+EnemyFull* __stdcall EnemyCtrl_Spawn(const EnemySpawn* p, EnemyCtrl* manager, const char* name) {
     void* memory = ext_new(0x2518);
     unsigned char* enemy = memory ? ext_construct(memory, name) : 0;
     *(Float3*)(enemy + 0x1094) = p->position;
@@ -276,7 +276,7 @@ EnemyFull* __stdcall EnemyCtrl_Spawn_0040cfb0(const EnemySpawn* p, EnemyCtrl* ma
     *(int*)(enemy + 0x23FC) = p->life;
     *(int*)(enemy + 0x2408) = p->item;
     *(unsigned int*)(enemy + 0x2480) ^= ((p->mirrored << 11) ^ *(unsigned int*)(enemy + 0x2480)) & 0x800;
-    enemy[0x1024] = 1 << g_difficulty_00474c74;
+    enemy[0x1024] = 1 << g_difficulty;
     memcpy(enemy + 0x1138, p->variables, 32);
     if (!(*(unsigned int*)(enemy + 0x2468) & 1)) {
         *(int*)(enemy + 0x245C) = 0;
@@ -328,7 +328,7 @@ EnemyFull* __stdcall EnemyCtrl_Spawn_0040cfb0(const EnemySpawn* p, EnemyCtrl* ma
     ++*(int*)((char*)manager + 0x64);
     return (EnemyFull*)enemy;
 }
-void __stdcall EnemyCtrl_SweepDeaths_0040e6a0(EnemyCtrl* manager) {
+void __stdcall EnemyCtrl_SweepDeaths(EnemyCtrl* manager) {
     void** next;
     for (void** node = *(void***)((char*)manager + 0x58); node; node = next) {
         unsigned char* enemy = (unsigned char*)node[0];
@@ -344,7 +344,7 @@ void __stdcall EnemyCtrl_SweepDeaths_0040e6a0(EnemyCtrl* manager) {
     FrameTimer* clock = (FrameTimer*)((char*)manager + 0x68);
     ext_call(clock, 0);
 }
-void __stdcall Enemy_BindSlot_00412720(EnemyFull* enemy, int index, int id, int value, const char* data) {
+void __stdcall Enemy_BindSlot(EnemyFull* enemy, int index, int id, int value, const char* data) {
     enemy->body.slots[index].id = id;
     if (id >= 0) {
         enemy->body.slots[index].value = value;
@@ -367,14 +367,14 @@ __declspec(noinline) void __stdcall Rig_Scatter(const Float3* position, ItemDrop
     }
     memset(&drops->items[1], 0, 44);
 }
-void __stdcall Drops_Flush_0040c9a0(const Float3* position, ItemDrops* drops) {
+void __stdcall Drops_Flush(const Float3* position, ItemDrops* drops) {
     if (drops->items[0] > 0) ext_spawn_item(g_item_manager, position, drops->items[0], -1, -1.5707964f, 2.2f);
     Rig_Scatter(position, drops);
     drops->items[0] = 0;
 }
 
 // ---- bullets, lasers ----
-int Shooter::Shoot_004073e0(BulletManager* manager) {
+int Shooter::Shoot(BulletManager* manager) {
     float dx = g_player->position.x - position.x;
     float dy = g_player->position.y - position.y;
     float angle;
@@ -519,7 +519,7 @@ int LaserManager::MarkEligible_0041c7d0() {
     }
     return 0;
 }
-void Laser::SetVector_0040cf60(const Float3& value) { f430 = value; }
+void Laser::SetVector(const Float3& value) { f430 = value; }
 // Stand-in for the laser constructors, which take the fresh memory in EBX.
 __declspec(noinline) void* __stdcall Rig_LaserConstruct(void* memory) {
     ((AnmHandle*)((char*)memory + 8))->Release_00449630();
@@ -662,17 +662,17 @@ void Card::End_00409c00() {
             ext_set_flag(0, g_sprt_ctrl, caption->id);
             caption->id = 0;
             AnmHandle out;
-            caption->id = Anm_CreateBack_00448d00(*(AnmLoaded**)((unsigned char*)g_front + 0x9EC8), &out, 0x48, 0xF)->id;
+            caption->id = Anm_CreateBack(*(AnmLoaded**)((unsigned char*)g_front + 0x9EC8), &out, 0x48, 0xF)->id;
         }
     }
 }
-void Card::StopAnimation_0040cea0() {
+void Card::StopAnimation() {
     flags |= 0x10;
     const int handle = *(int*)((unsigned char*)this + 0x774);
     ext_set_flag(0, g_sprt_ctrl, handle);
     *(int*)((unsigned char*)this + 0x774) = 0;
 }
-void __stdcall Card_Start_00409280(Card* card, int id, const char* name, int time, int unused) {
+void __stdcall Card_Start(Card* card, int id, const char* name, int time, int unused) {
     // The arguments stay on the stack, as in the original.
     ext_call(&card, (int)&id);
     unsigned char* self = (unsigned char*)card;
@@ -694,12 +694,12 @@ extern "C" int __stdcall RigEntry(Enemy** enemies, int count) {
     for (int i = 0; i < count; ++i) total += enemies[i]->Execute_0040e770();
     // These globals' addresses escape in the whole program.
     ext_call(&g_rank, 0);
-    ext_call(&g_difficulty_00474c74, 0);
+    ext_call(&g_difficulty, 0);
     Card** cards = (Card**)enemies;
     int n = count;
     while (n--) (*cards++)->End_00409c00();
-    Drops_Flush_0040c9a0((Float3*)enemies[0], (ItemDrops*)enemies[1]);
-    EnemyCtrl_SweepDeaths_0040e6a0((EnemyCtrl*)enemies[3]);
+    Drops_Flush((Float3*)enemies[0], (ItemDrops*)enemies[1]);
+    EnemyCtrl_SweepDeaths((EnemyCtrl*)enemies[3]);
     Screen_Create(43, 5, 60, 0, 0, 0);
     g_bullet_manager->Sweep_00408210(count);
     ((RigCamera*)enemies[2])->Apply();

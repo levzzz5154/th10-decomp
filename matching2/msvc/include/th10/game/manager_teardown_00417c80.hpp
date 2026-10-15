@@ -35,7 +35,7 @@ struct GameThread_0040c540 {
 
 // The animation manager's positioned-primary creation, recovered at
 // 0x00448D50; the cluster carries its compiled body as an ABI anchor.
-void** __stdcall AnimationManager_CreatePositionedPrimary_00448d50(
+void** __stdcall AnimationManager_CreatePositionedPrimary(
     void* resource, void** out, int index,
     const AnimationPosition_00448d50* position);
 #endif
@@ -72,7 +72,7 @@ extern float g_score_default_speed;
 // The run's score record; the capped fail counter sits at +0x50.
 extern struct ScoreState g_globals;
 // The score archive; flushed first so the run's record file is written.
-extern struct ScoreArchive_0042B1E0* g_score;
+extern struct ScoreArchive* g_score;
 // The game thread.
 extern GameThread_0040c540* g_ascii_manager;
 // Stage file pointers; equality marks the stage-end state.

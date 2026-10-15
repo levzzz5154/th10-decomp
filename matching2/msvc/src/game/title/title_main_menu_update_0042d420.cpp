@@ -11,7 +11,7 @@
 //
 // The room arrives in EBX from the title dispatcher (0x0042CDF0); the handler
 // is linked with the dispatcher and the real bodies of its leaves
-// (build_support/layout/ltcg/difficulty_select_update_00430320.json).
+// (build_support/layout/ltcg/difficulty_select_update.json).
 //
 // Shapes that are load-bearing (each measured against the image):
 //
@@ -46,17 +46,17 @@ static __forceinline void RunCursorSlot_0042d420(Title* room) {
 }
 
 #pragma code_seg(".text$0042d420_fn")
-__declspec(noinline) int __stdcall TitleMainMenu_0042d420(Title* room) {
+__declspec(noinline) int __stdcall TitleMainMenu(Title* room) {
     switch (room->phase) {
     case 0:
         room->cursor.item_count = 8;
-        if (!reinterpret_cast<ScoreFileProgress_0042c850*>(g_score)->HasAnyClear())
+        if (!reinterpret_cast<ScoreFileProgress*>(g_score)->HasAnyClear())
             DisableItem_0042d420(room->cursor, 1);
         if (g_globals_flags & 0x10) {
             SelectItem_0042d420(room->cursor, 2);
             g_globals_flags &= ~0x10u;
         }
-        if (reinterpret_cast<RecoveryLookup_0040bd80*>(g_sprt_ctrl)->Find(
+        if (reinterpret_cast<RecoveryLookup*>(g_sprt_ctrl)->Find(
                 reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl),
                 *reinterpret_cast<RecoveryScriptId*>(&room->animation_slots[88])) == 0)
             RecoveryMusicInstallSlot(room, 88);

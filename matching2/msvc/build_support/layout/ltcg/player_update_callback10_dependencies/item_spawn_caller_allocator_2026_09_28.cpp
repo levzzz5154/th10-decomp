@@ -18,9 +18,9 @@ struct ConfigureResource_00404f30 { void* value; };
 struct ItemConfiguredEntity_00404f30 : Entity {
     __declspec(noinline) void Configure(int index,ConfigureResource_00404f30 resource);
 };
-__declspec(noinline) void** __stdcall ItemAnimation_CreateOffset_00448db0(
+__declspec(noinline) void** __stdcall ItemAnimation_CreateOffset(
     void* resource, void** output, int script, const Vector3* position);
-static __forceinline void ResetSpawnTimer_0041bb00(SpawnItem_0041bb00* item) {
+static __forceinline void ResetSpawnTimer_0041bb00(SpawnItem* item) {
     item->motion_state=0;
     _ReadWriteBarrier();
     unsigned int flags=item->timer_flags;
@@ -39,13 +39,13 @@ static __forceinline void ResetSpawnTimer_0041bb00(SpawnItem_0041bb00* item) {
     _ReadWriteBarrier();
 }
 #pragma code_seg(".text$080spawn")
-__declspec(noinline) int ItemSpawnManager_0041bb00::Spawn(
+__declspec(noinline) int ItemSpawnManager::Spawn(
         const float* position,int kind,int identifier,float angle,float speed) {
-    ItemSpawnManager_0041bb00* manager=this;
+    ItemSpawnManager* manager=this;
     // Ordinary drops scan the first 150 entries. A full pool silently drops
     // the request, and every exit returns zero.
     if (kind != 8) {
-        SpawnItem_0041bb00* item=manager->normal;
+        SpawnItem* item=manager->normal;
         int slot=0;
         while (item->state!=0) {
             ++slot;
@@ -69,7 +69,7 @@ __declspec(noinline) int ItemSpawnManager_0041bb00::Spawn(
             }
         }
         if (item->kind==3)
-            ItemAnimation_CreateOffset_00448db0(g_bullet_manager->item_animation,
+            ItemAnimation_CreateOffset(g_bullet_manager->item_animation,
                 reinterpret_cast<void**>(&speed),393,
                 reinterpret_cast<const Vector3*>(location));
         item->kind=mapped_kind;
@@ -92,7 +92,7 @@ __declspec(noinline) int ItemSpawnManager_0041bb00::Spawn(
     // Kind 8 uses a 2048-entry ring; its count rises even when this ring slot
     // is occupied. Signed remainders preserve retail's cursor arithmetic.
     int cursor=manager->special_cursor;
-    SpawnItem_0041bb00* item=&manager->special[cursor];
+    SpawnItem* item=&manager->special[cursor];
     int count=++manager->special_count;
     if (item->state==0) {
         int variant;

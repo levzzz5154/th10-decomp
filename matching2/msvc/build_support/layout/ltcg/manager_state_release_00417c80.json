@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "name": "manager_state_release_00417c80",
+  "name": "manager_state_release",
   "source": "src/game/game/manager_teardown.cpp",
   "driver": "build_support/layout/ltcg/manager_state_release_00417c80/context.cpp",
   "headers": [
@@ -81,7 +81,7 @@
     },
     {
       "name": "ScoreArchive_Save",
-      "symbol": "?Save@ScoreArchive_0042B1E0@@QAEHXZ",
+      "symbol": "?Save@ScoreArchive@@QAEHXZ",
       "section": ".text$06score",
       "address": "0x0042B1E0",
       "size": 567
@@ -102,7 +102,7 @@
     },
     {
       "name": "CreatePositionedPrimary",
-      "symbol": "?AnimationManager_CreatePositionedPrimary_00448d50@@YGPAPAXPAUAnimationManager_00448d50@@PAXMM@Z",
+      "symbol": "?AnimationManager_CreatePositionedPrimary@@YGPAPAXPAUAnimationManager_00448d50@@PAXMM@Z",
       "section": ".text$8primary",
       "address": "0x00448D50",
       "size": 95
@@ -224,17 +224,17 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_StageManager_Destroy_00424ed0@4",
+      "symbol": "_StageManager_Destroy@4",
       "address": "0x00424ED0",
       "kind": "relative_code"
     },
     {
-      "symbol": "_BulletManager_Destroy_00405f70@4",
+      "symbol": "_BulletManager_Destroy@4",
       "address": "0x00405F70",
       "kind": "relative_code"
     },
     {
-      "symbol": "_ItemManager_Destroy_0041adf0@4",
+      "symbol": "_ItemManager_Destroy@4",
       "address": "0x0041ADF0",
       "kind": "relative_code"
     },
@@ -244,12 +244,12 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_EffectManager_Destroy_0042b570@4",
+      "symbol": "_EffectManager_Destroy@4",
       "address": "0x0042B570",
       "kind": "relative_code"
     },
     {
-      "symbol": "_ManagerOwned_Destroy_004294a0@4",
+      "symbol": "_ManagerOwned_Destroy@4",
       "address": "0x004294A0",
       "kind": "relative_code"
     },
@@ -259,7 +259,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_BulletManager_Release_0040af00@4",
+      "symbol": "_BulletManager_Release@4",
       "address": "0x0040AF00",
       "kind": "relative_code"
     },
@@ -269,7 +269,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_Manager_Release_00422220@4",
+      "symbol": "_Manager_Release@4",
       "address": "0x00422220",
       "kind": "relative_code"
     },
@@ -279,7 +279,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_ScoreExtendedObject_DestroyRetail_0041c1c0@4",
+      "symbol": "_ScoreExtendedObject_DestroyRetail@4",
       "address": "0x0041C1C0",
       "kind": "relative_code"
     },
@@ -294,7 +294,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_EnemyCtrl_ReleaseLists_00409f90@4",
+      "symbol": "_EnemyCtrl_ReleaseLists@4",
       "address": "0x00409F90",
       "kind": "relative_code"
     },

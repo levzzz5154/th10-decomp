@@ -79,7 +79,7 @@ int Ending::Initialize() {
     AnimationPosition_00448d50 position(480.0f, 392.0f, 0.0f);
     if (!background) {
         int id;
-        background = *(int*)AnimationManager_CreatePositionedPrimary_00448d50(
+        background = *(int*)AnimationManager_CreatePositionedPrimary(
             ((EndingAsciiView*)g_ascii_manager)->Resource(), (void**)&id, 6, &position);
     }
     ending_index = g_globals_score.character * 3 + g_globals_score.shot_type;

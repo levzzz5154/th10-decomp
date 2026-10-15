@@ -5,7 +5,7 @@
 #include "th10/game/score_table_insert_00421fa0.hpp"
 
 // Everything the score file keeps for one character and shot type.
-struct ScorePlayerData_00423570 {
+struct ScorePlayerData {
     ScoreTable_00421fa0 table;
     unsigned char reserved_4c0[0x437C - sizeof(ScoreTable_00421fa0)];
 };
@@ -13,19 +13,19 @@ struct ScorePlayerData_00423570 {
 // The loaded score file at *0x0047783C.
 struct ScoreFile_00423570 {
     unsigned char reserved_00[8];
-    ScorePlayerData_00423570 players[7];   // +0x08: shot type + character * 3
+    ScorePlayerData players[7];   // +0x08: shot type + character * 3
     unsigned char reserved_1d86c[0xC];
     char last_name[9];                     // +0x1D878: the name entered last time
 };
-typedef char ScoreFileNameOffset_00423570[offsetof(ScoreFile_00423570, last_name) == 0x1D878 ? 1 : -1];
+typedef char ScoreFileNameOffset[offsetof(ScoreFile_00423570, last_name) == 0x1D878 ? 1 : -1];
 
 // One row of the stage table at 0x00474788.
-struct StageInfo_00423570 {
+struct StageInfo {
     unsigned char reserved_00[0x30];
 };
 
 // The result screen that owns the name entry.
-struct NameEntryMenu_00423570 {
+struct NameEntryMenu {
     unsigned char reserved_00[0x24];
     MenuCursor rows;              // +0x24: the score rows; the new record is selected
     MenuCursor alphabet;          // +0xFC: the character grid
@@ -36,14 +36,14 @@ struct NameEntryMenu_00423570 {
     unsigned char reserved_1ec[0xC8];
     char name[9];                 // +0x2B4
 };
-typedef char NameEntryMenuNameOffset_00423570[offsetof(NameEntryMenu_00423570, name) == 0x2B4 ? 1 : -1];
+typedef char NameEntryMenuNameOffset[offsetof(NameEntryMenu, name) == 0x2B4 ? 1 : -1];
 
 extern "C" ScoreFile_00423570* g_score;
-extern "C" StageInfo_00423570 g_stage_routes[];
-extern "C" StageInfo_00423570* g_stage_route_current;   // the current stage's row
+extern "C" StageInfo g_stage_routes[];
+extern "C" StageInfo* g_stage_route_current;   // the current stage's row
 extern "C" const char* g_name_entry_grid;           // the name entry character grid
 
 // 0x00423570: enter the score and set up the name entry.
-void __stdcall PrepareNameEntry_00423570(NameEntryMenu_00423570* menu);
+void __stdcall PrepareNameEntry(NameEntryMenu* menu);
 
 #endif

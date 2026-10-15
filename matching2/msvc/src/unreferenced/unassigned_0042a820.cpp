@@ -8,7 +8,7 @@
 //
 // ECX is the object, so the body compiles as a plain __thiscall member.
 
-struct SlotBuffer_0042a820 {
+struct SlotBuffer {
     unsigned char unknown_00[0x5464];
     unsigned char slots[0xE10];             // +0x5464 .. +0x6274
     unsigned char* cursor;                  // +0x6274
@@ -17,7 +17,7 @@ struct SlotBuffer_0042a820 {
 };
 
 #pragma code_seg(".text$01used")
-int SlotBuffer_0042a820::BytesUsed() {
+int SlotBuffer::BytesUsed() {
     return (int)(cursor - (unsigned char*)this) - 0x5464;
 }
 #pragma code_seg()

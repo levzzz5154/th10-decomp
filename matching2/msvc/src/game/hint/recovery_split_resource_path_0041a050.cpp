@@ -12,18 +12,18 @@
 extern "C" char* __cdecl asm_FUN_00452730_00452730(const char* text, int ch);
 
 // 0x0041A0A0: co-compiled whitespace trim (argument and result in EAX).
-char* TrimWhitespace_0041a0a0(char* text);
+char* TrimWhitespace(char* text);
 
 #pragma code_seg(".text$01split")
-extern "C" __declspec(noinline) char* __stdcall SplitResourcePath_0041a050(char* line, char* value, char* key) {
+extern "C" __declspec(noinline) char* __stdcall SplitResourcePath(char* line, char* value, char* key) {
     strcpy(key, line);
     char* colon = asm_FUN_00452730_00452730(key, ':');
     if (colon == 0) {
-        return TrimWhitespace_0041a0a0(key);
+        return TrimWhitespace(key);
     }
     strcpy(value, colon + 1);
     *colon = 0;
-    TrimWhitespace_0041a0a0(key);
-    return TrimWhitespace_0041a0a0(value);
+    TrimWhitespace(key);
+    return TrimWhitespace(value);
 }
 #pragma code_seg()

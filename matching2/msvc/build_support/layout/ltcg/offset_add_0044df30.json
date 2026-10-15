@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "offset_add_0044df30",
-      "symbol": "?AdvanceBytes_0044df30@@YGPADPADH@Z",
+      "symbol": "?AdvanceBytes@@YGPADPADH@Z",
       "section": ".text$01accessor",
       "address": "0x0044DF30",
       "size": 3,

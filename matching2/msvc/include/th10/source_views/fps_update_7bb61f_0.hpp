@@ -15,7 +15,7 @@ extern "C" double g_frame_time;      // 0x00492538
 extern "C" double g_frame_min_delta;      // 0x00492540
 
 // The slot owner whose flags gate the accounting below; the same object
-// src/game/bullet/fun_004065c0_004065c0.cpp names GameBulletView.
+// src/game/bullet/fun_004065c0.cpp names GameBulletView.
 struct GameFpsView {
     unsigned char pad_00[0x58];
     unsigned int field_58;  // +0x58

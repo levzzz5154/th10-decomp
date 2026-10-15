@@ -13,9 +13,9 @@ extern "C" RenderStageState g_application;
 // 0x00405300's body is the modelled member of the recovered source; declared
 // here so this context keeps it alive without pinning its declared __thiscall
 // ABI through `roots`, exactly as 0x00401D20 is kept alive by the call below.
-struct GameFrame_00439390;
-int GameFrameAdvance_00439390(GameFrame_00439390* frame);
-extern "C" GameFrame_00439390 g_main_window;
+struct GameFrame;
+int GameFrameAdvance(GameFrame* frame);
+extern "C" GameFrame g_main_window;
 
 struct RenderStageState_00405300 {
     unsigned char reserved_000[0x388];
@@ -42,7 +42,7 @@ struct RenderStageState_00439390 {
     __declspec(noinline) int DisableDepthWrite();
 };
 
-extern "C" __declspec(noinline) int EntityDrawMirrored_00443480(RenderEntity* entity,
+extern "C" __declspec(noinline) int EntityDrawMirrored(RenderEntity* entity,
                                                                SprtCtrlBatchView* manager);
 #pragma code_seg(".text$07context")
 int __stdcall RenderBatchContext(const ScreenRect** rects, const unsigned int* colors, int count,
@@ -56,10 +56,10 @@ int __stdcall RenderBatchContext(const ScreenRect** rects, const unsigned int* c
         g_sprt_ctrl->DrawSolidFan(entities[i], vertices[i], colors[i]);
         g_sprt_ctrl->SubmitSpriteQuad(entities[i], colors[i]);
         g_sprt_ctrl->SubmitSpriteQuadMirrored(entities[i], colors[i]);
-        EntityDrawMirrored_00443480((RenderEntity*)entities[i], g_sprt_ctrl);
+        EntityDrawMirrored((RenderEntity*)entities[i], g_sprt_ctrl);
         cameras[i]->Apply();
         cameras[i]->ApplyDefault();
-        GameFrameAdvance_00439390(&g_main_window);
+        GameFrameAdvance(&g_main_window);
     }
     g_application.SelectStage(0);
     ((RenderStageState_00405300*)&g_application)->SelectDefaultStage(0);
@@ -93,25 +93,25 @@ extern "C" __declspec(noinline) int EntityDraw_00443080(RenderEntity* entity, Sp
 // retail addresses and earn those conventions: a member whose body touches the
 // receiver first gets the register, and the second statement decides which of
 // the remaining pair goes on the stack.
-struct ProjectionManager_00444240;
-struct ProjectedEntity_00444240 {
+struct ProjectionManager;
+struct ProjectedEntity {
     unsigned char reserved_0000[0x334];
-    __declspec(noinline) int ProjectQuad(ProjectionManager_00444240* manager);
+    __declspec(noinline) int ProjectQuad(ProjectionManager* manager);
 };
-struct BillboardSource_00443B60 {
+struct BillboardSource {
     unsigned char reserved_0000[0x35C];
     __declspec(noinline) int BuildProjectedQuad();
 };
 
 #pragma code_seg(".text$06b04z01anchor")
-int BillboardSource_00443B60::BuildProjectedQuad() {
+int BillboardSource::BuildProjectedQuad() {
     crt_free_startup(this);
     return 0;
 }
 #pragma code_seg()
 
 #pragma code_seg(".text$06b0602anchor")
-int ProjectedEntity_00444240::ProjectQuad(ProjectionManager_00444240* manager) {
+int ProjectedEntity::ProjectQuad(ProjectionManager* manager) {
     crt_free_startup(this);
     crt_free_startup(manager);
     return 0;
@@ -119,7 +119,7 @@ int ProjectedEntity_00444240::ProjectQuad(ProjectionManager_00444240* manager) {
 #pragma code_seg()
 
 #pragma code_seg(".text$06b08anchor")
-extern "C" __declspec(noinline) int FadedQuadDraw_004445c0(SprtCtrlBatchView* manager, RenderEntity* entity) {
+extern "C" __declspec(noinline) int FadedQuadDraw(SprtCtrlBatchView* manager, RenderEntity* entity) {
     crt_free_startup((void*)1);
     crt_free_startup(entity);
     crt_free_startup(manager);

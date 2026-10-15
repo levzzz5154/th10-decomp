@@ -49,7 +49,7 @@
     },
     {
       "name": "CollisionActivateAll",
-      "symbol": "?ActivateAll@CollisionEngine_00408100@@QAEXH@Z",
+      "symbol": "?ActivateAll@CollisionEngine@@QAEXH@Z",
       "address": "0x408460",
       "size": 62,
       "section": ".text$069h_all",
@@ -58,7 +58,7 @@
     },
     {
       "name": "ItemDropsFlush",
-      "symbol": "?FlushDrops@DropSource_0040c9a0@@QAEXPAUItemDrops_0040c9a0@@@Z",
+      "symbol": "?FlushDrops@DropSource@@QAEXPAUItemDrops_0040c9a0@@@Z",
       "address": "0x40c9a0",
       "size": 48,
       "section": ".text$079h_flush",
@@ -67,7 +67,7 @@
     },
     {
       "name": "ItemDropsScatter",
-      "symbol": "?ScatterDrops@DropSource_0040c9a0@@QAEXPAUItemDrops_0040c9a0@@@Z",
+      "symbol": "?ScatterDrops@DropSource@@QAEXPAUItemDrops_0040c9a0@@@Z",
       "section": ".text$079i_scatter",
       "address": "0x40c9d0",
       "size": 503,
@@ -76,7 +76,7 @@
     },
     {
       "name": "EnemyReleaseOnDeath",
-      "symbol": "?Enemy_ReleaseOnDeath_0040e5f0@@YGHPAUEnemy_0040e5f0@@@Z",
+      "symbol": "?Enemy_ReleaseOnDeath@@YGHPAUEnemy_0040e5f0@@@Z",
       "section": ".text$079k_death",
       "address": "0x40e5f0",
       "size": 162,
@@ -85,7 +85,7 @@
     },
     {
       "name": "EnemyManagerSweepDeaths",
-      "symbol": "?EnemyCtrl_SweepDeaths_0040e6a0@@YGXPAUEnemyCtrlDeathView@@@Z",
+      "symbol": "?EnemyCtrl_SweepDeaths@@YGXPAUEnemyCtrlDeathView@@@Z",
       "section": ".text$079kz_sweep",
       "address": "0x40e6a0",
       "size": 182,
@@ -110,14 +110,14 @@
     },
     {
       "name": "PositionFind",
-      "symbol": "?Find@PositionManager_004492f0@@QAIPAXPAUPositionLookupContext_004492f0@@UPositionScriptId_004492f0@@@Z",
+      "symbol": "?Find@PositionManager@@QAIPAXPAUPositionLookupContext@@UPositionScriptId@@@Z",
       "address": "0x4491c0",
       "size": 73,
       "section": ".text$130find"
     },
     {
       "name": "PositionSetter",
-      "symbol": "?SetAnimationPosition_004492f0@@YIXPAUPositionLookupContext_004492f0@@PBUPositionVector_004492f0@@UPositionScriptId_004492f0@@@Z",
+      "symbol": "?SetAnimationPosition_004492f0@@YIXPAUPositionLookupContext@@PBUPositionVector@@UPositionScriptId@@@Z",
       "address": "0x4492f0",
       "size": 90,
       "section": ".text$140position"
@@ -138,7 +138,7 @@
     },
     {
       "name": "ItemSpawn",
-      "symbol": "?Spawn@ItemSpawnManager_0041bb00@@QAEHPBMHHMM@Z",
+      "symbol": "?Spawn@ItemSpawnManager@@QAEHPBMHHMM@Z",
       "address": "0x41bb00",
       "size": 823,
       "section": ".text$080spawn"
@@ -159,7 +159,7 @@
     },
     {
       "name": "CreateAnimation",
-      "symbol": "?ItemAnimation_CreateOffset_00448db0@@YGPAPAXPAXPAPAXHPBUVector3@@@Z",
+      "symbol": "?ItemAnimation_CreateOffset@@YGPAPAXPAXPAPAXHPBUVector3@@@Z",
       "address": "0x448db0",
       "size": 111,
       "section": ".text$120create"
@@ -201,21 +201,21 @@
     },
     {
       "name": "ItemConvertSweep",
-      "symbol": "?ConvertItems@ItemSpawnManager_0041bb00@@QAEHXZ",
+      "symbol": "?ConvertItems@ItemSpawnManager@@QAEHXZ",
       "section": ".text$079zz_convert",
       "address": "0x41ba50",
       "size": 165
     },
     {
       "name": "CollisionCheck",
-      "symbol": "?Check@CollisionEngine_00408100@@QAEHPBUPositionVector_004492f0@@MHH@Z",
+      "symbol": "?Check@CollisionEngine@@QAEHPBUPositionVector@@MHH@Z",
       "section": ".text$060collision",
       "address": "0x408100",
       "size": 260
     },
     {
       "name": "CollisionActivate",
-      "symbol": "?Activate@CollisionRecord_00408100@@QAEHXZ",
+      "symbol": "?Activate@CollisionRecord@@QAEHXZ",
       "section": ".text$050activate",
       "address": "0x408030",
       "size": 199
@@ -414,7 +414,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "?SetEllipticPolar@ScatterOffset_0040c9d0@@QAEPAU1@MMM@Z",
+      "symbol": "?SetEllipticPolar@ScatterOffset@@QAEPAU1@MMM@Z",
       "address": "0x00413270",
       "kind": "relative_code"
     },

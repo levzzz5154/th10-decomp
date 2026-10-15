@@ -114,12 +114,12 @@
       "kind": "metadata"
     },
     {
-      "symbol": "_FirstByteSearch_00452730",
+      "symbol": "_FirstByteSearch",
       "address": "0x452730",
       "kind": "relative_code"
     },
     {
-      "symbol": "?Find@ArchiveName_004356f0@@QBEPBUArchiveEntry_004356f0@@XZ",
+      "symbol": "?Find@ArchiveName@@QBEPBUArchiveEntry_004356f0@@XZ",
       "address": "0x4356f0",
       "kind": "relative_code"
     },

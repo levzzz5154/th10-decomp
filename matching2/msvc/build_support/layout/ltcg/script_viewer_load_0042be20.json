@@ -174,12 +174,12 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "?Load@ScriptParser_0042be20@@UAEHPAD@Z",
+      "symbol": "?Load@ScriptParser@@UAEHPAD@Z",
       "address": "0x00450220",
       "kind": "relative_code"
     },
     {
-      "symbol": "?Slot04@ScriptParser_0042be20@@UAEXXZ",
+      "symbol": "?Slot04@ScriptParser@@UAEXXZ",
       "address": "0x0040C810",
       "kind": "relative_code"
     },
@@ -232,7 +232,7 @@
       "bytes": "257300"
     },
     {
-      "symbol": "??_7ScriptParser_0042be20@@6B@",
+      "symbol": "??_7ScriptParser@@6B@",
       "address": "0x0046D0F0",
       "bytes": "2002450010c84000"
     }

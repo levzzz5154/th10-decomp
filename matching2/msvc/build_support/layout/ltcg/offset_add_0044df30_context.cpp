@@ -4,7 +4,7 @@
 #pragma code_seg(".text$03context")
 int __stdcall Ctx(char** bases, int* offsets, int count) {
     int sum = 0;
-    while (count--) sum += *AdvanceBytes_0044df30(*bases++, *offsets++);
+    while (count--) sum += *AdvanceBytes(*bases++, *offsets++);
     return sum;
 }
 #pragma code_seg()

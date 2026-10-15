@@ -1,7 +1,7 @@
 #include "th10/game/pause_initializer_00422ab0.hpp"
 struct AnimationObject_0043e7e0;
 struct AnimationResource_0043e7e0;
-__declspec(noinline) void __stdcall LoadScriptPreservingState_0043e7e0(AnimationResource_0043e7e0*, AnimationObject_0043e7e0*, int);
+__declspec(noinline) void __stdcall LoadScriptPreservingState(AnimationResource_0043e7e0*, AnimationObject_0043e7e0*, int);
 struct AnimationPositionValue { float x,y,z; AnimationPositionValue(float x,float y,float z):x(x),y(y),z(z){} };
 #pragma code_seg(".text$15resource")
 __declspec(dllexport) void AnimationBank::InitializeObject(Entity* object, int index) {
@@ -13,6 +13,6 @@ __declspec(dllexport) void AnimationBank::InitializeObject(Entity* object, int i
     object->ScriptIndex() = (short)index;
     reinterpret_cast<unsigned char*>(object)[0x3A1] = 16;
     reinterpret_cast<unsigned char*>(object)[0x3A0] = 16;
-    LoadScriptPreservingState_0043e7e0(reinterpret_cast<AnimationResource_0043e7e0*>(this),reinterpret_cast<AnimationObject_0043e7e0*>(object),index);
+    LoadScriptPreservingState(reinterpret_cast<AnimationResource_0043e7e0*>(this),reinterpret_cast<AnimationObject_0043e7e0*>(object),index);
 }
 #pragma code_seg()

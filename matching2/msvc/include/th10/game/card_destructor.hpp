@@ -11,7 +11,7 @@ struct AnimationScriptId {
 };
 // 0x004492A0: let the animation with this id, and its children, be removed.
 void* __fastcall AnimationManager_SetFlag_004492a0(AnimationLookupContext* context, AnimationScriptId id);
-__declspec(noinline) void __stdcall ManagerTeardownFuncCtrl_Remove_00449F60(FuncCtrl* scheduler, SchedulerTask* task);
+__declspec(noinline) void __stdcall ManagerTeardownFuncCtrl_Remove(FuncCtrl* scheduler, SchedulerTask* task);
 
 extern "C" AnimationLookupContext* g_sprt_ctrl;
 extern "C" void* g_func_ctrl;
@@ -52,6 +52,6 @@ struct Card_00408af0 {
     __declspec(noinline) ~Card_00408af0();    // 0x00408AF0
 };
 typedef char CardSize_00408af0[sizeof(Card_00408af0) == 0x37B0 ? 1 : -1];
-typedef char CardEffects_00408af0[offsetof(Card_00408af0, effects) == 0x768 ? 1 : -1];
+typedef char CardEffects[offsetof(Card_00408af0, effects) == 0x768 ? 1 : -1];
 
 extern "C" Card_00408af0* g_card;

@@ -1,7 +1,7 @@
 #include "th10/platform/window_midi_native.hpp"
 // Win32 WNDCLASS callback: four stack arguments, public stdcall ABI.
 #pragma code_seg(".text$10window")
-extern "C" __declspec(noinline) LRESULT __stdcall WindowProcedure_004390e0(HWND window, UINT message, WPARAM wparam, LPARAM lparam) {
+extern "C" __declspec(noinline) LRESULT __stdcall WindowProcedure(HWND window, UINT message, WPARAM wparam, LPARAM lparam) {
     switch (message) {
     case 0x10: window_flags |= 0x80; // fall through to the shared success return
     case 0x14: return 1;

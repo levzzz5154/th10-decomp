@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "copy_second_block_00404c70",
-      "symbol": "?CopySecond_00404c70@@YGXPAUBlockPair_00404c70@@PBUBlock_00404c60@@@Z",
+      "symbol": "?CopySecond@@YGXPAUBlockPair@@PBUBlock_00404c60@@@Z",
       "section": ".text$01accessor",
       "address": "0x00404C70",
       "size": 19,
@@ -17,7 +17,7 @@
     }
   ],
   "context": {
-    "symbol": "?Ctx@@YGHPAPAUBlockPair_00404c70@@PAPAUBlock_00404c60@@H@Z",
+    "symbol": "?Ctx@@YGHPAPAUBlockPair@@PAPAUBlock_00404c60@@H@Z",
     "section": ".text$03context",
     "address": "0x00404CA0",
     "size": 45,

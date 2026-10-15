@@ -3,17 +3,17 @@
 //
 // The object pointer arrives in EAX, a convention no C++ declaration names, so
 // the body is compiled as a single-function native-LTCG cluster.
-struct SetTarget_00408ac0 {
+struct SetTarget {
     unsigned char pad_000[4];
     unsigned int flags;                       // +0x4
 };
 
 struct ObjectAccessor_00408ac0 {
     unsigned char pad_000[8];
-    SetTarget_00408ac0* first;                // +0x8
-    SetTarget_00408ac0* second;               // +0xC
+    SetTarget* first;                // +0x8
+    SetTarget* second;               // +0xC
     unsigned char pad_010[0x37AC - 0x10];
-    SetTarget_00408ac0* third;                // +0x37AC
+    SetTarget* third;                // +0x37AC
     __declspec(noinline) void Set();
 };
 

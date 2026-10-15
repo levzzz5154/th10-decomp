@@ -19,22 +19,22 @@ struct ProjectionVec3_00444240 {
     float x, y, z;
 };
 
-struct D3DViewport_00444240 {
+struct D3DViewport {
     unsigned int x, y, width, height;
     float min_z, max_z;
 };
 
 // The camera state global the projection pipeline reads: two matrices followed
 // by the active D3D viewport.
-struct ProjectionEnvironment_00444240 {
+struct ProjectionEnvironment {
     unsigned char reserved_000[0x4C];
     ProjectionMatrix_00444240 view;        // +0x4C
     ProjectionMatrix_00444240 projection;  // +0x8C
-    D3DViewport_00444240 viewport;         // +0xCC
+    D3DViewport viewport;         // +0xCC
 };
 
 // One entry of the shared sprite quad the projection writes into.
-struct ProjectedVertex_00444240 {
+struct ProjectedVertex {
     float x, y, z, rhw;
     unsigned int color;
     float u, v;
@@ -43,12 +43,12 @@ struct ProjectedVertex_00444240 {
 // The compiler's pooled double 0.0 the three rotation guards compare against.
 extern "C" double dbl_0;
 
-struct ProjectionManager_00444240 {
+struct ProjectionManager {
     unsigned char reserved_00000000[0x3AD0F0];
     ProjectionMatrix_00444240 projected_world;  // +0x3AD0F0
 };
 
-struct ProjectedEntity_00444240 {
+struct ProjectedEntity {
     unsigned char reserved_00000000[0x24];
     float rotation_x;               // +0x24
     float rotation_y;               // +0x28
@@ -66,7 +66,7 @@ struct ProjectedEntity_00444240 {
     float unknown_00000358;                   // +0x358
     unsigned int flags;                       // +0x35C
 
-    __declspec(noinline) int ProjectQuad(ProjectionManager_00444240* manager);
+    __declspec(noinline) int ProjectQuad(ProjectionManager* manager);
 };
 
 // The D3DX entry thunks at 0x45218E/0x4521AC..0x4521BE; their targets pop the
@@ -78,21 +78,21 @@ extern "C" void __stdcall asm_D3DXMatrixMultiply_004521b2(ProjectionMatrix_00444
                                                           const ProjectionMatrix_00444240* left,
                                                           const ProjectionMatrix_00444240* right);
 extern "C" void __stdcall asm_D3DXVec3Project_0045218e(void* out, const void* vector,
-                                                       const D3DViewport_00444240* viewport,
+                                                       const D3DViewport* viewport,
                                                        const ProjectionMatrix_00444240* projection,
                                                        const ProjectionMatrix_00444240* view,
                                                        const ProjectionMatrix_00444240* world);
 
 // The published world matrix and the four fade probes it was built from live in
 // the animation manager; this view names only the two spans this body reads.
-struct FadeMatrix_004445C0 { float m[16]; };
-struct FadeProbe_004445C0 { float x, y, z, u, v; };
-struct FadeProbe4_004445C0 { float x, y, z, w; };
-struct FadeManagerView_004445C0 {
+struct FadeMatrix { float m[16]; };
+struct FadeProbe { float x, y, z, u, v; };
+struct FadeProbe4 { float x, y, z, w; };
+struct FadeManagerView {
     unsigned char reserved_003AD0F0[0x3AD0F0];
-    FadeMatrix_004445C0 projected_world;                 // +0x3AD0F0
+    FadeMatrix projected_world;                 // +0x3AD0F0
     unsigned char reserved_003AD130[0x3ADA78 - 0x3AD130];
-    FadeProbe_004445C0 probes[4];                        // +0x3ADA78
+    FadeProbe probes[4];                        // +0x3ADA78
 };
 
 // The camera focus at 0x491D7C, the near/far distances at 0x491E78, the fade
@@ -109,22 +109,22 @@ extern "C" unsigned int g_sprite_fade_color;
 
 // The D3DX entry thunk at 0x4521C4; it jumps to the imported D3DXVec3Transform,
 // which pops its own three arguments.
-extern "C" void __stdcall D3DXVec3Transform_004521c4(FadeProbe4_004445C0* out,
+extern "C" void __stdcall D3DXVec3Transform_004521c4(FadeProbe4* out,
                                                      const float* vector,
-                                                     const FadeMatrix_004445C0* matrix);
+                                                     const FadeMatrix* matrix);
 
 static __forceinline float DistanceFrom_004445C0(float dx, float dy, float dz) {
     return (float)sqrt(dx * dx + dy * dy + dz * dz);
 }
 
 #pragma code_seg(".text$06b0800fadequad")
-extern "C" __declspec(noinline) int FadedQuadDraw_004445c0(SprtCtrlBatchView* manager,
+extern "C" __declspec(noinline) int FadedQuadDraw(SprtCtrlBatchView* manager,
                                                            RenderEntity* entity) {
-    FadeManagerView_004445C0* view = (FadeManagerView_004445C0*)manager;
-    ((ProjectedEntity_00444240*)entity)->ProjectQuad((ProjectionManager_00444240*)manager);
+    FadeManagerView* view = (FadeManagerView*)manager;
+    ((ProjectedEntity*)entity)->ProjectQuad((ProjectionManager*)manager);
     float span = g_sprite_fade_near - g_sprite_fade_far;
     unsigned int color = (entity->flags & 0x8000u) ? entity->color_secondary : entity->color;
-    FadeProbe4_004445C0 projected[4];
+    FadeProbe4 projected[4];
     // Traverse packed colors by their alpha-byte address, at one vertex stride.
     // Keep a signed integer sentinel so it never forms a pointer past the quad.
     int color_cursor = (int)&g_quad_vertices[0].color + 3;

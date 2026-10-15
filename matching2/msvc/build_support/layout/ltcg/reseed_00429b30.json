@@ -5,11 +5,11 @@
   "driver": "build_support/layout/ltcg/reseed_00429b30_context.cpp",
   "headers": [],
   "image_base": "0x00400000",
-  "description": "Reseed_00429b30 compiled with a synthetic array caller so the native LTCG register allocator keeps the record in EDI and the value in ESI as retail does.",
+  "description": "Reseed compiled with a synthetic array caller so the native LTCG register allocator keeps the record in EDI and the value in ESI as retail does.",
   "functions": [
     {
-      "name": "Reseed_00429b30",
-      "symbol": "?Reseed_00429b30@@YGHPAUTimerRecord_00429b30@@H@Z",
+      "name": "Reseed",
+      "symbol": "?Reseed@@YGHPAUTimerRecord@@H@Z",
       "section": ".text$01reseed",
       "address": "0x00429B30",
       "size": 36,

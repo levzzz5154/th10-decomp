@@ -4,7 +4,7 @@
 #pragma code_seg(".text$03context")
 int __stdcall SwapCompilerContext(unsigned short* values, int count) {
     while (count--) {
-        *values = SwapLowWordBytes_0043a6f0(*values);
+        *values = SwapLowWordBytes(*values);
         ++values;
     }
     return 0;

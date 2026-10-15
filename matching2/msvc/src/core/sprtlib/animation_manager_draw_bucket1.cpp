@@ -3,12 +3,12 @@
 // while keeping its manager base at offset zero.
 #include "th10/render/quad_batch.hpp"
 
-struct AnimationManagerBucket1_00448600 : SprtCtrlBatchView {
+struct AnimationManagerBucket1 : SprtCtrlBatchView {
     __declspec(noinline) int RenderBucket1();
 };
 
 #pragma code_seg(".text$01slot1")
-int AnimationManagerBucket1_00448600::RenderBucket1() {
+int AnimationManagerBucket1::RenderBucket1() {
     return RenderBucket(1);
 }
 #pragma code_seg()

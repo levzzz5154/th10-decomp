@@ -18,8 +18,8 @@
   "description": "Only the full 402-byte faded-quad worker is selected. Native schema-1 entry is the unchanged complete real dispatcher, with its true 232-byte compiler contribution in this smaller graph. Genuine complete projection and submission helpers establish the private callee conventions; no synthetic caller or fabricated ABI anchor is present. The retained sprite-submission helper contains its existing pixel-snap assembly and receives no recovery credit here.",
   "functions": [
     {
-      "name": "FadedQuadDraw_004445c0",
-      "symbol": "_FadedQuadDraw_004445c0@8",
+      "name": "FadedQuadDraw",
+      "symbol": "_FadedQuadDraw@8",
       "section": ".text$06b0800fadequad",
       "address": "0x004445c0",
       "size": 402,
@@ -71,7 +71,7 @@
     },
     {
       "name": "ProjectQuad helper_complete_genuine_unselected_helper",
-      "symbol": "?ProjectQuad@ProjectedEntity_00444240@@QAEHPAUProjectionManager_00444240@@@Z",
+      "symbol": "?ProjectQuad@ProjectedEntity@@QAEHPAUProjectionManager@@@Z",
       "section": ".text$06b06projection",
       "address": "0x00444240",
       "size": 818
@@ -242,7 +242,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_BuildRotatedQuad_004436c0@8",
+      "symbol": "_BuildRotatedQuad@8",
       "address": "0x4436c0",
       "kind": "relative_code"
     },
@@ -252,7 +252,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_BuildRotatedQuadAlt_00443910@8",
+      "symbol": "_BuildRotatedQuadAlt@8",
       "address": "0x443910",
       "kind": "relative_code"
     },

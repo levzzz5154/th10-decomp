@@ -17,7 +17,7 @@ struct Effect {
     unsigned reserved_014;          // +0x14
 };
 
-struct BulletResourceCache_0040ae70;
+struct BulletResourceCache;
 
 // Declared here exactly as the co-compiled TextLog translation unit defines it,
 // so the whole-program pass can pick the register agreement retail used.
@@ -29,9 +29,9 @@ struct TextLog_0044b810 {
 };
 
 extern "C" void * __fastcall Recovery_LoadCachedResource(
-        int id, BulletResourceCache_0040ae70 *cache, const char *name);
+        int id, BulletResourceCache *cache, const char *name);
 extern "C" SchedulerTask * __stdcall SchedulerTask_Create(void *callback);
-extern "C" BulletResourceCache_0040ae70 *g_sprt_ctrl;
+extern "C" BulletResourceCache *g_sprt_ctrl;
 extern "C" FuncCtrl *g_func_ctrl;
 
 #pragma code_seg(".text$00a_loadscripts")

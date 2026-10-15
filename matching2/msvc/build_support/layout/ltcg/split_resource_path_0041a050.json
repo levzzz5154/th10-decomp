@@ -11,8 +11,8 @@
   "description": "Resource-path splitter and its trim helper linked with native LTCG so the pass selects retail's EAX/EBX/EDI register convention.",
   "functions": [
     {
-      "name": "SplitResourcePath_0041a050",
-      "symbol": "_SplitResourcePath_0041a050@12",
+      "name": "SplitResourcePath",
+      "symbol": "_SplitResourcePath@12",
       "section": ".text$01split",
       "address": "0x0041A050",
       "size": 75,
@@ -20,8 +20,8 @@
       "source": "src/game/hint/recovery_split_resource_path_0041a050.cpp"
     },
     {
-      "name": "TrimWhitespace_0041a0a0",
-      "symbol": "?TrimWhitespace_0041a0a0@@YGPADPAD@Z",
+      "name": "TrimWhitespace",
+      "symbol": "?TrimWhitespace@@YGPADPAD@Z",
       "section": ".text$02trim",
       "address": "0x0041A0A0",
       "size": 114,

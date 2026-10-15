@@ -9,7 +9,7 @@ struct FileHandle_00435300 {
 };
 
 #pragma code_seg(".text$01file_handle_init")
-extern "C" __declspec(noinline) void FileHandle_Initialize_00435300(
+extern "C" __declspec(noinline) void FileHandle_Initialize(
     FileHandle_00435300* self) {
     self->vtable = (void*)0x0046F230;
     self->handle = -1;

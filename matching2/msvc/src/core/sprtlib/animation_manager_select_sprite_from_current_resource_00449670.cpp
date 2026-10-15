@@ -17,14 +17,14 @@ struct Object_00449670 {
 
 extern "C" Node_00449670* __fastcall AnimationManager_Find(
     void* value, void* manager, int unused);
-extern "C" void __fastcall AnimationObject_ConfigureFromResource_0043e5a0(
+extern "C" void __fastcall AnimationObject_ConfigureFromResource(
     void* target, void* resource);
 
 #pragma code_seg(".text$01accessor")
 void Object_00449670::SelectSpriteFromCurrentResource(Resource_00449670* resource) {
     Node_00449670* node = AnimationManager_Find(field_000, g_sprt_ctrl, (int)field_000);
     if (node != 0) {
-        AnimationObject_ConfigureFromResource_0043e5a0(node->field_308, resource);
+        AnimationObject_ConfigureFromResource(node->field_308, resource);
     }
 }
 #pragma code_seg()

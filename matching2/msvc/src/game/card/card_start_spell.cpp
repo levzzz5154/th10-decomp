@@ -13,7 +13,7 @@ struct HintVm {
     void __cdecl FormatRightAligned(void* manager, ...); // 0x00447AE0
 };
 
-struct GameMode_00409280 {
+struct GameMode {
     unsigned char reserved[0x10];
     int replay;                                    // +0x10
 };
@@ -27,7 +27,7 @@ struct GameThread_00409280 {
     unsigned char reserved_8998[4];
     AnimationBank* text;              // +0x899C
 };
-struct BulletResourceView_00409280 {
+struct BulletResourceView {
     unsigned char reserved[0x3E0B50];
     AnimationBank* effects;           // +0x3E0B50
 };
@@ -52,10 +52,10 @@ struct GameSelection_00409280 {
 };
 
 extern "C" {
-extern GameMode_00409280* g_replay;
+extern GameMode* g_replay;
 extern FrontResources_00409280* g_front;
 extern GameThread_00409280* g_ascii_manager;
-extern BulletResourceView_00409280* g_bullet_manager;
+extern BulletResourceView* g_bullet_manager;
 extern ScoreManager* g_score;
 extern EnemyCtrlCardView* g_enemy_ctrl;
 extern GameSelection_00409280 g_selection;         // 0x00474C68
@@ -167,8 +167,8 @@ void Card_00408d60::StartSpell(int index, const char* name, int duration) {
 
     marker_handle.value = CreateAnimation(g_bullet_manager->effects, 417).value;
     marker_position = g_enemy_ctrl->target->position;
-    SetAnimationTranslatedPosition_00449350(
-        reinterpret_cast<const PositionVector_004492f0*>(&marker_position), g_sprt_ctrl,
+    SetAnimationTranslatedPosition(
+        reinterpret_cast<const PositionVector*>(&marker_position), g_sprt_ctrl,
         marker_handle);
     FindChild(marker_handle.value, 415)->ScriptIntegerVariables()[2] = duration;
     FindChild(marker_handle.value, 416)->ScriptIntegerVariables()[2] = duration;

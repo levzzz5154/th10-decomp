@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "name": "setrotationz_004087a0",
+  "name": "setrotationz",
   "source": "src/unreferenced/unassigned_004087a0.cpp",
   "driver": "build_support/layout/ltcg/setrotationz_004087a0_context.cpp",
   "headers": [],

@@ -11,68 +11,68 @@
 //   0x00421CF0  (flags >> 2) & 1
 //
 // Bits 1..6 of the flag dword are the ones the front-end layout builder
-// (0x00420870, src/app/fun_00420870_00420870.cpp) tests one at a time while it
+// (0x00420870, src/app/fun_00420870.cpp) tests one at a time while it
 // composes the screen, and the byte at +0x13D is the mode it stores with them,
 // so the record is the screen state the option screen publishes.
 //
 // No C++ declaration names EAX, so the seven leaves are compiled in the
-// native-LTCG cluster build_support/layout/ltcg/ui_state_accessors_00421c90.json, whose
+// native-LTCG cluster build_support/layout/ltcg/ui_state_accessors.json, whose
 // array-walking synthetic caller makes the register allocator hand each
 // accessor its record in EAX.  The bodies themselves are ordinary C++.
 
-struct UiState_00421c90 {
+struct UiState {
     unsigned char unknown_000[0x13D];
     unsigned char mode;                     // +0x13D
     unsigned char unknown_13e[0x12];
     unsigned int flags;                     // +0x150
 };
 
-__declspec(noinline) int UiState_00421c90_Flag6(UiState_00421c90* state);
-__declspec(noinline) int UiState_00421c90_Flag5(UiState_00421c90* state);
-__declspec(noinline) int UiState_00421c90_Flag3(UiState_00421c90* state);
-__declspec(noinline) int UiState_00421c90_Flag1(UiState_00421c90* state);
-__declspec(noinline) unsigned int UiState_00421c90_Mode(UiState_00421c90* state);
-__declspec(noinline) int UiState_00421c90_Flag0(UiState_00421c90* state);
-__declspec(noinline) int UiState_00421c90_Flag2(UiState_00421c90* state);
+__declspec(noinline) int UiState_00421c90_Flag6(UiState* state);
+__declspec(noinline) int UiState_00421c90_Flag5(UiState* state);
+__declspec(noinline) int UiState_00421c90_Flag3(UiState* state);
+__declspec(noinline) int UiState_00421c90_Flag1(UiState* state);
+__declspec(noinline) unsigned int UiState_00421c90_Mode(UiState* state);
+__declspec(noinline) int UiState_00421c90_Flag0(UiState* state);
+__declspec(noinline) int UiState_00421c90_Flag2(UiState* state);
 
 #pragma code_seg(".text$01f6")
-int UiState_00421c90_Flag6(UiState_00421c90* state) {
+int UiState_00421c90_Flag6(UiState* state) {
     return (state->flags >> 6) & 1;
 }
 #pragma code_seg()
 
 #pragma code_seg(".text$03f5")
-int UiState_00421c90_Flag5(UiState_00421c90* state) {
+int UiState_00421c90_Flag5(UiState* state) {
     return (state->flags >> 5) & 1;
 }
 #pragma code_seg()
 
 #pragma code_seg(".text$05f3")
-int UiState_00421c90_Flag3(UiState_00421c90* state) {
+int UiState_00421c90_Flag3(UiState* state) {
     return (state->flags >> 3) & 1;
 }
 #pragma code_seg()
 
 #pragma code_seg(".text$07f1")
-int UiState_00421c90_Flag1(UiState_00421c90* state) {
+int UiState_00421c90_Flag1(UiState* state) {
     return (state->flags >> 1) & 1;
 }
 #pragma code_seg()
 
 #pragma code_seg(".text$09m0")
-unsigned int UiState_00421c90_Mode(UiState_00421c90* state) {
+unsigned int UiState_00421c90_Mode(UiState* state) {
     return state->mode;
 }
 #pragma code_seg()
 
 #pragma code_seg(".text$11f0")
-int UiState_00421c90_Flag0(UiState_00421c90* state) {
+int UiState_00421c90_Flag0(UiState* state) {
     return state->flags & 1;
 }
 #pragma code_seg()
 
 #pragma code_seg(".text$13f2")
-int UiState_00421c90_Flag2(UiState_00421c90* state) {
+int UiState_00421c90_Flag2(UiState* state) {
     return (state->flags >> 2) & 1;
 }
 #pragma code_seg()

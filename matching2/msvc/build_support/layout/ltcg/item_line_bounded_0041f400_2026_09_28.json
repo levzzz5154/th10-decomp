@@ -24,7 +24,7 @@
   "functions": [
     {
       "name": "LineEffect_CreateSegmentsInBounds",
-      "symbol": "?CreateSegmentsInBounds@LineEffectSweep_0041e260@@QAEHH@Z",
+      "symbol": "?CreateSegmentsInBounds@LineEffectSweep@@QAEHH@Z",
       "section": ".text$50boundedsegments",
       "address": "0x0041F400",
       "size": 623,
@@ -32,7 +32,7 @@
     },
     {
       "name": "LineEffect_CreateAllSegments",
-      "symbol": "?CreateAllSegments@LineEffectSweep_0041e260@@QAEHH@Z",
+      "symbol": "?CreateAllSegments@LineEffectSweep@@QAEHH@Z",
       "section": ".text$45allsegments",
       "address": "0x0041E260",
       "size": 609,
@@ -64,7 +64,7 @@
     },
     {
       "name": "CreatePositionedAnimation",
-      "symbol": "?ItemAnimation_CreateOffset_00448db0@@YGPAPAXPAXPAPAXHPBUVector3@@@Z",
+      "symbol": "?ItemAnimation_CreateOffset@@YGPAPAXPAXPAPAXHPBUVector3@@@Z",
       "section": ".text$80create",
       "address": "0x00448DB0",
       "size": 111
@@ -85,7 +85,7 @@
     },
     {
       "name": "ItemManager_Spawn",
-      "symbol": "?Spawn@ItemSpawnManager_0041bb00@@QAEHPBUVector3@@HHMM@Z",
+      "symbol": "?Spawn@ItemSpawnManager@@QAEHPBUVector3@@HHMM@Z",
       "section": ".text$30spawn",
       "address": "0x0041BB00",
       "size": 819
@@ -299,8 +299,8 @@
     "src/game/laser/line_effect_create_all_segments_0041e260.cpp"
   ],
   "roots": [
-    "?CreateSegmentsInBounds@LineEffectSweep_0041e260@@QAEHH@Z",
-    "?CreateAllSegments@LineEffectSweep_0041e260@@QAEHH@Z"
+    "?CreateSegmentsInBounds@LineEffectSweep@@QAEHH@Z",
+    "?CreateAllSegments@LineEffectSweep@@QAEHH@Z"
   ],
   "anchor_roots": [
     "?SetPolar@LinePolarVelocity_0041f800@@QAEPAU1@MM@Z"

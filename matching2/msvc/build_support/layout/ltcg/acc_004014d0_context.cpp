@@ -2,7 +2,7 @@
 #include "../../../src/unreferenced/unassigned_004014d0.cpp"
 
 #pragma code_seg(".text$03context")
-int __stdcall PendingCompilerContext(WidgetHost_004014d0** items, int count) {
+int __stdcall PendingCompilerContext(WidgetHost** items, int count) {
     while (count--) {
         (*items++)->ClearPending_004014d0();
     }

@@ -3,26 +3,26 @@
 #include "recovery_script_executor_0040bd80.hpp"
 #include "entity_movement_slot_0041ab70.hpp"
 
-struct HintPosition_00419120 {
+struct HintPosition {
     float x;
     float y;
     float z;
 };
 // Retail: position EDI; resource, result home, and script on the stack;
 // result-home pointer EAX; RET 12. The genuine body is co-visible.
-__declspec(noinline) void** __stdcall RecoveryPlayerAnimationCreate_00448db0(
+__declspec(noinline) void** __stdcall RecoveryPlayerAnimationCreate(
     void* resource, void** result, int script,
-    const HintPosition_00419120* position);
+    const HintPosition* position);
 
 struct HintVm;
-struct HintVmLink_00419120 {
+struct HintVmLink {
     HintVm* object;
-    HintVmLink_00419120* next;
+    HintVmLink* next;
 };
 struct HintVm {
     unsigned int id;
     unsigned char reserved_004[0x10];
-    HintVmLink_00419120* children;
+    HintVmLink* children;
     int children_flagged;
     unsigned char reserved_01c[0x2E0];
     union {
@@ -33,12 +33,12 @@ struct HintVm {
     unsigned int timestamp;                 // +30C
     unsigned int opacity;                   // +310
     unsigned char reserved_314[0x2C];
-    HintPosition_00419120 position; // +340
+    HintPosition position; // +340
     unsigned char reserved_34c[0x10];
     unsigned int flags;                     // +35C
     unsigned int mode_flags;                // +360
     unsigned char reserved_364[0x30];
-    RecoveryTextResource_004479d0* resource; // +394
+    RecoveryTextResource* resource; // +394
     unsigned char reserved_398[8];
     unsigned char font_height;              // +3A0
     unsigned char font_width;               // +3A1
@@ -49,20 +49,20 @@ struct HintVm {
         void* manager, ...);
 };
 
-struct HintEntry_00419120;
-struct HintLink_00419120 {
-    HintEntry_00419120* object;
-    HintLink_00419120* next;
-    HintLink_00419120* previous;
+struct HintEntry;
+struct HintLink {
+    HintEntry* object;
+    HintLink* next;
+    HintLink* previous;
     // Retail receiver EAX; state and release flag on the stack; EAX=0; RET 8.
     __declspec(noinline) int Drain(
         struct HintUpdateView* state, int release);
 };
-struct HintEntry_00419120 {
-    HintPosition_00419120 position;
+struct HintEntry {
+    HintPosition position;
     unsigned int reserved_00c;
-    HintLink_00419120* next;     // +010
-    HintLink_00419120* previous; // +014
+    HintLink* next;     // +010
+    HintLink* previous; // +014
     unsigned int reserved_018;
     char text[0x44];
     int countdown;                          // +060
@@ -80,17 +80,17 @@ struct HintEntry_00419120 {
 struct HintUpdateView {
     unsigned char reserved_000[0xDC];
     unsigned int handles[10];               // +0DC
-    HintPosition_00419120 positions[10]; // +104
+    HintPosition positions[10]; // +104
     float values[10];                       // +17C
     int slot;                              // +1A4
 };
 
-typedef char HintEntryPositionCheck[(offsetof(HintEntry_00419120,position)==0)?1:-1];
-typedef char HintEntryTextCheck[(offsetof(HintEntry_00419120,text)==0x1C)?1:-1];
-typedef char HintEntryCountdownCheck[(offsetof(HintEntry_00419120,countdown)==0x60)?1:-1];
-typedef char HintEntryIntensityCheck[(offsetof(HintEntry_00419120,intensity)==0x7C)?1:-1];
-typedef char HintEntryColorCheck[(offsetof(HintEntry_00419120,color)==0x84)?1:-1];
-typedef char HintEntrySizeCheck[(sizeof(HintEntry_00419120)==0x88)?1:-1];
+typedef char HintEntryPositionCheck[(offsetof(HintEntry,position)==0)?1:-1];
+typedef char HintEntryTextCheck[(offsetof(HintEntry,text)==0x1C)?1:-1];
+typedef char HintEntryCountdownCheck[(offsetof(HintEntry,countdown)==0x60)?1:-1];
+typedef char HintEntryIntensityCheck[(offsetof(HintEntry,intensity)==0x7C)?1:-1];
+typedef char HintEntryColorCheck[(offsetof(HintEntry,color)==0x84)?1:-1];
+typedef char HintEntrySizeCheck[(sizeof(HintEntry)==0x88)?1:-1];
 typedef char HintStateHandlesCheck[(offsetof(HintUpdateView,handles)==0xDC)?1:-1];
 typedef char HintStatePositionCheck[(offsetof(HintUpdateView,positions)==0x104)?1:-1];
 typedef char HintStateValuesCheck[(offsetof(HintUpdateView,values)==0x17C)?1:-1];

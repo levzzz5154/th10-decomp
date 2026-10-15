@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "PlatformQueryInterfaces_0044D600_Query",
-      "symbol": "?Query@PlatformQueryInterfaces_0044D600@@QAEHXZ",
+      "symbol": "?Query@PlatformQueryInterfaces@@QAEHXZ",
       "section": ".text$01query",
       "address": "0x0044D600",
       "size": 61,
@@ -17,7 +17,7 @@
     }
   ],
   "context": {
-    "symbol": "?PlatformQueryInterfaces0044D600CompilerContext@@YGHPAPAUPlatformQueryInterfaces_0044D600@@H@Z",
+    "symbol": "?PlatformQueryInterfaces0044D600CompilerContext@@YGHPAPAUPlatformQueryInterfaces@@H@Z",
     "section": ".text$03context",
     "address": "0x0044E000",
     "size": 42,

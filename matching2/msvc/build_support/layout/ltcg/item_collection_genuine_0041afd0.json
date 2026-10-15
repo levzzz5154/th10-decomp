@@ -43,7 +43,7 @@
   "functions": [
     {
       "name": "ConvertItems",
-      "symbol": "?ConvertItems@ItemSpawnManager_0041bb00@@QAEHXZ",
+      "symbol": "?ConvertItems@ItemSpawnManager@@QAEHXZ",
       "section": ".text$f0041ba50F",
       "address": "0x41ba50",
       "size": 165,
@@ -72,7 +72,7 @@
   "anchors": [
     {
       "name": "function_0041bb00",
-      "symbol": "?Spawn@ItemSpawnManager_0041bb00@@QAEHPBUVector3@@HHMM@Z",
+      "symbol": "?Spawn@ItemSpawnManager@@QAEHPBUVector3@@HHMM@Z",
       "section": ".text$f0041bb00F",
       "address": "0x41bb00",
       "size": 823
@@ -100,7 +100,7 @@
     },
     {
       "name": "function_00448db0",
-      "symbol": "?ItemAnimation_CreateOffset_00448db0@@YGPAPAXPAXPAPAXHPBUVector3@@@Z",
+      "symbol": "?ItemAnimation_CreateOffset@@YGPAPAXPAXPAPAXHPBUVector3@@@Z",
       "section": ".text$f00448db0F",
       "address": "0x448db0",
       "size": 116
@@ -128,14 +128,14 @@
     },
     {
       "name": "function_0041f400",
-      "symbol": "?CreateSegmentsInBounds@LineEffectSweep_0041e260@@QAEHH@Z",
+      "symbol": "?CreateSegmentsInBounds@LineEffectSweep@@QAEHH@Z",
       "section": ".text$f0041f400F",
       "address": "0x41f400",
       "size": 627
     },
     {
       "name": "function_0041e260",
-      "symbol": "?CreateAllSegments@LineEffectSweep_0041e260@@QAEHH@Z",
+      "symbol": "?CreateAllSegments@LineEffectSweep@@QAEHH@Z",
       "section": ".text$f0041e260F",
       "address": "0x41e260",
       "size": 613
@@ -254,7 +254,7 @@
     },
     {
       "name": "function_0043e7e0",
-      "symbol": "?LoadScriptPreservingState_0043e7e0@@YGXPAUAnimationResource_0043e7e0@@PAUAnimationObject_0043e7e0@@H@Z",
+      "symbol": "?LoadScriptPreservingState@@YGXPAUAnimationResource_0043e7e0@@PAUAnimationObject_0043e7e0@@H@Z",
       "section": ".text$f0043e7e0F",
       "address": "0x43e7e0",
       "size": 194
@@ -656,8 +656,8 @@
     }
   ],
   "anchor_roots": [
-    "?CreateAllSegments@LineEffectSweep_0041e260@@QAEHH@Z",
-    "?CreateSegmentsInBounds@LineEffectSweep_0041e260@@QAEHH@Z",
+    "?CreateAllSegments@LineEffectSweep@@QAEHH@Z",
+    "?CreateSegmentsInBounds@LineEffectSweep@@QAEHH@Z",
     "?SetPolar@LinePolarVelocity_0041f800@@QAEPAU1@MM@Z",
     "?SetPolar@ItemPolarVelocity_0041bb00@@QAEPAU1@MM@Z"
   ],

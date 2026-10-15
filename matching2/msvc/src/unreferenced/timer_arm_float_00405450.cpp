@@ -1,6 +1,6 @@
 // 0x00405450: arm a timer leaf whose record arrives in EAX and whose count comes
 // on the stack; the count is stored as an int pair and as a float.
-struct TimerArm_00405450 {
+struct TimerArm {
     int field_000;                       // +0x000
     int field_004;                       // +0x004
     float field_008;                     // +0x008
@@ -9,7 +9,7 @@ struct TimerArm_00405450 {
     __declspec(noinline) void Arm(int value);
 };
 #pragma code_seg(".text$01arm")
-void TimerArm_00405450::Arm(int value) {
+void TimerArm::Arm(int value) {
     if (!(flags_010 & 1u)) {
         field_004 = 0;
         field_000 = 0xFFF0BDC1;

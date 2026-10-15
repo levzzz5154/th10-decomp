@@ -1,15 +1,15 @@
 {
   "schema_version": 1,
-  "name": "counter_subtract_00427c40",
+  "name": "counter_subtract",
   "source": "src/unreferenced/unassigned_00427c40.cpp",
   "driver": "build_support/layout/ltcg/counter_subtract_00427c40_context.cpp",
   "headers": [],
   "image_base": "0x00400000",
-  "description": "Counter_00427c40::Subtract compiled with a synthetic caller that keeps the object in EAX and the value in a register, the pair the native LTCG register allocator picked for retail.",
+  "description": "Counter::Subtract compiled with a synthetic caller that keeps the object in EAX and the value in a register, the pair the native LTCG register allocator picked for retail.",
   "functions": [
     {
       "name": "Counter_00427c40_Subtract",
-      "symbol": "?Subtract@Counter_00427c40@@QAEXH@Z",
+      "symbol": "?Subtract@Counter@@QAEXH@Z",
       "section": ".text$01sub",
       "address": "0x00427C40",
       "size": 4,

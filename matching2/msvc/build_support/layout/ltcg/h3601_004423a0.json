@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "Source_004423a0_CopyTo",
-      "symbol": "?CopyTo@Source_004423a0@@QBEXPAUDestination_004423a0@@@Z",
+      "symbol": "?CopyTo@Source_004423a0@@QBEXPAUDestination@@@Z",
       "section": ".text$01target",
       "address": "0x004423A0",
       "size": 6,

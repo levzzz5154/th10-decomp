@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "name": "ui_state_accessors_00421c90",
+  "name": "ui_state_accessors",
   "source": "src/unreferenced/unassigned_00421c90.cpp",
   "driver": "build_support/layout/ltcg/ui_state_accessors_00421c90_context.cpp",
   "headers": [],
@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "UiState_00421c90_Flag6",
-      "symbol": "?UiState_00421c90_Flag6@@YGHPAUUiState_00421c90@@@Z",
+      "symbol": "?UiState_00421c90_Flag6@@YGHPAUUiState@@@Z",
       "section": ".text$01f6",
       "address": "0x00421C90",
       "size": 13,
@@ -17,7 +17,7 @@
     },
     {
       "name": "UiState_00421c90_Flag5",
-      "symbol": "?UiState_00421c90_Flag5@@YGHPAUUiState_00421c90@@@Z",
+      "symbol": "?UiState_00421c90_Flag5@@YGHPAUUiState@@@Z",
       "section": ".text$03f5",
       "address": "0x00421CA0",
       "size": 13,
@@ -25,7 +25,7 @@
     },
     {
       "name": "UiState_00421c90_Flag3",
-      "symbol": "?UiState_00421c90_Flag3@@YGHPAUUiState_00421c90@@@Z",
+      "symbol": "?UiState_00421c90_Flag3@@YGHPAUUiState@@@Z",
       "section": ".text$05f3",
       "address": "0x00421CB0",
       "size": 13,
@@ -33,7 +33,7 @@
     },
     {
       "name": "UiState_00421c90_Flag1",
-      "symbol": "?UiState_00421c90_Flag1@@YGHPAUUiState_00421c90@@@Z",
+      "symbol": "?UiState_00421c90_Flag1@@YGHPAUUiState@@@Z",
       "section": ".text$07f1",
       "address": "0x00421CC0",
       "size": 12,
@@ -41,7 +41,7 @@
     },
     {
       "name": "UiState_00421c90_Mode",
-      "symbol": "?UiState_00421c90_Mode@@YGIPAUUiState_00421c90@@@Z",
+      "symbol": "?UiState_00421c90_Mode@@YGIPAUUiState@@@Z",
       "section": ".text$09m0",
       "address": "0x00421CD0",
       "size": 8,
@@ -49,7 +49,7 @@
     },
     {
       "name": "UiState_00421c90_Flag0",
-      "symbol": "?UiState_00421c90_Flag0@@YGHPAUUiState_00421c90@@@Z",
+      "symbol": "?UiState_00421c90_Flag0@@YGHPAUUiState@@@Z",
       "section": ".text$11f0",
       "address": "0x00421CE0",
       "size": 10,
@@ -57,7 +57,7 @@
     },
     {
       "name": "UiState_00421c90_Flag2",
-      "symbol": "?UiState_00421c90_Flag2@@YGHPAUUiState_00421c90@@@Z",
+      "symbol": "?UiState_00421c90_Flag2@@YGHPAUUiState@@@Z",
       "section": ".text$13f2",
       "address": "0x00421CF0",
       "size": 13,

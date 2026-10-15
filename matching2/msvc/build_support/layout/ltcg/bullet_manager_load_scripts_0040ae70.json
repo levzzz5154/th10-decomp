@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "name": "bullet_manager_load_scripts_0040ae70",
+  "name": "bullet_manager_load_scripts",
   "source": "src/game/effect/effect_initialize.cpp",
   "additional_sources": [
     "src/game/effect/effect_create.cpp",
@@ -42,14 +42,14 @@
   "driver": "build_support/layout/ltcg/bullet_manager_load_scripts_0040ae70_context.cpp",
   "roots": [
     "?Joystick_Probe_0044a0c0@@YGFXZ",
-    "_LoadBulletAnm_00405f00",
-    "_LoadFrontAnm_00413b50",
+    "_LoadBulletAnm",
+    "_LoadFrontAnm",
     "_LoadStartupResources_0041f8d0",
     "_Recovery_ReleaseRawPair@4",
     "_Bomb_Release@4",
     "_Effect_Release@4",
     "_LaserManager_Destroy@4",
-    "_Manager_Release_00422220@4",
+    "_Manager_Release@4",
     "_Title_LoadThread"
   ],
   "headers": [
@@ -142,8 +142,8 @@
       "source": "src/game/laser/laser_construct.cpp"
     },
     {
-      "name": "InitializeManager_0041c100",
-      "symbol": "?InitializeManager_0041c100@@YGPAUScoreManager_0041c100@@PAU1@@Z",
+      "name": "InitializeManager",
+      "symbol": "?InitializeManager@@YGPAUScoreManager_0041c100@@PAU1@@Z",
       "section": ".text$00fzmanagerinit",
       "address": "0x0041C100",
       "size": 30,
@@ -205,18 +205,18 @@
       "actual_abi": "task in ECX, scheduler in EDX; plain RET"
     },
     {
-      "name": "SchedulerCreatePrimary_0044A000",
+      "name": "SchedulerCreatePrimary",
       "source": "src/core/zunlib/scheduler_create_and_register_0044a000.cpp",
-      "symbol": "?Create@SchedulerCreatePrimary_0044A000@@QAEPAUSchedulerTask@@PAXH@Z",
+      "symbol": "?Create@SchedulerCreatePrimary@@QAEPAUSchedulerTask@@PAXH@Z",
       "section": ".text$76schedulerprimary",
       "address": "0x0044A000",
       "size": 43,
       "actual_abi": "callback receiver in EAX; priority in EDI; context on stack; FuncCtrl_RegisterPrimary; RET 4"
     },
     {
-      "name": "SchedulerCreateSecondary_0044A030",
+      "name": "SchedulerCreateSecondary",
       "source": "src/core/zunlib/scheduler_create_and_register_secondary_0044a030.cpp",
-      "symbol": "?Create@SchedulerCreateSecondary_0044A030@@QAEPAUSchedulerTask@@PAXH@Z",
+      "symbol": "?Create@SchedulerCreateSecondary@@QAEPAUSchedulerTask@@PAXH@Z",
       "section": ".text$78schedulersecondary",
       "address": "0x0044A030",
       "size": 43,
@@ -241,18 +241,18 @@
       "actual_abi": "log object in ECX; format and varargs on stack; caller cleanup; plain RET"
     },
     {
-      "name": "LoadBulletAnm_00405f00",
+      "name": "LoadBulletAnm",
       "source": "src/unreferenced/unassigned_00405f00.cpp",
-      "symbol": "_LoadBulletAnm_00405f00",
+      "symbol": "_LoadBulletAnm",
       "section": ".text$00_xload",
       "address": "0x00405F00",
       "size": 50,
       "actual_abi": "no live-in registers; logger receiver in ECX with caller cleanup; result in EAX; plain RET"
     },
     {
-      "name": "LoadFrontAnm_00413b50",
+      "name": "LoadFrontAnm",
       "source": "src/unreferenced/unassigned_00413b50.cpp",
-      "symbol": "_LoadFrontAnm_00413b50",
+      "symbol": "_LoadFrontAnm",
       "section": ".text$00d_clload",
       "address": "0x00413B50",
       "size": 50,
@@ -278,7 +278,7 @@
     },
     {
       "name": "Create_0044a060",
-      "symbol": "?Create@SchedulerCreatePrimaryClear_0044a060@@QAEPAUSchedulerTask@@PAXH@Z",
+      "symbol": "?Create@SchedulerCreatePrimaryClear@@QAEPAUSchedulerTask@@PAXH@Z",
       "section": ".text$79sched_gap_secondaryb",
       "address": "0x0044A060",
       "size": 43,
@@ -287,7 +287,7 @@
     },
     {
       "name": "Create_0044a090",
-      "symbol": "?Create@SchedulerCreateSecondaryClear_0044a090@@QAEPAUSchedulerTask@@PAXH@Z",
+      "symbol": "?Create@SchedulerCreateSecondaryClear@@QAEPAUSchedulerTask@@PAXH@Z",
       "section": ".text$79sched_gap_secondaryc",
       "address": "0x0044A090",
       "size": 43,
@@ -340,7 +340,7 @@
       "source": "src/game/bomb/bomb_release.cpp"
     },
     {
-      "name": "BulletManager_Release_0040af00",
+      "name": "BulletManager_Release",
       "symbol": "_Effect_Release@4",
       "section": ".text$00b_mbulletrelease",
       "address": "0x0040AF00",
@@ -349,7 +349,7 @@
       "source": "src/game/effect/effect_release.cpp"
     },
     {
-      "name": "ScoreExtendedObject_DestroyRetail_0041c1c0",
+      "name": "ScoreExtendedObject_DestroyRetail",
       "symbol": "_LaserManager_Destroy@4",
       "section": ".text$00gascoredisplayzd",
       "address": "0x0041C1C0",
@@ -359,7 +359,7 @@
     },
     {
       "name": "Manager_Release_00422220_00422220",
-      "symbol": "_Manager_Release_00422220@4",
+      "symbol": "_Manager_Release@4",
       "section": ".text$00hbstartupzm",
       "address": "0x00422220",
       "size": 311,
@@ -850,17 +850,17 @@
       "kind": "data"
     },
     {
-      "symbol": "_ScoreTask_Setup_00413a20@4",
+      "symbol": "_ScoreTask_Setup@4",
       "address": "0x00413A20",
       "kind": "relative_code"
     },
     {
-      "symbol": "@ItemFront_UpdateThunk_00415ae0@4",
+      "symbol": "@ItemFront_UpdateThunk@4",
       "address": "0x00415AE0",
       "kind": "data"
     },
     {
-      "symbol": "@ItemFront_RenderThunk_00415af0@4",
+      "symbol": "@ItemFront_RenderThunk@4",
       "address": "0x00415AF0",
       "kind": "data"
     },
@@ -875,7 +875,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_ManagerOwned_Destroy_004294a0@4",
+      "symbol": "_ManagerOwned_Destroy@4",
       "address": "0x004294A0",
       "kind": "relative_code"
     },

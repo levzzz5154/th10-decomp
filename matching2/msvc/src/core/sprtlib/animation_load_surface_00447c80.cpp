@@ -15,11 +15,11 @@
 
 // The device is always reached through this accessor: it makes the compiler
 // load the device and its vtable before the arguments, as retail does.
-static inline SurfaceDevice_00447c80* Device() { return g_d3d_device; }
+static inline SurfaceDevice* Device() { return g_d3d_device; }
 
 #pragma code_seg(".text$02surface")
 extern "C" __declspec(noinline) int __fastcall AnimationLoadSurface_00447c80(
-        AnimationManagerIndexed_00447f70* manager, const char* name, int index) {
+        AnimationManagerIndexed* manager, const char* name, int index) {
     char path[260];
     int size;
     char* data;
@@ -40,7 +40,7 @@ extern "C" __declspec(noinline) int __fastcall AnimationLoadSurface_00447c80(
     }
     if (Device()->CreateOffscreenPlainSurface(640, 1024, g_render_target_format, 3, &scratch, 0) != 0)
         return -1;
-    if (LoadSurfaceFile_004521d0(scratch, 0, 0, data, size, 0, 1, 0, &manager->info[index]) != 0)
+    if (LoadSurfaceFile(scratch, 0, 0, data, size, 0, 1, 0, &manager->info[index]) != 0)
         goto fail;
     if (Device()->CreateRenderTarget(manager->info[index].width, manager->info[index].height,
                                      g_render_target_format, 0, 0, 1, &manager->primary[index], 0) != 0) {
@@ -53,16 +53,16 @@ extern "C" __declspec(noinline) int __fastcall AnimationLoadSurface_00447c80(
                                               manager->info[index].height, g_render_target_format, 3,
                                               &manager->secondary[index], 0) != 0)
         goto fail;
-    if (LoadSurfaceCopy_004521d6(manager->primary[index], 0, 0, scratch, 0, 0, 1, 0) != 0)
+    if (LoadSurfaceCopy(manager->primary[index], 0, 0, scratch, 0, 0, 1, 0) != 0)
         goto fail;
-    if (LoadSurfaceCopy_004521d6(manager->secondary[index], 0, 0, scratch, 0, 0, 1, 0) != 0)
+    if (LoadSurfaceCopy(manager->secondary[index], 0, 0, scratch, 0, 0, 1, 0) != 0)
         goto fail;
     if (scratch) {
         scratch->Release();
         scratch = 0;
     }
     if (data)
-        ReleaseHeapMemory_00452422(data);
+        ReleaseHeapMemory(data);
     return 0;
 
 fail:
@@ -71,7 +71,7 @@ fail:
         scratch = 0;
     }
     if (data)
-        ReleaseHeapMemory_00452422(data);
+        ReleaseHeapMemory(data);
     return -1;
 }
 #pragma code_seg()

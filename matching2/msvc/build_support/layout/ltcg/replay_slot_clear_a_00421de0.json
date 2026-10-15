@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "name": "replay_slot_clear_a_00421de0",
+  "name": "replay_slot_clear_a",
   "source": "src/unreferenced/FUN_00421de0_00421de0.cpp",
   "driver": "build_support/layout/ltcg/replay_slot_clear_a_00421de0_context.cpp",
   "headers": [],
@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "ReplaySlotClearA_00421de0_Clear",
-      "symbol": "?Clear@ReplaySlotClearA_00421de0@@QAEXXZ",
+      "symbol": "?Clear@ReplaySlotClearA@@QAEXXZ",
       "section": ".text$01clear00421de0",
       "address": "0x421de0",
       "size": 11,
@@ -17,7 +17,7 @@
     }
   ],
   "context": {
-    "symbol": "?ClearCompilerContext@@YGHPAPAUReplaySlotClearA_00421de0@@H@Z",
+    "symbol": "?ClearCompilerContext@@YGHPAPAUReplaySlotClearA@@H@Z",
     "section": ".text$03context",
     "address": "0x421df0",
     "size": 39,

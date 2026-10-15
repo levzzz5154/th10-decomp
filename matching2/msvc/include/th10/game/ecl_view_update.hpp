@@ -3,7 +3,7 @@
 #include "th10/game/ecl_view_teardown.hpp"
 
 // The key state at 0x00474E30.
-struct EclViewInput_0040a450 {
+struct EclViewInput {
     unsigned short raw;            // +0x00, the keys read this frame
     unsigned char reserved_02[2];
     unsigned short held;           // +0x04
@@ -26,17 +26,17 @@ struct EclViewInput_0040a450 {
 };
 
 // The game-wide state at 0x00491C28, as far as the mode switch writes it.
-struct EclViewGameState_0040a450 {
+struct EclViewGameState {
     unsigned char reserved_000[0x390];
     int mode;                  // +0x390
     unsigned char reserved_394[0x3CC - 0x394];
     unsigned int flags;        // +0x3CC, bit 0x1000 forces mode 2
 };
 // 0x0040AC90: request a game mode.
-__declspec(noinline) void __stdcall EclView_SetGameMode_0040ac90(EclViewGameState_0040a450* state, int mode);
+__declspec(noinline) void __stdcall EclView_SetGameMode(EclViewGameState* state, int mode);
 
 // What an enemy is created with.
-struct EclViewSpawn_0040a450 {
+struct EclViewSpawn {
     float x;
     float y;
     float z;
@@ -45,10 +45,10 @@ struct EclViewSpawn_0040a450 {
     int reserved_18[10];
 
     // 0x0040CFB0: create an enemy running the named script entry.
-    __declspec(noinline) void Create(EclViewEnemies_0040a940* manager, const char* entry);
+    __declspec(noinline) void Create(EclViewEnemies* manager, const char* entry);
 };
 
-struct EclViewFindData_0040a450 {
+struct EclViewFindData {
     unsigned int attributes;
     unsigned int times[6];
     unsigned int size_high, size_low, reserved0, reserved1;
@@ -57,11 +57,11 @@ struct EclViewFindData_0040a450 {
 };
 
 extern "C" {
-extern EclViewInput_0040a450 g_input_keys_raw;
-extern EclViewGameState_0040a450 g_application;
+extern EclViewInput g_input_keys_raw;
+extern EclViewGameState g_application;
 void* __cdecl malloc(unsigned int size);
-__declspec(dllimport) void* __stdcall FindFirstFileA(const char* pattern, EclViewFindData_0040a450* data);
-__declspec(dllimport) int __stdcall FindNextFileA(void* search, EclViewFindData_0040a450* data);
+__declspec(dllimport) void* __stdcall FindFirstFileA(const char* pattern, EclViewFindData* data);
+__declspec(dllimport) int __stdcall FindNextFileA(void* search, EclViewFindData* data);
 __declspec(dllimport) int __stdcall FindClose(void* search);
 }
 // 0x0040A340: the loader thread entry, which recreates the managers.
@@ -69,13 +69,13 @@ unsigned int __stdcall EclView_LoadThread_0040a340(void* context);
 
 // Destroy and free a manager the screen owns, if there is one; the global
 // keeps its stale pointer until the loader thread replaces it.
-__declspec(noinline) void EclView_Release(EclViewItems_0040a1a0* object);     // 0x004148E0
-__declspec(noinline) void EclView_Release(EclViewPlayer_0040a1a0* object);    // 0x00425090
-__declspec(noinline) void EclView_Release(EclViewBullets_0040a1a0* object);   // 0x00406140
-__declspec(noinline) void EclView_Release(EclViewLasers_0040a1a0* object);    // 0x00405730
-__declspec(noinline) void EclView_Release(EclViewEffects_0040a1a0* object);   // 0x0041AFB0
-__declspec(noinline) void EclView_Release(EclViewPopups_0040a1a0* object);    // 0x0042B6D0
-__declspec(noinline) void EclView_Release(EclViewEnemies_0040a940* object);   // 0x0040D730
+__declspec(noinline) void EclView_Release(EclViewItems* object);     // 0x004148E0
+__declspec(noinline) void EclView_Release(EclViewPlayer* object);    // 0x00425090
+__declspec(noinline) void EclView_Release(EclViewBullets* object);   // 0x00406140
+__declspec(noinline) void EclView_Release(EclViewLasers* object);    // 0x00405730
+__declspec(noinline) void EclView_Release(EclViewEffects* object);   // 0x0041AFB0
+__declspec(noinline) void EclView_Release(EclViewPopups* object);    // 0x0042B6D0
+__declspec(noinline) void EclView_Release(EclViewEnemies* object);   // 0x0040D730
 
 inline void EclView_Remember(MenuCursor* cursor) {
     cursor->previous_selection = cursor->selection;
@@ -88,4 +88,4 @@ inline void EclView_Select(MenuCursor& cursor, int index) {
         cursor.selection = 0;
 }
 
-int __fastcall EclView_UpdateTask_0040abe0(EclView_0040a940* viewer);
+int __fastcall EclView_UpdateTask_0040abe0(EclView* viewer);

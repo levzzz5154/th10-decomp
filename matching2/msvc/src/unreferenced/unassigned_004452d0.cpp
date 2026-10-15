@@ -4,6 +4,6 @@
 // the stack (/Gz).
 #include <math.h>
 
-float FloatSqrt_004452d0(float value) {
+float FloatSqrt(float value) {
     return sqrtf(value);
 }

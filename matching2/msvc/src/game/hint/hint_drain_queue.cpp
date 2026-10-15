@@ -5,40 +5,40 @@
 // Retail: queue head EAX; manager and release flag on the stack; RET 8.
 #include "th10/game/indicator_animation_lookup_00419120.hpp"
 
-extern "C" int recovery_indicator_owner_00474c84;
-extern "C" void __cdecl recovery_indicator_free_004524a1(void* object);
+extern "C" int recovery_indicator_owner;
+extern "C" void __cdecl recovery_indicator_free(void* object);
 
-struct HintScalePair_00419120 {
+struct HintScalePair {
     float x;
     float y;
 };
 
-struct HintThread_00419120 {
+struct HintThread {
     unsigned char reserved_000[0x899C];
     void* text_animations;    // the loaded text animation file
 };
-extern "C" HintThread_00419120* g_ascii_manager;
+extern "C" HintThread* g_ascii_manager;
 
-static __forceinline HintHandle_00419120* AsHandle(void** result) {
-    return reinterpret_cast<HintHandle_00419120*>(result);
+static __forceinline HintHandle* AsHandle(void** result) {
+    return reinterpret_cast<HintHandle*>(result);
 }
 
 static inline void StartScale(HintVm* vm,
-        HintScalePair_00419120* to, HintScalePair_00419120* from) {
-    reinterpret_cast<EntityMovementSlot_0041ab70*>(vm)->Initialise(
-        reinterpret_cast<const MovementPair_0041ab70*>(to),
-        reinterpret_cast<const MovementPair_0041ab70*>(from), 8, 4);
+        HintScalePair* to, HintScalePair* from) {
+    reinterpret_cast<EntityMovementSlot*>(vm)->Initialise(
+        reinterpret_cast<const MovementPair*>(to),
+        reinterpret_cast<const MovementPair*>(from), 8, 4);
 }
 
 #pragma code_seg(".text$00419120_fn")
-int HintLink_00419120::Drain(
+int HintLink::Drain(
         HintUpdateView* state, int release) {
-    HintLink_00419120* next;
-    for (HintLink_00419120* current = this; current != 0; current = next) {
+    HintLink* next;
+    for (HintLink* current = this; current != 0; current = next) {
         next = current->next;
-        HintEntry_00419120* entry = current->object;
+        HintEntry* entry = current->object;
         if (entry->owner_tag == 0 ||
-            entry->owner_tag == recovery_indicator_owner_00474c84)
+            entry->owner_tag == recovery_indicator_owner)
             --entry->countdown;
         if (entry->countdown > 0)
             continue;
@@ -51,45 +51,45 @@ int HintLink_00419120::Drain(
         if (entry->intensity <= 1.0f) {
             void* animations = g_ascii_manager->text_animations;
             void* created;
-            state->handles[state->slot] = *AsHandle(RecoveryPlayerAnimationCreate_00448db0(
+            state->handles[state->slot] = *AsHandle(RecoveryPlayerAnimationCreate(
                 animations, &created, state->slot + 2, &entry->position));
             vm = IndicatorHandle_GetInline(state->handles[state->slot]);
             vm->font_width = 15;
             vm->font_height = 15;
-            HintScalePair_00419120 from = {
+            HintScalePair from = {
                 entry->intensity, entry->intensity
             };
-            HintScalePair_00419120 to = {
+            HintScalePair to = {
                 entry->intensity * 1.5f, 0.0f
             };
             StartScale(vm, &to, &from);
         } else if (entry->intensity <= 2.0f) {
             void* animations = g_ascii_manager->text_animations;
             void* created;
-            state->handles[state->slot] = *AsHandle(RecoveryPlayerAnimationCreate_00448db0(
+            state->handles[state->slot] = *AsHandle(RecoveryPlayerAnimationCreate(
                 animations, &created, state->slot + 12, &entry->position));
             vm = IndicatorHandle_Get(state->handles[state->slot]);
             vm->font_width = static_cast<unsigned char>(entry->intensity * 15.0f);
             vm->font_height = vm->font_width;
-            HintScalePair_00419120 to = {
+            HintScalePair to = {
                 entry->intensity * 0.75f, 0.0f
             };
-            HintScalePair_00419120 from = {
+            HintScalePair from = {
                 entry->intensity * 0.5f, entry->intensity * 0.5f
             };
             StartScale(vm, &to, &from);
         } else {
             void* animations = g_ascii_manager->text_animations;
             void* created;
-            state->handles[state->slot] = *AsHandle(RecoveryPlayerAnimationCreate_00448db0(
+            state->handles[state->slot] = *AsHandle(RecoveryPlayerAnimationCreate(
                 animations, &created, state->slot + 12, &entry->position));
             vm = IndicatorHandle_Get(state->handles[state->slot]);
             vm->font_width = 30;
             vm->font_height = 30;
-            HintScalePair_00419120 to = {
+            HintScalePair to = {
                 entry->intensity * 0.75f, 0.0f
             };
-            HintScalePair_00419120 from = {
+            HintScalePair from = {
                 entry->intensity * 0.5f, entry->intensity * 0.5f
             };
             StartScale(vm, &to, &from);
@@ -130,7 +130,7 @@ int HintLink_00419120::Drain(
         entry->next = 0;
         entry->previous = 0;
         if (release != 0)
-            recovery_indicator_free_004524a1(entry);
+            recovery_indicator_free(entry);
     }
     return 0;
 }

@@ -64,12 +64,12 @@ extern const char str_hint_version[];   // "0.0" (hint format version)
 }
 
 // One {name, id} row of the tip attribute name tables.
-struct HintNameEntry_0041a200 {
+struct HintNameEntry {
     const char* name;       // +0x00
     int id;                 // +0x04
 };
 
-extern "C" const HintNameEntry_0041a200 g_hint_align_names[3];    // Align: center/left/right
-extern "C" const HintNameEntry_0041a200 g_hint_base_names[61];   // Base: start/converse/boss names
+extern "C" const HintNameEntry g_hint_align_names[3];    // Align: center/left/right
+extern "C" const HintNameEntry g_hint_base_names[61];   // Base: start/converse/boss names
 
 #endif

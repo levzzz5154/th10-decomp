@@ -8,8 +8,8 @@
   "description": "Accessor compiled with native LTCG so the object pointer arrives in EAX.",
   "functions": [
     {
-      "name": "ClearBlock_00413190",
-      "symbol": "?ClearBlock_00413190@@YGXPAX@Z",
+      "name": "ClearBlock",
+      "symbol": "?ClearBlock@@YGXPAX@Z",
       "section": ".text$01accessor",
       "address": "0x00413190",
       "size": 14,

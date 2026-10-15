@@ -60,7 +60,7 @@
     },
     {
       "name": "PrimaryFormat",
-      "symbol": "_Sound_SetPrimaryFormat_0044c7e0@16",
+      "symbol": "_Sound_SetPrimaryFormat@16",
       "section": ".text$0044c7e0_fn",
       "address": "0x0044C7E0",
       "size": 260

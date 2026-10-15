@@ -3,7 +3,7 @@
 
 // A scheduler task, as far as the manager touches it: bit 1 of the flags
 // suspends the task.
-struct EnemyTask_00409f90 {
+struct EnemyTask {
     int priority;
     unsigned int flags;
 };
@@ -25,8 +25,8 @@ struct EnemyNode_00409f90 {
 // The enemy manager at 0x00477704, as far as its clear touches it.
 struct EnemyCtrlClearView {
     unsigned char reserved_000[8];
-    EnemyTask_00409f90* update_task;
-    EnemyTask_00409f90* draw_task;
+    EnemyTask* update_task;
+    EnemyTask* draw_task;
     int field_10;
     unsigned char reserved_014[0x58 - 0x14];
     EnemyNode_00409f90* first;       // +0x58

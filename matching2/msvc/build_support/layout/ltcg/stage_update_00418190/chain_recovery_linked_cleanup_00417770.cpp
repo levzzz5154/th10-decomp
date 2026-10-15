@@ -13,7 +13,7 @@
 // Variant A: member with the container walk, head cached in a local.
 extern "C" void __cdecl crt_free_startup(void* memory);
 
-struct LinkedNode_00417770 {
+struct LinkedNode {
     virtual void Slot0();
     virtual void Slot1();
     virtual void Slot2();
@@ -21,23 +21,23 @@ struct LinkedNode_00417770 {
     virtual void Release();
     virtual void Slot5(void* arg);
 
-    LinkedNode_00417770* prev;
-    LinkedNode_00417770* next;
+    LinkedNode* prev;
+    LinkedNode* next;
     int state;
 };
 
-struct ScoreChain_00417770 {
+struct ScoreChain {
     unsigned char reserved_000[0x18];
-    LinkedNode_00417770* head;
+    LinkedNode* head;
 
     __declspec(noinline) void ReleaseChain();
 };
 
 #pragma code_seg(".text$00417770_fn")
-void ScoreChain_00417770::ReleaseChain() {
-    LinkedNode_00417770* node = head;
+void ScoreChain::ReleaseChain() {
+    LinkedNode* node = head;
     while (node != 0) {
-        LinkedNode_00417770* next = node->next;
+        LinkedNode* next = node->next;
         node->Release();
         node->prev->next = node->next;
         if (node->next != 0)

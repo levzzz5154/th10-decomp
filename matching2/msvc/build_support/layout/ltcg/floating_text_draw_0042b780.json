@@ -33,7 +33,7 @@
     },
     {
       "name": "SmollScore_Spawn",
-      "symbol": "?Spawn@SmollScoreDrawView@@QAEXHPBUFloatingTextPosition_0042b780@@I@Z",
+      "symbol": "?Spawn@SmollScoreDrawView@@QAEXHPBUFloatingTextPosition@@I@Z",
       "section": ".text$03spawn",
       "address": "0x0042B9C0",
       "actual_abi": "value in EAX, pool in ESI, position in EDI, colour on the stack; RET 4",
@@ -135,7 +135,7 @@
   "anchors": [
     {
       "name": "SpawnCallerStandIn",
-      "symbol": "?FloatingTextSpawnCaller@@YGHPAUFloatingTextPosition_0042b780@@H@Z",
+      "symbol": "?FloatingTextSpawnCaller@@YGHPAUFloatingTextPosition@@H@Z",
       "section": ".text$04zcaller",
       "address": "0x0042BA90",
       "size": 137
@@ -149,7 +149,7 @@
     },
     {
       "name": "DrawEntityStandIn",
-      "symbol": "_FloatingText_DrawEntity_00443080@8",
+      "symbol": "_FloatingText_DrawEntity@8",
       "section": ".text$08entity",
       "address": "0x00443080",
       "size": 70

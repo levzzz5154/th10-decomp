@@ -26,7 +26,7 @@ static __forceinline unsigned ShakeRandom() {
     return (unsigned)next | ((unsigned)next << 16);
 }
 #pragma code_seg(".text$00camera")
-extern "C" __declspec(noinline) int __fastcall LinearShakeUpdate_0043c550(void* context) {
+extern "C" __declspec(noinline) int __fastcall LinearShakeUpdate(void* context) {
     Screen* self = static_cast<Screen*>(context);
     if (g_shake_cancel) return 7;
     self->timer.previous = (unsigned)self->timer.current;
@@ -61,7 +61,7 @@ extern "C" __declspec(noinline) int __fastcall LinearShakeUpdate_0043c550(void* 
 
 // Compiler entry only: the real selector stores this callback's address.
 typedef int (__fastcall *CameraShakeCallback)(void*);
-CameraShakeCallback volatile CameraShakeEntryCallback = LinearShakeUpdate_0043c550;
+CameraShakeCallback volatile CameraShakeEntryCallback = LinearShakeUpdate;
 extern "C" int __stdcall CameraShakeEntry(void* context) {
     return CameraShakeEntryCallback(context);
 }

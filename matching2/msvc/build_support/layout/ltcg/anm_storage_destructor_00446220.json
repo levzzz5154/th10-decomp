@@ -21,7 +21,7 @@
   "functions": [
     {
       "name": "AnimationManagerStorageDestructor",
-      "symbol": "??1AnimationManagerStorage_00446220@@QAE@XZ",
+      "symbol": "??1AnimationManagerStorage@@QAE@XZ",
       "section": ".text$01dtor",
       "address": "0x00446220",
       "size": 206,
@@ -59,7 +59,7 @@
     },
     {
       "name": "ManagerDestructorHandler",
-      "symbol": "__ehhandler$??1AnimationManagerStorage_00446220@@QAE@XZ",
+      "symbol": "__ehhandler$??1AnimationManagerStorage@@QAE@XZ",
       "section": ".text$x",
       "address": "0x465225",
       "size": 10,

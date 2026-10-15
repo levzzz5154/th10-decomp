@@ -11,10 +11,10 @@
 // manager on the stack (the callee pops it).
 #include "th10/render/quad_batch.hpp"
 
-extern "C" __declspec(noinline) int EntityDrawMirrored_00443480(RenderEntity *entity,
+extern "C" __declspec(noinline) int EntityDrawMirrored(RenderEntity *entity,
                                                                 SprtCtrlBatchView *manager);
 #pragma code_seg(".text$06b02z02mirror")
-int EntityDrawMirrored_00443480(RenderEntity *entity, SprtCtrlBatchView *manager) {
+int EntityDrawMirrored(RenderEntity *entity, SprtCtrlBatchView *manager) {
     if (!(entity->flags & 1))
         return -1;
     if (!(entity->flags & 2))

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "name": "entity_quad_projection_00444240",
+  "name": "entity_quad_projection",
   "source": "src/core/sprtfunc/fun_00444240_00444240.cpp",
   "driver": "build_support/layout/ltcg/entity_quad_projection_00444240_context.cpp",
   "headers": [],
@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "ProjectedEntity_ProjectQuad_00444240",
-      "symbol": "?ProjectQuad@ProjectedEntity_00444240@@QAEHPAUProjectionManager_00444240@@@Z",
+      "symbol": "?ProjectQuad@ProjectedEntity@@QAEHPAUProjectionManager@@@Z",
       "section": ".text$01quadx",
       "address": "0x00444240",
       "size": 818,
@@ -17,7 +17,7 @@
     }
   ],
   "context": {
-    "symbol": "?EntityQuadProjectionCompilerContext@@YGHPAPAUProjectedEntity_00444240@@PAPAUProjectionManager_00444240@@H@Z",
+    "symbol": "?EntityQuadProjectionCompilerContext@@YGHPAPAUProjectedEntity@@PAPAUProjectionManager@@H@Z",
     "section": ".text$03context",
     "address": "0x00444580",
     "size": 52,

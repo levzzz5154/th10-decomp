@@ -4,13 +4,13 @@
 #include "th10/math/oriented_rect_contact.hpp"
 #include "th10/game/player.hpp"
 
-struct TriggerDialogue_004267f0 {
+struct TriggerDialogue {
     unsigned char reserved_000[0x9EB8];
     int active;                         // +0x9EB8
 };
 
 extern "C" {
-extern TriggerDialogue_004267f0* g_front;
+extern TriggerDialogue* g_front;
 }
 
 #endif

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "name": "ecl_record_reset_0040c730",
+  "name": "ecl_record_reset",
   "source": "src/game/enemy/ecl_record_reset_0040c730.cpp",
   "driver": "build_support/layout/ltcg/ecl_record_reset_0040c730_context.cpp",
   "headers": [],
@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "EclRecord_0040c730_Reset",
-      "symbol": "?Reset@EclRecord_0040c730@@QAEXXZ",
+      "symbol": "?Reset@EclRecord@@QAEXXZ",
       "section": ".text$01reset",
       "address": "0x0040C730",
       "size": 71,
@@ -17,7 +17,7 @@
     }
   ],
   "context": {
-    "symbol": "?EclRecordResetCompilerContext@@YGHPAPAUEclRecord_0040c730@@H@Z",
+    "symbol": "?EclRecordResetCompilerContext@@YGHPAPAUEclRecord@@H@Z",
     "section": ".text$03context",
     "address": "0x0040C790",
     "size": 36,

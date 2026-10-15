@@ -13,7 +13,7 @@ extern "C" void __cdecl asm_free_00452422(void *);
 unsigned char * __stdcall Dat_Decrypt(unsigned char *,int,unsigned char,unsigned char,int,int);
 unsigned char *__stdcall DecompressDatLzss_00435dc0(unsigned char *,int,unsigned char *,unsigned int);
 #pragma code_seg(".text$04b")
-int ScoreArchiveManager_0042ae60::LoadSections() {
+int ScoreArchiveManager::LoadSections() {
     if (file) {
         if (file->magic == SCORE_FILE_MAGIC && file->version == 3) {
             unsigned char* packed = (unsigned char*)(file + 1);

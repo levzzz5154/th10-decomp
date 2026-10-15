@@ -3,11 +3,11 @@
 
 #pragma code_seg(".text$03context")
 int __stdcall ResolveLookupContext_00441ec0(
-        LookupObject_00441ec0** objects, LookupManager_00441ec0** managers,
+        LookupObject** objects, LookupManager** managers,
         int count) {
     int result = 0;
     while (count--)
-        result += ResolveLookup_00441ec0(*objects++, *managers++);
+        result += ResolveLookup(*objects++, *managers++);
     return result;
 }
 #pragma code_seg()

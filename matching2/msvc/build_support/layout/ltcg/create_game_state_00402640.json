@@ -270,7 +270,7 @@
       "kind": "data"
     },
     {
-      "symbol": "@LoadCachedResource_00447280@12",
+      "symbol": "@LoadCachedResource@12",
       "address": "0x447280",
       "kind": "relative_code"
     },

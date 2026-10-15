@@ -3,7 +3,7 @@
 #include "th10/platform/worker.hpp"
 
 // The key state at 0x00474E30, as far as the screen reads it.
-struct SptTestInput_0042bfc0 {
+struct SptTestInput {
     unsigned char reserved_00[4];
     unsigned short held;       // +0x04
     unsigned short repeated;   // +0x06
@@ -17,16 +17,16 @@ struct SptTestInput_0042bfc0 {
 };
 
 // The game-wide state at 0x00491C28, as far as the mode switch writes it.
-struct SptTestGameState_0042bfc0 {
+struct SptTestGameState {
     unsigned char reserved_000[0x390];
     int mode;                  // +0x390
     unsigned char reserved_394[0x3CC - 0x394];
     unsigned int flags;        // +0x3CC, bit 0x1000 forces mode 2
 };
 // 0x0040AC90: request a game mode.
-__declspec(noinline) void __stdcall SptTest_SetGameMode_0040ac90(SptTestGameState_0042bfc0* state, int mode);
+__declspec(noinline) void __stdcall SptTest_SetGameMode(SptTestGameState* state, int mode);
 
-struct SptTestFindData_0042bfc0 {
+struct SptTestFindData {
     unsigned int attributes;
     unsigned int times[6];
     unsigned int size_high, size_low, reserved0, reserved1;
@@ -35,17 +35,17 @@ struct SptTestFindData_0042bfc0 {
 };
 
 extern "C" {
-extern SptTestInput_0042bfc0 g_input_keys_raw;
-extern SptTestGameState_0042bfc0 g_application;
+extern SptTestInput g_input_keys_raw;
+extern SptTestGameState g_application;
 void* __cdecl malloc(unsigned int size);
-__declspec(dllimport) void* __stdcall FindFirstFileA(const char* pattern, SptTestFindData_0042bfc0* data);
-__declspec(dllimport) int __stdcall FindNextFileA(void* search, SptTestFindData_0042bfc0* data);
+__declspec(dllimport) void* __stdcall FindFirstFileA(const char* pattern, SptTestFindData* data);
+__declspec(dllimport) int __stdcall FindNextFileA(void* search, SptTestFindData* data);
 __declspec(dllimport) int __stdcall FindClose(void* search);
 // 0x0044FD10: run the interpreter and its children for one step.
-__declspec(noinline) int __stdcall SptTest_TickVm_0044fd10(SptTestResource_0042be20* vm, float delta);
+__declspec(noinline) int __stdcall SptTest_TickVm(SptTestResource* vm, float delta);
 }
 // 0x0042BE10: the loader thread entry.
-unsigned int __stdcall SptTest_LoadThread_0042be10(void* context);
+unsigned int __stdcall SptTest_LoadThread(void* context);
 
 inline void SptTest_Remember(MenuCursor* cursor) {
     cursor->previous_selection = cursor->selection;

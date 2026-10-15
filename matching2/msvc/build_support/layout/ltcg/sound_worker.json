@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "SoundWorkerPair_0043cc40_Stop",
-      "symbol": "?Stop@SoundWorkerPair_0043cc40@@QAEHXZ",
+      "symbol": "?Stop@SoundWorkerPair@@QAEHXZ",
       "section": ".text$01stop",
       "address": "0x0043CC40",
       "size": 175,
@@ -17,7 +17,7 @@
     }
   ],
   "context": {
-    "symbol": "?SoundWorkerCompilerContext@@YGHPAPAUSoundWorkerPair_0043cc40@@H@Z",
+    "symbol": "?SoundWorkerCompilerContext@@YGHPAPAUSoundWorkerPair@@H@Z",
     "section": ".text$03context",
     "address": "0x0043CCF0",
     "size": 37,

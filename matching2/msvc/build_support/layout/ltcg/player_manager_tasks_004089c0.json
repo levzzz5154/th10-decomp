@@ -14,7 +14,7 @@
   "functions": [
     {
       "name": "CardTasks_InitializeTasks",
-      "symbol": "?InitializeTasks@CardTasks_004089c0@@QAEHXZ",
+      "symbol": "?InitializeTasks@CardTasks@@QAEHXZ",
       "section": ".text$02initializer",
       "address": "0x004089C0",
       "size": 211,
@@ -94,17 +94,17 @@
       "kind": "data"
     },
     {
-      "symbol": "@CardPrimary_00409220@4",
+      "symbol": "@CardPrimary@4",
       "address": "0x409220",
       "kind": "data"
     },
     {
-      "symbol": "@CardRender_00409230@4",
+      "symbol": "@CardRender@4",
       "address": "0x409230",
       "kind": "data"
     },
     {
-      "symbol": "@CardTrailing_00409270@4",
+      "symbol": "@CardTrailing@4",
       "address": "0x409270",
       "kind": "data"
     },

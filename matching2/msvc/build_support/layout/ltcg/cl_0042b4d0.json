@@ -165,12 +165,12 @@
       "kind": "data"
     },
     {
-      "symbol": "@SmollScoreUpdateTask_0042b9a0@4",
+      "symbol": "@SmollScoreUpdateTask@4",
       "address": "0x0042B9A0",
       "kind": "data"
     },
     {
-      "symbol": "@SmollScoreDrawTask_0042b9b0@4",
+      "symbol": "@SmollScoreDrawTask@4",
       "address": "0x0042B9B0",
       "kind": "data"
     },

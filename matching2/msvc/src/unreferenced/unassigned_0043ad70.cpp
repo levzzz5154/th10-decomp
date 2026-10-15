@@ -12,7 +12,7 @@ extern "C" {
 // carry the slot address to keep the binding unambiguous).
 __declspec(dllimport) unsigned int __stdcall midiOutReset_004662a8(void* handle);
 __declspec(dllimport) unsigned int __stdcall midiOutClose_004662a4(void* handle);
-__declspec(dllimport) unsigned int __stdcall midiOutOpen_004662ac(
+__declspec(dllimport) unsigned int __stdcall midiOutOpen(
     void** handle, unsigned int device, unsigned int callback,
     unsigned int instance, unsigned int flags);
 __declspec(dllimport) unsigned int __stdcall timeKillEvent_00466288(unsigned int identifier);
@@ -23,8 +23,8 @@ __declspec(dllimport) unsigned int __stdcall timeSetEvent_0046628c(
     unsigned int user, unsigned int type);
 
 extern unsigned int g_supervisor_window;
-void midi_timer_callback_0043a6e0(void);
-int __stdcall midi_read_length_0043a730(const unsigned char*& cursor);
+void midi_timer_callback(void);
+int __stdcall midi_read_length(const unsigned char*& cursor);
 }
 
 // 0x20-byte sequencer track record; every member up to `cursor` fixes the
@@ -63,7 +63,7 @@ struct MidiSequencer_0043ad70 {
 // by reference: the caller-supplied tail arguments are then evaluated before the
 // inlined body's own statements, which is where retail's two constant pushes
 // sit, and the callback's read stays inside the body, after the state publish.
-__forceinline int OpenMidiOut_0043ad70(void** handle, unsigned int device,
+__forceinline int OpenMidiOut(void** handle, unsigned int device,
                                        unsigned int& callback, unsigned int instance,
                                        unsigned int flags) {
     if (*handle) {
@@ -73,20 +73,20 @@ __forceinline int OpenMidiOut_0043ad70(void** handle, unsigned int device,
         *handle = 0;
     }
     *(int*)(handle + 1) = (int)device;
-    return midiOutOpen_004662ac(handle, device, callback, instance, flags);
+    return midiOutOpen(handle, device, callback, instance, flags);
 }
 
 #pragma code_seg(".text$03restart")
 int MidiSequencer_0043ad70::Restart() {
     if (!track_table) return -1;
     ResetTracks();
-    OpenMidiOut_0043ad70(&midi_out, 0xFFFFFFFFu, g_supervisor_window, 0, 0x10000u);
+    OpenMidiOut(&midi_out, 0xFFFFFFFFu, g_supervisor_window, 0, 0x10000u);
     if (frame_timer) timeKillEvent_00466288(frame_timer);
     timeEndPeriod_00466274(timer_period);
     frame_timer = 0;
     timeBeginPeriod_00466278(timer_period);
     frame_timer = timeSetEvent_0046628c(1, timer_period,
-                                        (void*)midi_timer_callback_0043a6e0,
+                                        (void*)midi_timer_callback,
                                         (unsigned int)this, 1);
     return 0;
 }
@@ -105,7 +105,7 @@ void MidiSequencer_0043ad70::ResetTracks() {
         track->cursor = track->data;
         track->loop_cursor = track->data;
         track->active = 1;
-        track->next_event_time = midi_read_length_0043a730(track->cursor);
+        track->next_event_time = midi_read_length(track->cursor);
         ++track;
     }
     current_file_slot = 0;

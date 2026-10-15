@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "name": "dat_archive_open_00434c30",
+  "name": "dat_archive_open",
   "source": "src/pack/arcmngr/dat_archive_open_00434c30.cpp",
   "driver": "build_support/layout/ltcg/dat_archive_open_00434c30_context.cpp",
   "headers": [

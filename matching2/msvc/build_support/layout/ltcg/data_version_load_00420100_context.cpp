@@ -1,7 +1,7 @@
 // Compiler context and ABI anchors only; none of these bytes enter the image.
 #include "../../../src/game/mother/data_version_load_00420100.cpp"
 
-// The real archive opener closure, as in dat_archive_open_00434c30: it is what
+// The real archive opener closure, as in dat_archive_open: it is what
 // gives the opener its archive in ECX and its path in EAX.
 #include "../../../src/pack/arcmngr/dat_archive_open_00434c30.cpp"
 #include "../../../src/pack/arcmngr/dat_archive_close_00434d10.cpp"

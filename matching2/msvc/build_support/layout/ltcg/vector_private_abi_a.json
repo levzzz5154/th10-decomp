@@ -13,7 +13,7 @@
   "functions": [
     {
       "name": "VectorScale_00404e70_Scale",
-      "symbol": "?Scale@VectorScale_00404e70@@QBE?AUVector3_00404e70@@M@Z",
+      "symbol": "?Scale@VectorScale@@QBE?AUVector3_00404e70@@M@Z",
       "source": "src/unreferenced/unassigned_00404e70.cpp",
       "section": ".text$01scale",
       "address": "0x00404E70",
@@ -21,8 +21,8 @@
       "actual_abi": "source in ECX; hidden result in EAX; scalar in stack slot [ESP+4]; RET 4"
     },
     {
-      "name": "VectorSubtract_00405240",
-      "symbol": "?VectorSubtract_00405240@@YI?AUVector3_00405240@@ABU1@0@Z",
+      "name": "VectorSubtract",
+      "symbol": "?VectorSubtract@@YI?AUVector3_00405240@@ABU1@0@Z",
       "source": "src/unreferenced/unassigned_00405240.cpp",
       "section": ".text$03sub",
       "address": "0x00405240",

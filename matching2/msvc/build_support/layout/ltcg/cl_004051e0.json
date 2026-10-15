@@ -8,8 +8,8 @@
   "description": "Region compiled with native LTCG so its entry register is retail's.",
   "functions": [
     {
-      "name": "AllocateBlock_004051e0",
-      "symbol": "?AllocateBlock_004051e0@@YGPAXI@Z",
+      "name": "AllocateBlock",
+      "symbol": "?AllocateBlock@@YGPAXI@Z",
       "section": ".text$01alloc",
       "address": "0x004051E0",
       "size": 10,
@@ -41,7 +41,7 @@
   "constant_aliases": [],
   "absolute_symbols": [
     {
-      "symbol": "_entry_malloc_00452706",
+      "symbol": "_entry_malloc",
       "address": "0x00452706",
       "kind": "relative_code"
     }

@@ -91,8 +91,8 @@
       "actual_abi": "EDI camera; plain RET"
     },
     {
-      "name": "GameFrameAdvance_00439390",
-      "symbol": "?GameFrameAdvance_00439390@@YGHPAUGameFrame_00439390@@@Z",
+      "name": "GameFrameAdvance",
+      "symbol": "?GameFrameAdvance@@YGHPAUGameFrame@@@Z",
       "section": ".text$00clayoutfa",
       "address": "0x00439390",
       "size": 425,
@@ -210,25 +210,25 @@
     {
       "name": "BuildAnchoredQuadMirrored_00443480",
       "source": "src/core/sprtfunc/anchored_quad_build_mirrored_00443480.cpp",
-      "symbol": "_EntityDrawMirrored_00443480@8",
+      "symbol": "_EntityDrawMirrored@8",
       "section": ".text$06b02z02mirror",
       "address": "0x443480",
       "size": 505,
       "actual_abi": "entity in EAX; manager on the stack; RET 4"
     },
     {
-      "name": "BuildRotatedQuad_004436c0",
+      "name": "BuildRotatedQuad",
       "source": "src/core/sprtfunc/quad_build_rotated.cpp",
-      "symbol": "_BuildRotatedQuad_004436c0@8",
+      "symbol": "_BuildRotatedQuad@8",
       "section": ".text$06b03rotquad",
       "address": "0x4436C0",
       "size": 591,
       "actual_abi": "manager in ECX; entity in EDX; plain RET"
     },
     {
-      "name": "BuildRotatedQuadAlt_00443910",
+      "name": "BuildRotatedQuadAlt",
       "source": "src/core/sprtfunc/quad_build_rotated.cpp",
-      "symbol": "_BuildRotatedQuadAlt_00443910@8",
+      "symbol": "_BuildRotatedQuadAlt@8",
       "section": ".text$06b04rotquad",
       "address": "0x443910",
       "size": 591,
@@ -406,9 +406,9 @@
       "source": "src/game/laser/laser_grow_draw.cpp"
     },
     {
-      "name": "GameStateOverlay_Draw_00415800",
+      "name": "GameStateOverlay_Draw",
       "source": "src/game/front/game_state_overlay_draw.cpp",
-      "symbol": "_GameStateOverlay_Draw_00415800@4",
+      "symbol": "_GameStateOverlay_Draw@4",
       "section": ".text$001soverlay",
       "address": "0x00415800",
       "size": 724,
@@ -1195,62 +1195,62 @@
       "kind": "data"
     },
     {
-      "symbol": "@FadeOutUpdate_0043bd40@4",
+      "symbol": "@FadeOutUpdate@4",
       "address": "0x43bd40",
       "kind": "data"
     },
     {
-      "symbol": "@ViewportOverlayDraw_0043c1a0@4",
+      "symbol": "@ViewportOverlayDraw@4",
       "address": "0x43c1a0",
       "kind": "data"
     },
     {
-      "symbol": "@FadeInUpdate_0043c230@4",
+      "symbol": "@FadeInUpdate@4",
       "address": "0x43c230",
       "kind": "data"
     },
     {
-      "symbol": "@PlayfieldOverlayDraw_0043c2c0@4",
+      "symbol": "@PlayfieldOverlayDraw@4",
       "address": "0x43c2c0",
       "kind": "data"
     },
     {
-      "symbol": "@HalfOpacityFadeUpdate_0043c310@4",
+      "symbol": "@HalfOpacityFadeUpdate@4",
       "address": "0x43c310",
       "kind": "data"
     },
     {
-      "symbol": "@ScreenOverlayDraw_0043c3c0@4",
+      "symbol": "@ScreenOverlayDraw@4",
       "address": "0x43c3c0",
       "kind": "data"
     },
     {
-      "symbol": "@PlayfieldHalfOpacityDraw_0043c410@4",
+      "symbol": "@PlayfieldHalfOpacityDraw@4",
       "address": "0x43c410",
       "kind": "data"
     },
     {
-      "symbol": "@ColorPulseUpdate_0043c460@4",
+      "symbol": "@ColorPulseUpdate@4",
       "address": "0x43c460",
       "kind": "data"
     },
     {
-      "symbol": "@ColorPulseDraw_0043c500@4",
+      "symbol": "@ColorPulseDraw@4",
       "address": "0x43c500",
       "kind": "data"
     },
     {
-      "symbol": "@LinearShakeUpdate_0043c550@4",
+      "symbol": "@LinearShakeUpdate@4",
       "address": "0x43c550",
       "kind": "data"
     },
     {
-      "symbol": "@EnvelopeShakeUpdate_0043c710@4",
+      "symbol": "@EnvelopeShakeUpdate@4",
       "address": "0x43c710",
       "kind": "data"
     },
     {
-      "symbol": "@ScreenEffectRemove_0043c870@4",
+      "symbol": "@ScreenEffectRemove@4",
       "address": "0x43c870",
       "kind": "data"
     },
@@ -1331,7 +1331,7 @@
     "?Draw@ScreenDimPlayfieldQuad@@QAEHXZ",
     "?Draw@LineLaser@@QAEHXZ",
     "?Draw@GrowLaser@@QAEHXZ",
-    "_GameStateOverlay_Draw_00415800@4",
+    "_GameStateOverlay_Draw@4",
     "?RunArrayReleaseCallback@CardRuntime_004091c0@@QAEHXZ",
     "?DrawFan33@RenderEntity@@QAEHXZ",
     "?Run@AppDrawFlush@@QAEHXZ",
@@ -1468,21 +1468,21 @@
     },
     {
       "name": "BillboardSource_BuildProjectedQuad_00443b60_abi_anchor",
-      "symbol": "?BuildProjectedQuad@BillboardSource_00443B60@@QAEHXZ",
+      "symbol": "?BuildProjectedQuad@BillboardSource@@QAEHXZ",
       "section": ".text$06b04z01anchor",
       "address": "0x443b60",
       "size": 12
     },
     {
       "name": "ProjectedEntity_ProjectQuad_00444240_abi_anchor",
-      "symbol": "?ProjectQuad@ProjectedEntity_00444240@@QAEHPAUProjectionManager_00444240@@@Z",
+      "symbol": "?ProjectQuad@ProjectedEntity@@QAEHPAUProjectionManager@@@Z",
       "section": ".text$06b0602anchor",
       "address": "0x444240",
       "size": 24
     },
     {
       "name": "FadedQuadDraw_004445c0_abi_anchor",
-      "symbol": "_FadedQuadDraw_004445c0@8",
+      "symbol": "_FadedQuadDraw@8",
       "section": ".text$06b08anchor",
       "address": "0x4445c0",
       "size": 35
@@ -1496,7 +1496,7 @@
     },
     {
       "name": "WorkerThread_00439390_Stop",
-      "symbol": "?Stop@WorkerThread_00439390@@QAEPAXXZ",
+      "symbol": "?Stop@WorkerThread@@QAEPAXXZ",
       "section": ".text$09bucketzf44c150",
       "address": "0x0044C150",
       "size": 95

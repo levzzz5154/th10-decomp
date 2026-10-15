@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "PairTable_0040ce10_Set",
-      "symbol": "?Set@PairTable_0040ce10@@QAEXHHM@Z",
+      "symbol": "?Set@PairTable@@QAEXHHM@Z",
       "section": ".text$01accessor",
       "address": "0x0040CE10",
       "size": 21,
@@ -17,7 +17,7 @@
     }
   ],
   "context": {
-    "symbol": "?Ctx@@YGHPAUPairTable_0040ce10@@HHM@Z",
+    "symbol": "?Ctx@@YGHPAUPairTable@@HHM@Z",
     "section": ".text$03context",
     "address": "0x0040CE40",
     "size": 42,

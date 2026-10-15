@@ -6,12 +6,12 @@
 // receiver, so the whole-program pass leaves EAX holding the dereferenced
 // pointer and hands the lookup's id back on the stack.  Both are conventions
 // only a native-LTCG cluster reaches
-// (build_support/layout/ltcg/stop_at_frame_pair_0040c480.json).
+// (build_support/layout/ltcg/stop_at_frame_pair.json).
 
 struct AnimationLookupContext;
 
 // The script id is a four-byte record so the lookup reads it from its stack
-// slot; see the note in animation_manager_find_004491c0.cpp.
+// slot; see the note in animation_manager_find.cpp.
 struct AnimationScriptId {
     int value;
 };

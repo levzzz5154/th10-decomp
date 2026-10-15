@@ -4,12 +4,12 @@
 #include "th10/platform/windows_types.hpp"
 #pragma intrinsic(strcat, strcpy)
 #pragma function(strrchr)
-extern "C" char* __cdecl FirstByteSearch_00452730(const char* text, int character);
+extern "C" char* __cdecl FirstByteSearch(const char* text, int character);
 extern "C" __declspec(dllimport) DWORD __stdcall GetModuleFileNameA(HANDLE module, char* output,
                                                                     DWORD capacity);
 #pragma code_seg(".text$03resolve")
 extern "C" __declspec(noinline) void __fastcall ResolvePath435610(char* output, const char* path) {
-    if (FirstByteSearch_00452730(path, ':')) {
+    if (FirstByteSearch(path, ':')) {
         strcpy(output, path);
         return;
     }

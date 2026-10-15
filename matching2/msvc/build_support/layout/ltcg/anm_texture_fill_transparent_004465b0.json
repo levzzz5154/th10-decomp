@@ -20,7 +20,7 @@
     {
       "name": "AnmTexture_LoadFile_00446b70",
       "source": "src/core/sprtlib/anm_texture_load_file_00446b70.cpp",
-      "symbol": "?LoadFile@AnmTexture_00446c70@@QAEHHPAXPBDI@Z",
+      "symbol": "?LoadFile@AnmTexture@@QAEHHPAXPBDI@Z",
       "section": ".text$01loadfile",
       "address": "0x00446B70",
       "size": 245,
@@ -28,7 +28,7 @@
     },
     {
       "name": "AnmTexture_Upload_00446c70",
-      "symbol": "?Upload@AnmTexture_00446c70@@QAEHUAnmUploadTag_00446c70@@HPBXHH@Z",
+      "symbol": "?Upload@AnmTexture@@QAEHUAnmUploadTag@@HPBXHH@Z",
       "section": ".text$01upload",
       "address": "0x00446C70",
       "size": 243,
@@ -36,72 +36,72 @@
       "source": "src/core/sprtlib/anm_texture_upload_00446c70.cpp"
     },
     {
-      "name": "AnmTexture_UploadAt_00446d70",
+      "name": "AnmTexture_UploadAt",
       "source": "src/core/sprtlib/anm_texture_upload_at_00446d70.cpp",
-      "symbol": "?AnmTexture_UploadAt_00446d70@@YGHUAnmUploadTag_00446c70@@PAUAnmTexture_00446c70@@HPBXHHH@Z",
+      "symbol": "?AnmTexture_UploadAt@@YGHUAnmUploadTag@@PAUAnmTexture@@HPBXHHH@Z",
       "section": ".text$03uploadat",
       "address": "0x00446D70",
       "size": 320,
       "actual_abi": "format EAX; row offset ECX; data EDI; four stack arguments; RET 16"
     },
     {
-      "name": "AnmTexture_CreateFromMemory_00446eb0",
+      "name": "AnmTexture_CreateFromMemory",
       "source": "src/core/sprtlib/anm_texture_create_from_memory_00446eb0.cpp",
-      "symbol": "?AnmTexture_CreateFromMemory_00446eb0@@YGHUAnmUploadTag_00446c70@@PAUAnmTexture_00446c70@@HIHH@Z",
+      "symbol": "?AnmTexture_CreateFromMemory@@YGHUAnmUploadTag@@PAUAnmTexture@@HIHH@Z",
       "section": ".text$04create",
       "address": "0x00446EB0",
       "size": 132,
       "actual_abi": "texture ESI; format EAX; height EDX; three stack arguments; RET 12"
     },
     {
-      "name": "AnmTexture_CreateAndUpload_00446f40",
+      "name": "AnmTexture_CreateAndUpload",
       "source": "src/core/sprtlib/anm_texture_create_and_upload_00446f40.cpp",
-      "symbol": "?AnmTexture_CreateAndUpload_00446f40@@YGHPAUAnmTexture_00446c70@@PBUAnmThtxHeader_00446c70@@HHH@Z",
+      "symbol": "?AnmTexture_CreateAndUpload@@YGHPAUAnmTexture@@PBUAnmThtxHeader@@HHH@Z",
       "section": ".text$04upload",
       "address": "0x00446F40",
       "size": 264,
       "actual_abi": "texture EBX; format EAX; THTX block ECX; two stack arguments; RET 8"
     },
     {
-      "name": "AnmFile_PreloadEntryImage_004472e0",
+      "name": "AnmFile_PreloadEntryImage",
       "source": "src/core/sprtlib/anm_file_preload_entry_image_004472e0.cpp",
-      "symbol": "?AnmFile_PreloadEntryImage_004472e0@@YGHPAUAnmFile_004470c0@@PBUAnmEntryHeader_00446c70@@H@Z",
+      "symbol": "?AnmFile_PreloadEntryImage@@YGHPAUAnmFile@@PBUAnmEntryHeader_00446c70@@H@Z",
       "section": ".text$05preload",
       "address": "0x004472E0",
       "size": 214,
       "actual_abi": "index ECX; file EDX; entry on the stack; RET 4"
     },
     {
-      "name": "AnmManager_LoadFile_004470c0",
+      "name": "AnmManager_LoadFile",
       "source": "src/core/sprtlib/anm_manager_load_file_004470c0.cpp",
-      "symbol": "?AnmManager_LoadFile_004470c0@@YGPAUAnmFile_004470c0@@PAUAnmManager_004470c0@@HPBD@Z",
+      "symbol": "?AnmManager_LoadFile@@YGPAUAnmFile@@PAUAnmManager_004470c0@@HPBD@Z",
       "section": ".text$04zaload",
       "address": "0x004470C0",
       "size": 433,
       "actual_abi": "three stack arguments; RET 12"
     },
     {
-      "name": "AnmFile_LoadEntry_00447470",
+      "name": "AnmFile_LoadEntry",
       "source": "src/core/sprtlib/anm_file_load_entry_00447470.cpp",
-      "symbol": "?AnmFile_LoadEntry_00447470@@YGHUAnmUploadTag_00446c70@@PAUAnmFile_004470c0@@HHPBUAnmEntryHeader_00446c70@@H@Z",
+      "symbol": "?AnmFile_LoadEntry@@YGHUAnmUploadTag@@PAUAnmFile@@HHPBUAnmEntryHeader_00446c70@@H@Z",
       "section": ".text$05r3entry",
       "address": "0x00447470",
       "size": 650,
       "actual_abi": "entry index EAX; five stack arguments; RET 20"
     },
     {
-      "name": "AnmManager_LoadNextEntry_004473c0",
+      "name": "AnmManager_LoadNextEntry",
       "source": "src/core/sprtlib/anm_manager_load_next_entry_004473c0.cpp",
-      "symbol": "?AnmManager_LoadNextEntry_004473c0@@YGPAUAnmFile_004470c0@@UAnmUploadTag_00446c70@@PAU1@@Z",
+      "symbol": "?AnmManager_LoadNextEntry@@YGPAUAnmFile@@UAnmUploadTag@@PAU1@@Z",
       "section": ".text$05r1next",
       "address": "0x004473C0",
       "size": 174,
       "actual_abi": "two stack arguments; RET 8"
     },
     {
-      "name": "AnmManager_LoadFileNow_00447080",
+      "name": "AnmManager_LoadFileNow",
       "source": "src/core/sprtlib/anm_manager_load_file_now_00447080.cpp",
-      "symbol": "?AnmManager_LoadFileNow_00447080@@YGPAUAnmFile_004470c0@@PAUAnmManager_004470c0@@HPBD@Z",
+      "symbol": "?AnmManager_LoadFileNow@@YGPAUAnmFile@@PAUAnmManager_004470c0@@HPBD@Z",
       "section": ".text$04xnow",
       "address": "0x00447080",
       "size": 50,
@@ -111,7 +111,7 @@
   "anchors": [
     {
       "name": "AnmTexture_FillTransparentPixels_standin",
-      "symbol": "?FillTransparentPixels@AnmTexture_00446c70@@QAEXXZ",
+      "symbol": "?FillTransparentPixels@AnmTexture@@QAEXXZ",
       "section": ".text$00fill",
       "address": "0x004465B0",
       "size": 13
@@ -160,7 +160,7 @@
     },
     {
       "name": "CopyPositionRecord",
-      "symbol": "?CopyPositionRecord_00447940@@YGXHPAUAnimationPositionManager_00447940@@PBUAnimationPositionRecord_00447940@@@Z",
+      "symbol": "?CopyPositionRecord_00447940@@YGXHPAUAnimationPositionManager@@PBUAnimationPositionRecord@@@Z",
       "section": ".text$05r5copy",
       "address": "0x00447940",
       "size": 143
@@ -488,7 +488,7 @@
       "kind": "data"
     },
     {
-      "symbol": "@LoadCachedResource_00447280@12",
+      "symbol": "@LoadCachedResource@12",
       "address": "0x00447280",
       "kind": "relative_code"
     },

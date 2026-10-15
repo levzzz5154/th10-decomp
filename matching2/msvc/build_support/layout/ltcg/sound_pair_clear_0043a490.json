@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "name": "sound_pair_clear_0043a490",
+  "name": "sound_pair_clear",
   "source": "src/unreferenced/FUN_0043a490_0043a490.cpp",
   "driver": "build_support/layout/ltcg/sound_pair_clear_0043a490_context.cpp",
   "headers": [],
@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "SoundPairClear_0043a490_Clear",
-      "symbol": "?Clear@SoundPairClear_0043a490@@QAEXXZ",
+      "symbol": "?Clear@SoundPairClear@@QAEXXZ",
       "section": ".text$01clear0043a490",
       "address": "0x43a490",
       "size": 14,
@@ -17,7 +17,7 @@
     }
   ],
   "context": {
-    "symbol": "?ClearCompilerContext@@YGHPAPAUSoundPairClear_0043a490@@H@Z",
+    "symbol": "?ClearCompilerContext@@YGHPAPAUSoundPairClear@@H@Z",
     "section": ".text$03context",
     "address": "0x43a4a0",
     "size": 39,

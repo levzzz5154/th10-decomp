@@ -14,7 +14,7 @@
 //
 // The room is a stack argument; the handler is linked with the title
 // dispatcher and the real bodies of its leaves
-// (build_support/layout/ltcg/difficulty_select_update_00430320.json).  The chosen
+// (build_support/layout/ltcg/difficulty_select_update.json).  The chosen
 // character is read from its global at every use, as in the image.
 #include "th10/game/shot_type_select_update_00430a60.hpp"
 
@@ -33,7 +33,7 @@ static __forceinline void DisableItem_00430a60(MenuCursor& cursor, int item) {
 }
 
 #pragma code_seg(".text$00430a60_fn")
-__declspec(noinline) int __stdcall TitleMode8_00430a60(Title* room) {
+__declspec(noinline) int __stdcall TitleMode8(Title* room) {
     switch (room->phase) {
     case 0:
         room->cursor.item_count = 3;
@@ -121,7 +121,7 @@ __declspec(noinline) int __stdcall TitleMode8_00430a60(Title* room) {
         if (room->timer.current == 10) {
             if ((g_globals_flags & 0x10) == 0) {
                 g_ascii_manager->EnsureAnimationResource(480.0f, 392.0f);
-                RecoveryAscii_Create_0043c8b0(0x2b, 5, 0x20, 0, 0, 0);
+                RecoveryAscii_Create(0x2b, 5, 0x20, 0, 0, 0);
             } else {
                 g_globals_shot_type = room->cursor.selection;
                 room->cursor.PushSelection();

@@ -9,7 +9,7 @@
 
 #pragma code_seg(".text$00401000_context")
 extern "C" int __stdcall RecoveryScriptExecutorCompilerContext_0040bd80(
-    RecoveryScriptState_0040bd80* script) {
+    RecoveryScriptState* script) {
     return RecoveryScript_Execute_0040bd80(script);
 }
 #pragma code_seg()

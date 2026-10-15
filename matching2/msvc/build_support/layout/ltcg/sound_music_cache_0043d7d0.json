@@ -83,7 +83,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "?FindBasenameSlot_0043d2a0@PathName_0043d2a0@@QAEHPAX@Z",
+      "symbol": "?FindBasenameSlot@PathName@@QAEHPAX@Z",
       "address": "0x0043D2A0",
       "kind": "relative_code"
     }

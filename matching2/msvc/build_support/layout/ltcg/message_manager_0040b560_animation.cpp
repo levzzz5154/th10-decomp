@@ -139,7 +139,7 @@ struct AnimationObject_00448d50 {
 // noinline: the whole-program pass must keep this body as its own contribution
 // at 0x00448D50 instead of inlining it into the synthetic caller.
 __declspec(noinline)
-void** __stdcall AnimationManager_CreatePositionedPrimary_00448d50(
+void** __stdcall AnimationManager_CreatePositionedPrimary(
     void* resource, void** out, int index, const AnimationPosition_00448d50* position) {
     AnimationObject_00448d50* object =
         (AnimationObject_00448d50*)((AnimationPool*)g_sprt_ctrl)->Allocate();

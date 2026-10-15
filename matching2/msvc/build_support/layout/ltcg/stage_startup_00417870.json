@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "name": "stage_startup_00417870",
+  "name": "stage_startup",
   "source": "src/game/game/game_initialize.cpp",
   "driver": "build_support/layout/ltcg/stage_startup_00417870/worker.cpp",
   "additional_sources": [
@@ -64,14 +64,14 @@
     },
     {
       "name": "ResetPath",
-      "symbol": "?Reset@PathState_00417800@@QAEHXZ",
+      "symbol": "?Reset@PathState@@QAEHXZ",
       "section": ".text$00417800_fn",
       "address": "0x417800",
       "size": 58
     },
     {
       "name": "SetGauge",
-      "symbol": "?SetGauge@StageRunState_00417870@@QAEXH@Z",
+      "symbol": "?SetGauge@StageRunState@@QAEXH@Z",
       "section": ".text$00418b80_fn",
       "address": "0x418b80",
       "size": 73

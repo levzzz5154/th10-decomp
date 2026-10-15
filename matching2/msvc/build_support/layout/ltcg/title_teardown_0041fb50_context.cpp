@@ -47,8 +47,8 @@ void Recovery_ReleaseGlobalStates() {
     if (manager_state) { Game_Destroy(manager_state);crt_free_startup(manager_state); }
     void* script_state = g_title;
     if (script_state) { ReleaseGlobalScript_0042cb60(script_state);crt_free_startup(script_state); }
-    TitleState_0041FB50* resource_state = static_cast<TitleState_0041FB50*>(g_loading);
-    if (resource_state) { resource_state->~TitleState_0041FB50();crt_free_startup(resource_state); }
+    TitleState* resource_state = static_cast<TitleState*>(g_loading);
+    if (resource_state) { resource_state->~TitleState();crt_free_startup(resource_state); }
     void* small_state = g_ending;
     if (small_state) { ReleaseGlobalMessage_0040b7b0(small_state);crt_free_startup(small_state); }
     void* pending_block = g_replay;

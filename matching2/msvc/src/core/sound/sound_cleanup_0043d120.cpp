@@ -47,7 +47,7 @@ int WaveSoundManager::Cleanup() {
                 current->methods->Release(current);
                 *cell=0;
             }
-            owner_free_004524a1(cell);
+            owner_free(cell);
             owner=0;
         }
         for (unsigned int index=0;index<16;++index) {

@@ -57,7 +57,7 @@
     },
     {
       "name": "DeathShrink",
-      "symbol": "?AdvanceDeathShrink@PlayerDeathShrinkState_004076A0@@QAEXXZ",
+      "symbol": "?AdvanceDeathShrink@PlayerDeathShrinkState@@QAEXXZ",
       "section": ".text$01acdeath",
       "address": "0x004076A0",
       "size": 209,
@@ -66,7 +66,7 @@
     },
     {
       "name": "Player_WrapHorizontal",
-      "symbol": "?WrapHorizontal@PlayerWrapHorizontalState_00407DA0@@QAEXXZ",
+      "symbol": "?WrapHorizontal@PlayerWrapHorizontalState@@QAEXXZ",
       "section": ".text$01lwrap",
       "address": "0x00407DA0",
       "size": 148,
@@ -75,7 +75,7 @@
     },
     {
       "name": "Player_WrapVertical",
-      "symbol": "?WrapVertical@PlayerWrapHorizontalState_00407DA0@@QAEXXZ",
+      "symbol": "?WrapVertical@PlayerWrapHorizontalState@@QAEXXZ",
       "section": ".text$01mvertical",
       "address": "0x00407E40",
       "size": 172,
@@ -374,7 +374,7 @@
       "kind": "data"
     },
     {
-      "symbol": "?SetPolar@PolarVector2_00408750@@QAEPAU1@MM@Z",
+      "symbol": "?SetPolar@PolarVector2@@QAEPAU1@MM@Z",
       "address": "0x00408750",
       "kind": "relative_code"
     },
@@ -503,14 +503,14 @@
     },
     {
       "name": "AdvanceAnimationFrame",
-      "symbol": "?AdvanceAnimationFrame@PlayerAnimationState_004074B0@@QAEXXZ",
+      "symbol": "?AdvanceAnimationFrame@PlayerAnimationState@@QAEXXZ",
       "section": ".text$01aanimation",
       "address": "0x004074B0",
       "size": 164
     },
     {
       "name": "CreateScreenAnimation",
-      "symbol": "?AnimationManager_CreateScreenPositionedPrimary_00448db0@@YGPAPAXPAXPAPAXHPBUAnimationPosition_00448db0@@@Z",
+      "symbol": "?AnimationManager_CreateScreenPositionedPrimary@@YGPAPAXPAXPAPAXHPBUAnimationPosition_00448db0@@@Z",
       "section": ".text$09create",
       "address": "0x00448DB0",
       "size": 118
@@ -531,7 +531,7 @@
     },
     {
       "name": "HomeTowardTarget",
-      "symbol": "?HomeTowardTarget@PlayerHomingState_00407EF0@@QAEXXZ",
+      "symbol": "?HomeTowardTarget@PlayerHomingState@@QAEXXZ",
       "section": ".text$02ahoming",
       "address": "0x407ef0",
       "size": 306

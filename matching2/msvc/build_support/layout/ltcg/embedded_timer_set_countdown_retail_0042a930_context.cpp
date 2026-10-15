@@ -3,7 +3,7 @@
 
 #pragma code_seg(".text$03context")
 int __stdcall EmbeddedTimerSetCountdownRetailCompilerContext(
-    EmbeddedTimerState_0042a930** timers, int* values, int count) {
+    EmbeddedTimerState** timers, int* values, int count) {
     int total = 0;
     while (count--) {
         int value = *values++;

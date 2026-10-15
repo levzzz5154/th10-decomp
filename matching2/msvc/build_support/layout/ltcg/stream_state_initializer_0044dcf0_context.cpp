@@ -3,7 +3,7 @@
 
 #pragma code_seg(".text$03context")
 int __stdcall StreamStateInitializer0044DCF0CompilerContext(
-        StreamState_0044DCF0** states,
+        StreamState** states,
         void** values_090, void** values_080,
         int* values_088, int* counts, int count) {
     int result = 0;

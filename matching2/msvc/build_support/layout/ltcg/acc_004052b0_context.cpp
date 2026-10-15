@@ -3,7 +3,7 @@
 
 #include "th10/math/timer.hpp"
 #pragma code_seg(".text$03context")
-int __stdcall AccessorCompilerContext(TimerDecrementer_004052b0** items, int count) {
+int __stdcall AccessorCompilerContext(TimerDecrementer** items, int count) {
     while (count--) {
         (*items++)->Decrement(count);
     }

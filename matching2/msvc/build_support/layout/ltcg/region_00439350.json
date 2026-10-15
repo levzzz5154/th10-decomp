@@ -8,8 +8,8 @@
   "description": "Region compiled with native LTCG so the internal register convention matches retail.",
   "functions": [
     {
-      "name": "ApplySettings_00439350",
-      "symbol": "?ApplySettings_00439350@@YGXXZ",
+      "name": "ApplySettings",
+      "symbol": "?ApplySettings@@YGXXZ",
       "section": ".text$01accessor",
       "address": "0x439350",
       "size": 62,

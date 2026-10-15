@@ -1,5 +1,5 @@
 // 0x0042A990: rewind both cursors to their starts and clear the count.
-struct Cursors_0042a990 {
+struct Cursors {
     int first_start;                  // +0x00
     int first;                        // +0x04
     int second_start;                 // +0x08
@@ -10,7 +10,7 @@ struct Cursors_0042a990 {
 };
 
 #pragma code_seg(".text$01accessor")
-void Cursors_0042a990::Rewind() {
+void Cursors::Rewind() {
     first = first_start;
     second = second_start;
     count = 0;

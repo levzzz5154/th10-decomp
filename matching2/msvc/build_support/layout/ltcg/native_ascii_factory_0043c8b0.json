@@ -166,62 +166,62 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "@FadeOutUpdate_0043bd40@4",
+      "symbol": "@FadeOutUpdate@4",
       "address": "0x43bd40",
       "kind": "data"
     },
     {
-      "symbol": "@ViewportOverlayDraw_0043c1a0@4",
+      "symbol": "@ViewportOverlayDraw@4",
       "address": "0x43c1a0",
       "kind": "data"
     },
     {
-      "symbol": "@FadeInUpdate_0043c230@4",
+      "symbol": "@FadeInUpdate@4",
       "address": "0x43c230",
       "kind": "data"
     },
     {
-      "symbol": "@PlayfieldOverlayDraw_0043c2c0@4",
+      "symbol": "@PlayfieldOverlayDraw@4",
       "address": "0x43c2c0",
       "kind": "data"
     },
     {
-      "symbol": "@HalfOpacityFadeUpdate_0043c310@4",
+      "symbol": "@HalfOpacityFadeUpdate@4",
       "address": "0x43c310",
       "kind": "data"
     },
     {
-      "symbol": "@ScreenOverlayDraw_0043c3c0@4",
+      "symbol": "@ScreenOverlayDraw@4",
       "address": "0x43c3c0",
       "kind": "data"
     },
     {
-      "symbol": "@PlayfieldHalfOpacityDraw_0043c410@4",
+      "symbol": "@PlayfieldHalfOpacityDraw@4",
       "address": "0x43c410",
       "kind": "data"
     },
     {
-      "symbol": "@ColorPulseUpdate_0043c460@4",
+      "symbol": "@ColorPulseUpdate@4",
       "address": "0x43c460",
       "kind": "data"
     },
     {
-      "symbol": "@ColorPulseDraw_0043c500@4",
+      "symbol": "@ColorPulseDraw@4",
       "address": "0x43c500",
       "kind": "data"
     },
     {
-      "symbol": "@LinearShakeUpdate_0043c550@4",
+      "symbol": "@LinearShakeUpdate@4",
       "address": "0x43c550",
       "kind": "data"
     },
     {
-      "symbol": "@EnvelopeShakeUpdate_0043c710@4",
+      "symbol": "@EnvelopeShakeUpdate@4",
       "address": "0x43c710",
       "kind": "data"
     },
     {
-      "symbol": "@ScreenEffectRemove_0043c870@4",
+      "symbol": "@ScreenEffectRemove@4",
       "address": "0x43c870",
       "kind": "data"
     },

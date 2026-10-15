@@ -5,7 +5,7 @@
 #include "../../../build_support/layout/ltcg/input_recorder.hpp"
 
 #pragma code_seg(".text$03update")
-int InputRecorder_004297D0::Update() {
+int InputRecorder::Update() {
     if (!g_game)
         return 1;
     if (!playback_mode) {

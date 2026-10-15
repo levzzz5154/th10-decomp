@@ -4,14 +4,14 @@
 // then the pointer at +0x04 of that record, and returns 1 when it is non-null.
 // Neither load is guarded, so the inner record is always present.
 
-struct Inner_0042bac0 {
+struct Inner {
     unsigned char unknown_00[0x04];
     void* value;                   // +0x04
 };
 
 struct Outer_0042bac0 {
     unsigned char unknown_00[0x04];
-    Inner_0042bac0* inner;         // +0x04
+    Inner* inner;         // +0x04
 
     __declspec(noinline) int HasValue();
 };

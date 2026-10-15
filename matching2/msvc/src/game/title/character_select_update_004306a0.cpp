@@ -13,7 +13,7 @@
 //
 // The room is a stack argument; the handler is linked with the title
 // dispatcher and the real bodies of its leaves
-// (build_support/layout/ltcg/difficulty_select_update_00430320.json).
+// (build_support/layout/ltcg/difficulty_select_update.json).
 //
 // Shapes that are load-bearing (each measured against the image):
 //
@@ -42,7 +42,7 @@ static __forceinline void DisableItem_004306a0(MenuCursor& cursor, int item) {
 }
 
 #pragma code_seg(".text$004306a0_fn")
-__declspec(noinline) int __stdcall TitleMode7_004306a0(Title* room) {
+__declspec(noinline) int __stdcall TitleMode7(Title* room) {
     switch (room->phase) {
     case 0:
         room->cursor.item_count = 2;

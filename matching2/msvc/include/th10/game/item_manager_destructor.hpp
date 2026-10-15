@@ -32,4 +32,4 @@ typedef char ElementSize[sizeof(Item)==0x3F0?1:-1];
 typedef char ManagerSize[sizeof(ItemManager)==0x21CEC0?1:-1];
 typedef char ElementOffset[offsetof(ItemManager,elements)==0x14?1:-1];
 
-__declspec(noinline) void __stdcall ManagerTeardownFuncCtrl_Remove_00449F60(FuncCtrl*,SchedulerTask*);
+__declspec(noinline) void __stdcall ManagerTeardownFuncCtrl_Remove(FuncCtrl*,SchedulerTask*);

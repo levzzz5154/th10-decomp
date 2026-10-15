@@ -13,10 +13,10 @@ int ScreenshotState::CaptureScreenshot(const char* name) {
     char* destination=filename;
     do { *destination++=*name; } while (*name++);
     if (format==0x16) {
-        info=(BitmapInfoImage*)retail_malloc_00452706(0x2c);
+        info=(BitmapInfoImage*)retail_malloc(0x2c);
         if (!info) goto allocation_failed;
         memset(info,0,0x2c);
-        pixels=(unsigned char*)retail_malloc_00452706(0xe1000);
+        pixels=(unsigned char*)retail_malloc(0xe1000);
         if (!pixels) goto allocation_failed;
         file_image.size+=0xe1000;
         info->bits=24;
@@ -39,7 +39,7 @@ int ScreenshotState::CaptureScreenshot(const char* name) {
             offset+=0x780;
         }
         back->methods->Unlock(back);
-        g_screenshot_thread_id=retail_beginthread_00452eec(&ScreenshotWriter,0,0);
+        g_screenshot_thread_id=retail_beginthread(&ScreenshotWriter,0,0);
     } else if (format==0x17) g_log.Append(str_snapshot_16bit_unsupported);
     else { g_log.Append(str_mother_cpp_error);return 1; }
     if (back) back->methods->Release(back);

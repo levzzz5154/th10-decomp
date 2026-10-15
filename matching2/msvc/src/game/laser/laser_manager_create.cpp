@@ -11,7 +11,7 @@
 // its own scheduler registrations keep the task in ESI and the priority in EDI,
 // so the register is a whole-program agreement.  This source is therefore
 // compiled in the same native-LTCG link as that callee chain (see
-// build_support/layout/ltcg/bullet_manager_load_scripts_0040ae70.json).
+// build_support/layout/ltcg/bullet_manager_load_scripts.json).
 #include <string.h>
 
 struct LaserBaseView;                     // the 0x424-byte base Laser

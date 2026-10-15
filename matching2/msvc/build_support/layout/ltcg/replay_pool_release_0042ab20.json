@@ -10,8 +10,8 @@
   "description": "Complete list release with a genuine two-argument synthetic forwarding caller; no abbreviated register anchor.",
   "functions": [
     {
-      "name": "ReplayPool_Clear_0042ab20",
-      "symbol": "_ReplayPool_Clear_0042ab20@8",
+      "name": "ReplayPool_Clear",
+      "symbol": "_ReplayPool_Clear@8",
       "section": ".text$40release",
       "address": "0x0042AB20",
       "size": 93,

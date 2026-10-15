@@ -11,7 +11,7 @@ extern "C" float g_game_speed;
 // The fixed trail decay0.3125 and normal timer increment1 are readonly
 // compiler literals bound to their original addresses in the native layout.
 #pragma code_seg(".text$01animation")
-void PlayerAnimationState_004074B0::AdvanceAnimationFrame() {
+void PlayerAnimationState::AdvanceAnimationFrame() {
     if (animation_timer.current <= 16) {
         const float trail_speed =
             flt_5 - animation_timer.elapsed * 0.3125f + speed_3D8;

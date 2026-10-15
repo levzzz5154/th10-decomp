@@ -15,15 +15,15 @@ struct ScriptEntry_0042be20 {
 
 // The parser's last two words are a member with its own constructor, which
 // runs between the vtable store and the constructor body.
-struct ScriptParserTail_0042be20 {
+struct ScriptParserTail {
     int first;
     int second;
-    ScriptParserTail_0042be20() : first(0), second(0) {}
+    ScriptParserTail() : first(0), second(0) {}
 };
 
 // The 0x1098-byte script parser whose vtable is at 0x0046D0F0. Its
 // constructor clears the whole object after the vtable has been published.
-struct ScriptParser_0042be20 {
+struct ScriptParser {
     virtual int Load(char* data);      // 0x00450220
     virtual void Slot04();             // 0x0040C810
 
@@ -32,32 +32,32 @@ struct ScriptParser_0042be20 {
     unsigned char reserved_00c[0x8C - 0x0C];
     ScriptEntry_0042be20* entries;
     unsigned char reserved_090[0x1090 - 0x90];
-    ScriptParserTail_0042be20 tail;
+    ScriptParserTail tail;
 
-    ScriptParser_0042be20() {
-        memset(this, 0, sizeof(ScriptParser_0042be20));
+    ScriptParser() {
+        memset(this, 0, sizeof(ScriptParser));
     }
     // 0x00450500: create an interpreter positioned at the named entry.
-    __declspec(noinline) struct SptTestResource_0042be20* CreateVm(const char* name);
-    ~ScriptParser_0042be20() {
+    __declspec(noinline) struct SptTestResource* CreateVm(const char* name);
+    ~ScriptParser() {
         if (entries) {
             free(entries);
             entries = 0;
         }
     }
 };
-typedef char ScriptParserSize_0042be20[sizeof(ScriptParser_0042be20) == 0x1098 ? 1 : -1];
+typedef char ScriptParserSize[sizeof(ScriptParser) == 0x1098 ? 1 : -1];
 
 // The interpreter state the running script is in; `running` stays nonzero
 // until the script ends.
-struct SptTestVmState_0042be20 {
+struct SptTestVmState {
     int time;
     int running;
 };
 
 // The script interpreter the screen runs an entry with. Only its retire entry
 // in slot 5 is called.
-struct SptTestResource_0042be20 {
+struct SptTestResource {
     virtual void Slot00() = 0;
     virtual void Slot04() = 0;
     virtual void Slot08() = 0;
@@ -65,7 +65,7 @@ struct SptTestResource_0042be20 {
     virtual void Slot10() = 0;
     virtual void Retire(int release) = 0;
 
-    SptTestVmState_0042be20* active;
+    SptTestVmState* active;
 };
 
 // Clamp a wanted selection to a cursor's last item.
@@ -79,7 +79,7 @@ struct SchedulerTask;
 // The screen's loader thread: a PlatformWorker (th10/platform/worker.hpp).
 // Its destructor (0x0044C130) republishes the worker dispatch table and stops
 // the thread.
-struct SptTestWorker_0042be20 {
+struct SptTestWorker {
     const void* vtable;
     void* thread;
     unsigned int thread_id;
@@ -88,7 +88,7 @@ struct SptTestWorker_0042be20 {
     unsigned int reserved_14;
     void* entry;
 
-    ~SptTestWorker_0042be20();
+    ~SptTestWorker();
 };
 
 // The "Spt Test" debug screen: picks a script file, loads it and shows one of
@@ -97,7 +97,7 @@ struct SptTest_0042be20 {
     unsigned char reserved_000[8];
     SchedulerTask* update_task;
     SchedulerTask* draw_task;
-    SptTestWorker_0042be20 worker;
+    SptTestWorker worker;
     unsigned char reserved_02c[4];
     int state;                 // 1 = menu, 2 = loading, 3 = running
     const char** script_names;
@@ -110,8 +110,8 @@ struct SptTest_0042be20 {
     float position_z;
     int field_2d0;
     unsigned int flags;
-    ScriptParser_0042be20* parser;
-    SptTestResource_0042be20* resource;
+    ScriptParser* parser;
+    SptTestResource* resource;
     char* script_data;
 
     __declspec(noinline) ~SptTest_0042be20();
@@ -120,8 +120,8 @@ struct SptTest_0042be20 {
     __declspec(noinline) int LoadScript();
     __declspec(noinline) int Draw();
 };
-typedef char SptTestStateOffset_0042be20[offsetof(SptTest_0042be20, state) == 0x30 ? 1 : -1];
-typedef char SptTestCursorOffset_0042be20[offsetof(SptTest_0042be20, entry_cursor) == 0x1EC ? 1 : -1];
-typedef char SptTestParserOffset_0042be20[offsetof(SptTest_0042be20, parser) == 0x2D8 ? 1 : -1];
+typedef char SptTestStateOffset[offsetof(SptTest_0042be20, state) == 0x30 ? 1 : -1];
+typedef char SptTestCursorOffset[offsetof(SptTest_0042be20, entry_cursor) == 0x1EC ? 1 : -1];
+typedef char SptTestParserOffset[offsetof(SptTest_0042be20, parser) == 0x2D8 ? 1 : -1];
 
 extern "C" SptTest_0042be20* g_spt_test;

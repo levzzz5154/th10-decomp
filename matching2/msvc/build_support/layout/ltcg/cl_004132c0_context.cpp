@@ -3,7 +3,7 @@
 #include "scheduler_register_anchors.cpp"
 
 #pragma code_seg(".text$30context")
-int __stdcall TaskOwnerContext_004132c0(TaskOwner_004132c0** owners, int count,
+int __stdcall TaskOwnerContext_004132c0(TaskOwner** owners, int count,
                                          SchedulerTask* task) {
     // Keeps the primary registration anchor in the link.
     int result = FuncCtrl_RegisterPrimary(g_func_ctrl, task, count);

@@ -15,7 +15,7 @@
   "functions": [
     {
       "name": "EclFloatSource_ResolveFloatValue",
-      "symbol": "?ResolveFloatValue@EclFloatSource_00412350@@QBEMH@Z",
+      "symbol": "?ResolveFloatValue@EclFloatSource@@QBEMH@Z",
       "section": ".text$02dispatch",
       "address": "0x00412350",
       "size": 884,
@@ -124,7 +124,7 @@
     }
   ],
   "roots": [
-    "?ResolveFloatValue@EclFloatSource_00412350@@QBEMH@Z"
+    "?ResolveFloatValue@EclFloatSource@@QBEMH@Z"
   ],
   "constant_aliases": [
     {

@@ -3,7 +3,7 @@
 #pragma code_seg(".text$03context")
 int __stdcall ClearContext_00413190(void** items, int count) {
     while (count--) {
-        ClearBlock_00413190(*items++);
+        ClearBlock(*items++);
     }
     return 0;
 }

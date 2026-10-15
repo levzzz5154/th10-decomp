@@ -6,7 +6,7 @@
 int __stdcall AppRegisterTasksContext_00420470(int count) {
     int result = 0;
     while (count--)
-        result += App_RegisterTasks_00420470();
+        result += App_RegisterTasks();
     return result;
 }
 #pragma code_seg()

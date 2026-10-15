@@ -52,14 +52,14 @@ extern "C" void** __cdecl asm_AnimationManager_RegisterPrimaryBack_004489d0(
 
 // One kind of effect: its script, an optional setup step and two values
 // copied into the new animation.
-struct EffectKind_0040b070 {
+struct EffectKind {
     short script;                                            // +0x00
     void (__fastcall* setup)(AnimationNode_0040b070* node, void* argument);  // +0x04
     int value_a;                                             // +0x08
     int value_b;                                             // +0x0C
 };
 
-extern "C" EffectKind_0040b070 g_effect_kinds[];
+extern "C" EffectKind g_effect_kinds[];
 
 // The owner of an animation file.
 struct EffectSpawnView {

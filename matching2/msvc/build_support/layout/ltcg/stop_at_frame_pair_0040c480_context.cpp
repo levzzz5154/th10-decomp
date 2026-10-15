@@ -26,7 +26,7 @@ struct AnimationHandle_004243f0 {
 // The timed recovery record the added function initialises.  Declared here so
 // this driver can call the member without defining it: its body is compiled
 // separately and the whole-program pass still sees it.
-struct RecoveryTimedState_00423510 {
+struct RecoveryTimedState {
     unsigned char unknown[0x2C4];
     __declspec(noinline) void InitializeTimedState();
 };
@@ -43,7 +43,7 @@ AnimationRef_004497d0 __fastcall Title_FindAnimationSlotChild(int slot, Title* s
 
 #pragma code_seg(".text$80context")
 int __stdcall StopAtFrameCompilerContext(AnimationHandle* handles, int count,
-                                         RecoveryTimedState_00423510* states) {
+                                         RecoveryTimedState* states) {
     while (count--) {
         handles->StopAtFrame1();
         handles->StopAtFrame2();

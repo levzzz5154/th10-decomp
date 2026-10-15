@@ -8,7 +8,7 @@
 #include "th10/game/side_panel_contents_release_00414370.hpp"
 
 #pragma code_seg(".text$00414370_fn")
-void __stdcall SidePanel_ReleaseContents_00414370(SidePanel_00414370* panel) {
+void __stdcall SidePanel_ReleaseContents_00414370(SidePanel* panel) {
     if (!(g_globals.flags & 9)) {
         PanelResource_00414370** resource = &g_sprt_ctrl->stage_resource;
         if (*resource) {
@@ -50,7 +50,7 @@ void __stdcall SidePanel_ReleaseContents_00414370(SidePanel_00414370* panel) {
     for (int index = 10; index != 0; --index)
         *counter++ = 0;
 
-    PanelAnimation_00414370* effect = panel->effects;
+    PanelAnimation* effect = panel->effects;
     int remaining = 8;
     do {
         effect->ReleaseInPlace(animations);

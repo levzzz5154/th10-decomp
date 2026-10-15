@@ -7,8 +7,8 @@
 // with the parameter order this caller's evaluation order requires. It keeps
 // the list in EAX and the owner on the stack.
 #pragma code_seg(".text$07release")
-__declspec(noinline) void __stdcall ReleaseResourceList_00449eb0(
-        FuncCtrl* owner, ResourceList_DestroyABI_00449e50* list) {
+__declspec(noinline) void __stdcall ReleaseResourceList(
+        FuncCtrl* owner, ResourceList_DestroyABI* list) {
     TaskLink* node = list->first;
     if (node) {
         void (__stdcall *enter)(CriticalSection*) = EnterCriticalSection;

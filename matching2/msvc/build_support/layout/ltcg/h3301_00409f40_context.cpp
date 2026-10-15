@@ -3,7 +3,7 @@
 
 #pragma code_seg(".text$03context")
 extern "C" __declspec(noinline) int __stdcall H3301Context_00409f40(
-        H3301Table_00409f40** tables, const int* indices, int count) {
+        H3301Table** tables, const int* indices, int count) {
     int total = 0;
     while (count--) {
         total += (*tables++)->GetValue(*indices++);

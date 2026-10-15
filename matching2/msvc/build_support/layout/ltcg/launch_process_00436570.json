@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "launch_process_00436570",
-      "symbol": "?LaunchProcess_00436570@@YGHPADPBDH@Z",
+      "symbol": "?LaunchProcess@@YGHPADPBDH@Z",
       "section": ".text$01accessor",
       "address": "0x00436570",
       "size": 201,

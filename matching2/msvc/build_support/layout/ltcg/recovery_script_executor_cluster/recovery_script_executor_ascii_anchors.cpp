@@ -52,8 +52,8 @@ RecoveryAsciiRegisterSecondary_0044a030(TaskRoutine callback, int priority,
 }
 
 #pragma code_seg(".text$0043c970_fn")
-extern "C" void __stdcall RecoveryAscii_Register_0043c970(
-    RecoveryAsciiManager_0043c8b0* manager, unsigned int draw_priority,
+extern "C" void __stdcall RecoveryAscii_Register(
+    RecoveryAsciiManager* manager, unsigned int draw_priority,
     unsigned int mode, unsigned int payload, unsigned int argument_20,
     unsigned int argument_24, unsigned int argument_28) {
     switch (mode) {
@@ -130,15 +130,15 @@ extern "C" void __stdcall RecoveryAscii_Register_0043c970(
 }
 
 #pragma code_seg(".text$0043c8b0_fn")
-extern "C" RecoveryAsciiManager_0043c8b0* __stdcall
-RecoveryAscii_Create_0043c8b0(unsigned int draw_priority, unsigned int mode,
+extern "C" RecoveryAsciiManager* __stdcall
+RecoveryAscii_Create(unsigned int draw_priority, unsigned int mode,
     unsigned int payload, unsigned int argument_20,
     unsigned int argument_24, unsigned int argument_28) {
-    RecoveryAsciiManager_0043c8b0* manager = new RecoveryAsciiManager_0043c8b0;
+    RecoveryAsciiManager* manager = new RecoveryAsciiManager;
     if (manager) {
         memset(manager, 0, sizeof(*manager));
         manager->flags |= 2u;
-        RecoveryAscii_Register_0043c970(manager, draw_priority, mode,
+        RecoveryAscii_Register(manager, draw_priority, mode,
             payload, argument_20, argument_24, argument_28);
     }
     return manager;

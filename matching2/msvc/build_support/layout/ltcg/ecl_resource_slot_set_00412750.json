@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "ecl_resource_slot_set_00412750",
-      "symbol": "?SetSlot_00412750@@YGXPAUSlotTable_00412750@@HHHHH@Z",
+      "symbol": "?SetSlot@@YGXPAUSlotTable_00412750@@HHHHH@Z",
       "section": ".text$01accessor",
       "address": "0x00412750",
       "size": 56,

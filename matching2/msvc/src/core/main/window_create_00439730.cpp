@@ -19,7 +19,7 @@ __declspec(noinline) int __fastcall CreateGameWindow_00439730(HINSTANCE instance
     window_class.hbrBackground = (HBRUSH)GetStockObject(4);            // BLACK_BRUSH
     window_class.hCursor = LoadCursorA(0, (LPCSTR)0x7F00);             // IDC_ARROW
     window_class.hInstance = instance;
-    window_class.lpfnWndProc = WindowProcedure_004390e0;
+    window_class.lpfnWndProc = WindowProcedure;
     g_main_window.input_enabled = 1;
     g_main_window.reserved_10 = 0;
     window_class.lpszClassName = "BASE";

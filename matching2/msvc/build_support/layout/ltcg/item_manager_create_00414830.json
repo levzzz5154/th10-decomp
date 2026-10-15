@@ -186,7 +186,7 @@
     },
     {
       "name": "ActualSchedulerRemove",
-      "symbol": "?ManagerTeardownFuncCtrl_Remove_00449F60@@YGXPAUFuncCtrl@@PAUSchedulerTask@@@Z",
+      "symbol": "?ManagerTeardownFuncCtrl_Remove@@YGXPAUFuncCtrl@@PAUSchedulerTask@@@Z",
       "section": ".text$07remove",
       "address": "0x00449F60",
       "size": 114

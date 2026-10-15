@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "StageText_00434a80_Initialize",
-      "symbol": "?Initialize@StageText_00434a80@@QAEXPBUStageTextVector_00434a80@@0HE@Z",
+      "symbol": "?Initialize@StageText@@QAEXPBUStageTextVector@@0HE@Z",
       "section": ".text$01stagetext",
       "address": "0x00434A80",
       "size": 206,
@@ -17,7 +17,7 @@
     }
   ],
   "context": {
-    "symbol": "?StageTextCompilerContext@@YGHPAPAUStageText_00434a80@@HPBUStageTextVector_00434a80@@@Z",
+    "symbol": "?StageTextCompilerContext@@YGHPAPAUStageText@@HPBUStageTextVector@@@Z",
     "section": ".text$03context",
     "address": "0x00434B50",
     "size": 52,

@@ -5,8 +5,8 @@
   "sources": [
     "src/core/main/font_atlas_draw_text.cpp"
   ],
-  "entry_symbol": "?FontAtlas_DrawPlainText_00437fe0@@YGXPBUFontAtlasRect_00437fe0@@HHIPBDPAUFontTexture_00437fe0@@@Z",
-  "function": "?FontAtlas_DrawPlainText_00437fe0@@YGXPBUFontAtlasRect_00437fe0@@HHIPBDPAUFontTexture_00437fe0@@@Z",
+  "entry_symbol": "?FontAtlas_DrawPlainText@@YGXPBUFontAtlasRect@@HHIPBDPAUFontTexture@@@Z",
+  "function": "?FontAtlas_DrawPlainText@@YGXPBUFontAtlasRect@@HHIPBDPAUFontTexture@@@Z",
   "code_bytes": 509,
   "absolute_symbols": {
     "__fltused": {
@@ -37,11 +37,11 @@
       "address": "0x00437160",
       "kind": "code"
     },
-    "_FontAtlas_Convert_00436da0@8": {
+    "_FontAtlas_Convert@8": {
       "address": "0x00436DA0",
       "kind": "code"
     },
-    "_D3DXLoadSurfaceFromMemory_004521a6@40": {
+    "_D3DXLoadSurfaceFromMemory@40": {
       "address": "0x004521A6",
       "kind": "code"
     },
@@ -107,7 +107,7 @@
     }
   },
   "bindings": {
-    "?FillRgb444_00436ca0@@YGXPAUSurface_00436ca0@@I@Z": "0x00436CA0"
+    "?FillRgb444@@YGXPAUSurface_00436ca0@@I@Z": "0x00436CA0"
   },
   "base_index_order": 0,
   "differences": [

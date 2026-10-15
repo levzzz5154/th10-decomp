@@ -26,7 +26,7 @@ struct BulletRuntimeState {
     unsigned char reserved_30e[6];
     int animation_progress; // 314
     unsigned char reserved_318[0x84];
-    PlayerWrapBounds_00407DA0* bounds;
+    PlayerWrapBounds* bounds;
     unsigned char reserved_3a0[0x14];
     MotionVector3 position;
     MotionVector3 velocity;
@@ -60,7 +60,7 @@ struct AnimationPosition_00448db0 {
     float x, y, z;
 };
 __declspec(noinline) void** __stdcall
-AnimationManager_CreateScreenPositionedPrimary_00448db0(void*, void**, int,
+AnimationManager_CreateScreenPositionedPrimary(void*, void**, int,
                                                         const AnimationPosition_00448db0*);
 extern "C" int __stdcall RunAnimationVm(void*);
 extern "C" __declspec(noinline) int __stdcall BulletRuntimeTick(BulletRuntimeState*);

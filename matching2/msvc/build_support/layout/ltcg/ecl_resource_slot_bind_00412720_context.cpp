@@ -3,7 +3,7 @@
 
 #pragma code_seg(".text$03context")
 int __stdcall Ctx(SlotTable_00412720** t, int* id, const char** d, int n) {
-    for (int i = 0; i < n; ++i) BindSlot_00412720(t[i], i, id[i], n, d[i] + 0x20);
+    for (int i = 0; i < n; ++i) BindSlot(t[i], i, id[i], n, d[i] + 0x20);
     return 0;
 }
 #pragma code_seg()

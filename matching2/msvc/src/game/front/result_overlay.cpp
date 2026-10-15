@@ -12,7 +12,7 @@ static __forceinline ResultAnimationId CreateDigit(void* resource, int index) {
     return reinterpret_cast<ResultAnimationLists*>(g_sprt_ctrl)->RegisterPrimaryBack(object);
 }
 #pragma code_seg(".text$004172e0_fn")
-void __stdcall ResultOverlay_SetMode(int kind, ResultOverlayState_004172e0* front, int number) {
+void __stdcall ResultOverlay_SetMode(int kind, ResultOverlayState* front, int number) {
     switch (kind) {
     case 0: {
         front->caption.Release();

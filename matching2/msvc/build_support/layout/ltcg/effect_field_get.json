@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "EffectFieldStore_Get",
-      "symbol": "?Get@EffectFieldStore_0043eac0@@QAEMM@Z",
+      "symbol": "?Get@EffectFieldStore@@QAEMM@Z",
       "section": ".text$01getfield",
       "address": "0x0043EAC0",
       "size": 424,
@@ -17,7 +17,7 @@
     }
   ],
   "context": {
-    "symbol": "?EffectFieldGetCompilerContext@@YGMPAUEffectFieldStore_0043eac0@@HM@Z",
+    "symbol": "?EffectFieldGetCompilerContext@@YGMPAUEffectFieldStore@@HM@Z",
     "section": ".text$03context",
     "address": "0x0043EC70",
     "size": 66,

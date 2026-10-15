@@ -1,11 +1,11 @@
 #include <string.h>
 #include "th10/game/hint_layout.hpp"
-static void SetOwner_00418d40(HintDataRecord* record,
+static void SetOwner(HintDataRecord* record,
                              Hint* owner) {
     record->owner = owner;
 }
 
-static void SetOwnerPair_00418d40(HintDataRecord* record,
+static void SetOwnerPair(HintDataRecord* record,
                                  Hint* owner) {
     record[0].owner = owner;
     record[1].owner = owner;
@@ -21,35 +21,35 @@ Hint* Hint::InitializeLayout() {
     Hint* manager = this;
     memset(manager, 0, sizeof(Hint));
     manager->flags |= 2;
-    SetOwnerPair_00418d40(&manager->records[0], manager);
+    SetOwnerPair(&manager->records[0], manager);
     ClearRecord_00418d40(&manager->records[0]);
     ClearRecord_00418d40(&manager->records[1]);
-    SetOwner_00418d40(&manager->records[2], manager);
+    SetOwner(&manager->records[2], manager);
     ClearRecord_00418d40(&manager->records[2]);
-    SetOwner_00418d40(&manager->records[3], manager);
+    SetOwner(&manager->records[3], manager);
     ClearRecord_00418d40(&manager->records[3]);
-    SetOwner_00418d40(&manager->records[4], manager);
+    SetOwner(&manager->records[4], manager);
     ClearRecord_00418d40(&manager->records[4]);
-    SetOwner_00418d40(&manager->records[5], manager);
+    SetOwner(&manager->records[5], manager);
     ClearRecord_00418d40(&manager->records[5]);
-    SetOwner_00418d40(&manager->records[6], manager);
+    SetOwner(&manager->records[6], manager);
     ClearRecord_00418d40(&manager->records[6]);
-    SetOwner_00418d40(&manager->records[7], manager);
+    SetOwner(&manager->records[7], manager);
     ClearRecord_00418d40(&manager->records[7]);
-    SetOwnerPair_00418d40(&manager->records[8], manager);
+    SetOwnerPair(&manager->records[8], manager);
     ClearRecord_00418d40(&manager->records[8]);
     ClearRecord_00418d40(&manager->records[9]);
-    SetOwner_00418d40(&manager->records[10], manager);
+    SetOwner(&manager->records[10], manager);
     ClearRecord_00418d40(&manager->records[10]);
-    SetOwner_00418d40(&manager->records[11], manager);
+    SetOwner(&manager->records[11], manager);
     ClearRecord_00418d40(&manager->records[11]);
-    SetOwner_00418d40(&manager->records[12], manager);
+    SetOwner(&manager->records[12], manager);
     ClearRecord_00418d40(&manager->records[12]);
-    SetOwner_00418d40(&manager->records[13], manager);
+    SetOwner(&manager->records[13], manager);
     ClearRecord_00418d40(&manager->records[13]);
-    SetOwner_00418d40(&manager->records[14], manager);
+    SetOwner(&manager->records[14], manager);
     ClearRecord_00418d40(&manager->records[14]);
-    SetOwner_00418d40(&manager->records[15], manager);
+    SetOwner(&manager->records[15], manager);
     ClearRecord_00418d40(&manager->records[15]);
     g_hint = manager;
     return manager;

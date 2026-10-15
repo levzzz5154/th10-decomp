@@ -27,7 +27,7 @@ extern "C" __declspec(noinline) int __cdecl asm_FUN_004451c0_004451c0(
 int __stdcall DrawGlobalAnimationCompilerContext(RenderEntity_00449440** entities, int count) {
     int total = 0;
     while (count--)
-        total += DrawGlobalAnimation_00449440(*entities++);
+        total += DrawGlobalAnimation(*entities++);
     return total;
 }
 #pragma code_seg()

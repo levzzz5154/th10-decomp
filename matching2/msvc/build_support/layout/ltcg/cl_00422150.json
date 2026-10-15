@@ -96,12 +96,12 @@
       "kind": "data"
     },
     {
-      "symbol": "@Pause_UpdateTask_00422a90@4",
+      "symbol": "@Pause_UpdateTask@4",
       "address": "0x00422A90",
       "kind": "data"
     },
     {
-      "symbol": "@Pause_DrawTask_00422aa0@4",
+      "symbol": "@Pause_DrawTask@4",
       "address": "0x00422AA0",
       "kind": "data"
     },

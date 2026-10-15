@@ -9,13 +9,13 @@ extern "C" unsigned char ResourceBaseVtable_0046f210;
 // Twelve-byte FileHandle layout, with the complete constructor/destructor
 // vtable transitions represented explicitly. Open has the genuine retail
 // public ECX receiver and path/mode stack arguments.
-struct ResourceSizeFile_004358e0 {
+struct ResourceSizeFile {
     void* vtable;
     HANDLE handle;
     DWORD access;
-    __forceinline ResourceSizeFile_004358e0()
+    __forceinline ResourceSizeFile()
         : vtable(&ResourceFileVtable_0046f230), handle((HANDLE)-1), access(0) {}
-    ~ResourceSizeFile_004358e0();
+    ~ResourceSizeFile();
     BYTE Open(const char* path, const char* mode);
     __forceinline void Close() {
         if (handle != (HANDLE)-1) {
@@ -31,15 +31,15 @@ struct ResourceSizeFile_004358e0 {
     }
 };
 #pragma code_seg(".text$03dtor")
-ResourceSizeFile_004358e0::~ResourceSizeFile_004358e0() {
+ResourceSizeFile::~ResourceSizeFile() {
     vtable = &ResourceFileVtable_0046f230;
     Close();
     vtable = &ResourceBaseVtable_0046f210;
 }
 #pragma code_seg()
-typedef char ResourceSizeFileLayout[sizeof(ResourceSizeFile_004358e0) == 12 ? 1 : -1];
+typedef char ResourceSizeFileLayout[sizeof(ResourceSizeFile) == 12 ? 1 : -1];
 typedef char
-    ResourceSizeFileHandleOffset[offsetof(ResourceSizeFile_004358e0, handle) == 4 ? 1 : -1];
+    ResourceSizeFileHandleOffset[offsetof(ResourceSizeFile, handle) == 4 ? 1 : -1];
 typedef char
-    ResourceSizeFileAccessOffset[offsetof(ResourceSizeFile_004358e0, access) == 8 ? 1 : -1];
+    ResourceSizeFileAccessOffset[offsetof(ResourceSizeFile, access) == 8 ? 1 : -1];
 #endif

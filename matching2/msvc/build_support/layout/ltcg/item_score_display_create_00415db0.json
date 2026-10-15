@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "name": "item_score_display_create_00415db0",
+  "name": "item_score_display_create",
   "source": "src/game/front/item_score_display_create_00415db0.cpp",
   "driver": "build_support/layout/ltcg/item_score_display_create_00415db0/context.cpp",
   "headers": [
@@ -152,7 +152,7 @@
   "anchors": [
     {
       "name": "ConstructorStandIn",
-      "symbol": "??0ItemScoreDisplay_00415db0@@QAE@PAX@Z",
+      "symbol": "??0ItemScoreDisplay@@QAE@PAX@Z",
       "section": ".text$01a_ctor",
       "address": "0x00415B00",
       "size": 151

@@ -10,7 +10,7 @@ extern "C" {
     void __cdecl asm_free_004524a1(void* memory);
     int __stdcall Ordinal_11_00452170(const void* device_id,
         WaveDirectSoundDevice** output, void* outer);
-    __declspec(noinline) int __stdcall Sound_SetPrimaryFormat_0044c7e0(unsigned short channels,
+    __declspec(noinline) int __stdcall Sound_SetPrimaryFormat(unsigned short channels,
         unsigned int rate, unsigned short bits, WaveDirectSoundDevice** owner);
     extern SoundSetTimer g_sound_set_timer;
     extern WaveSoundManager g_wave_sound_manager;
@@ -37,7 +37,7 @@ struct SoundDeviceOwner {
             current = device;
             result = current->methods->set_cooperative_level(current, target_window, level);
             if (result >= 0) {
-                Sound_SetPrimaryFormat_0044c7e0(channels, rate, bits, &device);
+                Sound_SetPrimaryFormat(channels, rate, bits, &device);
                 result = 0;
             }
         }

@@ -2,7 +2,7 @@
 #define TH10_APP_SCREENSHOT_CAPTURE_00420670_HPP
 #include <stddef.h>
 
-struct Direct3DSurface_00420670;
+struct Direct3DSurface;
 struct Direct3DDevice_00420670;
 
 struct LockedRect_00420670 {
@@ -10,30 +10,30 @@ struct LockedRect_00420670 {
     unsigned char* bits;
 };
 
-struct Direct3DSurfaceMethods_00420670 {
+struct Direct3DSurfaceMethods {
     void* query_interface;
     void* add_ref;
-    unsigned long (__stdcall* Release)(Direct3DSurface_00420670*);
+    unsigned long (__stdcall* Release)(Direct3DSurface*);
     void* reserved_0c[(0x34 - 0x0C) / 4];
-    long (__stdcall* LockRect)(Direct3DSurface_00420670*, LockedRect_00420670*, const void* rect,
+    long (__stdcall* LockRect)(Direct3DSurface*, LockedRect_00420670*, const void* rect,
                                unsigned long flags);
-    long (__stdcall* UnlockRect)(Direct3DSurface_00420670*);
+    long (__stdcall* UnlockRect)(Direct3DSurface*);
 };
-struct Direct3DSurface_00420670 {
-    Direct3DSurfaceMethods_00420670* methods;
+struct Direct3DSurface {
+    Direct3DSurfaceMethods* methods;
 };
 
-struct Direct3DDeviceMethods_00420670 {
+struct Direct3DDeviceMethods {
     void* reserved_00[0x48 / 4];
     long (__stdcall* GetBackBuffer)(Direct3DDevice_00420670*, unsigned int swap_chain, unsigned int index,
-                                    unsigned int type, Direct3DSurface_00420670** surface);
+                                    unsigned int type, Direct3DSurface** surface);
 };
 struct Direct3DDevice_00420670 {
-    Direct3DDeviceMethods_00420670* methods;
+    Direct3DDeviceMethods* methods;
 };
 
 #pragma pack(push, 2)
-struct BitmapFileHeader_00420670 {
+struct BitmapFileHeader {
     unsigned short type;
     unsigned int size;
     unsigned short reserved1;
@@ -43,7 +43,7 @@ struct BitmapFileHeader_00420670 {
 #pragma pack(pop)
 
 // BITMAPINFOHEADER plus one spare word, as the game allocates it (0x2C bytes).
-struct BitmapInfoHeader_00420670 {
+struct BitmapInfoHeader {
     unsigned int size;
     long width;
     long height;
@@ -67,9 +67,9 @@ struct GameApp_00420670 {
     unsigned int back_buffer_format;        // +0x0EC (D3DFORMAT)
     unsigned char reserved_0f0[0x50C - 0xF0];
     unsigned long screenshot_thread;        // +0x50C (0x00492134), zero when no write is pending
-    BitmapFileHeader_00420670 file_header;  // +0x510
+    BitmapFileHeader file_header;  // +0x510
     unsigned char reserved_51e[2];
-    BitmapInfoHeader_00420670* info_header; // +0x520
+    BitmapInfoHeader* info_header; // +0x520
     unsigned char* pixels;                  // +0x524, bottom-up 640x480 BGR
     char filename[256];                     // +0x528
 
@@ -77,11 +77,11 @@ struct GameApp_00420670 {
     // thread that writes it. Returns 1 for an unknown back buffer format.
     __declspec(noinline) int CaptureScreenshot(const char* name);
 };
-typedef char GameAppFormatOffset_00420670[offsetof(GameApp_00420670, back_buffer_format) == 0xEC ? 1 : -1];
-typedef char GameAppThreadOffset_00420670[offsetof(GameApp_00420670, screenshot_thread) == 0x50C ? 1 : -1];
-typedef char GameAppHeaderOffset_00420670[offsetof(GameApp_00420670, file_header) == 0x510 ? 1 : -1];
-typedef char GameAppInfoOffset_00420670[offsetof(GameApp_00420670, info_header) == 0x520 ? 1 : -1];
-typedef char GameAppNameOffset_00420670[offsetof(GameApp_00420670, filename) == 0x528 ? 1 : -1];
+typedef char GameAppFormatOffset[offsetof(GameApp_00420670, back_buffer_format) == 0xEC ? 1 : -1];
+typedef char GameAppThreadOffset[offsetof(GameApp_00420670, screenshot_thread) == 0x50C ? 1 : -1];
+typedef char GameAppHeaderOffset[offsetof(GameApp_00420670, file_header) == 0x510 ? 1 : -1];
+typedef char GameAppInfoOffset[offsetof(GameApp_00420670, info_header) == 0x520 ? 1 : -1];
+typedef char GameAppNameOffset[offsetof(GameApp_00420670, filename) == 0x528 ? 1 : -1];
 
 // The 8 KiB diagnostic text log at 0x00474F70.
 struct TextLog_00420670 {

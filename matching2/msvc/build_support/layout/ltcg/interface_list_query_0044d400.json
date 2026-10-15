@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "interface_list_query_0044d400",
-      "symbol": "?QueryItem_0044d400@@YGJPAUInterfaceList_0044d400@@IPAPAX@Z",
+      "symbol": "?QueryItem@@YGJPAUInterfaceList_0044d400@@IPAPAX@Z",
       "section": ".text$01accessor",
       "address": "0x0044D400",
       "size": 52,

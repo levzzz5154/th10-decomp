@@ -38,14 +38,14 @@ struct Vector2_004458b0 {
     Vector2_004458b0* SetPolar(float angle, float radius);
 };
 
-struct RingVector3_004452f0 {
+struct RingVector3 {
     float x, y, z;
-    RingVector3_004452f0() {}
-    RingVector3_004452f0(float x_, float y_, float z_) : x(x_), y(y_), z(z_) {}
-    RingVector3_004452f0 operator+(const RingVector3_004452f0& other) const {
-        return RingVector3_004452f0(x + other.x, y + other.y, z + other.z);
+    RingVector3() {}
+    RingVector3(float x_, float y_, float z_) : x(x_), y(y_), z(z_) {}
+    RingVector3 operator+(const RingVector3& other) const {
+        return RingVector3(x + other.x, y + other.y, z + other.z);
     }
-    RingVector3_004452f0& operator+=(const RingVector3_004452f0& other) {
+    RingVector3& operator+=(const RingVector3& other) {
         x += other.x;
         y += other.y;
         z += other.z;
@@ -53,16 +53,16 @@ struct RingVector3_004452f0 {
     }
 };
 
-struct RingParticle_004452f0 {
-    RingVector3_004452f0 position;  // +0x00
+struct RingParticle {
+    RingVector3 position;  // +0x00
     float scale;                    // +0x0C
     unsigned int color;             // +0x10
     float u;                        // +0x14
     float v;                        // +0x18
 };
 
-struct RingState_004452f0 {
-    RingParticle_004452f0 particles[33];  // +0x000
+struct RingState {
+    RingParticle particles[33];  // +0x000
     unsigned char unknown_39C[0x3A0 - 0x39C];
     float radii[33];                // +0x3A0
     float drifts[32];               // +0x424
@@ -71,15 +71,15 @@ struct RingState_004452f0 {
     unsigned char unknown_4AC[0x4B0 - 0x4AC];
 };
 
-struct RingEntity_004452f0 {
+struct RingEntity {
     unsigned char unknown_000[0x334];
-    RingVector3_004452f0 base;      // +0x334
-    RingVector3_004452f0 position;  // +0x340
+    RingVector3 base;      // +0x334
+    RingVector3 position;  // +0x340
     unsigned char unknown_34C[0x358 - 0x34C];
-    RingState_004452f0* state;      // +0x358
+    RingState* state;      // +0x358
     unsigned char unknown_35C[0x398 - 0x35C];
-    int (RingEntity_004452f0::*on_update)();  // +0x398
-    int (RingEntity_004452f0::*on_draw)();    // +0x39C
+    int (RingEntity::*on_update)();  // +0x398
+    int (RingEntity::*on_draw)();    // +0x39C
 
     int Advance();
     int DrawFan33();
@@ -87,20 +87,20 @@ struct RingEntity_004452f0 {
 };
 
 #pragma code_seg(".text$02buildring")
-int RingEntity_004452f0::BuildRing() {
+int RingEntity::BuildRing() {
     if (state) {
         crt_free(state);
         state = 0;
     }
-    RingState_004452f0* ring = (RingState_004452f0*)asm_malloc_00452706(sizeof(RingState_004452f0));
+    RingState* ring = (RingState*)asm_malloc_00452706(sizeof(RingState));
     state = ring;
-    on_update = &RingEntity_004452f0::Advance;
-    on_draw = &RingEntity_004452f0::DrawFan33;
+    on_update = &RingEntity::Advance;
+    on_draw = &RingEntity::DrawFan33;
     ring->scroll_rate = Rng_NextFloatSigned(&g_rng) * (1.0f / 120.0f);
     ring->spare_rate = Rng_NextFloatSigned(&g_rng) * (1.0f / 120.0f);
 
     float angle = -3.14159265358979323846f;
-    RingParticle_004452f0* particle = ring->particles;
+    RingParticle* particle = ring->particles;
     particle->position = base + position;
     particle->scale = 1.0f;
     particle->u = 0.5f;

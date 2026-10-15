@@ -4,7 +4,7 @@
 #include "th10/platform/native_primary_format.hpp"
 
 #pragma code_seg(".text$a06format")
-extern "C" __declspec(noinline) int __fastcall Sound_SetPrimaryFormat_0044c7e0(unsigned short bits,
+extern "C" __declspec(noinline) int __fastcall Sound_SetPrimaryFormat(unsigned short bits,
         unsigned short channels, unsigned int rate, WaveDirectSoundDevice** owner) {
     WaveSecondaryBuffer* primary = 0;
     WaveDirectSoundDevice* device = *owner;

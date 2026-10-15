@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "name": "key_config_refresh_0042f8b0",
+  "name": "key_config_refresh",
   "source": "src/game/title/fun_0042f8b0_0042f8b0.cpp",
   "driver": "build_support/layout/ltcg/key_config_refresh_0042f8b0_context.cpp",
   "headers": [
@@ -28,7 +28,7 @@
     },
     {
       "name": "Find_004491c0_abi_anchor",
-      "symbol": "?Find@KeyConfigAnimationManager_0042f8b0@@QAIPAXPAUKeyConfigLookupContext_0042f8b0@@UKeyConfigScriptId_0042f8b0@@@Z",
+      "symbol": "?Find@KeyConfigAnimationManager@@QAIPAXPAUKeyConfigLookupContext@@UKeyConfigScriptId@@@Z",
       "section": ".text$05find",
       "address": "0x004491C0",
       "size": 73

@@ -4,7 +4,7 @@
 #include "th10/game/stage_startup_00417870.hpp"
 
 #pragma code_seg(".text$00418b80_fn")
-void StageRunState_00417870::SetGauge(int amount) {
+void StageRunState::SetGauge(int amount) {
     gauge = amount / 10;
     if (!(gauge_timer.flags & 1)) {
         gauge_timer.current = 0;

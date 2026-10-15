@@ -4,6 +4,6 @@
 
 #include "th10/util/heap.hpp"
 
-void __fastcall AssignText_00438220(int unused, const char* text, LegacyString* target) {
+void __fastcall AssignText(int unused, const char* text, LegacyString* target) {
     target->AssignRange(text, (uint32_t)strlen(text));
 }

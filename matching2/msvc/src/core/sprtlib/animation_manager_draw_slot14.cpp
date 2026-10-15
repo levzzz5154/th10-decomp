@@ -32,11 +32,11 @@
 // The two adjacent shake offsets at 0x00491E64: the camera setup copies them
 // into the active view's offset pair and the shake task at 0x0043C710 writes
 // them from its sine terms.
-struct ShakeOffset_00448740 {
+struct ShakeOffset {
     float x;    // 0x00491E64
     float y;    // 0x00491E68
 };
-extern "C" ShakeOffset_00448740 g_screen_shake_x;
+extern "C" ShakeOffset g_screen_shake_x;
 
 // 0x00448980: walk the entity list of one render slot.
 extern "C" int __cdecl asm_AnimationManager_RenderBucket_00448980(
@@ -44,7 +44,7 @@ extern "C" int __cdecl asm_AnimationManager_RenderBucket_00448980(
 
 #pragma code_seg(".text$01slot14")
 int SprtCtrlBatchView::ResetOriginAndRenderSlot14() {
-    ShakeOffset_00448740* shake = &g_screen_shake_x;
+    ShakeOffset* shake = &g_screen_shake_x;
     shake->x = 0.0f;
     shake->y = 0.0f;
     g_sprt_ctrl->origin_x = 0.0f;

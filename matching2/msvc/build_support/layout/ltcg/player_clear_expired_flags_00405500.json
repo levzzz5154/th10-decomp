@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "PlayerFlags_ClearExpiredFlags_00405500",
-      "symbol": "?ClearExpiredFlags@PlayerFlags_00405500@@QAEXXZ",
+      "symbol": "?ClearExpiredFlags@PlayerFlags@@QAEXXZ",
       "section": ".text$01flags",
       "address": "0x00405500",
       "size": 81,

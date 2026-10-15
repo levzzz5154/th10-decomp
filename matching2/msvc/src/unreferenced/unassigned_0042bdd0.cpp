@@ -7,7 +7,7 @@
 // the object itself to the CRT free entry at 0x004524A1, and finally returns
 // the object in EAX.  The object lives in ESI across both calls, a receiver no
 // C++ declaration names, so the body is compiled in the native-LTCG cluster
-// build_support/layout/ltcg/disposable_destroy_0042bdd0.json whose array-walking synthetic
+// build_support/layout/ltcg/disposable_destroy.json whose array-walking synthetic
 // caller establishes that convention.
 //
 // The vtable address is taken through an array declaration, which is the shape
@@ -17,16 +17,16 @@ extern "C" char g_enemy_eff_vtable[];
 extern "C" void __cdecl crt_free(void* block);
 extern "C" void __cdecl crt_free_startup(void* block);
 
-struct Disposable_0042bdd0 {
+struct Disposable {
     void* vtable;                          // +0x00
     unsigned char unknown_04[0x88];
     void* block;                           // +0x8C
 };
 
-__declspec(noinline) void* Disposable_0042bdd0_Destroy(Disposable_0042bdd0* object, int flags);
+__declspec(noinline) void* Disposable_0042bdd0_Destroy(Disposable* object, int flags);
 
 #pragma code_seg(".text$01del")
-void* Disposable_0042bdd0_Destroy(Disposable_0042bdd0* object, int flags) {
+void* Disposable_0042bdd0_Destroy(Disposable* object, int flags) {
     void* block = object->block;
     object->vtable = g_enemy_eff_vtable;
     if (block != 0) {

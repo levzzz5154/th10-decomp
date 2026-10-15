@@ -2,7 +2,7 @@
 // The digit owner shared with the unchanged 0x004054B0 implementation.
 #include "th10/render/animation_object_0043e5a0.hpp"
 
-struct PowerDisplayOwner_004054b0 {
+struct PowerDisplayOwner {
     unsigned char reserved_0000[0x6A8C];
     unsigned char whole_digit[0x71E4 - 0x6A8C];        // +0x6A8C
     unsigned char tens_digit[0x7590 - 0x71E4];         // +0x71E4

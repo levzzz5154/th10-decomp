@@ -47,7 +47,7 @@ typedef unsigned short (__fastcall* KeyMaskSink)(unsigned short mask,
 
 // One 0x6A-byte binding set at 0x00474E30: the five-word published-word
 // history, then the sixteen per-action hold counters and the binding table.
-struct BindingSet_0044a5f0 {
+struct BindingSet {
     unsigned short current, previous, repeat, pressed, released;
     unsigned short hold[16];
 };
@@ -55,7 +55,7 @@ struct BindingSet_0044a5f0 {
 unsigned short __fastcall FUN_0044a5f0_0044a5f0(unsigned int binding_index,
                                                 int unused) {
     unsigned short mask = 0;
-    BindingSet_0044a5f0* binding = (BindingSet_0044a5f0*)
+    BindingSet* binding = (BindingSet*)
             (0x00474E30 + binding_index * 0x6A);
     BYTE state[256];
 

@@ -22,7 +22,7 @@ typedef char RngState_size_check[sizeof(RngState) == 8 ? 1 : -1];
 // 0x0043CB80 - generate two words and reduce the packed value. Defined in
 // the class like the retail header: its out-of-line copy is emitted beside
 // the screen effects that call it, and callers spill x87 values around it.
-struct EntityScriptRng_0043cb80 : RngState {
+struct EntityScriptRng : RngState {
     unsigned int NextRandomModulo(unsigned int modulus) {
         if (modulus == 0)
             return 0;

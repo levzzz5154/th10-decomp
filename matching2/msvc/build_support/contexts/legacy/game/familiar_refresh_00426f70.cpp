@@ -15,8 +15,8 @@ extern "C" void* g_player;
 extern "C" float flt_100;
 extern "C" void* g_sprt_ctrl;
 
-static __forceinline FamiliarAnimManager_00426f70* AnimManager() {
-    return (FamiliarAnimManager_00426f70*)g_sprt_ctrl;
+static __forceinline FamiliarAnimManager* AnimManager() {
+    return (FamiliarAnimManager*)g_sprt_ctrl;
 }
 
 // Trail sprite scheduler callback (0x00427950) and playback switch callback
@@ -24,20 +24,20 @@ static __forceinline FamiliarAnimManager_00426f70* AnimManager() {
 struct PlayerOption;
 struct PlaybackState;
 int __fastcall PlayerOption_FollowTrail(PlayerOption* option);
-int __fastcall PlaybackState_OnSwitch_00427ad0(PlaybackState* state);
+int __fastcall PlaybackState_OnSwitch(PlaybackState* state);
 
 // The animation-manager create wrapper (0x00448E30): builds one sprite of the
 // requested script on layer 0x0F and hands the registered handle back through
 // the out slot.  Its private convention passes the out slot in EDI.
-void** __stdcall AnimationManager_CreatePrimaryFront_00448e30(
+void** __stdcall AnimationManager_CreatePrimaryFront(
     void* resource, void** out, int index, int render_bucket);
 
 // Resolve a handle through both manager buckets the way the retail sweep
 // inlines it: primary list first, then the secondary list, matching each
 // node's registered object id.
-static __forceinline FamiliarAnimEntry_00426f70* FindFamiliarAnimation(
-        FamiliarAnimManager_00426f70* manager, int handle) {
-    FamiliarAnimEntry_00426f70* node;
+static __forceinline FamiliarAnimEntry* FindFamiliarAnimation(
+        FamiliarAnimManager* manager, int handle) {
+    FamiliarAnimEntry* node;
     for (node = manager->primary_head; node != 0; node = node->next)
         if (node->object->animation_handle == handle)
             return node;
@@ -50,13 +50,13 @@ static __forceinline FamiliarAnimEntry_00426f70* FindFamiliarAnimation(
 // Mark one resolved animation and, unless its children are already flagged,
 // the whole direct child chain for removal (power >= 100 sweep).
 static __forceinline void RetireFamiliarAnimation(
-        FamiliarAnimEntry_00426f70* node, unsigned int remove_flag) {
-    FamiliarAnimObject_00426f70* object = node->object;
+        FamiliarAnimEntry* node, unsigned int remove_flag) {
+    FamiliarAnimObject* object = node->object;
     if (object == 0)
         return;
     object->flags |= remove_flag;
     if (!object->children_flagged)
-        for (FamiliarAnimEntry_00426f70* child = object->children;
+        for (FamiliarAnimEntry* child = object->children;
              child != 0; child = child->next)
             child->object->flags |= remove_flag;
 }
@@ -64,13 +64,13 @@ static __forceinline void RetireFamiliarAnimation(
 // Stop one resolved animation and its direct child chain (power < 100 sweep
 // and the surplus-record tail).
 static __forceinline void StopFamiliarAnimation(
-        FamiliarAnimEntry_00426f70* node) {
-    FamiliarAnimObject_00426f70* object = node->object;
+        FamiliarAnimEntry* node) {
+    FamiliarAnimObject* object = node->object;
     if (object == 0)
         return;
     object->stop_frame = 1;
     if (!object->children_flagged)
-        for (FamiliarAnimEntry_00426f70* child = object->children;
+        for (FamiliarAnimEntry* child = object->children;
              child != 0; child = child->next)
             child->object->stop_frame = 1;
 }
@@ -88,13 +88,13 @@ static __forceinline AnimationRef SpawnOrbitAnimation(
 }
 
 // Scale one schedule row (half size) into a record offset.
-static __forceinline void ScaleOffset(FamiliarPoint_00426f70* out,
-                                      const FamiliarOffsetRow_00426f70* row) {
+static __forceinline void ScaleOffset(FamiliarPoint* out,
+                                      const FamiliarOffsetRow* row) {
     out->x = (int)(flt_100 * row->x);
     out->y = (int)(flt_100 * row->y);
 }
 
-static __forceinline int SpawnFamiliar(PlayerFamiliarRuntime_00426f70* player,
+static __forceinline int SpawnFamiliar(PlayerFamiliarRuntime* player,
                                        int script) {
     AnimationBank* resource = player->resource;
     Entity* object = ((AnimationPool*)AnimManager())->Allocate();
@@ -103,8 +103,8 @@ static __forceinline int SpawnFamiliar(PlayerFamiliarRuntime_00426f70* player,
 
 #pragma code_seg(".text$00426f70_fn")
 extern "C" __declspec(noinline) void __stdcall Player_RefreshOptions(
-        PlayerFamiliarRuntime_00426f70* player) {
-    FamiliarRecord_00426f70* record = player->familiars;
+        PlayerFamiliarRuntime* player) {
+    FamiliarRecord* record = player->familiars;
     const unsigned int remove_flag = 0x4000000u;
     const int power = g_globals_score.power;
     int desired = power / 20;
@@ -115,7 +115,7 @@ extern "C" __declspec(noinline) void __stdcall Player_RefreshOptions(
         for (i = 4; i != 0; --i, ++record) {
             int handle = record->effect_handle;
             if (handle != 0) {
-                FamiliarAnimEntry_00426f70* node = FindFamiliarAnimation(
+                FamiliarAnimEntry* node = FindFamiliarAnimation(
                     AnimManager(), handle);
                 if (node != 0)
                     RetireFamiliarAnimation(node, remove_flag);
@@ -124,32 +124,32 @@ extern "C" __declspec(noinline) void __stdcall Player_RefreshOptions(
             switch (g_globals_score.character * 3 + g_globals_score.shot_type) {
             case 0: {
                 void* slot_0;
-                record->effect_handle = (int)*AnimationManager_CreatePrimaryFront_00448e30(
+                record->effect_handle = (int)*AnimationManager_CreatePrimaryFront(
                     player->resource, &slot_0, 0x14, 0xF);
                 break; }
             case 1: {
                 void* slot_1;
-                record->effect_handle = (int)*AnimationManager_CreatePrimaryFront_00448e30(
+                record->effect_handle = (int)*AnimationManager_CreatePrimaryFront(
                     player->resource, &slot_1, 0x15, 0xF);
                 break; }
             case 2: {
                 void* slot_2;
-                record->effect_handle = (int)*AnimationManager_CreatePrimaryFront_00448e30(
+                record->effect_handle = (int)*AnimationManager_CreatePrimaryFront(
                     player->resource, &slot_2, 0x16, 0xF);
                 break; }
             case 3: {
                 void* slot_3;
-                record->effect_handle = (int)*AnimationManager_CreatePrimaryFront_00448e30(
+                record->effect_handle = (int)*AnimationManager_CreatePrimaryFront(
                     player->resource, &slot_3, 0x14, 0xF);
                 break; }
             case 4: {
                 void* slot_4;
-                record->effect_handle = (int)*AnimationManager_CreatePrimaryFront_00448e30(
+                record->effect_handle = (int)*AnimationManager_CreatePrimaryFront(
                     player->resource, &slot_4, 0x15, 0xF);
                 break; }
             case 5: {
                 void* slot_5;
-                record->effect_handle = (int)*AnimationManager_CreatePrimaryFront_00448e30(
+                record->effect_handle = (int)*AnimationManager_CreatePrimaryFront(
                     player->resource, &slot_5, 0x16, 0xF);
                 break; }
             }
@@ -158,7 +158,7 @@ extern "C" __declspec(noinline) void __stdcall Player_RefreshOptions(
         for (i = 4; i != 0; --i, ++record) {
             int handle = record->effect_handle;
             if (handle != 0) {
-                FamiliarAnimEntry_00426f70* node =
+                FamiliarAnimEntry* node =
                     FindFamiliarAnimation(AnimManager(), handle);
                 if (node != 0)
                     StopFamiliarAnimation(node);
@@ -176,7 +176,7 @@ extern "C" __declspec(noinline) void __stdcall Player_RefreshOptions(
         player->familiars[i].anchor.CopyFrom(player->anchor);
         int handle = player->familiars[i].handle;
         if (handle != 0) {
-            FamiliarAnimEntry_00426f70* node = FindFamiliarAnimation(
+            FamiliarAnimEntry* node = FindFamiliarAnimation(
                 AnimManager(), handle);
             if (node != 0)
                 RetireFamiliarAnimation(node, remove_flag);
@@ -193,9 +193,9 @@ extern "C" __declspec(noinline) void __stdcall Player_RefreshOptions(
                         &player->offsets->carried[data_00476f7c[desired] + i]);
             ScaleOffset(&player->familiars[i].focused,
                         &player->offsets->focused[data_00476f7c[desired] + i]);
-            const FamiliarPoint_00426f70* offset = player->alternate
+            const FamiliarPoint* offset = player->alternate
                 ? &player->familiars[i].focused : &player->familiars[i].carried;
-            FamiliarPoint_00426f70 position = player->anchor + *offset;
+            FamiliarPoint position = player->anchor + *offset;
             player->familiars[i].position.CopyFrom(position);
             player->familiars[i].anchor.CopyFrom(position);
             switch (g_globals_score.shot_type) {
@@ -229,7 +229,7 @@ extern "C" __declspec(noinline) void __stdcall Player_RefreshOptions(
                         player->familiars[i].carried.CopyFrom(player->familiars[i - 1].carried);
                     }
                 }
-                player->familiars[i].callback = (FamiliarCallback_00426f70)
+                player->familiars[i].callback = (FamiliarCallback)
                     &PlayerOption_FollowTrail;
                 player->familiars[i].handle = SpawnFamiliar(player, 0x11);
                 player->familiars[i].anchor.x = player->history[i * 8].x;
@@ -242,7 +242,7 @@ extern "C" __declspec(noinline) void __stdcall Player_RefreshOptions(
                             &player->offsets->carried[data_00476f7c[desired] + i]);
                 ScaleOffset(&player->familiars[i].focused,
                             &player->offsets->focused[data_00476f7c[desired] + i]);
-                const FamiliarPoint_00426f70* offset = player->alternate
+                const FamiliarPoint* offset = player->alternate
                     ? &player->familiars[i].focused : &player->familiars[i].carried;
                 player->familiars[i].position = *offset + player->anchor;
                 player->familiars[i].handle = SpawnFamiliar(player, 0x12);
@@ -264,8 +264,8 @@ extern "C" __declspec(noinline) void __stdcall Player_RefreshOptions(
                 if (player->alternate)
                     ((AnimationHandle_00449470*)&player->familiars[i].handle)
                         ->SetStopFrame(3);
-                player->familiars[i].callback = (FamiliarCallback_00426f70)
-                    &PlaybackState_OnSwitch_00427ad0;
+                player->familiars[i].callback = (FamiliarCallback)
+                    &PlaybackState_OnSwitch;
                 break; }
             }
             break;
@@ -277,9 +277,9 @@ extern "C" __declspec(noinline) void __stdcall Player_RefreshOptions(
     for (; i < 4; ++i) {
         int* slot = &player->familiars[i].handle;
         int handle = *slot;
-        ((FamiliarRecord_00426f70*)((char*)slot - 0x68))->state = 0;
+        ((FamiliarRecord*)((char*)slot - 0x68))->state = 0;
         if (handle != 0) {
-            FamiliarAnimEntry_00426f70* node =
+            FamiliarAnimEntry* node =
                 FindFamiliarAnimation(AnimManager(), handle);
             if (node != 0)
                 StopFamiliarAnimation(node);

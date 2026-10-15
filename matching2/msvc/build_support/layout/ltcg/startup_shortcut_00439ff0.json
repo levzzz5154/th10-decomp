@@ -15,7 +15,7 @@
   "functions": [
     {
       "name": "Startup",
-      "symbol": "_Startup_InstanceCheck_00439ff0",
+      "symbol": "_Startup_InstanceCheck",
       "section": ".text$01startup",
       "address": "0x00439FF0",
       "size": 442,
@@ -71,7 +71,7 @@
   ],
   "constants": [],
   "roots": [
-    "_Startup_InstanceCheck_00439ff0"
+    "_Startup_InstanceCheck"
   ],
   "absolute_symbols": [
     {
@@ -225,12 +225,12 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_Startup_New_00452493",
+      "symbol": "_Startup_New",
       "address": "0x452493",
       "kind": "relative_code"
     },
     {
-      "symbol": "_Startup_Free_004524a1",
+      "symbol": "_Startup_Free",
       "address": "0x4524a1",
       "kind": "relative_code"
     },

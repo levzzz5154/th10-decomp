@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "name": "bullet_manager_create_00406060",
+  "name": "bullet_manager_create",
   "source": "src/game/bullet/bullet_manager_create_00406060.cpp",
   "driver": "build_support/layout/ltcg/bullet_manager_create_00406060/context.cpp",
   "headers": [

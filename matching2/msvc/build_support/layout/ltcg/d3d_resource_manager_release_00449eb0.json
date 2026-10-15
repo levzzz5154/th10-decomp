@@ -74,7 +74,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "?g_destroy_worker_00438880@@3UPlatformWorker@@A",
+      "symbol": "?g_destroy_worker@@3UPlatformWorker@@A",
       "address": "0x492254",
       "kind": "data"
     },
@@ -97,7 +97,7 @@
   "anchors": [
     {
       "name": "Release",
-      "symbol": "?ReleaseResourceList_00449eb0@@YGXPAUFuncCtrl@@PAUResourceList_DestroyABI_00449e50@@@Z",
+      "symbol": "?ReleaseResourceList@@YGXPAUFuncCtrl@@PAUResourceList_DestroyABI@@@Z",
       "section": ".text$07release",
       "address": "0x00449E50",
       "size": 82

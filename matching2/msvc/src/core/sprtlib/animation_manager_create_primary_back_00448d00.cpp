@@ -18,7 +18,7 @@ extern "C" void** __cdecl asm_AnimationManager_RegisterPrimaryBack_004489d0(
 
 #pragma code_seg(".text$05aa_back")
 __declspec(noinline)
-void** __stdcall AnimationManager_CreatePrimaryBack_00448d00(
+void** __stdcall AnimationManager_CreatePrimaryBack(
         void* resource, void** out, int index, int render_bucket) {
     AnimationObject_00448d00* object =
         (AnimationObject_00448d00*)asm_FUN_00449950_00449950(g_sprt_ctrl);

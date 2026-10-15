@@ -2,7 +2,7 @@
 // with the frame fixed.
 #include "animation.hpp"
 #pragma code_seg(".text$02b")
-void SubHandle4_004236f0::StopAtFrame3() {
+void SubHandle4::StopAtFrame3() {
     AnimationScriptId id;
     id.value = (int)value;
     AnimationTreeNode* node = reinterpret_cast<AnimationTreeNode*>(

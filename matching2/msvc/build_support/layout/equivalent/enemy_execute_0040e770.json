@@ -18,7 +18,7 @@
       "address": "0x0044BC70",
       "kind": "code"
     },
-    "?Motion_SetAngle_00413170@@YGXPAUEnemyMotion@@M@Z": {
+    "?Motion_SetAngle@@YGXPAUEnemyMotion@@M@Z": {
       "address": "0x00413170",
       "kind": "code"
     },
@@ -114,11 +114,11 @@
       "address": "0x00401000",
       "kind": "code"
     },
-    "_g_offset_point_00497d80": {
+    "_g_offset_point": {
       "address": "0x00497D80",
       "kind": "data"
     },
-    "_g_offset_point_state_00497d8c": {
+    "_g_offset_point_state": {
       "address": "0x00497D8C",
       "kind": "data"
     }
@@ -135,28 +135,28 @@
     "?Set_00405410@FrameTimer@@QAEXH@Z": "0x00405410",
     "?Restart_004050d0@Float3Interp@@QAEXXZ": "0x004050D0",
     "?Restart_00412db0@Float2Interp@@QAEXXZ": "0x00412DB0",
-    "?NextFloatSigned_0044bb90@RngState@@QAEMXZ": "0x0044BB90",
+    "?NextFloatSigned@RngState@@QAEMXZ": "0x0044BB90",
     "?Release_00449630@AnmHandle@@QAEXXZ": "0x00449630",
     "?Show_004495e0@AnmHandle@@QAEXXZ": "0x004495E0",
     "?Hide_00449590@AnmHandle@@QAEXXZ": "0x00449590",
-    "?Anm_CreateBack_00448d00@@YGPAUAnmHandle@@PAUAnmLoaded@@PAU1@HH@Z": "0x00448D00",
-    "?Anm_CreateFront_00448e30@@YGPAUAnmHandle@@PAUAnmLoaded@@PAU1@HH@Z": "0x00448E30",
+    "?Anm_CreateBack@@YGPAUAnmHandle@@PAUAnmLoaded@@PAU1@HH@Z": "0x00448D00",
+    "?Anm_CreateFront@@YGPAUAnmHandle@@PAUAnmLoaded@@PAU1@HH@Z": "0x00448E30",
     "?Anm_Resolve_00449450@@YGPAUAnmVm@@PAUAnmHandle@@@Z": "0x00449450",
     "?OffsetPoint_00418810@@YGPAUFloat3@@PBU1@@Z": "0x00418810",
     "?Apply@RigCamera@@QAEXXZ": "0x004215A0",
     "?SelectStage_00401d20@RenderStageState@@QAEXH@Z": "0x00401D20",
-    "?EnemyCtrl_Spawn_0040cfb0@@YGPAUEnemyFull@@PBUEnemySpawn@@PAUEnemyCtrl@@PBD@Z": "0x0040CFB0",
-    "?EnemyCtrl_SweepDeaths_0040e6a0@@YGXPAUEnemyCtrl@@@Z": "0x0040E6A0",
-    "?Enemy_BindSlot_00412720@@YGXPAUEnemyFull@@HHHPBD@Z": "0x00412720",
-    "?Drops_Flush_0040c9a0@@YGXPBUFloat3@@PAUItemDrops@@@Z": "0x0040C9A0",
-    "?Shoot_004073e0@Shooter@@QAEHPAUBulletManager@@@Z": "0x004073E0",
+    "?EnemyCtrl_Spawn@@YGPAUEnemyFull@@PBUEnemySpawn@@PAUEnemyCtrl@@PBD@Z": "0x0040CFB0",
+    "?EnemyCtrl_SweepDeaths@@YGXPAUEnemyCtrl@@@Z": "0x0040E6A0",
+    "?Enemy_BindSlot@@YGXPAUEnemyFull@@HHHPBD@Z": "0x00412720",
+    "?Drops_Flush@@YGXPBUFloat3@@PAUItemDrops@@@Z": "0x0040C9A0",
+    "?Shoot@Shooter@@QAEHPAUBulletManager@@@Z": "0x004073E0",
     "?Sweep_00408210@BulletManager@@QAEHH@Z": "0x00408210",
     "?Check_00408100@BulletManager@@QAEHPBUFloat3@@MHH@Z": "0x00408100",
     "?Cleanup_0041c850@LaserManager@@QAEHH@Z": "0x0041C850",
     "?FindById_0040cf90@LaserManager@@QAEPAULaser@@H@Z": "0x0040CF90",
     "?Evaluate_0041c800@LaserManager@@QAEHPBUFloat3@@MH@Z": "0x0041C800",
     "?MarkEligible_0041c7d0@LaserManager@@QAEHXZ": "0x0041C7D0",
-    "?SetVector_0040cf60@Laser@@QAEXABUFloat3@@@Z": "0x0040CF60",
+    "?SetVector@Laser@@QAEXABUFloat3@@@Z": "0x0040CF60",
     "?Spawn_0041c510@LaserManager@@QAEHPBULaserParams@@H@Z": "0x0041C510",
     "?Construct_0040cf40@BeamLaserParams@@QAEPAU1@XZ": "0x0040CF40",
     "?CreateScoreDisplay_00415db0@Gui@@QAEXH@Z": "0x00415DB0",
@@ -164,8 +164,8 @@
     "?Screen_Create@@YGPAXHHHHHH@Z": "0x0043C8B0",
     "?Score_SetMode_00412ed0@@YGXPAUScoreState@@H@Z": "0x00412ED0",
     "?End_00409c00@Card@@QAEXXZ": "0x00409C00",
-    "?StopAnimation_0040cea0@Card@@QAEXXZ": "0x0040CEA0",
-    "?Card_Start_00409280@@YGXPAUCard@@HPBDHH@Z": "0x00409280",
+    "?StopAnimation@Card@@QAEXXZ": "0x0040CEA0",
+    "?Card_Start@@YGXPAUCard@@HPBDHH@Z": "0x00409280",
     "@__security_check_cookie@4": "0x00458EA5",
     "__real@41800000": "0x00470B48",
     "__real@43600000": "0x00470B4C",
@@ -196,12 +196,12 @@
     "_g_sound_manager": "0x00492590",
     "_g_rank": "0x00474C98",
     "_g_bullet_manager": "0x004776F0",
-    "_g_difficulty_00474c74": "0x00474C74",
+    "_g_difficulty": "0x00474C74",
     "_g_enemy_project_viewport": "0x00474DF0",
     "_g_enemy_ctrl": "0x00477704",
     "_flt_0": "0x00470B04",
     "_g_zero_vector2_00491c20": "0x00491C20",
-    "_g_camera_offset_00491d7c": "0x00491D7C",
+    "_g_camera_offset": "0x00491D7C",
     "_g_zero_vector_00491c14": "0x00491C14"
   },
   "base_index_order": 0,

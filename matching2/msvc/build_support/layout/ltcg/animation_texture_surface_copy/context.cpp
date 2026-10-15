@@ -5,10 +5,10 @@
 
 #pragma code_seg(".text$07context")
 extern "C" int __stdcall AnimationTextureSurfaceCopyContext(
-        AnimationTextureManager_00448270** managers,
-        AnimationManagerIndexed_00447f70** images, const int* values,
-        const SurfaceRect_00447fd0* rects, int count,
-        RenderState_00448450** state) {
+        AnimationTextureManager** managers,
+        AnimationManagerIndexed** images, const int* values,
+        const SurfaceRect* rects, int count,
+        RenderState** state) {
     // The render state object is reachable through pointers in the game, so
     // stores through other pointers may alias its members.
     *state = &g_application;

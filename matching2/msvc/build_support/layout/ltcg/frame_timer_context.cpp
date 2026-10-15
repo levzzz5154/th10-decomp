@@ -28,7 +28,7 @@ extern "C" void __stdcall AnimationTimerSchedulerCompilerContext(
         ScreenFlash* cursor_c460,
         PlayerSchedulerRecord* scheduler,
         ScoreState* scores, StageSequence* sequence,
-        EntityScriptRng_0043cb80* rng) {
+        EntityScriptRng* rng) {
     for (int index = 0; index < count; ++index) {
         timers[index].Tick();
         timers[index].Advance(float(delta));

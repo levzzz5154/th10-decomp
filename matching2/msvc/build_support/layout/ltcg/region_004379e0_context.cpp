@@ -5,7 +5,7 @@
 int __stdcall CreateTextureCompilerContext(unsigned int count) {
     void* last = 0;
     while (count--) {
-        last = CreateTexture_004379e0(count, count + 1);
+        last = CreateTexture(count, count + 1);
     }
     return (int)last;
 }

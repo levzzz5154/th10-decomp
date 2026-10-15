@@ -6,10 +6,10 @@
 // from the state being live across both registration calls while the freshly
 // created task occupies ESI and the priority occupies EDI: this source is
 // therefore compiled in the same native-LTCG link as the registration pair it
-// calls (see build_support/layout/ltcg/bullet_manager_load_scripts_0040ae70.json).
+// calls (see build_support/layout/ltcg/bullet_manager_load_scripts.json).
 #include "th10/core/func_ctrl.hpp"
 
-struct RawState_0040a130 {
+struct RawState {
     unsigned char pad_000[8];
     void *primary_task_008;             // +0x008, installed here
     void *secondary_task_00C;           // +0x00C, installed here
@@ -23,7 +23,7 @@ extern "C" unsigned char g_globals_stage_shown;
 
 #pragma code_seg(".text$00_ystatereg")
 extern "C" __declspec(noinline) int __stdcall
-EclView_RegisterTasks(RawState_0040a130 *state) {
+EclView_RegisterTasks(RawState *state) {
     *(void **)&g_stage_route_current = (void *)0x474788;
     *(unsigned int *)&g_globals_stage = 0;
     *(unsigned int *)&g_globals_stage_shown = 0;

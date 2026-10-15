@@ -2,12 +2,12 @@
 //
 // Retail enters this member with the player record in EAX, a convention no C++
 // declaration names, so the body is compiled in the native-LTCG cluster
-// build_support/layout/ltcg/player_scheduler_links_00405be0.json, whose synthetic caller
+// build_support/layout/ltcg/player_scheduler_links.json, whose synthetic caller
 // walks an array of records and leaves the receiver in EAX.
 //
 // Each link is the same previous/current/elapsed/speed/flags timer block the
 // score timer (src/game/title/title_disable_timer_with_owner.cpp) and the recovery state
-// (src/game/pause/recovery_initialize_timed_state_00423510.cpp) carry: current and
+// (src/game/pause/recovery_initialize_timed_state.cpp) carry: current and
 // elapsed are cleared, previous takes the inactive sentinel -1, and while the
 // block is not yet running the countdown is armed with 0xFFF0BDC1 and the
 // shared float g_game_speed as its speed before the running bit is raised.

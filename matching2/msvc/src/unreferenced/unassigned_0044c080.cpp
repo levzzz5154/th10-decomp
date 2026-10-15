@@ -2,7 +2,7 @@
 // returned zero-extended in AX; a final unpaired byte is ignored.
 #pragma code_seg(".text$01accessor")
 extern "C" __declspec(noinline) unsigned short __fastcall
-SumAlternateBytes_0044c080(const unsigned char* bytes, int count) {
+SumAlternateBytes(const unsigned char* bytes, int count) {
     unsigned short sum = 0;
     count -= count & 1;
     for (int offset = 0; offset < count; offset += 2) {

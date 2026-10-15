@@ -8,7 +8,7 @@
 
 // The animation manager's table of loaded script banks (a view of the
 // manager at g_sprt_ctrl).
-struct AnimationBanks_00402440 {
+struct AnimationBanks {
     unsigned char reserved_000000[0x3ad06c];
     AnimationResource_00447810* banks[0x21];
 };
@@ -27,7 +27,7 @@ inline void RemoveSchedulerTask(SchedulerTask* task) {
     }
 }
 
-inline void ReleaseAnimationBank(AnimationBanks_00402440* manager, int index) {
+inline void ReleaseAnimationBank(AnimationBanks* manager, int index) {
     if (index < 0)
         return;
     if ((unsigned int)index >= 0x21u)

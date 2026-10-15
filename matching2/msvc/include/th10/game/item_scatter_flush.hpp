@@ -26,12 +26,12 @@ __forceinline unsigned int ItemScatter_NextU32() {
 }
 
 // 0x00413270: an offset on an ellipse.
-struct ScatterOffset_0040c9d0 {
+struct ScatterOffset {
     float x;
     float y;
     float z;
 
-    ScatterOffset_0040c9d0* SetEllipticPolar(float angle, float horizontal, float vertical);
+    ScatterOffset* SetEllipticPolar(float angle, float horizontal, float vertical);
 };
 
 // Pending item drops of an enemy.
@@ -43,7 +43,7 @@ struct ItemDrops_0040c9a0 {
 };
 
 // The part of an enemy that starts with its position.
-struct DropSource_0040c9a0 {
+struct DropSource {
     float position[3];
 
     // 0x0040C9D0: scatter the counted drops around the position.

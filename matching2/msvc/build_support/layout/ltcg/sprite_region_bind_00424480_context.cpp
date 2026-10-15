@@ -4,7 +4,7 @@
 
 #pragma inline_depth(0)
 #pragma code_seg(".text$0040a000_context")
-extern "C" int __stdcall SpriteRegionBindContext(SpriteRegion_00424480** regions,
+extern "C" int __stdcall SpriteRegionBindContext(SpriteRegion** regions,
         const AnimationHandle_00424480* handles, int count) {
     int total = 0;
     for (int index = 0; index < count; ++index)

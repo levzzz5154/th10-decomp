@@ -8,8 +8,8 @@
   "description": "Homing shot update compiled with native LTCG; reached only through a callback table, so it keeps the fastcall registers.",
   "functions": [
     {
-      "name": "HomingShot_Update_00428b10",
-      "symbol": "?HomingShot_Update_00428b10@@YIHPAXPAUHomingShot_00428b10@@@Z",
+      "name": "HomingShot_Update",
+      "symbol": "?HomingShot_Update@@YIHPAXPAUHomingShot@@@Z",
       "section": ".text$01homing",
       "address": "0x00428B10",
       "size": 266,
@@ -74,7 +74,7 @@
     }
   ],
   "roots": [
-    "?HomingShot_Update_00428b10@@YIHPAXPAUHomingShot_00428b10@@@Z"
+    "?HomingShot_Update@@YIHPAXPAUHomingShot@@@Z"
   ],
   "additional_sources": [],
   "anchors": [

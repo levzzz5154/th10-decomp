@@ -8,20 +8,20 @@
 #include <string.h>
 
 // Copy a rectangle of the atlas to the top surface of a texture.
-static __forceinline void CopyAtlasToTexture(FontTexture_00437fe0* texture, const FontAtlasRect_00437fe0* destination,
-                                             const FontAtlasRect_00437fe0* source) {
+static __forceinline void CopyAtlasToTexture(FontTexture* texture, const FontAtlasRect* destination,
+                                             const FontAtlasRect* source) {
     FontSurface_00437fe0* surface;
     texture->methods->GetSurfaceLevel(texture, 0, &surface);
-    D3DXLoadSurfaceFromMemory_004521a6(surface, 0, destination, g_font_atlas_surface.pixels, g_font_atlas_surface.format,
+    D3DXLoadSurfaceFromMemory(surface, 0, destination, g_font_atlas_surface.pixels, g_font_atlas_surface.format,
                                        g_font_atlas_surface.pitch, 0, source, 4, 0);
     if (surface != 0)
         surface->methods->Release(surface);
 }
 
 #pragma code_seg(".text$02text")
-void __stdcall FontAtlas_DrawPlainText_00437fe0(const FontAtlasRect_00437fe0* destination, int x, int size,
+void __stdcall FontAtlas_DrawPlainText(const FontAtlasRect* destination, int x, int size,
                                                 unsigned int color, const char* text,
-                                                FontTexture_00437fe0* texture) {
+                                                FontTexture* texture) {
     void* font;
     if (size <= 17)
         font = g_font_height_32;
@@ -67,10 +67,10 @@ void __stdcall FontAtlas_DrawPlainText_00437fe0(const FontAtlasRect_00437fe0* de
     TextOutA(dc, x * 2, 0, text, length);
     SelectObject(dc, previous);
     g_font_atlas_surface.InvertAlpha(row_count);
-    FontAtlas_Convert_00436da0(&g_font_atlas_surface, row_count);
+    FontAtlas_Convert(&g_font_atlas_surface, row_count);
     SelectObject(dc, previous);
 
-    FontAtlasRect_00437fe0 source;
+    FontAtlasRect source;
     source.left = 0;
     source.top = 0;
     source.right = (destination->right - destination->left) * 2 + 22;

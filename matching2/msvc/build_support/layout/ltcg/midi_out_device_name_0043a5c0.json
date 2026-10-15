@@ -5,11 +5,11 @@
   "driver": "build_support/layout/ltcg/midi_out_device_name_0043a5c0_context.cpp",
   "headers": [],
   "image_base": "0x00400000",
-  "description": "?MidiOut_GetDeviceName_0043a5c0@@YGXIPAD@Z compiled with native LTCG.",
+  "description": "?MidiOut_GetDeviceName@@YGXIPAD@Z compiled with native LTCG.",
   "functions": [
     {
       "name": "midi_out_device_name_0043a5c0",
-      "symbol": "?MidiOut_GetDeviceName_0043a5c0@@YGXIPAD@Z",
+      "symbol": "?MidiOut_GetDeviceName@@YGXIPAD@Z",
       "section": ".text$01midi",
       "address": "0x0043A5C0",
       "size": 63,

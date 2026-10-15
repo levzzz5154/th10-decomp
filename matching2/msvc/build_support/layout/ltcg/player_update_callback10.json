@@ -64,14 +64,14 @@
     },
     {
       "name": "PositionFind",
-      "symbol": "?Find@PositionManager_004492f0@@QAIPAXPAUPositionLookupContext_004492f0@@UPositionScriptId_004492f0@@@Z",
+      "symbol": "?Find@PositionManager@@QAIPAXPAUPositionLookupContext@@UPositionScriptId@@@Z",
       "address": "0x4491c0",
       "size": 73,
       "section": ".text$130find"
     },
     {
       "name": "PositionSetter",
-      "symbol": "?SetAnimationPosition_004492f0@@YIXPAUPositionLookupContext_004492f0@@PBUPositionVector_004492f0@@UPositionScriptId_004492f0@@@Z",
+      "symbol": "?SetAnimationPosition_004492f0@@YIXPAUPositionLookupContext@@PBUPositionVector@@UPositionScriptId@@@Z",
       "address": "0x4492f0",
       "size": 90,
       "section": ".text$140position"
@@ -85,7 +85,7 @@
     },
     {
       "name": "CollisionActivate",
-      "symbol": "?Activate@CollisionRecord_00408100@@QAEHXZ",
+      "symbol": "?Activate@CollisionRecord@@QAEHXZ",
       "address": "0x408030",
       "size": 200,
       "section": ".text$050activate"
@@ -99,7 +99,7 @@
     },
     {
       "name": "ItemSpawn",
-      "symbol": "?Spawn@ItemSpawnManager_0041bb00@@QAEHPBMHHMM@Z",
+      "symbol": "?Spawn@ItemSpawnManager@@QAEHPBMHHMM@Z",
       "address": "0x41bb00",
       "size": 823,
       "section": ".text$080spawn"
@@ -120,7 +120,7 @@
     },
     {
       "name": "CreateAnimation",
-      "symbol": "?ItemAnimation_CreateOffset_00448db0@@YGPAPAXPAXPAPAXHPBUVector3@@@Z",
+      "symbol": "?ItemAnimation_CreateOffset@@YGPAPAXPAXPAPAXHPBUVector3@@@Z",
       "address": "0x448db0",
       "size": 111,
       "section": ".text$120create"
@@ -141,7 +141,7 @@
     },
     {
       "name": "CollisionCheck",
-      "symbol": "?Check@CollisionEngine_00408100@@QAEHPBUPositionVector_004492f0@@MHH@Z",
+      "symbol": "?Check@CollisionEngine@@QAEHPBUPositionVector@@MHH@Z",
       "address": "0x408100",
       "size": 260,
       "section": ".text$060collision"

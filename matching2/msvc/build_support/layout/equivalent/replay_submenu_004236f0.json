@@ -1,13 +1,13 @@
 {
   "schema_version": 1,
-  "name": "replay_submenu_004236f0",
+  "name": "replay_submenu",
   "region": "asm_FUN_004236f0_004236f0",
   "sources": [
     "src/game/pause/replay_submenu_stub.cpp"
   ],
   "context_cluster": "build_support/layout/ltcg/replay_submenu_004236f0_context.json",
-  "entry_symbol": "_SubmenuUpdate_004236f0@4",
-  "function": "_SubmenuUpdate_004236f0@4",
+  "entry_symbol": "_SubmenuUpdate@4",
+  "function": "_SubmenuUpdate@4",
   "code_bytes": 3228,
   "absolute_symbols": {
     "_g_input_keys_raw": {
@@ -94,7 +94,7 @@
       "address": "0x458EA5",
       "kind": "code"
     },
-    "?PrepareNameEntry_00423570@@YGXPAUNameEntryMenu_00423570@@@Z": {
+    "?PrepareNameEntry@@YGXPAUNameEntryMenu@@@Z": {
       "address": "0x423570",
       "kind": "code"
     },
@@ -133,22 +133,22 @@
   },
   "bindings": {
     "?SubAnimFind_004236f0@@YIPAXPAUAnimationLookupContext@@UAnimationScriptId@@@Z": "0x4491C0",
-    "?SetStopFrame@SubHandle4_004236f0@@QAEXF@Z": "0x449470",
-    "?FindChildRef@SubHandle4_004236f0@@QAE?AUSubRef4_004236f0@@H@Z": "0x4497D0",
-    "?StopAtFrame6@SubRef4_004236f0@@QAEXXZ": "0x4243F0",
-    "?StopAtFrame3@SubHandle4_004236f0@@QAEXXZ": "0x40C4D0",
-    "?StopAtFrame1@SubHandle4_004236f0@@QAEXXZ": "0x409E50",
-    "?SetFlag@SubAnimNode_004236f0@@QAEXXZ": "0x449590",
-    "?ClearFlag@SubAnimNode_004236f0@@QAEXXZ": "0x4495E0",
-    "?SubSetInputMode_004236f0@@YGXPAUInputState@@H@Z": "0x40AC90",
-    "?SetSchedulerValue@SubSchedulerRecord_004236f0@@QAEXH@Z": "0x405410",
-    "?Queue@SubSoundQueue_004236f0@@QAEHHH@Z": "0x43DC90",
-    "?PushSelection@SubmenuCursor_004236f0@@QAEXXZ": "0x44BE20",
-    "?PopSelection@SubmenuCursor_004236f0@@QAEXXZ": "0x44BE70",
-    "?Advance@SubmenuCursor_004236f0@@QAEHH@Z": "0x44BEA0",
-    "?SubUpdateFrameMaximum_004236f0@@YGHPAUGameStateFrameState@@@Z": "0x421F60",
-    "?InitializeTimedState@SubTimedState_004236f0@@QAEXXZ": "0x423510",
-    "?SubPlatformResource_Destroy_004236f0@@YGXPAUPlatformResource@@@Z": "0x4297B0",
+    "?SetStopFrame@SubHandle4@@QAEXF@Z": "0x449470",
+    "?FindChildRef@SubHandle4@@QAE?AUSubRef4@@H@Z": "0x4497D0",
+    "?StopAtFrame6@SubRef4@@QAEXXZ": "0x4243F0",
+    "?StopAtFrame3@SubHandle4@@QAEXXZ": "0x40C4D0",
+    "?StopAtFrame1@SubHandle4@@QAEXXZ": "0x409E50",
+    "?SetFlag@SubAnimNode@@QAEXXZ": "0x449590",
+    "?ClearFlag@SubAnimNode@@QAEXXZ": "0x4495E0",
+    "?SubSetInputMode@@YGXPAUInputState@@H@Z": "0x40AC90",
+    "?SetSchedulerValue@SubSchedulerRecord@@QAEXH@Z": "0x405410",
+    "?Queue@SubSoundQueue@@QAEHHH@Z": "0x43DC90",
+    "?PushSelection@SubmenuCursor@@QAEXXZ": "0x44BE20",
+    "?PopSelection@SubmenuCursor@@QAEXXZ": "0x44BE70",
+    "?Advance@SubmenuCursor@@QAEHH@Z": "0x44BEA0",
+    "?SubUpdateFrameMaximum@@YGHPAUGameStateFrameState@@@Z": "0x421F60",
+    "?InitializeTimedState@SubTimedState@@QAEXXZ": "0x423510",
+    "?SubPlatformResource_Destroy@@YGXPAUPlatformResource@@@Z": "0x4297B0",
     "??_C@_08GGFKNFHG@?5?5?5?5?5?5?5?5?$AA@": "0x0046E354",
     "??_C@_0O@PLEGECMF@th10_?$CF?42d?4rpy?$AA@": "0x0046E0C8",
     "?InputMaskActive@KeyRepeatState@@QAEHG@Z": "0x0040ACE0"

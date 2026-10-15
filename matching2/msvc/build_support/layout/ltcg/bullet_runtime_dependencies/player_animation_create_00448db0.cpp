@@ -38,7 +38,7 @@ asm_AnimationManager_RegisterPrimaryBack_004489d0(void* manager, void** out, voi
 
 enum { kAnimationPositioned = 0x40000000 };
 
-__declspec(noinline) void** __stdcall AnimationManager_CreateScreenPositionedPrimary_00448db0(
+__declspec(noinline) void** __stdcall AnimationManager_CreateScreenPositionedPrimary(
     void* resource, void** out, int index, const AnimationPosition_00448db0* position) {
     AnimationObject_00448db0* object =
         (AnimationObject_00448db0*)asm_FUN_00449950_00449950(g_sprt_ctrl);

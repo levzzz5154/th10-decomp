@@ -5,17 +5,17 @@ extern "C" void _ReadWriteBarrier(void);
 extern "C" int g_globals_gauge;
 extern "C" float g_game_speed;
 
-struct SpellTimerDisplay_004127a0 {
+struct SpellTimerDisplay {
     unsigned char reserved_0000[0x9ec0];
     int remaining_seconds;           // +0x9EC0
 };
 
 typedef char SpellTimerDisplay_004127a0_seconds_offset_check[
-    offsetof(SpellTimerDisplay_004127a0, remaining_seconds) == 0x9ec0 ? 1 : -1];
+    offsetof(SpellTimerDisplay, remaining_seconds) == 0x9ec0 ? 1 : -1];
 
-extern "C" SpellTimerDisplay_004127a0 *g_front;
+extern "C" SpellTimerDisplay *g_front;
 
-struct SpellTimerStage_004127a0 {
+struct SpellTimerStage {
     unsigned char reserved_0000[0xad4];
     unsigned int flag_ad4;
     unsigned char reserved_0ad8[0x3a8];
@@ -37,9 +37,9 @@ struct SpellTimerStage_004127a0 {
     unsigned int charge;
 };
 
-extern "C" SpellTimerStage_004127a0 *g_card;
+extern "C" SpellTimerStage *g_card;
 
-struct SpellTimerClock_004127a0 {
+struct SpellTimerClock {
     int previous_frame;              // +0x00
     int current_frame;               // +0x04
     float elapsed;                   // +0x08
@@ -60,9 +60,9 @@ struct SpellTimerClock_004127a0 {
 };
 
 typedef char SpellTimerClock_004127a0_size_check[
-    sizeof(SpellTimerClock_004127a0) == 0x14 ? 1 : -1];
+    sizeof(SpellTimerClock) == 0x14 ? 1 : -1];
 
-struct SpellTimerSlot_004127a0 {
+struct SpellTimerSlot {
     int spell_id;                     // +0x00
     int due_frame;                    // +0x04
     void *armed_resource;             // +0x08, returned by the active-id path
@@ -70,11 +70,11 @@ struct SpellTimerSlot_004127a0 {
 };
 
 typedef char SpellTimerSlot_004127a0_size_check[
-    sizeof(SpellTimerSlot_004127a0) == 0x10 ? 1 : -1];
+    sizeof(SpellTimerSlot) == 0x10 ? 1 : -1];
 
-struct SpellTimerState_004127a0 {
+struct SpellTimerState {
     unsigned char reserved_0000[0x1158];
-    SpellTimerClock_004127a0 clock;
+    SpellTimerClock clock;
     unsigned char reserved_116c[0x1290];
     int active_spell_id;              // +0x23FC
     unsigned char reserved_2400[4];
@@ -82,28 +82,28 @@ struct SpellTimerState_004127a0 {
     unsigned char reserved_2408[0x78];
     unsigned int state_flags;         // +0x2480
     unsigned char reserved_2484[0x10];
-    SpellTimerSlot_004127a0 slots[8];  // +0x2494
+    SpellTimerSlot slots[8];  // +0x2494
     void *AdvanceSlots();
 };
 
 typedef char SpellTimerState_004127a0_timer_offset_check[
-    offsetof(SpellTimerState_004127a0, clock) == 0x1158 ? 1 : -1];
+    offsetof(SpellTimerState, clock) == 0x1158 ? 1 : -1];
 typedef char SpellTimerState_004127a0_slots_offset_check[
-    offsetof(SpellTimerState_004127a0, slots) == 0x2494 ? 1 : -1];
+    offsetof(SpellTimerState, slots) == 0x2494 ? 1 : -1];
 typedef char SpellTimerState_004127a0_active_id_offset_check[
-    offsetof(SpellTimerState_004127a0, active_spell_id) == 0x23fc ? 1 : -1];
+    offsetof(SpellTimerState, active_spell_id) == 0x23fc ? 1 : -1];
 typedef char SpellTimerState_004127a0_delta_offset_check[
-    offsetof(SpellTimerState_004127a0, last_spell_delta) == 0x2404 ? 1 : -1];
+    offsetof(SpellTimerState, last_spell_delta) == 0x2404 ? 1 : -1];
 typedef char SpellTimerState_004127a0_flags_offset_check[
-    offsetof(SpellTimerState_004127a0, state_flags) == 0x2480 ? 1 : -1];
+    offsetof(SpellTimerState, state_flags) == 0x2480 ? 1 : -1];
 
 // 0x004127A0..0x004129F0: advance the first armed spell timer, or the first
 // positive deadline that has not yet been retired. Ghidra identifies an
 // ECX receiver and an EAX result; callers use that contract
 // directly without stack arguments.
 #pragma code_seg(".text$01accessor")
-__declspec(noinline) void *SpellTimerState_004127a0::AdvanceSlots() {
-    SpellTimerState_004127a0 *self = this;
+__declspec(noinline) void *SpellTimerState::AdvanceSlots() {
+    SpellTimerState *self = this;
     unsigned int slot_index;
 
     for (slot_index = 0; slot_index < 8; ++slot_index) {
@@ -136,7 +136,7 @@ __declspec(noinline) void *SpellTimerState_004127a0::AdvanceSlots() {
         if (seconds_remaining > 99)
             seconds_remaining = 99;
 
-        SpellTimerDisplay_004127a0 *timer_display = g_front;
+        SpellTimerDisplay *timer_display = g_front;
         timer_display->remaining_seconds = seconds_remaining;
         if (self->clock.current_frame < self->slots[slot_index].due_frame)
             goto no_resource;
@@ -151,7 +151,7 @@ __declspec(noinline) void *SpellTimerState_004127a0::AdvanceSlots() {
         if (countdown < 5000)
             countdown = 5000;
 
-        SpellTimerStage_004127a0 *stage_state = g_card;
+        SpellTimerStage *stage_state = g_card;
         unsigned int *stage_flags = &stage_state->flags;
         unsigned int saved_stage_flags = *stage_flags;
         if ((saved_stage_flags & 8u) == 0 &&

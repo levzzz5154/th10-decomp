@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "name": "bullet_entity_clear_resource_list_0040c6e0",
+  "name": "bullet_entity_clear_resource_list",
   "source": "src/game/enemy/bullet_entity_clear_resource_list_0040c6e0.cpp",
   "driver": "build_support/layout/ltcg/bullet_entity_clear_resource_list_0040c6e0_context.cpp",
   "headers": [],

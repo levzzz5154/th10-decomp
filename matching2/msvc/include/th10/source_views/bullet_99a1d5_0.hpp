@@ -6,7 +6,7 @@
 
 // 0x0040AF90: recovered in src/game/effect/effect_create.cpp.
 
-// 0x0040C6E0: recovered in src/game/enemy/bullet_entity_clear_resource_list_0040c6e0.cpp.
+// 0x0040C6E0: recovered in src/game/enemy/bullet_entity_clear_resource_list.cpp.
 
 // 0x0040CC70..0x0040CD00: Entity_ClearAnims
 // Drop every animation slot's "active" flag and blank the eight 0x210-byte

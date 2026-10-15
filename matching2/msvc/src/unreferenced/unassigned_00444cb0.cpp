@@ -2,19 +2,19 @@
 // array. Native LTCG supplies this method's internal register convention:
 // destination in EAX, source in EDX, and count in ECX.
 
-struct DestinationCopySource_00444cb0 {
+struct DestinationCopySource {
     unsigned char pad_000[0x2fc];
     int field_2fc;
 };
 
-struct DestinationCopy_00444cb0 {
-    __declspec(noinline) int Copy(const DestinationCopySource_00444cb0* source,
+struct DestinationCopy {
+    __declspec(noinline) int Copy(const DestinationCopySource* source,
                                    int count);
 };
 
 #pragma code_seg(".text$01copy")
-int DestinationCopy_00444cb0::Copy(
-    const DestinationCopySource_00444cb0* source, int count) {
+int DestinationCopy::Copy(
+    const DestinationCopySource* source, int count) {
     if (count > 0) {
         unsigned char* cursor =
             reinterpret_cast<unsigned char*>(this) + 0x10;

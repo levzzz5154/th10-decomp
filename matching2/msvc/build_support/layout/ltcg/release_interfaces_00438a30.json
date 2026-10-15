@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "release_interfaces_00438a30",
-      "symbol": "?ReleaseAll_00438a30@@YGXPAUHolder_00438a30@@@Z",
+      "symbol": "?ReleaseAll@@YGXPAUHolder_00438a30@@@Z",
       "section": ".text$01accessor",
       "address": "0x00438A30",
       "size": 43,

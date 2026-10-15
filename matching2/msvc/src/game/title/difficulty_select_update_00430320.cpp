@@ -11,7 +11,7 @@
 // The room is a stack argument here (the title dispatcher 0x0042CDF0 calls
 // with the room pushed); the handler needs the dispatcher and the real bodies
 // of its leaves in one whole-program link
-// (build_support/layout/ltcg/difficulty_select_update_00430320.json).
+// (build_support/layout/ltcg/difficulty_select_update.json).
 //
 // Shapes that are load-bearing (each measured against the image):
 //
@@ -33,7 +33,7 @@
 #include "th10/game/difficulty_select_update_00430320.hpp"
 
 // Stop the child animation of the confirmed entry at frame 2.
-static __forceinline void StopConfirmedChild_00430320(Title* room, int slot) {
+static __forceinline void StopConfirmedChild(Title* room, int slot) {
     if (g_globals_difficulty < 4) {
         AnimationRef_004497d0 child =
             reinterpret_cast<AnimationHandle_004497d0*>(&room->animation_slots[slot])
@@ -48,17 +48,17 @@ static __forceinline void StopConfirmedChild_00430320(Title* room, int slot) {
 }
 
 #pragma code_seg(".text$00430320_fn")
-__declspec(noinline) int __stdcall TitleMode6_00430320(Title* room) {
+__declspec(noinline) int __stdcall TitleMode6(Title* room) {
     int slot = (g_globals_difficulty >= 4) + 0x77;
     void* handle;
     switch (room->phase) {
     case 0:
-        if (reinterpret_cast<RecoveryLookup_0040bd80*>(g_sprt_ctrl)->Find(
+        if (reinterpret_cast<RecoveryLookup*>(g_sprt_ctrl)->Find(
                 reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl),
                 *reinterpret_cast<RecoveryScriptId*>(&room->animation_slots[94])) == 0) {
             RecoveryMusicInstallSlot(room, 94);
             void* resource = g_ascii_manager->animation_resource;
-            void** result = AnimationManager_CreatePrimaryBack_00448d00(resource, &handle, 8, 15);
+            void** result = AnimationManager_CreatePrimaryBack(resource, &handle, 8, 15);
             room->fallback_handle.value = reinterpret_cast<unsigned int>(*result);
         }
         room->cursor.item_count = g_globals_difficulty < 4 ? 4 : 1;
@@ -92,7 +92,7 @@ __declspec(noinline) int __stdcall TitleMode6_00430320(Title* room) {
             room->ClearAnimationSlot(slot);
         } else if (g_input_keys_held & 0x1001) {
             room->SetSlotFrame(slot, 6);
-            StopConfirmedChild_00430320(room, slot);
+            StopConfirmedChild(room, slot);
             room->SetTimerTarget(3);
             g_sound_manager.Queue(10, 0);
         }
@@ -114,7 +114,7 @@ __declspec(noinline) int __stdcall TitleMode6_00430320(Title* room) {
             room->SetSlotFrame(0x5a, 8);
             room->SetSlotFrame(0x5b, 8);
             room->ClearAnimationSlot(94);
-            RecoveryMusicStopHandle_00409e50(&room->fallback_handle);
+            RecoveryMusicStopHandle(&room->fallback_handle);
             room->DisableTimerWithOwner(2);
             if (g_globals_difficulty < 4)
                 g_globals_difficulty = room->cursor.selection;

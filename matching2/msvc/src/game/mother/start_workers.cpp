@@ -5,11 +5,11 @@
 #include "th10/render/clip_worker_native.hpp"
 #include "th10/platform/native_font_start.hpp"
 struct StatsTaskOwner;
-StatsTaskOwner *__cdecl CreateStatsTaskOwner_00413350();
-void __cdecl InitializeVersionMarker_00420100();
+StatsTaskOwner *__cdecl CreateStatsTaskOwner();
+void __cdecl InitializeVersionMarker();
 extern "C" {
-void __cdecl RenderCamera_InitializeDefaults_004216f0();
-void __cdecl Sound_PreloadWorker_0043d080();
+void __cdecl RenderCamera_InitializeDefaults();
+void __cdecl Sound_PreloadWorker();
 unsigned int __cdecl Input_InitThread();
 __declspec(dllimport) unsigned long __stdcall timeGetTime();
 typedef unsigned long (__stdcall *RawThreadEntry)(void*);
@@ -24,20 +24,20 @@ extern PlatformWorker g_input_worker;
 }
 #pragma code_seg(".text$a00worker")
 extern "C" __declspec(noinline) int __cdecl App_StartWorkers() {
-    InitializeVersionMarker_00420100();
+    InitializeVersionMarker();
     g_game_speed=1.0f;g_main_clear_color=0xff000000;
-    RenderCamera_InitializeDefaults_004216f0();
+    RenderCamera_InitializeDefaults();
     unsigned long now=timeGetTime();g_startup_time=now;
     g_rng.seed=(unsigned short)now;g_rng_seed_copy=(unsigned short)now;
     unsigned long thread_id;
-    g_sound_preload_thread=CreateThread(0,0,reinterpret_cast<RawThreadEntry>(&Sound_PreloadWorker_0043d080),&g_sound_manager,0,&thread_id);
-    CreateStatsTaskOwner_00413350();
+    g_sound_preload_thread=CreateThread(0,0,reinterpret_cast<RawThreadEntry>(&Sound_PreloadWorker),&g_sound_manager,0,&thread_id);
+    CreateStatsTaskOwner();
     g_input_worker.Stop();
     g_input_worker.entry=reinterpret_cast<PlatformWorkerEntry>(&Input_InitThread);
     g_input_worker.running=1;g_input_worker.stop_requested=0;
     g_input_worker.thread=reinterpret_cast<void*>(beginthreadex_00453683(0,0,reinterpret_cast<PlatformWorkerEntry>(&Input_InitThread),&g_application,0,&g_input_worker.thread_id));
     g_sprt_ctrl->InitializeClip();
-    InitializeFontCache_00437a00();
+    InitializeFontCache();
     return 0;
 }
 #pragma code_seg()

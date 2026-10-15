@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "name": "side_panel_release_00414570",
+  "name": "side_panel_release",
   "source": "src/game/front/side_panel_release_00414570.cpp",
   "driver": "build_support/layout/ltcg/side_panel_release_00414570_context.cpp",
   "headers": [

@@ -18,7 +18,7 @@ extern "C" unsigned char g_globals_flags;
 
 extern "C" void __cdecl crt_free_startup(void *memory);
 extern "C" void __cdecl crt_free(void *memory);
-extern "C" void __stdcall EnemyCtrl_ReleaseLists_00409f90(void *manager);
+extern "C" void __stdcall EnemyCtrl_ReleaseLists(void *manager);
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
 
@@ -43,7 +43,7 @@ extern "C" SprtCtrl *g_sprt_ctrl;
 
 #pragma code_seg(".text$02b")
 void EnemyCtrl::Destroy() {
-    EnemyCtrl_ReleaseLists_00409f90(this);
+    EnemyCtrl_ReleaseLists(this);
 
     SchedulerTask *task = node_008;
     FuncCtrl *scheduler = g_func_ctrl;

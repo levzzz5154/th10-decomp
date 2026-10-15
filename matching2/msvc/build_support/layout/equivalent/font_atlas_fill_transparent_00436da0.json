@@ -5,8 +5,8 @@
   "sources": [
     "src/core/main/font_atlas_fill_transparent.cpp"
   ],
-  "entry_symbol": "?FontAtlas_FillTransparentPixels_00436da0@@YGDPAUFontAtlas_00436da0@@I@Z",
-  "function": "?FontAtlas_FillTransparentPixels_00436da0@@YGDPAUFontAtlas_00436da0@@I@Z",
+  "entry_symbol": "?FontAtlas_FillTransparentPixels@@YGDPAUFontAtlas_00436da0@@I@Z",
+  "function": "?FontAtlas_FillTransparentPixels@@YGDPAUFontAtlas_00436da0@@I@Z",
   "code_bytes": 946,
   "absolute_symbols": {},
   "bindings": {},

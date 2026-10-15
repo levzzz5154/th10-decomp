@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "Resolve_0040c670",
-      "symbol": "?Resolve_0040c670@@YGHHPAUEclSource_0040c670@@H@Z",
+      "symbol": "?Resolve_0040c670@@YGHHPAUEclSource@@H@Z",
       "section": ".text$01resolve",
       "address": "0x0040C670",
       "size": 11,
@@ -19,7 +19,7 @@
   ],
   "anchors": [],
   "context": {
-    "symbol": "?ResolveContext_0040c670@@YGHPAPAUEclSource_0040c670@@PAHH@Z",
+    "symbol": "?ResolveContext_0040c670@@YGHPAPAUEclSource@@PAHH@Z",
     "section": ".text$03context",
     "address": "0x0040C690",
     "size": 67,

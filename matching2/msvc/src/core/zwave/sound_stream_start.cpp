@@ -14,7 +14,7 @@ extern "C" __declspec(noinline) int __stdcall SoundStreamStart(SoundStream* stre
     if (restored) {
         result = SoundStreamFill(stream, buffer, 0);
         if (result < 0) return result;
-        reinterpret_cast<PlatformQueryInterfaces_0044D600*>(stream)->Query();
+        reinterpret_cast<PlatformQueryInterfaces*>(stream)->Query();
     }
     stream->fade_mode = 0;
     stream->fade_remaining = 0;

@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "OuterRecord_004501f0_Store",
-      "symbol": "?Store@OuterRecord_004501f0@@QAEXH@Z",
+      "symbol": "?Store@OuterRecord@@QAEXH@Z",
       "section": ".text$01store",
       "address": "0x004501F0",
       "size": 7,

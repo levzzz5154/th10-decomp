@@ -1,13 +1,13 @@
 // 0x00413790: enable `count` records of the animation manager's fixed nine-record
 // table and disable the rest.
-struct AnimationRecord_00413790 {
+struct AnimationRecord {
     unsigned int flags_0000;             // +0x000
     unsigned char pad_0004[0x3AC - 4];
 };
 
 struct AnimationManager_00413790 {
     unsigned char pad_0000[0x4CDC];
-    AnimationRecord_00413790 records_4cdc[9];
+    AnimationRecord records_4cdc[9];
     __declspec(noinline) void SetActiveCount(int count);
 };
 

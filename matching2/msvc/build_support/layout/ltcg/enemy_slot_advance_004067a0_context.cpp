@@ -22,7 +22,7 @@ extern "C" __declspec(noinline) int __cdecl asm_FUN_004451c0_004451c0(
 
 #pragma code_seg(".text$07context")
 extern "C" __declspec(noinline) int __stdcall EnemySlotAdvanceContext(
-        SlotOwner_004067a0** owners, int count) {
+        SlotOwner** owners, int count) {
     int result = 0;
     while (count--) {
         result = (*owners++)->OnDraw();

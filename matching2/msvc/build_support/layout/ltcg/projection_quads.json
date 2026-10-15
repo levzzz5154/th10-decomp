@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "Billboard_BuildProjectedQuad",
-      "symbol": "?BuildProjectedQuad@BillboardSource_00443B60@@QAEHXZ",
+      "symbol": "?BuildProjectedQuad@BillboardSource@@QAEHXZ",
       "section": ".text$02quad",
       "address": "0x00443B60",
       "size": 1047,
@@ -69,7 +69,7 @@
     }
   ],
   "context": {
-    "symbol": "?ProjectionQuadsCompilerContext@@YGHPAPAUBillboardSource_00443B60@@H@Z",
+    "symbol": "?ProjectionQuadsCompilerContext@@YGHPAPAUBillboardSource@@H@Z",
     "section": ".text$00context",
     "address": "0x00401000",
     "size": 36,

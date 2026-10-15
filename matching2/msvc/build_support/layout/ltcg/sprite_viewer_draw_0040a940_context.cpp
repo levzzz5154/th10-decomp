@@ -9,7 +9,7 @@ extern "C" void __cdecl crt_free_startup(void* memory);
 // Stand-in for 0x00443080, whose real body is recovered in the render batch
 // cluster: it keeps the entity live across calls so the entity arrives in ESI.
 #pragma code_seg(".text$08entity")
-extern "C" __declspec(noinline) int __stdcall EclView_DrawEntity_00443080(SprtCtrlBatchView* manager, EclViewSprite_0040a940* entity) {
+extern "C" __declspec(noinline) int __stdcall EclView_DrawEntity(SprtCtrlBatchView* manager, EclViewSprite* entity) {
     int a = (int)entity->base_position.x;
     crt_free_startup(entity);
     a += (int)entity->base_position.y;

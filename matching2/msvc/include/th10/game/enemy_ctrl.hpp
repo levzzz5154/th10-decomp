@@ -4,7 +4,7 @@
 
 // The same 0x68-byte manager passed to the message-host initializer at 0x0040D280.
 // The tail list fields are not used by this factory or its teardown.
-struct MessageParser_0040d280;
+struct MessageParser;
 class EnemyCtrl {
 public:
     unsigned int lifecycle_flags_000;
@@ -19,7 +19,7 @@ public:
     float timer_elapsed_048;
     const float *timer_speed_04C;
     volatile unsigned int timer_flags_050;
-    union { void **blocks_054; MessageParser_0040d280* parser_054; };
+    union { void **blocks_054; MessageParser* parser_054; };
     unsigned char reserved_058[0x10];
 
     __declspec(noinline) void Destroy();

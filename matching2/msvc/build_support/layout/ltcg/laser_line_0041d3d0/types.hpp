@@ -58,9 +58,9 @@ struct LaserAnimationBank {unsigned char reserved[0x3e0b50];void* resource;};
 extern "C" {
 extern float g_game_speed;
 extern LaserAnimationBank* g_bullet_manager;
-void __stdcall RunLaserAnimation_0043ee30(Entity* object);
+void __stdcall RunLaserAnimation(Entity* object);
 }
-__declspec(noinline) void** __stdcall ItemAnimation_CreateOffset_00448db0(
+__declspec(noinline) void** __stdcall ItemAnimation_CreateOffset(
     void* resource,void** output,int index,const Point3_OrientedRect* position);
 typedef char LinePositionOffset[offsetof(LineLaser,position)==0x24?1:-1];
 typedef char LineVelocityOffset[offsetof(LineLaser,velocity)==0x30?1:-1];

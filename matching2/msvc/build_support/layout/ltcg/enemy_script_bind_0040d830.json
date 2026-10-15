@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "name": "enemy_script_bind_0040d830",
+  "name": "enemy_script_bind",
   "source": "src/game/enemy/fun_0040d830_0040d830.cpp",
   "driver": "build_support/layout/ltcg/enemy_script_bind_0040d830_context.cpp",
   "headers": [
@@ -14,7 +14,7 @@
   "functions": [
     {
       "name": "EnemyScriptEntity_Initialize_0040d830",
-      "symbol": "?InitializeEnemyScriptEntity_0040d830@@YIPAUEnemyScriptEntity_0040d830@@HPAU1@UBindScriptName_0040d830@@@Z",
+      "symbol": "?InitializeEnemyScriptEntity@@YIPAUEnemyScriptEntity@@HPAU1@UBindScriptName@@@Z",
       "section": ".text$30bind",
       "address": "0x0040D830",
       "size": 673,
@@ -24,14 +24,14 @@
   "anchors": [
     {
       "name": "ResolveBoundScript",
-      "symbol": "?Resolve@BindScriptTable_0040d830@@QAEHPBD@Z",
+      "symbol": "?Resolve@BindScriptTable@@QAEHPBD@Z",
       "section": ".text$50resolve",
       "address": "0x00450470",
       "size": 136
     }
   ],
   "context": {
-    "symbol": "?EnemyScriptBindCompilerContext_0040d830@@YGPAUEnemyScriptEntity_0040d830@@PAPAU1@PAUBindScriptName_0040d830@@HH@Z",
+    "symbol": "?EnemyScriptBindCompilerContext_0040d830@@YGPAUEnemyScriptEntity@@PAPAU1@PAUBindScriptName@@HH@Z",
     "section": ".text$70context",
     "address": "0x00450510",
     "size": 60,
@@ -77,7 +77,7 @@
       "kind": "metadata"
     },
     {
-      "symbol": "?ClearBoundAnimations_0040d830@@YIPAUBindAnimationOwner_0040d830@@HPAU1@@Z",
+      "symbol": "?ClearBoundAnimations@@YIPAUBindAnimationOwner@@HPAU1@@Z",
       "address": "0x0040CC70",
       "kind": "relative_code"
     }

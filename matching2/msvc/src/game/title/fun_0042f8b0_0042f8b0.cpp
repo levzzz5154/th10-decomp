@@ -4,14 +4,14 @@
 #include "th10/game/key_config_refresh_0042f8b0.hpp"
 
 __forceinline int TitleKeyConfigView::FindChildHandle(
-        unsigned short tag, KeyConfigLookupContext_0042f8b0* context) {
-    KeyConfigAnimationManager_0042f8b0* manager = (KeyConfigAnimationManager_0042f8b0*)context;
-    KeyConfigAnimationObject_0042f8b0* parent =
-        (KeyConfigAnimationObject_0042f8b0*)manager->Find(context, parent_handle_2cc);
+        unsigned short tag, KeyConfigLookupContext* context) {
+    KeyConfigAnimationManager* manager = (KeyConfigAnimationManager*)context;
+    KeyConfigAnimationObject* parent =
+        (KeyConfigAnimationObject*)manager->Find(context, parent_handle_2cc);
     if (parent == 0) parent_handle_2cc.value = 0;
     // Retail forms the embedded child-link address even after a failed parent
     // lookup; preserve that observed path without adding a new null guard.
-    for (KeyConfigChildNode_0042f8b0* node = &parent->children_010;
+    for (KeyConfigChildNode* node = &parent->children_010;
          node != 0; node = node->next) {
         if (node->object->script_tag_38a == tag)
             return node->object->handle;
@@ -19,114 +19,114 @@ __forceinline int TitleKeyConfigView::FindChildHandle(
     return 0;
 }
 
-__forceinline KeyConfigAnimationObject_0042f8b0* TitleKeyConfigView::FindDigit(
+__forceinline KeyConfigAnimationObject* TitleKeyConfigView::FindDigit(
         unsigned short tag) {
-    KeyConfigLookupContext_0042f8b0* context = g_sprt_ctrl;
-    KeyConfigScriptId_0042f8b0 id;
+    KeyConfigLookupContext* context = g_sprt_ctrl;
+    KeyConfigScriptId id;
     id.value = FindChildHandle(tag, context);
-    return (KeyConfigAnimationObject_0042f8b0*)
-        ((KeyConfigAnimationManager_0042f8b0*)context)->Find(context, id);
+    return (KeyConfigAnimationObject*)
+        ((KeyConfigAnimationManager*)context)->Find(context, id);
 }
 
 #pragma code_seg(".text$01refresh")
 extern "C" __declspec(noinline) void __stdcall RefreshTitleKeyConfigView(TitleKeyConfigView* state) {
     {
-        KeyConfigAnimationObject_0042f8b0* digit = state->FindDigit(67);
+        KeyConfigAnimationObject* digit = state->FindDigit(67);
         if (digit != 0)
             ConfigureKeyConfigDigit_0043e5a0(digit->resource, digit, state->bindings_59cc[0] / 10 + 0x33);
     }
     {
-        KeyConfigAnimationObject_0042f8b0* digit = state->FindDigit(68);
+        KeyConfigAnimationObject* digit = state->FindDigit(68);
         if (digit != 0)
             ConfigureKeyConfigDigit_0043e5a0(digit->resource, digit, state->bindings_59cc[0] % 10 + 0x33);
     }
     {
-        KeyConfigAnimationObject_0042f8b0* digit = state->FindDigit(77);
+        KeyConfigAnimationObject* digit = state->FindDigit(77);
         if (digit != 0)
             ConfigureKeyConfigDigit_0043e5a0(digit->resource, digit, state->bindings_59cc[0] / 10 + 0x33);
     }
     {
-        KeyConfigAnimationObject_0042f8b0* digit = state->FindDigit(78);
+        KeyConfigAnimationObject* digit = state->FindDigit(78);
         if (digit != 0)
             ConfigureKeyConfigDigit_0043e5a0(digit->resource, digit, state->bindings_59cc[0] % 10 + 0x33);
     }
     {
-        KeyConfigAnimationObject_0042f8b0* digit = state->FindDigit(69);
+        KeyConfigAnimationObject* digit = state->FindDigit(69);
         if (digit != 0)
             ConfigureKeyConfigDigit_0043e5a0(digit->resource, digit, state->bindings_59cc[1] / 10 + 0x33);
     }
     {
-        KeyConfigAnimationObject_0042f8b0* digit = state->FindDigit(70);
+        KeyConfigAnimationObject* digit = state->FindDigit(70);
         if (digit != 0)
             ConfigureKeyConfigDigit_0043e5a0(digit->resource, digit, state->bindings_59cc[1] % 10 + 0x33);
     }
     {
-        KeyConfigAnimationObject_0042f8b0* digit = state->FindDigit(79);
+        KeyConfigAnimationObject* digit = state->FindDigit(79);
         if (digit != 0)
             ConfigureKeyConfigDigit_0043e5a0(digit->resource, digit, state->bindings_59cc[1] / 10 + 0x33);
     }
     {
-        KeyConfigAnimationObject_0042f8b0* digit = state->FindDigit(80);
+        KeyConfigAnimationObject* digit = state->FindDigit(80);
         if (digit != 0)
             ConfigureKeyConfigDigit_0043e5a0(digit->resource, digit, state->bindings_59cc[1] % 10 + 0x33);
     }
     {
-        KeyConfigAnimationObject_0042f8b0* digit = state->FindDigit(71);
+        KeyConfigAnimationObject* digit = state->FindDigit(71);
         if (digit != 0)
             ConfigureKeyConfigDigit_0043e5a0(digit->resource, digit, state->bindings_59cc[2] / 10 + 0x33);
     }
     {
-        KeyConfigAnimationObject_0042f8b0* digit = state->FindDigit(72);
+        KeyConfigAnimationObject* digit = state->FindDigit(72);
         if (digit != 0)
             ConfigureKeyConfigDigit_0043e5a0(digit->resource, digit, state->bindings_59cc[2] % 10 + 0x33);
     }
     {
-        KeyConfigAnimationObject_0042f8b0* digit = state->FindDigit(81);
+        KeyConfigAnimationObject* digit = state->FindDigit(81);
         if (digit != 0)
             ConfigureKeyConfigDigit_0043e5a0(digit->resource, digit, state->bindings_59cc[2] / 10 + 0x33);
     }
     {
-        KeyConfigAnimationObject_0042f8b0* digit = state->FindDigit(82);
+        KeyConfigAnimationObject* digit = state->FindDigit(82);
         if (digit != 0)
             ConfigureKeyConfigDigit_0043e5a0(digit->resource, digit, state->bindings_59cc[2] % 10 + 0x33);
     }
     {
-        KeyConfigAnimationObject_0042f8b0* digit = state->FindDigit(73);
+        KeyConfigAnimationObject* digit = state->FindDigit(73);
         if (digit != 0)
             ConfigureKeyConfigDigit_0043e5a0(digit->resource, digit, state->bindings_59cc[3] / 10 + 0x33);
     }
     {
-        KeyConfigAnimationObject_0042f8b0* digit = state->FindDigit(74);
+        KeyConfigAnimationObject* digit = state->FindDigit(74);
         if (digit != 0)
             ConfigureKeyConfigDigit_0043e5a0(digit->resource, digit, state->bindings_59cc[3] % 10 + 0x33);
     }
     {
-        KeyConfigAnimationObject_0042f8b0* digit = state->FindDigit(83);
+        KeyConfigAnimationObject* digit = state->FindDigit(83);
         if (digit != 0)
             ConfigureKeyConfigDigit_0043e5a0(digit->resource, digit, state->bindings_59cc[3] / 10 + 0x33);
     }
     {
-        KeyConfigAnimationObject_0042f8b0* digit = state->FindDigit(84);
+        KeyConfigAnimationObject* digit = state->FindDigit(84);
         if (digit != 0)
             ConfigureKeyConfigDigit_0043e5a0(digit->resource, digit, state->bindings_59cc[3] % 10 + 0x33);
     }
     {
-        KeyConfigAnimationObject_0042f8b0* digit = state->FindDigit(75);
+        KeyConfigAnimationObject* digit = state->FindDigit(75);
         if (digit != 0)
             ConfigureKeyConfigDigit_0043e5a0(digit->resource, digit, state->bindings_59cc[4] / 10 + 0x33);
     }
     {
-        KeyConfigAnimationObject_0042f8b0* digit = state->FindDigit(76);
+        KeyConfigAnimationObject* digit = state->FindDigit(76);
         if (digit != 0)
             ConfigureKeyConfigDigit_0043e5a0(digit->resource, digit, state->bindings_59cc[4] % 10 + 0x33);
     }
     {
-        KeyConfigAnimationObject_0042f8b0* digit = state->FindDigit(85);
+        KeyConfigAnimationObject* digit = state->FindDigit(85);
         if (digit != 0)
             ConfigureKeyConfigDigit_0043e5a0(digit->resource, digit, state->bindings_59cc[4] / 10 + 0x33);
     }
     {
-        KeyConfigAnimationObject_0042f8b0* digit = state->FindDigit(86);
+        KeyConfigAnimationObject* digit = state->FindDigit(86);
         if (digit != 0)
             ConfigureKeyConfigDigit_0043e5a0(digit->resource, digit, state->bindings_59cc[4] % 10 + 0x33);
     }

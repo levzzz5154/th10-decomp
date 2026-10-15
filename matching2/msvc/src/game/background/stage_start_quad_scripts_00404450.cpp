@@ -7,7 +7,7 @@ struct AnimationResourceFile;
 void __stdcall Entity_StartScript(AnimationResourceFile* resource,
                                            Entity* entity, int script);
 
-struct StageTask_00404450 {
+struct StageTask {
     int priority;
     unsigned int flags;                 // +0x04, bit 1: enabled
 };
@@ -27,15 +27,15 @@ struct StageObject_00404450 {
     StageQuad_00404450 quads[1];        // +0x1c
 };
 
-struct StageFile_00404450 {
+struct StageFile {
     short object_count;
 };
 
 struct Stage_00404450 {
     unsigned char reserved_0000[8];
-    StageTask_00404450* update_task;            // +0x08
-    StageTask_00404450* draw_task;              // +0x0c
-    StageFile_00404450* file;                   // +0x10
+    StageTask* update_task;            // +0x08
+    StageTask* draw_task;              // +0x0c
+    StageFile* file;                   // +0x10
     StageObject_00404450** objects;             // +0x14
     unsigned char reserved_0018[4];
     int initial_value_1c;                       // +0x1c
@@ -45,11 +45,11 @@ struct Stage_00404450 {
     AnimationResourceFile* animation;      // +0x178
     Entity* quad_entities;                      // +0x17c
     unsigned char reserved_0180[0x2a40 - 0x180];
-    StageTask_00404450* after_draw_task;        // +0x2a40
+    StageTask* after_draw_task;        // +0x2a40
 };
 
 #pragma code_seg(".text$00m_stage")
-__declspec(noinline) void __stdcall Stage_StartQuadScripts_00404450(Stage_00404450* stage) {
+__declspec(noinline) void __stdcall Stage_StartQuadScripts(Stage_00404450* stage) {
     stage->update_task->flags |= 2;
     stage->draw_task->flags |= 2;
     stage->after_draw_task->flags |= 2;

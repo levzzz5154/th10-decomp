@@ -4,8 +4,8 @@
 #include "../../../src/core/sprtfunc/fun_00444240_00444240.cpp"
 
 #pragma code_seg(".text$03context")
-int __stdcall EntityQuadProjectionCompilerContext(ProjectedEntity_00444240** entities,
-                                                  ProjectionManager_00444240** managers,
+int __stdcall EntityQuadProjectionCompilerContext(ProjectedEntity** entities,
+                                                  ProjectionManager** managers,
                                                   int count) {
     int result = 0;
     for (int index = 0; index < count; ++index) {

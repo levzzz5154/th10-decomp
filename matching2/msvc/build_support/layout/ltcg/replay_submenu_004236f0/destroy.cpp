@@ -4,7 +4,7 @@
 // both calls (test esi,esi / push esi / call 0x004294A0 / push esi /
 // call operator delete / pop ecx / ret).
 #pragma code_seg(".text$02l")
-void __stdcall SubPlatformResource_Destroy_004236f0(PlatformResource* resource) {
+void __stdcall SubPlatformResource_Destroy(PlatformResource* resource) {
     if (resource) {
         ReplayManager_Destroy_004294a0(resource);
         asm_free_004524a1(resource);

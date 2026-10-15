@@ -59,7 +59,7 @@ typedef char ScriptWorkerOffsetCheck[offsetof(Title, worker) == 0x5AB0 ? 1 : -1]
 typedef char ScriptEffectsOffsetCheck[offsetof(Title, effects) == 0x59E4 ? 1 : -1];
 
 extern "C" {
-extern AnimationBanks_00402440* g_sprt_ctrl;
+extern AnimationBanks* g_sprt_ctrl;
 extern Title* g_title;
 }
 #pragma code_seg(".text$01dtor")

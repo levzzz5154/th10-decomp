@@ -10,7 +10,7 @@ extern "C" {
 }
 
 #pragma code_seg(".text$07restart")
-extern "C" __declspec(noinline) int __stdcall SoundStream_Restart_0044dad0(SoundStreamingState* stream) {
+extern "C" __declspec(noinline) int __stdcall SoundStream_Restart(SoundStreamingState* stream) {
     // Retail dereferences the array before checking its first buffer.
     if (!stream->buffers[0] || !stream->reader)
         return static_cast<int>(0x800401f0u);

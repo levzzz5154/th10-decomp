@@ -7,7 +7,7 @@
 // Full algorithm from src/core/sprtfunc/fun_00444240_00444240.cpp. Only the section
 // name and camera-global typed views differ from that maintained source.
 #pragma code_seg(".text$06b06projection")
-int ProjectedEntity_00444240::ProjectQuad(ProjectionManager_00444240* manager) {
+int ProjectedEntity::ProjectQuad(ProjectionManager* manager) {
     if ((flags & 0x4000u) == 0 && (flags & 0x0Cu) != 0) {
         world_matrix = source_matrix;
         world_matrix.m[0] *= scale_x;
@@ -62,14 +62,14 @@ int ProjectedEntity_00444240::ProjectQuad(ProjectionManager_00444240* manager) {
         break;
     }
     input[0].z = input[1].z = input[2].z = input[3].z = 0.0f;
-    asm_D3DXVec3Project_0045218e(&g_quad_vertices[0], &input[0], &((ProjectionEnvironment_00444240*)g_render_stage_active)->viewport,
-                                 &((ProjectionEnvironment_00444240*)g_render_stage_active)->projection, &((ProjectionEnvironment_00444240*)g_render_stage_active)->view, &world);
-    asm_D3DXVec3Project_0045218e(&g_quad_vertices[1], &input[1], &((ProjectionEnvironment_00444240*)g_render_stage_active)->viewport,
-                                 &((ProjectionEnvironment_00444240*)g_render_stage_active)->projection, &((ProjectionEnvironment_00444240*)g_render_stage_active)->view, &world);
-    asm_D3DXVec3Project_0045218e(&g_quad_vertices[2], &input[2], &((ProjectionEnvironment_00444240*)g_render_stage_active)->viewport,
-                                 &((ProjectionEnvironment_00444240*)g_render_stage_active)->projection, &((ProjectionEnvironment_00444240*)g_render_stage_active)->view, &world);
-    asm_D3DXVec3Project_0045218e(&g_quad_vertices[3], &input[3], &((ProjectionEnvironment_00444240*)g_render_stage_active)->viewport,
-                                 &((ProjectionEnvironment_00444240*)g_render_stage_active)->projection, &((ProjectionEnvironment_00444240*)g_render_stage_active)->view, &world);
+    asm_D3DXVec3Project_0045218e(&g_quad_vertices[0], &input[0], &((ProjectionEnvironment*)g_render_stage_active)->viewport,
+                                 &((ProjectionEnvironment*)g_render_stage_active)->projection, &((ProjectionEnvironment*)g_render_stage_active)->view, &world);
+    asm_D3DXVec3Project_0045218e(&g_quad_vertices[1], &input[1], &((ProjectionEnvironment*)g_render_stage_active)->viewport,
+                                 &((ProjectionEnvironment*)g_render_stage_active)->projection, &((ProjectionEnvironment*)g_render_stage_active)->view, &world);
+    asm_D3DXVec3Project_0045218e(&g_quad_vertices[2], &input[2], &((ProjectionEnvironment*)g_render_stage_active)->viewport,
+                                 &((ProjectionEnvironment*)g_render_stage_active)->projection, &((ProjectionEnvironment*)g_render_stage_active)->view, &world);
+    asm_D3DXVec3Project_0045218e(&g_quad_vertices[3], &input[3], &((ProjectionEnvironment*)g_render_stage_active)->viewport,
+                                 &((ProjectionEnvironment*)g_render_stage_active)->projection, &((ProjectionEnvironment*)g_render_stage_active)->view, &world);
     manager->projected_world = world;
     return 0;
 }

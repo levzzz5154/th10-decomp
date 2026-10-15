@@ -31,8 +31,8 @@ void __cdecl asm_free_00452422(void* memory);
 }
 
 // 0x0043D2A0: index of the track whose name is the path's basename.
-struct PathName_0043d2a0 {
-    int FindBasenameSlot_0043d2a0(void* owner);
+struct PathName {
+    int FindBasenameSlot(void* owner);
 };
 
 // The byte count of a track of the loaded music table.
@@ -63,8 +63,8 @@ int WaveSoundManager::CacheMusic(int slot, const char* name) {
     if (file == reinterpret_cast<void*>(-1))
         return -1;
 
-    int index = reinterpret_cast<PathName_0043d2a0*>(const_cast<char*>(name))
-        ->FindBasenameSlot_0043d2a0(this);
+    int index = reinterpret_cast<PathName*>(const_cast<char*>(name))
+        ->FindBasenameSlot(this);
     SetFilePointer(file, reinterpret_cast<MusicTrackRecord*>(loaded_music_data)[index].file_offset,
         0, 0);
     unsigned char* data =

@@ -93,7 +93,7 @@ int LineLaser::Update() {
             OnPlayerHit(PlayerPoint(), &hit_size, 0);
         } else if (collision == 2 && age.current % 5 == 0) {
             void* handle;
-            ItemAnimation_CreateOffset_00448db0(g_bullet_manager->resource,
+            ItemAnimation_CreateOffset(g_bullet_manager->resource,
                 &handle, 434, PlayerPoint());
             g_sound_manager.QueuePan(28, position.x);
         }
@@ -106,9 +106,9 @@ int LineLaser::Update() {
     sprite = static_cast<LaserSprite*>(primary_animation.SpriteMetadata());
     LaserSetScaleComponent(animation->scale_y, animation->flags_35C,
         length / sprite->width);
-    RunLaserAnimation_0043ee30(&primary_animation);
+    RunLaserAnimation(&primary_animation);
     if (traveled == 0.0f)
-        RunLaserAnimation_0043ee30(&secondary_animation);
+        RunLaserAnimation(&secondary_animation);
     return 0;
 }
 #pragma code_seg()

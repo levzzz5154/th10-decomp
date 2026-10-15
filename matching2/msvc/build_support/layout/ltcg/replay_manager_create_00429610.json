@@ -117,12 +117,12 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "??0ReplayManagerNode_004296f0@@QAE@XZ",
+      "symbol": "??0ReplayManagerNode@@QAE@XZ",
       "address": "0x0042AC20",
       "kind": "data"
     },
     {
-      "symbol": "??1ReplayManagerNode_004296f0@@QAE@XZ",
+      "symbol": "??1ReplayManagerNode@@QAE@XZ",
       "address": "0x0042AC60",
       "kind": "data"
     },

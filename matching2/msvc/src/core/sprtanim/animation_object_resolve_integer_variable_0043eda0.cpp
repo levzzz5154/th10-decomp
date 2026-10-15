@@ -1,5 +1,5 @@
 #pragma code_seg(".text$03resolveinteger")
-extern "C" __declspec(noinline) int* __stdcall ResolveIntegerVariable_0043eda0(
+extern "C" __declspec(noinline) int* __stdcall ResolveIntegerVariable(
         int* value, unsigned char* object, unsigned char selector, unsigned short mask) {
     if (((1u << selector) & mask) != 0) {
         switch (*value) {

@@ -3,12 +3,12 @@
 #include "th10/game/player_motion_helpers_004074b0_004076a0.hpp"
 #include "th10/game/player.hpp"
 
-struct PlayerHomingState_00407EF0 {
+struct PlayerHomingState {
     unsigned char reserved_000[0x3B4];
     float position_x;
     float position_y;
     float position_z;
-    PolarVector2_00408750 velocity;
+    PolarVector2 velocity;
     float velocity_z;
     unsigned char reserved_3CC[0x0C];
     float scalar_3D8;
@@ -26,8 +26,8 @@ struct PlayerHomingState_00407EF0 {
     __declspec(noinline) void HomeTowardTarget();
 };
 
-typedef char PlayerHoming_position_offset[offsetof(PlayerHomingState_00407EF0,position_x)==0x3B4 ? 1 : -1];
-typedef char PlayerHoming_timer_offset[offsetof(PlayerHomingState_00407EF0,homing_timer)==0x7B4 ? 1 : -1];
-typedef char PlayerHoming_deadline_offset[offsetof(PlayerHomingState_00407EF0,homing_deadline_7DC)==0x7DC ? 1 : -1];
-typedef char PlayerHoming_size_check[sizeof(PlayerHomingState_00407EF0)==0x7E0 ? 1 : -1];
+typedef char PlayerHoming_position_offset[offsetof(PlayerHomingState,position_x)==0x3B4 ? 1 : -1];
+typedef char PlayerHoming_timer_offset[offsetof(PlayerHomingState,homing_timer)==0x7B4 ? 1 : -1];
+typedef char PlayerHoming_deadline_offset[offsetof(PlayerHomingState,homing_deadline_7DC)==0x7DC ? 1 : -1];
+typedef char PlayerHoming_size_check[sizeof(PlayerHomingState)==0x7E0 ? 1 : -1];
 #endif

@@ -29,11 +29,11 @@ struct ScriptChangeHandle {
     __declspec(noinline) void ChangeScript(int index);
 };
 
-struct EnemyRecord_0040dc80;
+struct EnemyRecord;
 
 // The enemy proper as the per-frame tick at 0x0040DC80 reads it (0x14DC
 // bytes at +0x103C of the record).
-struct EnemyTick_0040dc80 {
+struct EnemyTick {
     PolarMotion previous;                         // +0x0000: last frame's `final`
     PolarMotion final;                            // +0x002C: where the enemy is drawn and hit
     PolarMotion relative;                         // +0x0058: offset motion, added to `absolute`
@@ -70,18 +70,18 @@ struct EnemyTick_0040dc80 {
     int covered_script;                           // +0x1448: while the stage flag at +0x28 is set
     int uncovered_script;                         // +0x144C
     unsigned char reserved_1450[0x14D8 - 0x1450];
-    EnemyRecord_0040dc80* record;                 // +0x14D8
+    EnemyRecord* record;                 // +0x14D8
 };
-typedef char EnemyTickFacing_0040dc80[offsetof(EnemyTick_0040dc80, facing) == 0xF8 ? 1 : -1];
-typedef char EnemyTickClock_0040dc80[offsetof(EnemyTick_0040dc80, clock) == 0x11C ? 1 : -1];
-typedef char EnemyTickPath_0040dc80[offsetof(EnemyTick_0040dc80, absolute_path) == 0x188 ? 1 : -1];
-typedef char EnemyTickOrbit_0040dc80[offsetof(EnemyTick_0040dc80, absolute_orbit) == 0x288 ? 1 : -1];
-typedef char EnemyTickVisible_0040dc80[offsetof(EnemyTick_0040dc80, visible_size) == 0x13A4 ? 1 : -1];
-typedef char EnemyTickFlash_0040dc80[offsetof(EnemyTick_0040dc80, flash_frames) == 0x1414 ? 1 : -1];
-typedef char EnemyTickFlags_0040dc80[offsetof(EnemyTick_0040dc80, flags) == 0x1444 ? 1 : -1];
-typedef char EnemyTickSize_0040dc80[sizeof(EnemyTick_0040dc80) == 0x14DC ? 1 : -1];
+typedef char EnemyTickFacing[offsetof(EnemyTick, facing) == 0xF8 ? 1 : -1];
+typedef char EnemyTickClock[offsetof(EnemyTick, clock) == 0x11C ? 1 : -1];
+typedef char EnemyTickPath[offsetof(EnemyTick, absolute_path) == 0x188 ? 1 : -1];
+typedef char EnemyTickOrbit[offsetof(EnemyTick, absolute_orbit) == 0x288 ? 1 : -1];
+typedef char EnemyTickVisible[offsetof(EnemyTick, visible_size) == 0x13A4 ? 1 : -1];
+typedef char EnemyTickFlash[offsetof(EnemyTick, flash_frames) == 0x1414 ? 1 : -1];
+typedef char EnemyTickFlags[offsetof(EnemyTick, flags) == 0x1444 ? 1 : -1];
+typedef char EnemyTickSize[sizeof(EnemyTick) == 0x14DC ? 1 : -1];
 
-// EnemyTick_0040dc80::flags.
+// EnemyTick::flags.
 enum {
     ENEMY_NO_HIT = 0x1,
     ENEMY_NO_CONTACT = 0x2,
@@ -110,13 +110,13 @@ struct ScriptFrame_0040dc80 {
     int time;
     int instruction;
 };
-struct EnemyRecord_0040dc80 {
+struct EnemyRecord {
     void* vtable;
     ScriptFrame_0040dc80* current;                // +0x0004
     unsigned char reserved_0008[0x102C - 8];
     ScriptTable_00450470* table;                  // +0x102C
     unsigned char reserved_1030[0x103C - 0x1030];
-    EnemyTick_0040dc80 data;                      // +0x103C
+    EnemyTick data;                      // +0x103C
 
     // 0x004127A0: the script entry of a spell slot that has come due, or 0.
     __declspec(noinline) const char* AdvanceSlots();
@@ -124,7 +124,7 @@ struct EnemyRecord_0040dc80 {
     __declspec(noinline) void ClearResourceList();
     __declspec(noinline) void ResetScript();
 };
-typedef char EnemyRecordSize_0040dc80[sizeof(EnemyRecord_0040dc80) == 0x2518 ? 1 : -1];
+typedef char EnemyRecordSize[sizeof(EnemyRecord) == 0x2518 ? 1 : -1];
 
-extern "C" __declspec(noinline) int __stdcall EnemyDataStart_0040dc80(EnemyTick_0040dc80* enemy);
+extern "C" __declspec(noinline) int __stdcall EnemyDataStart(EnemyTick* enemy);
 #endif

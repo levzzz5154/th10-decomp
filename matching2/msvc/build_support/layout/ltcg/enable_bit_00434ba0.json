@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "enable_bit_00434ba0",
-      "symbol": "?SetEnabled@FlagWord_00434ba0@@QAEXI@Z",
+      "symbol": "?SetEnabled@FlagWord@@QAEXI@Z",
       "section": ".text$01accessor",
       "address": "0x00434BA0",
       "size": 17,
@@ -17,7 +17,7 @@
     }
   ],
   "context": {
-    "symbol": "?Ctx@@YGHPAPAUFlagWord_00434ba0@@PAIH@Z",
+    "symbol": "?Ctx@@YGHPAPAUFlagWord@@PAIH@Z",
     "section": ".text$03context",
     "address": "0x00434BD0",
     "size": 45,

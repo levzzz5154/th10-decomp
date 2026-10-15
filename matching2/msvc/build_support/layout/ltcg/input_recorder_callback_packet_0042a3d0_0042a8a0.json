@@ -16,12 +16,12 @@
   "image_base": "0x00400000",
   "description": "Input recorder update, its registered ECX scheduler callback and the typed packet serialization, compiled with the KeyRepeat and linked-pool helpers.",
   "roots": [
-    "?ReplayManager_OnUpdate@@YIHPAUInputRecorder_004297D0@@@Z"
+    "?ReplayManager_OnUpdate@@YIHPAUInputRecorder@@@Z"
   ],
   "functions": [
     {
       "name": "InputRecorderCallback",
-      "symbol": "?ReplayManager_OnUpdate@@YIHPAUInputRecorder_004297D0@@@Z",
+      "symbol": "?ReplayManager_OnUpdate@@YIHPAUInputRecorder@@@Z",
       "section": ".text$05callback",
       "address": "0x0042A3D0",
       "size": 10,
@@ -38,7 +38,7 @@
     },
     {
       "name": "InputRecorderUpdate",
-      "symbol": "?Update@InputRecorder_004297D0@@QAEHXZ",
+      "symbol": "?Update@InputRecorder@@QAEHXZ",
       "section": ".text$03update",
       "address": "0x004297D0",
       "size": 596,

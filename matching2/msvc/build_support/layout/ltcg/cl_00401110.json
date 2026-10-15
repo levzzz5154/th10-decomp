@@ -204,22 +204,22 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "@AsciiManagerUpdate_004014f0@4",
+      "symbol": "@AsciiManagerUpdate@4",
       "address": "0x004014F0",
       "kind": "data"
     },
     {
-      "symbol": "@AsciiManagerDraw_00401510@4",
+      "symbol": "@AsciiManagerDraw@4",
       "address": "0x00401510",
       "kind": "data"
     },
     {
-      "symbol": "@AsciiManagerDrawOverlay_00401520@4",
+      "symbol": "@AsciiManagerDrawOverlay@4",
       "address": "0x00401520",
       "kind": "data"
     },
     {
-      "symbol": "_DestroyGameThread_00401260@4",
+      "symbol": "_DestroyGameThread@4",
       "address": "0x00401260",
       "kind": "relative_code"
     },

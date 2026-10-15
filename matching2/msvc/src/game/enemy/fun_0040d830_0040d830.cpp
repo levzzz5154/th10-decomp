@@ -10,14 +10,14 @@
 
 extern "C" float g_game_speed;
 extern "C" unsigned char g_enemy_vtable_live;
-struct BindGameState_0040d830 {
+struct BindGameState {
     unsigned char reserved[0x54];
-    BindScriptTable_0040d830* table;
+    BindScriptTable* table;
 };
-extern "C" BindGameState_0040d830* g_enemy_ctrl;
-struct EnemyScriptEntity_0040d830;
-struct BindScriptName_0040d830 { const char* value; };
-struct BindFrameTimer_0040d830 {
+extern "C" BindGameState* g_enemy_ctrl;
+struct EnemyScriptEntity;
+struct BindScriptName { const char* value; };
+struct BindFrameTimer {
     int previous, current;
     float elapsed;
     const float* speed;
@@ -37,19 +37,19 @@ struct BindFrameTimer_0040d830 {
         tail[-1] = -1;
     }
 };
-struct BindInstance_0040d830 {
+struct BindInstance {
     float timer;
     void* instruction;
     unsigned char reserved_008[0x1008 - 8];
     int scratch_cursor;
     int unknown_100c;
     int name;
-    EnemyScriptEntity_0040d830* owner;
+    EnemyScriptEntity* owner;
     int unknown_1018;
     unsigned char mask;
     unsigned char reserved_101d[3];
     unsigned int flags;
-    __forceinline void Reset(EnemyScriptEntity_0040d830* entity, unsigned int retained_flags) {
+    __forceinline void Reset(EnemyScriptEntity* entity, unsigned int retained_flags) {
         timer = 0.0f;
         instruction = 0;
         owner = entity;
@@ -58,26 +58,26 @@ struct BindInstance_0040d830 {
         reset_tail[0] = 0;
     }
 };
-struct BindInstanceNode_0040d830 {
-    BindInstance_0040d830* instance;
-    BindInstanceNode_0040d830* next;
-    BindInstanceNode_0040d830* prev;
+struct BindInstanceNode {
+    BindInstance* instance;
+    BindInstanceNode* next;
+    BindInstanceNode* prev;
 };
-struct BindOwnerLink_0040d830 {
-    EnemyScriptEntity_0040d830* owner;
+struct BindOwnerLink {
+    EnemyScriptEntity* owner;
     void* next;
     void* prev;
 };
-struct BindMarker_0040d830 { int reserved, first, second, flags; };
-struct BindPayload_0040d830 {
+struct BindMarker { int reserved, first, second, flags; };
+struct BindPayload {
     unsigned char reserved_103c[0x2C];
     unsigned int snapshot_a[11]; // +0x1068
     unsigned int snapshot_b[11]; // +0x1094
     unsigned int snapshot_c[11]; // +0x10C0
     float bounds[4]; // +0x10EC
     unsigned char reserved_10fc[0x5C];
-    BindFrameTimer_0040d830 timer; // +0x1158
-    BindOwnerLink_0040d830 manager_link; // +0x116C
+    BindFrameTimer timer; // +0x1158
+    BindOwnerLink manager_link; // +0x116C
     unsigned char reserved_1178[0x44];
     int field_11bc; // +0x11BC
     unsigned char reserved_11c0[0x48];
@@ -94,31 +94,31 @@ struct BindPayload_0040d830 {
     float position[3]; // +0x23FC
     float auxiliary_bounds[15]; // +0x2408
     unsigned char reserved_2444[0x14];
-    BindFrameTimer_0040d830 auxiliary_timer; // +0x2458
-    BindFrameTimer_0040d830 second_auxiliary_timer; // +0x246C
+    BindFrameTimer auxiliary_timer; // +0x2458
+    BindFrameTimer second_auxiliary_timer; // +0x246C
     unsigned char reserved_2480[0xC];
     int identifier; // +0x248C
-    BindMarker_0040d830 markers[8]; // +0x2490
+    BindMarker markers[8]; // +0x2490
     unsigned char reserved_2510[0x4];
-    EnemyScriptEntity_0040d830* owner; // +0x2514
+    EnemyScriptEntity* owner; // +0x2514
 };
-struct EnemyScriptEntity_0040d830 {
+struct EnemyScriptEntity {
     void* vtable;
-    BindInstance_0040d830* running;
-    BindInstance_0040d830 instance;
-    BindScriptTable_0040d830* table;
-    BindInstanceNode_0040d830 self;
-    BindPayload_0040d830 payload;
+    BindInstance* running;
+    BindInstance instance;
+    BindScriptTable* table;
+    BindInstanceNode self;
+    BindPayload payload;
 };
 
 #pragma code_seg(".text$30bind")
-__declspec(noinline) EnemyScriptEntity_0040d830* __fastcall InitializeEnemyScriptEntity_0040d830(int unused, EnemyScriptEntity_0040d830* entity, BindScriptName_0040d830 label) {
+__declspec(noinline) EnemyScriptEntity* __fastcall InitializeEnemyScriptEntity(int unused, EnemyScriptEntity* entity, BindScriptName label) {
     // These adjacent words belong to the embedded instance's scratch state.
     int* scratch_words = &entity->instance.scratch_cursor;
     scratch_words[0] = 0;
     scratch_words[1] = 0;
     entity->vtable = &g_enemy_vtable_live;
-    ClearBoundAnimations_0040d830(unused, reinterpret_cast<BindAnimationOwner_0040d830*>(&entity->payload));
+    ClearBoundAnimations(unused, reinterpret_cast<BindAnimationOwner*>(&entity->payload));
     memset(&entity->payload, 0, sizeof(entity->payload));
     // The entity starts with its embedded instance as the only chain entry.
     entity->instance.Reset(entity, entity->instance.flags);

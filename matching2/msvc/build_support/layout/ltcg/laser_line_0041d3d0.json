@@ -66,8 +66,8 @@
       "size": 149
     },
     {
-      "name": "?ItemAnimation_CreateOffset_00448db0@@YGPAPAXPAXPAPAXHPBUPoint3_OrientedRect@@@Z",
-      "symbol": "?ItemAnimation_CreateOffset_00448db0@@YGPAPAXPAXPAPAXHPBUPoint3_OrientedRect@@@Z",
+      "name": "?ItemAnimation_CreateOffset@@YGPAPAXPAXPAPAXHPBUPoint3_OrientedRect@@@Z",
+      "symbol": "?ItemAnimation_CreateOffset@@YGPAPAXPAXPAPAXHPBUPoint3_OrientedRect@@@Z",
       "section": ".text$70create",
       "address": "0x448db0",
       "size": 111
@@ -248,7 +248,7 @@
       "kind": "metadata"
     },
     {
-      "symbol": "_RunLaserAnimation_0043ee30@4",
+      "symbol": "_RunLaserAnimation@4",
       "address": "0x43ee30",
       "kind": "relative_code"
     },

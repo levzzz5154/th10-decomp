@@ -11,8 +11,8 @@ struct BombState {
     unsigned char reserved_000[0x14];
     FrameTimer timer;
     int active_state;
-    PositionScriptId_004492f0 animation;
-    PositionVector_004492f0 position;
+    PositionScriptId animation;
+    PositionVector position;
     float collision_radius;
     __declspec(noinline) int Update();
     __declspec(noinline) int CancelBullets();
@@ -28,7 +28,7 @@ struct BombAnimationValue {
     float collision_radius;
 };
 extern "C" BombPlayerInput* g_card;
-extern "C" CollisionEngine_00408100* g_bullet_manager;
+extern "C" CollisionEngine* g_bullet_manager;
 extern "C" LaserManager_0041c800* g_laser_manager;
 extern "C" int g_globals_character;
 extern "C" float flt_0_5, flt_1, flt_1_3, flt_224, flt_16;

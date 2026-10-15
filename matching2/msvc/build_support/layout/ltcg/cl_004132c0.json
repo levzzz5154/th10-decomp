@@ -12,7 +12,7 @@
   "functions": [
     {
       "name": "TaskOwner_InstallDrawTask_004132c0",
-      "symbol": "?InstallDrawTask@TaskOwner_004132c0@@QAEHXZ",
+      "symbol": "?InstallDrawTask@TaskOwner@@QAEHXZ",
       "section": ".text$00fn",
       "address": "0x004132C0",
       "size": 50,
@@ -37,7 +37,7 @@
     }
   ],
   "context": {
-    "symbol": "?TaskOwnerContext_004132c0@@YGHPAPAUTaskOwner_004132c0@@HPAUSchedulerTask@@@Z",
+    "symbol": "?TaskOwnerContext_004132c0@@YGHPAPAUTaskOwner@@HPAUSchedulerTask@@@Z",
     "section": ".text$30context",
     "address": "0x00449C00",
     "size": 57,
@@ -94,7 +94,7 @@
       "kind": "data"
     },
     {
-      "symbol": "@TaskOwnerDraw_00413690@4",
+      "symbol": "@TaskOwnerDraw@4",
       "address": "0x00413690",
       "kind": "data"
     }

@@ -30,7 +30,7 @@ void __stdcall Entity_StartScript(AnimationResourceFile* resource,
 #pragma code_seg(".text$0041ca80_fn")
 void LaserScriptRun_0041ca80::Run() {
     while (pc_400 < 18) {
-        LaserScriptCommand_0041ca80& cmd = commands[pc_400];
+        LaserScriptCommand& cmd = commands[pc_400];
         if (cmd.opcode == 0)
             return;
         if (cmd.gate == 0 && flags_404 != 0)

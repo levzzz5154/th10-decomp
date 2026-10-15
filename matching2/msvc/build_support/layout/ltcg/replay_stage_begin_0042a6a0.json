@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "name": "replay_stage_begin_0042a6a0",
+  "name": "replay_stage_begin",
   "source": "src/game/replay/replay_stage_begin_0042a6a0.cpp",
   "driver": "build_support/layout/ltcg/replay_stage_begin_0042a6a0_context.cpp",
   "headers": [

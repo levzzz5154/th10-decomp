@@ -85,7 +85,7 @@
     },
     {
       "name": "PositionedCreator",
-      "symbol": "?AnimationManager_CreatePositionedPrimary_00448d50@@YGPAPAXPAXPAPAXHPBUAnimationPosition_00448d50@@@Z",
+      "symbol": "?AnimationManager_CreatePositionedPrimary@@YGPAPAXPAXPAPAXHPBUAnimationPosition_00448d50@@@Z",
       "section": ".text$11position",
       "address": "0x448d50",
       "size": 95

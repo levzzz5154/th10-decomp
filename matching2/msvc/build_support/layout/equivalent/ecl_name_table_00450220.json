@@ -9,7 +9,7 @@
   "function": "?Parse@ScriptFileLoader@@QAEHPAH@Z",
   "code_bytes": 589,
   "absolute_symbols": {
-    "_entry_malloc_00452706": {
+    "_entry_malloc": {
       "address": "0x00452706",
       "kind": "code"
     },

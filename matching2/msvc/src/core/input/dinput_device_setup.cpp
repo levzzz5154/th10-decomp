@@ -41,13 +41,13 @@ int GameInputSystem::InitializeDevices() {
     }
     keyboard->vtable->Acquire(keyboard);
     g_log.Append(str_directinput_ok);
-    direct_input->vtable->EnumDevices(direct_input,4,&GameInput_EnumDevice_0043baf0,0,1);
+    direct_input->vtable->EnumDevices(direct_input,4,&GameInput_EnumDevice,0,1);
     if (joystick) {
         joystick->vtable->SetDataFormat(joystick,&g_dinput_joystick_format);
         joystick->vtable->SetCooperativeLevel(joystick,window,10);
         g_application.capabilities.size=44;
         joystick->vtable->GetCapabilities(joystick,&g_application.capabilities);
-        joystick->vtable->EnumObjects(joystick,&GameInput_EnumObject_0043bb30,0,0);
+        joystick->vtable->EnumObjects(joystick,&GameInput_EnumObject,0,0);
         g_log.Append(str_pad_found);
     }
     return 0;

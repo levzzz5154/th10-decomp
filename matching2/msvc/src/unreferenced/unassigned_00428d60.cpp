@@ -6,7 +6,7 @@
 // second record and 0x00428D40 is the squared distance of that pair, so the
 // first two floats are a position and this field is a third scalar.
 
-struct MotionRecord_00428d60 {
+struct MotionRecord {
     float x;                       // +0x00
     float y;                       // +0x04
     unsigned char unknown_08[0x24];
@@ -16,7 +16,7 @@ struct MotionRecord_00428d60 {
 };
 
 #pragma code_seg(".text$01get")
-float MotionRecord_00428d60::GetValue() {
+float MotionRecord::GetValue() {
     return value;
 }
 #pragma code_seg()

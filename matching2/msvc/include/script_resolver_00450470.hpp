@@ -10,7 +10,7 @@ struct ScriptEntry_00450470 {
     unsigned int value;
 };
 
-struct ScriptVm_00450560;
+struct ScriptVm;
 struct ScriptTable_00450470 {
     unsigned int reserved_00;
     unsigned int reserved_04;
@@ -19,7 +19,7 @@ struct ScriptTable_00450470 {
     const ScriptEntry_00450470* entries;
 
     __declspec(noinline) int Resolve(const char* name);
-    __declspec(noinline) ScriptVm_00450560* CreateVm(const char* name);
+    __declspec(noinline) ScriptVm* CreateVm(const char* name);
 };
 
 

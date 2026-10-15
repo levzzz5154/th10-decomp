@@ -21,7 +21,7 @@ struct GameBulletView {
 
 extern "C" GameBulletView* g_game;
 
-struct RecoverySlotTable_004065c0 {
+struct RecoverySlotTable {
     unsigned char pad_0000[0x14];
     void* heads[6];                     // +0x14
     void* tails[6];                     // +0x2C
@@ -33,7 +33,7 @@ struct RecoverySlotTable_004065c0 {
 };
 
 #pragma code_seg(".text$01rearm")
-int RecoverySlotTable_004065c0::Rearm() {
+int RecoverySlotTable::Rearm() {
     active = 0;
     heads[5] = 0;
     heads[4] = 0;

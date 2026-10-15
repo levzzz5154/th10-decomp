@@ -1,8 +1,8 @@
 // Compiler context and ABI anchors only; none of these bytes enter the image.
 #include "../../../src/unreferenced/FUN_0040c650_0040c650.cpp"
 
-float __fastcall ResolveSlotFloatValue_0040c680(int selector, EclOperandSlot* slot, float operand);
-int ResolveEntityIntOperand_00412a00(EclEntityVm* vm, int selector);
+float __fastcall ResolveSlotFloatValue(int selector, EclOperandSlot* slot, float operand);
+int ResolveEntityIntOperand(EclEntityVm* vm, int selector);
 
 // ABI stand-ins for the two float resolvers recovered in separate clusters.
 // They enter on (EAX interpreter, ECX selector). This layout places them at retail
@@ -37,9 +37,9 @@ float __stdcall EclOperandThunksCompilerContext(EclOperandSlot** slots, EclEntit
     while (count--) {
         EclOperandSlot* slot = *slots++;
         EclEntityVm* vm = *vms++;
-        total += ResolveSlotFloatOperand_0040c650(slot, count);
-        total += ResolveSlotFloatValue_0040c680(count, slot, total);
-        integers += ResolveEntityIntOperand_00412a00(vm, count);
+        total += ResolveSlotFloatOperand(slot, count);
+        total += ResolveSlotFloatValue(count, slot, total);
+        integers += ResolveEntityIntOperand(vm, count);
     }
     return total + integers;
 }

@@ -10,7 +10,7 @@
 
 // Motion view anchored at position.y: every displacement then matches the
 // retail record walk (state at +0x2c, timer at +0x18, variant at +0x3c).
-struct ItemMotionY_0041afd0 {
+struct ItemMotionY {
     float position_y;
     float position_z;
     ItemPolarVelocity_0041bb00 velocity;
@@ -25,11 +25,11 @@ struct ItemMotionY_0041afd0 {
     float& position_x() { return (&position_y)[-1]; }
     Vector3& position() { return *reinterpret_cast<Vector3*>(&position_y - 1); }
 };
-typedef char MotionYStateOffset[(offsetof(ItemMotionY_0041afd0,state)==0x2c)?1:-1];
-typedef char MotionYTimerOffset[(offsetof(ItemMotionY_0041afd0,timer)==0x18)?1:-1];
-typedef char MotionYVariantOffset[(offsetof(ItemMotionY_0041afd0,variant)==0x3c)?1:-1];
+typedef char MotionYStateOffset[(offsetof(ItemMotionY,state)==0x2c)?1:-1];
+typedef char MotionYTimerOffset[(offsetof(ItemMotionY,timer)==0x18)?1:-1];
+typedef char MotionYVariantOffset[(offsetof(ItemMotionY,variant)==0x3c)?1:-1];
 
-static __forceinline void IntegrateItem(ItemMotionY_0041afd0* motion) {
+static __forceinline void IntegrateItem(ItemMotionY* motion) {
     Vector3Value displacement(g_game_speed*motion->velocity.x,
         g_game_speed*motion->velocity.y,g_game_speed*motion->velocity.z);
     motion->position().x+=displacement.x;
@@ -45,13 +45,13 @@ static __forceinline bool OutsideItemBox(float point_x,float point_y,const Playe
 }
 
 #pragma code_seg(".text$00update")
-extern "C" __declspec(noinline) int __stdcall ItemManager_UpdateItems(ItemSpawnManager_0041bb00* manager) {
+extern "C" __declspec(noinline) int __stdcall ItemManager_UpdateItems(ItemSpawnManager* manager) {
     const int idle=0;
     int convert_items=idle;
     manager->special_count=idle;
     manager->live_count=idle;
-    SpawnItem_0041bb00* item=manager->items;
-    ItemMotionY_0041afd0* motion=reinterpret_cast<ItemMotionY_0041afd0*>(&item->motion.position.y);
+    SpawnItem* item=manager->items;
+    ItemMotionY* motion=reinterpret_cast<ItemMotionY*>(&item->motion.position.y);
     const int seeking=1;
     int remaining=2198;
     for (;;) {
@@ -251,7 +251,7 @@ extern "C" __declspec(noinline) int __stdcall ItemManager_UpdateItems(ItemSpawnM
         ++manager->live_count;
 step:
         ++item;
-        motion=reinterpret_cast<ItemMotionY_0041afd0*>(reinterpret_cast<char*>(motion)+sizeof(SpawnItem_0041bb00));
+        motion=reinterpret_cast<ItemMotionY*>(reinterpret_cast<char*>(motion)+sizeof(SpawnItem));
         if (--remaining==0) break;
     }
     if (convert_items) manager->ConvertItems();
@@ -261,8 +261,8 @@ step:
 
 // Compiler entry only: the game calls this region through its plain
 // __stdcall ABI, so the model pins it behind a volatile callback.
-typedef int (__stdcall *ItemUpdateCallback)(ItemSpawnManager_0041bb00*);
+typedef int (__stdcall *ItemUpdateCallback)(ItemSpawnManager*);
 static ItemUpdateCallback volatile ItemUpdateEntryCallback = ItemManager_UpdateItems;
-extern "C" __declspec(noinline) int __stdcall ItemUpdateEntry(ItemSpawnManager_0041bb00* manager) {
+extern "C" __declspec(noinline) int __stdcall ItemUpdateEntry(ItemSpawnManager* manager) {
     return ItemUpdateEntryCallback(manager);
 }

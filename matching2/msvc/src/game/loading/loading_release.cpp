@@ -10,7 +10,7 @@ inline void ReleaseLoadingBank(int index) {
 }
 
 #pragma code_seg(".text$03title")
-TitleState_0041FB50::~TitleState_0041FB50() {
+TitleState::~TitleState() {
     worker.Stop();
     SchedulerTask* task = update_task;
     FuncCtrl* scheduler = static_cast<FuncCtrl*>(g_func_ctrl);
@@ -35,12 +35,12 @@ TitleState_0041FB50::~TitleState_0041FB50() {
     GameThread* thread = static_cast<GameThread*>(g_ascii_manager);
     g_loading = 0;
     if (thread) {
-        DestroyGameThread_00401260(thread);
+        DestroyGameThread(thread);
         crt_free_startup(thread);
     }
     ReleaseLoadingBank(0);
-    static_cast<ScoreArchive_0042B1E0*>(g_score)->Save();
-    ScoreArchive_0042B1E0* archive = static_cast<ScoreArchive_0042B1E0*>(g_score);
+    static_cast<ScoreArchive*>(g_score)->Save();
+    ScoreArchive* archive = static_cast<ScoreArchive*>(g_score);
     if (archive) {
         if (archive->file) {
             crt_free(archive->file);

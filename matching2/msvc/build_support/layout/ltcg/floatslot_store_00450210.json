@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "FloatSlot_00450210_Store",
-      "symbol": "?Store@FloatSlot_00450210@@QAEXM@Z",
+      "symbol": "?Store@FloatSlot@@QAEXM@Z",
       "section": ".text$01accessor",
       "address": "0x00450210",
       "size": 12,
@@ -17,7 +17,7 @@
     }
   ],
   "context": {
-    "symbol": "?Ctx@@YGHPAPAUFloatSlot_00450210@@HM@Z",
+    "symbol": "?Ctx@@YGHPAPAUFloatSlot@@HM@Z",
     "section": ".text$03context",
     "address": "0x00450230",
     "size": 41,

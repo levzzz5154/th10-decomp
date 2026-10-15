@@ -41,7 +41,7 @@
   "anchors": [
     {
       "name": "Clear",
-      "symbol": "?Clear@AnimationManagerIndexed_00447f70@@QAEXH@Z",
+      "symbol": "?Clear@AnimationManagerIndexed@@QAEXH@Z",
       "section": ".text$05clear",
       "address": "0x00447F70",
       "size": 87
@@ -289,7 +289,7 @@
       "kind": "data"
     },
     {
-      "symbol": "@LoadCachedResource_00447280@12",
+      "symbol": "@LoadCachedResource@12",
       "address": "0x00447280",
       "kind": "relative_code"
     },
@@ -334,17 +334,17 @@
       "kind": "data"
     },
     {
-      "symbol": "_ReleaseHeapMemory_00452422",
+      "symbol": "_ReleaseHeapMemory",
       "address": "0x00452422",
       "kind": "relative_code"
     },
     {
-      "symbol": "_LoadSurfaceFile_004521d0@36",
+      "symbol": "_LoadSurfaceFile@36",
       "address": "0x004521d0",
       "kind": "relative_code"
     },
     {
-      "symbol": "_LoadSurfaceCopy_004521d6@32",
+      "symbol": "_LoadSurfaceCopy@32",
       "address": "0x004521d6",
       "kind": "relative_code"
     },

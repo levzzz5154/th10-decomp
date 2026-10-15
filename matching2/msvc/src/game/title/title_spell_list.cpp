@@ -28,10 +28,10 @@ static inline HintVm* FindAnimation(void* manager, unsigned int id) {
     if (id == 0)
         return 0;
     RecoveryLookupContext* context = static_cast<RecoveryLookupContext*>(manager);
-    for (RecoveryLookupNode_0040bd80* node = context->primary; node != 0; node = node->next)
+    for (RecoveryLookupNode* node = context->primary; node != 0; node = node->next)
         if (*reinterpret_cast<unsigned int*>(node->object) == id)
             return reinterpret_cast<HintVm*>(node->object);
-    for (RecoveryLookupNode_0040bd80* node = context->secondary; node != 0; node = node->next)
+    for (RecoveryLookupNode* node = context->secondary; node != 0; node = node->next)
         if (*reinterpret_cast<unsigned int*>(node->object) == id)
             return reinterpret_cast<HintVm*>(node->object);
     return 0;

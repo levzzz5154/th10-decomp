@@ -4,7 +4,7 @@
 typedef long (__stdcall *SetTextureStageState_00442F50)(
     void*, unsigned int, unsigned int, unsigned int);
 typedef long (__stdcall *SetFVF_00442F50)(void*, unsigned int);
-typedef long (__stdcall *DrawPrimitiveUP_00442F50)(
+typedef long (__stdcall *DrawPrimitiveUP)(
     void*, unsigned int, unsigned int, const void*, unsigned int);
 
 #pragma code_seg(".text$05flush")
@@ -25,7 +25,7 @@ __declspec(noinline) int SprtCtrlBatchView::Flush() {
         const void* start = batch_start;
         device = *reinterpret_cast<void**>(0x00491C30);
         vtable = *reinterpret_cast<void***>(device);
-        reinterpret_cast<DrawPrimitiveUP_00442F50>(vtable[0x14C / 4])(
+        reinterpret_cast<DrawPrimitiveUP>(vtable[0x14C / 4])(
             device, 4, static_cast<unsigned int>(quad_count << 1), start, 0x1C);
         batch_start = cursor;
         quad_count = 0;

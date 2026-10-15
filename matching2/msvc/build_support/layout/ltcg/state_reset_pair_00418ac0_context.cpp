@@ -2,10 +2,10 @@
 #include "../../../src/unreferenced/FUN_00418ac0_00418ac0.cpp"
 
 #pragma code_seg(".text$03context")
-int __stdcall ResetPairCompilerContext(GameAppStateReset_00418ac0** objects, int count) {
-    GameAppStateReset_00418ac0** cursor = objects;
+int __stdcall ResetPairCompilerContext(GameAppStateReset** objects, int count) {
+    GameAppStateReset** cursor = objects;
     while (count--) {
-        GameAppStateReset_00418ac0* object = *cursor++;
+        GameAppStateReset* object = *cursor++;
         object->ResetPair();
         object->ResetPair();
     }

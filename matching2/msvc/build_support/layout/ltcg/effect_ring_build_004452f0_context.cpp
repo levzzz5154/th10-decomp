@@ -25,9 +25,9 @@ float __fastcall Rng_NextFloatSigned(RngState* state) {
 }
 
 #pragma code_seg(".text$05context")
-typedef int (RingEntity_004452f0::*RingBuild_004452f0)();
+typedef int (RingEntity::*RingBuild_004452f0)();
 typedef Vector2_004458b0* (Vector2_004458b0::*PolarSetter_004458b0)(float, float);
-extern "C" int __stdcall EffectRingBuildContext_004452f0(RingEntity_004452f0* entity, PolarSetter_004458b0* setter) {
+extern "C" int __stdcall EffectRingBuildContext_004452f0(RingEntity* entity, PolarSetter_004458b0* setter) {
     *setter = &Vector2_004458b0::SetPolar;
     return entity->BuildRing();
 }

@@ -8,8 +8,8 @@
 #include "th10/render/anm_file_004470c0.hpp"
 
 #pragma code_seg(".text$05r1next")
-AnmFile_004470c0* __stdcall AnmManager_LoadNextEntry_004473c0(AnmUploadTag_00446c70 manager,
-                                                              AnmFile_004470c0* file) {
+AnmFile* __stdcall AnmManager_LoadNextEntry(AnmUploadTag manager,
+                                                              AnmFile* file) {
     AnmEntryHeader_00446c70* entry = file->header;
     int position = 0;
     int script_base = 0;
@@ -18,7 +18,7 @@ AnmFile_004470c0* __stdcall AnmManager_LoadNextEntry_004473c0(AnmUploadTag_00446
     int loaded = 0;
     do {
         if (position == file->cursor - 1) {
-            if (AnmFile_LoadEntry_00447470(manager, file, sprite_base, script_base, entry, index) < 0) {
+            if (AnmFile_LoadEntry(manager, file, sprite_base, script_base, entry, index) < 0) {
                 file->cursor = 0;
                 return 0;
             }

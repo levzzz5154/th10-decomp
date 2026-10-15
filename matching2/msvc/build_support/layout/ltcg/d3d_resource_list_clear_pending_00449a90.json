@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "name": "d3d_resource_list_clear_pending_00449a90",
+  "name": "d3d_resource_list_clear_pending",
   "source": "src/core/zunlib/d3d_resource_manager.cpp",
   "driver": "build_support/layout/ltcg/d3d_resource_list_clear_pending_00449a90_context.cpp",
   "headers": [],
@@ -8,8 +8,8 @@
   "description": "D3D resource list pointer in EAX; three zero stores through it, plain RET.",
   "functions": [
     {
-      "name": "D3DResourceList_ClearPending_00449a90",
-      "symbol": "?ClearPending@D3DResourceList_ClearPending_00449a90@@QAEXXZ",
+      "name": "D3DResourceList_ClearPending",
+      "symbol": "?ClearPending@D3DResourceList_ClearPending@@QAEXXZ",
       "section": ".text$01clear",
       "address": "0x00449A90",
       "size": 12,
@@ -17,7 +17,7 @@
     }
   ],
   "context": {
-    "symbol": "?D3DResourceListClearCompilerContext@@YGXPAPAUD3DResourceList_ClearPending_00449a90@@H@Z",
+    "symbol": "?D3DResourceListClearCompilerContext@@YGXPAPAUD3DResourceList_ClearPending@@H@Z",
     "section": ".text$03context",
     "address": "0x00449AA0",
     "size": 33,

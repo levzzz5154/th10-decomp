@@ -11,8 +11,8 @@
   "description": "Float and integer animation-variable resolvers compiled together with a dynamic-selector context to preserve their private register arguments and jump tables.",
   "functions": [
     {
-      "name": "ResolveFloatVariable_0043ed00",
-      "symbol": "_ResolveFloatVariable_0043ed00@16",
+      "name": "ResolveFloatVariable",
+      "symbol": "_ResolveFloatVariable@16",
       "section": ".text$01resolvefloat",
       "address": "0x0043ED00",
       "size": 156,
@@ -20,8 +20,8 @@
       "source": "src/core/sprtanim/animation_object_resolve_float_variable_0043ed00.cpp"
     },
     {
-      "name": "ResolveIntegerVariable_0043eda0",
-      "symbol": "_ResolveIntegerVariable_0043eda0@16",
+      "name": "ResolveIntegerVariable",
+      "symbol": "_ResolveIntegerVariable@16",
       "section": ".text$03resolveinteger",
       "address": "0x0043EDA0",
       "size": 132,

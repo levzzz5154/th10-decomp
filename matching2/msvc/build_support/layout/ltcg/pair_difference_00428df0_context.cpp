@@ -2,7 +2,7 @@
 #include "../../../src/unreferenced/unassigned_00428df0.cpp"
 
 #pragma code_seg(".text$03context")
-extern "C" int __stdcall PairDifferenceCompilerContext_00428df0(PairDifference_00428df0** items, int count) {
+extern "C" int __stdcall PairDifferenceCompilerContext_00428df0(PairDifference** items, int count) {
     int result = 0;
     while (count-- != 0) result += PairDifference_00428df0_IsDifferent(*items++);
     return result;

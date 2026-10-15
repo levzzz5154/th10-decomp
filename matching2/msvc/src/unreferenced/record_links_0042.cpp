@@ -50,14 +50,14 @@ struct ListNode_0042abd0 {
     ListNode_0042abd0* prev_004;         // +0x004
     ListNode_0042abd0* next_008;         // +0x008
 };
-struct ListHolder_0042abd0 {
+struct ListHolder {
     unsigned char pad_000[0x627c];
     ListNode_0042abd0* head_627c;        // +0x627C
     ListNode_0042abd0* tail_6280;        // +0x6280
     __declspec(noinline) void Clear();
 };
 #pragma code_seg(".text$03unlink")
-void ListHolder_0042abd0::Clear() {
+void ListHolder::Clear() {
     if (head_627c)
         head_627c->next_008 = tail_6280;
     if (tail_6280)

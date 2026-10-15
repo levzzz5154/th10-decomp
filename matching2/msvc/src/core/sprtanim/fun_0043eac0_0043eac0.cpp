@@ -15,7 +15,7 @@ extern "C" float g_anm_vm_time_a;
 extern "C" float g_anm_vm_time_b;
 extern "C" float g_anm_vm_time_c;
 
-struct EffectFieldStore_0043eac0 {
+struct EffectFieldStore {
     unsigned char pad_0000[0x30C];
     int int_30c;    // +0x30C
     int int_310;    // +0x310
@@ -37,7 +37,7 @@ struct EffectFieldStore_0043eac0 {
 };
 
 #pragma code_seg(".text$01getfield")
-float EffectFieldStore_0043eac0::Get(float index) {
+float EffectFieldStore::Get(float index) {
     switch ((int)index) {
     case 0x2710:
         return (float)int_30c;

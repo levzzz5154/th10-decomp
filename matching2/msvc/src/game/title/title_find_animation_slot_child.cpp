@@ -5,7 +5,7 @@
 // EBX; only the hidden result pointer is on the stack.
 #include "th10/render/animation_stop_run.hpp"
 
-// Interface of 0x004497D0 (src/core/sprtlib/animation_manager_find_child_by_script_index_004497d0.cpp).
+// Interface of 0x004497D0 (src/core/sprtlib/animation_manager_find_child_by_script_index.cpp).
 struct AnimationRef_004497d0 {
     int value;
     AnimationRef_004497d0(int value) : value(value) {}

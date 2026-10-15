@@ -312,7 +312,7 @@
     },
     {
       "name": "function_0043e7e0",
-      "symbol": "?LoadScriptPreservingState_0043e7e0@@YGXPAUAnimationResource_0043e7e0@@PAUAnimationObject_0043e7e0@@H@Z",
+      "symbol": "?LoadScriptPreservingState@@YGXPAUAnimationResource_0043e7e0@@PAUAnimationObject_0043e7e0@@H@Z",
       "section": ".text$f0043e7e0F",
       "address": "0x43e7e0",
       "size": 194
@@ -431,7 +431,7 @@
     },
     {
       "name": "function_004054b0",
-      "symbol": "?SetPowerDigits@PowerDisplayOwner_004054b0@@QAEXHH@Z",
+      "symbol": "?SetPowerDigits@PowerDisplayOwner@@QAEXHH@Z",
       "section": ".text$f004054b0F",
       "address": "0x4054b0",
       "size": 79
@@ -452,7 +452,7 @@
     },
     {
       "name": "anchor_00424480",
-      "symbol": "?BindToAnimation@SpriteRegion_00424480@@QAEHUAnimationHandle_00424480@@HHHH@Z",
+      "symbol": "?BindToAnimation@SpriteRegion@@QAEHUAnimationHandle_00424480@@HHHH@Z",
       "section": ".text$f00424480F",
       "address": "0x424480",
       "size": 162

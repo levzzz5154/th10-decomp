@@ -4,7 +4,7 @@
 #include "th10/script/ecl_operand_thunks.hpp"
 
 #pragma code_seg(".text$03slot_value")
-__declspec(noinline) float __fastcall ResolveSlotFloatValue_0040c680(
+__declspec(noinline) float __fastcall ResolveSlotFloatValue(
         int selector, EclOperandSlot* slot, float operand) {
     return asm_ECL_ResolveFloatValue_0044ff80(slot->interpreter, selector, operand);
 }

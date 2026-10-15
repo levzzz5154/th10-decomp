@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "Resolve_00412a80",
-      "symbol": "?Resolve@EclOperandSource_00412a80@@QAEHHH@Z",
+      "symbol": "?Resolve@EclOperandSource@@QAEHHH@Z",
       "section": ".text$01resolve",
       "address": "0x00412A80",
       "size": 17,
@@ -19,7 +19,7 @@
   ],
   "anchors": [],
   "context": {
-    "symbol": "?ResolveContext_00412a80@@YGHPAPAUEclOperandSource_00412a80@@H@Z",
+    "symbol": "?ResolveContext_00412a80@@YGHPAPAUEclOperandSource@@H@Z",
     "section": ".text$03context",
     "address": "0x00412AB0",
     "size": 49,

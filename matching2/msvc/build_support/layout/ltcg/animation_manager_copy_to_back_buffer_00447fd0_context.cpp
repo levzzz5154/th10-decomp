@@ -3,7 +3,7 @@
 
 #pragma code_seg(".text$05context")
 extern "C" int __stdcall CopyToBackBufferContext_00447fd0(
-        AnimationManagerIndexed_00447f70** managers, const int* values, int count) {
+        AnimationManagerIndexed** managers, const int* values, int count) {
     for (int i = 0; i < count; ++i)
         managers[i]->CopyToBackBuffer(values[i], i, count - i, count + i, count ^ i);
     return count;

@@ -82,17 +82,17 @@
       "kind": "metadata"
     },
     {
-      "symbol": "_PauseMenu_Initialize_00422ab0@4",
+      "symbol": "_PauseMenu_Initialize@4",
       "address": "0x422ab0",
       "kind": "relative_code"
     },
     {
-      "symbol": "_PauseMenu_Update_00422c80@4",
+      "symbol": "_PauseMenu_Update@4",
       "address": "0x422c80",
       "kind": "relative_code"
     },
     {
-      "symbol": "_ReplayMenu_Update_004236f0@4",
+      "symbol": "_ReplayMenu_Update@4",
       "address": "0x4236f0",
       "kind": "relative_code"
     },

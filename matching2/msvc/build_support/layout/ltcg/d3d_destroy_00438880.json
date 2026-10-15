@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "name": "d3d_destroy_00438880",
+  "name": "d3d_destroy",
   "source": "src/core/main/func_ctrl_destroy.cpp",
   "driver": "build_support/layout/ltcg/d3d_destroy_00438880_context.cpp",
   "headers": [
@@ -137,7 +137,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "?g_destroy_worker_00438880@@3UPlatformWorker@@A",
+      "symbol": "?g_destroy_worker@@3UPlatformWorker@@A",
       "address": "0x492254",
       "kind": "data"
     },
@@ -185,7 +185,7 @@
   "anchors": [
     {
       "name": "Release",
-      "symbol": "?Release@ResourceList_DestroyABI_00449e50@@QAEXPAUFuncCtrl@@@Z",
+      "symbol": "?Release@ResourceList_DestroyABI@@QAEXPAUFuncCtrl@@@Z",
       "section": ".text$07release",
       "address": "0x449e50",
       "size": 82

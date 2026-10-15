@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "name": "setpair_0040c960",
+  "name": "setpair",
   "source": "src/unreferenced/FUN_0040c960_0040c960.cpp",
   "driver": "build_support/layout/ltcg/setpair_0040c960_context.cpp",
   "headers": [],

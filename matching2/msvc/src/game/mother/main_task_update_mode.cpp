@@ -4,7 +4,7 @@
 #include "th10/app/main_task_mode.hpp"
 #include "th10/game/stage_startup_00417870.hpp"
 
-inline StageRunState_00417870* GameState() { return &g_globals; }
+inline StageRunState* GameState() { return &g_globals; }
 
 #pragma code_seg(".text$00c_mode")
 int MainTaskStateWave18::UpdateMode() {

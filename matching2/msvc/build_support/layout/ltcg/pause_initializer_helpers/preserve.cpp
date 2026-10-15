@@ -7,7 +7,7 @@ extern "C" AnimationLookupContext* g_sprt_ctrl;
 extern "C" float g_game_speed;
 extern "C" void __stdcall asm_FUN_0043ee30_0043ee30(Entity* object);
 #pragma code_seg(".text$10preserve")
-__declspec(noinline) void __stdcall LoadScriptPreservingState_0043e7e0(
+__declspec(noinline) void __stdcall LoadScriptPreservingState(
     AnimationResource_0043e7e0* resource, AnimationObject_0043e7e0* object, int index) {
     void* script = resource->scripts[index];
     if (script == 0 || resource->loading != 0) {

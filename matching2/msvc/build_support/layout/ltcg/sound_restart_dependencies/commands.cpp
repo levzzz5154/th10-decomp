@@ -5,9 +5,9 @@
 #include "sound_memory_words.hpp"
 #include "sound_effect_support.hpp"
 
-struct PathName_0043d2a0 {
+struct PathName {
     char text[1];
-    int FindBasenameSlot_0043d2a0(void*);
+    int FindBasenameSlot(void*);
 };
 typedef int (__stdcall* CommandPostMessage)(unsigned int, unsigned int, unsigned int, unsigned int);
 typedef unsigned int (__stdcall* CommandWait)(void*, unsigned int);
@@ -27,7 +27,7 @@ extern "C" {
     extern CommandClose g_sound_close_handle;
     int __stdcall Sound_CacheMusic_0043d7d0(const char*, WaveSoundManager*, int);
     int __stdcall SoundStream_LaunchCached_0043d950(WaveSoundManager*, unsigned int);
-    __declspec(noinline) int __stdcall SoundStream_Restart_0044dad0(SoundStreamingState*);
+    __declspec(noinline) int __stdcall SoundStream_Restart(SoundStreamingState*);
     int __stdcall SoundStream_RecreateBuffers_0044cf20(SoundStreamingState*);
     int __stdcall SoundStream_FillBuffer_0044d110(CommandSoundStream*, WaveSecondaryBuffer*, unsigned int);
     int __fastcall SoundStream_StopFirst_0044d5b0(CommandSoundStream*);
@@ -75,7 +75,7 @@ extern "C" __declspec(noinline) unsigned int __stdcall Sound_ProcessCommands_004
                 break;
             }
             if (cached)
-                Sound_StopMusicWorker_0043dab0(manager);
+                Sound_StopMusicWorker(manager);
             Sound_CacheMusic_0043d7d0(command->name, manager, command->argument);
             remove = inspect_tail = true;
             break;
@@ -89,7 +89,7 @@ extern "C" __declspec(noinline) unsigned int __stdcall Sound_ProcessCommands_004
                     remove = !advance;
                 } else if (step == 2) {
                     SoundStreamingState* stream = Streaming(manager);
-                    advance = !stream || SoundStream_Restart_0044dad0(stream) >= 0;
+                    advance = !stream || SoundStream_Restart(stream) >= 0;
                     remove = !advance;
                 } else if (step == 5) {
                     CommandSoundStream* stream = manager->music_stream;
@@ -99,7 +99,7 @@ extern "C" __declspec(noinline) unsigned int __stdcall Sound_ProcessCommands_004
                     advance = SoundStream_FillBuffer_0044d110(manager->music_stream, buffer, repeat) >= 0;
                     remove = !advance;
                 } else if (step == 7) {
-                    SoundStream_Start_0044d440(manager->music_stream, 0, 1);
+                    SoundStream_Start(manager->music_stream, 0, 1);
                     advance = true;
                 } else {
                     advance = step < 20;
@@ -125,20 +125,20 @@ extern "C" __declspec(noinline) unsigned int __stdcall Sound_ProcessCommands_004
                     unsigned int name = index < 0 ? reinterpret_cast<unsigned int>(command->name) :
                         reinterpret_cast<unsigned int>(manager) + 0x4108 + static_cast<unsigned int>(index) * 256;
                     unsigned int record_index = static_cast<unsigned int>(
-                        reinterpret_cast<PathName_0043d2a0*>(name)->FindBasenameSlot_0043d2a0(manager));
+                        reinterpret_cast<PathName*>(name)->FindBasenameSlot(manager));
                     MusicTrackRecord* record = reinterpret_cast<MusicTrackRecord*>(
                         reinterpret_cast<unsigned int>(manager->loaded_music_data) + record_index * 52);
                     manager->music_stream->reader->SelectRecord(record);
                     advance = true;
                 } else if (step == 3) {
                     WaveSecondaryBuffer* buffer = FirstBuffer(stream);
-                    SoundStream_Restart_0044dad0(stream);
+                    SoundStream_Restart(stream);
                     unsigned int repeat = manager->music_stream->reader->record->loop_end != 0;
                     command->argument = repeat;
                     advance = SoundStream_FillBuffer_0044d110(manager->music_stream, buffer, repeat) >= 0;
                     remove = !advance;
                 } else if (step == 4) {
-                    SoundStream_Start_0044d440(manager->music_stream, 0, 1);
+                    SoundStream_Start(manager->music_stream, 0, 1);
                     advance = true;
                 } else {
                     advance = step < 7;

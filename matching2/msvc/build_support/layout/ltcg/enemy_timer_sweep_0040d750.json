@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "name": "enemy_timer_sweep_0040d750",
+  "name": "enemy_timer_sweep",
   "source": "src/game/enemy/enemy_ctrl_update.cpp",
   "driver": "build_support/layout/ltcg/enemy_timer_sweep_0040d750_context.cpp",
   "headers": [
@@ -70,7 +70,7 @@
   ],
   "absolute_symbols": [
     {
-      "symbol": "_EnemyUpdate_0040dc80@4",
+      "symbol": "_EnemyUpdate@4",
       "address": "0x0040DC80",
       "kind": "relative_code"
     },

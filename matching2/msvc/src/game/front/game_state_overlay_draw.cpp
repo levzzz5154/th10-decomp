@@ -4,24 +4,24 @@
 extern "C" __declspec(noinline) int __cdecl asm_FUN_004451c0_004451c0(
     SprtCtrlBatchView* manager, RenderEntity* entity);
 
-struct OverlayVm_00415800 {
+struct OverlayVm {
     RenderEntity entity;
     unsigned char reserved_tail[0x3AC - sizeof(RenderEntity)];
 };
-struct OverlaySegment_00415800 { float value; unsigned int color; };
+struct OverlaySegment { float value; unsigned int color; };
 struct FrontDrawView {
     unsigned char reserved_0000[0x10];
-    OverlayVm_00415800 primary[10];
-    OverlayVm_00415800 secondary[10];
-    OverlayVm_00415800 tertiary[9];
-    OverlayVm_00415800 quaternary[4];
-    OverlayVm_00415800 late_pair[2];
-    OverlayVm_00415800 quinary[7];
-    OverlayVm_00415800 input_prompt;
+    OverlayVm primary[10];
+    OverlayVm secondary[10];
+    OverlayVm tertiary[9];
+    OverlayVm quaternary[4];
+    OverlayVm late_pair[2];
+    OverlayVm quinary[7];
+    OverlayVm input_prompt;
     unsigned char reserved_9df4[0x9E84 - 0x9DF4];
     float gauge_value;
     unsigned char reserved_9e88[0x9E94 - 0x9E88];
-    OverlaySegment_00415800 gauge_segments[4];
+    OverlaySegment gauge_segments[4];
     unsigned char reserved_9eb4[4];
     int prompt_hidden;
     unsigned char reserved_9ebc[4];
@@ -31,16 +31,16 @@ typedef char OverlaySecondaryOffset[(offsetof(FrontDrawView, secondary) == 0x24C
 typedef char OverlayTertiaryOffset[(offsetof(FrontDrawView, tertiary) == 0x4980) ? 1 : -1];
 typedef char OverlayGaugeOffset[(offsetof(FrontDrawView, gauge_value) == 0x9E84) ? 1 : -1];
 typedef char OverlaySegmentsOffset[(offsetof(FrontDrawView, gauge_segments) == 0x9E94) ? 1 : -1];
-struct OverlayInputDevice_00415800 { unsigned char reserved[0x2480]; unsigned int flags; };
-struct OverlayInputOwner_00415800 { unsigned char reserved[0x10]; OverlayInputDevice_00415800* device; };
+struct OverlayInputDevice { unsigned char reserved[0x2480]; unsigned int flags; };
+struct OverlayInputOwner { unsigned char reserved[0x10]; OverlayInputDevice* device; };
 extern "C" {
     extern int g_player_power_display;
-    extern OverlayInputOwner_00415800* g_enemy_ctrl;
+    extern OverlayInputOwner* g_enemy_ctrl;
 }
 #pragma code_seg(".text$001soverlay")
-extern "C" __declspec(noinline) int __stdcall GameStateOverlay_Draw_00415800(FrontDrawView* state) {
+extern "C" __declspec(noinline) int __stdcall GameStateOverlay_Draw(FrontDrawView* state) {
     ScreenRect rect;
-    OverlayVm_00415800* cursor = state->secondary;
+    OverlayVm* cursor = state->secondary;
     int count = 10;
     do {
         asm_FUN_004451c0_004451c0(g_sprt_ctrl, &cursor[-10].entity);
@@ -90,7 +90,7 @@ extern "C" __declspec(noinline) int __stdcall GameStateOverlay_Draw_00415800(Fro
         rect.right -= 1.0f;
         rect.bottom = 24.0f;
         DrawSolidQuad(&rect, 0xFFFFFFFFu);
-        OverlaySegment_00415800* segment = state->gauge_segments;
+        OverlaySegment* segment = state->gauge_segments;
         count = 4;
         do {
             if (segment->value != 0.0f) {
@@ -105,7 +105,7 @@ extern "C" __declspec(noinline) int __stdcall GameStateOverlay_Draw_00415800(Fro
         } while (--count);
     }
     if (g_enemy_ctrl) {
-        OverlayInputDevice_00415800* device = g_enemy_ctrl->device;
+        OverlayInputDevice* device = g_enemy_ctrl->device;
         if (device && (~(device->flags >> 4) & 1) && (~device->flags & 1))
             asm_FUN_004451c0_004451c0(g_sprt_ctrl, &state->input_prompt.entity);
         if (g_enemy_ctrl && state->stage_index >= 0 && g_enemy_ctrl->device && !state->prompt_hidden) {

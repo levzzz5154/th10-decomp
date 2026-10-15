@@ -22,7 +22,7 @@ ReplayManager_004296f0::~ReplayManager_004296f0() {
         FuncCtrl* scheduler = static_cast<FuncCtrl*>(g_func_ctrl);
         EnterCriticalSection(&g_thread_synchronization.critical_sections[0]);
         ++g_thread_synchronization.scheduler_lock_depth;
-        ManagerTeardownFuncCtrl_Remove_00449F60(scheduler, task);
+        ManagerTeardownFuncCtrl_Remove(scheduler, task);
         LeaveCriticalSection(&g_thread_synchronization.critical_sections[0]);
         --g_thread_synchronization.scheduler_lock_depth;
     }
@@ -31,7 +31,7 @@ ReplayManager_004296f0::~ReplayManager_004296f0() {
         FuncCtrl* scheduler = static_cast<FuncCtrl*>(g_func_ctrl);
         EnterCriticalSection(&g_thread_synchronization.critical_sections[0]);
         ++g_thread_synchronization.scheduler_lock_depth;
-        ManagerTeardownFuncCtrl_Remove_00449F60(scheduler, task);
+        ManagerTeardownFuncCtrl_Remove(scheduler, task);
         LeaveCriticalSection(&g_thread_synchronization.critical_sections[0]);
         --g_thread_synchronization.scheduler_lock_depth;
     }
@@ -40,7 +40,7 @@ ReplayManager_004296f0::~ReplayManager_004296f0() {
         FuncCtrl* scheduler = static_cast<FuncCtrl*>(g_func_ctrl);
         EnterCriticalSection(&g_thread_synchronization.critical_sections[0]);
         ++g_thread_synchronization.scheduler_lock_depth;
-        ManagerTeardownFuncCtrl_Remove_00449F60(scheduler, task);
+        ManagerTeardownFuncCtrl_Remove(scheduler, task);
         LeaveCriticalSection(&g_thread_synchronization.critical_sections[0]);
         --g_thread_synchronization.scheduler_lock_depth;
     }

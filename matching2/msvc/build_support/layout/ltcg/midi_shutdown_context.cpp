@@ -1,14 +1,14 @@
 #include "../../../src/core/main/fun_004390e0_004390e0.cpp"
-extern "C" __declspec(noinline) int ShutdownMidi_0043ae20(MidiSequencer*);
+extern "C" __declspec(noinline) int ShutdownMidi(MidiSequencer*);
 extern "C" unsigned char* __stdcall ShutdownReadFile(const char*,int*,int);
 struct ShutdownTextLog { char* Append(char*, ...); };
 // Compiler-only reconstruction of the real 0x43A9B0 caller's operations.
 // Unselected: its calling convention and bytes are not claimed as game code.
-extern "C" __declspec(noinline) void CleanupMidi_0043a910(MidiSequencer*);
+extern "C" __declspec(noinline) void CleanupMidi(MidiSequencer*);
 extern "C" void __cdecl CleanupDelete_004524a1(void*);
 #pragma code_seg(".text$30context")
 extern "C" __declspec(noinline) int __stdcall ShutdownCallerContext(MidiSequencer* manager,int slot,const char* path) {
- if(manager->current_file_slot==slot) ShutdownMidi_0043ae20(manager);
+ if(manager->current_file_slot==slot) ShutdownMidi(manager);
  if(manager->file_buffers[slot]) {
   crt_free(manager->file_buffers[slot]);
   manager->file_buffers[slot]=0;
@@ -19,7 +19,7 @@ extern "C" __declspec(noinline) int __stdcall ShutdownCallerContext(MidiSequence
  reinterpret_cast<ShutdownTextLog*>(0x474F70)->Append(reinterpret_cast<char*>(0x46F908),path);
  // Real GameMain cleanup: reload global, cleanup, delete, clear global.
  MidiSequencer* owned=window_midi_manager;
- if(owned) { CleanupMidi_0043a910(owned); CleanupDelete_004524a1(owned); }
+ if(owned) { CleanupMidi(owned); CleanupDelete_004524a1(owned); }
  window_midi_manager=0;
  return -1;
 }

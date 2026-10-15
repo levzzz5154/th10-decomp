@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "ShortAccessor_00405b90_Load",
-      "symbol": "?Load@ShortAccessor_00405b90@@QBEFXZ",
+      "symbol": "?Load@ShortAccessor@@QBEFXZ",
       "section": ".text$01target",
       "address": "0x00405B90",
       "size": 5,

@@ -15,8 +15,8 @@
   "description": "Temporary track real caller with compiler-only canonical dependency bodies; only caller exported.",
   "functions": [
     {
-      "name": "LoadTemporaryTrack_0043ac90",
-      "symbol": "?LoadTemporaryTrack_0043ac90@@YGHPAUMidiSequencer@@PBD@Z",
+      "name": "LoadTemporaryTrack",
+      "symbol": "?LoadTemporaryTrack@@YGHPAUMidiSequencer@@PBD@Z",
       "section": ".text$40temporary",
       "address": "0x0043AC90",
       "size": 72,
@@ -297,7 +297,7 @@
       "kind": "data"
     },
     {
-      "symbol": "@LoadCachedResource_00447280@12",
+      "symbol": "@LoadCachedResource@12",
       "address": "0x00447280",
       "kind": "relative_code"
     },
@@ -342,7 +342,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_entry_malloc_00452706",
+      "symbol": "_entry_malloc",
       "address": "0x00452706",
       "kind": "relative_code"
     }

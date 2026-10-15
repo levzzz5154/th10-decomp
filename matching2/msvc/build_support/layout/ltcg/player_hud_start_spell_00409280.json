@@ -82,7 +82,7 @@
     },
     {
       "name": "dispatch_text",
-      "symbol": "?RecoveryDispatchText_004479d0@@YGXPAURecoveryTextResource_004479d0@@PAXHHIPBDH@Z",
+      "symbol": "?RecoveryDispatchText_004479d0@@YGXPAURecoveryTextResource@@PAXHHIPBDH@Z",
       "section": ".text$004479d0_fn",
       "address": "0x004479D0",
       "size": 127
@@ -96,14 +96,14 @@
     },
     {
       "name": "find",
-      "symbol": "?Find@PositionManager_004492f0@@QAIPAXPAUPositionLookupContext_004492f0@@UPositionScriptId_004492f0@@@Z",
+      "symbol": "?Find@PositionManager@@QAIPAXPAUPositionLookupContext@@UPositionScriptId@@@Z",
       "section": ".text$004491c0_fn",
       "address": "0x004491C0",
       "size": 73
     },
     {
       "name": "translated",
-      "symbol": "?SetAnimationTranslatedPosition_00449350@@YIXPBUPositionVector_004492f0@@PAUPositionLookupContext_004492f0@@UPositionScriptId_004492f0@@@Z",
+      "symbol": "?SetAnimationTranslatedPosition@@YIXPBUPositionVector@@PAUPositionLookupContext@@UPositionScriptId@@@Z",
       "section": ".text$00449350_fn",
       "address": "0x00449350",
       "size": 111
@@ -257,17 +257,17 @@
       "kind": "data"
     },
     {
-      "symbol": "_recovery_draw_shadowed_00437db0@24",
+      "symbol": "_recovery_draw_shadowed@24",
       "address": "0x00437DB0",
       "kind": "relative_code"
     },
     {
-      "symbol": "_recovery_draw_unshadowed_00437fe0@24",
+      "symbol": "_recovery_draw_unshadowed@24",
       "address": "0x00437FE0",
       "kind": "relative_code"
     },
     {
-      "symbol": "_recovery_vsprintf_004524a6",
+      "symbol": "_recovery_vsprintf",
       "address": "0x004524A6",
       "kind": "relative_code"
     },

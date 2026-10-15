@@ -14,7 +14,7 @@
   "functions": [
     {
       "name": "SoundPrimaryFormat",
-      "symbol": "@Sound_SetPrimaryFormat_0044c7e0@16",
+      "symbol": "@Sound_SetPrimaryFormat@16",
       "section": ".text$a06format",
       "address": "0x0044C7E0",
       "size": 260,

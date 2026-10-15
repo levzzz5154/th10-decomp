@@ -26,8 +26,8 @@
       "actual_abi": "panel in EDI; returns 1; plain RET"
     },
     {
-      "name": "CardPrimary_00409220",
-      "symbol": "@CardPrimary_00409220@4",
+      "name": "CardPrimary",
+      "symbol": "@CardPrimary@4",
       "section": ".text$a01callback",
       "address": "0x00409220",
       "size": 10,
@@ -44,14 +44,14 @@
     },
     {
       "name": "find",
-      "symbol": "?Find@PositionManager_004492f0@@QAIPAXPAUPositionLookupContext_004492f0@@UPositionScriptId_004492f0@@@Z",
+      "symbol": "?Find@PositionManager@@QAIPAXPAUPositionLookupContext@@UPositionScriptId@@@Z",
       "section": ".text$a03find",
       "address": "0x004491C0",
       "size": 73
     },
     {
       "name": "translated",
-      "symbol": "?SetAnimationTranslatedPosition_00449350@@YIXPBUPositionVector_004492f0@@PAUPositionLookupContext_004492f0@@UPositionScriptId_004492f0@@@Z",
+      "symbol": "?SetAnimationTranslatedPosition@@YIXPBUPositionVector@@PAUPositionLookupContext@@UPositionScriptId@@@Z",
       "section": ".text$a04translated",
       "address": "0x00449350",
       "size": 111
@@ -73,7 +73,7 @@
   },
   "constants": [],
   "roots": [
-    "@CardPrimary_00409220@4"
+    "@CardPrimary@4"
   ],
   "additional_sources": [
     "build_support/layout/ltcg/player_hud_update_dependencies/configure.cpp",

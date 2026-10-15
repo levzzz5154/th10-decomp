@@ -13,7 +13,7 @@ void AnimationResource_00447810::Release() {
         return;
     g_sprt_ctrl->MarkResourceForRemoval(this);
     for (int index = 0; index < entry_count_10c; ++index) {
-        AnimationResourceEntry_00447810* entry = &entries_120[index];
+        AnimationResourceEntry* entry = &entries_120[index];
         if (entry->handle != 0) {
             entry->handle->slot2();
             entry->handle = 0;

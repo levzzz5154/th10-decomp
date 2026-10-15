@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "name": "config_load_00420870",
+  "name": "config_load",
   "source": "src/game/mother/config_load_00420870.cpp",
   "driver": "build_support/layout/ltcg/config_load_00420870_context.cpp",
   "headers": [

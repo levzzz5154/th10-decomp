@@ -3,7 +3,7 @@
 extern "C" char g_recovery_script_path[];
 
 #pragma code_seg(".text$01accessor")
-__declspec(noinline) char* __stdcall CopyToScratch_00418850(const char* text) {
+__declspec(noinline) char* __stdcall CopyToScratch(const char* text) {
     g_recovery_script_path[0] = 0;
     strcat(g_recovery_script_path, text);
     return g_recovery_script_path;

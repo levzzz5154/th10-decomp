@@ -9,15 +9,15 @@ struct SoundEffectSetting {
     short volume;
     short priority;
 };
-struct PathName_0043d2a0 {
-    int FindBasenameSlot_0043d2a0(void* owner);
+struct PathName {
+    int FindBasenameSlot(void* owner);
 };
 struct PlatformInterfaceState_0044D5D0 {
     int InvokeConfigured();
 };
-struct PlatformStreamRecord_0044DCA0;
-struct PlatformStreamState_0044DCA0 {
-    int Select(PlatformStreamRecord_0044DCA0* record);
+struct PlatformStreamRecord;
+struct PlatformStreamState {
+    int Select(PlatformStreamRecord* record);
 };
 struct SoundBuffer;
 struct SoundStreamObject {
@@ -33,7 +33,7 @@ __declspec(dllimport) unsigned int __stdcall WaitForSingleObject(void* handle,
 __declspec(dllimport) int __stdcall CloseHandle(void* handle);
 extern WaveSoundManager g_wave_sound_manager;
 extern SoundEffectSetting g_sound_effect_settings[];
-int __stdcall SoundStream_Restart_0044dad0(SoundStreamingState* stream);
+int __stdcall SoundStream_Restart(SoundStreamingState* stream);
 int __stdcall SoundStream_RecreateBuffers_0044cf20(SoundStreamingState* stream);
 int __stdcall SoundStreamFill(SoundStream* stream, WaveSecondaryBuffer* buffer,
     unsigned int repeat);
@@ -107,15 +107,15 @@ top:
                         name = cached_music_names[command->argument];
                     else
                         name = command->name;
-                    int index = reinterpret_cast<PathName_0043d2a0*>(const_cast<char*>(name))
-                        ->FindBasenameSlot_0043d2a0(this);
-                    reinterpret_cast<PlatformStreamState_0044DCA0*>(music_stream->reader)->Select(
-                        reinterpret_cast<PlatformStreamRecord_0044DCA0*>(
+                    int index = reinterpret_cast<PathName*>(const_cast<char*>(name))
+                        ->FindBasenameSlot(this);
+                    reinterpret_cast<PlatformStreamState*>(music_stream->reader)->Select(
+                        reinterpret_cast<PlatformStreamRecord*>(
                             &reinterpret_cast<MusicTrackRecord*>(loaded_music_data)[index]));
                     goto advance;
                 } else if (command->step == 3) {
                     WaveSecondaryBuffer* buffer = GetBuffer(music_stream, 0);
-                    SoundStream_Restart_0044dad0(static_cast<SoundStreamingState*>(music_stream));
+                    SoundStream_Restart(static_cast<SoundStreamingState*>(music_stream));
                     command->argument = music_stream->reader->record->loop_end != 0;
                     if (SoundStreamFill(music_stream, buffer, command->argument) >= 0)
                         goto advance;
@@ -134,7 +134,7 @@ top:
                 } else if (command->step == 2) {
                     if (!music_stream)
                         goto advance;
-                    if (SoundStream_Restart_0044dad0(
+                    if (SoundStream_Restart(
                             static_cast<SoundStreamingState*>(music_stream)) >= 0)
                         goto advance;
                 } else if (command->step == 5) {

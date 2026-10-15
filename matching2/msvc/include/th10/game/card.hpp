@@ -13,8 +13,8 @@ struct CardSprite_00408910 {
 };
 
 // The manager's frame timer starts out unregistered.
-struct CardTimer_00408910 : FrameTimer {
-    CardTimer_00408910() { flags &= ~1u; }
+struct CardTimer : FrameTimer {
+    CardTimer() { flags &= ~1u; }
 };
 
 // The 0x37B0-byte spell-card manager, as its constructor lays it out.
@@ -25,12 +25,12 @@ struct Card {
     unsigned char reserved_0768[0x778 - 0x768];
     CardSprite_00408910 sprites_0778[8];
     CardSprite_00408910 sprites_24d8[5];
-    CardTimer_00408910 frame_timer;
+    CardTimer frame_timer;
     unsigned char reserved_3748[0x37B0 - 0x3748];
 
     __declspec(noinline) Card();    // 0x00408910
 };
 typedef char CardSize_00408910[sizeof(Card) == 0x37B0 ? 1 : -1];
-typedef char CardTimerOffset_00408910[offsetof(Card, frame_timer) == 0x3734 ? 1 : -1];
+typedef char CardTimerOffset[offsetof(Card, frame_timer) == 0x3734 ? 1 : -1];
 
 extern "C" Card* g_card;

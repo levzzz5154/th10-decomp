@@ -1,14 +1,14 @@
 #pragma once
 
-struct MovementPair_0041ab70 {
+struct MovementPair {
     int x;
     int y;
 };
 
-struct EntityMovementSlot_0041ab70 {
+struct EntityMovementSlot {
     unsigned char reserved_000[0x180];
-    MovementPair_0041ab70 source;
-    MovementPair_0041ab70 destination;
+    MovementPair source;
+    MovementPair destination;
     unsigned char reserved_190[0x10];
     int timer;
     int previous;
@@ -18,7 +18,7 @@ struct EntityMovementSlot_0041ab70 {
     int mode;
     int interpolation;
 
-    __declspec(noinline) void Initialise(const MovementPair_0041ab70* source_value,
-                                         const MovementPair_0041ab70* destination_value,
+    __declspec(noinline) void Initialise(const MovementPair* source_value,
+                                         const MovementPair* destination_value,
                                          int mode_value, unsigned char interpolation_value);
 };

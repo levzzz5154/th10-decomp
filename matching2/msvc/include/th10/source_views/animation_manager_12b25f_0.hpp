@@ -3,7 +3,7 @@
 #include "../../../build_support/include/asm_symbols.hpp"
 
 // 0x0043EC70..0x0043ECFF: read an integer-valued animation variable.
-struct AnimationObjectVariables_0043ec70 {
+struct AnimationObjectVariables {
     unsigned char reserved_000[0x30c];
     int integer_0;
     int integer_1;

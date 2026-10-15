@@ -2,7 +2,7 @@
 // returned zero-extended in EAX; a trailing partial group is ignored.
 #pragma code_seg(".text$01accessor")
 extern "C" __declspec(noinline) unsigned int __fastcall
-SumEveryFourthByte_0044c0b0(const unsigned char* bytes, int count) {
+SumEveryFourthByte(const unsigned char* bytes, int count) {
     unsigned int sum = 0;
     count -= count & 3;
     for (int offset = 0; offset < count; offset += 4) {

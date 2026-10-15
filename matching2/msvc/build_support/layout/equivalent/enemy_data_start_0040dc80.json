@@ -7,7 +7,7 @@
     "src/game/enemy/enemy_data_start_context.cpp"
   ],
   "entry_symbol": "_RigEntry@8",
-  "function": "_EnemyDataStart_0040dc80@4",
+  "function": "_EnemyDataStart@4",
   "code_bytes": 2412,
   "absolute_symbols": {
     "__fltused": {
@@ -26,7 +26,7 @@
       "address": "0x0044BC70",
       "kind": "code"
     },
-    "?AdvanceSlots@EnemyRecord_0040dc80@@QAEPBDXZ": {
+    "?AdvanceSlots@EnemyRecord@@QAEPBDXZ": {
       "address": "0x004127A0",
       "kind": "code"
     },
@@ -34,7 +34,7 @@
       "address": "0x00409D90",
       "kind": "code"
     },
-    "?Enemy_ReleaseOnDeath_0040e5f0@@YGHPAUEnemyRecord_0040dc80@@@Z": {
+    "?Enemy_ReleaseOnDeath@@YGHPAUEnemyRecord@@@Z": {
       "address": "0x0040E5F0",
       "kind": "code"
     },
@@ -70,16 +70,16 @@
   "bindings": {
     "?Advance@PolarMotion@@QAEXXZ": "0x0044C2A0",
     "?Advance@FrameTimer@@QAEXM@Z": "0x0044BF40",
-    "?Find@AnimationFinder_0040dc80@@QAIPAUAnimation_0040dc80@@PAUAnimationManager_0040dc80@@UScriptChangeHandle@@@Z": "0x004491C0",
-    "?SetAnimationTranslatedPosition_00449350@@YIXPAUAnimationManager_0040dc80@@PBUPolarVec3@@UScriptChangeHandle@@@Z": "0x00449350",
+    "?Find@AnimationFinder@@QAIPAUAnimation_0040dc80@@PAUAnimationManager_0040dc80@@UScriptChangeHandle@@@Z": "0x004491C0",
+    "?SetAnimationTranslatedPosition@@YIXPAUAnimationManager_0040dc80@@PBUPolarVec3@@UScriptChangeHandle@@@Z": "0x00449350",
     "?Animation_SetPosition@@YIXPAUAnimationManager_0040dc80@@PBUPolarVec3@@UScriptChangeHandle@@@Z": "0x004492F0",
     "?ChangeScript@ScriptChangeHandle@@QAEXH@Z": "0x004496D0",
     "_EclVm_TickChildren@8": "0x0044FD10",
-    "?ClearResourceList@EnemyRecord_0040dc80@@QAEXXZ": "0x0040C6E0",
-    "?ResetScript@EnemyRecord_0040dc80@@QAEXXZ": "0x0040C730",
+    "?ClearResourceList@EnemyRecord@@QAEXXZ": "0x0040C6E0",
+    "?ResetScript@EnemyRecord@@QAEXXZ": "0x0040C730",
     "?Resolve@ScriptTable_00450470@@QAEHPBD@Z": "0x00450470",
-    "?BindName_00450700@@YIHPBDPAUEnemyRecord_0040dc80@@@Z": "0x00450700",
-    "?FieldContact_004266b0@@YIHPBUPolarVec3@@PAUPlayer@@PBUVec2@@@Z": "0x004266B0",
+    "?BindName@@YIHPBDPAUEnemyRecord@@@Z": "0x00450700",
+    "?FieldContact@@YIHPBUPolarVec3@@PAUPlayer@@PBUVec2@@@Z": "0x004266B0",
     "?QueuePan@SoundQueue@@QAEXHM@Z": "0x0043DD10",
     "?Step@?$Interpolator@UVec3@@@@QAE?AUVec3@@XZ": "0x00404610",
     "?Step@?$Interpolator@UTrajectoryVec2@@@@QAE?AUTrajectoryVec2@@XZ": "0x00412AC0",

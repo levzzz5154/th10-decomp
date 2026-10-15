@@ -8,8 +8,8 @@
   "description": "Apply a 16-bit state to entities with loaded animation resources. Native LTCG assigns count to EAX and entity base to ECX, with the unsigned-short state on the stack and RET4. Only the complete 97-byte apply function is selected; forwarding context and zero-filled gaps are never recovered code.",
   "functions": [
     {
-      "name": "ApplyEntityStateForLoadedResource_00441520",
-      "symbol": "_ApplyEntityStateForLoadedResource_00441520@12",
+      "name": "ApplyEntityStateForLoadedResource",
+      "symbol": "_ApplyEntityStateForLoadedResource@12",
       "section": ".text$01apply",
       "address": "0x00441520",
       "size": 97,

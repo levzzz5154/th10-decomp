@@ -5,7 +5,7 @@
 
 // A projectile pattern request: an origin, a grid of columns by rows, and an
 // optional sound.
-struct ProjectilePattern_004073e0 {
+struct ProjectilePattern {
     int reserved_000;
     float x;                             // +0x004
     float y;                             // +0x008
@@ -32,12 +32,12 @@ struct ProjectileManager_004073e0 {
 
 // 0x004067D0: spawn the projectile of one grid cell; nonzero when the pool is
 // full. The pattern travels in EBX, everything else on the stack.
-int __stdcall SpawnPatternCell_004067d0(ProjectilePattern_004073e0* pattern,
+int __stdcall SpawnPatternCell_004067d0(ProjectilePattern* pattern,
                                         ProjectileManager_004073e0* manager,
                                         int column, int row, float aim);
 
 // 0x004073E0: spawn every cell of a pattern, aimed at the player.
-int __stdcall EnemyGrid_ScanCells_004073e0(ProjectilePattern_004073e0* pattern,
+int __stdcall EnemyGrid_ScanCells_004073e0(ProjectilePattern* pattern,
                                            ProjectileManager_004073e0* manager);
 
 #endif

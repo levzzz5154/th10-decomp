@@ -8,7 +8,7 @@
 
 // ---------------------------------------------------------------------------
 // Scoped views of the private-ABI helpers co-compiled inside this cluster.
-// The bodies live in layout/ltcg/replay_submenu_004236f0/ and are anchored at
+// The bodies live in layout/ltcg/replay_submenu/ and are anchored at
 // their retail addresses; these declarations only name them for the caller.
 // ---------------------------------------------------------------------------
 
@@ -17,7 +17,7 @@ struct AnimationScriptId {
 };
 
 // 0x00405410 scheduler value record (receiver in EAX).
-struct SubSchedulerRecord_004236f0 {
+struct SubSchedulerRecord {
     int field_00;
     int field_04;
     float field_08;
@@ -41,19 +41,19 @@ struct InputState {
     unsigned char unknown_0394[0x3CC - 0x394];
     unsigned int flags_3CC;
 };
-__declspec(noinline) void SubSetInputMode_004236f0(InputState* state, int mode);
+__declspec(noinline) void SubSetInputMode(InputState* state, int mode);
 
 // 0x00421F60 frame-maximum snapshot record.
 struct GameStateFrameState {
     unsigned char unknown_0000[0x9E78];
     int frame_value;               // +0x9E78
 };
-__declspec(noinline) int __stdcall SubUpdateFrameMaximum_004236f0(GameStateFrameState* state);
+__declspec(noinline) int __stdcall SubUpdateFrameMaximum(GameStateFrameState* state);
 
 // The menu cursor co-compiled bodies (0x0044BE20/0x0044BE70/0x0044BEA0);
 // identical layout to the shared MenuCursor, scoped so the maintained
 // definitions stay untouched.
-struct SubmenuCursor_004236f0 {
+struct SubmenuCursor {
     int selection;                       // +0x00
     int previous_selection;              // +0x04, saved by menu input handlers
     int item_count;                      // +0x08
@@ -71,7 +71,7 @@ struct SubmenuCursor_004236f0 {
 
 // The sound queue body co-compiled at 0x0043DC90 (this in ECX, sound id in
 // EDI, request on the stack).
-struct SubSoundQueue_004236f0 {
+struct SubSoundQueue {
     char reserved[0x408];
     int priorities[134];
     int sound_ids[12];
@@ -80,32 +80,32 @@ struct SubSoundQueue_004236f0 {
     __declspec(noinline) int Queue(int sound_id, int request);
 };
 
-struct SubRef4_004236f0;
+struct SubRef4;
 
 // The animation views: 0x00449470 variable stop frame, 0x004497D0 child
 // lookup returning the four-byte reference, 0x004243F0 stop frame 6 on the
 // reference, 0x0040C4D0 stop frame 3, 0x00409E50 stop frame 1.
-struct SubHandle4_004236f0 {
+struct SubHandle4 {
     unsigned int value;
     __declspec(noinline) void SetStopFrame(short frame);
     __declspec(noinline) void StopAtFrame1();
     __declspec(noinline) void StopAtFrame3();
-    __declspec(noinline) SubRef4_004236f0 FindChildRef(int script_id);
+    __declspec(noinline) SubRef4 FindChildRef(int script_id);
 };
 
-struct SubRef4_004236f0 {
+struct SubRef4 {
     int value;
-    SubRef4_004236f0(int value) : value(value) {}
+    SubRef4(int value) : value(value) {}
     __declspec(noinline) void StopAtFrame6();
 };
 
 // The flagged/cleared animation nodes (0x00449590/0x004495E0).
-struct SubAnimNode_004236f0 {
-    SubAnimNode_004236f0* field_000;   // +0x000
-    SubAnimNode_004236f0* field_004;   // +0x004
+struct SubAnimNode {
+    SubAnimNode* field_000;   // +0x000
+    SubAnimNode* field_004;   // +0x004
     unsigned char pad_008[0x0C];
-    SubAnimNode_004236f0* field_014;   // +0x014
-    SubAnimNode_004236f0* field_018;   // +0x018
+    SubAnimNode* field_014;   // +0x014
+    SubAnimNode* field_018;   // +0x018
     unsigned char pad_01c[0x340];
     unsigned int flags_35c;            // +0x35C
     __declspec(noinline) void SetFlag();
@@ -113,7 +113,7 @@ struct SubAnimNode_004236f0 {
 };
 
 // 0x00423510 resets the whole result-screen record the submenu dispatch owns.
-struct SubTimedState_004236f0 {
+struct SubTimedState {
     unsigned char unknown_00[0x04];
     int state;                                 // +0x04
     unsigned char unknown_08[0x08];
@@ -123,8 +123,8 @@ struct SubTimedState_004236f0 {
     float* timer_speed;                        // +0x1C
     unsigned int timer_flags;                  // +0x20
     unsigned char unknown_24[0x1B0];
-    SubHandle4_004236f0 handle_1d4;            // +0x1D4
-    SubHandle4_004236f0 handle_1d8;            // +0x1D8
+    SubHandle4 handle_1d4;            // +0x1D4
+    SubHandle4 handle_1d8;            // +0x1D8
     unsigned char unknown_1dc[0xE4];
     float speed;                               // +0x2C0
     __declspec(noinline) void InitializeTimedState();
@@ -132,7 +132,7 @@ struct SubTimedState_004236f0 {
 
 // 0x004297B0: release + delete a platform resource (receiver in ESI).
 struct PlatformResource;
-__declspec(noinline) void __stdcall SubPlatformResource_Destroy_004236f0(
+__declspec(noinline) void __stdcall SubPlatformResource_Destroy(
     PlatformResource* resource);
 
 // 0x0040AD20: clamp a selection against the keyboard grid length.
@@ -168,21 +168,21 @@ extern "C" int g_globals_stage;
 extern "C" GameStateFrameState* g_front;  // 0x0047770C
 extern "C" InputState g_application;            // 0x00491C28
 extern "C" int g_main_state;                   // 0x00491FB8 launch mode latch
-extern "C" SubSoundQueue_004236f0 g_sound_manager; // 0x00492590 sound queue
+extern "C" SubSoundQueue g_sound_manager; // 0x00492590 sound queue
 extern "C" float g_game_speed;                 // 0x00476F78 shared game speed
 
 // ---------------------------------------------------------------------------
 // The result-screen record (the retail `this`, one stack argument, RET 4).
 // ---------------------------------------------------------------------------
 
-struct SubmenuState_004236f0 {
+struct SubmenuState {
     unsigned char unknown_000[0x04];
     int state;                                   // +0x04
     unsigned char unknown_008[0x08];
-    SubSchedulerRecord_004236f0 timer;           // +0x10 (+0x14 transition timer)
-    SubmenuCursor_004236f0 rows;                 // +0x24 (selection/previous/count 25 or 3, wrap +0xF4)
-    SubmenuCursor_004236f0 list;                 // +0xFC (grid cursor / name length, wrap +0x1CC)
-    SubHandle4_004236f0 background;              // +0x1D4 task handle
+    SubSchedulerRecord timer;           // +0x10 (+0x14 transition timer)
+    SubmenuCursor rows;                 // +0x24 (selection/previous/count 25 or 3, wrap +0xF4)
+    SubmenuCursor list;                 // +0xFC (grid cursor / name length, wrap +0x1CC)
+    SubHandle4 background;              // +0x1D4 task handle
     unsigned char unknown_1d8[0x1E0 - 0x1D8];
     int name_length;                             // +0x1E0 typed name length
     int extra_cleared;                           // +0x1E4 finished extra stage
@@ -192,15 +192,15 @@ struct SubmenuState_004236f0 {
     char name[8];                                // +0x2B4 typed name
 };
 
-typedef char SubmenuStateTimerOffset_004236f0[offsetof(SubmenuState_004236f0, timer) == 0x10 ? 1 : -1];
-typedef char SubmenuStateRowsOffset_004236f0[offsetof(SubmenuState_004236f0, rows) == 0x24 ? 1 : -1];
-typedef char SubmenuStateListOffset_004236f0[offsetof(SubmenuState_004236f0, list) == 0xFC ? 1 : -1];
-typedef char SubmenuStateBackgroundOffset_004236f0[offsetof(SubmenuState_004236f0, background) == 0x1D4 ? 1 : -1];
-typedef char SubmenuStateHandlesOffset_004236f0[offsetof(SubmenuState_004236f0, handles) == 0x1EC ? 1 : -1];
-typedef char SubmenuStateNameOffset_004236f0[offsetof(SubmenuState_004236f0, name) == 0x2B4 ? 1 : -1];
+typedef char SubmenuStateTimerOffset[offsetof(SubmenuState, timer) == 0x10 ? 1 : -1];
+typedef char SubmenuStateRowsOffset[offsetof(SubmenuState, rows) == 0x24 ? 1 : -1];
+typedef char SubmenuStateListOffset[offsetof(SubmenuState, list) == 0xFC ? 1 : -1];
+typedef char SubmenuStateBackgroundOffset[offsetof(SubmenuState, background) == 0x1D4 ? 1 : -1];
+typedef char SubmenuStateHandlesOffset[offsetof(SubmenuState, handles) == 0x1EC ? 1 : -1];
+typedef char SubmenuStateNameOffset[offsetof(SubmenuState, name) == 0x2B4 ? 1 : -1];
 
 // The replay header fields the result screen writes (time and difficulty slot).
-struct ReplayHeaderView_004236f0 {
+struct ReplayHeaderView {
     unsigned char unknown_00[0x0C];
     unsigned int saved_time;                    // +0x0C
     unsigned char unknown_10[0x5C - 0x10];

@@ -11,7 +11,7 @@
   "functions": [
     {
       "name": "TimerDecrementer_004052b0_Decrement",
-      "symbol": "?Decrement@TimerDecrementer_004052b0@@QAEXH@Z",
+      "symbol": "?Decrement@TimerDecrementer@@QAEXH@Z",
       "section": ".text$01accessor",
       "address": "0x004052B0",
       "size": 20,
@@ -19,7 +19,7 @@
     }
   ],
   "context": {
-    "symbol": "?AccessorCompilerContext@@YGHPAPAUTimerDecrementer_004052b0@@H@Z",
+    "symbol": "?AccessorCompilerContext@@YGHPAPAUTimerDecrementer@@H@Z",
     "section": ".text$03context",
     "address": "0x004052D0",
     "size": 40,

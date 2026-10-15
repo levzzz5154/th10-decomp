@@ -36,11 +36,11 @@ extern "C" AnimationLists_004188a0* g_sprt_ctrl;
 
 // 0x00448D00: start script `index` of a resource as a new animation at the
 // back of the primary list; the handle is written to `out` and returned.
-__declspec(noinline) void** __stdcall AnimationManager_CreatePrimaryBack_00448d00(
+__declspec(noinline) void** __stdcall AnimationManager_CreatePrimaryBack(
     void* resource, void** out, int index, int render_bucket);
 
 // One life icon of the side panel.
-struct AnimationRecord_00413790 {
+struct AnimationRecord {
     unsigned int flags_0000;             // +0x000
     unsigned char pad_0004[0x3AC - 4];
 };
@@ -48,7 +48,7 @@ struct AnimationRecord_00413790 {
 // The side panel: nine life icons and the extend banner.
 struct AnimationManager_00413790 {
     unsigned char pad_0000[0x4CDC];
-    AnimationRecord_00413790 records_4cdc[9];
+    AnimationRecord records_4cdc[9];
     unsigned char pad_6de8[0x9E18 - 0x6DE8];
     AnimationHandle_004188a0 extend_banner;  // +0x9E18
     unsigned char pad_9e1c[0x9EC8 - 0x9E1C];
@@ -61,7 +61,7 @@ struct AnimationManager_00413790 {
 extern "C" AnimationManager_00413790* g_front;
 
 // The run's counters; the power sits at +0x08 and the life stock at +0x30.
-struct RunCounters_004188a0 {
+struct RunCounters {
     unsigned char reserved_00[8];
     short power;                         // +0x08: 100 is full, 20 per level
     unsigned char reserved_0a[0x30 - 0x0A];
@@ -74,6 +74,6 @@ struct RunCounters_004188a0 {
     __declspec(noinline) void AddLives(int amount);
 };
 
-extern "C" RunCounters_004188a0 g_globals;
+extern "C" RunCounters g_globals;
 
 #endif

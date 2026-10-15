@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "name": "side_panel_contents_release_00414370",
+  "name": "side_panel_contents_release",
   "source": "src/game/front/side_panel_contents_release_00414370.cpp",
   "driver": "build_support/layout/ltcg/side_panel_contents_release_00414370_context.cpp",
   "headers": [
@@ -11,7 +11,7 @@
   "functions": [
     {
       "name": "SidePanel_ReleaseContents",
-      "symbol": "?SidePanel_ReleaseContents_00414370@@YGXPAUSidePanel_00414370@@@Z",
+      "symbol": "?SidePanel_ReleaseContents_00414370@@YGXPAUSidePanel@@@Z",
       "section": ".text$00414370_fn",
       "address": "0x00414370",
       "size": 476,
@@ -42,14 +42,14 @@
     },
     {
       "name": "PanelAnimation_Find",
-      "symbol": "?PanelAnimation_Find_004491c0@@YIPAUPanelAnimationEntry_00414370@@PAUPanelAnimationManager_00414370@@UPanelAnimationId_00414370@@@Z",
+      "symbol": "?PanelAnimation_Find_004491c0@@YIPAUPanelAnimationEntry@@PAUPanelAnimationManager_00414370@@UPanelAnimationId@@@Z",
       "section": ".text$004491c0_fn",
       "address": "0x004491C0",
       "size": 73
     },
     {
       "name": "PanelAnimation_SetFlag",
-      "symbol": "?PanelAnimation_SetFlag_004492a0@@YIPAUPanelAnimationEntry_00414370@@PAUPanelAnimationManager_00414370@@UPanelAnimationId_00414370@@@Z",
+      "symbol": "?PanelAnimation_SetFlag_004492a0@@YIPAUPanelAnimationEntry@@PAUPanelAnimationManager_00414370@@UPanelAnimationId@@@Z",
       "section": ".text$004492a0_fn",
       "address": "0x004492A0",
       "size": 66

@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "TimerArm_00405450_Arm",
-      "symbol": "?Arm@TimerArm_00405450@@QAEXH@Z",
+      "symbol": "?Arm@TimerArm@@QAEXH@Z",
       "section": ".text$01arm",
       "address": "0x405450",
       "size": 57,

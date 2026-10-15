@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "CellPair_Divide_00427da0",
-      "symbol": "??KCellPairDivide_00427da0@@QBE?AU0@H@Z",
+      "symbol": "??KCellPairDivide@@QBE?AU0@H@Z",
       "section": ".text$01divide",
       "address": "0x00427DA0",
       "size": 23,

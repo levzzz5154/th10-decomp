@@ -149,7 +149,7 @@ struct AnimationObject_00448d50 {
 
 #pragma code_seg(".text$8primary")
 __declspec(noinline)
-void** __stdcall AnimationManager_CreatePositionedPrimary_00448d50(
+void** __stdcall AnimationManager_CreatePositionedPrimary(
     void* resource, void** out, int index,
     const AnimationPosition_00448d50* position) {
     AnimationObject_00448d50* object =

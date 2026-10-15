@@ -5,7 +5,7 @@
 #include "th10/game/resource_list_00449e50.hpp"
 
 #pragma code_seg(".text$01release")
-void ResourceList_00449e50::Release(ResourceListOwner_00449e50 owner) {
+void ResourceList::Release(ResourceListOwner owner) {
     TaskLink* node = first;
     if (node) {
         void (__stdcall *enter)(CriticalSection*) = EnterCriticalSection;

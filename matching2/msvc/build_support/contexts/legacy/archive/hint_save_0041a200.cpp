@@ -54,7 +54,7 @@ extern "C" __declspec(noinline) int __stdcall SaveHints(Manager_00419040* manage
     int stage;
     int rows;
     Bucket_00419040* slot;
-    ChainNode_00419040* next = 0;
+    ChainNode* next = 0;
     char* buffer = (char*)asm_malloc_00452706(0x1000);
     asm_FUN_00452abc_00452abc(str_hint_dir);            // make sure "hint" exists
     if (asm_File_OpenSharedWrite_0044b620(path) == 0) {
@@ -87,7 +87,7 @@ extern "C" __declspec(noinline) int __stdcall SaveHints(Manager_00419040* manage
         stage = 0;
         slot = manager->secondary;
         do {
-            ChainNode_00419040* entry = slot->head;
+            ChainNode* entry = slot->head;
             rows = 0;
             if (entry != 0) {
                 do {

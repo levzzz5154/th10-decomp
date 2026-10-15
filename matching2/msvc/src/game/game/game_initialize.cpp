@@ -3,7 +3,7 @@
 // cluster. The public entry takes the UI context on the stack and returns
 // 0 on success or -1 after notifying the worker and retiring callbacks.
 // The private helper conventions come from their complete C++ bodies in
-// build_support/layout/ltcg/stage_startup_00417870.json.
+// build_support/layout/ltcg/stage_startup.json.
 #include <string.h>
 #include "th10/game/stage_startup_00417870.hpp"
 #include "th10/game/title_draw.hpp"
@@ -23,7 +23,7 @@ struct Game {
 };
 typedef char Game_InitializeFlags[offsetof(Game, flags) == 0x58 ? 1 : -1];
 
-struct AnimationWaitState_00417870 { int primary_pending; int secondary_pending; };
+struct AnimationWaitState { int primary_pending; int secondary_pending; };
 struct StageResources_00417870 {
     int stage_kind;
     const char* stage_file;
@@ -32,21 +32,21 @@ struct StageResources_00417870 {
     const char* music[2];
 };
 #pragma pack(push, 4)
-struct StageTiming_00417870 {
+struct StageTiming {
     unsigned char unknown_00[0x24];
     double first;
     double second;
 };
 #pragma pack(pop)
-typedef char StageTimingFirst[offsetof(StageTiming_00417870, first) == 0x24 ? 1 : -1];
-typedef char StageTimingSecond[offsetof(StageTiming_00417870, second) == 0x2C ? 1 : -1];
+typedef char StageTimingFirst[offsetof(StageTiming, first) == 0x24 ? 1 : -1];
+typedef char StageTimingSecond[offsetof(StageTiming, second) == 0x2C ? 1 : -1];
 
 extern "C" {
-extern AnimationWaitState_00417870* g_sprt_ctrl;
+extern AnimationWaitState* g_sprt_ctrl;
 extern FuncCtrl* g_func_ctrl;
 extern StageResources_00417870* g_stage_route_current;
-extern PathState_00417800* g_enemy_ctrl;
-extern StageTiming_00417870* g_fps;
+extern PathState* g_enemy_ctrl;
+extern StageTiming* g_fps;
 extern void* g_front;
 extern const char g_replay_path[];
 extern int g_stage_wait;

@@ -3,6 +3,6 @@
 #include "th10/render/animation_public_callers.hpp"
 #pragma code_seg(".text$05zcallback")
 void __fastcall Loading_OnDraw(void* self) {
-    TitleEffectsAdvance_0041fdd0((TitleEffectState_0041fdd0*)self);
+    TitleEffectsAdvance((TitleEffectState*)self);
 }
 #pragma code_seg()

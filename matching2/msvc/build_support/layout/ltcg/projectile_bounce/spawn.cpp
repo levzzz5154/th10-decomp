@@ -10,12 +10,12 @@ void* __cdecl operator new(unsigned int size);
 // in EDI, the manager in ESI and the kind on the stack. A failed allocation
 // is not checked.
 #pragma code_seg(".text$a03spawn")
-int LaserSpawnParameters_0041c510::SpawnIn(LaserManager_0041c510* manager, int kind) const {
+int LaserSpawnParameters::SpawnIn(LaserManager_0041c510* manager, int kind) const {
     if (manager->count >= 256)
         return 0;
     if (++manager->next_id == 0)
         manager->next_id = 1;
-    LaserBase_0041c030* laser;
+    LaserBase* laser;
     switch (kind) {
     case 0: {
         LineLaser_0041c5b0* line =
@@ -26,8 +26,8 @@ int LaserSpawnParameters_0041c510::SpawnIn(LaserManager_0041c510* manager, int k
         break;
     }
     case 1: {
-        BeamLaser_0041c680* beam =
-            static_cast<BeamLaser_0041c680*>(operator new(sizeof(BeamLaser_0041c680)));
+        BeamLaser* beam =
+            static_cast<BeamLaser*>(operator new(sizeof(BeamLaser)));
         laser = beam ? BeamLaser_Construct_0041c680(beam) : 0;
         manager->Append(laser);
         laser->Methods()->Initialize(this);
@@ -53,7 +53,7 @@ LineLaser_0041c5b0* __fastcall LineLaser_Construct_0041c5b0(LineLaser_0041c5b0* 
 // 0x0041C680: construct a beam laser the same way. The retail laser arrives in EBX; this unselected native graph may
 // choose its own register for that internal call.
 #pragma code_seg(".text$a07beam")
-BeamLaser_0041c680* __fastcall BeamLaser_Construct_0041c680(BeamLaser_0041c680* self) {
+BeamLaser* __fastcall BeamLaser_Construct_0041c680(BeamLaser* self) {
     LaserBase_Construct_0041c030(self);
     self->vtable = &g_beam_laser_vtable;
     self->params.Construct();

@@ -12,7 +12,7 @@ extern "C" float flt_224;
 extern "C" float flt_16;
 
 #pragma code_seg(".text$80create")
-__declspec(noinline) void** __stdcall ItemAnimation_CreateOffset_00448db0(
+__declspec(noinline) void** __stdcall ItemAnimation_CreateOffset(
     void* resource, void** out, int index, const Vector3* position) {
     Entity* object = static_cast<AnimationPool*>(g_sprt_ctrl)->Allocate();
     object->flags_35C |= 0x40000000u;

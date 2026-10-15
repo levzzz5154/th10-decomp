@@ -11,7 +11,7 @@
   "functions": [
     {
       "name": "GameConfigHolder_Construct_0042a9f0",
-      "symbol": "?Construct@GameConfigHolder_0042a9f0@@QAEPAU1@XZ",
+      "symbol": "?Construct@GameConfigHolder@@QAEPAU1@XZ",
       "section": ".text$00xfn",
       "address": "0x0042A9F0",
       "size": 24,
@@ -29,7 +29,7 @@
     }
   ],
   "context": {
-    "symbol": "?ConfigHolderContext_0042a9f0@@YGHPAUGameConfigHolder_0042a9f0@@H@Z",
+    "symbol": "?ConfigHolderContext_0042a9f0@@YGHPAUGameConfigHolder@@H@Z",
     "section": ".text$03context",
     "address": "0x0042AA10",
     "size": 38,

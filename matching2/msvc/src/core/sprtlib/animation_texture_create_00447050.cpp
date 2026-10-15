@@ -1,6 +1,6 @@
 // 0x00447050..0x00447078: AnimationTexture_Create
 // Native MSVC 13.10 LTCG supplies the private EDX/ECX/EDI/ESI ABI through
-// build_support/layout/ltcg/d3703_animation_texture_00447050.json.
+// build_support/layout/ltcg/d3703_animation_texture.json.
 extern "C" int g_texture_formats_a[];
 extern "C" int g_texture_formats_b[];
 extern "C" void* g_d3d_device;

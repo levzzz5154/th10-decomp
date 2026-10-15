@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "vec2_difference_00441dd0",
-      "symbol": "?Difference_00441dd0@@YG?AUVec2_00441dd0@@PBU1@0@Z",
+      "symbol": "?Difference@@YG?AUVec2_00441dd0@@PBU1@0@Z",
       "section": ".text$01accessor",
       "address": "0x00441DD0",
       "size": 16,

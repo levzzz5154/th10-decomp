@@ -2,13 +2,13 @@
 //
 // The receiver arrives in ECX - a plain __thiscall member - so the body is an
 // ordinary translation unit; the returned object is what the caller keeps.
-struct ObjectClearer_00405e10 {
+struct ObjectClearer {
     unsigned char pad_000[0x10];
     unsigned int flags;                       // +0x10
-    __declspec(noinline) ObjectClearer_00405e10* Clear();
+    __declspec(noinline) ObjectClearer* Clear();
 };
 
-ObjectClearer_00405e10* ObjectClearer_00405e10::Clear() {
+ObjectClearer* ObjectClearer::Clear() {
     flags &= ~1u;
     return this;
 }

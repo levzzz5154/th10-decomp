@@ -14,7 +14,7 @@
 namespace {
 
 // The sequence record behind 0x00477704.
-struct SequenceRecord_00477704 {
+struct SequenceRecord {
     unsigned char pad_0000[0x10];
     unsigned char* field_10;
     unsigned char pad_0014[0x38 - 0x14];
@@ -159,7 +159,7 @@ inline unsigned int RegisterFreshObject(Entity* object, FrontUpdateView* front) 
 }  // namespace
 
 #pragma code_seg(".text$00414900_fn")
-__declspec(noinline) int __stdcall FrontHudUpdate_00414900(
+__declspec(noinline) int __stdcall FrontHudUpdate(
     FrontUpdateView* front) {
     if (front->flags_9eb4 & 0x10) {
         if (++front->banner_timer_9ecc >= 0x78) {
@@ -170,21 +170,21 @@ __declspec(noinline) int __stdcall FrontHudUpdate_00414900(
     {
         FrontUpdateView::BankObject* vm = front->objects;
         for (int n = 9; n != 0; --n) {
-            AnmVm_Run_0043ee30(vm);
+            AnmVm_Run(vm);
             vm += 1;
         }
     }
     {
         FrontUpdateView::BankObject* vm = &front->objects[9];
         for (int n = 4; n != 0; --n) {
-            AnmVm_Run_0043ee30(vm);
+            AnmVm_Run(vm);
             vm += 1;
         }
     }
     {
         FrontUpdateView::BankObject* vm = &front->objects[13];
         for (int n = 2; n != 0; --n) {
-            AnmVm_Run_0043ee30(vm);
+            AnmVm_Run(vm);
             vm += 1;
         }
     }
@@ -214,7 +214,7 @@ __declspec(noinline) int __stdcall FrontHudUpdate_00414900(
     {
         int value = g_globals_gauge;
         int divisor = 10000;
-        AnmVm_Run_0043ee30(&front->objects[15]);
+        AnmVm_Run(&front->objects[15]);
         FrontUpdateView::BankObject* obj = &front->objects[16];
         for (int n = 5; n != 0; --n) {
             int digit = value / divisor;
@@ -222,13 +222,13 @@ __declspec(noinline) int __stdcall FrontHudUpdate_00414900(
             ((Resource_0043e5a0*)front->resource_9ec8)->ConfigureObject(
                 (AnimationObject_0043e5a0*)obj, digit + 0x1E);
             divisor = divisor / 10;
-            AnmVm_Run_0043ee30(obj);
+            AnmVm_Run(obj);
             obj += 1;
         }
     }
-    AnmVm_Run_0043ee30(&front->objects[21]);
+    AnmVm_Run(&front->objects[21]);
 
-    SequenceRecord_00477704* seq = (SequenceRecord_00477704*)g_enemy_ctrl;
+    SequenceRecord* seq = (SequenceRecord*)g_enemy_ctrl;
     if (seq && seq->field_10 && !front->sequence_9eb8) {
         ScriptBody* body = (ScriptBody*)seq->field_10;
         int gauge_value = body->gauge_value_23fc;
@@ -373,13 +373,13 @@ __declspec(noinline) int __stdcall FrontHudUpdate_00414900(
             runtime->slots[4] = 0;
             FlagTreeFlags(runtime->slots[5]);
             runtime->slots[5] = 0;
-            FrontFree_004524a1(runtime);
+            FrontFree(runtime);
           }
             front->sequence_9eb8 = 0;
         }
     }
 
-    seq = (SequenceRecord_00477704*)g_enemy_ctrl;
+    seq = (SequenceRecord*)g_enemy_ctrl;
     if (seq != 0) {
         int position = front->script_pos_9ec0;
         if (position >= 0 && seq->field_10 != 0 && front->sequence_9eb8 == 0) {
@@ -406,7 +406,7 @@ __declspec(noinline) int __stdcall FrontHudUpdate_00414900(
                     front->script_pos_9ec0 % 10 + 8);
             }
             front->script_marked_9ec4 = front->script_pos_9ec0;
-            seq = (SequenceRecord_00477704*)g_enemy_ctrl;
+            seq = (SequenceRecord*)g_enemy_ctrl;
         }
         ScriptBody* body = (ScriptBody*)seq->field_10;
         if (body != 0) {
@@ -463,7 +463,7 @@ __declspec(noinline) int __stdcall FrontHudUpdate_00414900(
                     }
                 }
                 // The boss bank tick and its fade-in window.
-                AnmVm_Run_0043ee30(&front->objects[22]);
+                AnmVm_Run(&front->objects[22]);
                 front->objects[22].height_344 = 480.0f;
                 front->objects[22].y_340 = body->boss_y_1068 + flt_224;
                 float offset = (float)fabs(

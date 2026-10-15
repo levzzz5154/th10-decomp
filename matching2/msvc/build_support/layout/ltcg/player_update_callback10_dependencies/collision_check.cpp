@@ -2,8 +2,8 @@
 extern "C" void _ReadWriteBarrier();
 #pragma intrinsic(_ReadWriteBarrier)
 
-struct CollisionDisplacement_00408100 : PositionVector_004492f0 {
-    CollisionDisplacement_00408100(float px, float py, float pz) {
+struct CollisionDisplacement : PositionVector {
+    CollisionDisplacement(float px, float py, float pz) {
         x = px;
         y = py;
         z = pz;
@@ -11,9 +11,9 @@ struct CollisionDisplacement_00408100 : PositionVector_004492f0 {
 };
 
 #pragma code_seg(".text$060collision")
-int CollisionEngine_00408100::Check(const PositionVector_004492f0* point,
+int CollisionEngine::Check(const PositionVector* point,
         float radius, int spawn_item, int filter_countdown) {
-    CollisionRecord_00408100* record = records;
+    CollisionRecord* record = records;
     int remaining = 2000;
     do {
         if (record->state != 0 && record->state != 3 &&
@@ -21,7 +21,7 @@ int CollisionEngine_00408100::Check(const PositionVector_004492f0* point,
             // Materialize all three displacement components before evaluating
             // the X/Y circle. Retail retains the Z subtraction and each of
             // the three vector-copy operations.
-            PositionVector_004492f0 displacement = CollisionDisplacement_00408100(
+            PositionVector displacement = CollisionDisplacement(
                 record->position.x - point->x,
                 record->position.y - point->y,
                 record->position.z - point->z);

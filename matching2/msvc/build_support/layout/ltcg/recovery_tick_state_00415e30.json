@@ -8,8 +8,8 @@
   "description": "Guarded script-state frame tick compiled with native LTCG so the state arrives in ESI and the call returns with a plain RET.",
   "functions": [
     {
-      "name": "TickRecoveryState_00415e30",
-      "symbol": "?TickRecoveryState_00415e30@@YGHPAURecoveryTickState_00415e30@@@Z",
+      "name": "TickRecoveryState",
+      "symbol": "?TickRecoveryState@@YGHPAURecoveryTickState@@@Z",
       "section": ".text$01tick",
       "address": "0x00415E30",
       "size": 93,
@@ -17,7 +17,7 @@
     }
   ],
   "context": {
-    "symbol": "?RecoveryTickStateCompilerContext_00415e30@@YGHPAPAURecoveryTickState_00415e30@@H@Z",
+    "symbol": "?RecoveryTickStateCompilerContext_00415e30@@YGHPAPAURecoveryTickState@@H@Z",
     "section": ".text$03context",
     "address": "0x00415EA0",
     "size": 41,

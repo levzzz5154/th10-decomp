@@ -4,7 +4,7 @@
 #include "th10/app/application.hpp"
 
 struct MidiSequencer;
-struct GameFrame_00439390;
+struct GameFrame;
 struct Holder_00438a30;
 struct SprtCtrlStateCacheView;
 

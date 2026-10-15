@@ -2,7 +2,7 @@
 // when the open succeeds.  Unreferenced in retail.
 //
 // The path is forwarded to DatArchive::Open in EAX, so the body is compiled
-// in the cluster build_support/layout/ltcg/dat_archive_open_00434c30.json.
+// in the cluster build_support/layout/ltcg/dat_archive_open.json.
 #include "th10/archive/dat_archive_types.hpp"
 
 extern DatArchive g_dat_archives[];   // 0x004923B0

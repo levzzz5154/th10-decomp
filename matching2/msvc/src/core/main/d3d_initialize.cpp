@@ -54,7 +54,7 @@ struct TextLog_0044b8e0 {
 };
 
 #pragma code_seg(".text$00439890_fn")
-__declspec(noinline) int __stdcall D3DInitialize_00439890() {
+__declspec(noinline) int __stdcall D3DInitialize() {
     Direct3DPresentParameters parameters;
     Direct3DDisplayMode desktop;
     Direct3DVector eye, at, up;
@@ -198,5 +198,5 @@ reference:
 
 // The link's entry: a caller for the whole-program link to see.
 extern "C" int __stdcall RigEntry(void* instance, int show) {
-    return D3DInitialize_00439890();
+    return D3DInitialize();
 }

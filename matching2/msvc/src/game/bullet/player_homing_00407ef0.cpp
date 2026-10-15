@@ -8,7 +8,7 @@ extern "C" float flt_0, flt_1_01, flt_0_99, g_game_speed;
 // Steer toward the target with an angular offset and scaled turn rate until
 // the deadline, then clear the homing flag. The homing timer always advances.
 #pragma code_seg(".text$01homing")
-void PlayerHomingState_00407EF0::HomeTowardTarget() {
+void PlayerHomingState::HomeTowardTarget() {
     if (homing_timer.current >= homing_deadline_7DC) {
         flags_43C &= ~0x04000000u;
     } else {

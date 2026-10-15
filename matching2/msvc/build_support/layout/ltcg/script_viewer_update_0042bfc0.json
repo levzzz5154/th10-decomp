@@ -180,7 +180,7 @@
       "kind": "metadata"
     },
     {
-      "symbol": "?SptTest_LoadThread_0042be10@@YGIPAX@Z",
+      "symbol": "?SptTest_LoadThread@@YGIPAX@Z",
       "address": "0x0042BE10",
       "kind": "data"
     },
@@ -198,14 +198,14 @@
   "anchors": [
     {
       "name": "SetGameMode",
-      "symbol": "?SptTest_SetGameMode_0040ac90@@YGXPAUSptTestGameState_0042bfc0@@H@Z",
+      "symbol": "?SptTest_SetGameMode@@YGXPAUSptTestGameState@@H@Z",
       "section": ".text$a1mode",
       "address": "0x0040AC90",
       "size": 37
     },
     {
       "name": "MaskActive",
-      "symbol": "?MaskActive@SptTestInput_0042bfc0@@QAEGG@Z",
+      "symbol": "?MaskActive@SptTestInput@@QAEGG@Z",
       "section": ".text$a2mask",
       "address": "0x0040ACE0",
       "size": 33
@@ -240,14 +240,14 @@
     },
     {
       "name": "TickVm",
-      "symbol": "_SptTest_TickVm_0044fd10@8",
+      "symbol": "_SptTest_TickVm@8",
       "section": ".text$c4tick",
       "address": "0x0044FD10",
       "size": 148
     },
     {
       "name": "CreateVm",
-      "symbol": "?CreateVm@ScriptParser_0042be20@@QAEPAUSptTestResource_0042be20@@PBD@Z",
+      "symbol": "?CreateVm@ScriptParser@@QAEPAUSptTestResource@@PBD@Z",
       "section": ".text$c5create",
       "address": "0x00450500",
       "size": 89

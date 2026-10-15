@@ -21,7 +21,7 @@ extern TextLog_0044b810 g_text_log;
 }
 
 #pragma code_seg(".text$03fn")
-extern "C" __declspec(noinline) void __cdecl Sound_PreloadWorker_0043d080() {
+extern "C" __declspec(noinline) void __cdecl Sound_PreloadWorker() {
     for (int index = 0; index < kSoundEffectCount; ++index) {
         if (g_sound_thread_state == kSoundThreadShutdown)
             return;

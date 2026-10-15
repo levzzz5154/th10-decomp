@@ -14,7 +14,7 @@
 //
 // Native LTCG passes the manager in EBX, so this is compiled in the same link
 // as the scheduler registration functions and the text log it calls
-// (build_support/layout/ltcg/bullet_manager_load_scripts_0040ae70.json).
+// (build_support/layout/ltcg/bullet_manager_load_scripts.json).
 
 struct AsciiManager_00401110 {
     unsigned char pad_000[0x0C];
@@ -36,9 +36,9 @@ struct AsciiManager_00401110 {
 extern "C" {
 void *__fastcall Recovery_LoadCachedResource(int id, void *cache, const char *name);
 SchedulerTask *__stdcall SchedulerTask_Create(void *callback);
-int __fastcall AsciiManagerUpdate_004014f0(void *manager);
-int __fastcall AsciiManagerDraw_00401510(void *manager);
-int __fastcall AsciiManagerDrawOverlay_00401520(void *manager);
+int __fastcall AsciiManagerUpdate(void *manager);
+int __fastcall AsciiManagerDraw(void *manager);
+int __fastcall AsciiManagerDrawOverlay(void *manager);
 extern void *g_sprt_ctrl;
 extern FuncCtrl *g_func_ctrl;
 }
@@ -65,19 +65,19 @@ int AsciiManager_00401110::LoadResources() {
         return -1;
     }
 
-    SchedulerTask *task = SchedulerTask_Create((void *)AsciiManagerUpdate_004014f0);
+    SchedulerTask *task = SchedulerTask_Create((void *)AsciiManagerUpdate);
     task->reserved_flags &= ~1u;
     task->context = manager;
     FuncCtrl_RegisterPrimary(g_func_ctrl, task, 4);
     manager->update_task = task;
 
-    task = SchedulerTask_Create((void *)AsciiManagerDraw_00401510);
+    task = SchedulerTask_Create((void *)AsciiManagerDraw);
     task->context = manager;
     task->reserved_flags &= ~1u;
     FuncCtrl_RegisterSecondary(g_func_ctrl, task, 0x30);
     manager->draw_task = task;
 
-    task = SchedulerTask_Create((void *)AsciiManagerDrawOverlay_00401520);
+    task = SchedulerTask_Create((void *)AsciiManagerDrawOverlay);
     task->context = manager;
     task->reserved_flags &= ~1u;
     FuncCtrl_RegisterSecondary(g_func_ctrl, task, 0x26);
@@ -102,7 +102,7 @@ int AsciiManager_00401110::LoadResources() {
 // object and returns null.
 
 extern "C" {
-void __stdcall DestroyGameThread_00401260(GameThread *thread);
+void __stdcall DestroyGameThread(GameThread *thread);
 void __cdecl crt_free_startup(void *memory);
 }
 void *__cdecl operator new(unsigned int size);
@@ -112,7 +112,7 @@ extern "C" __declspec(noinline) GameThread *__stdcall AsciiManager_Create() {
     GameThread *thread = new GameThread;
     if (reinterpret_cast<AsciiManager_00401110 *>(thread)->LoadResources()) {
         if (thread) {
-            DestroyGameThread_00401260(thread);
+            DestroyGameThread(thread);
             crt_free_startup(thread);
         }
         return 0;

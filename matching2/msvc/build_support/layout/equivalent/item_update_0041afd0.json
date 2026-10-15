@@ -181,7 +181,7 @@
     "?AdvanceGaugeTimer@ItemRunState@@QAEXH@Z": "0x00412FF0",
     "?AddLives@ItemRunState@@QAEXH@Z": "0x004188A0",
     "?AddPower@ItemRunState@@QAEHH@Z": "0x00418930",
-    "?ConvertItems@ItemSpawnManager_0041bb00@@QAEHXZ": "0x0041BA50",
+    "?ConvertItems@ItemSpawnManager@@QAEHXZ": "0x0041BA50",
     "?SetPolar@ItemPolarVelocity_0041bb00@@QAEPAU1@MM@Z": "0x0041BEB0",
     "?AngleFromPoint@Player@@QAEMPBM@Z": "0x00426660",
     "?Spawn@ItemSmollScoreView@@QAEXHPBUVector3@@I@Z": "0x0042B9C0",

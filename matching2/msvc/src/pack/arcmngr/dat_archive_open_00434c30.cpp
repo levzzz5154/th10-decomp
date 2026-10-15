@@ -10,7 +10,7 @@
 // Retail passes the archive in ECX and the path in EAX, and the callees take
 // the archive in ESI and the path copy's source in EDI.  Native LTCG picks
 // those registers, so both bodies are compiled in the cluster
-// build_support/layout/ltcg/dat_archive_open_00434c30.json.
+// build_support/layout/ltcg/dat_archive_open.json.
 #include "th10/archive/dat_archive_types.hpp"
 #include "th10/platform/memory_file.hpp"
 

@@ -14,7 +14,7 @@
   "functions": [
     {
       "name": "AnimationManagerBucket1_00448600_RenderBucket1",
-      "symbol": "?RenderBucket1@AnimationManagerBucket1_00448600@@QAEHXZ",
+      "symbol": "?RenderBucket1@AnimationManagerBucket1@@QAEHXZ",
       "section": ".text$01slot1",
       "address": "0x00448600",
       "size": 15,
@@ -22,7 +22,7 @@
     }
   ],
   "roots": [
-    "?RenderBucket1@AnimationManagerBucket1_00448600@@QAEHXZ"
+    "?RenderBucket1@AnimationManagerBucket1@@QAEHXZ"
   ],
   "anchors": [
     {
@@ -34,7 +34,7 @@
     }
   ],
   "context": {
-    "symbol": "?AnimationManagerRenderBucket1Context@@YGHPAPAUAnimationManagerBucket1_00448600@@H@Z",
+    "symbol": "?AnimationManagerRenderBucket1Context@@YGHPAPAUAnimationManagerBucket1@@H@Z",
     "section": ".text$05context",
     "address": "0x00448A10",
     "size": 38,

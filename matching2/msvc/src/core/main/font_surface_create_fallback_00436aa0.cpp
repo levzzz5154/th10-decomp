@@ -8,12 +8,12 @@
 #include "th10/platform/native_font_start.hpp"
 #pragma code_seg(".text$a05m_fallback")
 bool __stdcall FontSurface_CreateWithFallback_00436aa0(GdiSurface_00436a30* surface,int width,int height,int format) {
-    if (FontSurface_Create_00436af0(surface,width,height,format))
+    if (FontSurface_Create(surface,width,height,format))
         return true;
     if (format==0x19 || format==0x1a)
-        return FontSurface_Create_00436af0(surface,width,height,0x15);
+        return FontSurface_Create(surface,width,height,0x15);
     if (format==0x17)
-        return FontSurface_Create_00436af0(surface,width,height,0x16);
+        return FontSurface_Create(surface,width,height,0x16);
     return false;
 }
 #pragma code_seg()

@@ -8,7 +8,7 @@
 extern "C" const signed char g_spell_difficulty[110];
 
 #pragma code_seg(".text$004088c0_fn")
-__declspec(noinline) int __stdcall SpellCards_CountOfDifficulty_004088c0(int difficulty) {
+__declspec(noinline) int __stdcall SpellCards_CountOfDifficulty(int difficulty) {
     int count = 0;
     for (int spell = 0; spell < 110; ++spell) {
         if (g_spell_difficulty[spell] == difficulty)

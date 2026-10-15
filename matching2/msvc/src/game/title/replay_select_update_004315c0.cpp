@@ -11,7 +11,7 @@
 //
 // The room is a stack argument; the handler is linked with the title
 // dispatcher and the real bodies of its leaves
-// (build_support/layout/ltcg/difficulty_select_update_00430320.json).
+// (build_support/layout/ltcg/difficulty_select_update.json).
 #include "th10/game/replay_select_update_004315c0.hpp"
 
 // Select an item, clamped to the last one when the menu has items.
@@ -58,22 +58,22 @@ static __forceinline void SetTimerTarget_004315c0(Title* room, int target) {
 }
 
 #pragma code_seg(".text$004315c0_fn")
-__declspec(noinline) int __stdcall TitleMode12_004315c0(Title* room) {
+__declspec(noinline) int __stdcall TitleMode12(Title* room) {
     TitleReplayView* replays = reinterpret_cast<TitleReplayView*>(room);
     char path[64];
-    ReplayFindData_004315c0 find;
+    ReplayFindData find;
     void* handle;
     switch (room->phase) {
     case 0: {
         room->cursor.item_count = 25;
         UpdateBoundedCounter(g_title_replay_selection, reinterpret_cast<unsigned int*>(&room->cursor));
         g_title_replay_selection = 0;
-        if (reinterpret_cast<RecoveryLookup_0040bd80*>(g_sprt_ctrl)->Find(
+        if (reinterpret_cast<RecoveryLookup*>(g_sprt_ctrl)->Find(
                 reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl),
                 *reinterpret_cast<RecoveryScriptId*>(&room->animation_slots[94])) == 0) {
             RecoveryMusicInstallSlot(room, 94);
             void* resource = g_ascii_manager->animation_resource;
-            void** result = AnimationManager_CreatePrimaryBack_00448d00(resource, &handle, 8, 15);
+            void** result = AnimationManager_CreatePrimaryBack(resource, &handle, 8, 15);
             room->fallback_handle.value = reinterpret_cast<unsigned int>(*result);
         }
         RecoveryMusicInstallSlot(room, 101);
@@ -81,7 +81,7 @@ __declspec(noinline) int __stdcall TitleMode12_004315c0(Title* room) {
         memset(replays->replays, 0, sizeof(replays->replays));
         for (int number = 1; number <= 25; ++number) {
             sprintf(path, "th10_%.2d.rpy", number);
-            replays->replays[number - 1] = ReplayFile_Open_004296f0(path);
+            replays->replays[number - 1] = ReplayFile_Open(path);
         }
         _mkdir("replay");
         _chdir("replay");
@@ -89,7 +89,7 @@ __declspec(noinline) int __stdcall TitleMode12_004315c0(Title* room) {
         if (search != reinterpret_cast<void*>(-1)) {
             for (int index = 25; index < 50; ++index) {
                 _chdir("../");
-                replays->replays[index] = ReplayFile_Open_004296f0(find.name);
+                replays->replays[index] = ReplayFile_Open(find.name);
                 _chdir("replay");
                 if (!FindNextFileA(search, &find))
                     break;
@@ -155,7 +155,7 @@ __declspec(noinline) int __stdcall TitleMode12_004315c0(Title* room) {
         break;
     case 3:
         if (room->timer.current == 2) {
-            RecoveryAscii_Create_0043c8b0(0x2b, 5, 0x20, 0, 0, 0);
+            RecoveryAscii_Create(0x2b, 5, 0x20, 0, 0, 0);
             g_ascii_manager->EnsureAnimationResource(480.0f, 392.0f);
         }
         if (room->timer.current >= 32) {
@@ -180,7 +180,7 @@ __declspec(noinline) int __stdcall TitleMode12_004315c0(Title* room) {
             for (int index = 0; index < 50; ++index) {
                 ReplayFile_004315c0* replay = replays->replays[index];
                 if (replay != 0) {
-                    ReplayFile_Destroy_004294a0(replay);
+                    ReplayFile_Destroy(replay);
                     free(replay);
                 }
             }
@@ -189,7 +189,7 @@ __declspec(noinline) int __stdcall TitleMode12_004315c0(Title* room) {
             room->SetSlotFrame(0x5a, 8);
             room->SetSlotFrame(0x5b, 8);
             room->ClearAnimationSlot(94);
-            RecoveryMusicStopHandle_00409e50(&room->fallback_handle);
+            RecoveryMusicStopHandle(&room->fallback_handle);
             room->DisableTimerWithOwner(2);
             PopSelection_004315c0(room->cursor);
         }

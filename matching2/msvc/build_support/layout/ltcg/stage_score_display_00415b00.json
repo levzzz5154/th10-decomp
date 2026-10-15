@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "name": "stage_score_display_00415b00",
+  "name": "stage_score_display",
   "source": "src/game/front/stage_score_display_00415b00.cpp",
   "driver": "build_support/layout/ltcg/stage_score_display_00415b00_context.cpp",
   "headers": [
@@ -119,7 +119,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "?ItemAnimation_CreateOffset_00448db0@@YGPAPAXPAXPAPAXHPBUVector3@@@Z",
+      "symbol": "?ItemAnimation_CreateOffset@@YGPAPAXPAXPAPAXHPBUVector3@@@Z",
       "address": "0x448db0",
       "kind": "relative_code"
     },

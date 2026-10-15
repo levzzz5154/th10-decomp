@@ -3,8 +3,8 @@
 
 #pragma code_seg(".text$03context")
 int __stdcall DestinationCopyCompilerContext(
-    DestinationCopy_00444cb0** destinations,
-    DestinationCopySource_00444cb0** sources,
+    DestinationCopy** destinations,
+    DestinationCopySource** sources,
     int count) {
     while (count--) {
         (*destinations)->Copy(*sources, count);

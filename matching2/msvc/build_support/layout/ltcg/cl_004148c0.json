@@ -8,8 +8,8 @@
   "description": "scalar deleting destructor with the object in ESI",
   "functions": [
     {
-      "name": "ReleaseComposite_DeletingDestructor_004148c0",
-      "symbol": "?ReleaseComposite_DeletingDestructor_004148c0@@YGPAXPAUOwnedObject_004148c0@@I@Z",
+      "name": "ReleaseComposite_DeletingDestructor",
+      "symbol": "?ReleaseComposite_DeletingDestructor@@YGPAXPAUOwnedObject_004148c0@@I@Z",
       "section": ".text$01delete004148c0",
       "address": "0x004148C0",
       "size": 27,

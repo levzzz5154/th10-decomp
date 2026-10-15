@@ -47,17 +47,17 @@
 
 extern "C" __declspec(noinline) int EntityDraw_00443080(RenderEntity* entity,
                                                                SprtCtrlBatchView* manager);
-extern "C" __declspec(noinline) int BuildRotatedQuad_004436c0(SprtCtrlBatchView* manager,
+extern "C" __declspec(noinline) int BuildRotatedQuad(SprtCtrlBatchView* manager,
                                                                     RenderEntity* entity);
 extern "C" __declspec(noinline) int EntityDraw_00443290(RenderEntity* entity,
                                                                SprtCtrlBatchView* manager);
-extern "C" __declspec(noinline) int BuildRotatedQuadAlt_00443910(SprtCtrlBatchView* manager,
+extern "C" __declspec(noinline) int BuildRotatedQuadAlt(SprtCtrlBatchView* manager,
                                                                        RenderEntity* entity);
 extern "C" __declspec(noinline) int EntityDraw_00444580(SprtCtrlBatchView* manager,
                                                                RenderEntity* entity);
 extern "C" __declspec(noinline) int EntityDraw_00443fb0(SprtCtrlBatchView* manager,
                                                                RenderEntity* entity);
-extern "C" __declspec(noinline) int FadedQuadDraw_004445c0(SprtCtrlBatchView* manager,
+extern "C" __declspec(noinline) int FadedQuadDraw(SprtCtrlBatchView* manager,
                                                                   RenderEntity* entity);
 extern "C" __declspec(noinline) int EntityDraw_00444760(RenderEntity* entity,
                                                                SprtCtrlBatchView* manager);
@@ -71,15 +71,15 @@ extern "C" __declspec(noinline) int __cdecl asm_FUN_004451c0_004451c0(
     if (((const unsigned char*)&entity->color)[3] == 0) return -1;
     switch ((flags >> 22) & 0xF) {
     case 0: return EntityDraw_00443080(entity, manager);
-    case 1: return BuildRotatedQuad_004436c0(manager, entity);
+    case 1: return BuildRotatedQuad(manager, entity);
     case 4: return entity->SubmitProjectedQuad(manager);
     case 5: return EntityDraw_00444580(manager, entity);
     case 6: return EntityDraw_00443fb0(manager, entity);
-    case 7: return FadedQuadDraw_004445c0(manager, entity);
+    case 7: return FadedQuadDraw(manager, entity);
     case 8: return EntityDraw_00444760(entity, manager);
     case 9: return manager->DrawStrip(entity, entity->strip_vertices, entity->strip_count * 2);
     case 2: return EntityDraw_00443290(entity, manager);
-    case 3: return BuildRotatedQuadAlt_00443910(manager, entity);
+    case 3: return BuildRotatedQuadAlt(manager, entity);
     }
     return 0;
 }

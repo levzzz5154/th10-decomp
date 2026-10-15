@@ -6,14 +6,14 @@
 #include "th10/game/player.hpp"
 #include "th10/game/player_die.hpp"
 
-struct AnimationRecord_00413790 {
+struct AnimationRecord {
     unsigned int flags_0000;             // +0x000
     unsigned char pad_0004[0x3AC - 4];
 };
 
 struct AnimationManager_00413790 {
     unsigned char pad_0000[0x4CDC];
-    AnimationRecord_00413790 records_4cdc[9];
+    AnimationRecord records_4cdc[9];
     __declspec(noinline) void SetActiveCount(int count);
 };
 
@@ -88,7 +88,7 @@ struct AnimationResourceFile;
 struct AnimationObjectFile;
 extern "C" void __stdcall LoadScript_0043e710(AnimationResourceFile*,AnimationObjectFile*, int);
 
-typedef char TimeoutCountRecordSize[sizeof(AnimationRecord_00413790) == 0x3AC ? 1 : -1];
+typedef char TimeoutCountRecordSize[sizeof(AnimationRecord) == 0x3AC ? 1 : -1];
 typedef char TimeoutCountRecordsOffset[offsetof(AnimationManager_00413790, records_4cdc) == 0x4CDC ? 1 : -1];
 typedef char TimeoutAnimationChildren[offsetof(TimeoutAnimation, children) == 0x14 ? 1 : -1];
 typedef char TimeoutAnimationChildrenFlag[offsetof(TimeoutAnimation, children_flagged) == 0x18 ? 1 : -1];

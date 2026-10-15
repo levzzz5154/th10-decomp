@@ -12,7 +12,7 @@
 // callback occupies ESI and the priority EDI, so the register is a whole-program
 // agreement: this source is compiled in the same native-LTCG link as the
 // registration pair it calls (see
-// build_support/layout/ltcg/bullet_manager_load_scripts_0040ae70.json).
+// build_support/layout/ltcg/bullet_manager_load_scripts.json).
 #include "th10/core/func_ctrl.hpp"
 
 struct RawPair_0041ad90 {

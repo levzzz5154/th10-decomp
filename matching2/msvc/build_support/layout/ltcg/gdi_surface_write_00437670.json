@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "gdi_surface_write_00437670",
-      "symbol": "?WriteTo_00437670@@YG_NPAUGdiSurface_00437670@@PAUSurface_00437670@@@Z",
+      "symbol": "?WriteTo@@YG_NPAUGdiSurface_00437670@@PAUSurface_00437670@@@Z",
       "section": ".text$01accessor",
       "address": "0x00437670",
       "size": 214,

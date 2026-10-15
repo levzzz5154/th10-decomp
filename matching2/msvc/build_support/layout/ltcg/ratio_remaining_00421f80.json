@@ -5,11 +5,11 @@
   "driver": "build_support/layout/ltcg/ratio_remaining_00421f80_context.cpp",
   "headers": [],
   "image_base": "0x00400000",
-  "description": "Ratio_00421f80::Remaining compiled with a synthetic array caller so the native LTCG register allocator keeps the record in EAX as retail does.",
+  "description": "Ratio::Remaining compiled with a synthetic array caller so the native LTCG register allocator keeps the record in EAX as retail does.",
   "functions": [
     {
       "name": "ratio_remaining_00421f80",
-      "symbol": "?Remaining@Ratio_00421f80@@QAEMXZ",
+      "symbol": "?Remaining@Ratio@@QAEMXZ",
       "section": ".text$01ratio",
       "address": "0x00421F80",
       "size": 19,

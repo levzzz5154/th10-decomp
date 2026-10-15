@@ -3,7 +3,7 @@
 #include "th10/game/enemy_death_release_0040e5f0.hpp"
 
 struct Vector3;
-void** __stdcall ItemAnimation_CreateOffset_00448db0(
+void** __stdcall ItemAnimation_CreateOffset(
     void* resource, void** out, int index, const Vector3* position);
 
 extern float g_frame_timer_normal_lower;  // 0x00470B68
@@ -24,7 +24,7 @@ static inline void TickClock(FrameTimer* clock) {
 }
 
 #pragma code_seg(".text$079kz_sweep")
-void __stdcall EnemyCtrl_SweepDeaths_0040e6a0(EnemyCtrlDeathView* manager) {
+void __stdcall EnemyCtrl_SweepDeaths(EnemyCtrlDeathView* manager) {
     EnemyNode_0040e6a0* next;
     for (EnemyNode_0040e6a0* node = manager->first; node; node = next) {
         Enemy_0040e5f0* enemy = node->enemy;
@@ -34,7 +34,7 @@ void __stdcall EnemyCtrl_SweepDeaths_0040e6a0(EnemyCtrlDeathView* manager) {
             continue;
         if (enemy->death_script >= 0) {
             void* burst;
-            ItemAnimation_CreateOffset_00448db0(
+            ItemAnimation_CreateOffset(
                 g_enemy_ctrl->animation_files[enemy->death_file], &burst,
                 enemy->death_script, (const Vector3*)&enemy->position);
         }

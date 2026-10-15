@@ -2,10 +2,10 @@
 #include "../../../src/unreferenced/FUN_00421df0_00421df0.cpp"
 
 #pragma code_seg(".text$03context")
-int __stdcall ClearCompilerContext(ReplaySlotClearB_00421df0** objects, int count) {
-    ReplaySlotClearB_00421df0** cursor = objects;
+int __stdcall ClearCompilerContext(ReplaySlotClearB** objects, int count) {
+    ReplaySlotClearB** cursor = objects;
     while (count--) {
-        ReplaySlotClearB_00421df0* object = *cursor++;
+        ReplaySlotClearB* object = *cursor++;
         object->Clear();
         object->Clear();
     }

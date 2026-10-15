@@ -2,12 +2,12 @@
 // The retail ABI is ordinary fastcall: pad index in ECX, result pointer in EAX.
 // Both stack records stay distinct; DirectInput's state is not preinitialized.
 #include <string.h>
-struct JoystickInfo_0044a4e0 {
+struct JoystickInfo {
     unsigned int size, flags;
     unsigned int x, y, z, r, u, v;
     unsigned int buttons, buttonNumber, pov, reserved1, reserved2;
 };
-struct DirectJoystickState_0044a4e0 {
+struct DirectJoystickState {
     int position[6];
     int sliders[2];
     unsigned int pov[4];
@@ -16,7 +16,7 @@ struct DirectJoystickState_0044a4e0 {
 };
 // Unused methods preserve the observed COM vtable slots. The three called
 // methods have their real stdcall signatures and offsets (+1C/+24/+64).
-struct DirectJoystick_0044a4e0 {
+struct DirectJoystick {
     virtual void __stdcall Slot00() = 0;
     virtual void __stdcall Slot01() = 0;
     virtual void __stdcall Slot02() = 0;
@@ -26,7 +26,7 @@ struct DirectJoystick_0044a4e0 {
     virtual void __stdcall Slot06() = 0;
     virtual long __stdcall Acquire() = 0;
     virtual void __stdcall Slot08() = 0;
-    virtual long __stdcall GetDeviceState(unsigned int size, DirectJoystickState_0044a4e0* state) = 0;
+    virtual long __stdcall GetDeviceState(unsigned int size, DirectJoystickState* state) = 0;
     virtual void __stdcall Slot10() = 0;
     virtual void __stdcall Slot11() = 0;
     virtual void __stdcall Slot12() = 0;
@@ -44,18 +44,18 @@ struct DirectJoystick_0044a4e0 {
     virtual void __stdcall Slot24() = 0;
     virtual long __stdcall Poll() = 0;
 };
-typedef char JoystickInfoSize_0044a4e0[(sizeof(JoystickInfo_0044a4e0) == 0x34) ? 1 : -1];
-typedef char DirectJoystickStateSize_0044a4e0[(sizeof(DirectJoystickState_0044a4e0) == 0x110) ? 1 : -1];
+typedef char JoystickInfoSize[(sizeof(JoystickInfo) == 0x34) ? 1 : -1];
+typedef char DirectJoystickStateSize[(sizeof(DirectJoystickState) == 0x110) ? 1 : -1];
 
-extern "C" __declspec(dllimport) unsigned int __stdcall joyGetPosEx(unsigned int, JoystickInfo_0044a4e0*);
+extern "C" __declspec(dllimport) unsigned int __stdcall joyGetPosEx(unsigned int, JoystickInfo*);
 extern "C" unsigned int g_app_flags;
-extern "C" DirectJoystick_0044a4e0* g_pad_devices[];
+extern "C" DirectJoystick* g_pad_devices[];
 extern "C" unsigned char g_joystick_buttons[128];
 
 extern "C" unsigned char* __fastcall Input_PollJoystickButtons_0044a4e0(int padIndex) {
     // Keep the 0x34-byte WinMM and 0x110-byte DirectInput stack records.
-    JoystickInfo_0044a4e0 info;
-    DirectJoystickState_0044a4e0 state;
+    JoystickInfo info;
+    DirectJoystickState state;
     memset(g_joystick_buttons, 0, sizeof(g_joystick_buttons));
     if (!(g_app_flags & 0x400)) {
         memset(&info, 0, sizeof(info));

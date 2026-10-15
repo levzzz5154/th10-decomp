@@ -16,7 +16,7 @@
   "functions": [
     {
       "name": "ScoreArchiveManager_Construct",
-      "symbol": "??0ScoreArchiveManager_0042ae60@@QAE@XZ",
+      "symbol": "??0ScoreArchiveManager@@QAE@XZ",
       "address": "0x0042AE60",
       "size": 132,
       "section": ".text$02b",
@@ -52,7 +52,7 @@
     },
     {
       "name": "ScoreSettings_InitializeDefaults",
-      "symbol": "_Recovery_InitializeRandomTable_0042add0@4",
+      "symbol": "_Recovery_InitializeRandomTable@4",
       "address": "0x0042ADD0",
       "size": 142,
       "section": ".text$01b",
@@ -61,7 +61,7 @@
     },
     {
       "name": "ScoreManager_LoadSections",
-      "symbol": "?LoadSections@ScoreArchiveManager_0042ae60@@QAEHXZ",
+      "symbol": "?LoadSections@ScoreArchiveManager@@QAEHXZ",
       "address": "0x0042B030",
       "size": 423,
       "section": ".text$04b",
@@ -298,13 +298,13 @@
   "calls": [
     {
       "caller": "?ScoreManager_Create_0042af20@@YGXXZ",
-      "callee": "??0ScoreArchiveManager_0042ae60@@QAE@XZ",
+      "callee": "??0ScoreArchiveManager@@QAE@XZ",
       "address": "0x0042AF52",
       "instruction": "call"
     },
     {
-      "caller": "??0ScoreArchiveManager_0042ae60@@QAE@XZ",
-      "callee": "_Recovery_InitializeRandomTable_0042add0@4",
+      "caller": "??0ScoreArchiveManager@@QAE@XZ",
+      "callee": "_Recovery_InitializeRandomTable@4",
       "address": "0x0042AE8A",
       "instruction": "call"
     }

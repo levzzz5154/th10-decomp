@@ -16,8 +16,8 @@
 #include "th10/game/result_rows_00422660.hpp"
 
 #pragma code_seg(".text$04rows")
-extern "C" __declspec(noinline) int __stdcall ResultScreen_DrawRows_00422660(
-        ResultMenu_00422660* state) {
+extern "C" __declspec(noinline) int __stdcall ResultScreen_DrawRows(
+        ResultMenu* state) {
     g_ascii_manager->current_64 = 1;
     switch (state->phase) {
     case 10:

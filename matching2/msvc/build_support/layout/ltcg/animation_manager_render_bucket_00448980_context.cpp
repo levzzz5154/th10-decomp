@@ -41,7 +41,7 @@ extern "C" int __cdecl asm_FUN_00444760_00444760(DrawEntity_004451c0* entity, vo
 // sets the entity up first, so the manager has to be the first parameter.
 #pragma code_seg(".text$01anchor")
 extern "C" __declspec(noinline) int __cdecl asm_FUN_004451c0_004451c0(
-        void* manager, RenderSlotNode_00448980* entity) {
+        void* manager, RenderSlotNode* entity) {
     DrawEntity_004451c0* record = (DrawEntity_004451c0*)entity;
     unsigned int flags = record->flags;
     if ((flags & 0x1) == 0 || (flags & 0x2) == 0 || record->visible == 0) {

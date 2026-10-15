@@ -3,10 +3,10 @@ struct TimedOwner {
     unsigned char unknown_00[0x3C];
     int countdown_limit;             // +0x3C
 
-    int SetCountdownLimit_0040cf00(int value);
+    int SetCountdownLimit(int value);
 };
 
-int TimedOwner::SetCountdownLimit_0040cf00(int value) {
+int TimedOwner::SetCountdownLimit(int value) {
     countdown_limit = value;
     return value;
 }

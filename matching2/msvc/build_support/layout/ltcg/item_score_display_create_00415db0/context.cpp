@@ -23,7 +23,7 @@ static __forceinline void ScoreDisplayStandIn_Unregister(void* task) {
 // With every callee-saved register busy the receiver stays on the stack;
 // taking the argument's address keeps it there too.
 #pragma code_seg(".text$01a_ctor")
-ItemScoreDisplay_00415db0::ItemScoreDisplay_00415db0(void* script) {
+ItemScoreDisplay::ItemScoreDisplay(void* script) {
     void** tasks = reinterpret_cast<void**>(reserved_04);
     ScoreDisplayStandIn_Unregister(tasks[1]);
     ScoreDisplayStandIn_Unregister(tasks[2]);

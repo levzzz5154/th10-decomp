@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "name": "animation_manager_mark_resource_for_removal_004493e0",
+  "name": "animation_manager_mark_resource_for_removal",
   "source": "src/core/sprtlib/animation_manager_mark_resource_for_removal_004493e0.cpp",
   "driver": "build_support/layout/ltcg/animation_manager_mark_resource_for_removal_004493e0_context.cpp",
   "headers": [
@@ -58,7 +58,7 @@
     },
     {
       "name": "ReleaseSlot1_0042c800_0042c800",
-      "symbol": "_ReleaseSlot1_0042c800",
+      "symbol": "_ReleaseSlot1",
       "section": ".text$04layoutb",
       "address": "0x0042C800",
       "size": 45,
@@ -67,7 +67,7 @@
     },
     {
       "name": "Release_00447910",
-      "symbol": "?Release@AnimationResourceEntry_00447810@@QAEXXZ",
+      "symbol": "?Release@AnimationResourceEntry@@QAEXXZ",
       "section": ".text$15layoutb",
       "address": "0x00447910",
       "size": 42,
@@ -75,8 +75,8 @@
       "source": "src/unreferenced/unassigned_00447910.cpp"
     },
     {
-      "name": "AnmManager_ServicePending_00447700",
-      "symbol": "_AnmManager_ServicePending_00447700@4",
+      "name": "AnmManager_ServicePending",
+      "symbol": "_AnmManager_ServicePending@4",
       "section": ".text$05service",
       "address": "0x00447700",
       "size": 135,
@@ -140,8 +140,8 @@
   ],
   "constants": [],
   "roots": [
-    "_ReleaseSlot1_0042c800",
-    "_AnmManager_ServicePending_00447700@4"
+    "_ReleaseSlot1",
+    "_AnmManager_ServicePending@4"
   ],
   "absolute_symbols": [
     {
@@ -160,7 +160,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "?AnmManager_LoadNextEntry_004473c0@@YGPAUAnmFile_004470c0@@UAnmUploadTag_00446c70@@PAU1@@Z",
+      "symbol": "?AnmManager_LoadNextEntry@@YGPAUAnmFile@@UAnmUploadTag@@PAU1@@Z",
       "address": "0x004473C0",
       "kind": "relative_code"
     }

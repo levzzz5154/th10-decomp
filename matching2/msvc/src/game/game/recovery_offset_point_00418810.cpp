@@ -13,7 +13,7 @@
 // receiver is EAX.  No C++ declaration names that register (a member receives
 // `this` in ECX, a parameter travels on the stack), so the body is compiled as a
 // member of the point type through the native-LTCG cluster path
-// (build_support/layout/ltcg/recovery_offset_point_00418810.json): the array-walking context
+// (build_support/layout/ltcg/recovery_offset_point.json): the array-walking context
 // in the layout's driver keeps ECX and EDX live at the call, and the
 // whole-program pass then hands the receiver EAX on its own.
 //
@@ -38,17 +38,17 @@ struct Vector3_00418810 {
     __declspec(noinline) Vector3_00418810* OffsetPoint() const;
 };
 
-extern Vector3_00418810 g_offset_point_00497d80;
-extern unsigned int g_offset_point_state_00497d8c;
+extern Vector3_00418810 g_offset_point;
+extern unsigned int g_offset_point_state;
 
 #pragma code_seg(".text$01offsetpoint")
 Vector3_00418810* Vector3_00418810::OffsetPoint() const {
-    if (!(g_offset_point_state_00497d8c & 1)) {
-        g_offset_point_state_00497d8c |= 1;
+    if (!(g_offset_point_state & 1)) {
+        g_offset_point_state |= 1;
     }
-    g_offset_point_00497d80.x = x + 224.0f;
-    g_offset_point_00497d80.y = y + 16.0f;
-    g_offset_point_00497d80.z = z;
-    return &g_offset_point_00497d80;
+    g_offset_point.x = x + 224.0f;
+    g_offset_point.y = y + 16.0f;
+    g_offset_point.z = z;
+    return &g_offset_point;
 }
 #pragma code_seg()

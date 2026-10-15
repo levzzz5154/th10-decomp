@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "name": "positioned_secondary_back_00448fb0",
+  "name": "positioned_secondary_back",
   "source": "src/unreferenced/FUN_00448fb0_00448fb0.cpp",
   "driver": "build_support/layout/ltcg/positioned_secondary_back_00448fb0_context.cpp",
   "headers": [],
@@ -8,8 +8,8 @@
   "description": "0x00448FB0 compiled with native LTCG so the position stays in EDI, the other three arguments stay on the stack and the three callees keep their retail entry registers (0x00449950 manager in ESI, 0x0043E710 resource in ECX / object in EAX / index in EBX, 0x00448AC0 manager in EDX / entity in EBX / handle record in EAX). The .text$01loadscript, .text$03regsecondary and .text$07alloc sections are compiled ABI anchors for the assembly regions at 0x0043E710, 0x00448AC0 and 0x00449950: placed at the retail addresses so the calls carry retail's displacements, and never exported as recovered code.",
   "functions": [
     {
-      "name": "AnimationManager_CreateSecondaryBack_00448f60",
-      "symbol": "?AnimationManager_CreateSecondaryBack_00448f60@@YGPAPAXPAXPAPAXHH@Z",
+      "name": "AnimationManager_CreateSecondaryBack",
+      "symbol": "?AnimationManager_CreateSecondaryBack@@YGPAPAXPAXPAPAXHH@Z",
       "section": ".text$05aa_secondaryback",
       "address": "0x00448F60",
       "size": 73,
@@ -17,16 +17,16 @@
       "source": "src/core/sprtlib/animation_manager_create_secondary_back_00448f60.cpp"
     },
     {
-      "name": "AnimationManager_CreatePositionedSecondaryBack_00448fb0",
-      "symbol": "?AnimationManager_CreatePositionedSecondaryBack_00448fb0@@YGPAPAXPAXPAPAXHPBUAnimationPosition_00448fb0@@@Z",
+      "name": "AnimationManager_CreatePositionedSecondaryBack",
+      "symbol": "?AnimationManager_CreatePositionedSecondaryBack@@YGPAPAXPAXPAPAXHPBUAnimationPosition_00448fb0@@@Z",
       "section": ".text$05positionedsecondaryback",
       "address": "0x00448FB0",
       "size": 95,
       "actual_abi": "position in EDI; resource, out and index on the stack; out returned in EAX; ret 0xC"
     },
     {
-      "name": "AnimationManager_CreateScreenPositionedSecondaryBack_00449010",
-      "symbol": "?AnimationManager_CreateScreenPositionedSecondaryBack_00449010@@YGPAPAXPAXPAPAXHPBUAnimationPosition_00449010@@@Z",
+      "name": "AnimationManager_CreateScreenPositionedSecondaryBack",
+      "symbol": "?AnimationManager_CreateScreenPositionedSecondaryBack@@YGPAPAXPAXPAPAXHPBUAnimationPosition_00449010@@@Z",
       "section": ".text$05qscreen",
       "address": "0x00449010",
       "size": 118,

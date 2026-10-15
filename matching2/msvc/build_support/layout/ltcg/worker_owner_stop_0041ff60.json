@@ -14,7 +14,7 @@
   "functions": [
     {
       "name": "worker_owner_stop_0041ff60",
-      "symbol": "?StopWorker@WorkerOwner_0041ff60@@QAEXXZ",
+      "symbol": "?StopWorker@WorkerOwner@@QAEXXZ",
       "section": ".text$01accessor",
       "address": "0x0041FF60",
       "size": 22,
@@ -31,7 +31,7 @@
     }
   ],
   "context": {
-    "symbol": "?Ctx@@YGXPAPAUWorkerOwner_0041ff60@@H@Z",
+    "symbol": "?Ctx@@YGXPAPAUWorkerOwner@@H@Z",
     "section": ".text$zzcontext",
     "address": "0x0044C1E0",
     "size": 36,

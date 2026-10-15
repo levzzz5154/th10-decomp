@@ -1,5 +1,5 @@
 #pragma code_seg(".text$01resolvefloat")
-extern "C" __declspec(noinline) float* __stdcall ResolveFloatVariable_0043ed00(
+extern "C" __declspec(noinline) float* __stdcall ResolveFloatVariable(
         unsigned char selector, float* value, unsigned char* object, unsigned short mask) {
     if (((1u << selector) & mask) != 0) {
         switch ((int)*value) {

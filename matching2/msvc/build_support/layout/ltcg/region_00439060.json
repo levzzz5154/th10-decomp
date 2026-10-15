@@ -39,7 +39,7 @@
   "constant_aliases": [],
   "absolute_symbols": [
     {
-      "symbol": "_midi_manager_00446220@4",
+      "symbol": "_midi_manager@4",
       "address": "0x446220",
       "kind": "relative_code"
     },

@@ -1,6 +1,6 @@
 // 0x0043C890..0x0043C8A8: release the record and free it when the low bit of
 // the flags argument is set.
-extern "C" void __stdcall recovery_release_0043cb00(void* object);
+extern "C" void __stdcall recovery_release(void* object);
 extern "C" void __cdecl crt_free_startup(void* memory);
 
 struct Object_0043c890 {
@@ -9,7 +9,7 @@ struct Object_0043c890 {
 
 #pragma code_seg(".text$01accessor")
 void* Object_0043c890::Destroy(unsigned int flags) {
-    recovery_release_0043cb00(this);
+    recovery_release(this);
     if (flags & 1) {
         crt_free_startup(this);
     }

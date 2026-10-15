@@ -13,7 +13,7 @@ extern "C" {
 extern char g_recovery_script_path[];
 
 void* __cdecl malloc(unsigned int);
-void* __fastcall LoadCachedResource_00447280(int slot, void* manager, const char* name);
+void* __fastcall LoadCachedResource(int slot, void* manager, const char* name);
 }
 #pragma code_seg(".text$03stage")
 int BackGround::Load(const char* name) {
@@ -27,7 +27,7 @@ int BackGround::Load(const char* name) {
     int allocation_size = file_size;
     file = (BackGroundFile*)malloc(allocation_size);
     memcpy(file, original, file_size);
-    animation = LoadCachedResource_00447280((stage_flags & 1) + 4, g_sprt_ctrl,
+    animation = LoadCachedResource((stage_flags & 1) + 4, g_sprt_ctrl,
                                            file->animation_name);
     if (!animation) {
         ((TextLog_0044b810*)0x474F70)->Append((char*)0x46CBC0);

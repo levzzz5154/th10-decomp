@@ -1,14 +1,14 @@
 #include "types.hpp"
 #include <stdlib.h>
 // One 0x6284-byte page of input records (th10/game/linked_pool_append.hpp).
-struct ReplayPoolPage_0042a6a0 {
+struct ReplayPoolPage {
     unsigned char records[0x5460];
-    ReplayPoolPage_0042a6a0* scratch_page;   // +0x5460
+    ReplayPoolPage* scratch_page;   // +0x5460
     unsigned char scratch[0xE10];
     unsigned char* scratch_cursor;           // +0x6274
     ReplayPoolLink_0042a6a0 link;            // +0x6278
 
-    ReplayPoolPage_0042a6a0() {
+    ReplayPoolPage() {
         memset(this, 0, sizeof(*this));
         scratch_page = this;
         scratch_cursor = scratch;
@@ -17,12 +17,12 @@ struct ReplayPoolPage_0042a6a0 {
         link.previous = 0;
     }
 };
-typedef char ReplayPoolPageSize_0042a6a0[sizeof(ReplayPoolPage_0042a6a0) == 0x6284 ? 1 : -1];
+typedef char ReplayPoolPageSize_0042a6a0[sizeof(ReplayPoolPage) == 0x6284 ? 1 : -1];
 
 // The body of 0x0042AA50.
 #pragma code_seg(".text$0042aa50_fn")
 ReplayPoolLink_0042a6a0* ReplayManager_0042a6a0::AppendPage(int stage) {
-    ReplayPoolLink_0042a6a0* link = &(new ReplayPoolPage_0042a6a0)->link;
+    ReplayPoolLink_0042a6a0* link = &(new ReplayPoolPage)->link;
     ReplayPoolLink_0042a6a0* tail = &pools[stage];
     while (tail->next)
         tail = tail->next;
@@ -38,11 +38,11 @@ ReplayPoolLink_0042a6a0* ReplayManager_0042a6a0::AppendPage(int stage) {
 // The body of 0x0042AB20.
 #pragma code_seg(".text$0042ab20_fn")
 extern "C" __declspec(noinline) void __stdcall
-ReplayFinishClearPools_0042ab20(ReplayManager_0042a6a0* manager, int stage) {
+ReplayFinishClearPools(ReplayManager_0042a6a0* manager, int stage) {
     ReplayPoolLink_0042a6a0* current = manager->pools[stage].next;
     while (current) {
         ReplayPoolLink_0042a6a0* next = current->next;
-        ReplayPoolPage_0042a6a0* pool = current->page;
+        ReplayPoolPage* pool = current->page;
         if (pool) {
             if (pool->link.next) pool->link.next->previous = pool->link.previous;
             if (pool->link.previous) pool->link.previous->next = pool->link.next;

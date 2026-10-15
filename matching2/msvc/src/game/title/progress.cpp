@@ -2,7 +2,7 @@
 //
 // The progress object arrives in EAX and the result is returned in EAX — a
 // convention only a native LTCG link chooses — so this region is compiled as a
-// cluster (see build_support/layout/ltcg/progress_record_0042c850.json).
+// cluster (see build_support/layout/ltcg/progress_record.json).
 struct GameProgress_0042c850 {
     unsigned char pad_000[0x1D888];
     unsigned char record_present[6];     // +0x1D888

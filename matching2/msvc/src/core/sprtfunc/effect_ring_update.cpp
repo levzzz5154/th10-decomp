@@ -28,7 +28,7 @@ struct EffectVector3_00445620 {
     }
 };
 
-struct EffectParticle_00445620 {
+struct EffectParticle {
     EffectVector3_00445620 position;  // +0x00, world placement
     float angle;                 // +0x0C
     unsigned int color;          // +0x10
@@ -36,8 +36,8 @@ struct EffectParticle_00445620 {
     float countdown_b;           // +0x18
 };
 
-struct EffectState_00445620 {
-    EffectParticle_00445620 particles[33];      // +0x000
+struct EffectState {
+    EffectParticle particles[33];      // +0x000
     unsigned char unknown_39C[0x3A0 - 0x39C];
     float radii_a[33];           // +0x3A0
     float radii_b[32];           // +0x424, the last slot is the rate below
@@ -64,15 +64,15 @@ struct EffectEntity_00445620 {
     EffectVector3_00445620 base;      // +0x334
     EffectVector3_00445620 position;  // +0x340
     unsigned char unknown_34C[0x358 - 0x34C];
-    EffectState_00445620* state;               // +0x358
+    EffectState* state;               // +0x358
 
     __declspec(noinline) int Advance();
 };
 
 #pragma code_seg(".text$02effectring")
 int EffectEntity_00445620::Advance() {
-    EffectState_00445620* state = this->state;
-    EffectParticle_00445620* ring = state->particles;
+    EffectState* state = this->state;
+    EffectParticle* ring = state->particles;
     ring[0].position = base + position;
 
     float angle = -3.14159265358979323846f;
@@ -83,8 +83,8 @@ int EffectEntity_00445620::Advance() {
     if (ring[0].countdown_b < 0.0f) state->RaiseCountdownB();
     ring[0].color = color;
 
-    EffectParticle_00445620* first = &ring[1];
-    EffectParticle_00445620* particle = first;
+    EffectParticle* first = &ring[1];
+    EffectParticle* particle = first;
     int index = 0;
     do {
         particle->countdown_a += state->rate;

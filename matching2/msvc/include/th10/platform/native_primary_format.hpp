@@ -93,6 +93,6 @@ typedef char NativeWaveDescriptionSize[sizeof(WaveBufferDescription)==36?1:-1];
 typedef char NativeWaveSetFormatSlot[offsetof(WaveBufferMethods,set_format)==0x38?1:-1];
 extern "C" {
 int __stdcall Ordinal_11_00452170(const void*,WaveDirectSoundDevice**,void*);
-__declspec(noinline) int __fastcall Sound_SetPrimaryFormat_0044c7e0(
+__declspec(noinline) int __fastcall Sound_SetPrimaryFormat(
     unsigned short,unsigned short,unsigned int,WaveDirectSoundDevice**);
 }

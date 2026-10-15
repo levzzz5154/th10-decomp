@@ -6,8 +6,8 @@
   "src/game/replay/replay_save_stub.cpp"
  ],
  "context_cluster": "build_support/layout/ltcg/replay_save_00429b60.json",
- "entry_symbol": "?Save@ReplaySaveManager_00429b60@@QAIHPBD0@Z",
- "function": "?Save@ReplaySaveManager_00429b60@@QAIHPBD0@Z",
+ "entry_symbol": "?Save@ReplaySaveManager@@QAIHPBD0@Z",
+ "function": "?Save@ReplaySaveManager@@QAIHPBD0@Z",
  "code_bytes": 1681,
  "absolute_symbols": {
   "___security_cookie": {
@@ -1000,6 +1000,6 @@
   "count": 17
  },
  "roots": [
-  "?ReplaySaveCompilerContext_00429b60@@YGHPAUReplaySaveManager_00429b60@@PBD1@Z"
+  "?ReplaySaveCompilerContext_00429b60@@YGHPAUReplaySaveManager@@PBD1@Z"
  ]
 }

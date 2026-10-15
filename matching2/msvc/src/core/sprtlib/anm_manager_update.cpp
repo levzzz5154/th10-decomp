@@ -9,7 +9,7 @@
 #include "th10/game/entity.hpp"
 #include "th10/render/anm_manager_lists.hpp"
 
-extern "C" int __stdcall AnmVm_Run_0043ee30(AnmManagerVm* vm);
+extern "C" int __stdcall AnmVm_Run(AnmManagerVm* vm);
 
 #pragma code_seg(".text$01a_primarytask")
 extern "C" int __fastcall AnmManager_UpdatePrimaryTask_004485d0(AnmManager* manager) {
@@ -36,7 +36,7 @@ int AnmManager::UpdatePrimary() {
         } else {
             if (vm->on_tick)
                 vm->on_tick(vm);
-            if (AnmVm_Run_0043ee30(vm)) {
+            if (AnmVm_Run(vm)) {
                 RemoveVm(vm);
             } else {
                 layer_tails[vm->layer]->next_in_layer = vm;
@@ -63,7 +63,7 @@ int AnmManager::UpdateSecondary() {
         } else {
             if (vm->on_tick)
                 vm->on_tick(vm);
-            if (AnmVm_Run_0043ee30(vm)) {
+            if (AnmVm_Run(vm)) {
                 RemoveVm(vm);
             } else {
                 tail->next_in_layer = vm;

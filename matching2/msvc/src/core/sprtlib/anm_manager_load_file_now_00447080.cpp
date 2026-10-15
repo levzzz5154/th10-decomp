@@ -6,14 +6,14 @@
 #include "th10/render/anm_file_004470c0.hpp"
 
 #pragma code_seg(".text$04xnow")
-AnmFile_004470c0* __stdcall AnmManager_LoadFileNow_00447080(AnmManager_004470c0* manager, int slot,
+AnmFile* __stdcall AnmManager_LoadFileNow(AnmManager_004470c0* manager, int slot,
                                                             const char* name) {
-    AnmFile_004470c0* file = AnmManager_LoadFile_004470c0(manager, slot, name);
+    AnmFile* file = AnmManager_LoadFile(manager, slot, name);
     if (file) {
         file->cursor = 1;
         while (file->cursor) {
-            AnmUploadTag_00446c70 tag = { reinterpret_cast<int>(manager) };
-            file = AnmManager_LoadNextEntry_004473c0(tag, file);
+            AnmUploadTag tag = { reinterpret_cast<int>(manager) };
+            file = AnmManager_LoadNextEntry(tag, file);
         }
     }
     return file;

@@ -3,10 +3,10 @@
 // The timer pointer arrives in ECX, a plain __thiscall receiver.
 #include "th10/math/timer.hpp"
 
-struct TimerAdvancer_004052d0 {
+struct TimerAdvancer {
     __declspec(noinline) void AdvanceCount(int count);
 };
 
-void TimerAdvancer_004052d0::AdvanceCount(int count) {
+void TimerAdvancer::AdvanceCount(int count) {
     ((FrameTimer*)this)->Advance((float)count);
 }

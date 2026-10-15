@@ -6,13 +6,13 @@
 #include "th10/game/player_update_collision.hpp"
 
 struct Vector3;
-void** __stdcall ItemAnimation_CreateOffset_00448db0(
+void** __stdcall ItemAnimation_CreateOffset(
     void* resource, void** out, int index, const Vector3* position);
 
 #pragma code_seg(".text$079zz_convert")
-int ItemSpawnManager_0041bb00::ConvertItems() {
+int ItemSpawnManager::ConvertItems() {
     for (int index = 0; index < 150; ++index) {
-        SpawnItem_0041bb00* item = &normal[index];
+        SpawnItem* item = &normal[index];
         if (item->state == 0)
             continue;
         int kind = item->kind;
@@ -29,7 +29,7 @@ int ItemSpawnManager_0041bb00::ConvertItems() {
             continue;
         }
         void* flash;
-        ItemAnimation_CreateOffset_00448db0(
+        ItemAnimation_CreateOffset(
             g_bullet_manager->item_animation, &flash, 0x189, (const Vector3*)item->position);
     }
     return 0;

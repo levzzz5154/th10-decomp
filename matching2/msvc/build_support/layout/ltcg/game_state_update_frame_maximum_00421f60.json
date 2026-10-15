@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "name": "game_state_update_frame_maximum_00421f60",
+  "name": "game_state_update_frame_maximum",
   "source": "src/game/mother/game_state_update_frame_maximum_00421f60.cpp",
   "driver": "build_support/layout/ltcg/game_state_update_frame_maximum_00421f60_context.cpp",
   "headers": [],

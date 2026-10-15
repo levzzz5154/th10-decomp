@@ -86,7 +86,7 @@ RecoveryAsciiRegisterSecondary_0044a030(TaskRoutine callback, int priority,
     return task;
 }
 
-struct RecoveryAsciiController_0043c8b0 : RecoveryAsciiManager_0043c8b0 {
+struct RecoveryAsciiController_0043c8b0 : RecoveryAsciiManager {
     RecoveryAsciiController_0043c8b0() {
         memset(this, 0, sizeof(*this));
         flags |= 2u;
@@ -174,8 +174,8 @@ void RecoveryAsciiController_0043c8b0::Configure(unsigned int draw_priority,
 }
 
 #pragma code_seg(".text$0043c8b0_fn")
-extern "C" RecoveryAsciiManager_0043c8b0* __stdcall
-RecoveryAscii_Create_0043c8b0(unsigned int draw_priority, unsigned int mode,
+extern "C" RecoveryAsciiManager* __stdcall
+RecoveryAscii_Create(unsigned int draw_priority, unsigned int mode,
     unsigned int payload, unsigned int argument_20,
     unsigned int argument_24, unsigned int argument_28) {
     RecoveryAsciiController_0043c8b0* manager = new RecoveryAsciiController_0043c8b0;

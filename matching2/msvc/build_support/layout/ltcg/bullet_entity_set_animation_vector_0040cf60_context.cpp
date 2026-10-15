@@ -4,7 +4,7 @@
 #pragma code_seg(".text$03context")
 int __stdcall BulletEntitySetAnimationVectorCompilerContext(
         BulletEntity_0040cf60** entities, int count,
-        const AnimationVector_0040cf60* value) {
+        const AnimationVector* value) {
     while (count--) {
         (*entities++)->SetAnimationVector(*value);
     }

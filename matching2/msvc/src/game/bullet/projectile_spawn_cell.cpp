@@ -49,13 +49,13 @@ __forceinline static void SpawnRecord_Light(ProjectileSpawnRecord* record, Vec3&
 }
 
 #pragma code_seg(".text$004067d0_fn")
-int __stdcall SpawnPatternCell_004067d0(ProjectilePattern_004073e0* pattern,
+int __stdcall SpawnPatternCell_004067d0(ProjectilePattern* pattern,
                                         ProjectileManager_004073e0* manager_view,
                                         int column, int row, float aim) {
     ProjectileSpawnManager* const manager =
         reinterpret_cast<ProjectileSpawnManager*>(manager_view);
-    const ProjectileBlueprint_004067d0* const blueprint =
-        reinterpret_cast<const ProjectileBlueprint_004067d0*>(pattern);
+    const ProjectileBlueprint* const blueprint =
+        reinterpret_cast<const ProjectileBlueprint*>(pattern);
     ProjectileSpawnRecord* record = manager->current;
     int attempts = 0;
     for (;;) {

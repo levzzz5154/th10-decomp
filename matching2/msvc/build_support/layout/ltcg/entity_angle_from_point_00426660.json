@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "name": "entity_angle_from_point_00426660",
+  "name": "entity_angle_from_point",
   "source": "src/game/player/player_angle_from_point.cpp",
   "driver": "build_support/layout/ltcg/entity_angle_from_point_00426660_context.cpp",
   "headers": [

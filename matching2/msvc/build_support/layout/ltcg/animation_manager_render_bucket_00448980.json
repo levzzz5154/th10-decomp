@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "name": "animation_manager_render_bucket_00448980",
+  "name": "animation_manager_render_bucket",
   "source": "src/core/sprtlib/animation_manager_render_bucket_00448980.cpp",
   "driver": "build_support/layout/ltcg/animation_manager_render_bucket_00448980_context.cpp",
   "headers": [

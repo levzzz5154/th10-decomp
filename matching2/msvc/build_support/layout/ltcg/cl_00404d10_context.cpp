@@ -2,7 +2,7 @@
 #include "../../../src/unreferenced/unassigned_00404d10.cpp"
 
 #pragma code_seg(".text$03anchor")
-__declspec(noinline) float __stdcall EvaluateCurveAnchor_0044c350(unsigned int op, float first,
+__declspec(noinline) float __stdcall EvaluateCurveAnchor(unsigned int op, float first,
                                                                  float second) {
     switch (op) {
     case 1: return first + second;

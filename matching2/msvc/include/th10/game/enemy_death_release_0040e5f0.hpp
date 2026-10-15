@@ -17,7 +17,7 @@ struct EnemyCtrlDeathView {
 // An enemy, as far as its death touches it.
 struct Enemy_0040e5f0 {
     unsigned char reserved_0000[0x1068];
-    DropSource_0040c9a0 position;             // +0x1068
+    DropSource position;             // +0x1068
     unsigned char reserved_1074[0x2408 - 0x1074];
     ItemDrops_0040c9a0 drops;                 // +0x2408
     int death_sound;                          // +0x2444: negative for none
@@ -37,9 +37,9 @@ extern "C" EnemyCtrlDeathView* g_enemy_ctrl;
 extern "C" ScoreState g_globals;
 
 // 0x0040E5F0: sound, burst, drops and gauge hold of a dying enemy.
-int __stdcall Enemy_ReleaseOnDeath_0040e5f0(Enemy_0040e5f0* enemy);
+int __stdcall Enemy_ReleaseOnDeath(Enemy_0040e5f0* enemy);
 
 // 0x0040E6A0: start the bursts of the enemies that just died and tick the clock.
-void __stdcall EnemyCtrl_SweepDeaths_0040e6a0(EnemyCtrlDeathView* manager);
+void __stdcall EnemyCtrl_SweepDeaths(EnemyCtrlDeathView* manager);
 
 #endif

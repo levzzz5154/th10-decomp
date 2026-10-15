@@ -12,8 +12,8 @@
   "description": "Array script starter compiled with native LTCG against the recovered entity script starter (entity ESI, script EAX).",
   "functions": [
     {
-      "name": "EntityArray_StartScripts_004415c0",
-      "symbol": "?EntityArray_StartScripts_004415c0@@YGXPAUEntity@@HHPAUAnimationResourceFile@@@Z",
+      "name": "EntityArray_StartScripts",
+      "symbol": "?EntityArray_StartScripts@@YGXPAUEntity@@HHPAUAnimationResourceFile@@@Z",
       "section": ".text$03m_array",
       "address": "0x004415C0",
       "size": 57,

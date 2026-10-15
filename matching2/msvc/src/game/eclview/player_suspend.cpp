@@ -17,12 +17,12 @@ struct PlayerTaskPair {
     __declspec(noinline) void Suspend();
 };
 
-extern "C" __declspec(noinline) void RetireCallbackOwner_00426f70(PlayerTaskPair* pair);
+extern "C" __declspec(noinline) void RetireCallbackOwner(PlayerTaskPair* pair);
 
 #pragma code_seg(".text$01f40a010")
 void PlayerTaskPair::Suspend() {
     this->primary_task->flags_04 |= 2;
     this->secondary_task->flags_04 |= 2;
-    RetireCallbackOwner_00426f70(this);
+    RetireCallbackOwner(this);
 }
 #pragma code_seg()

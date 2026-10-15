@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "name": "result_open_00423370",
+  "name": "result_open",
   "source": "src/game/pause/result_menu_open.cpp",
   "driver": "build_support/layout/ltcg/result_open_00423370_context.cpp",
   "headers": [
@@ -82,7 +82,7 @@
     },
     {
       "name": "Descriptor",
-      "symbol": "?BindToAnimation@SpriteRegion_00424480@@QAEHUAnimationHandle_00424480@@HHHH@Z",
+      "symbol": "?BindToAnimation@SpriteRegion@@QAEHUAnimationHandle_00424480@@HHHH@Z",
       "section": ".text$00424480_fn",
       "address": "0x424480",
       "size": 162
@@ -243,7 +243,7 @@
     },
     {
       "name": "RecoveryDispatchText_004479d0",
-      "symbol": "?RecoveryDispatchText_004479d0@@YGXPAURecoveryTextResource_004479d0@@PAXHHIPBDH@Z",
+      "symbol": "?RecoveryDispatchText_004479d0@@YGXPAURecoveryTextResource@@PAXHHIPBDH@Z",
       "section": ".text$004479d0_fn",
       "address": "0x004479D0",
       "size": 127
@@ -742,7 +742,7 @@
       "kind": "data"
     },
     {
-      "symbol": "?g_decoded_text_00497d40@@3PADA",
+      "symbol": "?g_decoded_text@@3PADA",
       "address": "0x00497D40",
       "kind": "data"
     },
@@ -752,17 +752,17 @@
       "kind": "data"
     },
     {
-      "symbol": "_recovery_vsprintf_004524a6",
+      "symbol": "_recovery_vsprintf",
       "address": "0x004524A6",
       "kind": "relative_code"
     },
     {
-      "symbol": "_recovery_draw_shadowed_00437db0@24",
+      "symbol": "_recovery_draw_shadowed@24",
       "address": "0x00437DB0",
       "kind": "relative_code"
     },
     {
-      "symbol": "_recovery_draw_unshadowed_00437fe0@24",
+      "symbol": "_recovery_draw_unshadowed@24",
       "address": "0x00437FE0",
       "kind": "relative_code"
     },
@@ -792,62 +792,62 @@
       "kind": "data"
     },
     {
-      "symbol": "@FadeOutUpdate_0043bd40@4",
+      "symbol": "@FadeOutUpdate@4",
       "address": "0x43bd40",
       "kind": "data"
     },
     {
-      "symbol": "@ViewportOverlayDraw_0043c1a0@4",
+      "symbol": "@ViewportOverlayDraw@4",
       "address": "0x43c1a0",
       "kind": "data"
     },
     {
-      "symbol": "@FadeInUpdate_0043c230@4",
+      "symbol": "@FadeInUpdate@4",
       "address": "0x43c230",
       "kind": "data"
     },
     {
-      "symbol": "@PlayfieldOverlayDraw_0043c2c0@4",
+      "symbol": "@PlayfieldOverlayDraw@4",
       "address": "0x43c2c0",
       "kind": "data"
     },
     {
-      "symbol": "@HalfOpacityFadeUpdate_0043c310@4",
+      "symbol": "@HalfOpacityFadeUpdate@4",
       "address": "0x43c310",
       "kind": "data"
     },
     {
-      "symbol": "@ScreenOverlayDraw_0043c3c0@4",
+      "symbol": "@ScreenOverlayDraw@4",
       "address": "0x43c3c0",
       "kind": "data"
     },
     {
-      "symbol": "@PlayfieldHalfOpacityDraw_0043c410@4",
+      "symbol": "@PlayfieldHalfOpacityDraw@4",
       "address": "0x43c410",
       "kind": "data"
     },
     {
-      "symbol": "@ColorPulseUpdate_0043c460@4",
+      "symbol": "@ColorPulseUpdate@4",
       "address": "0x43c460",
       "kind": "data"
     },
     {
-      "symbol": "@ColorPulseDraw_0043c500@4",
+      "symbol": "@ColorPulseDraw@4",
       "address": "0x43c500",
       "kind": "data"
     },
     {
-      "symbol": "@LinearShakeUpdate_0043c550@4",
+      "symbol": "@LinearShakeUpdate@4",
       "address": "0x43c550",
       "kind": "data"
     },
     {
-      "symbol": "@EnvelopeShakeUpdate_0043c710@4",
+      "symbol": "@EnvelopeShakeUpdate@4",
       "address": "0x43c710",
       "kind": "data"
     },
     {
-      "symbol": "@ScreenEffectRemove_0043c870@4",
+      "symbol": "@ScreenEffectRemove@4",
       "address": "0x43c870",
       "kind": "data"
     },

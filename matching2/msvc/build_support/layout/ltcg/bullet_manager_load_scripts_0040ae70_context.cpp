@@ -8,10 +8,10 @@ extern "C" void *__cdecl Bomb_Create(void);
 extern "C" int __stdcall asm_Recovery_InstallPairClearFlags_0041ad90(void *pair);
 extern "C" void *__cdecl LaserManager_Create(void);
 struct ScoreManager_0041c100;
-ScoreManager_0041c100 *InitializeManager_0041c100(ScoreManager_0041c100 *manager);
+ScoreManager_0041c100 *InitializeManager(ScoreManager_0041c100 *manager);
 
-struct RawState_0040a130;
-extern "C" int __stdcall EclView_RegisterTasks(RawState_0040a130 *state);
+struct RawState;
+extern "C" int __stdcall EclView_RegisterTasks(RawState *state);
 
 struct EnemyCtrl;
 extern "C" int __stdcall EnemyCtrl_Initialize(
@@ -20,16 +20,16 @@ extern "C" int __stdcall EnemyCtrl_Initialize(
 // Address-only alias of the independently proven complete genuine zero-argument
 // HintCreate419090 entry; pointer in EAX, ordinary cdecl/plainRET.
 extern "C" void* __cdecl asm_Recovery_CreateResourceState_00419090();
-struct SchedulerCreatePrimary_0044A000 {
+struct SchedulerCreatePrimary {
     __declspec(noinline) SchedulerTask* Create(void* context, int priority);
 };
-struct SchedulerCreateSecondary_0044A030 {
+struct SchedulerCreateSecondary {
     __declspec(noinline) SchedulerTask* Create(void* context, int priority);
 };
-struct SchedulerCreatePrimaryClear_0044a060 {
+struct SchedulerCreatePrimaryClear {
     __declspec(noinline) SchedulerTask* Create(void* context, int priority);
 };
-struct SchedulerCreateSecondaryClear_0044a090 {
+struct SchedulerCreateSecondaryClear {
     __declspec(noinline) SchedulerTask* Create(void* context, int priority);
 };
 
@@ -51,14 +51,14 @@ int __stdcall BulletManagerLoadScriptsCompilerContext(
         FuncCtrl *scheduler, SchedulerTask **tasks, int count, int priority,
         Effect **slots) {
     for (int index = 0; index < count; ++index) {
-        SchedulerCreatePrimary_0044A000 *primary =
-            (SchedulerCreatePrimary_0044A000 *)tasks[index];
+        SchedulerCreatePrimary *primary =
+            (SchedulerCreatePrimary *)tasks[index];
         primary->Create(slots[index], priority);
-        SchedulerCreateSecondary_0044A030 *secondary =
-            (SchedulerCreateSecondary_0044A030 *)tasks[index];
+        SchedulerCreateSecondary *secondary =
+            (SchedulerCreateSecondary *)tasks[index];
         secondary->Create(slots[index], priority);
-        ((SchedulerCreatePrimaryClear_0044a060 *)tasks[index])->Create(slots[index], priority);
-        ((SchedulerCreateSecondaryClear_0044a090 *)tasks[index])->Create(slots[index], priority);
+        ((SchedulerCreatePrimaryClear *)tasks[index])->Create(slots[index], priority);
+        ((SchedulerCreateSecondaryClear *)tasks[index])->Create(slots[index], priority);
     }
     for (int index = 0; index < count; ++index) {
         SchedulerTask *task = tasks[index];
@@ -85,7 +85,7 @@ int __stdcall BulletManagerLoadScriptsCompilerContext(
             ++created;
     }
     for (int index = 0; index < count; ++index) {
-        if (InitializeManager_0041c100(
+        if (InitializeManager(
                 (ScoreManager_0041c100 *)slots[index]))
             ++created;
     }
@@ -96,7 +96,7 @@ int __stdcall BulletManagerLoadScriptsCompilerContext(
     }
 
     for (int index = 0; index < count; ++index) {
-        if (EclView_RegisterTasks((RawState_0040a130 *)slots[index]) == 0)
+        if (EclView_RegisterTasks((RawState *)slots[index]) == 0)
             ++created;
     }
     for (int index = 0; index < count; ++index) {

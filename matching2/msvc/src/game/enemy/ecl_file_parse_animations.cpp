@@ -12,14 +12,14 @@ struct CountedScriptChunk {
     unsigned int count;
     char names[1];
 };
-struct ScriptFileChunkContext_0040d400 {
+struct ScriptFileChunkContext {
     virtual int ParseScriptFile(char* data) = 0;
     virtual int ParseAnimationChunk(char* chunk);
     virtual int LoadScript(const char* name) = 0;
 };
 
 #pragma code_seg(".text$a01parser")
-__declspec(noinline) int ScriptFileChunkContext_0040d400::ParseAnimationChunk(char* chunk) {
+__declspec(noinline) int ScriptFileChunkContext::ParseAnimationChunk(char* chunk) {
     CountedScriptChunk* header = reinterpret_cast<CountedScriptChunk*>(chunk);
     if (header->magic != 0x4D494E41u)
         return 0;

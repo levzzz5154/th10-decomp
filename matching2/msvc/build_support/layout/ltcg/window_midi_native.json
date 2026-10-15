@@ -14,22 +14,22 @@
   ],
   "image_base": "0x00400000",
   "roots": [
-    "_WindowProcedure_004390e0@16"
+    "_WindowProcedure@16"
   ],
   "functions": [
     {
-      "name": "WindowProcedure_004390e0",
+      "name": "WindowProcedure",
       "source": "src/core/main/fun_004390e0_004390e0.cpp",
-      "symbol": "_WindowProcedure_004390e0@16",
+      "symbol": "_WindowProcedure@16",
       "section": ".text$10window",
       "address": "0x004390E0",
       "size": 265,
       "actual_abi": "Win32 stdcall four stack arguments RET16"
     },
     {
-      "name": "ShutdownMidi_0043ae20",
+      "name": "ShutdownMidi",
       "source": "src/core/midilib/fun_0043ae20_0043ae20.cpp",
-      "symbol": "_ShutdownMidi_0043ae20@4",
+      "symbol": "_ShutdownMidi@4",
       "section": ".text$18shutdown",
       "address": "0x0043AE20",
       "size": 129,
@@ -45,9 +45,9 @@
       "actual_abi": "manager EDX header ESI plain RET"
     },
     {
-      "name": "CleanupMidi_0043a910",
+      "name": "CleanupMidi",
       "source": "src/core/midilib/fun_0043a910_0043a910.cpp",
-      "symbol": "_CleanupMidi_0043a910@4",
+      "symbol": "_CleanupMidi@4",
       "section": ".text$16destroy",
       "address": "0x0043A910",
       "size": 156,

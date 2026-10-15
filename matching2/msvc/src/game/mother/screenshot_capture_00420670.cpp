@@ -16,7 +16,7 @@ int GameApp_00420670::CaptureScreenshot(const char* name) {
     while (screenshot_thread != 0)
         Sleep(10);
 
-    Direct3DSurface_00420670* back_buffer = 0;
+    Direct3DSurface* back_buffer = 0;
     device->methods->GetBackBuffer(device, 0, 0, 0, &back_buffer);
 
     memset(&file_header, 0, sizeof(file_header));
@@ -27,12 +27,12 @@ int GameApp_00420670::CaptureScreenshot(const char* name) {
 
     switch (back_buffer_format) {
     case 0x16: {
-        info_header = (BitmapInfoHeader_00420670*)asm_malloc_00452706(sizeof(BitmapInfoHeader_00420670));
+        info_header = (BitmapInfoHeader*)asm_malloc_00452706(sizeof(BitmapInfoHeader));
         if (info_header == 0) {
             g_log.Append(str_snapshot_alloc_failed);
             goto done;
         }
-        memset(info_header, 0, sizeof(BitmapInfoHeader_00420670));
+        memset(info_header, 0, sizeof(BitmapInfoHeader));
         pixels = (unsigned char*)asm_malloc_00452706(640 * 480 * 3);
         if (pixels == 0) {
             g_log.Append(str_snapshot_alloc_failed);

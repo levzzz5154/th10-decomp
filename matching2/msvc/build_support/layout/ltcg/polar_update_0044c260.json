@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "name": "polar_update_0044c260",
+  "name": "polar_update",
   "source": "src/unreferenced/unassigned_0044c260.cpp",
   "driver": "build_support/layout/ltcg/polar_update_0044c260_context.cpp",
   "headers": [],

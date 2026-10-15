@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "fill_argb4444_00436ca0",
-      "symbol": "?FillRgb444_00436ca0@@YGXPAUSurface_00436ca0@@I@Z",
+      "symbol": "?FillRgb444@@YGXPAUSurface_00436ca0@@I@Z",
       "section": ".text$01accessor",
       "address": "0x00436CA0",
       "size": 72,

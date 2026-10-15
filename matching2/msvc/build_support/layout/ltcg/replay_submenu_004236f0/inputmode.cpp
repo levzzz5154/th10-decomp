@@ -4,7 +4,7 @@
 // forced to 2. Retail passes the object in EAX and the mode on the stack,
 // and the callee pops it (RET 4).
 #pragma code_seg(".text$00f")
-void SubSetInputMode_004236f0(InputState* state, int mode) {
+void SubSetInputMode(InputState* state, int mode) {
     if ((state->flags_3CC & 0x1000) == 0) {
         state->mode_390 = mode;
     } else {

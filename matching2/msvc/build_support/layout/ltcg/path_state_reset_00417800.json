@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "PathState_00417800_Reset",
-      "symbol": "?Reset@PathState_00417800@@QAEHXZ",
+      "symbol": "?Reset@PathState@@QAEHXZ",
       "section": ".text$01path",
       "address": "0x00417800",
       "size": 58,
@@ -17,7 +17,7 @@
     }
   ],
   "context": {
-    "symbol": "?PathStateReset00417800CompilerContext@@YGHPAPAUPathState_00417800@@H@Z",
+    "symbol": "?PathStateReset00417800CompilerContext@@YGHPAPAUPathState@@H@Z",
     "section": ".text$03context",
     "address": "0x00417840",
     "size": 36,

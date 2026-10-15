@@ -6,12 +6,12 @@
 extern "C" SchedulerTask* __stdcall SchedulerTask_Create(void*);
 extern "C" FuncCtrl* g_func_ctrl;
 
-struct SchedulerCreatePrimary_0044A000 {
+struct SchedulerCreatePrimary {
     __declspec(noinline) SchedulerTask* Create(void* context, int priority);
 };
 #pragma code_seg(".text$76schedulerprimary")
 __declspec(noinline) SchedulerTask*
-SchedulerCreatePrimary_0044A000::Create(void* context, int priority) {
+SchedulerCreatePrimary::Create(void* context, int priority) {
     SchedulerTask* task =
         SchedulerTask_Create((void*)this);
     task->context = context;

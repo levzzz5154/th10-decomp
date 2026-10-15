@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "SlotOwner_004067a0_AdvanceSlot",
-      "symbol": "?AdvanceSlot@SlotOwner_004067a0@@QAEHH@Z",
+      "symbol": "?AdvanceSlot@SlotOwner@@QAEHH@Z",
       "section": ".text$01anchor",
       "address": "0x004066E0",
       "size": 134,
@@ -17,7 +17,7 @@
     },
     {
       "name": "SlotOwner_004067a0_AdvanceAllSlots",
-      "symbol": "?OnDraw@SlotOwner_004067a0@@QAEHXZ",
+      "symbol": "?OnDraw@SlotOwner@@QAEHXZ",
       "section": ".text$03run",
       "address": "0x004067A0",
       "size": 44,
@@ -64,7 +64,7 @@
   ],
   "constants": [],
   "roots": [
-    "?OnDraw@SlotOwner_004067a0@@QAEHXZ"
+    "?OnDraw@SlotOwner@@QAEHXZ"
   ],
   "absolute_symbols": [
     {

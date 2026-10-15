@@ -78,7 +78,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_FirstByteSearch_00452730",
+      "symbol": "_FirstByteSearch",
       "address": "0x00452730",
       "kind": "relative_code"
     },

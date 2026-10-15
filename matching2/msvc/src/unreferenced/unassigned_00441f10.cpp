@@ -4,6 +4,6 @@
 // fld/fld1/fpatan, and the single float argument stays on the stack (/Gz).
 #include <math.h>
 
-float FloatAtan_00441f10(float value) {
+float FloatAtan(float value) {
     return atanf(value);
 }

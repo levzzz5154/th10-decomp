@@ -16,18 +16,18 @@ static __forceinline Float3 operator+(const Float3& a, const Float3& b) {
 }
 extern "C" Float3 g_zero_vector_00491c14;
 extern "C" Float2 g_zero_vector2_00491c20;
-extern "C" Float3 g_camera_offset_00491d7c;
+extern "C" Float3 g_camera_offset;
 extern "C" float g_game_speed;
-extern "C" int g_difficulty_00474c74;
+extern "C" int g_difficulty;
 extern "C" int g_rank;
 
 struct RngState {
     unsigned short seed;
     unsigned short reserved;
     unsigned int generation;
-    __declspec(noinline) float NextFloatSigned_0044bb90();
+    __declspec(noinline) float NextFloatSigned();
     // A random angle in [-pi, pi).
-    __forceinline float NextAngle() { return NextFloatSigned_0044bb90() * 3.1415927f; }
+    __forceinline float NextAngle() { return NextFloatSigned() * 3.1415927f; }
 };
 extern "C" RngState g_effect_rng_004918b0;
 
@@ -64,7 +64,7 @@ struct EnemyMotion {
     float angular_speed;    // +0x24
     unsigned int flags;     // +0x28
 };
-__declspec(noinline) void __stdcall Motion_SetAngle_00413170(EnemyMotion* motion, float angle);
+__declspec(noinline) void __stdcall Motion_SetAngle(EnemyMotion* motion, float angle);
 
 struct AnmVm {
     unsigned char unknown_000[0x24];
@@ -86,8 +86,8 @@ struct AnmHandle {
     __declspec(noinline) void Show_004495e0();
     __declspec(noinline) void Hide_00449590();
 };
-__declspec(noinline) AnmHandle* __stdcall Anm_CreateFront_00448e30(AnmLoaded* anm, AnmHandle* out, int script, int layer);
-__declspec(noinline) AnmHandle* __stdcall Anm_CreateBack_00448d00(AnmLoaded* anm, AnmHandle* out, int script, int layer);
+__declspec(noinline) AnmHandle* __stdcall Anm_CreateFront(AnmLoaded* anm, AnmHandle* out, int script, int layer);
+__declspec(noinline) AnmHandle* __stdcall Anm_CreateBack(AnmLoaded* anm, AnmHandle* out, int script, int layer);
 __declspec(noinline) AnmVm* __stdcall Anm_Resolve_00449450(AnmHandle* handle);
 __declspec(noinline) Float3* __stdcall OffsetPoint_00418810(const Float3* point);
 
@@ -129,7 +129,7 @@ struct Shooter {
     int sound;              // +0x200
     int sound_2;            // +0x204
     unsigned char unknown_208[8];
-    __declspec(noinline) int Shoot_004073e0(BulletManager* manager);
+    __declspec(noinline) int Shoot(BulletManager* manager);
 };
 struct BulletManager {
     __declspec(noinline) int Sweep_00408210(int convert);
@@ -150,7 +150,7 @@ struct Laser {
     Float3 f430;                // +0x430
     unsigned char unknown_43c[4];
     float f440;                 // +0x440
-    __declspec(noinline) void SetVector_0040cf60(const Float3& value);
+    __declspec(noinline) void SetVector(const Float3& value);
 };
 struct LaserParams {
     Float3 position;
@@ -186,7 +186,7 @@ struct ItemDrops {
     float spread_x;         // +0x34
     float spread_y;         // +0x38
 };
-__declspec(noinline) void __stdcall Drops_Flush_0040c9a0(const Float3* position, ItemDrops* drops);
+__declspec(noinline) void __stdcall Drops_Flush(const Float3* position, ItemDrops* drops);
 
 struct ResourceSlot {
     int id;
@@ -225,10 +225,10 @@ struct Card {
     unsigned char unknown_0000[0x378C];
     unsigned int flags;         // +0x378C
     __declspec(noinline) void End_00409c00();
-    __declspec(noinline) void StopAnimation_0040cea0();
+    __declspec(noinline) void StopAnimation();
 };
 extern "C" Card* g_card;
-__declspec(noinline) void __stdcall Card_Start_00409280(Card* card, int id, const char* name, int time, int unused);
+__declspec(noinline) void __stdcall Card_Start(Card* card, int id, const char* name, int time, int unused);
 
 struct SoundQueue { __declspec(noinline) void QueuePan_0043dd10(int sound, float pan); };
 extern "C" SoundQueue g_sound_manager;
@@ -245,9 +245,9 @@ struct EnemyCtrl {
     AnmLoaded* anm[8];          // +0x30
 };
 extern "C" EnemyCtrl* g_enemy_ctrl;
-__declspec(noinline) void __stdcall EnemyCtrl_SweepDeaths_0040e6a0(EnemyCtrl* manager);
-__declspec(noinline) EnemyFull* __stdcall EnemyCtrl_Spawn_0040cfb0(const EnemySpawn* parameters, EnemyCtrl* manager, const char* name);
-__declspec(noinline) void __stdcall Enemy_BindSlot_00412720(EnemyFull* enemy, int index, int id, int value, const char* data);
+__declspec(noinline) void __stdcall EnemyCtrl_SweepDeaths(EnemyCtrl* manager);
+__declspec(noinline) EnemyFull* __stdcall EnemyCtrl_Spawn(const EnemySpawn* parameters, EnemyCtrl* manager, const char* name);
+__declspec(noinline) void __stdcall Enemy_BindSlot(EnemyFull* enemy, int index, int id, int value, const char* data);
 
 struct Enemy {
     unsigned char unknown_0000[0x2C];

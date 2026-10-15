@@ -1,17 +1,17 @@
 #ifndef TH10_ENEMY_SCRIPT_BIND_0040D830_HPP
 #define TH10_ENEMY_SCRIPT_BIND_0040D830_HPP
-struct BindScriptEntry_0040d830 {
+struct BindScriptEntry {
     const char* name;
     unsigned int value;
 };
 
-struct BindScriptVm_0040d830;
-struct BindScriptTable_0040d830 {
+struct BindScriptVm;
+struct BindScriptTable {
     unsigned int reserved_00;
     unsigned int reserved_04;
     int count;
     unsigned int reserved_0C[0x20];
-    const BindScriptEntry_0040d830* entries;
+    const BindScriptEntry* entries;
 
     __declspec(noinline) int Resolve(const char* name);
 };
@@ -24,7 +24,7 @@ struct BindScriptTable_0040d830 {
 
 // One animation slot: a 0x210-byte record whose +0x204 word is the slot's own
 // flag word (retail writes -1 there after blanking the record).
-struct BindAnimationSlot_0040d830 {
+struct BindAnimationSlot {
     unsigned char unknown_000[0x204];
     int field_204;                                   // +0x204
     unsigned char unknown_208[0x8];
@@ -33,7 +33,7 @@ struct BindAnimationSlot_0040d830 {
 // The owner block is huge, so only the touched offsets are described. The flag
 // words cleared up front sit at 0x12C, 0x17C, 0x1C8, 0x204, 0x240, 0x27C and
 // 0x2B8; the slot table starts at 0x2C4.
-struct BindAnimationOwner_0040d830 {
+struct BindAnimationOwner {
     unsigned char unknown_000[0x12C];
     unsigned flag_12C;                               // +0x12C
     unsigned char unknown_130[0x4C];
@@ -49,7 +49,7 @@ struct BindAnimationOwner_0040d830 {
     unsigned char unknown_280[0x38];
     unsigned flag_2B8;                               // +0x2B8
     unsigned char unknown_2BC[0x8];
-    BindAnimationSlot_0040d830 slots[8];                               // +0x2C4
+    BindAnimationSlot slots[8];                               // +0x2C4
     unsigned char unknown_1344[0xE8];
     unsigned flag_142C;                              // +0x142C
     unsigned char unknown_1430[0x10];
@@ -57,5 +57,5 @@ struct BindAnimationOwner_0040d830 {
 };
 
 
-__declspec(noinline) BindAnimationOwner_0040d830* __fastcall ClearBoundAnimations_0040d830(int unused, BindAnimationOwner_0040d830* owner);
+__declspec(noinline) BindAnimationOwner* __fastcall ClearBoundAnimations(int unused, BindAnimationOwner* owner);
 #endif

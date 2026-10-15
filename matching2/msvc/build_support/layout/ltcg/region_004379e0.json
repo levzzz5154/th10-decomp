@@ -8,8 +8,8 @@
   "description": "Region compiled with native LTCG so the internal register convention matches retail.",
   "functions": [
     {
-      "name": "CreateTexture_004379e0",
-      "symbol": "?CreateTexture_004379e0@@YIPAXII@Z",
+      "name": "CreateTexture",
+      "symbol": "?CreateTexture@@YIPAXII@Z",
       "section": ".text$01accessor",
       "address": "0x4379e0",
       "size": 31,

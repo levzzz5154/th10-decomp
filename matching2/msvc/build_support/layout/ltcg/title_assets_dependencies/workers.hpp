@@ -12,7 +12,7 @@ __declspec(dllimport) BOOL __stdcall CloseHandle(HANDLE handle);
 // WAIT_TIMEOUT: the object stayed unsignalled for the whole wait.
 static const DWORD kSoundWorkerWaitTimeout = 0x102;
 
-struct SoundWorkerPair_0043cc40 {
+struct SoundWorkerPair {
     unsigned char reserved_00[0x5218];
     HANDLE first_thread;        // +0x5218
     HANDLE second_thread;       // +0x521C

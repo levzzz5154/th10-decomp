@@ -4,11 +4,11 @@ struct AnimationLookupContext;
 struct AnimationScriptId { int value; };
 void* __fastcall AnimationManager_SetFlag_004492a0(AnimationLookupContext*, AnimationScriptId);
 extern "C" AnimationLookupContext* g_sprt_ctrl;
-struct PauseFlags_00422c30 { unsigned char reserved[0x58]; unsigned flags; };
-extern PauseFlags_00422c30* g_pause_flags;
+struct PauseFlags { unsigned char reserved[0x58]; unsigned flags; };
+extern PauseFlags* g_pause_flags;
 extern AnimationManager_0043e460 g_music_requests;
 extern float g_game_speed;
-struct PauseOwner_00422c30 {
+struct PauseOwner {
  unsigned char reserved[0x1DC];
  AnimationScriptId animation;
  unsigned char reserved_1e0[0x2C0-0x1E0];
@@ -16,7 +16,7 @@ struct PauseOwner_00422c30 {
  __declspec(noinline) void Unpause();
 };
 #pragma code_seg(".text$00fn")
-void PauseOwner_00422c30::Unpause() {
+void PauseOwner::Unpause() {
  g_pause_flags->flags &= ~0x10u;
  g_music_requests.RegisterResource("", 7, 0);
  AnimationManager_SetFlag_004492a0(g_sprt_ctrl, animation);

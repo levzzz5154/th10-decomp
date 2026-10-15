@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "gdi_surface_read_00437590",
-      "symbol": "?ReadFrom_00437590@@YG_NPAUGdiSurface_00437590@@PAUSurface_00437590@@@Z",
+      "symbol": "?ReadFrom@@YG_NPAUGdiSurface_00437590@@PAUSurface_00437590@@@Z",
       "section": ".text$01accessor",
       "address": "0x00437590",
       "size": 214,

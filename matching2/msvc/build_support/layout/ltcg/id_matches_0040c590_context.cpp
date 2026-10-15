@@ -2,7 +2,7 @@
 #include "../../../src/unreferenced/unassigned_0040c590.cpp"
 
 #pragma code_seg(".text$03context")
-int __stdcall Ctx(IdHolder_0040c590** items, int count, int v) {
+int __stdcall Ctx(IdHolder** items, int count, int v) {
     int n = 0;
     while (count--) n += (*items++)->Matches(v);
     return n;

@@ -4,7 +4,7 @@
 #pragma code_seg(".text$03context")
 int __stdcall ApplySettingsCompilerContext(int count) {
     while (count--) {
-        ApplySettings_00439350();
+        ApplySettings();
     }
     return 0;
 }

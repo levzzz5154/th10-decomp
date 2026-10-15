@@ -21,7 +21,7 @@ __forceinline void PauseOpenState::Open(bool result) {
     }
     AnimationHandle_00424480 cursor_handle;
     cursor_handle.value = (unsigned int)cursor_animation.value;
-    reinterpret_cast<SpriteRegion_00424480*>(lists)->BindToAnimation(cursor_handle, 32, 16, 384, 448);
+    reinterpret_cast<SpriteRegion*>(lists)->BindToAnimation(cursor_handle, 32, 16, 384, 448);
     resource = g_front->result_resource;
     current_resource = resource;
     object = reinterpret_cast<AnimationPool*>(lists)->Allocate();

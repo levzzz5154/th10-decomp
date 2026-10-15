@@ -8,7 +8,7 @@
 #include "th10/runtime/game/enemy/enemy_data_start_context.hpp"
 
 #pragma code_seg(".text$0040dc80_fn")
-extern "C" __declspec(noinline) int __stdcall EnemyDataStart_0040dc80(EnemyTick_0040dc80* enemy) {
+extern "C" __declspec(noinline) int __stdcall EnemyDataStart(EnemyTick* enemy) {
     if (enemy->flags & ENEMY_TICKED)
         return 0;
     enemy->flags |= ENEMY_TICKED;
@@ -135,14 +135,14 @@ extern "C" __declspec(noinline) int __stdcall EnemyDataStart_0040dc80(EnemyTick_
             if (entry) {
                 enemy->record->ClearResourceList();
                 enemy->record->ResetScript();
-                BindName_00450700(entry, enemy->record);
+                BindName(entry, enemy->record);
                 float delta = *enemy->clock.speed;
                 if (EclVm_TickChildren(reinterpret_cast<EclChildOwner*>(enemy->record), delta))
                     return -1;
             }
             if (((enemy->health <= 0) & ~(enemy->flags >> 6)) & 1) {
                 g_globals.AddScore(enemy->bonus);
-                if (Enemy_ReleaseOnDeath_0040e5f0(enemy->record))
+                if (Enemy_ReleaseOnDeath(enemy->record))
                     return 1;
             }
             enemy->flags |= ENEMY_HIT;
@@ -156,7 +156,7 @@ extern "C" __declspec(noinline) int __stdcall EnemyDataStart_0040dc80(EnemyTick_
         if (entry) {
             enemy->record->ClearResourceList();
             enemy->record->ResetScript();
-            EnemyRecord_0040dc80* record = enemy->record;
+            EnemyRecord* record = enemy->record;
             record->current->instruction = record->table->Resolve(entry);
             record->current->time = 0;
         }
@@ -164,7 +164,7 @@ extern "C" __declspec(noinline) int __stdcall EnemyDataStart_0040dc80(EnemyTick_
 
     // 0x0040E2BD: contact with the player.
     if (!(enemy->flags & (ENEMY_NO_CONTACT | ENEMY_INTANGIBLE)) && enemy->contact_timer.current <= 0)
-        FieldContact_004266b0(&enemy->final.position, g_player, &enemy->contact_size);
+        FieldContact(&enemy->final.position, g_player, &enemy->contact_size);
 
     // 0x0040E2E4: the turning animations.
     if (enemy->flags & ENEMY_FACES) {
@@ -196,7 +196,7 @@ extern "C" __declspec(noinline) int __stdcall EnemyDataStart_0040dc80(EnemyTick_
     // 0x0040E379: the animations follow the enemy.
     if (!(enemy->flags & ENEMY_UNSCROLLED)) {
         for (int index = 0; index < 8; ++index)
-            SetAnimationTranslatedPosition_00449350(
+            SetAnimationTranslatedPosition(
                 g_sprt_ctrl, &enemy->final.position, enemy->animations[index]);
     } else {
         for (int index = 0; index < 8; ++index)
@@ -208,7 +208,7 @@ extern "C" __declspec(noinline) int __stdcall EnemyDataStart_0040dc80(EnemyTick_
     if (!(enemy->flags & (ENEMY_NO_HIT | ENEMY_INTANGIBLE))
         && !(enemy->flags & (ENEMY_UNSCROLLED | ENEMY_UNTARGETED))) {
         Player* player = g_player;
-        EnemyRecord_0040dc80* target = static_cast<EnemyRecord_0040dc80*>(player->homing_target);
+        EnemyRecord* target = static_cast<EnemyRecord*>(player->homing_target);
         if (target == 0
             || fabsf(target->data.final.position.x - player->position.x)
                    < fabsf(enemy->final.position.x - player->position.x)) {

@@ -18,16 +18,16 @@
 // 0x4978E8, 0x4978CC), which is the order the source lists them in.
 #include "th10/render/quad_batch.hpp"
 
-struct ProjectionManager_00444240;
-struct ProjectedEntity_00444240 {
+struct ProjectionManager;
+struct ProjectedEntity {
     unsigned char reserved_0000[0x334];
-    __declspec(noinline) int ProjectQuad(ProjectionManager_00444240* manager);
+    __declspec(noinline) int ProjectQuad(ProjectionManager* manager);
 };
 
 #pragma code_seg(".text$06b07fade")
 extern "C" __declspec(noinline) void EntityDraw_00444580(SprtCtrlBatchView* manager,
                                                          RenderEntity* entity) {
-    ((ProjectedEntity_00444240*)entity)->ProjectQuad((ProjectionManager_00444240*)manager);
+    ((ProjectedEntity*)entity)->ProjectQuad((ProjectionManager*)manager);
     manager->SubmitSpriteQuad(entity, 0);
     g_quad_vertices[3].rhw = 1.0f;
     g_quad_vertices[2].rhw = 1.0f;

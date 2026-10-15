@@ -10,7 +10,7 @@ void* __fastcall AnimationManager_SetFlag_004492a0(AnimationLookupContext* conte
 
 extern "C" AnimationLookupContext* g_sprt_ctrl;
 
-struct AnimationPairOwner_00404420 {
+struct AnimationPairOwner {
     unsigned char reserved_0000[0x1EE4];
     int active_count;                       // +0x1EE4
     unsigned char reserved_1ee8[0x2A38 - 0x1EE8];
@@ -21,7 +21,7 @@ struct AnimationPairOwner_00404420 {
 };
 
 #pragma code_seg(".text$00fn")
-void AnimationPairOwner_00404420::ReleaseAnimations() {
+void AnimationPairOwner::ReleaseAnimations() {
     AnimationLookupContext* context = g_sprt_ctrl;
     active_count = 0;
     AnimationManager_SetFlag_004492a0(context, primary);

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "name": "bullet_slot_construct_00405d00",
+  "name": "bullet_slot_construct",
   "source": "src/game/bullet/bullet_slot_construct_00405d00.cpp",
   "driver": "build_support/layout/ltcg/bullet_slot_construct_00405d00/context.cpp",
   "headers": [

@@ -9,7 +9,7 @@ extern "C" float g_game_speed;
 // 0x004074B0. Advance the animation timer and update the player's trail
 // velocity while its frame counter is below the trail cutoff.
 #pragma code_seg(".text$01aanimation")
-void PlayerAnimationState_004074B0::AdvanceAnimationFrame() {
+void PlayerAnimationState::AdvanceAnimationFrame() {
     if (animation_timer.current <= 16) {
         const float trail_speed =
             flt_5 - animation_timer.elapsed * flt_0_3125 + speed_3D8;

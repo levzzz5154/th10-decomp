@@ -62,8 +62,8 @@ void __fastcall AnimationManager_SetStopFrameAndRun(
 // shape.
 __declspec(noinline) unsigned int __fastcall UpdateBoundedCounter(unsigned int requested, unsigned int* counter);
 // 0x00448D00.
-__declspec(noinline) void** __stdcall AnimationManager_CreatePrimaryBack_00448d00(
+__declspec(noinline) void** __stdcall AnimationManager_CreatePrimaryBack(
     void* resource, void** handle, int script, int layer);
 
-__declspec(noinline) int __stdcall TitleMode6_00430320(Title* room);
+__declspec(noinline) int __stdcall TitleMode6(Title* room);
 #endif

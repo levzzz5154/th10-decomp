@@ -9,7 +9,7 @@ int __stdcall CardUpdateContext(HudCallback_00408d60* slot, Card_00408d60* hud,
         GameSelection_00408d60** selection, ScoreFile_00408d60*** scores) {
     *selection = &g_selection;
     *scores = &g_score;
-    *slot = CardPrimary_00409220;
+    *slot = CardPrimary;
     return (*slot)(hud);
 }
 #pragma code_seg()

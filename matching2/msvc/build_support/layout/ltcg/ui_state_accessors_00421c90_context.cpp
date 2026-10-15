@@ -9,10 +9,10 @@
 
 #pragma code_seg(".text$20context")
 extern "C" int __stdcall UiStateAccessorCompilerContext_00421c90(
-        UiState_00421c90** states, int count) {
+        UiState** states, int count) {
     int total = 0;
     while (count--) {
-        UiState_00421c90* state = *states++;
+        UiState* state = *states++;
         total += UiState_00421c90_Flag6(state);
         total += UiState_00421c90_Flag5(state);
         total += UiState_00421c90_Flag3(state);

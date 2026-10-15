@@ -18,14 +18,14 @@ struct ArchiveEntry_004356f0 {
 
 extern "C" ArchiveEntry_004356f0 g_archive_entries[];
 
-struct ArchiveName_004356f0 {
+struct ArchiveName {
     char text[1];
 
     __declspec(noinline) const ArchiveEntry_004356f0* Find() const;
 };
 
 #pragma code_seg(".text$01find")
-const ArchiveEntry_004356f0* ArchiveName_004356f0::Find() const {
+const ArchiveEntry_004356f0* ArchiveName::Find() const {
     char buffer[0x104];
     const char* name = text;
     const char* slash = ((char* (__cdecl*)(const char*, int))asm_FUN_00452730_00452730)(name, '/');

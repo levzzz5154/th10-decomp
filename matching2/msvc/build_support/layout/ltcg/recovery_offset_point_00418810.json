@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "name": "recovery_offset_point_00418810",
+  "name": "recovery_offset_point",
   "source": "src/game/game/recovery_offset_point_00418810.cpp",
   "driver": "build_support/layout/ltcg/recovery_offset_point_00418810_context.cpp",
   "headers": [],
@@ -50,12 +50,12 @@
   ],
   "absolute_symbols": [
     {
-      "symbol": "?g_offset_point_00497d80@@3UVector3_00418810@@A",
+      "symbol": "?g_offset_point@@3UVector3_00418810@@A",
       "address": "0x00497D80",
       "kind": "data"
     },
     {
-      "symbol": "?g_offset_point_state_00497d8c@@3IA",
+      "symbol": "?g_offset_point_state@@3IA",
       "address": "0x00497D8C",
       "kind": "data"
     },

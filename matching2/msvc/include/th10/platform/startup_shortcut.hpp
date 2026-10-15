@@ -62,8 +62,8 @@ __declspec(dllimport) void __stdcall EnterCriticalSection(CriticalSection*);
 __declspec(dllimport) void __stdcall LeaveCriticalSection(CriticalSection*);
 __declspec(dllimport) int __stdcall CloseHandle(HANDLE);
 int __cdecl asm_vsprintf_004524a6(char*, const char*, char*);
-void* __cdecl Startup_New_00452493(unsigned int);
-void __cdecl Startup_Free_004524a1(void*);
+void* __cdecl Startup_New(unsigned int);
+void __cdecl Startup_Free(void*);
 extern char startupMutexName[], startupAlreadyRunning[], startupLinkExtension[];
 extern Guid shellLinkClass, shellLinkInterface, persistFileInterface;
 extern HANDLE startupMutex;
@@ -80,4 +80,4 @@ __declspec(noinline) int __stdcall asm_File_ProbeExists_0044b4d0(const char*);
 // Only shortcut remains on the stack, cleaned by the callee's RET4.
 __declspec(noinline) int __stdcall ResolveShortcutTarget(const char*, char*, DWORD);
 // Public int(void) boundary; the real GameMain call supplies no data inputs.
-extern "C" __declspec(noinline) int __cdecl Startup_InstanceCheck_00439ff0();
+extern "C" __declspec(noinline) int __cdecl Startup_InstanceCheck();

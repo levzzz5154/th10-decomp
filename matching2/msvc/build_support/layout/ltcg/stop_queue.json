@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "Sound_QueueEffectStop_0043ddb0",
-      "symbol": "?QueueEffectStop@StopQueue_0043ddb0@@QAEXH@Z",
+      "symbol": "?QueueEffectStop@StopQueue@@QAEXH@Z",
       "section": ".text$01stop",
       "address": "0x0043DDB0",
       "size": 52,
@@ -17,7 +17,7 @@
     }
   ],
   "context": {
-    "symbol": "?StopQueueCompilerContext@@YGHPAPAUStopQueue_0043ddb0@@HH@Z",
+    "symbol": "?StopQueueCompilerContext@@YGHPAPAUStopQueue@@HH@Z",
     "section": ".text$03context",
     "address": "0x0043DDF0",
     "size": 42,

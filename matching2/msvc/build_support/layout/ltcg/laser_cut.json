@@ -64,7 +64,7 @@
     },
     {
       "name": "function_0041bb00",
-      "symbol": "?Spawn@ItemSpawnManager_0041bb00@@QAEHPBUVector3@@HHMM@Z",
+      "symbol": "?Spawn@ItemSpawnManager@@QAEHPBUVector3@@HHMM@Z",
       "section": ".text$f0041bb00F",
       "address": "0x41bb00",
       "size": 819
@@ -113,7 +113,7 @@
     },
     {
       "name": "function_0041c510",
-      "symbol": "?SpawnIn@LaserSpawnParameters_0041c510@@QBEHPAULaserManager_0041c510@@H@Z",
+      "symbol": "?SpawnIn@LaserSpawnParameters@@QBEHPAULaserManager_0041c510@@H@Z",
       "section": ".text$f0041c510F",
       "address": "0x41c510",
       "size": 151
@@ -127,14 +127,14 @@
     },
     {
       "name": "function_0041c680",
-      "symbol": "?BeamLaser_Construct_0041c680@@YIPAUBeamLaser_0041c680@@PAU1@@Z",
+      "symbol": "?BeamLaser_Construct_0041c680@@YIPAUBeamLaser@@PAU1@@Z",
       "section": ".text$f0041c680F",
       "address": "0x41c680",
       "size": 219
     },
     {
       "name": "function_0041c030",
-      "symbol": "?LaserBase_Construct_0041c030@@YIPAULaserBase_0041c030@@PAXPAU1@@Z",
+      "symbol": "?LaserBase_Construct_0041c030@@YIPAULaserBase@@PAXPAU1@@Z",
       "section": ".text$f0041c030F",
       "address": "0x41c030",
       "size": 98

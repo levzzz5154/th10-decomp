@@ -124,12 +124,12 @@
       "kind": "data"
     },
     {
-      "symbol": "@SptTestUpdateTask_0042c580@4",
+      "symbol": "@SptTestUpdateTask@4",
       "address": "0x0042C580",
       "kind": "data"
     },
     {
-      "symbol": "@SptTestDrawTask_0042c590@4",
+      "symbol": "@SptTestDrawTask@4",
       "address": "0x0042C590",
       "kind": "data"
     },

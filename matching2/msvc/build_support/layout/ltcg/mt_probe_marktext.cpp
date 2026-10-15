@@ -3,10 +3,10 @@
 #include <stdarg.h>
 #include "th10/game/recovery_script_executor_cluster/recovery_script_executor_text_anchors.hpp"
 
-extern "C" int __cdecl recovery_vsprintf_004524a6(
+extern "C" int __cdecl recovery_vsprintf(
     char* buffer, const char* format, char* args);
 void __stdcall RecoveryDispatchText_004479d0(
-    RecoveryTextResource_004479d0* resource, int font_height,
+    RecoveryTextResource* resource, int font_height,
     const char* text, void* texture, int horizontal_offset,
     unsigned int color, int unshadowed);
 
@@ -14,8 +14,8 @@ void __stdcall RecoveryDispatchText_004479d0(
 void RecoveryTextVm::MarkText(
     void* manager, unsigned int color, const char* format) {
     char buffer[128];
-    recovery_vsprintf_004524a6(buffer, format, const_cast<char*>(format));
-    RecoveryTextResource_004479d0* text_resource = resource;
+    recovery_vsprintf(buffer, format, const_cast<char*>(format));
+    RecoveryTextResource* text_resource = resource;
     RecoveryDispatchText_004479d0(
         text_resource, static_cast<int>(font_height), buffer,
         text_resource->texture, 0, color, (flags_360 >> 1) & 1);

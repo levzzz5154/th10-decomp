@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "DestinationCopy_Copy",
-      "symbol": "?Copy@DestinationCopy_00444cb0@@QAEHPBUDestinationCopySource_00444cb0@@H@Z",
+      "symbol": "?Copy@DestinationCopy@@QAEHPBUDestinationCopySource@@H@Z",
       "section": ".text$01copy",
       "address": "0x00444CB0",
       "size": 34,
@@ -17,7 +17,7 @@
     }
   ],
   "context": {
-    "symbol": "?DestinationCopyCompilerContext@@YGHPAPAUDestinationCopy_00444cb0@@PAPAUDestinationCopySource_00444cb0@@H@Z",
+    "symbol": "?DestinationCopyCompilerContext@@YGHPAPAUDestinationCopy@@PAPAUDestinationCopySource@@H@Z",
     "section": ".text$03context",
     "address": "0x00444CE0",
     "size": 49,

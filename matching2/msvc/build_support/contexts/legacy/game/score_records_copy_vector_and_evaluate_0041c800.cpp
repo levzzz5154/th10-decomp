@@ -23,7 +23,7 @@
 //    ECX, exactly as retail.
 //
 // This unit is therefore compiled inside the native-LTCG cluster declared by
-// layout/ltcg/score_records_copy_vector_and_evaluate_0041c800.json, whose
+// layout/ltcg/score_records_copy_vector_and_evaluate.json, whose
 // synthetic caller supplies that register state.
 #include <stddef.h>
 

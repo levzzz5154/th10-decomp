@@ -7,7 +7,7 @@
 //
 // Like its twin, the body enters with the position in EDI and the other three
 // arguments on the stack, and its callees take registers no declaration can
-// name, so it is compiled in the cluster build_support/layout/ltcg/positioned_secondary_front_004490e0.json.
+// name, so it is compiled in the cluster build_support/layout/ltcg/positioned_secondary_front.json.
 #pragma code_seg(".text$05qscreen")
 
 struct AnimationPosition_00449140 {
@@ -37,7 +37,7 @@ extern "C" void** __cdecl asm_AnimationManager_RegisterSecondaryFront_00448b40(
 enum { kAnimationPositioned = 0x40000000 };
 
 __declspec(noinline)
-void** __stdcall AnimationManager_CreateScreenPositionedSecondaryFront_00449140(
+void** __stdcall AnimationManager_CreateScreenPositionedSecondaryFront(
     void* resource, void** out, int index, const AnimationPosition_00449140* position) {
     AnimationObject_00449140* object =
         (AnimationObject_00449140*)asm_FUN_00449950_00449950(g_sprt_ctrl);

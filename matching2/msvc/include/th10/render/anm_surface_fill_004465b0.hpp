@@ -21,15 +21,15 @@ struct Pixel4444_004465b0 {
 };
 
 // The locked-rectangle record LockRect fills. D3DLOCKED_RECT.
-struct AnmLockedRect_004465b0 {
+struct AnmLockedRect {
     int pitch;                                         // +0x00, bytes per row
     void* bits;                                        // +0x04, pixel data
 };
 
 // The Direct3D 9 surface interface as the transparent-pixel fill at 0x004465B0
-// drives it: the slots AnmSurface_00446c70 already names, extended by
+// drives it: the slots AnmSurface already names, extended by
 // LockRect (slot 13, vtable offset 0x34) and UnlockRect (slot 14, 0x38).
-struct AnmSurfaceFill_004465b0 {
+struct AnmSurfaceFill {
     virtual long __stdcall QueryInterface(const void* iid, void** object) = 0;
     virtual unsigned long __stdcall AddRef() = 0;
     virtual unsigned long __stdcall Release() = 0;
@@ -42,8 +42,8 @@ struct AnmSurfaceFill_004465b0 {
     virtual void __stdcall Slot09() = 0;
     virtual void __stdcall Slot10() = 0;
     virtual void __stdcall Slot11() = 0;
-    virtual long __stdcall GetDesc(AnmSurfaceDesc_00446c70* desc) = 0;
-    virtual long __stdcall LockRect(AnmLockedRect_004465b0* locked, const void* rect,
+    virtual long __stdcall GetDesc(AnmSurfaceDesc* desc) = 0;
+    virtual long __stdcall LockRect(AnmLockedRect* locked, const void* rect,
                                     unsigned int flags) = 0;
     virtual long __stdcall UnlockRect() = 0;
 };

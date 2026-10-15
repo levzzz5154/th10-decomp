@@ -3,7 +3,7 @@
 
 // A 32-bit CRT struct tm as read by __expandtime.  The retail function uses
 // all nine dwords, including tm_isdst at offset 0x20.
-struct ExpandTimeFields_0045a82d {
+struct ExpandTimeFields {
     std::int32_t second;
     std::int32_t minute;
     std::int32_t hour;
@@ -15,12 +15,12 @@ struct ExpandTimeFields_0045a82d {
     std::int32_t daylight_saving;
 };
 
-static_assert(sizeof(ExpandTimeFields_0045a82d) == 0x24,
+static_assert(sizeof(ExpandTimeFields) == 0x24,
               "the CRT time fields must match the observed 36-byte layout");
 
 // The CRT __lc_time_data string table used by %a/%A/%b/%B/%p.  These offsets
 // are the ones read by the retail instructions at 0x0045A88D..0x0045AA83.
-struct ExpandTimeLocaleStrings_0045a82d {
+struct ExpandTimeLocaleStrings {
     const char* abbreviated_weekdays[7]; // +0x00
     const char* full_weekdays[7];        // +0x1C
     const char* abbreviated_months[12];  // +0x38
@@ -28,17 +28,17 @@ struct ExpandTimeLocaleStrings_0045a82d {
     const char* am_pm[2];                 // +0x98
 };
 
-using StoreLocalizedWord_0045a82d = int(__cdecl*)(
+using StoreLocalizedWord = int(__cdecl*)(
     const void* crt_locale,
     int format_kind,
-    const ExpandTimeFields_0045a82d* time_fields,
+    const ExpandTimeFields* time_fields,
     char** output_cursor,
     std::uint32_t* remaining_capacity,
-    const ExpandTimeLocaleStrings_0045a82d* locale_strings);
+    const ExpandTimeLocaleStrings* locale_strings);
 
-using RefreshTimeZone_0045a82d = void(__cdecl*)();
+using RefreshTimeZone = void(__cdecl*)();
 
-extern "C" void semantic_store_str_0045a75e(
+extern "C" void semantic_store_str(
     char** output_cursor,
     std::uint32_t* remaining_capacity,
     const char* source);
@@ -99,7 +99,7 @@ void store_number(
 void store_week_number(
     char** output_cursor,
     std::uint32_t* remaining_capacity,
-    const ExpandTimeFields_0045a82d* time_fields,
+    const ExpandTimeFields* time_fields,
     bool week_starts_monday,
     bool suppress_zero_padding) {
     const std::int32_t first_weekday = week_starts_monday
@@ -125,17 +125,17 @@ void store_week_number(
 // the stack.  The typed parameters below make those values explicit for a
 // future caller conversion.  `store_localized_word` and `refresh_timezone`
 // stand for the normal-ABI CRT helpers used by the original implementation.
-extern "C" int semantic_expandtime_0045a82d(
+extern "C" int semantic_expandtime(
     std::int8_t conversion,
     char** output_cursor,
     std::uint32_t* remaining_capacity,
     const void* crt_locale,
-    const ExpandTimeFields_0045a82d* time_fields,
-    const ExpandTimeLocaleStrings_0045a82d* locale_strings,
+    const ExpandTimeFields* time_fields,
+    const ExpandTimeLocaleStrings* locale_strings,
     int alternate_format,
     const char* const* timezone_names,
-    StoreLocalizedWord_0045a82d store_localized_word,
-    RefreshTimeZone_0045a82d refresh_timezone) {
+    StoreLocalizedWord store_localized_word,
+    RefreshTimeZone refresh_timezone) {
     const bool suppress_padding = alternate_format != 0;
 
     switch (conversion) {
@@ -147,27 +147,27 @@ extern "C" int semantic_expandtime_0045a82d(
         return 1;
 
     case 'A':
-        semantic_store_str_0045a75e(
+        semantic_store_str(
             output_cursor, remaining_capacity,
             locale_strings->full_weekdays[time_fields->week_day]);
         return 1;
     case 'a':
-        semantic_store_str_0045a75e(
+        semantic_store_str(
             output_cursor, remaining_capacity,
             locale_strings->abbreviated_weekdays[time_fields->week_day]);
         return 1;
     case 'B':
-        semantic_store_str_0045a75e(
+        semantic_store_str(
             output_cursor, remaining_capacity,
             locale_strings->full_months[time_fields->month]);
         return 1;
     case 'b':
-        semantic_store_str_0045a75e(
+        semantic_store_str(
             output_cursor, remaining_capacity,
             locale_strings->abbreviated_months[time_fields->month]);
         return 1;
     case 'p':
-        semantic_store_str_0045a75e(
+        semantic_store_str(
             output_cursor, remaining_capacity,
             locale_strings->am_pm[time_fields->hour > 11 ? 1 : 0]);
         return 1;
@@ -230,7 +230,7 @@ extern "C" int semantic_expandtime_0045a82d(
         if (refresh_timezone != nullptr) {
             refresh_timezone();
         }
-        semantic_store_str_0045a75e(
+        semantic_store_str(
             output_cursor, remaining_capacity,
             timezone_names[time_fields->daylight_saving != 0 ? 1 : 0]);
         return 1;

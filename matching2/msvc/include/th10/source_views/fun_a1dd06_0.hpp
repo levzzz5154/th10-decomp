@@ -32,7 +32,7 @@
 // time, the previous frame's and the fixed-timestep target, plus the tick
 // counter the buffer/fog reset block uses.  The first 0x14 bytes are the
 // window/device fields this routine never touches.
-struct GameFrame_00439390 {
+struct GameFrame {
     unsigned char reserved_000[0x14];
     signed char tick;                            // +0x14
     unsigned char reserved_015[0x38 - 0x15];
@@ -69,7 +69,7 @@ struct RenderStageState_00439390 {
 
 // The worker thread object at 0x00492254: the Win32 handle at +0x04 plus the
 // stop/join flags 0x0044C150 writes.
-struct WorkerThread_00439390 {
+struct WorkerThread {
     unsigned char reserved_000[0x04];
     void* handle;                                // +0x04
     unsigned char reserved_008[0x0C - 0x08];
@@ -81,9 +81,9 @@ struct WorkerThread_00439390 {
     __declspec(noinline) void* Stop();
 };
 
-extern "C" GameFrame_00439390 g_main_window;
+extern "C" GameFrame g_main_window;
 extern "C" RenderStageState_00439390 g_application;
-extern "C" WorkerThread_00439390 g_frame_worker;
+extern "C" WorkerThread g_frame_worker;
 // The task manager 0x00449C00/0x00449D40 decode for.
 extern "C" int g_func_ctrl;
 // The frame parameters 0x0043DDF0 walks.

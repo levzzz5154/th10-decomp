@@ -3,7 +3,7 @@
 // maintained form is src/game/title/progress.cpp).
 #include "th10/game/title_main_menu_update_0042d420.hpp"
 #pragma code_seg(".text$0042c850_fn")
-int ScoreFileProgress_0042c850::HasAnyClear() {
+int ScoreFileProgress::HasAnyClear() {
     return cleared[0] != 0
         || cleared[1] != 0
         || cleared[2] != 0

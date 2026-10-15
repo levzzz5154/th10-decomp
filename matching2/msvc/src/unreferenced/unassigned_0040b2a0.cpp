@@ -7,7 +7,7 @@ extern "C" float __stdcall Angle_Normalize_0044bc70(float value);
 struct Vec3_0040b2a0 {
     float x; float y; float z;
 };
-struct PolarState_0040b2a0 {
+struct PolarState {
     Vec3_0040b2a0 vector_000;
     float field_00c;
     float field_010;
@@ -18,16 +18,16 @@ struct PolarState_0040b2a0 {
     float field_024;
     unsigned int flags_028;
 };
-struct Worker_0040b2a0 {
+struct Worker {
     unsigned char pad_000[0x340];
     Vec3_0040b2a0 output_340;
     unsigned char pad_34c[0x0C];
-    PolarState_0040b2a0* state_358;
+    PolarState* state_358;
     __declspec(noinline) int Update();
 };
 #pragma code_seg(".text$01accessor")
-int Worker_0040b2a0::Update() {
-    PolarState_0040b2a0* state = state_358;
+int Worker::Update() {
+    PolarState* state = state_358;
     if ((state->flags_028 & 1) == 0) {
         asm_Recovery_PolarToVectorRetail_0044c5d0(&state->field_00c, state->field_01c, state->field_018);
         state->field_014 = 0.0f;

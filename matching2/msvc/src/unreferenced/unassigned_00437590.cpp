@@ -48,7 +48,7 @@ struct GdiSurface_00437590 {
 };
 
 #pragma code_seg(".text$01accessor")
-__declspec(noinline) bool __stdcall ReadFrom_00437590(GdiSurface_00437590* gdi, Surface_00437590* surface) {
+__declspec(noinline) bool __stdcall ReadFrom(GdiSurface_00437590* gdi, Surface_00437590* surface) {
     if (!gdi->bitmap) return false;
     SurfaceDesc_00437590 desc;
     surface->GetDesc(&desc);

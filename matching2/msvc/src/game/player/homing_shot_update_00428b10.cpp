@@ -12,7 +12,7 @@
 float __stdcall Angle_Normalize(float angle);
 double __stdcall AngleDifference(float first, float second);
 
-struct HomingTarget_00428b10 {
+struct HomingTarget {
     unsigned char pad_0000[0x1068];
     float x;                             // +0x1068
     float y;                             // +0x106C
@@ -20,7 +20,7 @@ struct HomingTarget_00428b10 {
     unsigned int flags;                  // +0x2480
 };
 
-struct HomingShot_00428b10 {
+struct HomingShot {
     int unknown_00;
     int frames;                          // +0x04
     unsigned char pad_08[0x14 - 0x08];
@@ -32,16 +32,16 @@ struct HomingShot_00428b10 {
     unsigned char pad_34[0x40 - 0x34];
     int state;                           // +0x40
     unsigned char pad_44[0x4C - 0x44];
-    HomingTarget_00428b10* target;       // +0x4C
+    HomingTarget* target;       // +0x4C
 };
 
-int __fastcall HomingShot_Update_00428b10(void* unused, HomingShot_00428b10* shot);
+int __fastcall HomingShot_Update(void* unused, HomingShot* shot);
 
 #pragma code_seg(".text$01homing")
-int __fastcall HomingShot_Update_00428b10(void* unused, HomingShot_00428b10* shot) {
+int __fastcall HomingShot_Update(void* unused, HomingShot* shot) {
     if (shot->state == 2)
         return 0;
-    HomingTarget_00428b10* target = shot->target;
+    HomingTarget* target = shot->target;
     if (target && ((target->flags & 0x11) || (target->flags & 0xC0000))) {
         shot->target = 0;
         target = 0;

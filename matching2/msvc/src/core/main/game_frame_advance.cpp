@@ -1,5 +1,5 @@
 #include "th10/source_views/fun_a1dd06_0.hpp"
-int GameFrameAdvance_00439390(GameFrame_00439390* frame) {
+int GameFrameAdvance(GameFrame* frame) {
     frame->frame_time = FrameTimer_GetDelta();
     if (frame->frame_time < frame->previous_time) frame->next_tick_time = frame->frame_time;
     frame->previous_time = frame->frame_time;

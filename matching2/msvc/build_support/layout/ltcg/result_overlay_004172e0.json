@@ -32,7 +32,7 @@
   "functions": [
     {
       "name": "ResultOverlay_SetMode",
-      "symbol": "?ResultOverlay_SetMode@@YGXHPAUResultOverlayState_004172e0@@H@Z",
+      "symbol": "?ResultOverlay_SetMode@@YGXHPAUResultOverlayState@@H@Z",
       "section": ".text$004172e0_fn",
       "address": "0x004172E0",
       "size": 668,
@@ -40,7 +40,7 @@
     }
   ],
   "context": {
-    "symbol": "?End@ResultCard_00409c00@@QAEXXZ",
+    "symbol": "?End@ResultCard@@QAEXXZ",
     "section": ".text$00409c00_fn",
     "address": "0x00409C00",
     "size": 394,
@@ -48,7 +48,7 @@
   },
   "anchors": [
     {
-      "name": "Card_CreateAnimation_00448d00",
+      "name": "Card_CreateAnimation",
       "symbol": "?ResultAnimation_CreatePrimary@@YG?AUResultAnimationId@@PAXHH@Z",
       "section": ".text$00448d00_fn",
       "address": "0x448d00",

@@ -28,7 +28,7 @@ extern "C" __declspec(noinline) int EntityDraw_00443290(RenderEntity* entity,
                                                        SprtCtrlBatchView* manager);
 
 #pragma code_seg(".text$06b03rotquad")
-extern "C" __declspec(noinline) int BuildRotatedQuad_004436c0(
+extern "C" __declspec(noinline) int BuildRotatedQuad(
         SprtCtrlBatchView* manager, RenderEntity* entity) {
     float ca, sa;
     float angle;
@@ -101,7 +101,7 @@ extern "C" __declspec(noinline) int BuildRotatedQuad_004436c0(
 #pragma code_seg()
 
 #pragma code_seg(".text$06b04rotquad")
-extern "C" __declspec(noinline) int BuildRotatedQuadAlt_00443910(
+extern "C" __declspec(noinline) int BuildRotatedQuadAlt(
         SprtCtrlBatchView* manager, RenderEntity* entity) {
     float ca, sa;
     float angle;

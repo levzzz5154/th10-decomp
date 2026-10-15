@@ -1,6 +1,6 @@
 // 0x00436570: start a program in an 80x25 console window and, when asked,
 // wait for it and return its exit code.
-struct StartupInfo_00436570 {
+struct StartupInfo {
     unsigned long size;
     char* reserved;
     char* desktop;
@@ -20,19 +20,19 @@ struct StartupInfo_00436570 {
     void* standard_output;
     void* standard_error;
 };
-struct ProcessInformation_00436570 {
+struct ProcessInformation {
     void* process;
     void* thread;
     unsigned long process_id;
     unsigned long thread_id;
 };
-extern "C" __declspec(dllimport) int __stdcall CreateProcessA(const char* application, char* command_line, void* process_attributes, void* thread_attributes, int inherit_handles, unsigned long flags, void* environment, const char* directory, StartupInfo_00436570* startup, ProcessInformation_00436570* information);
+extern "C" __declspec(dllimport) int __stdcall CreateProcessA(const char* application, char* command_line, void* process_attributes, void* thread_attributes, int inherit_handles, unsigned long flags, void* environment, const char* directory, StartupInfo* startup, ProcessInformation* information);
 extern "C" __declspec(dllimport) int __stdcall GetExitCodeProcess(void* process, unsigned long* exit_code);
 
 #pragma code_seg(".text$01accessor")
-__declspec(noinline) int __stdcall LaunchProcess_00436570(char* command_line, const char* application, int wait) {
-    StartupInfo_00436570 startup;
-    ProcessInformation_00436570 information;
+__declspec(noinline) int __stdcall LaunchProcess(char* command_line, const char* application, int wait) {
+    StartupInfo startup;
+    ProcessInformation information;
     startup.size = sizeof(startup);
     startup.reserved = 0;
     startup.desktop = 0;

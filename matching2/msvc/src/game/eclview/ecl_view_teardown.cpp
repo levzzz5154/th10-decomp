@@ -8,14 +8,14 @@
 #include "th10/game/ecl_view_teardown.hpp"
 
 #pragma code_seg(".text$10worker")
-inline EclViewWorker_0040a940::~EclViewWorker_0040a940() {
+inline EclViewWorker::~EclViewWorker() {
     vtable = &platform_worker_vtable;
     reinterpret_cast<PlatformWorker*>(this)->Stop();
 }
 #pragma code_seg()
 
 #pragma code_seg(".text$00sprite")
-inline EclViewSprite_0040a940::~EclViewSprite_0040a940() {
+inline EclViewSprite::~EclViewSprite() {
     void* owned = resource;
     if (owned) free(owned);
     resource = 0;
@@ -23,7 +23,7 @@ inline EclViewSprite_0040a940::~EclViewSprite_0040a940() {
 #pragma code_seg()
 
 #pragma code_seg(".text$01names")
-void EclView_0040a940::ClearScriptNames() {
+void EclView::ClearScriptNames() {
     if (script_names) {
         for (int i = 0; i < script_count; ++i) {
             if (script_names[i]) {
@@ -51,14 +51,14 @@ inline void EclView_DeleteOwned(T* const& owner) {
 }
 
 #pragma code_seg(".text$03dtor")
-EclView_0040a940::~EclView_0040a940() {
+EclView::~EclView() {
     ClearScriptNames();
     SchedulerTask* task = update_task;
     FuncCtrl* scheduler = static_cast<FuncCtrl*>(g_func_ctrl);
     if (task) {
         EnterCriticalSection(&g_thread_synchronization.critical_sections[0]);
         ++g_thread_synchronization.scheduler_lock_depth;
-        ManagerTeardownFuncCtrl_Remove_00449F60(scheduler, task);
+        ManagerTeardownFuncCtrl_Remove(scheduler, task);
         LeaveCriticalSection(&g_thread_synchronization.critical_sections[0]);
         --g_thread_synchronization.scheduler_lock_depth;
     }
@@ -67,7 +67,7 @@ EclView_0040a940::~EclView_0040a940() {
     if (task) {
         EnterCriticalSection(&g_thread_synchronization.critical_sections[0]);
         ++g_thread_synchronization.scheduler_lock_depth;
-        ManagerTeardownFuncCtrl_Remove_00449F60(scheduler, task);
+        ManagerTeardownFuncCtrl_Remove(scheduler, task);
         LeaveCriticalSection(&g_thread_synchronization.critical_sections[0]);
         --g_thread_synchronization.scheduler_lock_depth;
     }

@@ -116,20 +116,20 @@
       "address": "0x0042A400",
       "kind": "code"
     },
-    "??0ReplayManagerNode_004296f0@@QAE@XZ": {
+    "??0ReplayManagerNode@@QAE@XZ": {
       "address": "0x0042AC20",
       "kind": "data"
     },
-    "??1ReplayManagerNode_004296f0@@QAE@XZ": {
+    "??1ReplayManagerNode@@QAE@XZ": {
       "address": "0x0042AC60",
       "kind": "data"
     }
   },
   "bindings": {
-    "_ReplayPool_Clear_0042ab20@8": "0x0042AB20",
-    "?AppendPage@PoolOwner_0042aa50@@QAEPAUPoolLink_0042aa50@@H@Z": "0x0042AA50",
+    "_ReplayPool_Clear@8": "0x0042AB20",
+    "?AppendPage@PoolOwner@@QAEPAUPoolLink@@H@Z": "0x0042AA50",
     "?ReplayManager_LoadFile_00428f60@@YGHPAUReplayManager_004296f0@@PBD@Z": "0x0042A200",
-    "?SetCountdown@EmbeddedTimerState_0042a930@@QAEXH@Z": "0x0042A930",
+    "?SetCountdown@EmbeddedTimerState@@QAEXH@Z": "0x0042A930",
     "?GameConfig_InitializeDefaults@@YIDHPAUGameConfig@@@Z": "0x00418C40",
     "_FuncCtrl_RegisterPrimary@12": "0x00449AE0",
     "_FuncCtrl_RegisterSecondary@12": "0x00449B70"

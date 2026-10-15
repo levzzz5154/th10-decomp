@@ -20,7 +20,7 @@ struct Card_00408d60 {
     FrontSprite_00408d60 frame_sprite;               // +0x0010
     FrontSprite_00408d60 label_sprite;               // +0x03BC
     AnimationHandle_00449470 panel_handles[3];     // +0x0768
-    PositionScriptId_004492f0 marker_handle;       // +0x0774
+    PositionScriptId marker_handle;       // +0x0774
     FrontSprite_00408d60 bonus_digits[8];            // +0x0778
     FrontSprite_00408d60 counter_digits[5];          // +0x24D8
     FrameTimer timer;                              // +0x3734
@@ -41,4 +41,4 @@ typedef char Card_counters[offsetof(Card_00408d60, counter_digits) == 0x24D8 ? 1
 typedef char Card_timer[offsetof(Card_00408d60, timer) == 0x3734 ? 1 : -1];
 typedef char Card_position[offsetof(Card_00408d60, marker_position) == 0x379C ? 1 : -1];
 
-extern "C" int __fastcall CardPrimary_00409220(Card_00408d60* hud);
+extern "C" int __fastcall CardPrimary(Card_00408d60* hud);

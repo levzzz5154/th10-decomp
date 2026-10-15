@@ -20,11 +20,11 @@ static __forceinline bool OutsideItemBox(const Vector3& point,const PlayerBox& b
 }
 
 #pragma code_seg(".text$f0041afd0F")
-extern "C" __declspec(noinline) int __stdcall ItemManager_UpdateItems(ItemSpawnManager_0041bb00* manager) {
+extern "C" __declspec(noinline) int __stdcall ItemManager_UpdateItems(ItemSpawnManager* manager) {
     int convert_items=0;
     manager->special_count=0;
     manager->live_count=0;
-    SpawnItem_0041bb00* item=manager->items;
+    SpawnItem* item=manager->items;
     ItemMotion_0041bb00* motion=&item->motion;
     for (int remaining=2198;remaining;--remaining,++item,motion=&item->motion) {
         if (motion->state==0) continue;

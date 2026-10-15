@@ -5,11 +5,11 @@
   "driver": "build_support/layout/ltcg/motion_record_value_00428d60_context.cpp",
   "headers": [],
   "image_base": "0x00400000",
-  "description": "MotionRecord_00428d60::GetValue compiled with a synthetic array caller so the native LTCG register allocator keeps the record in EAX as retail does.",
+  "description": "MotionRecord::GetValue compiled with a synthetic array caller so the native LTCG register allocator keeps the record in EAX as retail does.",
   "functions": [
     {
       "name": "MotionRecord_00428d60_GetValue",
-      "symbol": "?GetValue@MotionRecord_00428d60@@QAEMXZ",
+      "symbol": "?GetValue@MotionRecord@@QAEMXZ",
       "section": ".text$01get",
       "address": "0x00428D60",
       "size": 4,

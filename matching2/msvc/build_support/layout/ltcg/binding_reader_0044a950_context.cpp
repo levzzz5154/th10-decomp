@@ -1,5 +1,5 @@
 // Compiler context only; never selected as recovered game code.
-// The keyboard reader is already owned by keyboard_binding_read_0044a9d0;
+// The keyboard reader is already owned by keyboard_binding_read;
 // keep this call as a fixed-address semantic dependency instead of compiling
 // that source a second time in this cluster.
 #include "../../../src/unreferenced/FUN_0044a950_0044a950.cpp"

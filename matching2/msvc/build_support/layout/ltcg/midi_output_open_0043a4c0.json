@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "midi_output_open_0043a4c0",
-      "symbol": "?OpenMidiOutput_0043a4c0@@YGHPAUMidiOutput_0043a4c0@@I@Z",
+      "symbol": "?OpenMidiOutput@@YGHPAUMidiOutput_0043a4c0@@I@Z",
       "section": ".text$01accessor",
       "address": "0x0043A4C0",
       "size": 68,

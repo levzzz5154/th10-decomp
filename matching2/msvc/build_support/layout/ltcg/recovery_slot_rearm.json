@@ -15,7 +15,7 @@
   "functions": [
     {
       "name": "RecoverySlotTable_Rearm",
-      "symbol": "?Rearm@RecoverySlotTable_004065c0@@QAEHXZ",
+      "symbol": "?Rearm@RecoverySlotTable@@QAEHXZ",
       "section": ".text$01rearm",
       "address": "0x004065C0",
       "size": 249,
@@ -24,7 +24,7 @@
     },
     {
       "name": "RecoverySlotTable_CanRearm",
-      "symbol": "?OnUpdate@RecoverySlotTable_004065c0@@QAEHXZ",
+      "symbol": "?OnUpdate@RecoverySlotTable@@QAEHXZ",
       "section": ".text$05canrearm",
       "address": "0x00406770",
       "size": 40,
@@ -33,7 +33,7 @@
     }
   ],
   "context": {
-    "symbol": "?RecoverySlotRearmCompilerContext@@YGHPAURecoverySlotTable_004065c0@@H@Z",
+    "symbol": "?RecoverySlotRearmCompilerContext@@YGHPAURecoverySlotTable@@H@Z",
     "section": ".text$03context",
     "address": "0x004066C0",
     "size": 47,

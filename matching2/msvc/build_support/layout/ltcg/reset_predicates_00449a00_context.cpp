@@ -5,7 +5,7 @@
 
 #pragma code_seg(".text$03context")
 extern "C" int __stdcall ResetPredicatesCompilerContext(
-        ResetRange_00449a00* range, unsigned int address) {
+        ResetRange* range, unsigned int address) {
     return range->Contains(address);
 }
 #pragma code_seg()

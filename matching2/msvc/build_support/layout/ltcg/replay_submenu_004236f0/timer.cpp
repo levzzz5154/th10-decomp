@@ -23,7 +23,7 @@
 //         5E                 pop esi
 //         C2 04 00           ret 4
 #pragma code_seg(".text$00b")
-void SubSchedulerRecord_004236f0::SetSchedulerValue(int value) {
+void SubSchedulerRecord::SetSchedulerValue(int value) {
     if (!(this->flags_10 & 1)) {
         this->field_04 = 0;
         this->field_00 = 0xFFF0BDC1;

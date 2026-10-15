@@ -31,7 +31,7 @@
     "?Bounce@LineLaserBounce_0041cfd0@@UAEXXZ"
   ],
   "context": {
-    "symbol": "?LaserBase_Construct_0041c030@@YIPAULaserBase_0041c030@@PAU1@@Z",
+    "symbol": "?LaserBase_Construct_0041c030@@YIPAULaserBase@@PAU1@@Z",
     "section": ".text$a01base",
     "address": "0x0041C030",
     "size": 100,
@@ -40,7 +40,7 @@
   "anchors": [
     {
       "name": "SpawnIn",
-      "symbol": "?SpawnIn@LaserSpawnParameters_0041c510@@QBEHPAULaserManager_0041c510@@H@Z",
+      "symbol": "?SpawnIn@LaserSpawnParameters@@QBEHPAULaserManager_0041c510@@H@Z",
       "section": ".text$a03spawn",
       "address": "0x0041C510",
       "size": 153
@@ -54,7 +54,7 @@
     },
     {
       "name": "BeamConstructor",
-      "symbol": "?BeamLaser_Construct_0041c680@@YIPAUBeamLaser_0041c680@@PAU1@@Z",
+      "symbol": "?BeamLaser_Construct_0041c680@@YIPAUBeamLaser@@PAU1@@Z",
       "section": ".text$a07beam",
       "address": "0x0041C680",
       "size": 219

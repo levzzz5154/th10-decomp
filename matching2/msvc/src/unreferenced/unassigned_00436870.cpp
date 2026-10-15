@@ -2,7 +2,7 @@
 // whose base is at +0x120 of the object arriving in EDX.
 #include <string.h>
 
-void __fastcall ZeroBlock_00436870(int unused, void* object) {
+void __fastcall ZeroBlock(int unused, void* object) {
     unsigned char* base = (unsigned char*)object;
     memset(*(void**)(base + 0x120), 0, *(unsigned int*)(base + 0x10c));
 }

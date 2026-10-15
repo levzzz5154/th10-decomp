@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "name": "animation_validate_handle_00449450",
+  "name": "animation_validate_handle",
   "source": "src/core/sprtlib/animation_manager_validate_handle_00449450.cpp",
   "driver": "build_support/layout/ltcg/animation_validate_handle_00449450_context.cpp",
   "headers": [

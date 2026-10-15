@@ -6,7 +6,7 @@
 // this method is compiled with its task-specific compiler context.
 extern "C" float g_game_speed;
 
-struct EmbeddedTimerState_0042a930 {
+struct EmbeddedTimerState {
     unsigned char unknown_00[0x14];
     int target_14;
     int current_18;
@@ -18,7 +18,7 @@ struct EmbeddedTimerState_0042a930 {
 };
 
 #pragma code_seg(".text$01setcountdown")
-void EmbeddedTimerState_0042a930::SetCountdown(int frames) {
+void EmbeddedTimerState::SetCountdown(int frames) {
     if ((this->flags_24 & 1) == 0) {
         this->current_18 = 0;
         this->target_14 = 0xFFF0BDC1;

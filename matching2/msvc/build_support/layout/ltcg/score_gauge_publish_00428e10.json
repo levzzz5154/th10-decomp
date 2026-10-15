@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "name": "score_gauge_publish_00428e10",
+  "name": "score_gauge_publish",
   "source": "src/game/player/fun_00428e10_00428e10.cpp",
   "driver": "build_support/layout/ltcg/score_gauge_publish_00428e10_context.cpp",
   "headers": [

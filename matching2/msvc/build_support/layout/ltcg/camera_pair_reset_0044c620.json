@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "name": "camera_pair_reset_0044c620",
+  "name": "camera_pair_reset",
   "source": "src/unreferenced/FUN_0044c620_0044c620.cpp",
   "driver": "build_support/layout/ltcg/camera_pair_reset_0044c620_context.cpp",
   "headers": [],
@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "CameraPairReset_0044c620_Reset",
-      "symbol": "?Reset@CameraPairReset_0044c620@@QAEXXZ",
+      "symbol": "?Reset@CameraPairReset@@QAEXXZ",
       "section": ".text$01reset0044c620",
       "address": "0x44c620",
       "size": 14,
@@ -17,7 +17,7 @@
     }
   ],
   "context": {
-    "symbol": "?ResetCompilerContext@@YGHPAPAUCameraPairReset_0044c620@@H@Z",
+    "symbol": "?ResetCompilerContext@@YGHPAPAUCameraPairReset@@H@Z",
     "section": ".text$03context",
     "address": "0x44c630",
     "size": 39,

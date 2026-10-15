@@ -5,7 +5,7 @@ extern "C" void* __cdecl operator_new_00452493(unsigned int size);
 extern "C" void* __cdecl Entity_Constructor_00402050(void* entity);
 extern "C" void __cdecl Entity_Init_00401de0(void* unused, void* entity);
 extern "C" void __cdecl asm_AnimationObject_LoadScriptTail_0043ee30(void* object);
-__declspec(noinline) void** __stdcall AnimationManager_CreateSecondaryFront_00449090(
+__declspec(noinline) void** __stdcall AnimationManager_CreateSecondaryFront(
     void* resource, void** out, int index, int render_bucket);
 
 static unsigned int NextPoolIndex_00449950(unsigned int index) {
@@ -141,17 +141,17 @@ extern "C" __declspec(noinline) void** __cdecl asm_AnimationManager_RegisterSeco
 // 0x004490E0's own caller, shaped like the game's animation-object factories.
 // Not recovered game code.
 struct AnimationPosition_00449140;
-__declspec(noinline) void** __stdcall AnimationManager_CreateScreenPositionedSecondaryFront_00449140(void*, void**, int, const AnimationPosition_00449140*);
+__declspec(noinline) void** __stdcall AnimationManager_CreateScreenPositionedSecondaryFront(void*, void**, int, const AnimationPosition_00449140*);
 
 #pragma code_seg(".text$09context")
 int __stdcall PositionedSecondaryFrontContext(void** resources, void*** outs, int* indexes,
                                             const AnimationPosition_004490e0** positions,
                                             int count) {
     for (int i = 0; i < count; ++i) {
-        AnimationManager_CreateSecondaryFront_00449090(resources[i], outs[i], indexes[i], 15);
-        AnimationManager_CreatePositionedSecondaryFront_004490e0(resources[i], outs[i], indexes[i],
+        AnimationManager_CreateSecondaryFront(resources[i], outs[i], indexes[i], 15);
+        AnimationManager_CreatePositionedSecondaryFront(resources[i], outs[i], indexes[i],
                                                                positions[i]);
-        AnimationManager_CreateScreenPositionedSecondaryFront_00449140(resources[i], outs[i], indexes[i], (const AnimationPosition_00449140*)positions[i]);
+        AnimationManager_CreateScreenPositionedSecondaryFront(resources[i], outs[i], indexes[i], (const AnimationPosition_00449140*)positions[i]);
     }
     return count;
 }

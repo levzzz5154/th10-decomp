@@ -6,7 +6,7 @@ struct Vector3_00405240 {
     float y;
     float z;
 };
-__declspec(noinline) Vector3_00405240 __fastcall VectorSubtract_00405240(
+__declspec(noinline) Vector3_00405240 __fastcall VectorSubtract(
         const Vector3_00405240& left, const Vector3_00405240& right);
 
 struct Vector3_00405260 {
@@ -28,10 +28,10 @@ extern "C" __declspec(noinline) void __stdcall VectorPrivateAbiAContext(
         int count) {
     for (int index = 0; index < count; ++index)
         *(Vector3_00404e70*)outputs[index] =
-            ((VectorScale_00404e70*)scales[index])->Scale(scale);
+            ((VectorScale*)scales[index])->Scale(scale);
     for (int index = 0; index < count; ++index)
         *(Vector3_00405240*)outputs[index] =
-            VectorSubtract_00405240(
+            VectorSubtract(
                 *(Vector3_00405240*)left[index],
                 *(Vector3_00405240*)right[index]);
     for (int index = 0; index < count; ++index)

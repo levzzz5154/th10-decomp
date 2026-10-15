@@ -49,7 +49,7 @@ extern "C" __declspec(noinline) void __stdcall FuncCtrl_RemoveLocked(
         return;
     EnterCriticalSection(&g_thread_synchronization.critical_sections[0]);
     ++g_thread_synchronization.scheduler_lock_depth;
-    ManagerTeardownFuncCtrl_Remove_00449F60(scheduler, task);
+    ManagerTeardownFuncCtrl_Remove(scheduler, task);
     LeaveCriticalSection(&g_thread_synchronization.critical_sections[0]);
     --g_thread_synchronization.scheduler_lock_depth;
 }
@@ -59,7 +59,7 @@ extern "C" __declspec(noinline) void __stdcall FuncCtrl_RemoveLocked(
 #define TH10_SCHEDULER_REMOVE_CODE_SEG ".text$70remove"
 #endif
 #pragma code_seg(TH10_SCHEDULER_REMOVE_CODE_SEG)
-__declspec(noinline) void __stdcall ManagerTeardownFuncCtrl_Remove_00449F60(FuncCtrl* scheduler, SchedulerTask* task) {
+__declspec(noinline) void __stdcall ManagerTeardownFuncCtrl_Remove(FuncCtrl* scheduler, SchedulerTask* task) {
     if (!task) return;
     TaskLink* node = &scheduler->primary.link;
     while (node) {

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "name": "animation_resource_registrar_0043e460",
+  "name": "animation_resource_registrar",
   "source": "src/core/sprtanim/animation_manager_register_resource_0043e460.cpp",
   "driver": "build_support/layout/ltcg/animation_resource_registrar_0043e460_context.cpp",
   "headers": [
@@ -202,7 +202,7 @@
       "kind": "metadata"
     },
     {
-      "symbol": "?g_music_progress@@3PAUMusicProgress_00420b80@@A",
+      "symbol": "?g_music_progress@@3PAUMusicProgress@@A",
       "address": "0x0047783C",
       "kind": "data"
     }

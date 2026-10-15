@@ -19,7 +19,7 @@
 // manager from EDX, the entity from EBX and the handle record from EAX.  Only
 // a native /LTCG link that can see the callees' bodies assigns those
 // registers, so the region is compiled in the cluster
-// build_support/layout/ltcg/positioned_secondary_back_00448fb0.json, whose driver carries a
+// build_support/layout/ltcg/positioned_secondary_back.json, whose driver carries a
 // compiled ABI anchor for each of the three - placed at the retail address,
 // resolving the call displacements without a relocation, and never exported as
 // recovered code.
@@ -55,7 +55,7 @@ extern "C" void** __cdecl asm_AnimationManager_RegisterSecondaryBack_00448ac0(
 // noinline: the whole-program pass must keep this body as its own contribution
 // at 0x00448FB0 instead of inlining it into the synthetic caller.
 __declspec(noinline)
-void** __stdcall AnimationManager_CreatePositionedSecondaryBack_00448fb0(
+void** __stdcall AnimationManager_CreatePositionedSecondaryBack(
     void* resource, void** out, int index, const AnimationPosition_00448fb0* position) {
     AnimationObject_00448fb0* object =
         (AnimationObject_00448fb0*)asm_FUN_00449950_00449950(g_sprt_ctrl);

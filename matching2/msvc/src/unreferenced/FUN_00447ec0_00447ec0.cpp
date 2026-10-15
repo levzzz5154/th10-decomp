@@ -2,7 +2,7 @@
 #include "th10/platform/archive_file.hpp"
 #include "../../build_support/layout/ltcg/resource_surface_loading_log.hpp"
 #pragma code_seg(".text$03memory")
-extern "C" __declspec(noinline) int __stdcall AnimationLoadMemory_00447ec0(int index,AnimationManagerIndexed_00447f70* manager,const char* name) {
+extern "C" __declspec(noinline) int __stdcall AnimationLoadMemory_00447ec0(int index,AnimationManagerIndexed* manager,const char* name) {
     char path[260];
     int size;
     if (manager->primary[index]) manager->Clear(index);

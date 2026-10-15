@@ -5,7 +5,7 @@
 
 // The destination texture and pixel bounds are held in the animation resource.
 // Only the observed prefix is named; its complete allocation size is unknown.
-struct RecoveryTextResource_004479d0 {
+struct RecoveryTextResource {
     unsigned int reserved_000;
     void* texture;                         // +004
     float left;                            // +008
@@ -19,7 +19,7 @@ struct RecoveryTextVm {
     unsigned int flags_35c;
     unsigned int flags_360;
     unsigned char reserved_364[0x30];
-    RecoveryTextResource_004479d0* resource; // +394
+    RecoveryTextResource* resource; // +394
     unsigned char reserved_398[8];
     unsigned char font_height;              // +3A0
 
@@ -33,9 +33,9 @@ struct RecoveryTextVm {
 
 
 typedef char RecoveryTextResourceTextureOffsetCheck[
-    offsetof(RecoveryTextResource_004479d0, texture) == 4 ? 1 : -1];
+    offsetof(RecoveryTextResource, texture) == 4 ? 1 : -1];
 typedef char RecoveryTextResourceBoundsOffsetCheck[
-    offsetof(RecoveryTextResource_004479d0, left) == 8 ? 1 : -1];
+    offsetof(RecoveryTextResource, left) == 8 ? 1 : -1];
 typedef char RecoveryTextVmFlagsOffsetCheck[
     offsetof(RecoveryTextVm, flags_35c) == 0x35C ? 1 : -1];
 typedef char RecoveryTextVmModeOffsetCheck[
@@ -45,13 +45,13 @@ typedef char RecoveryTextVmResourceOffsetCheck[
 typedef char RecoveryTextVmFontOffsetCheck[
     offsetof(RecoveryTextVm, font_height) == 0x3A0 ? 1 : -1];
 
-__declspec(noinline) char* __stdcall RecoveryDecodePath_00417010(
+__declspec(noinline) char* __stdcall RecoveryDecodePath(
     const unsigned char* encoded);
 
 // In the retail private ABI the resource, font and text arrive in EDI, EAX
 // and EBX. Four stack operands remain, and the function returns with RET 16.
 __declspec(noinline) void __stdcall RecoveryDispatchText_004479d0(
-    RecoveryTextResource_004479d0* resource, int font_height,
+    RecoveryTextResource* resource, int font_height,
     const char* text, void* texture, int horizontal_offset,
     unsigned int color, int unshadowed);
 

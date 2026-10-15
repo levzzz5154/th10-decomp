@@ -7,7 +7,7 @@
 
 #pragma code_seg(".text$01b_create")
 void ItemManager_00415db0::CreateScoreDisplay(int stage) {
-    score_display = new ItemScoreDisplay_00415db0(
+    score_display = new ItemScoreDisplay(
         reinterpret_cast<char*>(score_table) + score_table[stage].offset);
     score_display->stage = stage;
     int next = stage + 1;

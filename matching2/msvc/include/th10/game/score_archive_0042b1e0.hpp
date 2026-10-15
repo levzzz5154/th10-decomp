@@ -4,7 +4,7 @@
 #include "th10/platform/thread_sync.hpp"
 
 // The actual score owner passed by Title and the manager teardown.
-struct ScoreArchive_0042B1E0 {
+struct ScoreArchive {
     ScoreFileHeader* file;
     unsigned char* sections;
     ScoreRecordSection records[SCORE_RECORD_COUNT];
@@ -13,9 +13,9 @@ struct ScoreArchive_0042B1E0 {
     __declspec(noinline) int Save();
 };
 
-typedef char ScoreArchive_0042B1E0_records_offset[offsetof(ScoreArchive_0042B1E0, records) == 8 ? 1 : -1];
-typedef char ScoreArchive_0042B1E0_settings_offset[offsetof(ScoreArchive_0042B1E0, settings) == 0x1D86C ? 1 : -1];
-typedef char ScoreArchive_0042B1E0_size[sizeof(ScoreArchive_0042B1E0) == 0x1DCB4 ? 1 : -1];
+typedef char ScoreArchive_0042B1E0_records_offset[offsetof(ScoreArchive, records) == 8 ? 1 : -1];
+typedef char ScoreArchive_0042B1E0_settings_offset[offsetof(ScoreArchive, settings) == 0x1D86C ? 1 : -1];
+typedef char ScoreArchive_0042B1E0_size[sizeof(ScoreArchive) == 0x1DCB4 ? 1 : -1];
 
 extern "C" {
 void* __cdecl asm_malloc_00452706(unsigned int size);

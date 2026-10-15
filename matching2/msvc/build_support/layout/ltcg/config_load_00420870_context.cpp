@@ -33,7 +33,7 @@ extern "C" int __stdcall ConfigLoadContext(GameApp_00420870** apps, const char**
 #include "native_archive_read/decrypt.cpp"
 #include "../../../src/core/zunlib/archive_load_file.cpp"
 
-// The body of 0x0044B540 (src/core/zunlib/file_write_whole_file_0044b540.cpp),
+// The body of 0x0044B540 (src/core/zunlib/file_write_whole_file.cpp),
 // which takes its size in EDI.
 extern "C" void* (__stdcall *imp_CreateFileA)(const char*, unsigned int, unsigned int, void*, unsigned int,
                                             unsigned int, void*);

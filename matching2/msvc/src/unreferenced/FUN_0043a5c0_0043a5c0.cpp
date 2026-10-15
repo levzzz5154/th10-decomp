@@ -5,7 +5,7 @@
 // own cluster.
 #include <string.h>
 
-struct MidiOutCaps_0043a5c0 {
+struct MidiOutCaps {
     unsigned short wMid;
     unsigned short wPid;
     unsigned int vDriverVersion;
@@ -17,14 +17,14 @@ struct MidiOutCaps_0043a5c0 {
     unsigned int dwSupport;
 };
 
-typedef unsigned int (__stdcall *MidiOutGetDevCapsFn_0043a5c0)(
-        unsigned int device, MidiOutCaps_0043a5c0* caps, unsigned int size);
+typedef unsigned int (__stdcall *MidiOutGetDevCapsFn)(
+        unsigned int device, MidiOutCaps* caps, unsigned int size);
 
-extern "C" MidiOutGetDevCapsFn_0043a5c0 imp_midiOutGetDevCapsA;
+extern "C" MidiOutGetDevCapsFn imp_midiOutGetDevCapsA;
 
 #pragma code_seg(".text$01midi")
-__declspec(noinline) void MidiOut_GetDeviceName_0043a5c0(unsigned int device, char* name) {
-    MidiOutCaps_0043a5c0 caps;
+__declspec(noinline) void MidiOut_GetDeviceName(unsigned int device, char* name) {
+    MidiOutCaps caps;
     imp_midiOutGetDevCapsA(device, &caps, sizeof(caps));
     strcpy(name, caps.szPname);
 }

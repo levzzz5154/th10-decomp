@@ -1,6 +1,6 @@
 // 0x00427C10: scale a float pair by 100 and truncate it to an integer pair.
 // Native LTCG gives it the source in ESI and the destination in EDI.
-struct FloatPair_00427c10 {
+struct FloatPair {
     float x;
     float y;
 };
@@ -10,11 +10,11 @@ struct IntPair_00427c10 {
     int y;
 };
 
-__declspec(noinline) void ScaleToHundredths_00427c10(IntPair_00427c10* out,
-                                                     const FloatPair_00427c10* in);
+__declspec(noinline) void ScaleToHundredths(IntPair_00427c10* out,
+                                                     const FloatPair* in);
 
 #pragma code_seg(".text$01scale")
-void ScaleToHundredths_00427c10(IntPair_00427c10* out, const FloatPair_00427c10* in) {
+void ScaleToHundredths(IntPair_00427c10* out, const FloatPair* in) {
     out->x = (int)(in->x * 100.0f);
     out->y = (int)(in->y * 100.0f);
 }

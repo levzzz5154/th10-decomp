@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "WidgetHost_ClearPending_004014d0",
-      "symbol": "?ClearPending_004014d0@WidgetHost_004014d0@@QAEHXZ",
+      "symbol": "?ClearPending_004014d0@WidgetHost@@QAEHXZ",
       "section": ".text$01accessor",
       "address": "0x004014D0",
       "size": 26,
@@ -17,7 +17,7 @@
     }
   ],
   "context": {
-    "symbol": "?PendingCompilerContext@@YGHPAPAUWidgetHost_004014d0@@H@Z",
+    "symbol": "?PendingCompilerContext@@YGHPAPAUWidgetHost@@H@Z",
     "section": ".text$03context",
     "address": "0x004014F0",
     "size": 35,

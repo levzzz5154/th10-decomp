@@ -9,7 +9,7 @@ struct AnimationHandle_00447810 {
     virtual void __stdcall slot2();
 };
 
-struct AnimationResourceEntry_00447810 {
+struct AnimationResourceEntry {
     AnimationHandle_00447810* handle;   // +0x00
     void* allocation;                   // +0x04
     unsigned char pad_008[8];
@@ -22,7 +22,7 @@ struct AnimationResource_00447810 {
     unsigned char pad_110[0x118 - 0x110];
     void* auxiliary_118;                           // +0x118
     void* auxiliary_11c;                           // +0x11C
-    AnimationResourceEntry_00447810* entries_120;  // +0x120
+    AnimationResourceEntry* entries_120;  // +0x120
     unsigned char pad_124[0x12C - 0x124];
     void* auxiliary_12c;                           // +0x12C
 

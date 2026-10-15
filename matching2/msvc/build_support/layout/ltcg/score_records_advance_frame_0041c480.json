@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "name": "score_records_advance_frame_0041c480",
+  "name": "score_records_advance_frame",
   "source": "src/game/laser/laser_manager_on_update.cpp",
   "driver": "build_support/layout/ltcg/score_records_advance_frame_0041c480_context.cpp",
   "headers": [

@@ -8,8 +8,8 @@
   "description": "Region compiled with native LTCG so its entry register is retail's.",
   "functions": [
     {
-      "name": "FreeBlock_00402040",
-      "symbol": "?FreeBlock_00402040@@YGXPAX@Z",
+      "name": "FreeBlock",
+      "symbol": "?FreeBlock@@YGXPAX@Z",
       "section": ".text$01free",
       "address": "0x00402040",
       "size": 8,

@@ -2,11 +2,11 @@
 #include "../../../src/unreferenced/unassigned_00429b30.cpp"
 
 #pragma code_seg(".text$03context")
-extern "C" int __stdcall ReseedContext_00429b30(TimerRecord_00429b30** records,
+extern "C" int __stdcall ReseedContext_00429b30(TimerRecord** records,
                                                 const int* values, int count) {
     int total = 0;
     while (count--) {
-        total += Reseed_00429b30(*records++, *values++);
+        total += Reseed(*records++, *values++);
     }
     return total;
 }

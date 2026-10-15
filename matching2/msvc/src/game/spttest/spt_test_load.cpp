@@ -19,7 +19,7 @@ int SptTest_0042be20::LoadScript() {
         script_data = 0;
     }
     script_data = Archive_LoadFile(path, 0, 0);
-    parser = new ScriptParser_0042be20;
+    parser = new ScriptParser;
     parser->Load(script_data);
     entry_cursor.item_count = parser->entry_count;
     SptTest_ClampSelection(entry_cursor, selected);

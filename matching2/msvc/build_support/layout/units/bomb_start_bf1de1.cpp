@@ -22,7 +22,7 @@ int* AnimationPrimaryLists::RegisterPrimaryBack(int* out, Entity* entity) {
     return out;
 }
 #include "th10/source_views/bomb_start_bf1de1_1.hpp"
-__declspec(noinline) int* __stdcall CreateScreenPositionedPrimary_00448db0(
+__declspec(noinline) int* __stdcall CreateScreenPositionedPrimary(
     AnimationResourceFile* resource, int* out, int index, const Vector3* position) {
     Entity* object = reinterpret_cast<AnimationPool*>(g_sprt_ctrl)->Allocate();
     unsigned int flags = object->flags_35C;

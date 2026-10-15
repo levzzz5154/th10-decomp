@@ -2,7 +2,7 @@
 #include "../../../src/unreferenced/FUN_004367e0_004367e0.cpp"
 
 #pragma code_seg(".text$03context")
-int __stdcall InitCompilerContext(ResourceSlotInit_004367e0** items, int count, int value) {
+int __stdcall InitCompilerContext(ResourceSlotInit** items, int count, int value) {
     while (count--) {
         (*items++)->Init(value);
     }

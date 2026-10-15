@@ -17,7 +17,7 @@ int __stdcall Bomb_Start(Bomb* bomb) {
     else
         index = 0x1B9;
     int handle;
-    bomb->animation = *CreateScreenPositionedPrimary_00448db0(
+    bomb->animation = *CreateScreenPositionedPrimary(
         g_bullet_manager->resource, &handle, index, &bomb->position);
     g_sound_manager.QueuePan(0x26, bomb->position.x);
     int power = g_globals_power;

@@ -15,7 +15,7 @@
 #include "th10/platform/archive_file.hpp"
 
 #pragma code_seg(".text$01loadfile")
-int AnmTexture_00446c70::LoadFile(int format, void* size_slot, const char* name, unsigned int color_key) {
+int AnmTexture::LoadFile(int format, void* size_slot, const char* name, unsigned int color_key) {
     char path[260];
     int stored_format = format;
     if (g_sound_flags & 1) {

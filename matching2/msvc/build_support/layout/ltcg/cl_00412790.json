@@ -8,8 +8,8 @@
   "description": "Accessor compiled with native LTCG so the object pointer arrives in EAX.",
   "functions": [
     {
-      "name": "SetRecord_00412790",
-      "symbol": "?SetRecord_00412790@@YGXIHPAX@Z",
+      "name": "SetRecord",
+      "symbol": "?SetRecord@@YGXIHPAX@Z",
       "section": ".text$01accessor",
       "address": "0x00412790",
       "size": 12,

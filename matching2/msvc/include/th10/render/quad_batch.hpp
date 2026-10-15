@@ -59,7 +59,7 @@ struct SprtCtrlBatchView {
     __declspec(noinline) int DrawBucket12();
     __declspec(noinline) int DrawBucket13();
     // 0x00448980: walks one animation bucket's entity list and draws every node
-    // in it; see src/core/sprtlib/animation_manager_render_bucket_00448980.cpp.
+    // in it; see src/core/sprtlib/animation_manager_render_bucket.cpp.
     __declspec(noinline) int RenderBucket(int index);
 };
 
@@ -97,7 +97,7 @@ struct RenderEntity {
 
     // 0x00443F80: project the entity's billboard quad and submit it as a
     // plain sprite when the projection succeeds; see
-    // src/core/sprtfunc/entity_submit_projected_00443f80.cpp.
+    // src/core/sprtfunc/entity_submit_projected.cpp.
     __declspec(noinline) int SubmitProjectedQuad(SprtCtrlBatchView* manager);
     // 0x00445880: draw the strip vertices as a 33-point fan; see
     // src/core/sprtfunc/render_entity_draw_fan.cpp.

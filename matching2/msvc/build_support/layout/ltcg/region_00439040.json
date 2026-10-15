@@ -39,7 +39,7 @@
   "constant_aliases": [],
   "absolute_symbols": [
     {
-      "symbol": "_d3d_destroy_00438880@4",
+      "symbol": "_d3d_destroy@4",
       "address": "0x438880",
       "kind": "relative_code"
     },

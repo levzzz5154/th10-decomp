@@ -9,7 +9,7 @@ int __stdcall BulletManagerInitializeContext_00405e20(BulletManager_00405e20** m
     // Keeps the primary registration anchor in the link.
     int result = FuncCtrl_RegisterPrimary(g_func_ctrl, task, count);
     while (count--)
-        result += BulletManager_Initialize_00405e20(*managers++);
+        result += BulletManager_Initialize(*managers++);
     return result;
 }
 #pragma code_seg()

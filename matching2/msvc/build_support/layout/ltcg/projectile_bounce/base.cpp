@@ -4,8 +4,8 @@
 extern "C" unsigned char g_laser_vtable;
 extern "C" unsigned char g_game_speed;
 #pragma code_seg(".text$a01base")
-__declspec(noinline) LaserBase_0041c030 *__fastcall
-LaserBase_Construct_0041c030(LaserBase_0041c030 *self) {
+__declspec(noinline) LaserBase *__fastcall
+LaserBase_Construct_0041c030(LaserBase *self) {
     self->vtable = &g_laser_vtable;
     // The clear goes through a typed pointer: the plain member form makes MSVC
     // schedule the read-modify-write ahead of the vtable store, which no longer
@@ -15,7 +15,7 @@ LaserBase_Construct_0041c030(LaserBase_0041c030 *self) {
     for (int index = 0; index < 18; ++index)
         self->tracks[index].flags &= ~1u;
     self->tail_timer.flags &= ~1u;
-    memset(self, 0, sizeof(LaserBase_0041c030));
+    memset(self, 0, sizeof(LaserBase));
     unsigned int flags = self->timer.flags;
     if ((flags & 1) == 0) {
         self->timer.current = 0;

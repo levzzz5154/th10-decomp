@@ -25,15 +25,15 @@
       "address": "0x004145F0",
       "kind": "code"
     },
-    "_StageManager_Destroy_00424ed0@4": {
+    "_StageManager_Destroy@4": {
       "address": "0x00424ED0",
       "kind": "code"
     },
-    "_BulletManager_Destroy_00405f70@4": {
+    "_BulletManager_Destroy@4": {
       "address": "0x00405F70",
       "kind": "code"
     },
-    "_ItemManager_Destroy_0041adf0@4": {
+    "_ItemManager_Destroy@4": {
       "address": "0x0041ADF0",
       "kind": "code"
     },
@@ -41,11 +41,11 @@
       "address": "0x00418EE0",
       "kind": "code"
     },
-    "_EffectManager_Destroy_0042b570@4": {
+    "_EffectManager_Destroy@4": {
       "address": "0x0042B570",
       "kind": "code"
     },
-    "_ManagerOwned_Destroy_004294a0@4": {
+    "_ManagerOwned_Destroy@4": {
       "address": "0x004294A0",
       "kind": "code"
     },
@@ -53,7 +53,7 @@
       "address": "0x00409F90",
       "kind": "code"
     },
-    "_BulletManager_Release_0040af00@4": {
+    "_BulletManager_Release@4": {
       "address": "0x0040AF00",
       "kind": "code"
     },
@@ -61,7 +61,7 @@
       "address": "0x00408AF0",
       "kind": "code"
     },
-    "_Manager_Release_00422220@4": {
+    "_Manager_Release@4": {
       "address": "0x00422220",
       "kind": "code"
     },
@@ -69,7 +69,7 @@
       "address": "0x00405620",
       "kind": "code"
     },
-    "_ScoreExtendedObject_DestroyRetail_0041c1c0@4": {
+    "_ScoreExtendedObject_DestroyRetail@4": {
       "address": "0x0041C1C0",
       "kind": "code"
     },
@@ -81,7 +81,7 @@
       "address": "0x00449F60",
       "kind": "code"
     },
-    "_EnemyCtrl_ReleaseLists_00409f90@4": {
+    "_EnemyCtrl_ReleaseLists@4": {
       "address": "0x00409F90",
       "kind": "code"
     },
@@ -323,9 +323,9 @@
     }
   },
   "bindings": {
-    "?Save@ScoreArchive_0042B1E0@@QAEHXZ": "0x0042B1E0",
+    "?Save@ScoreArchive@@QAEHXZ": "0x0042B1E0",
     "?EnsureAnimationResource@GameThread_0040c540@@QAEPAXMM@Z": "0x0040C540",
-    "?AnimationManager_CreatePositionedPrimary_00448d50@@YGPAPAXPAXPAPAXHPBUAnimationPosition_00448d50@@@Z": "0x00448D50",
+    "?AnimationManager_CreatePositionedPrimary@@YGPAPAXPAXPAPAXHPBUAnimationPosition_00448d50@@@Z": "0x00448D50",
     "?IncrementCappedCount@ScoreState@@QAEXXZ": "0x00418A90",
     "?RegisterResource@AnimationManager_0043e460@@QAEPADPBDHH@Z": "0x0043E460",
     "?Destroy@EnemyCtrl@@QAEXXZ": "0x0040D530",

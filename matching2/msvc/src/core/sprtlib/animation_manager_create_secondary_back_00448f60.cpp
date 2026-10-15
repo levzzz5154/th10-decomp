@@ -18,7 +18,7 @@ extern "C" void** __cdecl asm_AnimationManager_RegisterSecondaryBack_00448ac0(
 
 #pragma code_seg(".text$05aa_secondaryback")
 __declspec(noinline)
-void** __stdcall AnimationManager_CreateSecondaryBack_00448f60(
+void** __stdcall AnimationManager_CreateSecondaryBack(
         void* resource, void** out, int index, int render_bucket) {
     AnimationObject_00448f60* object =
         (AnimationObject_00448f60*)asm_FUN_00449950_00449950(g_sprt_ctrl);

@@ -19,14 +19,14 @@ struct BulletEntity_0040d680 {
     __declspec(noinline) void ReleaseResource();
 };
 
-struct Releaseable_0040d660 {
+struct Releaseable {
     unsigned char unknown_0000[0x04];
 
     __declspec(noinline) void* Delete(int flags);
 };
 
 #pragma code_seg(".text$01del")
-void* Releaseable_0040d660::Delete(int flags) {
+void* Releaseable::Delete(int flags) {
     ((BulletEntity_0040d680*)this)->ReleaseResource();
     if ((flags & 1) != 0) {
         crt_free_startup(this);

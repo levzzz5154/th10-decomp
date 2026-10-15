@@ -11,24 +11,24 @@ struct FrontResources_00408d60 {
     unsigned char reserved[0x9EC8];
     Resource_0043e5a0* digits;                     // +0x9EC8
 };
-struct SpellRecord_00408d60 {
+struct SpellRecord {
     int attempts;
     int captures;
     unsigned char reserved[0x88];
 };
-struct ShotRecord_00408d60 {
+struct ShotRecord {
     unsigned char reserved[0x624];
-    SpellRecord_00408d60 spells[1];
+    SpellRecord spells[1];
     unsigned char reserved_6b4[0x437C - 0x6B4];
 };
 struct ScoreFile_00408d60 {
-    ShotRecord_00408d60 shots[6];
+    ShotRecord shots[6];
 };
 struct MarkerTarget_00408d60 {
     unsigned char reserved[0x1068];
     Vec3 position;                                 // +0x1068
 };
-struct MarkerOwner_00408d60 {
+struct MarkerOwner {
     unsigned char reserved[0x10];
     MarkerTarget_00408d60* target;                 // +0x10
 };
@@ -43,7 +43,7 @@ extern "C" {
 extern StageState_00408d60* g_background;
 extern FrontResources_00408d60* g_front;
 extern ScoreFile_00408d60* g_score;
-extern MarkerOwner_00408d60* g_enemy_ctrl;
+extern MarkerOwner* g_enemy_ctrl;
 extern GameSelection_00408d60 g_selection;         // 0x00474C68
 // The animation VM takes one stack object pointer and returns with RET 4.
 int __stdcall RunAnimationVm(FrontSprite_00408d60* sprite);
@@ -127,14 +127,14 @@ int Card_00408d60::Update() {
         RunAnimationVm(&counter_digits[j]);
 
     marker_position += (g_enemy_ctrl->target->position - marker_position) * 0.05f;
-    SetAnimationTranslatedPosition_00449350(
-        reinterpret_cast<const PositionVector_004492f0*>(&marker_position), g_sprt_ctrl, marker_handle);
+    SetAnimationTranslatedPosition(
+        reinterpret_cast<const PositionVector*>(&marker_position), g_sprt_ctrl, marker_handle);
     return 1;
 }
 #pragma code_seg()
 
 #pragma code_seg(".text$a01callback")
-extern "C" int __fastcall CardPrimary_00409220(Card_00408d60* hud) {
+extern "C" int __fastcall CardPrimary(Card_00408d60* hud) {
     return hud->Update();
 }
 #pragma code_seg()

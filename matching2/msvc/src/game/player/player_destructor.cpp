@@ -8,7 +8,7 @@
 extern "C" {
 extern unsigned int g_globals_flags;
 extern void* g_player_parameter_file;
-extern AnimationBanks_00402440* g_sprt_ctrl;
+extern AnimationBanks* g_sprt_ctrl;
 }
 #pragma code_seg(".text$01dtor")
 Player::~Player() {

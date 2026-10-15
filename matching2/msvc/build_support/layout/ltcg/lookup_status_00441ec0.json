@@ -8,8 +8,8 @@
   "description": "Resource-slot lookup and status test compiled with native LTCG so the object arrives in EAX and the manager in ECX.",
   "functions": [
     {
-      "name": "ResolveLookup_00441ec0",
-      "symbol": "?ResolveLookup_00441ec0@@YGHPAULookupObject_00441ec0@@PAULookupManager_00441ec0@@@Z",
+      "name": "ResolveLookup",
+      "symbol": "?ResolveLookup@@YGHPAULookupObject@@PAULookupManager@@@Z",
       "section": ".text$01lookup",
       "address": "0x00441EC0",
       "size": 46,
@@ -17,7 +17,7 @@
     }
   ],
   "context": {
-    "symbol": "?ResolveLookupContext_00441ec0@@YGHPAPAULookupObject_00441ec0@@PAPAULookupManager_00441ec0@@H@Z",
+    "symbol": "?ResolveLookupContext_00441ec0@@YGHPAPAULookupObject@@PAPAULookupManager@@H@Z",
     "section": ".text$03context",
     "address": "0x00441EF0",
     "size": 51,

@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "ecl_resource_slot_bind_00412720",
-      "symbol": "?BindSlot_00412720@@YGXPAUSlotTable_00412720@@HHHPBD@Z",
+      "symbol": "?BindSlot@@YGXPAUSlotTable_00412720@@HHHPBD@Z",
       "section": ".text$01accessor",
       "address": "0x00412720",
       "size": 48,

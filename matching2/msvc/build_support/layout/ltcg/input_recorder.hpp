@@ -16,7 +16,7 @@ struct InputReplayStage {
     unsigned char reserved_18[0xC];
 };
 
-struct InputRecorder_004297D0 {
+struct InputRecorder {
     unsigned char reserved_000[0x10];
     int playback_mode;
     void* header;
@@ -41,12 +41,12 @@ struct InputAnalogSource {
 };
 
 typedef char InputReplayStageSize[sizeof(InputReplayStage)==0x24?1:-1];
-typedef char InputRecorderHeadsOffset[offsetof(InputRecorder_004297D0,stage_heads)==0x3C?1:-1];
-typedef char InputRecorderPoolOffset[offsetof(InputRecorder_004297D0,current_pool)==0x9C?1:-1];
-typedef char InputRecorderPlaybackOffset[offsetof(InputRecorder_004297D0,playback)==0xA0?1:-1];
-typedef char InputRecorderSampleOffset[offsetof(InputRecorder_004297D0,sample)==0x1C4?1:-1];
-typedef char InputRecorderFrameOffset[offsetof(InputRecorder_004297D0,frame_count)==0x1C8?1:-1];
-typedef char InputRecorderStageOffset[offsetof(InputRecorder_004297D0,active_stage)==0x1D0?1:-1];
+typedef char InputRecorderHeadsOffset[offsetof(InputRecorder,stage_heads)==0x3C?1:-1];
+typedef char InputRecorderPoolOffset[offsetof(InputRecorder,current_pool)==0x9C?1:-1];
+typedef char InputRecorderPlaybackOffset[offsetof(InputRecorder,playback)==0xA0?1:-1];
+typedef char InputRecorderSampleOffset[offsetof(InputRecorder,sample)==0x1C4?1:-1];
+typedef char InputRecorderFrameOffset[offsetof(InputRecorder,frame_count)==0x1C8?1:-1];
+typedef char InputRecorderStageOffset[offsetof(InputRecorder,active_stage)==0x1D0?1:-1];
 
 extern "C" {
 extern void* g_game;
@@ -54,4 +54,4 @@ extern InputAnalogSource* g_fps;
 extern unsigned int g_sound_flags;
 }
 
-int __fastcall ReplayManager_OnUpdate(InputRecorder_004297D0*);
+int __fastcall ReplayManager_OnUpdate(InputRecorder*);

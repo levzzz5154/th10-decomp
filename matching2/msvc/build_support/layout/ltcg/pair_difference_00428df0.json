@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "PairDifference_00428df0_IsDifferent",
-      "symbol": "?PairDifference_00428df0_IsDifferent@@YGHPAUPairDifference_00428df0@@@Z",
+      "symbol": "?PairDifference_00428df0_IsDifferent@@YGHPAUPairDifference@@@Z",
       "section": ".text$01different",
       "address": "0x00428DF0",
       "size": 17,

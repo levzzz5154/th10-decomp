@@ -14,7 +14,7 @@ extern "C" unsigned int __cdecl asm_beginthreadex_00453683(
 
 // 0x0040AC90
 #pragma code_seg(".text$a1mode")
-void __stdcall SptTest_SetGameMode_0040ac90(SptTestGameState_0042bfc0* state, int mode) {
+void __stdcall SptTest_SetGameMode(SptTestGameState* state, int mode) {
     if ((state->flags & 0x1000) == 0) {
         state->mode = mode;
     } else {
@@ -24,7 +24,7 @@ void __stdcall SptTest_SetGameMode_0040ac90(SptTestGameState_0042bfc0* state, in
 
 // 0x0040ACE0
 #pragma code_seg(".text$a2mask")
-unsigned short SptTestInput_0042bfc0::MaskActive(unsigned short mask) {
+unsigned short SptTestInput::MaskActive(unsigned short mask) {
     return (mask & repeated) != 0 || (mask & held) != 0;
 }
 
@@ -102,7 +102,7 @@ void PlatformWorker::Start(void* context, PlatformWorkerEntry start) {
 
 // 0x0044FD10
 #pragma code_seg(".text$c4tick")
-extern "C" __declspec(noinline) int __stdcall SptTest_TickVm_0044fd10(SptTestResource_0042be20* vm, float delta) {
+extern "C" __declspec(noinline) int __stdcall SptTest_TickVm(SptTestResource* vm, float delta) {
     EclChildOwner* owner = reinterpret_cast<EclChildOwner*>(vm);
     EclChildNode* node = &owner->children;
     int first = 1;
@@ -125,15 +125,15 @@ extern "C" __declspec(noinline) int __stdcall SptTest_TickVm_0044fd10(SptTestRes
 
 // 0x00450500
 extern "C" const unsigned int g_enemy_vtable_released[];
-inline ScriptVm_00450560::ScriptVm_00450560()
+inline ScriptVm::ScriptVm()
     : vtable(reinterpret_cast<unsigned int>(g_enemy_vtable_released)), field_1010(0), field_1014(0) {}
 #pragma code_seg(".text$c5create")
-SptTestResource_0042be20* ScriptParser_0042be20::CreateVm(const char* name) {
-    ScriptVm_00450560* vm = new ScriptVm_00450560;
+SptTestResource* ScriptParser::CreateVm(const char* name) {
+    ScriptVm* vm = new ScriptVm;
     vm->table = reinterpret_cast<ScriptTable_00450470*>(this);
     vm->current->instruction = vm->table->Resolve(name);
     vm->current->time = 0;
-    return reinterpret_cast<SptTestResource_0042be20*>(vm);
+    return reinterpret_cast<SptTestResource*>(vm);
 }
 #pragma code_seg()
 

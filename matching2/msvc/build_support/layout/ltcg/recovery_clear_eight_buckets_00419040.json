@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "name": "recovery_clear_eight_buckets_00419040",
+  "name": "recovery_clear_eight_buckets",
   "source": "src/game/hint/recovery_clear_eight_buckets_00419040.cpp",
   "driver": "build_support/layout/ltcg/recovery_clear_eight_buckets_00419040_context.cpp",
   "headers": [

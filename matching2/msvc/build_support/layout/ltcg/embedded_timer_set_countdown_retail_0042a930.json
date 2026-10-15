@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "EmbeddedTimerState_0042a930_SetCountdown",
-      "symbol": "?SetCountdown@EmbeddedTimerState_0042a930@@QAEXH@Z",
+      "symbol": "?SetCountdown@EmbeddedTimerState@@QAEXH@Z",
       "section": ".text$01setcountdown",
       "address": "0x0042A930",
       "size": 59,
@@ -17,7 +17,7 @@
     }
   ],
   "context": {
-    "symbol": "?EmbeddedTimerSetCountdownRetailCompilerContext@@YGHPAPAUEmbeddedTimerState_0042a930@@PAHH@Z",
+    "symbol": "?EmbeddedTimerSetCountdownRetailCompilerContext@@YGHPAPAUEmbeddedTimerState@@PAHH@Z",
     "section": ".text$03context",
     "address": "0x0042A970",
     "size": 70,

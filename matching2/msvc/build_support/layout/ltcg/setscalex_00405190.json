@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "name": "setscalex_00405190",
+  "name": "setscalex",
   "source": "src/unreferenced/unassigned_00405190.cpp",
   "driver": "build_support/layout/ltcg/setscalex_00405190_context.cpp",
   "headers": [],

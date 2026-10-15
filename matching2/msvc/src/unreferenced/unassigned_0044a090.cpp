@@ -6,12 +6,12 @@
 extern "C" SchedulerTask* __stdcall SchedulerTask_Create(void*);
 extern "C" FuncCtrl* g_func_ctrl;
 
-struct SchedulerCreateSecondaryClear_0044a090 {
+struct SchedulerCreateSecondaryClear {
     __declspec(noinline) SchedulerTask* Create(void* context, int priority);
 };
 #pragma code_seg(".text$79sched_gap_secondaryc")
 __declspec(noinline) SchedulerTask*
-SchedulerCreateSecondaryClear_0044a090::Create(void* context, int priority) {
+SchedulerCreateSecondaryClear::Create(void* context, int priority) {
     SchedulerTask* task =
         SchedulerTask_Create((void*)this);
     task->context = context;

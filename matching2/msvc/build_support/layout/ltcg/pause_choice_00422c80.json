@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "name": "pause_choice_00422c80",
+  "name": "pause_choice",
   "source": "src/game/pause/pause_choice_update_00422c80.cpp",
   "headers": [
     "include/th10/game/pause_choice_00422c80/state.hpp",
@@ -15,7 +15,7 @@
   "functions": [
     {
       "name": "choice",
-      "symbol": "_PauseMenu_Update_00422c80@4",
+      "symbol": "_PauseMenu_Update@4",
       "section": ".text$30choice",
       "address": "0x422c80",
       "size": 1360,
@@ -53,7 +53,7 @@
     },
     {
       "name": "unpause",
-      "symbol": "?Unpause@PauseOwner_00422c30@@QAEXXZ",
+      "symbol": "?Unpause@PauseOwner@@QAEXXZ",
       "section": ".text$29unpause",
       "address": "0x422c30",
       "size": 74
@@ -109,21 +109,21 @@
     },
     {
       "name": "push",
-      "symbol": "?PushSelection@PauseChoiceCursor_00422c80@@QAEXXZ",
+      "symbol": "?PushSelection@PauseChoiceCursor@@QAEXXZ",
       "section": ".text$90push",
       "address": "0x44be20",
       "size": 66
     },
     {
       "name": "pop",
-      "symbol": "?PopSelection@PauseChoiceCursor_00422c80@@QAEXXZ",
+      "symbol": "?PopSelection@PauseChoiceCursor@@QAEXXZ",
       "section": ".text$92pop",
       "address": "0x44be70",
       "size": 47
     },
     {
       "name": "advance",
-      "symbol": "?Advance@PauseChoiceCursor_00422c80@@QAEHH@Z",
+      "symbol": "?Advance@PauseChoiceCursor@@QAEHH@Z",
       "section": ".text$94advance",
       "address": "0x44bea0",
       "size": 128
@@ -264,7 +264,7 @@
       "kind": "data"
     },
     {
-      "symbol": "?g_pause_flags@@3PAUPauseFlags_00422c30@@A",
+      "symbol": "?g_pause_flags@@3PAUPauseFlags@@A",
       "address": "0x477810",
       "kind": "data"
     },
@@ -300,7 +300,7 @@
     "build_support/layout/ltcg/pause_choice_00422c80/unpause.cpp"
   ],
   "roots": [
-    "_PauseMenu_Update_00422c80@4"
+    "_PauseMenu_Update@4"
   ],
   "driver": "build_support/layout/ltcg/pause_choice_00422c80_context.cpp",
   "context": {

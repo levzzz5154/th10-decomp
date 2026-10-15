@@ -3,7 +3,7 @@
 #include "th10/source_views/fun_a1dd06_1.hpp"
 #include "../../../src/game/mother/render_stage_state.cpp"
 #include "th10/source_views/fun_a1dd06_6.hpp"
-__declspec(noinline) void* WorkerThread_00439390::Stop() {
+__declspec(noinline) void* WorkerThread::Stop() {
     void* result = handle;
     if (result != 0) {
         stopping = 1;

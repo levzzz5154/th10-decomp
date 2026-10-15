@@ -12,7 +12,7 @@ void* __fastcall AnimationManager_SetFlag_004492a0(AnimationLookupContext* conte
 extern "C" AnimationLookupContext* g_sprt_ctrl;
 
 // An animation a game object owns, named by its id.
-struct OwnedAnimation_004136c0 {
+struct OwnedAnimation {
     AnimationScriptId id;
 
     // Let the manager dispose of the animation and forget it.
@@ -26,7 +26,7 @@ struct AnimationSlot_004136c0 {
     enum { ANIMATION_COUNT = 6 };
 
     unsigned char reserved_00[0x40];
-    OwnedAnimation_004136c0 animations[ANIMATION_COUNT];   // +0x40
+    OwnedAnimation animations[ANIMATION_COUNT];   // +0x40
 
     __declspec(noinline) void Release();
 };

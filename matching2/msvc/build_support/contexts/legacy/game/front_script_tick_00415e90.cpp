@@ -28,8 +28,8 @@
 // argument while preserving the register.
 #pragma code_seg(".text$00415ae0_fn")
 struct FrontUpdateView;
-__declspec(noinline) int __stdcall FrontHudUpdate_00414900(FrontUpdateView* front);
-extern "C" __declspec(noinline) int __fastcall FrontHudCallback_00415ae0(void* state) {
-    return FrontHudUpdate_00414900((FrontUpdateView*)state);
+__declspec(noinline) int __stdcall FrontHudUpdate(FrontUpdateView* front);
+extern "C" __declspec(noinline) int __fastcall FrontHudCallback(void* state) {
+    return FrontHudUpdate((FrontUpdateView*)state);
 }
 #pragma code_seg()

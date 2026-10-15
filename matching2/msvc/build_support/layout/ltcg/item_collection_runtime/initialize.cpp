@@ -3,7 +3,7 @@
 #include "th10/game/entity_script_start.hpp"
 struct AnimationObject_0043e7e0;
 struct AnimationResource_0043e7e0;
-__declspec(noinline) void __stdcall LoadScriptPreservingState_0043e7e0(
+__declspec(noinline) void __stdcall LoadScriptPreservingState(
     AnimationResource_0043e7e0* resource, AnimationObject_0043e7e0* object, int index);
 struct AnimationFlagValue {
     unsigned int value;
@@ -20,7 +20,7 @@ void AnimationBank::InitializeObject(Entity* object, int index) {
     object->RenderOffset() = Vector3Value(0.0f, 0.0f, 0.0f);
     EntityTail(object)->layer_3a1 = 0x10;
     EntityTail(object)->layer_3a0 = 0x10;
-    LoadScriptPreservingState_0043e7e0((AnimationResource_0043e7e0*)this,
+    LoadScriptPreservingState((AnimationResource_0043e7e0*)this,
         (AnimationObject_0043e7e0*)object, index);
 }
 #pragma code_seg()

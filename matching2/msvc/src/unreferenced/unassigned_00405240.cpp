@@ -13,7 +13,7 @@ struct Vector3_00405240 {
 };
 
 #pragma code_seg(".text$03sub")
-__declspec(noinline) Vector3_00405240 __fastcall VectorSubtract_00405240(
+__declspec(noinline) Vector3_00405240 __fastcall VectorSubtract(
         const Vector3_00405240& left, const Vector3_00405240& right) {
     return Vector3_00405240(left.x - right.x,
                             left.y - right.y,

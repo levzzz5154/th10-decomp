@@ -4,7 +4,7 @@
 #include "../../../build_support/layout/ltcg/projectile_clear_region/lookup.hpp"
 
 extern "C" {
-extern ItemSpawnManager_0041bb00* g_item_manager;
+extern ItemSpawnManager* g_item_manager;
 extern unsigned int g_burst_color_small[];  // burst colours of small projectiles
 extern unsigned int g_burst_color_medium[];  // ... of medium ones
 extern unsigned int g_burst_color_large[];  // ... of large ones

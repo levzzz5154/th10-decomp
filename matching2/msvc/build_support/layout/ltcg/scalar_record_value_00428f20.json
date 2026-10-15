@@ -5,11 +5,11 @@
   "driver": "build_support/layout/ltcg/scalar_record_value_00428f20_context.cpp",
   "headers": [],
   "image_base": "0x00400000",
-  "description": "ScalarRecord_00428f20::GetValue compiled with a synthetic array caller so the native LTCG register allocator keeps the record in EAX as retail does.",
+  "description": "ScalarRecord::GetValue compiled with a synthetic array caller so the native LTCG register allocator keeps the record in EAX as retail does.",
   "functions": [
     {
       "name": "ScalarRecord_00428f20_GetValue",
-      "symbol": "?GetValue@ScalarRecord_00428f20@@QAEMXZ",
+      "symbol": "?GetValue@ScalarRecord@@QAEMXZ",
       "section": ".text$01get",
       "address": "0x00428F20",
       "size": 4,

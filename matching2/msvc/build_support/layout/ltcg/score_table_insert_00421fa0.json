@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "name": "score_table_insert_00421fa0",
+  "name": "score_table_insert",
   "source": "src/game/mother/score_table_insert_00421fa0.cpp",
   "driver": "build_support/layout/ltcg/score_table_insert_00421fa0_context.cpp",
   "headers": [
@@ -21,7 +21,7 @@
     },
     {
       "name": "NameEntry_Prepare",
-      "symbol": "?PrepareNameEntry_00423570@@YGXPAUNameEntryMenu_00423570@@@Z",
+      "symbol": "?PrepareNameEntry@@YGXPAUNameEntryMenu@@@Z",
       "source": "src/game/pause/name_entry_prepare_00423570.cpp",
       "section": ".text$00423570_fn",
       "address": "0x00423570",

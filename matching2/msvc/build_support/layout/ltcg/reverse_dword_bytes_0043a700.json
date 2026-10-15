@@ -8,8 +8,8 @@
   "description": "Dword byte reversal compiled with native LTCG, which keeps the address-taken stack argument and a separate result word.",
   "functions": [
     {
-      "name": "ReverseDwordBytes_0043a700",
-      "symbol": "?ReverseDwordBytes_0043a700@@YGII@Z",
+      "name": "ReverseDwordBytes",
+      "symbol": "?ReverseDwordBytes@@YGII@Z",
       "section": ".text$01swap",
       "address": "0x0043A700",
       "size": 37,

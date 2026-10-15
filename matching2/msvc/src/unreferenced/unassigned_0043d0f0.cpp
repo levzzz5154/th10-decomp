@@ -6,7 +6,7 @@ extern "C" __declspec(dllimport) void* __stdcall CreateThread(
 extern "C" int g_sound_manager;
 extern "C" void* g_sound_preload_thread;
 
-void SpawnThread_0043d0f0() {
+void SpawnThread() {
     unsigned int id;
     g_sound_preload_thread = CreateThread(0, 0, (void*)0x43d080, &g_sound_manager, 0, &id);
 }

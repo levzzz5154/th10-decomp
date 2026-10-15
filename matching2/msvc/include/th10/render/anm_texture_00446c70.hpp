@@ -3,11 +3,11 @@
 // The two Direct3D 9 interfaces the texture upload touches, reduced to the
 // vtable slots it uses.
 // D3DSURFACE_DESC.
-struct AnmSurfaceDesc_00446c70 {
+struct AnmSurfaceDesc {
     int format, type, usage, pool, multisample_type, multisample_quality;
     unsigned int width, height;
 };
-struct AnmSurface_00446c70 {
+struct AnmSurface {
     virtual long __stdcall QueryInterface(const void* iid, void** object) = 0;
     virtual unsigned long __stdcall AddRef() = 0;
     virtual unsigned long __stdcall Release() = 0;
@@ -20,9 +20,9 @@ struct AnmSurface_00446c70 {
     virtual void __stdcall Slot09() = 0;
     virtual void __stdcall Slot10() = 0;
     virtual void __stdcall Slot11() = 0;
-    virtual long __stdcall GetDesc(AnmSurfaceDesc_00446c70* desc) = 0;
+    virtual long __stdcall GetDesc(AnmSurfaceDesc* desc) = 0;
 };
-struct AnmD3DTexture_00446c70 {
+struct AnmD3DTexture {
     virtual long __stdcall QueryInterface(const void* iid, void** object) = 0;
     virtual unsigned long __stdcall AddRef() = 0;
     virtual unsigned long __stdcall Release() = 0;
@@ -40,16 +40,16 @@ struct AnmD3DTexture_00446c70 {
     virtual void __stdcall Slot14() = 0;
     virtual void __stdcall Slot15() = 0;
     virtual void __stdcall Slot16() = 0;
-    virtual long __stdcall GetLevelDesc(unsigned int level, AnmSurfaceDesc_00446c70* desc) = 0;
-    virtual long __stdcall GetSurfaceLevel(unsigned int level, AnmSurface_00446c70** surface) = 0;
+    virtual long __stdcall GetLevelDesc(unsigned int level, AnmSurfaceDesc* desc) = 0;
+    virtual long __stdcall GetSurfaceLevel(unsigned int level, AnmSurface** surface) = 0;
 };
 
-struct AnmRect_00446c70 {
+struct AnmRect {
     int left, top, right, bottom;
 };
 
 // The THTX block an ANM entry embeds its raw pixels in.
-struct AnmThtxHeader_00446c70 {
+struct AnmThtxHeader {
     char magic[4];                                     // +0x00, "THTX"
     short zero;                                        // +0x04
     short format;                                      // +0x06, index into the format tables
@@ -87,21 +87,21 @@ struct AnmEntryHeader_00446c70 {
         return reinterpret_cast<const char*>(this) + name_offset;
     }
 
-    const AnmThtxHeader_00446c70* Thtx() const {
-        return reinterpret_cast<const AnmThtxHeader_00446c70*>(
+    const AnmThtxHeader* Thtx() const {
+        return reinterpret_cast<const AnmThtxHeader*>(
             reinterpret_cast<const unsigned char*>(this) + thtx_offset);
     }
 };
 
 // A four-byte class-type argument the upload receives and never reads. Being
 // a class type it keeps its stack slot, which is what retail's RET 8 shows.
-struct AnmUploadTag_00446c70 {
+struct AnmUploadTag {
     int value;
 };
 
 // One loaded ANM texture.
-struct AnmTexture_00446c70 {
-    AnmD3DTexture_00446c70* texture;                   // +0x00
+struct AnmTexture {
+    AnmD3DTexture* texture;                   // +0x00
     void* file_data;                                   // +0x04
     int data_size;                                     // +0x08
     int bytes_per_pixel;                               // +0x0C
@@ -111,19 +111,19 @@ struct AnmTexture_00446c70 {
     // 0x00446B70
     __declspec(noinline) int LoadFile(int format, void* size_slot, const char* name, unsigned int color_key);
     // 0x00446C70
-    __declspec(noinline) int Upload(AnmUploadTag_00446c70 tag, int format, const void* data, int size,
+    __declspec(noinline) int Upload(AnmUploadTag tag, int format, const void* data, int size,
                                     int has_thtx);
 };
 
 // 0x00446EB0
-__declspec(noinline) int __stdcall AnmTexture_CreateFromMemory_00446eb0(
-    AnmUploadTag_00446c70 tag, AnmTexture_00446c70* texture, int format, unsigned int color_key,
+__declspec(noinline) int __stdcall AnmTexture_CreateFromMemory(
+    AnmUploadTag tag, AnmTexture* texture, int format, unsigned int color_key,
     int width, int height);
 // 0x00446F40
-__declspec(noinline) int __stdcall AnmTexture_CreateAndUpload_00446f40(AnmTexture_00446c70* texture, const AnmThtxHeader_00446c70* thtx, int format, int width, int height);
+__declspec(noinline) int __stdcall AnmTexture_CreateAndUpload(AnmTexture* texture, const AnmThtxHeader* thtx, int format, int width, int height);
 // 0x00446D70
-__declspec(noinline) int __stdcall AnmTexture_UploadAt_00446d70(
-    AnmUploadTag_00446c70 tag, AnmTexture_00446c70* texture, int format, const void* data, int top,
+__declspec(noinline) int __stdcall AnmTexture_UploadAt(
+    AnmUploadTag tag, AnmTexture* texture, int format, const void* data, int top,
     int size, int has_thtx);
 
 extern "C" unsigned char g_sound_flags;                // renderer capability flags
@@ -148,7 +148,7 @@ extern "C" unsigned int __stdcall asm_D3DXCreateTextureFromFileInMemoryEx_004521
     void* device, const void* source, unsigned int source_size, unsigned int width,
     unsigned int height, unsigned int mip_levels, unsigned int usage, unsigned int format,
     unsigned int pool, unsigned int filter, unsigned int mip_filter, unsigned int color_key,
-    void* source_info, void* palette, AnmD3DTexture_00446c70** texture);
+    void* source_info, void* palette, AnmD3DTexture** texture);
 extern "C" int __stdcall asm_D3DXCreateTexture_004521a0(
     void* device, unsigned int width, unsigned int height, unsigned int mip_levels,
     unsigned int usage, unsigned int format, unsigned int pool, void** texture);

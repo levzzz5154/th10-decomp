@@ -2,7 +2,7 @@
 // loads their animations; on failure it asks the application to leave. It
 // then waits until the startup loader has counted 300 frames (or the skip key
 // is held), drops the loading animation and lets the title's update task run.
-// Compiled in the bullet_manager_load_scripts_0040ae70 native-LTCG cluster so
+// Compiled in the bullet_manager_load_scripts native-LTCG cluster so
 // the title state travels in EBX and the animation record in EDI.
 #include "th10/core/func_ctrl.hpp"
 
@@ -10,7 +10,7 @@ struct Title {
     unsigned char pad_000[0x0C];
     SchedulerTask* update_task;          // +0x00C
 };
-struct StartupLoader_00477820 {
+struct StartupLoader {
     unsigned char pad_000[0x3EC];
     int frames;                          // +0x3EC
 };
@@ -27,7 +27,7 @@ int __stdcall Title_RegisterTasks(Title* title);
 __declspec(dllimport) void __stdcall Sleep(unsigned long milliseconds);
 void __cdecl crt_free_startup(void* memory);
 extern Title* g_title;
-extern StartupLoader_00477820* g_loading;
+extern StartupLoader* g_loading;
 extern AnimationManager_0042c800* g_sprt_ctrl;
 extern unsigned int g_app_flags;       // held input
 extern unsigned int g_main_state;       // requested application state

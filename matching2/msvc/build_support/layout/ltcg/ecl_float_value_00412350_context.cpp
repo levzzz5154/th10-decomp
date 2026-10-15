@@ -12,7 +12,7 @@ float Player::AngleFromPoint(const float* point) {
 #pragma code_seg()
 
 #pragma code_seg(".text$00context")
-extern "C" float __stdcall EclFloatContext(EclFloatSource_00412350* object, int selector) {
+extern "C" float __stdcall EclFloatContext(EclFloatSource* object, int selector) {
     return object->ResolveFloatValue(selector);
 }
 #pragma code_seg()

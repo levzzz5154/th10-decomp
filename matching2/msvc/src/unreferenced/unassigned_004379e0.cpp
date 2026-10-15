@@ -7,7 +7,7 @@ extern "C" int __stdcall D3DXCreateTexture_004521a0(
 extern "C" void* g_d3d_device;
 
 #pragma code_seg(".text$01accessor")
-__declspec(noinline) void* __fastcall CreateTexture_004379e0(unsigned int height, unsigned int width) {
+__declspec(noinline) void* __fastcall CreateTexture(unsigned int height, unsigned int width) {
     void* device = g_d3d_device;
     void* texture;
     D3DXCreateTexture_004521a0(device, width, height, 1, 0, 0x19, 1, &texture);

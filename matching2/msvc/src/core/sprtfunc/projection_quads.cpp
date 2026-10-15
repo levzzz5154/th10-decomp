@@ -16,7 +16,7 @@ struct ProjectionMatrix { float m[16]; };
 // The render target whose view, projection and viewport matrices feed the
 // projection, plus the reference point the perspective scale is measured
 // against.
-struct ProjectionDevice_00443B60 {
+struct ProjectionDevice {
     unsigned char unknown_0000[0x30];
     ProjectionVec3 reference;              // 0x30
     unsigned char unknown_003C[0x10];
@@ -31,7 +31,7 @@ extern "C" float flt_1;            //  1.0f
 extern "C" float flt_0_5;            //  0.5f
 extern "C" float flt_neg0_5;            // -0.5f
 
-extern "C" ProjectionDevice_00443B60* g_render_stage_active;
+extern "C" ProjectionDevice* g_render_stage_active;
 extern "C" ProjectionVertex g_quad_vertices[4];
 
 // The projection helper the renderer reaches through its own import stub.
@@ -39,7 +39,7 @@ extern "C" int __stdcall D3DXVec3Project(void* out, const void* in, const void* 
                                          const void* projection, const void* view,
                                          const void* world);
 
-struct BillboardSource_00443B60 {
+struct BillboardSource {
     unsigned char unknown_0000[0x2C];
     float rotation;                        // 0x2C
     unsigned char unknown_0030[0x0C];
@@ -66,7 +66,7 @@ static __forceinline float ProjectionQuad_HalfDistance(ProjectionVec3 delta) {
 }
 
 #pragma code_seg(".text$02quad")
-int BillboardSource_00443B60::BuildProjectedQuad() {
+int BillboardSource::BuildProjectedQuad() {
     float ca, sa;
     float extent_y, extent_x;
     ProjectionVec3 origin;

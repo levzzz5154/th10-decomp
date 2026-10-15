@@ -5,7 +5,7 @@ extern "C" void* g_sprt_ctrl;
 static __forceinline RecoveryMusicVm* FindAnimationSlot(unsigned int handle) {
     RecoveryScriptId id = { static_cast<int>(handle) };
     return static_cast<RecoveryMusicVm*>(
-        reinterpret_cast<RecoveryLookup_0040bd80*>(g_sprt_ctrl)->Find(
+        reinterpret_cast<RecoveryLookup*>(g_sprt_ctrl)->Find(
             reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl), id));
 }
 
@@ -14,7 +14,7 @@ static __forceinline void SetAnimationTreeFrame(
     if (object != 0) {
         object->stop_frame = frame;
         if (object->children_flagged == 0) {
-            for (RecoveryMusicChild_00433ef0* child = object->children;
+            for (RecoveryMusicChild* child = object->children;
                  child != 0; child = child->next)
                 child->object->stop_frame = frame;
         }

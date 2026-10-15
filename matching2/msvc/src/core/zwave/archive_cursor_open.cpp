@@ -26,7 +26,7 @@ struct ArchiveCursor_0044dbf0 {
 };
 
 #pragma code_seg(".text$01accessor")
-__declspec(noinline) long __stdcall OpenCursor_0044dbf0(ArchiveCursor_0044dbf0* cursor, int mode, const char* path, ArchiveEntry_0044dbf0* entry) {
+__declspec(noinline) long __stdcall OpenCursor(ArchiveCursor_0044dbf0* cursor, int mode, const char* path, ArchiveEntry_0044dbf0* entry) {
     cursor->mode = mode;
     cursor->memory = 0;
     if (mode == 1) {

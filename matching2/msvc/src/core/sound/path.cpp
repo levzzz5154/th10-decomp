@@ -11,12 +11,12 @@ extern "C" char* __cdecl asm_strrchr_00452930(const char* text, int character);
 // the last '/' or '\' indexes that array. The chosen slot is tested by
 // re-forming the entry address from the index, which is what keeps the retail
 // imul-per-iteration instead of a walked pointer.
-struct PathName_0043d2a0 {
+struct PathName {
     char text[1];
-    int FindBasenameSlot_0043d2a0(void* owner);
+    int FindBasenameSlot(void* owner);
 };
 
-int PathName_0043d2a0::FindBasenameSlot_0043d2a0(void* owner) {
+int PathName::FindBasenameSlot(void* owner) {
     char basename[128];
     int index = 0;
     char* separator = asm_strrchr_00452930(text, '/');

@@ -19,11 +19,11 @@ __declspec(dllimport) void* __stdcall CreateEventA(void* security, int manual_re
 __declspec(dllimport) void* __stdcall CreateThread(void* security, unsigned int stack_bytes,
     MusicWorkerEntry entry, void* argument, unsigned int flags, unsigned int* thread_id);
 extern WaveGuidImage g_guid_wave_format;
-unsigned int __stdcall SoundStream_Worker_0043e3a0(void*);
+unsigned int __stdcall SoundStream_Worker(void*);
 }
 // 0x0043D790: point the running stream at the track a path names.
 struct PlatformD790ArchiveOwner;
-struct PathName_0043d2a0 {
+struct PathName {
     int SelectArchiveEntry(PlatformD790ArchiveOwner* owner);
 };
 
@@ -36,7 +36,7 @@ int WaveSoundManager::PlayCachedMusic(int slot) {
     if (!device)
         return -1;
     if (!(g_supervisor.flags & 0x10))
-        return reinterpret_cast<PathName_0043d2a0*>(cached_music_names[slot])
+        return reinterpret_cast<PathName*>(cached_music_names[slot])
             ->SelectArchiveEntry(reinterpret_cast<PlatformD790ArchiveOwner*>(this));
     if (!cached_music_data[slot])
         return -1;
@@ -45,7 +45,7 @@ int WaveSoundManager::PlayCachedMusic(int slot) {
     unsigned int align = record->format.block_alignment;
     unsigned int segment_bytes = (record->format.sample_rate * align * 4) >> 4;
     music_worker_event = CreateEventA(0, 0, 0, 0);
-    music_thread = CreateThread(0, 0, SoundStream_Worker_0043e3a0, g_supervisor.window, 0,
+    music_thread = CreateThread(0, 0, SoundStream_Worker, g_supervisor.window, 0,
         &music_thread_id);
     segment_bytes -= segment_bytes % align;
     if (reinterpret_cast<SoundDeviceOwner*>(device_owner)->CreateMemoryStream(

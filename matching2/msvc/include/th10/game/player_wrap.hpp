@@ -14,15 +14,15 @@ struct PlayfieldPoint {
     __declspec(noinline) int OutsidePlayfieldInclusive(float width, float height) const;
 };
 
-struct PlayerWrapBounds_00407DA0 {
+struct PlayerWrapBounds {
     unsigned char reserved_000[0x30];
     float extent_30;
     float extent_34;
 };
 
-struct PlayerWrapHorizontalState_00407DA0 {
+struct PlayerWrapHorizontalState {
     unsigned char reserved_000[0x39C];
-    PlayerWrapBounds_00407DA0* bounds_39C;
+    PlayerWrapBounds* bounds_39C;
     unsigned char reserved_3A0[0x14];
     PlayfieldPoint position_3B4;
     unsigned char reserved_3BC[0x80];

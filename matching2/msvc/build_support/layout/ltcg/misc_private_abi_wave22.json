@@ -11,8 +11,8 @@
   "description": "Native LTCG proposal for the two private-ABI fragments: slot table in EDI/ESI and animation table/index in EAX/ECX forwarding to the existing SprtCtrl::Find dependency at 0x004491C0. The blocked 0x0042AC90 fragment is intentionally not selected.",
   "functions": [
     {
-      "name": "SlotLockTable_EnterRetail_00421c70",
-      "symbol": "_SlotLockTable_EnterRetail_00421c70@8",
+      "name": "SlotLockTable_EnterRetail",
+      "symbol": "_SlotLockTable_EnterRetail@8",
       "section": ".text$01slot",
       "address": "0x00421C70",
       "size": 25,
@@ -20,8 +20,8 @@
       "source": "src/unreferenced/unassigned_00421c70.cpp"
     },
     {
-      "name": "AnimationTable_HasSlot_0042c7e0",
-      "symbol": "_AnimationTable_HasSlot_0042c7e0@8",
+      "name": "AnimationTable_HasSlot",
+      "symbol": "_AnimationTable_HasSlot@8",
       "section": ".text$05has",
       "address": "0x0042C7E0",
       "size": 26,

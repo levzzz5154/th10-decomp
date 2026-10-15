@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "name": "title_teardown_0041fb50",
+  "name": "title_teardown",
   "source": "src/game/loading/loading_release.cpp",
   "driver": "build_support/layout/ltcg/title_teardown_0041fb50_context.cpp",
   "included_sources": [
@@ -31,7 +31,7 @@
   "functions": [
     {
       "name": "TitleStateDestructor",
-      "symbol": "??1TitleState_0041FB50@@QAE@XZ",
+      "symbol": "??1TitleState@@QAE@XZ",
       "section": ".text$03title",
       "address": "0x0041FB50",
       "size": 417,
@@ -59,7 +59,7 @@
     },
     {
       "name": "TitleDestructorHandler",
-      "symbol": "__ehhandler$??1TitleState_0041FB50@@QAE@XZ",
+      "symbol": "__ehhandler$??1TitleState@@QAE@XZ",
       "section": ".text$x",
       "address": "0x00465696",
       "size": 10,
@@ -68,7 +68,7 @@
     },
     {
       "name": "ScoreManager_Save",
-      "symbol": "?Save@ScoreArchive_0042B1E0@@QAEHXZ",
+      "symbol": "?Save@ScoreArchive@@QAEHXZ",
       "section": ".text$06score",
       "address": "0x0042B1E0",
       "size": 564,
@@ -142,7 +142,7 @@
     },
     {
       "name": "AnimationManagerDestructor",
-      "symbol": "??1AnimationManagerStorage_00446220@@QAE@XZ",
+      "symbol": "??1AnimationManagerStorage@@QAE@XZ",
       "section": ".text$06zmanager",
       "address": "0x00446220",
       "size": 193,
@@ -187,7 +187,7 @@
     },
     {
       "name": "ManagerDestructorHandler",
-      "symbol": "__ehhandler$??1AnimationManagerStorage_00446220@@QAE@XZ",
+      "symbol": "__ehhandler$??1AnimationManagerStorage@@QAE@XZ",
       "section": ".text$m",
       "address": "0x465225",
       "size": 10,
@@ -412,7 +412,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_DestroyGameThread_00401260@4",
+      "symbol": "_DestroyGameThread@4",
       "address": "0x401260",
       "kind": "relative_code"
     },
@@ -556,7 +556,7 @@
     }
   ],
   "anchor_roots": [
-    "??1AnimationManagerStorage_00446220@@QAE@XZ"
+    "??1AnimationManagerStorage@@QAE@XZ"
   ],
   "additional_sources": [
     "src/game/score/score_manager_save.cpp"

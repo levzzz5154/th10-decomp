@@ -22,7 +22,7 @@
   "functions": [
     {
       "name": "SoundStreamRestart",
-      "symbol": "_SoundStream_Restart_0044dad0@4",
+      "symbol": "_SoundStream_Restart@4",
       "address": "0x0044DAD0",
       "section": ".text$07restart",
       "size": 213,
@@ -221,12 +221,12 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_SoundStream_Start_0044d440@12",
+      "symbol": "_SoundStream_Start@12",
       "address": "0x44d440",
       "kind": "relative_code"
     },
     {
-      "symbol": "_Sound_StopMusicWorker_0043dab0@4",
+      "symbol": "_Sound_StopMusicWorker@4",
       "address": "0x43dab0",
       "kind": "relative_code"
     },
@@ -251,7 +251,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "?FindBasenameSlot_0043d2a0@PathName_0043d2a0@@QAEHPAX@Z",
+      "symbol": "?FindBasenameSlot@PathName@@QAEHPAX@Z",
       "address": "0x43d2a0",
       "kind": "relative_code"
     }

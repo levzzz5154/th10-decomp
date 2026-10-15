@@ -1,7 +1,7 @@
 #include "th10/platform/midi_sequencer.hpp"
 #include <string.h>
 
-extern "C" void* __cdecl entry_malloc_00452706(unsigned int);
+extern "C" void* __cdecl entry_malloc(unsigned int);
 extern "C" void __cdecl crt_free(void*);
 
 struct MidiChunkHeader {
@@ -72,14 +72,14 @@ int MidiSequencer::ParseLoadedFile(int slot) {
     ticks_per_quarter_note = Swap16(header->division);
     track_count = Swap16(header->track_count);
 
-    tracks = static_cast<MidiTrack*>(entry_malloc_00452706(track_count * sizeof(MidiTrack)));
+    tracks = static_cast<MidiTrack*>(entry_malloc(track_count * sizeof(MidiTrack)));
     memset(tracks, 0, track_count * sizeof(MidiTrack));
     for (int index = 0; index < track_count; ++index) {
         MidiChunkHeader* track_header = reinterpret_cast<MidiChunkHeader*>(cursor);
         cursor += sizeof(*track_header);
         chunk_size = Swap32(track_header->length);
         tracks[index].byte_count = chunk_size;
-        tracks[index].data = static_cast<unsigned char*>(entry_malloc_00452706(chunk_size));
+        tracks[index].data = static_cast<unsigned char*>(entry_malloc(chunk_size));
         tracks[index].active = 1;
         memcpy(tracks[index].data, cursor, chunk_size);
         cursor += chunk_size;

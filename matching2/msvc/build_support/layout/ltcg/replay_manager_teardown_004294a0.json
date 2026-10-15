@@ -107,7 +107,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "??1ReplayManagerNode_004296f0@@QAE@XZ",
+      "symbol": "??1ReplayManagerNode@@QAE@XZ",
       "address": "0x0042AC60",
       "kind": "data"
     },
@@ -149,14 +149,14 @@
   "anchors": [
     {
       "name": "ActualReplayPoolClear",
-      "symbol": "_ReplayPool_Clear_0042ab20@8",
+      "symbol": "_ReplayPool_Clear@8",
       "section": ".text$40release",
       "address": "0x0042AB20",
       "size": 93
     },
     {
       "name": "ActualSchedulerRemove",
-      "symbol": "?ManagerTeardownFuncCtrl_Remove_00449F60@@YGXPAUFuncCtrl@@PAUSchedulerTask@@@Z",
+      "symbol": "?ManagerTeardownFuncCtrl_Remove@@YGXPAUFuncCtrl@@PAUSchedulerTask@@@Z",
       "section": ".text$70remove",
       "address": "0x00449F60",
       "size": 114

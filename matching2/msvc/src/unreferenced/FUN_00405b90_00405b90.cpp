@@ -1,6 +1,6 @@
 // 0x00405B90..0x00405B94: signed 16-bit field accessor.
 // Native LTCG supplies the object pointer in EAX.
-struct ShortAccessor_00405b90 {
+struct ShortAccessor {
     unsigned char pad_000[8];
     short value;
 
@@ -8,7 +8,7 @@ struct ShortAccessor_00405b90 {
 };
 
 #pragma code_seg(".text$01target")
-short ShortAccessor_00405b90::Load() const {
+short ShortAccessor::Load() const {
     return value;
 }
 #pragma code_seg()

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "name": "front_script_tick_00415e90",
+  "name": "front_script_tick",
   "region": "asm_FUN_00415e90_00415e90",
   "sources": [
     "src/game/front/front_script_tick_unit.cpp"
@@ -140,7 +140,7 @@
       "address": "0x00470B64",
       "kind": "data"
     },
-    "?g_decoded_text_00497d40@@3PADA": {
+    "?g_decoded_text@@3PADA": {
       "address": "0x00497D40",
       "kind": "data"
     },
@@ -208,63 +208,63 @@
       "address": "0x00449ED0",
       "kind": "code"
     },
-    "_recovery_vsprintf_004524a6": {
+    "_recovery_vsprintf": {
       "address": "0x004524A6",
       "kind": "code"
     },
-    "_recovery_draw_shadowed_00437db0@24": {
+    "_recovery_draw_shadowed@24": {
       "address": "0x00437DB0",
       "kind": "code"
     },
-    "_recovery_draw_unshadowed_00437fe0@24": {
+    "_recovery_draw_unshadowed@24": {
       "address": "0x00437FE0",
       "kind": "code"
     },
-    "@FadeOutUpdate_0043bd40@4": {
+    "@FadeOutUpdate@4": {
       "address": "0x43bd40",
       "kind": "code"
     },
-    "@ViewportOverlayDraw_0043c1a0@4": {
+    "@ViewportOverlayDraw@4": {
       "address": "0x43c1a0",
       "kind": "code"
     },
-    "@FadeInUpdate_0043c230@4": {
+    "@FadeInUpdate@4": {
       "address": "0x43c230",
       "kind": "code"
     },
-    "@PlayfieldOverlayDraw_0043c2c0@4": {
+    "@PlayfieldOverlayDraw@4": {
       "address": "0x43c2c0",
       "kind": "code"
     },
-    "@HalfOpacityFadeUpdate_0043c310@4": {
+    "@HalfOpacityFadeUpdate@4": {
       "address": "0x43c310",
       "kind": "code"
     },
-    "@ScreenOverlayDraw_0043c3c0@4": {
+    "@ScreenOverlayDraw@4": {
       "address": "0x43c3c0",
       "kind": "code"
     },
-    "@PlayfieldHalfOpacityDraw_0043c410@4": {
+    "@PlayfieldHalfOpacityDraw@4": {
       "address": "0x43c410",
       "kind": "code"
     },
-    "@ColorPulseUpdate_0043c460@4": {
+    "@ColorPulseUpdate@4": {
       "address": "0x43c460",
       "kind": "code"
     },
-    "@ColorPulseDraw_0043c500@4": {
+    "@ColorPulseDraw@4": {
       "address": "0x43c500",
       "kind": "code"
     },
-    "@LinearShakeUpdate_0043c550@4": {
+    "@LinearShakeUpdate@4": {
       "address": "0x43c550",
       "kind": "code"
     },
-    "@EnvelopeShakeUpdate_0043c710@4": {
+    "@EnvelopeShakeUpdate@4": {
       "address": "0x43c710",
       "kind": "code"
     },
-    "@ScreenEffectRemove_0043c870@4": {
+    "@ScreenEffectRemove@4": {
       "address": "0x43c870",
       "kind": "code"
     },
@@ -284,11 +284,11 @@
       "address": "0x449870",
       "kind": "code"
     },
-    "_AnmVm_Run_0043ee30@4": {
+    "_AnmVm_Run@4": {
       "address": "0x0043EE30",
       "kind": "code"
     },
-    "_FrontFree_004524a1": {
+    "_FrontFree": {
       "address": "0x004524A1",
       "kind": "code"
     },
@@ -418,7 +418,7 @@
     "?g_music_requests@@3UAnimationManager_0043e460@@A": "0x00492590",
     "?g_frame_timer_normal_lower@@3MA": "0x00470B68",
     "?g_frame_timer_normal_upper@@3MA": "0x00470B64",
-    "?g_decoded_text_00497d40@@3PADA": "0x00497D40",
+    "?g_decoded_text@@3PADA": "0x00497D40",
     "?g_score_default_speed@@3MA": "0x00476F78",
     "?g_thread_synchronization@@3UThreadSynchronization@@A": "0x00492274",
     "__imp__EnterCriticalSection@4": "0x004660B0",
@@ -435,21 +435,21 @@
     "@__security_check_cookie@4": "0x00458EA5",
     "_memset": "0x0045BED0",
     "_SchedulerTask_Create@4": "0x00449ED0",
-    "_recovery_vsprintf_004524a6": "0x004524A6",
-    "_recovery_draw_shadowed_00437db0@24": "0x00437DB0",
-    "_recovery_draw_unshadowed_00437fe0@24": "0x00437FE0",
-    "@FadeOutUpdate_0043bd40@4": "0x43bd40",
-    "@ViewportOverlayDraw_0043c1a0@4": "0x43c1a0",
-    "@FadeInUpdate_0043c230@4": "0x43c230",
-    "@PlayfieldOverlayDraw_0043c2c0@4": "0x43c2c0",
-    "@HalfOpacityFadeUpdate_0043c310@4": "0x43c310",
-    "@ScreenOverlayDraw_0043c3c0@4": "0x43c3c0",
-    "@PlayfieldHalfOpacityDraw_0043c410@4": "0x43c410",
-    "@ColorPulseUpdate_0043c460@4": "0x43c460",
-    "@ColorPulseDraw_0043c500@4": "0x43c500",
-    "@LinearShakeUpdate_0043c550@4": "0x43c550",
-    "@EnvelopeShakeUpdate_0043c710@4": "0x43c710",
-    "@ScreenEffectRemove_0043c870@4": "0x43c870",
+    "_recovery_vsprintf": "0x004524A6",
+    "_recovery_draw_shadowed@24": "0x00437DB0",
+    "_recovery_draw_unshadowed@24": "0x00437FE0",
+    "@FadeOutUpdate@4": "0x43bd40",
+    "@ViewportOverlayDraw@4": "0x43c1a0",
+    "@FadeInUpdate@4": "0x43c230",
+    "@PlayfieldOverlayDraw@4": "0x43c2c0",
+    "@HalfOpacityFadeUpdate@4": "0x43c310",
+    "@ScreenOverlayDraw@4": "0x43c3c0",
+    "@PlayfieldHalfOpacityDraw@4": "0x43c410",
+    "@ColorPulseUpdate@4": "0x43c460",
+    "@ColorPulseDraw@4": "0x43c500",
+    "@LinearShakeUpdate@4": "0x43c550",
+    "@EnvelopeShakeUpdate@4": "0x43c710",
+    "@ScreenEffectRemove@4": "0x43c870",
     "??3@YAXPAX@Z": "0x004524A1",
     "__ftol2": "0x00463B2C",
     "__fltused": "0x0",
@@ -459,7 +459,7 @@
     "?OpenResult@PauseOpenState@@QAEXXZ": "0x00423370",
     "?Entity_Init@@YGXPAUEntity@@@Z": "0x401de0",
     "?Music_Load@@YGHHPBD@Z": "0x420a90",
-    "?BindToAnimation@SpriteRegion_00424480@@QAEHUAnimationHandle_00424480@@HHHH@Z": "0x424480",
+    "?BindToAnimation@SpriteRegion@@QAEHUAnimationHandle_00424480@@HHHH@Z": "0x424480",
     "?RegisterResource@AnimationManager_0043e460@@QAEPADPBDHH@Z": "0x43e460",
     "?RegisterSecondaryBack@AnimationListsOpen@@QAE?AUAnimationScriptId@@PAUEntity@@@Z": "0x448ac0",
     "?AnimationManager_Find@@YIPAXPAUAnimationLookupContext@@UAnimationScriptId@@@Z": "0x4491c0",
@@ -481,7 +481,7 @@
     "?Advance@FrameTimer@@QAEXM@Z": "0x0044BF40",
     "?Path_DecodeXor@@YGPADPBD@Z": "0x00417010",
     "?AddScore@ScoreState@@QAEXH@Z": "0x00409D90",
-    "?RecoveryDispatchText_004479d0@@YGXPAURecoveryTextResource_004479d0@@PAXHHIPBDH@Z": "0x004479D0",
+    "?RecoveryDispatchText_004479d0@@YGXPAURecoveryTextResource@@PAXHHIPBDH@Z": "0x004479D0",
     "?MarkText@RecoveryTextVm@@QAAXPAXZZ": "0x00447A50",
     "?Configure@Screen@@QAEXHHHHHH@Z": "0x0043C970",
     "?Screen_Create@@YGPAUScreen@@HHHHHH@Z": "0x0043C8B0",
@@ -493,8 +493,8 @@
     "?ConfigureObject@Resource_0043e5a0@@QAEHPAUAnimationObject_0043e5a0@@H@Z": "0x0043E5A0",
     "_ResultDispatcher_00415e90@4": "0x00415E90",
     "?InitializeObject@AnimationBank@@QAEXPAUEntity@@H@Z": "0x449870",
-    "_AnmVm_Run_0043ee30@4": "0x0043EE30",
-    "_FrontFree_004524a1": "0x004524A1",
+    "_AnmVm_Run@4": "0x0043EE30",
+    "_FrontFree": "0x004524A1",
     "_flt_0": "0x00470B04",
     "_flt_192": "0x00470B3C",
     "_flt_neg192": "0x00470B40",

@@ -87,7 +87,7 @@ extern float flt_0, flt_pi_2, flt_128, flt_0_03;
 extern float flt_2, flt_472, flt_12, flt_0_2;
 extern float flt_0_33333334, flt_144, flt_0_003289474, flt_5000;
 __declspec(noinline) void __stdcall ItemCollector_PowerChanged(ItemCollector* player);
-__declspec(noinline) int __stdcall ItemManager_UpdateItems(ItemSpawnManager_0041bb00* manager);
+__declspec(noinline) int __stdcall ItemManager_UpdateItems(ItemSpawnManager* manager);
 }
 __declspec(noinline) void** __stdcall ItemAnimation_CreatePrimaryBack(
     void* resource, void** output, int script, int layer);

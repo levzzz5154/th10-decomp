@@ -8,9 +8,9 @@
 #include "th10/render/anm_texture_00446c70.hpp"
 
 #pragma code_seg(".text$04upload")
-int __stdcall AnmTexture_CreateAndUpload_00446f40(AnmTexture_00446c70* texture, const AnmThtxHeader_00446c70* thtx, int format, int width, int height) {
+int __stdcall AnmTexture_CreateAndUpload(AnmTexture* texture, const AnmThtxHeader* thtx, int format, int width, int height) {
     int stored_format = format;
-    AnmSurface_00446c70* surface = 0;
+    AnmSurface* surface = 0;
     if (g_sound_flags & 1) {
         int d3d_format = g_texture_formats_a[format];
         if (d3d_format == 21 || d3d_format == 0)
@@ -18,7 +18,7 @@ int __stdcall AnmTexture_CreateAndUpload_00446f40(AnmTexture_00446c70* texture, 
         else if (d3d_format == 20)
             stored_format = 3;
     }
-    AnmRect_00446c70 rect;
+    AnmRect rect;
     rect.left = 0;
     rect.top = 0;
     rect.right = thtx->width;

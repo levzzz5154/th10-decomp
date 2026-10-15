@@ -4,7 +4,7 @@ extern "C" unsigned int (__stdcall *IatShutdownTimeEndPeriod)(unsigned int);
 extern "C" unsigned int (__stdcall *IatShutdownMidiOutReset)(void*);
 extern "C" unsigned int (__stdcall *IatShutdownMidiOutClose)(void*);
 #pragma code_seg(".text$18shutdown")
-extern "C" __declspec(noinline) int ShutdownMidi_0043ae20(MidiSequencer* manager) {
+extern "C" __declspec(noinline) int ShutdownMidi(MidiSequencer* manager) {
  if (!manager->tracks) return -1;
  midihdr_tag** slot=manager->midi_headers;
  int remaining=32;

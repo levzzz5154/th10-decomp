@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "text_append_0042a900",
-      "symbol": "?Append@LineBuffer_0042a900@@QAEHD@Z",
+      "symbol": "?Append@LineBuffer@@QAEHD@Z",
       "section": ".text$01accessor",
       "address": "0x0042A900",
       "size": 38,
@@ -17,7 +17,7 @@
     }
   ],
   "context": {
-    "symbol": "?Ctx@@YGHPAPAULineBuffer_0042a900@@PADH@Z",
+    "symbol": "?Ctx@@YGHPAPAULineBuffer@@PADH@Z",
     "section": ".text$03context",
     "address": "0x0042A940",
     "size": 49,

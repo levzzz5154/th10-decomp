@@ -12,7 +12,7 @@
   "functions": [
     {
       "name": "AnimationManagerIndexed_CopyRectToBackBuffer",
-      "symbol": "?CopyRectToBackBuffer@AnimationManagerIndexed_00447f70@@QAEXHHHHHHH@Z",
+      "symbol": "?CopyRectToBackBuffer@AnimationManagerIndexed@@QAEXHHHHHHH@Z",
       "section": ".text$02rect",
       "address": "0x00448120",
       "size": 325,
@@ -20,7 +20,7 @@
     },
     {
       "name": "AnimationTextureManager_CaptureBackBuffer",
-      "symbol": "?CaptureBackBuffer@AnimationTextureManager_00448270@@QAEXHHHHHHHHHH@Z",
+      "symbol": "?CaptureBackBuffer@AnimationTextureManager@@QAEXHHHHHHHHHH@Z",
       "section": ".text$03capture",
       "address": "0x00448270",
       "actual_abi": "manager ECX; resource EBX; entry EAX; eight stack arguments; RET 32",
@@ -28,7 +28,7 @@
     },
     {
       "name": "AnimationTextureManager_CopyTexture",
-      "symbol": "?CopyTexture@AnimationTextureManager_00448270@@QAEXHHHHPBUSurfaceRect_00447fd0@@0@Z",
+      "symbol": "?CopyTexture@AnimationTextureManager@@QAEXHHHHPBUSurfaceRect@@0@Z",
       "section": ".text$05copy",
       "address": "0x00448360",
       "actual_abi": "manager EDX; entries EAX and ECX; four stack arguments; RET 16",
@@ -36,7 +36,7 @@
     },
     {
       "name": "AnimationManagerIndexed_CaptureBackBufferImage",
-      "symbol": "?CaptureBackBufferImage@AnimationManagerIndexed_00447f70@@QAEXHHHHHHHHH@Z",
+      "symbol": "?CaptureBackBufferImage@AnimationManagerIndexed@@QAEXHHHHHHHHH@Z",
       "section": ".text$06image",
       "address": "0x00448450",
       "size": 379,
@@ -90,7 +90,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_LoadSurfaceCopy_004521d6@32",
+      "symbol": "_LoadSurfaceCopy@32",
       "address": "0x004521D6",
       "kind": "relative_code"
     },
@@ -100,7 +100,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_ReleaseHeapMemory_00452422",
+      "symbol": "_ReleaseHeapMemory",
       "address": "0x00452422",
       "kind": "relative_code"
     },
@@ -120,7 +120,7 @@
     },
     {
       "name": "clear",
-      "symbol": "?Clear@AnimationManagerIndexed_00447f70@@QAEXH@Z",
+      "symbol": "?Clear@AnimationManagerIndexed@@QAEXH@Z",
       "section": ".text$02clear",
       "address": "0x00447F70",
       "size": 87

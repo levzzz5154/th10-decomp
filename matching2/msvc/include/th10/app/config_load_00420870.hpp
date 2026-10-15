@@ -16,8 +16,8 @@ struct GameApp_00420870 {
     // back. Returns -1 when the file cannot be written.
     __declspec(noinline) int LoadConfig(const char* path);
 };
-typedef char GameAppConfigOffset_00420870[offsetof(GameApp_00420870, config) == 0x120 ? 1 : -1];
-typedef char GameAppVsyncOffset_00420870[offsetof(GameApp_00420870, no_vsync) == 0x3B4 ? 1 : -1];
+typedef char GameAppConfigOffset[offsetof(GameApp_00420870, config) == 0x120 ? 1 : -1];
+typedef char GameAppVsyncOffset[offsetof(GameApp_00420870, no_vsync) == 0x3B4 ? 1 : -1];
 
 // The 8 KiB diagnostic text log at 0x00474F70.
 struct TextLog_00420870 {

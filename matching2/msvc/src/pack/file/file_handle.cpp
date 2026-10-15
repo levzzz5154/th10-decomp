@@ -68,7 +68,7 @@ void* FileHandle::ReadWhole(DWORD capacity) {
     DWORD size = GetSize();
     if (size > capacity)
         return 0;
-    void* buffer = entry_malloc_00452706(size);
+    void* buffer = entry_malloc(size);
     if (buffer == 0)
         return 0;
     DWORD position = Tell();

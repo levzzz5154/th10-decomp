@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "H3301Stride9_00434bf0_GetValue",
-      "symbol": "?GetValue@H3301Stride9_00434bf0@@QBEHH@Z",
+      "symbol": "?GetValue@H3301Stride9@@QBEHH@Z",
       "section": ".text$01target",
       "address": "0x00434BF0",
       "size": 11,

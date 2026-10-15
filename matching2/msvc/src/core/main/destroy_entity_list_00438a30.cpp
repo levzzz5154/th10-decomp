@@ -10,7 +10,7 @@ struct Holder_00438a30 {
 };
 
 #pragma code_seg(".text$01accessor")
-__declspec(noinline) void __stdcall ReleaseAll_00438a30(Holder_00438a30* holder) {
+__declspec(noinline) void __stdcall ReleaseAll(Holder_00438a30* holder) {
     for (int i = 0; i < 32; ++i) {
         if (holder->interfaces[i]) {
             holder->interfaces[i]->Release();

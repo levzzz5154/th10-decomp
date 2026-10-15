@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "name": "legacy_string_duplicate_00435220",
+  "name": "legacy_string_duplicate",
   "source": "src/pack/arcmngr/legacy_string_duplicate_00435220.cpp",
   "driver": "build_support/layout/ltcg/legacy_string_duplicate_00435220_context.cpp",
   "headers": [],

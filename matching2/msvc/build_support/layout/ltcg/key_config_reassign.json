@@ -47,7 +47,7 @@
     },
     {
       "name": "Find",
-      "symbol": "?Find@KeyConfigAnimationManager_0042f8b0@@QAIPAXPAUKeyConfigLookupContext_0042f8b0@@UKeyConfigScriptId_0042f8b0@@@Z",
+      "symbol": "?Find@KeyConfigAnimationManager@@QAIPAXPAUKeyConfigLookupContext@@UKeyConfigScriptId@@@Z",
       "section": ".text$09find",
       "address": "0x4491c0",
       "size": 73

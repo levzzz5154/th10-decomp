@@ -1,6 +1,6 @@
 extern "C" float g_game_speed;
 
-struct PathState_00417800 {
+struct PathState {
     unsigned char unknown_00[0x40];
     int reset_value_40;
     int reset_value_44;
@@ -15,7 +15,7 @@ struct PathState_00417800 {
 };
 
 #pragma code_seg(".text$00417800_fn")
-int PathState_00417800::Reset() {
+int PathState::Reset() {
     if ((this->flags_50 & 1) == 0) {
         this->reset_value_44 = 0;
         this->reset_value_40 = -999999;

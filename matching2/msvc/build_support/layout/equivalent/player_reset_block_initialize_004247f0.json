@@ -14,15 +14,15 @@
       "address": "0x00497D40",
       "kind": "data"
     },
-    "_recovery_vsprintf_004524a6": {
+    "_recovery_vsprintf": {
       "address": "0x004524A6",
       "kind": "code"
     },
-    "_recovery_draw_shadowed_00437db0@24": {
+    "_recovery_draw_shadowed@24": {
       "address": "0x00437DB0",
       "kind": "code"
     },
-    "_recovery_draw_unshadowed_00437fe0@24": {
+    "_recovery_draw_unshadowed@24": {
       "address": "0x00437FE0",
       "kind": "code"
     },
@@ -306,7 +306,7 @@
       "address": "0x0049231F",
       "kind": "data"
     },
-    "@LoadCachedResource_00447280@12": {
+    "@LoadCachedResource@12": {
       "address": "0x00447280",
       "kind": "code"
     },
@@ -430,11 +430,11 @@
       "address": "0x004918A4",
       "kind": "data"
     },
-    "_recovery_script_empty_text_0046cfd4": {
+    "_recovery_script_empty_text": {
       "address": "0x0046CFD4",
       "kind": "data"
     },
-    "_recovery_script_special_music_0046cfc4": {
+    "_recovery_script_special_music": {
       "address": "0x0046CFC4",
       "kind": "data"
     },
@@ -446,23 +446,23 @@
       "address": "0x00470B64",
       "kind": "data"
     },
-    "_recovery_replace_extension_00420a90@8": {
+    "_recovery_replace_extension@8": {
       "address": "0x00420A90",
       "kind": "code"
     },
-    "_recovery_play_dummy_00420b10@8": {
+    "_recovery_play_dummy@8": {
       "address": "0x00420B10",
       "kind": "code"
     },
-    "_recovery_play_random_voice_00420c30@4": {
+    "_recovery_play_random_voice@4": {
       "address": "0x00420C30",
       "kind": "code"
     },
-    "_recovery_background_thread_0040c3a0@4": {
+    "_recovery_background_thread@4": {
       "address": "0x0040C3A0",
       "kind": "data"
     },
-    "_recovery_indicator_owner_00474c84": {
+    "_recovery_indicator_owner": {
       "address": "0x00474C84",
       "kind": "data"
     },
@@ -494,7 +494,7 @@
       "address": "0x00470CE4",
       "kind": "data"
     },
-    "_recovery_indicator_free_004524a1": {
+    "_recovery_indicator_free": {
       "address": "0x004524A1",
       "kind": "code"
     },
@@ -506,19 +506,19 @@
       "address": "0x00470B48",
       "kind": "data"
     },
-    "_recovery_music_repeat_00474e34": {
+    "_recovery_music_repeat": {
       "address": "0x00474E34",
       "kind": "data"
     },
-    "_recovery_music_player_0047783c": {
+    "_recovery_music_player": {
       "address": "0x0047783C",
       "kind": "data"
     },
-    "_recovery_music_mode_00491d78": {
+    "_recovery_music_mode": {
       "address": "0x00491D78",
       "kind": "data"
     },
-    "_recovery_music_preview_resource_00491fec": {
+    "_recovery_music_preview_resource": {
       "address": "0x00491FEC",
       "kind": "data"
     },
@@ -538,27 +538,27 @@
       "address": "0x00470C98",
       "kind": "data"
     },
-    "_recovery_music_defaults_00491c14": {
+    "_recovery_music_defaults": {
       "address": "0x00491C14",
       "kind": "data"
     },
-    "_recovery_music_locked_format_0046ecf4": {
+    "_recovery_music_locked_format": {
       "address": "0x0046ECF4",
       "kind": "data"
     },
-    "_recovery_music_comment_file_0046ed14": {
+    "_recovery_music_comment_file": {
       "address": "0x0046ED14",
       "kind": "data"
     },
-    "_recovery_music_dummy_0046df98": {
+    "_recovery_music_dummy": {
       "address": "0x0046DF98",
       "kind": "data"
     },
-    "_recovery_music_restore_bgm_0046f018": {
+    "_recovery_music_restore_bgm": {
       "address": "0x0046F018",
       "kind": "data"
     },
-    "_recovery_music_preview_table_00476fd8": {
+    "_recovery_music_preview_table": {
       "address": "0x00476FD8",
       "kind": "data"
     },
@@ -566,7 +566,7 @@
       "address": "0x00470AFC",
       "kind": "data"
     },
-    "?TitleDispatchGame_00420c00@@YGXXZ": {
+    "?TitleDispatchGame@@YGXXZ": {
       "address": "0x00420C00",
       "kind": "code"
     },
@@ -574,15 +574,15 @@
       "address": "0x00491FF4",
       "kind": "data"
     },
-    "?TitlePlayMusic_00420b10@@YGXHH@Z": {
+    "?TitlePlayMusic@@YGXHH@Z": {
       "address": "0x00420B10",
       "kind": "code"
     },
-    "?TitleSetMusicFile_00420a90@@YGXHPBD@Z": {
+    "?TitleSetMusicFile@@YGXHPBD@Z": {
       "address": "0x00420A90",
       "kind": "code"
     },
-    "?TitleReleaseDemo_004294a0@@YGXPAUDemoFile@@@Z": {
+    "?TitleReleaseDemo@@YGXPAUDemoFile@@@Z": {
       "address": "0x004294A0",
       "kind": "code"
     },
@@ -610,7 +610,7 @@
       "address": "0x00474C7C",
       "kind": "data"
     },
-    "?TitleLoadDemo_004296f0@@YGPAUDemoFile@@PBD@Z": {
+    "?TitleLoadDemo@@YGPAUDemoFile@@PBD@Z": {
       "address": "0x004296F0",
       "kind": "code"
     },
@@ -654,7 +654,7 @@
       "address": "0x00466280",
       "kind": "data"
     },
-    "?TitleMenuFlow_0042f540@@YGHPAUTitle@@@Z": {
+    "?TitleMenuFlow@@YGHPAUTitle@@@Z": {
       "address": "0x0042F540",
       "kind": "code"
     },
@@ -738,11 +738,11 @@
       "address": "0x00458EA5",
       "kind": "code"
     },
-    "?ReplayFile_Open_004296f0@@YGPAUReplayFile_004315c0@@PBD@Z": {
+    "?ReplayFile_Open@@YGPAUReplayFile_004315c0@@PBD@Z": {
       "address": "0x004296F0",
       "kind": "code"
     },
-    "?ReplayFile_Destroy_004294a0@@YGXPAUReplayFile_004315c0@@@Z": {
+    "?ReplayFile_Destroy@@YGXPAUReplayFile_004315c0@@@Z": {
       "address": "0x004294A0",
       "kind": "code"
     },
@@ -750,7 +750,7 @@
       "address": "0x00452B71",
       "kind": "code"
     },
-    "?ReplayFile_Save_00429b60@@YIXPAUReplayFile_004315c0@@PBD1@Z": {
+    "?ReplayFile_Save@@YIXPAUReplayFile_004315c0@@PBD1@Z": {
       "address": "0x00429B60",
       "kind": "code"
     },
@@ -770,7 +770,7 @@
       "address": "0x004746D8",
       "kind": "data"
     },
-    "?TitleMode16_00433570@@YGHPAUTitle@@@Z": {
+    "?TitleMode16@@YGHPAUTitle@@@Z": {
       "address": "0x00433570",
       "kind": "code"
     },
@@ -822,7 +822,7 @@
       "address": "0x0046CFD4",
       "kind": "data"
     },
-    "_application_state_00491c00": {
+    "_application_state": {
       "address": "0x00491C00",
       "kind": "data"
     },
@@ -1226,6 +1226,6 @@
   ],
   "note": "reference/recovery_notes/player_reset_block_initialize_004247f0_equivalent_2026_10_12.md",
   "roots": [
-    "_SelectionStateRef_00474c68@0"
+    "_SelectionStateRef@0"
   ]
 }

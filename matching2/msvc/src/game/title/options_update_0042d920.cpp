@@ -12,7 +12,7 @@
 //
 // The room is a stack argument; the handler is linked with the title
 // dispatcher and the real bodies of its leaves
-// (build_support/layout/ltcg/difficulty_select_update_00430320.json).
+// (build_support/layout/ltcg/difficulty_select_update.json).
 #include "th10/game/options_update_0042d920.hpp"
 
 // Select an item, clamped to the last one when the menu has items.
@@ -27,42 +27,42 @@ static __forceinline void SelectItem_0042d920(MenuCursor& cursor, int index) {
 // manager already loaded).
 static __forceinline AnimationRef_004497d0 FindChild_0042d920(
         RecoveryLookupContext* manager, RecoveryScriptId* slot, int script) {
-    LabelParent_0042d920* parent = static_cast<LabelParent_0042d920*>(
-        reinterpret_cast<RecoveryLookup_0040bd80*>(manager)->Find(manager, *slot));
+    LabelParent* parent = static_cast<LabelParent*>(
+        reinterpret_cast<RecoveryLookup*>(manager)->Find(manager, *slot));
     if (parent == 0)
         slot->value = 0;
-    for (LabelLink_0042d920* link = &parent->children; link != 0; link = link->next)
+    for (LabelLink* link = &parent->children; link != 0; link = link->next)
         if (link->object->script == script)
             return AnimationRef_004497d0(link->object->id);
     return AnimationRef_004497d0(0);
 }
 
 // Show a sprite on the child animation `script` of the options slot.
-static __forceinline void ShowLabel_0042d920(
+static __forceinline void ShowLabel(
         RecoveryLookupContext* manager, Title* room, int script, int sprite) {
     AnimationRef_004497d0 child = FindChild_0042d920(
         manager, reinterpret_cast<RecoveryScriptId*>(&room->animation_slots[1]), script);
-    reinterpret_cast<SpriteHandle_00449670*>(&child)->SelectSprite(sprite);
+    reinterpret_cast<SpriteHandle*>(&child)->SelectSprite(sprite);
 }
 
 // Show the two labels of the current screen mode.
-static __forceinline void ShowModeLabels_0042d920(
+static __forceinline void ShowModeLabels(
         RecoveryLookupContext* manager, Title* room) {
     if (g_key_bindings.screen_mode == 0) {
-        ShowLabel_0042d920(manager, room, 0x1f, 0x2e);
-        ShowLabel_0042d920(manager, room, 0x20, 0x2f);
+        ShowLabel(manager, room, 0x1f, 0x2e);
+        ShowLabel(manager, room, 0x20, 0x2f);
     } else if (g_key_bindings.screen_mode == 1) {
-        ShowLabel_0042d920(manager, room, 0x1f, 0x30);
-        ShowLabel_0042d920(manager, room, 0x20, 0x31);
+        ShowLabel(manager, room, 0x1f, 0x30);
+        ShowLabel(manager, room, 0x20, 0x31);
     } else {
-        ShowLabel_0042d920(manager, room, 0x1f, 0x2c);
-        ShowLabel_0042d920(manager, room, 0x20, 0x2d);
+        ShowLabel(manager, room, 0x1f, 0x2c);
+        ShowLabel(manager, room, 0x20, 0x2d);
     }
 }
 
-static __forceinline void ShowScreenMode_0042d920(Title* room) {
+static __forceinline void ShowScreenMode(Title* room) {
     RecoveryLookupContext* manager = reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl);
-    ShowModeLabels_0042d920(manager, room);
+    ShowModeLabels(manager, room);
 }
 
 // Restart the cursor animation of slot 1.
@@ -73,7 +73,7 @@ static __forceinline void RunCursorSlot_0042d920(Title* room) {
 }
 
 #pragma code_seg(".text$0042d920_fn")
-__declspec(noinline) int __stdcall TitleOptions_0042d920(Title* room) {
+__declspec(noinline) int __stdcall TitleOptions(Title* room) {
     switch (room->phase) {
     case 0:
         room->cursor.item_count = 6;
@@ -85,7 +85,7 @@ __declspec(noinline) int __stdcall TitleOptions_0042d920(Title* room) {
         if (room->timer.current > 6) {
             room->SetTimerTarget(2);
             RunCursorSlot_0042d920(room);
-            ShowScreenMode_0042d920(room);
+            ShowScreenMode(room);
             room->SetSlotFrame(1, room->cursor.selection + 0x11);
         }
         break;
@@ -95,7 +95,7 @@ __declspec(noinline) int __stdcall TitleOptions_0042d920(Title* room) {
         if ((short)g_input_keys_raw.InputMaskActive(0x10)) cursor->Advance(-1);
         if ((short)g_input_keys_raw.InputMaskActive(0x20)) cursor->Advance(1);
         if (cursor->previous_selection != cursor->selection) {
-            application_state_00491c00.sound.Queue(12, 0);
+            application_state.sound.Queue(12, 0);
             RunCursorSlot_0042d920(room);
             room->SetSlotFrame(1, room->cursor.selection + 7);
         }
@@ -105,10 +105,10 @@ __declspec(noinline) int __stdcall TitleOptions_0042d920(Title* room) {
         cancel:
             if (room->cursor.selection == 5) {
                 room->SetSlotFrame(1, 6);
-                application_state_00491c00.sound.Queue(11, 0);
+                application_state.sound.Queue(11, 0);
                 room->SetTimerTarget(4);
             } else {
-                application_state_00491c00.sound.Queue(11, 0);
+                application_state.sound.Queue(11, 0);
                 SelectItem_0042d920(room->cursor, 5);
                 reinterpret_cast<TitleAnimationSlotView*>(room)->RestartSlot(1);
                 room->SetSlotFrame(1, room->cursor.selection + 7);
@@ -117,7 +117,7 @@ __declspec(noinline) int __stdcall TitleOptions_0042d920(Title* room) {
             // The test sound of the sound volume item.
             if (room->cursor.selection == 2
                     && reinterpret_cast<FrameCounterPair*>(&room->timer)->AtInterval(60))
-                application_state_00491c00.sound.Queue(4, 0);
+                application_state.sound.Queue(4, 0);
             RecoveryLookupContext* manager;
             if ((short)g_input_keys_raw.InputMaskActive(0x40)) {
                 manager = reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl);
@@ -127,8 +127,8 @@ __declspec(noinline) int __stdcall TitleOptions_0042d920(Title* room) {
                         --g_key_bindings.screen_mode;
                     else
                         g_key_bindings.screen_mode = 2;
-                    ShowModeLabels_0042d920(manager, room);
-                    application_state_00491c00.sound.Queue(12, 0);
+                    ShowModeLabels(manager, room);
+                    application_state.sound.Queue(12, 0);
                     break;
                 case 1:
                     // Both paths converge on the label refresh; MSVC's LTCG tail-duplicates
@@ -163,8 +163,8 @@ __declspec(noinline) int __stdcall TitleOptions_0042d920(Title* room) {
                         ++g_key_bindings.screen_mode;
                     else
                         g_key_bindings.screen_mode = 0;
-                    application_state_00491c00.sound.Queue(12, 0);
-                    ShowModeLabels_0042d920(manager, room);
+                    application_state.sound.Queue(12, 0);
+                    ShowModeLabels(manager, room);
                     break;
                 case 1:
                     g_key_bindings.music_volume += 5;
@@ -184,7 +184,7 @@ __declspec(noinline) int __stdcall TitleOptions_0042d920(Title* room) {
                 switch (room->cursor.selection) {
                 case 5:
                     room->SetSlotFrame(1, 6);
-                    application_state_00491c00.sound.Queue(11, 0);
+                    application_state.sound.Queue(11, 0);
                     room->SetTimerTarget(4);
                     break;
                 case 4:
@@ -192,12 +192,12 @@ __declspec(noinline) int __stdcall TitleOptions_0042d920(Title* room) {
                     g_key_bindings.sound_volume = 80;
                     g_key_bindings.screen_mode = 0;
                     RefreshOptions_0042e5a0(room);
-                    ShowModeLabels_0042d920(manager, room);
-                    application_state_00491c00.sound.Queue(10, 0);
+                    ShowModeLabels(manager, room);
+                    application_state.sound.Queue(10, 0);
                     break;
                 case 3:
                     room->SetSlotFrame(1, 6);
-                    application_state_00491c00.sound.Queue(10, 0);
+                    application_state.sound.Queue(10, 0);
                     room->SetTimerTarget(4);
                     break;
                 }

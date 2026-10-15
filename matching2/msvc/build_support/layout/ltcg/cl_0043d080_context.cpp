@@ -16,7 +16,7 @@ typedef void (__cdecl* ThreadRoutine)();
 #pragma code_seg(".text$90context")
 int __stdcall SoundPreloadContext_0043d080(ThreadRoutine* routine) {
     // The worker is only started through its address.
-    *routine = Sound_PreloadWorker_0043d080;
+    *routine = Sound_PreloadWorker;
     return 0;
 }
 #pragma code_seg()

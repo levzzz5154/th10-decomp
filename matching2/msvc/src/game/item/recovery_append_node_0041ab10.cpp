@@ -1,15 +1,15 @@
 #include <stddef.h>
 
-struct RecoveryNode_0041ab10 {
+struct RecoveryNode {
     unsigned int reserved_000;
-    RecoveryNode_0041ab10* next_004;
-    RecoveryNode_0041ab10* prev_008;
-    __declspec(noinline) void Append(RecoveryNode_0041ab10* node);
+    RecoveryNode* next_004;
+    RecoveryNode* prev_008;
+    __declspec(noinline) void Append(RecoveryNode* node);
 };
 
 #pragma code_seg(".text$01accessor")
-void RecoveryNode_0041ab10::Append(RecoveryNode_0041ab10* node) {
-    RecoveryNode_0041ab10* tail = this;
+void RecoveryNode::Append(RecoveryNode* node) {
+    RecoveryNode* tail = this;
     while (tail->next_004 != 0)
         tail = tail->next_004;
     if (tail->next_004 != 0) {

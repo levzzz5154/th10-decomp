@@ -1,18 +1,18 @@
 // 0x0042C8C0: mark every stage of every character and difficulty as reached.
 #include <string.h>
 #pragma pack(push, 1)
-struct StageRecord_0042c8c0 {
+struct StageRecord {
     unsigned char reached;
     unsigned char unknown[7];
 };
-struct CharacterProgress_0042c8c0 {
-    StageRecord_0042c8c0 stages[4][6];
-    unsigned char unknown[0x437C - sizeof(StageRecord_0042c8c0) * 4 * 6];
+struct CharacterProgress {
+    StageRecord stages[4][6];
+    unsigned char unknown[0x437C - sizeof(StageRecord) * 4 * 6];
 };
 struct GameProgress_0042c8c0 {
     unsigned char unknown_00000[0x4E9];
-    CharacterProgress_0042c8c0 characters[6];
-    unsigned char unknown_1a1d1[0x1D882 - 0x4E9 - sizeof(CharacterProgress_0042c8c0) * 6];
+    CharacterProgress characters[6];
+    unsigned char unknown_1a1d1[0x1D882 - 0x4E9 - sizeof(CharacterProgress) * 6];
     unsigned char unlocked[4][4];
 };
 #pragma pack(pop)

@@ -59,63 +59,63 @@
     },
     {
       "name": "RecoveryLookup_Find",
-      "symbol": "?Find@RecoveryLookup_0040bd80@@QAIPAXPAURecoveryLookupContext@@URecoveryScriptId@@@Z",
+      "symbol": "?Find@RecoveryLookup@@QAIPAXPAURecoveryLookupContext@@URecoveryScriptId@@@Z",
       "section": ".text$004491c0_fn",
       "address": "0x004491C0",
       "size": 73
     },
     {
       "name": "RecoveryLookup_SetFlag",
-      "symbol": "?SetFlag@RecoveryLookup_0040bd80@@QAIPAXPAURecoveryLookupContext@@H@Z",
+      "symbol": "?SetFlag@RecoveryLookup@@QAIPAXPAURecoveryLookupContext@@H@Z",
       "section": ".text$004492a0_fn",
       "address": "0x004492A0",
       "size": 66
     },
     {
       "name": "RecoveryLookup_Validate",
-      "symbol": "?Validate@RecoveryLookup_0040bd80@@QAAPAXPAURecoveryHandle_0040bd80@@@Z",
+      "symbol": "?Validate@RecoveryLookup@@QAAPAXPAURecoveryHandle@@@Z",
       "section": ".text$00449450_fn",
       "address": "0x00449450",
       "size": 21
     },
     {
       "name": "RecoveryHandle_Stop2",
-      "symbol": "?StopAtFrame2@RecoveryHandle_0040bd80@@QAEXXZ",
+      "symbol": "?StopAtFrame2@RecoveryHandle@@QAEXXZ",
       "section": ".text$0040c480_fn",
       "address": "0x0040C480",
       "size": 65
     },
     {
       "name": "RecoveryHandle_Stop3",
-      "symbol": "?StopAtFrame3@RecoveryHandle_0040bd80@@QAEXXZ",
+      "symbol": "?StopAtFrame3@RecoveryHandle@@QAEXXZ",
       "section": ".text$0040c4d0_fn",
       "address": "0x0040C4D0",
       "size": 65
     },
     {
       "name": "RecoveryHandle_Remove",
-      "symbol": "?MarkForRemoval@RecoveryHandle_0040bd80@@QAEXXZ",
+      "symbol": "?MarkForRemoval@RecoveryHandle@@QAEXXZ",
       "section": ".text$00449630_fn",
       "address": "0x00449630",
       "size": 21
     },
     {
-      "name": "RecoveryDecodePath_00417010",
-      "symbol": "?RecoveryDecodePath_00417010@@YGPADPBE@Z",
+      "name": "RecoveryDecodePath",
+      "symbol": "?RecoveryDecodePath@@YGPADPBE@Z",
       "section": ".text$00417010_fn",
       "address": "0x00417010",
       "size": 41
     },
     {
-      "name": "RecoveryAscii_Create_0043c8b0",
-      "symbol": "_RecoveryAscii_Create_0043c8b0@24",
+      "name": "RecoveryAscii_Create",
+      "symbol": "_RecoveryAscii_Create@24",
       "section": ".text$0043c8b0_fn",
       "address": "0x0043C8B0",
       "size": 88
     },
     {
-      "name": "RecoveryAscii_Register_0043c970",
-      "symbol": "_RecoveryAscii_Register_0043c970@28",
+      "name": "RecoveryAscii_Register",
+      "symbol": "_RecoveryAscii_Register@28",
       "section": ".text$0043c970_fn",
       "address": "0x0043C970",
       "size": 396
@@ -185,7 +185,7 @@
     },
     {
       "name": "FullHelper_00448d00",
-      "symbol": "?AnimationManager_CreatePrimaryBack_00448d00@@YGPAPAXPAXPAPAXHH@Z",
+      "symbol": "?AnimationManager_CreatePrimaryBack@@YGPAPAXPAXPAPAXHH@Z",
       "section": ".text$00448d00_fn",
       "address": "0x00448D00",
       "size": 73
@@ -241,28 +241,28 @@
     },
     {
       "name": "AnmPositionedCreate",
-      "symbol": "?AnimationManager_CreatePositionedPrimary_00448d50@@YGPAPAXPAXPAPAXHPBUAnimationPosition_00448d50@@@Z",
+      "symbol": "?AnimationManager_CreatePositionedPrimary@@YGPAPAXPAXPAPAXHPBUAnimationPosition_00448d50@@@Z",
       "section": ".text$00448d50_fn",
       "address": "0x00448D50",
       "size": 95
     },
     {
-      "name": "RecoveryPlayerAnimationCreate_00448db0",
-      "symbol": "?RecoveryPlayerAnimationCreate_00448db0@@YGPAPAXPAXPAPAXHPBUHintPosition_00419120@@@Z",
+      "name": "RecoveryPlayerAnimationCreate",
+      "symbol": "?RecoveryPlayerAnimationCreate@@YGPAPAXPAXPAPAXHPBUHintPosition@@@Z",
       "section": ".text$00448db0_fn",
       "address": "0x00448DB0",
       "size": 118
     },
     {
       "name": "Initialise",
-      "symbol": "?Initialise@EntityMovementSlot_0041ab70@@QAEXPBUMovementPair_0041ab70@@0HE@Z",
+      "symbol": "?Initialise@EntityMovementSlot@@QAEXPBUMovementPair@@0HE@Z",
       "section": ".text$0041ab70_fn",
       "address": "0x0041AB70",
       "size": 136
     },
     {
-      "name": "RecoveryMusicStopHandle_00409e50",
-      "symbol": "?RecoveryMusicStopHandle_00409e50@@YGXPAURecoveryHandle_0040bd80@@@Z",
+      "name": "RecoveryMusicStopHandle",
+      "symbol": "?RecoveryMusicStopHandle@@YGXPAURecoveryHandle@@@Z",
       "section": ".text$00409e50_fn",
       "address": "0x00409E50",
       "size": 65
@@ -304,14 +304,14 @@
     },
     {
       "name": "RecoveryMusicVm_InitializeTransition",
-      "symbol": "?InitializeTransition@RecoveryMusicVm@@QAEXPBURecoveryMusicVector_00433ef0@@0HE@Z",
+      "symbol": "?InitializeTransition@RecoveryMusicVm@@QAEXPBURecoveryMusicVector@@0HE@Z",
       "section": ".text$00434a80_fn",
       "address": "0x00434A80",
       "size": 206
     },
     {
       "name": "RecoveryMusicResourceQueue_RegisterResource",
-      "symbol": "?RegisterResource@RecoveryMusicResourceQueue_0043e460@@QAEPADPBDHH@Z",
+      "symbol": "?RegisterResource@RecoveryMusicResourceQueue@@QAEPADPBDHH@Z",
       "section": ".text$0043e460_fn",
       "address": "0x0043E460",
       "size": 76
@@ -339,7 +339,7 @@
     },
     {
       "name": "HintLink_Drain",
-      "symbol": "?Drain@HintLink_00419120@@QAEHPAUHintUpdateView@@H@Z",
+      "symbol": "?Drain@HintLink@@QAEHPAUHintUpdateView@@H@Z",
       "section": ".text$00419120_fn",
       "address": "0x00419120",
       "size": 1343
@@ -367,7 +367,7 @@
     },
     {
       "name": "RecoveryDispatchText_004479d0",
-      "symbol": "?RecoveryDispatchText_004479d0@@YGXPAURecoveryTextResource_004479d0@@PAXHHIPBDH@Z",
+      "symbol": "?RecoveryDispatchText_004479d0@@YGXPAURecoveryTextResource@@PAXHHIPBDH@Z",
       "section": ".text$004479d0_fn",
       "address": "0x004479D0",
       "size": 127
@@ -654,17 +654,17 @@
       "kind": "data"
     },
     {
-      "symbol": "_recovery_vsprintf_004524a6",
+      "symbol": "_recovery_vsprintf",
       "address": "0x004524A6",
       "kind": "relative_code"
     },
     {
-      "symbol": "_recovery_draw_shadowed_00437db0@24",
+      "symbol": "_recovery_draw_shadowed@24",
       "address": "0x00437DB0",
       "kind": "relative_code"
     },
     {
-      "symbol": "_recovery_draw_unshadowed_00437fe0@24",
+      "symbol": "_recovery_draw_unshadowed@24",
       "address": "0x00437FE0",
       "kind": "relative_code"
     },
@@ -1029,7 +1029,7 @@
       "kind": "data"
     },
     {
-      "symbol": "@LoadCachedResource_00447280@12",
+      "symbol": "@LoadCachedResource@12",
       "address": "0x00447280",
       "kind": "relative_code"
     },
@@ -1184,12 +1184,12 @@
       "kind": "data"
     },
     {
-      "symbol": "_recovery_script_empty_text_0046cfd4",
+      "symbol": "_recovery_script_empty_text",
       "address": "0x0046CFD4",
       "kind": "data"
     },
     {
-      "symbol": "_recovery_script_special_music_0046cfc4",
+      "symbol": "_recovery_script_special_music",
       "address": "0x0046CFC4",
       "kind": "data"
     },
@@ -1204,27 +1204,27 @@
       "kind": "data"
     },
     {
-      "symbol": "_recovery_replace_extension_00420a90@8",
+      "symbol": "_recovery_replace_extension@8",
       "address": "0x00420A90",
       "kind": "relative_code"
     },
     {
-      "symbol": "_recovery_play_dummy_00420b10@8",
+      "symbol": "_recovery_play_dummy@8",
       "address": "0x00420B10",
       "kind": "relative_code"
     },
     {
-      "symbol": "_recovery_play_random_voice_00420c30@4",
+      "symbol": "_recovery_play_random_voice@4",
       "address": "0x00420C30",
       "kind": "relative_code"
     },
     {
-      "symbol": "_recovery_background_thread_0040c3a0@4",
+      "symbol": "_recovery_background_thread@4",
       "address": "0x0040C3A0",
       "kind": "data"
     },
     {
-      "symbol": "_recovery_indicator_owner_00474c84",
+      "symbol": "_recovery_indicator_owner",
       "address": "0x00474C84",
       "kind": "data"
     },
@@ -1264,7 +1264,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_recovery_indicator_free_004524a1",
+      "symbol": "_recovery_indicator_free",
       "address": "0x004524A1",
       "kind": "relative_code"
     },
@@ -1279,22 +1279,22 @@
       "kind": "data"
     },
     {
-      "symbol": "_recovery_music_repeat_00474e34",
+      "symbol": "_recovery_music_repeat",
       "address": "0x00474E34",
       "kind": "data"
     },
     {
-      "symbol": "_recovery_music_player_0047783c",
+      "symbol": "_recovery_music_player",
       "address": "0x0047783C",
       "kind": "data"
     },
     {
-      "symbol": "_recovery_music_mode_00491d78",
+      "symbol": "_recovery_music_mode",
       "address": "0x00491D78",
       "kind": "data"
     },
     {
-      "symbol": "_recovery_music_preview_resource_00491fec",
+      "symbol": "_recovery_music_preview_resource",
       "address": "0x00491FEC",
       "kind": "data"
     },
@@ -1319,32 +1319,32 @@
       "kind": "data"
     },
     {
-      "symbol": "_recovery_music_defaults_00491c14",
+      "symbol": "_recovery_music_defaults",
       "address": "0x00491C14",
       "kind": "data"
     },
     {
-      "symbol": "_recovery_music_locked_format_0046ecf4",
+      "symbol": "_recovery_music_locked_format",
       "address": "0x0046ECF4",
       "kind": "data"
     },
     {
-      "symbol": "_recovery_music_comment_file_0046ed14",
+      "symbol": "_recovery_music_comment_file",
       "address": "0x0046ED14",
       "kind": "data"
     },
     {
-      "symbol": "_recovery_music_dummy_0046df98",
+      "symbol": "_recovery_music_dummy",
       "address": "0x0046DF98",
       "kind": "data"
     },
     {
-      "symbol": "_recovery_music_restore_bgm_0046f018",
+      "symbol": "_recovery_music_restore_bgm",
       "address": "0x0046F018",
       "kind": "data"
     },
     {
-      "symbol": "_recovery_music_preview_table_00476fd8",
+      "symbol": "_recovery_music_preview_table",
       "address": "0x00476FD8",
       "kind": "data"
     }

@@ -1,7 +1,7 @@
 // Complete 0x00422AB0 pause-state initializer with its actual one-stack-input boundary.
 #include "th10/game/pause_initializer_00422ab0.hpp"
 #pragma code_seg(".text$06pause")
-extern "C" __declspec(noinline) void __stdcall PauseMenu_Initialize_00422ab0(PauseUpdateView* state) {
+extern "C" __declspec(noinline) void __stdcall PauseMenu_Initialize(PauseUpdateView* state) {
     unsigned int& phase = state->phase;
     phase = 1;
     if (!(state->timer_flags & 1)) {
@@ -27,7 +27,7 @@ extern "C" __declspec(noinline) void __stdcall PauseMenu_Initialize_00422ab0(Pau
     state->cursor_animation = handle;
     AnimationHandle_00424480 descriptor_handle;
     descriptor_handle.value = handle.value;
-    reinterpret_cast<SpriteRegion_00424480*>(manager)->BindToAnimation(descriptor_handle, 32, 16, 384, 448);
+    reinterpret_cast<SpriteRegion*>(manager)->BindToAnimation(descriptor_handle, 32, 16, 384, 448);
     AnimationBank* second_resource = g_front->resource;
     state->resource = second_resource;
     Entity* second = reinterpret_cast<AnimationPool*>(manager)->Allocate();

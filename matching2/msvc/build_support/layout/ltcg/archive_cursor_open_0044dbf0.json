@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "archive_cursor_open_0044dbf0",
-      "symbol": "?OpenCursor_0044dbf0@@YGJPAUArchiveCursor_0044dbf0@@HPBDPAUArchiveEntry_0044dbf0@@@Z",
+      "symbol": "?OpenCursor@@YGJPAUArchiveCursor_0044dbf0@@HPBDPAUArchiveEntry_0044dbf0@@@Z",
       "section": ".text$01accessor",
       "address": "0x0044DBF0",
       "size": 173,

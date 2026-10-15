@@ -1,26 +1,26 @@
 #include <string.h>
 #include "../../../include/contexts/game/right_aligned_text_context/recovery_script_executor_0040bd80.hpp"
 extern "C" void* g_sprt_ctrl;
-extern "C" RecoveryScriptOwner_0040bd80* g_ending;
+extern "C" RecoveryScriptOwner* g_ending;
 extern "C" GameThread_0040c540* g_ascii_manager;
 extern "C" unsigned int g_input_keys_raw;
 extern "C" unsigned int g_input_keys_held;
 extern "C" int g_globals_difficulty;
 extern "C" unsigned int g_screen_effects_frozen;
-extern "C" const char recovery_script_empty_text_0046cfd4[];
-extern "C" const char recovery_script_special_music_0046cfc4[];
+extern "C" const char recovery_script_empty_text[];
+extern "C" const char recovery_script_special_music[];
 extern float g_frame_timer_normal_lower;
 extern float g_frame_timer_normal_upper;
-extern "C" int __stdcall recovery_replace_extension_00420a90(int selector, const char* path);
-extern "C" int __stdcall recovery_play_dummy_00420b10(int selector, int slot);
-extern "C" int __stdcall recovery_play_random_voice_00420c30(float fade);
-extern "C" unsigned int __stdcall recovery_background_thread_0040c3a0(void* state);
+extern "C" int __stdcall recovery_replace_extension(int selector, const char* path);
+extern "C" int __stdcall recovery_play_dummy(int selector, int slot);
+extern "C" int __stdcall recovery_play_random_voice(float fade);
+extern "C" unsigned int __stdcall recovery_background_thread(void* state);
 
-static __forceinline RecoveryCommand_0040bd80* NextRecoveryCommand(RecoveryCommand_0040bd80* command) {
-    return reinterpret_cast<RecoveryCommand_0040bd80*>(reinterpret_cast<unsigned char*>(command) + command->argument_bytes + 4);
+static __forceinline RecoveryCommand* NextRecoveryCommand(RecoveryCommand* command) {
+    return reinterpret_cast<RecoveryCommand*>(reinterpret_cast<unsigned char*>(command) + command->argument_bytes + 4);
 }
 #pragma code_seg(".text$0040bd80_fn")
-extern "C" __declspec(noinline) int __stdcall RecoveryScript_Execute_0040bd80(RecoveryScriptState_0040bd80* state) {
+extern "C" __declspec(noinline) int __stdcall RecoveryScript_Execute_0040bd80(RecoveryScriptState* state) {
     const unsigned int flags = state->flags;
     if (flags & 4u)
         return 0;
@@ -29,34 +29,34 @@ extern "C" __declspec(noinline) int __stdcall RecoveryScript_Execute_0040bd80(Re
         state->command_timer.Set(state->command->frame);
 
     while (state->command->frame <= state->command_timer.current) {
-        RecoveryCommand_0040bd80* command = state->command;
+        RecoveryCommand* command = state->command;
         switch (command->opcode) {
         case 0:
             return -1;
         case 3:
             if (state->text_ring_position == 0) {
-                RecoveryHandle_0040bd80* handle = state->text_handles;
+                RecoveryHandle* handle = state->text_handles;
                 for (int remaining = 5; remaining != 0; --remaining, ++handle) {
-                    RecoveryLookup_0040bd80* manager = reinterpret_cast<RecoveryLookup_0040bd80*>(g_sprt_ctrl);
+                    RecoveryLookup* manager = reinterpret_cast<RecoveryLookup*>(g_sprt_ctrl);
                     RecoveryScriptId id = { static_cast<int>(handle->value) };
                     RecoveryTextVm* object = static_cast<RecoveryTextVm*>(manager->Find(reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl), id));
                     if (object == 0)
                         handle->value = 0;
-                    object->MarkText(g_sprt_ctrl, 0xFFFFFFu, recovery_script_empty_text_0046cfd4);
+                    object->MarkText(g_sprt_ctrl, 0xFFFFFFu, recovery_script_empty_text);
                     handle->StopAtFrame3();
                 }
-                RecoveryLookup_0040bd80* manager = reinterpret_cast<RecoveryLookup_0040bd80*>(g_sprt_ctrl);
+                RecoveryLookup* manager = reinterpret_cast<RecoveryLookup*>(g_sprt_ctrl);
                 RecoveryScriptId id = { static_cast<int>(state->text_handles[0].value) };
                 RecoveryTextVm* object = static_cast<RecoveryTextVm*>(manager->Find(reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl), id));
                 if (object == 0)
                     state->text_handles[0].value = 0;
-                const char* text = RecoveryDecodePath_00417010(reinterpret_cast<const unsigned char*>(state->command) + 4);
+                const char* text = RecoveryDecodePath(reinterpret_cast<const unsigned char*>(state->command) + 4);
                 object->MarkText(g_sprt_ctrl, state->color, text);
                 state->text_handles[0].StopAtFrame2();
                 ++state->text_ring_position;
             } else {
-                const char* text = RecoveryDecodePath_00417010(reinterpret_cast<const unsigned char*>(command) + 4);
-                RecoveryLookup_0040bd80* manager = reinterpret_cast<RecoveryLookup_0040bd80*>(g_sprt_ctrl);
+                const char* text = RecoveryDecodePath(reinterpret_cast<const unsigned char*>(command) + 4);
+                RecoveryLookup* manager = reinterpret_cast<RecoveryLookup*>(g_sprt_ctrl);
                 RecoveryTextVm* object = static_cast<RecoveryTextVm*>(manager->Validate(&state->text_handles[state->text_ring_position]));
                 object->MarkText(g_sprt_ctrl, state->color, text);
                 state->text_handles[state->text_ring_position].StopAtFrame2();
@@ -66,7 +66,7 @@ extern "C" __declspec(noinline) int __stdcall RecoveryScript_Execute_0040bd80(Re
             }
             break;
         case 4: {
-            RecoveryHandle_0040bd80* handle = state->text_handles;
+            RecoveryHandle* handle = state->text_handles;
             for (int remaining = 5; remaining != 0; --remaining, ++handle)
                 handle->StopAtFrame3();
             break;
@@ -113,16 +113,16 @@ extern "C" __declspec(noinline) int __stdcall RecoveryScript_Execute_0040bd80(Re
             reinterpret_cast<AnimationManager_004477d0*>(g_sprt_ctrl)->ClearResourceSlot(state->command->arguments[0] + 29);
             state->background_data = reinterpret_cast<const unsigned char*>(state->command) + 8;
             state->flags |= 4u;
-            state->worker.Start(state, recovery_background_thread_0040c3a0);
+            state->worker.Start(state, recovery_background_thread);
             state->command = NextRecoveryCommand(state->command);
             return 0;
         case 8: {
             const int slot = command->arguments[0];
-            RecoveryLookup_0040bd80* manager = reinterpret_cast<RecoveryLookup_0040bd80*>(g_sprt_ctrl);
+            RecoveryLookup* manager = reinterpret_cast<RecoveryLookup*>(g_sprt_ctrl);
             manager->SetFlag(reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl), static_cast<int>(state->animation_handles[slot]));
             state->animation_handles[slot] = 0;
             void* created;
-            void** result = AnimationManager_CreatePrimaryBack_00448d00(state->resources[state->command->arguments[1]], &created, state->command->arguments[2], 15);
+            void** result = AnimationManager_CreatePrimaryBack(state->resources[state->command->arguments[1]], &created, state->command->arguments[2], 15);
             state->animation_handles[state->command->arguments[0]] = reinterpret_cast<unsigned int>(*result);
             break;
         }
@@ -130,21 +130,21 @@ extern "C" __declspec(noinline) int __stdcall RecoveryScript_Execute_0040bd80(Re
             state->color = static_cast<unsigned int>(command->arguments[0]);
             break;
         case 10: {
-            recovery_replace_extension_00420a90(0, reinterpret_cast<const char*>(command) + 4);
+            recovery_replace_extension(0, reinterpret_cast<const char*>(command) + 4);
             const char* name = reinterpret_cast<const char*>(state->command) + 4;
-            if (memcmp(name, recovery_script_special_music_0046cfc4, 16) == 0)
-                recovery_play_dummy_00420b10(0, 15);
+            if (memcmp(name, recovery_script_special_music, 16) == 0)
+                recovery_play_dummy(0, 15);
             else
-                recovery_play_dummy_00420b10(0, 16);
+                recovery_play_dummy(0, 16);
             break;
         }
         case 11:
-            recovery_play_random_voice_00420c30(3.0f);
+            recovery_play_random_voice(3.0f);
             state->flags &= ~1u;
             break;
         case 12: {
-            RecoveryLookup_0040bd80* manager = reinterpret_cast<RecoveryLookup_0040bd80*>(g_sprt_ctrl);
-            RecoveryHandle_0040bd80* handle = state->text_handles;
+            RecoveryLookup* manager = reinterpret_cast<RecoveryLookup*>(g_sprt_ctrl);
+            RecoveryHandle* handle = state->text_handles;
             for (int remaining = 5; remaining != 0; --remaining, ++handle) {
                 manager->SetFlag(reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl), static_cast<int>(handle->value));
                 handle->value = 0;
@@ -153,7 +153,7 @@ extern "C" __declspec(noinline) int __stdcall RecoveryScript_Execute_0040bd80(Re
             if (loaded == 0)
                 return -1;
             memset(state, 0, sizeof(*state));
-            state->command = reinterpret_cast<RecoveryCommand_0040bd80*>(loaded + *reinterpret_cast<int*>(loaded + 4));
+            state->command = reinterpret_cast<RecoveryCommand*>(loaded + *reinterpret_cast<int*>(loaded + 4));
             state->outer_timer.Set(0);
             state->command_timer.Set(0);
             state->wait_timer.Set(0);
@@ -162,32 +162,32 @@ extern "C" __declspec(noinline) int __stdcall RecoveryScript_Execute_0040bd80(Re
             continue;
         }
         case 13:
-            RecoveryAscii_Create_0043c8b0(0x31, 0, static_cast<unsigned int>(command->arguments[0]), 0, 0, 0);
+            RecoveryAscii_Create(0x31, 0, static_cast<unsigned int>(command->arguments[0]), 0, 0, 0);
             break;
         case 14:
-            RecoveryAscii_Create_0043c8b0(0x31, 5, static_cast<unsigned int>(command->arguments[0]), 0, 0, 0);
+            RecoveryAscii_Create(0x31, 5, static_cast<unsigned int>(command->arguments[0]), 0, 0, 0);
             break;
         case 15:
             if (g_globals_difficulty == 1) {
-                reinterpret_cast<RecoveryHandle_0040bd80*>(&state->animation_handles[command->arguments[0]])->MarkForRemoval();
+                reinterpret_cast<RecoveryHandle*>(&state->animation_handles[command->arguments[0]])->MarkForRemoval();
                 void* created;
-                void** result = AnimationManager_CreatePrimaryBack_00448d00(state->resources[state->command->arguments[1]], &created, state->command->arguments[2], 15);
+                void** result = AnimationManager_CreatePrimaryBack(state->resources[state->command->arguments[1]], &created, state->command->arguments[2], 15);
                 state->animation_handles[state->command->arguments[0]] = reinterpret_cast<unsigned int>(*result);
             }
             break;
         case 16:
             if (g_globals_difficulty == 2) {
-                reinterpret_cast<RecoveryHandle_0040bd80*>(&state->animation_handles[command->arguments[0]])->MarkForRemoval();
+                reinterpret_cast<RecoveryHandle*>(&state->animation_handles[command->arguments[0]])->MarkForRemoval();
                 void* created;
-                void** result = AnimationManager_CreatePrimaryBack_00448d00(state->resources[state->command->arguments[1]], &created, state->command->arguments[2], 15);
+                void** result = AnimationManager_CreatePrimaryBack(state->resources[state->command->arguments[1]], &created, state->command->arguments[2], 15);
                 state->animation_handles[state->command->arguments[0]] = reinterpret_cast<unsigned int>(*result);
             }
             break;
         case 17:
             if (g_globals_difficulty == 3) {
-                reinterpret_cast<RecoveryHandle_0040bd80*>(&state->animation_handles[command->arguments[0]])->MarkForRemoval();
+                reinterpret_cast<RecoveryHandle*>(&state->animation_handles[command->arguments[0]])->MarkForRemoval();
                 void* created;
-                void** result = AnimationManager_CreatePrimaryBack_00448d00(state->resources[state->command->arguments[1]], &created, state->command->arguments[2], 15);
+                void** result = AnimationManager_CreatePrimaryBack(state->resources[state->command->arguments[1]], &created, state->command->arguments[2], 15);
                 state->animation_handles[state->command->arguments[0]] = reinterpret_cast<unsigned int>(*result);
             }
             break;

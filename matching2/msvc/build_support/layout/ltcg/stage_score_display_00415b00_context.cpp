@@ -38,7 +38,7 @@ SlotRef SlotLists::RegisterPrimaryBack(Entity* object) {
 
 #include "result_open_00423370/find.cpp"
 
-__declspec(noinline) void** __stdcall ItemAnimation_CreateOffset_00448db0(
+__declspec(noinline) void** __stdcall ItemAnimation_CreateOffset(
     void* resource, void** out, int index, const Vector3* position);
 
 // 0x00408030: start a live record's vanish.
@@ -55,7 +55,7 @@ int StageCollisionRecord::Activate() {
         animation_state = 1;
         if (animation_index >= 0) {
             void* output;
-            ItemAnimation_CreateOffset_00448db0(g_bullet_manager->item_animation, &output,
+            ItemAnimation_CreateOffset(g_bullet_manager->item_animation, &output,
                 animation_index, reinterpret_cast<const Vector3*>(&position));
         }
         if (!(timer_flags & 1u)) {

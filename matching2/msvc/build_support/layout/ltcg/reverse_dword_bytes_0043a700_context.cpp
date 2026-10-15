@@ -4,7 +4,7 @@
 #pragma code_seg(".text$03context")
 int __stdcall ReverseDwordCompilerContext(unsigned int* values, int count) {
     while (count--) {
-        *values = ReverseDwordBytes_0043a700(*values);
+        *values = ReverseDwordBytes(*values);
         ++values;
     }
     return 0;

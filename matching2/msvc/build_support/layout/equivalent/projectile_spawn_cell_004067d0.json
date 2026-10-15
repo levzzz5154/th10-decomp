@@ -6,7 +6,7 @@
     "src/game/bullet/projectile_spawn_cell.cpp"
   ],
   "entry_symbol": "_ProjectileSpawnCellContext@12",
-  "function": "?SpawnPatternCell_004067d0@@YGHPAUProjectilePattern_004073e0@@PAUProjectileManager_004073e0@@HHM@Z",
+  "function": "?SpawnPatternCell_004067d0@@YGHPAUProjectilePattern@@PAUProjectileManager_004073e0@@HHM@Z",
   "code_bytes": 1416,
   "absolute_symbols": {
     "__ftol2": {
@@ -166,8 +166,8 @@
     "?SetScorePolar@ScoreGameplayPolarVector@@QAEPAU1@MM@Z": "0x00408750",
     "?QueuePan@SoundQueue@@QAEXHM@Z": "0x0043DD10",
     "?Entity_StartScript@@YGXPAUAnimationResourceFile@@PAUEntity@@H@Z": "0x00404F30",
-    "?EnemyGrid_ScanCells_004073e0@@YGHPAUProjectilePattern_004073e0@@PAUProjectileManager_004073e0@@@Z": "0x004073E0",
-    "?SpawnPatternCell_004067d0@@YGHPAUProjectilePattern_004073e0@@PAUProjectileManager_004073e0@@HHM@Z": "0x004067D0",
+    "?EnemyGrid_ScanCells_004073e0@@YGHPAUProjectilePattern@@PAUProjectileManager_004073e0@@@Z": "0x004073E0",
+    "?SpawnPatternCell_004067d0@@YGHPAUProjectilePattern@@PAUProjectileManager_004073e0@@HHM@Z": "0x004067D0",
     "?Tick@ProjectileCommandRuntime@@QAEXXZ": "0x00406D90",
     "?Rng_NextFloat@@YIMPAURngState@@@Z": "0x0044BB20",
     "?Angle_NormalizeSum@@YGMMM@Z": "0x0044BC10"

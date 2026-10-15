@@ -23,7 +23,7 @@ static __forceinline void EclViewStandIn_Unregister(EclViewStandInManager* manag
     if (task) {
         EnterCriticalSection(&g_thread_synchronization.critical_sections[0]);
         ++g_thread_synchronization.scheduler_lock_depth;
-        ManagerTeardownFuncCtrl_Remove_00449F60(scheduler, task);
+        ManagerTeardownFuncCtrl_Remove(scheduler, task);
         LeaveCriticalSection(&g_thread_synchronization.critical_sections[0]);
         --g_thread_synchronization.scheduler_lock_depth;
     }
@@ -32,38 +32,38 @@ static __forceinline void EclViewStandIn_Unregister(EclViewStandInManager* manag
     if (task) {
         EnterCriticalSection(&g_thread_synchronization.critical_sections[0]);
         ++g_thread_synchronization.scheduler_lock_depth;
-        ManagerTeardownFuncCtrl_Remove_00449F60(scheduler, task);
+        ManagerTeardownFuncCtrl_Remove(scheduler, task);
         LeaveCriticalSection(&g_thread_synchronization.critical_sections[0]);
         --g_thread_synchronization.scheduler_lock_depth;
     }
 }
 #pragma code_seg(".text$00x1")
-EclViewLasers_0040a1a0::~EclViewLasers_0040a1a0() {
+EclViewLasers::~EclViewLasers() {
     EclViewStandIn_Unregister(reinterpret_cast<EclViewStandInManager*>(this));
 }
 #pragma code_seg(".text$00x2")
-EclViewBullets_0040a1a0::~EclViewBullets_0040a1a0() {
+EclViewBullets::~EclViewBullets() {
     EclViewStandIn_Unregister(reinterpret_cast<EclViewStandInManager*>(this));
 }
 #pragma code_seg(".text$06b")
-EclViewItems_0040a1a0::~EclViewItems_0040a1a0() {
+EclViewItems::~EclViewItems() {
     EclViewStandIn_Unregister(reinterpret_cast<EclViewStandInManager*>(this));
 }
 #pragma code_seg(".text$06c")
-EclViewEffects_0040a1a0::~EclViewEffects_0040a1a0() {
+EclViewEffects::~EclViewEffects() {
     EclViewStandIn_Unregister(reinterpret_cast<EclViewStandInManager*>(this));
 }
 #pragma code_seg(".text$06d")
-EclViewPlayer_0040a1a0::~EclViewPlayer_0040a1a0() {
+EclViewPlayer::~EclViewPlayer() {
     EclViewStandIn_Unregister(reinterpret_cast<EclViewStandInManager*>(this));
 }
 #pragma code_seg(".text$06e")
-EclViewPopups_0040a1a0::~EclViewPopups_0040a1a0() {
+EclViewPopups::~EclViewPopups() {
     EclViewStandIn_Unregister(reinterpret_cast<EclViewStandInManager*>(this));
 }
 // 0x0040D530 takes its receiver in EAX.
 #pragma code_seg(".text$06a")
-EclViewEnemies_0040a940::~EclViewEnemies_0040a940() {
+EclViewEnemies::~EclViewEnemies() {
     crt_free(this);
     EclViewStandIn_Unregister(reinterpret_cast<EclViewStandInManager*>(this));
 }
@@ -74,11 +74,11 @@ EclViewEnemies_0040a940::~EclViewEnemies_0040a940() {
 // destructors' addresses, which keeps their public ECX receivers for the
 // unwind funclets.
 struct EclViewWorkerArrayStandIn {
-    EclViewWorker_0040a940 workers[2];
+    EclViewWorker workers[2];
     ~EclViewWorkerArrayStandIn();
 };
 struct EclViewSpriteArrayStandIn {
-    EclViewSprite_0040a940 sprites[2];
+    EclViewSprite sprites[2];
     ~EclViewSpriteArrayStandIn();
 };
 #pragma code_seg(".text$05zarray")
@@ -86,11 +86,11 @@ __declspec(noinline) EclViewWorkerArrayStandIn::~EclViewWorkerArrayStandIn() {}
 #pragma code_seg(".text$05zsprites")
 __declspec(noinline) EclViewSpriteArrayStandIn::~EclViewSpriteArrayStandIn() {}
 #pragma code_seg(".text$05owned_delete")
-__declspec(noinline) void __stdcall EclView_DestroyOwned_0040a1a0(EclView_0040a940* viewer,
+__declspec(noinline) void __stdcall EclView_DestroyOwned_0040a1a0(EclView* viewer,
                                                                        EclViewWorkerArrayStandIn* workers,
                                                                        EclViewSpriteArrayStandIn* sprites) {
     if (viewer) {
-        viewer->~EclView_0040a940();
+        viewer->~EclView();
         ::operator delete(viewer);
     }
     workers->~EclViewWorkerArrayStandIn();

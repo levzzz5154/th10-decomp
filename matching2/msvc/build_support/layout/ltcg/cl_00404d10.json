@@ -20,7 +20,7 @@
   "anchors": [
     {
       "name": "CurveAnchor",
-      "symbol": "?EvaluateCurveAnchor_0044c350@@YGMIMM@Z",
+      "symbol": "?EvaluateCurveAnchor@@YGMIMM@Z",
       "section": ".text$03anchor",
       "address": "0x0044C350",
       "size": 320

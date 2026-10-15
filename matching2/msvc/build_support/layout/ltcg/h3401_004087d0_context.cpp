@@ -3,7 +3,7 @@
 
 #pragma code_seg(".text$03context")
 extern "C" __declspec(noinline) int __cdecl M3401Context_004087d0(
-        H3401ShortField_004087d0** objects, const unsigned short* values, int count) {
+        H3401ShortField** objects, const unsigned short* values, int count) {
     while (count--)
         (*objects++)->Set(*values++);
     return 0;

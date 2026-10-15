@@ -1,5 +1,5 @@
 // Equivalent-recovery unit for 0x00415E90: the walker model followed by the
-// helper graph of build_support/contexts/legacy/game/front_script_tick_00415e90.cpp, in its order.
+// helper graph of build_support/contexts/legacy/game/front_script_tick.cpp, in its order.
 #include "../../../build_support/contexts/equivalent/game/front_script_tick_00415e90.cpp"
 #include "../pause/result_menu_open.cpp"
 #include "../../../build_support/layout/ltcg/result_open_00423370/dispatcher_handle_helpers.cpp"
@@ -21,9 +21,9 @@
 // argument while preserving the register.
 #pragma code_seg(".text$00415ae0_fn")
 struct FrontUpdateView;
-__declspec(noinline) int __stdcall FrontHudUpdate_00414900(FrontUpdateView* front);
-extern "C" __declspec(noinline) int __fastcall FrontHudCallback_00415ae0(void* state) {
-    return FrontHudUpdate_00414900((FrontUpdateView*)state);
+__declspec(noinline) int __stdcall FrontHudUpdate(FrontUpdateView* front);
+extern "C" __declspec(noinline) int __fastcall FrontHudCallback(void* state) {
+    return FrontHudUpdate((FrontUpdateView*)state);
 }
 #pragma code_seg()
 

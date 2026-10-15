@@ -8,7 +8,7 @@
 extern "C" float flt_100;
 
 #pragma pack(push, 4)
-struct Ratio_00421f80 {
+struct Ratio {
     unsigned char unknown_0000[0x24];
     double first;                          // +0x24
     double second;                         // +0x2C
@@ -18,7 +18,7 @@ struct Ratio_00421f80 {
 #pragma pack(pop)
 
 #pragma code_seg(".text$01ratio")
-float Ratio_00421f80::Remaining() {
+float Ratio::Remaining() {
     return flt_100 - (float)(first / second) * flt_100;
 }
 #pragma code_seg()

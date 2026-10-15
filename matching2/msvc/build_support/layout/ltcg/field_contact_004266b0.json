@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "name": "field_contact_004266b0",
+  "name": "field_contact",
   "source": "src/game/player/field_contact_004266b0.cpp",
   "driver": "build_support/layout/ltcg/field_contact_004266b0_context.cpp",
   "headers": [

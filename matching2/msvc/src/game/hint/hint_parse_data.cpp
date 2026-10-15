@@ -25,8 +25,8 @@ Hint_ParseData(TipManager* manager, const char* filename, int noDuplicate) {
     char* cursor = data;
     while (remaining > 0) {
         cursor = ReadScriptLine(cursor, line, &remaining, 4096);
-        SplitResourcePath_0041a050(key, value, line);
-        SplitResourcePath_0041a050(key, value, line);
+        SplitResourcePath(key, value, line);
+        SplitResourcePath(key, value, line);
         if ((strcmp(key, "Version") == 0)) {
             if (!(strcmp(value, "0.0") == 0)) {
                 manager->Clear();
@@ -49,13 +49,13 @@ Hint_ParseData(TipManager* manager, const char* filename, int noDuplicate) {
             tip->reserved018 = 0;
             if (remaining > 0) do {
                 cursor = ReadScriptLine(cursor, line, &remaining, 4096);
-                SplitResourcePath_0041a050(key, value, line);
+                SplitResourcePath(key, value, line);
                 if ((strcmp(key, "Pos") == 0)) {
                     char* second = asm_FUN_00452730_00452730(value, ',');
                     if (second) {
                         *second++ = 0;
-                        TrimWhitespace_0041a0a0(value);
-                        TrimWhitespace_0041a0a0(second);
+                        TrimWhitespace(value);
+                        TrimWhitespace(second);
                         tip->x = (float)parser_atol(value);
                         tip->y = (float)parser_atol(second);
                     }
@@ -90,16 +90,16 @@ Hint_ParseData(TipManager* manager, const char* filename, int noDuplicate) {
                     char* second = asm_FUN_00452730_00452730(value, ',');
                     if (second) {
                         *second++ = 0;
-                        TrimWhitespace_0041a0a0(value);
+                        TrimWhitespace(value);
                         tip->red = (unsigned char)parser_atol(value);
                         char* green = second;
                         second = asm_FUN_00452730_00452730(second, ',');
                         if (second) {
                             *second = 0;
-                            TrimWhitespace_0041a0a0(green);
+                            TrimWhitespace(green);
                             tip->green = (unsigned char)parser_atol(green);
                             tip->blue = (unsigned char)parser_atol(
-                                TrimWhitespace_0041a0a0(second + 1));
+                                TrimWhitespace(second + 1));
                         }
                     }
                 } else if ((strcmp(key, "Alpha") == 0)) {

@@ -1,6 +1,6 @@
 #include "workers.hpp"
 #pragma code_seg(".text$01stop")
-int SoundWorkerPair_0043cc40::Stop() {
+int SoundWorkerPair::Stop() {
     if (first_thread == 0) {
         return 0;
     }

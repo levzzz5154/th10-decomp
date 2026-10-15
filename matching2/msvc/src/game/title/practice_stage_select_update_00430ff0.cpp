@@ -13,7 +13,7 @@
 //
 // The room is a stack argument; the handler is linked with the title
 // dispatcher and the real bodies of its leaves
-// (build_support/layout/ltcg/difficulty_select_update_00430320.json).
+// (build_support/layout/ltcg/difficulty_select_update.json).
 #include "th10/game/practice_stage_select_update_00430ff0.hpp"
 
 // Select an item, clamped to the items the menu has.
@@ -26,7 +26,7 @@ static __forceinline void SelectItem_00430ff0(MenuCursor& cursor, int index) {
 }
 
 #pragma code_seg(".text$00430ff0_fn")
-__declspec(noinline) int __stdcall TitleMode9_00430ff0(Title* room) {
+__declspec(noinline) int __stdcall TitleMode9(Title* room) {
     switch (room->phase) {
     case 0:
         room->cursor.item_count = 6;
@@ -91,7 +91,7 @@ __declspec(noinline) int __stdcall TitleMode9_00430ff0(Title* room) {
     case 3:
         if (room->timer.current == 10) {
             g_ascii_manager->EnsureAnimationResource(480.0f, 392.0f);
-            RecoveryAscii_Create_0043c8b0(0x2b, 5, 0x20, 0, 0, 0);
+            RecoveryAscii_Create(0x2b, 5, 0x20, 0, 0, 0);
         }
         if (room->timer.current >= 40) {
             MenuCursor* cursor = &room->cursor;

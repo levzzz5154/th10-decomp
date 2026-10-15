@@ -44,7 +44,7 @@ void AnimationResource_00447810::Release() {
 // array: the vector destructor iterator takes the worker destructor's address,
 // which keeps that destructor's public ECX receiver for the unwind funclet.
 struct SptTestWorkerArrayStandIn {
-    SptTestWorker_0042be20 workers[2];
+    SptTestWorker workers[2];
     ~SptTestWorkerArrayStandIn();
 };
 #pragma code_seg(".text$05zarray")

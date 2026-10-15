@@ -2,9 +2,9 @@
 #include <stddef.h>
 #include "item_spawn.hpp"
 #include "th10/render/animation_public_callers.hpp"
-struct LineSweepVector_0041e260 : Vector3 {
-    LineSweepVector_0041e260() {}
-    LineSweepVector_0041e260(float px,float py,float pz) {x=px;y=py;z=pz;}
+struct LineSweepVector : Vector3 {
+    LineSweepVector() {}
+    LineSweepVector(float px,float py,float pz) {x=px;y=py;z=pz;}
 };
 // The retail step Z lives in memory and participates in every FP update.
 // Keep that load observable, including the add-zero effect on signed zero.
@@ -12,12 +12,12 @@ struct LinePolarVelocity_0041f800 {
     float x,y;
     __declspec(noinline) LinePolarVelocity_0041f800* SetPolar(float angle,float speed);
 };
-struct LineSweepStep_0041e260 { LinePolarVelocity_0041f800 velocity; volatile float z; };
-struct LineEffectSweep_0041e260 {
+struct LineSweepStep { LinePolarVelocity_0041f800 velocity; volatile float z; };
+struct LineEffectSweep {
     unsigned char reserved_000[0xc];
     int retired;
     unsigned char reserved_010[0x24-0x10];
-    LineSweepVector_0041e260 position;
+    LineSweepVector position;
     unsigned char reserved_030[0x3c-0x30];
     float angle;
     float length;
@@ -28,28 +28,28 @@ struct LineEffectSweep_0041e260 {
     __declspec(noinline) int CreateAllSegments(int spawn_items);
     __declspec(noinline) int CreateSegmentsInBounds(int spawn_items);
 };
-struct LineAnimationResourceBank_0041e260 {
+struct LineAnimationResourceBank {
     unsigned char reserved_000[0x458];
     void* line_animation;
 };
-struct LineAnimationNode_0041e260 {
+struct LineAnimationNode {
     Entity* object;
-    LineAnimationNode_0041e260* next;
-    LineAnimationNode_0041e260* previous;
+    LineAnimationNode* next;
+    LineAnimationNode* previous;
 };
-struct LineAnimationRegistry_0041e260 {
+struct LineAnimationRegistry {
     unsigned char reserved_000[0x72dad4];
-    LineAnimationNode_0041e260* head;
-    LineAnimationNode_0041e260* tail;
+    LineAnimationNode* head;
+    LineAnimationNode* tail;
     unsigned char reserved_72dadc[0x732454-0x72dadc];
     int next_handle;
 };
-typedef char LinePositionCheck_0041e260[offsetof(LineEffectSweep_0041e260,position)==0x24?1:-1];
-typedef char LineScriptCheck_0041e260[offsetof(LineEffectSweep_0041e260,script_all)==0x44a?1:-1];
-typedef char LineScriptCheck_0041f400[offsetof(LineEffectSweep_0041e260,script_in_bounds)==0x466?1:-1];
+typedef char LinePositionCheck[offsetof(LineEffectSweep,position)==0x24?1:-1];
+typedef char LineScriptCheck_0041e260[offsetof(LineEffectSweep,script_all)==0x44a?1:-1];
+typedef char LineScriptCheck_0041f400[offsetof(LineEffectSweep,script_in_bounds)==0x466?1:-1];
 extern "C" {
-extern ItemSpawnManager_0041bb00* g_item_manager;
-extern LineAnimationResourceBank_0041e260* g_laser_manager;
+extern ItemSpawnManager* g_item_manager;
+extern LineAnimationResourceBank* g_laser_manager;
 extern float flt_12;
 extern float flt_6;
 extern float flt_224;

@@ -12,13 +12,13 @@ struct Record_00424530 {
     int field_028;
 };
 
-__declspec(noinline) int InitializeRecord_00424530(
+__declspec(noinline) int InitializeRecord(
         Record_00424530* record,
         int field_004, int field_008, int field_028,
         int field_00c, int field_010, int field_014,
         int field_018, int field_01c, int field_020, int field_024);
 #pragma code_seg(".text$01accessor")
-__declspec(noinline) int InitializeRecord_00424530(
+__declspec(noinline) int InitializeRecord(
         Record_00424530* record,
         int field_004, int field_008, int field_028,
         int field_00c, int field_010, int field_014,

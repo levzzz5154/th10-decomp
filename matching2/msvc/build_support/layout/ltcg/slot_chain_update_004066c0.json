@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "SlotChainOwner_004066C0_UpdateAllSlotChains",
-      "symbol": "?UpdateAllSlotChains@SlotChainOwner_004066C0@@QAEHXZ",
+      "symbol": "?UpdateAllSlotChains@SlotChainOwner@@QAEHXZ",
       "section": ".text$01run",
       "address": "0x004066C0",
       "size": 25,
@@ -19,7 +19,7 @@
   "anchors": [
     {
       "name": "SlotChainOwner_004066C0_UpdateSlotChain_abi_anchor",
-      "symbol": "?UpdateSlotChain@SlotChainOwner_004066C0@@QAEHH@Z",
+      "symbol": "?UpdateSlotChain@SlotChainOwner@@QAEHH@Z",
       "section": ".text$03anchor",
       "address": "0x004066E0",
       "size": 135
@@ -62,7 +62,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "@DispatchAnm_004451c0@8",
+      "symbol": "@DispatchAnm@8",
       "address": "0x004451C0",
       "kind": "relative_code"
     },

@@ -10,7 +10,7 @@
 #include "th10/render/clip_worker_native.hpp"
 
 #pragma code_seg(".text$a14clip")
-void ClipHost_004462f0::InitializeClip() {
+void ClipHost::InitializeClip() {
     vertices[0].position.x = vertices[2].position.x = -128.0f;
     vertices[1].position.x = vertices[3].position.x = 128.0f;
     vertices[0].position.y = vertices[1].position.y = -128.0f;

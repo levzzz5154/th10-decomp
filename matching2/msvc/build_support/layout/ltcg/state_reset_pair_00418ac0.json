@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "name": "state_reset_pair_00418ac0",
+  "name": "state_reset_pair",
   "source": "src/unreferenced/FUN_00418ac0_00418ac0.cpp",
   "driver": "build_support/layout/ltcg/state_reset_pair_00418ac0_context.cpp",
   "headers": [],
@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "GameAppStateReset_00418ac0_ResetPair",
-      "symbol": "?ResetPair@GameAppStateReset_00418ac0@@QAEXXZ",
+      "symbol": "?ResetPair@GameAppStateReset@@QAEXXZ",
       "section": ".text$01resetpair00418ac0",
       "address": "0x418ac0",
       "size": 15,
@@ -17,7 +17,7 @@
     }
   ],
   "context": {
-    "symbol": "?ResetPairCompilerContext@@YGHPAPAUGameAppStateReset_00418ac0@@H@Z",
+    "symbol": "?ResetPairCompilerContext@@YGHPAPAUGameAppStateReset@@H@Z",
     "section": ".text$03context",
     "address": "0x418ad0",
     "size": 39,

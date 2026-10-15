@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "name": "enemy_slot_conditional_set_0040cdc0",
+  "name": "enemy_slot_conditional_set",
   "source": "src/unreferenced/unassigned_0040cdc0.cpp",
   "driver": "build_support/layout/ltcg/enemy_slot_conditional_set_0040cdc0_context.cpp",
   "headers": [],
@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "EnemySlotWriter_SetEnemyIfUnmirrored",
-      "symbol": "?SetEnemyIfUnmirrored@EnemySlotWriter_0040cdc0@@QAEXPAX@Z",
+      "symbol": "?SetEnemyIfUnmirrored@EnemySlotWriter@@QAEXPAX@Z",
       "section": ".text$01slot",
       "address": "0x0040CDC0",
       "size": 23,
@@ -17,7 +17,7 @@
     }
   ],
   "context": {
-    "symbol": "?SlotSetterCompilerContext@@YGHPAPAUEnemySlotWriter_0040cdc0@@HPAX@Z",
+    "symbol": "?SlotSetterCompilerContext@@YGHPAPAUEnemySlotWriter@@HPAX@Z",
     "section": ".text$03context",
     "address": "0x0040CDE0",
     "size": 39,

@@ -19,7 +19,7 @@
   "functions": [
     {
       "name": "EclView_ClearScriptNames",
-      "symbol": "?ClearScriptNames@EclView_0040a940@@QAEXXZ",
+      "symbol": "?ClearScriptNames@EclView@@QAEXXZ",
       "section": ".text$01names",
       "address": "0x00409EB0",
       "actual_abi": "screen in ESI; plain RET",
@@ -27,7 +27,7 @@
     },
     {
       "name": "EclView_Destructor",
-      "symbol": "??1EclView_0040a940@@QAE@XZ",
+      "symbol": "??1EclView@@QAE@XZ",
       "section": ".text$03dtor",
       "address": "0x0040A1A0",
       "actual_abi": "receiver on the stack; RET 4; compiler-generated EH frame",
@@ -55,7 +55,7 @@
     },
     {
       "name": "EclViewHandler",
-      "symbol": "__ehhandler$??1EclView_0040a940@@QAE@XZ",
+      "symbol": "__ehhandler$??1EclView@@QAE@XZ",
       "section": ".text$x",
       "address": "0x004657E9",
       "actual_abi": "compiler-generated EH handler",
@@ -64,7 +64,7 @@
     }
   ],
   "context": {
-    "symbol": "?EclView_DestroyOwned_0040a1a0@@YGXPAUEclView_0040a940@@PAUEclViewWorkerArrayStandIn@@PAUEclViewSpriteArrayStandIn@@@Z",
+    "symbol": "?EclView_DestroyOwned_0040a1a0@@YGXPAUEclView@@PAUEclViewWorkerArrayStandIn@@PAUEclViewSpriteArrayStandIn@@@Z",
     "section": ".text$05owned_delete",
     "address": "0x0040A410",
     "size": 46,
@@ -287,21 +287,21 @@
   "anchors": [
     {
       "name": "SpriteDestructor",
-      "symbol": "??1EclViewSprite_0040a940@@QAE@XZ",
+      "symbol": "??1EclViewSprite@@QAE@XZ",
       "section": ".text$00sprite",
       "address": "0x00401FF0",
       "size": 34
     },
     {
       "name": "LasersStandIn",
-      "symbol": "??1EclViewLasers_0040a1a0@@QAE@XZ",
+      "symbol": "??1EclViewLasers@@QAE@XZ",
       "section": ".text$00x1",
       "address": "0x00405620",
       "size": 127
     },
     {
       "name": "BulletsStandIn",
-      "symbol": "??1EclViewBullets_0040a1a0@@QAE@XZ",
+      "symbol": "??1EclViewBullets@@QAE@XZ",
       "section": ".text$00x2",
       "address": "0x00405F70",
       "size": 127
@@ -322,49 +322,49 @@
     },
     {
       "name": "EnemiesStandIn",
-      "symbol": "??1EclViewEnemies_0040a940@@QAE@XZ",
+      "symbol": "??1EclViewEnemies@@QAE@XZ",
       "section": ".text$06a",
       "address": "0x0040D530",
       "size": 130
     },
     {
       "name": "ItemsStandIn",
-      "symbol": "??1EclViewItems_0040a1a0@@QAE@XZ",
+      "symbol": "??1EclViewItems@@QAE@XZ",
       "section": ".text$06b",
       "address": "0x004145F0",
       "size": 127
     },
     {
       "name": "EffectsStandIn",
-      "symbol": "??1EclViewEffects_0040a1a0@@QAE@XZ",
+      "symbol": "??1EclViewEffects@@QAE@XZ",
       "section": ".text$06c",
       "address": "0x0041ADF0",
       "size": 127
     },
     {
       "name": "PlayerStandIn",
-      "symbol": "??1EclViewPlayer_0040a1a0@@QAE@XZ",
+      "symbol": "??1EclViewPlayer@@QAE@XZ",
       "section": ".text$06d",
       "address": "0x00424ED0",
       "size": 127
     },
     {
       "name": "PopupsStandIn",
-      "symbol": "??1EclViewPopups_0040a1a0@@QAE@XZ",
+      "symbol": "??1EclViewPopups@@QAE@XZ",
       "section": ".text$06e",
       "address": "0x0042B570",
       "size": 127
     },
     {
       "name": "ActualSchedulerRemove",
-      "symbol": "?ManagerTeardownFuncCtrl_Remove_00449F60@@YGXPAUFuncCtrl@@PAUSchedulerTask@@@Z",
+      "symbol": "?ManagerTeardownFuncCtrl_Remove@@YGXPAUFuncCtrl@@PAUSchedulerTask@@@Z",
       "section": ".text$07remove",
       "address": "0x00449F60",
       "size": 114
     },
     {
       "name": "WorkerDestructor",
-      "symbol": "??1EclViewWorker_0040a940@@QAE@XZ",
+      "symbol": "??1EclViewWorker@@QAE@XZ",
       "section": ".text$10worker",
       "address": "0x0044C130",
       "size": 16

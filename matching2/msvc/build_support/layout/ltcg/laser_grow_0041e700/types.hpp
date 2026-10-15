@@ -70,9 +70,9 @@ extern float g_game_speed;
 extern LaserFollowBank* g_enemy_ctrl;
 extern LaserAnimationBank* g_bullet_manager;
 float __stdcall NormalizeAngle_0044bc10(float angle,float increment);
-void __stdcall RunLaserAnimation_0043ee30(Entity* object);
+void __stdcall RunLaserAnimation(Entity* object);
 }
-__declspec(noinline) void** __stdcall ItemAnimation_CreateOffset_00448db0(
+__declspec(noinline) void** __stdcall ItemAnimation_CreateOffset(
     void* resource,void** output,int index,const Point3_OrientedRect* position);
 typedef char LaserTimerOffset[offsetof(GrowLaser,timer)==0x10?1:-1];
 typedef char LaserPositionOffset[offsetof(GrowLaser,position)==0x24?1:-1];

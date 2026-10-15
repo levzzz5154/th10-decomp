@@ -24,7 +24,7 @@
   "functions": [
     {
       "name": "ReplaySave",
-      "symbol": "?Save@ReplaySaveManager_00429b60@@QAIHPBD0@Z",
+      "symbol": "?Save@ReplaySaveManager@@QAIHPBD0@Z",
       "section": ".text$rsave01",
       "address": "0x00429B60",
       "size": 1681,
@@ -32,7 +32,7 @@
     }
   ],
   "context": {
-    "symbol": "?ReplaySaveCompilerContext_00429b60@@YGHPAUReplaySaveManager_00429b60@@PBD1@Z",
+    "symbol": "?ReplaySaveCompilerContext_00429b60@@YGHPAUReplaySaveManager@@PBD1@Z",
     "section": ".text$rsave04",
     "address": "0x0044B360",
     "size": 23,

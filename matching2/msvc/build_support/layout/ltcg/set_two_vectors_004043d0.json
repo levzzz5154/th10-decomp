@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "set_two_vectors_004043d0",
-      "symbol": "?SetVectors_004043d0@@YGXPAUObject_004043d0@@PBUVec3_004043d0@@1@Z",
+      "symbol": "?SetVectors@@YGXPAUObject_004043d0@@PBUVec3_004043d0@@1@Z",
       "section": ".text$01accessor",
       "address": "0x004043D0",
       "size": 59,

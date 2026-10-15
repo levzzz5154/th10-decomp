@@ -5,11 +5,11 @@
   "driver": "build_support/layout/ltcg/dtor_delete_0040d660_context.cpp",
   "headers": [],
   "image_base": "0x00400000",
-  "description": "Releaseable_0040d660::Delete compiled with the 0x0040D680 resource release as an internal ABI anchor, so the object arrives in a caller-saved register, ESI is saved and restored, and the release receives the object in ESI as retail does.",
+  "description": "Releaseable::Delete compiled with the 0x0040D680 resource release as an internal ABI anchor, so the object arrives in a caller-saved register, ESI is saved and restored, and the release receives the object in ESI as retail does.",
   "functions": [
     {
       "name": "Releaseable_0040d660_Delete",
-      "symbol": "?Delete@Releaseable_0040d660@@QAEPAXH@Z",
+      "symbol": "?Delete@Releaseable@@QAEPAXH@Z",
       "section": ".text$01del",
       "address": "0x0040D660",
       "size": 30,

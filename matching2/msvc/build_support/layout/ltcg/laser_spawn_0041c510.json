@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "name": "laser_spawn_0041c510",
+  "name": "laser_spawn",
   "source": "src/game/laser/laser_spawn_0041c510.cpp",
   "driver": "build_support/layout/ltcg/laser_spawn_0041c510_context.cpp",
   "headers": [
@@ -14,7 +14,7 @@
   "functions": [
     {
       "name": "LaserSpawnParameters_SpawnIn",
-      "symbol": "?SpawnIn@LaserSpawnParameters_0041c510@@QBEHPAULaserManager_0041c510@@H@Z",
+      "symbol": "?SpawnIn@LaserSpawnParameters@@QBEHPAULaserManager_0041c510@@H@Z",
       "section": ".text$0041c510_fn",
       "address": "0x0041C510",
       "size": 153,
@@ -30,7 +30,7 @@
     },
     {
       "name": "BeamLaser_Construct",
-      "symbol": "?BeamLaser_Construct_0041c680@@YIPAUBeamLaser_0041c680@@PAU1@@Z",
+      "symbol": "?BeamLaser_Construct_0041c680@@YIPAUBeamLaser@@PAU1@@Z",
       "section": ".text$0041c680_fn",
       "address": "0x0041C680",
       "size": 219,
@@ -47,7 +47,7 @@
   "anchors": [
     {
       "name": "LaserBase_Construct",
-      "symbol": "?LaserBase_Construct_0041c030@@YIPAULaserBase_0041c030@@PAXPAU1@@Z",
+      "symbol": "?LaserBase_Construct_0041c030@@YIPAULaserBase@@PAXPAU1@@Z",
       "section": ".text$0041c030_fn",
       "address": "0x0041C030",
       "size": 7

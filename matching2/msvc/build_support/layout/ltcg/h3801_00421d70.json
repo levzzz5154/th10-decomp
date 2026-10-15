@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "WordStore_00421d70_Store",
-      "symbol": "?Store@WordStore_00421d70@@QAEXF@Z",
+      "symbol": "?Store@WordStore@@QAEXF@Z",
       "section": ".text$01store00421d70",
       "address": "0x00421D70",
       "size": 4,
@@ -17,7 +17,7 @@
     }
   ],
   "context": {
-    "symbol": "?H3801CompilerContext_00421d70@@YGHPAPAUWordStore_00421d70@@HF@Z",
+    "symbol": "?H3801CompilerContext_00421d70@@YGHPAPAUWordStore@@HF@Z",
     "section": ".text$03context",
     "address": "0x00421D80",
     "size": 36,

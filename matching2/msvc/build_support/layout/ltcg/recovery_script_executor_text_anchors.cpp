@@ -6,22 +6,22 @@
 
 extern "C" {
 extern unsigned char recovery_decoded_path_00497d40[];
-int __cdecl recovery_vsprintf_004524a6(
+int __cdecl recovery_vsprintf(
     char* buffer, const char* format, char* args);
 
 // These image text-rasterization entries use six ordinary stack arguments
 // and RET 24. Their bodies contain the GDI/texture upload effects; neither
 // call is replaced with a placeholder or a guessed register-only prototype.
-void __stdcall recovery_draw_shadowed_00437db0(
+void __stdcall recovery_draw_shadowed(
     const int* destination_bounds, int horizontal_offset, int font_height,
     unsigned int color, const char* text, void* texture);
-void __stdcall recovery_draw_unshadowed_00437fe0(
+void __stdcall recovery_draw_unshadowed(
     const int* destination_bounds, int horizontal_offset, int font_height,
     unsigned int color, const char* text, void* texture);
 }
 
 #pragma code_seg(".text$00417010_fn")
-char* __stdcall RecoveryDecodePath_00417010(const unsigned char* encoded) {
+char* __stdcall RecoveryDecodePath(const unsigned char* encoded) {
     unsigned char* output = recovery_decoded_path_00497d40;
     unsigned char key = 0x77;
     unsigned char increment = 7;
@@ -40,7 +40,7 @@ char* __stdcall RecoveryDecodePath_00417010(const unsigned char* encoded) {
 
 #pragma code_seg(".text$004479d0_fn")
 void __stdcall RecoveryDispatchText_004479d0(
-    RecoveryTextResource_004479d0* resource, int font_height,
+    RecoveryTextResource* resource, int font_height,
     const char* text, void* texture, int horizontal_offset,
     unsigned int color, int unshadowed) {
     if (font_height <= 0)
@@ -56,10 +56,10 @@ void __stdcall RecoveryDispatchText_004479d0(
     bounds[2] = static_cast<int>(resource->right);
     bounds[3] = static_cast<int>(resource->bottom);
     if (unshadowed == 0)
-        recovery_draw_shadowed_00437db0(
+        recovery_draw_shadowed(
             bounds, horizontal_offset, font_height, color, text, texture);
     else
-        recovery_draw_unshadowed_00437fe0(
+        recovery_draw_unshadowed(
             bounds, horizontal_offset, font_height, color, text, texture);
 }
 #pragma code_seg()
@@ -74,11 +74,11 @@ void __cdecl RecoveryTextVm::MarkText(
     va_list color_home = args;
     (void)va_arg(args, unsigned int);
     const char* format = va_arg(args, const char*);
-    recovery_vsprintf_004524a6(buffer, format, args);
+    recovery_vsprintf(buffer, format, args);
     va_end(args);
     const unsigned int color = va_arg(color_home, unsigned int);
     va_end(color_home);
-    RecoveryTextResource_004479d0* text_resource = resource;
+    RecoveryTextResource* text_resource = resource;
     RecoveryDispatchText_004479d0(
         text_resource, height, buffer, text_resource->texture, 0, color,
         (flags_360 >> 1) & 1);

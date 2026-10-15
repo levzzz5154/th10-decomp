@@ -33,7 +33,7 @@
     },
     {
       "name": "AnimationManager_CreatePositionedPrimary_00448d50_abi_anchor",
-      "symbol": "?AnimationManager_CreatePositionedPrimary_00448d50@@YGPAPAXPAXPAPAXHPBUAnimationPosition_00448d50@@@Z",
+      "symbol": "?AnimationManager_CreatePositionedPrimary@@YGPAPAXPAXPAPAXHPBUAnimationPosition_00448d50@@@Z",
       "section": ".text$07accessor",
       "address": "0x00448D50",
       "size": 95

@@ -8,8 +8,8 @@
   "description": "Readable FileHandle initializer recovered with the native-LTCG EAX object convention.",
   "functions": [
     {
-      "name": "FileHandle_Initialize_00435300",
-      "symbol": "_FileHandle_Initialize_00435300@4",
+      "name": "FileHandle_Initialize",
+      "symbol": "_FileHandle_Initialize@4",
       "section": ".text$01file_handle_init",
       "address": "0x00435300",
       "size": 21,

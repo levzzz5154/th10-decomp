@@ -6,6 +6,6 @@
 // 0x0044D730..0x0044D73A: restore the derived vtable, then let the shared
 // owned-array base destructor release the DirectSound buffers.
 void __fastcall SoundBuffer_DestructBaseRetail(SoundBuffer* sound_buffer) {
-    sound_buffer->vtable = &sound_buffer_vtable_004705d4;
+    sound_buffer->vtable = &sound_buffer_vtable;
     Platform_ReleaseOwnedArray(sound_buffer);
 }

@@ -44,7 +44,7 @@ struct GameThread_0040c540 {
 
 // The animation manager's positioned-primary creation, recovered at
 // 0x00448D50; the cluster driver carries its compiled body as an ABI anchor.
-void** __stdcall AnimationManager_CreatePositionedPrimary_00448d50(
+void** __stdcall AnimationManager_CreatePositionedPrimary(
     void* resource, void** out, int index,
     const AnimationPosition_00448d50* position);
 
@@ -58,7 +58,7 @@ void* GameThread_0040c540::EnsureAnimationResource(float x, float y) {
         return animation_handle;
     }
     void* handle;
-    void** slot = AnimationManager_CreatePositionedPrimary_00448d50(
+    void** slot = AnimationManager_CreatePositionedPrimary(
         animation_resource, &handle, 6, &position);
     animation_handle = *slot;
     return animation_handle;

@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "argb1555_accumulate_00446530",
-      "symbol": "?AccumulateArgb1555_00446530@@YGXPAUColorSums_00446530@@PBGPAH@Z",
+      "symbol": "?AccumulateArgb1555@@YGXPAUColorSums_00446530@@PBGPAH@Z",
       "section": ".text$01accessor",
       "address": "0x00446530",
       "size": 55,

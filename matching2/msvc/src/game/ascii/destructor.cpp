@@ -5,7 +5,7 @@
 #include "th10/game/manager_teardown_helpers.hpp"
 
 extern "C" {
-extern AnimationBanks_00402440* g_sprt_ctrl;
+extern AnimationBanks* g_sprt_ctrl;
 extern GameThread* g_ascii_manager;
 }
 

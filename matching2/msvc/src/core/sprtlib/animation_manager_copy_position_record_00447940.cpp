@@ -6,7 +6,7 @@
 #define COPY_POSITION_RECORD_SECTION ".text$01copy"
 #endif
 #pragma code_seg(COPY_POSITION_RECORD_SECTION)
-__declspec(noinline) void CopyPositionRecord_00447940(int index, AnimationPositionManager_00447940* manager, const AnimationPositionRecord_00447940* source) {
+__declspec(noinline) void CopyPositionRecord_00447940(int index, AnimationPositionManager* manager, const AnimationPositionRecord* source) {
     manager->records[index] = *source;
     manager->records[index].u0 = manager->records[index].left / manager->records[index].textureWidth;
     manager->records[index].u1 = manager->records[index].right / manager->records[index].textureWidth;

@@ -14,7 +14,7 @@
   "functions": [
     {
       "name": "StageOwner_ReloadStageAnm",
-      "symbol": "?ReloadStageAnm@StageOwner_0040c3c0@@QAEHXZ",
+      "symbol": "?ReloadStageAnm@StageOwner@@QAEHXZ",
       "section": ".text$01owner",
       "address": "0x0040B4F0",
       "size": 11,
@@ -50,7 +50,7 @@
     }
   ],
   "context": {
-    "symbol": "?StageAnmReloadContext@@YGHPAPAUStageOwner_0040c3c0@@HPAP6AIXZ@Z",
+    "symbol": "?StageAnmReloadContext@@YGHPAPAUStageOwner@@HPAP6AIXZ@Z",
     "section": ".text$07context",
     "address": "0x0040C440",
     "size": 57,
@@ -86,7 +86,7 @@
   "constants": [],
   "absolute_symbols": [
     {
-      "symbol": "_find_opaque_004491c0@4",
+      "symbol": "_find_opaque@4",
       "address": "0x004491C0",
       "kind": "relative_code"
     },

@@ -1,7 +1,7 @@
 #include "th10/source_views/font_cache_init_d7bc6e_0.hpp"
-extern "C" void __cdecl InitializeFontCache_00437a00() {
-    if (!FontSurface_Create_00436af0(&g_font_atlas_surface,0x400,0x40,0x1a))
-        FontSurface_Create_00436af0(&g_font_atlas_surface,0x400,0x40,0x15);
+extern "C" void __cdecl InitializeFontCache() {
+    if (!FontSurface_Create(&g_font_atlas_surface,0x400,0x40,0x1a))
+        FontSurface_Create(&g_font_atlas_surface,0x400,0x40,0x15);
     unsigned char* bytes=(unsigned char*)&g_font_atlas_surface;
     for (unsigned int index=0;index<256;++index) {
         unsigned short next=g_rng.Next();

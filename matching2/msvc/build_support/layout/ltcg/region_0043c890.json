@@ -38,7 +38,7 @@
   "constants": [],
   "absolute_symbols": [
     {
-      "symbol": "_recovery_release_0043cb00@4",
+      "symbol": "_recovery_release@4",
       "address": "0x43cb00",
       "kind": "relative_code"
     },

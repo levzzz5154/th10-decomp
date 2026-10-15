@@ -12,8 +12,8 @@
   "description": "Bullet manager initializer compiled with native LTCG against the scheduler registration and text-log anchors.",
   "functions": [
     {
-      "name": "BulletManager_Initialize_00405e20",
-      "symbol": "_BulletManager_Initialize_00405e20@4",
+      "name": "BulletManager_Initialize",
+      "symbol": "_BulletManager_Initialize@4",
       "section": ".text$00_b_init",
       "address": "0x00405E20",
       "size": 163,
@@ -144,12 +144,12 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "@BulletManagerUpdate_00406770@4",
+      "symbol": "@BulletManagerUpdate@4",
       "address": "0x00406770",
       "kind": "data"
     },
     {
-      "symbol": "@BulletManagerDraw_004067a0@4",
+      "symbol": "@BulletManagerDraw@4",
       "address": "0x004067A0",
       "kind": "data"
     }

@@ -3,7 +3,7 @@
 
 #pragma code_seg(".text$03context")
 int __stdcall CachedComSlotReleaseRetailCompilerContext(
-        CachedComSlot_00421d20** slots, int count) {
+        CachedComSlot** slots, int count) {
     while (count--)
         (*slots++)->Release();
     return 0;

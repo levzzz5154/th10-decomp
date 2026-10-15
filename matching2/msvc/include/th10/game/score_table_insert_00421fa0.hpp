@@ -15,7 +15,7 @@ struct ScoreRecord_00421fa0 {
 };
 
 // Frame statistics at *0x00477708.
-struct FrameCounters_00421fa0 {
+struct FrameCounters {
     unsigned char reserved_00[0x24];
     double slow_frames;           // +0x24
     double frames;                // +0x2C
@@ -38,7 +38,7 @@ struct GameCounters_00421fa0 {
     unsigned char reserved_40[0xC];
     unsigned char suffix;         // 0x00474C90
 };
-typedef char GameCountersSuffixOffset_00421fa0[offsetof(GameCounters_00421fa0, suffix) == 0x4C ? 1 : -1];
+typedef char GameCountersSuffixOffset[offsetof(GameCounters_00421fa0, suffix) == 0x4C ? 1 : -1];
 
 // The high-score tables of one character and shot type: ten records per
 // difficulty.
@@ -49,10 +49,10 @@ struct ScoreTable_00421fa0 {
     // 0x00421FA0: enter the current score; returns its rank or -1.
     __declspec(noinline) int InsertScore();
 };
-typedef char ScoreRecordSize_00421fa0[sizeof(ScoreRecord_00421fa0) == 0x18 ? 1 : -1];
+typedef char ScoreRecordSize[sizeof(ScoreRecord_00421fa0) == 0x18 ? 1 : -1];
 
 extern "C" GameCounters_00421fa0 g_globals_score;
-extern "C" FrameCounters_00421fa0* g_fps;
+extern "C" FrameCounters* g_fps;
 extern "C" int __cdecl time_00452b71(int* out);
 
 #endif

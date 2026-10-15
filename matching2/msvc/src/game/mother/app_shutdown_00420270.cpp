@@ -5,7 +5,7 @@
 //
 // The application object arrives in EAX and almost every callee takes its
 // argument in a register chosen by the whole-program link, so the body is
-// compiled in the native-LTCG cluster build_support/layout/ltcg/app_shutdown_00420270.json.
+// compiled in the native-LTCG cluster build_support/layout/ltcg/app_shutdown.json.
 #include "th10/platform/worker.hpp"
 #include "th10/platform/win32_timer.hpp"
 #include "th10/game/published_block.hpp"
@@ -33,7 +33,7 @@ struct ComObject_00420270 {
     }* vtable;
 };
 
-struct AnimationManagerSurface_00420270 {
+struct AnimationManagerSurface {
     unsigned char reserved_000000[0x3ada74];
     ComObject_00420270* back_buffer;            // +0x3ADA74
 };
@@ -57,7 +57,7 @@ struct App_00420270 {
 extern "C" App_00420270 g_application;
 extern "C" PlatformWorker g_input_worker;
 extern "C" int g_sound_init_status;
-extern "C" AnimationManagerSurface_00420270* g_sprt_ctrl;
+extern "C" AnimationManagerSurface* g_sprt_ctrl;
 extern "C" AnimationManager_0043e460 g_sound_manager;
 extern "C" DatArchive g_archive;
 extern "C" const char str_dummy[];

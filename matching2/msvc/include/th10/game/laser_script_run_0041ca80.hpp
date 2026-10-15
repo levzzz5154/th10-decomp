@@ -12,7 +12,7 @@
 // says the slot has been initialised. The laser keeps one slot every 0x34
 // bytes starting at +0x58, with the slot's own state fields living in the
 // reserved tail behind the five scheduler words.
-struct LaserScriptTimer_0041ca80 {
+struct LaserScriptTimer {
     int previous;                       // +0x00
     int current;                        // +0x04
     float elapsed;                      // +0x08
@@ -41,17 +41,17 @@ struct LaserScriptTimer_0041ca80 {
 // One command of the embedded laser script. The four parameter words come
 // first, then the opcode and the gate word; the stream starts at +0x450 and
 // holds 18 commands, ending exactly where the beam sprite begins.
-union LaserScriptValue_0041ca80 {
+union LaserScriptValue {
     int i;
     float f;
     unsigned int u;
 };
 
-struct LaserScriptCommand_0041ca80 {
-    LaserScriptValue_0041ca80 param0;   // +0x00
-    LaserScriptValue_0041ca80 param1;   // +0x04
-    LaserScriptValue_0041ca80 param2;   // +0x08
-    LaserScriptValue_0041ca80 param3;   // +0x0C
+struct LaserScriptCommand {
+    LaserScriptValue param0;   // +0x00
+    LaserScriptValue param1;   // +0x04
+    LaserScriptValue param2;   // +0x08
+    LaserScriptValue param3;   // +0x0C
     unsigned int opcode;                // +0x10
     unsigned int gate;                  // +0x14
 };
@@ -83,24 +83,24 @@ struct LaserScriptRun_0041ca80 {
     float width_48;                     // +0x48 current beam width
     unsigned char reserved_04C[0x54 - 0x4C];
     int id_54;                          // +0x54 laser id
-    LaserScriptTimer_0041ca80 timer_58; // +0x58 slot 0
+    LaserScriptTimer timer_58; // +0x58 slot 0
     unsigned char reserved_06C[0x7C - 0x6C];
     int duration_7C;                    // +0x7C slot 0 tail
     unsigned char reserved_080[0x8C - 0x80];
-    LaserScriptTimer_0041ca80 timer_8C; // +0x8C slot 1
+    LaserScriptTimer timer_8C; // +0x8C slot 1
     float speed_A0;                     // +0xA0 beam speed
     float angle_A4;                     // +0xA4 beam angle target
     LinePolarVelocity_0041f800 polar_A8;// +0xA8 polar velocity
     unsigned char reserved_0B0[0xB4 - 0xB0];
     int sound_B4;                       // +0xB4 slot 1 tail
     unsigned char reserved_B8[0xC0 - 0xB8];
-    LaserScriptTimer_0041ca80 timer_C0; // +0xC0 slot 2
+    LaserScriptTimer timer_C0; // +0xC0 slot 2
     float offset_D4;                    // +0xD4 movement target x
     float offset_D8;                    // +0xD8 movement target y
     unsigned char reserved_DC[0xE8 - 0xDC];
     int sound_E8;                       // +0xE8 slot 2 tail
     unsigned char reserved_EC[0xF4 - 0xEC];
-    LaserScriptTimer_0041ca80 timer_F4; // +0xF4 slot 3
+    LaserScriptTimer timer_F4; // +0xF4 slot 3
     float width_108;                    // +0x108 width growth target
     int mode_10C;                       // +0x10C width growth mode
     unsigned char reserved_110[0x11C - 0x110];
@@ -113,13 +113,13 @@ struct LaserScriptRun_0041ca80 {
     int phase_150;                      // +0x150 length growth phase
     int phase_154;                      // +0x154 length growth phase
     unsigned char reserved_158[0x15C - 0x158];
-    LaserScriptTimer_0041ca80 timer_15C;// +0x15C slot 5
+    LaserScriptTimer timer_15C;// +0x15C slot 5
     unsigned char reserved_170[0x190 - 0x170];
-    LaserScriptTimer_0041ca80 timer_190;// +0x190 slot 6
+    LaserScriptTimer timer_190;// +0x190 slot 6
     unsigned char reserved_1A4[0x1C4 - 0x1A4];
-    LaserScriptTimer_0041ca80 spare_1C4;// +0x1C4 slot 7
+    LaserScriptTimer spare_1C4;// +0x1C4 slot 7
     unsigned char reserved_1D8[0x1F8 - 0x1D8];
-    LaserScriptTimer_0041ca80 timer_1F8;// +0x1F8 slot 8
+    LaserScriptTimer timer_1F8;// +0x1F8 slot 8
     float move_x_20C;                   // +0x20C movement target x
     float move_y_210;                   // +0x210 movement target y
     unsigned char reserved_214[0x220 - 0x214];
@@ -130,25 +130,25 @@ struct LaserScriptRun_0041ca80 {
     unsigned char reserved_408[0x40C - 0x408];
     int sound_id_40C;                   // +0x40C queued sound id
     unsigned char reserved_410[0x450 - 0x410];
-    LaserScriptCommand_0041ca80 commands[18]; // +0x450
+    LaserScriptCommand commands[18]; // +0x450
     Entity beam;                        // +0x600 beam animation object
 };
 
-typedef char LaserScriptTimerSize_0041ca80[
-    sizeof(LaserScriptTimer_0041ca80) == 0x14 ? 1 : -1];
-typedef char LaserScriptCommandSize_0041ca80[
-    sizeof(LaserScriptCommand_0041ca80) == 0x18 ? 1 : -1];
-typedef char LaserScriptPolarOffset_0041ca80[
+typedef char LaserScriptTimerSize[
+    sizeof(LaserScriptTimer) == 0x14 ? 1 : -1];
+typedef char LaserScriptCommandSize[
+    sizeof(LaserScriptCommand) == 0x18 ? 1 : -1];
+typedef char LaserScriptPolarOffset[
     offsetof(LaserScriptRun_0041ca80, polar_A8) == 0xA8 ? 1 : -1];
-typedef char LaserScriptTimer15COffset_0041ca80[
+typedef char LaserScriptTimer15COffset[
     offsetof(LaserScriptRun_0041ca80, timer_15C) == 0x15C ? 1 : -1];
-typedef char LaserScriptTimer1F8Offset_0041ca80[
+typedef char LaserScriptTimer1F8Offset[
     offsetof(LaserScriptRun_0041ca80, timer_1F8) == 0x1F8 ? 1 : -1];
-typedef char LaserScriptPcOffset_0041ca80[
+typedef char LaserScriptPcOffset[
     offsetof(LaserScriptRun_0041ca80, pc_400) == 0x400 ? 1 : -1];
-typedef char LaserScriptCommandsOffset_0041ca80[
+typedef char LaserScriptCommandsOffset[
     offsetof(LaserScriptRun_0041ca80, commands) == 0x450 ? 1 : -1];
-typedef char LaserScriptBeamOffset_0041ca80[
+typedef char LaserScriptBeamOffset[
     offsetof(LaserScriptRun_0041ca80, beam) == 0x600 ? 1 : -1];
 
 // The player, aimed at by the aim command; the manager holding the beam

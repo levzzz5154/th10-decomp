@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "vec3_divide_004051f0",
-      "symbol": "?Divided_004051f0@@YG?AUVec3_004051f0@@PBU1@M@Z",
+      "symbol": "?Divided@@YG?AUVec3_004051f0@@PBU1@M@Z",
       "section": ".text$01accessor",
       "address": "0x004051F0",
       "size": 41,

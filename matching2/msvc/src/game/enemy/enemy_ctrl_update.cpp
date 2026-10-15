@@ -6,10 +6,10 @@
 
 #pragma code_seg(".text$01sweep")
 int EnemyCtrlSweepView::Sweep() {
-    EnemyTimerSweepLink_0040d750* next;
-    for (EnemyTimerSweepLink_0040d750* link = enemy_list_head_058; link; link = next) {
+    EnemyTimerSweepLink* next;
+    for (EnemyTimerSweepLink* link = enemy_list_head_058; link; link = next) {
         next = link->next;
-        if (!(link->owner->flags_2480 & 0x20000) && !EnemyUpdate_0040dc80(link->owner->update_context_103c)) {
+        if (!(link->owner->flags_2480 & 0x20000) && !EnemyUpdate(link->owner->update_context_103c)) {
             link->owner->flags_2480 &= ~0x400;
         } else if (link->owner) {
             link->owner->RetireFromSweep(1);

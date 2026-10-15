@@ -14,7 +14,7 @@ struct AnimationScriptId {
 };
 // 0x004492A0: let the animation with this id, and its children, be removed.
 void* __fastcall AnimationManager_SetFlag_004492a0(AnimationLookupContext* context, AnimationScriptId id);
-__declspec(noinline) void __stdcall ManagerTeardownFuncCtrl_Remove_00449F60(FuncCtrl* scheduler, SchedulerTask* task);
+__declspec(noinline) void __stdcall ManagerTeardownFuncCtrl_Remove(FuncCtrl* scheduler, SchedulerTask* task);
 
 extern "C" AnimationLookupContext* g_sprt_ctrl;
 extern "C" void* g_func_ctrl;
@@ -26,27 +26,27 @@ inline SprtCtrl* AnimationRemoval(AnimationLookupContext* animations) {
 
 // The animation manager's two lists of live animations, as the lookup at
 // 0x004491C0 walks them.
-struct AnimationListEntry_004145f0 {
-    AnimationListEntry_004145f0* object;
-    AnimationListEntry_004145f0* next;
+struct AnimationListEntry {
+    AnimationListEntry* object;
+    AnimationListEntry* next;
     unsigned char reserved_08[0x0C];
-    AnimationListEntry_004145f0* children;
+    AnimationListEntry* children;
     int children_flagged;
     unsigned char reserved_1c[0x340];
     unsigned int flags;
 };
 struct AnimationLists_004145f0 {
     unsigned char reserved[0x72DAD4];
-    AnimationListEntry_004145f0* primary;
+    AnimationListEntry* primary;
     int reserved_2;
-    AnimationListEntry_004145f0* secondary;
+    AnimationListEntry* secondary;
 };
 
 // The lookup and the flag setter again, written out so that they can be
 // expanded in place: the destructor's loop holds a copy of both.
-__forceinline AnimationListEntry_004145f0* AnimationLists_Find(AnimationLookupContext* context, AnimationScriptId id) {
+__forceinline AnimationListEntry* AnimationLists_Find(AnimationLookupContext* context, AnimationScriptId id) {
     AnimationLists_004145f0* lists = reinterpret_cast<AnimationLists_004145f0*>(context);
-    AnimationListEntry_004145f0* node;
+    AnimationListEntry* node;
     int* object;
     if (!id.value)
         return 0;
@@ -63,7 +63,7 @@ __forceinline AnimationListEntry_004145f0* AnimationLists_Find(AnimationLookupCo
     return 0;
 }
 __forceinline void AnimationLists_SetFlag(AnimationLookupContext* context, AnimationScriptId id) {
-    AnimationListEntry_004145f0* entry = AnimationLists_Find(context, id);
+    AnimationListEntry* entry = AnimationLists_Find(context, id);
     if (entry) {
         entry->flags |= 0x4000000;
         if (!entry->children_flagged)
@@ -116,7 +116,7 @@ struct Front {
     __declspec(noinline) ~Front();    // 0x004145F0
 };
 typedef char ItemManagerSize_004145f0[sizeof(Front) == 0x9ED0 ? 1 : -1];
-typedef char ItemManagerEffects_004145f0[offsetof(Front, effects) == 0x9DF4 ? 1 : -1];
+typedef char ItemManagerEffects[offsetof(Front, effects) == 0x9DF4 ? 1 : -1];
 
 // 0x00414370: release everything the manager's items and score texts hold.
 void __stdcall Front_ReleaseContents(Front* manager);

@@ -20,7 +20,7 @@ void ReplayManager_0042a6a0::FinishStage() {
         draw_task->flags |= 2;
     if (mode == 0) {
         ReplayStage_0042a6a0* record = stage_data[g_globals.stage];
-        ReplayFinishClearPools_0042ab20(this, g_globals.stage);
+        ReplayFinishClearPools(this, g_globals.stage);
         current_pool = AppendPage(g_globals.stage);
         if (g_stage_flags == 0) {
             record->score = g_globals.score;
@@ -63,7 +63,7 @@ void ReplayManager_0042a6a0::FinishStage() {
         }
         for (int index = 0; index < 4; ++index)
             player->options[index].reset_position = 0;
-        ReplayPauseReset_00424d90((PauseState_00424d90*)player);
+        ReplayPauseReset((PauseState_00424d90*)player);
     }
     field_1c8 = 0;
 }

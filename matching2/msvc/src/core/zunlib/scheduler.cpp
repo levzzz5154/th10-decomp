@@ -3,7 +3,7 @@
 
 // 0x00420C00: recovered in build_support/layout/units/music_requests_0b68f8.cpp.
 
-// 0x00421F60: recovered in src/game/mother/game_state_update_frame_maximum_00421f60.cpp.
+// 0x00421F60: recovered in src/game/mother/game_state_update_frame_maximum.cpp.
 
 // 0x00422C30: recovered in src/game/pause/pause_unpause.cpp.
 
@@ -15,7 +15,7 @@
 #include "th10/core/func_ctrl.hpp"
 #include "th10/platform/thread_sync.hpp"
 
-struct SchedulerTaskRaw_00449c00 {
+struct SchedulerTaskRaw {
     int priority;
     unsigned int flags;
     TaskRoutine on_tick;
@@ -25,12 +25,12 @@ struct SchedulerTaskRaw_00449c00 {
     void* context;
 };
 
-static SchedulerTaskRaw_00449c00* raw_task_00449c00(TaskLink* link) {
-    return (SchedulerTaskRaw_00449c00*)link->task;
+static SchedulerTaskRaw* raw_task(TaskLink* link) {
+    return (SchedulerTaskRaw*)link->task;
 }
 
 // 0x00449C00..0x00449D33: primary task pass and compiler switch table.
-extern "C" __declspec(noinline) int __stdcall FuncCtrl_RunPrimary_00449c00(
+extern "C" __declspec(noinline) int __stdcall FuncCtrl_RunPrimary(
         FuncCtrl* scheduler) {
     EnterCriticalSection(&g_thread_synchronization.critical_sections[0]);
     ++g_thread_synchronization.scheduler_lock_depth;
@@ -39,7 +39,7 @@ restart_primary:
     TaskLink* node = scheduler->primary.link.next;
     while (node) {
         TaskLink* next = node->next;
-        SchedulerTaskRaw_00449c00* task = raw_task_00449c00(node);
+        SchedulerTaskRaw* task = raw_task(node);
         if (task->on_tick) {
             if (task->flags & 2) {
 repeat_primary:
@@ -92,7 +92,7 @@ extern "C" __declspec(noinline) int __stdcall FuncCtrl_RunSecondary_00449d40(
     TaskLink* node = scheduler->secondary.link.next;
     while (node) {
         TaskLink* next = node->next;
-        SchedulerTaskRaw_00449c00* task = raw_task_00449c00(node);
+        SchedulerTaskRaw* task = raw_task(node);
         if (task->on_tick) {
 repeat_secondary:
             if (task->flags & 2) {
@@ -171,6 +171,6 @@ extern "C" int* __stdcall SchedulerTask_Create(int callback) {
     return reinterpret_cast<int*>(task);
 }
 
-// 0x0044A000: recovered in src/core/zunlib/scheduler_create_and_register_0044a000.cpp.
+// 0x0044A000: recovered in src/core/zunlib/scheduler_create_and_register.cpp.
 
-// 0x0044A030: recovered in src/core/zunlib/scheduler_create_and_register_secondary_0044a030.cpp.
+// 0x0044A030: recovered in src/core/zunlib/scheduler_create_and_register_secondary.cpp.

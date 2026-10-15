@@ -10,7 +10,7 @@ struct ByteRange_0044c0b0 {
 int __stdcall ByteSumContext_0044c0b0(const ByteRange_0044c0b0* ranges, int range_count) {
     unsigned int total = 0;
     for (int index = 0; index < range_count; ++index)
-        total += SumEveryFourthByte_0044c0b0(ranges[index].bytes, ranges[index].count);
+        total += SumEveryFourthByte(ranges[index].bytes, ranges[index].count);
     return static_cast<int>(total);
 }
 #pragma code_seg()

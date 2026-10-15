@@ -11,7 +11,7 @@
   "functions": [
     {
       "name": "CopyPositionRecord_00447940",
-      "symbol": "?CopyPositionRecord_00447940@@YGXHPAUAnimationPositionManager_00447940@@PBUAnimationPositionRecord_00447940@@@Z",
+      "symbol": "?CopyPositionRecord_00447940@@YGXHPAUAnimationPositionManager@@PBUAnimationPositionRecord@@@Z",
       "section": ".text$01copy",
       "address": "0x00447940",
       "size": 143,
@@ -19,7 +19,7 @@
     }
   ],
   "context": {
-    "symbol": "?CopyPositionRecordContext@@YGXPAUAnimationPositionManager_00447940@@PBUAnimationPositionRecord_00447940@@H@Z",
+    "symbol": "?CopyPositionRecordContext@@YGXPAUAnimationPositionManager@@PBUAnimationPositionRecord@@H@Z",
     "section": ".text$03context",
     "address": "0x004479D0",
     "size": 46,

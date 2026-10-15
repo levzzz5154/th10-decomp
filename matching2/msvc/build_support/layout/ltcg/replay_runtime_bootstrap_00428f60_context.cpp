@@ -21,7 +21,7 @@ extern "C" char g_key_bindings_current[];
 extern "C" float g_game_speed;
 
 // Same shape the equivalent body declares; the member definition lands here.
-struct EmbeddedTimerState_0042a930 {
+struct EmbeddedTimerState {
     unsigned char unknown_00[0x14];
     int target_14;
     int current_18;
@@ -62,7 +62,7 @@ __declspec(noinline) int ReplayManager_LoadFile_00428f60(
 
 // The frame countdown timer; the receiver is the containing score-state
 // object and arrives in EAX at the retail call site.
-void EmbeddedTimerState_0042a930::SetCountdown(int frames) {
+void EmbeddedTimerState::SetCountdown(int frames) {
     if ((this->flags_24 & 1) == 0) {
         this->current_18 = 0;
         this->target_14 = 0xFFF0BDC1;
@@ -76,9 +76,9 @@ void EmbeddedTimerState_0042a930::SetCountdown(int frames) {
 }
 
 // The pool page append; the slot arrives in ESI and the owner is pushed.
-PoolLink_0042aa50* PoolOwner_0042aa50::AppendPage(int slot) {
-    PoolLink_0042aa50* link = &(new PoolPage_0042aa50)->link;
-    PoolLink_0042aa50* tail = &lists[slot];
+PoolLink* PoolOwner::AppendPage(int slot) {
+    PoolLink* link = &(new PoolPage)->link;
+    PoolLink* tail = &lists[slot];
     while (tail->next)
         tail = tail->next;
     if (tail->next) {
@@ -92,11 +92,11 @@ PoolLink_0042aa50* PoolOwner_0042aa50::AppendPage(int slot) {
 
 // Complete list release; the stage arrives in EAX and the lists in ECX.
 extern "C" __declspec(noinline) void __stdcall
-ReplayPool_Clear_0042ab20(ReplayPoolLists_0042aa50* lists, int stage) {
+ReplayPool_Clear(ReplayPoolLists* lists, int stage) {
     ReplayPoolLink_0042aa50* current = lists->stages[stage].next;
     while (current) {
         ReplayPoolLink_0042aa50* next = current->next;
-        ReplayPool_0042aa50* pool = current->pool;
+        ReplayPool* pool = current->pool;
         if (pool) {
             if (pool->link.next) pool->link.next->previous = pool->link.previous;
             if (pool->link.previous) pool->link.previous->next = pool->link.next;

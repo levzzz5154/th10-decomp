@@ -7,18 +7,18 @@
 //
 // The receiver arrives in EBX and the queue head goes to the drain in EAX;
 // both come from the whole-program pass, so this unit is compiled in the
-// cluster build_support/layout/ltcg/recovery_mark_text_and_dispatcher_004479d0.json.
+// cluster build_support/layout/ltcg/recovery_mark_text_and_dispatcher.json.
 #include <math.h>
 
 #include "th10/game/indicator_animation_lookup_00419120.hpp"
 #include "th10/game/player.hpp"
 
-extern "C" int recovery_indicator_owner_00474c84;   // current stage tag
+extern "C" int recovery_indicator_owner;   // current stage tag
 extern "C" int g_globals_stage;                       // current stage queue index
 
 #pragma code_seg(".text$00419650_fn")
 int HintUpdateView::Update() {
-    if (owner_tag != recovery_indicator_owner_00474c84)
+    if (owner_tag != recovery_indicator_owner)
         stage_frame = 0;
     queues[g_globals_stage].head->Drain(this, 1);
 

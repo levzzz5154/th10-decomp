@@ -1,12 +1,12 @@
 {
  "schema_version": 1,
- "name": "result_rows_00422660",
+ "name": "result_rows",
  "region": "asm_FUN_00422660_00422660",
  "sources": [
   "src/game/pause/fun.cpp"
  ],
- "entry_symbol": "_ResultScreen_DrawRows_00422660@4",
- "function": "_ResultScreen_DrawRows_00422660@4",
+ "entry_symbol": "_ResultScreen_DrawRows@4",
+ "function": "_ResultScreen_DrawRows@4",
  "code_bytes": 1036,
  "absolute_symbols": {
   "@__security_check_cookie@4": {

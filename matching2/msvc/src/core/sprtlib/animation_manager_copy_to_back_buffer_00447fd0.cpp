@@ -10,10 +10,10 @@
 
 // The device is always reached through this accessor: it makes the compiler
 // load the device and its vtable before the arguments, as retail does.
-static inline SurfaceDevice_00447c80* Device() { return g_d3d_device; }
+static inline SurfaceDevice* Device() { return g_d3d_device; }
 
 #pragma code_seg(".text$03copy")
-void AnimationManagerIndexed_00447f70::CopyToBackBuffer(int index, int left, int top, int x, int y) {
+void AnimationManagerIndexed::CopyToBackBuffer(int index, int left, int top, int x, int y) {
     if (!secondary[index])
         return;
     ResourceView* back_buffer;
@@ -27,17 +27,17 @@ void AnimationManagerIndexed_00447f70::CopyToBackBuffer(int index, int left, int
             back_buffer->Release();
             return;
         }
-        if (LoadSurfaceCopy_004521d6(primary[index], 0, 0, secondary[index], 0, 0, 1, 0) != 0) {
+        if (LoadSurfaceCopy(primary[index], 0, 0, secondary[index], 0, 0, 1, 0) != 0) {
             back_buffer->Release();
             return;
         }
     }
-    SurfaceRect_00447fd0 rect;
+    SurfaceRect rect;
     rect.left = left;
     rect.top = top;
     rect.right = info[index].width;
     rect.bottom = info[index].height;
-    SurfacePoint_00447fd0 point;
+    SurfacePoint point;
     point.x = x;
     point.y = y;
     Device()->UpdateSurface(primary[index], &rect, back_buffer, &point);

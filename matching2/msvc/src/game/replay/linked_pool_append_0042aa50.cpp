@@ -5,9 +5,9 @@
 #include "th10/game/linked_pool_append.hpp"
 
 #pragma code_seg(".text$a05m_append")
-PoolLink_0042aa50* PoolOwner_0042aa50::AppendPage(int slot) {
-    PoolLink_0042aa50* link = &(new PoolPage_0042aa50)->link;
-    PoolLink_0042aa50* tail = &lists[slot];
+PoolLink* PoolOwner::AppendPage(int slot) {
+    PoolLink* link = &(new PoolPage)->link;
+    PoolLink* tail = &lists[slot];
     while (tail->next)
         tail = tail->next;
     if (tail->next) {

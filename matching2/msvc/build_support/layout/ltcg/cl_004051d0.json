@@ -8,8 +8,8 @@
   "description": "Region compiled with native LTCG so its entry register is retail's.",
   "functions": [
     {
-      "name": "RetireBlock_004051d0",
-      "symbol": "?RetireBlock_004051d0@@YGHPAX@Z",
+      "name": "RetireBlock",
+      "symbol": "?RetireBlock@@YGHPAX@Z",
       "section": ".text$01retire",
       "address": "0x004051D0",
       "size": 7,

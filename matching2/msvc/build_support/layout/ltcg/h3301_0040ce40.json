@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "H3301Outer_0040ce40_GetValue",
-      "symbol": "?GetValue@H3301Outer_0040ce40@@QBEHXZ",
+      "symbol": "?GetValue@H3301Outer@@QBEHXZ",
       "section": ".text$01target",
       "address": "0x0040CE40",
       "size": 10,

@@ -1,5 +1,5 @@
 // 0x00421C00..0x00421C49: claim an unused emitter slot and store its parameters.
-struct EmitterSlot_00421c00 {
+struct EmitterSlot {
     int id;                                   // +0x00, negative while free
     unsigned char reserved_004[0x2C - 0x04];
     int mode;                                 // +0x2C
@@ -9,7 +9,7 @@ struct EmitterSlot_00421c00 {
 };
 
 #pragma code_seg(".text$01accessor")
-int EmitterSlot_00421c00::Claim(int new_id, int new_mode, float a, float b, float c,
+int EmitterSlot::Claim(int new_id, int new_mode, float a, float b, float c,
                                 float d, float e, float f, float g) {
     if (id >= 0) {
         return -1;

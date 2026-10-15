@@ -3,7 +3,7 @@
 
 // 0x00439FF0: enforce one instance and detect a title naming a replay path.
 #pragma code_seg(".text$01startup")
-extern "C" __declspec(noinline) int __cdecl Startup_InstanceCheck_00439ff0() {
+extern "C" __declspec(noinline) int __cdecl Startup_InstanceCheck() {
     startupMutex = CreateMutexA(0, 1, startupMutexName);
     if (GetLastError() == 0xB7) {
         startupLog.AppendLine(startupAlreadyRunning);

@@ -3,7 +3,7 @@
 #pragma code_seg(".text$03context")
 int __stdcall ClearContext_00418a70(ObjectAccessor_00418a70** items, int count) {
     while (count--) {
-        ClearFlags_00418a70(*items++);
+        ClearFlags(*items++);
     }
     return 0;
 }

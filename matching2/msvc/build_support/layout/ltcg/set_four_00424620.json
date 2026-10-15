@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "set_four_00424620",
-      "symbol": "?SetAll@SlotSet_00424620@@QAEXH@Z",
+      "symbol": "?SetAll@SlotSet@@QAEXH@Z",
       "section": ".text$01accessor",
       "address": "0x00424620",
       "size": 25,
@@ -17,7 +17,7 @@
     }
   ],
   "context": {
-    "symbol": "?Ctx@@YGHPAPAUSlotSet_00424620@@PAHH@Z",
+    "symbol": "?Ctx@@YGHPAPAUSlotSet@@PAHH@Z",
     "section": ".text$03context",
     "address": "0x00424650",
     "size": 43,

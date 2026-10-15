@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "remap_mode_004464d0",
-      "symbol": "?RemapFormat_004464d0@@YGHH@Z",
+      "symbol": "?RemapFormat@@YGHH@Z",
       "section": ".text$01accessor",
       "address": "0x004464D0",
       "size": 42,

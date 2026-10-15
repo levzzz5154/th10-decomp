@@ -4,11 +4,11 @@
 // registers survive the call.
 #include "th10/game/laser_spawn_0041c510.hpp"
 
-extern "C" LaserBase_0041c030* __fastcall LaserBaseConstructBody(void* unused, LaserBase_0041c030* self);
+extern "C" LaserBase* __fastcall LaserBaseConstructBody(void* unused, LaserBase* self);
 
 #pragma code_seg(".text$0041c030_fn")
-__declspec(noinline) LaserBase_0041c030* __fastcall
-LaserBase_Construct_0041c030(void*, LaserBase_0041c030* self) {
+__declspec(noinline) LaserBase* __fastcall
+LaserBase_Construct_0041c030(void*, LaserBase* self) {
     return LaserBaseConstructBody(0, self);
 }
 #pragma code_seg()

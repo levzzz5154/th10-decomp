@@ -211,7 +211,7 @@ void __fastcall Entity_Init(void* unused, Entity* entity);
 
 bool Entity_PointWithinBounds(const Vector3* bounds, float x, float y);
 bool Entity_PointWithinBoundsInclusive(const Vector3* bounds, float x, float y);
-extern "C" unsigned char* __fastcall Entity_ResetRuntimeState_00405D00(
+extern "C" unsigned char* __fastcall Entity_ResetRuntimeState(
     unsigned char* entity);
 // static_assert not available in MSVC 7.1
 // sizeof(Entity) == 0x3AC

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "name": "laser_script_run_0041ca80",
+  "name": "laser_script_run",
   "source": "src/game/laser/laser_script_run_0041ca80.cpp",
   "driver": "build_support/layout/ltcg/laser_script_run_0041ca80_context.cpp",
   "additional_sources": [

@@ -1,7 +1,7 @@
 #pragma once
 
 
-// 0x0042ADD0: maintained in src/game/score/score_settings_initialize_defaults_0042add0.cpp.
+// 0x0042ADD0: maintained in src/game/score/score_settings_initialize_defaults.cpp.
 
 
 // 0x00447280..0x004472D1: Recovery_LoadCachedResource

@@ -4,7 +4,7 @@
 //
 // Retail keeps the byte count in EDI while the path and the buffer stay on the
 // stack, so the body is compiled in the native LTCG cluster of
-// build_support/layout/ltcg/file_write_whole_file_0044b540.json, whose synthetic caller
+// build_support/layout/ltcg/file_write_whole_file.json, whose synthetic caller
 // forces that convention.
 //
 // The KERNEL32 slots at 0x004660B0..0x00466128 are addressed through their

@@ -1,18 +1,18 @@
 // Exact native-LTCG body for the private EAX/ECX linked-list helper.
-struct EclVariableNode_00450160 {
+struct EclVariableNode {
     void* object;
-    EclVariableNode_00450160* next;
+    EclVariableNode* next;
 };
 
-struct EclVariableVm_00450160 {
+struct EclVariableVm {
     unsigned char pad_000[0x1030];
-    EclVariableNode_00450160 bindings;
-    __declspec(noinline) EclVariableNode_00450160* FindVariable(int variable);
+    EclVariableNode bindings;
+    __declspec(noinline) EclVariableNode* FindVariable(int variable);
 };
 
 #pragma code_seg(".text$02find")
-EclVariableNode_00450160* EclVariableVm_00450160::FindVariable(int variable) {
-    EclVariableNode_00450160* node = &bindings;
+EclVariableNode* EclVariableVm::FindVariable(int variable) {
+    EclVariableNode* node = &bindings;
     while (node != 0) {
         if (*(int*)((unsigned char*)node->object + 0x1010) == variable)
             return node;

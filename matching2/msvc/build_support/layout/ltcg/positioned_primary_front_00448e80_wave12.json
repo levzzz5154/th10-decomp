@@ -8,8 +8,8 @@
   "description": "Primary-front bucket and positioned animation creators compiled under native LTCG with their registrar, allocator and script loader ABI anchors. Only the 73-byte and 95-byte complete creator contributions are selected. 0x00448E80 compiled with native LTCG so the position stays in EDI, the other three arguments stay on the stack and the three callees keep their retail entry registers (0x00449950 manager in ESI, 0x0043E710 resource in ECX / object in EAX / index in EBX, 0x00448A50 manager in EDX / entity in EBX / handle record in EAX). The .text$01loadscript, .text$03regfront and .text$07alloc sections are compiled ABI anchors for the assembly regions at 0x0043E710, 0x00448A50 and 0x00449950: placed at the retail addresses so the calls carry retail's displacements, and never exported as recovered code.",
   "functions": [
     {
-      "name": "AnimationManager_CreatePrimaryFront_00448e30",
-      "symbol": "?AnimationManager_CreatePrimaryFront_00448e30@@YGPAPAXPAXPAPAXHH@Z",
+      "name": "AnimationManager_CreatePrimaryFront",
+      "symbol": "?AnimationManager_CreatePrimaryFront@@YGPAPAXPAXPAPAXHH@Z",
       "section": ".text$05aa_front",
       "address": "0x00448E30",
       "size": 73,
@@ -17,16 +17,16 @@
       "source": "src/core/sprtlib/animation_manager_create_primary_front_00448e30.cpp"
     },
     {
-      "name": "AnimationManager_CreatePositionedPrimaryFront_00448e80",
-      "symbol": "?AnimationManager_CreatePositionedPrimaryFront_00448e80@@YGPAPAXPAXPAPAXHPBUAnimationPosition_00448e80@@@Z",
+      "name": "AnimationManager_CreatePositionedPrimaryFront",
+      "symbol": "?AnimationManager_CreatePositionedPrimaryFront@@YGPAPAXPAXPAPAXHPBUAnimationPosition_00448e80@@@Z",
       "section": ".text$05accessor",
       "address": "0x00448E80",
       "size": 95,
       "actual_abi": "position in EDI; resource, out and index on the stack; out returned in EAX; ret 0xC"
     },
     {
-      "name": "AnimationManager_CreateScreenPositionedPrimaryFront_00448ee0",
-      "symbol": "?AnimationManager_CreateScreenPositionedPrimaryFront_00448ee0@@YGPAPAXPAXPAPAXHPBUAnimationPosition_00448ee0@@@Z",
+      "name": "AnimationManager_CreateScreenPositionedPrimaryFront",
+      "symbol": "?AnimationManager_CreateScreenPositionedPrimaryFront@@YGPAPAXPAXPAPAXHPBUAnimationPosition_00448ee0@@@Z",
       "section": ".text$05ad_screen",
       "address": "0x00448EE0",
       "size": 118,

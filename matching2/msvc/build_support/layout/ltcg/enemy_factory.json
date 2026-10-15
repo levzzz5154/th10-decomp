@@ -374,17 +374,17 @@
       "kind": "data"
     },
     {
-      "symbol": "_ScoreTask_Setup_00413a20@4",
+      "symbol": "_ScoreTask_Setup@4",
       "address": "0x00413A20",
       "kind": "relative_code"
     },
     {
-      "symbol": "@ItemFront_UpdateThunk_00415ae0@4",
+      "symbol": "@ItemFront_UpdateThunk@4",
       "address": "0x00415AE0",
       "kind": "data"
     },
     {
-      "symbol": "@ItemFront_RenderThunk_00415af0@4",
+      "symbol": "@ItemFront_RenderThunk@4",
       "address": "0x00415AF0",
       "kind": "data"
     },
@@ -399,7 +399,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_ManagerOwned_Destroy_004294a0@4",
+      "symbol": "_ManagerOwned_Destroy@4",
       "address": "0x004294A0",
       "kind": "relative_code"
     },
@@ -434,7 +434,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_EnemyCtrl_ReleaseLists_00409f90@4",
+      "symbol": "_EnemyCtrl_ReleaseLists@4",
       "address": "0x409f90",
       "kind": "relative_code"
     },

@@ -16,7 +16,7 @@ extern "C" double __cdecl atan2(double, double);
 #pragma intrinsic(atan2)
 
 #pragma code_seg(".text$004073e0_fn")
-int __stdcall EnemyGrid_ScanCells_004073e0(ProjectilePattern_004073e0* pattern,
+int __stdcall EnemyGrid_ScanCells_004073e0(ProjectilePattern* pattern,
                                            ProjectileManager_004073e0* manager) {
     float dx = g_player->position.x - pattern->x;
     float dy = g_player->position.y - pattern->y;

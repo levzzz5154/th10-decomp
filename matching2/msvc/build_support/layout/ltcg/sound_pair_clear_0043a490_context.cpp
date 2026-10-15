@@ -2,10 +2,10 @@
 #include "../../../src/unreferenced/FUN_0043a490_0043a490.cpp"
 
 #pragma code_seg(".text$03context")
-int __stdcall ClearCompilerContext(SoundPairClear_0043a490** objects, int count) {
-    SoundPairClear_0043a490** cursor = objects;
+int __stdcall ClearCompilerContext(SoundPairClear** objects, int count) {
+    SoundPairClear** cursor = objects;
     while (count--) {
-        SoundPairClear_0043a490* object = *cursor++;
+        SoundPairClear* object = *cursor++;
         object->Clear();
         object->Clear();
     }

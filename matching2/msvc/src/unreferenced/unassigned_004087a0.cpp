@@ -1,6 +1,6 @@
 // 0x004087A0: set the Z rotation and mark the rotation dirty.
 // The object arrives in EAX and the float on the stack (RET 4); the body is
-// compiled in the native-LTCG cluster build_support/layout/ltcg/setrotationz_004087a0.json.
+// compiled in the native-LTCG cluster build_support/layout/ltcg/setrotationz.json.
 struct AnmVm_004087a0 {
     unsigned char reserved_000[0x2C];
     float rotation_z;              // +0x2C

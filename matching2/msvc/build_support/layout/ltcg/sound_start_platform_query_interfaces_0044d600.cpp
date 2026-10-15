@@ -1,5 +1,5 @@
 #pragma code_seg(".text$13query")
-__declspec(noinline) int PlatformQueryInterfaces_0044D600::Query() {
+__declspec(noinline) int PlatformQueryInterfaces::Query() {
     if (entries_004 == 0) return (int)0x800401F0u;
     int result = 0;
     for (unsigned int index = 0; index < count_010; ++index) {

@@ -7,10 +7,10 @@
 
 #pragma code_seg(".text$b1update")
 int SptTest_0042be20::Update() {
-    SptTestFindData_0042bfc0 find;
+    SptTestFindData find;
     switch (state) {
     case 4:
-        SptTest_TickVm_0044fd10(resource, 1.0f);
+        SptTest_TickVm(resource, 1.0f);
         if (resource && resource->active->running) break;
         if (resource) resource->Retire(1);
         resource = 0;
@@ -23,7 +23,7 @@ int SptTest_0042be20::Update() {
         switch (menu.selection) {
         case 2:
             if (g_input_keys_raw.repeated & 0x1001)
-                SptTest_SetGameMode_0040ac90(&g_application, 3);
+                SptTest_SetGameMode(&g_application, 3);
             break;
         case 1:
             if (parser) {
@@ -47,7 +47,7 @@ int SptTest_0042be20::Update() {
             if (g_input_keys_raw.Active(0x40)) file_cursor.Advance(-1);
             if (g_input_keys_raw.repeated & 0x1001) {
                 flags &= ~2u;
-                reinterpret_cast<PlatformWorker*>(&worker)->Start(this, SptTest_LoadThread_0042be10);
+                reinterpret_cast<PlatformWorker*>(&worker)->Start(this, SptTest_LoadThread);
                 state = 2;
             }
             break;

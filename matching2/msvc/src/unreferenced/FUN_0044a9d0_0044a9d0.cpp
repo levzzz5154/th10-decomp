@@ -12,7 +12,7 @@
 // frame's word becomes the previous one, every held key advances its repeat
 // counter and the pressed/released edges are derived from the two words.
 //
-// This unit is a native-LTCG cluster (layout/ltcg/keyboard_binding_read_0044a9d0
+// This unit is a native-LTCG cluster (layout/ltcg/keyboard_binding_read
 // .json): retail materialises the binding record address in ESI at function
 // entry (mov esi,ecx / imul esi,esi,0x6A / add esi,0x474E30) with the action
 // word in EDI, and only the /GL link reproduces that allocation.

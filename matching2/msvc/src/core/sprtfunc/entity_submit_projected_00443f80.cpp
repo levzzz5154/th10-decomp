@@ -15,14 +15,14 @@
 // no declaration names).
 #include "th10/render/quad_batch.hpp"
 
-struct BillboardSource_00443B60 {
+struct BillboardSource {
     unsigned char reserved_0000[0x35C];
     __declspec(noinline) int BuildProjectedQuad();
 };
 
 #pragma code_seg(".text$06b05z00projected")
 int RenderEntity::SubmitProjectedQuad(SprtCtrlBatchView* manager) {
-    if (((BillboardSource_00443B60*)this)->BuildProjectedQuad() != 0) {
+    if (((BillboardSource*)this)->BuildProjectedQuad() != 0) {
         return -1;
     }
     return manager->SubmitSpriteQuad(this, 0);

@@ -12,7 +12,7 @@
 //
 // The room is a stack argument; the handler is linked with the title
 // dispatcher and the real bodies of its leaves
-// (build_support/layout/ltcg/difficulty_select_update_00430320.json).
+// (build_support/layout/ltcg/difficulty_select_update.json).
 //
 // Equivalent recovery: the two inlined name copies encode [diff+walk] where
 // retail has [walk+diff].  The order follows compiler symbol numbers the
@@ -29,7 +29,7 @@ static __forceinline void SelectItem_00433570(MenuCursor& cursor, int index) {
 }
 
 #pragma code_seg(".text$00433570_fn")
-__declspec(noinline) int __stdcall TitleMode16_00433570(Title* room) {
+__declspec(noinline) int __stdcall TitleMode16(Title* room) {
     TitleReplaySaveView* save = reinterpret_cast<TitleReplaySaveView*>(room);
     char path[64];
     switch (room->phase) {
@@ -42,7 +42,7 @@ __declspec(noinline) int __stdcall TitleMode16_00433570(Title* room) {
         g_globals_stage_shown = 8;
         for (int number = 1; number <= 25; ++number) {
             sprintf(path, "th10_%.2d.rpy", number);
-            save->replays[number - 1] = ReplayFile_Open_004296f0(path);
+            save->replays[number - 1] = ReplayFile_Open(path);
         }
         RecoveryMusicInstallSlot(room, 105);
         room->SetTimerTarget(1);
@@ -133,10 +133,10 @@ __declspec(noinline) int __stdcall TitleMode16_00433570(Title* room) {
             } else if (cell == count - 1) {
                 g_sound_manager.Queue(0x2c, 0);
                 sprintf(path, "th10_%.2d.rpy", room->cursor.selection + 1);
-                ReplayFile_Delete_004297b0(save->replays[room->cursor.selection]);
-                ReplayFile_Save_00429b60(g_replay, path, save->name);
+                ReplayFile_Delete(save->replays[room->cursor.selection]);
+                ReplayFile_Save(g_replay, path, save->name);
                 int slot = room->cursor.selection;
-                save->replays[slot] = ReplayFile_Open_004296f0(path);
+                save->replays[slot] = ReplayFile_Open(path);
                 strcpy(g_score->last_name, save->name);
                 room->SetTimerTarget(2);
             }
@@ -159,12 +159,12 @@ __declspec(noinline) int __stdcall TitleMode16_00433570(Title* room) {
             room->SetSlotFrame(0x5a, 8);
             room->SetSlotFrame(0x5b, 8);
             room->ClearAnimationSlot(94);
-            RecoveryMusicStopHandle_00409e50(&room->fallback_handle);
+            RecoveryMusicStopHandle(&room->fallback_handle);
             room->DisableTimerWithOwner(2);
             room->cursor.PopSelection();
             ReplayFile_004315c0* recorded = g_replay;
             if (recorded != 0) {
-                ReplayFile_Destroy_004294a0(recorded);
+                ReplayFile_Destroy(recorded);
                 free(recorded);
             }
             Music_Load_00420a90(0, "bgm/th10_02.wav");
@@ -172,7 +172,7 @@ __declspec(noinline) int __stdcall TitleMode16_00433570(Title* room) {
             for (int index = 0; index < 25; ++index) {
                 ReplayFile_004315c0* replay = save->replays[index];
                 if (replay != 0) {
-                    ReplayFile_Destroy_004294a0(replay);
+                    ReplayFile_Destroy(replay);
                     free(replay);
                 }
             }

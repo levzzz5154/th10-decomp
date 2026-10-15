@@ -4,6 +4,6 @@
 
 #include "th10/util/heap.hpp"
 
-void __fastcall AppendText_00436940(int unused, const char* text, unsigned char* owner) {
+void __fastcall AppendText(int unused, const char* text, unsigned char* owner) {
     ((LegacyString*)(owner + 0x0c))->AssignRange(text, (uint32_t)strlen(text));
 }

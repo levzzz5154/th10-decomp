@@ -11,7 +11,7 @@
 //
 // The room is a stack argument; the handler is linked with the title
 // dispatcher and the real bodies of its leaves
-// (build_support/layout/ltcg/difficulty_select_update_00430320.json).
+// (build_support/layout/ltcg/difficulty_select_update.json).
 //
 // Equivalent recovery: retail keeps the created handle in a stack slot of its
 // own (push ecx at entry), this build puts it in the dead argument slot
@@ -27,12 +27,12 @@ static __forceinline void SelectItem_00432cb0(MenuCursor& cursor, int index) {
 }
 
 // The score file with its high-score tables.
-static __forceinline NameEntryScoreFile_00432cb0* ScoreFile_00432cb0() {
-    return reinterpret_cast<NameEntryScoreFile_00432cb0*>(g_score);
+static __forceinline NameEntryScoreFile* ScoreFile_00432cb0() {
+    return reinterpret_cast<NameEntryScoreFile*>(g_score);
 }
 
 #pragma code_seg(".text$00432cb0_fn")
-__declspec(noinline) int __stdcall TitleNameEntry_00432cb0(Title* room) {
+__declspec(noinline) int __stdcall TitleNameEntry(Title* room) {
     TitleReplaySaveView* entry = reinterpret_cast<TitleReplaySaveView*>(room);
     void* handle;
     switch (room->phase) {
@@ -40,12 +40,12 @@ __declspec(noinline) int __stdcall TitleNameEntry_00432cb0(Title* room) {
         room->cursor.item_count = 30;
         Music_Load_00420a90(0, "bgm/th10_17.wav");
         Music_Play_00420b10(0, 17);
-        if (reinterpret_cast<RecoveryLookup_0040bd80*>(g_sprt_ctrl)->Find(
+        if (reinterpret_cast<RecoveryLookup*>(g_sprt_ctrl)->Find(
                 reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl),
                 *reinterpret_cast<RecoveryScriptId*>(&room->animation_slots[94])) == 0) {
             RecoveryMusicInstallSlot(room, 94);
             void* resource = g_ascii_manager->animation_resource;
-            void** result = AnimationManager_CreatePrimaryBack_00448d00(resource, &handle, 8, 15);
+            void** result = AnimationManager_CreatePrimaryBack(resource, &handle, 8, 15);
             room->fallback_handle.value = reinterpret_cast<unsigned int>(*result);
         }
         RecoveryMusicInstallSlot(room, 104);

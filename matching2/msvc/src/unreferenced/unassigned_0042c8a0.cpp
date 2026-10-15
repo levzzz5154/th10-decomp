@@ -5,7 +5,7 @@ struct Table_0042c8a0 {
 };
 
 #pragma code_seg(".text$01accessor")
-__declspec(noinline) int __stdcall TableEntry_0042c8a0(Table_0042c8a0* table, int row, int column) {
+__declspec(noinline) int __stdcall TableEntry(Table_0042c8a0* table, int row, int column) {
     return table->rows[row][column];
 }
 #pragma code_seg()

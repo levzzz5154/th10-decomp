@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "ReplayBufferState_GetBufferedBytes",
-      "symbol": "?GetBufferedBytes@ReplayBufferState_0042a870@@QBEHXZ",
+      "symbol": "?GetBufferedBytes@ReplayBufferState@@QBEHXZ",
       "section": ".text$01accessor",
       "address": "0x0042A870",
       "size": 42,
@@ -17,7 +17,7 @@
     }
   ],
   "context": {
-    "symbol": "?ReplayBufferedBytesContext_0042a870@@YGHPAPAUReplayBufferState_0042a870@@H@Z",
+    "symbol": "?ReplayBufferedBytesContext_0042a870@@YGHPAPAUReplayBufferState@@H@Z",
     "section": ".text$03context",
     "address": "0x0042A8B0",
     "size": 45,
@@ -38,7 +38,7 @@
   "constants": [],
   "absolute_symbols": [],
   "roots": [
-    "?GetBufferedBytes@ReplayBufferState_0042a870@@QBEHXZ"
+    "?GetBufferedBytes@ReplayBufferState@@QBEHXZ"
   ],
   "included_sources": []
 }

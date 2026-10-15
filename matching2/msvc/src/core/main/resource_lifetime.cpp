@@ -6,7 +6,7 @@ extern "C" __declspec(dllimport) HANDLE __stdcall LoadResource(HMODULE, HANDLE);
 extern "C" __declspec(dllimport) void* __stdcall LockResource(HANDLE);
 extern "C" __declspec(dllimport) BOOL __stdcall FreeResource(HANDLE);
 extern "C" __declspec(dllimport) DWORD __stdcall SizeofResource(HMODULE, HANDLE);
-extern "C" void* __cdecl entry_malloc_00452706(DWORD);
+extern "C" void* __cdecl entry_malloc(DWORD);
 #ifdef _MSC_VER
 extern "C" void* __cdecl memcpy(void*, const void*, DWORD);
 #pragma intrinsic(memcpy)
@@ -43,7 +43,7 @@ BYTE ResourceFile::Open(const char* name, const char*) {
     }
 
     size_ = SizeofResource(0, resource);
-    data_ = (BYTE*)entry_malloc_00452706(size_);
+    data_ = (BYTE*)entry_malloc(size_);
     if (!data_) {
     failed:
         Close();

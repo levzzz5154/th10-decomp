@@ -23,7 +23,7 @@
     },
     {
       "name": "EntityMovementSlot_Initialise",
-      "symbol": "?Initialise@EntityMovementSlot_0041ab70@@QAEXPBUMovementPair_0041ab70@@0HE@Z",
+      "symbol": "?Initialise@EntityMovementSlot@@QAEXPBUMovementPair@@0HE@Z",
       "section": ".text$03movement",
       "address": "0x0041AB70",
       "size": 136,
@@ -32,7 +32,7 @@
     }
   ],
   "context": {
-    "symbol": "?AccessorCompilerContext@@YGHPAPAUObjectAccessor_0041ab60@@PAPAUEntityMovementSlot_0041ab70@@PBUMovementPair_0041ab70@@2H@Z",
+    "symbol": "?AccessorCompilerContext@@YGHPAPAUObjectAccessor_0041ab60@@PAPAUEntityMovementSlot@@PBUMovementPair@@2H@Z",
     "section": ".text$05context",
     "address": "0x0041AC00",
     "size": 111,

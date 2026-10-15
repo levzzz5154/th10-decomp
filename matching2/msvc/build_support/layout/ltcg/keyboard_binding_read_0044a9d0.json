@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "name": "keyboard_binding_read_0044a9d0",
+  "name": "keyboard_binding_read",
   "source": "src/unreferenced/FUN_0044a9d0_0044a9d0.cpp",
   "driver": "build_support/layout/ltcg/keyboard_binding_read_0044a9d0_context.cpp",
   "headers": [

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "name": "path_decode_xor_00417010",
+  "name": "path_decode_xor",
   "source": "src/game/front/path_decode_xor_00417010.cpp",
   "driver": "build_support/layout/ltcg/path_decode_xor_00417010_context.cpp",
   "headers": [],
@@ -36,7 +36,7 @@
   "constant_aliases": [],
   "absolute_symbols": [
     {
-      "symbol": "?g_decoded_text_00497d40@@3PADA",
+      "symbol": "?g_decoded_text@@3PADA",
       "address": "0x00497D40",
       "kind": "data"
     },

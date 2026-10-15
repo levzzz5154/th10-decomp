@@ -11,7 +11,7 @@
   "functions": [
     {
       "name": "LinkedPool_AppendPage",
-      "symbol": "?AppendPage@PoolOwner_0042aa50@@QAEPAUPoolLink_0042aa50@@H@Z",
+      "symbol": "?AppendPage@PoolOwner@@QAEPAUPoolLink@@H@Z",
       "section": ".text$a05m_append",
       "address": "0x0042AA50",
       "size": 139,

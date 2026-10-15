@@ -48,7 +48,7 @@
     },
     {
       "name": "PositionedCreator",
-      "symbol": "?AnimationManager_CreatePositionedPrimary_00448d50@@YGPAPAXPAXPAPAXHPBUAnimationPosition_00448d50@@@Z",
+      "symbol": "?AnimationManager_CreatePositionedPrimary@@YGPAPAXPAXPAPAXHPBUAnimationPosition_00448d50@@@Z",
       "section": ".text$11position",
       "address": "0x00448D50",
       "size": 95
@@ -163,7 +163,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_TitleEffectsAdvance_0041fdd0@4",
+      "symbol": "_TitleEffectsAdvance@4",
       "address": "0x0041FDD0",
       "kind": "relative_code"
     }

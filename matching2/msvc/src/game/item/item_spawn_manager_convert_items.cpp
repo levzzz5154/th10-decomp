@@ -5,13 +5,13 @@
 #include "../../../build_support/layout/ltcg/item_collection_runtime/types/item_spawn.hpp"
 
 struct Vector3;
-void** __stdcall ItemAnimation_CreateOffset_00448db0(
+void** __stdcall ItemAnimation_CreateOffset(
     void* resource, void** out, int index, const Vector3* position);
 
 #pragma code_seg(".text$f0041ba50F")
-int ItemSpawnManager_0041bb00::ConvertItems() {
+int ItemSpawnManager::ConvertItems() {
     for (int index = 0; index < 150; ++index) {
-        SpawnItem_0041bb00* item = &items[index];
+        SpawnItem* item = &items[index];
         if (item->motion.state == 0)
             continue;
         int kind = item->motion.kind;
@@ -28,7 +28,7 @@ int ItemSpawnManager_0041bb00::ConvertItems() {
             continue;
         }
         void* flash;
-        ItemAnimation_CreateOffset_00448db0(
+        ItemAnimation_CreateOffset(
             g_bullet_manager->item_animation, &flash, 0x189, &item->motion.position);
     }
     return 0;

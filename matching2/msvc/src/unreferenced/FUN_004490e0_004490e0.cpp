@@ -32,7 +32,7 @@ extern "C" void** __cdecl asm_AnimationManager_RegisterSecondaryFront_00448b40(
 // noinline: the whole-program pass must keep this body as its own contribution
 // at 0x004490E0 instead of inlining it into the synthetic caller.
 __declspec(noinline)
-void** __stdcall AnimationManager_CreatePositionedSecondaryFront_004490e0(
+void** __stdcall AnimationManager_CreatePositionedSecondaryFront(
     void* resource, void** out, int index, const AnimationPosition_004490e0* position) {
     AnimationObject_004490e0* object =
         (AnimationObject_004490e0*)asm_FUN_00449950_00449950(g_sprt_ctrl);

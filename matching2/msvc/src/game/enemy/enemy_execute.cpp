@@ -49,7 +49,7 @@ int Enemy::Execute_0040e770() {
         spawn.score = IVAL(4, ins->i[n + 3]);
         spawn.item = IVAL(5, ins->i[n + 4]);
         memcpy(spawn.variables, variables, sizeof(spawn.variables));
-        EnemyCtrl_Spawn_0040cfb0(&spawn, g_enemy_ctrl, &ins->s[4]);
+        EnemyCtrl_Spawn(&spawn, g_enemy_ctrl, &ins->s[4]);
         return 0;
     }
     case 0x10a:
@@ -64,7 +64,7 @@ int Enemy::Execute_0040e770() {
         spawn.score = IVAL(4, ins->i[n + 3]);
         spawn.item = IVAL(5, ins->i[n + 4]);
         memcpy(spawn.variables, variables, sizeof(spawn.variables));
-        EnemyCtrl_Spawn_0040cfb0(&spawn, g_enemy_ctrl, &ins->s[4]);
+        EnemyCtrl_Spawn(&spawn, g_enemy_ctrl, &ins->s[4]);
         return 0;
     }
     case 0x10f:
@@ -73,15 +73,15 @@ int Enemy::Execute_0040e770() {
         int n = (ins->i[0] + 4) / 4;
         EnemySpawn spawn;
         memset(&spawn, 0, sizeof(spawn));
-        spawn.position.x = FloatValue_00412aa0(1, ins->f[n]) + g_camera_offset_00491d7c.x;
-        spawn.position.y = FloatValue_00412aa0(2, ins->f[n + 1]) + g_camera_offset_00491d7c.y;
+        spawn.position.x = FloatValue_00412aa0(1, ins->f[n]) + g_camera_offset.x;
+        spawn.position.y = FloatValue_00412aa0(2, ins->f[n + 1]) + g_camera_offset.y;
         spawn.position.z = FloatValue_00412aa0(3, ins->f[n + 2]);
         spawn.life = IVAL(4, ins->i[n + 3]);
         spawn.score = IVAL(5, ins->i[n + 4]);
         spawn.item = IVAL(6, ins->i[n + 5]);
         memcpy(spawn.variables, variables, sizeof(spawn.variables));
         spawn.flags |= 1;
-        EnemyCtrl_Spawn_0040cfb0(&spawn, g_enemy_ctrl, &ins->s[4]);
+        EnemyCtrl_Spawn(&spawn, g_enemy_ctrl, &ins->s[4]);
         return 0;
     }
     case 0x10b:
@@ -99,7 +99,7 @@ int Enemy::Execute_0040e770() {
         spawn.item = IVAL(5, ins->i[n + 4]);
         memcpy(spawn.variables, variables, sizeof(spawn.variables));
         spawn.mirrored = 1;
-        EnemyCtrl_Spawn_0040cfb0(&spawn, g_enemy_ctrl, &ins->s[4]);
+        EnemyCtrl_Spawn(&spawn, g_enemy_ctrl, &ins->s[4]);
         return 0;
     }
     case 0x10c:
@@ -115,7 +115,7 @@ int Enemy::Execute_0040e770() {
         spawn.item = IVAL(5, ins->i[n + 4]);
         memcpy(spawn.variables, variables, sizeof(spawn.variables));
         spawn.mirrored = 1;
-        EnemyCtrl_Spawn_0040cfb0(&spawn, g_enemy_ctrl, &ins->s[4]);
+        EnemyCtrl_Spawn(&spawn, g_enemy_ctrl, &ins->s[4]);
         return 0;
     }
     case 0x102:
@@ -127,7 +127,7 @@ int Enemy::Execute_0040e770() {
         anm[slot].Release_00449630();
         if (script < 0) break;
         AnmHandle handle;
-        anm[slot] = *Anm_CreateFront_00448e30(g_enemy_ctrl->anm[anm_file], &handle, IOP(1), 5);
+        anm[slot] = *Anm_CreateFront(g_enemy_ctrl->anm[anm_file], &handle, IOP(1), 5);
         if (slot == 0) {
             anm_main_script = IOP(1);
             anm_main_file = anm_file;
@@ -143,7 +143,7 @@ int Enemy::Execute_0040e770() {
     case 0x107: {
         int file = IOP(0);
         AnmHandle handle;
-        Anm_CreateFront_00448e30(g_enemy_ctrl->anm[file], &handle, IOP(1), 6);
+        Anm_CreateFront(g_enemy_ctrl->anm[file], &handle, IOP(1), 6);
         AnmVm* vm = Anm_Resolve_00449450(&handle);
         if (!(flags & 0x40000)) vm->offset = *OffsetPoint_00418810(&position);
         else vm->offset = position;
@@ -152,7 +152,7 @@ int Enemy::Execute_0040e770() {
     case 0x110: {
         int file = IOP(0);
         AnmHandle handle;
-        Anm_CreateBack_00448d00(g_enemy_ctrl->anm[file], &handle, IOP(1), 6);
+        Anm_CreateBack(g_enemy_ctrl->anm[file], &handle, IOP(1), 6);
         AnmVm* vm = Anm_Resolve_00449450(&handle);
         if (!(flags & 0x40000)) vm->offset = *OffsetPoint_00418810(&position);
         else vm->offset = position;
@@ -161,13 +161,13 @@ int Enemy::Execute_0040e770() {
     case 0x108: {
         int file = IOP(0);
         AnmHandle handle;
-        Anm_CreateFront_00448e30(g_enemy_ctrl->anm[file], &handle, IOP(1), 6);
+        Anm_CreateFront(g_enemy_ctrl->anm[file], &handle, IOP(1), 6);
         return 0;
     }
     case 0x111: {
         int file = IOP(0);
         AnmHandle handle;
-        Anm_CreateFront_00448e30(g_enemy_ctrl->anm[file], &handle, IOP(1), 6);
+        Anm_CreateFront(g_enemy_ctrl->anm[file], &handle, IOP(1), 6);
         AnmVm* vm = Anm_Resolve_00449450(&handle);
         if (!(flags & 0x40000)) vm->offset = *OffsetPoint_00418810(&position);
         else vm->offset = position;
@@ -180,7 +180,7 @@ int Enemy::Execute_0040e770() {
         int script = IOP(1);
         anm[slot].Release_00449630();
         AnmHandle handle;
-        anm[slot] = *Anm_CreateFront_00448e30(g_enemy_ctrl->anm[anm_file], &handle, script, 5);
+        anm[slot] = *Anm_CreateFront(g_enemy_ctrl->anm[anm_file], &handle, script, 5);
         AnmVm* vm = Anm_Resolve_00449450(&anm[slot]);
         if (slot == 0) {
             hitbox_width = vm->sprite_width * vm->scale.y;
@@ -200,7 +200,7 @@ int Enemy::Execute_0040e770() {
         int slot = IOP(0);
         anm[slot].Release_00449630();
         AnmHandle handle;
-        anm[slot] = *Anm_CreateFront_00448e30(g_enemy_ctrl->anm[anm_file], &handle, anm_base_script + 5, 5);
+        anm[slot] = *Anm_CreateFront(g_enemy_ctrl->anm[anm_file], &handle, anm_base_script + 5, 5);
         AnmVm* vm = Anm_Resolve_00449450(&anm[slot]);
         if (slot == 0) {
             hitbox_width = vm->sprite_width * vm->scale.y;
@@ -255,7 +255,7 @@ int Enemy::Execute_0040e770() {
         polar.y = FOP(1);
         if (polar.x > UNSET) {
             if (flags & 0x800) polar.x = Angle_Normalize(1.5707964f - Angle_Normalize(polar.x - 1.5707964f));
-            Motion_SetAngle_00413170(motion, polar.x);
+            Motion_SetAngle(motion, polar.x);
         }
         if (polar.y > UNSET) motion->speed = polar.y;
         motion->flags &= ~1u;
@@ -300,7 +300,7 @@ int Enemy::Execute_0040e770() {
         float radial = FOP(2);
         float angular = FOP(3);
         if (!(motion->flags & 1)) motion->origin = motion->position;
-        if (angle > UNSET) Motion_SetAngle_00413170(motion, angle);
+        if (angle > UNSET) Motion_SetAngle(motion, angle);
         if (speed > UNSET) motion->speed = speed;
         if (radial > UNSET) motion->radial_speed = radial;
         if (angular > UNSET) motion->angular_speed = angular;
@@ -375,11 +375,11 @@ int Enemy::Execute_0040e770() {
         Float2Interp* interp = ins->id == 0x124 ? &absolute_direction_interp : &relative_direction_interp;
         float angle;
         if (bounds_x - bounds_width * 0.25f > position.x) {
-            angle = g_effect_rng_004918b0.NextFloatSigned_0044bb90() * (3.1415927f / 3.0f);
+            angle = g_effect_rng_004918b0.NextFloatSigned() * (3.1415927f / 3.0f);
         } else if (bounds_width * 0.25f + bounds_x < position.x) {
             angle = Angle_Normalize(g_effect_rng_004918b0.NextAngle() * 0.33333334f + 3.1415927f);
         } else if (position.x < g_player->position.x) {
-            angle = g_effect_rng_004918b0.NextFloatSigned_0044bb90() * (3.1415927f / 2.0f);
+            angle = g_effect_rng_004918b0.NextFloatSigned() * (3.1415927f / 2.0f);
         } else {
             angle = Angle_Normalize(g_effect_rng_004918b0.NextAngle() * 0.5f + 3.1415927f);
         }
@@ -445,7 +445,7 @@ int Enemy::Execute_0040e770() {
         SetSpread(FOP(0), FOP(1));
         return 0;
     case 0x149:
-        Drops_Flush_0040c9a0(&position, &drops);
+        Drops_Flush(&position, &drops);
         return 0;
     case 0x14a: {
         int kind = IOP(0);
@@ -485,10 +485,10 @@ int Enemy::Execute_0040e770() {
         timer_1430.Set_00405410(IOP(0));
         return 0;
     case 0x159:
-        EnemyCtrl_SweepDeaths_0040e6a0(g_enemy_ctrl);
+        EnemyCtrl_SweepDeaths(g_enemy_ctrl);
         return 0;
     case 0x163:
-        switch (g_difficulty_00474c74) {
+        switch (g_difficulty) {
         case 0: *IntDest_00412a10(0) = IOP(1); return 0;
         case 1: *IntDest_00412a10(0) = IOP(2); return 0;
         case 2: *IntDest_00412a10(0) = IOP(3); return 0;
@@ -497,7 +497,7 @@ int Enemy::Execute_0040e770() {
         }
         break;
     case 0x164:
-        switch (g_difficulty_00474c74) {
+        switch (g_difficulty) {
         case 0: *FloatDest(0) = FOP(1); return 0;
         case 1: *FloatDest(0) = FOP(2); return 0;
         case 2: *FloatDest(0) = FOP(3); return 0;
@@ -528,7 +528,7 @@ int Enemy::Execute_0040e770() {
         if (shoot_range_squared != 0.0f) {
             if (!(shoot_range_squared <= DistanceSquared(shooters[index].position, g_player->position))) break;
         }
-        shooters[index].Shoot_004073e0(g_bullet_manager);
+        shooters[index].Shoot(g_bullet_manager);
         return 0;
     }
     case 0x192: {
@@ -564,14 +564,14 @@ int Enemy::Execute_0040e770() {
     case 0x1b3: {
         int index = IOP(0);
         float value;
-        if (g_difficulty_00474c74 == 0) value = FOP(1);
-        else if (g_difficulty_00474c74 == 1) value = FOP(2);
-        else if (g_difficulty_00474c74 == 2) value = FOP(3);
+        if (g_difficulty == 0) value = FOP(1);
+        else if (g_difficulty == 1) value = FOP(2);
+        else if (g_difficulty == 2) value = FOP(3);
         else value = FOP(4);
         shooters[index].speed_1 = value;
-        if (g_difficulty_00474c74 == 0) value = FOP(5);
-        else if (g_difficulty_00474c74 == 1) value = FOP(6);
-        else if (g_difficulty_00474c74 == 2) value = FOP(7);
+        if (g_difficulty == 0) value = FOP(5);
+        else if (g_difficulty == 1) value = FOP(6);
+        else if (g_difficulty == 2) value = FOP(7);
         else value = FOP(8);
         shooters[index].speed_2 = value;
         return 0;
@@ -579,14 +579,14 @@ int Enemy::Execute_0040e770() {
     case 0x1b4: {
         int index = IOP(0);
         int value;
-        if (g_difficulty_00474c74 == 0) value = IOP(1);
-        else if (g_difficulty_00474c74 == 1) value = IOP(2);
-        else if (g_difficulty_00474c74 == 2) value = IOP(3);
+        if (g_difficulty == 0) value = IOP(1);
+        else if (g_difficulty == 1) value = IOP(2);
+        else if (g_difficulty == 2) value = IOP(3);
         else value = IOP(4);
         shooters[index].count_1 = value;
-        if (g_difficulty_00474c74 == 0) value = IOP(5);
-        else if (g_difficulty_00474c74 == 1) value = IOP(6);
-        else if (g_difficulty_00474c74 == 2) value = IOP(7);
+        if (g_difficulty == 0) value = IOP(5);
+        else if (g_difficulty == 1) value = IOP(6);
+        else if (g_difficulty == 2) value = IOP(7);
         else value = IOP(8);
         shooters[index].count_2 = value;
         return 0;
@@ -722,7 +722,7 @@ int Enemy::Execute_0040e770() {
         timer_11c.Set_00405410(0);
         return 0;
     case 0x14e:
-        Enemy_BindSlot_00412720(ecl, IOP(0), IOP(1), IOP(2), &ins->s[0x10]);
+        Enemy_BindSlot(ecl, IOP(0), IOP(1), IOP(2), &ins->s[0x10]);
         return 0;
     case 0x155:
         ecl->body.slots[IOP(0)].cursor = &ins->s[8];
@@ -741,7 +741,7 @@ int Enemy::Execute_0040e770() {
         g_front->CreateScoreDisplay_00415db0(IOP(0));
         g_bullet_manager->Sweep_00408210(0);
         g_laser_manager->Cleanup_0041c850(0);
-        EnemyCtrl_SweepDeaths_0040e6a0(g_enemy_ctrl);
+        EnemyCtrl_SweepDeaths(g_enemy_ctrl);
         return 0;
     case 0x153:
         if (g_front->message != 0 && g_front->message->f78 == 0) return -1;
@@ -766,11 +766,11 @@ int Enemy::Execute_0040e770() {
         }
         int id = IOP(0);
         switch (ins->id) {
-        case 0x165: id += g_difficulty_00474c74; break;
-        case 0x166: id += g_difficulty_00474c74 - 1; break;
-        case 0x167: id += g_difficulty_00474c74 - 2; break;
+        case 0x165: id += g_difficulty; break;
+        case 0x166: id += g_difficulty - 1; break;
+        case 0x167: id += g_difficulty - 2; break;
         }
-        Card_Start_00409280(g_card, id, name, IOP(1), IOP(2));
+        Card_Start(g_card, id, name, IOP(1), IOP(2));
         return 0;
     }
     case 0x157:
@@ -780,7 +780,7 @@ int Enemy::Execute_0040e770() {
         g_card->flags |= 8;
         return 0;
     case 0x16b:
-        g_card->StopAnimation_0040cea0();
+        g_card->StopAnimation();
         return 0;
     case 0x16c:
         f19 = IOP(0);
@@ -871,7 +871,7 @@ int Enemy::Execute_0040e770() {
     }
     case 0x19f: {
         Laser* laser = g_laser_manager->FindById_0040cf90(IntArg(0));
-        if (laser) laser->SetVector_0040cf60(Float3(FOP(1), FOP(2), 0.0f));
+        if (laser) laser->SetVector(Float3(FOP(1), FOP(2), 0.0f));
         return 0;
     }
     case 0x1a0: {
@@ -989,9 +989,9 @@ int Enemy::Execute_0040e770() {
         return 0;
     case 0x170: {
         float wait;
-        if (g_difficulty_00474c74 == 0) wait = (float)IntArg(0);
-        else if (g_difficulty_00474c74 == 1) wait = (float)IntArg(1);
-        else if (g_difficulty_00474c74 == 2) wait = (float)IntArg(2);
+        if (g_difficulty == 0) wait = (float)IntArg(0);
+        else if (g_difficulty == 1) wait = (float)IntArg(1);
+        else if (g_difficulty == 2) wait = (float)IntArg(2);
         else wait = (float)IntArg(3);
         ecl->active->time -= wait;
         break;

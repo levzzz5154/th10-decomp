@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "H3401Slots_00434be0_Get",
-      "symbol": "?Get@H3401Slots_00434be0@@QBEHH@Z",
+      "symbol": "?Get@H3401Slots@@QBEHH@Z",
       "section": ".text$01target",
       "address": "0x00434BE0",
       "size": 8,

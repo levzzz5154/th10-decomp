@@ -11,8 +11,8 @@
   "description": "Preserving script loader linked with array-walking native LTCG context for retail EAX/EDX/ECX private ABI.",
   "functions": [
     {
-      "name": "LoadScriptPreservingState_0043e7e0",
-      "symbol": "?LoadScriptPreservingState_0043e7e0@@YGXPAUAnimationResource_0043e7e0@@PAUAnimationObject_0043e7e0@@H@Z",
+      "name": "LoadScriptPreservingState",
+      "symbol": "?LoadScriptPreservingState@@YGXPAUAnimationResource_0043e7e0@@PAUAnimationObject_0043e7e0@@H@Z",
       "section": ".text$01preserve",
       "address": "0x0043E7E0",
       "size": 194,

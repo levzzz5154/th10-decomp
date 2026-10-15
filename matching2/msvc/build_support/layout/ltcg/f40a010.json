@@ -38,7 +38,7 @@
   "constants": [],
   "absolute_symbols": [
     {
-      "symbol": "_RetireCallbackOwner_00426f70@4",
+      "symbol": "_RetireCallbackOwner@4",
       "address": "0x00426F70",
       "kind": "relative_code"
     }

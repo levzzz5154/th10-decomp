@@ -4,7 +4,7 @@
 Block_004132a0* __stdcall InitContext_004132a0(Block_004132a0** items, int count) {
     Block_004132a0* last = 0;
     while (count--) {
-        last = InitBlock_004132a0(*items++);
+        last = InitBlock(*items++);
     }
     return last;
 }

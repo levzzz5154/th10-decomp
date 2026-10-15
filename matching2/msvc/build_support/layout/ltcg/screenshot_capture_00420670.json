@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "name": "screenshot_capture_00420670",
+  "name": "screenshot_capture",
   "source": "src/game/mother/screenshot_capture_00420670.cpp",
   "driver": "build_support/layout/ltcg/screenshot_capture_00420670_context.cpp",
   "headers": [

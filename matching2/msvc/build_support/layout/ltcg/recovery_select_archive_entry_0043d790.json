@@ -12,7 +12,7 @@
   "functions": [
     {
       "name": "PathName_0043d2a0_SelectArchiveEntry",
-      "symbol": "?SelectArchiveEntry@PathName_0043d2a0@@QAEHPAUPlatformD790ArchiveOwner@@@Z",
+      "symbol": "?SelectArchiveEntry@PathName@@QAEHPAUPlatformD790ArchiveOwner@@@Z",
       "section": ".text$01archive",
       "address": "0x0043D790",
       "size": 55,
@@ -21,7 +21,7 @@
     {
       "name": "PlatformStreamState_0044DCA0_Select",
       "source": "src/core/zwave/platform_select_stream_record_0044dca0.cpp",
-      "symbol": "?Select@PlatformStreamState_0044DCA0@@QAEHPAUPlatformStreamRecord_0044DCA0@@@Z",
+      "symbol": "?Select@PlatformStreamState@@QAEHPAUPlatformStreamRecord@@@Z",
       "section": ".text$01select",
       "address": "0x0044DCA0",
       "size": 78,
@@ -29,7 +29,7 @@
     }
   ],
   "context": {
-    "symbol": "?RecoverySelectArchiveEntry0043D790CompilerContext@@YGHPAUPathName_0043d2a0@@PAUPlatformD790ArchiveOwner@@@Z",
+    "symbol": "?RecoverySelectArchiveEntry0043D790CompilerContext@@YGHPAUPathName@@PAUPlatformD790ArchiveOwner@@@Z",
     "section": ".text$03context",
     "address": "0x0044E000",
     "size": 16,
@@ -60,7 +60,7 @@
   "constants": [],
   "absolute_symbols": [
     {
-      "symbol": "?FindBasenameSlot_0043d2a0@PathName_0043d2a0@@QAEHPAX@Z",
+      "symbol": "?FindBasenameSlot@PathName@@QAEHPAX@Z",
       "address": "0x0043D2A0",
       "kind": "relative_code"
     },

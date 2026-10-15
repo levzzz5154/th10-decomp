@@ -10,7 +10,7 @@
 #pragma code_seg()
 
 #pragma code_seg(".text$03context")
-int __stdcall ConfigHolderContext_0042a9f0(GameConfigHolder_0042a9f0* holders, int count) {
+int __stdcall ConfigHolderContext_0042a9f0(GameConfigHolder* holders, int count) {
     int result = 0;
     for (int i = 0; i < count; ++i)
         result += (int)holders[i].Construct();

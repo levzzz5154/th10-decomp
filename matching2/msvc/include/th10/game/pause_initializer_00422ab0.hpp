@@ -47,7 +47,7 @@ struct AnimationHandle_00424480 {
 };
 
 // The sprite an animation currently shows.
-struct AnimationSprite_00424480 {
+struct AnimationSprite {
     unsigned char reserved_00[0x08];
     float left;                          // +0x08
     float top;                           // +0x0C
@@ -63,12 +63,12 @@ struct AnimationObject_00424480 {
     unsigned char reserved_008[0x300];
     int* texture;                        // +0x308
     unsigned char reserved_30c[0x88];
-    AnimationSprite_00424480* sprite;    // +0x394
+    AnimationSprite* sprite;    // +0x394
 };
 
 
 // A screen rectangle filled from a region of a texture.
-struct SpriteRegion_00424480 {
+struct SpriteRegion {
     int reserved_00;
     int texture;                         // +0x04: negative while unbound
     int left;                            // +0x08
@@ -146,6 +146,6 @@ extern "C" float flt_0_99;
 extern "C" float flt_1_01;
 extern "C" float g_game_speed;
 extern "C" char str_pause[];
-extern "C" void __stdcall PauseMenu_Initialize_00422ab0(PauseUpdateView*);
-extern "C" void __stdcall PauseMenu_Update_00422c80(PauseUpdateView*);
-extern "C" void __stdcall ReplayMenu_Update_004236f0(PauseUpdateView*);
+extern "C" void __stdcall PauseMenu_Initialize(PauseUpdateView*);
+extern "C" void __stdcall PauseMenu_Update(PauseUpdateView*);
+extern "C" void __stdcall ReplayMenu_Update(PauseUpdateView*);

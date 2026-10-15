@@ -29,7 +29,7 @@
   "functions": [
     {
       "name": "Digits",
-      "symbol": "?SetPowerDigits@PowerDisplayOwner_004054b0@@QAEXHH@Z",
+      "symbol": "?SetPowerDigits@PowerDisplayOwner@@QAEXHH@Z",
       "section": ".text$00m_digits",
       "address": "0x4054b0",
       "size": 79,
@@ -65,7 +65,7 @@
     },
     {
       "name": "Clear",
-      "symbol": "?ClearExpiredFlags@PlayerFlags_00405500@@QAEXXZ",
+      "symbol": "?ClearExpiredFlags@PlayerFlags@@QAEXXZ",
       "section": ".text$a03flags",
       "address": "0x405500",
       "size": 176
@@ -100,7 +100,7 @@
     },
     {
       "name": "Create",
-      "symbol": "?CreateScreenPositionedPrimary_00448db0@@YGPAHPAUAnimationResourceFile@@PAHHPBUVector3@@@Z",
+      "symbol": "?CreateScreenPositionedPrimary@@YGPAHPAUAnimationResourceFile@@PAHHPBUVector3@@@Z",
       "section": ".text$a09create",
       "address": "0x448db0",
       "size": 116
@@ -110,7 +110,7 @@
   "calls": [
     {
       "caller": "_Bomb_Start@4",
-      "callee": "?SetPowerDigits@PowerDisplayOwner_004054b0@@QAEXHH@Z",
+      "callee": "?SetPowerDigits@PowerDisplayOwner@@QAEXHH@Z",
       "address": "0x405975",
       "instruction": "call"
     }

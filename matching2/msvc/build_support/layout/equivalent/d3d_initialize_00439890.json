@@ -6,7 +6,7 @@
     "src/core/main/d3d_initialize.cpp"
   ],
   "entry_symbol": "_RigEntry@8",
-  "function": "?D3DInitialize_00439890@@YGHXZ",
+  "function": "?D3DInitialize@@YGHXZ",
   "code_bytes": 1159,
   "absolute_symbols": {
     "__fltused": {
@@ -144,7 +144,7 @@
   "differences": [],
   "note": "reference/recovery_notes/d3d_initialize_00439890_equivalent_2026_10_12.md",
   "roots": [
-    "?D3DInitialize_00439890@@YGHXZ"
+    "?D3DInitialize@@YGHXZ"
   ],
   "listed_branch_targets": true,
   "context_sources": [

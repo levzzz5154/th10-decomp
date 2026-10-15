@@ -50,7 +50,7 @@
   "anchors": [
     {
       "name": "RecoveryDispatchText",
-      "symbol": "?RecoveryDispatchText_004479d0@@YGXPAURecoveryTextResource_004479d0@@PAXHHIPBDH@Z",
+      "symbol": "?RecoveryDispatchText_004479d0@@YGXPAURecoveryTextResource@@PAXHHIPBDH@Z",
       "section": ".text$004479d0_fn",
       "address": "0x004479D0",
       "size": 127
@@ -129,17 +129,17 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_recovery_vsprintf_004524a6",
+      "symbol": "_recovery_vsprintf",
       "address": "0x4524a6",
       "kind": "relative_code"
     },
     {
-      "symbol": "_recovery_draw_shadowed_00437db0@24",
+      "symbol": "_recovery_draw_shadowed@24",
       "address": "0x437db0",
       "kind": "relative_code"
     },
     {
-      "symbol": "_recovery_draw_unshadowed_00437fe0@24",
+      "symbol": "_recovery_draw_unshadowed@24",
       "address": "0x437fe0",
       "kind": "relative_code"
     },

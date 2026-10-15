@@ -4,7 +4,7 @@
 //
 // Retail enters this member with the record in ESI, a receiver no C++
 // declaration names, so the body is compiled in the native-LTCG cluster
-// build_support/layout/ltcg/stop_at_frame_pair_0040c480.json whose synthetic caller
+// build_support/layout/ltcg/stop_at_frame_pair.json whose synthetic caller
 // establishes that register.  The two handles at +0x1D4/+0x1D8 are
 // AnimationHandles, so the calls reach the StopAtFrame1 body that same cluster
 // already carries with its address in EAX.
@@ -22,7 +22,7 @@
 
 extern "C" float g_game_speed;
 
-struct RecoveryTimedState_00423510 {
+struct RecoveryTimedState {
     unsigned char unknown_00[0x04];
     int state;                                 // +0x04
     unsigned char unknown_08[0x08];
@@ -41,10 +41,10 @@ struct RecoveryTimedState_00423510 {
 };
 
 typedef char RecoveryTimedState_00423510_size_must_fit[
-    sizeof(RecoveryTimedState_00423510) == 0x2C4 ? 1 : -1];
+    sizeof(RecoveryTimedState) == 0x2C4 ? 1 : -1];
 
 #pragma code_seg(".text$45timed")
-void RecoveryTimedState_00423510::InitializeTimedState() {
+void RecoveryTimedState::InitializeTimedState() {
     int* record = &state;
     record[0] = 13;
     if ((timer_flags & 1) == 0) {

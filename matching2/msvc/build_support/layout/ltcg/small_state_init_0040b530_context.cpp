@@ -3,7 +3,7 @@
 
 #pragma code_seg(".text$03context")
 extern "C" __declspec(noinline) void __stdcall SmallStateInitCompilerContext(
-        SmallState_0040B530** states, int count) {
+        SmallState** states, int count) {
     for (int index = 0; index < count; ++index)
         states[index]->Initialize();
 }

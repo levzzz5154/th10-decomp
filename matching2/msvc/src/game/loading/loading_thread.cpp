@@ -52,7 +52,7 @@ static __forceinline int LoadTitleScreenAssets(LoadingView* title) {
 }
 
 #pragma code_seg(".text$00title")
-__declspec(noinline) int __fastcall Loading_LoadAssets_0041f990(LoadingView* owner) {
+__declspec(noinline) int __fastcall Loading_LoadAssets(LoadingView* owner) {
     LoadingView* title = g_loading;
     if (LoadTitleScreenAssets(title) != 0) {
         g_supervisor.next_state = 3;

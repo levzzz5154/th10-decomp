@@ -7,8 +7,8 @@
 
 #pragma code_seg(".text$08manager")
 void FuncCtrlReleaseView::ReleaseResources() {
-    g_destroy_worker_00438880.Stop();
-    ReleaseResourceList_00449eb0(reinterpret_cast<FuncCtrl*>(this), &primary);
-    ReleaseResourceList_00449eb0(reinterpret_cast<FuncCtrl*>(this), &secondary);
+    g_destroy_worker.Stop();
+    ReleaseResourceList(reinterpret_cast<FuncCtrl*>(this), &primary);
+    ReleaseResourceList(reinterpret_cast<FuncCtrl*>(this), &secondary);
 }
 #pragma code_seg()

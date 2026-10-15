@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "SetMax_0040ce50",
-      "symbol": "?SetMax@Options_0040ce50@@QAEXH@Z",
+      "symbol": "?SetMax@Options@@QAEXH@Z",
       "section": ".text$01setmax",
       "address": "0x0040CE50",
       "size": 17,
@@ -19,7 +19,7 @@
   ],
   "anchors": [],
   "context": {
-    "symbol": "?SetMaxContext_0040ce50@@YGHPAPAUOptions_0040ce50@@PAHH@Z",
+    "symbol": "?SetMaxContext_0040ce50@@YGHPAPAUOptions@@PAHH@Z",
     "section": ".text$03context",
     "address": "0x0040CE80",
     "size": 43,

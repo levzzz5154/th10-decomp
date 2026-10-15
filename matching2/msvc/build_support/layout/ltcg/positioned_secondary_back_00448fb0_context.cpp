@@ -5,7 +5,7 @@ extern "C" void* __cdecl operator_new_00452493(unsigned int size);
 extern "C" void* __cdecl Entity_Constructor_00402050(void* entity);
 extern "C" void __cdecl Entity_Init_00401de0(void* unused, void* entity);
 extern "C" void __cdecl asm_AnimationObject_LoadScriptTail_0043ee30(void* object);
-__declspec(noinline) void** __stdcall AnimationManager_CreateSecondaryBack_00448f60(
+__declspec(noinline) void** __stdcall AnimationManager_CreateSecondaryBack(
     void* resource, void** out, int index, int render_bucket);
 
 static unsigned int NextPoolIndex_00449950(unsigned int index) {
@@ -110,17 +110,17 @@ extern "C" __declspec(noinline) void** __cdecl asm_AnimationManager_RegisterSeco
 #pragma code_seg()
 
 struct AnimationPosition_00449010;
-__declspec(noinline) void** __stdcall AnimationManager_CreateScreenPositionedSecondaryBack_00449010(void*, void**, int, const AnimationPosition_00449010*);
+__declspec(noinline) void** __stdcall AnimationManager_CreateScreenPositionedSecondaryBack(void*, void**, int, const AnimationPosition_00449010*);
 
 #pragma code_seg(".text$09context")
 int __stdcall PositionedSecondaryBackContext(void** resources, void*** outs, int* indexes,
                                        const AnimationPosition_00448fb0** positions,
                                        int count) {
     for (int i = 0; i < count; ++i) {
-        AnimationManager_CreateSecondaryBack_00448f60(resources[i], outs[i], indexes[i], 15);
-        AnimationManager_CreatePositionedSecondaryBack_00448fb0(resources[i], outs[i], indexes[i],
+        AnimationManager_CreateSecondaryBack(resources[i], outs[i], indexes[i], 15);
+        AnimationManager_CreatePositionedSecondaryBack(resources[i], outs[i], indexes[i],
                                                           positions[i]);
-        AnimationManager_CreateScreenPositionedSecondaryBack_00449010(resources[i], outs[i], indexes[i], (const AnimationPosition_00449010*)positions[i]);
+        AnimationManager_CreateScreenPositionedSecondaryBack(resources[i], outs[i], indexes[i], (const AnimationPosition_00449010*)positions[i]);
     }
     return count;
 }

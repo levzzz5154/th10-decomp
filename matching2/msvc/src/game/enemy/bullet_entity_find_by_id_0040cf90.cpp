@@ -1,25 +1,25 @@
 // 0x0040CF90..0x0040CFA5: find a linked bullet node by its runtime ID.
 // The native-LTCG cluster supplies the retail manager-in-EAX/ID-in-ECX ABI.
 
-struct BulletEntityFindByIdNode_0040cf90 {
+struct BulletEntityFindByIdNode {
     unsigned char pad_000[0x8];
-    BulletEntityFindByIdNode_0040cf90* next;
+    BulletEntityFindByIdNode* next;
     unsigned char pad_00c[0x48];
     int id;
 };
 
-struct BulletEntityFindByIdManager_0040cf90 {
+struct BulletEntityFindByIdManager {
     unsigned char pad_000[0x18];
-    BulletEntityFindByIdNode_0040cf90* list_head;
+    BulletEntityFindByIdNode* list_head;
 
-    __declspec(noinline) BulletEntityFindByIdNode_0040cf90* FindById(
+    __declspec(noinline) BulletEntityFindByIdNode* FindById(
         int id);
 };
 
 #pragma code_seg(".text$01findbyid")
-BulletEntityFindByIdNode_0040cf90*
-BulletEntityFindByIdManager_0040cf90::FindById(int id) {
-    BulletEntityFindByIdNode_0040cf90* node = list_head;
+BulletEntityFindByIdNode*
+BulletEntityFindByIdManager::FindById(int id) {
+    BulletEntityFindByIdNode* node = list_head;
     while (node != 0) {
         if (node->id == id)
             return node;

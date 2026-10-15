@@ -21,7 +21,7 @@ extern "C" __declspec(dllimport) DWORD __stdcall SetFilePointer(
 extern "C" __declspec(dllimport) DWORD __stdcall GetFileSize(
     HANDLE handle, DWORD* size_high);
 
-extern "C" void* __cdecl entry_malloc_00452706(unsigned int size);
+extern "C" void* __cdecl entry_malloc(unsigned int size);
 extern "C" void __cdecl crt_free(void* memory);
 
 struct FileCriticalSection;

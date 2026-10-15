@@ -28,13 +28,13 @@
 #include "th10/render/quad_batch.hpp"
 #include <math.h>
 
-struct ProjectionManager_00444240;
-struct ProjectedEntity_00444240 {
+struct ProjectionManager;
+struct ProjectedEntity {
     unsigned char reserved_0000[0x334];
-    __declspec(noinline) int ProjectQuad(ProjectionManager_00444240* manager);
+    __declspec(noinline) int ProjectQuad(ProjectionManager* manager);
 };
 
-struct BillboardSource_00443B60 {
+struct BillboardSource {
     unsigned char reserved_0000[0x35C];
     __declspec(noinline) int BuildProjectedQuad();
 };
@@ -55,7 +55,7 @@ static __forceinline float DistanceFrom_00443FB0(RenderVec3 delta) {
 #pragma code_seg(".text$06b0600distance")
 extern "C" __declspec(noinline) int EntityDraw_00443fb0(SprtCtrlBatchView* manager,
                                                         RenderEntity* entity) {
-    if (((BillboardSource_00443B60*)entity)->BuildProjectedQuad() != 0) {
+    if (((BillboardSource*)entity)->BuildProjectedQuad() != 0) {
         return -1;
     }
     float span = g_sprite_fade_near - g_sprite_fade_far;

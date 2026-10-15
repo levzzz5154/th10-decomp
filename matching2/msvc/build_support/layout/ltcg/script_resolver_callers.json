@@ -21,7 +21,7 @@
     },
     {
       "name": "ScriptVm_BindName",
-      "symbol": "?BindName_00450700@@YIHPBDPAUScriptVm_00450560@@@Z",
+      "symbol": "?BindName@@YIHPBDPAUScriptVm@@@Z",
       "section": ".text$05bindname",
       "address": "0x00450700",
       "size": 30,
@@ -30,7 +30,7 @@
     },
     {
       "name": "BindTable",
-      "symbol": "?BindTable@ScriptVm_00450560@@QAEHPAUScriptTable_00450470@@PBD@Z",
+      "symbol": "?BindTable@ScriptVm@@QAEHPAUScriptTable_00450470@@PBD@Z",
       "section": ".text$03bindtable",
       "address": "0x00450560",
       "size": 30,
@@ -39,7 +39,7 @@
     },
     {
       "name": "TryBind",
-      "symbol": "?TryBind@ScriptVm_00450560@@QAEHPAUScriptTable_00450470@@PBD@Z",
+      "symbol": "?TryBind@ScriptVm@@QAEHPAUScriptTable_00450470@@PBD@Z",
       "section": ".text$04trybind",
       "address": "0x00450580",
       "size": 43,
@@ -48,7 +48,7 @@
     },
     {
       "name": "ScriptTable_CreateVm",
-      "symbol": "?CreateVm@ScriptTable_00450470@@QAEPAUScriptVm_00450560@@PBD@Z",
+      "symbol": "?CreateVm@ScriptTable_00450470@@QAEPAUScriptVm@@PBD@Z",
       "section": ".text$02create",
       "address": "0x00450500",
       "size": 89,

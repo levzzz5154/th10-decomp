@@ -11,7 +11,7 @@
   "functions": [
     {
       "name": "AnimationManager_CopyToBackBuffer_00447fd0",
-      "symbol": "?CopyToBackBuffer@AnimationManagerIndexed_00447f70@@QAEXHHHHH@Z",
+      "symbol": "?CopyToBackBuffer@AnimationManagerIndexed@@QAEXHHHHH@Z",
       "section": ".text$03copy",
       "address": "0x00447FD0",
       "size": 330,
@@ -50,7 +50,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_LoadSurfaceCopy_004521d6@32",
+      "symbol": "_LoadSurfaceCopy@32",
       "address": "0x004521D6",
       "kind": "relative_code"
     }

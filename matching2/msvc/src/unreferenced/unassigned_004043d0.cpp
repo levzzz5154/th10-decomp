@@ -10,7 +10,7 @@ struct Object_004043d0 {
 };
 
 #pragma code_seg(".text$01accessor")
-__declspec(noinline) void __stdcall SetVectors_004043d0(Object_004043d0* object, const Vec3_004043d0* first, const Vec3_004043d0* second) {
+__declspec(noinline) void __stdcall SetVectors(Object_004043d0* object, const Vec3_004043d0* first, const Vec3_004043d0* second) {
     object->enabled = 1;
     object->first = *first;
     object->second = *second;

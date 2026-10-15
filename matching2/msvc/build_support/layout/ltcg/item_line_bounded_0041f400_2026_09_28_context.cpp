@@ -29,15 +29,15 @@ __declspec(noinline) LinePolarVelocity_0041f800* LinePolarVelocity_0041f800::Set
 // whose indirect calls use the declared thiscall ABI. The runtime request
 // also exposes the allocator general argument contract. It is not game code.
 typedef LinePolarVelocity_0041f800* (LinePolarVelocity_0041f800::*LinePolarSetter_0041f800)(float,float);
-typedef int (LineEffectSweep_0041e260::*AllSegmentsCompilerMethod_2026_09_28)(int);
+typedef int (LineEffectSweep::*AllSegmentsCompilerMethod_2026_09_28)(int);
 #pragma code_seg(".text$99context")
 extern "C" int __stdcall PublishPolarCompilerContext_2026_09_28(
         LinePolarSetter_0041f800* line,AllSegmentsCompilerMethod_2026_09_28* all,
-        ItemSpawnManager_0041bb00* manager,const float* position,
+        ItemSpawnManager* manager,const float* position,
         int kind,int identifier,float angle,float speed) {
     *line=&LinePolarVelocity_0041f800::SetPolar;
     line[1]=reinterpret_cast<LinePolarSetter_0041f800>(&ItemPolarVelocity_0041bb00::SetPolar);
-    *all=&LineEffectSweep_0041e260::CreateAllSegments;
+    *all=&LineEffectSweep::CreateAllSegments;
     return manager->Spawn(position,kind,identifier,angle,speed);
 }
 #pragma code_seg()

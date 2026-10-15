@@ -7,7 +7,7 @@ extern "C" int __stdcall RecordLinksCompilerContext(void** items, int count) {
     for (int index = 0; index < count; ++index)
         Init_0043bc20(0, (RecordInit_0043bc20*)items[index]);
     for (int index = 0; index < count; ++index)
-        ((ListHolder_0042abd0*)items[index])->Clear();
+        ((ListHolder*)items[index])->Clear();
     return 0;
 }
 #pragma code_seg()

@@ -66,12 +66,12 @@ extern "C" void* __cdecl Entity_Constructor_00402050(void* entity);
 extern "C" void __cdecl Entity_Init_00401de0(void* unused, void* entity);
 extern "C" void __cdecl asm_AnimationObject_LoadScriptTail_0043ee30(void* object);
 __declspec(noinline) void** __stdcall
-AnimationManager_CreatePrimaryBack_00448d00(void* resource, void** out, int index,
+AnimationManager_CreatePrimaryBack(void* resource, void** out, int index,
                                             int render_bucket);
 
 struct AnimationPosition_00448db0;
 __declspec(noinline) void** __stdcall
-AnimationManager_CreateScreenPositionedPrimary_00448db0(void*, void**, int,
+AnimationManager_CreateScreenPositionedPrimary(void*, void**, int,
                                                         const AnimationPosition_00448db0*);
 
 static unsigned int NextPoolIndex_00449950(unsigned int index) {

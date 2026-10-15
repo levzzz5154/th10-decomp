@@ -44,23 +44,23 @@ extern PolarVec3 g_enemy_scroll;          // the scroll applied to unscrolled en
 }
 
 // 0x00450700: restart the record's script at a named entry.
-__declspec(noinline) int __fastcall BindName_00450700(const char* name, EnemyRecord_0040dc80* record);
+__declspec(noinline) int __fastcall BindName(const char* name, EnemyRecord* record);
 // 0x0040E5F0: the death effects; nonzero when the enemy is gone.
-__declspec(noinline) int __stdcall Enemy_ReleaseOnDeath_0040e5f0(EnemyRecord_0040dc80* record);
+__declspec(noinline) int __stdcall Enemy_ReleaseOnDeath(EnemyRecord* record);
 // 0x004266B0: touch the player.
-__declspec(noinline) int __fastcall FieldContact_004266b0(
+__declspec(noinline) int __fastcall FieldContact(
     const PolarVec3* position, Player* player, const Vec2* size);
 // 0x00449350, 0x004492F0: place an animation in field or in screen coordinates.
-__declspec(noinline) void __fastcall SetAnimationTranslatedPosition_00449350(
+__declspec(noinline) void __fastcall SetAnimationTranslatedPosition(
     AnimationManager_0040dc80* manager, const PolarVec3* position, ScriptChangeHandle id);
 __declspec(noinline) void __fastcall Animation_SetPosition(
     AnimationManager_0040dc80* manager, const PolarVec3* position, ScriptChangeHandle id);
 // 0x004491C0: the running animation a handle names.
 // Retail calls it as a member that ignores its receiver.
-struct AnimationFinder_0040dc80 {
+struct AnimationFinder {
     __declspec(noinline) Animation_0040dc80* __fastcall Find(AnimationManager_0040dc80* manager, ScriptChangeHandle id);
 };
 inline Animation_0040dc80* AnimationManager_Find(AnimationManager_0040dc80* manager, ScriptChangeHandle id) {
-    return reinterpret_cast<AnimationFinder_0040dc80*>(manager)->Find(manager, id);
+    return reinterpret_cast<AnimationFinder*>(manager)->Find(manager, id);
 }
 #endif

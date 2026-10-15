@@ -5,7 +5,7 @@
 int __stdcall RetireContext_004051d0(void** objects, int count) {
     int total = 0;
     for (int i = 0; i < count; ++i) {
-        total += RetireBlock_004051d0(objects[i]);
+        total += RetireBlock(objects[i]);
     }
     return total;
 }

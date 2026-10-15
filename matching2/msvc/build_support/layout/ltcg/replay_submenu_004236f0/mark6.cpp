@@ -1,7 +1,7 @@
 // Complete 0x004243F0 stop-frame-6 propagation on the returned reference.
 #include "animation.hpp"
 #pragma code_seg(".text$02j")
-void SubRef4_004236f0::StopAtFrame6() {
+void SubRef4::StopAtFrame6() {
     AnimationScriptId id;
     id.value = value;
     AnimationTreeNode* node = reinterpret_cast<AnimationTreeNode*>(

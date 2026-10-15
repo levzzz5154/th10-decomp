@@ -11,16 +11,16 @@ void __stdcall Entity_StartScript(AnimationResourceFile* resource,
                                            Entity* entity, int script);
 
 // +0x388: the sprite index the entity's script started with.
-inline int16_t& EntityInitialSprite_004415c0(Entity* entity) {
+inline int16_t& EntityInitialSprite(Entity* entity) {
     return *reinterpret_cast<int16_t*>(reinterpret_cast<uint8_t*>(entity) + 0x388);
 }
 
 #pragma code_seg(".text$03m_array")
-__declspec(noinline) void __stdcall EntityArray_StartScripts_004415c0(
+__declspec(noinline) void __stdcall EntityArray_StartScripts(
         Entity* entities, int script, int count, AnimationResourceFile* resource) {
     for (; count != 0; --count) {
         Entity_StartScript(resource, entities, script);
-        EntityInitialSprite_004415c0(entities) = entities->SpriteIndex();
+        EntityInitialSprite(entities) = entities->SpriteIndex();
         ++script;
         ++entities;
     }

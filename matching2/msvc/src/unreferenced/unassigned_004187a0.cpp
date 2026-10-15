@@ -2,7 +2,7 @@
 // The leading parameter arrives in EAX, a convention only a native LTCG link
 // chooses, so this region is compiled as a cluster.
 
-struct GlobalState_00491c10 {
+struct GlobalState {
     unsigned char pad_04C[0x4C];
     int field_04C;
     int field_050;
@@ -15,13 +15,13 @@ struct ObjectAccessor_004187a0 {
     unsigned int flags;   // +0x58
 };
 
-extern "C" GlobalState_00491c10* g_sprt_ctrl;
+extern "C" GlobalState* g_sprt_ctrl;
 
 int __declspec(noinline) Reset_004187a0(ObjectAccessor_004187a0* object);
 #pragma code_seg(".text$01accessor")
 int Reset_004187a0(ObjectAccessor_004187a0* object) {
     if ((object->flags & 4u) == 0) {
-        GlobalState_00491c10* state = g_sprt_ctrl;
+        GlobalState* state = g_sprt_ctrl;
         state->field_050 = 0;
         state->field_054 = 0;
         state->field_04C = 0;

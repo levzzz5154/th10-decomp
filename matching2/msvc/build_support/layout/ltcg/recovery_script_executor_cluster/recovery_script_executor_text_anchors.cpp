@@ -7,22 +7,22 @@
 
 extern "C" {
 extern unsigned char recovery_decoded_path_00497d40[];
-int __cdecl recovery_vsprintf_004524a6(
+int __cdecl recovery_vsprintf(
     char* buffer, const char* format, char* args);
 
 // These image text-rasterization entries use six ordinary stack arguments
 // and RET 24. Their bodies contain the GDI/texture upload effects; neither
 // call is replaced with a placeholder or a guessed register-only prototype.
-void __stdcall recovery_draw_shadowed_00437db0(
+void __stdcall recovery_draw_shadowed(
     const int* destination_bounds, int horizontal_offset, int font_height,
     unsigned int color, const char* text, void* texture);
-void __stdcall recovery_draw_unshadowed_00437fe0(
+void __stdcall recovery_draw_unshadowed(
     const int* destination_bounds, int horizontal_offset, int font_height,
     unsigned int color, const char* text, void* texture);
 }
 
 #pragma code_seg(".text$00417010_fn")
-char* __stdcall RecoveryDecodePath_00417010(const unsigned char* encoded) {
+char* __stdcall RecoveryDecodePath(const unsigned char* encoded) {
     unsigned char* output = recovery_decoded_path_00497d40;
     unsigned char key = 0x77;
     unsigned char increment = 7;
@@ -43,7 +43,7 @@ char* __stdcall RecoveryDecodePath_00417010(const unsigned char* encoded) {
 // is recovered by the registered marktext dispatcher cluster and is not
 // needed here. The executor only observes it through MarkText.
 void __stdcall RecoveryDispatchText_004479d0(
-    RecoveryTextResource_004479d0* resource, int font_height,
+    RecoveryTextResource* resource, int font_height,
     const char* text, void* texture, int horizontal_offset,
     unsigned int color, int unshadowed);
 
@@ -58,8 +58,8 @@ void __stdcall RecoveryDispatchText_004479d0(
 void RecoveryTextVm::MarkText(
     void* manager, unsigned int color, const char* format) {
     char buffer[128];
-    recovery_vsprintf_004524a6(buffer, format, const_cast<char*>(format));
-    RecoveryTextResource_004479d0* text_resource = resource;
+    recovery_vsprintf(buffer, format, const_cast<char*>(format));
+    RecoveryTextResource* text_resource = resource;
     RecoveryDispatchText_004479d0(
         text_resource, static_cast<int>(font_height), buffer,
         text_resource->texture, 0, color, (flags_360 >> 1) & 1);

@@ -122,7 +122,7 @@
     {
       "name": "EntityScriptRng_NextRandomModulo",
       "source": "src/core/screen/updates.cpp",
-      "symbol": "?NextRandomModulo@EntityScriptRng_0043cb80@@QAEII@Z",
+      "symbol": "?NextRandomModulo@EntityScriptRng@@QAEII@Z",
       "section": ".text$12d_rng",
       "address": "0x0043CB80",
       "size": 88,

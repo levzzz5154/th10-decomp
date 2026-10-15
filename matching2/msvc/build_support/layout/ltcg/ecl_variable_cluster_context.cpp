@@ -5,15 +5,15 @@
 // its additional source below.
 #include "../../../src/script/sptcmd/ecl_find_variable_00450160.cpp"
 
-struct EclScratchVm_004505b0 {
+struct EclScratchVm {
     __declspec(noinline) int WriteScratch(char type, unsigned int size,
                                            const void* source);
 };
 
 #pragma code_seg(".text$07context")
 int __stdcall EclVariableClusterCompilerContext(
-        EclVariableVm_00450160** finders,
-        EclScratchVm_004505b0** writers,
+        EclVariableVm** finders,
+        EclScratchVm** writers,
         int* variables, const char* types,
         const unsigned int* sizes, const void* const* sources,
         int count) {

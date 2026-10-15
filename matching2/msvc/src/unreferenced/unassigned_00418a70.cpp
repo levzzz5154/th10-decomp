@@ -14,9 +14,9 @@ struct ObjectAccessor_00418a70 {
     Flagged_00418a70* high;
 };
 
-void __declspec(noinline) ClearFlags_00418a70(ObjectAccessor_00418a70* object);
+void __declspec(noinline) ClearFlags(ObjectAccessor_00418a70* object);
 #pragma code_seg(".text$01accessor")
-void ClearFlags_00418a70(ObjectAccessor_00418a70* object) {
+void ClearFlags(ObjectAccessor_00418a70* object) {
     if (object->high) {
         object->high->flags &= ~2u;
     }

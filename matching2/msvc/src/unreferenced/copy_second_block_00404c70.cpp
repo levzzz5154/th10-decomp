@@ -2,13 +2,13 @@
 struct Block_00404c60 {
     int words[7];
 };
-struct BlockPair_00404c70 {
+struct BlockPair {
     Block_00404c60 first;
     Block_00404c60 second;       // +0x1C
 };
 
 #pragma code_seg(".text$01accessor")
-__declspec(noinline) void __stdcall CopySecond_00404c70(BlockPair_00404c70* destination, const Block_00404c60* source) {
+__declspec(noinline) void __stdcall CopySecond(BlockPair* destination, const Block_00404c60* source) {
     destination->second = *source;
 }
 #pragma code_seg()

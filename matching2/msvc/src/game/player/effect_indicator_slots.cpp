@@ -44,7 +44,7 @@ typedef char EffectIndicatorSlots_offset_must_be_0x350c[
 // scalar payloads are kept as raw bits because callers pass float encodings.
 // The return value is the first available slot, or the one-past-pool pointer.
 extern "C" __declspec(noinline) EffectIndicatorSlotRetail* __fastcall
-EffectIndicatorPool_AllocateRetail_00427b50(
+EffectIndicatorPool_AllocateRetail(
     uint32_t unused_ecx,
     EffectIndicatorManagerRetail* manager,
     const SlotPositionRetail* volatile position,

@@ -11,7 +11,7 @@ extern "C" float g_game_speed;
 // in ESI. The heading is written through a pointer so that the velocity
 // refresh reads the stored field again, as retail does.
 #pragma code_seg(".text$01acdeath")
-void PlayerDeathShrinkState_004076A0::AdvanceDeathShrink() {
+void PlayerDeathShrinkState::AdvanceDeathShrink() {
     if (death_timer.current >= death_deadline_6A4) {
         flags_43C &= ~0x20u;
     } else {

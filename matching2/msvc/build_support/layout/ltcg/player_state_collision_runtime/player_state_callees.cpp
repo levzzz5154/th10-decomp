@@ -21,18 +21,18 @@ void PlayerInputMode::Set(int value) {
     if ((flags & 0x1000) == 0) mode = value;
     else mode = 2;
 }
-// src/game/background/power_display_set_digits_004054b0.cpp
-inline AnimationObject_0043e5a0* DigitSprite_004054b0(unsigned char* storage) {
+// src/game/background/power_display_set_digits.cpp
+inline AnimationObject_0043e5a0* DigitSprite(unsigned char* storage) {
     return reinterpret_cast<AnimationObject_0043e5a0*>(storage);
 }
 
 #pragma code_seg(".text$f004054b0F")
-void PowerDisplayOwner_004054b0::SetPowerDigits(int whole, int fraction) {
-    sprites->ConfigureObject(DigitSprite_004054b0(whole_digit), whole + 8);
-    sprites->ConfigureObject(DigitSprite_004054b0(tens_digit), fraction / 10 + 8);
-    sprites->ConfigureObject(DigitSprite_004054b0(ones_digit), fraction % 10 + 8);
+void PowerDisplayOwner::SetPowerDigits(int whole, int fraction) {
+    sprites->ConfigureObject(DigitSprite(whole_digit), whole + 8);
+    sprites->ConfigureObject(DigitSprite(tens_digit), fraction / 10 + 8);
+    sprites->ConfigureObject(DigitSprite(ones_digit), fraction % 10 + 8);
 }
-// src/core/sprtanim/animation_object_configure_from_resource_0043e5a0.cpp
+// src/core/sprtanim/animation_object_configure_from_resource.cpp
 #pragma code_seg(".text$f0043e5a0F")
 __declspec(noinline) int Resource_0043e5a0::ConfigureObject(
     AnimationObject_0043e5a0* object, int index) {

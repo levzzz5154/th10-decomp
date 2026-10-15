@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "Resolve_0040c5f0",
-      "symbol": "?Resolve@OperandSource_0040c5f0@@QAEHH@Z",
+      "symbol": "?Resolve@OperandSource@@QAEHH@Z",
       "section": ".text$01resolve",
       "address": "0x0040C5F0",
       "size": 10,
@@ -19,7 +19,7 @@
   ],
   "anchors": [],
   "context": {
-    "symbol": "?ResolveContext_0040c5f0@@YGHPAPAUOperandSource_0040c5f0@@H@Z",
+    "symbol": "?ResolveContext_0040c5f0@@YGHPAPAUOperandSource@@H@Z",
     "section": ".text$03context",
     "address": "0x0040C610",
     "size": 48,
@@ -41,7 +41,7 @@
   "constant_aliases": [],
   "absolute_symbols": [
     {
-      "symbol": "?resolve_operand_0044fdb0@@YIHHPAUEclFrame@@H@Z",
+      "symbol": "?resolve_operand@@YIHHPAUEclFrame@@H@Z",
       "address": "0x0044FDB0",
       "kind": "relative_code"
     }

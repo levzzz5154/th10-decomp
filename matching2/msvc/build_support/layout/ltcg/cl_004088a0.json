@@ -8,8 +8,8 @@
   "description": "Region compiled with native LTCG so its entry register is retail's.",
   "functions": [
     {
-      "name": "SlotIndex_004088a0",
-      "symbol": "?SlotIndex_004088a0@@YGHHH@Z",
+      "name": "SlotIndex",
+      "symbol": "?SlotIndex@@YGHHH@Z",
       "section": ".text$01index",
       "address": "0x004088A0",
       "size": 11,

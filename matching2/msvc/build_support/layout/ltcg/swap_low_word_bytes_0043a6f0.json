@@ -8,8 +8,8 @@
   "description": "Byte-swap compiled with native LTCG so the word arrives and returns in AX.",
   "functions": [
     {
-      "name": "SwapLowWordBytes_0043a6f0",
-      "symbol": "?SwapLowWordBytes_0043a6f0@@YGGG@Z",
+      "name": "SwapLowWordBytes",
+      "symbol": "?SwapLowWordBytes@@YGGG@Z",
       "section": ".text$01swap",
       "address": "0x0043A6F0",
       "size": 14,

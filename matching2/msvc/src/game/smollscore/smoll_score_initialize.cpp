@@ -13,8 +13,8 @@ struct StageResources_0042b4d0 {
 
 extern "C" {
 SchedulerTask* __stdcall SchedulerTask_Create(TaskRoutine callback);
-int __fastcall SmollScoreUpdateTask_0042b9a0(void* pool);
-int __fastcall SmollScoreDrawTask_0042b9b0(void* pool);
+int __fastcall SmollScoreUpdateTask(void* pool);
+int __fastcall SmollScoreDrawTask(void* pool);
 extern FuncCtrl* g_func_ctrl;
 extern StageResources_0042b4d0* g_ascii_manager;
 }
@@ -23,13 +23,13 @@ extern StageResources_0042b4d0* g_ascii_manager;
 int SmollScoreView::Initialize() {
     resource = g_ascii_manager->animation_resource;
 
-    SchedulerTask* task = SchedulerTask_Create(SmollScoreUpdateTask_0042b9a0);
+    SchedulerTask* task = SchedulerTask_Create(SmollScoreUpdateTask);
     task->context = this;
     task->reserved_flags &= ~1u;
     FuncCtrl_RegisterPrimary(g_func_ctrl, task, 0xF);
     update_task = task;
 
-    task = SchedulerTask_Create(SmollScoreDrawTask_0042b9b0);
+    task = SchedulerTask_Create(SmollScoreDrawTask);
     task->context = this;
     task->reserved_flags &= ~1u;
     FuncCtrl_RegisterSecondary(g_func_ctrl, task, 0x23);

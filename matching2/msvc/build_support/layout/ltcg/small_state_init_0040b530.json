@@ -11,7 +11,7 @@
   "functions": [
     {
       "name": "SmallState_Initialize",
-      "symbol": "?Initialize@SmallState_0040B530@@QAEXXZ",
+      "symbol": "?Initialize@SmallState@@QAEXXZ",
       "section": ".text$01init",
       "address": "0x0040B530",
       "size": 42,

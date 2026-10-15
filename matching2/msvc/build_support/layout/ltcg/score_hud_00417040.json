@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "image_base": "0x00400000",
-  "name": "score_hud_00417040",
+  "name": "score_hud",
   "source": "src/game/front/score_hud_update.cpp",
   "driver": "build_support/layout/ltcg/score_hud_00417040/driver.cpp",
   "additional_sources": [

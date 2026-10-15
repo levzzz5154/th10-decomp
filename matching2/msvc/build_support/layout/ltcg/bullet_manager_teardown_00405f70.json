@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "name": "bullet_manager_teardown_00405f70",
+  "name": "bullet_manager_teardown",
   "source": "src/game/bullet/bullet_manager_teardown_00405f70.cpp",
   "driver": "build_support/layout/ltcg/bullet_manager_teardown_00405f70/context.cpp",
   "image_base": "0x00400000",
@@ -142,7 +142,7 @@
     },
     {
       "name": "ActualSchedulerRemove",
-      "symbol": "?ManagerTeardownFuncCtrl_Remove_00449F60@@YGXPAUFuncCtrl@@PAUSchedulerTask@@@Z",
+      "symbol": "?ManagerTeardownFuncCtrl_Remove@@YGXPAUFuncCtrl@@PAUSchedulerTask@@@Z",
       "section": ".text$70remove",
       "address": "0x00449F60",
       "size": 114

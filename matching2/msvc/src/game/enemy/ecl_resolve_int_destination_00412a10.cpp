@@ -31,14 +31,14 @@ struct EclVm_00412a10 {
     EclFrame_00412a10 frame;      // +0x0008
 };
 
-struct EclHandle_00412a10 {
+struct EclHandle {
     void* field_000;
     EclVm_00412a10* vm;  // +0x0004
 };
 
 struct EclInterpreter_00412a10 {
     unsigned char pad_000[0x14D8];
-    EclHandle_00412a10* handle;  // +0x14D8
+    EclHandle* handle;  // +0x14D8
     __declspec(noinline) int* ResolveIntDestination(int index);
 };
 

@@ -2,10 +2,10 @@
 #include "../../../src/unreferenced/FUN_0044c620_0044c620.cpp"
 
 #pragma code_seg(".text$03context")
-int __stdcall ResetCompilerContext(CameraPairReset_0044c620** objects, int count) {
-    CameraPairReset_0044c620** cursor = objects;
+int __stdcall ResetCompilerContext(CameraPairReset** objects, int count) {
+    CameraPairReset** cursor = objects;
     while (count--) {
-        CameraPairReset_0044c620* object = *cursor++;
+        CameraPairReset* object = *cursor++;
         object->Reset();
         object->Reset();
     }

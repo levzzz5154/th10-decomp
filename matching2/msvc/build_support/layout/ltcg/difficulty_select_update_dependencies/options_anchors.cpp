@@ -21,10 +21,10 @@ void TitleAnimationSlotView::StopSlot(int slot) {
         2, reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl), slots[slot]);
 }
 #pragma code_seg(".text$00449670_fn")
-void SpriteHandle_00449670::SelectSprite(int sprite) {
+void SpriteHandle::SelectSprite(int sprite) {
     RecoveryScriptId id = { static_cast<int>(value) };
     SpriteVm_00449670* vm = static_cast<SpriteVm_00449670*>(
-        reinterpret_cast<RecoveryLookup_0040bd80*>(g_sprt_ctrl)->Find(
+        reinterpret_cast<RecoveryLookup*>(g_sprt_ctrl)->Find(
             reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl), id));
     if (vm != 0)
         SelectResourceSprite_0043e5a0(vm->resource, sprite);
@@ -34,7 +34,7 @@ void SpriteHandle_00449670::SelectSprite(int sprite) {
 void __stdcall RefreshOptions_0042e5a0(Title* room) {
     g_options_music_volume = g_key_bindings.music_volume;
     for (int kind = 8; kind < 12; ++kind) {
-        reinterpret_cast<RecoveryMusicResourceQueue_0043e460*>(&g_sound_manager)->RegisterResource(
+        reinterpret_cast<RecoveryMusicResourceQueue*>(&g_sound_manager)->RegisterResource(
             str_set_vol, kind, kind);
         room->animation_slots[2] = 0;
     }

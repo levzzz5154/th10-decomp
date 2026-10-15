@@ -66,9 +66,9 @@
       "actual_abi": "manager in EAX; index in ESI; name at [ESP+4]; RET 4"
     },
     {
-      "name": "Sound_LoadMusicTable_0043d670",
+      "name": "Sound_LoadMusicTable",
       "source": "src/unreferenced/unassigned_0043d670.cpp",
-      "symbol": "_Sound_LoadMusicTable_0043d670@8",
+      "symbol": "_Sound_LoadMusicTable@8",
       "section": ".text$03zrc_music",
       "address": "0x0043D670",
       "size": 32,
@@ -84,9 +84,9 @@
       "actual_abi": "EBX receiver; name on stack; RET 4"
     },
     {
-      "name": "ScoreTask_Setup_00413a20",
+      "name": "ScoreTask_Setup",
       "source": "src/game/front/score_tasks.cpp",
-      "symbol": "_ScoreTask_Setup_00413a20@4",
+      "symbol": "_ScoreTask_Setup@4",
       "section": ".text$02xscore",
       "address": "0x00413A20",
       "size": 289,
@@ -95,7 +95,7 @@
     {
       "name": "Sound_LoadPendingSlot_0043d640",
       "source": "src/core/sound/sound_load_pending_slot_0043d640.cpp",
-      "symbol": "?LoadPendingSlot@SoundPendingSlots_0043d640@@QAEHPBDH@Z",
+      "symbol": "?LoadPendingSlot@SoundPendingSlots@@QAEHPBDH@Z",
       "section": ".text$03zr5_slot",
       "address": "0x0043D640",
       "size": 37,
@@ -367,7 +367,7 @@
       "kind": "data"
     },
     {
-      "symbol": "@LoadCachedResource_00447280@12",
+      "symbol": "@LoadCachedResource@12",
       "address": "0x00447280",
       "kind": "relative_code"
     },
@@ -439,7 +439,7 @@
   ],
   "roots": [
     "?Load@ScriptFileLoader@@QAEHPBD@Z",
-    "_ScoreTask_Setup_00413a20@4"
+    "_ScoreTask_Setup@4"
   ],
   "driver": "build_support/layout/ltcg/archive_callers_context.cpp",
   "context": {

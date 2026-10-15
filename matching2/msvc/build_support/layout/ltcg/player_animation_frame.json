@@ -13,7 +13,7 @@
   "functions": [
     {
       "name": "AdvanceAnimationFrame",
-      "symbol": "?AdvanceAnimationFrame@PlayerAnimationState_004074B0@@QAEXXZ",
+      "symbol": "?AdvanceAnimationFrame@PlayerAnimationState@@QAEXXZ",
       "section": ".text$01animation",
       "address": "0x004074B0",
       "size": 164,
@@ -58,7 +58,7 @@
   ],
   "absolute_symbols": [
     {
-      "symbol": "?SetPolar@PolarVector2_00408750@@QAEPAU1@MM@Z",
+      "symbol": "?SetPolar@PolarVector2@@QAEPAU1@MM@Z",
       "address": "0x00408750",
       "kind": "relative_code"
     },

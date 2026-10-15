@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "WordLoad_0042a9d0_Load",
-      "symbol": "?Load@WordLoad_0042a9d0@@QAEFXZ",
+      "symbol": "?Load@WordLoad@@QAEFXZ",
       "section": ".text$01load0042a9d0",
       "address": "0x0042A9D0",
       "size": 4,
@@ -17,7 +17,7 @@
     }
   ],
   "context": {
-    "symbol": "?H3801CompilerContext_0042a9d0@@YGHPAPAUWordLoad_0042a9d0@@H@Z",
+    "symbol": "?H3801CompilerContext_0042a9d0@@YGHPAPAUWordLoad@@H@Z",
     "section": ".text$03context",
     "address": "0x0042A9E0",
     "size": 41,

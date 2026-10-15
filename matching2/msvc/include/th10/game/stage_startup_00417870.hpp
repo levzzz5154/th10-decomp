@@ -10,7 +10,7 @@ void* __cdecl operator new(unsigned int size);
 
 // The running game state, including its flags and initial life setting.
 // The prefix is also used by the complete replay-stage compiler context.
-struct StageRunState_00417870 {
+struct StageRunState {
     int high_score;               // 0x00474C40
     int score;                    // 0x00474C44
     short word_08;                // 0x00474C48
@@ -36,7 +36,7 @@ struct StageRunState_00417870 {
     // 0x00418B80 (recovered as ScoreState::SetGauge).
     __declspec(noinline) void SetGauge(int amount);
 };
-typedef char GameStateField5c_0042a6a0[offsetof(StageRunState_00417870, field_5c) == 0x5C ? 1 : -1];
+typedef char GameStateField5c[offsetof(StageRunState, field_5c) == 0x5C ? 1 : -1];
 
 // The 0x1C4-byte record a replay keeps for each stage.
 struct ReplayStage_0042a6a0 {
@@ -60,7 +60,7 @@ struct ReplayStage_0042a6a0 {
 
     ReplayStage_0042a6a0() { memset(this, 0, sizeof(*this)); }
 };
-typedef char ReplayStageSize_0042a6a0[sizeof(ReplayStage_0042a6a0) == 0x1C4 ? 1 : -1];
+typedef char ReplayStageSize[sizeof(ReplayStage_0042a6a0) == 0x1C4 ? 1 : -1];
 
 // The file header of a replay.
 struct ReplayHeader_0042a6a0 {
@@ -70,7 +70,7 @@ struct ReplayHeader_0042a6a0 {
     int packed_size;              // +0x1C
     int size;                     // +0x20
 };
-typedef char ReplayHeaderSize_0042a6a0[sizeof(ReplayHeader_0042a6a0) == 0x24 ? 1 : -1];
+typedef char ReplayHeaderSize[sizeof(ReplayHeader_0042a6a0) == 0x24 ? 1 : -1];
 
 // The summary at the start of the unpacked replay; the stage records follow.
 struct ReplaySummary_0042a6a0 {
@@ -78,10 +78,10 @@ struct ReplaySummary_0042a6a0 {
     int stage_count;              // +0x4C
     unsigned char reserved_50[0x14];
 };
-typedef char ReplaySummarySize_0042a6a0[sizeof(ReplaySummary_0042a6a0) == 0x64 ? 1 : -1];
+typedef char ReplaySummarySize[sizeof(ReplaySummary_0042a6a0) == 0x64 ? 1 : -1];
 
 // One stage's input list in the replay manager.
-struct ReplayNode_0042a6a0 {
+struct ReplayNode {
     unsigned char* inputs;        // +0x00
     unsigned char* cursor;        // +0x04
     unsigned char* inputs_end;    // +0x08
@@ -92,15 +92,15 @@ struct ReplayNode_0042a6a0 {
 };
 
 // A scheduler task, as far as the manager touches it.
-struct ReplayTask_0042a6a0 {
+struct ReplayTask {
     int priority;
     unsigned int flags;           // +0x04: 2 = paused for this frame
 };
 
 // The head or a node of a stage's list of input pages.
-struct ReplayPoolPage_0042a6a0;
+struct ReplayPoolPage;
 struct ReplayPoolLink_0042a6a0 {
-    ReplayPoolPage_0042a6a0* page;
+    ReplayPoolPage* page;
     ReplayPoolLink_0042a6a0* next;
     ReplayPoolLink_0042a6a0* previous;
 };
@@ -108,19 +108,19 @@ struct ReplayPoolLink_0042a6a0 {
 // The replay manager at *0x00477838.
 struct ReplayManager_0042a6a0 {
     unsigned char reserved_00[8];
-    ReplayTask_0042a6a0* update_task;      // +0x08
-    ReplayTask_0042a6a0* draw_task;        // +0x0C
+    ReplayTask* update_task;      // +0x08
+    ReplayTask* draw_task;        // +0x0C
     int mode;                     // +0x10: 0 = record, 1 = play back
     ReplayHeader_0042a6a0* header;         // +0x14
     ReplaySummary_0042a6a0* summary;       // +0x18
     ReplayStage_0042a6a0* stage_data[8];   // +0x1C
     ReplayPoolLink_0042a6a0 pools[8];      // +0x3C: the input pages of each stage
     ReplayPoolLink_0042a6a0* current_pool; // +0x9C
-    ReplayNode_0042a6a0 nodes[8]; // +0xA0
+    ReplayNode nodes[8]; // +0xA0
     unsigned char* data;          // +0x1C0: the unpacked replay
     int reserved_1c4;
     int field_1c8;
-    ReplayTask_0042a6a0* extra_task;       // +0x1CC
+    ReplayTask* extra_task;       // +0x1CC
     int stage;                    // +0x1D0: the stage being recorded or played
     char filename[0x100];         // +0x1D4
 
@@ -140,10 +140,10 @@ struct ReplayManager_0042a6a0 {
 };
 typedef char ReplayManagerNodes_0042a6a0[offsetof(ReplayManager_0042a6a0, nodes) == 0xA0 ? 1 : -1];
 
-extern "C" StageRunState_00417870 g_globals;
+extern "C" StageRunState g_globals;
 extern "C" RngState g_rng;
 // The application object already passed to the animation cleanup functions.
-struct StageApplication_00417870 {
+struct StageApplication {
     unsigned char reserved_000[0x120];
     unsigned int configuration[13];  // +0x120: 0x00491D48
     unsigned char reserved_154[0x39C - 0x154];
@@ -154,13 +154,13 @@ struct StageApplication_00417870 {
     int worker_stop_requested;     // +0x638: worker +0x0C, 0x00492260
     int worker_running;            // +0x63C: worker +0x10, 0x00492264
 };
-typedef char StageApplicationReset[offsetof(StageApplication_00417870, stage_reset) == 0x39C ? 1 : -1];
-typedef char StageApplicationWorkerReady[offsetof(StageApplication_00417870, worker_stop_requested) == 0x638 ? 1 : -1];
-typedef char StageApplicationWorkerState[offsetof(StageApplication_00417870, worker_running) == 0x63C ? 1 : -1];
-typedef char StageApplicationStatus[offsetof(StageApplication_00417870, status) == 0x3CC ? 1 : -1];
-typedef char StageRunFlags[offsetof(StageRunState_00417870, flags) == 0x60 ? 1 : -1];
-typedef char StageRunLives[offsetof(StageRunState_00417870, initial_lives) == 0x6C ? 1 : -1];
-extern "C" StageApplication_00417870 g_application;
+typedef char StageApplicationReset[offsetof(StageApplication, stage_reset) == 0x39C ? 1 : -1];
+typedef char StageApplicationWorkerReady[offsetof(StageApplication, worker_stop_requested) == 0x638 ? 1 : -1];
+typedef char StageApplicationWorkerState[offsetof(StageApplication, worker_running) == 0x63C ? 1 : -1];
+typedef char StageApplicationStatus[offsetof(StageApplication, status) == 0x3CC ? 1 : -1];
+typedef char StageRunFlags[offsetof(StageRunState, flags) == 0x60 ? 1 : -1];
+typedef char StageRunLives[offsetof(StageRunState, initial_lives) == 0x6C ? 1 : -1];
+extern "C" StageApplication g_application;
 
 // The published UI context is passed to the startup worker on the stack.
 struct Game;

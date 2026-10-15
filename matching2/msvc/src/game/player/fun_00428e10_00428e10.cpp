@@ -6,7 +6,7 @@
 //
 // Retail enters this member with the player in EAX and the source in ECX, a
 // pair no C++ declaration can name, so the body is compiled in the native-LTCG
-// cluster build_support/layout/ltcg/score_gauge_publish_00428e10.json, whose array-walking
+// cluster build_support/layout/ltcg/score_gauge_publish.json, whose array-walking
 // synthetic caller establishes it. The body itself is ordinary C++.
 //
 // The two words are written through one shared base pointer. Without it the

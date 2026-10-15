@@ -37,7 +37,7 @@ extern "C" void** __cdecl asm_AnimationManager_RegisterPrimaryFront_00448a50(
 enum { kAnimationPositioned = 0x40000000 };
 
 __declspec(noinline)
-void** __stdcall AnimationManager_CreateScreenPositionedPrimaryFront_00448ee0(
+void** __stdcall AnimationManager_CreateScreenPositionedPrimaryFront(
     void* resource, void** out, int index, const AnimationPosition_00448ee0* position) {
     AnimationObject_00448ee0* object =
         (AnimationObject_00448ee0*)asm_FUN_00449950_00449950(g_sprt_ctrl);

@@ -3,7 +3,7 @@
 // and the entity's frame counter is not a multiple of four.  Nothing calls
 // it any more; the entity arrives in EAX, a convention only a native LTCG
 // link chooses, so the region is compiled in its own cluster.
-struct GameUi_00429a30;
+struct GameUi;
 struct Entity_00429a30 {
     char pad_0000[0x10];
     int state;
@@ -13,7 +13,7 @@ struct Entity_00429a30 {
     int SelectFrameStep();
 };
 
-extern "C" GameUi_00429a30* g_game;
+extern "C" GameUi* g_game;
 extern "C" unsigned int g_input_keys_raw;
 
 #pragma code_seg(".text$01accessor")

@@ -10,7 +10,7 @@ void __cdecl operator delete(void* block);
 struct AnimationResource_00447810 {
     __declspec(noinline) void Release();
 };
-struct SptTestAnimations_0042be20 {
+struct SptTestAnimations {
     unsigned char reserved_000000[0x3AD06C];
     AnimationResource_00447810* slots[0x21];
 
@@ -24,7 +24,7 @@ struct SptTestAnimations_0042be20 {
     }
 };
 
-extern "C" SptTestAnimations_0042be20* g_sprt_ctrl;
+extern "C" SptTestAnimations* g_sprt_ctrl;
 extern "C" void* g_func_ctrl;          // the scheduler
 // 0x00449F60: unlink one task; the caller holds the scheduler lock.
-__declspec(noinline) void __stdcall ManagerTeardownFuncCtrl_Remove_00449F60(FuncCtrl*, SchedulerTask*);
+__declspec(noinline) void __stdcall ManagerTeardownFuncCtrl_Remove(FuncCtrl*, SchedulerTask*);

@@ -9,7 +9,7 @@
 #include "th10/platform/archive_file.hpp"
 
 #pragma code_seg(".text$04zaload")
-AnmFile_004470c0* __stdcall AnmManager_LoadFile_004470c0(AnmManager_004470c0* manager, int slot,
+AnmFile* __stdcall AnmManager_LoadFile(AnmManager_004470c0* manager, int slot,
                                                          const char* name) {
     char path[260];
     if (slot >= 33) {
@@ -20,7 +20,7 @@ AnmFile_004470c0* __stdcall AnmManager_LoadFile_004470c0(AnmManager_004470c0* ma
     AnmEntryHeader_00446c70* header =
         reinterpret_cast<AnmEntryHeader_00446c70*>(Archive_LoadFile(path, 0, 0));
     int index = 0;
-    AnmFile_004470c0* file = new AnmFile_004470c0;
+    AnmFile* file = new AnmFile;
     manager->files[slot] = file;
     if (!header)
         return 0;
@@ -39,17 +39,17 @@ AnmFile_004470c0* __stdcall AnmManager_LoadFile_004470c0(AnmManager_004470c0* ma
         ++entries;
     }
     file->entry_count = entries;
-    file->textures = static_cast<AnmTexture_00446c70*>(
-        asm_malloc_00452706(entries * sizeof(AnmTexture_00446c70)));
-    memset(file->textures, 0, entries * sizeof(AnmTexture_00446c70));
-    file->sprites = static_cast<AnimationPositionRecord_00447940*>(
-        asm_malloc_00452706(sprites * sizeof(AnimationPositionRecord_00447940)));
+    file->textures = static_cast<AnmTexture*>(
+        asm_malloc_00452706(entries * sizeof(AnmTexture)));
+    memset(file->textures, 0, entries * sizeof(AnmTexture));
+    file->sprites = static_cast<AnimationPositionRecord*>(
+        asm_malloc_00452706(sprites * sizeof(AnimationPositionRecord)));
     file->scripts = static_cast<const void**>(asm_malloc_00452706(scripts * sizeof(void*)));
     file->script_count = scripts;
     file->sprite_count = sprites;
 
     for (;;) {
-        if (AnmFile_PreloadEntryImage_004472e0(file, header, index) < 0)
+        if (AnmFile_PreloadEntryImage(file, header, index) < 0)
             return 0;
         int next = header->next_offset;
         ++index;

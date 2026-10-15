@@ -21,18 +21,18 @@
 // Genuine scheduler creation bodies establish callback EAX and priority EDI.
 __declspec(noinline) SchedulerTask* __stdcall CreateEffectPrimary(void* context, int priority, void* routine);
 __declspec(noinline) SchedulerTask* __stdcall CreateEffectSecondary(void* context, int priority, void* routine);
-extern "C" int __fastcall FadeOutUpdate_0043bd40(void*);
-extern "C" int __fastcall ViewportOverlayDraw_0043c1a0(void*);
-extern "C" int __fastcall FadeInUpdate_0043c230(void*);
-extern "C" int __fastcall PlayfieldOverlayDraw_0043c2c0(void*);
-extern "C" int __fastcall HalfOpacityFadeUpdate_0043c310(void*);
-extern "C" int __fastcall ScreenOverlayDraw_0043c3c0(void*);
-extern "C" int __fastcall PlayfieldHalfOpacityDraw_0043c410(void*);
-extern "C" int __fastcall ColorPulseUpdate_0043c460(void*);
-extern "C" int __fastcall ColorPulseDraw_0043c500(void*);
-extern "C" int __fastcall LinearShakeUpdate_0043c550(void*);
-extern "C" int __fastcall EnvelopeShakeUpdate_0043c710(void*);
-extern "C" int __fastcall ScreenEffectRemove_0043c870(void*);
+extern "C" int __fastcall FadeOutUpdate(void*);
+extern "C" int __fastcall ViewportOverlayDraw(void*);
+extern "C" int __fastcall FadeInUpdate(void*);
+extern "C" int __fastcall PlayfieldOverlayDraw(void*);
+extern "C" int __fastcall HalfOpacityFadeUpdate(void*);
+extern "C" int __fastcall ScreenOverlayDraw(void*);
+extern "C" int __fastcall PlayfieldHalfOpacityDraw(void*);
+extern "C" int __fastcall ColorPulseUpdate(void*);
+extern "C" int __fastcall ColorPulseDraw(void*);
+extern "C" int __fastcall LinearShakeUpdate(void*);
+extern "C" int __fastcall EnvelopeShakeUpdate(void*);
+extern "C" int __fastcall ScreenEffectRemove(void*);
 extern "C" float g_game_speed;
 #pragma code_seg(".text$03selector")
 void Screen::Configure(int priority, int selected_mode,
@@ -41,43 +41,43 @@ void Screen::Configure(int priority, int selected_mode,
     // interprets them as colors, durations, repetition counts, or shake limits.
     switch (selected_mode) {
     case 0:
-        primary = CreateEffectPrimary(this,14,reinterpret_cast<void*>(FadeOutUpdate_0043bd40));
-        secondary = CreateEffectSecondary(this,priority,reinterpret_cast<void*>(ViewportOverlayDraw_0043c1a0));
+        primary = CreateEffectPrimary(this,14,reinterpret_cast<void*>(FadeOutUpdate));
+        secondary = CreateEffectSecondary(this,priority,reinterpret_cast<void*>(ViewportOverlayDraw));
         break;
     case 1:
-        primary = CreateEffectPrimary(this,14,reinterpret_cast<void*>(LinearShakeUpdate_0043c550));
+        primary = CreateEffectPrimary(this,14,reinterpret_cast<void*>(LinearShakeUpdate));
         break;
     case 2:
-        primary = CreateEffectPrimary(this,14,reinterpret_cast<void*>(FadeInUpdate_0043c230));
-        secondary = CreateEffectSecondary(this,priority,reinterpret_cast<void*>(PlayfieldOverlayDraw_0043c2c0));
+        primary = CreateEffectPrimary(this,14,reinterpret_cast<void*>(FadeInUpdate));
+        secondary = CreateEffectSecondary(this,priority,reinterpret_cast<void*>(PlayfieldOverlayDraw));
         break;
     case 3:
         opacity = 255;
-        primary = CreateEffectPrimary(this,14,reinterpret_cast<void*>(FadeOutUpdate_0043bd40));
-        secondary = CreateEffectSecondary(this,priority,reinterpret_cast<void*>(PlayfieldOverlayDraw_0043c2c0));
+        primary = CreateEffectPrimary(this,14,reinterpret_cast<void*>(FadeOutUpdate));
+        secondary = CreateEffectSecondary(this,priority,reinterpret_cast<void*>(PlayfieldOverlayDraw));
         break;
     // Keep the two viewport fades adjacent for the shared registration tail.
     case 5:
-        primary = CreateEffectPrimary(this,14,reinterpret_cast<void*>(FadeInUpdate_0043c230));
-        secondary = CreateEffectSecondary(this,priority,reinterpret_cast<void*>(ViewportOverlayDraw_0043c1a0));
+        primary = CreateEffectPrimary(this,14,reinterpret_cast<void*>(FadeInUpdate));
+        secondary = CreateEffectSecondary(this,priority,reinterpret_cast<void*>(ViewportOverlayDraw));
         break;
     case 4:
-        primary = CreateEffectPrimary(this,14,reinterpret_cast<void*>(ColorPulseUpdate_0043c460));
-        secondary = CreateEffectSecondary(this,priority,reinterpret_cast<void*>(ColorPulseDraw_0043c500));
+        primary = CreateEffectPrimary(this,14,reinterpret_cast<void*>(ColorPulseUpdate));
+        secondary = CreateEffectSecondary(this,priority,reinterpret_cast<void*>(ColorPulseDraw));
         break;
     case 6:
-        primary = CreateEffectPrimary(this,14,reinterpret_cast<void*>(HalfOpacityFadeUpdate_0043c310));
-        secondary = CreateEffectSecondary(this,priority,reinterpret_cast<void*>(ScreenOverlayDraw_0043c3c0));
+        primary = CreateEffectPrimary(this,14,reinterpret_cast<void*>(HalfOpacityFadeUpdate));
+        secondary = CreateEffectSecondary(this,priority,reinterpret_cast<void*>(ScreenOverlayDraw));
         break;
     case 7:
-        primary = CreateEffectPrimary(this,14,reinterpret_cast<void*>(HalfOpacityFadeUpdate_0043c310));
-        secondary = CreateEffectSecondary(this,priority,reinterpret_cast<void*>(PlayfieldHalfOpacityDraw_0043c410));
+        primary = CreateEffectPrimary(this,14,reinterpret_cast<void*>(HalfOpacityFadeUpdate));
+        secondary = CreateEffectSecondary(this,priority,reinterpret_cast<void*>(PlayfieldHalfOpacityDraw));
         break;
     case 8:
-        primary = CreateEffectPrimary(this,14,reinterpret_cast<void*>(EnvelopeShakeUpdate_0043c710));
+        primary = CreateEffectPrimary(this,14,reinterpret_cast<void*>(EnvelopeShakeUpdate));
         break;
     }
-    primary->on_remove = ScreenEffectRemove_0043c870;
+    primary->on_remove = ScreenEffectRemove;
     if (!(timer.flags & 1u)) {
         timer.current = 0;
         timer.previous = -999999;

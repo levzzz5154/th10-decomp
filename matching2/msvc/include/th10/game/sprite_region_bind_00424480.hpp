@@ -7,7 +7,7 @@ struct AnimationHandle_00424480 {
 };
 
 // The sprite an animation currently shows.
-struct AnimationSprite_00424480 {
+struct AnimationSprite {
     unsigned char reserved_00[0x08];
     float left;                          // +0x08
     float top;                           // +0x0C
@@ -23,7 +23,7 @@ struct AnimationObject_00424480 {
     unsigned char reserved_008[0x300];
     int* texture;                        // +0x308
     unsigned char reserved_30c[0x88];
-    AnimationSprite_00424480* sprite;    // +0x394
+    AnimationSprite* sprite;    // +0x394
 };
 
 // The animation manager's two running lists.
@@ -40,7 +40,7 @@ struct AnimationLists_00424480 {
 extern "C" AnimationLists_00424480* g_sprt_ctrl;
 
 // A screen rectangle filled from a region of a texture.
-struct SpriteRegion_00424480 {
+struct SpriteRegion {
     int reserved_00;
     int texture;                         // +0x04: negative while unbound
     int left;                            // +0x08

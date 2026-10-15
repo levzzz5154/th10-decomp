@@ -20,7 +20,7 @@ struct InterfaceList_0044d640 {
 };
 
 #pragma code_seg(".text$01accessor")
-__declspec(noinline) int __stdcall AnyFlagSet_0044d640(InterfaceList_0044d640* list) {
+__declspec(noinline) int __stdcall AnyFlagSet(InterfaceList_0044d640* list) {
     int result = 0;
     if (!list->items) return 0;
     for (unsigned int i = 0; i < list->count; ++i) {

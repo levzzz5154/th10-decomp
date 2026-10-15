@@ -8,7 +8,7 @@
 // when stopping.
 //
 // The insert takes the table in EAX and the name in EDX, so the body is
-// compiled in the cluster build_support/layout/ltcg/animation_resource_registrar_0043e460.json.
+// compiled in the cluster build_support/layout/ltcg/animation_resource_registrar.json.
 #include <string.h>
 
 #include "th10/render/resource_registrar_0043e460.hpp"
@@ -17,11 +17,11 @@ extern AnimationManager_0043e460 g_music_requests;   // 0x00492590
 extern unsigned char g_config_flags;                 // 0x00491D78
 extern float g_game_speed;                           // 0x00476F78
 
-struct MusicProgress_00420b80 {
+struct MusicProgress {
     unsigned char reserved_00000[0x1D892];
     unsigned char track_heard[1];                    // +0x1D892, one byte per track
 };
-extern MusicProgress_00420b80* g_music_progress;     // 0x0047783C
+extern MusicProgress* g_music_progress;     // 0x0047783C
 
 enum {
     kConfigStreamedMusic = 0x10,

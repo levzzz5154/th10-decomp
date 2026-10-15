@@ -47,7 +47,7 @@
   "anchors": [
     {
       "name": "function_0041bb00",
-      "symbol": "?Spawn@ItemSpawnManager_0041bb00@@QAEHPBUVector3@@HHMM@Z",
+      "symbol": "?Spawn@ItemSpawnManager@@QAEHPBUVector3@@HHMM@Z",
       "section": ".text$f0041bb00F",
       "address": "0x41bb00",
       "size": 819

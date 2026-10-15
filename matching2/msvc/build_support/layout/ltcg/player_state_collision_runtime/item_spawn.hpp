@@ -8,7 +8,7 @@ struct ItemPolarVelocity_0041bb00 {
     float x, y;
     __declspec(noinline) ItemPolarVelocity_0041bb00* SetPolar(float angle, float speed);
 };
-struct SpawnItem_0041bb00 {
+struct SpawnItem {
     Entity animation;
     Vector3 position;
     ItemPolarVelocity_0041bb00 velocity;
@@ -23,8 +23,8 @@ struct SpawnItem_0041bb00 {
 };
 struct PlayerItemManager {
     unsigned char reserved_000[0x14];
-    SpawnItem_0041bb00 normal[150];
-    SpawnItem_0041bb00 special[2048];
+    SpawnItem normal[150];
+    SpawnItem special[2048];
     int reserved_21ceb4;
     int special_cursor;
     int special_count;
@@ -33,14 +33,14 @@ struct PlayerItemManager {
     // 0x0041BA50: turn the live items of kinds 1 and 4 into kind 9.
     __declspec(noinline) int ConvertItems();
 };
-typedef char ItemSizeCheck_0041bb00[sizeof(SpawnItem_0041bb00)==0x3f0?1:-1];
-typedef char ItemStateOffsetCheck_0041bb00[offsetof(SpawnItem_0041bb00,state)==0x3dc?1:-1];
-typedef char ItemSpecialOffsetCheck_0041bb00[offsetof(PlayerItemManager,special)==0x24eb4?1:-1];
-typedef char ItemCursorOffsetCheck_0041bb00[offsetof(PlayerItemManager,special_cursor)==0x21ceb8?1:-1];
+typedef char ItemSizeCheck[sizeof(SpawnItem)==0x3f0?1:-1];
+typedef char ItemStateOffsetCheck[offsetof(SpawnItem,state)==0x3dc?1:-1];
+typedef char ItemSpecialOffsetCheck[offsetof(PlayerItemManager,special)==0x24eb4?1:-1];
+typedef char ItemCursorOffsetCheck[offsetof(PlayerItemManager,special_cursor)==0x21ceb8?1:-1];
 
-typedef char SpawnItemAnimationOffset[offsetof(SpawnItem_0041bb00,animation)==0?1:-1];
-typedef char SpawnItemPositionOffset[offsetof(SpawnItem_0041bb00,position)==0x3AC?1:-1];
-typedef char SpawnItemTimerOffset[offsetof(SpawnItem_0041bb00,timer)==0x3C8?1:-1];
+typedef char SpawnItemAnimationOffset[offsetof(SpawnItem,animation)==0?1:-1];
+typedef char SpawnItemPositionOffset[offsetof(SpawnItem,position)==0x3AC?1:-1];
+typedef char SpawnItemTimerOffset[offsetof(SpawnItem,timer)==0x3C8?1:-1];
 
 // The game counters at 0x00474C40. The player update passes the object to
 // its gauge routine, so its fields are re-read after unrelated stores.

@@ -2,10 +2,10 @@
 #include "../../../src/unreferenced/FUN_00421d00_00421d00.cpp"
 
 #pragma code_seg(".text$03context")
-int __stdcall ClearCompilerContext(ReplayMarkerClear_00421d00** objects, int count) {
-    ReplayMarkerClear_00421d00** cursor = objects;
+int __stdcall ClearCompilerContext(ReplayMarkerClear** objects, int count) {
+    ReplayMarkerClear** cursor = objects;
     while (count--) {
-        ReplayMarkerClear_00421d00* object = *cursor++;
+        ReplayMarkerClear* object = *cursor++;
         object->Clear();
         object->Clear();
     }

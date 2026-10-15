@@ -2,14 +2,14 @@
 // prepend it to the manager's primary list.
 //
 // The body is byte-for-byte the twin of 0x00448D50
-// (`src/core/sprtlib/animation_manager_create_positioned_primary_00448d50.cpp`); the
+// (`src/core/sprtlib/animation_manager_create_positioned_primary.cpp`); the
 // only difference is the list operation it ends with.  0x00448D50 appends to
 // the primary list through 0x004489D0 (RegisterPrimaryBack, tail insert), this
 // one prepends through 0x00448A50 (RegisterPrimaryFront, head insert).  Its
 // siblings in the manager's create family are
 //   0x00448FB0  secondary back   (call 0x00448AC0)
 //   0x004490E0  secondary front  (call 0x00448B40)
-// so it is ?AnimationManager_CreatePositionedPrimaryFront_00448e80.
+// so it is ?AnimationManager_CreatePositionedPrimaryFront.
 //
 // The body takes the object out of the manager's animation pool, marks it
 // positioned (bit 30 of the +0x35C flag word), clears its render bucket at
@@ -65,7 +65,7 @@ extern "C" void** __cdecl asm_AnimationManager_RegisterPrimaryFront_00448a50(
 // noinline: the whole-program pass must keep this body as its own contribution
 // at 0x00448E80 instead of inlining it into the synthetic caller.
 __declspec(noinline)
-void** __stdcall AnimationManager_CreatePositionedPrimaryFront_00448e80(
+void** __stdcall AnimationManager_CreatePositionedPrimaryFront(
     void* resource, void** out, int index, const AnimationPosition_00448e80* position) {
     AnimationObject_00448e80* object =
         (AnimationObject_00448e80*)asm_FUN_00449950_00449950(g_sprt_ctrl);

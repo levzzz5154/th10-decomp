@@ -7,7 +7,7 @@
   ],
   "context_cluster": "build_support/layout/ltcg/anm_texture_fill_transparent_004465b0.json",
   "entry_symbol": "_AnmTextureUploadContext_00446c70@12",
-  "function": "?FillTransparentPixels@AnmTexture_00446c70@@QAEXXZ",
+  "function": "?FillTransparentPixels@AnmTexture@@QAEXXZ",
   "code_bytes": 1420,
   "absolute_symbols": {
     "__fltused": {
@@ -186,7 +186,7 @@
       "address": "0x00491c10",
       "kind": "data"
     },
-    "@LoadCachedResource_00447280@12": {
+    "@LoadCachedResource@12": {
       "address": "0x00447280",
       "kind": "code"
     },

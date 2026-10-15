@@ -47,18 +47,18 @@ __declspec(noinline) void* __fastcall SprtCtrl::Find(
 }
 #pragma code_seg()
 
-struct AnimationTable_0042c7e0;
-extern "C" int AnimationTable_HasSlot_0042c7e0(
-        AnimationTable_0042c7e0* table, int index);
+struct AnimationTable;
+extern "C" int AnimationTable_HasSlot(
+        AnimationTable* table, int index);
 
 #pragma code_seg(".text$20context")
 extern "C" __declspec(noinline) int MiscPrivateAbiWave22Context(
-        SlotLockTable_00421c70** locks, int* slots,
-        AnimationTable_0042c7e0** tables, int count) {
+        SlotLockTable** locks, int* slots,
+        AnimationTable** tables, int count) {
     int result = 0;
     for (int index = 0; index < count; ++index) {
-        SlotLockTable_EnterRetail_00421c70(slots[index], locks[index]);
-        result += AnimationTable_HasSlot_0042c7e0(tables[index], slots[index]);
+        SlotLockTable_EnterRetail(slots[index], locks[index]);
+        result += AnimationTable_HasSlot(tables[index], slots[index]);
     }
     return result;
 }

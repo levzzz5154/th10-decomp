@@ -15,10 +15,10 @@ struct SoundManager_0043a9b0 {
     int LoadTrack(int index, const char* name);
 };
 
-extern "C" int __stdcall Sound_LoadMusicTable_0043d670(
+extern "C" int __stdcall Sound_LoadMusicTable(
         const char* filename, void* owner);
 
-struct SoundPendingSlots_0043d640 {
+struct SoundPendingSlots {
     int LoadPendingSlot(const char* filename, int index);
 };
 
@@ -30,8 +30,8 @@ int __stdcall ArchiveCallersContext(AssetBuffer** buffers, const char** names, M
         parameters[i]->Load(names[i]);
         managers[i]->LoadTrack(i, track_name);
         stages[i]->Load(names[i]);
-        Sound_LoadMusicTable_0043d670(track_name, managers[i]);
-        reinterpret_cast<SoundPendingSlots_0043d640*>(managers[i])->LoadPendingSlot(track_name, i);
+        Sound_LoadMusicTable(track_name, managers[i]);
+        reinterpret_cast<SoundPendingSlots*>(managers[i])->LoadPendingSlot(track_name, i);
     }
     return count;
 }

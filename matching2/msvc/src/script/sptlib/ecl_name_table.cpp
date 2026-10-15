@@ -10,7 +10,7 @@
 #include <stddef.h>
 #include <string.h>
 
-extern "C" void* __cdecl entry_malloc_00452706(unsigned int size);
+extern "C" void* __cdecl entry_malloc(unsigned int size);
 extern "C" void __cdecl crt_free(void* block);
 
 struct ScriptSub {
@@ -60,7 +60,7 @@ int ScriptFileLoader::Parse(int* data) {
     ScriptSub* previous = entries;
     name_count += files[file_count]->sub_count;
     unsigned int size = name_count * sizeof(ScriptSub);
-    entries = (ScriptSub*)entry_malloc_00452706(size);
+    entries = (ScriptSub*)entry_malloc(size);
     if (old == 0) {
         for (int i = 0; i < name_count; i++, data++) {
             entries[i].body = (int)files[file_count] + *data;

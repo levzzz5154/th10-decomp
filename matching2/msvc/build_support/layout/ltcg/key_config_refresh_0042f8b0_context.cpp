@@ -1,6 +1,6 @@
 // Compiler-visible ABI anchors and synthetic caller, never selected as recovered code.
 #include "../../../src/game/title/fun_0042f8b0_0042f8b0.cpp"
-__forceinline void KeyConfigMatrix_0042f8b0::SetIdentity() {
+__forceinline void KeyConfigMatrix::SetIdentity() {
     values[3][2] = 0.0f;
     values[3][1] = 0.0f;
     values[3][0] = 0.0f;
@@ -21,7 +21,7 @@ __forceinline void KeyConfigMatrix_0042f8b0::SetIdentity() {
 
 #pragma code_seg(".text$03configure")
 extern "C" __declspec(noinline) int __stdcall ConfigureKeyConfigDigit_0043e5a0(
-    KeyConfigResource_0042f8b0* resource, KeyConfigAnimationObject_0042f8b0* object, int index) {
+    KeyConfigResource* resource, KeyConfigAnimationObject* object, int index) {
     unsigned char* res = reinterpret_cast<unsigned char*>(resource);
     if (*reinterpret_cast<void**>(res + 0x108) == 0 ||
         *reinterpret_cast<unsigned int*>(res + 0x124) != 0)
@@ -49,12 +49,12 @@ extern "C" __declspec(noinline) int __stdcall ConfigureKeyConfigDigit_0043e5a0(
 #pragma code_seg()
 
 #pragma code_seg(".text$05find")
-void* __fastcall KeyConfigAnimationManager_0042f8b0::Find(
-        KeyConfigLookupContext_0042f8b0* context, KeyConfigScriptId_0042f8b0 id) {
+void* __fastcall KeyConfigAnimationManager::Find(
+        KeyConfigLookupContext* context, KeyConfigScriptId id) {
     if (!id.value) return 0;
-    for (KeyConfigChildNode_0042f8b0* node = context->primary_bucket; node != 0; node = node->next)
+    for (KeyConfigChildNode* node = context->primary_bucket; node != 0; node = node->next)
         if (node->object->handle == id.value) return node->object;
-    for (KeyConfigChildNode_0042f8b0* node = context->secondary_bucket; node != 0; node = node->next)
+    for (KeyConfigChildNode* node = context->secondary_bucket; node != 0; node = node->next)
         if (node->object->handle == id.value) return node->object;
     return 0;
 }

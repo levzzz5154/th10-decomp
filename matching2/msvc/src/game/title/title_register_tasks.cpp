@@ -4,7 +4,7 @@
 //
 // Native LTCG passes the title state in EBX, so this is compiled in the same
 // link as the scheduler registration functions and the text log it calls
-// (build_support/layout/ltcg/bullet_manager_load_scripts_0040ae70.json).
+// (build_support/layout/ltcg/bullet_manager_load_scripts.json).
 #include "th10/core/func_ctrl.hpp"
 
 struct Title {

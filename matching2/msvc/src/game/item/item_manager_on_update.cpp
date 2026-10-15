@@ -5,7 +5,7 @@
 // hand the manager that arrived in ECX to the item update at 0x0041AFD0 (the
 // argument is taken on the stack and cleaned by the callee). Only the bytes this
 // routine reads are described.
-struct SceneFlags_0041ba00 {
+struct SceneFlags {
     unsigned char unknown_00[0x58];
     unsigned int flags_58;               // +0x58
 };
@@ -15,7 +15,7 @@ extern "C" unsigned char g_game;  // 0x00477810  active scene
 extern "C" int __stdcall asm_FUN_0041afd0_0041afd0(void* self);
 
 int ItemManager::OnUpdate() {
-    SceneFlags_0041ba00* scene = *(SceneFlags_0041ba00**)&g_game;
+    SceneFlags* scene = *(SceneFlags**)&g_game;
     if (scene != 0 && ((((scene->flags_58 >> 2) | scene->flags_58) & 1) != 0 ||
                        (scene->flags_58 & 0x400) != 0))
         return 1;

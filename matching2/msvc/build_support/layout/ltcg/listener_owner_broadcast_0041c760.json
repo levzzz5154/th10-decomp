@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "ListenerOwner_Broadcast_0041c760",
-      "symbol": "?Broadcast@ListenerOwner_0041c760@@QAEHPBUVector3_0041c760@@0H@Z",
+      "symbol": "?Broadcast@ListenerOwner@@QAEHPBUVector3_0041c760@@0H@Z",
       "section": ".text$01broadcast",
       "address": "0x0041C760",
       "size": 102,

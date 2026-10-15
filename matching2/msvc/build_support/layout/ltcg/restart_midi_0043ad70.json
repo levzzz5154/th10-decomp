@@ -63,7 +63,7 @@
       "kind": "data"
     },
     {
-      "symbol": "__imp__midiOutOpen_004662ac@20",
+      "symbol": "__imp__midiOutOpen@20",
       "address": "0x004662AC",
       "kind": "data"
     },
@@ -93,12 +93,12 @@
       "kind": "data"
     },
     {
-      "symbol": "_midi_timer_callback_0043a6e0@0",
+      "symbol": "_midi_timer_callback@0",
       "address": "0x0043A6E0",
       "kind": "data"
     },
     {
-      "symbol": "_midi_read_length_0043a730@4",
+      "symbol": "_midi_read_length@4",
       "address": "0x0043A730",
       "kind": "relative_code"
     }

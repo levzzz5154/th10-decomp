@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "name": "cached_com_slot_release_retail_00421d20",
+  "name": "cached_com_slot_release_retail",
   "source": "src/game/mother/cached_com_slot_release_retail_00421d20.cpp",
   "driver": "build_support/layout/ltcg/cached_com_slot_release_retail_00421d20_context.cpp",
   "headers": [],
@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "CachedComSlot_00421d20_Release",
-      "symbol": "?Release@CachedComSlot_00421d20@@QAEXXZ",
+      "symbol": "?Release@CachedComSlot@@QAEXXZ",
       "section": ".text$01release",
       "address": "0x00421D20",
       "size": 21,
@@ -17,7 +17,7 @@
     }
   ],
   "context": {
-    "symbol": "?CachedComSlotReleaseRetailCompilerContext@@YGHPAPAUCachedComSlot_00421d20@@H@Z",
+    "symbol": "?CachedComSlotReleaseRetailCompilerContext@@YGHPAPAUCachedComSlot@@H@Z",
     "section": ".text$03context",
     "address": "0x00421D40",
     "size": 37,

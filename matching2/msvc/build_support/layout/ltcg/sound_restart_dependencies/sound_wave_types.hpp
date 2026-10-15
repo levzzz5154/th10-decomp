@@ -233,11 +233,11 @@ extern "C" {
     extern volatile int g_sound_shutdown_state;
     extern TextLog_0044b810 g_wave_error_log;
     int __fastcall SoundWave_LoadPending_0043d390(int index, WaveSoundManager*, const char* filename);
-    void __stdcall Sound_StopMusicWorker_0043dab0(WaveSoundManager*);
-    int __stdcall SoundStream_Start_0044d440(CommandSoundStream*, unsigned int priority, unsigned int flags);
-    int __stdcall MusicCursor_Rewind_0044dd40(MusicReadCursor*, unsigned char loop_start);
-    int __stdcall MusicCursor_Read_0044de10(MusicReadCursor*, unsigned int requested,
+    void __stdcall Sound_StopMusicWorker(WaveSoundManager*);
+    int __stdcall SoundStream_Start(CommandSoundStream*, unsigned int priority, unsigned int flags);
+    int __stdcall MusicCursor_Rewind(MusicReadCursor*, unsigned char loop_start);
+    int __stdcall MusicCursor_Read(MusicReadCursor*, unsigned int requested,
         unsigned char* destination, unsigned int* received);
-    int __stdcall MusicCursor_Open_0044dbf0(MusicReadCursor*, unsigned int mode,
+    int __stdcall MusicCursor_Open(MusicReadCursor*, unsigned int mode,
         const char* filename, MusicTrackRecord*);
 }

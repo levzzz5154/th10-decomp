@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "H3401LinkNode_0041bee0_Link",
-      "symbol": "?Link@H3401LinkNode_0041bee0@@QAEPAU1@PAU1@@Z",
+      "symbol": "?Link@H3401LinkNode@@QAEPAU1@PAU1@@Z",
       "section": ".text$01target",
       "address": "0x0041BEE0",
       "size": 7,

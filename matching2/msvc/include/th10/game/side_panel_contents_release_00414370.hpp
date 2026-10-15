@@ -17,17 +17,17 @@ struct PanelResource_00414370 {
     __declspec(noinline) void Release();
 };
 
-struct PanelAnimationId_00414370 {
+struct PanelAnimationId {
     int value;
 };
 
 // A node of the animation manager's lists; `object` is the animation itself,
 // which starts with its id.
-struct PanelAnimationEntry_00414370 {
-    PanelAnimationEntry_00414370* object;
-    PanelAnimationEntry_00414370* next;
+struct PanelAnimationEntry {
+    PanelAnimationEntry* object;
+    PanelAnimationEntry* next;
     unsigned char reserved_08[0x0C];
-    PanelAnimationEntry_00414370* children;
+    PanelAnimationEntry* children;
     int children_flagged;
     unsigned char reserved_1c[0x308 - 0x1C];
     void* resource;                                 // +0x308
@@ -35,16 +35,16 @@ struct PanelAnimationEntry_00414370 {
     unsigned int flags;                             // +0x35C
 };
 
-enum { kPanelAnimationMarkedForRemoval_00414370 = 0x04000000 };
+enum { kPanelAnimationMarkedForRemoval = 0x04000000 };
 
 // The animation manager, as far as the side panel reaches it.
 struct PanelAnimationManager_00414370 {
     unsigned char reserved_000000[0x3AD0DC];
     PanelResource_00414370* stage_resource;         // +0x3AD0DC
     unsigned char reserved_3ad0e0[0x72DAD4 - 0x3AD0E0];
-    PanelAnimationEntry_00414370* primary;          // +0x72DAD4
+    PanelAnimationEntry* primary;          // +0x72DAD4
     int reserved_72dad8;
-    PanelAnimationEntry_00414370* secondary;        // +0x72DADC
+    PanelAnimationEntry* secondary;        // +0x72DADC
 
     // 0x004493E0: let every animation that plays from this file be removed.
     __declspec(noinline) void MarkResourceForRemoval(void* resource);
@@ -52,15 +52,15 @@ struct PanelAnimationManager_00414370 {
 
 // 0x004491C0 / 0x004492A0: find an animation by id; let it and its children
 // be removed.
-__declspec(noinline) PanelAnimationEntry_00414370* __fastcall PanelAnimation_Find_004491c0(
-    PanelAnimationManager_00414370* manager, PanelAnimationId_00414370 id);
-__declspec(noinline) PanelAnimationEntry_00414370* __fastcall PanelAnimation_SetFlag_004492a0(
-    PanelAnimationManager_00414370* manager, PanelAnimationId_00414370 id);
+__declspec(noinline) PanelAnimationEntry* __fastcall PanelAnimation_Find_004491c0(
+    PanelAnimationManager_00414370* manager, PanelAnimationId id);
+__declspec(noinline) PanelAnimationEntry* __fastcall PanelAnimation_SetFlag_004492a0(
+    PanelAnimationManager_00414370* manager, PanelAnimationId id);
 
 // The same two routines, expanded in place by the loop over the effects.
-__forceinline PanelAnimationEntry_00414370* PanelAnimation_FindInPlace(PanelAnimationManager_00414370* manager,
-                                                                      PanelAnimationId_00414370 id) {
-    PanelAnimationEntry_00414370* node;
+__forceinline PanelAnimationEntry* PanelAnimation_FindInPlace(PanelAnimationManager_00414370* manager,
+                                                                      PanelAnimationId id) {
+    PanelAnimationEntry* node;
     int* object;
     if (!id.value)
         return 0;
@@ -77,19 +77,19 @@ __forceinline PanelAnimationEntry_00414370* PanelAnimation_FindInPlace(PanelAnim
     return 0;
 }
 __forceinline void PanelAnimation_SetFlagInPlace(PanelAnimationManager_00414370* manager,
-                                                 PanelAnimationId_00414370 id) {
-    PanelAnimationEntry_00414370* entry = PanelAnimation_FindInPlace(manager, id);
+                                                 PanelAnimationId id) {
+    PanelAnimationEntry* entry = PanelAnimation_FindInPlace(manager, id);
     if (entry) {
-        entry->flags |= kPanelAnimationMarkedForRemoval_00414370;
+        entry->flags |= kPanelAnimationMarkedForRemoval;
         if (!entry->children_flagged)
             for (entry = entry->children; entry != 0; entry = entry->next)
-                entry->object->flags |= kPanelAnimationMarkedForRemoval_00414370;
+                entry->object->flags |= kPanelAnimationMarkedForRemoval;
     }
 }
 
 // An animation the panel owns, named by its id.
-struct PanelAnimation_00414370 {
-    PanelAnimationId_00414370 id;
+struct PanelAnimation {
+    PanelAnimationId id;
 
     // Let the animation manager dispose of the animation and forget it.
     void Release(PanelAnimationManager_00414370* manager) {
@@ -102,7 +102,7 @@ struct PanelAnimation_00414370 {
     }
 };
 
-struct PanelTask_00414370 {
+struct PanelTask {
     unsigned int reserved_00;
     unsigned int flags;                             // +0x04; 2 = enabled
 };
@@ -115,16 +115,16 @@ struct RunState_00414370 {
 
 // The side panel (0x9ED0 bytes, published at 0x0047770C), as far as its
 // contents release reaches it.
-struct SidePanel_00414370 {
+struct SidePanel {
     unsigned int flags;
     unsigned int reserved_0004;
-    PanelTask_00414370* update_task;                // +0x0008
+    PanelTask* update_task;                // +0x0008
     unsigned char reserved_000c[0x9DF4 - 0x0C];
-    PanelAnimation_00414370 effects[8];             // +0x9DF4
-    PanelAnimation_00414370 frame;                  // +0x9E14
-    PanelAnimation_00414370 caption;                // +0x9E18
+    PanelAnimation effects[8];             // +0x9DF4
+    PanelAnimation frame;                  // +0x9E14
+    PanelAnimation caption;                // +0x9E18
     unsigned char reserved_9e1c[8];
-    PanelAnimation_00414370 gauge;                  // +0x9E24
+    PanelAnimation gauge;                  // +0x9E24
     int counters[10];                               // +0x9E28
     unsigned char reserved_9e50[0x9E80 - 0x9E50];
     void* stage_file;                               // +0x9E80
@@ -134,11 +134,11 @@ struct SidePanel_00414370 {
     PanelSlot_00414370* stage_slot;                 // +0x9EB8
     void* stage_buffer;                             // +0x9EBC
 };
-typedef char SidePanelEffects_00414370[offsetof(SidePanel_00414370, effects) == 0x9DF4 ? 1 : -1];
-typedef char SidePanelCounters_00414370[offsetof(SidePanel_00414370, counters) == 0x9E28 ? 1 : -1];
-typedef char SidePanelStageFile_00414370[offsetof(SidePanel_00414370, stage_file) == 0x9E80 ? 1 : -1];
-typedef char SidePanelStageReady_00414370[offsetof(SidePanel_00414370, stage_ready) == 0x9E90 ? 1 : -1];
-typedef char SidePanelStageSlot_00414370[offsetof(SidePanel_00414370, stage_slot) == 0x9EB8 ? 1 : -1];
+typedef char SidePanelEffects[offsetof(SidePanel, effects) == 0x9DF4 ? 1 : -1];
+typedef char SidePanelCounters[offsetof(SidePanel, counters) == 0x9E28 ? 1 : -1];
+typedef char SidePanelStageFile[offsetof(SidePanel, stage_file) == 0x9E80 ? 1 : -1];
+typedef char SidePanelStageReady[offsetof(SidePanel, stage_ready) == 0x9E90 ? 1 : -1];
+typedef char SidePanelStageSlot[offsetof(SidePanel, stage_slot) == 0x9EB8 ? 1 : -1];
 
 extern "C" {
 extern PanelAnimationManager_00414370* g_sprt_ctrl;
@@ -147,6 +147,6 @@ extern void* g_next_stage_buffer;         // the stage buffer kept for the next 
 }
 
 // 0x00414370: release everything the panel's stage holds.
-void __stdcall SidePanel_ReleaseContents_00414370(SidePanel_00414370* panel);
+void __stdcall SidePanel_ReleaseContents_00414370(SidePanel* panel);
 
 #endif

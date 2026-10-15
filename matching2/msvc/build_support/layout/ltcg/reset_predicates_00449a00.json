@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "ResetRange_00449a00_Contains",
-      "symbol": "?Contains@ResetRange_00449a00@@QAEHI@Z",
+      "symbol": "?Contains@ResetRange@@QAEHI@Z",
       "section": ".text$01predicate",
       "address": "0x00449A00",
       "size": 26,

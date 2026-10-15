@@ -15,7 +15,7 @@ struct CutVector : Vector3 {
  CutVector& operator+=(const CutVector& rhs) {x+=rhs.x;y+=rhs.y;z+=rhs.z;return *this;}
  CutVector& operator*=(float factor) {x*=factor;y*=factor;z*=factor;return *this;}
 };
-struct CutSpawnParameters : LaserSpawnParameters_0041c510 {
+struct CutSpawnParameters : LaserSpawnParameters {
  CutVector position;
  float angle,length,length_limit,total_length,width,speed;
  short type,script;
@@ -70,7 +70,7 @@ struct CutAnimationBank : LaserManager_0041c510 {
  void* line_animation;
 };
 extern "C" {
- extern ItemSpawnManager_0041bb00* g_item_manager;
+ extern ItemSpawnManager* g_item_manager;
  extern float flt_0;
 }
 struct AnimationResourceFile;

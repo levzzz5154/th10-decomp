@@ -46,17 +46,17 @@ static int MusicAttenuation(const int& stored_music) {
 // clears the slot; the walk answers with the found child's own id (0 when the
 // walk fails) and the leaf looks that id up in the manager exactly like the
 // retail block does.
-static __forceinline LabelAnimation_0042d920* FindLabel(
+static __forceinline LabelAnimation* FindLabel(
         RecoveryLookupContext* manager, Title* room,
         int script) {
     RecoveryScriptId* slot =
         reinterpret_cast<RecoveryScriptId*>(&room->animation_slots[1]);
-    LabelParent_0042d920* parent = static_cast<LabelParent_0042d920*>(
-        reinterpret_cast<RecoveryLookup_0040bd80*>(manager)->Find(manager, *slot));
+    LabelParent* parent = static_cast<LabelParent*>(
+        reinterpret_cast<RecoveryLookup*>(manager)->Find(manager, *slot));
     if (parent == 0)
         slot->value = 0;
-    LabelLink_0042d920* match = 0;
-    for (LabelLink_0042d920* link = &parent->children; link != 0; link = link->next) {
+    LabelLink* match = 0;
+    for (LabelLink* link = &parent->children; link != 0; link = link->next) {
         if (link->object->script == script) {
             match = link;
             break;
@@ -68,8 +68,8 @@ static __forceinline LabelAnimation_0042d920* FindLabel(
     else
         id = 0;
     RecoveryScriptId key = { id };
-    return static_cast<LabelAnimation_0042d920*>(
-        reinterpret_cast<RecoveryLookup_0040bd80*>(manager)->Find(manager, key));
+    return static_cast<LabelAnimation*>(
+        reinterpret_cast<RecoveryLookup*>(manager)->Find(manager, key));
 }
 
 // Point one digit label at the sprite for its digit of the readout.  The
@@ -78,7 +78,7 @@ static __forceinline LabelAnimation_0042d920* FindLabel(
 static __forceinline void ConfigureHundreds(
         RecoveryLookupContext* manager, Title* room,
         int script, int font, const signed char& volume) {
-    LabelAnimation_0042d920* label = FindLabel(manager, room, script);
+    LabelAnimation* label = FindLabel(manager, room, script);
     if (label == 0)
         return;
     AnimationObject_0043e5a0* object = reinterpret_cast<AnimationObject_0043e5a0*>(label);
@@ -88,7 +88,7 @@ static __forceinline void ConfigureHundreds(
 static __forceinline void ConfigureTens(
         RecoveryLookupContext* manager, Title* room,
         int script, int font, const signed char& volume) {
-    LabelAnimation_0042d920* label = FindLabel(manager, room, script);
+    LabelAnimation* label = FindLabel(manager, room, script);
     if (label == 0)
         return;
     AnimationObject_0043e5a0* object = reinterpret_cast<AnimationObject_0043e5a0*>(label);
@@ -98,7 +98,7 @@ static __forceinline void ConfigureTens(
 static __forceinline void ConfigureOnes(
         RecoveryLookupContext* manager, Title* room,
         int script, int font, const signed char& volume) {
-    LabelAnimation_0042d920* label = FindLabel(manager, room, script);
+    LabelAnimation* label = FindLabel(manager, room, script);
     if (label == 0)
         return;
     AnimationObject_0043e5a0* object = reinterpret_cast<AnimationObject_0043e5a0*>(label);
@@ -112,7 +112,7 @@ static __forceinline void ConfigureOnes(
 static __forceinline void ShowDigit(
         RecoveryLookupContext* manager, Title* room,
         int script, bool visible) {
-    LabelAnimation_0042d920* label = FindLabel(manager, room, script);
+    LabelAnimation* label = FindLabel(manager, room, script);
     unsigned int* flags = &label->flags_35c;
     if (visible)
         *flags |= 2u;

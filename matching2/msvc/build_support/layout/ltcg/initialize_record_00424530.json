@@ -5,11 +5,11 @@
   "driver": "build_support/layout/ltcg/initialize_record_00424530_context.cpp",
   "headers": [],
   "image_base": "0x00400000",
-  "description": "InitializeRecord_00424530 compiled with native LTCG so the record and field_008 use the retail private register convention.",
+  "description": "InitializeRecord compiled with native LTCG so the record and field_008 use the retail private register convention.",
   "functions": [
     {
-      "name": "InitializeRecord_00424530",
-      "symbol": "?InitializeRecord_00424530@@YGHPAURecord_00424530@@HHHHHHHHHH@Z",
+      "name": "InitializeRecord",
+      "symbol": "?InitializeRecord@@YGHPAURecord_00424530@@HHHHHHHHHH@Z",
       "section": ".text$01accessor",
       "address": "0x00424530",
       "size": 84,

@@ -33,7 +33,7 @@ struct AnimationBank {
     int loading;
     __declspec(noinline) void InitializeObject(Entity* object, int index);
 };
-__declspec(noinline) void __stdcall LoadScriptPreservingState_0043e7e0(
+__declspec(noinline) void __stdcall LoadScriptPreservingState(
     AnimationBank* resource, Entity* object, int index);
 
 struct AnimationManagerNodeOpen {

@@ -25,9 +25,9 @@ static inline void ClearFileSlot(AnmManager_004470c0* manager, int slot) {
 }
 
 #pragma code_seg(".text$05service")
-extern "C" int __stdcall AnmManager_ServicePending_00447700(AnmManager_004470c0* manager) {
+extern "C" int __stdcall AnmManager_ServicePending(AnmManager_004470c0* manager) {
     for (unsigned int slot = 0; slot < 33; ++slot) {
-        AnmFile_004470c0* file = manager->files[slot];
+        AnmFile* file = manager->files[slot];
         if (!file)
             continue;
         if (file->release_pending) {
@@ -36,8 +36,8 @@ extern "C" int __stdcall AnmManager_ServicePending_00447700(AnmManager_004470c0*
             continue;
         }
         if (file->cursor) {
-            AnmUploadTag_00446c70 tag = { reinterpret_cast<int>(manager) };
-            return AnmManager_LoadNextEntry_004473c0(tag, manager->files[slot]) ? 0 : -1;
+            AnmUploadTag tag = { reinterpret_cast<int>(manager) };
+            return AnmManager_LoadNextEntry(tag, manager->files[slot]) ? 0 : -1;
         }
     }
     return 0;

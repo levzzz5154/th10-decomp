@@ -12,15 +12,15 @@ extern "C" float recovery_indicator_y_origin_00470b48;
 // Full 00448DB0 body. Its real allocator, script loader and list registrar
 // are co-visible; the compiler chooses the private position-register ABI.
 #pragma code_seg(".text$00448db0_fn")
-void** __stdcall RecoveryPlayerAnimationCreate_00448db0(
+void** __stdcall RecoveryPlayerAnimationCreate(
         void* resource, void** result, int script,
-        const HintPosition_00419120* position) {
+        const HintPosition* position) {
     unsigned char* object = static_cast<unsigned char*>(
         asm_FUN_00449950_00449950(g_sprt_ctrl));
     *reinterpret_cast<unsigned int*>(object + 0x35C) |= 0x40000000u;
     *reinterpret_cast<int*>(object + 0x20) = 0;
-    HintPosition_00419120* object_position =
-        reinterpret_cast<HintPosition_00419120*>(object + 0x340);
+    HintPosition* object_position =
+        reinterpret_cast<HintPosition*>(object + 0x340);
     object_position->x = position->x + recovery_indicator_x_origin_00470b4c;
     object_position->y = position->y + recovery_indicator_y_origin_00470b48;
     object_position->z = position->z;
@@ -32,9 +32,9 @@ void** __stdcall RecoveryPlayerAnimationCreate_00448db0(
 
 // Full maintained 0041AB70 model, with a dedicated section for this cluster.
 #pragma code_seg(".text$0041ab70_fn")
-void EntityMovementSlot_0041ab70::Initialise(
-        const MovementPair_0041ab70* source_value,
-        const MovementPair_0041ab70* destination_value,
+void EntityMovementSlot::Initialise(
+        const MovementPair* source_value,
+        const MovementPair* destination_value,
         int mode_value, unsigned char interpolation_value) {
     mode = mode_value;
     interpolation = interpolation_value;

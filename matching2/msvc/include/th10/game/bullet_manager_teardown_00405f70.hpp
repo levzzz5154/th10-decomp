@@ -30,4 +30,4 @@ struct BulletManager_00405F70 {
 typedef char ItemSize[sizeof(BulletSlot_00405DE0)==0x7F0?1:-1];
 typedef char ManagerSize[sizeof(BulletManager_00405F70)==0x3E0B54?1:-1];
 typedef char ItemsOffset[offsetof(BulletManager_00405F70,items)==0x60?1:-1];
-__declspec(noinline) void __stdcall ManagerTeardownFuncCtrl_Remove_00449F60(FuncCtrl*,SchedulerTask*);
+__declspec(noinline) void __stdcall ManagerTeardownFuncCtrl_Remove(FuncCtrl*,SchedulerTask*);

@@ -9,7 +9,7 @@ struct MidiOutput_0043a4c0 {
 };
 
 #pragma code_seg(".text$01accessor")
-__declspec(noinline) int __stdcall OpenMidiOutput_0043a4c0(MidiOutput_0043a4c0* output, unsigned int device) {
+__declspec(noinline) int __stdcall OpenMidiOutput(MidiOutput_0043a4c0* output, unsigned int device) {
     if (output->handle) {
         if (output->device != device) {
             imp_midiOutReset(output->handle);

@@ -4,5 +4,5 @@
 #pragma code_seg()
 #include "../../../src/core/sprtlib/anm_storage_destructor_00446220.cpp"
 #pragma code_seg(".text$02context")
-extern "C" void __stdcall DestroyAnmStorageContext(AnimationManagerStorage_00446220* state) { state->~AnimationManagerStorage_00446220(); }
+extern "C" void __stdcall DestroyAnmStorageContext(AnimationManagerStorage* state) { state->~AnimationManagerStorage(); }
 #pragma code_seg()

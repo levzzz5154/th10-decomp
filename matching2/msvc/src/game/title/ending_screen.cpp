@@ -34,13 +34,13 @@ static __forceinline void SelectItem_0042d300(MenuCursor& cursor, int selected) 
 int __stdcall EndingScreen_Update_0042d300(Title* room) {
     switch (room->phase) {
     case 0: {
-        if (reinterpret_cast<RecoveryLookup_0040bd80*>(g_sprt_ctrl)->Find(
+        if (reinterpret_cast<RecoveryLookup*>(g_sprt_ctrl)->Find(
                 reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl),
                 *reinterpret_cast<RecoveryScriptId*>(&room->animation_slots[88])) == 0) {
             RecoveryMusicInstallSlot(room, 88);
             RecoveryMusicInstallSlot(room, 90);
             void* handle;
-            void** result = AnimationManager_CreatePrimaryBack_00448d00(
+            void** result = AnimationManager_CreatePrimaryBack(
                 reinterpret_cast<void*>(room->reserved_018), &handle, 0, 15);
             room->reserved_684 = reinterpret_cast<unsigned int>(*result);
         }
@@ -57,8 +57,8 @@ int __stdcall EndingScreen_Update_0042d300(Title* room) {
             room->SetSlotFrame(90, 6);
             room->SetTimerTarget(4);
             g_sound_manager.Queue(32, 0);
-            RecoveryMusicStopHandle_00409e50(
-                reinterpret_cast<RecoveryHandle_0040bd80*>(&room->reserved_684));
+            RecoveryMusicStopHandle(
+                reinterpret_cast<RecoveryHandle*>(&room->reserved_684));
         }
         break;
     case 4:

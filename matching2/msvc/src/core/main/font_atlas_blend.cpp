@@ -20,19 +20,19 @@ struct FontSurface_00437750 {
     FontSurfaceMethods_00437750* methods;
 };
 
-struct FontSurfaceDesc_00437750 {
+struct FontSurfaceDesc {
     unsigned int format;
     unsigned int reserved_004[7];
 };
 
-struct FontRect_00437750 {
+struct FontRect {
     int left;
     int top;
     int right;
     int bottom;
 };
 
-struct FontLockedRect_00437750 {
+struct FontLockedRect {
     int pitch;
     unsigned char* bits;
 };
@@ -50,7 +50,7 @@ struct FontAtlas_00437750 {
     unsigned char* pixels;              // +0x120
 };
 
-char FontAtlas_BlendToSurface_00437750(FontAtlas_00437750* atlas, int column, int row,
+char FontAtlas_BlendToSurface(FontAtlas_00437750* atlas, int column, int row,
                                        FontSurface_00437750* surface, int width, int height);
 
 // Compiler entry only: a direct caller, so the compiler picks the private
@@ -60,26 +60,26 @@ extern "C" __declspec(noinline) int __stdcall FontAtlasBlendEntry(FontAtlas_0043
     int result = 0;
     while (count--) {
         FontAtlas_00437750* atlas = *atlases++;
-        result = FontAtlas_BlendToSurface_00437750(atlas, count, count, *surfaces++, atlas->width, atlas->height);
+        result = FontAtlas_BlendToSurface(atlas, count, count, *surfaces++, atlas->width, atlas->height);
     }
     return result;
 }
 
-char FontAtlas_BlendToSurface_00437750(FontAtlas_00437750* atlas, int column, int row,
+char FontAtlas_BlendToSurface(FontAtlas_00437750* atlas, int column, int row,
                                        FontSurface_00437750* surface, int width, int height) {
     if (atlas->ready == 0)
         goto fail;
 
-    FontSurfaceDesc_00437750 desc;
+    FontSurfaceDesc desc;
     surface->methods->GetDesc(surface, &desc);
 
-    FontRect_00437750 rect;
+    FontRect rect;
     rect.left = 0;
     rect.top = 0;
     rect.right = atlas->width;
     rect.bottom = atlas->height;
 
-    FontLockedRect_00437750 locked;
+    FontLockedRect locked;
     if (surface->methods->LockRect(surface, &locked, &rect, 0) != 0)
         goto fail;
 

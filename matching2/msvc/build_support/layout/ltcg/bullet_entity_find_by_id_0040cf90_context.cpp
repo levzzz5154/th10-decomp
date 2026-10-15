@@ -3,7 +3,7 @@
 
 #pragma code_seg(".text$03context")
 int __stdcall BulletEntityFindByIdCompilerContext(
-    BulletEntityFindByIdManager_0040cf90** managers, int count, int id) {
+    BulletEntityFindByIdManager** managers, int count, int id) {
     int matches = 0;
     while (count--) {
         if ((*managers++)->FindById(id) != 0)
