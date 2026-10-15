@@ -14,8 +14,8 @@
 // that stores the absolute address the manifest binds for 0x0046D0F0.
 
 extern "C" char g_enemy_eff_vtable[];
-extern "C" void __cdecl entry_free_00452422(void* block);
-extern "C" void __cdecl entry_free_004524a1(void* block);
+extern "C" void __cdecl crt_free(void* block);
+extern "C" void __cdecl crt_free_startup(void* block);
 
 struct Disposable_0042bdd0 {
     void* vtable;                          // +0x00
@@ -30,11 +30,11 @@ void* Disposable_0042bdd0_Destroy(Disposable_0042bdd0* object, int flags) {
     void* block = object->block;
     object->vtable = g_enemy_eff_vtable;
     if (block != 0) {
-        entry_free_00452422(block);
+        crt_free(block);
         object->block = 0;
     }
     if ((flags & 1) != 0) {
-        entry_free_004524a1(object);
+        crt_free_startup(object);
     }
     return object;
 }

@@ -3,7 +3,7 @@
 #pragma code_seg(".text$a00cleanup")
 int WaveSoundManager::Cleanup() {
     if (loaded) {
-        entry_free_00452422(loaded);
+        crt_free(loaded);
         loaded=0;
     }
     for (unsigned int index=0;index<128;++index) {
@@ -20,7 +20,7 @@ int WaveSoundManager::Cleanup() {
     }
     for (unsigned int index=0;index<37;++index) {
         if (pending[index]) {
-            entry_free_00452422(pending[index]);
+            crt_free(pending[index]);
             pending[index]=0;
         }
     }
@@ -52,7 +52,7 @@ int WaveSoundManager::Cleanup() {
         }
         for (unsigned int index=0;index<16;++index) {
             if (cached[index]) {
-                entry_free_00452422(cached[index]);
+                crt_free(cached[index]);
                 cached[index]=0;
             }
         }

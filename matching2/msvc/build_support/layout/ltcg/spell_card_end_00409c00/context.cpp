@@ -15,7 +15,7 @@ void AnimationHandle::StopAtFrame1() {
     AnimationScriptId id;
     id.value = value;
     AnimationLookupAnchorEntry* node =
-        static_cast<AnimationLookupAnchorEntry*>(AnimationManager_Find_004491c0(g_sprt_ctrl, id));
+        static_cast<AnimationLookupAnchorEntry*>(AnimationManager_Find(g_sprt_ctrl, id));
     if (node) {
         node->flags = 1;
         if (!node->children_flagged)

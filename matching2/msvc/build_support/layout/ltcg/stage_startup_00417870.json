@@ -99,7 +99,7 @@
     },
     {
       "name": "CreateCallback",
-      "symbol": "_SchedulerCallback_Create_00449ed0@4",
+      "symbol": "_SchedulerTask_Create@4",
       "section": ".text$00449ed0_fn",
       "address": "0x449ed0",
       "size": 74

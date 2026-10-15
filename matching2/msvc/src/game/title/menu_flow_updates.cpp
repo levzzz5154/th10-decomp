@@ -116,7 +116,7 @@ int __stdcall TitleMenuFlow_0042f540(Title* room) {
     case 0:
         room->cursor.item_count = 7;
         SelectItem_0042f540(room->cursor, 0);
-        RecoveryMusicInstallSlot_0042c670(room, 2);
+        RecoveryMusicInstallSlot(room, 2);
         room->SetTimerTarget(1);
         LoadBindings_0042f540(room);
         // Retail intentionally processes phase 1 on this same frame.

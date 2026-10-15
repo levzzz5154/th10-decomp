@@ -19,24 +19,24 @@ extern "C" const char recovery_music_comment_file_0046ed14[];
 extern "C" const char recovery_music_dummy_0046df98[];
 extern "C" const char recovery_music_restore_bgm_0046f018[];
 extern "C" const char* recovery_music_preview_table_00476fd8[8];
-extern "C" void __cdecl entry_free_00452422(void* memory);
+extern "C" void __cdecl crt_free(void* memory);
 extern "C" void* __cdecl asm_FUN_00449950_00449950(void* manager);
 extern "C" void** __cdecl asm_AnimationManager_RegisterPrimaryBack_004489d0(
     void* manager, void** out, void* object);
-struct AnimationResource_00449870 {
+struct AnimationBank {
     __declspec(noinline) void* InitializeObject(void* object, int index);
 };
 extern "C" int __stdcall recovery_replace_extension_00420a90(int selector, const char* path);
 extern "C" int __stdcall recovery_play_dummy_00420b10(int selector, int slot);
 
-static __forceinline RecoveryMusicVm_00433ef0* MusicFind(unsigned int handle) {
-    RecoveryScriptId_0040bd80 id = { static_cast<int>(handle) };
-    return static_cast<RecoveryMusicVm_00433ef0*>(
+static __forceinline RecoveryMusicVm* MusicFind(unsigned int handle) {
+    RecoveryScriptId id = { static_cast<int>(handle) };
+    return static_cast<RecoveryMusicVm*>(
         reinterpret_cast<RecoveryLookup_0040bd80*>(g_sprt_ctrl)->Find(
-            reinterpret_cast<RecoveryLookupContext_0040bd80*>(g_sprt_ctrl), id));
+            reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl), id));
 }
 
-static __forceinline void MusicSetTreeFrame(RecoveryMusicVm_00433ef0* object, unsigned short frame) {
+static __forceinline void MusicSetTreeFrame(RecoveryMusicVm* object, unsigned short frame) {
     if (object != 0) {
         object->stop_frame = frame;
         if (object->children_flagged == 0) {
@@ -83,14 +83,14 @@ void Title::SetTimerTarget(int target) {
     MusicResetTimer(&timer);
 }
 #pragma code_seg(".text$0042c670_fn")
-__declspec(noinline) void __stdcall RecoveryMusicInstallSlot_0042c670(
+__declspec(noinline) void __stdcall RecoveryMusicInstallSlot(
         Title* room, int index) {
     void* resource = room->animation_resource;
-    RecoveryMusicVm_00433ef0* object = static_cast<RecoveryMusicVm_00433ef0*>(
+    RecoveryMusicVm* object = static_cast<RecoveryMusicVm*>(
         asm_FUN_00449950_00449950(g_sprt_ctrl));
     object->flags |= 0x40000000u;
     object->render_bucket = 15;
-    static_cast<AnimationResource_00449870*>(resource)->InitializeObject(object, index);
+    static_cast<AnimationBank*>(resource)->InitializeObject(object, index);
     void* handle;
     asm_AnimationManager_RegisterPrimaryBack_004489d0(g_sprt_ctrl, &handle, object);
     room->animation_slots[index] = reinterpret_cast<unsigned int>(handle);
@@ -140,7 +140,7 @@ __declspec(noinline) char* __stdcall RecoveryMusicExtractLine_00434a20(
     return end;
 }
 #pragma code_seg(".text$00434a80_fn")
-void RecoveryMusicVm_00433ef0::InitializeTransition(
+void RecoveryMusicVm::InitializeTransition(
         const RecoveryMusicVector_00433ef0* base,
         const RecoveryMusicVector_00433ef0* target, int mode, unsigned char flag) {
     transition_mode = mode;
@@ -210,11 +210,11 @@ int MenuCursor::Advance(int delta) {
 #pragma code_seg()
 
 static __forceinline unsigned int MusicRegisterObject(void* resource, int script) {
-    RecoveryMusicVm_00433ef0* object = static_cast<RecoveryMusicVm_00433ef0*>(
+    RecoveryMusicVm* object = static_cast<RecoveryMusicVm*>(
         asm_FUN_00449950_00449950(g_sprt_ctrl));
     object->flags |= 0x40000000u;
     object->render_bucket = 15;
-    static_cast<AnimationResource_00449870*>(resource)->InitializeObject(object, script);
+    static_cast<AnimationBank*>(resource)->InitializeObject(object, script);
     void* handle;
     asm_AnimationManager_RegisterPrimaryBack_004489d0(g_sprt_ctrl, &handle, object);
     return reinterpret_cast<unsigned int>(handle);
@@ -229,13 +229,13 @@ extern "C" __declspec(noinline) int __stdcall Title_UpdateMusicRoom(
             room->cursor.item_count = 6;
             room->cursor.selection = MusicFirstSelection(room->cursor.item_count);
             if (MusicFind(room->animation_slots[95]) == 0) {
-                RecoveryMusicInstallSlot_0042c670(room, 95);
+                RecoveryMusicInstallSlot(room, 95);
                 void* handle;
                 void** result = AnimationManager_CreatePrimaryBack_00448d00(
                     g_ascii_manager->animation_resource, &handle, 8, 15);
                 room->fallback_handle.value = reinterpret_cast<unsigned int>(*result);
             }
-            RecoveryMusicInstallSlot_0042c670(room, 103);
+            RecoveryMusicInstallSlot(room, 103);
             int remaining;
             int tracks = 0;
             char* text = Archive_LoadFile(recovery_music_comment_file_0046ed14, &remaining, 0);
@@ -285,10 +285,10 @@ extern "C" __declspec(noinline) int __stdcall Title_UpdateMusicRoom(
                 if (index >= room->parsed_track_count)
                     break;
                 handle->value = MusicRegisterObject(room->animation_resource, index + 173);
-                RecoveryMusicVm_00433ef0* object = MusicFind(handle->value);
+                RecoveryMusicVm* object = MusicFind(handle->value);
                 if (object == 0)
                     handle->value = 0;
-                RecoveryTextVm_00447a50* text = reinterpret_cast<RecoveryTextVm_00447a50*>(object);
+                RecoveryTextVm* text = reinterpret_cast<RecoveryTextVm*>(object);
                 if (recovery_music_player_0047783c[0x1D892 + index])
                     text->MarkText(g_sprt_ctrl, 0xFFFFFFu, static_cast<const char*>(comment));
                 else
@@ -317,9 +317,9 @@ extern "C" __declspec(noinline) int __stdcall Title_UpdateMusicRoom(
         break;
     case 1:
         if (room->timer.current % 2 == 0 && room->preview_cursor < 8) {
-            RecoveryMusicVm_00433ef0* object = static_cast<RecoveryMusicVm_00433ef0*>(
+            RecoveryMusicVm* object = static_cast<RecoveryMusicVm*>(
                 reinterpret_cast<RecoveryLookup_0040bd80*>(g_sprt_ctrl)->Validate(&room->preview_handles[room->preview_cursor]));
-            RecoveryTextVm_00447a50* text = reinterpret_cast<RecoveryTextVm_00447a50*>(object);
+            RecoveryTextVm* text = reinterpret_cast<RecoveryTextVm*>(object);
             if (!recovery_music_player_0047783c[0x1D892 + room->displayed_track] && room->preview_armed)
                 text->MarkText(g_sprt_ctrl, 0x8080FFu, recovery_music_preview_table_00476fd8[room->preview_cursor]);
             else
@@ -334,9 +334,9 @@ extern "C" __declspec(noinline) int __stdcall Title_UpdateMusicRoom(
         break;
     case 2:
         if (room->timer.current % 2 == 0 && room->preview_cursor < 8) {
-            RecoveryMusicVm_00433ef0* object = static_cast<RecoveryMusicVm_00433ef0*>(
+            RecoveryMusicVm* object = static_cast<RecoveryMusicVm*>(
                 reinterpret_cast<RecoveryLookup_0040bd80*>(g_sprt_ctrl)->Validate(&room->preview_handles[room->preview_cursor]));
-            RecoveryTextVm_00447a50* text = reinterpret_cast<RecoveryTextVm_00447a50*>(object);
+            RecoveryTextVm* text = reinterpret_cast<RecoveryTextVm*>(object);
             if (!recovery_music_player_0047783c[0x1D892 + room->displayed_track] && room->preview_armed)
                 text->MarkText(g_sprt_ctrl, 0x8080FFu, recovery_music_preview_table_00476fd8[room->preview_cursor]);
             else
@@ -360,7 +360,7 @@ extern "C" __declspec(noinline) int __stdcall Title_UpdateMusicRoom(
             position.y = recovery_music_row_y_00470c80 - static_cast<float>(room->scroll_origin) * recovery_music_row_step_00470ca0;
             position.z = 0;
             for (int index = 0; index < room->parsed_track_count; ++index) {
-                RecoveryMusicVm_00433ef0* object = MusicFind(room->row_handles[index].value);
+                RecoveryMusicVm* object = MusicFind(room->row_handles[index].value);
                 if (object == 0)
                     room->row_handles[index].value = 0;
                 if (index < room->scroll_origin || index >= room->scroll_origin + 10)
@@ -424,7 +424,7 @@ extern "C" __declspec(noinline) int __stdcall Title_UpdateMusicRoom(
 
 leave_room:
     if (room->file_buffer != 0) {
-        entry_free_00452422(room->file_buffer);
+        crt_free(room->file_buffer);
         room->file_buffer = 0;
     }
     room->file_buffer = 0;
@@ -432,14 +432,14 @@ leave_room:
     for (int row = 0; row < room->parsed_track_count; ++row)
         RecoveryMusicStopHandle_00409e50(&room->row_handles[row]);
     // Retail inlines the two-list lookup for this eight-handle cleanup.
-    RecoveryLookupContext_0040bd80* context = reinterpret_cast<RecoveryLookupContext_0040bd80*>(g_sprt_ctrl);
+    RecoveryLookupContext* context = reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl);
     for (int row = 0; row < 8; ++row) {
         const unsigned int handle = room->preview_handles[row].value;
-        RecoveryMusicVm_00433ef0* object = 0;
+        RecoveryMusicVm* object = 0;
         if (handle != 0) {
             RecoveryLookupNode_0040bd80* node;
             for (node = context->primary; node != 0; node = node->next) {
-                RecoveryMusicVm_00433ef0* candidate = reinterpret_cast<RecoveryMusicVm_00433ef0*>(node->object);
+                RecoveryMusicVm* candidate = reinterpret_cast<RecoveryMusicVm*>(node->object);
                 if (candidate->id == handle) {
                     object = candidate;
                     break;
@@ -447,7 +447,7 @@ leave_room:
             }
             if (node == 0) {
                 for (node = context->secondary; node != 0; node = node->next) {
-                    RecoveryMusicVm_00433ef0* candidate = reinterpret_cast<RecoveryMusicVm_00433ef0*>(node->object);
+                    RecoveryMusicVm* candidate = reinterpret_cast<RecoveryMusicVm*>(node->object);
                     if (candidate->id == handle) {
                         object = candidate;
                         break;

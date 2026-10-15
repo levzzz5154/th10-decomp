@@ -35,7 +35,7 @@
 #include "th10/platform/thread_sync.hpp"
 #include <string.h>
 
-extern "C" void __cdecl entry_free_004524a1(void* memory);
+extern "C" void __cdecl crt_free_startup(void* memory);
 
 // The stack-argument destroy callees, each spelled with its fixed retail
 // prototype (receiver at [ESP+4], RET 4).
@@ -139,58 +139,58 @@ void __stdcall Game_Destroy(Game* state) {
             void* replay_manager = g_replay;
             if (replay_manager) {
                 ManagerOwned_Destroy_004294a0(replay_manager);
-                entry_free_004524a1(replay_manager);
+                crt_free_startup(replay_manager);
             }
         }
         void* pending_state = g_background;
         if (pending_state) {
             BackGround_Destroy(pending_state);
-            entry_free_004524a1(pending_state);
+            crt_free_startup(pending_state);
         }
         void* current_state = g_background_prev;
         if (current_state) {
             BackGround_Destroy(current_state);
-            entry_free_004524a1(current_state);
+            crt_free_startup(current_state);
         }
         void* pause_menu = g_pause;
         if (pause_menu) {
             Manager_Release_00422220(pause_menu);
-            entry_free_004524a1(pause_menu);
+            crt_free_startup(pause_menu);
         }
         void* items = g_front;
         if (items) {
             Front_Destroy(items);
-            entry_free_004524a1(items);
+            crt_free_startup(items);
         }
         void* stage = g_player;
         if (stage) {
             StageManager_Destroy_00424ed0(stage);
-            entry_free_004524a1(stage);
+            crt_free_startup(stage);
         }
         void* bullets = g_bullet_manager;
         if (bullets) {
             BulletManager_Destroy_00405f70(bullets);
-            entry_free_004524a1(bullets);
+            crt_free_startup(bullets);
         }
         void* native_effects = g_item_manager;
         if (native_effects) {
             ItemManager_Destroy_0041adf0(native_effects);
-            entry_free_004524a1(native_effects);
+            crt_free_startup(native_effects);
         }
         void* score_extended = g_laser_manager;
         if (score_extended) {
             ScoreExtendedObject_DestroyRetail_0041c1c0(score_extended);
-            entry_free_004524a1(score_extended);
+            crt_free_startup(score_extended);
         }
         void* resource_state = g_hint;
         if (resource_state) {
             ResourceCleanup_00418ee0(resource_state);
-            entry_free_004524a1(resource_state);
+            crt_free_startup(resource_state);
         }
         void* effects = g_smoll_score;
         if (effects) {
             EffectManager_Destroy_0042b570(effects);
-            entry_free_004524a1(effects);
+            crt_free_startup(effects);
         }
     } else {
         // Replay/recovery teardown: the side panel's stage parts go back, the
@@ -201,7 +201,7 @@ void __stdcall Game_Destroy(Game* state) {
         void* retired_state = g_background_prev;
         if (retired_state) {
             BackGround_Destroy(retired_state);
-            entry_free_004524a1(retired_state);
+            crt_free_startup(retired_state);
         }
         g_background_prev = g_background;
 
@@ -228,23 +228,23 @@ void __stdcall Game_Destroy(Game* state) {
         EnemyCtrl* enemies = g_enemy_ctrl;
         if (enemies) {
             enemies->Destroy();
-            entry_free_004524a1(enemies);
+            crt_free_startup(enemies);
         }
     }
     void* bullet_release = g_effect;
     if (bullet_release) {
         BulletManager_Release_0040af00(bullet_release);
-        entry_free_004524a1(bullet_release);
+        crt_free_startup(bullet_release);
     }
     void* recovery_pair = g_bomb;
     if (recovery_pair) {
         Bomb_Release(recovery_pair);
-        entry_free_004524a1(recovery_pair);
+        crt_free_startup(recovery_pair);
     }
     void* players = g_card;
     if (players) {
         Card_Destroy_00408af0(players);
-        entry_free_004524a1(players);
+        crt_free_startup(players);
     }
 
     // Unhook the manager state's two scheduler tasks under the scheduler lock.

@@ -1,6 +1,6 @@
 // 0x0043D050..0x0043D074: run the record's second virtual slot, clear the
 // owner pointer, then free the record when the low bit of the flags is set.
-extern "C" void __cdecl entry_free_004524a1(void* memory);
+extern "C" void __cdecl crt_free_startup(void* memory);
 
 struct Object_0043d050 {
     void** owner;                    // +0x00
@@ -15,7 +15,7 @@ void* Object_0043d050::Destroy(unsigned int flags) {
         owner = 0;
     }
     if (flags & 1) {
-        entry_free_004524a1(this);
+        crt_free_startup(this);
     }
     return this;
 }

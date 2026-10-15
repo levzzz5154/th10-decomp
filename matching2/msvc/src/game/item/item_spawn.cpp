@@ -30,8 +30,8 @@ static __forceinline SpawnItem_0041bb00* FindFreeItem(SpawnItem_0041bb00* item) 
     return 0;
 }
 
-static __forceinline AnimationResource_0043e710* ItemAnimation() {
-    return static_cast<AnimationResource_0043e710*>(g_bullet_manager->item_animation);
+static __forceinline AnimationResourceFile* ItemAnimation() {
+    return static_cast<AnimationResourceFile*>(g_bullet_manager->item_animation);
 }
 
 #pragma code_seg(".text$f0041bb00F")
@@ -61,12 +61,12 @@ __declspec(noinline) int PlayerItemManager::Spawn(
         item->display_kind = kind;
         if (kind == 10) {
             item->display_kind = 1;
-            Entity_StartScript_00404f30(ItemAnimation(), &item->animation, 375);
+            Entity_StartScript(ItemAnimation(), &item->animation, 375);
         } else if (kind == 11) {
             item->display_kind = 4;
-            Entity_StartScript_00404f30(ItemAnimation(), &item->animation, 378);
+            Entity_StartScript(ItemAnimation(), &item->animation, 378);
         } else {
-            Entity_StartScript_00404f30(ItemAnimation(), &item->animation, kind + 374);
+            Entity_StartScript(ItemAnimation(), &item->animation, kind + 374);
         }
         item->animation.primary_color = identifier;
         return 0;

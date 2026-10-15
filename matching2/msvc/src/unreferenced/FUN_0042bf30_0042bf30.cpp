@@ -4,7 +4,7 @@
 void* __cdecl operator new(unsigned int);
 extern "C" SptTestState* __fastcall SptTest_Construct(int, SptTestState*);
 extern "C" void __stdcall asm_FUN_0042bc30_0042bc30(SptTestState*);
-extern "C" void __cdecl entry_free_004524a1(void*);
+extern "C" void __cdecl crt_free_startup(void*);
 
 #pragma code_seg(".text$02factory")
 extern "C" __declspec(noinline) SptTestState* __cdecl
@@ -17,7 +17,7 @@ asm_FUN_0042bf30_0042bf30() {
     if (reinterpret_cast<SptTestTaskView*>(state)->InstallTasks()) {
         if (state) {
             asm_FUN_0042bc30_0042bc30(state);
-            entry_free_004524a1(state);
+            crt_free_startup(state);
         }
         return 0;
     }

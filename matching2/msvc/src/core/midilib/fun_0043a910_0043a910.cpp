@@ -15,7 +15,7 @@ extern "C" __declspec(noinline) void CleanupMidi_0043a910(MidiSequencer* manager
  unsigned char** slot=manager->file_buffers;
  int remaining=32;
  do {
-  if(*slot) { entry_free_00452422(*slot); *slot=0; }
+  if(*slot) { crt_free(*slot); *slot=0; }
   *slot=0;
   ++slot;
  } while(--remaining);

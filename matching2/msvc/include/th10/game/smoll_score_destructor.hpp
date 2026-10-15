@@ -5,7 +5,7 @@
 #include "th10/platform/thread_sync.hpp"
 extern "C" void* g_func_ctrl;
 extern "C" void* g_smoll_score;
-extern "C" void __cdecl entry_free_00452422(void*);
+extern "C" void __cdecl crt_free(void*);
 void __cdecl operator delete(void*);
 struct EffectAnimation_00401FF0 : Entity {
  ~EffectAnimation_00401FF0();

@@ -123,16 +123,16 @@ struct FrontAnimationLookup {
         }
     }
 };
-struct AnimationObject_0043e710 : Entity {};
-struct AnimationResource_0043e710 {
+struct AnimationObjectFile : Entity {};
+struct AnimationResourceFile {
     unsigned short id;
     unsigned char reserved_02[0x11C - 2];
     void **scripts;
     unsigned char reserved_120[4];
     int loading;
 };
-extern "C" __declspec(noinline) void __stdcall LoadScript_0043e710(AnimationResource_0043e710 *,
-                                                                   AnimationObject_0043e710 *, int);
+extern "C" __declspec(noinline) void __stdcall LoadScript_0043e710(AnimationResourceFile *,
+                                                                   AnimationObjectFile *, int);
 // Complete cluster body. LoadScript uses the public fastcall overload from
 // entity.hpp; both native bindings consume the object in EDX, with ECX unused.
 __declspec(noinline) void __stdcall Entity_Init(Entity *entity);

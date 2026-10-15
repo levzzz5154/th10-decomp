@@ -3,7 +3,7 @@
 #include "th10/game/loading_view.hpp"
 void* __cdecl operator new(unsigned int);
 extern "C" void __stdcall Loading_Release(Loading*);
-extern "C" void __cdecl entry_free_004524a1(void*);
+extern "C" void __cdecl crt_free_startup(void*);
 #pragma code_seg(".text$04factory")
 extern "C" __declspec(noinline) Loading* __cdecl
 Loading_Create() {
@@ -11,7 +11,7 @@ Loading_Create() {
     if (reinterpret_cast<LoadingView*>(state)->StartWorker()) {
         if (state) {
             Loading_Release(state);
-            entry_free_004524a1(state);
+            crt_free_startup(state);
         }
         return 0;
     }

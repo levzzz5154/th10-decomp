@@ -61,7 +61,7 @@
     },
     {
       "name": "start_script",
-      "symbol": "?Entity_StartScript_00404f30@@YGXPAUAnimationResource_0043e710@@PAUEntity@@H@Z",
+      "symbol": "?Entity_StartScript@@YGXPAUAnimationResourceFile@@PAUEntity@@H@Z",
       "section": ".text$00404f30_fn",
       "address": "0x00404F30",
       "size": 202
@@ -89,7 +89,7 @@
     },
     {
       "name": "format",
-      "symbol": "?FormatRightAligned@HintVm_00419120@@QAAXPAXZZ",
+      "symbol": "?FormatRightAligned@HintVm@@QAAXPAXZZ",
       "section": ".text$00447ae0_fn",
       "address": "0x00447AE0",
       "size": 204
@@ -152,7 +152,7 @@
       "kind": "metadata"
     },
     {
-      "symbol": "?InitializeObject@AnimationResource_00449870@@QAEXPAUEntity@@H@Z",
+      "symbol": "?InitializeObject@AnimationBank@@QAEXPAUEntity@@H@Z",
       "address": "0x00449870",
       "kind": "relative_code"
     },

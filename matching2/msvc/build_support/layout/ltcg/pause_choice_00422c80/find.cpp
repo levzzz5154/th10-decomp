@@ -16,7 +16,7 @@ struct AnimationLookupContext {
     AnimationLookupEntry* secondary_bucket;
 };
 #pragma code_seg(".text$50find")
-void* __fastcall AnimationManager_Find_004491c0(
+void* __fastcall AnimationManager_Find(
         AnimationLookupContext* context, AnimationScriptId id) {
     if (!id.value)
         return 0;

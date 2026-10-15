@@ -5,7 +5,7 @@
 // build_support/layout/ltcg/bullet_entity_clear_resource_list_0040c6e0.json supplies that
 // convention while keeping the recovered operation readable.
 
-extern "C" void __cdecl entry_free_004524a1(void* memory);
+extern "C" void __cdecl crt_free_startup(void* memory);
 
 struct BulletResourceRecord_0040c6e0 {
     void* resource;
@@ -24,8 +24,8 @@ void BulletEntity_0040c6e0::ClearResourceList() {
     BulletResourceRecord_0040c6e0* record = resource_records;
     while (record != 0) {
         BulletResourceRecord_0040c6e0* next = record->next;
-        entry_free_004524a1(record->resource);
-        entry_free_004524a1(record);
+        crt_free_startup(record->resource);
+        crt_free_startup(record);
         record = next;
     }
 }

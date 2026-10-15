@@ -8,8 +8,8 @@
 
 // Recovered semantic C++ definitions.
 
-extern "C" void __cdecl entry_free_00452422(void*);
-extern "C" void __cdecl entry_free_004524a1(void*);
+extern "C" void __cdecl crt_free(void*);
+extern "C" void __cdecl crt_free_startup(void*);
 #ifdef _MSC_VER
 void* __cdecl operator new(uint32_t size);
 #else

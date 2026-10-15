@@ -20,7 +20,7 @@ struct AnimationRef_004497d0 {
 };
 // An animation slot seen as the handle 0x004497D0 searches.
 struct AnimationHandle_004497d0 {
-    RecoveryScriptId_0040bd80 id;
+    RecoveryScriptId id;
     AnimationRef_004497d0 FindChildRef(int script_id);
 };
 // A child reference seen as the handle 0x00449470 works on.
@@ -40,7 +40,7 @@ struct TitleDifficultyView {
 // one slot at frame 3.
 struct TitleAnimationSlotView {
     unsigned char reserved_000[0x2C4];
-    RecoveryScriptId_0040bd80 slots[195];
+    RecoveryScriptId slots[195];
     __declspec(noinline) void RestartSlot(int slot);
     // 0x0042C730: the same at frame 2.
     __declspec(noinline) void StopSlot(int slot);
@@ -55,7 +55,7 @@ extern GameThread_0040c540* g_ascii_manager;
 
 // 0x00449250: set the stop frame of an animation and run it once.
 void __fastcall AnimationManager_SetStopFrameAndRun(
-    unsigned short frame, RecoveryLookupContext_0040bd80* context, RecoveryScriptId_0040bd80 id);
+    unsigned short frame, RecoveryLookupContext* context, RecoveryScriptId id);
 // 0x0040AD20: store the requested value in a counter, clamped to its bound.
 // Never expanded in the image, not even where the inliner's own score would
 // accept it (0x00431602); the one inline clamp, in 0x00430FF0, has another

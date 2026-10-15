@@ -4,7 +4,7 @@
 // Native LTCG supplies the receiver on the stack and RET 4.
 #include "th10/game/manager_teardown_helpers.hpp"
 #include "th10/platform/worker.hpp"
-extern "C" void __cdecl entry_free_00452422(void*);
+extern "C" void __cdecl crt_free(void*);
 extern "C" void __stdcall DestroyEffectManager(void*);
 struct ScriptWorker : PlatformWorker {
 #ifdef SCRIPT_WORKER_EXPORTED_ABI
@@ -90,7 +90,7 @@ Title::~Title() {
         }
     }
     if (file_buffer) {
-        entry_free_00452422(file_buffer);
+        crt_free(file_buffer);
         file_buffer = 0;
     }
     g_title = 0;

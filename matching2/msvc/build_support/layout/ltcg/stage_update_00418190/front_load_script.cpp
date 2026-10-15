@@ -20,12 +20,12 @@ struct AnimationManager_0043e710 {
 
 extern "C" float g_game_speed;
 extern "C" void __stdcall asm_FUN_0043ee30_0043ee30(Entity *object);
-extern "C" void __stdcall LoadScript_0043e710(AnimationResource_0043e710 *resource,
-                                              AnimationObject_0043e710 *object, int index);
+extern "C" void __stdcall LoadScript_0043e710(AnimationResourceFile *resource,
+                                              AnimationObjectFile *object, int index);
 
 #pragma code_seg(".text$0043e710_fn")
-__declspec(noinline) void __stdcall LoadScript_0043e710(AnimationResource_0043e710 *resource,
-                                                        AnimationObject_0043e710 *object,
+__declspec(noinline) void __stdcall LoadScript_0043e710(AnimationResourceFile *resource,
+                                                        AnimationObjectFile *object,
                                                         int index) {
     void *script = resource->scripts[index];
     if (script == 0 || resource->loading != 0) {

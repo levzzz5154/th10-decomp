@@ -54,7 +54,7 @@
     },
     {
       "name": "function_00404f30",
-      "symbol": "?Entity_StartScript_00404f30@@YGXPAUAnimationResource_0043e710@@PAUEntity@@H@Z",
+      "symbol": "?Entity_StartScript@@YGXPAUAnimationResourceFile@@PAUEntity@@H@Z",
       "section": ".text$f00404f30F",
       "address": "0x404f30",
       "size": 204

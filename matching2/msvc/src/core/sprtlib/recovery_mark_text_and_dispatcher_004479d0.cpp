@@ -46,7 +46,7 @@ void __stdcall RecoveryDispatchText_004479d0(
 #pragma code_seg()
 
 #pragma code_seg(".text$00447a50_fn")
-void __cdecl RecoveryTextVm_00447a50::MarkText(
+void __cdecl RecoveryTextVm::MarkText(
     void* manager, ...) {
     char buffer[128];
     const unsigned int height = font_height;

@@ -10,7 +10,7 @@ extern "C" void* g_sprt_ctrl;
 extern "C" float g_game_speed;
 extern "C" void __stdcall asm_FUN_0043ee30_0043ee30(Entity* object);
 #pragma code_seg(".text$f0043e710F")
-void* AnimationResource_0043e710::LoadScript(Entity* object, int index) {
+void* AnimationResourceFile::LoadScript(Entity* object, int index) {
     void* script = this->scripts[index];
     if (script == 0 || this->loading != 0) {
         memset(object, 0, sizeof(Entity));

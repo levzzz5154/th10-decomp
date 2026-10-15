@@ -22,7 +22,7 @@ void FrontStagePartsView::ReleaseStageParts() {
     }
     stage_state = 0;
     if (stage_buffer) {
-        entry_free_00452422(stage_buffer);
+        crt_free(stage_buffer);
         stage_buffer = 0;
     }
     stage_buffer = 0;

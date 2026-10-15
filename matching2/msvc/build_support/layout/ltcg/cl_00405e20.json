@@ -89,12 +89,12 @@
   ],
   "absolute_symbols": [
     {
-      "symbol": "@Recovery_LoadCachedResource_00447280@12",
+      "symbol": "@Recovery_LoadCachedResource@12",
       "address": "0x00447280",
       "kind": "relative_code"
     },
     {
-      "symbol": "_SchedulerCallback_Create_00449ed0@4",
+      "symbol": "_SchedulerTask_Create@4",
       "address": "0x00449ED0",
       "kind": "relative_code"
     },

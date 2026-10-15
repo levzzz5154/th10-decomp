@@ -19,7 +19,7 @@ extern "C" Float2 g_zero_vector2_00491c20;
 extern "C" Float3 g_camera_offset_00491d7c;
 extern "C" float g_game_speed;
 extern "C" int g_difficulty_00474c74;
-extern "C" int g_rank_00474c98;
+extern "C" int g_rank;
 
 struct RngState {
     unsigned short seed;
@@ -302,7 +302,7 @@ struct Enemy {
 
     __declspec(noinline) int Execute_0040e770();
     __declspec(noinline) float FloatValue_00412aa0(int selector, float value);
-    __declspec(noinline) int IntArg_00412a00(int selector);
+    __declspec(noinline) int IntArg(int selector);
     __declspec(noinline) int* IntDest_00412a10(int selector);
     int Int(int selector);
     float Float(int selector);

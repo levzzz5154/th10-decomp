@@ -23,7 +23,7 @@ extern "C" int __stdcall Effect_Initialize(
         Effect *state);
 extern "C" void __stdcall asm_BulletManager_Release_0040af00(
         Effect *state);
-extern "C" void __cdecl entry_free_004524a1(void *memory);
+extern "C" void __cdecl crt_free_startup(void *memory);
 extern "C" Effect *g_effect;
 
 __declspec(noinline) Effect *Effect_Create();
@@ -42,7 +42,7 @@ Effect *Effect_Create() {
     if (Effect_Initialize(state)) {
         if (state) {
             asm_BulletManager_Release_0040af00(state);
-            entry_free_004524a1(state);
+            crt_free_startup(state);
         }
         return 0;
     }

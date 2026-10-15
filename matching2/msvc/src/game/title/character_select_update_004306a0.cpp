@@ -59,12 +59,12 @@ __declspec(noinline) int __stdcall TitleMode7_004306a0(Title* room) {
                 DisableItem_004306a0(room->cursor, 1);
             }
         }
-        RecoveryMusicInstallSlot_0042c670(room, 99);
+        RecoveryMusicInstallSlot(room, 99);
         room->ClearAnimationSlot(125);
-        RecoveryMusicInstallSlot_0042c670(room, 125);
+        RecoveryMusicInstallSlot(room, 125);
         AnimationManager_SetStopFrameAndRun(
-            3, reinterpret_cast<RecoveryLookupContext_0040bd80*>(g_sprt_ctrl),
-            *reinterpret_cast<RecoveryScriptId_0040bd80*>(&room->animation_slots[125]));
+            3, reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl),
+            *reinterpret_cast<RecoveryScriptId*>(&room->animation_slots[125]));
         room->SetSlotFrame(125, room->cursor.selection + 0x11);
         room->SetTimerTarget(1);
     case 1:

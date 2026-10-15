@@ -1,5 +1,5 @@
 // 0x0043AA30..0x0043AA5A: release one slot of the record's pointer table.
-extern "C" void __cdecl entry_free_00452422(void* memory);
+extern "C" void __cdecl crt_free(void* memory);
 
 struct Object_0043aa30 {
     unsigned char pad_000[0x98];
@@ -11,7 +11,7 @@ struct Object_0043aa30 {
 void Object_0043aa30::Release(int index) {
     void** table = (void**)((unsigned char*)this + 0x98);
     if (table[index]) {
-        entry_free_00452422(table[index]);
+        crt_free(table[index]);
         table[index] = 0;
     }
     table[index] = 0;

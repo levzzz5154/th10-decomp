@@ -23,7 +23,7 @@ int* AnimationPrimaryLists::RegisterPrimaryBack(int* out, Entity* entity) {
 }
 #include "th10/source_views/bomb_start_bf1de1_1.hpp"
 __declspec(noinline) int* __stdcall CreateScreenPositionedPrimary_00448db0(
-    AnimationResource_0043e710* resource, int* out, int index, const Vector3* position) {
+    AnimationResourceFile* resource, int* out, int index, const Vector3* position) {
     Entity* object = reinterpret_cast<AnimationPool*>(g_sprt_ctrl)->Allocate();
     unsigned int flags = object->flags_35C;
     object->render_bucket = 0;
@@ -31,7 +31,7 @@ __declspec(noinline) int* __stdcall CreateScreenPositionedPrimary_00448db0(
     object->position.x = position->x + flt_224;
     object->position.y = position->y + flt_16;
     object->position.z = position->z;
-    LoadScript_0043e710(resource, static_cast<AnimationObject_0043e710*>(object), index);
+    LoadScript_0043e710(resource, static_cast<AnimationObjectFile*>(object), index);
     reinterpret_cast<AnimationPrimaryLists*>(g_sprt_ctrl)->RegisterPrimaryBack(out, object);
     return out;
 }

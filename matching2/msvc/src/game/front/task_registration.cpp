@@ -9,9 +9,9 @@ struct TextLog_0044b810 {
     char* Append(char* format, ...);
 };
 extern "C" {
-void* __fastcall Recovery_LoadCachedResource_00447280(
+void* __fastcall Recovery_LoadCachedResource(
     int index, BulletResourceCache_0040ae70* cache, const char* name);
-SchedulerTask* __stdcall SchedulerCallback_Create_00449ed0(TaskRoutine routine);
+SchedulerTask* __stdcall SchedulerTask_Create(TaskRoutine routine);
 int __stdcall ScoreTask_Setup_00413a20(void* state);
 extern BulletResourceCache_0040ae70* g_sprt_ctrl;
 extern FuncCtrl* g_func_ctrl;
@@ -25,7 +25,7 @@ int __fastcall ItemFront_RenderThunk_00415af0(void* state);
 #pragma code_seg(".text$00d_ciitem")
 extern "C" __declspec(noinline) int __stdcall
 Front_RegisterTasks(FrontTaskView* state) {
-    void* resource = Recovery_LoadCachedResource_00447280(
+    void* resource = Recovery_LoadCachedResource(
         6, g_sprt_ctrl, str_front_anm);
     state->front_resource = resource;
     if (!resource) {
@@ -35,14 +35,14 @@ Front_RegisterTasks(FrontTaskView* state) {
     if (ScoreTask_Setup_00413a20(state) != 0)
         return -1;
 
-    SchedulerTask* update = SchedulerCallback_Create_00449ed0(
+    SchedulerTask* update = SchedulerTask_Create(
         ItemFront_UpdateThunk_00415ae0);
     update->reserved_flags &= ~1u;
     update->context = state;
     FuncCtrl_RegisterPrimary(g_func_ctrl, update, 0x18);
     state->update_task = update;
 
-    SchedulerTask* render = SchedulerCallback_Create_00449ed0(
+    SchedulerTask* render = SchedulerTask_Create(
         ItemFront_RenderThunk_00415af0);
     render->reserved_flags &= ~1u;
     render->context = state;

@@ -4,12 +4,12 @@
 #include "../../../build_support/include/asm_symbols.hpp"
 
 typedef void (__stdcall* RawPairReleaseFn)(void* pair);
-extern "C" void __cdecl entry_free_004524a1(void* memory);
+extern "C" void __cdecl crt_free_startup(void* memory);
 
 int __fastcall ScreenEffect_OnRemove(void* effect) {
     if (effect) {
         ((RawPairReleaseFn)asm_Recovery_ReleaseRawPair_0043cb00)(effect);
-        entry_free_004524a1(effect);
+        crt_free_startup(effect);
     }
     return 0;
 }

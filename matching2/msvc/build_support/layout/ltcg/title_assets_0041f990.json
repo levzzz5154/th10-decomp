@@ -294,7 +294,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_entry_free_00452422",
+      "symbol": "_crt_free",
       "address": "0x452422",
       "kind": "relative_code"
     },
@@ -359,7 +359,7 @@
       "kind": "data"
     },
     {
-      "symbol": "@Recovery_LoadCachedResource_00447280@12",
+      "symbol": "@Recovery_LoadCachedResource@12",
       "address": "0x447280",
       "kind": "relative_code"
     },

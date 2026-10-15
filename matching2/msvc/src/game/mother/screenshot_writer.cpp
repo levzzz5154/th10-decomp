@@ -7,7 +7,7 @@
 // Write failures preserve the retail close-and-unlock sequence: the shared
 // handle is not changed here, so subsequent checks still see its stored value.
 extern "C" int __stdcall File_OpenSharedWrite_0044b620(const char* path);
-extern "C" void __cdecl entry_free_00452422(void* memory);
+extern "C" void __cdecl crt_free(void* memory);
 extern "C" __declspec(dllimport) int __stdcall WriteFile(
     void* file, const void* bytes, unsigned long length,
     unsigned long* written, void* overlapped);
@@ -55,11 +55,11 @@ extern "C" void __cdecl ScreenshotWriter(void*) {
         }
     }
     if (screenshot_dib_header_00492148 != 0) {
-        entry_free_00452422(screenshot_dib_header_00492148);
+        crt_free(screenshot_dib_header_00492148);
         screenshot_dib_header_00492148 = 0;
     }
     if (screenshot_pixels_0049214c != 0) {
-        entry_free_00452422(screenshot_pixels_0049214c);
+        crt_free(screenshot_pixels_0049214c);
         screenshot_pixels_0049214c = 0;
     }
     screenshot_thread_00492134 = 0;

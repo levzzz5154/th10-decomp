@@ -13,8 +13,8 @@
   "description": "Entity script start compiled with native LTCG against the compiled script loader (object EAX, resource ECX, index EBX); Entity_Init keeps its public fastcall entry. Both beam and moving line laser initializers retain their public virtual thiscall entries.",
   "functions": [
     {
-      "name": "Entity_StartScript_00404f30",
-      "symbol": "?Entity_StartScript_00404f30@@YGXPAUAnimationResource_0043e710@@PAUEntity@@H@Z",
+      "name": "Entity_StartScript",
+      "symbol": "?Entity_StartScript@@YGXPAUAnimationResourceFile@@PAUEntity@@H@Z",
       "section": ".text$00p_start",
       "address": "0x00404F30",
       "size": 202,

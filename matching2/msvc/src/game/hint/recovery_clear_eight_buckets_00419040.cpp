@@ -6,7 +6,7 @@
 // build_support/layout/ltcg/recovery_clear_eight_buckets_00419040.json supplies that
 // convention while keeping the recovered operation readable.
 
-extern "C" void __cdecl entry_free_004524a1(void* memory);   // 0x004524A1
+extern "C" void __cdecl crt_free_startup(void* memory);   // 0x004524A1
 
 #include "th10/game/resource_cleanup.hpp"
 
@@ -18,12 +18,12 @@ void Manager_00419040::ClearBuckets() {
     for (int index = 0; index < 8; ++index) {
         for (ChainNode_00419040* node = primary[index].head; node != 0; ) {
             ChainNode_00419040* next = node->next;
-            entry_free_004524a1(node->block);
+            crt_free_startup(node->block);
             node = next;
         }
         for (ChainNode_00419040* node = secondary[index].head; node != 0; ) {
             ChainNode_00419040* next = node->next;
-            entry_free_004524a1(node->block);
+            crt_free_startup(node->block);
             node = next;
         }
     }

@@ -140,7 +140,7 @@
       "kind": "metadata"
     },
     {
-      "symbol": "?InitializeObject@AnimationResource_00449870@@QAEPAXPAXH@Z",
+      "symbol": "?InitializeObject@AnimationBank@@QAEPAXPAXH@Z",
       "address": "0x00449870",
       "kind": "relative_code"
     }

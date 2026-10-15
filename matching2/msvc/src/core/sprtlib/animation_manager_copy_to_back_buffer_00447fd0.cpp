@@ -16,7 +16,7 @@ static inline SurfaceDevice_00447c80* Device() { return g_d3d_device; }
 void AnimationManagerIndexed_00447f70::CopyToBackBuffer(int index, int left, int top, int x, int y) {
     if (!secondary[index])
         return;
-    Resource_00447f70* back_buffer;
+    ResourceView* back_buffer;
     if (Device()->GetBackBuffer(0, 0, 0, &back_buffer) != 0)
         return;
     if (!primary[index]) {

@@ -3,7 +3,7 @@
 extern "C" AnimationLists* g_sprt_ctrl;
 #pragma code_seg(".text$0044e100_context")
 void __stdcall SecondaryRegistrationContext(AnimationPool* pool,
-        AnimationResource_00449870* resource, AnimationRef* out, int count) {
+        AnimationBank* resource, AnimationRef* out, int count) {
     for (int i = 0; i < count; ++i) {
         Entity* object = pool->Allocate();
         object->render_bucket = 15;

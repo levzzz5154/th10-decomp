@@ -5,12 +5,12 @@
 #include <string.h>
 #include "th10/game/entity.hpp"
 #include "th10/core/func_ctrl.hpp"
-extern "C" void __cdecl entry_free_00452422(void*);
+extern "C" void __cdecl crt_free(void*);
 #pragma code_seg(".text$00d_dtor")
 struct AnmConstructedSprite : Entity {
     __forceinline AnmConstructedSprite();
     __declspec(dllexport) ~AnmConstructedSprite() {
-        if (resource) entry_free_00452422(resource);
+        if (resource) crt_free(resource);
         resource = 0;
     }
 };

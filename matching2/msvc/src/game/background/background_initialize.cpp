@@ -13,7 +13,7 @@ struct TextLog_0044b8e0 {
 extern "C" {
 extern unsigned int g_globals_stage; extern BackGroundCameraSnapshot g_back_camera;
 extern FuncCtrl* g_func_ctrl; extern float g_game_speed;
-SchedulerTask* __stdcall SchedulerCallback_Create_00449ed0(void* callback);
+SchedulerTask* __stdcall SchedulerTask_Create(void* callback);
 }
 #pragma code_seg(".text$01init")
 extern "C" __declspec(noinline) int __stdcall BackGround_Initialize(BackGround* state, const char* name, int state_id) {
@@ -29,13 +29,13 @@ extern "C" __declspec(noinline) int __stdcall BackGround_Initialize(BackGround* 
     state->camera.camera.up=CameraVector(0.0f,1.0f,0.0f);
     state->camera.camera.eye_offset=CameraVector(0.0f,0.0f,0.0f);
     state->frame_limit=9610000.0f;
-    SchedulerTask* callback=SchedulerCallback_Create_00449ed0((void*)0x403050);
+    SchedulerTask* callback=SchedulerTask_Create((void*)0x403050);
     callback->context=state; callback->reserved_flags &= ~1u;
     FuncCtrl_RegisterPrimary(g_func_ctrl,callback,state_id+12); state->primary=callback;
-    callback=SchedulerCallback_Create_00449ed0((void*)0x403060);
+    callback=SchedulerTask_Create((void*)0x403060);
     callback->reserved_flags &= ~1u; callback->context=state;
     FuncCtrl_RegisterSecondary(g_func_ctrl,callback,state_id+7); state->secondary=callback;
-    callback=SchedulerCallback_Create_00449ed0((void*)0x403070);
+    callback=SchedulerTask_Create((void*)0x403070);
     callback->context=state; callback->reserved_flags &= ~1u;
     FuncCtrl_RegisterSecondary(g_func_ctrl,callback,state_id+10); state->after_draw=callback;
     state->initialization_frame=0;

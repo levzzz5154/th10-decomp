@@ -28,7 +28,7 @@ struct RawPair_004056b0 {
 };
 
 extern "C" void *g_bomb;
-extern "C" void __cdecl entry_free_004524a1(void *block);
+extern "C" void __cdecl crt_free_startup(void *block);
 extern "C" int __stdcall Bomb_RegisterTasks(
         RawPair_004056b0 *pair);
 extern "C" void __stdcall asm_Recovery_ReleaseRawPairAndReset_00405620(
@@ -52,7 +52,7 @@ extern "C" __declspec(noinline) void *__cdecl Bomb_Create(void) {
     if (Bomb_RegisterTasks(state) != 0) {
         if (state) {
             asm_Recovery_ReleaseRawPairAndReset_00405620(state);
-            entry_free_004524a1(state);
+            crt_free_startup(state);
         }
         return 0;
     }

@@ -23,7 +23,7 @@ struct AnimationNode_0040b070 {
 };
 
 // An animation file: 0x00449870 starts one of its scripts on an object.
-struct AnimationResource_00449870 {
+struct AnimationBank {
     void* InitializeObject(void* object, int index);
 };
 
@@ -64,7 +64,7 @@ extern "C" EffectKind_0040b070 g_effect_kinds[];
 // The owner of an animation file.
 struct EffectSpawnView {
     unsigned char reserved_00[0x10];
-    AnimationResource_00449870* file;    // +0x10
+    AnimationBank* file;    // +0x10
 
     // 0x0040B070: start an effect of a kind from the owner's file.
     AnimationHandle_0040b070 __stdcall SpawnEffect(void* argument, int kind);
@@ -72,6 +72,6 @@ struct EffectSpawnView {
 
 // 0x0040B110: the same for an animation file given directly.
 AnimationHandle_0040b070 __stdcall SpawnEffectFromFile(
-    int kind, AnimationResource_00449870* file, void* argument);
+    int kind, AnimationBank* file, void* argument);
 
 #endif

@@ -2,7 +2,7 @@
 #include "archive.hpp"
 #include "th10/platform/archive_file.hpp"
 extern "C" unsigned long (__stdcall *imp_GetModuleFileNameA)(void*, char*, unsigned long);
-extern "C" void __cdecl entry_free_00452422(void*);
+extern "C" void __cdecl crt_free(void*);
 extern "C" int g_executable_checksum;
 extern "C" int g_executable_size;
 #pragma code_seg(".text$a03checksum")
@@ -22,7 +22,7 @@ __declspec(noinline) int __stdcall ComputeExecutableChecksum() {
                 sum += *cursor++;
             } while (--count);
         }
-        entry_free_00452422(block);
+        crt_free(block);
         g_executable_size = file_size;
         g_executable_checksum = sum;
         return sum;

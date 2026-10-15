@@ -5,7 +5,7 @@
 inline TitleAnimation_00401FF0::~TitleAnimation_00401FF0() {
     void* owned = resource;
     if (owned)
-        entry_free_00452422(owned);
+        crt_free(owned);
     resource = 0;
 }
 #pragma code_seg()
@@ -21,13 +21,13 @@ extern "C" __declspec(noinline) int __cdecl ReleasePair_0041f930() {
     AnimationResource_00447810** slot = reinterpret_cast<AnimationResource_00447810**>(&g_sprt_ctrl->banks[6]);
     if (*slot) {
         (*slot)->Release();
-        entry_free_004524a1(*slot);
+        crt_free_startup(*slot);
         *slot = 0;
     }
     slot = reinterpret_cast<AnimationResource_00447810**>(&g_sprt_ctrl->banks[7]);
     if (*slot) {
         (*slot)->Release();
-        entry_free_004524a1(*slot);
+        crt_free_startup(*slot);
         *slot = 0;
     }
     return 0;
@@ -44,15 +44,15 @@ extern "C" void __stdcall ReleaseGlobalPending_004294a0(void*);
 #pragma code_seg(".text$05globals")
 void Recovery_ReleaseGlobalStates() {
     void* manager_state = g_game;
-    if (manager_state) { Game_Destroy(manager_state);entry_free_004524a1(manager_state); }
+    if (manager_state) { Game_Destroy(manager_state);crt_free_startup(manager_state); }
     void* script_state = g_title;
-    if (script_state) { ReleaseGlobalScript_0042cb60(script_state);entry_free_004524a1(script_state); }
+    if (script_state) { ReleaseGlobalScript_0042cb60(script_state);crt_free_startup(script_state); }
     TitleState_0041FB50* resource_state = static_cast<TitleState_0041FB50*>(g_loading);
-    if (resource_state) { resource_state->~TitleState_0041FB50();entry_free_004524a1(resource_state); }
+    if (resource_state) { resource_state->~TitleState_0041FB50();crt_free_startup(resource_state); }
     void* small_state = g_ending;
-    if (small_state) { ReleaseGlobalMessage_0040b7b0(small_state);entry_free_004524a1(small_state); }
+    if (small_state) { ReleaseGlobalMessage_0040b7b0(small_state);crt_free_startup(small_state); }
     void* pending_block = g_replay;
-    if (pending_block) { ReleaseGlobalPending_004294a0(pending_block);entry_free_004524a1(pending_block); }
+    if (pending_block) { ReleaseGlobalPending_004294a0(pending_block);crt_free_startup(pending_block); }
 }
 #pragma code_seg()
 

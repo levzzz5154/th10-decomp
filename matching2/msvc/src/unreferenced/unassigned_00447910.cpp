@@ -3,7 +3,7 @@
 // out-of-line copy of the per-entry block 0x00447810 inlines; it is compiled in
 // the same native-LTCG cluster, whose pass hands it the entry in ESI.
 
-extern "C" void __cdecl entry_free_00452422(void* memory);
+extern "C" void __cdecl crt_free(void* memory);
 
 struct AnimationHandle_00447810 {
     virtual void slot0();
@@ -26,7 +26,7 @@ void AnimationResourceEntry_00447810::Release() {
         handle = 0;
     }
     if (allocation != 0) {
-        entry_free_00452422(allocation);
+        crt_free(allocation);
         allocation = 0;
     }
 }

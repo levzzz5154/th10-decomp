@@ -10,7 +10,7 @@ __declspec(noinline) void __stdcall Entity_Init(Entity* entity);
 
 struct AnimationScriptId { int value; };
 struct AnimationLookupContext;
-__declspec(noinline) void* __fastcall AnimationManager_Find_004491c0(
+__declspec(noinline) void* __fastcall AnimationManager_Find(
     AnimationLookupContext* context, AnimationScriptId id);
 __declspec(noinline) void* __fastcall AnimationManager_SetFlag_004492a0(
     AnimationLookupContext* context, AnimationScriptId id);
@@ -110,7 +110,7 @@ struct AnimationPool {
     char header[0x68]; Entity objects[4096]; unsigned char occupied[4096]; int next_slot;
     __declspec(noinline) Entity* Allocate();
 };
-struct AnimationResource_00449870 {
+struct AnimationBank {
     __declspec(noinline) __declspec(dllexport) void InitializeObject(Entity* object, int index);
 };
 struct PauseMenuFrame { unsigned int unused; unsigned char flags; };
@@ -119,13 +119,13 @@ struct PauseMenuRuntime {
     unsigned char unknown_0c[8]; int elapsed;
     unsigned char reserved_018[0x58 - 0x18]; unsigned int flags; int replay_mode;
 };
-struct PauseResourceOwner1 { unsigned char reserved[0x8998]; AnimationResource_00449870* resource; };
-struct PauseResourceOwner2 { unsigned char reserved[0x9EC8]; AnimationResource_00449870* resource; };
+struct PauseResourceOwner1 { unsigned char reserved[0x8998]; AnimationBank* resource; };
+struct PauseResourceOwner2 { unsigned char reserved[0x9EC8]; AnimationBank* resource; };
 struct PauseUpdateView {
     int unknown_00; unsigned int phase; unsigned char unknown_08[8];
     int previous_frame; int current_frame; float elapsed; const float* speed; unsigned int timer_flags;
     unsigned char reserved_024[0x1D4 - 0x24]; Handle4 background; Handle4 cursor_animation; Handle4 pause_animation;
-    unsigned char reserved_1e0[0x2C0 - 0x1E0]; float saved_speed; AnimationResource_00449870* resource;
+    unsigned char reserved_1e0[0x2C0 - 0x1E0]; float saved_speed; AnimationBank* resource;
     __declspec(noinline) int Update();
 };
 typedef char PauseBackgroundOffset[offsetof(PauseUpdateView,background)==0x1D4 ? 1:-1];

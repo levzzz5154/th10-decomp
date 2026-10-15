@@ -2,13 +2,13 @@
 
 struct Player;
 extern "C" void asm_FUN_00424ed0_00424ed0(void* object);
-extern "C" void __cdecl entry_free_004524a1(void* memory);
+extern "C" void __cdecl crt_free_startup(void* memory);
 __declspec(noinline) void Player_Delete(Player* object);
 #pragma code_seg(".text$01destroy00425090")
 void Player_Delete(Player* object) {
     if (object) {
         asm_FUN_00424ed0_00424ed0(object);
-        entry_free_004524a1(object);
+        crt_free_startup(object);
     }
 }
 #pragma code_seg()

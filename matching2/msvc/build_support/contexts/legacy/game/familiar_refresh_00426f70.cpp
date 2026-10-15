@@ -78,7 +78,7 @@ static __forceinline void StopFamiliarAnimation(
 // Allocate one manager object, force layer 0x0F and the live flag, run the
 // requested script on it and register it; the handle lands in the out slot.
 static __forceinline AnimationRef SpawnOrbitAnimation(
-        int script, AnimationResource_00449870* resource, Entity* object) {
+        int script, AnimationBank* resource, Entity* object) {
     unsigned int flags = object->flags_35C;
     object->render_bucket = 0xF;
     object->flags_35C = flags | 0x40000000u;
@@ -96,7 +96,7 @@ static __forceinline void ScaleOffset(FamiliarPoint_00426f70* out,
 
 static __forceinline int SpawnFamiliar(PlayerFamiliarRuntime_00426f70* player,
                                        int script) {
-    AnimationResource_00449870* resource = player->resource;
+    AnimationBank* resource = player->resource;
     Entity* object = ((AnimationPool*)AnimManager())->Allocate();
     return SpawnOrbitAnimation(script, resource, object).value;
 }

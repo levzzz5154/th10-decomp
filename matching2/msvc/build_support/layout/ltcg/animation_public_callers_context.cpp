@@ -10,7 +10,7 @@ extern "C" int __stdcall AnimationPublicCallersContext(void** resources, void***
     for (int i=0; i<count; ++i) {
         AnimationScriptId script = {indexes[i]};
         AnimationCreateWithCallbacks_0040b1b0((AnimationScriptId*)outputs[i],
-            (AnimationResource_00449870*)resources[i],script,states[i],initialize,update,draw);
+            (AnimationBank*)resources[i],script,states[i],initialize,update,draw);
         TitleEffectsAdvance_0041fdd0(states[i]);
         AnimationManager_CreatePositionedPrimary_00448d50(resources[i], outputs[i], indexes[i], positions[i]);
     }

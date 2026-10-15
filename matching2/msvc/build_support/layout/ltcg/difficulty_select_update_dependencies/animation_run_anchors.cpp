@@ -4,8 +4,8 @@
 // which restarts one animation slot of the room at frame 3 (the maintained
 // free-function form is src/game/title/title_dispatch_animation_slot_secondary.cpp).
 #define SprtCtrl RecoveryLookup_0040bd80
-#define AnimationLookupContext RecoveryLookupContext_0040bd80
-#define AnimationScriptId RecoveryScriptId_0040bd80
+#define AnimationLookupContext RecoveryLookupContext
+#define AnimationScriptId RecoveryScriptId
 #define code_seg(name) code_seg(".text$00449250_fn")
 #include "../../../../src/core/sprtlib/animation_manager_set_stop_frame_and_run_00449250.cpp"
 #undef code_seg

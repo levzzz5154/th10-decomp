@@ -1,5 +1,5 @@
 
-extern "C" void __cdecl entry_free_004524a1(void* block);
+extern "C" void __cdecl crt_free_startup(void* block);
 extern "C" char* g_sprt_ctrl;
 
 struct AnimationResource_00413b90 {
@@ -22,7 +22,7 @@ __declspec(noinline) int ReleaseCachedResource_00413b90() {
     AnimationResource_00413b90* record = *slot;
     if (record != 0) {
         record->Release();
-        entry_free_004524a1(*slot);
+        crt_free_startup(*slot);
         *slot = 0;
     }
     return 0;

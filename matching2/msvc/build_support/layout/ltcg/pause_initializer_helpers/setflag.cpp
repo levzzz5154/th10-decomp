@@ -12,7 +12,7 @@ struct AnimationFlagEntry {
 #pragma code_seg(".text$13setflag")
 void* __fastcall AnimationManager_SetFlag_004492a0(
         AnimationLookupContext* context, AnimationScriptId id) {
-    AnimationFlagEntry* entry = (AnimationFlagEntry*)AnimationManager_Find_004491c0(context, id);
+    AnimationFlagEntry* entry = (AnimationFlagEntry*)AnimationManager_Find(context, id);
     if (entry) {
         entry->flags |= 0x4000000;
         if (!entry->children_flagged)

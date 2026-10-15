@@ -8,7 +8,7 @@
 // are compiled in the native-LTCG cluster build_support/layout/ltcg/dtor_delete_0040b920.json.
 #include "th10/game/ending_text_view.hpp"
 
-extern "C" void __cdecl entry_free_004524a1(void* block);
+extern "C" void __cdecl crt_free_startup(void* block);
 
 __declspec(noinline) void* Deletable_0040b920_Delete(EndingTextView* object, int flags);
 
@@ -16,7 +16,7 @@ __declspec(noinline) void* Deletable_0040b920_Delete(EndingTextView* object, int
 void* Deletable_0040b920_Delete(EndingTextView* object, int flags) {
     object->Destroy();
     if ((flags & 1) != 0) {
-        entry_free_004524a1(object);
+        crt_free_startup(object);
     }
     return object;
 }

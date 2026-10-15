@@ -66,7 +66,7 @@ ResultDispatcher_00415e90(ResultDispatcherState* state) {
             case 1:
                 if (g_globals_character == 0 || g_globals_character == 1)
                     state->left_portrait.id.value =
-                        DispatcherCreateAnimation(static_cast<AnimationResource_00449870*>(g_player->animation_file), 0x1D, 15).value;
+                        DispatcherCreateAnimation(static_cast<AnimationBank*>(g_player->animation_file), 0x1D, 15).value;
                 break;
             case 2:
                 if (g_globals_character == 0 || g_globals_character == 1) {
@@ -78,7 +78,7 @@ ResultDispatcher_00415e90(ResultDispatcherState* state) {
                             DispatcherCreateAnimation(g_enemy_ctrl->resource, 0x25, 15).value;
                     else
                         state->right_portrait.id.value =
-                            DispatcherCreateAnimation(static_cast<AnimationResource_00449870*>(g_player->animation_file), 0x1E, 15).value;
+                            DispatcherCreateAnimation(static_cast<AnimationBank*>(g_player->animation_file), 0x1E, 15).value;
                 }
                 break;
             case 3:
@@ -184,7 +184,7 @@ ResultDispatcher_00415e90(ResultDispatcherState* state) {
                     // Fetch these genuine operands before FindChildRef, as
                     // retail does; fetch the second pair after the first call.
                     int index = state->command->first_operand + first_index;
-                    AnimationResource_00449870* resource = g_enemy_ctrl->resource;
+                    AnimationBank* resource = g_enemy_ctrl->resource;
                     state->right_portrait.FindChildRef(first_child).SelectResourceSprite(
                         resource, index);
                     index = state->command->first_operand + second_index;

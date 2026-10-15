@@ -80,4 +80,4 @@ struct AnimationResource_00447810 {
 };
 
 void __cdecl operator delete(void*);
-extern "C" void __cdecl entry_free_004524a1(void*);
+extern "C" void __cdecl crt_free_startup(void*);

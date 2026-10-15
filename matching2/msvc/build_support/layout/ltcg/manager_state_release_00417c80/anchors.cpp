@@ -9,7 +9,7 @@
 #include "th10/render/resource_registrar_0043e460.hpp"
 
 extern "C" void __cdecl SidePanelReleaseBarrier(void* value);
-extern "C" void __cdecl entry_free_00452422(void* memory);
+extern "C" void __cdecl crt_free(void* memory);
 void __cdecl operator delete(void* memory);
 
 extern "C" unsigned int g_globals_flags;
@@ -97,7 +97,7 @@ void FrontStagePartsView::ReleaseStageParts() {
     }
     stage_state = 0;
     if (stage_buffer) {
-        entry_free_00452422(stage_buffer);
+        crt_free(stage_buffer);
         stage_buffer = 0;
     }
     stage_buffer = 0;

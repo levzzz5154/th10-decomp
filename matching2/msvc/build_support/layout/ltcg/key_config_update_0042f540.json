@@ -54,14 +54,14 @@
     },
     {
       "name": "RecoveryLookup_Find",
-      "symbol": "?Find@RecoveryLookup_0040bd80@@QAIPAXPAURecoveryLookupContext_0040bd80@@URecoveryScriptId_0040bd80@@@Z",
+      "symbol": "?Find@RecoveryLookup_0040bd80@@QAIPAXPAURecoveryLookupContext@@URecoveryScriptId@@@Z",
       "address": "0x004491C0",
       "size": 73,
       "section": ".text$004491c0_fn"
     },
     {
       "name": "RecoveryLookup_SetFlag",
-      "symbol": "?SetFlag@RecoveryLookup_0040bd80@@QAIPAXPAURecoveryLookupContext_0040bd80@@H@Z",
+      "symbol": "?SetFlag@RecoveryLookup_0040bd80@@QAIPAXPAURecoveryLookupContext@@H@Z",
       "address": "0x004492A0",
       "size": 66,
       "section": ".text$004492a0_fn"
@@ -264,14 +264,14 @@
     },
     {
       "name": "HintVm_FormatRightAligned",
-      "symbol": "?FormatRightAligned@HintVm_00419120@@QAAXPAXZZ",
+      "symbol": "?FormatRightAligned@HintVm@@QAAXPAXZZ",
       "section": ".text$00447ae0_fn",
       "address": "0x00447AE0",
       "size": 204
     },
     {
       "name": "HintVm_FormatCentered",
-      "symbol": "?FormatCentered@HintVm_00419120@@QAAXPAXZZ",
+      "symbol": "?FormatCentered@HintVm@@QAAXPAXZZ",
       "section": ".text$00447bb0_fn",
       "address": "0x00447BB0",
       "size": 194
@@ -313,7 +313,7 @@
     },
     {
       "name": "RecoveryMusicVm_InitializeTransition",
-      "symbol": "?InitializeTransition@RecoveryMusicVm_00433ef0@@QAEXPBURecoveryMusicVector_00433ef0@@0HE@Z",
+      "symbol": "?InitializeTransition@RecoveryMusicVm@@QAEXPBURecoveryMusicVector_00433ef0@@0HE@Z",
       "section": ".text$00434a80_fn",
       "address": "0x00434A80",
       "size": 206
@@ -361,8 +361,8 @@
       "size": 2764
     },
     {
-      "name": "RecoveryTextVm_00447a50::MarkText",
-      "symbol": "?MarkText@RecoveryTextVm_00447a50@@QAAXPAXZZ",
+      "name": "RecoveryTextVm::MarkText",
+      "symbol": "?MarkText@RecoveryTextVm@@QAAXPAXZZ",
       "section": ".text$00447a50_fn",
       "address": "0x00447A50",
       "size": 141
@@ -382,8 +382,8 @@
       "size": 65
     },
     {
-      "name": "RecoveryMusicInstallSlot_0042c670",
-      "symbol": "?RecoveryMusicInstallSlot_0042c670@@YGXPAUTitle@@H@Z",
+      "name": "RecoveryMusicInstallSlot",
+      "symbol": "?RecoveryMusicInstallSlot@@YGXPAUTitle@@H@Z",
       "section": ".text$0042c670_fn",
       "address": "0x0042C670",
       "size": 95
@@ -805,7 +805,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_SchedulerCallback_Create_00449ed0@4",
+      "symbol": "_SchedulerTask_Create@4",
       "address": "0x00449ED0",
       "kind": "relative_code"
     },
@@ -920,12 +920,12 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_entry_free_00452422",
+      "symbol": "_crt_free",
       "address": "0x00452422",
       "kind": "relative_code"
     },
     {
-      "symbol": "_entry_free_004524a1",
+      "symbol": "_crt_free_startup",
       "address": "0x004524A1",
       "kind": "relative_code"
     },
@@ -980,7 +980,7 @@
       "kind": "data"
     },
     {
-      "symbol": "?InitializeObject@AnimationResource_00449870@@QAEPAXPAXH@Z",
+      "symbol": "?InitializeObject@AnimationBank@@QAEPAXPAXH@Z",
       "address": "0x00449870",
       "kind": "relative_code"
     },

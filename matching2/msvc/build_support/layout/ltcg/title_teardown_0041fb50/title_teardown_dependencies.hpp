@@ -45,6 +45,6 @@ extern "C" void* g_game;
 extern "C" void* g_title;
 extern "C" void* g_replay;
 extern "C" void* g_ending;
-extern "C" void __cdecl entry_free_00452422(void*);
+extern "C" void __cdecl crt_free(void*);
 extern "C" void __stdcall DestroyGameThread_00401260(GameThread*);
 extern "C" __declspec(noinline) int __cdecl ReleasePair_0041f930();

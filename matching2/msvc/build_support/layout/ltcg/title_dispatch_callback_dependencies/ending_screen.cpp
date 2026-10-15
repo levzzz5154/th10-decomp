@@ -5,7 +5,7 @@
 
 extern "C" void* g_sprt_ctrl;
 extern "C" unsigned int g_input_keys_held;
-__declspec(noinline) void __stdcall RecoveryMusicInstallSlot_0042c670(
+__declspec(noinline) void __stdcall RecoveryMusicInstallSlot(
     Title* room, int index);
 struct AnimationHandle_0040c3c0 { unsigned int id; };
 __declspec(noinline) void StopHandle_00409e50(AnimationHandle_0040c3c0* handle);
@@ -15,11 +15,11 @@ __declspec(noinline) int __stdcall EndingScreen_Update_0042d300(
         Title* room) {
     switch (room->phase) {
     case 0: {
-        RecoveryScriptId_0040bd80 id = { static_cast<int>(room->animation_slots[88]) };
+        RecoveryScriptId id = { static_cast<int>(room->animation_slots[88]) };
         if (reinterpret_cast<RecoveryLookup_0040bd80*>(g_sprt_ctrl)->Find(
-                reinterpret_cast<RecoveryLookupContext_0040bd80*>(g_sprt_ctrl), id) == 0) {
-            RecoveryMusicInstallSlot_0042c670(room, 88);
-            RecoveryMusicInstallSlot_0042c670(room, 90);
+                reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl), id) == 0) {
+            RecoveryMusicInstallSlot(room, 88);
+            RecoveryMusicInstallSlot(room, 90);
             void* handle;
             void** result = AnimationManager_CreatePrimaryBack_00448d00(
                 reinterpret_cast<void*>(room->reserved_018), &handle, 0, 15);

@@ -11,7 +11,7 @@
 #include <string.h>
 
 extern "C" void* __cdecl entry_malloc_00452706(unsigned int size);
-extern "C" void __cdecl entry_free_00452422(void* block);
+extern "C" void __cdecl crt_free(void* block);
 
 struct ScriptSub {
     const char* name;
@@ -70,7 +70,7 @@ int ScriptFileLoader::Parse(int* data) {
     } else {
         int kept = name_count - files[file_count]->sub_count;
         memcpy(entries, old, sizeof(ScriptSub) * (name_count - files[file_count]->sub_count));
-        if (previous) entry_free_00452422(previous);
+        if (previous) crt_free(previous);
         for (int merged = 0; merged < files[file_count]->sub_count; merged++, data++) {
             int index;
             for (index = 0; index < kept; index++) {

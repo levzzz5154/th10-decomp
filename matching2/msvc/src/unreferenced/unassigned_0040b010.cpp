@@ -8,7 +8,7 @@
 // convention.
 
 extern "C" void __stdcall asm_BulletManager_Release_0040af00(void* object);
-extern "C" void __cdecl entry_free_004524a1(void* block);
+extern "C" void __cdecl crt_free_startup(void* block);
 
 struct Destroyable_0040b010 {
     unsigned char unknown_0000[0x04];
@@ -20,7 +20,7 @@ __declspec(noinline) void Destroyable_0040b010_Release(Destroyable_0040b010* obj
 void Destroyable_0040b010_Release(Destroyable_0040b010* object) {
     if (object != 0) {
         asm_BulletManager_Release_0040af00(object);
-        entry_free_004524a1(object);
+        crt_free_startup(object);
     }
 }
 #pragma code_seg()

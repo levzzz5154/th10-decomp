@@ -157,7 +157,7 @@
     "?CreateOffset@CutAnimationResource@@QAE?AUCutAnimationId@@HPBUVector3@@@Z": "0x00448DB0",
     "?SpawnIn@LaserSpawnParameters_0041c510@@QBEHPAULaserManager_0041c510@@H@Z": "0x0041C510",
     "?BeamLaser_Construct_0041c680@@YIPAUBeamLaser_0041c680@@PAU1@@Z": "0x0041C680",
-    "?Entity_StartScript_00404f30@@YGXPAUAnimationResource_0043e710@@PAUEntity@@H@Z": "0x00404F30",
+    "?Entity_StartScript@@YGXPAUAnimationResourceFile@@PAUEntity@@H@Z": "0x00404F30",
     "?LineLaser_Construct_0041c5b0@@YIPAULineLaser_0041c5b0@@PAU1@@Z": "0x0041C5B0",
     "?TrimRectangle@TrimLaser@@UAEHPBUCutVector@@0H@Z": "0x0041D880"
   },

@@ -26,7 +26,7 @@ static __forceinline void SelectItem_0042d920(MenuCursor& cursor, int index) {
 // The child animation `script` of an animation slot (0x004497D0 with the
 // manager already loaded).
 static __forceinline AnimationRef_004497d0 FindChild_0042d920(
-        RecoveryLookupContext_0040bd80* manager, RecoveryScriptId_0040bd80* slot, int script) {
+        RecoveryLookupContext* manager, RecoveryScriptId* slot, int script) {
     LabelParent_0042d920* parent = static_cast<LabelParent_0042d920*>(
         reinterpret_cast<RecoveryLookup_0040bd80*>(manager)->Find(manager, *slot));
     if (parent == 0)
@@ -39,15 +39,15 @@ static __forceinline AnimationRef_004497d0 FindChild_0042d920(
 
 // Show a sprite on the child animation `script` of the options slot.
 static __forceinline void ShowLabel_0042d920(
-        RecoveryLookupContext_0040bd80* manager, Title* room, int script, int sprite) {
+        RecoveryLookupContext* manager, Title* room, int script, int sprite) {
     AnimationRef_004497d0 child = FindChild_0042d920(
-        manager, reinterpret_cast<RecoveryScriptId_0040bd80*>(&room->animation_slots[1]), script);
+        manager, reinterpret_cast<RecoveryScriptId*>(&room->animation_slots[1]), script);
     reinterpret_cast<SpriteHandle_00449670*>(&child)->SelectSprite(sprite);
 }
 
 // Show the two labels of the current screen mode.
 static __forceinline void ShowModeLabels_0042d920(
-        RecoveryLookupContext_0040bd80* manager, Title* room) {
+        RecoveryLookupContext* manager, Title* room) {
     if (g_key_bindings.screen_mode == 0) {
         ShowLabel_0042d920(manager, room, 0x1f, 0x2e);
         ShowLabel_0042d920(manager, room, 0x20, 0x2f);
@@ -61,15 +61,15 @@ static __forceinline void ShowModeLabels_0042d920(
 }
 
 static __forceinline void ShowScreenMode_0042d920(Title* room) {
-    RecoveryLookupContext_0040bd80* manager = reinterpret_cast<RecoveryLookupContext_0040bd80*>(g_sprt_ctrl);
+    RecoveryLookupContext* manager = reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl);
     ShowModeLabels_0042d920(manager, room);
 }
 
 // Restart the cursor animation of slot 1.
 static __forceinline void RunCursorSlot_0042d920(Title* room) {
     AnimationManager_SetStopFrameAndRun(
-        3, reinterpret_cast<RecoveryLookupContext_0040bd80*>(g_sprt_ctrl),
-        *reinterpret_cast<RecoveryScriptId_0040bd80*>(&room->animation_slots[1]));
+        3, reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl),
+        *reinterpret_cast<RecoveryScriptId*>(&room->animation_slots[1]));
 }
 
 #pragma code_seg(".text$0042d920_fn")
@@ -78,7 +78,7 @@ __declspec(noinline) int __stdcall TitleOptions_0042d920(Title* room) {
     case 0:
         room->cursor.item_count = 6;
         SelectItem_0042d920(room->cursor, 0);
-        RecoveryMusicInstallSlot_0042c670(room, 1);
+        RecoveryMusicInstallSlot(room, 1);
         RefreshOptions_0042e5a0(room);
         room->SetTimerTarget(1);
     case 1:
@@ -118,9 +118,9 @@ __declspec(noinline) int __stdcall TitleOptions_0042d920(Title* room) {
             if (room->cursor.selection == 2
                     && reinterpret_cast<FrameCounterPair*>(&room->timer)->AtInterval(60))
                 application_state_00491c00.sound.Queue(4, 0);
-            RecoveryLookupContext_0040bd80* manager;
+            RecoveryLookupContext* manager;
             if ((short)g_input_keys_raw.InputMaskActive(0x40)) {
-                manager = reinterpret_cast<RecoveryLookupContext_0040bd80*>(g_sprt_ctrl);
+                manager = reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl);
                 switch (room->cursor.selection) {
                 case 0:
                     if (g_key_bindings.screen_mode > 0)
@@ -155,7 +155,7 @@ __declspec(noinline) int __stdcall TitleOptions_0042d920(Title* room) {
                 }
             }
             else
-                manager = reinterpret_cast<RecoveryLookupContext_0040bd80*>(g_sprt_ctrl);
+                manager = reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl);
             if ((short)g_input_keys_raw.InputMaskActive(0x80)) {
                 switch (room->cursor.selection) {
                 case 0:

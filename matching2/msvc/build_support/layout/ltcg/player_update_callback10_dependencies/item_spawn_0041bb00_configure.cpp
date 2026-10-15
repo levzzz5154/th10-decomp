@@ -13,7 +13,7 @@ struct ConfigureResource_00404f30 {
 #endif
 
 extern "C" __declspec(noinline) void __stdcall LoadScript_0043e710(
-    AnimationResource_0043e710* resource, AnimationObject_0043e710* object, int index);
+    AnimationResourceFile* resource, AnimationObjectFile* object, int index);
 
 // A three-float constructor expresses the temporary materialized by the
 // retail compiler before each vector assignment. The retail body reuses
@@ -39,7 +39,7 @@ __declspec(noinline) void ItemConfiguredEntity_00404f30::Configure(
     reinterpret_cast<unsigned char*>(entity)[0x3A1] = 0x10;
     reinterpret_cast<unsigned char*>(entity)[0x3A0] = 0x10;
     entity->ScriptIndex() = static_cast<int16_t>(index);
-    LoadScript_0043e710(static_cast<AnimationResource_0043e710*>(resource.value),
-        reinterpret_cast<AnimationObject_0043e710*>(entity),index);
+    LoadScript_0043e710(static_cast<AnimationResourceFile*>(resource.value),
+        reinterpret_cast<AnimationObjectFile*>(entity),index);
 }
 #pragma code_seg()

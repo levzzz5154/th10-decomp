@@ -87,7 +87,7 @@ Animation_0040dc80* __fastcall AnimationFinder_0040dc80::Find(
 // src/core/sprtlib/animation_manager_set_translated_position_00449350.cpp
 void __fastcall SetAnimationTranslatedPosition_00449350(
         AnimationManager_0040dc80* manager, const PolarVec3* position, ScriptChangeHandle id) {
-    AnimationNode_0040dc80* entry = (AnimationNode_0040dc80*)AnimationManager_Find_004491c0(manager, id);
+    AnimationNode_0040dc80* entry = (AnimationNode_0040dc80*)AnimationManager_Find(manager, id);
     if (entry != 0) {
         entry->position.x = position->x + 224.0f;
         entry->position.y = position->y + 16.0f;
@@ -106,7 +106,7 @@ void __fastcall SetAnimationTranslatedPosition_00449350(
 // src/game/laser/laser_manager.cpp
 void __fastcall Animation_SetPosition(
         AnimationManager_0040dc80* manager, const PolarVec3* position, ScriptChangeHandle id) {
-    AnimationNode_0040dc80* object = (AnimationNode_0040dc80*)AnimationManager_Find_004491c0(manager, id);
+    AnimationNode_0040dc80* object = (AnimationNode_0040dc80*)AnimationManager_Find(manager, id);
     if (object != 0) {
         object->position = *position;
         if (object->children_flagged == 0)
@@ -117,7 +117,7 @@ void __fastcall Animation_SetPosition(
 
 // src/core/sprtlib/animation_handle_change_script_004496d0.cpp
 void ScriptChangeHandle::ChangeScript(int index) {
-    Animation_0040dc80* object = AnimationManager_Find_004491c0(g_sprt_ctrl, *this);
+    Animation_0040dc80* object = AnimationManager_Find(g_sprt_ctrl, *this);
     if (object) ext_call(object, index);
 }
 

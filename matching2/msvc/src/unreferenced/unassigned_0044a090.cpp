@@ -3,7 +3,7 @@
 // Native LTCG gives the callback receiver in EAX and the priority in EDI.
 #include "th10/core/func_ctrl.hpp"
 
-extern "C" SchedulerTask* __stdcall SchedulerCallback_Create_00449ed0(void*);
+extern "C" SchedulerTask* __stdcall SchedulerTask_Create(void*);
 extern "C" FuncCtrl* g_func_ctrl;
 
 struct SchedulerCreateSecondaryClear_0044a090 {
@@ -13,7 +13,7 @@ struct SchedulerCreateSecondaryClear_0044a090 {
 __declspec(noinline) SchedulerTask*
 SchedulerCreateSecondaryClear_0044a090::Create(void* context, int priority) {
     SchedulerTask* task =
-        SchedulerCallback_Create_00449ed0((void*)this);
+        SchedulerTask_Create((void*)this);
     task->context = context;
     *(unsigned int*)((char*)task + 4) &= ~2u;
     FuncCtrl_RegisterSecondary(g_func_ctrl, task, priority);

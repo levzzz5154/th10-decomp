@@ -1,6 +1,6 @@
 // 0x00436900..0x00436937: release the GDI object and the heap-backed string.
 extern "C" __declspec(dllimport) int __stdcall DeleteObject(void* object);
-extern "C" void __cdecl entry_free_004524a1(void* memory);
+extern "C" void __cdecl crt_free_startup(void* memory);
 
 struct Object_00436900 {
     void* handle;                    // +0x00
@@ -19,7 +19,7 @@ void Object_00436900::Destroy() {
         handle = 0;
     }
     if (capacity >= 0x10) {
-        entry_free_004524a1(heap);
+        crt_free_startup(heap);
     }
     capacity = 0xf;
     length = 0;

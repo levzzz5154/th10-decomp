@@ -31,7 +31,7 @@
     }
   ],
   "context": {
-    "symbol": "?SecondaryRegistrationContext@@YGXPAUAnimationPool@@PAUAnimationResource_00449870@@PAUAnimationRef@@H@Z",
+    "symbol": "?SecondaryRegistrationContext@@YGXPAUAnimationPool@@PAUAnimationBank@@PAUAnimationRef@@H@Z",
     "section": ".text$0044e100_context",
     "address": "0x0044E100",
     "size": 81,
@@ -53,7 +53,7 @@
       "kind": "metadata"
     },
     {
-      "symbol": "?InitializeObject@AnimationResource_00449870@@QAEXPAUEntity@@H@Z",
+      "symbol": "?InitializeObject@AnimationBank@@QAEXPAUEntity@@H@Z",
       "address": "0x00449870",
       "kind": "relative_code"
     },

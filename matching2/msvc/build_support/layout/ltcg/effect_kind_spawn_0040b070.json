@@ -19,7 +19,7 @@
     },
     {
       "name": "EffectKind_SpawnFromFile",
-      "symbol": "?SpawnEffectFromFile@@YG?AUAnimationHandle_0040b070@@HPAUAnimationResource_00449870@@PAX@Z",
+      "symbol": "?SpawnEffectFromFile@@YG?AUAnimationHandle_0040b070@@HPAUAnimationBank@@PAX@Z",
       "section": ".text$0040b110_fn",
       "address": "0x0040B110",
       "size": 148,
@@ -116,7 +116,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "?InitializeObject@AnimationResource_00449870@@QAEPAXPAXH@Z",
+      "symbol": "?InitializeObject@AnimationBank@@QAEPAXPAXH@Z",
       "address": "0x00449870",
       "kind": "relative_code"
     }

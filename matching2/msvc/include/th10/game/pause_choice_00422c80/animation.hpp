@@ -5,7 +5,7 @@
 
 struct AnimationScriptId { int value; };
 struct AnimationLookupContext;
-__declspec(noinline) void* __fastcall AnimationManager_Find_004491c0(
+__declspec(noinline) void* __fastcall AnimationManager_Find(
     AnimationLookupContext* context, AnimationScriptId id);
 __declspec(noinline) void* __fastcall AnimationManager_SetFlag_004492a0(
     AnimationLookupContext* context, AnimationScriptId id);

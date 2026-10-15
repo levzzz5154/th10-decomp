@@ -1,7 +1,7 @@
 #include "runtime.hpp"
 extern "C" float flt_224, flt_16;
 #pragma code_seg(".text$f00448db0F")
-AnimationRef AnimationResource_0043e710::CreateOffset(
+AnimationRef AnimationResourceFile::CreateOffset(
         int index, const Vector3* position) {
     Entity* object=static_cast<AnimationPool*>(g_sprt_ctrl)->Allocate();
     unsigned int flags=object->flags_35C;

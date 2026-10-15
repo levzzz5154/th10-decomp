@@ -93,9 +93,9 @@ ResultDispatcher_00415e90(ResultDispatcherState* state) {
                 break;
             case 1:
                 if (g_globals_character == 1)
-                    { DispatcherRef created = DispatcherCreateAnimation(static_cast<AnimationResource_00449870*>(g_player->animation_file), 0x1D, 15); state->left_portrait.id.value = created.value; }
+                    { DispatcherRef created = DispatcherCreateAnimation(static_cast<AnimationBank*>(g_player->animation_file), 0x1D, 15); state->left_portrait.id.value = created.value; }
                 else if (g_globals_character == 0)
-                    { DispatcherRef created = DispatcherCreateAnimation(static_cast<AnimationResource_00449870*>(g_player->animation_file), 0x1D, 15); state->left_portrait.id.value = created.value; }
+                    { DispatcherRef created = DispatcherCreateAnimation(static_cast<AnimationBank*>(g_player->animation_file), 0x1D, 15); state->left_portrait.id.value = created.value; }
                 break;
             case 2:
                 if (g_globals_stage == 6) {
@@ -110,9 +110,9 @@ ResultDispatcher_00415e90(ResultDispatcherState* state) {
                         { DispatcherRef created = DispatcherCreateAnimation(g_enemy_ctrl->resource, 0x25, 15); state->right_portrait.id.value = created.value; }
                 } else {
                     if (g_globals_character == 0)
-                        { DispatcherRef created = DispatcherCreateAnimation(static_cast<AnimationResource_00449870*>(g_player->animation_file), 0x1E, 15); state->right_portrait.id.value = created.value; }
+                        { DispatcherRef created = DispatcherCreateAnimation(static_cast<AnimationBank*>(g_player->animation_file), 0x1E, 15); state->right_portrait.id.value = created.value; }
                     else if (g_globals_character == 1)
-                        { DispatcherRef created = DispatcherCreateAnimation(static_cast<AnimationResource_00449870*>(g_player->animation_file), 0x1E, 15); state->right_portrait.id.value = created.value; }
+                        { DispatcherRef created = DispatcherCreateAnimation(static_cast<AnimationBank*>(g_player->animation_file), 0x1E, 15); state->right_portrait.id.value = created.value; }
                 }
                 break;
             case 22:

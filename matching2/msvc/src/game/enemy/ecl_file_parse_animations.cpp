@@ -4,7 +4,7 @@
 #include "th10/game/enemy_death_release_0040e5f0.hpp"
 
 extern "C" void* g_sprt_ctrl;
-extern "C" void* __fastcall Recovery_LoadCachedResource_00447280(
+extern "C" void* __fastcall Recovery_LoadCachedResource(
     int index, void* cache, const char* name);
 
 struct CountedScriptChunk {
@@ -27,7 +27,7 @@ __declspec(noinline) int ScriptFileChunkContext_0040d400::ParseAnimationChunk(ch
     unsigned int index = 0;
     if (index < header->count) {
         do {
-            void* resource = Recovery_LoadCachedResource_00447280(index + 9,
+            void* resource = Recovery_LoadCachedResource(index + 9,
                 g_sprt_ctrl, name);
             g_enemy_ctrl->animation_files[index + 1] = resource;
             if (!resource) {

@@ -16,12 +16,12 @@ __declspec(noinline) void** __stdcall RecoveryPlayerAnimationCreate_00448db0(
     void* resource, void** result, int script,
     const HintPosition_00419120* position);
 
-struct HintVm_00419120;
+struct HintVm;
 struct HintVmLink_00419120 {
-    HintVm_00419120* object;
+    HintVm* object;
     HintVmLink_00419120* next;
 };
-struct HintVm_00419120 {
+struct HintVm {
     unsigned int id;
     unsigned char reserved_004[0x10];
     HintVmLink_00419120* children;
@@ -132,14 +132,14 @@ typedef char HintStateQueuesCheck[(offsetof(HintUpdateView,queues)==0x18)?1:-1];
 typedef char HintStateOwnerCheck[(offsetof(HintUpdateView,owner_tag)==0xD8)?1:-1];
 typedef char HintStateSlotCheck[(offsetof(HintUpdateView,slot)==0x1A4)?1:-1];
 typedef char HintStateSizeCheck[(sizeof(HintUpdateView)==0x1A8)?1:-1];
-typedef char HintVmChildrenCheck[(offsetof(HintVm_00419120,children)==0x14)?1:-1];
-typedef char HintVmScaleCheck[(offsetof(HintVm_00419120,scale_y)==0x40)?1:-1];
-typedef char HintVmHeightCheck[(offsetof(HintVm_00419120,height)==0x50)?1:-1];
-typedef char HintVmInterruptCheck[(offsetof(HintVm_00419120,interrupt_pending)==0x12C)?1:-1];
-typedef char HintVmOpacityCheck[(offsetof(HintVm_00419120,opacity)==0x310)?1:-1];
-typedef char HintVmColorCheck[(offsetof(HintVm_00419120,color)==0x2FC)?1:-1];
-typedef char HintVmTimestampCheck[(offsetof(HintVm_00419120,timestamp)==0x30C)?1:-1];
-typedef char HintVmPositionCheck[(offsetof(HintVm_00419120,position)==0x340)?1:-1];
-typedef char HintVmFlagsCheck[(offsetof(HintVm_00419120,flags)==0x35C)?1:-1];
-typedef char HintVmFontCheck[(offsetof(HintVm_00419120,font_height)==0x3A0)?1:-1];
-typedef char HintVmWidthCheck[(offsetof(HintVm_00419120,font_width)==0x3A1)?1:-1];
+typedef char HintVmChildrenCheck[(offsetof(HintVm,children)==0x14)?1:-1];
+typedef char HintVmScaleCheck[(offsetof(HintVm,scale_y)==0x40)?1:-1];
+typedef char HintVmHeightCheck[(offsetof(HintVm,height)==0x50)?1:-1];
+typedef char HintVmInterruptCheck[(offsetof(HintVm,interrupt_pending)==0x12C)?1:-1];
+typedef char HintVmOpacityCheck[(offsetof(HintVm,opacity)==0x310)?1:-1];
+typedef char HintVmColorCheck[(offsetof(HintVm,color)==0x2FC)?1:-1];
+typedef char HintVmTimestampCheck[(offsetof(HintVm,timestamp)==0x30C)?1:-1];
+typedef char HintVmPositionCheck[(offsetof(HintVm,position)==0x340)?1:-1];
+typedef char HintVmFlagsCheck[(offsetof(HintVm,flags)==0x35C)?1:-1];
+typedef char HintVmFontCheck[(offsetof(HintVm,font_height)==0x3A0)?1:-1];
+typedef char HintVmWidthCheck[(offsetof(HintVm,font_width)==0x3A1)?1:-1];

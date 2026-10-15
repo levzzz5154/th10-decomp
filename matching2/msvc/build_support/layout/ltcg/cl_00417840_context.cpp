@@ -1,7 +1,7 @@
 // Compiler context only; never selected as recovered game code.
 #include <string.h>
 #include "../../../src/unreferenced/unassigned_00417840.cpp"
-extern "C" void __cdecl entry_free_004524a1(void* block);
+extern "C" void __cdecl crt_free_startup(void* block);
 
 #pragma code_seg(".text$03anchor")
 __declspec(noinline) char __fastcall GameConfig_00417840_InitDefaults(
@@ -14,7 +14,7 @@ __declspec(noinline) char __fastcall GameConfig_00417840_InitDefaults(
     config->bytes[0x10] = 2;
     config->bytes[0x1f] = 2;
     config->bytes[0x21] = 0x50;
-    entry_free_004524a1(config);
+    crt_free_startup(config);
     return 0;
 }
 #pragma code_seg()

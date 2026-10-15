@@ -22,7 +22,7 @@ extern "C" __declspec(dllimport) DWORD __stdcall GetFileSize(
     HANDLE handle, DWORD* size_high);
 
 extern "C" void* __cdecl entry_malloc_00452706(unsigned int size);
-extern "C" void __cdecl entry_free_00452422(void* memory);
+extern "C" void __cdecl crt_free(void* memory);
 
 struct FileCriticalSection;
 extern "C" HANDLE g_file_probe_handle;

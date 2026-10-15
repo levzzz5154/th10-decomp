@@ -2,7 +2,7 @@
 void __fastcall HeapBuffer_Release(HeapBuffer* buffer) {
     void* data = buffer->data;
     if (data != 0) {
-        entry_free_00452422(data);
+        crt_free(data);
         buffer->data = 0;
     }
 }

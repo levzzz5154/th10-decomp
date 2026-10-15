@@ -2,7 +2,7 @@
 #include "th10/platform/worker.hpp"
 
 extern "C" {
-SchedulerTask* __stdcall SchedulerCallback_Create_00449ed0(TaskRoutine callback);
+SchedulerTask* __stdcall SchedulerTask_Create(TaskRoutine callback);
 extern FuncCtrl* g_func_ctrl;
 int __fastcall LoadingPrimary(void* owner);
 int __fastcall LoadingSecondary(void* owner);
@@ -17,14 +17,14 @@ unsigned int __cdecl asm_beginthreadex_00453683(
 // 0x0041FAC0 (140 bytes): register two tasks and start their owner's worker.
 #pragma code_seg(".text$02starter")
 int LoadingView::StartWorker() {
-    SchedulerTask* primary = SchedulerCallback_Create_00449ed0(LoadingPrimary);
+    SchedulerTask* primary = SchedulerTask_Create(LoadingPrimary);
     // Clear callback flag 0x2 before registration.
     *(unsigned int*)((unsigned char*)primary + 4) &= ~2u;
     primary->context = this;
     FuncCtrl_RegisterPrimary(g_func_ctrl, primary, 3);
     primary_task = primary;
 
-    SchedulerTask* secondary = SchedulerCallback_Create_00449ed0(LoadingSecondary);
+    SchedulerTask* secondary = SchedulerTask_Create(LoadingSecondary);
     *(unsigned int*)((unsigned char*)secondary + 4) &= ~2u;
     secondary->context = this;
     FuncCtrl_RegisterSecondary(g_func_ctrl, secondary, 2);

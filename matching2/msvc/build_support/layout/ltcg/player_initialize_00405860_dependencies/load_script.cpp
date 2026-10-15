@@ -2,10 +2,10 @@
 #include <string.h>
 #include "th10/game/entity.hpp"
 
-struct AnimationObject_0043e710 : Entity {
+struct AnimationObjectFile : Entity {
 };
 
-struct AnimationResource_0043e710 {
+struct AnimationResourceFile {
     uint16_t id;                               // +0x000
     unsigned char reserved_002[0x11C - 0x002];
     void** scripts;                            // +0x11C
@@ -21,13 +21,13 @@ struct AnimationManager_0043e710 {
 
 extern "C" float g_game_speed;
 extern "C" void __stdcall asm_FUN_0043ee30_0043ee30(Entity* object);
-extern "C" void __stdcall LoadScript_0043e710(AnimationResource_0043e710* resource,
-                                             AnimationObject_0043e710* object,
+extern "C" void __stdcall LoadScript_0043e710(AnimationResourceFile* resource,
+                                             AnimationObjectFile* object,
                                              int index);
 
 #pragma code_seg(".text$a07load")
 __declspec(noinline) void __stdcall LoadScript_0043e710(
-    AnimationResource_0043e710* resource, AnimationObject_0043e710* object,
+    AnimationResourceFile* resource, AnimationObjectFile* object,
     int index) {
     void* script = resource->scripts[index];
     if (script == 0 || resource->loading != 0) {

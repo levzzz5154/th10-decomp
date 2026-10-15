@@ -26,13 +26,13 @@ struct AnimationNode_004494D0 {
     __declspec(noinline) void UpdateFlags();
 };
 
-extern "C" AnimationNode_004494D0* __fastcall AnimationManager_Find_004491c0(
+extern "C" AnimationNode_004494D0* __fastcall AnimationManager_Find(
     void* value, void* manager, int unused);
 
 #pragma code_seg(".text$01accessor")
 void AnimationNode_004494D0::UpdateFlags() {
     AnimationNode_004494D0* node =
-        AnimationManager_Find_004491c0(field_000, g_sprt_ctrl, (int)field_000);
+        AnimationManager_Find(field_000, g_sprt_ctrl, (int)field_000);
     if (node == 0) {
         return;
     }

@@ -41,18 +41,18 @@ __declspec(noinline) int __stdcall TitleNameEntry_00432cb0(Title* room) {
         Music_Load_00420a90(0, "bgm/th10_17.wav");
         Music_Play_00420b10(0, 17);
         if (reinterpret_cast<RecoveryLookup_0040bd80*>(g_sprt_ctrl)->Find(
-                reinterpret_cast<RecoveryLookupContext_0040bd80*>(g_sprt_ctrl),
-                *reinterpret_cast<RecoveryScriptId_0040bd80*>(&room->animation_slots[94])) == 0) {
-            RecoveryMusicInstallSlot_0042c670(room, 94);
+                reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl),
+                *reinterpret_cast<RecoveryScriptId*>(&room->animation_slots[94])) == 0) {
+            RecoveryMusicInstallSlot(room, 94);
             void* resource = g_ascii_manager->animation_resource;
             void** result = AnimationManager_CreatePrimaryBack_00448d00(resource, &handle, 8, 15);
             room->fallback_handle.value = reinterpret_cast<unsigned int>(*result);
         }
-        RecoveryMusicInstallSlot_0042c670(room, 104);
+        RecoveryMusicInstallSlot(room, 104);
         room->SetTimerTarget(1);
-        RecoveryMusicInstallSlot_0042c670(room, g_globals_character + 152);
-        RecoveryMusicInstallSlot_0042c670(room, g_globals_character * 3 + g_globals_shot_type + 154);
-        RecoveryMusicInstallSlot_0042c670(room, g_globals_difficulty + 160);
+        RecoveryMusicInstallSlot(room, g_globals_character + 152);
+        RecoveryMusicInstallSlot(room, g_globals_character * 3 + g_globals_shot_type + 154);
+        RecoveryMusicInstallSlot(room, g_globals_difficulty + 160);
         // The table records the stage of a whole game.
         g_globals_stage = 8;
         g_globals_stage_shown = 8;

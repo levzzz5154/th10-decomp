@@ -148,7 +148,7 @@ __declspec(noinline) int __stdcall TitleDispatcher_Model_0042cdf0(
             SetSelection(cursor, 0);
             cursor->PushSelection();
             room->DisableTimerWithOwner(15);
-            RecoveryMusicInstallSlot_0042c670(room, 91);
+            RecoveryMusicInstallSlot(room, 91);
             room->SetSlotFrame(91, 9);
             g_main_mode_request = 1;
             MarkTitleCallback(room);
@@ -170,7 +170,7 @@ __declspec(noinline) int __stdcall TitleDispatcher_Model_0042cdf0(
             if (g_globals_score.difficulty == 4)
                 SetSelection(&room->cursor, 1);
             room->DisableTimerWithOwner(2);
-            RecoveryMusicInstallSlot_0042c670(room, 91);
+            RecoveryMusicInstallSlot(room, 91);
             MarkTitleCallback(room);
             TitleMainMenu_0042d420(room);
             break;
@@ -180,7 +180,7 @@ __declspec(noinline) int __stdcall TitleDispatcher_Model_0042cdf0(
             SetSelection(cursor, 3);
             cursor->PushSelection();
             room->DisableTimerWithOwner(12);
-            RecoveryMusicInstallSlot_0042c670(room, 91);
+            RecoveryMusicInstallSlot(room, 91);
             room->SetSlotFrame(91, 9);
             g_main_mode_request = 1;
             MarkTitleCallback(room);

@@ -50,7 +50,7 @@
     },
     {
       "name": "Find",
-      "symbol": "?AnimationManager_Find_004491c0@@YIPAXPAUAnimationLookupContext@@UAnimationScriptId@@@Z",
+      "symbol": "?AnimationManager_Find@@YIPAXPAUAnimationLookupContext@@UAnimationScriptId@@@Z",
       "address": "0x4491c0",
       "section": ".text$004491c0_fn",
       "size": 73
@@ -124,7 +124,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "?InitializeObject@AnimationResource_00449870@@QAEXPAUEntity@@H@Z",
+      "symbol": "?InitializeObject@AnimationBank@@QAEXPAUEntity@@H@Z",
       "address": "0x449870",
       "kind": "relative_code"
     },

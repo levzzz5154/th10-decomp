@@ -5,11 +5,11 @@
 #include "th10/game/card_animations.hpp"
 #include "th10/platform/sound_queue.hpp"
 
-struct AnimationResource_0043e710;
-struct AnimationObject_0043e710;
+struct AnimationResourceFile;
+struct AnimationObjectFile;
 
 // A text sprite; the formatter draws into its texture.
-struct HintVm_00419120 {
+struct HintVm {
     void __cdecl FormatRightAligned(void* manager, ...); // 0x00447AE0
 };
 
@@ -19,17 +19,17 @@ struct GameMode_00409280 {
 };
 struct FrontResources_00409280 {
     unsigned char reserved[0x9EC8];
-    AnimationResource_0043e710* digits;            // +0x9EC8
+    AnimationResourceFile* digits;            // +0x9EC8
 };
 struct GameThread_00409280 {
     unsigned char reserved_0000[0x8994];
-    AnimationResource_00449870* front;             // +0x8994
+    AnimationBank* front;             // +0x8994
     unsigned char reserved_8998[4];
-    AnimationResource_00449870* text;              // +0x899C
+    AnimationBank* text;              // +0x899C
 };
 struct BulletResourceView_00409280 {
     unsigned char reserved[0x3E0B50];
-    AnimationResource_00449870* effects;           // +0x3E0B50
+    AnimationBank* effects;           // +0x3E0B50
 };
 struct MarkerTarget_00409280 {
     unsigned char reserved[0x1068];
@@ -39,7 +39,7 @@ struct EnemyCtrlCardView {
     unsigned char reserved_00[0x10];
     MarkerTarget_00409280* target;                 // +0x10
     unsigned char reserved_14[0x24];
-    AnimationResource_00449870* resource;          // +0x38
+    AnimationBank* resource;          // +0x38
 };
 // Part of the global game state.
 struct GameSelection_00409280 {
@@ -62,10 +62,10 @@ extern GameSelection_00409280 g_selection;         // 0x00474C68
 extern int g_globals_gauge;
 extern int g_globals_stage;                          // stage number
 extern int g_stage_progress;
-void __stdcall LoadScript_0043e710(AnimationResource_0043e710* resource,
-                                   AnimationObject_0043e710* object, int index);
+void __stdcall LoadScript_0043e710(AnimationResourceFile* resource,
+                                   AnimationObjectFile* object, int index);
 }
-void __stdcall Entity_StartScript_00404f30(AnimationResource_0043e710* resource,
+void __stdcall Entity_StartScript(AnimationResourceFile* resource,
                                            Entity* entity, int script);
 
 static inline void CountAttempt(ScoreSpellRecord* record) {
@@ -90,12 +90,12 @@ static inline void CopyName(char* const destination, const char* const source) {
 
 static inline void LoadDigit(FrontSprite_00408d60* sprite, int script) {
     LoadScript_0043e710(g_front->digits,
-                        reinterpret_cast<AnimationObject_0043e710*>(sprite), script);
+                        reinterpret_cast<AnimationObjectFile*>(sprite), script);
 }
 
 static inline void StartScript(FrontSprite_00408d60* sprite, int script) {
-    Entity_StartScript_00404f30(
-        reinterpret_cast<AnimationResource_0043e710*>(g_enemy_ctrl->resource),
+    Entity_StartScript(
+        reinterpret_cast<AnimationResourceFile*>(g_enemy_ctrl->resource),
         reinterpret_cast<Entity*>(sprite), script);
 }
 
@@ -105,14 +105,14 @@ static inline AnimationLists* Animations() {
 
 // Create an animation running `script` of `resource` on the panel's layer.
 struct PanelAppearance { int render_bucket; unsigned int flags; };
-static inline AnimationRef CreatePanelAnimation(AnimationResource_00449870* resource, int script, PanelAppearance appearance) {
+static inline AnimationRef CreatePanelAnimation(AnimationBank* resource, int script, PanelAppearance appearance) {
     Entity* object = reinterpret_cast<AnimationPool*>(g_sprt_ctrl)->Allocate();
     object->render_bucket = appearance.render_bucket;
     object->flags_35C |= appearance.flags;
     resource->InitializeObject(object, script);
     return Animations()->RegisterPrimaryBack(object);
 }
-static inline AnimationRef CreateAnimation(AnimationResource_00449870* resource, int script) {
+static inline AnimationRef CreateAnimation(AnimationBank* resource, int script) {
     PanelAppearance appearance = { 15, 0x40000000u };
     return CreatePanelAnimation(resource, script, appearance);
 }
@@ -160,7 +160,7 @@ void Card_00408d60::StartSpell(int index, const char* name, int duration) {
     panel_handles[0].value = CreateAnimation(g_ascii_manager->front, 1).value;
     panel_handles[1].value = CreateAnimation(g_ascii_manager->text, 72).value;
     panel_handles[2].value = CreateAnimation(g_ascii_manager->front, 2).value;
-    reinterpret_cast<HintVm_00419120*>(
+    reinterpret_cast<HintVm*>(
         GetAnimation(reinterpret_cast<int&>(panel_handles[1].value)))
         ->FormatRightAligned(g_sprt_ctrl, 0x00FFFFFFu, name);
     g_sound_manager.Queue(14, 0);

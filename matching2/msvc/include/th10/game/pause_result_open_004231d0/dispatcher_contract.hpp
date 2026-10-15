@@ -15,7 +15,7 @@ struct DispatcherRef {
     int value;
     DispatcherRef(int value) : value(value) {}
     __declspec(noinline) void SelectCurrentSprite(int index);
-    __declspec(noinline) void SelectResourceSprite(AnimationResource_00449870*, int index);
+    __declspec(noinline) void SelectResourceSprite(AnimationBank*, int index);
 };
 // The animation manager's primary list tail registration (0x004489D0). The
 // returned four-byte reference has a genuine compiler-generated return home.
@@ -41,12 +41,12 @@ struct DispatcherHandle {
     __declspec(noinline) DispatcherRef FindChildRef(int script_id);
 };
 __declspec(noinline) DispatcherRef __stdcall DispatcherCreateAnimation(
-    AnimationResource_00449870* resource, int script_index, int render_bucket);
-typedef RecoveryTextVm_00447a50 DispatcherObject;
+    AnimationBank* resource, int script_index, int render_bucket);
+typedef RecoveryTextVm DispatcherObject;
 struct AnimationLookupContext;
 static __forceinline DispatcherObject* DispatcherFindAnimation(
         AnimationLookupContext* context, AnimationScriptId id) {
-    return reinterpret_cast<DispatcherObject*>(AnimationManager_Find_004491c0(context, id));
+    return reinterpret_cast<DispatcherObject*>(AnimationManager_Find(context, id));
 }
 __declspec(noinline) void* __fastcall DispatcherRemoveAnimation(
     AnimationLookupContext* context, AnimationScriptId id);
@@ -116,17 +116,17 @@ typedef char DispatcherStateExtent[sizeof(ResultDispatcherState)==0x90?1:-1];
 
 struct DispatcherStageResourceOwner {
     unsigned char reserved_00[0x38];
-    AnimationResource_00449870* resource;
+    AnimationBank* resource;
 };
 struct DispatcherStageState {
     unsigned char reserved_000[0x9E14];
     AnimationScriptId transition_animation;
     unsigned char reserved_9e18[0x9E80-0x9E18];
-    AnimationResource_00449870* effect_resource;
+    AnimationBank* effect_resource;
     unsigned char reserved_9e84[0x9EB4-0x9E84];
     unsigned flags;
     unsigned char reserved_9eb8[0x9EC8-0x9EB8];
-    AnimationResource_00449870* resource;
+    AnimationBank* resource;
     int result_phase;
 };
 typedef char DispatcherStageFlagsOffset[offsetof(DispatcherStageState,flags)==0x9EB4?1:-1];

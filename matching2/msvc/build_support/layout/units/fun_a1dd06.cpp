@@ -8,12 +8,12 @@ __declspec(noinline) void* WorkerThread_00439390::Stop() {
     if (result != 0) {
         stopping = 1;
         stop_reason = 0;
-        while (entry_free_004524a1(result) == 258) {
+        while (crt_free_startup(result) == 258) {
             stopping = 1;
             stop_reason = 0;
-            entry_free_004524a1(handle);
+            crt_free_startup(handle);
         }
-        entry_free_004524a1(handle);
+        crt_free_startup(handle);
         handle = 0;
         joinable = 0;
     }

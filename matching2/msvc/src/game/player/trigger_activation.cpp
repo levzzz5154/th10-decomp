@@ -13,7 +13,7 @@ struct TriggerPosition : DispatcherVec3 {
 };
 struct TriggerAnimationField {
     unsigned char reserved000[0x10];
-    AnimationResource_00449870* resource;    // +0x010
+    AnimationBank* resource;    // +0x010
     Entity animation;                       // +0x014
     DispatcherVec3 position;                // +0x3C0
     unsigned char reserved3cc[0x458 - 0x3cc];
@@ -25,7 +25,7 @@ struct TriggerAnimationField {
 };
 struct TriggerResources {
     unsigned char reserved000[0x3e0b50];
-    AnimationResource_00449870* resource;
+    AnimationBank* resource;
 };
 struct TriggerPlayerEntity {
     unsigned char reserved000[0x378];
@@ -45,10 +45,10 @@ extern "C" TriggerResources* g_bullet_manager;
 
 extern "C" TriggerPlayer* g_card;
 extern "C" SoundQueue g_sound_manager;
-struct AnimationResource_0043e710;
-struct AnimationObject_0043e710;
+struct AnimationResourceFile;
+struct AnimationObjectFile;
 extern "C" void __stdcall LoadScript_0043e710(
-    AnimationResource_0043e710*, AnimationObject_0043e710*, int);
+    AnimationResourceFile*, AnimationObjectFile*, int);
 
 typedef char CheckTriggerAnimation[offsetof(TriggerAnimationField, animation) == 0x14 ? 1 : -1];
 typedef char CheckTriggerPosition[offsetof(TriggerAnimationField, position) == 0x3c0 ? 1 : -1];
@@ -64,7 +64,7 @@ typedef char CheckTriggerPlayerPending[offsetof(TriggerPlayer, pending_state) ==
 __declspec(noinline) void DispatcherSetPosition(
     AnimationLookupContext*, const DispatcherVec3*, AnimationScriptId);
 
-static __forceinline void SpawnTriggerParticle(AnimationResource_00449870* resource,
+static __forceinline void SpawnTriggerParticle(AnimationBank* resource,
         int index, const DispatcherVec3* position) {
     Entity* object = reinterpret_cast<AnimationPool*>(g_sprt_ctrl)->Allocate();
     unsigned int flags = object->flags_35C;
@@ -89,8 +89,8 @@ extern "C" __declspec(noinline) void __stdcall Player_Hit(Player* player) {
     if (g_game && !(g_game->flags & 0x200))
         g_sound_manager.Queue(4, 0);
     target->activation_timer.Set(6);
-    LoadScript_0043e710(reinterpret_cast<AnimationResource_0043e710*>(target->resource),
-        reinterpret_cast<AnimationObject_0043e710*>(&target->animation), 0);
+    LoadScript_0043e710(reinterpret_cast<AnimationResourceFile*>(target->resource),
+        reinterpret_cast<AnimationObjectFile*>(&target->animation), 0);
     TriggerPlayer* state = g_card;
     if (state->elapsed_frames >= 60) {
         state->pending_state = 0;

@@ -1,5 +1,5 @@
 #include <string.h>
-extern "C" void __cdecl entry_free_004524a1(void* block);
+extern "C" void __cdecl crt_free_startup(void* block);
 
 #pragma pack(push, 1)
 struct GameConfig_00417840 { unsigned char bytes[0x34]; };

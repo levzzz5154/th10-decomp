@@ -72,15 +72,15 @@ int __stdcall RenderBatchContext(const ScreenRect** rects, const unsigned int* c
 }
 #pragma code_seg()
 // --- dispatcher ABI anchors (compiled, never exported) ---
-extern "C" void __cdecl entry_free_004524a1(void* memory);
+extern "C" void __cdecl crt_free_startup(void* memory);
 
 #pragma code_seg(".text$06b01anchor")
 extern "C" __declspec(noinline) int EntityDraw_00443080(RenderEntity* entity, SprtCtrlBatchView* manager) {
     int a = (int)entity->flags;
     int b = (int)entity->strip_count;
-    entry_free_004524a1(entity);
+    crt_free_startup(entity);
     a += (int)entity->flags;
-    entry_free_004524a1((void*)&manager);
+    crt_free_startup((void*)&manager);
     b += (int)entity->color;
     return a + b;
 }
@@ -105,24 +105,24 @@ struct BillboardSource_00443B60 {
 
 #pragma code_seg(".text$06b04z01anchor")
 int BillboardSource_00443B60::BuildProjectedQuad() {
-    entry_free_004524a1(this);
+    crt_free_startup(this);
     return 0;
 }
 #pragma code_seg()
 
 #pragma code_seg(".text$06b0602anchor")
 int ProjectedEntity_00444240::ProjectQuad(ProjectionManager_00444240* manager) {
-    entry_free_004524a1(this);
-    entry_free_004524a1(manager);
+    crt_free_startup(this);
+    crt_free_startup(manager);
     return 0;
 }
 #pragma code_seg()
 
 #pragma code_seg(".text$06b08anchor")
 extern "C" __declspec(noinline) int FadedQuadDraw_004445c0(SprtCtrlBatchView* manager, RenderEntity* entity) {
-    entry_free_004524a1((void*)1);
-    entry_free_004524a1(entity);
-    entry_free_004524a1(manager);
+    crt_free_startup((void*)1);
+    crt_free_startup(entity);
+    crt_free_startup(manager);
     return 0;
 }
 #pragma code_seg()
@@ -132,10 +132,10 @@ extern "C" __declspec(noinline) int FadedQuadDraw_004445c0(SprtCtrlBatchView* ma
 extern "C" __declspec(noinline) void SyncRenderState_004423e0(
         SprtCtrlBatchView* manager, RenderEntity* entity) {
     int a = (int)entity->flags;
-    entry_free_004524a1((void*)1);
+    crt_free_startup((void*)1);
     if (manager->quad_count) manager->Flush();
     a += (int)entity->strip_count;
-    entry_free_004524a1(entity->texture);
-    entry_free_004524a1((void*)(size_t)a);
+    crt_free_startup(entity->texture);
+    crt_free_startup((void*)(size_t)a);
 }
 #pragma code_seg()

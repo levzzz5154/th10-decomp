@@ -395,8 +395,8 @@
       "size": 65
     },
     {
-      "name": "?Entity_StartScript_00404f30@@YGXPAUAnimationResource_0043e710@@PAUEntity@@H@Z",
-      "symbol": "?Entity_StartScript_00404f30@@YGXPAUAnimationResource_0043e710@@PAUEntity@@H@Z",
+      "name": "?Entity_StartScript@@YGXPAUAnimationResourceFile@@PAUEntity@@H@Z",
+      "symbol": "?Entity_StartScript@@YGXPAUAnimationResourceFile@@PAUEntity@@H@Z",
       "section": ".text$00404f30_fn",
       "address": "0x404f30",
       "size": 204
@@ -676,7 +676,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_entry_free_004524a1",
+      "symbol": "_crt_free_startup",
       "address": "0x4524a1",
       "kind": "relative_code"
     },
@@ -766,7 +766,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "?InitializeObject@AnimationResource_00449870@@QAEPAXPAXH@Z",
+      "symbol": "?InitializeObject@AnimationBank@@QAEPAXPAXH@Z",
       "address": "0x449870",
       "kind": "relative_code"
     },
@@ -791,7 +791,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_SchedulerCallback_Create_00449ed0@4",
+      "symbol": "_SchedulerTask_Create@4",
       "address": "0x449ed0",
       "kind": "relative_code"
     },
@@ -1001,7 +1001,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "?InitializeObject@AnimationResource_00449870@@QAEXPAUEntity@@H@Z",
+      "symbol": "?InitializeObject@AnimationBank@@QAEXPAUEntity@@H@Z",
       "address": "0x449870",
       "kind": "relative_code"
     },

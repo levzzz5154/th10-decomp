@@ -161,7 +161,7 @@
       "address": "0x00452493",
       "kind": "code"
     },
-    "_SchedulerCallback_Create_00449ed0@4": {
+    "_SchedulerTask_Create@4": {
       "address": "0x00449ED0",
       "kind": "code"
     },
@@ -249,11 +249,11 @@
       "address": "0x0043EE30",
       "kind": "code"
     },
-    "_entry_free_00452422": {
+    "_crt_free": {
       "address": "0x00452422",
       "kind": "code"
     },
-    "_entry_free_004524a1": {
+    "_crt_free_startup": {
       "address": "0x004524A1",
       "kind": "code"
     },
@@ -297,7 +297,7 @@
       "address": "0x00491C28",
       "kind": "data"
     },
-    "?InitializeObject@AnimationResource_00449870@@QAEPAXPAXH@Z": {
+    "?InitializeObject@AnimationBank@@QAEPAXPAXH@Z": {
       "address": "0x00449870",
       "kind": "code"
     },
@@ -867,7 +867,7 @@
     }
   },
   "bindings": {
-    "?Find@RecoveryLookup_0040bd80@@QAIPAXPAURecoveryLookupContext_0040bd80@@URecoveryScriptId_0040bd80@@@Z": "0x004491C0",
+    "?Find@RecoveryLookup_0040bd80@@QAIPAXPAURecoveryLookupContext@@URecoveryScriptId@@@Z": "0x004491C0",
     "?RegisterResource@RecoveryMusicResourceQueue_0043e460@@QAEPADPBDHH@Z": "0x0043E460",
     "?ConfigureObject@Resource_0043e5a0@@QAEHPAUAnimationObject_0043e5a0@@H@Z": "0x0043E5A0",
     "?RegisterResource@AnimationManager_0043e460@@QAEPADPBDHH@Z": "0x0043E460"

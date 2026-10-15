@@ -162,7 +162,7 @@ void DispatcherRef::SelectCurrentSprite(int index) {
 
 #pragma code_seg(".text$004496a0_fn")
 void DispatcherRef::SelectResourceSprite(
-        AnimationResource_00449870* resource, int index) {
+        AnimationBank* resource, int index) {
     AnimationScriptId id(value);
     AnimationObject_0043e5a0* object =
         reinterpret_cast<AnimationObject_0043e5a0*>(

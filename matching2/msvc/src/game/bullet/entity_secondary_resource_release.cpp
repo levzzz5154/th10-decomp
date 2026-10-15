@@ -4,6 +4,6 @@
 void __fastcall EntitySecondaryResource_Release(Entity* entity) {
     void* resource = entity->secondary_resource;
     if (resource != 0)
-        entry_free_00452422(resource);
+        crt_free(resource);
     entity->secondary_resource = 0;
 }

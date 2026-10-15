@@ -6,7 +6,7 @@ void Handle4::SetStopFrame(short frame) {
     AnimationScriptId id;
     id.value = (int)value;
     AnimationTreeNode* node = reinterpret_cast<AnimationTreeNode*>(
-        AnimationManager_Find_004491c0(g_sprt_ctrl, id));
+        AnimationManager_Find(g_sprt_ctrl, id));
     if (node != 0) {
         node->stop_frame = frame;
         if (!node->children_flagged) {

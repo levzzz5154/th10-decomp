@@ -23,7 +23,7 @@ static __forceinline HintHandle_00419120* AsHandle(void** result) {
     return reinterpret_cast<HintHandle_00419120*>(result);
 }
 
-static inline void StartScale(HintVm_00419120* vm,
+static inline void StartScale(HintVm* vm,
         HintScalePair_00419120* to, HintScalePair_00419120* from) {
     reinterpret_cast<EntityMovementSlot_0041ab70*>(vm)->Initialise(
         reinterpret_cast<const MovementPair_0041ab70*>(to),
@@ -47,7 +47,7 @@ int HintLink_00419120::Drain(
         IndicatorHandle_Remove(state->handles[state->slot]);
         entry->position.y += entry->intensity * 8.0f;
 
-        HintVm_00419120* vm;
+        HintVm* vm;
         if (entry->intensity <= 1.0f) {
             void* animations = g_ascii_manager->text_animations;
             void* created;
@@ -105,7 +105,7 @@ int HintLink_00419120::Drain(
             state->positions[state->slot] = vm->position;
             state->positions[state->slot].x += entry->offset * 0.5f;
             state->widths[state->slot] = entry->offset;
-            reinterpret_cast<RecoveryTextVm_00447a50*>(vm)->MarkText(
+            reinterpret_cast<RecoveryTextVm*>(vm)->MarkText(
                 g_sprt_ctrl, 0x00FFFFFFu, static_cast<const char*>(entry->text));
             vm->flags = (vm->flags & 0xFFF7FFFFu) | 0x00040000u;
             break;

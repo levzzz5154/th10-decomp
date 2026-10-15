@@ -2,7 +2,7 @@
 #include <string.h>
 
 extern "C" void* __cdecl entry_malloc_00452706(unsigned int);
-extern "C" void __cdecl entry_free_00452422(void*);
+extern "C" void __cdecl crt_free(void*);
 
 struct MidiChunkHeader {
     char tag[4];
@@ -20,12 +20,12 @@ struct MidiFileHeader {
 void MidiSequencer::ReleaseTracks() {
     for (int index = 0; index < track_count; ++index) {
         if (tracks[index].data) {
-            entry_free_00452422(tracks[index].data);
+            crt_free(tracks[index].data);
             tracks[index].data = 0;
         }
     }
     if (tracks) {
-        entry_free_00452422(tracks);
+        crt_free(tracks);
         tracks = 0;
     }
     tracks = 0;

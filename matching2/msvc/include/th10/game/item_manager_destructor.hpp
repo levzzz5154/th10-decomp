@@ -6,7 +6,7 @@
 #include "th10/platform/thread_sync.hpp"
 extern "C" void* g_func_ctrl;
 extern "C" void* g_item_manager;
-extern "C" void __cdecl entry_free_00452422(void*);
+extern "C" void __cdecl crt_free(void*);
 void* __cdecl operator new(unsigned int);
 void __cdecl operator delete(void*);
 struct Item: Entity {

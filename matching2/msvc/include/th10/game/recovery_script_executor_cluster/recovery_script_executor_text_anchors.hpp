@@ -14,7 +14,7 @@ struct RecoveryTextResource_004479d0 {
     float bottom;                          // +014
 };
 
-struct RecoveryTextVm_00447a50 {
+struct RecoveryTextVm {
     unsigned char reserved_000[0x35C];
     unsigned int flags_35c;
     unsigned int flags_360;
@@ -37,13 +37,13 @@ typedef char RecoveryTextResourceTextureOffsetCheck[
 typedef char RecoveryTextResourceBoundsOffsetCheck[
     offsetof(RecoveryTextResource_004479d0, left) == 8 ? 1 : -1];
 typedef char RecoveryTextVmFlagsOffsetCheck[
-    offsetof(RecoveryTextVm_00447a50, flags_35c) == 0x35C ? 1 : -1];
+    offsetof(RecoveryTextVm, flags_35c) == 0x35C ? 1 : -1];
 typedef char RecoveryTextVmModeOffsetCheck[
-    offsetof(RecoveryTextVm_00447a50, flags_360) == 0x360 ? 1 : -1];
+    offsetof(RecoveryTextVm, flags_360) == 0x360 ? 1 : -1];
 typedef char RecoveryTextVmResourceOffsetCheck[
-    offsetof(RecoveryTextVm_00447a50, resource) == 0x394 ? 1 : -1];
+    offsetof(RecoveryTextVm, resource) == 0x394 ? 1 : -1];
 typedef char RecoveryTextVmFontOffsetCheck[
-    offsetof(RecoveryTextVm_00447a50, font_height) == 0x3A0 ? 1 : -1];
+    offsetof(RecoveryTextVm, font_height) == 0x3A0 ? 1 : -1];
 
 __declspec(noinline) char* __stdcall RecoveryDecodePath_00417010(
     const unsigned char* encoded);

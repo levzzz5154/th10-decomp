@@ -22,8 +22,8 @@
 // The point the aim commands fall back to: the player origin, with the point
 // supplied in EAX by the co-compiled callee 0x00426660 (the type arrives with
 // the angle_from_point.cpp anchor included below).
-struct AnimationResource_0043e710;
-void __stdcall Entity_StartScript_00404f30(AnimationResource_0043e710* resource,
+struct AnimationResourceFile;
+void __stdcall Entity_StartScript(AnimationResourceFile* resource,
                                            Entity* entity, int script);
 
 // The command interpreter; the definition closes this translation unit.
@@ -134,8 +134,8 @@ void ProjectileCommandRuntime::Tick() {
             record.command_index = index + 1;
             continue;
         case 0x4000:
-            Entity_StartScript_00404f30(
-                reinterpret_cast<AnimationResource_0043e710*>(
+            Entity_StartScript(
+                reinterpret_cast<AnimationResourceFile*>(
                     reinterpret_cast<ProjectileSpawnManager*>(g_bullet_manager)->animations),
                 &record.sprite,
                 g_bullet_script_first[command->value_c] + command->value_d);

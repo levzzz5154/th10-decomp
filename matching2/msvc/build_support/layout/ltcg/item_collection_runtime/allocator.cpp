@@ -75,7 +75,7 @@ __declspec(noinline) int ItemSpawnManager_0041bb00::Spawn(
         item->motion.display_kind=kind;
         if (kind==10) {
             item->motion.display_kind=1;
-            Entity_StartScript_00404f30(static_cast<AnimationResource_0043e710*>(g_bullet_manager->item_animation), &item->animation,375);
+            Entity_StartScript(static_cast<AnimationResourceFile*>(g_bullet_manager->item_animation), &item->animation,375);
             item->animation.primary_color=identifier;
             return 0;
         }
@@ -83,7 +83,7 @@ __declspec(noinline) int ItemSpawnManager_0041bb00::Spawn(
         int script;
         if (kind==11) { item->motion.display_kind=4; script=378; }
         else script=kind+374;
-        Entity_StartScript_00404f30(static_cast<AnimationResource_0043e710*>(bank.value->item_animation), &item->animation,script);
+        Entity_StartScript(static_cast<AnimationResourceFile*>(bank.value->item_animation), &item->animation,script);
         item->animation.primary_color=identifier;
         return 0;
     }

@@ -73,7 +73,7 @@
       "address": "0x00401000",
       "kind": "code"
     },
-    "?CreateOffset@AnimationResource_0043e710@@QAE?AUAnimationRef@@HPBUVector3@@@Z": {
+    "?CreateOffset@AnimationResourceFile@@QAE?AUAnimationRef@@HPBUVector3@@@Z": {
       "address": "0x00401000",
       "kind": "code"
     },
@@ -120,7 +120,7 @@
     "?SetScorePolar@ScoreGameplayPolarVector@@QAEPAU1@MM@Z": "0x00408750",
     "?Queue@SoundQueue@@QAEHHH@Z": "0x0043DC90",
     "?QueuePan@SoundQueue@@QAEXHM@Z": "0x0043DD10",
-    "?Entity_StartScript_00404f30@@YGXPAUAnimationResource_0043e710@@PAUEntity@@H@Z": "0x00404F30",
+    "?Entity_StartScript@@YGXPAUAnimationResourceFile@@PAUEntity@@H@Z": "0x00404F30",
     "?Activate@PlayerCollisionRecord@@QAEHXZ": "0x00408030",
     "?EnemyGrid_ScanCells_004073e0@@YGHPAUProjectilePattern_004073e0@@PAUProjectileManager_004073e0@@@Z": "0x004073E0",
     "?SpawnPatternCell_004067d0@@YGHPAUProjectilePattern_004073e0@@PAUProjectileManager_004073e0@@HHM@Z": "0x004067D0"

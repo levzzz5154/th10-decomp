@@ -10,7 +10,7 @@
 #include "th10/math/timer.hpp"
 
 struct SchedulerTask;
-extern "C" void __cdecl entry_free_00452422(void*);
+extern "C" void __cdecl crt_free(void*);
 
 // The player's own sprite. Its destructor (0x00401FF0, shared with the other
 // 0x3AC-byte sprites) frees the sprite's resource block.
@@ -21,7 +21,7 @@ struct PlayerSprite : Entity {
 #endif
     ~PlayerSprite() {
         if (resource)
-            entry_free_00452422(resource);
+            crt_free(resource);
         resource = 0;
     }
 };

@@ -37,7 +37,7 @@ public:
 };
 
 
-struct AnimationResource_00449870 {
+struct AnimationBank {
     __declspec(noinline) void* InitializeObject(void* object, int index);
 };
 struct AnimationPosition_00448d50 {
@@ -53,7 +53,7 @@ __declspec(noinline) void** __stdcall AnimationManager_CreatePositionedPrimary_0
 typedef void (__fastcall *AnimationInitializer_0040b1b0)(Entity* object, void* context);
 typedef void (*AnimationCallback_0040b1b0)(Entity* object);
 extern "C" __declspec(noinline) AnimationScriptId* __stdcall AnimationCreateWithCallbacks_0040b1b0(
-    AnimationScriptId* out, AnimationResource_00449870* resource, AnimationScriptId script,
+    AnimationScriptId* out, AnimationBank* resource, AnimationScriptId script,
     void* context, AnimationInitializer_0040b1b0 initialize,
     AnimationCallback_0040b1b0 update, AnimationCallback_0040b1b0 draw);
 struct TitleEffectState_0041fdd0;

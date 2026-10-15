@@ -5,7 +5,7 @@
 struct TitleEffectState_0041fdd0 {
     unsigned char reserved_000[0x3DC];
     int signature_handle; // +0x3DC
-    AnimationResource_00449870* signature_resource; // +0x3E0
+    AnimationBank* signature_resource; // +0x3E0
     int signature_ready; // +0x3E4
     int interface_ready; // +0x3E8
     int frame_counter; // +0x3EC
@@ -20,7 +20,7 @@ struct TitleGameThread_0041fdd0 {
 #pragma code_seg(".text$05title")
 extern "C" int __stdcall TitleEffectsAdvance_0041fdd0(TitleEffectState_0041fdd0* state) {
     if (state->signature_ready == 1) {
-        AnimationResource_00449870* resource = state->signature_resource;
+        AnimationBank* resource = state->signature_resource;
         Entity* object = ((AnimationPool*)g_sprt_ctrl)->Allocate();
         unsigned int flags = object->AnimationFlags();
         object->render_bucket = 15;

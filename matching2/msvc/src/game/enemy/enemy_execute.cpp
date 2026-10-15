@@ -593,12 +593,12 @@ int Enemy::Execute_0040e770() {
     }
     case 0x1a6: {
         int index = IOP(0);
-        if (g_rank_00474c98 >= 0x200) {
+        if (g_rank >= 0x200) {
             shooters[index].speed_1 = FOP(5);
             shooters[index].speed_2 = FOP(6);
             return 0;
         }
-        if (g_rank_00474c98 >= -0x200) {
+        if (g_rank >= -0x200) {
             shooters[index].speed_1 = FOP(3);
             shooters[index].speed_2 = FOP(4);
         } else {
@@ -609,22 +609,22 @@ int Enemy::Execute_0040e770() {
     }
     case 0x1a7: {
         int index = IOP(0);
-        if (g_rank_00474c98 >= 600) {
+        if (g_rank >= 600) {
             shooters[index].speed_1 = FOP(9);
             shooters[index].speed_2 = FOP(10);
             return 0;
         }
-        if (g_rank_00474c98 >= 200) {
+        if (g_rank >= 200) {
             shooters[index].speed_1 = FOP(7);
             shooters[index].speed_2 = FOP(8);
             return 0;
         }
-        if (g_rank_00474c98 >= -200) {
+        if (g_rank >= -200) {
             shooters[index].speed_1 = FOP(5);
             shooters[index].speed_2 = FOP(6);
             return 0;
         }
-        if (g_rank_00474c98 >= -600) {
+        if (g_rank >= -600) {
             shooters[index].speed_1 = FOP(3);
             shooters[index].speed_2 = FOP(4);
         } else {
@@ -639,18 +639,18 @@ int Enemy::Execute_0040e770() {
         float low_2 = FOP(2);
         float high_1 = FOP(3);
         float high_2 = FOP(4);
-        shooters[index].speed_1 = ((float)g_rank_00474c98 + 1024.0f) * (high_1 - low_1) / 2048.0f + low_1;
-        shooters[index].speed_2 = ((float)g_rank_00474c98 + 1024.0f) * (high_2 - low_2) / 2048.0f + low_2;
+        shooters[index].speed_1 = ((float)g_rank + 1024.0f) * (high_1 - low_1) / 2048.0f + low_1;
+        shooters[index].speed_2 = ((float)g_rank + 1024.0f) * (high_2 - low_2) / 2048.0f + low_2;
         return 0;
     }
     case 0x1a9: {
         int index = IOP(0);
-        if (g_rank_00474c98 >= 0x200) {
+        if (g_rank >= 0x200) {
             shooters[index].count_1 = IOP(5);
             shooters[index].count_2 = IOP(6);
             return 0;
         }
-        if (g_rank_00474c98 >= -0x200) {
+        if (g_rank >= -0x200) {
             shooters[index].count_1 = IOP(3);
             shooters[index].count_2 = IOP(4);
         } else {
@@ -661,22 +661,22 @@ int Enemy::Execute_0040e770() {
     }
     case 0x1aa: {
         int index = IOP(0);
-        if (g_rank_00474c98 >= 600) {
+        if (g_rank >= 600) {
             shooters[index].count_1 = IOP(9);
             shooters[index].count_2 = IOP(10);
             return 0;
         }
-        if (g_rank_00474c98 >= 200) {
+        if (g_rank >= 200) {
             shooters[index].count_1 = IOP(7);
             shooters[index].count_2 = IOP(8);
             return 0;
         }
-        if (g_rank_00474c98 >= -200) {
+        if (g_rank >= -200) {
             shooters[index].count_1 = IOP(5);
             shooters[index].count_2 = IOP(6);
             return 0;
         }
-        if (g_rank_00474c98 >= -600) {
+        if (g_rank >= -600) {
             shooters[index].count_1 = IOP(3);
             shooters[index].count_2 = IOP(4);
         } else {
@@ -691,8 +691,8 @@ int Enemy::Execute_0040e770() {
         int low_2 = IOP(2);
         int high_1 = IOP(3);
         int high_2 = IOP(4);
-        shooters[index].count_1 = (high_1 - low_1) * (g_rank_00474c98 + 1024) / 2048 + low_1;
-        shooters[index].count_2 = (high_2 - low_2) * (g_rank_00474c98 + 1024) / 2048 + low_2;
+        shooters[index].count_1 = (high_1 - low_1) * (g_rank + 1024) / 2048 + low_1;
+        shooters[index].count_2 = (high_2 - low_2) * (g_rank + 1024) / 2048 + low_2;
         return 0;
     }
     case 0x197: {
@@ -830,8 +830,8 @@ int Enemy::Execute_0040e770() {
         memset(&params, 0, sizeof(params));
         if (ins->id == 0x1b1) memcpy(params.ex, shooters[0].ex, sizeof(params.ex));
         params.position = shoot_offset[0] + position;
-        params.type = IntArg_00412a00(0);
-        params.color = IntArg_00412a00(1);
+        params.type = IntArg(0);
+        params.color = IntArg(1);
         params.f0c = FOP(2);
         params.f20 = FOP(3);
         params.f14 = FOP(4);
@@ -849,48 +849,48 @@ int Enemy::Execute_0040e770() {
         int* result = IntDest_00412a10(0);
         if (ins->id == 0x1b2) memcpy(params.ex, shooters[0].ex, sizeof(params.ex));
         params.position = shoot_offset[0] + position;
-        params.type = IntArg_00412a00(1);
-        params.color = IntArg_00412a00(2);
+        params.type = IntArg(1);
+        params.color = IntArg(2);
         params.f18 = FOP(3);
         params.f24 = FOP(4);
         params.f20 = FOP(5);
-        params.f30 = IntArg_00412a00(6);
-        params.f34 = IntArg_00412a00(7);
-        params.f38 = IntArg_00412a00(8);
-        params.f3c = IntArg_00412a00(9);
+        params.f30 = IntArg(6);
+        params.f34 = IntArg(7);
+        params.f38 = IntArg(8);
+        params.f3c = IntArg(9);
         params.f28 = FOP(10);
-        params.flags = IntArg_00412a00(11) & ~2u;
+        params.flags = IntArg(11) & ~2u;
         int id = g_laser_manager->Spawn_0041c510(&params, 1);
         if (result) *result = id;
         return 0;
     }
     case 0x19e: {
-        Laser* laser = g_laser_manager->FindById_0040cf90(IntArg_00412a00(0));
+        Laser* laser = g_laser_manager->FindById_0040cf90(IntArg(0));
         if (laser) laser->f24 = Float3(FOP(1), FOP(2), 0.0f);
         return 0;
     }
     case 0x19f: {
-        Laser* laser = g_laser_manager->FindById_0040cf90(IntArg_00412a00(0));
+        Laser* laser = g_laser_manager->FindById_0040cf90(IntArg(0));
         if (laser) laser->SetVector_0040cf60(Float3(FOP(1), FOP(2), 0.0f));
         return 0;
     }
     case 0x1a0: {
-        Laser* laser = g_laser_manager->FindById_0040cf90(IntArg_00412a00(0));
+        Laser* laser = g_laser_manager->FindById_0040cf90(IntArg(0));
         if (laser) laser->f48 = FOP(1);
         return 0;
     }
     case 0x1a1: {
-        Laser* laser = g_laser_manager->FindById_0040cf90(IntArg_00412a00(0));
+        Laser* laser = g_laser_manager->FindById_0040cf90(IntArg(0));
         if (laser) laser->f44 = FOP(1);
         return 0;
     }
     case 0x1a2: {
-        Laser* laser = g_laser_manager->FindById_0040cf90(IntArg_00412a00(0));
+        Laser* laser = g_laser_manager->FindById_0040cf90(IntArg(0));
         if (laser) laser->f3c = FOP(1);
         return 0;
     }
     case 0x1a3: {
-        Laser* laser = g_laser_manager->FindById_0040cf90(IntArg_00412a00(0));
+        Laser* laser = g_laser_manager->FindById_0040cf90(IntArg(0));
         if (laser) laser->f440 = FOP(1);
         return 0;
     }
@@ -907,27 +907,27 @@ int Enemy::Execute_0040e770() {
         return 0;
     }
     case 0x158:
-        Score_SetMode_00412ed0(&g_globals, IntArg_00412a00(0));
+        Score_SetMode_00412ed0(&g_globals, IntArg(0));
         return 0;
     case 0x15d:
-        if (g_rank_00474c98 >= 0x200) *FloatDest(0) = FOP(2);
-        else if (g_rank_00474c98 > -0x200) *FloatDest(0) = FOP(0);
+        if (g_rank >= 0x200) *FloatDest(0) = FOP(2);
+        else if (g_rank > -0x200) *FloatDest(0) = FOP(0);
         else *FloatDest(0) = FOP(0);
         return 0;
     case 0x15e:
-        if (g_rank_00474c98 >= 600) {
+        if (g_rank >= 600) {
             *FloatDest(0) = FOP(4);
             return 0;
         }
-        if (g_rank_00474c98 >= 200) {
+        if (g_rank >= 200) {
             *FloatDest(0) = FOP(3);
             return 0;
         }
-        if (g_rank_00474c98 >= -200) {
+        if (g_rank >= -200) {
             *FloatDest(0) = FOP(2);
             return 0;
         }
-        if (g_rank_00474c98 >= -400) {
+        if (g_rank >= -400) {
             *FloatDest(0) = FOP(1);
         } else {
             *FloatDest(0) = FOP(0);
@@ -936,48 +936,48 @@ int Enemy::Execute_0040e770() {
     case 0x15f: {
         float low = FOP(1);
         float high = FOP(2);
-        *FloatDest(0) = ((float)g_rank_00474c98 + 1024.0f) * (high - low) / 2048.0f + low;
+        *FloatDest(0) = ((float)g_rank + 1024.0f) * (high - low) / 2048.0f + low;
         return 0;
     }
     case 0x160:
-        if (g_rank_00474c98 >= 0x200) *IntDest_00412a10(0) = IntArg_00412a00(2);
-        else if (g_rank_00474c98 > -0x200) *IntDest_00412a10(0) = IntArg_00412a00(0);
-        else *IntDest_00412a10(0) = IntArg_00412a00(0);
+        if (g_rank >= 0x200) *IntDest_00412a10(0) = IntArg(2);
+        else if (g_rank > -0x200) *IntDest_00412a10(0) = IntArg(0);
+        else *IntDest_00412a10(0) = IntArg(0);
         return 0;
     case 0x161:
-        if (g_rank_00474c98 >= 600) {
-            *IntDest_00412a10(0) = IntArg_00412a00(4);
+        if (g_rank >= 600) {
+            *IntDest_00412a10(0) = IntArg(4);
             return 0;
         }
-        if (g_rank_00474c98 >= 200) {
-            *IntDest_00412a10(0) = IntArg_00412a00(3);
+        if (g_rank >= 200) {
+            *IntDest_00412a10(0) = IntArg(3);
             return 0;
         }
-        if (g_rank_00474c98 >= -200) {
-            *IntDest_00412a10(0) = IntArg_00412a00(2);
+        if (g_rank >= -200) {
+            *IntDest_00412a10(0) = IntArg(2);
             return 0;
         }
-        if (g_rank_00474c98 >= -400) {
-            *IntDest_00412a10(0) = IntArg_00412a00(1);
+        if (g_rank >= -400) {
+            *IntDest_00412a10(0) = IntArg(1);
         } else {
-            *IntDest_00412a10(0) = IntArg_00412a00(0);
+            *IntDest_00412a10(0) = IntArg(0);
         }
         return 0;
     case 0x162: {
-        int low = IntArg_00412a00(1);
-        int high = IntArg_00412a00(2);
-        *IntDest_00412a10(0) = (high - low) * (g_rank_00474c98 + 1024) / 2048 + low;
+        int low = IntArg(1);
+        int high = IntArg(2);
+        *IntDest_00412a10(0) = (high - low) * (g_rank + 1024) / 2048 + low;
         return 0;
     }
     case 0x168:
-        g_front->f9e90 = IntArg_00412a00(0);
+        g_front->f9e90 = IntArg(0);
         return 0;
     case 0x16d:
         g_laser_manager->MarkEligible_0041c7d0();
         return 0;
     case 0x16e:
-        f20 = IntArg_00412a00(0);
-        f1448 = IntArg_00412a00(1);
+        f20 = IntArg(0);
+        f1448 = IntArg(1);
         f21 = 0;
         f144c = anm_base_script;
         return 0;
@@ -989,10 +989,10 @@ int Enemy::Execute_0040e770() {
         return 0;
     case 0x170: {
         float wait;
-        if (g_difficulty_00474c74 == 0) wait = (float)IntArg_00412a00(0);
-        else if (g_difficulty_00474c74 == 1) wait = (float)IntArg_00412a00(1);
-        else if (g_difficulty_00474c74 == 2) wait = (float)IntArg_00412a00(2);
-        else wait = (float)IntArg_00412a00(3);
+        if (g_difficulty_00474c74 == 0) wait = (float)IntArg(0);
+        else if (g_difficulty_00474c74 == 1) wait = (float)IntArg(1);
+        else if (g_difficulty_00474c74 == 2) wait = (float)IntArg(2);
+        else wait = (float)IntArg(3);
         ecl->active->time -= wait;
         break;
     }

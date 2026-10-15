@@ -8,7 +8,7 @@
 int SpriteRegion_00424480::BindToAnimation(AnimationHandle_00424480 handle,
         int new_left, int new_top, int new_width, int new_height) {
     AnimationScriptId id; id.value = (int)handle.value;
-    AnimationObject_00424480* animation = reinterpret_cast<AnimationObject_00424480*>(AnimationManager_Find_004491c0(g_sprt_ctrl, id));
+    AnimationObject_00424480* animation = reinterpret_cast<AnimationObject_00424480*>(AnimationManager_Find(g_sprt_ctrl, id));
     AnimationSprite_00424480* sprite = animation->sprite;
     return Set(*animation->texture, new_left, new_top, new_width, new_height,
         static_cast<int>(sprite->left), static_cast<int>(sprite->top),

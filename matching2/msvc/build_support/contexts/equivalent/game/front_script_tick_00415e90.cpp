@@ -21,7 +21,7 @@ static DispatcherMusicRecord* MusicRecord() { return g_stage_route_current; }
 // back through the record the caller supplies (EDI), and the caller reads it
 // through the returned pointer.
 __declspec(noinline) int* __stdcall DispatcherCreateAt(
-    AnimationResource_00449870* resource, int* out, int script_index, int render_bucket);
+    AnimationBank* resource, int* out, int script_index, int render_bucket);
 #define CREATE_INTO(target, resource, script) \
     { int created; target = *DispatcherCreateAt(resource, &created, script, 15); }
 
@@ -102,8 +102,8 @@ ResultDispatcher_00415e90(ResultDispatcherState* state) {
                 break;
             case 1:
                 switch (g_globals_character) {
-                case 0: CREATE_INTO(state->left_portrait.id.value, static_cast<AnimationResource_00449870*>(g_player->animation_file), 0x1D) break;
-                case 1: CREATE_INTO(state->left_portrait.id.value, static_cast<AnimationResource_00449870*>(g_player->animation_file), 0x1D) break;
+                case 0: CREATE_INTO(state->left_portrait.id.value, static_cast<AnimationBank*>(g_player->animation_file), 0x1D) break;
+                case 1: CREATE_INTO(state->left_portrait.id.value, static_cast<AnimationBank*>(g_player->animation_file), 0x1D) break;
                 }
                 break;
             case 2:
@@ -119,8 +119,8 @@ ResultDispatcher_00415e90(ResultDispatcherState* state) {
                     }
                 } else {
                     switch (g_globals_character) {
-                    case 0: CREATE_INTO(state->right_portrait.id.value, static_cast<AnimationResource_00449870*>(g_player->animation_file), 0x1E) break;
-                    case 1: CREATE_INTO(state->right_portrait.id.value, static_cast<AnimationResource_00449870*>(g_player->animation_file), 0x1E) break;
+                    case 0: CREATE_INTO(state->right_portrait.id.value, static_cast<AnimationBank*>(g_player->animation_file), 0x1E) break;
+                    case 1: CREATE_INTO(state->right_portrait.id.value, static_cast<AnimationBank*>(g_player->animation_file), 0x1E) break;
                     }
                 }
                 break;

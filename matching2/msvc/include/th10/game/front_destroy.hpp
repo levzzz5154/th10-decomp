@@ -6,7 +6,7 @@
 #include "th10/render/animation_resource_removal.hpp"
 
 void __cdecl operator delete(void* block);
-extern "C" void __cdecl entry_free_00452422(void* block);
+extern "C" void __cdecl crt_free(void* block);
 
 struct AnimationLookupContext;
 struct AnimationScriptId {

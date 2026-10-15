@@ -42,7 +42,7 @@ extern "C" double __cdecl parser_atof(const char*);
 extern "C" char* __cdecl parser_strrchr(const char*, int);
 extern "C" char* __cdecl parser_strncpy(char*, const char*, unsigned int);
 extern "C" void __cdecl parser_free(void*);
-extern "C" void __cdecl entry_free_004524a1(void*);
+extern "C" void __cdecl crt_free_startup(void*);
 extern "C" void* __cdecl asm_malloc_00452706(unsigned int);
 struct NamedValue {
     const char* key;

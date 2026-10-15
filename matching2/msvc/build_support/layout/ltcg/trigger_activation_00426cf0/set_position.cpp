@@ -18,7 +18,7 @@ typedef char TriggerPositionOffset[
 void DispatcherSetPosition(AnimationLookupContext* context,
         const DispatcherVec3* position, AnimationScriptId id) {
     TriggerPositionObject* object = reinterpret_cast<TriggerPositionObject*>(
-        AnimationManager_Find_004491c0(context, id));
+        AnimationManager_Find(context, id));
     if (object) {
         object->position = *position;
         if (!object->children_flagged)

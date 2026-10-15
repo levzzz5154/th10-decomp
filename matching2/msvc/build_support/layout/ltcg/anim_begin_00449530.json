@@ -44,7 +44,7 @@
       "kind": "data"
     },
     {
-      "symbol": "@AnimationManager_Find_004491c0@12",
+      "symbol": "@AnimationManager_Find@12",
       "address": "0x004491C0",
       "kind": "relative_code"
     }

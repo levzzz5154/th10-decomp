@@ -75,7 +75,7 @@ void* FileHandle::ReadWhole(DWORD capacity) {
     if (Seek(position, 0) == 0)
         return 0;
     if (Read(buffer, size) == 0) {
-        entry_free_00452422(buffer);
+        crt_free(buffer);
         return 0;
     }
     Seek(position, 0);

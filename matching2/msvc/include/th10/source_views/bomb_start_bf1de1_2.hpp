@@ -3,7 +3,7 @@
 
 struct PlayerAnimationResources {
     unsigned char pad00[0x3E0B50];
-    AnimationResource_0043e710* resource;
+    AnimationResourceFile* resource;
 };
 typedef PlayerFlags_00405500 PlayerInitializeGlobal;
 extern "C" PlayerAnimationResources* g_bullet_manager;

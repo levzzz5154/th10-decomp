@@ -39,7 +39,7 @@ struct PlayerCollisionRecord {
 struct AnimationRef {
     unsigned char reserved_00[8];
 };
-struct AnimationResource_0043e710 {
+struct AnimationResourceFile {
     unsigned short id;
     unsigned char reserved_002[0x11c - 2];
     void** scripts;
@@ -56,7 +56,7 @@ int PlayerCollisionRecord::Activate() {
         state = 3;
         animation_state = 1;
         if (animation_index >= 0) {
-            reinterpret_cast<AnimationResource_0043e710*>(g_bullet_manager)
+            reinterpret_cast<AnimationResourceFile*>(g_bullet_manager)
                 ->CreateOffset(animation_index,
                                reinterpret_cast<const Vector3*>(&position));
         }

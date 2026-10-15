@@ -1,7 +1,7 @@
 // Compiler context and ABI anchor only; none of these bytes enter the image.
 #include "../../../src/unreferenced/unassigned_0040d660.cpp"
 
-extern "C" void __cdecl entry_free_00452422(void* memory);
+extern "C" void __cdecl crt_free(void* memory);
 
 // 0x0040D680's body, compiled only so the whole-program pass can carry its
 // object in ESI: no declaration names that register, and the pointer has to
@@ -13,7 +13,7 @@ void BulletEntity_0040d680::ReleaseResource() {
     void* const resource = owned_resource;
     vtable = 0x0046D0F0;
     if (resource != 0) {
-        entry_free_00452422(resource);
+        crt_free(resource);
         owned_resource = 0;
     }
 }

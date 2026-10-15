@@ -22,8 +22,8 @@
 #include "th10/math/angle.hpp"
 #include "th10/math/rng.hpp"
 
-struct AnimationResource_0043e710;
-void __stdcall Entity_StartScript_00404f30(AnimationResource_0043e710* resource,
+struct AnimationResourceFile;
+void __stdcall Entity_StartScript(AnimationResourceFile* resource,
                                            Entity* entity, int script);
 extern "C" int __stdcall RunAnimationVm(void* object);
 extern "C" RngState g_rng;
@@ -180,8 +180,8 @@ int __stdcall SpawnPatternCell_004067d0(ProjectilePattern_004073e0* pattern,
     record->field_7ea = blueprint->colour;
     record->flags = (record->flags & ~0xCu) | 2u;
     record->field_454 = 0;
-    Entity_StartScript_00404f30(
-        reinterpret_cast<AnimationResource_0043e710*>(
+    Entity_StartScript(
+        reinterpret_cast<AnimationResourceFile*>(
             manager->animations),
         &record->sprite,
         g_bullet_script_first[blueprint->colour] + blueprint->script_offset);

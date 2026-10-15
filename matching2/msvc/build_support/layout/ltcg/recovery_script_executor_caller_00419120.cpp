@@ -21,20 +21,20 @@ struct HintScalePair_00419120 {
     float y;
 };
 
-static inline HintVm_00419120* FindIndicatorInline(
+static inline HintVm* FindIndicatorInline(
         void* manager, unsigned int id) {
     if (id == 0)
         return 0;
-    RecoveryLookupContext_0040bd80* context =
-        static_cast<RecoveryLookupContext_0040bd80*>(manager);
+    RecoveryLookupContext* context =
+        static_cast<RecoveryLookupContext*>(manager);
     for (RecoveryLookupNode_0040bd80* node = context->primary;
          node != 0; node = node->next)
         if (*reinterpret_cast<unsigned int*>(node->object) == id)
-            return reinterpret_cast<HintVm_00419120*>(node->object);
+            return reinterpret_cast<HintVm*>(node->object);
     for (RecoveryLookupNode_0040bd80* node = context->secondary;
          node != 0; node = node->next)
         if (*reinterpret_cast<unsigned int*>(node->object) == id)
-            return reinterpret_cast<HintVm_00419120*>(node->object);
+            return reinterpret_cast<HintVm*>(node->object);
     return 0;
 }
 
@@ -55,7 +55,7 @@ int HintLink_00419120::Drain(
         }
 
         unsigned int* old_handle = &state->handles[state->slot];
-        HintVm_00419120* old_vm =
+        HintVm* old_vm =
             FindIndicatorInline(manager, *old_handle);
         if (old_vm != 0) {
             old_vm->flags |= 0x04000000u;
@@ -67,7 +67,7 @@ int HintLink_00419120::Drain(
         *old_handle = 0;
         entry->position.y += entry->intensity * recovery_indicator_eight_00470bd0;
 
-        HintVm_00419120* vm;
+        HintVm* vm;
         if (entry->intensity <= recovery_indicator_one_00470afc) {
             void* result;
             state->handles[state->slot] = reinterpret_cast<unsigned int>(
@@ -97,10 +97,10 @@ int HintLink_00419120::Drain(
                     static_cast<HintThread_00419120*>(g_ascii_manager)->resource,
                     &result, state->slot + 12, &entry->position));
             unsigned int* handle = &state->handles[state->slot];
-            RecoveryScriptId_0040bd80 id = { static_cast<int>(*handle) };
-            vm = static_cast<HintVm_00419120*>(
+            RecoveryScriptId id = { static_cast<int>(*handle) };
+            vm = static_cast<HintVm*>(
                 reinterpret_cast<RecoveryLookup_0040bd80*>(g_sprt_ctrl)->Find(
-                    static_cast<RecoveryLookupContext_0040bd80*>(g_sprt_ctrl), id));
+                    static_cast<RecoveryLookupContext*>(g_sprt_ctrl), id));
             if (vm == 0)
                 *handle = 0;
             unsigned char font_size = static_cast<unsigned char>(
@@ -126,10 +126,10 @@ int HintLink_00419120::Drain(
                     &result, state->slot + 12, &entry->position));
             manager = g_sprt_ctrl;
             unsigned int* handle = &state->handles[state->slot];
-            RecoveryScriptId_0040bd80 id = { static_cast<int>(*handle) };
-            vm = static_cast<HintVm_00419120*>(
+            RecoveryScriptId id = { static_cast<int>(*handle) };
+            vm = static_cast<HintVm*>(
                 reinterpret_cast<RecoveryLookup_0040bd80*>(manager)->Find(
-                    static_cast<RecoveryLookupContext_0040bd80*>(manager), id));
+                    static_cast<RecoveryLookupContext*>(manager), id));
             if (vm == 0)
                 *handle = 0;
             vm->font_width = 30;
@@ -157,7 +157,7 @@ int HintLink_00419120::Drain(
             state->positions[state->slot] = vm->position;
             state->positions[state->slot].x += entry->offset * recovery_indicator_half_00470b0c;
             state->values[state->slot] = entry->offset;
-            reinterpret_cast<RecoveryTextVm_00447a50*>(vm)->MarkText(
+            reinterpret_cast<RecoveryTextVm*>(vm)->MarkText(
                 manager, 0x00FFFFFFu, static_cast<const char*>(entry->text));
             vm->flags = (vm->flags & 0xFFF7FFFFu) | 0x00040000u;
             manager = g_sprt_ctrl;

@@ -86,13 +86,13 @@ void TipManager::Clear() {
         TipNode* node = lists[i].next;
         while (node) {
             TipNode* next = node->next;
-            entry_free_004524a1(node->owner);
+            crt_free_startup(node->owner);
             node = next;
         }
         node = lists[i + 8].next;
         while (node) {
             TipNode* next = node->next;
-            entry_free_004524a1(node->owner);
+            crt_free_startup(node->owner);
             node = next;
         }
     }

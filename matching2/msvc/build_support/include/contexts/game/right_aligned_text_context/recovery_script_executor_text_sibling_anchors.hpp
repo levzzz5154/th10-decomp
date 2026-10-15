@@ -10,5 +10,5 @@
 // The width offset assertion lives in the shared resource header.
 
 // The genuine variadic member prototypes FormatRightAligned and FormatCentered
-// belong to HintVm_00419120 in the caller's shared header.
+// belong to HintVm in the caller's shared header.
 #endif

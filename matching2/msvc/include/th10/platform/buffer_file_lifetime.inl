@@ -5,7 +5,7 @@
 #define TH10_BUFFER_DESTRUCTOR_ATTRIBUTES
 #endif
 
-extern "C" void __cdecl entry_free_00452422(void*);
+extern "C" void __cdecl crt_free(void*);
 
 TH10_BUFFER_DESTRUCTOR_ATTRIBUTES inline BufferFile::~BufferFile() {
     Close();
@@ -13,7 +13,7 @@ TH10_BUFFER_DESTRUCTOR_ATTRIBUTES inline BufferFile::~BufferFile() {
 
 inline void BufferFile::Close() {
     if (data_) {
-        entry_free_00452422(data_);
+        crt_free(data_);
         data_ = 0;
     }
     data_ = 0;

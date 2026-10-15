@@ -13,7 +13,7 @@
   "functions": [
     {
       "name": "EntityArray_StartScripts_004415c0",
-      "symbol": "?EntityArray_StartScripts_004415c0@@YGXPAUEntity@@HHPAUAnimationResource_0043e710@@@Z",
+      "symbol": "?EntityArray_StartScripts_004415c0@@YGXPAUEntity@@HHPAUAnimationResourceFile@@@Z",
       "section": ".text$03m_array",
       "address": "0x004415C0",
       "size": 57,
@@ -37,7 +37,7 @@
     },
     {
       "name": "Entity_StartScript_anchor",
-      "symbol": "?Entity_StartScript_00404f30@@YGXPAUAnimationResource_0043e710@@PAUEntity@@H@Z",
+      "symbol": "?Entity_StartScript@@YGXPAUAnimationResourceFile@@PAUEntity@@H@Z",
       "section": ".text$00p_start",
       "address": "0x00404F30",
       "size": 202

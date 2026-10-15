@@ -69,14 +69,14 @@ __declspec(noinline) int __stdcall TitleMode12_004315c0(Title* room) {
         UpdateBoundedCounter(g_title_replay_selection, reinterpret_cast<unsigned int*>(&room->cursor));
         g_title_replay_selection = 0;
         if (reinterpret_cast<RecoveryLookup_0040bd80*>(g_sprt_ctrl)->Find(
-                reinterpret_cast<RecoveryLookupContext_0040bd80*>(g_sprt_ctrl),
-                *reinterpret_cast<RecoveryScriptId_0040bd80*>(&room->animation_slots[94])) == 0) {
-            RecoveryMusicInstallSlot_0042c670(room, 94);
+                reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl),
+                *reinterpret_cast<RecoveryScriptId*>(&room->animation_slots[94])) == 0) {
+            RecoveryMusicInstallSlot(room, 94);
             void* resource = g_ascii_manager->animation_resource;
             void** result = AnimationManager_CreatePrimaryBack_00448d00(resource, &handle, 8, 15);
             room->fallback_handle.value = reinterpret_cast<unsigned int>(*result);
         }
-        RecoveryMusicInstallSlot_0042c670(room, 101);
+        RecoveryMusicInstallSlot(room, 101);
         room->SetTimerTarget(1);
         memset(replays->replays, 0, sizeof(replays->replays));
         for (int number = 1; number <= 25; ++number) {

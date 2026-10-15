@@ -22,7 +22,7 @@ struct AnimationLookupContext {
 };
 
 #pragma code_seg(".text$02find")
-__declspec(noinline) void* __fastcall AnimationManager_Find_004491c0(
+__declspec(noinline) void* __fastcall AnimationManager_Find(
         AnimationLookupContext* context, AnimationScriptId id) {
     if (!id.value)
         return 0;
@@ -40,7 +40,7 @@ __declspec(noinline) void* __fastcall AnimationManager_Find_004491c0(
 __declspec(noinline) void* __fastcall AnimationManager_SetFlag_004492a0(
         AnimationLookupContext* context, AnimationScriptId id) {
     AnimationLookupAnchorEntry* entry =
-        (AnimationLookupAnchorEntry*)AnimationManager_Find_004491c0(context, id);
+        (AnimationLookupAnchorEntry*)AnimationManager_Find(context, id);
     if (entry) {
         entry->flags |= 0x4000000;
         if (!entry->children_flagged)

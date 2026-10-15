@@ -111,7 +111,7 @@ int __cdecl MakeDirectory_00452abc(const char*);
 int __cdecl FormatString_00452ae8(char*,const char*,...);
 int __stdcall FileProbe_0044b4d0(const char*);
 long __stdcall CopySurface_004521d6(RenderSurface*,const void*,const RenderRect*,RenderSurface*,const void*,const RenderRect*,unsigned int,unsigned int);
-void __cdecl entry_free_00452422(void*);
+void __cdecl crt_free(void*);
 void* __cdecl retail_malloc_00452706(unsigned int);
 unsigned int __cdecl retail_beginthread_00452eec(void (__cdecl*)(void*),unsigned int,void*);
 void __cdecl ScreenshotWriter(void*);

@@ -143,7 +143,7 @@ extern "C" unsigned int __stdcall asm_D3DXLoadSurfaceFromMemory_004521a6(
 extern "C" void* g_d3d_device;                        // Direct3D device
 extern "C" char str_string_format[];                       // "%s"
 extern "C" int __cdecl sprintf(char* buffer, const char* format, ...);
-extern "C" void __cdecl entry_free_00452422(void*);
+extern "C" void __cdecl crt_free(void*);
 extern "C" unsigned int __stdcall asm_D3DXCreateTextureFromFileInMemoryEx_004521ca(
     void* device, const void* source, unsigned int source_size, unsigned int width,
     unsigned int height, unsigned int mip_levels, unsigned int usage, unsigned int format,

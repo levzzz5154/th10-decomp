@@ -3,7 +3,7 @@
 #include "th10/game/smoll_score_view.hpp"
 void* __cdecl operator new(unsigned int);
 extern "C" void __stdcall asm_FUN_0042b570_0042b570(SmollScore*);
-extern "C" void __cdecl entry_free_004524a1(void*);
+extern "C" void __cdecl crt_free_startup(void*);
 #pragma code_seg(".text$00zbfactory")
 extern "C" __declspec(noinline) SmollScore* __cdecl
 SmollScore_Create() {
@@ -11,7 +11,7 @@ SmollScore_Create() {
     if (reinterpret_cast<SmollScoreView*>(state)->Initialize()) {
         if (state) {
             asm_FUN_0042b570_0042b570(state);
-            entry_free_004524a1(state);
+            crt_free_startup(state);
         }
         return 0;
     }

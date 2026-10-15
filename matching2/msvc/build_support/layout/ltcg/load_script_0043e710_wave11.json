@@ -20,7 +20,7 @@
     }
   ],
   "context": {
-    "symbol": "?LoadScriptCompilerContext@@YGHPAPAUAnimationObject_0043e710@@HPAUAnimationResource_0043e710@@@Z",
+    "symbol": "?LoadScriptCompilerContext@@YGHPAPAUAnimationObjectFile@@HPAUAnimationResourceFile@@@Z",
     "section": ".text$03context",
     "address": "0x0043E7F0",
     "size": 57,

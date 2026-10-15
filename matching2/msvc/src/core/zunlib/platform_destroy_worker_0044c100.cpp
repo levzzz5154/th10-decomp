@@ -1,6 +1,6 @@
 #include "th10/platform/worker.hpp"
 
-extern "C" void __cdecl entry_free_004524a1(void* memory);
+extern "C" void __cdecl crt_free_startup(void* memory);
 
 #pragma code_seg(".text$05destroy")
 __declspec(noinline) PlatformWorker* PlatformWorker::Destroy(
@@ -8,7 +8,7 @@ __declspec(noinline) PlatformWorker* PlatformWorker::Destroy(
     vtable = &platform_worker_vtable;
     Stop();
     if (should_free & 1)
-        entry_free_004524a1(this);
+        crt_free_startup(this);
     return this;
 }
 #pragma code_seg()

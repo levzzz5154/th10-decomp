@@ -188,7 +188,7 @@
     },
     {
       "name": "function_00449870",
-      "symbol": "?InitializeObject@AnimationResource_00449870@@QAEXPAUEntity@@H@Z",
+      "symbol": "?InitializeObject@AnimationBank@@QAEXPAUEntity@@H@Z",
       "section": ".text$f00449870F",
       "address": "0x449870",
       "size": 217,
@@ -389,21 +389,21 @@
     },
     {
       "name": "function_0043e710",
-      "symbol": "?LoadScript@AnimationResource_0043e710@@QAEPAXPAUEntity@@H@Z",
+      "symbol": "?LoadScript@AnimationResourceFile@@QAEPAXPAUEntity@@H@Z",
       "section": ".text$f0043e710F",
       "address": "0x43e710",
       "size": 203
     },
     {
       "name": "function_00448db0",
-      "symbol": "?CreateOffset@AnimationResource_0043e710@@QAE?AUAnimationRef@@HPBUVector3@@@Z",
+      "symbol": "?CreateOffset@AnimationResourceFile@@QAE?AUAnimationRef@@HPBUVector3@@@Z",
       "section": ".text$f00448db0F",
       "address": "0x448db0",
       "size": 111
     },
     {
       "name": "function_00404f30",
-      "symbol": "?Entity_StartScript_00404f30@@YGXPAUAnimationResource_0043e710@@PAUEntity@@H@Z",
+      "symbol": "?Entity_StartScript@@YGXPAUAnimationResourceFile@@PAUEntity@@H@Z",
       "section": ".text$f00404f30F",
       "address": "0x404f30",
       "size": 202
@@ -479,7 +479,7 @@
     "_Player_FireShot@12",
     "_Player_UpdateBullets@4",
     "_Player_Update@4",
-    "?InitializeObject@AnimationResource_00449870@@QAEXPAUEntity@@H@Z"
+    "?InitializeObject@AnimationBank@@QAEXPAUEntity@@H@Z"
   ],
   "gaps": [
     {

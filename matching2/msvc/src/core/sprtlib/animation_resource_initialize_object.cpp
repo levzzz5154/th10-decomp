@@ -11,7 +11,7 @@ struct AnimationFlagValue {
     AnimationFlagValue operator|(unsigned int bits) const { return AnimationFlagValue(value | bits); }
 };
 #pragma code_seg(".text$f00449870F")
-void AnimationResource_00449870::InitializeObject(Entity* object, int index) {
+void AnimationBank::InitializeObject(Entity* object, int index) {
     AnimationFlagValue flags = *reinterpret_cast<AnimationFlagValue*>(&object->AnimationFlags());
     object->Position() = Vector3Value(0.0f, 0.0f, 0.0f);
     object->BasePosition() = Vector3Value(0.0f, 0.0f, 0.0f);

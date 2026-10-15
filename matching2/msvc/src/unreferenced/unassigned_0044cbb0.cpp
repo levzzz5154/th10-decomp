@@ -8,7 +8,7 @@
 // in the native-LTCG cluster build_support/layout/ltcg/dtor_delete_0044cbb0.json whose
 // array-walking synthetic caller establishes that convention.
 
-extern "C" void __cdecl entry_free_004524a1(void* block);
+extern "C" void __cdecl crt_free_startup(void* block);
 extern "C" void (__stdcall* imp_CloseHandle)(void* handle);
 
 struct Deletable_0044cbb0 {
@@ -27,7 +27,7 @@ void* Deletable_0044cbb0_Delete(Deletable_0044cbb0* object, int flags) {
         object->field_8C = -1;
     }
     if ((flags & 1) != 0) {
-        entry_free_004524a1(object);
+        crt_free_startup(object);
     }
     return object;
 }

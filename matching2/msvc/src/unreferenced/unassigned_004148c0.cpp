@@ -4,12 +4,12 @@
 
 struct OwnedObject_004148c0;
 extern "C" void asm_FUN_004145f0_004145f0(void* object);
-extern "C" void __cdecl entry_free_004524a1(void* memory);
+extern "C" void __cdecl crt_free_startup(void* memory);
 __declspec(noinline) void* ReleaseComposite_DeletingDestructor_004148c0(OwnedObject_004148c0* object, unsigned int flags);
 #pragma code_seg(".text$01delete004148c0")
 void* ReleaseComposite_DeletingDestructor_004148c0(OwnedObject_004148c0* object, unsigned int flags) {
     asm_FUN_004145f0_004145f0(object);
-    if (flags & 1) entry_free_004524a1(object);
+    if (flags & 1) crt_free_startup(object);
     return object;
 }
 #pragma code_seg()

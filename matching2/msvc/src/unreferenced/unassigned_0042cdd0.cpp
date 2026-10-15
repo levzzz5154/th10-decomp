@@ -9,7 +9,7 @@
 // caller establishes that convention.
 
 extern "C" void Cleanup_0042cb60(void* object);
-extern "C" void __cdecl entry_free_004524a1(void* block);
+extern "C" void __cdecl crt_free_startup(void* block);
 
 struct Deletable_0042cdd0 {
     unsigned char unknown_0000[0x04];
@@ -21,7 +21,7 @@ __declspec(noinline) void* Deletable_0042cdd0_Delete(Deletable_0042cdd0* object,
 void* Deletable_0042cdd0_Delete(Deletable_0042cdd0* object, int flags) {
     Cleanup_0042cb60(object);
     if ((flags & 1) != 0) {
-        entry_free_004524a1(object);
+        crt_free_startup(object);
     }
     return object;
 }

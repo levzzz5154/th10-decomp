@@ -18,14 +18,14 @@ extern "C" const char str_set_vol[];
 #pragma code_seg(".text$0042c730_fn")
 void TitleAnimationSlotView::StopSlot(int slot) {
     AnimationManager_SetStopFrameAndRun(
-        2, reinterpret_cast<RecoveryLookupContext_0040bd80*>(g_sprt_ctrl), slots[slot]);
+        2, reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl), slots[slot]);
 }
 #pragma code_seg(".text$00449670_fn")
 void SpriteHandle_00449670::SelectSprite(int sprite) {
-    RecoveryScriptId_0040bd80 id = { static_cast<int>(value) };
+    RecoveryScriptId id = { static_cast<int>(value) };
     SpriteVm_00449670* vm = static_cast<SpriteVm_00449670*>(
         reinterpret_cast<RecoveryLookup_0040bd80*>(g_sprt_ctrl)->Find(
-            reinterpret_cast<RecoveryLookupContext_0040bd80*>(g_sprt_ctrl), id));
+            reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl), id));
     if (vm != 0)
         SelectResourceSprite_0043e5a0(vm->resource, sprite);
 }

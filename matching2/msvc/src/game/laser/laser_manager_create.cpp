@@ -31,7 +31,7 @@ typedef char LaserManagerView_size_must_be_45c[
 
 void *__cdecl operator new(unsigned int size);
 extern "C" void *__cdecl memset(void *destination, int value, unsigned int size);
-extern "C" void __cdecl entry_free_004524a1(void *block);
+extern "C" void __cdecl crt_free_startup(void *block);
 extern "C" LaserManagerView *g_laser_manager;
 LaserBaseView *__fastcall Laser_Construct(void *, LaserBaseView *self);
 extern "C" int __stdcall LaserManager_RegisterTasks(
@@ -57,7 +57,7 @@ LaserManager_Create(void) {
     if (LaserManager_RegisterTasks(manager) != 0) {
         if (manager) {
             asm_LaserManager_Destroy_0041c1c0(manager);
-            entry_free_004524a1(manager);
+            crt_free_startup(manager);
         }
         return 0;
     }

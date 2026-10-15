@@ -8,7 +8,7 @@
 // establishes that convention.
 
 extern "C" void asm_Recovery_ReleaseRawPair_0043cb00(void* object);
-extern "C" void __cdecl entry_free_004524a1(void* block);
+extern "C" void __cdecl crt_free_startup(void* block);
 
 struct Destroyable_0043c910 {
     unsigned char unknown_0000[0x04];
@@ -20,7 +20,7 @@ __declspec(noinline) void Destroyable_0043c910_Release(Destroyable_0043c910* obj
 void Destroyable_0043c910_Release(Destroyable_0043c910* object) {
     if (object != 0) {
         asm_Recovery_ReleaseRawPair_0043cb00(object);
-        entry_free_004524a1(object);
+        crt_free_startup(object);
     }
 }
 #pragma code_seg()

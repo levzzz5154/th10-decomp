@@ -18,7 +18,7 @@ extern "C" __declspec(dllimport) BOOL __stdcall CloseHandle(HANDLE handle);
 // fixed retail prototype (one stack argument, callee cleans).
 typedef void (__stdcall* RawPairReleaseFn)(void* pair);
 // CRT heap release reached by the state teardown below.
-extern "C" void __cdecl entry_free_004524a1(void* memory);
+extern "C" void __cdecl crt_free_startup(void* memory);
 
 // 0x0040B940..0x0040B9A2: Recovery_CreateSmallState
 // Allocate the small recovery state, register it in the global slot and hand it

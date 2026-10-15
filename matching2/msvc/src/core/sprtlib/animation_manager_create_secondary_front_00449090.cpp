@@ -7,7 +7,7 @@ struct AnimationObject_00449090 {
     unsigned int flags_035c;
 };
 
-struct AnimationResource_00449870 {
+struct AnimationBank {
     void* __declspec(noinline) InitializeObject(void* object, int index);
 };
 
@@ -25,7 +25,7 @@ void** __stdcall AnimationManager_CreateSecondaryFront_00449090(
     unsigned int flags = object->flags_035c;
     object->render_bucket_020 = render_bucket;
     object->flags_035c = flags | 0x40000000u;
-    ((AnimationResource_00449870*)resource)->InitializeObject(object, index);
+    ((AnimationBank*)resource)->InitializeObject(object, index);
     asm_AnimationManager_RegisterSecondaryFront_00448b40(g_sprt_ctrl, out, object);
     return out;
 }

@@ -9,7 +9,7 @@ __forceinline void PauseOpenState::Open(bool result) {
     phase = 6;
     timer.Set(0);
     g_game->flags |= 0x10;
-    AnimationResource_00449870* resource = g_ascii_manager->cursor_resource;
+    AnimationBank* resource = g_ascii_manager->cursor_resource;
     AnimationPool* pool = reinterpret_cast<AnimationPool*>(g_sprt_ctrl);
     Entity* object = pool->Allocate();
     reinterpret_cast<AnimationOpenFlags*>(&object->flags_35C)->render_enabled = 1;

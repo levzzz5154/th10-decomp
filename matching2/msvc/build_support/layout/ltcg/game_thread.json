@@ -51,7 +51,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_entry_free_00452422",
+      "symbol": "_crt_free",
       "address": "0x452422",
       "kind": "relative_code"
     }

@@ -9,7 +9,7 @@
 // ABI anchor so the pass hands it the object in EAX.
 
 extern "C" void __cdecl asm_FUN_0043a910_0043a910(void* object);
-extern "C" void __cdecl entry_free_004524a1(void* block);
+extern "C" void __cdecl crt_free_startup(void* block);
 
 struct Deletable_00439080 {
     unsigned char unknown_0000[0x04];
@@ -21,7 +21,7 @@ __declspec(noinline) void* Deletable_00439080_Delete(Deletable_00439080* object,
 void* Deletable_00439080_Delete(Deletable_00439080* object, int flags) {
     asm_FUN_0043a910_0043a910(object);
     if ((flags & 1) != 0) {
-        entry_free_004524a1(object);
+        crt_free_startup(object);
     }
     return object;
 }

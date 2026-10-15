@@ -7,7 +7,7 @@
 // Recovered semantic C++ definitions.
 #include "th10/game/entity.hpp"
 
-extern "C" void __cdecl entry_free_00452422(void*);
+extern "C" void __cdecl crt_free(void*);
 extern "C" void* __cdecl operator_new(uint32_t);
 
 

@@ -17,7 +17,7 @@ extern "C" __declspec(noinline) void __cdecl asm_FUN_0040d530_0040d530(void* obj
     AnchorEntity_0040d710* entity = (AnchorEntity_0040d710*)object;
     entity->slot = 0;
     // The real teardown calls out, so it preserves none of EAX/ECX/EDX.
-    entry_free_004524a1(0);
+    crt_free_startup(0);
 }
 #pragma code_seg()
 

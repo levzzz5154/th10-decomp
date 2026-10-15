@@ -39,7 +39,7 @@ extern PlayerCollisionEngine* g_bullet_manager;
 extern PlayerItemManager* g_item_manager;
 extern float flt_0_5;
 }
-struct AnimationResource_0043e710 {
+struct AnimationResourceFile {
     unsigned short id;
     unsigned char reserved_002[0x11c-2];
     void** scripts;

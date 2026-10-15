@@ -15,7 +15,7 @@ typedef HCURSOR (__stdcall *WindowLoadCursorA_type)(HINSTANCE,LPCSTR);
 extern "C" WindowLoadCursorA_type IatWindowLoadCursorA;
 typedef unsigned int (__stdcall *midiOutUnprepareHeader_type)(void*,midihdr_tag*,UINT);
 extern "C" midiOutUnprepareHeader_type IatmidiOutUnprepareHeader;
-extern "C" void __cdecl entry_free_00452422(void*);
+extern "C" void __cdecl crt_free(void*);
 extern "C" { extern MidiSequencer* window_midi_manager; extern unsigned int window_flags; extern unsigned char window_cursor_enabled; extern unsigned int window_active; extern int window_inactive; }
 
 extern "C" LRESULT __stdcall WindowProcedure_004390e0(HWND, UINT, WPARAM, LPARAM);

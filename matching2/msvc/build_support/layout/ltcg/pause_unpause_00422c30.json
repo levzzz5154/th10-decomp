@@ -29,7 +29,7 @@
     },
     {
       "name": "Find_anchor",
-      "symbol": "?AnimationManager_Find_004491c0@@YIPAXPAUAnimationLookupContext@@UAnimationScriptId@@@Z",
+      "symbol": "?AnimationManager_Find@@YIPAXPAUAnimationLookupContext@@UAnimationScriptId@@@Z",
       "section": ".text$02find",
       "address": "0x004491C0",
       "size": 73

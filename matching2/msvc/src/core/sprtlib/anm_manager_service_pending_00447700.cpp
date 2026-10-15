@@ -11,7 +11,7 @@
 struct AnimationResource_00447810 {
     __declspec(noinline) void Release();
 };
-extern "C" void __cdecl entry_free_004524a1(void* memory);
+extern "C" void __cdecl crt_free_startup(void* memory);
 
 // 0x004477D0 without its null test: the caller has already seen the file.
 static inline void ClearFileSlot(AnmManager_004470c0* manager, int slot) {
@@ -20,7 +20,7 @@ static inline void ClearFileSlot(AnmManager_004470c0* manager, int slot) {
     if ((unsigned)slot >= 33u)
         return;
     reinterpret_cast<AnimationResource_00447810*>(manager->files[slot])->Release();
-    entry_free_004524a1(manager->files[slot]);
+    crt_free_startup(manager->files[slot]);
     manager->files[slot] = 0;
 }
 

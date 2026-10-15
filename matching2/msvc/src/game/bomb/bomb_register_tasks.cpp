@@ -19,19 +19,19 @@ struct RawPair_004055c0 {
     void *callback_00C;                 // +0x0C, secondary scheduler callback
 };
 
-extern "C" SchedulerTask *__stdcall SchedulerCallback_Create_00449ed0(void *callback);
+extern "C" SchedulerTask *__stdcall SchedulerTask_Create(void *callback);
 extern "C" void *g_func_ctrl;
 
 #pragma code_seg(".text$00_vinstall")
 extern "C" __declspec(noinline) int __stdcall
 Bomb_RegisterTasks(RawPair_004055c0 *pair) {
-    SchedulerTask *primary = SchedulerCallback_Create_00449ed0((void *)0x405840);
+    SchedulerTask *primary = SchedulerTask_Create((void *)0x405840);
     primary->reserved_flags |= 1u;
     primary->context = pair;
     FuncCtrl_RegisterPrimary((FuncCtrl *)g_func_ctrl, primary, 0x11);
     pair->callback_008 = primary;
 
-    SchedulerTask *secondary = SchedulerCallback_Create_00449ed0((void *)0x405850);
+    SchedulerTask *secondary = SchedulerTask_Create((void *)0x405850);
     secondary->reserved_flags |= 1u;
     secondary->context = pair;
     FuncCtrl_RegisterSecondary((FuncCtrl *)g_func_ctrl, secondary, 0x22);

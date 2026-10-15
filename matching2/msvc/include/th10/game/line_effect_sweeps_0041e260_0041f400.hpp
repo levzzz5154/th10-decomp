@@ -61,7 +61,7 @@ extern float flt_192;
 extern float flt_0;
 extern float flt_448;
 }
-struct AnimationResource_0043e710;
-struct AnimationObject_0043e710;
+struct AnimationResourceFile;
+struct AnimationObjectFile;
 extern "C" __declspec(noinline) void __stdcall LoadScript_0043e710(
-    AnimationResource_0043e710* resource,AnimationObject_0043e710* object,int index);
+    AnimationResourceFile* resource,AnimationObjectFile* object,int index);

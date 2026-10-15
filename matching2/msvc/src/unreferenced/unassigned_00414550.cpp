@@ -1,5 +1,5 @@
 
-extern "C" void __cdecl entry_free_004524a1(void* block);
+extern "C" void __cdecl crt_free_startup(void* block);
 
 struct AnimationSlot_00414550 {
     unsigned char pad_000[0x40];
@@ -18,7 +18,7 @@ __declspec(noinline) AnimationSlot_00414550* DestroySlot_00414550(
 __declspec(noinline) AnimationSlot_00414550* DestroySlot_00414550(
         AnimationSlot_00414550* slot, unsigned int flags) {
     slot->ReleaseRetail();
-    if (flags & 1) entry_free_004524a1(slot);
+    if (flags & 1) crt_free_startup(slot);
     return slot;
 }
 #pragma code_seg()

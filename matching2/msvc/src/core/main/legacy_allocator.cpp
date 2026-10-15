@@ -7,7 +7,7 @@ void* LegacyAllocator::Allocate(uint32_t count) {
 #include "th10/source_views/heap_0e4835_0.hpp"
 void LegacyAllocator::Deallocate(void* memory, uint32_t count) {
     (void)count;
-    entry_free_004524a1(memory);
+    crt_free_startup(memory);
 }
 
 

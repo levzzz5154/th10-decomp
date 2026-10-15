@@ -7,8 +7,8 @@ extern "C" __declspec(noinline) int CompleteMidiHeader_0043aeb0(MidiSequencer* m
    manager->midi_headers[index]=0;
    // The existing sequencer model leaves the output handle at +0x13C opaque.
    IatmidiOutUnprepareHeader(*reinterpret_cast<void**>(manager->unknown_13c),header,0x40);
-   if(header->lpData) { entry_free_00452422(header->lpData); header->lpData=0; }
-   entry_free_00452422(header); return 0;
+   if(header->lpData) { crt_free(header->lpData); header->lpData=0; }
+   crt_free(header); return 0;
   }
  }
  return -1;

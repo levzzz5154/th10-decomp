@@ -6,8 +6,8 @@
 // in EDX; only the resource stays on the stack.
 #include "th10/game/entity_script_start.hpp"
 
-struct AnimationResource_0043e710;
-void __stdcall Entity_StartScript_00404f30(AnimationResource_0043e710* resource,
+struct AnimationResourceFile;
+void __stdcall Entity_StartScript(AnimationResourceFile* resource,
                                            Entity* entity, int script);
 
 // +0x388: the sprite index the entity's script started with.
@@ -17,9 +17,9 @@ inline int16_t& EntityInitialSprite_004415c0(Entity* entity) {
 
 #pragma code_seg(".text$03m_array")
 __declspec(noinline) void __stdcall EntityArray_StartScripts_004415c0(
-        Entity* entities, int script, int count, AnimationResource_0043e710* resource) {
+        Entity* entities, int script, int count, AnimationResourceFile* resource) {
     for (; count != 0; --count) {
-        Entity_StartScript_00404f30(resource, entities, script);
+        Entity_StartScript(resource, entities, script);
         EntityInitialSprite_004415c0(entities) = entities->SpriteIndex();
         ++script;
         ++entities;

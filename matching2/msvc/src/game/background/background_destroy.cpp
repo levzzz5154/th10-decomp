@@ -5,7 +5,7 @@
 
 extern "C" {
 extern unsigned char g_globals_flags;
-void __cdecl entry_free_00452422(void* memory);
+void __cdecl crt_free(void* memory);
 }
 
 #pragma code_seg(".text$02dtor")
@@ -14,16 +14,16 @@ BackGround::~BackGround() {
     RemoveSchedulerTask(secondary);
     RemoveSchedulerTask(after_draw);
     if (file) {
-        entry_free_00452422(file);
+        crt_free(file);
         file = 0;
     }
     if (original) {
-        entry_free_00452422(original);
+        crt_free(original);
         original = 0;
     }
     original = 0;
     if (instances) {
-        entry_free_00452422(instances);
+        crt_free(instances);
         instances = 0;
     }
     // Each of the two states owns the script bank loaded for it.

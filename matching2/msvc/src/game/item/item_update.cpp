@@ -59,8 +59,8 @@ extern "C" __declspec(noinline) int __stdcall ItemManager_UpdateItems(ItemSpawnM
         if (motion->state==5) {
             if (--motion->variant<idle) {
                 motion->state=2;
-                Entity_StartScript_00404f30(
-                    static_cast<AnimationResource_0043e710*>(g_bullet_manager->item_animation),
+                Entity_StartScript(
+                    static_cast<AnimationResourceFile*>(g_bullet_manager->item_animation),
                     &item->animation,motion->kind+374);
             }
             goto step;

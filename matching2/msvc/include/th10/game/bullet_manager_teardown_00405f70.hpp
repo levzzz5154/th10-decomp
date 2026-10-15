@@ -7,7 +7,7 @@
 extern "C" void* g_func_ctrl;
 extern "C" void* g_bullet_manager;
 extern "C" SprtCtrl* g_sprt_ctrl;
-extern "C" void __cdecl entry_free_00452422(void*);
+extern "C" void __cdecl crt_free(void*);
 void __cdecl operator delete(void*);
 struct BulletSlot_00405DE0 {
  unsigned char prefix[0x360];

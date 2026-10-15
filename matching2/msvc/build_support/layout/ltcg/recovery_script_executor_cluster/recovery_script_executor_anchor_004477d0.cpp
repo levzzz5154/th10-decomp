@@ -13,7 +13,7 @@ struct AnimationResource_00447810 {
     __declspec(noinline) void Release();
 };
 
-extern "C" void __cdecl entry_free_004524a1(void* memory);
+extern "C" void __cdecl crt_free_startup(void* memory);
 
 struct AnimationManager_004477d0 {
     unsigned char pad_000[0x3AD06C];
@@ -29,7 +29,7 @@ void AnimationManager_004477d0::ClearResourceSlot(int index) {
     if (slots_3ad06c[index] == 0)
         return;
     slots_3ad06c[index]->Release();
-    entry_free_004524a1(slots_3ad06c[index]);
+    crt_free_startup(slots_3ad06c[index]);
     slots_3ad06c[index] = 0;
 }
 #pragma code_seg()

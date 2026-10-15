@@ -6,12 +6,12 @@
 #include "recovery_script_executor_0040bd80.hpp"
 
 struct RecoveryMusicVector_00433ef0 { float x, y, z; };
-struct RecoveryMusicVm_00433ef0;
+struct RecoveryMusicVm;
 struct RecoveryMusicChild_00433ef0 {
-    RecoveryMusicVm_00433ef0* object;
+    RecoveryMusicVm* object;
     RecoveryMusicChild_00433ef0* next;
 };
-struct RecoveryMusicVm_00433ef0 {
+struct RecoveryMusicVm {
     unsigned int id;
     unsigned char reserved_004[0x10];
     RecoveryMusicChild_00433ef0* children;
@@ -90,9 +90,9 @@ typedef char RecoveryMusicRoomCommentsCheck[offsetof(Title,comments)==0xE98?1:-1
 typedef char RecoveryMusicRoomLinesCheck[offsetof(Title,preview_lines)==0x16D8?1:-1];
 typedef char RecoveryMusicRoomScrollCheck[offsetof(Title,scroll_origin)==0x58D8?1:-1];
 typedef char RecoveryMusicRoomBufferCheck[offsetof(Title,file_buffer)==0x5AAC?1:-1];
-typedef char RecoveryMusicVmDepthCheck[offsetof(RecoveryMusicVm_00433ef0,stop_frame)==0x304?1:-1];
-typedef char RecoveryMusicVmPositionCheck[offsetof(RecoveryMusicVm_00433ef0,position)==0x334?1:-1];
-typedef char RecoveryMusicVmFlagsCheck[offsetof(RecoveryMusicVm_00433ef0,flags)==0x35C?1:-1];
+typedef char RecoveryMusicVmDepthCheck[offsetof(RecoveryMusicVm,stop_frame)==0x304?1:-1];
+typedef char RecoveryMusicVmPositionCheck[offsetof(RecoveryMusicVm,position)==0x334?1:-1];
+typedef char RecoveryMusicVmFlagsCheck[offsetof(RecoveryMusicVm,flags)==0x35C?1:-1];
 
 extern "C" __declspec(noinline) int __stdcall Title_UpdateMusicRoom(
     Title* room);

@@ -23,20 +23,20 @@ struct AnimationManager_0041f930 {
 };
 
 extern "C" AnimationManager_0041f930* g_sprt_ctrl;
-extern "C" void __cdecl entry_free_004524a1(void* memory);
+extern "C" void __cdecl crt_free_startup(void* memory);
 
 #pragma code_seg(".text$03pair")
 extern "C" __declspec(noinline) int __cdecl ReleasePair_0041f930() {
     AnimationResource_00447810** slot = &g_sprt_ctrl->slots_3ad06c[6];
     if (*slot != 0) {
         (*slot)->Release();
-        entry_free_004524a1(*slot);
+        crt_free_startup(*slot);
         *slot = 0;
     }
     slot = &g_sprt_ctrl->slots_3ad06c[7];
     if (*slot != 0) {
         (*slot)->Release();
-        entry_free_004524a1(*slot);
+        crt_free_startup(*slot);
         *slot = 0;
     }
     return 0;

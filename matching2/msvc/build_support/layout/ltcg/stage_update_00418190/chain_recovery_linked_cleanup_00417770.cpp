@@ -11,7 +11,7 @@
 #define g_main_state stage_chain_data_00491fb8
 #define g_sound_manager stage_chain_data_00492590
 // Variant A: member with the container walk, head cached in a local.
-extern "C" void __cdecl entry_free_004524a1(void* memory);
+extern "C" void __cdecl crt_free_startup(void* memory);
 
 struct LinkedNode_00417770 {
     virtual void Slot0();
@@ -42,7 +42,7 @@ void ScoreChain_00417770::ReleaseChain() {
         node->prev->next = node->next;
         if (node->next != 0)
             node->next->prev = node->prev;
-        entry_free_004524a1(node);
+        crt_free_startup(node);
         node = next;
     }
 }

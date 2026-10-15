@@ -35,16 +35,16 @@ struct RecoveryLookupNode_0040bd80 {
     unsigned char reserved_01c[0x340];
     unsigned int flags;
 };
-struct RecoveryLookupContext_0040bd80 {
+struct RecoveryLookupContext {
     unsigned char reserved_000[0x72DAD4];
     RecoveryLookupNode_0040bd80* primary;
     int reserved_72dad8;
     RecoveryLookupNode_0040bd80* secondary;
 };
-struct RecoveryScriptId_0040bd80 { int value; };
+struct RecoveryScriptId { int value; };
 struct RecoveryLookup_0040bd80 {
-    __declspec(noinline) void* __fastcall Find(RecoveryLookupContext_0040bd80* context, RecoveryScriptId_0040bd80 id);
-    __declspec(noinline) void* __fastcall SetFlag(RecoveryLookupContext_0040bd80* context, int id);
+    __declspec(noinline) void* __fastcall Find(RecoveryLookupContext* context, RecoveryScriptId id);
+    __declspec(noinline) void* __fastcall SetFlag(RecoveryLookupContext* context, int id);
     __declspec(noinline) void* __cdecl Validate(RecoveryHandle_0040bd80* handle);
 };
 struct GameThread_0040c540 {

@@ -2,13 +2,13 @@
 
 struct Title;
 extern "C" void asm_Title_Destroy(void* object);
-extern "C" void __cdecl entry_free_004524a1(void* memory);
+extern "C" void __cdecl crt_free_startup(void* memory);
 __declspec(noinline) void Title_Delete(Title* object);
 #pragma code_seg(".text$01destroy0042cdb0")
 void Title_Delete(Title* object) {
     if (object) {
         asm_Title_Destroy(object);
-        entry_free_004524a1(object);
+        crt_free_startup(object);
     }
 }
 #pragma code_seg()

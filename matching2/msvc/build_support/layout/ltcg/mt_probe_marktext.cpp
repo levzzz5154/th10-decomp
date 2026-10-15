@@ -11,7 +11,7 @@ void __stdcall RecoveryDispatchText_004479d0(
     unsigned int color, int unshadowed);
 
 #pragma code_seg(".text$00447a50_fn")
-void RecoveryTextVm_00447a50::MarkText(
+void RecoveryTextVm::MarkText(
     void* manager, unsigned int color, const char* format) {
     char buffer[128];
     recovery_vsprintf_004524a6(buffer, format, const_cast<char*>(format));

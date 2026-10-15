@@ -57,7 +57,7 @@
     },
     {
       "name": "AnimationManager_Find",
-      "symbol": "?AnimationManager_Find_004491c0@@YIPAXPAUAnimationLookupContext@@UAnimationScriptId@@@Z",
+      "symbol": "?AnimationManager_Find@@YIPAXPAUAnimationLookupContext@@UAnimationScriptId@@@Z",
       "section": ".text$004491c0_fn",
       "address": "0x004491C0",
       "size": 73
@@ -168,7 +168,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "?InitializeObject@AnimationResource_00449870@@QAEXPAUEntity@@H@Z",
+      "symbol": "?InitializeObject@AnimationBank@@QAEXPAUEntity@@H@Z",
       "address": "0x00449870",
       "kind": "relative_code"
     },

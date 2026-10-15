@@ -1,7 +1,7 @@
 // 0x004390A0..0x004390DC: release every table entry, then the record itself
 // when the low bit of the flags argument is set.
-extern "C" void __cdecl entry_free_00452422(void* memory);
-extern "C" void __cdecl entry_free_004524a1(void* memory);
+extern "C" void __cdecl crt_free(void* memory);
+extern "C" void __cdecl crt_free_startup(void* memory);
 
 struct Object_004390a0 {
     void* entries[0x2800];           // +0x0000
@@ -14,12 +14,12 @@ void* Object_004390a0::Destroy(unsigned int flags) {
     if (count) {
         for (int index = 0; index < 0x2800; ++index) {
             if (entries[index]) {
-                entry_free_00452422(entries[index]);
+                crt_free(entries[index]);
             }
         }
     }
     if (flags & 1) {
-        entry_free_004524a1(this);
+        crt_free_startup(this);
     }
     return this;
 }

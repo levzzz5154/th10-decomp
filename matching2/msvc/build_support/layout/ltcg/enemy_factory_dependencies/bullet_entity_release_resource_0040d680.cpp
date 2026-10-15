@@ -2,7 +2,7 @@
 // owned resource.  The native-LTCG cluster preserves the retail this pointer
 // in ESI, so this remains an ordinary named member implementation.
 
-extern "C" void __cdecl entry_free_00452422(void* memory);
+extern "C" void __cdecl crt_free(void* memory);
 
 #include "th10/game/enemy_manager_dependencies_0040d530.hpp"
 
@@ -11,7 +11,7 @@ void BulletEntity_0040d680::ReleaseResource() {
     void* const resource = owned_resource;
     vtable = 0x0046D0F0;
     if (resource != 0) {
-        entry_free_00452422(resource);
+        crt_free(resource);
         owned_resource = 0;
     }
 }

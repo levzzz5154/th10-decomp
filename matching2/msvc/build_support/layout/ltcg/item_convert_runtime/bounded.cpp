@@ -44,8 +44,8 @@ __declspec(noinline) int LineEffectSweep_0041e260::CreateSegmentsInBounds(int sp
                 position_output->y = animation_y;
                 position_output->z = point.z;
                 LoadScript_0043e710(
-                    static_cast<AnimationResource_0043e710*>(resource),
-                    reinterpret_cast<AnimationObject_0043e710*>(animation), script);
+                    static_cast<AnimationResourceFile*>(resource),
+                    reinterpret_cast<AnimationObjectFile*>(animation), script);
                 void* handle;
                 asm_AnimationManager_RegisterPrimaryBack_004489d0(
                     g_sprt_ctrl, &handle, animation);

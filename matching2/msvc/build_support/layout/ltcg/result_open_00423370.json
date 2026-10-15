@@ -103,7 +103,7 @@
     },
     {
       "name": "Find",
-      "symbol": "?AnimationManager_Find_004491c0@@YIPAXPAUAnimationLookupContext@@UAnimationScriptId@@@Z",
+      "symbol": "?AnimationManager_Find@@YIPAXPAUAnimationLookupContext@@UAnimationScriptId@@@Z",
       "section": ".text$004491c0_fn",
       "address": "0x4491c0",
       "size": 73
@@ -173,7 +173,7 @@
     },
     {
       "name": "resource_sprite",
-      "symbol": "?SelectResourceSprite@DispatcherRef@@QAEXPAUAnimationResource_00449870@@H@Z",
+      "symbol": "?SelectResourceSprite@DispatcherRef@@QAEXPAUAnimationBank@@H@Z",
       "section": ".text$004496a0_fn",
       "address": "0x004496A0",
       "size": 34
@@ -187,7 +187,7 @@
     },
     {
       "name": "create_primary_back",
-      "symbol": "?DispatcherCreateAnimation@@YG?AUDispatcherRef@@PAUAnimationResource_00449870@@HH@Z",
+      "symbol": "?DispatcherCreateAnimation@@YG?AUDispatcherRef@@PAUAnimationBank@@HH@Z",
       "section": ".text$00448d00_fn",
       "address": "0x00448D00",
       "size": 73
@@ -249,8 +249,8 @@
       "size": 127
     },
     {
-      "name": "RecoveryTextVm_00447a50::MarkText",
-      "symbol": "?MarkText@RecoveryTextVm_00447a50@@QAAXPAXZZ",
+      "name": "RecoveryTextVm::MarkText",
+      "symbol": "?MarkText@RecoveryTextVm@@QAAXPAXZZ",
       "section": ".text$00447a50_fn",
       "address": "0x00447A50",
       "size": 141
@@ -617,7 +617,7 @@
       "kind": "metadata"
     },
     {
-      "symbol": "?InitializeObject@AnimationResource_00449870@@QAEXPAUEntity@@H@Z",
+      "symbol": "?InitializeObject@AnimationBank@@QAEXPAUEntity@@H@Z",
       "address": "0x449870",
       "kind": "relative_code"
     },
@@ -767,7 +767,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_SchedulerCallback_Create_00449ed0@4",
+      "symbol": "_SchedulerTask_Create@4",
       "address": "0x00449ED0",
       "kind": "relative_code"
     },

@@ -308,7 +308,7 @@ __declspec(noinline) int __stdcall FrontHudUpdate_00414900(
                 unsigned int flags = object->flags_35C;
                 object->flags_35C = flags | 0x40000000u;
                 object->render_bucket = 15;
-                ((AnimationResource_00449870*)front->resource_9ec8)
+                ((AnimationBank*)front->resource_9ec8)
                     ->InitializeObject(object, script);
                 front->pending_id_9e24 = (int)RegisterFreshObject(object, front);
             }
@@ -338,7 +338,7 @@ __declspec(noinline) int __stdcall FrontHudUpdate_00414900(
                 unsigned int flags = object->flags_35C;
                 object->flags_35C = flags | 0x40000000u;
                 object->render_bucket = 15;
-                ((AnimationResource_00449870*)front->resource_9ec8)
+                ((AnimationBank*)front->resource_9ec8)
                     ->InitializeObject(object, 0x5B + i);
                 *slot = (int)RegisterFreshObject(object, front);
             }

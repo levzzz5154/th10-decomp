@@ -8,7 +8,7 @@ inline void ReleaseEndingBank(int index) {
     AnimationResource_00447810*& bank = reinterpret_cast<AnimationResource_00447810*&>(g_sprt_ctrl->banks[index]);
     if (bank) {
         bank->Release();
-        entry_free_004524a1(bank);
+        crt_free_startup(bank);
         bank = 0;
     }
 }
@@ -47,7 +47,7 @@ extern "C" __declspec(noinline) void __stdcall Ending_Release(EndingState* state
     EndingTextView* animations = state->animations;
     if (animations) {
         animations->Destroy();
-        entry_free_004524a1(animations);
+        crt_free_startup(animations);
     }
     state->animations = 0;
     ReleaseEndingBank(29);
@@ -55,7 +55,7 @@ extern "C" __declspec(noinline) void __stdcall Ending_Release(EndingState* state
     ReleaseEndingBank(31);
     ReleaseEndingBank(32);
     if (state->script) {
-        entry_free_00452422(state->script);
+        crt_free(state->script);
         state->script = 0;
     }
     state->script = 0;

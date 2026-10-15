@@ -34,9 +34,9 @@ struct TextLog_0044b810 {
     char *Append(char *format, ...);
 };
 
-extern "C" void *__fastcall Recovery_LoadCachedResource_00447280(
+extern "C" void *__fastcall Recovery_LoadCachedResource(
         int id, void *cache, const char *name);
-extern "C" SchedulerTask *__stdcall SchedulerCallback_Create_00449ed0(void *callback);
+extern "C" SchedulerTask *__stdcall SchedulerTask_Create(void *callback);
 extern "C" void *g_sprt_ctrl;
 extern "C" FuncCtrl *g_func_ctrl;
 
@@ -45,7 +45,7 @@ LaserManager_RegisterTasks(LaserManagerView *manager);
 #pragma code_seg(".text$00gascoredisplay")
 extern "C" __declspec(noinline) int __stdcall
 LaserManager_RegisterTasks(LaserManagerView *manager) {
-    void *resource = Recovery_LoadCachedResource_00447280(
+    void *resource = Recovery_LoadCachedResource(
             7, g_sprt_ctrl, (const char *)0x46CD88);
     manager->display_resource_458 = resource;
     if (!resource) {
@@ -53,13 +53,13 @@ LaserManager_RegisterTasks(LaserManagerView *manager) {
         return -1;
     }
 
-    SchedulerTask *primary = SchedulerCallback_Create_00449ed0((void *)0x41C480);
+    SchedulerTask *primary = SchedulerTask_Create((void *)0x41C480);
     primary->reserved_flags &= ~1u;
     primary->context = manager;
     FuncCtrl_RegisterPrimary(g_func_ctrl, primary, 0x13);
     manager->primary_task_008 = primary;
 
-    SchedulerTask *secondary = SchedulerCallback_Create_00449ed0((void *)0x41C4E0);
+    SchedulerTask *secondary = SchedulerTask_Create((void *)0x41C4E0);
     secondary->reserved_flags &= ~1u;
     secondary->context = manager;
     FuncCtrl_RegisterSecondary(g_func_ctrl, secondary, 0x1B);

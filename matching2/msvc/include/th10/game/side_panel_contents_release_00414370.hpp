@@ -3,7 +3,7 @@
 #include <stddef.h>
 
 void __cdecl operator delete(void* memory);
-extern "C" void __cdecl entry_free_00452422(void* memory);
+extern "C" void __cdecl crt_free(void* memory);
 
 // An owned animation slot of the side panel.
 struct PanelSlot_00414370 {

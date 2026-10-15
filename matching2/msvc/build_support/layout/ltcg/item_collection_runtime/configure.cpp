@@ -6,15 +6,15 @@
 // loader at 0x0043E710 expects it.
 #include "th10/game/entity_script_start.hpp"
 
-struct AnimationObject_0043e710;
-struct AnimationResource_0043e710;
-extern "C" void* __stdcall LoadScript_0043e710(AnimationResource_0043e710* resource,
-                                             AnimationObject_0043e710* object,
+struct AnimationObjectFile;
+struct AnimationResourceFile;
+extern "C" void* __stdcall LoadScript_0043e710(AnimationResourceFile* resource,
+                                             AnimationObjectFile* object,
                                              int index);
 
 #pragma code_seg(".text$f00404f30F")
-__declspec(noinline) void __stdcall Entity_StartScript_00404f30(
-        AnimationResource_0043e710* resource, Entity* entity, int script) {
+__declspec(noinline) void __stdcall Entity_StartScript(
+        AnimationResourceFile* resource, Entity* entity, int script) {
     Entity_Init(entity);
     entity->Position() = Vector3Value(0.0f, 0.0f, 0.0f);
     entity->BasePosition() = Vector3Value(0.0f, 0.0f, 0.0f);
@@ -22,6 +22,6 @@ __declspec(noinline) void __stdcall Entity_StartScript_00404f30(
     EntityTail(entity)->layer_3a1 = 0x10;
     EntityTail(entity)->layer_3a0 = 0x10;
     entity->ScriptIndex() = static_cast<int16_t>(script);
-    LoadScript_0043e710(resource, reinterpret_cast<AnimationObject_0043e710*>(entity), script);
+    LoadScript_0043e710(resource, reinterpret_cast<AnimationObjectFile*>(entity), script);
 }
 #pragma code_seg()

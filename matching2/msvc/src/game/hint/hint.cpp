@@ -60,13 +60,13 @@ Hint* Hint::InitializeLayout() {
 #include "th10/game/hint_layout.hpp"
 #pragma code_seg(".text$a02initialize")
 extern "C" __declspec(noinline) int __stdcall Hint_Initialize(Hint* manager) {
-    SchedulerTask* primary = SchedulerCallback_Create_00449ed0((void*)0x4198A0);
+    SchedulerTask* primary = SchedulerTask_Create((void*)0x4198A0);
     primary->context = manager;
     primary->reserved_flags &= ~1u;
     FuncCtrl_RegisterPrimary(g_func_ctrl, primary, 0x19);
     manager->primary_task_008 = primary;
 
-    SchedulerTask* secondary = SchedulerCallback_Create_00449ed0((void*)0x4198B0);
+    SchedulerTask* secondary = SchedulerTask_Create((void*)0x4198B0);
     secondary->reserved_flags &= ~1u;
     secondary->context = manager;
     FuncCtrl_RegisterSecondary(g_func_ctrl, secondary, 0x2C);
@@ -94,7 +94,7 @@ __declspec(noinline) Hint* __cdecl Hint_Create() {
     if (Hint_Initialize(manager)) {
         if (manager) {
             asm_FUN_00418ee0_00418ee0(manager);
-            entry_free_004524a1(manager);
+            crt_free_startup(manager);
         }
         return 0;
     }

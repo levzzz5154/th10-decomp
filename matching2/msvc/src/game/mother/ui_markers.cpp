@@ -13,7 +13,7 @@ void GameUiThreadHost::StopWorker() {
 }
 #pragma code_seg()
 
-static DispatcherRef CreateMarker(AnimationResource_00449870* resource, int script_index) {
+static DispatcherRef CreateMarker(AnimationBank* resource, int script_index) {
     Entity* object = reinterpret_cast<AnimationPool*>(g_sprt_ctrl)->Allocate();
     unsigned flags = object->flags_35C;
     object->render_bucket = 15;

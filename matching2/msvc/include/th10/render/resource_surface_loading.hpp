@@ -1,6 +1,6 @@
 #ifndef TH10_RESOURCE_SURFACE_LOADING_HPP
 #define TH10_RESOURCE_SURFACE_LOADING_HPP
-struct Resource_00447f70 {
+struct ResourceView {
     virtual long __stdcall QueryInterface(const void*, void**) = 0;
     virtual unsigned long __stdcall AddRef() = 0;
     virtual unsigned long __stdcall Release() = 0;
@@ -16,8 +16,8 @@ struct SurfacePoint_00447fd0 {
 };
 struct AnimationManagerIndexed_00447f70 {
     unsigned char pad[0x3ad4e0];
-    Resource_00447f70* primary[32];
-    Resource_00447f70* secondary[32];
+    ResourceView* primary[32];
+    ResourceView* secondary[32];
     void* memory[32];
     int memorySize[32];
     ImageInfo_00447c80 info[32];
@@ -49,7 +49,7 @@ struct SurfaceDevice_00447c80 {
     virtual void __stdcall Reserved15() = 0;
     virtual void __stdcall Reserved16() = 0;
     virtual void __stdcall Reserved17() = 0;
-    virtual long __stdcall GetBackBuffer(unsigned int swap_chain, unsigned int index, int type, Resource_00447f70** result) = 0;
+    virtual long __stdcall GetBackBuffer(unsigned int swap_chain, unsigned int index, int type, ResourceView** result) = 0;
     virtual void __stdcall Reserved19() = 0;
     virtual void __stdcall Reserved20() = 0;
     virtual void __stdcall Reserved21() = 0;
@@ -59,23 +59,23 @@ struct SurfaceDevice_00447c80 {
     virtual void __stdcall Reserved25() = 0;
     virtual void __stdcall Reserved26() = 0;
     virtual void __stdcall Reserved27() = 0;
-    virtual long __stdcall CreateRenderTarget(unsigned int width, unsigned int height, int format, int multisample, unsigned int quality, int lockable, Resource_00447f70** result, void* shared) = 0;
+    virtual long __stdcall CreateRenderTarget(unsigned int width, unsigned int height, int format, int multisample, unsigned int quality, int lockable, ResourceView** result, void* shared) = 0;
     virtual void __stdcall Reserved29() = 0;
-    virtual long __stdcall UpdateSurface(Resource_00447f70* source, const SurfaceRect_00447fd0* source_rect, Resource_00447f70* destination, const SurfacePoint_00447fd0* destination_point) = 0;
+    virtual long __stdcall UpdateSurface(ResourceView* source, const SurfaceRect_00447fd0* source_rect, ResourceView* destination, const SurfacePoint_00447fd0* destination_point) = 0;
     virtual void __stdcall Reserved31() = 0;
     virtual void __stdcall Reserved32() = 0;
     virtual void __stdcall Reserved33() = 0;
     virtual void __stdcall Reserved34() = 0;
     virtual void __stdcall Reserved35() = 0;
-    virtual long __stdcall CreateOffscreenPlainSurface(unsigned int width, unsigned int height, int format, int pool, Resource_00447f70** result, void* shared) = 0;
+    virtual long __stdcall CreateOffscreenPlainSurface(unsigned int width, unsigned int height, int format, int pool, ResourceView** result, void* shared) = 0;
 };
 extern "C" SurfaceDevice_00447c80* g_d3d_device;
 extern "C" int g_render_target_format;
 extern "C" char str_string_format[], str_cannot_load_format[];
 extern "C" int __cdecl sprintf(char*, const char*, ...);
 extern "C" void __cdecl ReleaseHeapMemory_00452422(void*);
-extern "C" long __stdcall LoadSurfaceFile_004521d0(Resource_00447f70*, const void*, const void*, const void*, unsigned int, const void*, unsigned int, unsigned int, ImageInfo_00447c80*);
-extern "C" long __stdcall LoadSurfaceCopy_004521d6(Resource_00447f70*, const void*, const void*, Resource_00447f70*, const void*, const void*, unsigned int, unsigned int);
+extern "C" long __stdcall LoadSurfaceFile_004521d0(ResourceView*, const void*, const void*, const void*, unsigned int, const void*, unsigned int, unsigned int, ImageInfo_00447c80*);
+extern "C" long __stdcall LoadSurfaceCopy_004521d6(ResourceView*, const void*, const void*, ResourceView*, const void*, const void*, unsigned int, unsigned int);
 extern "C" __declspec(noinline) int __fastcall AnimationLoadSurface_00447c80(AnimationManagerIndexed_00447f70*,const char*,int);
 extern "C" __declspec(noinline) int __stdcall AnimationLoadMemory_00447ec0(int,AnimationManagerIndexed_00447f70*,const char*);
 #endif

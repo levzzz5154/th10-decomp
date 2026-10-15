@@ -377,7 +377,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_entry_free_00452422",
+      "symbol": "_crt_free",
       "address": 4531234,
       "kind": "relative_code"
     },

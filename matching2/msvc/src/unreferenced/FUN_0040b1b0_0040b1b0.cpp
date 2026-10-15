@@ -2,7 +2,7 @@
 // 0x0040B1B0: create a bucket-15 animation, attach callbacks, and return its handle.
 #pragma code_seg(".text$03callbacks")
 extern "C" AnimationScriptId* __stdcall AnimationCreateWithCallbacks_0040b1b0(
-        AnimationScriptId* out, AnimationResource_00449870* resource, AnimationScriptId script,
+        AnimationScriptId* out, AnimationBank* resource, AnimationScriptId script,
         void* context, AnimationInitializer_0040b1b0 initialize,
         AnimationCallback_0040b1b0 update, AnimationCallback_0040b1b0 draw) {
     // Retail captures the result pointer before allocation and callback calls.

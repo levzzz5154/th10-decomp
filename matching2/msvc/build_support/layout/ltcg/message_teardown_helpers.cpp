@@ -18,7 +18,7 @@ __declspec(noinline) void EndingTextView::Destroy() {
 void SprtCtrlTargetsView::Clear(int index) {
     if (primary[index]) { primary[index]->methods->Release(primary[index]);primary[index]=0; }
     if (secondary[index]) { secondary[index]->methods->Release(secondary[index]);secondary[index]=0; }
-    if (memory[index]) { entry_free_00452422(memory[index]);memory[index]=0; }
+    if (memory[index]) { crt_free(memory[index]);memory[index]=0; }
     memory[index]=0;
 }
 #pragma code_seg()
@@ -35,28 +35,28 @@ void AnimationResource_00447810::Release() {
             entry->handle = 0;
         }
         if (entry->allocation != 0) {
-            entry_free_00452422(entry->allocation);
+            crt_free(entry->allocation);
             entry->allocation = 0;
         }
     }
     if (entries_120 != 0) {
-        entry_free_00452422(entries_120);
+        crt_free(entries_120);
         entries_120 = 0;
     }
     if (auxiliary_118 != 0) {
-        entry_free_00452422(auxiliary_118);
+        crt_free(auxiliary_118);
         auxiliary_118 = 0;
     }
     if (auxiliary_11c != 0) {
-        entry_free_00452422(auxiliary_11c);
+        crt_free(auxiliary_11c);
         auxiliary_11c = 0;
     }
     if (auxiliary_12c != 0) {
-        entry_free_00452422(auxiliary_12c);
+        crt_free(auxiliary_12c);
         auxiliary_12c = 0;
     }
     if (resource_108 != 0) {
-        entry_free_00452422(resource_108);
+        crt_free(resource_108);
         resource_108 = 0;
     }
 }

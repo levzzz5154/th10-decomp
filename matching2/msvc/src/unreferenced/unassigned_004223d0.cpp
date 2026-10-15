@@ -8,7 +8,7 @@
 // that convention.
 
 extern "C" void Cleanup_00422220(void* object);
-extern "C" void __cdecl entry_free_004524a1(void* block);
+extern "C" void __cdecl crt_free_startup(void* block);
 
 struct Releasable_004223d0 {
     unsigned char unknown_0000[0x04];
@@ -20,7 +20,7 @@ __declspec(noinline) void Releasable_004223d0_Release(Releasable_004223d0* objec
 void Releasable_004223d0_Release(Releasable_004223d0* object) {
     if (object != 0) {
         Cleanup_00422220(object);
-        entry_free_004524a1(object);
+        crt_free_startup(object);
     }
 }
 #pragma code_seg()

@@ -12,7 +12,7 @@ extern "C" int __cdecl recovery_vsprintf_004524a6(
     char* buffer, const char* format, char* args);
 
 #pragma code_seg(".text$00447bb0_fn")
-void __cdecl HintVm_00419120::FormatCentered(
+void __cdecl HintVm::FormatCentered(
     void* manager, ...) {
     char buffer[128];
     const unsigned char font = font_height;

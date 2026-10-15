@@ -2,15 +2,15 @@
 
 extern "C" void* g_sprt_ctrl;
 
-static __forceinline RecoveryMusicVm_00433ef0* FindAnimationSlot(unsigned int handle) {
-    RecoveryScriptId_0040bd80 id = { static_cast<int>(handle) };
-    return static_cast<RecoveryMusicVm_00433ef0*>(
+static __forceinline RecoveryMusicVm* FindAnimationSlot(unsigned int handle) {
+    RecoveryScriptId id = { static_cast<int>(handle) };
+    return static_cast<RecoveryMusicVm*>(
         reinterpret_cast<RecoveryLookup_0040bd80*>(g_sprt_ctrl)->Find(
-            reinterpret_cast<RecoveryLookupContext_0040bd80*>(g_sprt_ctrl), id));
+            reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl), id));
 }
 
 static __forceinline void SetAnimationTreeFrame(
-        RecoveryMusicVm_00433ef0* object, unsigned short frame) {
+        RecoveryMusicVm* object, unsigned short frame) {
     if (object != 0) {
         object->stop_frame = frame;
         if (object->children_flagged == 0) {

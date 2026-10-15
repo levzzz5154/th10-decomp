@@ -3,7 +3,7 @@
 #include "../../../src/core/sprtfunc/anm_batch_flush.cpp"
 #include "../../../src/game/smollscore/smoll_score_draw.cpp"
 
-extern "C" void __cdecl entry_free_004524a1(void* memory);
+extern "C" void __cdecl crt_free_startup(void* memory);
 
 // Stand-in for 0x00443080, whose real body is recovered in the render batch
 // cluster: it keeps the entity live across calls so the entity arrives in ESI,
@@ -12,10 +12,10 @@ extern "C" void __cdecl entry_free_004524a1(void* memory);
 #pragma code_seg(".text$08entity")
 extern "C" __declspec(noinline) int __stdcall FloatingText_DrawEntity_00443080(SprtCtrlBatchView* manager, FloatingTextSprite_0042b780* entity) {
     int a = (int)entity->x;
-    entry_free_004524a1(entity);
+    crt_free_startup(entity);
     a += (int)entity->y;
-    entry_free_004524a1((void*)&manager);
-    entry_free_004524a1(&g_application);
+    crt_free_startup((void*)&manager);
+    crt_free_startup(&g_application);
     return a + (int)entity->sprite_width;
 }
 #pragma code_seg()
@@ -29,20 +29,20 @@ __declspec(noinline) int __stdcall FloatingTextSpawnCaller(FloatingTextPosition_
     int score = position->x > 0 ? 10 : 20;
     switch (kind) {
     case 0:
-        entry_free_004524a1(position);
+        crt_free_startup(position);
         g_smoll_score->Spawn(-1, position, 0xFFFFFF40);
-        entry_free_004524a1(position);
+        crt_free_startup(position);
         break;
     case 1:
         g_smoll_score->Spawn(score / 2, position, 0xFFFF4040);
-        entry_free_004524a1(position);
+        crt_free_startup(position);
         break;
     default:
         g_smoll_score->Spawn(score, position, 0xFF00FF00);
-        entry_free_004524a1(&score);
+        crt_free_startup(&score);
         break;
     }
-    entry_free_004524a1(position);
+    crt_free_startup(position);
     return score;
 }
 #pragma code_seg()

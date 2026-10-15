@@ -4,7 +4,7 @@ extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
 
 extern "C" {
-SchedulerTask* __stdcall SchedulerCallback_Create_00449ed0(TaskRoutine callback);
+SchedulerTask* __stdcall SchedulerTask_Create(TaskRoutine callback);
 int __fastcall CardPrimary_00409220(void* owner);
 int __fastcall CardRender_00409230(void* owner);
 int __fastcall CardTrailing_00409270(void* owner);
@@ -16,20 +16,20 @@ extern float g_game_speed;
 // The retail receiver is in EBX; native LTCG selects that ABI from the caller.
 #pragma code_seg(".text$02initializer")
 int CardTasks_004089c0::InitializeTasks() {
-    SchedulerTask* callback = SchedulerCallback_Create_00449ed0(
+    SchedulerTask* callback = SchedulerTask_Create(
         CardPrimary_00409220);
     callback->context = this;
     callback->reserved_flags &= ~1u;
     FuncCtrl_RegisterPrimary(g_func_ctrl, callback, 0x16);
     primary_task = callback;
 
-    callback = SchedulerCallback_Create_00449ed0(CardRender_00409230);
+    callback = SchedulerTask_Create(CardRender_00409230);
     callback->reserved_flags &= ~1u;
     callback->context = this;
     FuncCtrl_RegisterSecondary(g_func_ctrl, callback, 0x0e);
     secondary_task = callback;
 
-    callback = SchedulerCallback_Create_00449ed0(CardTrailing_00409270);
+    callback = SchedulerTask_Create(CardTrailing_00409270);
     callback->context = this;
     callback->reserved_flags &= ~1u;
     FuncCtrl_RegisterSecondary(g_func_ctrl, callback, 0x25);

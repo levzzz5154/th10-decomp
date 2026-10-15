@@ -50,7 +50,7 @@
       "address": "0x00452AE8",
       "kind": "code"
     },
-    "_entry_free_00452422": {
+    "_crt_free": {
       "address": "0x00452422",
       "kind": "code"
     },

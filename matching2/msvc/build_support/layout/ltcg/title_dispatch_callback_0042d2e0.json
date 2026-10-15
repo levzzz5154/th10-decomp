@@ -67,8 +67,8 @@
       "size": 80
     },
     {
-      "name": "?RecoveryMusicInstallSlot_0042c670@@YGXPAUTitle@@H@Z",
-      "symbol": "?RecoveryMusicInstallSlot_0042c670@@YGXPAUTitle@@H@Z",
+      "name": "?RecoveryMusicInstallSlot@@YGXPAUTitle@@H@Z",
+      "symbol": "?RecoveryMusicInstallSlot@@YGXPAUTitle@@H@Z",
       "section": ".text$0042c670_fn",
       "address": 4198736,
       "size": 92
@@ -116,8 +116,8 @@
       "size": 90
     },
     {
-      "name": "?InitializeTransition@RecoveryMusicVm_00433ef0@@QAEXPBURecoveryMusicVector_00433ef0@@0HE@Z",
-      "symbol": "?InitializeTransition@RecoveryMusicVm_00433ef0@@QAEXPBURecoveryMusicVector_00433ef0@@0HE@Z",
+      "name": "?InitializeTransition@RecoveryMusicVm@@QAEXPBURecoveryMusicVector_00433ef0@@0HE@Z",
+      "symbol": "?InitializeTransition@RecoveryMusicVm@@QAEXPBURecoveryMusicVector_00433ef0@@0HE@Z",
       "section": ".text$00434a80_fn",
       "address": 4409968,
       "size": 206
@@ -130,8 +130,8 @@
       "size": 76
     },
     {
-      "name": "?Find@RecoveryLookup_0040bd80@@QAIPAXPAURecoveryLookupContext_0040bd80@@URecoveryScriptId_0040bd80@@@Z",
-      "symbol": "?Find@RecoveryLookup_0040bd80@@QAIPAXPAURecoveryLookupContext_0040bd80@@URecoveryScriptId_0040bd80@@@Z",
+      "name": "?Find@RecoveryLookup_0040bd80@@QAIPAXPAURecoveryLookupContext@@URecoveryScriptId@@@Z",
+      "symbol": "?Find@RecoveryLookup_0040bd80@@QAIPAXPAURecoveryLookupContext@@URecoveryScriptId@@@Z",
       "section": ".text$004491c0_fn",
       "address": 4410256,
       "size": 73
@@ -285,7 +285,7 @@
       "address": 4491728
     },
     {
-      "symbol": "?InitializeObject@AnimationResource_00449870@@QAEPAXPAXH@Z",
+      "symbol": "?InitializeObject@AnimationBank@@QAEPAXPAXH@Z",
       "kind": "relative_code",
       "address": 4495472
     },
@@ -305,7 +305,7 @@
       "address": 4648984
     },
     {
-      "symbol": "_entry_free_00452422",
+      "symbol": "_crt_free",
       "kind": "relative_code",
       "address": 4531234
     },
@@ -365,7 +365,7 @@
       "address": 4648180
     },
     {
-      "symbol": "?MarkText@RecoveryTextVm_00447a50@@QAAXPAXZZ",
+      "symbol": "?MarkText@RecoveryTextVm@@QAAXPAXZZ",
       "kind": "relative_code",
       "address": 4487760
     },

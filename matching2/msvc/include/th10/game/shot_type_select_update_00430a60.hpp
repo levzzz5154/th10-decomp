@@ -28,7 +28,7 @@ typedef char ScoreFileClearedOffset_00430a60[offsetof(ScoreFile_00430a60, cleare
 
 // A child reference seen as the handle whose hidden flag 0x004495E0 clears.
 struct AnimationHandle_004495e0 {
-    RecoveryScriptId_0040bd80 id;
+    RecoveryScriptId id;
     __declspec(noinline) void ClearFlag();
 };
 

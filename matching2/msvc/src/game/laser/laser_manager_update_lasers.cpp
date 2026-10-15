@@ -13,7 +13,7 @@
 // and come out two bytes short.
 #include "th10/game/laser_list.hpp"
 
-extern "C" void __cdecl entry_free_004524a1(void* memory);
+extern "C" void __cdecl crt_free_startup(void* memory);
 extern "C" float flt_0_99, flt_1_01;
 
 static __forceinline void RemoveRecord(LaserManagerUpdateView* records,
@@ -25,7 +25,7 @@ static __forceinline void RemoveRecord(LaserManagerUpdateView* records,
         node->next->prev = node->prev;
     if (records->cursor == node)
         records->cursor = node->prev;
-    entry_free_004524a1(node);
+    crt_free_startup(node);
 }
 
 static __forceinline void AdvanceTimer(LaserListNode* node) {

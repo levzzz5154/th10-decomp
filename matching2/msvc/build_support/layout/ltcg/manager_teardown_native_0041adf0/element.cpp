@@ -8,5 +8,5 @@ Item::Item() {
  memset(this,0,sizeof(Entity)); SpriteIndex()=-1; ClearRegistration(&Flags_3D8());
 }
 #pragma code_seg(".text$01element_dtor")
-Item::~Item() { if(resource) entry_free_00452422(resource);resource=0; }
+Item::~Item() { if(resource) crt_free(resource);resource=0; }
 #pragma code_seg()

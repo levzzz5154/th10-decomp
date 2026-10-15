@@ -10,7 +10,7 @@
 // 0x00448D00 inline: script `index` of a file as a new animation at the back
 // of the primary list.
 static __forceinline void CreatePrimaryBack(
-        AnimationResource_00449870* file, AnimationHandle_0040b070* out, int index, int bucket) {
+        AnimationBank* file, AnimationHandle_0040b070* out, int index, int bucket) {
     AnimationNode_0040b070* object =
         reinterpret_cast<AnimationPool_0040b070*>(g_sprt_ctrl)->Allocate();
     unsigned int flags = object->flags;
@@ -43,7 +43,7 @@ AnimationHandle_0040b070 __stdcall EffectSpawnView::SpawnEffect(
 // body changes 0x0040B070.
 #pragma code_seg(".text$0040b110_fn")
 AnimationHandle_0040b070 __stdcall SpawnEffectFromFile(
-        int kind, AnimationResource_00449870* file, void* argument) {
+        int kind, AnimationBank* file, void* argument) {
     EffectKind_0040b070* entry = &g_effect_kinds[kind];
     AnimationHandle_0040b070 created;
     CreatePrimaryBack(file, &created, entry->script, 15);

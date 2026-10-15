@@ -30,7 +30,7 @@ void __stdcall SidePanel_ReleaseContents_00414370(SidePanel_00414370* panel) {
 
     if (!(g_globals.flags & 9)) {
         if (panel->stage_buffer) {
-            entry_free_00452422(panel->stage_buffer);
+            crt_free(panel->stage_buffer);
             panel->stage_buffer = 0;
         }
         panel->stage_buffer = 0;

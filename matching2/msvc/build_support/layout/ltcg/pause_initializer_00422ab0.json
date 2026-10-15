@@ -106,7 +106,7 @@
     },
     {
       "name": "Find",
-      "symbol": "?AnimationManager_Find_004491c0@@YIPAXPAUAnimationLookupContext@@UAnimationScriptId@@@Z",
+      "symbol": "?AnimationManager_Find@@YIPAXPAUAnimationLookupContext@@UAnimationScriptId@@@Z",
       "section": ".text$12find",
       "address": "0x4491c0",
       "size": 73
@@ -127,7 +127,7 @@
     },
     {
       "name": "Resource",
-      "symbol": "?InitializeObject@AnimationResource_00449870@@QAEXPAUEntity@@H@Z",
+      "symbol": "?InitializeObject@AnimationBank@@QAEXPAUEntity@@H@Z",
       "section": ".text$15resource",
       "address": "0x449870",
       "size": 207

@@ -7,7 +7,7 @@ float flt_0 = 0.0f;
 float flt_neg1 = -1.0f;
 float g_game_speed = 1.0f;
 int g_difficulty_00474c74;
-int g_rank_00474c98;
+int g_rank;
 Float3 g_zero_vector_00491c14;
 Float2 g_zero_vector2_00491c20;
 Float3 g_camera_offset_00491d7c;
@@ -137,7 +137,7 @@ float Enemy::FloatValue_00412aa0(int selector, float value) {
     EnemyFull* slot = ecl;
     return EclVm::FloatValue(selector, slot->active, value);
 }
-int Enemy::IntArg_00412a00(int selector) { return Int(selector); }
+int Enemy::IntArg(int selector) { return Int(selector); }
 int* Enemy::IntDest_00412a10(int index) {
     EclVm* vm = ecl->active;
     EclInstr* table = vm->instr;
@@ -693,7 +693,7 @@ extern "C" int __stdcall RigEntry(Enemy** enemies, int count) {
     int total = 0;
     for (int i = 0; i < count; ++i) total += enemies[i]->Execute_0040e770();
     // These globals' addresses escape in the whole program.
-    ext_call(&g_rank_00474c98, 0);
+    ext_call(&g_rank, 0);
     ext_call(&g_difficulty_00474c74, 0);
     Card** cards = (Card**)enemies;
     int n = count;

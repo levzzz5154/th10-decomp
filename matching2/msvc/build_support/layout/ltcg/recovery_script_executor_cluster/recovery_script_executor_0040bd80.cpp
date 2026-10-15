@@ -72,16 +72,16 @@ extern "C" __declspec(noinline) int __stdcall RecoveryScript_Execute_0040bd80(Re
                 RecoveryHandle_0040bd80* handle = state->text_handles;
                 for (; remaining != 0; --remaining, ++handle) {
                     RecoveryLookup_0040bd80* manager = reinterpret_cast<RecoveryLookup_0040bd80*>(MANAGER_00491c10);
-                    RecoveryScriptId_0040bd80 id = { static_cast<int>(handle->value) };
-                    RecoveryTextVm_00447a50* object = static_cast<RecoveryTextVm_00447a50*>(manager->Find(reinterpret_cast<RecoveryLookupContext_0040bd80*>(manager), id));
+                    RecoveryScriptId id = { static_cast<int>(handle->value) };
+                    RecoveryTextVm* object = static_cast<RecoveryTextVm*>(manager->Find(reinterpret_cast<RecoveryLookupContext*>(manager), id));
                     if (object == 0)
                         handle->value = 0;
                     object->MarkText(reinterpret_cast<void*>(manager), 0xFFFFFFu, recovery_script_empty_text_0046cfd4);
                     handle->StopAtFrame3();
                 }
                 RecoveryLookup_0040bd80* manager = reinterpret_cast<RecoveryLookup_0040bd80*>(MANAGER_00491c10);
-                RecoveryScriptId_0040bd80 id = { static_cast<int>(state->text_handles[0].value) };
-                RecoveryTextVm_00447a50* object = static_cast<RecoveryTextVm_00447a50*>(manager->Find(reinterpret_cast<RecoveryLookupContext_0040bd80*>(manager), id));
+                RecoveryScriptId id = { static_cast<int>(state->text_handles[0].value) };
+                RecoveryTextVm* object = static_cast<RecoveryTextVm*>(manager->Find(reinterpret_cast<RecoveryLookupContext*>(manager), id));
                 if (object == 0)
                     state->text_handles[0].value = 0;
                 const char* text = RecoveryDecodePath_00417010(reinterpret_cast<const unsigned char*>(state->command) + 4);
@@ -91,7 +91,7 @@ extern "C" __declspec(noinline) int __stdcall RecoveryScript_Execute_0040bd80(Re
             } else {
                 const char* text = RecoveryDecodePath_00417010(reinterpret_cast<const unsigned char*>(command) + 4);
                 RecoveryLookup_0040bd80* manager = reinterpret_cast<RecoveryLookup_0040bd80*>(MANAGER_00491c10);
-                RecoveryTextVm_00447a50* object = static_cast<RecoveryTextVm_00447a50*>(manager->Validate(&state->text_handles[state->text_ring_position]));
+                RecoveryTextVm* object = static_cast<RecoveryTextVm*>(manager->Validate(&state->text_handles[state->text_ring_position]));
                 object->MarkText(MANAGER_00491c10, state->color, text);
                 state->text_handles[state->text_ring_position].StopAtFrame2();
                 ++state->text_ring_position;
@@ -153,7 +153,7 @@ extern "C" __declspec(noinline) int __stdcall RecoveryScript_Execute_0040bd80(Re
         case 8: {
             const int slot = command->arguments[0];
             RecoveryLookup_0040bd80* manager = reinterpret_cast<RecoveryLookup_0040bd80*>(MANAGER_00491c10);
-            manager->SetFlag(reinterpret_cast<RecoveryLookupContext_0040bd80*>(manager), static_cast<int>(state->animation_handles[slot]));
+            manager->SetFlag(reinterpret_cast<RecoveryLookupContext*>(manager), static_cast<int>(state->animation_handles[slot]));
             state->animation_handles[slot] = 0;
             state->animation_handles[state->command->arguments[0]] =
                 reinterpret_cast<unsigned int>(*AnimationManager_CreatePrimaryBack_00448d00(
@@ -181,7 +181,7 @@ extern "C" __declspec(noinline) int __stdcall RecoveryScript_Execute_0040bd80(Re
             RecoveryLookup_0040bd80* manager = reinterpret_cast<RecoveryLookup_0040bd80*>(MANAGER_00491c10);
             RecoveryHandle_0040bd80* handle = state->text_handles;
             for (int remaining = 5; remaining != 0; --remaining, ++handle) {
-                manager->SetFlag(reinterpret_cast<RecoveryLookupContext_0040bd80*>(manager), static_cast<int>(handle->value));
+                manager->SetFlag(reinterpret_cast<RecoveryLookupContext*>(manager), static_cast<int>(handle->value));
                 handle->value = 0;
             }
             char* loaded = LoadAsset(reinterpret_cast<const char*>(state->command) + 4, reinterpret_cast<AssetBuffer*>(OWNER_00477700));

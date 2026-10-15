@@ -21,7 +21,7 @@ Player::~Player() {
     } else {
         ReleaseAnimationBank(g_sprt_ctrl, 8);
         if (shot_type) {
-            entry_free_00452422(shot_type);
+            crt_free(shot_type);
             shot_type = 0;
         }
         g_player_parameter_file = 0;

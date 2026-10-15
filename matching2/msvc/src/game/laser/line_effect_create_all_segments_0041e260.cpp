@@ -66,8 +66,8 @@ __declspec(noinline) int LineEffectSweep_0041e260::CreateAllSegments(int spawn_i
         out->x=point.x+224.0f;
         out->z=point.z;
         out->y=point.y+16.0f;
-        LoadScript_0043e710(static_cast<AnimationResource_0043e710*>(resource),
-            reinterpret_cast<AnimationObject_0043e710*>(object),index);
+        LoadScript_0043e710(static_cast<AnimationResourceFile*>(resource),
+            reinterpret_cast<AnimationObjectFile*>(object),index);
         static_cast<LineLists_0041e260*>(g_sprt_ctrl)->RegisterPrimaryBack(object);
         if (spawn_items &&
             !(point.x+32.0f<=-192.0f) &&

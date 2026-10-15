@@ -5,7 +5,7 @@
 
 extern "C" void* g_sprt_ctrl;
 extern "C" unsigned int g_input_keys_held;
-__declspec(noinline) void __stdcall RecoveryMusicInstallSlot_0042c670(
+__declspec(noinline) void __stdcall RecoveryMusicInstallSlot(
     Title* room, int index);
 // 0x00409E50: stop the animation tree a handle refers to.
 __declspec(noinline) void __stdcall RecoveryMusicStopHandle_00409e50(RecoveryHandle_0040bd80* handle);

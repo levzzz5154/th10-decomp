@@ -97,7 +97,7 @@
       "size": 67
     },
     {
-      "name": "AnimationManager_Find_004491c0",
+      "name": "AnimationManager_Find",
       "symbol": "?ResultAnimation_Find@@YIPAXPAUResultAnimationLookup@@UResultAnimationId@@@Z",
       "section": ".text$004491c0_fn",
       "address": "0x4491c0",

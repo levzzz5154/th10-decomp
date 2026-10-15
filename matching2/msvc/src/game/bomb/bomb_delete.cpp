@@ -12,12 +12,12 @@
 // native LTCG cluster (see build_support/layout/ltcg/fun_00405730.json).
 
 extern "C" void __stdcall asm_Recovery_ReleaseRawPairAndReset_00405620(void* pair);
-extern "C" void __cdecl entry_free_004524a1(void* block);
+extern "C" void __cdecl crt_free_startup(void* block);
 
 static __forceinline void Bomb_ReleaseAndFree(void* runtime) {
     if (runtime) {
         asm_Recovery_ReleaseRawPairAndReset_00405620(runtime);
-        entry_free_004524a1(runtime);
+        crt_free_startup(runtime);
     }
 }
 

@@ -31,12 +31,12 @@ __declspec(noinline) int __stdcall TitleMode9_00430ff0(Title* room) {
     case 0:
         room->cursor.item_count = 6;
         SelectItem_00430ff0(room->cursor, g_title_practice_selection);
-        RecoveryMusicInstallSlot_0042c670(room, 106);
+        RecoveryMusicInstallSlot(room, 106);
         {
             // A named local: its symbol precedes the cursor's, which the
             // unlock test's operand order in phase 2 depends on.
             int character_slot = g_globals_character + 107;
-            RecoveryMusicInstallSlot_0042c670(room, character_slot);
+            RecoveryMusicInstallSlot(room, character_slot);
         }
         room->SetTimerTarget(1);
     case 1:

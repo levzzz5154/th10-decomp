@@ -8,7 +8,7 @@
 
 extern "C" RngState g_rng;
 extern "C" void* __cdecl asm_malloc_00452706(unsigned int size);
-extern "C" void __cdecl entry_free_00452422(void* block);
+extern "C" void __cdecl crt_free(void* block);
 
 // The loop draws from the shared generator inline: two steps through a 32-bit
 // read of the seed, with the final word filling both halves.
@@ -89,7 +89,7 @@ struct RingEntity_004452f0 {
 #pragma code_seg(".text$02buildring")
 int RingEntity_004452f0::BuildRing() {
     if (state) {
-        entry_free_00452422(state);
+        crt_free(state);
         state = 0;
     }
     RingState_004452f0* ring = (RingState_004452f0*)asm_malloc_00452706(sizeof(RingState_004452f0));

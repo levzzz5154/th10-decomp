@@ -4,10 +4,10 @@
 #include "th10/render/animation_public_callers.hpp"
 #include "animation_ids.hpp"
 
-struct AnimationResource_0043e710;
-struct AnimationObject_0043e710;
+struct AnimationResourceFile;
+struct AnimationObjectFile;
 extern "C" __declspec(noinline) void* __stdcall LoadScript_0043e710(
-    AnimationResource_0043e710* resource, AnimationObject_0043e710* object, int index);
+    AnimationResourceFile* resource, AnimationObjectFile* object, int index);
 
 // Retail reads these existing single-precision data cells; do not substitute
 // immediates because the x87 memory operands are part of the complete body.
@@ -23,8 +23,8 @@ CutAnimationId CutAnimationResource::CreateOffset(int index,const Vector3* posit
  object->position.x=position->x+224.0f;
  object->position.y=position->y+16.0f;
  object->position.z=position->z;
- LoadScript_0043e710(reinterpret_cast<AnimationResource_0043e710*>(this),
-   reinterpret_cast<AnimationObject_0043e710*>(object),index);
+ LoadScript_0043e710(reinterpret_cast<AnimationResourceFile*>(this),
+   reinterpret_cast<AnimationObjectFile*>(object),index);
  return static_cast<CutAnimationLists*>(g_sprt_ctrl)->RegisterPrimaryBack(object);
 }
 #pragma code_seg()

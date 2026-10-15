@@ -67,12 +67,12 @@ __declspec(noinline) int __stdcall TitleMode8_00430a60(Title* room) {
                 DisableItem_00430a60(room->cursor, 2);
             }
         }
-        RecoveryMusicInstallSlot_0042c670(room, 100);
+        RecoveryMusicInstallSlot(room, 100);
         room->ClearAnimationSlot(g_globals_character + 150);
-        RecoveryMusicInstallSlot_0042c670(room, g_globals_character + 150);
+        RecoveryMusicInstallSlot(room, g_globals_character + 150);
         AnimationManager_SetStopFrameAndRun(
-            3, reinterpret_cast<RecoveryLookupContext_0040bd80*>(g_sprt_ctrl),
-            *reinterpret_cast<RecoveryScriptId_0040bd80*>(&room->animation_slots[g_globals_character + 150]));
+            3, reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl),
+            *reinterpret_cast<RecoveryScriptId*>(&room->animation_slots[g_globals_character + 150]));
         room->SetSlotFrame(g_globals_character + 150, room->cursor.selection + 0x11);
         room->SetTimerTarget(1);
         if (g_score->shots[g_globals_character][0].clears[g_globals_difficulty] == 0) {

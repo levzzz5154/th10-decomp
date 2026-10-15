@@ -23,7 +23,7 @@ extern "C" __declspec(noinline) int __fastcall AnimationLoadSurface_00447c80(
     char path[260];
     int size;
     char* data;
-    Resource_00447f70* scratch;
+    ResourceView* scratch;
     if (manager->primary[index])
         manager->Clear(index);
     if (!manager->memory[index]) {

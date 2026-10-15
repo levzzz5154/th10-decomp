@@ -10,19 +10,19 @@ extern "C" void* g_sprt_ctrl;
 extern "C" void* __cdecl asm_FUN_00449950_00449950(void* manager);
 extern "C" void** __cdecl asm_AnimationManager_RegisterPrimaryBack_004489d0(
     void* manager, void** out, void* object);
-struct AnimationResource_00449870 {
+struct AnimationBank {
     __declspec(noinline) void* InitializeObject(void* object, int index);
 };
 
 #pragma code_seg(".text$0042c670_fn")
-__declspec(noinline) void __stdcall RecoveryMusicInstallSlot_0042c670(
+__declspec(noinline) void __stdcall RecoveryMusicInstallSlot(
         Title* room, int index) {
     void* resource = room->animation_resource;
-    RecoveryMusicVm_00433ef0* object = static_cast<RecoveryMusicVm_00433ef0*>(
+    RecoveryMusicVm* object = static_cast<RecoveryMusicVm*>(
         asm_FUN_00449950_00449950(g_sprt_ctrl));
     object->render_bucket = 15;
     object->flags |= 0x40000000u;
-    static_cast<AnimationResource_00449870*>(resource)->InitializeObject(object, index);
+    static_cast<AnimationBank*>(resource)->InitializeObject(object, index);
     void* handle;
     asm_AnimationManager_RegisterPrimaryBack_004489d0(g_sprt_ctrl, &handle, object);
     room->animation_slots[index] = reinterpret_cast<unsigned int>(handle);

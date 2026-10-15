@@ -43,7 +43,7 @@
   "anchors": [
     {
       "name": "StartItemAnimationScript",
-      "symbol": "?Entity_StartScript_00404f30@@YGXPAUAnimationResource_0043e710@@PAUEntity@@H@Z",
+      "symbol": "?Entity_StartScript@@YGXPAUAnimationResourceFile@@PAUEntity@@H@Z",
       "section": ".text$20configure",
       "address": "0x00404F30",
       "size": 204

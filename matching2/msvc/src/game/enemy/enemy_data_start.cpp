@@ -220,7 +220,7 @@ extern "C" __declspec(noinline) int __stdcall EnemyDataStart_0040dc80(EnemyTick_
 
     // 0x0040E43E: the hit flash and its sound.
     {
-        Animation_0040dc80* animation = AnimationManager_Find_004491c0(g_sprt_ctrl, enemy->animations[0]);
+        Animation_0040dc80* animation = AnimationManager_Find(g_sprt_ctrl, enemy->animations[0]);
         if (animation == 0)
             enemy->animations[0].id = 0;
         if (enemy->flash_frames == 0) {

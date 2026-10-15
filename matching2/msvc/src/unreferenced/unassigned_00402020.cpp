@@ -1,4 +1,4 @@
-extern "C" void __cdecl entry_free_00452422(void* block);
+extern "C" void __cdecl crt_free(void* block);
 
 struct Holder_00402020 {
     unsigned char pad_000[0x358];
@@ -8,7 +8,7 @@ struct Holder_00402020 {
 
 #pragma code_seg(".text$01release")
 void Holder_00402020::ReleaseOwned() {
-    if (field_358) entry_free_00452422(field_358);
+    if (field_358) crt_free(field_358);
     field_358 = 0;
 }
 #pragma code_seg()

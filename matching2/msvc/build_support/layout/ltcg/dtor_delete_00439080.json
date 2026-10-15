@@ -44,7 +44,7 @@
   "roots": [],
   "absolute_symbols": [
     {
-      "symbol": "_entry_free_004524a1",
+      "symbol": "_crt_free_startup",
       "address": "0x004524A1",
       "kind": "relative_code"
     },

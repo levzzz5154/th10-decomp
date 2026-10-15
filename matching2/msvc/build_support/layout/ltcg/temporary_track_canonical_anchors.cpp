@@ -46,7 +46,7 @@ struct TextLog_0044b810 {
     char* Append(char* format, ...);
 };
 
-extern "C" void __cdecl entry_free_00452422(void*);
+extern "C" void __cdecl crt_free(void*);
 
 
 
@@ -54,7 +54,7 @@ extern "C" void __cdecl entry_free_00452422(void*);
 int SoundManager_0043a9b0::LoadTrack(int index, const char* name) {
     if (active_track == index) MidiStop();
     if (tracks[index]) {
-        entry_free_00452422(tracks[index]);
+        crt_free(tracks[index]);
         tracks[index] = 0;
     }
     tracks[index] = 0;
@@ -83,13 +83,13 @@ __declspec(noinline) void SoundManager_0043a9b0::MidiStop() {
     int count = *(int*)(bytes + 0x10C);
     unsigned char* cursor = *(unsigned char**)(bytes + 0x120);
     for (int i = 0; i < count; ++i) {
-        entry_free_00452422(*(void**)(cursor + 4));
+        crt_free(*(void**)(cursor + 4));
         *(void**)(cursor + 4) = 0;
         cursor += 0x10;
     }
-    entry_free_00452422(cursor);
+    crt_free(cursor);
     *(void**)(bytes + 0x120) = 0;
-    entry_free_00452422(*(void**)(bytes + 0x108));
+    crt_free(*(void**)(bytes + 0x108));
     *(void**)(bytes + 0x108) = 0;
 }
 #pragma code_seg()
@@ -127,7 +127,7 @@ __declspec(noinline) char* TextLog_0044b810::Append(char* format, ...) {
 #include <string.h>
 
 extern "C" void* __cdecl entry_malloc_00452706(unsigned int);
-extern "C" void __cdecl entry_free_00452422(void*);
+extern "C" void __cdecl crt_free(void*);
 
 struct MidiChunkHeader {
     char tag[4];
@@ -145,12 +145,12 @@ struct MidiFileHeader {
 void MidiSequencer::ReleaseTracks() {
     for (int index = 0; index < track_count; ++index) {
         if (tracks[index].data) {
-            entry_free_00452422(tracks[index].data);
+            crt_free(tracks[index].data);
             tracks[index].data = 0;
         }
     }
     if (tracks) {
-        entry_free_00452422(tracks);
+        crt_free(tracks);
         tracks = 0;
     }
     tracks = 0;

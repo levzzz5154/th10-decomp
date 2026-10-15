@@ -7,7 +7,7 @@ struct AnimationObject_00448d00 {
     unsigned int flags_035c;
 };
 
-struct AnimationResource_00449870 {
+struct AnimationBank {
     void* __declspec(noinline) InitializeObject(void* object, int index);
 };
 
@@ -24,7 +24,7 @@ void** __stdcall AnimationManager_CreatePrimaryBack_00448d00(
         (AnimationObject_00448d00*)asm_FUN_00449950_00449950(g_sprt_ctrl);
     object->render_bucket_020 = render_bucket;
     object->flags_035c |= 0x40000000u;
-    ((AnimationResource_00449870*)resource)->InitializeObject(object, index);
+    ((AnimationBank*)resource)->InitializeObject(object, index);
     asm_AnimationManager_RegisterPrimaryBack_004489d0(g_sprt_ctrl, out, object);
     return out;
 }

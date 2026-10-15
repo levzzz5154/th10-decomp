@@ -25,7 +25,7 @@ void RecoveryTimer_0040bd80::Advance(float delta) {
     current = int(elapsed);
 }
 #pragma code_seg(".text$004491c0_fn")
-void* __fastcall RecoveryLookup_0040bd80::Find(RecoveryLookupContext_0040bd80* context, RecoveryScriptId_0040bd80 id) {
+void* __fastcall RecoveryLookup_0040bd80::Find(RecoveryLookupContext* context, RecoveryScriptId id) {
     if (!id.value)
         return 0;
     for (RecoveryLookupNode_0040bd80* node = context->primary; node != 0; node = node->next)
@@ -37,8 +37,8 @@ void* __fastcall RecoveryLookup_0040bd80::Find(RecoveryLookupContext_0040bd80* c
     return 0;
 }
 #pragma code_seg(".text$004492a0_fn")
-void* __fastcall RecoveryLookup_0040bd80::SetFlag(RecoveryLookupContext_0040bd80* context, int id) {
-    RecoveryScriptId_0040bd80 script_id = { id };
+void* __fastcall RecoveryLookup_0040bd80::SetFlag(RecoveryLookupContext* context, int id) {
+    RecoveryScriptId script_id = { id };
     RecoveryLookupNode_0040bd80* node = static_cast<RecoveryLookupNode_0040bd80*>(Find(context, script_id));
     if (node) {
         node->flags |= 0x04000000u;
@@ -50,8 +50,8 @@ void* __fastcall RecoveryLookup_0040bd80::SetFlag(RecoveryLookupContext_0040bd80
 }
 #pragma code_seg(".text$00449450_fn")
 void* __cdecl RecoveryLookup_0040bd80::Validate(RecoveryHandle_0040bd80* handle) {
-    RecoveryScriptId_0040bd80 id = { static_cast<int>(handle->value) };
-    void* object = Find(reinterpret_cast<RecoveryLookupContext_0040bd80*>(g_sprt_ctrl), id);
+    RecoveryScriptId id = { static_cast<int>(handle->value) };
+    void* object = Find(reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl), id);
     if (object == 0)
         handle->value = 0;
     return object;
@@ -67,8 +67,8 @@ struct RecoveryStopNode_0040bd80 {
 };
 #pragma code_seg(".text$0040c480_fn")
 void RecoveryHandle_0040bd80::StopAtFrame2() {
-    RecoveryScriptId_0040bd80 id = { static_cast<int>(value) };
-    RecoveryStopNode_0040bd80* node = static_cast<RecoveryStopNode_0040bd80*>(reinterpret_cast<RecoveryLookup_0040bd80*>(g_sprt_ctrl)->Find(reinterpret_cast<RecoveryLookupContext_0040bd80*>(g_sprt_ctrl), id));
+    RecoveryScriptId id = { static_cast<int>(value) };
+    RecoveryStopNode_0040bd80* node = static_cast<RecoveryStopNode_0040bd80*>(reinterpret_cast<RecoveryLookup_0040bd80*>(g_sprt_ctrl)->Find(reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl), id));
     if (node != 0) {
         node->stop_frame = 2;
         if (!node->children_flagged)
@@ -78,8 +78,8 @@ void RecoveryHandle_0040bd80::StopAtFrame2() {
 }
 #pragma code_seg(".text$0040c4d0_fn")
 void RecoveryHandle_0040bd80::StopAtFrame3() {
-    RecoveryScriptId_0040bd80 id = { static_cast<int>(value) };
-    RecoveryStopNode_0040bd80* node = static_cast<RecoveryStopNode_0040bd80*>(reinterpret_cast<RecoveryLookup_0040bd80*>(g_sprt_ctrl)->Find(reinterpret_cast<RecoveryLookupContext_0040bd80*>(g_sprt_ctrl), id));
+    RecoveryScriptId id = { static_cast<int>(value) };
+    RecoveryStopNode_0040bd80* node = static_cast<RecoveryStopNode_0040bd80*>(reinterpret_cast<RecoveryLookup_0040bd80*>(g_sprt_ctrl)->Find(reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl), id));
     if (node != 0) {
         node->stop_frame = 3;
         if (!node->children_flagged)
@@ -89,7 +89,7 @@ void RecoveryHandle_0040bd80::StopAtFrame3() {
 }
 #pragma code_seg(".text$00449630_fn")
 void RecoveryHandle_0040bd80::MarkForRemoval() {
-    reinterpret_cast<RecoveryLookup_0040bd80*>(g_sprt_ctrl)->SetFlag(reinterpret_cast<RecoveryLookupContext_0040bd80*>(g_sprt_ctrl), static_cast<int>(value));
+    reinterpret_cast<RecoveryLookup_0040bd80*>(g_sprt_ctrl)->SetFlag(reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl), static_cast<int>(value));
     value = 0;
 }
 #pragma code_seg()

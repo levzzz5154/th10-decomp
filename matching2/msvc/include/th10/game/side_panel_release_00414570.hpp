@@ -2,7 +2,7 @@
 #define TH10_GAME_SIDE_PANEL_RELEASE_00414570_HPP
 
 void __cdecl operator delete(void* memory);
-extern "C" void __cdecl entry_free_00452422(void* memory);
+extern "C" void __cdecl crt_free(void* memory);
 
 // An owned animation slot of the side panel.
 struct PanelSlot_004136c0 {

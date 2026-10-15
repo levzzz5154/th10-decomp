@@ -4,7 +4,7 @@ inline void ReleaseLoadingBank(int index) {
     AnimationResource_00447810*& bank = reinterpret_cast<AnimationResource_00447810*&>(g_sprt_ctrl->banks[index]);
     if (bank) {
         bank->Release();
-        entry_free_004524a1(bank);
+        crt_free_startup(bank);
         bank = 0;
     }
 }
@@ -36,21 +36,21 @@ TitleState_0041FB50::~TitleState_0041FB50() {
     g_loading = 0;
     if (thread) {
         DestroyGameThread_00401260(thread);
-        entry_free_004524a1(thread);
+        crt_free_startup(thread);
     }
     ReleaseLoadingBank(0);
     static_cast<ScoreArchive_0042B1E0*>(g_score)->Save();
     ScoreArchive_0042B1E0* archive = static_cast<ScoreArchive_0042B1E0*>(g_score);
     if (archive) {
         if (archive->file) {
-            entry_free_00452422(archive->file);
+            crt_free(archive->file);
             archive->file = 0;
         }
         if (archive->sections) {
-            entry_free_00452422(archive->sections);
+            crt_free(archive->sections);
             archive->sections = 0;
         }
-        entry_free_004524a1(archive);
+        crt_free_startup(archive);
     }
     g_score = 0;
 }

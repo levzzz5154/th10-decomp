@@ -12,7 +12,7 @@
 // both the record's link and the list's node type.
 extern "C" unsigned char g_enemy_vtable_live;   // 0x0046D0C0: live method table
 extern "C" unsigned char g_enemy_vtable_released;   // 0x0046D0D8: released method table
-extern "C" void __cdecl entry_free_004524a1(void* block);
+extern "C" void __cdecl crt_free_startup(void* block);
 
 struct Enemy_0040dae0;
 
@@ -154,8 +154,8 @@ void __stdcall Enemy_Release_0040dae0(Enemy_0040dae0* self) {
     self->vtable = (int)&g_enemy_vtable_released;
     while (block != 0) {
         EnemyFreeNode_0040dae0* next = block->next;
-        entry_free_004524a1(block->data);
-        entry_free_004524a1(block);
+        crt_free_startup(block->data);
+        crt_free_startup(block);
         block = next;
     }
 }

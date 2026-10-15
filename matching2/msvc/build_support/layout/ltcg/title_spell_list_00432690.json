@@ -57,7 +57,7 @@
     },
     {
       "name": "HintVm_FormatCentered",
-      "symbol": "?FormatCentered@HintVm_00419120@@QAAXPAXZZ",
+      "symbol": "?FormatCentered@HintVm@@QAAXPAXZZ",
       "section": ".text$00447bb0_fn",
       "address": "0x00447BB0",
       "size": 194

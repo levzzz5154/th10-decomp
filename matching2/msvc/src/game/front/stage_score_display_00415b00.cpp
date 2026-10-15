@@ -3,7 +3,7 @@
 #include "th10/game/stage_score_display_00415b00.hpp"
 #include "th10/game/entity_script_start.hpp"
 
-static __forceinline SlotRef CreateSlotAnimation(AnimationResource_00449870* resource, int index) {
+static __forceinline SlotRef CreateSlotAnimation(AnimationBank* resource, int index) {
     Entity* object = ((AnimationPool*)g_sprt_ctrl)->Allocate();
     unsigned flags = object->flags_35C;
     object->render_bucket = 15;
@@ -12,7 +12,7 @@ static __forceinline SlotRef CreateSlotAnimation(AnimationResource_00449870* res
     return ((SlotLists*)g_sprt_ctrl)->RegisterPrimaryBack(object);
 }
 static __forceinline Entity* ResolveSlotAnimation(SlotRef* handle) {
-    Entity* object = (Entity*)AnimationManager_Find_004491c0((AnimationLookupContext*)g_sprt_ctrl, *(AnimationScriptId*)handle);
+    Entity* object = (Entity*)AnimationManager_Find((AnimationLookupContext*)g_sprt_ctrl, *(AnimationScriptId*)handle);
     if (!object) handle->value = 0;
     return object;
 }

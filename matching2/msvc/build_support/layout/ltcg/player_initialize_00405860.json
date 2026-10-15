@@ -100,7 +100,7 @@
     },
     {
       "name": "Create",
-      "symbol": "?CreateScreenPositionedPrimary_00448db0@@YGPAHPAUAnimationResource_0043e710@@PAHHPBUVector3@@@Z",
+      "symbol": "?CreateScreenPositionedPrimary_00448db0@@YGPAHPAUAnimationResourceFile@@PAHHPBUVector3@@@Z",
       "section": ".text$a09create",
       "address": "0x448db0",
       "size": 116

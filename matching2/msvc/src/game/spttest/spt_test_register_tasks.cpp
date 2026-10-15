@@ -4,7 +4,7 @@
 #include "th10/core/func_ctrl.hpp"
 
 extern "C" {
-SchedulerTask* __stdcall SchedulerCallback_Create_00449ed0(TaskRoutine callback);
+SchedulerTask* __stdcall SchedulerTask_Create(TaskRoutine callback);
 int __fastcall SptTestUpdateTask_0042c580(void* pool);
 int __fastcall SptTestDrawTask_0042c590(void* pool);
 extern FuncCtrl* g_func_ctrl;
@@ -14,13 +14,13 @@ extern FuncCtrl* g_func_ctrl;
 
 #pragma code_seg(".text$00fn")
 int SptTestTaskView::InstallTasks() {
-    SchedulerTask* task = SchedulerCallback_Create_00449ed0(SptTestUpdateTask_0042c580);
+    SchedulerTask* task = SchedulerTask_Create(SptTestUpdateTask_0042c580);
     task->reserved_flags |= 1;
     task->context = this;
     FuncCtrl_RegisterPrimary(g_func_ctrl, task, 5);
     update_task = task;
 
-    task = SchedulerCallback_Create_00449ed0(SptTestDrawTask_0042c590);
+    task = SchedulerTask_Create(SptTestDrawTask_0042c590);
     task->reserved_flags |= 1;
     task->context = this;
     FuncCtrl_RegisterSecondary(g_func_ctrl, task, 0x27);

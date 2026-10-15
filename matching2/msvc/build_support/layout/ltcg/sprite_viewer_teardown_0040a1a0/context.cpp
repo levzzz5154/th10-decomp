@@ -7,7 +7,7 @@
 #include "../../../../src/core/zunlib/platform_stop_worker_0044c150.cpp"
 #include "../../../../src/game/eclview/ecl_view_teardown.cpp"
 
-extern "C" void __cdecl entry_free_00452422(void* memory);
+extern "C" void __cdecl crt_free(void* memory);
 
 // Each manager destructor unregisters its two scheduler tasks, as the real
 // ones do; with every callee-saved register busy the receiver stays on the
@@ -64,7 +64,7 @@ EclViewPopups_0040a1a0::~EclViewPopups_0040a1a0() {
 // 0x0040D530 takes its receiver in EAX.
 #pragma code_seg(".text$06a")
 EclViewEnemies_0040a940::~EclViewEnemies_0040a940() {
-    entry_free_00452422(this);
+    crt_free(this);
     EclViewStandIn_Unregister(reinterpret_cast<EclViewStandInManager*>(this));
 }
 #pragma code_seg()

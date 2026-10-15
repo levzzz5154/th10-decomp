@@ -1023,7 +1023,7 @@
         {
           "offset": 15,
           "type": "IMAGE_REL_I386_REL32",
-          "symbol": "_entry_free_00452422",
+          "symbol": "_crt_free",
           "original_operand": "1f040500",
           "original_target": "0x00452422"
         }
@@ -1039,7 +1039,7 @@
           {
             "offset": 15,
             "type": "IMAGE_REL_I386_REL32",
-            "symbol": "_entry_free_00452422",
+            "symbol": "_crt_free",
             "original_operand": "1f040500",
             "original_target": "0x00452422"
           }
@@ -2385,7 +2385,7 @@
     {
       "name": "semantic_Entity_StartScript_00404f30_00404f30",
       "source": "src/game/background/entity_start_script_00404f30.cpp",
-      "symbol": "?Entity_StartScript_00404f30@@YGXPAUAnimationResource_0043e710@@PAUEntity@@H@Z",
+      "symbol": "?Entity_StartScript@@YGXPAUAnimationResourceFile@@PAUEntity@@H@Z",
       "address": "0x00404F30",
       "size": 202,
       "kind": "semantic",
@@ -4050,7 +4050,7 @@
         {
           "offset": 15,
           "type": "IMAGE_REL_I386_REL32",
-          "symbol": "_entry_free_00452422",
+          "symbol": "_crt_free",
           "original_operand": "2fc60400",
           "original_target": "0x00452422"
         }
@@ -7435,7 +7435,7 @@
     {
       "name": "semantic_EffectKind_SpawnFromFile_0040b110",
       "source": "src/game/effect/effect_spawn.cpp",
-      "symbol": "?SpawnEffectFromFile@@YG?AUAnimationHandle_0040b070@@HPAUAnimationResource_00449870@@PAX@Z",
+      "symbol": "?SpawnEffectFromFile@@YG?AUAnimationHandle_0040b070@@HPAUAnimationBank@@PAX@Z",
       "address": "0x0040B110",
       "size": 148,
       "kind": "semantic",
@@ -16636,7 +16636,7 @@
         {
           "offset": 15,
           "type": "IMAGE_REL_I386_REL32",
-          "symbol": "_entry_free_00452422",
+          "symbol": "_crt_free",
           "original_operand": "af760300",
           "original_target": "0x00452422"
         }
@@ -26237,7 +26237,7 @@
     {
       "name": "semantic_RecoveryMusicInstallSlot_0042c670",
       "source": "src/game/title/recovery_install_animation_slot_0042c670.cpp",
-      "symbol": "?RecoveryMusicInstallSlot_0042c670@@YGXPAUTitle@@H@Z",
+      "symbol": "?RecoveryMusicInstallSlot@@YGXPAUTitle@@H@Z",
       "address": "0x0042C670",
       "size": 95,
       "kind": "semantic",
@@ -27911,7 +27911,7 @@
         {
           "offset": 11,
           "type": "IMAGE_REL_I386_REL32",
-          "symbol": "_entry_free_00452422",
+          "symbol": "_crt_free",
           "original_operand": "c3d10100",
           "original_target": "0x00452422"
         }
@@ -29000,7 +29000,7 @@
         {
           "offset": 21,
           "type": "IMAGE_REL_I386_REL32",
-          "symbol": "_entry_free_00452422",
+          "symbol": "_crt_free",
           "original_operand": "49c00100",
           "original_target": "0x00452422"
         },
@@ -29065,7 +29065,7 @@
         {
           "offset": 15,
           "type": "IMAGE_REL_I386_REL32",
-          "symbol": "_entry_free_00452422",
+          "symbol": "_crt_free",
           "original_operand": "dfbf0100",
           "original_target": "0x00452422"
         }
@@ -29285,7 +29285,7 @@
         {
           "offset": 21,
           "type": "IMAGE_REL_I386_REL32",
-          "symbol": "_entry_free_00452422",
+          "symbol": "_crt_free",
           "original_operand": "89bd0100",
           "original_target": "0x00452422"
         },
@@ -30520,7 +30520,7 @@
         {
           "offset": 55,
           "type": "IMAGE_REL_I386_REL32",
-          "symbol": "_entry_free_004524a1",
+          "symbol": "_crt_free_startup",
           "original_operand": "e6a00100",
           "original_target": "0x004524A1"
         }
@@ -30772,7 +30772,7 @@
         {
           "offset": 6,
           "type": "IMAGE_REL_I386_REL32",
-          "symbol": "_entry_free_004524a1",
+          "symbol": "_crt_free_startup",
           "original_operand": "079e0100",
           "original_target": "0x004524A1"
         }
@@ -34567,7 +34567,7 @@
     {
       "name": "semantic_EntityArray_StartScripts_004415c0",
       "source": "src/core/sprtanim/entity_array_start_scripts_004415c0.cpp",
-      "symbol": "?EntityArray_StartScripts_004415c0@@YGXPAUEntity@@HHPAUAnimationResource_0043e710@@@Z",
+      "symbol": "?EntityArray_StartScripts_004415c0@@YGXPAUEntity@@HHPAUAnimationResourceFile@@@Z",
       "address": "0x004415C0",
       "size": 57,
       "kind": "semantic",
@@ -37225,7 +37225,7 @@
     {
       "name": "semantic_RecoveryTextVm_00447a50_MarkText",
       "source": "src/core/sprtlib/recovery_mark_text_and_dispatcher_004479d0.cpp",
-      "symbol": "?MarkText@RecoveryTextVm_00447a50@@QAAXPAXZZ",
+      "symbol": "?MarkText@RecoveryTextVm@@QAAXPAXZZ",
       "address": "0x00447A50",
       "size": 141,
       "kind": "semantic",
@@ -37251,7 +37251,7 @@
     {
       "name": "semantic_RecoveryIndicatorVm_FormatRightAligned_00447ae0",
       "source": "src/core/sprtlib/recovery_right_aligned_text_00447ae0.cpp",
-      "symbol": "?FormatRightAligned@HintVm_00419120@@QAAXPAXZZ",
+      "symbol": "?FormatRightAligned@HintVm@@QAAXPAXZZ",
       "address": "0x00447AE0",
       "size": 204,
       "kind": "semantic",
@@ -37277,7 +37277,7 @@
     {
       "name": "semantic_RecoveryIndicatorVm_FormatCentered_00447bb0",
       "source": "src/core/sprtlib/recovery_centered_text_00447bb0.cpp",
-      "symbol": "?FormatCentered@HintVm_00419120@@QAAXPAXZZ",
+      "symbol": "?FormatCentered@HintVm@@QAAXPAXZZ",
       "address": "0x00447BB0",
       "size": 194,
       "kind": "semantic",
@@ -39241,7 +39241,7 @@
     {
       "name": "AnimationResource_InitializeObject_00449870",
       "source": "src/core/sprtlib/animation_resource_initialize_object.cpp",
-      "symbol": "?InitializeObject@AnimationResource_00449870@@QAEXPAUEntity@@H@Z",
+      "symbol": "?InitializeObject@AnimationBank@@QAEXPAUEntity@@H@Z",
       "address": "0x00449870",
       "size": 217,
       "kind": "semantic",
@@ -39669,7 +39669,7 @@
     {
       "name": "semantic_SchedulerCallback_Create_00449ed0",
       "source": "src/core/zunlib/scheduler.cpp",
-      "symbol": "_SchedulerCallback_Create_00449ed0@4",
+      "symbol": "_SchedulerTask_Create@4",
       "address": "0x00449ED0",
       "size": 74,
       "kind": "semantic",
@@ -53800,7 +53800,7 @@
     "?g_playfield_min_y@@3MA": "0x00470B04",
     "?g_startup_config_flags@@3IA": "0x00491D78",
     "?sound_buffer_vtable_004705d4@@3DA": "0x004705D4",
-    "@AnimationManager_Find_004491c0@12": "0x004491C0",
+    "@AnimationManager_Find@12": "0x004491C0",
     "@AnimationManager_SetStopFrame_00449210@12": "0x00449210",
     "@EffectIndicatorPool_AllocateRetail_00427b50@28": "0x00427B50",
     "@Entity_ResetRuntimeState_00405D00@4": "0x00405D00",
@@ -54199,7 +54199,7 @@
     "_RenderCamera_InitializeDefaults_004216f0": "0x004216F0",
     "_RenderStageState_DisableFog_00420CD0": "0x00420CD0",
     "_RetireCallbackOwner_00426f70@4": "0x00426F70",
-    "_SchedulerCallback_Create_00449ed0@4": "0x00449ED0",
+    "_SchedulerTask_Create@4": "0x00449ED0",
     "_SetExp_0045EBCB": "0x0045EBCB",
     "_Sound_ForwardDouble": "0x00452FF0",
     "_WindowProcedure_004390e0@16": "0x004390E0",
@@ -58913,8 +58913,8 @@
     "_g_crt_heap_handle": "0x00499340",
     "_g_crt_heap_type": "0x00499344",
     "_g_crt_cmdline": "0x00499348",
-    "_entry_free_00452422": "0x00452422",
-    "_entry_free_004524a1": "0x004524A1",
+    "_crt_free": "0x00452422",
+    "_crt_free_startup": "0x004524A1",
     "_entry_malloc_00452706": "0x00452706",
     "_force_disp32_zero": "0x00000000",
     "_force_imm32_zero": "0x00000000",
@@ -59165,7 +59165,7 @@
     "??_C@_0P@MIGLKIOC@CorExitProcess?$AA@": "0x0046AAFC",
     "?ScoreFile_InitializeDefaultsRetail_0042acb0@@YGXPAX@Z": "0x0042ACB0",
     "@FUN_0040d530_0040d530@4": "0x0040D530",
-    "@Recovery_LoadCachedResource_00447280@12": "0x00447280",
+    "@Recovery_LoadCachedResource@12": "0x00447280",
     "_FUN_0040d280_0040d280@4": "0x0040D280",
     "_screenshot_path_00492150": "0x00492150",
     "_File_OpenSharedWrite_0044b620@4": "0x0044B620",
@@ -60194,9 +60194,9 @@
     "?MusicRequests_Unpause@@YGXPAUAnimationManager_0043e460@@@Z": "0x00424460",
     "?MusicRequests_Pause@@YGXPAUAnimationManager_0043e460@@@Z": "0x00424470",
     "?MusicRequests_SetVolume@@YGXPAUAnimationManager_0043e460@@@Z": "0x00434B80",
-    "?Entity_StartScript_00404f30@@YGXPAUAnimationResource_0043e710@@PAUEntity@@H@Z": "0x00404F30",
+    "?Entity_StartScript@@YGXPAUAnimationResourceFile@@PAUEntity@@H@Z": "0x00404F30",
     "_ReplayManager_OnFrameStep": "0x0042A3E0",
-    "?EntityArray_StartScripts_004415c0@@YGXPAUEntity@@HHPAUAnimationResource_0043e710@@@Z": "0x004415C0",
+    "?EntityArray_StartScripts_004415c0@@YGXPAUEntity@@HHPAUAnimationResourceFile@@@Z": "0x004415C0",
     "_asm_unassigned_0041be40": "0x0041BE40",
     "?EnterState2@Item_0041b8e0@@QAEHXZ": "0x0041BE40",
     "?PlaybackState_OnSwitch_00427ad0@@YIHPAUPlaybackState@@@Z": "0x00427AD0",
@@ -60207,7 +60207,7 @@
     "?EnemyCtrl_Delete@@YGXPAUEnemyCtrl@@@Z": "0x0040D730",
     "?SetPowerDigits@PowerDisplayOwner_004054b0@@QAEXHH@Z": "0x004054B0",
     "?Release@AnimationSlot_004136c0@@QAEXXZ": "0x004136C0",
-    "?RecoveryMusicInstallSlot_0042c670@@YGXPAUTitle@@H@Z": "0x0042C670",
+    "?RecoveryMusicInstallSlot@@YGXPAUTitle@@H@Z": "0x0042C670",
     "?ClearExpiredFlags@PlayerFlags_00405500@@QAEXXZ": "0x00405500",
     "?StartChannel208@AnimationInterpolatedObject@@QAEXHEEE@Z": "0x00441F50",
     "_asm_unassigned_00449a70": "0x00449A70",

@@ -41,8 +41,8 @@ static __forceinline void DisableItem_0042d420(MenuCursor& cursor, int item) {
 // Restart the cursor animation of slot 0.
 static __forceinline void RunCursorSlot_0042d420(Title* room) {
     AnimationManager_SetStopFrameAndRun(
-        3, reinterpret_cast<RecoveryLookupContext_0040bd80*>(g_sprt_ctrl),
-        *reinterpret_cast<RecoveryScriptId_0040bd80*>(&room->animation_slots[0]));
+        3, reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl),
+        *reinterpret_cast<RecoveryScriptId*>(&room->animation_slots[0]));
 }
 
 #pragma code_seg(".text$0042d420_fn")
@@ -57,10 +57,10 @@ __declspec(noinline) int __stdcall TitleMainMenu_0042d420(Title* room) {
             g_globals_flags &= ~0x10u;
         }
         if (reinterpret_cast<RecoveryLookup_0040bd80*>(g_sprt_ctrl)->Find(
-                reinterpret_cast<RecoveryLookupContext_0040bd80*>(g_sprt_ctrl),
-                *reinterpret_cast<RecoveryScriptId_0040bd80*>(&room->animation_slots[88])) == 0)
-            RecoveryMusicInstallSlot_0042c670(room, 88);
-        RecoveryMusicInstallSlot_0042c670(room, 0);
+                reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl),
+                *reinterpret_cast<RecoveryScriptId*>(&room->animation_slots[88])) == 0)
+            RecoveryMusicInstallSlot(room, 88);
+        RecoveryMusicInstallSlot(room, 0);
         room->SetTimerTarget(1);
     case 1:
         if (room->timer.current > 10) {

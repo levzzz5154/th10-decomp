@@ -9,7 +9,7 @@
 // Start one of the sprite's lean scripts (1/2 into and out of a left turn,
 // 3/4 for the right).
 static __forceinline void Lean(Player* player, int script) {
-    static_cast<AnimationResource_0043e710*>(player->animation_file)->LoadScript(&player->sprite, script);
+    static_cast<AnimationResourceFile*>(player->animation_file)->LoadScript(&player->sprite, script);
 }
 
 // The player keeps animation handles as plain words; the animation calls take
@@ -50,7 +50,7 @@ int Player::Move() {
 
     if (focused) {
         if (focus_marker == 0) {
-            AnimationResource_00449870* marker_resource = reinterpret_cast<AnimationResource_00449870*>(g_bullet_manager->item_animation);
+            AnimationBank* marker_resource = reinterpret_cast<AnimationBank*>(g_bullet_manager->item_animation);
             Entity* object = reinterpret_cast<AnimationPool*>(g_sprt_ctrl)->Allocate();
             object->render_bucket = 9;
             object->flags_35C |= 0x40000000u;

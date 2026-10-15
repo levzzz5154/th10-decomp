@@ -8,7 +8,7 @@
 
 // Stand-in for 0x00447810, whose real body is recovered in the animation
 // resource cluster: an inner cursor takes ESI, which leaves the record in EDI.
-extern "C" void __cdecl entry_free_00452422(void* memory);
+extern "C" void __cdecl crt_free(void* memory);
 struct SptTestReleaseView {
     unsigned char reserved_000[0x108];
     void* resource;
@@ -21,20 +21,20 @@ void AnimationResource_00447810::Release() {
     SptTestReleaseView* view = reinterpret_cast<SptTestReleaseView*>(this);
     if (view->resource == 0)
         return;
-    entry_free_00452422(this);
+    crt_free(this);
     for (int index = 0; index < view->entry_count; ++index) {
         void** entry = &view->entries[index];
         if (*entry != 0) {
-            entry_free_00452422(*entry);
+            crt_free(*entry);
             *entry = 0;
         }
         if (entry[1] != 0) {
-            entry_free_00452422(entry[1]);
+            crt_free(entry[1]);
             entry[1] = 0;
         }
     }
     if (view->resource != 0) {
-        entry_free_00452422(view->resource);
+        crt_free(view->resource);
         view->resource = 0;
     }
 }

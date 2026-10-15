@@ -23,8 +23,8 @@ struct PlayerSchedulerRecord {
 // 0x00404F30: reinitialise an animation object and start script `script` of
 // `resource` on it. The object arrives in ESI, the script index in EAX and
 // only the resource is passed on the stack.
-struct AnimationResource_0043e710;
-void __stdcall Entity_StartScript_00404f30(AnimationResource_0043e710* resource,
+struct AnimationResourceFile;
+void __stdcall Entity_StartScript(AnimationResourceFile* resource,
                                            Entity* entity, int script);
 
 #pragma code_seg(".text$0041ca80_fn")
@@ -84,8 +84,8 @@ void LaserScriptRun_0041ca80::Run() {
             break;
         case 0x4000u: {
             int script = g_bullet_script_first[cmd.param2.i] + cmd.param3.i;
-            Entity_StartScript_00404f30(
-                reinterpret_cast<AnimationResource_0043e710*>(g_bullet_manager->resource),
+            Entity_StartScript(
+                reinterpret_cast<AnimationResourceFile*>(g_bullet_manager->resource),
                 &beam, script);
             break;
         }

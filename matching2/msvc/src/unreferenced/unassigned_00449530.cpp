@@ -14,13 +14,13 @@ struct AnimationNode_00449530 {
     __declspec(noinline) void Begin();
 };
 
-extern "C" AnimationNode_00449530* __fastcall AnimationManager_Find_004491c0(
+extern "C" AnimationNode_00449530* __fastcall AnimationManager_Find(
     void* value, void* manager, int unused);
 
 #pragma code_seg(".text$01accessor")
 void AnimationNode_00449530::Begin() {
     AnimationNode_00449530* node =
-        AnimationManager_Find_004491c0(field_000, g_sprt_ctrl, (int)field_000);
+        AnimationManager_Find(field_000, g_sprt_ctrl, (int)field_000);
     if (node == 0) {
         return;
     }

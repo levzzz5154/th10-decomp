@@ -84,9 +84,9 @@ extern "C" {
     extern TimeoutPlayer* g_card;
     extern const char g_timeout_caution[];
 }
-struct AnimationResource_0043e710;
-struct AnimationObject_0043e710;
-extern "C" void __stdcall LoadScript_0043e710(AnimationResource_0043e710*,AnimationObject_0043e710*, int);
+struct AnimationResourceFile;
+struct AnimationObjectFile;
+extern "C" void __stdcall LoadScript_0043e710(AnimationResourceFile*,AnimationObjectFile*, int);
 
 typedef char TimeoutCountRecordSize[sizeof(AnimationRecord_00413790) == 0x3AC ? 1 : -1];
 typedef char TimeoutCountRecordsOffset[offsetof(AnimationManager_00413790, records_4cdc) == 0x4CDC ? 1 : -1];
@@ -134,8 +134,8 @@ extern "C" __declspec(noinline) void __stdcall Player_Die(Player* player) {
     player->state = PLAYER_DYING;
     SetTimer(player->state_timer, 0);
     SetTimer(player->invulnerability_timer, 180);
-    LoadScript_0043e710(reinterpret_cast<AnimationResource_0043e710*>(player->animation_file),
-        reinterpret_cast<AnimationObject_0043e710*>(&player->sprite), 0);
+    LoadScript_0043e710(reinterpret_cast<AnimationResourceFile*>(player->animation_file),
+        reinterpret_cast<AnimationObjectFile*>(&player->sprite), 0);
     TimeoutAnimationManager* manager =
         reinterpret_cast<TimeoutAnimationManager*>(g_sprt_ctrl);
     unsigned int* handles = &options[0].animation;

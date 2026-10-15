@@ -94,7 +94,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_SchedulerCallback_Create_00449ed0@4",
+      "symbol": "_SchedulerTask_Create@4",
       "address": "0x00449ED0",
       "kind": "relative_code"
     },
@@ -104,7 +104,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_entry_free_004524a1",
+      "symbol": "_crt_free_startup",
       "address": "0x004524A1",
       "kind": "relative_code"
     },

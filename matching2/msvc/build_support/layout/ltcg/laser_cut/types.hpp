@@ -73,6 +73,6 @@ extern "C" {
  extern ItemSpawnManager_0041bb00* g_item_manager;
  extern float flt_0;
 }
-struct AnimationResource_0043e710;
-struct AnimationObject_0043e710;
-extern "C" __declspec(noinline) void* __stdcall LoadScript_0043e710(AnimationResource_0043e710*,AnimationObject_0043e710*,int);
+struct AnimationResourceFile;
+struct AnimationObjectFile;
+extern "C" __declspec(noinline) void* __stdcall LoadScript_0043e710(AnimationResourceFile*,AnimationObjectFile*,int);

@@ -15,7 +15,7 @@ extern "C" __declspec(noinline) void __stdcall PauseMenu_Initialize_00422ab0(Pau
     state->elapsed = 0.0f;
     state->previous_frame = -1;
     g_game->flags |= 0x10;
-    AnimationResource_00449870* first_resource = g_ascii_manager->resource;
+    AnimationBank* first_resource = g_ascii_manager->resource;
     Entity* first = reinterpret_cast<AnimationPool*>(g_sprt_ctrl)->Allocate();
     unsigned int first_flags = first->AnimationFlags();
     first->render_bucket = 15;
@@ -28,7 +28,7 @@ extern "C" __declspec(noinline) void __stdcall PauseMenu_Initialize_00422ab0(Pau
     AnimationHandle_00424480 descriptor_handle;
     descriptor_handle.value = handle.value;
     reinterpret_cast<SpriteRegion_00424480*>(manager)->BindToAnimation(descriptor_handle, 32, 16, 384, 448);
-    AnimationResource_00449870* second_resource = g_front->resource;
+    AnimationBank* second_resource = g_front->resource;
     state->resource = second_resource;
     Entity* second = reinterpret_cast<AnimationPool*>(manager)->Allocate();
     unsigned int second_flags = second->AnimationFlags();

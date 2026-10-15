@@ -34,8 +34,8 @@ struct AsciiManager_00401110 {
 
 
 extern "C" {
-void *__fastcall Recovery_LoadCachedResource_00447280(int id, void *cache, const char *name);
-SchedulerTask *__stdcall SchedulerCallback_Create_00449ed0(void *callback);
+void *__fastcall Recovery_LoadCachedResource(int id, void *cache, const char *name);
+SchedulerTask *__stdcall SchedulerTask_Create(void *callback);
 int __fastcall AsciiManagerUpdate_004014f0(void *manager);
 int __fastcall AsciiManagerDraw_00401510(void *manager);
 int __fastcall AsciiManagerDrawOverlay_00401520(void *manager);
@@ -46,38 +46,38 @@ extern FuncCtrl *g_func_ctrl;
 #pragma code_seg(".text$00_b_load")
 int AsciiManager_00401110::LoadResources() {
     AsciiManager_00401110 *manager = this;
-    manager->ascii_resource = (Resource_0043e5a0 *)Recovery_LoadCachedResource_00447280(
+    manager->ascii_resource = (Resource_0043e5a0 *)Recovery_LoadCachedResource(
             2, g_sprt_ctrl, "ascii.anm");
     if (!manager->ascii_resource) {
         ((TextLog_0044b810 *)0x474F70)->Append((char *)0x46CB68);
         return -1;
     }
-    manager->text_resource = (Resource_0043e5a0 *)Recovery_LoadCachedResource_00447280(
+    manager->text_resource = (Resource_0043e5a0 *)Recovery_LoadCachedResource(
             0, g_sprt_ctrl, "text.anm");
     if (!manager->text_resource) {
         ((TextLog_0044b810 *)0x474F70)->Append((char *)0x46CB68);
         return -1;
     }
-    manager->capture_resource = (Resource_0043e5a0 *)Recovery_LoadCachedResource_00447280(
+    manager->capture_resource = (Resource_0043e5a0 *)Recovery_LoadCachedResource(
             3, g_sprt_ctrl, "capture.anm");
     if (!manager->capture_resource) {
         ((TextLog_0044b810 *)0x474F70)->Append((char *)0x46CB68);
         return -1;
     }
 
-    SchedulerTask *task = SchedulerCallback_Create_00449ed0((void *)AsciiManagerUpdate_004014f0);
+    SchedulerTask *task = SchedulerTask_Create((void *)AsciiManagerUpdate_004014f0);
     task->reserved_flags &= ~1u;
     task->context = manager;
     FuncCtrl_RegisterPrimary(g_func_ctrl, task, 4);
     manager->update_task = task;
 
-    task = SchedulerCallback_Create_00449ed0((void *)AsciiManagerDraw_00401510);
+    task = SchedulerTask_Create((void *)AsciiManagerDraw_00401510);
     task->context = manager;
     task->reserved_flags &= ~1u;
     FuncCtrl_RegisterSecondary(g_func_ctrl, task, 0x30);
     manager->draw_task = task;
 
-    task = SchedulerCallback_Create_00449ed0((void *)AsciiManagerDrawOverlay_00401520);
+    task = SchedulerTask_Create((void *)AsciiManagerDrawOverlay_00401520);
     task->context = manager;
     task->reserved_flags &= ~1u;
     FuncCtrl_RegisterSecondary(g_func_ctrl, task, 0x26);
@@ -103,7 +103,7 @@ int AsciiManager_00401110::LoadResources() {
 
 extern "C" {
 void __stdcall DestroyGameThread_00401260(GameThread *thread);
-void __cdecl entry_free_004524a1(void *memory);
+void __cdecl crt_free_startup(void *memory);
 }
 void *__cdecl operator new(unsigned int size);
 
@@ -113,7 +113,7 @@ extern "C" __declspec(noinline) GameThread *__stdcall AsciiManager_Create() {
     if (reinterpret_cast<AsciiManager_00401110 *>(thread)->LoadResources()) {
         if (thread) {
             DestroyGameThread_00401260(thread);
-            entry_free_004524a1(thread);
+            crt_free_startup(thread);
         }
         return 0;
     }

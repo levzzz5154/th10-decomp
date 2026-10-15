@@ -119,7 +119,7 @@
       "kind": "metadata"
     },
     {
-      "symbol": "_entry_free_00452422",
+      "symbol": "_crt_free",
       "address": "0x00452422",
       "kind": "relative_code"
     },

@@ -160,7 +160,7 @@ struct CallbackTask {
 };
 typedef char CallbackTask_size_must_match[sizeof(CallbackTask) == sizeof(SchedulerTask) ? 1 : -1];
 
-extern "C" int* __stdcall SchedulerCallback_Create_00449ed0(int callback) {
+extern "C" int* __stdcall SchedulerTask_Create(int callback) {
     CallbackTask* task = new CallbackTask;
     task->on_register = 0;
     task->on_remove = 0;

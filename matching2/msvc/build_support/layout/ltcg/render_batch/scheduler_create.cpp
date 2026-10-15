@@ -5,14 +5,14 @@
 // the priority in EDI; the public stack home remains the callback context.
 #include "th10/core/func_ctrl.hpp"
 
-extern "C" SchedulerTask* __stdcall SchedulerCallback_Create_00449ed0(void*);
+extern "C" SchedulerTask* __stdcall SchedulerTask_Create(void*);
 extern "C" FuncCtrl* g_func_ctrl;
 
 #pragma code_seg(".text$09bucketke_prim")
 __declspec(noinline) SchedulerTask*
 __stdcall CreateEffectPrimary(void* context, int priority, void* routine) {
     SchedulerTask* task =
-        SchedulerCallback_Create_00449ed0(routine);
+        SchedulerTask_Create(routine);
     task->context = context;
     *(unsigned int*)((char*)task + 4) |= 2u;
     FuncCtrl_RegisterPrimary(g_func_ctrl, task, priority);
@@ -25,14 +25,14 @@ __stdcall CreateEffectPrimary(void* context, int priority, void* routine) {
 // the priority in EDI; the public stack home remains the callback context.
 #include "th10/core/func_ctrl.hpp"
 
-extern "C" SchedulerTask* __stdcall SchedulerCallback_Create_00449ed0(void*);
+extern "C" SchedulerTask* __stdcall SchedulerTask_Create(void*);
 extern "C" FuncCtrl* g_func_ctrl;
 
 #pragma code_seg(".text$09bucketkg_sec")
 __declspec(noinline) SchedulerTask*
 __stdcall CreateEffectSecondary(void* context, int priority, void* routine) {
     SchedulerTask* task =
-        SchedulerCallback_Create_00449ed0(routine);
+        SchedulerTask_Create(routine);
     task->context = context;
     *(unsigned int*)((char*)task + 4) |= 2u;
     FuncCtrl_RegisterSecondary(g_func_ctrl, task, priority);

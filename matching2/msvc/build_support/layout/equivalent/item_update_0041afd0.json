@@ -173,7 +173,7 @@
   "bindings": {
     "__real@3f800000": "0x00470AFC",
     "__real@3f000000": "0x00470B0C",
-    "?Entity_StartScript_00404f30@@YGXPAUAnimationResource_0043e710@@PAUEntity@@H@Z": "0x00404F30",
+    "?Entity_StartScript@@YGXPAUAnimationResourceFile@@PAUEntity@@H@Z": "0x00404F30",
     "?SetPowerDigits@ItemHud@@QAEXHH@Z": "0x004054B0",
     "?AdjustPower@ItemRunState@@QAEXH@Z": "0x00405B60",
     "?AddScore@ItemRunState@@QAEXH@Z": "0x00409D90",

@@ -81,7 +81,7 @@
     },
     {
       "name": "find",
-      "symbol": "?AnimationManager_Find_004491c0@@YIPAXPAUAnimationLookupContext@@UAnimationScriptId@@@Z",
+      "symbol": "?AnimationManager_Find@@YIPAXPAUAnimationLookupContext@@UAnimationScriptId@@@Z",
       "section": ".text$50find",
       "address": "0x4491c0",
       "size": 73

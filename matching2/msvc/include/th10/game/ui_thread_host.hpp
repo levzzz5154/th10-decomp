@@ -1,13 +1,13 @@
 #pragma once
 #include "th10/platform/worker.hpp"
 
-struct AnimationResource_00449870;
+struct AnimationBank;
 struct DispatcherVec3;
 
 // The game UI's embedded worker, synchronization state and position markers.
 struct GameUiThreadHost {
     unsigned char reserved_000[0x3c8];
-    AnimationResource_00449870* marker_resource;   // +0x3c8
+    AnimationBank* marker_resource;   // +0x3c8
     unsigned char reserved_3cc[0x260];
     PlatformWorker worker;                  // +0x62c
     unsigned char reserved_648[0x94];

@@ -32,7 +32,7 @@
    "address": "0x00470B44",
    "kind": "data"
   },
-  "?InitializeObject@AnimationResource_00449870@@QAEXPAUEntity@@H@Z": {
+  "?InitializeObject@AnimationBank@@QAEXPAUEntity@@H@Z": {
    "address": "0x00449870",
    "kind": "code"
   },

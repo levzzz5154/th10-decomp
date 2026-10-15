@@ -9,11 +9,11 @@
   "function": "_Game_Destroy@4",
   "code_bytes": 1105,
   "absolute_symbols": {
-    "_entry_free_004524a1": {
+    "_crt_free_startup": {
       "address": "0x004524A1",
       "kind": "code"
     },
-    "_entry_free_00452422": {
+    "_crt_free": {
       "address": "0x00452422",
       "kind": "code"
     },

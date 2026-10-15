@@ -77,7 +77,7 @@
       "address": "0x004923A0",
       "kind": "data"
     },
-    "_entry_free_004524a1": {
+    "_crt_free_startup": {
       "address": "0x004524A1",
       "kind": "code"
     },
@@ -333,7 +333,7 @@
       "address": "0x00491C30",
       "kind": "data"
     },
-    "_entry_free_00452422": {
+    "_crt_free": {
       "address": "0x00452422",
       "kind": "code"
     },

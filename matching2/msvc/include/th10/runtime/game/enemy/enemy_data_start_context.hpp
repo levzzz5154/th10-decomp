@@ -60,7 +60,7 @@ __declspec(noinline) void __fastcall Animation_SetPosition(
 struct AnimationFinder_0040dc80 {
     __declspec(noinline) Animation_0040dc80* __fastcall Find(AnimationManager_0040dc80* manager, ScriptChangeHandle id);
 };
-inline Animation_0040dc80* AnimationManager_Find_004491c0(AnimationManager_0040dc80* manager, ScriptChangeHandle id) {
+inline Animation_0040dc80* AnimationManager_Find(AnimationManager_0040dc80* manager, ScriptChangeHandle id) {
     return reinterpret_cast<AnimationFinder_0040dc80*>(manager)->Find(manager, id);
 }
 #endif

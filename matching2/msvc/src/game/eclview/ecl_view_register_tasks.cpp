@@ -15,7 +15,7 @@ struct RawState_0040a130 {
     void *secondary_task_00C;           // +0x00C, installed here
 };
 
-extern "C" SchedulerTask *__stdcall SchedulerCallback_Create_00449ed0(void *callback);
+extern "C" SchedulerTask *__stdcall SchedulerTask_Create(void *callback);
 extern "C" FuncCtrl *g_func_ctrl;
 extern "C" unsigned char g_stage_route_current;
 extern "C" unsigned char g_globals_stage;
@@ -28,13 +28,13 @@ EclView_RegisterTasks(RawState_0040a130 *state) {
     *(unsigned int *)&g_globals_stage = 0;
     *(unsigned int *)&g_globals_stage_shown = 0;
 
-    SchedulerTask *primary = SchedulerCallback_Create_00449ed0((void *)0x40ABE0);
+    SchedulerTask *primary = SchedulerTask_Create((void *)0x40ABE0);
     primary->reserved_flags |= 1u;
     primary->context = state;
     FuncCtrl_RegisterPrimary(g_func_ctrl, primary, 5);
     state->primary_task_008 = primary;
 
-    SchedulerTask *secondary = SchedulerCallback_Create_00449ed0((void *)0x40ABF0);
+    SchedulerTask *secondary = SchedulerTask_Create((void *)0x40ABF0);
     secondary->reserved_flags |= 1u;
     secondary->context = state;
     FuncCtrl_RegisterSecondary(g_func_ctrl, secondary, 0x27);

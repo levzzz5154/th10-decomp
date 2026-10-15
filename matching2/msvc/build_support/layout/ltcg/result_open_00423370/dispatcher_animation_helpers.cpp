@@ -33,7 +33,7 @@ DispatcherRef DispatcherPrimaryLists::RegisterPrimaryBack(Entity* object) {
 // dependencies; no explicit fabricated output parameter substitutes for sret.
 #pragma code_seg(".text$00448d00_fn")
 DispatcherRef __stdcall DispatcherCreateAnimation(
-        AnimationResource_00449870* resource, int script_index, int render_bucket) {
+        AnimationBank* resource, int script_index, int render_bucket) {
     Entity* object = reinterpret_cast<AnimationPool*>(g_sprt_ctrl)->Allocate();
     unsigned flags = object->flags_35C;
     object->render_bucket = render_bucket;
@@ -61,7 +61,7 @@ typedef char DispatcherFlagOffset[
 void* __fastcall DispatcherRemoveAnimation(
         AnimationLookupContext* context, AnimationScriptId id) {
     DispatcherFlagObject* object = reinterpret_cast<DispatcherFlagObject*>(
-        AnimationManager_Find_004491c0(context, id));
+        AnimationManager_Find(context, id));
     if (object) {
         object->flags |= 0x04000000;
         if (!object->children_flagged) {
@@ -93,7 +93,7 @@ typedef char DispatcherPositionOffset[
 void DispatcherSetPosition(const DispatcherVec3* position,
         AnimationLookupContext* context, AnimationScriptId id) {
     DispatcherPositionObject* object = reinterpret_cast<DispatcherPositionObject*>(
-        AnimationManager_Find_004491c0(context, id));
+        AnimationManager_Find(context, id));
     if (object) {
         object->position = *position;
         if (!object->children_flagged)

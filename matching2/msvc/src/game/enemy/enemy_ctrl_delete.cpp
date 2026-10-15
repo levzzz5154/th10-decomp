@@ -9,7 +9,7 @@
 // ABI anchor so the pass hands it the object in EAX.
 
 extern "C" void __cdecl asm_FUN_0040d530_0040d530(void* object);
-extern "C" void __cdecl entry_free_004524a1(void* block);
+extern "C" void __cdecl crt_free_startup(void* block);
 
 struct EnemyCtrl {
     unsigned char unknown_0000[0x04];
@@ -21,7 +21,7 @@ __declspec(noinline) void* EnemyCtrl_DeletingDestructor(EnemyCtrl* object, int f
 void* EnemyCtrl_DeletingDestructor(EnemyCtrl* object, int flags) {
     asm_FUN_0040d530_0040d530(object);
     if ((flags & 1) != 0) {
-        entry_free_004524a1(object);
+        crt_free_startup(object);
     }
     return object;
 }
@@ -36,7 +36,7 @@ __declspec(noinline) void EnemyCtrl_Delete(EnemyCtrl* object);
 void EnemyCtrl_Delete(EnemyCtrl* object) {
     if (object != 0) {
         asm_FUN_0040d530_0040d530(object);
-        entry_free_004524a1(object);
+        crt_free_startup(object);
     }
 }
 #pragma code_seg()

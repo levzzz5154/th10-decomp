@@ -10,7 +10,7 @@ extern "C" void __cdecl CleanupDelete_004524a1(void*);
 extern "C" __declspec(noinline) int __stdcall ShutdownCallerContext(MidiSequencer* manager,int slot,const char* path) {
  if(manager->current_file_slot==slot) ShutdownMidi_0043ae20(manager);
  if(manager->file_buffers[slot]) {
-  entry_free_00452422(manager->file_buffers[slot]);
+  crt_free(manager->file_buffers[slot]);
   manager->file_buffers[slot]=0;
  }
  manager->file_buffers[slot]=0;
@@ -29,12 +29,12 @@ extern "C" __declspec(noinline) int __stdcall ShutdownCallerContext(MidiSequence
 void MidiSequencer::ReleaseTracks() {
     for (int index = 0; index < track_count; ++index) {
         if (tracks[index].data) {
-            entry_free_00452422(tracks[index].data);
+            crt_free(tracks[index].data);
             tracks[index].data = 0;
         }
     }
     if (tracks) {
-        entry_free_00452422(tracks);
+        crt_free(tracks);
         tracks = 0;
     }
     tracks = 0;

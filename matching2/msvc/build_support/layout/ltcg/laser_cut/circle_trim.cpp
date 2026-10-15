@@ -40,8 +40,8 @@ int TrimLaser::TrimCircle(const CutVector* center,float radius,int spawn_items) 
     object->position.x=point.x+224.0f;
     object->position.z=point.z;
     object->position.y=point.y+16.0f;
-    LoadScript_0043e710(static_cast<AnimationResource_0043e710*>(resource),
-        reinterpret_cast<AnimationObject_0043e710*>(object),index);
+    LoadScript_0043e710(static_cast<AnimationResourceFile*>(resource),
+        reinterpret_cast<AnimationObjectFile*>(object),index);
     static_cast<CutAnimationLists*>(g_sprt_ctrl)->RegisterPrimaryBack(object);
    }
    point+=step;

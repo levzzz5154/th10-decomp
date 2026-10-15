@@ -43,7 +43,7 @@
       "address": "0x00452493",
       "kind": "code"
     },
-    "_SchedulerCallback_Create_00449ed0@4": {
+    "_SchedulerTask_Create@4": {
       "address": "0x00449ED0",
       "kind": "code"
     },
@@ -135,11 +135,11 @@
       "address": "0x0043EE30",
       "kind": "code"
     },
-    "_entry_free_00452422": {
+    "_crt_free": {
       "address": "0x00452422",
       "kind": "code"
     },
-    "_entry_free_004524a1": {
+    "_crt_free_startup": {
       "address": "0x004524A1",
       "kind": "code"
     },
@@ -183,7 +183,7 @@
       "address": "0x00491C28",
       "kind": "data"
     },
-    "?InitializeObject@AnimationResource_00449870@@QAEPAXPAXH@Z": {
+    "?InitializeObject@AnimationBank@@QAEPAXPAXH@Z": {
       "address": "0x00449870",
       "kind": "code"
     },
@@ -855,8 +855,8 @@
   "bindings": {
     "?Set@RecoveryTimer_0040bd80@@QAEXH@Z": "0x00405410",
     "?Advance@RecoveryTimer_0040bd80@@QAEXM@Z": "0x0044BF40",
-    "?Find@RecoveryLookup_0040bd80@@QAIPAXPAURecoveryLookupContext_0040bd80@@URecoveryScriptId_0040bd80@@@Z": "0x004491C0",
-    "?SetFlag@RecoveryLookup_0040bd80@@QAIPAXPAURecoveryLookupContext_0040bd80@@H@Z": "0x004492A0",
+    "?Find@RecoveryLookup_0040bd80@@QAIPAXPAURecoveryLookupContext@@URecoveryScriptId@@@Z": "0x004491C0",
+    "?SetFlag@RecoveryLookup_0040bd80@@QAIPAXPAURecoveryLookupContext@@H@Z": "0x004492A0",
     "?Validate@RecoveryLookup_0040bd80@@QAAPAXPAURecoveryHandle_0040bd80@@@Z": "0x00449450",
     "?StopAtFrame2@RecoveryHandle_0040bd80@@QAEXXZ": "0x0040C480",
     "?StopAtFrame3@RecoveryHandle_0040bd80@@QAEXXZ": "0x0040C4D0",
@@ -885,27 +885,27 @@
     "?AnimationManager_CreatePositionedPrimary_00448d50@@YGPAPAXPAXPAPAXHPBUAnimationPosition_00448d50@@@Z": "0x00448D50",
     "?RecoveryPlayerAnimationCreate_00448db0@@YGPAPAXPAXPAPAXHPBUHintPosition_00419120@@@Z": "0x00448DB0",
     "?Initialise@EntityMovementSlot_0041ab70@@QAEXPBUMovementPair_0041ab70@@0HE@Z": "0x0041AB70",
-    "?FormatRightAligned@HintVm_00419120@@QAAXPAXZZ": "0x00447AE0",
-    "?FormatCentered@HintVm_00419120@@QAAXPAXZZ": "0x00447BB0",
+    "?FormatRightAligned@HintVm@@QAAXPAXZZ": "0x00447AE0",
+    "?FormatCentered@HintVm@@QAAXPAXZZ": "0x00447BB0",
     "?RecoveryMusicStopHandle_00409e50@@YGXPAURecoveryHandle_0040bd80@@@Z": "0x00409E50",
     "?DisableTimerWithOwner@Title@@QAEXH@Z": "0x0042C5C0",
     "?SetTimerTarget@Title@@QAEXH@Z": "0x0042C620",
     "?RecoveryMusicSkipLine_004349e0@@YGPADPADPAH@Z": "0x004349E0",
     "?RecoveryMusicExtractLine_00434a20@@YGPADPAD0PAH@Z": "0x00434A20",
-    "?InitializeTransition@RecoveryMusicVm_00433ef0@@QAEXPBURecoveryMusicVector_00433ef0@@0HE@Z": "0x00434A80",
+    "?InitializeTransition@RecoveryMusicVm@@QAEXPBURecoveryMusicVector_00433ef0@@0HE@Z": "0x00434A80",
     "?RegisterResource@RecoveryMusicResourceQueue_0043e460@@QAEPADPBDHH@Z": "0x0043E460",
     "?PopSelection@MenuCursor@@QAEXXZ": "0x0044BE70",
     "?Advance@MenuCursor@@QAEHH@Z": "0x0044BEA0",
     "_RecoveryScript_Execute_0040bd80@4": "0x0040BD80",
     "?Drain@HintLink_00419120@@QAEHPAUHintUpdateView@@H@Z": "0x00419120",
     "_Title_UpdateMusicRoom@4": "0x00433EF0",
-    "?MarkText@RecoveryTextVm_00447a50@@QAAXPAXZZ": "0x00447A50",
+    "?MarkText@RecoveryTextVm@@QAAXPAXZZ": "0x00447A50",
     "?ClearAnimationSlot@Title@@QAEXH@Z": "0x0042C6D0",
     "?SetSlotFrame@Title@@QAEXHF@Z": "0x0042C770",
-    "?RecoveryMusicInstallSlot_0042c670@@YGXPAUTitle@@H@Z": "0x0042C670",
+    "?RecoveryMusicInstallSlot@@YGXPAUTitle@@H@Z": "0x0042C670",
     "?Title_DispatchUpdate@@YGHPAUTitle@@@Z": "0x0042CDF0",
     "?EndingScreen_Update_0042d300@@YGHPAUTitle@@@Z": "0x0042D300",
-    "?AnimationManager_SetStopFrameAndRun@@YIXGPAURecoveryLookupContext_0040bd80@@URecoveryScriptId_0040bd80@@@Z": "0x00449250",
+    "?AnimationManager_SetStopFrameAndRun@@YIXGPAURecoveryLookupContext@@URecoveryScriptId@@@Z": "0x00449250",
     "?RestartSlot@TitleAnimationSlotView@@QAEXH@Z": "0x0042C750",
     "?SetStopFrame@AnimationHandle_00449470@@QAEXG@Z": "0x00449470",
     "?FindChildRef@AnimationHandle_004497d0@@QAE?AUAnimationRef_004497d0@@H@Z": "0x004497D0",

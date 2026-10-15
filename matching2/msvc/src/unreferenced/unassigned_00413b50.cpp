@@ -9,13 +9,13 @@ struct TextLog_0044b810 {
     char *Append(char *format, ...);
 };
 
-extern "C" void *__fastcall Recovery_LoadCachedResource_00447280(
+extern "C" void *__fastcall Recovery_LoadCachedResource(
         int index, void *owner, const char *name);
 extern "C" void *g_sprt_ctrl;
 
 #pragma code_seg(".text$00d_clload")
 extern "C" __declspec(noinline) int __cdecl LoadFrontAnm_00413b50() {
-    if (!Recovery_LoadCachedResource_00447280(
+    if (!Recovery_LoadCachedResource(
             6, g_sprt_ctrl, (const char *)0x0046D254)) {
         ((TextLog_0044b810 *)0x00474F70)->Append((char *)0x0046CB68);
         return -1;

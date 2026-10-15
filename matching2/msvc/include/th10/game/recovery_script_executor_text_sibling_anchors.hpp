@@ -14,5 +14,5 @@ typedef char RecoveryTextResourceWidthOffsetCheck[
     offsetof(RecoveryTextResourceWidthView_00447ae0, width) == 0x34 ? 1 : -1];
 
 // The genuine variadic member prototypes FormatRightAligned and FormatCentered
-// belong to HintVm_00419120 in the caller's shared header.
+// belong to HintVm in the caller's shared header.
 #endif

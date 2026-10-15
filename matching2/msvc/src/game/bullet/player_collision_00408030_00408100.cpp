@@ -13,7 +13,7 @@ int PlayerCollisionRecord::Activate() {
         state = 3;
         animation_state = 1;
         if (animation_index >= 0) {
-            static_cast<AnimationResource_0043e710*>(g_bullet_manager->item_animation)->
+            static_cast<AnimationResourceFile*>(g_bullet_manager->item_animation)->
                 CreateOffset(animation_index, reinterpret_cast<const Vector3*>(&position));
         }
         if (!(timer_flags & 1u)) {

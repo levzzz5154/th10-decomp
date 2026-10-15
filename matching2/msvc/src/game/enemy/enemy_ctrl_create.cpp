@@ -19,7 +19,7 @@ EnemyCtrl_Create(int script_name) {
             (EnemyCtrl *)manager, script_name) != 0) {
         if (manager) {
             manager->Destroy();
-            entry_free_004524a1(manager);
+            crt_free_startup(manager);
         }
         return 0;
     }

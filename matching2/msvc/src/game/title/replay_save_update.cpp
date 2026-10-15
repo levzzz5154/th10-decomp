@@ -44,7 +44,7 @@ __declspec(noinline) int __stdcall TitleMode16_00433570(Title* room) {
             sprintf(path, "th10_%.2d.rpy", number);
             save->replays[number - 1] = ReplayFile_Open_004296f0(path);
         }
-        RecoveryMusicInstallSlot_0042c670(room, 105);
+        RecoveryMusicInstallSlot(room, 105);
         room->SetTimerTarget(1);
     case 1:
         if (room->timer.current > 6)

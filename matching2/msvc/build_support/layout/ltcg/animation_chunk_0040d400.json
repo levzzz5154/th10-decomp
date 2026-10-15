@@ -77,7 +77,7 @@
       "kind": "data"
     },
     {
-      "symbol": "@Recovery_LoadCachedResource_00447280@12",
+      "symbol": "@Recovery_LoadCachedResource@12",
       "address": "0x447280",
       "kind": "relative_code"
     },

@@ -54,21 +54,21 @@ __declspec(noinline) int __stdcall TitleMode6_00430320(Title* room) {
     switch (room->phase) {
     case 0:
         if (reinterpret_cast<RecoveryLookup_0040bd80*>(g_sprt_ctrl)->Find(
-                reinterpret_cast<RecoveryLookupContext_0040bd80*>(g_sprt_ctrl),
-                *reinterpret_cast<RecoveryScriptId_0040bd80*>(&room->animation_slots[94])) == 0) {
-            RecoveryMusicInstallSlot_0042c670(room, 94);
+                reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl),
+                *reinterpret_cast<RecoveryScriptId*>(&room->animation_slots[94])) == 0) {
+            RecoveryMusicInstallSlot(room, 94);
             void* resource = g_ascii_manager->animation_resource;
             void** result = AnimationManager_CreatePrimaryBack_00448d00(resource, &handle, 8, 15);
             room->fallback_handle.value = reinterpret_cast<unsigned int>(*result);
         }
         room->cursor.item_count = g_globals_difficulty < 4 ? 4 : 1;
         room->ClearAnimationSlot(slot);
-        RecoveryMusicInstallSlot_0042c670(room, slot);
+        RecoveryMusicInstallSlot(room, slot);
         AnimationManager_SetStopFrameAndRun(
-            3, reinterpret_cast<RecoveryLookupContext_0040bd80*>(g_sprt_ctrl),
-            *reinterpret_cast<RecoveryScriptId_0040bd80*>(&room->animation_slots[slot]));
+            3, reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl),
+            *reinterpret_cast<RecoveryScriptId*>(&room->animation_slots[slot]));
         room->SetSlotFrame(slot, room->cursor.selection + 0x11);
-        RecoveryMusicInstallSlot_0042c670(room, 98);
+        RecoveryMusicInstallSlot(room, 98);
         room->SetTimerTarget(1);
     case 1:
         if (room->timer.current > 6)

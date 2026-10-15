@@ -1,7 +1,7 @@
 #pragma once
 #include "th10/core/func_ctrl.hpp"
 
-extern "C" void __cdecl entry_free_00452422(void* memory);
+extern "C" void __cdecl crt_free(void* memory);
 
 // The ASCII manager (g_ascii_manager) as its constructor and destructor see it:
 // 0x89AC-byte object built by 0x00401000 and created by 0x00401440; the
@@ -41,7 +41,7 @@ struct GameThreadSlot {
 #endif
     ~GameThreadSlot() {
         if (resource)
-            entry_free_00452422(resource);
+            crt_free(resource);
         resource = 0;
     }
 };

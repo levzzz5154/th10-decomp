@@ -7,7 +7,7 @@
 // layout, the call above bakes retail's displacements, and export_bodies never
 // selects them: the image keeps the maintained assembly regions.
 
-extern "C" int __cdecl entry_free_004524a1(void*);
+extern "C" int __cdecl crt_free_startup(void*);
 
 // 0x00420C90..0x00420D50: the fog and depth-write switches, read through the
 // render state's own device pointer at +0x08.  The state stays live across

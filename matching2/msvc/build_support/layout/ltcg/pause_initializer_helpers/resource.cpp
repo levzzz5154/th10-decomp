@@ -4,7 +4,7 @@ struct AnimationResource_0043e7e0;
 __declspec(noinline) void __stdcall LoadScriptPreservingState_0043e7e0(AnimationResource_0043e7e0*, AnimationObject_0043e7e0*, int);
 struct AnimationPositionValue { float x,y,z; AnimationPositionValue(float x,float y,float z):x(x),y(y),z(z){} };
 #pragma code_seg(".text$15resource")
-__declspec(dllexport) void AnimationResource_00449870::InitializeObject(Entity* object, int index) {
+__declspec(dllexport) void AnimationBank::InitializeObject(Entity* object, int index) {
     *reinterpret_cast<AnimationPositionValue*>(&object->position) = AnimationPositionValue(0,0,0);
     *reinterpret_cast<AnimationPositionValue*>(&object->base_position) = AnimationPositionValue(0,0,0);
     unsigned int flags = object->AnimationFlags();

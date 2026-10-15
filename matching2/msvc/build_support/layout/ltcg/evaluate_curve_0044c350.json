@@ -353,7 +353,7 @@
     },
     {
       "name": "Entity_StartScript",
-      "symbol": "?Entity_StartScript_00404f30@@YGXPAUAnimationResource_0043e710@@PAUEntity@@H@Z",
+      "symbol": "?Entity_StartScript@@YGXPAUAnimationResourceFile@@PAUEntity@@H@Z",
       "section": ".text$00404f30_fn",
       "address": "0x00404f30",
       "size": 204

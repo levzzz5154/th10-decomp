@@ -6,7 +6,7 @@
 #pragma code_seg(".text$00sprite_dtor")
 FrontSprite::~FrontSprite() {
     if (resource)
-        entry_free_00452422(resource);
+        crt_free(resource);
     resource = 0;
 }
 #pragma code_seg()

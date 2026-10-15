@@ -7,23 +7,23 @@
 
 extern "C" void* g_sprt_ctrl;
 
-struct IndicatorAnimationManager_00419120 : RecoveryLookupContext_0040bd80 {
-    __forceinline HintVm_00419120* FindInline(unsigned int id) {
+struct IndicatorAnimationManager_00419120 : RecoveryLookupContext {
+    __forceinline HintVm* FindInline(unsigned int id) {
         if (id == 0)
             return 0;
         RecoveryLookupNode_0040bd80* node;
         for (node = primary; node != 0; node = node->next)
             if (*reinterpret_cast<unsigned int*>(node->object) == id)
-                return reinterpret_cast<HintVm_00419120*>(node->object);
+                return reinterpret_cast<HintVm*>(node->object);
         for (node = secondary; node != 0; node = node->next)
             if (*reinterpret_cast<unsigned int*>(node->object) == id)
-                return reinterpret_cast<HintVm_00419120*>(node->object);
+                return reinterpret_cast<HintVm*>(node->object);
         return 0;
     }
 
     // Flags a VM and, unless its children were flagged already, each child.
     __forceinline void MarkRemovedInline(unsigned int id) {
-        HintVm_00419120* vm = FindInline(id);
+        HintVm* vm = FindInline(id);
         if (vm != 0) {
             vm->flags |= 0x04000000u;
             if (!vm->children_flagged)
@@ -45,9 +45,9 @@ static __forceinline void IndicatorHandle_Remove(HintHandle_00419120& handle) {
 }
 
 // The handle's VM; a stale handle is cleared.
-static __forceinline HintVm_00419120* IndicatorHandle_GetInline(
+static __forceinline HintVm* IndicatorHandle_GetInline(
         HintHandle_00419120& handle) {
-    HintVm_00419120* vm = IndicatorAnimations()->FindInline(handle.value);
+    HintVm* vm = IndicatorAnimations()->FindInline(handle.value);
     if (vm == 0)
         handle.value = 0;
     return vm;
@@ -55,12 +55,12 @@ static __forceinline HintVm_00419120* IndicatorHandle_GetInline(
 
 // The same through the out-of-line lookup at 0x004491C0, which takes the
 // handle by value.
-static inline HintVm_00419120* IndicatorHandle_Get(
+static inline HintVm* IndicatorHandle_Get(
         HintHandle_00419120& handle) {
-    HintVm_00419120* vm = static_cast<HintVm_00419120*>(
+    HintVm* vm = static_cast<HintVm*>(
         static_cast<RecoveryLookup_0040bd80*>(g_sprt_ctrl)->Find(
-            static_cast<RecoveryLookupContext_0040bd80*>(g_sprt_ctrl),
-            *reinterpret_cast<RecoveryScriptId_0040bd80*>(&handle)));
+            static_cast<RecoveryLookupContext*>(g_sprt_ctrl),
+            *reinterpret_cast<RecoveryScriptId*>(&handle)));
     if (vm == 0)
         handle.value = 0;
     return vm;

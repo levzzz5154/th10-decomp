@@ -3,7 +3,7 @@
 #include <new>
 
 extern "C" void __cdecl LegacyString_ThrowOutOfRange();
-extern "C" void __cdecl entry_free_004524a1(void*);
+extern "C" void __cdecl crt_free_startup(void*);
 
 char* LegacyString::Data() {
     if (capacity >= 16)
@@ -102,7 +102,7 @@ void LegacyString::ResetInlineStorage(bool release_heap, uint32_t new_length) {
         char* old_storage = storage.heap_data;
         if (new_length > 0)
             memcpy(storage.inline_data, old_storage, new_length);
-        entry_free_004524a1(old_storage);
+        crt_free_startup(old_storage);
     }
     capacity = 15;
     SetLength(new_length);

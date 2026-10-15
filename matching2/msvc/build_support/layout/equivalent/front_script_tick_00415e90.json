@@ -204,7 +204,7 @@
       "address": "0x0045BED0",
       "kind": "code"
     },
-    "_SchedulerCallback_Create_00449ed0@4": {
+    "_SchedulerTask_Create@4": {
       "address": "0x00449ED0",
       "kind": "code"
     },
@@ -280,7 +280,7 @@
       "address": "0x0",
       "kind": "data"
     },
-    "?InitializeObject@AnimationResource_00449870@@QAEXPAUEntity@@H@Z": {
+    "?InitializeObject@AnimationBank@@QAEXPAUEntity@@H@Z": {
       "address": "0x449870",
       "kind": "code"
     },
@@ -434,7 +434,7 @@
     "_strrchr": "0x00452930",
     "@__security_check_cookie@4": "0x00458EA5",
     "_memset": "0x0045BED0",
-    "_SchedulerCallback_Create_00449ed0@4": "0x00449ED0",
+    "_SchedulerTask_Create@4": "0x00449ED0",
     "_recovery_vsprintf_004524a6": "0x004524A6",
     "_recovery_draw_shadowed_00437db0@24": "0x00437DB0",
     "_recovery_draw_unshadowed_00437fe0@24": "0x00437FE0",
@@ -462,7 +462,7 @@
     "?BindToAnimation@SpriteRegion_00424480@@QAEHUAnimationHandle_00424480@@HHHH@Z": "0x424480",
     "?RegisterResource@AnimationManager_0043e460@@QAEPADPBDHH@Z": "0x43e460",
     "?RegisterSecondaryBack@AnimationListsOpen@@QAE?AUAnimationScriptId@@PAUEntity@@@Z": "0x448ac0",
-    "?AnimationManager_Find_004491c0@@YIPAXPAUAnimationLookupContext@@UAnimationScriptId@@@Z": "0x4491c0",
+    "?AnimationManager_Find@@YIPAXPAUAnimationLookupContext@@UAnimationScriptId@@@Z": "0x4491c0",
     "?Allocate@AnimationPool@@QAEPAUEntity@@XZ": "0x449950",
     "?SetSchedulerValue@DispatcherWaitTimer@@QAEXH@Z": "0x00405410",
     "?AdvanceLevel@DispatcherRankState@@QAEXXZ": "0x004175E0",
@@ -472,7 +472,7 @@
     "?SetStopFrame@DispatcherHandle@@QAEXF@Z": "0x00449470",
     "?FindChildRef@DispatcherHandle@@QAE?AUDispatcherRef@@H@Z": "0x004497D0",
     "?SelectCurrentSprite@DispatcherRef@@QAEXH@Z": "0x00449670",
-    "?SelectResourceSprite@DispatcherRef@@QAEXPAUAnimationResource_00449870@@H@Z": "0x004496A0",
+    "?SelectResourceSprite@DispatcherRef@@QAEXPAUAnimationBank@@H@Z": "0x004496A0",
     "?RegisterPrimaryBack@DispatcherPrimaryLists@@QAE?AUDispatcherRef@@PAUEntity@@@Z": "0x004489D0",
     "?DispatcherRemoveAnimation@@YIPAXPAUAnimationLookupContext@@UAnimationScriptId@@@Z": "0x004492A0",
     "?DispatcherSetPosition@@YGXPBUDispatcherVec3@@PAUAnimationLookupContext@@UAnimationScriptId@@@Z": "0x004492F0",
@@ -482,7 +482,7 @@
     "?Path_DecodeXor@@YGPADPBD@Z": "0x00417010",
     "?AddScore@ScoreState@@QAEXH@Z": "0x00409D90",
     "?RecoveryDispatchText_004479d0@@YGXPAURecoveryTextResource_004479d0@@PAXHHIPBDH@Z": "0x004479D0",
-    "?MarkText@RecoveryTextVm_00447a50@@QAAXPAXZZ": "0x00447A50",
+    "?MarkText@RecoveryTextVm@@QAAXPAXZZ": "0x00447A50",
     "?Configure@Screen@@QAEXHHHHHH@Z": "0x0043C970",
     "?Screen_Create@@YGPAUScreen@@HHHHHH@Z": "0x0043C8B0",
     "_FuncCtrl_RegisterPrimary@12": "0x449ae0",
@@ -492,7 +492,7 @@
     "?Queue@SoundQueue@@QAEHHH@Z": "0x0043DC90",
     "?ConfigureObject@Resource_0043e5a0@@QAEHPAUAnimationObject_0043e5a0@@H@Z": "0x0043E5A0",
     "_ResultDispatcher_00415e90@4": "0x00415E90",
-    "?InitializeObject@AnimationResource_00449870@@QAEXPAUEntity@@H@Z": "0x449870",
+    "?InitializeObject@AnimationBank@@QAEXPAUEntity@@H@Z": "0x449870",
     "_AnmVm_Run_0043ee30@4": "0x0043EE30",
     "_FrontFree_004524a1": "0x004524A1",
     "_flt_0": "0x00470B04",
@@ -516,7 +516,7 @@
     "_g_card": "0x004776F4",
     "_g_main_state": "0x00491FB8",
     "_g_app_flags": "0x00491FF4",
-    "?DispatcherCreateAt@@YGPAHPAUAnimationResource_00449870@@PAHHH@Z": "0x00448D00"
+    "?DispatcherCreateAt@@YGPAHPAUAnimationBank@@PAHHH@Z": "0x00448D00"
   },
   "base_index_order": 0,
   "differences": [

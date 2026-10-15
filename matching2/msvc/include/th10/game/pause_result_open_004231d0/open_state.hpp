@@ -30,11 +30,11 @@ struct OpenRuntime {
 };
 struct OpenGameThread {
     unsigned char reserved[0x8998];
-    AnimationResource_00449870* cursor_resource;
+    AnimationBank* cursor_resource;
 };
 struct OpenResources {
     unsigned char reserved[0x9EC8];
-    AnimationResource_00449870* result_resource;
+    AnimationBank* result_resource;
 };
 struct OpenMusicProgress {
     unsigned char reserved[0x1D8A3];
@@ -62,7 +62,7 @@ struct PauseOpenState {
     int result_flag;
     unsigned char reserved_1e8[0x2C0 - 0x1E8];
     float saved_speed;
-    AnimationResource_00449870* current_resource;
+    AnimationBank* current_resource;
     __forceinline void Open(bool result);
     __declspec(noinline) void OpenPause();
     __declspec(noinline) void OpenResult();

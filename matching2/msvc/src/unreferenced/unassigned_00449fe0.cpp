@@ -7,7 +7,7 @@
 // build_support/layout/ltcg/dtor_delete_00449fe0.json whose array-walking synthetic caller
 // establishes that convention.
 
-extern "C" void __cdecl entry_free_004524a1(void* block);
+extern "C" void __cdecl crt_free_startup(void* block);
 
 struct Deletable_00449fe0 {
     unsigned char unknown_0000[0x08];
@@ -24,7 +24,7 @@ void* Deletable_00449fe0_Delete(Deletable_00449fe0* object, int flags) {
     object->field_0C = 0;
     object->field_10 = 0;
     if ((flags & 1) != 0) {
-        entry_free_004524a1(object);
+        crt_free_startup(object);
     }
     return object;
 }

@@ -16,8 +16,8 @@ extern "C" FuncCtrl *g_func_ctrl;
 extern "C" void *g_enemy_ctrl;
 extern "C" unsigned char g_globals_flags;
 
-extern "C" void __cdecl entry_free_004524a1(void *memory);
-extern "C" void __cdecl entry_free_00452422(void *memory);
+extern "C" void __cdecl crt_free_startup(void *memory);
+extern "C" void __cdecl crt_free(void *memory);
 extern "C" void __stdcall EnemyCtrl_ReleaseLists_00409f90(void *manager);
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
@@ -68,13 +68,13 @@ void EnemyCtrl::Destroy() {
     for (int index = 3; index < 35; ++index) {
         void *block = blocks_054[index];
         if (block)
-            entry_free_00452422(block);
+            crt_free(block);
     }
 
     void **blocks = blocks_054;
     if (blocks) {
         ((BulletEntity_0040d680 *)blocks)->ReleaseResource();
-        entry_free_004524a1(blocks);
+        crt_free_startup(blocks);
     }
     blocks_054 = 0;
 
@@ -91,7 +91,7 @@ void EnemyCtrl::Destroy() {
             if (*slot == 0)
                 continue;
             (*slot)->Release();
-            entry_free_004524a1(*slot);
+            crt_free_startup(*slot);
             *slot = 0;
         }
     }

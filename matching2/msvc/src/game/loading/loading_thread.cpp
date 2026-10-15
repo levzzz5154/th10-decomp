@@ -26,7 +26,7 @@ extern char str_bgm_init_failed[];             // "error : BGM の初期化に�
 extern TextLog_0044b810 g_log;
 extern WaveSoundManager g_wave_sound_manager;
 
-void* __fastcall Recovery_LoadCachedResource_00447280(int index, void* cache, const char* name);
+void* __fastcall Recovery_LoadCachedResource(int index, void* cache, const char* name);
 void* __stdcall AsciiManager_Create();
 char* __stdcall Archive_LoadFile(const char* name, int* out_size, int from_disk);
 }
@@ -35,7 +35,7 @@ void __stdcall ScoreManager_Create_0042af20();
 
 // Everything the title screen itself needs; -1 when any of it is missing.
 static __forceinline int LoadTitleScreenAssets(LoadingView* title) {
-    title->logo_animation = Recovery_LoadCachedResource_00447280(1, g_sprt_ctrl, "sig.anm");
+    title->logo_animation = Recovery_LoadCachedResource(1, g_sprt_ctrl, "sig.anm");
     if (!title->logo_animation)
         return -1;
     title->secondary_task->reserved_flags |= 1u;
@@ -45,7 +45,7 @@ static __forceinline int LoadTitleScreenAssets(LoadingView* title) {
         return -1;
     }
     title->game_thread_created = 1;
-    g_text_anm_resource = Recovery_LoadCachedResource_00447280(0, g_sprt_ctrl, "text.anm");
+    g_text_anm_resource = Recovery_LoadCachedResource(0, g_sprt_ctrl, "text.anm");
     if (!g_text_anm_resource)
         return -1;
     return 0;

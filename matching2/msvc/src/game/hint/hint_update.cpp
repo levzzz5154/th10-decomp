@@ -25,7 +25,7 @@ int HintUpdateView::Update() {
     float player_x = g_player->position.x + 224.0f;
     float player_y = g_player->position.y + 16.0f;
     for (int i = 0; i < 10; ++i) {
-        HintVm_00419120* vm = IndicatorHandle_GetInline(handles[i]);
+        HintVm* vm = IndicatorHandle_GetInline(handles[i]);
         if (!vm)
             continue;
         if (vm->interrupt_pending)

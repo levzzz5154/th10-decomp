@@ -44,7 +44,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_entry_free_004524a1",
+      "symbol": "_crt_free_startup",
       "address": "0x4524a1",
       "kind": "relative_code"
     }

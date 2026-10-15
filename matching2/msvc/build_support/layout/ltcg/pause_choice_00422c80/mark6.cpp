@@ -6,7 +6,7 @@ void Ref4::StopAtFrame6() {
     AnimationScriptId id;
     id.value = value;
     AnimationTreeNode* node = reinterpret_cast<AnimationTreeNode*>(
-        AnimationManager_Find_004491c0(g_sprt_ctrl, id));
+        AnimationManager_Find(g_sprt_ctrl, id));
     if (node != 0) {
         node->stop_frame = 6;
         if (!node->children_flagged) {

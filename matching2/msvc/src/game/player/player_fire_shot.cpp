@@ -57,7 +57,7 @@ extern "C" __declspec(noinline) int __stdcall Player_FireShot(
             unsigned int flags = object->flags_35C;
             object->render_bucket = 15;
             object->flags_35C = flags | 0x40000000u;
-            static_cast<AnimationResource_00449870*>(resource)
+            static_cast<AnimationBank*>(resource)
                 ->InitializeObject(object, script);
             AnimationRef id = static_cast<AnimationLists*>(g_sprt_ctrl)->RegisterPrimaryBack(object);
             // The shared record declares its handles volatile for the bullet update.
@@ -73,7 +73,7 @@ extern "C" __declspec(noinline) int __stdcall Player_FireShot(
                 unsigned int laser_flags = laser->flags_35C;
                 laser->render_bucket = 15;
                 laser->flags_35C = laser_flags | 0x40000000u;
-                static_cast<AnimationResource_00449870*>(laser_resource)
+                static_cast<AnimationBank*>(laser_resource)
                     ->InitializeObject(laser, 16);
                 AnimationRef laser_id = static_cast<AnimationLists*>(g_sprt_ctrl)
                     ->RegisterPrimaryBack(laser);

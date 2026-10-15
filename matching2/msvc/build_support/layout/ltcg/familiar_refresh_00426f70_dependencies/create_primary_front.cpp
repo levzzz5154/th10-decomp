@@ -58,7 +58,7 @@ void** __stdcall AnimationManager_CreatePrimaryFront_00448e30(
     unsigned int flags = object->flags_035c;
     object->render_bucket_020 = render_bucket;
     object->flags_035c = flags | 0x40000000u;
-    ((AnimationResource_00449870*)resource)->InitializeObject((Entity*)object, index);
+    ((AnimationBank*)resource)->InitializeObject((Entity*)object, index);
     asm_AnimationManager_RegisterPrimaryFront_00448a50(g_sprt_ctrl, out, object);
     return out;
 }

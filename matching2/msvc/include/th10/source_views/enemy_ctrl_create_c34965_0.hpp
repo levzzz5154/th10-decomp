@@ -6,7 +6,7 @@
 #include "th10/game/enemy_ctrl.hpp"
 
 void *__cdecl operator new(unsigned int size);
-extern "C" void __cdecl entry_free_004524a1(void *memory);
+extern "C" void __cdecl crt_free_startup(void *memory);
 extern "C" void *g_enemy_ctrl;
 
 #pragma code_seg(".text$04b")

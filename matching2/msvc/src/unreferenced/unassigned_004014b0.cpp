@@ -8,7 +8,7 @@
 // convention.
 
 extern "C" void asm_DestroyGameThread_00401260(void* object);
-extern "C" void __cdecl entry_free_004524a1(void* block);
+extern "C" void __cdecl crt_free_startup(void* block);
 
 struct Destroyable_004014b0 {
     unsigned char unknown_0000[0x04];
@@ -20,7 +20,7 @@ __declspec(noinline) void Destroyable_004014b0_Release(Destroyable_004014b0* obj
 void Destroyable_004014b0_Release(Destroyable_004014b0* object) {
     if (object != 0) {
         asm_DestroyGameThread_00401260(object);
-        entry_free_004524a1(object);
+        crt_free_startup(object);
     }
 }
 #pragma code_seg()

@@ -9,7 +9,7 @@
 // build_support/layout/ltcg/dtor_delete_0040d660.json, whose callee is compiled into the same link as an
 // ABI anchor.
 
-extern "C" void __cdecl entry_free_004524a1(void* block);
+extern "C" void __cdecl crt_free_startup(void* block);
 
 struct BulletEntity_0040d680 {
     unsigned int vtable;
@@ -29,7 +29,7 @@ struct Releaseable_0040d660 {
 void* Releaseable_0040d660::Delete(int flags) {
     ((BulletEntity_0040d680*)this)->ReleaseResource();
     if ((flags & 1) != 0) {
-        entry_free_004524a1(this);
+        crt_free_startup(this);
     }
     return this;
 }

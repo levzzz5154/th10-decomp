@@ -9,7 +9,7 @@ struct AnimationScriptId {
     AnimationScriptId(int value) : value(value) {}
 };
 struct AnimationLookupContext;
-__declspec(noinline) void* __fastcall AnimationManager_Find_004491c0(
+__declspec(noinline) void* __fastcall AnimationManager_Find(
     AnimationLookupContext* context, AnimationScriptId id);
 extern "C" void* g_sprt_ctrl;
 extern "C" float g_game_speed;
@@ -25,7 +25,7 @@ struct AnimationPool {
     int next_slot;
     __declspec(noinline) Entity* Allocate();
 };
-struct AnimationResource_00449870 {
+struct AnimationBank {
     unsigned short id;
     unsigned char reserved_002[0x11C - 2];
     void** scripts;
@@ -34,7 +34,7 @@ struct AnimationResource_00449870 {
     __declspec(noinline) void InitializeObject(Entity* object, int index);
 };
 __declspec(noinline) void __stdcall LoadScriptPreservingState_0043e7e0(
-    AnimationResource_00449870* resource, Entity* object, int index);
+    AnimationBank* resource, Entity* object, int index);
 
 struct AnimationManagerNodeOpen {
     Entity* animation;
@@ -52,8 +52,8 @@ struct AnimationListsOpen {
 typedef char PoolObjectOffsetCheck[offsetof(AnimationPool, objects) == 0x68 ? 1 : -1];
 typedef char PoolBusyOffsetCheck[offsetof(AnimationPool, occupied) == 0x3AC068 ? 1 : -1];
 typedef char PoolCursorOffsetCheck[offsetof(AnimationPool, next_slot) == 0x3AD068 ? 1 : -1];
-typedef char ResourceScriptsOffsetCheck[offsetof(AnimationResource_00449870, scripts) == 0x11C ? 1 : -1];
-typedef char ResourceLoadingOffsetCheck[offsetof(AnimationResource_00449870, loading) == 0x124 ? 1 : -1];
+typedef char ResourceScriptsOffsetCheck[offsetof(AnimationBank, scripts) == 0x11C ? 1 : -1];
+typedef char ResourceLoadingOffsetCheck[offsetof(AnimationBank, loading) == 0x124 ? 1 : -1];
 typedef char SecondaryIdOffsetCheck[offsetof(AnimationListsOpen, next_id) == 0x732454 ? 1 : -1];
 
 // The VM word at +0x35C is shared with the low-word end marker.

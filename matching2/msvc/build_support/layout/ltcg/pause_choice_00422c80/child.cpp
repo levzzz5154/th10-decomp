@@ -18,7 +18,7 @@ Ref4 Handle4::FindChildRef(int script_id) {
     AnimationScriptId id;
     id.value = (int)value;
     AnimationNode_004497d0* node = reinterpret_cast<AnimationNode_004497d0*>(
-        AnimationManager_Find_004491c0(g_sprt_ctrl, id));
+        AnimationManager_Find(g_sprt_ctrl, id));
     if (node == 0)
         value = 0;
     for (AnimationChildLink_004497d0* link = &node->children; link != 0; link = link->next)

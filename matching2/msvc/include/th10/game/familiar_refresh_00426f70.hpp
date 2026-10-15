@@ -91,7 +91,7 @@ struct FamiliarOffsetTable_00426f70 {
 
 struct PlayerFamiliarRuntime_00426f70 {
     unsigned char reserved_0000[0x10];
-    AnimationResource_00449870* resource;        // +0x010
+    AnimationBank* resource;        // +0x010
     unsigned char reserved_0014[0x3CC - 0x14];
     FamiliarPoint_00426f70 anchor;               // +0x3CC
     unsigned char reserved_03d4[0x45C - 0x3D4];

@@ -30,7 +30,7 @@ extern "C" __declspec(noinline) int __fastcall FrontHudCallback_00415ae0(void* s
 // 0x00448D00 in the out-record form the walker calls.
 #pragma code_seg(".text$00448d00_at")
 int* __stdcall DispatcherCreateAt(
-        AnimationResource_00449870* resource, int* out, int script_index, int render_bucket) {
+        AnimationBank* resource, int* out, int script_index, int render_bucket) {
     Entity* object = reinterpret_cast<AnimationPool*>(g_sprt_ctrl)->Allocate();
     unsigned flags = object->flags_35C;
     object->render_bucket = render_bucket;

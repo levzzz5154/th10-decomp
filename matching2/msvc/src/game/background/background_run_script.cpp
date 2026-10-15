@@ -3,10 +3,10 @@
 #include <math.h>
 #include "th10/game/background_draw.hpp"
 
-struct AnimationResource_0043e710;
+struct AnimationResourceFile;
 struct Entity;
-__declspec(noinline) void __stdcall Entity_StartScript_00404f30(
-    AnimationResource_0043e710* resource, Entity* entity, int script);
+__declspec(noinline) void __stdcall Entity_StartScript(
+    AnimationResourceFile* resource, Entity* entity, int script);
 extern "C" int g_main_clear_color;
 
 #pragma code_seg(".text$00403c80_fn")
@@ -114,8 +114,8 @@ int __stdcall BackGround_RunScript(BackGround* stage) {
             break;
         case 14:
             if (instruction->args[1].i >= 0) {
-                Entity_StartScript_00404f30(
-                    static_cast<AnimationResource_0043e710*>(stage->animations),
+                Entity_StartScript(
+                    static_cast<AnimationResourceFile*>(stage->animations),
                     reinterpret_cast<Entity*>(&stage->sprites[instruction->args[0].i]),
                     instruction->args[1].i);
             } else {

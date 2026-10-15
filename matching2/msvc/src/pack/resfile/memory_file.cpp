@@ -7,7 +7,7 @@
 // Recovered semantic C++ definitions.
 #include "th10/platform/memory_file.hpp"
 
-extern "C" void __cdecl entry_free_00452422(void*);
+extern "C" void __cdecl crt_free(void*);
 #ifdef _MSC_VER
 extern "C" void* __cdecl memcpy(void* destination, const void* source,
                                 DWORD size);

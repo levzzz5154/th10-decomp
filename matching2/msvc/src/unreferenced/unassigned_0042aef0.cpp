@@ -11,7 +11,7 @@
 // The allocator at 0x00452422 is bound as an absolute address, the shape the
 // project uses for a CRT entry point compiled from another unit.
 
-extern "C" void __cdecl entry_free_00452422(void* block);
+extern "C" void __cdecl crt_free(void* block);
 
 struct RawPair_0042aef0 {
     void* first;                           // +0x00
@@ -23,11 +23,11 @@ __declspec(noinline) void RawPair_0042aef0_Release(RawPair_0042aef0* pair);
 #pragma code_seg(".text$01rel")
 void RawPair_0042aef0_Release(RawPair_0042aef0* pair) {
     if (pair->first != 0) {
-        entry_free_00452422(pair->first);
+        crt_free(pair->first);
         pair->first = 0;
     }
     if (pair->second != 0) {
-        entry_free_00452422(pair->second);
+        crt_free(pair->second);
         pair->second = 0;
     }
 }

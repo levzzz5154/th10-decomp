@@ -9,7 +9,7 @@ extern "C" int __cdecl recovery_vsprintf_004524a6(
     char* buffer, const char* format, char* args);
 
 #pragma code_seg(".text$00447ae0_fn")
-void __cdecl HintVm_00419120::FormatRightAligned(
+void __cdecl HintVm::FormatRightAligned(
     void* manager, ...) {
     char buffer[128];
     const unsigned char font = font_height;

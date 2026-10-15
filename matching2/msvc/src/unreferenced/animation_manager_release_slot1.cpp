@@ -13,14 +13,14 @@ struct AnimationManager_0042c800 {
 };
 
 extern "C" AnimationManager_0042c800* g_sprt_ctrl;
-extern "C" void __cdecl entry_free_004524a1(void* memory);
+extern "C" void __cdecl crt_free_startup(void* memory);
 
 #pragma code_seg(".text$04layoutb")
 extern "C" __declspec(noinline) void __cdecl ReleaseSlot1_0042c800() {
     AnimationResource_00447810** slot = &g_sprt_ctrl->slots_3ad06c[1];
     if (*slot != 0) {
         (*slot)->Release();
-        entry_free_004524a1(*slot);
+        crt_free_startup(*slot);
         *slot = 0;
     }
 }

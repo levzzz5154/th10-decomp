@@ -4,6 +4,6 @@
 void __fastcall EntityAnimation_Release(Entity* entity) {
     void* resource = entity->resource;
     if (resource != 0)
-        entry_free_00452422(resource);
+        crt_free(resource);
     entity->resource = 0;
 }

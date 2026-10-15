@@ -22,7 +22,7 @@ struct AnimationPool {
     Entity* Allocate();                            // 0x00449950
 };
 
-struct AnimationResource_00449870 {
+struct AnimationBank {
     void InitializeObject(Entity* object, int index); // 0x00449870
 };
 

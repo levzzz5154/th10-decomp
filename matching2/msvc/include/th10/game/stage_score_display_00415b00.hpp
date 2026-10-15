@@ -70,7 +70,7 @@ struct SlotLists {
 };
 struct SlotResources {
     unsigned char reserved[0x899C];
-    AnimationResource_00449870* resource;
+    AnimationBank* resource;
 };
 extern "C" SlotResources* g_ascii_manager;
 struct SlotEffect {

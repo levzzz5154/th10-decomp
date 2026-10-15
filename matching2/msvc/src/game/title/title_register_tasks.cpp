@@ -25,9 +25,9 @@ struct TextLog_0044b810 {
     char *Append(char *format, ...);
 };
 
-extern "C" void *__fastcall Recovery_LoadCachedResource_00447280(
+extern "C" void *__fastcall Recovery_LoadCachedResource(
         int id, void *cache, const char *name);
-extern "C" SchedulerTask *__stdcall SchedulerCallback_Create_00449ed0(void *callback);
+extern "C" SchedulerTask *__stdcall SchedulerTask_Create(void *callback);
 extern "C" void *g_sprt_ctrl;
 extern "C" FuncCtrl *g_func_ctrl;
 extern "C" int g_screen_effects_frozen;
@@ -35,25 +35,25 @@ extern "C" int g_screen_effects_frozen;
 #pragma code_seg(".text$00hbstartupzmzt")
 extern "C" __declspec(noinline) int __stdcall
 Title_RegisterTasks(Title *title) {
-    SchedulerTask *task = SchedulerCallback_Create_00449ed0((void *)0x42D2E0);
+    SchedulerTask *task = SchedulerTask_Create((void *)0x42D2E0);
     task->reserved_flags &= ~1u;
     task->context = title;
     FuncCtrl_RegisterPrimary(g_func_ctrl, task, 6);
     title->update_task = task;
 
-    task = SchedulerCallback_Create_00449ed0((void *)0x42D2F0);
+    task = SchedulerTask_Create((void *)0x42D2F0);
     task->context = title;
     task->reserved_flags &= ~1u;
     FuncCtrl_RegisterSecondary(g_func_ctrl, task, 3);
     title->draw_task = task;
 
-    title->title_resource = Recovery_LoadCachedResource_00447280(
+    title->title_resource = Recovery_LoadCachedResource(
             0x19, g_sprt_ctrl, "title.anm");
     if (!title->title_resource) {
         ((TextLog_0044b810 *)0x474F70)->Append((char *)0x46CB68);
         return -1;
     }
-    title->title_v_resource = Recovery_LoadCachedResource_00447280(
+    title->title_v_resource = Recovery_LoadCachedResource(
             0x1A, g_sprt_ctrl, "title_v.anm");
     if (!title->title_v_resource) {
         ((TextLog_0044b810 *)0x474F70)->Append((char *)0x46CB68);

@@ -143,7 +143,7 @@
     "?TrimRectangle@TrimLaser@@UAEHPBUCutVector@@0H@Z": "0x0041D880",
     "?TrimCircle@TrimLaser@@UAEHPBUCutVector@@MH@Z": "0x0041DD80",
     "?Spawn@ItemSpawnManager_0041bb00@@QAEHPBUVector3@@HHMM@Z": "0x0041BB00",
-    "?Entity_StartScript_00404f30@@YGXPAUAnimationResource_0043e710@@PAUEntity@@H@Z": "0x00404F30",
+    "?Entity_StartScript@@YGXPAUAnimationResourceFile@@PAUEntity@@H@Z": "0x00404F30",
     "_LoadScript_0043e710@12": "0x0043E710",
     "?RegisterPrimaryBack@CutAnimationLists@@QAE?AUCutAnimationId@@PAUEntity@@@Z": "0x004489D0",
     "?CreateOffset@CutAnimationResource@@QAE?AUCutAnimationId@@HPBUVector3@@@Z": "0x00448DB0",

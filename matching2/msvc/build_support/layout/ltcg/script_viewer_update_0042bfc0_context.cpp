@@ -7,7 +7,7 @@
 #include "script_vm_00450560.hpp"
 #include "../../../src/game/spttest/spt_test_update.cpp"
 
-extern "C" void __cdecl entry_free_00452422(void* memory);
+extern "C" void __cdecl crt_free(void* memory);
 extern "C" unsigned int __cdecl asm_beginthreadex_00453683(
         void* security, unsigned int stack_size, PlatformWorkerEntry start,
         void* arglist, unsigned int initflag, unsigned int* thread_id);

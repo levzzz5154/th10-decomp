@@ -21,19 +21,19 @@ struct RawPair_0041ad90 {
     void *callback_00C;                 // +0x0C, secondary scheduler callback
 };
 
-extern "C" SchedulerTask *__stdcall SchedulerCallback_Create_00449ed0(void *callback);
+extern "C" SchedulerTask *__stdcall SchedulerTask_Create(void *callback);
 extern "C" void *g_func_ctrl;
 
 #pragma code_seg(".text$00e_installclear")
 extern "C" __declspec(noinline) int __stdcall
 asm_Recovery_InstallPairClearFlags_0041ad90(RawPair_0041ad90 *pair) {
-    SchedulerTask *primary = SchedulerCallback_Create_00449ed0((void *)0x41BA00);
+    SchedulerTask *primary = SchedulerTask_Create((void *)0x41BA00);
     primary->reserved_flags &= ~1u;
     primary->context = pair;
     FuncCtrl_RegisterPrimary((FuncCtrl *)g_func_ctrl, primary, 0x15);
     pair->callback_008 = primary;
 
-    SchedulerTask *secondary = SchedulerCallback_Create_00449ed0((void *)0x41BA30);
+    SchedulerTask *secondary = SchedulerTask_Create((void *)0x41BA30);
     secondary->reserved_flags &= ~1u;
     secondary->context = pair;
     FuncCtrl_RegisterSecondary((FuncCtrl *)g_func_ctrl, secondary, 0x19);

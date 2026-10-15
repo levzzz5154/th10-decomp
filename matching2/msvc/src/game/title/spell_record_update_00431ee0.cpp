@@ -31,22 +31,22 @@ static __forceinline int PageCount_00431ee0(int difficulty) {
 
 // The animation a handle refers to, searching both of the manager's lists
 // (0x004491C0 as it is inlined in phase 2).
-static __forceinline RecoveryMusicVm_00433ef0* FindAnimation_00431ee0(
-        RecoveryLookupContext_0040bd80* context, unsigned int handle) {
+static __forceinline RecoveryMusicVm* FindAnimation_00431ee0(
+        RecoveryLookupContext* context, unsigned int handle) {
     if (handle == 0)
         return 0;
     RecoveryLookupNode_0040bd80* node;
     for (node = context->primary; node != 0; node = node->next)
-        if (reinterpret_cast<RecoveryMusicVm_00433ef0*>(node->object)->id == handle)
-            return reinterpret_cast<RecoveryMusicVm_00433ef0*>(node->object);
+        if (reinterpret_cast<RecoveryMusicVm*>(node->object)->id == handle)
+            return reinterpret_cast<RecoveryMusicVm*>(node->object);
     for (node = context->secondary; node != 0; node = node->next)
-        if (reinterpret_cast<RecoveryMusicVm_00433ef0*>(node->object)->id == handle)
-            return reinterpret_cast<RecoveryMusicVm_00433ef0*>(node->object);
+        if (reinterpret_cast<RecoveryMusicVm*>(node->object)->id == handle)
+            return reinterpret_cast<RecoveryMusicVm*>(node->object);
     return 0;
 }
 
 // Stop an animation and its children at a frame.
-static __forceinline void SetTreeFrame_00431ee0(RecoveryMusicVm_00433ef0* object, unsigned short frame) {
+static __forceinline void SetTreeFrame_00431ee0(RecoveryMusicVm* object, unsigned short frame) {
     if (object != 0) {
         object->stop_frame = frame;
         if (object->children_flagged == 0) {
@@ -73,26 +73,26 @@ __declspec(noinline) int __stdcall TitleMode11_00431ee0(Title* room) {
         MenuCursor* page = &records->page;
         page->wrap = 1;
         if (reinterpret_cast<RecoveryLookup_0040bd80*>(g_sprt_ctrl)->Find(
-                reinterpret_cast<RecoveryLookupContext_0040bd80*>(g_sprt_ctrl),
-                *reinterpret_cast<RecoveryScriptId_0040bd80*>(&room->animation_slots[94])) == 0) {
-            RecoveryMusicInstallSlot_0042c670(room, 94);
+                reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl),
+                *reinterpret_cast<RecoveryScriptId*>(&room->animation_slots[94])) == 0) {
+            RecoveryMusicInstallSlot(room, 94);
             void* resource = g_ascii_manager->animation_resource;
             void** result = AnimationManager_CreatePrimaryBack_00448d00(resource, &handle, 8, 15);
             room->fallback_handle.value = reinterpret_cast<unsigned int>(*result);
         }
-        RecoveryMusicInstallSlot_0042c670(room, 102);
+        RecoveryMusicInstallSlot(room, 102);
         room->SetTimerTarget(1);
-        RecoveryMusicInstallSlot_0042c670(room, room->cursor.selection / 3 + 152);
-        RecoveryMusicInstallSlot_0042c670(room, room->cursor.selection + 154);
-        RecoveryMusicInstallSlot_0042c670(room, records->difficulty.selection + 160);
-        RecoveryMusicInstallSlot_0042c670(room, 168);
-        RecoveryMusicInstallSlot_0042c670(room, 169);
-        RecoveryMusicInstallSlot_0042c670(room, 170);
-        RecoveryMusicInstallSlot_0042c670(room, 171);
-        RecoveryMusicInstallSlot_0042c670(room, 165);
-        RecoveryMusicInstallSlot_0042c670(room, 166);
-        RecoveryMusicInstallSlot_0042c670(room, 167);
-        RecoveryMusicInstallSlot_0042c670(room, 172);
+        RecoveryMusicInstallSlot(room, room->cursor.selection / 3 + 152);
+        RecoveryMusicInstallSlot(room, room->cursor.selection + 154);
+        RecoveryMusicInstallSlot(room, records->difficulty.selection + 160);
+        RecoveryMusicInstallSlot(room, 168);
+        RecoveryMusicInstallSlot(room, 169);
+        RecoveryMusicInstallSlot(room, 170);
+        RecoveryMusicInstallSlot(room, 171);
+        RecoveryMusicInstallSlot(room, 165);
+        RecoveryMusicInstallSlot(room, 166);
+        RecoveryMusicInstallSlot(room, 167);
+        RecoveryMusicInstallSlot(room, 172);
     }
     case 1:
         if (room->timer.current > 6)
@@ -106,19 +106,19 @@ __declspec(noinline) int __stdcall TitleMode11_00431ee0(Title* room) {
         if ((short)g_input_keys_raw.InputMaskActive(0x10)) {
             difficulty->Advance(-1);
             AnimationManager_SetStopFrameAndRun(
-                2, reinterpret_cast<RecoveryLookupContext_0040bd80*>(g_sprt_ctrl),
-                *reinterpret_cast<RecoveryScriptId_0040bd80*>(&room->animation_slots[170]));
+                2, reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl),
+                *reinterpret_cast<RecoveryScriptId*>(&room->animation_slots[170]));
         }
         if ((short)g_input_keys_raw.InputMaskActive(0x20)) {
             difficulty->Advance(1);
             AnimationManager_SetStopFrameAndRun(
-                2, reinterpret_cast<RecoveryLookupContext_0040bd80*>(g_sprt_ctrl),
-                *reinterpret_cast<RecoveryScriptId_0040bd80*>(&room->animation_slots[171]));
+                2, reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl),
+                *reinterpret_cast<RecoveryScriptId*>(&room->animation_slots[171]));
         }
         if (difficulty->previous_selection != difficulty->selection) {
             g_sound_manager.Queue(12, 0);
             room->ClearAnimationSlot(records->difficulty.previous_selection + 160);
-            RecoveryMusicInstallSlot_0042c670(room, difficulty->selection + 160);
+            RecoveryMusicInstallSlot(room, difficulty->selection + 160);
             if (records->page.selection > 0) {
                 SelectItem_00431ee0(records->page, 1);
                 reinterpret_cast<TitleDrawView*>(room)->BuildSpellList();
@@ -128,23 +128,23 @@ __declspec(noinline) int __stdcall TitleMode11_00431ee0(Title* room) {
         if ((short)g_input_keys_raw.InputMaskActive(0x40)) {
             room->cursor.Advance(-1);
             AnimationManager_SetStopFrameAndRun(
-                2, reinterpret_cast<RecoveryLookupContext_0040bd80*>(g_sprt_ctrl),
-                *reinterpret_cast<RecoveryScriptId_0040bd80*>(&room->animation_slots[168]));
+                2, reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl),
+                *reinterpret_cast<RecoveryScriptId*>(&room->animation_slots[168]));
         }
         if ((short)g_input_keys_raw.InputMaskActive(0x80)) {
             room->cursor.Advance(1);
             AnimationManager_SetStopFrameAndRun(
-                2, reinterpret_cast<RecoveryLookupContext_0040bd80*>(g_sprt_ctrl),
-                *reinterpret_cast<RecoveryScriptId_0040bd80*>(&room->animation_slots[169]));
+                2, reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl),
+                *reinterpret_cast<RecoveryScriptId*>(&room->animation_slots[169]));
         }
         if (room->cursor.previous_selection != room->cursor.selection) {
             g_sound_manager.Queue(12, 0);
             if (room->cursor.selection / 3 != room->cursor.previous_selection / 3) {
                 room->ClearAnimationSlot(room->cursor.previous_selection / 3 + 152);
-                RecoveryMusicInstallSlot_0042c670(room, room->cursor.selection / 3 + 152);
+                RecoveryMusicInstallSlot(room, room->cursor.selection / 3 + 152);
             }
             room->ClearAnimationSlot(room->cursor.previous_selection + 154);
-            RecoveryMusicInstallSlot_0042c670(room, room->cursor.selection + 154);
+            RecoveryMusicInstallSlot(room, room->cursor.selection + 154);
             if (records->page.selection > 0)
                 reinterpret_cast<TitleDrawView*>(room)->BuildSpellList();
         }
@@ -215,7 +215,7 @@ __declspec(noinline) int __stdcall TitleMode11_00431ee0(Title* room) {
             room->ClearAnimationSlot(172);
             for (int line = 0; line < 10; ++line)
                 SetTreeFrame_00431ee0(
-                    FindAnimation_00431ee0(reinterpret_cast<RecoveryLookupContext_0040bd80*>(g_sprt_ctrl),
+                    FindAnimation_00431ee0(reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl),
                                            records->lines[line].value), 1);
         }
         break;

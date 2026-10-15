@@ -64,7 +64,7 @@ EndingText::EndingText(void* script_data) {
     AnimationLookupContext* manager = (AnimationLookupContext*)g_sprt_ctrl;
     memset(this, 0, sizeof(*this));
     for (unsigned int i = 0; i < 5; ++i) {
-        AnimationResource_00449870* bank = *(AnimationResource_00449870**)((char*)g_ascii_manager + 0x899C);
+        AnimationBank* bank = *(AnimationBank**)((char*)g_ascii_manager + 0x899C);
         EndingGlyph* glyph = (EndingGlyph*)((AnimationPool*)manager)->Allocate();
         unsigned int old_flags = glyph->flags;
         glyph->render_bucket = 15;

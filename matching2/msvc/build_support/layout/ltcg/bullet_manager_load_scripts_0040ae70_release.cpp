@@ -8,7 +8,7 @@ public:
 extern "C" SprtCtrl* g_sprt_ctrl;
 
 // CRT free, the entry at 0x00452422 (0x004524A1 is the five-byte jump to it).
-extern "C" void __cdecl entry_free_00452422(void* memory);
+extern "C" void __cdecl crt_free(void* memory);
 
 // One entry's animation interface.  Retail calls its third virtual slot (+0x8)
 // with the interface itself pushed, i.e. a __stdcall member.
@@ -50,28 +50,28 @@ void AnimationResource_00447810::Release() {
             entry->handle = 0;
         }
         if (entry->allocation != 0) {
-            entry_free_00452422(entry->allocation);
+            crt_free(entry->allocation);
             entry->allocation = 0;
         }
     }
     if (entries_120 != 0) {
-        entry_free_00452422(entries_120);
+        crt_free(entries_120);
         entries_120 = 0;
     }
     if (auxiliary_118 != 0) {
-        entry_free_00452422(auxiliary_118);
+        crt_free(auxiliary_118);
         auxiliary_118 = 0;
     }
     if (auxiliary_11c != 0) {
-        entry_free_00452422(auxiliary_11c);
+        crt_free(auxiliary_11c);
         auxiliary_11c = 0;
     }
     if (auxiliary_12c != 0) {
-        entry_free_00452422(auxiliary_12c);
+        crt_free(auxiliary_12c);
         auxiliary_12c = 0;
     }
     if (resource_108 != 0) {
-        entry_free_00452422(resource_108);
+        crt_free(resource_108);
         resource_108 = 0;
     }
 }

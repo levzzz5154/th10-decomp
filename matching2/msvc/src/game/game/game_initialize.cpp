@@ -53,7 +53,7 @@ extern int g_stage_wait;
 extern int g_screen_effects_frozen;
 extern const double dbl_0;
 __declspec(dllimport) void __stdcall Sleep(unsigned int);
-__declspec(noinline) int* __stdcall SchedulerCallback_Create_00449ed0(int callback);
+__declspec(noinline) int* __stdcall SchedulerTask_Create(int callback);
 void* __stdcall ReplayCreate(int replay_mode, const char* file);
 void* __stdcall CreateStageState(const char* file, int option);
 void* __stdcall CreateItems();
@@ -131,13 +131,13 @@ extern "C" __declspec(noinline) int __stdcall Game_Initialize(Game* context) {
     }
     g_globals.gauge_decay = 9;
     {
-        CallbackTask* task = reinterpret_cast<CallbackTask*>(SchedulerCallback_Create_00449ed0(reinterpret_cast<int>(&Game_UpdateCallback)));
+        CallbackTask* task = reinterpret_cast<CallbackTask*>(SchedulerTask_Create(reinterpret_cast<int>(&Game_UpdateCallback)));
         unsigned int active_flags = task->flags & ~2u;
         task->context = context;
         task->flags = active_flags;
         FuncCtrl_RegisterPrimary(g_func_ctrl, reinterpret_cast<SchedulerTask*>(task), 10);
         context->callbacks.primary_task = reinterpret_cast<SchedulerCallback*>(task);
-        task = reinterpret_cast<CallbackTask*>(SchedulerCallback_Create_00449ed0(reinterpret_cast<int>(&StageDrawCallback)));
+        task = reinterpret_cast<CallbackTask*>(SchedulerTask_Create(reinterpret_cast<int>(&StageDrawCallback)));
         task->flags &= ~2u;
         task->context = context;
         FuncCtrl_RegisterSecondary(g_func_ctrl, reinterpret_cast<SchedulerTask*>(task), 4);

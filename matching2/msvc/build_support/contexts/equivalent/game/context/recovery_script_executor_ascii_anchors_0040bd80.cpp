@@ -7,7 +7,7 @@
 extern "C" {
 extern FuncCtrl* g_func_ctrl;
 extern const float RecoveryAsciiFrameSpeed_00476f78;
-SchedulerTask* __stdcall SchedulerCallback_Create_00449ed0(TaskRoutine callback);
+SchedulerTask* __stdcall SchedulerTask_Create(TaskRoutine callback);
 int __fastcall RecoveryAsciiBasicTick_0043bd40(void*);
 int __fastcall RecoveryAsciiDraw0_0043c1a0(void*);
 int __fastcall RecoveryAsciiTick1_0043c550(void*);
@@ -68,7 +68,7 @@ extern "C" __declspec(noinline) int __stdcall FuncCtrl_RegisterSecondary(
 extern "C" __declspec(noinline) SchedulerTask* __stdcall
 RecoveryAsciiRegisterPrimary_0044a000(TaskRoutine callback, int priority,
                                     void* owner) {
-    SchedulerTask* task = SchedulerCallback_Create_00449ed0(callback);
+    SchedulerTask* task = SchedulerTask_Create(callback);
     task->context = owner;
     *(unsigned int*)((unsigned char*)task + 4) |= 2u;
     FuncCtrl_RegisterPrimary(g_func_ctrl, task, priority);
@@ -79,7 +79,7 @@ RecoveryAsciiRegisterPrimary_0044a000(TaskRoutine callback, int priority,
 extern "C" __declspec(noinline) SchedulerTask* __stdcall
 RecoveryAsciiRegisterSecondary_0044a030(TaskRoutine callback, int priority,
                                       void* owner) {
-    SchedulerTask* task = SchedulerCallback_Create_00449ed0(callback);
+    SchedulerTask* task = SchedulerTask_Create(callback);
     task->context = owner;
     *(unsigned int*)((unsigned char*)task + 4) |= 2u;
     FuncCtrl_RegisterSecondary(g_func_ctrl, task, priority);

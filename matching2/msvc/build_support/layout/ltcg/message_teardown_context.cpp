@@ -13,14 +13,14 @@ extern "C" void __stdcall ReleaseGlobalPending_004294a0(void*);
 #pragma code_seg(".text$05globals")
 void Recovery_ReleaseGlobalStates() {
     void* manager_state = g_game;
-    if (manager_state) { Game_Destroy(manager_state);entry_free_004524a1(manager_state); }
+    if (manager_state) { Game_Destroy(manager_state);crt_free_startup(manager_state); }
     void* script_state = g_title;
-    if (script_state) { ReleaseGlobalScript_0042cb60(script_state);entry_free_004524a1(script_state); }
+    if (script_state) { ReleaseGlobalScript_0042cb60(script_state);crt_free_startup(script_state); }
     void* resource_state = g_loading;
-    if (resource_state) { ReleaseGlobalResource_0041fb50(resource_state);entry_free_004524a1(resource_state); }
+    if (resource_state) { ReleaseGlobalResource_0041fb50(resource_state);crt_free_startup(resource_state); }
     EndingState* small_state = (EndingState*)g_ending;
-    if (small_state) { Ending_Release(small_state);entry_free_004524a1(small_state); }
+    if (small_state) { Ending_Release(small_state);crt_free_startup(small_state); }
     void* pending_block = g_replay;
-    if (pending_block) { ReleaseGlobalPending_004294a0(pending_block);entry_free_004524a1(pending_block); }
+    if (pending_block) { ReleaseGlobalPending_004294a0(pending_block);crt_free_startup(pending_block); }
 }
 #pragma code_seg()

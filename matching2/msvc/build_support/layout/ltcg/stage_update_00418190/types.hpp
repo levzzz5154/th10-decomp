@@ -69,8 +69,8 @@
 // entity each quad got.
 #include "th10/game/entity.hpp"
 
-struct AnimationResource_0043e710;
-void __stdcall Entity_StartScript_00404f30(AnimationResource_0043e710* resource,
+struct AnimationResourceFile;
+void __stdcall Entity_StartScript(AnimationResourceFile* resource,
                                            Entity* entity, int script);
 
 struct StageTask_00404450 {
@@ -108,7 +108,7 @@ struct Stage_00404450 {
     unsigned char reserved_0020[0x4c - 0x20];
     int value_4c;                               // +0x4c
     unsigned char reserved_0050[0x178 - 0x50];
-    AnimationResource_0043e710* animation;      // +0x178
+    AnimationResourceFile* animation;      // +0x178
     Entity* quad_entities;                      // +0x17c
     unsigned char reserved_0180[0x2a40 - 0x180];
     StageTask_00404450* after_draw_task;        // +0x2a40
@@ -344,7 +344,7 @@ typedef FrontScoreView PauseAnimationCountManager_00413790;
 #define g_main_state stage_chain_data_00491fb8
 #define g_sound_manager stage_chain_data_00492590
 // Variant A: member with the container walk, head cached in a local.
-extern "C" void __cdecl entry_free_004524a1(void* memory);
+extern "C" void __cdecl crt_free_startup(void* memory);
 
 struct LinkedNode_00417770 {
     virtual void Slot0();

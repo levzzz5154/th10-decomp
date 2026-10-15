@@ -41,27 +41,27 @@ void FrontInitializeView::Initialize() {
         int script = 20;
         for (int count = 10; count; --count, ++script) {
             Entity *score = &animations[script - 10];
-            LoadScript_0043e710(reinterpret_cast<AnimationResource_0043e710 *>(captions),
-                                reinterpret_cast<AnimationObject_0043e710 *>(score - 10),
+            LoadScript_0043e710(reinterpret_cast<AnimationResourceFile *>(captions),
+                                reinterpret_cast<AnimationObjectFile *>(score - 10),
                                 script - 10);
-            LoadScript_0043e710(reinterpret_cast<AnimationResource_0043e710 *>(captions),
-                                reinterpret_cast<AnimationObject_0043e710 *>(score), script);
+            LoadScript_0043e710(reinterpret_cast<AnimationResourceFile *>(captions),
+                                reinterpret_cast<AnimationObjectFile *>(score), script);
         }
         for (int i = 0; i < 9; ++i)
-            LoadScript_0043e710(reinterpret_cast<AnimationResource_0043e710 *>(captions),
-                                reinterpret_cast<AnimationObject_0043e710 *>(&animations[20 + i]),
+            LoadScript_0043e710(reinterpret_cast<AnimationResourceFile *>(captions),
+                                reinterpret_cast<AnimationObjectFile *>(&animations[20 + i]),
                                 30 + i);
         for (int i = 0; i < 4; ++i)
-            LoadScript_0043e710(reinterpret_cast<AnimationResource_0043e710 *>(captions),
-                                reinterpret_cast<AnimationObject_0043e710 *>(&animations[29 + i]),
+            LoadScript_0043e710(reinterpret_cast<AnimationResourceFile *>(captions),
+                                reinterpret_cast<AnimationObjectFile *>(&animations[29 + i]),
                                 47 + i);
         for (int i = 0; i < 2; ++i)
-            LoadScript_0043e710(reinterpret_cast<AnimationResource_0043e710 *>(captions),
-                                reinterpret_cast<AnimationObject_0043e710 *>(&animations[33 + i]),
+            LoadScript_0043e710(reinterpret_cast<AnimationResourceFile *>(captions),
+                                reinterpret_cast<AnimationObjectFile *>(&animations[33 + i]),
                                 80 + i);
         for (int i = 0; i < 7; ++i)
-            LoadScript_0043e710(reinterpret_cast<AnimationResource_0043e710 *>(captions),
-                                reinterpret_cast<AnimationObject_0043e710 *>(&animations[35 + i]),
+            LoadScript_0043e710(reinterpret_cast<AnimationResourceFile *>(captions),
+                                reinterpret_cast<AnimationObjectFile *>(&animations[35 + i]),
                                 51 + i);
     }
     SetLifeIcons(g_globals.lives);
@@ -88,8 +88,8 @@ void FrontInitializeView::Initialize() {
         RegisterFrontInline(reinterpret_cast<FrontAnimationLists *>(g_sprt_ctrl), object);
     }
     LoadScript_0043e710(
-        reinterpret_cast<AnimationResource_0043e710 *>(g_ascii_manager->title_resource),
-        reinterpret_cast<AnimationObject_0043e710 *>(&animations[42]), 0);
+        reinterpret_cast<AnimationResourceFile *>(g_ascii_manager->title_resource),
+        reinterpret_cast<AnimationObjectFile *>(&animations[42]), 0);
     if (g_globals.stage == 1 && !g_game->stage_one_gate && !g_globals.continues) {
         Entity *object = AllocateFrontObject(captions, 79);
         RegisterFrontInline(reinterpret_cast<FrontAnimationLists *>(g_sprt_ctrl), object);

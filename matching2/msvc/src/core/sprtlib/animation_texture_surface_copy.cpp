@@ -47,7 +47,7 @@ struct Texture_00448270 {
     virtual void __stdcall Reserved15() = 0;
     virtual void __stdcall Reserved16() = 0;
     virtual void __stdcall Reserved17() = 0;
-    virtual long __stdcall GetSurfaceLevel(unsigned int level, Resource_00447f70** surface) = 0;
+    virtual long __stdcall GetSurfaceLevel(unsigned int level, ResourceView** surface) = 0;
 };
 
 struct AnimationTextureEntry_00448270 {
@@ -85,7 +85,7 @@ void AnimationManagerIndexed_00447f70::CopyRectToBackBuffer(int index, int x, in
                                                             int width, int height) {
     if (!secondary[index])
         return;
-    Resource_00447f70* back_buffer;
+    ResourceView* back_buffer;
     if (Device()->GetBackBuffer(0, 0, 0, &back_buffer) != 0)
         return;
     if (!primary[index]) {
@@ -121,10 +121,10 @@ void AnimationTextureManager_00448270::CaptureBackBuffer(int resource, int entry
     if (!resources[resource]->entries[entry].texture)
         return;
     reinterpret_cast<SprtCtrlBatchView*>(this)->Flush();
-    Resource_00447f70* back_buffer;
+    ResourceView* back_buffer;
     if (Device()->GetBackBuffer(0, 0, 0, &back_buffer) != 0)
         return;
-    Resource_00447f70* surface;
+    ResourceView* surface;
     if (resources[resource]->entries[entry].texture->GetSurfaceLevel(0, &surface) != 0) {
         back_buffer->Release();
         return;
@@ -158,10 +158,10 @@ void AnimationTextureManager_00448270::CopyTexture(int target_resource, int targ
     if (!resources[source_resource]->entries[source_entry].texture)
         return;
     reinterpret_cast<SprtCtrlBatchView*>(this)->Flush();
-    Resource_00447f70* target;
+    ResourceView* target;
     if (resources[target_resource]->entries[target_entry].texture->GetSurfaceLevel(0, &target) != 0)
         return;
-    Resource_00447f70* source;
+    ResourceView* source;
     if (resources[source_resource]->entries[source_entry].texture->GetSurfaceLevel(0, &source) != 0) {
         target->Release();
         return;
@@ -204,7 +204,7 @@ void AnimationManagerIndexed_00447f70::CaptureBackBufferImage(int index, int lef
     target.top = target_top;
     target.right = target_left + target_width;
     target.bottom = target_top + target_height;
-    Resource_00447f70* back_buffer;
+    ResourceView* back_buffer;
     if (StateDevice()->GetBackBuffer(0, 0, 0, &back_buffer) != 0)
         return;
     info[index].width = target_width;

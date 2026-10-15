@@ -297,8 +297,8 @@ __declspec(noinline) int __stdcall FrontHudUpdate_00414900(
                 break;
             }
             {
-                AnimationResource_00449870* resource =
-                    (AnimationResource_00449870*)front->resource_9ec8;
+                AnimationBank* resource =
+                    (AnimationBank*)front->resource_9ec8;
                 AnimationPool* pool = (AnimationPool*)g_sprt_ctrl;
                 Entity* object = pool->Allocate();
                 unsigned int flags = object->flags_35C;
@@ -317,8 +317,8 @@ __declspec(noinline) int __stdcall FrontHudUpdate_00414900(
                 if ((int)i < front->boss_id_count_9e90) {
                     if (*slot != 0)
                         continue;
-                    AnimationResource_00449870* resource =
-                        (AnimationResource_00449870*)front->resource_9ec8;
+                    AnimationBank* resource =
+                        (AnimationBank*)front->resource_9ec8;
                     AnimationPool* pool = (AnimationPool*)g_sprt_ctrl;
                     Entity* object = pool->Allocate();
                     unsigned int flags = object->flags_35C;

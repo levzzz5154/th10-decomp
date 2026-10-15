@@ -2,8 +2,8 @@
 #include <stddef.h>
 #include "collision.hpp"
 #include "timer.hpp"
-struct AnimationResource_0043e710;
-__declspec(noinline) void __stdcall Entity_StartScript_00404f30(AnimationResource_0043e710* resource, Entity* entity, int script);
+struct AnimationResourceFile;
+__declspec(noinline) void __stdcall Entity_StartScript(AnimationResourceFile* resource, Entity* entity, int script);
 struct ItemPolarVelocity_0041bb00 {
     float x, y;
     __declspec(noinline) ItemPolarVelocity_0041bb00* SetPolar(float angle, float speed);

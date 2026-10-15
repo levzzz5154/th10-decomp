@@ -2,11 +2,11 @@
 // This file is an unselected ABI anchor candidate, not a byte-match claim.
 // Native LTCG must earn position in EDI with resource/out/index on the stack.
 #include "types.hpp"
-struct AnimationResource_0043e710;
-struct AnimationObject_0043e710;
+struct AnimationResourceFile;
+struct AnimationObjectFile;
 
 extern "C" __declspec(noinline) void* __stdcall LoadScript_0043e710(
-    AnimationResource_0043e710* resource, AnimationObject_0043e710* object, int index);
+    AnimationResourceFile* resource, AnimationObjectFile* object, int index);
 
 // Retail reads these existing single-precision data cells; do not substitute
 // immediates because the x87 memory operands are part of the complete body.
@@ -22,8 +22,8 @@ __declspec(noinline) void** __stdcall ItemAnimation_CreateOffset_00448db0(
     object->position.x = position->x + flt_224;
     object->position.y = position->y + flt_16;
     object->position.z = position->z;
-    LoadScript_0043e710(static_cast<AnimationResource_0043e710*>(resource),
-        reinterpret_cast<AnimationObject_0043e710*>(object),index);
+    LoadScript_0043e710(static_cast<AnimationResourceFile*>(resource),
+        reinterpret_cast<AnimationObjectFile*>(object),index);
     asm_AnimationManager_RegisterPrimaryBack_004489d0(g_sprt_ctrl, out, object);
     return out;
 }

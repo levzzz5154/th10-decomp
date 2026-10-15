@@ -7,7 +7,7 @@ extern "C" char* g_sprt_ctrl;
 #pragma code_seg(".text$03anchor")
 __declspec(noinline) void AnimationResource_00405f40::Release() {
     if (resource_108 == 0) {
-        entry_free_004524a1(this);
+        crt_free_startup(this);
         return;
     }
     for (int index = 0; index < entry_count_10c; ++index) {
@@ -22,14 +22,14 @@ __declspec(noinline) void AnimationResource_00405f40::Release() {
         }
     }
     if (auxiliary_118 != 0) {
-        entry_free_004524a1(auxiliary_118);
+        crt_free_startup(auxiliary_118);
         auxiliary_118 = 0;
     }
     if (entries_120 != 0) {
-        entry_free_004524a1(entries_120);
+        crt_free_startup(entries_120);
         entries_120 = 0;
     }
-    entry_free_004524a1(this);
+    crt_free_startup(this);
 }
 #pragma code_seg()
 
