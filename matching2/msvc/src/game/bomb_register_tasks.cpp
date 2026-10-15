@@ -1,4 +1,5 @@
-// 0x004055C0..0x00405613 (84 bytes): ?Recovery_InstallPairSetFlags@@
+// 0x004055C0..0x00405613 (84 bytes): Bomb_RegisterTasks - install the bomb's
+// update (0x00405840) and draw (0x00405850) tasks.
 //
 // Builds the two scheduler callbacks that drive a fixed-state pair, publishes
 // each one on the pair, and registers them with the scheduler's primary and
@@ -23,7 +24,7 @@ extern "C" void *data_00491be4;
 
 #pragma code_seg(".text$00_vinstall")
 extern "C" __declspec(noinline) int __stdcall
-asm_Recovery_InstallPairSetFlags_004055c0(RawPair_004055c0 *pair) {
+Bomb_RegisterTasks(RawPair_004055c0 *pair) {
     SchedulerTask *primary = SchedulerCallback_Create_00449ed0((void *)0x405840);
     primary->reserved_flags |= 1u;
     primary->context = pair;

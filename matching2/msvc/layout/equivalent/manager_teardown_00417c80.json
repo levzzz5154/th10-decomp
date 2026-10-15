@@ -65,7 +65,7 @@
       "address": "0x00422220",
       "kind": "code"
     },
-    "_Recovery_ReleaseRawPairAndReset@4": {
+    "_Bomb_Release@4": {
       "address": "0x00405620",
       "kind": "code"
     },

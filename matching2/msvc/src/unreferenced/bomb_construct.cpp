@@ -1,3 +1,4 @@
+// 0x004055A0: the bomb's out-of-line constructor; nothing calls it.
 #include <stddef.h>
 extern "C" void *__cdecl memset(void *destination, int value, unsigned int size);
 
@@ -10,7 +11,7 @@ struct Rec_004055a0 {
 extern "C" Rec_004055a0* g_bomb;
 #pragma code_seg(".text$01accessor")
 extern "C" __declspec(noinline) Rec_004055a0* __fastcall
-Init_004055a0(void* unused, Rec_004055a0* obj) {
+Bomb_Construct(void* unused, Rec_004055a0* obj) {
     (void)unused;
     unsigned int* flag = (unsigned int*)((char*)obj + 0x24);
     *flag &= ~1u;

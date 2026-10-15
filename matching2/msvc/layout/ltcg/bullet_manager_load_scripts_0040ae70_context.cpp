@@ -4,7 +4,7 @@
 
 struct BulletManagerState_0040af90;
 BulletManagerState_0040af90 *BulletManager_Create_0040af90();
-extern "C" void *__cdecl asm_Recovery_CreateFixedState_004056b0(void);
+extern "C" void *__cdecl Bomb_Create(void);
 extern "C" int __stdcall asm_Recovery_InstallPairClearFlags_0041ad90(void *pair);
 extern "C" void *__cdecl asm_ScoreManager_CreateAndInitRetail_0041c290(void);
 struct ScoreManager_0041c100;
@@ -76,7 +76,7 @@ int __stdcall BulletManagerLoadScriptsCompilerContext(
         if (slots[index])
             ++created;
     }
-    if (asm_Recovery_CreateFixedState_004056b0())
+    if (Bomb_Create())
         ++created;
     if (asm_Recovery_InstallPairClearFlags_0041ad90(tasks[0]))
         ++created;

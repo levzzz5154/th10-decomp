@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "reps_004055a0",
-  "source": "src/unreferenced/unassigned_004055a0.cpp",
+  "source": "src/unreferenced/bomb_construct.cpp",
   "driver": "layout/ltcg/reps_004055a0_context.cpp",
   "headers": [],
   "image_base": "0x00400000",
@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "reps_004055a0",
-      "symbol": "@Init_004055a0@8",
+      "symbol": "@Bomb_Construct@8",
       "section": ".text$01accessor",
       "address": "0x004055A0",
       "size": 29,

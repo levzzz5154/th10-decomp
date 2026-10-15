@@ -10,10 +10,10 @@
     "src/game/message_host_init.cpp",
     "src/game/object_factories.cpp",
     "src/game/platform_release_owned_handle_00413450.cpp",
-    "src/game/recovery_create_fixed_state_004056b0.cpp",
+    "src/game/bomb_create.cpp",
     "src/game/recovery_install_pair_clear_flags_0041ad90.cpp",
-    "src/game/recovery_install_pair_set_flags_004055c0.cpp",
-    "src/game/recovery_release_raw_pair_and_reset_00405620.cpp",
+    "src/game/bomb_register_tasks.cpp",
+    "src/game/bomb_release.cpp",
     "src/game/scheduler_create_and_register_0044a000.cpp",
     "src/game/scheduler_create_and_register_secondary_0044a030.cpp",
     "src/game/scheduler_release_task_pair_0043cb00.cpp",
@@ -46,7 +46,7 @@
     "_LoadFrontAnm_00413b50",
     "_LoadStartupResources_0041f8d0",
     "_Recovery_ReleaseRawPair@4",
-    "_Recovery_ReleaseRawPairAndReset@4",
+    "_Bomb_Release@4",
     "_BulletManager_Release@4",
     "_ScoreExtendedObject_DestroyRetail@4",
     "_Manager_Release_00422220@4",
@@ -71,8 +71,8 @@
   "functions": [
     {
       "name": "Recovery_InstallPairSetFlags_004055c0",
-      "source": "src/game/recovery_install_pair_set_flags_004055c0.cpp",
-      "symbol": "_asm_Recovery_InstallPairSetFlags_004055c0@4",
+      "source": "src/game/bomb_register_tasks.cpp",
+      "symbol": "_Bomb_RegisterTasks@4",
       "section": ".text$00_vinstall",
       "address": "0x004055C0",
       "size": 84,
@@ -80,8 +80,8 @@
     },
     {
       "name": "Recovery_CreateFixedState_004056b0",
-      "source": "src/game/recovery_create_fixed_state_004056b0.cpp",
-      "symbol": "_asm_Recovery_CreateFixedState_004056b0",
+      "source": "src/game/bomb_create.cpp",
+      "symbol": "_Bomb_Create",
       "section": ".text$00_xfixed",
       "address": "0x004056B0",
       "size": 85,
@@ -331,12 +331,12 @@
     },
     {
       "name": "Recovery_ReleaseRawPairAndReset_00405620",
-      "symbol": "_Recovery_ReleaseRawPairAndReset@4",
+      "symbol": "_Bomb_Release@4",
       "section": ".text$00_wmpairreset",
       "address": "0x00405620",
       "size": 137,
       "actual_abi": "stdcall; pair on the stack",
-      "source": "src/game/recovery_release_raw_pair_and_reset_00405620.cpp"
+      "source": "src/game/bomb_release.cpp"
     },
     {
       "name": "BulletManager_Release_0040af00",

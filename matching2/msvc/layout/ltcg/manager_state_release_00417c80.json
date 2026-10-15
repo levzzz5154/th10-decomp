@@ -274,7 +274,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_Recovery_ReleaseRawPairAndReset@4",
+      "symbol": "_Bomb_Release@4",
       "address": "0x00405620",
       "kind": "relative_code"
     },

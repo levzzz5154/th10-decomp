@@ -1854,7 +1854,7 @@ extern "C" void __cdecl asm_Recovery_ClearAnimationSlot_0042c6d0();
 #define VA_asm_Recovery_ClearAnimationSlot_0042c6d0 0x0042c6d0
 extern "C" void __cdecl asm_Recovery_ClearEightBuckets_00419040();
 #define VA_asm_Recovery_ClearEightBuckets_00419040 0x00419040
-extern "C" void* __cdecl asm_Recovery_CreateFixedState_004056b0(void);
+extern "C" void* __cdecl Bomb_Create(void);
 #define VA_asm_Recovery_CreateFixedState_004056b0 0x004056b0
 extern "C" void __cdecl asm_Recovery_CreateHugeResourceState_0042b660();
 #define VA_asm_Recovery_CreateHugeResourceState_0042b660 0x0042b660
@@ -1896,7 +1896,7 @@ extern "C" void __cdecl asm_Recovery_InstallAnimationSlot_0042c670();
 #define VA_asm_Recovery_InstallAnimationSlot_0042c670 0x0042c670
 extern "C" void __cdecl asm_Recovery_InstallPairClearFlags_0041ad90();
 #define VA_asm_Recovery_InstallPairClearFlags_0041ad90 0x0041ad90
-extern "C" void __cdecl asm_Recovery_InstallPairSetFlags_004055c0();
+extern "C" void __cdecl Bomb_RegisterTasks();
 #define VA_asm_Recovery_InstallPairSetFlags_004055c0 0x004055c0
 extern "C" void __cdecl asm_Recovery_LoadCachedResource_00447280();
 #define VA_asm_Recovery_LoadCachedResource_00447280 0x00447280

@@ -1,4 +1,5 @@
-// 0x004056B0..0x00405704 (85 bytes): Recovery_CreateFixedState
+// 0x004056B0..0x00405704 (85 bytes): Bomb_Create - allocate and register the
+// bomb (0x48 bytes) and publish it through g_bomb.
 //
 // Allocates the 0x48-byte fixed-state pair, zeroes it, clears bit 0 of its
 // flag word at +0x24, raises bit 1 of its published flags and publishes it
@@ -28,13 +29,13 @@ struct RawPair_004056b0 {
 
 extern "C" void *g_bomb;
 extern "C" void __cdecl entry_free_004524a1(void *block);
-extern "C" int __stdcall asm_Recovery_InstallPairSetFlags_004055c0(
+extern "C" int __stdcall Bomb_RegisterTasks(
         RawPair_004056b0 *pair);
 extern "C" void __stdcall asm_Recovery_ReleaseRawPairAndReset_00405620(
         RawPair_004056b0 *pair);
 
 #pragma code_seg(".text$00_xfixed")
-extern "C" __declspec(noinline) void *__cdecl asm_Recovery_CreateFixedState_004056b0(void) {
+extern "C" __declspec(noinline) void *__cdecl Bomb_Create(void) {
     RawPair_004056b0 *fresh = new RawPair_004056b0;
     RawPair_004056b0 *state;
     if (fresh) {
@@ -48,7 +49,7 @@ extern "C" __declspec(noinline) void *__cdecl asm_Recovery_CreateFixedState_0040
     } else {
         state = 0;
     }
-    if (asm_Recovery_InstallPairSetFlags_004055c0(state) != 0) {
+    if (Bomb_RegisterTasks(state) != 0) {
         if (state) {
             asm_Recovery_ReleaseRawPairAndReset_00405620(state);
             entry_free_004524a1(state);

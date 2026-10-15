@@ -51,7 +51,7 @@ extern "C" void __stdcall EffectManager_Destroy_0042b570(void* manager);
 extern "C" void __stdcall ManagerOwned_Destroy_004294a0(void* manager);
 extern "C" void __stdcall EnemyManager_Clear_00409f90(void* manager);
 extern "C" void __stdcall BulletManager_Release_0040af00(void* manager);
-extern "C" void __stdcall Recovery_ReleaseRawPairAndReset(void* state);
+extern "C" void __stdcall Bomb_Release(void* state);
 extern "C" void __stdcall PlayerManager_Destroy_00408af0(void* manager);
 
 // The manager state block: two scheduler tasks the game thread registered.
@@ -238,7 +238,7 @@ void __stdcall ReleaseGlobalManager_00417c80(ManagerState_00417c80* state) {
     }
     void* recovery_pair = g_bomb;
     if (recovery_pair) {
-        Recovery_ReleaseRawPairAndReset(recovery_pair);
+        Bomb_Release(recovery_pair);
         entry_free_004524a1(recovery_pair);
     }
     void* players = data_004776f4;
