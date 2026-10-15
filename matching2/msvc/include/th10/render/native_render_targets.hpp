@@ -114,6 +114,6 @@ long __stdcall CopySurface_004521d6(RenderSurface*,const void*,const RenderRect*
 void __cdecl entry_free_00452422(void*);
 void* __cdecl retail_malloc_00452706(unsigned int);
 unsigned int __cdecl retail_beginthread_00452eec(void (__cdecl*)(void*),unsigned int,void*);
-void __cdecl ScreenshotWriter_00420540(void*);
+void __cdecl ScreenshotWriter(void*);
 extern void (__stdcall* data_004660ac)(unsigned int);
 }

@@ -103,7 +103,7 @@ __declspec(dllimport) void __stdcall Sleep(unsigned long milliseconds);
 void* __cdecl asm_malloc_00452706(unsigned int size);
 unsigned long __cdecl asm_beginthread_00452eec(void (__cdecl* start)(void*), unsigned int stack_size,
                                                void* argument);
-void __cdecl ScreenshotWriter_00420540(void* argument);
+void __cdecl ScreenshotWriter(void* argument);
 }
 
 #endif

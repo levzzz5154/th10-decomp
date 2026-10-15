@@ -39,7 +39,7 @@ int ScreenshotState::CaptureScreenshot(const char* name) {
             offset+=0x780;
         }
         back->methods->Unlock(back);
-        data_00492134=retail_beginthread_00452eec(&ScreenshotWriter_00420540,0,0);
+        data_00492134=retail_beginthread_00452eec(&ScreenshotWriter,0,0);
     } else if (format==0x17) data_00474f70.Append(data_0046df38);
     else { data_00474f70.Append(data_0046deb0);return 1; }
     if (back) back->methods->Release(back);

@@ -1,3 +1,5 @@
+// 0x004201B0: the app's start-up: seed the timers and random state, then start
+// the input, sound-preload and stats worker threads.
 #include "th10/platform/worker.hpp"
 #include "th10/platform/native_game_input.hpp"
 #include "th10/render/clip_worker_native.hpp"
@@ -8,7 +10,7 @@ void __cdecl InitializeVersionMarker_00420100();
 extern "C" {
 void __cdecl RenderCamera_InitializeDefaults_004216f0();
 void __cdecl Sound_PreloadWorker_0043d080();
-unsigned int __cdecl GameWorker_0043ba90();
+unsigned int __cdecl Input_InitThread();
 __declspec(dllimport) unsigned long __stdcall timeGetTime();
 typedef unsigned long (__stdcall *RawThreadEntry)(void*);
 __declspec(dllimport) void *__stdcall CreateThread(void*,unsigned long,RawThreadEntry,void*,unsigned long,unsigned long*);
@@ -21,7 +23,7 @@ extern void *data_004977ac;
 extern PlatformWorker data_00474dd4;
 }
 #pragma code_seg(".text$a00worker")
-extern "C" __declspec(noinline) int __cdecl StartGameWorkers_004201b0() {
+extern "C" __declspec(noinline) int __cdecl App_StartWorkers() {
     InitializeVersionMarker_00420100();
     data_00476f78=1.0f;data_004923a8=0xff000000;
     RenderCamera_InitializeDefaults_004216f0();
@@ -31,9 +33,9 @@ extern "C" __declspec(noinline) int __cdecl StartGameWorkers_004201b0() {
     data_004977ac=CreateThread(0,0,reinterpret_cast<RawThreadEntry>(&Sound_PreloadWorker_0043d080),&data_00492590,0,&thread_id);
     CreateStatsTaskOwner_00413350();
     data_00474dd4.Stop();
-    data_00474dd4.entry=reinterpret_cast<PlatformWorkerEntry>(&GameWorker_0043ba90);
+    data_00474dd4.entry=reinterpret_cast<PlatformWorkerEntry>(&Input_InitThread);
     data_00474dd4.running=1;data_00474dd4.stop_requested=0;
-    data_00474dd4.thread=reinterpret_cast<void*>(beginthreadex_00453683(0,0,reinterpret_cast<PlatformWorkerEntry>(&GameWorker_0043ba90),&data_00491c28,0,&data_00474dd4.thread_id));
+    data_00474dd4.thread=reinterpret_cast<void*>(beginthreadex_00453683(0,0,reinterpret_cast<PlatformWorkerEntry>(&Input_InitThread),&data_00491c28,0,&data_00474dd4.thread_id));
     data_00491c10->InitializeClip();
     InitializeFontCache_00437a00();
     return 0;

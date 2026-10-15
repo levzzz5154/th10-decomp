@@ -30,10 +30,10 @@ extern "C" void __cdecl InitializeFontCache_00437a00() {
 
 #include "../render/quad_buffer_create_004462f0.cpp"
 #include "../../layout/ltcg/native_font_start/stop_worker.cpp"
-#include "../unidentified/FUN_004201b0_004201b0.cpp"
+#include "../app/start_workers.cpp"
 
 #include "th10/platform/native_game_input.hpp"
 #include "../../layout/ltcg/native_game_input/logger.cpp"
 #include "../../layout/ltcg/native_game_input/release_input.cpp"
 #include "dinput_device_setup.cpp"
-#include "../unidentified/FUN_0043ba90_0043ba90.cpp"
+#include "../input/input_init_thread.cpp"

@@ -2,7 +2,7 @@
 #include "th10/game/effect_pool_state_0042bb30.hpp"
 #include "th10/game/effect_pool_tasks_0042bbd0.hpp"
 void* __cdecl operator new(unsigned int);
-extern "C" EffectPoolState* __fastcall FUN_0042bb30(int, EffectPoolState*);
+extern "C" EffectPoolState* __fastcall EffectPoolState_Construct(int, EffectPoolState*);
 extern "C" void __stdcall asm_FUN_0042bc30_0042bc30(EffectPoolState*);
 extern "C" void __cdecl entry_free_004524a1(void*);
 
@@ -11,7 +11,7 @@ extern "C" __declspec(noinline) EffectPoolState* __cdecl
 asm_FUN_0042bf30_0042bf30() {
     EffectPoolState* state = new EffectPoolState;
     if (state)
-        state = FUN_0042bb30(0, state);
+        state = EffectPoolState_Construct(0, state);
     else
         state = 0;
     if (reinterpret_cast<EffectPool_0042bbd0*>(state)->InstallTasks()) {

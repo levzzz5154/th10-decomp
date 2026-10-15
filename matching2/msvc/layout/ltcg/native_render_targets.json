@@ -178,7 +178,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_ScreenshotWriter_00420540",
+      "symbol": "_ScreenshotWriter",
       "address": "0x420540",
       "kind": "data"
     },

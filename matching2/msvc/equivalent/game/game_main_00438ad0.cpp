@@ -64,7 +64,7 @@ int __stdcall SaveSystemSettingsRetail_004392e0();
 int __stdcall ComputeExecutableChecksum();
 int __stdcall StartupDialog_Procedure(void* dialog, unsigned int message,
                                       unsigned int parameter, long detail);
-void __stdcall StartAddress();                       // the sound thread
+void __stdcall Sound_InitThread();                       // the sound thread
 short __stdcall Joystick_Probe_0044a0c0();
 void __stdcall Input_NormalizeKeyboardState();
 int __stdcall GameFrameAdvance_00439390(GameFrame_00439390* frame);
@@ -161,7 +161,7 @@ struct SoundManager_00438ad0 {
         memset(this, 0, sizeof(*this));
         window = owner;
         thread = CreateThread(0, 0,
-            reinterpret_cast<unsigned long (__stdcall*)(void*)>(&StartAddress),
+            reinterpret_cast<unsigned long (__stdcall*)(void*)>(&Sound_InitThread),
             this, 0, &thread_id);
     }
     void Stop() {

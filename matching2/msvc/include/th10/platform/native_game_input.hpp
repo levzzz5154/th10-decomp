@@ -66,5 +66,5 @@ extern long (__stdcall* data_0046621c)(void*,int);
 long __stdcall DirectInput8Create_0045071e(void*,unsigned int,const GameInputGuid*,GameDirectInput**,void*);
 int __stdcall GameInput_EnumDevice_0043baf0(const GameInputDeviceInstance*,void*);
 int __stdcall GameInput_EnumObject_0043bb30(const GameInputDeviceObject*,void*);
-__declspec(noinline) unsigned int __cdecl GameWorker_0043ba90();
+__declspec(noinline) unsigned int __cdecl Input_InitThread();
 }

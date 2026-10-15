@@ -82,7 +82,7 @@
       "kind": "data"
     },
     {
-      "symbol": "@FpsDrawCallback_00413690@4",
+      "symbol": "@FpsCounter_OnDraw@4",
       "address": "0x413690",
       "kind": "data"
     },

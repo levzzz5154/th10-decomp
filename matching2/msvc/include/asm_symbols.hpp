@@ -555,7 +555,7 @@ extern "C" void __cdecl asm_FUN_0040a010_0040a010();
 #define VA_asm_FUN_0040a010_0040a010 0x0040a010
 extern "C" void __cdecl asm_FUN_0040a040_0040a040();
 #define VA_asm_FUN_0040a040_0040a040 0x0040a040
-extern "C" void __cdecl asm_FUN_0040a130_0040a130();
+extern "C" void __cdecl SpriteViewer_RegisterTasks();
 #define VA_asm_FUN_0040a130_0040a130 0x0040a130
 extern "C" void __cdecl asm_FUN_0040a1a0_0040a1a0();
 #define VA_asm_FUN_0040a1a0_0040a1a0 0x0040a1a0

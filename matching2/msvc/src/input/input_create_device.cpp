@@ -11,7 +11,7 @@ extern "C" unsigned char data_00491c3c;
 typedef int(__stdcall* DirectInputCreateDeviceFn)(void* device, int descriptor,
                                                   int* handle, int flag);
 
-BOOL __stdcall FUN_0043baf0_0043baf0(int descriptor, int unused) {
+BOOL __stdcall Input_CreateDevice(int descriptor, int unused) {
     if (*(int*)&data_00491c3c == 0) {
         void* device = *(void**)&data_00491c34;
         int result = ((DirectInputCreateDeviceFn)(*(void***)device)[3])(

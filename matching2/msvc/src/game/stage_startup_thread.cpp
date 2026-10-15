@@ -1,9 +1,10 @@
-// 0x00417C70..0x00417C7B - hand the object held by the global at 0x00477810 to
+// 0x00417C70..0x00417C7B: the stage loading thread (started by 0x004180E0).
+// Hand the object held by the global at 0x00477810 to
 // the routine at 0x00417870 (argument taken on the stack, cleaned by the
 // callee).
 extern "C" unsigned char data_00477810;                 // 0x00477810
 extern "C" void __stdcall asm_FUN_00417870_00417870(void* object);
 
-extern "C" void __cdecl FUN_00417c70(void) {
+extern "C" void __cdecl Stage_StartupThread(void) {
     asm_FUN_00417870_00417870(*(void**)&data_00477810);
 }

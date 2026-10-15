@@ -63,7 +63,7 @@
       "address": "0x0042C800",
       "size": 45,
       "actual_abi": "no entry register; holds the slot in ESI and passes the record in EDI to 0x00447810; plain RET",
-      "source": "src/unidentified/unassigned_0042c800.cpp"
+      "source": "src/unreferenced/animation_manager_release_slot1.cpp"
     },
     {
       "name": "Release_00447910",
@@ -170,7 +170,7 @@
     "src/game/recovery_release_pair_0041f930.cpp",
     "src/render/animation_manager_clear_resource_slot_004477d0.cpp",
     "src/render/fun_00447810_00447810.cpp",
-    "src/unidentified/unassigned_0042c800.cpp",
+    "src/unreferenced/animation_manager_release_slot1.cpp",
     "src/unreferenced/unassigned_00447910.cpp",
     "src/render/anm_manager_service_pending_00447700.cpp"
   ]

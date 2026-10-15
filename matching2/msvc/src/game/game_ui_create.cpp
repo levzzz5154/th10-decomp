@@ -36,7 +36,7 @@ struct UiEvictionDevice_004180e0 {
 extern "C" UiEvictionDevice_004180e0* data_00491c30;
 extern "C" GameUi_004180e0* data_00477810;
 extern "C" GameUiThreadHost data_00491c28;
-extern "C" void __cdecl FUN_00417c70(void);
+extern "C" void __cdecl Stage_StartupThread(void);
 
 #pragma code_seg(".text$00uicreate")
 extern "C" __declspec(noinline) GameUi_004180e0* __stdcall GameUi_CreateAndPublish_004180e0(unsigned int argument) {
@@ -46,7 +46,7 @@ extern "C" __declspec(noinline) GameUi_004180e0* __stdcall GameUi_CreateAndPubli
     data_00477810 = ui;
     ui->flags_58 |= 4;
     // Retail passes the no-argument thunk as the worker entry.
-    data_00491c28.Spawn(reinterpret_cast<PlatformWorkerEntry>(FUN_00417c70), 0);
+    data_00491c28.Spawn(reinterpret_cast<PlatformWorkerEntry>(Stage_StartupThread), 0);
     return ui;
 }
 #pragma code_seg()

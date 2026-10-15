@@ -10,7 +10,7 @@ extern float DAT_00470b14;  // 2*pi
 extern float DAT_00470b18;  // pi
 
 #pragma code_seg(".text$03diff")
-__declspec(noinline) double __stdcall FUN_00428ce0(float first, float second) {
+__declspec(noinline) double __stdcall AngleDifference(float first, float second) {
     float difference = first - second;
     if (difference > DAT_00470b18)
         return first - (DAT_00470b14 + second);

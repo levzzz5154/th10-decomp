@@ -79,8 +79,8 @@
   "additional_sources": [],
   "anchors": [
     {
-      "name": "FUN_00428ce0",
-      "symbol": "?FUN_00428ce0@@YGNMM@Z",
+      "name": "AngleDifference",
+      "symbol": "?AngleDifference@@YGNMM@Z",
       "section": ".text$03diff",
       "address": "0x00428CE0",
       "size": 80

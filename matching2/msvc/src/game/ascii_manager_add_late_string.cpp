@@ -29,7 +29,7 @@ struct GameThread_004015c0 {
 };
 
 #pragma code_seg(".text$01accessor")
-__declspec(noinline) void __stdcall AppendLateRecord_004015c0(GameThread_004015c0* thread, const char* name, const Vec3_004015c0* position) {
+__declspec(noinline) void __stdcall AsciiManager_AddLateString(GameThread_004015c0* thread, const char* name, const Vec3_004015c0* position) {
     if (thread->late_record_count < 0x40) {
         QueueRecord_004015c0* record = &thread->late_records[thread->late_record_count++];
         strcpy(record->name, name);

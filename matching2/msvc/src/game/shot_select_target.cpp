@@ -6,7 +6,7 @@
 
 extern "C" float data_00470b4c;   // 0x00470B4C, 224.0f
 
-int __fastcall Recovery_SelectPool_00428ad0(int state, int resolved, int unused) {
+int __fastcall Shot_SelectTarget(int state, int resolved, int unused) {
     *(int*)(resolved + 0x4C) = 0;
     int enemy = *(int*)(state + 0x3504);
     if (enemy) {

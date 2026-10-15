@@ -1,10 +1,10 @@
 // Compiler context only; never selected as recovered game code.
-#include "../../src/unidentified/FUN_0040a010_0040a010.cpp"
+#include "../../src/game/player_suspend.cpp"
 
 #pragma code_seg(".text$03context")
-int __stdcall f40a010CompilerContext(CallbackPair** pairs, int count) {
+int __stdcall f40a010CompilerContext(PlayerTaskPair** pairs, int count) {
     for (int index = 0; index < count; ++index)
-        pairs[index]->DetachPairAndFinalize();
+        pairs[index]->Suspend();
     return 0;
 }
 #pragma code_seg()

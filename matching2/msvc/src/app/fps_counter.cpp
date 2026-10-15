@@ -68,7 +68,7 @@ int FrameRateCounter_004134b0::Update() {
 
 #include "../game/game_thread_append_formatted_marked_retail_00401690.cpp"
 #include "fun_004135d0_004135d0.cpp"
-#include "../unidentified/FUN_00413690_00413690.cpp"
+#include "fps_counter_on_draw.cpp"
 
 #include "../game/game_thread_append_formatted_00401630.cpp"
-#include "../unidentified/FUN_00429a70_00429a70.cpp"
+#include "../game/replay_manager_draw.cpp"

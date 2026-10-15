@@ -3,8 +3,8 @@ extern "C" void* __cdecl memset(void*, int, unsigned int);
 extern "C" unsigned char data_00477844;
 
 #pragma code_seg(".text$00binit")
-// 0x0042BB30..0x0042BBC0: FUN_0042bb30
-extern "C" __declspec(noinline) EffectPoolState* __fastcall FUN_0042bb30(
+// 0x0042BB30..0x0042BBC0: construct the effect pool state (vtable 0x004703E4).
+extern "C" __declspec(noinline) EffectPoolState* __fastcall EffectPoolState_Construct(
     int unused, EffectPoolState* state) {
     (void)unused;
     state->field_14 = 0;

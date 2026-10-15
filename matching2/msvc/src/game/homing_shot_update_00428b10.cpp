@@ -10,7 +10,7 @@
 #include <math.h>
 
 float __stdcall Angle_Normalize(float angle);
-double __stdcall FUN_00428ce0(float first, float second);
+double __stdcall AngleDifference(float first, float second);
 
 struct HomingTarget_00428b10 {
     unsigned char pad_0000[0x1068];
@@ -47,7 +47,7 @@ int __fastcall HomingShot_Update_00428b10(void* unused, HomingShot_00428b10* sho
         target = 0;
     }
     if (target) {
-        float turn = FUN_00428ce0((float)atan2(target->y - shot->y, target->x - shot->x),
+        float turn = AngleDifference((float)atan2(target->y - shot->y, target->x - shot->x),
                                   shot->angle);
         float speed = shot->speed;
         if (shot->frames < 120) {

@@ -4,7 +4,7 @@
 extern "C" {
 extern StatsDisplay* data_00477708;
 extern Scheduler* data_00491be4;
-int __fastcall FpsDrawCallback_00413690(void*);
+int __fastcall FpsCounter_OnDraw(void*);
 }
 // Set up the task's embedded node before it enters a scheduler list.
 inline void InitializeTaskLink(TaskLink& link, SchedulerTask* task) {
@@ -31,7 +31,7 @@ inline StatsDisplay::StatsDisplay() {
 extern "C" __declspec(noinline) StatsDisplay* __cdecl StatsDisplay_Create() {
     StatsDisplay* display = new StatsDisplay;
     SchedulerTask* task = new StatsDisplayTask;
-    task->on_tick = FpsDrawCallback_00413690;
+    task->on_tick = FpsCounter_OnDraw;
     task->on_register = 0;
     task->on_remove = 0;
     task->context = display;

@@ -1,15 +1,15 @@
 {
   "schema_version": 1,
   "name": "f40a010",
-  "source": "src/unidentified/FUN_0040a010_0040a010.cpp",
+  "source": "src/game/player_suspend.cpp",
   "driver": "layout/ltcg/f40a010_context.cpp",
   "headers": [],
   "image_base": "0x400000",
   "description": "Recovered retail function compiled with native LTCG so the internal register convention matches the original image.",
   "functions": [
     {
-      "name": "CallbackPair_DetachPairAndFinalize",
-      "symbol": "?DetachPairAndFinalize@CallbackPair@@QAEXXZ",
+      "name": "PlayerTaskPair_Suspend",
+      "symbol": "?Suspend@PlayerTaskPair@@QAEXXZ",
       "section": ".text$01f40a010",
       "address": "0x40a010",
       "size": 36,
@@ -17,7 +17,7 @@
     }
   ],
   "context": {
-    "symbol": "?f40a010CompilerContext@@YGHPAPAUCallbackPair@@H@Z",
+    "symbol": "?f40a010CompilerContext@@YGHPAPAUPlayerTaskPair@@H@Z",
     "section": ".text$03context",
     "address": "0x40a040",
     "size": 38,

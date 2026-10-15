@@ -41,7 +41,7 @@
     }
   ],
   "context": {
-    "symbol": "_FUN_00417c70",
+    "symbol": "_Stage_StartupThread",
     "section": ".text$00417c70_fn",
     "address": "0x00417C70",
     "size": 12,

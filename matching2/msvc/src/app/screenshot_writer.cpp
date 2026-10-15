@@ -22,7 +22,7 @@ extern "C" void* screenshot_pixels_0049214c;
 extern "C" char screenshot_path_00492150[];
 extern "C" unsigned long screenshot_thread_00492134;
 
-extern "C" void __cdecl ScreenshotWriter_00420540(void*) {
+extern "C" void __cdecl ScreenshotWriter(void*) {
     unsigned long written;
     File_OpenSharedWrite_0044b620(screenshot_path_00492150);
     if (g_file_probe_handle != (void*)-1) {

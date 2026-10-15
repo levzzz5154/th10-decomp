@@ -64,7 +64,7 @@ int GameApp_00420670::CaptureScreenshot(const char* name) {
         } while (row > -1);
         back_buffer->methods->UnlockRect(back_buffer);
 
-        data_00491c28.screenshot_thread = asm_beginthread_00452eec(ScreenshotWriter_00420540, 0, 0);
+        data_00491c28.screenshot_thread = asm_beginthread_00452eec(ScreenshotWriter, 0, 0);
         break;
     }
     case 0x17:

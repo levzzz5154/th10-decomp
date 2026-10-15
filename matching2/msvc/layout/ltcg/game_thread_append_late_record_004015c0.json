@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "game_thread_append_late_record_004015c0",
-  "source": "src/unidentified/FUN_004015c0_004015c0.cpp",
+  "source": "src/game/ascii_manager_add_late_string.cpp",
   "driver": "layout/ltcg/game_thread_append_late_record_004015c0_context.cpp",
   "headers": [],
   "image_base": "0x00400000",
@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "game_thread_append_late_record_004015c0",
-      "symbol": "?AppendLateRecord_004015c0@@YGXPAUGameThread_004015c0@@PBDPBUVec3_004015c0@@@Z",
+      "symbol": "?AsciiManager_AddLateString@@YGXPAUGameThread_004015c0@@PBDPBUVec3_004015c0@@@Z",
       "section": ".text$01accessor",
       "address": "0x004015C0",
       "size": 109,

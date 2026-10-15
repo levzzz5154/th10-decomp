@@ -31,7 +31,7 @@
     },
     {
       "name": "StartupManagers",
-      "symbol": "_StartupManagers_0040a340",
+      "symbol": "_SpriteViewer_LoadThread",
       "section": ".text$00ab",
       "address": "0x40a340",
       "size": 16,
@@ -479,8 +479,8 @@
   ],
   "description": "Complete enemy factory and teardown with genuine startup wrapper and member initializer; all four complete bodies selected.",
   "included_sources": [
-    "src/unidentified/FUN_0040a350_0040a350.cpp",
-    "src/unidentified/FUN_0040a340_0040a340.cpp",
+    "src/game/sprite_viewer_create_managers.cpp",
+    "src/game/sprite_viewer_load_thread.cpp",
     "layout/ltcg/enemy_factory_dependencies/message_host_init.cpp",
     "layout/ltcg/enemy_factory_dependencies/scheduler_tasks.cpp",
     "layout/ltcg/enemy_factory_dependencies/bullet_entity_release_resource_0040d680.cpp",
@@ -489,10 +489,10 @@
     "src/game/fun_0040d530_0040d530.cpp",
     "layout/ltcg/enemy_factory_dependencies/menu_advance.cpp"
   ],
-  "entry": "_StartupManagers_0040a340",
+  "entry": "_SpriteViewer_LoadThread",
   "calls": [
     {
-      "caller": "_StartupManagers_0040a340",
+      "caller": "_SpriteViewer_LoadThread",
       "callee": "?InitializeManagers@FactoryCallerState@@QAEHXZ",
       "address": "0x40a347",
       "instruction": "call"

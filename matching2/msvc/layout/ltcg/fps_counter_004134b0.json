@@ -35,7 +35,7 @@
     },
     {
       "name": "Callback",
-      "symbol": "?FpsDrawCallback_00413690@@YIHPAUFrameRateCounter_004134b0@@@Z",
+      "symbol": "?FpsCounter_OnDraw@@YIHPAUFrameRateCounter_004134b0@@@Z",
       "section": ".text$09callback",
       "address": "0x00413690",
       "size": 10,
@@ -60,7 +60,7 @@
     },
     {
       "name": "PanelDraw",
-      "symbol": "?PanelDraw_00429a70@@YIHPAXPAUPanel_00429a70@@@Z",
+      "symbol": "?ReplayManager_Draw@@YIHPAXPAUReplayManagerPanel@@@Z",
       "section": ".text$11panel",
       "address": "0x00429a70",
       "size": 182,
@@ -234,11 +234,11 @@
       "kind": "data"
     }
   ],
-  "entry": "?FpsDrawCallback_00413690@@YIHPAUFrameRateCounter_004134b0@@@Z",
+  "entry": "?FpsCounter_OnDraw@@YIHPAUFrameRateCounter_004134b0@@@Z",
   "anchors": [],
   "calls": [
     {
-      "caller": "?FpsDrawCallback_00413690@@YIHPAUFrameRateCounter_004134b0@@@Z",
+      "caller": "?FpsCounter_OnDraw@@YIHPAUFrameRateCounter_004134b0@@@Z",
       "callee": "?Draw@FrameRateCounter_004134b0@@QAEHXZ",
       "address": "0x413693",
       "instruction": "call"
@@ -268,7 +268,7 @@
       "instruction": "call"
     },
     {
-      "caller": "?PanelDraw_00429a70@@YIHPAXPAUPanel_00429a70@@@Z",
+      "caller": "?ReplayManager_Draw@@YIHPAXPAUReplayManagerPanel@@@Z",
       "callee": "?AppendFormatted_00401630@@YAXPAUGameThread_00401530@@PBUVec3_00401530@@PBDZZ",
       "address": "0x429b04",
       "instruction": "call"
@@ -280,11 +280,11 @@
   "included_sources": [
     "src/game/game_thread_append_formatted_marked_retail_00401690.cpp",
     "src/app/fun_004135d0_004135d0.cpp",
-    "src/unidentified/FUN_00413690_00413690.cpp",
+    "src/app/fps_counter_on_draw.cpp",
     "src/game/game_thread_append_formatted_00401630.cpp",
-    "src/unidentified/FUN_00429a70_00429a70.cpp"
+    "src/game/replay_manager_draw.cpp"
   ],
   "roots": [
-    "?PanelDraw_00429a70@@YIHPAXPAUPanel_00429a70@@@Z"
+    "?ReplayManager_Draw@@YIHPAXPAUReplayManagerPanel@@@Z"
   ]
 }

@@ -15,11 +15,11 @@
     "src/platform/font_surface_create_00436af0.cpp",
     "src/render/quad_buffer_create_004462f0.cpp",
     "layout/ltcg/native_font_start/stop_worker.cpp",
-    "src/unidentified/FUN_004201b0_004201b0.cpp",
+    "src/app/start_workers.cpp",
     "layout/ltcg/native_game_input/logger.cpp",
     "layout/ltcg/native_game_input/release_input.cpp",
     "src/platform/dinput_device_setup.cpp",
-    "src/unidentified/FUN_0043ba90_0043ba90.cpp"
+    "src/input/input_init_thread.cpp"
   ],
   "image_base": "0x00400000",
   "description": "Full genuine worker186/font781/thread-entry83 with whole actual DirectInput setup, cached-release and logger models. GameWorker original noarg/cdecl/plainRET, callbackcast only real thread API boundary.",
@@ -34,7 +34,7 @@
     },
     {
       "name": "StartGameWorkers",
-      "symbol": "_StartGameWorkers_004201b0",
+      "symbol": "_App_StartWorkers",
       "section": ".text$a00worker",
       "address": "0x4201b0",
       "size": 186,
@@ -42,7 +42,7 @@
     },
     {
       "name": "GameWorker",
-      "symbol": "_GameWorker_0043ba90",
+      "symbol": "_Input_InitThread",
       "section": ".text$a12game",
       "address": "0x43ba90",
       "size": 83,
@@ -444,16 +444,16 @@
       "kind": "data"
     }
   ],
-  "entry": "_StartGameWorkers_004201b0",
+  "entry": "_App_StartWorkers",
   "calls": [
     {
-      "caller": "_StartGameWorkers_004201b0",
+      "caller": "_App_StartWorkers",
       "callee": "_InitializeFontCache_00437a00",
       "address": "0x420260",
       "instruction": "call"
     },
     {
-      "caller": "_GameWorker_0043ba90",
+      "caller": "_Input_InitThread",
       "callee": "?InitializeDevices@GameInputSystem@@QAEHXZ",
       "address": "0x43ba9f",
       "instruction": "call"

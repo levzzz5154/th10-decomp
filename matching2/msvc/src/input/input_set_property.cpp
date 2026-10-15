@@ -16,7 +16,7 @@ struct Device {
 
 extern "C" unsigned char data_00491c3c;
 
-int __stdcall FUN_0043bb30_0043bb30(int a1, int a2) {
+int __stdcall Input_SetProperty(int a1, int a2) {
     int result = 1;
     if ((*(int*)(a1 + 24) & 3) != 0) {
         BlitRequest request;

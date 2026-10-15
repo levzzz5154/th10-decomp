@@ -11,7 +11,7 @@ struct ScoreManager_0041c100;
 ScoreManager_0041c100 *InitializeManager_0041c100(ScoreManager_0041c100 *manager);
 
 struct RawState_0040a130;
-extern "C" int __stdcall asm_FUN_0040a130_0040a130(RawState_0040a130 *state);
+extern "C" int __stdcall SpriteViewer_RegisterTasks(RawState_0040a130 *state);
 
 struct MessageHost_0040d280;
 extern "C" int __stdcall asm_MessageHost_InitRetail_0040d280(
@@ -43,8 +43,8 @@ __declspec(noinline) void DeletePublishedBlock(PublishedBlock* block);
 struct TitleState_0042caa0;
 extern "C" int __stdcall Title_RegisterTasks_0042caa0(TitleState_0042caa0 *title);
 
-struct CounterState_0040a040;
-extern "C" CounterState_0040a040 *__cdecl asm_FUN_0040a3c0_0040a3c0();
+struct SpriteViewerState;
+extern "C" SpriteViewerState *__cdecl asm_FUN_0040a3c0_0040a3c0();
 
 #pragma code_seg(".text$90context")
 int __stdcall BulletManagerLoadScriptsCompilerContext(
@@ -96,7 +96,7 @@ int __stdcall BulletManagerLoadScriptsCompilerContext(
     }
 
     for (int index = 0; index < count; ++index) {
-        if (asm_FUN_0040a130_0040a130((RawState_0040a130 *)slots[index]) == 0)
+        if (SpriteViewer_RegisterTasks((RawState_0040a130 *)slots[index]) == 0)
             ++created;
     }
     for (int index = 0; index < count; ++index) {

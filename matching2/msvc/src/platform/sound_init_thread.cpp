@@ -12,9 +12,9 @@ extern "C" __declspec(dllimport) void __stdcall Sleep(unsigned long milliseconds
 // The global runtime object the startup path initialises and polls.
 extern "C" unsigned char data_00492590;
 
-// 0x0043CCF0: StartAddress - bring the sound device up for the new main window,
+// 0x0043CCF0: Sound_InitThread - bring the sound device up for the new main window,
 // wait until the worker thread has finished, then publish that it happened.
-void __stdcall StartAddress() {
+void __stdcall Sound_InitThread() {
     // The handle is bit-cast to float only so that it selects the stack-passing
     // form of the call above; no conversion happens.
     ((SoundDeviceInitFn)asm_FUN_0043cd30_0043cd30)(&data_00492590,

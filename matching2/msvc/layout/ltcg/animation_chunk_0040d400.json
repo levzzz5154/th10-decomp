@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "animation_chunk_0040d400",
-  "source": "src/unidentified/FUN_0040d400_0040d400.cpp",
+  "source": "src/script/ecl_file_parse_animations.cpp",
   "driver": "layout/ltcg/animation_chunk_context.cpp",
   "included_sources": [
     "layout/ltcg/animation_chunk_text_log.cpp"
