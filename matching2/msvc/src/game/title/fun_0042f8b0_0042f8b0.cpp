@@ -3,7 +3,7 @@
 // twenty lookup/configuration paths as one complete compiler contribution.
 #include "th10/game/key_config_refresh_0042f8b0.hpp"
 
-__forceinline int KeyConfigLabels_0042f8b0::FindChildHandle(
+__forceinline int TitleKeyConfigView::FindChildHandle(
         unsigned short tag, KeyConfigLookupContext_0042f8b0* context) {
     KeyConfigAnimationManager_0042f8b0* manager = (KeyConfigAnimationManager_0042f8b0*)context;
     KeyConfigAnimationObject_0042f8b0* parent =
@@ -19,7 +19,7 @@ __forceinline int KeyConfigLabels_0042f8b0::FindChildHandle(
     return 0;
 }
 
-__forceinline KeyConfigAnimationObject_0042f8b0* KeyConfigLabels_0042f8b0::FindDigit(
+__forceinline KeyConfigAnimationObject_0042f8b0* TitleKeyConfigView::FindDigit(
         unsigned short tag) {
     KeyConfigLookupContext_0042f8b0* context = data_00491c10;
     KeyConfigScriptId_0042f8b0 id;
@@ -29,7 +29,7 @@ __forceinline KeyConfigAnimationObject_0042f8b0* KeyConfigLabels_0042f8b0::FindD
 }
 
 #pragma code_seg(".text$01refresh")
-extern "C" __declspec(noinline) void __stdcall RefreshKeyConfigLabels_0042f8b0(KeyConfigLabels_0042f8b0* state) {
+extern "C" __declspec(noinline) void __stdcall RefreshTitleKeyConfigView(TitleKeyConfigView* state) {
     {
         KeyConfigAnimationObject_0042f8b0* digit = state->FindDigit(67);
         if (digit != 0)

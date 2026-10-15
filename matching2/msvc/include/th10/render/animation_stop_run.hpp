@@ -22,8 +22,8 @@ public:
 
 // The complete state/table extent is not needed by these slot callers. The
 // retail address calculation identifies its ID table at +0x2C4, stride four.
-struct GameAnimationSlots;
-inline AnimationScriptId* AnimationSlots(GameAnimationSlots* state) {
+struct Title;
+inline AnimationScriptId* AnimationSlots(Title* state) {
     return reinterpret_cast<AnimationScriptId*>(
         reinterpret_cast<unsigned char*>(state) + 0x2C4);
 }
@@ -41,8 +41,8 @@ extern "C" int __stdcall RunAnimationVm(AnimationTreeNode* node);
 void __fastcall AnimationManager_SetStopFrameAndRun(
     unsigned short frame, AnimationLookupContext* context, AnimationScriptId id);
 // The private entry takes state in EAX and slot in ECX; plain RET.
-void __fastcall DispatchAnimationSlot(int slot, GameAnimationSlots* state);
-void __fastcall DispatchAnimationSlotSecondary(int slot, GameAnimationSlots* state);
+void __fastcall Title_DispatchAnimationSlot(int slot, Title* state);
+void __fastcall Title_DispatchAnimationSlotSecondary(int slot, Title* state);
 
 typedef char AnimationRunIdSize[sizeof(AnimationScriptId) == 4 ? 1 : -1];
 typedef char AnimationRunHandleSize[sizeof(AnimationRunHandle) == 4 ? 1 : -1];

@@ -4,7 +4,7 @@
 #include "../../../src/game/title/title_spell_list.cpp"
 
 #pragma code_seg(".text$0040a000_context")
-extern "C" __declspec(noinline) int __stdcall TitleSpellListCaller(TitleMenu_00431410* menu) {
+extern "C" __declspec(noinline) int __stdcall TitleSpellListCaller(TitleDrawView* menu) {
     return menu->BuildSpellList();
 }
 #pragma code_seg()

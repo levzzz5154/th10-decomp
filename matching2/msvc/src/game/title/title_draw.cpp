@@ -3,17 +3,17 @@
 // The task draws the text overlay of whichever menu page is open; the pages
 // without one fall through. The scheduler enters through the callback at
 // 0x0042D2F0, which hands the menu over in EAX.
-#include "th10/game/title_menu_draw.hpp"
+#include "th10/game/title_draw.hpp"
 
 extern "C" {
 // These pages take the menu on the stack.
-int __stdcall TitleMenu_DrawReplayBrowser_00431ba0(TitleMenu_00431410* menu);
-int __stdcall TitleMenu_DrawScoreEntry_00433230(TitleMenu_00431410* menu);
-int __stdcall TitleMenu_DrawReplaySave_00433b30(TitleMenu_00431410* menu);
+int __stdcall TitleMenu_DrawReplayBrowser_00431ba0(TitleDrawView* menu);
+int __stdcall TitleMenu_DrawScoreEntry_00433230(TitleDrawView* menu);
+int __stdcall TitleMenu_DrawReplaySave_00433b30(TitleDrawView* menu);
 }
 
 #pragma code_seg(".text$03dispatch")
-int TitleMenu_00431410::DrawOverlay() {
+int TitleDrawView::DrawOverlay() {
     switch (page) {
     case 12:
         TitleMenu_DrawReplayBrowser_00431ba0(this);
@@ -35,7 +35,7 @@ int TitleMenu_00431410::DrawOverlay() {
 }
 
 #pragma code_seg(".text$04callback")
-int __fastcall TitleMenu_DrawCallback_0042d2f0(TitleMenu_00431410* menu) {
+int __fastcall Title_OnDraw(TitleDrawView* menu) {
     return menu->DrawOverlay();
 }
 #pragma code_seg()

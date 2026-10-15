@@ -4,7 +4,7 @@
 
 // The title screen object seen by the key configuration helpers: the five
 // bindings being edited (shot, bomb, focus, pause, skip).
-struct KeyConfigLabels_0042f8b0 {
+struct TitleKeyConfigView {
     unsigned char reserved_0000[0x59CC];
     short bindings_59cc[5];
 };
@@ -36,13 +36,13 @@ extern "C" {
 extern KeyBindings_0042f540 data_00474e88;
 extern KeyBindings_0042f540 data_00491d4c;
 extern KeyState_0042f540 data_00474e30;
-__declspec(noinline) void __stdcall RefreshKeyConfigLabels_0042f8b0(KeyConfigLabels_0042f8b0* state);
+__declspec(noinline) void __stdcall RefreshTitleKeyConfigView(TitleKeyConfigView* state);
 __declspec(noinline) void __stdcall KeyConfigReassignSlot_00430250(
-    KeyConfigLabels_0042f8b0* state, int slot, int key);
+    TitleKeyConfigView* state, int slot, int key);
 unsigned char* __fastcall Input_PollJoystickButtons_0044a4e0(int padIndex);
 }
 __declspec(noinline) void __fastcall AnimationManager_SetStopFrameAndRun(
     unsigned short frame, AnimationLookupContext* context, AnimationScriptId id);
 
-__declspec(noinline) int __stdcall TitleMenuFlow_0042f540(RecoveryMusicRoom_00433ef0* room);
+__declspec(noinline) int __stdcall TitleMenuFlow_0042f540(Title* room);
 #endif

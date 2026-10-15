@@ -22,7 +22,7 @@
     "src/game/laser/laser_manager_destroy.cpp",
     "src/game/laser/laser_construct.cpp",
     "src/game/front/task_registration.cpp",
-    "src/game/title/title_register_tasks_0042caa0.cpp",
+    "src/game/title/title_register_tasks.cpp",
     "src/core/zunlib/joystick_probe.cpp",
     "src/core/zunlib/text_log.cpp",
     "src/game/eclview/ecl_view_register_tasks.cpp",
@@ -35,7 +35,7 @@
     "src/unreferenced/unassigned_0044a090.cpp",
     "src/game/eclview/ecl_view_construct.cpp",
     "src/unreferenced/FUN_0040a3c0_0040a3c0.cpp",
-    "src/game/title/title_load_thread_0042c9f0.cpp",
+    "src/game/title/title_load_thread.cpp",
     "layout/ltcg/bullet_manager_load_scripts_0040ae70_release.cpp",
     "layout/ltcg/bullet_manager_load_scripts_0040ae70_mark.cpp"
   ],
@@ -50,7 +50,7 @@
     "_Effect_Release@4",
     "_LaserManager_Destroy@4",
     "_Manager_Release_00422220@4",
-    "_TitleLoadThread_0042c9f0"
+    "_Title_LoadThread"
   ],
   "headers": [
     "include/th10/game/hud_register_tasks.hpp",
@@ -366,13 +366,13 @@
       "source": "src/game/pause/pause_release.cpp"
     },
     {
-      "name": "Title_RegisterTasks_0042caa0",
-      "symbol": "_Title_RegisterTasks_0042caa0@4",
+      "name": "Title_RegisterTasks",
+      "symbol": "_Title_RegisterTasks@4",
       "section": ".text$00hbstartupzmzt",
       "address": "0x0042CAA0",
       "size": 192,
       "actual_abi": "title state in EBX; result in EAX; plain RET",
-      "source": "src/game/title/title_register_tasks_0042caa0.cpp"
+      "source": "src/game/title/title_register_tasks.cpp"
     },
     {
       "name": "counter_state_construct_0040a040",
@@ -394,12 +394,12 @@
     },
     {
       "name": "TitleLoadThread",
-      "symbol": "_TitleLoadThread_0042c9f0",
+      "symbol": "_Title_LoadThread",
       "section": ".text$00hbstartupzmzl",
       "address": "0x0042C9F0",
       "size": 168,
       "actual_abi": "no arguments; plain RET",
-      "source": "src/game/title/title_load_thread_0042c9f0.cpp"
+      "source": "src/game/title/title_load_thread.cpp"
     }
   ],
   "context": {
@@ -909,7 +909,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_data_0047784c",
+      "symbol": "_g_title",
       "address": "0x0047784C",
       "kind": "data"
     },

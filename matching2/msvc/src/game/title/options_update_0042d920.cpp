@@ -39,7 +39,7 @@ static __forceinline AnimationRef_004497d0 FindChild_0042d920(
 
 // Show a sprite on the child animation `script` of the options slot.
 static __forceinline void ShowLabel_0042d920(
-        RecoveryLookupContext_0040bd80* manager, RecoveryMusicRoom_00433ef0* room, int script, int sprite) {
+        RecoveryLookupContext_0040bd80* manager, Title* room, int script, int sprite) {
     AnimationRef_004497d0 child = FindChild_0042d920(
         manager, reinterpret_cast<RecoveryScriptId_0040bd80*>(&room->animation_slots[1]), script);
     reinterpret_cast<SpriteHandle_00449670*>(&child)->SelectSprite(sprite);
@@ -47,7 +47,7 @@ static __forceinline void ShowLabel_0042d920(
 
 // Show the two labels of the current screen mode.
 static __forceinline void ShowModeLabels_0042d920(
-        RecoveryLookupContext_0040bd80* manager, RecoveryMusicRoom_00433ef0* room) {
+        RecoveryLookupContext_0040bd80* manager, Title* room) {
     if (data_00491d4c.screen_mode == 0) {
         ShowLabel_0042d920(manager, room, 0x1f, 0x2e);
         ShowLabel_0042d920(manager, room, 0x20, 0x2f);
@@ -60,20 +60,20 @@ static __forceinline void ShowModeLabels_0042d920(
     }
 }
 
-static __forceinline void ShowScreenMode_0042d920(RecoveryMusicRoom_00433ef0* room) {
+static __forceinline void ShowScreenMode_0042d920(Title* room) {
     RecoveryLookupContext_0040bd80* manager = reinterpret_cast<RecoveryLookupContext_0040bd80*>(data_00491c10);
     ShowModeLabels_0042d920(manager, room);
 }
 
 // Restart the cursor animation of slot 1.
-static __forceinline void RunCursorSlot_0042d920(RecoveryMusicRoom_00433ef0* room) {
+static __forceinline void RunCursorSlot_0042d920(Title* room) {
     AnimationManager_SetStopFrameAndRun(
         3, reinterpret_cast<RecoveryLookupContext_0040bd80*>(data_00491c10),
         *reinterpret_cast<RecoveryScriptId_0040bd80*>(&room->animation_slots[1]));
 }
 
 #pragma code_seg(".text$0042d920_fn")
-__declspec(noinline) int __stdcall TitleOptions_0042d920(RecoveryMusicRoom_00433ef0* room) {
+__declspec(noinline) int __stdcall TitleOptions_0042d920(Title* room) {
     switch (room->phase) {
     case 0:
         room->cursor.item_count = 6;
@@ -110,7 +110,7 @@ __declspec(noinline) int __stdcall TitleOptions_0042d920(RecoveryMusicRoom_00433
             } else {
                 application_state_00491c00.sound.Queue(11, 0);
                 SelectItem_0042d920(room->cursor, 5);
-                reinterpret_cast<AnimationSlotOwner_0042c750*>(room)->RestartSlot(1);
+                reinterpret_cast<TitleAnimationSlotView*>(room)->RestartSlot(1);
                 room->SetSlotFrame(1, room->cursor.selection + 7);
             }
         } else {
@@ -214,8 +214,8 @@ __declspec(noinline) int __stdcall TitleOptions_0042d920(RecoveryMusicRoom_00433
                 cursor->PushSelection();
                 break;
             case 5:
-                reinterpret_cast<AnimationSlotOwner_0042c750*>(room)->StopSlot(0x5a);
-                reinterpret_cast<AnimationSlotOwner_0042c750*>(room)->StopSlot(0x5b);
+                reinterpret_cast<TitleAnimationSlotView*>(room)->StopSlot(0x5a);
+                reinterpret_cast<TitleAnimationSlotView*>(room)->StopSlot(0x5b);
                 room->DisableTimerWithOwner(2);
                 cursor->PopSelection();
                 break;

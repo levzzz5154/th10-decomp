@@ -1,4 +1,4 @@
-#include "th10/game/recovery_script_executor_caller_00433ef0.hpp"
+#include "th10/game/title_menu.hpp"
 
 extern "C" void* data_00491c10;
 
@@ -22,12 +22,12 @@ static __forceinline void SetAnimationTreeFrame(
 }
 
 #pragma code_seg(".text$0042c6d0_fn")
-void RecoveryMusicRoom_00433ef0::ClearAnimationSlot(int index) {
+void Title::ClearAnimationSlot(int index) {
     SetAnimationTreeFrame(FindAnimationSlot(animation_slots[index]), 1);
     animation_slots[index] = 0;
 }
 #pragma code_seg(".text$0042c770_fn")
-void RecoveryMusicRoom_00433ef0::SetSlotFrame(int index, short frame) {
+void Title::SetSlotFrame(int index, short frame) {
     SetAnimationTreeFrame(FindAnimationSlot(animation_slots[index]), frame);
 }
 #pragma code_seg()

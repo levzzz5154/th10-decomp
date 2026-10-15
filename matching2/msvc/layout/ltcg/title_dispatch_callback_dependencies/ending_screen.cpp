@@ -1,18 +1,18 @@
 // Readable baseline only: not selected for image reconstruction.
 // Retail takes room in EBX; recovering that contract needs the full dispatcher.
-#include "th10/game/recovery_script_executor_caller_00433ef0.hpp"
+#include "th10/game/title_menu.hpp"
 #include "th10/platform/sound_queue.hpp"
 
 extern "C" void* data_00491c10;
 extern "C" unsigned int data_00474e36;
 __declspec(noinline) void __stdcall RecoveryMusicInstallSlot_0042c670(
-    RecoveryMusicRoom_00433ef0* room, int index);
+    Title* room, int index);
 struct AnimationHandle_0040c3c0 { unsigned int id; };
 __declspec(noinline) void StopHandle_00409e50(AnimationHandle_0040c3c0* handle);
 
 #pragma code_seg(".text$0042d300_fn")
 __declspec(noinline) int __stdcall EndingScreen_Update_0042d300(
-        RecoveryMusicRoom_00433ef0* room) {
+        Title* room) {
     switch (room->phase) {
     case 0: {
         RecoveryScriptId_0040bd80 id = { static_cast<int>(room->animation_slots[88]) };

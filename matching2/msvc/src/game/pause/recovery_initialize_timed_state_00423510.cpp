@@ -10,7 +10,7 @@
 // already carries with its address in EAX.
 //
 // The record repeats the score-timer shape (previous/current/elapsed/speed/
-// flags, see src/game/title/score_timer_leaves.cpp) at +0x10 instead of +0x2B0, and
+// flags, see src/game/title/title_disable_timer_with_owner.cpp) at +0x10 instead of +0x2B0, and
 // copies its own speed field out to the shared float the timer reads.
 //
 // The state store reaches the record through a pointer to that field rather

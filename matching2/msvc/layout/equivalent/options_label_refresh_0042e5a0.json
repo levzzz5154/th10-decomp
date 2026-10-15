@@ -6,7 +6,7 @@
     "equivalent/game/options_label_refresh_0042e5a0.cpp"
   ],
   "entry_symbol": "_DifficultySelectUpdateCompilerContext@24",
-  "function": "?RefreshOptions_0042e5a0@@YGXPAURecoveryMusicRoom_00433ef0@@@Z",
+  "function": "?RefreshOptions_0042e5a0@@YGXPAUTitle@@@Z",
   "code_bytes": 3999,
   "absolute_symbols": {
     "__ftol2": {
@@ -105,11 +105,11 @@
       "address": "0x00474C7C",
       "kind": "data"
     },
-    "?TitleMode16_00433570@@YGHPAURecoveryMusicRoom_00433ef0@@@Z": {
+    "?TitleMode16_00433570@@YGHPAUTitle@@@Z": {
       "address": "0x00433570",
       "kind": "code"
     },
-    "?TitleNameEntry_00432cb0@@YGHPAURecoveryMusicRoom_00433ef0@@@Z": {
+    "?TitleNameEntry_00432cb0@@YGHPAUTitle@@@Z": {
       "address": "0x00432CB0",
       "kind": "code"
     },
@@ -741,7 +741,7 @@
       "address": "0x00466280",
       "kind": "data"
     },
-    "?TitleMenuFlow_0042f540@@YGHPAURecoveryMusicRoom_00433ef0@@@Z": {
+    "?TitleMenuFlow_0042f540@@YGHPAUTitle@@@Z": {
       "address": "0x0042F540",
       "kind": "code"
     },

@@ -6,7 +6,7 @@
 // layout/ltcg/stage_startup_00417870.json.
 #include <string.h>
 #include "th10/game/stage_startup_00417870.hpp"
-#include "th10/game/title_menu_draw.hpp"
+#include "th10/game/title_draw.hpp"
 #include "th10/game/score_file.hpp"
 #include "th10/game/scheduler.hpp"
 #include "../../../layout/ltcg/stage_startup_00417870/callback_task.hpp"

@@ -11,7 +11,7 @@
 
 #include "th10/game/right_aligned_text_context/recovery_script_executor_caller_00419120.hpp"
 #include "th10/game/score_file.hpp"
-#include "th10/game/title_menu_draw.hpp"
+#include "th10/game/title_draw.hpp"
 
 extern "C" void* data_00491c10;
 // Existing retail strings; the diagnostic layout binds their original addresses.
@@ -38,7 +38,7 @@ static inline HintVm_00419120* FindAnimation(void* manager, unsigned int id) {
 }
 
 #pragma code_seg(".text$00432690_fn")
-int TitleMenu_00431410::BuildSpellList() {
+int TitleDrawView::BuildSpellList() {
     char name[168];
     int spell = 0;
     for (int skipped = 0; skipped < spell_page * 10 - 10; ++spell) {

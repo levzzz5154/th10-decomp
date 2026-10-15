@@ -18,7 +18,7 @@ void MainTaskStateWave18::LeaveSlot(int index) {
     --lock_depth[index];
 }
 #pragma code_seg(".text$00f_script_destroy")
-void DestroyOwned_0042cdb0(OwnedObject_0042cdb0* object) {
+void Title_Delete(Title* object) {
     if (object) { ModeDestroyScriptWave18(object); ModeFreeWave18(object); }
 }
 #pragma code_seg()

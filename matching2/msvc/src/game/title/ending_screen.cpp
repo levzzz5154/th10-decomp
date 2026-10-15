@@ -31,7 +31,7 @@ static __forceinline void SelectItem_0042d300(MenuCursor& cursor, int selected) 
 }
 
 #pragma code_seg(".text$0042d300_fn")
-int __stdcall EndingScreen_Update_0042d300(RecoveryMusicRoom_00433ef0* room) {
+int __stdcall EndingScreen_Update_0042d300(Title* room) {
     switch (room->phase) {
     case 0: {
         if (reinterpret_cast<RecoveryLookup_0040bd80*>(data_00491c10)->Find(

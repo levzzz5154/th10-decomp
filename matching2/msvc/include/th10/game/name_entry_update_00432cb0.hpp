@@ -18,5 +18,5 @@ struct NameEntryScoreFile_00432cb0 {
 typedef char NameEntryShotScoreSize_00432cb0[sizeof(NameEntryShotScore_00432cb0) == 0x437C ? 1 : -1];
 typedef char NameEntryLastName_00432cb0[offsetof(NameEntryScoreFile_00432cb0, last_name) == 0x1D878 ? 1 : -1];
 
-__declspec(noinline) int __stdcall TitleNameEntry_00432cb0(RecoveryMusicRoom_00433ef0* room);
+__declspec(noinline) int __stdcall TitleNameEntry_00432cb0(Title* room);
 #endif

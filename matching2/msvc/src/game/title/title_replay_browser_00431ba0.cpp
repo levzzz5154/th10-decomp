@@ -6,13 +6,13 @@
 //
 // The menu arrives on the stack; native LTCG passes the text position to the
 // formatter in EBX.
-#include "th10/game/title_menu_draw.hpp"
+#include "th10/game/title_draw.hpp"
 
-extern "C" int __stdcall TitleMenu_DrawReplayBrowser_00431ba0(TitleMenu_00431410* menu);
+extern "C" int __stdcall TitleMenu_DrawReplayBrowser_00431ba0(TitleDrawView* menu);
 
 #pragma code_seg(".text$05s_browser")
 extern "C" __declspec(noinline) int __stdcall TitleMenu_DrawReplayBrowser_00431ba0(
-        TitleMenu_00431410* menu) {
+        TitleDrawView* menu) {
     switch (menu->phase) {
     case 4: {
         ReplayHeader_00431ba0* header = menu->replays[menu->selected_replay]->header;

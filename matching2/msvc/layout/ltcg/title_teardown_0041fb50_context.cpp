@@ -45,7 +45,7 @@ extern "C" void __stdcall ReleaseGlobalPending_004294a0(void*);
 void Recovery_ReleaseGlobalStates() {
     void* manager_state = data_00477810;
     if (manager_state) { ReleaseGlobalManager_00417c80(manager_state);entry_free_004524a1(manager_state); }
-    void* script_state = data_0047784c;
+    void* script_state = g_title;
     if (script_state) { ReleaseGlobalScript_0042cb60(script_state);entry_free_004524a1(script_state); }
     TitleState_0041FB50* resource_state = static_cast<TitleState_0041FB50*>(g_loading);
     if (resource_state) { resource_state->~TitleState_0041FB50();entry_free_004524a1(resource_state); }

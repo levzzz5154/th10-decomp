@@ -47,7 +47,7 @@ static int MusicAttenuation(const int& stored_music) {
 // walk fails) and the leaf looks that id up in the manager exactly like the
 // retail block does.
 static __forceinline LabelAnimation_0042d920* FindLabel(
-        RecoveryLookupContext_0040bd80* manager, RecoveryMusicRoom_00433ef0* room,
+        RecoveryLookupContext_0040bd80* manager, Title* room,
         int script) {
     RecoveryScriptId_0040bd80* slot =
         reinterpret_cast<RecoveryScriptId_0040bd80*>(&room->animation_slots[1]);
@@ -76,7 +76,7 @@ static __forceinline LabelAnimation_0042d920* FindLabel(
 // volume is re-read here, after the walk, the way the retail blocks do: the
 // sprite is only computed for a label that was found.
 static __forceinline void ConfigureHundreds(
-        RecoveryLookupContext_0040bd80* manager, RecoveryMusicRoom_00433ef0* room,
+        RecoveryLookupContext_0040bd80* manager, Title* room,
         int script, int font, const signed char& volume) {
     LabelAnimation_0042d920* label = FindLabel(manager, room, script);
     if (label == 0)
@@ -86,7 +86,7 @@ static __forceinline void ConfigureHundreds(
 }
 
 static __forceinline void ConfigureTens(
-        RecoveryLookupContext_0040bd80* manager, RecoveryMusicRoom_00433ef0* room,
+        RecoveryLookupContext_0040bd80* manager, Title* room,
         int script, int font, const signed char& volume) {
     LabelAnimation_0042d920* label = FindLabel(manager, room, script);
     if (label == 0)
@@ -96,7 +96,7 @@ static __forceinline void ConfigureTens(
 }
 
 static __forceinline void ConfigureOnes(
-        RecoveryLookupContext_0040bd80* manager, RecoveryMusicRoom_00433ef0* room,
+        RecoveryLookupContext_0040bd80* manager, Title* room,
         int script, int font, const signed char& volume) {
     LabelAnimation_0042d920* label = FindLabel(manager, room, script);
     if (label == 0)
@@ -110,7 +110,7 @@ static __forceinline void ConfigureOnes(
 // load, a mask and a separate store, the shape the retail blocks share tails
 // around.
 static __forceinline void ShowDigit(
-        RecoveryLookupContext_0040bd80* manager, RecoveryMusicRoom_00433ef0* room,
+        RecoveryLookupContext_0040bd80* manager, Title* room,
         int script, bool visible) {
     LabelAnimation_0042d920* label = FindLabel(manager, room, script);
     unsigned int* flags = &label->flags_35c;
@@ -122,7 +122,7 @@ static __forceinline void ShowDigit(
 
 #pragma code_seg(".text$0042e5a0_fn")
 __declspec(noinline) void __stdcall RefreshOptions_0042e5a0(
-    RecoveryMusicRoom_00433ef0* room) {
+    Title* room) {
     RecoveryLookupContext_0040bd80* manager =
         reinterpret_cast<RecoveryLookupContext_0040bd80*>(data_00491c10);
     data_00497854 = data_00491d4c.music_volume;

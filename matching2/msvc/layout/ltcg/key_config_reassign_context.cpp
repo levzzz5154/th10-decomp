@@ -64,7 +64,7 @@ void* __fastcall KeyConfigAnimationManager_0042f8b0::Find(
 
 
 #pragma code_seg(".text$11context")
-extern "C" __declspec(noinline) int __stdcall KeyConfigReassignContext(KeyConfigLabels_0042f8b0** states, int* slots, int* keys, int count) {
+extern "C" __declspec(noinline) int __stdcall KeyConfigReassignContext(TitleKeyConfigView** states, int* slots, int* keys, int count) {
     for (int i = 0; i < count; ++i) KeyConfigReassignSlot_00430250(states[i], slots[i], keys[i]);
     return count;
 }

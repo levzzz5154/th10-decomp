@@ -7,21 +7,21 @@
 #include "../../src/game/title/ending_screen.cpp"
 #include "../../src/game/title/recovery_animation_slot_frames_0042c6d0.cpp"
 #include "th10/game/recovery_script_executor_caller_00419120.hpp"
-#include "th10/game/recovery_script_executor_caller_00433ef0.hpp"
+#include "th10/game/title_menu.hpp"
 // 0x0042CDF0, a separate translation unit of this link.
-__declspec(noinline) int __stdcall TitleDispatcher_Update_0042cdf0(RecoveryMusicRoom_00433ef0* room);
+__declspec(noinline) int __stdcall Title_DispatchUpdate(Title* room);
 
 #pragma code_seg(".text$0040a000_context")
 extern "C" int __stdcall KeyConfigUpdateCompilerContext(
     RecoveryScriptState_0040bd80* script,
     HintLink_00419120* head,
     HintUpdateView* indicator, int release,
-    RecoveryMusicRoom_00433ef0* music_room, void** objects) {
+    Title* music_room, void** objects) {
     objects[0] = &data_00474e88;
     objects[1] = &data_00491d4c;
     objects[2] = &data_00474e30;
     return RecoveryScript_Execute_0040bd80(script) + head->Drain(indicator, release)
-        + RecoveryMusicRoom_Update_00433ef0(music_room)
-        + TitleDispatcher_Update_0042cdf0(music_room);
+        + Title_UpdateMusicRoom(music_room)
+        + Title_DispatchUpdate(music_room);
 }
 #pragma code_seg()

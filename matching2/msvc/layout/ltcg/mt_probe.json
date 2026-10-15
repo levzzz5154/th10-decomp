@@ -1081,7 +1081,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "?RecoveryMusicInstallSlot_0042c670@@YGXPAURecoveryMusicRoom_00433ef0@@H@Z",
+      "symbol": "?RecoveryMusicInstallSlot_0042c670@@YGXPAUTitle@@H@Z",
       "address": "0x42c670",
       "kind": "relative_code"
     },
@@ -1091,7 +1091,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "?SetTimerTarget@RecoveryMusicRoom_00433ef0@@QAEXH@Z",
+      "symbol": "?SetTimerTarget@Title@@QAEXH@Z",
       "address": "0x42c620",
       "kind": "relative_code"
     },

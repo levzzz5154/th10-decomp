@@ -438,7 +438,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_data_0047784c",
+      "symbol": "_g_title",
       "address": "0x0047784C",
       "kind": "data"
     },
@@ -513,7 +513,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_ProgressWorker_Thread_0042c9f0@4",
+      "symbol": "_Title_LoadWorkerEntry@4",
       "address": "0x0042C9F0",
       "kind": "data"
     },

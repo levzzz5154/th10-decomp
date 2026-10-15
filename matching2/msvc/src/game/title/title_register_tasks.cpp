@@ -7,7 +7,7 @@
 // (layout/ltcg/bullet_manager_load_scripts_0040ae70.json).
 #include "th10/game/scheduler.hpp"
 
-struct TitleState_0042caa0 {
+struct Title {
     unsigned char pad_000[0x0C];
     SchedulerTask* update_task;          // +0x00C
     SchedulerTask* draw_task;            // +0x010
@@ -34,7 +34,7 @@ extern "C" int data_004918a4;
 
 #pragma code_seg(".text$00hbstartupzmzt")
 extern "C" __declspec(noinline) int __stdcall
-Title_RegisterTasks_0042caa0(TitleState_0042caa0 *title) {
+Title_RegisterTasks(Title *title) {
     SchedulerTask *task = SchedulerCallback_Create_00449ed0((void *)0x42D2E0);
     task->reserved_flags &= ~1u;
     task->context = title;

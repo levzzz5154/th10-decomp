@@ -5,14 +5,14 @@
   "driver": "layout/ltcg/title_practice_rows_00431410/context.cpp",
   "headers": [
     "include/th10/game/game_thread_queue_native.hpp",
-    "include/th10/game/title_menu_draw.hpp"
+    "include/th10/game/title_draw.hpp"
   ],
   "image_base": "0x00400000",
   "description": "Practice menu rows and the high score table compiled with the real record writer and formatter under native LTCG; a synthetic array caller supplies the menu.",
   "functions": [
     {
       "name": "TitleMenu_DrawPracticeRows",
-      "symbol": "?DrawPracticeRows@TitleMenu_00431410@@QAEHXZ",
+      "symbol": "?DrawPracticeRows@TitleDrawView@@QAEHXZ",
       "section": ".text$05rows",
       "address": "0x00431410",
       "actual_abi": "menu EDI; returns 1; plain RET",
@@ -20,7 +20,7 @@
     },
     {
       "name": "TitleMenu_DrawScoreRows",
-      "symbol": "?DrawScoreRows@TitleMenu_00431410@@QAEHXZ",
+      "symbol": "?DrawScoreRows@TitleDrawView@@QAEHXZ",
       "source": "src/game/title/title_score_rows_004329f0.cpp",
       "section": ".text$06scores",
       "address": "0x004329F0",
@@ -29,8 +29,8 @@
     },
     {
       "name": "TitleMenu_DrawOverlay",
-      "symbol": "?DrawOverlay@TitleMenu_00431410@@QAEHXZ",
-      "source": "src/game/title/title_menu_draw_0042d260.cpp",
+      "symbol": "?DrawOverlay@TitleDrawView@@QAEHXZ",
+      "source": "src/game/title/title_draw.cpp",
       "section": ".text$03dispatch",
       "address": "0x0042D260",
       "size": 116,
@@ -38,8 +38,8 @@
     },
     {
       "name": "TitleMenu_DrawCallback",
-      "symbol": "?TitleMenu_DrawCallback_0042d2f0@@YIHPAUTitleMenu_00431410@@@Z",
-      "source": "src/game/title/title_menu_draw_0042d260.cpp",
+      "symbol": "?Title_OnDraw@@YIHPAUTitleDrawView@@@Z",
+      "source": "src/game/title/title_draw.cpp",
       "section": ".text$04callback",
       "address": "0x0042D2F0",
       "size": 7,
@@ -232,7 +232,7 @@
   "additional_sources": [
     "layout/ltcg/title_practice_rows_00431410/append.cpp",
     "src/game/title/title_score_rows_004329f0.cpp",
-    "src/game/title/title_menu_draw_0042d260.cpp",
+    "src/game/title/title_draw.cpp",
     "src/game/title/title_replay_browser_00431ba0.cpp",
     "src/game/title/title_score_entry_00433230.cpp",
     "src/game/title/title_replay_save_00433b30.cpp"
@@ -360,7 +360,7 @@
     }
   ],
   "roots": [
-    "?TitleMenu_DrawCallback_0042d2f0@@YIHPAUTitleMenu_00431410@@@Z",
+    "?Title_OnDraw@@YIHPAUTitleDrawView@@@Z",
     "_TitleMenu_DrawReplayBrowser_00431ba0@4",
     "_TitleMenu_DrawScoreEntry_00433230@4",
     "_TitleMenu_DrawReplaySave_00433b30@4"

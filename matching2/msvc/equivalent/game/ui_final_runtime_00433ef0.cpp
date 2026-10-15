@@ -11,7 +11,7 @@
 // Written from the retail instructions block by block; linked with the
 // title-menu cluster (layout/ltcg/difficulty_select_update_00430320.json)
 // for the bodies of the routines it calls.
-#include "th10/game/recovery_script_executor_caller_00433ef0.hpp"
+#include "th10/game/title_menu.hpp"
 #include "th10/game/difficulty_select_update_00430320.hpp"
 #include "th10/render/resource_registrar_0043e460.hpp"
 #include <math.h>
@@ -81,7 +81,7 @@ static __forceinline void MusicSelect(MenuCursor& cursor, int index) {
 }
 
 // 0x0042C670, 0x004349E0, 0x00434A20: defined in their own sources.
-void __stdcall RecoveryMusicInstallSlot_0042c670(RecoveryMusicRoom_00433ef0* room, int index);
+void __stdcall RecoveryMusicInstallSlot_0042c670(Title* room, int index);
 char* __stdcall StageText_SkipLine(char* cursor, int* remaining);
 char* __stdcall StageText_ExtractLine(char* cursor, char* destination, int* remaining);
 void __stdcall RecoveryMusicStopHandle_00409e50(RecoveryHandle_0040bd80* handle);
@@ -142,7 +142,7 @@ __declspec(noinline) RecoveryMusicVm_00433ef0* __stdcall MusicValidate_00449450(
 // Show the next line of the chosen track's comment, every other frame. A
 // track that has not been heard shows the spoiler warning instead, until the
 // player confirms a second time.
-static __forceinline void MusicRevealLine(RecoveryMusicRoom_00433ef0* room) {
+static __forceinline void MusicRevealLine(Title* room) {
     if (room->timer.current % 2 == 0 && room->preview_cursor < 8) {
         RecoveryMusicVm_00433ef0* object =
             MusicValidate_00449450(&room->preview_handles[room->preview_cursor]);
@@ -159,7 +159,7 @@ static __forceinline void MusicRevealLine(RecoveryMusicRoom_00433ef0* room) {
 }
 
 #pragma code_seg(".text$00433ef0_model")
-__declspec(noinline) int __stdcall TitleMusicRoom_00433ef0(RecoveryMusicRoom_00433ef0* room) {
+__declspec(noinline) int __stdcall TitleMusicRoom_00433ef0(Title* room) {
     RecoveryMusicVector_00433ef0 position;
     void* handle;
     int remaining;

@@ -41,24 +41,24 @@ static __forceinline void SelectItem_0042f540(MenuCursor& cursor, int index) {
 }
 
 // Copy the bindings in use into the screen and redraw their labels.
-static __forceinline void LoadBindings_0042f540(RecoveryMusicRoom_00433ef0* room) {
-    KeyConfigLabels_0042f8b0* labels = reinterpret_cast<KeyConfigLabels_0042f8b0*>(room);
+static __forceinline void LoadBindings_0042f540(Title* room) {
+    TitleKeyConfigView* labels = reinterpret_cast<TitleKeyConfigView*>(room);
     labels->bindings_59cc[0] = data_00474e88.keys[0];
     labels->bindings_59cc[1] = data_00474e88.keys[1];
     labels->bindings_59cc[2] = data_00474e88.keys[2];
     labels->bindings_59cc[3] = data_00474e88.keys[3];
     labels->bindings_59cc[4] = data_00474e88.skip;
-    RefreshKeyConfigLabels_0042f8b0(labels);
+    RefreshTitleKeyConfigView(labels);
 }
 
 // Restart the cursor animation of slot 2.
-static __forceinline void RunCursorSlot_0042f540(RecoveryMusicRoom_00433ef0* room) {
+static __forceinline void RunCursorSlot_0042f540(Title* room) {
     AnimationManager_SetStopFrameAndRun(3, reinterpret_cast<AnimationLookupContext*>(data_00491c10),
         *reinterpret_cast<AnimationScriptId*>(&room->animation_slots[2]));
 }
 
 // Phase 2: cursor movement, pad button assignment, cancel and confirm.
-static __forceinline void HandleInput_0042f540(RecoveryMusicRoom_00433ef0* room) {
+static __forceinline void HandleInput_0042f540(Title* room) {
     MenuCursor* cursor = &room->cursor;
     cursor->previous_selection = cursor->selection;
     if (data_00474e30.Active(0x10))
@@ -76,7 +76,7 @@ static __forceinline void HandleInput_0042f540(RecoveryMusicRoom_00433ef0* room)
         if (buttons[button] & 0x80) {
             if (cursor->selection <= 4)
                 KeyConfigReassignSlot_00430250(
-                    reinterpret_cast<KeyConfigLabels_0042f8b0*>(room), cursor->selection, button);
+                    reinterpret_cast<TitleKeyConfigView*>(room), cursor->selection, button);
             break;
         }
     }
@@ -92,7 +92,7 @@ static __forceinline void HandleInput_0042f540(RecoveryMusicRoom_00433ef0* room)
             data_00492590.Queue(10, 0);
             return;
         case 6: {
-            KeyConfigLabels_0042f8b0* labels = reinterpret_cast<KeyConfigLabels_0042f8b0*>(room);
+            TitleKeyConfigView* labels = reinterpret_cast<TitleKeyConfigView*>(room);
             data_00474e88.keys[0] = labels->bindings_59cc[0];
             data_00474e88.keys[1] = labels->bindings_59cc[1];
             data_00474e88.keys[2] = labels->bindings_59cc[2];
@@ -111,7 +111,7 @@ static __forceinline void HandleInput_0042f540(RecoveryMusicRoom_00433ef0* room)
 }
 
 #pragma code_seg(".text$0042f540_fn")
-int __stdcall TitleMenuFlow_0042f540(RecoveryMusicRoom_00433ef0* room) {
+int __stdcall TitleMenuFlow_0042f540(Title* room) {
     switch (room->phase) {
     case 0:
         room->cursor.item_count = 7;

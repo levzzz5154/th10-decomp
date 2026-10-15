@@ -31,14 +31,14 @@ struct AnimationHandle_00449470 {
 
 // The title screen object past the music-room view: the difficulty to go
 // back to when the selection is cancelled on a fixed-difficulty entry.
-struct DifficultySelectRoom_00430320 {
+struct TitleDifficultyView {
     unsigned char reserved_0000[0x58F0];
     int saved_difficulty;
 };
 
 // The room's animation slots seen by 0x0042C750, which restarts the script of
 // one slot at frame 3.
-struct AnimationSlotOwner_0042c750 {
+struct TitleAnimationSlotView {
     unsigned char reserved_000[0x2C4];
     RecoveryScriptId_0040bd80 slots[195];
     __declspec(noinline) void RestartSlot(int slot);
@@ -65,5 +65,5 @@ __declspec(noinline) unsigned int __fastcall UpdateBoundedCounter(unsigned int r
 __declspec(noinline) void** __stdcall AnimationManager_CreatePrimaryBack_00448d00(
     void* resource, void** handle, int script, int layer);
 
-__declspec(noinline) int __stdcall TitleMode6_00430320(RecoveryMusicRoom_00433ef0* room);
+__declspec(noinline) int __stdcall TitleMode6_00430320(Title* room);
 #endif

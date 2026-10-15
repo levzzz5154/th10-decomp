@@ -47,17 +47,17 @@ __declspec(noinline) void __stdcall TitleSetMusicFile_00420a90(int slot, const c
 __declspec(noinline) void __stdcall TitlePlayMusic_00420b10(int first, int second);
 __declspec(noinline) void TitleSaveInputHistory_0044be20();
 __declspec(noinline) void TitleDispatchGame_00420c00();
-__declspec(noinline) int __stdcall TitleMainMenu_0042d420(RecoveryMusicRoom_00433ef0* room);
-__declspec(noinline) int __stdcall TitleOptions_0042d920(RecoveryMusicRoom_00433ef0* room);
-__declspec(noinline) int __stdcall TitleMenuFlow_0042f540(RecoveryMusicRoom_00433ef0* room);
-__declspec(noinline) int __stdcall TitleMode6_00430320(RecoveryMusicRoom_00433ef0* room);
-__declspec(noinline) int __stdcall TitleMode7_004306a0(RecoveryMusicRoom_00433ef0* room);
-__declspec(noinline) int __stdcall TitleMode8_00430a60(RecoveryMusicRoom_00433ef0* room);
-__declspec(noinline) int __stdcall TitleMode9_00430ff0(RecoveryMusicRoom_00433ef0* room);
-__declspec(noinline) int __stdcall TitleMode11_00431ee0(RecoveryMusicRoom_00433ef0* room);
-__declspec(noinline) int __stdcall TitleMode12_004315c0(RecoveryMusicRoom_00433ef0* room);
-__declspec(noinline) int __stdcall TitleNameEntry_00432cb0(RecoveryMusicRoom_00433ef0* room);
-__declspec(noinline) int __stdcall TitleMode16_00433570(RecoveryMusicRoom_00433ef0* room);
+__declspec(noinline) int __stdcall TitleMainMenu_0042d420(Title* room);
+__declspec(noinline) int __stdcall TitleOptions_0042d920(Title* room);
+__declspec(noinline) int __stdcall TitleMenuFlow_0042f540(Title* room);
+__declspec(noinline) int __stdcall TitleMode6_00430320(Title* room);
+__declspec(noinline) int __stdcall TitleMode7_004306a0(Title* room);
+__declspec(noinline) int __stdcall TitleMode8_00430a60(Title* room);
+__declspec(noinline) int __stdcall TitleMode9_00430ff0(Title* room);
+__declspec(noinline) int __stdcall TitleMode11_00431ee0(Title* room);
+__declspec(noinline) int __stdcall TitleMode12_004315c0(Title* room);
+__declspec(noinline) int __stdcall TitleNameEntry_00432cb0(Title* room);
+__declspec(noinline) int __stdcall TitleMode16_00433570(Title* room);
 
 static __forceinline void SetSelection(MenuCursor* cursor, int requested) {
     int count = cursor->item_count;
@@ -68,13 +68,13 @@ static __forceinline void SetSelection(MenuCursor* cursor, int requested) {
     else
         cursor->selection = requested;
 }
-static __forceinline void MarkTitleCallback(RecoveryMusicRoom_00433ef0* room) {
+static __forceinline void MarkTitleCallback(Title* room) {
     reinterpret_cast<TitlePrefix*>(room)->callback->flags |= 2;
 }
 
 #pragma code_seg(".text$0042cdf0_fn")
-__declspec(noinline) int __stdcall TitleDispatcher_Update_0042cdf0(
-        RecoveryMusicRoom_00433ef0* room) {
+__declspec(noinline) int __stdcall Title_DispatchUpdate(
+        Title* room) {
     TitlePrefix* title = reinterpret_cast<TitlePrefix*>(room);
     if (title->mode == 1 || title->mode == 2) {
         ++data_00474ca4;
@@ -179,7 +179,7 @@ __declspec(noinline) int __stdcall TitleDispatcher_Update_0042cdf0(
     case 9: TitleMode9_00430ff0(room); break;
     case 11: TitleMode11_00431ee0(room); break;
     case 12: TitleMode12_004315c0(room); break;
-    case 14: RecoveryMusicRoom_Update_00433ef0(room); break;
+    case 14: Title_UpdateMusicRoom(room); break;
     case 15: TitleNameEntry_00432cb0(room); break;
     case 16: TitleMode16_00433570(room); break;
     }

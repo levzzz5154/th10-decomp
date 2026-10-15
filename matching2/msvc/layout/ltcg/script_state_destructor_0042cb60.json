@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "script_state_destructor_0042cb60",
-  "source": "src/game/title/script_state_destructor_0042cb60.cpp",
+  "source": "src/game/title/title_destroy.cpp",
   "driver": "layout/ltcg/script_state_destructor_0042cb60_context.cpp",
   "included_sources": [
     "layout/ltcg/game_state_anchor_00402160.cpp",
@@ -21,8 +21,8 @@
   "description": "Script UI state destructor with worker ownership",
   "functions": [
     {
-      "name": "ScriptStateDestructor",
-      "symbol": "??1ScriptState_0042cb60@@QAE@XZ",
+      "name": "TitleDestructor",
+      "symbol": "??1Title@@QAE@XZ",
       "section": ".text$01dtor",
       "address": "0x0042CB60",
       "size": 491,
@@ -39,8 +39,8 @@
       "native_symbol_pattern": "\\$L[0-9]+"
     },
     {
-      "name": "ScriptStateDestructorHandler",
-      "symbol": "__ehhandler$??1ScriptState_0042cb60@@QAE@XZ",
+      "name": "TitleDestructorHandler",
+      "symbol": "__ehhandler$??1Title@@QAE@XZ",
       "section": ".text$x",
       "address": "0x0046562E",
       "size": 10,
@@ -187,7 +187,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_data_0047784c",
+      "symbol": "_g_title",
       "address": "0x0047784C",
       "kind": "data"
     },
@@ -217,7 +217,7 @@
       "kind": "data"
     },
     {
-      "symbol": "?ObjectSize@ScriptState_0042cb60@@UAEHXZ",
+      "symbol": "?ObjectSize@Title@@UAEHXZ",
       "address": "0x0042C5B0",
       "kind": "data"
     }
@@ -227,7 +227,7 @@
   ],
   "data_aliases": [
     {
-      "symbol": "??_7ScriptState_0042cb60@@6B@",
+      "symbol": "??_7Title@@6B@",
       "address": "0x0046ECF0",
       "bytes": "b0c54200"
     }

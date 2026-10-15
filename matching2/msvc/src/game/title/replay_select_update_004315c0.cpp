@@ -52,14 +52,14 @@ static __forceinline void ResetTimer_004315c0(RecoveryTimer_0040bd80* timer) {
     timer->elapsed = 0;
     timer->previous = -1;
 }
-static __forceinline void SetTimerTarget_004315c0(RecoveryMusicRoom_00433ef0* room, int target) {
+static __forceinline void SetTimerTarget_004315c0(Title* room, int target) {
     room->phase = target;
     ResetTimer_004315c0(&room->timer);
 }
 
 #pragma code_seg(".text$004315c0_fn")
-__declspec(noinline) int __stdcall TitleMode12_004315c0(RecoveryMusicRoom_00433ef0* room) {
-    ReplaySelectRoom_004315c0* replays = reinterpret_cast<ReplaySelectRoom_004315c0*>(room);
+__declspec(noinline) int __stdcall TitleMode12_004315c0(Title* room) {
+    TitleReplayView* replays = reinterpret_cast<TitleReplayView*>(room);
     char path[64];
     ReplayFindData_004315c0 find;
     void* handle;

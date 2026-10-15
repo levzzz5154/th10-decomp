@@ -29,8 +29,8 @@ static __forceinline void SelectItem_00433570(MenuCursor& cursor, int index) {
 }
 
 #pragma code_seg(".text$00433570_fn")
-__declspec(noinline) int __stdcall TitleMode16_00433570(RecoveryMusicRoom_00433ef0* room) {
-    ReplaySaveRoom_00433570* save = reinterpret_cast<ReplaySaveRoom_00433570*>(room);
+__declspec(noinline) int __stdcall TitleMode16_00433570(Title* room) {
+    TitleReplaySaveView* save = reinterpret_cast<TitleReplaySaveView*>(room);
     char path[64];
     switch (room->phase) {
     case 0:

@@ -1,15 +1,15 @@
 {
   "schema_version": 1,
   "name": "timer_owner_0042c5c0",
-  "source": "src/game/title/score_timer_leaves.cpp",
+  "source": "src/game/title/title_disable_timer_with_owner.cpp",
   "driver": "layout/ltcg/timer_owner_0042c5c0_context.cpp",
   "headers": [],
   "image_base": "0x00400000",
-  "description": "GameStateTimer_0042c5c0_DisableTimerWithOwner compiled with native LTCG.",
+  "description": "Title_DisableTimerWithOwner compiled with native LTCG.",
   "functions": [
     {
-      "name": "GameStateTimer_0042c5c0_DisableTimerWithOwner",
-      "symbol": "?DisableTimerWithOwner@GameStateTimer_0042c5c0@@QAEXH@Z",
+      "name": "Title_DisableTimerWithOwner",
+      "symbol": "?DisableTimerWithOwner@Title@@QAEXH@Z",
       "section": ".text$01accessor",
       "address": "0x0042C5C0",
       "size": 83,
@@ -17,7 +17,7 @@
     }
   ],
   "context": {
-    "symbol": "?TimerOwner0042c5c0CompilerContext@@YGHPAPAUGameStateTimer_0042c5c0@@PAHH@Z",
+    "symbol": "?TimerOwner0042c5c0CompilerContext@@YGHPAPAUTitle@@PAHH@Z",
     "section": ".text$03context",
     "address": "0x0042C620",
     "size": 71,

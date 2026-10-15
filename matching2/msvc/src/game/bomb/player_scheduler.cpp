@@ -6,7 +6,7 @@
 // walks an array of records and leaves the receiver in EAX.
 //
 // Each link is the same previous/current/elapsed/speed/flags timer block the
-// score timer (src/game/title/score_timer_leaves.cpp) and the recovery state
+// score timer (src/game/title/title_disable_timer_with_owner.cpp) and the recovery state
 // (src/game/pause/recovery_initialize_timed_state_00423510.cpp) carry: current and
 // elapsed are cleared, previous takes the inactive sentinel -1, and while the
 // block is not yet running the countdown is armed with 0xFFF0BDC1 and the
@@ -16,7 +16,7 @@
 // Every write to the record goes through a pointer to the field rather than
 // through the member, and the three clearing stores of each link share one
 // pointer (`tail`) the same way the pair write in
-// src/game/title/score_timer_leaves.cpp shares one:
+// src/game/title/title_disable_timer_with_owner.cpp shares one:
 //
 //  * a direct member store (`marker = 0;`) sinks into the compare slot of the
 //    `test cl,1` that follows and is materialised at its use, 45 differing

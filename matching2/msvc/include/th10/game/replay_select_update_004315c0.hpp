@@ -34,14 +34,14 @@ typedef char ReplayFilePath_004315c0[offsetof(ReplayFile_004315c0, path) == 0x1D
 
 // The title screen object past the music-room view: the replays offered by
 // the replay selection (25 numbered ones, then up to 25 user-named ones).
-struct ReplaySelectRoom_004315c0 {
+struct TitleReplayView {
     unsigned char reserved_0000[0x59D8];
     int reserved_59d8;
     int selected_replay;                // +0x59DC
     int selected_stage;                 // +0x59E0
     ReplayFile_004315c0* replays[50];   // +0x59E4
 };
-typedef char ReplaySelectRoomSize_004315c0[sizeof(ReplaySelectRoom_004315c0) == 0x5AAC ? 1 : -1];
+typedef char ReplaySelectRoomSize_004315c0[sizeof(TitleReplayView) == 0x5AAC ? 1 : -1];
 
 // WIN32_FIND_DATAA.
 struct ReplayFindData_004315c0 {
@@ -69,5 +69,5 @@ __declspec(noinline) ReplayFile_004315c0* __stdcall ReplayFile_Open_004296f0(con
 // 0x004294A0: the destructor of an opened replay.
 __declspec(noinline) void __stdcall ReplayFile_Destroy_004294a0(ReplayFile_004315c0* replay);
 
-__declspec(noinline) int __stdcall TitleMode12_004315c0(RecoveryMusicRoom_00433ef0* room);
+__declspec(noinline) int __stdcall TitleMode12_004315c0(Title* room);
 #endif

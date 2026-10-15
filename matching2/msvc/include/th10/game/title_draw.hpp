@@ -82,7 +82,7 @@ struct ReplayFile_00431ba0 {
     ReplayStageSlot_00431ba0 stages[8];  // +0xB0, indexed by stage number
 };
 
-struct TitleMenu_00431410 {
+struct TitleDrawView {
     unsigned char pad_000[0x1C];
     int page;                            // +0x01C
     int phase;                           // +0x020

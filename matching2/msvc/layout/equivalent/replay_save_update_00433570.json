@@ -8,7 +8,7 @@
   ],
   "context_cluster": "layout/ltcg/difficulty_select_update_00430320.json",
   "entry_symbol": "_DifficultySelectUpdateCompilerContext@24",
-  "function": "?TitleMode16_00433570@@YGHPAURecoveryMusicRoom_00433ef0@@@Z",
+  "function": "?TitleMode16_00433570@@YGHPAUTitle@@@Z",
   "code_bytes": 1440,
   "absolute_symbols": {
     "_recovery_decoded_path_00497d40": {
@@ -583,7 +583,7 @@
       "address": "0x00420A90",
       "kind": "code"
     },
-    "?TitleNameEntry_00432cb0@@YGHPAURecoveryMusicRoom_00433ef0@@@Z": {
+    "?TitleNameEntry_00432cb0@@YGHPAUTitle@@@Z": {
       "address": "0x00432CB0",
       "kind": "code"
     },
@@ -659,7 +659,7 @@
       "address": "0x00466280",
       "kind": "data"
     },
-    "?TitleMenuFlow_0042f540@@YGHPAURecoveryMusicRoom_00433ef0@@@Z": {
+    "?TitleMenuFlow_0042f540@@YGHPAUTitle@@@Z": {
       "address": "0x0042F540",
       "kind": "code"
     },
@@ -884,8 +884,8 @@
     "?FormatRightAligned@HintVm_00419120@@QAAXPAXZZ": "0x00447AE0",
     "?FormatCentered@HintVm_00419120@@QAAXPAXZZ": "0x00447BB0",
     "?RecoveryMusicStopHandle_00409e50@@YGXPAURecoveryHandle_0040bd80@@@Z": "0x00409E50",
-    "?DisableTimerWithOwner@RecoveryMusicRoom_00433ef0@@QAEXH@Z": "0x0042C5C0",
-    "?SetTimerTarget@RecoveryMusicRoom_00433ef0@@QAEXH@Z": "0x0042C620",
+    "?DisableTimerWithOwner@Title@@QAEXH@Z": "0x0042C5C0",
+    "?SetTimerTarget@Title@@QAEXH@Z": "0x0042C620",
     "?RecoveryMusicSkipLine_004349e0@@YGPADPADPAH@Z": "0x004349E0",
     "?RecoveryMusicExtractLine_00434a20@@YGPADPAD0PAH@Z": "0x00434A20",
     "?InitializeTransition@RecoveryMusicVm_00433ef0@@QAEXPBURecoveryMusicVector_00433ef0@@0HE@Z": "0x00434A80",
@@ -894,15 +894,15 @@
     "?Advance@MenuCursor@@QAEHH@Z": "0x0044BEA0",
     "_RecoveryScript_Execute_0040bd80@4": "0x0040BD80",
     "?Drain@HintLink_00419120@@QAEHPAUHintUpdateView@@H@Z": "0x00419120",
-    "_RecoveryMusicRoom_Update_00433ef0@4": "0x00433EF0",
+    "_Title_UpdateMusicRoom@4": "0x00433EF0",
     "?MarkText@RecoveryTextVm_00447a50@@QAAXPAXZZ": "0x00447A50",
-    "?ClearAnimationSlot@RecoveryMusicRoom_00433ef0@@QAEXH@Z": "0x0042C6D0",
-    "?SetSlotFrame@RecoveryMusicRoom_00433ef0@@QAEXHF@Z": "0x0042C770",
-    "?RecoveryMusicInstallSlot_0042c670@@YGXPAURecoveryMusicRoom_00433ef0@@H@Z": "0x0042C670",
-    "?TitleDispatcher_Update_0042cdf0@@YGHPAURecoveryMusicRoom_00433ef0@@@Z": "0x0042CDF0",
-    "?EndingScreen_Update_0042d300@@YGHPAURecoveryMusicRoom_00433ef0@@@Z": "0x0042D300",
+    "?ClearAnimationSlot@Title@@QAEXH@Z": "0x0042C6D0",
+    "?SetSlotFrame@Title@@QAEXHF@Z": "0x0042C770",
+    "?RecoveryMusicInstallSlot_0042c670@@YGXPAUTitle@@H@Z": "0x0042C670",
+    "?Title_DispatchUpdate@@YGHPAUTitle@@@Z": "0x0042CDF0",
+    "?EndingScreen_Update_0042d300@@YGHPAUTitle@@@Z": "0x0042D300",
     "?AnimationManager_SetStopFrameAndRun@@YIXGPAURecoveryLookupContext_0040bd80@@URecoveryScriptId_0040bd80@@@Z": "0x00449250",
-    "?RestartSlot@AnimationSlotOwner_0042c750@@QAEXH@Z": "0x0042C750",
+    "?RestartSlot@TitleAnimationSlotView@@QAEXH@Z": "0x0042C750",
     "?SetStopFrame@AnimationHandle_00449470@@QAEXG@Z": "0x00449470",
     "?FindChildRef@AnimationHandle_004497d0@@QAE?AUAnimationRef_004497d0@@H@Z": "0x004497D0",
     "?InputMaskActive@KeyRepeatState@@QAEHG@Z": "0x0040ACE0",
@@ -912,22 +912,22 @@
     "?Input_UpdateKeyboardState@@YGHPAE@Z": "0x0044B010",
     "?HasAnyClear@ScoreFileProgress_0042c850@@QAEHXZ": "0x0042C850",
     "?ReplayFile_Delete_004297b0@@YGXPAUReplayFile_004315c0@@@Z": "0x004297B0",
-    "?TitleMode6_00430320@@YGHPAURecoveryMusicRoom_00433ef0@@@Z": "0x00430320",
-    "?TitleMode7_004306a0@@YGHPAURecoveryMusicRoom_00433ef0@@@Z": "0x004306A0",
-    "?TitleMode8_00430a60@@YGHPAURecoveryMusicRoom_00433ef0@@@Z": "0x00430A60",
-    "?TitleMode9_00430ff0@@YGHPAURecoveryMusicRoom_00433ef0@@@Z": "0x00430FF0",
-    "?TitleMainMenu_0042d420@@YGHPAURecoveryMusicRoom_00433ef0@@@Z": "0x0042D420",
-    "?TitleMode12_004315c0@@YGHPAURecoveryMusicRoom_00433ef0@@@Z": "0x004315C0",
+    "?TitleMode6_00430320@@YGHPAUTitle@@@Z": "0x00430320",
+    "?TitleMode7_004306a0@@YGHPAUTitle@@@Z": "0x004306A0",
+    "?TitleMode8_00430a60@@YGHPAUTitle@@@Z": "0x00430A60",
+    "?TitleMode9_00430ff0@@YGHPAUTitle@@@Z": "0x00430FF0",
+    "?TitleMainMenu_0042d420@@YGHPAUTitle@@@Z": "0x0042D420",
+    "?TitleMode12_004315c0@@YGHPAUTitle@@@Z": "0x004315C0",
     "??_C@_0BA@GKFGEHJO@bgm?1th10_02?4wav?$AA@": "0x0046F018",
     "??_C@_03LOJJKLGJ@?4?4?1?$AA@": "0x0046EFE8",
     "??_C@_0BA@KODLGIPH@th10_ud?$DP?$DP?$DP?$DP?4rpy?$AA@": "0x0046EFEC",
     "??_C@_06HOJHLELG@replay?$AA@": "0x0046E650",
     "??_C@_0O@PLEGECMF@th10_?$CF?42d?4rpy?$AA@": "0x0046E0C8",
     "??_C@_08GGFKNFHG@?5?5?5?5?5?5?5?5?$AA@": "0x0046E354",
-    "?TitleMode11_00431ee0@@YGHPAURecoveryMusicRoom_00433ef0@@@Z": "0x00431EE0",
+    "?TitleMode11_00431ee0@@YGHPAUTitle@@@Z": "0x00431EE0",
     "?SpellCards_CountOfDifficulty_004088c0@@YGHH@Z": "0x004088C0",
     "?UnlockAllStages_0042c8c0@@YGXPAUGameProgress_0042c8c0@@@Z": "0x0042C8C0",
-    "?BuildSpellList@TitleMenu_00431410@@QAEHXZ": "0x00432690"
+    "?BuildSpellList@TitleDrawView@@QAEHXZ": "0x00432690"
   },
   "base_index_order": 2,
   "differences": [],

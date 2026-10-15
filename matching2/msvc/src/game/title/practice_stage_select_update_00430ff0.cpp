@@ -26,7 +26,7 @@ static __forceinline void SelectItem_00430ff0(MenuCursor& cursor, int index) {
 }
 
 #pragma code_seg(".text$00430ff0_fn")
-__declspec(noinline) int __stdcall TitleMode9_00430ff0(RecoveryMusicRoom_00433ef0* room) {
+__declspec(noinline) int __stdcall TitleMode9_00430ff0(Title* room) {
     switch (room->phase) {
     case 0:
         room->cursor.item_count = 6;

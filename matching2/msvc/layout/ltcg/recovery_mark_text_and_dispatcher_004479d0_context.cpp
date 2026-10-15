@@ -6,8 +6,8 @@ extern "C" int __stdcall RecoveryMarkTextDispatcherCompilerContext(
     RecoveryScriptState_0040bd80* script,
     HintLink_00419120* head,
     HintUpdateView* indicator, int release,
-    RecoveryMusicRoom_00433ef0* music_room) {
+    Title* music_room) {
     return RecoveryScript_Execute_0040bd80(script) + head->Drain(indicator, release)
-        + RecoveryMusicRoom_Update_00433ef0(music_room);
+        + Title_UpdateMusicRoom(music_room);
 }
 #pragma code_seg()

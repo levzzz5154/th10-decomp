@@ -11,7 +11,7 @@
   "functions": [
     {
       "name": "KeyConfig_RefreshBindingLabels_0042f8b0",
-      "symbol": "_RefreshKeyConfigLabels_0042f8b0@4",
+      "symbol": "_RefreshTitleKeyConfigView@4",
       "section": ".text$01refresh",
       "address": "0x0042F8B0",
       "size": 2452,

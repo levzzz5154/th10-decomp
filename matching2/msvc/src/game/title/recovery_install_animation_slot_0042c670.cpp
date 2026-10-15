@@ -4,7 +4,7 @@
 // room's slot `index`.
 //
 // Native LTCG passes the index in EDI; the room stays on the stack.
-#include "th10/game/recovery_script_executor_caller_00433ef0.hpp"
+#include "th10/game/title_menu.hpp"
 
 extern "C" void* data_00491c10;
 extern "C" void* __cdecl asm_FUN_00449950_00449950(void* manager);
@@ -16,7 +16,7 @@ struct AnimationResource_00449870 {
 
 #pragma code_seg(".text$0042c670_fn")
 __declspec(noinline) void __stdcall RecoveryMusicInstallSlot_0042c670(
-        RecoveryMusicRoom_00433ef0* room, int index) {
+        Title* room, int index) {
     void* resource = room->animation_resource;
     RecoveryMusicVm_00433ef0* object = static_cast<RecoveryMusicVm_00433ef0*>(
         asm_FUN_00449950_00449950(data_00491c10));

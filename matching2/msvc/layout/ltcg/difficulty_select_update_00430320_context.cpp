@@ -10,16 +10,16 @@
 #include "th10/game/replay_save_update_00433570.hpp"
 #include "th10/game/options_update_0042d920.hpp"
 #include "th10/game/recovery_script_executor_caller_00419120.hpp"
-#include "th10/game/recovery_script_executor_caller_00433ef0.hpp"
+#include "th10/game/title_menu.hpp"
 // 0x0042CDF0, a separate translation unit of this link.
-__declspec(noinline) int __stdcall TitleDispatcher_Update_0042cdf0(RecoveryMusicRoom_00433ef0* room);
+__declspec(noinline) int __stdcall Title_DispatchUpdate(Title* room);
 
 #pragma code_seg(".text$0040a000_context")
 extern "C" int __stdcall DifficultySelectUpdateCompilerContext(
     RecoveryScriptState_0040bd80* script,
     HintLink_00419120* head,
     HintUpdateView* indicator, int release,
-    RecoveryMusicRoom_00433ef0* music_room, void** objects) {
+    Title* music_room, void** objects) {
     objects[0] = &data_00474c74;
     objects[1] = &data_00474e30;
     objects[2] = &data_00474c68;
@@ -31,7 +31,7 @@ extern "C" int __stdcall DifficultySelectUpdateCompilerContext(
     objects[8] = &data_00491fb8;
     objects[9] = &application_state_00491c00;
     return RecoveryScript_Execute_0040bd80(script) + head->Drain(indicator, release)
-        + RecoveryMusicRoom_Update_00433ef0(music_room)
-        + TitleDispatcher_Update_0042cdf0(music_room);
+        + Title_UpdateMusicRoom(music_room)
+        + Title_DispatchUpdate(music_room);
 }
 #pragma code_seg()

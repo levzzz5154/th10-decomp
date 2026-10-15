@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "progress_worker_construct_0042c920",
-  "source": "src/game/title/progress_worker_construct_0042c920.cpp",
+  "source": "src/game/title/title_construct.cpp",
   "driver": "layout/ltcg/progress_worker_construct_0042c920_context.cpp",
   "headers": [
     "include/th10/game/anm_vm.hpp",
@@ -12,7 +12,7 @@
   "functions": [
     {
       "name": "progress_worker_construct_0042c920",
-      "symbol": "??0ProgressWorker_0042c920@@QAE@XZ",
+      "symbol": "??0Title@@QAE@XZ",
       "section": ".text$01accessor",
       "address": "0x0042C920",
       "size": 204,
@@ -57,7 +57,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_0047784c",
+      "symbol": "_g_title",
       "address": "0x0047784C",
       "kind": "data"
     }

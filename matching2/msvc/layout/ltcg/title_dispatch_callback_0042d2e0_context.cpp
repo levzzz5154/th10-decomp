@@ -1,2 +1,2 @@
-#include "../../src/game/title/title_dispatch_callback_0042d2e0.cpp"
+#include "../../src/game/title/title_on_update.cpp"
 #include "title_dispatch_callback_dependencies/music_caller.cpp"

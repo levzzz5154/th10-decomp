@@ -1,9 +1,9 @@
 // Compiler context only; never selected as recovered game code.
-#include "../../src/game/title/score_timer_leaves.cpp"
+#include "../../src/game/title/title_disable_timer_with_owner.cpp"
 
 #pragma code_seg(".text$03context")
 int __stdcall TimerOwner0042c5c0CompilerContext(
-        GameStateTimer_0042c5c0** states, int* owners, int count) {
+        Title** states, int* owners, int count) {
     int total = 0;
     while (count--) {
         int owner = *owners++;

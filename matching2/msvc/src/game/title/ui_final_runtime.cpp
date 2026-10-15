@@ -1461,7 +1461,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00433ef0_00433ef0() {
     L_0043499a:
         mov eax,ebp
     L_0043499c:
-        call asm_GameState_DisableTimerWithOwner_0042c5c0
+        call asm_Title_DisableTimerWithOwner
     L_004349a1:
         push 46F018h
     L_004349a6:

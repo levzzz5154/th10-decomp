@@ -63,7 +63,7 @@ extern unsigned char data_00491d69;
 #define data_00491d4c application_state_00491c00.config
 
 // 0x0042E5A0: apply the volumes and rewrite the option labels.
-__declspec(noinline) void __stdcall RefreshOptions_0042e5a0(RecoveryMusicRoom_00433ef0* room);
+__declspec(noinline) void __stdcall RefreshOptions_0042e5a0(Title* room);
 
-__declspec(noinline) int __stdcall TitleOptions_0042d920(RecoveryMusicRoom_00433ef0* room);
+__declspec(noinline) int __stdcall TitleOptions_0042d920(Title* room);
 #endif

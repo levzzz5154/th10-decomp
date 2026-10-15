@@ -66,17 +66,17 @@ __declspec(noinline) void __stdcall TitleReleaseDemo_004294a0(DemoFile* file);
 __declspec(noinline) void __stdcall TitleSetMusicFile_00420a90(int slot, const char* path);
 __declspec(noinline) void __stdcall TitlePlayMusic_00420b10(int first, int second);
 __declspec(noinline) void TitleDispatchGame_00420c00();
-__declspec(noinline) int __stdcall TitleMainMenu_0042d420(RecoveryMusicRoom_00433ef0* room);
-__declspec(noinline) int __stdcall TitleOptions_0042d920(RecoveryMusicRoom_00433ef0* room);
-__declspec(noinline) int __stdcall TitleMenuFlow_0042f540(RecoveryMusicRoom_00433ef0* room);
-__declspec(noinline) int __stdcall TitleMode6_00430320(RecoveryMusicRoom_00433ef0* room);
-__declspec(noinline) int __stdcall TitleMode7_004306a0(RecoveryMusicRoom_00433ef0* room);
-__declspec(noinline) int __stdcall TitleMode8_00430a60(RecoveryMusicRoom_00433ef0* room);
-__declspec(noinline) int __stdcall TitleMode9_00430ff0(RecoveryMusicRoom_00433ef0* room);
-__declspec(noinline) int __stdcall TitleMode11_00431ee0(RecoveryMusicRoom_00433ef0* room);
-__declspec(noinline) int __stdcall TitleMode12_004315c0(RecoveryMusicRoom_00433ef0* room);
-__declspec(noinline) int __stdcall TitleNameEntry_00432cb0(RecoveryMusicRoom_00433ef0* room);
-__declspec(noinline) int __stdcall TitleMode16_00433570(RecoveryMusicRoom_00433ef0* room);
+__declspec(noinline) int __stdcall TitleMainMenu_0042d420(Title* room);
+__declspec(noinline) int __stdcall TitleOptions_0042d920(Title* room);
+__declspec(noinline) int __stdcall TitleMenuFlow_0042f540(Title* room);
+__declspec(noinline) int __stdcall TitleMode6_00430320(Title* room);
+__declspec(noinline) int __stdcall TitleMode7_004306a0(Title* room);
+__declspec(noinline) int __stdcall TitleMode8_00430a60(Title* room);
+__declspec(noinline) int __stdcall TitleMode9_00430ff0(Title* room);
+__declspec(noinline) int __stdcall TitleMode11_00431ee0(Title* room);
+__declspec(noinline) int __stdcall TitleMode12_004315c0(Title* room);
+__declspec(noinline) int __stdcall TitleNameEntry_00432cb0(Title* room);
+__declspec(noinline) int __stdcall TitleMode16_00433570(Title* room);
 
 static __forceinline void SetSelection(MenuCursor* cursor, int requested) {
     if (cursor->item_count != 0)
@@ -86,7 +86,7 @@ static __forceinline void SetSelection(MenuCursor* cursor, int requested) {
 }
 // Frames added per tick, read as the timer's own accessor does.
 static __forceinline float TimerSpeed(const RecoveryTimer_0040bd80& timer) { return *timer.speed; }
-static __forceinline void MarkTitleCallback(RecoveryMusicRoom_00433ef0* room) {
+static __forceinline void MarkTitleCallback(Title* room) {
     reinterpret_cast<TitlePrefix*>(room)->callback->flags |= 2;
 }
 
@@ -126,7 +126,7 @@ static __forceinline int UpdateIdleDemo(TitlePrefix* title) {
 
 #pragma code_seg(".text$0042cdf0_model")
 __declspec(noinline) int __stdcall TitleDispatcher_Model_0042cdf0(
-        RecoveryMusicRoom_00433ef0* room) {
+        Title* room) {
     TitlePrefix* title = reinterpret_cast<TitlePrefix*>(room);
     int transition = UpdateIdleDemo(title);
     switch (title->mode) {
@@ -202,7 +202,7 @@ __declspec(noinline) int __stdcall TitleDispatcher_Model_0042cdf0(
     case 7: TitleMode7_004306a0(room); break;
     case 8: TitleMode8_00430a60(room); break;
     case 9: TitleMode9_00430ff0(room); break;
-    case 14: RecoveryMusicRoom_Update_00433ef0(room); break;
+    case 14: Title_UpdateMusicRoom(room); break;
     case 11: TitleMode11_00431ee0(room); break;
     case 12: TitleMode12_004315c0(room); break;
     case 15: TitleNameEntry_00432cb0(room); break;
@@ -221,11 +221,11 @@ __declspec(noinline) int __stdcall TitleDispatcher_Model_0042cdf0(
 
 // The dispatcher's one caller (0x0042D2E0), and the game state as one object
 // whose address escapes in the whole program.
-struct TitleRuntimeModel_0042cdf0 {
+struct TitleModel_0042cdf0 {
     __declspec(noinline) int Update();
 };
-int TitleRuntimeModel_0042cdf0::Update() {
-    return TitleDispatcher_Model_0042cdf0(reinterpret_cast<RecoveryMusicRoom_00433ef0*>(this));
+int TitleModel_0042cdf0::Update() {
+    return TitleDispatcher_Model_0042cdf0(reinterpret_cast<Title*>(this));
 }
 extern "C" void __stdcall TitleDispatcherEscape_0042cdf0(void** objects) {
     objects[0] = &data_00474c44;

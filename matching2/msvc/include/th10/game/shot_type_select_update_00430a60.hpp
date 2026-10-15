@@ -45,5 +45,5 @@ extern unsigned char* data_00477848;    // current stage record
 // 0x00420C30.
 __declspec(noinline) int __stdcall Music_FadeOut(float frames);
 
-__declspec(noinline) int __stdcall TitleMode8_00430a60(RecoveryMusicRoom_00433ef0* room);
+__declspec(noinline) int __stdcall TitleMode8_00430a60(Title* room);
 #endif

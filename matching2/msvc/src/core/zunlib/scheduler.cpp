@@ -7,9 +7,9 @@
 
 // 0x00422C30: recovered in src/game/pause/pause_unpause.cpp.
 
-// 0x0042C730: maintained in src/game/title/game_state_dispatch_animation_slot_0042c730.cpp.
+// 0x0042C730: maintained in src/game/title/title_dispatch_animation_slot.cpp.
 
-// 0x0042C750: maintained in src/game/title/game_state_dispatch_animation_slot_secondary_0042c750.cpp.
+// 0x0042C750: maintained in src/game/title/title_dispatch_animation_slot_secondary.cpp.
 
 
 #include "th10/game/scheduler.hpp"

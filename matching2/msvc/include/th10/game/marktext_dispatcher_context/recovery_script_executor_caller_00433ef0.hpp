@@ -41,7 +41,7 @@ struct RecoveryMusicVm_00433ef0 {
 // This view ends at the last word used by the complete music-room handler.
 // The 20 row-handle slots and 32 text records follow the retail offsets; the
 // handler's parser and loops deliberately have no additional bounds guards.
-struct RecoveryMusicRoom_00433ef0 {
+struct Title {
     unsigned char reserved_000[0x14];
     void* animation_resource;
     unsigned int reserved_018;
@@ -68,6 +68,7 @@ struct RecoveryMusicRoom_00433ef0 {
     char* file_buffer;
 
     __declspec(noinline) void SetTimerTarget(int target);
+    __declspec(noinline) int OnUpdate();
     __declspec(noinline) void DisableTimerWithOwner(int owner);
     __declspec(noinline) void ClearAnimationSlot(int index);
     __declspec(noinline) void SetSlotFrame(int index, unsigned short frame);
@@ -77,23 +78,23 @@ struct RecoveryMusicResourceQueue_0043e460 {
     __declspec(noinline) char* RegisterResource(const char* name, int kind, int parameter);
 };
 
-typedef char RecoveryMusicRoomSizeCheck[sizeof(RecoveryMusicRoom_00433ef0)==0x5AB0?1:-1];
-typedef char RecoveryMusicRoomCursorCheck[offsetof(RecoveryMusicRoom_00433ef0,cursor)==0x24?1:-1];
-typedef char RecoveryMusicRoomTimerCheck[offsetof(RecoveryMusicRoom_00433ef0,timer)==0x2B0?1:-1];
-typedef char RecoveryMusicRoomSlotsCheck[offsetof(RecoveryMusicRoom_00433ef0,animation_slots)==0x2C4?1:-1];
-typedef char RecoveryMusicRoomFallbackCheck[offsetof(RecoveryMusicRoom_00433ef0,fallback_handle)==0x5D0?1:-1];
-typedef char RecoveryMusicRoomRowsCheck[offsetof(RecoveryMusicRoom_00433ef0,row_handles)==0x614?1:-1];
-typedef char RecoveryMusicRoomPreviewCheck[offsetof(RecoveryMusicRoom_00433ef0,preview_handles)==0x664?1:-1];
-typedef char RecoveryMusicRoomTitlesCheck[offsetof(RecoveryMusicRoom_00433ef0,titles)==0x698?1:-1];
-typedef char RecoveryMusicRoomCommentsCheck[offsetof(RecoveryMusicRoom_00433ef0,comments)==0xE98?1:-1];
-typedef char RecoveryMusicRoomLinesCheck[offsetof(RecoveryMusicRoom_00433ef0,preview_lines)==0x16D8?1:-1];
-typedef char RecoveryMusicRoomScrollCheck[offsetof(RecoveryMusicRoom_00433ef0,scroll_origin)==0x58D8?1:-1];
-typedef char RecoveryMusicRoomBufferCheck[offsetof(RecoveryMusicRoom_00433ef0,file_buffer)==0x5AAC?1:-1];
+typedef char RecoveryMusicRoomSizeCheck[sizeof(Title)==0x5AB0?1:-1];
+typedef char RecoveryMusicRoomCursorCheck[offsetof(Title,cursor)==0x24?1:-1];
+typedef char RecoveryMusicRoomTimerCheck[offsetof(Title,timer)==0x2B0?1:-1];
+typedef char RecoveryMusicRoomSlotsCheck[offsetof(Title,animation_slots)==0x2C4?1:-1];
+typedef char RecoveryMusicRoomFallbackCheck[offsetof(Title,fallback_handle)==0x5D0?1:-1];
+typedef char RecoveryMusicRoomRowsCheck[offsetof(Title,row_handles)==0x614?1:-1];
+typedef char RecoveryMusicRoomPreviewCheck[offsetof(Title,preview_handles)==0x664?1:-1];
+typedef char RecoveryMusicRoomTitlesCheck[offsetof(Title,titles)==0x698?1:-1];
+typedef char RecoveryMusicRoomCommentsCheck[offsetof(Title,comments)==0xE98?1:-1];
+typedef char RecoveryMusicRoomLinesCheck[offsetof(Title,preview_lines)==0x16D8?1:-1];
+typedef char RecoveryMusicRoomScrollCheck[offsetof(Title,scroll_origin)==0x58D8?1:-1];
+typedef char RecoveryMusicRoomBufferCheck[offsetof(Title,file_buffer)==0x5AAC?1:-1];
 typedef char RecoveryMusicVmDepthCheck[offsetof(RecoveryMusicVm_00433ef0,stop_frame)==0x304?1:-1];
 typedef char RecoveryMusicVmPositionCheck[offsetof(RecoveryMusicVm_00433ef0,position)==0x334?1:-1];
 typedef char RecoveryMusicVmFlagsCheck[offsetof(RecoveryMusicVm_00433ef0,flags)==0x35C?1:-1];
 
-extern "C" __declspec(noinline) int __stdcall RecoveryMusicRoom_Update_00433ef0(
-    RecoveryMusicRoom_00433ef0* room);
+extern "C" __declspec(noinline) int __stdcall Title_UpdateMusicRoom(
+    Title* room);
 
 #endif

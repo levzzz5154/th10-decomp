@@ -5,7 +5,7 @@
 // The title screen object past the music-room view as the replay save screen
 // and the high score name entry use it: the name being typed, the cursor on
 // the character grid and the 25 numbered replays.
-struct ReplaySaveRoom_00433570 {
+struct TitleReplaySaveView {
     unsigned char reserved_0000[0x58DC];
     char name[12];                      // +0x58DC
     int name_length;                    // +0x58E8
@@ -17,8 +17,8 @@ struct ReplaySaveRoom_00433570 {
     int selected_stage;                 // +0x59E0
     ReplayFile_004315c0* replays[50];   // +0x59E4
 };
-typedef char ReplaySaveRoomGrid_00433570[offsetof(ReplaySaveRoom_00433570, grid) == 0x58F4 ? 1 : -1];
-typedef char ReplaySaveRoomSize_00433570[sizeof(ReplaySaveRoom_00433570) == 0x5AAC ? 1 : -1];
+typedef char ReplaySaveRoomGrid_00433570[offsetof(TitleReplaySaveView, grid) == 0x58F4 ? 1 : -1];
+typedef char ReplaySaveRoomSize_00433570[sizeof(TitleReplaySaveView) == 0x5AAC ? 1 : -1];
 
 extern "C" {
 extern ReplayFile_004315c0* data_00477838;  // the replay just recorded
@@ -34,5 +34,5 @@ __declspec(noinline) void __fastcall ReplayFile_Save_00429b60(
 __declspec(noinline) int __stdcall Music_Load_00420a90(int slot, const char* file_name);
 __declspec(noinline) int __stdcall Music_Play_00420b10(int track, int heard_index);
 
-__declspec(noinline) int __stdcall TitleMode16_00433570(RecoveryMusicRoom_00433ef0* room);
+__declspec(noinline) int __stdcall TitleMode16_00433570(Title* room);
 #endif

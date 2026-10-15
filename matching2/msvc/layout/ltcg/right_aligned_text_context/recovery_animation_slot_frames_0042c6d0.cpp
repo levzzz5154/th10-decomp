@@ -22,12 +22,12 @@ static __forceinline void SetAnimationTreeFrame(
 }
 
 #pragma code_seg(".text$0042c6d0_fn")
-void RecoveryMusicRoom_00433ef0::ClearAnimationSlot(int index) {
+void Title::ClearAnimationSlot(int index) {
     SetAnimationTreeFrame(FindAnimationSlot(animation_slots[index]), 1);
     animation_slots[index] = 0;
 }
 #pragma code_seg(".text$0042c770_fn")
-void RecoveryMusicRoom_00433ef0::SetSlotFrame(int index, unsigned short frame) {
+void Title::SetSlotFrame(int index, unsigned short frame) {
     SetAnimationTreeFrame(FindAnimationSlot(animation_slots[index]), frame);
 }
 #pragma code_seg()

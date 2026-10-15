@@ -33,7 +33,7 @@ static __forceinline void DisableItem_00430a60(MenuCursor& cursor, int item) {
 }
 
 #pragma code_seg(".text$00430a60_fn")
-__declspec(noinline) int __stdcall TitleMode8_00430a60(RecoveryMusicRoom_00433ef0* room) {
+__declspec(noinline) int __stdcall TitleMode8_00430a60(Title* room) {
     switch (room->phase) {
     case 0:
         room->cursor.item_count = 3;
@@ -101,7 +101,7 @@ __declspec(noinline) int __stdcall TitleMode8_00430a60(RecoveryMusicRoom_00433ef
         if ((short)data_00474e30.InputMaskActive(0x20)) cursor->Advance(1);
         if (cursor->previous_selection != cursor->selection) {
             data_00492590.Queue(12, 0);
-            reinterpret_cast<AnimationSlotOwner_0042c750*>(room)->RestartSlot(data_00474c68 + 150);
+            reinterpret_cast<TitleAnimationSlotView*>(room)->RestartSlot(data_00474c68 + 150);
             room->SetSlotFrame(data_00474c68 + 150, cursor->selection + 7);
         }
         if (data_00474e36 & 0xa) {

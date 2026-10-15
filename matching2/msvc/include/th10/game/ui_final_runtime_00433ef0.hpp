@@ -43,5 +43,5 @@ struct StageText_00434a80 {
 };
 
 // 0x00433EF0: the music room of the title menu, reached from the main menu.
-__declspec(noinline) int __stdcall TitleMusicRoom_00433ef0(RecoveryMusicRoom_00433ef0* room);
+__declspec(noinline) int __stdcall TitleMusicRoom_00433ef0(Title* room);
 #endif

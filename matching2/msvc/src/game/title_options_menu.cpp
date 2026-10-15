@@ -576,7 +576,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0042d920_0042d920() {
     L_0042dca2:
         mov eax,ebp
     L_0042dca4:
-        call asm_GameState_DispatchAnimationSlotSecondary_0042c750
+        call asm_GameState_Title_DispatchAnimationSlotSecondary_0042c750
     L_0042dca9:
         xor esi,esi
     L_0042dcab:
@@ -1888,19 +1888,19 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0042d920_0042d920() {
     L_0042e52f:
         mov eax,ebp
     L_0042e531:
-        call asm_GameState_DispatchAnimationSlot_0042c730
+        call asm_GameState_Title_DispatchAnimationSlot_0042c730
     L_0042e536:
         mov ecx,5Bh
     L_0042e53b:
         mov eax,ebp
     L_0042e53d:
-        call asm_GameState_DispatchAnimationSlot_0042c730
+        call asm_GameState_Title_DispatchAnimationSlot_0042c730
     L_0042e542:
         mov ecx,2
     L_0042e547:
         mov eax,ebp
     L_0042e549:
-        call asm_GameState_DisableTimerWithOwner_0042c5c0
+        call asm_Title_DisableTimerWithOwner
     L_0042e54e:
         mov eax,esi
     L_0042e550:
@@ -1922,7 +1922,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0042d920_0042d920() {
     L_0042e566:
         mov eax,ebp
     L_0042e568:
-        call asm_GameState_DisableTimerWithOwner_0042c5c0
+        call asm_Title_DisableTimerWithOwner
     L_0042e56d:
         mov eax,esi
     L_0042e56f:

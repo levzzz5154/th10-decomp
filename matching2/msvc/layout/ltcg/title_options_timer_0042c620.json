@@ -1,15 +1,15 @@
 {
   "schema_version": 1,
   "name": "title_options_timer_0042c620",
-  "source": "src/game/title/timer.cpp",
+  "source": "src/game/title/title_set_timer_target.cpp",
   "driver": "layout/ltcg/title_options_timer_0042c620_context.cpp",
   "headers": [],
   "image_base": "0x00400000",
   "description": "Title-options timer target setter compiled with native LTCG so the retail EAX state and ECX target convention is preserved.",
   "functions": [
     {
-      "name": "GameStateTimer_0042c620_SetTimerTarget",
-      "symbol": "?SetTimerTarget@GameStateTimer_0042c620@@QAEXH@Z",
+      "name": "Title_SetTimerTarget",
+      "symbol": "?SetTimerTarget@Title@@QAEXH@Z",
       "section": ".text$01settarget",
       "address": "0x0042C620",
       "size": 80,
@@ -17,7 +17,7 @@
     }
   ],
   "context": {
-    "symbol": "?TitleOptionsTimer0042c620CompilerContext@@YGHPAPAUGameStateTimer_0042c620@@PAHH@Z",
+    "symbol": "?TitleOptionsTimer0042c620CompilerContext@@YGHPAPAUTitle@@PAHH@Z",
     "section": ".text$03context",
     "address": "0x0042C680",
     "size": 71,

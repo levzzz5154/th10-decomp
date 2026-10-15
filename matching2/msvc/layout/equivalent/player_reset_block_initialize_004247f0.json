@@ -654,7 +654,7 @@
       "address": "0x00466280",
       "kind": "data"
     },
-    "?TitleMenuFlow_0042f540@@YGHPAURecoveryMusicRoom_00433ef0@@@Z": {
+    "?TitleMenuFlow_0042f540@@YGHPAUTitle@@@Z": {
       "address": "0x0042F540",
       "kind": "code"
     },
@@ -770,7 +770,7 @@
       "address": "0x004746D8",
       "kind": "data"
     },
-    "?TitleMode16_00433570@@YGHPAURecoveryMusicRoom_00433ef0@@@Z": {
+    "?TitleMode16_00433570@@YGHPAUTitle@@@Z": {
       "address": "0x00433570",
       "kind": "code"
     },

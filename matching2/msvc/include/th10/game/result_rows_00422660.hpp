@@ -5,7 +5,7 @@
 #include <time.h>
 
 #include "th10/game/game_thread_queue_native.hpp"
-#include "th10/game/title_menu_draw.hpp"
+#include "th10/game/title_draw.hpp"
 
 // The result screen's menu state: the same object the name entry at
 // 0x00423570 prepares. Its phase word picks which of the three row views

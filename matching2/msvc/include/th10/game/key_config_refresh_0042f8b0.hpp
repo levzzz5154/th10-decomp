@@ -46,7 +46,7 @@ public:
                                                KeyConfigScriptId_0042f8b0 id);
 };
 extern "C" KeyConfigLookupContext_0042f8b0* data_00491c10;
-struct KeyConfigLabels_0042f8b0 {
+struct TitleKeyConfigView {
     unsigned char reserved_000[0x2CC];
     KeyConfigScriptId_0042f8b0 parent_handle_2cc;
     unsigned char reserved_2d0[0x59CC - 0x2D0];
@@ -60,9 +60,9 @@ extern "C" __declspec(noinline) int __stdcall ConfigureKeyConfigDigit_0043e5a0(
     KeyConfigResource_0042f8b0* resource, KeyConfigAnimationObject_0042f8b0* object, int index);
 // MSVC 7.1-compatible compile-time checks for the observed retail overlays.
 typedef char KeyConfigParentHandleOffsetCheck_0042f8b0[
-    offsetof(KeyConfigLabels_0042f8b0, parent_handle_2cc) == 0x2CC ? 1 : -1];
+    offsetof(TitleKeyConfigView, parent_handle_2cc) == 0x2CC ? 1 : -1];
 typedef char KeyConfigBindingsOffsetCheck_0042f8b0[
-    offsetof(KeyConfigLabels_0042f8b0, bindings_59cc) == 0x59CC ? 1 : -1];
+    offsetof(TitleKeyConfigView, bindings_59cc) == 0x59CC ? 1 : -1];
 typedef char KeyConfigChildListOffsetCheck_0042f8b0[
     offsetof(KeyConfigAnimationObject_0042f8b0, children_010) == 0x10 ? 1 : -1];
 typedef char KeyConfigResourceOffsetCheck_0042f8b0[

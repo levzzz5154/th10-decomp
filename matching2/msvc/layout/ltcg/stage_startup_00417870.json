@@ -19,7 +19,7 @@
     "include/th10/game/scheduler.hpp",
     "include/th10/game/score_file.hpp",
     "include/th10/game/stage_startup_00417870.hpp",
-    "include/th10/game/title_menu_draw.hpp",
+    "include/th10/game/title_draw.hpp",
     "include/th10/math/rng.hpp",
     "include/th10/math/timer.hpp",
     "include/th10/platform/thread_sync.hpp",

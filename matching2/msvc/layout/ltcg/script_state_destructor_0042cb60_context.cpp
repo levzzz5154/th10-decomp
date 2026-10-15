@@ -1,7 +1,7 @@
 #define SCRIPT_WORKER_EXPORTED_ABI
 #pragma code_seg(".text$16worker")
-#include "../../src/game/title/script_state_destructor_0042cb60.cpp"
+#include "../../src/game/title/title_destroy.cpp"
 #pragma code_seg()
 #pragma code_seg(".text$02context")
-extern "C" void __stdcall DestroyScriptStateContext(ScriptState_0042cb60* state) { state->~ScriptState_0042cb60(); }
+extern "C" void __stdcall DestroyScriptStateContext(Title* state) { state->~Title(); }
 #pragma code_seg()

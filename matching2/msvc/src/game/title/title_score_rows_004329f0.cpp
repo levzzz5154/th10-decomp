@@ -12,10 +12,10 @@
 // position declared ahead of the selected difficulty, the shade defined ahead
 // of the rank, and the dated row reaching its date through a table pointer
 // while every other access spells out the whole path.
-#include "th10/game/title_menu_draw.hpp"
+#include "th10/game/title_draw.hpp"
 
 #pragma code_seg(".text$06scores")
-int TitleMenu_00431410::DrawScoreRows() {
+int TitleDrawView::DrawScoreRows() {
     switch (phase) {
     case 2: {
         Vec3_00401530 position = {48.0f, 160.0f, 0.0f};

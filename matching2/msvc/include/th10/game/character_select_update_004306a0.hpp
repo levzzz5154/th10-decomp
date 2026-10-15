@@ -14,5 +14,5 @@ extern int data_00474c6c;               // shot type
 extern ScoreFile_004306a0* data_0047783c;
 }
 
-__declspec(noinline) int __stdcall TitleMode7_004306a0(RecoveryMusicRoom_00433ef0* room);
+__declspec(noinline) int __stdcall TitleMode7_004306a0(Title* room);
 #endif

@@ -118,7 +118,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_0047784c",
+      "symbol": "_g_title",
       "address": "0x0047784C",
       "kind": "data"
     },
@@ -377,7 +377,7 @@
     },
     {
       "name": "ScriptOwnedDestroy",
-      "symbol": "?DestroyOwned_0042cdb0@@YGXPAUOwnedObject_0042cdb0@@@Z",
+      "symbol": "?Title_Delete@@YGXPAUTitle@@@Z",
       "section": ".text$00f_script_destroy",
       "address": "0x0042CDB0",
       "size": 18

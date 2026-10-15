@@ -5,7 +5,7 @@
 // remains ordinary, readable C++.
 extern "C" float data_00476f78;
 
-struct GameStateTimer_0042c620 {
+struct Title {
     unsigned char unknown_00[0x20];
     int timer_target;
     unsigned char unknown_24[0x28C];
@@ -18,11 +18,11 @@ struct GameStateTimer_0042c620 {
     __declspec(noinline) void SetTimerTarget(int target);
 };
 
-typedef char GameStateTimer_0042c620_size_must_fit[
-    sizeof(GameStateTimer_0042c620) == 0x2C4 ? 1 : -1];
+typedef char Title_size_must_fit[
+    sizeof(Title) == 0x2C4 ? 1 : -1];
 
 #pragma code_seg(".text$01settarget")
-void GameStateTimer_0042c620::SetTimerTarget(int target) {
+void Title::SetTimerTarget(int target) {
     timer_target = target;
     if ((timer_flags & 1) == 0) {
         timer_current = 0;

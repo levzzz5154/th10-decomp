@@ -57,12 +57,12 @@ int MainTaskStateWave18::UpdateMode() {
             break;
         case 7:
             // Open the menu screen.
-            if (previous == 4) DestroyOwned_0042cdb0(data_0047784c);
+            if (previous == 4) Title_Delete(g_title);
             ui_mode = 1;
             ModeCreateUiWave18(0);
             break;
         case 12:
-            if (previous == 4) DestroyOwned_0042cdb0(data_0047784c);
+            if (previous == 4) Title_Delete(g_title);
             next_mode = 7;
             ui_mode = 1;
             ModeCreateUiWave18(1);

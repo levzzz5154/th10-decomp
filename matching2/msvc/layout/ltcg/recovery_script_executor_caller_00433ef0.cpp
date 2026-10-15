@@ -1,4 +1,4 @@
-#include "th10/game/recovery_script_executor_caller_00433ef0.hpp"
+#include "th10/game/title_menu.hpp"
 
 extern "C" void* data_00491c10;
 extern "C" GameThread_0040c540* g_ascii_manager;
@@ -71,7 +71,7 @@ static __forceinline int MusicFirstSelection(int count) {
 // Full genuine ancillary callees are retained here because their private
 // argument allocations cannot be represented by opaque external declarations.
 #pragma code_seg(".text$0042c5c0_fn")
-void RecoveryMusicRoom_00433ef0::DisableTimerWithOwner(int owner) {
+void Title::DisableTimerWithOwner(int owner) {
     int* request = &timer_owner;
     request[0] = owner;
     request[1] = 0;
@@ -80,7 +80,7 @@ void RecoveryMusicRoom_00433ef0::DisableTimerWithOwner(int owner) {
 // 0x0042C620 SetTimerTarget is defined in the class.
 #pragma code_seg()
 // 0x0042C670: src/game/title/recovery_install_animation_slot_0042c670.cpp.
-void __stdcall RecoveryMusicInstallSlot_0042c670(RecoveryMusicRoom_00433ef0* room, int index);
+void __stdcall RecoveryMusicInstallSlot_0042c670(Title* room, int index);
 #pragma code_seg(".text$004349e0_fn")
 __declspec(noinline) char* __stdcall RecoveryMusicSkipLine_004349e0(char* cursor, int* remaining) {
     while (*cursor != '\n' && *cursor != '\r') {
@@ -207,8 +207,8 @@ static __forceinline unsigned int MusicRegisterObject(void* resource, int script
 }
 
 #pragma code_seg(".text$00433ef0_fn")
-extern "C" __declspec(noinline) int __stdcall RecoveryMusicRoom_Update_00433ef0(
-        RecoveryMusicRoom_00433ef0* room) {
+extern "C" __declspec(noinline) int __stdcall Title_UpdateMusicRoom(
+        Title* room) {
     switch (room->phase) {
     case 0:
         if (room->timer.current == 1) {

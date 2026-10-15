@@ -12,8 +12,8 @@ struct WorkerHost {
     unsigned int state;                 // +0x48
 };
 
-struct ProgressWorker_0042c920;
-extern "C" ProgressWorker_0042c920* __cdecl asm_ProgressManager_CreateAndStartWorker_0042cd50();
+struct Title;
+extern "C" Title* __cdecl Title_Create();
 
 #pragma code_seg(".text$50context")
 extern "C" int __cdecl WorkerStartCompilerContext(WorkerHost** hosts, int count,
@@ -27,6 +27,6 @@ extern "C" int __cdecl WorkerStartCompilerContext(WorkerHost** hosts, int count,
         ui->Spawn(*entries++, ui);
         host->state = 2;
     }
-    return asm_ProgressManager_CreateAndStartWorker_0042cd50() != 0;
+    return Title_Create() != 0;
 }
 #pragma code_seg()

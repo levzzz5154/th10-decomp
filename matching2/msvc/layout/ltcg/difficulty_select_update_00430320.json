@@ -15,7 +15,7 @@
     "include/th10/game/recovery_script_executor_0040bd80.hpp",
     "include/th10/game/recovery_script_executor_ascii_anchors.hpp",
     "include/th10/game/recovery_script_executor_caller_00419120.hpp",
-    "include/th10/game/recovery_script_executor_caller_00433ef0.hpp",
+    "include/th10/game/title_menu.hpp",
     "include/th10/game/recovery_script_executor_text_anchors.hpp",
     "include/th10/game/recovery_script_executor_text_sibling_anchors.hpp",
     "include/th10/game/replay_save_update_00433570.hpp",
@@ -36,7 +36,7 @@
     "include/th10/game/shot_type_select_update_00430a60.hpp",
     "include/th10/game/spell_record_update_00431ee0.hpp",
     "include/th10/game/title_main_menu_update_0042d420.hpp",
-    "include/th10/game/title_menu_draw.hpp",
+    "include/th10/game/title_draw.hpp",
     "include/th10/math/timer.hpp",
     "include/th10/platform/archive_callers.hpp",
     "include/th10/platform/archive_file.hpp",
@@ -53,7 +53,7 @@
   "functions": [
     {
       "name": "DifficultySelect_Update",
-      "symbol": "?TitleMode6_00430320@@YGHPAURecoveryMusicRoom_00433ef0@@@Z",
+      "symbol": "?TitleMode6_00430320@@YGHPAUTitle@@@Z",
       "section": ".text$00430320_fn",
       "address": "0x00430320",
       "size": 888,
@@ -62,7 +62,7 @@
     },
     {
       "name": "CharacterSelect_Update",
-      "symbol": "?TitleMode7_004306a0@@YGHPAURecoveryMusicRoom_00433ef0@@@Z",
+      "symbol": "?TitleMode7_004306a0@@YGHPAUTitle@@@Z",
       "section": ".text$004306a0_fn",
       "address": "0x004306A0",
       "size": 956,
@@ -71,7 +71,7 @@
     },
     {
       "name": "ShotTypeSelect_Update",
-      "symbol": "?TitleMode8_00430a60@@YGHPAURecoveryMusicRoom_00433ef0@@@Z",
+      "symbol": "?TitleMode8_00430a60@@YGHPAUTitle@@@Z",
       "section": ".text$00430a60_fn",
       "address": "0x00430A60",
       "size": 1424,
@@ -80,7 +80,7 @@
     },
     {
       "name": "PracticeStageSelect_Update",
-      "symbol": "?TitleMode9_00430ff0@@YGHPAURecoveryMusicRoom_00433ef0@@@Z",
+      "symbol": "?TitleMode9_00430ff0@@YGHPAUTitle@@@Z",
       "section": ".text$00430ff0_fn",
       "address": "0x00430FF0",
       "size": 1052,
@@ -89,7 +89,7 @@
     },
     {
       "name": "TitleMainMenu_Update",
-      "symbol": "?TitleMainMenu_0042d420@@YGHPAURecoveryMusicRoom_00433ef0@@@Z",
+      "symbol": "?TitleMainMenu_0042d420@@YGHPAUTitle@@@Z",
       "section": ".text$0042d420_fn",
       "address": "0x0042D420",
       "size": 1280,
@@ -98,7 +98,7 @@
     },
     {
       "name": "ReplaySelect_Update",
-      "symbol": "?TitleMode12_004315c0@@YGHPAURecoveryMusicRoom_00433ef0@@@Z",
+      "symbol": "?TitleMode12_004315c0@@YGHPAUTitle@@@Z",
       "section": ".text$004315c0_fn",
       "address": "0x004315C0",
       "size": 1492,
@@ -107,7 +107,7 @@
     },
     {
       "name": "SpellRecord_Update",
-      "symbol": "?TitleMode11_00431ee0@@YGHPAURecoveryMusicRoom_00433ef0@@@Z",
+      "symbol": "?TitleMode11_00431ee0@@YGHPAUTitle@@@Z",
       "section": ".text$00431ee0_fn",
       "address": "0x00431EE0",
       "size": 1968,
@@ -116,7 +116,7 @@
     },
     {
       "name": "Options_Update",
-      "symbol": "?TitleOptions_0042d920@@YGHPAURecoveryMusicRoom_00433ef0@@@Z",
+      "symbol": "?TitleOptions_0042d920@@YGHPAUTitle@@@Z",
       "section": ".text$0042d920_fn",
       "address": "0x0042D920",
       "size": 3188,
@@ -372,14 +372,14 @@
     },
     {
       "name": "RecoveryMusicRoom_DisableTimerWithOwner",
-      "symbol": "?DisableTimerWithOwner@RecoveryMusicRoom_00433ef0@@QAEXH@Z",
+      "symbol": "?DisableTimerWithOwner@Title@@QAEXH@Z",
       "section": ".text$0042c5c0_fn",
       "address": "0x0042C5C0",
       "size": 83
     },
     {
       "name": "RecoveryMusicRoom_SetTimerTarget",
-      "symbol": "?SetTimerTarget@RecoveryMusicRoom_00433ef0@@QAEXH@Z",
+      "symbol": "?SetTimerTarget@Title@@QAEXH@Z",
       "section": ".text$0042c620_fn",
       "address": "0x0042C620",
       "size": 80
@@ -441,8 +441,8 @@
       "size": 1343
     },
     {
-      "name": "RecoveryMusicRoom_Update_00433ef0",
-      "symbol": "_RecoveryMusicRoom_Update_00433ef0@4",
+      "name": "Title_UpdateMusicRoom",
+      "symbol": "_Title_UpdateMusicRoom@4",
       "section": ".text$00433ef0_fn",
       "address": "0x00433EF0",
       "size": 2764
@@ -456,35 +456,35 @@
     },
     {
       "name": "RecoveryMusicRoom_ClearAnimationSlot",
-      "symbol": "?ClearAnimationSlot@RecoveryMusicRoom_00433ef0@@QAEXH@Z",
+      "symbol": "?ClearAnimationSlot@Title@@QAEXH@Z",
       "section": ".text$0042c6d0_fn",
       "address": "0x0042C6D0",
       "size": 83
     },
     {
       "name": "RecoveryMusicRoom_SetSlotFrame",
-      "symbol": "?SetSlotFrame@RecoveryMusicRoom_00433ef0@@QAEXHF@Z",
+      "symbol": "?SetSlotFrame@Title@@QAEXHF@Z",
       "section": ".text$0042c770_fn",
       "address": "0x0042C770",
       "size": 65
     },
     {
       "name": "RecoveryMusicInstallSlot_0042c670",
-      "symbol": "?RecoveryMusicInstallSlot_0042c670@@YGXPAURecoveryMusicRoom_00433ef0@@H@Z",
+      "symbol": "?RecoveryMusicInstallSlot_0042c670@@YGXPAUTitle@@H@Z",
       "section": ".text$0042c670_fn",
       "address": "0x0042C670",
       "size": 95
     },
     {
-      "name": "?TitleDispatcher_Update_0042cdf0@@YGHPAURecoveryMusicRoom_00433ef0@@@Z",
-      "symbol": "?TitleDispatcher_Update_0042cdf0@@YGHPAURecoveryMusicRoom_00433ef0@@@Z",
+      "name": "?Title_DispatchUpdate@@YGHPAUTitle@@@Z",
+      "symbol": "?Title_DispatchUpdate@@YGHPAUTitle@@@Z",
       "section": ".text$0042cdf0_fn",
       "address": 4378096,
       "size": 1088
     },
     {
       "name": "EndingScreen_Update",
-      "symbol": "?EndingScreen_Update_0042d300@@YGHPAURecoveryMusicRoom_00433ef0@@@Z",
+      "symbol": "?EndingScreen_Update_0042d300@@YGHPAUTitle@@@Z",
       "section": ".text$0042d300_fn",
       "address": "0x0042D300",
       "size": 288
@@ -498,7 +498,7 @@
     },
     {
       "name": "AnimationSlotOwner_RestartSlot",
-      "symbol": "?RestartSlot@AnimationSlotOwner_0042c750@@QAEXH@Z",
+      "symbol": "?RestartSlot@TitleAnimationSlotView@@QAEXH@Z",
       "address": "0x0042C750",
       "size": 27,
       "section": ".text$0042c750_fn"
@@ -575,14 +575,14 @@
     },
     {
       "name": "BuildSpellList",
-      "symbol": "?BuildSpellList@TitleMenu_00431410@@QAEHXZ",
+      "symbol": "?BuildSpellList@TitleDrawView@@QAEHXZ",
       "address": "0x00432690",
       "size": 850,
       "section": ".text$00432690_fn"
     },
     {
       "name": "StopSlot",
-      "symbol": "?StopSlot@AnimationSlotOwner_0042c750@@QAEXH@Z",
+      "symbol": "?StopSlot@TitleAnimationSlotView@@QAEXH@Z",
       "address": "0x0042C730",
       "size": 27,
       "section": ".text$0042c730_fn"
@@ -596,7 +596,7 @@
     },
     {
       "name": "RefreshOptions",
-      "symbol": "?RefreshOptions_0042e5a0@@YGXPAURecoveryMusicRoom_00433ef0@@@Z",
+      "symbol": "?RefreshOptions_0042e5a0@@YGXPAUTitle@@@Z",
       "address": "0x0042E5A0",
       "size": 53,
       "section": ".text$0042e5a0_fn"
@@ -1690,7 +1690,7 @@
       "address": 4328080
     },
     {
-      "symbol": "?TitleNameEntry_00432cb0@@YGHPAURecoveryMusicRoom_00433ef0@@@Z",
+      "symbol": "?TitleNameEntry_00432cb0@@YGHPAUTitle@@@Z",
       "kind": "relative_code",
       "address": 4402352
     },
@@ -1785,7 +1785,7 @@
       "kind": "data"
     },
     {
-      "symbol": "?TitleMenuFlow_0042f540@@YGHPAURecoveryMusicRoom_00433ef0@@@Z",
+      "symbol": "?TitleMenuFlow_0042f540@@YGHPAUTitle@@@Z",
       "address": "0x0042F540",
       "kind": "relative_code"
     },
@@ -1930,7 +1930,7 @@
       "kind": "data"
     },
     {
-      "symbol": "?TitleMode16_00433570@@YGHPAURecoveryMusicRoom_00433ef0@@@Z",
+      "symbol": "?TitleMode16_00433570@@YGHPAUTitle@@@Z",
       "address": "0x00433570",
       "kind": "relative_code"
     },

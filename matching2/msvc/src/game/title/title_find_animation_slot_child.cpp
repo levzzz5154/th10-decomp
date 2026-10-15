@@ -16,8 +16,8 @@ struct AnimationHandle_004497d0 {
 };
 
 #pragma code_seg(".text$47dispatchz3")
-__declspec(noinline) AnimationRef_004497d0 __fastcall FindAnimationSlotChild_0042c7c0(
-        int slot, GameAnimationSlots* state, int script_id) {
+__declspec(noinline) AnimationRef_004497d0 __fastcall Title_FindAnimationSlotChild(
+        int slot, Title* state, int script_id) {
     return reinterpret_cast<AnimationHandle_004497d0*>(&AnimationSlots(state)[slot])
         ->FindChildRef(script_id);
 }

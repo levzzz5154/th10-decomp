@@ -33,7 +33,7 @@
 #include "th10/game/difficulty_select_update_00430320.hpp"
 
 // Stop the child animation of the confirmed entry at frame 2.
-static __forceinline void StopConfirmedChild_00430320(RecoveryMusicRoom_00433ef0* room, int slot) {
+static __forceinline void StopConfirmedChild_00430320(Title* room, int slot) {
     if (data_00474c74 < 4) {
         AnimationRef_004497d0 child =
             reinterpret_cast<AnimationHandle_004497d0*>(&room->animation_slots[slot])
@@ -48,7 +48,7 @@ static __forceinline void StopConfirmedChild_00430320(RecoveryMusicRoom_00433ef0
 }
 
 #pragma code_seg(".text$00430320_fn")
-__declspec(noinline) int __stdcall TitleMode6_00430320(RecoveryMusicRoom_00433ef0* room) {
+__declspec(noinline) int __stdcall TitleMode6_00430320(Title* room) {
     int slot = (data_00474c74 >= 4) + 0x77;
     void* handle;
     switch (room->phase) {
@@ -82,7 +82,7 @@ __declspec(noinline) int __stdcall TitleMode6_00430320(RecoveryMusicRoom_00433ef
             if ((short)data_00474e30.InputMaskActive(0x20)) cursor->Advance(1);
             if (cursor->previous_selection != cursor->selection) {
                 data_00492590.Queue(12, 0);
-                reinterpret_cast<AnimationSlotOwner_0042c750*>(room)->RestartSlot(slot);
+                reinterpret_cast<TitleAnimationSlotView*>(room)->RestartSlot(slot);
                 room->SetSlotFrame(slot, (short)cursor->selection + 7);
             }
         }
@@ -119,7 +119,7 @@ __declspec(noinline) int __stdcall TitleMode6_00430320(RecoveryMusicRoom_00433ef
             if (data_00474c74 < 4)
                 data_00474c74 = room->cursor.selection;
             else
-                data_00474c74 = reinterpret_cast<DifficultySelectRoom_00430320*>(room)->saved_difficulty;
+                data_00474c74 = reinterpret_cast<TitleDifficultyView*>(room)->saved_difficulty;
             room->cursor.PopSelection();
         }
         break;

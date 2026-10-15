@@ -1,5 +1,5 @@
-// 0x0042CB60: release the script/UI state, its worker and effect-manager pool.
-// Restore the state vtable, stop the worker, remove scheduler tasks, release
+// 0x0042CB60: release Title, its loading worker and opened replays.
+// Restore the title vtable, stop the worker, remove scheduler tasks, release
 // animation banks 25/26, stop the owned animation and free its file buffer.
 // Native LTCG supplies the receiver on the stack and RET 4.
 #include "th10/game/manager_teardown_helpers.hpp"
@@ -41,7 +41,7 @@ inline ScriptAnimation* FindScriptAnimation(ScriptAnimationLists* lists, int id)
         if (node->object->id == id) return node->object;
     return 0;
 }
-struct ScriptState_0042cb60 {
+struct Title {
     virtual int ObjectSize();
     unsigned char reserved_004[8];
     SchedulerTask* update_task;
@@ -52,18 +52,18 @@ struct ScriptState_0042cb60 {
     void* effects[50];
     void* file_buffer;
     ScriptWorker worker;
-    __declspec(noinline) ~ScriptState_0042cb60();
+    __declspec(noinline) ~Title();
 };
-typedef char ScriptStateSizeCheck[sizeof(ScriptState_0042cb60) == 0x5ACC ? 1 : -1];
-typedef char ScriptWorkerOffsetCheck[offsetof(ScriptState_0042cb60, worker) == 0x5AB0 ? 1 : -1];
-typedef char ScriptEffectsOffsetCheck[offsetof(ScriptState_0042cb60, effects) == 0x59E4 ? 1 : -1];
+typedef char ScriptStateSizeCheck[sizeof(Title) == 0x5ACC ? 1 : -1];
+typedef char ScriptWorkerOffsetCheck[offsetof(Title, worker) == 0x5AB0 ? 1 : -1];
+typedef char ScriptEffectsOffsetCheck[offsetof(Title, effects) == 0x59E4 ? 1 : -1];
 
 extern "C" {
 extern AnimationBanks_00402440* data_00491c10;
-extern ScriptState_0042cb60* data_0047784c;
+extern Title* g_title;
 }
 #pragma code_seg(".text$01dtor")
-ScriptState_0042cb60::~ScriptState_0042cb60() {
+Title::~Title() {
     worker.Stop();
     RemoveSchedulerTask(update_task);
     RemoveSchedulerTask(draw_task);
@@ -93,6 +93,6 @@ ScriptState_0042cb60::~ScriptState_0042cb60() {
         entry_free_00452422(file_buffer);
         file_buffer = 0;
     }
-    data_0047784c = 0;
+    g_title = 0;
 }
 #pragma code_seg()

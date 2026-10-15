@@ -62,9 +62,9 @@ void* __fastcall KeyConfigAnimationManager_0042f8b0::Find(
 
 #pragma code_seg(".text$07context")
 extern "C" __declspec(noinline) int __stdcall KeyConfigRefreshContext_0042f8b0(
-        KeyConfigLabels_0042f8b0** states, int count) {
+        TitleKeyConfigView** states, int count) {
     int result = 0;
-    for (int i = 0; i < count; ++i) RefreshKeyConfigLabels_0042f8b0(states[i]);
+    for (int i = 0; i < count; ++i) RefreshTitleKeyConfigView(states[i]);
     return result;
 }
 #pragma code_seg()

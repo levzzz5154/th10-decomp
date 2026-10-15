@@ -254,7 +254,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0042cdf0_0042cdf0() {
     L_0042cfc9:
         mov eax,ebx
     L_0042cfcb:
-        call asm_GameState_DisableTimerWithOwner_0042c5c0
+        call asm_Title_DisableTimerWithOwner
     L_0042cfd0:
         push ebx
     L_0042cfd1:
@@ -324,7 +324,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0042cdf0_0042cdf0() {
     L_0042d054:
         mov eax,ebx
     L_0042d056:
-        call asm_GameState_DisableTimerWithOwner_0042c5c0
+        call asm_Title_DisableTimerWithOwner
     L_0042d05b:
         mov dword ptr [data_00491c00],1
     L_0042d065:
@@ -368,7 +368,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0042cdf0_0042cdf0() {
     L_0042d0a4:
         mov eax,ebx
     L_0042d0a6:
-        call asm_GameState_DisableTimerWithOwner_0042c5c0
+        call asm_Title_DisableTimerWithOwner
     L_0042d0ab:
         push ebx
     L_0042d0ac:
@@ -422,7 +422,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0042cdf0_0042cdf0() {
     L_0042d100:
         mov eax,ebx
     L_0042d102:
-        call asm_GameState_DisableTimerWithOwner_0042c5c0
+        call asm_Title_DisableTimerWithOwner
     L_0042d107:
         push ebx
     L_0042d108:

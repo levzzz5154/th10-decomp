@@ -40,8 +40,8 @@ struct PublishedBlock {
 };
 __declspec(noinline) void DeletePublishedBlock(PublishedBlock* block);
 
-struct TitleState_0042caa0;
-extern "C" int __stdcall Title_RegisterTasks_0042caa0(TitleState_0042caa0 *title);
+struct Title;
+extern "C" int __stdcall Title_RegisterTasks(Title *title);
 
 struct EclViewState;
 extern "C" EclViewState *__cdecl asm_FUN_0040a3c0_0040a3c0();
@@ -107,8 +107,8 @@ int __stdcall BulletManagerLoadScriptsCompilerContext(
         created += Hud_RegisterTasks(
             reinterpret_cast<ItemFrontState_00413980*>(slots[index])) == 0;
     for (int index = 0; index < count; ++index)
-        created += Title_RegisterTasks_0042caa0(
-            reinterpret_cast<TitleState_0042caa0*>(slots[index])) == 0;
+        created += Title_RegisterTasks(
+            reinterpret_cast<Title*>(slots[index])) == 0;
     for (int index = 0; index < count; ++index)
         created += asm_FUN_0040a3c0_0040a3c0() != 0;
     return created;

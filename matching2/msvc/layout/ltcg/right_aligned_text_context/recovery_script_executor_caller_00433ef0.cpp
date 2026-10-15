@@ -71,20 +71,20 @@ static __forceinline int MusicFirstSelection(int count) {
 // Full genuine ancillary callees are retained here because their private
 // argument allocations cannot be represented by opaque external declarations.
 #pragma code_seg(".text$0042c5c0_fn")
-void RecoveryMusicRoom_00433ef0::DisableTimerWithOwner(int owner) {
+void Title::DisableTimerWithOwner(int owner) {
     int* request = &timer_owner;
     request[0] = owner;
     request[1] = 0;
     MusicResetTimer(&timer);
 }
 #pragma code_seg(".text$0042c620_fn")
-void RecoveryMusicRoom_00433ef0::SetTimerTarget(int target) {
+void Title::SetTimerTarget(int target) {
     phase = target;
     MusicResetTimer(&timer);
 }
 #pragma code_seg(".text$0042c670_fn")
 __declspec(noinline) void __stdcall RecoveryMusicInstallSlot_0042c670(
-        RecoveryMusicRoom_00433ef0* room, int index) {
+        Title* room, int index) {
     void* resource = room->animation_resource;
     RecoveryMusicVm_00433ef0* object = static_cast<RecoveryMusicVm_00433ef0*>(
         asm_FUN_00449950_00449950(data_00491c10));
@@ -221,8 +221,8 @@ static __forceinline unsigned int MusicRegisterObject(void* resource, int script
 }
 
 #pragma code_seg(".text$00433ef0_fn")
-extern "C" __declspec(noinline) int __stdcall RecoveryMusicRoom_Update_00433ef0(
-        RecoveryMusicRoom_00433ef0* room) {
+extern "C" __declspec(noinline) int __stdcall Title_UpdateMusicRoom(
+        Title* room) {
     switch (room->phase) {
     case 0:
         if (room->timer.current == 1) {

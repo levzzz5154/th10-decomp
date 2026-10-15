@@ -35,10 +35,10 @@ struct AnimationRunHandle {
     AnimationScriptId value;
     __declspec(noinline) void SetStopFrameAndRun(unsigned short frame);
 };
-struct GameAnimationSlots;
-void __fastcall DispatchAnimationSlot(int slot, GameAnimationSlots* state);
-void __fastcall DispatchAnimationSlotSecondary(int slot, GameAnimationSlots* state);
-AnimationRef_004497d0 __fastcall FindAnimationSlotChild_0042c7c0(int slot, GameAnimationSlots* state,
+struct Title;
+void __fastcall Title_DispatchAnimationSlot(int slot, Title* state);
+void __fastcall Title_DispatchAnimationSlotSecondary(int slot, Title* state);
+AnimationRef_004497d0 __fastcall Title_FindAnimationSlotChild(int slot, Title* state,
                                                                 int script_id);
 
 #pragma code_seg(".text$80context")
@@ -56,11 +56,11 @@ int __stdcall StopAtFrameCompilerContext(AnimationHandle* handles, int count,
         reinterpret_cast<AnimationHandle_004243f0*>(handles)->StopAtFrame6();
         reinterpret_cast<AnimationHandle_00449820*>(handles)->FindChild(count);
         reinterpret_cast<AnimationHandle_004497d0*>(handles)->FindChildRef(count);
-        DispatchAnimationSlot(count, reinterpret_cast<GameAnimationSlots*>(states));
-        DispatchAnimationSlotSecondary(count, reinterpret_cast<GameAnimationSlots*>(states));
+        Title_DispatchAnimationSlot(count, reinterpret_cast<Title*>(states));
+        Title_DispatchAnimationSlotSecondary(count, reinterpret_cast<Title*>(states));
         reinterpret_cast<AnimationRunHandle*>(handles)->SetStopFrameAndRun(
             *reinterpret_cast<unsigned short*>(states));
-        FindAnimationSlotChild_0042c7c0(count, reinterpret_cast<GameAnimationSlots*>(states), count);
+        Title_FindAnimationSlotChild(count, reinterpret_cast<Title*>(states), count);
         handles++;
         reinterpret_cast<PlaybackState*>(states)->SwitchPlaybackState();
         states->InitializeTimedState();

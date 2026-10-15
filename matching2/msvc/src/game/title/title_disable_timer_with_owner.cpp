@@ -7,7 +7,7 @@
 // caller establishes that pair.  The body itself is ordinary readable C++.
 //
 // The record is the same 0x2C4-byte score timer the title-options setter
-// (0x0042C620, src/game/title/timer.cpp) drives: the countdown lives at +0x2B0
+// (0x0042C620, src/game/title/title_set_timer_target.cpp) drives: the countdown lives at +0x2B0
 // (previous), +0x2B4 (current), +0x2B8 (elapsed), +0x2BC (speed) and +0x2C0
 // (flags; bit 0 is "running").  This entry additionally records the owner at
 // +0x1C and clears the pending target at +0x20 before the reset.
@@ -19,7 +19,7 @@
 // stores stay adjacent before the flag load, exactly as retail emits them.
 extern "C" float data_00476f78;
 
-struct GameStateTimer_0042c5c0 {
+struct Title {
     unsigned char unknown_00[0x1C];
     int timer_owner;                 // +0x1C
     int timer_target;                // +0x20
@@ -33,11 +33,11 @@ struct GameStateTimer_0042c5c0 {
     __declspec(noinline) void DisableTimerWithOwner(int owner);
 };
 
-typedef char GameStateTimer_0042c5c0_size_must_fit[
-    sizeof(GameStateTimer_0042c5c0) == 0x2C4 ? 1 : -1];
+typedef char Title_size_must_fit[
+    sizeof(Title) == 0x2C4 ? 1 : -1];
 
 #pragma code_seg(".text$01accessor")
-void GameStateTimer_0042c5c0::DisableTimerWithOwner(int owner) {
+void Title::DisableTimerWithOwner(int owner) {
     int* request = &timer_owner;
     request[0] = owner;
     request[1] = 0;

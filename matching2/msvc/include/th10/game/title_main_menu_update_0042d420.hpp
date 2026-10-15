@@ -11,5 +11,5 @@ struct ScoreFileProgress_0042c850 {
     __declspec(noinline) int HasAnyClear();
 };
 
-__declspec(noinline) int __stdcall TitleMainMenu_0042d420(RecoveryMusicRoom_00433ef0* room);
+__declspec(noinline) int __stdcall TitleMainMenu_0042d420(Title* room);
 #endif

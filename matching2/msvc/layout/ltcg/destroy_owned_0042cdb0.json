@@ -1,15 +1,15 @@
 {
   "schema_version": 1,
   "name": "destroy_owned_0042cdb0",
-  "source": "src/game/title/heap_destroy_owned_secondary_0042cdb0.cpp",
+  "source": "src/game/title/title_delete.cpp",
   "driver": "layout/ltcg/destroy_owned_0042cdb0_context.cpp",
   "headers": [],
   "image_base": "0x00400000",
   "description": "Destroy/free wrapper compiled with native LTCG so object arrives in ESI.",
   "functions": [
     {
-      "name": "DestroyOwned_0042cdb0",
-      "symbol": "?DestroyOwned_0042cdb0@@YGXPAUOwnedObject_0042cdb0@@@Z",
+      "name": "Title_Delete",
+      "symbol": "?Title_Delete@@YGXPAUTitle@@@Z",
       "section": ".text$01destroy0042cdb0",
       "address": "0x0042CDB0",
       "size": 18,
@@ -17,7 +17,7 @@
     }
   ],
   "context": {
-    "symbol": "?DestroyOwnedCompilerContext_0042cdb0@@YGXPAPAUOwnedObject_0042cdb0@@H@Z",
+    "symbol": "?DestroyOwnedCompilerContext_0042cdb0@@YGXPAPAUTitle@@H@Z",
     "section": ".text$03context",
     "address": "0x0042CDD0",
     "size": 39,
@@ -38,7 +38,7 @@
   "constants": [],
   "absolute_symbols": [
     {
-      "symbol": "_asm_FUN_0042cb60_0042cb60@4",
+      "symbol": "_asm_Title_Destroy@4",
       "address": "0x0042CB60",
       "kind": "relative_code"
     },

@@ -32,8 +32,8 @@ static __forceinline NameEntryScoreFile_00432cb0* ScoreFile_00432cb0() {
 }
 
 #pragma code_seg(".text$00432cb0_fn")
-__declspec(noinline) int __stdcall TitleNameEntry_00432cb0(RecoveryMusicRoom_00433ef0* room) {
-    ReplaySaveRoom_00433570* entry = reinterpret_cast<ReplaySaveRoom_00433570*>(room);
+__declspec(noinline) int __stdcall TitleNameEntry_00432cb0(Title* room) {
+    TitleReplaySaveView* entry = reinterpret_cast<TitleReplaySaveView*>(room);
     void* handle;
     switch (room->phase) {
     case 0: {

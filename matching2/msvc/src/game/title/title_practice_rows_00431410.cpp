@@ -6,10 +6,10 @@
 //
 // Native LTCG passes the menu in EDI and the text position to the formatter
 // in EBX.
-#include "th10/game/title_menu_draw.hpp"
+#include "th10/game/title_draw.hpp"
 
 #pragma code_seg(".text$05rows")
-int TitleMenu_00431410::DrawPracticeRows() {
+int TitleDrawView::DrawPracticeRows() {
     if (phase >= 2 && phase <= 3) {
         g_ascii_manager->current_64 = 1;
         Vec3_00401530 position = {80.0f, 80.0f, 0.0f};

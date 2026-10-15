@@ -39,14 +39,14 @@ static __forceinline void DisableItem_0042d420(MenuCursor& cursor, int item) {
 }
 
 // Restart the cursor animation of slot 0.
-static __forceinline void RunCursorSlot_0042d420(RecoveryMusicRoom_00433ef0* room) {
+static __forceinline void RunCursorSlot_0042d420(Title* room) {
     AnimationManager_SetStopFrameAndRun(
         3, reinterpret_cast<RecoveryLookupContext_0040bd80*>(data_00491c10),
         *reinterpret_cast<RecoveryScriptId_0040bd80*>(&room->animation_slots[0]));
 }
 
 #pragma code_seg(".text$0042d420_fn")
-__declspec(noinline) int __stdcall TitleMainMenu_0042d420(RecoveryMusicRoom_00433ef0* room) {
+__declspec(noinline) int __stdcall TitleMainMenu_0042d420(Title* room) {
     switch (room->phase) {
     case 0:
         room->cursor.item_count = 8;
@@ -84,7 +84,7 @@ __declspec(noinline) int __stdcall TitleMainMenu_0042d420(RecoveryMusicRoom_0043
                 goto quit;
             data_00492590.Queue(11, 0);
             SelectItem_0042d420(*cursor, 7);
-            reinterpret_cast<AnimationSlotOwner_0042c750*>(room)->RestartSlot(0);
+            reinterpret_cast<TitleAnimationSlotView*>(room)->RestartSlot(0);
             room->SetSlotFrame(0, cursor->selection + 7);
         }
         if (data_00474e36 & 0x1001) {
@@ -110,8 +110,8 @@ __declspec(noinline) int __stdcall TitleMainMenu_0042d420(RecoveryMusicRoom_0043
             case 6:
                 data_00492590.Queue(10, 0);
                 room->SetTimerTarget(4);
-                reinterpret_cast<AnimationSlotOwner_0042c750*>(room)->RestartSlot(0x5a);
-                reinterpret_cast<AnimationSlotOwner_0042c750*>(room)->RestartSlot(0x5b);
+                reinterpret_cast<TitleAnimationSlotView*>(room)->RestartSlot(0x5a);
+                reinterpret_cast<TitleAnimationSlotView*>(room)->RestartSlot(0x5b);
                 break;
             case 7:
             quit:
@@ -140,7 +140,7 @@ __declspec(noinline) int __stdcall TitleMainMenu_0042d420(RecoveryMusicRoom_0043
                 room->ClearAnimationSlot(88);
                 room->DisableTimerWithOwner(6);
                 cursor->PushSelection();
-                reinterpret_cast<DifficultySelectRoom_00430320*>(room)->saved_difficulty = data_00474c74;
+                reinterpret_cast<TitleDifficultyView*>(room)->saved_difficulty = data_00474c74;
                 data_00474c74 = 4;
                 SelectItem_0042d420(*cursor, 0);
                 break;

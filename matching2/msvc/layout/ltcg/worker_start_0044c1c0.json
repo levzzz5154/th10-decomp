@@ -6,7 +6,7 @@
   "headers": [
     "include/th10/platform/worker.hpp",
     "include/th10/game/ui_thread_host.hpp",
-    "include/th10/game/progress_worker_0042c920.hpp",
+    "include/th10/game/title.hpp",
     "include/th10/game/anm_vm.hpp",
     "include/th10/game/counter_block.hpp",
     "include/th10/game/large_initialization_state_00421f00.hpp"
@@ -70,20 +70,20 @@
     },
     {
       "name": "ProgressWorker_Construct_0042c920",
-      "symbol": "??0ProgressWorker_0042c920@@QAE@XZ",
+      "symbol": "??0Title@@QAE@XZ",
       "section": ".text$03aprogressctor",
       "address": "0x0042C920",
       "size": 204,
-      "source": "src/game/title/progress_worker_construct_0042c920.cpp",
+      "source": "src/game/title/title_construct.cpp",
       "actual_abi": "this EDX; EAX result; RET"
     },
     {
       "name": "ProgressWorker_Create_0042cd50",
-      "symbol": "_asm_ProgressManager_CreateAndStartWorker_0042cd50",
+      "symbol": "_Title_Create",
       "section": ".text$03cprogressfactory",
       "address": "0x0042CD50",
       "size": 96,
-      "source": "src/game/title/progress_worker.cpp",
+      "source": "src/game/title/title_create.cpp",
       "actual_abi": "no arguments; state EDI, worker ESI; EAX result; RET"
     }
   ],
@@ -233,12 +233,12 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_0047784c",
+      "symbol": "_g_title",
       "address": "0x0047784C",
       "kind": "data"
     },
     {
-      "symbol": "_ProgressWorker_Thread_0042c9f0@4",
+      "symbol": "_Title_LoadWorkerEntry@4",
       "address": "0x0042C9F0",
       "kind": "data"
     },
@@ -254,8 +254,8 @@
     "src/core/zunlib/platform_destroy_worker_0044c100.cpp",
     "src/core/zunlib/platform_stop_worker_0044c150.cpp",
     "src/unreferenced/unassigned_0044c200.cpp",
-    "src/game/title/progress_worker_construct_0042c920.cpp",
-    "src/game/title/progress_worker.cpp"
+    "src/game/title/title_construct.cpp",
+    "src/game/title/title_create.cpp"
   ],
   "anchors": [
     {

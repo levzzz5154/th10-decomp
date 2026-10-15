@@ -12,13 +12,13 @@
 // for the letters and for the three trailing symbols.
 #include <string.h>
 
-#include "th10/game/title_menu_draw.hpp"
+#include "th10/game/title_draw.hpp"
 
-extern "C" int __stdcall TitleMenu_DrawReplaySave_00433b30(TitleMenu_00431410* menu);
+extern "C" int __stdcall TitleMenu_DrawReplaySave_00433b30(TitleDrawView* menu);
 
 #pragma code_seg(".text$09save")
 extern "C" __declspec(noinline) int __stdcall TitleMenu_DrawReplaySave_00433b30(
-        TitleMenu_00431410* menu) {
+        TitleDrawView* menu) {
     switch (menu->phase) {
     case 3: {
         Vec3_00401530 position = {58.0f, 240.0f, 0.0f};

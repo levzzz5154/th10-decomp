@@ -14,13 +14,13 @@
 // using EBP for the row shade and the cell count.
 #include <string.h>
 
-#include "th10/game/title_menu_draw.hpp"
+#include "th10/game/title_draw.hpp"
 
-extern "C" int __stdcall TitleMenu_DrawScoreEntry_00433230(TitleMenu_00431410* menu);
+extern "C" int __stdcall TitleMenu_DrawScoreEntry_00433230(TitleDrawView* menu);
 
 #pragma code_seg(".text$08entry")
 extern "C" __declspec(noinline) int __stdcall TitleMenu_DrawScoreEntry_00433230(
-        TitleMenu_00431410* menu) {
+        TitleDrawView* menu) {
     switch (menu->phase) {
     case 2: {
         Vec3_00401530 position = {48.0f, 160.0f, 0.0f};

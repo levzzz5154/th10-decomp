@@ -943,8 +943,8 @@ extern "C" void __cdecl asm_FUN_0042c920_0042c920();
 #define VA_asm_FUN_0042c920_0042c920 0x0042c920
 extern "C" void __cdecl asm_FUN_0042c9f0_part_0042ca40();
 #define VA_asm_FUN_0042c9f0_part_0042ca40 0x0042ca40
-extern "C" void __cdecl asm_FUN_0042cb60_0042cb60();
-#define VA_asm_FUN_0042cb60_0042cb60 0x0042cb60
+extern "C" void __cdecl asm_Title_Destroy();
+#define VA_asm_Title_Destroy 0x0042cb60
 extern "C" void __cdecl asm_FUN_0042cdf0_0042cdf0();
 #define VA_asm_FUN_0042cdf0_0042cdf0 0x0042cdf0
 extern "C" void __cdecl asm_FUN_0042d260_0042d260();
@@ -1640,12 +1640,12 @@ extern "C" void __cdecl asm_GameStateInit_00445900();
 #define VA_asm_GameStateInit_00445900 0x00445900
 extern "C" void __cdecl asm_GameStateInit_part_00445ae0();
 #define VA_asm_GameStateInit_part_00445ae0 0x00445ae0
-extern "C" void __cdecl asm_GameState_DisableTimerWithOwner_0042c5c0();
-#define VA_asm_GameState_DisableTimerWithOwner_0042c5c0 0x0042c5c0
-extern "C" void __cdecl asm_GameState_DispatchAnimationSlotSecondary_0042c750();
-#define VA_asm_GameState_DispatchAnimationSlotSecondary_0042c750 0x0042c750
-extern "C" void __cdecl asm_GameState_DispatchAnimationSlot_0042c730();
-#define VA_asm_GameState_DispatchAnimationSlot_0042c730 0x0042c730
+extern "C" void __cdecl asm_Title_DisableTimerWithOwner();
+#define VA_asm_Title_DisableTimerWithOwner 0x0042c5c0
+extern "C" void __cdecl asm_GameState_Title_DispatchAnimationSlotSecondary_0042c750();
+#define VA_asm_GameState_Title_DispatchAnimationSlotSecondary_0042c750 0x0042c750
+extern "C" void __cdecl asm_GameState_Title_DispatchAnimationSlot_0042c730();
+#define VA_asm_GameState_Title_DispatchAnimationSlot_0042c730 0x0042c730
 extern "C" void __cdecl asm_GameState_DispatchDummy_00420c00();
 #define VA_asm_GameState_DispatchDummy_00420c00 0x00420c00
 extern "C" void __cdecl asm_GameState_SetTimerTarget_0042c620();
@@ -1824,8 +1824,8 @@ extern "C" void __cdecl asm_Player_WrapVertical_00407e40();
 #define VA_asm_Player_WrapVertical_00407e40 0x00407e40
 extern "C" void __cdecl asm_Position_IsPartiallyInViewport_0041f7a0();
 #define VA_asm_Position_IsPartiallyInViewport_0041f7a0 0x0041f7a0
-extern "C" void __cdecl asm_ProgressManager_CreateAndStartWorker_0042cd50();
-#define VA_asm_ProgressManager_CreateAndStartWorker_0042cd50 0x0042cd50
+extern "C" void __cdecl Title_Create();
+#define VA_Title_Create 0x0042cd50
 extern "C" void __cdecl asm_RTC_Initialize_00459776();
 #define VA_asm_RTC_Initialize_00459776 0x00459776
 extern "C" void __cdecl asm_RTC_Initialize_part_004597aa();
@@ -6041,7 +6041,7 @@ extern "C" unsigned char data_0047783c;
 extern "C" unsigned char g_smoll_score;
 extern "C" unsigned char data_00477844;
 extern "C" unsigned char data_00477848;
-extern "C" unsigned char data_0047784c;
+extern "C" unsigned char g_title;
 extern "C" unsigned char data_00477850;
 extern "C" unsigned char data_00477864;
 extern "C" unsigned char data_00477868;

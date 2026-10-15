@@ -26,7 +26,7 @@
   "anchors": [
     {
       "name": "RefreshKeyConfigLabels",
-      "symbol": "_RefreshKeyConfigLabels_0042f8b0@4",
+      "symbol": "_RefreshTitleKeyConfigView@4",
       "section": ".text$01refresh",
       "address": "0x42f8b0",
       "size": 2452

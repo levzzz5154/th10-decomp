@@ -57,8 +57,8 @@ static __forceinline void SetTreeFrame_00431ee0(RecoveryMusicVm_00433ef0* object
 }
 
 #pragma code_seg(".text$00431ee0_fn")
-__declspec(noinline) int __stdcall TitleMode11_00431ee0(RecoveryMusicRoom_00433ef0* room) {
-    SpellRecordRoom_00431ee0* records = reinterpret_cast<SpellRecordRoom_00431ee0*>(room);
+__declspec(noinline) int __stdcall TitleMode11_00431ee0(Title* room) {
+    TitleSpellRecordView* records = reinterpret_cast<TitleSpellRecordView*>(room);
     void* handle;
     void* line_handle;
     switch (room->phase) {
@@ -121,7 +121,7 @@ __declspec(noinline) int __stdcall TitleMode11_00431ee0(RecoveryMusicRoom_00433e
             RecoveryMusicInstallSlot_0042c670(room, difficulty->selection + 160);
             if (records->page.selection > 0) {
                 SelectItem_00431ee0(records->page, 1);
-                reinterpret_cast<TitleMenu_00431410*>(room)->BuildSpellList();
+                reinterpret_cast<TitleDrawView*>(room)->BuildSpellList();
             }
             records->page.item_count = PageCount_00431ee0(difficulty->selection);
         }
@@ -146,7 +146,7 @@ __declspec(noinline) int __stdcall TitleMode11_00431ee0(RecoveryMusicRoom_00433e
             room->ClearAnimationSlot(room->cursor.previous_selection + 154);
             RecoveryMusicInstallSlot_0042c670(room, room->cursor.selection + 154);
             if (records->page.selection > 0)
-                reinterpret_cast<TitleMenu_00431410*>(room)->BuildSpellList();
+                reinterpret_cast<TitleDrawView*>(room)->BuildSpellList();
         }
         if (data_00474e36 & 0x1001) {
             if (records->page.selection == 0) {
@@ -164,7 +164,7 @@ __declspec(noinline) int __stdcall TitleMode11_00431ee0(RecoveryMusicRoom_00433e
                 for (int line = 0; line < 10; ++line)
                     RecoveryMusicStopHandle_00409e50(&records->lines[line]);
             } else {
-                reinterpret_cast<TitleMenu_00431410*>(room)->BuildSpellList();
+                reinterpret_cast<TitleDrawView*>(room)->BuildSpellList();
             }
             data_00492590.Queue(10, 0);
         }

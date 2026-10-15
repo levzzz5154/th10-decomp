@@ -4,7 +4,7 @@
 
 // The title screen object as the spell card record screen uses it: the shot
 // type cursor is the room's own, followed by the difficulty and the page.
-struct SpellRecordRoom_00431ee0 {
+struct TitleSpellRecordView {
     unsigned char reserved_0000[0xFC];
     MenuCursor difficulty;              // +0x0FC
     MenuCursor page;                    // +0x1D4: 0 is the summary, 1.. the card pages
@@ -12,12 +12,12 @@ struct SpellRecordRoom_00431ee0 {
     RecoveryHandle_0040bd80 lines[10];  // +0x5D4: the ten text lines of a page
 
 };
-typedef char SpellRecordRoomPage_00431ee0[offsetof(SpellRecordRoom_00431ee0, page) == 0x1D4 ? 1 : -1];
-typedef char SpellRecordRoomLines_00431ee0[offsetof(SpellRecordRoom_00431ee0, lines) == 0x5D4 ? 1 : -1];
+typedef char SpellRecordRoomPage_00431ee0[offsetof(TitleSpellRecordView, page) == 0x1D4 ? 1 : -1];
+typedef char SpellRecordRoomLines_00431ee0[offsetof(TitleSpellRecordView, lines) == 0x5D4 ? 1 : -1];
 
 // The room as the page builder 0x00432690 receives it; its own view of the
 // fields is in th10/game/title_menu_draw.hpp.
-struct TitleMenu_00431410 {
+struct TitleDrawView {
     // Fill the ten lines with the cards of the selected page.
     __declspec(noinline) int BuildSpellList();
 };
@@ -38,5 +38,5 @@ __declspec(noinline) int __stdcall SpellCards_CountOfDifficulty_004088c0(int dif
 // 0x0042C8C0: mark every stage of every character and difficulty as reached.
 __declspec(noinline) void __stdcall UnlockAllStages_0042c8c0(GameProgress_0042c8c0* progress);
 
-__declspec(noinline) int __stdcall TitleMode11_00431ee0(RecoveryMusicRoom_00433ef0* room);
+__declspec(noinline) int __stdcall TitleMode11_00431ee0(Title* room);
 #endif
