@@ -1,8 +1,8 @@
-// 0x00406140 (18 bytes): destroy a heap-allocated object and release it.
+// 0x00406140 (18 bytes): delete the bullet manager.
 //
 // retail:
 //   test esi,esi / je done
-//   push esi / call 0x00405F70      ; ItemManager_DestroyRetail, __stdcall
+//   push esi / call 0x00405F70      ; ~BulletManager, __stdcall
 //   push esi / call 0x004524A1      ; operator delete, __cdecl
 //   pop ecx / done: ret
 // The object pointer arrives in ESI because it stays live across both calls,
@@ -10,13 +10,13 @@
 // The synthetic caller below is compiled in the same /LTCG cluster so the
 // allocator makes the same choice.
 
-struct ManagedItem;
+struct BulletManager;
 
-extern "C" __stdcall void asm_ItemManager_DestroyRetail_00405f70(ManagedItem* item);
+extern "C" __stdcall void asm_ItemManager_DestroyRetail_00405f70(BulletManager* item);
 void __cdecl operator delete(void* block);
 
 #pragma code_seg(".text$01release")
-__declspec(noinline) void ReleaseManagedItem(ManagedItem* item) {
+__declspec(noinline) void BulletManager_Delete(BulletManager* item) {
     if (item) {
         asm_ItemManager_DestroyRetail_00405f70(item);
         operator delete(item);

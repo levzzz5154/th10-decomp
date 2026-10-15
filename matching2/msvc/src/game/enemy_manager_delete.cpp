@@ -1,4 +1,4 @@
-// 0x0040D710..0x0040D72C (28 bytes): scalar deleting destructor.
+// 0x0040D710..0x0040D72C (28 bytes): the enemy manager's scalar deleting destructor.
 //
 // Retail copies the object from ESI to EAX before the cleanup at 0x0040D530 --
 // that callee reads its object from EAX -- then, when bit 0 of the incoming
@@ -11,14 +11,14 @@
 extern "C" void __cdecl asm_FUN_0040d530_0040d530(void* object);
 extern "C" void __cdecl entry_free_004524a1(void* block);
 
-struct Deletable_0040d710 {
+struct EnemyManager {
     unsigned char unknown_0000[0x04];
 };
 
-__declspec(noinline) void* Deletable_0040d710_Delete(Deletable_0040d710* object, int flags);
+__declspec(noinline) void* EnemyManager_DeletingDestructor(EnemyManager* object, int flags);
 
 #pragma code_seg(".text$03del")
-void* Deletable_0040d710_Delete(Deletable_0040d710* object, int flags) {
+void* EnemyManager_DeletingDestructor(EnemyManager* object, int flags) {
     asm_FUN_0040d530_0040d530(object);
     if ((flags & 1) != 0) {
         entry_free_004524a1(object);
@@ -30,10 +30,10 @@ void* Deletable_0040d710_Delete(Deletable_0040d710* object, int flags) {
 // 0x0040D730..0x0040D742 (19 bytes): destroy and free the object when there is
 // one -- a `delete` of the same class with the null check kept. The object is
 // again in ESI.
-__declspec(noinline) void Deletable_0040d710_DeleteIfPresent(Deletable_0040d710* object);
+__declspec(noinline) void EnemyManager_Delete(EnemyManager* object);
 
 #pragma code_seg(".text$04m_delete")
-void Deletable_0040d710_DeleteIfPresent(Deletable_0040d710* object) {
+void EnemyManager_Delete(EnemyManager* object) {
     if (object != 0) {
         asm_FUN_0040d530_0040d530(object);
         entry_free_004524a1(object);

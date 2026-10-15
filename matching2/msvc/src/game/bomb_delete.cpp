@@ -1,4 +1,4 @@
-// 0x00405730: release a raw pair, then free the block itself.
+// 0x00405730: delete the bomb (release it, then free the block).
 //
 // Retail: 85 F6           test esi,esi
 //         74 0D           je   done
@@ -14,7 +14,7 @@
 extern "C" void __stdcall asm_Recovery_ReleaseRawPairAndReset_00405620(void* pair);
 extern "C" void __cdecl entry_free_004524a1(void* block);
 
-static __forceinline void PlayerRuntime_ReleaseAndFree(void* runtime) {
+static __forceinline void Bomb_ReleaseAndFree(void* runtime) {
     if (runtime) {
         asm_Recovery_ReleaseRawPairAndReset_00405620(runtime);
         entry_free_004524a1(runtime);
@@ -22,7 +22,7 @@ static __forceinline void PlayerRuntime_ReleaseAndFree(void* runtime) {
 }
 
 #pragma code_seg(".text$01release")
-__declspec(noinline) void FUN_00405730_ReleasePair(void* pair) {
-    PlayerRuntime_ReleaseAndFree(pair);
+__declspec(noinline) void Bomb_Delete(void* pair) {
+    Bomb_ReleaseAndFree(pair);
 }
 #pragma code_seg()

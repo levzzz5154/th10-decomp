@@ -1,11 +1,11 @@
-#include "../../src/unidentified/FUN_00406140_00406140.cpp"
+#include "../../src/game/bullet_manager_delete.cpp"
 
 #pragma code_seg(".text$03context")
-int __stdcall ReleaseManagedItemCompilerContext(ManagedItem** items, int count) {
-    ManagedItem* first = *items;
+int __stdcall ReleaseManagedItemCompilerContext(BulletManager** items, int count) {
+    BulletManager* first = *items;
     for (int index = 0; index < count; ++index) {
-        ReleaseManagedItem(first);
-        ReleaseManagedItem(items[index]);
+        BulletManager_Delete(first);
+        BulletManager_Delete(items[index]);
     }
     return 0;
 }

@@ -1,11 +1,11 @@
-// 0x004148E0: destroy and free an owned object. Retail keeps the pointer in ESI.
+// 0x004148E0: delete the item manager (destructor, then free). Retail keeps the pointer in ESI.
 
-struct OwnedObject_004148e0;
+struct ItemManager;
 extern "C" void asm_FUN_004145f0_004145f0(void* object);
 extern "C" void __cdecl entry_free_004524a1(void* memory);
-__declspec(noinline) void DestroyOwned_004148e0(OwnedObject_004148e0* object);
+__declspec(noinline) void ItemManager_Delete(ItemManager* object);
 #pragma code_seg(".text$01destroy004148e0")
-void DestroyOwned_004148e0(OwnedObject_004148e0* object) {
+void ItemManager_Delete(ItemManager* object) {
     if (object) {
         asm_FUN_004145f0_004145f0(object);
         entry_free_004524a1(object);

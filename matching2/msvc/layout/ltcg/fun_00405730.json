@@ -1,15 +1,15 @@
 {
   "schema_version": 1,
   "name": "fun_00405730",
-  "source": "src/unidentified/FUN_00405730_00405730.cpp",
+  "source": "src/game/bomb_delete.cpp",
   "driver": "layout/ltcg/fun_00405730_context.cpp",
   "headers": [],
   "image_base": "0x00400000",
   "description": "Release a raw pair and free the block, with the pair pointer received in ESI, compiled with native LTCG.",
   "functions": [
     {
-      "name": "FUN_00405730_ReleasePair",
-      "symbol": "?FUN_00405730_ReleasePair@@YGXPAX@Z",
+      "name": "Bomb_Delete",
+      "symbol": "?Bomb_Delete@@YGXPAX@Z",
       "section": ".text$01release",
       "address": "0x00405730",
       "size": 18,

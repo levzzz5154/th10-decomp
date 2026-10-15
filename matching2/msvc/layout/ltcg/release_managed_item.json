@@ -1,15 +1,15 @@
 {
   "schema_version": 1,
   "name": "release_managed_item",
-  "source": "src/unidentified/FUN_00406140_00406140.cpp",
+  "source": "src/game/bullet_manager_delete.cpp",
   "driver": "layout/ltcg/release_managed_item_context.cpp",
   "headers": [],
   "image_base": "0x00400000",
   "description": "Native-LTCG cluster recovering a release helper whose object pointer lives in ESI across two calls.",
   "functions": [
     {
-      "name": "ReleaseManagedItem",
-      "symbol": "?ReleaseManagedItem@@YGXPAUManagedItem@@@Z",
+      "name": "BulletManager_Delete",
+      "symbol": "?BulletManager_Delete@@YGXPAUBulletManager@@@Z",
       "section": ".text$01release",
       "address": "0x00406140",
       "size": 18,
@@ -17,7 +17,7 @@
     }
   ],
   "context": {
-    "symbol": "?ReleaseManagedItemCompilerContext@@YGHPAPAUManagedItem@@H@Z",
+    "symbol": "?ReleaseManagedItemCompilerContext@@YGHPAPAUBulletManager@@H@Z",
     "section": ".text$03context",
     "address": "0x00406160",
     "size": 53,
