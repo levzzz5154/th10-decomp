@@ -53,18 +53,18 @@ void* Recovery_CreateSmallState_0040b940() {
     return state;
 }
 
-// 0x0040CC50 - scalar deleting destructor for the bullet object: destroy the
-// bullet through its own release entry, then free it on request. The delete
-// flag is the retail first stack argument, so the second __fastcall register
-// argument (EDX) is unused. The bullet destructor still lives in inline
-// assembly, so it is called through its fixed retail prototype.
-typedef void (__stdcall* BulletDestroyFn)(void* bullet);
+// 0x0040CC50 - the enemy's scalar deleting destructor (vtable 0x0046D0C0
+// slot 0x14): run the enemy destructor (0x0040DAE0), then free it on request.
+// The delete flag is the retail first stack argument, so the second __fastcall
+// register argument (EDX) is unused. The destructor is called through its
+// fixed retail prototype.
+typedef void (__stdcall* EnemyDestroyFn)(void* enemy);
 
-void* __fastcall Bullet_DeletingDestructor(void* bullet, unsigned int unused, unsigned int flags) {
-    ((BulletDestroyFn)asm_FUN_0040dae0_0040dae0)(bullet);
+void* __fastcall Enemy_DeletingDestructor(void* enemy, unsigned int unused, unsigned int flags) {
+    ((EnemyDestroyFn)asm_FUN_0040dae0_0040dae0)(enemy);
     if (flags & 1)
-        operator delete(bullet);
-    return bullet;
+        operator delete(enemy);
+    return enemy;
 }
 
 // 0x00413170 - Store an angle after folding it into the retail range.

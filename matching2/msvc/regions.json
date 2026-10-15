@@ -8523,9 +8523,9 @@
       "kind": "padding"
     },
     {
-      "name": "semantic_FUN_0040c5e0_0040c5e0",
-      "source": "src/unidentified/FUN_0040c5e0_0040c5e0.cpp",
-      "symbol": "?FUN_0040c5e0_0040c5e0@@YGHXZ",
+      "name": "semantic_EclVm_Run_0040c5e0",
+      "source": "src/script/ecl_vm_base.cpp",
+      "symbol": "?Run@EclVm@@QAEHXZ",
       "address": "0x0040C5E0",
       "size": 3,
       "kind": "semantic",
@@ -8705,9 +8705,9 @@
       "kind": "padding"
     },
     {
-      "name": "semantic_FUN_0040c690_0040c690",
-      "source": "src/unidentified/FUN_0040c690_0040c690.cpp",
-      "symbol": "?FUN_0040c690_0040c690@@YGHH@Z",
+      "name": "semantic_EclVm_GetIntValue_0040c690",
+      "source": "src/script/ecl_vm_base.cpp",
+      "symbol": "?GetIntValue@EclVm@@QAEHH@Z",
       "address": "0x0040C690",
       "size": 5,
       "kind": "semantic",
@@ -8731,9 +8731,9 @@
       "kind": "padding"
     },
     {
-      "name": "semantic_FUN_0040c6a0_0040c6a0",
-      "source": "src/unidentified/FUN_0040c6a0_0040c6a0.cpp",
-      "symbol": "?FUN_0040c6a0_0040c6a0@@YGHH@Z",
+      "name": "semantic_EclVm_GetFloatVarAddress_0040c6a0",
+      "source": "src/script/ecl_vm_base.cpp",
+      "symbol": "?GetFloatVarAddress@EclVm@@QAEPAMH@Z",
       "address": "0x0040C6A0",
       "size": 5,
       "kind": "semantic",
@@ -8757,9 +8757,9 @@
       "kind": "padding"
     },
     {
-      "name": "semantic_FloatConstantAsDouble_0040c6b0",
-      "source": "src/unidentified/FUN_0040c6b0_0040c6b0.cpp",
-      "symbol": "?FloatConstantAsDouble_0040c6b0@@YGNH@Z",
+      "name": "semantic_EclVm_GetFloatValue_0040c6b0",
+      "source": "src/script/ecl_vm_base.cpp",
+      "symbol": "?GetFloatValue@EclVm@@QAENH@Z",
       "address": "0x0040C6B0",
       "size": 9,
       "kind": "semantic",
@@ -8783,9 +8783,9 @@
       "kind": "padding"
     },
     {
-      "name": "semantic__FUN_0040c6c0@4",
-      "source": "src/unidentified/FUN_0040c6c0_0040c6c0.cpp",
-      "symbol": "_FUN_0040c6c0@4",
+      "name": "semantic_EclVm_GetIntVarAddress_0040c6c0",
+      "source": "src/script/ecl_vm_base.cpp",
+      "symbol": "?GetIntVarAddress@EclVm@@QAEPAHH@Z",
       "address": "0x0040C6C0",
       "size": 5,
       "kind": "semantic",
@@ -8940,15 +8940,15 @@
     },
     {
       "name": "semantic_Object0040c7b0_DeletingDestructor_0040c7b0",
-      "source": "src/unidentified/FUN_0040c7b0_0040c7b0.cpp",
-      "symbol": "?DeletingDestructor@Object0040c7b0@@QAEPAXE@Z",
+      "source": "src/script/ecl_vm_destructor.cpp",
+      "symbol": "?DeletingDestructor@EclVm@@QAEPAXE@Z",
       "address": "0x0040C7B0",
       "size": 71,
       "kind": "semantic",
       "owner": "0x0040C7B0",
       "previous_record": {
         "name": "asm_FUN_0040c7b0_0040c7b0",
-        "source": "src/unidentified/FUN_0040c7b0_0040c7b0.cpp",
+        "source": "src/script/ecl_vm_destructor.cpp",
         "symbol": "_asm_FUN_0040c7b0_0040c7b0",
         "address": "0x0040C7B0",
         "size": 71,
@@ -9614,7 +9614,7 @@
     {
       "name": "semantic_Bullet_DeletingDestructor_0040cc50",
       "source": "src/game/recovery_leaves.cpp",
-      "symbol": "?Bullet_DeletingDestructor@@YIPAXPAXII@Z",
+      "symbol": "?Enemy_DeletingDestructor@@YIPAXPAXII@Z",
       "address": "0x0040CC50",
       "size": 31,
       "kind": "semantic",
@@ -10955,15 +10955,15 @@
     },
     {
       "name": "semantic_Run_0040e760_0040e760",
-      "source": "src/unidentified/unassigned_0040e760.cpp",
-      "symbol": "?Run@Outer_0040e760@@QAEXXZ",
+      "source": "src/script/enemy_run.cpp",
+      "symbol": "?Run@Enemy@@QAEXXZ",
       "address": "0x0040E760",
       "size": 11,
       "kind": "semantic",
       "owner": null,
       "previous_record": {
         "name": "asm_unassigned_0040e760",
-        "source": "src/unidentified/unassigned_0040e760.cpp",
+        "source": "src/script/enemy_run.cpp",
         "symbol": "_asm_unassigned_0040e760",
         "address": "0x0040E760",
         "size": 11,
@@ -11015,9 +11015,9 @@
       "kind": "padding"
     },
     {
-      "name": "semantic_Find_00412300",
-      "source": "src/unidentified/unassigned_00412300.cpp",
-      "symbol": "?Find@FloatVars_00412300@@QAEPAMH@Z",
+      "name": "semantic_Enemy_GetFloatVarAddress_00412300",
+      "source": "src/script/enemy_ecl_variables.cpp",
+      "symbol": "?GetFloatVarAddress@Enemy@@QAEPAMH@Z",
       "address": "0x00412300",
       "size": 80,
       "kind": "semantic",
@@ -11059,9 +11059,9 @@
       "kind": "padding"
     },
     {
-      "name": "semantic_FUN_004126d0_004126d0",
-      "source": "src/unidentified/unassigned_004126d0.cpp",
-      "symbol": "@FUN_004126d0@12",
+      "name": "semantic_Enemy_GetIntVarAddress_004126d0",
+      "source": "src/script/enemy_ecl_variables.cpp",
+      "symbol": "?GetIntVarAddress@Enemy@@QAEPAHH@Z",
       "address": "0x004126D0",
       "size": 80,
       "kind": "semantic",
@@ -61195,15 +61195,10 @@
     "src/unreferenced/FUN_0040c520_0040c520.cpp",
     "src/unreferenced/FUN_0040c5b0_0040c5b0.cpp",
     "src/unreferenced/FUN_0040c5c0_0040c5c0.cpp",
-    "src/unidentified/FUN_0040c5e0_0040c5e0.cpp",
     "src/unreferenced/FUN_0040c650_0040c650.cpp",
     "src/unreferenced/FUN_0040c660_0040c660.cpp",
     "src/unreferenced/FUN_0040c680_0040c680.cpp",
-    "src/unidentified/FUN_0040c690_0040c690.cpp",
-    "src/unidentified/FUN_0040c6a0_0040c6a0.cpp",
-    "src/unidentified/FUN_0040c6b0_0040c6b0.cpp",
-    "src/unidentified/FUN_0040c6c0_0040c6c0.cpp",
-    "src/unidentified/FUN_0040c7b0_0040c7b0.cpp",
+    "src/script/ecl_vm_destructor.cpp",
     "src/unidentified/FUN_0040c810_0040c810.cpp",
     "src/unreferenced/FUN_0040c820_0040c820.cpp",
     "src/unreferenced/FUN_0040c890_0040c890.cpp",
@@ -61808,9 +61803,7 @@
     "src/game/enemy_manager_delete.cpp",
     "src/unreferenced/unassigned_0040dad1.cpp",
     "src/unreferenced/unassigned_0040dc70.cpp",
-    "src/unidentified/unassigned_0040e760.cpp",
-    "src/unidentified/unassigned_00412300.cpp",
-    "src/unidentified/unassigned_004126d0.cpp",
+    "src/script/enemy_run.cpp",
     "src/unreferenced/unassigned_00412750.cpp",
     "src/unreferenced/unassigned_00412790.cpp",
     "src/unreferenced/unassigned_00412a80.cpp",
@@ -62232,7 +62225,9 @@
     "src/render/stage_fog_interpolator.cpp",
     "src/render/stage_fog.cpp",
     "src/render/stage_script.cpp",
-    "src/game/laser_base.cpp"
+    "src/game/laser_base.cpp",
+    "src/script/ecl_vm_base.cpp",
+    "src/script/enemy_ecl_variables.cpp"
   ],
   "notes": [
     "Every executable body is compiled from C++; unported bodies use MSVC inline assembly.",

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "cl_0040e760",
-  "source": "src/unidentified/unassigned_0040e760.cpp",
+  "source": "src/script/enemy_run.cpp",
   "driver": "layout/ltcg/cl_0040e760_context.cpp",
   "headers": [],
   "image_base": "0x00400000",
@@ -9,25 +9,25 @@
   "functions": [
     {
       "name": "Run_0040e760",
-      "symbol": "?Run@Outer_0040e760@@QAEXXZ",
+      "symbol": "?Run@Enemy@@QAEXXZ",
       "section": ".text$01run",
       "address": "0x0040E760",
       "size": 11,
       "actual_abi": "outer in ECX; plain RET; tail jump",
-      "source": "src/unidentified/unassigned_0040e760.cpp"
+      "source": "src/script/enemy_run.cpp"
     }
   ],
   "anchors": [
     {
       "name": "InnerRun",
-      "symbol": "?Run@Inner_0040e760@@QAEXXZ",
+      "symbol": "?Run@EnemyEcl@@QAEXXZ",
       "section": ".text$03anchor",
       "address": "0x0040E770",
       "size": 23
     }
   ],
   "context": {
-    "symbol": "?RunContext_0040e760@@YGHPAPAUOuter_0040e760@@H@Z",
+    "symbol": "?RunContext_0040e760@@YGHPAPAUEnemy@@H@Z",
     "section": ".text$05context",
     "address": "0x0040E7A0",
     "size": 35,

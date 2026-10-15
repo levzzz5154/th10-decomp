@@ -1,8 +1,8 @@
 // Compiler context only; never selected as recovered game code.
-#include "../../src/unidentified/unassigned_0040e760.cpp"
+#include "../../src/script/enemy_run.cpp"
 
 #pragma code_seg(".text$03anchor")
-__declspec(noinline) void Inner_0040e760::Run() {
+__declspec(noinline) void EnemyEcl::Run() {
     unsigned char* bytes = this->bytes;
     for (int i = 0; i < 0x100; ++i) {
         bytes[i] = (unsigned char)i;
@@ -15,7 +15,7 @@ __declspec(noinline) void Inner_0040e760::Run() {
 #pragma code_seg()
 
 #pragma code_seg(".text$05context")
-int __stdcall RunContext_0040e760(Outer_0040e760** items, int count) {
+int __stdcall RunContext_0040e760(Enemy** items, int count) {
     for (int i = 0; i < count; ++i) {
         (*items++)->Run();
     }
