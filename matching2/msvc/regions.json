@@ -23782,9 +23782,9 @@
       "kind": "padding"
     },
     {
-      "name": "semantic_ScoreState_SetBossGauge_00428e10",
+      "name": "semantic_Player_SetFixedPosition_00428e10",
       "source": "src/game/fun_00428e10_00428e10.cpp",
-      "symbol": "?SetBossGauge@ScoreState_00428e10@@QAEPAU1@PBUScoreCounters_00428e10@@@Z",
+      "symbol": "?SetFixedPosition@Player@@QAEPAU1@PBUFixedPoint@@@Z",
       "address": "0x00428E10",
       "size": 83,
       "kind": "semantic",

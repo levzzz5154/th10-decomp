@@ -3,13 +3,18 @@
   "name": "score_gauge_publish_00428e10",
   "source": "src/game/fun_00428e10_00428e10.cpp",
   "driver": "layout/ltcg/score_gauge_publish_00428e10_context.cpp",
-  "headers": [],
+  "headers": [
+    "include/th10/game/player.hpp",
+    "include/th10/game/entity.hpp",
+    "include/th10/types.hpp",
+    "include/th10/math/timer.hpp"
+  ],
   "image_base": "0x00400000",
-  "description": "ScoreState_00428e10::SetBossGauge compiled with native LTCG so the score state arrives in EAX and the counter record in ECX, as the retail call site in slot_snapshot.cpp (0x0042A5C8) sets them up.",
+  "description": "Player::SetFixedPosition compiled with native LTCG so the player arrives in EAX and the source position in ECX, as the retail call site in slot_snapshot.cpp (0x0042A5C8) sets them up.",
   "functions": [
     {
-      "name": "ScoreState_SetBossGauge",
-      "symbol": "?SetBossGauge@ScoreState_00428e10@@QAEPAU1@PBUScoreCounters_00428e10@@@Z",
+      "name": "Player_SetFixedPosition",
+      "symbol": "?SetFixedPosition@Player@@QAEPAU1@PBUFixedPoint@@@Z",
       "section": ".text$01accessor",
       "address": "0x00428E10",
       "size": 83,

@@ -7,7 +7,10 @@
     "include/th10/game/replay_stage_finish_0042a450.hpp",
     "include/th10/game/replay_stage_begin_0042a6a0.hpp",
     "include/th10/math/rng.hpp",
-    "include/th10/math/timer.hpp"
+    "include/th10/math/timer.hpp",
+    "include/th10/game/player.hpp",
+    "include/th10/game/entity.hpp",
+    "include/th10/types.hpp"
   ],
   "image_base": "0x00400000",
   "description": "The replay manager's stage finish compiled with native LTCG beside the bodies of its callees and a synthetic caller that keeps the manager live, so it arrives in EBX.",
@@ -51,8 +54,8 @@
       "size": 54
     },
     {
-      "name": "SetBossGauge",
-      "symbol": "?SetBossGauge@Player_0042a450@@QAEHPBUReplayGaugeCounters_0042a6a0@@@Z",
+      "name": "SetFixedPosition",
+      "symbol": "?SetFixedPosition@Player@@QAEPAU1@PBUFixedPoint@@@Z",
       "section": ".text$05gauge",
       "address": "0x00428E10",
       "size": 85
@@ -91,6 +94,11 @@
     },
     {
       "symbol": "_data_00477834",
+      "address": "0x00477834",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_player",
       "address": "0x00477834",
       "kind": "data"
     },

@@ -124,7 +124,7 @@ extern "C" __declspec(noinline) int __stdcall StageUpdate(StageUpdateContext *co
             stage_front_data_0047770c->Initialize();
             stage_tasks_00477830->PauseOptional();
             TaskPair(stage_player_00477834)->PauseRequired();
-            PlayerRefresh_00426f70(reinterpret_cast<Player_0042a450 *>(stage_player_00477834));
+            PlayerRefresh_00426f70(reinterpret_cast<Player*>(stage_player_00477834));
             TaskPair(stage_bullets_004776f0)->PauseOptional();
             TaskPair(stage_enemies_00477704)->PauseOptional();
             TaskPair(stage_effects_00477818)->PauseOptional();
@@ -161,7 +161,7 @@ extern "C" __declspec(noinline) int __stdcall StageUpdate(StageUpdateContext *co
         stage_front_data_0047770c->Initialize();
         stage_tasks_00477830->PauseOptional();
         TaskPair(stage_player_00477834)->PauseRequired();
-        PlayerRefresh_00426f70(reinterpret_cast<Player_0042a450 *>(stage_player_00477834));
+        PlayerRefresh_00426f70(reinterpret_cast<Player*>(stage_player_00477834));
         TaskPair(stage_bullets_004776f0)->PauseOptional();
         TaskPair(stage_enemies_00477704)->PauseOptional();
         TaskPair(stage_effects_00477818)->PauseOptional();

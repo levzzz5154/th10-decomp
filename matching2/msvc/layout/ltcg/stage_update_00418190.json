@@ -71,7 +71,8 @@
     "layout/ltcg/stage_update_00418190/front_types.hpp",
     "layout/ltcg/stage_update_00418190/front_view.hpp",
     "layout/ltcg/stage_update_00418190/hud_view.hpp",
-    "layout/ltcg/stage_update_00418190/types.hpp"
+    "layout/ltcg/stage_update_00418190/types.hpp",
+    "include/th10/game/player.hpp"
   ],
   "description": "Complete stage update and complete native dependency graph, with shared animation bodies, original task null checks, both reset paths, replay frame count, fade disposal, and public stack-call imports of the existing player-refresh and stage destructor. Only StageUpdate is selected.",
   "functions": [
@@ -282,8 +283,8 @@
       "size": 93
     },
     {
-      "name": "?SetBossGauge@Player_0042a450@@QAEHPBUReplayGaugeCounters_0042a6a0@@@Z",
-      "symbol": "?SetBossGauge@Player_0042a450@@QAEHPBUReplayGaugeCounters_0042a6a0@@@Z",
+      "name": "?SetFixedPosition@Player@@QAEPAU1@PBUFixedPoint@@@Z",
+      "symbol": "?SetFixedPosition@Player@@QAEPAU1@PBUFixedPoint@@@Z",
       "section": ".text$00428e10_fn",
       "address": "0x428e10",
       "size": 83
@@ -931,6 +932,11 @@
     },
     {
       "symbol": "_data_00477834",
+      "address": "0x477834",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_player",
       "address": "0x477834",
       "kind": "data"
     },

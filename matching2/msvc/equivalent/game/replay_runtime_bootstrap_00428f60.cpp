@@ -189,8 +189,8 @@ __declspec(noinline) int ReplayManager_004296f0::Start(int start_mode, const cha
         stage_record->flag = stage_record->flag ^ ((stage_record->flag ^ config_word) & 1);
         _ReadWriteBarrier();
         if (*(int *)0x00491FC4 != 0) {  // fresh read; see the note above
-            stage_record->boss_gauge.value = 0;
-            stage_record->boss_gauge.maximum = 0;
+            stage_record->player_position.x = 0;
+            stage_record->player_position.y = 0;
         }
         stage_record->score = data_00474c40.score;
         stage_record->word_10 = data_00474c40.word_08;

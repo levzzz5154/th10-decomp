@@ -6,7 +6,10 @@
   "headers": [
     "include/th10/game/replay_stage_begin_0042a6a0.hpp",
     "include/th10/math/rng.hpp",
-    "include/th10/math/timer.hpp"
+    "include/th10/math/timer.hpp",
+    "include/th10/game/player.hpp",
+    "include/th10/game/entity.hpp",
+    "include/th10/types.hpp"
   ],
   "image_base": "0x00400000",
   "description": "The replay manager's stage start compiled with native LTCG beside a synthetic caller that keeps the manager live, so it arrives in EBX.",

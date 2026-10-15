@@ -8,23 +8,24 @@ extern "C" int __cdecl ReplayStageFinishEscape(void* pointer, int value);
 // Stand-in for 0x00426F70 (still assembly): taking the parameter's address
 // keeps it on the stack.
 #pragma code_seg(".text$04refresh")
-extern "C" __declspec(noinline) void __stdcall PlayerRefresh_00426f70(Player_0042a450* player) {
+extern "C" __declspec(noinline) void __stdcall PlayerRefresh_00426f70(Player* player) {
     ReplayStageFinishEscape(&player, 3);
-    ReplayStageFinishEscape(player->state, 4);
+    ReplayStageFinishEscape(player->position_history, 4);
     ReplayStageFinishEscape(&player->options[1], 5);
 }
 
-// The body of 0x00428E10 with a result: the caller must not learn that the
-// player's register survives the call, which retail's caller did not know.
+// The body of 0x00428E10, returning null instead of the player: the caller
+// must not learn that the player's register survives the call, which
+// retail's caller did not know.
 #pragma code_seg(".text$05gauge")
-int Player_0042a450::SetBossGauge(const ReplayGaugeCounters_0042a6a0* source) {
-    int* counters = &boss_gauge.value;
-    counters[0] = source->value;
-    counters[1] = source->maximum;
-    *(float*)((char*)this + 0x3C0) = (float)boss_gauge.value * 0.01f;
-    *(float*)((char*)this + 0x3C4) = (float)boss_gauge.maximum * 0.01f;
+Player* Player::SetFixedPosition(const FixedPoint* source) {
+    int* fixed = &fixed_position.x;
+    fixed[0] = source->x;
+    fixed[1] = source->y;
+    position.x = (float)fixed_position.x * 0.01f;
+    position.y = (float)fixed_position.y * 0.01f;
     for (int i = 0; i < 4; i++)
-        options[i].flag = 1;
+        options[i].reset_position = 1;
     return 0;
 }
 

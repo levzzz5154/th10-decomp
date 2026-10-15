@@ -4,6 +4,7 @@
 #include <string.h>
 #include "th10/math/rng.hpp"
 #include "th10/math/timer.hpp"
+#include "th10/game/player.hpp"
 
 void* __cdecl operator new(unsigned int size);
 
@@ -34,26 +35,6 @@ struct GameState_0042a6a0 {
 };
 typedef char GameStateField5c_0042a6a0[offsetof(GameState_0042a6a0, field_5c) == 0x5C ? 1 : -1];
 
-// The boss gauge's two counters.
-struct ReplayGaugeCounters_0042a6a0 {
-    int value;
-    int maximum;
-};
-
-// One two-word value of a player option.
-struct ReplayOptionPair_0042a6a0 {
-    int x;
-    int y;
-
-    // Copied member by member; the compiler's own block copy picks other
-    // loop pointers.
-    ReplayOptionPair_0042a6a0& operator=(const ReplayOptionPair_0042a6a0& other) {
-        x = other.x;
-        y = other.y;
-        return *this;
-    }
-};
-
 // The 0x1C4-byte record a replay keeps for each stage.
 struct ReplayStage_0042a6a0 {
     short stage;                  // +0x00
@@ -66,12 +47,12 @@ struct ReplayStage_0042a6a0 {
     int gauge_frame;              // +0x18
     int field_1c;
     int field_20;
-    ReplayGaugeCounters_0042a6a0 boss_gauge;       // +0x24
-    unsigned char player_state[0x108];             // +0x2C: the block at player +0x436C
-    ReplayOptionPair_0042a6a0 options[4][4];       // +0x134: [value kind][option]
+    FixedPoint player_position;                    // +0x24
+    FixedPoint player_position_history[33];        // +0x2C
+    FixedPoint options[4][4];                      // +0x134: [PlayerOption::Point index][option]
     int continues;                // +0x1B4
     int field_1b8;
-    int player_field_4474;        // +0x1BC
+    int player_focused;           // +0x1BC
     unsigned int flag : 1;        // +0x1C0
 
     ReplayStage_0042a6a0() { memset(this, 0, sizeof(*this)); }

@@ -11,7 +11,10 @@
     "layout/ltcg/native_archive_read/archive.hpp",
     "include/th10/archive/dat_archive_types.hpp",
     "include/th10/platform/file.hpp",
-    "include/th10/platform/windows_types.hpp"
+    "include/th10/platform/windows_types.hpp",
+    "include/th10/game/player.hpp",
+    "include/th10/game/entity.hpp",
+    "include/th10/types.hpp"
   ],
   "image_base": "0x00400000",
   "description": "The replay file load compiled with native LTCG beside the real archive loader, decrypter and shared-file reader bodies and a synthetic caller.",

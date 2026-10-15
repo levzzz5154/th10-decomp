@@ -18,6 +18,14 @@ struct Point3_OrientedRect;
 // same point as floats.
 struct FixedPoint {
     int x, y;
+
+    // Retail copies these member by member; the compiler's own block copy
+    // picks other loop pointers.
+    FixedPoint& operator=(const FixedPoint& other) {
+        x = other.x;
+        y = other.y;
+        return *this;
+    }
 };
 
 enum PlayerStateId {
@@ -74,6 +82,9 @@ struct PlayerOption {
     int reset_position;                // +0x8C
     int (__fastcall* update)(PlayerOption* option);  // +0x90
     int unknown_94;
+
+    // The four points above by index, the order a replay saves them in.
+    FixedPoint& Point(int index) { return (&target)[index]; }
 };
 
 // An area that damages enemies: a bomb, or the burst around a respawn
@@ -146,6 +157,10 @@ struct Player {
     // centre line), 0 otherwise.
     __declspec(noinline) int CheckLaserHit(const Point3_OrientedRect* origin, float angle, float width,
                                            float length);
+
+    // 0x00428E10: move the player to a fixed-point position and make the
+    // options jump to their places.
+    __declspec(noinline) Player* SetFixedPosition(const FixedPoint* source);
 };
 
 #define PLAYER_CHECK(name, expression) typedef char player_check_##name[(expression) ? 1 : -1]

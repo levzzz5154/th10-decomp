@@ -23,7 +23,10 @@
     "include/th10/math/rng.hpp",
     "include/th10/math/timer.hpp",
     "include/th10/platform/thread_sync.hpp",
-    "layout/ltcg/stage_startup_00417870/callback_task.hpp"
+    "layout/ltcg/stage_startup_00417870/callback_task.hpp",
+    "include/th10/game/player.hpp",
+    "include/th10/game/entity.hpp",
+    "include/th10/types.hpp"
   ],
   "image_base": "0x00400000",
   "description": "Complete stage startup in its genuine worker graph, with full native scheduler, replay, gauge, timer, path-reset and callback-retirement bodies; only startup is selected.",

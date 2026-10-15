@@ -7,7 +7,10 @@
     "include/th10/math/rng.hpp",
     "include/th10/math/timer.hpp",
     "include/th10/platform/sound_fade_0044d4e0.hpp",
-    "include/th10/platform/sound_fade_manager_wave18.hpp"
+    "include/th10/platform/sound_fade_manager_wave18.hpp",
+    "include/th10/game/player.hpp",
+    "include/th10/game/entity.hpp",
+    "include/th10/types.hpp"
   ],
   "image_base": "0x00400000",
   "description": "Complete real MainTasks113, the mode update666 and inlined sound fades225 with all old deadline/fade helper owners retained. The lifetime leaves are unselected anchors. No synthetic context.",
