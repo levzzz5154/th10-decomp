@@ -1,5 +1,5 @@
 // Compiler context only; never selected as recovered game code.
-#include "../../src/unidentified/FUN_004067a0_004067a0.cpp"
+#include "../../src/game/bullet_manager_on_draw.cpp"
 
 // 0x004451C0 enters on (EAX sprite, ECX manager). The recovered dispatcher
 // lives in the render-batch cluster; this stand-in only fixes the parameter
@@ -25,7 +25,7 @@ extern "C" __declspec(noinline) int __stdcall EnemySlotAdvanceContext(
         SlotOwner_004067a0** owners, int count) {
     int result = 0;
     while (count--) {
-        result = (*owners++)->AdvanceAllSlots();
+        result = (*owners++)->OnDraw();
     }
     return result;
 }

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "enemy_slot_advance_004067a0",
-  "source": "src/unidentified/FUN_004067a0_004067a0.cpp",
+  "source": "src/game/bullet_manager_on_draw.cpp",
   "driver": "layout/ltcg/enemy_slot_advance_004067a0_context.cpp",
   "headers": [],
   "image_base": "0x00400000",
@@ -17,7 +17,7 @@
     },
     {
       "name": "SlotOwner_004067a0_AdvanceAllSlots",
-      "symbol": "?AdvanceAllSlots@SlotOwner_004067a0@@QAEHXZ",
+      "symbol": "?OnDraw@SlotOwner_004067a0@@QAEHXZ",
       "section": ".text$03run",
       "address": "0x004067A0",
       "size": 44,
@@ -64,7 +64,7 @@
   ],
   "constants": [],
   "roots": [
-    "?AdvanceAllSlots@SlotOwner_004067a0@@QAEHXZ"
+    "?OnDraw@SlotOwner_004067a0@@QAEHXZ"
   ],
   "absolute_symbols": [
     {

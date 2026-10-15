@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "recovery_slot_rearm",
-  "source": "src/unidentified/FUN_00406770_00406770.cpp",
+  "source": "src/game/bullet_manager_on_update.cpp",
   "additional_sources": [
     "src/game/fun_004065c0_004065c0.cpp"
   ],
@@ -24,12 +24,12 @@
     },
     {
       "name": "RecoverySlotTable_CanRearm",
-      "symbol": "?CanRearm@RecoverySlotTable_004065c0@@QAEHXZ",
+      "symbol": "?OnUpdate@RecoverySlotTable_004065c0@@QAEHXZ",
       "section": ".text$05canrearm",
       "address": "0x00406770",
       "size": 40,
       "actual_abi": "object in ECX at entry; calls Rearm with object in ESI; result in EAX; plain RET",
-      "source": "src/unidentified/FUN_00406770_00406770.cpp"
+      "source": "src/game/bullet_manager_on_update.cpp"
     }
   ],
   "context": {
