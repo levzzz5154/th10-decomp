@@ -148,7 +148,7 @@
   ],
   "listed_branch_targets": true,
   "context_sources": [
-    "src/platform/text_log.cpp",
-    "src/platform/text_log_append_line_0044b8e0.cpp"
+    "src/core/zunlib/text_log.cpp",
+    "src/core/zunlib/text_log_append_line_0044b8e0.cpp"
   ]
 }

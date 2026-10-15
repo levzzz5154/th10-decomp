@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "platform_run_interface_0044d300",
-  "source": "src/game/platform_run_interface_0044d300.cpp",
+  "source": "src/core/zwave/platform_run_interface_0044d300.cpp",
   "driver": "layout/ltcg/platform_run_interface_0044d300_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

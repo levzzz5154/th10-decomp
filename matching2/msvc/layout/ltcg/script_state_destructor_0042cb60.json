@@ -5,7 +5,7 @@
   "driver": "layout/ltcg/script_state_destructor_0042cb60_context.cpp",
   "included_sources": [
     "layout/ltcg/game_state_anchor_00402160.cpp",
-    "src/platform/platform_stop_worker_0044c150.cpp"
+    "src/core/zunlib/platform_stop_worker_0044c150.cpp"
   ],
   "headers": [
     "include/th10/game/scheduler.hpp",

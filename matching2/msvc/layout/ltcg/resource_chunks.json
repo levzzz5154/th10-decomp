@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "resource_chunks",
-  "source": "src/platform/resource_chunks.cpp",
+  "source": "src/core/sound/resource_chunks.cpp",
   "driver": "layout/ltcg/resource_chunks_context.cpp",
   "headers": [
     "include/th10/platform/memory_file.hpp",

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "sound_stream_recreate_buffers_0044cf20",
-  "source": "src/platform/sound_stream_recreate_buffers_0044cf20.cpp",
+  "source": "src/core/zwave/sound_stream_recreate_buffers_0044cf20.cpp",
   "driver": "layout/ltcg/sound_stream_recreate_buffers_0044cf20/context.cpp",
   "headers": [
     "include/th10/game/sound_stream_fill_model.hpp"

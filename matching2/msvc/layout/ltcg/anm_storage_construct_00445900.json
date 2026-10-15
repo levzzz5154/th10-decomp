@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "anm_storage_construct_00445900",
-  "source": "src/app/anm_storage_construct_00445900.cpp",
+  "source": "src/core/sprtlib/anm_storage_construct_00445900.cpp",
   "driver": "layout/ltcg/anm_storage_construct_00445900_context.cpp",
   "included_sources": [
     "layout/ltcg/anm_storage_construct_entity.cpp",

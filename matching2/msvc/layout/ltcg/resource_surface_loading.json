@@ -3,7 +3,7 @@
   "name": "resource_surface_loading",
   "source": "src/unreferenced/FUN_00447ec0_00447ec0.cpp",
   "additional_sources": [
-    "src/render/animation_load_surface_00447c80.cpp"
+    "src/core/sprtlib/animation_load_surface_00447c80.cpp"
   ],
   "included_sources": [
     "layout/ltcg/resource_surface_loading_clear.cpp",
@@ -34,7 +34,7 @@
       "section": ".text$02surface",
       "address": "0x00447C80",
       "size": 576,
-      "source": "src/render/animation_load_surface_00447c80.cpp",
+      "source": "src/core/sprtlib/animation_load_surface_00447c80.cpp",
       "actual_abi": "manager in ECX; name in EDX; index on the stack; RET 4"
     }
   ],

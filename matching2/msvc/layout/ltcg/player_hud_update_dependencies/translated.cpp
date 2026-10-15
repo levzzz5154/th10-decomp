@@ -3,4 +3,4 @@
 // into a section that sorts at its retail address here. Never selected from
 // this cluster.
 #define code_seg(name) code_seg(".text$a04translated")
-#include "../../../src/render/animation_manager_set_translated_position_00449350.cpp"
+#include "../../../src/core/sprtlib/animation_manager_set_translated_position_00449350.cpp"

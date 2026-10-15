@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "d3d_resource_list_clear_pending_00449a90",
-  "source": "src/render/d3d_resource_manager.cpp",
+  "source": "src/core/zunlib/d3d_resource_manager.cpp",
   "driver": "layout/ltcg/d3d_resource_list_clear_pending_00449a90_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

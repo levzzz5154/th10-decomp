@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "anm_texture_upload_00446c70",
-  "source": "src/render/anm_texture_upload_00446c70.cpp",
+  "source": "src/core/sprtlib/anm_texture_upload_00446c70.cpp",
   "driver": "layout/ltcg/anm_texture_upload_00446c70_context.cpp",
   "headers": [
     "include/th10/render/anm_texture_00446c70.hpp",
@@ -19,7 +19,7 @@
   "functions": [
     {
       "name": "AnmTexture_LoadFile_00446b70",
-      "source": "src/render/anm_texture_load_file_00446b70.cpp",
+      "source": "src/core/sprtlib/anm_texture_load_file_00446b70.cpp",
       "symbol": "?LoadFile@AnmTexture_00446c70@@QAEHHPAXPBDI@Z",
       "section": ".text$01loadfile",
       "address": "0x00446B70",
@@ -33,11 +33,11 @@
       "address": "0x00446C70",
       "size": 243,
       "actual_abi": "texture EDI; format EAX; data ESI; size EBX; two stack arguments; RET 8",
-      "source": "src/render/anm_texture_upload_00446c70.cpp"
+      "source": "src/core/sprtlib/anm_texture_upload_00446c70.cpp"
     },
     {
       "name": "AnmTexture_UploadAt_00446d70",
-      "source": "src/render/anm_texture_upload_at_00446d70.cpp",
+      "source": "src/core/sprtlib/anm_texture_upload_at_00446d70.cpp",
       "symbol": "?AnmTexture_UploadAt_00446d70@@YGHUAnmUploadTag_00446c70@@PAUAnmTexture_00446c70@@HPBXHHH@Z",
       "section": ".text$03uploadat",
       "address": "0x00446D70",
@@ -46,7 +46,7 @@
     },
     {
       "name": "AnmTexture_CreateFromMemory_00446eb0",
-      "source": "src/render/anm_texture_create_from_memory_00446eb0.cpp",
+      "source": "src/core/sprtlib/anm_texture_create_from_memory_00446eb0.cpp",
       "symbol": "?AnmTexture_CreateFromMemory_00446eb0@@YGHUAnmUploadTag_00446c70@@PAUAnmTexture_00446c70@@HIHH@Z",
       "section": ".text$04create",
       "address": "0x00446EB0",
@@ -55,7 +55,7 @@
     },
     {
       "name": "AnmTexture_CreateAndUpload_00446f40",
-      "source": "src/render/anm_texture_create_and_upload_00446f40.cpp",
+      "source": "src/core/sprtlib/anm_texture_create_and_upload_00446f40.cpp",
       "symbol": "?AnmTexture_CreateAndUpload_00446f40@@YGHPAUAnmTexture_00446c70@@PBUAnmThtxHeader_00446c70@@HHH@Z",
       "section": ".text$04upload",
       "address": "0x00446F40",
@@ -64,7 +64,7 @@
     },
     {
       "name": "AnmFile_PreloadEntryImage_004472e0",
-      "source": "src/render/anm_file_preload_entry_image_004472e0.cpp",
+      "source": "src/core/sprtlib/anm_file_preload_entry_image_004472e0.cpp",
       "symbol": "?AnmFile_PreloadEntryImage_004472e0@@YGHPAUAnmFile_004470c0@@PBUAnmEntryHeader_00446c70@@H@Z",
       "section": ".text$05preload",
       "address": "0x004472E0",
@@ -73,7 +73,7 @@
     },
     {
       "name": "AnmManager_LoadFile_004470c0",
-      "source": "src/render/anm_manager_load_file_004470c0.cpp",
+      "source": "src/core/sprtlib/anm_manager_load_file_004470c0.cpp",
       "symbol": "?AnmManager_LoadFile_004470c0@@YGPAUAnmFile_004470c0@@PAUAnmManager_004470c0@@HPBD@Z",
       "section": ".text$04zaload",
       "address": "0x004470C0",
@@ -82,7 +82,7 @@
     },
     {
       "name": "AnmFile_LoadEntry_00447470",
-      "source": "src/render/anm_file_load_entry_00447470.cpp",
+      "source": "src/core/sprtlib/anm_file_load_entry_00447470.cpp",
       "symbol": "?AnmFile_LoadEntry_00447470@@YGHUAnmUploadTag_00446c70@@PAUAnmFile_004470c0@@HHPBUAnmEntryHeader_00446c70@@H@Z",
       "section": ".text$05r3entry",
       "address": "0x00447470",
@@ -91,7 +91,7 @@
     },
     {
       "name": "AnmManager_LoadNextEntry_004473c0",
-      "source": "src/render/anm_manager_load_next_entry_004473c0.cpp",
+      "source": "src/core/sprtlib/anm_manager_load_next_entry_004473c0.cpp",
       "symbol": "?AnmManager_LoadNextEntry_004473c0@@YGPAUAnmFile_004470c0@@UAnmUploadTag_00446c70@@PAU1@@Z",
       "section": ".text$05r1next",
       "address": "0x004473C0",
@@ -100,7 +100,7 @@
     },
     {
       "name": "AnmManager_LoadFileNow_00447080",
-      "source": "src/render/anm_manager_load_file_now_00447080.cpp",
+      "source": "src/core/sprtlib/anm_manager_load_file_now_00447080.cpp",
       "symbol": "?AnmManager_LoadFileNow_00447080@@YGPAUAnmFile_004470c0@@PAUAnmManager_004470c0@@HPBD@Z",
       "section": ".text$04xnow",
       "address": "0x00447080",
@@ -595,15 +595,15 @@
   ],
   "roots": [],
   "additional_sources": [
-    "src/render/anm_texture_load_file_00446b70.cpp",
-    "src/render/anm_texture_upload_at_00446d70.cpp",
-    "src/render/anm_texture_create_from_memory_00446eb0.cpp",
-    "src/render/anm_texture_create_and_upload_00446f40.cpp",
-    "src/render/anm_file_preload_entry_image_004472e0.cpp",
-    "src/render/anm_manager_load_file_004470c0.cpp",
-    "src/render/anm_file_load_entry_00447470.cpp",
-    "src/render/anm_manager_load_next_entry_004473c0.cpp",
-    "src/render/anm_manager_load_file_now_00447080.cpp"
+    "src/core/sprtlib/anm_texture_load_file_00446b70.cpp",
+    "src/core/sprtlib/anm_texture_upload_at_00446d70.cpp",
+    "src/core/sprtlib/anm_texture_create_from_memory_00446eb0.cpp",
+    "src/core/sprtlib/anm_texture_create_and_upload_00446f40.cpp",
+    "src/core/sprtlib/anm_file_preload_entry_image_004472e0.cpp",
+    "src/core/sprtlib/anm_manager_load_file_004470c0.cpp",
+    "src/core/sprtlib/anm_file_load_entry_00447470.cpp",
+    "src/core/sprtlib/anm_manager_load_next_entry_004473c0.cpp",
+    "src/core/sprtlib/anm_manager_load_file_now_00447080.cpp"
   ],
   "included_sources": [
     "layout/ltcg/native_archive_read/read.cpp",
@@ -611,8 +611,8 @@
     "layout/ltcg/native_archive_read/decrypt.cpp",
     "layout/ltcg/native_archive_read/load.cpp",
     "layout/ltcg/resource_surface_loading_log.cpp",
-    "src/render/animation_texture_create_00447050.cpp",
-    "src/render/animation_manager_copy_position_record_00447940.cpp"
+    "src/core/sprtlib/animation_texture_create_00447050.cpp",
+    "src/core/sprtlib/animation_manager_copy_position_record_00447940.cpp"
   ],
   "constant_aliases": [
     {

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "sound_wave_load",
-  "source": "src/platform/sound_wave_load_0043d390.cpp",
+  "source": "src/core/sound/sound_wave_load_0043d390.cpp",
   "driver": "layout/ltcg/sound_wave_load/context.cpp",
   "included_sources": [
     "layout/ltcg/sound_wave_load/chunks.cpp",

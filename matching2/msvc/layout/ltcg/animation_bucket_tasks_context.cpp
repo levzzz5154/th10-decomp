@@ -1,6 +1,6 @@
 // Compiler context only; its bytes are not recovered game code.
-#include "../../src/render/animation_bucket_tasks.cpp"
-#include "../../src/render/animation_manager_render_bucket_00448980.cpp"
+#include "../../src/core/sprtlib/animation_bucket_tasks.cpp"
+#include "../../src/core/sprtlib/animation_manager_render_bucket_00448980.cpp"
 
 #pragma code_seg(".text$05context")
 int __stdcall AnimationBucketTasksContext(AnimationManager_00442F50** managers, int count) {

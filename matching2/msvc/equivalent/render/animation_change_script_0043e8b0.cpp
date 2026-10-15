@@ -1,4 +1,4 @@
-#include "../../src/render/animation_handle_change_script_004496d0.cpp"
+#include "../../src/core/sprtlib/animation_handle_change_script_004496d0.cpp"
 // Selected equivalent C++ body; see the script-change equivalence note.
 #include "th10/render/animation_script_change.hpp"
 #pragma code_seg(".text$01change")

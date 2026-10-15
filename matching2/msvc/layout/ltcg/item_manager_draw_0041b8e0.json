@@ -139,7 +139,7 @@
     }
   ],
   "included_sources": [
-    "src/game/animation_object_configure_from_resource_0043e5a0.cpp"
+    "src/core/sprtanim/animation_object_configure_from_resource_0043e5a0.cpp"
   ],
   "roots": [
     "?ItemManager_OnDraw_0041ba30@@YIHPAUItemManager_0041b8e0@@@Z"

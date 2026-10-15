@@ -5,7 +5,7 @@
 #include "../../src/game/hint/resource_manager_cleanup_00418ee0.cpp"
 #define TH10_SCHEDULER_REMOVE_ONLY
 #define TH10_SCHEDULER_REMOVE_CODE_SEG ".text$05remove"
-#include "../../src/game/scheduler_tasks.cpp"
+#include "../../src/core/zunlib/scheduler_tasks.cpp"
 #undef TH10_SCHEDULER_REMOVE_CODE_SEG
 #undef TH10_SCHEDULER_REMOVE_ONLY
 

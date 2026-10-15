@@ -1,6 +1,6 @@
 // Compiler context only; never selected as recovered game code.
 #include <math.h>
-#include "../../src/render/effect_ring.cpp"
+#include "../../src/core/sprtfunc/effect_ring.cpp"
 
 // 0x004458B0 is maintained in src/math/x87_polar_setters.cpp.  This body only
 // tells the optimizer what the callee leaves alone.
@@ -13,7 +13,7 @@ __declspec(noinline) Vector2_004458b0* Vector2_004458b0::SetPolar(float angle, f
     return destination;
 }
 
-// 0x0044B9E0 / 0x0044BB90 are maintained in src/math/rng.cpp.
+// 0x0044B9E0 / 0x0044BB90 are maintained in src/core/zunlib/rng.cpp.
 #pragma code_seg(".text$07rng")
 unsigned int __fastcall Rng_NextU32(RngState* state) {
     unsigned short first = state->NextWord();

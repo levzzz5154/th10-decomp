@@ -156,7 +156,7 @@
     }
   ],
   "included_sources": [
-    "src/render/anm_batch_flush.cpp"
+    "src/core/sprtfunc/anm_batch_flush.cpp"
   ],
   "data_aliases": [
     {

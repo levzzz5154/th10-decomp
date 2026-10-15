@@ -1337,6 +1337,6 @@
   "context_sources": [
     "src/game/title/stage_text_extract_line_00434a20.cpp",
     "src/game/title/stage_text_skip_line_004349e0.cpp",
-    "src/render/animation_manager_register_resource_0043e460.cpp"
+    "src/core/sprtanim/animation_manager_register_resource_0043e460.cpp"
   ]
 }

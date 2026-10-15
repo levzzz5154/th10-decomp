@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "d3d_resource_manager_release_00449eb0",
-  "source": "src/render/d3_d_resource_manager_release_00449eb0.cpp",
+  "source": "src/core/zunlib/d3_d_resource_manager_release_00449eb0.cpp",
   "driver": "layout/ltcg/d3d_resource_manager_release_00449eb0_context.cpp",
   "headers": [
     "include/th10/game/scheduler.hpp",
@@ -111,6 +111,6 @@
     }
   ],
   "included_sources": [
-    "src/platform/platform_stop_worker_0044c150.cpp"
+    "src/core/zunlib/platform_stop_worker_0044c150.cpp"
   ]
 }

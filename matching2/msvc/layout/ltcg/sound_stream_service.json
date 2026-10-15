@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "sound_stream_service",
-  "source": "src/platform/sound_stream_service.cpp",
+  "source": "src/core/zwave/sound_stream_service.cpp",
   "driver": "layout/ltcg/sound_stream_service/context.cpp",
   "headers": [
     "include/th10/game/sound_stream_service.hpp"

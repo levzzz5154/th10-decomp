@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "anm_storage_destructor_00446220",
-  "source": "src/render/anm_storage_destructor_00446220.cpp",
+  "source": "src/core/sprtlib/anm_storage_destructor_00446220.cpp",
   "driver": "layout/ltcg/anm_storage_destructor_00446220_context.cpp",
   "included_sources": [
     "layout/ltcg/title_teardown_0041fb50/manager_remove.cpp",

@@ -1,4 +1,4 @@
-#include "../../src/render/animation_texture_create_00447050.cpp"
+#include "../../src/core/sprtlib/animation_texture_create_00447050.cpp"
 
 #pragma code_seg(".text$03context")
 extern "C" int __stdcall D3703AnimationContext_00447050(

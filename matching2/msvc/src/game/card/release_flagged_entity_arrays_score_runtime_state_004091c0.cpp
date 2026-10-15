@@ -15,7 +15,7 @@
 //
 // Every call uses 0x004451C0's private (manager in ECX, VM in EAX) entry, which
 // is reproducible only because the dispatcher is a definition in this same link
-// (the recovered AnmVmDrawDispatch of src/render/anm_vm_draw_dispatch.cpp).  The
+// (the recovered AnmVmDrawDispatch of src/core/sprtfunc/anm_vm_draw_dispatch.cpp).  The
 // manager is reloaded from ds:0x00491C10 inside each loop body and the loop
 // pointer walks the array with `add esi,0x3AC`, so the two loops compile to
 // retail's rotated form; the first one is 16-byte aligned, which is the `jmp`
@@ -23,7 +23,7 @@
 #include "th10/render/quad_batch.hpp"
 
 // 0x004451C0: dispatch one animation entity's quad.  Defined in
-// src/render/anm_vm_draw_dispatch.cpp and co-compiled by this cluster.
+// src/core/sprtfunc/anm_vm_draw_dispatch.cpp and co-compiled by this cluster.
 extern "C" __declspec(noinline) int __cdecl asm_FUN_004451c0_004451c0(
         AnimationManager_00442F50* manager, RenderEntity* entity);
 

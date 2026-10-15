@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "effect_ring_update_00445620",
-  "source": "src/render/effect_ring_update.cpp",
+  "source": "src/core/sprtfunc/effect_ring_update.cpp",
   "driver": "layout/ltcg/effect_ring_update_00445620_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

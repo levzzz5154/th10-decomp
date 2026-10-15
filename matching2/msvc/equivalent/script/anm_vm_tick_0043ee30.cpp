@@ -2,7 +2,7 @@
 // compiles this into the executable once tools/matching/equivalence.py has
 // checked that it differs from the exact bytes only as recorded in
 // layout/equivalent/anm_vm_tick_0043ee30.json. The inline assembly in
-// src/script/anm_vm_tick.cpp supplies those exact bytes and `make EXACT=1`.
+// src/core/sprtanim/anm_vm_tick.cpp supplies those exact bytes and `make EXACT=1`.
 #include "anm_vm_tick_0043ee30.hpp"
 #pragma intrinsic(sin, cos, tan, acos, atan, fmod, memcpy)
 

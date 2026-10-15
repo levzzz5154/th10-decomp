@@ -1,5 +1,5 @@
 // Compiler context only; never selected as recovered game code.
-#include "../../src/render/animation_object_load_script_0043e710.cpp"
+#include "../../src/core/sprtanim/animation_object_load_script_0043e710.cpp"
 #pragma code_seg(".text$03context")
 int __stdcall LoadScriptCompilerContext(AnimationObject_0043e710** objects,
                                         int count,

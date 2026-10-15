@@ -73,6 +73,6 @@ int __fastcall PlayerDrawCallback(PlayerRenderState* player) {
 
 // Unselected complete retail helper models. The dispatcher uses its maintained
 // body unchanged; this link derives its manager-ECX/entity-EAX entry convention.
-#include "../../render/special_quad.cpp"
-#include "../../render/anm_batch_flush.cpp"
-#include "../../render/anm_vm_draw_dispatch.cpp"
+#include "../../core/screen/special_quad.cpp"
+#include "../../core/sprtfunc/anm_batch_flush.cpp"
+#include "../../core/sprtfunc/anm_vm_draw_dispatch.cpp"

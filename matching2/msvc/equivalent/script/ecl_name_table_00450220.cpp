@@ -2,7 +2,7 @@
 // default build compiles this into the executable once
 // tools/matching/equivalence.py has checked that it differs from the exact
 // bytes only as recorded in layout/equivalent/ecl_name_table_00450220.json.
-// The inline assembly in src/script/ecl_name_table.cpp supplies those exact
+// The inline assembly in src/script/sptlib/ecl_name_table.cpp supplies those exact
 // bytes and `make EXACT=1`.
 //
 // Registers one script file: checks its header, grows the table of named

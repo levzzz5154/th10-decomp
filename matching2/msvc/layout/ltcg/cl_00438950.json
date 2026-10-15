@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "cl_00438950",
-  "source": "src/platform/text_log_write_to_file_00438950.cpp",
+  "source": "src/core/main/text_log_write_to_file_00438950.cpp",
   "driver": "layout/ltcg/cl_00438950_context.cpp",
   "headers": [
     "include/th10/platform/text_log.hpp",
@@ -17,7 +17,7 @@
       "address": "0x00438950",
       "size": 79,
       "actual_abi": "log in ESI; plain RET",
-      "source": "src/platform/text_log_write_to_file_00438950.cpp"
+      "source": "src/core/main/text_log_write_to_file_00438950.cpp"
     }
   ],
   "anchors": [
@@ -160,8 +160,8 @@
     }
   ],
   "included_sources": [
-    "src/platform/file_write_whole_file_0044b540.cpp",
-    "src/platform/text_log.cpp"
+    "src/core/zunlib/file_write_whole_file_0044b540.cpp",
+    "src/core/zunlib/text_log.cpp"
   ],
   "roots": [],
   "data_aliases": [

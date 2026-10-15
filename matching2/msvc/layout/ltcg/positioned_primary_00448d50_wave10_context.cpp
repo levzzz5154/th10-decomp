@@ -1,5 +1,5 @@
 // Compiler context and ABI anchors only; none of these bytes enter the image.
-#include "../../src/render/animation_manager_create_positioned_primary_00448d50.cpp"
+#include "../../src/core/sprtlib/animation_manager_create_positioned_primary_00448d50.cpp"
 
 extern "C" void* __cdecl operator_new_00452493(unsigned int size);
 extern "C" void* __cdecl Entity_Constructor_00402050(void* entity);

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "cl_0043d080",
-  "source": "src/platform/sound_preload_worker_0043d080.cpp",
+  "source": "src/core/sound/sound_preload_worker_0043d080.cpp",
   "driver": "layout/ltcg/cl_0043d080_context.cpp",
   "headers": [
     "include/th10/platform/archive_file.hpp",
@@ -22,7 +22,7 @@
       "address": "0x0043D080",
       "size": 107,
       "actual_abi": "no arguments; plain RET",
-      "source": "src/platform/sound_preload_worker_0043d080.cpp"
+      "source": "src/core/sound/sound_preload_worker_0043d080.cpp"
     }
   ],
   "anchors": [
@@ -366,7 +366,7 @@
     }
   ],
   "included_sources": [
-    "src/platform/text_log.cpp",
+    "src/core/zunlib/text_log.cpp",
     "layout/ltcg/native_archive_read/read.cpp",
     "layout/ltcg/native_archive_read/find.cpp",
     "layout/ltcg/native_archive_read/decrypt.cpp",

@@ -1,5 +1,5 @@
 // Compiler context only; never selected as recovered game code.
-#include "../../src/platform/sound_music_commands.cpp"
+#include "../../src/core/sound/sound_music_commands.cpp"
 
 // The frame loop and the shutdown path each run the queue on the one manager.
 #pragma code_seg(".text$a95context")

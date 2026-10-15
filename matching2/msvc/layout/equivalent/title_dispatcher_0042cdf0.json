@@ -1053,6 +1053,6 @@
     "src/game/title/menu_flow_updates.cpp",
     "src/game/title/key_config.cpp",
     "src/game/title/fun_0042f8b0_0042f8b0.cpp",
-    "src/game/input_poll_joystick_buttons_0044a4e0.cpp"
+    "src/core/zunlib/input_poll_joystick_buttons_0044a4e0.cpp"
   ]
 }

@@ -2,7 +2,7 @@
   "regions": [
     {
       "name": "semantic_Platform_FindAvailable_0044d370",
-      "source": "src/game/platform_find_available_0044d370.cpp",
+      "source": "src/core/zwave/platform_find_available_0044d370.cpp",
       "symbol": "?FindAvailable@PlatformInterfaceState_0044D370@@QAEPAUPlatformD370Entry@@XZ",
       "address": "0x0044D370",
       "size": 103,

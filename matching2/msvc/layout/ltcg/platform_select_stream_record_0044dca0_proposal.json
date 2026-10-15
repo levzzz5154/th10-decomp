@@ -2,7 +2,7 @@
   "regions": [
     {
       "name": "semantic_Platform_SelectStreamRecord_0044dca0",
-      "source": "src/game/platform_select_stream_record_0044dca0.cpp",
+      "source": "src/core/zwave/platform_select_stream_record_0044dca0.cpp",
       "symbol": "?Select@PlatformStreamState_0044DCA0@@QAEHPAUPlatformStreamRecord_0044DCA0@@@Z",
       "address": "0x0044DCA0",
       "size": 78,

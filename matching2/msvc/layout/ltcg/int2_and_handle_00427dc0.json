@@ -8,7 +8,7 @@
     "layout/ltcg/int2_handle_find_anchor.cpp"
   ],
   "included_sources": [
-    "src/render/animation_manager_find_004491c0.cpp"
+    "src/core/sprtlib/animation_manager_find_004491c0.cpp"
   ],
   "headers": [
     "include/th10/math/int2.hpp",

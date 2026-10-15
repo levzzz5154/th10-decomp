@@ -3,7 +3,7 @@
 // Records the file name, stops the previous stream and its worker, creates the
 // notification event and the worker thread, then opens the track as a stream
 // of sixteen quarter-second segments. The manager arrives in EAX.
-#include "../../layout/ltcg/sound_interfaces_dependencies/sound_wave_types.hpp"
+#include "../../../layout/ltcg/sound_interfaces_dependencies/sound_wave_types.hpp"
 #include "th10/app/supervisor.hpp"
 #include <string.h>
 #pragma intrinsic(strcpy)

@@ -19,7 +19,7 @@
     },
     {
       "name": "PolarMotion_Advance",
-      "source": "src/game/polar_motion_advance.cpp",
+      "source": "src/core/zunlib/polar_motion_advance.cpp",
       "symbol": "?Advance@PolarMotion@@QAEXXZ",
       "section": ".text$0044c2a0_fn",
       "address": "0x0044C2A0",
@@ -77,7 +77,7 @@
   ],
   "roots": [],
   "additional_sources": [
-    "src/game/polar_motion_advance.cpp"
+    "src/core/zunlib/polar_motion_advance.cpp"
   ],
   "constant_aliases": [
     {

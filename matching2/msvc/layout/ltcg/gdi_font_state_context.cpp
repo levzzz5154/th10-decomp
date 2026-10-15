@@ -1,6 +1,6 @@
 // Compiler context only. Its caller and loader metadata are not game code.
 #pragma code_seg(".text$09tidy")
-#include "../../src/render/gdi_font_state.cpp"
+#include "../../src/core/main/gdi_font_state.cpp"
 #include "th10/render/gdi_surface.hpp"
 
 #pragma code_seg(".text$03context")

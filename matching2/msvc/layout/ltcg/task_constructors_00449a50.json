@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "task_constructors_00449a50",
-  "source": "src/game/task_constructors_00449a50.cpp",
+  "source": "src/core/zunlib/task_constructors_00449a50.cpp",
   "driver": "layout/ltcg/task_constructors_00449a50_context.cpp",
   "headers": [
     "include/th10/game/scheduler.hpp"

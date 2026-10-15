@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "gdi_font_state",
-  "source": "src/render/gdi_font_state.cpp",
+  "source": "src/core/main/gdi_font_state.cpp",
   "driver": "layout/ltcg/gdi_font_state_context.cpp",
   "headers": [
     "include/th10/render/gdi_font_state.hpp",
@@ -47,7 +47,7 @@
       "address": "0x004372A0",
       "size": 222,
       "actual_abi": "text in ECX; surface in ESI; x, y, size, color and shadow on the stack; result in AL; RET 20",
-      "source": "src/render/gdi_surface_text.cpp"
+      "source": "src/core/main/gdi_surface_text.cpp"
     },
     {
       "name": "GdiSurface_DrawText",
@@ -56,7 +56,7 @@
       "address": "0x00437380",
       "size": 525,
       "actual_abi": "surface in EAX; text in EDI; x, y, font, color and shadow on the stack; result in AL; RET 20",
-      "source": "src/render/gdi_surface_text.cpp"
+      "source": "src/core/main/gdi_surface_text.cpp"
     },
     {
       "name": "GdiFontFaceName_Destroy",
@@ -194,7 +194,7 @@
     }
   ],
   "additional_sources": [
-    "src/render/gdi_surface_text.cpp"
+    "src/core/main/gdi_surface_text.cpp"
   ],
   "roots": [
     "??1GdiFontFaceName@@QAE@XZ"

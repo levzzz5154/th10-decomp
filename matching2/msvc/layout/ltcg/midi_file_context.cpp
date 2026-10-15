@@ -1,5 +1,5 @@
 // Compiler context only; this caller is not a recovered application function.
-#include "../../src/platform/midi_file.cpp"
+#include "../../src/core/midilib/midi_file.cpp"
 
 #pragma code_seg(".text$50context")
 int __stdcall MidiFileCompilerContext(MidiSequencer* sequence, int slot, int count) {

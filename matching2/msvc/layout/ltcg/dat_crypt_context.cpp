@@ -1,7 +1,7 @@
 // Compiler context only; never selected as recovered game code. Retail's
 // callers pass both constant and per-file keys; calls of both kinds make the
 // link-time compiler choose the same private convention (key in AL).
-#include "../../src/archive/crypt.cpp"
+#include "../../src/core/zunlib/crypt.cpp"
 
 struct DatCryptContextKey {
     unsigned char key;

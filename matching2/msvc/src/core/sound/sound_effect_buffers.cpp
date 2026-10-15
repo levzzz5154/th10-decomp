@@ -6,8 +6,8 @@
 // Retail receives the manager in EBX with a plain RET; the title worker at
 // 0x0041F990 is its only caller.
 #include "th10/app/supervisor.hpp"
-#include "../../layout/ltcg/sound_interfaces_dependencies/sound_wave_types.hpp"
-#include "../../layout/ltcg/title_assets_dependencies/workers.hpp"
+#include "../../../layout/ltcg/sound_interfaces_dependencies/sound_wave_types.hpp"
+#include "../../../layout/ltcg/title_assets_dependencies/workers.hpp"
 
 struct SoundEffectSetting {
     int source;          // index of the wave the effect is duplicated from

@@ -1,5 +1,5 @@
 // Compiler context and ABI anchor only; none of these bytes enter the image.
-#include "../../src/render/anm_texture_upload_00446c70.cpp"
+#include "../../src/core/sprtlib/anm_texture_upload_00446c70.cpp"
 #include "th10/platform/archive_file.hpp"
 #include "th10/render/anm_file_004470c0.hpp"
 
@@ -42,8 +42,8 @@ extern "C" int __stdcall AnmTextureUploadContext_00446c70(
 // The two already recovered callees of the entry loader, at their addresses.
 #define ANIMATION_TEXTURE_CREATE_SECTION ".text$04wanim"
 #define COPY_POSITION_RECORD_SECTION ".text$05r5copy"
-#include "../../src/render/animation_texture_create_00447050.cpp"
-#include "../../src/render/animation_manager_copy_position_record_00447940.cpp"
+#include "../../src/core/sprtlib/animation_texture_create_00447050.cpp"
+#include "../../src/core/sprtlib/animation_manager_copy_position_record_00447940.cpp"
 
 // Complete real archive closure, supplying the actual internal reader contract.
 #define ARCHIVE_READ_SECTION ".text$00bread"

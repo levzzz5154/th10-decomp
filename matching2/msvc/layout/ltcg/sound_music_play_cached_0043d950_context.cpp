@@ -1,5 +1,5 @@
 // Compiler context only; never selected as recovered game code.
-#include "../../src/platform/sound_music_play_cached.cpp"
+#include "../../src/core/sound/sound_music_play_cached.cpp"
 
 // The music command handler (0x0043DDF0) is the only caller.
 #pragma code_seg(".text$95context")

@@ -1,15 +1,15 @@
 {
   "schema_version": 1,
   "name": "midi_event_parser_0043b110",
-  "source": "src/platform/midi_event_parser.cpp",
+  "source": "src/core/midilib/midi_event_parser.cpp",
   "driver": "layout/ltcg/midi_event_parser/driver.cpp",
   "additional_sources": [
     "layout/ltcg/midi_event_parser/tracks.cpp",
     "layout/ltcg/midi_event_parser/complete_header.cpp"
   ],
   "included_sources": [
-    "src/platform/midi_tracks.cpp",
-    "src/platform/fun_0043aeb0_0043aeb0.cpp"
+    "src/core/midilib/midi_tracks.cpp",
+    "src/core/midilib/fun_0043aeb0_0043aeb0.cpp"
   ],
   "headers": [
     "include/th10/platform/midi_sequencer.hpp",

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "scheduler_tasks",
-  "source": "src/game/scheduler_tasks.cpp",
+  "source": "src/core/zunlib/scheduler_tasks.cpp",
   "driver": "layout/ltcg/scheduler_tasks_context.cpp",
   "headers": [
     "include/th10/game/scheduler.hpp",

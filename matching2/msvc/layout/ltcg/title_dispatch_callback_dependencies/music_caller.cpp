@@ -2,8 +2,8 @@
 // Lookup and timer bodies copied from the maintained executor contexts.
 #include "title_dispatcher.cpp"
 #include "../../../src/game/title/recovery_animation_slot_frames_0042c6d0.cpp"
-#include "../../../src/render/animation_manager_queue_resource_0043dc90.cpp"
-#include "../../../src/render/animation_manager_mark_resource_for_removal_004493e0.cpp"
+#include "../../../src/core/sound/animation_manager_queue_resource_0043dc90.cpp"
+#include "../../../src/core/sprtlib/animation_manager_mark_resource_for_removal_004493e0.cpp"
 extern "C" float data_00476f78;
 #pragma code_seg(".text$004491c0_fn")
 void* __fastcall RecoveryLookup_0040bd80::Find(RecoveryLookupContext_0040bd80* context, RecoveryScriptId_0040bd80 id) {

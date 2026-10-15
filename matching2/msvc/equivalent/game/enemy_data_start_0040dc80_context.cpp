@@ -30,7 +30,7 @@ extern "C" int __stdcall ext_run(EclChildState* state, float delta);
 template struct Interpolator<Vec3>;
 template struct Interpolator<TrajectoryVec2>;
 
-// src/game/polar_motion_advance.cpp
+// src/core/zunlib/polar_motion_advance.cpp
 void PolarMotion::Advance() {
     PolarVec3 offset;
     if ((flags & 1) == 0) {
@@ -55,7 +55,7 @@ void FrameTimer::Advance(float delta) {
     current = int(elapsed);
 }
 
-// src/render/animation_manager_find_004491c0.cpp
+// src/core/sprtlib/animation_manager_find_004491c0.cpp
 struct AnimationNode_0040dc80 {
     AnimationNode_0040dc80* object;
     AnimationNode_0040dc80* next;
@@ -84,7 +84,7 @@ Animation_0040dc80* __fastcall AnimationFinder_0040dc80::Find(
     return 0;
 }
 
-// src/render/animation_manager_set_translated_position_00449350.cpp
+// src/core/sprtlib/animation_manager_set_translated_position_00449350.cpp
 void __fastcall SetAnimationTranslatedPosition_00449350(
         AnimationManager_0040dc80* manager, const PolarVec3* position, ScriptChangeHandle id) {
     AnimationNode_0040dc80* entry = (AnimationNode_0040dc80*)AnimationManager_Find_004491c0(manager, id);
@@ -115,13 +115,13 @@ void __fastcall Animation_SetPosition(
     }
 }
 
-// src/render/animation_handle_change_script_004496d0.cpp
+// src/core/sprtlib/animation_handle_change_script_004496d0.cpp
 void ScriptChangeHandle::ChangeScript(int index) {
     Animation_0040dc80* object = AnimationManager_Find_004491c0(data_00491c10, *this);
     if (object) ext_call(object, index);
 }
 
-// src/script/ecl_vm_children.cpp
+// src/script/sptcmd/ecl_vm_children.cpp
 extern "C" __declspec(noinline) int __stdcall EclVm_TickChildren(EclChildOwner* owner, float delta) {
     EclChildNode* node = &owner->children;
     int first = 1;
@@ -172,7 +172,7 @@ void EnemyRecord_0040dc80::ResetScript() {
     *(void**)(self + 0x1038) = 0;
 }
 
-// src/script/final_script_runtime.cpp
+// src/script/sptlib/final_script_runtime.cpp
 int ScriptTable_00450470::Resolve(const char* name) {
     int low = 0;
     int high = this->count;
@@ -193,7 +193,7 @@ int ScriptTable_00450470::Resolve(const char* name) {
     return 0;
 }
 
-// src/script/fun_00450700_00450700.cpp
+// src/script/sptlib/fun_00450700_00450700.cpp
 int __fastcall BindName_00450700(const char* name, EnemyRecord_0040dc80* record) {
     ScriptTable_00450470* script_table = record->table;
     record->table = script_table;
@@ -226,7 +226,7 @@ int __fastcall FieldContact_004266b0(
     return 1;
 }
 
-// src/platform/sound_queue_pan_0043dd10.cpp
+// src/core/sound/sound_queue_pan_0043dd10.cpp
 void SoundQueue::QueuePan(int sound_id, float pan) {
     int priority = data_004749ce[sound_id * 4];
     int request = int(pan * (1000.0f / 192.0f));

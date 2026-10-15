@@ -615,8 +615,8 @@
     "layout/ltcg/title_dispatch_callback_dependencies/title_dispatcher.cpp",
     "src/game/title/recovery_animation_slot_frames_0042c6d0.cpp",
     "src/game/title/recovery_install_animation_slot_0042c670.cpp",
-    "src/render/animation_manager_mark_resource_for_removal_004493e0.cpp",
-    "src/render/animation_manager_queue_resource_0043dc90.cpp"
+    "src/core/sprtlib/animation_manager_mark_resource_for_removal_004493e0.cpp",
+    "src/core/sound/animation_manager_queue_resource_0043dc90.cpp"
   ],
   "roots": [
     "?Update@TitleRuntime@@QAEHXZ"

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "animation_manager_copy_to_back_buffer_00447fd0",
-  "source": "src/render/animation_manager_copy_to_back_buffer_00447fd0.cpp",
+  "source": "src/core/sprtlib/animation_manager_copy_to_back_buffer_00447fd0.cpp",
   "driver": "layout/ltcg/animation_manager_copy_to_back_buffer_00447fd0_context.cpp",
   "headers": [
     "include/th10/render/resource_surface_loading.hpp"

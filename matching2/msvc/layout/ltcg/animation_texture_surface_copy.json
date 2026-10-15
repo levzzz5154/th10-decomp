@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "animation_texture_surface_copy",
-  "source": "src/render/animation_texture_surface_copy.cpp",
+  "source": "src/core/sprtlib/animation_texture_surface_copy.cpp",
   "driver": "layout/ltcg/animation_texture_surface_copy/context.cpp",
   "headers": [
     "include/th10/render/quad_batch.hpp",

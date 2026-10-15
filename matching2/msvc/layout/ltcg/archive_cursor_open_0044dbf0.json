@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "archive_cursor_open_0044dbf0",
-  "source": "src/game/archive_cursor_open.cpp",
+  "source": "src/core/zwave/archive_cursor_open.cpp",
   "driver": "layout/ltcg/archive_cursor_open_0044dbf0_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

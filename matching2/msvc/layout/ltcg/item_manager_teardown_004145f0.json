@@ -268,6 +268,6 @@
   "included_sources": [
     "layout/ltcg/animation_lookup_anchors.cpp",
     "layout/ltcg/manager_teardown_native_0041adf0/scheduler.cpp",
-    "src/render/animation_manager_mark_resource_for_removal_004493e0.cpp"
+    "src/core/sprtlib/animation_manager_mark_resource_for_removal_004493e0.cpp"
   ]
 }

@@ -73,6 +73,6 @@ unsigned int __fastcall UpdateBoundedCounter(
 // next_lever=co-compile the scheduler remove/free bindings and the owning
 // ScoreExtendedObject layout in a native-LTCG destructor cluster.
 
-// 0x0044B010: recovered in src/platform/keyboard_state.cpp.
+// 0x0044B010: recovered in src/core/zunlib/keyboard_state.cpp.
 
-// 0x0044B080: recovered in src/platform/keyboard_state.cpp.
+// 0x0044B080: recovered in src/core/zunlib/keyboard_state.cpp.

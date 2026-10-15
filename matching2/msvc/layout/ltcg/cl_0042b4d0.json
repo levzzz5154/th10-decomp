@@ -49,7 +49,7 @@
       "section": ".text$01configure",
       "address": "0x0043E5A0",
       "size": 356,
-      "source": "src/game/animation_object_configure_from_resource_0043e5a0.cpp",
+      "source": "src/core/sprtanim/animation_object_configure_from_resource_0043e5a0.cpp",
       "actual_abi": "resource in ECX (copied to ESI at entry), object in EAX, index in EDX; result in EAX; plain RET"
     }
   ],
@@ -213,6 +213,6 @@
   "additional_sources": [
     "src/game/smollscore/effect_manager_reset_and_publish_retail_0042b430.cpp",
     "src/game/smollscore/recovery_create_huge_resource_state_0042b660.cpp",
-    "src/game/animation_object_configure_from_resource_0043e5a0.cpp"
+    "src/core/sprtanim/animation_object_configure_from_resource_0043e5a0.cpp"
   ]
 }

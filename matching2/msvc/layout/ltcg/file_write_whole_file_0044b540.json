@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "file_write_whole_file_0044b540",
-  "source": "src/platform/file_write_whole_file_0044b540.cpp",
+  "source": "src/core/zunlib/file_write_whole_file_0044b540.cpp",
   "driver": "layout/ltcg/file_write_whole_file_0044b540_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

@@ -352,7 +352,7 @@
   "context_sources": [
     "equivalent/game/context/projectile_spawn_cell_start_script_00404f30.cpp",
     "equivalent/game/context/projectile_spawn_cell_scan_cells_004073e0.cpp",
-    "src/math/rng.cpp",
+    "src/core/zunlib/rng.cpp",
     "src/math/angle.cpp"
   ],
   "note": "reference/recovery_notes/projectile_spawn_cell_004067d0_accepted_2026_10_14.md",

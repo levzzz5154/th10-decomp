@@ -1,5 +1,5 @@
 // 0x00422C30: resume the pause-menu owner and restore the saved speed.
-#include "../../render/animation_manager_register_resource_0043e460.cpp"
+#include "../../core/sprtanim/animation_manager_register_resource_0043e460.cpp"
 struct AnimationLookupContext;
 struct AnimationScriptId { int value; };
 void* __fastcall AnimationManager_SetFlag_004492a0(AnimationLookupContext*, AnimationScriptId);

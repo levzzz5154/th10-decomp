@@ -9,7 +9,7 @@
     "layout/ltcg/result_open_00423370/dispatcher_animation_helpers.cpp",
     "layout/ltcg/trigger_activation_00426cf0/set_position.cpp",
     "layout/ltcg/result_open_00423370/animation_manager_queue_resource_0043dc90.cpp",
-    "src/render/animation_object_load_script_0043e710.cpp"
+    "src/core/sprtanim/animation_object_load_script_0043e710.cpp"
   ],
   "headers": [
     "include/th10/game/entity.hpp",

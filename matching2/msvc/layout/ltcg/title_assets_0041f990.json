@@ -22,7 +22,7 @@
     "layout/ltcg/title_assets_dependencies/music_stop.cpp",
     "layout/ltcg/title_assets_dependencies/workers.cpp",
     "layout/ltcg/native_archive_read/load.cpp",
-    "src/platform/text_log.cpp"
+    "src/core/zunlib/text_log.cpp"
   ],
   "image_base": "0x00400000",
   "description": "Title worker thread body, the sound effect buffer initialiser and the music launcher it calls, compiled with the real worker stop, archive loader, text log and cursor open, and a stand-in for the file stream factory, so the pass hands the sound manager over in EBX/EAX and orders the factory arguments by its parameter list. The supervisor block is one address-taken object, which keeps its stores ahead of pointer loads.",
@@ -37,7 +37,7 @@
     },
     {
       "name": "WaveSoundManager_InitializeEffects",
-      "source": "src/platform/sound_effect_buffers.cpp",
+      "source": "src/core/sound/sound_effect_buffers.cpp",
       "symbol": "?InitializeEffects@WaveSoundManager@@QAEHXZ",
       "section": ".text$06effects",
       "address": "0x0043DB60",
@@ -46,7 +46,7 @@
     },
     {
       "name": "WaveSoundManager_LaunchMusic",
-      "source": "src/platform/sound_music_launch.cpp",
+      "source": "src/core/sound/sound_music_launch.cpp",
       "symbol": "?LaunchMusic@WaveSoundManager@@QAEHPBD@Z",
       "section": ".text$02launch",
       "address": "0x0043D690",
@@ -497,9 +497,9 @@
     }
   ],
   "additional_sources": [
-    "src/platform/sound_effect_buffers.cpp",
+    "src/core/sound/sound_effect_buffers.cpp",
     "layout/ltcg/title_assets_dependencies/archive.cpp",
-    "src/platform/sound_music_launch.cpp",
+    "src/core/sound/sound_music_launch.cpp",
     "layout/ltcg/title_assets_dependencies/create_file.cpp"
   ],
   "data_aliases": [

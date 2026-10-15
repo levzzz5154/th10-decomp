@@ -8,7 +8,7 @@
   ],
   "included_sources": [
     "layout/ltcg/ending_text_entity_init.cpp",
-    "src/platform/platform_stop_worker_0044c150.cpp"
+    "src/core/zunlib/platform_stop_worker_0044c150.cpp"
   ],
   "headers": [
     "include/th10/render/animation_public_callers.hpp",

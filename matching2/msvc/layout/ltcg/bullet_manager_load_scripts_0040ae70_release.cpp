@@ -1,4 +1,4 @@
-// Unselected native ABI anchor from src/render/fun_00447810_00447810.cpp.
+// Unselected native ABI anchor from src/core/sprtlib/fun_00447810_00447810.cpp.
 // Only the placement section differs.
 class AnimationManager {
 public:

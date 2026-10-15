@@ -1,5 +1,5 @@
 // Compiler context only; never selected as recovered game code.
-#include "../../src/game/platform_aggregate_interfaces_0044d550.cpp"
+#include "../../src/core/zwave/platform_aggregate_interfaces_0044d550.cpp"
 
 #pragma code_seg(".text$03context")
 int __stdcall PlatformAggregateInterfaces0044D550CompilerContext(

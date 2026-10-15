@@ -1,4 +1,4 @@
-// Unselected native ABI anchor from src/game/platform_run_interface_0044d300.cpp.
+// Unselected native ABI anchor from src/core/zwave/platform_run_interface_0044d300.cpp.
 // Only the shared type view and placement section differ.
 #pragma code_seg(".text$03run")
 __declspec(noinline) int PlatformD300Entry::Run(unsigned int* completed) {

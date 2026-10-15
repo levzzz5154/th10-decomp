@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "native_ascii_factory_0043c8b0",
-  "source": "src/render/screen_effect/configure.cpp",
+  "source": "src/core/screen/configure.cpp",
   "driver": "layout/ltcg/native_ascii_factory_context.cpp",
   "included_sources": [
     "layout/ltcg/runtime_selector_0043c970_scheduler_create.cpp",
@@ -24,7 +24,7 @@
       "address": "0x0043C970",
       "size": 396,
       "actual_abi": "owner ESI; priority EBX; selected mode and four parameters on stack; RET 20",
-      "source": "src/render/screen_effect/configure.cpp"
+      "source": "src/core/screen/configure.cpp"
     },
     {
       "name": "AsciiFactory",

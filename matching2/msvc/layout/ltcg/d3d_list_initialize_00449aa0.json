@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "d3d_list_initialize_00449aa0",
-  "source": "src/render/d3_d_resource_manager_initialize_00449aa0.cpp",
+  "source": "src/core/zunlib/d3_d_resource_manager_initialize_00449aa0.cpp",
   "driver": "layout/ltcg/d3d_list_initialize_00449aa0_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

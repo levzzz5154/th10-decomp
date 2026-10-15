@@ -5,7 +5,7 @@
 
 extern "C" double __cdecl FrameTimer_GetDelta(void);   // 0x00439540
 
-// Frame timer state the counter resets (see src/app/frame_clock.cpp for the
+// Frame timer state the counter resets (see src/core/main/frame_clock.cpp for the
 // routines that own it).
 extern "C" long long data_00492508;   // 0x00492508  QPC ticks per second
 extern "C" double data_00492528;      // 0x00492528

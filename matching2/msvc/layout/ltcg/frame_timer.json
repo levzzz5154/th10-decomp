@@ -4,7 +4,7 @@
   "source": "src/math/frame_timer.cpp",
   "additional_sources": [
     "src/game/background/player_set_scheduler_value_00405410.cpp",
-    "src/render/screen_effect/updates.cpp",
+    "src/core/screen/updates.cpp",
     "src/game/game/recovery_decay_counter_00418a00.cpp",
     "src/game/enemy/replay_progress.cpp"
   ],
@@ -71,7 +71,7 @@
     },
     {
       "name": "AnimationCursor_Tick_0043bd40",
-      "source": "src/render/screen_effect/updates.cpp",
+      "source": "src/core/screen/updates.cpp",
       "symbol": "?Tick@ScreenFadeIn@@QAEHXZ",
       "section": ".text$07bd40",
       "address": "0x0043BD40",
@@ -80,7 +80,7 @@
     },
     {
       "name": "AnimationCursor_Tick_0043c230",
-      "source": "src/render/screen_effect/updates.cpp",
+      "source": "src/core/screen/updates.cpp",
       "symbol": "?Tick@ScreenFadeOut@@QAEHXZ",
       "section": ".text$09c230",
       "address": "0x0043C230",
@@ -89,7 +89,7 @@
     },
     {
       "name": "AnimationCursor_Tick_0043c460",
-      "source": "src/render/screen_effect/updates.cpp",
+      "source": "src/core/screen/updates.cpp",
       "symbol": "?Tick@ScreenFlash@@QAEHXZ",
       "section": ".text$11c460",
       "address": "0x0043C460",
@@ -106,7 +106,7 @@
     },
     {
       "name": "ScreenEffectController_UpdateEnvelopeShake",
-      "source": "src/render/screen_effect/updates.cpp",
+      "source": "src/core/screen/updates.cpp",
       "symbol": "?UpdateEnvelopeShake@ScreenEffectController@@QAEHXZ",
       "section": ".text$12b_shake",
       "address": "0x0043C710",
@@ -115,7 +115,7 @@
     },
     {
       "name": "EntityScriptRng_NextRandomModulo",
-      "source": "src/render/screen_effect/updates.cpp",
+      "source": "src/core/screen/updates.cpp",
       "symbol": "?NextRandomModulo@EntityScriptRng_0043cb80@@QAEII@Z",
       "section": ".text$12d_rng",
       "address": "0x0043CB80",

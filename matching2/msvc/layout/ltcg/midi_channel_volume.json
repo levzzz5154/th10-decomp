@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "midi_channel_volume",
-  "source": "src/platform/midi_channel_volumes.cpp",
+  "source": "src/core/midilib/midi_channel_volumes.cpp",
   "driver": "layout/ltcg/midi_volume_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

@@ -563,7 +563,7 @@
     "layout/ltcg/app_shutdown_00420270_archive_anchor.cpp"
   ],
   "included_sources": [
-    "src/platform/platform_stop_worker_0044c150.cpp",
+    "src/core/zunlib/platform_stop_worker_0044c150.cpp",
     "src/game/fps/platform_release_owned_handle_00413450.cpp"
   ]
 }

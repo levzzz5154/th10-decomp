@@ -156,7 +156,7 @@
   ],
   "included_sources": [
     "layout/ltcg/scheduler_register_anchors.cpp",
-    "src/platform/text_log.cpp"
+    "src/core/zunlib/text_log.cpp"
   ],
   "roots": []
 }

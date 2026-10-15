@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "window_create_00439730",
-  "source": "src/platform/window_create_00439730.cpp",
+  "source": "src/core/main/window_create_00439730.cpp",
   "driver": "layout/ltcg/window_create_00439730_context.cpp",
   "headers": [
     "include/th10/platform/window_create_00439730.hpp",

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "font_surface_fallback_00436aa0",
-  "source": "src/platform/font_surface_create_fallback_00436aa0.cpp",
+  "source": "src/core/main/font_surface_create_fallback_00436aa0.cpp",
   "driver": "layout/ltcg/font_surface_fallback_00436aa0_context.cpp",
   "headers": [
     "include/th10/platform/native_font_start.hpp"

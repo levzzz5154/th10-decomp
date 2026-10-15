@@ -1,5 +1,5 @@
 // Compiler context only; never selected as recovered game code.
-#include "../../src/game/fun_0044c350_0044c350.cpp"
+#include "../../src/core/zunlib/fun_0044c350_0044c350.cpp"
 #include "th10/math/interpolator.hpp"
 #include "th10/math/vector.hpp"
 #include "th10/math/trajectory_vector.hpp"

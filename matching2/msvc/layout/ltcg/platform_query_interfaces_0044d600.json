@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "platform_query_interfaces_0044d600",
-  "source": "src/game/platform_query_interfaces_0044d600.cpp",
+  "source": "src/core/zwave/platform_query_interfaces_0044d600.cpp",
   "driver": "layout/ltcg/platform_query_interfaces_0044d600_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

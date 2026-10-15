@@ -1,15 +1,15 @@
 {
   "schema_version": 1,
   "name": "anchored_quad_draw_00443080",
-  "source": "src/render/quad_build_anchored.cpp",
+  "source": "src/core/sprtfunc/quad_build_anchored.cpp",
   "driver": "layout/ltcg/anchored_quad_draw_00443080_context.cpp",
   "included_sources": [
-    "src/render/animation_color_multiply_channel_004423c0.cpp",
-    "src/render/render_state_sync.cpp",
-    "src/render/sprite_quad_submit.cpp",
-    "src/render/anm_batch_flush.cpp",
-    "src/render/quad_vertex_append.cpp",
-    "src/render/anm_vm_draw_dispatch.cpp"
+    "src/core/sprtfunc/animation_color_multiply_channel_004423c0.cpp",
+    "src/core/sprtfunc/render_state_sync.cpp",
+    "src/core/sprtfunc/sprite_quad_submit.cpp",
+    "src/core/sprtfunc/anm_batch_flush.cpp",
+    "src/core/sprtfunc/quad_vertex_append.cpp",
+    "src/core/sprtfunc/anm_vm_draw_dispatch.cpp"
   ],
   "headers": [
     "include/th10/render/quad_batch.hpp"

@@ -1,5 +1,5 @@
 // Compiler context only; never selected as recovered game code.
-#include "../../src/script/ecl_push_scratch_value_00450690.cpp"
+#include "../../src/script/sptlib/ecl_push_scratch_value_00450690.cpp"
 
 #pragma code_seg(".text$03context")
 extern "C" __declspec(noinline) int __stdcall EclPushScratchValueContext(

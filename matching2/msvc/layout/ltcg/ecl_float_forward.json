@@ -24,7 +24,7 @@
       "address": "0x0044FF80",
       "size": 171,
       "actual_abi": "VM in EAX, selector in ECX (only CL read), float operand on stack; RET 4",
-      "source": "src/script/ecl_resolve_float_value_0044ff80.cpp"
+      "source": "src/script/sptcmd/ecl_resolve_float_value_0044ff80.cpp"
     }
   ],
   "context": {
@@ -81,6 +81,6 @@
     }
   ],
   "additional_sources": [
-    "src/script/ecl_resolve_float_value_0044ff80.cpp"
+    "src/script/sptcmd/ecl_resolve_float_value_0044ff80.cpp"
   ]
 }

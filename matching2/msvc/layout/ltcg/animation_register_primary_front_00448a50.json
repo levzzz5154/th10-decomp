@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "animation_register_primary_front_00448a50",
-  "source": "src/render/animation_manager_register_primary_front_00448a50.cpp",
+  "source": "src/core/sprtlib/animation_manager_register_primary_front_00448a50.cpp",
   "driver": "layout/ltcg/animation_register_primary_front_00448a50_context.cpp",
   "image_base": "0x00400000",
   "description": "Complete primary-front registrar with synthetic single-object creation caller; only its 112-byte native body is selected.",

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "ecl_push_scratch_value_00450690",
-  "source": "src/script/ecl_push_scratch_value_00450690.cpp",
+  "source": "src/script/sptlib/ecl_push_scratch_value_00450690.cpp",
   "driver": "layout/ltcg/ecl_push_scratch_value_00450690_context.cpp",
   "headers": [
     "include/th10/script/ecl_frame.hpp"

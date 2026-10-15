@@ -266,10 +266,10 @@
   ],
   "included_sources": [
     "layout/ltcg/scheduler_register_anchors.cpp",
-    "src/game/animation_object_configure_from_resource_0043e5a0.cpp",
+    "src/core/sprtanim/animation_object_configure_from_resource_0043e5a0.cpp",
     "src/game/entity_initialize_00401de0.cpp",
     "src/game/ascii/construct.cpp",
-    "src/platform/text_log.cpp"
+    "src/core/zunlib/text_log.cpp"
   ],
   "additional_sources": [],
   "roots": []

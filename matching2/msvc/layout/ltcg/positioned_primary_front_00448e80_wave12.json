@@ -14,7 +14,7 @@
       "address": "0x00448E30",
       "size": 73,
       "actual_abi": "out in EDI; resource, index and render bucket on stack; out returned in EAX; ret 0xC",
-      "source": "src/render/animation_manager_create_primary_front_00448e30.cpp"
+      "source": "src/core/sprtlib/animation_manager_create_primary_front_00448e30.cpp"
     },
     {
       "name": "AnimationManager_CreatePositionedPrimaryFront_00448e80",
@@ -146,7 +146,7 @@
     }
   ],
   "additional_sources": [
-    "src/render/animation_manager_create_primary_front_00448e30.cpp",
+    "src/core/sprtlib/animation_manager_create_primary_front_00448e30.cpp",
     "src/unreferenced/FUN_00448ee0_00448ee0.cpp"
   ],
   "constant_aliases": [

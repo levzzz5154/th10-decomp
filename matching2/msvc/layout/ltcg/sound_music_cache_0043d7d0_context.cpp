@@ -1,5 +1,5 @@
 // Compiler context only; never selected as recovered game code.
-#include "../../src/platform/sound_music_cache.cpp"
+#include "../../src/core/sound/sound_music_cache.cpp"
 
 // The music command handler (0x0043DDF0) is the only caller: it hands over a
 // command's slot and name from two places.

@@ -9,7 +9,7 @@
 // The stream factory is a member of the device owner whose parameters follow
 // the DirectX sample's CreateStreaming; that order is what places the output
 // slot's address ahead of the owner in the argument sequence.
-#include "../../layout/ltcg/sound_interfaces_dependencies/sound_wave_types.hpp"
+#include "../../../layout/ltcg/sound_interfaces_dependencies/sound_wave_types.hpp"
 #include "th10/app/supervisor.hpp"
 
 typedef unsigned int (__stdcall* MusicWorkerEntry)(void*);

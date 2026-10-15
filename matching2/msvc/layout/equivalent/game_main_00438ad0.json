@@ -855,38 +855,38 @@
   "note": "reference/recovery_notes/game_main_00438ad0_equivalent_2026_10_12.md",
   "listed_branch_targets": true,
   "context_sources": [
-    "src/platform/text_log.cpp",
-    "src/platform/text_log_append_line_0044b8e0.cpp",
+    "src/core/zunlib/text_log.cpp",
+    "src/core/zunlib/text_log_append_line_0044b8e0.cpp",
     "src/game/mother/config_load_00420870.cpp",
-    "src/render/d3_d_resource_manager_initialize_00449aa0.cpp",
-    "src/platform/window_create_00439730.cpp",
+    "src/core/zunlib/d3_d_resource_manager_initialize_00449aa0.cpp",
+    "src/core/main/window_create_00439730.cpp",
     {
-      "source": "src/app/anm_storage_construct_00445900.cpp",
+      "source": "src/core/sprtlib/anm_storage_construct_00445900.cpp",
       "flags": [
         "/EHsc"
       ]
     },
-    "src/game/destroy_entity_list_00438a30.cpp",
+    "src/core/main/destroy_entity_list_00438a30.cpp",
     "src/game/mother/app_shutdown_00420270.cpp",
     {
-      "source": "src/render/d3_d_resource_manager_destroy_00438880.cpp",
+      "source": "src/core/main/d3_d_resource_manager_destroy_00438880.cpp",
       "flags": [
         "/EHsc"
       ]
     },
-    "src/platform/sound_music_commands.cpp",
-    "src/platform/sound_worker.cpp",
-    "src/platform/sound_cleanup_0043d120.cpp",
+    "src/core/sound/sound_music_commands.cpp",
+    "src/core/sound/sound_worker.cpp",
+    "src/core/sound/sound_cleanup_0043d120.cpp",
     {
-      "source": "src/render/anm_storage_destructor_00446220.cpp",
+      "source": "src/core/sprtlib/anm_storage_destructor_00446220.cpp",
       "flags": [
         "/EHsc"
       ]
     },
-    "src/platform/file_write_whole_file_0044b540.cpp",
-    "src/platform/fun_0043aeb0_0043aeb0.cpp",
-    "src/platform/fun_0043ae20_0043ae20.cpp",
-    "src/platform/fun_0043a910_0043a910.cpp"
+    "src/core/zunlib/file_write_whole_file_0044b540.cpp",
+    "src/core/midilib/fun_0043aeb0_0043aeb0.cpp",
+    "src/core/midilib/fun_0043ae20_0043ae20.cpp",
+    "src/core/midilib/fun_0043a910_0043a910.cpp"
   ],
   "roots": [
     "?GameMain_00438ad0@@YGHPAX0PADH@Z"

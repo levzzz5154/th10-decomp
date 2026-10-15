@@ -210,6 +210,6 @@
     "layout/ltcg/result_open_00423370/find.cpp",
     "layout/ltcg/result_open_00423370/allocate.cpp",
     "layout/ltcg/result_open_00423370/dispatcher_animation_helpers.cpp",
-    "src/platform/platform_stop_worker_0044c150.cpp"
+    "src/core/zunlib/platform_stop_worker_0044c150.cpp"
   ]
 }

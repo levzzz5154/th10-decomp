@@ -1,4 +1,4 @@
-// Unselected native ABI anchor from src/render/anm_batch_flush.cpp.
+// Unselected native ABI anchor from src/core/sprtfunc/anm_batch_flush.cpp.
 // Only the placement section differs.
 #include "th10/render/quad_batch.hpp"
 

@@ -2,7 +2,7 @@
 // retail callers of the worker Start variants: each host holds the worker and stays live across
 // the call and is passed as the thread context, while the worker's address is
 // computed fresh for the call. A second array supplies UI-thread hosts for Spawn.
-#include "../../src/platform/worker_start.cpp"
+#include "../../src/core/zunlib/worker_start.cpp"
 #include "th10/game/ui_thread_host.hpp"
 
 struct WorkerHost {

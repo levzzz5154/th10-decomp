@@ -3,7 +3,7 @@
   "name": "hint_save_0041a200",
   "source": "src/archive/hint_save_0041a200.cpp",
   "additional_sources": [
-    "src/platform/file_write_shared_0044b740.cpp"
+    "src/core/zunlib/file_write_shared_0044b740.cpp"
   ],
   "included_sources": [],
   "headers": [
@@ -28,7 +28,7 @@
     {
       "name": "WriteShared",
       "symbol": "?WriteShared_0044b740@@YGHPBXI@Z",
-      "source": "src/platform/file_write_shared_0044b740.cpp",
+      "source": "src/core/zunlib/file_write_shared_0044b740.cpp",
       "section": ".text$01accessor",
       "address": "0x0044B740",
       "size": 76,

@@ -1,5 +1,5 @@
 // Compiler context and ABI anchors only; none of these bytes enter the image.
-#include "../../src/render/animation_object_load_script_0043e710.cpp"
+#include "../../src/core/sprtanim/animation_object_load_script_0043e710.cpp"
 
 // 0x00401DE0 takes the entity in EDX and nothing else, and no retail caller
 // relies on EDX surviving it. The recovered body (src/game/

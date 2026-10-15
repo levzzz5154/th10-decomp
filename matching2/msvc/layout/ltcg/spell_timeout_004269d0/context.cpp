@@ -3,7 +3,7 @@
 #include "set_active_count.cpp"
 #define data_00491c10 g_timeout_load_manager
 #define code_seg(name) code_seg(".text$0043e710_fn")
-#include "../../../src/render/animation_object_load_script_0043e710.cpp"
+#include "../../../src/core/sprtanim/animation_object_load_script_0043e710.cpp"
 #undef code_seg
 #undef data_00491c10
 #pragma code_seg()

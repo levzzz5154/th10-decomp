@@ -2103,9 +2103,9 @@
     "src/game/title/recovery_install_animation_slot_0042c670.cpp",
     "src/game/recovery_script_executor_0040bd80.cpp",
     "src/game/title/title_spell_list.cpp",
-    "src/render/animation_manager_find_child_by_script_index_004497d0.cpp",
-    "src/render/animation_manager_set_stop_frame_and_run_00449250.cpp",
-    "src/render/animation_manager_set_stop_frame_from_handle_retail_00449470.cpp"
+    "src/core/sprtlib/animation_manager_find_child_by_script_index_004497d0.cpp",
+    "src/core/sprtlib/animation_manager_set_stop_frame_and_run_00449250.cpp",
+    "src/core/sprtlib/animation_manager_set_stop_frame_from_handle_retail_00449470.cpp"
   ],
   "data_aliases": [
     {

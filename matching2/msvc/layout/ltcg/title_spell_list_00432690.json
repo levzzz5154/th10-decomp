@@ -8,7 +8,7 @@
     "layout/ltcg/title_spell_list/text_dispatcher.cpp"
   ],
   "included_sources": [
-    "src/game/recovery_centered_text_00447bb0.cpp",
+    "src/core/sprtlib/recovery_centered_text_00447bb0.cpp",
     "layout/ltcg/right_aligned_text_context/exact_text_dispatcher_anchor.cpp"
   ],
   "headers": [

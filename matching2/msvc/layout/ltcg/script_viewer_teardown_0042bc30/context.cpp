@@ -3,7 +3,7 @@
 #define TH10_SCHEDULER_REMOVE_ONLY
 #define TH10_SCHEDULER_REMOVE_CODE_SEG ".text$07remove"
 #include "../manager_teardown_native_0041adf0/scheduler.cpp"
-#include "../../../src/platform/platform_stop_worker_0044c150.cpp"
+#include "../../../src/core/zunlib/platform_stop_worker_0044c150.cpp"
 #include "../../../src/game/spttest/script_viewer_teardown_0042bc30.cpp"
 
 // Stand-in for 0x00447810, whose real body is recovered in the animation

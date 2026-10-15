@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "sound_music_play_cached_0043d950",
-  "source": "src/platform/sound_music_play_cached.cpp",
+  "source": "src/core/sound/sound_music_play_cached.cpp",
   "driver": "layout/ltcg/sound_music_play_cached_0043d950_context.cpp",
   "headers": [
     "include/th10/app/supervisor.hpp",
@@ -157,7 +157,7 @@
     "layout/ltcg/sound_music_play_cached_dependencies/create_memory.cpp"
   ],
   "included_sources": [
-    "src/game/recovery_select_archive_entry_0043d790.cpp",
-    "src/game/platform_select_stream_record_0044dca0.cpp"
+    "src/core/sound/recovery_select_archive_entry_0043d790.cpp",
+    "src/core/zwave/platform_select_stream_record_0044dca0.cpp"
   ]
 }

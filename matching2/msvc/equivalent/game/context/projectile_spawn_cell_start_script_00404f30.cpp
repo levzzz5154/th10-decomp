@@ -4,7 +4,7 @@
 // index in EBX, so the starter takes it in EAX and the spawner computes it
 // there. The sections are moved past the spawner's jump tables.
 #define code_seg(name) code_seg(".text$zz_00404f30")
-#include "../../../src/render/animation_object_load_script_0043e710.cpp"
+#include "../../../src/core/sprtanim/animation_object_load_script_0043e710.cpp"
 
 // 0x00401DE0 takes the entity in EDX; the stand-in hides its register kill set
 // behind an external call, as in the starter's cluster.

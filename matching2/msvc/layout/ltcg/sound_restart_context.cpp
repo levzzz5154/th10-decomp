@@ -1,4 +1,4 @@
-#include "../../src/platform/streamer_restart_retail_0044dad0.cpp"
+#include "../../src/core/zwave/streamer_restart_retail_0044dad0.cpp"
 #include "sound_restart_dependencies/sound_start_platform_run_interface_0044d300.cpp"
 #include "sound_restart_dependencies/sound_start_sound_stream_fill_model.cpp"
 #include "sound_restart_dependencies/sound_start_sound_fill_rewind.cpp"

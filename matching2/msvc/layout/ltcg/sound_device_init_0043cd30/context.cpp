@@ -1,5 +1,5 @@
 // Complete helper bodies preserve their actual private register contracts.
-#include "../../../src/platform/sound_device_init.cpp"
+#include "../../../src/core/sound/sound_device_init.cpp"
 #include "primary_format.cpp"
 #include "wave_load.cpp"
 #define code_seg(name) code_seg(".text$0043d250_fn")

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "d3d_destroy_00438880",
-  "source": "src/render/d3_d_resource_manager_destroy_00438880.cpp",
+  "source": "src/core/main/d3_d_resource_manager_destroy_00438880.cpp",
   "driver": "layout/ltcg/d3d_destroy_00438880_context.cpp",
   "headers": [
     "include/th10/render/d3d_destroy_00438880.hpp",
@@ -20,7 +20,7 @@
       "section": ".text$01manager",
       "address": "0x00438880",
       "size": 103,
-      "source": "src/render/d3_d_resource_manager_destroy_00438880.cpp",
+      "source": "src/core/main/d3_d_resource_manager_destroy_00438880.cpp",
       "actual_abi": "manager stack argument; genuine frameless C++ EH frame; RET4"
     },
     {
@@ -29,7 +29,7 @@
       "section": ".text$10caller",
       "address": "0x0044C130",
       "size": 16,
-      "source": "src/platform/platform_stop_worker_no_delete_0044c130.cpp",
+      "source": "src/core/zunlib/platform_stop_worker_no_delete_0044c130.cpp",
       "actual_abi": "object ECX; Stop callee ESI; RET"
     },
     {
@@ -38,7 +38,7 @@
       "section": ".text$x",
       "address": "0x00465350",
       "size": 8,
-      "source": "src/render/d3_d_resource_manager_destroy_00438880.cpp",
+      "source": "src/core/main/d3_d_resource_manager_destroy_00438880.cpp",
       "actual_abi": "frame EBP; manager from EBP+4; tail-jump pending clear",
       "generated": true,
       "native_symbol_pattern": "\\$L[0-9]+"
@@ -49,7 +49,7 @@
       "section": ".text$x",
       "address": "0x00465358",
       "size": 11,
-      "source": "src/render/d3_d_resource_manager_destroy_00438880.cpp",
+      "source": "src/core/main/d3_d_resource_manager_destroy_00438880.cpp",
       "actual_abi": "frame EBP; manager from EBP+4 plus0x24; tail-jump pending clear",
       "generated": true,
       "native_symbol_pattern": "\\$L[0-9]+"
@@ -60,7 +60,7 @@
       "section": ".text$x",
       "address": "0x00465363",
       "size": 10,
-      "source": "src/render/d3_d_resource_manager_destroy_00438880.cpp",
+      "source": "src/core/main/d3_d_resource_manager_destroy_00438880.cpp",
       "actual_abi": "FuncInfo EAX; tail-jump CxxFrameHandler",
       "generated": true
     }
@@ -206,11 +206,11 @@
     }
   ],
   "additional_sources": [
-    "src/platform/platform_stop_worker_no_delete_0044c130.cpp"
+    "src/core/zunlib/platform_stop_worker_no_delete_0044c130.cpp"
   ],
   "included_sources": [
     "layout/ltcg/destroy_release_adapter.cpp",
-    "src/platform/platform_stop_worker_0044c150.cpp"
+    "src/core/zunlib/platform_stop_worker_0044c150.cpp"
   ],
   "roots": [
     "?StopNoDelete@PlatformWorker@@QAEXXZ"

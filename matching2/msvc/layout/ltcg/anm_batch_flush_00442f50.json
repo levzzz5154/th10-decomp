@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "anm_batch_flush_00442f50",
-  "source": "src/render/texture_stage_reset.cpp",
+  "source": "src/core/screen/texture_stage_reset.cpp",
   "headers": [
     "include/th10/render/quad_batch.hpp",
     "include/th10/render/camera_batch.hpp",
@@ -94,7 +94,7 @@
     },
     {
       "name": "ClearAndPresentTwice",
-      "source": "src/game/recovery_reset_device_streams_0043bc40.cpp",
+      "source": "src/core/screen/recovery_reset_device_streams_0043bc40.cpp",
       "symbol": "?ClearAndPresentTwice@@YGHI@Z",
       "section": ".text$01aclear",
       "address": "0x0043BC40",
@@ -103,7 +103,7 @@
     },
     {
       "name": "ApplyDefaultViewport",
-      "source": "src/render/viewport_apply_default_retail_0043bcd0.cpp",
+      "source": "src/core/screen/viewport_apply_default_retail_0043bcd0.cpp",
       "symbol": "?ApplyDefaultViewport@@YGHI@Z",
       "section": ".text$01capply",
       "address": "0x0043BCD0",
@@ -112,7 +112,7 @@
     },
     {
       "name": "DrawSolidQuad",
-      "source": "src/render/special_quad.cpp",
+      "source": "src/core/screen/special_quad.cpp",
       "symbol": "?DrawSolidQuad@@YGHPBUScreenRect@@I@Z",
       "section": ".text$01quad",
       "address": "0x0043BDA0",
@@ -121,7 +121,7 @@
     },
     {
       "name": "DrawGradientQuad",
-      "source": "src/render/texture_stage_reset.cpp",
+      "source": "src/core/screen/texture_stage_reset.cpp",
       "symbol": "?DrawGradientQuad@@YGHPBUScreenRect@@IIII@Z",
       "section": ".text$02gradient",
       "address": "0x0043BFA0",
@@ -130,7 +130,7 @@
     },
     {
       "name": "ColorViewport_Draw",
-      "source": "src/render/screen_effect/draws.cpp",
+      "source": "src/core/screen/draws.cpp",
       "symbol": "?Draw@ColorViewport@@QAEHXZ",
       "section": ".text$03viewport",
       "address": "0x0043C1A0",
@@ -144,11 +144,11 @@
       "address": "0x004423C0",
       "size": 25,
       "actual_abi": "value in AL; scale in CL; result in EAX",
-      "source": "src/render/animation_color_multiply_channel_004423c0.cpp"
+      "source": "src/core/sprtfunc/animation_color_multiply_channel_004423c0.cpp"
     },
     {
       "name": "SyncRenderState",
-      "source": "src/render/render_state_sync.cpp",
+      "source": "src/core/sprtfunc/render_state_sync.cpp",
       "symbol": "?SyncRenderState@AnimationManager_00442F50@@QAEXPBURenderEntity@@@Z",
       "section": ".text$04bsync",
       "address": "0x004425A0",
@@ -162,7 +162,7 @@
       "address": "0x00442670",
       "size": 1111,
       "actual_abi": "EAX entity; ECX manager; mode on stack; plain RET 4",
-      "source": "src/render/sprite_quad_submit.cpp"
+      "source": "src/core/sprtfunc/sprite_quad_submit.cpp"
     },
     {
       "name": "SubmitSpriteQuadMirrored",
@@ -171,7 +171,7 @@
       "address": "0x00442AD0",
       "size": 1111,
       "actual_abi": "EAX entity; ECX manager; mode on stack; plain RET 4",
-      "source": "src/render/sprite_quad_submit_mirrored.cpp"
+      "source": "src/core/sprtfunc/sprite_quad_submit_mirrored.cpp"
     },
     {
       "name": "AnimationManager_00442F50_Flush",
@@ -180,11 +180,11 @@
       "address": "0x00442F50",
       "size": 133,
       "actual_abi": "manager in ESI; draw-call result in EAX; plain RET",
-      "source": "src/render/anm_batch_flush.cpp"
+      "source": "src/core/sprtfunc/anm_batch_flush.cpp"
     },
     {
       "name": "AppendQuad",
-      "source": "src/render/quad_vertex_append.cpp",
+      "source": "src/core/sprtfunc/quad_vertex_append.cpp",
       "symbol": "?AppendQuad@AnimationManager_00442F50@@QAEHPBUTexturedVertex@@@Z",
       "section": ".text$05happend",
       "address": "0x00442FE0",
@@ -193,7 +193,7 @@
     },
     {
       "name": "BuildAnchoredQuad_00443290",
-      "source": "src/render/anchored_quad_build_00443290.cpp",
+      "source": "src/core/sprtfunc/anchored_quad_build_00443290.cpp",
       "symbol": "_EntityDraw_00443290@8",
       "section": ".text$06b02z00build",
       "address": "0x443290",
@@ -202,7 +202,7 @@
     },
     {
       "name": "BuildAnchoredQuadMirrored_00443480",
-      "source": "src/render/anchored_quad_build_mirrored_00443480.cpp",
+      "source": "src/core/sprtfunc/anchored_quad_build_mirrored_00443480.cpp",
       "symbol": "_EntityDrawMirrored_00443480@8",
       "section": ".text$06b02z02mirror",
       "address": "0x443480",
@@ -211,7 +211,7 @@
     },
     {
       "name": "BuildRotatedQuad_004436c0",
-      "source": "src/render/quad_build_rotated.cpp",
+      "source": "src/core/sprtfunc/quad_build_rotated.cpp",
       "symbol": "_BuildRotatedQuad_004436c0@8",
       "section": ".text$06b03rotquad",
       "address": "0x4436C0",
@@ -220,7 +220,7 @@
     },
     {
       "name": "BuildRotatedQuadAlt_00443910",
-      "source": "src/render/quad_build_rotated.cpp",
+      "source": "src/core/sprtfunc/quad_build_rotated.cpp",
       "symbol": "_BuildRotatedQuadAlt_00443910@8",
       "section": ".text$06b04rotquad",
       "address": "0x443910",
@@ -229,7 +229,7 @@
     },
     {
       "name": "SubmitProjectedQuad_00443f80",
-      "source": "src/render/entity_submit_projected_00443f80.cpp",
+      "source": "src/core/sprtfunc/entity_submit_projected_00443f80.cpp",
       "symbol": "?SubmitProjectedQuad@RenderEntity@@QAEHPAUAnimationManager_00442F50@@@Z",
       "section": ".text$06b05z00projected",
       "address": "0x443f80",
@@ -238,7 +238,7 @@
     },
     {
       "name": "EntityDraw_00443fb0",
-      "source": "src/render/anm_distance_color.cpp",
+      "source": "src/core/sprtfunc/anm_distance_color.cpp",
       "symbol": "_EntityDraw_00443fb0@8",
       "section": ".text$06b0600distance",
       "address": "0x443fb0",
@@ -247,7 +247,7 @@
     },
     {
       "name": "EntityDraw_00444580",
-      "source": "src/render/fun_00444580_00444580.cpp",
+      "source": "src/core/sprtfunc/fun_00444580_00444580.cpp",
       "symbol": "_EntityDraw_00444580@8",
       "section": ".text$06b07fade",
       "address": "0x444580",
@@ -256,7 +256,7 @@
     },
     {
       "name": "DrawStrip",
-      "source": "src/render/edge_strip_draw.cpp",
+      "source": "src/core/sprtfunc/edge_strip_draw.cpp",
       "symbol": "?DrawStrip@AnimationManager_00442F50@@QAEHPBURenderEntity@@PBXI@Z",
       "section": ".text$06bstrip",
       "address": "0x00444CE0",
@@ -292,7 +292,7 @@
     },
     {
       "name": "DrawFan",
-      "source": "src/render/rect_fan_draw.cpp",
+      "source": "src/core/sprtfunc/rect_fan_draw.cpp",
       "symbol": "?DrawFan@AnimationManager_00442F50@@QAEHPBURenderEntity@@PBXI@Z",
       "section": ".text$06ffan",
       "address": "0x004450E0",
@@ -301,7 +301,7 @@
     },
     {
       "name": "AnmVmDrawDispatch",
-      "source": "src/render/anm_vm_draw_dispatch.cpp",
+      "source": "src/core/sprtfunc/anm_vm_draw_dispatch.cpp",
       "symbol": "_asm_FUN_004451c0_004451c0",
       "section": ".text$06hdispatch",
       "address": "0x4451c0",
@@ -315,7 +315,7 @@
       "address": "0x00448620",
       "size": 115,
       "actual_abi": "manager in ECX; manager in EBX across the mid-body calls; bucket index 3 in EAX and the manager in EDI for the 0x00448980 call; result in EAX; plain RET",
-      "source": "src/render/animation_manager_draw_stage0_bucket3.cpp"
+      "source": "src/core/sprtlib/animation_manager_draw_stage0_bucket3.cpp"
     },
     {
       "name": "AnimationManager_00448770_RenderStage1Bucket0F",
@@ -324,7 +324,7 @@
       "address": "0x00448770",
       "size": 72,
       "actual_abi": "manager in ECX; bucket index EAX / manager EDI passed on; plain RET",
-      "source": "src/render/animation_manager_draw_stage1_bucket0f.cpp"
+      "source": "src/core/sprtlib/animation_manager_draw_stage1_bucket0f.cpp"
     },
     {
       "name": "AnimationManager_004487c0_RenderStage1Bucket10",
@@ -333,7 +333,7 @@
       "address": "0x004487c0",
       "size": 72,
       "actual_abi": "manager in ECX; bucket index EAX / manager EDI passed on; plain RET",
-      "source": "src/render/animation_manager_draw_stage1_bucket10.cpp"
+      "source": "src/core/sprtlib/animation_manager_draw_stage1_bucket10.cpp"
     },
     {
       "name": "AnimationManager_00448810_RenderStage1Bucket13",
@@ -342,11 +342,11 @@
       "address": "0x00448810",
       "size": 72,
       "actual_abi": "manager in ECX; bucket index EAX / manager EDI passed on; plain RET",
-      "source": "src/render/animation_manager_draw_stage1_bucket13.cpp"
+      "source": "src/core/sprtlib/animation_manager_draw_stage1_bucket13.cpp"
     },
     {
       "name": "EntityDraw_00444760",
-      "source": "src/render/quad_transform_draw_00444760.cpp",
+      "source": "src/core/sprtfunc/quad_transform_draw_00444760.cpp",
       "symbol": "_EntityDraw_00444760@8",
       "section": ".text$06b09z00transform",
       "address": "0x444760",
@@ -360,7 +360,7 @@
       "address": "0x0043C2C0",
       "size": 68,
       "actual_abi": "ECX receiver; EDI rectangle and EBX color for DrawSolidQuad; plain RET",
-      "source": "src/render/screen_effect/draws.cpp"
+      "source": "src/core/screen/draws.cpp"
     },
     {
       "name": "AsciiOverlay_0043C3C0_Draw",
@@ -369,7 +369,7 @@
       "address": "0x0043C3C0",
       "size": 68,
       "actual_abi": "ECX receiver; EDI rectangle and EBX color for DrawSolidQuad; plain RET",
-      "source": "src/render/screen_effect/draws.cpp"
+      "source": "src/core/screen/draws.cpp"
     },
     {
       "name": "AsciiOverlay_0043C410_Draw",
@@ -378,7 +378,7 @@
       "address": "0x0043C410",
       "size": 68,
       "actual_abi": "ECX receiver; EDI rectangle and EBX color for DrawSolidQuad; plain RET",
-      "source": "src/render/screen_effect/draws.cpp"
+      "source": "src/core/screen/draws.cpp"
     },
     {
       "name": "BossOverlay_0041D7C0_Draw",
@@ -414,7 +414,7 @@
       "address": "0x00445880",
       "size": 25,
       "actual_abi": "entity in ECX; passes the manager in ECX and the entity in EAX to 0x004450E0; returns 0; plain RET",
-      "source": "src/render/render_entity_draw_fan.cpp"
+      "source": "src/core/sprtfunc/render_entity_draw_fan.cpp"
     },
     {
       "name": "Run_004200d0",
@@ -1259,48 +1259,48 @@
     }
   ],
   "additional_sources": [
-    "src/render/screen_effect/draws.cpp",
+    "src/core/screen/draws.cpp",
     "src/game/laser/laser_line_draw.cpp",
     "src/game/background/fun_00405300_00405300.cpp",
     "src/game/front/game_state_overlay_draw.cpp",
-    "src/game/recovery_reset_device_streams_0043bc40.cpp",
+    "src/core/screen/recovery_reset_device_streams_0043bc40.cpp",
     "src/game/card/release_flagged_entities_score_runtime_state_00409230.cpp",
     "src/game/card/release_flagged_entity_arrays_score_runtime_state_004091c0.cpp",
     "src/game/card/run_array_release_callback_score_runtime_state_00409270.cpp",
     "src/platform/fun_00439390_00439390.cpp",
-    "src/render/anchored_quad_build_00443290.cpp",
-    "src/render/animation_color_multiply_channel_004423c0.cpp",
-    "src/render/anm_batch_flush.cpp",
-    "src/render/anm_distance_color.cpp",
-    "src/render/anm_vm_draw_dispatch.cpp",
+    "src/core/sprtfunc/anchored_quad_build_00443290.cpp",
+    "src/core/sprtfunc/animation_color_multiply_channel_004423c0.cpp",
+    "src/core/sprtfunc/anm_batch_flush.cpp",
+    "src/core/sprtfunc/anm_distance_color.cpp",
+    "src/core/sprtfunc/anm_vm_draw_dispatch.cpp",
     "src/game/mother/camera_apply.cpp",
     "src/game/mother/camera_setup.cpp",
-    "src/render/edge_strip_draw.cpp",
-    "src/render/entity_submit_projected_00443f80.cpp",
-    "src/render/fun_00444580_00444580.cpp",
-    "src/render/quad_build_rotated.cpp",
-    "src/render/quad_transform_draw_00444760.cpp",
-    "src/render/quad_vertex_append.cpp",
-    "src/render/rect_fan_draw.cpp",
+    "src/core/sprtfunc/edge_strip_draw.cpp",
+    "src/core/sprtfunc/entity_submit_projected_00443f80.cpp",
+    "src/core/sprtfunc/fun_00444580_00444580.cpp",
+    "src/core/sprtfunc/quad_build_rotated.cpp",
+    "src/core/sprtfunc/quad_transform_draw_00444760.cpp",
+    "src/core/sprtfunc/quad_vertex_append.cpp",
+    "src/core/sprtfunc/rect_fan_draw.cpp",
     "src/game/ascii/render_stage_select.cpp",
-    "src/render/render_state_sync.cpp",
-    "src/render/special_quad.cpp",
-    "src/render/sprite_quad_submit.cpp",
-    "src/render/sprite_quad_submit_mirrored.cpp",
-    "src/render/viewport_apply_default_retail_0043bcd0.cpp",
+    "src/core/sprtfunc/render_state_sync.cpp",
+    "src/core/screen/special_quad.cpp",
+    "src/core/sprtfunc/sprite_quad_submit.cpp",
+    "src/core/sprtfunc/sprite_quad_submit_mirrored.cpp",
+    "src/core/screen/viewport_apply_default_retail_0043bcd0.cpp",
     "src/game/laser/laser_grow_draw.cpp",
     "src/game/mother/app_on_draw_flush.cpp",
-    "src/render/render_entity_draw_fan.cpp",
-    "src/render/animation_manager_draw_stage0_bucket3.cpp",
-    "src/render/animation_manager_draw_stage1_bucket0f.cpp",
-    "src/render/animation_manager_draw_stage1_bucket10.cpp",
-    "src/render/animation_manager_draw_stage1_bucket13.cpp",
+    "src/core/sprtfunc/render_entity_draw_fan.cpp",
+    "src/core/sprtlib/animation_manager_draw_stage0_bucket3.cpp",
+    "src/core/sprtlib/animation_manager_draw_stage1_bucket0f.cpp",
+    "src/core/sprtlib/animation_manager_draw_stage1_bucket10.cpp",
+    "src/core/sprtlib/animation_manager_draw_stage1_bucket13.cpp",
     "src/unreferenced/unassigned_00444dc0.cpp",
     "src/unreferenced/unassigned_00444e60.cpp",
     "src/unreferenced/unassigned_00444fa0.cpp",
     "src/game/ascii/draw.cpp",
     "src/game/mother/app_begin_frame_00420000.cpp",
-    "src/render/anchored_quad_build_mirrored_00443480.cpp",
+    "src/core/sprtfunc/anchored_quad_build_mirrored_00443480.cpp",
     "src/game/background/stage_objects_draw.cpp",
     "src/game/background/stage_draw_task.cpp",
     "layout/ltcg/render_batch_frame_timer_anchor.cpp",

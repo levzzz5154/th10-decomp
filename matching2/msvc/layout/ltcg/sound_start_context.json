@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "sound_start_context",
-  "source": "src/platform/sound_stream_start.cpp",
+  "source": "src/core/zwave/sound_stream_start.cpp",
   "driver": "layout/ltcg/sound_start_context.cpp",
   "included_sources": [
     "layout/ltcg/sound_start_platform_run_interface_0044d300.cpp",

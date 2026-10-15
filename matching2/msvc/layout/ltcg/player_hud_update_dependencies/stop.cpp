@@ -3,4 +3,4 @@
 // into a section that sorts at its retail address here. Never selected from
 // this cluster.
 #define code_seg(name) code_seg(".text$a05stop")
-#include "../../../src/render/animation_manager_set_stop_frame_from_handle_retail_00449470.cpp"
+#include "../../../src/core/sprtlib/animation_manager_set_stop_frame_from_handle_retail_00449470.cpp"

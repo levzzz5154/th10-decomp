@@ -6,7 +6,7 @@
   "equivalent/archive/hint_save_0041a200.cpp"
  ],
  "context_sources": [
-  "src/platform/file_write_shared_0044b740.cpp"
+  "src/core/zunlib/file_write_shared_0044b740.cpp"
  ],
  "entry_symbol": "_SaveHints@8",
  "function": "_SaveHints@8",

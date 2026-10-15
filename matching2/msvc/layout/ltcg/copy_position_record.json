@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "copy_position_record",
-  "source": "src/render/animation_manager_copy_position_record_00447940.cpp",
+  "source": "src/core/sprtlib/animation_manager_copy_position_record_00447940.cpp",
   "driver": "layout/ltcg/copy_position_record_context.cpp",
   "headers": [
     "include/th10/render/animation_position_record_00447940.hpp"

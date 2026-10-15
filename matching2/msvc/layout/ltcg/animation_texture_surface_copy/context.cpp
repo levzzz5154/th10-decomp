@@ -1,5 +1,5 @@
 // Compiler context only; none of these bytes enter the image.
-#include "../../../src/render/animation_texture_surface_copy.cpp"
+#include "../../../src/core/sprtlib/animation_texture_surface_copy.cpp"
 
 #include "clear.cpp"
 

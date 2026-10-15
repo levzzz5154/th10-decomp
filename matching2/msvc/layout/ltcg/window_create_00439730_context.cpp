@@ -1,5 +1,5 @@
 // Compiler context only; never selected as recovered game code.
-#include "../../src/platform/window_create_00439730.cpp"
+#include "../../src/core/main/window_create_00439730.cpp"
 
 extern "C" int __cdecl WindowCreateEscape(void* pointer, int value);
 

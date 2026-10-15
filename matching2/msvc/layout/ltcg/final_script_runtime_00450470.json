@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "final_script_runtime_00450470",
-  "source": "src/script/final_script_runtime.cpp",
+  "source": "src/script/sptlib/final_script_runtime.cpp",
   "driver": "layout/ltcg/final_script_runtime_00450470_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

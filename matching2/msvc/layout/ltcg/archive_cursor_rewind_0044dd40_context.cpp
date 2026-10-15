@@ -1,5 +1,5 @@
 // Compiler context only; its bytes are not recovered game code.
-#include "../../src/game/archive_cursor.cpp"
+#include "../../src/core/zwave/archive_cursor.cpp"
 
 #pragma code_seg(".text$03context")
 int __stdcall Ctx(ArchiveCursor_0044dd40** c, bool* s, int n) {

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "ecl_float_operand_recovery",
-  "source": "src/script/ecl_resolve_float_operand_0044fe40.cpp",
+  "source": "src/script/sptcmd/ecl_resolve_float_operand_0044fe40.cpp",
   "driver": "layout/ltcg/ecl_float_operand_recovery_context.cpp",
   "headers": [
     "include/th10/script/ecl_float_values.hpp"

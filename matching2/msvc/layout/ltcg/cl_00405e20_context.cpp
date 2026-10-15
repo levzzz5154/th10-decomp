@@ -1,7 +1,7 @@
 // Compiler context only; never selected as recovered game code.
 #include "../../src/game/bullet/bullet_manager_initialize_00405e20.cpp"
 #include "scheduler_register_anchors.cpp"
-#include "../../src/platform/text_log.cpp"
+#include "../../src/core/zunlib/text_log.cpp"
 
 #pragma code_seg(".text$90context")
 int __stdcall BulletManagerInitializeContext_00405e20(BulletManager_00405e20** managers,

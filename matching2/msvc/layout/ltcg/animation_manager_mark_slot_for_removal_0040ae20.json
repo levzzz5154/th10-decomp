@@ -67,7 +67,7 @@
     }
   ],
   "included_sources": [
-    "src/render/animation_manager_mark_resource_for_removal_004493e0.cpp"
+    "src/core/sprtlib/animation_manager_mark_resource_for_removal_004493e0.cpp"
   ],
   "anchors": [
     {

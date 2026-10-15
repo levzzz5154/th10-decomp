@@ -12,7 +12,7 @@
 // MSVC declaration names an argument in EAX, so the call site only reproduces it
 // when the callee's *body* is in the same /LTCG link.  It is: 0x004451C0 is the
 // recovered AnmVmDrawDispatch, a function of this same render-batch cluster
-// (src/render/anm_vm_draw_dispatch.cpp).  With an opaque binding instead, the
+// (src/core/sprtfunc/anm_vm_draw_dispatch.cpp).  With an opaque binding instead, the
 // pass falls back to the declared convention and the two `lea eax,[...]` become
 // `lea edx,[...]` - byte-exact but handing the dispatcher garbage.
 //
@@ -23,7 +23,7 @@
 #include "th10/render/quad_batch.hpp"
 
 // 0x004451C0: dispatch one animation entity's quad.  Defined in
-// src/render/anm_vm_draw_dispatch.cpp and co-compiled by this cluster.
+// src/core/sprtfunc/anm_vm_draw_dispatch.cpp and co-compiled by this cluster.
 extern "C" __declspec(noinline) int __cdecl asm_FUN_004451c0_004451c0(
         AnimationManager_00442F50* manager, RenderEntity* entity);
 

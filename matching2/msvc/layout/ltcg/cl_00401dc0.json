@@ -77,7 +77,7 @@
   ],
   "included_sources": [
     "src/game/entity_initialize_00401de0.cpp",
-    "src/game/animation_object_configure_from_resource_0043e5a0.cpp"
+    "src/core/sprtanim/animation_object_configure_from_resource_0043e5a0.cpp"
   ],
   "roots": []
 }

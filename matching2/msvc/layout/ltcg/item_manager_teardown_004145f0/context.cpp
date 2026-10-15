@@ -13,7 +13,7 @@ HudSprite::~HudSprite() {
 
 #include "../../../src/game/front/hud_destructor.cpp"
 #include "../animation_lookup_anchors.cpp"
-#include "../../../src/render/animation_manager_mark_resource_for_removal_004493e0.cpp"
+#include "../../../src/core/sprtlib/animation_manager_mark_resource_for_removal_004493e0.cpp"
 #define TH10_SCHEDULER_REMOVE_ONLY
 #include "../manager_teardown_native_0041adf0/scheduler.cpp"
 

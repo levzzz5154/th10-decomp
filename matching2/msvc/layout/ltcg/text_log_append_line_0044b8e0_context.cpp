@@ -1,5 +1,5 @@
 // Compiler context only; never selected as recovered game code.
-#include "../../src/platform/text_log_append_line_0044b8e0.cpp"
+#include "../../src/core/zunlib/text_log_append_line_0044b8e0.cpp"
 
 #pragma code_seg(".text$03context")
 int __stdcall TextLogLineCompilerContext(TextLog_0044b8e0** logs, int count, int value, const char* name) {

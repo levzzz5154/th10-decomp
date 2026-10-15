@@ -1,6 +1,6 @@
 // Compiler context only; never selected as recovered game code.
-#include "../../../src/platform/sound_stream_construct_0044ce80.cpp"
-#include "../../../src/game/sound_stream_fill_model.cpp"
+#include "../../../src/core/zwave/sound_stream_construct_0044ce80.cpp"
+#include "../../../src/core/zwave/sound_stream_fill_model.cpp"
 #include "../sound_fill_read.cpp"
 #include "../sound_fill_rewind.cpp"
 

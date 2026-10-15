@@ -9,7 +9,7 @@ extern unsigned char data_00497aa8[256];    // keyboard snapshot
 }
 
 // 0x0044B010 as its callers see it: the snapshot buffer in EDX and nothing
-// else (the maintained form is src/platform/keyboard_state.cpp).  Returns
+// else (the maintained form is src/core/zunlib/keyboard_state.cpp).  Returns
 // whether the snapshot holds DirectInput scan codes rather than virtual keys.
 int __stdcall Input_UpdateKeyboardState(unsigned char* destination);
 

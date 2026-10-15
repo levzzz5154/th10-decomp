@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "right_aligned_text_00447ae0",
-  "source": "src/game/recovery_right_aligned_text_00447ae0.cpp",
+  "source": "src/core/sprtlib/recovery_right_aligned_text_00447ae0.cpp",
   "driver": "layout/ltcg/right_aligned_text_00447ae0_context.cpp",
   "headers": [
     "include/th10/game/right_aligned_text_context/recovery_script_executor_0040bd80.hpp",
@@ -29,7 +29,7 @@
       "section": ".text$00447ae0_fn",
       "address": "0x00447AE0",
       "size": 204,
-      "source": "src/game/recovery_right_aligned_text_00447ae0.cpp",
+      "source": "src/core/sprtlib/recovery_right_aligned_text_00447ae0.cpp",
       "actual_abi": "VM ESI; manager/color/format stack homes followed by variadic payload; plain RET"
     },
     {
@@ -38,7 +38,7 @@
       "section": ".text$00447bb0_fn",
       "address": "0x00447BB0",
       "size": 194,
-      "source": "src/game/recovery_centered_text_00447bb0.cpp",
+      "source": "src/core/sprtlib/recovery_centered_text_00447bb0.cpp",
       "actual_abi": "VM ESI; manager/color/format stack homes followed by variadic payload; plain RET"
     }
   ],
@@ -1365,7 +1365,7 @@
     "layout/ltcg/right_aligned_text_context/recovery_script_executor_creation_anchors.cpp",
     "layout/ltcg/right_aligned_text_context/recovery_script_executor_caller_00419120.cpp",
     "layout/ltcg/right_aligned_text_context/recovery_script_executor_indicator_anchors.cpp",
-    "src/game/recovery_centered_text_00447bb0.cpp",
+    "src/core/sprtlib/recovery_centered_text_00447bb0.cpp",
     "layout/ltcg/right_aligned_text_context/recovery_script_executor_caller_00433ef0.cpp",
     "layout/ltcg/right_aligned_text_context/recovery_script_executor_0040bd80.cpp",
     "layout/ltcg/right_aligned_text_context/recovery_animation_slot_frames_0042c6d0.cpp",

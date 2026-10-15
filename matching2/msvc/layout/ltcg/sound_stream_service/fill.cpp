@@ -1,4 +1,4 @@
-// Unselected native ABI anchor from src/game/sound_stream_fill_model.cpp.
+// Unselected native ABI anchor from src/core/zwave/sound_stream_fill_model.cpp.
 // Only the shared type view and placement section differ.
 #include "th10/game/sound_stream_service.hpp"
 #include <string.h>

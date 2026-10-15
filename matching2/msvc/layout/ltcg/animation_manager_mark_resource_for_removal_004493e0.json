@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "animation_manager_mark_resource_for_removal_004493e0",
-  "source": "src/render/animation_manager_mark_resource_for_removal_004493e0.cpp",
+  "source": "src/core/sprtlib/animation_manager_mark_resource_for_removal_004493e0.cpp",
   "driver": "layout/ltcg/animation_manager_mark_resource_for_removal_004493e0_context.cpp",
   "headers": [
     "include/th10/render/animation_resource_removal.hpp",
@@ -28,7 +28,7 @@
       "address": "0x004477D0",
       "size": 55,
       "actual_abi": "manager in EBX; index in ESI; record in EDI; plain RET",
-      "source": "src/render/animation_manager_clear_resource_slot_004477d0.cpp"
+      "source": "src/core/sprtlib/animation_manager_clear_resource_slot_004477d0.cpp"
     },
     {
       "name": "AnimationResource_Release",
@@ -37,7 +37,7 @@
       "address": "0x00447810",
       "size": 242,
       "actual_abi": "record in EDI; plain RET",
-      "source": "src/render/fun_00447810_00447810.cpp"
+      "source": "src/core/sprtlib/fun_00447810_00447810.cpp"
     },
     {
       "name": "AnimationManager_MarkResourceForRemoval",
@@ -81,7 +81,7 @@
       "address": "0x00447700",
       "size": 135,
       "actual_abi": "manager on the stack; RET 4",
-      "source": "src/render/anm_manager_service_pending_00447700.cpp"
+      "source": "src/core/sprtlib/anm_manager_service_pending_00447700.cpp"
     }
   ],
   "context": {
@@ -168,10 +168,10 @@
   "additional_sources": [
     "src/game/bullet/bullet_pool_reset_retail_00405ed0.cpp",
     "src/game/loading/recovery_release_pair_0041f930.cpp",
-    "src/render/animation_manager_clear_resource_slot_004477d0.cpp",
-    "src/render/fun_00447810_00447810.cpp",
+    "src/core/sprtlib/animation_manager_clear_resource_slot_004477d0.cpp",
+    "src/core/sprtlib/fun_00447810_00447810.cpp",
     "src/unreferenced/animation_manager_release_slot1.cpp",
     "src/unreferenced/unassigned_00447910.cpp",
-    "src/render/anm_manager_service_pending_00447700.cpp"
+    "src/core/sprtlib/anm_manager_service_pending_00447700.cpp"
   ]
 }

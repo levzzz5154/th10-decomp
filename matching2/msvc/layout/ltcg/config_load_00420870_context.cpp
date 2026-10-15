@@ -33,7 +33,7 @@ extern "C" int __stdcall ConfigLoadContext(GameApp_00420870** apps, const char**
 #include "native_archive_read/decrypt.cpp"
 #include "native_archive_read/load.cpp"
 
-// The body of 0x0044B540 (src/platform/file_write_whole_file_0044b540.cpp),
+// The body of 0x0044B540 (src/core/zunlib/file_write_whole_file_0044b540.cpp),
 // which takes its size in EDI.
 extern "C" void* (__stdcall *data_004660c4)(const char*, unsigned int, unsigned int, void*, unsigned int,
                                             unsigned int, void*);
@@ -69,7 +69,7 @@ __declspec(noinline) int __stdcall File_WriteWholeFile(const char* path, const v
     return 0;
 }
 
-// The bodies of the two log appenders (src/platform/text_log.cpp and
+// The bodies of the two log appenders (src/core/zunlib/text_log.cpp and
 // text_log_append_line_0044b8e0.cpp).
 extern "C" int __cdecl asm_vsprintf_004524a6(char* buffer, const char* format, char* arguments);
 struct ConfigLoadCriticalSection { unsigned char storage[24]; };

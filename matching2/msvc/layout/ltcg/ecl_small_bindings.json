@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "ecl_small_bindings",
-  "source": "src/script/ecl_reset_variable_bindings_00450190.cpp",
+  "source": "src/script/sptcmd/ecl_reset_variable_bindings_00450190.cpp",
   "driver": "layout/ltcg/ecl_small_bindings_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

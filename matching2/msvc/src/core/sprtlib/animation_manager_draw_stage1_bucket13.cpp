@@ -2,7 +2,7 @@
 // second render stage as the active one and draw animation bucket 0x13.
 //
 // Byte-for-byte the same body as 0x00448770 apart from the bucket index; see
-// src/render/animation_manager_draw_stage1_bucket0f.cpp for what the body is, why the
+// src/core/sprtlib/animation_manager_draw_stage1_bucket0f.cpp for what the body is, why the
 // manager arrives in ECX and why it lives in the camera cluster.
 #include "th10/render/camera_batch.hpp"
 

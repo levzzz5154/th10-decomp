@@ -1,5 +1,5 @@
 // Unselected native ABI anchor from
-// src/render/animation_manager_mark_resource_for_removal_004493e0.cpp.
+// src/core/sprtlib/animation_manager_mark_resource_for_removal_004493e0.cpp.
 // Only the placement section differs.
 #include "th10/render/animation_resource_removal.hpp"
 

@@ -1,4 +1,4 @@
-#include "../../src/script/ecl_child_pair.cpp"
+#include "../../src/script/sptcmd/ecl_child_pair.cpp"
 #pragma code_seg(".text$11context")
 extern "C" __declspec(noinline) int __stdcall EclChildPairContext(EclCompleteChild** sources, int id, int index, int count) {
  int result=0;

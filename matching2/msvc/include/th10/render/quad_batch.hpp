@@ -33,11 +33,11 @@ struct AnimationManager_00442F50 {
     __declspec(noinline) void SyncRenderState(const RenderEntity* entity);
     __declspec(noinline) int DrawStrip(const RenderEntity* entity, const void* vertices, unsigned int count);
     // 0x00448620: republishes the first render stage and draws animation
-    // bucket 3; see src/render/animation_manager_draw_stage0_bucket3.cpp.
+    // bucket 3; see src/core/sprtlib/animation_manager_draw_stage0_bucket3.cpp.
     __declspec(noinline) int RenderStage0Bucket3();
     // 0x00448770, 0x004487C0 and 0x00448810: the scheduler tasks that
     // republish the second render stage and then draw one animation bucket
-    // (0x0F, 0x10 and 0x13); see src/render/animation_manager_draw_stage1_bucket0f.cpp.
+    // (0x0F, 0x10 and 0x13); see src/core/sprtlib/animation_manager_draw_stage1_bucket0f.cpp.
     __declspec(noinline) int RenderStage1Bucket0F();
     __declspec(noinline) int RenderStage1Bucket10();
     __declspec(noinline) int RenderStage1Bucket13();
@@ -45,7 +45,7 @@ struct AnimationManager_00442F50 {
     // stored sprite origin and then renders render-slot 14.
     __declspec(noinline) int ResetOriginAndRenderSlot14();
     // 0x004485F0, 0x00448610 and 0x004486A0..0x00448730: scheduler tasks that
-    // draw one animation bucket; see src/render/animation_bucket_tasks.cpp.
+    // draw one animation bucket; see src/core/sprtlib/animation_bucket_tasks.cpp.
     __declspec(noinline) int DrawBucket0();
     __declspec(noinline) int DrawBucket2();
     __declspec(noinline) int DrawBucket4();
@@ -59,7 +59,7 @@ struct AnimationManager_00442F50 {
     __declspec(noinline) int DrawBucket12();
     __declspec(noinline) int DrawBucket13();
     // 0x00448980: walks one animation bucket's entity list and draws every node
-    // in it; see src/render/animation_manager_render_bucket_00448980.cpp.
+    // in it; see src/core/sprtlib/animation_manager_render_bucket_00448980.cpp.
     __declspec(noinline) int RenderBucket(int index);
 };
 
@@ -97,10 +97,10 @@ struct RenderEntity {
 
     // 0x00443F80: project the entity's billboard quad and submit it as a
     // plain sprite when the projection succeeds; see
-    // src/render/entity_submit_projected_00443f80.cpp.
+    // src/core/sprtfunc/entity_submit_projected_00443f80.cpp.
     __declspec(noinline) int SubmitProjectedQuad(AnimationManager_00442F50* manager);
     // 0x00445880: draw the strip vertices as a 33-point fan; see
-    // src/render/render_entity_draw_fan.cpp.
+    // src/core/sprtfunc/render_entity_draw_fan.cpp.
     __declspec(noinline) int DrawFan33();
 };
 // The shared sprite quad both submit pipelines finish and append.

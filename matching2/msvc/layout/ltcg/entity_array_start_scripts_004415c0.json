@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "entity_array_start_scripts_004415c0",
-  "source": "src/game/entity_array_start_scripts_004415c0.cpp",
+  "source": "src/core/sprtanim/entity_array_start_scripts_004415c0.cpp",
   "driver": "layout/ltcg/entity_array_start_scripts_004415c0_context.cpp",
   "headers": [
     "include/th10/game/entity.hpp",
@@ -106,7 +106,7 @@
     }
   ],
   "included_sources": [
-    "src/render/animation_object_load_script_0043e710.cpp",
+    "src/core/sprtanim/animation_object_load_script_0043e710.cpp",
     "src/game/background/entity_start_script_00404f30.cpp",
     "layout/ltcg/entity_start_script_00404f30_context.cpp"
   ],

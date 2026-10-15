@@ -1,5 +1,5 @@
 // Synthetic compiler caller only; not selected as recovered game code.
-#include "../../../src/platform/sound_wave_load_0043d390.cpp"
+#include "../../../src/core/sound/sound_wave_load_0043d390.cpp"
 #include "chunks.cpp"
 #include "log.cpp"
 #pragma code_seg(".text$07context")

@@ -47,7 +47,7 @@
       "section": ".text$004489d0_fn",
       "address": "0x004489D0",
       "size": 118,
-      "source": "src/render/animation_manager_register_primary_back_004489d0.cpp",
+      "source": "src/core/sprtlib/animation_manager_register_primary_back_004489d0.cpp",
       "actual_abi": "manager EDX, object EBX, output EAX; RET"
     }
   ],
@@ -129,7 +129,7 @@
     "layout/ltcg/player_hud_start_spell_dependencies/start_script.cpp",
     "layout/ltcg/player_hud_start_spell_dependencies/queue.cpp",
     "layout/ltcg/player_hud_start_spell_dependencies/load_script.cpp",
-    "src/render/animation_manager_register_primary_back_004489d0.cpp",
+    "src/core/sprtlib/animation_manager_register_primary_back_004489d0.cpp",
     "layout/ltcg/player_hud_start_spell_dependencies/find.cpp",
     "layout/ltcg/player_hud_start_spell_dependencies/translated.cpp",
     "layout/ltcg/player_hud_start_spell_dependencies/allocate.cpp",
@@ -137,12 +137,12 @@
   ],
   "included_sources": [
     "src/game/background/entity_start_script_00404f30.cpp",
-    "src/render/animation_manager_queue_resource_0043dc90.cpp",
-    "src/render/animation_object_load_script_0043e710.cpp",
+    "src/core/sound/animation_manager_queue_resource_0043dc90.cpp",
+    "src/core/sprtanim/animation_object_load_script_0043e710.cpp",
     "layout/ltcg/position_setter_find_anchor.cpp",
-    "src/render/animation_manager_set_translated_position_00449350.cpp",
+    "src/core/sprtlib/animation_manager_set_translated_position_00449350.cpp",
     "layout/ltcg/result_open_00423370/allocate.cpp",
-    "src/game/recovery_right_aligned_text_00447ae0.cpp",
+    "src/core/sprtlib/recovery_right_aligned_text_00447ae0.cpp",
     "layout/ltcg/right_aligned_text_context/exact_text_dispatcher_anchor.cpp"
   ],
   "absolute_symbols": [

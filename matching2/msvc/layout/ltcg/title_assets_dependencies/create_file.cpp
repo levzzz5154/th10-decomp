@@ -82,7 +82,7 @@ int SoundDeviceOwner::CreateFileStream(SoundStreamingState** output, unsigned in
 
 #pragma code_seg()
 
-// 0x0044DBF0, from src/game/archive_cursor_open.cpp: the cursor's open step,
+// 0x0044DBF0, from src/core/zwave/archive_cursor_open.cpp: the cursor's open step,
 // so the factory stand-in calls it the way retail does.
 extern "C" unsigned int (__stdcall* data_004660c8)(void* file, int distance, int* high,
     unsigned int method);

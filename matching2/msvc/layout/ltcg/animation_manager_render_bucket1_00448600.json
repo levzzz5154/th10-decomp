@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "name": "animation_manager_render_bucket1_00448600",
-  "source": "src/render/animation_manager_draw_bucket1.cpp",
-  "included_sources": ["src/render/animation_manager_render_bucket_00448980.cpp"],
+  "source": "src/core/sprtlib/animation_manager_draw_bucket1.cpp",
+  "included_sources": ["src/core/sprtlib/animation_manager_render_bucket_00448980.cpp"],
   "driver": "layout/ltcg/animation_manager_render_bucket1_00448600_context.cpp",
   "headers": [
     "include/th10/render/quad_batch.hpp"

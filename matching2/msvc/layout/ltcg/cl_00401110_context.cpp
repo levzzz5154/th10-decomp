@@ -7,9 +7,9 @@
 #pragma code_seg(".text$00_d_init")
 #include "../../src/game/entity_initialize_00401de0.cpp"
 #pragma code_seg()
-#include "../../src/game/animation_object_configure_from_resource_0043e5a0.cpp"
+#include "../../src/core/sprtanim/animation_object_configure_from_resource_0043e5a0.cpp"
 #include "scheduler_register_anchors.cpp"
-#include "../../src/platform/text_log.cpp"
+#include "../../src/core/zunlib/text_log.cpp"
 
 extern "C" GameThread *__stdcall AsciiManager_Create();
 

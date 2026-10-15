@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "platform_aggregate_interfaces_0044d550",
-  "source": "src/game/platform_aggregate_interfaces_0044d550.cpp",
+  "source": "src/core/zwave/platform_aggregate_interfaces_0044d550.cpp",
   "driver": "layout/ltcg/platform_aggregate_interfaces_0044d550_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

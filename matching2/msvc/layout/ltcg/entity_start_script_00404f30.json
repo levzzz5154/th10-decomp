@@ -158,7 +158,7 @@
   }
  ],
  "included_sources": [
-  "src/render/animation_object_load_script_0043e710.cpp"
+  "src/core/sprtanim/animation_object_load_script_0043e710.cpp"
  ],
  "roots": [
   "?Initialize@Laser_0041e5c0@@QAEHPBULaserParams_0041e5c0@@@Z",

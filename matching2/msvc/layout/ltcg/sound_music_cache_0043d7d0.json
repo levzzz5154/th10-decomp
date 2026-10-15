@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "sound_music_cache_0043d7d0",
-  "source": "src/platform/sound_music_cache.cpp",
+  "source": "src/core/sound/sound_music_cache.cpp",
   "driver": "layout/ltcg/sound_music_cache_0043d7d0_context.cpp",
   "headers": [
     "include/th10/app/supervisor.hpp",

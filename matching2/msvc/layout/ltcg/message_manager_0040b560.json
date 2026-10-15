@@ -10,7 +10,7 @@
     "layout/ltcg/message_manager_0040b560_animation.cpp",
     "layout/ltcg/message_manager_0040b560_scheduler.cpp",
     "layout/ltcg/native_archive_read/load.cpp",
-    "src/platform/text_log.cpp",
+    "src/core/zunlib/text_log.cpp",
     "src/game/ending/ending_text_constructor_0040ba90.cpp"
   ],
   "headers": [

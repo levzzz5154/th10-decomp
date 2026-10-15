@@ -1,2 +1,2 @@
-#include "../../../src/platform/joystick_property.cpp"
+#include "../../../src/core/zunlib/joystick_property.cpp"
 #include "configure.cpp"

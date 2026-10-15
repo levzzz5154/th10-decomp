@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "anim_set_flag_00449590",
-  "source": "src/render/animation_manager_set_flag_bit1_00449590.cpp",
+  "source": "src/core/sprtlib/animation_manager_set_flag_bit1_00449590.cpp",
   "driver": "layout/ltcg/anim_set_flag_00449590_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

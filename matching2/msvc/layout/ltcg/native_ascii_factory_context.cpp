@@ -47,6 +47,6 @@ extern "C" __declspec(noinline) int __stdcall Scheduler_RegisterSecondary(
 
 
 
-#include "../../src/render/screen_effect/configure.cpp"
+#include "../../src/core/screen/configure.cpp"
 #include "th10/math/timer.hpp"
 #include "native_stage_update_context.cpp"

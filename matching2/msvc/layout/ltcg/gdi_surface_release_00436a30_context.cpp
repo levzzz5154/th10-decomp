@@ -1,5 +1,5 @@
 // Compiler context only; its bytes are not recovered game code.
-#include "../../src/platform/gdi_font_cache.cpp"
+#include "../../src/core/main/gdi_font_cache.cpp"
 
 #pragma code_seg(".text$03context")
 int __stdcall Ctx(GdiSurface_00436a30** s, int n) {

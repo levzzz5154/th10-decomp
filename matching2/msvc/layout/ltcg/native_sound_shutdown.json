@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "native_sound_shutdown",
-  "source": "src/platform/midi_worker_stop.cpp",
+  "source": "src/core/sound/midi_worker_stop.cpp",
   "driver": "layout/ltcg/native_sound_shutdown/cleanup_recovery_context.cpp",
   "headers": [
     "include/th10/platform/native_sound_shutdown.hpp"
@@ -23,7 +23,7 @@
     {
       "name": "SoundCleanup",
       "symbol": "?Cleanup@WaveSoundManager@@QAEHXZ",
-      "source": "src/platform/sound_cleanup_0043d120.cpp",
+      "source": "src/core/sound/sound_cleanup_0043d120.cpp",
       "section": ".text$a00cleanup",
       "address": "0x0043D120",
       "size": 301,
@@ -102,6 +102,6 @@
     }
   ],
   "additional_sources": [
-    "src/platform/sound_cleanup_0043d120.cpp"
+    "src/core/sound/sound_cleanup_0043d120.cpp"
   ]
 }

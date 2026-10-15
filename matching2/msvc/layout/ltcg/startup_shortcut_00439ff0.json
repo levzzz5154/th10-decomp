@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "startup_shortcut_00439ff0",
-  "source": "src/platform/fun_00439ff0_00439ff0.cpp",
+  "source": "src/core/main/fun_00439ff0_00439ff0.cpp",
   "driver": "layout/ltcg/startup_shortcut_00439ff0_context.cpp",
   "included_sources": [
     "layout/ltcg/startup_helpers/probe.cpp",
@@ -27,7 +27,7 @@
       "section": ".text$02resolver",
       "address": "0x0043A290",
       "size": 272,
-      "source": "src/platform/fun_0043a290_0043a290.cpp",
+      "source": "src/core/main/fun_0043a290_0043a290.cpp",
       "actual_abi": "Three actual inputs: output EBX, capacity EDI and shortcut pointer on stack, RET4. Compiler derives private convention through real startup call0x0043A0EE; EAX boolean result."
     }
   ],
@@ -251,6 +251,6 @@
     }
   ],
   "additional_sources": [
-    "src/platform/fun_0043a290_0043a290.cpp"
+    "src/core/main/fun_0043a290_0043a290.cpp"
   ]
 }

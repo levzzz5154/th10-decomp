@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "timer_return",
-  "source": "src/math/timer_return.cpp",
+  "source": "src/core/zunlib/timer_return.cpp",
   "driver": "layout/ltcg/timer_return_context.cpp",
   "headers": [
     "include/th10/math/timer_return.hpp",

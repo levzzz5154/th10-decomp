@@ -1,7 +1,7 @@
 // Public destructor root preserves the genuine ECX cleanup ABI while normal
 // stack destruction remains inline. The root is an entire actual lifetime body.
 #pragma comment(linker, "/include:??1ResourceSizeFile_004358e0@@QAE@XZ")
-#include "../../src/pack/resfile/resource_get_file_size_retail_004358e0.cpp"
+#include "../../src/pack/file/resource_get_file_size_retail_004358e0.cpp"
 #include "../../src/pack/arcmngr/dat_archive_find_size_00434ef0.cpp"
 #pragma code_seg(".text$11context")
 extern "C" __declspec(noinline) unsigned int __stdcall ResourceSizeContext(const char** paths,

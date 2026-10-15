@@ -1,7 +1,7 @@
 // The original scalar deleting destructor is the complete unselected caller.
-#include "../../src/render/d3_d_resource_manager_destroy_00438880.cpp"
+#include "../../src/core/main/d3_d_resource_manager_destroy_00438880.cpp"
 #include "destroy_release_adapter.cpp"
-#include "../../src/platform/platform_stop_worker_0044c150.cpp"
+#include "../../src/core/zunlib/platform_stop_worker_0044c150.cpp"
 extern "C" void __cdecl entry_free_004524a1(void* memory);
 #pragma code_seg(".text$30context")
 void* Object_00439040::Destroy(unsigned int flags) {

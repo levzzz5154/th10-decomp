@@ -1,5 +1,5 @@
 // Compiler context only; never selected as recovered game code.
-#include "../../src/render/animation_manager_mark_resource_for_removal_004493e0.cpp"
+#include "../../src/core/sprtlib/animation_manager_mark_resource_for_removal_004493e0.cpp"
 
 struct BulletPool {
     unsigned char reserved_0000[0x3E0B54];

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "positioned_primary_00448d50_wave10",
-  "source": "src/render/animation_manager_create_positioned_primary_00448d50.cpp",
+  "source": "src/core/sprtlib/animation_manager_create_positioned_primary_00448d50.cpp",
   "driver": "layout/ltcg/positioned_primary_00448d50_wave10_context.cpp",
   "headers": [],
   "image_base": "0x00400000",
@@ -14,7 +14,7 @@
       "address": "0x00448D00",
       "size": 73,
       "actual_abi": "out in EDI; resource, index and render bucket on stack; out returned in EAX; ret 0xC",
-      "source": "src/render/animation_manager_create_primary_back_00448d00.cpp"
+      "source": "src/core/sprtlib/animation_manager_create_primary_back_00448d00.cpp"
     },
     {
       "name": "AnimationManager_CreatePositionedPrimary_00448d50",
@@ -30,7 +30,7 @@
       "section": ".text$05ad_screen",
       "address": "0x00448DB0",
       "size": 118,
-      "source": "src/render/player_animation_create_00448db0.cpp",
+      "source": "src/core/sprtlib/player_animation_create_00448db0.cpp",
       "actual_abi": "position in EDI, three stack args; RET 12"
     }
   ],
@@ -146,8 +146,8 @@
     }
   ],
   "additional_sources": [
-    "src/render/animation_manager_create_primary_back_00448d00.cpp",
-    "src/render/player_animation_create_00448db0.cpp"
+    "src/core/sprtlib/animation_manager_create_primary_back_00448d00.cpp",
+    "src/core/sprtlib/player_animation_create_00448db0.cpp"
   ],
   "constant_aliases": [
     {

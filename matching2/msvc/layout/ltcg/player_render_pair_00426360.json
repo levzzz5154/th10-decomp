@@ -6,9 +6,9 @@
     "include/th10/render/quad_batch.hpp"
   ],
   "included_sources": [
-    "src/render/special_quad.cpp",
-    "src/render/anm_batch_flush.cpp",
-    "src/render/anm_vm_draw_dispatch.cpp"
+    "src/core/screen/special_quad.cpp",
+    "src/core/sprtfunc/anm_batch_flush.cpp",
+    "src/core/sprtfunc/anm_vm_draw_dispatch.cpp"
   ],
   "image_base": "0x00400000",
   "description": "Actual player draw worker and registered scheduler callback. Complete maintained rectangle, flush and dispatcher bodies are co-compiled unchanged as unselected helpers; there is no synthetic caller or fabricated ABI body. In this visibility context the dispatcher naturally emits a complete 192-byte contribution, rather than its selected owner's 216-byte body; it receives no recovery credit here. Its manager-ECX/entity-EAX entry is the real private ABI observed at every retail call site. Only the full 409-byte worker and 7-byte callback are exported.",

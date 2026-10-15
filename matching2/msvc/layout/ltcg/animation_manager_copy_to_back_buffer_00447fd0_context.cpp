@@ -1,5 +1,5 @@
 // Compiler context only; none of these bytes enter the image.
-#include "../../src/render/animation_manager_copy_to_back_buffer_00447fd0.cpp"
+#include "../../src/core/sprtlib/animation_manager_copy_to_back_buffer_00447fd0.cpp"
 
 #pragma code_seg(".text$05context")
 extern "C" int __stdcall CopyToBackBufferContext_00447fd0(

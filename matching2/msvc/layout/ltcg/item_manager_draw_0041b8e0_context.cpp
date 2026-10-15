@@ -1,7 +1,7 @@
 // Compiler context and ABI anchors only; none of these bytes enter the image.
 #include "../../src/game/item/item_manager_draw_0041b8e0.cpp"
 
-#include "../../src/game/animation_object_configure_from_resource_0043e5a0.cpp"
+#include "../../src/core/sprtanim/animation_object_configure_from_resource_0043e5a0.cpp"
 
 // 0x004451C0 enters on (EAX entity, ECX manager). The recovered dispatcher
 // lives in the render-batch cluster; this stand-in only fixes the parameter

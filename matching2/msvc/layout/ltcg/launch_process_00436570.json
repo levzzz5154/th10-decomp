@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "launch_process_00436570",
-  "source": "src/platform/launch_process_00436570.cpp",
+  "source": "src/core/main/launch_process_00436570.cpp",
   "driver": "layout/ltcg/launch_process_00436570_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

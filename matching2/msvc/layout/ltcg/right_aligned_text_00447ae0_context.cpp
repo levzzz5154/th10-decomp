@@ -1,4 +1,4 @@
-#include "../../src/game/recovery_right_aligned_text_00447ae0.cpp"
+#include "../../src/core/sprtlib/recovery_right_aligned_text_00447ae0.cpp"
 #include "right_aligned_text_context/exact_text_dispatcher_anchor.cpp"
 #include "th10/game/right_aligned_text_context/recovery_script_executor_caller_00419120.hpp"
 #include "th10/game/right_aligned_text_context/recovery_script_executor_caller_00433ef0.hpp"

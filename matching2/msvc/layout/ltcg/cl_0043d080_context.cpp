@@ -1,6 +1,6 @@
 // Compiler context only; never selected as recovered game code.
 #include "th10/platform/windows_types.hpp"
-#include "../../src/platform/sound_preload_worker_0043d080.cpp"
+#include "../../src/core/sound/sound_preload_worker_0043d080.cpp"
 #define ARCHIVE_READ_SECTION ".text$01read"
 #define ARCHIVE_FIND_SECTION ".text$02find"
 #define ARCHIVE_DECRYPT_SECTION ".text$04decrypt"
@@ -9,7 +9,7 @@
 #include "native_archive_read/find.cpp"
 #include "native_archive_read/decrypt.cpp"
 #include "native_archive_read/load.cpp"
-#include "../../src/platform/text_log.cpp"
+#include "../../src/core/zunlib/text_log.cpp"
 
 typedef void (__cdecl* ThreadRoutine)();
 

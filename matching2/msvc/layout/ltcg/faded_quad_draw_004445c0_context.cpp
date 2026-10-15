@@ -2,9 +2,9 @@
 // The real dispatcher is the link entry, with its public two-stack-argument
 // entry in this small native graph. Its complete 232-byte contribution is
 // declared honestly; its maintained 216-byte owner remains separate.
-#include "../../src/render/faded_quad_draw.cpp"
+#include "../../src/core/sprtfunc/faded_quad_draw.cpp"
 
-// Full algorithm from src/render/fun_00444240_00444240.cpp. Only the section
+// Full algorithm from src/core/sprtfunc/fun_00444240_00444240.cpp. Only the section
 // name and camera-global typed views differ from that maintained source.
 #pragma code_seg(".text$06b06projection")
 int ProjectedEntity_00444240::ProjectQuad(ProjectionManager_00444240* manager) {
@@ -75,9 +75,9 @@ int ProjectedEntity_00444240::ProjectQuad(ProjectionManager_00444240* manager) {
 }
 #pragma code_seg()
 
-#include "../../src/render/animation_color_multiply_channel_004423c0.cpp"
-#include "../../src/render/render_state_sync.cpp"
-#include "../../src/render/sprite_quad_submit.cpp"
-#include "../../src/render/anm_batch_flush.cpp"
-#include "../../src/render/quad_vertex_append.cpp"
-#include "../../src/render/anm_vm_draw_dispatch.cpp"
+#include "../../src/core/sprtfunc/animation_color_multiply_channel_004423c0.cpp"
+#include "../../src/core/sprtfunc/render_state_sync.cpp"
+#include "../../src/core/sprtfunc/sprite_quad_submit.cpp"
+#include "../../src/core/sprtfunc/anm_batch_flush.cpp"
+#include "../../src/core/sprtfunc/quad_vertex_append.cpp"
+#include "../../src/core/sprtfunc/anm_vm_draw_dispatch.cpp"

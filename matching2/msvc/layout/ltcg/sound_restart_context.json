@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "sound_restart_context",
-  "source": "src/platform/streamer_restart_retail_0044dad0.cpp",
+  "source": "src/core/zwave/streamer_restart_retail_0044dad0.cpp",
   "driver": "layout/ltcg/sound_restart_context.cpp",
   "included_sources": [
     "layout/ltcg/sound_restart_dependencies/sound_start_platform_run_interface_0044d300.cpp",

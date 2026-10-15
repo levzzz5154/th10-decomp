@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "animation_register_secondary_back_00448ac0",
-  "source": "src/render/animation_manager_register_secondary_back_00448ac0.cpp",
+  "source": "src/core/sprtlib/animation_manager_register_secondary_back_00448ac0.cpp",
   "driver": "layout/ltcg/animation_register_secondary_back_00448ac0_context.cpp",
   "image_base": "0x00400000",
   "description": "Secondary-back registrar with explicitly synthetic creation-loop caller context.",

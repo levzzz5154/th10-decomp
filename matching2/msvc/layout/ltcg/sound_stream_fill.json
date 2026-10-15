@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "sound_stream_fill",
-  "source": "src/game/sound_stream_fill_model.cpp",
+  "source": "src/core/zwave/sound_stream_fill_model.cpp",
   "driver": "layout/ltcg/sound_stream_fill_context.cpp",
   "included_sources": [
     "layout/ltcg/sound_fill_read.cpp",

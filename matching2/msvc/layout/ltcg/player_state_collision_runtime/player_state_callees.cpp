@@ -32,7 +32,7 @@ void PowerDisplayOwner_004054b0::SetPowerDigits(int whole, int fraction) {
     sprites->ConfigureObject(DigitSprite_004054b0(tens_digit), fraction / 10 + 8);
     sprites->ConfigureObject(DigitSprite_004054b0(ones_digit), fraction % 10 + 8);
 }
-// src/game/animation_object_configure_from_resource_0043e5a0.cpp
+// src/core/sprtanim/animation_object_configure_from_resource_0043e5a0.cpp
 #pragma code_seg(".text$f0043e5a0F")
 __declspec(noinline) int Resource_0043e5a0::ConfigureObject(
     AnimationObject_0043e5a0* object, int index) {

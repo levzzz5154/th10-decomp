@@ -14,17 +14,17 @@
     "src/game/item/recovery_install_pair_clear_flags_0041ad90.cpp",
     "src/game/bomb/bomb_register_tasks.cpp",
     "src/game/bomb/bomb_release.cpp",
-    "src/game/scheduler_create_and_register_0044a000.cpp",
-    "src/game/scheduler_create_and_register_secondary_0044a030.cpp",
-    "src/game/scheduler_release_task_pair_0043cb00.cpp",
-    "src/game/scheduler_tasks.cpp",
+    "src/core/zunlib/scheduler_create_and_register_0044a000.cpp",
+    "src/core/zunlib/scheduler_create_and_register_secondary_0044a030.cpp",
+    "src/core/screen/scheduler_release_task_pair_0043cb00.cpp",
+    "src/core/zunlib/scheduler_tasks.cpp",
     "src/game/laser/score_display_register_tasks_retail_0041c120.cpp",
     "src/game/laser/score_extended_object_destroy_0041c1c0.cpp",
     "src/game/laser/score_object_initialize_0041c030.cpp",
     "src/game/front/task_registration.cpp",
     "src/game/title/title_register_tasks_0042caa0.cpp",
-    "src/platform/joystick_probe.cpp",
-    "src/platform/text_log.cpp",
+    "src/core/zunlib/joystick_probe.cpp",
+    "src/core/zunlib/text_log.cpp",
     "src/game/eclview/sprite_viewer_register_tasks.cpp",
     "src/unreferenced/unassigned_00405f00.cpp",
     "src/unreferenced/unassigned_00413300.cpp",
@@ -169,7 +169,7 @@
     },
     {
       "name": "Scheduler_RegisterPrimary",
-      "source": "src/game/scheduler_tasks.cpp",
+      "source": "src/core/zunlib/scheduler_tasks.cpp",
       "symbol": "_Scheduler_RegisterPrimary@12",
       "section": ".text$10primary",
       "address": "0x00449AE0",
@@ -178,7 +178,7 @@
     },
     {
       "name": "Scheduler_RegisterSecondary",
-      "source": "src/game/scheduler_tasks.cpp",
+      "source": "src/core/zunlib/scheduler_tasks.cpp",
       "symbol": "_Scheduler_RegisterSecondary@12",
       "section": ".text$30secondary",
       "address": "0x00449B70",
@@ -187,7 +187,7 @@
     },
     {
       "name": "Scheduler_RemoveLocked",
-      "source": "src/game/scheduler_tasks.cpp",
+      "source": "src/core/zunlib/scheduler_tasks.cpp",
       "symbol": "_Scheduler_RemoveLocked@8",
       "section": ".text$50locked",
       "address": "0x00449F20",
@@ -196,7 +196,7 @@
     },
     {
       "name": "Scheduler_Remove",
-      "source": "src/game/scheduler_tasks.cpp",
+      "source": "src/core/zunlib/scheduler_tasks.cpp",
       "symbol": "_Scheduler_Remove@8",
       "section": ".text$70remove",
       "address": "0x00449F60",
@@ -205,7 +205,7 @@
     },
     {
       "name": "SchedulerCreatePrimary_0044A000",
-      "source": "src/game/scheduler_create_and_register_0044a000.cpp",
+      "source": "src/core/zunlib/scheduler_create_and_register_0044a000.cpp",
       "symbol": "?Create@SchedulerCreatePrimary_0044A000@@QAEPAUSchedulerTask@@PAXH@Z",
       "section": ".text$76schedulerprimary",
       "address": "0x0044A000",
@@ -214,7 +214,7 @@
     },
     {
       "name": "SchedulerCreateSecondary_0044A030",
-      "source": "src/game/scheduler_create_and_register_secondary_0044a030.cpp",
+      "source": "src/core/zunlib/scheduler_create_and_register_secondary_0044a030.cpp",
       "symbol": "?Create@SchedulerCreateSecondary_0044A030@@QAEPAUSchedulerTask@@PAXH@Z",
       "section": ".text$78schedulersecondary",
       "address": "0x0044A030",
@@ -223,7 +223,7 @@
     },
     {
       "name": "Joystick_Probe",
-      "source": "src/platform/joystick_probe.cpp",
+      "source": "src/core/zunlib/joystick_probe.cpp",
       "symbol": "?Joystick_Probe_0044a0c0@@YGFXZ",
       "section": ".text$80joystick",
       "address": "0x0044A0C0",
@@ -232,7 +232,7 @@
     },
     {
       "name": "TextLog_Append",
-      "source": "src/platform/text_log.cpp",
+      "source": "src/core/zunlib/text_log.cpp",
       "symbol": "?Append@TextLog_0044b810@@QAAPADPADZZ",
       "section": ".text$85textlog",
       "address": "0x0044B810",
@@ -327,7 +327,7 @@
       "address": "0x0043CB00",
       "size": 127,
       "actual_abi": "stdcall; pair on the stack",
-      "source": "src/game/scheduler_release_task_pair_0043cb00.cpp"
+      "source": "src/core/screen/scheduler_release_task_pair_0043cb00.cpp"
     },
     {
       "name": "Recovery_ReleaseRawPairAndReset_00405620",

@@ -1,5 +1,5 @@
 // Compiler context only; never selected as recovered game code.
-#include "../../src/render/anm_manager_update.cpp"
+#include "../../src/core/sprtlib/anm_manager_update.cpp"
 
 #pragma code_seg(".text$00init")
 #include "../../src/game/entity_initialize_00401de0.cpp"

@@ -1,5 +1,5 @@
 // Compiler context only; never selected as recovered game code.
-#include "../../src/platform/file_write_whole_file_0044b540.cpp"
+#include "../../src/core/zunlib/file_write_whole_file_0044b540.cpp"
 
 #pragma code_seg(".text$03context")
 int __stdcall FileWriteWholeFileCompilerContext(const char* path, const void* buffer,

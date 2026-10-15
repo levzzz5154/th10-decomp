@@ -7,7 +7,7 @@
 // builder instead.  The two regions are one body written twice - their bytes
 // differ only in the displacement of the two direct calls - and the dispatcher
 // 0x004451C0 reaches both with the manager in ECX and the entity in EDX, tail
-// jumping to them (see src/render/anm_vm_draw_dispatch.cpp).
+// jumping to them (see src/core/sprtfunc/anm_vm_draw_dispatch.cpp).
 //
 // The field names follow the shared entity layout in include/th10/game/entity
 // .hpp: rotation at +0x24 (a Vector3, so the in-plane angle is its z),

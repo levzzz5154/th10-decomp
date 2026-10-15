@@ -1,5 +1,5 @@
 // Compiler context only; never selected as recovered game code.
-#include "../../src/render/animation_object_resolve_float_variable_0043ed00.cpp"
+#include "../../src/core/sprtanim/animation_object_resolve_float_variable_0043ed00.cpp"
 
 extern "C" int* __stdcall ResolveIntegerVariable_0043eda0(
     int* value, unsigned char* object, unsigned char selector, unsigned short mask);

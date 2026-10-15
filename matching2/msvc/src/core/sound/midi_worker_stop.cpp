@@ -24,4 +24,4 @@ void WaveSoundManager::StopMusicWorker() {
     }
 }
 #pragma code_seg()
-#include "../../layout/ltcg/native_sound_shutdown/aggregate.cpp"
+#include "../../../layout/ltcg/native_sound_shutdown/aggregate.cpp"

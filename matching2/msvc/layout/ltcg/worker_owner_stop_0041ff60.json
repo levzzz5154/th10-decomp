@@ -106,8 +106,8 @@
     }
   ],
   "included_sources": [
-    "src/platform/platform_stop_worker_no_delete_0044c130.cpp",
-    "src/platform/platform_stop_worker_0044c150.cpp"
+    "src/core/zunlib/platform_stop_worker_no_delete_0044c130.cpp",
+    "src/core/zunlib/platform_stop_worker_0044c150.cpp"
   ],
   "anchors": [
     {

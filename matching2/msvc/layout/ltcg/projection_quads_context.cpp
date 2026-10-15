@@ -1,5 +1,5 @@
 // Compiler context only; never selected as recovered game code.
-#include "../../src/render/projection_quads.cpp"
+#include "../../src/core/sprtfunc/projection_quads.cpp"
 
 #pragma code_seg(".text$00context")
 int __stdcall ProjectionQuadsCompilerContext(BillboardSource_00443B60** sources, int count) {

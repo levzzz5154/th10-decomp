@@ -15,9 +15,9 @@
   "src/game/background/entity_start_script_00404f30.cpp",
   "src/game/background/player_set_scheduler_value_00405410.cpp",
   "src/game/player/player_angle_from_point.cpp",
-  "src/render/animation_manager_queue_resource_0043dc90.cpp",
-  "src/platform/sound_queue_pan_0043dd10.cpp",
-  "src/render/animation_object_load_script_0043e710.cpp"
+  "src/core/sound/animation_manager_queue_resource_0043dc90.cpp",
+  "src/core/sound/sound_queue_pan_0043dd10.cpp",
+  "src/core/sprtanim/animation_object_load_script_0043e710.cpp"
  ],
  "headers": [
   "include/th10/game/entity.hpp",

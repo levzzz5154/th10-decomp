@@ -162,8 +162,8 @@
   "additional_sources": [
     "src/game/mother/main_task_update_mode.cpp",
     "src/game/mother/sound_fade_tick_wave18.cpp",
-    "src/game/platform_set_operation_deadline_0044d4e0.cpp",
-    "src/platform/sound_fade_steps_0044d740.cpp"
+    "src/core/zwave/platform_set_operation_deadline_0044d4e0.cpp",
+    "src/core/zwave/sound_fade_steps_0044d740.cpp"
   ],
   "entry": "?MainTaskTickWave18@@YIHPAUMainTaskStateWave18@@@Z",
   "functions": [
@@ -201,7 +201,7 @@
       "address": "0x0044D4E0",
       "size": 106,
       "actual_abi": "owner in EAX; deadline at [ESP+4]; HRESULT in EAX; RET 4",
-      "source": "src/game/platform_set_operation_deadline_0044d4e0.cpp"
+      "source": "src/core/zwave/platform_set_operation_deadline_0044d4e0.cpp"
     },
     {
       "name": "FadeOutAndStop_0044d740",
@@ -210,7 +210,7 @@
       "address": "0x0044D740",
       "size": 67,
       "actual_abi": "state in ECX; passes the state in EAX to 0x0044D4E0; plain RET",
-      "source": "src/platform/sound_fade_steps_0044d740.cpp"
+      "source": "src/core/zwave/sound_fade_steps_0044d740.cpp"
     },
     {
       "name": "FadeDownHalf_0044d790",
@@ -219,7 +219,7 @@
       "address": "0x0044D790",
       "size": 51,
       "actual_abi": "state in ECX; passes the state in EAX to 0x0044D4E0; plain RET",
-      "source": "src/platform/sound_fade_steps_0044d740.cpp"
+      "source": "src/core/zwave/sound_fade_steps_0044d740.cpp"
     },
     {
       "name": "FadeDownSlight_0044d7d0",
@@ -228,7 +228,7 @@
       "address": "0x0044D7D0",
       "size": 51,
       "actual_abi": "state in ECX; passes the state in EAX to 0x0044D4E0; plain RET",
-      "source": "src/platform/sound_fade_steps_0044d740.cpp"
+      "source": "src/core/zwave/sound_fade_steps_0044d740.cpp"
     },
     {
       "name": "FadeUpSlight_0044d810",
@@ -237,7 +237,7 @@
       "address": "0x0044D810",
       "size": 56,
       "actual_abi": "state in ECX; passes the state in EAX to 0x0044D4E0; plain RET",
-      "source": "src/platform/sound_fade_steps_0044d740.cpp"
+      "source": "src/core/zwave/sound_fade_steps_0044d740.cpp"
     }
   ],
   "roots": [

@@ -57,7 +57,7 @@
     }
   ],
   "included_sources": [
-    "src/script/ecl_resolve_float_destination_00450070.cpp"
+    "src/script/sptcmd/ecl_resolve_float_destination_00450070.cpp"
   ],
   "anchors": [
     {

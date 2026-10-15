@@ -82,9 +82,9 @@
     "layout/ltcg/player_hud_update_dependencies/find.cpp"
   ],
   "included_sources": [
-    "src/game/animation_object_configure_from_resource_0043e5a0.cpp",
-    "src/render/animation_manager_set_translated_position_00449350.cpp",
-    "src/render/animation_manager_set_stop_frame_from_handle_retail_00449470.cpp",
+    "src/core/sprtanim/animation_object_configure_from_resource_0043e5a0.cpp",
+    "src/core/sprtlib/animation_manager_set_translated_position_00449350.cpp",
+    "src/core/sprtlib/animation_manager_set_stop_frame_from_handle_retail_00449470.cpp",
     "layout/ltcg/position_setter_find_anchor.cpp"
   ],
   "absolute_symbols": [

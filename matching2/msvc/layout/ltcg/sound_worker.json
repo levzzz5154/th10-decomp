@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "sound_worker",
-  "source": "src/platform/sound_worker.cpp",
+  "source": "src/core/sound/sound_worker.cpp",
   "driver": "layout/ltcg/sound_worker_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

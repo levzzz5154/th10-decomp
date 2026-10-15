@@ -2,7 +2,7 @@
   "regions": [
     {
       "name": "semantic_Platform_RunInterface_0044d300",
-      "source": "src/game/platform_run_interface_0044d300.cpp",
+      "source": "src/core/zwave/platform_run_interface_0044d300.cpp",
       "symbol": "?Run@PlatformD300Entry@@QAEHPAI@Z",
       "address": "0x0044D300",
       "size": 98,

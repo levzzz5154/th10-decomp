@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "d3d_list_release",
-  "source": "src/render/d3_d_resource_list_release_resources_00449e50.cpp",
+  "source": "src/core/zunlib/d3_d_resource_list_release_resources_00449e50.cpp",
   "driver": "layout/ltcg/d3d_list_release_context.cpp",
   "headers": [
     "include/th10/game/scheduler.hpp",

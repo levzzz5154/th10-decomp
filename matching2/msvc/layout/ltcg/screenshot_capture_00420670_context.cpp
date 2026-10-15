@@ -19,7 +19,7 @@ extern "C" int __stdcall ScreenshotCaptureContext(GameApp_00420670** apps, const
 #pragma code_seg()
 #pragma inline_depth()
 
-// The body of the log appender 0x0044B810 (src/platform/text_log.cpp), which
+// The body of the log appender 0x0044B810 (src/core/zunlib/text_log.cpp), which
 // takes the log in ECX.
 extern "C" int __cdecl asm_vsprintf_004524a6(char* buffer, const char* format, char* arguments);
 struct ScreenshotCaptureCriticalSection { unsigned char storage[24]; };

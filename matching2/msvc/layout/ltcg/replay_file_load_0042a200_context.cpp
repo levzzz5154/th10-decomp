@@ -20,7 +20,7 @@ extern "C" int __stdcall ReplayFileLoadContext(ReplayManager_0042a6a0** managers
 #pragma code_seg()
 #pragma inline_depth()
 
-// The body of 0x0044B790 (src/platform/file_read_shared_0044b790.cpp), which
+// The body of 0x0044B790 (src/core/zunlib/file_read_shared_0044b790.cpp), which
 // takes its size in EDI.
 extern "C" int (__stdcall* data_004660cc)(void* handle);
 extern "C" int (__stdcall* data_004660d0)(void* handle, void* buffer, unsigned int size, unsigned int* read,

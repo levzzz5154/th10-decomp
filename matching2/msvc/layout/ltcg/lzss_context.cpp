@@ -1,7 +1,7 @@
 // Compiler context only; never selected as recovered game code. The direct
 // call keeps the stand-alone Lzss_InitTree, which retail also kept although
 // every real use of it is inlined.
-#include "../../src/pack/resfile/lzss.cpp"
+#include "../../src/pack/lzssutil/lzss.cpp"
 
 #pragma inline_depth(0)
 #pragma code_seg(".text$lzss18_context")

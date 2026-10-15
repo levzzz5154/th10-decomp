@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "sound_stream_create_file_0044c8f0",
-  "source": "src/platform/sound_stream_create_file_0044c8f0.cpp",
+  "source": "src/core/zwave/sound_stream_create_file_0044c8f0.cpp",
   "driver": "layout/ltcg/sound_stream_create_file_0044c8f0/context.cpp",
   "headers": [
     "layout/ltcg/sound_interfaces_dependencies/sound_wave_types.hpp",
@@ -303,7 +303,7 @@
     "layout/ltcg/sound_interfaces_dependencies/fill.cpp",
     "layout/ltcg/sound_interfaces_dependencies/rewind.cpp",
     "layout/ltcg/sound_interfaces_dependencies/read.cpp",
-    "src/game/recovery_initialize_single_interface_0044d6a0.cpp"
+    "src/core/zwave/recovery_initialize_single_interface_0044d6a0.cpp"
   ],
   "additional_sources": [
     "src/platform/sound_music_launch_0043d690.cpp"

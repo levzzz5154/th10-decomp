@@ -2,7 +2,7 @@
   "regions": [
     {
       "name": "semantic_Platform_InvokeConfigured_0044d5d0",
-      "source": "src/game/platform_invoke_configured_0044d5d0.cpp",
+      "source": "src/core/zwave/platform_invoke_configured_0044d5d0.cpp",
       "symbol": "?InvokeConfigured@PlatformInterfaceState_0044D5D0@@QAEHXZ",
       "address": "0x0044D5D0",
       "size": 41,

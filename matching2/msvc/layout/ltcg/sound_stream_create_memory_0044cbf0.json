@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "sound_stream_create_memory_0044cbf0",
-  "source": "src/platform/sound_stream_create_memory_0044cbf0.cpp",
+  "source": "src/core/zwave/sound_stream_create_memory_0044cbf0.cpp",
   "driver": "layout/ltcg/sound_stream_create_memory_0044cbf0/context.cpp",
   "headers": [
     "layout/ltcg/sound_interfaces_dependencies/sound_wave_types.hpp",
@@ -43,7 +43,7 @@
       "section": ".text$05single",
       "address": "0x0044D6A0",
       "size": 109,
-      "source": "src/game/recovery_initialize_single_interface_0044d6a0.cpp",
+      "source": "src/core/zwave/recovery_initialize_single_interface_0044d6a0.cpp",
       "actual_abi": "stream in ESI, four stack arguments; RET 0x10"
     }
   ],
@@ -257,6 +257,6 @@
     "layout/ltcg/sound_interfaces_dependencies/read.cpp"
   ],
   "additional_sources": [
-    "src/game/recovery_initialize_single_interface_0044d6a0.cpp"
+    "src/core/zwave/recovery_initialize_single_interface_0044d6a0.cpp"
   ]
 }

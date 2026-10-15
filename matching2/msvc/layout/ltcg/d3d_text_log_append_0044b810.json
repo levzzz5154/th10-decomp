@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
   "name": "d3d_text_log_append_0044b810",
-  "source": "src/platform/text_log.cpp",
+  "source": "src/core/zunlib/text_log.cpp",
   "additional_sources": [
-    "src/platform/joystick_probe.cpp"
+    "src/core/zunlib/joystick_probe.cpp"
   ],
   "driver": "layout/ltcg/d3d_text_log_append_0044b810_context.cpp",
   "headers": [
@@ -23,7 +23,7 @@
     },
     {
       "name": "Joystick_Probe",
-      "source": "src/platform/joystick_probe.cpp",
+      "source": "src/core/zunlib/joystick_probe.cpp",
       "symbol": "?Joystick_Probe_0044a0c0@@YGFXZ",
       "section": ".text$01joystick",
       "address": "0x0044A0C0",

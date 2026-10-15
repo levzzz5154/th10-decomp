@@ -171,6 +171,6 @@ extern "C" int* __stdcall SchedulerCallback_Create_00449ed0(int callback) {
     return reinterpret_cast<int*>(task);
 }
 
-// 0x0044A000: recovered in src/game/scheduler_create_and_register_0044a000.cpp.
+// 0x0044A000: recovered in src/core/zunlib/scheduler_create_and_register_0044a000.cpp.
 
-// 0x0044A030: recovered in src/game/scheduler_create_and_register_secondary_0044a030.cpp.
+// 0x0044A030: recovered in src/core/zunlib/scheduler_create_and_register_secondary_0044a030.cpp.

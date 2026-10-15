@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "position_setter_pair",
-  "source": "src/render/animation_manager_set_translated_position_00449350.cpp",
+  "source": "src/core/sprtlib/animation_manager_set_translated_position_00449350.cpp",
   "additional_sources": [
     "layout/ltcg/position_setter_translated_unit.cpp",
     "src/unreferenced/unassigned_anim_setters_00449.cpp"
@@ -19,7 +19,7 @@
   "functions": [
     {
       "name": "SetAnimationTranslatedPosition_00449350",
-      "source": "src/render/animation_manager_set_translated_position_00449350.cpp",
+      "source": "src/core/sprtlib/animation_manager_set_translated_position_00449350.cpp",
       "symbol": "?SetAnimationTranslatedPosition_00449350@@YIXPBUPositionVector_004492f0@@PAUPositionLookupContext_004492f0@@UPositionScriptId_004492f0@@@Z",
       "section": ".text$50translated",
       "address": "0x00449350",

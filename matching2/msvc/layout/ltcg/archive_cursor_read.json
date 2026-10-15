@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "archive_cursor_read",
-  "source": "src/game/archive_cursor_read_model.cpp",
+  "source": "src/core/zwave/archive_cursor_read_model.cpp",
   "driver": "layout/ltcg/archive_cursor_read_context.cpp",
   "headers": [
     "include/th10/game/archive_cursor_read_model.hpp"

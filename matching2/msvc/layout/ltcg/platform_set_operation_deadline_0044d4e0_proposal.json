@@ -2,7 +2,7 @@
   "regions": [
     {
       "name": "semantic_Platform_SetOperationDeadline_0044d4e0",
-      "source": "src/game/platform_set_operation_deadline_0044d4e0.cpp",
+      "source": "src/core/zwave/platform_set_operation_deadline_0044d4e0.cpp",
       "symbol": "?SetOperationDeadline@PlatformInterfaceState_0044D4E0@@QAEHH@Z",
       "address": "0x0044D4E0",
       "size": 106,

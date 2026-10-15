@@ -2,7 +2,7 @@
 // constructor and fill bodies are co-compiled so each takes its receiver and
 // arguments where the real one does, and the factory gets a direct caller that
 // passes what the cached-music player passes.
-#include "../../../src/platform/sound_stream_create_memory_0044cbf0.cpp"
+#include "../../../src/core/zwave/sound_stream_create_memory_0044cbf0.cpp"
 #include "../sound_interfaces_dependencies/fill.cpp"
 #include "../sound_interfaces_dependencies/rewind.cpp"
 #include "../sound_interfaces_dependencies/read.cpp"

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "platform_select_stream_record_0044dca0",
-  "source": "src/game/platform_select_stream_record_0044dca0.cpp",
+  "source": "src/core/zwave/platform_select_stream_record_0044dca0.cpp",
   "driver": "layout/ltcg/platform_select_stream_record_0044dca0_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

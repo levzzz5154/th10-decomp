@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "indexed_flags",
-  "source": "src/input/indexed_flags.cpp",
+  "source": "src/core/zunlib/indexed_flags.cpp",
   "driver": "layout/ltcg/indexed_flags_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

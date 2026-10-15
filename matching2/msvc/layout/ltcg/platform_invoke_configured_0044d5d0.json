@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "platform_invoke_configured_0044d5d0",
-  "source": "src/game/platform_invoke_configured_0044d5d0.cpp",
+  "source": "src/core/zwave/platform_invoke_configured_0044d5d0.cpp",
   "driver": "layout/ltcg/platform_invoke_configured_0044d5d0_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

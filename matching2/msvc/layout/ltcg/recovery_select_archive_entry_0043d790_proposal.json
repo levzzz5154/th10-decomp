@@ -2,7 +2,7 @@
   "regions": [
     {
       "name": "semantic_Recovery_SelectArchiveEntry_0043d790",
-      "source": "src/game/recovery_select_archive_entry_0043d790.cpp",
+      "source": "src/core/sound/recovery_select_archive_entry_0043d790.cpp",
       "symbol": "?SelectArchiveEntry@PathName_0043d2a0@@QAEHPAUPlatformD790ArchiveOwner@@@Z",
       "address": "0x0043D790",
       "size": 55,

@@ -3,4 +3,4 @@
 // (queue in ECX, sound id in EDI, request on the stack). Never selected from
 // this cluster.
 #define code_seg(name) code_seg(".text$0043dc90_fn")
-#include "../../../src/render/animation_manager_queue_resource_0043dc90.cpp"
+#include "../../../src/core/sound/animation_manager_queue_resource_0043dc90.cpp"

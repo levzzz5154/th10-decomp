@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "animation_resource_registrar_0043e460",
-  "source": "src/render/animation_manager_register_resource_0043e460.cpp",
+  "source": "src/core/sprtanim/animation_manager_register_resource_0043e460.cpp",
   "driver": "layout/ltcg/animation_resource_registrar_0043e460_context.cpp",
   "headers": [
     "include/th10/render/resource_registrar_0043e460.hpp"
@@ -52,7 +52,7 @@
       "address": "0x0043E460",
       "size": 104,
       "actual_abi": "manager in EAX; name in EDX; resource and parameter at ESP+4/ESP+8; RET 8; source cursor result in EAX",
-      "source": "src/render/animation_manager_register_resource_0043e460.cpp"
+      "source": "src/core/sprtanim/animation_manager_register_resource_0043e460.cpp"
     },
     {
       "name": "Music_PlayFile",

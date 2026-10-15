@@ -1,10 +1,10 @@
 {
   "schema_version": 2,
   "name": "platform_worker_shutdown",
-  "source": "src/platform/platform_stop_worker_no_delete_0044c130.cpp",
+  "source": "src/core/zunlib/platform_stop_worker_no_delete_0044c130.cpp",
   "additional_sources": [
-    "src/platform/platform_destroy_worker_0044c100.cpp",
-    "src/platform/platform_stop_worker_0044c150.cpp"
+    "src/core/zunlib/platform_destroy_worker_0044c100.cpp",
+    "src/core/zunlib/platform_stop_worker_0044c150.cpp"
   ],
   "headers": ["include/th10/platform/worker.hpp"],
   "image_base": "0x00400000",
@@ -14,7 +14,7 @@
   "functions": [
     {
       "name": "PlatformWorker_Destroy",
-      "source": "src/platform/platform_destroy_worker_0044c100.cpp",
+      "source": "src/core/zunlib/platform_destroy_worker_0044c100.cpp",
       "symbol": "?Destroy@PlatformWorker@@QAEPAU1@I@Z",
       "section": ".text$05destroy",
       "address": "0x0044C100",
@@ -31,7 +31,7 @@
     },
     {
       "name": "PlatformWorker_Stop",
-      "source": "src/platform/platform_stop_worker_0044c150.cpp",
+      "source": "src/core/zunlib/platform_stop_worker_0044c150.cpp",
       "symbol": "?Stop@PlatformWorker@@QAEXXZ",
       "section": ".text$20callee",
       "address": "0x0044C150",

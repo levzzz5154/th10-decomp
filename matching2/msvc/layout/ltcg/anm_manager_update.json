@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "anm_manager_update",
-  "source": "src/render/anm_manager_update.cpp",
+  "source": "src/core/sprtlib/anm_manager_update.cpp",
   "driver": "layout/ltcg/anm_manager_update_context.cpp",
   "headers": [
     "include/th10/game/entity.hpp",
@@ -18,7 +18,7 @@
       "address": "0x004485D0",
       "size": 7,
       "actual_abi": "manager in ECX; tail jump with manager in EAX",
-      "source": "src/render/anm_manager_update.cpp"
+      "source": "src/core/sprtlib/anm_manager_update.cpp"
     },
     {
       "name": "AnmManager_UpdateSecondaryTask",
@@ -27,7 +27,7 @@
       "address": "0x004485E0",
       "size": 7,
       "actual_abi": "manager in ECX; tail jump with manager in EAX",
-      "source": "src/render/anm_manager_update.cpp"
+      "source": "src/core/sprtlib/anm_manager_update.cpp"
     },
     {
       "name": "AnmManager_UpdatePrimary",
@@ -36,7 +36,7 @@
       "address": "0x00448860",
       "size": 149,
       "actual_abi": "manager in EAX; plain RET",
-      "source": "src/render/anm_manager_update.cpp"
+      "source": "src/core/sprtlib/anm_manager_update.cpp"
     },
     {
       "name": "AnmManager_UpdateSecondary",
@@ -45,7 +45,7 @@
       "address": "0x00448900",
       "size": 123,
       "actual_abi": "manager in EAX; plain RET",
-      "source": "src/render/anm_manager_update.cpp"
+      "source": "src/core/sprtlib/anm_manager_update.cpp"
     },
     {
       "name": "AnmManager_RemoveVm",
@@ -54,7 +54,7 @@
       "address": "0x00448BB0",
       "size": 268,
       "actual_abi": "manager in EDI, VM in ESI; plain RET",
-      "source": "src/render/anm_manager_update.cpp"
+      "source": "src/core/sprtlib/anm_manager_update.cpp"
     }
   ],
   "anchors": [

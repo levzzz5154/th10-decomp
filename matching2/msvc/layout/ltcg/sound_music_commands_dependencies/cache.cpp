@@ -3,4 +3,4 @@
 // macro moves the body into a section that sorts at its retail address here.
 // Never selected from this cluster.
 #define code_seg(name) code_seg(".text$a00cache")
-#include "../../../src/platform/sound_music_cache.cpp"
+#include "../../../src/core/sound/sound_music_cache.cpp"

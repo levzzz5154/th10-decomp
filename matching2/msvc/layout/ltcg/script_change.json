@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "script_change",
-  "source": "src/render/animation_handle_change_script_004496d0.cpp",
+  "source": "src/core/sprtlib/animation_handle_change_script_004496d0.cpp",
   "included_sources": [
     "layout/ltcg/script_change_find_anchor.cpp",
     "layout/ltcg/script_change_body_anchor.cpp"

@@ -1,12 +1,12 @@
 {
   "schema_version": 1,
   "name": "blend_color_004423e0",
-  "source": "src/render/animation_manager_apply_blend_color_004423e0.cpp",
+  "source": "src/core/sprtfunc/animation_manager_apply_blend_color_004423e0.cpp",
   "driver": "layout/ltcg/blend_color_004423e0_context.cpp",
   "included_sources": [
-    "src/render/quad_transform_draw_00444760.cpp",
-    "src/render/anm_batch_flush.cpp",
-    "src/render/anm_vm_draw_dispatch.cpp"
+    "src/core/sprtfunc/quad_transform_draw_00444760.cpp",
+    "src/core/sprtfunc/anm_batch_flush.cpp",
+    "src/core/sprtfunc/anm_vm_draw_dispatch.cpp"
   ],
   "headers": [
     "include/th10/render/quad_batch.hpp"

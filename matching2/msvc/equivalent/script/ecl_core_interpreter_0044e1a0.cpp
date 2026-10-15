@@ -2,7 +2,7 @@
 // build compiles this into the executable once tools/matching/equivalence.py
 // has checked that it differs from the exact bytes only as recorded in
 // layout/equivalent/ecl_core_interpreter_0044e1a0.json. The inline assembly in
-// src/script/ecl_core_interpreter.cpp supplies those exact bytes and
+// src/script/sptcmd/ecl_core_interpreter.cpp supplies those exact bytes and
 // `make EXACT=1`.
 #include "ecl_core_interpreter_0044e1a0.hpp"
 #pragma intrinsic(sin, cos, atan2)

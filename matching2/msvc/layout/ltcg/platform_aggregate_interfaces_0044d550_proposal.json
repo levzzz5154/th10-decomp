@@ -2,7 +2,7 @@
   "regions": [
     {
       "name": "semantic_Platform_AggregateInterfaces_0044d550",
-      "source": "src/game/platform_aggregate_interfaces_0044d550.cpp",
+      "source": "src/core/zwave/platform_aggregate_interfaces_0044d550.cpp",
       "symbol": "?Aggregate@PlatformInterfaceState_0044D550@@QAEHXZ",
       "address": "0x0044D550",
       "size": 82,

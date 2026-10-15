@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "fill_argb4444_00436ca0",
-  "source": "src/platform/resource_file.cpp",
+  "source": "src/core/main/resource_file.cpp",
   "driver": "layout/ltcg/fill_argb4444_00436ca0_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

@@ -1,7 +1,7 @@
 // 0x0044B010, which clears and refreshes a keyboard snapshot, as the practice
 // stage selection screen 0x00430FF0 calls it: unselected here, with the one
 // parameter its callers pass (the maintained form is
-// src/platform/keyboard_state.cpp).
+// src/core/zunlib/keyboard_state.cpp).
 #include "th10/platform/windows_types.hpp"
 
 extern "C" __declspec(dllimport) BOOL __stdcall GetKeyboardState(BYTE* state);

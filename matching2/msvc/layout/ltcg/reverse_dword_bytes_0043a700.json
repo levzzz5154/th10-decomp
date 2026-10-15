@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "reverse_dword_bytes_0043a700",
-  "source": "src/platform/midi_reverse_dword_bytes_0043a700.cpp",
+  "source": "src/core/midilib/midi_reverse_dword_bytes_0043a700.cpp",
   "driver": "layout/ltcg/reverse_dword_bytes_0043a700_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

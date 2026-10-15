@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
   "name": "animation_bucket_tasks",
-  "source": "src/render/animation_bucket_tasks.cpp",
+  "source": "src/core/sprtlib/animation_bucket_tasks.cpp",
   "included_sources": [
-    "src/render/animation_manager_render_bucket_00448980.cpp"
+    "src/core/sprtlib/animation_manager_render_bucket_00448980.cpp"
   ],
   "driver": "layout/ltcg/animation_bucket_tasks_context.cpp",
   "headers": [

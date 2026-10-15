@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "anm_object_configure_0043e5a0",
-  "source": "src/game/animation_object_configure_from_resource_0043e5a0.cpp",
+  "source": "src/core/sprtanim/animation_object_configure_from_resource_0043e5a0.cpp",
   "driver": "layout/ltcg/anm_object_configure_0043e5a0_context.cpp",
   "headers": [
     "include/th10/render/animation_object_0043e5a0.hpp"

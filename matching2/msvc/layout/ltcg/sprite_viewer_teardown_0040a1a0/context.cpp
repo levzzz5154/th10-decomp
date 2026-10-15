@@ -4,7 +4,7 @@
 #define TH10_SCHEDULER_REMOVE_ONLY
 #define TH10_SCHEDULER_REMOVE_CODE_SEG ".text$07remove"
 #include "../manager_teardown_native_0041adf0/scheduler.cpp"
-#include "../../../src/platform/platform_stop_worker_0044c150.cpp"
+#include "../../../src/core/zunlib/platform_stop_worker_0044c150.cpp"
 #include "../../../src/game/eclview/sprite_viewer_teardown_0040a1a0.cpp"
 
 extern "C" void __cdecl entry_free_00452422(void* memory);

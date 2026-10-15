@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "select_sprite_00449670",
-  "source": "src/render/animation_manager_select_sprite_from_current_resource_00449670.cpp",
+  "source": "src/core/sprtlib/animation_manager_select_sprite_from_current_resource_00449670.cpp",
   "driver": "layout/ltcg/select_sprite_00449670_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

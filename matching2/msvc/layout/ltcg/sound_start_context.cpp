@@ -1,4 +1,4 @@
-#include "../../src/platform/sound_stream_start.cpp"
+#include "../../src/core/zwave/sound_stream_start.cpp"
 #include "sound_start_platform_run_interface_0044d300.cpp"
 #include "sound_start_platform_find_available_0044d370.cpp"
 #include "sound_start_platform_query_interfaces_0044d600.cpp"

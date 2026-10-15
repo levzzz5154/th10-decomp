@@ -1,6 +1,6 @@
 // Compiler context only; never selected as recovered game code.  The integer
 // lookup at 0x00450030 is a separate translation unit of this link.
-#include "../../src/script/ecl_resolve_float_destination_00450070.cpp"
+#include "../../src/script/sptcmd/ecl_resolve_float_destination_00450070.cpp"
 
 #pragma code_seg(".text$03context")
 extern "C" __declspec(noinline) float* __stdcall EclResolveFloatDestinationContext(

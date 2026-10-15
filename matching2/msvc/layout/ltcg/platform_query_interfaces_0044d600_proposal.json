@@ -2,7 +2,7 @@
   "regions": [
     {
       "name": "semantic_Platform_QueryInterfaces_0044d600",
-      "source": "src/game/platform_query_interfaces_0044d600.cpp",
+      "source": "src/core/zwave/platform_query_interfaces_0044d600.cpp",
       "symbol": "?Query@PlatformQueryInterfaces_0044D600@@QAEHXZ",
       "address": "0x0044D600",
       "size": 61,

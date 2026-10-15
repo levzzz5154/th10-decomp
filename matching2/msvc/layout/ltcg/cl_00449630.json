@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "cl_00449630",
-  "source": "src/render/animation_manager_mark_for_removal_and_clear_handle_00449630.cpp",
+  "source": "src/core/sprtlib/animation_manager_mark_for_removal_and_clear_handle_00449630.cpp",
   "driver": "layout/ltcg/cl_00449630_context.cpp",
   "headers": [],
   "image_base": "0x00400000",
@@ -14,7 +14,7 @@
       "address": "0x00449630",
       "size": 21,
       "actual_abi": "handle in ESI; manager passes through ECX; plain RET",
-      "source": "src/render/animation_manager_mark_for_removal_and_clear_handle_00449630.cpp"
+      "source": "src/core/sprtlib/animation_manager_mark_for_removal_and_clear_handle_00449630.cpp"
     }
   ],
   "context": {

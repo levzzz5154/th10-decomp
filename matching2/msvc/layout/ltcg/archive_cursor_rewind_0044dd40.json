@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "archive_cursor_rewind_0044dd40",
-  "source": "src/game/archive_cursor.cpp",
+  "source": "src/core/zwave/archive_cursor.cpp",
   "driver": "layout/ltcg/archive_cursor_rewind_0044dd40_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

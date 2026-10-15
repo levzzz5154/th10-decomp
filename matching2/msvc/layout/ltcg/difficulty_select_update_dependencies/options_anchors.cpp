@@ -2,7 +2,7 @@
 // slot stop 0x0042C730 and the sprite selection 0x00449670 with their real
 // bodies (the maintained forms are
 // src/game/title/game_state_dispatch_animation_slot_0042c730.cpp and
-// src/render/animation_manager_select_sprite_from_current_resource_00449670.cpp),
+// src/core/sprtlib/animation_manager_select_sprite_from_current_resource_00449670.cpp),
 // and a stand-in for the label refresh 0x0042E5A0, which is still assembly.
 #include "th10/game/options_update_0042d920.hpp"
 

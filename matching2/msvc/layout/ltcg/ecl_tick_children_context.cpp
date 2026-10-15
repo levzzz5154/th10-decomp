@@ -2,7 +2,7 @@
 // EAX interpreter / stack delta / RET4 contract. Its body is synthetic and is
 // never selected as recovered game code; the real 7020-byte dispatcher at
 // 0x0044E1A0 remains separately owned by ecl_core_interpreter.cpp.
-#include "../../src/script/ecl_vm_children.cpp"
+#include "../../src/script/sptcmd/ecl_vm_children.cpp"
 
 struct EclDispatcherAbiView {
     float time;

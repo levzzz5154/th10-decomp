@@ -6,7 +6,7 @@
 #include "th10/platform/native_font_start.hpp"
 #include "native_font_start/release_surface.cpp"
 #include "../../src/platform/font_surface_create_00436af0.cpp"
-#include "../../src/platform/font_surface_create_fallback_00436aa0.cpp"
+#include "../../src/core/main/font_surface_create_fallback_00436aa0.cpp"
 
 #pragma inline_depth(0)
 #pragma code_seg(".text$a09context")

@@ -1,5 +1,5 @@
 
-#include "../../src/render/animation_manager_register_resource_0043e460.cpp"
+#include "../../src/core/sprtanim/animation_manager_register_resource_0043e460.cpp"
 
 int __stdcall Music_Load(int slot, const char* file_name);
 int __stdcall Music_Play(int track, int heard_index);

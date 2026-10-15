@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "midi_file",
-  "source": "src/platform/midi_file.cpp",
+  "source": "src/core/midilib/midi_file.cpp",
   "driver": "layout/ltcg/midi_file_context.cpp",
   "headers": ["include/th10/platform/midi_sequencer.hpp"],
   "image_base": "0x00400000",

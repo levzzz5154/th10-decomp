@@ -12,7 +12,7 @@
   ],
   "included_sources": [
     "src/game/hint/recovery_clear_eight_buckets_00419040.cpp",
-    "src/game/scheduler_tasks.cpp"
+    "src/core/zunlib/scheduler_tasks.cpp"
   ],
   "image_base": "0x00400000",
   "description": "Complete resource manager cleanup with genuine scheduler removal and bucket clear context.",

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "random_vector_store_rounded_scalar",
-  "source": "src/math/random_vector.cpp",
+  "source": "src/core/sprtanim/random_vector.cpp",
   "driver": "layout/ltcg/random_vector_store_rounded_scalar_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

@@ -1,5 +1,5 @@
 // Compiler context only; no context bytes count as recovered code.
-#include "../../src/render/texture_stage_reset.cpp"
+#include "../../src/core/screen/texture_stage_reset.cpp"
 #include "th10/render/camera_batch.hpp"
 
 // The state object the ECL thread hands to SelectStage in ESI. Declared rather

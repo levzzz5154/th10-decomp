@@ -256,7 +256,7 @@
   ],
   "included_sources": [
     "layout/ltcg/manager_teardown_native_0041adf0/scheduler.cpp",
-    "src/platform/platform_stop_worker_0044c150.cpp"
+    "src/core/zunlib/platform_stop_worker_0044c150.cpp"
   ],
   "data_aliases": [
     {

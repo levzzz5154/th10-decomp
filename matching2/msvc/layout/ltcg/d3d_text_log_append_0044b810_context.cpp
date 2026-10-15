@@ -1,5 +1,5 @@
 // Compiler context only; never selected as recovered game code.
-#include "../../src/platform/text_log.cpp"
+#include "../../src/core/zunlib/text_log.cpp"
 
 #pragma code_seg(".text$05context")
 short __stdcall Joystick_Probe_0044a0c0();

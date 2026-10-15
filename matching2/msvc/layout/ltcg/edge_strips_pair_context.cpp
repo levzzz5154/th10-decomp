@@ -1,6 +1,6 @@
 // Compiler context only; never selected as recovered game code.
 // The conditional calls give both methods the same native entry convention.
-#include "../../src/render/edge_strips.cpp"
+#include "../../src/core/sprtfunc/edge_strips.cpp"
 
 #pragma code_seg(".text$05context")
 int __stdcall EdgeStripCompilerContext(

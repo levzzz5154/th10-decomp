@@ -1,5 +1,5 @@
 // Compiler context only; never selected as recovered game code.
-#include "../../src/render/animation_manager_validate_handle_00449450.cpp"
+#include "../../src/core/sprtlib/animation_manager_validate_handle_00449450.cpp"
 #include "animation_validate_handle_00449450_find_anchor.cpp"
 
 #pragma code_seg(".text$05context")

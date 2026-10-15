@@ -1,4 +1,4 @@
-#include "../../src/game/sound_stream_fill_model.cpp"
+#include "../../src/core/zwave/sound_stream_fill_model.cpp"
 #include "sound_fill_read.cpp"
 #include "sound_fill_rewind.cpp"
 #pragma code_seg(".text$07context")

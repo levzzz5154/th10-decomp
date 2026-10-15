@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "animation_array_tick",
-  "source": "src/render/animation_array_tick_00441590.cpp",
+  "source": "src/core/sprtanim/animation_array_tick_00441590.cpp",
   "driver": "layout/ltcg/animation_array_tick_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

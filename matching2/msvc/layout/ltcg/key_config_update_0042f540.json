@@ -1694,13 +1694,13 @@
     "layout/ltcg/recovery_script_executor_text_sibling_anchors.cpp",
     "src/game/title/ending_screen.cpp",
     "src/game/title/fun_0042f8b0_0042f8b0.cpp",
-    "src/game/input_poll_joystick_buttons_0044a4e0.cpp",
+    "src/core/zunlib/input_poll_joystick_buttons_0044a4e0.cpp",
     "src/game/title/key_config.cpp",
     "src/game/title/recovery_animation_slot_frames_0042c6d0.cpp",
     "src/game/title/recovery_install_animation_slot_0042c670.cpp",
     "src/game/recovery_script_executor_0040bd80.cpp",
-    "src/render/animation_manager_find_004491c0.cpp",
-    "src/render/animation_manager_set_stop_frame_and_run_00449250.cpp"
+    "src/core/sprtlib/animation_manager_find_004491c0.cpp",
+    "src/core/sprtlib/animation_manager_set_stop_frame_and_run_00449250.cpp"
   ],
   "data_aliases": [
     {

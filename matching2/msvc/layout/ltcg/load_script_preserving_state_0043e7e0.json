@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "load_script_preserving_state_0043e7e0",
-  "source": "src/render/animation_object_load_script_preserving_state_0043e7e0.cpp",
+  "source": "src/core/sprtanim/animation_object_load_script_preserving_state_0043e7e0.cpp",
   "driver": "layout/ltcg/load_script_preserving_state_0043e7e0_context.cpp",
   "headers": [
     "include/th10/game/entity.hpp",

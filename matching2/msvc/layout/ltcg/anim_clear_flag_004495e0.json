@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "anim_clear_flag_004495e0",
-  "source": "src/render/animation_manager_clear_flag_004495e0.cpp",
+  "source": "src/core/sprtlib/animation_manager_clear_flag_004495e0.cpp",
   "driver": "layout/ltcg/anim_clear_flag_004495e0_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

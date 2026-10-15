@@ -52,7 +52,7 @@
     },
     {
       "name": "SoundManager_0043a9b0_LoadTrack",
-      "source": "src/platform/midi_load_track.cpp",
+      "source": "src/core/midilib/midi_load_track.cpp",
       "symbol": "?LoadTrack@SoundManager_0043a9b0@@QAEHHPBD@Z",
       "section": ".text$03zn9b0track",
       "address": "0x0043A9B0",
@@ -88,7 +88,7 @@
     },
     {
       "name": "Sound_LoadPendingSlot_0043d640",
-      "source": "src/platform/sound_load_pending_slot_0043d640.cpp",
+      "source": "src/core/sound/sound_load_pending_slot_0043d640.cpp",
       "symbol": "?LoadPendingSlot@SoundPendingSlots_0043d640@@QAEHPBDH@Z",
       "section": ".text$03zr5_slot",
       "address": "0x0043D640",
@@ -425,11 +425,11 @@
     "src/game/enemy/fun_0040cd20_0040cd20.cpp",
     "src/unreferenced/FUN_0043e9d0_0043e9d0.cpp",
     "src/game/player/music_room.cpp",
-    "src/platform/midi_load_track.cpp",
+    "src/core/midilib/midi_load_track.cpp",
     "src/game/background/stage_ecl_load.cpp",
     "src/game/front/score_tasks.cpp",
     "src/unreferenced/unassigned_0043d670.cpp",
-    "src/platform/sound_load_pending_slot_0043d640.cpp"
+    "src/core/sound/sound_load_pending_slot_0043d640.cpp"
   ],
   "roots": [
     "?Load@ScriptFileLoader@@QAEHPBD@Z",

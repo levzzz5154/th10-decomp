@@ -1,6 +1,6 @@
 // Compiler context only; this caller is not recovered application code.
 #pragma code_seg(".text$90context")
-#include "../../src/game/scheduler_tasks.cpp"
+#include "../../src/core/zunlib/scheduler_tasks.cpp"
 
 #pragma code_seg(".text$90context")
 void __stdcall SchedulerContext(Scheduler* scheduler, SchedulerTask** tasks, int count, int priority) {

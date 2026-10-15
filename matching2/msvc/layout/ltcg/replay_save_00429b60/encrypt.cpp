@@ -1,5 +1,5 @@
 // The replay save cluster's copy of the second cipher from
-// src/archive/crypt.cpp. It is an ABI anchor: the whole-program pass gives
+// src/core/zunlib/crypt.cpp. It is an ABI anchor: the whole-program pass gives
 // the key argument its retail AL register, and the layout places the body at
 // the retail address so the save routine's calls bake the retail
 // displacement. Not recovered game code itself.

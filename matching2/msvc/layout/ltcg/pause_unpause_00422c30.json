@@ -108,7 +108,7 @@
   "roots": [],
   "included_sources": [
     "layout/ltcg/animation_lookup_anchors.cpp",
-    "src/render/animation_manager_register_resource_0043e460.cpp"
+    "src/core/sprtanim/animation_manager_register_resource_0043e460.cpp"
   ],
   "data_aliases": [
     {

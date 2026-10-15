@@ -13,8 +13,8 @@
     "src/game/player/player_movement.cpp",
     "src/game/laser/laser_manager.cpp",
     "src/game/bomb/bomb_hit_test.cpp",
-    "src/render/animation_handle_helpers.cpp",
-    "src/render/animation_resource_initialize_object.cpp",
+    "src/core/sprtlib/animation_handle_helpers.cpp",
+    "src/core/sprtlib/animation_resource_initialize_object.cpp",
     "src/game/player/player_shooting.cpp",
     "src/game/pause/pause_result_open.cpp",
     "layout/ltcg/player_state_collision_runtime/death_screen_callees.cpp",
@@ -175,7 +175,7 @@
       "address": "0x449210",
       "size": 54,
       "actual_abi": "private SI frame / EDX animation manager / stack handle / RET4",
-      "source": "src/render/animation_handle_helpers.cpp"
+      "source": "src/core/sprtlib/animation_handle_helpers.cpp"
     },
     {
       "name": "function_004492f0",
@@ -184,7 +184,7 @@
       "address": "0x4492f0",
       "size": 90,
       "actual_abi": "private ESI position / EDX animation manager / stack handle / RET4",
-      "source": "src/render/animation_handle_helpers.cpp"
+      "source": "src/core/sprtlib/animation_handle_helpers.cpp"
     },
     {
       "name": "function_00449870",
@@ -193,7 +193,7 @@
       "address": "0x449870",
       "size": 217,
       "actual_abi": "this ECX; object and index stack; RET8",
-      "source": "src/render/animation_resource_initialize_object.cpp"
+      "source": "src/core/sprtlib/animation_resource_initialize_object.cpp"
     },
     {
       "name": "function_00428160",

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "worker_start_0044c1c0",
-  "source": "src/platform/worker_start.cpp",
+  "source": "src/core/zunlib/worker_start.cpp",
   "driver": "layout/ltcg/worker_start_0044c1c0_context.cpp",
   "headers": [
     "include/th10/platform/worker.hpp",
@@ -26,7 +26,7 @@
     {
       "name": "PlatformWorker_Destroy",
       "symbol": "?Destroy@PlatformWorker@@QAEPAU1@I@Z",
-      "source": "src/platform/platform_destroy_worker_0044c100.cpp",
+      "source": "src/core/zunlib/platform_destroy_worker_0044c100.cpp",
       "section": ".text$05destroy",
       "address": "0x0044C100",
       "size": 36,
@@ -35,7 +35,7 @@
     {
       "name": "PlatformWorker_Stop",
       "symbol": "?Stop@PlatformWorker@@QAEXXZ",
-      "source": "src/platform/platform_stop_worker_0044c150.cpp",
+      "source": "src/core/zunlib/platform_stop_worker_0044c150.cpp",
       "section": ".text$20callee",
       "address": "0x0044C150",
       "size": 101,
@@ -44,7 +44,7 @@
     {
       "name": "PlatformWorker_Start",
       "symbol": "?Start@PlatformWorker@@QAEXPAXP6GI0@Z@Z",
-      "source": "src/platform/worker_start.cpp",
+      "source": "src/core/zunlib/worker_start.cpp",
       "section": ".text$40start",
       "address": "0x0044C1C0",
       "size": 56,
@@ -251,8 +251,8 @@
   "additional_sources": [
     "src/game/game/game_ui_create.cpp",
     "src/game/mother/thread_spawn.cpp",
-    "src/platform/platform_destroy_worker_0044c100.cpp",
-    "src/platform/platform_stop_worker_0044c150.cpp",
+    "src/core/zunlib/platform_destroy_worker_0044c100.cpp",
+    "src/core/zunlib/platform_stop_worker_0044c150.cpp",
     "src/unreferenced/unassigned_0044c200.cpp",
     "src/game/title/progress_worker_construct_0042c920.cpp",
     "src/game/title/progress_worker.cpp"

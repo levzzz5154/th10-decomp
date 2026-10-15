@@ -20,7 +20,7 @@
 //
 // The tenth, 0x00444CE0, is the recovered AnimationManager::DrawStrip, whose
 // body is a definition in this same link (layout/ltcg/anm_batch_flush_00442f50
-// .json co-compiles src/render/edge_strip_draw.cpp).  That is what earns case 9
+// .json co-compiles src/core/sprtfunc/edge_strip_draw.cpp).  That is what earns case 9
 // the no-move marshalling retail has - `DrawStrip` enters on (ECX manager, EAX
 // entity, two stack arguments) only when its own call graph is visible, and it
 // is also the third case that wants the entity in EAX, which is what keeps the
@@ -31,7 +31,7 @@
 //
 //   * 0x004436C0 and 0x00443910 enter on (ECX manager, EDX entity) and are
 //     reached with a tail jump.  Both are recovered definitions in this same
-//     link now (src/render/quad_build_rotated.cpp), so the pass derives that
+//     link now (src/core/sprtfunc/quad_build_rotated.cpp), so the pass derives that
 //     pair from their bodies and emits retail's `mov edx,eax; jmp` while the
 //     declarations here carry no convention at all.  While they were assembly
 //     the caller needed an explicit __fastcall to move the entity into EDX.

@@ -3,4 +3,4 @@
 // macro moves the body into a section that sorts at its retail address here.
 // Never selected from this cluster.
 #define code_seg(name) code_seg(".text$a03d")
-#include "../../../src/platform/sound_stream_recreate_buffers_0044cf20.cpp"
+#include "../../../src/core/zwave/sound_stream_recreate_buffers_0044cf20.cpp"

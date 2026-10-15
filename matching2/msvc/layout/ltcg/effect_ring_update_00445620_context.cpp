@@ -1,6 +1,6 @@
 // Compiler context only; never selected as recovered game code.
 #include <math.h>
-#include "../../src/render/effect_ring_update.cpp"
+#include "../../src/core/sprtfunc/effect_ring_update.cpp"
 
 // 0x004458B0 is maintained in src/math/x87_polar_setters.cpp.  This body only
 // tells the optimizer what the callee leaves alone (EDX, ESI, EDI, EBX, EBP).

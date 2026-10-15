@@ -105,6 +105,6 @@
     "src/game/effect/bullet_anim_release.cpp"
   ],
   "included_sources": [
-    "src/platform/platform_stop_worker_0044c150.cpp"
+    "src/core/zunlib/platform_stop_worker_0044c150.cpp"
   ]
 }

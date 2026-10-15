@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "archive_cursor_reset_0044dbd0",
-  "source": "src/game/archive_cursor_reset_0044dbd0.cpp",
+  "source": "src/core/zwave/archive_cursor_reset_0044dbd0.cpp",
   "driver": "layout/ltcg/archive_cursor_reset_0044dbd0_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

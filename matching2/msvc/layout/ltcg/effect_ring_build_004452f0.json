@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "effect_ring_build_004452f0",
-  "source": "src/render/effect_ring.cpp",
+  "source": "src/core/sprtfunc/effect_ring.cpp",
   "driver": "layout/ltcg/effect_ring_build_004452f0_context.cpp",
   "headers": [
     "include/th10/math/rng.hpp"

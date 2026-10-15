@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "ecl_resolve_float_destination_00450070",
-  "source": "src/script/ecl_resolve_float_destination_00450070.cpp",
+  "source": "src/script/sptcmd/ecl_resolve_float_destination_00450070.cpp",
   "driver": "layout/ltcg/ecl_resolve_float_destination_00450070_context.cpp",
   "headers": [
     "include/th10/script/ecl_float_destination.hpp"
@@ -24,7 +24,7 @@
       "address": "0x00450030",
       "size": 58,
       "actual_abi": "VM in ESI; index in CL; pointer in EAX; plain RET",
-      "source": "src/script/ecl_resolve_variable_value_00450030.cpp"
+      "source": "src/script/sptcmd/ecl_resolve_variable_value_00450030.cpp"
     }
   ],
   "context": {
@@ -72,6 +72,6 @@
     }
   ],
   "additional_sources": [
-    "src/script/ecl_resolve_variable_value_00450030.cpp"
+    "src/script/sptcmd/ecl_resolve_variable_value_00450030.cpp"
   ]
 }

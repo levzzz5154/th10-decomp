@@ -2,7 +2,7 @@
 // prepend it to the manager's primary list.
 //
 // The body is byte-for-byte the twin of 0x00448D50
-// (`src/render/animation_manager_create_positioned_primary_00448d50.cpp`); the
+// (`src/core/sprtlib/animation_manager_create_positioned_primary_00448d50.cpp`); the
 // only difference is the list operation it ends with.  0x00448D50 appends to
 // the primary list through 0x004489D0 (RegisterPrimaryBack, tail insert), this
 // one prepends through 0x00448A50 (RegisterPrimaryFront, head insert).  Its

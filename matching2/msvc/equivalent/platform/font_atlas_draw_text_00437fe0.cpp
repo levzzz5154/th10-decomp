@@ -82,4 +82,4 @@ void __stdcall FontAtlas_DrawPlainText_00437fe0(const FontAtlasRect_00437fe0* de
 }
 #pragma code_seg()
 
-#include "../../src/platform/resource_file.cpp"
+#include "../../src/core/main/resource_file.cpp"

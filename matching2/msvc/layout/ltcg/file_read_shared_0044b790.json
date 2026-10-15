@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "file_read_shared_0044b790",
-  "source": "src/platform/file_read_shared_0044b790.cpp",
+  "source": "src/core/zunlib/file_read_shared_0044b790.cpp",
   "driver": "layout/ltcg/file_read_shared_0044b790_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

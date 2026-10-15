@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
   "name": "gdi_surface_release_00436a30",
-  "source": "src/platform/gdi_font_cache.cpp",
+  "source": "src/core/main/gdi_font_cache.cpp",
   "additional_sources": [
     "src/app/static_init/gdi_surface_exit.cpp",
-    "src/platform/font_cache_delete_gdi_objects_retail_00437d10.cpp"
+    "src/core/main/font_cache_delete_gdi_objects_retail_00437d10.cpp"
   ],
   "driver": "layout/ltcg/gdi_surface_release_00436a30_context.cpp",
   "headers": [],
@@ -31,7 +31,7 @@
     {
       "name": "DeleteFontCacheObjects",
       "symbol": "_DeleteFontCacheObjects_00437d10",
-      "source": "src/platform/font_cache_delete_gdi_objects_retail_00437d10.cpp",
+      "source": "src/core/main/font_cache_delete_gdi_objects_retail_00437d10.cpp",
       "section": ".text$04bcleanup",
       "address": "0x00437D10",
       "size": 149,

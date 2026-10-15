@@ -1,9 +1,9 @@
 // Compiler context and ABI anchors only; none of these bytes enter the image.
 #include "th10/platform/thread_sync.hpp"
-#include "../../src/platform/platform_stop_worker_0044c150.cpp"
-#include "../../src/render/d3_d_resource_manager_release_00449eb0.cpp"
+#include "../../src/core/zunlib/platform_stop_worker_0044c150.cpp"
+#include "../../src/core/zunlib/d3_d_resource_manager_release_00449eb0.cpp"
 
-// Stand-in for 0x00449E50 (src/render/d3_d_resource_list_release_resources_00449e50.cpp)
+// Stand-in for 0x00449E50 (src/core/zunlib/d3_d_resource_list_release_resources_00449e50.cpp)
 // with the parameter order this caller's evaluation order requires. It keeps
 // the list in EAX and the owner on the stack.
 #pragma code_seg(".text$07release")

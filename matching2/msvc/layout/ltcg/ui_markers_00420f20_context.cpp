@@ -5,7 +5,7 @@
 #include "result_open_00423370/find.cpp"
 #include "result_open_00423370/allocate.cpp"
 #include "result_open_00423370/dispatcher_animation_helpers.cpp"
-#include "../../src/platform/platform_stop_worker_0044c150.cpp"
+#include "../../src/core/zunlib/platform_stop_worker_0044c150.cpp"
 
 extern "C" void __stdcall UiMarkersObserve(DispatcherRef* handle);
 

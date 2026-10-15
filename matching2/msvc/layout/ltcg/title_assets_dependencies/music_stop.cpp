@@ -1,4 +1,4 @@
-// Unselected native ABI anchors from src/platform/midi_worker_stop.cpp and
+// Unselected native ABI anchors from src/core/sound/midi_worker_stop.cpp and
 // layout/ltcg/native_sound_shutdown/aggregate.cpp. Only the shared type view
 // and placement sections differ.
 struct SoundStreamDestroyView { virtual void* Destroy(unsigned int flags) = 0; };

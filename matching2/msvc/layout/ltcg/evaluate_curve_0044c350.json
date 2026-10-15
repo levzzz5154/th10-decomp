@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "evaluate_curve_0044c350",
-  "source": "src/game/fun_0044c350_0044c350.cpp",
+  "source": "src/core/zunlib/fun_0044c350_0044c350.cpp",
   "driver": "layout/ltcg/evaluate_curve_0044c350_context.cpp",
   "headers": [
     "include/th10/math/interpolator.hpp",
@@ -32,7 +32,7 @@
     },
     {
       "name": "Interpolator_int_Step",
-      "source": "src/math/int_interpolator.cpp",
+      "source": "src/core/sprtanim/int_interpolator.cpp",
       "symbol": "?Step@?$Interpolator@H@@QAEHXZ",
       "section": ".text$00441950_fn",
       "address": "0x00441950",
@@ -41,7 +41,7 @@
     },
     {
       "name": "Interpolator_Vec2_Step",
-      "source": "src/math/vec2_interpolator.cpp",
+      "source": "src/core/sprtanim/vec2_interpolator.cpp",
       "symbol": "?Step@?$Interpolator@UVec2@@@@QAE?AUVec2@@XZ",
       "section": ".text$00441ad0_fn",
       "address": "0x00441AD0",
@@ -59,7 +59,7 @@
     },
     {
       "name": "Interpolator_Int3_Step",
-      "source": "src/math/interpolators.cpp",
+      "source": "src/core/sprtanim/interpolators.cpp",
       "symbol": "?Step@?$Interpolator@UInt3@@@@QAE?AUInt3@@XZ",
       "section": ".text$00441600_fn",
       "address": "0x00441600",
@@ -324,10 +324,10 @@
     "?StageObjects_RunScript@@YGHPAUStageObjects@@@Z"
   ],
   "additional_sources": [
-    "src/math/int_interpolator.cpp",
-    "src/math/vec2_interpolator.cpp",
+    "src/core/sprtanim/int_interpolator.cpp",
+    "src/core/sprtanim/vec2_interpolator.cpp",
     "src/game/background/vec3_interpolator.cpp",
-    "src/math/interpolators.cpp",
+    "src/core/sprtanim/interpolators.cpp",
     "src/game/enemy/trajectory_interpolator.cpp",
     "src/game/background/stage_fog_interpolator.cpp",
     "src/game/background/stage_fog.cpp",
@@ -381,6 +381,6 @@
     }
   ],
   "included_sources": [
-    "src/render/animation_object_load_script_0043e710.cpp"
+    "src/core/sprtanim/animation_object_load_script_0043e710.cpp"
   ]
 }

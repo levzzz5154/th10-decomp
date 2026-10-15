@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "animation_validate_handle_00449450",
-  "source": "src/render/animation_manager_validate_handle_00449450.cpp",
+  "source": "src/core/sprtlib/animation_manager_validate_handle_00449450.cpp",
   "driver": "layout/ltcg/animation_validate_handle_00449450_context.cpp",
   "headers": [
     "include/th10/render/animation_validate_handle_00449450.hpp"

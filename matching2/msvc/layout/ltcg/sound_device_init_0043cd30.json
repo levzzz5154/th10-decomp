@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "sound_device_init_0043cd30",
-  "source": "src/platform/sound_device_init.cpp",
+  "source": "src/core/sound/sound_device_init.cpp",
   "driver": "layout/ltcg/sound_device_init_0043cd30/context.cpp",
   "included_sources": [
     "layout/ltcg/sound_device_init_0043cd30/primary_format.cpp",

@@ -1,4 +1,4 @@
-// Unselected native ABI anchor from src/game/archive_cursor_open.cpp. Only the
+// Unselected native ABI anchor from src/core/zwave/archive_cursor_open.cpp. Only the
 // shared type view and placement section differ.
 extern "C" void* (__stdcall* data_004660c4)(const char* path, unsigned long access, unsigned long share, void* security, unsigned long disposition, unsigned long flags, void* template_file);
 #pragma code_seg(".text$06open")

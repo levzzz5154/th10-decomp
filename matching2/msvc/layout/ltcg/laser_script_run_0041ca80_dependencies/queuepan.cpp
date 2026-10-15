@@ -3,4 +3,4 @@
 // convention (queue in ESI, sound id in EBX, pan on the stack). Never selected
 // from this cluster.
 #define code_seg(name) code_seg(".text$0043dd10_fn")
-#include "../../../src/platform/sound_queue_pan_0043dd10.cpp"
+#include "../../../src/core/sound/sound_queue_pan_0043dd10.cpp"

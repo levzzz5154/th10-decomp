@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "file_write_shared_0044b740",
-  "source": "src/platform/file_write_shared_0044b740.cpp",
+  "source": "src/core/zunlib/file_write_shared_0044b740.cpp",
   "driver": "layout/ltcg/file_write_shared_0044b740_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

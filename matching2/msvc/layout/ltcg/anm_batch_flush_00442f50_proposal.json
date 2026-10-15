@@ -2,7 +2,7 @@
   "regions": [
     {
       "name": "semantic_AnimationManager_FlushQuadBatch_00442f50",
-      "source": "src/render/anm_batch_flush.cpp",
+      "source": "src/core/sprtfunc/anm_batch_flush.cpp",
       "symbol": "?Flush@AnimationManager_00442F50@@QAEHXZ",
       "address": "0x00442F50",
       "size": 133,

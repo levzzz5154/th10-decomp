@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "release_interfaces_00438a30",
-  "source": "src/game/destroy_entity_list_00438a30.cpp",
+  "source": "src/core/main/destroy_entity_list_00438a30.cpp",
   "driver": "layout/ltcg/release_interfaces_00438a30_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

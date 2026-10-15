@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "load_script_0043e710_wave11",
-  "source": "src/render/animation_object_load_script_0043e710.cpp",
+  "source": "src/core/sprtanim/animation_object_load_script_0043e710.cpp",
   "driver": "layout/ltcg/load_script_0043e710_wave11_context.cpp",
   "headers": ["include/th10/game/entity.hpp", "include/th10/types.hpp"],
   "image_base": "0x00400000",

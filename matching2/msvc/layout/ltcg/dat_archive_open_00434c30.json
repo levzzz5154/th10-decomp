@@ -39,7 +39,7 @@
       "address": "0x004357D0",
       "size": 36,
       "actual_abi": "path in EAX; AL result; plain RET",
-      "source": "src/pack/resfile/dat_archive_open_next_004357d0.cpp"
+      "source": "src/pack/file/dat_archive_open_next_004357d0.cpp"
     }
   ],
   "anchors": [
@@ -266,6 +266,6 @@
     "src/pack/arcmngr/legacy_string_duplicate_00435220.cpp"
   ],
   "additional_sources": [
-    "src/pack/resfile/dat_archive_open_next_004357d0.cpp"
+    "src/pack/file/dat_archive_open_next_004357d0.cpp"
   ]
 }

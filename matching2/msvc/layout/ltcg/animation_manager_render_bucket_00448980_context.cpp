@@ -1,5 +1,5 @@
 // Compiler context and ABI anchor only; none of these bytes enter the image.
-#include "../../src/render/animation_manager_render_bucket_00448980.cpp"
+#include "../../src/core/sprtlib/animation_manager_render_bucket_00448980.cpp"
 
 // A drawable entity as 0x004451C0 reads it: the visible flag byte at +0x2FF, the
 // flag word at +0x35C - bits 0 and 1 gate the draw, bits 22..25 select the

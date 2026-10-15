@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "name": "recovery_select_archive_entry_0043d790",
-  "source": "src/game/recovery_select_archive_entry_0043d790.cpp",
-  "additional_sources": ["src/game/platform_select_stream_record_0044dca0.cpp"],
+  "source": "src/core/sound/recovery_select_archive_entry_0043d790.cpp",
+  "additional_sources": ["src/core/zwave/platform_select_stream_record_0044dca0.cpp"],
   "driver": "layout/ltcg/recovery_select_archive_entry_0043d790_context.cpp",
   "headers": [],
   "image_base": "0x00400000",
@@ -18,7 +18,7 @@
     },
     {
       "name": "PlatformStreamState_0044DCA0_Select",
-      "source": "src/game/platform_select_stream_record_0044dca0.cpp",
+      "source": "src/core/zwave/platform_select_stream_record_0044dca0.cpp",
       "symbol": "?Select@PlatformStreamState_0044DCA0@@QAEHPAUPlatformStreamRecord_0044DCA0@@@Z",
       "section": ".text$01select",
       "address": "0x0044DCA0",

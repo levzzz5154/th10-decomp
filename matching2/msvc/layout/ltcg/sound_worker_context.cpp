@@ -1,5 +1,5 @@
 // Compiler context only; never selected as recovered game code.
-#include "../../src/platform/sound_worker.cpp"
+#include "../../src/core/sound/sound_worker.cpp"
 
 #pragma code_seg(".text$03context")
 int __stdcall SoundWorkerCompilerContext(SoundWorkerPair_0043cc40** states, int count) {

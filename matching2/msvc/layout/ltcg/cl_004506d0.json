@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "cl_004506d0",
-  "source": "src/script/ecl_pop_scratch_value_004506d0.cpp",
+  "source": "src/script/sptlib/ecl_pop_scratch_value_004506d0.cpp",
   "driver": "layout/ltcg/cl_004506d0_context.cpp",
   "headers": [
     "include/th10/script/ecl_frame.hpp"
@@ -16,7 +16,7 @@
       "address": "0x004506D0",
       "size": 41,
       "actual_abi": "frame in EAX; plain RET",
-      "source": "src/script/ecl_pop_scratch_value_004506d0.cpp"
+      "source": "src/script/sptlib/ecl_pop_scratch_value_004506d0.cpp"
     }
   ],
   "context": {

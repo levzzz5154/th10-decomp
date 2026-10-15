@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "animation_handle_configure_004496a0",
-  "source": "src/render/animation_manager_select_sprite_from_resource_004496a0.cpp",
+  "source": "src/core/sprtlib/animation_manager_select_sprite_from_resource_004496a0.cpp",
   "driver": "layout/ltcg/animation_handle_configure_004496a0_context.cpp",
   "headers": [
     "include/th10/render/animation_object_0043e5a0.hpp"
@@ -67,8 +67,8 @@
     }
   ],
   "included_sources": [
-    "src/render/animation_manager_find_004491c0.cpp",
-    "src/game/animation_object_configure_from_resource_0043e5a0.cpp"
+    "src/core/sprtlib/animation_manager_find_004491c0.cpp",
+    "src/core/sprtanim/animation_object_configure_from_resource_0043e5a0.cpp"
   ],
   "anchors": [
     {
