@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "start_004658f0",
-  "source": "src/unidentified/unassigned_004658f0.cpp",
+  "source": "src/app/static_init/render_state_init.cpp",
   "driver": "layout/ltcg/start_004658f0_context.cpp",
   "headers": [
     "include/th10/game/large_initialization_state_00421f00.hpp"
@@ -10,12 +10,12 @@
   "description": "Region compiled with native LTCG so its entry register is retail's.",
   "functions": [
     {
-      "name": "StartThread_004658f0",
-      "symbol": "?StartThread_004658f0@@YGXXZ",
+      "name": "StaticInit_RenderState",
+      "symbol": "?StaticInit_RenderState@@YGXXZ",
       "section": ".text$03start",
       "address": "0x4658f0",
       "size": 26,
-      "source": "src/unidentified/unassigned_004658f0.cpp",
+      "source": "src/app/static_init/render_state_init.cpp",
       "actual_abi": "retail entry"
     },
     {

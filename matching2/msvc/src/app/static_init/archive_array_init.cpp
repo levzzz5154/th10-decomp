@@ -9,15 +9,15 @@ extern "C" void __stdcall asm_eh_vector_constructor_iterator_0045252d(
         void* array, unsigned int size, int count,
         void (__cdecl*)(void), void (__cdecl*)(void));
 extern "C" void __cdecl asm_DatArchive_Reset_00434c20(void);
-extern "C" void __cdecl asm_FUN_00465a00_00465a00(void);
+extern "C" void __cdecl StaticExit_ArchiveArray(void);
 extern "C" int __cdecl asm_atexit_00452e0a(void (__cdecl*)(void));
 extern "C" char data_004923b0[];
 int* __fastcall FUN_00434c10(int* element);
 
-extern "C" void __cdecl unassigned_00465910(void) {
+extern "C" void __cdecl StaticInit_ArchiveArray(void) {
     asm_eh_vector_constructor_iterator_0045252d(
         data_004923b0, 16, 20,
         (void (__cdecl*)(void))FUN_00434c10,
         asm_DatArchive_Reset_00434c20);
-    asm_atexit_00452e0a(asm_FUN_00465a00_00465a00);
+    asm_atexit_00452e0a(StaticExit_ArchiveArray);
 }

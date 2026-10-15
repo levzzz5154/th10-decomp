@@ -4,7 +4,7 @@
   "source": "src/unreferenced/FUN_0041ff60_0041ff60.cpp",
   "driver": "layout/ltcg/worker_owner_stop_0041ff60_context.cpp",
   "additional_sources": [
-    "src/unidentified/FUN_00465a30_00465a30.cpp"
+    "src/app/static_init/worker_exit.cpp"
   ],
   "headers": [
     "include/th10/platform/worker.hpp"
@@ -22,8 +22,8 @@
     },
     {
       "name": "global_worker_stop_00465a30",
-      "source": "src/unidentified/FUN_00465a30_00465a30.cpp",
-      "symbol": "?StopGlobalWorker_00465a30@@YAXXZ",
+      "source": "src/app/static_init/worker_exit.cpp",
+      "symbol": "?StaticExit_Worker@@YAXXZ",
       "section": ".text$zzworker",
       "address": "0x00465A30",
       "size": 23,
@@ -66,7 +66,7 @@
   ],
   "constants": [],
   "roots": [
-    "?StopGlobalWorker_00465a30@@YAXXZ"
+    "?StaticExit_Worker@@YAXXZ"
   ],
   "absolute_symbols": [
     {

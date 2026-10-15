@@ -3,9 +3,9 @@
 // The registered function is an ordinary __cdecl void(void) in the image; the
 // runtime keeps it in the atexit table and runs it from doexit.
 
-extern "C" void __cdecl asm_FUN_00465a70_00465a70(void);
+extern "C" void __cdecl StaticExit_Empty1(void);
 extern "C" int __cdecl asm_atexit_00452e0a(void (__cdecl*)(void));
 
-extern "C" void __cdecl unassigned_004659d0(void) {
-    asm_atexit_00452e0a(asm_FUN_00465a70_00465a70);
+extern "C" void __cdecl StaticInit_EmptyExit1(void) {
+    asm_atexit_00452e0a(StaticExit_Empty1);
 }

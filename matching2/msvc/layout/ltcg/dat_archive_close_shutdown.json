@@ -4,7 +4,7 @@
   "source": "src/archive/dat_archive_close_00434d10.cpp",
   "additional_sources": [
     "src/archive/dat_archive_reset_00434c20.cpp",
-    "src/unidentified/FUN_00465a60_00465a60.cpp"
+    "src/app/static_init/archive_exit.cpp"
   ],
   "headers": [
     "include/th10/archive/dat_archive_types.hpp",
@@ -17,7 +17,7 @@
   "description": "The real Reset and global shutdown callers let native LTCG select the private ESI receiver for readable DatArchive::Close.",
   "entry": "?Reset@DatArchive@@QAEXXZ",
   "roots": [
-    "_CloseGlobalArchive_00465a60"
+    "_StaticExit_Archive"
   ],
   "functions": [
     {
@@ -40,12 +40,12 @@
     },
     {
       "name": "CloseGlobalArchive",
-      "symbol": "_CloseGlobalArchive_00465a60",
+      "symbol": "_StaticExit_Archive",
       "section": ".text$03global",
       "address": "0x00465A60",
       "size": 13,
       "actual_abi": "no arguments; saves ESI and passes archive 0x00497990 in ESI; plain RET",
-      "source": "src/unidentified/FUN_00465a60_00465a60.cpp"
+      "source": "src/app/static_init/archive_exit.cpp"
     }
   ],
   "calls": [
@@ -56,7 +56,7 @@
       "instruction": "call"
     },
     {
-      "caller": "_CloseGlobalArchive_00465a60",
+      "caller": "_StaticExit_Archive",
       "callee": "?Close@DatArchive@@QAEXXZ",
       "address": "0x00465A66",
       "instruction": "call"

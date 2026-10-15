@@ -3,9 +3,9 @@
 // The registered function is an ordinary __cdecl void(void) in the image; the
 // runtime keeps it in the atexit table and runs it from doexit.
 
-extern "C" void __cdecl ReleaseGlobalGdiSurface_00465a20(void);
+extern "C" void __cdecl StaticExit_GdiSurface(void);
 extern "C" int __cdecl asm_atexit_00452e0a(void (__cdecl*)(void));
 
-extern "C" void __cdecl unassigned_00465940(void) {
-    asm_atexit_00452e0a(ReleaseGlobalGdiSurface_00465a20);
+extern "C" void __cdecl StaticInit_GdiSurface(void) {
+    asm_atexit_00452e0a(StaticExit_GdiSurface);
 }

@@ -3,7 +3,7 @@
   "name": "gdi_surface_release_00436a30",
   "source": "src/platform/gdi_font_cache.cpp",
   "additional_sources": [
-    "src/unidentified/FUN_00465a20_00465a20.cpp",
+    "src/app/static_init/gdi_surface_exit.cpp",
     "src/platform/font_cache_delete_gdi_objects_retail_00437d10.cpp"
   ],
   "driver": "layout/ltcg/gdi_surface_release_00436a30_context.cpp",
@@ -21,8 +21,8 @@
     },
     {
       "name": "GlobalGdiRelease",
-      "symbol": "_ReleaseGlobalGdiSurface_00465a20",
-      "source": "src/unidentified/FUN_00465a20_00465a20.cpp",
+      "symbol": "_StaticExit_GdiSurface",
+      "source": "src/app/static_init/gdi_surface_exit.cpp",
       "section": ".text$05wrapper",
       "address": "0x00465A20",
       "size": 13,
@@ -68,7 +68,7 @@
     }
   ],
   "constants": [],
-  "roots": ["_ReleaseGlobalGdiSurface_00465a20", "_DeleteFontCacheObjects_00437d10"],
+  "roots": ["_StaticExit_GdiSurface", "_DeleteFontCacheObjects_00437d10"],
   "absolute_symbols": [
     {
       "symbol": "__fltused",

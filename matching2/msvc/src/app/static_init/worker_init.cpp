@@ -3,9 +3,9 @@
 // The registered function is an ordinary __cdecl void(void) in the image; the
 // runtime keeps it in the atexit table and runs it from doexit.
 
-void __cdecl StopGlobalWorker_00465a30(void);
+void __cdecl StaticExit_Worker(void);
 extern "C" int __cdecl asm_atexit_00452e0a(void (__cdecl*)(void));
 
-extern "C" void __cdecl unassigned_00465950(void) {
-    asm_atexit_00452e0a(StopGlobalWorker_00465a30);
+extern "C" void __cdecl StaticInit_Worker(void) {
+    asm_atexit_00452e0a(StaticExit_Worker);
 }
