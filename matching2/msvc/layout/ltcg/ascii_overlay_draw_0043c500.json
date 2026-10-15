@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "ascii_overlay_draw_0043c500",
-  "source": "src/render/screen_flash_draw.cpp",
+  "source": "src/render/screen_effect/flash_draw.cpp",
   "included_sources": [
     "src/render/special_quad.cpp",
     "src/render/anm_batch_flush.cpp"

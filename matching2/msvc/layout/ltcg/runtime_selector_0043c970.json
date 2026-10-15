@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "runtime_selector_0043c970",
-  "source": "src/render/screen_effect_configure.cpp",
+  "source": "src/render/screen_effect/configure.cpp",
   "driver": "layout/ltcg/runtime_selector_0043c970_context.cpp",
   "included_sources": [
     "layout/ltcg/runtime_selector_0043c970_scheduler_create.cpp"

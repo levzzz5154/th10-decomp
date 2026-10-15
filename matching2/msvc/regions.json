@@ -32867,7 +32867,7 @@
     },
     {
       "name": "semantic_AnimationCursor_Tick_0043bd40_0043bd40",
-      "source": "src/render/screen_fade_in_update.cpp",
+      "source": "src/render/screen_effect/updates.cpp",
       "symbol": "?Tick@ScreenFadeIn@@QAEHXZ",
       "address": "0x0043BD40",
       "size": 93,
@@ -32875,7 +32875,7 @@
       "owner": "0x0043BD40",
       "previous_record": {
         "name": "asm_FUN_0043bd40_0043bd40",
-        "source": "src/render/screen_fade_in_update.cpp",
+        "source": "src/render/screen_effect/updates.cpp",
         "symbol": "_asm_FUN_0043bd40_0043bd40",
         "address": "0x0043BD40",
         "size": 93,
@@ -32971,7 +32971,7 @@
     },
     {
       "name": "semantic_ColorViewport_Draw_0043c1a0",
-      "source": "src/render/default_viewport.cpp",
+      "source": "src/render/screen_effect/draws.cpp",
       "symbol": "?Draw@ColorViewport@@QAEHXZ",
       "address": "0x0043C1A0",
       "size": 134,
@@ -32979,7 +32979,7 @@
       "owner": "0x0043C1A0",
       "previous_record": {
         "name": "asm_FUN_0043c1a0_0043c1a0",
-        "source": "src/render/default_viewport.cpp",
+        "source": "src/render/screen_effect/draws.cpp",
         "symbol": "_asm_FUN_0043c1a0_0043c1a0",
         "address": "0x0043C1A0",
         "size": 134,
@@ -32997,7 +32997,7 @@
     },
     {
       "name": "semantic_AnimationCursor_Tick_0043c230_0043c230",
-      "source": "src/render/screen_fade_out_update.cpp",
+      "source": "src/render/screen_effect/updates.cpp",
       "symbol": "?Tick@ScreenFadeOut@@QAEHXZ",
       "address": "0x0043C230",
       "size": 133,
@@ -33005,7 +33005,7 @@
       "owner": "0x0043C230",
       "previous_record": {
         "name": "asm_FUN_0043c230_0043c230",
-        "source": "src/render/screen_fade_out_update.cpp",
+        "source": "src/render/screen_effect/updates.cpp",
         "symbol": "_asm_FUN_0043c230_0043c230",
         "address": "0x0043C230",
         "size": 133,
@@ -33023,7 +33023,7 @@
     },
     {
       "name": "semantic_AsciiOverlay_0043C2C0_Draw_0043c2c0",
-      "source": "src/render/screen_fade_out_draw.cpp",
+      "source": "src/render/screen_effect/draws.cpp",
       "symbol": "?Draw@ScreenFadeOutQuad@@QAEHXZ",
       "address": "0x0043C2C0",
       "size": 68,
@@ -33031,7 +33031,7 @@
       "owner": "0x0043C2C0",
       "previous_record": {
         "name": "asm_FUN_0043c2c0_0043c2c0",
-        "source": "src/render/screen_fade_out_draw.cpp",
+        "source": "src/render/screen_effect/draws.cpp",
         "symbol": "_asm_FUN_0043c2c0_0043c2c0",
         "address": "0x0043C2C0",
         "size": 68,
@@ -33049,7 +33049,7 @@
     },
     {
       "name": "semantic_FUN_0043c310_0043c310",
-      "source": "src/render/screen_dim_update.cpp",
+      "source": "src/render/screen_effect/dim_update.cpp",
       "symbol": "?Tick@ScreenDim@@QAEHXZ",
       "address": "0x0043C310",
       "size": 175,
@@ -33057,7 +33057,7 @@
       "owner": "0x0043C310",
       "previous_record": {
         "name": "asm_FUN_0043c310_0043c310",
-        "source": "src/render/screen_dim_update.cpp",
+        "source": "src/render/screen_effect/dim_update.cpp",
         "symbol": "_asm_FUN_0043c310_0043c310",
         "address": "0x0043C310",
         "size": 175,
@@ -33075,7 +33075,7 @@
     },
     {
       "name": "semantic_AsciiOverlay_0043C3C0_Draw_0043c3c0",
-      "source": "src/render/screen_dim_draw_full.cpp",
+      "source": "src/render/screen_effect/draws.cpp",
       "symbol": "?Draw@ScreenDimFullQuad@@QAEHXZ",
       "address": "0x0043C3C0",
       "size": 68,
@@ -33083,7 +33083,7 @@
       "owner": "0x0043C3C0",
       "previous_record": {
         "name": "asm_FUN_0043c3c0_0043c3c0",
-        "source": "src/render/screen_dim_draw_full.cpp",
+        "source": "src/render/screen_effect/draws.cpp",
         "symbol": "_asm_FUN_0043c3c0_0043c3c0",
         "address": "0x0043C3C0",
         "size": 68,
@@ -33101,7 +33101,7 @@
     },
     {
       "name": "semantic_AsciiOverlay_0043C410_Draw_0043c410",
-      "source": "src/render/screen_dim_draw_playfield.cpp",
+      "source": "src/render/screen_effect/draws.cpp",
       "symbol": "?Draw@ScreenDimPlayfieldQuad@@QAEHXZ",
       "address": "0x0043C410",
       "size": 68,
@@ -33109,7 +33109,7 @@
       "owner": "0x0043C410",
       "previous_record": {
         "name": "asm_AsciiManager_OnDrawRetail_0043c410",
-        "source": "src/render/screen_dim_draw_playfield.cpp",
+        "source": "src/render/screen_effect/draws.cpp",
         "symbol": "_asm_AsciiManager_OnDrawRetail_0043c410",
         "address": "0x0043C410",
         "size": 68,
@@ -33127,7 +33127,7 @@
     },
     {
       "name": "semantic_AnimationCursor_Tick_0043c460_0043c460",
-      "source": "src/render/screen_flash_update.cpp",
+      "source": "src/render/screen_effect/updates.cpp",
       "symbol": "?Tick@ScreenFlash@@QAEHXZ",
       "address": "0x0043C460",
       "size": 154,
@@ -33135,7 +33135,7 @@
       "owner": "0x0043C460",
       "previous_record": {
         "name": "asm_FUN_0043c460_0043c460",
-        "source": "src/render/screen_flash_update.cpp",
+        "source": "src/render/screen_effect/updates.cpp",
         "symbol": "_asm_FUN_0043c460_0043c460",
         "address": "0x0043C460",
         "size": 154,
@@ -33153,7 +33153,7 @@
     },
     {
       "name": "semantic_AsciiOverlay_Draw_0043c500",
-      "source": "src/render/screen_flash_draw.cpp",
+      "source": "src/render/screen_effect/flash_draw.cpp",
       "symbol": "?Draw@ScreenFlashQuad@@QAEHXZ",
       "address": "0x0043C500",
       "size": 74,
@@ -33161,7 +33161,7 @@
       "owner": "0x0043C500",
       "previous_record": {
         "name": "asm_FUN_0043c500_0043c500",
-        "source": "src/render/screen_flash_draw.cpp",
+        "source": "src/render/screen_effect/flash_draw.cpp",
         "symbol": "_asm_FUN_0043c500_0043c500",
         "address": "0x0043C500",
         "size": 74,
@@ -33179,7 +33179,7 @@
     },
     {
       "name": "ScreenShake_Update",
-      "source": "src/render/screen_shake_update.cpp",
+      "source": "src/render/screen_effect/shake_update.cpp",
       "symbol": "_ScreenShake_Update",
       "address": "0x0043C550",
       "size": 439,
@@ -33196,7 +33196,7 @@
     },
     {
       "name": "semantic_ScreenEffectController_UpdateEnvelopeShake_0043c710",
-      "source": "src/game/screen_effect_envelope_shake.cpp",
+      "source": "src/render/screen_effect/updates.cpp",
       "symbol": "?UpdateEnvelopeShake@ScreenEffectController@@QAEHXZ",
       "address": "0x0043C710",
       "size": 349,
@@ -33204,7 +33204,7 @@
       "owner": "0x0043C710",
       "previous_record": {
         "name": "asm_FUN_0043c710_0043c710",
-        "source": "src/game/screen_effect_envelope_shake.cpp",
+        "source": "src/render/screen_effect/updates.cpp",
         "symbol": "_asm_FUN_0043c710_0043c710",
         "address": "0x0043C710",
         "size": 349,
@@ -33221,9 +33221,9 @@
       "kind": "padding"
     },
     {
-      "name": "semantic_Platform_DeletingDestructorNoReturn_0043c870",
-      "source": "src/game/recovery_leaves.cpp",
-      "symbol": "?Platform_DeletingDestructorNoReturn@@YIHPAX@Z",
+      "name": "semantic_ScreenEffect_OnRemove",
+      "source": "src/render/screen_effect/remove.cpp",
+      "symbol": "?ScreenEffect_OnRemove@@YIHPAX@Z",
       "address": "0x0043C870",
       "size": 26,
       "kind": "semantic",
@@ -33274,7 +33274,7 @@
     },
     {
       "name": "semantic_AsciiFactory_0043c8b0",
-      "source": "src/game/ascii_manager_create_retail_0043c8b0.cpp",
+      "source": "src/render/screen_effect/configure.cpp",
       "symbol": "?CreateScreenEffect_0043c8b0@@YGPAUScreenEffectController@@HHHHHH@Z",
       "address": "0x0043C8B0",
       "size": 82,
@@ -33282,7 +33282,7 @@
       "owner": null,
       "previous_record": {
         "name": "asm_AsciiManager_CreateRetail_0043c8b0",
-        "source": "src/game/ascii_manager_create_retail_0043c8b0.cpp",
+        "source": "src/render/screen_effect/configure.cpp",
         "symbol": "_asm_AsciiManager_CreateRetail_0043c8b0",
         "address": "0x0043C8B0",
         "size": 82,
@@ -33352,7 +33352,7 @@
     },
     {
       "name": "semantic_RuntimeSelector_Configure_0043c970",
-      "source": "src/render/screen_effect_configure.cpp",
+      "source": "src/render/screen_effect/configure.cpp",
       "symbol": "?Configure@ScreenEffectController@@QAEXHHHHHH@Z",
       "address": "0x0043C970",
       "size": 396,
@@ -33360,7 +33360,7 @@
       "owner": null,
       "previous_record": {
         "name": "asm_FUN_0043c970_0043c970",
-        "source": "src/render/screen_effect_configure.cpp",
+        "source": "src/render/screen_effect/configure.cpp",
         "symbol": "_asm_FUN_0043c970_0043c970",
         "address": "0x0043C970",
         "size": 396,
@@ -33404,7 +33404,7 @@
     },
     {
       "name": "semantic_EntityScriptRng_NextRandomModulo_0043cb80",
-      "source": "src/game/screen_effect_envelope_shake.cpp",
+      "source": "src/render/screen_effect/updates.cpp",
       "symbol": "?NextRandomModulo@EntityScriptRng_0043cb80@@QAEII@Z",
       "address": "0x0043CB80",
       "size": 88,
@@ -60501,10 +60501,9 @@
     "src/game/archive_cursor_open.cpp",
     "src/game/archive_cursor_read_model.cpp",
     "src/game/archive_cursor_reset_0044dbd0.cpp",
-    "src/game/ascii_manager_create_retail_0043c8b0.cpp",
+    "src/render/screen_effect/configure.cpp",
     "src/game/ascii_manager_load_resources_00401110.cpp",
-    "src/render/screen_dim_draw_playfield.cpp",
-    "src/render/screen_fade_out_draw.cpp",
+    "src/render/screen_effect/draws.cpp",
     "src/game/asset_buffer.cpp",
     "src/game/boss_gauge.cpp",
     "src/game/laser_line_draw.cpp",
@@ -60599,7 +60598,6 @@
     "src/game/fun_0042f8b0_0042f8b0.cpp",
     "src/game/difficulty_select_update_00430320.cpp",
     "src/game/character_select_update_004306a0.cpp",
-    "src/render/screen_effect_configure.cpp",
     "src/game/fun_0044c350_0044c350.cpp",
     "src/game/game_config_defaults.cpp",
     "src/app/main_task_update_mode.cpp",
@@ -60791,7 +60789,7 @@
     "src/game/score_table_insert_00421fa0.cpp",
     "src/game/score_tasks.cpp",
     "src/game/score_timer_leaves.cpp",
-    "src/game/screen_effect_envelope_shake.cpp",
+    "src/render/screen_effect/updates.cpp",
     "src/game/script_state_destructor_0042cb60.cpp",
     "src/game/script_viewer_draw_0042c360.cpp",
     "src/game/script_viewer_load_0042be20.cpp",
@@ -61024,7 +61022,6 @@
     "src/render/d3_d_resource_manager_release_00449eb0.cpp",
     "src/render/d3d_init.cpp",
     "src/render/d3d_resource_manager.cpp",
-    "src/render/default_viewport.cpp",
     "src/render/device_reset.cpp",
     "src/render/edge_strip_draw.cpp",
     "src/render/edge_strips.cpp",
@@ -61033,7 +61030,7 @@
     "src/render/empty_callback_00420db0.cpp",
     "src/render/entity_submit_projected_00443f80.cpp",
     "src/render/faded_quad_draw.cpp",
-    "src/render/screen_flash_draw.cpp",
+    "src/render/screen_effect/flash_draw.cpp",
     "src/render/fun_00444240_00444240.cpp",
     "src/render/fun_00444580_00444580.cpp",
     "src/render/fun_00447810_00447810.cpp",
@@ -61395,13 +61392,9 @@
     "src/input/input_set_property.cpp",
     "src/unreferenced/FUN_0043bbf0_0043bbf0.cpp",
     "src/unreferenced/FUN_0043bc00_0043bc00.cpp",
-    "src/render/screen_fade_in_update.cpp",
     "src/unreferenced/FUN_0043bf90_0043bf90.cpp",
-    "src/render/screen_fade_out_update.cpp",
-    "src/render/screen_dim_update.cpp",
-    "src/render/screen_dim_draw_full.cpp",
-    "src/render/screen_flash_update.cpp",
-    "src/render/screen_shake_update.cpp",
+    "src/render/screen_effect/dim_update.cpp",
+    "src/render/screen_effect/shake_update.cpp",
     "src/platform/sound_init_thread.cpp",
     "src/unreferenced/FUN_0043e520_0043e520.cpp",
     "src/unreferenced/FUN_0043e530_0043e530.cpp",
@@ -62227,7 +62220,8 @@
     "src/render/stage_script.cpp",
     "src/game/laser_base.cpp",
     "src/script/ecl_vm_base.cpp",
-    "src/script/enemy_ecl_variables.cpp"
+    "src/script/enemy_ecl_variables.cpp",
+    "src/render/screen_effect/remove.cpp"
   ],
   "notes": [
     "Every executable body is compiled from C++; unported bodies use MSVC inline assembly.",

@@ -110,18 +110,6 @@ void Recovery_ReleaseGlobalStates() {
 
 // 0x0042ADD0: maintained in src/game/score_settings_initialize_defaults_0042add0.cpp.
 
-// 0x0043C870..0x0043C889: Platform_DeletingDestructorNoReturn
-// Scalar deleting destructor for the platform-owned raw pair: release the pair,
-// return the object to the CRT heap and report success in EAX. The object
-// arrives in ECX, matching the retail thunk ABI.
-int __fastcall Platform_DeletingDestructorNoReturn(void* pair) {
-    if (pair) {
-        ((RawPairReleaseFn)asm_Recovery_ReleaseRawPair_0043cb00)(pair);
-        entry_free_004524a1(pair);
-    }
-    return 0;
-}
-
 
 // 0x00447280..0x004472D1: Recovery_LoadCachedResource
 // Return the resource cached for the given index, loading it through 0x004470C0

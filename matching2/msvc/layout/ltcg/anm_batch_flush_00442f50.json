@@ -130,7 +130,7 @@
     },
     {
       "name": "ColorViewport_Draw",
-      "source": "src/render/default_viewport.cpp",
+      "source": "src/render/screen_effect/draws.cpp",
       "symbol": "?Draw@ColorViewport@@QAEHXZ",
       "section": ".text$03viewport",
       "address": "0x0043C1A0",
@@ -360,7 +360,7 @@
       "address": "0x0043C2C0",
       "size": 68,
       "actual_abi": "ECX receiver; EDI rectangle and EBX color for DrawSolidQuad; plain RET",
-      "source": "src/render/screen_fade_out_draw.cpp"
+      "source": "src/render/screen_effect/draws.cpp"
     },
     {
       "name": "AsciiOverlay_0043C3C0_Draw",
@@ -369,7 +369,7 @@
       "address": "0x0043C3C0",
       "size": 68,
       "actual_abi": "ECX receiver; EDI rectangle and EBX color for DrawSolidQuad; plain RET",
-      "source": "src/render/screen_dim_draw_full.cpp"
+      "source": "src/render/screen_effect/draws.cpp"
     },
     {
       "name": "AsciiOverlay_0043C410_Draw",
@@ -378,7 +378,7 @@
       "address": "0x0043C410",
       "size": 68,
       "actual_abi": "ECX receiver; EDI rectangle and EBX color for DrawSolidQuad; plain RET",
-      "source": "src/render/screen_dim_draw_playfield.cpp"
+      "source": "src/render/screen_effect/draws.cpp"
     },
     {
       "name": "BossOverlay_0041D7C0_Draw",
@@ -1259,8 +1259,7 @@
     }
   ],
   "additional_sources": [
-    "src/render/screen_dim_draw_playfield.cpp",
-    "src/render/screen_fade_out_draw.cpp",
+    "src/render/screen_effect/draws.cpp",
     "src/game/laser_line_draw.cpp",
     "src/game/fun_00405300_00405300.cpp",
     "src/game/game_state_overlay_draw.cpp",
@@ -1276,7 +1275,6 @@
     "src/render/anm_vm_draw_dispatch.cpp",
     "src/render/camera_apply.cpp",
     "src/render/camera_setup.cpp",
-    "src/render/default_viewport.cpp",
     "src/render/edge_strip_draw.cpp",
     "src/render/entity_submit_projected_00443f80.cpp",
     "src/render/fun_00444580_00444580.cpp",
@@ -1292,7 +1290,6 @@
     "src/render/viewport_apply_default_retail_0043bcd0.cpp",
     "src/game/laser_grow_draw.cpp",
     "src/app/app_on_draw_flush.cpp",
-    "src/render/screen_dim_draw_full.cpp",
     "src/render/render_entity_draw_fan.cpp",
     "src/render/animation_manager_draw_stage0_bucket3.cpp",
     "src/render/animation_manager_draw_stage1_bucket0f.cpp",

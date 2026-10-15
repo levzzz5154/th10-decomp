@@ -1,4 +1,4 @@
-#include "../../src/render/screen_effect_configure.cpp"
+#include "../../src/render/screen_effect/configure.cpp"
 #include "runtime_selector_0043c970_scheduler_create.cpp"
 #include "th10/game/scheduler.hpp"
 #include "th10/platform/thread_sync.hpp"

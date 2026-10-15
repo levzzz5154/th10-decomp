@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "native_ascii_factory_0043c8b0",
-  "source": "src/game/ascii_manager_create_retail_0043c8b0.cpp",
+  "source": "src/render/screen_effect/configure.cpp",
   "driver": "layout/ltcg/native_ascii_factory_context.cpp",
   "included_sources": [
     "layout/ltcg/runtime_selector_0043c970_scheduler_create.cpp",
@@ -24,7 +24,7 @@
       "address": "0x0043C970",
       "size": 396,
       "actual_abi": "owner ESI; priority EBX; selected mode and four parameters on stack; RET 20",
-      "source": "src/render/screen_effect_configure.cpp"
+      "source": "src/render/screen_effect/configure.cpp"
     },
     {
       "name": "AsciiFactory",
@@ -502,7 +502,6 @@
     }
   ],
   "additional_sources": [
-    "src/render/screen_effect_configure.cpp",
     "src/game/fun_00404530_00404530.cpp"
   ]
 }

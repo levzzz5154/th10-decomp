@@ -1,4 +1,4 @@
-#include "../../src/render/screen_flash_draw.cpp"
+#include "../../src/render/screen_effect/flash_draw.cpp"
 #include "../../src/render/special_quad.cpp"
 #include "../../src/render/anm_batch_flush.cpp"
 #pragma code_seg(".text$07context")
