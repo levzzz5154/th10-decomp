@@ -48,7 +48,7 @@
    "address": "0x00402050",
    "kind": "code"
   },
-  "?TrailSpriteUpdateCallback_00427950@@YIHPAUTrailSprite_00427960@@@Z": {
+  "?PlayerOption_FollowTrail@@YIHPAUPlayerOption@@@Z": {
    "address": "0x00427950",
    "kind": "data"
   },

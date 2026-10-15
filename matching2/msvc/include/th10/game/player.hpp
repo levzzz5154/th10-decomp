@@ -151,13 +151,20 @@ struct PlayerOption {
     unsigned char unknown_54[0x14];
     unsigned int animation;            // +0x68
     unsigned int second_animation;     // +0x6C
-    unsigned char unknown_70[0x1C];
+    unsigned char unknown_70[0x14];
+    int was_focused;                   // +0x84, trailing options
+    int index;                         // +0x88, which option this is
     int reset_position;                // +0x8C
     int (__fastcall* update)(PlayerOption* option);  // +0x90, optional
     int unknown_94;
 
     // The four points above by index, the order a replay saves them in.
-    FixedPoint& Point(int index) { return (&target)[index]; }
+    FixedPoint& Point(int which) { return (&target)[which]; }
+
+    // 0x00427960: for options that trail the player: while unfocused, sit on
+    // the position history and remember the offset; while focused, hold that
+    // offset and redraw the history between this option and the previous one.
+    __declspec(noinline) void FollowTrail();
 };
 
 // An area that damages enemies: a bomb, or the burst around a respawn

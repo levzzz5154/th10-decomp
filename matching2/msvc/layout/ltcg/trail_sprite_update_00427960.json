@@ -1,15 +1,20 @@
 {
   "schema_version": 2,
   "name": "trail_sprite_update_00427960",
-  "source": "src/game/fun_00427960_00427960.cpp",
-  "headers": [],
+  "source": "src/game/player_option_follow_trail.cpp",
+  "headers": [
+    "include/th10/game/player.hpp",
+    "include/th10/game/entity.hpp",
+    "include/th10/types.hpp",
+    "include/th10/math/timer.hpp"
+  ],
   "image_base": "0x00400000",
   "description": "Actual trail sprite update callback and complete worker body.",
-  "entry": "?TrailSpriteUpdateCallback_00427950@@YIHPAUTrailSprite_00427960@@@Z",
+  "entry": "?PlayerOption_FollowTrail@@YIHPAUPlayerOption@@@Z",
   "functions": [
     {
       "name": "TrailSpriteUpdateCallback_00427950",
-      "symbol": "?TrailSpriteUpdateCallback_00427950@@YIHPAUTrailSprite_00427960@@@Z",
+      "symbol": "?PlayerOption_FollowTrail@@YIHPAUPlayerOption@@@Z",
       "address": "0x00427950",
       "size": 12,
       "section": ".text$01callback",
@@ -17,7 +22,7 @@
     },
     {
       "name": "TrailSpriteUpdate_00427960",
-      "symbol": "?Update@TrailSprite_00427960@@QAEXXZ",
+      "symbol": "?FollowTrail@PlayerOption@@QAEXXZ",
       "address": "0x00427960",
       "size": 359,
       "section": ".text$03worker",
@@ -26,8 +31,8 @@
   ],
   "calls": [
     {
-      "caller": "?TrailSpriteUpdateCallback_00427950@@YIHPAUTrailSprite_00427960@@@Z",
-      "callee": "?Update@TrailSprite_00427960@@QAEXXZ",
+      "caller": "?PlayerOption_FollowTrail@@YIHPAUPlayerOption@@@Z",
+      "callee": "?FollowTrail@PlayerOption@@QAEXXZ",
       "address": "0x00427953",
       "instruction": "call"
     }

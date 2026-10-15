@@ -210,7 +210,7 @@
    "kind": "relative_code"
   },
   {
-   "symbol": "?TrailSpriteUpdateCallback_00427950@@YIHPAUTrailSprite_00427960@@@Z",
+   "symbol": "?PlayerOption_FollowTrail@@YIHPAUPlayerOption@@@Z",
    "address": "0x00427950",
    "kind": "relative_code"
   },

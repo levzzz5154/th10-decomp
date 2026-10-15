@@ -21,9 +21,9 @@ static __forceinline FamiliarAnimManager_00426f70* AnimManager() {
 
 // Trail sprite scheduler callback (0x00427950) and playback switch callback
 // (0x00427AD0) installed on the refreshed orbit records.
-struct TrailSprite_00427960;
+struct PlayerOption;
 struct PlaybackState;
-int __fastcall TrailSpriteUpdateCallback_00427950(TrailSprite_00427960* sprite);
+int __fastcall PlayerOption_FollowTrail(PlayerOption* option);
 int __fastcall PlaybackState_OnSwitch_00427ad0(PlaybackState* state);
 
 // The animation-manager create wrapper (0x00448E30): builds one sprite of the
@@ -230,7 +230,7 @@ extern "C" __declspec(noinline) void __stdcall PlayerFamiliarRefresh_00426f70(
                     }
                 }
                 player->familiars[i].callback = (FamiliarCallback_00426f70)
-                    &TrailSpriteUpdateCallback_00427950;
+                    &PlayerOption_FollowTrail;
                 player->familiars[i].handle = SpawnFamiliar(player, 0x11);
                 player->familiars[i].anchor.x = player->history[i * 8].x;
                 player->familiars[i].anchor.y = player->history[i * 8].y;
