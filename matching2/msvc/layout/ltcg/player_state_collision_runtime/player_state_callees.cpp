@@ -21,15 +21,6 @@ void PlayerInputMode::Set(int value) {
     if ((flags & 0x1000) == 0) mode = value;
     else mode = 2;
 }
-// src/game/player_angle_to_point.cpp
-#pragma code_seg(".text$f00426610F")
-extern "C" __declspec(noinline) double __stdcall Player_AngleToPoint(const Player* player, const Vec3* point) {
-    float horizontal = point->x - player->position.x;
-    float vertical = point->y - player->position.y;
-    if (vertical == data_00470b04 && horizontal == data_00470b04)
-        return data_00470b94;
-    return atan2(vertical, horizontal);
-}
 // src/game/power_display_set_digits_004054b0.cpp
 inline AnimationObject_0043e5a0* DigitSprite_004054b0(unsigned char* storage) {
     return reinterpret_cast<AnimationObject_0043e5a0*>(storage);

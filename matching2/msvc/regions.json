@@ -22506,7 +22506,7 @@
     {
       "name": "semantic_Entity_AngleToPoint_00426610",
       "source": "src/game/player_angle_to_point.cpp",
-      "symbol": "?Entity_AngleToPoint@@YGNPBUEntityAngleTarget_00426610@@PBM@Z",
+      "symbol": "_Player_AngleToPoint@8",
       "address": "0x00426610",
       "size": 67,
       "kind": "semantic",
@@ -62464,7 +62464,6 @@
     "layout/ltcg/stage_text_skip_line_004349e0.json",
     "layout/ltcg/embedded_timer_set_countdown_retail_0042a930.json",
     "layout/ltcg/stage_text_extract_line_00434a20.json",
-    "layout/ltcg/entity_angle_to_point_00426610.json",
     "layout/ltcg/entity_angle_from_point_00426660.json",
     "layout/ltcg/animation_resource_registrar_0043e460.json",
     "layout/ltcg/animation_manager_mark_resource_for_removal_004493e0.json",

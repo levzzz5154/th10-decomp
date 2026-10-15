@@ -17,7 +17,8 @@
     "src/render/animation_resource_initialize_object.cpp",
     "src/game/player_shooting.cpp",
     "src/game/pause_result_open.cpp",
-    "layout/ltcg/player_state_collision_runtime/death_screen_callees.cpp"
+    "layout/ltcg/player_state_collision_runtime/death_screen_callees.cpp",
+    "src/game/player_angle_to_point.cpp"
   ],
   "included_sources": [
     "layout/ltcg/player_state_collision_runtime/helpers.cpp",
@@ -219,6 +220,15 @@
       "size": 411,
       "actual_abi": "menu state in EDI; plain RET; derived through Player_Update",
       "source": "src/game/pause_result_open.cpp"
+    },
+    {
+      "name": "function_00426610",
+      "symbol": "_Player_AngleToPoint@8",
+      "section": ".text$f00426610F",
+      "address": "0x426610",
+      "size": 67,
+      "actual_abi": "stdcall: player and point on the stack; RET8",
+      "source": "src/game/player_angle_to_point.cpp"
     }
   ],
   "context": {
@@ -417,13 +427,6 @@
       "section": ".text$f0040ac90F",
       "address": "0x40ac90",
       "size": 37
-    },
-    {
-      "name": "function_00426610",
-      "symbol": "_Player_AngleToPoint@8",
-      "section": ".text$f00426610F",
-      "address": "0x426610",
-      "size": 67
     },
     {
       "name": "function_004054b0",
