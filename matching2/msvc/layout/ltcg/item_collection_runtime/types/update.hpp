@@ -2,12 +2,9 @@
 #include "item_spawn.hpp"
 #include "th10/platform/sound_queue.hpp"
 #include "th10/game/player.hpp"
+#include "th10/game/bomb.hpp"
 #include "th10/render/animation_object_0043e5a0.hpp"
 
-struct ItemCollectionBlocker {
-    unsigned char reserved_000[0x28];
-    int active;
-};
 
 // These fields share the run-state object at 0x00474C40. In particular the
 // point value and gauge are the same word, and the power is a signed short.
@@ -80,7 +77,6 @@ extern "C" {
 extern ItemRunState data_00474c40;
 extern ItemHud* data_0047770c;
 extern ItemFloatingTextPool* data_00477840;
-extern ItemCollectionBlocker* g_bomb;
 extern unsigned int g_input;
 extern float data_00476f78;
 extern float data_00470b04, data_00470b94, data_00470bf4, data_00470cdc;

@@ -97,11 +97,11 @@ extern "C" __declspec(noinline) int __stdcall EnemyDataStart_0040dc80(EnemyTick_
 
     // 0x0040E050: swap the animation while the stage covers the enemy.
     if (enemy->flags & ENEMY_SWAPS_SCRIPT) {
-        if (g_bomb->Covered() && !(enemy->flags & ENEMY_SCRIPT_SWAPPED)) {
+        if (g_bomb->active && !(enemy->flags & ENEMY_SCRIPT_SWAPPED)) {
             enemy->animation_script = enemy->covered_script;
             enemy->animations[0].ChangeScript(enemy->covered_script);
             enemy->flags |= ENEMY_SCRIPT_SWAPPED | ENEMY_NO_HIT;
-        } else if (!g_bomb->Covered() && (enemy->flags & ENEMY_SCRIPT_SWAPPED)) {
+        } else if (!g_bomb->active && (enemy->flags & ENEMY_SCRIPT_SWAPPED)) {
             enemy->animation_script = enemy->uncovered_script;
             enemy->animations[0].ChangeScript(enemy->uncovered_script);
             enemy->flags &= ~(ENEMY_SCRIPT_SWAPPED | ENEMY_NO_HIT);

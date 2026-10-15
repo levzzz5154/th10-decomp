@@ -11,7 +11,7 @@ float g_frame_timer_normal_upper = 1.01f;
 float g_score_default_speed = 1.0f;
 extern "C" {
 Player* g_player;
-Stage_0040dc80* g_bomb;
+Bomb* g_bomb;
 GameThread_0040dc80* data_004776f4;
 Gui_0040dc80* data_0047770c;
 AnimationManager_0040dc80* data_00491c10;

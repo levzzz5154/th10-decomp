@@ -35,7 +35,8 @@
     "layout/ltcg/item_collection_runtime/types/item_spawn.hpp",
     "layout/ltcg/item_collection_runtime/types/line_sweeps.hpp",
     "layout/ltcg/item_collection_runtime/types/update.hpp",
-    "include/th10/game/player.hpp"
+    "include/th10/game/player.hpp",
+    "include/th10/game/bomb.hpp"
   ],
   "image_base": "0x00400000",
   "description": "Existing conversion/power/life recoveries under the complete genuine item-update, line, animation and sound graph. No synthetic caller or compiler entry.",

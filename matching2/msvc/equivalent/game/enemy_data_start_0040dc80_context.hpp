@@ -7,18 +7,13 @@
 #include "th10/platform/sound_queue.hpp"
 #include "th10/game/enemy_data_start_0040dc80.hpp"
 #include "th10/game/player.hpp"
+#include "th10/game/bomb.hpp"
 
 // What the tick reads of the objects around the enemy.
 struct PlayerDamage {
     // 0x00428630: total damage of the player's shots overlapping the box.
     // Retail calls it with a null receiver.
     __declspec(noinline) int Sweep(Player* player, const PolarVec3* center, const Vec2* size);
-};
-struct Stage_0040dc80 {
-    unsigned char reserved_00[0x28];
-    int covered;                         // +0x28
-
-    int Covered() const { return covered; }
 };
 struct GameThread_0040dc80 {
     unsigned char reserved_0000[0x378C];
@@ -40,7 +35,6 @@ struct ScoreState_0040dc80 {
 };
 
 extern "C" {
-extern Stage_0040dc80* g_bomb;
 extern GameThread_0040dc80* data_004776f4;
 extern Gui_0040dc80* data_0047770c;
 extern AnimationManager_0040dc80* data_00491c10;
