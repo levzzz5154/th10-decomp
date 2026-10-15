@@ -76,12 +76,12 @@ int MessageManager::Initialize() {
     draw->context = this;
     Scheduler_RegisterSecondary(data_00491be4, draw, 6);
     draw_task = draw;
-    int& background = ((MessageThread*)data_004776e0)->background_id;
+    int& background = ((MessageThread*)g_ascii_manager)->background_id;
     AnimationPosition_00448d50 position(480.0f, 392.0f, 0.0f);
     if (!background) {
         int id;
         background = *(int*)AnimationManager_CreatePositionedPrimary_00448d50(
-            ((MessageThread*)data_004776e0)->Resource(), (void**)&id, 6, &position);
+            ((MessageThread*)g_ascii_manager)->Resource(), (void**)&id, 6, &position);
     }
     ending_index = data_00474c44.character * 3 + data_00474c44.shot_type;
     if (!data_00474c44.continued && data_00474c44.difficulty >= 1) ending_index += 6;

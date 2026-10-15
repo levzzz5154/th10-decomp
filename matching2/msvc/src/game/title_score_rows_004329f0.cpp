@@ -20,17 +20,17 @@ int TitleMenu_00431410::DrawScoreRows() {
     case 2: {
         Vec3_00401530 position = {48.0f, 160.0f, 0.0f};
         int selected = difficulty;
-        data_004776e0->current_64 = 1;
+        g_ascii_manager->current_64 = 1;
         if (!spell_page) {
             for (int row = 0; row < 10; ++row) {
                 int shade = 0xFF - row * 0x10;
                 int rank = row + 1;
-                data_004776e0->current_4c = 0xFF0000FF | ((shade << 8 | shade) << 8);
+                g_ascii_manager->current_4c = 0xFF0000FF | ((shade << 8 | shade) << 8);
                 if (data_0047783c[cursor].table.rows[selected][row].date != 0) {
                     ScoreTable_004329f0* table = &data_0047783c[cursor].table;
                     tm* date = localtime(&table->rows[selected][row].date);
-                    AppendFormatted_00401630(
-                        data_004776e0, &position,
+                    AsciiManager_AddFormatted(
+                        g_ascii_manager, &position,
                         "%2d  %s  %9ld%d  %.4d/%.2d/%.2d %.2d:%.2d  %s  %2.1f%%", rank,
                         data_0047783c[cursor].table.rows[selected][row].name,
                         data_0047783c[cursor].table.rows[selected][row].score,
@@ -39,8 +39,8 @@ int TitleMenu_00431410::DrawScoreRows() {
                         date->tm_min, data_0047471c[data_0047783c[cursor].table.rows[selected][row].stage],
                         data_0047783c[cursor].table.rows[selected][row].slowdown);
                 } else {
-                    AppendFormatted_00401630(
-                        data_004776e0, &position,
+                    AsciiManager_AddFormatted(
+                        g_ascii_manager, &position,
                         "%2d  %s  %9ld%d  ----/--/-- --:--  Stage -  ---%%", rank,
                         data_0047783c[cursor].table.rows[selected][row].name,
                         data_0047783c[cursor].table.rows[selected][row].score,
@@ -50,20 +50,20 @@ int TitleMenu_00431410::DrawScoreRows() {
                 position.y += 18.0f;
             }
         }
-        data_004776e0->current_4c = 0xFFFFFFFF;
+        g_ascii_manager->current_4c = 0xFFFFFFFF;
         position.x = 328.0f;
         position.y = 378.0f;
-        AppendFormatted_00401630(data_004776e0, &position, "    %5d", data_0047783c[cursor].play_count);
+        AsciiManager_AddFormatted(g_ascii_manager, &position, "    %5d", data_0047783c[cursor].play_count);
         position.y = 396.0f;
-        AppendFormatted_00401630(data_004776e0, &position, "%3d:%.2d:%.2d",
+        AsciiManager_AddFormatted(g_ascii_manager, &position, "%3d:%.2d:%.2d",
                                  data_0047783c[cursor].play_time / 216000,
                                  data_0047783c[cursor].play_time / 3600 % 60,
                                  data_0047783c[cursor].play_time / 60 % 60);
         position.y = 414.0f;
-        AppendFormatted_00401630(data_004776e0, &position, "    %5d",
+        AsciiManager_AddFormatted(g_ascii_manager, &position, "    %5d",
                                  data_0047783c[cursor].clear_count[selected]);
-        data_004776e0->current_4c = 0xFFFFFFFF;
-        data_004776e0->current_64 = 0;
+        g_ascii_manager->current_4c = 0xFFFFFFFF;
+        g_ascii_manager->current_64 = 0;
         break;
     }
     }

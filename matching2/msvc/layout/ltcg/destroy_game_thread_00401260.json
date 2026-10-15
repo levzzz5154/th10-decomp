@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "destroy_game_thread_00401260",
-  "source": "src/game/destroy_game_thread_00401260.cpp",
+  "source": "src/game/ascii_manager/destructor.cpp",
   "driver": "layout/ltcg/destroy_game_thread_00401260/context.cpp",
   "included_sources": [
     "layout/ltcg/game_state_anchor_00402160.cpp"
@@ -166,7 +166,7 @@
       "kind": "metadata"
     },
     {
-      "symbol": "_data_004776e0",
+      "symbol": "_g_ascii_manager",
       "address": "0x4776e0",
       "kind": "data"
     },

@@ -18,7 +18,7 @@
 #pragma code_seg(".text$04rows")
 extern "C" __declspec(noinline) int __stdcall ResultScreen_DrawRows_00422660(
         ResultMenu_00422660* state) {
-    data_004776e0->current_64 = 1;
+    g_ascii_manager->current_64 = 1;
     switch (state->phase) {
     case 10:
     case 17: {
@@ -26,22 +26,22 @@ extern "C" __declspec(noinline) int __stdcall ResultScreen_DrawRows_00422660(
         // and a filled slot shows its record's name, date and run summary.
         Vec3_00401530 position = {48.0f, 64.0f, 0.0f};
         for (int row = 0; row < 25; ++row) {
-            data_004776e0->current_4c = state->cursor == row ? 0xFFFFFF00 : 0xFF808080;
+            g_ascii_manager->current_4c = state->cursor == row ? 0xFFFFFF00 : 0xFF808080;
             ReplayFile_00431ba0* file = state->records[row];
             if (file) {
                 ReplayHeader_00431ba0* header = file->header;
                 tm* date = localtime(&header->date);
-                AppendFormatted_00401630(
-                    data_004776e0, &position, data_0046e19c, row + 1, header->name,
+                AsciiManager_AddFormatted(
+                    g_ascii_manager, &position, data_0046e19c, row + 1, header->name,
                     date->tm_year % 100, date->tm_mon + 1, date->tm_mday,
                     data_004746dc[header->character * 3 + header->shot_type],
                     data_00474708[header->difficulty], data_00474744[header->stage]);
             } else {
-                AppendFormatted_00401630(data_004776e0, &position, data_0046e174, row + 1);
+                AsciiManager_AddFormatted(g_ascii_manager, &position, data_0046e174, row + 1);
             }
             position.y += 15.0f;
         }
-        data_004776e0->current_4c = -1;
+        g_ascii_manager->current_4c = -1;
         break;
     }
     case 11:
@@ -62,8 +62,8 @@ extern "C" __declspec(noinline) int __stdcall ResultScreen_DrawRows_00422660(
         position.x = 48.0f;
         ReplayHeader_00431ba0* header = data_00477838->header;
         tm* date = localtime(&header->date);
-        AppendFormatted_00401630(
-            data_004776e0, &position, data_0046e148, cursor + 1,
+        AsciiManager_AddFormatted(
+            g_ascii_manager, &position, data_0046e148, cursor + 1,
             date->tm_year % 100, date->tm_mon + 1, date->tm_mday,
             data_004746dc[header->character * 3 + header->shot_type],
             data_00474708[header->difficulty], data_00474744[data_00474c7c]);
@@ -78,7 +78,7 @@ extern "C" __declspec(noinline) int __stdcall ResultScreen_DrawRows_00422660(
         position.z = 0.0f;
         int cursor = state->cursor;
         position.y = 64.0f;
-        AppendFormatted_00401630(data_004776e0, &position, data_0046e12c);
+        AsciiManager_AddFormatted(g_ascii_manager, &position, data_0046e12c);
         position.x = 75.0f;
         position.y = cursor * 18.0f + 96.0f;
         if (state->no_entry == 0) {
@@ -89,14 +89,14 @@ extern "C" __declspec(noinline) int __stdcall ResultScreen_DrawRows_00422660(
         position.x = 48.0f;
         position.y = 96.0f;
         for (int row = 0; row < 10; ++row) {
-            data_004776e0->current_4c = row == cursor ? 0xFFFFFF00 : 0xFF808080;
+            g_ascii_manager->current_4c = row == cursor ? 0xFFFFFF00 : 0xFF808080;
             if (data_0047783c[data_00474c68_shot * 3 + data_00474c68_char]
                     .table.rows[data_00474c74][row].date != 0) {
                 ScoreTable_004329f0* table =
                     &data_0047783c[data_00474c68_shot * 3 + data_00474c68_char].table;
                 tm* date = localtime(&table->rows[data_00474c74][row].date);
-                AppendFormatted_00401630(
-                    data_004776e0, &position, data_0046e108, row + 1,
+                AsciiManager_AddFormatted(
+                    g_ascii_manager, &position, data_0046e108, row + 1,
                     data_0047783c[data_00474c68_shot * 3 + data_00474c68_char]
                         .table.rows[data_00474c74][row].name,
                     data_0047783c[data_00474c68_shot * 3 + data_00474c68_char]
@@ -107,8 +107,8 @@ extern "C" __declspec(noinline) int __stdcall ResultScreen_DrawRows_00422660(
                     data_0047471c[data_0047783c[data_00474c68_shot * 3 + data_00474c68_char]
                                       .table.rows[data_00474c74][row].stage]);
             } else {
-                AppendFormatted_00401630(
-                    data_004776e0, &position, data_0046e0e8, row + 1,
+                AsciiManager_AddFormatted(
+                    g_ascii_manager, &position, data_0046e0e8, row + 1,
                     data_0047783c[data_00474c68_shot * 3 + data_00474c68_char]
                         .table.rows[data_00474c74][row].name,
                     data_0047783c[data_00474c68_shot * 3 + data_00474c68_char]
@@ -118,11 +118,11 @@ extern "C" __declspec(noinline) int __stdcall ResultScreen_DrawRows_00422660(
             }
             position.y += 18.0f;
         }
-        data_004776e0->current_4c = -1;
+        g_ascii_manager->current_4c = -1;
         break;
     }
     }
-    data_004776e0->current_64 = 0;
+    g_ascii_manager->current_64 = 0;
     return 1;
 }
 #pragma code_seg()

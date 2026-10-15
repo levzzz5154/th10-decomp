@@ -10,7 +10,7 @@ __declspec(noinline) void* __cdecl RecoveryValidateHandle_00449450(RecoveryHandl
 #define MANAGER_00491c10 (*(void* const volatile*)&data_00491c10)
 extern "C" RecoveryScriptOwner_0040bd80* data_00477700;
 #define OWNER_00477700 (*(RecoveryScriptOwner_0040bd80* const volatile*)&data_00477700)
-extern "C" GameThread_0040c540* data_004776e0;
+extern "C" GameThread_0040c540* g_ascii_manager;
 
 
 // The key-state mask is written asynchronously by the window procedure and by
@@ -141,7 +141,7 @@ extern "C" __declspec(noinline) int __stdcall RecoveryScript_Execute_0040bd80(Re
             RING_FLAG_004918a4 = 0;
             break;
         case 7:
-            data_004776e0->EnsureAnimationResource(480.0f, 392.0f);
+            g_ascii_manager->EnsureAnimationResource(480.0f, 392.0f);
             reinterpret_cast<AnimationManager_004477d0*>(MANAGER_00491c10)->ClearResourceSlot(state->command->arguments[0] + 29);
             state->background_data = reinterpret_cast<const unsigned char*>(state->command) + 8;
             state->flags |= 4u;

@@ -1,7 +1,7 @@
 #define data_00491c10 stage_hud_data_00491c10
 #define data_0047770c stage_hud_data_0047770c
 #define data_00474c40 stage_hud_data_00474c40
-#define data_004776e0 stage_hud_data_004776e0
+#define g_ascii_manager stage_hud_data_004776e0
 #define data_00477704 stage_hud_data_00477704
 #define g_player stage_hud_data_00477834
 #define data_00477838 stage_hud_data_00477838
@@ -36,7 +36,7 @@ void ScoreHud_00417040::SetActiveCount(int count) {
 #undef data_00491c10
 #undef data_0047770c
 #undef data_00474c40
-#undef data_004776e0
+#undef g_ascii_manager
 #undef data_00477704
 #undef g_player
 #undef data_00477838

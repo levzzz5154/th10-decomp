@@ -208,7 +208,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0042cdf0_0042cdf0() {
     L_0042cf78:
         call asm_AnimationManager_MarkResourceForRemoval_004493e0
     L_0042cf7d:
-        mov esi,dword ptr [data_004776e0]
+        mov esi,dword ptr [g_ascii_manager]
     L_0042cf83:
         add esi,89A4h
     L_0042cf89:

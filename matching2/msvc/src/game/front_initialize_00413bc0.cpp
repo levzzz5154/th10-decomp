@@ -76,7 +76,7 @@ void FrontInitialization_00413bc0::Initialize() {
         RegisterFrontInline(reinterpret_cast<FrontAnimationLists *>(data_00491c10), object);
     }
     LoadScript_0043e710(
-        reinterpret_cast<AnimationResource_0043e710 *>(data_004776e0->title_resource),
+        reinterpret_cast<AnimationResource_0043e710 *>(g_ascii_manager->title_resource),
         reinterpret_cast<AnimationObject_0043e710 *>(&animations[42]), 0);
     if (data_00474c40.stage == 1 && !data_00477810->stage_one_gate && !data_00474c40.continues) {
         Entity *object = AllocateFrontObject(captions, 79);

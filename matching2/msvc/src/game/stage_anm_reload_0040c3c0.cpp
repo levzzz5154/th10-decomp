@@ -27,7 +27,7 @@ int Stage_0040c3c0::ReloadAnm() {
     anm[header->anm_slot] =
         Recovery_LoadCachedResource(header->anm_slot + 0x1D, data_00491c10, data_00497c38);
     flags &= ~4u;
-    data_004776e0->StopLoadingSprite();
+    g_ascii_manager->StopLoadingSprite();
     return 0;
 }
 #pragma code_seg()

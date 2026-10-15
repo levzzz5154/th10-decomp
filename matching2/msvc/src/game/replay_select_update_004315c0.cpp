@@ -72,7 +72,7 @@ __declspec(noinline) int __stdcall TitleMode12_004315c0(RecoveryMusicRoom_00433e
                 reinterpret_cast<RecoveryLookupContext_0040bd80*>(data_00491c10),
                 *reinterpret_cast<RecoveryScriptId_0040bd80*>(&room->animation_slots[94])) == 0) {
             RecoveryMusicInstallSlot_0042c670(room, 94);
-            void* resource = data_004776e0->animation_resource;
+            void* resource = g_ascii_manager->animation_resource;
             void** result = AnimationManager_CreatePrimaryBack_00448d00(resource, &handle, 8, 15);
             room->fallback_handle.value = reinterpret_cast<unsigned int>(*result);
         }
@@ -156,7 +156,7 @@ __declspec(noinline) int __stdcall TitleMode12_004315c0(RecoveryMusicRoom_00433e
     case 3:
         if (room->timer.current == 2) {
             RecoveryAscii_Create_0043c8b0(0x2b, 5, 0x20, 0, 0, 0);
-            data_004776e0->EnsureAnimationResource(480.0f, 392.0f);
+            g_ascii_manager->EnsureAnimationResource(480.0f, 392.0f);
         }
         if (room->timer.current >= 32) {
             room->DisableTimerWithOwner(3);

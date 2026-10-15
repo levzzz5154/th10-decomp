@@ -300,7 +300,7 @@
       "address": "0x00476F78",
       "kind": "data"
     },
-    "_data_004776e0": {
+    "_g_ascii_manager": {
       "address": "0x004776E0",
       "kind": "data"
     },
@@ -472,7 +472,7 @@
     "_g_input": "0x00474E5C",
     "_data_00474e62": "0x00474E62",
     "_data_00476f78": "0x00476F78",
-    "_data_004776e0": "0x004776E0",
+    "_g_ascii_manager": "0x004776E0",
     "_data_0047770c": "0x0047770C",
     "_data_00477810": "0x00477810",
     "_g_pause_menu": "0x00477830",

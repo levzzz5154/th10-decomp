@@ -44,7 +44,7 @@ __declspec(noinline) int __stdcall TitleNameEntry_00432cb0(RecoveryMusicRoom_004
                 reinterpret_cast<RecoveryLookupContext_0040bd80*>(data_00491c10),
                 *reinterpret_cast<RecoveryScriptId_0040bd80*>(&room->animation_slots[94])) == 0) {
             RecoveryMusicInstallSlot_0042c670(room, 94);
-            void* resource = data_004776e0->animation_resource;
+            void* resource = g_ascii_manager->animation_resource;
             void** result = AnimationManager_CreatePrimaryBack_00448d00(resource, &handle, 8, 15);
             room->fallback_handle.value = reinterpret_cast<unsigned int>(*result);
         }

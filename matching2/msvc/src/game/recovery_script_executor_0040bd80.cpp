@@ -2,7 +2,7 @@
 #include "th10/game/recovery_script_executor_0040bd80.hpp"
 extern "C" void* data_00491c10;
 extern "C" RecoveryScriptOwner_0040bd80* data_00477700;
-extern "C" GameThread_0040c540* data_004776e0;
+extern "C" GameThread_0040c540* g_ascii_manager;
 extern "C" unsigned int data_00474e30;
 extern "C" unsigned int data_00474e36;
 extern "C" int data_00474c74;
@@ -109,7 +109,7 @@ extern "C" __declspec(noinline) int __stdcall RecoveryScript_Execute_0040bd80(Re
             data_004918a4 = 0;
             break;
         case 7:
-            data_004776e0->EnsureAnimationResource(480.0f, 392.0f);
+            g_ascii_manager->EnsureAnimationResource(480.0f, 392.0f);
             reinterpret_cast<AnimationManager_004477d0*>(data_00491c10)->ClearResourceSlot(state->command->arguments[0] + 29);
             state->background_data = reinterpret_cast<const unsigned char*>(state->command) + 8;
             state->flags |= 4u;

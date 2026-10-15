@@ -72,7 +72,7 @@
   "constants": [],
   "absolute_symbols": [
     {
-      "symbol": "_data_004776e0",
+      "symbol": "_g_ascii_manager",
       "address": "0x004776E0",
       "kind": "data"
     },
@@ -125,14 +125,14 @@
   "anchors": [
     {
       "name": "AppendRecord",
-      "symbol": "?AppendRecord_00401530@@YGXPAUGameThread_00401530@@PBDPBUVec3_00401530@@@Z",
+      "symbol": "?AsciiManager_AddString@@YGXPAUGameThread_00401530@@PBDPBUVec3_00401530@@@Z",
       "section": ".text$01append",
       "address": "0x00401530",
       "size": 132
     },
     {
       "name": "AppendMarked",
-      "symbol": "?AppendMarked_00401690@@YAXPAUGameThread_00401530@@PBUVec3_00401530@@PBDZZ",
+      "symbol": "?AsciiManager_AddFormattedMarked@@YAXPAUGameThread_00401530@@PBUVec3_00401530@@PBDZZ",
       "section": ".text$03marked",
       "address": "0x00401690",
       "size": 100
@@ -146,8 +146,8 @@
     }
   ],
   "included_sources": [
-    "src/game/game_thread_queue.cpp",
-    "src/game/game_thread_append_formatted_marked_retail_00401690.cpp"
+    "src/game/ascii_manager/add_string.cpp",
+    "src/game/ascii_manager/add_formatted_marked.cpp"
   ],
   "data_aliases": [
     {

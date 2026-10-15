@@ -2,7 +2,7 @@
 #define data_00491c10 stage_front_data_00491c10
 #define data_0047770c stage_front_data_0047770c
 #define data_00474c40 stage_front_data_00474c40
-#define data_004776e0 stage_front_data_004776e0
+#define g_ascii_manager stage_front_data_004776e0
 #define data_00477704 stage_front_data_00477704
 #define g_player stage_front_data_00477834
 #define data_00477838 stage_front_data_00477838
@@ -15,7 +15,7 @@
 #undef data_00491c10
 #undef data_0047770c
 #undef data_00474c40
-#undef data_004776e0
+#undef g_ascii_manager
 #undef data_00477704
 #undef g_player
 #undef data_00477838
@@ -27,7 +27,7 @@
 #define data_00491c10 stage_hud_data_00491c10
 #define data_0047770c stage_hud_data_0047770c
 #define data_00474c40 stage_hud_data_00474c40
-#define data_004776e0 stage_hud_data_004776e0
+#define g_ascii_manager stage_hud_data_004776e0
 #define data_00477704 stage_hud_data_00477704
 #define g_player stage_hud_data_00477834
 #define data_00477838 stage_hud_data_00477838
@@ -42,7 +42,7 @@
 #undef data_00491c10
 #undef data_0047770c
 #undef data_00474c40
-#undef data_004776e0
+#undef g_ascii_manager
 #undef data_00477704
 #undef g_player
 #undef data_00477838
@@ -55,7 +55,7 @@
 #define data_00491c10 stage_quad_data_00491c10
 #define data_0047770c stage_quad_data_0047770c
 #define data_00474c40 stage_quad_data_00474c40
-#define data_004776e0 stage_quad_data_004776e0
+#define g_ascii_manager stage_quad_data_004776e0
 #define data_00477704 stage_quad_data_00477704
 #define g_player stage_quad_data_00477834
 #define data_00477838 stage_quad_data_00477838
@@ -117,7 +117,7 @@ struct Stage_00404450 {
 #undef data_00491c10
 #undef data_0047770c
 #undef data_00474c40
-#undef data_004776e0
+#undef g_ascii_manager
 #undef data_00477704
 #undef g_player
 #undef data_00477838
@@ -129,7 +129,7 @@ struct Stage_00404450 {
 #define data_00491c10 stage_fade_data_00491c10
 #define data_0047770c stage_fade_data_0047770c
 #define data_00474c40 stage_fade_data_00474c40
-#define data_004776e0 stage_fade_data_004776e0
+#define g_ascii_manager stage_fade_data_004776e0
 #define data_00477704 stage_fade_data_00477704
 #define g_player stage_fade_data_00477834
 #define data_00477838 stage_fade_data_00477838
@@ -146,7 +146,7 @@ extern "C" void _ReadWriteBarrier();
 #undef data_00491c10
 #undef data_0047770c
 #undef data_00474c40
-#undef data_004776e0
+#undef g_ascii_manager
 #undef data_00477704
 #undef g_player
 #undef data_00477838
@@ -158,7 +158,7 @@ extern "C" void _ReadWriteBarrier();
 #define data_00491c10 stage_start_data_00491c10
 #define data_0047770c stage_start_data_0047770c
 #define data_00474c40 stage_start_data_00474c40
-#define data_004776e0 stage_start_data_004776e0
+#define g_ascii_manager stage_start_data_004776e0
 #define data_00477704 stage_start_data_00477704
 #define g_player stage_start_data_00477834
 #define data_00477838 stage_start_data_00477838
@@ -204,7 +204,7 @@ struct PlayerManagerState {
 #undef data_00491c10
 #undef data_0047770c
 #undef data_00474c40
-#undef data_004776e0
+#undef g_ascii_manager
 #undef data_00477704
 #undef g_player
 #undef data_00477838
@@ -216,7 +216,7 @@ struct PlayerManagerState {
 #define data_00491c10 stage_bullet_data_00491c10
 #define data_0047770c stage_bullet_data_0047770c
 #define data_00474c40 stage_bullet_data_00474c40
-#define data_004776e0 stage_bullet_data_004776e0
+#define g_ascii_manager stage_bullet_data_004776e0
 #define data_00477704 stage_bullet_data_00477704
 #define g_player stage_bullet_data_00477834
 #define data_00477838 stage_bullet_data_00477838
@@ -247,7 +247,7 @@ struct BulletPool {
 #undef data_00491c10
 #undef data_0047770c
 #undef data_00474c40
-#undef data_004776e0
+#undef g_ascii_manager
 #undef data_00477704
 #undef g_player
 #undef data_00477838
@@ -259,7 +259,7 @@ struct BulletPool {
 #define data_00491c10 stage_pause_data_00491c10
 #define data_0047770c stage_pause_data_0047770c
 #define data_00474c40 stage_pause_data_00474c40
-#define data_004776e0 stage_pause_data_004776e0
+#define g_ascii_manager stage_pause_data_004776e0
 #define data_00477704 stage_pause_data_00477704
 #define g_player stage_pause_data_00477834
 #define data_00477838 stage_pause_data_00477838
@@ -303,7 +303,7 @@ typedef ScoreHud_00417040 PauseAnimationCountManager_00413790;
 #undef data_00491c10
 #undef data_0047770c
 #undef data_00474c40
-#undef data_004776e0
+#undef g_ascii_manager
 #undef data_00477704
 #undef g_player
 #undef data_00477838
@@ -315,7 +315,7 @@ typedef ScoreHud_00417040 PauseAnimationCountManager_00413790;
 #define data_00491c10 stage_enemy_data_00491c10
 #define data_0047770c stage_enemy_data_0047770c
 #define data_00474c40 stage_enemy_data_00474c40
-#define data_004776e0 stage_enemy_data_004776e0
+#define g_ascii_manager stage_enemy_data_004776e0
 #define data_00477704 stage_enemy_data_00477704
 #define g_player stage_enemy_data_00477834
 #define data_00477838 stage_enemy_data_00477838
@@ -332,7 +332,7 @@ typedef ScoreHud_00417040 PauseAnimationCountManager_00413790;
 #undef data_00491c10
 #undef data_0047770c
 #undef data_00474c40
-#undef data_004776e0
+#undef g_ascii_manager
 #undef data_00477704
 #undef g_player
 #undef data_00477838
@@ -344,7 +344,7 @@ typedef ScoreHud_00417040 PauseAnimationCountManager_00413790;
 #define data_00491c10 stage_chain_data_00491c10
 #define data_0047770c stage_chain_data_0047770c
 #define data_00474c40 stage_chain_data_00474c40
-#define data_004776e0 stage_chain_data_004776e0
+#define g_ascii_manager stage_chain_data_004776e0
 #define data_00477704 stage_chain_data_00477704
 #define g_player stage_chain_data_00477834
 #define data_00477838 stage_chain_data_00477838
@@ -379,7 +379,7 @@ struct ScoreChain_00417770 {
 #undef data_00491c10
 #undef data_0047770c
 #undef data_00474c40
-#undef data_004776e0
+#undef g_ascii_manager
 #undef data_00477704
 #undef g_player
 #undef data_00477838
@@ -391,7 +391,7 @@ struct ScoreChain_00417770 {
 #define data_00491c10 stage_replay_data_00491c10
 #define data_0047770c stage_replay_data_0047770c
 #define data_00474c40 stage_replay_data_00474c40
-#define data_004776e0 stage_replay_data_004776e0
+#define g_ascii_manager stage_replay_data_004776e0
 #define data_00477704 stage_replay_data_00477704
 #define g_player stage_replay_data_00477834
 #define data_00477838 stage_replay_data_00477838
@@ -415,7 +415,7 @@ struct ScoreChain_00417770 {
 #undef data_00491c10
 #undef data_0047770c
 #undef data_00474c40
-#undef data_004776e0
+#undef g_ascii_manager
 #undef data_00477704
 #undef g_player
 #undef data_00477838
@@ -427,7 +427,7 @@ struct ScoreChain_00417770 {
 #define data_00491c10 stage_spawn_data_00491c10
 #define data_0047770c stage_spawn_data_0047770c
 #define data_00474c40 stage_spawn_data_00474c40
-#define data_004776e0 stage_spawn_data_004776e0
+#define g_ascii_manager stage_spawn_data_004776e0
 #define data_00477704 stage_spawn_data_00477704
 #define g_player stage_spawn_data_00477834
 #define data_00477838 stage_spawn_data_00477838
@@ -453,7 +453,7 @@ struct ScoreChain_00417770 {
 #undef data_00491c10
 #undef data_0047770c
 #undef data_00474c40
-#undef data_004776e0
+#undef g_ascii_manager
 #undef data_00477704
 #undef g_player
 #undef data_00477838
@@ -465,7 +465,7 @@ struct ScoreChain_00417770 {
 #define data_00491c10 stage_requests_data_00491c10
 #define data_0047770c stage_requests_data_0047770c
 #define data_00474c40 stage_requests_data_00474c40
-#define data_004776e0 stage_requests_data_004776e0
+#define g_ascii_manager stage_requests_data_004776e0
 #define data_00477704 stage_requests_data_00477704
 #define g_player stage_requests_data_00477834
 #define data_00477838 stage_requests_data_00477838
@@ -479,7 +479,7 @@ struct ScoreChain_00417770 {
 #undef data_00491c10
 #undef data_0047770c
 #undef data_00474c40
-#undef data_004776e0
+#undef g_ascii_manager
 #undef data_00477704
 #undef g_player
 #undef data_00477838
@@ -491,7 +491,7 @@ struct ScoreChain_00417770 {
 #define data_00491c10 stage_sched_data_00491c10
 #define data_0047770c stage_sched_data_0047770c
 #define data_00474c40 stage_sched_data_00474c40
-#define data_004776e0 stage_sched_data_004776e0
+#define g_ascii_manager stage_sched_data_004776e0
 #define data_00477704 stage_sched_data_00477704
 #define g_player stage_sched_data_00477834
 #define data_00477838 stage_sched_data_00477838
@@ -540,7 +540,7 @@ struct PlayerSchedulerRecord {
 #undef data_00491c10
 #undef data_0047770c
 #undef data_00474c40
-#undef data_004776e0
+#undef g_ascii_manager
 #undef data_00477704
 #undef g_player
 #undef data_00477838
@@ -552,7 +552,7 @@ struct PlayerSchedulerRecord {
 #define data_00491c10 stage_input_data_00491c10
 #define data_0047770c stage_input_data_0047770c
 #define data_00474c40 stage_input_data_00474c40
-#define data_004776e0 stage_input_data_004776e0
+#define g_ascii_manager stage_input_data_004776e0
 #define data_00477704 stage_input_data_00477704
 #define g_player stage_input_data_00477834
 #define data_00477838 stage_input_data_00477838
@@ -592,7 +592,7 @@ __declspec(noinline) void SetInputMode(InputState* state, int mode);
 #undef data_00491c10
 #undef data_0047770c
 #undef data_00474c40
-#undef data_004776e0
+#undef g_ascii_manager
 #undef data_00477704
 #undef g_player
 #undef data_00477838
@@ -604,7 +604,7 @@ __declspec(noinline) void SetInputMode(InputState* state, int mode);
 #define data_00491c10 stage_decay_data_00491c10
 #define data_0047770c stage_decay_data_0047770c
 #define data_00474c40 stage_decay_data_00474c40
-#define data_004776e0 stage_decay_data_004776e0
+#define g_ascii_manager stage_decay_data_004776e0
 #define data_00477704 stage_decay_data_00477704
 #define g_player stage_decay_data_00477834
 #define data_00477838 stage_decay_data_00477838
@@ -658,7 +658,7 @@ __declspec(noinline) void SetInputMode(InputState* state, int mode);
 #undef data_00491c10
 #undef data_0047770c
 #undef data_00474c40
-#undef data_004776e0
+#undef g_ascii_manager
 #undef data_00477704
 #undef g_player
 #undef data_00477838

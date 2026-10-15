@@ -120,7 +120,7 @@ __declspec(noinline) int __stdcall TitleMode8_00430a60(RecoveryMusicRoom_00433ef
     case 3:
         if (room->timer.current == 10) {
             if ((data_00474ca0 & 0x10) == 0) {
-                data_004776e0->EnsureAnimationResource(480.0f, 392.0f);
+                g_ascii_manager->EnsureAnimationResource(480.0f, 392.0f);
                 RecoveryAscii_Create_0043c8b0(0x2b, 5, 0x20, 0, 0, 0);
             } else {
                 data_00474c6c = room->cursor.selection;

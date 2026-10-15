@@ -50,7 +50,7 @@ extern "C" {
 extern KeyRepeatState data_00474e30;
 extern int data_00474c74;               // difficulty (4 and above: fixed entry)
 extern int data_00474c68;               // character
-extern GameThread_0040c540* data_004776e0;
+extern GameThread_0040c540* g_ascii_manager;
 }
 
 // 0x00449250: set the stop frame of an animation and run it once.

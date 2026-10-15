@@ -12,7 +12,7 @@ struct StageContextFade_00418190 {
 };
 extern "C" {
 extern GameStateFade_00404530* data_004776e4;
-extern unsigned char* data_004776e0;
+extern unsigned char* g_ascii_manager;
 extern unsigned char* data_004776e8;
 extern unsigned char* g_bomb;
 extern unsigned char* data_004776f0;
@@ -99,14 +99,14 @@ static __forceinline void StageReset(StageContextFade_00418190* context,int* loc
     if (delayed) {
         StageRegisterMusic_0043e460(data_00492590,data_0046df98,(data_00491d78&0x10u)?4:3,0);
         StagePlayMusic_00420b10(0,StageWord(data_00477848,0x24));
-        unsigned char* thread=data_004776e0;
+        unsigned char* thread=g_ascii_manager;
         StageStopAnimation_00409e50(thread+0x89A4);
         StageWord(thread,0x89A4)=0;
         StageSetTimer_00405410(reinterpret_cast<unsigned char*>(context)+0x10,0);
     } else {
         if (!(data_00474ca0&0x20u))
             StagePlayMusic_00420b10(0,StageWord(data_00477848,0x24));
-        unsigned char* thread=data_004776e0;
+        unsigned char* thread=g_ascii_manager;
         StageStopAnimation_00409e50(thread+0x89A0);
         StageStopAnimation_00409e50(thread+0x89A4);
         StageWord(thread,0x89A4)=0;

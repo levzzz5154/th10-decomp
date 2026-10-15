@@ -27,7 +27,7 @@ extern TextLog_0044b810 data_00474f70;
 extern WaveSoundManager g_wave_sound_manager;
 
 void* __fastcall Recovery_LoadCachedResource_00447280(int index, void* cache, const char* name);
-void* __stdcall GameThread_Create_00401440();
+void* __stdcall AsciiManager_Create();
 char* __stdcall Archive_LoadFile(const char* name, int* out_size, int from_disk);
 }
 int __stdcall asm_File_ProbeExists_0044b4d0(const char* name);
@@ -40,7 +40,7 @@ static __forceinline int LoadTitleScreenAssets(TitleWorkerOwner* title) {
         return -1;
     title->secondary_task->reserved_flags |= 1u;
     title->logo_loaded = 1;
-    if (!GameThread_Create_00401440()) {
+    if (!AsciiManager_Create()) {
         data_00474f70.Append(data_0046dc28);
         return -1;
     }

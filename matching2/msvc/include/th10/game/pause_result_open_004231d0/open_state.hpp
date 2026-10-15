@@ -43,7 +43,7 @@ struct OpenMusicProgress {
 extern "C" OpenRuntime* data_00477810;
 extern "C" unsigned int data_00491ff4;
 extern "C" int data_00491fb8;
-extern "C" OpenGameThread* data_004776e0;
+extern "C" OpenGameThread* g_ascii_manager;
 extern "C" OpenResources* data_0047770c;
 extern "C" unsigned char data_00491d78;
 extern "C" OpenMusicProgress* data_0047783c;

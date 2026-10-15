@@ -32,7 +32,7 @@ TitleState_0041FB50::~TitleState_0041FB50() {
     }
     ReleasePair_0041f930();
     ReleaseTitleBank(1);
-    GameThread* thread = static_cast<GameThread*>(data_004776e0);
+    GameThread* thread = static_cast<GameThread*>(g_ascii_manager);
     data_00477820 = 0;
     if (thread) {
         DestroyGameThread_00401260(thread);

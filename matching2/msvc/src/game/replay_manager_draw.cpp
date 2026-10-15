@@ -23,10 +23,10 @@ __declspec(noinline) int __fastcall ReplayManager_Draw(void* callback_context_ec
         color=0xffa0a0ffu;
     else
         color=0xffffffffu;
-    GameThread_00401530* thread=data_004776e0;
+    GameThread_00401530* thread=g_ascii_manager;
     thread->current_4c=color;
-    AppendFormatted_00401630(thread,&position,data_0046e658,(int)panel->value);
-    data_004776e0->current_4c=-1;
+    AsciiManager_AddFormatted(thread,&position,data_0046e658,(int)panel->value);
+    g_ascii_manager->current_4c=-1;
  }
  return 1;
 }

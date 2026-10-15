@@ -1,7 +1,7 @@
 #include "th10/game/recovery_script_executor_caller_00419120.hpp"
 
 extern "C" void* data_00491c10;
-extern "C" void* data_004776e0;
+extern "C" void* g_ascii_manager;
 extern "C" int recovery_indicator_owner_00474c84;
 extern "C" float recovery_indicator_eight_00470bd0;
 extern "C" float recovery_indicator_one_00470afc;
@@ -72,7 +72,7 @@ int RecoveryIndicatorLink_00419120::Drain(
             void* result;
             state->handles[state->slot] = reinterpret_cast<unsigned int>(
                 *RecoveryPlayerAnimationCreate_00448db0(
-                    static_cast<RecoveryIndicatorThread_00419120*>(data_004776e0)->resource,
+                    static_cast<RecoveryIndicatorThread_00419120*>(g_ascii_manager)->resource,
                     &result, state->slot + 2, &entry->position));
             manager = data_00491c10;
             unsigned int* handle = &state->handles[state->slot];
@@ -94,7 +94,7 @@ int RecoveryIndicatorLink_00419120::Drain(
             void* result;
             state->handles[state->slot] = reinterpret_cast<unsigned int>(
                 *RecoveryPlayerAnimationCreate_00448db0(
-                    static_cast<RecoveryIndicatorThread_00419120*>(data_004776e0)->resource,
+                    static_cast<RecoveryIndicatorThread_00419120*>(g_ascii_manager)->resource,
                     &result, state->slot + 12, &entry->position));
             unsigned int* handle = &state->handles[state->slot];
             RecoveryScriptId_0040bd80 id = { static_cast<int>(*handle) };
@@ -122,7 +122,7 @@ int RecoveryIndicatorLink_00419120::Drain(
             void* result;
             state->handles[state->slot] = reinterpret_cast<unsigned int>(
                 *RecoveryPlayerAnimationCreate_00448db0(
-                    static_cast<RecoveryIndicatorThread_00419120*>(data_004776e0)->resource,
+                    static_cast<RecoveryIndicatorThread_00419120*>(g_ascii_manager)->resource,
                     &result, state->slot + 12, &entry->position));
             manager = data_00491c10;
             unsigned int* handle = &state->handles[state->slot];

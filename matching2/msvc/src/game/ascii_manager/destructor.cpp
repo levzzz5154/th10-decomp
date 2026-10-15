@@ -6,7 +6,7 @@
 
 extern "C" {
 extern AnimationBanks_00402440* data_00491c10;
-extern GameThread* data_004776e0;
+extern GameThread* g_ascii_manager;
 }
 
 #pragma code_seg(".text$01dtor")
@@ -17,6 +17,6 @@ GameThread::~GameThread() {
     ReleaseAnimationBank(data_00491c10, 2);
     ReleaseAnimationBank(data_00491c10, 0);
     ReleaseAnimationBank(data_00491c10, 3);
-    data_004776e0 = 0;
+    g_ascii_manager = 0;
 }
 #pragma code_seg()

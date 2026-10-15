@@ -364,7 +364,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_GameThread_Create_00401440@0",
+      "symbol": "_AsciiManager_Create@0",
       "address": "0x401440",
       "kind": "relative_code"
     },

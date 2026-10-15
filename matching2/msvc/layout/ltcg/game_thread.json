@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "game_thread",
-  "source": "src/game/game_thread.cpp",
+  "source": "src/game/ascii_manager/construct.cpp",
   "driver": "layout/ltcg/game_thread_context.cpp",
   "headers": [
     "include/th10/game/game_thread.hpp",
@@ -36,7 +36,7 @@
   "constants": [],
   "absolute_symbols": [
     {
-      "symbol": "_data_004776e0",
+      "symbol": "_g_ascii_manager",
       "address": "0x004776E0",
       "kind": "data"
     },

@@ -37,7 +37,7 @@ extern "C" {
     extern char data_00477710[];
     extern unsigned char data_00474788[];
     extern unsigned char* data_00477848;
-    extern GameThread_0040c540* data_004776e0;
+    extern GameThread_0040c540* g_ascii_manager;
     extern float data_00470b68, data_00470b64, data_00470afc;
 }
 // These declarations describe logical inputs, not promises about retail ABI.
@@ -116,7 +116,7 @@ __declspec(noinline) int __stdcall TitleDispatcher_Update_0042cdf0(
         manager->MarkResourceForRemoval(*reinterpret_cast<void**>(manager_bytes + 0x3ad078));
         manager->MarkResourceForRemoval(*reinterpret_cast<void**>(manager_bytes + 0x3ad06c));
         RecoveryHandle_0040bd80* handle = reinterpret_cast<RecoveryHandle_0040bd80*>(
-            reinterpret_cast<unsigned char*>(data_004776e0) + 0x89a4);
+            reinterpret_cast<unsigned char*>(g_ascii_manager) + 0x89a4);
         RecoveryMusicStopHandle_00409e50(handle);
         handle->value = 0;
         if (transition == 3) {

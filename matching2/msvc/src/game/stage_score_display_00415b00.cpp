@@ -24,8 +24,8 @@ StageScoreDisplay::StageScoreDisplay(const void* description) {
     field58 = 0;
     third.Set(0);
     definition = description;
-    first_animation = CreateSlotAnimation(data_004776e0->resource,0);
-    second_animation = CreateSlotAnimation(data_004776e0->resource,1);
+    first_animation = CreateSlotAnimation(g_ascii_manager->resource,0);
+    second_animation = CreateSlotAnimation(g_ascii_manager->resource,1);
     EntityTail(ResolveSlotAnimation(&first_animation))->layer_3a0 = 16;
     EntityTail(ResolveSlotAnimation(&first_animation))->layer_3a1 = 16;
     EntityTail(ResolveSlotAnimation(&second_animation))->layer_3a0 = 16;

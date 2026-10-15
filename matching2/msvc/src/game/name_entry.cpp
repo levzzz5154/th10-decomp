@@ -62,7 +62,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00432cb0_00432cb0() {
     L_00432d04:
         call asm_Recovery_InstallAnimationSlot_0042c670
     L_00432d09:
-        mov ecx,dword ptr [data_004776e0]
+        mov ecx,dword ptr [g_ascii_manager]
     L_00432d0f:
         mov eax,dword ptr [ecx+8994h]
     L_00432d15:

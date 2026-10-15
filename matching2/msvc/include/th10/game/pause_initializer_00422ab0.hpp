@@ -140,7 +140,7 @@ extern "C" unsigned char data_00474ca0;
 extern "C" unsigned char data_00474e36;
 extern "C" unsigned char data_00491ff4;
 extern "C" PauseMenuRuntime* data_00477810;
-extern "C" PauseResourceOwner1* data_004776e0;
+extern "C" PauseResourceOwner1* g_ascii_manager;
 extern "C" PauseResourceOwner2* data_0047770c;
 extern "C" float data_00470b68;
 extern "C" float data_00470b64;

@@ -1,5 +1,5 @@
 // Compiler context only; its bytes are not recovered game code.
-#include "../../src/game/ascii_manager_add_late_string.cpp"
+#include "../../src/game/ascii_manager/add_late_string.cpp"
 
 #pragma code_seg(".text$03context")
 int __stdcall Ctx(GameThread_004015c0** t, const char** s, const Vec3_004015c0* p, int n) {

@@ -100,7 +100,7 @@ void __stdcall ReleaseGlobalManager_00417c80(ManagerState_00417c80* state) {
         // only inlined Ensure instance) and out of line everywhere else. The
         // handle is reached through the loaded game-thread value, so the
         // handle's address is materialized ahead of the creation call.
-        void** handle_slot = &data_004776e0->animation_handle;
+        void** handle_slot = &g_ascii_manager->animation_handle;
         AnimationPosition_00448d50 position;
         position.x = 480.0f;
         position.y = 392.0f;
@@ -108,23 +108,23 @@ void __stdcall ReleaseGlobalManager_00417c80(ManagerState_00417c80* state) {
         if (*handle_slot == 0) {
             void* slot_handle;
             void** slot = AnimationManager_CreatePositionedPrimary_00448d50(
-                data_004776e0->animation_resource, &slot_handle, 6, &position);
+                g_ascii_manager->animation_resource, &slot_handle, 6, &position);
             *handle_slot = *slot;
         }
         if (data_00474c80 == data_00474c7c)
             data_00474ca0 |= 1u;
     } else if (data_00491fb8 == 0xB) {
-        GameThread_0040c540* thread = data_004776e0;
+        GameThread_0040c540* thread = g_ascii_manager;
         thread->EnsureAnimationResource(224.0f, 416.0f);
         data_00474ca0 |= replay_bit;
     } else if (data_00491fb8 == 4) {
-        GameThread_0040c540* thread = data_004776e0;
+        GameThread_0040c540* thread = g_ascii_manager;
         thread->EnsureAnimationResource(480.0f, 392.0f);
     } else if (data_00491fb8 == 0xF) {
-        GameThread_0040c540* thread = data_004776e0;
+        GameThread_0040c540* thread = g_ascii_manager;
         thread->EnsureAnimationResource(480.0f, 392.0f);
     } else if (data_00491fb8 == 0xD) {
-        GameThread_0040c540* thread = data_004776e0;
+        GameThread_0040c540* thread = g_ascii_manager;
         thread->EnsureAnimationResource(480.0f, 392.0f);
         if (data_00474c80 != data_00474c7c) {
             data_00474c40.IncrementCappedCount();

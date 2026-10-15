@@ -6014,7 +6014,7 @@ extern "C" unsigned char data_004776cc;
 extern "C" unsigned char data_004776d0;
 extern "C" unsigned char data_004776d4;
 extern "C" unsigned char data_004776d8;
-extern "C" unsigned char data_004776e0;
+extern "C" unsigned char g_ascii_manager;
 extern "C" unsigned char data_004776e4;
 extern "C" unsigned char data_004776e8;
 extern "C" unsigned char g_bomb;

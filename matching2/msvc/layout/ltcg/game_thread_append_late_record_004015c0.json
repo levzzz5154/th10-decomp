@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "game_thread_append_late_record_004015c0",
-  "source": "src/game/ascii_manager_add_late_string.cpp",
+  "source": "src/game/ascii_manager/add_late_string.cpp",
   "driver": "layout/ltcg/game_thread_append_late_record_004015c0_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

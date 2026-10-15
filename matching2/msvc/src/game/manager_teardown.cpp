@@ -47,7 +47,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00417c80_00417c80() {
     L_00417cb8:
         jne short L_00417d26
     L_00417cba:
-        mov ecx,dword ptr [data_004776e0]
+        mov ecx,dword ptr [g_ascii_manager]
     L_00417cc0:
         mov edx,dword ptr [ecx+89A4h]
     L_00417cc6:
@@ -97,7 +97,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00417c80_00417c80() {
     L_00417d29:
         jne short L_00417d49
     L_00417d2b:
-        mov esi,dword ptr [data_004776e0]
+        mov esi,dword ptr [g_ascii_manager]
     L_00417d31:
         push 43D00000h
     L_00417d36:
@@ -119,7 +119,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00417c80_00417c80() {
     L_00417d51:
         jne short L_00417d6a
     L_00417d53:
-        mov esi,dword ptr [data_004776e0]
+        mov esi,dword ptr [g_ascii_manager]
     L_00417d59:
         push 43C40000h
     L_00417d5e:
@@ -133,7 +133,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00417c80_00417c80() {
     L_00417d6d:
         jne short L_00417db5
     L_00417d6f:
-        mov esi,dword ptr [data_004776e0]
+        mov esi,dword ptr [g_ascii_manager]
     L_00417d75:
         push 43C40000h
     L_00417d7a:

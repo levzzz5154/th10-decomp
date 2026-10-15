@@ -16,12 +16,12 @@ SchedulerTask* __stdcall SchedulerCallback_Create_00449ed0(TaskRoutine callback)
 int __fastcall EffectPoolUpdate_0042b9a0(void* pool);
 int __fastcall EffectPoolDraw_0042b9b0(void* pool);
 extern Scheduler* data_00491be4;
-extern StageResources_0042b4d0* data_004776e0;
+extern StageResources_0042b4d0* g_ascii_manager;
 }
 
 #pragma code_seg(".text$00yfn")
 int EffectPool_0042b6f0::Initialize() {
-    resource = data_004776e0->animation_resource;
+    resource = g_ascii_manager->animation_resource;
 
     SchedulerTask* task = SchedulerCallback_Create_00449ed0(EffectPoolUpdate_0042b9a0);
     task->context = this;

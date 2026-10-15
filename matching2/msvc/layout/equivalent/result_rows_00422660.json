@@ -85,7 +85,7 @@
    "address": "0x474C7C",
    "kind": "data"
   },
-  "_data_004776e0": {
+  "_g_ascii_manager": {
    "address": "0x4776E0",
    "kind": "data"
   },
@@ -117,8 +117,8 @@
   "__real@42800000": "0x470BC8",
   "__real@43600000": "0x470B4C",
   "__real@42c00000": "0x470C80",
-  "?AppendRecord_00401530@@YGXPAUGameThread_00401530@@PBDPBUVec3_00401530@@@Z": "0x401530",
-  "?AppendFormatted_00401630@@YAXPAUGameThread_00401530@@PBUVec3_00401530@@PBDZZ": "0x401630"
+  "?AsciiManager_AddString@@YGXPAUGameThread_00401530@@PBDPBUVec3_00401530@@@Z": "0x401530",
+  "?AsciiManager_AddFormatted@@YAXPAUGameThread_00401530@@PBUVec3_00401530@@PBDZZ": "0x401630"
  },
  "base_index_order": 0,
  "differences": [

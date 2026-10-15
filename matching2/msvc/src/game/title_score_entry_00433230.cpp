@@ -25,21 +25,21 @@ extern "C" __declspec(noinline) int __stdcall TitleMenu_DrawScoreEntry_00433230(
     case 2: {
         Vec3_00401530 position = {48.0f, 160.0f, 0.0f};
         int selected = data_00474c68.difficulty;
-        data_004776e0->current_64 = 1;
+        g_ascii_manager->current_64 = 1;
         for (int row = 0; row < 10; ++row) {
             int shade = 0xFF - row * 0x10;
             int rank = row + 1;
             if (menu->name_confirmed)
-                data_004776e0->current_4c = 0xFF0000FF | ((shade << 8 | shade) << 8);
+                g_ascii_manager->current_4c = 0xFF0000FF | ((shade << 8 | shade) << 8);
             else
-                data_004776e0->current_4c = menu->cursor != row ? 0xFF404040 : 0xFFFFFFFF;
+                g_ascii_manager->current_4c = menu->cursor != row ? 0xFF404040 : 0xFFFFFFFF;
             if (data_0047783c[data_00474c68.character + data_00474c68.shot_type * 3]
                     .table.rows[selected][row].date != 0) {
                 ScoreTable_004329f0* table =
                     &data_0047783c[data_00474c68.character + data_00474c68.shot_type * 3].table;
                 tm* date = localtime(&table->rows[selected][row].date);
-                AppendFormatted_00401630(
-                    data_004776e0, &position,
+                AsciiManager_AddFormatted(
+                    g_ascii_manager, &position,
                     "%2d  %s  %9ld%d  %.4d/%.2d/%.2d %.2d:%.2d  %s  %2.1f%%", rank,
                     data_0047783c[data_00474c68.character + data_00474c68.shot_type * 3]
                         .table.rows[selected][row].name,
@@ -55,8 +55,8 @@ extern "C" __declspec(noinline) int __stdcall TitleMenu_DrawScoreEntry_00433230(
                     data_0047783c[data_00474c68.character + data_00474c68.shot_type * 3]
                         .table.rows[selected][row].slowdown);
             } else {
-                AppendFormatted_00401630(
-                    data_004776e0, &position,
+                AsciiManager_AddFormatted(
+                    g_ascii_manager, &position,
                     "%2d  %s  %9ld%d  ----/--/-- --:--  Stage -  ---%%", rank,
                     data_0047783c[data_00474c68.character + data_00474c68.shot_type * 3]
                         .table.rows[selected][row].name,
@@ -74,25 +74,25 @@ extern "C" __declspec(noinline) int __stdcall TitleMenu_DrawScoreEntry_00433230(
             position.x = 84.0f;
             position.y = menu->cursor * 18.0f + 160.0f;
             position.z = 0.0f;
-            data_004776e0->current_4c = 0xFFFFFFFF;
-            AppendFormatted_00401630(data_004776e0, &position, "%s", menu->name);
+            g_ascii_manager->current_4c = 0xFFFFFFFF;
+            AsciiManager_AddFormatted(g_ascii_manager, &position, "%s", menu->name);
             position.x = (float)(menu->name_length * 9) + 84.0f;
             if (menu->name_length == 8)
                 position.x -= 9.0f;
-            data_004776e0->current_4c = 0xFFFFFF00;
-            AppendFormatted_00401630(data_004776e0, &position, "_");
-            data_004776e0->current_4c = 0xFFFFFFFF;
+            g_ascii_manager->current_4c = 0xFFFFFF00;
+            AsciiManager_AddFormatted(g_ascii_manager, &position, "_");
+            g_ascii_manager->current_4c = 0xFFFFFFFF;
             position.x = 212.0f;
             position.y = 360.0f;
             position.z = 0.0f;
             for (int cell = 0; cell < count; ++cell) {
-                data_004776e0->current_4c = menu->name_cell == cell ? 0xFFFFFF00 : 0xFF808080;
+                g_ascii_manager->current_4c = menu->name_cell == cell ? 0xFFFFFF00 : 0xFF808080;
                 if (cell < count - 3)
-                    AppendFormatted_00401630(data_004776e0, &position, "%c",
+                    AsciiManager_AddFormatted(g_ascii_manager, &position, "%c",
                                              data_004746d8[cell]);
                 else
-                    AppendFormatted_00401630(
-                        data_004776e0, &position, "%c",
+                    AsciiManager_AddFormatted(
+                        g_ascii_manager, &position, "%c",
                         cell == count - 3 ? 0x81 : cell == count - 2 ? 0x7F : 0x80);
                 if ((unsigned int)cell % 13 == 12) {
                     position.x = 212.0f;
@@ -101,7 +101,7 @@ extern "C" __declspec(noinline) int __stdcall TitleMenu_DrawScoreEntry_00433230(
                     position.x += 18.0f;
                 }
             }
-            data_004776e0->current_4c = 0xFFFFFFFF;
+            g_ascii_manager->current_4c = 0xFFFFFFFF;
         }
         break;
     }

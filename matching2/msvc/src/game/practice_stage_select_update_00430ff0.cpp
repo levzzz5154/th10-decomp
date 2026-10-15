@@ -90,7 +90,7 @@ __declspec(noinline) int __stdcall TitleMode9_00430ff0(RecoveryMusicRoom_00433ef
     }
     case 3:
         if (room->timer.current == 10) {
-            data_004776e0->EnsureAnimationResource(480.0f, 392.0f);
+            g_ascii_manager->EnsureAnimationResource(480.0f, 392.0f);
             RecoveryAscii_Create_0043c8b0(0x2b, 5, 0x20, 0, 0, 0);
         }
         if (room->timer.current >= 40) {

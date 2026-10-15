@@ -3,6 +3,7 @@
 
 extern "C" void __cdecl entry_free_00452422(void* memory);
 
+// The ASCII manager (g_ascii_manager) as its constructor and destructor see it:
 // 0x89AC-byte object built by 0x00401000 and created by 0x00401440; the
 // global pointer at 0x004776E0 refers to it.
 

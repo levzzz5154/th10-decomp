@@ -1,4 +1,4 @@
-// 0x004015C0: append a named record to the game thread late queue.
+// 0x004015C0: append a named record to the ASCII manager's late string queue.
 #include <string.h>
 struct Vec3_004015c0 {
     float x, y, z;

@@ -13,7 +13,7 @@ struct Owner_0041fd90 {
     Sub_0041fd90* c_89a8;                // +0x89A8
 };
 struct Flagged_0041fd90 { unsigned int flags_000; };
-extern "C" Owner_0041fd90* data_004776e0;
+extern "C" Owner_0041fd90* g_ascii_manager;
 extern "C" unsigned int data_00491ff4;
 extern "C" unsigned int data_00491fb8;
 extern "C" __declspec(noinline) int __fastcall Update_0041fd90(void* unused, Flagged_0041fd90* record);
@@ -22,7 +22,7 @@ int __fastcall Update_0041fd90(void* unused, Flagged_0041fd90* record) {
     (void)unused;
     if (!(record->flags_000 & 2u))
         return 1;
-    Owner_0041fd90* owner = data_004776e0;
+    Owner_0041fd90* owner = g_ascii_manager;
     owner->a_00c->flags_004 |= 2u;
     owner->b_010->flags_004 |= 2u;
     owner->c_89a8->flags_004 |= 2u;

@@ -18,7 +18,7 @@ typedef char NameEntry_position_is_12[sizeof(Vec3_00401530) == 12 ? 1 : -1];
 
 extern "C" {
 extern const char* data_004746d8;
-extern GameThread_00401530* data_004776e0;
+extern GameThread_00401530* g_ascii_manager;
 extern const char data_0046e1c8[];
 extern const char data_0046e1c4[];
 extern const char data_0046e1c0[];
@@ -28,23 +28,23 @@ extern const char data_0046e1c0[];
 extern "C" __declspec(noinline) void __stdcall DrawNameEntry_004224c0(
     NameEntryState_004224c0* state, Vec3_00401530 position) {
     int character_count = static_cast<int>(strlen(data_004746d8));
-    AppendFormatted_00401630(&position, data_004776e0, data_0046e1c8, state->name);
+    AsciiManager_AddFormatted(&position, g_ascii_manager, data_0046e1c8, state->name);
     position.x += static_cast<float>(state->name_length * 9);
     if (state->name_length == 8)
         position.x -= 9.0f;
-    data_004776e0->current_4c = 0xFFFFFF00;
-    AppendFormatted_00401630(&position, data_004776e0, data_0046e1c4);
-    data_004776e0->current_4c = 0xFFFFFFFF;
+    g_ascii_manager->current_4c = 0xFFFFFF00;
+    AsciiManager_AddFormatted(&position, g_ascii_manager, data_0046e1c4);
+    g_ascii_manager->current_4c = 0xFFFFFFFF;
 
     position.x = 112.0f;
     position.y = 320.0f;
     position.z = 0.0f;
     for (int index = 0; index < character_count; ++index) {
-        data_004776e0->current_4c = state->selected_glyph == index ? 0xFFFFFF00 : 0xFF808080;
+        g_ascii_manager->current_4c = state->selected_glyph == index ? 0xFFFFFF00 : 0xFF808080;
         if (index < character_count - 3)
-            AppendFormatted_00401630(&position, data_004776e0, data_0046e1c0, data_004746d8[index]);
+            AsciiManager_AddFormatted(&position, g_ascii_manager, data_0046e1c0, data_004746d8[index]);
         else
-            AppendFormatted_00401630(&position, data_004776e0, data_0046e1c0,
+            AsciiManager_AddFormatted(&position, g_ascii_manager, data_0046e1c0,
                 index == character_count - 3 ? 0x81 :
                 index == character_count - 2 ? 0x7F : 0x80);
         if (static_cast<unsigned int>(index) % 13 == 12) {
@@ -54,6 +54,6 @@ extern "C" __declspec(noinline) void __stdcall DrawNameEntry_004224c0(
             position.x += 18.0f;
         }
     }
-    data_004776e0->current_4c = 0xFFFFFFFF;
+    g_ascii_manager->current_4c = 0xFFFFFFFF;
 }
 #pragma code_seg()

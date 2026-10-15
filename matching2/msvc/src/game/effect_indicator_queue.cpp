@@ -17,7 +17,7 @@ struct RecoveryIndicatorThread_00419120 {
     unsigned char reserved_000[0x899C];
     void* text_animations;    // the loaded text animation file
 };
-extern "C" RecoveryIndicatorThread_00419120* data_004776e0;
+extern "C" RecoveryIndicatorThread_00419120* g_ascii_manager;
 
 static __forceinline RecoveryIndicatorHandle_00419120* AsHandle(void** result) {
     return reinterpret_cast<RecoveryIndicatorHandle_00419120*>(result);
@@ -49,7 +49,7 @@ int RecoveryIndicatorLink_00419120::Drain(
 
         RecoveryIndicatorVm_00419120* vm;
         if (entry->intensity <= 1.0f) {
-            void* animations = data_004776e0->text_animations;
+            void* animations = g_ascii_manager->text_animations;
             void* created;
             state->handles[state->slot] = *AsHandle(RecoveryPlayerAnimationCreate_00448db0(
                 animations, &created, state->slot + 2, &entry->position));
@@ -64,7 +64,7 @@ int RecoveryIndicatorLink_00419120::Drain(
             };
             StartScale(vm, &to, &from);
         } else if (entry->intensity <= 2.0f) {
-            void* animations = data_004776e0->text_animations;
+            void* animations = g_ascii_manager->text_animations;
             void* created;
             state->handles[state->slot] = *AsHandle(RecoveryPlayerAnimationCreate_00448db0(
                 animations, &created, state->slot + 12, &entry->position));
@@ -79,7 +79,7 @@ int RecoveryIndicatorLink_00419120::Drain(
             };
             StartScale(vm, &to, &from);
         } else {
-            void* animations = data_004776e0->text_animations;
+            void* animations = g_ascii_manager->text_animations;
             void* created;
             state->handles[state->slot] = *AsHandle(RecoveryPlayerAnimationCreate_00448db0(
                 animations, &created, state->slot + 12, &entry->position));

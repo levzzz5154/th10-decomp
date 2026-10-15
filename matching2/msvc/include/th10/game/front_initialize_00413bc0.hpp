@@ -211,7 +211,7 @@ struct FrontGameState {
     unsigned char reserved_00[0x5C];
     int stage_one_gate;
 };
-extern "C" FrontStageThread *data_004776e0;
+extern "C" FrontStageThread *g_ascii_manager;
 extern "C" FrontGameState *data_00477810;
 extern "C" int data_00491fb8;
 extern "C" int data_00491fc4;

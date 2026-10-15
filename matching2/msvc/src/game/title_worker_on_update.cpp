@@ -3,7 +3,7 @@
 // its "hold" bit is set, then drop the engine flag that keeps the game on hold
 // and ask for game state 4.  The object arrives in ECX and the routine always
 // reports success.
-extern "C" unsigned char data_004776e0;                 // 0x004776E0 resource manager
+extern "C" unsigned char g_ascii_manager;                 // 0x004776E0 resource manager
 extern "C" unsigned char data_00491ff4;                 // 0x00491FF4 engine flags
 extern "C" unsigned char data_00491fb8;                 // 0x00491FB8 game state
 
@@ -19,7 +19,7 @@ struct ResourceOwner {
 extern "C" int __fastcall TitleWorker_OnUpdate(unsigned int* owner) {
     if ((*owner & 2) == 0)
         return 1;
-    ResourceOwner* resources = *(ResourceOwner**)&data_004776e0;
+    ResourceOwner* resources = *(ResourceOwner**)&g_ascii_manager;
     resources->slot_0C->flags |= 2;
     resources->slot_10->flags |= 2;
     resources->slot_89A8->flags |= 2;

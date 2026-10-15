@@ -15,7 +15,7 @@ extern "C" __declspec(noinline) void __stdcall PauseMenu_Initialize_00422ab0(Pau
     state->elapsed = 0.0f;
     state->previous_frame = -1;
     data_00477810->flags |= 0x10;
-    AnimationResource_00449870* first_resource = data_004776e0->resource;
+    AnimationResource_00449870* first_resource = g_ascii_manager->resource;
     Entity* first = reinterpret_cast<AnimationPool*>(data_00491c10)->Allocate();
     unsigned int first_flags = first->AnimationFlags();
     first->render_bucket = 15;

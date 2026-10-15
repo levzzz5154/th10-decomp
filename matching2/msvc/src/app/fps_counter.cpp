@@ -66,9 +66,9 @@ int FrameRateCounter_004134b0::Update() {
 #pragma code_seg()
 
 
-#include "../game/game_thread_append_formatted_marked_retail_00401690.cpp"
+#include "../game/ascii_manager/add_formatted_marked.cpp"
 #include "fun_004135d0_004135d0.cpp"
 #include "fps_counter_on_draw.cpp"
 
-#include "../game/game_thread_append_formatted_00401630.cpp"
+#include "../game/ascii_manager/add_formatted.cpp"
 #include "../game/replay_manager_draw.cpp"

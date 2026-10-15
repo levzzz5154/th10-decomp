@@ -1,7 +1,7 @@
 #include "th10/game/right_aligned_text_context/recovery_script_executor_caller_00433ef0.hpp"
 
 extern "C" void* data_00491c10;
-extern "C" GameThread_0040c540* data_004776e0;
+extern "C" GameThread_0040c540* g_ascii_manager;
 extern "C" SoundQueue data_00492590;
 extern "C" unsigned int data_00474e36;
 extern "C" unsigned short recovery_music_repeat_00474e34;
@@ -232,7 +232,7 @@ extern "C" __declspec(noinline) int __stdcall RecoveryMusicRoom_Update_00433ef0(
                 RecoveryMusicInstallSlot_0042c670(room, 95);
                 void* handle;
                 void** result = AnimationManager_CreatePrimaryBack_00448d00(
-                    data_004776e0->animation_resource, &handle, 8, 15);
+                    g_ascii_manager->animation_resource, &handle, 8, 15);
                 room->fallback_handle.value = reinterpret_cast<unsigned int>(*result);
             }
             RecoveryMusicInstallSlot_0042c670(room, 103);

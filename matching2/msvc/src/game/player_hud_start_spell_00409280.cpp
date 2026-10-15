@@ -54,7 +54,7 @@ struct GameSelection_00409280 {
 extern "C" {
 extern GameMode_00409280* data_00477838;
 extern FrontResources_00409280* data_0047770c;
-extern GameThread_00409280* data_004776e0;
+extern GameThread_00409280* g_ascii_manager;
 extern EnemyManager_00409280* data_004776f0;
 extern ScoreManager* data_0047783c;
 extern StageOwner_00409280* data_00477704;
@@ -157,9 +157,9 @@ void PlayerHud_00408d60::StartSpell(int index, const char* name, int duration) {
     for (i = 0; i < 5; ++i)
         LoadDigit(&counter_digits[i], i + 66);
 
-    panel_handles[0].value = CreateAnimation(data_004776e0->front, 1).value;
-    panel_handles[1].value = CreateAnimation(data_004776e0->text, 72).value;
-    panel_handles[2].value = CreateAnimation(data_004776e0->front, 2).value;
+    panel_handles[0].value = CreateAnimation(g_ascii_manager->front, 1).value;
+    panel_handles[1].value = CreateAnimation(g_ascii_manager->text, 72).value;
+    panel_handles[2].value = CreateAnimation(g_ascii_manager->front, 2).value;
     reinterpret_cast<RecoveryIndicatorVm_00419120*>(
         GetAnimation(reinterpret_cast<int&>(panel_handles[1].value)))
         ->FormatRightAligned(data_00491c10, 0x00FFFFFFu, name);

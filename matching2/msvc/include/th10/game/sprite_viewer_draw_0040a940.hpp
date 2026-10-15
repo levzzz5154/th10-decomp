@@ -108,7 +108,7 @@ typedef char SpriteViewerSize_0040a940[sizeof(SpriteViewer_0040a940) == 0x688 ? 
 
 struct AnimationManager_00442F50;
 extern "C" {
-extern GameThread_00401530* data_004776e0;
+extern GameThread_00401530* g_ascii_manager;
 extern SpriteViewerEnemies_0040a940* data_00477704;
 extern AnimationManager_00442F50* data_00491c10;
 // 0x00443080: draw one entity; the manager is on the stack and the entity

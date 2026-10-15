@@ -32,12 +32,12 @@ extern "C" int __stdcall TitleEffectsAdvance_0041fdd0(TitleEffectState_0041fdd0*
         ++state->signature_ready;
     }
     if (state->interface_ready == 1) {
-        AnimationScriptId* cached = &((TitleGameThread_0041fdd0*)data_004776e0)->cached_animation_handle;
+        AnimationScriptId* cached = &((TitleGameThread_0041fdd0*)g_ascii_manager)->cached_animation_handle;
         AnimationPosition_00448d50 position(480.0f,392.0f,0.0f);
         if (cached->value == 0) {
             int handle;
             AnimationScriptId* result = (AnimationScriptId*)AnimationManager_CreatePositionedPrimary_00448d50(
-                ((TitleGameThread_0041fdd0*)data_004776e0)->AsciiResource(), (void**)&handle, 6, &position);
+                ((TitleGameThread_0041fdd0*)g_ascii_manager)->AsciiResource(), (void**)&handle, 6, &position);
             memcpy(cached, result, sizeof(AnimationScriptId));
         }
         ++state->interface_ready;

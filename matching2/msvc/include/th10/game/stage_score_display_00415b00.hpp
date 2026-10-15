@@ -72,7 +72,7 @@ struct SlotResources {
     unsigned char reserved[0x899C];
     AnimationResource_00449870* resource;
 };
-extern "C" SlotResources* data_004776e0;
+extern "C" SlotResources* g_ascii_manager;
 struct SlotEffect {
     virtual void Reserved0() = 0;
     virtual void Reserved1() = 0;

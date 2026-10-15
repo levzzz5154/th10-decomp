@@ -116,7 +116,7 @@ struct TitleMenu_00431410 {
 };
 
 extern "C" {
-extern GameThread_00401530* data_004776e0;
+extern GameThread_00401530* g_ascii_manager;
 extern GameSelection_00431410 data_00474c68;
 extern ScoreCharacter_00431410* data_0047783c;
 extern ReplayFile_00431ba0* data_00477838;  // the replay just played

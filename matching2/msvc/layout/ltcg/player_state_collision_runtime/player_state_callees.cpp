@@ -9,7 +9,7 @@ struct OpenReplayState { unsigned char reserved_00[0x58]; unsigned int flags; in
 extern "C" {
 extern OpenReplayState* data_00477810;
 extern int data_00491fb8;
-extern void* data_004776e0;
+extern void* g_ascii_manager;
 extern const float data_00470b04, data_00470b94;
 __declspec(noinline) void __stdcall OpenInitialize_00420a90(void* resource, void* object, int script);
 __declspec(noinline) int __stdcall OpenRegister_0043e460(void* lists, void* object);

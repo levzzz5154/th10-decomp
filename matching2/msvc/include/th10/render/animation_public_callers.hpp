@@ -45,7 +45,7 @@ struct AnimationPosition_00448d50 {
     AnimationPosition_00448d50(float px, float py, float pz) : x(px), y(py), z(pz) {}
 };
 extern "C" void* data_00491c10;
-extern "C" void* data_004776e0;
+extern "C" void* g_ascii_manager;
 extern "C" __declspec(noinline) void** __cdecl asm_AnimationManager_RegisterPrimaryBack_004489d0(
     void* manager, void** out, void* entity);
 __declspec(noinline) void** __stdcall AnimationManager_CreatePositionedPrimary_00448d50(

@@ -402,7 +402,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_data_004776e0",
+      "symbol": "_g_ascii_manager",
       "address": "0x4776e0",
       "kind": "data"
     },

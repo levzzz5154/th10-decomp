@@ -39,7 +39,7 @@ typedef char TitleSize[sizeof(TitleState_0041FB50)==0x3F0?1:-1];
 struct GameThread;
 extern "C" void* data_00491be4;
 extern "C" void* data_00477820;
-extern "C" void* data_004776e0;
+extern "C" void* g_ascii_manager;
 extern "C" void* data_0047783c;
 extern "C" void* data_00477810;
 extern "C" void* data_0047784c;

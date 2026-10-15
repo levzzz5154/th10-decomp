@@ -5,8 +5,8 @@ struct GameState {
     int field_8998;                  // +0x8998
 };
 
-extern "C" unsigned char data_004776e0;
+extern "C" unsigned char g_ascii_manager;
 
 int __cdecl FUN_00421f50_00421f50() {
-    return ((GameState*)*(void**)&data_004776e0)->field_8998;
+    return ((GameState*)*(void**)&g_ascii_manager)->field_8998;
 }

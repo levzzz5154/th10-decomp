@@ -74,7 +74,7 @@ extern struct ScoreState data_00474c40;
 // The score archive; flushed first so the run's record file is written.
 extern struct ScoreArchive_0042B1E0* data_0047783c;
 // The game thread.
-extern GameThread_0040c540* data_004776e0;
+extern GameThread_0040c540* g_ascii_manager;
 // Stage file pointers; equality marks the stage-end state.
 extern void* data_00474c7c;
 extern void* data_00474c80;

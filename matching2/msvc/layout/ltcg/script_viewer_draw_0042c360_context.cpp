@@ -1,7 +1,7 @@
 // Compiler context only; never selected as recovered game code. The queue
 // writer and marked-text formatter are ABI anchors for the ESI/EBX arguments.
-#include "../../src/game/game_thread_queue.cpp"
-#include "../../src/game/game_thread_append_formatted_marked_retail_00401690.cpp"
+#include "../../src/game/ascii_manager/add_string.cpp"
+#include "../../src/game/ascii_manager/add_formatted_marked.cpp"
 #include "../../src/game/script_viewer_draw_0042c360.cpp"
 
 #pragma code_seg(".text$07context")

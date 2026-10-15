@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "cl_00401110",
-  "source": "src/game/ascii_manager_load_resources_00401110.cpp",
+  "source": "src/game/ascii_manager/create.cpp",
   "driver": "layout/ltcg/cl_00401110_context.cpp",
   "headers": [
     "include/th10/game/entity.hpp",
@@ -22,16 +22,16 @@
       "address": "0x00401110",
       "size": 330,
       "actual_abi": "manager in EAX; result in EAX; plain RET",
-      "source": "src/game/ascii_manager_load_resources_00401110.cpp"
+      "source": "src/game/ascii_manager/create.cpp"
     },
     {
-      "name": "GameThread_Create_00401440",
-      "symbol": "_GameThread_Create_00401440@0",
+      "name": "AsciiManager_Create",
+      "symbol": "_AsciiManager_Create@0",
       "section": ".text$00_c_create",
       "address": "0x00401440",
       "size": 69,
       "actual_abi": "no arguments; result in EAX; plain RET",
-      "source": "src/game/game_thread_create_00401440.cpp"
+      "source": "src/game/ascii_manager/create.cpp"
     }
   ],
   "anchors": [
@@ -224,7 +224,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_data_004776e0",
+      "symbol": "_g_ascii_manager",
       "address": "0x004776E0",
       "kind": "data"
     },
@@ -268,11 +268,9 @@
     "layout/ltcg/scheduler_register_anchors.cpp",
     "src/game/animation_object_configure_from_resource_0043e5a0.cpp",
     "src/game/entity_initialize_00401de0.cpp",
-    "src/game/game_thread.cpp",
+    "src/game/ascii_manager/construct.cpp",
     "src/platform/text_log.cpp"
   ],
-  "additional_sources": [
-    "src/game/game_thread_create_00401440.cpp"
-  ],
+  "additional_sources": [],
   "roots": []
 }

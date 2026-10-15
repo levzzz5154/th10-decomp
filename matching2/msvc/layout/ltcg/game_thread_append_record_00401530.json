@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "game_thread_append_record_00401530",
-  "source": "src/game/game_thread_queue.cpp",
+  "source": "src/game/ascii_manager/add_string.cpp",
   "driver": "layout/ltcg/game_thread_append_record_00401530_context.cpp",
   "headers": [],
   "image_base": "0x00400000",
@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "game_thread_append_record_00401530",
-      "symbol": "?AppendRecord_00401530@@YGXPAUGameThread_00401530@@PBDPBUVec3_00401530@@@Z",
+      "symbol": "?AsciiManager_AddString@@YGXPAUGameThread_00401530@@PBDPBUVec3_00401530@@@Z",
       "section": ".text$01accessor",
       "address": "0x00401530",
       "size": 132,

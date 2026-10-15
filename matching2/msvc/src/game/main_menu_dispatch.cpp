@@ -53,7 +53,7 @@
 extern "C" __declspec(naked) void __cdecl asm_FUN_00422660_00422660() {
     __asm {
     L_00422660:
-        mov ecx,dword ptr [data_004776e0]
+        mov ecx,dword ptr [g_ascii_manager]
     L_00422666:
         sub esp,10h
     L_00422669:
@@ -175,7 +175,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00422660_00422660() {
     L_00422733:
         push edx
     L_00422734:
-        mov edx,dword ptr [data_004776e0]
+        mov edx,dword ptr [g_ascii_manager]
     L_0042273a:
         push esi
     L_0042273b:
@@ -217,7 +217,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00422660_00422660() {
     L_00422774:
         mov dword ptr [esp+24h],ecx
     L_00422778:
-        mov ecx,dword ptr [data_004776e0]
+        mov ecx,dword ptr [g_ascii_manager]
     L_0042277e:
         fstp dword ptr [esp+18h]
     L_00422782:
@@ -345,7 +345,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00422660_00422660() {
     L_00422862:
         push edx
     L_00422863:
-        mov edx,dword ptr [data_004776e0]
+        mov edx,dword ptr [g_ascii_manager]
     L_00422869:
         push edi
     L_0042286a:
@@ -355,7 +355,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00422660_00422660() {
     L_00422870:
         call asm_GameThread_AppendFormatted_00401630
     L_00422875:
-        mov ecx,dword ptr [data_004776e0]
+        mov ecx,dword ptr [g_ascii_manager]
     L_0042287b:
         add esp,28h
     L_0042287e:
@@ -441,7 +441,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00422660_00422660() {
     L_00422920:
         mov edx,dword ptr [esp+24h]
     L_00422924:
-        mov ebx,dword ptr [data_004776e0]
+        mov ebx,dword ptr [g_ascii_manager]
     L_0042292a:
         xor eax,eax
     L_0042292c:
@@ -559,7 +559,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00422660_00422660() {
     L_004229f1:
         push eax
     L_004229f2:
-        mov eax,dword ptr [data_004776e0]
+        mov eax,dword ptr [g_ascii_manager]
     L_004229f7:
         push edx
     L_004229f8:
@@ -613,7 +613,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00422660_00422660() {
     L_00422a3c:
         jl asm_FUN_00422660_part_00422920
     L_00422a42:
-        mov ecx,dword ptr [data_004776e0]
+        mov ecx,dword ptr [g_ascii_manager]
     L_00422a48:
         mov dword ptr [ecx+8974h],0FFFFFFFFh
     L_00422a52:

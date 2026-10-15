@@ -1,4 +1,5 @@
-// 0x00401000: construct the global game thread object in place.
+// 0x00401000: the ASCII manager's constructor (GameThread is this file's view
+// of the object; the full layout is AsciiManager in th10/game/ascii_manager.hpp).
 //
 // The retail body stores the type marker, retires the flag bits of the two
 // per-player slots, clears them and publishes a handful of scalar defaults.
@@ -9,7 +10,7 @@
 #include <string.h>
 
 // Global pointer to the constructed thread.
-extern "C" void* data_004776e0;
+extern "C" void* g_ascii_manager;
 
 #include "th10/game/game_thread.hpp"
 
@@ -46,7 +47,7 @@ GameThread::GameThread() {
     slot->field_384 = 0xFFFF;
     memset(this, 0, sizeof(*this));
     this->flags |= 2u;
-    data_004776e0 = this;
+    g_ascii_manager = this;
     this->field_8974 = -1;
     this->field_8978 = 1.0f;
     this->field_897C = 1.0f;

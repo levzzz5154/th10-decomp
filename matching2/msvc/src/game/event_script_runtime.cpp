@@ -822,7 +822,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0040bd80_0040bd80() {
     L_0040c2d1:
         ret 4
     L_0040c2d4:
-        mov esi,dword ptr [data_004776e0]
+        mov esi,dword ptr [g_ascii_manager]
     L_0040c2da:
         push 43C40000h
     L_0040c2df:

@@ -1,3 +1,11 @@
+// The ASCII manager (g_ascii_manager, 0x004776E0, 0x89AC bytes): creation and
+// resource loading. Both are compiled in the cl_00401110 native-LTCG cluster.
+#include "th10/game/entity.hpp"
+#include "th10/game/scheduler.hpp"
+#include "th10/platform/text_log.hpp"
+#include "th10/render/animation_object_0043e5a0.hpp"
+#include "th10/game/game_thread.hpp"
+
 // 0x00401110: load the ASCII manager's three animation files (ascii.anm,
 // text.anm, capture.anm), register its update (primary list, priority 4) and
 // two draw tasks (secondary list, priorities 0x30 and 0x26), and bind its two
@@ -7,10 +15,6 @@
 // Native LTCG passes the manager in EBX, so this is compiled in the same link
 // as the scheduler registration functions and the text log it calls
 // (layout/ltcg/bullet_manager_load_scripts_0040ae70.json).
-#include "th10/game/entity.hpp"
-#include "th10/game/scheduler.hpp"
-#include "th10/platform/text_log.hpp"
-#include "th10/render/animation_object_0043e5a0.hpp"
 
 struct AsciiManager_00401110 {
     unsigned char pad_000[0x0C];
@@ -90,5 +94,29 @@ int AsciiManager_00401110::LoadResources() {
     sprite->script_resource = resource;
     resource->ConfigureObject(reinterpret_cast<AnimationObject_0043e5a0 *>(sprite), 0x62);
     return 0;
+}
+#pragma code_seg()
+
+// 0x00401440: AsciiManager_Create - allocate and construct the manager, then load its
+// resources and register its tasks. A failed load destroys and frees the
+// object and returns null.
+
+extern "C" {
+void __stdcall DestroyGameThread_00401260(GameThread *thread);
+void __cdecl entry_free_004524a1(void *memory);
+}
+void *__cdecl operator new(unsigned int size);
+
+#pragma code_seg(".text$00_c_create")
+extern "C" __declspec(noinline) GameThread *__stdcall AsciiManager_Create() {
+    GameThread *thread = new GameThread;
+    if (reinterpret_cast<AsciiManager_00401110 *>(thread)->LoadResources()) {
+        if (thread) {
+            DestroyGameThread_00401260(thread);
+            entry_free_004524a1(thread);
+        }
+        return 0;
+    }
+    return thread;
 }
 #pragma code_seg()

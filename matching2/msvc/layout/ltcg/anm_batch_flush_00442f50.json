@@ -477,7 +477,7 @@
       "address": "0x00401760",
       "size": 738,
       "actual_abi": "__stdcall: thread on the stack; manager ESI to 0x00442F50, camera EDI to 0x004215A0, glyph ESI to 0x00443080; RET 4",
-      "source": "src/game/fun_00401760_00401760.cpp"
+      "source": "src/game/ascii_manager/draw.cpp"
     },
     {
       "name": "AsciiManager_OnDrawLate",
@@ -486,7 +486,7 @@
       "address": "0x00401520",
       "size": 10,
       "actual_abi": "__fastcall: thread ECX; saves EBX and passes the thread in EBX to 0x00401A50; plain RET",
-      "source": "src/game/ascii_manager_on_draw_late.cpp"
+      "source": "src/game/ascii_manager/draw.cpp"
     },
     {
       "name": "GameThreadText_DrawLateRecords",
@@ -495,7 +495,7 @@
       "address": "0x00401A50",
       "size": 570,
       "actual_abi": "thread in EBX; manager ESI to 0x00442F50, camera EDI to 0x004215A0; EAX=1; plain RET",
-      "source": "src/game/fun_00401a50_00401a50.cpp"
+      "source": "src/game/ascii_manager/draw.cpp"
     },
     {
       "name": "RenderStageState_BeginFrame_00420000",
@@ -1298,9 +1298,7 @@
     "src/unreferenced/unassigned_00444dc0.cpp",
     "src/unreferenced/unassigned_00444e60.cpp",
     "src/unreferenced/unassigned_00444fa0.cpp",
-    "src/game/fun_00401760_00401760.cpp",
-    "src/game/fun_00401a50_00401a50.cpp",
-    "src/game/ascii_manager_on_draw_late.cpp",
+    "src/game/ascii_manager/draw.cpp",
     "src/app/app_begin_frame_00420000.cpp",
     "src/render/anchored_quad_build_mirrored_00443480.cpp",
     "src/render/stage_objects_draw.cpp",

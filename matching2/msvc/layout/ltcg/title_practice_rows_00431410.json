@@ -135,7 +135,7 @@
   "constants": [],
   "absolute_symbols": [
     {
-      "symbol": "_data_004776e0",
+      "symbol": "_g_ascii_manager",
       "address": "0x004776E0",
       "kind": "data"
     },
@@ -213,14 +213,14 @@
   "anchors": [
     {
       "name": "AppendRecord",
-      "symbol": "?AppendRecord_00401530@@YGXPAUGameThread_00401530@@PBDPBUVec3_00401530@@@Z",
+      "symbol": "?AsciiManager_AddString@@YGXPAUGameThread_00401530@@PBDPBUVec3_00401530@@@Z",
       "section": ".text$01append",
       "address": "0x00401530",
       "size": 132
     },
     {
       "name": "AppendFormatted",
-      "symbol": "?AppendFormatted_00401630@@YAXPAUGameThread_00401530@@PBUVec3_00401530@@PBDZZ",
+      "symbol": "?AsciiManager_AddFormatted@@YAXPAUGameThread_00401530@@PBUVec3_00401530@@PBDZZ",
       "section": ".text$02bformatted",
       "address": "0x00401630",
       "size": 85
