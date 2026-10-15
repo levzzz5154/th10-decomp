@@ -1,6 +1,7 @@
 #pragma once
 #include <stddef.h>
 
+#include "th10/game/player.hpp"  // g_player, destroyed by 0x00424ED0 (Player::~Player)
 #include "th10/game/score.hpp"
 #include "th10/game/score_archive_0042b1e0.hpp"
 #include "th10/render/resource_registrar_0043e460.hpp"
@@ -84,8 +85,6 @@ extern void* data_004776e4;
 extern void* g_pause_menu;
 // The side panel / item manager object.
 extern SidePanel_00414570* data_0047770c;
-// The stage manager (destroyed by 0x00424ED0).
-extern void* g_player;
 // The bullet manager (destroyed by 0x00405F70).
 extern void* data_004776f0;
 // The native effect manager (destroyed by 0x0041ADF0); its element storage
