@@ -2,7 +2,7 @@
 #include <string.h>
 #include "th10/game/pause_result_open_004231d0/music.hpp"
 
-#pragma code_seg(".text$00420a90_fn")
+#pragma code_seg(".text$f00420a90F")
 __declspec(noinline) int __stdcall Music_Load(int slot, const char* file_name) {
     char path[256];
     strcpy(path, file_name);

@@ -35,15 +35,9 @@ struct PlayerInputMode {
     unsigned int flags;
     __declspec(noinline) void Set(int mode);
 };
-struct PlayerDeathScene {
-    int reserved_00;
-    int phase;
-    int cursor;
-    int background;
-    FrameTimer timer;
-    int current_resource;
-    int result_flag;
-    __declspec(noinline) int Open();
+// The death screen (0x00477830); src/game/pause_result_open.cpp.
+struct PauseOpenState {
+    __declspec(noinline) void OpenPause();  // 0x004231D0
 };
 // The timer seen through the setter at 0x00405410.
 struct PlayerSchedulerRecord {
@@ -60,7 +54,7 @@ extern "C" {
 extern PlayerCollisionEngine* data_004776f0;
 extern LaserManager* data_0047781c;
 extern PlayerItemManager* data_00477818;
-extern PlayerDeathScene* data_00477830;
+extern PauseOpenState* data_00477830;
 extern PlayerPracticeState* data_00477838;
 extern PlayerInputMode data_00491c28;
 __declspec(noinline) int __stdcall Bomb_Start(Bomb* player);

@@ -1,4 +1,5 @@
-// Open the pause result view or the completed-game result view.
+// 0x004231D0: open the death screen (continue or give up), or with result
+// set the completed-game view.
 #include "th10/game/pause_result_open_004231d0/open_state.hpp"
 __forceinline void PauseOpenState::Open(bool result) {
     if (data_00477810->replay_mode == 1) {
@@ -41,13 +42,6 @@ __forceinline void PauseOpenState::Open(bool result) {
     saved_speed = data_00476f78;
     data_00476f78 = 1.0f;
 }
-#pragma code_seg(".text$004231d0_fn")
+#pragma code_seg(".text$f004231d0F")
 void PauseOpenState::OpenPause() { Open(false); }
 #pragma code_seg()
-#include "../../layout/ltcg/pause_open_004231d0/allocate.cpp"
-#include "../../layout/ltcg/pause_open_004231d0/descriptor.cpp"
-#include "../../layout/ltcg/pause_open_004231d0/entity_init.cpp"
-#include "../../layout/ltcg/pause_open_004231d0/find.cpp"
-#include "../../layout/ltcg/pause_open_004231d0/music.cpp"
-#include "../../layout/ltcg/pause_open_004231d0/registrar.cpp"
-#include "../../layout/ltcg/pause_open_004231d0/secondary_back.cpp"

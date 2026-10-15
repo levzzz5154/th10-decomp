@@ -69,27 +69,4 @@ __declspec(noinline) int Resource_0043e5a0::ConfigureObject(
     object->block_copy = object->block_a;
     return 0;
 }
-// Stand-in for the pause opener at 0x004231D0 (src/game/pause_result_open.cpp).
-// Like the real body it keeps its receiver live across the pool allocation,
-// whose pool travels in ESI, so the receiver arrives in EDI.
-#pragma code_seg(".text$f004231d0F")
-int PlayerDeathScene::Open() {
-    if (data_00477810->replay_mode == 1) {
-        data_00491fb8 = 4;
-        return 0;
-    }
-    phase = 6;
-    timer.Set(0);
-    data_00477810->flags |= 0x10;
-    void* resource = data_004776e0;
-    Entity* object = static_cast<AnimationPool*>(data_00491c10)->Allocate();
-    OpenInitialize_00420a90(resource, object, 0);
-    cursor = OpenRegister_0043e460(data_00491c10, object);
-    object = static_cast<AnimationPool*>(data_00491c10)->Allocate();
-    OpenInitialize_00420a90(resource, object, 128);
-    background = OpenRegister_0043e460(data_00491c10, object);
-    current_resource = 0;
-    result_flag = 0;
-    return 0;
-}
 #pragma code_seg()
