@@ -6,20 +6,13 @@
 #include "script_resolver_00450470.hpp"
 #include "th10/platform/sound_queue.hpp"
 #include "th10/game/enemy_data_start_0040dc80.hpp"
+#include "th10/game/player.hpp"
 
 // What the tick reads of the objects around the enemy.
-struct Player_0040dc80 {
-    unsigned char reserved_0000[0x3C0];
-    float x;                             // +0x03C0
-    unsigned char reserved_03c4[0x458 - 0x3C4];
-    int shot_mode;                       // +0x0458
-    unsigned char reserved_045c[0x3504 - 0x45C];
-    EnemyRecord_0040dc80* target;        // +0x3504
-    unsigned char target_chosen;         // +0x3508
-
+struct PlayerDamage {
     // 0x00428630: total damage of the player's shots overlapping the box.
     // Retail calls it with a null receiver.
-    __declspec(noinline) int Sweep(Player_0040dc80* player, const PolarVec3* center, const Vec2* size);
+    __declspec(noinline) int Sweep(Player* player, const PolarVec3* center, const Vec2* size);
 };
 struct Stage_0040dc80 {
     unsigned char reserved_00[0x28];
@@ -47,7 +40,6 @@ struct ScoreState_0040dc80 {
 };
 
 extern "C" {
-extern Player_0040dc80* g_player;
 extern Stage_0040dc80* g_bomb;
 extern GameThread_0040dc80* data_004776f4;
 extern Gui_0040dc80* data_0047770c;
@@ -63,7 +55,7 @@ __declspec(noinline) int __fastcall BindName_00450700(const char* name, EnemyRec
 __declspec(noinline) int __stdcall Enemy_ReleaseOnDeath_0040e5f0(EnemyRecord_0040dc80* record);
 // 0x004266B0: touch the player.
 __declspec(noinline) int __fastcall FieldContact_004266b0(
-    const PolarVec3* position, Player_0040dc80* player, const Vec2* size);
+    const PolarVec3* position, Player* player, const Vec2* size);
 // 0x00449350, 0x004492F0: place an animation in field or in screen coordinates.
 __declspec(noinline) void __fastcall SetAnimationTranslatedPosition_00449350(
     AnimationManager_0040dc80* manager, const PolarVec3* position, ScriptChangeHandle id);

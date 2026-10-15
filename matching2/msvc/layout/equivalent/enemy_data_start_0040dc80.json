@@ -38,7 +38,7 @@
       "address": "0x0040E5F0",
       "kind": "code"
     },
-    "?Sweep@Player_0040dc80@@QAEHPAU1@PBUPolarVec3@@PBUVec2@@@Z": {
+    "?Sweep@PlayerDamage@@QAEHPAUPlayer@@PBUPolarVec3@@PBUVec2@@@Z": {
       "address": "0x00428630",
       "kind": "code"
     },
@@ -79,7 +79,7 @@
     "?ResetScript@EnemyRecord_0040dc80@@QAEXXZ": "0x0040C730",
     "?Resolve@ScriptTable_00450470@@QAEHPBD@Z": "0x00450470",
     "?BindName_00450700@@YIHPBDPAUEnemyRecord_0040dc80@@@Z": "0x00450700",
-    "?FieldContact_004266b0@@YIHPBUPolarVec3@@PAUPlayer_0040dc80@@PBUVec2@@@Z": "0x004266B0",
+    "?FieldContact_004266b0@@YIHPBUPolarVec3@@PAUPlayer@@PBUVec2@@@Z": "0x004266B0",
     "?QueuePan@SoundQueue@@QAEXHM@Z": "0x0043DD10",
     "?Step@?$Interpolator@UVec3@@@@QAE?AUVec3@@XZ": "0x00404610",
     "?Step@?$Interpolator@UTrajectoryVec2@@@@QAE?AUTrajectoryVec2@@XZ": "0x00412AC0",

@@ -10,7 +10,7 @@ float g_frame_timer_normal_lower = 0.99f;
 float g_frame_timer_normal_upper = 1.01f;
 float g_score_default_speed = 1.0f;
 extern "C" {
-Player_0040dc80* g_player;
+Player* g_player;
 Stage_0040dc80* g_bomb;
 GameThread_0040dc80* data_004776f4;
 Gui_0040dc80* data_0047770c;
@@ -204,7 +204,7 @@ int __fastcall BindName_00450700(const char* name, EnemyRecord_0040dc80* record)
 
 // src/game/field_contact_004266b0.cpp
 int __fastcall FieldContact_004266b0(
-        const PolarVec3* position, Player_0040dc80* player, const Vec2* size) {
+        const PolarVec3* position, Player* player, const Vec2* size) {
     const Vec2* low = (const Vec2*)((unsigned char*)player + 0x404);
     const Vec2* high = (const Vec2*)((unsigned char*)player + 0x410);
     Vec2 minimum(position->x - size->x * 0.5f, position->y - size->y * 0.5f);
@@ -219,7 +219,7 @@ int __fastcall FieldContact_004266b0(
     }
     if (data_0047770c && *(int*)((unsigned char*)data_0047770c + 0x9EB8))
         return 0;
-    if (player->shot_mode == 2 || player->shot_mode == 4 || player->shot_mode == 3)
+    if (player->state == 2 || player->state == 4 || player->state == 3)
         return 0;
     if (*(int*)((unsigned char*)player + 0x4310) <= 0)
         ext_call(player, 0);

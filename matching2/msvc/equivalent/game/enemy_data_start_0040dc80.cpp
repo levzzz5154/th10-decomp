@@ -118,9 +118,9 @@ extern "C" __declspec(noinline) int __stdcall EnemyDataStart_0040dc80(EnemyTick_
     // 0x0040E107: damage from the player's shots.
     enemy->flags &= ~ENEMY_HIT;
     if (!(enemy->flags & (ENEMY_NO_HIT | ENEMY_INTANGIBLE))) {
-        int damage = static_cast<Player_0040dc80*>(0)->Sweep(
+        int damage = static_cast<PlayerDamage*>(0)->Sweep(
             g_player, &enemy->final.position, &enemy->hit_size);
-        if (g_player->shot_mode == 2 || g_player->shot_mode == 0)
+        if (g_player->state == 2 || g_player->state == 0)
             damage /= 5;
         if (damage != 0) {
             if ((data_004776f4->flags & 1) && (enemy->flags & ENEMY_BOSS)) {
@@ -207,13 +207,14 @@ extern "C" __declspec(noinline) int __stdcall EnemyDataStart_0040dc80(EnemyTick_
     // 0x0040E3DB: offer the enemy to the player's homing shots.
     if (!(enemy->flags & (ENEMY_NO_HIT | ENEMY_INTANGIBLE))
         && !(enemy->flags & (ENEMY_UNSCROLLED | ENEMY_UNTARGETED))) {
-        Player_0040dc80* player = g_player;
-        if (player->target == 0
-            || fabsf(player->target->data.final.position.x - player->x)
-                   < fabsf(enemy->final.position.x - player->x)) {
-            if (!player->target_chosen)
-                player->target = enemy->record;
-            player->target_chosen = 1;
+        Player* player = g_player;
+        EnemyRecord_0040dc80* target = static_cast<EnemyRecord_0040dc80*>(player->homing_target);
+        if (target == 0
+            || fabsf(target->data.final.position.x - player->position.x)
+                   < fabsf(enemy->final.position.x - player->position.x)) {
+            if (!player->has_homing_target)
+                player->homing_target = enemy->record;
+            player->has_homing_target = 1;
         }
     }
 
