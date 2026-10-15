@@ -1,6 +1,7 @@
 #include "th10/game/player_homing_00407ef0.hpp"
 #include "th10/math/angle.hpp"
 #include <math.h>
+#include "th10/game/player.hpp"
 
 extern "C" float data_00470b04, data_00470b64, data_00470b68, data_00476f78;
 
@@ -12,10 +13,10 @@ void PlayerHomingState_00407EF0::HomeTowardTarget() {
         flags_43C &= ~0x04000000u;
     } else {
         const double dx =
-            (double)reinterpret_cast<PlayerAimTarget_00407EF0*>(data_00477834)->target_x -
+            (double)g_player->position.x -
             (double)position_x;
         const double dy =
-            (double)reinterpret_cast<PlayerAimTarget_00407EF0*>(data_00477834)->target_y -
+            (double)g_player->position.y -
             (double)position_y;
         float target_angle;
         if (dy == data_00470b04 && dx == data_00470b04) {

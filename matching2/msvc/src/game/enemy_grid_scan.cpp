@@ -10,6 +10,7 @@
 // LTCG cluster layout/ltcg/enemy_grid_scan_004073e0.json.
 #include "th10/game/enemy_grid_scan_004073e0.hpp"
 #include "th10/platform/sound_queue.hpp"
+#include "th10/game/player.hpp"
 
 extern "C" double __cdecl atan2(double, double);
 #pragma intrinsic(atan2)
@@ -17,8 +18,8 @@ extern "C" double __cdecl atan2(double, double);
 #pragma code_seg(".text$004073e0_fn")
 int __stdcall EnemyGrid_ScanCells_004073e0(ProjectilePattern_004073e0* pattern,
                                            ProjectileManager_004073e0* manager) {
-    float dx = data_00477834->x - pattern->x;
-    float dy = data_00477834->y - pattern->y;
+    float dx = g_player->position.x - pattern->x;
+    float dy = g_player->position.y - pattern->y;
     float aim;
     if (dy == 0.0f && dx == 0.0f)
         aim = 1.5707964f;

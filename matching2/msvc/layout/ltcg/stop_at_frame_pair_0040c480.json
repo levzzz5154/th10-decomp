@@ -25,7 +25,11 @@
     "include/th10/render/animation_handle.hpp",
     "include/th10/render/animation_stop_run.hpp",
     "include/th10/render/animation_stop_frame_handle.hpp",
-    "include/th10/game/playback_state.hpp"
+    "include/th10/game/playback_state.hpp",
+    "include/th10/game/player.hpp",
+    "include/th10/game/entity.hpp",
+    "include/th10/types.hpp",
+    "include/th10/math/timer.hpp"
   ],
   "image_base": "0x00400000",
   "description": "Animation lookup and stop-frame propagation with complete stop-and-run helper, two genuine slot callers, and a handle wrapper that forwards the inherited DI frame. Native LTCG derives the private registers; all selected contributions are complete functions. Playback-state switching co-compiles its genuine stop-frame callee and derives the EDI receiver convention. Selected ownership of the movement helper moved to the genuine 40-function player graph. Its original complete body remains an unselected anchor here; the remaining legacy compiler context is unchanged.",
@@ -298,6 +302,11 @@
     },
     {
       "symbol": "_data_00477834",
+      "address": "0x00477834",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_player",
       "address": "0x00477834",
       "kind": "data"
     }

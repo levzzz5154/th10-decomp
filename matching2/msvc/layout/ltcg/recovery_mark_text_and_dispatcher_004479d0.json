@@ -19,7 +19,11 @@
     "include/th10/game/marktext_dispatcher_context/recovery_script_executor_text_sibling_anchors.hpp",
     "include/th10/game/marktext_dispatcher_context/recovery_script_executor_caller_00433ef0.hpp",
     "include/th10/game/marktext_dispatcher_context/menu_cursor.hpp",
-    "include/th10/game/indicator_animation_lookup_00419120.hpp"
+    "include/th10/game/indicator_animation_lookup_00419120.hpp",
+    "include/th10/game/player.hpp",
+    "include/th10/game/entity.hpp",
+    "include/th10/types.hpp",
+    "include/th10/math/timer.hpp"
   ],
   "image_base": "0x00400000",
   "description": "Whole127-byte dispatcher and whole141-byte MarkText, complete genuine full caller/dependency context; only268 original bytes selected. Existing148 slot pair and unmatched executor/callers remain unselected context. The floating text manager update at 0x00419650 and its scheduler callback at 0x004198A0 are selected too, as is the pending-text drain at 0x00419120.",
@@ -1186,6 +1190,11 @@
     },
     {
       "symbol": "_data_00477834",
+      "address": "0x00477834",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_player",
       "address": "0x00477834",
       "kind": "data"
     },

@@ -14,6 +14,7 @@ extern "C" const float data_00470b7c;
 #include "th10/game/power_display_004054b0.hpp"
 #include "../../layout/ltcg/player_initialize_00405860_dependencies/clear_flags.cpp"
 #include "../../layout/ltcg/player_initialize_00405860_dependencies/sound_pan.cpp"
+#include "th10/game/player.hpp"
 
 struct PrimaryListNode {
     Entity* owner;
@@ -93,16 +94,11 @@ struct PlayerInitialization {
     float width, height;
     int pending_animation;
 };
-struct PlayerPositionSource {
-    unsigned char pad00[0x3C0];
-    Vector3 position;
-};
 struct PlayerAnimationResources {
     unsigned char pad00[0x3E0B50];
     AnimationResource_0043e710* resource;
 };
 typedef PlayerFlags_00405500 PlayerInitializeGlobal;
-extern "C" PlayerPositionSource* data_00477834;
 extern "C" PlayerAnimationResources* data_004776f0;
 extern "C" PlayerInitializeGlobal* data_004776f4;
 extern "C" PowerDisplayOwner_004054b0* data_0047770c;
@@ -116,7 +112,7 @@ extern "C" __declspec(noinline) int __stdcall InitializePlayer_00405860(PlayerIn
     player->timer.Reset(-1);
     player->width = 32.0f;
     player->height = 4.0f;
-    player->position = data_00477834->position;
+    player->position = g_player->position;
     int index;
     if ((!(data_004776f4->flags & 1) ||
          data_004776f4->animation_state < 0x5D ||

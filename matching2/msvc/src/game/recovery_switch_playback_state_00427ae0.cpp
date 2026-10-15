@@ -2,12 +2,11 @@
 // animation only on a mode transition. Volatile coordinate words preserve
 // the observed sequence of reads and writes, including across animation calls.
 #include "th10/game/playback_state.hpp"
-
-extern "C" PlaybackModeSource* data_00477834;
+#include "th10/game/player.hpp"
 
 #pragma code_seg(".text$45timedzbd")
 void PlaybackState::SwitchPlaybackState() {
-    int selected = data_00477834->playback;
+    int selected = g_player->focused;
     if (selected == 0) {
         if (playback != 0) animation.SetStopFrame(6);
         saved_x = live_x;

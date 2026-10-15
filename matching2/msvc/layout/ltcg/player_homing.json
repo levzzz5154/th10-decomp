@@ -7,7 +7,10 @@
     "include/th10/game/player_homing_00407ef0.hpp",
     "include/th10/game/player_motion_helpers_004074b0_004076a0.hpp",
     "include/th10/math/angle.hpp",
-    "include/th10/math/timer.hpp"
+    "include/th10/math/timer.hpp",
+    "include/th10/game/player.hpp",
+    "include/th10/game/entity.hpp",
+    "include/th10/types.hpp"
   ],
   "image_base": "0x00400000",
   "description": "Complete homing update with genuine external angle and polar helpers; ESI is chosen by native LTCG.",
@@ -74,6 +77,11 @@
     },
     {
       "symbol": "_data_00477834",
+      "address": "0x477834",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_player",
       "address": "0x477834",
       "kind": "data"
     },

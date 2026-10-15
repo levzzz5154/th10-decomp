@@ -29,7 +29,10 @@
     "include/th10/game/field_contact_004266b0.hpp",
     "include/th10/game/player_motion_helpers_004074b0_004076a0.hpp",
     "include/th10/game/bullet_runtime_deceleration.hpp",
-    "include/th10/game/player_homing_00407ef0.hpp"
+    "include/th10/game/player_homing_00407ef0.hpp",
+    "include/th10/game/player.hpp",
+    "include/th10/game/entity.hpp",
+    "include/th10/types.hpp"
   ],
   "image_base": "0x00400000",
   "description": "Complete original885-byte runtime callback. Every private callee is compiled from its full genuine body as an ABI anchor; only callback885 is selected recovered game code.",
@@ -252,6 +255,11 @@
     },
     {
       "symbol": "_data_00477834",
+      "address": "0x00477834",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_player",
       "address": "0x00477834",
       "kind": "data"
     },

@@ -1,14 +1,11 @@
 // 0x00408D60: per-frame update of the in-game side panel, and the scheduler
 // callback at 0x00409220 that runs it.
 #include "th10/game/player_hud_00408d60.hpp"
+#include "th10/game/player.hpp"
 
 struct StageState_00408d60 {
     unsigned char reserved[0x2A18];
     unsigned int flags;                            // +0x2A18
-};
-struct Player_00408d60 {
-    unsigned char reserved[0x3C4];
-    float y;                                       // +0x3C4
 };
 struct FrontResources_00408d60 {
     unsigned char reserved[0x9EC8];
@@ -44,7 +41,6 @@ struct GameSelection_00408d60 {
 
 extern "C" {
 extern StageState_00408d60* data_004776e8;
-extern Player_00408d60* data_00477834;
 extern FrontResources_00408d60* data_0047770c;
 extern ScoreFile_00408d60* data_0047783c;
 extern MarkerOwner_00408d60* data_00477704;
@@ -81,7 +77,7 @@ int PlayerHud_00408d60::Update() {
     if (timer.current >= 120) {
         int i;
         if (!(flags & 4)) {
-            if (data_00477834->y < 96.0f) {
+            if (g_player->position.y < 96.0f) {
                 for (i = 0; i < 3; ++i)
                     panel_handles[i].SetStopFrame(3);
                 for (i = 0; i < 8; ++i)
@@ -90,7 +86,7 @@ int PlayerHud_00408d60::Update() {
                     counter_digits[i].stop_frame = 3;
                 flags |= 4;
             }
-        } else if (data_00477834->y > 128.0f) {
+        } else if (g_player->position.y > 128.0f) {
             for (i = 0; i < 3; ++i)
                 panel_handles[i].SetStopFrame(2);
             for (i = 0; i < 8; ++i)

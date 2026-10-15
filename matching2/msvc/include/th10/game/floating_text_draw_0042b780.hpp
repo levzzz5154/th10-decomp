@@ -2,6 +2,7 @@
 #include <stddef.h>
 #include "th10/render/quad_batch.hpp"
 #include "th10/render/animation_byte_interpolator.hpp"
+#include "th10/game/player.hpp"
 
 // One 0x44-byte sprite record of a loaded animation file.
 struct FloatingTextGlyph_0042b780 {
@@ -64,12 +65,6 @@ struct FloatingTextPool_0042b780 {
 };
 typedef char FloatingTextPoolTexts_0042b780[offsetof(FloatingTextPool_0042b780, texts) == 0x3C4 ? 1 : -1];
 
-// The player, as far as the draw reads it.
-struct FloatingTextPlayer_0042b780 {
-    unsigned char reserved_000[0x3C0];
-    float x, y;
-};
-
 // The game-wide render state at 0x00491C28, as far as the draw reads it.
 // Reading the flags through the modelled state keeps retail's store order.
 struct FloatingTextRenderState_0042b780 {
@@ -83,7 +78,6 @@ struct FloatingTextRenderState_0042b780 {
 
 extern "C" {
 extern FloatingTextRenderState_0042b780 data_00491c28;
-extern FloatingTextPlayer_0042b780* data_00477834;
 // 0x00443080: draw one entity; the manager is on the stack and the entity
 // arrives in ESI.
 __declspec(noinline) int __stdcall FloatingText_DrawEntity_00443080(AnimationManager_00442F50* manager, FloatingTextSprite_0042b780* entity);

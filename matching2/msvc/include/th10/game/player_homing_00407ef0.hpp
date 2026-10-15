@@ -1,12 +1,7 @@
 #ifndef TH10_PLAYER_HOMING_00407EF0_HPP
 #define TH10_PLAYER_HOMING_00407EF0_HPP
 #include "th10/game/player_motion_helpers_004074b0_004076a0.hpp"
-struct PlayerAimTarget_00407EF0 {
-    unsigned char reserved_000[0x3C0];
-    float target_x;
-    float target_y;
-};
-extern "C" void* data_00477834;
+#include "th10/game/player.hpp"
 
 struct PlayerHomingState_00407EF0 {
     unsigned char reserved_000[0x3B4];

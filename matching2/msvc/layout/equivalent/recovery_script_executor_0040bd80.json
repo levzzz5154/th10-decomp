@@ -402,6 +402,10 @@
       "address": "0x00477834",
       "kind": "data"
     },
+    "_g_player": {
+      "address": "0x00477834",
+      "kind": "data"
+    },
     "_data_00470b04": {
       "address": "0x00470B04",
       "kind": "data"

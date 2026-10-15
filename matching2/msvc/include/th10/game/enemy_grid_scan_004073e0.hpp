@@ -1,14 +1,7 @@
 #ifndef TH10_GAME_ENEMY_GRID_SCAN_004073E0_HPP
 #define TH10_GAME_ENEMY_GRID_SCAN_004073E0_HPP
 
-// The player, as far as aiming needs it.
-struct PlayerPosition_004073e0 {
-    unsigned char reserved_000[0x3C0];
-    float x;                             // +0x3C0
-    float y;                             // +0x3C4
-};
-
-extern "C" PlayerPosition_004073e0* data_00477834;
+#include "th10/game/player.hpp"
 
 // A projectile pattern request: an origin, a grid of columns by rows, and an
 // optional sound.

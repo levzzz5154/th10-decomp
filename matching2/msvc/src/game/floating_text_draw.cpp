@@ -6,6 +6,7 @@
 // passes the value in EAX, the pool in ESI and the position in EDI; only the
 // colour is on the stack.
 #include "th10/game/floating_text_draw_0042b780.hpp"
+#include "th10/game/player.hpp"
 
 // Draw one number's glyphs left to right, most significant digit first.
 __forceinline void FloatingTextPool_0042b780::DrawGlyphs(const FloatingText_0042b780* text, float advance, int alpha) {
@@ -48,8 +49,8 @@ int FloatingTextPool_0042b780::Draw() {
             sprite.x = text->position.x - text->length * advance * 0.5f + 224.0f;
             sprite.y = text->position.y + 16.0f;
             sprite.Color() = text->color;
-            float dx = data_00477834->x - text->position.x;
-            float dy = data_00477834->y - text->position.y;
+            float dx = g_player->position.x - text->position.x;
+            float dy = g_player->position.y - text->position.y;
             int distance = int(dy * dy + dx * dx);
             if (distance > 0x1000)
                 alpha = 0xD0;

@@ -37,6 +37,7 @@ struct ProjectileCommandRuntime {
 #include "../../layout/ltcg/projectile_spawn_runtime/activate.cpp"
 #include "../../layout/ltcg/projectile_spawn_runtime/angle_from_point.cpp"
 #include "../../layout/ltcg/projectile_spawn_runtime/queue.cpp"
+#include "th10/game/player.hpp"
 
 // Aim angle for the velocity commands: values below -990 keep the slot's
 // angle, values below 990 are the angle itself, anything larger aims from the
@@ -46,7 +47,7 @@ __forceinline static float SpawnCommand_AimAngle(ProjectileSpawnRecord& record,
     if (value <= data_00470b50)
         return record.angle_3e4;
     if (value >= data_00470ccc)
-        return reinterpret_cast<EntityAngleFromPoint_00426660*>(data_00477834)
+        return reinterpret_cast<EntityAngleFromPoint_00426660*>(g_player)
             ->AngleFromPoint(reinterpret_cast<const float*>(&record.position));
     return value;
 }

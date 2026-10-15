@@ -7,7 +7,10 @@
     "include/th10/game/floating_text_draw_0042b780.hpp",
     "include/th10/render/quad_batch.hpp",
     "include/th10/render/animation_byte_interpolator.hpp",
-    "include/th10/math/timer.hpp"
+    "include/th10/math/timer.hpp",
+    "include/th10/game/player.hpp",
+    "include/th10/game/entity.hpp",
+    "include/th10/types.hpp"
   ],
   "image_base": "0x00400000",
   "description": "Floating number draw with the pool in EDI, its ECX scheduler callback and the EAX/ESI/EDI spawner, compiled with the real ESI-receiver batch flush, an ESI-entity stand-in for the entity draw and a stand-in for the spawner's caller.",
@@ -100,6 +103,11 @@
     },
     {
       "symbol": "_data_00477834",
+      "address": "0x00477834",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_player",
       "address": "0x00477834",
       "kind": "data"
     },

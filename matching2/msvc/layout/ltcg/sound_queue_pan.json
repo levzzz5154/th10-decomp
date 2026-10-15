@@ -12,7 +12,11 @@
   "headers": [
     "include/th10/platform/sound_queue.hpp",
     "include/th10/game/bullet_deceleration.hpp",
-    "include/th10/math/angle.hpp"
+    "include/th10/math/angle.hpp",
+    "include/th10/game/player.hpp",
+    "include/th10/game/entity.hpp",
+    "include/th10/types.hpp",
+    "include/th10/math/timer.hpp"
   ],
   "image_base": "0x00400000",
   "description": "Three ESI-entry bullet motion routines, rooted ECX projectile callback, and both genuine sound-queue entries in one native LTCG scope. QueuePan receives ESI queue, EBX sound id, and one stack float. Compiler context is unselected.",
@@ -169,6 +173,11 @@
     },
     {
       "symbol": "_data_00477834",
+      "address": "0x00477834",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_player",
       "address": "0x00477834",
       "kind": "data"
     },

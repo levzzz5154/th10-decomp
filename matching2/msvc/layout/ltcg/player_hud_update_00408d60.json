@@ -11,7 +11,10 @@
     "include/th10/render/animation_object_0043e5a0.hpp",
     "include/th10/render/animation_stop_frame_handle.hpp",
     "include/th10/render/position_setter_pair.hpp",
-    "include/th10/math/vector.hpp"
+    "include/th10/math/vector.hpp",
+    "include/th10/game/player.hpp",
+    "include/th10/game/entity.hpp",
+    "include/th10/types.hpp"
   ],
   "functions": [
     {
@@ -111,7 +114,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_00477834",
+      "symbol": "_g_player",
       "address": "0x00477834",
       "kind": "data"
     },

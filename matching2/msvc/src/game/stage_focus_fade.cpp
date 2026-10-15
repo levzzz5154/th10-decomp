@@ -11,14 +11,8 @@
 #include <math.h>
 
 #include "th10/game/indicator_animation_lookup_00419120.hpp"
+#include "th10/game/player.hpp"
 
-struct IndicatorPlayer_00419650 {
-    unsigned char reserved_000[0x3C0];
-    float x;                                // +3C0, relative to the playfield centre
-    float y;                                // +3C4
-};
-
-extern "C" IndicatorPlayer_00419650* data_00477834;
 extern "C" int recovery_indicator_owner_00474c84;   // current stage tag
 extern "C" int data_00474c7c;                       // current stage queue index
 
@@ -28,8 +22,8 @@ int RecoveryIndicatorState_00419120::Update() {
         stage_frame = 0;
     queues[data_00474c7c].head->Drain(this, 1);
 
-    float player_x = data_00477834->x + 224.0f;
-    float player_y = data_00477834->y + 16.0f;
+    float player_x = g_player->position.x + 224.0f;
+    float player_y = g_player->position.y + 16.0f;
     for (int i = 0; i < 10; ++i) {
         RecoveryIndicatorVm_00419120* vm = IndicatorHandle_GetInline(handles[i]);
         if (!vm)
