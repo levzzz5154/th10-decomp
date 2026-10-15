@@ -4,25 +4,25 @@
   "source": "src/unreferenced/unassigned_0040b920.cpp",
   "driver": "layout/ltcg/dtor_delete_0040b920_context.cpp",
   "headers": [
-    "include/th10/game/bullet_anim_owner.hpp",
+    "include/th10/game/ending_text_view.hpp",
     "include/th10/platform/worker.hpp",
     "include/th10/render/animation_mark_for_removal.hpp"
   ],
   "image_base": "0x00400000",
-  "description": "BulletAnimOwner deleting destructor compiled with its teardown at 0x0040B3A0 and PlatformWorker::Stop, so the object stays in ESI across the call and the teardown receives it in EAX as retail does.",
+  "description": "EndingTextView deleting destructor compiled with its teardown at 0x0040B3A0 and PlatformWorker::Stop, so the object stays in ESI across the call and the teardown receives it in EAX as retail does.",
   "functions": [
     {
-      "name": "BulletAnimOwner_Destroy",
-      "symbol": "?Destroy@BulletAnimOwner@@QAEXXZ",
+      "name": "EndingTextView_Destroy",
+      "symbol": "?Destroy@EndingTextView@@QAEXXZ",
       "section": ".text$01destroy",
       "address": "0x0040B3A0",
       "size": 192,
       "actual_abi": "object in EAX",
-      "source": "src/game/effect/bullet_anim_release.cpp"
+      "source": "src/game/effect/ending_text_destroy.cpp"
     },
     {
       "name": "Deletable_0040b920_Delete",
-      "symbol": "?Deletable_0040b920_Delete@@YGPAXPAUBulletAnimOwner@@H@Z",
+      "symbol": "?Deletable_0040b920_Delete@@YGPAXPAUEndingTextView@@H@Z",
       "section": ".text$03del",
       "address": "0x0040B920",
       "size": 28,
@@ -102,7 +102,7 @@
     }
   ],
   "additional_sources": [
-    "src/game/effect/bullet_anim_release.cpp"
+    "src/game/effect/ending_text_destroy.cpp"
   ],
   "included_sources": [
     "src/core/zunlib/platform_stop_worker_0044c150.cpp"

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "effect_kind_spawn_0040b070",
-  "source": "src/game/effect/effect_kind_spawn_0040b070.cpp",
+  "source": "src/game/effect/effect_spawn.cpp",
   "driver": "layout/ltcg/effect_kind_spawn_0040b070_context.cpp",
   "headers": [
     "include/th10/game/effect_kind_spawn_0040b070.hpp"
@@ -11,7 +11,7 @@
   "functions": [
     {
       "name": "EffectKind_SpawnFromOwner",
-      "symbol": "?SpawnEffect@EffectFileOwner_0040b070@@QAG?AUAnimationHandle_0040b070@@PAXH@Z",
+      "symbol": "?SpawnEffect@EffectSpawnView@@QAG?AUAnimationHandle_0040b070@@PAXH@Z",
       "section": ".text$0040b070_fn",
       "address": "0x0040B070",
       "size": 159,

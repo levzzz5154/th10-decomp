@@ -20,7 +20,7 @@ struct EndingState {
     SchedulerTask* draw_task; // +0x0C
     unsigned int reserved_010;
     void* script; // +0x14
-    BulletAnimOwner* animations; // +0x18
+    EndingTextView* animations; // +0x18
 };
 
 #pragma code_seg(".text$03message")
@@ -44,7 +44,7 @@ extern "C" __declspec(noinline) void __stdcall Ending_Release(EndingState* state
         --g_thread_synchronization.scheduler_lock_depth;
     }
     data_00491c10->Clear(0);
-    BulletAnimOwner* animations = state->animations;
+    EndingTextView* animations = state->animations;
     if (animations) {
         animations->Destroy();
         entry_free_004524a1(animations);

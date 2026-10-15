@@ -6021,7 +6021,7 @@ extern "C" unsigned char g_bomb;
 extern "C" unsigned char data_004776f0;
 extern "C" unsigned char g_card;
 extern "C" unsigned char g_ecl_view;
-extern "C" unsigned char data_004776fc;
+extern "C" unsigned char g_effect;
 extern "C" unsigned char g_ending;
 extern "C" unsigned char data_00477704;
 extern "C" unsigned char data_00477708;

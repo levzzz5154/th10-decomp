@@ -1,6 +1,6 @@
-// 0x0040AE70..0x0040AEF5 (134 bytes) - BulletManager_LoadScripts
+// 0x0040AE70..0x0040AEF5 (134 bytes) - Effect_Initialize (effect.cpp, EffectInf)
 //
-// Loads the bullet animation resource, then creates and registers the two
+// Loads the effect sprites from bullet.anm, then creates and registers the two
 // scheduler callbacks that drive it.  Retail keeps the manager in EBX, the
 // callback under construction in ESI and the registration priority in EDI;
 // those are whole-program register agreements, so this source is compiled in
@@ -8,7 +8,7 @@
 // and as the constant-log formatter it reports a failure through.
 #include "th10/game/scheduler.hpp"
 
-struct BulletManagerState_0040af90 {
+struct Effect {
     unsigned flags;                 // +0x00
     unsigned reserved_004;          // +0x04
     void *primary_callback;         // +0x08
@@ -35,8 +35,8 @@ extern "C" BulletResourceCache_0040ae70 *data_00491c10;
 extern "C" Scheduler *data_00491be4;
 
 #pragma code_seg(".text$00a_loadscripts")
-extern "C" __declspec(noinline) int __stdcall BulletManager_LoadScripts_0040ae70(
-        BulletManagerState_0040af90 *state) {
+extern "C" __declspec(noinline) int __stdcall Effect_Initialize(
+        Effect *state) {
     void *resource = Recovery_LoadCachedResource_00447280(
             7, data_00491c10, (const char *)0x46CD88);
     state->bullet_resource = resource;

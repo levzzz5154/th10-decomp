@@ -1,9 +1,9 @@
 // Compiler context only: this caller is not recovered application code.
-#include "../../src/game/effect/bullet_manager_load_scripts_0040ae70.cpp"
+#include "../../src/game/effect/effect_initialize.cpp"
 #include "th10/game/hud_register_tasks.hpp"
 
-struct BulletManagerState_0040af90;
-BulletManagerState_0040af90 *BulletManager_Create_0040af90();
+struct Effect;
+Effect *Effect_Create();
 extern "C" void *__cdecl Bomb_Create(void);
 extern "C" int __stdcall asm_Recovery_InstallPairClearFlags_0041ad90(void *pair);
 extern "C" void *__cdecl asm_ScoreManager_CreateAndInitRetail_0041c290(void);
@@ -49,7 +49,7 @@ extern "C" EclViewState *__cdecl asm_FUN_0040a3c0_0040a3c0();
 #pragma code_seg(".text$90context")
 int __stdcall BulletManagerLoadScriptsCompilerContext(
         Scheduler *scheduler, SchedulerTask **tasks, int count, int priority,
-        BulletManagerState_0040af90 **slots) {
+        Effect **slots) {
     for (int index = 0; index < count; ++index) {
         SchedulerCreatePrimary_0044A000 *primary =
             (SchedulerCreatePrimary_0044A000 *)tasks[index];
@@ -72,7 +72,7 @@ int __stdcall BulletManagerLoadScriptsCompilerContext(
     DeletePublishedBlock(reinterpret_cast<PublishedBlock*>(slots[2]));
     int created = 0;
     for (int index = 0; index < count; ++index) {
-        slots[index] = BulletManager_Create_0040af90();
+        slots[index] = Effect_Create();
         if (slots[index])
             ++created;
     }

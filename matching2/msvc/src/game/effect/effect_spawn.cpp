@@ -21,7 +21,7 @@ static __forceinline void CreatePrimaryBack(
 }
 
 #pragma code_seg(".text$0040b070_fn")
-AnimationHandle_0040b070 __stdcall EffectFileOwner_0040b070::SpawnEffect(
+AnimationHandle_0040b070 __stdcall EffectSpawnView::SpawnEffect(
         void* argument, int kind) {
     EffectKind_0040b070* entry = &data_00474430[kind];
     AnimationHandle_0040b070 created;

@@ -101,7 +101,7 @@ extern void* data_00477838;
 // The enemy manager (cleared by 0x00409F90 or destroyed by 0x0040D530).
 extern struct EnemyManager_0040d530* data_00477704;
 // The bullet-manager release (0x0040AF00).
-extern void* data_004776fc;
+extern void* g_effect;
 // The recovery pair state (released by 0x00405620).
 extern void* g_bomb;
 // The spell-card manager (Card; destroyed by 0x00408AF0).

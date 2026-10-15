@@ -231,7 +231,7 @@ void __stdcall ReleaseGlobalManager_00417c80(ManagerState_00417c80* state) {
             entry_free_004524a1(enemies);
         }
     }
-    void* bullet_release = data_004776fc;
+    void* bullet_release = g_effect;
     if (bullet_release) {
         BulletManager_Release_0040af00(bullet_release);
         entry_free_004524a1(bullet_release);

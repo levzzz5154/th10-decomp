@@ -62,7 +62,7 @@ struct EffectKind_0040b070 {
 extern "C" EffectKind_0040b070 data_00474430[];
 
 // The owner of an animation file.
-struct EffectFileOwner_0040b070 {
+struct EffectSpawnView {
     unsigned char reserved_00[0x10];
     AnimationResource_00449870* file;    // +0x10
 

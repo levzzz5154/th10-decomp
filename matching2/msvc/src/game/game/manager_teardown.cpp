@@ -475,7 +475,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00417c80_00417c80() {
     L_00417fac:
         call asm_FUN_00409f90_00409f90
     L_00417fb1:
-        mov esi,dword ptr [data_004776fc]
+        mov esi,dword ptr [g_effect]
     L_00417fb7:
         test esi,esi
     L_00417fb9:

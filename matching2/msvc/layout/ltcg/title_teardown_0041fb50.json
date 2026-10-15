@@ -16,7 +16,7 @@
     "include/th10/game/entity.hpp",
     "include/th10/types.hpp",
     "include/th10/platform/worker.hpp",
-    "include/th10/game/bullet_anim_owner.hpp",
+    "include/th10/game/ending_text_view.hpp",
     "include/th10/game/scheduler.hpp",
     "include/th10/platform/thread_sync.hpp",
     "include/th10/render/native_render_targets.hpp",

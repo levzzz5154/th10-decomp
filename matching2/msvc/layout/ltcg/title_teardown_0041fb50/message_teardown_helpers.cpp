@@ -3,7 +3,7 @@
 #include "message_teardown_dependencies.hpp"
 
 #pragma code_seg(".text$01child")
-__declspec(noinline) void BulletAnimOwner::Destroy() {
+__declspec(noinline) void EndingTextView::Destroy() {
     worker.Stop();
     for (int i = 0; i < 5; ++i) {
         MarkAnimationForRemoval(reinterpret_cast<AnimationBuckets*>(data_00491c10), animation_ids[i]);

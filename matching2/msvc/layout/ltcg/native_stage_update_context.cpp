@@ -17,7 +17,7 @@ extern unsigned char* data_004776e8;
 extern unsigned char* g_bomb;
 extern unsigned char* data_004776f0;
 extern unsigned char* g_card;
-extern unsigned char* data_004776fc;
+extern unsigned char* g_effect;
 extern unsigned char* data_00477704;
 extern unsigned char* data_0047770c;
 extern unsigned char* g_hint;
@@ -90,7 +90,7 @@ static __forceinline void StageReset(StageContextFade_00418190* context,int* loc
     StageKillPair(data_00477704);
     StageKillPair(data_00477818);
     StageKillPair(g_laser_manager);
-    StageKillRequiredPair(data_004776fc);
+    StageKillRequiredPair(g_effect);
     StageKillPair(g_bomb);
     StageKillRequiredPair(g_smoll_score);
     StageKillPair(g_card);

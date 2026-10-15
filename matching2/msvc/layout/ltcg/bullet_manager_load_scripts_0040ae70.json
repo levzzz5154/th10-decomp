@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
   "name": "bullet_manager_load_scripts_0040ae70",
-  "source": "src/game/effect/bullet_manager_load_scripts_0040ae70.cpp",
+  "source": "src/game/effect/effect_initialize.cpp",
   "additional_sources": [
-    "src/game/effect/bullet_manager_create_0040af90.cpp",
-    "src/game/effect/bullet_manager_release_0040af00.cpp",
+    "src/game/effect/effect_create.cpp",
+    "src/game/effect/effect_release.cpp",
     "src/game/loading/loading_load_startup_resources.cpp",
     "src/game/pause/pause_release.cpp",
     "src/game/enemy/message_host_init.cpp",
@@ -47,7 +47,7 @@
     "_LoadStartupResources_0041f8d0",
     "_Recovery_ReleaseRawPair@4",
     "_Bomb_Release@4",
-    "_BulletManager_Release@4",
+    "_Effect_Release@4",
     "_ScoreExtendedObject_DestroyRetail@4",
     "_Manager_Release_00422220@4",
     "_TitleLoadThread_0042c9f0"
@@ -97,20 +97,20 @@
       "actual_abi": "state in EBX; result in EAX; plain RET"
     },
     {
-      "name": "BulletManager_LoadScripts_0040ae70",
-      "symbol": "_BulletManager_LoadScripts_0040ae70@4",
+      "name": "Effect_Initialize",
+      "symbol": "_Effect_Initialize@4",
       "section": ".text$00a_loadscripts",
       "address": "0x0040AE70",
       "size": 134,
       "actual_abi": "manager in EBX; no stack argument; result in EAX; plain RET"
     },
     {
-      "name": "BulletManager_Create_0040af90",
-      "symbol": "?BulletManager_Create_0040af90@@YGPAUBulletManagerState_0040af90@@XZ",
+      "name": "Effect_Create",
+      "symbol": "?Effect_Create@@YGPAUEffect@@XZ",
       "section": ".text$00c_create",
       "address": "0x0040AF90",
       "size": 86,
-      "source": "src/game/effect/bullet_manager_create_0040af90.cpp",
+      "source": "src/game/effect/effect_create.cpp",
       "actual_abi": "manager in EBX across the script-load and release calls; result in EAX"
     },
     {
@@ -340,12 +340,12 @@
     },
     {
       "name": "BulletManager_Release_0040af00",
-      "symbol": "_BulletManager_Release@4",
+      "symbol": "_Effect_Release@4",
       "section": ".text$00b_mbulletrelease",
       "address": "0x0040AF00",
       "size": 137,
       "actual_abi": "stdcall; pair on the stack",
-      "source": "src/game/effect/bullet_manager_release_0040af00.cpp"
+      "source": "src/game/effect/effect_release.cpp"
     },
     {
       "name": "ScoreExtendedObject_DestroyRetail_0041c1c0",
@@ -403,7 +403,7 @@
     }
   ],
   "context": {
-    "symbol": "?BulletManagerLoadScriptsCompilerContext@@YGHPAUScheduler@@PAPAUSchedulerTask@@HHPAPAUBulletManagerState_0040af90@@@Z",
+    "symbol": "?BulletManagerLoadScriptsCompilerContext@@YGHPAUScheduler@@PAPAUSchedulerTask@@HHPAPAUEffect@@@Z",
     "section": ".text$90context",
     "address": "0x0044B900",
     "size": 533,
@@ -774,7 +774,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_004776fc",
+      "symbol": "_g_effect",
       "address": "0x004776FC",
       "kind": "data"
     },

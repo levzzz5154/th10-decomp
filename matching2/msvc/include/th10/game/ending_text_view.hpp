@@ -3,7 +3,7 @@
 // animations and owns a worker thread at +0xD0.
 #include "th10/platform/worker.hpp"
 
-struct BulletAnimOwner {
+struct EndingTextView {
     unsigned char unknown_000[0x40];
     int animation_ids[5];        // +0x40
     unsigned char unknown_054[0xD0 - 0x54];
@@ -12,5 +12,5 @@ struct BulletAnimOwner {
     void Destroy();
 };
 
-typedef char BulletAnimOwner_worker_offset_must_be_0xd0[
-    offsetof(BulletAnimOwner, worker) == 0xD0 ? 1 : -1];
+typedef char EndingTextView_worker_offset_must_be_0xd0[
+    offsetof(EndingTextView, worker) == 0xD0 ? 1 : -1];

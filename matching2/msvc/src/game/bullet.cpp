@@ -1,9 +1,9 @@
 #include "asm_encoding.hpp"
 #include "asm_symbols.hpp"
 
-// 0x0040AE70: recovered in src/game/effect/bullet_manager_load_scripts_0040ae70.cpp.
+// 0x0040AE70: recovered in src/game/effect/effect_initialize.cpp.
 
-// 0x0040AF90: recovered in src/game/effect/bullet_manager_create_0040af90.cpp.
+// 0x0040AF90: recovered in src/game/effect/effect_create.cpp.
 
 // 0x0040C6E0: recovered in src/game/enemy/bullet_entity_clear_resource_list_0040c6e0.cpp.
 

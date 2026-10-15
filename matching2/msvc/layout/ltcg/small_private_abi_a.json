@@ -8,8 +8,8 @@
   "description": "EAX-entry state initializer and ESI-entry cached-slot release compiled together under a purpose-built native-LTCG context; proposal only and intentionally unregistered.",
   "functions": [
     {
-      "name": "BulletManagerState_0040ae50_Initialize",
-      "symbol": "?Initialize@BulletManagerState_0040ae50@@QAEXXZ",
+      "name": "EffectInitView_Initialize",
+      "symbol": "?Initialize@EffectInitView@@QAEXXZ",
       "section": ".text$01init",
       "address": "0x0040AE50",
       "size": 30,
@@ -40,7 +40,7 @@
   ],
   "constants": [],
   "absolute_symbols": [
-    {"symbol": "_data_004776fc", "address": "0x004776FC", "kind": "data"}
+    {"symbol": "_g_effect", "address": "0x004776FC", "kind": "data"}
   ],
   "additional_sources": ["src/unreferenced/unassigned_00421d50.cpp"]
 }
