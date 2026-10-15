@@ -3684,7 +3684,7 @@
       "address": "0x004059F0",
       "size": 202,
       "kind": "semantic",
-      "owner": "animation_resource_initialize_object_00449870",
+      "owner": "0x004059F0",
       "previous_record": {
         "name": "asm_Player_HitTestRetail_004059f0",
         "source": "src/game/player.cpp",
@@ -18008,8 +18008,8 @@
     },
     {
       "name": "semantic_ScoreRecords_0041c800_CopyVectorAndEvaluate_0041c800",
-      "source": "src/game/player_bullet_animation_0041c800_0041c850_00449210_004492f0.cpp",
-      "symbol": "?Evaluate@PlayerBulletManager@@QAEHPBUVec3@@MH@Z",
+      "source": "src/game/laser_manager.cpp",
+      "symbol": "?Evaluate@LaserManager@@QAEHPBUVector3@@MH@Z",
       "address": "0x0041C800",
       "size": 76,
       "kind": "semantic",
@@ -18036,8 +18036,8 @@
     },
     {
       "name": "semantic_ScoreCleanupOwner_0041c850_Cleanup_0041c850",
-      "source": "src/game/player_bullet_animation_0041c800_0041c850_00449210_004492f0.cpp",
-      "symbol": "?Reset@PlayerBulletManager@@QAEHH@Z",
+      "source": "src/game/laser_manager.cpp",
+      "symbol": "?Reset@LaserManager@@QAEHH@Z",
       "address": "0x0041C850",
       "size": 44,
       "kind": "semantic",
@@ -38526,7 +38526,7 @@
     },
     {
       "name": "semantic_AnimationManager_SetStopFrame_00449210",
-      "source": "src/game/player_bullet_animation_0041c800_0041c850_00449210_004492f0.cpp",
+      "source": "src/render/animation_handle_helpers.cpp",
       "symbol": "?MovementStopFrame_00449210@@YIXGPAUPickupAnimationLists@@UAnimationRef@@@Z",
       "address": "0x00449210",
       "size": 54,
@@ -38605,7 +38605,7 @@
     },
     {
       "name": "semantic_AnimationManager_SetPosition_004492f0",
-      "source": "src/game/player_bullet_animation_0041c800_0041c850_00449210_004492f0.cpp",
+      "source": "src/render/animation_handle_helpers.cpp",
       "symbol": "?MovementSetPosition_004492f0@@YIXPBUVector3@@PAUPickupAnimationLists@@UAnimationRef@@@Z",
       "address": "0x004492F0",
       "size": 90,
@@ -39245,7 +39245,7 @@
       "address": "0x00449870",
       "size": 217,
       "kind": "semantic",
-      "owner": "animation_resource_initialize_object_00449870"
+      "owner": "0x00449870"
     },
     {
       "name": "text_padding_00449949",
@@ -62244,7 +62244,8 @@
     "src/util/runtime_pool.cpp",
     "src/game/item_collection_genuine_0041afd0.cpp",
     "src/game/player_collision_00408030_00408100.cpp",
-    "src/game/player_bullet_animation_0041c800_0041c850_00449210_004492f0.cpp",
+    "src/game/laser_manager.cpp",
+    "src/render/animation_handle_helpers.cpp",
     "src/render/stage_objects_draw.cpp",
     "src/render/stage_draw_task.cpp",
     "src/render/stage_background_task.cpp",
@@ -63219,7 +63220,6 @@
     "layout/ltcg/animation_register_secondary_back_00448ac0.json",
     "layout/ltcg/animation_register_primary_front_00448a50.json",
     "layout/ltcg/animation_register_secondary_front_00448b40.json",
-    "layout/ltcg/animation_resource_initialize_object_00449870.json",
     "layout/ltcg/blend_color_004423e0.json",
     "layout/ltcg/ecl_integer_value_00411fc0.json",
     "layout/ltcg/ecl_float_value_00412350.json",
@@ -63237,7 +63237,6 @@
     "layout/ltcg/laser_line_0041d3d0.json",
     "layout/ltcg/item_collection_genuine_0041afd0.json",
     "layout/ltcg/player_state_collision_genuine_00408030_00408100.json",
-    "layout/ltcg/player_bullet_animation_genuine_0041c800_0041c850_00449210_004492f0.json",
     "layout/ltcg/laser_cut.json",
     "layout/ltcg/title_spell_list_00432690.json",
     "layout/ltcg/midi_event_parser_0043b110.json"

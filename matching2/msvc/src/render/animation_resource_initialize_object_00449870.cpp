@@ -1,4 +1,4 @@
-#include "../../layout/ltcg/animation_initialize_runtime/animation_public_callers.hpp"
+#include "../../layout/ltcg/player_state_collision_runtime/animation_public_callers.hpp"
 // 0x00449870: reset animation vectors and start a script while preserving object state.
 #include "th10/game/entity_script_start.hpp"
 struct AnimationObject_0043e7e0;

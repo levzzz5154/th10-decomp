@@ -10,15 +10,17 @@
     "src/game/player_pickup_sweep.cpp",
     "src/game/item_spawn.cpp",
     "src/game/player_state_update.cpp",
-    "src/game/player_movement.cpp"
+    "src/game/player_movement.cpp",
+    "src/game/laser_manager.cpp",
+    "src/game/player_hit_test_004059f0.cpp",
+    "src/render/animation_handle_helpers.cpp",
+    "src/render/animation_resource_initialize_object_00449870.cpp"
   ],
   "included_sources": [
-    "layout/ltcg/player_state_collision_runtime/hit.cpp",
     "layout/ltcg/player_state_collision_runtime/helpers.cpp",
     "layout/ltcg/player_state_collision_runtime/sweep_caller.cpp",
     "layout/ltcg/player_state_collision_runtime/dependencies.cpp",
     "layout/ltcg/player_state_collision_runtime/entity_initialize.cpp",
-    "layout/ltcg/player_state_collision_runtime/initialize.cpp",
     "layout/ltcg/player_state_collision_runtime/preserve.cpp",
     "layout/ltcg/player_state_collision_runtime/effect_update.cpp",
     "layout/ltcg/player_state_collision_runtime/sound_queue.cpp",
@@ -52,7 +54,8 @@
     "include/th10/game/power_display_004054b0.hpp",
     "include/th10/render/animation_object_0043e5a0.hpp",
     "include/th10/game/player.hpp",
-    "include/th10/math/timer.hpp"
+    "include/th10/math/timer.hpp",
+    "layout/ltcg/player_state_collision_runtime/animation_tree.hpp"
   ],
   "image_base": "0x400000",
   "functions": [
@@ -125,6 +128,60 @@
       "size": 1656,
       "actual_abi": "private EDI receiver; RET0",
       "source": "src/game/player_movement.cpp"
+    },
+    {
+      "name": "function_004059f0",
+      "symbol": "?HitTest@PickupPlayer@@QAEHPBUPickupPoint@@@Z",
+      "section": ".text$f004059f0F",
+      "address": "0x4059f0",
+      "size": 202,
+      "actual_abi": "private LTCG: player ECX; point EAX; RET0",
+      "source": "src/game/player_hit_test_004059f0.cpp"
+    },
+    {
+      "name": "function_0041c800",
+      "symbol": "?Evaluate@LaserManager@@QAEHPBUVector3@@MH@Z",
+      "section": ".text$f0041c800F",
+      "address": "0x41c800",
+      "size": 76,
+      "actual_abi": "private EAX manager / EBX point / radius and mode stack words / RET8",
+      "source": "src/game/laser_manager.cpp"
+    },
+    {
+      "name": "function_0041c850",
+      "symbol": "?Reset@LaserManager@@QAEHH@Z",
+      "section": ".text$f0041c850F",
+      "address": "0x41c850",
+      "size": 44,
+      "actual_abi": "private EAX manager / EBX mode / RET0",
+      "source": "src/game/laser_manager.cpp"
+    },
+    {
+      "name": "function_00449210",
+      "symbol": "?MovementStopFrame_00449210@@YIXGPAUPickupAnimationLists@@UAnimationRef@@@Z",
+      "section": ".text$f00449210F",
+      "address": "0x449210",
+      "size": 54,
+      "actual_abi": "private SI frame / EDX animation manager / stack handle / RET4",
+      "source": "src/render/animation_handle_helpers.cpp"
+    },
+    {
+      "name": "function_004492f0",
+      "symbol": "?MovementSetPosition_004492f0@@YIXPBUVector3@@PAUPickupAnimationLists@@UAnimationRef@@@Z",
+      "section": ".text$f004492f0F",
+      "address": "0x4492f0",
+      "size": 90,
+      "actual_abi": "private ESI position / EDX animation manager / stack handle / RET4",
+      "source": "src/render/animation_handle_helpers.cpp"
+    },
+    {
+      "name": "function_00449870",
+      "symbol": "?InitializeObject@AnimationResource_00449870@@QAEXPAUEntity@@H@Z",
+      "section": ".text$f00449870F",
+      "address": "0x449870",
+      "size": 217,
+      "actual_abi": "this ECX; object and index stack; RET8",
+      "source": "src/render/animation_resource_initialize_object_00449870.cpp"
     }
   ],
   "context": {
@@ -135,13 +192,6 @@
     "description": "Stand-in for the enemy update's call of the pickup sweep; compiler context only, not recovered code."
   },
   "anchors": [
-    {
-      "name": "function_004059f0",
-      "symbol": "?HitTest@PickupPlayer@@QAEHPBUPickupPoint@@@Z",
-      "section": ".text$f004059f0F",
-      "address": "0x4059f0",
-      "size": 202
-    },
     {
       "name": "function_00427c70",
       "symbol": "?AtInterval@FrameTimer@@QAEHH@Z",
@@ -211,13 +261,6 @@
       "section": ".text$f00449950F",
       "address": "0x449950",
       "size": 161
-    },
-    {
-      "name": "function_00449870",
-      "symbol": "?InitializeObject@AnimationResource_00449870@@QAEXPAUEntity@@H@Z",
-      "section": ".text$f00449870F",
-      "address": "0x449870",
-      "size": 217
     },
     {
       "name": "function_0043e7e0",
@@ -339,39 +382,11 @@
       "size": 30
     },
     {
-      "name": "function_00449210",
-      "symbol": "?MovementStopFrame_00449210@@YIXGPAUPickupAnimationLists@@UAnimationRef@@@Z",
-      "section": ".text$f00449210F",
-      "address": "0x449210",
-      "size": 54
-    },
-    {
-      "name": "function_004492f0",
-      "symbol": "?MovementSetPosition_004492f0@@YIXPBUVector3@@PAUPickupAnimationLists@@UAnimationRef@@@Z",
-      "section": ".text$f004492f0F",
-      "address": "0x4492f0",
-      "size": 90
-    },
-    {
       "name": "function_00449350",
       "symbol": "?MovementSetTranslatedPosition_00449350@@YIXPAUPickupAnimationLists@@PBUVector3@@UAnimationRef@@@Z",
       "section": ".text$f00449350F",
       "address": "0x449350",
       "size": 111
-    },
-    {
-      "name": "function_0041c800",
-      "symbol": "?Evaluate@LaserManager@@QAEHPBUVector3@@MH@Z",
-      "section": ".text$f0041c800F",
-      "address": "0x41c800",
-      "size": 76
-    },
-    {
-      "name": "function_0041c850",
-      "symbol": "?Reset@LaserManager@@QAEHH@Z",
-      "section": ".text$f0041c850F",
-      "address": "0x41c850",
-      "size": 44
     },
     {
       "name": "function_0040ac90",
@@ -410,13 +425,13 @@
     }
   ],
   "anchor_roots": [
-    "?InitializeObject@AnimationResource_00449870@@QAEXPAUEntity@@H@Z",
     "?SetPolar@ItemPolarVelocity_0041bb00@@QAEPAU1@MM@Z"
   ],
   "roots": [
     "_StageSchedule_Fire_00427e90@12",
     "_EffectPoolUpdate@4",
-    "_PlayerState_Update_00425730@4"
+    "_PlayerState_Update_00425730@4",
+    "?InitializeObject@AnimationResource_00449870@@QAEXPAUEntity@@H@Z"
   ],
   "gaps": [
     {

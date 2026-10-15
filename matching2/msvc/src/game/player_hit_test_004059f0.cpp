@@ -1,4 +1,5 @@
-#include "../../layout/ltcg/animation_initialize_runtime/runtime.hpp"
+// 0x004059F0: test a point against the bomb's area.
+#include "../../layout/ltcg/player_state_collision_runtime/runtime.hpp"
 
 #pragma code_seg(".text$f004059f0F")
 int PickupPlayer::HitTest(const PickupPoint* point) {
@@ -20,8 +21,3 @@ int PickupPlayer::HitTest(const PickupPoint* point) {
     return result;
 }
 #pragma code_seg()
-
-// Complete genuine callers and shared helpers establish the private LTCG ABI.
-#include "../../layout/ltcg/animation_initialize_runtime/helpers.cpp"
-#include "../../layout/ltcg/animation_initialize_runtime/sweep.cpp"
-#include "../../layout/ltcg/animation_initialize_runtime/effect_update.cpp"

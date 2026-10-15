@@ -1,5 +1,4 @@
 // Complete pickup collision and effect update callers share the rendering helpers.
-#include "hit.cpp"
 #include "helpers.cpp"
 #include "sweep_caller.cpp"
 

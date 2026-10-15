@@ -15,29 +15,6 @@ __declspec(noinline) void __stdcall OpenInitialize_00420a90(void* resource, void
 __declspec(noinline) int __stdcall OpenRegister_0043e460(void* lists, void* object);
 }
 
-// src/game/player_bullet_animation_0041c800_0041c850_00449210_004492f0.cpp
-#pragma code_seg(".text$f0041c800F")
-int LaserManager::Evaluate(const Vec3* point, float radius, int mode) {
-    Laser* record = first;
-    evaluation_point = *point;
-    int total = 0;
-    while (record) {
-        Laser* next = record->next;
-        if (record->state != 1) total += record->Evaluate(point, radius, mode);
-        record = next;
-    }
-    return total;
-}
-#pragma code_seg(".text$f0041c850F")
-int LaserManager::Reset(int mode) {
-    Laser* record = first;
-    while (record) {
-        Laser* next = record->next;
-        if (record->state != 1) record->Retire(mode);
-        record = next;
-    }
-    return 1;
-}
 // src/game/set_input_mode_0040ac90.cpp
 #pragma code_seg(".text$f0040ac90F")
 void PlayerInputMode::Set(int value) {

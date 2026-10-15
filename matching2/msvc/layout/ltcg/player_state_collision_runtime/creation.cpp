@@ -5,7 +5,6 @@
 #include "entity_initialize.cpp"
 #include "dependencies.cpp"
 #include "preserve.cpp"
-#include "initialize.cpp"
 
 #pragma code_seg(".text$f00448d00F")
 __declspec(noinline) AnimationRef __stdcall Pickup_CreatePrimaryBack(
