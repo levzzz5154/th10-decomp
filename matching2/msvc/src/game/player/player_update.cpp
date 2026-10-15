@@ -148,7 +148,7 @@ extern "C" __declspec(noinline) int __stdcall Player_Update(Player* player) {
         }
         if (player->state_timer.current >= 30) {
             if (data_00474c40.lives < 0) {
-                if (data_00477838->mode != 1) g_pause_menu->OpenPause();
+                if (data_00477838->mode != 1) g_pause->OpenPause();
                 else data_00491c28.Set(4);
             } else {
                 player->state = PLAYER_RESPAWNING;

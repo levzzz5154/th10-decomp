@@ -82,7 +82,7 @@ extern void* data_00474c80;
 extern void* data_004776e8;
 extern void* data_004776e4;
 // The pause-menu manager (released by 0x00422220).
-extern void* g_pause_menu;
+extern void* g_pause;
 // The side panel / item manager object.
 extern SidePanel_00414570* data_0047770c;
 // The bullet manager (destroyed by 0x00405F70).

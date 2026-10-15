@@ -6,7 +6,7 @@
     "src/game/effect/bullet_manager_create_0040af90.cpp",
     "src/game/effect/bullet_manager_release_0040af00.cpp",
     "src/game/loading/loading_load_startup_resources.cpp",
-    "src/game/pause/manager_release_00422220.cpp",
+    "src/game/pause/pause_release.cpp",
     "src/game/enemy/message_host_init.cpp",
     "src/game/laser/object_factories.cpp",
     "src/game/fps/platform_release_owned_handle_00413450.cpp",
@@ -363,7 +363,7 @@
       "address": "0x00422220",
       "size": 311,
       "actual_abi": "stdcall; manager on the stack",
-      "source": "src/game/pause/manager_release_00422220.cpp"
+      "source": "src/game/pause/pause_release.cpp"
     },
     {
       "name": "Title_RegisterTasks_0042caa0",
@@ -869,7 +869,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_g_pause_menu",
+      "symbol": "_g_pause",
       "address": "0x00477830",
       "kind": "data"
     },

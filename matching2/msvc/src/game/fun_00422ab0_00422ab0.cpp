@@ -1,7 +1,7 @@
 // Complete 0x00422AB0 pause-state initializer with its actual one-stack-input boundary.
 #include "th10/game/pause_initializer_00422ab0.hpp"
 #pragma code_seg(".text$06pause")
-extern "C" __declspec(noinline) void __stdcall PauseMenu_Initialize_00422ab0(PauseMenuState_004223f0* state) {
+extern "C" __declspec(noinline) void __stdcall PauseMenu_Initialize_00422ab0(PauseUpdateView* state) {
     unsigned int& phase = state->phase;
     phase = 1;
     if (!(state->timer_flags & 1)) {

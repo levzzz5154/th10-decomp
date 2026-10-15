@@ -5,7 +5,7 @@
 
 // 0x00421F60: recovered in src/game/mother/game_state_update_frame_maximum_00421f60.cpp.
 
-// 0x00422C30: recovered in src/game/pause/game_state_unpause_00422c30.cpp.
+// 0x00422C30: recovered in src/game/pause/pause_unpause.cpp.
 
 // 0x0042C730: maintained in src/game/title/game_state_dispatch_animation_slot_0042c730.cpp.
 

@@ -62,7 +62,7 @@
     },
     {
       "name": "Update",
-      "symbol": "?Update@PauseMenuState_004223f0@@QAEHXZ",
+      "symbol": "?Update@PauseUpdateView@@QAEHXZ",
       "section": ".text$04update",
       "address": "0x4223f0",
       "size": 206
@@ -139,7 +139,7 @@
     }
   ],
   "context": {
-    "symbol": "?PauseMenuUpdateCallback_00422a90@@YIHPAUPauseMenuState_004223f0@@@Z",
+    "symbol": "?Pause_OnUpdate@@YIHPAUPauseUpdateView@@@Z",
     "section": ".text$05callback",
     "address": "0x422a90",
     "size": 10,

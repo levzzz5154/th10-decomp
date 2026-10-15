@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "name_entry_grid_004224c0",
-  "source": "src/game/pause/fun_004224c0_004224c0.cpp",
+  "source": "src/game/pause/pause_draw_name_entry.cpp",
   "driver": "layout/ltcg/name_entry_grid_004224c0_context.cpp",
   "headers": [
     "include/th10/game/name_entry_queue_00401530.hpp",

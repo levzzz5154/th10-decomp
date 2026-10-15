@@ -26,7 +26,7 @@ extern "C" PauseMenuRuntime* data_00477810;
 extern "C" float data_00470b68;
 extern "C" float data_00470b64;
 
-struct PauseMenuState_004223f0 {
+struct PauseUpdateView {
     int unknown_00;
     unsigned int phase;
     unsigned char unknown_08[8];
@@ -36,12 +36,12 @@ struct PauseMenuState_004223f0 {
     const float* speed;
     __declspec(noinline) int Update();
 };
-extern "C" void __stdcall PauseMenu_Initialize_00422ab0(PauseMenuState_004223f0* state);
-extern "C" void __stdcall PauseMenu_Update_00422c80(PauseMenuState_004223f0* state);
-extern "C" void __stdcall ReplayMenu_Update_004236f0(PauseMenuState_004223f0* state);
+extern "C" void __stdcall PauseMenu_Initialize_00422ab0(PauseUpdateView* state);
+extern "C" void __stdcall PauseMenu_Update_00422c80(PauseUpdateView* state);
+extern "C" void __stdcall ReplayMenu_Update_004236f0(PauseUpdateView* state);
 
 #pragma code_seg(".text$01update")
-int PauseMenuState_004223f0::Update() {
+int PauseUpdateView::Update() {
     switch (phase) {
     case 0:
         if (!(data_00474ca0 & 0x20) &&
@@ -71,7 +71,7 @@ int PauseMenuState_004223f0::Update() {
 #pragma code_seg()
 
 #pragma code_seg(".text$03callback")
-__declspec(noinline) int __fastcall PauseMenuUpdateCallback_00422a90(PauseMenuState_004223f0* state) {
+__declspec(noinline) int __fastcall Pause_OnUpdate(PauseUpdateView* state) {
     return state->Update();
 }
 #pragma code_seg()

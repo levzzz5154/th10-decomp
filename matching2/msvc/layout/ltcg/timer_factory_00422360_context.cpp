@@ -1,18 +1,18 @@
 // Compiler-only ABI context. None of these anchors is exported as game code.
 // Models of 0x4220E0/0x422150 establish the private EDX/EBX call agreement.
-#include "../../src/game/pause/recovery_create_timer_state_00422360.cpp"
+#include "../../src/game/pause/pause_create.cpp"
 #include <string.h>
 
 // 0x004220E0: initialise a freshly allocated recovery state in place.
 //
 // The factory at 0x00422360 calls this with the object in EDX and keeps the
 // result from EAX, so the object pointer is the second __fastcall parameter.
-extern "C" void* g_pause_menu;
+extern "C" void* g_pause;
 
 #include "th10/game/timer_state_00422360.hpp"
 
 #pragma code_seg(".text$10construct")
-void* __fastcall InitializeTimerState_004220e0(int unused, TimerState_00422360* state) {
+void* __fastcall Pause_Construct_004220e0(int unused, Pause* state) {
     state->timer.flags &= ~1u;
     state->field_B0 = 0;
     state->field_24 = 0;
@@ -32,13 +32,13 @@ void* __fastcall InitializeTimerState_004220e0(int unused, TimerState_00422360* 
     state->field_1CC = 1;
     memset(state, 0, sizeof(*state));
     state->flags |= 2u;
-    g_pause_menu = state;
+    g_pause = state;
     return state;
 }
 #pragma code_seg()
 
 #pragma code_seg(".text$20runtime")
-#include "../../src/game/pause/timer_state_register_tasks_00422150.cpp"
+#include "../../src/game/pause/pause_register_tasks.cpp"
 #pragma code_seg()
 
 #include "th10/game/scheduler.hpp"
@@ -86,5 +86,5 @@ extern "C" __declspec(noinline) int __stdcall Scheduler_RegisterSecondary(
 #pragma code_seg()
 
 #pragma code_seg(".text$90context")
-int __stdcall TimerFactoryCompilerContext() { return CreateTimerState_00422360() != 0; }
+int __stdcall TimerFactoryCompilerContext() { return Pause_Create() != 0; }
 #pragma code_seg()

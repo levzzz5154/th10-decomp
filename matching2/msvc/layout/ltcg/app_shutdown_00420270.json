@@ -398,7 +398,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_g_pause_menu",
+      "symbol": "_g_pause",
       "address": "0x00477830",
       "kind": "data"
     },

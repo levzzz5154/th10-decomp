@@ -6034,7 +6034,7 @@ extern "C" unsigned char g_loading;
 extern "C" unsigned char data_00477824;
 extern "C" unsigned char data_00477828;
 extern "C" unsigned char data_0047782c;
-extern "C" unsigned char g_pause_menu;
+extern "C" unsigned char g_pause;
 extern "C" unsigned char g_player;
 extern "C" unsigned char data_00477838;
 extern "C" unsigned char data_0047783c;

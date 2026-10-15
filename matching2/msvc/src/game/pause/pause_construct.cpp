@@ -1,12 +1,12 @@
 #include <string.h>
 
-// 0x004220E0: initialise a freshly allocated recovery state in place.
+// 0x004220E0: the pause menu's constructor (Pause, pause.cpp, PauseInf), run in place on fresh storage.
 //
 // The factory at 0x00422360 calls this with the object in EDX and keeps the
 // result from EAX, so the object pointer is the second __fastcall parameter.
-extern "C" void* g_pause_menu;
+extern "C" void* g_pause;
 
-struct RecoveryState {
+struct Pause {
     unsigned flags;              // +0x000
     char pad_004[0x1C];
     unsigned field_20;           // +0x020
@@ -29,7 +29,7 @@ struct RecoveryState {
     char pad_1D4[0xF4];
 };
 
-void* __fastcall RecoveryState_Initialize(int unused, RecoveryState* state) {
+void* __fastcall Pause_Construct(int unused, Pause* state) {
     state->field_20 &= ~1u;
     state->field_B0 = 0;
     state->field_24 = 0;
@@ -49,6 +49,6 @@ void* __fastcall RecoveryState_Initialize(int unused, RecoveryState* state) {
     state->field_1CC = 1;
     memset(state, 0, sizeof(*state));
     state->flags |= 2u;
-    g_pause_menu = state;
+    g_pause = state;
     return state;
 }

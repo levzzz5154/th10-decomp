@@ -121,15 +121,15 @@ struct PauseMenuRuntime {
 };
 struct PauseResourceOwner1 { unsigned char reserved[0x8998]; AnimationResource_00449870* resource; };
 struct PauseResourceOwner2 { unsigned char reserved[0x9EC8]; AnimationResource_00449870* resource; };
-struct PauseMenuState_004223f0 {
+struct PauseUpdateView {
     int unknown_00; unsigned int phase; unsigned char unknown_08[8];
     int previous_frame; int current_frame; float elapsed; const float* speed; unsigned int timer_flags;
     unsigned char reserved_024[0x1D4 - 0x24]; Handle4 background; Handle4 cursor_animation; Handle4 pause_animation;
     unsigned char reserved_1e0[0x2C0 - 0x1E0]; float saved_speed; AnimationResource_00449870* resource;
     __declspec(noinline) int Update();
 };
-typedef char PauseBackgroundOffset[offsetof(PauseMenuState_004223f0,background)==0x1D4 ? 1:-1];
-typedef char PauseSpeedOffset[offsetof(PauseMenuState_004223f0,saved_speed)==0x2C0 ? 1:-1];
+typedef char PauseBackgroundOffset[offsetof(PauseUpdateView,background)==0x1D4 ? 1:-1];
+typedef char PauseSpeedOffset[offsetof(PauseUpdateView,saved_speed)==0x2C0 ? 1:-1];
 struct AnimationSecondaryNode { Entity* object; AnimationSecondaryNode* next; AnimationSecondaryNode* previous; };
 struct AnimationSecondaryLists {
     unsigned char reserved[0x72DADC]; AnimationSecondaryNode* head; AnimationSecondaryNode* tail;
@@ -146,6 +146,6 @@ extern "C" float data_00470b68;
 extern "C" float data_00470b64;
 extern "C" float data_00476f78;
 extern "C" char data_0046e0c0[];
-extern "C" void __stdcall PauseMenu_Initialize_00422ab0(PauseMenuState_004223f0*);
-extern "C" void __stdcall PauseMenu_Update_00422c80(PauseMenuState_004223f0*);
-extern "C" void __stdcall ReplayMenu_Update_004236f0(PauseMenuState_004223f0*);
+extern "C" void __stdcall PauseMenu_Initialize_00422ab0(PauseUpdateView*);
+extern "C" void __stdcall PauseMenu_Update_00422c80(PauseUpdateView*);
+extern "C" void __stdcall ReplayMenu_Update_004236f0(PauseUpdateView*);

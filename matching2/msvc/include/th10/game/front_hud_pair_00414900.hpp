@@ -39,7 +39,7 @@ extern "C" unsigned char data_00491c28;              // input mode state object
 extern "C" unsigned int data_00491fb8;               // front mode word
 extern "C" void* g_card;                      // game state arena
 extern "C" void* data_00477704;                      // sequence record
-extern "C" void* g_pause_menu;                      // clear state object
+extern "C" void* g_pause;                      // clear state object
 extern "C" void* data_00477838;                      // replay state record
 extern "C" void* data_0047783c;                      // notice table
 extern "C" void* data_00477848;                      // bgm state record

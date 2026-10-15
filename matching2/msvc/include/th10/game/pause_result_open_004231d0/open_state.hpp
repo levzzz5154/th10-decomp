@@ -67,7 +67,7 @@ struct PauseOpenState {
     __declspec(noinline) void OpenPause();
     __declspec(noinline) void OpenResult();
 };
-extern "C" PauseOpenState* g_pause_menu;
+extern "C" PauseOpenState* g_pause;
 typedef char OpenTimerOffset[offsetof(PauseOpenState,timer)==0x10?1:-1];
 typedef char OpenBackgroundOffset[offsetof(PauseOpenState,background)==0x1D4?1:-1];
 typedef char OpenResultFlagOffset[offsetof(PauseOpenState,result_flag)==0x1E4?1:-1];

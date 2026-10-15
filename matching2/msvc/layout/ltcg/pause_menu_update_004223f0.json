@@ -1,33 +1,33 @@
 {
   "schema_version": 2,
   "name": "pause_menu_update_004223f0",
-  "source": "src/game/pause/fun_004223f0_004223f0.cpp",
+  "source": "src/game/pause/pause_update.cpp",
   "headers": [],
   "image_base": "0x00400000",
   "description": "Actual pause menu update and registered scheduler callback; no synthetic caller.",
   "functions": [
     {
       "name": "PauseMenuUpdate_004223f0",
-      "symbol": "?Update@PauseMenuState_004223f0@@QAEHXZ",
+      "symbol": "?Update@PauseUpdateView@@QAEHXZ",
       "section": ".text$01update",
       "address": "0x004223F0",
       "size": 206,
       "actual_abi": "state in ESI; EAX int; plain RET"
     },
     {
-      "name": "PauseMenuUpdateCallback_00422a90",
-      "symbol": "?PauseMenuUpdateCallback_00422a90@@YIHPAUPauseMenuState_004223f0@@@Z",
+      "name": "Pause_OnUpdate",
+      "symbol": "?Pause_OnUpdate@@YIHPAUPauseUpdateView@@@Z",
       "section": ".text$03callback",
       "address": "0x00422A90",
       "size": 10,
       "actual_abi": "scheduler state in ECX; plain RET"
     }
   ],
-  "entry": "?PauseMenuUpdateCallback_00422a90@@YIHPAUPauseMenuState_004223f0@@@Z",
+  "entry": "?Pause_OnUpdate@@YIHPAUPauseUpdateView@@@Z",
   "calls": [
     {
-      "caller": "?PauseMenuUpdateCallback_00422a90@@YIHPAUPauseMenuState_004223f0@@@Z",
-      "callee": "?Update@PauseMenuState_004223f0@@QAEHXZ",
+      "caller": "?Pause_OnUpdate@@YIHPAUPauseUpdateView@@@Z",
+      "callee": "?Update@PauseUpdateView@@QAEHXZ",
       "address": "0x00422A93",
       "instruction": "call"
     }

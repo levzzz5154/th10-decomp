@@ -221,7 +221,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00417c80_00417c80() {
     L_00417e13:
         add esp,4
     L_00417e16:
-        mov esi,dword ptr [g_pause_menu]
+        mov esi,dword ptr [g_pause]
     L_00417e1c:
         test esi,esi
     L_00417e1e:
@@ -375,7 +375,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00417c80_00417c80() {
     L_00417f10:
         mov dword ptr [data_004776e4],eax
     L_00417f15:
-        mov eax,dword ptr [g_pause_menu]
+        mov eax,dword ptr [g_pause]
     L_00417f1a:
         mov ecx,dword ptr [eax+8]
     L_00417f1d:

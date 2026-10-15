@@ -54,7 +54,7 @@ extern "C" {
 extern PlayerCollisionEngine* data_004776f0;
 extern LaserManager* g_laser_manager;
 extern PlayerItemManager* data_00477818;
-extern PauseOpenState* g_pause_menu;
+extern PauseOpenState* g_pause;
 extern PlayerPracticeState* data_00477838;
 extern PlayerInputMode data_00491c28;
 __declspec(noinline) int __stdcall Player_RefreshOptions(Player* player);

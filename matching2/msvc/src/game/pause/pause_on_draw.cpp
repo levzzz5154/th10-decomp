@@ -4,7 +4,7 @@
 extern "C" int __cdecl asm_FUN_00422660_00422660(void);
 typedef int (__stdcall* UpdateObjectFn)(void*);
 
-// 0x00422AA0: the timer state's draw task; forwards the state to 0x00422660.
-int __fastcall TimerState_OnDraw(void* self) {
+// 0x00422AA0: the pause menu's draw task; forwards it to 0x00422660.
+int __fastcall Pause_OnDraw(void* self) {
     return ((UpdateObjectFn)asm_FUN_00422660_00422660)(self);
 }

@@ -1,4 +1,4 @@
-// 0x00422150: register the timer state's update task (primary list, priority
+// 0x00422150: register the pause menu's update task (primary list, priority
 // 9) and draw task (secondary list, priority 0x2E), then start its frame
 // timer at zero. Native LTCG passes the state in EBX.
 //
@@ -7,20 +7,20 @@
 
 extern "C" {
 SchedulerTask* __stdcall SchedulerCallback_Create_00449ed0(TaskRoutine callback);
-int __fastcall TimerStateUpdate_00422a90(void* state);
-int __fastcall TimerStateDraw_00422aa0(void* state);
+int __fastcall Pause_UpdateTask_00422a90(void* state);
+int __fastcall Pause_DrawTask_00422aa0(void* state);
 extern Scheduler* data_00491be4;
 extern const float data_00476f78;
 }
 
-__declspec(noinline) int __cdecl RegisterTimerState_00422150(TimerState_00422360* state) {
-    SchedulerTask* task = SchedulerCallback_Create_00449ed0(TimerStateUpdate_00422a90);
+__declspec(noinline) int __cdecl Pause_RegisterTasks(Pause* state) {
+    SchedulerTask* task = SchedulerCallback_Create_00449ed0(Pause_UpdateTask_00422a90);
     task->reserved_flags &= ~1u;
     task->context = state;
     Scheduler_RegisterPrimary(data_00491be4, task, 9);
     state->update_task = task;
 
-    task = SchedulerCallback_Create_00449ed0(TimerStateDraw_00422aa0);
+    task = SchedulerCallback_Create_00449ed0(Pause_DrawTask_00422aa0);
     task->context = state;
     task->reserved_flags &= ~1u;
     Scheduler_RegisterSecondary(data_00491be4, task, 0x2E);

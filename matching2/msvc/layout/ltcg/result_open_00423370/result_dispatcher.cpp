@@ -249,7 +249,7 @@ ResultDispatcher_00415e90(ResultDispatcherState* state) {
                     progress[route + (data_00474c7c + (data_00474c74 * 3 + 0x4E) * 2) * 8] = 1;
                 }
                 if (data_00474ca0 & 0x10) {
-                    g_pause_menu->OpenResult();
+                    g_pause->OpenResult();
                     break;
                 }
                 if (data_00474c7c == 6) {
@@ -297,7 +297,7 @@ ResultDispatcher_00415e90(ResultDispatcherState* state) {
                         SetInputMode(&data_00491c28, 4);
                         break;
                     }
-                    g_pause_menu->OpenResult();
+                    g_pause->OpenResult();
                     int* count = ClearCount();
                     if (*count < 99999)
                         ++*count;

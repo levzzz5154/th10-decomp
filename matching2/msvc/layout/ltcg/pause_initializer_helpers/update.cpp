@@ -1,6 +1,6 @@
 #include "th10/game/pause_initializer_00422ab0.hpp"
 #pragma code_seg(".text$04update")
-int PauseMenuState_004223f0::Update() {
+int PauseUpdateView::Update() {
     switch (phase) {
     case 0:
         if (!(data_00474ca0 & 0x20) &&
@@ -30,7 +30,7 @@ int PauseMenuState_004223f0::Update() {
 #pragma code_seg()
 
 #pragma code_seg(".text$05callback")
-__declspec(noinline) int __fastcall PauseMenuUpdateCallback_00422a90(PauseMenuState_004223f0* state) {
+__declspec(noinline) int __fastcall Pause_OnUpdate(PauseUpdateView* state) {
     return state->Update();
 }
 #pragma code_seg()

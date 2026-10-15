@@ -8,7 +8,7 @@ placed each file's code in `.text` in the same order:
 
 | Folder | Retail file | `.text` range |
 |---|---|---|
-| `game/ascii` … `game/title` | `src/game/<name>.cpp` | 0x401000–0x434C10 |
+| `game/ascii` … `game/title` | `src/game/<name>.cpp` | 0x401000–0x434C10 (pause from 0x4220E0) |
 | `pack/arcmngr` | `src/pack/_ArcMngr.cpp` | 0x434C10–0x435320 |
 | `pack/file` | `src/pack/File.cpp` | 0x435320–0x4359B0 |
 | `pack/lzssutil` | `src/pack/LzssUtil.cpp` | 0x4359B0–0x436370 |

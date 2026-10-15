@@ -23,7 +23,7 @@ extern unsigned char* data_0047770c;
 extern unsigned char* data_00477814;
 extern unsigned char* data_00477818;
 extern unsigned char* g_laser_manager;
-extern unsigned char* g_pause_menu;
+extern unsigned char* g_pause;
 extern unsigned char* g_player;
 extern unsigned char* data_00477838;
 extern unsigned char* data_0047783c;
@@ -83,7 +83,7 @@ static __forceinline void StageReset(StageContextFade_00418190* context,int* loc
     memset(local_state,0,16*4);
     StageStartScript_0040cfb0(local_state,data_00477704,data_0046d278);
     StageInitializeThread_00413bc0(data_0047770c);
-    StageKillPair(g_pause_menu);
+    StageKillPair(g_pause);
     StageKillRequiredPair(g_player);
     StageRefreshPanel_00426f70(g_player);
     StageKillPair(data_004776f0);

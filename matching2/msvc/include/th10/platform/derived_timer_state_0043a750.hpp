@@ -4,7 +4,7 @@
 
 #include "th10/platform/win32_timer.hpp"
 
-struct TimerStateVtable;
+struct PauseVtable;
 
 // Two contiguous sets of 32 values are initialized separately in retail.
 struct TimerChannelValues {
@@ -21,7 +21,7 @@ struct TimerChannelValues {
 // Only observed fields are named; reserved ranges are untouched by this body.
 // The two dispatch tables are data objects already present in the image.
 struct DerivedTimerState {
-    TimerStateVtable* vtable;            // +0x000
+    PauseVtable* vtable;            // +0x000
     unsigned int timer_id;              // +0x004
     Win32TimerCaps caps;                // +0x008
     int sentinel;                      // +0x010

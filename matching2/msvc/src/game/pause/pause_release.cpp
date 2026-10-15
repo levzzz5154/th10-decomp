@@ -18,7 +18,7 @@ struct Manager_00422220 {
 };
 
 extern "C" void __stdcall ManagerOwned_Destroy_004294a0(ManagerOwned_00422220* owned);
-extern "C" void* g_pause_menu;
+extern "C" void* g_pause;
 
 #pragma code_seg(".text$00hbstartupzm")
 extern "C" __declspec(noinline) int __stdcall Manager_Release_00422220(Manager_00422220* manager) {
@@ -32,7 +32,7 @@ extern "C" __declspec(noinline) int __stdcall Manager_Release_00422220(Manager_0
     }
     MarkAnimationForRemoval(data_00491c10, manager->animation_id);
     manager->animation_id = 0;
-    g_pause_menu = 0;
+    g_pause = 0;
     return 0;
 }
 #pragma code_seg()

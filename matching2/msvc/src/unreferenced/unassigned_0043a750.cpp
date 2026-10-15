@@ -1,7 +1,7 @@
 #include "th10/platform/derived_timer_state_0043a750.hpp"
 
-extern TimerStateVtable g_base_timer_vtable;
-extern TimerStateVtable g_derived_timer_vtable;
+extern PauseVtable g_base_timer_vtable;
+extern PauseVtable g_derived_timer_vtable;
 extern "C" __declspec(dllimport) unsigned int __stdcall
     timeGetDevCaps(Win32TimerCaps*, unsigned int);
 

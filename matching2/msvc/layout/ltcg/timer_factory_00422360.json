@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "timer_factory_00422360",
-  "source": "src/game/pause/recovery_create_timer_state_00422360.cpp",
+  "source": "src/game/pause/pause_create.cpp",
   "additional_sources": [],
   "headers": [
     "include/th10/game/scheduler.hpp",
@@ -13,8 +13,8 @@
   "description": "The menu timer factory with compiler-only initializer and task-registration ABI anchors; only the byte-exact 67-byte factory is exported.",
   "functions": [
     {
-      "name": "CreateTimerState_00422360",
-      "symbol": "?CreateTimerState_00422360@@YGPAUTimerState_00422360@@XZ",
+      "name": "Pause_Create",
+      "symbol": "?Pause_Create@@YGPAUPause@@XZ",
       "section": ".text$30factory",
       "address": "0x00422360",
       "size": 67,
@@ -81,7 +81,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_DestroyTimerState_00422220@4",
+      "symbol": "_Pause_Release@4",
       "address": "0x00422220",
       "kind": "relative_code"
     },
@@ -96,7 +96,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_g_pause_menu",
+      "symbol": "_g_pause",
       "address": "0x00477830",
       "kind": "data"
     },
@@ -106,12 +106,12 @@
       "kind": "data"
     },
     {
-      "symbol": "@TimerStateUpdate_00422a90@4",
+      "symbol": "@Pause_UpdateTask_00422a90@4",
       "address": "0x00422A90",
       "kind": "data"
     },
     {
-      "symbol": "@TimerStateDraw_00422aa0@4",
+      "symbol": "@Pause_DrawTask_00422aa0@4",
       "address": "0x00422AA0",
       "kind": "data"
     },
@@ -128,19 +128,19 @@
   ],
   "driver": "layout/ltcg/timer_factory_00422360_context.cpp",
   "roots": [
-    "?CreateTimerState_00422360@@YGPAUTimerState_00422360@@XZ"
+    "?Pause_Create@@YGPAUPause@@XZ"
   ],
   "anchors": [
     {
-      "name": "RecoveryState_Initialize",
-      "symbol": "?InitializeTimerState_004220e0@@YIPAXHPAUTimerState_00422360@@@Z",
+      "name": "Pause_Construct",
+      "symbol": "?Pause_Construct_004220e0@@YIPAXHPAUPause@@@Z",
       "section": ".text$10construct",
       "address": "0x004220E0",
       "size": 101
     },
     {
       "name": "MainMenu_RegisterTasksRetail_00422150",
-      "symbol": "?RegisterTimerState_00422150@@YAHPAUTimerState_00422360@@@Z",
+      "symbol": "?Pause_RegisterTasks@@YAHPAUPause@@@Z",
       "section": ".text$20runtime",
       "address": "0x00422150",
       "size": 142
@@ -168,6 +168,6 @@
     "description": "Compiler-only public factory caller, never selected."
   },
   "included_sources": [
-    "src/game/pause/timer_state_register_tasks_00422150.cpp"
+    "src/game/pause/pause_register_tasks.cpp"
   ]
 }

@@ -1937,7 +1937,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_00416c44:
         je short L_00416c56
     L_00416c46:
-        mov edi,dword ptr [g_pause_menu]
+        mov edi,dword ptr [g_pause]
     L_00416c4c:
         call asm_FUN_00423370_00423370
     L_00416c51:
@@ -2165,7 +2165,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00415e90_00415e90() {
     L_00416e4d:
         je short L_00416e8a
     L_00416e4f:
-        mov edi,dword ptr [g_pause_menu]
+        mov edi,dword ptr [g_pause]
     L_00416e55:
         call asm_FUN_00423370_00423370
     L_00416e5a:

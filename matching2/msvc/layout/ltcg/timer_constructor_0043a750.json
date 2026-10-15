@@ -41,12 +41,12 @@
   "constants": [],
   "absolute_symbols": [
     {
-      "symbol": "?g_base_timer_vtable@@3UTimerStateVtable@@A",
+      "symbol": "?g_base_timer_vtable@@3UPauseVtable@@A",
       "address": "0x0046F810",
       "kind": "data"
     },
     {
-      "symbol": "?g_derived_timer_vtable@@3UTimerStateVtable@@A",
+      "symbol": "?g_derived_timer_vtable@@3UPauseVtable@@A",
       "address": "0x0046F80C",
       "kind": "data"
     },

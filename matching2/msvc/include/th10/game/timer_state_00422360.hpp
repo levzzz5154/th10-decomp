@@ -4,7 +4,7 @@
 
 // The 0x2C8-byte state created by 0x00422360: two scheduler tasks, a frame
 // timer, and two counter blocks.
-struct TimerState_00422360 {
+struct Pause {
     unsigned flags;              // +0x000
     char pad_004[0x04];
     SchedulerTask* update_task;  // +0x008
@@ -29,4 +29,4 @@ struct TimerState_00422360 {
     char pad_1D4[0xF4];
 };
 
-typedef char TimerState_00422360_size_must_be_0x2C8[sizeof(TimerState_00422360) == 0x2C8 ? 1 : -1];
+typedef char Pause_size_must_be_0x2C8[sizeof(Pause) == 0x2C8 ? 1 : -1];

@@ -152,7 +152,7 @@ void __stdcall ReleaseGlobalManager_00417c80(ManagerState_00417c80* state) {
             GameState_Destroy_00402440(current_state);
             entry_free_004524a1(current_state);
         }
-        void* pause_menu = g_pause_menu;
+        void* pause_menu = g_pause;
         if (pause_menu) {
             Manager_Release_00422220(pause_menu);
             entry_free_004524a1(pause_menu);
@@ -205,7 +205,7 @@ void __stdcall ReleaseGlobalManager_00417c80(ManagerState_00417c80* state) {
         }
         data_004776e4 = data_004776e8;
 
-        TaskPairOwner_00417c80* pause = (TaskPairOwner_00417c80*)g_pause_menu;
+        TaskPairOwner_00417c80* pause = (TaskPairOwner_00417c80*)g_pause;
         if (pause->node_008) pause->node_008->flags_004 &= ~2u;
         if (pause->node_00C) pause->node_00C->flags_004 &= ~2u;
         TaskPairOwner_00417c80* bullet = (TaskPairOwner_00417c80*)data_004776f0;

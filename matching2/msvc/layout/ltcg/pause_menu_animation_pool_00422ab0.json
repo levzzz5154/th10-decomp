@@ -25,7 +25,7 @@
       "actual_abi": "__fastcall; entity in EDX, ECX unread and unwritten; plain RET"
     },
     {
-      "name": "PauseMenuStateInitializer_00422AB0",
+      "name": "PauseInitializer_00422AB0",
       "source": "src/game/fun_00422ab0_00422ab0.cpp",
       "symbol": "_asm_FUN_00422ab0_00422ab0@4",
       "section": ".text$01pause",
