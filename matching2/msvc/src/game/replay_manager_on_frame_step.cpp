@@ -31,7 +31,7 @@
 // residual_class=private-ABI dual-return control flow.
 // 0x0042A3E0..0x0042A423: FUN_0042a3e0
 // Naked body preserves the retail register/stack ABI.
-extern "C" __declspec(naked) void __cdecl asm_FUN_0042a3e0_0042a3e0() {
+extern "C" __declspec(naked) void __cdecl ReplayManager_OnFrameStep() {
     __asm {
     L_0042a3e0:
         mov eax,dword ptr [data_00477810]

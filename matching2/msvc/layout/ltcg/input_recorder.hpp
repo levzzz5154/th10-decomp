@@ -54,4 +54,4 @@ extern InputAnalogSource* data_00477708;
 extern unsigned int data_00491d78;
 }
 
-int __fastcall InputRecorder_Tick_0042A3D0(InputRecorder_004297D0*);
+int __fastcall ReplayManager_OnUpdate(InputRecorder_004297D0*);

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "replay_frame_step_0042a3e0",
-  "region": "asm_FUN_0042a3e0_0042a3e0",
+  "region": "ReplayManager_OnFrameStep",
   "sources": [
     "equivalent/game/replay_frame_step_0042a3e0.cpp"
   ],

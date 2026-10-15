@@ -4,6 +4,6 @@
 // pushed argument inside the callee, so no caller-side cleanup is emitted.
 extern "C" int __cdecl asm_FUN_00425730_00425730(void*);
 
-int __fastcall Thunk_00425730_00426500(void* a1, int a2) {
+int __fastcall Player_OnUpdate(void* a1, int a2) {
     return ((int (__stdcall*)(void*))asm_FUN_00425730_00425730)(a1);
 }

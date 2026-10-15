@@ -3,7 +3,7 @@
   "name": "title_effects_0041fdd0",
   "source": "src/game/result_screen_effects.cpp",
   "additional_sources": [
-    "src/unidentified/FUN_0041fef0_0041fef0.cpp"
+    "src/game/title_worker_on_draw.cpp"
   ],
   "included_sources": [
     "layout/ltcg/animation_public_callers_anchors.cpp"
@@ -27,18 +27,18 @@
     },
     {
       "name": "TitleEffectsCallback",
-      "symbol": "?FUN_0041fef0_0041fef0@@YIXPAX@Z",
+      "symbol": "?TitleWorker_OnDraw@@YIXPAX@Z",
       "section": ".text$05zcallback",
       "address": "0x0041FEF0",
       "size": 7,
       "actual_abi": "state ECX, pushes state for worker RET4; RET",
-      "source": "src/unidentified/FUN_0041fef0_0041fef0.cpp"
+      "source": "src/game/title_worker_on_draw.cpp"
     }
   ],
-  "entry": "?FUN_0041fef0_0041fef0@@YIXPAX@Z",
+  "entry": "?TitleWorker_OnDraw@@YIXPAX@Z",
   "calls": [
     {
-      "caller": "?FUN_0041fef0_0041fef0@@YIXPAX@Z",
+      "caller": "?TitleWorker_OnDraw@@YIXPAX@Z",
       "callee": "_TitleEffectsAdvance_0041fdd0@4",
       "address": "0x0041FEF1",
       "instruction": "call"

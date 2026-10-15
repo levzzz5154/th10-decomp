@@ -4,7 +4,7 @@
 extern "C" int __cdecl asm_FUN_00422660_00422660(void);
 typedef int (__stdcall* UpdateObjectFn)(void*);
 
-// 0x00422AA0: FUN_00422aa0 - forward an object to the update helper.
-int __fastcall FUN_00422aa0(void* self) {
+// 0x00422AA0: TimerState_OnDraw - forward an object to the update helper.
+int __fastcall TimerState_OnDraw(void* self) {
     return ((UpdateObjectFn)asm_FUN_00422660_00422660)(self);
 }

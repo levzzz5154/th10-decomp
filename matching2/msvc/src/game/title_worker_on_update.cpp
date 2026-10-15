@@ -15,7 +15,7 @@ struct ResourceOwner {
     ResourceHandle* slot_89A8;                          // 0x89A8
 };
 
-extern "C" int __fastcall FUN_0041feb0(unsigned int* owner) {
+extern "C" int __fastcall TitleWorker_OnUpdate(unsigned int* owner) {
     if ((*owner & 2) == 0)
         return 1;
     ResourceOwner* resources = *(ResourceOwner**)&data_004776e0;

@@ -3,7 +3,7 @@
   "name": "effect_pool_update_batch",
   "source": "src/game/weather_pool.cpp",
   "additional_sources": [
-    "src/unidentified/FUN_0042b9a0_0042b9a0.cpp"
+    "src/game/effect_pool_update.cpp"
   ],
   "headers": [
     "include/th10/game/effect_pool_0042b6f0.hpp",
@@ -29,7 +29,7 @@
       "address": "0x0042B9A0",
       "size": 7,
       "actual_abi": "this in ECX; moves to EAX and tail-jumps to UpdateDrops",
-      "source": "src/unidentified/FUN_0042b9a0_0042b9a0.cpp"
+      "source": "src/game/effect_pool_update.cpp"
     }
   ],
   "entry": "?Update@EffectPool_0042b6f0@@QAEHXZ",

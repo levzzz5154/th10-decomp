@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "input_recorder_callback_packet_0042a3d0_0042a8a0",
-  "source": "src/unidentified/FUN_0042a3d0_0042a3d0.cpp",
+  "source": "src/game/replay_manager_on_update.cpp",
   "additional_sources": [
     "src/game/recovery_append_packet_0042a8a0.cpp",
     "src/game/input_recorder_update_004297d0.cpp"
@@ -16,12 +16,12 @@
   "image_base": "0x00400000",
   "description": "Input recorder update, its registered ECX scheduler callback and the typed packet serialization, compiled with the KeyRepeat and linked-pool helpers.",
   "roots": [
-    "?InputRecorder_Tick_0042A3D0@@YIHPAUInputRecorder_004297D0@@@Z"
+    "?ReplayManager_OnUpdate@@YIHPAUInputRecorder_004297D0@@@Z"
   ],
   "functions": [
     {
       "name": "InputRecorderCallback",
-      "symbol": "?InputRecorder_Tick_0042A3D0@@YIHPAUInputRecorder_004297D0@@@Z",
+      "symbol": "?ReplayManager_OnUpdate@@YIHPAUInputRecorder_004297D0@@@Z",
       "section": ".text$05callback",
       "address": "0x0042A3D0",
       "size": 10,

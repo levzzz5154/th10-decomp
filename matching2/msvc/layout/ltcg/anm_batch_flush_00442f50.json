@@ -418,12 +418,12 @@
     },
     {
       "name": "Run_004200d0",
-      "symbol": "?Run@FlushCallback_004200d0@@QAEHXZ",
+      "symbol": "?Run@AppDrawFlush@@QAEHXZ",
       "section": ".text$001z3gapb",
       "address": "0x004200D0",
       "size": 39,
       "actual_abi": "saves ESI and passes the manager in ESI to 0x00442F50; returns 1; plain RET",
-      "source": "src/unidentified/FUN_004200d0_004200d0.cpp"
+      "source": "src/app/app_on_draw_flush.cpp"
     },
     {
       "name": "RenderStageState_EnableFog",
@@ -1291,7 +1291,7 @@
     "src/render/sprite_quad_submit_mirrored.cpp",
     "src/render/viewport_apply_default_retail_0043bcd0.cpp",
     "src/game/laser_grow_draw.cpp",
-    "src/unidentified/FUN_004200d0_004200d0.cpp",
+    "src/app/app_on_draw_flush.cpp",
     "src/unidentified/FUN_0043c3c0_0043c3c0.cpp",
     "src/unidentified/FUN_00445880_00445880.cpp",
     "src/unidentified/FUN_00448620_00448620.cpp",
@@ -1332,7 +1332,7 @@
     "_GameStateOverlay_Draw_00415800@4",
     "?RunArrayReleaseCallback@ScoreRuntimeState_004091c0@@QAEHXZ",
     "?DrawFan33@RenderEntity@@QAEHXZ",
-    "?Run@FlushCallback_004200d0@@QAEHXZ",
+    "?Run@AppDrawFlush@@QAEHXZ",
     "?RenderStageState_SetRenderState@@YGHPAURenderStageState_00439390@@II@Z",
     "?AsciiManager_DrawStrings@@YGHPAUAsciiManager@@@Z",
     "?AsciiManager_OnDrawLate@@YIHPAUAsciiManager@@@Z",

@@ -1,6 +1,6 @@
 #include "asm_symbols.hpp"
 
-// 0x0042A430..0x0042A44B: FUN_0042a430
+// 0x0042A430..0x0042A44B: ReplayManager_OnDraw
 // The scene arrives in ECX. The routine reports whether the active global scene
 // owns a live object with bit 2 of its flag byte set; otherwise it hands the
 // scene straight to the frame-tick routine at 0x00429A70, whose receiver reads
@@ -9,7 +9,7 @@ extern "C" unsigned char data_00477810;                       // 0x00477810  act
 
 typedef int (__fastcall* SceneTick)(int self, void* scene);
 
-int __fastcall FUN_0042a430(void* self) {
+int __fastcall ReplayManager_OnDraw(void* self) {
     void* scene = *(void**)&data_00477810;
     if (scene != 0 && (*(unsigned char*)((char*)scene + 0x58) & 4) != 0)
         return 1;
