@@ -7,7 +7,7 @@
 #include "th10/platform/sound_queue.hpp"
 
 // The stage interface at 0x004776E8, as far as the spell card touches it.
-struct SpellCardInterface_00409c00 {
+struct CardInterface_00409c00 {
     unsigned char reserved_0000[0x2A18];
     unsigned int flags;            // +0x2A18, bit 0: the spell card banner is leaving
 };
@@ -59,7 +59,7 @@ __declspec(noinline) ResultAnimationId __stdcall ResultAnimation_CreatePrimary(v
 // context. Its existing separately recovered production owner is unchanged.
 
 // The running game's counters at 0x00474C44.
-struct SpellCardGame_00409c00 {
+struct CardGame_00409c00 {
     int score;                     // +0x00
     unsigned char reserved_04[0x20];
     int character;                 // +0x24
@@ -67,30 +67,30 @@ struct SpellCardGame_00409c00 {
 };
 
 // The play mode record at 0x00477838; mode 1 keeps the score file untouched.
-struct SpellCardMode_00409c00 {
+struct CardMode_00409c00 {
     unsigned char reserved_00[0x10];
     int mode;
 };
 
 // The score file at 0x0047783C: per shot type, and once more for all of them,
 // a history of every spell card.
-struct SpellCardHistory_00409c00 {
+struct CardHistory_00409c00 {
     unsigned char reserved_00[0x80];
     int captures;                  // +0x80
     unsigned char reserved_84[0x90 - 0x84];
 };
-struct SpellCardShotScores_00409c00 {
-    SpellCardHistory_00409c00 spells[119];
+struct CardShotScores_00409c00 {
+    CardHistory_00409c00 spells[119];
     unsigned char reserved_42f0[0x437C - 0x42F0];
 };
-struct SpellCardScoreFile_00409c00 {
+struct CardScoreFile_00409c00 {
     unsigned char reserved_000[0x5A4];
-    SpellCardShotScores_00409c00 shots[7];   // six shot types, then the total
+    CardShotScores_00409c00 shots[7];   // six shot types, then the total
 };
-typedef char SpellCardShotScoresSize_00409c00[sizeof(SpellCardShotScores_00409c00) == 0x437C ? 1 : -1];
+typedef char CardShotScoresSize_00409c00[sizeof(CardShotScores_00409c00) == 0x437C ? 1 : -1];
 
 // The spell card state at 0x004776F4.
-struct ResultSpellCard_00409c00 {
+struct ResultCard_00409c00 {
     unsigned char reserved_0000[0x768];
     AnimationHandle effects[3];    // +0x768
     ResultAnimationHandle name;      // +0x774, the name banner
@@ -101,14 +101,14 @@ struct ResultSpellCard_00409c00 {
 
     __declspec(noinline) void End();
 };
-typedef char SpellCardFlagsOffset_00409c00[offsetof(ResultSpellCard_00409c00, flags) == 0x378C ? 1 : -1];
+typedef char CardFlagsOffset_00409c00[offsetof(ResultCard_00409c00, flags) == 0x378C ? 1 : -1];
 
 extern "C" {
-extern SpellCardInterface_00409c00* data_004776e8;
+extern CardInterface_00409c00* data_004776e8;
 extern ResultOverlayState_004172e0* data_0047770c;
-extern SpellCardMode_00409c00* data_00477838;
-extern SpellCardScoreFile_00409c00* data_0047783c;
-extern SpellCardGame_00409c00 data_00474c44;
+extern CardMode_00409c00* data_00477838;
+extern CardScoreFile_00409c00* data_0047783c;
+extern CardGame_00409c00 data_00474c44;
 }
 
 struct ResultAnimationPool {

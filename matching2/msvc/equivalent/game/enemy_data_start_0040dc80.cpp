@@ -123,7 +123,7 @@ extern "C" __declspec(noinline) int __stdcall EnemyDataStart_0040dc80(EnemyTick_
         if (g_player->state == 2 || g_player->state == 0)
             damage /= 5;
         if (damage != 0) {
-            if ((data_004776f4->flags & 1) && (enemy->flags & ENEMY_BOSS)) {
+            if ((g_card->flags & 1) && (enemy->flags & ENEMY_BOSS)) {
                 damage /= 5;
                 if (damage <= 0)
                     damage = 1;
@@ -230,7 +230,7 @@ extern "C" __declspec(noinline) int __stdcall EnemyDataStart_0040dc80(EnemyTick_
                 enemy->flash_frames = 4;
                 unsigned int mode = 0;
                 if ((enemy->flags & ENEMY_BOSS)
-                    && (mode = data_004776f4->flags, !((mode & 1) && (mode & 8)))
+                    && (mode = g_card->flags, !((mode & 1) && (mode & 8)))
                     && (((mode & 1) && enemy->record->data.spell_delta < 300)
                         || (!(mode & 1) && enemy->record->data.spell_delta < 900)))
                     data_00492590.QueuePan(0x23, enemy->final.position.x);

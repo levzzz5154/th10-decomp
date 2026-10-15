@@ -17,7 +17,7 @@ BulletManager* data_004776f0;
 LaserManager* g_laser_manager;
 Gui* data_0047770c;
 Player* g_player;
-SpellCard* data_004776f4;
+Card* g_card;
 RenderStageState data_00491c28;
 unsigned char data_00491e48[64], data_00491e08[64], data_00491dc8[64], data_00474df0[24];
 ScoreState data_00474c40;
@@ -642,7 +642,7 @@ __declspec(noinline) void __stdcall Rig_StopAtFrame1(AnmHandle* handle) {
         else handle->id = 0;
     }
 }
-void SpellCard::End_00409c00() {
+void Card::End_00409c00() {
     unsigned char* self = (unsigned char*)this;
     if (flags & 1) {
         *(unsigned int*)((unsigned char*)data_004776e8 + 0x2A18) |= 1;
@@ -666,13 +666,13 @@ void SpellCard::End_00409c00() {
         }
     }
 }
-void SpellCard::StopAnimation_0040cea0() {
+void Card::StopAnimation_0040cea0() {
     flags |= 0x10;
     const int handle = *(int*)((unsigned char*)this + 0x774);
     ext_set_flag(0, data_00491c10, handle);
     *(int*)((unsigned char*)this + 0x774) = 0;
 }
-void __stdcall SpellCard_Start_00409280(SpellCard* card, int id, const char* name, int time, int unused) {
+void __stdcall Card_Start_00409280(Card* card, int id, const char* name, int time, int unused) {
     // The arguments stay on the stack, as in the original.
     ext_call(&card, (int)&id);
     unsigned char* self = (unsigned char*)card;
@@ -695,7 +695,7 @@ extern "C" int __stdcall RigEntry(Enemy** enemies, int count) {
     // These globals' addresses escape in the whole program.
     ext_call(&g_rank_00474c98, 0);
     ext_call(&g_difficulty_00474c74, 0);
-    SpellCard** cards = (SpellCard**)enemies;
+    Card** cards = (Card**)enemies;
     int n = count;
     while (n--) (*cards++)->End_00409c00();
     Drops_Flush_0040c9a0((Float3*)enemies[0], (ItemDrops*)enemies[1]);

@@ -27,7 +27,7 @@ struct BombAnimationValue {
     unsigned char reserved_000[0x40];
     float collision_radius;
 };
-extern "C" BombPlayerInput* data_004776f4;
+extern "C" BombPlayerInput* g_card;
 extern "C" CollisionEngine_00408100* data_004776f0;
 extern "C" ScoreRecords_0041c800* g_laser_manager;
 extern "C" int data_00474c68;

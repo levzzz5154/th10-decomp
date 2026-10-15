@@ -1,13 +1,13 @@
 // Compiler context only; never selected as recovered game code. The bodies
 // below stand in for callees recovered or still assembly elsewhere, so the
 // whole-program pass selects their private registers.
-#include "../../../src/game/card/spell_card_end_00409c00.cpp"
+#include "../../../src/game/card/card_end.cpp"
 #include "../animation_lookup_anchors.cpp"
 
 extern "C" short data_004749ce[];
 
-extern "C" __declspec(noinline) void* __stdcall SpellCardStandIn_Allocate(void* manager);
-extern "C" __declspec(noinline) void __stdcall SpellCardStandIn_Register(void* manager, int* out, void* object);
+extern "C" __declspec(noinline) void* __stdcall CardStandIn_Allocate(void* manager);
+extern "C" __declspec(noinline) void __stdcall CardStandIn_Register(void* manager, int* out, void* object);
 
 // 0x00409E50
 #pragma code_seg(".text$01c_stop")
@@ -26,54 +26,54 @@ void AnimationHandle::StopAtFrame1() {
 
 // 0x004172E0
 #pragma code_seg(".text$01d_caption")
-void __stdcall SpellCard_ShowCaption_004172e0(int kind, SpellCardFront_00409c00* front, int number) {
+void __stdcall Card_ShowCaption_004172e0(int kind, CardFront_00409c00* front, int number) {
     int created[10];
     switch (kind) {
     case 0:
         created[0] = 0x47;
-        SpellCardStandIn_Allocate(created + 0);
+        CardStandIn_Allocate(created + 0);
         break;
     case 1:
         created[1] = 0x46;
-        SpellCardStandIn_Allocate(created + 1);
+        CardStandIn_Allocate(created + 1);
         break;
     case 2:
         created[2] = 0x45;
-        SpellCardStandIn_Allocate(created + 2);
+        CardStandIn_Allocate(created + 2);
         break;
     case 3:
         created[3] = 0x44;
-        SpellCardStandIn_Allocate(created + 3);
+        CardStandIn_Allocate(created + 3);
         break;
     case 4:
         created[4] = 0x43;
-        SpellCardStandIn_Allocate(created + 4);
+        CardStandIn_Allocate(created + 4);
         break;
     case 5:
         created[5] = 0x42;
-        SpellCardStandIn_Allocate(created + 5);
+        CardStandIn_Allocate(created + 5);
         break;
     case 6:
         created[6] = 0x41;
-        SpellCardStandIn_Allocate(created + 6);
+        CardStandIn_Allocate(created + 6);
         break;
     default:
         return;
     }
     // Taking the arguments' addresses keeps both on the stack; neither is read
     // before the dispatch, which leaves EAX to the kind.
-    SpellCardStandIn_Register(&front, created, &number);
+    CardStandIn_Register(&front, created, &number);
 }
 
 // 0x00448D00
 #pragma code_seg(".text$01f_create")
-AnimationScriptId __stdcall SpellCard_CreateAnimation_00448d00(void* file, int script, int layer) {
-    int* object = static_cast<int*>(SpellCardStandIn_Allocate(data_00491c10));
+AnimationScriptId __stdcall Card_CreateAnimation_00448d00(void* file, int script, int layer) {
+    int* object = static_cast<int*>(CardStandIn_Allocate(data_00491c10));
     object[8] = layer;
     object[0xD7] |= 0x40000000;
-    SpellCardStandIn_Register(file, object, reinterpret_cast<void*>(script));
+    CardStandIn_Register(file, object, reinterpret_cast<void*>(script));
     AnimationScriptId created;
-    SpellCardStandIn_Register(data_00491c10, &created.value, object);
+    CardStandIn_Register(data_00491c10, &created.value, object);
     return created;
 }
 
@@ -105,9 +105,9 @@ int SoundQueue::Queue(int sound_id, int request) {
 #pragma code_seg()
 
 #pragma code_seg(".text$01b_context")
-void __stdcall SpellCardEndCompilerContext(SpellCard_00409c00** cards, int count) {
+void __stdcall CardEndCompilerContext(Card_00409c00** cards, int count) {
     // The game counters' address escapes, as it does in the whole program.
-    SpellCardStandIn_Allocate(&data_00474c44);
+    CardStandIn_Allocate(&data_00474c44);
     while (count--) (*cards++)->End();
 }
 #pragma code_seg()

@@ -1,5 +1,5 @@
 // Synthetic single-object creation context, never selected as recovered code.
-#include "th10/game/player_hud_animations.hpp"
+#include "th10/game/card_animations.hpp"
 extern "C" AnimationLists* data_00491c10;
 #pragma code_seg(".text$0044e100_context")
 void __stdcall SecondaryRegistrationContext(AnimationPool* pool,

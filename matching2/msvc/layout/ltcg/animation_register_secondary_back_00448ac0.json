@@ -6,7 +6,7 @@
   "image_base": "0x00400000",
   "description": "Secondary-back registrar with explicitly synthetic creation-loop caller context.",
   "headers": [
-    "include/th10/game/player_hud_animations.hpp",
+    "include/th10/game/card_animations.hpp",
     "include/th10/game/entity.hpp",
     "include/th10/game/pause_result_open_004231d0/open_animation.hpp",
     "include/th10/types.hpp"

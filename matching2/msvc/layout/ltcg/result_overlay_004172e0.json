@@ -40,7 +40,7 @@
     }
   ],
   "context": {
-    "symbol": "?End@ResultSpellCard_00409c00@@QAEXXZ",
+    "symbol": "?End@ResultCard_00409c00@@QAEXXZ",
     "section": ".text$00409c00_fn",
     "address": "0x00409C00",
     "size": 394,
@@ -48,7 +48,7 @@
   },
   "anchors": [
     {
-      "name": "SpellCard_CreateAnimation_00448d00",
+      "name": "Card_CreateAnimation_00448d00",
       "symbol": "?ResultAnimation_CreatePrimary@@YG?AUResultAnimationId@@PAXHH@Z",
       "section": ".text$00448d00_fn",
       "address": "0x448d00",

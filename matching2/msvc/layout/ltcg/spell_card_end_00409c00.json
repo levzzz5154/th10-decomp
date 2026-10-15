@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
   "name": "spell_card_end_00409c00",
-  "source": "src/game/card/spell_card_end_00409c00.cpp",
+  "source": "src/game/card/card_end.cpp",
   "driver": "layout/ltcg/spell_card_end_00409c00/context.cpp",
   "headers": [
-    "include/th10/game/spell_card_end_00409c00.hpp",
+    "include/th10/game/card_end.hpp",
     "include/th10/render/animation_handle.hpp",
     "include/th10/platform/sound_queue.hpp"
   ],
@@ -12,8 +12,8 @@
   "description": "Spell card end with the card in EAX, compiled with the real sound queue and stand-ins for the effect stop, caption, animation create and animation release so each keeps its private registers.",
   "functions": [
     {
-      "name": "SpellCard_End",
-      "symbol": "?End@SpellCard_00409c00@@QAEXXZ",
+      "name": "Card_End",
+      "symbol": "?End@Card_00409c00@@QAEXXZ",
       "section": ".text$01a_end",
       "address": "0x00409C00",
       "actual_abi": "card in EAX; plain RET",
@@ -21,7 +21,7 @@
     }
   ],
   "context": {
-    "symbol": "?SpellCardEndCompilerContext@@YGXPAPAUSpellCard_00409c00@@H@Z",
+    "symbol": "?CardEndCompilerContext@@YGXPAPAUCard_00409c00@@H@Z",
     "section": ".text$01b_context",
     "address": "0x00409D90",
     "size": 50,
@@ -112,12 +112,12 @@
       "kind": "data"
     },
     {
-      "symbol": "_SpellCardStandIn_Allocate@4",
+      "symbol": "_CardStandIn_Allocate@4",
       "address": "0x00449950",
       "kind": "relative_code"
     },
     {
-      "symbol": "_SpellCardStandIn_Register@12",
+      "symbol": "_CardStandIn_Register@12",
       "address": "0x004489D0",
       "kind": "relative_code"
     }
@@ -132,7 +132,7 @@
     },
     {
       "name": "ShowCaption",
-      "symbol": "?SpellCard_ShowCaption_004172e0@@YGXHPAUSpellCardFront_00409c00@@H@Z",
+      "symbol": "?Card_ShowCaption_004172e0@@YGXHPAUCardFront_00409c00@@H@Z",
       "section": ".text$01d_caption",
       "address": "0x004172E0",
       "size": 180
@@ -146,7 +146,7 @@
     },
     {
       "name": "CreateAnimation",
-      "symbol": "?SpellCard_CreateAnimation_00448d00@@YG?AUAnimationScriptId@@PAXHH@Z",
+      "symbol": "?Card_CreateAnimation_00448d00@@YG?AUAnimationScriptId@@PAXHH@Z",
       "section": ".text$01f_create",
       "address": "0x00448D00",
       "size": 87

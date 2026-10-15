@@ -10,7 +10,7 @@ struct PlayerSprite_00409190 {
     unsigned char reserved[0x3AC];
 };
 
-struct Player_00409190 {
+struct CardDrawView {
     unsigned char reserved_0000[0x10];
     PlayerSprite_00409190 body_sprite;                 // +0x0010
     PlayerSprite_00409190 option_sprite;               // +0x03BC
@@ -26,7 +26,7 @@ extern "C" __declspec(noinline) int __cdecl asm_FUN_004451c0_004451c0(
         PlayerSprite_00409190* sprite, AnimationManager_00409190* manager);
 
 #pragma code_seg(".text$01draw")
-__declspec(noinline) int Player_00409190::DrawSprites() {
+__declspec(noinline) int CardDrawView::DrawSprites() {
     if (flags & 1) {
         asm_FUN_004451c0_004451c0(&body_sprite, data_00491c10);
         asm_FUN_004451c0_004451c0(&option_sprite, data_00491c10);

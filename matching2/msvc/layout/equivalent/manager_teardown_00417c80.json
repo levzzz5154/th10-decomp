@@ -57,7 +57,7 @@
       "address": "0x0040AF00",
       "kind": "code"
     },
-    "_PlayerManager_Destroy_00408af0@4": {
+    "_Card_Destroy_00408af0@4": {
       "address": "0x00408AF0",
       "kind": "code"
     },
@@ -237,7 +237,7 @@
       "address": "0x004776EC",
       "kind": "data"
     },
-    "_data_004776f4": {
+    "_g_card": {
       "address": "0x004776F4",
       "kind": "data"
     },

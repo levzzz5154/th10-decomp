@@ -1,27 +1,27 @@
 {
   "schema_version": 1,
   "name": "player_manager_teardown_00408af0",
-  "source": "src/game/card/player_manager_teardown_00408af0.cpp",
+  "source": "src/game/card/card_destructor.cpp",
   "driver": "layout/ltcg/player_manager_teardown_00408af0/context.cpp",
   "headers": [
-    "include/th10/game/player_manager_teardown_00408af0.hpp",
+    "include/th10/game/card_destructor.hpp",
     "include/th10/game/scheduler.hpp",
     "include/th10/platform/thread_sync.hpp"
   ],
   "image_base": "0x00400000",
-  "description": "Player manager destructor with its member sprite pools and compiler-generated unwind cleanups, compiled with the real animation flag setter and scheduler removal and a deleting caller.",
+  "description": "Spell-card manager (Card) destructor with its member sprite pools and compiler-generated unwind cleanups, compiled with the real animation flag setter and scheduler removal and a deleting caller.",
   "functions": [
     {
-      "name": "PlayerManager_Destroy",
-      "symbol": "??1PlayerManager_00408af0@@QAE@XZ",
+      "name": "Card_Destroy",
+      "symbol": "??1Card_00408af0@@QAE@XZ",
       "section": ".text$01a_dtor",
       "address": "0x00408AF0",
       "actual_abi": "receiver on the stack, RET 4; compiler-generated EH frame",
       "size": 402
     },
     {
-      "name": "PlayerManagerDestroyUnwindFirst",
-      "symbol": "_PlayerManagerDestroyUnwindFirst_004655c0",
+      "name": "CardDestroyUnwindFirst",
+      "symbol": "_CardDestroyUnwindFirst_004655c0",
       "section": ".text$x",
       "address": "0x004655C0",
       "actual_abi": "destroys the first sprite pool",
@@ -30,8 +30,8 @@
       "size": 25
     },
     {
-      "name": "PlayerManagerDestroyUnwindSecond",
-      "symbol": "_PlayerManagerDestroyUnwindSecond_004655d9",
+      "name": "CardDestroyUnwindSecond",
+      "symbol": "_CardDestroyUnwindSecond_004655d9",
       "section": ".text$x",
       "address": "0x004655D9",
       "actual_abi": "destroys the second sprite pool",
@@ -40,8 +40,8 @@
       "size": 27
     },
     {
-      "name": "PlayerManagerDestroyUnwindThird",
-      "symbol": "_PlayerManagerDestroyUnwindThird_004655f4",
+      "name": "CardDestroyUnwindThird",
+      "symbol": "_CardDestroyUnwindThird_004655f4",
       "section": ".text$x",
       "address": "0x004655F4",
       "actual_abi": "destroys the third sprite pool",
@@ -50,8 +50,8 @@
       "size": 27
     },
     {
-      "name": "PlayerManagerDestroyHandler",
-      "symbol": "__ehhandler$??1PlayerManager_00408af0@@QAE@XZ",
+      "name": "CardDestroyHandler",
+      "symbol": "__ehhandler$??1Card_00408af0@@QAE@XZ",
       "section": ".text$x",
       "address": "0x0046560F",
       "actual_abi": "compiler-generated EH handler",
@@ -60,7 +60,7 @@
     }
   ],
   "context": {
-    "symbol": "?PlayerManagerTeardownCompilerContext@@YGXPAUPlayerManager_00408af0@@@Z",
+    "symbol": "?CardTeardownCompilerContext@@YGXPAUCard_00408af0@@@Z",
     "section": ".text$01b_context",
     "address": "0x00408C90",
     "size": 28,
@@ -126,12 +126,12 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "??1PlayerManagerSprite_00408af0@@QAE@XZ",
+      "symbol": "??1CardSprite_00408af0@@QAE@XZ",
       "address": "0x00401FF0",
       "kind": "data"
     },
     {
-      "symbol": "_data_004776f4",
+      "symbol": "_g_card",
       "address": "0x004776F4",
       "kind": "data"
     },

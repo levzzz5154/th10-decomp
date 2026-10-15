@@ -6019,7 +6019,7 @@ extern "C" unsigned char data_004776e4;
 extern "C" unsigned char data_004776e8;
 extern "C" unsigned char g_bomb;
 extern "C" unsigned char data_004776f0;
-extern "C" unsigned char data_004776f4;
+extern "C" unsigned char g_card;
 extern "C" unsigned char g_ecl_view;
 extern "C" unsigned char data_004776fc;
 extern "C" unsigned char g_ending;

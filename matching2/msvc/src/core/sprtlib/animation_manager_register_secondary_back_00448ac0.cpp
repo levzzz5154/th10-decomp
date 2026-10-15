@@ -1,5 +1,5 @@
 // 0x00448AC0: append an animation to the primary list and assign its nonzero ID.
-#include "th10/game/player_hud_animations.hpp"
+#include "th10/game/card_animations.hpp"
 
 #pragma code_seg(".text$00448ac0_fn")
 AnimationRef AnimationLists::RegisterSecondaryBack(Entity* object) {

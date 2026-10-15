@@ -38,9 +38,9 @@ __forceinline void BombState::Step() {
             active_state = 0;
             return;
         }
-        if ((data_004776f4->flags & 1u) &&
-            ((data_004776f4->input_state >= 0x5D && data_004776f4->input_state <= 0x60) ||
-             data_004776f4->input_state == 0x6D)) {
+        if ((g_card->flags & 1u) &&
+            ((g_card->input_state >= 0x5D && g_card->input_state <= 0x60) ||
+             g_card->input_state == 0x6D)) {
             position.y -= 0.5f;
         } else if (data_00474c68 == 0) {
             position.y -= 1.0f;

@@ -413,7 +413,7 @@ __declspec(noinline) int __stdcall FrontHudUpdate_00414900(
             // The difficulty gate adjusts the boss name display word.
             unsigned int gate_flags = body->flags_2480;
             if ((~(gate_flags >> 4) & 1) != 0 && (~gate_flags & 1) != 0) {
-                unsigned char* state = (unsigned char*)data_004776f4;
+                unsigned char* state = (unsigned char*)g_card;
                 unsigned int flags = front->flags_9eb4;
                 if (state[0x378C] & 1) {
                     unsigned int lane = (flags >> 1) & 3;

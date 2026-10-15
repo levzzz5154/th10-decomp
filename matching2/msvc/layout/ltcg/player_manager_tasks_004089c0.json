@@ -1,20 +1,20 @@
 {
   "schema_version": 1,
   "name": "player_manager_tasks_004089c0",
-  "source": "src/game/card/fun_004089c0_004089c0.cpp",
+  "source": "src/game/card/card_register_tasks.cpp",
   "driver": "layout/ltcg/player_manager_tasks_004089c0_context.cpp",
   "headers": [
     "include/th10/game/scheduler.hpp",
     "include/th10/platform/thread_sync.hpp",
     "include/th10/math/timer.hpp",
-    "include/th10/game/player_manager_tasks_004089c0.hpp"
+    "include/th10/game/card_tasks.hpp"
   ],
   "image_base": "0x00400000",
-  "description": "Player manager three-task registration with genuine full scheduler anchors and synthetic receiver caller.",
+  "description": "Spell-card manager (Card) three-task registration with genuine full scheduler anchors and synthetic receiver caller.",
   "functions": [
     {
-      "name": "PlayerManagerTasks_InitializeTasks",
-      "symbol": "?InitializeTasks@PlayerManagerTasks_004089c0@@QAEHXZ",
+      "name": "CardTasks_InitializeTasks",
+      "symbol": "?InitializeTasks@CardTasks_004089c0@@QAEHXZ",
       "section": ".text$02initializer",
       "address": "0x004089C0",
       "size": 211,
@@ -38,7 +38,7 @@
     }
   ],
   "context": {
-    "symbol": "PlayerManagerTasksCompilerContext",
+    "symbol": "CardTasksCompilerContext",
     "section": ".text$30context",
     "address": "0x0044C1C0",
     "size": 35,
@@ -94,17 +94,17 @@
       "kind": "data"
     },
     {
-      "symbol": "@PlayerManagerPrimary_00409220@4",
+      "symbol": "@CardPrimary_00409220@4",
       "address": "0x409220",
       "kind": "data"
     },
     {
-      "symbol": "@PlayerManagerRender_00409230@4",
+      "symbol": "@CardRender_00409230@4",
       "address": "0x409230",
       "kind": "data"
     },
     {
-      "symbol": "@PlayerManagerTrailing_00409270@4",
+      "symbol": "@CardTrailing_00409270@4",
       "address": "0x409270",
       "kind": "data"
     },

@@ -809,7 +809,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0040dc80_0040dc80() {
     L_0040e169:
         je asm_target_0040e26b
     L_0040e16f:
-        mov edx,dword ptr [data_004776f4]
+        mov edx,dword ptr [g_card]
     L_0040e175:
         test byte ptr [edx+378Ch],1
     L_0040e17c:
@@ -1255,7 +1255,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0040dc80_0040dc80() {
     L_0040e4a0:
         je short L_0040e4fb
     L_0040e4a2:
-        mov ecx,dword ptr [data_004776f4]
+        mov ecx,dword ptr [g_card]
     L_0040e4a8:
         mov ecx,dword ptr [ecx+378Ch]
     L_0040e4ae:

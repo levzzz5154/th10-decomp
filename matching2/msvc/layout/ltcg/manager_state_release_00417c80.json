@@ -264,7 +264,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_PlayerManager_Destroy_00408af0@4",
+      "symbol": "_Card_Destroy_00408af0@4",
       "address": "0x00408AF0",
       "kind": "relative_code"
     },
@@ -489,7 +489,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_data_004776f4",
+      "symbol": "_g_card",
       "address": "0x004776F4",
       "kind": "data"
     },

@@ -1,5 +1,5 @@
 // Compiler-only genuine full scheduler anchors and synthetic caller.
-#include "../../src/game/card/fun_004089c0_004089c0.cpp"
+#include "../../src/game/card/card_register_tasks.cpp"
 #include "th10/game/scheduler.hpp"
 #include "th10/platform/thread_sync.hpp"
 
@@ -46,7 +46,7 @@ extern "C" __declspec(noinline) int __stdcall Scheduler_RegisterSecondary(
 
 
 #pragma code_seg(".text$30context")
-extern "C" int __cdecl PlayerManagerTasksCompilerContext(PlayerManagerTasks_004089c0** owners, int count) {
+extern "C" int __cdecl CardTasksCompilerContext(CardTasks_004089c0** owners, int count) {
     while (count--)
         (*owners++)->InitializeTasks();
     return 0;

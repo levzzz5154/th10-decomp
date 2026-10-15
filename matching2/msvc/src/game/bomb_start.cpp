@@ -73,7 +73,7 @@ struct PlayerAnimationResources {
 };
 typedef PlayerFlags_00405500 PlayerInitializeGlobal;
 extern "C" PlayerAnimationResources* data_004776f0;
-extern "C" PlayerInitializeGlobal* data_004776f4;
+extern "C" PlayerInitializeGlobal* g_card;
 extern "C" PowerDisplayOwner_004054b0* data_0047770c;
 extern "C" int data_00474c68;
 extern "C" short data_00474c48;
@@ -87,10 +87,10 @@ int __stdcall Bomb_Start(Bomb* bomb) {
     bomb->unknown_40 = 4.0f;
     bomb->position = g_player->position;
     int index;
-    if ((!(data_004776f4->flags & 1) ||
-         data_004776f4->animation_state < 0x5D ||
-         data_004776f4->animation_state > 0x60) &&
-        data_004776f4->animation_state != 0x6D)
+    if ((!(g_card->flags & 1) ||
+         g_card->animation_state < 0x5D ||
+         g_card->animation_state > 0x60) &&
+        g_card->animation_state != 0x6D)
         index = data_00474c68 ? 0x197 : 0x190;
     else
         index = 0x1B9;
@@ -100,7 +100,7 @@ int __stdcall Bomb_Start(Bomb* bomb) {
     data_00492590.QueuePan(0x26, bomb->position.x);
     int power = data_00474c48;
     data_0047770c->SetPowerDigits(power / 20, (power % 20) * 100 / 20);
-    PlayerInitializeGlobal* state = data_004776f4;
+    PlayerInitializeGlobal* state = g_card;
     state->ClearExpiredFlags();
     data_00474c98 -= 0x80;
     if (data_00474c98 > 0x400) data_00474c98 = 0x400;

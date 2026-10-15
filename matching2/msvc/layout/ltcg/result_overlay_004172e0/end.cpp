@@ -5,7 +5,7 @@
 #include "th10/game/result_overlay_004172e0.hpp"
 
 #pragma code_seg(".text$00409c00_fn")
-void ResultSpellCard_00409c00::End() {
+void ResultCard_00409c00::End() {
     if (flags & 1) {
         data_004776e8->flags |= 1;
         effects[0].StopAtFrame1();
@@ -18,7 +18,7 @@ void ResultSpellCard_00409c00::End() {
             if (data_00474c44.score >= 1000000000) data_00474c44.score = 999999999;
             ResultOverlay_SetMode(0, data_0047770c, bonus);
             if (data_00477838->mode != 1) {
-                SpellCardHistory_00409c00* history =
+                CardHistory_00409c00* history =
                     &data_0047783c->shots[data_00474c44.shot_type + data_00474c44.character * 3].spells[spell_id];
                 if (history->captures < 99999) history->captures++;
                 history = &data_0047783c->shots[6].spells[spell_id];

@@ -5,16 +5,16 @@
 #pragma code_seg(".text$040draw")
 int BombState::CancelBullets() {
     if (active_state) {
-        if (((data_004776f4->flags & 1u) && data_004776f4->input_state >= 0x5D &&
-             data_004776f4->input_state <= 0x60) || data_004776f4->input_state == 0x6D) {
+        if (((g_card->flags & 1u) && g_card->input_state >= 0x5D &&
+             g_card->input_state <= 0x60) || g_card->input_state == 0x6D) {
             data_004776f0->Check(&position, collision_radius,
-                (~data_004776f4->flags) & 1u, 0);
+                (~g_card->flags) & 1u, 0);
         } else {
             data_004776f0->Check(&position, collision_radius,
-                (~data_004776f4->flags) & 1u, 1);
+                (~g_card->flags) & 1u, 1);
         }
         g_laser_manager->CopyVectorAndEvaluate(&position.x, collision_radius,
-            (~data_004776f4->flags) & 1u);
+            (~g_card->flags) & 1u);
     }
     return 0;
 }

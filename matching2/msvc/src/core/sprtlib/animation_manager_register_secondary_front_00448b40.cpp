@@ -1,5 +1,5 @@
 // Prepend an animation to the secondary list and assign its nonzero ID.
-#include "th10/game/player_hud_animations.hpp"
+#include "th10/game/card_animations.hpp"
 // Entity's embedded manager links: owner, next and previous.
 struct AnimationEntityLinkView {
     int animation_handle;

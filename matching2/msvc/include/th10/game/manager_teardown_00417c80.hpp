@@ -104,8 +104,8 @@ extern struct EnemyManager_0040d530* data_00477704;
 extern void* data_004776fc;
 // The recovery pair state (released by 0x00405620).
 extern void* g_bomb;
-// The player manager (destroyed by 0x00408AF0).
-extern void* data_004776f4;
+// The spell-card manager (Card; destroyed by 0x00408AF0).
+extern void* g_card;
 // The one scheduler both removals go through.
 extern struct Scheduler* data_00491be4;
 // The shared animation resource name and the manager that re-registers it.

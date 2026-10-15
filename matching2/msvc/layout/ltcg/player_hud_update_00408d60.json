@@ -1,12 +1,12 @@
 {
   "schema_version": 1,
   "name": "player_hud_update_00408d60",
-  "source": "src/game/card/player_hud_update_00408d60.cpp",
+  "source": "src/game/card/card_update.cpp",
   "driver": "layout/ltcg/player_hud_update_00408d60_context.cpp",
   "image_base": "0x00400000",
   "description": "The side panel update and its scheduler callback, compiled with the real bodies of the sprite configure, stop-frame and position routines so the pass gives each call its private register convention.",
   "headers": [
-    "include/th10/game/player_hud_00408d60.hpp",
+    "include/th10/game/card_update.hpp",
     "include/th10/math/timer.hpp",
     "include/th10/render/animation_object_0043e5a0.hpp",
     "include/th10/render/animation_stop_frame_handle.hpp",
@@ -18,16 +18,16 @@
   ],
   "functions": [
     {
-      "name": "PlayerHud_Update",
-      "symbol": "?Update@PlayerHud_00408d60@@QAEHXZ",
+      "name": "Card_Update",
+      "symbol": "?Update@Card_00408d60@@QAEHXZ",
       "section": ".text$a00update",
       "address": "0x00408D60",
       "size": 1057,
       "actual_abi": "panel in EDI; returns 1; plain RET"
     },
     {
-      "name": "PlayerManagerPrimary_00409220",
-      "symbol": "@PlayerManagerPrimary_00409220@4",
+      "name": "CardPrimary_00409220",
+      "symbol": "@CardPrimary_00409220@4",
       "section": ".text$a01callback",
       "address": "0x00409220",
       "size": 10,
@@ -65,7 +65,7 @@
     }
   ],
   "context": {
-    "symbol": "?PlayerHudUpdateContext@@YGHPAP6IHPAUPlayerHud_00408d60@@@Z0PAPAUGameSelection_00408d60@@PAPAPAUScoreFile_00408d60@@@Z",
+    "symbol": "?CardUpdateContext@@YGHPAP6IHPAUCard_00408d60@@@Z0PAPAUGameSelection_00408d60@@PAPAPAUScoreFile_00408d60@@@Z",
     "section": ".text$a95context",
     "address": "0x0044E100",
     "size": 42,
@@ -73,7 +73,7 @@
   },
   "constants": [],
   "roots": [
-    "@PlayerManagerPrimary_00409220@4"
+    "@CardPrimary_00409220@4"
   ],
   "additional_sources": [
     "layout/ltcg/player_hud_update_dependencies/configure.cpp",

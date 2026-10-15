@@ -27,7 +27,7 @@
 extern "C" __declspec(noinline) int __cdecl asm_FUN_004451c0_004451c0(
         AnimationManager_00442F50* manager, RenderEntity* entity);
 
-struct ScoreRuntimeState_00409230 {
+struct CardRuntime_00409230 {
     unsigned char reserved_0000[0x378C];
     unsigned char release_flag_378C;                 // +0x378C: release when bit 0 is set
     unsigned char reserved_378D[0x400];
@@ -36,7 +36,7 @@ struct ScoreRuntimeState_00409230 {
 };
 
 #pragma code_seg(".text$001release")
-int ScoreRuntimeState_00409230::ReleaseFlaggedEntities() {
+int CardRuntime_00409230::ReleaseFlaggedEntities() {
     if (release_flag_378C & 1) {
         asm_FUN_004451c0_004451c0(data_00491c10, (RenderEntity*)((char*)this + 0x10));
         asm_FUN_004451c0_004451c0(data_00491c10, (RenderEntity*)((char*)this + 0x3BC));

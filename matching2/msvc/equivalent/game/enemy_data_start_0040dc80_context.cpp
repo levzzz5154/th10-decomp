@@ -12,7 +12,7 @@ float g_score_default_speed = 1.0f;
 extern "C" {
 Player* g_player;
 Bomb* g_bomb;
-GameThread_0040dc80* data_004776f4;
+GameThread_0040dc80* g_card;
 Gui_0040dc80* data_0047770c;
 AnimationManager_0040dc80* data_00491c10;
 ScoreState_0040dc80 data_00474c40;

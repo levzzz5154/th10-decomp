@@ -770,17 +770,17 @@ int Enemy::Execute_0040e770() {
         case 0x166: id += g_difficulty_00474c74 - 1; break;
         case 0x167: id += g_difficulty_00474c74 - 2; break;
         }
-        SpellCard_Start_00409280(data_004776f4, id, name, IOP(1), IOP(2));
+        Card_Start_00409280(g_card, id, name, IOP(1), IOP(2));
         return 0;
     }
     case 0x157:
-        data_004776f4->End_00409c00();
+        g_card->End_00409c00();
         return 0;
     case 0x16a:
-        data_004776f4->flags |= 8;
+        g_card->flags |= 8;
         return 0;
     case 0x16b:
-        data_004776f4->StopAnimation_0040cea0();
+        g_card->StopAnimation_0040cea0();
         return 0;
     case 0x16c:
         f19 = IOP(0);

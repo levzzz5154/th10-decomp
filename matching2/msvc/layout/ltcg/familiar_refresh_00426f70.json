@@ -11,7 +11,7 @@
  ],
  "headers": [
   "include/th10/game/familiar_refresh_00426f70.hpp",
-  "include/th10/game/player_hud_animations.hpp",
+  "include/th10/game/card_animations.hpp",
   "include/th10/game/entity.hpp",
   "include/th10/types.hpp",
   "include/th10/render/animation_stop_frame_handle.hpp"

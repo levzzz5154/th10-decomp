@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "player_draw_sprites_00409190",
-  "source": "src/game/card/player_draw_sprites_00409190.cpp",
+  "source": "src/game/card/card_draw_sprites.cpp",
   "driver": "layout/ltcg/player_draw_sprites_00409190_context.cpp",
   "headers": [],
   "image_base": "0x00400000",
@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "Player_DrawSprites",
-      "symbol": "?DrawSprites@Player_00409190@@QAEHXZ",
+      "symbol": "?DrawSprites@CardDrawView@@QAEHXZ",
       "section": ".text$01draw",
       "address": "0x00409190",
       "size": 46,
@@ -26,7 +26,7 @@
     }
   ],
   "context": {
-    "symbol": "?PlayerDrawSpritesCompilerContext_00409190@@YGHPAPAUPlayer_00409190@@H@Z",
+    "symbol": "?PlayerDrawSpritesCompilerContext_00409190@@YGHPAPAUCardDrawView@@H@Z",
     "section": ".text$05context",
     "address": "0x004451D0",
     "size": 49,

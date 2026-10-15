@@ -1,26 +1,26 @@
 {
   "schema_version": 1,
   "name": "player_manager_construct_00408910",
-  "source": "src/game/card/player_manager_construct_00408910.cpp",
+  "source": "src/game/card/card_construct.cpp",
   "driver": "layout/ltcg/player_manager_construct_00408910/context.cpp",
   "headers": [
-    "include/th10/game/player_manager_construct_00408910.hpp",
+    "include/th10/game/card.hpp",
     "include/th10/math/timer.hpp"
   ],
   "image_base": "0x00400000",
-  "description": "Player manager constructor with its member sprite pools and compiler-generated unwind cleanups, called from an in-place construction context.",
+  "description": "Spell-card manager (Card) constructor with its member sprite pools and compiler-generated unwind cleanups, called from an in-place construction context.",
   "functions": [
     {
-      "name": "PlayerManager_Construct",
-      "symbol": "??0PlayerManager_00408910@@QAE@XZ",
+      "name": "Card_Construct",
+      "symbol": "??0Card@@QAE@XZ",
       "section": ".text$01construct",
       "address": "0x00408910",
       "actual_abi": "receiver on the stack, RET 4; receiver returned in EAX; compiler-generated EH frame",
       "size": 176
     },
     {
-      "name": "PlayerManagerConstructUnwindFirst",
-      "symbol": "_PlayerManagerConstructUnwindFirst_004654e0",
+      "name": "CardConstructUnwindFirst",
+      "symbol": "_CardConstructUnwindFirst_004654e0",
       "section": ".text$x",
       "address": "0x004654E0",
       "actual_abi": "destroys the first sprite pool",
@@ -29,8 +29,8 @@
       "size": 25
     },
     {
-      "name": "PlayerManagerConstructUnwindSecond",
-      "symbol": "_PlayerManagerConstructUnwindSecond_004654f9",
+      "name": "CardConstructUnwindSecond",
+      "symbol": "_CardConstructUnwindSecond_004654f9",
       "section": ".text$x",
       "address": "0x004654F9",
       "actual_abi": "destroys the second sprite pool",
@@ -39,8 +39,8 @@
       "size": 27
     },
     {
-      "name": "PlayerManagerConstructHandler",
-      "symbol": "__ehhandler$??0PlayerManager_00408910@@QAE@XZ",
+      "name": "CardConstructHandler",
+      "symbol": "__ehhandler$??0Card@@QAE@XZ",
       "section": ".text$x",
       "address": "0x00465514",
       "actual_abi": "compiler-generated EH handler",
@@ -49,7 +49,7 @@
     }
   ],
   "context": {
-    "symbol": "?PlayerManagerConstructCompilerContext@@YGPAUPlayerManager_00408910@@PAX@Z",
+    "symbol": "?CardConstructCompilerContext@@YGPAUCard@@PAX@Z",
     "section": ".text$05context",
     "address": "0x004089C0",
     "size": 22,
@@ -95,17 +95,17 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "??0PlayerManagerSprite_00408910@@QAE@XZ",
+      "symbol": "??0CardSprite_00408910@@QAE@XZ",
       "address": "0x00402050",
       "kind": "data"
     },
     {
-      "symbol": "??1PlayerManagerSprite_00408910@@QAE@XZ",
+      "symbol": "??1CardSprite_00408910@@QAE@XZ",
       "address": "0x00401FF0",
       "kind": "data"
     },
     {
-      "symbol": "_data_004776f4",
+      "symbol": "_g_card",
       "address": "0x004776F4",
       "kind": "data"
     }

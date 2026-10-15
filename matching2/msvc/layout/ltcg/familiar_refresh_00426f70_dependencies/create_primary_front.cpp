@@ -1,5 +1,5 @@
 // 0x00448E30..0x00448E78: create an animation object and prepend it to the
-#include "th10/game/player_hud_animations.hpp"
+#include "th10/game/card_animations.hpp"
 // manager's primary-front list.
 struct AnimationObject_00448e30 {
     unsigned char reserved_000[0x20];

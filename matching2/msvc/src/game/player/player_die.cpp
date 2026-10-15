@@ -81,7 +81,7 @@ extern "C" {
     extern int data_00474c98;
     extern TimeoutMode* data_00477838;
     extern StageTipManager* data_00477814;
-    extern TimeoutPlayer* data_004776f4;
+    extern TimeoutPlayer* g_card;
     extern const char g_timeout_caution[];
 }
 struct AnimationResource_0043e710;
@@ -154,7 +154,7 @@ extern "C" __declspec(noinline) void __stdcall Player_Die(Player* player) {
     if (data_00477838->mode != 1)
         StageTip_CreateUrgent_00424650(data_00477814, g_timeout_caution,
             reinterpret_cast<const StageTipPosition*>(&player->position));
-    TimeoutPlayer* gauge = data_004776f4;
+    TimeoutPlayer* gauge = g_card;
     if (gauge->elapsed_frames >= 60) {
         gauge->pending_state = 0;
         gauge->flags &= ~2u;

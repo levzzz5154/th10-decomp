@@ -221,14 +221,14 @@ struct Player {
 };
 extern "C" Player* g_player;
 
-struct SpellCard {
+struct Card {
     unsigned char unknown_0000[0x378C];
     unsigned int flags;         // +0x378C
     __declspec(noinline) void End_00409c00();
     __declspec(noinline) void StopAnimation_0040cea0();
 };
-extern "C" SpellCard* data_004776f4;
-__declspec(noinline) void __stdcall SpellCard_Start_00409280(SpellCard* card, int id, const char* name, int time, int unused);
+extern "C" Card* g_card;
+__declspec(noinline) void __stdcall Card_Start_00409280(Card* card, int id, const char* name, int time, int unused);
 
 struct SoundQueue { __declspec(noinline) void QueuePan_0043dd10(int sound, float pan); };
 extern "C" SoundQueue data_00492590;

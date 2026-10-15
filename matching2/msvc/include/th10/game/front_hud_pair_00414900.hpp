@@ -37,7 +37,7 @@ extern "C" unsigned int data_00474c8c;               // progress echo
 extern "C" unsigned char data_00474ca0;              // clear flags (bit 0x10)
 extern "C" unsigned char data_00491c28;              // input mode state object
 extern "C" unsigned int data_00491fb8;               // front mode word
-extern "C" void* data_004776f4;                      // game state arena
+extern "C" void* g_card;                      // game state arena
 extern "C" void* data_00477704;                      // sequence record
 extern "C" void* g_pause_menu;                      // clear state object
 extern "C" void* data_00477838;                      // replay state record

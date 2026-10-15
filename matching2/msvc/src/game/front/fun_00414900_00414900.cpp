@@ -1969,7 +1969,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00414900_00414900() {
     L_004155df:
         je asm_target_00415764
     L_004155e5:
-        mov edx,dword ptr [data_004776f4]
+        mov edx,dword ptr [g_card]
     L_004155eb:
         test byte ptr [edx+378Ch],1
     L_004155f2:

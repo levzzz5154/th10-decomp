@@ -1,13 +1,13 @@
 {
   "schema_version": 1,
   "name": "player_hud_start_spell_00409280",
-  "source": "src/game/card/player_hud_start_spell_00409280.cpp",
+  "source": "src/game/card/card_start_spell.cpp",
   "driver": "layout/ltcg/player_hud_start_spell_00409280_context.cpp",
   "image_base": "0x00400000",
   "description": "Complete readable C++ spell-card start routine and primary-back registrar. Both full native contributions pass the unmasked retail byte gate; complete native callees supply LTCG context.",
   "headers": [
-    "include/th10/game/player_hud_00408d60.hpp",
-    "include/th10/game/player_hud_animations.hpp",
+    "include/th10/game/card_update.hpp",
+    "include/th10/game/card_animations.hpp",
     "include/th10/math/timer.hpp",
     "include/th10/math/vector.hpp",
     "include/th10/render/animation_object_0043e5a0.hpp",
@@ -34,8 +34,8 @@
   ],
   "functions": [
     {
-      "name": "PlayerHud_StartSpell",
-      "symbol": "?StartSpell@PlayerHud_00408d60@@QAEXHPBDH@Z",
+      "name": "Card_StartSpell",
+      "symbol": "?StartSpell@Card_00408d60@@QAEXHPBDH@Z",
       "section": ".text$00409280_fn",
       "address": "0x00409280",
       "size": 2432,
@@ -117,7 +117,7 @@
     }
   ],
   "context": {
-    "symbol": "?PlayerHudStartSpellContext@@YGXPAPAUPlayerHud_00408d60@@PAPBDHPAPAUGameSelection_00409280@@@Z",
+    "symbol": "?CardStartSpellContext@@YGXPAPAUCard_00408d60@@PAPBDHPAPAUGameSelection_00409280@@@Z",
     "section": ".text$0044e100_context",
     "address": "0x0044E100",
     "size": 63,

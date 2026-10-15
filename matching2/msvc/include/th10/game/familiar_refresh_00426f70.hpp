@@ -1,6 +1,6 @@
 #pragma once
 #include <stddef.h>
-#include "th10/game/player_hud_animations.hpp"
+#include "th10/game/card_animations.hpp"
 #include "th10/render/animation_stop_frame_handle.hpp"
 
 // View of the player runtime used by the familiar refresh at 0x00426F70.

@@ -8,11 +8,11 @@ int Bomb::HitTest(const PickupPoint* point) {
     float dy = point->y - position.y;
     float dx = point->x - position.x;
     if (dx*dx + dy*dy < radius*radius) {
-        if (mode == 0 && (data_004776f4->flags & 1)) result = 3;
-        else if (data_004776f4->flags & 1) result = 38;
+        if (mode == 0 && (g_card->flags & 1)) result = 3;
+        else if (g_card->flags & 1) result = 38;
         else result = data_00477704->alternate_mode ? 38 : 5;
     } else {
-        if (data_004776f4->flags & 1) {
+        if (g_card->flags & 1) {
             if (mode == 1) result = data_00474c68 ? 23 : 26;
         } else if (data_00477704->alternate_mode != 0 && mode == 0) {
             result = data_00474c68 == 0 ? 20 : 16;

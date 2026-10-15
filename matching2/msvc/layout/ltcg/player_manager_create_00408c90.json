@@ -1,27 +1,27 @@
 {
   "schema_version": 1,
   "name": "player_manager_create_00408c90",
-  "source": "src/game/card/player_manager_create_00408c90.cpp",
+  "source": "src/game/card/card_create.cpp",
   "driver": "layout/ltcg/player_manager_create_00408c90/context.cpp",
   "headers": [
-    "include/th10/game/player_manager_create_00408c90.hpp",
+    "include/th10/game/card_create.hpp",
     "include/th10/game/scheduler.hpp",
     "include/th10/platform/thread_sync.hpp"
   ],
   "image_base": "0x00400000",
-  "description": "PlayerManager factory with its compiler-generated new-expression cleanup, compiled with stand-in constructor, initializer and destructor shaped for their receivers.",
+  "description": "Card factory with its compiler-generated new-expression cleanup, compiled with stand-in constructor, initializer and destructor shaped for their receivers.",
   "functions": [
     {
-      "name": "PlayerManager_Create",
-      "symbol": "?PlayerManager_Create_00408c90@@YGPAUPlayerManager_00408c90@@XZ",
+      "name": "Card_Create",
+      "symbol": "?Card_Create_00408c90@@YGPAUCard_00408c90@@XZ",
       "section": ".text$04create",
       "address": "0x00408C90",
       "actual_abi": "no arguments; manager returned in EAX; compiler-generated EH frame",
       "size": 136
     },
     {
-      "name": "PlayerManagerCreateUnwind",
-      "symbol": "_PlayerManagerCreateUnwind_00465860",
+      "name": "CardCreateUnwind",
+      "symbol": "_CardCreateUnwind_00465860",
       "section": ".text$x",
       "address": "0x00465860",
       "actual_abi": "frees the block when the constructor throws",
@@ -30,8 +30,8 @@
       "size": 11
     },
     {
-      "name": "PlayerManagerCreateHandler",
-      "symbol": "__ehhandler$?PlayerManager_Create_00408c90@@YGPAUPlayerManager_00408c90@@XZ",
+      "name": "CardCreateHandler",
+      "symbol": "__ehhandler$?Card_Create_00408c90@@YGPAUCard_00408c90@@XZ",
       "section": ".text$x",
       "address": "0x0046586B",
       "actual_abi": "compiler-generated EH handler",
@@ -40,7 +40,7 @@
     }
   ],
   "context": {
-    "symbol": "?PlayerManagerCreateCompilerContext@@YGHXZ",
+    "symbol": "?CardCreateCompilerContext@@YGHXZ",
     "section": ".text$05context",
     "address": "0x00408D20",
     "size": 12,
@@ -158,21 +158,21 @@
   "anchors": [
     {
       "name": "ConstructorStandIn",
-      "symbol": "??0PlayerManager_00408c90@@QAE@XZ",
+      "symbol": "??0Card_00408c90@@QAE@XZ",
       "section": ".text$01ctor",
       "address": "0x00408910",
       "size": 138
     },
     {
       "name": "InitializeStandIn",
-      "symbol": "?Initialize@PlayerManager_00408c90@@QAEHXZ",
+      "symbol": "?Initialize@Card_00408c90@@QAEHXZ",
       "section": ".text$02init",
       "address": "0x004089C0",
       "size": 96
     },
     {
       "name": "DestructorStandIn",
-      "symbol": "??1PlayerManager_00408c90@@QAE@XZ",
+      "symbol": "??1Card_00408c90@@QAE@XZ",
       "section": ".text$03dtor",
       "address": "0x00408AF0",
       "size": 127

@@ -15,7 +15,7 @@ struct HudSprite_00408d60 {
 
 // The in-game side panel: the two fixed sprites, the bonus digits and the
 // two two-digit counters, driven by the scheduler callback at 0x00409220.
-struct PlayerHud_00408d60 {
+struct Card_00408d60 {
     unsigned char reserved_0000[0x10];
     HudSprite_00408d60 frame_sprite;               // +0x0010
     HudSprite_00408d60 label_sprite;               // +0x03BC
@@ -36,9 +36,9 @@ struct PlayerHud_00408d60 {
     __declspec(noinline) void StartSpell(int index, const char* name, int duration);
 };
 
-typedef char PlayerHud_digits[offsetof(PlayerHud_00408d60, bonus_digits) == 0x778 ? 1 : -1];
-typedef char PlayerHud_counters[offsetof(PlayerHud_00408d60, counter_digits) == 0x24D8 ? 1 : -1];
-typedef char PlayerHud_timer[offsetof(PlayerHud_00408d60, timer) == 0x3734 ? 1 : -1];
-typedef char PlayerHud_position[offsetof(PlayerHud_00408d60, marker_position) == 0x379C ? 1 : -1];
+typedef char Card_digits[offsetof(Card_00408d60, bonus_digits) == 0x778 ? 1 : -1];
+typedef char Card_counters[offsetof(Card_00408d60, counter_digits) == 0x24D8 ? 1 : -1];
+typedef char Card_timer[offsetof(Card_00408d60, timer) == 0x3734 ? 1 : -1];
+typedef char Card_position[offsetof(Card_00408d60, marker_position) == 0x379C ? 1 : -1];
 
-extern "C" int __fastcall PlayerManagerPrimary_00409220(PlayerHud_00408d60* hud);
+extern "C" int __fastcall CardPrimary_00409220(Card_00408d60* hud);

@@ -26,7 +26,7 @@ struct RenderStageState_00405300 {
 // _004091c0.cpp) is kept alive by the call below - deliberately not by a `roots`
 // entry, which would pin its declared __thiscall ABI.  Retail enters that body
 // with the state in EBX, the private receiver its caller 0x00409270 supplies.
-struct ScoreRuntimeState_004091c0 {
+struct CardRuntime_004091c0 {
     unsigned char reserved_0000[0x378C];
     unsigned char release_flag_378C;
     unsigned char reserved_378D[0x400];
@@ -64,7 +64,7 @@ int __stdcall RenderBatchContext(const ScreenRect** rects, const unsigned int* c
     data_00491c28.SelectStage(0);
     ((RenderStageState_00405300*)&data_00491c28)->SelectDefaultStage(0);
     // keeps the 0x004091C0 model in the link without pinning its receiver
-    ((ScoreRuntimeState_004091c0*)&data_00491c28)->ReleaseFlaggedEntityArrays();
+    ((CardRuntime_004091c0*)&data_00491c28)->ReleaseFlaggedEntityArrays();
     count += ((RenderStageState_00439390*)&data_00491c28)->EnableFog();
     count += ((RenderStageState_00439390*)&data_00491c28)->EnableDepthWrite();
     count += ((RenderStageState_00439390*)&data_00491c28)->DisableDepthWrite();

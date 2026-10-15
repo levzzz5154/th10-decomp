@@ -27,10 +27,10 @@
 extern "C" __declspec(noinline) int __cdecl asm_FUN_004451c0_004451c0(
         AnimationManager_00442F50* manager, RenderEntity* entity);
 
-#include "th10/game/score_runtime_state_004091c0.hpp"
+#include "th10/game/card_runtime.hpp"
 
 #pragma code_seg(".text$001arrays")
-int ScoreRuntimeState_004091c0::ReleaseFlaggedEntityArrays() {
+int CardRuntime_004091c0::ReleaseFlaggedEntityArrays() {
     if (release_flag_378C & 1) {
         for (int i = 0; i < 8; ++i) {
             asm_FUN_004451c0_004451c0(data_00491c10,

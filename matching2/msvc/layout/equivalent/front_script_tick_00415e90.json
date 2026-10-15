@@ -364,7 +364,7 @@
       "address": "0x00474C4C",
       "kind": "data"
     },
-    "_data_004776f4": {
+    "_g_card": {
       "address": "0x004776F4",
       "kind": "data"
     },
@@ -513,7 +513,7 @@
     "_data_00470d10": "0x00470D10",
     "_data_00474c40": "0x00474C40",
     "_data_00474c4c": "0x00474C4C",
-    "_data_004776f4": "0x004776F4",
+    "_g_card": "0x004776F4",
     "_data_00491fb8": "0x00491FB8",
     "_data_00491ff4": "0x00491FF4",
     "?DispatcherCreateAt@@YGPAHPAUAnimationResource_00449870@@PAHHH@Z": "0x00448D00"

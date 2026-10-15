@@ -507,7 +507,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_00417c80_00417c80() {
     L_00417fe0:
         add esp,4
     L_00417fe3:
-        mov esi,dword ptr [data_004776f4]
+        mov esi,dword ptr [g_card]
     L_00417fe9:
         test esi,esi
     L_00417feb:

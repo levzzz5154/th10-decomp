@@ -37,7 +37,7 @@ struct SpellTimerStage_004127a0 {
     unsigned int charge;
 };
 
-extern "C" SpellTimerStage_004127a0 *data_004776f4;
+extern "C" SpellTimerStage_004127a0 *g_card;
 
 struct SpellTimerClock_004127a0 {
     int previous_frame;              // +0x00
@@ -151,7 +151,7 @@ __declspec(noinline) void *SpellTimerState_004127a0::AdvanceSlots() {
         if (countdown < 5000)
             countdown = 5000;
 
-        SpellTimerStage_004127a0 *stage_state = data_004776f4;
+        SpellTimerStage_004127a0 *stage_state = g_card;
         unsigned int *stage_flags = &stage_state->flags;
         unsigned int saved_stage_flags = *stage_flags;
         if ((saved_stage_flags & 8u) == 0 &&

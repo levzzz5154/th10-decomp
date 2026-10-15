@@ -35,7 +35,7 @@ struct ScoreState_0040dc80 {
 };
 
 extern "C" {
-extern GameThread_0040dc80* data_004776f4;
+extern GameThread_0040dc80* g_card;
 extern Gui_0040dc80* data_0047770c;
 extern AnimationManager_0040dc80* data_00491c10;
 extern ScoreState_0040dc80 data_00474c40;

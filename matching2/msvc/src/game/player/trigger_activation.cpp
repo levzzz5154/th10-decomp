@@ -43,7 +43,7 @@ struct TriggerPlayer {
 };
 extern "C" TriggerResources* data_004776f0;
 
-extern "C" TriggerPlayer* data_004776f4;
+extern "C" TriggerPlayer* g_card;
 extern "C" SoundQueue data_00492590;
 struct AnimationResource_0043e710;
 struct AnimationObject_0043e710;
@@ -91,7 +91,7 @@ extern "C" __declspec(noinline) void __stdcall Player_Hit(Player* player) {
     target->activation_timer.Set(6);
     LoadScript_0043e710(reinterpret_cast<AnimationResource_0043e710*>(target->resource),
         reinterpret_cast<AnimationObject_0043e710*>(&target->animation), 0);
-    TriggerPlayer* state = data_004776f4;
+    TriggerPlayer* state = g_card;
     if (state->elapsed_frames >= 60) {
         state->pending_state = 0;
         state->flags &= ~2u;

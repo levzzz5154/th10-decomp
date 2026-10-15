@@ -52,7 +52,7 @@ extern "C" void __stdcall ManagerOwned_Destroy_004294a0(void* manager);
 extern "C" void __stdcall EnemyManager_Clear_00409f90(void* manager);
 extern "C" void __stdcall BulletManager_Release_0040af00(void* manager);
 extern "C" void __stdcall Bomb_Release(void* state);
-extern "C" void __stdcall PlayerManager_Destroy_00408af0(void* manager);
+extern "C" void __stdcall Card_Destroy_00408af0(void* manager);
 
 // The manager state block: two scheduler tasks the game thread registered.
 struct ManagerState_00417c80 {
@@ -241,9 +241,9 @@ void __stdcall ReleaseGlobalManager_00417c80(ManagerState_00417c80* state) {
         Bomb_Release(recovery_pair);
         entry_free_004524a1(recovery_pair);
     }
-    void* players = data_004776f4;
+    void* players = g_card;
     if (players) {
-        PlayerManager_Destroy_00408af0(players);
+        Card_Destroy_00408af0(players);
         entry_free_004524a1(players);
     }
 

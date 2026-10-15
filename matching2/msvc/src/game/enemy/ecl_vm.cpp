@@ -5811,7 +5811,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0040e770_0040e770() {
     L_00410f2a:
         push eax
     L_00410f2b:
-        mov eax,dword ptr [data_004776f4]
+        mov eax,dword ptr [g_card]
     L_00410f30:
         lea edx,[esp+24Ch]
     L_00410f37:
@@ -5843,7 +5843,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0040e770_0040e770() {
     L_00410f55:
         ret
     L_00410f56:
-        mov eax,dword ptr [data_004776f4]
+        mov eax,dword ptr [g_card]
     L_00410f5b:
         call asm_FUN_00409c00_00409c00
     L_00410f60:
@@ -5867,7 +5867,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0040e770_0040e770() {
     L_00410f76:
         ret
     L_00410f77:
-        mov eax,dword ptr [data_004776f4]
+        mov eax,dword ptr [g_card]
     L_00410f7c:
         or dword ptr [eax+378Ch],8
     L_00410f83:
@@ -5891,7 +5891,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0040e770_0040e770() {
     L_00410f99:
         ret
     L_00410f9a:
-        mov esi,dword ptr [data_004776f4]
+        mov esi,dword ptr [g_card]
     L_00410fa0:
         call asm_BulletEntity_MarkAnimationForRemoval_0040cea0
     L_00410fa5:

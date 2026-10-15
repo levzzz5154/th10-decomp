@@ -1,8 +1,8 @@
 // 0x00409280: start a spell card on the in-game side panel - count the
 // attempt, load the panel's sprites and create its animations.
-#include "th10/game/player_hud_00408d60.hpp"
+#include "th10/game/card_update.hpp"
 #include "th10/game/score_file.hpp"
-#include "th10/game/player_hud_animations.hpp"
+#include "th10/game/card_animations.hpp"
 #include "th10/platform/sound_queue.hpp"
 
 struct AnimationResource_0043e710;
@@ -135,7 +135,7 @@ static __forceinline Entity* FindChild(int& handle, int script) {
 }
 
 #pragma code_seg(".text$00409280_fn")
-void PlayerHud_00408d60::StartSpell(int index, const char* name, int duration) {
+void Card_00408d60::StartSpell(int index, const char* name, int duration) {
     timer.Set(0);
     record_index = index;
     const char* panel_name_cursor = name;

@@ -1,6 +1,6 @@
 // 0x00408D60: per-frame update of the in-game side panel, and the scheduler
 // callback at 0x00409220 that runs it.
-#include "th10/game/player_hud_00408d60.hpp"
+#include "th10/game/card_update.hpp"
 #include "th10/game/player.hpp"
 
 struct StageState_00408d60 {
@@ -55,7 +55,7 @@ static inline void Configure(HudSprite_00408d60* sprite, int script) {
 }
 
 #pragma code_seg(".text$a00update")
-int PlayerHud_00408d60::Update() {
+int Card_00408d60::Update() {
     if (!(flags & 1))
         return 1;
     if (timer.current >= 60)
@@ -134,7 +134,7 @@ int PlayerHud_00408d60::Update() {
 #pragma code_seg()
 
 #pragma code_seg(".text$a01callback")
-extern "C" int __fastcall PlayerManagerPrimary_00409220(PlayerHud_00408d60* hud) {
+extern "C" int __fastcall CardPrimary_00409220(Card_00408d60* hud) {
     return hud->Update();
 }
 #pragma code_seg()

@@ -1,5 +1,5 @@
 // Compiler context and ABI anchor only; none of these bytes enter the image.
-#include "../../src/game/card/player_draw_sprites_00409190.cpp"
+#include "../../src/game/card/card_draw_sprites.cpp"
 
 // 0x004451C0 enters on (EAX entity, ECX manager). The recovered dispatcher
 // lives in the render-batch cluster; this stand-in only fixes the parameter
@@ -18,10 +18,10 @@ extern "C" __declspec(noinline) int __cdecl asm_FUN_004451c0_004451c0(
 #pragma code_seg()
 
 #pragma code_seg(".text$05context")
-int __stdcall PlayerDrawSpritesCompilerContext_00409190(Player_00409190** players, int count) {
+int __stdcall PlayerDrawSpritesCompilerContext_00409190(CardDrawView** players, int count) {
     int total = 0;
     while (count--) {
-        Player_00409190* player = *players++;
+        CardDrawView* player = *players++;
         total += player->DrawSprites();
         total += player->DrawSprites();
     }
