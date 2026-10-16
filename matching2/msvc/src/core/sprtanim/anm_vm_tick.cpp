@@ -1,7 +1,7 @@
 // Equivalent recovery of the ANM VM tick at 0x0043EE30. The default build
 // compiles this into the executable once tools/matching/equivalence.py has
 // checked that it differs from the exact bytes only as recorded in
-// build_support/layout/equivalent/anm_vm_tick_0043ee30.json. The inline assembly in
+// build_support/layout/equivalent/anm_vm_tick.json. The inline assembly in
 // build_support/exact/core/sprtanim/anm_vm_tick.cpp supplies those exact bytes and `make EXACT=1`.
 #include "th10/runtime/core/sprtanim/anm_vm_tick.hpp"
 #pragma intrinsic(sin, cos, tan, acos, atan, fmod, memcpy)

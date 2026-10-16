@@ -9,7 +9,7 @@
 //
 // The region covers the code and its two switch tables (1604 bytes); this
 // model is verified through the equivalent-recovery layout
-// build_support/layout/equivalent/projectile_command_runtime_00406d90.json.
+// build_support/layout/equivalent/projectile_command_runtime.json.
 #include <string.h>
 #include "th10/game/projectile_spawn_runtime.hpp"
 #include "th10/game/enemy_grid_scan.hpp"

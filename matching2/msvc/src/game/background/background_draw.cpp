@@ -5,7 +5,7 @@
 // parameters, draws the four object layers, and steps the fade-out timer.
 // It calls the batch flush, the camera apply, the bucket renderer and the
 // timer on their whole-program registers, so it is compiled in the cluster
-// build_support/layout/ltcg/anm_batch_flush_00442f50.json.
+// build_support/layout/ltcg/anm_batch_flush.json.
 #include "th10/game/background_draw.hpp"
 
 #pragma code_seg(".text$000pm_stagedraw")

@@ -4,7 +4,7 @@
 // The cull takes the object in ECX, the instance position in EDX and the
 // camera in EAX, and the draw calls the camera apply, the batch flush and the
 // entity dispatch on their whole-program registers, so both are compiled in
-// the cluster build_support/layout/ltcg/anm_batch_flush_00442f50.json.
+// the cluster build_support/layout/ltcg/anm_batch_flush.json.
 #include "th10/game/background_draw.hpp"
 
 #pragma code_seg(".text$000q1cull")

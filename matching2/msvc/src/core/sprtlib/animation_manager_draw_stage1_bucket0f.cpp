@@ -16,7 +16,7 @@
 // and the manager from EDI with the bucket index in EAX (0x00448980); the
 // camera member is the recovered model in src/game/mother/camera_setup.cpp and the
 // bucket renderer is the compiled ABI anchor below, so the body is compiled in
-// the native-LTCG cluster build_support/layout/ltcg/anm_batch_flush_00442f50.json.
+// the native-LTCG cluster build_support/layout/ltcg/anm_batch_flush.json.
 #include "th10/render/camera_batch.hpp"
 
 // One render stage record: the camera at offset 0 followed by the fields that

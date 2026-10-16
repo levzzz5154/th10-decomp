@@ -5,7 +5,7 @@
 // fade, draws the flat backdrop sprites and the eight far object layers.
 // It calls the batch flush, the camera apply, the stage selectors and the
 // timer on their whole-program registers, so it is compiled in the cluster
-// build_support/layout/ltcg/anm_batch_flush_00442f50.json.
+// build_support/layout/ltcg/anm_batch_flush.json.
 #include "th10/game/background_draw.hpp"
 
 // The parts of the render state at 0x00491C28 other units define.

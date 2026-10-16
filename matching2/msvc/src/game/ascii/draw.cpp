@@ -26,7 +26,7 @@ int __fastcall AsciiManager_OnDrawLate(AsciiManager* thread) {
 // The batch manager goes to the flush in ESI, the stage camera to its apply
 // in EDI and the glyph to the quad draw in ESI, all from the whole-program
 // pass, so this unit is compiled in the cluster
-// build_support/layout/ltcg/anm_batch_flush_00442f50.json.
+// build_support/layout/ltcg/anm_batch_flush.json.
 
 #pragma code_seg(".text$000m1records")
 int __stdcall AsciiManager_DrawStrings(AsciiManager* thread) {
@@ -100,7 +100,7 @@ int __stdcall AsciiManager_DrawStrings(AsciiManager* thread) {
 //
 // The receiver arrives in EBX, the batch manager goes to the flush in ESI and
 // the stage camera to its apply in EDI, all from the whole-program pass, so
-// this unit is compiled in the cluster build_support/layout/ltcg/anm_batch_flush_00442f50.json.
+// this unit is compiled in the cluster build_support/layout/ltcg/anm_batch_flush.json.
 
 #pragma code_seg(".text$000m3late")
 int AsciiManager::DrawLateRecords() {

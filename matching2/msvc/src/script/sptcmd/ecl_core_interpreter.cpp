@@ -1,7 +1,7 @@
 // Equivalent recovery of the core ECL interpreter at 0x0044E1A0. The default
 // build compiles this into the executable once tools/matching/equivalence.py
 // has checked that it differs from the exact bytes only as recorded in
-// build_support/layout/equivalent/ecl_core_interpreter_0044e1a0.json. The inline assembly in
+// build_support/layout/equivalent/ecl_core_interpreter.json. The inline assembly in
 // build_support/layout/units/ecl_core_interpreter_exact.cpp supplies those exact bytes and
 // `make EXACT=1`.
 #include "th10/runtime/script/sptcmd/ecl_core_interpreter.hpp"

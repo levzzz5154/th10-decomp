@@ -3,7 +3,7 @@
 // The caller (0x004073E0) keeps the spawn blueprint in EBX and pushes the
 // manager, column, row and aim angle; the register state is a native-LTCG
 // convention, verified with the caller in context through the equivalent-
-// recovery layout build_support/layout/equivalent/projectile_spawn_cell_004067d0.json.
+// recovery layout build_support/layout/equivalent/projectile_spawn_cell.json.
 // The slot scan walks the manager's 2000
 // records five at a time until it finds a free one (state 0), wrapping to the
 // first record whenever it steps onto one that is already leaving (state 5).

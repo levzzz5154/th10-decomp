@@ -2,7 +2,7 @@
   "schema_version": 1,
   "name": "enemy_grid_scan2",
   "source": "src/game/bullet/enemy_grid_scan.cpp",
-  "driver": "build_support/layout/ltcg/enemy_grid_scan_004073e0_context.cpp",
+  "driver": "build_support/layout/ltcg/enemy_grid_scan_context.cpp",
   "headers": [
     "include/th10/game/enemy_grid_scan.hpp",
     "include/th10/platform/sound_queue.hpp",
@@ -108,7 +108,7 @@
     }
   ],
   "additional_sources": [
-    "build_support/layout/ltcg/enemy_grid_scan_004073e0_anchors.cpp"
+    "build_support/layout/ltcg/enemy_grid_scan_anchors.cpp"
   ],
   "included_sources": [
     "build_support/layout/ltcg/enemy_grid_scan_dependencies/sound_pan.cpp",
