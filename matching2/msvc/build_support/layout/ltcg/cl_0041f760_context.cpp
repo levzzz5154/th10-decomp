@@ -1,7 +1,7 @@
 // Compiler context only; never selected as recovered game code.
-#include "../../../src/unreferenced/unassigned_0041f760.cpp"
+#include "../../../src/unreferenced/unassigned_41f760.cpp"
 #pragma code_seg(".text$03context")
-float __stdcall VectorContext_0041f760(Vector2_0041f760** items, Vector2_0041f760** others, int count) {
+float __stdcall VectorContext_0041f760(Vector23** items, Vector23** others, int count) {
     float total = 0.0f;
     while (count--) {
         total += (*items++)->DistanceSquared(*others++);

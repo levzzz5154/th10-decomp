@@ -1,0 +1,122 @@
+{
+  "schema_version": 1,
+  "name": "laser_spawn",
+  "source": "src/game/laser/laser_spawn.cpp",
+  "driver": "build_support/layout/ltcg/laser_spawn_0041c510_context.cpp",
+  "headers": [
+    "include/th10/game/laser_spawn.hpp",
+    "include/th10/game/entity.hpp",
+    "include/th10/math/timer.hpp",
+    "include/th10/types.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Laser spawn and the two laser constructors compiled with native LTCG beside a stand-in for the common constructor and a synthetic caller.",
+  "functions": [
+    {
+      "name": "LaserSpawnParameters_SpawnIn",
+      "symbol": "?SpawnIn@LaserSpawnParameters@@QBEHPAULaserManager2@@H@Z",
+      "section": ".text$0041c510_fn",
+      "address": "0x0041C510",
+      "size": 153,
+      "actual_abi": "manager in ESI, parameters in EDI, kind on the stack; RET 4"
+    },
+    {
+      "name": "LineLaser_Construct",
+      "symbol": "?LineLaser_Construct2@@YIPAULineLaser2@@PAU1@@Z",
+      "section": ".text$0041c5b0_fn",
+      "address": "0x0041C5B0",
+      "size": 202,
+      "actual_abi": "laser in EBX; result in EAX; plain RET"
+    },
+    {
+      "name": "BeamLaser_Construct",
+      "symbol": "?BeamLaser_Construct2@@YIPAUBeamLaser@@PAU1@@Z",
+      "section": ".text$0041c680_fn",
+      "address": "0x0041C680",
+      "size": 219,
+      "actual_abi": "laser in EBX; result in EAX; plain RET"
+    }
+  ],
+  "context": {
+    "symbol": "_LaserSpawnContext@12",
+    "section": ".text$0040a000_context",
+    "address": "0x0040A000",
+    "size": 116,
+    "description": "Synthetic caller compiled with inlining off; not recovered game code."
+  },
+  "anchors": [
+    {
+      "name": "LaserBase_Construct",
+      "symbol": "?LaserBase_Construct2@@YIPAULaserBase@@PAXPAU1@@Z",
+      "section": ".text$0041c030_fn",
+      "address": "0x0041C030",
+      "size": 7
+    }
+  ],
+  "gaps": [
+    {
+      "section": ".text$00401000_gap",
+      "address": "0x00401000",
+      "size": 36864
+    },
+    {
+      "section": ".text$0040a074_gap",
+      "address": "0x0040A074",
+      "size": 73660
+    },
+    {
+      "section": ".text$0041c037_gap",
+      "address": "0x0041C037",
+      "size": 1241
+    },
+    {
+      "section": ".text$0041c5a9_gap",
+      "address": "0x0041C5A9",
+      "size": 7
+    },
+    {
+      "section": ".text$0041c67a_gap",
+      "address": "0x0041C67A",
+      "size": 6
+    }
+  ],
+  "constants": [],
+  "data_aliases": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_g_laser_manager",
+      "address": "0x0047781C",
+      "kind": "data"
+    },
+    {
+      "symbol": "??2@YAPAXI@Z",
+      "address": "0x00452493",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__fltused",
+      "address": "0x0",
+      "kind": "metadata"
+    },
+    {
+      "symbol": "_g_line_laser_vtable",
+      "address": "0x0046DA60",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_beam_laser_vtable",
+      "address": "0x0046DA10",
+      "kind": "data"
+    },
+    {
+      "symbol": "@LaserBaseConstructBody@8",
+      "address": "0x0041C040",
+      "kind": "relative_code"
+    }
+  ],
+  "roots": [],
+  "additional_sources": [],
+  "included_sources": [
+    "build_support/layout/ltcg/laser_spawn_0041c510_anchors.cpp"
+  ]
+}

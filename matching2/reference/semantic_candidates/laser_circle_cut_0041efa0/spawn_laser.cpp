@@ -1,5 +1,5 @@
 // The laser manager's spawn and the two laser constructors.
-#include "th10/game/laser_spawn_0041c510.hpp"
+#include "th10/game/laser_spawn.hpp"
 
 void* __cdecl operator new(unsigned int size);
 

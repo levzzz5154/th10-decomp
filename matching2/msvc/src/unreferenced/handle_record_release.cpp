@@ -5,7 +5,7 @@
 extern "C" void (*imp_timeKillEvent)(void* handle);
 extern "C" void (*imp_timeEndPeriod)(void* memory);
 
-struct Record_0043b890 {
+struct Record6 {
     unsigned char pad_000[4];
     int handle_004;
     void* memory_008;
@@ -14,7 +14,7 @@ struct Record_0043b890 {
 };
 
 #pragma code_seg(".text$01release")
-void Record_0043b890::Release() {
+void Record6::Release() {
     if (handle_004 != 0) imp_timeKillEvent((void*)handle_004);
     imp_timeEndPeriod(memory_008);
     handle_004 = 0;
@@ -23,7 +23,7 @@ void Record_0043b890::Release() {
 #pragma code_seg()
 
 #pragma code_seg(".text$02adjacentret")
-__declspec(noinline) void __stdcall Empty_0043b8b0() {
+__declspec(noinline) void __stdcall Empty23() {
     return;
 }
 #pragma code_seg()

@@ -1,0 +1,215 @@
+{
+  "schema_version": 1,
+  "name": "ui_markers_00420f20",
+  "source": "src/game/mother/ui_markers.cpp",
+  "driver": "build_support/layout/ltcg/ui_markers_00420f20_context.cpp",
+  "headers": [
+    "include/th10/game/ui_thread_host.hpp",
+    "include/th10/platform/worker.hpp",
+    "include/th10/game/pause_result_open/dispatcher_contract.hpp",
+    "include/th10/game/pause_result_open/open_animation.hpp",
+    "include/th10/game/pause_result_open/open_state.hpp",
+    "include/th10/game/entity.hpp",
+    "include/th10/types.hpp",
+    "include/th10/game/pause_result_open/descriptor.hpp",
+    "include/th10/game/pause_result_open/music.hpp",
+    "include/th10/render/resource_registrar.hpp",
+    "include/th10/math/timer.hpp",
+    "include/th10/game/score.hpp",
+    "include/th10/platform/sound_queue.hpp",
+    "include/th10/core/screen.hpp",
+    "include/th10/core/func_ctrl.hpp",
+    "include/th10/game/recovery_mark_text_and_dispatcher.hpp",
+    "include/th10/game/player.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "The UI host's worker stop and marker creation entries compiled with native LTCG beside complete models of the animation allocate, register, find and position callees and the worker stop.",
+  "functions": [
+    {
+      "name": "GameUiThreadHost_StopWorker",
+      "symbol": "?StopWorker@GameUiThreadHost@@QAEXXZ",
+      "section": ".text$00420f20_fn",
+      "address": "0x00420F20",
+      "size": 16,
+      "actual_abi": "receiver in EAX; worker passed in ESI; RET"
+    },
+    {
+      "name": "GameUiThreadHost_CreateMarkers",
+      "symbol": "?CreateMarkers@GameUiThreadHost@@QAEXPBUDispatcherVec3@@@Z",
+      "section": ".text$00420f30_fn",
+      "address": "0x00420F30",
+      "size": 309,
+      "actual_abi": "receiver in EDI; position at stack +4; RET 4"
+    },
+    {
+      "name": "GameUi_ShowMarkers",
+      "symbol": "_GameUi_ShowMarkers2@8",
+      "section": ".text$00421180_fn",
+      "address": "0x00421180",
+      "size": 369,
+      "actual_abi": "host and position on the stack; RET 8"
+    }
+  ],
+  "context": {
+    "symbol": "_UiMarkersCompilerContext@12",
+    "section": ".text$30context",
+    "address": "0x0044C1C0",
+    "size": 93,
+    "description": "Synthetic caller; not recovered game code."
+  },
+  "anchors": [
+    {
+      "name": "RegisterPrimaryBack",
+      "symbol": "?RegisterPrimaryBack@DispatcherPrimaryLists@@QAE?AUDispatcherRef@@PAUEntity@@@Z",
+      "section": ".text$004489d0_fn",
+      "address": "0x004489D0",
+      "size": 117
+    },
+    {
+      "name": "AnimationManager_Find",
+      "symbol": "?AnimationManager_Find@@YIPAXPAUAnimationLookupContext@@UAnimationScriptId@@@Z",
+      "section": ".text$004491c0_fn",
+      "address": "0x004491C0",
+      "size": 73
+    },
+    {
+      "name": "DispatcherSetPosition",
+      "symbol": "?DispatcherSetPosition@@YGXPBUDispatcherVec3@@PAUAnimationLookupContext@@UAnimationScriptId@@@Z",
+      "section": ".text$004492f0_fn",
+      "address": "0x004492F0",
+      "size": 90
+    },
+    {
+      "name": "AnimationPool_Allocate",
+      "symbol": "?Allocate@AnimationPool@@QAEPAUEntity@@XZ",
+      "section": ".text$00449950_fn",
+      "address": "0x00449950",
+      "size": 159
+    },
+    {
+      "name": "PlatformWorker_Stop",
+      "symbol": "?Stop@PlatformWorker@@QAEXXZ",
+      "section": ".text$20callee",
+      "address": "0x0044C150",
+      "size": 101
+    }
+  ],
+  "gaps": [
+    {
+      "section": ".text$00401000_gap",
+      "address": "0x00401000",
+      "size": 130848
+    },
+    {
+      "section": ".text$00421065_gap",
+      "address": "0x00421065",
+      "size": 283
+    },
+    {
+      "section": ".text$004212f1_gap",
+      "address": "0x004212F1",
+      "size": 161503
+    },
+    {
+      "section": ".text$00448a45_gap",
+      "address": "0x00448A45",
+      "size": 1915
+    },
+    {
+      "section": ".text$00449209_gap",
+      "address": "0x00449209",
+      "size": 231
+    },
+    {
+      "section": ".text$0044934a_gap",
+      "address": "0x0044934A",
+      "size": 1542
+    },
+    {
+      "section": ".text$004499ef_gap",
+      "address": "0x004499EF",
+      "size": 10081
+    },
+    {
+      "section": ".text$25layout",
+      "address": "0x0044C1B5",
+      "size": 11
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_g_sprt_ctrl",
+      "address": "0x00491C10",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_queued_cleanup_a",
+      "address": "0x00477824",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_queued_cleanup_b",
+      "address": "0x00477828",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_queued_cleanup_c",
+      "address": "0x0047782C",
+      "kind": "data"
+    },
+    {
+      "symbol": "?Entity_Constructor@@YIPAUEntity@@PAU1@@Z",
+      "address": "0x00402050",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?Entity_Init@@YGXPAUEntity@@@Z",
+      "address": "0x00401DE0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "??2@YAPAXI@Z",
+      "address": "0x00452493",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?InitializeObject@AnimationBank@@QAEXPAUEntity@@H@Z",
+      "address": "0x00449870",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_UiMarkersObserve@4",
+      "address": "0x00401000",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__imp__WaitForSingleObject@8",
+      "address": "0x0046611C",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__Sleep@4",
+      "address": "0x004660AC",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__CloseHandle@4",
+      "address": "0x004660CC",
+      "kind": "data"
+    },
+    {
+      "symbol": "__fltused",
+      "address": "0x00000000",
+      "kind": "metadata"
+    }
+  ],
+  "roots": [],
+  "additional_sources": [],
+  "included_sources": [
+    "build_support/layout/ltcg/result_open/find.cpp",
+    "build_support/layout/ltcg/result_open/allocate.cpp",
+    "build_support/layout/ltcg/result_open/dispatcher_animation_helpers.cpp",
+    "src/core/zunlib/platform_stop_worker.cpp"
+  ]
+}

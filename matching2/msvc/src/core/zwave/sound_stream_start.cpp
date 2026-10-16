@@ -6,7 +6,7 @@ extern "C" __declspec(noinline) int __stdcall SoundStreamStart(SoundStream* stre
         unsigned int priority, unsigned int flags) {
     if (!stream->buffers) return (int)0x800401f0u;
     WaveBuffer* buffer = reinterpret_cast<WaveBuffer*>(
-        reinterpret_cast<PlatformInterfaceState_0044D370*>(stream)->FindAvailable());
+        reinterpret_cast<PlatformInterfaceState*>(stream)->FindAvailable());
     if (!buffer) return (int)0x80004005u;
     unsigned int restored;
     int result = reinterpret_cast<PlatformD300Entry*>(buffer)->Run(&restored);
@@ -19,7 +19,7 @@ extern "C" __declspec(noinline) int __stdcall SoundStreamStart(SoundStream* stre
     stream->fade_mode = 0;
     stream->fade_remaining = 0;
     stream->fade_duration = 0;
-    reinterpret_cast<PlatformInterfaceState_0044D4E0*>(stream)->SetOperationDeadline(0);
+    reinterpret_cast<PlatformInterfaceState2*>(stream)->SetOperationDeadline(0);
     stream->playing = 1;
     stream->play_priority = priority;
     stream->play_flags = flags;

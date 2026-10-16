@@ -2,7 +2,7 @@
 
 // 0x004492F0: copy the position to the animation and unflagged child list.
 #pragma code_seg(".text$140position")
-void __fastcall SetAnimationPosition_004492f0(
+void __fastcall SetAnimationPosition2(
         PositionLookupContext* context, const PositionVector* position,
         PositionScriptId id) {
     PositionEntry* entry = reinterpret_cast<PositionEntry*>(

@@ -27,7 +27,7 @@
 // One render stage record: the camera at offset 0 followed by the fields that
 // make the record the 0x118 bytes SelectStage indexes with. The camera sits at
 // offset 0, so the viewport block the device receives is the record's +0xCC.
-struct RenderStage_00448620 {
+struct RenderStage5 {
     RenderCamera camera;
     unsigned char reserved_0F0[0x118 - sizeof(RenderCamera)];
 };
@@ -40,17 +40,17 @@ struct RenderStage_00448620 {
 // global declarations - is a measured code-generation lever: it is what makes
 // the backend keep the flush block's store, its argument pushes and the device
 // vtable load in retail's order.
-struct RenderStageState_00448620 {
+struct RenderStageState5 {
     unsigned char reserved_000[0x08];
     RenderDevice* device;                        // +0x08
     unsigned char reserved_00C[0x154 - 0x0C];
-    RenderStage_00448620 stages[2];              // +0x154, stride 0x118
-    RenderStage_00448620* active_stage;          // +0x384
+    RenderStage5 stages[2];              // +0x154, stride 0x118
+    RenderStage5* active_stage;          // +0x384
     int stage_index;                             // +0x388
     unsigned char reserved_38C[0x750 - 0x38C];
     int fog_dirty;                               // +0x750
 };
-extern "C" RenderStageState_00448620 g_application;
+extern "C" RenderStageState5 g_application;
 
 // 0x00448980 reads its manager from EDI and its bucket index from EAX; the
 // declaration only fixes the argument shape, the cluster anchor supplies the
@@ -59,7 +59,7 @@ extern "C" int __cdecl asm_AnimationManager_RenderBucket_00448980(void* manager,
 
 #pragma code_seg(".text$08layer3")
 int SprtCtrlBatchView::RenderStage0Bucket3() {
-    RenderStage_00448620* stage = &g_application.stages[0];
+    RenderStage5* stage = &g_application.stages[0];
     g_application.active_stage = stage;
     stage->camera.ApplyDefault();
     g_d3d_device->Viewport(&g_application.active_stage->camera.viewport_x);

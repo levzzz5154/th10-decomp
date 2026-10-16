@@ -1,0 +1,198 @@
+{
+  "schema_version": 1,
+  "name": "player_manager_create",
+  "source": "src/game/card/card_create.cpp",
+  "driver": "build_support/layout/ltcg/player_manager_create/context.cpp",
+  "headers": [
+    "include/th10/game/card_create.hpp",
+    "include/th10/core/func_ctrl.hpp",
+    "include/th10/platform/thread_sync.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Card factory with its compiler-generated new-expression cleanup, compiled with stand-in constructor, initializer and destructor shaped for their receivers.",
+  "functions": [
+    {
+      "name": "Card_Create",
+      "symbol": "?Card_Create2@@YGPAUCard3@@XZ",
+      "section": ".text$04create",
+      "address": "0x00408C90",
+      "actual_abi": "no arguments; manager returned in EAX; compiler-generated EH frame",
+      "size": 136
+    },
+    {
+      "name": "CardCreateUnwind",
+      "symbol": "_CardCreateUnwind_00465860",
+      "section": ".text$x",
+      "address": "0x00465860",
+      "actual_abi": "frees the block when the constructor throws",
+      "generated": true,
+      "native_symbol_pattern": "\\$L[0-9]+",
+      "size": 11
+    },
+    {
+      "name": "CardCreateHandler",
+      "symbol": "__ehhandler$?Card_Create2@@YGPAUCard3@@XZ",
+      "section": ".text$x",
+      "address": "0x0046586B",
+      "actual_abi": "compiler-generated EH handler",
+      "generated": true,
+      "size": 10
+    }
+  ],
+  "context": {
+    "symbol": "?CardCreateCompilerContext@@YGHXZ",
+    "section": ".text$05context",
+    "address": "0x00408D20",
+    "size": 12,
+    "description": "Synthetic caller; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00before",
+      "address": 4198400,
+      "size": 30992
+    },
+    {
+      "section": ".text$01ctorz",
+      "address": 4229530,
+      "size": 38
+    },
+    {
+      "section": ".text$02initz",
+      "address": 4229664,
+      "size": 208
+    },
+    {
+      "section": ".text$03dtorz",
+      "address": 4229999,
+      "size": 289
+    },
+    {
+      "section": ".text$04createz",
+      "address": 4230424,
+      "size": 8
+    },
+    {
+      "section": ".text$05contextz",
+      "address": 4230444,
+      "size": 265652
+    },
+    {
+      "section": ".text$06primaryz",
+      "address": 4496227,
+      "size": 1021
+    },
+    {
+      "section": ".text$07removez",
+      "address": 4497362,
+      "size": 112782
+    },
+    {
+      "section": ".rdata$0before",
+      "address": 4612096,
+      "size": 47180
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "??2@YAPAXI@Z",
+      "address": "0x00452493",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "??3@YAXPAX@Z",
+      "address": "0x004524A1",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "___CxxFrameHandler",
+      "address": "0x0046276D",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__except_list",
+      "address": "0x00000000",
+      "kind": "metadata"
+    },
+    {
+      "symbol": "_g_func_ctrl",
+      "address": "0x00491BE4",
+      "kind": "data"
+    },
+    {
+      "symbol": "?g_thread_synchronization@@3UThreadSynchronization@@A",
+      "address": "0x00492274",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__EnterCriticalSection@4",
+      "address": "0x004660B0",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__LeaveCriticalSection@4",
+      "address": "0x004660B4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_ManagerCreateStandIn_Task@4",
+      "address": "0x00449ED0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?ManagerCreateStandIn_MayThrow@@YGXPAX@Z",
+      "address": "0x0045252D",
+      "kind": "relative_code"
+    }
+  ],
+  "exceptions": true,
+  "native_data": [
+    {
+      "section": ".xdata$x",
+      "address": "0x0047184C",
+      "bytes": "ffffffff6058460020059319010000004c18470000000000000000000000000000000000",
+      "description": "Unwind map and FuncInfo of the factory; validation only"
+    }
+  ],
+  "anchors": [
+    {
+      "name": "ConstructorStandIn",
+      "symbol": "??0Card3@@QAE@XZ",
+      "section": ".text$01ctor",
+      "address": "0x00408910",
+      "size": 138
+    },
+    {
+      "name": "InitializeStandIn",
+      "symbol": "?Initialize@Card3@@QAEHXZ",
+      "section": ".text$02init",
+      "address": "0x004089C0",
+      "size": 96
+    },
+    {
+      "name": "DestructorStandIn",
+      "symbol": "??1Card3@@QAE@XZ",
+      "section": ".text$03dtor",
+      "address": "0x00408AF0",
+      "size": 127
+    },
+    {
+      "name": "ActualSchedulerRegisterPrimary",
+      "symbol": "_FuncCtrl_RegisterPrimary@12",
+      "section": ".text$06primary",
+      "address": "0x00449AE0",
+      "size": 131
+    },
+    {
+      "name": "ActualSchedulerRemove",
+      "symbol": "?ManagerTeardownFuncCtrl_Remove@@YGXPAUFuncCtrl@@PAUSchedulerTask@@@Z",
+      "section": ".text$07remove",
+      "address": "0x00449F60",
+      "size": 114
+    }
+  ],
+  "included_sources": [
+    "build_support/layout/ltcg/manager_teardown_native/scheduler.cpp"
+  ]
+}

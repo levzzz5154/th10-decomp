@@ -2,9 +2,9 @@
 // slot stop 0x0042C730 and the sprite selection 0x00449670 with their real
 // bodies (the maintained forms are
 // src/game/title/title_dispatch_animation_slot.cpp and
-// src/core/sprtlib/animation_manager_select_sprite_from_current_resource_00449670.cpp),
+// src/core/sprtlib/animation_manager_select_sprite_from_current_resource.cpp),
 // and a stand-in for the label refresh 0x0042E5A0, which is still assembly.
-#include "th10/game/options_update_0042d920.hpp"
+#include "th10/game/options_update.hpp"
 
 struct SpriteVm_00449670 {
     unsigned char reserved_000[0x308];
@@ -31,7 +31,7 @@ void SpriteHandle::SelectSprite(int sprite) {
 }
 #pragma code_seg(".text$0042e5a0_fn")
 #ifndef TH10_FULL_OPTIONS_REFRESH
-void __stdcall RefreshOptions_0042e5a0(Title* room) {
+void __stdcall RefreshOptions2(Title* room) {
     g_options_music_volume = g_key_bindings.music_volume;
     for (int kind = 8; kind < 12; ++kind) {
         reinterpret_cast<RecoveryMusicResourceQueue*>(&g_sound_manager)->RegisterResource(

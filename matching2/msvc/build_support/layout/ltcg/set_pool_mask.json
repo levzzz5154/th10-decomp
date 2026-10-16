@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "set_pool_mask",
-  "source": "src/unreferenced/FUN_00405340_00405340.cpp",
+  "source": "src/unreferenced/FUN.cpp_405340.cpp",
   "driver": "build_support/layout/ltcg/set_pool_mask_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

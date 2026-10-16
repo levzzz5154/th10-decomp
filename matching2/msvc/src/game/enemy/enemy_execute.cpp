@@ -1,7 +1,7 @@
 // Equivalent recovery of the enemy ECL instruction handler at 0x0040E770. The
 // default build compiles this into the executable once
 // tools/matching/equivalence.py has checked that it differs from the exact
-// bytes only as recorded in layout/equivalent/enemy_execute_0040e770.json. The
+// bytes only as recorded in layout/equivalent/enemy_execute2.json. The
 // assembly in src/game/enemy/ecl_vm.cpp supplies those exact bytes and `make EXACT=1`.
 // This is the loosest of the equivalent recoveries: see the note the layout names.
 #include "th10/runtime/game/enemy/enemy_execute.hpp"
@@ -18,7 +18,7 @@ static __forceinline Float3 operator-(const Float3& a, const Float3& b) {
 static __forceinline float SquaredLength(float x, float y) { return x * x + y * y; }
 static __forceinline float DistanceSquared(const Float3& a, const Float3& b) { return SquaredLength(a.x - b.x, a.y - b.y); }
 
-int Enemy::Execute_0040e770() {
+int Enemy::Execute2() {
     EclInstr* ins = (*(EclVm* const volatile*)&ecl->active)->instr;
     switch (ins->id) {
     case 0x109:
@@ -29,18 +29,18 @@ int Enemy::Execute_0040e770() {
         memset(&spawn, 0, sizeof(spawn));
         if (!(flags & 0x40000)) {
             float x = position.x;
-            spawn.position.x = x + FloatValue_00412aa0(1, ins->f[n]);
+            spawn.position.x = x + FloatValue2(1, ins->f[n]);
             float y = position.y;
-            spawn.position.y = y + FloatValue_00412aa0(2, ins->f[n + 1]);
+            spawn.position.y = y + FloatValue2(2, ins->f[n + 1]);
         } else {
             Float3 world;
             float x = position.x;
-            world.x = x + FloatValue_00412aa0(1, ins->f[n]);
+            world.x = x + FloatValue2(1, ins->f[n]);
             float y = position.y;
-            world.y = y + FloatValue_00412aa0(2, ins->f[n + 1]);
+            world.y = y + FloatValue2(2, ins->f[n + 1]);
             world.z = position.z;
-            g_application.SelectStage_00401d20(0);
-            D3DXVec3Project_0045218e(&spawn.position, &world, g_projection_matrix, g_projection_view_matrix, g_projection_world_matrix, g_enemy_project_viewport);
+            g_application.SelectStage2(0);
+            D3DXVec3Project2(&spawn.position, &world, g_projection_matrix, g_projection_view_matrix, g_projection_world_matrix, g_enemy_project_viewport);
             spawn.position.x -= 224.0f;
             spawn.position.z = 0.0f;
             spawn.position.y -= 16.0f;
@@ -58,8 +58,8 @@ int Enemy::Execute_0040e770() {
         int n = (ins->i[0] + 4) / 4;
         EnemySpawn spawn;
         memset(&spawn, 0, sizeof(spawn));
-        spawn.position.x = FloatValue_00412aa0(1, ins->f[n]);
-        spawn.position.y = FloatValue_00412aa0(2, ins->f[n + 1]);
+        spawn.position.x = FloatValue2(1, ins->f[n]);
+        spawn.position.y = FloatValue2(2, ins->f[n + 1]);
         spawn.life = IVAL(3, ins->i[n + 2]);
         spawn.score = IVAL(4, ins->i[n + 3]);
         spawn.item = IVAL(5, ins->i[n + 4]);
@@ -73,9 +73,9 @@ int Enemy::Execute_0040e770() {
         int n = (ins->i[0] + 4) / 4;
         EnemySpawn spawn;
         memset(&spawn, 0, sizeof(spawn));
-        spawn.position.x = FloatValue_00412aa0(1, ins->f[n]) + g_camera_offset.x;
-        spawn.position.y = FloatValue_00412aa0(2, ins->f[n + 1]) + g_camera_offset.y;
-        spawn.position.z = FloatValue_00412aa0(3, ins->f[n + 2]);
+        spawn.position.x = FloatValue2(1, ins->f[n]) + g_camera_offset.x;
+        spawn.position.y = FloatValue2(2, ins->f[n + 1]) + g_camera_offset.y;
+        spawn.position.z = FloatValue2(3, ins->f[n + 2]);
         spawn.life = IVAL(4, ins->i[n + 3]);
         spawn.score = IVAL(5, ins->i[n + 4]);
         spawn.item = IVAL(6, ins->i[n + 5]);
@@ -91,9 +91,9 @@ int Enemy::Execute_0040e770() {
         EnemySpawn spawn;
         memset(&spawn, 0, sizeof(spawn));
         float x = position.x;
-        spawn.position.x = x + FloatValue_00412aa0(1, ins->f[n]);
+        spawn.position.x = x + FloatValue2(1, ins->f[n]);
         float y = position.y;
-        spawn.position.y = y + FloatValue_00412aa0(2, ins->f[n + 1]);
+        spawn.position.y = y + FloatValue2(2, ins->f[n + 1]);
         spawn.life = IVAL(3, ins->i[n + 2]);
         spawn.score = IVAL(4, ins->i[n + 3]);
         spawn.item = IVAL(5, ins->i[n + 4]);
@@ -108,8 +108,8 @@ int Enemy::Execute_0040e770() {
         int n = (ins->i[0] + 4) / 4;
         EnemySpawn spawn;
         memset(&spawn, 0, sizeof(spawn));
-        spawn.position.x = FloatValue_00412aa0(1, ins->f[n]);
-        spawn.position.y = FloatValue_00412aa0(2, ins->f[n + 1]);
+        spawn.position.x = FloatValue2(1, ins->f[n]);
+        spawn.position.y = FloatValue2(2, ins->f[n + 1]);
         spawn.life = IVAL(3, ins->i[n + 2]);
         spawn.score = IVAL(4, ins->i[n + 3]);
         spawn.item = IVAL(5, ins->i[n + 4]);
@@ -124,7 +124,7 @@ int Enemy::Execute_0040e770() {
     case 0x103: {
         int slot = IOP(0);
         int script = IOP(1);
-        anm[slot].Release_00449630();
+        anm[slot].Release2();
         if (script < 0) break;
         AnmHandle handle;
         anm[slot] = *Anm_CreateFront(g_enemy_ctrl->anm[anm_file], &handle, IOP(1), 5);
@@ -132,20 +132,20 @@ int Enemy::Execute_0040e770() {
             anm_main_script = IOP(1);
             anm_main_file = anm_file;
         }
-        AnmVm* vm = Anm_Resolve_00449450(&anm[slot]);
+        AnmVm* vm = Anm_Resolve2(&anm[slot]);
         if (slot == 0) {
             hitbox_width = vm->sprite_width * vm->scale.y;
             hitbox_height = vm->sprite_height * vm->scale.x;
         }
-        if (flags & 0x10) anm[slot].Show_004495e0();
+        if (flags & 0x10) anm[slot].Show2();
         return 0;
     }
     case 0x107: {
         int file = IOP(0);
         AnmHandle handle;
         Anm_CreateFront(g_enemy_ctrl->anm[file], &handle, IOP(1), 6);
-        AnmVm* vm = Anm_Resolve_00449450(&handle);
-        if (!(flags & 0x40000)) vm->offset = *OffsetPoint_00418810(&position);
+        AnmVm* vm = Anm_Resolve2(&handle);
+        if (!(flags & 0x40000)) vm->offset = *OffsetPoint2(&position);
         else vm->offset = position;
         return 0;
     }
@@ -153,8 +153,8 @@ int Enemy::Execute_0040e770() {
         int file = IOP(0);
         AnmHandle handle;
         Anm_CreateBack(g_enemy_ctrl->anm[file], &handle, IOP(1), 6);
-        AnmVm* vm = Anm_Resolve_00449450(&handle);
-        if (!(flags & 0x40000)) vm->offset = *OffsetPoint_00418810(&position);
+        AnmVm* vm = Anm_Resolve2(&handle);
+        if (!(flags & 0x40000)) vm->offset = *OffsetPoint2(&position);
         else vm->offset = position;
         return 0;
     }
@@ -168,8 +168,8 @@ int Enemy::Execute_0040e770() {
         int file = IOP(0);
         AnmHandle handle;
         Anm_CreateFront(g_enemy_ctrl->anm[file], &handle, IOP(1), 6);
-        AnmVm* vm = Anm_Resolve_00449450(&handle);
-        if (!(flags & 0x40000)) vm->offset = *OffsetPoint_00418810(&position);
+        AnmVm* vm = Anm_Resolve2(&handle);
+        if (!(flags & 0x40000)) vm->offset = *OffsetPoint2(&position);
         else vm->offset = position;
         vm->rotation.z = FOP(2);
         vm->flags |= 4;
@@ -178,15 +178,15 @@ int Enemy::Execute_0040e770() {
     case 0x106: {
         int slot = IOP(0);
         int script = IOP(1);
-        anm[slot].Release_00449630();
+        anm[slot].Release2();
         AnmHandle handle;
         anm[slot] = *Anm_CreateFront(g_enemy_ctrl->anm[anm_file], &handle, script, 5);
-        AnmVm* vm = Anm_Resolve_00449450(&anm[slot]);
+        AnmVm* vm = Anm_Resolve2(&anm[slot]);
         if (slot == 0) {
             hitbox_width = vm->sprite_width * vm->scale.y;
             hitbox_height = vm->sprite_height * vm->scale.x;
         }
-        if (flags & 0x10) anm[slot].Show_004495e0();
+        if (flags & 0x10) anm[slot].Show2();
         if (slot == 0) {
             flags |= 0x1000;
             anm_base_script = script;
@@ -198,15 +198,15 @@ int Enemy::Execute_0040e770() {
     }
     case 0x10d: {
         int slot = IOP(0);
-        anm[slot].Release_00449630();
+        anm[slot].Release2();
         AnmHandle handle;
         anm[slot] = *Anm_CreateFront(g_enemy_ctrl->anm[anm_file], &handle, anm_base_script + 5, 5);
-        AnmVm* vm = Anm_Resolve_00449450(&anm[slot]);
+        AnmVm* vm = Anm_Resolve2(&anm[slot]);
         if (slot == 0) {
             hitbox_width = vm->sprite_width * vm->scale.y;
             hitbox_height = vm->sprite_height * vm->scale.x;
         }
-        if (flags & 0x10) anm[slot].Show_004495e0();
+        if (flags & 0x10) anm[slot].Show2();
         return 0;
     }
     case 0x118:
@@ -238,12 +238,12 @@ int Enemy::Execute_0040e770() {
         float x = FOP(2);
         float y = FOP(3);
         interp->end_time = IOP(0);
-        interp->control_1 = g_zero_vector_00491c14;
-        interp->control_2 = g_zero_vector_00491c14;
+        interp->control_1 = g_zero_vector3f;
+        interp->control_2 = g_zero_vector3f;
         interp->mode = IOP(1);
         interp->initial = motion->position;
         interp->goal = Float3(x > UNSET ? x : motion->position.x, y > UNSET ? y : motion->position.y, 0.0f);
-        interp->Restart_004050d0();
+        interp->Restart2();
         motion->flags &= ~1u;
         return 0;
     }
@@ -284,11 +284,11 @@ int Enemy::Execute_0040e770() {
             else goal.x += 6.2831855f;
         }
         interp->end_time = IOP(0);
-        interp->control_1 = g_zero_vector2_00491c20;
-        interp->control_2 = g_zero_vector2_00491c20;
+        interp->control_1 = g_zero_vector22;
+        interp->control_2 = g_zero_vector22;
         interp->initial = initial;
         interp->goal = goal;
-        interp->Restart_00412db0();
+        interp->Restart3();
         motion->flags &= ~1u;
         return 0;
     }
@@ -323,19 +323,19 @@ int Enemy::Execute_0040e770() {
         int end_time = IOP(0);
         int mode = IOP(1);
         direction->end_time = end_time;
-        direction->control_1 = g_zero_vector2_00491c20;
-        direction->control_2 = g_zero_vector2_00491c20;
+        direction->control_1 = g_zero_vector22;
+        direction->control_2 = g_zero_vector22;
         direction->mode = mode;
         direction->initial = initial;
         direction->goal = goal;
-        direction->Restart_00412db0();
+        direction->Restart3();
         orbit->end_time = end_time;
-        orbit->control_1 = g_zero_vector2_00491c20;
-        orbit->control_2 = g_zero_vector2_00491c20;
+        orbit->control_1 = g_zero_vector22;
+        orbit->control_2 = g_zero_vector22;
         orbit->mode = mode;
         orbit->initial = orbit_initial;
         orbit->goal = orbit_goal;
-        orbit->Restart_00412db0();
+        orbit->Restart3();
         motion->origin = motion->position;
         motion->flags |= 1;
         return 0;
@@ -375,13 +375,13 @@ int Enemy::Execute_0040e770() {
         Float2Interp* interp = ins->id == 0x124 ? &absolute_direction_interp : &relative_direction_interp;
         float angle;
         if (bounds_x - bounds_width * 0.25f > position.x) {
-            angle = g_effect_rng_004918b0.NextFloatSigned() * (3.1415927f / 3.0f);
+            angle = g_effect_rng2.NextFloatSigned() * (3.1415927f / 3.0f);
         } else if (bounds_width * 0.25f + bounds_x < position.x) {
-            angle = Angle_Normalize(g_effect_rng_004918b0.NextAngle() * 0.33333334f + 3.1415927f);
+            angle = Angle_Normalize(g_effect_rng2.NextAngle() * 0.33333334f + 3.1415927f);
         } else if (position.x < g_player->position.x) {
-            angle = g_effect_rng_004918b0.NextFloatSigned() * (3.1415927f / 2.0f);
+            angle = g_effect_rng2.NextFloatSigned() * (3.1415927f / 2.0f);
         } else {
-            angle = Angle_Normalize(g_effect_rng_004918b0.NextAngle() * 0.5f + 3.1415927f);
+            angle = Angle_Normalize(g_effect_rng2.NextAngle() * 0.5f + 3.1415927f);
         }
         if (bounds_y - bounds_height * 0.25f > position.y) angle = fabs(angle);
         else if (bounds_height * 0.25f + bounds_y < position.y) angle = -fabs(angle);
@@ -398,11 +398,11 @@ int Enemy::Execute_0040e770() {
         initial.x = angle;
         initial.y = FOP(2);
         interp->end_time = IOP(0);
-        interp->control_1 = g_zero_vector2_00491c20;
-        interp->control_2 = g_zero_vector2_00491c20;
+        interp->control_1 = g_zero_vector22;
+        interp->control_2 = g_zero_vector22;
         interp->initial = initial;
         interp->goal = goal;
-        interp->Restart_00412db0();
+        interp->Restart3();
         motion->flags &= ~1u;
         return 0;
     }
@@ -420,13 +420,13 @@ int Enemy::Execute_0040e770() {
     case 0x142:
         flags |= IOP(0);
         if (flags & 0x10) {
-            for (int i = 0; i < 10; ++i) anm[i].Show_004495e0();
+            for (int i = 0; i < 10; ++i) anm[i].Show2();
         }
         return 0;
     case 0x143:
         flags &= ~IOP(0);
         if (!(flags & 0x10)) {
-            for (int i = 0; i < 10; ++i) anm[i].Hide_00449590();
+            for (int i = 0; i < 10; ++i) anm[i].Hide2();
         }
         return 0;
     case 0x146:
@@ -479,21 +479,21 @@ int Enemy::Execute_0040e770() {
         return 0;
     }
     case 0x14f:
-        timer_141c.Set_00405410(IOP(0));
+        timer_141c.Set2(IOP(0));
         return 0;
     case 0x169:
-        timer_1430.Set_00405410(IOP(0));
+        timer_1430.Set2(IOP(0));
         return 0;
     case 0x159:
         EnemyCtrl_SweepDeaths(g_enemy_ctrl);
         return 0;
     case 0x163:
         switch (g_difficulty) {
-        case 0: *IntDest_00412a10(0) = IOP(1); return 0;
-        case 1: *IntDest_00412a10(0) = IOP(2); return 0;
-        case 2: *IntDest_00412a10(0) = IOP(3); return 0;
+        case 0: *IntDest2(0) = IOP(1); return 0;
+        case 1: *IntDest2(0) = IOP(2); return 0;
+        case 2: *IntDest2(0) = IOP(3); return 0;
         case 3:
-        case 4: *IntDest_00412a10(0) = IOP(4); return 0;
+        case 4: *IntDest2(0) = IOP(4); return 0;
         }
         break;
     case 0x164:
@@ -719,7 +719,7 @@ int Enemy::Execute_0040e770() {
         return 0;
     }
     case 0x14d:
-        timer_11c.Set_00405410(0);
+        timer_11c.Set2(0);
         return 0;
     case 0x14e:
         Enemy_BindSlot(ecl, IOP(0), IOP(1), IOP(2), &ins->s[0x10]);
@@ -728,19 +728,19 @@ int Enemy::Execute_0040e770() {
         ecl->body.slots[IOP(0)].cursor = &ins->s[8];
         return 0;
     case 0x19a:
-        g_bullet_manager->Sweep_00408210(1);
-        g_laser_manager->Cleanup_0041c850(1);
+        g_bullet_manager->Sweep2(1);
+        g_laser_manager->Cleanup2(1);
         return 0;
     case 0x150:
-        g_sound_manager.QueuePan_0043dd10(IOP(0), position.x);
+        g_sound_manager.QueuePan2(IOP(0), position.x);
         return 0;
     case 0x151:
         Screen_Create(0x31, 1, IOP(0), IOP(1), IOP(2), 0);
         return 0;
     case 0x152:
-        g_front->CreateScoreDisplay_00415db0(IOP(0));
-        g_bullet_manager->Sweep_00408210(0);
-        g_laser_manager->Cleanup_0041c850(0);
+        g_front->CreateScoreDisplay2(IOP(0));
+        g_bullet_manager->Sweep2(0);
+        g_laser_manager->Cleanup2(0);
         EnemyCtrl_SweepDeaths(g_enemy_ctrl);
         return 0;
     case 0x153:
@@ -774,7 +774,7 @@ int Enemy::Execute_0040e770() {
         return 0;
     }
     case 0x157:
-        g_card->End_00409c00();
+        g_card->End2();
         return 0;
     case 0x16a:
         g_card->flags |= 8;
@@ -800,13 +800,13 @@ int Enemy::Execute_0040e770() {
         params.f18 = FOP(6);
         params.f1c = FOP(7);
         params.flags |= 1;
-        g_laser_manager->Spawn_0041c510(&params, 0);
+        g_laser_manager->Spawn2(&params, 0);
         return 0;
     }
     case 0x19d:
     case 0x1b0: {
         BeamLaserParams params;
-        int* result = IntDest_00412a10(0);
+        int* result = IntDest2(0);
         if (ins->id == 0x1b0) memcpy(params.ex, shooters[0].ex, sizeof(params.ex));
         params.position = shoot_offset[0] + position;
         params.type = IOP(1);
@@ -820,7 +820,7 @@ int Enemy::Execute_0040e770() {
         params.f3c = IOP(9);
         params.f28 = FOP(10);
         params.flags = IOP(11) | 2;
-        int id = g_laser_manager->Spawn_0041c510(&params, 1);
+        int id = g_laser_manager->Spawn2(&params, 1);
         if (result) *result = id;
         return 0;
     }
@@ -839,14 +839,14 @@ int Enemy::Execute_0040e770() {
         params.f18 = FOP(6);
         params.f1c = FOP(7);
         params.flags &= ~1u;
-        g_laser_manager->Spawn_0041c510(&params, 0);
+        g_laser_manager->Spawn2(&params, 0);
         return 0;
     }
     case 0x1ad:
     case 0x1b2: {
         BeamLaserParams params((BeamLaserParams::Raw()));
-        params.Construct_0040cf40();
-        int* result = IntDest_00412a10(0);
+        params.Construct2();
+        int* result = IntDest2(0);
         if (ins->id == 0x1b2) memcpy(params.ex, shooters[0].ex, sizeof(params.ex));
         params.position = shoot_offset[0] + position;
         params.type = IntArg(1);
@@ -860,54 +860,54 @@ int Enemy::Execute_0040e770() {
         params.f3c = IntArg(9);
         params.f28 = FOP(10);
         params.flags = IntArg(11) & ~2u;
-        int id = g_laser_manager->Spawn_0041c510(&params, 1);
+        int id = g_laser_manager->Spawn2(&params, 1);
         if (result) *result = id;
         return 0;
     }
     case 0x19e: {
-        Laser* laser = g_laser_manager->FindById_0040cf90(IntArg(0));
+        Laser* laser = g_laser_manager->FindById2(IntArg(0));
         if (laser) laser->f24 = Float3(FOP(1), FOP(2), 0.0f);
         return 0;
     }
     case 0x19f: {
-        Laser* laser = g_laser_manager->FindById_0040cf90(IntArg(0));
+        Laser* laser = g_laser_manager->FindById2(IntArg(0));
         if (laser) laser->SetVector(Float3(FOP(1), FOP(2), 0.0f));
         return 0;
     }
     case 0x1a0: {
-        Laser* laser = g_laser_manager->FindById_0040cf90(IntArg(0));
+        Laser* laser = g_laser_manager->FindById2(IntArg(0));
         if (laser) laser->f48 = FOP(1);
         return 0;
     }
     case 0x1a1: {
-        Laser* laser = g_laser_manager->FindById_0040cf90(IntArg(0));
+        Laser* laser = g_laser_manager->FindById2(IntArg(0));
         if (laser) laser->f44 = FOP(1);
         return 0;
     }
     case 0x1a2: {
-        Laser* laser = g_laser_manager->FindById_0040cf90(IntArg(0));
+        Laser* laser = g_laser_manager->FindById2(IntArg(0));
         if (laser) laser->f3c = FOP(1);
         return 0;
     }
     case 0x1a3: {
-        Laser* laser = g_laser_manager->FindById_0040cf90(IntArg(0));
+        Laser* laser = g_laser_manager->FindById2(IntArg(0));
         if (laser) laser->f440 = FOP(1);
         return 0;
     }
     case 0x1a4: {
         float radius = FOP(0);
-        g_bullet_manager->Check_00408100(&position, radius, 1, 0);
-        g_laser_manager->Evaluate_0041c800(&position, radius, 1);
+        g_bullet_manager->Check2(&position, radius, 1, 0);
+        g_laser_manager->Evaluate2(&position, radius, 1);
         return 0;
     }
     case 0x1a5: {
         float radius = FOP(0);
-        g_bullet_manager->Check_00408100(&position, radius, 0, 0);
-        g_laser_manager->Evaluate_0041c800(&position, radius, 0);
+        g_bullet_manager->Check2(&position, radius, 0, 0);
+        g_laser_manager->Evaluate2(&position, radius, 0);
         return 0;
     }
     case 0x158:
-        Score_SetMode_00412ed0(&g_globals, IntArg(0));
+        Score_SetMode2(&g_globals, IntArg(0));
         return 0;
     case 0x15d:
         if (g_rank >= 0x200) *FloatDest(0) = FOP(2);
@@ -940,40 +940,40 @@ int Enemy::Execute_0040e770() {
         return 0;
     }
     case 0x160:
-        if (g_rank >= 0x200) *IntDest_00412a10(0) = IntArg(2);
-        else if (g_rank > -0x200) *IntDest_00412a10(0) = IntArg(0);
-        else *IntDest_00412a10(0) = IntArg(0);
+        if (g_rank >= 0x200) *IntDest2(0) = IntArg(2);
+        else if (g_rank > -0x200) *IntDest2(0) = IntArg(0);
+        else *IntDest2(0) = IntArg(0);
         return 0;
     case 0x161:
         if (g_rank >= 600) {
-            *IntDest_00412a10(0) = IntArg(4);
+            *IntDest2(0) = IntArg(4);
             return 0;
         }
         if (g_rank >= 200) {
-            *IntDest_00412a10(0) = IntArg(3);
+            *IntDest2(0) = IntArg(3);
             return 0;
         }
         if (g_rank >= -200) {
-            *IntDest_00412a10(0) = IntArg(2);
+            *IntDest2(0) = IntArg(2);
             return 0;
         }
         if (g_rank >= -400) {
-            *IntDest_00412a10(0) = IntArg(1);
+            *IntDest2(0) = IntArg(1);
         } else {
-            *IntDest_00412a10(0) = IntArg(0);
+            *IntDest2(0) = IntArg(0);
         }
         return 0;
     case 0x162: {
         int low = IntArg(1);
         int high = IntArg(2);
-        *IntDest_00412a10(0) = (high - low) * (g_rank + 1024) / 2048 + low;
+        *IntDest2(0) = (high - low) * (g_rank + 1024) / 2048 + low;
         return 0;
     }
     case 0x168:
         g_front->f9e90 = IntArg(0);
         return 0;
     case 0x16d:
-        g_laser_manager->MarkEligible_0041c7d0();
+        g_laser_manager->MarkEligible2();
         return 0;
     case 0x16e:
         f20 = IntArg(0);

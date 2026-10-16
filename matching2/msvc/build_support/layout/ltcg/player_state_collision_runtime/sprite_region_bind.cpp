@@ -1,5 +1,5 @@
 // Complete 0x00424480: bind a screen region to an animation's current sprite.
-#include "th10/game/pause_result_open_004231d0/descriptor.hpp"
+#include "th10/game/pause_result_open/descriptor.hpp"
 
 // The animation lookup at 0x004491C0, as the player cluster declares it.
 struct PickupAnimation;
@@ -12,9 +12,9 @@ struct PickupAnimationLists {
 };
 
 #pragma code_seg(".text$f00424480F")
-int SpriteRegion::BindToAnimation(AnimationHandle_00424480 handle,
+int SpriteRegion::BindToAnimation(AnimationHandle8 handle,
         int new_left, int new_top, int new_width, int new_height) {
-    AnimationObject_00424480* animation = reinterpret_cast<AnimationObject_00424480*>(
+    AnimationObject2* animation = reinterpret_cast<AnimationObject2*>(
         static_cast<PickupAnimationLists*>(g_sprt_ctrl)->Find(AnimationRef(handle.value)));
     AnimationSprite* sprite = animation->sprite;
     return Set(*animation->texture, new_left, new_top, new_width, new_height,

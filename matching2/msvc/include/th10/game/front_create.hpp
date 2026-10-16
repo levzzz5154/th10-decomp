@@ -14,6 +14,6 @@ struct Front {
     // 0x00413980: load its resources and register its tasks; nonzero on failure.
     __declspec(noinline) int Initialize();
 };
-typedef char ItemManagerSize_00414830[sizeof(Front) == 0x9ED0 ? 1 : -1];
+typedef char ItemManagerSize3[sizeof(Front) == 0x9ED0 ? 1 : -1];
 
 __declspec(noinline) Front* __stdcall Front_Create();

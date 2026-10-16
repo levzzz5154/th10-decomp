@@ -16,7 +16,7 @@
   ],
   "headers": [
     "include/th10/game/entity.hpp",
-    "include/th10/game/item_spawn_0041bb00.hpp",
+    "include/th10/game/item_spawn.hpp",
     "include/th10/game/bomb_state.hpp",
     "include/th10/game/player_update_collision.hpp",
     "include/th10/game/player_update_score.hpp",
@@ -57,7 +57,7 @@
     },
     {
       "name": "ScoreEvaluate",
-      "symbol": "?CopyVectorAndEvaluate@LaserManager_0041c800@@QAEHPBMMH@Z",
+      "symbol": "?CopyVectorAndEvaluate@LaserManager3@@QAEHPBMMH@Z",
       "address": "0x41c800",
       "size": 76,
       "section": ".text$090score"
@@ -71,7 +71,7 @@
     },
     {
       "name": "PositionSetter",
-      "symbol": "?SetAnimationPosition_004492f0@@YIXPAUPositionLookupContext@@PBUPositionVector@@UPositionScriptId@@@Z",
+      "symbol": "?SetAnimationPosition2@@YIXPAUPositionLookupContext@@PBUPositionVector@@UPositionScriptId@@@Z",
       "address": "0x4492f0",
       "size": 90,
       "section": ".text$140position"
@@ -106,7 +106,7 @@
     },
     {
       "name": "LoadScript",
-      "symbol": "_LoadScript_0043e710@12",
+      "symbol": "_LoadScript2@12",
       "address": "0x43e710",
       "size": 203,
       "section": ".text$100loader"
@@ -307,7 +307,7 @@
       "kind": "data"
     },
     {
-      "symbol": "?SetPolar@ItemPolarVelocity_0041bb00@@QAEPAU1@MM@Z",
+      "symbol": "?SetPolar@ItemPolarVelocity2@@QAEPAU1@MM@Z",
       "address": "0x0041BEB0",
       "kind": "relative_code"
     },

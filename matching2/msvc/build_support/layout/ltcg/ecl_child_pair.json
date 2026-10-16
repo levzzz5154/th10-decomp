@@ -6,7 +6,7 @@
   "headers": [
     "include/th10/script/ecl_children.hpp",
     "include/th10/script/ecl_float_values.hpp",
-    "include/script_resolver_00450470.hpp"
+    "include/script_resolver.hpp"
   ],
   "image_base": "0x00400000",
   "description": "Complete142-byte ECL child spawn with genuine full C++ callee scope. StartChild557 is unselected and nonexact versus retail550; real int124, float171, and script136 bodies are unselected exact anchors.",
@@ -106,7 +106,7 @@
       "name": "EclStartChild_full_unselected_candidate"
     },
     {
-      "symbol": "?ECL_ResolveIntValue_0044ff00@@YIHHPAUEclFrame@@HH@Z",
+      "symbol": "?ECL_ResolveIntValue2@@YIHHPAUEclFrame@@HH@Z",
       "section": ".text$03intvalue",
       "address": 4521728,
       "size": 124,
@@ -120,7 +120,7 @@
       "name": "Complete genuine C++ callee; unselected."
     },
     {
-      "symbol": "?Resolve@ScriptTable_00450470@@QAEHPBD@Z",
+      "symbol": "?Resolve@ScriptTable2@@QAEHPBD@Z",
       "section": ".text$09resolve",
       "address": 4523120,
       "size": 136,
@@ -128,6 +128,6 @@
     }
   ],
   "included_sources": [
-    "src/script/sptcmd/ecl_resolve_float_value_0044ff80.cpp"
+    "src/script/sptcmd/ecl_resolve_float_value.cpp"
   ]
 }

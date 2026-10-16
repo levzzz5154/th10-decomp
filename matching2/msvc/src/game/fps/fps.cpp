@@ -1,6 +1,6 @@
 #include "th10/game/fps_runtime.hpp"
 #include "th10/game/game_thread_queue_native.hpp"
-extern "C" GameThread_00401530 *g_ascii_manager;
+extern "C" GameThread2 *g_ascii_manager;
 extern "C" int g_main_state;
 extern "C" unsigned char g_frame_limit;
 extern "C" const float flt_30;
@@ -12,7 +12,7 @@ extern "C" const char str_fps_format[];
 int FPS::Draw() {
     Update();
     if (g_main_state != 0xE) {
-        GameThread_00401530 *thread = g_ascii_manager;
+        GameThread2 *thread = g_ascii_manager;
         const float updated_fps = fps;
         if (thread) {
         unsigned int color;
@@ -20,7 +20,7 @@ int FPS::Draw() {
         else if (updated_fps < flt_40) color=0xFFA0A0FF;
         else color=0xFFFFFFFF;
         thread->current_4c=color;
-        Vec3_00401530 position={590.0f,470.0f,0.0f};
+        Vec32 position={590.0f,470.0f,0.0f};
         AsciiManager_AddFormattedMarked(thread,&position,str_fps_format,(double)updated_fps);
         g_ascii_manager->current_4c=0xFFFFFFFF;
         }

@@ -1,5 +1,5 @@
 // Compiler context only; never selected as recovered game code.
-#include "../../../src/unreferenced/FUN_004087d0_004087d0.cpp"
+#include "../../../src/unreferenced/FUN.cpp_4087d0.cpp"
 
 #pragma code_seg(".text$03context")
 extern "C" __declspec(noinline) int __cdecl M3401Context_004087d0(

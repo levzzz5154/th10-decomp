@@ -2,7 +2,7 @@
 #include "th10/platform/windows_types.hpp"
 #include "th10/platform/midi_sequencer.hpp"
 struct midihdr_tag { char* lpData; unsigned char remainder[0x3c]; };
-extern "C" __declspec(noinline) int CompleteMidiHeader_0043aeb0(MidiSequencer*, midihdr_tag*);
+extern "C" __declspec(noinline) int CompleteMidiHeader2(MidiSequencer*, midihdr_tag*);
 typedef LRESULT (__stdcall *DefWindowProcA_type)(HWND,UINT,WPARAM,LPARAM);
 extern "C" DefWindowProcA_type IatDefWindowProcA;
 typedef BOOL (__stdcall *SetForegroundWindow_type)(HWND);

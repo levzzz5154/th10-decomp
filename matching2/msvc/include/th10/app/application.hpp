@@ -1,7 +1,7 @@
 #ifndef TH10_APP_APPLICATION_HPP
 #define TH10_APP_APPLICATION_HPP
 #include <stddef.h>
-#include "th10/game/large_initialization_state_00421f00.hpp"
+#include "th10/game/large_initialization_state.hpp"
 #include "th10/render/direct3d9_interfaces.hpp"
 
 struct MidiOwner;

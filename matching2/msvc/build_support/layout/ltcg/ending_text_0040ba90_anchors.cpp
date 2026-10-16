@@ -1,6 +1,6 @@
 #include "ending_text_entity_init.cpp"
 #include "th10/render/animation_public_callers.hpp"
-#include "../../../src/core/zunlib/platform_stop_worker_0044c150.cpp"
+#include "../../../src/core/zunlib/platform_stop_worker.cpp"
 #pragma code_seg(".text$09register")
 extern "C" __declspec(noinline) void** __cdecl asm_AnimationManager_RegisterPrimaryBack_004489d0(
         void* manager, void** out, void* entity) {

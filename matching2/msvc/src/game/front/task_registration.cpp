@@ -2,7 +2,7 @@
 #include "th10/game/front_tasks.hpp"
 
 struct BulletResourceCache;
-struct TextLog_0044b810 {
+struct TextLog4 {
     char text[0x2000];
     char* cursor;
     unsigned char dirty;
@@ -15,7 +15,7 @@ SchedulerTask* __stdcall SchedulerTask_Create(TaskRoutine routine);
 int __stdcall ScoreTask_Setup(void* state);
 extern BulletResourceCache* g_sprt_ctrl;
 extern FuncCtrl* g_func_ctrl;
-extern TextLog_0044b810 g_log;
+extern TextLog4 g_log;
 extern char str_data_corrupted[];
 extern char str_front_anm[];
 int __fastcall ItemFront_UpdateThunk(void* state);

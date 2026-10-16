@@ -6,6 +6,6 @@
 
 #pragma code_seg(".text$07context")
 void* __stdcall SptTestDrawCompilerContext() {
-    return reinterpret_cast<void*>(SptTest_DrawTask_0042c590);
+    return reinterpret_cast<void*>(SptTest_DrawTask2);
 }
 #pragma code_seg()

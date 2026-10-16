@@ -1,5 +1,5 @@
 // Complete 0x00422AB0 pause-state initializer with its actual one-stack-input boundary.
-#include "th10/game/pause_initializer_00422ab0.hpp"
+#include "th10/game/pause_initializer.hpp"
 #pragma code_seg(".text$06pause")
 extern "C" __declspec(noinline) void __stdcall PauseMenu_Initialize(PauseUpdateView* state) {
     unsigned int& phase = state->phase;
@@ -25,7 +25,7 @@ extern "C" __declspec(noinline) void __stdcall PauseMenu_Initialize(PauseUpdateV
     AnimationLookupContext* manager = g_sprt_ctrl;
     reinterpret_cast<AnimationSecondaryLists*>(manager)->RegisterSecondaryBack(&handle, first);
     state->cursor_animation = handle;
-    AnimationHandle_00424480 descriptor_handle;
+    AnimationHandle8 descriptor_handle;
     descriptor_handle.value = handle.value;
     reinterpret_cast<SpriteRegion*>(manager)->BindToAnimation(descriptor_handle, 32, 16, 384, 448);
     AnimationBank* second_resource = g_front->resource;
@@ -39,7 +39,7 @@ extern "C" __declspec(noinline) void __stdcall PauseMenu_Initialize(PauseUpdateV
     state->background = handle;
     state->background.StopAtFrame3();
     g_sound_manager.Queue(32, 0);
-    reinterpret_cast<AnimationManager_0043e460*>(&g_sound_manager)->RegisterResource(str_pause, 6, 0);
+    reinterpret_cast<AnimationManager9*>(&g_sound_manager)->RegisterResource(str_pause, 6, 0);
     if (g_game->replay_mode) {
         state->background.FindChildRef(117).MarkAndClear();
     }

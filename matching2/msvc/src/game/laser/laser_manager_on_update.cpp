@@ -35,14 +35,14 @@ struct FrameFlagBits {
     unsigned int reserved_0B:21;
 };
 
-struct FrameState_0041c480 {
+struct FrameState2 {
     unsigned char pad_00[0x58];
     FrameFlagBits flags_58;    // +0x58
 };
 
 #include "th10/game/laser_list.hpp"
 
-extern "C" FrameState_0041c480* g_game;
+extern "C" FrameState2* g_game;
 extern "C" float g_game_speed;
 
 // 0x0041C330 (src/game/laser/laser_manager_update_lasers.cpp).  Its records object

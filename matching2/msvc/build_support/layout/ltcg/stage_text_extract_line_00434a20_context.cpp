@@ -1,5 +1,5 @@
 // Compiler context only; never selected as recovered game code.
-#include "../../../src/game/title/stage_text_extract_line_00434a20.cpp"
+#include "../../../src/game/title/stage_text_extract_line.cpp"
 
 #pragma code_seg(".text$03context")
 int __stdcall StageTextExtractLineCompilerContext(char** cursors,

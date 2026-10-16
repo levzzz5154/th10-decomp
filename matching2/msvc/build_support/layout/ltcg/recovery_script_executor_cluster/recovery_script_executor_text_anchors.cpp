@@ -42,7 +42,7 @@ char* __stdcall RecoveryDecodePath(const unsigned char* encoded) {
 // 0x004479D0 DispatchText is absolute-bound to its retail address; its body
 // is recovered by the registered marktext dispatcher cluster and is not
 // needed here. The executor only observes it through MarkText.
-void __stdcall RecoveryDispatchText_004479d0(
+void __stdcall RecoveryDispatchText2(
     RecoveryTextResource* resource, int font_height,
     const char* text, void* texture, int horizontal_offset,
     unsigned int color, int unshadowed);
@@ -60,7 +60,7 @@ void RecoveryTextVm::MarkText(
     char buffer[128];
     recovery_vsprintf(buffer, format, const_cast<char*>(format));
     RecoveryTextResource* text_resource = resource;
-    RecoveryDispatchText_004479d0(
+    RecoveryDispatchText2(
         text_resource, static_cast<int>(font_height), buffer,
         text_resource->texture, 0, color, (flags_360 >> 1) & 1);
     flags_35c |= 1;

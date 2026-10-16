@@ -1,5 +1,5 @@
 // Complete 0x00448AC0 secondary-list insert, expressed with its genuine aggregate result.
-#include "th10/game/pause_result_open_004231d0/open_animation.hpp"
+#include "th10/game/pause_result_open/open_animation.hpp"
 #pragma code_seg(".text$f00448ac0F")
 AnimationScriptId AnimationListsOpen::RegisterSecondaryBack(Entity* object) {
     AnimationManagerNodeOpen* node = reinterpret_cast<AnimationManagerNodeOpen*>(&object->manager_node_animation);

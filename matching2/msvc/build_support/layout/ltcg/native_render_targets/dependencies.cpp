@@ -1,5 +1,5 @@
 #include "th10/platform/text_log.hpp"
-extern "C" TextLog_0044b810 g_log;
+extern "C" TextLog4 g_log;
 #include "logger.cpp"
 #pragma code_seg(".text$a00screenshot")
 int ScreenshotState::CaptureScreenshot(const char* name) {

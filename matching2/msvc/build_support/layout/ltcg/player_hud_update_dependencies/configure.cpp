@@ -3,4 +3,4 @@
 // into a section that sorts at its retail address here. Never selected from
 // this cluster.
 #define code_seg(name) code_seg(".text$a02configure")
-#include "../../../../src/core/sprtanim/animation_object_configure_from_resource_0043e5a0.cpp"
+#include "../../../../src/core/sprtanim/animation_object_configure_from_resource.cpp"

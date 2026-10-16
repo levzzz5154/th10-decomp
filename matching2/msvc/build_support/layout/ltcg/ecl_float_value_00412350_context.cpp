@@ -1,5 +1,5 @@
 // Compiler context: complete recovered angle helper and a public member caller.
-#include "../../../src/game/enemy/ecl_float_value_00412350.cpp"
+#include "../../../src/game/enemy/ecl_float_value.cpp"
 
 #pragma code_seg(".text$04angle")
 float Player::AngleFromPoint(const float* point) {

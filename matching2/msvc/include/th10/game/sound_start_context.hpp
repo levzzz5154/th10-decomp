@@ -122,7 +122,7 @@ struct PlatformD300Entry {
 // The native matched expression below permits Clang to read entries_004
 // before rand. Explicitly sequenced candidate and differential evidence:
 // reference/semantic_candidates/sound_stream_select.cpp and
-// reference/recovery_notes/sound_stream_start_0044d440.md.
+// reference/recovery_notes/sound_stream_start2.md.
 extern "C" int __cdecl asm_rand_0045371b();
 
 struct PlatformD370Entry {
@@ -138,7 +138,7 @@ struct PlatformD370Entry {
     virtual int __stdcall read_state(unsigned int*) = 0;
 };
 
-struct PlatformInterfaceState_0044D370 {
+struct PlatformInterfaceState {
     unsigned char unknown_000[4];
     void** entries_004;
     unsigned char unknown_008[8];
@@ -164,7 +164,7 @@ struct PlatformQueryInterfaces {
 };
 
 
-#include "th10/platform/sound_fade_0044d4e0.hpp"
+#include "th10/platform/sound_fade.hpp"
 extern "C" __declspec(noinline) int __stdcall SoundStreamFill(SoundStream*, WaveBuffer*, unsigned int);
 
 // Additional start layout contracts, pinned to the retail PE32 target.

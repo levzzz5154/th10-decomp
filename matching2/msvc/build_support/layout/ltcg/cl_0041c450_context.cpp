@@ -1,10 +1,10 @@
 // Compiler context only; never selected as recovered game code.
-#include "../../../src/unreferenced/unassigned_0041c450.cpp"
+#include "../../../src/unreferenced/unassigned_41c450.cpp"
 #pragma code_seg(".text$03context")
 int __stdcall WalkContext_0041c450(ObjectAccessor_0041c450** items, int count) {
     int total = 0;
     while (count--) {
-        total += Process_0041c450(*items++);
+        total += Process2(*items++);
     }
     return total;
 }

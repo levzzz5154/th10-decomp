@@ -1,6 +1,6 @@
 // 0x0041D3D0: execute the line laser's commands and motion callbacks,
 // extend or consume the beam, test viewport/player contact, and tick its VMs.
-#include "../../../build_support/layout/ltcg/laser_line_0041d3d0/types.hpp"
+#include "../../../build_support/layout/ltcg/laser_line/types.hpp"
 
 // The lasers pass the player position as an oriented-rectangle point.
 static inline const Point3_OrientedRect* PlayerPoint() {

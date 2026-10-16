@@ -1,5 +1,5 @@
 // Synthetic compiler context for the private ECX/EAX byte lookup at 0x0042C840.
-#include "../../../src/unreferenced/unassigned_0042c840.cpp"
+#include "../../../src/unreferenced/unassigned_42c840.cpp"
 
 #pragma code_seg(".text$03context")
 extern "C" __declspec(noinline) int __stdcall C840EaxContext(

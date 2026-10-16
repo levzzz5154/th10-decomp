@@ -1,11 +1,11 @@
-#include "th10/game/key_config_refresh_0042f8b0.hpp"
+#include "th10/game/key_config_refresh.hpp"
 #include "th10/platform/sound_queue.hpp"
 extern "C" __declspec(noinline) void __stdcall RefreshTitleKeyConfigView(TitleKeyConfigView*);
 
 // Replace every duplicate of the requested key with the selected slot's old
 // binding, assign the new key, refresh labels, and queue the feedback event.
 #pragma code_seg(".text$03reassign")
-extern "C" __declspec(noinline) void __stdcall KeyConfigReassignSlot_00430250(
+extern "C" __declspec(noinline) void __stdcall KeyConfigReassignSlot2(
         TitleKeyConfigView* state, int slot, int key) {
     short old_key = state->bindings_59cc[slot];
     if (old_key == key)

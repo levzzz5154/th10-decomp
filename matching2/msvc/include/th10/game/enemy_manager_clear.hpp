@@ -1,0 +1,45 @@
+#pragma once
+#include "th10/render/animation_resource_removal.hpp"
+
+// A scheduler task, as far as the manager touches it: bit 1 of the flags
+// suspends the task.
+struct EnemyTask {
+    int priority;
+    unsigned int flags;
+};
+
+// An enemy; only its deleting entry in slot 5 is called.
+struct Enemy3 {
+    virtual void Slot00() = 0;
+    virtual void Slot04() = 0;
+    virtual void Slot08() = 0;
+    virtual void Slot0C() = 0;
+    virtual void Slot10() = 0;
+    virtual void Destroy(int release) = 0;
+};
+struct EnemyNode {
+    Enemy3* enemy;
+    EnemyNode* next;
+};
+
+// The enemy manager at 0x00477704, as far as its clear touches it.
+struct EnemyCtrlClearView {
+    unsigned char reserved_000[8];
+    EnemyTask* update_task;
+    EnemyTask* draw_task;
+    int field_10;
+    unsigned char reserved_014[0x58 - 0x14];
+    EnemyNode* first;       // +0x58
+    unsigned char reserved_05c[8];
+    int spawn_count;                 // +0x64
+
+    __declspec(noinline) void Clear();
+};
+
+// The animation manager's loaded-file slots; the enemy scripts use 9 to 12.
+struct AnimationSlots2 {
+    unsigned char reserved_000[0x3AD06C];
+    void* slots[0x21];
+};
+
+extern "C" SprtCtrl* g_sprt_ctrl;

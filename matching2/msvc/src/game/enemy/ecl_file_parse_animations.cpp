@@ -1,7 +1,7 @@
 // 0x0040D400: load ANIM resources and then optional ECLI script names.
 #include <string.h>
 #include "th10/platform/text_log.hpp"
-#include "th10/game/enemy_death_release_0040e5f0.hpp"
+#include "th10/game/enemy_death_release.hpp"
 
 extern "C" void* g_sprt_ctrl;
 extern "C" void* __fastcall Recovery_LoadCachedResource(
@@ -31,7 +31,7 @@ __declspec(noinline) int ScriptFileChunkContext::ParseAnimationChunk(char* chunk
                 g_sprt_ctrl, name);
             g_enemy_ctrl->animation_files[index + 1] = resource;
             if (!resource) {
-                reinterpret_cast<TextLog_0044b810*>(0x00474F70)->Append(
+                reinterpret_cast<TextLog4*>(0x00474F70)->Append(
                     reinterpret_cast<char*>(0x0046CB68));
                 return -1;
             }

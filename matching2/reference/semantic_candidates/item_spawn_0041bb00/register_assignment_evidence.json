@@ -8,8 +8,8 @@
     "context.cpp": "4fe2a6b9c5c87047401f6d1661c49caa650e09551f896db8e163d040dfb01e53",
     "create.cpp": "89b547d0ae7fb9abc1bcf6625e542f16f443e0e242043b00e2dd7b7128571cd4",
     "dependencies.cpp": "d30b0b18c8e17e8290c2e44466c0b97761c0e8555c250fa51ea9359af9df68d2",
-    "include/th10/game/item_spawn_0041bb00.hpp": "273405214449b8403a4a32849efb1c3361e428f586eaadcf51fa1ef083ac4484",
-    "include/th10/game/line_effect_sweeps_0041e260_0041f400.hpp": "273e904d5a3e3b07c73b06ccdc06077d488d82fbb52b8955505ff5f62b3b9910",
+    "include/th10/game/item_spawn.hpp": "273405214449b8403a4a32849efb1c3361e428f586eaadcf51fa1ef083ac4484",
+    "include/th10/game/line_effect_sweeps.hpp": "273e904d5a3e3b07c73b06ccdc06077d488d82fbb52b8955505ff5f62b3b9910",
     "layout.json": "52900ab82164eee563f82cf3b77bd461acaedab23cc0cb9566c99881525b21bb",
     "loader.cpp": "726a5481b43ee6e04c6a956bf9d1a8d5f6225e7fe3f875d39d95b158e8922759",
     "measure.py": "7b5987191c78543387f8b562ddbe8595b2b7e6aa2288348e863294724f15f68a"
@@ -59,8 +59,8 @@
       "context.cpp": "4fe2a6b9c5c87047401f6d1661c49caa650e09551f896db8e163d040dfb01e53",
       "create.cpp": "89b547d0ae7fb9abc1bcf6625e542f16f443e0e242043b00e2dd7b7128571cd4",
       "dependencies.cpp": "310a0338f7753f3fb20a31f7692d5daf665d67fcac21e3078d66e66a819fa1e7",
-      "include/th10/game/item_spawn_0041bb00.hpp": "1093407cc6d39230d3558e780abaf3f51788d68ab027cabf89615bb08e75c438",
-      "include/th10/game/line_effect_sweeps_0041e260_0041f400.hpp": "273e904d5a3e3b07c73b06ccdc06077d488d82fbb52b8955505ff5f62b3b9910",
+      "include/th10/game/item_spawn.hpp": "1093407cc6d39230d3558e780abaf3f51788d68ab027cabf89615bb08e75c438",
+      "include/th10/game/line_effect_sweeps.hpp": "273e904d5a3e3b07c73b06ccdc06077d488d82fbb52b8955505ff5f62b3b9910",
       "layout.json": "52900ab82164eee563f82cf3b77bd461acaedab23cc0cb9566c99881525b21bb",
       "loader.cpp": "726a5481b43ee6e04c6a956bf9d1a8d5f6225e7fe3f875d39d95b158e8922759",
       "measure.py": "7b5987191c78543387f8b562ddbe8595b2b7e6aa2288348e863294724f15f68a"

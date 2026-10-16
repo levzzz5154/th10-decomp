@@ -1,6 +1,6 @@
 // 0x004231D0: open the death screen (continue or give up), or with result
 // set the completed-game view.
-#include "th10/game/pause_result_open_004231d0/open_state.hpp"
+#include "th10/game/pause_result_open/open_state.hpp"
 __forceinline void PauseOpenState::Open(bool result) {
     if (g_game->replay_mode == 1) {
         g_main_state = (g_app_flags & 0x1000) ? 2 : 4;
@@ -20,7 +20,7 @@ __forceinline void PauseOpenState::Open(bool result) {
         AnimationScriptId assigned = lists->RegisterSecondaryBack(object);
         cursor_animation = assigned;
     }
-    AnimationHandle_00424480 cursor_handle;
+    AnimationHandle8 cursor_handle;
     cursor_handle.value = (unsigned int)cursor_animation.value;
     reinterpret_cast<SpriteRegion*>(lists)->BindToAnimation(cursor_handle, 32, 16, 384, 448);
     resource = g_front->result_resource;

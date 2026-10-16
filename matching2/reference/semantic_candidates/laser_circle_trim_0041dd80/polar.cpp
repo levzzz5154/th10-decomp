@@ -1,4 +1,4 @@
-#include "th10/game/item_spawn_0041bb00.hpp"
+#include "th10/game/item_spawn.hpp"
 #include <math.h>
 #pragma intrinsic(cos,sin)
 #pragma code_seg(".text$35itempolar")

@@ -2,7 +2,7 @@
 #define TH10_RECOVERY_SCRIPT_EXECUTOR_TEXT_SIBLING_ANCHORS_HPP
 
 #include <stddef.h>
-#include "recovery_script_executor_caller_00419120.hpp"
+#include "recovery_script_executor_caller.hpp"
 
 // Both sibling formatters additionally read the shared animation resource's
 // width at +34. The complete resource allocation size remains unspecified.

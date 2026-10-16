@@ -4,7 +4,7 @@
   "selected_region_updates": [
     {
       "name": "semantic_Animation_TickArray_00441590",
-      "source": "src/render/animation_array_tick_00441590.cpp",
+      "source": "src/render/animation_array_tick.cpp",
       "symbol": "_TickAnimationArray",
       "address": "0x00441590",
       "size": 44,
@@ -22,7 +22,7 @@
     },
     {
       "name": "semantic_AnimationHandle_ChangeScript_004496d0",
-      "source": "src/render/animation_handle_change_script_004496d0.cpp",
+      "source": "src/render/animation_handle_change_script.cpp",
       "symbol": "?ChangeScript@ScriptChangeHandle@@QAEXH@Z",
       "address": "0x004496D0",
       "size": 36,
@@ -42,8 +42,8 @@
   "retired_assembly_bytes": 80,
   "focused_probe": {
     "units": {
-      "src/render/animation_array_tick_00441590.cpp": {
-        "source": "src/render/animation_array_tick_00441590.cpp",
+      "src/render/animation_array_tick.cpp": {
+        "source": "src/render/animation_array_tick.cpp",
         "object": "/home/levzzz/Games/th10Decomp/matching2/build/experiments/change_script_2026_10_01/final_probe/clusters/animation_array_tick/bodies.obj",
         "compiler_kind": "native-ltcg",
         "compiler_translation_unit_count": 2,
@@ -94,21 +94,21 @@
           "schema_version": 1,
           "name": "animation_array_tick",
           "compiler_kind": "native-ltcg",
-          "source": "src/render/animation_array_tick_00441590.cpp",
+          "source": "src/render/animation_array_tick.cpp",
           "sources": [
-            "src/render/animation_array_tick_00441590.cpp"
+            "src/render/animation_array_tick.cpp"
           ],
           "roots": [],
           "driver": "layout/ltcg/animation_array_tick_context.cpp",
           "layout": "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/animation_array_tick.json",
           "input_sha256": {
             "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/animation_array_tick.json": "306537b3573ec66f334a0589c0e81dc28cd17918b35780ceb327bbb01ffbc79e",
-            "/home/levzzz/Games/th10Decomp/matching2/msvc/src/render/animation_array_tick_00441590.cpp": "71936bf3a9604e469fbfd08779051bed37375f916abdc68c8dfe0c5fb6f7f4ed",
+            "/home/levzzz/Games/th10Decomp/matching2/msvc/src/render/animation_array_tick.cpp": "71936bf3a9604e469fbfd08779051bed37375f916abdc68c8dfe0c5fb6f7f4ed",
             "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/animation_array_tick_context.cpp": "164e6a33a2d855a1349c96138fd0f5f3451bcb86aa20b43e294535792f938ce0"
           },
           "compiler_includes": [
             {
-              "path": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/render/animation_array_tick_00441590.cpp",
+              "path": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/render/animation_array_tick.cpp",
               "sha256": "71936bf3a9604e469fbfd08779051bed37375f916abdc68c8dfe0c5fb6f7f4ed"
             },
             {
@@ -293,8 +293,8 @@
           "reference_bytes_used_for_build": false
         }
       },
-      "src/render/animation_handle_change_script_004496d0.cpp": {
-        "source": "src/render/animation_handle_change_script_004496d0.cpp",
+      "src/render/animation_handle_change_script.cpp": {
+        "source": "src/render/animation_handle_change_script.cpp",
         "object": "/home/levzzz/Games/th10Decomp/matching2/build/experiments/change_script_2026_10_01/final_probe/clusters/script_change/bodies.obj",
         "compiler_kind": "native-ltcg",
         "compiler_translation_unit_count": 2,
@@ -345,16 +345,16 @@
           "schema_version": 1,
           "name": "script_change",
           "compiler_kind": "native-ltcg",
-          "source": "src/render/animation_handle_change_script_004496d0.cpp",
+          "source": "src/render/animation_handle_change_script.cpp",
           "sources": [
-            "src/render/animation_handle_change_script_004496d0.cpp"
+            "src/render/animation_handle_change_script.cpp"
           ],
           "roots": [],
           "driver": "layout/ltcg/script_change_context.cpp",
           "layout": "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/script_change.json",
           "input_sha256": {
             "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/script_change.json": "c72b38de6129b6cee5e9c825dd21191d561d36afe6c7a85a472bb694821b0b48",
-            "/home/levzzz/Games/th10Decomp/matching2/msvc/src/render/animation_handle_change_script_004496d0.cpp": "9e121a461d579bc39621bc84e68b01458db0708242786d12eeba9caf5b15e3ab",
+            "/home/levzzz/Games/th10Decomp/matching2/msvc/src/render/animation_handle_change_script.cpp": "9e121a461d579bc39621bc84e68b01458db0708242786d12eeba9caf5b15e3ab",
             "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/script_change_find_anchor.cpp": "b2f21af79784fa9bd382c439d863eb0a9d6e68071a31fabf00a49e9a40e3b73f",
             "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/script_change_body_anchor.cpp": "ce2dfa99f715804ed08a8105e34e710cba6b6f156dc7c65d86852a808e5dbbdb",
             "/home/levzzz/Games/th10Decomp/matching2/msvc/include/th10/render/animation_script_change.hpp": "950e1f4c669093bfacc667f998737739e5295cf08b1fe62587d9c6e1c011e575",
@@ -364,7 +364,7 @@
           },
           "compiler_includes": [
             {
-              "path": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/render/animation_handle_change_script_004496d0.cpp",
+              "path": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/render/animation_handle_change_script.cpp",
               "sha256": "9e121a461d579bc39621bc84e68b01458db0708242786d12eeba9caf5b15e3ab"
             },
             {
@@ -620,7 +620,7 @@
         "different_bytes": 0,
         "exact": true,
         "relocations": [],
-        "source": "src/render/animation_array_tick_00441590.cpp"
+        "source": "src/render/animation_array_tick.cpp"
       },
       {
         "region": "semantic_AnimationHandle_ChangeScript_004496d0",
@@ -630,13 +630,13 @@
         "different_bytes": 0,
         "exact": true,
         "relocations": [],
-        "source": "src/render/animation_handle_change_script_004496d0.cpp"
+        "source": "src/render/animation_handle_change_script.cpp"
       }
     ],
     "resolved": [
       {
         "name": "semantic_Animation_TickArray_00441590",
-        "source": "src/render/animation_array_tick_00441590.cpp",
+        "source": "src/render/animation_array_tick.cpp",
         "symbol": "_TickAnimationArray",
         "address": "0x00441590",
         "size": 44,
@@ -645,7 +645,7 @@
       },
       {
         "name": "semantic_AnimationHandle_ChangeScript_004496d0",
-        "source": "src/render/animation_handle_change_script_004496d0.cpp",
+        "source": "src/render/animation_handle_change_script.cpp",
         "symbol": "?ChangeScript@ScriptChangeHandle@@QAEXH@Z",
         "address": "0x004496D0",
         "size": 36,
@@ -672,7 +672,7 @@
     "log_sha256": "05fcf3e6541a05fe884e863c5429a1809aec876840e0f74b2989263b3924de40",
     "selected_units": [
       {
-        "source": "src/render/animation_array_tick_00441590.cpp",
+        "source": "src/render/animation_array_tick.cpp",
         "object": "/home/levzzz/Games/th10Decomp/matching2/build/msvc/clusters/animation_array_tick/bodies.obj",
         "compiler_kind": "native-ltcg",
         "compiler_translation_unit_count": 2,
@@ -723,21 +723,21 @@
           "schema_version": 1,
           "name": "animation_array_tick",
           "compiler_kind": "native-ltcg",
-          "source": "src/render/animation_array_tick_00441590.cpp",
+          "source": "src/render/animation_array_tick.cpp",
           "sources": [
-            "src/render/animation_array_tick_00441590.cpp"
+            "src/render/animation_array_tick.cpp"
           ],
           "roots": [],
           "driver": "layout/ltcg/animation_array_tick_context.cpp",
           "layout": "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/animation_array_tick.json",
           "input_sha256": {
             "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/animation_array_tick.json": "306537b3573ec66f334a0589c0e81dc28cd17918b35780ceb327bbb01ffbc79e",
-            "/home/levzzz/Games/th10Decomp/matching2/msvc/src/render/animation_array_tick_00441590.cpp": "71936bf3a9604e469fbfd08779051bed37375f916abdc68c8dfe0c5fb6f7f4ed",
+            "/home/levzzz/Games/th10Decomp/matching2/msvc/src/render/animation_array_tick.cpp": "71936bf3a9604e469fbfd08779051bed37375f916abdc68c8dfe0c5fb6f7f4ed",
             "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/animation_array_tick_context.cpp": "164e6a33a2d855a1349c96138fd0f5f3451bcb86aa20b43e294535792f938ce0"
           },
           "compiler_includes": [
             {
-              "path": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/render/animation_array_tick_00441590.cpp",
+              "path": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/render/animation_array_tick.cpp",
               "sha256": "71936bf3a9604e469fbfd08779051bed37375f916abdc68c8dfe0c5fb6f7f4ed"
             },
             {
@@ -923,7 +923,7 @@
         }
       },
       {
-        "source": "src/render/animation_handle_change_script_004496d0.cpp",
+        "source": "src/render/animation_handle_change_script.cpp",
         "object": "/home/levzzz/Games/th10Decomp/matching2/build/msvc/clusters/script_change/bodies.obj",
         "compiler_kind": "native-ltcg",
         "compiler_translation_unit_count": 2,
@@ -974,16 +974,16 @@
           "schema_version": 1,
           "name": "script_change",
           "compiler_kind": "native-ltcg",
-          "source": "src/render/animation_handle_change_script_004496d0.cpp",
+          "source": "src/render/animation_handle_change_script.cpp",
           "sources": [
-            "src/render/animation_handle_change_script_004496d0.cpp"
+            "src/render/animation_handle_change_script.cpp"
           ],
           "roots": [],
           "driver": "layout/ltcg/script_change_context.cpp",
           "layout": "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/script_change.json",
           "input_sha256": {
             "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/script_change.json": "c72b38de6129b6cee5e9c825dd21191d561d36afe6c7a85a472bb694821b0b48",
-            "/home/levzzz/Games/th10Decomp/matching2/msvc/src/render/animation_handle_change_script_004496d0.cpp": "9e121a461d579bc39621bc84e68b01458db0708242786d12eeba9caf5b15e3ab",
+            "/home/levzzz/Games/th10Decomp/matching2/msvc/src/render/animation_handle_change_script.cpp": "9e121a461d579bc39621bc84e68b01458db0708242786d12eeba9caf5b15e3ab",
             "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/script_change_find_anchor.cpp": "b2f21af79784fa9bd382c439d863eb0a9d6e68071a31fabf00a49e9a40e3b73f",
             "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/script_change_body_anchor.cpp": "ce2dfa99f715804ed08a8105e34e710cba6b6f156dc7c65d86852a808e5dbbdb",
             "/home/levzzz/Games/th10Decomp/matching2/msvc/include/th10/render/animation_script_change.hpp": "950e1f4c669093bfacc667f998737739e5295cf08b1fe62587d9c6e1c011e575",
@@ -993,7 +993,7 @@
           },
           "compiler_includes": [
             {
-              "path": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/render/animation_handle_change_script_004496d0.cpp",
+              "path": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/render/animation_handle_change_script.cpp",
               "sha256": "9e121a461d579bc39621bc84e68b01458db0708242786d12eeba9caf5b15e3ab"
             },
             {
@@ -5041,8 +5041,8 @@
     "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/script_change_body_anchor.cpp": "ce2dfa99f715804ed08a8105e34e710cba6b6f156dc7c65d86852a808e5dbbdb",
     "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/script_change_context.cpp": "62b177642a8c2c044755106ed7b26fab51d4f23979deb668ae96b25b4e012b56",
     "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/script_change_find_anchor.cpp": "b2f21af79784fa9bd382c439d863eb0a9d6e68071a31fabf00a49e9a40e3b73f",
-    "/home/levzzz/Games/th10Decomp/matching2/msvc/src/render/animation_array_tick_00441590.cpp": "71936bf3a9604e469fbfd08779051bed37375f916abdc68c8dfe0c5fb6f7f4ed",
-    "/home/levzzz/Games/th10Decomp/matching2/msvc/src/render/animation_handle_change_script_004496d0.cpp": "9e121a461d579bc39621bc84e68b01458db0708242786d12eeba9caf5b15e3ab"
+    "/home/levzzz/Games/th10Decomp/matching2/msvc/src/render/animation_array_tick.cpp": "71936bf3a9604e469fbfd08779051bed37375f916abdc68c8dfe0c5fb6f7f4ed",
+    "/home/levzzz/Games/th10Decomp/matching2/msvc/src/render/animation_handle_change_script.cpp": "9e121a461d579bc39621bc84e68b01458db0708242786d12eeba9caf5b15e3ab"
   },
   "removed_unowned_sources": [
     "src/render/fun_004496d0_004496d0.cpp",

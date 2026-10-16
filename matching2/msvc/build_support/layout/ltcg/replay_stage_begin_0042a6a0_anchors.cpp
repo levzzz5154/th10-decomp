@@ -1,10 +1,10 @@
 // Compiler context only: the body of 0x00418B80 (recovered as
 // ScoreState::SetGauge in build_support/layout/units/score_bookkeeping_7e27a0.cpp) on this cluster's
 // view of the game state. These bytes are not selected.
-#include "th10/game/replay_stage_begin_0042a6a0.hpp"
+#include "th10/game/replay_stage_begin.hpp"
 
 #pragma code_seg(".text$00418b80_fn")
-void GameState_0042a6a0::SetGauge(int amount) {
+void GameState2::SetGauge(int amount) {
     gauge = amount / 10;
     if (!(gauge_timer.flags & 1)) {
         gauge_timer.current = 0;

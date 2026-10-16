@@ -3,7 +3,7 @@
 //
 // The dispatcher reaches this routine with the entity in EDI and the manager in
 // ESI, which no declaration names, so the body is a selected function of the
-// render-batch cluster (build_support/layout/ltcg/anm_batch_flush_00442f50.json).  Both
+// render-batch cluster (build_support/layout/ltcg/anm_batch_flush.json).  Both
 // callees enter on registers no prototype expresses either - the billboard
 // projection takes its source in EAX with no arguments, and the quad projection
 // takes its source in EAX with the manager pushed on the stack - so their
@@ -48,12 +48,12 @@ extern "C" float g_sprite_fade_color_r;
 extern "C" float g_sprite_fade_color_g;
 extern "C" float g_sprite_fade_color_b;
 
-static __forceinline float DistanceFrom_00443FB0(RenderVec3 delta) {
+static __forceinline float DistanceFrom(RenderVec3 delta) {
     return (float)sqrt(delta.x * delta.x + delta.y * delta.y + delta.z * delta.z);
 }
 
 #pragma code_seg(".text$06b0600distance")
-extern "C" __declspec(noinline) int EntityDraw_00443fb0(SprtCtrlBatchView* manager,
+extern "C" __declspec(noinline) int EntityDraw3(SprtCtrlBatchView* manager,
                                                         RenderEntity* entity) {
     if (((BillboardSource*)entity)->BuildProjectedQuad() != 0) {
         return -1;
@@ -71,7 +71,7 @@ extern "C" __declspec(noinline) int EntityDraw_00443fb0(SprtCtrlBatchView* manag
     delta.x = t.x - g_back_camera;
     delta.y = t.y - g_back_camera_2;
     delta.z = t.z - g_back_camera_3;
-    float distance = DistanceFrom_00443FB0(delta);
+    float distance = DistanceFrom(delta);
     if (manager->fade_enabled) {
         unsigned char* channel = (unsigned char*)&color;
         unsigned int scaled = (unsigned int)(channel[2] * manager->fade_red) >> 7;

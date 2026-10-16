@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "clear_angular_velocity_x",
-  "source": "src/unreferenced/FUN_00401f60_00401f60.cpp",
+  "source": "src/unreferenced/FUN.cpp_401f60.cpp",
   "driver": "build_support/layout/ltcg/clear_angular_velocity_x_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

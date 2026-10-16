@@ -4,7 +4,7 @@ struct Pause;
 void* __cdecl operator new(unsigned int);
 extern "C" void __cdecl free(void*);
 extern "C" void __stdcall Pause_Release(Pause*);
-void* __fastcall Pause_Construct_004220e0(int, Pause*);
+void* __fastcall Pause_Construct2(int, Pause*);
 int __cdecl Pause_RegisterTasks(Pause*);
 
 #pragma code_seg(".text$30factory")
@@ -12,7 +12,7 @@ __declspec(noinline) Pause* __stdcall Pause_Create() {
     void* storage = operator new(0x2C8);
     Pause* state;
     if (storage)
-        state = (Pause*)Pause_Construct_004220e0(
+        state = (Pause*)Pause_Construct2(
             0, (Pause*)storage);
     else
         state = 0;

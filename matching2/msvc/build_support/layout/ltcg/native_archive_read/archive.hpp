@@ -11,4 +11,4 @@ extern "C" int __cdecl asm_stricmp_0046054e(const char*, const char*);
 extern "C" __declspec(noinline) DatArchiveEntry* __stdcall ArchiveFind(DatArchive*,const char*);
 extern "C" __declspec(noinline) unsigned char* __stdcall DatArchiveRead(DatArchive*,const char*,unsigned char*);
 extern "C" __declspec(noinline) unsigned char* __stdcall DatDecrypt(unsigned char*,int,unsigned char,unsigned char,int,int);
-extern "C" unsigned char* __stdcall DecompressDatLzss_00435dc0(const unsigned char*,int,unsigned char*,unsigned int);
+extern "C" unsigned char* __stdcall DecompressDatLzss2(const unsigned char*,int,unsigned char*,unsigned int);

@@ -1,8 +1,8 @@
 // Compiler context only; never selected as recovered game code.
-#include "../../../src/unreferenced/unassigned_00434b90.cpp"
+#include "../../../src/unreferenced/unassigned_434b90.cpp"
 
 #pragma code_seg(".text$03context")
-int __stdcall RegionCompilerContext(Object_00434b90** items, int count, int value) {
+int __stdcall RegionCompilerContext(Object6** items, int count, int value) {
     int total = 0;
     while (count--) {
         total += (int)(*items++)->Plus(value);

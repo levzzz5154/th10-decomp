@@ -1,20 +1,20 @@
 {
- "name": "sound_stream_create_file_0044c8f0",
- "source": "src/platform/sound_stream_create_file_0044c8f0.cpp",
- "driver": "layout/ltcg/sound_stream_create_file_0044c8f0/context.cpp",
+ "name": "sound_stream_create_file",
+ "source": "src/platform/sound_stream_create_file.cpp",
+ "driver": "layout/ltcg/sound_stream_create_file/context.cpp",
  "headers": [
   "layout/ltcg/sound_interfaces_dependencies/sound_wave_types.hpp"
  ],
  "included_sources": [
-  "layout/ltcg/sound_stream_create_file_0044c8f0/stop.cpp",
-  "layout/ltcg/sound_stream_create_file_0044c8f0/open.cpp",
+  "layout/ltcg/sound_stream_create_file/stop.cpp",
+  "layout/ltcg/sound_stream_create_file/open.cpp",
   "layout/ltcg/sound_interfaces_dependencies/fill.cpp",
   "layout/ltcg/sound_interfaces_dependencies/rewind.cpp",
   "layout/ltcg/sound_interfaces_dependencies/read.cpp",
-  "src/game/recovery_initialize_single_interface_0044d6a0.cpp"
+  "src/game/recovery_initialize_single_interface.cpp"
  ],
  "additional_sources": [
-  "src/platform/sound_music_launch_0043d690.cpp"
+  "src/platform/sound_music_launch.cpp"
  ],
  "description": "Music stream launch and the file stream factory with its new-expression cleanup, compiled with the real worker stop, cursor open, stream constructor and refill bodies.",
  "exceptions": true,
@@ -22,7 +22,7 @@
   {
    "name": "SoundLaunchMusic",
    "symbol": "?LaunchMusic@WaveSoundManager@@QAEHPBD@Z",
-   "source": "src/platform/sound_music_launch_0043d690.cpp",
+   "source": "src/platform/sound_music_launch.cpp",
    "section": ".text$00launch",
    "address": "0x0043D690",
    "actual_abi": "manager in EAX; name on the stack; RET 4"

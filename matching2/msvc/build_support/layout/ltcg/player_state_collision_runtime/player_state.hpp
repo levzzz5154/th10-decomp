@@ -3,7 +3,7 @@
 #include "effect_update.hpp"
 #include "item_spawn.hpp"
 #include "movement_input.hpp"
-#include "th10/game/power_display_004054b0.hpp"
+#include "th10/game/power_display.hpp"
 
 // A laser, as the player sees the laser list at 0x0047781C.
 struct Laser {

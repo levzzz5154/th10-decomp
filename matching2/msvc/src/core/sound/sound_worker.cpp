@@ -2,14 +2,14 @@
 //
 // Retail receives the owning platform object in ESI and always returns 0:
 //
-//   L_0043cc40: mov   eax,[esi+5218h]  ; first worker thread handle
+//   L12: mov   eax,[esi+5218h]  ; first worker thread handle
 //               test  eax,eax
-//               je    L_0043ccec        ; no worker running: report success
+//               je    L14        ; no worker running: report success
 //               mov   ecx,[esi+5224h]   ; shutdown flag
 //               test  ecx,ecx
-//               jne   L_0043cc62
+//               jne   L13
 //               mov   dword ptr [esi+5224h],1
-//   L_0043cc62: push  ebx / push edi
+//   L13: push  ebx / push edi
 //               ... two "wait for the thread, sleeping a millisecond"
 //               loops, then CloseHandle on both and clear the handles.
 //

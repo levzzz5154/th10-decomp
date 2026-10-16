@@ -4,18 +4,18 @@
 #include "th10/math/timer.hpp"
 struct AnimationResourceFile;
 __declspec(noinline) void __stdcall Entity_StartScript(AnimationResourceFile* resource, Entity* entity, int script);
-struct ItemPolarVelocity_0041bb00 {
+struct ItemPolarVelocity2 {
     float x, y, z;
 #ifdef TH10_ITEM_POLAR_CONTEXT_EXPORT
     TH10_ITEM_POLAR_CONTEXT_EXPORT
 #endif
-    __declspec(noinline) ItemPolarVelocity_0041bb00* SetPolar(float angle, float speed);
+    __declspec(noinline) ItemPolarVelocity2* SetPolar(float angle, float speed);
 };
 // Position, velocity and collection state follow the embedded animation.
 // Keep this subobject separate: the update walks motion and animation together.
 struct ItemMotion_0041bb00 {
     Vector3 position;
-    ItemPolarVelocity_0041bb00 velocity;
+    ItemPolarVelocity2 velocity;
     int motion_counter;
     FrameTimer timer;
     int state;
@@ -48,6 +48,6 @@ typedef char SpawnItemAnimationOffset[offsetof(SpawnItem,animation)==0?1:-1];
 typedef char SpawnItemPositionOffset[(offsetof(SpawnItem,motion)+offsetof(ItemMotion_0041bb00,position))==0x3AC?1:-1];
 typedef char SpawnItemTimerOffset[(offsetof(SpawnItem,motion)+offsetof(ItemMotion_0041bb00,timer))==0x3C8?1:-1];
 
-typedef char SpawnItemVerticalVelocityOffset[(offsetof(SpawnItem,motion)+offsetof(ItemMotion_0041bb00,velocity))+offsetof(ItemPolarVelocity_0041bb00,z)==0x3C0?1:-1];
+typedef char SpawnItemVerticalVelocityOffset[(offsetof(SpawnItem,motion)+offsetof(ItemMotion_0041bb00,velocity))+offsetof(ItemPolarVelocity2,z)==0x3C0?1:-1];
 typedef char SpawnItemMagnetSpeedOffset[(offsetof(SpawnItem,motion)+offsetof(ItemMotion_0041bb00,magnet_speed))==0x3E8?1:-1];
 typedef char ItemLiveCountOffset[offsetof(ItemSpawnManager,live_count)==0x21CEB4?1:-1];

@@ -1,5 +1,5 @@
 // Compiler context only; never selected as recovered game code.
-#include "../../../src/unreferenced/unassigned_00412e10.cpp"
+#include "../../../src/unreferenced/unassigned_412e10.cpp"
 
 #pragma code_seg(".text$03anchor")
 __declspec(noinline) float __stdcall EvaluateCurveAnchor(unsigned int op, float first,
@@ -27,7 +27,7 @@ __declspec(noinline) float __stdcall EvaluateCurveAnchor(unsigned int op, float 
 #pragma code_seg()
 
 #pragma code_seg(".text$05context")
-float __stdcall EvaluateContext_00412e10(CurveObject_00412e10** items, int count) {
+float __stdcall EvaluateContext_00412e10(CurveObject3** items, int count) {
     float total = 0.0f;
     while (count--) {
         total += (*items++)->Evaluate();

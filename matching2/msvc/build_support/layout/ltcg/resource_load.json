@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "resource_load",
-  "source": "src/pack/file/resource_load_00435800.cpp",
+  "source": "src/pack/file/resource_load.cpp",
   "driver": "build_support/layout/ltcg/resource_load_context.cpp",
   "included_sources": [
     "build_support/layout/ltcg/resource_load_lifetime.cpp",
@@ -119,7 +119,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "?Find@ArchiveName@@QBEPBUArchiveEntry_004356f0@@XZ",
+      "symbol": "?Find@ArchiveName@@QBEPBUArchiveEntry2@@XZ",
       "address": "0x4356f0",
       "kind": "relative_code"
     },

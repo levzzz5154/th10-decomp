@@ -3,7 +3,7 @@
 #include "th10/platform/sound_queue.hpp"
 #include "th10/game/player.hpp"
 #include "th10/game/bomb.hpp"
-#include "th10/render/animation_object_0043e5a0.hpp"
+#include "th10/render/animation_object.hpp"
 
 
 // These fields share the run-state object at 0x00474C40. In particular the
@@ -50,8 +50,8 @@ struct ItemHud {
     ItemAnimationHandle& ExtendBanner() {
         return *reinterpret_cast<ItemAnimationHandle*>(storage+0x9E18);
     }
-    Resource_0043e5a0*& AnimationResource() {
-        return *reinterpret_cast<Resource_0043e5a0**>(storage+0x9EC8);
+    Resource2*& AnimationResource() {
+        return *reinterpret_cast<Resource2**>(storage+0x9EC8);
     }
     __declspec(noinline) void SetPowerDigits(int whole, int fraction);
     __declspec(noinline) void SetActiveCount(int count);

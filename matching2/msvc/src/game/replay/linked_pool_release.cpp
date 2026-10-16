@@ -1,11 +1,11 @@
-#include "th10/game/replay_pool_append_0042aa50.hpp"
+#include "th10/game/replay_pool_append.hpp"
 #include <stdlib.h>
 #pragma code_seg(".text$40release")
 extern "C" __declspec(noinline) void __stdcall
 ReplayPool_Clear(ReplayPoolLists* lists, int stage) {
-    ReplayPoolLink_0042aa50* current = lists->stages[stage].next;
+    ReplayPoolLink2* current = lists->stages[stage].next;
     while (current) {
-        ReplayPoolLink_0042aa50* next = current->next;
+        ReplayPoolLink2* next = current->next;
         ReplayPool* pool = current->pool;
         if (pool) {
             if (pool->link.next) pool->link.next->previous = pool->link.previous;

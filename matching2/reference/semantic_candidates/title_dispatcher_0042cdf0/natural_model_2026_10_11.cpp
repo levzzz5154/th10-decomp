@@ -1,9 +1,9 @@
 // Title dispatcher 0x0042CDF0: closest natural model so far (2026-10-11), 58
 // differing lines of 520 against retail when linked as the dispatcher of
-// layout/ltcg/difficulty_select_update_00430320.json with the game state
+// layout/ltcg/difficulty_select_update.json with the game state
 // object 0x00474C44 address-taken in the context driver.  Not built; see
 // reference/recovery_notes/title_dispatcher_0042cdf0_open_2026_10_11.md.
-#include "th10/game/ending_screen_0042d300.hpp"
+#include "th10/game/ending_screen.hpp"
 #include "th10/render/animation_resource_removal.hpp"
 #include <stdlib.h>
 #include <string.h>

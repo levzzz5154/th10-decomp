@@ -1,0 +1,69 @@
+#ifndef TH10_OPTIONS_UPDATE_0042D920_HPP
+#define TH10_OPTIONS_UPDATE_0042D920_HPP
+#include "th10/game/title_main_menu_update.hpp"
+
+// The configuration inside the application state at 0x00491D4C, as the
+// options screen edits it.
+struct OptionsConfig {
+    unsigned char reserved_00[0x1C];
+    signed char music_volume;           // +0x1C (0x00491D68), 0..100
+    signed char sound_volume;           // +0x1D (0x00491D69), 0..100
+    unsigned char screen_mode;          // +0x1E (0x00491D6A): 0 window, 1 and 2 full screen
+};
+
+// A child animation reference seen as the handle 0x00449670 works on.
+struct SpriteHandle {
+    unsigned int value;
+    // 0x00449670: show a sprite of the animation's own resource.
+    __declspec(noinline) void SelectSprite(int sprite);
+};
+
+// An animation and the list of its children, as the label search walks them.
+struct LabelAnimation {
+    unsigned int id;                    // +0x000
+    unsigned char reserved_004[0x358];
+    unsigned int flags_35c;             // +0x35C, bit 1 set = label visible
+    unsigned char reserved_360[0x2A];
+    short script;                       // +0x38A
+};
+struct LabelLink {
+    LabelAnimation* object;
+    LabelLink* next;
+};
+struct LabelParent {
+    unsigned char reserved_000[0x10];
+    LabelLink children;        // +0x010
+};
+
+// The room timer's frame pair seen by 0x00427C70.
+struct FrameCounterPair {
+    int previous;
+    int current;
+    // The frame changed and is a multiple of `interval`.
+    int AtInterval(int interval);
+};
+
+// The application state block at 0x00491C00 with the two members the options
+// screen works on.  The block is one object whose address is handed around,
+// so a call that writes into one member makes the others be read again.
+struct ApplicationState {
+    unsigned char reserved_000[0x10];
+    RecoveryLookupContext* animations; // +0x010 (0x00491C10)
+    unsigned char reserved_014[0x14C - 0x14];
+    OptionsConfig config;      // +0x14C (0x00491D4C)
+    unsigned char reserved_16b[0x990 - 0x16B];
+    SoundQueue sound;                   // +0x990 (0x00492590)
+};
+extern "C" {
+extern ApplicationState application_state;
+// The volume bytes seen as the plain symbols at their own addresses.
+extern unsigned char g_music_volume;
+extern unsigned char g_effect_volume;
+}
+#define g_key_bindings application_state.config
+
+// 0x0042E5A0: apply the volumes and rewrite the option labels.
+__declspec(noinline) void __stdcall RefreshOptions2(Title* room);
+
+__declspec(noinline) int __stdcall TitleOptions(Title* room);
+#endif

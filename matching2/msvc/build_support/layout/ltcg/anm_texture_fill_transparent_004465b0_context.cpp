@@ -1,7 +1,7 @@
 // Compiler context and ABI anchor only; none of these bytes enter the image.
-#include "../../../src/core/sprtlib/anm_texture_upload_00446c70.cpp"
+#include "../../../src/core/sprtlib/anm_texture_upload.cpp"
 #include "th10/platform/archive_file.hpp"
-#include "th10/render/anm_file_004470c0.hpp"
+#include "th10/render/anm_file.hpp"
 
 extern "C" void __stdcall entry_external_00446c70(void*, int);
 
@@ -21,18 +21,18 @@ extern "C" int __stdcall AnmTextureUploadContext_00446c70(
         result += AnmTexture_UploadAt(tag, textures[i], i, data[i], count + i, count - i, count & i);
         result += AnmTexture_CreateFromMemory(tag, textures[i], i, count | i, count * i, count + 2 * i);
         result += AnmTexture_CreateAndUpload(
-            textures[i], static_cast<const AnmEntryHeader_00446c70*>(data[i])->Thtx(), i, count * i, count + 3 * i);
+            textures[i], static_cast<const AnmEntryHeader2*>(data[i])->Thtx(), i, count * i, count + 3 * i);
         result += AnmManager_LoadFileNow(
-            reinterpret_cast<AnmManager_004470c0*>(textures[i]), count - i,
+            reinterpret_cast<AnmManager2*>(textures[i]), count - i,
             static_cast<const char*>(data[i]))->slot;
         result += AnmManager_LoadNextEntry(
             tag, reinterpret_cast<AnmFile*>(textures[i]))->slot;
         result += AnmManager_LoadFile(
-            reinterpret_cast<AnmManager_004470c0*>(textures[i]), i,
+            reinterpret_cast<AnmManager2*>(textures[i]), i,
             static_cast<const char*>(data[i]))->slot;
         result += AnmFile_PreloadEntryImage(
             reinterpret_cast<AnmFile*>(textures[i]),
-            static_cast<const AnmEntryHeader_00446c70*>(data[i]), i);
+            static_cast<const AnmEntryHeader2*>(data[i]), i);
         result += textures[i]->Upload(tag, i, data[i], count - i, count & i);
     }
     return result;
@@ -42,8 +42,8 @@ extern "C" int __stdcall AnmTextureUploadContext_00446c70(
 // The two already recovered callees of the entry loader, at their addresses.
 #define ANIMATION_TEXTURE_CREATE_SECTION ".text$04wanim"
 #define COPY_POSITION_RECORD_SECTION ".text$05r5copy"
-#include "../../../src/core/sprtlib/animation_texture_create_00447050.cpp"
-#include "../../../src/core/sprtlib/animation_manager_copy_position_record_00447940.cpp"
+#include "../../../src/core/sprtlib/animation_texture_create.cpp"
+#include "../../../src/core/sprtlib/animation_manager_copy_position_record.cpp"
 
 // Complete real archive closure, supplying the actual internal reader contract.
 #define ARCHIVE_READ_SECTION ".text$00bread"

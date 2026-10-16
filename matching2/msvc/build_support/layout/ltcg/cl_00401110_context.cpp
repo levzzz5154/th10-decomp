@@ -5,9 +5,9 @@
 #include "../../../src/game/ascii/construct.cpp"
 #pragma code_seg()
 #pragma code_seg(".text$00_d_init")
-#include "../../contexts/legacy/game/entity_initialize_00401de0.cpp"
+#include "../../contexts/legacy/game/entity_initialize.cpp"
 #pragma code_seg()
-#include "../../../src/core/sprtanim/animation_object_configure_from_resource_0043e5a0.cpp"
+#include "../../../src/core/sprtanim/animation_object_configure_from_resource.cpp"
 #include "scheduler_register_anchors.cpp"
 #include "../../../src/core/zunlib/text_log.cpp"
 

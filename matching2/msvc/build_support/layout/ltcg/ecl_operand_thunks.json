@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
   "name": "ecl_operand_thunks",
-  "source": "src/unreferenced/FUN_0040c650_0040c650.cpp",
+  "source": "src/unreferenced/FUN.cpp_40c650.cpp",
   "additional_sources": [
-    "src/unreferenced/FUN_0040c680_0040c680.cpp",
-    "src/game/enemy/ecl_resolve_int_from_entity_00412a00.cpp"
+    "src/unreferenced/FUN.cpp_40c680.cpp",
+    "src/game/enemy/ecl_resolve_int_from_entity.cpp"
   ],
   "driver": "build_support/layout/ltcg/ecl_operand_thunks_context.cpp",
   "headers": [
@@ -20,7 +20,7 @@
       "address": "0x0040C650",
       "size": 8,
       "actual_abi": "slot in EAX, selector in ECX; tail jump to 0x0044FE40 with the interpreter in EAX",
-      "source": "src/unreferenced/FUN_0040c650_0040c650.cpp"
+      "source": "src/unreferenced/FUN.cpp_40c650.cpp"
     },
     {
       "name": "ResolveSlotFloatValue",
@@ -29,7 +29,7 @@
       "address": "0x0040C680",
       "size": 8,
       "actual_abi": "slot in EDX, selector in ECX, operand on the stack; tail jump to 0x0044FF80 with the interpreter in EAX",
-      "source": "src/unreferenced/FUN_0040c680_0040c680.cpp"
+      "source": "src/unreferenced/FUN.cpp_40c680.cpp"
     },
     {
       "name": "ResolveEntityIntOperand",
@@ -38,7 +38,7 @@
       "address": "0x00412A00",
       "size": 16,
       "actual_abi": "VM in EAX, selector in ECX; calls 0x0044FDB0 with the interpreter in EDX and the selector on the stack",
-      "source": "src/game/enemy/ecl_resolve_int_from_entity_00412a00.cpp"
+      "source": "src/game/enemy/ecl_resolve_int_from_entity.cpp"
     }
   ],
   "anchors": [

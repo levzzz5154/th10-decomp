@@ -6,7 +6,7 @@
 
 struct AnimationResourceFile;
 struct AnimationObjectFile;
-extern "C" __declspec(noinline) void* __stdcall LoadScript_0043e710(
+extern "C" __declspec(noinline) void* __stdcall LoadScript2(
     AnimationResourceFile* resource, AnimationObjectFile* object, int index);
 
 // Retail reads these existing single-precision data cells; do not substitute
@@ -23,7 +23,7 @@ CutAnimationId CutAnimationResource::CreateOffset(int index,const Vector3* posit
  object->position.x=position->x+224.0f;
  object->position.y=position->y+16.0f;
  object->position.z=position->z;
- LoadScript_0043e710(reinterpret_cast<AnimationResourceFile*>(this),
+ LoadScript2(reinterpret_cast<AnimationResourceFile*>(this),
    reinterpret_cast<AnimationObjectFile*>(object),index);
  return static_cast<CutAnimationLists*>(g_sprt_ctrl)->RegisterPrimaryBack(object);
 }

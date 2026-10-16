@@ -1,0 +1,272 @@
+{
+  "schema_version": 1,
+  "name": "worker_start_0044c1c0",
+  "source": "src/core/zunlib/worker_start.cpp",
+  "driver": "build_support/layout/ltcg/worker_start_0044c1c0_context.cpp",
+  "headers": [
+    "include/th10/platform/worker.hpp",
+    "include/th10/game/ui_thread_host.hpp",
+    "include/th10/game/title.hpp",
+    "include/th10/game/anm_vm.hpp",
+    "include/th10/game/counter_block.hpp",
+    "include/th10/game/large_initialization_state.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "The retail worker and UI-thread spawn family rebuilt as one native LTCG cluster: shutdown callers retain public ECX receivers, Stop shares ESI, worker Start variants use EAX receivers and EDI entries, and UI-thread Spawn consumes an EDI host plus two stack arguments. UI creation retains its public stdcall entry and uses the genuine complete configuration initializer as an unselected anchor.",
+  "functions": [
+    {
+      "name": "GameUiThreadHost_Spawn",
+      "symbol": "?Spawn@GameUiThreadHost@@QAEHP6GIPAX@Z0@Z",
+      "source": "src/game/mother/thread_spawn.cpp",
+      "section": ".text$02spawn",
+      "address": "0x00420EA0",
+      "size": 118,
+      "actual_abi": "receiver in EDI; entry/context at stack +4/+8; RET8"
+    },
+    {
+      "name": "PlatformWorker_Destroy",
+      "symbol": "?Destroy@PlatformWorker@@QAEPAU1@I@Z",
+      "source": "src/core/zunlib/platform_destroy_worker.cpp",
+      "section": ".text$05destroy",
+      "address": "0x0044C100",
+      "size": 36,
+      "actual_abi": "this in ECX; should_free at stack +4; passes this in ESI to Stop; returns this; RET 4"
+    },
+    {
+      "name": "PlatformWorker_Stop",
+      "symbol": "?Stop@PlatformWorker@@QAEXXZ",
+      "source": "src/core/zunlib/platform_stop_worker.cpp",
+      "section": ".text$20callee",
+      "address": "0x0044C150",
+      "size": 101,
+      "actual_abi": "this in ESI; preserves ESI without saving it; plain RET"
+    },
+    {
+      "name": "PlatformWorker_Start",
+      "symbol": "?Start@PlatformWorker@@QAEXPAXP6GI0@Z@Z",
+      "source": "src/core/zunlib/worker_start.cpp",
+      "section": ".text$40start",
+      "address": "0x0044C1C0",
+      "size": 56,
+      "actual_abi": "receiver in EAX; entry in EDI; context at [ESP+4]; RET 4"
+    },
+    {
+      "name": "PlatformWorker_StartSuspended",
+      "symbol": "?StartSuspended@PlatformWorker@@QAEXPAXP6GI0@Z@Z",
+      "source": "src/unreferenced/unassigned_44c200.cpp",
+      "section": ".text$46suspended",
+      "address": "0x0044C200",
+      "size": 56,
+      "actual_abi": "receiver in EAX; entry in EDI; context at [ESP+4]; RET 4"
+    },
+    {
+      "name": "GameUi_CreateAndPublish",
+      "symbol": "_Game_Create@4",
+      "source": "src/game/game/game_create.cpp",
+      "section": ".text$00uicreate",
+      "address": "0x004180E0",
+      "size": 107,
+      "actual_abi": "one stack argument; return pointer EAX; RET4"
+    },
+    {
+      "name": "ProgressWorker_Construct_0042c920",
+      "symbol": "??0Title@@QAE@XZ",
+      "section": ".text$03aprogressctor",
+      "address": "0x0042C920",
+      "size": 204,
+      "source": "src/game/title/title_construct.cpp",
+      "actual_abi": "this EDX; EAX result; RET"
+    },
+    {
+      "name": "ProgressWorker_Create_0042cd50",
+      "symbol": "_Title_Create",
+      "section": ".text$03cprogressfactory",
+      "address": "0x0042CD50",
+      "size": 96,
+      "source": "src/game/title/title_create.cpp",
+      "actual_abi": "no arguments; state EDI, worker ESI; EAX result; RET"
+    }
+  ],
+  "context": {
+    "symbol": "WorkerStartCompilerContext",
+    "section": ".text$50context",
+    "address": "0x0044C240",
+    "size": 122,
+    "description": "Synthetic array-walking caller that reaches both worker Start variants and the UI thread Spawn member, establishing their observed register conventions; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 94432
+    },
+    {
+      "section": ".text$00uicreatez",
+      "address": "0x41814b",
+      "size": 2805
+    },
+    {
+      "section": ".text$01uiconfigz",
+      "address": "0x418cbd",
+      "size": 33251
+    },
+    {
+      "section": ".text$03_uilayout",
+      "address": "0x00420F16",
+      "size": 47626
+    },
+    {
+      "section": ".text$07layout",
+      "address": "0x0044C124",
+      "size": 44
+    },
+    {
+      "section": ".text$25layout",
+      "address": "0x0044C1B5",
+      "size": 11
+    },
+    {
+      "section": ".text$45layout",
+      "address": "0x0044C1F8",
+      "size": 8
+    },
+    {
+      "section": ".text$47layout",
+      "address": "0x0044C238",
+      "size": 8
+    },
+    {
+      "section": ".text$03bprogressctorz",
+      "address": "0x0042C9EC",
+      "size": 868
+    },
+    {
+      "section": ".text$03dprogressfactoryz",
+      "address": "0x0042CDB0",
+      "size": 127824
+    }
+  ],
+  "constants": [],
+  "roots": [
+    "?Destroy@PlatformWorker@@QAEPAU1@I@Z",
+    "_Game_Create@4"
+  ],
+  "absolute_symbols": [
+    {
+      "symbol": "?platform_worker_vtable@@3DA",
+      "address": "0x004703E4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_crt_free_startup",
+      "address": "0x004524A1",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_asm_beginthreadex_00453683",
+      "address": "0x00453683",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__imp__WaitForSingleObject@8",
+      "address": "0x0046611C",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__Sleep@4",
+      "address": "0x004660AC",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__CloseHandle@4",
+      "address": "0x004660CC",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__EnterCriticalSection@4",
+      "address": "0x004660B0",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__LeaveCriticalSection@4",
+      "address": "0x004660B4",
+      "kind": "data"
+    },
+    {
+      "symbol": "??2@YAPAXI@Z",
+      "address": "0x00452493",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_Game_LoadThread",
+      "address": "0x00417C70",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_key_bindings_current",
+      "address": "0x00474E88",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_d3d_device",
+      "address": "0x00491C30",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_game",
+      "address": "0x00477810",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_application",
+      "address": "0x00491C28",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_anm_vm_vtable",
+      "address": "0x004703E4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_title_vtable",
+      "address": "0x0046ECF0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_title",
+      "address": "0x0047784C",
+      "kind": "data"
+    },
+    {
+      "symbol": "_Title_LoadWorkerEntry@4",
+      "address": "0x0042C9F0",
+      "kind": "data"
+    },
+    {
+      "symbol": "__fltused",
+      "address": "0x00000000",
+      "kind": "metadata"
+    }
+  ],
+  "additional_sources": [
+    "src/game/game/game_create.cpp",
+    "src/game/mother/thread_spawn.cpp",
+    "src/core/zunlib/platform_destroy_worker.cpp",
+    "src/core/zunlib/platform_stop_worker.cpp",
+    "src/unreferenced/unassigned_44c200.cpp",
+    "src/game/title/title_construct.cpp",
+    "src/game/title/title_create.cpp"
+  ],
+  "anchors": [
+    {
+      "name": "GameUi_ConfigAnchor",
+      "symbol": "?GameConfig_InitializeDefaults@@YIDHPAUGameConfig@@@Z",
+      "section": ".text$01uiconfig",
+      "address": "0x00418C40",
+      "size": 125
+    }
+  ],
+  "included_sources": [
+    "src/game/game/game_config_defaults.cpp"
+  ]
+}

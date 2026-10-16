@@ -1,11 +1,11 @@
 // Compiler context only; never selected as recovered game code.
-#include "../../../src/unreferenced/FUN_0040cde0_0040cde0.cpp"
+#include "../../../src/unreferenced/FUN.cpp_40cde0.cpp"
 
 #pragma code_seg(".text$03context")
-int __stdcall SetMirroredCompilerContext(EnemyState_0040cde0** objects, int count) {
-    EnemyState_0040cde0** cursor = objects;
+int __stdcall SetMirroredCompilerContext(EnemyState2** objects, int count) {
+    EnemyState2** cursor = objects;
     while (count--) {
-        EnemyState_0040cde0* object = *cursor++;
+        EnemyState2* object = *cursor++;
         object->SetMirrored();
         object->SetMirrored();
     }

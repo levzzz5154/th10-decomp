@@ -1,8 +1,8 @@
 #pragma once
 #include <stddef.h>
 #include "animation_ids.hpp"
-#include "th10/game/item_spawn_0041bb00.hpp"
-#include "th10/game/laser_spawn_0041c510.hpp"
+#include "th10/game/item_spawn.hpp"
+#include "th10/game/laser_spawn.hpp"
 #include "th10/render/animation_public_callers.hpp"
 struct CutVector : Vector3 {
  CutVector() {}

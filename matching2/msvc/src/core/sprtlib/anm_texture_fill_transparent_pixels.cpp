@@ -9,13 +9,13 @@
 //
 // The receiver (the AnmTexture holding the D3D texture) arrives in
 // EAX, which no calling convention declaration can name, so the model is
-// compiled against the anm_texture_upload_00446c70 cluster context (see the
+// compiled against the anm_texture_upload2 cluster context (see the
 // layout's context_cluster), whose retail-exact caller at 0x00446C70 ends in
 // `mov eax,edi; call 0x004465B0` and gives the pass its receiver register.
 // The interleaved declaration order of i/surface/j is load-bearing: it puts
 // the locals in retail's frame slots.
-#include "th10/render/anm_texture_00446c70.hpp"
-#include "th10/render/anm_surface_fill_004465b0.hpp"
+#include "th10/render/anm_texture.hpp"
+#include "th10/render/anm_surface_fill.hpp"
 
 #pragma code_seg(".text$00fill")
 void AnmTexture::FillTransparentPixels() {
@@ -98,7 +98,7 @@ void AnmTexture::FillTransparentPixels() {
     }
     case 25: {
         for (unsigned int i = 0; i < desc.height; i++) {
-            Pixel1555_004465b0* p = (Pixel1555_004465b0*)(
+            Pixel15552* p = (Pixel15552*)(
                 (unsigned char*)locked.bits + locked.pitch * i);
             for (unsigned int j = 0; j < desc.width; j++) {
                 if (p->a == 0) {
@@ -120,7 +120,7 @@ void AnmTexture::FillTransparentPixels() {
                         n++;
                     }
                     if (i > 0) {
-                        Pixel1555_004465b0* above = p - locked.pitch / 2;
+                        Pixel15552* above = p - locked.pitch / 2;
                         if (above->a != 0) {
                             sum[0] += above->r;
                             sum[1] += above->g;
@@ -129,7 +129,7 @@ void AnmTexture::FillTransparentPixels() {
                         }
                     }
                     if (i < desc.height - 1) {
-                        Pixel1555_004465b0* below = p + locked.pitch / 2;
+                        Pixel15552* below = p + locked.pitch / 2;
                         if (below->a != 0) {
                             sum[0] += below->r;
                             sum[1] += below->g;
@@ -153,7 +153,7 @@ void AnmTexture::FillTransparentPixels() {
     }
     case 26: {
         for (unsigned int i = 0; i < desc.height; i++) {
-            Pixel4444_004465b0* p = (Pixel4444_004465b0*)(
+            Pixel44442* p = (Pixel44442*)(
                 (unsigned char*)locked.bits + locked.pitch * i);
             for (unsigned int j = 0; j < desc.width; j++) {
                 if (p->a == 0) {
@@ -175,7 +175,7 @@ void AnmTexture::FillTransparentPixels() {
                         n++;
                     }
                     if (i > 0) {
-                        Pixel4444_004465b0* above = p - locked.pitch / 2;
+                        Pixel44442* above = p - locked.pitch / 2;
                         if (above->a != 0) {
                             sum[0] += above->r;
                             sum[1] += above->g;
@@ -184,7 +184,7 @@ void AnmTexture::FillTransparentPixels() {
                         }
                     }
                     if (i < desc.height - 1) {
-                        Pixel4444_004465b0* below = p + locked.pitch / 2;
+                        Pixel44442* below = p + locked.pitch / 2;
                         if (below->a != 0) {
                             sum[0] += below->r;
                             sum[1] += below->g;

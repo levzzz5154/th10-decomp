@@ -7,7 +7,7 @@
 #define AnimationScriptId RecoveryScriptId
 #define noinline
 #define code_seg(name) code_seg(".text$004497d0_fn")
-#include "../../../../src/core/sprtlib/animation_manager_find_child_by_script_index_004497d0.cpp"
+#include "../../../../src/core/sprtlib/animation_manager_find_child_by_script_index.cpp"
 #undef code_seg
 #undef noinline
 #pragma code_seg()

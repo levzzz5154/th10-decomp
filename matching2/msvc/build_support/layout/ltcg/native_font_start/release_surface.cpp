@@ -3,7 +3,7 @@ extern "C" void* (__stdcall* imp_SelectObject)(void* dc, void* object);
 extern "C" int (__stdcall* imp_DeleteDC)(void* dc);
 extern "C" int (__stdcall* imp_DeleteObject)(void* object);
 
-struct GdiSurface_00436a30 {
+struct GdiSurface2 {
     unsigned char unknown_000[0x100];
     int font_index;
     int width;
@@ -17,7 +17,7 @@ struct GdiSurface_00436a30 {
 };
 
 #pragma code_seg(".text$a04release")
-__declspec(noinline) bool __stdcall ReleaseSurface_00436a30(GdiSurface_00436a30* surface) {
+__declspec(noinline) bool __stdcall ReleaseSurface2(GdiSurface2* surface) {
     if (surface->dc) {
         imp_SelectObject(surface->dc, surface->previous_bitmap);
         imp_DeleteDC(surface->dc);

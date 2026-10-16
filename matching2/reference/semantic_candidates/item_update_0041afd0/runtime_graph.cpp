@@ -3,7 +3,7 @@
 // output is unselected; production has separate exact FSINCOS recoveries.
 #include "allocator.cpp"
 #include "bounded.cpp"
-#include "th10/game/line_effect_sweeps_0041e260_0041f400.hpp"
+#include "th10/game/line_effect_sweeps.hpp"
 #include "entity_initialize.cpp"
 #include "dependencies.cpp"
 #include "loader.cpp"

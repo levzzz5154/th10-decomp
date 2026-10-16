@@ -86,7 +86,7 @@
     },
     {
       "name": "semantic_AsciiFactory_0043c8b0",
-      "source": "src/game/ascii_manager_create_retail_0043c8b0.cpp",
+      "source": "src/game/ascii_manager_create_retail.cpp",
       "symbol": "?CreateScreenEffect_0043c8b0@@YGPAUScreenEffectController_0043c970@@HHHHHH@Z",
       "address": "0x0043C8B0",
       "size": 82,
@@ -94,7 +94,7 @@
       "owner": null,
       "previous_record": {
         "name": "asm_AsciiManager_CreateRetail_0043c8b0",
-        "source": "src/game/ascii_manager_create_retail_0043c8b0.cpp",
+        "source": "src/game/ascii_manager_create_retail.cpp",
         "symbol": "_asm_AsciiManager_CreateRetail_0043c8b0",
         "address": "0x0043C8B0",
         "size": 82,

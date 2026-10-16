@@ -1,7 +1,7 @@
 #pragma once
 #include "item_spawn.hpp"
 #include "th10/platform/sound_queue.hpp"
-#include "th10/render/animation_object_0043e5a0.hpp"
+#include "th10/render/animation_object.hpp"
 
 struct ItemMovementProperties { int reserved_00[2]; float seek_speed; };
 struct ItemCollectionBox { Vector3 minimum, maximum; };
@@ -52,8 +52,8 @@ struct ItemHud {
     ItemAnimationHandle& ExtendBanner() {
         return *reinterpret_cast<ItemAnimationHandle*>(storage+0x9E18);
     }
-    Resource_0043e5a0*& AnimationResource() {
-        return *reinterpret_cast<Resource_0043e5a0**>(storage+0x9EC8);
+    Resource2*& AnimationResource() {
+        return *reinterpret_cast<Resource2**>(storage+0x9EC8);
     }
     __declspec(noinline) void SetPowerDigits(int whole, int fraction);
     __declspec(noinline) void SetActiveCount(int count);

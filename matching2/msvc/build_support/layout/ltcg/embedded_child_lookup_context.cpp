@@ -1,5 +1,5 @@
 // Compiler context only.
-#include "../../../src/core/sprtlib/animation_find_embedded_child_00449770.cpp"
+#include "../../../src/core/sprtlib/animation_find_embedded_child.cpp"
 #pragma code_seg(".text$03context")
 extern "C" __declspec(noinline) int __stdcall EmbeddedChildContext(EmbeddedAnimationChildren** items, int index, int count) {
     int result = 0;

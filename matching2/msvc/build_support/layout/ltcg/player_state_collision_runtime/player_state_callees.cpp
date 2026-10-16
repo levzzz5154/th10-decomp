@@ -15,15 +15,15 @@ __declspec(noinline) void __stdcall OpenInitialize_00420a90(void* resource, void
 __declspec(noinline) int __stdcall OpenRegister_0043e460(void* lists, void* object);
 }
 
-// src/game/eclview/set_input_mode_0040ac90.cpp
+// src/game/eclview/set_input_mode.cpp
 #pragma code_seg(".text$f0040ac90F")
 void PlayerInputMode::Set(int value) {
     if ((flags & 0x1000) == 0) mode = value;
     else mode = 2;
 }
 // src/game/background/power_display_set_digits.cpp
-inline AnimationObject_0043e5a0* DigitSprite(unsigned char* storage) {
-    return reinterpret_cast<AnimationObject_0043e5a0*>(storage);
+inline AnimationObject3* DigitSprite(unsigned char* storage) {
+    return reinterpret_cast<AnimationObject3*>(storage);
 }
 
 #pragma code_seg(".text$f004054b0F")
@@ -34,8 +34,8 @@ void PowerDisplayOwner::SetPowerDigits(int whole, int fraction) {
 }
 // src/core/sprtanim/animation_object_configure_from_resource.cpp
 #pragma code_seg(".text$f0043e5a0F")
-__declspec(noinline) int Resource_0043e5a0::ConfigureObject(
-    AnimationObject_0043e5a0* object, int index) {
+__declspec(noinline) int Resource2::ConfigureObject(
+    AnimationObject3* object, int index) {
     unsigned char* res = reinterpret_cast<unsigned char*>(this);
     if (*reinterpret_cast<void**>(res + 0x108) == 0 ||
         *reinterpret_cast<unsigned int*>(res + 0x124) != 0)

@@ -3,7 +3,7 @@
 
 #include <stddef.h>
 #include "th10/game/menu_cursor.hpp"
-#include "th10/game/recovery_script_executor_0040bd80.hpp"
+#include "th10/game/recovery_script_executor.hpp"
 
 struct RecoveryMusicVector { float x, y, z; };
 struct RecoveryMusicVm;
@@ -23,7 +23,7 @@ struct RecoveryMusicVm {
     RecoveryMusicVector target_transition;
     RecoveryMusicVector defaults_088;
     RecoveryMusicVector defaults_094;
-    RecoveryTimer_0040bd80 transition_timer;
+    RecoveryTimer2 transition_timer;
     int transition_mode;
     unsigned int transition_flag;
     unsigned char reserved_0bc[0x304 - 0xBC];
@@ -52,7 +52,7 @@ struct Title {
     int phase;
     MenuCursor cursor;
     unsigned char reserved_0fc[0x2B0 - 0xFC];
-    RecoveryTimer_0040bd80 timer;
+    RecoveryTimer2 timer;
     unsigned int animation_slots[195]; // +2C4 through +5CC
     RecoveryHandle fallback_handle;
     unsigned char reserved_5d4[0x614 - 0x5D4];

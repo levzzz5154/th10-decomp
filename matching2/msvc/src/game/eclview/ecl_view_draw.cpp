@@ -7,7 +7,7 @@
 
 #pragma code_seg(".text$05draw")
 int EclView::Draw() {
-    Vec3_00401530 position = {0.0f, 0.0f, 0.0f};
+    Vec32 position = {0.0f, 0.0f, 0.0f};
     AsciiManager_AddFormattedMarked(g_ascii_manager, &position, "SprtView\n");
     switch (state) {
     case 2:
@@ -47,7 +47,7 @@ int EclView::Draw() {
     }
     case 3: {
         g_ascii_manager->current_4c = 0xFFA0A0A0;
-        Vec3_00401530 status_position = {32.0f, 16.0f, 0.0f};
+        Vec32 status_position = {32.0f, 16.0f, 0.0f};
         AsciiManager_AddFormattedMarked(g_ascii_manager, &status_position, "Pos %.3d %.3d", int(position_x), int(position_y));
         g_ascii_manager->current_4c = 0xFFFFFFFF;
         break;
@@ -64,7 +64,7 @@ int EclView::Draw() {
 #pragma code_seg()
 
 #pragma code_seg(".text$06task")
-int __fastcall EclView_DrawTask_0040abf0(EclView* viewer) {
+int __fastcall EclView_DrawTask2(EclView* viewer) {
     return viewer->Draw();
 }
 #pragma code_seg()

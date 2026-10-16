@@ -4,7 +4,7 @@
 #include "th10/math/rng.hpp"
 
 extern "C" RngState g_rng;
-extern "C" float __stdcall Angle_Normalize_0044bc70(float value);
+extern "C" float __stdcall Angle_Normalize2(float value);
 
 // The gameplay code draws from the shared generator inline: two steps through
 // a 32-bit read of the seed, with the final word filling both halves.
@@ -35,7 +35,7 @@ struct ScatterOffset {
 };
 
 // Pending item drops of an enemy.
-struct ItemDrops_0040c9a0 {
+struct ItemDrops2 {
     int main_item;                       // +0x00: 0 when there is none
     int counts[12];                      // +0x04: per item kind, kinds 1..11 used
     float spread_x;                      // +0x34
@@ -47,9 +47,9 @@ struct DropSource {
     float position[3];
 
     // 0x0040C9D0: scatter the counted drops around the position.
-    __declspec(noinline) void ScatterDrops(ItemDrops_0040c9a0* drops);
+    __declspec(noinline) void ScatterDrops(ItemDrops2* drops);
     // 0x0040C9A0: release every pending drop at the position.
-    __declspec(noinline) void FlushDrops(ItemDrops_0040c9a0* drops);
+    __declspec(noinline) void FlushDrops(ItemDrops2* drops);
 };
 
 #endif

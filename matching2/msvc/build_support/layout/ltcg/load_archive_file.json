@@ -31,7 +31,7 @@
     },
     {
       "name": "ScriptFileLoader_Load",
-      "source": "src/game/enemy/fun_0040cd20_0040cd20.cpp",
+      "source": "src/game/enemy/fun.cpp_40cd20.cpp",
       "symbol": "?Load@ScriptFileLoader@@QAEHPBD@Z",
       "section": ".text$02script",
       "address": "0x0040CD20",
@@ -40,7 +40,7 @@
     },
     {
       "name": "MapResource_LoadMap",
-      "source": "src/unreferenced/FUN_0043e9d0_0043e9d0.cpp",
+      "source": "src/unreferenced/FUN.cpp_43e9d0.cpp",
       "symbol": "?LoadMap@MapResource@@QAEXPBD@Z",
       "section": ".text$04map",
       "address": "0x0043E9D0",
@@ -59,7 +59,7 @@
     {
       "name": "SoundManager_0043a9b0_LoadTrack",
       "source": "src/core/midilib/midi_load_track.cpp",
-      "symbol": "?LoadTrack@SoundManager_0043a9b0@@QAEHHPBD@Z",
+      "symbol": "?LoadTrack@SoundManager2@@QAEHHPBD@Z",
       "section": ".text$03zn9b0track",
       "address": "0x0043A9B0",
       "size": 116,
@@ -67,7 +67,7 @@
     },
     {
       "name": "Sound_LoadMusicTable",
-      "source": "src/unreferenced/unassigned_0043d670.cpp",
+      "source": "src/unreferenced/unassigned_43d670.cpp",
       "symbol": "_Sound_LoadMusicTable@8",
       "section": ".text$03zrc_music",
       "address": "0x0043D670",
@@ -94,7 +94,7 @@
     },
     {
       "name": "Sound_LoadPendingSlot_0043d640",
-      "source": "src/core/sound/sound_load_pending_slot_0043d640.cpp",
+      "source": "src/core/sound/sound_load_pending_slot.cpp",
       "symbol": "?LoadPendingSlot@SoundPendingSlots@@QAEHPBDH@Z",
       "section": ".text$03zr5_slot",
       "address": "0x0043D640",
@@ -417,7 +417,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_DecompressDatLzss_00435dc0@16",
+      "symbol": "_DecompressDatLzss2@16",
       "address": "0x435dc0",
       "kind": "relative_code"
     },
@@ -428,14 +428,14 @@
     }
   ],
   "additional_sources": [
-    "src/game/enemy/fun_0040cd20_0040cd20.cpp",
-    "src/unreferenced/FUN_0043e9d0_0043e9d0.cpp",
+    "src/game/enemy/fun.cpp_40cd20.cpp",
+    "src/unreferenced/FUN.cpp_43e9d0.cpp",
     "src/game/player/music_room.cpp",
     "src/core/midilib/midi_load_track.cpp",
     "src/game/background/background_load.cpp",
     "src/game/front/score_tasks.cpp",
-    "src/unreferenced/unassigned_0043d670.cpp",
-    "src/core/sound/sound_load_pending_slot_0043d640.cpp"
+    "src/unreferenced/unassigned_43d670.cpp",
+    "src/core/sound/sound_load_pending_slot.cpp"
   ],
   "roots": [
     "?Load@ScriptFileLoader@@QAEHPBD@Z",
@@ -443,7 +443,7 @@
   ],
   "driver": "build_support/layout/ltcg/archive_callers_context.cpp",
   "context": {
-    "symbol": "?ArchiveCallersContext@@YGHPAPAUAssetBuffer@@PAPBDPAPAUMapResource@@PAPAUParameterLoader@@PAPAUSoundManager_0043a9b0@@PBDHPAPAUBackGround@@@Z",
+    "symbol": "?ArchiveCallersContext@@YGHPAPAUAssetBuffer@@PAPBDPAPAUMapResource@@PAPAUParameterLoader@@PAPAUSoundManager2@@PBDHPAPAUBackGround@@@Z",
     "section": ".text$07context",
     "address": "0x0044B500",
     "size": 203,
@@ -452,14 +452,14 @@
   "anchors": [
     {
       "name": "SoundManager_0043a9b0_MidiStop",
-      "symbol": "?MidiStop@SoundManager_0043a9b0@@QAEXXZ",
+      "symbol": "?MidiStop@SoundManager2@@QAEXXZ",
       "section": ".text$03zpanchor",
       "address": "0x0043AE20",
       "size": 81
     },
     {
       "name": "TextLog_0044b810_Append_abi_anchor",
-      "symbol": "?Append@TextLog_0044b810@@QAAPADPADZZ",
+      "symbol": "?Append@TextLog4@@QAAPADPADZZ",
       "section": ".text$09append",
       "address": "0x0044B810",
       "size": 201

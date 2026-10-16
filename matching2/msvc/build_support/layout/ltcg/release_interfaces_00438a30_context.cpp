@@ -1,8 +1,8 @@
 // Compiler context only; its bytes are not recovered game code.
-#include "../../../src/core/main/destroy_entity_list_00438a30.cpp"
+#include "../../../src/core/main/destroy_entity_list.cpp"
 
 #pragma code_seg(".text$03context")
-int __stdcall Ctx(Holder_00438a30** h, int n) {
+int __stdcall Ctx(Holder2** h, int n) {
     for (int i = 0; i < n; ++i) ReleaseAll(h[i]);
     return 0;
 }

@@ -7,7 +7,7 @@
 #pragma code_seg(".text$00fruntime")
 extern "C" int __stdcall BulletRuntimeTick(BulletRuntimeState* state) {
     if (state->flags & 8u) {
-        reinterpret_cast<Player_00405be0*>(state)->ResetSchedulerLinks();
+        reinterpret_cast<Player2*>(state)->ResetSchedulerLinks();
         return -1;
     }
     switch (state->mode) {
@@ -30,7 +30,7 @@ extern "C" int __stdcall BulletRuntimeTick(BulletRuntimeState* state) {
             if (state->motion_flags & 1u)
                 reinterpret_cast<PlayerAnimationState*>(state)->AdvanceAnimationFrame();
             if (state->motion_flags & 0x10u)
-                reinterpret_cast<EffectAccel_00407560*>(state)->Update();
+                reinterpret_cast<EffectAccel2*>(state)->Update();
             if (state->motion_flags & 0x20u)
                 reinterpret_cast<PlayerDeathShrinkState*>(state)->AdvanceDeathShrink();
             if (state->motion_flags & 0x40u)
@@ -63,12 +63,12 @@ extern "C" int __stdcall BulletRuntimeTick(BulletRuntimeState* state) {
                 if (state->death_animation >= 0)
                     AnimationManager_CreateScreenPositionedPrimary(
                         g_bullet_manager->resource, &result, state->death_animation,
-                        reinterpret_cast<const AnimationPosition_00448db0*>(&state->position));
+                        reinterpret_cast<const AnimationPosition2*>(&state->position));
             } else if (contact == 2 && !(state->flags & 4u)) {
                 state->flags |= 4u;
                 AnimationManager_CreateScreenPositionedPrimary(
                     g_bullet_manager->resource, &result, 434,
-                    reinterpret_cast<const AnimationPosition_00448db0*>(&state->position));
+                    reinterpret_cast<const AnimationPosition2*>(&state->position));
                 g_sound_manager.QueuePan(28, state->position.x);
             }
         }
@@ -83,7 +83,7 @@ extern "C" int __stdcall BulletRuntimeTick(BulletRuntimeState* state) {
         if (state->bounds_grace <= 0 &&
             reinterpret_cast<PlayfieldPoint*>(&state->position)
                 ->OutsidePlayfield(state->bounds->extent_34, state->bounds->extent_30)) {
-            reinterpret_cast<Player_00405be0*>(state)->ResetSchedulerLinks();
+            reinterpret_cast<Player2*>(state)->ResetSchedulerLinks();
             return -1;
         }
     }
@@ -93,7 +93,7 @@ extern "C" int __stdcall BulletRuntimeTick(BulletRuntimeState* state) {
         --state->bounds_grace;
     int result = RunAnimationVm(state->animation);
     if (result) {
-        reinterpret_cast<Player_00405be0*>(state)->ResetSchedulerLinks();
+        reinterpret_cast<Player2*>(state)->ResetSchedulerLinks();
         return -1;
     }
     return result;

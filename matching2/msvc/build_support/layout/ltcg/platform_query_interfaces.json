@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "name": "platform_query_interfaces_0044d600",
+  "source": "src/core/zwave/platform_query_interfaces.cpp",
+  "driver": "build_support/layout/ltcg/platform_query_interfaces_0044d600_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "Exact native-LTCG recovery of the interface-array query leaf; the task-local caller establishes the retail internal EDI receiver convention.",
+  "functions": [
+    {
+      "name": "PlatformQueryInterfaces_0044D600_Query",
+      "symbol": "?Query@PlatformQueryInterfaces@@QAEHXZ",
+      "section": ".text$01query",
+      "address": "0x0044D600",
+      "size": 61,
+      "actual_abi": "state in EDI; HRESULT OR in EAX; plain RET"
+    }
+  ],
+  "context": {
+    "symbol": "?PlatformQueryInterfaces0044D600CompilerContext@@YGHPAPAUPlatformQueryInterfaces@@H@Z",
+    "section": ".text$03context",
+    "address": "0x0044E000",
+    "size": 42,
+    "description": "Synthetic pointer-array caller used only to establish the internal receiver allocation."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 312832
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x0044D63D",
+      "size": 2499
+    },
+    {
+      "section": ".text$04layout",
+      "address": "0x0044E02A",
+      "size": 22
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [],
+  "included_sources": []
+}

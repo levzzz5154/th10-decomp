@@ -1,7 +1,7 @@
-#include "../../../src/core/sound/animation_manager_queue_resource_0043dc90.cpp"
+#include "../../../src/core/sound/animation_manager_queue_resource.cpp"
 #include "../../../src/game/title/key_config.cpp"
 // Compiler-visible ABI anchors and synthetic caller, never selected as recovered code.
-#include "../../../src/game/title/fun_0042f8b0_0042f8b0.cpp"
+#include "../../../src/game/title/fun.cpp"
 __forceinline void KeyConfigMatrix::SetIdentity() {
     values[3][2] = 0.0f;
     values[3][1] = 0.0f;
@@ -22,7 +22,7 @@ __forceinline void KeyConfigMatrix::SetIdentity() {
 }
 
 #pragma code_seg(".text$07configure")
-extern "C" __declspec(noinline) int __stdcall ConfigureKeyConfigDigit_0043e5a0(
+extern "C" __declspec(noinline) int __stdcall ConfigureKeyConfigDigit2(
     KeyConfigResource* resource, KeyConfigAnimationObject* object, int index) {
     unsigned char* res = reinterpret_cast<unsigned char*>(resource);
     if (*reinterpret_cast<void**>(res + 0x108) == 0 ||
@@ -65,7 +65,7 @@ void* __fastcall KeyConfigAnimationManager::Find(
 
 #pragma code_seg(".text$11context")
 extern "C" __declspec(noinline) int __stdcall KeyConfigReassignContext(TitleKeyConfigView** states, int* slots, int* keys, int count) {
-    for (int i = 0; i < count; ++i) KeyConfigReassignSlot_00430250(states[i], slots[i], keys[i]);
+    for (int i = 0; i < count; ++i) KeyConfigReassignSlot2(states[i], slots[i], keys[i]);
     return count;
 }
 #pragma code_seg()

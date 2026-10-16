@@ -30,7 +30,7 @@ extern "C" __declspec(noinline) unsigned char* __stdcall DatArchiveRead(
                            g_dat_read_crypt_parameters[cipher_index].step, g_dat_read_crypt_parameters[cipher_index].block_size, g_dat_read_crypt_parameters[cipher_index].byte_limit);
                 unsigned char* result;
                 if (stored_size != uncompressed_size)
-                    result = DecompressDatLzss_00435dc0(encrypted, static_cast<int>(stored_size),
+                    result = DecompressDatLzss2(encrypted, static_cast<int>(stored_size),
                                                      output, uncompressed_size);
                 else
                     result = encrypted;

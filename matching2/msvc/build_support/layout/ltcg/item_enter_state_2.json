@@ -1,0 +1,121 @@
+{
+  "schema_version": 1,
+  "name": "item_enter_state_2_0041be40",
+  "source": "src/game/item/item_enter_state_2.cpp",
+  "driver": "build_support/layout/ltcg/item_enter_state_2_0041be40_context.cpp",
+  "headers": [
+    "include/th10/game/entity.hpp",
+    "include/th10/types.hpp",
+    "include/th10/game/entity_script_start.hpp",
+    "include/th10/game/item.hpp",
+    "include/th10/render/animation_object.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Item state change compiled with native LTCG against the recovered entity script starter (entity ESI, script EAX).",
+  "functions": [
+    {
+      "name": "Item_EnterState2_0041be40",
+      "symbol": "?EnterState2@Item2@@QAEHXZ",
+      "section": ".text$00zm_item",
+      "address": "0x0041BE40",
+      "size": 46,
+      "actual_abi": "item in EAX; returns 0"
+    }
+  ],
+  "anchors": [
+    {
+      "name": "Entity_Init_anchor",
+      "symbol": "?Entity_Init@@YIXPAXPAUEntity@@@Z",
+      "section": ".text$00h_init",
+      "address": "0x00401DE0",
+      "size": 23
+    },
+    {
+      "name": "LoadScript_anchor",
+      "symbol": "_LoadScript2@12",
+      "section": ".text$01accessor",
+      "address": "0x0043E710",
+      "size": 203
+    },
+    {
+      "name": "Entity_StartScript_anchor",
+      "symbol": "?Entity_StartScript@@YGXPAUAnimationResourceFile@@PAUEntity@@H@Z",
+      "section": ".text$00p_start",
+      "address": "0x00404F30",
+      "size": 202
+    }
+  ],
+  "context": {
+    "symbol": "_ItemEnterState2Context_0041be40@8",
+    "section": ".text$04context",
+    "address": "0x0043E7E0",
+    "size": 43,
+    "description": "Synthetic array caller; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00alayout",
+      "address": "0x00401000",
+      "size": 3552
+    },
+    {
+      "section": ".text$00k_layout",
+      "address": "0x00401DF7",
+      "size": 12601
+    },
+    {
+      "section": ".text$00zlayout",
+      "address": "0x00404FFA",
+      "size": 93766
+    },
+    {
+      "section": ".text$00zn_layout",
+      "address": "0x0041BE6E",
+      "size": 141474
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x0043E7DB",
+      "size": 5
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_g_sprt_ctrl",
+      "address": "0x00491C10",
+      "kind": "data"
+    },
+    {
+      "symbol": "_asm_FUN_0043ee30_0043ee30@4",
+      "address": "0x0043EE30",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_g_game_speed",
+      "address": "0x00476F78",
+      "kind": "data"
+    },
+    {
+      "symbol": "__fltused",
+      "address": "0x00000000",
+      "kind": "metadata"
+    },
+    {
+      "symbol": "_EntityInitTail_00404f30",
+      "address": "0x00401EF1",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_g_bullet_manager",
+      "address": "0x004776F0",
+      "kind": "data"
+    }
+  ],
+  "included_sources": [
+    "src/core/sprtanim/animation_object_load_script.cpp",
+    "src/game/background/entity_start_script.cpp",
+    "build_support/layout/ltcg/entity_start_script_00404f30_context.cpp"
+  ],
+  "roots": []
+}

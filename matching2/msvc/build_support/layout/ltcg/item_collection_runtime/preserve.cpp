@@ -1,14 +1,14 @@
 #include <string.h>
 #include "th10/game/entity.hpp"
-struct AnimationObject_0043e7e0 : Entity {};
-struct AnimationResource_0043e7e0 { unsigned short id; unsigned char reserved_002[0x11A]; void** scripts; unsigned char reserved_120[4]; int loading; };
-struct AnimationManager_0043e7e0 { unsigned char reserved[0x4C]; int script_tick_counter; };
+struct AnimationObject4 : Entity {};
+struct AnimationResource4 { unsigned short id; unsigned char reserved_002[0x11A]; void** scripts; unsigned char reserved_120[4]; int loading; };
+struct AnimationManager11 { unsigned char reserved[0x4C]; int script_tick_counter; };
 extern "C" void* g_sprt_ctrl;
 extern "C" float g_game_speed;
 extern "C" void __stdcall asm_FUN_0043ee30_0043ee30(Entity* object);
 #pragma code_seg(".text$f0043e7e0F")
 __declspec(noinline) void __stdcall LoadScriptPreservingState(
-    AnimationResource_0043e7e0* resource, AnimationObject_0043e7e0* object, int index) {
+    AnimationResource4* resource, AnimationObject4* object, int index) {
     void* script = resource->scripts[index];
     if (script == 0 || resource->loading != 0) {
         memset(object, 0, sizeof(Entity));
@@ -35,6 +35,6 @@ __declspec(noinline) void __stdcall LoadScriptPreservingState(
     unsigned int* flag_word = &object->AnimationFlags();
     *flag_word &= ~1u;
     asm_FUN_0043ee30_0043ee30(object);
-    ++((AnimationManager_0043e7e0*)g_sprt_ctrl)->script_tick_counter;
+    ++((AnimationManager11*)g_sprt_ctrl)->script_tick_counter;
 }
 #pragma code_seg()

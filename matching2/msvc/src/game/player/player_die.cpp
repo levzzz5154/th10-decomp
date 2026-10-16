@@ -1,7 +1,7 @@
 // 0x004269D0: the player dies: take a life and some power, enter the dying
 // state with 180 frames of invulnerability, drop the options and show the
 // lives-left caution.
-#include "th10/game/pause_result_open_004231d0/open_state.hpp"
+#include "th10/game/pause_result_open/open_state.hpp"
 #include "th10/game/hint_data_create.hpp"
 #include "th10/game/player.hpp"
 #include "th10/game/player_die.hpp"
@@ -11,7 +11,7 @@ struct AnimationRecord {
     unsigned char pad_0004[0x3AC - 4];
 };
 
-struct AnimationManager_00413790 {
+struct AnimationManager4 {
     unsigned char pad_0000[0x4CDC];
     AnimationRecord records_4cdc[9];
     __declspec(noinline) void SetActiveCount(int count);
@@ -86,10 +86,10 @@ extern "C" {
 }
 struct AnimationResourceFile;
 struct AnimationObjectFile;
-extern "C" void __stdcall LoadScript_0043e710(AnimationResourceFile*,AnimationObjectFile*, int);
+extern "C" void __stdcall LoadScript2(AnimationResourceFile*,AnimationObjectFile*, int);
 
 typedef char TimeoutCountRecordSize[sizeof(AnimationRecord) == 0x3AC ? 1 : -1];
-typedef char TimeoutCountRecordsOffset[offsetof(AnimationManager_00413790, records_4cdc) == 0x4CDC ? 1 : -1];
+typedef char TimeoutCountRecordsOffset[offsetof(AnimationManager4, records_4cdc) == 0x4CDC ? 1 : -1];
 typedef char TimeoutAnimationChildren[offsetof(TimeoutAnimation, children) == 0x14 ? 1 : -1];
 typedef char TimeoutAnimationChildrenFlag[offsetof(TimeoutAnimation, children_flagged) == 0x18 ? 1 : -1];
 typedef char TimeoutAnimationStopFrame[offsetof(TimeoutAnimation, stop_frame) == 0x304 ? 1 : -1];
@@ -130,11 +130,11 @@ extern "C" __declspec(noinline) void __stdcall Player_Die(Player* player) {
     if (power < 5000)
         g_globals_gauge = 5000;
     if (remaining >= 0)
-        reinterpret_cast<AnimationManager_00413790*>(g_front)->SetActiveCount(remaining);
+        reinterpret_cast<AnimationManager4*>(g_front)->SetActiveCount(remaining);
     player->state = PLAYER_DYING;
     SetTimer(player->state_timer, 0);
     SetTimer(player->invulnerability_timer, 180);
-    LoadScript_0043e710(reinterpret_cast<AnimationResourceFile*>(player->animation_file),
+    LoadScript2(reinterpret_cast<AnimationResourceFile*>(player->animation_file),
         reinterpret_cast<AnimationObjectFile*>(&player->sprite), 0);
     TimeoutAnimationManager* manager =
         reinterpret_cast<TimeoutAnimationManager*>(g_sprt_ctrl);
@@ -152,7 +152,7 @@ extern "C" __declspec(noinline) void __stdcall Player_Die(Player* player) {
     }
     player->option_count = 0;
     if (g_replay->mode != 1)
-        HintData_CreateUrgent_00424650(g_hint, g_timeout_caution,
+        HintData_CreateUrgent2(g_hint, g_timeout_caution,
             reinterpret_cast<const HintDataPosition*>(&player->position));
     TimeoutPlayer* gauge = g_card;
     if (gauge->elapsed_frames >= 60) {

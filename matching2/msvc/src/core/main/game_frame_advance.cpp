@@ -6,7 +6,7 @@ int GameFrameAdvance(GameFrame* frame) {
     if (frame->frame_time > frame->next_tick_time) {
         while (frame->next_tick_time < frame->frame_time) frame->next_tick_time += 1.0 / 60.0;
         g_sprt_ctrl->Flush();
-        RenderStage_00439390* stage = &g_application.stages[1];
+        RenderStage4* stage = &g_application.stages[1];
         g_application.active_stage = stage;
         stage->camera.ApplyDefault();
         g_d3d_device->Viewport(&g_application.active_stage->camera.viewport_x);
@@ -24,9 +24,9 @@ int GameFrameAdvance(GameFrame* frame) {
         const unsigned char& limit = g_frame_limit;
         ++frame->tick;
         if (limit + 1 <= frame->tick) {
-            typedef long (__stdcall *BeginScene_00439390)(void*);
+            typedef long (__stdcall *BeginScene2)(void*);
             RenderDevice* device = g_d3d_device;
-            ((BeginScene_00439390)device->vtable[0xA4 / 4])(device);
+            ((BeginScene2)device->vtable[0xA4 / 4])(device);
             SprtCtrlBatchView* manager = g_sprt_ctrl;
             TexturedVertex* buffer = (TexturedVertex*)((unsigned char*)manager + 0x3ADACC);
             manager->quad_count = 0;
@@ -37,9 +37,9 @@ int GameFrameAdvance(GameFrame* frame) {
             asm_FUN_00449d40_00449d40(g_func_ctrl);
             g_sprt_ctrl->Flush();
             g_d3d_device->Texture(0, 0);
-            typedef long (__stdcall *EndScene_00439390)(void*);
+            typedef long (__stdcall *EndScene2)(void*);
             device = g_d3d_device;
-            ((EndScene_00439390)device->vtable[0xA8 / 4])(device);
+            ((EndScene2)device->vtable[0xA8 / 4])(device);
             frame->tick = 0;
             asm_FUN_004391f0_004391f0();
         }

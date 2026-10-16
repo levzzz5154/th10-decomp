@@ -1,7 +1,7 @@
 #pragma once
 #include <stddef.h>
 #include <string.h>
-struct GdiSurface_00436a30;
+struct GdiSurface2;
 struct FontBitmapV4 {
     unsigned long size;
     long width,height;
@@ -27,7 +27,7 @@ typedef char FontRandomSize[(sizeof(FontRandomState)==8 && offsetof(FontRandomSt
 typedef char FontBitmapSize[sizeof(FontBitmapV4)==108?1:-1];
 extern "C" {
  extern FontFormatRecord g_font_formats[];
- extern GdiSurface_00436a30 g_font_atlas_surface;
+ extern GdiSurface2 g_font_atlas_surface;
  extern FontRandomState g_rng;
 
  extern void* g_font_height_60[15];
@@ -36,6 +36,6 @@ extern "C" {
  extern void* (__stdcall* imp_CreateCompatibleDC)(void*);
  __declspec(dllimport) void* __stdcall CreateFontA(int,int,int,int,int,unsigned int,unsigned int,unsigned int,unsigned int,unsigned int,unsigned int,unsigned int,unsigned int,const char*);
 }
-__declspec(noinline) bool __stdcall FontSurface_Create(GdiSurface_00436a30*,int,int,int);
-bool __stdcall FontSurface_CreateWithFallback_00436aa0(GdiSurface_00436a30*,int,int,int);
+__declspec(noinline) bool __stdcall FontSurface_Create(GdiSurface2*,int,int,int);
+bool __stdcall FontSurface_CreateWithFallback2(GdiSurface2*,int,int,int);
 extern "C" __declspec(noinline) void __cdecl InitializeFontCache();

@@ -28,7 +28,7 @@ extern "C" {
     int __stdcall Sound_CacheMusic_0043d7d0(const char*, WaveSoundManager*, int);
     int __stdcall SoundStream_LaunchCached_0043d950(WaveSoundManager*, unsigned int);
     __declspec(noinline) int __stdcall SoundStream_Restart(SoundStreamingState*);
-    int __stdcall SoundStream_RecreateBuffers_0044cf20(SoundStreamingState*);
+    int __stdcall SoundStream_RecreateBuffers2(SoundStreamingState*);
     int __stdcall SoundStream_FillBuffer_0044d110(CommandSoundStream*, WaveSecondaryBuffer*, unsigned int);
     int __fastcall SoundStream_StopFirst_0044d5b0(CommandSoundStream*);
 }
@@ -117,7 +117,7 @@ extern "C" __declspec(noinline) unsigned int __stdcall Sound_ProcessCommands_004
                     advance = true;
                 } else if (step == 1) {
                     if (!Streaming(manager)->servicing) {
-                        SoundStream_RecreateBuffers_0044cf20(Streaming(manager));
+                        SoundStream_RecreateBuffers2(Streaming(manager));
                         advance = true;
                     }
                 } else if (step == 2) {

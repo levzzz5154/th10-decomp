@@ -1,5 +1,5 @@
 // Compiler context only; none of these bytes enter the image.
-#include "../../../src/core/sprtanim/animation_start_byte_interpolation_00441f50.cpp"
+#include "../../../src/core/sprtanim/animation_start_byte_interpolation.cpp"
 
 #pragma code_seg(".text$09context")
 extern "C" int __stdcall AnimationStartByteInterpolationContext_00441f50(

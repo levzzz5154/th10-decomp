@@ -1,0 +1,105 @@
+{
+  "schema_version": 1,
+  "name": "file_handle_open_00435370",
+  "source": "src/pack/file/file_handle_open.cpp",
+  "driver": "build_support/layout/ltcg/file_handle_open_00435370_context.cpp",
+  "headers": [
+    "include/th10/platform/file.hpp",
+    "include/th10/platform/windows_types.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Complete typed file opener and genuine resolver compiled together, preserving public file ABI, private resolver registers and stack protection",
+  "functions": [
+    {
+      "name": "FileHandle_Open",
+      "symbol": "?Open@FileHandle@@UAEEPBD0@Z",
+      "section": ".text$01open",
+      "address": "0x00435370",
+      "size": 239,
+      "actual_abi": "receiver ECX,path/mode stack,resultAL,RET8"
+    },
+    {
+      "name": "ResolvePath435610",
+      "symbol": "@ResolvePath435610@8",
+      "section": ".text$03resolve",
+      "address": "0x00435610",
+      "size": 121,
+      "source": "src/pack/file/file_resolve_path.cpp",
+      "actual_abi": "source EAX,destination ECX; plain RET"
+    }
+  ],
+  "context": {
+    "symbol": "_FileOpenContext@12",
+    "section": ".text$05context",
+    "address": "0x00435690",
+    "size": 22,
+    "description": "Direct caller compiler context, never selected as recovered code"
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 213872
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x0043545F",
+      "size": 433
+    },
+    {
+      "section": ".text$04layout",
+      "address": "0x00435689",
+      "size": 7
+    }
+  ],
+  "roots": [
+    "?Open@FileHandle@@UAEEPBD0@Z"
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "__imp__DeleteFileA@4",
+      "address": "0x004660C0",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__CreateFileA@28",
+      "address": "0x004660C4",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__SetFilePointer@16",
+      "address": "0x004660C8",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__GetModuleFileNameA@12",
+      "address": "0x004660DC",
+      "kind": "data"
+    },
+    {
+      "symbol": "_FirstByteSearch",
+      "address": "0x00452730",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_strrchr",
+      "address": "0x00452930",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "___security_cookie",
+      "address": "0x00473660",
+      "kind": "data"
+    },
+    {
+      "symbol": "@__security_check_cookie@4",
+      "address": "0x00458EA5",
+      "kind": "relative_code"
+    }
+  ],
+  "additional_sources": [
+    "src/pack/file/file_resolve_path.cpp"
+  ],
+  "included_sources": []
+}

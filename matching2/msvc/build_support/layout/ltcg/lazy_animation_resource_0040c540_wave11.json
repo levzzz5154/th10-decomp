@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "GameThread_EnsureAnimationResource_0040c540",
-      "symbol": "?EnsureAnimationResource@GameThread_0040c540@@QAEPAXMM@Z",
+      "symbol": "?EnsureAnimationResource@GameThread6@@QAEPAXMM@Z",
       "section": ".text$01lazy",
       "address": "0x0040C540",
       "size": 75,
@@ -33,7 +33,7 @@
     },
     {
       "name": "AnimationManager_CreatePositionedPrimary_00448d50_abi_anchor",
-      "symbol": "?AnimationManager_CreatePositionedPrimary@@YGPAPAXPAXPAPAXHPBUAnimationPosition_00448d50@@@Z",
+      "symbol": "?AnimationManager_CreatePositionedPrimary@@YGPAPAXPAXPAPAXHPBUAnimationPosition@@@Z",
       "section": ".text$07accessor",
       "address": "0x00448D50",
       "size": 95
@@ -47,7 +47,7 @@
     }
   ],
   "context": {
-    "symbol": "?LazyResourceCompilerContext@@YGHPAPAUGameThread_0040c540@@H@Z",
+    "symbol": "?LazyResourceCompilerContext@@YGHPAPAUGameThread6@@H@Z",
     "section": ".text$0bcontext",
     "address": "0x449a00",
     "size": 47,
@@ -99,7 +99,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_operator_new_00452493",
+      "symbol": "_operator_new2",
       "address": "0x00452493",
       "kind": "relative_code"
     },

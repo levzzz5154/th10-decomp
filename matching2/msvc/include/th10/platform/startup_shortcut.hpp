@@ -42,7 +42,7 @@ struct PersistFileVtable {
 struct ShellLink { ShellLinkVtable* vtable; };
 struct PersistFile { PersistFileVtable* vtable; };
 struct CriticalSection { unsigned char storage[24]; };
-struct TextLog_0044b8e0 {
+struct TextLog5 {
     char text[0x2000];
     char* cursor;
     unsigned char dirty;
@@ -69,7 +69,7 @@ extern Guid shellLinkClass, shellLinkInterface, persistFileInterface;
 extern HANDLE startupMutex;
 extern DWORD startupFlags;
 extern BYTE startupReplay;
-extern TextLog_0044b8e0 startupLog;
+extern TextLog5 startupLog;
 extern CriticalSection g_text_log_lock, g_file_critical_section;
 extern BYTE g_text_log_lock_depth, g_file_critical_depth;
 extern void* imp_EnterCriticalSection;

@@ -2,7 +2,7 @@
 // five animations it names for removal and forget them, then run the worker's
 // own teardown (base dispatch table, stop again).  The object arrives in EAX, a
 // convention only a native LTCG link chooses; the region is compiled in the
-// cluster of its deleting destructor (build_support/layout/ltcg/dtor_delete_0040b920.json).
+// cluster of its deleting destructor (build_support/layout/ltcg/dtor_delete_40b920.json).
 #include "th10/game/ending_text_view.hpp"
 #include "th10/render/animation_mark_for_removal.hpp"
 

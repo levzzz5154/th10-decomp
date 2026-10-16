@@ -2,9 +2,9 @@
 #define TH10_PLATFORM_FONT_ATLAS_DRAW_TEXT_00437FE0_HPP
 #include <stddef.h>
 
-struct Surface_00436ca0;
+struct Surface;
 // 0x00436CA0: fill the 16-bit surface with one colour.
-__declspec(noinline) void __stdcall FillRgb444(Surface_00436ca0* surface, unsigned int color);
+__declspec(noinline) void __stdcall FillRgb444(Surface* surface, unsigned int color);
 
 struct FontAtlasRect {
     int left;
@@ -15,7 +15,7 @@ struct FontAtlasRect {
 
 // The software font atlas at 0x00474CB0: palette, pixel buffer and the device
 // context the fonts are drawn through.
-struct FontAtlas_00437fe0 {
+struct FontAtlas3 {
     unsigned char palette[0x100];
     unsigned int format;                // +0x100
     unsigned char reserved_104[8];
@@ -26,35 +26,35 @@ struct FontAtlas_00437fe0 {
     void* pixels;                       // +0x120
 
     void Fill(unsigned int color) {
-        FillRgb444(reinterpret_cast<Surface_00436ca0*>(this), color);
+        FillRgb444(reinterpret_cast<Surface*>(this), color);
     }
     // 0x00437160: flip the alpha of the first rows.
     char InvertAlpha(int row_count);
 };
-typedef char FontAtlasDc[offsetof(FontAtlas_00437fe0, dc) == 0x114 ? 1 : -1];
-typedef char FontAtlasPixels[offsetof(FontAtlas_00437fe0, pixels) == 0x120 ? 1 : -1];
+typedef char FontAtlasDc[offsetof(FontAtlas3, dc) == 0x114 ? 1 : -1];
+typedef char FontAtlasPixels[offsetof(FontAtlas3, pixels) == 0x120 ? 1 : -1];
 
-struct FontSurface_00437fe0;
-struct FontSurfaceMethods_00437fe0 {
+struct FontSurface2;
+struct FontSurfaceMethods2 {
     void* query_interface;
     void* add_ref;
-    unsigned long (__stdcall* Release)(FontSurface_00437fe0*);
+    unsigned long (__stdcall* Release)(FontSurface2*);
 };
-struct FontSurface_00437fe0 {
-    FontSurfaceMethods_00437fe0* methods;
+struct FontSurface2 {
+    FontSurfaceMethods2* methods;
 };
 
 struct FontTexture;
 struct FontTextureMethods {
     void* reserved_00[0x48 / 4];
-    long (__stdcall* GetSurfaceLevel)(FontTexture*, unsigned int level, FontSurface_00437fe0** surface);
+    long (__stdcall* GetSurfaceLevel)(FontTexture*, unsigned int level, FontSurface2** surface);
 };
 struct FontTexture {
     FontTextureMethods* methods;
 };
 
 extern "C" {
-extern FontAtlas_00437fe0 g_font_atlas_surface;
+extern FontAtlas3 g_font_atlas_surface;
 // The fifteen fonts, one GDI object each: g_font_height_60 is used above 30
 // pixels, g_font_height_58 up to 30, ... g_font_height_32 up to 17. The name
 // is the font's own pixel height; the size ladder picks roughly twice it.
@@ -82,8 +82,8 @@ __declspec(dllimport) unsigned int __stdcall SetTextColor(void* dc, unsigned int
 __declspec(dllimport) int __stdcall TextOutA(void* dc, int x, int y, const char* text, int count);
 
 // 0x00436DA0: turn the drawn rows into the atlas format.
-void __stdcall FontAtlas_Convert(FontAtlas_00437fe0* atlas, int row_count);
-long __stdcall D3DXLoadSurfaceFromMemory(FontSurface_00437fe0* surface, const void* palette,
+void __stdcall FontAtlas_Convert(FontAtlas3* atlas, int row_count);
+long __stdcall D3DXLoadSurfaceFromMemory(FontSurface2* surface, const void* palette,
                                                   const FontAtlasRect* destination, const void* memory,
                                                   unsigned int format, unsigned int pitch,
                                                   const void* source_palette, const FontAtlasRect* source,

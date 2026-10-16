@@ -585,7 +585,7 @@
     "evidence/production_before/production_audit.json": "db248156ef9fa22e4b00fc7a78b715dc133eb84ff388197d538724128be214cf",
     "evidence/production_before/regions.json": "ec33cd1828cdf6d32f826b4aa71c7d80dacb540bc6e7dfaed4dd22b5494b97ec",
     "evidence/production_before/src/game/score_cleanup.cpp": "96f1653fa0a1580c1a2de86651de94bc1fb3757f526d1e7bfdef74ecc7c84964",
-    "evidence/production_before/src/game/score_records_copy_vector_and_evaluate_0041c800.cpp": "324d68fe0405cfb67f05a3dfdc5c1f854afe3e87053071c45d744a8ffbe90f15",
+    "evidence/production_before/src/game/score_records_copy_vector_and_evaluate.cpp": "324d68fe0405cfb67f05a3dfdc5c1f854afe3e87053071c45d744a8ffbe90f15",
     "evidence/production_before/src/render/player_movement_animation_00449210_004492f0.cpp": "08931308ae46afb66d0ec9f7bc50060ed646d938b842cbf8840d56e41059078f",
     "evidence/production_before/th10.exe": "2f14760b6fbbf57549541583283badb9a19a4222b90f0a146d5aa17f01dc9040",
     "evidence/production_exact/build.log": "946fe2133ad39504446f6212d356cade3628801a2da27d6cebe01d0394f4b0ce",
@@ -667,7 +667,7 @@
     "decompiled/ghidra_augmented/functions/0041C850.asm": "2f99761b888887eb02e5fa8accb95cd69cd9fc91233c1ae7f7f47935b13b8611",
     "decompiled/ghidra_augmented/functions/00425730.c": "56e28f4ee89b663613b0eaaa2fe1ec015cc4df5709e1bba8ad0b2a1a047baa2b",
     "decompiled/ghidra_augmented/functions/00425730.asm": "ea0c2c2ab3d9272f3da84af9feb978f1f65c3765fbd655c3f6c883359f794044",
-    "matching2/msvc/src/game/score_records_copy_vector_and_evaluate_0041c800.cpp": "324d68fe0405cfb67f05a3dfdc5c1f854afe3e87053071c45d744a8ffbe90f15",
+    "matching2/msvc/src/game/score_records_copy_vector_and_evaluate.cpp": "324d68fe0405cfb67f05a3dfdc5c1f854afe3e87053071c45d744a8ffbe90f15",
     "matching2/msvc/src/game/score_cleanup.cpp": "96f1653fa0a1580c1a2de86651de94bc1fb3757f526d1e7bfdef74ecc7c84964"
   },
   "production": {

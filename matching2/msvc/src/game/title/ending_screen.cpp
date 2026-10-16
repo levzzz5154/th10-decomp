@@ -9,7 +9,7 @@
 //
 // The room arrives in EBX from the title dispatcher (0x0042CDF0); that private
 // convention needs the dispatcher and the real slot/timer leaves in one
-// whole-program link (build_support/layout/ltcg/ending_screen_0042d300.json).
+// whole-program link (build_support/layout/ltcg/ending_screen.json).
 //
 // Two shapes are load-bearing (each measured against the image):
 //
@@ -20,10 +20,10 @@
 //    object.  Copied into a local first, the argument is no longer an
 //    expression temporary and the two later temporaries take EAX/ECX instead
 //    of retail's ECX/EDX.
-#include "th10/game/ending_screen_0042d300.hpp"
+#include "th10/game/ending_screen.hpp"
 
 // Select an item, clamped to the last one when the menu has items.
-static __forceinline void SelectItem_0042d300(MenuCursor& cursor, int selected) {
+static __forceinline void SelectItem2(MenuCursor& cursor, int selected) {
     if (cursor.item_count != 0)
         cursor.selection = selected >= cursor.item_count ? cursor.item_count - 1 : selected;
     else
@@ -31,7 +31,7 @@ static __forceinline void SelectItem_0042d300(MenuCursor& cursor, int selected) 
 }
 
 #pragma code_seg(".text$0042d300_fn")
-int __stdcall EndingScreen_Update_0042d300(Title* room) {
+int __stdcall EndingScreen_Update2(Title* room) {
     switch (room->phase) {
     case 0: {
         if (reinterpret_cast<RecoveryLookup*>(g_sprt_ctrl)->Find(
@@ -45,7 +45,7 @@ int __stdcall EndingScreen_Update_0042d300(Title* room) {
             room->reserved_684 = reinterpret_cast<unsigned int>(*result);
         }
         room->SetTimerTarget(1);
-        SelectItem_0042d300(room->cursor, 0);
+        SelectItem2(room->cursor, 0);
         // Retail intentionally processes phase 1 on this same frame.
     }
     case 1:

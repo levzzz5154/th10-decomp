@@ -18,7 +18,7 @@ struct Title {
 };
 
 // Declared here exactly as the co-compiled TextLog translation unit defines it.
-struct TextLog_0044b810 {
+struct TextLog4 {
     char text[0x2000];
     char *cursor;
     unsigned char dirty;
@@ -50,13 +50,13 @@ Title_RegisterTasks(Title *title) {
     title->title_resource = Recovery_LoadCachedResource(
             0x19, g_sprt_ctrl, "title.anm");
     if (!title->title_resource) {
-        ((TextLog_0044b810 *)0x474F70)->Append((char *)0x46CB68);
+        ((TextLog4 *)0x474F70)->Append((char *)0x46CB68);
         return -1;
     }
     title->title_v_resource = Recovery_LoadCachedResource(
             0x1A, g_sprt_ctrl, "title_v.anm");
     if (!title->title_v_resource) {
-        ((TextLog_0044b810 *)0x474F70)->Append((char *)0x46CB68);
+        ((TextLog4 *)0x474F70)->Append((char *)0x46CB68);
         return -1;
     }
     title->ready = 1;

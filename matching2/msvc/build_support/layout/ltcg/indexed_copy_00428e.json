@@ -1,11 +1,11 @@
 {
   "schema_version": 1,
   "name": "indexed_copy_00428e",
-  "source": "src/unreferenced/unassigned_00428ea0.cpp",
+  "source": "src/unreferenced/unassigned_428ea0.cpp",
   "additional_sources": [
-    "src/unreferenced/unassigned_00428ec0.cpp",
-    "src/unreferenced/unassigned_00428ee0.cpp",
-    "src/unreferenced/unassigned_00428f00.cpp"
+    "src/unreferenced/unassigned_428ec0.cpp",
+    "src/unreferenced/unassigned_428ee0.cpp",
+    "src/unreferenced/unassigned_428f00.cpp"
   ],
   "driver": "build_support/layout/ltcg/indexed_copy_00428e_context.cpp",
   "headers": [],
@@ -14,43 +14,43 @@
   "functions": [
     {
       "name": "IndexedCopySource_00428ea0_Copy",
-      "symbol": "?Copy@IndexedCopySource_00428ea0@@QAEXPAXH@Z",
+      "symbol": "?Copy@IndexedCopySource@@QAEXPAXH@Z",
       "section": ".text$01ea",
       "address": "0x00428EA0",
       "size": 24,
       "actual_abi": "source in ECX; base in EDX; index in EAX; plain RET",
-      "source": "src/unreferenced/unassigned_00428ea0.cpp"
+      "source": "src/unreferenced/unassigned_428ea0.cpp"
     },
     {
       "name": "IndexedCopySource_00428ec0_Copy",
-      "symbol": "?Copy@IndexedCopySource_00428ec0@@QAEXPAXH@Z",
+      "symbol": "?Copy@IndexedCopySource2@@QAEXPAXH@Z",
       "section": ".text$03ec",
       "address": "0x00428EC0",
       "size": 24,
       "actual_abi": "source in ECX; base in EDX; index in EAX; plain RET",
-      "source": "src/unreferenced/unassigned_00428ec0.cpp"
+      "source": "src/unreferenced/unassigned_428ec0.cpp"
     },
     {
       "name": "IndexedCopySource_00428ee0_Copy",
-      "symbol": "?Copy@IndexedCopySource_00428ee0@@QAEXPAXH@Z",
+      "symbol": "?Copy@IndexedCopySource3@@QAEXPAXH@Z",
       "section": ".text$05ee",
       "address": "0x00428EE0",
       "size": 24,
       "actual_abi": "source in ECX; base in EDX; index in EAX; plain RET",
-      "source": "src/unreferenced/unassigned_00428ee0.cpp"
+      "source": "src/unreferenced/unassigned_428ee0.cpp"
     },
     {
       "name": "IndexedCopySource_00428f00_Copy",
-      "symbol": "?Copy@IndexedCopySource_00428f00@@QAEXPAXH@Z",
+      "symbol": "?Copy@IndexedCopySource4@@QAEXPAXH@Z",
       "section": ".text$07f0",
       "address": "0x00428F00",
       "size": 24,
       "actual_abi": "source in ECX; base in EDX; index in EAX; plain RET",
-      "source": "src/unreferenced/unassigned_00428f00.cpp"
+      "source": "src/unreferenced/unassigned_428f00.cpp"
     }
   ],
   "context": {
-    "symbol": "?IndexedCopyCompilerContext@@YGHPAPAUIndexedCopySource_00428ea0@@PAPAUIndexedCopySource_00428ec0@@PAPAUIndexedCopySource_00428ee0@@PAPAUIndexedCopySource_00428f00@@PAPAXPAHH@Z",
+    "symbol": "?IndexedCopyCompilerContext@@YGHPAPAUIndexedCopySource@@PAPAUIndexedCopySource2@@PAPAUIndexedCopySource3@@PAPAUIndexedCopySource4@@PAPAXPAHH@Z",
     "section": ".text$09context",
     "address": "0x00428F80",
     "size": 148,

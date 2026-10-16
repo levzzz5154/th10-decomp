@@ -9,15 +9,15 @@
 // and the low nibble is blended against the stored byte (whose low nibble is
 // zero), reusing the `high` variable; this keeps retail's byte-wide add/shift.
 
-struct FontSurface_00437750;
-struct FontSurfaceMethods_00437750 {
+struct FontSurface;
+struct FontSurfaceMethods {
     void* reserved_000[0x30 / 4];
-    void (__stdcall* GetDesc)(FontSurface_00437750*, void* desc);
-    int (__stdcall* LockRect)(FontSurface_00437750*, void* locked, const void* rect, unsigned int flags);
-    int (__stdcall* UnlockRect)(FontSurface_00437750*);
+    void (__stdcall* GetDesc)(FontSurface*, void* desc);
+    int (__stdcall* LockRect)(FontSurface*, void* locked, const void* rect, unsigned int flags);
+    int (__stdcall* UnlockRect)(FontSurface*);
 };
-struct FontSurface_00437750 {
-    FontSurfaceMethods_00437750* methods;
+struct FontSurface {
+    FontSurfaceMethods* methods;
 };
 
 struct FontSurfaceDesc {
@@ -38,7 +38,7 @@ struct FontLockedRect {
 };
 
 // The software font atlas (0x00474CB0 in the callers of its siblings).
-struct FontAtlas_00437750 {
+struct FontAtlas2 {
     unsigned char palette[0x100];
     unsigned int format;                // +0x100
     int width;                          // +0x104
@@ -50,23 +50,23 @@ struct FontAtlas_00437750 {
     unsigned char* pixels;              // +0x120
 };
 
-char FontAtlas_BlendToSurface(FontAtlas_00437750* atlas, int column, int row,
-                                       FontSurface_00437750* surface, int width, int height);
+char FontAtlas_BlendToSurface(FontAtlas2* atlas, int column, int row,
+                                       FontSurface* surface, int width, int height);
 
 // Compiler entry only: a direct caller, so the compiler picks the private
 // register homes.
-extern "C" __declspec(noinline) int __stdcall FontAtlasBlendEntry(FontAtlas_00437750** atlases,
-                                                                  FontSurface_00437750** surfaces, int count) {
+extern "C" __declspec(noinline) int __stdcall FontAtlasBlendEntry(FontAtlas2** atlases,
+                                                                  FontSurface** surfaces, int count) {
     int result = 0;
     while (count--) {
-        FontAtlas_00437750* atlas = *atlases++;
+        FontAtlas2* atlas = *atlases++;
         result = FontAtlas_BlendToSurface(atlas, count, count, *surfaces++, atlas->width, atlas->height);
     }
     return result;
 }
 
-char FontAtlas_BlendToSurface(FontAtlas_00437750* atlas, int column, int row,
-                                       FontSurface_00437750* surface, int width, int height) {
+char FontAtlas_BlendToSurface(FontAtlas2* atlas, int column, int row,
+                                       FontSurface* surface, int width, int height) {
     if (atlas->ready == 0)
         goto fail;
 

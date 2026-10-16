@@ -7,7 +7,7 @@
 // bytes are those of the virtual methods (this in ECX, callee pops).
 //
 // Slots 0x24..0x48 are the motion callbacks LineLaser::Update runs for each
-// set flag bit (see build_support/layout/ltcg/laser_line_0041d3d0/types.hpp).
+// set flag bit (see build_support/layout/ltcg/laser_line/types.hpp).
 struct LaserParameters;
 struct LaserPoint;
 

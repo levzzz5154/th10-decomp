@@ -1,5 +1,5 @@
 // Compiler context only; never selected as recovered game code.
-#include "../../../src/unreferenced/unassigned_00417600.cpp"
+#include "../../../src/unreferenced/unassigned_417600.cpp"
 
 #pragma code_seg(".text$03context")
 int __stdcall AccessorContext_00417600(ObjectAccessor_00417600** items, int count) {

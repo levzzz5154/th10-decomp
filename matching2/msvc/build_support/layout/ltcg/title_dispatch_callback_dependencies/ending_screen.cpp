@@ -7,11 +7,11 @@ extern "C" void* g_sprt_ctrl;
 extern "C" unsigned int g_input_keys_held;
 __declspec(noinline) void __stdcall RecoveryMusicInstallSlot(
     Title* room, int index);
-struct AnimationHandle_0040c3c0 { unsigned int id; };
-__declspec(noinline) void StopHandle_00409e50(AnimationHandle_0040c3c0* handle);
+struct AnimationHandle3 { unsigned int id; };
+__declspec(noinline) void StopHandle2(AnimationHandle3* handle);
 
 #pragma code_seg(".text$0042d300_fn")
-__declspec(noinline) int __stdcall EndingScreen_Update_0042d300(
+__declspec(noinline) int __stdcall EndingScreen_Update2(
         Title* room) {
     switch (room->phase) {
     case 0: {
@@ -44,7 +44,7 @@ __declspec(noinline) int __stdcall EndingScreen_Update_0042d300(
             room->SetSlotFrame(90, 6);
             room->SetTimerTarget(4);
             g_sound_manager.Queue(32, 0);
-            StopHandle_00409e50(reinterpret_cast<AnimationHandle_0040c3c0*>(
+            StopHandle2(reinterpret_cast<AnimationHandle3*>(
                 &room->reserved_684));
         }
         break;

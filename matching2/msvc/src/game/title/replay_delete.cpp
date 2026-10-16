@@ -2,9 +2,9 @@
 // screen 0x00433570 calls it: compiler context of that equivalent recovery
 // (the maintained form is
 // src/game/replay/platform_deleting_destructor_with_release.cpp).
-#include "th10/game/replay_save_update_00433570.hpp"
+#include "th10/game/replay_save_update.hpp"
 #pragma code_seg(".text$004297b0_fn")
-void __stdcall ReplayFile_Delete(ReplayFile_004315c0* replay) {
+void __stdcall ReplayFile_Delete(ReplayFile* replay) {
     if (replay) {
         ReplayFile_Destroy(replay);
         free(replay);

@@ -3,7 +3,7 @@
 //
 // Retail enters this member with the timer state in EAX and the owner in ECX, a
 // convention no C++ declaration can name, so the body is compiled in the
-// native-LTCG cluster build_support/layout/ltcg/timer_owner_0042c5c0.json, whose synthetic
+// native-LTCG cluster build_support/layout/ltcg/timer_owner.json, whose synthetic
 // caller establishes that pair.  The body itself is ordinary readable C++.
 //
 // The record is the same 0x2C4-byte score timer the title-options setter

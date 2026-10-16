@@ -4,7 +4,7 @@
 // A draft measured with `equivalence.py --layout`; it is linked beside the
 // title cluster's own dispatcher stand-in, which the exact handlers depend
 // on and which stays untouched.
-#include "th10/game/ending_screen_0042d300.hpp"
+#include "th10/game/ending_screen.hpp"
 #include "th10/render/animation_resource_removal.hpp"
 #include <stdlib.h>
 #include <string.h>
@@ -57,7 +57,7 @@ extern "C" {
     extern char g_replay_path[];
     extern unsigned char g_stage_routes[];
     extern unsigned char* g_stage_route_current;
-    extern GameThread_0040c540* g_ascii_manager;
+    extern GameThread6* g_ascii_manager;
     extern float flt_0_99, flt_1_01, flt_1;
 }
 // These declarations describe logical inputs, not promises about retail ABI.
@@ -85,7 +85,7 @@ static __forceinline void SetSelection(MenuCursor* cursor, int requested) {
         cursor->selection = requested;
 }
 // Frames added per tick, read as the timer's own accessor does.
-static __forceinline float TimerSpeed(const RecoveryTimer_0040bd80& timer) { return *timer.speed; }
+static __forceinline float TimerSpeed(const RecoveryTimer2& timer) { return *timer.speed; }
 static __forceinline void MarkTitleCallback(Title* room) {
     reinterpret_cast<TitlePrefix*>(room)->callback->flags |= 2;
 }
@@ -187,10 +187,10 @@ __declspec(noinline) int __stdcall TitleDispatcher_Model(
             TitleMode12(room);
             break;
         }
-        EndingScreen_Update_0042d300(room);
+        EndingScreen_Update2(room);
         break;
     }
-    case 1: EndingScreen_Update_0042d300(room); break;
+    case 1: EndingScreen_Update2(room); break;
     case 2: MarkTitleCallback(room); TitleMainMenu(room); break;
     case 4: TitleOptions(room); break;
     case 5: TitleMenuFlow(room); break;

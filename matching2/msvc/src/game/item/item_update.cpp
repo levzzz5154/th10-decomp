@@ -13,7 +13,7 @@
 struct ItemMotionY {
     float position_y;
     float position_z;
-    ItemPolarVelocity_0041bb00 velocity;
+    ItemPolarVelocity2 velocity;
     int motion_counter;
     FrameTimer timer;
     int state;

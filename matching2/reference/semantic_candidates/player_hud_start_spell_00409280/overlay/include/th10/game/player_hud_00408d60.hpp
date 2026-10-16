@@ -2,7 +2,7 @@
 #include <stddef.h>
 #include "th10/math/timer.hpp"
 #include "th10/math/vector.hpp"
-#include "th10/render/animation_object_0043e5a0.hpp"
+#include "th10/render/animation_object.hpp"
 #include "th10/render/animation_stop_frame_handle.hpp"
 #include "th10/render/position_setter_pair.hpp"
 

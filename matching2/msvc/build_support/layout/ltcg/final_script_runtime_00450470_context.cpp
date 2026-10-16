@@ -3,7 +3,7 @@
 
 #pragma code_seg(".text$03context")
 int __stdcall ScriptTable00450470CompilerContext(
-        ScriptTable_00450470** tables, const char** names, int count) {
+        ScriptTable2** tables, const char** names, int count) {
     int result = 0;
     while (count--) {
         result += (*tables++)->Resolve(*names++);

@@ -5,14 +5,14 @@
 // values, and its handle is returned (zero when it is already gone). Nothing
 // in the program calls it; the kind arrives in EAX and the owner, the hidden
 // result pointer and the argument on the stack.
-#include "th10/game/effect_kind_spawn_0040b070.hpp"
+#include "th10/game/effect_kind_spawn.hpp"
 
 // 0x00448D00 inline: script `index` of a file as a new animation at the back
 // of the primary list.
 static __forceinline void CreatePrimaryBack(
-        AnimationBank* file, AnimationHandle_0040b070* out, int index, int bucket) {
-    AnimationNode_0040b070* object =
-        reinterpret_cast<AnimationPool_0040b070*>(g_sprt_ctrl)->Allocate();
+        AnimationBank* file, AnimationHandle2* out, int index, int bucket) {
+    AnimationNode2* object =
+        reinterpret_cast<AnimationPool2*>(g_sprt_ctrl)->Allocate();
     unsigned int flags = object->flags;
     object->render_bucket = bucket;
     object->flags = flags | 0x40000000u;
@@ -21,12 +21,12 @@ static __forceinline void CreatePrimaryBack(
 }
 
 #pragma code_seg(".text$0040b070_fn")
-AnimationHandle_0040b070 __stdcall EffectSpawnView::SpawnEffect(
+AnimationHandle2 __stdcall EffectSpawnView::SpawnEffect(
         void* argument, int kind) {
     EffectKind* entry = &g_effect_kinds[kind];
-    AnimationHandle_0040b070 created;
+    AnimationHandle2 created;
     CreatePrimaryBack(file, &created, entry->script, 15);
-    AnimationNode_0040b070* node = g_sprt_ctrl->Find(created);
+    AnimationNode2* node = g_sprt_ctrl->Find(created);
     if (!node)
         created.value = 0;
     if (entry->setup)
@@ -42,12 +42,12 @@ AnimationHandle_0040b070 __stdcall EffectSpawnView::SpawnEffect(
 // Also uncalled. The two bodies are written out separately: a shared inline
 // body changes 0x0040B070.
 #pragma code_seg(".text$0040b110_fn")
-AnimationHandle_0040b070 __stdcall SpawnEffectFromFile(
+AnimationHandle2 __stdcall SpawnEffectFromFile(
         int kind, AnimationBank* file, void* argument) {
     EffectKind* entry = &g_effect_kinds[kind];
-    AnimationHandle_0040b070 created;
+    AnimationHandle2 created;
     CreatePrimaryBack(file, &created, entry->script, 15);
-    AnimationNode_0040b070* node = g_sprt_ctrl->Find(created);
+    AnimationNode2* node = g_sprt_ctrl->Find(created);
     if (!node)
         created.value = 0;
     if (entry->setup)

@@ -2,7 +2,7 @@
 #include "../../../src/game/smollscore/smoll_score_initialize.cpp"
 
 #pragma code_seg(".text$00h_init")
-#include "../../contexts/legacy/game/entity_initialize_00401de0.cpp"
+#include "../../contexts/legacy/game/entity_initialize.cpp"
 #pragma code_seg()
 
 #include "scheduler_register_anchors.cpp"

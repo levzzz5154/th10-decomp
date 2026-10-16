@@ -12,9 +12,9 @@
 // compiled in the cluster build_support/layout/ltcg/animation_resource_registrar.json.
 #include <string.h>
 
-#include "th10/render/resource_registrar_0043e460.hpp"
+#include "th10/render/resource_registrar.hpp"
 
-extern AnimationManager_0043e460 g_music_requests;   // 0x00492590
+extern AnimationManager9 g_music_requests;   // 0x00492590
 extern unsigned char g_config_flags;                 // 0x00491D78
 extern float g_game_speed;                           // 0x00476F78
 

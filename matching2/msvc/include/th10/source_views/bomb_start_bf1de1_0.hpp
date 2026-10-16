@@ -7,14 +7,14 @@ extern "C" void* g_sprt_ctrl;
 extern "C" const float flt_224;
 extern "C" const float flt_16;
 extern "C" const float flt_5_2083335;
-extern "C" const float flt_0_00390625;
-#include "../../../build_support/layout/ltcg/player_initialize_00405860_dependencies/entity_init.cpp"
+extern "C" const float flt_02;
+#include "../../../build_support/layout/ltcg/player_initialize_dependencies/entity_init.cpp"
 #include "../../../src/core/sprtlib/animation_pool_allocate.cpp"
-#include "../../../build_support/layout/ltcg/player_initialize_00405860_dependencies/load_script.cpp"
-#include "../../../build_support/layout/ltcg/player_initialize_00405860_dependencies/configure.cpp"
-#include "th10/game/power_display_004054b0.hpp"
-#include "../../../build_support/layout/ltcg/player_initialize_00405860_dependencies/clear_flags.cpp"
-#include "../../../build_support/layout/ltcg/player_initialize_00405860_dependencies/sound_pan.cpp"
+#include "../../../build_support/layout/ltcg/player_initialize_dependencies/load_script.cpp"
+#include "../../../build_support/layout/ltcg/player_initialize_dependencies/configure.cpp"
+#include "th10/game/power_display.hpp"
+#include "../../../build_support/layout/ltcg/player_initialize_dependencies/clear_flags.cpp"
+#include "../../../build_support/layout/ltcg/player_initialize_dependencies/sound_pan.cpp"
 #include "th10/game/bomb.hpp"
 
 struct PrimaryListNode {

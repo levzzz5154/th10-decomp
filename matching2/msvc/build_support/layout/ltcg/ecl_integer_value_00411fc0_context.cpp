@@ -1,8 +1,8 @@
-#include "../../../src/game/enemy/ecl_integer_value_00411fc0.cpp"
+#include "../../../src/game/enemy/ecl_integer_value.cpp"
 #pragma code_seg(".text$06validate")
-void* ResolveAnimationHandle(AnimationHandle_00449450* handle) {
-    AnimationScriptId_00449450 id = { (int)handle->value };
-    void* object = ((AnimationManager_00449450*)g_sprt_ctrl)->Find(g_sprt_ctrl, id);
+void* ResolveAnimationHandle(AnimationHandle10* handle) {
+    AnimationScriptId2 id = { (int)handle->value };
+    void* object = ((AnimationManager15*)g_sprt_ctrl)->Find(g_sprt_ctrl, id);
     if (!object) handle->value = 0;
     return object;
 }

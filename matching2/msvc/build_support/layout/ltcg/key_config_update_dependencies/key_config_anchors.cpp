@@ -5,7 +5,7 @@
 #include "../../../../src/game/title/key_config.cpp"
 #undef code_seg
 #define code_seg(name) code_seg(".text$0042f8b0_fn")
-#include "../../../../src/game/title/fun_0042f8b0_0042f8b0.cpp"
+#include "../../../../src/game/title/fun.cpp"
 #undef code_seg
 #pragma code_seg()
 __forceinline void KeyConfigMatrix::SetIdentity() {
@@ -28,7 +28,7 @@ __forceinline void KeyConfigMatrix::SetIdentity() {
 }
 
 #pragma code_seg(".text$0043e5a0_fn")
-extern "C" __declspec(noinline) int __stdcall ConfigureKeyConfigDigit_0043e5a0(
+extern "C" __declspec(noinline) int __stdcall ConfigureKeyConfigDigit2(
     KeyConfigResource* resource, KeyConfigAnimationObject* object, int index) {
     unsigned char* res = reinterpret_cast<unsigned char*>(resource);
     if (*reinterpret_cast<void**>(res + 0x108) == 0 ||

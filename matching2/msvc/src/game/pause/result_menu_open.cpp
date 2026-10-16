@@ -1,5 +1,5 @@
 // Open the pause result view or the completed-game result view.
-#include "th10/game/pause_result_open_004231d0/open_state.hpp"
+#include "th10/game/pause_result_open/open_state.hpp"
 __forceinline void PauseOpenState::Open(bool result) {
     if (g_game->replay_mode == 1) {
         g_main_state = (g_app_flags & 0x1000) ? 2 : 4;
@@ -19,7 +19,7 @@ __forceinline void PauseOpenState::Open(bool result) {
         AnimationScriptId assigned = lists->RegisterSecondaryBack(object);
         cursor_animation = assigned;
     }
-    AnimationHandle_00424480 cursor_handle;
+    AnimationHandle8 cursor_handle;
     cursor_handle.value = (unsigned int)cursor_animation.value;
     reinterpret_cast<SpriteRegion*>(lists)->BindToAnimation(cursor_handle, 32, 16, 384, 448);
     resource = g_front->result_resource;
@@ -44,10 +44,10 @@ __forceinline void PauseOpenState::Open(bool result) {
 #pragma code_seg(".text$00423370_fn")
 void PauseOpenState::OpenResult() { Open(true); }
 #pragma code_seg()
-#include "../../../build_support/layout/ltcg/result_open_00423370/allocate.cpp"
-#include "../../../build_support/layout/ltcg/result_open_00423370/descriptor.cpp"
-#include "../../../build_support/layout/ltcg/result_open_00423370/entity_init.cpp"
-#include "../../../build_support/layout/ltcg/result_open_00423370/find.cpp"
-#include "../../../build_support/layout/ltcg/result_open_00423370/music.cpp"
-#include "../../../build_support/layout/ltcg/result_open_00423370/registrar.cpp"
-#include "../../../build_support/layout/ltcg/result_open_00423370/secondary_back.cpp"
+#include "../../../build_support/layout/ltcg/result_open/allocate.cpp"
+#include "../../../build_support/layout/ltcg/result_open/descriptor.cpp"
+#include "../../../build_support/layout/ltcg/result_open/entity_init.cpp"
+#include "../../../build_support/layout/ltcg/result_open/find.cpp"
+#include "../../../build_support/layout/ltcg/result_open/music.cpp"
+#include "../../../build_support/layout/ltcg/result_open/registrar.cpp"
+#include "../../../build_support/layout/ltcg/result_open/secondary_back.cpp"

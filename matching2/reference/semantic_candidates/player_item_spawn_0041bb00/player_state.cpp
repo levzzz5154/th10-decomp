@@ -2,8 +2,8 @@
 
 #include "item_spawn.hpp"
 
-#include "../../../msvc/src/game/power_display_set_digits_004054b0.cpp"
-#include "../../../msvc/src/game/animation_object_configure_from_resource_0043e5a0.cpp"
+#include "../../../msvc/src/game/power_display_set_digits.cpp"
+#include "../../../msvc/src/game/animation_object_configure_from_resource.cpp"
 // External collaborators not yet part of the complete native graph.
 struct PlayerBullet {
     // The five preceding virtual slots are not used by this owner.

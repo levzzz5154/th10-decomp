@@ -1,0 +1,95 @@
+{
+  "schema_version": 1,
+  "name": "polar_motion_step_0040b320",
+  "source": "src/game/effect/polar_motion_step.cpp",
+  "driver": "build_support/layout/ltcg/polar_motion_step_0040b320_context.cpp",
+  "headers": [
+    "include/th10/game/polar_motion.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Polar motion step and the advance it calls bare, compiled with native LTCG: the step takes its record in EAX and hands it to the advance in ESI.",
+  "functions": [
+    {
+      "name": "PolarMotion_Step",
+      "symbol": "?Step@PolarMotion@@QAEXXZ",
+      "section": ".text$0040b320_fn",
+      "address": "0x0040B320",
+      "size": 73,
+      "actual_abi": "record in EAX; plain RET"
+    },
+    {
+      "name": "PolarMotion_Advance",
+      "source": "src/core/zunlib/polar_motion_advance.cpp",
+      "symbol": "?Advance@PolarMotion@@QAEXXZ",
+      "section": ".text$0044c2a0_fn",
+      "address": "0x0044C2A0",
+      "size": 171,
+      "actual_abi": "record in ESI; plain RET"
+    }
+  ],
+  "anchors": [],
+  "context": {
+    "symbol": "?PolarMotionContext@@YGXPAPAUPolarMotion@@H@Z",
+    "section": ".text$0044c360_ctx",
+    "address": "0x0044C360",
+    "size": 36,
+    "description": "Synthetic array-walking caller; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00401000_gap",
+      "address": "0x00401000",
+      "size": 41760
+    },
+    {
+      "section": ".text$0040b369_gap",
+      "address": "0x0040B369",
+      "size": 266039
+    },
+    {
+      "section": ".text$0044c34b_gap",
+      "address": "0x0044C34B",
+      "size": 21
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "__fltused",
+      "address": "0x00000000",
+      "kind": "metadata"
+    },
+    {
+      "symbol": "_floor",
+      "address": "0x00452FF0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_Angle_Normalize2@4",
+      "address": "0x0044BC70",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?SetPolar@PolarVec3@@QAEPAU1@MM@Z",
+      "address": "0x0044C5D0",
+      "kind": "relative_code"
+    }
+  ],
+  "roots": [],
+  "additional_sources": [
+    "src/core/zunlib/polar_motion_advance.cpp"
+  ],
+  "constant_aliases": [
+    {
+      "symbol": "__real@42c80000",
+      "address": "0x00470B44",
+      "value": 100.0
+    },
+    {
+      "symbol": "__real@3c23d70a",
+      "address": "0x00470B00",
+      "value": 0.01
+    }
+  ],
+  "included_sources": []
+}

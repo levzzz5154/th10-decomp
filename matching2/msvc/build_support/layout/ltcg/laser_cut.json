@@ -33,7 +33,7 @@
     "include/th10/game/entity.hpp",
     "include/th10/types.hpp",
     "include/th10/math/timer.hpp",
-    "include/th10/game/laser_spawn_0041c510.hpp",
+    "include/th10/game/laser_spawn.hpp",
     "include/th10/game/entity_script_start.hpp"
   ],
   "image_base": "0x400000",
@@ -78,7 +78,7 @@
     },
     {
       "name": "function_0043e710",
-      "symbol": "_LoadScript_0043e710@12",
+      "symbol": "_LoadScript2@12",
       "section": ".text$f0043e710F",
       "address": "0x43e710",
       "size": 203
@@ -106,35 +106,35 @@
     },
     {
       "name": "function_0041beb0",
-      "symbol": "?SetPolar@ItemPolarVelocity_0041bb00@@QAEPAU1@MM@Z",
+      "symbol": "?SetPolar@ItemPolarVelocity2@@QAEPAU1@MM@Z",
       "section": ".text$f0041beb0F",
       "address": "0x41beb0",
       "size": 30
     },
     {
       "name": "function_0041c510",
-      "symbol": "?SpawnIn@LaserSpawnParameters@@QBEHPAULaserManager_0041c510@@H@Z",
+      "symbol": "?SpawnIn@LaserSpawnParameters@@QBEHPAULaserManager2@@H@Z",
       "section": ".text$f0041c510F",
       "address": "0x41c510",
       "size": 151
     },
     {
       "name": "function_0041c5b0",
-      "symbol": "?LineLaser_Construct_0041c5b0@@YIPAULineLaser_0041c5b0@@PAU1@@Z",
+      "symbol": "?LineLaser_Construct2@@YIPAULineLaser2@@PAU1@@Z",
       "section": ".text$f0041c5b0F",
       "address": "0x41c5b0",
       "size": 202
     },
     {
       "name": "function_0041c680",
-      "symbol": "?BeamLaser_Construct_0041c680@@YIPAUBeamLaser@@PAU1@@Z",
+      "symbol": "?BeamLaser_Construct2@@YIPAUBeamLaser@@PAU1@@Z",
       "section": ".text$f0041c680F",
       "address": "0x41c680",
       "size": 219
     },
     {
       "name": "function_0041c030",
-      "symbol": "?LaserBase_Construct_0041c030@@YIPAULaserBase@@PAXPAU1@@Z",
+      "symbol": "?LaserBase_Construct2@@YIPAULaserBase@@PAXPAU1@@Z",
       "section": ".text$f0041c030F",
       "address": "0x41c030",
       "size": 98
@@ -150,7 +150,7 @@
   "anchor_roots": [
     "?CutRectangle@CutLaser@@UAEHPBUCutVector@@0H@Z",
     "?TrimCircle@TrimLaser@@UAEHPBUCutVector@@MH@Z",
-    "?SetPolar@ItemPolarVelocity_0041bb00@@QAEPAU1@MM@Z"
+    "?SetPolar@ItemPolarVelocity2@@QAEPAU1@MM@Z"
   ],
   "roots": [
     "?TrimRectangle@TrimLaser@@UAEHPBUCutVector@@0H@Z"

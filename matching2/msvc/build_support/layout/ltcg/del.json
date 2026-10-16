@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "name": "del_0042ab80",
+  "source": "src/unreferenced/unassigned_42ab80.cpp",
+  "driver": "build_support/layout/ltcg/del_0042ab80_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "del_0042ab80",
+  "functions": [
+    {
+      "name": "DestroyOwned_DeletingDestructor5",
+      "symbol": "?DestroyOwned_DeletingDestructor5@@YGPAXPAUOwnedObject10@@I@Z",
+      "section": ".text$01delete0042ab80",
+      "address": "0x0042AB80",
+      "size": 73,
+      "actual_abi": "argument in EAX"
+    }
+  ],
+  "context": {
+    "symbol": "?DeletingContext_0042ab80@@YGXPAPAUOwnedObject10@@H@Z",
+    "section": ".text$03context",
+    "address": "0x0042ABE0",
+    "size": 41,
+    "description": "Synthetic caller; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 170880
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x0042ABC9",
+      "size": 16
+    }
+  ],
+  "constants": [],
+  "roots": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_crt_free_startup",
+      "address": "0x004524A1",
+      "kind": "relative_code"
+    }
+  ],
+  "included_sources": []
+}

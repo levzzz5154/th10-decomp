@@ -1,9 +1,9 @@
 {
   "schema_version": 2,
   "name": "dat_archive_close_shutdown",
-  "source": "src/pack/arcmngr/dat_archive_close_00434d10.cpp",
+  "source": "src/pack/arcmngr/dat_archive_close.cpp",
   "additional_sources": [
-    "src/pack/arcmngr/dat_archive_reset_00434c20.cpp",
+    "src/pack/arcmngr/dat_archive_reset.cpp",
     "src/static_init/archive_exit.cpp"
   ],
   "headers": [
@@ -27,7 +27,7 @@
       "address": "0x00434C20",
       "size": 10,
       "actual_abi": "archive in ECX; saves ESI and calls Close with archive in ESI; plain RET",
-      "source": "src/pack/arcmngr/dat_archive_reset_00434c20.cpp"
+      "source": "src/pack/arcmngr/dat_archive_reset.cpp"
     },
     {
       "name": "DatArchive_Close",
@@ -36,7 +36,7 @@
       "address": "0x00434D10",
       "size": 86,
       "actual_abi": "archive in ESI; preserves ESI; plain RET",
-      "source": "src/pack/arcmngr/dat_archive_close_00434d10.cpp"
+      "source": "src/pack/arcmngr/dat_archive_close.cpp"
     },
     {
       "name": "CloseGlobalArchive",

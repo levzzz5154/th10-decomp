@@ -1,5 +1,5 @@
 // Complete 0x004492A0: mark this animation and its direct children for transition.
-#include "th10/game/pause_initializer_00422ab0.hpp"
+#include "th10/game/pause_initializer.hpp"
 struct AnimationFlagEntry {
     AnimationFlagEntry* object;
     AnimationFlagEntry* next;
@@ -10,7 +10,7 @@ struct AnimationFlagEntry {
     unsigned int flags;
 };
 #pragma code_seg(".text$13setflag")
-void* __fastcall AnimationManager_SetFlag_004492a0(
+void* __fastcall AnimationManager_SetFlag2(
         AnimationLookupContext* context, AnimationScriptId id) {
     AnimationFlagEntry* entry = (AnimationFlagEntry*)AnimationManager_Find(context, id);
     if (entry) {

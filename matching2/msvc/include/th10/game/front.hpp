@@ -33,7 +33,7 @@ struct Front {
 
     __declspec(noinline) Front();    // 0x00413810
 };
-typedef char ItemManagerSize_00413810[sizeof(Front) == 0x9ED0 ? 1 : -1];
+typedef char ItemManagerSize[sizeof(Front) == 0x9ED0 ? 1 : -1];
 typedef char FrontSpriteOffset[offsetof(Front, sprite_9a48) == 0x9A48 ? 1 : -1];
 typedef char FrontTimerOffset[offsetof(Front, frame_timer) == 0x9E60 ? 1 : -1];
 

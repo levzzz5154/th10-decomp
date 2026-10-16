@@ -5,7 +5,7 @@
 #include "th10/game/spt_test.hpp"
 
 #pragma code_seg(".text$01load")
-int SptTest_0042be20::LoadScript() {
+int SptTest2::LoadScript() {
     char path[260];
     sprintf(path, "%s", script_names[file_cursor.selection]);
     int selected = 0;
@@ -30,7 +30,7 @@ int SptTest_0042be20::LoadScript() {
 #pragma code_seg()
 
 #pragma code_seg(".text$00task")
-int __stdcall SptTest_LoadTask_0042be10() {
+int __stdcall SptTest_LoadTask2() {
     g_spt_test->LoadScript();
     return 0;
 }

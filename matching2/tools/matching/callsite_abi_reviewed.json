@@ -24,7 +24,7 @@
   "manager_teardown_00417c80": {
     "0x43e460": "both load EAX = 0x492590; retail's load sits before a branch the scan does not follow"
   },
-  "replay_submenu_004236f0": {
+  "replay_submenu": {
     "0x43dc90": "EDI = 0xA: retail copies it from EBX, which holds the constant 0xA (cf. its `test [0x474e36], bl`); the model loads the immediate"
   }
 }

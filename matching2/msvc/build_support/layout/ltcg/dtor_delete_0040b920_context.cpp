@@ -1,6 +1,6 @@
 // Compiler context only; none of these bytes enter the image.
-#include "../../../src/unreferenced/unassigned_0040b920.cpp"
-#include "../../../src/core/zunlib/platform_stop_worker_0044c150.cpp"
+#include "../../../src/unreferenced/unassigned_40b920.cpp"
+#include "../../../src/core/zunlib/platform_stop_worker.cpp"
 
 #pragma code_seg(".text$05context")
 extern "C" int __stdcall DtorDeleteContext_0040b920(EndingTextView** items, int count) {

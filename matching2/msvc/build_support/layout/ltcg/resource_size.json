@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
   "name": "resource_size",
-  "source": "src/pack/file/resource_get_file_size_retail_004358e0.cpp",
+  "source": "src/pack/file/resource_get_file_size_retail.cpp",
   "driver": "build_support/layout/ltcg/resource_size_context.cpp",
   "included_sources": [
-    "src/pack/arcmngr/dat_archive_find_size_00434ef0.cpp"
+    "src/pack/arcmngr/dat_archive_find_size.cpp"
   ],
   "headers": [
     "include/th10/archive/dat_archive_types.hpp",
@@ -125,7 +125,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "?Find@ArchiveName@@QBEPBUArchiveEntry_004356f0@@XZ",
+      "symbol": "?Find@ArchiveName@@QBEPBUArchiveEntry2@@XZ",
       "address": "0x4356f0",
       "kind": "relative_code"
     },

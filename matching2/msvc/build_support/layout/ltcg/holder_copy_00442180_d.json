@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "holder_copy_00442180_d",
-  "source": "src/unreferenced/holder_copy_00442180.cpp",
+  "source": "src/unreferenced/holder_copy.cpp",
   "driver": "build_support/layout/ltcg/holder_copy_00442180_context.cpp",
   "headers": [],
   "image_base": "0x00400000",
@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "Triple_00442180_CopyTo",
-      "symbol": "?CopyTo@Triple_00442180@@QAEXPAUHolder_00442180@@@Z",
+      "symbol": "?CopyTo@Triple4@@QAEXPAUHolder4@@@Z",
       "section": ".text$01copy",
       "address": "0x442180",
       "size": 20,

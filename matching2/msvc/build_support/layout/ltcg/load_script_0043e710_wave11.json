@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "load_script_0043e710_wave11",
-  "source": "src/core/sprtanim/animation_object_load_script_0043e710.cpp",
+  "source": "src/core/sprtanim/animation_object_load_script.cpp",
   "driver": "build_support/layout/ltcg/load_script_0043e710_wave11_context.cpp",
   "headers": [
     "include/th10/game/entity.hpp",
@@ -12,7 +12,7 @@
   "functions": [
     {
       "name": "AnimationObject_LoadScript",
-      "symbol": "_LoadScript_0043e710@12",
+      "symbol": "_LoadScript2@12",
       "section": ".text$01accessor",
       "address": "0x0043E710",
       "size": 203,

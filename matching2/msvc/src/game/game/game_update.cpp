@@ -1,7 +1,7 @@
 // 0x00418190: complete stage callback, all 1,544 retail bytes.
 // The native cluster co-compiles full helpers to derive their register ABIs.
 // The callback itself keeps its public stdcall context and RET4.
-#include "../../../build_support/layout/ltcg/stage_update_00418190/types.hpp"
+#include "../../../build_support/layout/ltcg/stage_update/types.hpp"
 #include <stddef.h>
 #include <string.h>
 
@@ -54,15 +54,15 @@ extern unsigned int stage_transition_mask;
 extern unsigned char stage_config;
 extern unsigned int stage_game_flags;
 extern int stage_result;
-extern Stage_00404450 *stage_quads;
+extern Stage2 *stage_quads;
 extern BackGround *stage_fade;
 extern BackGround *stage_mode;
 extern BulletPool *stage_bullets;
-extern PauseState_00424d90 *stage_player;
+extern PauseState2 *stage_player;
 extern EnemyCtrlClearView *stage_enemies;
 extern EnemyCtrlSpawnView *stage_spawn_manager;
 extern ScoreChain *stage_chain;
-extern ReplayManager_0042a6a0 *stage_replay;
+extern ReplayManager2 *stage_replay;
 extern unsigned char *stage_effects;
 extern StageTaskPair *stage_tasks;
 extern StageTaskPair *stage_items;
@@ -83,7 +83,7 @@ void __stdcall StageDestroyGameState(void *state);
 }
 void __cdecl operator delete(void *object);
 int __stdcall Music_Play(int track, int heard_index);
-extern "C" AnimationManager_0043e460 stage_requests;
+extern "C" AnimationManager9 stage_requests;
 
 typedef char StageContextTimerOffset[offsetof(Game, timer) == 0x10 ? 1 : -1];
 typedef char StageContextFlagsOffset[offsetof(Game, flags) == 0x58 ? 1 : -1];
@@ -118,13 +118,13 @@ extern "C" __declspec(noinline) int __stdcall Game_Update(Game *context) {
             stage_frames = 0;
             stage_other_frames = 0;
             stage_replay->FinishStage();
-            EnemySpawn_0040cfb0 spawn;
+            EnemySpawn2 spawn;
             memset(&spawn, 0, sizeof(spawn));
             spawn.Create(stage_spawn_manager, str_main);
             stage_front_g_front->Initialize();
             stage_tasks->PauseOptional();
             TaskPair(stage_player)->PauseRequired();
-            PlayerRefresh_00426f70(reinterpret_cast<Player*>(stage_player));
+            PlayerRefresh2(reinterpret_cast<Player*>(stage_player));
             TaskPair(stage_bullets)->PauseOptional();
             TaskPair(stage_enemies)->PauseOptional();
             TaskPair(stage_effects)->PauseOptional();
@@ -155,13 +155,13 @@ extern "C" __declspec(noinline) int __stdcall Game_Update(Game *context) {
         stage_frames = 0;
         stage_other_frames = 0;
         stage_replay->FinishStage();
-        EnemySpawn_0040cfb0 spawn;
+        EnemySpawn2 spawn;
         memset(&spawn, 0, sizeof(spawn));
         spawn.Create(stage_spawn_manager, str_main);
         stage_front_g_front->Initialize();
         stage_tasks->PauseOptional();
         TaskPair(stage_player)->PauseRequired();
-        PlayerRefresh_00426f70(reinterpret_cast<Player*>(stage_player));
+        PlayerRefresh2(reinterpret_cast<Player*>(stage_player));
         TaskPair(stage_bullets)->PauseOptional();
         TaskPair(stage_enemies)->PauseOptional();
         TaskPair(stage_effects)->PauseOptional();

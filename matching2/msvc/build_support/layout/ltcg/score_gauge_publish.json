@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "name": "score_gauge_publish",
+  "source": "src/game/player/fun.cpp",
+  "driver": "build_support/layout/ltcg/score_gauge_publish_00428e10_context.cpp",
+  "headers": [
+    "include/th10/game/player.hpp",
+    "include/th10/game/entity.hpp",
+    "include/th10/types.hpp",
+    "include/th10/math/timer.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Player::SetFixedPosition compiled with native LTCG so the player arrives in EAX and the source position in ECX, as the retail call site in slot_snapshot.cpp (0x0042A5C8) sets them up.",
+  "functions": [
+    {
+      "name": "Player_SetFixedPosition",
+      "symbol": "?SetFixedPosition@Player@@QAEPAU1@PBUFixedPoint@@@Z",
+      "section": ".text$01accessor",
+      "address": "0x00428E10",
+      "size": 83,
+      "actual_abi": "score state in EAX; counters in ECX; result in EAX; plain RET"
+    }
+  ],
+  "context": {
+    "symbol": "ScoreGaugeContext00428e10@12",
+    "section": ".text$03context",
+    "address": "0x00428E80",
+    "size": 60,
+    "description": "Synthetic array-walking caller; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 163344
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x00428E63",
+      "size": 29
+    }
+  ],
+  "constants": [],
+  "constant_aliases": [
+    {
+      "symbol": "__real@3c23d70a",
+      "address": "0x00470B00",
+      "value": 0.01
+    }
+  ],
+  "roots": [],
+  "absolute_symbols": [
+    {
+      "symbol": "__fltused",
+      "address": "0x00000000",
+      "kind": "metadata"
+    }
+  ],
+  "included_sources": []
+}

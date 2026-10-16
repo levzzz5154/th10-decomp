@@ -2,7 +2,7 @@
 #include <stdarg.h>
 #include <string.h>
 #pragma code_seg(".text$04log")
-__declspec(noinline) char* TextLog_0044b8e0::AppendLine(char* format, ...) {
+__declspec(noinline) char* TextLog5::AppendLine(char* format, ...) {
     char buffer[512];
     va_list va;
     va_start(va, format);

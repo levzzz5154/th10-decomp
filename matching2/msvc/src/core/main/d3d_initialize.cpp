@@ -25,7 +25,7 @@ SprtCtrlStateCacheView* __cdecl Renderer_ApplyDeviceDefaults(void);
 
 extern Application g_application;
 extern MainWindow g_main_window;
-extern TextLog_0044b810 g_log;
+extern TextLog4 g_log;
 
 // Log lines (Shift-JIS).
 extern char str_first_run_32bit[];    // "first run, the screen was initialised at 32 bits"
@@ -46,7 +46,7 @@ extern char str_no_a8r8g8b8[];    // "D3DFMT_A8R8G8B8 is not supported, running 
 
 int __stdcall ApplyDefaultViewport(unsigned int color);
 
-struct TextLog_0044b8e0 {
+struct TextLog5 {
     char text[0x2000];
     char* cursor;
     unsigned char dirty;
@@ -132,7 +132,7 @@ reference:
                         parameters.swap_effect = 3;
                         continue;
                     }
-                    reinterpret_cast<TextLog_0044b8e0*>(&g_log)->AppendLine(str_d3d_init_failed);
+                    reinterpret_cast<TextLog5*>(&g_log)->AppendLine(str_d3d_init_failed);
                     if (g_application.direct3d != 0) {
                         g_application.direct3d->Release();
                         g_application.direct3d = 0;

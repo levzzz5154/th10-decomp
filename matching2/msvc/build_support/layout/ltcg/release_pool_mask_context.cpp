@@ -1,5 +1,5 @@
 // Compiler context only; never selected as recovered game code.
-#include "../../../src/unreferenced/FUN_004052e0_004052e0.cpp"
+#include "../../../src/unreferenced/FUN.cpp_4052e0.cpp"
 
 #pragma code_seg(".text$03context")
 int __stdcall ReleasePoolMaskCompilerContext(GameStateBulletPool** pools, int count) {

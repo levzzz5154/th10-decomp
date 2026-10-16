@@ -4,7 +4,7 @@
 #include "th10/math/timer.hpp"
 
 // 0x0044C350: the easing table shared by every interpolator.
-__declspec(noinline) float __stdcall EvaluateCurve_0044c350(
+__declspec(noinline) float __stdcall EvaluateCurve2(
     unsigned int mode, float numerator, float denominator);
 
 // A value driven from a start to a target over a number of frames. Retail
@@ -21,7 +21,7 @@ struct Interpolator {
     int mode;          // 7 add, 17 accelerate, 8 Hermite, else easing
 
     // Eased progress through the run, 0 to 1.
-    float Rate() { return EvaluateCurve_0044c350(mode, timer.elapsed, (float)duration); }
+    float Rate() { return EvaluateCurve2(mode, timer.elapsed, (float)duration); }
 
     // Advance one frame and return the current value. Defined in
     // interpolator_step.hpp, which only the instantiating sources include.

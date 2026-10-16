@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "name": "cl_0041acb0",
+  "source": "src/unreferenced/unassigned_41acb0.cpp",
+  "driver": "build_support/layout/ltcg/cl_0041acb0_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "Region compiled with native LTCG so its entry registers are retail's.",
+  "functions": [
+    {
+      "name": "0EffectManager_0041acb0_0041acb0",
+      "symbol": "??0EffectManager@@QAE@XZ",
+      "section": ".text$01fn",
+      "address": "0x0041ACB0",
+      "size": 54,
+      "actual_abi": "manager in ESI; manager returned in EAX; plain RET",
+      "source": "src/unreferenced/unassigned_41acb0.cpp"
+    }
+  ],
+  "context": {
+    "symbol": "?EffectManagerContext_0041acb0@@YGHPAPAUEffectManager@@H@Z",
+    "section": ".text$03context",
+    "address": "0x0041ACF0",
+    "size": 44,
+    "description": "Synthetic caller that establishes the observed register convention; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 105648
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x0041ACE6",
+      "size": 10
+    }
+  ],
+  "constants": [],
+  "constant_aliases": [],
+  "absolute_symbols": [
+    {
+      "symbol": "??0EffectEntity@@QAE@XZ",
+      "address": "0x0041ACF0",
+      "kind": "data"
+    },
+    {
+      "symbol": "??1EffectEntity@@QAE@XZ",
+      "address": "0x0041AD60",
+      "kind": "data"
+    },
+    {
+      "symbol": "??_L@YGXPAXIHP6EX0@Z1@Z",
+      "address": "0x0045252D",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "??_M@YGXPAXIHP6EX0@Z@Z",
+      "address": "0x004525FF",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_g_item_manager",
+      "address": "0x00477818",
+      "kind": "data"
+    }
+  ],
+  "roots": [],
+  "exceptions": true,
+  "included_sources": []
+}

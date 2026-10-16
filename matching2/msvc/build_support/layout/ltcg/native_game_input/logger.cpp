@@ -12,7 +12,7 @@ extern "C" int __cdecl asm_vsprintf_004524a6(
 
 
 #pragma code_seg(".text$a16logger")
-__declspec(noinline) char* TextLog_0044b810::Append(char* format, ...) {
+__declspec(noinline) char* TextLog4::Append(char* format, ...) {
     char staging[0x2000];
     va_list arguments;
     va_start(arguments, format);

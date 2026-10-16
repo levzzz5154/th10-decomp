@@ -8,8 +8,8 @@
   "description": "record_links_0042 compiled with native LTCG so the record arrives in EAX.",
   "functions": [
     {
-      "name": "Init_0042aae0",
-      "symbol": "@Init_0042aae0@8",
+      "name": "Init13",
+      "symbol": "@Init13@8",
       "section": ".text$01init",
       "address": "0x42aae0",
       "size": 54,
@@ -24,8 +24,8 @@
       "actual_abi": "record in EAX"
     },
     {
-      "name": "Init_0043bc20",
-      "symbol": "@Init_0043bc20@8",
+      "name": "Init14",
+      "symbol": "@Init14@8",
       "section": ".text$05init2",
       "address": "0x43bc20",
       "size": 23,

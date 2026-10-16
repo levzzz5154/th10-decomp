@@ -3,7 +3,7 @@
     {
       "region": {
         "name": "semantic_ResourceCleanup_00418ee0",
-        "source": "src/game/resource_manager_cleanup_00418ee0.cpp",
+        "source": "src/game/resource_manager_cleanup.cpp",
         "symbol": "_ResourceCleanup@4",
         "address": "0x00418EE0",
         "size": 346,
@@ -22,7 +22,7 @@
       "sha256": "87a72cb11f290354e0a38c900abb6bf98d28d51f932baf29daceb3057b5b6955",
       "source_sha256": "23464862597c994b481f4694ac13c526646b111c63179046d5445fb027f821d3",
       "whole_build_native_unit": {
-        "source": "src/game/resource_manager_cleanup_00418ee0.cpp",
+        "source": "src/game/resource_manager_cleanup.cpp",
         "object": "/home/levzzz/Games/th10Decomp/matching2/build/msvc/clusters/resource_cleanup/bodies.obj",
         "compiler_kind": "native-ltcg",
         "compiler_translation_unit_count": 2,
@@ -73,9 +73,9 @@
           "schema_version": 1,
           "name": "resource_cleanup",
           "compiler_kind": "native-ltcg",
-          "source": "src/game/resource_manager_cleanup_00418ee0.cpp",
+          "source": "src/game/resource_manager_cleanup.cpp",
           "sources": [
-            "src/game/resource_manager_cleanup_00418ee0.cpp"
+            "src/game/resource_manager_cleanup.cpp"
           ],
           "roots": [
             "_ResourceCleanup@4"
@@ -84,8 +84,8 @@
           "layout": "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/resource_cleanup.json",
           "input_sha256": {
             "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/resource_cleanup.json": "a6a9fd9e1601ca61bdd860d77399ede351a13d013db6515c65c71177a081ab8d",
-            "/home/levzzz/Games/th10Decomp/matching2/msvc/src/game/resource_manager_cleanup_00418ee0.cpp": "23464862597c994b481f4694ac13c526646b111c63179046d5445fb027f821d3",
-            "/home/levzzz/Games/th10Decomp/matching2/msvc/src/game/recovery_clear_eight_buckets_00419040.cpp": "6817e6a4779321471e0b8f65dd4791cafe856fd9c53d982a577abf8eae72a757",
+            "/home/levzzz/Games/th10Decomp/matching2/msvc/src/game/resource_manager_cleanup.cpp": "23464862597c994b481f4694ac13c526646b111c63179046d5445fb027f821d3",
+            "/home/levzzz/Games/th10Decomp/matching2/msvc/src/game/recovery_clear_eight_buckets.cpp": "6817e6a4779321471e0b8f65dd4791cafe856fd9c53d982a577abf8eae72a757",
             "/home/levzzz/Games/th10Decomp/matching2/msvc/src/game/scheduler_tasks.cpp": "d53aed2de4a8d6dfc987a374ad1fbfcf625a502303889f5d2d0273ae5e8c94dc",
             "/home/levzzz/Games/th10Decomp/matching2/msvc/include/th10/game/scheduler_remove_locked.hpp": "072be953f3baf5d13ff43dd24183035ced78c31922d78259f08a2e862843fa3c",
             "/home/levzzz/Games/th10Decomp/matching2/msvc/include/th10/game/scheduler.hpp": "e90bbeec43c2d9885fc2586a99bd3db23423d908f54feeaa76308d8beb294538",
@@ -96,7 +96,7 @@
           },
           "compiler_includes": [
             {
-              "path": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/game/recovery_clear_eight_buckets_00419040.cpp",
+              "path": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/game/recovery_clear_eight_buckets.cpp",
               "sha256": "6817e6a4779321471e0b8f65dd4791cafe856fd9c53d982a577abf8eae72a757"
             },
             {
@@ -120,7 +120,7 @@
               "sha256": "6fc5fce3af505857e51c2bdf055cf2c05afbf6e51132e188e42bf192ab0b17e4"
             },
             {
-              "path": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/game/resource_manager_cleanup_00418ee0.cpp",
+              "path": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/game/resource_manager_cleanup.cpp",
               "sha256": "23464862597c994b481f4694ac13c526646b111c63179046d5445fb027f821d3"
             },
             {
@@ -480,10 +480,10 @@
             "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/ecl_child_int_anchor.cpp": "8109ddc0464a82568f2196b1b8f74c5f6858cdfdbd735be27f909e9fd3fcaeb6",
             "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/ecl_child_float_anchor.cpp": "7f60e54849201490cb7496fd59bb7bcbe7339fc78bf0767e01dd339553e7861e",
             "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/ecl_child_script_anchor.cpp": "e945c6b6beddec7471ed624612ea34bd45b8bba21950d7066db1e2cd0793f4cf",
-            "/home/levzzz/Games/th10Decomp/matching2/msvc/src/script/ecl_resolve_float_value_0044ff80.cpp": "7246bcf2cb1effef403a341954f5d7ebedcdfb7d51ff3f84869b0133a0ca528a",
+            "/home/levzzz/Games/th10Decomp/matching2/msvc/src/script/ecl_resolve_float_value.cpp": "7246bcf2cb1effef403a341954f5d7ebedcdfb7d51ff3f84869b0133a0ca528a",
             "/home/levzzz/Games/th10Decomp/matching2/msvc/include/th10/script/ecl_children.hpp": "4394b41482bec018d9192729b20b0ae0c8a80148fa9bf070ab4545809f54bbcd",
             "/home/levzzz/Games/th10Decomp/matching2/msvc/include/th10/script/ecl_float_values.hpp": "a7a847bd5f0c61f7c6fd621226f0e4d457953fa92c42c4bd2c6021822dd3fd55",
-            "/home/levzzz/Games/th10Decomp/matching2/msvc/include/script_resolver_00450470.hpp": "6440c5688c420155cde70573707143a1633cb49aa435faddf6fc397ea0372230",
+            "/home/levzzz/Games/th10Decomp/matching2/msvc/include/script_resolver.hpp": "6440c5688c420155cde70573707143a1633cb49aa435faddf6fc397ea0372230",
             "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/ecl_child_pair_context.cpp": "c240927332c37f5a7dc0c866affc86a9d1cef05c72e7edf0b72630fdc591be47"
           },
           "compiler_includes": [
@@ -504,11 +504,11 @@
               "sha256": "a7a847bd5f0c61f7c6fd621226f0e4d457953fa92c42c4bd2c6021822dd3fd55"
             },
             {
-              "path": "/home/levzzz/Games/th10Decomp/matching2/msvc/include/script_resolver_00450470.hpp",
+              "path": "/home/levzzz/Games/th10Decomp/matching2/msvc/include/script_resolver.hpp",
               "sha256": "6440c5688c420155cde70573707143a1633cb49aa435faddf6fc397ea0372230"
             },
             {
-              "path": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/script/ecl_resolve_float_value_0044ff80.cpp",
+              "path": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/script/ecl_resolve_float_value.cpp",
               "sha256": "7246bcf2cb1effef403a341954f5d7ebedcdfb7d51ff3f84869b0133a0ca528a"
             },
             {
@@ -516,7 +516,7 @@
               "sha256": "a7a847bd5f0c61f7c6fd621226f0e4d457953fa92c42c4bd2c6021822dd3fd55"
             },
             {
-              "path": "/home/levzzz/Games/th10Decomp/matching2/msvc/include/script_resolver_00450470.hpp",
+              "path": "/home/levzzz/Games/th10Decomp/matching2/msvc/include/script_resolver.hpp",
               "sha256": "6440c5688c420155cde70573707143a1633cb49aa435faddf6fc397ea0372230"
             }
           ],
@@ -855,7 +855,7 @@
           "different_bytes": 0,
           "exact": true,
           "relocations": [],
-          "source": "src/game/recovery_clear_eight_buckets_00419040.cpp"
+          "source": "src/game/recovery_clear_eight_buckets.cpp"
         },
         {
           "region": "semantic_ResourceCleanup_00418ee0",
@@ -865,7 +865,7 @@
           "different_bytes": 0,
           "exact": true,
           "relocations": [],
-          "source": "src/game/resource_manager_cleanup_00418ee0.cpp"
+          "source": "src/game/resource_manager_cleanup.cpp"
         },
         {
           "region": "semantic_Recovery_InstallPairSetFlags_004055c0_004055c0",

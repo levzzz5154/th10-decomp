@@ -1,0 +1,137 @@
+{
+  "schema_version": 1,
+  "name": "ecl_float_value_00412350",
+  "source": "src/game/enemy/ecl_float_value.cpp",
+  "driver": "build_support/layout/ltcg/ecl_float_value_00412350_context.cpp",
+  "headers": [
+    "include/th10/math/rng.hpp",
+    "include/th10/game/player.hpp",
+    "include/th10/game/entity.hpp",
+    "include/th10/types.hpp",
+    "include/th10/math/timer.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Floating-point ECL value dispatcher with its complete native switch table and genuine angle-helper context.",
+  "functions": [
+    {
+      "name": "EclFloatSource_ResolveFloatValue",
+      "symbol": "?ResolveFloatValue@EclFloatSource@@QBEMH@Z",
+      "section": ".text$02dispatch",
+      "address": "0x00412350",
+      "size": 884,
+      "actual_abi": "ECX receiver; stack selector; x87 ST(0) result; RET 4. Includes one alignment byte and compiler-generated 51-entry jump table."
+    }
+  ],
+  "context": {
+    "symbol": "_EclFloatContext@8",
+    "section": ".text$00context",
+    "address": "0x00401000",
+    "size": 17,
+    "description": "Compiler-only public member call."
+  },
+  "anchors": [
+    {
+      "name": "Entity_AngleFromPoint",
+      "symbol": "?AngleFromPoint@Player@@QAEMPBM@Z",
+      "section": ".text$04angle",
+      "address": "0x00426660",
+      "size": 67
+    }
+  ],
+  "gaps": [
+    {
+      "section": ".text$01gap",
+      "address": "0x401011",
+      "size": 70463
+    },
+    {
+      "section": ".text$03gap",
+      "address": "0x4126c4",
+      "size": 81820
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "?Rng_NextU32@@YIIPAURngState@@@Z",
+      "address": "0x44b9e0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?Rng_NextFloat@@YIMPAURngState@@@Z",
+      "address": "0x44bb20",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?Rng_NextFloatSigned@@YIMPAURngState@@@Z",
+      "address": "0x44bb90",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__fltused",
+      "address": "0x0",
+      "kind": "metadata"
+    },
+    {
+      "symbol": "_g_player",
+      "address": "0x477834",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_enemy_ctrl",
+      "address": "0x477704",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_globals_difficulty",
+      "address": "0x474c74",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_rank",
+      "address": "0x474c98",
+      "kind": "data"
+    },
+    {
+      "symbol": "_flt_1",
+      "address": "0x470afc",
+      "kind": "data"
+    },
+    {
+      "symbol": "_flt_0",
+      "address": "0x470b04",
+      "kind": "data"
+    },
+    {
+      "symbol": "_flt_2",
+      "address": "0x470b08",
+      "kind": "data"
+    },
+    {
+      "symbol": "_flt_pi",
+      "address": "0x470b18",
+      "kind": "data"
+    },
+    {
+      "symbol": "_flt_pi_2",
+      "address": "0x470b94",
+      "kind": "data"
+    },
+    {
+      "symbol": "_flt_3",
+      "address": "0x470bd4",
+      "kind": "data"
+    }
+  ],
+  "roots": [
+    "?ResolveFloatValue@EclFloatSource@@QBEMH@Z"
+  ],
+  "constant_aliases": [
+    {
+      "symbol": "__real@4f800000",
+      "address": "0x00470B98",
+      "value": 4294967296.0
+    }
+  ],
+  "included_sources": []
+}

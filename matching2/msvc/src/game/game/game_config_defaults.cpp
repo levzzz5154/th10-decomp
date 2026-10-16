@@ -13,7 +13,7 @@
 
 extern "C" char g_key_bindings_current[];
 
-#include "th10/game/large_initialization_state_00421f00.hpp"
+#include "th10/game/large_initialization_state.hpp"
 
 #ifndef TH10_GAME_CONFIG_KEEP_SECTION
 #pragma code_seg(".text$00bconfig")

@@ -1,10 +1,10 @@
-#include "../../../src/unreferenced/FUN_00436d30_00436d30.cpp"
+#include "../../../src/unreferenced/FUN.cpp_436d30.cpp"
 
 #pragma code_seg(".text$03context")
 extern "C" __declspec(noinline) int __cdecl H3001Context_00436d30(
-        ColorAccumulator_00436d30 *result,
+        ColorAccumulator *result,
         unsigned int *count,
-        const ColorRecord_00436d30 *record) {
+        const ColorRecord *record) {
     asm_FUN_00436d30_00436d30(result, count, record);
     return (int)result->red;
 }

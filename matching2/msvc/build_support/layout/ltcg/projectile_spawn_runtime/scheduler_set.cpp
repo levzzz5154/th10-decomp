@@ -1,7 +1,7 @@
 // Compiler context only: the anchor copy of 0x00405410, storing a scheduler
 // value into the record whose address the whole-program pass derives (retail
 // keeps it in EAX). The anchor bytes are never exported as recovered code.
-#include "th10/game/projectile_spawn_runtime_004067d0.hpp"
+#include "th10/game/projectile_spawn_runtime.hpp"
 
 #pragma code_seg(".text$00405410_s")
 void PlayerSchedulerRecord::SetSchedulerValue(int value) {

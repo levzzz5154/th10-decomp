@@ -50,7 +50,7 @@ __declspec(noinline) char* __stdcall RecoveryDecodePath(
 
 // In the retail private ABI the resource, font and text arrive in EDI, EAX
 // and EBX. Four stack operands remain, and the function returns with RET 16.
-__declspec(noinline) void __stdcall RecoveryDispatchText_004479d0(
+__declspec(noinline) void __stdcall RecoveryDispatchText2(
     RecoveryTextResource* resource, int font_height,
     const char* text, void* texture, int horizontal_offset,
     unsigned int color, int unshadowed);

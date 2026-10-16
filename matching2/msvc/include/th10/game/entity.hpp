@@ -66,7 +66,7 @@ struct Entity {
     int32_t   previous_frame;       // +0x05C
     int32_t   current_frame;        // +0x060
     float     frame_elapsed;        // +0x064
-    float*    time_scale;           // +0x068, normally DAT_00476f78
+    float*    time_scale;           // +0x068, normally DAT5
     // +0x06C  flags (bit 0 cleared by constructor)
     uint32_t  flags_06C;
     // +0x070 - 0x0AF

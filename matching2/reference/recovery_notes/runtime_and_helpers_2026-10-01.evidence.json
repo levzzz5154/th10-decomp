@@ -3,7 +3,7 @@
     {
       "region": {
         "name": "semantic_SoundQueue_QueuePan_0043dd10",
-        "source": "src/platform/sound_queue_pan_0043dd10.cpp",
+        "source": "src/platform/sound_queue_pan.cpp",
         "symbol": "?QueuePan@SoundQueue@@QAEXHM@Z",
         "address": "0x0043DD10",
         "size": 149,
@@ -20,7 +20,7 @@
         }
       },
       "whole_build_native_unit": {
-        "source": "src/game/fun_00407780_00407780.cpp",
+        "source": "src/game/fun.cpp_407780.cpp",
         "object": "/home/levzzz/Games/th10Decomp/matching2/build/msvc/clusters/sound_queue_pan/bodies.obj",
         "compiler_kind": "native-ltcg",
         "compiler_translation_unit_count": 7,
@@ -131,14 +131,14 @@
           "schema_version": 1,
           "name": "sound_queue_pan",
           "compiler_kind": "native-ltcg",
-          "source": "src/game/fun_00407780_00407780.cpp",
+          "source": "src/game/fun.cpp_407780.cpp",
           "sources": [
-            "src/game/fun_00407780_00407780.cpp",
+            "src/game/fun.cpp_407780.cpp",
             "src/unidentified/FUN_0041d170_0041d170.cpp",
-            "src/render/animation_manager_queue_resource_0043dc90.cpp",
-            "src/game/fun_00407a30_00407a30.cpp",
-            "src/game/fun_00407be0_00407be0.cpp",
-            "src/platform/sound_queue_pan_0043dd10.cpp"
+            "src/render/animation_manager_queue_resource.cpp",
+            "src/game/fun.cpp_407a30.cpp",
+            "src/game/fun.cpp_407be0.cpp",
+            "src/platform/sound_queue_pan.cpp"
           ],
           "roots": [
             "?Update@ProjectileDeceleration@@QAEXXZ"
@@ -147,12 +147,12 @@
           "layout": "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/sound_queue_pan.json",
           "input_sha256": {
             "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/sound_queue_pan.json": "eef50feac1889f731130ff9c925c9b320638dfecb98ff45ca6cf1c5ca98986aa",
-            "/home/levzzz/Games/th10Decomp/matching2/msvc/src/game/fun_00407780_00407780.cpp": "4e2843680316498b121d8e0c262c8a288fc625d628ea90dae6ed26d00b004948",
+            "/home/levzzz/Games/th10Decomp/matching2/msvc/src/game/fun.cpp_407780.cpp": "4e2843680316498b121d8e0c262c8a288fc625d628ea90dae6ed26d00b004948",
             "/home/levzzz/Games/th10Decomp/matching2/msvc/src/unidentified/FUN_0041d170_0041d170.cpp": "96ab044e8a28510bb8a5a8b0a6713d441dbc1cedb4379286d6e30c2f473ed029",
-            "/home/levzzz/Games/th10Decomp/matching2/msvc/src/render/animation_manager_queue_resource_0043dc90.cpp": "c09963b092d3f2a12ea836b478639ae36dd650c7c08026c0850b092101be53d3",
-            "/home/levzzz/Games/th10Decomp/matching2/msvc/src/game/fun_00407a30_00407a30.cpp": "a76426738c70bb244cbb94b348aa013eb5805ad9d77467bd589a9ee47069b7da",
-            "/home/levzzz/Games/th10Decomp/matching2/msvc/src/game/fun_00407be0_00407be0.cpp": "ed79d51609cc66f28a793ee76d30abd4264cc53fb74a5479cc345595e393b153",
-            "/home/levzzz/Games/th10Decomp/matching2/msvc/src/platform/sound_queue_pan_0043dd10.cpp": "26c6d268fac084c71a2a930cc24dd79ebbcad0365c0203056922bef5af178940",
+            "/home/levzzz/Games/th10Decomp/matching2/msvc/src/render/animation_manager_queue_resource.cpp": "c09963b092d3f2a12ea836b478639ae36dd650c7c08026c0850b092101be53d3",
+            "/home/levzzz/Games/th10Decomp/matching2/msvc/src/game/fun.cpp_407a30.cpp": "a76426738c70bb244cbb94b348aa013eb5805ad9d77467bd589a9ee47069b7da",
+            "/home/levzzz/Games/th10Decomp/matching2/msvc/src/game/fun.cpp_407be0.cpp": "ed79d51609cc66f28a793ee76d30abd4264cc53fb74a5479cc345595e393b153",
+            "/home/levzzz/Games/th10Decomp/matching2/msvc/src/platform/sound_queue_pan.cpp": "26c6d268fac084c71a2a930cc24dd79ebbcad0365c0203056922bef5af178940",
             "/home/levzzz/Games/th10Decomp/matching2/msvc/include/th10/platform/sound_queue.hpp": "53371e889c2941c9dbfca259233419e6b4fba3b963a41cbe2f478fa6ddf55eab",
             "/home/levzzz/Games/th10Decomp/matching2/msvc/include/th10/game/bullet_deceleration.hpp": "389eca907ff8c1d2bf41eb974984a1aca98a8f868c2292d7763011e29ea09ffb",
             "/home/levzzz/Games/th10Decomp/matching2/msvc/include/th10/math/angle.hpp": "1331c96b886370c27d5fb28ab8500e0011c65d4a6705d8c89505152e466a7d5f",
@@ -160,7 +160,7 @@
           },
           "compiler_includes": [
             {
-              "path": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/game/fun_00407780_00407780.cpp",
+              "path": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/game/fun.cpp_407780.cpp",
               "sha256": "4e2843680316498b121d8e0c262c8a288fc625d628ea90dae6ed26d00b004948"
             },
             {
@@ -299,7 +299,7 @@
               "object_sha256": "f5f2ee15d053f49eab7e4bc0cbc83891359d58282fcab3d1181d343bda3987e0"
             },
             {
-              "source": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/render/animation_manager_queue_resource_0043dc90.cpp",
+              "source": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/render/animation_manager_queue_resource.cpp",
               "object": "/home/levzzz/Games/th10Decomp/matching2/build/msvc/clusters/sound_queue_pan/native-mnhbm894/source_001.obj",
               "command": [
                 "wine",
@@ -318,13 +318,13 @@
                 "/showIncludes",
                 "/IZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\include",
                 "/FoZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\build\\msvc\\clusters\\sound_queue_pan\\native-mnhbm894\\source_001.obj",
-                "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\src\\render\\animation_manager_queue_resource_0043dc90.cpp"
+                "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\src\\render\\animation_manager_queue_resource.cpp"
               ],
               "source_sha256": "c09963b092d3f2a12ea836b478639ae36dd650c7c08026c0850b092101be53d3",
               "object_sha256": "aee7f646fc3c23e2efa2f7462b836864692bf20d793e89cdf14c3bd2b9d8ab6d"
             },
             {
-              "source": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/game/fun_00407a30_00407a30.cpp",
+              "source": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/game/fun.cpp_407a30.cpp",
               "object": "/home/levzzz/Games/th10Decomp/matching2/build/msvc/clusters/sound_queue_pan/native-mnhbm894/source_002.obj",
               "command": [
                 "wine",
@@ -343,13 +343,13 @@
                 "/showIncludes",
                 "/IZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\include",
                 "/FoZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\build\\msvc\\clusters\\sound_queue_pan\\native-mnhbm894\\source_002.obj",
-                "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\src\\game\\fun_00407a30_00407a30.cpp"
+                "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\src\\game\\fun.cpp_407a30.cpp"
               ],
               "source_sha256": "a76426738c70bb244cbb94b348aa013eb5805ad9d77467bd589a9ee47069b7da",
               "object_sha256": "d1733b49550e3c8ec4ea01fa96460b963787637a2d8d7a5e67f150d17eab21ab"
             },
             {
-              "source": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/game/fun_00407be0_00407be0.cpp",
+              "source": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/game/fun.cpp_407be0.cpp",
               "object": "/home/levzzz/Games/th10Decomp/matching2/build/msvc/clusters/sound_queue_pan/native-mnhbm894/source_003.obj",
               "command": [
                 "wine",
@@ -368,13 +368,13 @@
                 "/showIncludes",
                 "/IZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\include",
                 "/FoZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\build\\msvc\\clusters\\sound_queue_pan\\native-mnhbm894\\source_003.obj",
-                "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\src\\game\\fun_00407be0_00407be0.cpp"
+                "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\src\\game\\fun.cpp_407be0.cpp"
               ],
               "source_sha256": "ed79d51609cc66f28a793ee76d30abd4264cc53fb74a5479cc345595e393b153",
               "object_sha256": "d330da7af356b12925f4fc3199222c99aa69f4a7436d4ccd2a05d0899855c8e8"
             },
             {
-              "source": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/platform/sound_queue_pan_0043dd10.cpp",
+              "source": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/platform/sound_queue_pan.cpp",
               "object": "/home/levzzz/Games/th10Decomp/matching2/build/msvc/clusters/sound_queue_pan/native-mnhbm894/source_004.obj",
               "command": [
                 "wine",
@@ -393,7 +393,7 @@
                 "/showIncludes",
                 "/IZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\include",
                 "/FoZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\build\\msvc\\clusters\\sound_queue_pan\\native-mnhbm894\\source_004.obj",
-                "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\src\\platform\\sound_queue_pan_0043dd10.cpp"
+                "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\src\\platform\\sound_queue_pan.cpp"
               ],
               "source_sha256": "26c6d268fac084c71a2a930cc24dd79ebbcad0365c0203056922bef5af178940",
               "object_sha256": "aa2490d076b4838faf406c1c354c4653e3ddaa358c578ba4c6bd506883c14069"
@@ -1200,7 +1200,7 @@
     {
       "region": {
         "name": "semantic_PlayerHoming_HomeTowardTarget_00407ef0",
-        "source": "src/game/player_homing_00407ef0.cpp",
+        "source": "src/game/player_homing.cpp",
         "symbol": "?HomeTowardTarget@PlayerHomingState_00407EF0@@QAEXXZ",
         "address": "0x00407EF0",
         "size": 306,
@@ -1217,7 +1217,7 @@
         }
       },
       "whole_build_native_unit": {
-        "source": "src/game/player_homing_00407ef0.cpp",
+        "source": "src/game/player_homing.cpp",
         "object": "/home/levzzz/Games/th10Decomp/matching2/build/msvc/clusters/player_homing/bodies.obj",
         "compiler_kind": "native-ltcg",
         "compiler_translation_unit_count": 2,
@@ -1268,33 +1268,33 @@
           "schema_version": 1,
           "name": "player_homing",
           "compiler_kind": "native-ltcg",
-          "source": "src/game/player_homing_00407ef0.cpp",
+          "source": "src/game/player_homing.cpp",
           "sources": [
-            "src/game/player_homing_00407ef0.cpp"
+            "src/game/player_homing.cpp"
           ],
           "roots": [],
           "driver": "layout/ltcg/player_homing_context.cpp",
           "layout": "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/player_homing.json",
           "input_sha256": {
             "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/player_homing.json": "f77f0d4a05a0ed77453df134715eb1a942241aee4c17ee4b4cdc6144077f2135",
-            "/home/levzzz/Games/th10Decomp/matching2/msvc/src/game/player_homing_00407ef0.cpp": "dea31979d6e9f07610f78b7aab18ea44118b2e8f6db31206874dad7827afecf9",
-            "/home/levzzz/Games/th10Decomp/matching2/msvc/include/th10/game/player_homing_00407ef0.hpp": "32bfbe0352fb83077cb6983aa935027ad1f967c135e0baf59415bc2d4fec919d",
-            "/home/levzzz/Games/th10Decomp/matching2/msvc/include/th10/game/player_motion_helpers_004074b0_004076a0.hpp": "e4db517521313e20676acdbb97f932bf35b62b5859256249c8e16ca9f0b0a0a7",
+            "/home/levzzz/Games/th10Decomp/matching2/msvc/src/game/player_homing.cpp": "dea31979d6e9f07610f78b7aab18ea44118b2e8f6db31206874dad7827afecf9",
+            "/home/levzzz/Games/th10Decomp/matching2/msvc/include/th10/game/player_homing.hpp": "32bfbe0352fb83077cb6983aa935027ad1f967c135e0baf59415bc2d4fec919d",
+            "/home/levzzz/Games/th10Decomp/matching2/msvc/include/th10/game/player_motion_helpers.hpp": "e4db517521313e20676acdbb97f932bf35b62b5859256249c8e16ca9f0b0a0a7",
             "/home/levzzz/Games/th10Decomp/matching2/msvc/include/th10/math/angle.hpp": "1331c96b886370c27d5fb28ab8500e0011c65d4a6705d8c89505152e466a7d5f",
             "/home/levzzz/Games/th10Decomp/matching2/msvc/include/th10/math/timer.hpp": "98665d138942ca1c159b9c445ae64fc3765ec87e6e95ce40a97fa72f625db2b0",
             "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/player_homing_context.cpp": "ac404e66ed8f69220d04f76c38ee157012bdcd446359c650fbe2b75c4640793c"
           },
           "compiler_includes": [
             {
-              "path": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/game/player_homing_00407ef0.cpp",
+              "path": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/game/player_homing.cpp",
               "sha256": "dea31979d6e9f07610f78b7aab18ea44118b2e8f6db31206874dad7827afecf9"
             },
             {
-              "path": "/home/levzzz/Games/th10Decomp/matching2/msvc/include/th10/game/player_homing_00407ef0.hpp",
+              "path": "/home/levzzz/Games/th10Decomp/matching2/msvc/include/th10/game/player_homing.hpp",
               "sha256": "32bfbe0352fb83077cb6983aa935027ad1f967c135e0baf59415bc2d4fec919d"
             },
             {
-              "path": "/home/levzzz/Games/th10Decomp/matching2/msvc/include/th10/game/player_motion_helpers_004074b0_004076a0.hpp",
+              "path": "/home/levzzz/Games/th10Decomp/matching2/msvc/include/th10/game/player_motion_helpers.hpp",
               "sha256": "e4db517521313e20676acdbb97f932bf35b62b5859256249c8e16ca9f0b0a0a7"
             },
             {
@@ -1639,15 +1639,15 @@
           "input_sha256": {
             "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/key_config_reassign.json": "e009fe58bf5aa90f130a11129d03a631c28e2420e41d8a84427ef80d4c0e4b98",
             "/home/levzzz/Games/th10Decomp/matching2/msvc/src/game/key_config.cpp": "bb105278fec8f0017896def1332f6e733cce6f4641c9d59e13225ed03de19cbc",
-            "/home/levzzz/Games/th10Decomp/matching2/msvc/src/game/fun_0042f8b0_0042f8b0.cpp": "37c99211dfc66fc8704c30fb0de333c8d7a7f574ca970336c8c75810c5574671",
-            "/home/levzzz/Games/th10Decomp/matching2/msvc/src/render/animation_manager_queue_resource_0043dc90.cpp": "c09963b092d3f2a12ea836b478639ae36dd650c7c08026c0850b092101be53d3",
-            "/home/levzzz/Games/th10Decomp/matching2/msvc/include/th10/game/key_config_refresh_0042f8b0.hpp": "c1618a502e240896ffe0832b40b1efb1e31267f0ef1ddfb1e58a560955b28af4",
+            "/home/levzzz/Games/th10Decomp/matching2/msvc/src/game/fun.cpp": "37c99211dfc66fc8704c30fb0de333c8d7a7f574ca970336c8c75810c5574671",
+            "/home/levzzz/Games/th10Decomp/matching2/msvc/src/render/animation_manager_queue_resource.cpp": "c09963b092d3f2a12ea836b478639ae36dd650c7c08026c0850b092101be53d3",
+            "/home/levzzz/Games/th10Decomp/matching2/msvc/include/th10/game/key_config_refresh.hpp": "c1618a502e240896ffe0832b40b1efb1e31267f0ef1ddfb1e58a560955b28af4",
             "/home/levzzz/Games/th10Decomp/matching2/msvc/include/th10/platform/sound_queue.hpp": "53371e889c2941c9dbfca259233419e6b4fba3b963a41cbe2f478fa6ddf55eab",
             "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/key_config_reassign_context.cpp": "d1e062132f67870133304d67b5701abdc6a27a33bff388df224460e778dcb0c3"
           },
           "compiler_includes": [
             {
-              "path": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/render/animation_manager_queue_resource_0043dc90.cpp",
+              "path": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/render/animation_manager_queue_resource.cpp",
               "sha256": "c09963b092d3f2a12ea836b478639ae36dd650c7c08026c0850b092101be53d3"
             },
             {
@@ -1663,7 +1663,7 @@
               "sha256": "bb105278fec8f0017896def1332f6e733cce6f4641c9d59e13225ed03de19cbc"
             },
             {
-              "path": "/home/levzzz/Games/th10Decomp/matching2/msvc/include/th10/game/key_config_refresh_0042f8b0.hpp",
+              "path": "/home/levzzz/Games/th10Decomp/matching2/msvc/include/th10/game/key_config_refresh.hpp",
               "sha256": "c1618a502e240896ffe0832b40b1efb1e31267f0ef1ddfb1e58a560955b28af4"
             },
             {
@@ -1671,11 +1671,11 @@
               "sha256": "53371e889c2941c9dbfca259233419e6b4fba3b963a41cbe2f478fa6ddf55eab"
             },
             {
-              "path": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/game/fun_0042f8b0_0042f8b0.cpp",
+              "path": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/game/fun.cpp",
               "sha256": "37c99211dfc66fc8704c30fb0de333c8d7a7f574ca970336c8c75810c5574671"
             },
             {
-              "path": "/home/levzzz/Games/th10Decomp/matching2/msvc/include/th10/game/key_config_refresh_0042f8b0.hpp",
+              "path": "/home/levzzz/Games/th10Decomp/matching2/msvc/include/th10/game/key_config_refresh.hpp",
               "sha256": "c1618a502e240896ffe0832b40b1efb1e31267f0ef1ddfb1e58a560955b28af4"
             }
           ],
@@ -1985,20 +1985,20 @@
           "source": "src/game/bullet_runtime_update.cpp",
           "sources": [
             "src/game/bullet_runtime_update.cpp",
-            "layout/ltcg/bullet_runtime_dependencies/animation_manager_queue_resource_0043dc90.cpp",
-            "layout/ltcg/bullet_runtime_dependencies/fun_00407a30_00407a30.cpp",
-            "layout/ltcg/bullet_runtime_dependencies/fun_00407be0_00407be0.cpp",
-            "layout/ltcg/bullet_runtime_dependencies/player_wrap_horizontal_00407da0.cpp",
-            "layout/ltcg/bullet_runtime_dependencies/fun_00407780_00407780.cpp",
-            "layout/ltcg/bullet_runtime_dependencies/player_wrap_vertical_00407e40.cpp",
-            "layout/ltcg/bullet_runtime_dependencies/player_animation_advance_frame_004074b0.cpp",
-            "layout/ltcg/bullet_runtime_dependencies/field_contact_004266b0.cpp",
-            "layout/ltcg/bullet_runtime_dependencies/player_animation_create_00448db0.cpp",
-            "layout/ltcg/bullet_runtime_dependencies/player_death_shrink_004076a0.cpp",
+            "layout/ltcg/bullet_runtime_dependencies/animation_manager_queue_resource.cpp",
+            "layout/ltcg/bullet_runtime_dependencies/fun.cpp_407a30.cpp",
+            "layout/ltcg/bullet_runtime_dependencies/fun.cpp_407be0.cpp",
+            "layout/ltcg/bullet_runtime_dependencies/player_wrap_horizontal.cpp",
+            "layout/ltcg/bullet_runtime_dependencies/fun.cpp_407780.cpp",
+            "layout/ltcg/bullet_runtime_dependencies/player_wrap_vertical.cpp",
+            "layout/ltcg/bullet_runtime_dependencies/player_animation_advance_frame.cpp",
+            "layout/ltcg/bullet_runtime_dependencies/field_contact.cpp",
+            "layout/ltcg/bullet_runtime_dependencies/player_animation_create.cpp",
+            "layout/ltcg/bullet_runtime_dependencies/player_death_shrink.cpp",
             "layout/ltcg/bullet_runtime_dependencies/enemy_motion_steps.cpp",
-            "layout/ltcg/bullet_runtime_dependencies/sound_queue_pan_0043dd10.cpp",
+            "layout/ltcg/bullet_runtime_dependencies/sound_queue_pan.cpp",
             "layout/ltcg/bullet_runtime_dependencies/player_ease_004078e0.cpp",
-            "layout/ltcg/bullet_runtime_dependencies/player_homing_00407ef0.cpp"
+            "layout/ltcg/bullet_runtime_dependencies/player_homing.cpp"
           ],
           "roots": [
             "_BulletRuntimeTick@4"
@@ -2008,20 +2008,20 @@
           "input_sha256": {
             "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/bullet_runtime_caller.json": "0b5cc9ef0b81ed0e4b3f5c820d5f321214b9a5d4206fe0fd5ed50638eb7d556b",
             "/home/levzzz/Games/th10Decomp/matching2/msvc/src/game/bullet_runtime_update.cpp": "1a6482ff51a6a1f5972a2cd9f0a14f650d89ab941fa3391fbe03105e21f5d8d2",
-            "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/bullet_runtime_dependencies/animation_manager_queue_resource_0043dc90.cpp": "c09963b092d3f2a12ea836b478639ae36dd650c7c08026c0850b092101be53d3",
-            "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/bullet_runtime_dependencies/fun_00407a30_00407a30.cpp": "34fae4384360fef6b606cd34c280864969e2e63139d93c35145860d2928d8524",
-            "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/bullet_runtime_dependencies/fun_00407be0_00407be0.cpp": "5aefe55c6d7b8a885fd51b246b395330d0caa6810d0694af4fe8e04dab21ea06",
-            "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/bullet_runtime_dependencies/player_wrap_horizontal_00407da0.cpp": "e4f4ec7ba790c79c42a71f150932ce1090cca33dbe52b17e2a745406076c6e83",
-            "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/bullet_runtime_dependencies/fun_00407780_00407780.cpp": "7fe770b179baec78ea95ca04af558341725c44134c2dbc6524a72075d84fbdea",
-            "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/bullet_runtime_dependencies/player_wrap_vertical_00407e40.cpp": "fd658156606e9c81e026eb8bc658d027ae7f68f634b111792856f4a0d9f7124d",
-            "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/bullet_runtime_dependencies/player_animation_advance_frame_004074b0.cpp": "f7b4efacec0db880782ea7bde8c357df565fe3cfe1262a968c579ee7192df68b",
-            "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/bullet_runtime_dependencies/field_contact_004266b0.cpp": "3ed4a970299e53e5653a17e2e3b0c7f6dcd9cb5f457a524e12417925d65ca05a",
-            "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/bullet_runtime_dependencies/player_animation_create_00448db0.cpp": "280b56b037261b01f02e92a21ada528a749511f2065443001fa0441d9249be07",
-            "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/bullet_runtime_dependencies/player_death_shrink_004076a0.cpp": "50355b87899608b3fa3e7bdfaae828d026a80ab8e468c342fc446951eb551b29",
+            "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/bullet_runtime_dependencies/animation_manager_queue_resource.cpp": "c09963b092d3f2a12ea836b478639ae36dd650c7c08026c0850b092101be53d3",
+            "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/bullet_runtime_dependencies/fun.cpp_407a30.cpp": "34fae4384360fef6b606cd34c280864969e2e63139d93c35145860d2928d8524",
+            "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/bullet_runtime_dependencies/fun.cpp_407be0.cpp": "5aefe55c6d7b8a885fd51b246b395330d0caa6810d0694af4fe8e04dab21ea06",
+            "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/bullet_runtime_dependencies/player_wrap_horizontal.cpp": "e4f4ec7ba790c79c42a71f150932ce1090cca33dbe52b17e2a745406076c6e83",
+            "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/bullet_runtime_dependencies/fun.cpp_407780.cpp": "7fe770b179baec78ea95ca04af558341725c44134c2dbc6524a72075d84fbdea",
+            "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/bullet_runtime_dependencies/player_wrap_vertical.cpp": "fd658156606e9c81e026eb8bc658d027ae7f68f634b111792856f4a0d9f7124d",
+            "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/bullet_runtime_dependencies/player_animation_advance_frame.cpp": "f7b4efacec0db880782ea7bde8c357df565fe3cfe1262a968c579ee7192df68b",
+            "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/bullet_runtime_dependencies/field_contact.cpp": "3ed4a970299e53e5653a17e2e3b0c7f6dcd9cb5f457a524e12417925d65ca05a",
+            "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/bullet_runtime_dependencies/player_animation_create.cpp": "280b56b037261b01f02e92a21ada528a749511f2065443001fa0441d9249be07",
+            "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/bullet_runtime_dependencies/player_death_shrink.cpp": "50355b87899608b3fa3e7bdfaae828d026a80ab8e468c342fc446951eb551b29",
             "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/bullet_runtime_dependencies/enemy_motion_steps.cpp": "0ad087c5cd3726b0e26f29809180f9a3b63d8d41f9f0e434637cfb49adf2f6b8",
-            "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/bullet_runtime_dependencies/sound_queue_pan_0043dd10.cpp": "710273f7e9e12ece393ef7aa3afa763f296bfc17947264083d0021b204c28a8c",
+            "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/bullet_runtime_dependencies/sound_queue_pan.cpp": "710273f7e9e12ece393ef7aa3afa763f296bfc17947264083d0021b204c28a8c",
             "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/bullet_runtime_dependencies/player_ease_004078e0.cpp": "f29c91e583b62c0a994850211923c45c7888a215e6002d608869aecbde434150",
-            "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/bullet_runtime_dependencies/player_homing_00407ef0.cpp": "069d97fd6b7a6dbff99ab89fdeedbac41d1209b379eedfa77da9b47896eaebd2",
+            "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/bullet_runtime_dependencies/player_homing.cpp": "069d97fd6b7a6dbff99ab89fdeedbac41d1209b379eedfa77da9b47896eaebd2",
             "/home/levzzz/Games/th10Decomp/matching2/msvc/include/th10/platform/sound_queue.hpp": "53371e889c2941c9dbfca259233419e6b4fba3b963a41cbe2f478fa6ddf55eab",
             "/home/levzzz/Games/th10Decomp/matching2/msvc/include/th10/math/angle.hpp": "1331c96b886370c27d5fb28ab8500e0011c65d4a6705d8c89505152e466a7d5f",
             "/home/levzzz/Games/th10Decomp/matching2/msvc/include/th10/math/timer.hpp": "98665d138942ca1c159b9c445ae64fc3765ec87e6e95ce40a97fa72f625db2b0",
@@ -2029,10 +2029,10 @@
             "/home/levzzz/Games/th10Decomp/matching2/msvc/include/th10/game/bullet_runtime_state.hpp": "da3f41c78a8a3a651916f858c72348f209aa5b9b017bce1c16566eb794ca40a2",
             "/home/levzzz/Games/th10Decomp/matching2/msvc/include/th10/game/bullet_runtime_actions.hpp": "47e07f53af50d3fb10614960988de1e6d993461213add06ce8e874346dbd00e0",
             "/home/levzzz/Games/th10Decomp/matching2/msvc/include/th10/game/bullet_reset_anchor.hpp": "178323fd102cac562f1f6b96d43dea95ad563f7a7ce1ab60da7a54d31f3af548",
-            "/home/levzzz/Games/th10Decomp/matching2/msvc/include/th10/game/field_contact_004266b0.hpp": "1b7c666425238af62d0af1ebef4d38c4a7c947ccfa2071f988b08cbf680cea36",
-            "/home/levzzz/Games/th10Decomp/matching2/msvc/include/th10/game/player_motion_helpers_004074b0_004076a0.hpp": "e4db517521313e20676acdbb97f932bf35b62b5859256249c8e16ca9f0b0a0a7",
+            "/home/levzzz/Games/th10Decomp/matching2/msvc/include/th10/game/field_contact.hpp": "1b7c666425238af62d0af1ebef4d38c4a7c947ccfa2071f988b08cbf680cea36",
+            "/home/levzzz/Games/th10Decomp/matching2/msvc/include/th10/game/player_motion_helpers.hpp": "e4db517521313e20676acdbb97f932bf35b62b5859256249c8e16ca9f0b0a0a7",
             "/home/levzzz/Games/th10Decomp/matching2/msvc/include/th10/game/bullet_runtime_deceleration.hpp": "e86e9f9bb8e929b41c1198d4bf98b0fd83c792173b385201f055991b56187bf3",
-            "/home/levzzz/Games/th10Decomp/matching2/msvc/include/th10/game/player_homing_00407ef0.hpp": "32bfbe0352fb83077cb6983aa935027ad1f967c135e0baf59415bc2d4fec919d",
+            "/home/levzzz/Games/th10Decomp/matching2/msvc/include/th10/game/player_homing.hpp": "32bfbe0352fb83077cb6983aa935027ad1f967c135e0baf59415bc2d4fec919d",
             "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/bullet_runtime_caller_context.cpp": "cdf0793b3300fa607f1a59d982243ab1e50042b7fbf4e08142498665f89f20c6"
           },
           "compiler_includes": [
@@ -2049,7 +2049,7 @@
               "sha256": "491ce357cd01c533b07664fb9a97403a172e277096ee58a924696c0046a96afe"
             },
             {
-              "path": "/home/levzzz/Games/th10Decomp/matching2/msvc/include/th10/game/field_contact_004266b0.hpp",
+              "path": "/home/levzzz/Games/th10Decomp/matching2/msvc/include/th10/game/field_contact.hpp",
               "sha256": "1b7c666425238af62d0af1ebef4d38c4a7c947ccfa2071f988b08cbf680cea36"
             },
             {
@@ -2073,7 +2073,7 @@
               "sha256": "47e07f53af50d3fb10614960988de1e6d993461213add06ce8e874346dbd00e0"
             },
             {
-              "path": "/home/levzzz/Games/th10Decomp/matching2/msvc/include/th10/game/player_motion_helpers_004074b0_004076a0.hpp",
+              "path": "/home/levzzz/Games/th10Decomp/matching2/msvc/include/th10/game/player_motion_helpers.hpp",
               "sha256": "e4db517521313e20676acdbb97f932bf35b62b5859256249c8e16ca9f0b0a0a7"
             },
             {
@@ -2085,7 +2085,7 @@
               "sha256": "1331c96b886370c27d5fb28ab8500e0011c65d4a6705d8c89505152e466a7d5f"
             },
             {
-              "path": "/home/levzzz/Games/th10Decomp/matching2/msvc/include/th10/game/player_homing_00407ef0.hpp",
+              "path": "/home/levzzz/Games/th10Decomp/matching2/msvc/include/th10/game/player_homing.hpp",
               "sha256": "32bfbe0352fb83077cb6983aa935027ad1f967c135e0baf59415bc2d4fec919d"
             },
             {
@@ -2185,7 +2185,7 @@
               "sha256": "53371e889c2941c9dbfca259233419e6b4fba3b963a41cbe2f478fa6ddf55eab"
             },
             {
-              "path": "/home/levzzz/Games/th10Decomp/matching2/msvc/include/th10/game/player_motion_helpers_004074b0_004076a0.hpp",
+              "path": "/home/levzzz/Games/th10Decomp/matching2/msvc/include/th10/game/player_motion_helpers.hpp",
               "sha256": "e4db517521313e20676acdbb97f932bf35b62b5859256249c8e16ca9f0b0a0a7"
             },
             {
@@ -2201,7 +2201,7 @@
               "sha256": "1331c96b886370c27d5fb28ab8500e0011c65d4a6705d8c89505152e466a7d5f"
             },
             {
-              "path": "/home/levzzz/Games/th10Decomp/matching2/msvc/include/th10/game/field_contact_004266b0.hpp",
+              "path": "/home/levzzz/Games/th10Decomp/matching2/msvc/include/th10/game/field_contact.hpp",
               "sha256": "1b7c666425238af62d0af1ebef4d38c4a7c947ccfa2071f988b08cbf680cea36"
             },
             {
@@ -2209,7 +2209,7 @@
               "sha256": "491ce357cd01c533b07664fb9a97403a172e277096ee58a924696c0046a96afe"
             },
             {
-              "path": "/home/levzzz/Games/th10Decomp/matching2/msvc/include/th10/game/player_motion_helpers_004074b0_004076a0.hpp",
+              "path": "/home/levzzz/Games/th10Decomp/matching2/msvc/include/th10/game/player_motion_helpers.hpp",
               "sha256": "e4db517521313e20676acdbb97f932bf35b62b5859256249c8e16ca9f0b0a0a7"
             },
             {
@@ -2257,11 +2257,11 @@
               "sha256": "e86e9f9bb8e929b41c1198d4bf98b0fd83c792173b385201f055991b56187bf3"
             },
             {
-              "path": "/home/levzzz/Games/th10Decomp/matching2/msvc/include/th10/game/player_homing_00407ef0.hpp",
+              "path": "/home/levzzz/Games/th10Decomp/matching2/msvc/include/th10/game/player_homing.hpp",
               "sha256": "32bfbe0352fb83077cb6983aa935027ad1f967c135e0baf59415bc2d4fec919d"
             },
             {
-              "path": "/home/levzzz/Games/th10Decomp/matching2/msvc/include/th10/game/player_motion_helpers_004074b0_004076a0.hpp",
+              "path": "/home/levzzz/Games/th10Decomp/matching2/msvc/include/th10/game/player_motion_helpers.hpp",
               "sha256": "e4db517521313e20676acdbb97f932bf35b62b5859256249c8e16ca9f0b0a0a7"
             },
             {
@@ -2315,7 +2315,7 @@
               "object_sha256": "b443cd0bcf11829e3afdeeb6dbb5ef09be79ab1719dd9841e2670907369410c0"
             },
             {
-              "source": "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/bullet_runtime_dependencies/animation_manager_queue_resource_0043dc90.cpp",
+              "source": "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/bullet_runtime_dependencies/animation_manager_queue_resource.cpp",
               "object": "/home/levzzz/Games/th10Decomp/matching2/build/msvc/clusters/bullet_runtime_caller/native-wb851u34/source_000.obj",
               "command": [
                 "wine",
@@ -2334,13 +2334,13 @@
                 "/showIncludes",
                 "/IZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\include",
                 "/FoZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\build\\msvc\\clusters\\bullet_runtime_caller\\native-wb851u34\\source_000.obj",
-                "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\layout\\ltcg\\bullet_runtime_dependencies\\animation_manager_queue_resource_0043dc90.cpp"
+                "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\layout\\ltcg\\bullet_runtime_dependencies\\animation_manager_queue_resource.cpp"
               ],
               "source_sha256": "c09963b092d3f2a12ea836b478639ae36dd650c7c08026c0850b092101be53d3",
               "object_sha256": "94c5f27e6a940fc5ec05d925b1ebb937a60d632a25d52444cb871009d42563e4"
             },
             {
-              "source": "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/bullet_runtime_dependencies/fun_00407a30_00407a30.cpp",
+              "source": "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/bullet_runtime_dependencies/fun.cpp_407a30.cpp",
               "object": "/home/levzzz/Games/th10Decomp/matching2/build/msvc/clusters/bullet_runtime_caller/native-wb851u34/source_001.obj",
               "command": [
                 "wine",
@@ -2359,13 +2359,13 @@
                 "/showIncludes",
                 "/IZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\include",
                 "/FoZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\build\\msvc\\clusters\\bullet_runtime_caller\\native-wb851u34\\source_001.obj",
-                "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\layout\\ltcg\\bullet_runtime_dependencies\\fun_00407a30_00407a30.cpp"
+                "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\layout\\ltcg\\bullet_runtime_dependencies\\fun.cpp_407a30.cpp"
               ],
               "source_sha256": "34fae4384360fef6b606cd34c280864969e2e63139d93c35145860d2928d8524",
               "object_sha256": "cdd31c6f700fb2bb345c7f443b8bd4ef1348a6e94ba9dd98926bbd0390c53e30"
             },
             {
-              "source": "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/bullet_runtime_dependencies/fun_00407be0_00407be0.cpp",
+              "source": "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/bullet_runtime_dependencies/fun.cpp_407be0.cpp",
               "object": "/home/levzzz/Games/th10Decomp/matching2/build/msvc/clusters/bullet_runtime_caller/native-wb851u34/source_002.obj",
               "command": [
                 "wine",
@@ -2384,13 +2384,13 @@
                 "/showIncludes",
                 "/IZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\include",
                 "/FoZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\build\\msvc\\clusters\\bullet_runtime_caller\\native-wb851u34\\source_002.obj",
-                "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\layout\\ltcg\\bullet_runtime_dependencies\\fun_00407be0_00407be0.cpp"
+                "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\layout\\ltcg\\bullet_runtime_dependencies\\fun.cpp_407be0.cpp"
               ],
               "source_sha256": "5aefe55c6d7b8a885fd51b246b395330d0caa6810d0694af4fe8e04dab21ea06",
               "object_sha256": "1e74d42ef8e430a618c43532dd2ea5d5c7f32de29c4c8c113d19d7424d9a9ca3"
             },
             {
-              "source": "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/bullet_runtime_dependencies/player_wrap_horizontal_00407da0.cpp",
+              "source": "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/bullet_runtime_dependencies/player_wrap_horizontal.cpp",
               "object": "/home/levzzz/Games/th10Decomp/matching2/build/msvc/clusters/bullet_runtime_caller/native-wb851u34/source_003.obj",
               "command": [
                 "wine",
@@ -2409,13 +2409,13 @@
                 "/showIncludes",
                 "/IZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\include",
                 "/FoZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\build\\msvc\\clusters\\bullet_runtime_caller\\native-wb851u34\\source_003.obj",
-                "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\layout\\ltcg\\bullet_runtime_dependencies\\player_wrap_horizontal_00407da0.cpp"
+                "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\layout\\ltcg\\bullet_runtime_dependencies\\player_wrap_horizontal.cpp"
               ],
               "source_sha256": "e4f4ec7ba790c79c42a71f150932ce1090cca33dbe52b17e2a745406076c6e83",
               "object_sha256": "06c49d3323348b139b36686147c64ecb0dd63bbc623d598620690b63f36cb593"
             },
             {
-              "source": "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/bullet_runtime_dependencies/fun_00407780_00407780.cpp",
+              "source": "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/bullet_runtime_dependencies/fun.cpp_407780.cpp",
               "object": "/home/levzzz/Games/th10Decomp/matching2/build/msvc/clusters/bullet_runtime_caller/native-wb851u34/source_004.obj",
               "command": [
                 "wine",
@@ -2434,13 +2434,13 @@
                 "/showIncludes",
                 "/IZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\include",
                 "/FoZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\build\\msvc\\clusters\\bullet_runtime_caller\\native-wb851u34\\source_004.obj",
-                "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\layout\\ltcg\\bullet_runtime_dependencies\\fun_00407780_00407780.cpp"
+                "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\layout\\ltcg\\bullet_runtime_dependencies\\fun.cpp_407780.cpp"
               ],
               "source_sha256": "7fe770b179baec78ea95ca04af558341725c44134c2dbc6524a72075d84fbdea",
               "object_sha256": "6d713ea6098e52ef7851c1f6d1595292f8152ea1c9f4edec862959bba215cd53"
             },
             {
-              "source": "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/bullet_runtime_dependencies/player_wrap_vertical_00407e40.cpp",
+              "source": "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/bullet_runtime_dependencies/player_wrap_vertical.cpp",
               "object": "/home/levzzz/Games/th10Decomp/matching2/build/msvc/clusters/bullet_runtime_caller/native-wb851u34/source_005.obj",
               "command": [
                 "wine",
@@ -2459,13 +2459,13 @@
                 "/showIncludes",
                 "/IZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\include",
                 "/FoZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\build\\msvc\\clusters\\bullet_runtime_caller\\native-wb851u34\\source_005.obj",
-                "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\layout\\ltcg\\bullet_runtime_dependencies\\player_wrap_vertical_00407e40.cpp"
+                "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\layout\\ltcg\\bullet_runtime_dependencies\\player_wrap_vertical.cpp"
               ],
               "source_sha256": "fd658156606e9c81e026eb8bc658d027ae7f68f634b111792856f4a0d9f7124d",
               "object_sha256": "85c9a9819acad821c2359bae5771460242c7f7cc6269fd6cddafae9936624e60"
             },
             {
-              "source": "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/bullet_runtime_dependencies/player_animation_advance_frame_004074b0.cpp",
+              "source": "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/bullet_runtime_dependencies/player_animation_advance_frame.cpp",
               "object": "/home/levzzz/Games/th10Decomp/matching2/build/msvc/clusters/bullet_runtime_caller/native-wb851u34/source_006.obj",
               "command": [
                 "wine",
@@ -2484,13 +2484,13 @@
                 "/showIncludes",
                 "/IZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\include",
                 "/FoZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\build\\msvc\\clusters\\bullet_runtime_caller\\native-wb851u34\\source_006.obj",
-                "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\layout\\ltcg\\bullet_runtime_dependencies\\player_animation_advance_frame_004074b0.cpp"
+                "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\layout\\ltcg\\bullet_runtime_dependencies\\player_animation_advance_frame.cpp"
               ],
               "source_sha256": "f7b4efacec0db880782ea7bde8c357df565fe3cfe1262a968c579ee7192df68b",
               "object_sha256": "8d6e4525e980ccafbcb55350dd05f0ebed34e149395f386ddef4f46a183d672d"
             },
             {
-              "source": "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/bullet_runtime_dependencies/field_contact_004266b0.cpp",
+              "source": "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/bullet_runtime_dependencies/field_contact.cpp",
               "object": "/home/levzzz/Games/th10Decomp/matching2/build/msvc/clusters/bullet_runtime_caller/native-wb851u34/source_007.obj",
               "command": [
                 "wine",
@@ -2509,13 +2509,13 @@
                 "/showIncludes",
                 "/IZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\include",
                 "/FoZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\build\\msvc\\clusters\\bullet_runtime_caller\\native-wb851u34\\source_007.obj",
-                "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\layout\\ltcg\\bullet_runtime_dependencies\\field_contact_004266b0.cpp"
+                "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\layout\\ltcg\\bullet_runtime_dependencies\\field_contact.cpp"
               ],
               "source_sha256": "3ed4a970299e53e5653a17e2e3b0c7f6dcd9cb5f457a524e12417925d65ca05a",
               "object_sha256": "e85e7e52f5f6e1cb29ceaf47e5cdc7b606fe243f61360db98632bad30f0135ed"
             },
             {
-              "source": "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/bullet_runtime_dependencies/player_animation_create_00448db0.cpp",
+              "source": "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/bullet_runtime_dependencies/player_animation_create.cpp",
               "object": "/home/levzzz/Games/th10Decomp/matching2/build/msvc/clusters/bullet_runtime_caller/native-wb851u34/source_008.obj",
               "command": [
                 "wine",
@@ -2534,13 +2534,13 @@
                 "/showIncludes",
                 "/IZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\include",
                 "/FoZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\build\\msvc\\clusters\\bullet_runtime_caller\\native-wb851u34\\source_008.obj",
-                "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\layout\\ltcg\\bullet_runtime_dependencies\\player_animation_create_00448db0.cpp"
+                "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\layout\\ltcg\\bullet_runtime_dependencies\\player_animation_create.cpp"
               ],
               "source_sha256": "280b56b037261b01f02e92a21ada528a749511f2065443001fa0441d9249be07",
               "object_sha256": "31d6ff4b9925ad1b161d094c49bcb7feda9498098b80e831e1be34661bf906fe"
             },
             {
-              "source": "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/bullet_runtime_dependencies/player_death_shrink_004076a0.cpp",
+              "source": "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/bullet_runtime_dependencies/player_death_shrink.cpp",
               "object": "/home/levzzz/Games/th10Decomp/matching2/build/msvc/clusters/bullet_runtime_caller/native-wb851u34/source_009.obj",
               "command": [
                 "wine",
@@ -2559,7 +2559,7 @@
                 "/showIncludes",
                 "/IZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\include",
                 "/FoZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\build\\msvc\\clusters\\bullet_runtime_caller\\native-wb851u34\\source_009.obj",
-                "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\layout\\ltcg\\bullet_runtime_dependencies\\player_death_shrink_004076a0.cpp"
+                "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\layout\\ltcg\\bullet_runtime_dependencies\\player_death_shrink.cpp"
               ],
               "source_sha256": "50355b87899608b3fa3e7bdfaae828d026a80ab8e468c342fc446951eb551b29",
               "object_sha256": "ea87de0b780b7bea77be98bbbdc86bca42cfda742d3eb4583c75684810fa939c"
@@ -2590,7 +2590,7 @@
               "object_sha256": "b35fbc53389990bfb9b846648993eb3ca0cdd8baad7850c502300d04d3a23f48"
             },
             {
-              "source": "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/bullet_runtime_dependencies/sound_queue_pan_0043dd10.cpp",
+              "source": "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/bullet_runtime_dependencies/sound_queue_pan.cpp",
               "object": "/home/levzzz/Games/th10Decomp/matching2/build/msvc/clusters/bullet_runtime_caller/native-wb851u34/source_011.obj",
               "command": [
                 "wine",
@@ -2609,7 +2609,7 @@
                 "/showIncludes",
                 "/IZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\include",
                 "/FoZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\build\\msvc\\clusters\\bullet_runtime_caller\\native-wb851u34\\source_011.obj",
-                "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\layout\\ltcg\\bullet_runtime_dependencies\\sound_queue_pan_0043dd10.cpp"
+                "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\layout\\ltcg\\bullet_runtime_dependencies\\sound_queue_pan.cpp"
               ],
               "source_sha256": "710273f7e9e12ece393ef7aa3afa763f296bfc17947264083d0021b204c28a8c",
               "object_sha256": "0257286f1dc3ff66ac96002d54c009281a46ea2930df2f9f3c127a83441db718"
@@ -2640,7 +2640,7 @@
               "object_sha256": "de9295f386cfc2ef40c60b00c50b4338a10208d2a4f605a6d9b57e6147ac595a"
             },
             {
-              "source": "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/bullet_runtime_dependencies/player_homing_00407ef0.cpp",
+              "source": "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/bullet_runtime_dependencies/player_homing.cpp",
               "object": "/home/levzzz/Games/th10Decomp/matching2/build/msvc/clusters/bullet_runtime_caller/native-wb851u34/source_013.obj",
               "command": [
                 "wine",
@@ -2659,7 +2659,7 @@
                 "/showIncludes",
                 "/IZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\include",
                 "/FoZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\build\\msvc\\clusters\\bullet_runtime_caller\\native-wb851u34\\source_013.obj",
-                "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\layout\\ltcg\\bullet_runtime_dependencies\\player_homing_00407ef0.cpp"
+                "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\layout\\ltcg\\bullet_runtime_dependencies\\player_homing.cpp"
               ],
               "source_sha256": "069d97fd6b7a6dbff99ab89fdeedbac41d1209b379eedfa77da9b47896eaebd2",
               "object_sha256": "fc0e598b532ed5c0478663c7c49cbb1909f6de83192aeee2de3bd438d9a9ca01"
@@ -3325,7 +3325,7 @@
           "different_bytes": 0,
           "exact": true,
           "relocations": [],
-          "source": "src/platform/sound_queue_pan_0043dd10.cpp"
+          "source": "src/platform/sound_queue_pan.cpp"
         },
         {
           "region": "semantic_BulletDeceleration_AimStep_00407a30",
@@ -3335,7 +3335,7 @@
           "different_bytes": 0,
           "exact": true,
           "relocations": [],
-          "source": "src/platform/sound_queue_pan_0043dd10.cpp"
+          "source": "src/platform/sound_queue_pan.cpp"
         },
         {
           "region": "semantic_BulletDeceleration_Bounce_00407be0",
@@ -3345,7 +3345,7 @@
           "different_bytes": 0,
           "exact": true,
           "relocations": [],
-          "source": "src/platform/sound_queue_pan_0043dd10.cpp"
+          "source": "src/platform/sound_queue_pan.cpp"
         },
         {
           "region": "semantic_ProjectileDeceleration_Update_0041d170",
@@ -3355,7 +3355,7 @@
           "different_bytes": 0,
           "exact": true,
           "relocations": [],
-          "source": "src/platform/sound_queue_pan_0043dd10.cpp"
+          "source": "src/platform/sound_queue_pan.cpp"
         },
         {
           "region": "semantic_SoundQueue_Queue_0043dc90",
@@ -3365,7 +3365,7 @@
           "different_bytes": 0,
           "exact": true,
           "relocations": [],
-          "source": "src/platform/sound_queue_pan_0043dd10.cpp"
+          "source": "src/platform/sound_queue_pan.cpp"
         },
         {
           "region": "semantic_SoundQueue_QueuePan_0043dd10",
@@ -3375,7 +3375,7 @@
           "different_bytes": 0,
           "exact": true,
           "relocations": [],
-          "source": "src/platform/sound_queue_pan_0043dd10.cpp"
+          "source": "src/platform/sound_queue_pan.cpp"
         }
       ]
     },
@@ -3391,7 +3391,7 @@
           "different_bytes": 0,
           "exact": true,
           "relocations": [],
-          "source": "src/game/player_homing_00407ef0.cpp"
+          "source": "src/game/player_homing.cpp"
         }
       ]
     },
@@ -3588,7 +3588,7 @@
       "native_complete_sha256": "1c8190ce6d9917294072ae0c8f07ae588851c615e2130d2b9f4ffb51d1eb25c3",
       "original_complete_sha256": "1c8190ce6d9917294072ae0c8f07ae588851c615e2130d2b9f4ffb51d1eb25c3",
       "selected_for_recovery_in_this_scope": false,
-      "maintained_owner_source": "src/game/fun_0042f8b0_0042f8b0.cpp",
+      "maintained_owner_source": "src/game/fun.cpp",
       "maintained_owner_kind": "semantic"
     },
     {
@@ -3603,7 +3603,7 @@
       "native_complete_sha256": "29730584bd142aae7f8bb5fc12e03afd883a8d705186ef0719353c8c533249ff",
       "original_complete_sha256": "29730584bd142aae7f8bb5fc12e03afd883a8d705186ef0719353c8c533249ff",
       "selected_for_recovery_in_this_scope": false,
-      "maintained_owner_source": "src/render/animation_manager_queue_resource_0043dc90.cpp",
+      "maintained_owner_source": "src/render/animation_manager_queue_resource.cpp",
       "maintained_owner_kind": "semantic"
     },
     {
@@ -3625,7 +3625,7 @@
       "native_complete_sha256": "7790eedfb87b6ed628aba779625a30c192e5dfdb3015cbe25117a4849e787eb6",
       "original_complete_sha256": "b2a824124d65e3ba90381a7e8fc1e1974a1b89fe0bb2e67e115b01e6db78c6cc",
       "selected_for_recovery_in_this_scope": false,
-      "maintained_owner_source": "src/game/animation_object_configure_from_resource_0043e5a0.cpp",
+      "maintained_owner_source": "src/game/animation_object_configure_from_resource.cpp",
       "maintained_owner_kind": "semantic"
     },
     {
@@ -3640,7 +3640,7 @@
       "native_complete_sha256": "fc3dd480f30c27aa9dcf4168de57e19933d0125f22f6df88a09cc2d792ad69e9",
       "original_complete_sha256": "fc3dd480f30c27aa9dcf4168de57e19933d0125f22f6df88a09cc2d792ad69e9",
       "selected_for_recovery_in_this_scope": false,
-      "maintained_owner_source": "src/render/animation_manager_find_004491c0.cpp",
+      "maintained_owner_source": "src/render/animation_manager_find.cpp",
       "maintained_owner_kind": "semantic"
     },
     {
@@ -3655,7 +3655,7 @@
       "native_complete_sha256": "838a91548451f57f0ab7e623f0afc4c831c1cc2f3a99344818381a25ae5f9c30",
       "original_complete_sha256": "838a91548451f57f0ab7e623f0afc4c831c1cc2f3a99344818381a25ae5f9c30",
       "selected_for_recovery_in_this_scope": false,
-      "maintained_owner_source": "src/game/fun_00407780_00407780.cpp",
+      "maintained_owner_source": "src/game/fun.cpp_407780.cpp",
       "maintained_owner_kind": "semantic"
     },
     {
@@ -3670,7 +3670,7 @@
       "native_complete_sha256": "3eeb848d059ad247431957cf55e366c57af5f6c237e44833a8b7939af70f67ec",
       "original_complete_sha256": "3eeb848d059ad247431957cf55e366c57af5f6c237e44833a8b7939af70f67ec",
       "selected_for_recovery_in_this_scope": false,
-      "maintained_owner_source": "src/game/fun_00407a30_00407a30.cpp",
+      "maintained_owner_source": "src/game/fun.cpp_407a30.cpp",
       "maintained_owner_kind": "semantic"
     },
     {
@@ -3685,7 +3685,7 @@
       "native_complete_sha256": "6dbebd1b36dc9c0f37c7d8252d0a516ce040b574efaea38174a316c3ee7465f8",
       "original_complete_sha256": "6dbebd1b36dc9c0f37c7d8252d0a516ce040b574efaea38174a316c3ee7465f8",
       "selected_for_recovery_in_this_scope": false,
-      "maintained_owner_source": "src/game/fun_00407be0_00407be0.cpp",
+      "maintained_owner_source": "src/game/fun.cpp_407be0.cpp",
       "maintained_owner_kind": "semantic"
     },
     {
@@ -3700,7 +3700,7 @@
       "native_complete_sha256": "29730584bd142aae7f8bb5fc12e03afd883a8d705186ef0719353c8c533249ff",
       "original_complete_sha256": "29730584bd142aae7f8bb5fc12e03afd883a8d705186ef0719353c8c533249ff",
       "selected_for_recovery_in_this_scope": false,
-      "maintained_owner_source": "src/render/animation_manager_queue_resource_0043dc90.cpp",
+      "maintained_owner_source": "src/render/animation_manager_queue_resource.cpp",
       "maintained_owner_kind": "semantic"
     },
     {
@@ -3797,7 +3797,7 @@
       "native_complete_sha256": "3802f57a7de30e39d828aa454219213316041fb605f90ccc0488ce97077f7a44",
       "original_complete_sha256": "8347850aca1bfe5e00b4785dfa1aef188b6c4fb3ed0d039e047d6dba818f449d",
       "selected_for_recovery_in_this_scope": false,
-      "maintained_owner_source": "src/game/player_wrap_horizontal_00407da0.cpp",
+      "maintained_owner_source": "src/game/player_wrap_horizontal.cpp",
       "maintained_owner_kind": "asm"
     },
     {
@@ -3911,7 +3911,7 @@
       "native_complete_sha256": "5e9633436a2591a7505cd788a8d8a4fa71842f7f95cacc97a0b77e1593d3846e",
       "original_complete_sha256": "a8bb229dd405acade34ca70669ed4bd5aab7e072411f9cbd2346846b45d1ddc8",
       "selected_for_recovery_in_this_scope": false,
-      "maintained_owner_source": "src/game/player_wrap_vertical_00407e40.cpp",
+      "maintained_owner_source": "src/game/player_wrap_vertical.cpp",
       "maintained_owner_kind": "asm"
     },
     {
@@ -3942,7 +3942,7 @@
       "native_complete_sha256": "6c9c35b2af8c81890fbb78d16794e83262e7cba2f16c0a9ed0b37cf439c894ef",
       "original_complete_sha256": "6e23a47ac47608ae91c97cde671f7688a44ec35ac9e90b8e1fd31f973b729733",
       "selected_for_recovery_in_this_scope": false,
-      "maintained_owner_source": "src/game/field_contact_004266b0.cpp",
+      "maintained_owner_source": "src/game/field_contact.cpp",
       "maintained_owner_kind": "semantic"
     },
     {
@@ -3966,7 +3966,7 @@
       "native_complete_sha256": "11c82682672d666007752bfbf4a35e2464b3bd27e5744c918614fa68f078701f",
       "original_complete_sha256": "7171cd3760ee49212e21d05849da14f1d24f0735d9ea8f4b79568f03d709b431",
       "selected_for_recovery_in_this_scope": false,
-      "maintained_owner_source": "src/game/player_animation_advance_frame_004074b0.cpp",
+      "maintained_owner_source": "src/game/player_animation_advance_frame.cpp",
       "maintained_owner_kind": "semantic"
     },
     {
@@ -4026,7 +4026,7 @@
       "native_complete_sha256": "dbfafb0ecfb3bfc2422c17c3f2575c46b526125575619e50b974db74a79b5e58",
       "original_complete_sha256": "41c36c7f44915e5e0bdb1b9bbd172eb5f158e9dcb4a68dd99859a1b22e819e6d",
       "selected_for_recovery_in_this_scope": false,
-      "maintained_owner_source": "src/render/player_animation_create_00448db0.cpp",
+      "maintained_owner_source": "src/render/player_animation_create.cpp",
       "maintained_owner_kind": "semantic"
     },
     {
@@ -4050,7 +4050,7 @@
       "native_complete_sha256": "1b353425545ddd12dfec8f124a57ed85ceb8ba444f8a9e11bbf69270a15d74a6",
       "original_complete_sha256": "c76c59625d9539e49b78317e6a03095d06fc4ad59f0bc0d4efbba4274e87ade6",
       "selected_for_recovery_in_this_scope": false,
-      "maintained_owner_source": "src/game/player_death_shrink_004076a0.cpp",
+      "maintained_owner_source": "src/game/player_death_shrink.cpp",
       "maintained_owner_kind": "asm"
     },
     {
@@ -4091,7 +4091,7 @@
       "native_complete_sha256": "cf6cd0c291b35104c933c5aa02a7a18f5e729e49358a6d11f63afa28ea9c832f",
       "original_complete_sha256": "d9c92e8fca661f63f3dfbaafa74d8854bc1c675f9009260bce3f967450a798e4",
       "selected_for_recovery_in_this_scope": false,
-      "maintained_owner_source": "src/platform/sound_queue_pan_0043dd10.cpp",
+      "maintained_owner_source": "src/platform/sound_queue_pan.cpp",
       "maintained_owner_kind": "semantic"
     },
     {
@@ -4143,7 +4143,7 @@
       "native_complete_sha256": "69a4c4c7a7492411885b8ed225fa0ef8edb9890c0390b15799a28ba05b091e8e",
       "original_complete_sha256": "69a4c4c7a7492411885b8ed225fa0ef8edb9890c0390b15799a28ba05b091e8e",
       "selected_for_recovery_in_this_scope": false,
-      "maintained_owner_source": "src/game/player_homing_00407ef0.cpp",
+      "maintained_owner_source": "src/game/player_homing.cpp",
       "maintained_owner_kind": "semantic"
     },
     {
@@ -4407,7 +4407,7 @@
       "native_complete_sha256": "cdde77ec9a6373897e90b2ebb577d08a0a8a6f8e3515c13ffd03efa999cad048",
       "original_complete_sha256": "ec498225f483c09d8325796dfd1cca72c6d69762eb3c5f61fe85fec03e4ab640",
       "selected_for_recovery_in_this_scope": false,
-      "maintained_owner_source": "src/render/animation_object_load_script_0043e710.cpp",
+      "maintained_owner_source": "src/render/animation_object_load_script.cpp",
       "maintained_owner_kind": "semantic"
     },
     {
@@ -4489,7 +4489,7 @@
       "native_complete_sha256": "dd70b262c51eda91f383d0d254d59d00a93373eb91f4952cc936332c9788a10c",
       "original_complete_sha256": "39e1aaf20ccc6f0c90ef9a2ae5bac14f89797203148cadca4365fa49502f9c22",
       "selected_for_recovery_in_this_scope": false,
-      "maintained_owner_source": "src/render/animation_manager_register_primary_back_004489d0.cpp",
+      "maintained_owner_source": "src/render/animation_manager_register_primary_back.cpp",
       "maintained_owner_kind": "asm"
     },
     {
@@ -4650,7 +4650,7 @@
       "native_complete_sha256": "a3f75649f7606dbb284c23dd4263f15c074c8e836a128db831f703a5ac1e81b9",
       "original_complete_sha256": "7fc9a836fe42aed5b7f590f6968e1fe9f34d3b2a6a5b9596b6668ac04da2d47b",
       "selected_for_recovery_in_this_scope": false,
-      "maintained_owner_source": "src/render/fun_00449950_00449950.cpp",
+      "maintained_owner_source": "src/render/fun.cpp",
       "maintained_owner_kind": "semantic"
     }
   ],

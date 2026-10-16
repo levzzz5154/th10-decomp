@@ -42,7 +42,7 @@ __declspec(noinline) bool DatArchive::LoadIndex(const char* path) {
             goto failure;
         DatDecrypt(compressed, static_cast<int>(stored_size),
                            0x3E, 0x9B, 128, static_cast<int>(stored_size));
-        unpacked = DecompressDatLzss_00435dc0(
+        unpacked = DecompressDatLzss2(
             compressed, static_cast<int>(stored_size), 0, header.unpacked_size);
         if (!unpacked)
             goto failure;

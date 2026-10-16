@@ -1,6 +1,6 @@
 #include <stddef.h>
 #include <string.h>
-#include "th10/game/name_entry_queue_00401530.hpp"
+#include "th10/game/name_entry_queue.hpp"
 
 struct NameEntryState {
     unsigned char reserved_000[0xFC];
@@ -14,19 +14,19 @@ struct NameEntryState {
 typedef char NameEntry_selection_is_fc[offsetof(NameEntryState, selected_glyph) == 0xFC ? 1 : -1];
 typedef char NameEntry_length_is_1e0[offsetof(NameEntryState, name_length) == 0x1E0 ? 1 : -1];
 typedef char NameEntry_name_is_2b4[offsetof(NameEntryState, name) == 0x2B4 ? 1 : -1];
-typedef char NameEntry_position_is_12[sizeof(Vec3_00401530) == 12 ? 1 : -1];
+typedef char NameEntry_position_is_12[sizeof(Vec32) == 12 ? 1 : -1];
 
 extern "C" {
 extern const char* g_name_entry_grid;
-extern GameThread_00401530* g_ascii_manager;
+extern GameThread2* g_ascii_manager;
 extern const char str_string_format[];
 extern const char str_underscore[];
 extern const char str_char_format[];
 }
 
 #pragma code_seg(".text$04characters")
-extern "C" __declspec(noinline) void __stdcall DrawNameEntry_004224c0(
-    NameEntryState* state, Vec3_00401530 position) {
+extern "C" __declspec(noinline) void __stdcall DrawNameEntry2(
+    NameEntryState* state, Vec32 position) {
     int character_count = static_cast<int>(strlen(g_name_entry_grid));
     AsciiManager_AddFormatted(&position, g_ascii_manager, str_string_format, state->name);
     position.x += static_cast<float>(state->name_length * 9);

@@ -24,7 +24,7 @@ void SprtCtrlTargetsView::Clear(int index) {
 #pragma code_seg()
 
 #pragma code_seg(".text$07release")
-void AnimationResource_00447810::Release() {
+void AnimationResource6::Release() {
     if (resource_108 == 0)
         return;
     reinterpret_cast<SprtCtrl*>(g_sprt_ctrl)->MarkResourceForRemoval(this);

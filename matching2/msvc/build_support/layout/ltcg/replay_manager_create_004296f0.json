@@ -1,20 +1,20 @@
 {
   "schema_version": 1,
-  "name": "replay_manager_create",
+  "name": "replay_manager_create_004296f0",
   "source": "src/game/replay/replay_manager_create_004296f0.cpp",
   "driver": "build_support/layout/ltcg/replay_manager_create_004296f0/context.cpp",
   "headers": [
-    "include/th10/game/replay_manager_create_004296f0.hpp",
+    "include/th10/game/replay_manager_create.hpp",
     "include/th10/platform/thread_sync.hpp",
     "include/th10/core/func_ctrl.hpp",
-    "include/th10/game/replay_pool_append_0042aa50.hpp"
+    "include/th10/game/replay_pool_append.hpp"
   ],
   "image_base": "0x00400000",
   "description": "Replay manager factory with its inlined constructor and compiler-generated new-expression cleanup, compiled with stand-in destructor and initializer shaped for their receivers.",
   "functions": [
     {
       "name": "ReplayManager_Create",
-      "symbol": "?ReplayManager_Create_004296f0@@YGPAUReplayManager_004296f0@@PBD@Z",
+      "symbol": "?ReplayManager_Create3@@YGPAUReplayManager@@PBD@Z",
       "section": ".text$04create",
       "address": "0x004296F0",
       "actual_abi": "stage path on the stack, RET 4; manager returned in EAX; compiler-generated EH frame",
@@ -32,7 +32,7 @@
     },
     {
       "name": "ReplayManagerCreateHandler",
-      "symbol": "__ehhandler$?ReplayManager_Create_004296f0@@YGPAUReplayManager_004296f0@@PBD@Z",
+      "symbol": "__ehhandler$?ReplayManager_Create3@@YGPAUReplayManager@@PBD@Z",
       "section": ".text$x",
       "address": "0x0046564B",
       "actual_abi": "compiler-generated EH handler",
@@ -164,14 +164,14 @@
   "anchors": [
     {
       "name": "DestructorStandIn",
-      "symbol": "??1ReplayManager_004296f0@@QAE@XZ",
+      "symbol": "??1ReplayManager@@QAE@XZ",
       "section": ".text$01dtor",
       "address": "0x004294A0",
       "size": 162
     },
     {
       "name": "InitializeStandIn",
-      "symbol": "?Initialize@ReplayManager_004296f0@@QAEHPBD@Z",
+      "symbol": "?Initialize@ReplayManager@@QAEHPBD@Z",
       "section": ".text$06init",
       "address": "0x0042A200",
       "size": 52

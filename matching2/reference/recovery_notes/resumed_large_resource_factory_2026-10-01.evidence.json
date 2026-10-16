@@ -170,7 +170,7 @@
     },
     {
       "name": "semantic_CreateLargeResourceState_00425020",
-      "source": "src/game/recovery_create_large_resource_state_00425020.cpp",
+      "source": "src/game/recovery_create_large_resource_state.cpp",
       "symbol": "?Create_00425020@@YAPAUPlayerResetBlock@@XZ",
       "address": "0x00425020",
       "size": 69,
@@ -178,7 +178,7 @@
       "owner": "0x00425020",
       "previous_record": {
         "name": "asm_Recovery_CreateLargeResourceState_00425020",
-        "source": "src/game/recovery_create_large_resource_state_00425020.cpp",
+        "source": "src/game/recovery_create_large_resource_state.cpp",
         "symbol": "_asm_Recovery_CreateLargeResourceState_00425020",
         "address": "0x00425020",
         "size": 69,
@@ -188,7 +188,7 @@
     },
     {
       "name": "semantic_AsciiFactory_0043c8b0",
-      "source": "src/game/ascii_manager_create_retail_0043c8b0.cpp",
+      "source": "src/game/ascii_manager_create_retail.cpp",
       "symbol": "?CreateScreenEffect_0043c8b0@@YGPAUScreenEffectController_0043c970@@HHHHHH@Z",
       "address": "0x0043C8B0",
       "size": 82,
@@ -196,7 +196,7 @@
       "owner": null,
       "previous_record": {
         "name": "asm_AsciiManager_CreateRetail_0043c8b0",
-        "source": "src/game/ascii_manager_create_retail_0043c8b0.cpp",
+        "source": "src/game/ascii_manager_create_retail.cpp",
         "symbol": "_asm_AsciiManager_CreateRetail_0043c8b0",
         "address": "0x0043C8B0",
         "size": 82,

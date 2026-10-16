@@ -50,6 +50,6 @@ __declspec(noinline) int __stdcall FloatingTextSpawnCaller(FloatingTextPosition*
 #pragma code_seg(".text$04context")
 void* __stdcall FloatingTextDrawCompilerContext(void** caller) {
     *caller = reinterpret_cast<void*>(FloatingTextSpawnCaller);
-    return reinterpret_cast<void*>(SmollScore_DrawTask_0042b9b0);
+    return reinterpret_cast<void*>(SmollScore_DrawTask2);
 }
 #pragma code_seg()

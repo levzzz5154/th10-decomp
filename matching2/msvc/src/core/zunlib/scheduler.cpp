@@ -84,7 +84,7 @@ done_primary:
 }
 
 // 0x00449D40..0x00449E4B: FuncCtrl_RunSecondary and compiler-local switch table
-extern "C" __declspec(noinline) int __stdcall FuncCtrl_RunSecondary_00449d40(
+extern "C" __declspec(noinline) int __stdcall FuncCtrl_RunSecondary2(
         FuncCtrl* scheduler) {
     EnterCriticalSection(&g_thread_synchronization.critical_sections[0]);
     ++g_thread_synchronization.scheduler_lock_depth;

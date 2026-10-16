@@ -17,7 +17,7 @@ extern "C" __declspec(noinline) int __stdcall EnemyDataStart(EnemyTick* enemy) {
     // 0x0040DCA9: the heading and orbit interpolators feed the two motions.
     if (enemy->relative_heading.duration) {
         TrajectoryVec2 heading = enemy->relative_heading.Step();
-        enemy->relative.angle = Angle_Normalize_0044bc70(heading.x);
+        enemy->relative.angle = Angle_Normalize2(heading.x);
         enemy->relative.speed = heading.y;
     }
     if (enemy->relative_orbit.duration) {
@@ -27,7 +27,7 @@ extern "C" __declspec(noinline) int __stdcall EnemyDataStart(EnemyTick* enemy) {
     }
     if (enemy->absolute_heading.duration) {
         TrajectoryVec2 heading = enemy->absolute_heading.Step();
-        enemy->absolute.angle = Angle_Normalize_0044bc70(heading.x);
+        enemy->absolute.angle = Angle_Normalize2(heading.x);
         enemy->absolute.speed = heading.y;
     }
     if (enemy->absolute_orbit.duration) {
@@ -220,7 +220,7 @@ extern "C" __declspec(noinline) int __stdcall EnemyDataStart(EnemyTick* enemy) {
 
     // 0x0040E43E: the hit flash and its sound.
     {
-        Animation_0040dc80* animation = AnimationManager_Find(g_sprt_ctrl, enemy->animations[0]);
+        Animation2* animation = AnimationManager_Find(g_sprt_ctrl, enemy->animations[0]);
         if (animation == 0)
             enemy->animations[0].id = 0;
         if (enemy->flash_frames == 0) {

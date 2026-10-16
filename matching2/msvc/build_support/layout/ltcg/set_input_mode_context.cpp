@@ -1,5 +1,5 @@
 // Compiler context only; never selected as recovered game code.
-#include "../../../src/game/eclview/set_input_mode_0040ac90.cpp"
+#include "../../../src/game/eclview/set_input_mode.cpp"
 
 extern "C" InputState g_application;   // 0x00491C28, the object retail callers pass in EAX
 

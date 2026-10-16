@@ -5,7 +5,7 @@
 // SubmitSpriteQuad retains its existing FRNDINT pixel-snap assembly. All helper
 // contributions are unselected and receive no extra recovery credit here.
 #include "../../../src/core/sprtfunc/quad_build_anchored.cpp"
-#include "../../../src/core/sprtfunc/animation_color_multiply_channel_004423c0.cpp"
+#include "../../../src/core/sprtfunc/animation_color_multiply_channel.cpp"
 #include "../../../src/core/sprtfunc/render_state_sync.cpp"
 #include "../../../src/core/sprtfunc/sprite_quad_submit.cpp"
 #include "../../../src/core/sprtfunc/anm_batch_flush.cpp"

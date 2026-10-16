@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "c6d0_eax",
-  "source": "src/unreferenced/unassigned_0040c6d0.cpp",
+  "source": "src/unreferenced/unassigned_40c6d0.cpp",
   "driver": "build_support/layout/ltcg/c6d0_eax_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

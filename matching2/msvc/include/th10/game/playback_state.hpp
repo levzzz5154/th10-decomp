@@ -19,7 +19,7 @@ struct PlaybackState {
     volatile int saved_x;
     volatile int saved_y;
     unsigned char reserved_054[0x14];
-    AnimationHandle_00449470 animation;
+    AnimationHandle11 animation;
     unsigned char reserved_06c[0x18];
     volatile int playback;
     __declspec(noinline) void SwitchPlaybackState();

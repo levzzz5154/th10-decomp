@@ -1,10 +1,10 @@
 // Synthetic compiler context only; not recovered game behavior.  The array
 // call shape is intended to expose the receiver in EAX as observed at retail.
-#include "../../../src/unreferenced/unassigned_004494d0.cpp"
+#include "../../../src/unreferenced/unassigned_4494d0.cpp"
 
 #pragma code_seg(".text$03context")
 int __stdcall AnimUpdateFlagsFromLookupCompilerContext(
-        AnimationNode_004494D0** items, int count) {
+        AnimationNode8** items, int count) {
     while (count--) {
         (*items++)->UpdateFlags();
     }

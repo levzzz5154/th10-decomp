@@ -30,7 +30,7 @@
       "source": "src/core/main/game_render_targets.cpp"
     },
     {
-      "symbol": "_DeviceReset_004391f0",
+      "symbol": "_DeviceReset2",
       "section": ".text$a06device",
       "address": "0x4391f0",
       "size": 236,
@@ -86,7 +86,7 @@
     },
     {
       "name": "Logger",
-      "symbol": "?Append@TextLog_0044b810@@QAAPADPADZZ",
+      "symbol": "?Append@TextLog4@@QAAPADPADZZ",
       "section": ".text$a18logger",
       "address": "0x44b810",
       "size": 201
@@ -303,10 +303,10 @@
       "kind": "data"
     }
   ],
-  "entry": "_DeviceReset_004391f0",
+  "entry": "_DeviceReset2",
   "calls": [
     {
-      "caller": "_DeviceReset_004391f0",
+      "caller": "_DeviceReset2",
       "callee": "?FinishTargets@SprtCtrlTargetsView@@QAEXXZ",
       "address": "0x0043924B",
       "instruction": "call"

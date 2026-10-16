@@ -1,0 +1,169 @@
+{
+  "schema_version": 1,
+  "name": "item_manager_construct",
+  "source": "src/game/front/front_construct.cpp",
+  "driver": "build_support/layout/ltcg/item_manager_construct/context.cpp",
+  "headers": [
+    "include/th10/game/front.hpp",
+    "include/th10/game/entity.hpp",
+    "include/th10/types.hpp",
+    "include/th10/math/timer.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Item manager constructor with its member sprite pools and compiler-generated unwind cleanups, compiled with the real sprite constructor and called from an in-place construction context.",
+  "functions": [
+    {
+      "name": "ItemManager_Construct",
+      "symbol": "??0Front@@QAE@XZ",
+      "section": ".text$01construct",
+      "address": "0x00413810",
+      "actual_abi": "receiver on the stack, RET 4; receiver returned in EAX; compiler-generated EH frame",
+      "size": 367
+    },
+    {
+      "name": "ItemManagerConstructUnwindFirst",
+      "symbol": "_ItemManagerConstructUnwindFirst_00465430",
+      "section": ".text$x",
+      "address": "0x00465430",
+      "actual_abi": "destroys the first sprite pool",
+      "generated": true,
+      "native_symbol_pattern": "\\$L[0-9]+",
+      "size": 25
+    },
+    {
+      "name": "ItemManagerConstructUnwindSecond",
+      "symbol": "_ItemManagerConstructUnwindSecond_00465449",
+      "section": ".text$x",
+      "address": "0x00465449",
+      "actual_abi": "destroys the second sprite pool",
+      "generated": true,
+      "native_symbol_pattern": "\\$L[0-9]+",
+      "size": 27
+    },
+    {
+      "name": "ItemManagerConstructUnwindThird",
+      "symbol": "_ItemManagerConstructUnwindThird_00465464",
+      "section": ".text$x",
+      "address": "0x00465464",
+      "actual_abi": "destroys the third sprite pool",
+      "generated": true,
+      "native_symbol_pattern": "\\$L[0-9]+",
+      "size": 27
+    },
+    {
+      "name": "ItemManagerConstructUnwindFourth",
+      "symbol": "_ItemManagerConstructUnwindFourth_0046547f",
+      "section": ".text$x",
+      "address": "0x0046547F",
+      "actual_abi": "destroys the fourth sprite pool",
+      "generated": true,
+      "native_symbol_pattern": "\\$L[0-9]+",
+      "size": 27
+    },
+    {
+      "name": "ItemManagerConstructUnwindFifth",
+      "symbol": "_ItemManagerConstructUnwindFifth_0046549a",
+      "section": ".text$x",
+      "address": "0x0046549A",
+      "actual_abi": "destroys the fifth sprite pool",
+      "generated": true,
+      "native_symbol_pattern": "\\$L[0-9]+",
+      "size": 27
+    },
+    {
+      "name": "ItemManagerConstructHandler",
+      "symbol": "__ehhandler$??0Front@@QAE@XZ",
+      "section": ".text$x",
+      "address": "0x004654B5",
+      "actual_abi": "compiler-generated EH handler",
+      "generated": true,
+      "size": 10
+    }
+  ],
+  "context": {
+    "symbol": "?HudConstructCompilerContext@@YGPAUFront@@PAX@Z",
+    "section": ".text$05context",
+    "address": "0x00413980",
+    "size": 22,
+    "description": "Synthetic caller; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00before",
+      "address": 4198400,
+      "size": 4176
+    },
+    {
+      "section": ".text$00spritez",
+      "address": 4202664,
+      "size": 71528
+    },
+    {
+      "section": ".text$01constructz",
+      "address": 4274559,
+      "size": 1
+    },
+    {
+      "section": ".text$05contextz",
+      "address": 4274582,
+      "size": 334490
+    },
+    {
+      "section": ".rdata$0before",
+      "address": 4612096,
+      "size": 46360
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "___CxxFrameHandler",
+      "address": "0x0046276D",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__except_list",
+      "address": "0x00000000",
+      "kind": "metadata"
+    },
+    {
+      "symbol": "??_L@YGXPAXIHP6EX0@Z1@Z",
+      "address": "0x0045252D",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "??_M@YGXPAXIHP6EX0@Z@Z",
+      "address": "0x004525FF",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "??1FrontSprite@@QAE@XZ",
+      "address": "0x00401FF0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_front",
+      "address": "0x0047770C",
+      "kind": "data"
+    }
+  ],
+  "exceptions": true,
+  "native_data": [
+    {
+      "section": ".xdata$x",
+      "address": "0x00471518",
+      "bytes": "ffffffff3054460000000000495446000100000064544600020000007f544600030000009a54460020059319050000001815470000000000000000000000000000000000",
+      "description": "Unwind map and FuncInfo of the constructor; validation only"
+    }
+  ],
+  "anchors": [
+    {
+      "name": "ActualSpriteConstructor",
+      "symbol": "??0FrontSprite@@QAE@XZ",
+      "section": ".text$00sprite",
+      "address": "0x00402050",
+      "size": 88
+    }
+  ],
+  "included_sources": []
+}

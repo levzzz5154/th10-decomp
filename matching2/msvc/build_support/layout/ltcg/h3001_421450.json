@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "name": "h3001_00421450",
+  "source": "src/unreferenced/FUN.cpp_421450.cpp",
+  "driver": "build_support/layout/ltcg/h3001_00421450_context.cpp",
+  "headers": [
+    "build_support/include/asm_symbols.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Native-LTCG ABI experiment for the private EAX state argument at 0x00421450.",
+  "functions": [
+    {
+      "name": "H3001_DeleteCriticalSections_00421450",
+      "symbol": "_asm_FUN_00421450_00421450",
+      "section": ".text$01target",
+      "address": "0x00421450",
+      "size": 35,
+      "actual_abi": "state pointer in private EAX; plain RET"
+    }
+  ],
+  "context": {
+    "symbol": "H3001Context_00421450",
+    "section": ".text$03context",
+    "address": "0x00465d00",
+    "size": 15,
+    "description": "Synthetic caller used only to establish the internal EAX argument allocation."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 132176
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x00421473",
+      "size": 280717
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_imp_DeleteCriticalSection",
+      "address": "0x004660BC",
+      "kind": "data"
+    }
+  ],
+  "roots": [],
+  "included_sources": []
+}

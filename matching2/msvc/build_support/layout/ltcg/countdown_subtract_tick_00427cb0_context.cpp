@@ -1,8 +1,8 @@
 // Compiler context only; never selected as recovered game code.
-#include "../../../src/unreferenced/unassigned_00427cb0.cpp"
+#include "../../../src/unreferenced/unassigned_427cb0.cpp"
 
 #pragma code_seg(".text$03context")
-extern "C" int __stdcall CountdownSubtractTickContext_00427cb0(Countdown_00427cb0** items, int count) {
+extern "C" int __stdcall CountdownSubtractTickContext_00427cb0(Countdown2** items, int count) {
     while (count--) {
         (*items++)->SubtractTick();
     }

@@ -1,18 +1,18 @@
 {
   "schema_version": 1,
   "name": "script_resolver_callers",
-  "source": "src/script/sptlib/fun_00450700_00450700.cpp",
+  "source": "src/script/sptlib/fun.cpp_450700.cpp",
   "driver": "build_support/layout/ltcg/script_resolver_callers_context.cpp",
   "headers": [
-    "include/script_resolver_00450470.hpp",
-    "include/script_vm_00450560.hpp"
+    "include/script_resolver.hpp",
+    "include/script_vm.hpp"
   ],
   "image_base": "0x00400000",
   "description": "Sorted script-table resolver compiled with native LTCG so the table receiver arrives in EAX, the script name remains on the stack, and the result is returned with RET 4.",
   "functions": [
     {
       "name": "ScriptTable_00450470_Resolve",
-      "symbol": "?Resolve@ScriptTable_00450470@@QAEHPBD@Z",
+      "symbol": "?Resolve@ScriptTable2@@QAEHPBD@Z",
       "section": ".text$01resolve",
       "address": "0x00450470",
       "size": 136,
@@ -26,29 +26,29 @@
       "address": "0x00450700",
       "size": 30,
       "actual_abi": "owner ESI; name ECX; result EAX; RET",
-      "source": "src/script/sptlib/fun_00450700_00450700.cpp"
+      "source": "src/script/sptlib/fun.cpp_450700.cpp"
     },
     {
       "name": "BindTable",
-      "symbol": "?BindTable@ScriptVm@@QAEHPAUScriptTable_00450470@@PBD@Z",
+      "symbol": "?BindTable@ScriptVm@@QAEHPAUScriptTable2@@PBD@Z",
       "section": ".text$03bindtable",
       "address": "0x00450560",
       "size": 30,
       "actual_abi": "ESI owner; private register arguments",
-      "source": "src/unreferenced/unassigned_00450560.cpp"
+      "source": "src/unreferenced/unassigned_450560.cpp"
     },
     {
       "name": "TryBind",
-      "symbol": "?TryBind@ScriptVm@@QAEHPAUScriptTable_00450470@@PBD@Z",
+      "symbol": "?TryBind@ScriptVm@@QAEHPAUScriptTable2@@PBD@Z",
       "section": ".text$04trybind",
       "address": "0x00450580",
       "size": 43,
       "actual_abi": "ESI owner; private register arguments",
-      "source": "src/unreferenced/unassigned_00450580.cpp"
+      "source": "src/unreferenced/unassigned_450580.cpp"
     },
     {
       "name": "ScriptTable_CreateVm",
-      "symbol": "?CreateVm@ScriptTable_00450470@@QAEPAUScriptVm@@PBD@Z",
+      "symbol": "?CreateVm@ScriptTable2@@QAEPAUScriptVm@@PBD@Z",
       "section": ".text$02create",
       "address": "0x00450500",
       "size": 89,
@@ -110,8 +110,8 @@
   ],
   "additional_sources": [
     "src/script/sptlib/final_script_runtime.cpp",
-    "src/unreferenced/unassigned_00450560.cpp",
-    "src/unreferenced/unassigned_00450580.cpp",
+    "src/unreferenced/unassigned_450560.cpp",
+    "src/unreferenced/unassigned_450580.cpp",
     "src/script/sptlib/script_table_create_vm.cpp"
   ],
   "included_sources": []

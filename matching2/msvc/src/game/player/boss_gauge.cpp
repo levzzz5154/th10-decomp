@@ -1,7 +1,7 @@
 #include "../../../build_support/include/asm_encoding.hpp"
 #include "../../../build_support/include/asm_symbols.hpp"
 
-// 0x00428C20..0x00428C9C: FUN_00428c20
+// 0x00428C20..0x00428C9C: FUN15
 // The manager (ECX) owns the 0x98-byte score slots based at +0x3244 and the
 // state (EDX) names, through +0x58, the record that selects the live slot. Each
 // update rebuilds the gauge position from the slot's two counters scaled to

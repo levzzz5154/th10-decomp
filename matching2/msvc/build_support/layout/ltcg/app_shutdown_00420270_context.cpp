@@ -2,9 +2,9 @@
 // bodies give the whole-program pass the register receivers retail uses
 // (worker and timer and archive in ESI, block in EBX, registrar in EAX with
 // the name in EDX); the caller makes the application arrive in EAX.
-#include "../../../src/game/mother/app_shutdown_00420270.cpp"
-#include "../../../src/core/zunlib/platform_stop_worker_0044c150.cpp"
-#include "../../../src/game/fps/platform_release_owned_handle_00413450.cpp"
+#include "../../../src/game/mother/app_shutdown.cpp"
+#include "../../../src/core/zunlib/platform_stop_worker.cpp"
+#include "../../../src/game/fps/platform_release_owned_handle.cpp"
 
 extern Win32TimerVtable g_win32_timer_vtable;
 
@@ -17,7 +17,7 @@ void Win32Timer::Release() {
 #pragma code_seg()
 
 #pragma code_seg(".text$13register")
-char* AnimationManager_0043e460::RegisterResource(const char* name, int resource, int parameter) {
+char* AnimationManager9::RegisterResource(const char* name, int resource, int parameter) {
     int index = 0;
     for (; index < 31; ++index) {
         if (records[index].resource == 0) {
@@ -35,7 +35,7 @@ char* AnimationManager_0043e460::RegisterResource(const char* name, int resource
 #pragma code_seg()
 
 #pragma code_seg(".text$30context")
-extern "C" int __stdcall AppShutdownContext_00420270(App_00420270* apps, int count) {
+extern "C" int __stdcall AppShutdownContext_00420270(App2* apps, int count) {
     int total = 0;
     for (int index = 0; index < count; ++index)
         total += apps[index].Shutdown();

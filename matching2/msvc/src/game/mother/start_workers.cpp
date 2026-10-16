@@ -14,7 +14,7 @@ unsigned int __cdecl Input_InitThread();
 __declspec(dllimport) unsigned long __stdcall timeGetTime();
 typedef unsigned long (__stdcall *RawThreadEntry)(void*);
 __declspec(dllimport) void *__stdcall CreateThread(void*,unsigned long,RawThreadEntry,void*,unsigned long,unsigned long*);
-unsigned int __cdecl beginthreadex_00453683(void*,unsigned int,PlatformWorkerEntry,void*,unsigned int,unsigned int*);
+unsigned int __cdecl beginthreadex2(void*,unsigned int,PlatformWorkerEntry,void*,unsigned int,unsigned int*);
 extern float g_game_speed;
 extern unsigned int g_main_clear_color,g_startup_time;
 extern unsigned short g_rng_seed_copy;
@@ -35,7 +35,7 @@ extern "C" __declspec(noinline) int __cdecl App_StartWorkers() {
     g_input_worker.Stop();
     g_input_worker.entry=reinterpret_cast<PlatformWorkerEntry>(&Input_InitThread);
     g_input_worker.running=1;g_input_worker.stop_requested=0;
-    g_input_worker.thread=reinterpret_cast<void*>(beginthreadex_00453683(0,0,reinterpret_cast<PlatformWorkerEntry>(&Input_InitThread),&g_application,0,&g_input_worker.thread_id));
+    g_input_worker.thread=reinterpret_cast<void*>(beginthreadex2(0,0,reinterpret_cast<PlatformWorkerEntry>(&Input_InitThread),&g_application,0,&g_input_worker.thread_id));
     g_sprt_ctrl->InitializeClip();
     InitializeFontCache();
     return 0;

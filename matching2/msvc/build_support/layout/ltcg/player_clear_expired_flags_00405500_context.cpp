@@ -1,5 +1,5 @@
 // Compiler context only; none of these bytes enter the image.
-#include "../../../src/game/background/player_clear_expired_flags_00405500.cpp"
+#include "../../../src/game/background/player_clear_expired_flags.cpp"
 
 #pragma code_seg(".text$03context")
 extern "C" int __stdcall PlayerClearExpiredFlagsContext_00405500(

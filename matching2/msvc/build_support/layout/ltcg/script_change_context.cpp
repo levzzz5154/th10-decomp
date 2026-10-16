@@ -1,4 +1,4 @@
-#include "../../../src/core/sprtlib/animation_handle_change_script_004496d0.cpp"
+#include "../../../src/core/sprtlib/animation_handle_change_script.cpp"
 #include "script_change_body_anchor.cpp"
 #include "script_change_find_anchor.cpp"
 #pragma code_seg(".text$07context")

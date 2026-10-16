@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "name": "cl_004132a0",
+  "source": "src/unreferenced/unassigned_4132a0.cpp",
+  "driver": "build_support/layout/ltcg/cl_004132a0_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "Accessor compiled with native LTCG so the object pointer arrives in EAX.",
+  "functions": [
+    {
+      "name": "InitBlock",
+      "symbol": "?InitBlock@@YGPAUBlock2@@PAU1@@Z",
+      "section": ".text$01accessor",
+      "address": "0x004132A0",
+      "size": 25,
+      "actual_abi": "block pointer in EDX; plain RET"
+    }
+  ],
+  "context": {
+    "symbol": "?InitContext_004132a0@@YGPAUBlock2@@PAPAU1@H@Z",
+    "section": ".text$03context",
+    "address": "0x004132D0",
+    "size": 34,
+    "description": "Synthetic array-walking caller that establishes the observed register convention; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 74400
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x004132B9",
+      "size": 23
+    }
+  ],
+  "constants": [],
+  "constant_aliases": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_g_fps",
+      "address": "0x00477708",
+      "kind": "data"
+    }
+  ],
+  "additional_sources": [],
+  "included_sources": []
+}

@@ -1,21 +1,21 @@
 // Compiler context only; never selected as recovered game code.
-#include "../../../src/unreferenced/unassigned_00404e70.cpp"
+#include "../../../src/unreferenced/unassigned_404e70.cpp"
 
-struct Vector3_00405240 {
+struct Vector34 {
     float x;
     float y;
     float z;
 };
-__declspec(noinline) Vector3_00405240 __fastcall VectorSubtract(
-        const Vector3_00405240& left, const Vector3_00405240& right);
+__declspec(noinline) Vector34 __fastcall VectorSubtract(
+        const Vector34& left, const Vector34& right);
 
-struct Vector3_00405260 {
+struct Vector35 {
     float x;
     float y;
     float z;
 
-    __declspec(noinline) Vector3_00405260 operator+(
-            const Vector3_00405260& right) const;
+    __declspec(noinline) Vector35 operator+(
+            const Vector35& right) const;
 };
 
 #pragma code_seg(".text$07context")
@@ -27,16 +27,16 @@ extern "C" __declspec(noinline) void __stdcall VectorPrivateAbiAContext(
         float scale,
         int count) {
     for (int index = 0; index < count; ++index)
-        *(Vector3_00404e70*)outputs[index] =
+        *(Vector32*)outputs[index] =
             ((VectorScale*)scales[index])->Scale(scale);
     for (int index = 0; index < count; ++index)
-        *(Vector3_00405240*)outputs[index] =
+        *(Vector34*)outputs[index] =
             VectorSubtract(
-                *(Vector3_00405240*)left[index],
-                *(Vector3_00405240*)right[index]);
+                *(Vector34*)left[index],
+                *(Vector34*)right[index]);
     for (int index = 0; index < count; ++index)
-        *(Vector3_00405260*)outputs[index] =
-            (*(Vector3_00405260*)left[index]) +
-            (*(Vector3_00405260*)right[index]);
+        *(Vector35*)outputs[index] =
+            (*(Vector35*)left[index]) +
+            (*(Vector35*)right[index]);
 }
 #pragma code_seg()

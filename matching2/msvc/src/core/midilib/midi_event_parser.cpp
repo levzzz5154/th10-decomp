@@ -99,7 +99,7 @@ static __forceinline int SendMidiLongMessage(MidiPlaybackState* state, MidiEvent
     return MidiOutLongMsgImport()(state->output, header, 0x40) != 0;
 }
 
-extern "C" __declspec(noinline) int CompleteMidiHeader_0043aeb0(
+extern "C" __declspec(noinline) int CompleteMidiHeader2(
     MidiSequencer*, midihdr_tag*);
 
 // Timer ticks since the last tempo change, in MIDI ticks.
@@ -112,7 +112,7 @@ static __forceinline unsigned __int64 MidiEventElapsedTicks(MidiSequencer* seque
 }
 
 #pragma code_seg(".text$60parser")
-extern "C" __declspec(noinline) void __stdcall ProcessMidiEvent_0043B110(
+extern "C" __declspec(noinline) void __stdcall ProcessMidiEvent2(
     MidiSequencer* sequencer,
     MidiTrack* track) {
     unsigned char data1 = 0;
@@ -133,7 +133,7 @@ extern "C" __declspec(noinline) void __stdcall ProcessMidiEvent_0043B110(
             // System exclusive: hand the payload to the device in its own
             // buffer, kept in a ring of 32 until the device returns it.
             if (sequencer->midi_headers[sequencer->midi_header_index] != 0)
-                CompleteMidiHeader_0043aeb0(sequencer,
+                CompleteMidiHeader2(sequencer,
                     sequencer->midi_headers[sequencer->midi_header_index]);
 
             sequencer->midi_headers[sequencer->midi_header_index] =

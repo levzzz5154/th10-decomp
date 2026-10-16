@@ -1,12 +1,12 @@
 {
   "schema_version": 1,
   "name": "d3d_list_release",
-  "source": "src/core/zunlib/d3_d_resource_list_release_resources_00449e50.cpp",
+  "source": "src/core/zunlib/d3_d_resource_list_release_resources.cpp",
   "driver": "build_support/layout/ltcg/d3d_list_release_context.cpp",
   "headers": [
     "include/th10/core/func_ctrl.hpp",
     "include/th10/platform/thread_sync.hpp",
-    "include/th10/game/resource_list_00449e50.hpp"
+    "include/th10/game/resource_list.hpp"
   ],
   "image_base": "0x00400000",
   "description": "Resource list release under lock.",

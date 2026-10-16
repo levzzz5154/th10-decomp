@@ -40,7 +40,7 @@
     },
     {
       "name": "semantic_AnimationManager_SetStopFrameAndRun",
-      "source": "src/render/animation_manager_set_stop_frame_and_run_00449250.cpp",
+      "source": "src/render/animation_manager_set_stop_frame_and_run.cpp",
       "symbol": "?AnimationManager_SetStopFrameAndRun@@YIXGPAUAnimationLookupContext@@UAnimationScriptId@@@Z",
       "address": "0x00449250",
       "size": 76,
@@ -48,7 +48,7 @@
       "owner": "0x00449250",
       "previous_record": {
         "name": "asm_AnimationManager_SetStopFrameAndRun_00449250",
-        "source": "src/render/animation_manager_set_stop_frame_and_run_00449250.cpp",
+        "source": "src/render/animation_manager_set_stop_frame_and_run.cpp",
         "symbol": "_asm_AnimationManager_SetStopFrameAndRun_00449250",
         "address": "0x00449250",
         "size": 76,
@@ -58,7 +58,7 @@
     },
     {
       "name": "semantic_AnimationRunHandle_SetStopFrameAndRun_004494c0",
-      "source": "src/render/animation_handle_set_stop_frame_and_run_004494c0.cpp",
+      "source": "src/render/animation_handle_set_stop_frame_and_run.cpp",
       "symbol": "?SetStopFrameAndRun@AnimationRunHandle@@QAEXG@Z",
       "address": "0x004494C0",
       "size": 15,
@@ -79,7 +79,7 @@
   "corrected_existing_handle_bytes": 15,
   "focused_probe": {
     "units": {
-      "src/render/animation_manager_set_stop_frame_and_run_00449250.cpp": {
+      "src/render/animation_manager_set_stop_frame_and_run.cpp": {
         "source": "src/render/anm_propagate.cpp",
         "object": "/home/levzzz/Games/th10Decomp/matching2/build/experiments/stop_frame_run_2026_10_01/maintained_probe/clusters/stop_at_frame_pair_0040c480/bodies.obj",
         "compiler_kind": "native-ltcg",
@@ -290,39 +290,39 @@
           "source": "src/render/anm_propagate.cpp",
           "sources": [
             "src/render/anm_propagate.cpp",
-            "src/game/recovery_initialize_timed_state_00423510.cpp",
-            "src/game/recovery_mark_animation_tree_004243f0.cpp",
-            "src/render/animation_manager_find_004491c0.cpp",
-            "src/render/animation_manager_find_child_by_script_index_004497d0.cpp",
-            "src/render/animation_manager_set_stop_frame_00449210.cpp",
-            "src/render/animation_manager_set_stop_frame_from_handle_retail_00449470.cpp",
-            "src/render/animation_manager_stop_at_frame2_0040c480.cpp",
-            "src/render/animation_manager_stop_at_frame3_0040c4d0.cpp",
-            "src/unidentified/unassigned_00449820.cpp",
-            "src/render/animation_manager_set_stop_frame_and_run_00449250.cpp",
+            "src/game/recovery_initialize_timed_state.cpp",
+            "src/game/recovery_mark_animation_tree.cpp",
+            "src/render/animation_manager_find.cpp",
+            "src/render/animation_manager_find_child_by_script_index.cpp",
+            "src/render/animation_manager_set_stop_frame.cpp",
+            "src/render/animation_manager_set_stop_frame_from_handle_retail.cpp",
+            "src/render/animation_manager_stop_at_frame2.cpp",
+            "src/render/animation_manager_stop_at_frame3.cpp",
+            "src/unidentified/unassigned_449820.cpp",
+            "src/render/animation_manager_set_stop_frame_and_run.cpp",
             "src/game/game_state_dispatch_animation_slot_0042c730.cpp",
             "src/game/game_state_dispatch_animation_slot_secondary_0042c750.cpp",
-            "src/render/animation_handle_set_stop_frame_and_run_004494c0.cpp"
+            "src/render/animation_handle_set_stop_frame_and_run.cpp"
           ],
           "roots": [],
           "driver": "layout/ltcg/stop_at_frame_pair_0040c480_context.cpp",
-          "layout": "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/stop_at_frame_pair_0040c480.json",
+          "layout": "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/stop_at_frame_pair.json",
           "input_sha256": {
-            "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/stop_at_frame_pair_0040c480.json": "f87be3568fde1b28dcccaee068d80a9071f257a7853b0858e506bb6141d9fe04",
+            "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/stop_at_frame_pair.json": "f87be3568fde1b28dcccaee068d80a9071f257a7853b0858e506bb6141d9fe04",
             "/home/levzzz/Games/th10Decomp/matching2/msvc/src/render/anm_propagate.cpp": "7a60f8a5f33acb2af669c42690ab3b614267b10b67ff87c2c40589668b0af79e",
-            "/home/levzzz/Games/th10Decomp/matching2/msvc/src/game/recovery_initialize_timed_state_00423510.cpp": "999ef59ddc31fc11cb357da05c91971e18441fda853c8755443236165f6f8d37",
-            "/home/levzzz/Games/th10Decomp/matching2/msvc/src/game/recovery_mark_animation_tree_004243f0.cpp": "c0fca59440d9721208db0d1abedc48f61e957317f18a27ffe2351810d796ca2a",
-            "/home/levzzz/Games/th10Decomp/matching2/msvc/src/render/animation_manager_find_004491c0.cpp": "63ad809c688cf249306335bd16e051f6ad7bde7075bd39b2dbe9e2818f1c2dcb",
-            "/home/levzzz/Games/th10Decomp/matching2/msvc/src/render/animation_manager_find_child_by_script_index_004497d0.cpp": "dc72ebcf3ea65bcbe602b2164f35c36bfb986a9e55e8a764522f6ec88506e70e",
-            "/home/levzzz/Games/th10Decomp/matching2/msvc/src/render/animation_manager_set_stop_frame_00449210.cpp": "6c46d3c567cdcf192665fc89297c7a4f0a75b9991681c25d84c97ae5d9325554",
-            "/home/levzzz/Games/th10Decomp/matching2/msvc/src/render/animation_manager_set_stop_frame_from_handle_retail_00449470.cpp": "e6a5aa607ea8a4e2652f285c8f44c4dc17e430af70f4e869f3fb38f3e715282d",
-            "/home/levzzz/Games/th10Decomp/matching2/msvc/src/render/animation_manager_stop_at_frame2_0040c480.cpp": "ad30b92cfe49fd5f91f528d385abc58084d5bceb6fe34473133d40b0b42584e6",
-            "/home/levzzz/Games/th10Decomp/matching2/msvc/src/render/animation_manager_stop_at_frame3_0040c4d0.cpp": "c50d99d73b04e14473d639640f90aae57e5c08b9001fa631ce89db37099d8371",
-            "/home/levzzz/Games/th10Decomp/matching2/msvc/src/unidentified/unassigned_00449820.cpp": "453b3884912d42b95c54f31d843e784a9f454798703b105048f8b8a160727327",
-            "/home/levzzz/Games/th10Decomp/matching2/msvc/src/render/animation_manager_set_stop_frame_and_run_00449250.cpp": "3e6e3f731afc256fad34cc8a365981a9073de039ea613a18129e132d7fe21ba3",
+            "/home/levzzz/Games/th10Decomp/matching2/msvc/src/game/recovery_initialize_timed_state.cpp": "999ef59ddc31fc11cb357da05c91971e18441fda853c8755443236165f6f8d37",
+            "/home/levzzz/Games/th10Decomp/matching2/msvc/src/game/recovery_mark_animation_tree.cpp": "c0fca59440d9721208db0d1abedc48f61e957317f18a27ffe2351810d796ca2a",
+            "/home/levzzz/Games/th10Decomp/matching2/msvc/src/render/animation_manager_find.cpp": "63ad809c688cf249306335bd16e051f6ad7bde7075bd39b2dbe9e2818f1c2dcb",
+            "/home/levzzz/Games/th10Decomp/matching2/msvc/src/render/animation_manager_find_child_by_script_index.cpp": "dc72ebcf3ea65bcbe602b2164f35c36bfb986a9e55e8a764522f6ec88506e70e",
+            "/home/levzzz/Games/th10Decomp/matching2/msvc/src/render/animation_manager_set_stop_frame.cpp": "6c46d3c567cdcf192665fc89297c7a4f0a75b9991681c25d84c97ae5d9325554",
+            "/home/levzzz/Games/th10Decomp/matching2/msvc/src/render/animation_manager_set_stop_frame_from_handle_retail.cpp": "e6a5aa607ea8a4e2652f285c8f44c4dc17e430af70f4e869f3fb38f3e715282d",
+            "/home/levzzz/Games/th10Decomp/matching2/msvc/src/render/animation_manager_stop_at_frame2.cpp": "ad30b92cfe49fd5f91f528d385abc58084d5bceb6fe34473133d40b0b42584e6",
+            "/home/levzzz/Games/th10Decomp/matching2/msvc/src/render/animation_manager_stop_at_frame3.cpp": "c50d99d73b04e14473d639640f90aae57e5c08b9001fa631ce89db37099d8371",
+            "/home/levzzz/Games/th10Decomp/matching2/msvc/src/unidentified/unassigned_449820.cpp": "453b3884912d42b95c54f31d843e784a9f454798703b105048f8b8a160727327",
+            "/home/levzzz/Games/th10Decomp/matching2/msvc/src/render/animation_manager_set_stop_frame_and_run.cpp": "3e6e3f731afc256fad34cc8a365981a9073de039ea613a18129e132d7fe21ba3",
             "/home/levzzz/Games/th10Decomp/matching2/msvc/src/game/game_state_dispatch_animation_slot_0042c730.cpp": "767e7de3077fcce0eae84b1237eaae58473cc1f1aefb08ce6f40113b217dd85a",
             "/home/levzzz/Games/th10Decomp/matching2/msvc/src/game/game_state_dispatch_animation_slot_secondary_0042c750.cpp": "8ac0851ab6862215942b42efd669b290fc9632391579c9e1dc6f677ebf52cea2",
-            "/home/levzzz/Games/th10Decomp/matching2/msvc/src/render/animation_handle_set_stop_frame_and_run_004494c0.cpp": "16330d50820052f0c62c5e248c86880dcd37fffb9eb453961e360cca22a6215d",
+            "/home/levzzz/Games/th10Decomp/matching2/msvc/src/render/animation_handle_set_stop_frame_and_run.cpp": "16330d50820052f0c62c5e248c86880dcd37fffb9eb453961e360cca22a6215d",
             "/home/levzzz/Games/th10Decomp/matching2/msvc/include/th10/render/animation_handle.hpp": "c9818f5ca138f4bd469d8e10faf17c6592efd5a4c3bad8cd9d9c7c1488497c41",
             "/home/levzzz/Games/th10Decomp/matching2/msvc/include/th10/render/animation_stop_run.hpp": "76817f0fbd6c10e81975e00a9deb430e80ebc2052ab1e0def3d88dada30bd06f",
             "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/stop_at_frame_pair_0040c480_context.cpp": "a2fd87195fea9f1bcd0f8d5c31cbeef88da9508c046e3f2d2220ae308cb70a0b"
@@ -407,7 +407,7 @@
               "object_sha256": "4c73dbcc3c6d76950561e408a685d0cf7875dea1953d95fc08008e4bc30e13c6"
             },
             {
-              "source": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/game/recovery_initialize_timed_state_00423510.cpp",
+              "source": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/game/recovery_initialize_timed_state.cpp",
               "object": "/home/levzzz/Games/th10Decomp/matching2/build/experiments/stop_frame_run_2026_10_01/maintained_probe/clusters/stop_at_frame_pair_0040c480/native-tunyql04/source_000.obj",
               "command": [
                 "wine",
@@ -426,13 +426,13 @@
                 "/showIncludes",
                 "/IZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\include",
                 "/FoZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\build\\experiments\\stop_frame_run_2026_10_01\\maintained_probe\\clusters\\stop_at_frame_pair_0040c480\\native-tunyql04\\source_000.obj",
-                "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\src\\game\\recovery_initialize_timed_state_00423510.cpp"
+                "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\src\\game\\recovery_initialize_timed_state.cpp"
               ],
               "source_sha256": "999ef59ddc31fc11cb357da05c91971e18441fda853c8755443236165f6f8d37",
               "object_sha256": "9068521eb163af6afffd71b255e354f2819f2dc80703fe9255e77a4b33e8745e"
             },
             {
-              "source": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/game/recovery_mark_animation_tree_004243f0.cpp",
+              "source": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/game/recovery_mark_animation_tree.cpp",
               "object": "/home/levzzz/Games/th10Decomp/matching2/build/experiments/stop_frame_run_2026_10_01/maintained_probe/clusters/stop_at_frame_pair_0040c480/native-tunyql04/source_001.obj",
               "command": [
                 "wine",
@@ -451,13 +451,13 @@
                 "/showIncludes",
                 "/IZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\include",
                 "/FoZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\build\\experiments\\stop_frame_run_2026_10_01\\maintained_probe\\clusters\\stop_at_frame_pair_0040c480\\native-tunyql04\\source_001.obj",
-                "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\src\\game\\recovery_mark_animation_tree_004243f0.cpp"
+                "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\src\\game\\recovery_mark_animation_tree.cpp"
               ],
               "source_sha256": "c0fca59440d9721208db0d1abedc48f61e957317f18a27ffe2351810d796ca2a",
               "object_sha256": "ce8591ec8d0fb5a935399306f521147872c3ba5693a92328edadcf153a401248"
             },
             {
-              "source": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/render/animation_manager_find_004491c0.cpp",
+              "source": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/render/animation_manager_find.cpp",
               "object": "/home/levzzz/Games/th10Decomp/matching2/build/experiments/stop_frame_run_2026_10_01/maintained_probe/clusters/stop_at_frame_pair_0040c480/native-tunyql04/source_002.obj",
               "command": [
                 "wine",
@@ -476,13 +476,13 @@
                 "/showIncludes",
                 "/IZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\include",
                 "/FoZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\build\\experiments\\stop_frame_run_2026_10_01\\maintained_probe\\clusters\\stop_at_frame_pair_0040c480\\native-tunyql04\\source_002.obj",
-                "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\src\\render\\animation_manager_find_004491c0.cpp"
+                "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\src\\render\\animation_manager_find.cpp"
               ],
               "source_sha256": "63ad809c688cf249306335bd16e051f6ad7bde7075bd39b2dbe9e2818f1c2dcb",
               "object_sha256": "720e11cb110bcbc37470ba413c672f97404205a5c342e8a5545cc97435c4bd71"
             },
             {
-              "source": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/render/animation_manager_find_child_by_script_index_004497d0.cpp",
+              "source": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/render/animation_manager_find_child_by_script_index.cpp",
               "object": "/home/levzzz/Games/th10Decomp/matching2/build/experiments/stop_frame_run_2026_10_01/maintained_probe/clusters/stop_at_frame_pair_0040c480/native-tunyql04/source_003.obj",
               "command": [
                 "wine",
@@ -501,13 +501,13 @@
                 "/showIncludes",
                 "/IZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\include",
                 "/FoZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\build\\experiments\\stop_frame_run_2026_10_01\\maintained_probe\\clusters\\stop_at_frame_pair_0040c480\\native-tunyql04\\source_003.obj",
-                "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\src\\render\\animation_manager_find_child_by_script_index_004497d0.cpp"
+                "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\src\\render\\animation_manager_find_child_by_script_index.cpp"
               ],
               "source_sha256": "dc72ebcf3ea65bcbe602b2164f35c36bfb986a9e55e8a764522f6ec88506e70e",
               "object_sha256": "c276dc9e34c5299d6d612f3bdafd6c463283ab0f07b29c822e00c77be71c849d"
             },
             {
-              "source": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/render/animation_manager_set_stop_frame_00449210.cpp",
+              "source": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/render/animation_manager_set_stop_frame.cpp",
               "object": "/home/levzzz/Games/th10Decomp/matching2/build/experiments/stop_frame_run_2026_10_01/maintained_probe/clusters/stop_at_frame_pair_0040c480/native-tunyql04/source_004.obj",
               "command": [
                 "wine",
@@ -526,13 +526,13 @@
                 "/showIncludes",
                 "/IZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\include",
                 "/FoZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\build\\experiments\\stop_frame_run_2026_10_01\\maintained_probe\\clusters\\stop_at_frame_pair_0040c480\\native-tunyql04\\source_004.obj",
-                "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\src\\render\\animation_manager_set_stop_frame_00449210.cpp"
+                "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\src\\render\\animation_manager_set_stop_frame.cpp"
               ],
               "source_sha256": "6c46d3c567cdcf192665fc89297c7a4f0a75b9991681c25d84c97ae5d9325554",
               "object_sha256": "5057b3d99305e51b3c7b3a81243fdb548eb6f82038e6c99662a892472ec560f8"
             },
             {
-              "source": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/render/animation_manager_set_stop_frame_from_handle_retail_00449470.cpp",
+              "source": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/render/animation_manager_set_stop_frame_from_handle_retail.cpp",
               "object": "/home/levzzz/Games/th10Decomp/matching2/build/experiments/stop_frame_run_2026_10_01/maintained_probe/clusters/stop_at_frame_pair_0040c480/native-tunyql04/source_005.obj",
               "command": [
                 "wine",
@@ -551,13 +551,13 @@
                 "/showIncludes",
                 "/IZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\include",
                 "/FoZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\build\\experiments\\stop_frame_run_2026_10_01\\maintained_probe\\clusters\\stop_at_frame_pair_0040c480\\native-tunyql04\\source_005.obj",
-                "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\src\\render\\animation_manager_set_stop_frame_from_handle_retail_00449470.cpp"
+                "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\src\\render\\animation_manager_set_stop_frame_from_handle_retail.cpp"
               ],
               "source_sha256": "e6a5aa607ea8a4e2652f285c8f44c4dc17e430af70f4e869f3fb38f3e715282d",
               "object_sha256": "dc5aa9105c3f30b1b9bc0937fdf92e55e16749d4174664a8150e8e9714e0548b"
             },
             {
-              "source": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/render/animation_manager_stop_at_frame2_0040c480.cpp",
+              "source": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/render/animation_manager_stop_at_frame2.cpp",
               "object": "/home/levzzz/Games/th10Decomp/matching2/build/experiments/stop_frame_run_2026_10_01/maintained_probe/clusters/stop_at_frame_pair_0040c480/native-tunyql04/source_006.obj",
               "command": [
                 "wine",
@@ -576,13 +576,13 @@
                 "/showIncludes",
                 "/IZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\include",
                 "/FoZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\build\\experiments\\stop_frame_run_2026_10_01\\maintained_probe\\clusters\\stop_at_frame_pair_0040c480\\native-tunyql04\\source_006.obj",
-                "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\src\\render\\animation_manager_stop_at_frame2_0040c480.cpp"
+                "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\src\\render\\animation_manager_stop_at_frame2.cpp"
               ],
               "source_sha256": "ad30b92cfe49fd5f91f528d385abc58084d5bceb6fe34473133d40b0b42584e6",
               "object_sha256": "bac5cf53a9f2828ade0864e83a881f0733d91346d16fc61dfce5383e475a8dd7"
             },
             {
-              "source": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/render/animation_manager_stop_at_frame3_0040c4d0.cpp",
+              "source": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/render/animation_manager_stop_at_frame3.cpp",
               "object": "/home/levzzz/Games/th10Decomp/matching2/build/experiments/stop_frame_run_2026_10_01/maintained_probe/clusters/stop_at_frame_pair_0040c480/native-tunyql04/source_007.obj",
               "command": [
                 "wine",
@@ -601,13 +601,13 @@
                 "/showIncludes",
                 "/IZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\include",
                 "/FoZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\build\\experiments\\stop_frame_run_2026_10_01\\maintained_probe\\clusters\\stop_at_frame_pair_0040c480\\native-tunyql04\\source_007.obj",
-                "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\src\\render\\animation_manager_stop_at_frame3_0040c4d0.cpp"
+                "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\src\\render\\animation_manager_stop_at_frame3.cpp"
               ],
               "source_sha256": "c50d99d73b04e14473d639640f90aae57e5c08b9001fa631ce89db37099d8371",
               "object_sha256": "bddd1e815b7057c39dcd73240f8502ad07cc1895eac6e376363c8dc2ff46cc2e"
             },
             {
-              "source": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/unidentified/unassigned_00449820.cpp",
+              "source": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/unidentified/unassigned_449820.cpp",
               "object": "/home/levzzz/Games/th10Decomp/matching2/build/experiments/stop_frame_run_2026_10_01/maintained_probe/clusters/stop_at_frame_pair_0040c480/native-tunyql04/source_008.obj",
               "command": [
                 "wine",
@@ -626,13 +626,13 @@
                 "/showIncludes",
                 "/IZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\include",
                 "/FoZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\build\\experiments\\stop_frame_run_2026_10_01\\maintained_probe\\clusters\\stop_at_frame_pair_0040c480\\native-tunyql04\\source_008.obj",
-                "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\src\\unidentified\\unassigned_00449820.cpp"
+                "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\src\\unidentified\\unassigned_449820.cpp"
               ],
               "source_sha256": "453b3884912d42b95c54f31d843e784a9f454798703b105048f8b8a160727327",
               "object_sha256": "ded459039d053c0d6e6ede0982b297e320bbc7f84c3f26052fc13fbaae0d0d4e"
             },
             {
-              "source": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/render/animation_manager_set_stop_frame_and_run_00449250.cpp",
+              "source": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/render/animation_manager_set_stop_frame_and_run.cpp",
               "object": "/home/levzzz/Games/th10Decomp/matching2/build/experiments/stop_frame_run_2026_10_01/maintained_probe/clusters/stop_at_frame_pair_0040c480/native-tunyql04/source_009.obj",
               "command": [
                 "wine",
@@ -651,7 +651,7 @@
                 "/showIncludes",
                 "/IZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\include",
                 "/FoZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\build\\experiments\\stop_frame_run_2026_10_01\\maintained_probe\\clusters\\stop_at_frame_pair_0040c480\\native-tunyql04\\source_009.obj",
-                "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\src\\render\\animation_manager_set_stop_frame_and_run_00449250.cpp"
+                "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\src\\render\\animation_manager_set_stop_frame_and_run.cpp"
               ],
               "source_sha256": "3e6e3f731afc256fad34cc8a365981a9073de039ea613a18129e132d7fe21ba3",
               "object_sha256": "4ca25ac3c10e7cb86d65c88540d1053c2617741f2e1cb636d16540c907688331"
@@ -707,7 +707,7 @@
               "object_sha256": "2adf7e409a72dfd7d2d0f99f36baa40a05b169616a35fc16aabf9a8102c7807f"
             },
             {
-              "source": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/render/animation_handle_set_stop_frame_and_run_004494c0.cpp",
+              "source": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/render/animation_handle_set_stop_frame_and_run.cpp",
               "object": "/home/levzzz/Games/th10Decomp/matching2/build/experiments/stop_frame_run_2026_10_01/maintained_probe/clusters/stop_at_frame_pair_0040c480/native-tunyql04/source_012.obj",
               "command": [
                 "wine",
@@ -726,7 +726,7 @@
                 "/showIncludes",
                 "/IZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\include",
                 "/FoZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\build\\experiments\\stop_frame_run_2026_10_01\\maintained_probe\\clusters\\stop_at_frame_pair_0040c480\\native-tunyql04\\source_012.obj",
-                "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\src\\render\\animation_handle_set_stop_frame_and_run_004494c0.cpp"
+                "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\src\\render\\animation_handle_set_stop_frame_and_run.cpp"
               ],
               "source_sha256": "16330d50820052f0c62c5e248c86880dcd37fffb9eb453961e360cca22a6215d",
               "object_sha256": "463cee9090607c4a4b7605dec14e99c2424906ad92b22d0846b1ca1e6b8b7d18"
@@ -1734,7 +1734,7 @@
         "different_bytes": 0,
         "exact": true,
         "relocations": [],
-        "source": "src/render/animation_manager_set_stop_frame_and_run_00449250.cpp"
+        "source": "src/render/animation_manager_set_stop_frame_and_run.cpp"
       },
       {
         "region": "semantic_AnimationHandle_40c480",
@@ -1744,7 +1744,7 @@
         "different_bytes": 0,
         "exact": true,
         "relocations": [],
-        "source": "src/render/animation_manager_set_stop_frame_and_run_00449250.cpp"
+        "source": "src/render/animation_manager_set_stop_frame_and_run.cpp"
       },
       {
         "region": "semantic_AnimationHandle_40c4d0",
@@ -1754,7 +1754,7 @@
         "different_bytes": 0,
         "exact": true,
         "relocations": [],
-        "source": "src/render/animation_manager_set_stop_frame_and_run_00449250.cpp"
+        "source": "src/render/animation_manager_set_stop_frame_and_run.cpp"
       },
       {
         "region": "semantic_RecoveryTimedState_InitializeTimedState_00423510_00423510",
@@ -1764,7 +1764,7 @@
         "different_bytes": 0,
         "exact": true,
         "relocations": [],
-        "source": "src/render/animation_manager_set_stop_frame_and_run_00449250.cpp"
+        "source": "src/render/animation_manager_set_stop_frame_and_run.cpp"
       },
       {
         "region": "semantic_StopAtFrame6_004243f0",
@@ -1774,7 +1774,7 @@
         "different_bytes": 0,
         "exact": true,
         "relocations": [],
-        "source": "src/render/animation_manager_set_stop_frame_and_run_00449250.cpp"
+        "source": "src/render/animation_manager_set_stop_frame_and_run.cpp"
       },
       {
         "region": "semantic_DispatchAnimationSlot",
@@ -1784,7 +1784,7 @@
         "different_bytes": 0,
         "exact": true,
         "relocations": [],
-        "source": "src/render/animation_manager_set_stop_frame_and_run_00449250.cpp"
+        "source": "src/render/animation_manager_set_stop_frame_and_run.cpp"
       },
       {
         "region": "semantic_DispatchAnimationSlotSecondary",
@@ -1794,7 +1794,7 @@
         "different_bytes": 0,
         "exact": true,
         "relocations": [],
-        "source": "src/render/animation_manager_set_stop_frame_and_run_00449250.cpp"
+        "source": "src/render/animation_manager_set_stop_frame_and_run.cpp"
       },
       {
         "region": "semantic_AnimationManager_4491c0",
@@ -1804,7 +1804,7 @@
         "different_bytes": 0,
         "exact": true,
         "relocations": [],
-        "source": "src/render/animation_manager_set_stop_frame_and_run_00449250.cpp"
+        "source": "src/render/animation_manager_set_stop_frame_and_run.cpp"
       },
       {
         "region": "semantic_AnimationManager_SetStopFrame_00449210",
@@ -1814,7 +1814,7 @@
         "different_bytes": 0,
         "exact": true,
         "relocations": [],
-        "source": "src/render/animation_manager_set_stop_frame_and_run_00449250.cpp"
+        "source": "src/render/animation_manager_set_stop_frame_and_run.cpp"
       },
       {
         "region": "semantic_AnimationManager_SetStopFrameAndRun",
@@ -1824,7 +1824,7 @@
         "different_bytes": 0,
         "exact": true,
         "relocations": [],
-        "source": "src/render/animation_manager_set_stop_frame_and_run_00449250.cpp"
+        "source": "src/render/animation_manager_set_stop_frame_and_run.cpp"
       },
       {
         "region": "semantic_AnimationHandle_00449470_SetStopFrame",
@@ -1834,7 +1834,7 @@
         "different_bytes": 0,
         "exact": true,
         "relocations": [],
-        "source": "src/render/animation_manager_set_stop_frame_and_run_00449250.cpp"
+        "source": "src/render/animation_manager_set_stop_frame_and_run.cpp"
       },
       {
         "region": "semantic_AnimationRunHandle_SetStopFrameAndRun_004494c0",
@@ -1844,7 +1844,7 @@
         "different_bytes": 0,
         "exact": true,
         "relocations": [],
-        "source": "src/render/animation_manager_set_stop_frame_and_run_00449250.cpp"
+        "source": "src/render/animation_manager_set_stop_frame_and_run.cpp"
       },
       {
         "region": "semantic_FindChildRef_004497d0",
@@ -1854,7 +1854,7 @@
         "different_bytes": 0,
         "exact": true,
         "relocations": [],
-        "source": "src/render/animation_manager_set_stop_frame_and_run_00449250.cpp"
+        "source": "src/render/animation_manager_set_stop_frame_and_run.cpp"
       },
       {
         "region": "semantic_FindChild_00449820",
@@ -1864,7 +1864,7 @@
         "different_bytes": 0,
         "exact": true,
         "relocations": [],
-        "source": "src/render/animation_manager_set_stop_frame_and_run_00449250.cpp"
+        "source": "src/render/animation_manager_set_stop_frame_and_run.cpp"
       },
       {
         "region": "semantic_AnimationNode_SetPosition_00449650",
@@ -1899,7 +1899,7 @@
       },
       {
         "name": "semantic_AnimationHandle_40c480",
-        "source": "src/render/animation_manager_stop_at_frame2_0040c480.cpp",
+        "source": "src/render/animation_manager_stop_at_frame2.cpp",
         "symbol": "?StopAtFrame2@AnimationHandle@@QAEXXZ",
         "address": "0x0040C480",
         "size": 65,
@@ -1908,7 +1908,7 @@
       },
       {
         "name": "semantic_AnimationHandle_40c4d0",
-        "source": "src/render/animation_manager_stop_at_frame3_0040c4d0.cpp",
+        "source": "src/render/animation_manager_stop_at_frame3.cpp",
         "symbol": "?StopAtFrame3@AnimationHandle@@QAEXXZ",
         "address": "0x0040C4D0",
         "size": 65,
@@ -1917,7 +1917,7 @@
       },
       {
         "name": "semantic_RecoveryTimedState_InitializeTimedState_00423510_00423510",
-        "source": "src/game/recovery_initialize_timed_state_00423510.cpp",
+        "source": "src/game/recovery_initialize_timed_state.cpp",
         "symbol": "?InitializeTimedState@RecoveryTimedState_00423510@@QAEXXZ",
         "address": "0x00423510",
         "size": 89,
@@ -1926,7 +1926,7 @@
       },
       {
         "name": "semantic_StopAtFrame6_004243f0",
-        "source": "src/game/recovery_mark_animation_tree_004243f0.cpp",
+        "source": "src/game/recovery_mark_animation_tree.cpp",
         "symbol": "?StopAtFrame6@AnimationHandle_004243f0@@QAEXXZ",
         "address": "0x004243F0",
         "size": 65,
@@ -1953,7 +1953,7 @@
       },
       {
         "name": "semantic_AnimationManager_4491c0",
-        "source": "src/render/animation_manager_find_004491c0.cpp",
+        "source": "src/render/animation_manager_find.cpp",
         "symbol": "?Find@AnimationManager@@QAIPAXPAUAnimationLookupContext@@UAnimationScriptId@@@Z",
         "address": "0x004491C0",
         "size": 73,
@@ -1962,7 +1962,7 @@
       },
       {
         "name": "semantic_AnimationManager_SetStopFrame_00449210",
-        "source": "src/render/animation_manager_set_stop_frame_00449210.cpp",
+        "source": "src/render/animation_manager_set_stop_frame.cpp",
         "symbol": "?AnimationManager_SetStopFrame@@YIXGPAUAnimationLookupContext@@UAnimationScriptId@@@Z",
         "address": "0x00449210",
         "size": 54,
@@ -1971,7 +1971,7 @@
       },
       {
         "name": "semantic_AnimationManager_SetStopFrameAndRun",
-        "source": "src/render/animation_manager_set_stop_frame_and_run_00449250.cpp",
+        "source": "src/render/animation_manager_set_stop_frame_and_run.cpp",
         "symbol": "?AnimationManager_SetStopFrameAndRun@@YIXGPAUAnimationLookupContext@@UAnimationScriptId@@@Z",
         "address": "0x00449250",
         "size": 76,
@@ -1980,7 +1980,7 @@
       },
       {
         "name": "semantic_AnimationHandle_00449470_SetStopFrame",
-        "source": "src/render/animation_manager_set_stop_frame_from_handle_retail_00449470.cpp",
+        "source": "src/render/animation_manager_set_stop_frame_from_handle_retail.cpp",
         "symbol": "?SetStopFrame@AnimationHandle_00449470@@QAEXG@Z",
         "address": "0x00449470",
         "size": 65,
@@ -1989,7 +1989,7 @@
       },
       {
         "name": "semantic_AnimationRunHandle_SetStopFrameAndRun_004494c0",
-        "source": "src/render/animation_handle_set_stop_frame_and_run_004494c0.cpp",
+        "source": "src/render/animation_handle_set_stop_frame_and_run.cpp",
         "symbol": "?SetStopFrameAndRun@AnimationRunHandle@@QAEXG@Z",
         "address": "0x004494C0",
         "size": 15,
@@ -1998,7 +1998,7 @@
       },
       {
         "name": "semantic_FindChildRef_004497d0",
-        "source": "src/render/animation_manager_find_child_by_script_index_004497d0.cpp",
+        "source": "src/render/animation_manager_find_child_by_script_index.cpp",
         "symbol": "?FindChildRef@AnimationHandle_004497d0@@QAE?AUAnimationRef_004497d0@@H@Z",
         "address": "0x004497D0",
         "size": 70,
@@ -2007,7 +2007,7 @@
       },
       {
         "name": "semantic_FindChild_00449820",
-        "source": "src/unidentified/unassigned_00449820.cpp",
+        "source": "src/unidentified/unassigned_449820.cpp",
         "symbol": "?FindChild@AnimationHandle_00449820@@QAEPAUAnimationChild_00449820@@H@Z",
         "address": "0x00449820",
         "size": 58,
@@ -2260,39 +2260,39 @@
           "source": "src/render/anm_propagate.cpp",
           "sources": [
             "src/render/anm_propagate.cpp",
-            "src/game/recovery_initialize_timed_state_00423510.cpp",
-            "src/game/recovery_mark_animation_tree_004243f0.cpp",
-            "src/render/animation_manager_find_004491c0.cpp",
-            "src/render/animation_manager_find_child_by_script_index_004497d0.cpp",
-            "src/render/animation_manager_set_stop_frame_00449210.cpp",
-            "src/render/animation_manager_set_stop_frame_from_handle_retail_00449470.cpp",
-            "src/render/animation_manager_stop_at_frame2_0040c480.cpp",
-            "src/render/animation_manager_stop_at_frame3_0040c4d0.cpp",
-            "src/unidentified/unassigned_00449820.cpp",
-            "src/render/animation_manager_set_stop_frame_and_run_00449250.cpp",
+            "src/game/recovery_initialize_timed_state.cpp",
+            "src/game/recovery_mark_animation_tree.cpp",
+            "src/render/animation_manager_find.cpp",
+            "src/render/animation_manager_find_child_by_script_index.cpp",
+            "src/render/animation_manager_set_stop_frame.cpp",
+            "src/render/animation_manager_set_stop_frame_from_handle_retail.cpp",
+            "src/render/animation_manager_stop_at_frame2.cpp",
+            "src/render/animation_manager_stop_at_frame3.cpp",
+            "src/unidentified/unassigned_449820.cpp",
+            "src/render/animation_manager_set_stop_frame_and_run.cpp",
             "src/game/game_state_dispatch_animation_slot_0042c730.cpp",
             "src/game/game_state_dispatch_animation_slot_secondary_0042c750.cpp",
-            "src/render/animation_handle_set_stop_frame_and_run_004494c0.cpp"
+            "src/render/animation_handle_set_stop_frame_and_run.cpp"
           ],
           "roots": [],
           "driver": "layout/ltcg/stop_at_frame_pair_0040c480_context.cpp",
-          "layout": "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/stop_at_frame_pair_0040c480.json",
+          "layout": "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/stop_at_frame_pair.json",
           "input_sha256": {
-            "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/stop_at_frame_pair_0040c480.json": "f87be3568fde1b28dcccaee068d80a9071f257a7853b0858e506bb6141d9fe04",
+            "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/stop_at_frame_pair.json": "f87be3568fde1b28dcccaee068d80a9071f257a7853b0858e506bb6141d9fe04",
             "/home/levzzz/Games/th10Decomp/matching2/msvc/src/render/anm_propagate.cpp": "7a60f8a5f33acb2af669c42690ab3b614267b10b67ff87c2c40589668b0af79e",
-            "/home/levzzz/Games/th10Decomp/matching2/msvc/src/game/recovery_initialize_timed_state_00423510.cpp": "999ef59ddc31fc11cb357da05c91971e18441fda853c8755443236165f6f8d37",
-            "/home/levzzz/Games/th10Decomp/matching2/msvc/src/game/recovery_mark_animation_tree_004243f0.cpp": "c0fca59440d9721208db0d1abedc48f61e957317f18a27ffe2351810d796ca2a",
-            "/home/levzzz/Games/th10Decomp/matching2/msvc/src/render/animation_manager_find_004491c0.cpp": "63ad809c688cf249306335bd16e051f6ad7bde7075bd39b2dbe9e2818f1c2dcb",
-            "/home/levzzz/Games/th10Decomp/matching2/msvc/src/render/animation_manager_find_child_by_script_index_004497d0.cpp": "dc72ebcf3ea65bcbe602b2164f35c36bfb986a9e55e8a764522f6ec88506e70e",
-            "/home/levzzz/Games/th10Decomp/matching2/msvc/src/render/animation_manager_set_stop_frame_00449210.cpp": "6c46d3c567cdcf192665fc89297c7a4f0a75b9991681c25d84c97ae5d9325554",
-            "/home/levzzz/Games/th10Decomp/matching2/msvc/src/render/animation_manager_set_stop_frame_from_handle_retail_00449470.cpp": "e6a5aa607ea8a4e2652f285c8f44c4dc17e430af70f4e869f3fb38f3e715282d",
-            "/home/levzzz/Games/th10Decomp/matching2/msvc/src/render/animation_manager_stop_at_frame2_0040c480.cpp": "ad30b92cfe49fd5f91f528d385abc58084d5bceb6fe34473133d40b0b42584e6",
-            "/home/levzzz/Games/th10Decomp/matching2/msvc/src/render/animation_manager_stop_at_frame3_0040c4d0.cpp": "c50d99d73b04e14473d639640f90aae57e5c08b9001fa631ce89db37099d8371",
-            "/home/levzzz/Games/th10Decomp/matching2/msvc/src/unidentified/unassigned_00449820.cpp": "453b3884912d42b95c54f31d843e784a9f454798703b105048f8b8a160727327",
-            "/home/levzzz/Games/th10Decomp/matching2/msvc/src/render/animation_manager_set_stop_frame_and_run_00449250.cpp": "3e6e3f731afc256fad34cc8a365981a9073de039ea613a18129e132d7fe21ba3",
+            "/home/levzzz/Games/th10Decomp/matching2/msvc/src/game/recovery_initialize_timed_state.cpp": "999ef59ddc31fc11cb357da05c91971e18441fda853c8755443236165f6f8d37",
+            "/home/levzzz/Games/th10Decomp/matching2/msvc/src/game/recovery_mark_animation_tree.cpp": "c0fca59440d9721208db0d1abedc48f61e957317f18a27ffe2351810d796ca2a",
+            "/home/levzzz/Games/th10Decomp/matching2/msvc/src/render/animation_manager_find.cpp": "63ad809c688cf249306335bd16e051f6ad7bde7075bd39b2dbe9e2818f1c2dcb",
+            "/home/levzzz/Games/th10Decomp/matching2/msvc/src/render/animation_manager_find_child_by_script_index.cpp": "dc72ebcf3ea65bcbe602b2164f35c36bfb986a9e55e8a764522f6ec88506e70e",
+            "/home/levzzz/Games/th10Decomp/matching2/msvc/src/render/animation_manager_set_stop_frame.cpp": "6c46d3c567cdcf192665fc89297c7a4f0a75b9991681c25d84c97ae5d9325554",
+            "/home/levzzz/Games/th10Decomp/matching2/msvc/src/render/animation_manager_set_stop_frame_from_handle_retail.cpp": "e6a5aa607ea8a4e2652f285c8f44c4dc17e430af70f4e869f3fb38f3e715282d",
+            "/home/levzzz/Games/th10Decomp/matching2/msvc/src/render/animation_manager_stop_at_frame2.cpp": "ad30b92cfe49fd5f91f528d385abc58084d5bceb6fe34473133d40b0b42584e6",
+            "/home/levzzz/Games/th10Decomp/matching2/msvc/src/render/animation_manager_stop_at_frame3.cpp": "c50d99d73b04e14473d639640f90aae57e5c08b9001fa631ce89db37099d8371",
+            "/home/levzzz/Games/th10Decomp/matching2/msvc/src/unidentified/unassigned_449820.cpp": "453b3884912d42b95c54f31d843e784a9f454798703b105048f8b8a160727327",
+            "/home/levzzz/Games/th10Decomp/matching2/msvc/src/render/animation_manager_set_stop_frame_and_run.cpp": "3e6e3f731afc256fad34cc8a365981a9073de039ea613a18129e132d7fe21ba3",
             "/home/levzzz/Games/th10Decomp/matching2/msvc/src/game/game_state_dispatch_animation_slot_0042c730.cpp": "767e7de3077fcce0eae84b1237eaae58473cc1f1aefb08ce6f40113b217dd85a",
             "/home/levzzz/Games/th10Decomp/matching2/msvc/src/game/game_state_dispatch_animation_slot_secondary_0042c750.cpp": "8ac0851ab6862215942b42efd669b290fc9632391579c9e1dc6f677ebf52cea2",
-            "/home/levzzz/Games/th10Decomp/matching2/msvc/src/render/animation_handle_set_stop_frame_and_run_004494c0.cpp": "16330d50820052f0c62c5e248c86880dcd37fffb9eb453961e360cca22a6215d",
+            "/home/levzzz/Games/th10Decomp/matching2/msvc/src/render/animation_handle_set_stop_frame_and_run.cpp": "16330d50820052f0c62c5e248c86880dcd37fffb9eb453961e360cca22a6215d",
             "/home/levzzz/Games/th10Decomp/matching2/msvc/include/th10/render/animation_handle.hpp": "c9818f5ca138f4bd469d8e10faf17c6592efd5a4c3bad8cd9d9c7c1488497c41",
             "/home/levzzz/Games/th10Decomp/matching2/msvc/include/th10/render/animation_stop_run.hpp": "76817f0fbd6c10e81975e00a9deb430e80ebc2052ab1e0def3d88dada30bd06f",
             "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/stop_at_frame_pair_0040c480_context.cpp": "a2fd87195fea9f1bcd0f8d5c31cbeef88da9508c046e3f2d2220ae308cb70a0b"
@@ -2377,7 +2377,7 @@
               "object_sha256": "ab187568858c1aaeb93fb8be733ce324a2ecb4397b212ebeaf9e48baf1a8b5c0"
             },
             {
-              "source": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/game/recovery_initialize_timed_state_00423510.cpp",
+              "source": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/game/recovery_initialize_timed_state.cpp",
               "object": "/home/levzzz/Games/th10Decomp/matching2/build/msvc/clusters/stop_at_frame_pair_0040c480/native-nk0_vi6k/source_000.obj",
               "command": [
                 "wine",
@@ -2396,13 +2396,13 @@
                 "/showIncludes",
                 "/IZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\include",
                 "/FoZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\build\\msvc\\clusters\\stop_at_frame_pair_0040c480\\native-nk0_vi6k\\source_000.obj",
-                "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\src\\game\\recovery_initialize_timed_state_00423510.cpp"
+                "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\src\\game\\recovery_initialize_timed_state.cpp"
               ],
               "source_sha256": "999ef59ddc31fc11cb357da05c91971e18441fda853c8755443236165f6f8d37",
               "object_sha256": "02d3a4036d4f4fb17fdf22b8e73c321925494c7d7fb25a3fd1f0543e01f2dc03"
             },
             {
-              "source": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/game/recovery_mark_animation_tree_004243f0.cpp",
+              "source": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/game/recovery_mark_animation_tree.cpp",
               "object": "/home/levzzz/Games/th10Decomp/matching2/build/msvc/clusters/stop_at_frame_pair_0040c480/native-nk0_vi6k/source_001.obj",
               "command": [
                 "wine",
@@ -2421,13 +2421,13 @@
                 "/showIncludes",
                 "/IZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\include",
                 "/FoZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\build\\msvc\\clusters\\stop_at_frame_pair_0040c480\\native-nk0_vi6k\\source_001.obj",
-                "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\src\\game\\recovery_mark_animation_tree_004243f0.cpp"
+                "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\src\\game\\recovery_mark_animation_tree.cpp"
               ],
               "source_sha256": "c0fca59440d9721208db0d1abedc48f61e957317f18a27ffe2351810d796ca2a",
               "object_sha256": "daa02016c0169ff766571eae41dfd445857f39238bf77567dcd64cfb15a91e44"
             },
             {
-              "source": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/render/animation_manager_find_004491c0.cpp",
+              "source": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/render/animation_manager_find.cpp",
               "object": "/home/levzzz/Games/th10Decomp/matching2/build/msvc/clusters/stop_at_frame_pair_0040c480/native-nk0_vi6k/source_002.obj",
               "command": [
                 "wine",
@@ -2446,13 +2446,13 @@
                 "/showIncludes",
                 "/IZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\include",
                 "/FoZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\build\\msvc\\clusters\\stop_at_frame_pair_0040c480\\native-nk0_vi6k\\source_002.obj",
-                "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\src\\render\\animation_manager_find_004491c0.cpp"
+                "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\src\\render\\animation_manager_find.cpp"
               ],
               "source_sha256": "63ad809c688cf249306335bd16e051f6ad7bde7075bd39b2dbe9e2818f1c2dcb",
               "object_sha256": "f14c0b090a2b90f16d9158e2baa8da5b6adc427d0cb57548e977593c6337cded"
             },
             {
-              "source": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/render/animation_manager_find_child_by_script_index_004497d0.cpp",
+              "source": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/render/animation_manager_find_child_by_script_index.cpp",
               "object": "/home/levzzz/Games/th10Decomp/matching2/build/msvc/clusters/stop_at_frame_pair_0040c480/native-nk0_vi6k/source_003.obj",
               "command": [
                 "wine",
@@ -2471,13 +2471,13 @@
                 "/showIncludes",
                 "/IZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\include",
                 "/FoZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\build\\msvc\\clusters\\stop_at_frame_pair_0040c480\\native-nk0_vi6k\\source_003.obj",
-                "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\src\\render\\animation_manager_find_child_by_script_index_004497d0.cpp"
+                "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\src\\render\\animation_manager_find_child_by_script_index.cpp"
               ],
               "source_sha256": "dc72ebcf3ea65bcbe602b2164f35c36bfb986a9e55e8a764522f6ec88506e70e",
               "object_sha256": "ae47e902f644eb7e7d4efe498a46b211cf2dc89f188e5247ce5dda3ebf560605"
             },
             {
-              "source": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/render/animation_manager_set_stop_frame_00449210.cpp",
+              "source": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/render/animation_manager_set_stop_frame.cpp",
               "object": "/home/levzzz/Games/th10Decomp/matching2/build/msvc/clusters/stop_at_frame_pair_0040c480/native-nk0_vi6k/source_004.obj",
               "command": [
                 "wine",
@@ -2496,13 +2496,13 @@
                 "/showIncludes",
                 "/IZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\include",
                 "/FoZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\build\\msvc\\clusters\\stop_at_frame_pair_0040c480\\native-nk0_vi6k\\source_004.obj",
-                "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\src\\render\\animation_manager_set_stop_frame_00449210.cpp"
+                "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\src\\render\\animation_manager_set_stop_frame.cpp"
               ],
               "source_sha256": "6c46d3c567cdcf192665fc89297c7a4f0a75b9991681c25d84c97ae5d9325554",
               "object_sha256": "9387557e095a9bf2bfed76d07b664c36bf6ac9ad1f60243cdc07d46bf7b9c42e"
             },
             {
-              "source": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/render/animation_manager_set_stop_frame_from_handle_retail_00449470.cpp",
+              "source": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/render/animation_manager_set_stop_frame_from_handle_retail.cpp",
               "object": "/home/levzzz/Games/th10Decomp/matching2/build/msvc/clusters/stop_at_frame_pair_0040c480/native-nk0_vi6k/source_005.obj",
               "command": [
                 "wine",
@@ -2521,13 +2521,13 @@
                 "/showIncludes",
                 "/IZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\include",
                 "/FoZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\build\\msvc\\clusters\\stop_at_frame_pair_0040c480\\native-nk0_vi6k\\source_005.obj",
-                "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\src\\render\\animation_manager_set_stop_frame_from_handle_retail_00449470.cpp"
+                "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\src\\render\\animation_manager_set_stop_frame_from_handle_retail.cpp"
               ],
               "source_sha256": "e6a5aa607ea8a4e2652f285c8f44c4dc17e430af70f4e869f3fb38f3e715282d",
               "object_sha256": "30e604c0d60809564631bc23b2a1e7475ac3efe561432f5dd6b9bffb2abbc82d"
             },
             {
-              "source": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/render/animation_manager_stop_at_frame2_0040c480.cpp",
+              "source": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/render/animation_manager_stop_at_frame2.cpp",
               "object": "/home/levzzz/Games/th10Decomp/matching2/build/msvc/clusters/stop_at_frame_pair_0040c480/native-nk0_vi6k/source_006.obj",
               "command": [
                 "wine",
@@ -2546,13 +2546,13 @@
                 "/showIncludes",
                 "/IZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\include",
                 "/FoZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\build\\msvc\\clusters\\stop_at_frame_pair_0040c480\\native-nk0_vi6k\\source_006.obj",
-                "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\src\\render\\animation_manager_stop_at_frame2_0040c480.cpp"
+                "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\src\\render\\animation_manager_stop_at_frame2.cpp"
               ],
               "source_sha256": "ad30b92cfe49fd5f91f528d385abc58084d5bceb6fe34473133d40b0b42584e6",
               "object_sha256": "31ed3f710e43303cba095a87db34f605374861e86bf05a49012330f7c9664cb9"
             },
             {
-              "source": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/render/animation_manager_stop_at_frame3_0040c4d0.cpp",
+              "source": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/render/animation_manager_stop_at_frame3.cpp",
               "object": "/home/levzzz/Games/th10Decomp/matching2/build/msvc/clusters/stop_at_frame_pair_0040c480/native-nk0_vi6k/source_007.obj",
               "command": [
                 "wine",
@@ -2571,13 +2571,13 @@
                 "/showIncludes",
                 "/IZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\include",
                 "/FoZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\build\\msvc\\clusters\\stop_at_frame_pair_0040c480\\native-nk0_vi6k\\source_007.obj",
-                "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\src\\render\\animation_manager_stop_at_frame3_0040c4d0.cpp"
+                "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\src\\render\\animation_manager_stop_at_frame3.cpp"
               ],
               "source_sha256": "c50d99d73b04e14473d639640f90aae57e5c08b9001fa631ce89db37099d8371",
               "object_sha256": "fb5390b4b1ca753072cafdcc1bc4fdd91b003c8724dc49e8402de0579333173e"
             },
             {
-              "source": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/unidentified/unassigned_00449820.cpp",
+              "source": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/unidentified/unassigned_449820.cpp",
               "object": "/home/levzzz/Games/th10Decomp/matching2/build/msvc/clusters/stop_at_frame_pair_0040c480/native-nk0_vi6k/source_008.obj",
               "command": [
                 "wine",
@@ -2596,13 +2596,13 @@
                 "/showIncludes",
                 "/IZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\include",
                 "/FoZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\build\\msvc\\clusters\\stop_at_frame_pair_0040c480\\native-nk0_vi6k\\source_008.obj",
-                "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\src\\unidentified\\unassigned_00449820.cpp"
+                "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\src\\unidentified\\unassigned_449820.cpp"
               ],
               "source_sha256": "453b3884912d42b95c54f31d843e784a9f454798703b105048f8b8a160727327",
               "object_sha256": "517ac63974a5ba6893695819ce8879dbbe91982717223252344a6851deab3aa8"
             },
             {
-              "source": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/render/animation_manager_set_stop_frame_and_run_00449250.cpp",
+              "source": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/render/animation_manager_set_stop_frame_and_run.cpp",
               "object": "/home/levzzz/Games/th10Decomp/matching2/build/msvc/clusters/stop_at_frame_pair_0040c480/native-nk0_vi6k/source_009.obj",
               "command": [
                 "wine",
@@ -2621,7 +2621,7 @@
                 "/showIncludes",
                 "/IZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\include",
                 "/FoZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\build\\msvc\\clusters\\stop_at_frame_pair_0040c480\\native-nk0_vi6k\\source_009.obj",
-                "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\src\\render\\animation_manager_set_stop_frame_and_run_00449250.cpp"
+                "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\src\\render\\animation_manager_set_stop_frame_and_run.cpp"
               ],
               "source_sha256": "3e6e3f731afc256fad34cc8a365981a9073de039ea613a18129e132d7fe21ba3",
               "object_sha256": "1c475debad580b431878fe469d9e1dc042c6a0da8ec355eb9446e42445b4e58e"
@@ -2677,7 +2677,7 @@
               "object_sha256": "64c25a5e35804032a12b8f24e891e505093cf1ee3b5723d4eecd3bc8773c4661"
             },
             {
-              "source": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/render/animation_handle_set_stop_frame_and_run_004494c0.cpp",
+              "source": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/render/animation_handle_set_stop_frame_and_run.cpp",
               "object": "/home/levzzz/Games/th10Decomp/matching2/build/msvc/clusters/stop_at_frame_pair_0040c480/native-nk0_vi6k/source_012.obj",
               "command": [
                 "wine",
@@ -2696,7 +2696,7 @@
                 "/showIncludes",
                 "/IZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\include",
                 "/FoZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\build\\msvc\\clusters\\stop_at_frame_pair_0040c480\\native-nk0_vi6k\\source_012.obj",
-                "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\src\\render\\animation_handle_set_stop_frame_and_run_004494c0.cpp"
+                "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\src\\render\\animation_handle_set_stop_frame_and_run.cpp"
               ],
               "source_sha256": "16330d50820052f0c62c5e248c86880dcd37fffb9eb453961e360cca22a6215d",
               "object_sha256": "7d7ca55355dc076451a25579bc6ae1df710977f7e1b095db6d934c964ddfe9b1"
@@ -3805,8 +3805,8 @@
   "source_hashes": {
     "matching2/msvc/src/game/game_state_dispatch_animation_slot_0042c730.cpp": "767e7de3077fcce0eae84b1237eaae58473cc1f1aefb08ce6f40113b217dd85a",
     "matching2/msvc/src/game/game_state_dispatch_animation_slot_secondary_0042c750.cpp": "8ac0851ab6862215942b42efd669b290fc9632391579c9e1dc6f677ebf52cea2",
-    "matching2/msvc/src/render/animation_manager_set_stop_frame_and_run_00449250.cpp": "3e6e3f731afc256fad34cc8a365981a9073de039ea613a18129e132d7fe21ba3",
-    "matching2/msvc/src/render/animation_handle_set_stop_frame_and_run_004494c0.cpp": "16330d50820052f0c62c5e248c86880dcd37fffb9eb453961e360cca22a6215d",
+    "matching2/msvc/src/render/animation_manager_set_stop_frame_and_run.cpp": "3e6e3f731afc256fad34cc8a365981a9073de039ea613a18129e132d7fe21ba3",
+    "matching2/msvc/src/render/animation_handle_set_stop_frame_and_run.cpp": "16330d50820052f0c62c5e248c86880dcd37fffb9eb453961e360cca22a6215d",
     "matching2/msvc/include/th10/render/animation_stop_run.hpp": "76817f0fbd6c10e81975e00a9deb430e80ebc2052ab1e0def3d88dada30bd06f"
   },
   "experiments": [

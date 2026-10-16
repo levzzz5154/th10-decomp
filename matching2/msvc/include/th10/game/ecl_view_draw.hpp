@@ -108,7 +108,7 @@ typedef char EclViewSize[sizeof(EclView) == 0x688 ? 1 : -1];
 
 struct SprtCtrlBatchView;
 extern "C" {
-extern GameThread_00401530* g_ascii_manager;
+extern GameThread2* g_ascii_manager;
 extern EclViewEnemies* g_enemy_ctrl;
 extern SprtCtrlBatchView* g_sprt_ctrl;
 // 0x00443080: draw one entity; the manager is on the stack and the entity

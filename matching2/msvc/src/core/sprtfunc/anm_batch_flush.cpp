@@ -1,9 +1,9 @@
 // 0x00442F50 - Native-LTCG recovery of the internal ESI receiver convention.
 #include "th10/render/quad_batch.hpp"
 
-typedef long (__stdcall *SetTextureStageState_00442F50)(
+typedef long (__stdcall *SetTextureStageState2)(
     void*, unsigned int, unsigned int, unsigned int);
-typedef long (__stdcall *SetFVF_00442F50)(void*, unsigned int);
+typedef long (__stdcall *SetFVF2)(void*, unsigned int);
 typedef long (__stdcall *DrawPrimitiveUP)(
     void*, unsigned int, unsigned int, const void*, unsigned int);
 
@@ -13,15 +13,15 @@ __declspec(noinline) int SprtCtrlBatchView::Flush() {
     if (result != 0) {
         void* device = *reinterpret_cast<void**>(0x00491C30);
         void** vtable = *reinterpret_cast<void***>(device);
-        reinterpret_cast<SetTextureStageState_00442F50>(vtable[0x10C / 4])(
+        reinterpret_cast<SetTextureStageState2>(vtable[0x10C / 4])(
             device, 0, 6, 0);
         device = *reinterpret_cast<void**>(0x00491C30);
         vtable = *reinterpret_cast<void***>(device);
-        reinterpret_cast<SetTextureStageState_00442F50>(vtable[0x10C / 4])(
+        reinterpret_cast<SetTextureStageState2>(vtable[0x10C / 4])(
             device, 0, 3, 0);
         device = *reinterpret_cast<void**>(0x00491C30);
         vtable = *reinterpret_cast<void***>(device);
-        reinterpret_cast<SetFVF_00442F50>(vtable[0x164 / 4])(device, 0x144);
+        reinterpret_cast<SetFVF2>(vtable[0x164 / 4])(device, 0x144);
         const void* start = batch_start;
         device = *reinterpret_cast<void**>(0x00491C30);
         vtable = *reinterpret_cast<void***>(device);

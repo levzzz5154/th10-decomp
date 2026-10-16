@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "name": "platform_run_interface_0044d300",
+  "source": "src/core/zwave/platform_run_interface.cpp",
+  "driver": "build_support/layout/ltcg/platform_run_interface_0044d300_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "Exact native-LTCG recovery of interface status/restore polling with the retail ESI receiver, EBX completion pointer, and Sleep import.",
+  "functions": [
+    {
+      "name": "PlatformD300Entry_Run",
+      "symbol": "?Run@PlatformD300Entry@@QAEHPAI@Z",
+      "section": ".text$01run",
+      "address": "0x0044D300",
+      "size": 98,
+      "actual_abi": "entry in ESI; completion pointer in EBX; HRESULT in EAX; plain RET"
+    }
+  ],
+  "context": {
+    "symbol": "?PlatformRunInterface0044D300CompilerContext@@YGHPAPAUPlatformD300Entry@@PAPAIH@Z",
+    "section": ".text$03context",
+    "address": "0x0044E000",
+    "size": 79,
+    "description": "Two-array caller used only to establish the internal ESI/EBX argument allocation."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 312064
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x0044D362",
+      "size": 3230
+    },
+    {
+      "section": ".text$04layout",
+      "address": "0x0044E04F",
+      "size": 1
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "__imp__Sleep@4",
+      "address": "0x004660AC",
+      "kind": "data"
+    }
+  ],
+  "included_sources": []
+}

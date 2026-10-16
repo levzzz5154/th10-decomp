@@ -2,7 +2,7 @@
 // native /LTCG link and calls the save routine through a volatile function
 // pointer, which holds the routine to its declared manager/file-name/name
 // register split against the whole-program pass. Not recovered game code.
-#include "../../contexts/legacy/game/replay_save_00429b60.cpp"
+#include "../../contexts/legacy/game/replay_save.cpp"
 
 // Equivalence-model padding: a real (never executed) function between the
 // save routine and the cipher body keeps the cipher outside the model

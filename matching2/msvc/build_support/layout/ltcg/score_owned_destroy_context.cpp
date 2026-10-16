@@ -1,5 +1,5 @@
 // Compiler context only; never selected as recovered game code.
-#include "../../../src/game/ending/score_owned_destroy_0040b9d0.cpp"
+#include "../../../src/game/ending/score_owned_destroy.cpp"
 
 #pragma code_seg(".text$03context")
 void __stdcall ScoreOwnedObjectDestroyCompilerContext(ScoreOwnedObject** objects, int count) {

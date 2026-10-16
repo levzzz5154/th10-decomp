@@ -8,20 +8,20 @@
     "build_support/layout/ltcg/update_player_dependencies/score_evaluate.cpp",
     "build_support/layout/ltcg/update_player_dependencies/position_find.cpp",
     "build_support/layout/ltcg/update_player_dependencies/position_setter.cpp",
-    "build_support/contexts/legacy/game/collision_record_activate_00408030.cpp",
-    "build_support/contexts/legacy/game/fun_00408100_00408100.cpp",
+    "build_support/contexts/legacy/game/collision_record_activate.cpp",
+    "build_support/contexts/legacy/game/fun.cpp",
     "build_support/layout/ltcg/update_player_dependencies/playfield_bounds.cpp",
     "build_support/layout/ltcg/update_player_dependencies/item_spawn_closure.cpp",
-    "src/game/bullet/collision_engine_activate_all_00408460.cpp",
-    "src/game/enemy/item_drops_flush_0040c9a0.cpp",
+    "src/game/bullet/collision_engine_activate_all.cpp",
+    "src/game/enemy/item_drops_flush.cpp",
     "build_support/layout/ltcg/update_player_dependencies/enemy_death_callees.cpp",
-    "src/game/enemy/enemy_death_release_0040e5f0.cpp",
-    "src/game/enemy/enemy_manager_sweep_deaths_0040e6a0.cpp",
-    "build_support/contexts/legacy/game/item_convert_sweep_0041ba50.cpp"
+    "src/game/enemy/enemy_death_release.cpp",
+    "src/game/enemy/enemy_manager_sweep_deaths.cpp",
+    "build_support/contexts/legacy/game/item_convert_sweep.cpp"
   ],
   "headers": [
     "include/th10/game/entity.hpp",
-    "include/th10/game/item_spawn_0041bb00.hpp",
+    "include/th10/game/item_spawn.hpp",
     "include/th10/game/bomb_state.hpp",
     "include/th10/game/player_update_collision.hpp",
     "include/th10/game/player_update_score.hpp",
@@ -31,7 +31,7 @@
     "include/th10/types.hpp",
     "include/th10/game/item_scatter_flush.hpp",
     "include/th10/math/rng.hpp",
-    "include/th10/game/enemy_death_release_0040e5f0.hpp",
+    "include/th10/game/enemy_death_release.hpp",
     "include/th10/game/score.hpp",
     "include/th10/platform/sound_queue.hpp"
   ],
@@ -54,34 +54,34 @@
       "size": 62,
       "section": ".text$069h_all",
       "actual_abi": "engine in EAX, flag in EBX; plain RET",
-      "source": "src/game/bullet/collision_engine_activate_all_00408460.cpp"
+      "source": "src/game/bullet/collision_engine_activate_all.cpp"
     },
     {
       "name": "ItemDropsFlush",
-      "symbol": "?FlushDrops@DropSource@@QAEXPAUItemDrops_0040c9a0@@@Z",
+      "symbol": "?FlushDrops@DropSource@@QAEXPAUItemDrops2@@@Z",
       "address": "0x40c9a0",
       "size": 48,
       "section": ".text$079h_flush",
       "actual_abi": "position in EAX, drops in EDI; plain RET",
-      "source": "src/game/enemy/item_drops_flush_0040c9a0.cpp"
+      "source": "src/game/enemy/item_drops_flush.cpp"
     },
     {
       "name": "ItemDropsScatter",
-      "symbol": "?ScatterDrops@DropSource@@QAEXPAUItemDrops_0040c9a0@@@Z",
+      "symbol": "?ScatterDrops@DropSource@@QAEXPAUItemDrops2@@@Z",
       "section": ".text$079i_scatter",
       "address": "0x40c9d0",
       "size": 503,
       "actual_abi": "position in ESI, drops on the stack; RET 4",
-      "source": "src/game/enemy/item_drops_flush_0040c9a0.cpp"
+      "source": "src/game/enemy/item_drops_flush.cpp"
     },
     {
       "name": "EnemyReleaseOnDeath",
-      "symbol": "?Enemy_ReleaseOnDeath@@YGHPAUEnemy_0040e5f0@@@Z",
+      "symbol": "?Enemy_ReleaseOnDeath@@YGHPAUEnemy6@@@Z",
       "section": ".text$079k_death",
       "address": "0x40e5f0",
       "size": 162,
       "actual_abi": "enemy on the stack; RET 4",
-      "source": "src/game/enemy/enemy_death_release_0040e5f0.cpp"
+      "source": "src/game/enemy/enemy_death_release.cpp"
     },
     {
       "name": "EnemyManagerSweepDeaths",
@@ -90,7 +90,7 @@
       "address": "0x40e6a0",
       "size": 182,
       "actual_abi": "manager on the stack; RET 4",
-      "source": "src/game/enemy/enemy_manager_sweep_deaths_0040e6a0.cpp"
+      "source": "src/game/enemy/enemy_manager_sweep_deaths.cpp"
     }
   ],
   "anchors": [
@@ -103,7 +103,7 @@
     },
     {
       "name": "ScoreEvaluate",
-      "symbol": "?CopyVectorAndEvaluate@LaserManager_0041c800@@QAEHPBMMH@Z",
+      "symbol": "?CopyVectorAndEvaluate@LaserManager3@@QAEHPBMMH@Z",
       "address": "0x41c800",
       "size": 76,
       "section": ".text$090score"
@@ -117,7 +117,7 @@
     },
     {
       "name": "PositionSetter",
-      "symbol": "?SetAnimationPosition_004492f0@@YIXPAUPositionLookupContext@@PBUPositionVector@@UPositionScriptId@@@Z",
+      "symbol": "?SetAnimationPosition2@@YIXPAUPositionLookupContext@@PBUPositionVector@@UPositionScriptId@@@Z",
       "address": "0x4492f0",
       "size": 90,
       "section": ".text$140position"
@@ -145,7 +145,7 @@
     },
     {
       "name": "LoadScript",
-      "symbol": "_LoadScript_0043e710@12",
+      "symbol": "_LoadScript2@12",
       "address": "0x43e710",
       "size": 203,
       "section": ".text$100loader"
@@ -379,7 +379,7 @@
       "kind": "data"
     },
     {
-      "symbol": "?SetPolar@ItemPolarVelocity_0041bb00@@QAEPAU1@MM@Z",
+      "symbol": "?SetPolar@ItemPolarVelocity2@@QAEPAU1@MM@Z",
       "address": "0x0041BEB0",
       "kind": "relative_code"
     },
@@ -409,7 +409,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_Angle_Normalize_0044bc70@4",
+      "symbol": "_Angle_Normalize2@4",
       "address": "0x0044BC70",
       "kind": "relative_code"
     },

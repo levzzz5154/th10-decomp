@@ -3,7 +3,7 @@
   "name": "edge_strips_pair",
   "source": "src/core/sprtfunc/edge_strips.cpp",
   "additional_sources": [
-    "src/core/sprtfunc/render_target_fill_vertical_edge_strip_retail_00444be0.cpp"
+    "src/core/sprtfunc/render_target_fill_vertical_edge_strip_retail.cpp"
   ],
   "driver": "build_support/layout/ltcg/edge_strips_pair_context.cpp",
   "headers": [
@@ -23,7 +23,7 @@
     {
       "name": "FillVertical",
       "symbol": "?FillVertical@EdgeStripSurface@@QBEHHPAUEdgeStripVertex@@@Z",
-      "source": "src/core/sprtfunc/render_target_fill_vertical_edge_strip_retail_00444be0.cpp",
+      "source": "src/core/sprtfunc/render_target_fill_vertical_edge_strip_retail.cpp",
       "section": ".text$03vertical",
       "address": "0x00444BE0",
       "size": 201,

@@ -1,5 +1,5 @@
 // Compiler context only; never selected as recovered game code.
-#include "../../../src/core/zwave/platform_select_stream_record_0044dca0.cpp"
+#include "../../../src/core/zwave/platform_select_stream_record.cpp"
 
 #pragma code_seg(".text$03context")
 int __stdcall PlatformSelectStreamRecord0044DCA0CompilerContext(

@@ -13,12 +13,12 @@ extern "C" int __cdecl asm_vsprintf_004524a6(char* buffer, const char* format, c
 
 // 0x004922BC is the log's Win32 critical section; 0x0049231F counts the
 // threads currently inside it.
-struct CriticalSection_0044b8e0 { unsigned char storage[24]; };
+struct CriticalSection3 { unsigned char storage[24]; };
 
 extern "C" {
-__declspec(dllimport) void __stdcall EnterCriticalSection(CriticalSection_0044b8e0* section);
-__declspec(dllimport) void __stdcall LeaveCriticalSection(CriticalSection_0044b8e0* section);
-extern CriticalSection_0044b8e0 g_text_log_lock;
+__declspec(dllimport) void __stdcall EnterCriticalSection(CriticalSection3* section);
+__declspec(dllimport) void __stdcall LeaveCriticalSection(CriticalSection3* section);
+extern CriticalSection3 g_text_log_lock;
 extern unsigned char g_text_log_lock_depth;
 }
 
@@ -27,7 +27,7 @@ extern unsigned char g_text_log_lock_depth;
 // copies the text into the ring while it still fits below +0x1FFF.
 #include "resource_surface_loading_log.hpp"
 #pragma code_seg(".text$09log")
-__declspec(noinline) char* TextLog_0044b8e0::AppendLine(char* format, ...) {
+__declspec(noinline) char* TextLog5::AppendLine(char* format, ...) {
     char buffer[512];
     va_list va;
     va_start(va, format);

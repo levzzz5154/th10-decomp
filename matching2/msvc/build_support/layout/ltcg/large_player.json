@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "large_player",
-  "source": "src/game/player/recovery_create_large_resource_state_00425020.cpp",
+  "source": "src/game/player/recovery_create_large_resource_state.cpp",
   "driver": "build_support/layout/ltcg/large_player_context.cpp",
   "included_sources": [
     "build_support/contexts/legacy/game/player_reset.cpp",
@@ -32,7 +32,7 @@
   "functions": [
     {
       "name": "Factory",
-      "symbol": "?Create_00425020@@YAPAUPlayerResetBlock@@XZ",
+      "symbol": "?Create6@@YAPAUPlayerResetBlock@@XZ",
       "address": "0x425020",
       "size": 69,
       "section": ".text$a09body",
@@ -44,7 +44,7 @@
       "address": "0x4246c0",
       "size": 244,
       "section": ".text$a05body",
-      "source": "src/game/player/recovery_create_large_resource_state_00425020.cpp",
+      "source": "src/game/player/recovery_create_large_resource_state.cpp",
       "actual_abi": "Original complete constructor: receiver ESI, returned owner EAX, plain RET. Member construction precedes full4478 wipe and global publication."
     }
   ],
@@ -65,7 +65,7 @@
     },
     {
       "name": "ScriptLoad",
-      "symbol": "_LoadScript_0043e710@12",
+      "symbol": "_LoadScript2@12",
       "address": "0x43e710",
       "size": 203,
       "section": ".text$a13body"
@@ -107,7 +107,7 @@
     },
     {
       "name": "Logger",
-      "symbol": "?Append@TextLog_0044b810@@QAAPADPADZZ",
+      "symbol": "?Append@TextLog4@@QAAPADPADZZ",
       "address": "0x44b810",
       "size": 201,
       "section": ".text$a23body"
@@ -232,27 +232,27 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_Create_00406060",
+      "symbol": "_Create3",
       "address": "0x406060",
       "kind": "relative_code"
     },
     {
-      "symbol": "_Create_004056b0",
+      "symbol": "_Create2",
       "address": "0x4056b0",
       "kind": "relative_code"
     },
     {
-      "symbol": "_Create_0041aed0",
+      "symbol": "_Create5",
       "address": "0x41aed0",
       "kind": "relative_code"
     },
     {
-      "symbol": "_Create_0042b660",
+      "symbol": "_Create7",
       "address": "0x42b660",
       "kind": "relative_code"
     },
     {
-      "symbol": "_Create_00414830",
+      "symbol": "_Create4",
       "address": "0x414830",
       "kind": "relative_code"
     },

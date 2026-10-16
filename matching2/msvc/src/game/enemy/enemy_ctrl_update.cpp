@@ -2,7 +2,7 @@
 // ones, then advance the manager's frame timer. Native LTCG keeps the manager
 // in EDI.
 // 0x0040D810: the scheduler callback, which forwards its ECX context.
-#include "th10/game/enemy_timer_sweep_0040d750.hpp"
+#include "th10/game/enemy_timer_sweep.hpp"
 
 #pragma code_seg(".text$01sweep")
 int EnemyCtrlSweepView::Sweep() {

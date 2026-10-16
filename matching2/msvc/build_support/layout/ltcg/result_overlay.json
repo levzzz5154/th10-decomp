@@ -1,0 +1,296 @@
+{
+  "schema_version": 1,
+  "name": "result_overlay2",
+  "source": "src/game/front/result_overlay.cpp",
+  "driver": "build_support/layout/ltcg/result_overlay/driver.cpp",
+  "additional_sources": [
+    "build_support/layout/ltcg/result_overlay/caller.cpp",
+    "build_support/layout/ltcg/result_overlay/create.cpp",
+    "build_support/layout/ltcg/result_overlay/register.cpp",
+    "build_support/layout/ltcg/result_overlay/allocate.cpp",
+    "build_support/layout/ltcg/result_overlay/initialize.cpp",
+    "build_support/layout/ltcg/result_overlay/configure.cpp",
+    "build_support/layout/ltcg/result_overlay/flags.cpp",
+    "build_support/layout/ltcg/result_overlay/entity_init.cpp",
+    "build_support/layout/ltcg/result_overlay/loader.cpp"
+  ],
+  "included_sources": [
+    "build_support/layout/ltcg/result_overlay/end.cpp",
+    "build_support/layout/ltcg/result_overlay/lookup.cpp"
+  ],
+  "headers": [
+    "include/th10/game/entity.hpp",
+    "include/th10/game/entity_script_start.hpp",
+    "include/th10/game/result_overlay.hpp",
+    "include/th10/platform/sound_queue.hpp",
+    "include/th10/render/animation_handle.hpp",
+    "include/th10/render/animation_object.hpp",
+    "include/th10/types.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Complete seven-mode result overlay, genuine spell-end caller and full animation helper graph. Only the overlay and its compiler-generated switch table are selected.",
+  "functions": [
+    {
+      "name": "ResultOverlay_SetMode",
+      "symbol": "?ResultOverlay_SetMode@@YGXHPAUResultOverlayState@@H@Z",
+      "section": ".text$004172e0_fn",
+      "address": "0x004172E0",
+      "size": 668,
+      "actual_abi": "kind in EAX; state and number on stack; RET 8; complete compiler-generated seven-entry switch table"
+    }
+  ],
+  "context": {
+    "symbol": "?End@ResultCard@@QAEXXZ",
+    "section": ".text$00409c00_fn",
+    "address": "0x00409C00",
+    "size": 394,
+    "description": "Complete real spell-end source as link entry. Its public ECX receiver and nonexact 394-byte context body are not selected; the existing private-EAX 399-byte owner is unchanged."
+  },
+  "anchors": [
+    {
+      "name": "Card_CreateAnimation",
+      "symbol": "?ResultAnimation_CreatePrimary@@YG?AUResultAnimationId@@PAXHH@Z",
+      "section": ".text$00448d00_fn",
+      "address": "0x448d00",
+      "size": 73
+    },
+    {
+      "name": "RegisterPrimaryBack",
+      "symbol": "?RegisterPrimaryBack@ResultAnimationLists@@QAE?AUResultAnimationId@@PAUEntity@@@Z",
+      "section": ".text$004489d0_fn",
+      "address": "0x4489d0",
+      "size": 118
+    },
+    {
+      "name": "Allocate",
+      "symbol": "?Allocate@ResultAnimationPool@@QAEPAUEntity@@XZ",
+      "section": ".text$00449950_fn",
+      "address": "0x449950",
+      "size": 161
+    },
+    {
+      "name": "InitializeObject",
+      "symbol": "?InitializeObject@ResultAnimationResource@@QAEXPAUEntity@@H@Z",
+      "section": ".text$00449870_fn",
+      "address": "0x449870",
+      "size": 217
+    },
+    {
+      "name": "ConfigureObject",
+      "symbol": "?ConfigureObject@Resource2@@QAEHPAUAnimationObject3@@H@Z",
+      "section": ".text$0043e5a0_fn",
+      "address": "0x43e5a0",
+      "size": 356
+    },
+    {
+      "name": "Show",
+      "symbol": "?Show@ResultAnimationId@@QAEXXZ",
+      "section": ".text$00449590_fn",
+      "address": "0x449590",
+      "size": 67
+    },
+    {
+      "name": "Hide",
+      "symbol": "?Hide@ResultAnimationId@@QAEXXZ",
+      "section": ".text$004495e0_fn",
+      "address": "0x4495e0",
+      "size": 67
+    },
+    {
+      "name": "AnimationManager_Find",
+      "symbol": "?ResultAnimation_Find@@YIPAXPAUResultAnimationLookup@@UResultAnimationId@@@Z",
+      "section": ".text$004491c0_fn",
+      "address": "0x4491c0",
+      "size": 73
+    },
+    {
+      "name": "AnimationManager_SetFlag2",
+      "symbol": "?ResultAnimation_Retire@@YIPAXPAUResultAnimationLookup@@UResultAnimationId@@@Z",
+      "section": ".text$004492a0_fn",
+      "address": "0x4492a0",
+      "size": 66
+    },
+    {
+      "name": "StopAtFrame1",
+      "symbol": "?StopAtFrame1@AnimationHandle@@QAEXXZ",
+      "section": ".text$00409e50_fn",
+      "address": "0x409e50",
+      "size": 64
+    },
+    {
+      "name": "Queue",
+      "symbol": "?Queue@SoundQueue@@QAEHHH@Z",
+      "section": ".text$0043dc90_fn",
+      "address": "0x43dc90",
+      "size": 123
+    },
+    {
+      "name": "Entity_Init",
+      "symbol": "?Entity_Init@@YGXPAUEntity@@@Z",
+      "section": ".text$00401de0_fn",
+      "address": "0x401de0",
+      "size": 273
+    },
+    {
+      "name": "InitializePreservingLoader_0043e7e0",
+      "symbol": "?InitializePreservingLoader_0043e7e0@@YGPAXPAUAnimationResource4@@PAUAnimationObject4@@H@Z",
+      "section": ".text$0043e7e0_fn",
+      "address": "0x43e7e0",
+      "size": 194
+    }
+  ],
+  "gaps": [
+    {
+      "section": ".text$00401000_gap",
+      "address": "0x401000",
+      "size": 3552
+    },
+    {
+      "section": ".text$00401ef1_gap",
+      "address": "0x401ef1",
+      "size": 32015
+    },
+    {
+      "section": ".text$00409d8a_gap",
+      "address": "0x409d8a",
+      "size": 198
+    },
+    {
+      "section": ".text$00409e90_gap",
+      "address": "0x409e90",
+      "size": 54352
+    },
+    {
+      "section": ".text$0041757c_gap",
+      "address": "0x41757c",
+      "size": 157460
+    },
+    {
+      "section": ".text$0043dd0b_gap",
+      "address": "0x43dd0b",
+      "size": 2197
+    },
+    {
+      "section": ".text$0043e704_gap",
+      "address": "0x43e704",
+      "size": 220
+    },
+    {
+      "section": ".text$0043e8a2_gap",
+      "address": "0x43e8a2",
+      "size": 41262
+    },
+    {
+      "section": ".text$00448a46_gap",
+      "address": "0x448a46",
+      "size": 698
+    },
+    {
+      "section": ".text$00448d49_gap",
+      "address": "0x448d49",
+      "size": 1143
+    },
+    {
+      "section": ".text$00449209_gap",
+      "address": "0x449209",
+      "size": 151
+    },
+    {
+      "section": ".text$004492e2_gap",
+      "address": "0x4492e2",
+      "size": 686
+    },
+    {
+      "section": ".text$004495d3_gap",
+      "address": "0x4495d3",
+      "size": 13
+    },
+    {
+      "section": ".text$00449623_gap",
+      "address": "0x449623",
+      "size": 589
+    },
+    {
+      "section": ".text$00449949_gap",
+      "address": "0x449949",
+      "size": 7
+    }
+  ],
+  "constants": [
+    {
+      "symbol": "__real@3b800000",
+      "address": "0x0044A000",
+      "value": 0.00390625
+    }
+  ],
+  "absolute_symbols": [
+    {
+      "symbol": "_g_background",
+      "address": "0x004776E8",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_sprt_ctrl",
+      "address": "0x00491C10",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_front",
+      "address": "0x0047770C",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_replay",
+      "address": "0x00477838",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_score",
+      "address": "0x0047783C",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_globals_score",
+      "address": "0x00474C44",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_sound_manager",
+      "address": "0x00492590",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_sound_priority",
+      "address": "0x004749CE",
+      "kind": "data"
+    },
+    {
+      "symbol": "??2@YAPAXI@Z",
+      "address": "0x452493",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?Entity_Constructor@@YIPAUEntity@@PAU1@@Z",
+      "address": "0x402050",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__fltused",
+      "address": "0",
+      "kind": "metadata"
+    },
+    {
+      "symbol": "_asm_FUN_0043ee30_0043ee30@4",
+      "address": "0x43ee30",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_g_game_speed",
+      "address": "0x476f78",
+      "kind": "data"
+    }
+  ],
+  "anchor_roots": [
+    "?InitializeObject@ResultAnimationResource@@QAEXPAUEntity@@H@Z"
+  ]
+}

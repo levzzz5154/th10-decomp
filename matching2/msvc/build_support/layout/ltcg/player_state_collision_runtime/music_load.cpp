@@ -1,6 +1,6 @@
 // Complete 0x00420A90: queue the WAV rendition of a track into a music slot.
 #include <string.h>
-#include "th10/game/pause_result_open_004231d0/music.hpp"
+#include "th10/game/pause_result_open/music.hpp"
 
 #pragma code_seg(".text$f00420a90F")
 __declspec(noinline) int __stdcall Music_Load(int slot, const char* file_name) {

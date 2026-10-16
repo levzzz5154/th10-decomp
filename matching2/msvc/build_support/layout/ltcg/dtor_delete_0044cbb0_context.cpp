@@ -1,8 +1,8 @@
 // Compiler context only; never selected as recovered game code.
-#include "../../../src/unreferenced/unassigned_0044cbb0.cpp"
+#include "../../../src/unreferenced/unassigned_44cbb0.cpp"
 
 #pragma code_seg(".text$03context")
-extern "C" int __stdcall DtorDeleteContext_0044cbb0(Deletable_0044cbb0** items, int count) {
+extern "C" int __stdcall DtorDeleteContext_0044cbb0(Deletable18** items, int count) {
     int freed = 0;
     while (count--) {
         freed += Deletable_0044cbb0_Delete(*items++, 1) != 0;

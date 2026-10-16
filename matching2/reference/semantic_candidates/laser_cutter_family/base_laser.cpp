@@ -1,4 +1,4 @@
-#include "th10/game/laser_spawn_0041c510.hpp"
+#include "th10/game/laser_spawn.hpp"
 extern "C" unsigned char data_0046dab0;
 extern "C" unsigned char data_00476f78;
 #pragma code_seg(".text$37laserbase")

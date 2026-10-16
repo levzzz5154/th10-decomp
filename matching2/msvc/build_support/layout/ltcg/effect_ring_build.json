@@ -1,0 +1,168 @@
+{
+  "schema_version": 1,
+  "name": "effect_ring_build_004452f0",
+  "source": "src/core/sprtfunc/effect_ring.cpp",
+  "driver": "build_support/layout/ltcg/effect_ring_build_004452f0_context.cpp",
+  "headers": [
+    "include/th10/math/rng.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Effect ring construction with the polar setter and signed-float RNG bodies visible so the entity arrives in EDI and the RNG is inlined inside the loop.",
+  "functions": [
+    {
+      "name": "RingEntity_BuildRing",
+      "symbol": "?BuildRing@RingEntity@@QAEHXZ",
+      "section": ".text$02buildring",
+      "address": "0x004452F0",
+      "size": 803,
+      "actual_abi": "entity in EDI; plain RET"
+    }
+  ],
+  "anchors": [
+    {
+      "name": "SetPolar",
+      "symbol": "?SetPolar@Vector24@@QAEPAU1@MM@Z",
+      "section": ".text$03polar",
+      "address": "0x004458B0",
+      "size": 36
+    },
+    {
+      "name": "Rng_NextFloatSigned",
+      "symbol": "?Rng_NextFloatSigned@@YIMPAURngState@@@Z",
+      "section": ".text$07rng",
+      "address": "0x0044BB90",
+      "size": 115
+    }
+  ],
+  "context": {
+    "symbol": "_EffectRingBuildContext_004452f0@8",
+    "section": ".text$05context",
+    "address": "0x004458E0",
+    "size": 24,
+    "description": "Synthetic caller; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 279280
+    },
+    {
+      "section": ".text$02zlayout",
+      "address": "0x00445613",
+      "size": 669
+    },
+    {
+      "section": ".text$04layout",
+      "address": "0x004458D4",
+      "size": 12
+    },
+    {
+      "section": ".text$06layout",
+      "address": "0x004458F8",
+      "size": 25240
+    }
+  ],
+  "constants": [],
+  "data_aliases": [
+    {
+      "symbol": "__real@3c088889",
+      "address": "0x00470C7C",
+      "bytes": "8988083c"
+    },
+    {
+      "symbol": "__real@3d888889",
+      "address": "0x00470C78",
+      "bytes": "8988883d"
+    },
+    {
+      "symbol": "__real@40490fdb",
+      "address": "0x00470B18",
+      "bytes": "db0f4940"
+    },
+    {
+      "symbol": "__real@40c90fdb",
+      "address": "0x00470B14",
+      "bytes": "db0fc940"
+    },
+    {
+      "symbol": "__real@3f000000",
+      "address": "0x00470B0C",
+      "bytes": "0000003f"
+    },
+    {
+      "symbol": "__real@4f800000",
+      "address": "0x00470B98",
+      "bytes": "0000804f"
+    },
+    {
+      "symbol": "__real@30000000",
+      "address": "0x00470BEC",
+      "bytes": "00000030"
+    },
+    {
+      "symbol": "__real@3f800000",
+      "address": "0x00470AFC",
+      "bytes": "0000803f"
+    },
+    {
+      "symbol": "__real@41000000",
+      "address": "0x00470BD0",
+      "bytes": "00000041"
+    },
+    {
+      "symbol": "__real@42a00000",
+      "address": "0x00470C28",
+      "bytes": "0000a042"
+    },
+    {
+      "symbol": "__real@3d088889",
+      "address": "0x00470C74",
+      "bytes": "8988083d"
+    },
+    {
+      "symbol": "__real@bd888889",
+      "address": "0x00470C70",
+      "bytes": "898888bd"
+    },
+    {
+      "symbol": "__real@3e4f8c3d",
+      "address": "0x00470B6C",
+      "bytes": "3d8c4f3e"
+    }
+  ],
+  "absolute_symbols": [
+    {
+      "symbol": "__fltused",
+      "address": "0x00000000",
+      "kind": "metadata"
+    },
+    {
+      "symbol": "?Advance@RingEntity@@QAEHXZ",
+      "address": "0x00445620",
+      "kind": "data"
+    },
+    {
+      "symbol": "?DrawFan33@RingEntity@@QAEHXZ",
+      "address": "0x00445880",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_rng",
+      "address": "0x004918B0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_asm_malloc_00452706",
+      "address": "0x00452706",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_crt_free",
+      "address": "0x00452422",
+      "kind": "relative_code"
+    }
+  ],
+  "additional_sources": [],
+  "included_sources": []
+}

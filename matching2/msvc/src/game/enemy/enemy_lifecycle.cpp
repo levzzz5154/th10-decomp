@@ -14,10 +14,10 @@ extern "C" unsigned char g_enemy_vtable_live;   // 0x0046D0C0: live method table
 extern "C" unsigned char g_enemy_vtable_released;   // 0x0046D0D8: released method table
 extern "C" void __cdecl crt_free_startup(void* block);
 
-struct Enemy_0040dae0;
+struct Enemy5;
 
 struct EnemyLink {
-    Enemy_0040dae0* owner;        // +0x00, points back to the containing enemy
+    Enemy5* owner;        // +0x00, points back to the containing enemy
     EnemyLink* next;     // +0x04
     EnemyLink* prev;     // +0x08
 
@@ -66,7 +66,7 @@ struct EnemyFreeNode {
     EnemyFreeNode* next;      // +0x04
 };
 
-struct Enemy_0040dae0 {
+struct Enemy5 {
     int vtable;                        // +0x0000
     char unknown_0004[0x1034 - 0x4];   // +0x0004
     EnemyFreeNode* free_list; // +0x1034
@@ -80,9 +80,9 @@ struct Enemy_0040dae0 {
     int index;                         // +0x248C
 };
 
-struct EnemyState_0040dae0 {
+struct EnemyState3 {
     char unknown_0000[0x3504];         // +0x0000
-    Enemy_0040dae0* enemy;             // +0x3504
+    Enemy5* enemy;             // +0x3504
     unsigned char mirror;              // +0x3508
 };
 
@@ -95,7 +95,7 @@ void EnemyLink::Unlink() {
     prev = 0;
 }
 
-void __stdcall Enemy_Release(Enemy_0040dae0* self) {
+void __stdcall Enemy_Release(Enemy5* self) {
     EnemyCtrlLifecycleView* manager = *(EnemyCtrlLifecycleView**)&g_enemy_ctrl;
     self->vtable = (int)&g_enemy_vtable_live;
     if (manager->head == &self->link)
@@ -136,7 +136,7 @@ void __stdcall Enemy_Release(Enemy_0040dae0* self) {
         ++entry;
     }
 
-    EnemyState_0040dae0* state = *(EnemyState_0040dae0**)&g_player;
+    EnemyState3* state = *(EnemyState3**)&g_player;
     if (state != 0) {
         if (state->enemy == self) {
             state->enemy = 0;

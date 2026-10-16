@@ -1,5 +1,5 @@
 // Compiler-only copies of canonical dependency bodies; no production ownership or credit.
-#include "th10/platform/temporary_track_0043ac90.hpp"
+#include "th10/platform/temporary_track.hpp"
 // 0x0043A9B0 — the MIDI sound manager's track-reload leaf.
 //
 // Retail reaches this member with the manager in EAX, the track index in ESI
@@ -27,19 +27,19 @@
 // ABI anchor declarations: the 0x0044B810 text-log entry (object in ECX, both
 // arguments on the caller-cleaned stack; a fixed declaration gets the ECX part
 // but a callee-cleaned RET 8, and the variadic declaration gets neither).
-struct CriticalSection_0044b810 { unsigned char storage[24]; };
+struct CriticalSection2 { unsigned char storage[24]; };
 
 extern "C" {
 __declspec(dllimport) void __stdcall EnterCriticalSection(
-    CriticalSection_0044b810* section);
+    CriticalSection2* section);
 __declspec(dllimport) void __stdcall LeaveCriticalSection(
-    CriticalSection_0044b810* section);
-extern CriticalSection_0044b810 g_text_log_lock;
+    CriticalSection2* section);
+extern CriticalSection2 g_text_log_lock;
 extern unsigned char g_text_log_lock_depth;
 extern int __cdecl asm_vsprintf_004524a6(char* buffer, const char* format, char* arguments);
 }
 
-struct TextLog_0044b810 {
+struct TextLog4 {
     char text[0x2000];
     char* cursor;
     unsigned char dirty;
@@ -51,7 +51,7 @@ extern "C" void __cdecl crt_free(void*);
 
 
 #pragma code_seg(".text$10loadtrack")
-int SoundManager_0043a9b0::LoadTrack(int index, const char* name) {
+int SoundManager2::LoadTrack(int index, const char* name) {
     if (active_track == index) MidiStop();
     if (tracks[index]) {
         crt_free(tracks[index]);
@@ -61,7 +61,7 @@ int SoundManager_0043a9b0::LoadTrack(int index, const char* name) {
     char* data = Archive_LoadFile(name, 0, 0);
     tracks[index] = data;
     if (!data) {
-        ((TextLog_0044b810*)0x474F70)->Append((char*)0x46F908, name);
+        ((TextLog4*)0x474F70)->Append((char*)0x46F908, name);
         return -1;
     }
     return 0;
@@ -78,7 +78,7 @@ int SoundManager_0043a9b0::LoadTrack(int index, const char* name) {
 // through a local base pointer that is still live after the loop, while the
 // cursor is a loaded pointer incremented inside it.
 #pragma code_seg(".text$50stop")
-__declspec(noinline) void SoundManager_0043a9b0::MidiStop() {
+__declspec(noinline) void SoundManager2::MidiStop() {
     unsigned char* bytes = (unsigned char*)this;
     int count = *(int*)(bytes + 0x10C);
     unsigned char* cursor = *(unsigned char**)(bytes + 0x120);
@@ -99,7 +99,7 @@ __declspec(noinline) void SoundManager_0043a9b0::MidiStop() {
 // entry's own shape, and the deciding property is that the log object stays
 // live across the anchor's own calls.
 #pragma code_seg(".text$70append")
-__declspec(noinline) char* TextLog_0044b810::Append(char* format, ...) {
+__declspec(noinline) char* TextLog4::Append(char* format, ...) {
     char staging[0x2000];
     va_list arguments;
     va_start(arguments, format);

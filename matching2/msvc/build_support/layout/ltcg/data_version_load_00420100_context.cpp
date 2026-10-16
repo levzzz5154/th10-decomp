@@ -1,11 +1,11 @@
 // Compiler context and ABI anchors only; none of these bytes enter the image.
-#include "../../../src/game/mother/data_version_load_00420100.cpp"
+#include "../../../src/game/mother/data_version_load.cpp"
 
 // The real archive opener closure, as in dat_archive_open: it is what
 // gives the opener its archive in ECX and its path in EAX.
-#include "../../../src/pack/arcmngr/dat_archive_open_00434c30.cpp"
-#include "../../../src/pack/arcmngr/dat_archive_close_00434d10.cpp"
-#include "../../../src/pack/arcmngr/legacy_string_duplicate_00435220.cpp"
+#include "../../../src/pack/arcmngr/dat_archive_open.cpp"
+#include "../../../src/pack/arcmngr/dat_archive_close.cpp"
+#include "../../../src/pack/arcmngr/legacy_string_duplicate.cpp"
 
 // The file constructors stay external here, so no vtable is emitted.
 
@@ -36,7 +36,7 @@ extern "C" int __stdcall DataVersionLoadContext(DatArchive* archives, const char
             ++result;
         if (archives[index].OpenResource(paths[index] + 4))
             ++result;
-        result += DataVersion_Load_00420100();
+        result += DataVersion_Load2();
     }
     return result;
 }

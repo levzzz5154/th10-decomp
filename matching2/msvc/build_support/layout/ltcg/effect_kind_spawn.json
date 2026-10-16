@@ -1,0 +1,129 @@
+{
+  "schema_version": 1,
+  "name": "effect_kind_spawn",
+  "source": "src/game/effect/effect_spawn.cpp",
+  "driver": "build_support/layout/ltcg/effect_kind_spawn_0040b070_context.cpp",
+  "headers": [
+    "include/th10/game/effect_kind_spawn.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "The two effect spawners compiled with native LTCG beside models of the animation allocate, register and find callees and a synthetic caller.",
+  "functions": [
+    {
+      "name": "EffectKind_SpawnFromOwner",
+      "symbol": "?SpawnEffect@EffectSpawnView@@QAG?AUAnimationHandle2@@PAXH@Z",
+      "section": ".text$0040b070_fn",
+      "address": "0x0040B070",
+      "size": 159,
+      "actual_abi": "kind in EAX; owner, hidden result and argument on the stack; RET 12"
+    },
+    {
+      "name": "EffectKind_SpawnFromFile",
+      "symbol": "?SpawnEffectFromFile@@YG?AUAnimationHandle2@@HPAUAnimationBank@@PAX@Z",
+      "section": ".text$0040b110_fn",
+      "address": "0x0040B110",
+      "size": 148,
+      "actual_abi": "kind in EAX; file, hidden result and argument on the stack; RET 12"
+    }
+  ],
+  "context": {
+    "symbol": "_EffectKindSpawnContext@20",
+    "section": ".text$0040a000_context",
+    "address": "0x0040A000",
+    "size": 116,
+    "description": "Synthetic caller compiled with inlining off; not recovered game code."
+  },
+  "anchors": [
+    {
+      "name": "RegisterPrimaryBack",
+      "symbol": "_asm_AnimationManager_RegisterPrimaryBack_004489d0",
+      "section": ".text$004489d0_fn",
+      "address": "0x004489D0",
+      "size": 117
+    },
+    {
+      "name": "AnimationLists_Find",
+      "symbol": "?Find@AnimationLists2@@QAEPAUAnimationNode2@@UAnimationHandle2@@@Z",
+      "section": ".text$004491c0_fn",
+      "address": "0x004491C0",
+      "size": 73
+    },
+    {
+      "name": "AnimationPool_Allocate",
+      "symbol": "?Allocate@AnimationPool2@@QAEPAUAnimationNode2@@XZ",
+      "section": ".text$00449950_fn",
+      "address": "0x00449950",
+      "size": 171
+    }
+  ],
+  "gaps": [
+    {
+      "section": ".text$00401000_gap",
+      "address": "0x00401000",
+      "size": 36864
+    },
+    {
+      "section": ".text$0040a074_gap",
+      "address": "0x0040A074",
+      "size": 4092
+    },
+    {
+      "section": ".text$0040b10f_gap",
+      "address": "0x0040B10F",
+      "size": 1
+    },
+    {
+      "section": ".text$0040b1a4_gap",
+      "address": "0x0040B1A4",
+      "size": 251948
+    },
+    {
+      "section": ".text$00448a45_gap",
+      "address": "0x00448A45",
+      "size": 1915
+    },
+    {
+      "section": ".text$00449209_gap",
+      "address": "0x00449209",
+      "size": 1863
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_g_sprt_ctrl",
+      "address": "0x00491C10",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_effect_kinds",
+      "address": "0x00474430",
+      "kind": "data"
+    },
+    {
+      "symbol": "_operator_new2",
+      "address": "0x00452493",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_Entity_Constructor_00402050",
+      "address": "0x00402050",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_Entity_Init_00401de0",
+      "address": "0x00401DE0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?InitializeObject@AnimationBank@@QAEPAXPAXH@Z",
+      "address": "0x00449870",
+      "kind": "relative_code"
+    }
+  ],
+  "roots": [],
+  "additional_sources": [
+    "build_support/layout/ltcg/effect_kind_spawn_0040b070_anchors.cpp"
+  ],
+  "included_sources": []
+}

@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "name": "dtor_delete10",
+  "source": "src/unreferenced/unassigned_40d660.cpp",
+  "driver": "build_support/layout/ltcg/dtor_delete_0040d660_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "Releaseable::Delete compiled with the 0x0040D680 resource release as an internal ABI anchor, so the object arrives in a caller-saved register, ESI is saved and restored, and the release receives the object in ESI as retail does.",
+  "functions": [
+    {
+      "name": "Releaseable_0040d660_Delete",
+      "symbol": "?Delete@Releaseable@@QAEPAXH@Z",
+      "section": ".text$01del",
+      "address": "0x0040D660",
+      "size": 30,
+      "actual_abi": "object in EAX; ESI saved and restored; result in EAX; RET 4"
+    }
+  ],
+  "context": {
+    "symbol": "DtorDeleteContext_0040d660@8",
+    "section": ".text$05context",
+    "address": "0x0040D6C0",
+    "size": 48,
+    "description": "Synthetic array-walking caller that establishes the observed register convention; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 50784
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x0040D67E",
+      "size": 2
+    },
+    {
+      "section": ".text$04layout",
+      "address": "0x0040D6A4",
+      "size": 28
+    }
+  ],
+  "constants": [],
+  "roots": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_crt_free_startup",
+      "address": "0x004524A1",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_crt_free",
+      "address": "0x00452422",
+      "kind": "relative_code"
+    }
+  ],
+  "anchors": [
+    {
+      "name": "BulletEntity_0040d680_ReleaseResource_abi_anchor",
+      "symbol": "?ReleaseResource@BulletEntity6@@QAEXXZ",
+      "section": ".text$03anchor",
+      "address": "0x0040D680",
+      "size": 36
+    }
+  ],
+  "additional_sources": [],
+  "included_sources": []
+}

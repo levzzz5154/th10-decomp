@@ -12,10 +12,10 @@
 // the recovered sources of the routines it calls (the layout's
 // context_sources), because the whole-program link passes most of their
 // arguments in registers it picks from their bodies.
-#include "th10/game/game_main_00438ad0.hpp"
+#include "th10/game/game_main.hpp"
 #include "th10/platform/text_log.hpp"
 #include "th10/platform/thread_sync.hpp"
-#include "th10/render/d3d_destroy_00438880.hpp"
+#include "th10/render/d3d_destroy.hpp"
 #include <string.h>
 
 extern "C" {
@@ -27,10 +27,10 @@ __declspec(dllimport) void* __stdcall CreateThread(void* security, unsigned int 
 __declspec(dllimport) int __stdcall DialogBoxParamA(void* instance, const char* dialog,
     void* parent, int (__stdcall* procedure)(void*, unsigned int, unsigned int, long),
     long parameter);
-__declspec(dllimport) int __stdcall PeekMessageA(Message_00438ad0* message, void* window,
+__declspec(dllimport) int __stdcall PeekMessageA(Message2* message, void* window,
     unsigned int first, unsigned int last, unsigned int remove);
-__declspec(dllimport) int __stdcall TranslateMessage(const Message_00438ad0* message);
-__declspec(dllimport) long __stdcall DispatchMessageA(const Message_00438ad0* message);
+__declspec(dllimport) int __stdcall TranslateMessage(const Message2* message);
+__declspec(dllimport) long __stdcall DispatchMessageA(const Message2* message);
 __declspec(dllimport) int __stdcall SetForegroundWindow(void* window);
 __declspec(dllimport) int __stdcall ShowWindow(void* window, int command);
 __declspec(dllimport) int __stdcall MoveWindow(void* window, int x, int y, int width,
@@ -45,7 +45,7 @@ __declspec(dllimport) int __stdcall SystemParametersInfoA(unsigned int action,
 
 void __cdecl free(void* block);
 int __stdcall asm_WINNLSEnableIME_0045232c(void* window, int enable);
-void* __stdcall Direct3DCreate9_00452176(unsigned int sdk_version);
+void* __stdcall Direct3DCreate92(unsigned int sdk_version);
 int __cdecl Startup_InstanceCheck();
 int __stdcall asm_FUN_00439890_00439890();          // create the Direct3D device
 double __cdecl FrameTimer_GetDelta(void);
@@ -60,25 +60,25 @@ extern char str_restart_required[];    // "an option that needs a restart was ch
 extern char str_log_footer[];    // "------ ..."
 }
 
-int __stdcall SaveSystemSettingsRetail_004392e0();
+int __stdcall SaveSystemSettingsRetail2();
 int __stdcall ComputeExecutableChecksum();
 int __stdcall StartupDialog_Procedure(void* dialog, unsigned int message,
                                       unsigned int parameter, long detail);
 void __stdcall Sound_InitThread();                       // the sound thread
-short __stdcall Joystick_Probe_0044a0c0();
+short __stdcall Joystick_Probe2();
 void __stdcall Input_NormalizeKeyboardState();
 int __stdcall GameFrameAdvance(GameFrame* frame);
-void __stdcall ReleaseAll(Holder_00438a30* holder);
+void __stdcall ReleaseAll(Holder2* holder);
 extern "C" SprtCtrlStateCacheView* __cdecl Renderer_ApplyDeviceDefaults(void);
 
-int __fastcall CreateGameWindow_00439730(void* instance);
+int __fastcall CreateGameWindow2(void* instance);
 int __stdcall File_WriteWholeFile(const char* path, const void* buffer, unsigned long size);
 
-struct GameApp_00420870 {
+struct GameApp2 {
     __declspec(noinline) int LoadConfig(const char* path);
 };
 // The two diagnostic-log writers keep their own view of the log object.
-struct TextLog_0044b8e0 {
+struct TextLog5 {
     char text[0x2000];
     char* cursor;
     unsigned char dirty;
@@ -101,8 +101,8 @@ struct SprtCtrl {
             ~AnimationManagerStorage();
     }
 };
-typedef SprtCtrl AnimationManager_00438ad0;
-struct App_00420270 {
+typedef SprtCtrl AnimationManager8;
+struct App2 {
     __declspec(noinline) int Shutdown();
 };
 struct SoundWorkerPair {
@@ -148,7 +148,7 @@ struct MidiOwner {
 };
 
 // The sound manager at 0x00492590, as far as start-up reaches it.
-struct SoundManager_00438ad0 {
+struct SoundManager {
     unsigned char reserved_0000[0x5218];
     void* thread;                   // +0x5218
     void* second_thread;            // +0x521C
@@ -170,28 +170,28 @@ struct SoundManager_00438ad0 {
         reinterpret_cast<WaveSoundManager*>(this)->Cleanup();
     }
 };
-typedef char SoundManagerSize[sizeof(SoundManager_00438ad0) == 0x52D0 ? 1 : -1];
+typedef char SoundManagerSize[sizeof(SoundManager) == 0x52D0 ? 1 : -1];
 
 extern "C" {
 extern ReplayTable* g_replay_table;
 extern D3DResourceManager* g_func_ctrl;
-extern AnimationManager_00438ad0* g_sprt_ctrl;
+extern AnimationManager8* g_sprt_ctrl;
 extern Application g_application;
 extern MainWindow g_main_window;
-extern SoundManager_00438ad0 g_sound_manager;
-extern TextLog_0044b810 g_log;
+extern SoundManager g_sound_manager;
+extern TextLog4 g_log;
 extern ThreadSynchronization g_thread_sync;
 }
 
-static inline void PumpMessage(Message_00438ad0* message) {
+static inline void PumpMessage(Message2* message) {
     TranslateMessage(message);
     DispatchMessageA(message);
 }
 
 #pragma code_seg(".text$00438ad0_fn")
-__declspec(noinline) int __stdcall GameMain_00438ad0(
+__declspec(noinline) int __stdcall GameMain2(
         void* instance, void* previous, char* command_line, int show) {
-    Message_00438ad0 message;
+    Message2 message;
     int exit_code = 0;
     int index;
     CriticalSection* section;
@@ -206,8 +206,8 @@ __declspec(noinline) int __stdcall GameMain_00438ad0(
     if (Startup_InstanceCheck() == -1)
         goto close_pass;
     g_application.instance = instance;
-    SaveSystemSettingsRetail_004392e0();
-    if (reinterpret_cast<GameApp_00420870*>(&g_application)->LoadConfig("th10.cfg") != 0)
+    SaveSystemSettingsRetail2();
+    if (reinterpret_cast<GameApp2*>(&g_application)->LoadConfig("th10.cfg") != 0)
         goto close_pass;
     if (g_application.config.flags & 0x100) {
         // The start-up dialog: "run full screen?"; 6 is its Yes button.
@@ -219,19 +219,19 @@ __declspec(noinline) int __stdcall GameMain_00438ad0(
     for (;;) {
         D3DResourceManager* resources = new D3DResourceManager;
         g_func_ctrl = resources;
-        g_application.direct3d = static_cast<Direct3D*>(Direct3DCreate9_00452176(0x20));
+        g_application.direct3d = static_cast<Direct3D*>(Direct3DCreate92(0x20));
         if (g_application.direct3d == 0) {
-            reinterpret_cast<TextLog_0044b8e0*>(&g_log)->AppendLine(str_d3d_create_failed);
+            reinterpret_cast<TextLog5*>(&g_log)->AppendLine(str_d3d_create_failed);
             goto close_pass;
         }
-        if (CreateGameWindow_00439730(instance) != 0)
+        if (CreateGameWindow2(instance) != 0)
             goto close_pass;
         g_sound_manager.Start(g_main_window.window);
         if (asm_FUN_00439890_00439890() != 0)
             goto close_pass;
-        Joystick_Probe_0044a0c0();
+        Joystick_Probe2();
         Input_NormalizeKeyboardState();
-        AnimationManager_00438ad0* animations = new AnimationManager_00438ad0;
+        AnimationManager8* animations = new AnimationManager8;
         g_sprt_ctrl = animations;
         if (!g_application.config.field_1d) {
             asm_WINNLSEnableIME_0045232c(0, 0);
@@ -264,7 +264,7 @@ __declspec(noinline) int __stdcall GameMain_00438ad0(
                     g_application.flags &= ~0x10u;
                 } else if (state == 0x88760869) {
                     // D3DERR_DEVICENOTRESET
-                    ReleaseAll(reinterpret_cast<Holder_00438a30*>(g_sprt_ctrl));
+                    ReleaseAll(reinterpret_cast<Holder2*>(g_sprt_ctrl));
                     if (g_application.device->Reset(&g_application.present_parameters) != 0)
                         break;
                     Renderer_ApplyDeviceDefaults();
@@ -274,7 +274,7 @@ __declspec(noinline) int __stdcall GameMain_00438ad0(
             }
         }
 
-        reinterpret_cast<App_00420270*>(&g_application)->Shutdown();
+        reinterpret_cast<App2*>(&g_application)->Shutdown();
         delete g_func_ctrl;
         g_func_ctrl = 0;
         while (reinterpret_cast<WaveSoundManager*>(&g_sound_manager)->ProcessCommands() != 0) {
@@ -305,7 +305,7 @@ close_pass:
             break;
 
         // Start the log over for the next run.
-        TextLog_0044b810* log = &g_log;
+        TextLog4* log = &g_log;
         log->cursor = log->text;
         log->text[0] = 0;
         log->Append(str_restart_required);
@@ -342,5 +342,5 @@ close_pass:
 
 // The link's entry: the one caller the whole-program link sees.
 extern "C" int __stdcall RigEntry(void* instance, int show) {
-    return GameMain_00438ad0(instance, 0, 0, show);
+    return GameMain2(instance, 0, 0, show);
 }

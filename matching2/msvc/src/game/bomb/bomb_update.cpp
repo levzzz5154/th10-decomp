@@ -48,7 +48,7 @@ __forceinline void BombState::Step() {
             position.y -= 1.3f;
         }
         PositionVector render = {position.x + 224.0f, position.y + 16.0f, position.z};
-        SetAnimationPosition_004492f0(g_sprt_ctrl, &render, animation);
+        SetAnimationPosition2(g_sprt_ctrl, &render, animation);
         collision_radius = node->collision_radius;
         CancelBullets();
         break;

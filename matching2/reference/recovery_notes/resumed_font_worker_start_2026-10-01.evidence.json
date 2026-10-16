@@ -219,7 +219,7 @@
     },
     {
       "name": "semantic_PlatformWorker_Stop_0044c150",
-      "source": "src/platform/platform_stop_worker_0044c150.cpp",
+      "source": "src/platform/platform_stop_worker.cpp",
       "symbol": "?Stop@PlatformWorker@@QAEXXZ",
       "address": "0x0044C150",
       "size": 101,

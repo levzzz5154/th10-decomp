@@ -16,8 +16,8 @@
 // every site, which is why the helpers below take the volume as a reference
 // instead of a cached copy.
 
-#include "th10/game/options_label_refresh_0042e5a0.hpp"
-#include "th10/render/resource_registrar_0043e460.hpp"
+#include "th10/game/options_label_refresh.hpp"
+#include "th10/render/resource_registrar.hpp"
 
 extern "C" int g_options_music_volume;   // music volume copy for the sound thread
 extern "C" int g_options_sound_volume;   // sound volume copy
@@ -81,7 +81,7 @@ static __forceinline void ConfigureHundreds(
     LabelAnimation* label = FindLabel(manager, room, script);
     if (label == 0)
         return;
-    AnimationObject_0043e5a0* object = reinterpret_cast<AnimationObject_0043e5a0*>(label);
+    AnimationObject3* object = reinterpret_cast<AnimationObject3*>(label);
     object->resource->ConfigureObject(object, volume / 100 + font);
 }
 
@@ -91,7 +91,7 @@ static __forceinline void ConfigureTens(
     LabelAnimation* label = FindLabel(manager, room, script);
     if (label == 0)
         return;
-    AnimationObject_0043e5a0* object = reinterpret_cast<AnimationObject_0043e5a0*>(label);
+    AnimationObject3* object = reinterpret_cast<AnimationObject3*>(label);
     object->resource->ConfigureObject(object, volume / 10 % 10 + font);
 }
 
@@ -101,7 +101,7 @@ static __forceinline void ConfigureOnes(
     LabelAnimation* label = FindLabel(manager, room, script);
     if (label == 0)
         return;
-    AnimationObject_0043e5a0* object = reinterpret_cast<AnimationObject_0043e5a0*>(label);
+    AnimationObject3* object = reinterpret_cast<AnimationObject3*>(label);
     object->resource->ConfigureObject(object, volume % 10 + font);
 }
 
@@ -121,7 +121,7 @@ static __forceinline void ShowDigit(
 }
 
 #pragma code_seg(".text$0042e5a0_fn")
-__declspec(noinline) void __stdcall RefreshOptions_0042e5a0(
+__declspec(noinline) void __stdcall RefreshOptions2(
     Title* room) {
     RecoveryLookupContext* manager =
         reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl);
@@ -129,7 +129,7 @@ __declspec(noinline) void __stdcall RefreshOptions_0042e5a0(
 
     // The request queue records "bgm/th10_02.wav" for resource 8; the retail
     // form passes the queue in a register (EAX) and the name in EDX.
-    reinterpret_cast<AnimationManager_0043e460*>(&g_sound_manager)->RegisterResource(str_set_vol, 8, 0);
+    reinterpret_cast<AnimationManager9*>(&g_sound_manager)->RegisterResource(str_set_vol, 8, 0);
 
     int sound = g_key_bindings.sound_volume;
     g_options_sound_volume = sound;

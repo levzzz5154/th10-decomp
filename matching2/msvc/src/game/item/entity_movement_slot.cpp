@@ -1,4 +1,4 @@
-#include "th10/game/entity_movement_slot_0041ab70.hpp"
+#include "th10/game/entity_movement_slot.hpp"
 
 // 0x0041AB70..0x0041ABF7: initialise one entity movement slot.
 #pragma code_seg(".text$03movement")

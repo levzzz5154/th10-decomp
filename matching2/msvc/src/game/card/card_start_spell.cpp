@@ -17,11 +17,11 @@ struct GameMode {
     unsigned char reserved[0x10];
     int replay;                                    // +0x10
 };
-struct FrontResources_00409280 {
+struct FrontResources2 {
     unsigned char reserved[0x9EC8];
     AnimationResourceFile* digits;            // +0x9EC8
 };
-struct GameThread_00409280 {
+struct GameThread4 {
     unsigned char reserved_0000[0x8994];
     AnimationBank* front;             // +0x8994
     unsigned char reserved_8998[4];
@@ -31,18 +31,18 @@ struct BulletResourceView {
     unsigned char reserved[0x3E0B50];
     AnimationBank* effects;           // +0x3E0B50
 };
-struct MarkerTarget_00409280 {
+struct MarkerTarget2 {
     unsigned char reserved[0x1068];
     Vec3 position;                                 // +0x1068
 };
 struct EnemyCtrlCardView {
     unsigned char reserved_00[0x10];
-    MarkerTarget_00409280* target;                 // +0x10
+    MarkerTarget2* target;                 // +0x10
     unsigned char reserved_14[0x24];
     AnimationBank* resource;          // +0x38
 };
 // Part of the global game state.
-struct GameSelection_00409280 {
+struct GameSelection2 {
     int character;                                 // 0x00474C68
     int shot_type;                                 // 0x00474C6C
     unsigned char reserved_08[0x0C];
@@ -53,16 +53,16 @@ struct GameSelection_00409280 {
 
 extern "C" {
 extern GameMode* g_replay;
-extern FrontResources_00409280* g_front;
-extern GameThread_00409280* g_ascii_manager;
+extern FrontResources2* g_front;
+extern GameThread4* g_ascii_manager;
 extern BulletResourceView* g_bullet_manager;
 extern ScoreManager* g_score;
 extern EnemyCtrlCardView* g_enemy_ctrl;
-extern GameSelection_00409280 g_selection;         // 0x00474C68
+extern GameSelection2 g_selection;         // 0x00474C68
 extern int g_globals_gauge;
 extern int g_globals_stage;                          // stage number
 extern int g_stage_progress;
-void __stdcall LoadScript_0043e710(AnimationResourceFile* resource,
+void __stdcall LoadScript2(AnimationResourceFile* resource,
                                    AnimationObjectFile* object, int index);
 }
 void __stdcall Entity_StartScript(AnimationResourceFile* resource,
@@ -88,12 +88,12 @@ static inline void CopyName(char* const destination, const char* const source) {
         ;
 }
 
-static inline void LoadDigit(FrontSprite_00408d60* sprite, int script) {
-    LoadScript_0043e710(g_front->digits,
+static inline void LoadDigit(FrontSprite2* sprite, int script) {
+    LoadScript2(g_front->digits,
                         reinterpret_cast<AnimationObjectFile*>(sprite), script);
 }
 
-static inline void StartScript(FrontSprite_00408d60* sprite, int script) {
+static inline void StartScript(FrontSprite2* sprite, int script) {
     Entity_StartScript(
         reinterpret_cast<AnimationResourceFile*>(g_enemy_ctrl->resource),
         reinterpret_cast<Entity*>(sprite), script);
@@ -135,7 +135,7 @@ static __forceinline Entity* FindChild(int& handle, int script) {
 }
 
 #pragma code_seg(".text$00409280_fn")
-void Card_00408d60::StartSpell(int index, const char* name, int duration) {
+void Card4::StartSpell(int index, const char* name, int duration) {
     timer.Set(0);
     record_index = index;
     const char* panel_name_cursor = name;

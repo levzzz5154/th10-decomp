@@ -3671,7 +3671,7 @@
       "different_bytes": 0,
       "exact": true,
       "relocations": [],
-      "source": "src/unidentified/FUN_0040c650_0040c650.cpp"
+      "source": "src/unidentified/FUN.cpp_40c650.cpp"
     },
     {
       "region": "semantic_FUN_0040c680_0040c680",
@@ -3681,7 +3681,7 @@
       "different_bytes": 0,
       "exact": true,
       "relocations": [],
-      "source": "src/unidentified/FUN_0040c650_0040c650.cpp"
+      "source": "src/unidentified/FUN.cpp_40c650.cpp"
     },
     {
       "region": "semantic_ECL_ResolveIntFromEntity_00412a00",
@@ -3691,7 +3691,7 @@
       "different_bytes": 0,
       "exact": true,
       "relocations": [],
-      "source": "src/unidentified/FUN_0040c650_0040c650.cpp"
+      "source": "src/unidentified/FUN.cpp_40c650.cpp"
     }
   ],
   "source_sha256": {
@@ -3764,37 +3764,37 @@
         "symbol": "asm_BulletEntity_ClearResourceList_0040c6e0",
         "address": "0x0040C6E0",
         "size": 45,
-        "owner_source": "src/game/bullet_entity_clear_resource_list_0040c6e0.cpp"
+        "owner_source": "src/game/bullet_entity_clear_resource_list.cpp"
       },
       {
         "symbol": "asm_BulletEntity_MarkAnimationForRemoval_0040cea0",
         "address": "0x0040CEA0",
         "size": 36,
-        "owner_source": "src/game/bullet_entity_mark_animation_for_removal_0040cea0.cpp"
+        "owner_source": "src/game/bullet_entity_mark_animation_for_removal.cpp"
       },
       {
         "symbol": "asm_BulletEntity_SetAnimationVector_0040cf60",
         "address": "0x0040CF60",
         "size": 23,
-        "owner_source": "src/game/bullet_entity_set_animation_vector_0040cf60.cpp"
+        "owner_source": "src/game/bullet_entity_set_animation_vector.cpp"
       },
       {
         "symbol": "asm_BulletEntity_FindById_0040cf90",
         "address": "0x0040CF90",
         "size": 22,
-        "owner_source": "src/game/bullet_entity_find_by_id_0040cf90.cpp"
+        "owner_source": "src/game/bullet_entity_find_by_id.cpp"
       },
       {
         "symbol": "asm_BulletEntity_ReleaseResource_0040d680",
         "address": "0x0040D680",
         "size": 36,
-        "owner_source": "src/game/bullet_entity_release_resource_0040d680.cpp"
+        "owner_source": "src/game/bullet_entity_release_resource.cpp"
       },
       {
         "symbol": "asm_FUN_0040d830_0040d830",
         "address": "0x0040D830",
         "size": 673,
-        "owner_source": "src/game/fun_0040d830_0040d830.cpp"
+        "owner_source": "src/game/fun.cpp_40d830.cpp"
       },
       {
         "symbol": "asm_FUN_0040cfb0_0040cfb0",
@@ -3865,7 +3865,7 @@
         "symbol": "asm_GameState_UpdateFrameMaximum_00421f60",
         "address": "0x00421F60",
         "size": 28,
-        "owner_source": "src/game/game_state_update_frame_maximum_00421f60.cpp"
+        "owner_source": "src/game/game_state_update_frame_maximum.cpp"
       },
       {
         "symbol": "asm_GameState_Unpause_00422c30",
@@ -3877,13 +3877,13 @@
         "symbol": "asm_Scheduler_CreateAndRegister_0044a000",
         "address": "0x0044A000",
         "size": 43,
-        "owner_source": "src/game/scheduler_create_and_register_0044a000.cpp"
+        "owner_source": "src/game/scheduler_create_and_register.cpp"
       },
       {
         "symbol": "asm_Scheduler_CreateAndRegisterSecondary_0044a030",
         "address": "0x0044A030",
         "size": 43,
-        "owner_source": "src/game/scheduler_create_and_register_secondary_0044a030.cpp"
+        "owner_source": "src/game/scheduler_create_and_register_secondary.cpp"
       },
       {
         "symbol": "asm_GameState_DispatchAnimationSlot_0042c730",

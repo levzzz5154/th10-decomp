@@ -1,8 +1,8 @@
 // Compiler context only; never selected as recovered game code.
-#include "../../../src/unreferenced/unassigned_0042bac0.cpp"
+#include "../../../src/unreferenced/unassigned_42bac0.cpp"
 
 #pragma code_seg(".text$03context")
-extern "C" int __stdcall OuterHasValueContext_0042bac0(Outer_0042bac0** items, int count) {
+extern "C" int __stdcall OuterHasValueContext_0042bac0(Outer2** items, int count) {
     int found = 0;
     while (count--) {
         found += (*items++)->HasValue();

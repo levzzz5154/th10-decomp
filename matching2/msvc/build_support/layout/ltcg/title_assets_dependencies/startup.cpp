@@ -6,12 +6,12 @@
 int LoadingView::LoadStartupResources() {
     if (!Recovery_LoadCachedResource(
             6, g_sprt_ctrl, (const char *)0x0046D254)) {
-        ((TextLog_0044b810 *)0x00474F70)->Append((char *)0x0046CB68);
+        ((TextLog4 *)0x00474F70)->Append((char *)0x0046CB68);
         return -1;
     }
     if (!Recovery_LoadCachedResource(
             7, g_sprt_ctrl, (const char *)0x0046CD88)) {
-        ((TextLog_0044b810 *)0x00474F70)->Append((char *)0x0046CD54);
+        ((TextLog4 *)0x00474F70)->Append((char *)0x0046CD54);
         return -1;
     }
     return 0;

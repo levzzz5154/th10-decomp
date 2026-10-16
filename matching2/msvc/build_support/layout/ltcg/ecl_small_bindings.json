@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "ecl_small_bindings",
-  "source": "src/script/sptcmd/ecl_reset_variable_bindings_00450190.cpp",
+  "source": "src/script/sptcmd/ecl_reset_variable_bindings.cpp",
   "driver": "build_support/layout/ltcg/ecl_small_bindings_context.cpp",
   "headers": [],
   "image_base": "0x00400000",
@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "EclVm_ResetVariableBindings",
-      "symbol": "?ResetVariableBindings@EclVm_00450190@@QAEXXZ",
+      "symbol": "?ResetVariableBindings@EclVm4@@QAEXXZ",
       "section": ".text$01reset",
       "address": "0x00450190",
       "size": 31,

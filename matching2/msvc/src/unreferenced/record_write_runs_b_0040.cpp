@@ -1,7 +1,7 @@
 // Record write runs whose receiver arrives in EAX: a mask clear across eight
 // flag words (0x004020B0) and a vtable stamp with four cleared fields
 // (0x0044C0E0).
-struct WriteRunB_004020b0 {
+struct WriteRunB {
     unsigned char pad_000[0x6C];
     unsigned int flags_06c;              // +0x06C
     unsigned char pad_070[0x40];
@@ -21,7 +21,7 @@ struct WriteRunB_004020b0 {
     __declspec(noinline) void Clear();
 };
 
-struct WriteRunB_0044c0e0 {
+struct WriteRunB2 {
     void* stamp_000;                     // +0x000
     int field_004;                       // +0x004
     int field_008;                       // +0x008
@@ -31,7 +31,7 @@ struct WriteRunB_0044c0e0 {
 };
 
 #pragma code_seg(".text$01b")
-void WriteRunB_004020b0::Clear() {
+void WriteRunB::Clear() {
     unsigned int mask = ~1u;
     flags_06c &= mask;
     flags_0b0 &= mask;
@@ -45,7 +45,7 @@ void WriteRunB_004020b0::Clear() {
 #pragma code_seg()
 
 #pragma code_seg(".text$03c")
-void WriteRunB_0044c0e0::Init() {
+void WriteRunB2::Init() {
     stamp_000 = (void*)0x004703E4;
     field_004 = 0;
     field_008 = 0;

@@ -2,7 +2,7 @@
 // record's vanish. It gives the whole-program pass the callee body so the
 // command interpreter's call sites derive the retail ESI receiver. The anchor
 // bytes are never exported as recovered code.
-#include "th10/game/projectile_spawn_runtime_004067d0.hpp"
+#include "th10/game/projectile_spawn_runtime.hpp"
 
 extern "C" void* g_bullet_manager;
 extern "C" float g_game_speed;

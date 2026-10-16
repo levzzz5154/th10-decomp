@@ -1,7 +1,7 @@
 // 0x0043E5A0 (356 bytes): configure one animation object from an archive
 // resource record.
 
-#include "th10/render/animation_object_0043e5a0.hpp"
+#include "th10/render/animation_object.hpp"
 
 #pragma code_seg(".text$121resource")
 __declspec(noinline) int Resource_0043e5a0::ConfigureObject(

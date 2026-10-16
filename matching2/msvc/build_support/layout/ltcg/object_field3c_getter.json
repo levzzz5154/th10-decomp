@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "object_field3c_getter",
-  "source": "src/unreferenced/FUN_004053d0_004053d0.cpp",
+  "source": "src/unreferenced/FUN.cpp_4053d0.cpp",
   "driver": "build_support/layout/ltcg/object_field3c_getter_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

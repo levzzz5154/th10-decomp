@@ -1,5 +1,5 @@
 // Compiler context only; never selected as recovered game code.
-#include "../../../src/unreferenced/FUN_00405360_00405360.cpp"
+#include "../../../src/unreferenced/FUN.cpp_405360.cpp"
 
 #pragma code_seg(".text$03context")
 int __stdcall ObjectInterfaceGetterCompilerContext(ManagedObject** objects, int count, void** out) {

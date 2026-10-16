@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "set_flag",
-  "source": "src/unreferenced/FUN_00401cb0_00401cb0.cpp",
+  "source": "src/unreferenced/FUN.cpp_401cb0.cpp",
   "driver": "build_support/layout/ltcg/set_flag_context.cpp",
   "headers": [
     "include/th10/game/entity.hpp",

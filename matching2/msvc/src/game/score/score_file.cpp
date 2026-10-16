@@ -7,7 +7,7 @@
 #include <stddef.h>
 #include "th10/game/score_file.hpp"
 #pragma code_seg(".text$00b")
-extern "C" void __stdcall ScoreFile_Defaults_0042acb0(ScoreRecordSection *file) {
+extern "C" void __stdcall ScoreFile_Defaults2(ScoreRecordSection *file) {
     int difficulty;
     int rank;
     int spell;

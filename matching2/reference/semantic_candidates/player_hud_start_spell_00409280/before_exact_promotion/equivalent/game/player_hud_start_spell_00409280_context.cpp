@@ -1,6 +1,6 @@
 // Compiler context only; never selected as recovered game code.
 #include "player_hud_start_spell_00409280.cpp"
-#include "../../src/render/animation_manager_register_primary_back_004489d0.cpp"
+#include "../../src/render/animation_manager_register_primary_back.cpp"
 
 // The spell card setup hands the panel its record index, name and duration.
 #pragma code_seg(".text$0044e100_context")

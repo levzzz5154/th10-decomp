@@ -4,4 +4,4 @@
 // Never selected from this cluster.
 #include "th10/game/sound_start_context.hpp"
 #define code_seg(name) code_seg(".text$a03g")
-#include "../sound_start_platform_run_interface_0044d300.cpp"
+#include "../sound_start_platform_run_interface.cpp"

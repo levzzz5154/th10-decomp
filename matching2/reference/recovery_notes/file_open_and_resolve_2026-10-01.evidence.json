@@ -3,7 +3,7 @@
     {
       "region": {
         "name": "semantic_FileHandle_Open_00435370",
-        "source": "src/platform/file_handle_open_00435370.cpp",
+        "source": "src/platform/file_handle_open.cpp",
         "symbol": "?Open@FileHandle@@UAEEPBD0@Z",
         "address": "0x00435370",
         "size": 239,
@@ -20,7 +20,7 @@
         }
       },
       "whole_build_native_unit": {
-        "source": "src/platform/file_handle_open_00435370.cpp",
+        "source": "src/platform/file_handle_open.cpp",
         "object": "/home/levzzz/Games/th10Decomp/matching2/build/msvc/clusters/file_handle_open_00435370/bodies.obj",
         "compiler_kind": "native-ltcg",
         "compiler_translation_unit_count": 3,
@@ -83,27 +83,27 @@
           "schema_version": 1,
           "name": "file_handle_open_00435370",
           "compiler_kind": "native-ltcg",
-          "source": "src/platform/file_handle_open_00435370.cpp",
+          "source": "src/platform/file_handle_open.cpp",
           "sources": [
-            "src/platform/file_handle_open_00435370.cpp",
-            "src/platform/file_resolve_path_00435610.cpp"
+            "src/platform/file_handle_open.cpp",
+            "src/platform/file_resolve_path.cpp"
           ],
           "roots": [
             "?Open@FileHandle@@UAEEPBD0@Z"
           ],
           "driver": "layout/ltcg/file_handle_open_00435370_context.cpp",
-          "layout": "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/file_handle_open_00435370.json",
+          "layout": "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/file_handle_open.json",
           "input_sha256": {
-            "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/file_handle_open_00435370.json": "85eafa745eb8264e8203853900509bdf40938dea5b9c4c1b7a5cb050bca546c6",
-            "/home/levzzz/Games/th10Decomp/matching2/msvc/src/platform/file_handle_open_00435370.cpp": "b311422db5e3a259b2063bafcbdd4bcaf24435ff75abd4e1817237d110e2b4dd",
-            "/home/levzzz/Games/th10Decomp/matching2/msvc/src/platform/file_resolve_path_00435610.cpp": "3ff8b08df36d284b97304bb5140c197e82e4f1167d1414939bd6c7ec32655d23",
+            "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/file_handle_open.json": "85eafa745eb8264e8203853900509bdf40938dea5b9c4c1b7a5cb050bca546c6",
+            "/home/levzzz/Games/th10Decomp/matching2/msvc/src/platform/file_handle_open.cpp": "b311422db5e3a259b2063bafcbdd4bcaf24435ff75abd4e1817237d110e2b4dd",
+            "/home/levzzz/Games/th10Decomp/matching2/msvc/src/platform/file_resolve_path.cpp": "3ff8b08df36d284b97304bb5140c197e82e4f1167d1414939bd6c7ec32655d23",
             "/home/levzzz/Games/th10Decomp/matching2/msvc/include/th10/platform/file.hpp": "1380d9e2d5fd2a73c3885291e782f8335b396d90c2d50a25d2c5268c9f80c17a",
             "/home/levzzz/Games/th10Decomp/matching2/msvc/include/th10/platform/windows_types.hpp": "c72f0e7607fd9b67c2a55dacdc5cc2544be6971bb93c3e5caa81940a9cdd8d29",
             "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/file_handle_open_00435370_context.cpp": "0b645ce0c9b767104a0aeee2a75464c9b11ac1ac7b256f0a5b60cd5d3c3357b9"
           },
           "compiler_includes": [
             {
-              "path": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/platform/file_handle_open_00435370.cpp",
+              "path": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/platform/file_handle_open.cpp",
               "sha256": "b311422db5e3a259b2063bafcbdd4bcaf24435ff75abd4e1817237d110e2b4dd"
             },
             {
@@ -157,7 +157,7 @@
               "object_sha256": "ade999ebb447b0a5241f523933dfec0ddde6dbed56814423d3e2a57d2e564ab6"
             },
             {
-              "source": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/platform/file_resolve_path_00435610.cpp",
+              "source": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/platform/file_resolve_path.cpp",
               "object": "/home/levzzz/Games/th10Decomp/matching2/build/msvc/clusters/file_handle_open_00435370/native-klofiswa/source_000.obj",
               "command": [
                 "wine",
@@ -176,7 +176,7 @@
                 "/showIncludes",
                 "/IZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\include",
                 "/FoZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\build\\msvc\\clusters\\file_handle_open_00435370\\native-klofiswa\\source_000.obj",
-                "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\src\\platform\\file_resolve_path_00435610.cpp"
+                "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\src\\platform\\file_resolve_path.cpp"
               ],
               "source_sha256": "3ff8b08df36d284b97304bb5140c197e82e4f1167d1414939bd6c7ec32655d23",
               "object_sha256": "c8c35a0dd9e2e9646b3d8001d4fd95600b200ee6cf8778e56792933bb71c41d2"
@@ -416,7 +416,7 @@
     {
       "region": {
         "name": "semantic_File_ResolvePath_00435610",
-        "source": "src/platform/file_resolve_path_00435610.cpp",
+        "source": "src/platform/file_resolve_path.cpp",
         "symbol": "@ResolvePath435610@8",
         "address": "0x00435610",
         "size": 121,
@@ -424,7 +424,7 @@
         "owner": "0x00435610",
         "previous_record": {
           "name": "asm_File_ResolvePath_00435610",
-          "source": "src/platform/file_resolve_path_00435610.cpp",
+          "source": "src/platform/file_resolve_path.cpp",
           "symbol": "_asm_File_ResolvePath_00435610",
           "address": "0x00435610",
           "size": 121,
@@ -433,7 +433,7 @@
         }
       },
       "whole_build_native_unit": {
-        "source": "src/platform/file_handle_open_00435370.cpp",
+        "source": "src/platform/file_handle_open.cpp",
         "object": "/home/levzzz/Games/th10Decomp/matching2/build/msvc/clusters/file_handle_open_00435370/bodies.obj",
         "compiler_kind": "native-ltcg",
         "compiler_translation_unit_count": 3,
@@ -496,27 +496,27 @@
           "schema_version": 1,
           "name": "file_handle_open_00435370",
           "compiler_kind": "native-ltcg",
-          "source": "src/platform/file_handle_open_00435370.cpp",
+          "source": "src/platform/file_handle_open.cpp",
           "sources": [
-            "src/platform/file_handle_open_00435370.cpp",
-            "src/platform/file_resolve_path_00435610.cpp"
+            "src/platform/file_handle_open.cpp",
+            "src/platform/file_resolve_path.cpp"
           ],
           "roots": [
             "?Open@FileHandle@@UAEEPBD0@Z"
           ],
           "driver": "layout/ltcg/file_handle_open_00435370_context.cpp",
-          "layout": "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/file_handle_open_00435370.json",
+          "layout": "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/file_handle_open.json",
           "input_sha256": {
-            "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/file_handle_open_00435370.json": "85eafa745eb8264e8203853900509bdf40938dea5b9c4c1b7a5cb050bca546c6",
-            "/home/levzzz/Games/th10Decomp/matching2/msvc/src/platform/file_handle_open_00435370.cpp": "b311422db5e3a259b2063bafcbdd4bcaf24435ff75abd4e1817237d110e2b4dd",
-            "/home/levzzz/Games/th10Decomp/matching2/msvc/src/platform/file_resolve_path_00435610.cpp": "3ff8b08df36d284b97304bb5140c197e82e4f1167d1414939bd6c7ec32655d23",
+            "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/file_handle_open.json": "85eafa745eb8264e8203853900509bdf40938dea5b9c4c1b7a5cb050bca546c6",
+            "/home/levzzz/Games/th10Decomp/matching2/msvc/src/platform/file_handle_open.cpp": "b311422db5e3a259b2063bafcbdd4bcaf24435ff75abd4e1817237d110e2b4dd",
+            "/home/levzzz/Games/th10Decomp/matching2/msvc/src/platform/file_resolve_path.cpp": "3ff8b08df36d284b97304bb5140c197e82e4f1167d1414939bd6c7ec32655d23",
             "/home/levzzz/Games/th10Decomp/matching2/msvc/include/th10/platform/file.hpp": "1380d9e2d5fd2a73c3885291e782f8335b396d90c2d50a25d2c5268c9f80c17a",
             "/home/levzzz/Games/th10Decomp/matching2/msvc/include/th10/platform/windows_types.hpp": "c72f0e7607fd9b67c2a55dacdc5cc2544be6971bb93c3e5caa81940a9cdd8d29",
             "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/file_handle_open_00435370_context.cpp": "0b645ce0c9b767104a0aeee2a75464c9b11ac1ac7b256f0a5b60cd5d3c3357b9"
           },
           "compiler_includes": [
             {
-              "path": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/platform/file_handle_open_00435370.cpp",
+              "path": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/platform/file_handle_open.cpp",
               "sha256": "b311422db5e3a259b2063bafcbdd4bcaf24435ff75abd4e1817237d110e2b4dd"
             },
             {
@@ -570,7 +570,7 @@
               "object_sha256": "ade999ebb447b0a5241f523933dfec0ddde6dbed56814423d3e2a57d2e564ab6"
             },
             {
-              "source": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/platform/file_resolve_path_00435610.cpp",
+              "source": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/platform/file_resolve_path.cpp",
               "object": "/home/levzzz/Games/th10Decomp/matching2/build/msvc/clusters/file_handle_open_00435370/native-klofiswa/source_000.obj",
               "command": [
                 "wine",
@@ -589,7 +589,7 @@
                 "/showIncludes",
                 "/IZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\include",
                 "/FoZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\build\\msvc\\clusters\\file_handle_open_00435370\\native-klofiswa\\source_000.obj",
-                "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\src\\platform\\file_resolve_path_00435610.cpp"
+                "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\src\\platform\\file_resolve_path.cpp"
               ],
               "source_sha256": "3ff8b08df36d284b97304bb5140c197e82e4f1167d1414939bd6c7ec32655d23",
               "object_sha256": "c8c35a0dd9e2e9646b3d8001d4fd95600b200ee6cf8778e56792933bb71c41d2"
@@ -832,7 +832,7 @@
     {
       "region": {
         "name": "semantic_SoundQueue_QueuePan_0043dd10",
-        "source": "src/platform/sound_queue_pan_0043dd10.cpp",
+        "source": "src/platform/sound_queue_pan.cpp",
         "symbol": "?QueuePan@SoundQueue@@QAEXHM@Z",
         "address": "0x0043DD10",
         "size": 149,
@@ -880,7 +880,7 @@
     {
       "region": {
         "name": "semantic_PlayerHoming_HomeTowardTarget_00407ef0",
-        "source": "src/game/player_homing_00407ef0.cpp",
+        "source": "src/game/player_homing.cpp",
         "symbol": "?HomeTowardTarget@PlayerHomingState_00407EF0@@QAEXXZ",
         "address": "0x00407EF0",
         "size": 306,
@@ -967,7 +967,7 @@
           "different_bytes": 0,
           "exact": true,
           "relocations": [],
-          "source": "src/platform/file_handle_open_00435370.cpp"
+          "source": "src/platform/file_handle_open.cpp"
         },
         {
           "region": "semantic_File_ResolvePath_00435610",
@@ -977,7 +977,7 @@
           "different_bytes": 0,
           "exact": true,
           "relocations": [],
-          "source": "src/platform/file_handle_open_00435370.cpp"
+          "source": "src/platform/file_handle_open.cpp"
         }
       ]
     }

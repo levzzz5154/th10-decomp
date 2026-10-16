@@ -13,7 +13,7 @@ struct AnimationScriptId {
     int value;
 };
 // 0x004492A0: let the animation with this id, and its children, be removed.
-void* __fastcall AnimationManager_SetFlag_004492a0(AnimationLookupContext* context, AnimationScriptId id);
+void* __fastcall AnimationManager_SetFlag2(AnimationLookupContext* context, AnimationScriptId id);
 __declspec(noinline) void __stdcall ManagerTeardownFuncCtrl_Remove(FuncCtrl* scheduler, SchedulerTask* task);
 
 extern "C" AnimationLookupContext* g_sprt_ctrl;
@@ -35,7 +35,7 @@ struct AnimationListEntry {
     unsigned char reserved_1c[0x340];
     unsigned int flags;
 };
-struct AnimationLists_004145f0 {
+struct AnimationLists3 {
     unsigned char reserved[0x72DAD4];
     AnimationListEntry* primary;
     int reserved_2;
@@ -45,7 +45,7 @@ struct AnimationLists_004145f0 {
 // The lookup and the flag setter again, written out so that they can be
 // expanded in place: the destructor's loop holds a copy of both.
 __forceinline AnimationListEntry* AnimationLists_Find(AnimationLookupContext* context, AnimationScriptId id) {
-    AnimationLists_004145f0* lists = reinterpret_cast<AnimationLists_004145f0*>(context);
+    AnimationLists3* lists = reinterpret_cast<AnimationLists3*>(context);
     AnimationListEntry* node;
     int* object;
     if (!id.value)
@@ -78,7 +78,7 @@ struct HudAnimation {
 
     // Let the animation manager dispose of the animation and forget it.
     void Release(AnimationLookupContext* animations) {
-        AnimationManager_SetFlag_004492a0(animations, id);
+        AnimationManager_SetFlag2(animations, id);
         id.value = 0;
     }
     // The same, with the setter expanded in place.
@@ -115,7 +115,7 @@ struct Front {
 
     __declspec(noinline) ~Front();    // 0x004145F0
 };
-typedef char ItemManagerSize_004145f0[sizeof(Front) == 0x9ED0 ? 1 : -1];
+typedef char ItemManagerSize2[sizeof(Front) == 0x9ED0 ? 1 : -1];
 typedef char ItemManagerEffects[offsetof(Front, effects) == 0x9DF4 ? 1 : -1];
 
 // 0x00414370: release everything the manager's items and score texts hold.

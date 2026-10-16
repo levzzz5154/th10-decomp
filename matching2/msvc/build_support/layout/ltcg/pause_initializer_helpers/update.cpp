@@ -1,4 +1,4 @@
-#include "th10/game/pause_initializer_00422ab0.hpp"
+#include "th10/game/pause_initializer.hpp"
 #pragma code_seg(".text$04update")
 int PauseUpdateView::Update() {
     switch (phase) {

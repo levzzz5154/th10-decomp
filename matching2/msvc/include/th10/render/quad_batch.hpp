@@ -8,17 +8,17 @@ struct SprtCtrlBatchView {
     int draw_calls;
     float origin_x;
     float origin_y;
-    unsigned char unknown_00000064[0x3ADA60 - 0x64];
+    unsigned char unknown3[0x3ADA60 - 0x64];
     unsigned int cached_color;
     void* cached_texture;
     unsigned char cached_blend, cached_unknown_69, cached_format, cached_unknown_6b;
     unsigned char cached_unknown_6c, cached_unknown_6d, cached_filter, cached_unknown_6f;
-    unsigned char unknown_003ADA70[0x3ADAC8 - 0x3ADA70];
+    unsigned char unknown5[0x3ADAC8 - 0x3ADA70];
     int quad_count;
-    unsigned char unknown_003ADACC[0x72DACC - 0x3ADACC];
+    unsigned char unknown6[0x72DACC - 0x3ADACC];
     TexturedVertex* cursor;
     void* batch_start;
-    unsigned char unknown_0072DAD4[0x732458 - 0x72DAD4];
+    unsigned char unknown7[0x732458 - 0x72DAD4];
     unsigned char fade_blue, fade_green, fade_red, fade_alpha;
     int fade_enabled;
 

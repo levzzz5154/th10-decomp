@@ -129,7 +129,7 @@ void DatArchive_Reset(DatArchive* archive) {
 }
 
 // Historical model of 0x00434D10. The tested semantic candidate in
-// reference/semantic_candidates/dat_archive_close_00434d10.cpp supersedes
+// reference/semantic_candidates/dat_archive_close.cpp supersedes
 // this count-based walk and field-clear order with retail's array-cookie
 // destructor helper and current-file reload behavior.
 void DatArchive_Close(DatArchive* archive) {

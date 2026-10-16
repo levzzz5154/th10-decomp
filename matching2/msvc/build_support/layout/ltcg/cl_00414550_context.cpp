@@ -1,10 +1,10 @@
 // Compiler context only; never selected as recovered game code.
-#include "../../../src/unreferenced/unassigned_00414550.cpp"
+#include "../../../src/unreferenced/unassigned_414550.cpp"
 
 extern "C" void __cdecl opaque_release_004492a0(void* item);
 
 #pragma code_seg(".text$01anchor")
-__declspec(noinline) void AnimationSlot_00414550::ReleaseRetail() {
+__declspec(noinline) void AnimationSlot2::ReleaseRetail() {
     opaque_release_004492a0(field_40);
     field_40 = 0;
     opaque_release_004492a0(field_44);
@@ -19,10 +19,10 @@ __declspec(noinline) void AnimationSlot_00414550::ReleaseRetail() {
 #pragma code_seg()
 
 #pragma code_seg(".text$05context")
-int __stdcall DestroyContext_00414550(AnimationSlot_00414550** items, int count) {
+int __stdcall DestroyContext_00414550(AnimationSlot2** items, int count) {
     int total = 0;
     for (int i = 0; i < count; ++i) {
-        AnimationSlot_00414550* one = items[i];
+        AnimationSlot2* one = items[i];
         total += (int)DestroySlot(one, (unsigned int)i);
     }
     return total;

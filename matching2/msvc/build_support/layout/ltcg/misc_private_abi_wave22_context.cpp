@@ -1,5 +1,5 @@
 // Compiler context only; never selected as recovered game code.
-#include "../../../src/unreferenced/unassigned_00421c70.cpp"
+#include "../../../src/unreferenced/unassigned_421c70.cpp"
 // The existing SprtCtrl::Find dependency is emitted here as a
 // non-recovered ABI anchor; its maintained source belongs to another cluster.
 

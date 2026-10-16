@@ -1,5 +1,5 @@
 #include <string.h>
-#include "th10/render/resource_registrar_0043e460.hpp"
+#include "th10/render/resource_registrar.hpp"
 extern AnimationManager_0043e460 g_music_requests;
 extern unsigned char* g_music_state;
 // Queue a WAV file and mark the indexed track as requested. Retail assumes

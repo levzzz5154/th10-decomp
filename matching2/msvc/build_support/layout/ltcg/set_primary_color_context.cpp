@@ -1,4 +1,4 @@
-#include "../../../src/unreferenced/FUN_00401cc0_00401cc0.cpp"
+#include "../../../src/unreferenced/FUN.cpp_401cc0.cpp"
 
 #pragma code_seg(".text$03context")
 int __stdcall SetPrimaryColorCompilerContext(Entity** entities, int count, uint32_t color) {

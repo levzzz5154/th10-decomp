@@ -3,7 +3,7 @@
   "name": "recovery_slot_rearm",
   "source": "src/game/bullet/bullet_manager_on_update.cpp",
   "additional_sources": [
-    "src/game/bullet/fun_004065c0_004065c0.cpp"
+    "src/game/bullet/fun.cpp_4065c0.cpp"
   ],
   "driver": "build_support/layout/ltcg/recovery_slot_rearm_context.cpp",
   "headers": [
@@ -20,7 +20,7 @@
       "address": "0x004065C0",
       "size": 249,
       "actual_abi": "slot table in ESI; result in EAX; plain RET",
-      "source": "src/game/bullet/fun_004065c0_004065c0.cpp"
+      "source": "src/game/bullet/fun.cpp_4065c0.cpp"
     },
     {
       "name": "RecoverySlotTable_CanRearm",

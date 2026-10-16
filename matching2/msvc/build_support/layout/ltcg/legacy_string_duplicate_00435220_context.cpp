@@ -1,5 +1,5 @@
 // Compiler context only; never selected as recovered game code.
-#include "../../../src/pack/arcmngr/legacy_string_duplicate_00435220.cpp"
+#include "../../../src/pack/arcmngr/legacy_string_duplicate.cpp"
 
 struct LegacyStringOwner_00435220 {
     int reserved[2];

@@ -1,9 +1,9 @@
 // Compiler context only; never selected as recovered game code.
-#include "../../../src/game/hint/recovery_clear_eight_buckets_00419040.cpp"
+#include "../../../src/game/hint/recovery_clear_eight_buckets.cpp"
 
 #pragma code_seg(".text$03context")
 int __stdcall RecoveryClearEightBucketsCompilerContext(
-        Manager_00419040** managers, int count) {
+        Manager3** managers, int count) {
     while (count--)
         (*managers++)->ClearBuckets();
     return 0;

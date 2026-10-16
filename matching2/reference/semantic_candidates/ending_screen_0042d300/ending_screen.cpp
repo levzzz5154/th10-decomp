@@ -1,6 +1,6 @@
 // Readable baseline only: not selected for image reconstruction.
 // Retail takes room in EBX; recovering that contract needs the full dispatcher.
-#include "th10/game/recovery_script_executor_caller_00433ef0.hpp"
+#include "th10/game/recovery_script_executor_caller_433ef0.hpp"
 #include "th10/platform/sound_queue.hpp"
 
 extern "C" void* data_00491c10;

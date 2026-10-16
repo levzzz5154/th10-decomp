@@ -1,13 +1,13 @@
 {
   "schema_version": 2,
   "name": "score_manager_native",
-  "source": "src/game/score/effect_manager_initialize_pools_retail_0042ae60.cpp",
+  "source": "src/game/score/effect_manager_initialize_pools_retail.cpp",
   "headers": [
-    "include/th10/game/score_archive_manager_0042ae60.hpp",
+    "include/th10/game/score_archive_manager.hpp",
     "include/th10/game/score_file.hpp"
   ],
   "additional_sources": [
-    "src/game/score/score_settings_initialize_defaults_0042add0.cpp",
+    "src/game/score/score_settings_initialize_defaults.cpp",
     "src/game/score/score_manager_load_sections.cpp",
     "src/game/score/score_file.cpp"
   ],
@@ -23,7 +23,7 @@
       "actual_abi": "receiver/result EAX; manager home EBX; RET"
     },
     {
-      "symbol": "?ScoreManager_Create_0042af20@@YGXXZ",
+      "symbol": "?ScoreManager_Create2@@YGXXZ",
       "address": "0x0042AF20",
       "size": 97,
       "section": ".text$03b",
@@ -43,7 +43,7 @@
     },
     {
       "name": "ScoreManager_AllocationHandler",
-      "symbol": "__ehhandler$?ScoreManager_Create_0042af20@@YGXXZ",
+      "symbol": "__ehhandler$?ScoreManager_Create2@@YGXXZ",
       "address": "0x004655AB",
       "size": 10,
       "section": ".text$x",
@@ -56,7 +56,7 @@
       "address": "0x0042ADD0",
       "size": 142,
       "section": ".text$01b",
-      "source": "src/game/score/score_settings_initialize_defaults_0042add0.cpp",
+      "source": "src/game/score/score_settings_initialize_defaults.cpp",
       "actual_abi": "One actual settings-section pointer, privately EDX, plain RET; only realcaller42AE8Apresents LEAEDX[EBX+1D86C], no unused ECX formal."
     },
     {
@@ -70,7 +70,7 @@
     },
     {
       "name": "ScoreFile_Defaults",
-      "symbol": "_ScoreFile_Defaults_0042acb0@4",
+      "symbol": "_ScoreFile_Defaults2@4",
       "address": "0x0042ACB0",
       "size": 274,
       "section": ".text$00b",
@@ -264,7 +264,7 @@
       "kind": "data"
     },
     {
-      "symbol": "?DecompressDatLzss_00435dc0@@YGPAEPAEH0I@Z",
+      "symbol": "?DecompressDatLzss2@@YGPAEPAEH0I@Z",
       "address": "0x435dc0",
       "kind": "relative_code"
     },
@@ -294,10 +294,10 @@
       "description": "Whole original36-byte allocating-factory exception table and FuncInfo. Native bytes must match literally."
     }
   ],
-  "entry": "?ScoreManager_Create_0042af20@@YGXXZ",
+  "entry": "?ScoreManager_Create2@@YGXXZ",
   "calls": [
     {
-      "caller": "?ScoreManager_Create_0042af20@@YGXXZ",
+      "caller": "?ScoreManager_Create2@@YGXXZ",
       "callee": "??0ScoreArchiveManager@@QAE@XZ",
       "address": "0x0042AF52",
       "instruction": "call"
@@ -323,6 +323,6 @@
     }
   ],
   "owned_includes": {
-    "src/game/score/score_manager_create.cpp": "src/game/score/effect_manager_initialize_pools_retail_0042ae60.cpp"
+    "src/game/score/score_manager_create.cpp": "src/game/score/effect_manager_initialize_pools_retail.cpp"
   }
 }

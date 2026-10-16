@@ -8,7 +8,7 @@ typedef unsigned int (__stdcall* SoundSetTimer)(void* window, unsigned int id,
 
 extern "C" {
     void __cdecl asm_free_004524a1(void* memory);
-    int __stdcall Ordinal_11_00452170(const void* device_id,
+    int __stdcall Ordinal_112(const void* device_id,
         WaveDirectSoundDevice** output, void* outer);
     __declspec(noinline) int __stdcall Sound_SetPrimaryFormat(unsigned short channels,
         unsigned int rate, unsigned short bits, WaveDirectSoundDevice** owner);
@@ -32,7 +32,7 @@ struct SoundDeviceOwner {
             current->methods->release(current);
             device = 0;
         }
-        int result = Ordinal_11_00452170(0, &device, 0);
+        int result = Ordinal_112(0, &device, 0);
         if (result >= 0) {
             current = device;
             result = current->methods->set_cooperative_level(current, target_window, level);

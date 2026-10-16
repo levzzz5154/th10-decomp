@@ -3,7 +3,7 @@
     {
       "region": {
         "name": "semantic_PlayerAnimation_AdvanceFrame_004074b0",
-        "source": "src/game/player_animation_advance_frame_004074b0.cpp",
+        "source": "src/game/player_animation_advance_frame.cpp",
         "symbol": "?AdvanceAnimationFrame@PlayerAnimationState_004074B0@@QAEXXZ",
         "address": "0x004074B0",
         "size": 164,
@@ -11,7 +11,7 @@
         "owner": "0x004074B0",
         "previous_record": {
           "name": "asm_PlayerAnimation_AdvanceFrame_004074b0",
-          "source": "src/game/player_animation_advance_frame_004074b0.cpp",
+          "source": "src/game/player_animation_advance_frame.cpp",
           "symbol": "_asm_PlayerAnimation_AdvanceFrame_004074b0",
           "address": "0x004074B0",
           "size": 164,
@@ -20,7 +20,7 @@
         }
       },
       "whole_build_native_unit": {
-        "source": "src/game/player_animation_advance_frame_004074b0.cpp",
+        "source": "src/game/player_animation_advance_frame.cpp",
         "object": "/home/levzzz/Games/th10Decomp/matching2/build/msvc/clusters/player_animation_frame/bodies.obj",
         "compiler_kind": "native-ltcg",
         "compiler_translation_unit_count": 2,
@@ -71,28 +71,28 @@
           "schema_version": 1,
           "name": "player_animation_frame",
           "compiler_kind": "native-ltcg",
-          "source": "src/game/player_animation_advance_frame_004074b0.cpp",
+          "source": "src/game/player_animation_advance_frame.cpp",
           "sources": [
-            "src/game/player_animation_advance_frame_004074b0.cpp"
+            "src/game/player_animation_advance_frame.cpp"
           ],
           "roots": [],
           "driver": "layout/ltcg/player_animation_frame_context.cpp",
           "layout": "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/player_animation_frame.json",
           "input_sha256": {
             "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/player_animation_frame.json": "0d335bd63348ebc0190c9139aea98ce8d98de3003b3645659aacfeed7c7e3665",
-            "/home/levzzz/Games/th10Decomp/matching2/msvc/src/game/player_animation_advance_frame_004074b0.cpp": "72296f0e5930f12d77c96389ac3ff978f1a67755690283cc99ddd8d0e3c077c1",
-            "/home/levzzz/Games/th10Decomp/matching2/msvc/include/th10/game/player_motion_helpers_004074b0_004076a0.hpp": "e4db517521313e20676acdbb97f932bf35b62b5859256249c8e16ca9f0b0a0a7",
+            "/home/levzzz/Games/th10Decomp/matching2/msvc/src/game/player_animation_advance_frame.cpp": "72296f0e5930f12d77c96389ac3ff978f1a67755690283cc99ddd8d0e3c077c1",
+            "/home/levzzz/Games/th10Decomp/matching2/msvc/include/th10/game/player_motion_helpers.hpp": "e4db517521313e20676acdbb97f932bf35b62b5859256249c8e16ca9f0b0a0a7",
             "/home/levzzz/Games/th10Decomp/matching2/msvc/include/th10/math/timer.hpp": "98665d138942ca1c159b9c445ae64fc3765ec87e6e95ce40a97fa72f625db2b0",
             "/home/levzzz/Games/th10Decomp/matching2/msvc/include/th10/math/angle.hpp": "1331c96b886370c27d5fb28ab8500e0011c65d4a6705d8c89505152e466a7d5f",
             "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/player_animation_frame_context.cpp": "3abefba6aaa7092681567a939a49707b07a79ca79bfd35186a61d9e4939825fa"
           },
           "compiler_includes": [
             {
-              "path": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/game/player_animation_advance_frame_004074b0.cpp",
+              "path": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/game/player_animation_advance_frame.cpp",
               "sha256": "72296f0e5930f12d77c96389ac3ff978f1a67755690283cc99ddd8d0e3c077c1"
             },
             {
-              "path": "/home/levzzz/Games/th10Decomp/matching2/msvc/include/th10/game/player_motion_helpers_004074b0_004076a0.hpp",
+              "path": "/home/levzzz/Games/th10Decomp/matching2/msvc/include/th10/game/player_motion_helpers.hpp",
               "sha256": "e4db517521313e20676acdbb97f932bf35b62b5859256249c8e16ca9f0b0a0a7"
             },
             {
@@ -377,7 +377,7 @@
     {
       "region": {
         "name": "semantic_FieldContact004266B0",
-        "source": "src/game/field_contact_004266b0.cpp",
+        "source": "src/game/field_contact.cpp",
         "symbol": "@FieldContact004266B0@12",
         "address": "0x004266B0",
         "size": 316,
@@ -394,7 +394,7 @@
         }
       },
       "whole_build_native_unit": {
-        "source": "src/game/field_contact_004266b0.cpp",
+        "source": "src/game/field_contact.cpp",
         "object": "/home/levzzz/Games/th10Decomp/matching2/build/msvc/clusters/field_contact_004266b0/bodies.obj",
         "compiler_kind": "native-ltcg",
         "compiler_translation_unit_count": 2,
@@ -445,26 +445,26 @@
           "schema_version": 1,
           "name": "field_contact_004266b0",
           "compiler_kind": "native-ltcg",
-          "source": "src/game/field_contact_004266b0.cpp",
+          "source": "src/game/field_contact.cpp",
           "sources": [
-            "src/game/field_contact_004266b0.cpp"
+            "src/game/field_contact.cpp"
           ],
           "roots": [],
           "driver": "layout/ltcg/field_contact_004266b0_context.cpp",
-          "layout": "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/field_contact_004266b0.json",
+          "layout": "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/field_contact.json",
           "input_sha256": {
-            "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/field_contact_004266b0.json": "0719c37f080fdc58acabced747517b39f046838fb289db8f25db11145f0a9d48",
-            "/home/levzzz/Games/th10Decomp/matching2/msvc/src/game/field_contact_004266b0.cpp": "3d792416ef551f7a92c9cf23fe5a3f51a6660c617646ebff4a4dffb19c74575b",
-            "/home/levzzz/Games/th10Decomp/matching2/msvc/include/th10/game/field_contact_004266b0.hpp": "1b7c666425238af62d0af1ebef4d38c4a7c947ccfa2071f988b08cbf680cea36",
+            "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/field_contact.json": "0719c37f080fdc58acabced747517b39f046838fb289db8f25db11145f0a9d48",
+            "/home/levzzz/Games/th10Decomp/matching2/msvc/src/game/field_contact.cpp": "3d792416ef551f7a92c9cf23fe5a3f51a6660c617646ebff4a4dffb19c74575b",
+            "/home/levzzz/Games/th10Decomp/matching2/msvc/include/th10/game/field_contact.hpp": "1b7c666425238af62d0af1ebef4d38c4a7c947ccfa2071f988b08cbf680cea36",
             "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/field_contact_004266b0_context.cpp": "889af6a1c3c4199fe5f78dce4b42a75747656e7ca8d55e17d9b74244040c9d5f"
           },
           "compiler_includes": [
             {
-              "path": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/game/field_contact_004266b0.cpp",
+              "path": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/game/field_contact.cpp",
               "sha256": "3d792416ef551f7a92c9cf23fe5a3f51a6660c617646ebff4a4dffb19c74575b"
             },
             {
-              "path": "/home/levzzz/Games/th10Decomp/matching2/msvc/include/th10/game/field_contact_004266b0.hpp",
+              "path": "/home/levzzz/Games/th10Decomp/matching2/msvc/include/th10/game/field_contact.hpp",
               "sha256": "1b7c666425238af62d0af1ebef4d38c4a7c947ccfa2071f988b08cbf680cea36"
             },
             {
@@ -718,7 +718,7 @@
           "different_bytes": 0,
           "exact": true,
           "relocations": [],
-          "source": "src/game/player_animation_advance_frame_004074b0.cpp"
+          "source": "src/game/player_animation_advance_frame.cpp"
         }
       ]
     },
@@ -734,7 +734,7 @@
           "different_bytes": 0,
           "exact": true,
           "relocations": [],
-          "source": "src/game/field_contact_004266b0.cpp"
+          "source": "src/game/field_contact.cpp"
         }
       ]
     }

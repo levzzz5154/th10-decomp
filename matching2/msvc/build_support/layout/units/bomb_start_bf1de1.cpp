@@ -31,7 +31,7 @@ __declspec(noinline) int* __stdcall CreateScreenPositionedPrimary(
     object->position.x = position->x + flt_224;
     object->position.y = position->y + flt_16;
     object->position.z = position->z;
-    LoadScript_0043e710(resource, static_cast<AnimationObjectFile*>(object), index);
+    LoadScript2(resource, static_cast<AnimationObjectFile*>(object), index);
     reinterpret_cast<AnimationPrimaryLists*>(g_sprt_ctrl)->RegisterPrimaryBack(out, object);
     return out;
 }

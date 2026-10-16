@@ -1,5 +1,5 @@
 // Compiler context and ABI anchor only; none of these bytes enter the image.
-#include "../../../src/unreferenced/unassigned_0040d660.cpp"
+#include "../../../src/unreferenced/unassigned_40d660.cpp"
 
 extern "C" void __cdecl crt_free(void* memory);
 
@@ -9,7 +9,7 @@ extern "C" void __cdecl crt_free(void* memory);
 // address, so the destructor's call bakes retail's own displacement.  None of
 // these bytes are selected as recovered code.
 #pragma code_seg(".text$03anchor")
-void BulletEntity_0040d680::ReleaseResource() {
+void BulletEntity6::ReleaseResource() {
     void* const resource = owned_resource;
     vtable = 0x0046D0F0;
     if (resource != 0) {

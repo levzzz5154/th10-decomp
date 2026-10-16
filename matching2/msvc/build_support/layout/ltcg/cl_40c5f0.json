@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "name": "cl_0040c5f0",
+  "source": "src/unreferenced/unassigned_40c5f0.cpp",
+  "driver": "build_support/layout/ltcg/cl_0040c5f0_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "Region compiled with native LTCG so its entry register is retail's.",
+  "functions": [
+    {
+      "name": "Resolve_0040c5f0",
+      "symbol": "?Resolve@OperandSource@@QAEHH@Z",
+      "section": ".text$01resolve",
+      "address": "0x0040C5F0",
+      "size": 10,
+      "actual_abi": "source in ECX; selector in EAX; plain RET",
+      "source": "src/unreferenced/unassigned_40c5f0.cpp"
+    }
+  ],
+  "anchors": [],
+  "context": {
+    "symbol": "?ResolveContext_0040c5f0@@YGHPAPAUOperandSource@@H@Z",
+    "section": ".text$03context",
+    "address": "0x0040C610",
+    "size": 48,
+    "description": "Synthetic array-walking caller that establishes the observed register convention; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 46576
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x0040C5FA",
+      "size": 22
+    }
+  ],
+  "constants": [],
+  "constant_aliases": [],
+  "absolute_symbols": [
+    {
+      "symbol": "?resolve_operand@@YIHHPAUEclFrame@@H@Z",
+      "address": "0x0044FDB0",
+      "kind": "relative_code"
+    }
+  ],
+  "roots": [],
+  "included_sources": []
+}

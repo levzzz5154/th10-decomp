@@ -18,10 +18,10 @@
 // retail has [walk+diff].  The order follows compiler symbol numbers the
 // image does not record (reference/recovery_notes/
 // replay_save_update_00433570_equivalent_2026_10_11.md).
-#include "th10/game/replay_save_update_00433570.hpp"
+#include "th10/game/replay_save_update.hpp"
 
 // Select an item, clamped to the last one when the menu has items.
-static __forceinline void SelectItem_00433570(MenuCursor& cursor, int index) {
+static __forceinline void SelectItem12(MenuCursor& cursor, int index) {
     if (cursor.item_count != 0)
         cursor.selection = index >= cursor.item_count ? cursor.item_count - 1 : index;
     else
@@ -36,7 +36,7 @@ __declspec(noinline) int __stdcall TitleMode16(Title* room) {
     case 0:
         room->cursor.item_count = 25;
         room->cursor.wrap = 1;
-        SelectItem_00433570(room->cursor, 0);
+        SelectItem12(room->cursor, 0);
         g_stage_route_current = g_stage_routes + 8 * 0x30;
         g_globals_stage = 8;
         g_globals_stage_shown = 8;
@@ -63,11 +63,11 @@ __declspec(noinline) int __stdcall TitleMode16(Title* room) {
         } else if (g_input_keys_held & 0x1001) {
             MenuCursor* grid = &save->grid;
             save->selected_replay = cursor->selection;
-            SelectItem_00433570(*grid, 0);
+            SelectItem12(*grid, 0);
             save->grid.item_count = strlen(g_name_entry_grid);
             save->grid.wrap = 1;
-            ReplayFileHeader_004315c0** header = &g_replay->header;
-            time_00452b71(&(*header)->date);
+            ReplayFileHeader2** header = &g_replay->header;
+            time2(&(*header)->date);
             (*header)->stage = 8;
             strcpy(save->name, g_score->last_name);
             save->name_length = 0;
@@ -162,15 +162,15 @@ __declspec(noinline) int __stdcall TitleMode16(Title* room) {
             RecoveryMusicStopHandle(&room->fallback_handle);
             room->DisableTimerWithOwner(2);
             room->cursor.PopSelection();
-            ReplayFile_004315c0* recorded = g_replay;
+            ReplayFile* recorded = g_replay;
             if (recorded != 0) {
                 ReplayFile_Destroy(recorded);
                 free(recorded);
             }
-            Music_Load_00420a90(0, "bgm/th10_02.wav");
-            Music_Play_00420b10(0, 0);
+            Music_Load2(0, "bgm/th10_02.wav");
+            Music_Play2(0, 0);
             for (int index = 0; index < 25; ++index) {
-                ReplayFile_004315c0* replay = save->replays[index];
+                ReplayFile* replay = save->replays[index];
                 if (replay != 0) {
                     ReplayFile_Destroy(replay);
                     free(replay);

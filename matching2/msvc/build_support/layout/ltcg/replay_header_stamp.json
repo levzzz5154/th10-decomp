@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "replay_header_stamp",
-  "source": "src/unreferenced/FUN_0042a810_0042a810.cpp",
+  "source": "src/unreferenced/FUN.cpp_42a810.cpp",
   "driver": "build_support/layout/ltcg/replay_header_stamp_context.cpp",
   "headers": [],
   "image_base": "0x00400000",
@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "ReplayHeader_StampUser",
-      "symbol": "?StampUser@ReplayHeader_0042a810@@QAEXXZ",
+      "symbol": "?StampUser@ReplayHeader3@@QAEXXZ",
       "section": ".text$01stamp",
       "address": "0x0042A810",
       "size": 7,
@@ -17,7 +17,7 @@
     }
   ],
   "context": {
-    "symbol": "?StampUserCompilerContext@@YGHPAPAUReplayHeader_0042a810@@H@Z",
+    "symbol": "?StampUserCompilerContext@@YGHPAPAUReplayHeader3@@H@Z",
     "section": ".text$03context",
     "address": "0x0042A820",
     "size": 39,

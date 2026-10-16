@@ -23,13 +23,13 @@ extern "C" unsigned char g_enemy_ctrl_vtable;
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
 
-struct SchedulerCallbackTask_0040d280;
+struct SchedulerCallbackTask;
 
 // The 0x24-byte scheduler callback node.  The flag word is read before it is
 // written, so the heap-owned clear is a load/mask/store rather than a single
 // memory read-modify-write; the barrier keeps the mask next to its store
 // instead of letting the scheduler hoist it onto the load.
-struct SchedulerCallbackTask_0040d280 {
+struct SchedulerCallbackTask {
     int priority;                          // +0x00
     unsigned int flags;                    // +0x04, bit 0 = heap owned
     void *on_tick;                         // +0x08
@@ -40,13 +40,13 @@ struct SchedulerCallbackTask_0040d280 {
     void *link_previous;                   // +0x1C
     void *context;                         // +0x20
 
-    SchedulerCallbackTask_0040d280();
+    SchedulerCallbackTask();
 };
 
 typedef char SchedulerCallbackTask_0040d280_size_must_be_24[
-    sizeof(SchedulerCallbackTask_0040d280) == 0x24 ? 1 : -1];
+    sizeof(SchedulerCallbackTask) == 0x24 ? 1 : -1];
 
-inline SchedulerCallbackTask_0040d280::SchedulerCallbackTask_0040d280() {
+inline SchedulerCallbackTask::SchedulerCallbackTask() {
     unsigned int previous = flags;
     on_tick = 0;
     on_register = 0;
@@ -107,9 +107,9 @@ extern "C" FuncCtrl *g_func_ctrl;
 // Both callback nodes are built by the same sequence: construct, re-clear the
 // two routine words, publish the callback and the context, and force bit 0 on
 // with bit 1 off.
-static SchedulerCallbackTask_0040d280 *BuildCallbackNode_0040d280(
+static SchedulerCallbackTask *BuildCallbackNode(
         void *callback, EnemyCtrl *host) {
-    SchedulerCallbackTask_0040d280 *node = new SchedulerCallbackTask_0040d280;
+    SchedulerCallbackTask *node = new SchedulerCallbackTask;
     unsigned int flags = node->flags;
     node->on_tick = callback;
     node->on_register = 0;
@@ -129,12 +129,12 @@ EnemyCtrl_Initialize(EnemyCtrl *host, int script_name) {
     ((MessageParserVirtual *)parser)->construct(script_name);
 
     SchedulerTask *update =
-        (SchedulerTask *)BuildCallbackNode_0040d280((void *)0x40D810, host);
+        (SchedulerTask *)BuildCallbackNode((void *)0x40D810, host);
     FuncCtrl_RegisterPrimary(g_func_ctrl, update, 0x12);
     host->update_node_008 = update;
 
     SchedulerTask *draw =
-        (SchedulerTask *)BuildCallbackNode_0040d280((void *)0x40D820, host);
+        (SchedulerTask *)BuildCallbackNode((void *)0x40D820, host);
     FuncCtrl_RegisterSecondary(g_func_ctrl, draw, 0x14);
     host->draw_node_00C = draw;
 

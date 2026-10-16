@@ -8,11 +8,11 @@
   "instruction_bytes_changed": 0,
   "reference_bytes_used_for_build": false,
   "inputs": {
-    "layout/ltcg/blend_color_004423e0.json": "f85b875976a04c4bb4aa1efebe1016441eccec09f5d54d7e859fda340e42d506",
-    "src/render/animation_manager_apply_blend_color_004423e0.cpp": "3cc86753140bb5ab75436db3136265781dc94f1d1e1f91947a10ec92d6c0ecb1",
+    "layout/ltcg/blend_color.json": "f85b875976a04c4bb4aa1efebe1016441eccec09f5d54d7e859fda340e42d506",
+    "src/render/animation_manager_apply_blend_color.cpp": "3cc86753140bb5ab75436db3136265781dc94f1d1e1f91947a10ec92d6c0ecb1",
     "layout/ltcg/blend_color_004423e0_context.cpp": "40d6e589829fc4b3b371cb95a12f43aeb494ab458fd4e1a1c2ee4b413be74e95",
     "include/th10/render/quad_batch.hpp": "de09e3dc19eb0702e34f4548176be34d7118e4d6a3210c9602d159a010b79e04",
-    "src/render/quad_transform_draw_00444760.cpp": "2111f7d93d920e7322b19a8933759ecb66902ca96374b138bac85c1fb94853c3",
+    "src/render/quad_transform_draw.cpp": "2111f7d93d920e7322b19a8933759ecb66902ca96374b138bac85c1fb94853c3",
     "src/render/anm_batch_flush.cpp": "5b334a3349f76d2b535047d981df3c2a54c44d09f66cca7386c4e07221376f77",
     "src/render/anm_vm_draw_dispatch.cpp": "34189278c9cf9e267d6b774179789e7d612655c9971282d97b68c85fc072261c"
   },

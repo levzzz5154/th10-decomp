@@ -3,10 +3,10 @@
   "name": "sound_fade_real_tasks",
   "headers": [
     "include/th10/app/main_task_mode.hpp",
-    "include/th10/game/stage_startup_00417870.hpp",
+    "include/th10/game/stage_startup.hpp",
     "include/th10/math/rng.hpp",
     "include/th10/math/timer.hpp",
-    "include/th10/platform/sound_fade_0044d4e0.hpp",
+    "include/th10/platform/sound_fade.hpp",
     "include/th10/platform/sound_fade_manager_wave18.hpp",
     "include/th10/game/player.hpp",
     "include/th10/game/entity.hpp",
@@ -162,8 +162,8 @@
   "additional_sources": [
     "src/game/mother/main_task_update_mode.cpp",
     "src/game/mother/sound_fade_tick_wave18.cpp",
-    "src/core/zwave/platform_set_operation_deadline_0044d4e0.cpp",
-    "src/core/zwave/sound_fade_steps_0044d740.cpp"
+    "src/core/zwave/platform_set_operation_deadline.cpp",
+    "src/core/zwave/sound_fade_steps.cpp"
   ],
   "entry": "?MainTaskTickWave18@@YIHPAUMainTaskStateWave18@@@Z",
   "functions": [
@@ -196,55 +196,55 @@
     },
     {
       "name": "PlatformInterfaceState_0044D4E0_SetOperationDeadline",
-      "symbol": "?SetOperationDeadline@PlatformInterfaceState_0044D4E0@@QAEHH@Z",
+      "symbol": "?SetOperationDeadline@PlatformInterfaceState2@@QAEHH@Z",
       "section": ".text$01deadline",
       "address": "0x0044D4E0",
       "size": 106,
       "actual_abi": "owner in EAX; deadline at [ESP+4]; HRESULT in EAX; RET 4",
-      "source": "src/core/zwave/platform_set_operation_deadline_0044d4e0.cpp"
+      "source": "src/core/zwave/platform_set_operation_deadline.cpp"
     },
     {
       "name": "FadeOutAndStop_0044d740",
-      "symbol": "?FadeOutAndStop@PlatformInterfaceState_0044D4E0@@QAEHXZ",
+      "symbol": "?FadeOutAndStop@PlatformInterfaceState2@@QAEHXZ",
       "section": ".text$02layoutb",
       "address": "0x0044D740",
       "size": 67,
       "actual_abi": "state in ECX; passes the state in EAX to 0x0044D4E0; plain RET",
-      "source": "src/core/zwave/sound_fade_steps_0044d740.cpp"
+      "source": "src/core/zwave/sound_fade_steps.cpp"
     },
     {
       "name": "FadeDownHalf_0044d790",
-      "symbol": "?FadeDownHalf@PlatformInterfaceState_0044D4E0@@QAEHXZ",
+      "symbol": "?FadeDownHalf@PlatformInterfaceState2@@QAEHXZ",
       "section": ".text$02layoutc",
       "address": "0x0044D790",
       "size": 51,
       "actual_abi": "state in ECX; passes the state in EAX to 0x0044D4E0; plain RET",
-      "source": "src/core/zwave/sound_fade_steps_0044d740.cpp"
+      "source": "src/core/zwave/sound_fade_steps.cpp"
     },
     {
       "name": "FadeDownSlight_0044d7d0",
-      "symbol": "?FadeDownSlight@PlatformInterfaceState_0044D4E0@@QAEHXZ",
+      "symbol": "?FadeDownSlight@PlatformInterfaceState2@@QAEHXZ",
       "section": ".text$02layoutd",
       "address": "0x0044D7D0",
       "size": 51,
       "actual_abi": "state in ECX; passes the state in EAX to 0x0044D4E0; plain RET",
-      "source": "src/core/zwave/sound_fade_steps_0044d740.cpp"
+      "source": "src/core/zwave/sound_fade_steps.cpp"
     },
     {
       "name": "FadeUpSlight_0044d810",
-      "symbol": "?FadeUpSlight@PlatformInterfaceState_0044D4E0@@QAEHXZ",
+      "symbol": "?FadeUpSlight@PlatformInterfaceState2@@QAEHXZ",
       "section": ".text$02layoute",
       "address": "0x0044D810",
       "size": 56,
       "actual_abi": "state in ECX; passes the state in EAX to 0x0044D4E0; plain RET",
-      "source": "src/core/zwave/sound_fade_steps_0044d740.cpp"
+      "source": "src/core/zwave/sound_fade_steps.cpp"
     }
   ],
   "roots": [
-    "?FadeOutAndStop@PlatformInterfaceState_0044D4E0@@QAEHXZ",
-    "?FadeDownHalf@PlatformInterfaceState_0044D4E0@@QAEHXZ",
-    "?FadeDownSlight@PlatformInterfaceState_0044D4E0@@QAEHXZ",
-    "?FadeUpSlight@PlatformInterfaceState_0044D4E0@@QAEHXZ"
+    "?FadeOutAndStop@PlatformInterfaceState2@@QAEHXZ",
+    "?FadeDownHalf@PlatformInterfaceState2@@QAEHXZ",
+    "?FadeDownSlight@PlatformInterfaceState2@@QAEHXZ",
+    "?FadeUpSlight@PlatformInterfaceState2@@QAEHXZ"
   ],
   "gaps": [
     {
@@ -327,25 +327,25 @@
     },
     {
       "caller": "?TickFades@SoundFadeManagerWave18@@QAEXXZ",
-      "callee": "?SetOperationDeadline@PlatformInterfaceState_0044D4E0@@QAEHH@Z",
+      "callee": "?SetOperationDeadline@PlatformInterfaceState2@@QAEHH@Z",
       "address": "0x00421E47",
       "instruction": "call"
     },
     {
       "caller": "?TickFades@SoundFadeManagerWave18@@QAEXXZ",
-      "callee": "?SetOperationDeadline@PlatformInterfaceState_0044D4E0@@QAEHH@Z",
+      "callee": "?SetOperationDeadline@PlatformInterfaceState2@@QAEHH@Z",
       "address": "0x00421E75",
       "instruction": "call"
     },
     {
       "caller": "?TickFades@SoundFadeManagerWave18@@QAEXXZ",
-      "callee": "?SetOperationDeadline@PlatformInterfaceState_0044D4E0@@QAEHH@Z",
+      "callee": "?SetOperationDeadline@PlatformInterfaceState2@@QAEHH@Z",
       "address": "0x00421EA8",
       "instruction": "call"
     },
     {
       "caller": "?TickFades@SoundFadeManagerWave18@@QAEXXZ",
-      "callee": "?SetOperationDeadline@PlatformInterfaceState_0044D4E0@@QAEHH@Z",
+      "callee": "?SetOperationDeadline@PlatformInterfaceState2@@QAEHH@Z",
       "address": "0x00421ED9",
       "instruction": "call"
     }

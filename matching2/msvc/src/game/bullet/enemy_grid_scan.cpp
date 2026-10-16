@@ -8,7 +8,7 @@
 // The pattern arrives in EAX and the manager on the stack (RET 4); the cell
 // spawner takes the pattern in EBX. Both conventions come from the native
 // LTCG cluster build_support/layout/ltcg/enemy_grid_scan_004073e0.json.
-#include "th10/game/enemy_grid_scan_004073e0.hpp"
+#include "th10/game/enemy_grid_scan.hpp"
 #include "th10/platform/sound_queue.hpp"
 #include "th10/game/player.hpp"
 
@@ -16,8 +16,8 @@ extern "C" double __cdecl atan2(double, double);
 #pragma intrinsic(atan2)
 
 #pragma code_seg(".text$004073e0_fn")
-int __stdcall EnemyGrid_ScanCells_004073e0(ProjectilePattern* pattern,
-                                           ProjectileManager_004073e0* manager) {
+int __stdcall EnemyGrid_ScanCells2(ProjectilePattern* pattern,
+                                           ProjectileManager2* manager) {
     float dx = g_player->position.x - pattern->x;
     float dy = g_player->position.y - pattern->y;
     float aim;
@@ -27,7 +27,7 @@ int __stdcall EnemyGrid_ScanCells_004073e0(ProjectilePattern* pattern,
         aim = (float)atan2(dy, dx);
     for (int row = 0; row < pattern->rows; ++row) {
         for (int column = 0; column < pattern->columns; ++column) {
-            if (SpawnPatternCell_004067d0(pattern, manager, column, row, aim) != 0)
+            if (SpawnPatternCell2(pattern, manager, column, row, aim) != 0)
                 goto full;
         }
     }

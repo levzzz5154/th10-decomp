@@ -1,8 +1,8 @@
 // Compiler context only: models of the callees, so the pass derives their
 // register arguments.
-#include "th10/game/effect_kind_spawn_0040b070.hpp"
+#include "th10/game/effect_kind_spawn.hpp"
 
-extern "C" void* __cdecl operator_new_00452493(unsigned int size);
+extern "C" void* __cdecl operator_new2(unsigned int size);
 extern "C" void* __cdecl Entity_Constructor_00402050(void* entity);
 extern "C" void __cdecl Entity_Init_00401de0(void* unused, void* entity);
 
@@ -15,27 +15,27 @@ static unsigned int NextPoolIndex_00449950(unsigned int index) {
 }
 
 #pragma code_seg(".text$00449950_fn")
-AnimationNode_0040b070* AnimationPool_0040b070::Allocate() {
+AnimationNode2* AnimationPool2::Allocate() {
     unsigned char* bytes = (unsigned char*)this;
     unsigned int index = *(unsigned int*)(bytes + 0x3AD068);
     if (bytes[0x3AC068 + index] != 0) {
         index = NextPoolIndex_00449950(index);
         *(unsigned int*)(bytes + 0x3AD068) = index;
         if (bytes[0x3AC068 + index] != 0) {
-            unsigned char* allocated = (unsigned char*)operator_new_00452493(0x3AC);
+            unsigned char* allocated = (unsigned char*)operator_new2(0x3AC);
             if (allocated == 0) return 0;
             Entity_Constructor_00402050(allocated);
             Entity_Init_00401de0(0, allocated);
             *(unsigned int*)(bytes + 0x3AD068) =
                 NextPoolIndex_00449950(*(unsigned int*)(bytes + 0x3AD068));
-            return (AnimationNode_0040b070*)allocated;
+            return (AnimationNode2*)allocated;
         }
     }
     unsigned char* slot = bytes + 0x68 + index * 0x3AC;
     bytes[0x3AC068 + index] = 1;
     *(unsigned int*)(bytes + 0x3AD068) =
         NextPoolIndex_00449950(*(unsigned int*)(bytes + 0x3AD068));
-    return (AnimationNode_0040b070*)slot;
+    return (AnimationNode2*)slot;
 }
 
 #pragma code_seg(".text$004489d0_fn")
@@ -69,13 +69,13 @@ extern "C" __declspec(noinline) void** __cdecl asm_AnimationManager_RegisterPrim
 }
 
 #pragma code_seg(".text$004491c0_fn")
-AnimationNode_0040b070* AnimationLists_0040b070::Find(AnimationHandle_0040b070 handle) {
+AnimationNode2* AnimationLists2::Find(AnimationHandle2 handle) {
     if (!handle.value)
         return 0;
-    for (AnimationNode_0040b070* node = primary; node != 0; node = node->next)
+    for (AnimationNode2* node = primary; node != 0; node = node->next)
         if (*reinterpret_cast<unsigned int*>(node->object) == handle.value)
             return node->object;
-    for (AnimationNode_0040b070* node = secondary; node != 0; node = node->next)
+    for (AnimationNode2* node = secondary; node != 0; node = node->next)
         if (*reinterpret_cast<unsigned int*>(node->object) == handle.value)
             return node->object;
     return 0;

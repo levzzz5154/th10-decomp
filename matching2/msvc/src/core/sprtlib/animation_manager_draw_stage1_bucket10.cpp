@@ -6,26 +6,26 @@
 // manager arrives in ECX and why it lives in the camera cluster.
 #include "th10/render/camera_batch.hpp"
 
-struct RenderStage_004487c0 {
+struct RenderStage7 {
     RenderCamera camera;
     unsigned char reserved_0F0[0x118 - sizeof(RenderCamera)];
 };
 
-struct RenderStageState_004487c0 {
+struct RenderStageState7 {
     unsigned char reserved_000[0x08];
     RenderDevice* device;                        // +0x08
     unsigned char reserved_00C[0x154 - 0x0C];
-    RenderStage_004487c0 stages[2];              // +0x154, stride 0x118
-    RenderStage_004487c0* active_stage;          // +0x384
+    RenderStage7 stages[2];              // +0x154, stride 0x118
+    RenderStage7* active_stage;          // +0x384
     int stage_index;                             // +0x388
 };
-extern "C" RenderStageState_004487c0 g_application;
+extern "C" RenderStageState7 g_application;
 
 extern "C" int __cdecl asm_AnimationManager_RenderBucket_00448980(void* manager, int index);
 
 #pragma code_seg(".text$08stage10")
 int SprtCtrlBatchView::RenderStage1Bucket10() {
-    RenderStage_004487c0* stage = &g_application.stages[1];
+    RenderStage7* stage = &g_application.stages[1];
     g_application.active_stage = stage;
     stage->camera.ApplyDefault();
     g_d3d_device->Viewport(&g_application.active_stage->camera.viewport_x);

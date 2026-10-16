@@ -25,7 +25,7 @@ extern "C" HintGameState g_globals_character;
 // re-reads a field after any store that could alias it, as retail does.
 inline HintGameState* GameState() { return &g_globals_character; }
 
-HintData* __stdcall HintData_Create_0041a120(Hint* manager, const char* text,
+HintData* __stdcall HintData_Create2(Hint* manager, const char* text,
                                              const HintDataPosition* position);
-HintData* __stdcall HintData_CreateUrgent_00424650(Hint* manager, const char* text,
+HintData* __stdcall HintData_CreateUrgent2(Hint* manager, const char* text,
                                                    const HintDataPosition* position);

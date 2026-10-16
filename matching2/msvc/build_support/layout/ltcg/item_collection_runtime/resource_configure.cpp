@@ -1,11 +1,11 @@
 // 0x0043E5A0 (356 bytes): configure one animation object from an archive
 // resource record.
 
-#include "th10/render/animation_object_0043e5a0.hpp"
+#include "th10/render/animation_object.hpp"
 
 #pragma code_seg(".text$f0043e5a0F")
-__declspec(noinline) int Resource_0043e5a0::ConfigureObject(
-    AnimationObject_0043e5a0* object, int index) {
+__declspec(noinline) int Resource2::ConfigureObject(
+    AnimationObject3* object, int index) {
     unsigned char* res = reinterpret_cast<unsigned char*>(this);
     if (*reinterpret_cast<void**>(res + 0x108) == 0 ||
         *reinterpret_cast<unsigned int*>(res + 0x124) != 0)

@@ -7,7 +7,7 @@
 #define AnimationLookupContext RecoveryLookupContext
 #define AnimationScriptId RecoveryScriptId
 #define code_seg(name) code_seg(".text$00449250_fn")
-#include "../../../../src/core/sprtlib/animation_manager_set_stop_frame_and_run_00449250.cpp"
+#include "../../../../src/core/sprtlib/animation_manager_set_stop_frame_and_run.cpp"
 #undef code_seg
 struct TitleAnimationSlotView {
     unsigned char reserved_000[0x2C4];

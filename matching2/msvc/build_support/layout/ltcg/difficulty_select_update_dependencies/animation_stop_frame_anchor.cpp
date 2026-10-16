@@ -5,6 +5,6 @@
 #define AnimationLookupContext RecoveryLookupContext
 #define AnimationScriptId RecoveryScriptId
 #define code_seg(name) code_seg(".text$00449470_fn")
-#include "../../../../src/core/sprtlib/animation_manager_set_stop_frame_from_handle_retail_00449470.cpp"
+#include "../../../../src/core/sprtlib/animation_manager_set_stop_frame_from_handle_retail.cpp"
 #undef code_seg
 #pragma code_seg()

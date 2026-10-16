@@ -1,12 +1,12 @@
 // Compiler context and ABI anchors only; none of these bytes enter the image.
-#include "../../../src/game/mother/screenshot_capture_00420670.cpp"
+#include "../../../src/game/mother/screenshot_capture.cpp"
 #include <stdarg.h>
 
 extern "C" int __cdecl ScreenshotCaptureEscape(void* pointer, int value);
 
 #pragma inline_depth(0)
 #pragma code_seg(".text$0040a000_context")
-extern "C" int __stdcall ScreenshotCaptureContext(GameApp_00420670** apps, const char** names, int count) {
+extern "C" int __stdcall ScreenshotCaptureContext(GameApp** apps, const char** names, int count) {
     int total = 0;
     for (int index = 0; index < count; ++index) {
         const char* name = names[index];
@@ -30,7 +30,7 @@ extern ScreenshotCaptureCriticalSection g_text_log_lock;
 extern unsigned char g_text_log_lock_depth;
 }
 #pragma code_seg(".text$00i_append")
-__declspec(noinline) char* TextLog_00420670::Append(char* format, ...) {
+__declspec(noinline) char* TextLog2::Append(char* format, ...) {
     char staging[0x2000];
     va_list arguments;
     va_start(arguments, format);

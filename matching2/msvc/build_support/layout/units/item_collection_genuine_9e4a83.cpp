@@ -20,14 +20,14 @@
 #include <math.h>
 #pragma intrinsic(cos,sin)
 #pragma code_seg(".text$f0041beb0F")
-__declspec(noinline) ItemPolarVelocity_0041bb00* ItemPolarVelocity_0041bb00::SetPolar(float angle,float speed) {
+__declspec(noinline) ItemPolarVelocity2* ItemPolarVelocity2::SetPolar(float angle,float speed) {
     x=static_cast<float>(cos(angle)*speed);
     y=static_cast<float>(sin(angle)*speed);
     return this;
 }
 #pragma code_seg()
 #pragma code_seg(".text$f0041f800F")
-__declspec(noinline) LinePolarVelocity_0041f800* LinePolarVelocity_0041f800::SetPolar(float angle,float speed) {
+__declspec(noinline) LinePolarVelocity2* LinePolarVelocity2::SetPolar(float angle,float speed) {
     x=static_cast<float>(cos(angle)*speed);
     y=static_cast<float>(sin(angle)*speed);
     return this;

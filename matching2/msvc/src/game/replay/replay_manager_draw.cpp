@@ -15,7 +15,7 @@ typedef char Panel_value_is_1c4[offsetof(ReplayManagerPanel, value) == 0x1c4 ? 1
 #pragma code_seg(".text$11panel")
 __declspec(noinline) int __fastcall ReplayManager_Draw(void* callback_context_ecx, ReplayManagerPanel* panel) {
  if (g_game != 0 && panel->display_state != 0 && panel->display_state == 1) {
-    Vec3_00401530 position = {383.0f,450.0f,0.0f};
+    Vec32 position = {383.0f,450.0f,0.0f};
     unsigned int color;
     if ((float)panel->value < flt_30)
         color=0xff5050ffu;
@@ -23,7 +23,7 @@ __declspec(noinline) int __fastcall ReplayManager_Draw(void* callback_context_ec
         color=0xffa0a0ffu;
     else
         color=0xffffffffu;
-    GameThread_00401530* thread=g_ascii_manager;
+    GameThread2* thread=g_ascii_manager;
     thread->current_4c=color;
     AsciiManager_AddFormatted(thread,&position,str_int3_format,(int)panel->value);
     g_ascii_manager->current_4c=-1;

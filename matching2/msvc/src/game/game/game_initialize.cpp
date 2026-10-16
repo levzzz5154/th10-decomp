@@ -5,14 +5,14 @@
 // The private helper conventions come from their complete C++ bodies in
 // build_support/layout/ltcg/stage_startup.json.
 #include <string.h>
-#include "th10/game/stage_startup_00417870.hpp"
+#include "th10/game/stage_startup.hpp"
 #include "th10/game/title_draw.hpp"
 #include "th10/game/score_file.hpp"
 #include "th10/core/func_ctrl.hpp"
-#include "../../../build_support/layout/ltcg/stage_startup_00417870/callback_task.hpp"
-#include "../../../build_support/layout/ltcg/stage_startup_00417870/path_reset.cpp"
-#include "../../../build_support/layout/ltcg/stage_startup_00417870/set_clock.cpp"
-#include "../../../build_support/layout/ltcg/stage_startup_00417870/retire_callbacks.cpp"
+#include "../../../build_support/layout/ltcg/stage_startup/callback_task.hpp"
+#include "../../../build_support/layout/ltcg/stage_startup/path_reset.cpp"
+#include "../../../build_support/layout/ltcg/stage_startup/set_clock.cpp"
+#include "../../../build_support/layout/ltcg/stage_startup/retire_callbacks.cpp"
 
 struct Game {
     CallbackPair callbacks;
@@ -24,7 +24,7 @@ struct Game {
 typedef char Game_InitializeFlags[offsetof(Game, flags) == 0x58 ? 1 : -1];
 
 struct AnimationWaitState { int primary_pending; int secondary_pending; };
-struct StageResources_00417870 {
+struct StageResources {
     int stage_kind;
     const char* stage_file;
     unsigned int unknown_08;
@@ -44,7 +44,7 @@ typedef char StageTimingSecond[offsetof(StageTiming, second) == 0x2C ? 1 : -1];
 extern "C" {
 extern AnimationWaitState* g_sprt_ctrl;
 extern FuncCtrl* g_func_ctrl;
-extern StageResources_00417870* g_stage_route_current;
+extern StageResources* g_stage_route_current;
 extern PathState* g_enemy_ctrl;
 extern StageTiming* g_fps;
 extern void* g_front;
@@ -158,7 +158,7 @@ extern "C" __declspec(noinline) int __stdcall Game_Initialize(Game* context) {
         if (!Hint_Create()) goto failed;
         if (!CreateLargeResources()) goto failed;
     } else {
-        reinterpret_cast<ReplayManager_0042a6a0*>(g_replay)->BeginStage();
+        reinterpret_cast<ReplayManager2*>(g_replay)->BeginStage();
         SetupScoreTask(g_front);
         if (!CreateStageState(g_stage_route_current->stage_file, 0)) goto failed;
     }

@@ -16,10 +16,10 @@
 // Equivalent recovery: retail keeps the created handle in a stack slot of its
 // own (push ecx at entry), this build puts it in the dead argument slot
 // (reference/recovery_notes/name_entry_update_00432cb0_equivalent_2026_10_11.md).
-#include "th10/game/name_entry_update_00432cb0.hpp"
+#include "th10/game/name_entry_update.hpp"
 
 // Select an item, clamped to the items of the menu when it has any.
-static __forceinline void SelectItem_00432cb0(MenuCursor& cursor, int index) {
+static __forceinline void SelectItem11(MenuCursor& cursor, int index) {
     if (cursor.item_count != 0)
         cursor.selection = index >= cursor.item_count ? cursor.item_count - 1 : ((index < 0) - 1) & index;
     else
@@ -27,7 +27,7 @@ static __forceinline void SelectItem_00432cb0(MenuCursor& cursor, int index) {
 }
 
 // The score file with its high-score tables.
-static __forceinline NameEntryScoreFile* ScoreFile_00432cb0() {
+static __forceinline NameEntryScoreFile* ScoreFile5() {
     return reinterpret_cast<NameEntryScoreFile*>(g_score);
 }
 
@@ -38,8 +38,8 @@ __declspec(noinline) int __stdcall TitleNameEntry(Title* room) {
     switch (room->phase) {
     case 0: {
         room->cursor.item_count = 30;
-        Music_Load_00420a90(0, "bgm/th10_17.wav");
-        Music_Play_00420b10(0, 17);
+        Music_Load2(0, "bgm/th10_17.wav");
+        Music_Play2(0, 17);
         if (reinterpret_cast<RecoveryLookup*>(g_sprt_ctrl)->Find(
                 reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl),
                 *reinterpret_cast<RecoveryScriptId*>(&room->animation_slots[94])) == 0) {
@@ -57,7 +57,7 @@ __declspec(noinline) int __stdcall TitleNameEntry(Title* room) {
         g_globals_stage = 8;
         g_globals_stage_shown = 8;
         g_stage_route_current = g_stage_routes + 8 * 0x30;
-        int rank = ScoreFile_00432cb0()->shots[g_globals_character][g_globals_shot_type].table.InsertScore();
+        int rank = ScoreFile5()->shots[g_globals_character][g_globals_shot_type].table.InsertScore();
         g_stage_route_current = g_stage_routes;
         g_globals_stage = 0;
         g_globals_stage_shown = 0;
@@ -66,7 +66,7 @@ __declspec(noinline) int __stdcall TitleNameEntry(Title* room) {
             room->cursor.wrap = 1;
             UpdateBoundedCounter(rank, reinterpret_cast<unsigned int*>(&room->cursor));
             MenuCursor* grid = &entry->grid;
-            SelectItem_00432cb0(*grid, 0);
+            SelectItem11(*grid, 0);
             entry->grid.item_count = strlen(g_name_entry_grid);
             entry->grid.wrap = 1;
             strcpy(entry->name, g_score->last_name);
@@ -80,7 +80,7 @@ __declspec(noinline) int __stdcall TitleNameEntry(Title* room) {
             entry->name_length = length;
             entry->name_confirmed = 0;
         } else {
-            SelectItem_00432cb0(room->cursor, -1);
+            SelectItem11(room->cursor, -1);
             entry->name_confirmed = 1;
         }
     }
@@ -142,10 +142,10 @@ __declspec(noinline) int __stdcall TitleNameEntry(Title* room) {
                     entry->name[entry->name_length] = ' ';
                     g_sound_manager.Queue(10, 0);
                 } else if (cell == count - 1) {
-                    strcpy(ScoreFile_00432cb0()->shots[g_globals_character][g_globals_shot_type]
+                    strcpy(ScoreFile5()->shots[g_globals_character][g_globals_shot_type]
                                .table.records[g_globals_difficulty][room->cursor.selection].name,
                            entry->name);
-                    strcpy(ScoreFile_00432cb0()->last_name, entry->name);
+                    strcpy(ScoreFile5()->last_name, entry->name);
                     room->SetTimerTarget(3);
                     g_sound_manager.Queue(10, 0);
                 } else {

@@ -104,7 +104,7 @@
       {
         "region": {
           "name": "semantic_CollisionCheck_00408100",
-          "source": "src/game/fun_00408100_00408100.cpp",
+          "source": "src/game/fun.cpp",
           "symbol": "?Check@CollisionEngine_00408100@@QAEHPBUPositionVector_004492f0@@MHH@Z",
           "address": "0x00408100",
           "size": 260,
@@ -112,7 +112,7 @@
           "owner": "0x00408100",
           "previous_record": {
             "name": "asm_FUN_00408100_00408100",
-            "source": "src/game/fun_00408100_00408100.cpp",
+            "source": "src/game/fun.cpp",
             "symbol": "_asm_FUN_00408100_00408100",
             "address": "0x00408100",
             "size": 260,
@@ -127,7 +127,7 @@
       {
         "region": {
           "name": "semantic_CounterState_Create_0040a3c0",
-          "source": "src/unidentified/FUN_0040a3c0_0040a3c0.cpp",
+          "source": "src/unidentified/FUN.cpp_40a3c0.cpp",
           "symbol": "_asm_FUN_0040a3c0_0040a3c0",
           "address": "0x0040A3C0",
           "size": 67,
@@ -135,7 +135,7 @@
           "owner": "0x0040A3C0",
           "previous_record": {
             "name": "asm_FUN_0040a3c0_0040a3c0",
-            "source": "src/unidentified/FUN_0040a3c0_0040a3c0.cpp",
+            "source": "src/unidentified/FUN.cpp_40a3c0.cpp",
             "symbol": "_asm_FUN_0040a3c0_0040a3c0",
             "address": "0x0040A3C0",
             "size": 67,
@@ -242,7 +242,7 @@
       {
         "region": {
           "name": "semantic_LargeState_Initialize_00421f00",
-          "source": "src/game/recovery_initialize_large_state_00421f00.cpp",
+          "source": "src/game/recovery_initialize_large_state.cpp",
           "symbol": "_Init_00421f00@4",
           "address": "0x00421F00",
           "size": 71,
@@ -250,7 +250,7 @@
           "owner": "0x00421F00",
           "previous_record": {
             "name": "asm_Recovery_InitializeLargeState_00421f00",
-            "source": "src/game/recovery_initialize_large_state_00421f00.cpp",
+            "source": "src/game/recovery_initialize_large_state.cpp",
             "symbol": "_asm_Recovery_InitializeLargeState_00421f00",
             "address": "0x00421F00",
             "size": 71,
@@ -265,7 +265,7 @@
       {
         "region": {
           "name": "semantic_CreateLargeResourceState_00425020",
-          "source": "src/game/recovery_create_large_resource_state_00425020.cpp",
+          "source": "src/game/recovery_create_large_resource_state.cpp",
           "symbol": "?Create_00425020@@YAPAUPlayerResetBlock@@XZ",
           "address": "0x00425020",
           "size": 69,
@@ -273,7 +273,7 @@
           "owner": "0x00425020",
           "previous_record": {
             "name": "asm_Recovery_CreateLargeResourceState_00425020",
-            "source": "src/game/recovery_create_large_resource_state_00425020.cpp",
+            "source": "src/game/recovery_create_large_resource_state.cpp",
             "symbol": "_asm_Recovery_CreateLargeResourceState_00425020",
             "address": "0x00425020",
             "size": 69,
@@ -288,7 +288,7 @@
       {
         "region": {
           "name": "semantic_ScoreArchiveManager_Construct_0042ae60",
-          "source": "src/game/effect_manager_initialize_pools_retail_0042ae60.cpp",
+          "source": "src/game/effect_manager_initialize_pools_retail.cpp",
           "symbol": "??0ScoreArchiveManager_0042ae60@@QAE@XZ",
           "address": "0x0042AE60",
           "size": 132,
@@ -296,7 +296,7 @@
           "owner": "0x0042AE60",
           "previous_record": {
             "name": "asm_EffectManager_InitializePoolsRetail_0042ae60",
-            "source": "src/game/effect_manager_initialize_pools_retail_0042ae60.cpp",
+            "source": "src/game/effect_manager_initialize_pools_retail.cpp",
             "symbol": "_asm_EffectManager_InitializePoolsRetail_0042ae60",
             "address": "0x0042AE60",
             "size": 132,
@@ -311,7 +311,7 @@
       {
         "region": {
           "name": "semantic_ScoreManager_Create_0042af20",
-          "source": "src/game/effect_manager_initialize_pools_retail_0042ae60.cpp",
+          "source": "src/game/effect_manager_initialize_pools_retail.cpp",
           "symbol": "?ScoreManager_Create_0042af20@@YGXXZ",
           "address": "0x0042AF20",
           "size": 97,
@@ -357,7 +357,7 @@
       {
         "region": {
           "name": "semantic_EffectPool_Create_0042bf30",
-          "source": "src/unidentified/FUN_0042bf30_0042bf30.cpp",
+          "source": "src/unidentified/FUN.cpp_42bf30.cpp",
           "symbol": "_asm_FUN_0042bf30_0042bf30",
           "address": "0x0042BF30",
           "size": 67,
@@ -365,7 +365,7 @@
           "owner": "0x0042BF30",
           "previous_record": {
             "name": "asm_FUN_0042bf30_0042bf30",
-            "source": "src/unidentified/FUN_0042bf30_0042bf30.cpp",
+            "source": "src/unidentified/FUN.cpp_42bf30.cpp",
             "symbol": "_asm_FUN_0042bf30_0042bf30",
             "address": "0x0042BF30",
             "size": 67,
@@ -426,7 +426,7 @@
       {
         "region": {
           "name": "semantic_AsciiFactory_0043c8b0",
-          "source": "src/game/ascii_manager_create_retail_0043c8b0.cpp",
+          "source": "src/game/ascii_manager_create_retail.cpp",
           "symbol": "?CreateScreenEffect_0043c8b0@@YGPAUScreenEffectController_0043c970@@HHHHHH@Z",
           "address": "0x0043C8B0",
           "size": 82,
@@ -434,7 +434,7 @@
           "owner": null,
           "previous_record": {
             "name": "asm_AsciiManager_CreateRetail_0043c8b0",
-            "source": "src/game/ascii_manager_create_retail_0043c8b0.cpp",
+            "source": "src/game/ascii_manager_create_retail.cpp",
             "symbol": "_asm_AsciiManager_CreateRetail_0043c8b0",
             "address": "0x0043C8B0",
             "size": 82,
@@ -495,7 +495,7 @@
       {
         "region": {
           "name": "semantic_SoundStreamInitializeSingle_0044d6a0",
-          "source": "src/game/recovery_initialize_single_interface_0044d6a0.cpp",
+          "source": "src/game/recovery_initialize_single_interface.cpp",
           "symbol": "??0SoundStreamingState@@QAE@PAUWaveSecondaryBuffer@@IPAUMusicReadCursor@@I@Z",
           "address": "0x0044D6A0",
           "size": 109,
@@ -503,7 +503,7 @@
           "owner": "0x0044D6A0",
           "previous_record": {
             "name": "asm_Recovery_InitializeSingleInterface_0044d6a0",
-            "source": "src/game/recovery_initialize_single_interface_0044d6a0.cpp",
+            "source": "src/game/recovery_initialize_single_interface.cpp",
             "symbol": "_asm_Recovery_InitializeSingleInterface_0044d6a0",
             "address": "0x0044D6A0",
             "size": 109,
@@ -518,7 +518,7 @@
       {
         "region": {
           "name": "semantic_SoundStreamRestart_0044dad0",
-          "source": "src/platform/streamer_restart_retail_0044dad0.cpp",
+          "source": "src/platform/streamer_restart_retail.cpp",
           "symbol": "_SoundStream_Restart_0044dad0@4",
           "address": "0x0044DAD0",
           "size": 213,
@@ -526,7 +526,7 @@
           "owner": "0x0044DAD0",
           "previous_record": {
             "name": "asm_Streamer_RestartRetail_0044dad0",
-            "source": "src/platform/streamer_restart_retail_0044dad0.cpp",
+            "source": "src/platform/streamer_restart_retail.cpp",
             "symbol": "_asm_Streamer_RestartRetail_0044dad0",
             "address": "0x0044DAD0",
             "size": 213,
@@ -564,7 +564,7 @@
       {
         "region": {
           "name": "semantic_SoundMemoryConstructionCleanup_00465310",
-          "source": "src/game/recovery_initialize_single_interface_0044d6a0.cpp",
+          "source": "src/game/recovery_initialize_single_interface.cpp",
           "symbol": "_SoundMemoryNativeUnwind_00465310",
           "address": "0x00465310",
           "size": 11,
@@ -587,7 +587,7 @@
       {
         "region": {
           "name": "semantic_SoundMemoryFactoryHandler_0046531b",
-          "source": "src/game/recovery_initialize_single_interface_0044d6a0.cpp",
+          "source": "src/game/recovery_initialize_single_interface.cpp",
           "symbol": "__ehhandler$?SoundStream_CreateMemory_0044cbf0@@YIHPAPAUSoundStreamingState@@IPAPAUWaveDirectSoundDevice@@PAEIPAUMusicTrackRecord@@UWaveGuidImage@@IIPAX@Z",
           "address": "0x0046531B",
           "size": 10,
@@ -685,7 +685,7 @@
       {
         "region": {
           "name": "semantic_ScoreManager_AllocationCleanup_004655a0",
-          "source": "src/game/effect_manager_initialize_pools_retail_0042ae60.cpp",
+          "source": "src/game/effect_manager_initialize_pools_retail.cpp",
           "symbol": "_ScoreManagerNativeUnwind_004655a0",
           "address": "0x004655A0",
           "size": 11,
@@ -708,7 +708,7 @@
       {
         "region": {
           "name": "semantic_ScoreManager_AllocationHandler_004655ab",
-          "source": "src/game/effect_manager_initialize_pools_retail_0042ae60.cpp",
+          "source": "src/game/effect_manager_initialize_pools_retail.cpp",
           "symbol": "__ehhandler$?ScoreManager_Create_0042af20@@YGXXZ",
           "address": "0x004655AB",
           "size": 10,
@@ -1669,14 +1669,14 @@
     "oracle_sha256": "2f14760b6fbbf57549541583283badb9a19a4222b90f0a146d5aa17f01dc9040",
     "retained_inputs": {
       "/home/levzzz/Games/th10Decomp/matching2/build/experiments/native_score_manager_2026_10_01/msvc/layout/ltcg/score_manager_native.json": "e0fd2061fbac3858584194ee67447a37790aabae01abe0abd2ea3afa0d6f6a71",
-      "/home/levzzz/Games/th10Decomp/matching2/build/experiments/native_score_manager_2026_10_01/msvc/src/game/effect_manager_initialize_pools_retail_0042ae60.cpp": "cd2fedacd6646f92a19bb62f04f8ccff5e4f9ddf15a2376fd33a25b2a5cd23f1",
+      "/home/levzzz/Games/th10Decomp/matching2/build/experiments/native_score_manager_2026_10_01/msvc/src/game/effect_manager_initialize_pools_retail.cpp": "cd2fedacd6646f92a19bb62f04f8ccff5e4f9ddf15a2376fd33a25b2a5cd23f1",
       "/home/levzzz/Games/th10Decomp/matching2/build/experiments/native_score_manager_2026_10_01/msvc/layout/ltcg/score_manager_factory_context.cpp": "06b3664a075fac9a3f8763ec9d9592b2de4633adb81e72321ffbef506280292c",
       "/home/levzzz/Games/th10Decomp/matching2/build/experiments/native_score_manager_2026_10_01/msvc/layout/ltcg/score_manager_dependencies/defaults.cpp": "92dc49437a43e725b6cda2fc09fcb2ec97e125e20df6bae259070e35bd521fc5",
       "/home/levzzz/Games/th10Decomp/matching2/build/experiments/native_score_manager_2026_10_01/msvc/layout/ltcg/score_manager_dependencies/random_table.cpp": "98196ad663328b52b8c64c3ac5afbb1696d86d9d0d4c1e2127f6063ee06ed034",
       "/home/levzzz/Games/th10Decomp/matching2/build/experiments/native_score_manager_2026_10_01/msvc/layout/ltcg/score_manager_dependencies/load_sections.cpp": "a4fbbe954146c5141d1d3fafa2ba48b93d3e10bc961ef2c9b8bcd203b45a7651",
       "/home/levzzz/Games/th10Decomp/matching2/build/experiments/native_score_manager_2026_10_01/msvc/layout/ltcg/score_manager_dependencies/decrypt.cpp": "1d8459be7d431ae1b7f5699ef7442a21c942addf89a6b44b370ccb248cc31d7c",
       "/home/levzzz/Games/th10Decomp/matching2/build/experiments/native_score_manager_2026_10_01/msvc/layout/ltcg/score_manager_dependencies/archive_load.cpp": "5cd43cb7d209786f2ed9d55061011bc6d485722f3730fa410839a8c8909eaf36",
-      "/home/levzzz/Games/th10Decomp/matching2/build/experiments/native_score_manager_2026_10_01/msvc/include/th10/game/score_archive_manager_0042ae60.hpp": "4a3bfff2dd7a94e2f19240c58dae3296a8a5d4c1f10f6dc2be6ec2798d865431",
+      "/home/levzzz/Games/th10Decomp/matching2/build/experiments/native_score_manager_2026_10_01/msvc/include/th10/game/score_archive_manager.hpp": "4a3bfff2dd7a94e2f19240c58dae3296a8a5d4c1f10f6dc2be6ec2798d865431",
       "/home/levzzz/Games/th10Decomp/matching2/build/experiments/native_score_manager_2026_10_01/msvc/include/th10/game/score_file.hpp": "6301711448bd3dc6bf1eb96047992f49075a3e4d824b305e1cf5ddda0b936c30",
       "/home/levzzz/.local/share/th10-toolchains/msvc-13.10.6030/include/string.h": "b68e9db97d695655abe65dd36d9fc0f92e5bc304371eb9c8a9d2144e55eb8c37",
       "/home/levzzz/.local/share/th10-toolchains/msvc-13.10.6030/include/stddef.h": "491ce357cd01c533b07664fb9a97403a172e277096ee58a924696c0046a96afe",

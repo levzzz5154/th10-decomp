@@ -3,7 +3,7 @@
 
 // Bindings for everything the anchors below call.
 extern "C" void* g_sprt_ctrl;
-extern "C" void* __cdecl operator_new_00452493(unsigned int size);
+extern "C" void* __cdecl operator_new2(unsigned int size);
 extern "C" void* __cdecl Entity_Constructor_00402050(void* entity);
 extern "C" void __cdecl Entity_Init_00401de0(void* unused, void* entity);
 extern "C" void __cdecl asm_AnimationObject_LoadScriptTail_0043ee30(void* object);
@@ -26,7 +26,7 @@ extern "C" __declspec(noinline) void* __cdecl asm_FUN_00449950_00449950(void* ma
         index = NextPoolIndex_00449950(index);
         *(unsigned int*)(bytes + 0x3AD068) = index;
         if (bytes[0x3AC068 + index] != 0) {
-            unsigned char* allocated = (unsigned char*)operator_new_00452493(0x3AC);
+            unsigned char* allocated = (unsigned char*)operator_new2(0x3AC);
             if (allocated == 0) {
                 return 0;
             }
@@ -138,11 +138,11 @@ extern "C" __declspec(noinline) void** __cdecl asm_AnimationManager_RegisterPrim
 // exported as recovered code.  Retail hands this body the position record in
 // EDI - a convention only a whole-program pass over this body can assign - and
 // receives the resource, out slot and index on the stack.
-struct AnimationObject_00448d50 {
+struct AnimationObject6 {
     unsigned char reserved_000[0x20];
     int render_bucket_020;                          // +0x20
     unsigned char reserved_024[0x340 - 0x24];
-    AnimationPosition_00448d50 position_340;        // +0x340
+    AnimationPosition position_340;        // +0x340
     unsigned char reserved_34c[0x35C - 0x34C];
     unsigned int flags_035c;                        // +0x35C
 };
@@ -151,9 +151,9 @@ struct AnimationObject_00448d50 {
 __declspec(noinline)
 void** __stdcall AnimationManager_CreatePositionedPrimary(
     void* resource, void** out, int index,
-    const AnimationPosition_00448d50* position) {
-    AnimationObject_00448d50* object =
-        (AnimationObject_00448d50*)asm_FUN_00449950_00449950(g_sprt_ctrl);
+    const AnimationPosition* position) {
+    AnimationObject6* object =
+        (AnimationObject6*)asm_FUN_00449950_00449950(g_sprt_ctrl);
     object->flags_035c |= 0x40000000u;
     object->render_bucket_020 = 0;
     object->position_340 = *position;
@@ -167,9 +167,9 @@ void** __stdcall AnimationManager_CreatePositionedPrimary(
 // 0x0040C540's own caller, shaped like the game's animation users.  Not
 // recovered game code.
 #pragma code_seg(".text$0bcontext")
-int __stdcall LazyResourceCompilerContext(GameThread_0040c540** items, int count) {
+int __stdcall LazyResourceCompilerContext(GameThread6** items, int count) {
     while (count--) {
-        GameThread_0040c540* thread = *items++;
+        GameThread6* thread = *items++;
         thread->EnsureAnimationResource(480.0f, 392.0f);
     }
     return 0;

@@ -15,7 +15,7 @@ struct HintContextOwner {
 extern "C" __declspec(noinline) int __stdcall HintDataCreateCompilerContext(
         HintContextOwner* owner, int* gate) {
     if (gate[4] != 1)
-        HintData_CreateUrgent_00424650(g_hint, "tip", &owner->position);
+        HintData_CreateUrgent2(g_hint, "tip", &owner->position);
     return gate[0];
 }
 #pragma code_seg()

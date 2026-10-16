@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
   "name": "sound_restart_context",
-  "source": "src/core/zwave/streamer_restart_retail_0044dad0.cpp",
+  "source": "src/core/zwave/streamer_restart_retail.cpp",
   "driver": "build_support/layout/ltcg/sound_restart_context.cpp",
   "included_sources": [
-    "build_support/layout/ltcg/sound_restart_dependencies/sound_start_platform_run_interface_0044d300.cpp",
+    "build_support/layout/ltcg/sound_restart_dependencies/sound_start_platform_run_interface.cpp",
     "build_support/layout/ltcg/sound_restart_dependencies/sound_start_sound_stream_fill_model.cpp",
     "build_support/layout/ltcg/sound_restart_dependencies/sound_start_sound_fill_rewind.cpp",
     "build_support/layout/ltcg/sound_restart_dependencies/sound_start_sound_fill_read.cpp",
@@ -12,7 +12,7 @@
   ],
   "headers": [
     "include/th10/game/sound_start_context.hpp",
-    "include/th10/platform/sound_fade_0044d4e0.hpp",
+    "include/th10/platform/sound_fade.hpp",
     "build_support/layout/ltcg/sound_restart_dependencies/sound_wave_types.hpp",
     "build_support/layout/ltcg/sound_restart_dependencies/sound_memory_words.hpp",
     "build_support/layout/ltcg/sound_restart_dependencies/sound_effect_support.hpp"
@@ -206,7 +206,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_SoundStream_RecreateBuffers_0044cf20@4",
+      "symbol": "_SoundStream_RecreateBuffers2@4",
       "address": "0x44cf20",
       "kind": "relative_code"
     },

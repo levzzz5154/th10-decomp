@@ -4,14 +4,14 @@
 #include "timer.hpp"
 struct AnimationResourceFile;
 __declspec(noinline) void __stdcall Entity_StartScript(AnimationResourceFile* resource, Entity* entity, int script);
-struct ItemPolarVelocity_0041bb00 {
+struct ItemPolarVelocity2 {
     float x, y;
-    __declspec(noinline) ItemPolarVelocity_0041bb00* SetPolar(float angle, float speed);
+    __declspec(noinline) ItemPolarVelocity2* SetPolar(float angle, float speed);
 };
 struct SpawnItem {
     Entity animation;
     Vector3 position;
-    ItemPolarVelocity_0041bb00 velocity;
+    ItemPolarVelocity2 velocity;
     int motion_state;
     int motion_counter;
     FrameTimer timer;

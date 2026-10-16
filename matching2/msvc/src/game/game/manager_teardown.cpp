@@ -29,7 +29,7 @@
 // cluster build_support/layout/ltcg/manager_state_release.json, whose driver and
 // anchor sources carry a compiled body for each of them, placed at the retail
 // address and never exported as recovered code.
-#include "th10/game/manager_teardown_00417c80.hpp"
+#include "th10/game/manager_teardown.hpp"
 #include "th10/game/enemy_ctrl.hpp"
 #include "th10/core/func_ctrl.hpp"
 #include "th10/platform/thread_sync.hpp"
@@ -46,13 +46,13 @@ extern "C" void __stdcall StageManager_Destroy(void* manager);
 extern "C" void __stdcall BulletManager_Destroy(void* manager);
 extern "C" void __stdcall ItemManager_Destroy(void* manager);
 extern "C" void __stdcall ScoreExtendedObject_DestroyRetail(void* object);
-extern "C" void __stdcall ResourceCleanup_00418ee0(void* state);
+extern "C" void __stdcall ResourceCleanup2(void* state);
 extern "C" void __stdcall EffectManager_Destroy(void* manager);
 extern "C" void __stdcall ManagerOwned_Destroy(void* manager);
-extern "C" void __stdcall EnemyCtrl_Clear_00409f90(void* manager);
+extern "C" void __stdcall EnemyCtrl_Clear2(void* manager);
 extern "C" void __stdcall BulletManager_Release(void* manager);
 extern "C" void __stdcall Bomb_Release(void* state);
-extern "C" void __stdcall Card_Destroy_00408af0(void* manager);
+extern "C" void __stdcall Card_Destroy2(void* manager);
 
 // The manager state block: two scheduler tasks the game thread registered.
 struct Game {
@@ -101,7 +101,7 @@ void __stdcall Game_Destroy(Game* state) {
         // handle is reached through the loaded game-thread value, so the
         // handle's address is materialized ahead of the creation call.
         void** handle_slot = &g_ascii_manager->animation_handle;
-        AnimationPosition_00448d50 position;
+        AnimationPosition position;
         position.x = 480.0f;
         position.y = 392.0f;
         position.z = 0.0f;
@@ -114,17 +114,17 @@ void __stdcall Game_Destroy(Game* state) {
         if (g_globals_stage_shown == g_globals_stage)
             g_globals_flags |= 1u;
     } else if (g_main_state == 0xB) {
-        GameThread_0040c540* thread = g_ascii_manager;
+        GameThread6* thread = g_ascii_manager;
         thread->EnsureAnimationResource(224.0f, 416.0f);
         g_globals_flags |= replay_bit;
     } else if (g_main_state == 4) {
-        GameThread_0040c540* thread = g_ascii_manager;
+        GameThread6* thread = g_ascii_manager;
         thread->EnsureAnimationResource(480.0f, 392.0f);
     } else if (g_main_state == 0xF) {
-        GameThread_0040c540* thread = g_ascii_manager;
+        GameThread6* thread = g_ascii_manager;
         thread->EnsureAnimationResource(480.0f, 392.0f);
     } else if (g_main_state == 0xD) {
-        GameThread_0040c540* thread = g_ascii_manager;
+        GameThread6* thread = g_ascii_manager;
         thread->EnsureAnimationResource(480.0f, 392.0f);
         if (g_globals_stage_shown != g_globals_stage) {
             g_globals.IncrementCappedCount();
@@ -184,7 +184,7 @@ void __stdcall Game_Destroy(Game* state) {
         }
         void* resource_state = g_hint;
         if (resource_state) {
-            ResourceCleanup_00418ee0(resource_state);
+            ResourceCleanup2(resource_state);
             crt_free_startup(resource_state);
         }
         void* effects = g_smoll_score;
@@ -223,7 +223,7 @@ void __stdcall Game_Destroy(Game* state) {
     // 0x00417F80: with the run still active (flag bits 0 or 3) the enemy
     // manager is cleared in place; otherwise it is destroyed and freed.
     if (g_globals_flags & 9u) {
-        EnemyCtrl_Clear_00409f90(g_enemy_ctrl);
+        EnemyCtrl_Clear2(g_enemy_ctrl);
     } else {
         EnemyCtrl* enemies = g_enemy_ctrl;
         if (enemies) {
@@ -243,7 +243,7 @@ void __stdcall Game_Destroy(Game* state) {
     }
     void* players = g_card;
     if (players) {
-        Card_Destroy_00408af0(players);
+        Card_Destroy2(players);
         crt_free_startup(players);
     }
 

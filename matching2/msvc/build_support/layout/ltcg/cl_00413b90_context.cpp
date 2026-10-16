@@ -1,10 +1,10 @@
 // Compiler context only; never selected as recovered game code.
-#include "../../../src/unreferenced/unassigned_00413b90.cpp"
+#include "../../../src/unreferenced/unassigned_413b90.cpp"
 
 extern "C" void __cdecl opaque_release_004492a0(void* item);
 
 #pragma code_seg(".text$03anchor")
-__declspec(noinline) void AnimationResource_00413b90::Release() {
+__declspec(noinline) void AnimationResource3::Release() {
     if (resource_108 == 0) {
         crt_free_startup(this);
         return;
@@ -36,7 +36,7 @@ __declspec(noinline) void AnimationResource_00413b90::Release() {
 int __stdcall ReleaseContext_00413b90(int count) {
     int total = 0;
     for (int i = 0; i < count; ++i) {
-        total += ReleaseCachedResource_00413b90();
+        total += ReleaseCachedResource2();
     }
     return total;
 }

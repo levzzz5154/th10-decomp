@@ -1,0 +1,32 @@
+// 0x0040E5F0: what a dying enemy leaves behind.
+//
+// It plays its death sound panned to its position, starts its death burst,
+// throws its main item and scatters the rest, and holds the gauge for ten
+// frames. The enemy arrives on the stack.
+#include "th10/game/enemy_death_release.hpp"
+#include "th10/game/player_update_collision.hpp"
+struct Vector3;
+
+void** __stdcall ItemAnimation_CreateOffset(
+    void* resource, void** out, int index, const Vector3* position);
+
+#pragma code_seg(".text$079k_death")
+int __stdcall Enemy_ReleaseOnDeath(Enemy6* enemy) {
+    if (enemy->death_sound >= 0)
+        g_sound_manager.QueuePan(enemy->death_sound, enemy->position.position[0]);
+    if (enemy->death_script >= 0) {
+        void* burst;
+        ItemAnimation_CreateOffset(
+            g_enemy_ctrl->animation_files[enemy->death_file], &burst,
+            enemy->death_script, (const Vector3*)&enemy->position);
+    }
+    DropSource* source = &enemy->position;
+    ItemDrops2* drops = &enemy->drops;
+    if (drops->main_item > 0)
+        g_item_manager->Spawn(source->position, drops->main_item, -1, -1.5707964f, 2.2f);
+    source->ScatterDrops(drops);
+    drops->main_item = 0;
+    g_globals.AdvanceGaugeTimer(10);
+    return 1;
+}
+#pragma code_seg()

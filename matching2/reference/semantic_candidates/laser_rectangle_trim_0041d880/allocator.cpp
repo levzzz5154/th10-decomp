@@ -1,6 +1,6 @@
 // 0041BB00: allocate and initialize one dropped item. Native retail arguments
 // are manager in EAX, position in ECX, then kind/id/angle/speed on the stack.
-#include "th10/game/item_spawn_0041bb00.hpp"
+#include "th10/game/item_spawn.hpp"
 #include "animation_ids.hpp"
 extern "C" void _ReadWriteBarrier();
 #pragma intrinsic(_ReadWriteBarrier)

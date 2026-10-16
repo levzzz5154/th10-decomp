@@ -8,19 +8,19 @@
 // rebuilt from the running angle and the summed radius, the entity placement is
 // added and the next particle is advanced. The tail wraps record 1 into the
 // slot after record 31.
-struct Vector2_004458b0 {
+struct Vector24 {
     float x, y;
-    Vector2_004458b0* SetPolar(float angle, float radius);
+    Vector24* SetPolar(float angle, float radius);
 };
 
-struct EffectVector3_00445620 {
+struct EffectVector33 {
     float x, y, z;
-    EffectVector3_00445620() {}
-    EffectVector3_00445620(float x_, float y_, float z_) : x(x_), y(y_), z(z_) {}
-    EffectVector3_00445620 operator+(const EffectVector3_00445620& other) const {
-        return EffectVector3_00445620(x + other.x, y + other.y, z + other.z);
+    EffectVector33() {}
+    EffectVector33(float x_, float y_, float z_) : x(x_), y(y_), z(z_) {}
+    EffectVector33 operator+(const EffectVector33& other) const {
+        return EffectVector33(x + other.x, y + other.y, z + other.z);
     }
-    EffectVector3_00445620& operator+=(const EffectVector3_00445620& other) {
+    EffectVector33& operator+=(const EffectVector33& other) {
         x += other.x;
         y += other.y;
         z += other.z;
@@ -29,7 +29,7 @@ struct EffectVector3_00445620 {
 };
 
 struct EffectParticle {
-    EffectVector3_00445620 position;  // +0x00, world placement
+    EffectVector33 position;  // +0x00, world placement
     float angle;                 // +0x0C
     unsigned int color;          // +0x10
     float countdown_a;           // +0x14
@@ -57,12 +57,12 @@ struct EffectState {
     }
 };
 
-struct EffectEntity_00445620 {
+struct EffectEntity2 {
     unsigned char unknown_000[0x2FC];
     unsigned int color;          // +0x2FC
     unsigned char unknown_300[0x334 - 0x300];
-    EffectVector3_00445620 base;      // +0x334
-    EffectVector3_00445620 position;  // +0x340
+    EffectVector33 base;      // +0x334
+    EffectVector33 position;  // +0x340
     unsigned char unknown_34C[0x358 - 0x34C];
     EffectState* state;               // +0x358
 
@@ -70,7 +70,7 @@ struct EffectEntity_00445620 {
 };
 
 #pragma code_seg(".text$02effectring")
-int EffectEntity_00445620::Advance() {
+int EffectEntity2::Advance() {
     EffectState* state = this->state;
     EffectParticle* ring = state->particles;
     ring[0].position = base + position;
@@ -94,7 +94,7 @@ int EffectEntity_00445620::Advance() {
         particle->color = color;
         ((unsigned char*)&particle->color)[3] = 0;
         state->radii_a[index] += state->RadiusStep(index);
-        ((Vector2_004458b0*)particle)->SetPolar(angle, state->radii_a[index]);
+        ((Vector24*)particle)->SetPolar(angle, state->radii_a[index]);
         particle->position += base + position;
         angle += 0.20268340408802032f;
         ++particle;

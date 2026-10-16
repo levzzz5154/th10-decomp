@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
   "name": "animation_variable_resolvers",
-  "source": "src/core/sprtanim/animation_object_resolve_float_variable_0043ed00.cpp",
+  "source": "src/core/sprtanim/animation_object_resolve_float_variable.cpp",
   "additional_sources": [
-    "src/core/sprtanim/animation_object_resolve_integer_variable_0043eda0.cpp"
+    "src/core/sprtanim/animation_object_resolve_integer_variable.cpp"
   ],
   "driver": "build_support/layout/ltcg/animation_variable_resolvers_context.cpp",
   "headers": [],
@@ -17,7 +17,7 @@
       "address": "0x0043ED00",
       "size": 156,
       "actual_abi": "selector in CL; operand in EDI; object in ESI; mask at stack +4; result in EAX; RET 4",
-      "source": "src/core/sprtanim/animation_object_resolve_float_variable_0043ed00.cpp"
+      "source": "src/core/sprtanim/animation_object_resolve_float_variable.cpp"
     },
     {
       "name": "ResolveIntegerVariable",
@@ -26,7 +26,7 @@
       "address": "0x0043EDA0",
       "size": 132,
       "actual_abi": "operand in EAX; object in EDX; selector in CL; mask at stack +4; result in EAX; RET 4",
-      "source": "src/core/sprtanim/animation_object_resolve_integer_variable_0043eda0.cpp"
+      "source": "src/core/sprtanim/animation_object_resolve_integer_variable.cpp"
     }
   ],
   "context": {

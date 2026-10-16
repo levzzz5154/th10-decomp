@@ -4,7 +4,7 @@
 #include "../../../src/game/ending/ending_text_construct.cpp"
 #include "../../../src/game/ending/ending_initialize.cpp"
 #pragma code_seg(".text$03context")
-extern "C" int __stdcall EndingContext(Ending* state, GameCounters_0040b560** counters) {
+extern "C" int __stdcall EndingContext(Ending* state, GameCounters** counters) {
     *counters = &g_globals_score;
     return state->Initialize();
 }

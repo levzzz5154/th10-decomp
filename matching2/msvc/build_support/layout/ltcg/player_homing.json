@@ -1,11 +1,11 @@
 {
   "schema_version": 1,
   "name": "player_homing",
-  "source": "src/game/bullet/player_homing_00407ef0.cpp",
+  "source": "src/game/bullet/player_homing.cpp",
   "additional_sources": [],
   "headers": [
-    "include/th10/game/player_homing_00407ef0.hpp",
-    "include/th10/game/player_motion_helpers_004074b0_004076a0.hpp",
+    "include/th10/game/player_homing.hpp",
+    "include/th10/game/player_motion_helpers.hpp",
     "include/th10/math/angle.hpp",
     "include/th10/math/timer.hpp",
     "include/th10/game/player.hpp",
@@ -17,7 +17,7 @@
   "functions": [
     {
       "name": "PlayerHoming_HomeTowardTarget",
-      "source": "src/game/bullet/player_homing_00407ef0.cpp",
+      "source": "src/game/bullet/player_homing.cpp",
       "symbol": "?HomeTowardTarget@PlayerHomingState@@QAEXXZ",
       "address": "0x00407EF0",
       "size": 306,

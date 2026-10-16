@@ -8,7 +8,7 @@
 extern "C" __declspec(noinline) int __stdcall MidiEventParserCaller(
     MidiSequencer* sequencer, int count) {
     for (int index = 0; index < count; ++index)
-        ProcessMidiEvent_0043B110(sequencer, &sequencer->tracks[index]);
+        ProcessMidiEvent2(sequencer, &sequencer->tracks[index]);
     sequencer->ResetTracks();
     return count;
 }

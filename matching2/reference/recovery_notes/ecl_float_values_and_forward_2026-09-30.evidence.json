@@ -10,7 +10,7 @@
       "different_bytes": 0,
       "exact": true,
       "relocations": [],
-      "source": "src/game/ecl_forward_float_00412aa0.cpp"
+      "source": "src/game/ecl_forward_float.cpp"
     },
     {
       "region": "semantic_ResolveFloatValue_0044ff80",
@@ -20,7 +20,7 @@
       "different_bytes": 0,
       "exact": true,
       "relocations": [],
-      "source": "src/game/ecl_forward_float_00412aa0.cpp"
+      "source": "src/game/ecl_forward_float.cpp"
     },
     {
       "region": "asm_FUN_0044e1a0_0044e1a0",
@@ -2016,7 +2016,7 @@
       "different_bytes": 0,
       "exact": true,
       "relocations": [],
-      "source": "src/script/ecl_resolve_float_operand_0044fe40.cpp"
+      "source": "src/script/ecl_resolve_float_operand.cpp"
     },
     {
       "region": "semantic_ResolveIntDestination_00450030",
@@ -2026,7 +2026,7 @@
       "different_bytes": 0,
       "exact": true,
       "relocations": [],
-      "source": "src/script/ecl_resolve_variable_value_00450030.cpp"
+      "source": "src/script/ecl_resolve_variable_value.cpp"
     },
     {
       "region": "semantic_EclVm_ResolveFloatDestination_00450070",
@@ -2036,7 +2036,7 @@
       "different_bytes": 0,
       "exact": true,
       "relocations": [],
-      "source": "src/script/ecl_resolve_variable_value_00450030.cpp"
+      "source": "src/script/ecl_resolve_variable_value.cpp"
     },
     {
       "region": "semantic_FUN_0040c650_0040c650",
@@ -2046,7 +2046,7 @@
       "different_bytes": 0,
       "exact": true,
       "relocations": [],
-      "source": "src/unidentified/FUN_0040c650_0040c650.cpp"
+      "source": "src/unidentified/FUN.cpp_40c650.cpp"
     },
     {
       "region": "semantic_FUN_0040c680_0040c680",
@@ -2056,7 +2056,7 @@
       "different_bytes": 0,
       "exact": true,
       "relocations": [],
-      "source": "src/unidentified/FUN_0040c650_0040c650.cpp"
+      "source": "src/unidentified/FUN.cpp_40c650.cpp"
     },
     {
       "region": "semantic_ECL_ResolveIntFromEntity_00412a00",
@@ -2066,15 +2066,15 @@
       "different_bytes": 0,
       "exact": true,
       "relocations": [],
-      "source": "src/unidentified/FUN_0040c650_0040c650.cpp"
+      "source": "src/unidentified/FUN.cpp_40c650.cpp"
     }
   ],
   "changed_source_sha256": {
     "regions.json": "ddbba2ab440d3f35223273b71f2ab934f12562f84be8d37fdd7ee3bd80d7cfa2",
     "include/th10/script/ecl_float_values.hpp": "a7a847bd5f0c61f7c6fd621226f0e4d457953fa92c42c4bd2c6021822dd3fd55",
-    "src/game/ecl_forward_float_00412aa0.cpp": "578bdbcae75b56a86e4e44b5a6002e425542b3c7c929f2173cdaf944ba6b1da8",
-    "src/script/ecl_resolve_float_operand_0044fe40.cpp": "390d9a5acf58d9671d8000159758e366ad1bcb2f8cacb1b64934e81cdf49bedb",
-    "src/script/ecl_resolve_float_value_0044ff80.cpp": "7246bcf2cb1effef403a341954f5d7ebedcdfb7d51ff3f84869b0133a0ca528a",
+    "src/game/ecl_forward_float.cpp": "578bdbcae75b56a86e4e44b5a6002e425542b3c7c929f2173cdaf944ba6b1da8",
+    "src/script/ecl_resolve_float_operand.cpp": "390d9a5acf58d9671d8000159758e366ad1bcb2f8cacb1b64934e81cdf49bedb",
+    "src/script/ecl_resolve_float_value.cpp": "7246bcf2cb1effef403a341954f5d7ebedcdfb7d51ff3f84869b0133a0ca528a",
     "layout/ltcg/ecl_float_operand_recovery.json": "68ae0369858dd895d6a0d564a7c0bfe264f2d2e4b354ddb0a0a75e940db4f2e3",
     "layout/ltcg/ecl_float_operand_recovery_context.cpp": "ece773666adf2751fa04a1ab63248654037ea620351018d40b5509dbab83486b",
     "layout/ltcg/ecl_float_forward.json": "0e3cee60bfe91bb99f549ed11f96bd7bd644894073e52c1dc1754f76f41dd269",
@@ -2082,13 +2082,13 @@
     "layout/ltcg/ecl_operand_thunks_context.cpp": "0d352d8f180be0a89e3b88fbbc6467d47b607dd1ca58967e42f63b3ee0e473b0"
   },
   "recovered_compiler_units": {
-    "src/game/ecl_forward_float_00412aa0.cpp": {
+    "src/game/ecl_forward_float.cpp": {
       "compiler_kind": "native-ltcg",
       "sources": null,
       "input_sha256": {
         "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/ecl_float_forward.json": "0e3cee60bfe91bb99f549ed11f96bd7bd644894073e52c1dc1754f76f41dd269",
-        "/home/levzzz/Games/th10Decomp/matching2/msvc/src/game/ecl_forward_float_00412aa0.cpp": "578bdbcae75b56a86e4e44b5a6002e425542b3c7c929f2173cdaf944ba6b1da8",
-        "/home/levzzz/Games/th10Decomp/matching2/msvc/src/script/ecl_resolve_float_value_0044ff80.cpp": "7246bcf2cb1effef403a341954f5d7ebedcdfb7d51ff3f84869b0133a0ca528a",
+        "/home/levzzz/Games/th10Decomp/matching2/msvc/src/game/ecl_forward_float.cpp": "578bdbcae75b56a86e4e44b5a6002e425542b3c7c929f2173cdaf944ba6b1da8",
+        "/home/levzzz/Games/th10Decomp/matching2/msvc/src/script/ecl_resolve_float_value.cpp": "7246bcf2cb1effef403a341954f5d7ebedcdfb7d51ff3f84869b0133a0ca528a",
         "/home/levzzz/Games/th10Decomp/matching2/msvc/include/th10/script/ecl_float_values.hpp": "a7a847bd5f0c61f7c6fd621226f0e4d457953fa92c42c4bd2c6021822dd3fd55",
         "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/ecl_float_forward_context.cpp": "13db86bbd7cae4eeb39080bd013cba64b4f6bf12862981de84909c8723883e3d"
       },
@@ -2166,7 +2166,7 @@
           "object_sha256": "09be95c72a392e168986d64bb9342db23b8c7ac9f612d94323042ba52e1e3f27"
         },
         {
-          "source": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/script/ecl_resolve_float_value_0044ff80.cpp",
+          "source": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/script/ecl_resolve_float_value.cpp",
           "object": "/home/levzzz/Games/th10Decomp/matching2/build/ecl_family_final_20260930/clusters/ecl_float_forward/native-xx6oyp6x/source_000.obj",
           "command": [
             "wine",
@@ -2185,7 +2185,7 @@
             "/showIncludes",
             "/IZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\include",
             "/FoZ:\\home\\levzzz\\Games\\th10Decomp\\matching2\\build\\ecl_family_final_20260930\\clusters\\ecl_float_forward\\native-xx6oyp6x\\source_000.obj",
-            "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\src\\script\\ecl_resolve_float_value_0044ff80.cpp"
+            "Z:\\home\\levzzz\\Games\\th10Decomp\\matching2\\msvc\\src\\script\\ecl_resolve_float_value.cpp"
           ],
           "source_sha256": "7246bcf2cb1effef403a341954f5d7ebedcdfb7d51ff3f84869b0133a0ca528a",
           "object_sha256": "7a89701c20a4231b2f377281c768bd84ed0f827fa0885ee753f1867d546e4ab5"
@@ -2310,12 +2310,12 @@
         }
       ]
     },
-    "src/script/ecl_resolve_float_operand_0044fe40.cpp": {
+    "src/script/ecl_resolve_float_operand.cpp": {
       "compiler_kind": "native-ltcg",
       "sources": null,
       "input_sha256": {
         "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/ecl_float_operand_recovery.json": "68ae0369858dd895d6a0d564a7c0bfe264f2d2e4b354ddb0a0a75e940db4f2e3",
-        "/home/levzzz/Games/th10Decomp/matching2/msvc/src/script/ecl_resolve_float_operand_0044fe40.cpp": "390d9a5acf58d9671d8000159758e366ad1bcb2f8cacb1b64934e81cdf49bedb",
+        "/home/levzzz/Games/th10Decomp/matching2/msvc/src/script/ecl_resolve_float_operand.cpp": "390d9a5acf58d9671d8000159758e366ad1bcb2f8cacb1b64934e81cdf49bedb",
         "/home/levzzz/Games/th10Decomp/matching2/msvc/include/th10/script/ecl_float_values.hpp": "a7a847bd5f0c61f7c6fd621226f0e4d457953fa92c42c4bd2c6021822dd3fd55",
         "/home/levzzz/Games/th10Decomp/matching2/msvc/layout/ltcg/ecl_float_operand_recovery_context.cpp": "ece773666adf2751fa04a1ab63248654037ea620351018d40b5509dbab83486b"
       },

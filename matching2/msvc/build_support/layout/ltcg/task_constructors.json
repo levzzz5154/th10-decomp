@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "name": "task_constructors_00449a50",
+  "source": "src/core/zunlib/task_constructors.cpp",
+  "driver": "build_support/layout/ltcg/task_constructors_00449a50_context.cpp",
+  "headers": [
+    "include/th10/core/func_ctrl.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Native C++ task constructors.",
+  "functions": [
+    {
+      "name": "EmptyTask_Constructor",
+      "symbol": "??0EmptyTask@@QAE@XZ",
+      "section": ".text$01empty",
+      "address": "0x00449A50",
+      "size": 32,
+      "actual_abi": "this EAX"
+    },
+    {
+      "name": "RoutineTask_Constructor",
+      "symbol": "??0RoutineTask@@QAE@P6IHPAX@Z@Z",
+      "section": ".text$02routine",
+      "address": "0x00449A70",
+      "size": 32,
+      "actual_abi": "this EAX; routine ECX"
+    }
+  ],
+  "context": {
+    "symbol": "_TaskConstructorContext@16",
+    "section": ".text$03context",
+    "address": "0x00449A90",
+    "size": 70,
+    "description": "Synthetic array caller."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 297552
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [],
+  "included_sources": []
+}

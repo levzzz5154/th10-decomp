@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "h3701_b60",
-  "source": "src/unreferenced/FUN_00418b60_00418b60.cpp",
+  "source": "src/unreferenced/FUN.cpp_418b60.cpp",
   "driver": "build_support/layout/ltcg/h3701_b60_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

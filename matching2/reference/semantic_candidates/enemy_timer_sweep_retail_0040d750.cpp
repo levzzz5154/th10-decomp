@@ -1,4 +1,4 @@
-#include "th10/game/enemy_timer_sweep_0040d750.hpp"
+#include "th10/game/enemy_timer_sweep.hpp"
 
 extern "C" int __stdcall asm_FUN_0040dc80_0040dc80(void* state);
 extern float g_frame_timer_normal_lower;

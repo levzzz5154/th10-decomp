@@ -1,0 +1,121 @@
+{
+  "schema_version": 1,
+  "name": "sound_stream_construct",
+  "source": "src/core/zwave/sound_stream_construct.cpp",
+  "driver": "build_support/layout/ltcg/sound_stream_construct/context.cpp",
+  "headers": [
+    "include/th10/game/sound_stream_fill_model.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Streaming sound constructor, compiled with the real buffer fill and its readers and an array-walking caller.",
+  "functions": [
+    {
+      "name": "SoundStream_Construct",
+      "symbol": "_SoundStream_Construct2@20",
+      "section": ".text$00construct",
+      "address": "0x0044CE80",
+      "actual_abi": "stream in ESI, count in EDI, source buffers in EAX; buffer bytes and reader on the stack, RET 8",
+      "size": 118
+    }
+  ],
+  "context": {
+    "symbol": "_SoundStreamConstructContext@24",
+    "section": ".text$07context",
+    "address": "0x0044E100",
+    "size": 119,
+    "description": "Synthetic array-walking caller; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00before",
+      "address": 4198400,
+      "size": 310912
+    },
+    {
+      "section": ".text$00constructz",
+      "address": 4509430,
+      "size": 538
+    },
+    {
+      "section": ".text$01fillz",
+      "address": 4510451,
+      "size": 2637
+    },
+    {
+      "section": ".text$03rewindz",
+      "address": 4513282,
+      "size": 14
+    },
+    {
+      "section": ".text$05readz",
+      "address": 4513498,
+      "size": 550
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_imp_Sleep",
+      "address": "0x004660AC",
+      "kind": "data"
+    },
+    {
+      "symbol": "_imp_SetFilePointer",
+      "address": "0x004660C8",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_bgm_data_offset",
+      "address": "0x004977A4",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__ReadFile@20",
+      "address": "0x004660D0",
+      "kind": "data"
+    },
+    {
+      "symbol": "??2@YAPAXI@Z",
+      "address": "0x00452493",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "??_U@YAPAXI@Z",
+      "address": "0x00452493",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_g_sound_stream_unknown",
+      "address": "0x004705D8",
+      "kind": "data"
+    }
+  ],
+  "anchors": [
+    {
+      "name": "ActualSoundStreamFill",
+      "symbol": "_SoundStreamFill@12",
+      "section": ".text$01fill",
+      "address": "0x0044D110",
+      "size": 483
+    },
+    {
+      "name": "ArchiveRewind",
+      "symbol": "_ArchiveRewind@8",
+      "section": ".text$03rewind",
+      "address": "0x0044DD40",
+      "size": 194
+    },
+    {
+      "name": "ArchiveRead",
+      "symbol": "_ArchiveRead@16",
+      "section": ".text$05read",
+      "address": "0x0044DE10",
+      "size": 202
+    }
+  ],
+  "included_sources": [
+    "src/core/zwave/sound_stream_fill_model.cpp",
+    "build_support/layout/ltcg/sound_fill_read.cpp",
+    "build_support/layout/ltcg/sound_fill_rewind.cpp"
+  ]
+}

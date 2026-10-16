@@ -30,10 +30,10 @@
 //  * The slot id is passed to the animation manager straight from the slot
 //    array; copied into a local first the id and the manager load swap
 //    registers.
-#include "th10/game/key_config_update_0042f540.hpp"
+#include "th10/game/key_config_update.hpp"
 
 // Select an item, clamped to the last one when the menu has items.
-static __forceinline void SelectItem_0042f540(MenuCursor& cursor, int index) {
+static __forceinline void SelectItem5(MenuCursor& cursor, int index) {
     if (cursor.item_count != 0)
         cursor.selection = index >= cursor.item_count ? cursor.item_count - 1 : index;
     else
@@ -52,7 +52,7 @@ static __forceinline void LoadBindings(Title* room) {
 }
 
 // Restart the cursor animation of slot 2.
-static __forceinline void RunCursorSlot_0042f540(Title* room) {
+static __forceinline void RunCursorSlot3(Title* room) {
     AnimationManager_SetStopFrameAndRun(3, reinterpret_cast<AnimationLookupContext*>(g_sprt_ctrl),
         *reinterpret_cast<AnimationScriptId*>(&room->animation_slots[2]));
 }
@@ -67,15 +67,15 @@ static __forceinline void HandleInput(Title* room) {
         cursor->Advance(1);
     if (cursor->previous_selection != cursor->selection) {
         g_sound_manager.Queue(12, 0);
-        RunCursorSlot_0042f540(room);
+        RunCursorSlot3(room);
         room->SetSlotFrame(2, cursor->selection + 7);
     }
 
-    unsigned char* buttons = Input_PollJoystickButtons_0044a4e0(0);
+    unsigned char* buttons = Input_PollJoystickButtons2(0);
     for (int button = 0; button < 31; button++) {
         if (buttons[button] & 0x80) {
             if (cursor->selection <= 4)
-                KeyConfigReassignSlot_00430250(
+                KeyConfigReassignSlot2(
                     reinterpret_cast<TitleKeyConfigView*>(room), cursor->selection, button);
             break;
         }
@@ -115,7 +115,7 @@ int __stdcall TitleMenuFlow(Title* room) {
     switch (room->phase) {
     case 0:
         room->cursor.item_count = 7;
-        SelectItem_0042f540(room->cursor, 0);
+        SelectItem5(room->cursor, 0);
         RecoveryMusicInstallSlot(room, 2);
         room->SetTimerTarget(1);
         LoadBindings(room);
@@ -123,7 +123,7 @@ int __stdcall TitleMenuFlow(Title* room) {
     case 1:
         if (room->timer.current > 6) {
             room->SetTimerTarget(2);
-            RunCursorSlot_0042f540(room);
+            RunCursorSlot3(room);
             room->SetSlotFrame(2, room->cursor.selection + 17);
         }
         break;

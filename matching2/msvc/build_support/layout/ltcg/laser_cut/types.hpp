@@ -2,7 +2,7 @@
 #include <stddef.h>
 #include "animation_ids.hpp"
 #include "item_spawn.hpp"
-#include "th10/game/laser_spawn_0041c510.hpp"
+#include "th10/game/laser_spawn.hpp"
 #include "th10/render/animation_public_callers.hpp"
 struct CutVector : Vector3 {
  CutVector() {}
@@ -65,7 +65,7 @@ struct CutLaser {
 };
 typedef char CutLengthOffset[offsetof(CutLaser,length)==0x40?1:-1];
 typedef char CutScriptOffset[offsetof(CutLaser,script)==0x466?1:-1];
-struct CutAnimationBank : LaserManager_0041c510 {
+struct CutAnimationBank : LaserManager2 {
  unsigned char reserved_440[0x458-0x440];
  void* line_animation;
 };
@@ -75,4 +75,4 @@ extern "C" {
 }
 struct AnimationResourceFile;
 struct AnimationObjectFile;
-extern "C" __declspec(noinline) void* __stdcall LoadScript_0043e710(AnimationResourceFile*,AnimationObjectFile*,int);
+extern "C" __declspec(noinline) void* __stdcall LoadScript2(AnimationResourceFile*,AnimationObjectFile*,int);

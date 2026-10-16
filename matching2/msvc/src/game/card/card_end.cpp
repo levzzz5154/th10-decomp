@@ -5,7 +5,7 @@
 #include "th10/game/card_end.hpp"
 
 #pragma code_seg(".text$01a_end")
-void Card_00409c00::End() {
+void Card5::End() {
     if (flags & 1) {
         g_background->flags |= 1;
         effects[0].StopAtFrame1();
@@ -28,7 +28,7 @@ void Card_00409c00::End() {
         } else {
             // The slot is located before the create call, which may replace
             // the front manager.
-            CardAnimation_00409c00& caption = g_front->caption;
+            CardAnimation2& caption = g_front->caption;
             caption.Release();
             caption.id = Card_CreateAnimation(g_front->captions, 0x48, 0xF);
         }

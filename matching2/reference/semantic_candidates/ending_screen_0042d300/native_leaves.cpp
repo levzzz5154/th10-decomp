@@ -1,10 +1,10 @@
 // Complete existing leaf bodies for a native caller-visibility control.
 // Lookup and timer bodies copied from the maintained executor contexts.
 #include "title_dispatcher.cpp"
-#include "../../../msvc/src/game/recovery_animation_slot_frames_0042c6d0.cpp"
-#include "../../../msvc/src/game/recovery_install_animation_slot_0042c670.cpp"
-#include "../../../msvc/src/render/animation_manager_queue_resource_0043dc90.cpp"
-#include "../../../msvc/src/render/animation_manager_mark_resource_for_removal_004493e0.cpp"
+#include "../../../msvc/src/game/recovery_animation_slot_frames.cpp"
+#include "../../../msvc/src/game/recovery_install_animation_slot.cpp"
+#include "../../../msvc/src/render/animation_manager_queue_resource.cpp"
+#include "../../../msvc/src/render/animation_manager_mark_resource_for_removal.cpp"
 extern "C" float data_00476f78;
 #pragma code_seg(".text$004491c0_fn")
 void* __fastcall RecoveryLookup_0040bd80::Find(RecoveryLookupContext_0040bd80* context, RecoveryScriptId_0040bd80 id) {

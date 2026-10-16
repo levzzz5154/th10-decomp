@@ -74,7 +74,7 @@ int EclView::Update() {
                 EclView_Release(g_smoll_score);
                 EclView_Release(g_enemy_ctrl);
                 flags &= ~2u;
-                reinterpret_cast<PlatformWorker*>(&worker)->Start(this, EclView_LoadThread_0040a340);
+                reinterpret_cast<PlatformWorker*>(&worker)->Start(this, EclView_LoadThread2);
                 state = 2;
             }
             break;
@@ -123,7 +123,7 @@ int EclView::Update() {
 #pragma code_seg()
 
 #pragma code_seg(".text$b2task")
-int __fastcall EclView_UpdateTask_0040abe0(EclView* viewer) {
+int __fastcall EclView_UpdateTask2(EclView* viewer) {
     return viewer->Update();
 }
 #pragma code_seg()

@@ -2,7 +2,7 @@
 //
 // Each such item is retired, a kind 9 item is thrown up from its position,
 // and a flash starts there. The manager arrives in ESI.
-#include "th10/game/item_spawn_0041bb00.hpp"
+#include "th10/game/item_spawn.hpp"
 
 struct Vector3;
 void** __stdcall ItemAnimation_CreateOffset_00448db0(

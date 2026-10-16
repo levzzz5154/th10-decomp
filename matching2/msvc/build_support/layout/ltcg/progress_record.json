@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "name": "progress_record",
+  "source": "src/game/title/progress.cpp",
+  "driver": "build_support/layout/ltcg/progress_record_0042c850_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "GameProgress_HasAnyPlayRecord compiled with native LTCG so the progress object arrives in EAX.",
+  "functions": [
+    {
+      "name": "GameProgress_HasAnyPlayRecord",
+      "symbol": "?HasAnyPlayRecord@GameProgress2@@QAEHXZ",
+      "section": ".text$01accessor",
+      "address": "0x0042C850",
+      "size": 69,
+      "actual_abi": "progress object in EAX; result in EAX"
+    }
+  ],
+  "context": {
+    "symbol": "?ProgressRecordCompilerContext@@YGHPAPAUGameProgress2@@H@Z",
+    "section": ".text$03context",
+    "address": "0x0042C8A0",
+    "size": 38,
+    "description": "Synthetic array-walking caller that establishes the observed register convention; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 178256
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x0042C895",
+      "size": 11
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [],
+  "included_sources": []
+}

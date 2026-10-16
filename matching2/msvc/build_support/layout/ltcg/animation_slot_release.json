@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "name": "animation_slot_release_004136c0",
+  "source": "src/game/fps/animation_slot_release.cpp",
+  "driver": "build_support/layout/ltcg/animation_slot_release_004136c0_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "Animation slot release compiled with native LTCG against the lookup/flag-setter anchors (context EDX, id on the stack).",
+  "functions": [
+    {
+      "name": "AnimationSlot_Release_004136c0",
+      "symbol": "?Release@AnimationSlot@@QAEXXZ",
+      "section": ".text$00fn",
+      "address": "0x004136C0",
+      "size": 97,
+      "actual_abi": "slot in ESI; plain RET"
+    }
+  ],
+  "anchors": [
+    {
+      "name": "Find_anchor",
+      "symbol": "?AnimationManager_Find@@YIPAXPAUAnimationLookupContext@@UAnimationScriptId@@@Z",
+      "section": ".text$02find",
+      "address": "0x004491C0",
+      "size": 73
+    },
+    {
+      "name": "SetFlag_anchor",
+      "symbol": "?AnimationManager_SetFlag2@@YIPAXPAUAnimationLookupContext@@UAnimationScriptId@@@Z",
+      "section": ".text$04setflag",
+      "address": "0x004492A0",
+      "size": 66
+    }
+  ],
+  "context": {
+    "symbol": "_AnimationSlotReleaseContext_004136c0@8",
+    "section": ".text$06context",
+    "address": "0x00449300",
+    "size": 36,
+    "description": "Synthetic array-walking caller; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00alayout",
+      "address": "0x00401000",
+      "size": 75456
+    },
+    {
+      "section": ".text$01layout",
+      "address": "0x00413721",
+      "size": 219807
+    },
+    {
+      "section": ".text$03layout",
+      "address": "0x00449209",
+      "size": 151
+    },
+    {
+      "section": ".text$05layout",
+      "address": "0x004492E2",
+      "size": 30
+    }
+  ],
+  "constants": [],
+  "constant_aliases": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_g_sprt_ctrl",
+      "address": "0x00491C10",
+      "kind": "data"
+    }
+  ],
+  "roots": [],
+  "included_sources": [
+    "build_support/layout/ltcg/animation_lookup_anchors.cpp"
+  ]
+}

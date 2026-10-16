@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "name": "region_00439350",
+  "source": "src/unreferenced/unassigned_439350.cpp",
+  "driver": "build_support/layout/ltcg/region_00439350_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "Region compiled with native LTCG so the internal register convention matches retail.",
+  "functions": [
+    {
+      "name": "ApplySettings",
+      "symbol": "?ApplySettings@@YGXXZ",
+      "section": ".text$01accessor",
+      "address": "0x439350",
+      "size": 62,
+      "actual_abi": "no arguments"
+    }
+  ],
+  "context": {
+    "symbol": "?ApplySettingsCompilerContext@@YGHH@Z",
+    "section": ".text$03context",
+    "address": "0x00439390",
+    "size": 30,
+    "description": "Synthetic caller that establishes the observed register convention; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 230224
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x0043938E",
+      "size": 2
+    }
+  ],
+  "constants": [],
+  "constant_aliases": [],
+  "absolute_symbols": [
+    {
+      "symbol": "__imp__SystemParametersInfoA@16",
+      "address": "0x466258",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_screen_saver_active",
+      "address": "0x49251c",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_screen_saver_timeout",
+      "address": "0x492520",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_monitor_power_off",
+      "address": "0x492524",
+      "kind": "data"
+    },
+    {
+      "symbol": "_WINNLSEnableIME2@8",
+      "address": "0x45232c",
+      "kind": "relative_code"
+    }
+  ],
+  "additional_sources": [],
+  "included_sources": []
+}

@@ -1,5 +1,5 @@
 // Compiler context only; its bytes are not recovered game code.
-#include "../../../src/core/main/launch_process_00436570.cpp"
+#include "../../../src/core/main/launch_process.cpp"
 
 #pragma code_seg(".text$03context")
 int __stdcall Ctx(char** c, const char** a, int n) {

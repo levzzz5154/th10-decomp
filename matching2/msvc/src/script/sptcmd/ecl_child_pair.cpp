@@ -5,10 +5,10 @@
 #include <stddef.h>
 #include "th10/script/ecl_children.hpp"
 #include "th10/script/ecl_float_values.hpp"
-#include "script_resolver_00450470.hpp"
+#include "script_resolver.hpp"
 
 struct EclFrame;
-__declspec(noinline) int __fastcall ECL_ResolveIntValue_0044ff00(int unused, EclFrame* source, int selector, int value);
+__declspec(noinline) int __fastcall ECL_ResolveIntValue2(int unused, EclFrame* source, int selector, int value);
 extern "C" void* __cdecl operator_new_child(unsigned int size);
 
 struct EclCompleteChild {
@@ -61,7 +61,7 @@ extern "C" __declspec(noinline) int __stdcall EclStartChild(
             else
                 *destination = (int)value;
         } else {
-            int value = ECL_ResolveIntValue_0044ff00(0, (EclFrame*)source,
+            int value = ECL_ResolveIntValue2(0, (EclFrame*)source,
                     selector, *(int*)&(*instruction)->values[operand_offset >> 2]);
             if (((char*)*instruction)[0x11 + descriptor] == 'f')
                 *(float*)destination = (float)value;
@@ -89,7 +89,7 @@ extern "C" __declspec(noinline) int __stdcall EclStartChild(
     EclChildState* previous = owner->active;
     owner->active = (EclChildState*)child;
     owner = (EclChildOwner*)source->stack.context;
-    ((EclCompleteChild*)owner->active)->instruction = (EclFloatOperandTable*)((ScriptTable_00450470*)owner->script)->Resolve(
+    ((EclCompleteChild*)owner->active)->instruction = (EclFloatOperandTable*)((ScriptTable2*)owner->script)->Resolve(
             (const char*)*instruction + 0x14);
     ((EclCompleteChild*)owner->active)->time = 0;
     if (!((EclCompleteChild*)owner->active)->instruction) {

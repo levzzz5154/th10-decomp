@@ -58,7 +58,7 @@ extern "C" MidiOutShortMsgCall IatTickMidiOutShortMsg;
 
 // The maintained parser still owns this address as assembly. Its retail
 // boundary is two stack arguments, RET 8. A future probe must retain that ABI.
-extern "C" __declspec(noinline) void __stdcall ProcessMidiEvent_0043B110(
+extern "C" __declspec(noinline) void __stdcall ProcessMidiEvent2(
     MidiSequencer*, MidiTrack*);
 
 static __forceinline unsigned __int64 EventTime(const MidiSequencer& sequencer) {
@@ -110,7 +110,7 @@ void MidiTickState::Tick() {
             if (static_cast<unsigned __int64>(
                     static_cast<__int64>(track->next_event_time)) > event_time)
                 break;
-            ProcessMidiEvent_0043B110(&sequencer, track);
+            ProcessMidiEvent2(&sequencer, track);
             event_time = EventTime(sequencer);
         } while (CurrentTrack(sequencer, index)->active);
     }

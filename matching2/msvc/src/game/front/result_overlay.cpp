@@ -1,7 +1,7 @@
 // 0x004172E0: replace a result caption and display its eight-digit number.
 // The complete 640-byte body and 28-byte compiler switch table match retail.
 // Native LTCG keeps kind in EAX and state/number on the stack (RET 8).
-#include "th10/game/result_overlay_004172e0.hpp"
+#include "th10/game/result_overlay.hpp"
 __declspec(noinline) void* __fastcall ResultAnimation_Find(ResultAnimationLookup*,ResultAnimationId);
 static __forceinline ResultAnimationId CreateDigit(void* resource, int index) {
     Entity* object = reinterpret_cast<ResultAnimationPool*>(g_sprt_ctrl)->Allocate();
@@ -31,7 +31,7 @@ void __stdcall ResultOverlay_SetMode(int kind, ResultOverlayState* front, int nu
             if (value) leading_digit_seen = 1;
             Entity* object = reinterpret_cast<Entity*>(ResultAnimation_Find(g_sprt_ctrl, *digit));
             if (object) {
-                AnimationObject_0043e5a0* vm = reinterpret_cast<AnimationObject_0043e5a0*>(object);
+                AnimationObject3* vm = reinterpret_cast<AnimationObject3*>(object);
                 vm->resource->ConfigureObject(vm, value + 8);
             }
             if (!leading_digit_seen) digit->Hide();

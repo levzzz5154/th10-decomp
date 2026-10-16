@@ -15,7 +15,7 @@ struct AnimationNode_0040c3c0 {
 
 // Model of 0x00409E50 at its retail address; it earns the EAX handle.
 #pragma code_seg(".text$00anchor")
-__declspec(noinline) void StopHandle_00409e50(AnimationHandle_0040c3c0* handle) {
+__declspec(noinline) void StopHandle2(AnimationHandle3* handle) {
     unsigned int id = *(unsigned short*)&handle->id;
     AnimationNode_0040c3c0* node = (AnimationNode_0040c3c0*)find_opaque(id);
     if (node != 0) {
@@ -34,7 +34,7 @@ typedef unsigned int (__cdecl* ThreadEntry_0040c3c0)();
 #pragma code_seg(".text$07context")
 int __stdcall StageAnmReloadContext(StageOwner** owners, int count, ThreadEntry_0040c3c0* entry) {
     int total = 0;
-    *entry = Stage_ReloadAnmThread_0040c3a0;
+    *entry = Stage_ReloadAnmThread2;
     for (int index = 0; index < count; ++index)
         total += owners[index]->ReloadStageAnm();
     return total;

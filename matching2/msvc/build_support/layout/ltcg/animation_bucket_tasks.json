@@ -3,7 +3,7 @@
   "name": "animation_bucket_tasks",
   "source": "src/core/sprtlib/animation_bucket_tasks.cpp",
   "included_sources": [
-    "src/core/sprtlib/animation_manager_render_bucket_00448980.cpp"
+    "src/core/sprtlib/animation_manager_render_bucket.cpp"
   ],
   "driver": "build_support/layout/ltcg/animation_bucket_tasks_context.cpp",
   "headers": [

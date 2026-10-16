@@ -1,0 +1,311 @@
+{
+  "schema_version": 1,
+  "name": "sound_stream_create_file",
+  "source": "src/core/zwave/sound_stream_create_file.cpp",
+  "driver": "build_support/layout/ltcg/sound_stream_create_file/context.cpp",
+  "headers": [
+    "build_support/layout/ltcg/sound_interfaces_dependencies/sound_wave_types.hpp",
+    "include/th10/platform/text_log.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "File-stream factory of the sound device owner with its allocation cleanup and EH handler, compiled with its real stream constructor and a complete unselected launcher as direct caller.",
+  "functions": [
+    {
+      "name": "SoundStreamCreateFile",
+      "symbol": "?CreateFileStream@SoundDeviceOwner@@QAEHPAPAUSoundStreamingState@@IPBDUWaveGuidImage@@IIPAXPAUMusicTrackRecord@@@Z",
+      "section": ".text$02factory",
+      "address": "0x0044C8F0",
+      "size": 702,
+      "actual_abi": "output slot in ECX, flags in EDX, owner and the rest on the stack; RET 0x28"
+    },
+    {
+      "name": "SoundStreamCreateFileUnwind",
+      "symbol": "_SoundStreamCreateFileUnwind_00465330",
+      "section": ".text$x",
+      "address": "0x00465330",
+      "actual_abi": "frees the block when the constructor throws",
+      "generated": true,
+      "native_symbol_pattern": "\\$L[0-9]+",
+      "size": 11
+    },
+    {
+      "name": "SoundStreamCreateFileHandler",
+      "symbol": "__ehhandler$?CreateFileStream@SoundDeviceOwner@@QAEHPAPAUSoundStreamingState@@IPBDUWaveGuidImage@@IIPAXPAUMusicTrackRecord@@@Z",
+      "section": ".text$x",
+      "address": "0x0046533B",
+      "actual_abi": "compiler-generated EH handler",
+      "generated": true,
+      "size": 10
+    }
+  ],
+  "context": {
+    "symbol": "_SoundLaunchContext@12",
+    "section": ".text$10context",
+    "address": "0x0044E100",
+    "size": 52,
+    "description": "Synthetic array-walking caller; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00before",
+      "address": 4198400,
+      "size": 247440
+    },
+    {
+      "section": ".text$00launchz",
+      "address": 4446081,
+      "size": 815
+    },
+    {
+      "section": ".text$01stopz",
+      "address": 4447072,
+      "size": 60816
+    },
+    {
+      "section": ".text$02factoryz",
+      "address": 4508590,
+      "size": 1378
+    },
+    {
+      "section": ".text$03fillz",
+      "address": 4510451,
+      "size": 605
+    },
+    {
+      "section": ".text$04aggregatez",
+      "address": 4511138,
+      "size": 254
+    },
+    {
+      "section": ".text$05singlez",
+      "address": 4511501,
+      "size": 1251
+    },
+    {
+      "section": ".text$06openz",
+      "address": 4512925,
+      "size": 163
+    },
+    {
+      "section": ".text$07rewindz",
+      "address": 4513282,
+      "size": 14
+    },
+    {
+      "section": ".text$09readz",
+      "address": 4513498,
+      "size": 550
+    },
+    {
+      "section": ".text$10contextz",
+      "address": 4514100,
+      "size": 94716
+    },
+    {
+      "section": ".rdata$0before",
+      "address": 4612096,
+      "size": 45968
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "??2@YAPAXI@Z",
+      "address": "0x00452493",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "??_U@YAPAXI@Z",
+      "address": "0x00452493",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "??3@YAXPAX@Z",
+      "address": "0x004524A1",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "??_V@YAXPAX@Z",
+      "address": "0x004524A1",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "___CxxFrameHandler",
+      "address": "0x0046276D",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__except_list",
+      "address": "0x00000000",
+      "kind": "metadata"
+    },
+    {
+      "symbol": "___security_cookie",
+      "address": "0x00473660",
+      "kind": "data"
+    },
+    {
+      "symbol": "@__security_check_cookie@4",
+      "address": "0x00458EA5",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_g_sound_base_methods",
+      "address": "0x004705D8",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_sound_streaming_methods",
+      "address": "0x004705D4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_wave_notification_iid",
+      "address": "0x0046743C",
+      "kind": "data"
+    },
+    {
+      "symbol": "_imp_Sleep",
+      "address": "0x004660AC",
+      "kind": "data"
+    },
+    {
+      "symbol": "_imp_SetFilePointer",
+      "address": "0x004660C8",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_bgm_data_offset",
+      "address": "0x004977A4",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__ReadFile@20",
+      "address": "0x004660D0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_imp_CreateFileA",
+      "address": "0x004660C4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_imp_CloseHandle",
+      "address": "0x004660CC",
+      "kind": "data"
+    },
+    {
+      "symbol": "_imp_PostThreadMessageA",
+      "address": "0x00466210",
+      "kind": "data"
+    },
+    {
+      "symbol": "_imp_WaitForSingleObject",
+      "address": "0x0046611C",
+      "kind": "data"
+    },
+    {
+      "symbol": "_imp_CreateEventA",
+      "address": "0x00466120",
+      "kind": "data"
+    },
+    {
+      "symbol": "_imp_CreateThread",
+      "address": "0x00466118",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_supervisor_window",
+      "address": "0x00491C70",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_guid_wave_format",
+      "address": "0x0046A67C",
+      "kind": "data"
+    },
+    {
+      "symbol": "_SoundStream_Worker@4",
+      "address": "0x0043E3A0",
+      "kind": "data"
+    }
+  ],
+  "exceptions": true,
+  "native_data": [
+    {
+      "section": ".xdata$x",
+      "address": "0x00471390",
+      "bytes": "ffffffff3053460020059319010000009013470000000000000000000000000000000000",
+      "description": "Unwind map and FuncInfo of the factory; validation only"
+    }
+  ],
+  "anchors": [
+    {
+      "name": "StopMusicWorker",
+      "symbol": "?StopMusicWorker@WaveSoundManager@@QAEXXZ",
+      "section": ".text$01stop",
+      "address": "0x0043DAB0",
+      "size": 176
+    },
+    {
+      "name": "fill",
+      "symbol": "_SoundStreamFill@12",
+      "section": ".text$03fill",
+      "address": "0x0044D110",
+      "size": 483
+    },
+    {
+      "name": "StopAndRewind",
+      "symbol": "?StopAndRewind@SoundStream@@QAEHXZ",
+      "section": ".text$04aggregate",
+      "address": "0x0044D550",
+      "size": 82
+    },
+    {
+      "name": "single",
+      "symbol": "??0SoundStreamingState@@QAE@PAUWaveSecondaryBuffer@@IPAUMusicReadCursor@@I@Z",
+      "section": ".text$05single",
+      "address": "0x0044D6A0",
+      "size": 109
+    },
+    {
+      "name": "open",
+      "symbol": "?Open@MusicReadCursor@@QAEHPBDPAUMusicTrackRecord@@I@Z",
+      "section": ".text$06open",
+      "address": "0x0044DBF0",
+      "size": 173
+    },
+    {
+      "name": "rewind",
+      "symbol": "_ArchiveRewind@8",
+      "section": ".text$07rewind",
+      "address": "0x0044DD40",
+      "size": 194
+    },
+    {
+      "name": "read",
+      "symbol": "_ArchiveRead@16",
+      "section": ".text$09read",
+      "address": "0x0044DE10",
+      "size": 202
+    },
+    {
+      "name": "SoundLaunchMusic",
+      "symbol": "?LaunchMusic@WaveSoundManager@@QAEHPBD@Z",
+      "section": ".text$00launch",
+      "address": "0x0043D690",
+      "size": 241
+    }
+  ],
+  "included_sources": [
+    "build_support/layout/ltcg/sound_stream_create_file/stop.cpp",
+    "build_support/layout/ltcg/sound_stream_create_file/open.cpp",
+    "build_support/layout/ltcg/sound_interfaces_dependencies/fill.cpp",
+    "build_support/layout/ltcg/sound_interfaces_dependencies/rewind.cpp",
+    "build_support/layout/ltcg/sound_interfaces_dependencies/read.cpp",
+    "src/core/zwave/recovery_initialize_single_interface.cpp"
+  ],
+  "additional_sources": [
+    "build_support/contexts/legacy/platform/sound_music_launch.cpp"
+  ]
+}

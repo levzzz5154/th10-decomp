@@ -2,12 +2,12 @@
 #include <stddef.h>
 #include "th10/math/timer.hpp"
 #include "th10/math/vector.hpp"
-#include "th10/render/animation_object_0043e5a0.hpp"
+#include "th10/render/animation_object.hpp"
 #include "th10/render/animation_stop_frame_handle.hpp"
 #include "th10/render/position_setter_pair.hpp"
 
 // One sprite of the in-game side panel.
-struct FrontSprite_00408d60 {
+struct FrontSprite2 {
     unsigned char reserved_000[0x304];
     unsigned short stop_frame;                     // +0x304
     unsigned char reserved_306[0x3AC - 0x306];
@@ -15,14 +15,14 @@ struct FrontSprite_00408d60 {
 
 // The in-game side panel: the two fixed sprites, the bonus digits and the
 // two two-digit counters, driven by the scheduler callback at 0x00409220.
-struct Card_00408d60 {
+struct Card4 {
     unsigned char reserved_0000[0x10];
-    FrontSprite_00408d60 frame_sprite;               // +0x0010
-    FrontSprite_00408d60 label_sprite;               // +0x03BC
-    AnimationHandle_00449470 panel_handles[3];     // +0x0768
+    FrontSprite2 frame_sprite;               // +0x0010
+    FrontSprite2 label_sprite;               // +0x03BC
+    AnimationHandle11 panel_handles[3];     // +0x0768
     PositionScriptId marker_handle;       // +0x0774
-    FrontSprite_00408d60 bonus_digits[8];            // +0x0778
-    FrontSprite_00408d60 counter_digits[5];          // +0x24D8
+    FrontSprite2 bonus_digits[8];            // +0x0778
+    FrontSprite2 counter_digits[5];          // +0x24D8
     FrameTimer timer;                              // +0x3734
     char spell_name[0x3788 - 0x3748];              // +0x3748
     int record_index;                              // +0x3788
@@ -36,9 +36,9 @@ struct Card_00408d60 {
     __declspec(noinline) void StartSpell(int index, const char* name, int duration);
 };
 
-typedef char Card_digits[offsetof(Card_00408d60, bonus_digits) == 0x778 ? 1 : -1];
-typedef char Card_counters[offsetof(Card_00408d60, counter_digits) == 0x24D8 ? 1 : -1];
-typedef char Card_timer[offsetof(Card_00408d60, timer) == 0x3734 ? 1 : -1];
-typedef char Card_position[offsetof(Card_00408d60, marker_position) == 0x379C ? 1 : -1];
+typedef char Card_digits[offsetof(Card4, bonus_digits) == 0x778 ? 1 : -1];
+typedef char Card_counters[offsetof(Card4, counter_digits) == 0x24D8 ? 1 : -1];
+typedef char Card_timer[offsetof(Card4, timer) == 0x3734 ? 1 : -1];
+typedef char Card_position[offsetof(Card4, marker_position) == 0x379C ? 1 : -1];
 
-extern "C" int __fastcall CardPrimary(Card_00408d60* hud);
+extern "C" int __fastcall CardPrimary(Card4* hud);

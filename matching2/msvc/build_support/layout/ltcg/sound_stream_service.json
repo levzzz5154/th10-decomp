@@ -17,7 +17,7 @@
   "functions": [
     {
       "name": "SoundStream_Service",
-      "symbol": "_SoundStream_Service_0044d850@8",
+      "symbol": "_SoundStream_Service2@8",
       "section": ".text$05service",
       "address": "0x0044D850",
       "size": 637,
@@ -122,6 +122,6 @@
     }
   ],
   "roots": [
-    "_SoundStream_Service_0044d850@8"
+    "_SoundStream_Service2@8"
   ]
 }

@@ -8,11 +8,11 @@ struct LineSweepVector : Vector3 {
 };
 // The retail step Z lives in memory and participates in every FP update.
 // Keep that load observable, including the add-zero effect on signed zero.
-struct LinePolarVelocity_0041f800 {
+struct LinePolarVelocity2 {
     float x,y;
-    __declspec(noinline) LinePolarVelocity_0041f800* SetPolar(float angle,float speed);
+    __declspec(noinline) LinePolarVelocity2* SetPolar(float angle,float speed);
 };
-struct LineSweepStep { LinePolarVelocity_0041f800 velocity; volatile float z; };
+struct LineSweepStep { LinePolarVelocity2 velocity; volatile float z; };
 struct LineEffectSweep {
     unsigned char reserved_000[0xc];
     int retired;
@@ -45,8 +45,8 @@ struct LineAnimationRegistry {
     int next_handle;
 };
 typedef char LinePositionCheck[offsetof(LineEffectSweep,position)==0x24?1:-1];
-typedef char LineScriptCheck_0041e260[offsetof(LineEffectSweep,script_all)==0x44a?1:-1];
-typedef char LineScriptCheck_0041f400[offsetof(LineEffectSweep,script_in_bounds)==0x466?1:-1];
+typedef char LineScriptCheck[offsetof(LineEffectSweep,script_all)==0x44a?1:-1];
+typedef char LineScriptCheck2[offsetof(LineEffectSweep,script_in_bounds)==0x466?1:-1];
 extern "C" {
 extern ItemSpawnManager* g_item_manager;
 extern LineAnimationResourceBank* g_laser_manager;
@@ -62,5 +62,5 @@ extern float flt_448;
 }
 struct AnimationResourceFile;
 struct AnimationObjectFile;
-extern "C" __declspec(noinline) void* __stdcall LoadScript_0043e710(
+extern "C" __declspec(noinline) void* __stdcall LoadScript2(
     AnimationResourceFile* resource,AnimationObjectFile* object,int index);

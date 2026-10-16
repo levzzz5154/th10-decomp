@@ -7,7 +7,7 @@
 #pragma code_seg(".text$11context")
 extern "C" __declspec(noinline) int __stdcall StreamServiceContext(SoundStreamState** streams, unsigned int* repeats, int count) {
     int result = 0;
-    while (count--) result |= SoundStream_Service_0044d850(*streams++, *repeats++);
+    while (count--) result |= SoundStream_Service2(*streams++, *repeats++);
     return result;
 }
 #pragma code_seg()

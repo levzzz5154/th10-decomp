@@ -12,19 +12,19 @@ extern "C" void __cdecl crt_free(void* memory);
 
 // One entry's animation interface.  Retail calls its third virtual slot (+0x8)
 // with the interface itself pushed, i.e. a __stdcall member.
-struct AnimationHandle_00447810 {
+struct AnimationHandle9 {
     virtual void slot0();
     virtual void slot1();
     virtual void __stdcall slot2();
 };
 
 struct AnimationResourceEntry {
-    AnimationHandle_00447810* handle;   // +0x00
+    AnimationHandle9* handle;   // +0x00
     void* allocation;                   // +0x04
     unsigned char pad_008[8];
 };
 
-struct AnimationResource_00447810 {
+struct AnimationResource6 {
     unsigned char pad_000[0x108];
     void* resource_108;                            // +0x108: the record's own interface
     int entry_count_10c;                           // +0x10C
@@ -39,7 +39,7 @@ struct AnimationResource_00447810 {
 };
 
 #pragma code_seg(".text$00hd_release")
-void AnimationResource_00447810::Release() {
+void AnimationResource6::Release() {
     if (resource_108 == 0)
         return;
     g_sprt_ctrl->MarkResourceForRemoval(this);

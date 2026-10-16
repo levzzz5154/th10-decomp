@@ -1,9 +1,9 @@
 // Compiler context only; never selected as recovered game code.
-#include "../../../src/unreferenced/unassigned_00418cc0.cpp"
+#include "../../../src/unreferenced/unassigned_418cc0.cpp"
 #pragma code_seg(".text$03context")
 int __stdcall ResetContext_00418cc0(ObjectAccessor_00418cc0** items, int count) {
     while (count--) {
-        Reset_00418cc0(*items++);
+        Reset3(*items++);
     }
     return 0;
 }

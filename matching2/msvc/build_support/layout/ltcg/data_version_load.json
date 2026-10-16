@@ -1,0 +1,492 @@
+{
+  "schema_version": 1,
+  "name": "data_version_load_00420100",
+  "source": "src/game/mother/data_version_load.cpp",
+  "driver": "build_support/layout/ltcg/data_version_load_00420100_context.cpp",
+  "headers": [
+    "include/th10/app/data_version.hpp",
+    "include/th10/platform/archive_file.hpp",
+    "build_support/layout/ltcg/native_archive_read/archive.hpp",
+    "include/th10/archive/dat_archive_types.hpp",
+    "include/th10/platform/file.hpp",
+    "include/th10/platform/windows_types.hpp",
+    "build_support/layout/ltcg/resource_surface_loading_log.hpp",
+    "include/th10/platform/memory_file.hpp",
+    "include/th10/types.hpp",
+    "include/th10/util/heap.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Data version load compiled with native LTCG beside the real archive loader and log bodies, a stand-in archive opener and a synthetic caller.",
+  "functions": [
+    {
+      "name": "DataVersion_Load",
+      "symbol": "?DataVersion_Load2@@YAHXZ",
+      "section": ".text$00a3version",
+      "address": "0x00420100",
+      "size": 174,
+      "actual_abi": "cdecl, no arguments"
+    }
+  ],
+  "context": {
+    "symbol": "_DataVersionLoadContext@12",
+    "section": ".text$00a1context",
+    "address": "0x0040A000",
+    "size": 95,
+    "description": "Synthetic caller compiled with inlining off; not recovered game code."
+  },
+  "anchors": [
+    {
+      "name": "DatArchive_Open",
+      "symbol": "?Open@DatArchive@@QAE_NPBD@Z",
+      "section": ".text$01open",
+      "address": "0x00434C30",
+      "size": 95
+    },
+    {
+      "name": "DatArchive_OpenResource",
+      "symbol": "?OpenResource@DatArchive@@QAE_NPBD@Z",
+      "section": ".text$01openresource",
+      "address": "0x00434C90",
+      "size": 80
+    },
+    {
+      "name": "DatArchive_Close",
+      "symbol": "?Close@DatArchive@@QAEXXZ",
+      "section": ".text$02close",
+      "address": "0x00434D10",
+      "size": 86
+    },
+    {
+      "name": "DatArchiveRead",
+      "symbol": "_DatArchiveRead@12",
+      "section": ".text$02e_read",
+      "address": "0x00434DD0",
+      "size": 279
+    },
+    {
+      "name": "ArchiveFind",
+      "symbol": "_ArchiveFind@8",
+      "section": ".text$04find",
+      "address": "0x00434F30",
+      "size": 53
+    },
+    {
+      "name": "DatArchive_LoadIndex",
+      "symbol": "?LoadIndex@DatArchive@@QAE_NPBD@Z",
+      "section": ".text$05loadindex",
+      "address": "0x00434F70",
+      "size": 107
+    },
+    {
+      "name": "LegacyString_Duplicate",
+      "symbol": "?LegacyString_Duplicate@@YGPADPBD@Z",
+      "section": ".text$07duplicate",
+      "address": "0x00435220",
+      "size": 47
+    },
+    {
+      "name": "DatDecrypt",
+      "symbol": "_DatDecrypt@24",
+      "section": ".text$08adecrypt",
+      "address": "0x0044B0D0",
+      "size": 323
+    },
+    {
+      "name": "Archive_LoadFile",
+      "symbol": "_Archive_LoadFile@12",
+      "section": ".text$08cload",
+      "address": "0x0044B360",
+      "size": 360
+    },
+    {
+      "name": "TextLog_AppendLine",
+      "symbol": "?AppendLine@TextLog5@@QAAPADPADZZ",
+      "section": ".text$09log",
+      "address": "0x0044B8E0",
+      "size": 201
+    }
+  ],
+  "gaps": [
+    {
+      "section": ".text$00a0gap",
+      "address": "0x00401000",
+      "size": 36864
+    },
+    {
+      "section": ".text$00a2gap",
+      "address": "0x0040A05F",
+      "size": 90273
+    },
+    {
+      "section": ".text$00a4gap",
+      "address": "0x004201AE",
+      "size": 84610
+    },
+    {
+      "section": ".text$01z_gap",
+      "address": "0x00434CE0",
+      "size": 48
+    },
+    {
+      "section": ".text$02d_gap",
+      "address": "0x00434D66",
+      "size": 106
+    },
+    {
+      "section": ".text$02f_gap",
+      "address": "0x00434EE7",
+      "size": 73
+    },
+    {
+      "section": ".text$06gap",
+      "address": "0x00434FDB",
+      "size": 581
+    },
+    {
+      "section": ".text$07zgap",
+      "address": "0x0043524F",
+      "size": 89729
+    },
+    {
+      "section": ".text$08bgap",
+      "address": "0x0044B213",
+      "size": 333
+    },
+    {
+      "section": ".text$08dgap",
+      "address": "0x0044B4C8",
+      "size": 1048
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "__fltused",
+      "address": "0x00000000",
+      "kind": "metadata"
+    },
+    {
+      "symbol": "_sprintf",
+      "address": "0x00452AE8",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_crt_free",
+      "address": "0x00452422",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "___security_cookie",
+      "address": "0x00473660",
+      "kind": "data"
+    },
+    {
+      "symbol": "@__security_check_cookie@4",
+      "address": "0x00458EA5",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_g_archive",
+      "address": "0x00497990",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_file_lock_depth",
+      "address": "0x0049231e",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_file_lock",
+      "address": "0x004922a4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_imp_EnterCriticalSection",
+      "address": "0x004660b0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_imp_LeaveCriticalSection",
+      "address": "0x004660b4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_imp_CreateFileA",
+      "address": "0x004660c4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_imp_CloseHandle",
+      "address": "0x004660cc",
+      "kind": "data"
+    },
+    {
+      "symbol": "_imp_ReadFile",
+      "address": "0x004660d0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_imp_GetFileSize",
+      "address": "0x004660d8",
+      "kind": "data"
+    },
+    {
+      "symbol": "_asm_strrchr_00452930",
+      "address": "0x00452930",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_asm_stricmp_0046054e",
+      "address": "0x0046054e",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_asm_malloc_00452706",
+      "address": "0x00452706",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_asm_vsprintf_004524a6",
+      "address": "0x004524A6",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__chkstk",
+      "address": "0x00458EC0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_g_text_log_lock",
+      "address": "0x004922BC",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_text_log_lock_depth",
+      "address": "0x0049231F",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__EnterCriticalSection@4",
+      "address": "0x004660B0",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__LeaveCriticalSection@4",
+      "address": "0x004660B4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_malloc",
+      "address": "0x00452706",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_g_log",
+      "address": "0x00474F70",
+      "kind": "data"
+    },
+    {
+      "symbol": "_asm_free_00452422",
+      "address": "0x452422",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_DecompressDatLzss2@16",
+      "address": "0x435dc0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_g_dat_read_crypt_parameters",
+      "address": "0x474bd8",
+      "kind": "data"
+    },
+    {
+      "symbol": "_memset",
+      "address": "0x00452000",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_g_data_version_buffer",
+      "address": "0x0049238C",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_data_version_size",
+      "address": "0x00492388",
+      "kind": "data"
+    },
+    {
+      "symbol": "_str_th10_dat",
+      "address": "0x0046E000",
+      "kind": "data"
+    },
+    {
+      "symbol": "_str_ver_file_format",
+      "address": "0x0046DFF0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_str_data_version_mismatch",
+      "address": "0x0046DFC8",
+      "kind": "data"
+    },
+    {
+      "symbol": "_str_data_file_missing",
+      "address": "0x0046DFA0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_asm_operator_new_00452493",
+      "address": "0x00452493",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_g_dat_archive_read_mode",
+      "address": "0x00474908",
+      "kind": "data"
+    },
+    {
+      "symbol": "_asm_free_004524a1",
+      "address": "0x004524A1",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_asm_eh_vector_destructor_iterator_004525ff@16",
+      "address": "0x004525FF",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?HeapBuffer_Release@@YIXPAUHeapBuffer@@@Z",
+      "address": "0x00435250",
+      "kind": "data"
+    },
+    {
+      "symbol": "_DatIndexDecode_0044b0d0@12",
+      "address": "0x0044B0D0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "??1BufferFile@@UAE@XZ",
+      "address": "0x004363C0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "??1FileHandle@@UAE@XZ",
+      "address": "0x00435340",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "??1ResourceFile@@UAE@XZ",
+      "address": "0x00436680",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "??3@YAXPAX@Z",
+      "address": "0x004524A1",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?Close@BufferFile@@UAEXXZ",
+      "address": "0x00436430",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?Close@FileHandle@@UAEXXZ",
+      "address": "0x00435460",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?GetSize@BufferFile@@UBEIXZ",
+      "address": "0x004364E0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?GetSize@FileHandle@@UBEIXZ",
+      "address": "0x00435530",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?Open@BufferFile@@UAEEPBD0@Z",
+      "address": "0x00436400",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?Open@FileHandle@@UAEEPBD0@Z",
+      "address": "0x00435370",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?Open@ResourceFile@@UAEEPBD0@Z",
+      "address": "0x004366C0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?Read@BufferFile@@UAEIPAXI@Z",
+      "address": "0x00436460",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?Read@FileHandle@@UAEIPAXI@Z",
+      "address": "0x00435490",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?Seek@BufferFile@@UAEEJI@Z",
+      "address": "0x004364F0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?Seek@FileHandle@@UAEEJI@Z",
+      "address": "0x00435550",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?Tell@BufferFile@@UBEIXZ",
+      "address": "0x004364D0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?Tell@FileHandle@@UBEIXZ",
+      "address": "0x00435510",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?Write@BufferFile@@UAEEPBXI@Z",
+      "address": "0x00436370",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?Write@FileHandle@@UAEEPBXI@Z",
+      "address": "0x004354D0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__purecall",
+      "address": "0x00401000",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "??0FileHandle@@QAE@XZ",
+      "address": "0x00449000",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "??0ResourceFile@@QAE@XZ",
+      "address": "0x00449010",
+      "kind": "relative_code"
+    }
+  ],
+  "roots": [],
+  "additional_sources": [],
+  "included_sources": [
+    "build_support/layout/ltcg/native_archive_read/read.cpp",
+    "src/pack/arcmngr/archive_find.cpp",
+    "build_support/layout/ltcg/native_archive_read/decrypt.cpp",
+    "src/core/zunlib/archive_load_file.cpp",
+    "build_support/layout/ltcg/resource_surface_loading_log.cpp",
+    "src/pack/arcmngr/dat_archive_open.cpp",
+    "src/pack/arcmngr/dat_archive_close.cpp",
+    "src/pack/arcmngr/legacy_string_duplicate.cpp"
+  ],
+  "data_aliases": []
+}

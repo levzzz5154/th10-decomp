@@ -127,11 +127,11 @@ extern "C" __declspec(noinline) void** __cdecl asm_AnimationManager_RegisterPrim
 #pragma code_seg()
 
 #pragma code_seg(".text$11position")
-struct AnimationObject_00448d50 {
+struct AnimationObject6 {
     unsigned char reserved_000[0x20];
     int render_bucket_020;                          // +0x20
     unsigned char reserved_024[0x340 - 0x24];
-    AnimationPosition_00448d50 position_340;        // +0x340
+    AnimationPosition position_340;        // +0x340
     unsigned char reserved_34c[0x35C - 0x34C];
     unsigned int flags_035c;                        // +0x35C
 };
@@ -140,9 +140,9 @@ struct AnimationObject_00448d50 {
 // at 0x00448D50 instead of inlining it into the synthetic caller.
 __declspec(noinline)
 void** __stdcall AnimationManager_CreatePositionedPrimary(
-    void* resource, void** out, int index, const AnimationPosition_00448d50* position) {
-    AnimationObject_00448d50* object =
-        (AnimationObject_00448d50*)((AnimationPool*)g_sprt_ctrl)->Allocate();
+    void* resource, void** out, int index, const AnimationPosition* position) {
+    AnimationObject6* object =
+        (AnimationObject6*)((AnimationPool*)g_sprt_ctrl)->Allocate();
     object->flags_035c |= 0x40000000u;
     object->render_bucket_020 = 0;
     object->position_340 = *position;

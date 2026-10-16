@@ -24,7 +24,7 @@
 // on this toolkit emits the combined FSINCOS the bodies use.
 #include "th10/render/quad_batch.hpp"
 
-extern "C" __declspec(noinline) int EntityDraw_00443290(RenderEntity* entity,
+extern "C" __declspec(noinline) int EntityDraw2(RenderEntity* entity,
                                                        SprtCtrlBatchView* manager);
 
 #pragma code_seg(".text$06b03rotquad")
@@ -36,7 +36,7 @@ extern "C" __declspec(noinline) int BuildRotatedQuad(
     float xs[4], ys[4];
 
     if (entity->rotation.z == 0.0f) {
-        return EntityDraw_00443290(entity, manager);
+        return EntityDraw2(entity, manager);
     }
 
     angle = entity->rotation.z;
@@ -109,7 +109,7 @@ extern "C" __declspec(noinline) int BuildRotatedQuadAlt(
     float xs[4], ys[4];
 
     if (entity->rotation.z == 0.0f) {
-        return EntityDraw_00443290(entity, manager);
+        return EntityDraw2(entity, manager);
     }
 
     angle = entity->rotation.z;

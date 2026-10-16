@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "game_state_field3788_getter",
-  "source": "src/unreferenced/FUN_00405580_00405580.cpp",
+  "source": "src/unreferenced/FUN.cpp_405580.cpp",
   "driver": "build_support/layout/ltcg/game_state_field3788_getter_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

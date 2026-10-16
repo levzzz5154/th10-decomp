@@ -6,7 +6,7 @@
 // remains caller-cleaned under the public cdecl callback convention.
 // Write failures preserve the retail close-and-unlock sequence: the shared
 // handle is not changed here, so subsequent checks still see its stored value.
-extern "C" int __stdcall File_OpenSharedWrite_0044b620(const char* path);
+extern "C" int __stdcall File_OpenSharedWrite2(const char* path);
 extern "C" void __cdecl crt_free(void* memory);
 extern "C" __declspec(dllimport) int __stdcall WriteFile(
     void* file, const void* bytes, unsigned long length,
@@ -20,11 +20,11 @@ extern "C" unsigned char screenshot_bitmap_header[14];
 extern "C" void* screenshot_dib_header;
 extern "C" void* screenshot_pixels;
 extern "C" char screenshot_path[];
-extern "C" unsigned long screenshot_thread_00492134;
+extern "C" unsigned long screenshot_thread2;
 
 extern "C" void __cdecl ScreenshotWriter(void*) {
     unsigned long written;
-    File_OpenSharedWrite_0044b620(screenshot_path);
+    File_OpenSharedWrite2(screenshot_path);
     if (g_file_probe_handle != (void*)-1) {
         WriteFile(g_file_probe_handle, screenshot_bitmap_header, 14, &written, 0);
         if (written != 14) {
@@ -62,5 +62,5 @@ extern "C" void __cdecl ScreenshotWriter(void*) {
         crt_free(screenshot_pixels);
         screenshot_pixels = 0;
     }
-    screenshot_thread_00492134 = 0;
+    screenshot_thread2 = 0;
 }

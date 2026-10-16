@@ -3,7 +3,7 @@
 
 #include <math.h>
 
-extern "C" float __stdcall Angle_Normalize_0044bc70(float value);
+extern "C" float __stdcall Angle_Normalize2(float value);
 
 struct PolarVec3 {
     float x;
@@ -55,7 +55,7 @@ inline void PolarMotion::Update() {
         velocity.z = 0.0f;
     } else {
         radius += radius_step;
-        angle = Angle_Normalize_0044bc70(speed + angle);
+        angle = Angle_Normalize2(speed + angle);
     }
 }
 

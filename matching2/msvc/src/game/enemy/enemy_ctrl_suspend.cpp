@@ -3,15 +3,15 @@
 // The leading parameter arrives in EAX, a convention only a native LTCG link
 // chooses, so this region is compiled as a cluster.
 
-struct Flagged_0040d510 {
+struct Flagged {
     unsigned char pad_000[0x04];
     unsigned int flags;
 };
 
 struct EnemyCtrl {
     unsigned char pad_000[0x08];
-    Flagged_0040d510* first;
-    Flagged_0040d510* second;
+    Flagged* first;
+    Flagged* second;
 };
 
 void __declspec(noinline) EnemyCtrl_SuspendTasks(EnemyCtrl* object);

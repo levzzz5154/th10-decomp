@@ -1,6 +1,6 @@
 // Compiler context only; never selected as recovered game code.
 #include "th10/game/linked_pool_append.hpp"
-#include "../../../src/game/replay/linked_pool_append_0042aa50.cpp"
+#include "../../../src/game/replay/linked_pool_append.cpp"
 
 #pragma inline_depth(0)
 #pragma code_seg(".text$a09context")

@@ -27,7 +27,7 @@ extern "C" void __fastcall Lzss_RemoveNode_00436210(int node);
 #define VA_Lzss_RemoveNode_00436210 0x00436210
 struct MidiSequencer;
 struct MidiTrack;
-extern "C" void __stdcall ProcessMidiEvent_0043B110(
+extern "C" void __stdcall ProcessMidiEvent2(
     MidiSequencer* sequencer, MidiTrack* track);
 #define VA_ProcessMidiEvent_0043B110 0x0043b110
 extern "C" unsigned char* __stdcall Lzss_Compress_004359B0(
@@ -40,7 +40,7 @@ extern "C" void __fastcall Lzss_RemoveNode_00436210(int node);
 #define VA_Lzss_RemoveNode_00436210 0x00436210
 struct MidiSequencer;
 struct MidiTrack;
-extern "C" void __stdcall ProcessMidiEvent_0043B110(
+extern "C" void __stdcall ProcessMidiEvent2(
     MidiSequencer* sequencer, MidiTrack* track);
 #define VA_ProcessMidiEvent_0043B110 0x0043b110
 extern "C" unsigned char* __stdcall Lzss_Compress_004359B0(
@@ -53,7 +53,7 @@ extern "C" void __fastcall Lzss_RemoveNode_00436210(int node);
 #define VA_Lzss_RemoveNode_00436210 0x00436210
 struct MidiSequencer;
 struct MidiTrack;
-extern "C" void __stdcall ProcessMidiEvent_0043B110(
+extern "C" void __stdcall ProcessMidiEvent2(
     MidiSequencer* sequencer, MidiTrack* track);
 #define VA_ProcessMidiEvent_0043B110 0x0043b110
 // Fixed retail anchors; the linker verifies every placed function.
@@ -1608,7 +1608,7 @@ extern "C" void __cdecl asm_FindHandlerForForeignException_004636a1();
 #define VA_asm_FindHandlerForForeignException_004636a1 0x004636a1
 extern "C" void __cdecl asm_FindHandler_0046375f();
 #define VA_asm_FindHandler_0046375f 0x0046375f
-extern "C" void __cdecl DeleteFontCacheObjects_00437d10();
+extern "C" void __cdecl DeleteFontCacheObjects2();
 #define VA_DeleteFontCacheObjects_00437d10 0x00437d10
 extern "C" void __cdecl asm_FontCache_FlushRetail_00436a30();
 #define VA_asm_FontCache_FlushRetail_00436a30 0x00436a30
@@ -5667,7 +5667,7 @@ extern "C" unsigned char flt_0_99;
 extern "C" unsigned char data_00470b6c;
 extern "C" unsigned char dbl_0;
 extern "C" unsigned char flt_neg0_5;
-extern "C" unsigned char flt_0_00390625;
+extern "C" unsigned char flt_02;
 extern "C" unsigned char flt_neg5000;
 extern "C" unsigned char data_00470b88;
 extern "C" unsigned char data_00470b90;

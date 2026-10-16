@@ -5,7 +5,7 @@
 // The manager object 0x0043A9B0 works on.  Only the fields the modelled body
 // reaches are named; the synthetic caller below is what establishes the
 // private entry convention (manager in EAX, index in ESI, name on the stack).
-struct SoundManager_0043a9b0 {
+struct SoundManager2 {
     unsigned char reserved_000[0x10];
     int active_track;
     void* playing_blocks[32];
@@ -23,7 +23,7 @@ struct SoundPendingSlots {
 };
 
 #pragma code_seg(".text$07context")
-int __stdcall ArchiveCallersContext(AssetBuffer** buffers, const char** names, MapResource** maps, ParameterLoader** parameters, SoundManager_0043a9b0** managers, const char* track_name, int count, BackGround** stages) {
+int __stdcall ArchiveCallersContext(AssetBuffer** buffers, const char** names, MapResource** maps, ParameterLoader** parameters, SoundManager2** managers, const char* track_name, int count, BackGround** stages) {
     for (int i = 0; i < count; ++i) {
         LoadAsset(names[i], buffers[i]);
         maps[i]->LoadMap(names[i]);

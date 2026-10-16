@@ -1,7 +1,7 @@
 // 0x0041E700: advance a growing laser, test player collision and graze,
 // and update its two animation VMs. The complete 832-byte region includes
 // the four-entry phase switch table at 0x0041EA30.
-#include "../../../build_support/layout/ltcg/laser_grow_0041e700/types.hpp"
+#include "../../../build_support/layout/ltcg/laser_grow/types.hpp"
 
 // The lasers pass the player position as an oriented-rectangle point.
 static inline const Point3_OrientedRect* PlayerPoint() {
@@ -29,7 +29,7 @@ int GrowLaser::Update() {
         if (length > target_length)
             length = target_length;
     }
-    angle = NormalizeAngle_0044bc10(angle, g_game_speed * angular_velocity);
+    angle = NormalizeAngle2(angle, g_game_speed * angular_velocity);
     if ((flags & 1u) && g_enemy_ctrl->target)
         position = g_enemy_ctrl->target->position;
 

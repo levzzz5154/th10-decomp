@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "sound_wave_load",
-  "source": "src/core/sound/sound_wave_load_0043d390.cpp",
+  "source": "src/core/sound/sound_wave_load.cpp",
   "driver": "build_support/layout/ltcg/sound_wave_load/context.cpp",
   "included_sources": [
     "build_support/layout/ltcg/sound_wave_load/chunks.cpp",
@@ -20,7 +20,7 @@
   "functions": [
     {
       "name": "SoundWaveLoad",
-      "symbol": "@SoundWave_LoadPending_0043d390@12",
+      "symbol": "@SoundWave_LoadPending2@12",
       "section": ".text$03wave",
       "address": "0x0043D390",
       "size": 684,
@@ -35,7 +35,7 @@
     "description": "Synthetic array caller; never selected as game code."
   },
   "roots": [
-    "@SoundWave_LoadPending_0043d390@12"
+    "@SoundWave_LoadPending2@12"
   ],
   "anchors": [
     {
@@ -47,7 +47,7 @@
     },
     {
       "name": "TextLog",
-      "symbol": "?Append@TextLog_0044b810@@QAAPADPADZZ",
+      "symbol": "?Append@TextLog4@@QAAPADPADZZ",
       "section": ".text$05log",
       "address": "0x0044B810",
       "size": 201

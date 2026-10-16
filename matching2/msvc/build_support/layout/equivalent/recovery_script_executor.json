@@ -1,0 +1,960 @@
+{
+  "schema_version": 1,
+  "name": "recovery_script_executor2",
+  "region": "asm_FUN_0040bd80_0040bd80",
+  "sources": [
+    "src/game/ending/recovery_script_executor.cpp"
+  ],
+  "context_sources": [
+    "build_support/layout/ltcg/recovery_mark_text_and_dispatcher_004479d0_context.cpp",
+    "build_support/layout/ltcg/marktext_dispatcher_context/recovery_script_executor_core_anchors.cpp",
+    "build_support/contexts/equivalent/game/context/recovery_script_executor_ascii_anchors.cpp",
+    "build_support/layout/ltcg/marktext_dispatcher_context/recovery_script_executor_anchor.cpp",
+    "build_support/layout/ltcg/marktext_dispatcher_context/recovery_script_executor_anchor_40c540.cpp",
+    "build_support/layout/ltcg/marktext_dispatcher_context/recovery_script_executor_anchor_4477d0.cpp",
+    "build_support/layout/ltcg/marktext_dispatcher_context/recovery_script_executor_anchor_447810.cpp",
+    "build_support/layout/ltcg/marktext_dispatcher_context/recovery_script_executor_anchor_4493e0.cpp",
+    "build_support/layout/ltcg/marktext_dispatcher_context/recovery_script_executor_anchor_448d00.cpp",
+    "build_support/layout/ltcg/marktext_dispatcher_context/recovery_script_executor_anchor_43dc90.cpp",
+    "build_support/layout/ltcg/marktext_dispatcher_context/recovery_script_executor_anchor_44c1c0.cpp",
+    "build_support/layout/ltcg/marktext_dispatcher_context/recovery_script_executor_anchor_44c150.cpp",
+    "build_support/layout/ltcg/marktext_dispatcher_context/recovery_script_executor_anchor_44b360.cpp",
+    "build_support/layout/ltcg/marktext_dispatcher_context/recovery_script_executor_creation_anchors.cpp",
+    "src/game/hint/hint_drain_queue.cpp",
+    "build_support/layout/ltcg/marktext_dispatcher_context/recovery_script_executor_indicator_anchors.cpp",
+    "build_support/layout/ltcg/marktext_dispatcher_context/recovery_script_executor_text_sibling_anchors.cpp",
+    "build_support/layout/ltcg/marktext_dispatcher_context/recovery_script_executor_caller_433ef0.cpp",
+    "build_support/layout/ltcg/marktext_dispatcher_context/recovery_animation_slot_frames.cpp",
+    "build_support/layout/ltcg/marktext_dispatcher_context/recovery_script_executor_text_anchors.cpp",
+    "src/game/hint/hint_update.cpp",
+    "src/game/hint/hint_on_update.cpp",
+    "build_support/contexts/equivalent/game/context/recovery_script_executor_validate.cpp"
+  ],
+  "entry_symbol": "_RecoveryMarkTextDispatcherCompilerContext@20",
+  "function": "_RecoveryScript_Execute2@4",
+  "code_bytes": 1496,
+  "absolute_symbols": {
+    "_recovery_decoded_path_00497d40": {
+      "address": "0x00497D40",
+      "kind": "data"
+    },
+    "_recovery_vsprintf": {
+      "address": "0x004524A6",
+      "kind": "code"
+    },
+    "_recovery_draw_shadowed@24": {
+      "address": "0x00437DB0",
+      "kind": "code"
+    },
+    "_recovery_draw_unshadowed@24": {
+      "address": "0x00437FE0",
+      "kind": "code"
+    },
+    "__ftol2": {
+      "address": "0x00463B2C",
+      "kind": "code"
+    },
+    "___security_cookie": {
+      "address": "0x00473660",
+      "kind": "data"
+    },
+    "@__security_check_cookie@4": {
+      "address": "0x00458EA5",
+      "kind": "code"
+    },
+    "__fltused": {
+      "address": "0x00000000",
+      "kind": "data"
+    },
+    "??2@YAPAXI@Z": {
+      "address": "0x00452493",
+      "kind": "code"
+    },
+    "_SchedulerTask_Create@4": {
+      "address": "0x00449ED0",
+      "kind": "code"
+    },
+    "_g_func_ctrl": {
+      "address": "0x00491BE4",
+      "kind": "data"
+    },
+    "_RecoveryAsciiFrameSpeed_00476f78": {
+      "address": "0x00476F78",
+      "kind": "data"
+    },
+    "?g_thread_synchronization@@3UThreadSynchronization@@A": {
+      "address": "0x00492274",
+      "kind": "data"
+    },
+    "__imp__EnterCriticalSection@4": {
+      "address": "0x004660B0",
+      "kind": "data"
+    },
+    "__imp__LeaveCriticalSection@4": {
+      "address": "0x004660B4",
+      "kind": "data"
+    },
+    "@RecoveryAsciiBasicTick_0043bd40@4": {
+      "address": "0x0043bd40",
+      "kind": "data"
+    },
+    "@RecoveryAsciiDraw0_0043c1a0@4": {
+      "address": "0x0043c1a0",
+      "kind": "data"
+    },
+    "@RecoveryAsciiTick1_0043c550@4": {
+      "address": "0x0043c550",
+      "kind": "data"
+    },
+    "@RecoveryAsciiTick2_0043c230@4": {
+      "address": "0x0043c230",
+      "kind": "data"
+    },
+    "@RecoveryAsciiDraw2_0043c2c0@4": {
+      "address": "0x0043c2c0",
+      "kind": "data"
+    },
+    "@RecoveryAsciiTick4_0043c460@4": {
+      "address": "0x0043c460",
+      "kind": "data"
+    },
+    "@RecoveryAsciiDraw4_0043c500@4": {
+      "address": "0x0043c500",
+      "kind": "data"
+    },
+    "@RecoveryAsciiTick6_0043c310@4": {
+      "address": "0x0043c310",
+      "kind": "data"
+    },
+    "@RecoveryAsciiDraw6_0043c3c0@4": {
+      "address": "0x0043c3c0",
+      "kind": "data"
+    },
+    "@RecoveryAsciiDraw7_0043c410@4": {
+      "address": "0x0043c410",
+      "kind": "data"
+    },
+    "@RecoveryAsciiTick8_0043c710@4": {
+      "address": "0x0043c710",
+      "kind": "data"
+    },
+    "@RecoveryAsciiRemove_0043c870@4": {
+      "address": "0x0043c870",
+      "kind": "data"
+    },
+    "_g_sprt_ctrl": {
+      "address": "0x00491C10",
+      "kind": "data"
+    },
+    "_operator_new2": {
+      "address": "0x00452493",
+      "kind": "code"
+    },
+    "_Entity_Constructor_00402050": {
+      "address": "0x00402050",
+      "kind": "code"
+    },
+    "_Entity_Init_00401de0": {
+      "address": "0x00401DE0",
+      "kind": "code"
+    },
+    "_asm_AnimationObject_LoadScriptTail_0043ee30": {
+      "address": "0x0043EE30",
+      "kind": "code"
+    },
+    "_crt_free": {
+      "address": "0x00452422",
+      "kind": "code"
+    },
+    "_crt_free_startup": {
+      "address": "0x004524A1",
+      "kind": "code"
+    },
+    "?platform_worker_vtable@@3DA": {
+      "address": "0x004703E4",
+      "kind": "data"
+    },
+    "_asm_beginthreadex_00453683": {
+      "address": "0x00453683",
+      "kind": "code"
+    },
+    "__imp__WaitForSingleObject@8": {
+      "address": "0x0046611C",
+      "kind": "data"
+    },
+    "__imp__Sleep@4": {
+      "address": "0x004660AC",
+      "kind": "data"
+    },
+    "__imp__CloseHandle@4": {
+      "address": "0x004660CC",
+      "kind": "data"
+    },
+    "_Game_LoadThread": {
+      "address": "0x00417C70",
+      "kind": "data"
+    },
+    "_g_key_bindings_current": {
+      "address": "0x00474E88",
+      "kind": "data"
+    },
+    "_g_d3d_device": {
+      "address": "0x00491C30",
+      "kind": "data"
+    },
+    "_g_game": {
+      "address": "0x00477810",
+      "kind": "data"
+    },
+    "_g_application": {
+      "address": "0x00491C28",
+      "kind": "data"
+    },
+    "?InitializeObject@AnimationBank@@QAEPAXPAXH@Z": {
+      "address": "0x00449870",
+      "kind": "code"
+    },
+    "_g_archive": {
+      "address": "0x00497990",
+      "kind": "data"
+    },
+    "_data_00497994": {
+      "address": "0x00497994",
+      "kind": "data"
+    },
+    "_g_file_lock_depth": {
+      "address": "0x0049231e",
+      "kind": "data"
+    },
+    "_g_file_lock": {
+      "address": "0x004922a4",
+      "kind": "data"
+    },
+    "_imp_EnterCriticalSection": {
+      "address": "0x004660b0",
+      "kind": "data"
+    },
+    "_imp_LeaveCriticalSection": {
+      "address": "0x004660b4",
+      "kind": "data"
+    },
+    "_imp_CreateFileA": {
+      "address": "0x004660c4",
+      "kind": "data"
+    },
+    "_imp_CloseHandle": {
+      "address": "0x004660cc",
+      "kind": "data"
+    },
+    "_imp_ReadFile": {
+      "address": "0x004660d0",
+      "kind": "data"
+    },
+    "_imp_GetFileSize": {
+      "address": "0x004660d8",
+      "kind": "data"
+    },
+    "_asm_strrchr_00452930": {
+      "address": "0x00452930",
+      "kind": "code"
+    },
+    "_asm_stricmp_0046054e": {
+      "address": "0x0046054e",
+      "kind": "code"
+    },
+    "_asm_malloc_00452706": {
+      "address": "0x00452706",
+      "kind": "code"
+    },
+    "?Read@ArchiveReader@@QAEPADPBXPAD@Z": {
+      "address": "0x00434DD0",
+      "kind": "code"
+    },
+    "_g_recovery_script_path": {
+      "address": "0x00497C38",
+      "kind": "data"
+    },
+    "?Parse@ScriptFileLoader@@QAEHPAD@Z": {
+      "address": "0x00450220",
+      "kind": "code"
+    },
+    "_imp_GetModuleFileNameA": {
+      "address": "0x004660DC",
+      "kind": "data"
+    },
+    "_g_executable_checksum": {
+      "address": "0x00492380",
+      "kind": "data"
+    },
+    "_g_executable_size": {
+      "address": "0x00492384",
+      "kind": "data"
+    },
+    "_str_string_format": {
+      "address": "0x0046E1C8",
+      "kind": "data"
+    },
+    "_sprintf": {
+      "address": "0x00452AE8",
+      "kind": "code"
+    },
+    "_ProbeFileExists@4": {
+      "address": "0x0044B4D0",
+      "kind": "code"
+    },
+    "_dbl_pi_4": {
+      "address": "0x00470C50",
+      "kind": "data"
+    },
+    "_g_music_room_commands": {
+      "address": "0x0047476C",
+      "kind": "data"
+    },
+    "_g_music_room_easings": {
+      "address": "0x00474778",
+      "kind": "data"
+    },
+    "_g_music_room_variable_map": {
+      "address": "0x00491BF4",
+      "kind": "data"
+    },
+    "_g_music_room_callback_map": {
+      "address": "0x00491BF8",
+      "kind": "data"
+    },
+    "_asm_vsprintf_004524a6": {
+      "address": "0x004524A6",
+      "kind": "code"
+    },
+    "__chkstk": {
+      "address": "0x00458EC0",
+      "kind": "code"
+    },
+    "_g_text_log_lock": {
+      "address": "0x004922BC",
+      "kind": "data"
+    },
+    "_g_text_log_lock_depth": {
+      "address": "0x0049231F",
+      "kind": "data"
+    },
+    "@LoadCachedResource@12": {
+      "address": "0x00447280",
+      "kind": "code"
+    },
+    "_malloc": {
+      "address": "0x00452706",
+      "kind": "code"
+    },
+    "_g_stage_route_current": {
+      "address": "0x00477848",
+      "kind": "data"
+    },
+    "_g_globals_score": {
+      "address": "0x00474C44",
+      "kind": "data"
+    },
+    "_g_globals_character": {
+      "address": "0x00474C68",
+      "kind": "data"
+    },
+    "_g_next_stage_buffer": {
+      "address": "0x00491BE8",
+      "kind": "data"
+    },
+    "_g_game_speed": {
+      "address": "0x00476F78",
+      "kind": "data"
+    },
+    "_g_log": {
+      "address": "0x00474F70",
+      "kind": "data"
+    },
+    "_str_data_corrupted": {
+      "address": "0x0046CB68",
+      "kind": "data"
+    },
+    "_g_sound_priority": {
+      "address": "0x004749CE",
+      "kind": "data"
+    },
+    "_g_sound_manager": {
+      "address": "0x00492590",
+      "kind": "data"
+    },
+    "_flt_0_99": {
+      "address": "0x00470B68",
+      "kind": "data"
+    },
+    "_flt_1_01": {
+      "address": "0x00470B64",
+      "kind": "data"
+    },
+    "?SetPolar@DecelerationVector2@@QAEXMM@Z": {
+      "address": "0x0041F800",
+      "kind": "code"
+    },
+    "?SetPolar@BulletDecelerationVector2@@QAEXMM@Z": {
+      "address": "0x00408750",
+      "kind": "code"
+    },
+    "_g_player": {
+      "address": "0x00477834",
+      "kind": "data"
+    },
+    "_flt_0": {
+      "address": "0x00470B04",
+      "kind": "data"
+    },
+    "?Angle_NormalizeSum@@YGMMM@Z": {
+      "address": "0x0044BC10",
+      "kind": "code"
+    },
+    "_flt_neg192": {
+      "address": "0x00470B40",
+      "kind": "data"
+    },
+    "_flt_192": {
+      "address": "0x00470B3C",
+      "kind": "data"
+    },
+    "_flt_448": {
+      "address": "0x00470B38",
+      "kind": "data"
+    },
+    "_flt_pi": {
+      "address": "0x00470B18",
+      "kind": "data"
+    },
+    "_flt_neg384": {
+      "address": "0x00470B58",
+      "kind": "data"
+    },
+    "_flt_384": {
+      "address": "0x00470B54",
+      "kind": "data"
+    },
+    "_flt_neg990": {
+      "address": "0x00470B50",
+      "kind": "data"
+    },
+    "_g_ending": {
+      "address": "0x00477700",
+      "kind": "data"
+    },
+    "_g_ascii_manager": {
+      "address": "0x004776E0",
+      "kind": "data"
+    },
+    "_g_input_keys_raw": {
+      "address": "0x00474E30",
+      "kind": "data"
+    },
+    "_g_input_keys_held": {
+      "address": "0x00474E36",
+      "kind": "data"
+    },
+    "_g_globals_difficulty": {
+      "address": "0x00474C74",
+      "kind": "data"
+    },
+    "_g_screen_effects_frozen": {
+      "address": "0x004918A4",
+      "kind": "data"
+    },
+    "_recovery_script_empty_text": {
+      "address": "0x0046CFD4",
+      "kind": "data"
+    },
+    "_recovery_script_special_music": {
+      "address": "0x0046CFC4",
+      "kind": "data"
+    },
+    "?g_frame_timer_normal_lower@@3MA": {
+      "address": "0x00470B68",
+      "kind": "data"
+    },
+    "?g_frame_timer_normal_upper@@3MA": {
+      "address": "0x00470B64",
+      "kind": "data"
+    },
+    "_recovery_replace_extension@8": {
+      "address": "0x00420A90",
+      "kind": "code"
+    },
+    "_recovery_play_dummy@8": {
+      "address": "0x00420B10",
+      "kind": "code"
+    },
+    "_recovery_play_random_voice@4": {
+      "address": "0x00420C30",
+      "kind": "code"
+    },
+    "_recovery_background_thread@4": {
+      "address": "0x0040C3A0",
+      "kind": "data"
+    },
+    "_recovery_indicator_owner": {
+      "address": "0x00474C84",
+      "kind": "data"
+    },
+    "_recovery_indicator_eight_00470bd0": {
+      "address": "0x00470BD0",
+      "kind": "data"
+    },
+    "_recovery_indicator_one_00470afc": {
+      "address": "0x00470AFC",
+      "kind": "data"
+    },
+    "_recovery_indicator_two_00470b08": {
+      "address": "0x00470B08",
+      "kind": "data"
+    },
+    "_recovery_indicator_fifteen_00470c08": {
+      "address": "0x00470C08",
+      "kind": "data"
+    },
+    "_recovery_indicator_three_halves_00470ca8": {
+      "address": "0x00470CA8",
+      "kind": "data"
+    },
+    "_recovery_indicator_half_00470b0c": {
+      "address": "0x00470B0C",
+      "kind": "data"
+    },
+    "_recovery_indicator_three_quarters_00470ce4": {
+      "address": "0x00470CE4",
+      "kind": "data"
+    },
+    "_recovery_indicator_free": {
+      "address": "0x004524A1",
+      "kind": "code"
+    },
+    "_recovery_indicator_x_origin_00470b4c": {
+      "address": "0x00470B4C",
+      "kind": "data"
+    },
+    "_recovery_indicator_y_origin_00470b48": {
+      "address": "0x00470B48",
+      "kind": "data"
+    },
+    "_recovery_music_repeat": {
+      "address": "0x00474E34",
+      "kind": "data"
+    },
+    "_recovery_music_player": {
+      "address": "0x0047783C",
+      "kind": "data"
+    },
+    "_recovery_music_mode": {
+      "address": "0x00491D78",
+      "kind": "data"
+    },
+    "_recovery_music_preview_resource": {
+      "address": "0x00491FEC",
+      "kind": "data"
+    },
+    "_recovery_music_row_y_00470c80": {
+      "address": "0x00470C80",
+      "kind": "data"
+    },
+    "_recovery_music_row_step_00470ca0": {
+      "address": "0x00470CA0",
+      "kind": "data"
+    },
+    "_recovery_music_jump_threshold_00470c64": {
+      "address": "0x00470C64",
+      "kind": "data"
+    },
+    "_recovery_music_selected_offset_00470c98": {
+      "address": "0x00470C98",
+      "kind": "data"
+    },
+    "_recovery_music_defaults": {
+      "address": "0x00491C14",
+      "kind": "data"
+    },
+    "_recovery_music_locked_format": {
+      "address": "0x0046ECF4",
+      "kind": "data"
+    },
+    "_recovery_music_comment_file": {
+      "address": "0x0046ED14",
+      "kind": "data"
+    },
+    "_recovery_music_dummy": {
+      "address": "0x0046DF98",
+      "kind": "data"
+    },
+    "_recovery_music_restore_bgm": {
+      "address": "0x0046F018",
+      "kind": "data"
+    },
+    "_recovery_music_preview_table": {
+      "address": "0x00476FD8",
+      "kind": "data"
+    },
+    "_g_globals_stage": {
+      "address": "0x00474C7C",
+      "kind": "data"
+    }
+  },
+  "bindings": {
+    "?Set@RecoveryTimer2@@QAEXH@Z": "0x00405410",
+    "?Advance@RecoveryTimer2@@QAEXM@Z": "0x0044BF40",
+    "?Find@RecoveryLookup@@QAIPAXPAURecoveryLookupContext@@URecoveryScriptId@@@Z": "0x004491C0",
+    "?SetFlag@RecoveryLookup@@QAIPAXPAURecoveryLookupContext@@H@Z": "0x004492A0",
+    "?StopAtFrame2@RecoveryHandle@@QAEXXZ": "0x0040C480",
+    "?StopAtFrame3@RecoveryHandle@@QAEXXZ": "0x0040C4D0",
+    "?MarkForRemoval@RecoveryHandle@@QAEXXZ": "0x00449630",
+    "?RecoveryDecodePath@@YGPADPBE@Z": "0x00417010",
+    "_RecoveryAscii_Create@24": "0x0043C8B0",
+    "_FuncCtrl_RegisterPrimary@12": "0x00449AE0",
+    "_FuncCtrl_RegisterSecondary@12": "0x00449B70",
+    "_RecoveryAsciiRegisterPrimary_0044a000@12": "0x0044A000",
+    "_RecoveryAsciiRegisterSecondary_0044a030@12": "0x0044A030",
+    "?LoadAsset@@YGPADPBDPAUAssetBuffer@@@Z": "0x0040B480",
+    "?EnsureAnimationResource@GameThread6@@QAEPAXMM@Z": "0x0040C540",
+    "?ClearResourceSlot@AnimationManager13@@QAEXH@Z": "0x004477D0",
+    "?Release@AnimationResource6@@QAEXXZ": "0x00447810",
+    "?MarkResourceForRemoval@SprtCtrl@@QAEXPAX@Z": "0x004493E0",
+    "?AnimationManager_CreatePrimaryBack@@YGPAPAXPAXPAPAXHH@Z": "0x00448D00",
+    "?Queue@SoundQueue@@QAEHHH@Z": "0x0043DC90",
+    "?Start@PlatformWorker@@QAEXPAXP6GI0@Z@Z": "0x0044C1C0",
+    "?Stop@PlatformWorker@@QAEXXZ": "0x0044C150",
+    "_Archive_LoadFile@12": "0x0044B360",
+    "_asm_FUN_00449950_00449950": "0x00449950",
+    "_asm_AnimationObject_LoadScript_0043e710": "0x0043E710",
+    "_asm_AnimationManager_RegisterPrimaryBack_004489d0": "0x004489D0",
+    "?AnimationManager_CreatePositionedPrimary@@YGPAPAXPAXPAPAXHPBUAnimationPosition@@@Z": "0x00448D50",
+    "?RecoveryPlayerAnimationCreate@@YGPAPAXPAXPAPAXHPBUHintPosition@@@Z": "0x00448DB0",
+    "?Initialise@EntityMovementSlot@@QAEXPBUMovementPair@@0HE@Z": "0x0041AB70",
+    "?FormatRightAligned@HintVm@@QAAXPAXZZ": "0x00447AE0",
+    "?FormatCentered@HintVm@@QAAXPAXZZ": "0x00447BB0",
+    "?RecoveryMusicStopHandle@@YGXPAURecoveryHandle@@@Z": "0x00409E50",
+    "?DisableTimerWithOwner@Title@@QAEXH@Z": "0x0042C5C0",
+    "?SetTimerTarget@Title@@QAEXH@Z": "0x0042C620",
+    "?RecoveryMusicInstallSlot@@YGXPAUTitle@@H@Z": "0x0042C670",
+    "?RecoveryMusicSkipLine_004349e0@@YGPADPADPAH@Z": "0x004349E0",
+    "?RecoveryMusicExtractLine_00434a20@@YGPADPAD0PAH@Z": "0x00434A20",
+    "?InitializeTransition@RecoveryMusicVm@@QAEXPBURecoveryMusicVector@@0HE@Z": "0x00434A80",
+    "?RegisterResource@RecoveryMusicResourceQueue@@QAEPADPBDHH@Z": "0x0043E460",
+    "?PopSelection@MenuCursor@@QAEXXZ": "0x0044BE70",
+    "?Advance@MenuCursor@@QAEHH@Z": "0x0044BEA0",
+    "_RecoveryScript_Execute2@4": "0x0040BD80",
+    "_Title_UpdateMusicRoom@4": "0x00433EF0",
+    "?ClearAnimationSlot@Title@@QAEXH@Z": "0x0042C6D0",
+    "?SetSlotFrame@Title@@QAEXHG@Z": "0x0042C770",
+    "?RecoveryDispatchText2@@YGXPAURecoveryTextResource@@PAXHHIPBDH@Z": "0x004479D0",
+    "?MarkText@RecoveryTextVm@@QAAXPAXZZ": "0x00447A50",
+    "?Drain@HintLink@@QAEHPAUHintUpdateView@@H@Z": "0x00419120",
+    "__real@3f800000": "0x00470AFC",
+    "??_C@_0BA@HHNJPIP@bgm?1th10_13?4wav?$AA@": "0x0046CFC4",
+    "?Configure@RecoveryAsciiController_0043c8b0@@QAEXIIIIII@Z": "0x0043C970",
+    "?RecoveryValidateHandle@@YAPAXPAURecoveryHandle@@@Z": "0x00449450"
+  },
+  "base_index_order": 0,
+  "differences": [
+    {
+      "class": "register-choice",
+      "offset": "0xc8",
+      "retail": [
+        "mov ecx,DWORD PTR [ebp+0x40]",
+        "mov ebx,DWORD PTR ds:0x491c10",
+        "lea edi,[ebp+0x40]",
+        "push ecx",
+        "mov edx,ebx"
+      ],
+      "model": [
+        "mov eax,DWORD PTR [ebp+0x40]",
+        "mov edi,DWORD PTR ds:0x491c10",
+        "lea ebx,[ebp+0x40]",
+        "push eax",
+        "mov edx,edi"
+      ]
+    },
+    {
+      "class": "register-choice",
+      "offset": "0xe2",
+      "retail": [
+        "mov DWORD PTR [edi],eax"
+      ],
+      "model": [
+        "mov DWORD PTR [ebx],eax"
+      ]
+    },
+    {
+      "class": "register-choice",
+      "offset": "0xef",
+      "retail": [
+        "mov edx,DWORD PTR [ebp+0x7c]"
+      ],
+      "model": []
+    },
+    {
+      "class": "register-choice",
+      "offset": "0xf3",
+      "retail": [
+        "push edx",
+        "push ebx"
+      ],
+      "model": [
+        "mov eax,DWORD PTR [ebp+0x7c]",
+        "push eax",
+        "push edi"
+      ]
+    },
+    {
+      "class": "register-choice",
+      "offset": "0xfd",
+      "retail": [
+        "mov eax,edi"
+      ],
+      "model": [
+        "mov eax,ebx"
+      ]
+    },
+    {
+      "class": "evaluation-order",
+      "offset": "0x114",
+      "retail": [
+        "mov ecx,DWORD PTR [ebp+0x78]"
+      ],
+      "model": [
+        "mov ecx,DWORD PTR [ebp+0x7c]",
+        "mov edx,DWORD PTR ds:0x491c10"
+      ]
+    },
+    {
+      "class": "evaluation-order",
+      "offset": "0x118",
+      "retail": [
+        "mov eax,DWORD PTR [ebp+0x7c]",
+        "push eax",
+        "lea esi,[ebp+ecx*4+0x40]"
+      ],
+      "model": [
+        "mov eax,DWORD PTR [ebp+0x78]",
+        "push ecx",
+        "push edx",
+        "lea esi,[ebp+eax*4+0x40]"
+      ]
+    },
+    {
+      "class": "evaluation-order",
+      "offset": "0x125",
+      "retail": [
+        "mov edx,DWORD PTR ds:0x491c10",
+        "push edx"
+      ],
+      "model": []
+    },
+    {
+      "class": "register-choice",
+      "offset": "0x133",
+      "retail": [
+        "mov eax,DWORD PTR [ebp+0x78]"
+      ],
+      "model": [
+        "mov ecx,DWORD PTR [ebp+0x78]"
+      ]
+    },
+    {
+      "class": "register-choice",
+      "offset": "0x139",
+      "retail": [
+        "lea eax,[ebp+eax*4+0x40]"
+      ],
+      "model": [
+        "lea eax,[ebp+ecx*4+0x40]"
+      ]
+    },
+    {
+      "class": "register-choice",
+      "offset": "0x181",
+      "retail": [
+        "mov ecx,DWORD PTR [eax+0x4]",
+        "push ecx"
+      ],
+      "model": [
+        "mov edx,DWORD PTR [eax+0x4]",
+        "push edx"
+      ]
+    },
+    {
+      "class": "register-choice",
+      "offset": "0x19a",
+      "retail": [
+        "mov edx,DWORD PTR [ebp+0x54]",
+        "mov eax,DWORD PTR [edx+0x4]",
+        "test eax,eax"
+      ],
+      "model": [
+        "mov eax,DWORD PTR [ebp+0x54]",
+        "mov ecx,DWORD PTR [eax+0x4]",
+        "test ecx,ecx"
+      ]
+    },
+    {
+      "class": "register-choice",
+      "offset": "0x2ba",
+      "retail": [
+        "push eax"
+      ],
+      "model": [
+        "push edx"
+      ]
+    },
+    {
+      "class": "code-shape",
+      "offset": "0x438",
+      "retail": [
+        "mov ebx,DWORD PTR ds:0x491c10"
+      ],
+      "model": []
+    },
+    {
+      "class": "code-shape",
+      "offset": "0x446",
+      "retail": [],
+      "model": [
+        "mov edx,DWORD PTR ds:0x491c10"
+      ]
+    },
+    {
+      "class": "code-shape",
+      "offset": "0x448",
+      "retail": [
+        "push eax",
+        "mov edx,ebx"
+      ],
+      "model": [
+        "push edx"
+      ]
+    },
+    {
+      "class": "evaluation-order",
+      "offset": "0x45c",
+      "retail": [],
+      "model": [
+        "mov eax,ds:0x477700",
+        "push eax"
+      ]
+    },
+    {
+      "class": "evaluation-order",
+      "offset": "0x45f",
+      "retail": [
+        "mov ecx,DWORD PTR ds:0x477700"
+      ],
+      "model": []
+    },
+    {
+      "class": "evaluation-order",
+      "offset": "0x468",
+      "retail": [
+        "push ecx"
+      ],
+      "model": []
+    },
+    {
+      "class": "evaluation-order",
+      "offset": "0x483",
+      "retail": [
+        "mov eax,DWORD PTR [edx+0x4]",
+        "add eax,edx",
+        "mov DWORD PTR [ebp+0x54],eax",
+        "push 0x0"
+      ],
+      "model": [
+        "mov ecx,DWORD PTR [edx+0x4]",
+        "add ecx,edx",
+        "push eax"
+      ]
+    },
+    {
+      "class": "evaluation-order",
+      "offset": "0x490",
+      "retail": [],
+      "model": [
+        "mov DWORD PTR [ebp+0x54],ecx"
+      ]
+    },
+    {
+      "class": "block-order",
+      "offset": "0x4bb",
+      "retail": [
+        "mov ecx,DWORD PTR [eax+0x4]",
+        "push 0x0",
+        "push 0x0",
+        "push 0x0",
+        "push ecx",
+        "push 0x0",
+        "jmp L+0x4d5"
+      ],
+      "model": []
+    },
+    {
+      "class": "block-order",
+      "offset": "0x4d3",
+      "retail": [],
+      "model": [
+        "push 0x0",
+        "jmp L+0x4d1",
+        "mov eax,DWORD PTR [eax+0x4]",
+        "push 0x0",
+        "push 0x0",
+        "push 0x0",
+        "push eax"
+      ]
+    },
+    {
+      "class": "evaluation-order",
+      "offset": "0x580",
+      "retail": [
+        "mov edx,DWORD PTR [ebp+0x74]"
+      ],
+      "model": [
+        "mov ecx,DWORD PTR [ebp+0x74]"
+      ]
+    },
+    {
+      "class": "evaluation-order",
+      "offset": "0x586",
+      "retail": [
+        "or edx,0x4"
+      ],
+      "model": []
+    },
+    {
+      "class": "evaluation-order",
+      "offset": "0x58c",
+      "retail": [],
+      "model": [
+        "or ecx,0x4"
+      ]
+    },
+    {
+      "class": "evaluation-order",
+      "offset": "0x598",
+      "retail": [
+        "mov DWORD PTR [ebp+0x74],edx"
+      ],
+      "model": [
+        "mov DWORD PTR [ebp+0x74],ecx"
+      ]
+    },
+    {
+      "class": "branch-target",
+      "offset": "table+0x38",
+      "retail": [
+        "L+0x4c9"
+      ],
+      "model": [
+        "L+0x4c5"
+      ]
+    }
+  ],
+  "note": "reference/recovery_notes/recovery_script_executor_0040bd80_accepted_2026_10_14.md",
+  "listed_branch_targets": true
+}

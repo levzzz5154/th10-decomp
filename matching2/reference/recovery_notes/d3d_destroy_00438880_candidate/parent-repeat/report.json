@@ -107,8 +107,8 @@
   "inputs": {
     "/home/levzzz/.hermes/cache/scratch/d3d-destroy-native/msvc/src/render/d3_d_resource_manager_destroy_00438880.cpp": "d5387c00e1643bac02eef8f1f34e4b6bfed14e1c3182393e3fb95246cc150799",
     "/home/levzzz/.hermes/cache/scratch/d3d-destroy-native/msvc/layout/ltcg/destroy_release_adapter.cpp": "edff7d04ccb6c1b7c4c48c3cdef185fcf80a48321b5283f0979297f5407f47ed",
-    "/home/levzzz/.hermes/cache/scratch/d3d-destroy-native/msvc/src/platform/platform_stop_worker_0044c150.cpp": "0db30c169785c3f5389aaa0ee652a1b35d0e2623c600c0a9e42f663fe33bc82d",
-    "/home/levzzz/.hermes/cache/scratch/d3d-destroy-native/msvc/src/platform/platform_stop_worker_no_delete_0044c130.cpp": "3d2314d404646fe38156346165c317cee09f0a1d6faa1dcfb17d6ab79fa86ba8"
+    "/home/levzzz/.hermes/cache/scratch/d3d-destroy-native/msvc/src/platform/platform_stop_worker.cpp": "0db30c169785c3f5389aaa0ee652a1b35d0e2623c600c0a9e42f663fe33bc82d",
+    "/home/levzzz/.hermes/cache/scratch/d3d-destroy-native/msvc/src/platform/platform_stop_worker_no_delete.cpp": "3d2314d404646fe38156346165c317cee09f0a1d6faa1dcfb17d6ab79fa86ba8"
   },
   "toolchain": {
     "cl.exe": "333254d73ee602f6ec14b00e9bf40f533a1b181429943e3634971642af00c9f7",

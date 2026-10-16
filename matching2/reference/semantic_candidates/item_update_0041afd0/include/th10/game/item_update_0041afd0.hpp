@@ -1,7 +1,7 @@
 #pragma once
-#include "th10/game/item_spawn_0041bb00.hpp"
+#include "th10/game/item_spawn.hpp"
 #include "th10/platform/sound_queue.hpp"
-#include "th10/render/animation_object_0043e5a0.hpp"
+#include "th10/render/animation_object.hpp"
 
 struct ItemMovementProperties { int reserved_00[2]; float seek_speed; };
 struct ItemCollectionBox { Vector3 minimum, maximum; };

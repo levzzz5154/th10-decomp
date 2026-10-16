@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "name": "animation_validate_handle",
+  "source": "src/core/sprtlib/animation_manager_validate_handle.cpp",
+  "driver": "build_support/layout/ltcg/animation_validate_handle_00449450_context.cpp",
+  "headers": [
+    "include/th10/render/animation_validate_handle.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Resolve an animation handle, clear a stale ID, and return the object in EAX. Native LTCG uses a genuine full Find body to establish the private handle register; only the 21-byte helper is selected.",
+  "functions": [
+    {
+      "name": "AnimationManager_ValidateHandle",
+      "symbol": "?ValidateHandle@AnimationManager15@@QAAPAXPAUAnimationHandle10@@@Z",
+      "section": ".text$03validate",
+      "address": "0x00449450",
+      "size": 21,
+      "actual_abi": "handle in ESI; source receiver unused; returns looked-up object or null in EAX; plain RET"
+    }
+  ],
+  "context": {
+    "symbol": "?AnimationValidateHandleCompilerContext@@YGHPAVAnimationManager15@@PAUAnimationHandle10@@H@Z",
+    "section": ".text$05context",
+    "address": "0x00449470",
+    "size": 46,
+    "description": "Synthetic array-walking caller that establishes the private handle register; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 295360
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x00449209",
+      "size": 583
+    },
+    {
+      "section": ".text$04layout",
+      "address": "0x00449465",
+      "size": 11
+    }
+  ],
+  "constants": [],
+  "constant_aliases": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_g_sprt_ctrl",
+      "address": "0x00491C10",
+      "kind": "data"
+    }
+  ],
+  "roots": [],
+  "included_sources": [
+    "build_support/layout/ltcg/animation_validate_handle_00449450_find_anchor.cpp"
+  ],
+  "anchors": [
+    {
+      "name": "AnimationManager_Find_004491c0_abi_anchor",
+      "symbol": "?Find@AnimationManager15@@QAIPAXPAUAnimationLookupContext@@UAnimationScriptId2@@@Z",
+      "section": ".text$01find",
+      "address": "0x004491C0",
+      "size": 73
+    }
+  ]
+}

@@ -8,8 +8,8 @@
     "include/th10/render/animation_resource_removal.hpp",
     "include/th10/game/menu_cursor.hpp",
     "include/th10/game/enemy_ctrl.hpp",
-    "include/th10/game/enemy_manager_dependencies_0040d530.hpp",
-    "include/th10/game/startup_managers_0040a350.hpp",
+    "include/th10/game/enemy_manager_dependencies.hpp",
+    "include/th10/game/startup_managers.hpp",
     "include/th10/source_views/enemy_ctrl_create_c34965_0.hpp"
   ],
   "image_base": "0x00400000",
@@ -81,15 +81,15 @@
       "section": ".text$10b"
     },
     {
-      "name": "?ReleaseResource@BulletEntity_0040d680@@QAEXXZ",
-      "symbol": "?ReleaseResource@BulletEntity_0040d680@@QAEXXZ",
+      "name": "?ReleaseResource@BulletEntity6@@QAEXXZ",
+      "symbol": "?ReleaseResource@BulletEntity6@@QAEXXZ",
       "address": "0x40d680",
       "size": 36,
       "section": ".text$03b"
     },
     {
-      "name": "?Release@AnimationResource_00447810@@QAEXXZ",
-      "symbol": "?Release@AnimationResource_00447810@@QAEXXZ",
+      "name": "?Release@AnimationResource6@@QAEXXZ",
+      "symbol": "?Release@AnimationResource6@@QAEXXZ",
       "address": "0x447810",
       "size": 242,
       "section": ".text$05b"
@@ -449,32 +449,32 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_Create_00425020",
+      "symbol": "_Create6",
       "address": "0x425020",
       "kind": "relative_code"
     },
     {
-      "symbol": "_Create_00406060",
+      "symbol": "_Create3",
       "address": "0x406060",
       "kind": "relative_code"
     },
     {
-      "symbol": "_Create_004056b0",
+      "symbol": "_Create2",
       "address": "0x4056b0",
       "kind": "relative_code"
     },
     {
-      "symbol": "_Create_0041aed0",
+      "symbol": "_Create5",
       "address": "0x41aed0",
       "kind": "relative_code"
     },
     {
-      "symbol": "_Create_0042b660",
+      "symbol": "_Create7",
       "address": "0x42b660",
       "kind": "relative_code"
     },
     {
-      "symbol": "_Create_00414830",
+      "symbol": "_Create4",
       "address": "0x414830",
       "kind": "relative_code"
     }
@@ -487,9 +487,9 @@
     "src/game/eclview/ecl_view.cpp",
     "build_support/layout/ltcg/enemy_factory_dependencies/message_host_init.cpp",
     "build_support/layout/ltcg/enemy_factory_dependencies/scheduler_tasks.cpp",
-    "build_support/layout/ltcg/enemy_factory_dependencies/bullet_entity_release_resource_0040d680.cpp",
-    "build_support/layout/ltcg/enemy_factory_dependencies/fun_00447810_00447810.cpp",
-    "build_support/layout/ltcg/enemy_factory_dependencies/animation_manager_mark_resource_for_removal_004493e0.cpp",
+    "build_support/layout/ltcg/enemy_factory_dependencies/bullet_entity_release_resource.cpp",
+    "build_support/layout/ltcg/enemy_factory_dependencies/fun.cpp",
+    "build_support/layout/ltcg/enemy_factory_dependencies/animation_manager_mark_resource_for_removal.cpp",
     "build_support/layout/ltcg/enemy_factory_dependencies/menu_advance.cpp",
     "build_support/layout/units/enemy_ctrl_create_c34965.cpp",
     "src/game/enemy/enemy_ctrl_create.cpp"

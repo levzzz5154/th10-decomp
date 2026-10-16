@@ -1,5 +1,5 @@
 // The laser manager's spawn and the two laser constructors.
-#include "th10/game/laser_spawn_0041c510.hpp"
+#include "th10/game/laser_spawn.hpp"
 
 void* __cdecl operator new(unsigned int size);
 
@@ -10,7 +10,7 @@ void* __cdecl operator new(unsigned int size);
 // in EDI, the manager in ESI and the kind on the stack. A failed allocation
 // is not checked.
 #pragma code_seg(".text$a03spawn")
-int LaserSpawnParameters::SpawnIn(LaserManager_0041c510* manager, int kind) const {
+int LaserSpawnParameters::SpawnIn(LaserManager2* manager, int kind) const {
     if (manager->count >= 256)
         return 0;
     if (++manager->next_id == 0)
@@ -18,9 +18,9 @@ int LaserSpawnParameters::SpawnIn(LaserManager_0041c510* manager, int kind) cons
     LaserBase* laser;
     switch (kind) {
     case 0: {
-        LineLaser_0041c5b0* line =
-            static_cast<LineLaser_0041c5b0*>(operator new(sizeof(LineLaser_0041c5b0)));
-        laser = line ? LineLaser_Construct_0041c5b0(line) : 0;
+        LineLaser2* line =
+            static_cast<LineLaser2*>(operator new(sizeof(LineLaser2)));
+        laser = line ? LineLaser_Construct2(line) : 0;
         manager->Append(laser);
         laser->Methods()->Initialize(this);
         break;
@@ -28,7 +28,7 @@ int LaserSpawnParameters::SpawnIn(LaserManager_0041c510* manager, int kind) cons
     case 1: {
         BeamLaser* beam =
             static_cast<BeamLaser*>(operator new(sizeof(BeamLaser)));
-        laser = beam ? BeamLaser_Construct_0041c680(beam) : 0;
+        laser = beam ? BeamLaser_Construct2(beam) : 0;
         manager->Append(laser);
         laser->Methods()->Initialize(this);
         break;
@@ -41,8 +41,8 @@ int LaserSpawnParameters::SpawnIn(LaserManager_0041c510* manager, int kind) cons
 // vtable, cleared parameters and the two sprites. The retail laser arrives in EBX; this unselected native graph may
 // choose its own register for that internal call.
 #pragma code_seg(".text$a05line")
-LineLaser_0041c5b0* __fastcall LineLaser_Construct_0041c5b0(LineLaser_0041c5b0* self) {
-    LaserBase_Construct_0041c030(self);
+LineLaser2* __fastcall LineLaser_Construct2(LineLaser2* self) {
+    LaserBase_Construct2(self);
     self->vtable = &g_line_laser_vtable;
     self->params.Construct();
     self->beam.Construct();
@@ -53,8 +53,8 @@ LineLaser_0041c5b0* __fastcall LineLaser_Construct_0041c5b0(LineLaser_0041c5b0* 
 // 0x0041C680: construct a beam laser the same way. The retail laser arrives in EBX; this unselected native graph may
 // choose its own register for that internal call.
 #pragma code_seg(".text$a07beam")
-BeamLaser* __fastcall BeamLaser_Construct_0041c680(BeamLaser* self) {
-    LaserBase_Construct_0041c030(self);
+BeamLaser* __fastcall BeamLaser_Construct2(BeamLaser* self) {
+    LaserBase_Construct2(self);
     self->vtable = &g_beam_laser_vtable;
     self->params.Construct();
     self->beam.Construct();

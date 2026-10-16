@@ -3,13 +3,13 @@
 #include "th10/game/card_update.hpp"
 #include "th10/game/player.hpp"
 
-struct StageState_00408d60 {
+struct StageState2 {
     unsigned char reserved[0x2A18];
     unsigned int flags;                            // +0x2A18
 };
-struct FrontResources_00408d60 {
+struct FrontResources {
     unsigned char reserved[0x9EC8];
-    Resource_0043e5a0* digits;                     // +0x9EC8
+    Resource2* digits;                     // +0x9EC8
 };
 struct SpellRecord {
     int attempts;
@@ -21,41 +21,41 @@ struct ShotRecord {
     SpellRecord spells[1];
     unsigned char reserved_6b4[0x437C - 0x6B4];
 };
-struct ScoreFile_00408d60 {
+struct ScoreFile {
     ShotRecord shots[6];
 };
-struct MarkerTarget_00408d60 {
+struct MarkerTarget {
     unsigned char reserved[0x1068];
     Vec3 position;                                 // +0x1068
 };
 struct MarkerOwner {
     unsigned char reserved[0x10];
-    MarkerTarget_00408d60* target;                 // +0x10
+    MarkerTarget* target;                 // +0x10
 };
 
 // Part of the global game state.
-struct GameSelection_00408d60 {
+struct GameSelection {
     int character;                                 // 0x00474C68
     int shot_type;                                 // 0x00474C6C
 };
 
 extern "C" {
-extern StageState_00408d60* g_background;
-extern FrontResources_00408d60* g_front;
-extern ScoreFile_00408d60* g_score;
+extern StageState2* g_background;
+extern FrontResources* g_front;
+extern ScoreFile* g_score;
 extern MarkerOwner* g_enemy_ctrl;
-extern GameSelection_00408d60 g_selection;         // 0x00474C68
+extern GameSelection g_selection;         // 0x00474C68
 // The animation VM takes one stack object pointer and returns with RET 4.
-int __stdcall RunAnimationVm(FrontSprite_00408d60* sprite);
+int __stdcall RunAnimationVm(FrontSprite2* sprite);
 }
 
-static inline void Configure(FrontSprite_00408d60* sprite, int script) {
+static inline void Configure(FrontSprite2* sprite, int script) {
     g_front->digits->ConfigureObject(
-        reinterpret_cast<AnimationObject_0043e5a0*>(sprite), script);
+        reinterpret_cast<AnimationObject3*>(sprite), script);
 }
 
 #pragma code_seg(".text$a00update")
-int Card_00408d60::Update() {
+int Card4::Update() {
     if (!(flags & 1))
         return 1;
     if (timer.current >= 60)
@@ -134,7 +134,7 @@ int Card_00408d60::Update() {
 #pragma code_seg()
 
 #pragma code_seg(".text$a01callback")
-extern "C" int __fastcall CardPrimary(Card_00408d60* hud) {
+extern "C" int __fastcall CardPrimary(Card4* hud) {
     return hud->Update();
 }
 #pragma code_seg()

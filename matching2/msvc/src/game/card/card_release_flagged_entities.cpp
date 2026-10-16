@@ -16,7 +16,7 @@
 // pass falls back to the declared convention and the two `lea eax,[...]` become
 // `lea edx,[...]` - byte-exact but handing the dispatcher garbage.
 //
-// The region is rooted (its `roots` entry in layout/ltcg/anm_batch_flush_00442f50
+// The region is rooted (its `roots` entry in layout/ltcg/anm_batch_flush2
 // .json), because a scheduler callback's receiver is its public ABI: without the
 // root the pass is free to re-home it in ESI or EDX and the 50 bytes are not
 // retail's.
@@ -27,7 +27,7 @@
 extern "C" __declspec(noinline) int __cdecl asm_FUN_004451c0_004451c0(
         SprtCtrlBatchView* manager, RenderEntity* entity);
 
-struct CardRuntime_00409230 {
+struct CardRuntime2 {
     unsigned char reserved_0000[0x378C];
     unsigned char release_flag_378C;                 // +0x378C: release when bit 0 is set
     unsigned char reserved_378D[0x400];
@@ -36,7 +36,7 @@ struct CardRuntime_00409230 {
 };
 
 #pragma code_seg(".text$001release")
-int CardRuntime_00409230::ReleaseFlaggedEntities() {
+int CardRuntime2::ReleaseFlaggedEntities() {
     if (release_flag_378C & 1) {
         asm_FUN_004451c0_004451c0(g_sprt_ctrl, (RenderEntity*)((char*)this + 0x10));
         asm_FUN_004451c0_004451c0(g_sprt_ctrl, (RenderEntity*)((char*)this + 0x3BC));

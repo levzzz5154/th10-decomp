@@ -1,4 +1,4 @@
-#include "../../../include/contexts/game/marktext_dispatcher_context/recovery_script_executor_caller_00419120.hpp"
+#include "../../../include/contexts/game/marktext_dispatcher_context/recovery_script_executor_caller.hpp"
 
 extern "C" void* g_sprt_ctrl;
 extern "C" void* __cdecl asm_FUN_00449950_00449950(void* manager);

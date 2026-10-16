@@ -61,7 +61,7 @@ int PlayfieldPoint::OutsidePlayfield(float width, float height) const {
 // Compiler context and ABI anchors only; none of these bytes enter the image.
 extern "C" void* g_sprt_ctrl;
 
-extern "C" void* __cdecl operator_new_00452493(unsigned int size);
+extern "C" void* __cdecl operator_new2(unsigned int size);
 extern "C" void* __cdecl Entity_Constructor_00402050(void* entity);
 extern "C" void __cdecl Entity_Init_00401de0(void* unused, void* entity);
 extern "C" void __cdecl asm_AnimationObject_LoadScriptTail_0043ee30(void* object);
@@ -69,10 +69,10 @@ __declspec(noinline) void** __stdcall
 AnimationManager_CreatePrimaryBack(void* resource, void** out, int index,
                                             int render_bucket);
 
-struct AnimationPosition_00448db0;
+struct AnimationPosition2;
 __declspec(noinline) void** __stdcall
 AnimationManager_CreateScreenPositionedPrimary(void*, void**, int,
-                                                        const AnimationPosition_00448db0*);
+                                                        const AnimationPosition2*);
 
 static unsigned int NextPoolIndex_00449950(unsigned int index) {
     unsigned int next = (index + 1) & 0x80000FFFu;
@@ -90,7 +90,7 @@ extern "C" __declspec(noinline) void* __cdecl asm_FUN_00449950_00449950(void* ma
         index = NextPoolIndex_00449950(index);
         *(unsigned int*)(bytes + 0x3AD068) = index;
         if (bytes[0x3AC068 + index] != 0) {
-            unsigned char* allocated = (unsigned char*)operator_new_00452493(0x3AC);
+            unsigned char* allocated = (unsigned char*)operator_new2(0x3AC);
             if (allocated == 0)
                 return 0;
             Entity_Constructor_00402050(allocated);

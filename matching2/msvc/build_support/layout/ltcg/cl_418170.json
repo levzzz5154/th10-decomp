@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "name": "cl_00418170",
+  "source": "src/unreferenced/unassigned_418170.cpp",
+  "driver": "build_support/layout/ltcg/cl_00418170_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "scalar deleting destructor with the object in ESI",
+  "functions": [
+    {
+      "name": "DestroyOwned_DeletingDestructor",
+      "symbol": "?DestroyOwned_DeletingDestructor@@YGPAXPAUOwnedObject2@@I@Z",
+      "section": ".text$01delete00418170",
+      "address": "0x00418170",
+      "size": 27,
+      "actual_abi": "object in ESI; delete flag on the stack; RET 4"
+    }
+  ],
+  "context": {
+    "symbol": "?DeletingContext_00418170@@YGXPAPAUOwnedObject2@@H@Z",
+    "section": ".text$03context",
+    "address": "0x004181A0",
+    "size": 41,
+    "description": "Synthetic array-walking caller that establishes the observed register convention; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 94576
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x0041818B",
+      "size": 21
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_asm_FUN_00417c80_00417c80@4",
+      "address": "0x417C80",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_crt_free_startup",
+      "address": "0x004524A1",
+      "kind": "relative_code"
+    }
+  ],
+  "additional_sources": [],
+  "included_sources": []
+}

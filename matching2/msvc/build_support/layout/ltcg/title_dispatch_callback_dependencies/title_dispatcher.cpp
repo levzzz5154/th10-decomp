@@ -37,7 +37,7 @@ extern "C" {
     extern char g_replay_path[];
     extern unsigned char g_stage_routes[];
     extern unsigned char* g_stage_route_current;
-    extern GameThread_0040c540* g_ascii_manager;
+    extern GameThread6* g_ascii_manager;
     extern float flt_0_99, flt_1_01, flt_1;
 }
 // These declarations describe logical inputs, not promises about retail ABI.
@@ -114,9 +114,9 @@ __declspec(noinline) int __stdcall Title_DispatchUpdate(
         manager->MarkResourceForRemoval(*reinterpret_cast<void**>(manager_bytes + 0x3ad074));
         manager->MarkResourceForRemoval(*reinterpret_cast<void**>(manager_bytes + 0x3ad078));
         manager->MarkResourceForRemoval(*reinterpret_cast<void**>(manager_bytes + 0x3ad06c));
-        AnimationHandle_0040c3c0* handle = reinterpret_cast<AnimationHandle_0040c3c0*>(
+        AnimationHandle3* handle = reinterpret_cast<AnimationHandle3*>(
             reinterpret_cast<unsigned char*>(g_ascii_manager) + 0x89a4);
-        StopHandle_00409e50(handle);
+        StopHandle2(handle);
         handle->id = 0;
         if (transition == 3) {
             room->cursor.item_count = 10;
@@ -161,10 +161,10 @@ __declspec(noinline) int __stdcall Title_DispatchUpdate(
             TitleMode12(room);
             break;
         }
-        EndingScreen_Update_0042d300(room);
+        EndingScreen_Update2(room);
         break;
     }
-    case 1: EndingScreen_Update_0042d300(room); break;
+    case 1: EndingScreen_Update2(room); break;
     case 2: MarkTitleCallback(room); TitleMainMenu(room); break;
     case 3:
         g_main_state = (~(g_app_flags >> 12) & 1) | 2;

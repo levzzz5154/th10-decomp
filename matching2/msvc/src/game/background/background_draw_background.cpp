@@ -9,10 +9,10 @@
 #include "th10/game/background_draw.hpp"
 
 // The parts of the render state at 0x00491C28 other units define.
-struct RenderStageState_00405300 {
+struct RenderStageState2 {
     __declspec(noinline) void SelectDefaultStage(int index);
 };
-struct RenderStageState_00439390 {
+struct RenderStageState4 {
     __declspec(noinline) int DisableFog();
 };
 // 0x00405410: the out-of-line copy of FrameTimer::Set.
@@ -68,8 +68,8 @@ int __stdcall BackGround_DrawBackground(BackGround* stage) {
     stage->drawn_quads = 0;
     if (stage->flags & 1) {
         if (stage->sprites[0].texture) {
-            reinterpret_cast<RenderStageState_00405300*>(&g_application)->SelectDefaultStage(0);
-            reinterpret_cast<RenderStageState_00439390*>(&g_application)->DisableFog();
+            reinterpret_cast<RenderStageState2*>(&g_application)->SelectDefaultStage(0);
+            reinterpret_cast<RenderStageState4*>(&g_application)->DisableFog();
             g_sprt_ctrl->Flush();
             StageSetRenderState(0x0E, 0);
             for (int i = 0; i < 8; ++i) {

@@ -1,11 +1,11 @@
 #include "th10/platform/native_game_input.hpp"
 #include "th10/platform/text_log.hpp"
-extern "C" TextLog_0044b810 g_log;
+extern "C" TextLog4 g_log;
 #pragma code_seg(".text$a10input")
 int GameInputSystem::InitializeDevices() {
     void* instance=(void*)imp_GetWindowLongA(window,-6);
     if (flags&8U) return -1;
-    if (DirectInput8Create_0045071e(instance,0x800,&g_guid_dinput,&direct_input,0)<0) {
+    if (DirectInput8Create2(instance,0x800,&g_guid_dinput,&direct_input,0)<0) {
         direct_input=0;
         g_log.Append(str_directinput_unavailable);
         return -1;

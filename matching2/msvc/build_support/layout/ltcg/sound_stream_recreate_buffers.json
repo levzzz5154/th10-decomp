@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "name": "sound_stream_recreate_buffers",
+  "source": "src/core/zwave/sound_stream_recreate_buffers.cpp",
+  "driver": "build_support/layout/ltcg/sound_stream_recreate_buffers/context.cpp",
+  "headers": [
+    "include/th10/game/sound_stream_fill_model.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Streaming sound buffer re-creation, compiled with an array-walking caller.",
+  "functions": [
+    {
+      "name": "SoundStream_RecreateBuffers",
+      "symbol": "_SoundStream_RecreateBuffers2@4",
+      "section": ".text$00recreate",
+      "address": "0x0044CF20",
+      "actual_abi": "stream in ESI; HRESULT in EAX; plain RET",
+      "size": 338
+    }
+  ],
+  "context": {
+    "symbol": "_SoundStreamRecreateContext@8",
+    "section": ".text$07context",
+    "address": "0x0044D080",
+    "size": 42,
+    "description": "Synthetic array-walking caller; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00before",
+      "address": 4198400,
+      "size": 311072
+    },
+    {
+      "section": ".text$00recreatez",
+      "address": 4509810,
+      "size": 14
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "??2@YAPAXI@Z",
+      "address": "0x00452493",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "??_U@YAPAXI@Z",
+      "address": "0x00452493",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "??3@YAXPAX@Z",
+      "address": "0x004524A1",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "??_V@YAXPAX@Z",
+      "address": "0x004524A1",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_g_iid_idirectsoundbuffer",
+      "address": "0x0046743C",
+      "kind": "data"
+    }
+  ],
+  "included_sources": []
+}

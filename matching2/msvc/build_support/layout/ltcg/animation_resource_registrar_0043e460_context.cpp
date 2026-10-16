@@ -1,18 +1,18 @@
 
-#include "../../../src/core/sprtanim/animation_manager_register_resource_0043e460.cpp"
+#include "../../../src/core/sprtanim/animation_manager_register_resource.cpp"
 
 int __stdcall Music_Load(int slot, const char* file_name);
 int __stdcall Music_Play(int track, int heard_index);
 int __stdcall Music_Stop();
 int __stdcall Music_PlayFile(int heard_index, const char* file_name);
-void __stdcall MusicRequests_Unpause(AnimationManager_0043e460* requests);
-void __stdcall MusicRequests_Pause(AnimationManager_0043e460* requests);
-void __stdcall MusicRequests_SetVolume(AnimationManager_0043e460* requests);
+void __stdcall MusicRequests_Unpause(AnimationManager9* requests);
+void __stdcall MusicRequests_Pause(AnimationManager9* requests);
+void __stdcall MusicRequests_SetVolume(AnimationManager9* requests);
 int __stdcall Music_FadeOut(float frames);
 
 #pragma code_seg(".text$03context")
 extern "C" __declspec(noinline) int __stdcall RegistrarContext_0043e460(
-        AnimationManager_0043e460** managers, int count, const char* name, int resource, int parameter) {
+        AnimationManager9** managers, int count, const char* name, int resource, int parameter) {
     int total = 0;
     // The music requests are reached only through their addresses here.
     *(int (__stdcall**)(int, const char*))managers[count] = Music_Load;
@@ -26,7 +26,7 @@ extern "C" __declspec(noinline) int __stdcall RegistrarContext_0043e460(
         total += Music_PlayFile(index, name);
     }
     while (count--) {
-        AnimationManager_0043e460* manager = *managers++;
+        AnimationManager9* manager = *managers++;
         total += (int)manager->RegisterResource(name, resource, parameter);
         MusicRequests_Unpause(manager);
         MusicRequests_Pause(manager);

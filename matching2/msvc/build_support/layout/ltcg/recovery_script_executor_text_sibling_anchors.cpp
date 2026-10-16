@@ -34,7 +34,7 @@ void __cdecl HintVm::FormatRightAligned(
     const float resource_width =
         reinterpret_cast<RecoveryTextResourceWidthView*>(text_resource)->width;
     const int horizontal_offset = static_cast<int>(resource_width - text_width);
-    RecoveryDispatchText_004479d0(
+    RecoveryDispatchText2(
         text_resource, static_cast<int>(height), buffer, text_resource->texture,
         horizontal_offset, color, mode);
     flags |= 1;
@@ -70,7 +70,7 @@ void __cdecl HintVm::FormatCentered(
     const int half_width = static_cast<int>(resource_width) / 2;
     const int horizontal_offset = static_cast<int>(
         static_cast<unsigned int>(half_width) - quarter_width);
-    RecoveryDispatchText_004479d0(
+    RecoveryDispatchText2(
         text_resource, static_cast<int>(height), buffer, text_resource->texture,
         horizontal_offset, color, mode);
     flags |= 1;

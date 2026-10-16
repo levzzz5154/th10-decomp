@@ -4,17 +4,17 @@
   "source": "src/game/replay/replay_manager_create_00429610.cpp",
   "driver": "build_support/layout/ltcg/replay_manager_create_00429610/context.cpp",
   "headers": [
-    "include/th10/game/replay_manager_create_004296f0.hpp",
+    "include/th10/game/replay_manager_create.hpp",
     "include/th10/platform/thread_sync.hpp",
     "include/th10/core/func_ctrl.hpp",
-    "include/th10/game/replay_pool_append_0042aa50.hpp"
+    "include/th10/game/replay_pool_append.hpp"
   ],
   "image_base": "0x00400000",
   "description": "Replay manager start factory with its inlined constructor and compiler-generated new-expression cleanup, compiled with stand-in starter and destructor shaped for their receivers.",
   "functions": [
     {
       "name": "ReplayManager_CreateStarted",
-      "symbol": "?ReplayManager_Create_00429610@@YGPAUReplayManager_004296f0@@HPBD@Z",
+      "symbol": "?ReplayManager_Create2@@YGPAUReplayManager@@HPBD@Z",
       "section": ".text$04create",
       "address": "0x00429610",
       "actual_abi": "mode and path on the stack, RET 8; manager returned in EAX; compiler-generated EH frame",
@@ -32,7 +32,7 @@
     },
     {
       "name": "ReplayManagerCreateStartedHandler",
-      "symbol": "__ehhandler$?ReplayManager_Create_00429610@@YGPAUReplayManager_004296f0@@HPBD@Z",
+      "symbol": "__ehhandler$?ReplayManager_Create2@@YGPAUReplayManager@@HPBD@Z",
       "section": ".text$x",
       "address": "0x0046566B",
       "actual_abi": "compiler-generated EH handler",
@@ -174,14 +174,14 @@
   "anchors": [
     {
       "name": "StartStandIn",
-      "symbol": "?Start@ReplayManager_004296f0@@QAEHHPBD@Z",
+      "symbol": "?Start@ReplayManager@@QAEHHPBD@Z",
       "section": ".text$01start",
       "address": "0x00428F60",
       "size": 97
     },
     {
       "name": "DestructorStandIn",
-      "symbol": "??1ReplayManager_004296f0@@QAE@XZ",
+      "symbol": "??1ReplayManager@@QAE@XZ",
       "section": ".text$03dtor",
       "address": "0x004294A0",
       "size": 162

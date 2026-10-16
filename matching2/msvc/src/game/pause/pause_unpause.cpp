@@ -1,12 +1,12 @@
 // 0x00422C30: resume the pause-menu owner and restore the saved speed.
-#include "../../core/sprtanim/animation_manager_register_resource_0043e460.cpp"
+#include "../../core/sprtanim/animation_manager_register_resource.cpp"
 struct AnimationLookupContext;
 struct AnimationScriptId { int value; };
-void* __fastcall AnimationManager_SetFlag_004492a0(AnimationLookupContext*, AnimationScriptId);
+void* __fastcall AnimationManager_SetFlag2(AnimationLookupContext*, AnimationScriptId);
 extern "C" AnimationLookupContext* g_sprt_ctrl;
 struct PauseFlags { unsigned char reserved[0x58]; unsigned flags; };
 extern PauseFlags* g_pause_flags;
-extern AnimationManager_0043e460 g_music_requests;
+extern AnimationManager9 g_music_requests;
 extern float g_game_speed;
 struct PauseOwner {
  unsigned char reserved[0x1DC];
@@ -19,7 +19,7 @@ struct PauseOwner {
 void PauseOwner::Unpause() {
  g_pause_flags->flags &= ~0x10u;
  g_music_requests.RegisterResource("", 7, 0);
- AnimationManager_SetFlag_004492a0(g_sprt_ctrl, animation);
+ AnimationManager_SetFlag2(g_sprt_ctrl, animation);
  // Publish the cleared pause animation before restoring game timing.
  *(volatile int*)&animation.value = 0;
  g_game_speed = *(volatile float*)&saved_speed;

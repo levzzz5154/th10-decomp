@@ -44,16 +44,16 @@ struct GameFrame {
 // The game-wide render state at 0x00491C28: the device at +0x08, the
 // 0x118-byte stage records at +0x154, the active stage at +0x384, the stage
 // index at +0x388, and at +0x750/+0x754 whether fog and depth writes are on.
-struct RenderStage_00439390 {
+struct RenderStage4 {
     RenderCamera camera;
     unsigned char reserved_0F0[0x118 - sizeof(RenderCamera)];
 };
-struct RenderStageState_00439390 {
+struct RenderStageState4 {
     unsigned char reserved_000[0x08];
     RenderDevice* device;                        // +0x08
     unsigned char reserved_00C[0x154 - 0x0C];
-    RenderStage_00439390 stages[2];              // +0x154, stride 0x118
-    RenderStage_00439390* active_stage;          // +0x384
+    RenderStage4 stages[2];              // +0x154, stride 0x118
+    RenderStage4* active_stage;          // +0x384
     int stage_index;                             // +0x388
     unsigned char reserved_38C[0x750 - 0x38C];
     int fog_enabled;                             // +0x750
@@ -82,7 +82,7 @@ struct WorkerThread {
 };
 
 extern "C" GameFrame g_main_window;
-extern "C" RenderStageState_00439390 g_application;
+extern "C" RenderStageState4 g_application;
 extern "C" WorkerThread g_frame_worker;
 // The task manager 0x00449C00/0x00449D40 decode for.
 extern "C" int g_func_ctrl;

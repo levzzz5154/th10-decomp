@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
   "name": "resource_surface_loading",
-  "source": "src/unreferenced/FUN_00447ec0_00447ec0.cpp",
+  "source": "src/unreferenced/FUN.cpp_447ec0.cpp",
   "additional_sources": [
-    "src/core/sprtlib/animation_load_surface_00447c80.cpp"
+    "src/core/sprtlib/animation_load_surface.cpp"
   ],
   "included_sources": [
     "build_support/layout/ltcg/resource_surface_loading_clear.cpp",
@@ -21,20 +21,20 @@
   "functions": [
     {
       "name": "AnimationLoadMemory",
-      "symbol": "_AnimationLoadMemory_00447ec0@12",
+      "symbol": "_AnimationLoadMemory2@12",
       "section": ".text$03memory",
       "address": "0x00447EC0",
       "size": 169,
-      "source": "src/unreferenced/FUN_00447ec0_00447ec0.cpp",
+      "source": "src/unreferenced/FUN.cpp_447ec0.cpp",
       "actual_abi": "index ECX; manager EDX; filename EBX; plain RET"
     },
     {
       "name": "AnimationLoadSurface",
-      "symbol": "@AnimationLoadSurface_00447c80@12",
+      "symbol": "@AnimationLoadSurface2@12",
       "section": ".text$02surface",
       "address": "0x00447C80",
       "size": 576,
-      "source": "src/core/sprtlib/animation_load_surface_00447c80.cpp",
+      "source": "src/core/sprtlib/animation_load_surface.cpp",
       "actual_abi": "manager in ECX; name in EDX; index on the stack; RET 4"
     }
   ],
@@ -55,7 +55,7 @@
     },
     {
       "name": "TextLog",
-      "symbol": "?AppendLine@TextLog_0044b8e0@@QAAPADPADZZ",
+      "symbol": "?AppendLine@TextLog5@@QAAPADPADZZ",
       "section": ".text$09log",
       "address": "0x0044B8E0",
       "size": 201

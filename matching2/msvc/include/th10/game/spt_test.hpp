@@ -8,7 +8,7 @@ extern "C" int __cdecl sprintf(char* buffer, const char* format, ...);
 extern "C" void __cdecl free(void* block);
 void* __cdecl operator new(unsigned int size);
 
-struct ScriptEntry_0042be20 {
+struct ScriptEntry2 {
     const char* name;
     void* code;
 };
@@ -30,7 +30,7 @@ struct ScriptParser {
     int reserved_004;
     int entry_count;
     unsigned char reserved_00c[0x8C - 0x0C];
-    ScriptEntry_0042be20* entries;
+    ScriptEntry2* entries;
     unsigned char reserved_090[0x1090 - 0x90];
     ScriptParserTail tail;
 
@@ -93,7 +93,7 @@ struct SptTestWorker {
 
 // The "Spt Test" debug screen: picks a script file, loads it and shows one of
 // its entries.
-struct SptTest_0042be20 {
+struct SptTest2 {
     unsigned char reserved_000[8];
     SchedulerTask* update_task;
     SchedulerTask* draw_task;
@@ -114,14 +114,14 @@ struct SptTest_0042be20 {
     SptTestResource* resource;
     char* script_data;
 
-    __declspec(noinline) ~SptTest_0042be20();
+    __declspec(noinline) ~SptTest2();
     __declspec(noinline) void ClearScriptNames();
     __declspec(noinline) int Update();
     __declspec(noinline) int LoadScript();
     __declspec(noinline) int Draw();
 };
-typedef char SptTestStateOffset[offsetof(SptTest_0042be20, state) == 0x30 ? 1 : -1];
-typedef char SptTestCursorOffset[offsetof(SptTest_0042be20, entry_cursor) == 0x1EC ? 1 : -1];
-typedef char SptTestParserOffset[offsetof(SptTest_0042be20, parser) == 0x2D8 ? 1 : -1];
+typedef char SptTestStateOffset[offsetof(SptTest2, state) == 0x30 ? 1 : -1];
+typedef char SptTestCursorOffset[offsetof(SptTest2, entry_cursor) == 0x1EC ? 1 : -1];
+typedef char SptTestParserOffset[offsetof(SptTest2, parser) == 0x2D8 ? 1 : -1];
 
-extern "C" SptTest_0042be20* g_spt_test;
+extern "C" SptTest2* g_spt_test;

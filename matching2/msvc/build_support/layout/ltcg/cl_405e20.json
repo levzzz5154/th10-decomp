@@ -1,0 +1,162 @@
+{
+  "schema_version": 1,
+  "name": "cl_00405e20",
+  "source": "src/game/bullet/bullet_manager_initialize.cpp",
+  "driver": "build_support/layout/ltcg/cl_00405e20_context.cpp",
+  "headers": [
+    "include/th10/core/func_ctrl.hpp",
+    "include/th10/platform/text_log.hpp",
+    "include/th10/platform/thread_sync.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Bullet manager initializer compiled with native LTCG against the scheduler registration and text-log anchors.",
+  "functions": [
+    {
+      "name": "BulletManager_Initialize",
+      "symbol": "_BulletManager_Initialize@4",
+      "section": ".text$00_b_init",
+      "address": "0x00405E20",
+      "size": 163,
+      "actual_abi": "manager in EBX; result in EAX; plain RET",
+      "source": "src/game/bullet/bullet_manager_initialize.cpp"
+    }
+  ],
+  "anchors": [
+    {
+      "name": "FuncCtrl_RegisterPrimary",
+      "symbol": "_FuncCtrl_RegisterPrimary@12",
+      "section": ".text$10primary",
+      "address": "0x00449AE0",
+      "size": 131
+    },
+    {
+      "name": "FuncCtrl_RegisterSecondary",
+      "symbol": "_FuncCtrl_RegisterSecondary@12",
+      "section": ".text$12secondary",
+      "address": "0x00449B70",
+      "size": 131
+    },
+    {
+      "name": "TextLog_Append",
+      "symbol": "?Append@TextLog4@@QAAPADPADZZ",
+      "section": ".text$85textlog",
+      "address": "0x0044B810",
+      "size": 201
+    }
+  ],
+  "context": {
+    "symbol": "?BulletManagerInitializeContext_00405e20@@YGHPAPAUBulletManager4@@HPAUSchedulerTask@@@Z",
+    "section": ".text$90context",
+    "address": "0x0044B900",
+    "size": 57,
+    "description": "Synthetic array-walking caller; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00_a",
+      "address": "0x00401000",
+      "size": 20000
+    },
+    {
+      "section": ".text$00_c",
+      "address": "0x00405EC3",
+      "size": 277533
+    },
+    {
+      "section": ".text$11layout",
+      "address": "0x00449B63",
+      "size": 13
+    },
+    {
+      "section": ".text$13layout",
+      "address": "0x00449BF3",
+      "size": 7197
+    },
+    {
+      "section": ".text$86layout",
+      "address": "0x0044B8D9",
+      "size": 39
+    }
+  ],
+  "constants": [],
+  "constant_aliases": [],
+  "data_aliases": [
+    {
+      "symbol": "??_C@_0L@JHPPDGCE@bullet?4anm?$AA@",
+      "address": "0x0046CD88",
+      "bytes": "62756c6c65742e616e6d00"
+    }
+  ],
+  "absolute_symbols": [
+    {
+      "symbol": "@Recovery_LoadCachedResource@12",
+      "address": "0x00447280",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_SchedulerTask_Create@4",
+      "address": "0x00449ED0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_g_sprt_ctrl",
+      "address": "0x00491C10",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_func_ctrl",
+      "address": "0x00491BE4",
+      "kind": "data"
+    },
+    {
+      "symbol": "?g_thread_synchronization@@3UThreadSynchronization@@A",
+      "address": "0x00492274",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__EnterCriticalSection@4",
+      "address": "0x004660B0",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__LeaveCriticalSection@4",
+      "address": "0x004660B4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_asm_vsprintf_004524a6",
+      "address": "0x004524A6",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__chkstk",
+      "address": "0x00458EC0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "___security_cookie",
+      "address": "0x00473660",
+      "kind": "data"
+    },
+    {
+      "symbol": "@__security_check_cookie@4",
+      "address": "0x00458EA5",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "@BulletManagerUpdate@4",
+      "address": "0x00406770",
+      "kind": "data"
+    },
+    {
+      "symbol": "@BulletManagerDraw@4",
+      "address": "0x004067A0",
+      "kind": "data"
+    }
+  ],
+  "included_sources": [
+    "build_support/layout/ltcg/scheduler_register_anchors.cpp",
+    "src/core/zunlib/text_log.cpp"
+  ],
+  "roots": []
+}

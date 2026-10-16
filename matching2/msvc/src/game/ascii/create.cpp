@@ -1,9 +1,9 @@
 // The ASCII manager (g_ascii_manager, 0x004776E0, 0x89AC bytes): creation and
-// resource loading. Both are compiled in the cl_00401110 native-LTCG cluster.
+// resource loading. Both are compiled in the cl2 native-LTCG cluster.
 #include "th10/game/entity.hpp"
 #include "th10/core/func_ctrl.hpp"
 #include "th10/platform/text_log.hpp"
-#include "th10/render/animation_object_0043e5a0.hpp"
+#include "th10/render/animation_object.hpp"
 #include "th10/game/game_thread.hpp"
 
 // 0x00401110: load the ASCII manager's three animation files (ascii.anm,
@@ -16,16 +16,16 @@
 // as the scheduler registration functions and the text log it calls
 // (build_support/layout/ltcg/bullet_manager_load_scripts.json).
 
-struct AsciiManager_00401110 {
+struct AsciiManager2 {
     unsigned char pad_000[0x0C];
     SchedulerTask* update_task;              // +0x0000C
     SchedulerTask* draw_task;                // +0x00010
     Entity primary_sprite;                   // +0x00014
     Entity secondary_sprite;                 // +0x003C0
     unsigned char pad_76c[0x8994 - 0x76C];
-    Resource_0043e5a0* ascii_resource;       // +0x08994
-    Resource_0043e5a0* capture_resource;     // +0x08998
-    Resource_0043e5a0* text_resource;        // +0x0899C
+    Resource2* ascii_resource;       // +0x08994
+    Resource2* capture_resource;     // +0x08998
+    Resource2* text_resource;        // +0x0899C
     unsigned char pad_89a0[0x08];
     SchedulerTask* overlay_draw_task;        // +0x089A8
 
@@ -44,24 +44,24 @@ extern FuncCtrl *g_func_ctrl;
 }
 
 #pragma code_seg(".text$00_b_load")
-int AsciiManager_00401110::LoadResources() {
-    AsciiManager_00401110 *manager = this;
-    manager->ascii_resource = (Resource_0043e5a0 *)Recovery_LoadCachedResource(
+int AsciiManager2::LoadResources() {
+    AsciiManager2 *manager = this;
+    manager->ascii_resource = (Resource2 *)Recovery_LoadCachedResource(
             2, g_sprt_ctrl, "ascii.anm");
     if (!manager->ascii_resource) {
-        ((TextLog_0044b810 *)0x474F70)->Append((char *)0x46CB68);
+        ((TextLog4 *)0x474F70)->Append((char *)0x46CB68);
         return -1;
     }
-    manager->text_resource = (Resource_0043e5a0 *)Recovery_LoadCachedResource(
+    manager->text_resource = (Resource2 *)Recovery_LoadCachedResource(
             0, g_sprt_ctrl, "text.anm");
     if (!manager->text_resource) {
-        ((TextLog_0044b810 *)0x474F70)->Append((char *)0x46CB68);
+        ((TextLog4 *)0x474F70)->Append((char *)0x46CB68);
         return -1;
     }
-    manager->capture_resource = (Resource_0043e5a0 *)Recovery_LoadCachedResource(
+    manager->capture_resource = (Resource2 *)Recovery_LoadCachedResource(
             3, g_sprt_ctrl, "capture.anm");
     if (!manager->capture_resource) {
-        ((TextLog_0044b810 *)0x474F70)->Append((char *)0x46CB68);
+        ((TextLog4 *)0x474F70)->Append((char *)0x46CB68);
         return -1;
     }
 
@@ -84,15 +84,15 @@ int AsciiManager_00401110::LoadResources() {
     manager->overlay_draw_task = task;
 
     Entity *sprite = &manager->primary_sprite;
-    Resource_0043e5a0 *resource = manager->ascii_resource;
+    Resource2 *resource = manager->ascii_resource;
     Entity_Init(0, sprite);
     sprite->script_resource = resource;
-    resource->ConfigureObject(reinterpret_cast<AnimationObject_0043e5a0 *>(sprite), 0);
+    resource->ConfigureObject(reinterpret_cast<AnimationObject3 *>(sprite), 0);
     sprite = &manager->secondary_sprite;
     resource = manager->ascii_resource;
     Entity_Init(0, sprite);
     sprite->script_resource = resource;
-    resource->ConfigureObject(reinterpret_cast<AnimationObject_0043e5a0 *>(sprite), 0x62);
+    resource->ConfigureObject(reinterpret_cast<AnimationObject3 *>(sprite), 0x62);
     return 0;
 }
 #pragma code_seg()
@@ -110,7 +110,7 @@ void *__cdecl operator new(unsigned int size);
 #pragma code_seg(".text$00_c_create")
 extern "C" __declspec(noinline) GameThread *__stdcall AsciiManager_Create() {
     GameThread *thread = new GameThread;
-    if (reinterpret_cast<AsciiManager_00401110 *>(thread)->LoadResources()) {
+    if (reinterpret_cast<AsciiManager2 *>(thread)->LoadResources()) {
         if (thread) {
             DestroyGameThread(thread);
             crt_free_startup(thread);

@@ -11,7 +11,7 @@ extern "C" int __fastcall Ending_UpdateTask(void*);
 extern "C" int __fastcall Ending_DrawTask(void*);
 // The running game's counters at 0x00474C44: one object whose address is
 // taken elsewhere, so stores through other pointers order against its fields.
-struct GameCounters_0040b560 {
+struct GameCounters {
     unsigned char reserved_00[0x24];
     int character;                // 0x00474C68
     int shot_type;                // 0x00474C6C
@@ -20,11 +20,11 @@ struct GameCounters_0040b560 {
     unsigned char reserved_34[0x18];
     int continued;                // 0x00474C90
 };
-extern "C" GameCounters_0040b560 g_globals_score;
+extern "C" GameCounters g_globals_score;
 extern "C" const char* g_ending_files[12];
 extern "C" char g_recovery_script_path[260];
 extern "C" char str_data_corrupted[];
-extern "C" TextLog_0044b810 g_log;
+extern "C" TextLog4 g_log;
 struct EndingUnlocks {
     unsigned char reserved[0x1D882];
     unsigned char endings[12];
@@ -76,7 +76,7 @@ int Ending::Initialize() {
     FuncCtrl_RegisterSecondary(g_func_ctrl, draw, 6);
     draw_task = draw;
     int& background = ((EndingAsciiView*)g_ascii_manager)->background_id;
-    AnimationPosition_00448d50 position(480.0f, 392.0f, 0.0f);
+    AnimationPosition position(480.0f, 392.0f, 0.0f);
     if (!background) {
         int id;
         background = *(int*)AnimationManager_CreatePositionedPrimary(

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "clear_rotation_x",
-  "source": "src/unreferenced/FUN_00401f80_00401f80.cpp",
+  "source": "src/unreferenced/FUN.cpp_401f80.cpp",
   "driver": "build_support/layout/ltcg/clear_rotation_x_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

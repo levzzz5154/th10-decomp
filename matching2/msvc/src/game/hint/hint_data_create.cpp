@@ -19,7 +19,7 @@ HintData::HintData() {
 }
 
 #pragma code_seg(".text$01create")
-__declspec(noinline) HintData* __stdcall HintData_Create_0041a120(
+__declspec(noinline) HintData* __stdcall HintData_Create2(
         Hint* manager, const char* text, const HintDataPosition* position) {
     HintData* tip = new HintData;
     manager->lists[8 + GameState()->list].Append(&tip->node);

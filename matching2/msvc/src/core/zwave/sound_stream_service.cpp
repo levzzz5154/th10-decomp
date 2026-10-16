@@ -4,7 +4,7 @@
 #pragma intrinsic(memset)
 extern "C" __declspec(noinline) int __stdcall SoundStreamFill(SoundStream*, WaveBuffer*, unsigned int);
 #pragma code_seg(".text$05service")
-extern "C" __declspec(noinline) int __stdcall SoundStream_Service_0044d850(
+extern "C" __declspec(noinline) int __stdcall SoundStream_Service2(
         SoundStreamState* stream, unsigned int repeat) {
     if (!stream->buffers || !stream->reader)
         return static_cast<int>(0x800401f0u);

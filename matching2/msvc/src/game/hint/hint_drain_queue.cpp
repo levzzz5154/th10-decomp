@@ -3,7 +3,7 @@
 // Each ready entry replaces the oldest of the ten sprite slots with a new
 // text animation and draws its number into that animation's texture.
 // Retail: queue head EAX; manager and release flag on the stack; RET 8.
-#include "th10/game/indicator_animation_lookup_00419120.hpp"
+#include "th10/game/indicator_animation_lookup.hpp"
 
 extern "C" int recovery_indicator_owner;
 extern "C" void __cdecl recovery_indicator_free(void* object);

@@ -20,6 +20,6 @@ extern "C" __declspec(noinline) int __stdcall EclView_DrawEntity(SprtCtrlBatchVi
 
 #pragma code_seg(".text$07context")
 void* __stdcall EclViewDrawCompilerContext() {
-    return reinterpret_cast<void*>(EclView_DrawTask_0040abf0);
+    return reinterpret_cast<void*>(EclView_DrawTask2);
 }
 #pragma code_seg()

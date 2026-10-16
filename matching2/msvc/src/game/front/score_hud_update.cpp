@@ -1,4 +1,4 @@
-#include "th10/game/score_hud_00417040.hpp"
+#include "th10/game/score_hud.hpp"
 #pragma code_seg(".text$00417040_fn")
 void FrontScoreView::Update() {
     if (g_globals.score != displayed_score) {
@@ -42,31 +42,31 @@ void FrontScoreView::Update() {
         if (high) {
             int digit = high % 10;
             int next = high / 10;
-            reinterpret_cast<Resource_0043e5a0*>(captions)->ConfigureObject(
-                reinterpret_cast<AnimationObject_0043e5a0*>(best), digit + 8);
+            reinterpret_cast<Resource2*>(captions)->ConfigureObject(
+                reinterpret_cast<AnimationObject3*>(best), digit + 8);
             high = next;
         } else {
-            reinterpret_cast<Resource_0043e5a0*>(captions)->ConfigureObject(
-                reinterpret_cast<AnimationObject_0043e5a0*>(best), 8);
+            reinterpret_cast<Resource2*>(captions)->ConfigureObject(
+                reinterpret_cast<AnimationObject3*>(best), 8);
         }
         if (score) {
             int digit = score % 10;
             int next = score / 10;
-            reinterpret_cast<Resource_0043e5a0*>(captions)->ConfigureObject(
-                reinterpret_cast<AnimationObject_0043e5a0*>(current), digit + 8);
+            reinterpret_cast<Resource2*>(captions)->ConfigureObject(
+                reinterpret_cast<AnimationObject3*>(current), digit + 8);
             score = next;
         } else {
-            reinterpret_cast<Resource_0043e5a0*>(captions)->ConfigureObject(
-                reinterpret_cast<AnimationObject_0043e5a0*>(current), 8);
+            reinterpret_cast<Resource2*>(captions)->ConfigureObject(
+                reinterpret_cast<AnimationObject3*>(current), 8);
         }
         HudTickAnimation(best);
         HudTickAnimation(current);
     }
-    reinterpret_cast<Resource_0043e5a0*>(captions)->ConfigureObject(
-        reinterpret_cast<AnimationObject_0043e5a0*>(&animations[0]),
+    reinterpret_cast<Resource2*>(captions)->ConfigureObject(
+        reinterpret_cast<AnimationObject3*>(&animations[0]),
         g_globals.high_score_continues + 8);
-    reinterpret_cast<Resource_0043e5a0*>(captions)->ConfigureObject(
-        reinterpret_cast<AnimationObject_0043e5a0*>(&animations[10]),
+    reinterpret_cast<Resource2*>(captions)->ConfigureObject(
+        reinterpret_cast<AnimationObject3*>(&animations[10]),
         g_globals.continues + 8);
     HudTickAnimation(&animations[0]);
     HudTickAnimation(&animations[10]);

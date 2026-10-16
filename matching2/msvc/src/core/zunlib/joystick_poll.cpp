@@ -14,7 +14,7 @@
 // this stack signature by the synthetic caller below) and pops `set` and
 // `pad` (RET 8). Remaining differences (one scheduling detail of the Y
 // threshold, the loop-alignment filler and the frame size) are recorded in
-// build_support/layout/equivalent/joystick_poll_0044a190.json; see
+// build_support/layout/equivalent/joystick_poll.json; see
 // reference/recovery_notes/joystick_binding_reader_0044a190_accepted_2026_10_14.md.
 #include <string.h>
 

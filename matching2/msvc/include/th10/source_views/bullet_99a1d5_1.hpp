@@ -13,5 +13,5 @@
 
 // 0x0040D830: recovered in src/game/enemy/fun_0040d830.cpp.
 
-// 0x0040DC80..0x0040E5EB: FUN_0040dc80
+// 0x0040DC80..0x0040E5EB: FUN9
 // Naked body preserves the retail register/stack ABI.

@@ -4,7 +4,7 @@
 // Ordinary formatter: real panel caller retains position in EBX while thread,
 // format and varargs use the stack. The full queue writer receives the buffer.
 #pragma code_seg(".text$02bformatted")
-__declspec(noinline) void __cdecl AsciiManager_AddFormatted(GameThread_00401530* thread, const Vec3_00401530* position, const char* format, ...) {
+__declspec(noinline) void __cdecl AsciiManager_AddFormatted(GameThread2* thread, const Vec32* position, const char* format, ...) {
     char text[0x200];
     va_list args;
     va_start(args,format);

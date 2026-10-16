@@ -2,7 +2,7 @@
 // The script starter, its loader and their own context come from the
 // 0x00404F30 cluster driver so the starter keeps its ESI/EAX entry here.
 #include "entity_start_script_00404f30_context.cpp"
-#include "../../../src/core/sprtanim/entity_array_start_scripts_004415c0.cpp"
+#include "../../../src/core/sprtanim/entity_array_start_scripts.cpp"
 
 #pragma code_seg(".text$04context")
 extern "C" int __stdcall EntityArrayStartScriptsContext_004415c0(

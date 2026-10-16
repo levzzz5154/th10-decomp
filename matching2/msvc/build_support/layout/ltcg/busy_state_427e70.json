@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "busy_state_427e70",
-  "source": "src/unreferenced/unassigned_00427e70.cpp",
+  "source": "src/unreferenced/unassigned_427e70.cpp",
   "driver": "build_support/layout/ltcg/busy_state_427e70_context.cpp",
   "headers": [],
   "image_base": "0x00400000",
@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "BusyState_00427e70_IsBusy",
-      "symbol": "?IsBusy@BusyState_00427e70@@QAEHXZ",
+      "symbol": "?IsBusy@BusyState3@@QAEHXZ",
       "section": ".text$01busy",
       "address": "0x427E70",
       "size": 26,

@@ -1,7 +1,7 @@
 #pragma once
 #include <stddef.h>
 #include "th10/render/position_setter_pair.hpp"
-#include "th10/game/item_spawn_0041bb00.hpp"
+#include "th10/game/item_spawn.hpp"
 
 struct PlayfieldPoint {
     float x, y;

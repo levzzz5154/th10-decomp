@@ -1,23 +1,23 @@
 {
   "schema_version": 1,
   "name": "item_line_bounded_0041f400_2026_09_28",
-  "source": "src/game/laser/fun_0041f400_0041f400.cpp",
-  "driver": "build_support/layout/ltcg/item_line_runtime_0041e260/driver.cpp",
+  "source": "src/game/laser/fun.cpp",
+  "driver": "build_support/layout/ltcg/item_line_runtime/driver.cpp",
   "headers": [
     "include/th10/game/entity.hpp",
     "include/th10/types.hpp",
     "include/th10/render/animation_public_callers.hpp",
-    "build_support/layout/ltcg/item_line_runtime_0041e260/types/item_spawn.hpp",
-    "build_support/layout/ltcg/item_line_runtime_0041e260/types/line_sweeps.hpp",
+    "build_support/layout/ltcg/item_line_runtime/types/item_spawn.hpp",
+    "build_support/layout/ltcg/item_line_runtime/types/line_sweeps.hpp",
     "include/th10/game/entity_script_start.hpp",
     "include/th10/math/timer.hpp"
   ],
   "included_sources": [
-    "build_support/layout/ltcg/item_line_runtime_0041e260/allocator.cpp",
-    "build_support/layout/ltcg/item_line_runtime_0041e260/dependencies.cpp",
-    "build_support/layout/ltcg/item_line_runtime_0041e260/loader.cpp",
-    "build_support/layout/ltcg/item_line_runtime_0041e260/configure.cpp",
-    "build_support/layout/ltcg/item_line_runtime_0041e260/create.cpp"
+    "build_support/layout/ltcg/item_line_runtime/allocator.cpp",
+    "build_support/layout/ltcg/item_line_runtime/dependencies.cpp",
+    "build_support/layout/ltcg/item_line_runtime/loader.cpp",
+    "build_support/layout/ltcg/item_line_runtime/configure.cpp",
+    "build_support/layout/ltcg/item_line_runtime/create.cpp"
   ],
   "image_base": "0x00400000",
   "description": "Two complete exact line sweeps with actual typed vector/polar storage and their full native allocator/animation dependency graph. Actual 41BEB0 public polar method is the unselected link entry. No synthetic entry, caller or method-address publisher.",
@@ -36,7 +36,7 @@
       "section": ".text$45allsegments",
       "address": "0x0041E260",
       "size": 609,
-      "source": "src/game/laser/line_effect_create_all_segments_0041e260.cpp",
+      "source": "src/game/laser/line_effect_create_all_segments.cpp",
       "actual_abi": "public this ECX; spawn-items flag stack; RET4, integer count EAX"
     }
   ],
@@ -50,7 +50,7 @@
     },
     {
       "name": "LoadAnimationScript",
-      "symbol": "_LoadScript_0043e710@12",
+      "symbol": "_LoadScript2@12",
       "section": ".text$60loader",
       "address": "0x0043E710",
       "size": 203
@@ -78,7 +78,7 @@
     },
     {
       "name": "LinePolarVelocity",
-      "symbol": "?SetPolar@LinePolarVelocity_0041f800@@QAEPAU1@MM@Z",
+      "symbol": "?SetPolar@LinePolarVelocity2@@QAEPAU1@MM@Z",
       "section": ".text$55linepolar",
       "address": "0x0041F800",
       "size": 30
@@ -92,7 +92,7 @@
     }
   ],
   "context": {
-    "symbol": "?SetPolar@ItemPolarVelocity_0041bb00@@QAEPAU1@MM@Z",
+    "symbol": "?SetPolar@ItemPolarVelocity2@@QAEPAU1@MM@Z",
     "section": ".text$35itempolar",
     "address": "0x0041BEB0",
     "size": 30,
@@ -296,13 +296,13 @@
     }
   ],
   "additional_sources": [
-    "src/game/laser/line_effect_create_all_segments_0041e260.cpp"
+    "src/game/laser/line_effect_create_all_segments.cpp"
   ],
   "roots": [
     "?CreateSegmentsInBounds@LineEffectSweep@@QAEHH@Z",
     "?CreateAllSegments@LineEffectSweep@@QAEHH@Z"
   ],
   "anchor_roots": [
-    "?SetPolar@LinePolarVelocity_0041f800@@QAEPAU1@MM@Z"
+    "?SetPolar@LinePolarVelocity2@@QAEPAU1@MM@Z"
   ]
 }

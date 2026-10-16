@@ -1,0 +1,1153 @@
+{
+  "schema_version": 1,
+  "name": "anm_texture_fill_transparent_004465b0",
+  "region": "asm_FUN_004465b0_004465b0",
+  "sources": [
+    "src/core/sprtlib/anm_texture_fill_transparent_pixels.cpp"
+  ],
+  "context_cluster": "build_support/layout/ltcg/anm_texture_fill_transparent.json",
+  "entry_symbol": "_AnmTextureUploadContext_00446c70@12",
+  "function": "?FillTransparentPixels@AnmTexture@@QAEXXZ",
+  "code_bytes": 1420,
+  "absolute_symbols": {
+    "__fltused": {
+      "address": "0x00000000",
+      "kind": "data"
+    },
+    "_g_sound_flags": {
+      "address": "0x00491D78",
+      "kind": "data"
+    },
+    "_g_texture_formats_a": {
+      "address": "0x0046F288",
+      "kind": "data"
+    },
+    "_g_texture_formats_b": {
+      "address": "0x0046F2A0",
+      "kind": "data"
+    },
+    "_asm_D3DXLoadSurfaceFromFileInMemory_004521d0@36": {
+      "address": "0x004521D0",
+      "kind": "code"
+    },
+    "_asm_D3DXLoadSurfaceFromMemory_004521a6@40": {
+      "address": "0x004521A6",
+      "kind": "code"
+    },
+    "_entry_external_00446c70@8": {
+      "address": "0x00452000",
+      "kind": "code"
+    },
+    "_g_d3d_device": {
+      "address": "0x00491C30",
+      "kind": "data"
+    },
+    "_str_string_format": {
+      "address": "0x0046E1C8",
+      "kind": "data"
+    },
+    "_sprintf": {
+      "address": "0x00452AE8",
+      "kind": "code"
+    },
+    "_crt_free": {
+      "address": "0x00452422",
+      "kind": "code"
+    },
+    "_asm_D3DXCreateTextureFromFileInMemoryEx_004521ca@60": {
+      "address": "0x004521CA",
+      "kind": "code"
+    },
+    "___security_cookie": {
+      "address": "0x00473660",
+      "kind": "data"
+    },
+    "@__security_check_cookie@4": {
+      "address": "0x00458EA5",
+      "kind": "code"
+    },
+    "_g_archive": {
+      "address": "0x00497990",
+      "kind": "data"
+    },
+    "_g_file_lock_depth": {
+      "address": "0x0049231e",
+      "kind": "data"
+    },
+    "_g_file_lock": {
+      "address": "0x004922a4",
+      "kind": "data"
+    },
+    "_imp_EnterCriticalSection": {
+      "address": "0x004660b0",
+      "kind": "data"
+    },
+    "_imp_LeaveCriticalSection": {
+      "address": "0x004660b4",
+      "kind": "data"
+    },
+    "_imp_CreateFileA": {
+      "address": "0x004660c4",
+      "kind": "data"
+    },
+    "_imp_CloseHandle": {
+      "address": "0x004660cc",
+      "kind": "data"
+    },
+    "_imp_ReadFile": {
+      "address": "0x004660d0",
+      "kind": "data"
+    },
+    "_imp_GetFileSize": {
+      "address": "0x004660d8",
+      "kind": "data"
+    },
+    "_asm_strrchr_00452930": {
+      "address": "0x00452930",
+      "kind": "code"
+    },
+    "_asm_stricmp_0046054e": {
+      "address": "0x0046054e",
+      "kind": "code"
+    },
+    "_asm_malloc_00452706": {
+      "address": "0x00452706",
+      "kind": "code"
+    },
+    "_g_recovery_script_path": {
+      "address": "0x00497C38",
+      "kind": "data"
+    },
+    "?Parse@ScriptFileLoader@@QAEHPAD@Z": {
+      "address": "0x00450220",
+      "kind": "code"
+    },
+    "_imp_GetModuleFileNameA": {
+      "address": "0x004660DC",
+      "kind": "data"
+    },
+    "_g_executable_checksum": {
+      "address": "0x00492380",
+      "kind": "data"
+    },
+    "_g_executable_size": {
+      "address": "0x00492384",
+      "kind": "data"
+    },
+    "_ProbeFileExists@4": {
+      "address": "0x0044B4D0",
+      "kind": "code"
+    },
+    "_dbl_pi_4": {
+      "address": "0x00470C50",
+      "kind": "data"
+    },
+    "_g_music_room_commands": {
+      "address": "0x0047476C",
+      "kind": "data"
+    },
+    "_g_music_room_easings": {
+      "address": "0x00474778",
+      "kind": "data"
+    },
+    "_g_music_room_variable_map": {
+      "address": "0x00491BF4",
+      "kind": "data"
+    },
+    "_g_music_room_callback_map": {
+      "address": "0x00491BF8",
+      "kind": "data"
+    },
+    "_asm_vsprintf_004524a6": {
+      "address": "0x004524A6",
+      "kind": "code"
+    },
+    "__chkstk": {
+      "address": "0x00458EC0",
+      "kind": "code"
+    },
+    "_g_text_log_lock": {
+      "address": "0x004922BC",
+      "kind": "data"
+    },
+    "_g_text_log_lock_depth": {
+      "address": "0x0049231F",
+      "kind": "data"
+    },
+    "__imp__EnterCriticalSection@4": {
+      "address": "0x004660B0",
+      "kind": "data"
+    },
+    "__imp__LeaveCriticalSection@4": {
+      "address": "0x004660B4",
+      "kind": "data"
+    },
+    "_g_sprt_ctrl": {
+      "address": "0x00491c10",
+      "kind": "data"
+    },
+    "@LoadCachedResource@12": {
+      "address": "0x00447280",
+      "kind": "code"
+    },
+    "_malloc": {
+      "address": "0x00452706",
+      "kind": "code"
+    },
+    "_g_stage_route_current": {
+      "address": "0x00477848",
+      "kind": "data"
+    },
+    "_g_globals_score": {
+      "address": "0x00474C44",
+      "kind": "data"
+    },
+    "_g_globals_character": {
+      "address": "0x00474C68",
+      "kind": "data"
+    },
+    "_g_next_stage_buffer": {
+      "address": "0x00491BE8",
+      "kind": "data"
+    },
+    "_g_game_speed": {
+      "address": "0x00476F78",
+      "kind": "data"
+    },
+    "_g_log": {
+      "address": "0x00474F70",
+      "kind": "data"
+    },
+    "_str_data_corrupted": {
+      "address": "0x0046CB68",
+      "kind": "data"
+    },
+    "_asm_free_00452422": {
+      "address": "0x452422",
+      "kind": "code"
+    },
+    "_DecompressDatLzss2@16": {
+      "address": "0x435dc0",
+      "kind": "code"
+    },
+    "_g_dat_read_crypt_parameters": {
+      "address": "0x474bd8",
+      "kind": "data"
+    },
+    "_asm_D3DXCreateTexture_004521a0@32": {
+      "address": "0x004521A0",
+      "kind": "code"
+    },
+    "_str_texture_load_failed_format": {
+      "address": "0x00470210",
+      "kind": "data"
+    },
+    "_str_anm_version_mismatch": {
+      "address": "0x00470254",
+      "kind": "data"
+    },
+    "_str_anm_load_failed": {
+      "address": "0x00470274",
+      "kind": "data"
+    },
+    "_str_texture_slots_full": {
+      "address": "0x00470384",
+      "kind": "data"
+    },
+    "??2@YAPAXI@Z": {
+      "address": "0x00452493",
+      "kind": "code"
+    },
+    "_memset": {
+      "address": "0x00452000",
+      "kind": "code"
+    },
+    "_str_texture_load_failed": {
+      "address": "0x0047016c",
+      "kind": "data"
+    },
+    "_str_texture_create_failed_format": {
+      "address": "0x004701b0",
+      "kind": "data"
+    }
+  },
+  "bindings": {},
+  "base_index_order": 0,
+  "differences": [
+    {
+      "offset": "0x5",
+      "retail": [
+        "push esi"
+      ],
+      "model": [],
+      "class": "register-choice"
+    },
+    {
+      "offset": "0xb",
+      "retail": [
+        "xor esi,esi",
+        "push esi",
+        "mov DWORD PTR [esp+0xc],esi"
+      ],
+      "model": [
+        "push 0x0",
+        "mov DWORD PTR [esp+0x8],0x0"
+      ],
+      "class": "register-choice"
+    },
+    {
+      "offset": "0x2d",
+      "retail": [
+        "push esi",
+        "push esi"
+      ],
+      "model": [
+        "push 0x0",
+        "push 0x0"
+      ],
+      "class": "register-choice"
+    },
+    {
+      "offset": "0x4e",
+      "retail": [],
+      "model": [
+        "push esi"
+      ],
+      "class": "register-choice"
+    },
+    {
+      "offset": "0x5c",
+      "retail": [
+        "cmp eax,esi"
+      ],
+      "model": [
+        "test eax,eax"
+      ],
+      "class": "register-choice"
+    },
+    {
+      "offset": "0x6c",
+      "retail": [
+        "lea esp,[esp+0x0]"
+      ],
+      "model": [
+        "mov edi,edi"
+      ],
+      "class": "register-choice"
+    },
+    {
+      "offset": "0x7b",
+      "retail": [],
+      "model": [
+        "add edi,ebx"
+      ],
+      "class": "register-choice"
+    },
+    {
+      "offset": "0x7d",
+      "retail": [
+        "add edi,ebx",
+        "cmp ebp,esi"
+      ],
+      "model": [
+        "test ebp,ebp",
+        "lea ecx,[edi-0x2]"
+      ],
+      "class": "register-choice"
+    },
+    {
+      "offset": "0x8b",
+      "retail": [
+        "lea ecx,[edi-0x2]"
+      ],
+      "model": [],
+      "class": "register-choice"
+    },
+    {
+      "offset": "0x9b",
+      "retail": [
+        "mov DWORD PTR [esp+0x2c],esi",
+        "mov DWORD PTR [esp+0x28],esi"
+      ],
+      "model": [],
+      "class": "register-choice"
+    },
+    {
+      "offset": "0xa9",
+      "retail": [],
+      "model": [
+        "mov DWORD PTR [esp+0x2c],ebx",
+        "mov DWORD PTR [esp+0x28],ebx"
+      ],
+      "class": "register-choice"
+    },
+    {
+      "offset": "0xab",
+      "retail": [
+        "cmp BYTE PTR [ecx+0x1],0x0"
+      ],
+      "model": [
+        "cmp BYTE PTR [ecx+0x1],bl"
+      ],
+      "class": "register-choice"
+    },
+    {
+      "offset": "0x1bd",
+      "retail": [],
+      "model": [
+        "add ecx,0x4"
+      ],
+      "class": "register-choice"
+    },
+    {
+      "offset": "0x1c0",
+      "retail": [
+        "add ecx,0x4"
+      ],
+      "model": [],
+      "class": "register-choice"
+    },
+    {
+      "offset": "0x1c4",
+      "retail": [
+        "xor esi,esi"
+      ],
+      "model": [],
+      "class": "register-choice"
+    },
+    {
+      "offset": "0x1e8",
+      "retail": [
+        "mov eax,DWORD PTR [esp+0x4c]",
+        "xor ecx,ecx",
+        "cmp eax,esi",
+        "mov DWORD PTR [esp+0x14],ecx"
+      ],
+      "model": [
+        "mov ecx,DWORD PTR [esp+0x4c]",
+        "xor eax,eax",
+        "test ecx,ecx",
+        "mov DWORD PTR [esp+0x14],eax"
+      ],
+      "class": "register-choice"
+    },
+    {
+      "offset": "0x1fe",
+      "retail": [
+        "mov edi,edi",
+        "mov ebx,DWORD PTR [esp+0x20]",
+        "mov ebp,ecx",
+        "imul ebp,DWORD PTR [esp+0x1c]",
+        "xor eax,eax",
+        "add ebp,ebx",
+        "cmp edx,esi",
+        "mov DWORD PTR [esp+0x18],eax"
+      ],
+      "model": [
+        "jmp L+0x200",
+        "lea ecx,[ecx+0x0]",
+        "mov esi,DWORD PTR [esp+0x20]",
+        "mov edi,eax",
+        "imul edi,DWORD PTR [esp+0x1c]",
+        "add edi,esi",
+        "xor esi,esi",
+        "test edx,edx",
+        "mov DWORD PTR [esp+0x18],esi"
+      ],
+      "class": "code-shape"
+    },
+    {
+      "offset": "0x215",
+      "retail": [
+        "jbe L+0x398"
+      ],
+      "model": [
+        "jbe L+0x38f"
+      ],
+      "class": "register-choice"
+    },
+    {
+      "offset": "0x220",
+      "retail": [
+        "test BYTE PTR [ebp+0x1],0x80"
+      ],
+      "model": [
+        "test BYTE PTR [edi+0x1],0x80"
+      ],
+      "class": "register-choice"
+    },
+    {
+      "offset": "0x22c",
+      "retail": [],
+      "model": [
+        "xor ebp,ebp"
+      ],
+      "class": "register-choice"
+    },
+    {
+      "offset": "0x22e",
+      "retail": [
+        "xor edi,edi",
+        "cmp eax,esi",
+        "mov DWORD PTR [esp+0x2c],esi"
+      ],
+      "model": [
+        "test esi,esi",
+        "mov DWORD PTR [esp+0x2c],ebx"
+      ],
+      "class": "register-choice"
+    },
+    {
+      "offset": "0x236",
+      "retail": [
+        "jbe L+0x25f"
+      ],
+      "model": [
+        "jbe L+0x25f"
+      ],
+      "class": "evaluation-order"
+    },
+    {
+      "offset": "0x238",
+      "retail": [
+        "mov ax,WORD PTR [ebp-0x2]"
+      ],
+      "model": [
+        "mov ax,WORD PTR [edi-0x2]"
+      ],
+      "class": "register-choice"
+    },
+    {
+      "offset": "0x23e",
+      "retail": [
+        "jns L+0x25f"
+      ],
+      "model": [
+        "jns L+0x25f"
+      ],
+      "class": "evaluation-order"
+    },
+    {
+      "offset": "0x240",
+      "retail": [
+        "movzx esi,ax",
+        "mov ecx,esi",
+        "mov ebx,esi"
+      ],
+      "model": [
+        "movzx eax,ax",
+        "mov ecx,eax",
+        "mov ebx,eax"
+      ],
+      "class": "register-choice"
+    },
+    {
+      "offset": "0x253",
+      "retail": [
+        "and esi,0x1f",
+        "mov DWORD PTR [esp+0x2c],esi",
+        "mov edi,0x1",
+        "mov eax,DWORD PTR [esp+0x18]"
+      ],
+      "model": [
+        "and eax,0x1f",
+        "mov DWORD PTR [esp+0x2c],eax",
+        "mov ebp,0x1"
+      ],
+      "class": "register-choice"
+    },
+    {
+      "offset": "0x264",
+      "retail": [
+        "cmp eax,edx"
+      ],
+      "model": [
+        "cmp esi,edx"
+      ],
+      "class": "register-choice"
+    },
+    {
+      "offset": "0x268",
+      "retail": [
+        "mov ax,WORD PTR [ebp+0x2]"
+      ],
+      "model": [
+        "mov ax,WORD PTR [edi+0x2]"
+      ],
+      "class": "register-choice"
+    },
+    {
+      "offset": "0x28e",
+      "retail": [],
+      "model": [
+        "mov esi,DWORD PTR [esp+0x18]"
+      ],
+      "class": "register-choice"
+    },
+    {
+      "offset": "0x294",
+      "retail": [
+        "inc edi"
+      ],
+      "model": [
+        "inc ebp"
+      ],
+      "class": "register-choice"
+    },
+    {
+      "offset": "0x299",
+      "retail": [
+        "xor esi,esi",
+        "cmp eax,esi"
+      ],
+      "model": [
+        "test eax,eax"
+      ],
+      "class": "register-choice"
+    },
+    {
+      "offset": "0x2ac",
+      "retail": [
+        "mov eax,ebp"
+      ],
+      "model": [
+        "mov eax,edi"
+      ],
+      "class": "register-choice"
+    },
+    {
+      "offset": "0x2db",
+      "retail": [
+        "inc edi"
+      ],
+      "model": [
+        "inc ebp"
+      ],
+      "class": "register-choice"
+    },
+    {
+      "offset": "0x2f2",
+      "retail": [
+        "lea eax,[ebp+eax*2+0x0]"
+      ],
+      "model": [
+        "lea eax,[edi+eax*2]"
+      ],
+      "class": "register-choice"
+    },
+    {
+      "offset": "0x321",
+      "retail": [
+        "inc edi",
+        "cmp edi,0x1"
+      ],
+      "model": [
+        "inc ebp",
+        "cmp ebp,0x1"
+      ],
+      "class": "register-choice"
+    },
+    {
+      "offset": "0x32b",
+      "retail": [
+        "div edi"
+      ],
+      "model": [
+        "div ebp"
+      ],
+      "class": "register-choice"
+    },
+    {
+      "offset": "0x333",
+      "retail": [
+        "div edi"
+      ],
+      "model": [
+        "div ebp"
+      ],
+      "class": "register-choice"
+    },
+    {
+      "offset": "0x33d",
+      "retail": [
+        "div edi"
+      ],
+      "model": [
+        "div ebp"
+      ],
+      "class": "register-choice"
+    },
+    {
+      "offset": "0x353",
+      "retail": [
+        "mov ax,WORD PTR [ebp+0x0]"
+      ],
+      "model": [
+        "mov ax,WORD PTR [edi]"
+      ],
+      "class": "register-choice"
+    },
+    {
+      "offset": "0x370",
+      "retail": [
+        "mov eax,DWORD PTR [esp+0x18]"
+      ],
+      "model": [],
+      "class": "register-choice"
+    },
+    {
+      "offset": "0x37c",
+      "retail": [
+        "mov WORD PTR [ebp+0x0],cx"
+      ],
+      "model": [
+        "mov WORD PTR [edi],cx"
+      ],
+      "class": "register-choice"
+    },
+    {
+      "offset": "0x384",
+      "retail": [
+        "add ebp,0x2"
+      ],
+      "model": [
+        "add edi,0x2",
+        "inc esi",
+        "cmp esi,edx",
+        "mov DWORD PTR [esp+0x18],esi",
+        "jb L+0x220",
+        "mov eax,DWORD PTR [esp+0x14]",
+        "mov ecx,DWORD PTR [esp+0x4c]"
+      ],
+      "class": "code-shape"
+    },
+    {
+      "offset": "0x388",
+      "retail": [
+        "cmp eax,edx"
+      ],
+      "model": [
+        "cmp eax,ecx"
+      ],
+      "class": "register-choice"
+    },
+    {
+      "offset": "0x38e",
+      "retail": [
+        "jb L+0x220"
+      ],
+      "model": [
+        "jb L+0x200"
+      ],
+      "class": "register-choice"
+    },
+    {
+      "offset": "0x394",
+      "retail": [],
+      "model": [
+        "jmp L+0x564"
+      ],
+      "class": "code-shape"
+    },
+    {
+      "offset": "0x394",
+      "retail": [
+        "mov ecx,DWORD PTR [esp+0x14]"
+      ],
+      "model": [
+        "mov ecx,DWORD PTR [esp+0x4c]"
+      ],
+      "class": "register-choice"
+    },
+    {
+      "offset": "0x398",
+      "retail": [
+        "mov eax,DWORD PTR [esp+0x4c]",
+        "inc ecx",
+        "cmp ecx,eax",
+        "mov DWORD PTR [esp+0x14],ecx",
+        "jb L+0x200",
+        "jmp L+0x56d",
+        "mov eax,DWORD PTR [esp+0x4c]",
+        "xor ecx,ecx",
+        "cmp eax,esi",
+        "mov DWORD PTR [esp+0x14],ecx"
+      ],
+      "model": [
+        "xor eax,eax",
+        "test ecx,ecx",
+        "mov DWORD PTR [esp+0x14],eax"
+      ],
+      "class": "code-shape"
+    },
+    {
+      "offset": "0x3c4",
+      "retail": [
+        "mov ebx,DWORD PTR [esp+0x20]",
+        "mov ebp,ecx",
+        "imul ebp,DWORD PTR [esp+0x1c]",
+        "xor eax,eax",
+        "add ebp,ebx",
+        "cmp edx,esi",
+        "mov DWORD PTR [esp+0x18],eax"
+      ],
+      "model": [
+        "jmp L+0x3c0",
+        "lea ecx,[ecx+0x0]",
+        "mov esi,DWORD PTR [esp+0x20]",
+        "mov edi,eax",
+        "imul edi,DWORD PTR [esp+0x1c]",
+        "add edi,esi",
+        "xor esi,esi",
+        "test edx,edx",
+        "mov DWORD PTR [esp+0x18],esi"
+      ],
+      "class": "code-shape"
+    },
+    {
+      "offset": "0x3d9",
+      "retail": [
+        "jbe L+0x55c"
+      ],
+      "model": [
+        "jbe L+0x553"
+      ],
+      "class": "register-choice"
+    },
+    {
+      "offset": "0x3df",
+      "retail": [
+        "nop",
+        "test BYTE PTR [ebp+0x1],0xf0"
+      ],
+      "model": [
+        "jmp L+0x3e0",
+        "lea ecx,[ecx+0x0]",
+        "test BYTE PTR [edi+0x1],0xf0"
+      ],
+      "class": "code-shape"
+    },
+    {
+      "offset": "0x3ec",
+      "retail": [],
+      "model": [
+        "xor ebp,ebp"
+      ],
+      "class": "register-choice"
+    },
+    {
+      "offset": "0x3ee",
+      "retail": [
+        "xor edi,edi",
+        "cmp eax,esi",
+        "mov DWORD PTR [esp+0x2c],esi"
+      ],
+      "model": [
+        "test esi,esi",
+        "mov DWORD PTR [esp+0x2c],ebx"
+      ],
+      "class": "register-choice"
+    },
+    {
+      "offset": "0x3f6",
+      "retail": [
+        "jbe L+0x420"
+      ],
+      "model": [
+        "jbe L+0x420"
+      ],
+      "class": "evaluation-order"
+    },
+    {
+      "offset": "0x3f8",
+      "retail": [
+        "mov ax,WORD PTR [ebp-0x2]"
+      ],
+      "model": [
+        "mov ax,WORD PTR [edi-0x2]"
+      ],
+      "class": "register-choice"
+    },
+    {
+      "offset": "0x3ff",
+      "retail": [
+        "je L+0x420"
+      ],
+      "model": [
+        "je L+0x420"
+      ],
+      "class": "evaluation-order"
+    },
+    {
+      "offset": "0x401",
+      "retail": [
+        "movzx esi,ax",
+        "mov ecx,esi",
+        "mov ebx,esi"
+      ],
+      "model": [
+        "movzx eax,ax",
+        "mov ecx,eax",
+        "mov ebx,eax"
+      ],
+      "class": "register-choice"
+    },
+    {
+      "offset": "0x414",
+      "retail": [
+        "and esi,0xf",
+        "mov DWORD PTR [esp+0x2c],esi",
+        "mov edi,0x1",
+        "mov eax,DWORD PTR [esp+0x18]"
+      ],
+      "model": [
+        "and eax,0xf",
+        "mov DWORD PTR [esp+0x2c],eax",
+        "mov ebp,0x1"
+      ],
+      "class": "register-choice"
+    },
+    {
+      "offset": "0x425",
+      "retail": [
+        "cmp eax,edx"
+      ],
+      "model": [
+        "cmp esi,edx"
+      ],
+      "class": "register-choice"
+    },
+    {
+      "offset": "0x429",
+      "retail": [
+        "mov ax,WORD PTR [ebp+0x2]"
+      ],
+      "model": [
+        "mov ax,WORD PTR [edi+0x2]"
+      ],
+      "class": "register-choice"
+    },
+    {
+      "offset": "0x450",
+      "retail": [],
+      "model": [
+        "mov esi,DWORD PTR [esp+0x18]"
+      ],
+      "class": "register-choice"
+    },
+    {
+      "offset": "0x456",
+      "retail": [
+        "inc edi"
+      ],
+      "model": [
+        "inc ebp"
+      ],
+      "class": "register-choice"
+    },
+    {
+      "offset": "0x45b",
+      "retail": [
+        "xor esi,esi",
+        "cmp eax,esi"
+      ],
+      "model": [
+        "test eax,eax"
+      ],
+      "class": "register-choice"
+    },
+    {
+      "offset": "0x46e",
+      "retail": [
+        "mov eax,ebp"
+      ],
+      "model": [
+        "mov eax,edi"
+      ],
+      "class": "register-choice"
+    },
+    {
+      "offset": "0x49e",
+      "retail": [
+        "inc edi"
+      ],
+      "model": [
+        "inc ebp"
+      ],
+      "class": "register-choice"
+    },
+    {
+      "offset": "0x4b5",
+      "retail": [
+        "lea eax,[ebp+eax*2+0x0]"
+      ],
+      "model": [
+        "lea eax,[edi+eax*2]"
+      ],
+      "class": "register-choice"
+    },
+    {
+      "offset": "0x4e5",
+      "retail": [
+        "inc edi",
+        "cmp edi,0x1"
+      ],
+      "model": [
+        "inc ebp",
+        "cmp ebp,0x1"
+      ],
+      "class": "register-choice"
+    },
+    {
+      "offset": "0x4ef",
+      "retail": [
+        "div edi"
+      ],
+      "model": [
+        "div ebp"
+      ],
+      "class": "register-choice"
+    },
+    {
+      "offset": "0x4f7",
+      "retail": [
+        "div edi"
+      ],
+      "model": [
+        "div ebp"
+      ],
+      "class": "register-choice"
+    },
+    {
+      "offset": "0x501",
+      "retail": [
+        "div edi"
+      ],
+      "model": [
+        "div ebp"
+      ],
+      "class": "register-choice"
+    },
+    {
+      "offset": "0x517",
+      "retail": [
+        "mov ax,WORD PTR [ebp+0x0]"
+      ],
+      "model": [
+        "mov ax,WORD PTR [edi]"
+      ],
+      "class": "register-choice"
+    },
+    {
+      "offset": "0x534",
+      "retail": [
+        "mov eax,DWORD PTR [esp+0x18]"
+      ],
+      "model": [],
+      "class": "register-choice"
+    },
+    {
+      "offset": "0x540",
+      "retail": [
+        "mov WORD PTR [ebp+0x0],cx"
+      ],
+      "model": [
+        "mov WORD PTR [edi],cx"
+      ],
+      "class": "register-choice"
+    },
+    {
+      "offset": "0x548",
+      "retail": [
+        "add ebp,0x2"
+      ],
+      "model": [
+        "add edi,0x2",
+        "inc esi",
+        "cmp esi,edx",
+        "mov DWORD PTR [esp+0x18],esi",
+        "jb L+0x3e0",
+        "mov eax,DWORD PTR [esp+0x14]",
+        "mov ecx,DWORD PTR [esp+0x4c]"
+      ],
+      "class": "code-shape"
+    },
+    {
+      "offset": "0x54c",
+      "retail": [
+        "cmp eax,edx"
+      ],
+      "model": [
+        "cmp eax,ecx"
+      ],
+      "class": "register-choice"
+    },
+    {
+      "offset": "0x552",
+      "retail": [
+        "jb L+0x3e0"
+      ],
+      "model": [
+        "jb L+0x3c0"
+      ],
+      "class": "register-choice"
+    },
+    {
+      "offset": "0x558",
+      "retail": [
+        "mov ecx,DWORD PTR [esp+0x14]",
+        "mov eax,DWORD PTR [esp+0x4c]",
+        "inc ecx",
+        "cmp ecx,eax",
+        "mov DWORD PTR [esp+0x14],ecx",
+        "jb L+0x3c4"
+      ],
+      "model": [],
+      "class": "code-shape"
+    },
+    {
+      "offset": "0x56e",
+      "retail": [],
+      "model": [
+        "pop esi"
+      ],
+      "class": "register-choice"
+    },
+    {
+      "offset": "0x584",
+      "retail": [
+        "pop esi"
+      ],
+      "model": [],
+      "class": "register-choice"
+    },
+    {
+      "offset": "0x589",
+      "retail": [
+        "lea ecx,[ecx+0x0]"
+      ],
+      "model": [
+        "mov edi,edi"
+      ],
+      "class": "register-choice"
+    },
+    {
+      "offset": "table+0x8",
+      "retail": [
+        "L+0x3ae"
+      ],
+      "model": [
+        "L+0x3a5"
+      ],
+      "class": "register-choice"
+    }
+  ],
+  "note": "reference/recovery_notes/anm_texture_fill_transparent_004465b0_equivalent_2026_10_13.md",
+  "listed_branch_targets": true,
+  "frame_shift": {
+    "deltas": [
+      4
+    ],
+    "count": 10
+  }
+}

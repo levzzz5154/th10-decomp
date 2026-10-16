@@ -1,13 +1,13 @@
 {
   "schema_version": 1,
   "name": "sound_queue_pan",
-  "source": "src/game/bullet/fun_00407780_00407780.cpp",
+  "source": "src/game/bullet/fun.cpp_407780.cpp",
   "additional_sources": [
     "src/game/laser/laser_line_decelerate.cpp",
-    "src/core/sound/animation_manager_queue_resource_0043dc90.cpp",
-    "src/game/bullet/fun_00407a30_00407a30.cpp",
-    "src/game/bullet/fun_00407be0_00407be0.cpp",
-    "src/core/sound/sound_queue_pan_0043dd10.cpp"
+    "src/core/sound/animation_manager_queue_resource.cpp",
+    "src/game/bullet/fun.cpp_407a30.cpp",
+    "src/game/bullet/fun.cpp_407be0.cpp",
+    "src/core/sound/sound_queue_pan.cpp"
   ],
   "headers": [
     "include/th10/platform/sound_queue.hpp",
@@ -23,7 +23,7 @@
   "functions": [
     {
       "name": "BulletDeceleration_TurnStep",
-      "source": "src/game/bullet/fun_00407780_00407780.cpp",
+      "source": "src/game/bullet/fun.cpp_407780.cpp",
       "symbol": "?TurnStep@BulletDeceleration@@QAEXXZ",
       "address": "0x00407780",
       "size": 338,
@@ -32,7 +32,7 @@
     },
     {
       "name": "BulletDeceleration_AimStep",
-      "source": "src/game/bullet/fun_00407a30_00407a30.cpp",
+      "source": "src/game/bullet/fun.cpp_407a30.cpp",
       "symbol": "?AimStep@BulletDeceleration@@QAEXXZ",
       "address": "0x00407A30",
       "size": 431,
@@ -41,7 +41,7 @@
     },
     {
       "name": "BulletDeceleration_Bounce",
-      "source": "src/game/bullet/fun_00407be0_00407be0.cpp",
+      "source": "src/game/bullet/fun.cpp_407be0.cpp",
       "symbol": "?Bounce@BulletDeceleration@@QAEXXZ",
       "address": "0x00407BE0",
       "size": 446,
@@ -59,7 +59,7 @@
     },
     {
       "name": "SoundQueue_Queue",
-      "source": "src/core/sound/animation_manager_queue_resource_0043dc90.cpp",
+      "source": "src/core/sound/animation_manager_queue_resource.cpp",
       "symbol": "?Queue@SoundQueue@@QAEHHH@Z",
       "section": ".text$05queue",
       "address": "0x0043DC90",
@@ -68,7 +68,7 @@
     },
     {
       "name": "SoundQueue_QueuePan",
-      "source": "src/core/sound/sound_queue_pan_0043dd10.cpp",
+      "source": "src/core/sound/sound_queue_pan.cpp",
       "symbol": "?QueuePan@SoundQueue@@QAEXHM@Z",
       "address": "0x0043DD10",
       "size": 149,

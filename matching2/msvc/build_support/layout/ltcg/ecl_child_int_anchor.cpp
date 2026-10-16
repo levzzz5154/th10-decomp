@@ -30,7 +30,7 @@ struct EclFrame {
 
 
 #pragma code_seg(".text$03intvalue")
-__declspec(dllexport) int __fastcall ECL_ResolveIntValue_0044ff00(int unused, EclFrame* frame, int selector, int value) {
+__declspec(dllexport) int __fastcall ECL_ResolveIntValue2(int unused, EclFrame* frame, int selector, int value) {
     EclOperandTable* table = frame->operand_table;
     unsigned short mask = table->indirect_mask;
     int result = value;

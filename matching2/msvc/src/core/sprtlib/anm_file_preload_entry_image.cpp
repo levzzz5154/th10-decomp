@@ -1,0 +1,40 @@
+// 0x004472E0 (214 bytes): validate one ANM entry and, when its image lives in
+// a separate archive file (no embedded THTX block and a name that does not
+// start with '@'), load that file and keep it on the entry's texture record.
+// Returns 1, or -1 after logging.
+//
+// Native LTCG passes the entry index in ECX and the file in EDX; the entry
+// stays on the stack. The declared order (file, entry, index) is what makes
+// the caller evaluate index, entry, file in that order.
+#include "th10/render/anm_file.hpp"
+#include "th10/platform/archive_file.hpp"
+
+#pragma code_seg(".text$05preload")
+int __stdcall AnmFile_PreloadEntryImage(AnmFile* file,
+                                                 const AnmEntryHeader2* entry, int index) {
+    char path[260];
+    int size;
+    if (!entry) {
+        g_log.AppendLine(str_anm_load_failed);
+        return -1;
+    }
+    if (entry->version != 4) {
+        g_log.AppendLine(str_anm_version_mismatch);
+        return -1;
+    }
+    if (!entry->has_data) {
+        const char* name = entry->Name();
+        if (name[0] != '@') {
+            sprintf(path, str_string_format, name);
+            char* data = Archive_LoadFile(path, &size, 1);
+            if (!data) {
+                g_log.AppendLine(str_texture_load_failed_format, name);
+                return -1;
+            }
+            file->textures[index].data_size = size;
+            file->textures[index].file_data = data;
+        }
+    }
+    return 1;
+}
+#pragma code_seg()

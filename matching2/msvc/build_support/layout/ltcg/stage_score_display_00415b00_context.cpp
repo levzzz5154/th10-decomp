@@ -1,5 +1,5 @@
 // Compiler-only dependencies: complete pool, primary-list, lookup and activation bodies.
-#include "../../../src/game/front/stage_score_display_00415b00.cpp"
+#include "../../../src/game/front/stage_score_display.cpp"
 void* __cdecl operator new(unsigned int,void*);
 
 #pragma code_seg(".text$00401000_context")
@@ -34,9 +34,9 @@ SlotRef SlotLists::RegisterPrimaryBack(Entity* object) {
 #pragma code_seg()
 
 
-#include "result_open_00423370/allocate.cpp"
+#include "result_open/allocate.cpp"
 
-#include "result_open_00423370/find.cpp"
+#include "result_open/find.cpp"
 
 __declspec(noinline) void** __stdcall ItemAnimation_CreateOffset(
     void* resource, void** out, int index, const Vector3* position);

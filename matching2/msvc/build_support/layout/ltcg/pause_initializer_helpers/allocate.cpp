@@ -1,5 +1,5 @@
 // Complete 4096-entry pool allocator at 0x00449950, manager ESI and Entity* result EAX.
-#include "th10/game/pause_initializer_00422ab0.hpp"
+#include "th10/game/pause_initializer.hpp"
 
 void* __cdecl operator new(unsigned int size);
 Entity* __fastcall Entity_Constructor(Entity* self);

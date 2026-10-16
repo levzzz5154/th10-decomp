@@ -25,12 +25,12 @@ extern "C" void _ReadWriteBarrier(void);
 // The animation-manager and bullet-entity types are declared exactly as the
 // co-compiled models in this cluster define them, so the calls bind to those
 // bodies and their whole-program register agreements.
-#include "th10/game/enemy_manager_dependencies_0040d530.hpp"
+#include "th10/game/enemy_manager_dependencies.hpp"
 
-class AnimationManager_004477d0 {
+class AnimationManager13 {
 public:
     unsigned char pad_000[0x3AD06C];
-    AnimationResource_00447810 *slots_3ad06c[0x21];
+    AnimationResource6 *slots_3ad06c[0x21];
 
     __declspec(noinline) void ClearResourceSlot(int index);
 };
@@ -73,7 +73,7 @@ void EnemyCtrl::Destroy() {
 
     void **blocks = blocks_054;
     if (blocks) {
-        ((BulletEntity_0040d680 *)blocks)->ReleaseResource();
+        ((BulletEntity6 *)blocks)->ReleaseResource();
         crt_free_startup(blocks);
     }
     blocks_054 = 0;
@@ -86,8 +86,8 @@ void EnemyCtrl::Destroy() {
                 continue;
             if ((unsigned int)index >= 0x21u)
                 continue;
-            AnimationResource_00447810 **slot =
-                &((AnimationManager_004477d0 *)g_sprt_ctrl)->slots_3ad06c[index];
+            AnimationResource6 **slot =
+                &((AnimationManager13 *)g_sprt_ctrl)->slots_3ad06c[index];
             if (*slot == 0)
                 continue;
             (*slot)->Release();

@@ -1,8 +1,8 @@
 // Compiler context only; never selected as recovered game code.
-#include "../../../src/unreferenced/unassigned_00428ca0.cpp"
+#include "../../../src/unreferenced/unassigned_428ca0.cpp"
 
 #pragma code_seg(".text$03context")
-extern "C" int __stdcall SlotTableCancelContext_00428ca0(SlotTable_00428ca0** items, int id, int count) {
+extern "C" int __stdcall SlotTableCancelContext_00428ca0(SlotTable3** items, int id, int count) {
     while (count--) {
         (*items++)->Cancel(id);
     }

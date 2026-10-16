@@ -4,14 +4,14 @@ extern "C" unsigned long (__stdcall* imp_SetFilePointer)(void* file, long distan
 extern "C" int (__stdcall* imp_ReadFile)(void* file, void* buffer, unsigned long size, unsigned long* read, void* overlapped);
 extern "C" int g_bgm_data_offset;
 
-struct ArchiveEntry_0044dd40 {
+struct ArchiveEntry4 {
     unsigned char unknown_00[0x10];
     int offset;
     unsigned char unknown_14[4];
     int header_size;
     int size;
 };
-struct ArchiveCursor_0044dd40 {
+struct ArchiveCursor3 {
     unsigned char unknown_00[8];
     unsigned int size;
     unsigned char unknown_0c[0x70];
@@ -20,11 +20,11 @@ struct ArchiveCursor_0044dd40 {
     unsigned char* memory_cursor;
     unsigned int memory_size;
     void* file;
-    ArchiveEntry_0044dd40* entry;
+    ArchiveEntry4* entry;
 };
 
 #pragma code_seg(".text$01accessor")
-__declspec(noinline) long __stdcall Rewind_0044dd40(ArchiveCursor_0044dd40* cursor, bool skip_header) {
+__declspec(noinline) long __stdcall Rewind2(ArchiveCursor3* cursor, bool skip_header) {
     if (cursor->memory) {
         cursor->memory_cursor = cursor->memory_base;
         if (cursor->entry->size > 0) cursor->memory_size = cursor->entry->size;

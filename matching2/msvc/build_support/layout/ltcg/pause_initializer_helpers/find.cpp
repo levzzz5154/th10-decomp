@@ -1,5 +1,5 @@
 // Complete 0x004491C0 lookup with its two actual inputs.
-#include "th10/game/pause_initializer_00422ab0.hpp"
+#include "th10/game/pause_initializer.hpp"
 struct AnimationLookupEntry {
     AnimationLookupEntry* object;
     AnimationLookupEntry* next;

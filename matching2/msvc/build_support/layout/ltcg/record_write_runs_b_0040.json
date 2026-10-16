@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "WriteRunB_004020b0_Clear",
-      "symbol": "?Clear@WriteRunB_004020b0@@QAEXXZ",
+      "symbol": "?Clear@WriteRunB@@QAEXXZ",
       "section": ".text$01b",
       "address": "0x4020b0",
       "size": 56,
@@ -17,7 +17,7 @@
     },
     {
       "name": "WriteRunB_0044c0e0_Init",
-      "symbol": "?Init@WriteRunB_0044c0e0@@QAEXXZ",
+      "symbol": "?Init@WriteRunB2@@QAEXXZ",
       "section": ".text$03c",
       "address": "0x44c0e0",
       "size": 21,

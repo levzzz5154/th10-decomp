@@ -13,7 +13,7 @@
   "functions": [
     {
       "name": "AnmManager_UpdatePrimaryTask",
-      "symbol": "@AnmManager_UpdatePrimaryTask_004485d0@4",
+      "symbol": "@AnmManager_UpdatePrimaryTask2@4",
       "section": ".text$01a_primarytask",
       "address": "0x004485D0",
       "size": 7,
@@ -22,7 +22,7 @@
     },
     {
       "name": "AnmManager_UpdateSecondaryTask",
-      "symbol": "@AnmManager_UpdateSecondaryTask_004485e0@4",
+      "symbol": "@AnmManager_UpdateSecondaryTask2@4",
       "section": ".text$01c_secondarytask",
       "address": "0x004485E0",
       "size": 7,
@@ -135,7 +135,7 @@
     }
   ],
   "included_sources": [
-    "build_support/contexts/legacy/game/entity_initialize_00401de0.cpp"
+    "build_support/contexts/legacy/game/entity_initialize.cpp"
   ],
   "roots": []
 }

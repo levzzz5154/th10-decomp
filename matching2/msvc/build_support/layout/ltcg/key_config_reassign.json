@@ -3,12 +3,12 @@
   "name": "key_config_reassign",
   "source": "src/game/title/key_config.cpp",
   "included_sources": [
-    "src/game/title/fun_0042f8b0_0042f8b0.cpp",
-    "src/core/sound/animation_manager_queue_resource_0043dc90.cpp"
+    "src/game/title/fun.cpp",
+    "src/core/sound/animation_manager_queue_resource.cpp"
   ],
   "driver": "build_support/layout/ltcg/key_config_reassign_context.cpp",
   "headers": [
-    "include/th10/game/key_config_refresh_0042f8b0.hpp",
+    "include/th10/game/key_config_refresh.hpp",
     "include/th10/platform/sound_queue.hpp"
   ],
   "image_base": "0x00400000",
@@ -16,7 +16,7 @@
   "functions": [
     {
       "name": "semantic_KeyConfig_ReassignSlot_00430250",
-      "symbol": "_KeyConfigReassignSlot_00430250@12",
+      "symbol": "_KeyConfigReassignSlot2@12",
       "section": ".text$03reassign",
       "address": "0x430250",
       "size": 200,
@@ -40,7 +40,7 @@
     },
     {
       "name": "Configure",
-      "symbol": "_ConfigureKeyConfigDigit_0043e5a0@12",
+      "symbol": "_ConfigureKeyConfigDigit2@12",
       "section": ".text$07configure",
       "address": "0x43e5a0",
       "size": 356

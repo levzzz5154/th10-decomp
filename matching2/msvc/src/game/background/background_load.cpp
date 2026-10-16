@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include "th10/platform/archive_file.hpp"
 #include "th10/game/background.hpp"
-struct TextLog_0044b810 {
+struct TextLog4 {
     char text[0x2000];
     char* cursor;
     unsigned char dirty;
@@ -30,7 +30,7 @@ int BackGround::Load(const char* name) {
     animation = LoadCachedResource((stage_flags & 1) + 4, g_sprt_ctrl,
                                            file->animation_name);
     if (!animation) {
-        ((TextLog_0044b810*)0x474F70)->Append((char*)0x46CBC0);
+        ((TextLog4*)0x474F70)->Append((char*)0x46CBC0);
         return -1;
     }
     BackGroundFile* data = file;

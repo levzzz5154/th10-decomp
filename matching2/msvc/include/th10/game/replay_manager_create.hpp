@@ -1,0 +1,76 @@
+#pragma once
+#include <string.h>
+#include <stddef.h>
+#include "th10/core/func_ctrl.hpp"
+#include "th10/platform/thread_sync.hpp"
+#include "th10/game/replay_pool_append.hpp"
+
+void* __cdecl operator new(unsigned int size);
+void __cdecl operator delete(void* block);
+
+// One 0x24-byte list node of the replay manager; built by 0x0042AC20 and
+// unlinked by 0x0042AC60.
+struct ReplayManagerNode {
+    unsigned char storage[0x24];
+
+    __declspec(noinline) ReplayManagerNode();
+    __declspec(noinline) ~ReplayManagerNode();
+};
+
+// The replay file's 0x24-byte header and 0x64-byte summary; plain data.
+struct ReplayHeader {
+    unsigned char storage[0x24];
+};
+struct ReplaySummary {
+    unsigned char storage[0x64];
+};
+struct ReplayStageData;
+
+// The 0x2D4-byte replay manager.
+struct ReplayManager {
+    unsigned char reserved_000[8];
+    SchedulerTask* update_task;
+    SchedulerTask* draw_task;
+    int mode;                               // 0 = record, 1 = play back, 2 = file opened directly
+    ReplayHeader* header;
+    ReplaySummary* summary;
+    ReplayStageData* stage_data[8];
+    ReplayPoolLink2 stages[8];      // +0x3C, the input pools of each stage
+    ReplayPoolLink2* current_pool;
+    ReplayManagerNode nodes[8];
+    unsigned char reserved_1c0[0x1CC - 0x1C0];
+    SchedulerTask* trailing_task;           // +0x1CC
+    unsigned int reserved_1d0;
+    char path[0x100];
+
+    // The pool lists are laid out as the pool functions expect them.
+    ReplayPoolLists* PoolLists() {
+        return reinterpret_cast<ReplayPoolLists*>(this);
+    }
+    // Free every input pool of one stage.
+    void ClearStage(int stage);
+
+    ReplayManager() { memset(this, 0, sizeof(*this)); }
+    __declspec(noinline) ~ReplayManager();    // 0x004294A0
+    // 0x0042A200: remember the replay file's path and read it; nonzero on failure.
+    __declspec(noinline) int Initialize(const char* replay_path);
+    // 0x00428F60: start recording (mode 0) or play back the named replay
+    // (mode 1); nonzero on failure.
+    __declspec(noinline) int Start(int start_mode, const char* replay_path);
+};
+typedef char ReplayManagerSize[sizeof(ReplayManager) == 0x2D4 ? 1 : -1];
+typedef char ReplayManagerNodes[offsetof(ReplayManager, nodes) == 0xA0 ? 1 : -1];
+typedef char ReplayManagerPath[offsetof(ReplayManager, path) == 0x1D4 ? 1 : -1];
+
+// 0x0042AB20: free every input pool of one stage.
+extern "C" __declspec(noinline) void __stdcall ReplayPool_Clear(ReplayPoolLists* lists, int stage);
+inline void ReplayManager::ClearStage(int stage) {
+    ReplayPool_Clear(PoolLists(), stage);
+}
+__declspec(noinline) void __stdcall ManagerTeardownFuncCtrl_Remove(FuncCtrl* scheduler, SchedulerTask* task);
+extern "C" void* g_func_ctrl;
+// The replay manager the game is currently using.
+extern "C" ReplayManager* g_replay;
+
+__declspec(noinline) ReplayManager* __stdcall ReplayManager_Create3(const char* replay_path);
+__declspec(noinline) ReplayManager* __stdcall ReplayManager_Create2(int start_mode, const char* replay_path);

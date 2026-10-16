@@ -5,8 +5,8 @@
 // address is taken elsewhere in the program; the context takes them here.
 #include "../../../src/game/title/menu_flow_updates.cpp"
 #include "../../../src/game/title/ending_screen.cpp"
-#include "../../../src/game/title/recovery_animation_slot_frames_0042c6d0.cpp"
-#include "th10/game/recovery_script_executor_caller_00419120.hpp"
+#include "../../../src/game/title/recovery_animation_slot_frames.cpp"
+#include "th10/game/recovery_script_executor_caller.hpp"
 #include "th10/game/title_menu.hpp"
 // 0x0042CDF0, a separate translation unit of this link.
 __declspec(noinline) int __stdcall Title_DispatchUpdate(Title* room);
@@ -20,7 +20,7 @@ extern "C" int __stdcall KeyConfigUpdateCompilerContext(
     objects[0] = &g_key_bindings_current;
     objects[1] = &g_key_bindings;
     objects[2] = &g_input_keys_raw;
-    return RecoveryScript_Execute_0040bd80(script) + head->Drain(indicator, release)
+    return RecoveryScript_Execute2(script) + head->Drain(indicator, release)
         + Title_UpdateMusicRoom(music_room)
         + Title_DispatchUpdate(music_room);
 }

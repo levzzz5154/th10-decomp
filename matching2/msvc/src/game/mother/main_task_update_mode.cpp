@@ -2,7 +2,7 @@
 // Destroys what the previous mode owned, creates what the new one needs and
 // returns 1; returns 4 once the application has to quit.
 #include "th10/app/main_task_mode.hpp"
-#include "th10/game/stage_startup_00417870.hpp"
+#include "th10/game/stage_startup.hpp"
 
 inline StageRunState* GameState() { return &g_globals; }
 

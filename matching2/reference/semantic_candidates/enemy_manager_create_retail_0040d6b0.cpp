@@ -1,5 +1,5 @@
 #include <string.h>
-#include "th10/game/enemy_timer_sweep_0040d750.hpp"
+#include "th10/game/enemy_timer_sweep.hpp"
 
 // BLOCKED (D3802): the readable 95-byte model differs in nine register
 // identities; retail carries the manager in EBX across 0x0040D280 and passes

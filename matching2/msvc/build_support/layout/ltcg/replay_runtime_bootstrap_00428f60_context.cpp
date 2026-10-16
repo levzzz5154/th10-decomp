@@ -9,7 +9,7 @@
 #include <stdlib.h>
 #include "th10/core/func_ctrl.hpp"
 #include "th10/game/linked_pool_append.hpp"
-#include "th10/game/large_initialization_state_00421f00.hpp"
+#include "th10/game/large_initialization_state.hpp"
 #include "th10/platform/thread_sync.hpp"
 #include "../../../src/game/replay/replay_manager_create_00429610.cpp"
 
@@ -44,7 +44,7 @@ static __forceinline void ReplayManagerStandIn_Unregister(void* task) {
 }
 
 // With every callee-saved register busy the receiver stays on the stack.
-ReplayManager_004296f0::~ReplayManager_004296f0() {
+ReplayManager::~ReplayManager() {
     void** tasks = reinterpret_cast<void**>(reserved_000);
     ReplayManagerStandIn_Unregister(tasks[2]);
     ReplayManagerStandIn_Unregister(tasks[3]);
@@ -52,8 +52,8 @@ ReplayManager_004296f0::~ReplayManager_004296f0() {
 
 // The path's address is taken, which keeps it on the stack; the receiver is
 // needed after the call and arrives in ESI, like the real loader's.
-__declspec(noinline) int ReplayManager_LoadFile_00428f60(
-        ReplayManager_004296f0* manager, const char* replay_path) {
+__declspec(noinline) int ReplayManager_LoadFile2(
+        ReplayManager* manager, const char* replay_path) {
     strcpy(manager->path, replay_path);
     if (ReplayManagerStandIn_Load((const char*)&replay_path))
         return -1;
@@ -93,9 +93,9 @@ PoolLink* PoolOwner::AppendPage(int slot) {
 // Complete list release; the stage arrives in EAX and the lists in ECX.
 extern "C" __declspec(noinline) void __stdcall
 ReplayPool_Clear(ReplayPoolLists* lists, int stage) {
-    ReplayPoolLink_0042aa50* current = lists->stages[stage].next;
+    ReplayPoolLink2* current = lists->stages[stage].next;
     while (current) {
-        ReplayPoolLink_0042aa50* next = current->next;
+        ReplayPoolLink2* next = current->next;
         ReplayPool* pool = current->pool;
         if (pool) {
             if (pool->link.next) pool->link.next->previous = pool->link.previous;
@@ -171,6 +171,6 @@ extern "C" __declspec(noinline) int __stdcall FuncCtrl_RegisterSecondary(
 
 #pragma code_seg(".text$05context")
 int __stdcall ReplayManagerStartCompilerContext(int start_mode, const char* replay_path) {
-    return ReplayManager_Create_00429610(start_mode, replay_path) != 0;
+    return ReplayManager_Create2(start_mode, replay_path) != 0;
 }
 #pragma code_seg()

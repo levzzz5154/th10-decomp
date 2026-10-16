@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "name": "cl_0041c2f0",
+  "source": "src/unreferenced/unassigned_41c2f0.cpp",
+  "driver": "build_support/layout/ltcg/cl_0041c2f0_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "scalar deleting destructor with the object in ESI",
+  "functions": [
+    {
+      "name": "ScoreExtendedObject_Destroy_DeletingDestructor",
+      "symbol": "?ScoreExtendedObject_Destroy_DeletingDestructor@@YGPAXPAUOwnedObject6@@I@Z",
+      "section": ".text$01delete0041c2f0",
+      "address": "0x0041C2F0",
+      "size": 27,
+      "actual_abi": "object in ESI; delete flag on the stack; RET 4"
+    }
+  ],
+  "context": {
+    "symbol": "?DeletingContext_0041c2f0@@YGXPAPAUOwnedObject6@@H@Z",
+    "section": ".text$03context",
+    "address": "0x0041C320",
+    "size": 41,
+    "description": "Synthetic array-walking caller that establishes the observed register convention; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 111344
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x0041C30B",
+      "size": 21
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_asm_LaserManager_Destroy_0041c1c0@4",
+      "address": "0x41C1C0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_crt_free_startup",
+      "address": "0x004524A1",
+      "kind": "relative_code"
+    }
+  ],
+  "additional_sources": [],
+  "included_sources": []
+}

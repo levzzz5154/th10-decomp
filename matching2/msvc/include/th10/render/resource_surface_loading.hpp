@@ -76,6 +76,6 @@ extern "C" int __cdecl sprintf(char*, const char*, ...);
 extern "C" void __cdecl ReleaseHeapMemory(void*);
 extern "C" long __stdcall LoadSurfaceFile(ResourceView*, const void*, const void*, const void*, unsigned int, const void*, unsigned int, unsigned int, ImageInfo*);
 extern "C" long __stdcall LoadSurfaceCopy(ResourceView*, const void*, const void*, ResourceView*, const void*, const void*, unsigned int, unsigned int);
-extern "C" __declspec(noinline) int __fastcall AnimationLoadSurface_00447c80(AnimationManagerIndexed*,const char*,int);
-extern "C" __declspec(noinline) int __stdcall AnimationLoadMemory_00447ec0(int,AnimationManagerIndexed*,const char*);
+extern "C" __declspec(noinline) int __fastcall AnimationLoadSurface2(AnimationManagerIndexed*,const char*,int);
+extern "C" __declspec(noinline) int __stdcall AnimationLoadMemory2(int,AnimationManagerIndexed*,const char*);
 #endif

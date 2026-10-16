@@ -1,6 +1,6 @@
 #include "th10/source_views/stage_anm_reload_93580a_0.hpp"
 #include "th10/source_views/stage_anm_reload_93580a_1.hpp"
-extern "C" unsigned int __cdecl Stage_ReloadAnmThread_0040c3a0() {
+extern "C" unsigned int __cdecl Stage_ReloadAnmThread2() {
     g_ending->stage->ReloadAnm();
     return 0;
 }
@@ -10,7 +10,7 @@ extern "C" unsigned int __cdecl Stage_ReloadAnmThread_0040c3a0() {
 #include "th10/source_views/stage_anm_reload_93580a_0.hpp"
 #include "th10/source_views/stage_anm_reload_93580a_1.hpp"
 #include "th10/source_views/stage_anm_reload_93580a_2.hpp"
-int Stage_0040c3c0::ReloadAnm() {
+int Stage3::ReloadAnm() {
     const char* name = anm_name;
     g_recovery_script_path[0] = 0;
     strcat(g_recovery_script_path, name);

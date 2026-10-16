@@ -1,0 +1,133 @@
+{
+  "schema_version": 1,
+  "name": "stage_anm_reload_0040c3c0",
+  "source": "src/game/effect/stage_owner_reload_stage_anm.cpp",
+  "driver": "build_support/layout/ltcg/stage_anm_reload_0040c3c0_context.cpp",
+  "headers": [
+    "include/th10/game/stage_anm_reload.hpp",
+    "include/th10/source_views/stage_anm_reload_93580a_0.hpp",
+    "include/th10/source_views/stage_anm_reload_93580a_1.hpp",
+    "include/th10/source_views/stage_anm_reload_93580a_2.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Stage animation reload with its thread entry and owner wrapper, compiled with native LTCG; the handle stop it calls bare is an ABI anchor.",
+  "functions": [
+    {
+      "name": "StageOwner_ReloadStageAnm",
+      "symbol": "?ReloadStageAnm@StageOwner@@QAEHXZ",
+      "section": ".text$01owner",
+      "address": "0x0040B4F0",
+      "size": 11,
+      "actual_abi": "owner in EAX; plain RET",
+      "source": "src/game/effect/stage_owner_reload_stage_anm.cpp"
+    },
+    {
+      "name": "Stage_ReloadAnmThread",
+      "symbol": "_Stage_ReloadAnmThread2",
+      "section": ".text$03thread",
+      "address": "0x0040C3A0",
+      "size": 18,
+      "actual_abi": "no arguments; plain RET; 0 in EAX",
+      "source": "src/game/ending/stage_reload_anm.cpp"
+    },
+    {
+      "name": "Stage_ReloadAnm",
+      "symbol": "?ReloadAnm@Stage3@@QAEHXZ",
+      "section": ".text$05reload",
+      "address": "0x0040C3C0",
+      "size": 126,
+      "actual_abi": "stage in EBX; plain RET; 0 in EAX",
+      "source": "src/game/ending/stage_reload_anm.cpp"
+    }
+  ],
+  "anchors": [
+    {
+      "name": "StopHandleAnchor",
+      "symbol": "?StopHandle2@@YGXPAUAnimationHandle3@@@Z",
+      "section": ".text$00anchor",
+      "address": "0x00409E50",
+      "size": 65
+    }
+  ],
+  "context": {
+    "symbol": "?StageAnmReloadContext@@YGHPAPAUStageOwner@@HPAP6AIXZ@Z",
+    "section": ".text$07context",
+    "address": "0x0040C440",
+    "size": 57,
+    "description": "Synthetic caller; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00a_gap",
+      "address": "0x00401000",
+      "size": 36432
+    },
+    {
+      "section": ".text$00z",
+      "address": "0x00409E91",
+      "size": 5727
+    },
+    {
+      "section": ".text$02gap",
+      "address": "0x0040B4FB",
+      "size": 3749
+    },
+    {
+      "section": ".text$04gap",
+      "address": "0x0040C3B2",
+      "size": 14
+    },
+    {
+      "section": ".text$06gap",
+      "address": "0x0040C43E",
+      "size": 2
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_find_opaque@4",
+      "address": "0x004491C0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?Recovery_LoadCachedResource@@YIPAUCachedResource@@HPAXPBD@Z",
+      "address": "0x00447280",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_g_recovery_script_path",
+      "address": "0x00497C38",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_sprt_ctrl",
+      "address": "0x00491C10",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_ascii_manager",
+      "address": "0x004776E0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_ending",
+      "address": "0x00477700",
+      "kind": "data"
+    }
+  ],
+  "roots": [
+    "_Stage_ReloadAnmThread2"
+  ],
+  "additional_sources": [],
+  "owned_includes": {
+    "src/game/ending/stage_reload_anm.cpp": "src/game/effect/stage_owner_reload_stage_anm.cpp"
+  },
+  "compilation_units": {
+    "src/game/effect/stage_owner_reload_stage_anm.cpp": "build_support/layout/units/stage_anm_reload_93580a.cpp"
+  },
+  "included_sources": [
+    "build_support/layout/units/stage_anm_reload_93580a.cpp",
+    "src/game/ending/stage_reload_anm.cpp"
+  ]
+}

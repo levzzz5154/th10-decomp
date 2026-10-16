@@ -10,7 +10,7 @@ extern "C" void _ReadWriteBarrier(void);
 extern "C" void* __fastcall LoadCachedResource(
     int index, void* owner, const char* name);
 
-struct TextLog_0044b810 {
+struct TextLog4 {
     char text[0x2000];
     char* cursor;
     unsigned char dirty;
@@ -29,7 +29,7 @@ typedef char ScoreTaskResourceNames_00413a20_offsets_check[
         ? 1 : -1];
 
 extern "C" float g_game_speed;
-extern "C" TextLog_0044b810 g_log;
+extern "C" TextLog4 g_log;
 extern "C" char str_data_corrupted[];
 
 // The addressed bytes are linker-owned game globals. Their uses here match

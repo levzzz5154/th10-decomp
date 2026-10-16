@@ -65,7 +65,7 @@ __declspec(dllimport) int __stdcall FindNextFileA(void* search, EclViewFindData*
 __declspec(dllimport) int __stdcall FindClose(void* search);
 }
 // 0x0040A340: the loader thread entry, which recreates the managers.
-unsigned int __stdcall EclView_LoadThread_0040a340(void* context);
+unsigned int __stdcall EclView_LoadThread2(void* context);
 
 // Destroy and free a manager the screen owns, if there is one; the global
 // keeps its stale pointer until the loader thread replaces it.
@@ -88,4 +88,4 @@ inline void EclView_Select(MenuCursor& cursor, int index) {
         cursor.selection = 0;
 }
 
-int __fastcall EclView_UpdateTask_0040abe0(EclView* viewer);
+int __fastcall EclView_UpdateTask2(EclView* viewer);

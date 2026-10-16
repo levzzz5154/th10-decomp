@@ -17,7 +17,7 @@
 
 void *__cdecl operator new(unsigned int size);
 
-struct RawPair_004056b0 {
+struct RawPair2 {
     unsigned int flags_000;             // +0x00, bit 1 = published
     unsigned char pad_004[4];
     void *callback_008;                 // +0x08
@@ -30,19 +30,19 @@ struct RawPair_004056b0 {
 extern "C" void *g_bomb;
 extern "C" void __cdecl crt_free_startup(void *block);
 extern "C" int __stdcall Bomb_RegisterTasks(
-        RawPair_004056b0 *pair);
+        RawPair2 *pair);
 extern "C" void __stdcall asm_Recovery_ReleaseRawPairAndReset_00405620(
-        RawPair_004056b0 *pair);
+        RawPair2 *pair);
 
 #pragma code_seg(".text$00_xfixed")
 extern "C" __declspec(noinline) void *__cdecl Bomb_Create(void) {
-    RawPair_004056b0 *fresh = new RawPair_004056b0;
-    RawPair_004056b0 *state;
+    RawPair2 *fresh = new RawPair2;
+    RawPair2 *state;
     if (fresh) {
         // The pair's low header flag is cleared before the block is zeroed.
         unsigned int *owned = (unsigned int *)((char *)fresh + 0x24);
         *owned &= ~1u;
-        memset(fresh, 0, sizeof(RawPair_004056b0));
+        memset(fresh, 0, sizeof(RawPair2));
         fresh->flags_000 |= 2u;
         g_bomb = fresh;
         state = fresh;

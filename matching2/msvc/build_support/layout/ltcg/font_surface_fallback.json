@@ -1,0 +1,360 @@
+{
+  "schema_version": 1,
+  "name": "font_surface_fallback_00436aa0",
+  "source": "src/core/main/font_surface_create_fallback.cpp",
+  "driver": "build_support/layout/ltcg/font_surface_fallback_00436aa0_context.cpp",
+  "headers": [
+    "include/th10/platform/native_font_start.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Out-of-line copy of the font surface create with format fallback, compiled with native LTCG beside the real release and create bodies as ABI anchors.",
+  "functions": [
+    {
+      "name": "FontSurface_CreateWithFallback",
+      "symbol": "?FontSurface_CreateWithFallback2@@YG_NPAUGdiSurface2@@HHH@Z",
+      "section": ".text$a05m_fallback",
+      "address": "0x00436AA0",
+      "size": 76,
+      "actual_abi": "surface in EBX, width in EDI, height in ESI, format on the stack; RET 4"
+    }
+  ],
+  "context": {
+    "symbol": "_FontSurfaceFallbackContext@12",
+    "section": ".text$a09context",
+    "address": "0x00436CA0",
+    "size": 80,
+    "description": "Synthetic caller compiled with inlining off; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$a00gap",
+      "address": "0x00401000",
+      "size": 219696
+    },
+    {
+      "section": ".text$a05gap",
+      "address": "0x00436A9B",
+      "size": 5
+    },
+    {
+      "section": ".text$a05z",
+      "address": "0x00436AEC",
+      "size": 4
+    },
+    {
+      "section": ".text$a07gap",
+      "address": "0x00436C95",
+      "size": 11
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_g_font_formats",
+      "address": "0x474918",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_font_atlas_surface",
+      "address": "0x474cb0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_rng",
+      "address": "0x4918b0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_font_height_60",
+      "address": "0x491868",
+      "kind": "data"
+    },
+    {
+      "symbol": "_str_ms_gothic",
+      "address": "0x46f36c",
+      "kind": "data"
+    },
+    {
+      "symbol": "_imp_CreateDIBSection",
+      "address": "0x466024",
+      "kind": "data"
+    },
+    {
+      "symbol": "_imp_CreateCompatibleDC",
+      "address": "0x466020",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__CreateFontA@56",
+      "address": "0x466034",
+      "kind": "data"
+    },
+    {
+      "symbol": "_imp_SelectObject",
+      "address": "0x46602c",
+      "kind": "data"
+    },
+    {
+      "symbol": "_imp_DeleteDC",
+      "address": "0x466028",
+      "kind": "data"
+    },
+    {
+      "symbol": "_imp_DeleteObject",
+      "address": "0x466030",
+      "kind": "data"
+    },
+    {
+      "symbol": "_memset",
+      "address": "0x45bed0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?InitializeVersionMarker@@YAXXZ",
+      "address": "0x420100",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_RenderCamera_InitializeDefaults",
+      "address": "0x4216f0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__imp__timeGetTime@0",
+      "address": "0x466270",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__CreateThread@24",
+      "address": "0x466118",
+      "kind": "data"
+    },
+    {
+      "symbol": "_Sound_PreloadWorker",
+      "address": "0x43d080",
+      "kind": "data"
+    },
+    {
+      "symbol": "?CreateStatsTaskOwner@@YAPAUStatsTaskOwner@@XZ",
+      "address": "0x413350",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_beginthreadex2",
+      "address": "0x453683",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_g_game_speed",
+      "address": "0x476f78",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_main_clear_color",
+      "address": "0x4923a8",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_startup_time",
+      "address": "0x491ff8",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_rng_seed_copy",
+      "address": "0x4918a8",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_sound_manager",
+      "address": "0x492590",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_application",
+      "address": "0x491c28",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_sound_preload_thread",
+      "address": "0x4977ac",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_input_worker",
+      "address": "0x474dd4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_sprt_ctrl",
+      "address": "0x491c10",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_d3d_device",
+      "address": "0x491c30",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_clip_mirror_vertices",
+      "address": "0x497930",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__WaitForSingleObject@8",
+      "address": "0x46611c",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__Sleep@4",
+      "address": "0x4660ac",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__CloseHandle@4",
+      "address": "0x4660cc",
+      "kind": "data"
+    },
+    {
+      "symbol": "__fltused",
+      "address": "0x0",
+      "kind": "metadata"
+    },
+    {
+      "symbol": "_g_app_flags",
+      "address": "0x491ff4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_imp_GetWindowLongA",
+      "address": "0x46621c",
+      "kind": "data"
+    },
+    {
+      "symbol": "_DirectInput8Create2@20",
+      "address": "0x45071e",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_GameInput_EnumDevice@8",
+      "address": "0x43baf0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_GameInput_EnumObject@8",
+      "address": "0x43bb30",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_guid_dinput",
+      "address": "0x467aac",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_guid_syskeyboard",
+      "address": "0x46793c",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_dinput_keyboard_format",
+      "address": "0x4664fc",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_dinput_joystick_format",
+      "address": "0x466704",
+      "kind": "data"
+    },
+    {
+      "symbol": "_str_directinput_unavailable",
+      "address": "0x46f9e0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_str_directinput_no_data_format",
+      "address": "0x46f9b0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_str_directinput_no_cooperative_level",
+      "address": "0x46f97c",
+      "kind": "data"
+    },
+    {
+      "symbol": "_str_directinput_ok",
+      "address": "0x46f954",
+      "kind": "data"
+    },
+    {
+      "symbol": "_str_pad_found",
+      "address": "0x46f934",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_log",
+      "address": "0x474f70",
+      "kind": "data"
+    },
+    {
+      "symbol": "_asm_vsprintf_004524a6",
+      "address": "0x4524a6",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_strcpy",
+      "address": "0x45bd80",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "@__security_check_cookie@4",
+      "address": "0x458ea5",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "___security_cookie",
+      "address": "0x473660",
+      "kind": "data"
+    },
+    {
+      "symbol": "__chkstk",
+      "address": "0x458ec0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__imp__EnterCriticalSection@4",
+      "address": "0x4660b0",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__LeaveCriticalSection@4",
+      "address": "0x4660b4",
+      "kind": "data"
+    },
+    {
+      "symbol": "?g_thread_synchronization@@3UThreadSynchronization@@A",
+      "address": "0x492274",
+      "kind": "data"
+    }
+  ],
+  "roots": [],
+  "additional_sources": [],
+  "included_sources": [
+    "build_support/layout/ltcg/native_font_start/release_surface.cpp",
+    "src/core/main/font_surface_create.cpp"
+  ],
+  "anchors": [
+    {
+      "name": "ReleaseSurface",
+      "symbol": "?ReleaseSurface2@@YG_NPAUGdiSurface2@@@Z",
+      "section": ".text$a04release",
+      "address": "0x00436A30",
+      "size": 107
+    },
+    {
+      "name": "SurfaceCreate",
+      "symbol": "?FontSurface_Create@@YG_NPAUGdiSurface2@@HHH@Z",
+      "section": ".text$a06surface",
+      "address": "0x00436AF0",
+      "size": 421
+    }
+  ]
+}

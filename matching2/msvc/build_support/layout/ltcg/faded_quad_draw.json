@@ -1,0 +1,293 @@
+{
+  "schema_version": 1,
+  "name": "faded_quad_draw_004445c0",
+  "source": "src/core/sprtfunc/faded_quad_draw.cpp",
+  "driver": "build_support/layout/ltcg/faded_quad_draw_004445c0_context.cpp",
+  "included_sources": [
+    "src/core/sprtfunc/animation_color_multiply_channel.cpp",
+    "src/core/sprtfunc/render_state_sync.cpp",
+    "src/core/sprtfunc/sprite_quad_submit.cpp",
+    "src/core/sprtfunc/anm_batch_flush.cpp",
+    "src/core/sprtfunc/quad_vertex_append.cpp",
+    "src/core/sprtfunc/anm_vm_draw_dispatch.cpp"
+  ],
+  "headers": [
+    "include/th10/render/quad_batch.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Only the full 402-byte faded-quad worker is selected. Native schema-1 entry is the unchanged complete real dispatcher, with its true 232-byte compiler contribution in this smaller graph. Genuine complete projection and submission helpers establish the private callee conventions; no synthetic caller or fabricated ABI anchor is present. The retained sprite-submission helper contains its existing pixel-snap assembly and receives no recovery credit here.",
+  "functions": [
+    {
+      "name": "FadedQuadDraw",
+      "symbol": "_FadedQuadDraw@8",
+      "section": ".text$06b0800fadequad",
+      "address": "0x004445c0",
+      "size": 402,
+      "actual_abi": "manager at [ESP+4]; entity at [ESP+8]; EAX result; RET8"
+    }
+  ],
+  "context": {
+    "symbol": "_asm_FUN_004451c0_004451c0",
+    "section": ".text$06hdispatch",
+    "address": "0x4451c0",
+    "size": 232,
+    "description": "Unchanged complete real draw dispatcher, rooted with its public cdecl manager/entity stack entry in this smaller graph; full emitted 232 bytes, unselected. Its separate maintained owner remains 216 bytes with the retail private entry."
+  },
+  "anchors": [
+    {
+      "name": "AnimationColor_MultiplyChannel_complete_genuine_unselected_helper",
+      "symbol": "?AnimationColor_MultiplyChannel@@YGIEE@Z",
+      "section": ".text$04amult",
+      "address": "0x004423C0",
+      "size": 25
+    },
+    {
+      "name": "SyncRenderState_complete_genuine_unselected_helper",
+      "symbol": "?SyncRenderState@SprtCtrlBatchView@@QAEXPBURenderEntity@@@Z",
+      "section": ".text$04bsync",
+      "address": "0x004425A0",
+      "size": 201
+    },
+    {
+      "name": "SubmitSpriteQuad_complete_genuine_unselected_helper",
+      "symbol": "?SubmitSpriteQuad@SprtCtrlBatchView@@QAEHPBURenderEntity@@I@Z",
+      "section": ".text$04c2quad",
+      "address": "0x00442670",
+      "size": 1111
+    },
+    {
+      "name": "SprtCtrlBatchView_Flush_complete_genuine_unselected_helper",
+      "symbol": "?Flush@SprtCtrlBatchView@@QAEHXZ",
+      "section": ".text$05flush",
+      "address": "0x00442F50",
+      "size": 133
+    },
+    {
+      "name": "AppendQuad_complete_genuine_unselected_helper",
+      "symbol": "?AppendQuad@SprtCtrlBatchView@@QAEHPBUTexturedVertex@@@Z",
+      "section": ".text$05happend",
+      "address": "0x00442FE0",
+      "size": 157
+    },
+    {
+      "name": "ProjectQuad helper_complete_genuine_unselected_helper",
+      "symbol": "?ProjectQuad@ProjectedEntity@@QAEHPAUProjectionManager@@@Z",
+      "section": ".text$06b06projection",
+      "address": "0x00444240",
+      "size": 818
+    }
+  ],
+  "gaps": [
+    {
+      "section": ".text$000layout",
+      "address": "0x401000",
+      "size": 267200
+    },
+    {
+      "section": ".text$04amultzlayout",
+      "address": "0x4423d9",
+      "size": 455
+    },
+    {
+      "section": ".text$04bsynczlayout",
+      "address": "0x442669",
+      "size": 7
+    },
+    {
+      "section": ".text$04c2quadzlayout",
+      "address": "0x442ac7",
+      "size": 1161
+    },
+    {
+      "section": ".text$05flushzlayout",
+      "address": "0x442fd5",
+      "size": 11
+    },
+    {
+      "section": ".text$05happendzlayout",
+      "address": "0x44307d",
+      "size": 4547
+    },
+    {
+      "section": ".text$06b06projectionzlayout",
+      "address": "0x444572",
+      "size": 78
+    },
+    {
+      "section": ".text$06b0800fadequadzlayout",
+      "address": "0x444752",
+      "size": 2670
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_g_d3d_device",
+      "address": "0x00491C30",
+      "kind": "data"
+    },
+    {
+      "symbol": "__fltused",
+      "address": "0x00000000",
+      "kind": "metadata"
+    },
+    {
+      "symbol": "_g_quad_vertices",
+      "address": "0x004978C0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_render_stage_active",
+      "address": "0x00491FAC",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00470e8",
+      "address": "0x004700E8",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00470ec",
+      "address": "0x004700EC",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_back_camera",
+      "address": "0x00491D7C",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_back_camera_2",
+      "address": "0x00491D80",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_back_camera_3",
+      "address": "0x00491D84",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_sprite_fade_near",
+      "address": "0x00491E78",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_sprite_fade_far",
+      "address": "0x00491E7C",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_sprite_fade_color_r",
+      "address": "0x00491E80",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_sprite_fade_color_g",
+      "address": "0x00491E84",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_sprite_fade_color_b",
+      "address": "0x00491E88",
+      "kind": "data"
+    },
+    {
+      "symbol": "__ftol2",
+      "address": "0x00463B2C",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_dbl_0",
+      "address": "0x00470B70",
+      "kind": "data"
+    },
+    {
+      "symbol": "_asm_D3DXMatrixRotationX_004521ac@8",
+      "address": "0x004521AC",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_asm_D3DXMatrixRotationY_004521b8@8",
+      "address": "0x004521B8",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_asm_D3DXMatrixRotationZ_004521be@8",
+      "address": "0x004521BE",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_asm_D3DXMatrixMultiply_004521b2@12",
+      "address": "0x004521B2",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_g_sprite_fade_color",
+      "address": "0x491e90",
+      "kind": "data"
+    },
+    {
+      "symbol": "_D3DXVec3Transform2@12",
+      "address": "0x4521c4",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_asm_D3DXVec3Project_0045218e@24",
+      "address": "0x45218e",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_EntityDraw@8",
+      "address": "0x443080",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_BuildRotatedQuad@8",
+      "address": "0x4436c0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_EntityDraw2@8",
+      "address": "0x443290",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_BuildRotatedQuadAlt@8",
+      "address": "0x443910",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_EntityDraw4@8",
+      "address": "0x444580",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_EntityDraw3@8",
+      "address": "0x443fb0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_EntityDraw5@8",
+      "address": "0x444760",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?SubmitProjectedQuad@RenderEntity@@QAEHPAUSprtCtrlBatchView@@@Z",
+      "address": "0x443f80",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?DrawStrip@SprtCtrlBatchView@@QAEHPBURenderEntity@@PBXI@Z",
+      "address": "0x444ce0",
+      "kind": "relative_code"
+    }
+  ],
+  "constant_aliases": [
+    {
+      "symbol": "__real@3f800000",
+      "address": "0x00470AFC",
+      "value": 1.0
+    }
+  ],
+  "data_aliases": []
+}

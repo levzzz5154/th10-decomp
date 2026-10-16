@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "resource_cleanup",
-  "source": "src/game/hint/resource_manager_cleanup_00418ee0.cpp",
+  "source": "src/game/hint/resource_manager_cleanup.cpp",
   "driver": "build_support/layout/ltcg/resource_cleanup_context.cpp",
   "headers": [
     "include/th10/game/scheduler_remove_locked.hpp",
@@ -11,7 +11,7 @@
     "include/th10/game/resource_cleanup.hpp"
   ],
   "included_sources": [
-    "src/game/hint/recovery_clear_eight_buckets_00419040.cpp",
+    "src/game/hint/recovery_clear_eight_buckets.cpp",
     "src/core/zunlib/scheduler_tasks.cpp"
   ],
   "image_base": "0x00400000",
@@ -32,7 +32,7 @@
   "anchors": [
     {
       "name": "ClearBuckets",
-      "symbol": "?ClearBuckets@Manager_00419040@@QAEXXZ",
+      "symbol": "?ClearBuckets@Manager3@@QAEXXZ",
       "section": ".text$03buckets",
       "address": "0x00419040",
       "size": 79

@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "name": "resource_slot_init",
+  "source": "src/unreferenced/FUN.cpp_4367e0.cpp",
+  "driver": "build_support/layout/ltcg/resource_slot_init_004367e0_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "Slot initialiser compiled with native LTCG so the object arrives in EAX and the value in ECX.",
+  "functions": [
+    {
+      "name": "ResourceSlotInit_004367e0_Init",
+      "symbol": "?Init@ResourceSlotInit@@QAEXH@Z",
+      "section": ".text$01init004367e0",
+      "address": "0x4367e0",
+      "size": 11,
+      "actual_abi": "object in EAX; value in ECX; plain RET"
+    }
+  ],
+  "context": {
+    "symbol": "?InitCompilerContext@@YGHPAPAUResourceSlotInit@@HH@Z",
+    "section": ".text$03context",
+    "address": "0x4367f0",
+    "size": 36,
+    "description": "Synthetic array caller establishing the EAX/ECX convention; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 219104
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x4367eb",
+      "size": 5
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [],
+  "included_sources": []
+}

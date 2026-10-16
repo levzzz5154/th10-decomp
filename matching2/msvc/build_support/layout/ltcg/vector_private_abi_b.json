@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
   "name": "vector_private_abi_b",
-  "source": "src/unreferenced/unassigned_0041f780.cpp",
+  "source": "src/unreferenced/unassigned_41f780.cpp",
   "additional_sources": [
-    "src/unreferenced/unassigned_00427ce0.cpp"
+    "src/unreferenced/unassigned_427ce0.cpp"
   ],
   "driver": "build_support/layout/ltcg/vector_private_abi_b_context.cpp",
   "headers": [],
@@ -12,21 +12,21 @@
   "functions": [
     {
       "name": "Vector3_0041f780_ScaleBy",
-      "symbol": "?ScaleBy@Vector3_0041f780@@QBEXMPAU1@@Z",
+      "symbol": "?ScaleBy@Vector39@@QBEXMPAU1@@Z",
       "section": ".text$01scale",
       "address": "0x0041F780",
       "size": 31,
       "actual_abi": "source object in ECX; destination argument in EAX; scale on stack; caller cleanup RET 4",
-      "source": "src/unreferenced/unassigned_0041f780.cpp"
+      "source": "src/unreferenced/unassigned_41f780.cpp"
     },
     {
       "name": "IntPair_00427ce0_ToVector",
-      "symbol": "?ToVector@IntPair_00427ce0@@QBE?AUVector3_00427ce0@@XZ",
+      "symbol": "?ToVector@IntPair2@@QBE?AUVector310@@XZ",
       "section": ".text$03convert",
       "address": "0x00427CE0",
       "size": 30,
       "actual_abi": "source object in ECX; aggregate destination in EAX; plain RET",
-      "source": "src/unreferenced/unassigned_00427ce0.cpp"
+      "source": "src/unreferenced/unassigned_427ce0.cpp"
     }
   ],
   "context": {

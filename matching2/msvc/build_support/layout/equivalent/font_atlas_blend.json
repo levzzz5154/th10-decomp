@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "name": "font_atlas_blend_00437750",
+  "region": "asm_FUN_00437750_00437750",
+  "sources": [
+    "src/core/main/font_atlas_blend.cpp"
+  ],
+  "entry_symbol": "_FontAtlasBlendEntry@12",
+  "function": "?FontAtlas_BlendToSurface@@YGDPAUFontAtlas2@@HHPAUFontSurface@@HH@Z",
+  "code_bytes": 645,
+  "absolute_symbols": {},
+  "bindings": {},
+  "base_index_order": 0,
+  "differences": [],
+  "note": "reference/recovery_notes/font_atlas_blend_equivalent_2026_10_10.md"
+}

@@ -4,7 +4,7 @@
 #include "th10/game/card_runtime.hpp"
 
 #pragma code_seg(".text$001releasezc")
-__declspec(noinline) int CardRuntime_004091c0::RunArrayReleaseCallback() {
+__declspec(noinline) int CardRuntime::RunArrayReleaseCallback() {
     return ReleaseFlaggedEntityArrays();
 }
 #pragma code_seg()

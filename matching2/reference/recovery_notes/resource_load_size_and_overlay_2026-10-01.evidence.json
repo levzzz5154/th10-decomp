@@ -38,13 +38,13 @@
           "sha256": "ab715b780aa57f91e2ba56da9df6b2b86a56e99de02707fcbabf95f802e2ac71"
         },
         {
-          "compiled_path": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/archive/resource_get_file_size_retail_004358e0.cpp",
-          "main_path": "src/archive/resource_get_file_size_retail_004358e0.cpp",
+          "compiled_path": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/archive/resource_get_file_size_retail.cpp",
+          "main_path": "src/archive/resource_get_file_size_retail.cpp",
           "sha256": "b42dcb4fd1530b1cbc7ccb9bb4e7f965a7e421c23744d582f9a325417ed29f67"
         },
         {
-          "compiled_path": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/archive/dat_archive_find_size_00434ef0.cpp",
-          "main_path": "src/archive/dat_archive_find_size_00434ef0.cpp",
+          "compiled_path": "/home/levzzz/Games/th10Decomp/matching2/msvc/src/archive/dat_archive_find_size.cpp",
+          "main_path": "src/archive/dat_archive_find_size.cpp",
           "sha256": "6eaf6d7b82c8e41daa89287c2edfad941fe5b2994c3b20806769c080d8a3b557"
         },
         {
@@ -77,7 +77,7 @@
         {
           "region": {
             "name": "semantic_Resource_GetFileSize_004358e0",
-            "source": "src/archive/resource_get_file_size_retail_004358e0.cpp",
+            "source": "src/archive/resource_get_file_size_retail.cpp",
             "symbol": "?ResourceGetFileSize_004358e0@@YIIPBD@Z",
             "address": "0x004358E0",
             "size": 190,
@@ -85,7 +85,7 @@
             "owner": "0x004358E0",
             "previous_record": {
               "name": "asm_Resource_GetFileSizeRetail_004358e0",
-              "source": "src/archive/resource_get_file_size_retail_004358e0.cpp",
+              "source": "src/archive/resource_get_file_size_retail.cpp",
               "symbol": "_asm_Resource_GetFileSizeRetail_004358e0",
               "address": "0x004358E0",
               "size": 190,
@@ -100,7 +100,7 @@
           "region": {
             "name": "semantic_Resource_GetFileSize_UnwindFile_00465380",
             "symbol": "_ResourceSizeUnwind_00465380",
-            "source": "src/archive/resource_get_file_size_retail_004358e0.cpp",
+            "source": "src/archive/resource_get_file_size_retail.cpp",
             "address": "0x465380",
             "size": 8,
             "kind": "semantic",
@@ -122,7 +122,7 @@
           "region": {
             "name": "semantic_Resource_GetFileSize_ExceptionHandler_00465388",
             "symbol": "__ehhandler$?ResourceGetFileSize_004358e0@@YIIPBD@Z",
-            "source": "src/archive/resource_get_file_size_retail_004358e0.cpp",
+            "source": "src/archive/resource_get_file_size_retail.cpp",
             "address": "0x465388",
             "size": 10,
             "kind": "semantic",
@@ -152,7 +152,7 @@
           "selected": false,
           "maintained_owner": {
             "name": "semantic_DatArchive_FindSize_00434ef0",
-            "source": "src/archive/dat_archive_find_size_00434ef0.cpp",
+            "source": "src/archive/dat_archive_find_size.cpp",
             "symbol": "?DatArchive_FindSize@@YGIPAUDatArchive@@PBD@Z",
             "address": "0x00434EF0",
             "size": 51,
@@ -234,8 +234,8 @@
           "sha256": "736b93e75d35abef9bdff3ca62d5be14ec0fb7a8449629edd937ed517c9073bb"
         },
         {
-          "compiled_path": "/home/levzzz/Games/th10Decomp/matching2/build/experiments/subagent_independent_2026_10_01/resource_load_2026_10_01/production/msvc/src/archive/resource_load_00435800.cpp",
-          "main_path": "src/archive/resource_load_00435800.cpp",
+          "compiled_path": "/home/levzzz/Games/th10Decomp/matching2/build/experiments/subagent_independent_2026_10_01/resource_load_2026_10_01/production/msvc/src/archive/resource_load.cpp",
+          "main_path": "src/archive/resource_load.cpp",
           "sha256": "936216ca64742b4b8b5de93e5bf6699872c979b3e9162314dc2f575e171cbc95"
         },
         {
@@ -278,7 +278,7 @@
         {
           "region": {
             "name": "semantic_ResourceLoad_00435800",
-            "source": "src/archive/resource_load_00435800.cpp",
+            "source": "src/archive/resource_load.cpp",
             "symbol": "?ResourceLoadRetail@@YGPAEPBDPAE@Z",
             "address": "0x00435800",
             "size": 214,
@@ -300,7 +300,7 @@
         {
           "region": {
             "name": "semantic_ResourceLoadUnwind_004653a0",
-            "source": "src/archive/resource_load_00435800.cpp",
+            "source": "src/archive/resource_load.cpp",
             "symbol": "_ResourceLoadUnwind_004653a0",
             "address": "0x004653A0",
             "size": 8,
@@ -322,7 +322,7 @@
         {
           "region": {
             "name": "semantic_ResourceLoadExceptionHandler_004653a8",
-            "source": "src/archive/resource_load_00435800.cpp",
+            "source": "src/archive/resource_load.cpp",
             "symbol": "__ehhandler$?ResourceLoadRetail@@YGPAEPBDPAE@Z",
             "address": "0x004653A8",
             "size": 10,
@@ -446,8 +446,8 @@
       "probe_sha256": "43f10f9bda05506e04f03d8f5d58f1af1036bd7b72060061d657ab63931ae6f8",
       "mapped_current_inputs": [
         {
-          "compiled_path": "/home/levzzz/Games/th10Decomp/matching2/build/experiments/subagent_overlay_draw_2026_10_01/msvc/layout/ltcg/ascii_overlay_draw_0043c500.json",
-          "main_path": "layout/ltcg/ascii_overlay_draw_0043c500.json",
+          "compiled_path": "/home/levzzz/Games/th10Decomp/matching2/build/experiments/subagent_overlay_draw_2026_10_01/msvc/layout/ltcg/ascii_overlay_draw.json",
+          "main_path": "layout/ltcg/ascii_overlay_draw.json",
           "sha256": "869dd8b370f1d6c9e436d4d44ba6f316ee149c44f9ea3ac16f31e98a7c4929f1"
         },
         {
@@ -568,7 +568,7 @@
     "source_snapshot_current": false,
     "changed_or_removed_snapshot_paths": [
       "regions.json",
-      "src/archive/resource_get_file_size_retail_004358e0.cpp",
+      "src/archive/resource_get_file_size_retail.cpp",
       "src/archive/resource_manager.cpp",
       "src/render/fun_0043c500_0043c500.cpp",
       "src/unidentified/Unwind_00465380_00465380.cpp",

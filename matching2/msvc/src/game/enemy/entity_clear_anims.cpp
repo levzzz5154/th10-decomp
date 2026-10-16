@@ -1,5 +1,5 @@
 #include "th10/source_views/bullet_99a1d5_0.hpp"
-ClearAnimsOwner* __fastcall Entity_ClearAnims_0040cc70(int unused, ClearAnimsOwner* owner) {
+ClearAnimsOwner* __fastcall Entity_ClearAnims2(int unused, ClearAnimsOwner* owner) {
     ClearActiveFlag(&owner->flag_12C);
     ClearActiveFlag(&owner->flag_17C);
     ClearActiveFlag(&owner->flag_1C8);

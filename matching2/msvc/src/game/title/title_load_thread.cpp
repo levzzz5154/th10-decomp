@@ -14,12 +14,12 @@ struct StartupLoader {
     unsigned char pad_000[0x3EC];
     int frames;                          // +0x3EC
 };
-struct AnimationResource_00447810 {
+struct AnimationResource6 {
     __declspec(noinline) void Release();
 };
-struct AnimationManager_0042c800 {
+struct AnimationManager7 {
     unsigned char pad_000[0x3AD06C];
-    AnimationResource_00447810* slots_3ad06c[0x21];
+    AnimationResource6* slots_3ad06c[0x21];
 };
 
 extern "C" {
@@ -28,7 +28,7 @@ __declspec(dllimport) void __stdcall Sleep(unsigned long milliseconds);
 void __cdecl crt_free_startup(void* memory);
 extern Title* g_title;
 extern StartupLoader* g_loading;
-extern AnimationManager_0042c800* g_sprt_ctrl;
+extern AnimationManager7* g_sprt_ctrl;
 extern unsigned int g_app_flags;       // held input
 extern unsigned int g_main_state;       // requested application state
 }
@@ -45,7 +45,7 @@ extern "C" __declspec(noinline) int __cdecl Title_LoadThread() {
                 break;
             Sleep(16);
         }
-        AnimationResource_00447810** slot = &g_sprt_ctrl->slots_3ad06c[1];
+        AnimationResource6** slot = &g_sprt_ctrl->slots_3ad06c[1];
         if (*slot != 0) {
             (*slot)->Release();
             crt_free_startup(*slot);

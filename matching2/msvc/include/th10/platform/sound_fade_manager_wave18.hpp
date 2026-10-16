@@ -1,9 +1,9 @@
 #pragma once
 #include <stddef.h>
-#include "th10/platform/sound_fade_0044d4e0.hpp"
+#include "th10/platform/sound_fade.hpp"
 struct SoundFadeManagerWave18 {
     unsigned char reserved_0000[0x5208];
-    PlatformInterfaceState_0044D4E0* stream;
+    PlatformInterfaceState2* stream;
     __declspec(noinline) void TickFades();
 };
 struct MainTaskStateWave18 {

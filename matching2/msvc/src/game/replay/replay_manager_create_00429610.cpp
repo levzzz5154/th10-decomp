@@ -2,11 +2,11 @@
 // back. A manager that fails to start is destroyed again and the factory
 // returns null. The compiler-generated cleanup at 0x00465660 frees the block
 // if a node constructor throws.
-#include "th10/game/replay_manager_create_004296f0.hpp"
+#include "th10/game/replay_manager_create.hpp"
 
 #pragma code_seg(".text$04create")
-ReplayManager_004296f0* __stdcall ReplayManager_Create_00429610(int start_mode, const char* replay_path) {
-    ReplayManager_004296f0* manager = new ReplayManager_004296f0;
+ReplayManager* __stdcall ReplayManager_Create2(int start_mode, const char* replay_path) {
+    ReplayManager* manager = new ReplayManager;
     if (manager->Start(start_mode, replay_path)) {
         delete manager;
         return 0;

@@ -2,7 +2,7 @@
 // The keyboard reader is already owned by keyboard_binding_read;
 // keep this call as a fixed-address semantic dependency instead of compiling
 // that source a second time in this cluster.
-#include "../../../src/unreferenced/FUN_0044a950_0044a950.cpp"
+#include "../../../src/unreferenced/FUN.cpp_44a950.cpp"
 extern unsigned short __fastcall FUN_0044a9d0_0044a9d0(unsigned int binding_set,
                                                        unsigned int unused);
 

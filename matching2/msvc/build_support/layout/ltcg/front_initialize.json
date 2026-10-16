@@ -1,0 +1,226 @@
+{
+  "schema_version": 1,
+  "image_base": "0x00400000",
+  "name": "front_initialize2",
+  "source": "src/game/front/front_initialize.cpp",
+  "driver": "build_support/layout/ltcg/front_initialize/driver.cpp",
+  "additional_sources": [
+    "build_support/layout/ltcg/front_initialize/context.cpp",
+    "build_support/layout/ltcg/front_initialize/allocate.cpp",
+    "build_support/layout/ltcg/front_initialize/register.cpp",
+    "build_support/layout/ltcg/front_initialize/initialize.cpp",
+    "build_support/layout/ltcg/front_initialize/configure.cpp",
+    "build_support/layout/ltcg/front_initialize/entity_init.cpp",
+    "build_support/layout/ltcg/front_initialize/loader.cpp",
+    "build_support/layout/ltcg/front_initialize/load_script.cpp"
+  ],
+  "headers": [
+    "include/th10/game/entity.hpp",
+    "include/th10/game/entity_script_start.hpp",
+    "include/th10/platform/sound_queue.hpp",
+    "include/th10/render/animation_handle.hpp",
+    "include/th10/render/animation_object.hpp",
+    "include/th10/types.hpp",
+    "include/th10/math/timer.hpp",
+    "include/th10/game/front_initialize.hpp"
+  ],
+  "description": "Complete front/HUD initializer, all animation banks, power digits, life icons, allocation and registration, with full native helpers. Only the initializer is selected; the entry context is explicitly compiler-only.",
+  "functions": [
+    {
+      "name": "Front_Initialize",
+      "symbol": "?Initialize@FrontInitializeView@@QAEXXZ",
+      "section": ".text$00413bc0_fn",
+      "address": "0x00413BC0",
+      "size": 1965,
+      "actual_abi": "EDI receiver; no stack arguments; plain RET; logical void member; full native loop alignment"
+    }
+  ],
+  "context": {
+    "symbol": "_FrontCompilerContext@0",
+    "section": ".text$0044bd00_context",
+    "address": "0x0044BD00",
+    "size": 19,
+    "description": "Complete compiler-only call and return through the global HUD pointer. No game-code credit; original Game_Update and sprite-viewer callers are unchanged."
+  },
+  "anchors": [
+    {
+      "name": "RegisterPrimaryBack",
+      "symbol": "?RegisterPrimaryBack@FrontAnimationLists@@QAE?AUFrontAnimationId@@PAUEntity@@@Z",
+      "section": ".text$004489d0_fn",
+      "address": "0x004489D0",
+      "size": 118
+    },
+    {
+      "name": "Allocate",
+      "symbol": "?Allocate@FrontAnimationPool@@QAEPAUEntity@@XZ",
+      "section": ".text$00449950_fn",
+      "address": "0x00449950",
+      "size": 161
+    },
+    {
+      "name": "InitializeObject",
+      "symbol": "?InitializeObject@FrontAnimationResource@@QAEXPAUEntity@@H@Z",
+      "section": ".text$00449870_fn",
+      "address": "0x00449870",
+      "size": 217
+    },
+    {
+      "name": "ConfigureObject",
+      "symbol": "?ConfigureObject@Resource2@@QAEHPAUAnimationObject3@@H@Z",
+      "section": ".text$0043e5a0_fn",
+      "address": "0x0043E5A0",
+      "size": 356
+    },
+    {
+      "name": "Entity_Init",
+      "symbol": "?Entity_Init@@YGXPAUEntity@@@Z",
+      "section": ".text$00401de0_fn",
+      "address": "0x00401DE0",
+      "size": 273
+    },
+    {
+      "name": "InitializePreservingLoader_0043e7e0",
+      "symbol": "?InitializePreservingLoader_0043e7e0@@YGPAXPAUAnimationResource4@@PAUAnimationObject4@@H@Z",
+      "section": ".text$0043e7e0_fn",
+      "address": "0x0043E7E0",
+      "size": 194
+    },
+    {
+      "name": "_LoadScript2",
+      "symbol": "_LoadScript2@12",
+      "section": ".text$0043e710_fn",
+      "address": "0x0043E710",
+      "size": 203
+    }
+  ],
+  "gaps": [
+    {
+      "section": ".text$00401000_gap",
+      "address": "0x00401000",
+      "size": 3552
+    },
+    {
+      "section": ".text$00401ef1_gap",
+      "address": "0x00401EF1",
+      "size": 72911
+    },
+    {
+      "section": ".text$0041436d_gap",
+      "address": "0x0041436D",
+      "size": 172595
+    },
+    {
+      "section": ".text$0043e704_gap",
+      "address": "0x0043E704",
+      "size": 12
+    },
+    {
+      "section": ".text$0043e7db_gap",
+      "address": "0x0043E7DB",
+      "size": 5
+    },
+    {
+      "section": ".text$0043e8a2_gap",
+      "address": "0x0043E8A2",
+      "size": 41262
+    },
+    {
+      "section": ".text$00448a46_gap",
+      "address": "0x00448A46",
+      "size": 3626
+    },
+    {
+      "section": ".text$00449949_gap",
+      "address": "0x00449949",
+      "size": 7
+    },
+    {
+      "section": ".text$004499f1_gap",
+      "address": "0x004499F1",
+      "size": 8975
+    }
+  ],
+  "constants": [
+    {
+      "symbol": "__real@3b800000",
+      "address": "0x0044C000",
+      "value": 0.00390625
+    }
+  ],
+  "absolute_symbols": [
+    {
+      "symbol": "_g_sprt_ctrl",
+      "address": "0x00491C10",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_front",
+      "address": "0x0047770C",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_sound_manager",
+      "address": "0x00492590",
+      "kind": "data"
+    },
+    {
+      "symbol": "??2@YAPAXI@Z",
+      "address": "0x452493",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?Entity_Constructor@@YIPAUEntity@@PAU1@@Z",
+      "address": "0x402050",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__fltused",
+      "address": "0",
+      "kind": "metadata"
+    },
+    {
+      "symbol": "_asm_FUN_0043ee30_0043ee30@4",
+      "address": "0x43ee30",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_g_game_speed",
+      "address": "0x476f78",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_globals",
+      "address": "0x474c40",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_ascii_manager",
+      "address": "0x4776e0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_game",
+      "address": "0x477810",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_main_state",
+      "address": "0x491fb8",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_stage_flags",
+      "address": "0x491fc4",
+      "kind": "data"
+    },
+    {
+      "symbol": "?Entity_Init@@YIXPAXPAUEntity@@@Z",
+      "address": "0x401de0",
+      "kind": "relative_code"
+    }
+  ],
+  "anchor_roots": [
+    "?InitializeObject@FrontAnimationResource@@QAEXPAUEntity@@H@Z"
+  ],
+  "included_sources": []
+}

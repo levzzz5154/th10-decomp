@@ -13,7 +13,7 @@ int ProjectedEntity::ProjectQuad(ProjectionManager* manager) {
         world_matrix.m[0] *= scale_x;
         world_matrix.m[5] *= scale_y;
         flags &= 0xFFFFFFF7u;
-        ProjectionMatrix_00444240 rotation;
+        ProjectionMatrix2 rotation;
         if (rotation_x != dbl_0) {
             asm_D3DXMatrixRotationX_004521ac(&rotation, rotation_x);
             asm_D3DXMatrixMultiply_004521b2(&world_matrix, &world_matrix, &rotation);
@@ -28,8 +28,8 @@ int ProjectedEntity::ProjectQuad(ProjectionManager* manager) {
         }
         flags &= 0xFFFFFFFBu;
     }
-    ProjectionVec3_00444240 input[4];
-    ProjectionMatrix_00444240 world = world_matrix;
+    ProjectionVec32 input[4];
+    ProjectionMatrix2 world = world_matrix;
     world.m[12] = base_position.x + layer_position.x + offset_position.x + world.m[12];
     world.m[13] = base_position.y + layer_position.y + offset_position.y + world.m[13];
     world.m[14] = base_position.z + layer_position.z + offset_position.z;
@@ -75,7 +75,7 @@ int ProjectedEntity::ProjectQuad(ProjectionManager* manager) {
 }
 #pragma code_seg()
 
-#include "../../../src/core/sprtfunc/animation_color_multiply_channel_004423c0.cpp"
+#include "../../../src/core/sprtfunc/animation_color_multiply_channel.cpp"
 #include "../../../src/core/sprtfunc/render_state_sync.cpp"
 #include "../../../src/core/sprtfunc/sprite_quad_submit.cpp"
 #include "../../../src/core/sprtfunc/anm_batch_flush.cpp"

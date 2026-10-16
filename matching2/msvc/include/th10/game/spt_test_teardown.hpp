@@ -7,15 +7,15 @@
 void __cdecl operator delete(void* block);
 
 // The animation manager's loaded-file slots, as far as the screen unloads them.
-struct AnimationResource_00447810 {
+struct AnimationResource6 {
     __declspec(noinline) void Release();
 };
 struct SptTestAnimations {
     unsigned char reserved_000000[0x3AD06C];
-    AnimationResource_00447810* slots[0x21];
+    AnimationResource6* slots[0x21];
 
     void Unload(int index) {
-        AnimationResource_00447810** slot = &slots[index];
+        AnimationResource6** slot = &slots[index];
         if (*slot != 0) {
             (*slot)->Release();
             operator delete(*slot);

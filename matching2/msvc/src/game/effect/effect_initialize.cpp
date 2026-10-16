@@ -21,7 +21,7 @@ struct BulletResourceCache;
 
 // Declared here exactly as the co-compiled TextLog translation unit defines it,
 // so the whole-program pass can pick the register agreement retail used.
-struct TextLog_0044b810 {
+struct TextLog4 {
     char text[0x2000];
     char *cursor;
     unsigned char dirty;
@@ -41,7 +41,7 @@ extern "C" __declspec(noinline) int __stdcall Effect_Initialize(
             7, g_sprt_ctrl, (const char *)0x46CD88);
     state->bullet_resource = resource;
     if (!resource) {
-        ((TextLog_0044b810 *)0x474F70)->Append((char *)0x46CF74);
+        ((TextLog4 *)0x474F70)->Append((char *)0x46CF74);
         return -1;
     }
 

@@ -9,10 +9,10 @@
 // result from EAX, so the object pointer is the second __fastcall parameter.
 extern "C" void* g_pause;
 
-#include "th10/game/timer_state_00422360.hpp"
+#include "th10/game/timer_state.hpp"
 
 #pragma code_seg(".text$10construct")
-void* __fastcall Pause_Construct_004220e0(int unused, Pause* state) {
+void* __fastcall Pause_Construct2(int unused, Pause* state) {
     state->timer.flags &= ~1u;
     state->field_B0 = 0;
     state->field_24 = 0;

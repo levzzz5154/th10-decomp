@@ -1,6 +1,6 @@
 #pragma once
 #include <stddef.h>
-#include "th10/game/item_spawn_0041bb00.hpp"
+#include "th10/game/item_spawn.hpp"
 #include "th10/render/animation_public_callers.hpp"
 struct LineSweepVector_0041e260 : Vector3 {
     LineSweepVector_0041e260() {}

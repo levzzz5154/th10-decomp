@@ -1,11 +1,11 @@
 // 0x004015C0: append a named record to the ASCII manager's late string queue.
 #include <string.h>
-struct Vec3_004015c0 {
+struct Vec33 {
     float x, y, z;
 };
-struct QueueRecord_004015c0 {
+struct QueueRecord2 {
     char name[0x40];
-    Vec3_004015c0 position;
+    Vec33 position;
     int value_4c;
     int value_50;
     int value_54;
@@ -14,10 +14,10 @@ struct QueueRecord_004015c0 {
     int value_60;
     int value_64;
 };
-struct GameThread_004015c0 {
+struct GameThread3 {
     unsigned char reserved_0000[0x76C];
-    QueueRecord_004015c0 records[0x100];
-    QueueRecord_004015c0 late_records[0x40];
+    QueueRecord2 records[0x100];
+    QueueRecord2 late_records[0x40];
     int record_count;
     int late_record_count;
     int current_4c;
@@ -29,9 +29,9 @@ struct GameThread_004015c0 {
 };
 
 #pragma code_seg(".text$01accessor")
-__declspec(noinline) void __stdcall AsciiManager_AddLateString(GameThread_004015c0* thread, const char* name, const Vec3_004015c0* position) {
+__declspec(noinline) void __stdcall AsciiManager_AddLateString(GameThread3* thread, const char* name, const Vec33* position) {
     if (thread->late_record_count < 0x40) {
-        QueueRecord_004015c0* record = &thread->late_records[thread->late_record_count++];
+        QueueRecord2* record = &thread->late_records[thread->late_record_count++];
         strcpy(record->name, name);
         record->position = *position;
         record->value_4c = thread->current_4c;

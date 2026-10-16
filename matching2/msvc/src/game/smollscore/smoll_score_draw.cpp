@@ -66,7 +66,7 @@ int SmollScoreDrawView::Draw() {
 #pragma code_seg()
 
 #pragma code_seg(".text$02task")
-int __fastcall SmollScore_DrawTask_0042b9b0(SmollScoreDrawView* pool) {
+int __fastcall SmollScore_DrawTask2(SmollScoreDrawView* pool) {
     return pool->Draw();
 }
 #pragma code_seg()

@@ -2,7 +2,7 @@
 // The array-walking caller is what makes the whole-program pass pick the
 // observed retail convention: size in EAX, the centred receiver in ECX, the
 // minimum in ESI and the maximum in EDX.
-#include "../../../src/unreferenced/unassigned_004285f0.cpp"
+#include "../../../src/unreferenced/unassigned_4285f0.cpp"
 
 #pragma code_seg(".text$03context")
 extern "C" __declspec(noinline) int __stdcall BoundsFromCenterCompilerContext(

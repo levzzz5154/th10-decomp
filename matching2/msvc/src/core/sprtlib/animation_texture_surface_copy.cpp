@@ -28,7 +28,7 @@ struct SprtCtrlBatchView {
     __declspec(noinline) int Flush();
 };
 
-struct Texture_00448270 {
+struct Texture2 {
     virtual long __stdcall QueryInterface(const void*, void**) = 0;
     virtual unsigned long __stdcall AddRef() = 0;
     virtual unsigned long __stdcall Release() = 0;
@@ -51,19 +51,19 @@ struct Texture_00448270 {
 };
 
 struct AnimationTextureEntry {
-    Texture_00448270* texture;           // +0x00
+    Texture2* texture;           // +0x00
     void* allocation;                    // +0x04
     unsigned char pad_08[8];
 };
 
-struct AnimationResource_00448270 {
+struct AnimationResource7 {
     unsigned char pad_000[0x120];
     AnimationTextureEntry* entries;   // +0x120
 };
 
 struct AnimationTextureManager {
     unsigned char pad_000000[0x3AD06C];
-    AnimationResource_00448270* resources[0x21];   // +0x3AD06C
+    AnimationResource7* resources[0x21];   // +0x3AD06C
 
     __declspec(noinline) void CaptureBackBuffer(int resource, int entry,
                                                 int left, int top, int width, int height,

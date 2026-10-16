@@ -1,4 +1,4 @@
-#include "../../../src/game/player/field_contact_004266b0.cpp"
+#include "../../../src/game/player/field_contact.cpp"
 #pragma code_seg(".text$03context")
 extern "C" __declspec(noinline) int __stdcall FieldContactContext(
         const ContactVector2* positions, TriggerFieldContact* target,

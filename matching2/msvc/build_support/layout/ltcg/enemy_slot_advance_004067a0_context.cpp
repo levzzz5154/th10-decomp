@@ -4,16 +4,16 @@
 // 0x004451C0 enters on (EAX sprite, ECX manager). The recovered dispatcher
 // lives in the render-batch cluster; this stand-in only fixes the parameter
 // homes.
-struct Sprite_004067a0 {
+struct Sprite2 {
     unsigned char reserved[0x3AC];
 };
-struct AnimationManager_004067a0 {
-    virtual int Submit(Sprite_004067a0* sprite);
+struct AnimationManager {
+    virtual int Submit(Sprite2* sprite);
 };
 
 #pragma code_seg(".text$05dispatch")
 extern "C" __declspec(noinline) int __cdecl asm_FUN_004451c0_004451c0(
-        Sprite_004067a0* sprite, AnimationManager_004067a0* manager) {
+        Sprite2* sprite, AnimationManager* manager) {
     if (!(sprite->reserved[0] & 1))
         return -1;
     return manager->Submit(sprite);

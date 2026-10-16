@@ -1,7 +1,7 @@
-#include "../../../build_support/layout/ltcg/title_teardown_0041fb50/title_teardown_dependencies.hpp"
+#include "../../../build_support/layout/ltcg/title_teardown/title_teardown_dependencies.hpp"
 
 inline void ReleaseLoadingBank(int index) {
-    AnimationResource_00447810*& bank = reinterpret_cast<AnimationResource_00447810*&>(g_sprt_ctrl->banks[index]);
+    AnimationResource6*& bank = reinterpret_cast<AnimationResource6*&>(g_sprt_ctrl->banks[index]);
     if (bank) {
         bank->Release();
         crt_free_startup(bank);
@@ -30,7 +30,7 @@ TitleState::~TitleState() {
         LeaveCriticalSection(&g_thread_synchronization.critical_sections[0]);
         --g_thread_synchronization.scheduler_lock_depth;
     }
-    ReleasePair_0041f930();
+    ReleasePair2();
     ReleaseLoadingBank(1);
     GameThread* thread = static_cast<GameThread*>(g_ascii_manager);
     g_loading = 0;

@@ -13,7 +13,7 @@
 // 32-bit path retail keeps a zero in EBX and recomputes the trailing pixel
 // pointer for every row.
 
-struct FontAtlas_00436da0 {
+struct FontAtlas {
     unsigned char palette[0x100];
     int format;                         // +0x100
     int width;                          // +0x104
@@ -24,14 +24,14 @@ struct FontAtlas_00436da0 {
     unsigned char* pixels;              // +0x120
 };
 
-struct Pixel4444_00436da0 {
+struct Pixel4444 {
     unsigned short b : 4;
     unsigned short g : 4;
     unsigned short r : 4;
     unsigned short a : 4;
 };
 
-char __stdcall FontAtlas_FillTransparentPixels(FontAtlas_00436da0* atlas, unsigned int rows) {
+char __stdcall FontAtlas_FillTransparentPixels(FontAtlas* atlas, unsigned int rows) {
     unsigned int i;
     unsigned int j;
     unsigned int sum[3];
@@ -40,7 +40,7 @@ char __stdcall FontAtlas_FillTransparentPixels(FontAtlas_00436da0* atlas, unsign
 
     switch (atlas->format) {
     case 26: {
-        Pixel4444_00436da0* p = (Pixel4444_00436da0*)atlas->pixels;
+        Pixel4444* p = (Pixel4444*)atlas->pixels;
         for (i = 0; i < rows; i++) {
             for (j = 0; j < (unsigned int)atlas->width; j++) {
                 if (p->a == 0) {
@@ -59,7 +59,7 @@ char __stdcall FontAtlas_FillTransparentPixels(FontAtlas_00436da0* atlas, unsign
                         n++;
                     }
                     if (i > 0) {
-                        Pixel4444_00436da0* above = p - atlas->pitch / 2;
+                        Pixel4444* above = p - atlas->pitch / 2;
                         if (above->a != 0) {
                             sum[0] += above->r;
                             sum[1] += above->g;
@@ -68,7 +68,7 @@ char __stdcall FontAtlas_FillTransparentPixels(FontAtlas_00436da0* atlas, unsign
                         }
                     }
                     if (i < (unsigned int)atlas->height - 1) {
-                        Pixel4444_00436da0* below = p + atlas->pitch / 2;
+                        Pixel4444* below = p + atlas->pitch / 2;
                         if (below->a != 0) {
                             sum[0] += below->r;
                             sum[1] += below->g;

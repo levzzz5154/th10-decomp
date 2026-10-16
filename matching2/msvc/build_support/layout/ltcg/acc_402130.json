@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "name": "acc_00402130",
+  "source": "src/unreferenced/unassigned_402130.cpp",
+  "driver": "build_support/layout/ltcg/acc_00402130_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "cluster",
+  "functions": [
+    {
+      "name": "ObjectAccessor_00402130_ClearValue",
+      "symbol": "?ClearValue@ObjectAccessor_00402130@@QAEXXZ",
+      "section": ".text$01accessor",
+      "address": "0x00402130",
+      "size": 5,
+      "actual_abi": "object in EAX"
+    }
+  ],
+  "context": {
+    "symbol": "?AccessorCompilerContext@@YGHPAPAUObjectAccessor_00402130@@H@Z",
+    "section": ".text$03context",
+    "address": "0x00402140",
+    "size": 34,
+    "description": "Synthetic caller; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 4400
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x00402135",
+      "size": 11
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [],
+  "additional_sources": [],
+  "included_sources": []
+}

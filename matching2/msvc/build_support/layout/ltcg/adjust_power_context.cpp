@@ -1,4 +1,4 @@
-#include "../../../src/game/bomb/player_adjustpower_00405b60.cpp"
+#include "../../../src/game/bomb/player_adjustpower.cpp"
 
 #pragma code_seg(".text$03context")
 // Compiler context only; never selected as recovered game code.

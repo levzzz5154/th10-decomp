@@ -9,7 +9,7 @@
 // single stack argument is the stage-front runtime (0x0047770C).
 
 #include <math.h>
-#include "th10/game/front_hud_pair_00414900.hpp"
+#include "th10/game/front_hud_pair.hpp"
 
 namespace {
 
@@ -219,8 +219,8 @@ __declspec(noinline) int __stdcall FrontHudUpdate(
         for (int n = 5; n != 0; --n) {
             int digit = value / divisor;
             value = value % divisor;
-            ((Resource_0043e5a0*)front->resource_9ec8)->ConfigureObject(
-                (AnimationObject_0043e5a0*)obj, digit + 0x1E);
+            ((Resource2*)front->resource_9ec8)->ConfigureObject(
+                (AnimationObject3*)obj, digit + 0x1E);
             divisor = divisor / 10;
             AnmVm_Run(obj);
             obj += 1;
@@ -346,7 +346,7 @@ __declspec(noinline) int __stdcall FrontHudUpdate(
 
     SequenceRuntime* runtime = (SequenceRuntime*)front->sequence_9eb8;
     if (runtime != 0) {
-        int finished = ResultDispatcher_00415e90((ResultDispatcherState*)runtime);
+        int finished = ResultDispatcher2((ResultDispatcherState*)runtime);
         if (finished == 0) {
             // The inlined frame-ramp tick on the sub-record.
             runtime->ramp_previous = runtime->ramp_current;
@@ -398,11 +398,11 @@ __declspec(noinline) int __stdcall FrontHudUpdate(
                 front->objects[14].stop_frame = 7;
             }
             if (front->script_pos_9ec0 != front->script_marked_9ec4) {
-                ((Resource_0043e5a0*)front->resource_9ec8)->ConfigureObject(
-                    (AnimationObject_0043e5a0*)&front->objects[13],
+                ((Resource2*)front->resource_9ec8)->ConfigureObject(
+                    (AnimationObject3*)&front->objects[13],
                     front->script_pos_9ec0 / 10 + 8);
-                ((Resource_0043e5a0*)front->resource_9ec8)->ConfigureObject(
-                    (AnimationObject_0043e5a0*)&front->objects[14],
+                ((Resource2*)front->resource_9ec8)->ConfigureObject(
+                    (AnimationObject3*)&front->objects[14],
                     front->script_pos_9ec0 % 10 + 8);
             }
             front->script_marked_9ec4 = front->script_pos_9ec0;

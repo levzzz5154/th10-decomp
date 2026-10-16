@@ -3,7 +3,7 @@
 #include "th10/game/entity.hpp"
 
 struct SchedulerTask;
-struct Resource_0043e5a0;
+struct Resource2;
 
 struct SmollScoreTimer {
     volatile int previous;
@@ -28,7 +28,7 @@ struct SmollScoreView {
     unsigned char pad_000[0x08];
     SchedulerTask* update_task;          // +0x008
     SchedulerTask* draw_task;            // +0x00C
-    Resource_0043e5a0* resource;         // +0x010
+    Resource2* resource;         // +0x010
     unsigned char pad_014[0x04];
     Entity sprite;                       // +0x018
     unsigned char pad_3C4[0x10];

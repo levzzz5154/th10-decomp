@@ -3,4 +3,4 @@
 // macro moves the body into a section that sorts at its retail address here.
 // Never selected from this cluster.
 #define code_seg(name) code_seg(".text$a03h")
-#include "../../../../src/core/zwave/platform_find_available_0044d370.cpp"
+#include "../../../../src/core/zwave/platform_find_available.cpp"

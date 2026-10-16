@@ -23,7 +23,7 @@
     {
       "name": "SoundCleanup",
       "symbol": "?Cleanup@WaveSoundManager@@QAEHXZ",
-      "source": "src/core/sound/sound_cleanup_0043d120.cpp",
+      "source": "src/core/sound/sound_cleanup.cpp",
       "section": ".text$a00cleanup",
       "address": "0x0043D120",
       "size": 301,
@@ -102,6 +102,6 @@
     }
   ],
   "additional_sources": [
-    "src/core/sound/sound_cleanup_0043d120.cpp"
+    "src/core/sound/sound_cleanup.cpp"
   ]
 }

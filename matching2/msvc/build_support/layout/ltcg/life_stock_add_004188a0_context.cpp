@@ -1,7 +1,7 @@
 // Compiler context only; never selected as recovered game code.
-#include "th10/game/life_stock_add_004188a0.hpp"
-#include "recovery_script_executor_anchor_0043dc90.cpp"
-#include "../../contexts/legacy/game/life_stock_add_004188a0.cpp"
+#include "th10/game/life_stock_add.hpp"
+#include "recovery_script_executor_anchor_43dc90.cpp"
+#include "../../contexts/legacy/game/life_stock_add.cpp"
 
 #pragma inline_depth(0)
 #pragma code_seg(".text$0040a000_context")

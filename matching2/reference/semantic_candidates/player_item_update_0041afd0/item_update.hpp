@@ -3,7 +3,7 @@
 #include "effect_update.hpp"
 #include "movement_input.hpp"
 #include "sound_queue.hpp"
-#include "th10/render/animation_object_0043e5a0.hpp"
+#include "th10/render/animation_object.hpp"
 
 struct ItemMovementProperties { int reserved_00[2]; float seek_speed; };
 struct ItemCollectionBox { Vector3 minimum, maximum; };

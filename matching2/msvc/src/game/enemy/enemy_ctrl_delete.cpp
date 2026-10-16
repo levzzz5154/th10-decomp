@@ -5,7 +5,7 @@
 // flags is set, hands the object to the CRT free entry at 0x004524A1 and
 // returns it in EAX.  The object stays in ESI across the call, a receiver no
 // C++ declaration names, so the body is compiled in the native-LTCG cluster
-// build_support/layout/ltcg/dtor_delete_0040d710.json; the callee is compiled into the same link as an
+// build_support/layout/ltcg/dtor_delete_40d710.json; the callee is compiled into the same link as an
 // ABI anchor so the pass hands it the object in EAX.
 
 extern "C" void __cdecl asm_FUN_0040d530_0040d530(void* object);

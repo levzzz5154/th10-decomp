@@ -1,0 +1,341 @@
+{
+  "schema_version": 1,
+  "name": "pause_initializer",
+  "source": "src/game/ascii/entity_init.cpp",
+  "driver": "build_support/layout/ltcg/pause_initializer_00422ab0_context.cpp",
+  "included_sources": [
+    "build_support/layout/ltcg/pause_initializer_helpers/constructor.cpp",
+    "build_support/layout/ltcg/pause_initializer_helpers/stop.cpp",
+    "build_support/layout/ltcg/pause_initializer_helpers/update.cpp",
+    "build_support/layout/ltcg/pause_initializer_helpers/descriptor.cpp",
+    "build_support/layout/ltcg/pause_initializer_helpers/queue.cpp",
+    "build_support/layout/ltcg/pause_initializer_helpers/registrar.cpp",
+    "build_support/layout/ltcg/pause_initializer_helpers/preserve.cpp",
+    "build_support/layout/ltcg/pause_initializer_helpers/secondary.cpp",
+    "build_support/layout/ltcg/pause_initializer_helpers/find.cpp",
+    "build_support/layout/ltcg/pause_initializer_helpers/setflag.cpp",
+    "build_support/layout/ltcg/pause_initializer_helpers/child.cpp",
+    "build_support/layout/ltcg/pause_initializer_helpers/resource.cpp",
+    "build_support/layout/ltcg/pause_initializer_helpers/allocate.cpp",
+    "src/game/pause/pause_menu_initialize.cpp"
+  ],
+  "headers": [
+    "include/th10/game/pause_initializer.hpp",
+    "include/th10/game/entity.hpp",
+    "include/th10/platform/sound_queue.hpp",
+    "include/th10/render/resource_registrar.hpp",
+    "include/th10/types.hpp"
+  ],
+  "image_base": "0x400000",
+  "functions": [
+    {
+      "name": "Initializer",
+      "symbol": "_PauseMenu_Initialize@4",
+      "section": ".text$06pause",
+      "address": "0x422ab0",
+      "size": 382,
+      "actual_abi": "One true state pointer on stack; void result; RET4; no private entry register.",
+      "source": "src/game/pause/pause_menu_initialize.cpp"
+    },
+    {
+      "name": "EntityInit",
+      "symbol": "?Entity_Init@@YGXPAUEntity@@@Z",
+      "section": ".text$01entity",
+      "address": "0x401de0",
+      "size": 273,
+      "actual_abi": "One genuine Entity* C++ formal; private native Entity* EDX/plain RET; existing273-byte owner, zero new recovery credit.",
+      "source": "src/game/ascii/entity_init.cpp"
+    }
+  ],
+  "anchors": [
+    {
+      "name": "EntityConstructor",
+      "symbol": "?Entity_Constructor@@YIPAUEntity@@PAU1@@Z",
+      "section": ".text$02constructor",
+      "address": "0x402050",
+      "size": 86
+    },
+    {
+      "name": "Stop3",
+      "symbol": "?StopAtFrame3@Handle4@@QAEXXZ",
+      "section": ".text$03stop",
+      "address": "0x40c4d0",
+      "size": 65
+    },
+    {
+      "name": "Update",
+      "symbol": "?Update@PauseUpdateView@@QAEHXZ",
+      "section": ".text$04update",
+      "address": "0x4223f0",
+      "size": 206
+    },
+    {
+      "name": "Descriptor",
+      "symbol": "?BindToAnimation@SpriteRegion@@QAEHUAnimationHandle8@@HHHH@Z",
+      "section": ".text$07descriptor",
+      "address": "0x424480",
+      "size": 162
+    },
+    {
+      "name": "Queue",
+      "symbol": "?Queue@SoundQueue@@QAEHHH@Z",
+      "section": ".text$08queue",
+      "address": "0x43dc90",
+      "size": 123
+    },
+    {
+      "name": "Registrar",
+      "symbol": "?RegisterResource@AnimationManager9@@QAEPADPBDHH@Z",
+      "section": ".text$09registrar",
+      "address": "0x43e460",
+      "size": 104
+    },
+    {
+      "name": "Preserve",
+      "symbol": "?LoadScriptPreservingState@@YGXPAUAnimationResource4@@PAUAnimationObject4@@H@Z",
+      "section": ".text$10preserve",
+      "address": "0x43e7e0",
+      "size": 194
+    },
+    {
+      "name": "Secondary",
+      "symbol": "?RegisterSecondaryBack@AnimationSecondaryLists@@QAEPAUHandle4@@PAU2@PAUEntity@@@Z",
+      "section": ".text$11secondary",
+      "address": "0x448ac0",
+      "size": 117
+    },
+    {
+      "name": "Find",
+      "symbol": "?AnimationManager_Find@@YIPAXPAUAnimationLookupContext@@UAnimationScriptId@@@Z",
+      "section": ".text$12find",
+      "address": "0x4491c0",
+      "size": 73
+    },
+    {
+      "name": "SetFlag",
+      "symbol": "?AnimationManager_SetFlag2@@YIPAXPAUAnimationLookupContext@@UAnimationScriptId@@@Z",
+      "section": ".text$13setflag",
+      "address": "0x4492a0",
+      "size": 66
+    },
+    {
+      "name": "Child",
+      "symbol": "?FindChildRef@Handle4@@QAE?AURef4@@H@Z",
+      "section": ".text$14child",
+      "address": "0x4497d0",
+      "size": 70
+    },
+    {
+      "name": "Resource",
+      "symbol": "?InitializeObject@AnimationBank@@QAEXPAUEntity@@H@Z",
+      "section": ".text$15resource",
+      "address": "0x449870",
+      "size": 207
+    },
+    {
+      "name": "Allocate",
+      "symbol": "?Allocate@AnimationPool@@QAEPAUEntity@@XZ",
+      "section": ".text$16allocate",
+      "address": "0x449950",
+      "size": 161
+    }
+  ],
+  "context": {
+    "symbol": "?Pause_OnUpdate@@YIHPAUPauseUpdateView@@@Z",
+    "section": ".text$05callback",
+    "address": "0x422a90",
+    "size": 10,
+    "description": "Complete actual registered scheduler callback; public state pointer in ECX and plain RET."
+  },
+  "gaps": [
+    {
+      "section": ".text$00_gap",
+      "address": "0x401000",
+      "size": 3552
+    },
+    {
+      "section": ".text$01entityz_gap",
+      "address": "0x401ef1",
+      "size": 351
+    },
+    {
+      "section": ".text$02constructorz_gap",
+      "address": "0x4020a6",
+      "size": 42026
+    },
+    {
+      "section": ".text$03stopz_gap",
+      "address": "0x40c511",
+      "size": 89823
+    },
+    {
+      "section": ".text$04updatez_gap",
+      "address": "0x4224be",
+      "size": 1490
+    },
+    {
+      "section": ".text$05callbackz_gap",
+      "address": "0x422a9a",
+      "size": 22
+    },
+    {
+      "section": ".text$06pausez_gap",
+      "address": "0x422c2e",
+      "size": 6226
+    },
+    {
+      "section": ".text$07descriptorz_gap",
+      "address": "0x424522",
+      "size": 104302
+    },
+    {
+      "section": ".text$08queuez_gap",
+      "address": "0x43dd0b",
+      "size": 1877
+    },
+    {
+      "section": ".text$09registrarz_gap",
+      "address": "0x43e4c8",
+      "size": 792
+    },
+    {
+      "section": ".text$10preservez_gap",
+      "address": "0x43e8a2",
+      "size": 41502
+    },
+    {
+      "section": ".text$11secondaryz_gap",
+      "address": "0x448b35",
+      "size": 1675
+    },
+    {
+      "section": ".text$12findz_gap",
+      "address": "0x449209",
+      "size": 151
+    },
+    {
+      "section": ".text$13setflagz_gap",
+      "address": "0x4492e2",
+      "size": 1262
+    },
+    {
+      "section": ".text$14childz_gap",
+      "address": "0x449816",
+      "size": 90
+    },
+    {
+      "section": ".text$15resourcez_gap",
+      "address": "0x44993f",
+      "size": 17
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_g_globals_flags",
+      "address": "0x474ca0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_input_keys_held",
+      "address": "0x474e36",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_app_flags",
+      "address": "0x491ff4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_game",
+      "address": "0x477810",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_ascii_manager",
+      "address": "0x4776e0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_front",
+      "address": "0x47770c",
+      "kind": "data"
+    },
+    {
+      "symbol": "_flt_0_99",
+      "address": "0x470b68",
+      "kind": "data"
+    },
+    {
+      "symbol": "_flt_1_01",
+      "address": "0x470b64",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_game_speed",
+      "address": "0x476f78",
+      "kind": "data"
+    },
+    {
+      "symbol": "_str_pause",
+      "address": "0x46e0c0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_sprt_ctrl",
+      "address": "0x491c10",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_sound_manager",
+      "address": "0x492590",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_sound_priority",
+      "address": "0x4749ce",
+      "kind": "data"
+    },
+    {
+      "symbol": "_PauseMenu_Update@4",
+      "address": "0x422c80",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_ReplayMenu_Update@4",
+      "address": "0x4236f0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_asm_FUN_0043ee30_0043ee30@4",
+      "address": "0x43ee30",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "??2@YAPAXI@Z",
+      "address": "0x452493",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__ftol2",
+      "address": "0x463b2c",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__fltused",
+      "address": "0x0",
+      "kind": "metadata"
+    }
+  ],
+  "roots": [
+    "_PauseMenu_Initialize@4"
+  ],
+  "description": "Complete original pause initializer and actual scheduler caller; complete true support bodies. Only the382-byte initializer is selected. No fake argument, volatile/barrier, additional assembly, masking or oracle construction.",
+  "additional_sources": [],
+  "owned_includes": {
+    "src/game/pause/pause_menu_initialize.cpp": "src/game/ascii/entity_init.cpp"
+  },
+  "compilation_units": {
+    "src/game/ascii/entity_init.cpp": "src/game/pause/pause_menu_initialize.cpp"
+  }
+}

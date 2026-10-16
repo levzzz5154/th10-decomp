@@ -1,4 +1,4 @@
-#include "th10/game/pause_result_open_004231d0/dispatcher_contract.hpp"
+#include "th10/game/pause_result_open/dispatcher_contract.hpp"
 
 // Complete packed-command dispatcher at 0x00415E90. This is unselected compiler
 // context; the 4,480-byte retail owner is not claimed as a recovered region.
@@ -42,7 +42,7 @@ static __forceinline void BlankText(ResultDispatcherState* state, DispatcherHand
 
 #pragma code_seg(".text$00415e90_fn")
 extern "C" __declspec(noinline) int __stdcall
-ResultDispatcher_00415e90(ResultDispatcherState* state) {
+ResultDispatcher2(ResultDispatcherState* state) {
     if (state->countdown > 0)
         --state->countdown;
     if ((state->flags & 1) && (g_input & 0x100)) {

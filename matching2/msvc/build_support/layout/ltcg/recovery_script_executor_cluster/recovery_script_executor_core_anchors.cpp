@@ -1,9 +1,9 @@
-#include "th10/game/recovery_script_executor_0040bd80.hpp"
+#include "th10/game/recovery_script_executor.hpp"
 extern "C" void* g_sprt_ctrl;
 extern float g_frame_timer_normal_lower;
 extern float g_frame_timer_normal_upper;
-// RecoveryTimer_0040bd80::Set moved to its own translation unit.
-// RecoveryTimer_0040bd80::Advance moved to its own translation unit.
+// RecoveryTimer2::Set moved to its own translation unit.
+// RecoveryTimer2::Advance moved to its own translation unit.
 #pragma code_seg(".text$004491c0_fn")
 void* __fastcall RecoveryLookup::Find(RecoveryLookupContext* context, RecoveryScriptId id) {
     if (!id.value)

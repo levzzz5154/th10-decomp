@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "name": "midi_tick_0043af30",
+  "region": "asm_FUN_0043af30_0043af30",
+  "sources": [
+    "src/core/midilib/midi_tick.cpp"
+  ],
+  "entry_symbol": "_MidiTickContext@12",
+  "function": "?Tick@MidiTickState@@QAEXXZ",
+  "code_bytes": 473,
+  "absolute_symbols": {
+    "_IatTickMidiOutShortMsg": {
+      "address": "0x00466298",
+      "kind": "data"
+    },
+    "__ftol2": {
+      "address": "0x00463B2C",
+      "kind": "code"
+    },
+    "__fltused": {
+      "address": "0x00000000",
+      "kind": "data"
+    },
+    "__allmul": {
+      "address": "0x00456640",
+      "kind": "code"
+    },
+    "__aulldiv": {
+      "address": "0x00456B80",
+      "kind": "code"
+    },
+    "_ProcessMidiEvent2@8": {
+      "address": "0x0043B110",
+      "kind": "code"
+    }
+  },
+  "bindings": {
+    "?ApplyChannelVolumes@MidiTickState@@QAEXH@Z": "0x0043B7A0",
+    "?ResetTracks@MidiSequencer@@QAEXXZ": "0x0043ACE0",
+    "__real@3f800000": "0x00470AFC",
+    "__real@43000000": "0x00470BF4"
+  },
+  "base_index_order": 0,
+  "differences": [
+    {
+      "class": "code-shape",
+      "offset": "0x100",
+      "retail": [
+        "mov eax,DWORD PTR [edi+0x138]",
+        "lea ecx,[eax+ebp*1]",
+        "mov eax,DWORD PTR [ecx+0x4]"
+      ],
+      "model": [
+        "mov ecx,DWORD PTR [edi+0x138]",
+        "mov eax,DWORD PTR [ecx+ebp*1+0x4]",
+        "add ecx,ebp"
+      ]
+    }
+  ],
+  "note": "reference/recovery_notes/midi_tick_equivalent_2026_10_05.md"
+}

@@ -63,7 +63,7 @@ extern const GameInputGuid g_guid_dinput,g_guid_syskeyboard;
 extern const GameInputDataFormat g_dinput_keyboard_format,g_dinput_joystick_format;
 extern char str_directinput_unavailable[],str_directinput_no_data_format[],str_directinput_no_cooperative_level[],str_directinput_ok[],str_pad_found[];
 extern long (__stdcall* imp_GetWindowLongA)(void*,int);
-long __stdcall DirectInput8Create_0045071e(void*,unsigned int,const GameInputGuid*,GameDirectInput**,void*);
+long __stdcall DirectInput8Create2(void*,unsigned int,const GameInputGuid*,GameDirectInput**,void*);
 int __stdcall GameInput_EnumDevice(const GameInputDeviceInstance*,void*);
 int __stdcall GameInput_EnumObject(const GameInputDeviceObject*,void*);
 __declspec(noinline) unsigned int __cdecl Input_InitThread();

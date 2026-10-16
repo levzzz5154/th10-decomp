@@ -1,9 +1,9 @@
-#include "../../../include/contexts/game/right_aligned_text_context/recovery_script_executor_0040bd80.hpp"
+#include "../../../include/contexts/game/right_aligned_text_context/recovery_script_executor.hpp"
 extern "C" void* g_sprt_ctrl;
 extern float g_frame_timer_normal_lower;
 extern float g_frame_timer_normal_upper;
 #pragma code_seg(".text$00405410_fn")
-void RecoveryTimer_0040bd80::Set(int value) {
+void RecoveryTimer2::Set(int value) {
     if (!(flags & 1u)) {
         current = 0;
         previous = static_cast<int>(0xFFF0BDC1u);
@@ -16,7 +16,7 @@ void RecoveryTimer_0040bd80::Set(int value) {
     elapsed = static_cast<float>(value);
 }
 #pragma code_seg(".text$0044bf40_fn")
-void RecoveryTimer_0040bd80::Advance(float delta) {
+void RecoveryTimer2::Advance(float delta) {
     previous = current;
     if (*speed > g_frame_timer_normal_lower && *speed < g_frame_timer_normal_upper)
         elapsed += delta;

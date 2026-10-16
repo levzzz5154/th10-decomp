@@ -13,7 +13,7 @@
 // build_support/layout/ltcg/bullet_manager_load_scripts.json).
 #include "th10/core/func_ctrl.hpp"
 
-struct RawPair_004055c0 {
+struct RawPair {
     unsigned char pad_000[8];
     void *callback_008;                 // +0x08, primary scheduler callback
     void *callback_00C;                 // +0x0C, secondary scheduler callback
@@ -24,7 +24,7 @@ extern "C" void *g_func_ctrl;
 
 #pragma code_seg(".text$00_vinstall")
 extern "C" __declspec(noinline) int __stdcall
-Bomb_RegisterTasks(RawPair_004055c0 *pair) {
+Bomb_RegisterTasks(RawPair *pair) {
     SchedulerTask *primary = SchedulerTask_Create((void *)0x405840);
     primary->reserved_flags |= 1u;
     primary->context = pair;

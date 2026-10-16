@@ -1,4 +1,4 @@
-// 0x00428F60..0x0042949F: ReplayManager_004296f0::Start — the replay
+// 0x00428F60..0x0042949F: ReplayManager::Start — the replay
 // runtime's bootstrap, recovered as an equivalent C++ body (see the layout
 // named in build_support/regions.json's equivalent_recoveries).
 //
@@ -24,11 +24,11 @@
 // registration are stand-in bodies in that context whose calls bake to the
 // real retail addresses.
 #include <string.h>
-#include "th10/game/replay_manager_create_004296f0.hpp"
-#include "th10/game/replay_stage_begin_0042a6a0.hpp"
-#include "th10/game/replay_pool_append_0042aa50.hpp"
+#include "th10/game/replay_manager_create.hpp"
+#include "th10/game/replay_stage_begin.hpp"
+#include "th10/game/replay_pool_append.hpp"
 #include "th10/game/linked_pool_append.hpp"
-#include "th10/game/large_initialization_state_00421f00.hpp"
+#include "th10/game/large_initialization_state.hpp"
 #include "th10/game/score.hpp"
 
 void* __cdecl operator new(unsigned int size);
@@ -38,7 +38,7 @@ extern "C" void _ReadWriteBarrier(void);
 
 // The replay file loader; compiled in the context link with the real
 // loader's register convention (receiver in ESI, path pushed on the stack).
-int ReplayManager_LoadFile_00428f60(ReplayManager_004296f0* manager, const char* replay_path);
+int ReplayManager_LoadFile2(ReplayManager* manager, const char* replay_path);
 
 // The running game's profile/front state; its +0x24 block mirrors the
 // configuration block's +0x14..+0x48.
@@ -59,14 +59,14 @@ struct EmbeddedTimerState {
 };
 
 // The 0x24-byte replay file header written by the recording bootstrap.
-struct ReplayFileHeader_00428f60 {
+struct ReplayFileHeader {
     unsigned int magic;                    // +0x00: "t10r"
     unsigned short version;                // +0x04: 5
     unsigned char reserved_06[0x0A];
     unsigned int capacity;                 // +0x10: 0x100 recorded inputs
     unsigned char reserved_14[0x10];
 
-    ReplayFileHeader_00428f60() {
+    ReplayFileHeader() {
         memset(this, 0, sizeof(*this));
         magic = 0x72303174;
         version = 5;
@@ -74,7 +74,7 @@ struct ReplayFileHeader_00428f60 {
     }
 };
 typedef char ReplayFileHeaderSize[
-    sizeof(ReplayFileHeader_00428f60) == 0x24 ? 1 : -1];
+    sizeof(ReplayFileHeader) == 0x24 ? 1 : -1];
 
 // The 0x64-byte configuration block the bootstrap allocates: the profile
 // mirror at +0x14, the run setup the stage restore reads back, and the
@@ -101,7 +101,7 @@ typedef char ReplayConfigBlockSize[
 // written, so the heap-owned clear is a load/mask/store rather than a single
 // memory read-modify-write; the barrier keeps the mask next to its store
 // instead of letting the scheduler hoist it onto the load.
-struct SchedulerCallbackTask_00428f60 {
+struct SchedulerCallbackTask2 {
     int priority;                          // +0x00
     unsigned int flags;                    // +0x04, bit 0 = heap owned
     void* on_tick;                         // +0x08
@@ -112,13 +112,13 @@ struct SchedulerCallbackTask_00428f60 {
     void* link_previous;                   // +0x1C
     void* context;                         // +0x20
 
-    SchedulerCallbackTask_00428f60();
+    SchedulerCallbackTask2();
 };
 
 typedef char SchedulerCallbackTaskSize[
-    sizeof(SchedulerCallbackTask_00428f60) == 0x24 ? 1 : -1];
+    sizeof(SchedulerCallbackTask2) == 0x24 ? 1 : -1];
 
-inline SchedulerCallbackTask_00428f60::SchedulerCallbackTask_00428f60() {
+inline SchedulerCallbackTask2::SchedulerCallbackTask2() {
     unsigned int previous = flags;
     on_tick = 0;
     on_register = 0;
@@ -133,9 +133,9 @@ inline SchedulerCallbackTask_00428f60::SchedulerCallbackTask_00428f60() {
 
 // Both callback nodes of each mode are built by the same sequence: construct,
 // publish the callback and the context, and force bit 0 on with bit 1 off.
-static __forceinline SchedulerCallbackTask_00428f60* BuildCallbackNode_00428f60(
-        void* callback, ReplayManager_004296f0* manager) {
-    SchedulerCallbackTask_00428f60* node = new SchedulerCallbackTask_00428f60;
+static __forceinline SchedulerCallbackTask2* BuildCallbackNode2(
+        void* callback, ReplayManager* manager) {
+    SchedulerCallbackTask2* node = new SchedulerCallbackTask2;
     unsigned int flags = node->flags;
     node->on_tick = callback;
     node->on_register = 0;
@@ -146,7 +146,7 @@ static __forceinline SchedulerCallbackTask_00428f60* BuildCallbackNode_00428f60(
 }
 
 #pragma code_seg(".text$00428f60_fn")
-__declspec(noinline) int ReplayManager_004296f0::Start(int start_mode, const char* replay_path) {
+__declspec(noinline) int ReplayManager::Start(int start_mode, const char* replay_path) {
     mode = start_mode;
     if (start_mode == 0) {
         // Recording: publish the manager, drop the stage's old pools, append
@@ -154,17 +154,17 @@ __declspec(noinline) int ReplayManager_004296f0::Start(int start_mode, const cha
         int stage = g_globals.stage;
         g_replay = this;
         ClearStage(stage);
-        current_pool = (ReplayPoolLink_0042aa50*)((PoolOwner*)this)->AppendPage(g_globals.stage);
+        current_pool = (ReplayPoolLink2*)((PoolOwner*)this)->AppendPage(g_globals.stage);
 
-        ReplayFileHeader_00428f60* file_header = new ReplayFileHeader_00428f60;
-        header = (ReplayHeader_004296f0*)file_header;
+        ReplayFileHeader* file_header = new ReplayFileHeader;
+        header = (ReplayHeader*)file_header;
 
         ReplayConfigBlock* config = new ReplayConfigBlock;
-        summary = (ReplaySummary_004296f0*)config;
+        summary = (ReplaySummary*)config;
 
-        ReplayStage_0042a6a0* stage_record = new ReplayStage_0042a6a0;
+        ReplayStage* stage_record = new ReplayStage;
         stage_data[g_globals.stage] = (ReplayStageData*)stage_record;
-        stage_record = (ReplayStage_0042a6a0*)stage_data[g_globals.stage];
+        stage_record = (ReplayStage*)stage_data[g_globals.stage];
 
         ((ReplayConfigBlock*)summary)->character = g_globals.character;
         ((ReplayConfigBlock*)summary)->shot_type = g_globals.shot_type;
@@ -202,17 +202,17 @@ __declspec(noinline) int ReplayManager_004296f0::Start(int start_mode, const cha
         ((ReplayConfigBlock*)summary)->continues = g_globals.continues;
 
         SchedulerTask* update =
-            (SchedulerTask*)BuildCallbackNode_00428f60((void*)0x0042A3D0, this);
+            (SchedulerTask*)BuildCallbackNode2((void*)0x0042A3D0, this);
         FuncCtrl_RegisterPrimary((FuncCtrl*)g_func_ctrl, update, 0x0B);
         update_task = update;
 
         SchedulerTask* trailing =
-            (SchedulerTask*)BuildCallbackNode_00428f60((void*)0x0042A3E0, this);
+            (SchedulerTask*)BuildCallbackNode2((void*)0x0042A3E0, this);
         FuncCtrl_RegisterPrimary((FuncCtrl*)g_func_ctrl, trailing, 0x1B);
         trailing_task = trailing;
 
         SchedulerTask* draw =
-            (SchedulerTask*)BuildCallbackNode_00428f60((void*)0x0042A430, this);
+            (SchedulerTask*)BuildCallbackNode2((void*)0x0042A430, this);
         FuncCtrl_RegisterSecondary((FuncCtrl*)g_func_ctrl, draw, 5);
         draw_task = draw;
 
@@ -223,7 +223,7 @@ __declspec(noinline) int ReplayManager_004296f0::Start(int start_mode, const cha
         // Play back: load the file, mirror the configuration back into the
         // profile, rewind the stage's input list and restore the run state.
         g_replay = this;
-        if (ReplayManager_LoadFile_00428f60(this, replay_path))
+        if (ReplayManager_LoadFile2(this, replay_path))
             return -1;
 
         memcpy((char*)g_game + 0x24, (char*)summary + 0x14, 0x34);
@@ -236,8 +236,8 @@ __declspec(noinline) int ReplayManager_004296f0::Start(int start_mode, const cha
         const int stage = g_globals.stage;
         unsigned int (*node_view)[9] = (unsigned int (*)[9])nodes;
         node_view[stage][1] = node_view[stage][0];
-        ReplayStage_0042a6a0* stage_record =
-            (ReplayStage_0042a6a0*)node_view[stage][4];
+        ReplayStage* stage_record =
+            (ReplayStage*)node_view[stage][4];
         node_view[stage][5] = 0;
         ReplayNode* current = (ReplayNode*)(node_view + stage);
         current->cursor_end = current->inputs_end;
@@ -261,17 +261,17 @@ __declspec(noinline) int ReplayManager_004296f0::Start(int start_mode, const cha
             ((ReplayNode*)nodes)[g_globals.stage].stage->field_1b8;
 
         SchedulerTask* update =
-            (SchedulerTask*)BuildCallbackNode_00428f60((void*)0x0042A3D0, this);
+            (SchedulerTask*)BuildCallbackNode2((void*)0x0042A3D0, this);
         FuncCtrl_RegisterPrimary((FuncCtrl*)g_func_ctrl, update, 0x0B);
         update_task = update;
 
         SchedulerTask* trailing =
-            (SchedulerTask*)BuildCallbackNode_00428f60((void*)0x0042A3E0, this);
+            (SchedulerTask*)BuildCallbackNode2((void*)0x0042A3E0, this);
         FuncCtrl_RegisterPrimary((FuncCtrl*)g_func_ctrl, trailing, 0x1B);
         trailing_task = trailing;
 
         SchedulerTask* draw =
-            (SchedulerTask*)BuildCallbackNode_00428f60((void*)0x0042A430, this);
+            (SchedulerTask*)BuildCallbackNode2((void*)0x0042A430, this);
         FuncCtrl_RegisterSecondary((FuncCtrl*)g_func_ctrl, draw, 5);
         draw_task = draw;
 
@@ -280,7 +280,7 @@ __declspec(noinline) int ReplayManager_004296f0::Start(int start_mode, const cha
     }
     if (start_mode == 2) {
         // Validate: the file only has to load.
-        if (ReplayManager_LoadFile_00428f60(this, replay_path))
+        if (ReplayManager_LoadFile2(this, replay_path))
             return -1;
     }
     return 0;

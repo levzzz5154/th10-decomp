@@ -1,0 +1,95 @@
+{
+  "schema_version": 1,
+  "name": "stats_display_00413350",
+  "source": "src/game/fps/fps_create.cpp",
+  "driver": "build_support/layout/ltcg/stats_display_00413350_context.cpp",
+  "headers": [
+    "include/th10/game/fps.hpp",
+    "include/th10/core/func_ctrl.hpp",
+    "include/th10/platform/thread_sync.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "FPS display factory compiled with the recovered secondary scheduler registration body to establish its private task and priority registers.",
+  "functions": [
+    {
+      "name": "FPS_Create",
+      "symbol": "_FPS_Create",
+      "section": ".text$01factory",
+      "address": "0x00413350",
+      "size": 151,
+      "actual_abi": "no arguments; EAX result; RET"
+    }
+  ],
+  "anchors": [
+    {
+      "name": "RegisterSecondary",
+      "symbol": "_FuncCtrl_RegisterSecondary@12",
+      "section": ".text$09secondary",
+      "address": "0x00449B70",
+      "size": 131
+    }
+  ],
+  "context": {
+    "symbol": "_FPSCompilerContext",
+    "section": ".text$02context",
+    "address": "0x004133F0",
+    "size": 5,
+    "description": "Compiler-only forwarding caller."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x401000",
+      "size": 74576
+    },
+    {
+      "section": ".text$03layout",
+      "address": "0x4133f5",
+      "size": 223099
+    }
+  ],
+  "constants": [],
+  "included_sources": [
+    "build_support/layout/ltcg/scheduler_anchor.cpp"
+  ],
+  "additional_sources": [
+    "build_support/layout/ltcg/stats_display_00413350_anchor.cpp"
+  ],
+  "absolute_symbols": [
+    {
+      "symbol": "_g_func_ctrl",
+      "address": "0x491be4",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__EnterCriticalSection@4",
+      "address": "0x4660b0",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__LeaveCriticalSection@4",
+      "address": "0x4660b4",
+      "kind": "data"
+    },
+    {
+      "symbol": "?g_thread_synchronization@@3UThreadSynchronization@@A",
+      "address": "0x492274",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_fps",
+      "address": "0x477708",
+      "kind": "data"
+    },
+    {
+      "symbol": "@FPS_OnDraw@4",
+      "address": "0x413690",
+      "kind": "data"
+    },
+    {
+      "symbol": "??2@YAPAXI@Z",
+      "address": "0x452493",
+      "kind": "relative_code"
+    }
+  ]
+}

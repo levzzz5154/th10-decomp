@@ -1,6 +1,6 @@
 // Link context for the 0x0040E770 equivalent recovery: models of the helpers it
 // calls and of a caller, so the checking LTCG link derives the same private
-// register conventions as retail. Only Enemy::Execute_0040e770 is compared.
+// register conventions as retail. Only Enemy::Execute2 is compared.
 #include "th10/runtime/game/enemy/enemy_execute.hpp"
 
 float flt_0 = 0.0f;
@@ -8,10 +8,10 @@ float flt_neg1 = -1.0f;
 float g_game_speed = 1.0f;
 int g_difficulty;
 int g_rank;
-Float3 g_zero_vector_00491c14;
-Float2 g_zero_vector2_00491c20;
+Float3 g_zero_vector3f;
+Float2 g_zero_vector22;
 Float3 g_camera_offset;
-RngState g_effect_rng_004918b0;
+RngState g_effect_rng2;
 EnemyCtrl* g_enemy_ctrl;
 BulletManager* g_bullet_manager;
 LaserManager* g_laser_manager;
@@ -133,12 +133,12 @@ float EclVm::FloatOperand(int selector) {
     }
     return operands->f[selector];
 }
-float Enemy::FloatValue_00412aa0(int selector, float value) {
+float Enemy::FloatValue2(int selector, float value) {
     EnemyFull* slot = ecl;
     return EclVm::FloatValue(selector, slot->active, value);
 }
 int Enemy::IntArg(int selector) { return Int(selector); }
-int* Enemy::IntDest_00412a10(int index) {
+int* Enemy::IntDest2(int index) {
     EclVm* vm = ecl->active;
     EclInstr* table = vm->instr;
     if (table->mask & (1 << index)) {
@@ -153,7 +153,7 @@ int* Enemy::IntDest_00412a10(int index) {
 }
 
 // ---- timers, angles, random numbers ----
-void FrameTimer::Set_00405410(int value) {
+void FrameTimer::Set2(int value) {
     if (!(flags & 1)) {
         current = 0;
         previous = 0xFFF0BDC1;
@@ -177,8 +177,8 @@ static __forceinline void RestartTimer(FrameTimer* timer) {
     timer->elapsed = 0;
     timer->previous = -1;
 }
-void Float3Interp::Restart_004050d0() { RestartTimer(&timer); }
-void Float2Interp::Restart_00412db0() { RestartTimer(&timer); }
+void Float3Interp::Restart2() { RestartTimer(&timer); }
+void Float2Interp::Restart3() { RestartTimer(&timer); }
 static __forceinline unsigned short NextWord(RngState* s) {
     unsigned short value = s->seed ^ 0x9630;
     value -= 0x6553;
@@ -193,7 +193,7 @@ float RngState::NextFloatSigned() {
 }
 
 // ---- animations ----
-void AnmHandle::Release_00449630() {
+void AnmHandle::Release2() {
     ext_set_flag(0, g_sprt_ctrl, id);
     id = 0;
 }
@@ -206,14 +206,14 @@ struct AnmNode {
     unsigned char pad_01c[0x340];
     unsigned int flags_35c;
 };
-void AnmHandle::Show_004495e0() {
+void AnmHandle::Show2() {
     AnmNode* node = (AnmNode*)ext_find_node((void*)id, g_sprt_ctrl, id);
     if (node == 0) return;
     node->flags_35c &= ~2u;
     if (node->field_018 != 0) return;
     for (AnmNode* child = node->field_014; child != 0; child = child->field_004) child->field_000->flags_35c &= ~2u;
 }
-void AnmHandle::Hide_00449590() {
+void AnmHandle::Hide2() {
     AnmNode* node = (AnmNode*)ext_find_node((void*)id, g_sprt_ctrl, id);
     if (node == 0) return;
     node->flags_35c |= 2;
@@ -232,12 +232,12 @@ void AnmHandle::Hide_00449590() {
     }
 CREATE(Anm_CreateBack, 0)
 CREATE(Anm_CreateFront, 1)
-AnmVm* __stdcall Anm_Resolve_00449450(AnmHandle* handle) {
+AnmVm* __stdcall Anm_Resolve2(AnmHandle* handle) {
     AnmVm* vm = (AnmVm*)ext_find(g_sprt_ctrl, handle->id);
     if (vm == 0) handle->id = 0;
     return vm;
 }
-Float3* __stdcall OffsetPoint_00418810(const Float3* point) {
+Float3* __stdcall OffsetPoint2(const Float3* point) {
     if (!(g_offset_point_state & 1)) g_offset_point_state |= 1;
     g_offset_point.x = point->x + 224.0f;
     g_offset_point.y = point->y + 16.0f;
@@ -247,7 +247,7 @@ Float3* __stdcall OffsetPoint_00418810(const Float3* point) {
 struct RigCamera { __declspec(noinline) void Apply(); };
 void RigCamera::Apply() {
     unsigned char* self = (unsigned char*)this;
-    if (g_sprt_ctrl) ((AnmHandle*)g_sprt_ctrl)->Release_00449630();
+    if (g_sprt_ctrl) ((AnmHandle*)g_sprt_ctrl)->Release2();
     ext_call(self + 0x4C, (int)(self + 0x18));
     ext_call(self + 0x8C, *(int*)(self + 0x48));
     ext_call(self + 0x30, (int)(self + 0x0C));
@@ -257,7 +257,7 @@ void RigCamera::Apply() {
     }
 }
 struct RigDevice { void** vtable; };
-void RenderStageState::SelectStage_00401d20(int index) {
+void RenderStageState::SelectStage2(int index) {
     unsigned char* self = (unsigned char*)this;
     *(unsigned char**)(self + 0x384) = self + 0x154 + index * 0x118;
     (*(RigCamera**)(self + 0x384))->Apply();
@@ -307,7 +307,7 @@ EnemyFull* __stdcall EnemyCtrl_Spawn(const EnemySpawn* p, EnemyCtrl* manager, co
         }
     }
     // Stand-in for retail reusing EBX after the parameters are consumed.
-    if (*(int*)(enemy + 0x2444) == 99) g_sound_manager.QueuePan_0043dd10(*(int*)(enemy + 0x2448), 0.0f);
+    if (*(int*)(enemy + 0x2444) == 99) g_sound_manager.QueuePan2(*(int*)(enemy + 0x2448), 0.0f);
     *(int*)(enemy + 0x244C) = 0;
     void** node = (void**)(enemy + 0x116C);
     void*** first = (void***)((char*)manager + 0x58);
@@ -354,7 +354,7 @@ void __stdcall Enemy_BindSlot(EnemyFull* enemy, int index, int id, int value, co
 }
 __declspec(noinline) void __stdcall Rig_Scatter(const Float3* position, ItemDrops* drops) {
     ext_call(&drops, 0);
-    float angle = (float)ext_laser(&g_effect_rng_004918b0, 0) * 3.1415927f;
+    float angle = (float)ext_laser(&g_effect_rng2, 0) * 3.1415927f;
     for (int kind = 0; kind < 11; ++kind) {
         for (int i = 0; i < drops->items[kind + 1]; ++i) {
             Float3 target;
@@ -387,10 +387,10 @@ int Shooter::Shoot(BulletManager* manager) {
     }
 done:
     if (flags & 0x400) ((RigCamera*)g_player)->Apply();
-    if (flags & 0x200) g_sound_manager.QueuePan_0043dd10(sound, position.x);
+    if (flags & 0x200) g_sound_manager.QueuePan2(sound, position.x);
     return 0;
 }
-int BulletManager::Sweep_00408210(int convert) {
+int BulletManager::Sweep2(int convert) {
     unsigned char* self = (unsigned char*)this;
     Float3 half(*(float*)(self + 0x50) * 0.5f, *(float*)(self + 0x54) * 0.5f, *(float*)(self + 0x58) * 0.5f);
     Float3 low(*(float*)(self + 0x44) - half.x, *(float*)(self + 0x48) - half.y, *(float*)(self + 0x4C) - half.z);
@@ -437,7 +437,7 @@ struct RigRecord {
     short state;                // +0x446
     unsigned char reserved_448[0x7F0 - 0x448];
 };
-int BulletManager::Check_00408100(const Float3* point, float radius, int spawn_item, int filter) {
+int BulletManager::Check2(const Float3* point, float radius, int spawn_item, int filter) {
     RigRecord* record = (RigRecord*)((unsigned char*)this + 0x60);
     int remaining = 2000;
     do {
@@ -449,7 +449,7 @@ int BulletManager::Check_00408100(const Float3* point, float radius, int spawn_i
             float combined = diameter * 0.5f + radius;
             float distance = displacement.x * displacement.x + displacement.y * displacement.y;
             if (!(distance > combined * combined)) {
-                ((AnmHandle*)record)->Release_00449630();
+                ((AnmHandle*)record)->Release2();
                 if (!ext_outside(&record->position, 0, 2.0f, 2.0f) && spawn_item)
                     ext_fc_spawn(&record->position, 8, -1, -1.5707964f, 0.6f);
             }
@@ -482,7 +482,7 @@ struct LaserList {
     int count;                  // +0x44C
     int next_id;                // +0x450
 };
-int LaserManager::Cleanup_0041c850(int value) {
+int LaserManager::Cleanup2(int value) {
     LaserNode* node = ((LaserList*)this)->head;
     while (node != 0) {
         LaserNode* next = node->next;
@@ -491,7 +491,7 @@ int LaserManager::Cleanup_0041c850(int value) {
     }
     return 1;
 }
-Laser* LaserManager::FindById_0040cf90(int id) {
+Laser* LaserManager::FindById2(int id) {
     LaserNode* node = ((LaserList*)this)->head;
     while (node != 0) {
         if (node->id == id) return (Laser*)node;
@@ -499,7 +499,7 @@ Laser* LaserManager::FindById_0040cf90(int id) {
     }
     return 0;
 }
-int LaserManager::Evaluate_0041c800(const Float3* point, float radius, int flag) {
+int LaserManager::Evaluate2(const Float3* point, float radius, int flag) {
     LaserNode* record = ((LaserList*)this)->head;
     ((LaserList*)this)->vector = *point;
     int total = 0;
@@ -510,7 +510,7 @@ int LaserManager::Evaluate_0041c800(const Float3* point, float radius, int flag)
     }
     return total;
 }
-int LaserManager::MarkEligible_0041c7d0() {
+int LaserManager::MarkEligible2() {
     LaserNode* record = ((LaserList*)this)->head;
     while (record != 0) {
         LaserNode* next = record->next;
@@ -522,13 +522,13 @@ int LaserManager::MarkEligible_0041c7d0() {
 void Laser::SetVector(const Float3& value) { f430 = value; }
 // Stand-in for the laser constructors, which take the fresh memory in EBX.
 __declspec(noinline) void* __stdcall Rig_LaserConstruct(void* memory) {
-    ((AnmHandle*)((char*)memory + 8))->Release_00449630();
+    ((AnmHandle*)((char*)memory + 8))->Release2();
     ((RigCamera*)((char*)memory + 0x10))->Apply();
     *(int*)memory = 1;
     return memory;
 }
 __declspec(noinline) void* __stdcall Rig_LaserConstruct2(void* memory) {
-    ((AnmHandle*)((char*)memory + 0xC))->Release_00449630();
+    ((AnmHandle*)((char*)memory + 0xC))->Release2();
     ((RigCamera*)((char*)memory + 0x20))->Apply();
     *(int*)memory = 2;
     return memory;
@@ -542,7 +542,7 @@ static __forceinline void Rig_LinkLaser(int* list, int* laser) {
     ++list[0x438 / 4];
     list[0x434 / 4] = (int)laser;
 }
-int LaserManager::Spawn_0041c510(const LaserParams* params, int kind) {
+int LaserManager::Spawn2(const LaserParams* params, int kind) {
     int* list = (int*)this;
     if (list[0x438 / 4] >= 256) return 0;
     if (++list[0x43C / 4] == 0) list[0x43C / 4] = 1;
@@ -564,7 +564,7 @@ int LaserManager::Spawn_0041c510(const LaserParams* params, int kind) {
     }
     return list[0x43C / 4];
 }
-BeamLaserParams* BeamLaserParams::Construct_0040cf40() {
+BeamLaserParams* BeamLaserParams::Construct2() {
     int* fields = (int*)this;
     for (int index = 0; index < 0x7E; ++index) fields[index] = 0;
     fields[0x0B] = 0x41000000;
@@ -572,7 +572,7 @@ BeamLaserParams* BeamLaserParams::Construct_0040cf40() {
 }
 
 // ---- interface, sound, spell cards ----
-void Gui::CreateScoreDisplay_00415db0(int stage) {
+void Gui::CreateScoreDisplay2(int stage) {
     unsigned char* self = (unsigned char*)this;
     void* memory = ext_new(0x1C);
     int* display = (int*)(memory ? ext_display(memory, *(char**)(self + 0x9EC0) + stage * 8) : 0);
@@ -583,7 +583,7 @@ void Gui::CreateScoreDisplay_00415db0(int stage) {
     g_stage_progress = next;
     if (previous != next) g_stage_progress_echo = 0;
 }
-void SoundQueue::QueuePan_0043dd10(int sound, float pan) {
+void SoundQueue::QueuePan2(int sound, float pan) {
     int* self = (int*)this;
     int priority = g_sound_priority[sound * 4];
     int request = int(pan * (1000.0f / 192.0f));
@@ -630,7 +630,7 @@ void* __stdcall Screen_Create(int priority, int mode, int a, int b, int c, int d
     }
     return owner;
 }
-void __stdcall Score_SetMode_00412ed0(ScoreState* state, int mode) {
+void __stdcall Score_SetMode2(ScoreState* state, int mode) {
     int* self = (int*)state;
     if (self[0x11] != mode) self[0x13] = 0;
     self[0x11] = mode;
@@ -642,7 +642,7 @@ __declspec(noinline) void __stdcall Rig_StopAtFrame1(AnmHandle* handle) {
         else handle->id = 0;
     }
 }
-void Card::End_00409c00() {
+void Card::End2() {
     unsigned char* self = (unsigned char*)this;
     if (flags & 1) {
         *(unsigned int*)((unsigned char*)g_background + 0x2A18) |= 1;
@@ -677,7 +677,7 @@ void __stdcall Card_Start(Card* card, int id, const char* name, int time, int un
     ext_call(&card, (int)&id);
     unsigned char* self = (unsigned char*)card;
     FrameTimer* timer = (FrameTimer*)(self + 0x3734);
-    timer->Set_00405410(0);
+    timer->Set2(0);
     *(int*)(self + 0x3750) = id;
     *(int*)(self + 0x3754) = time;
     ext_call(self, (int)name);
@@ -691,17 +691,17 @@ extern "C" void __fastcall __security_check_cookie(unsigned int cookie) {
 
 extern "C" int __stdcall RigEntry(Enemy** enemies, int count) {
     int total = 0;
-    for (int i = 0; i < count; ++i) total += enemies[i]->Execute_0040e770();
+    for (int i = 0; i < count; ++i) total += enemies[i]->Execute2();
     // These globals' addresses escape in the whole program.
     ext_call(&g_rank, 0);
     ext_call(&g_difficulty, 0);
     Card** cards = (Card**)enemies;
     int n = count;
-    while (n--) (*cards++)->End_00409c00();
+    while (n--) (*cards++)->End2();
     Drops_Flush((Float3*)enemies[0], (ItemDrops*)enemies[1]);
     EnemyCtrl_SweepDeaths((EnemyCtrl*)enemies[3]);
     Screen_Create(43, 5, 60, 0, 0, 0);
-    g_bullet_manager->Sweep_00408210(count);
+    g_bullet_manager->Sweep2(count);
     ((RigCamera*)enemies[2])->Apply();
     return total;
 }

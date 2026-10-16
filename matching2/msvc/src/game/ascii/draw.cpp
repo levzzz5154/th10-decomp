@@ -73,12 +73,12 @@ int __stdcall AsciiManager_DrawStrings(AsciiManager* thread) {
                     reinterpret_cast<unsigned char*>(&thread->glyph.color)[3] = (record->color >> 24) / 2;
                     thread->glyph.base_position.x += 2.0f;
                     thread->glyph.base_position.y += 2.0f;
-                    EntityDraw_00443080(&thread->glyph, g_sprt_ctrl);
+                    EntityDraw(&thread->glyph, g_sprt_ctrl);
                     thread->glyph.base_position.x -= 2.0f;
                     thread->glyph.base_position.y -= 2.0f;
                 }
                 thread->glyph.color = record->color;
-                EntityDraw_00443080(&thread->glyph, g_sprt_ctrl);
+                EntityDraw(&thread->glyph, g_sprt_ctrl);
                 thread->glyph.base_position.x += advance;
             }
         }
@@ -133,9 +133,9 @@ int AsciiManager::DrawLateRecords() {
                     &font->sprites[static_cast<unsigned char>(*text) - ' ']);
                 glyph.color = record->color;
                 if (glyph.scale_x != 1.0f)
-                    EntityDraw_00443290(&glyph, g_sprt_ctrl);
+                    EntityDraw2(&glyph, g_sprt_ctrl);
                 else
-                    EntityDraw_00443080(&glyph, g_sprt_ctrl);
+                    EntityDraw(&glyph, g_sprt_ctrl);
                 glyph.base_position.x += advance;
             }
         }

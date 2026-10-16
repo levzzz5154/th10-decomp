@@ -8,20 +8,20 @@ extern "C" int __cdecl asm_FUN_00463b2c_00463b2c();
 
 extern "C" double __cdecl atan2(double, double);
 
-struct EffectVector3_0041d2c0 {
+struct EffectVector32 {
     float x;
     float y;
     float z;
 
-    EffectVector3_0041d2c0(float x_value, float y_value, float z_value)
+    EffectVector32(float x_value, float y_value, float z_value)
         : x(x_value), y(y_value), z(z_value) {
     }
 
-    EffectVector3_0041d2c0 operator*(float scale) const {
-        return EffectVector3_0041d2c0(x * scale, y * scale, z * scale);
+    EffectVector32 operator*(float scale) const {
+        return EffectVector32(x * scale, y * scale, z * scale);
     }
 
-    EffectVector3_0041d2c0& operator+=(const EffectVector3_0041d2c0& value) {
+    EffectVector32& operator+=(const EffectVector32& value) {
         x += value.x;
         y += value.y;
         z += value.z;
@@ -29,9 +29,9 @@ struct EffectVector3_0041d2c0 {
     }
 };
 
-struct EffectAccel_0041d2c0 {
+struct EffectAccel3 {
     unsigned char reserved_000[0x30];
-    EffectVector3_0041d2c0 velocity;
+    EffectVector32 velocity;
     float angle;
     unsigned char reserved_040[8];
     float auxiliary;
@@ -43,7 +43,7 @@ struct EffectAccel_0041d2c0 {
     unsigned int timer_flags;
     float auxiliary_acceleration;
     unsigned char reserved_0a4[4];
-    EffectVector3_0041d2c0 acceleration;
+    EffectVector32 acceleration;
     int duration;
     unsigned char reserved_0b8[0x404 - 0xb8];
     unsigned int flags;
@@ -52,7 +52,7 @@ struct EffectAccel_0041d2c0 {
 };
 
 #pragma code_seg(".text$04effect_accel")
-void EffectAccel_0041d2c0::Update() {
+void EffectAccel3::Update() {
     if (current >= duration) {
         flags &= ~0x10u;
     } else {

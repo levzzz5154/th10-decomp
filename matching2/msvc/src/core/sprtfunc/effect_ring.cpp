@@ -33,9 +33,9 @@ __forceinline float SharedRng_NextFloatSigned() {
     return roll * (1.0f / 2147483648.0f) - 1.0f;
 }
 
-struct Vector2_004458b0 {
+struct Vector24 {
     float x, y;
-    Vector2_004458b0* SetPolar(float angle, float radius);
+    Vector24* SetPolar(float angle, float radius);
 };
 
 struct RingVector3 {
@@ -112,7 +112,7 @@ int RingEntity::BuildRing() {
     do {
         if (angle >= 3.14159265358979323846f) angle -= 6.28318530717958647692f;
         particle->scale = 1.0f;
-        Vector2_004458b0 texture;
+        Vector24 texture;
         texture.SetPolar(angle, 0.5f);
         particle->position.z = 0.0f;
         particle->u = texture.x + 0.5f;
@@ -126,7 +126,7 @@ int RingEntity::BuildRing() {
         else if (drift > 1.0f / 15.0f)
             drift = 1.0f / 15.0f;
         float radius = ring->radii[index];
-        ((Vector2_004458b0*)particle)->SetPolar(angle, radius);
+        ((Vector24*)particle)->SetPolar(angle, radius);
         particle->position += base + position;
         angle += 0.20268340408802032f;
         ++particle;

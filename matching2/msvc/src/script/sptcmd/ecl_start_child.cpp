@@ -6,15 +6,15 @@
 // Built with SpawnChild (0x004500D0) and a synthetic caller so the link
 // derives the retail private convention (child in EAX, caller and operand
 // index on the stack, RET 8). Remaining register-choice and code-shape
-// differences are recorded in build_support/layout/equivalent/ecl_start_child_0044df70.json;
+// differences are recorded in build_support/layout/equivalent/ecl_start_child.json;
 // see reference/recovery_notes/ecl_start_child_0044df70_parked_2026_10_11.md.
 #include <stddef.h>
 #include "th10/script/ecl_children.hpp"
 #include "th10/script/ecl_float_values.hpp"
-#include "script_resolver_00450470.hpp"
+#include "script_resolver.hpp"
 
 struct EclFrame;
-__declspec(noinline) int __fastcall ECL_ResolveIntValue_0044ff00(int unused, EclFrame* source, int selector, int value);
+__declspec(noinline) int __fastcall ECL_ResolveIntValue2(int unused, EclFrame* source, int selector, int value);
 extern "C" void* __cdecl operator_new_child(unsigned int size);
 
 struct EclCompleteChild {
@@ -86,7 +86,7 @@ extern "C" __declspec(noinline) int __stdcall EclStartChild(
                 *destination = (int)value;
         } else {
             int operand = *(int*)&(*instruction)->values[(unsigned int)(descriptor + 4) >> 2];
-            int value = ECL_ResolveIntValue_0044ff00(operand, (EclFrame*)source, selector, operand);
+            int value = ECL_ResolveIntValue2(operand, (EclFrame*)source, selector, operand);
             if (ArgumentType(*instruction, descriptor, 1) == 'f')
                 *(float*)destination = (float)value;
             else
@@ -114,7 +114,7 @@ extern "C" __declspec(noinline) int __stdcall EclStartChild(
     owner->active = (EclChildState*)child;
     owner = (EclChildOwner*)caller->stack.context;
     EclCompleteChild* active = (EclCompleteChild*)owner->active;
-    active->instruction = (EclFloatOperandTable*)((ScriptTable_00450470*)owner->script)->Resolve(
+    active->instruction = (EclFloatOperandTable*)((ScriptTable2*)owner->script)->Resolve(
             (const char*)*instruction + 0x14);
     ((EclCompleteChild*)owner->active)->time = 0;
     if (!((EclCompleteChild*)owner->active)->instruction) {

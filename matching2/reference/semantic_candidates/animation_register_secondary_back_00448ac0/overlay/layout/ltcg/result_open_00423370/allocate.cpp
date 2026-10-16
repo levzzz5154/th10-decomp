@@ -1,5 +1,5 @@
 // Complete 4096-entry pool allocator at 0x00449950, manager ESI and Entity* result EAX.
-#include "th10/game/pause_result_open_004231d0/open_animation.hpp"
+#include "th10/game/pause_result_open/open_animation.hpp"
 
 #pragma code_seg(".text$00449950_fn")
 Entity* AnimationPool::Allocate() {

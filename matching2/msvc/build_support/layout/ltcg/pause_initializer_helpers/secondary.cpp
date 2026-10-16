@@ -1,4 +1,4 @@
-#include "th10/game/pause_initializer_00422ab0.hpp"
+#include "th10/game/pause_initializer.hpp"
 #pragma code_seg(".text$11secondary")
 Handle4* AnimationSecondaryLists::RegisterSecondaryBack(Handle4* out, Entity* object) {
     AnimationSecondaryNode* node = reinterpret_cast<AnimationSecondaryNode*>(&object->manager_node_animation);

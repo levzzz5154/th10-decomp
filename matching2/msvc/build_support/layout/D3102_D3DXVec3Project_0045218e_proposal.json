@@ -1,10 +1,10 @@
 {
   "regions": [
     {
-      "source": "build_support/imports/D3DXVec3Project_0045218e.cpp",
+      "source": "build_support/imports/D3DXVec3Project.cpp",
       "address": "0x0045218E",
       "name": "semantic_D3DXVec3Project_0045218e",
-      "symbol": "_D3DXVec3Project_0045218e@24",
+      "symbol": "_D3DXVec3Project2@24",
       "kind": "semantic",
       "owner": "0x0045218E"
     }

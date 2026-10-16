@@ -3,7 +3,7 @@
 // inlined copy of this routine; this out-of-line copy has no retail caller.
 //
 // Native LTCG passes the manager in EDI.
-#include "th10/render/d3d_resource_manager_00449eb0.hpp"
+#include "th10/render/d3d_resource_manager.hpp"
 
 #pragma code_seg(".text$08manager")
 void FuncCtrlReleaseView::ReleaseResources() {

@@ -1,4 +1,4 @@
-// 0x0042AC20..0x0042AC56: PoolBlock_0042ac20::Reset
+// 0x0042AC20..0x0042AC56: PoolBlock2::Reset
 // Reinitialise a 36-byte pool block in place. Every word is cleared through a
 // walking pointer, the two leading head/tail pairs are re-linked to their
 // just-cleared heads so the block reads as two empty lists, and the trailing
@@ -10,7 +10,7 @@ struct PoolBlockTail {
     unsigned field_08;                               // +0x08 (block +0x20)
 };
 
-struct PoolBlock_0042ac20 {
+struct PoolBlock2 {
     unsigned link_00;                                // +0x00
     unsigned link_04;                                // +0x04
     unsigned link_08;                                // +0x08
@@ -19,10 +19,10 @@ struct PoolBlock_0042ac20 {
     unsigned field_14;                               // +0x14
     PoolBlockTail tail;                              // +0x18
 
-    PoolBlock_0042ac20* __fastcall Reset();
+    PoolBlock2* __fastcall Reset();
 };
 
-PoolBlock_0042ac20* __fastcall PoolBlock_0042ac20::Reset() {
+PoolBlock2* __fastcall PoolBlock2::Reset() {
     unsigned* word = (unsigned*)this;
     int remaining = 9;
     do {

@@ -1,10 +1,10 @@
 #include "types/animation_public.hpp"
 // 0x00449870: reset animation vectors and start a script while preserving object state.
 #include "th10/game/entity_script_start.hpp"
-struct AnimationObject_0043e7e0;
-struct AnimationResource_0043e7e0;
+struct AnimationObject4;
+struct AnimationResource4;
 __declspec(noinline) void __stdcall LoadScriptPreservingState(
-    AnimationResource_0043e7e0* resource, AnimationObject_0043e7e0* object, int index);
+    AnimationResource4* resource, AnimationObject4* object, int index);
 struct AnimationFlagValue {
     unsigned int value;
     AnimationFlagValue(unsigned int bits) : value(bits) {}
@@ -20,7 +20,7 @@ void AnimationBank::InitializeObject(Entity* object, int index) {
     object->RenderOffset() = Vector3Value(0.0f, 0.0f, 0.0f);
     EntityTail(object)->layer_3a1 = 0x10;
     EntityTail(object)->layer_3a0 = 0x10;
-    LoadScriptPreservingState((AnimationResource_0043e7e0*)this,
-        (AnimationObject_0043e7e0*)object, index);
+    LoadScriptPreservingState((AnimationResource4*)this,
+        (AnimationObject4*)object, index);
 }
 #pragma code_seg()

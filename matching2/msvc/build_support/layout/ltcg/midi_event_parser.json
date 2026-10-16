@@ -1,0 +1,148 @@
+{
+  "schema_version": 1,
+  "name": "midi_event_parser_0043b110",
+  "source": "src/core/midilib/midi_event_parser.cpp",
+  "driver": "build_support/layout/ltcg/midi_event_parser/driver.cpp",
+  "additional_sources": [
+    "build_support/layout/ltcg/midi_event_parser/tracks.cpp",
+    "build_support/layout/ltcg/midi_event_parser/complete_header.cpp"
+  ],
+  "included_sources": [
+    "src/core/midilib/midi_tracks.cpp",
+    "src/core/midilib/fun.cpp_43aeb0.cpp"
+  ],
+  "headers": [
+    "include/th10/platform/midi_sequencer.hpp",
+    "build_support/include/asm_symbols.hpp",
+    "include/th10/platform/window_midi_native.hpp",
+    "include/th10/platform/windows_types.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "The MIDI event parser with the exact variable-length reader and header-completion routine it calls, entered through a stand-in for the sequencer tick. Only the parser and its three switch tables are selected.",
+  "functions": [
+    {
+      "name": "ProcessMidiEvent",
+      "symbol": "_ProcessMidiEvent2@8",
+      "section": ".text$60parser",
+      "address": "0x0043B110",
+      "size": 1670,
+      "actual_abi": "sequencer and track on the stack; RET 8; three switch tables follow the body"
+    }
+  ],
+  "context": {
+    "symbol": "_MidiEventParserCaller@8",
+    "section": ".text$50context",
+    "address": "0x0043AF30",
+    "size": 55,
+    "description": "Stand-in for the sequencer tick that calls the parser; compiler context only, not recovered code."
+  },
+  "anchors": [
+    {
+      "name": "ReadMidiVariableLength",
+      "symbol": "?ReadMidiVariableLength@@YGHAAPBE@Z",
+      "section": ".text$10read",
+      "address": "0x0043A730",
+      "size": 26
+    },
+    {
+      "name": "MidiSequencer_ResetTracks",
+      "symbol": "?ResetTracks@MidiSequencer@@QAEXXZ",
+      "section": ".text$30reset",
+      "address": "0x0043ACE0",
+      "size": 132
+    },
+    {
+      "name": "CompleteMidiHeader",
+      "symbol": "_CompleteMidiHeader2@8",
+      "section": ".text$40complete",
+      "address": "0x0043AEB0",
+      "size": 79
+    }
+  ],
+  "roots": [],
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 235312
+    },
+    {
+      "section": ".text$20layout",
+      "address": "0x0043A74A",
+      "size": 1430
+    },
+    {
+      "section": ".text$35layout",
+      "address": "0x0043AD64",
+      "size": 332
+    },
+    {
+      "section": ".text$45layout",
+      "address": "0x0043AEFF",
+      "size": 49
+    },
+    {
+      "section": ".text$55layout",
+      "address": "0x0043AF67",
+      "size": 425
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_asm_malloc_00452706",
+      "address": "0x452706",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_asm_free_00452422",
+      "address": "0x452422",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_crt_free",
+      "address": "0x452422",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_imp_midiOutPrepareHeader",
+      "address": "0x4662a0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_imp_midiOutLongMsg",
+      "address": "0x46629c",
+      "kind": "data"
+    },
+    {
+      "symbol": "_imp_midiOutShortMsg",
+      "address": "0x466298",
+      "kind": "data"
+    },
+    {
+      "symbol": "_IatmidiOutUnprepareHeader",
+      "address": "0x466284",
+      "kind": "data"
+    },
+    {
+      "symbol": "__allmul",
+      "address": "0x456640",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__aulldiv",
+      "address": "0x456b80",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__ftol2",
+      "address": "0x463b2c",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__fltused",
+      "address": "0x0",
+      "kind": "metadata"
+    }
+  ]
+}

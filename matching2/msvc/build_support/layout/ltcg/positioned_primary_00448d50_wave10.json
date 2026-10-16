@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "positioned_primary_00448d50_wave10",
-  "source": "src/core/sprtlib/animation_manager_create_positioned_primary_00448d50.cpp",
+  "source": "src/core/sprtlib/animation_manager_create_positioned_primary.cpp",
   "driver": "build_support/layout/ltcg/positioned_primary_00448d50_wave10_context.cpp",
   "headers": [],
   "image_base": "0x00400000",
@@ -14,11 +14,11 @@
       "address": "0x00448D00",
       "size": 73,
       "actual_abi": "out in EDI; resource, index and render bucket on stack; out returned in EAX; ret 0xC",
-      "source": "src/core/sprtlib/animation_manager_create_primary_back_00448d00.cpp"
+      "source": "src/core/sprtlib/animation_manager_create_primary_back.cpp"
     },
     {
       "name": "AnimationManager_CreatePositionedPrimary",
-      "symbol": "?AnimationManager_CreatePositionedPrimary@@YGPAPAXPAXPAPAXHPBUAnimationPosition_00448d50@@@Z",
+      "symbol": "?AnimationManager_CreatePositionedPrimary@@YGPAPAXPAXPAPAXHPBUAnimationPosition@@@Z",
       "section": ".text$05accessor",
       "address": "0x00448D50",
       "size": 95,
@@ -26,11 +26,11 @@
     },
     {
       "name": "AnimationManager_CreateScreenPositionedPrimary",
-      "symbol": "?AnimationManager_CreateScreenPositionedPrimary@@YGPAPAXPAXPAPAXHPBUAnimationPosition_00448db0@@@Z",
+      "symbol": "?AnimationManager_CreateScreenPositionedPrimary@@YGPAPAXPAXPAPAXHPBUAnimationPosition2@@@Z",
       "section": ".text$05ad_screen",
       "address": "0x00448DB0",
       "size": 118,
-      "source": "src/core/sprtlib/player_animation_create_00448db0.cpp",
+      "source": "src/core/sprtlib/player_animation_create.cpp",
       "actual_abi": "position in EDI, three stack args; RET 12"
     }
   ],
@@ -58,7 +58,7 @@
     }
   ],
   "context": {
-    "symbol": "?PositionedPrimaryContext@@YGHPAPAXPAPAPAXPAHPAPBUAnimationPosition_00448d50@@H@Z",
+    "symbol": "?PositionedPrimaryContext@@YGHPAPAXPAPAPAXPAHPAPBUAnimationPosition@@H@Z",
     "section": ".text$09context",
     "address": "0x00449A00",
     "size": 136,
@@ -115,7 +115,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_operator_new_00452493",
+      "symbol": "_operator_new2",
       "address": "0x00452493",
       "kind": "relative_code"
     },
@@ -146,8 +146,8 @@
     }
   ],
   "additional_sources": [
-    "src/core/sprtlib/animation_manager_create_primary_back_00448d00.cpp",
-    "src/core/sprtlib/player_animation_create_00448db0.cpp"
+    "src/core/sprtlib/animation_manager_create_primary_back.cpp",
+    "src/core/sprtlib/player_animation_create.cpp"
   ],
   "constant_aliases": [
     {

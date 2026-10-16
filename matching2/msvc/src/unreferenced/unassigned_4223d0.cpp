@@ -1,0 +1,26 @@
+// 0x004223d0..0x004223E2 (18 bytes): release a possibly-absent object.
+//
+// Retail answers a null object immediately; otherwise it runs the cleanup at
+// 0x00422220 (the callee takes the object as a stack argument and cleans it,
+// RET 4), hands the object to the CRT free entry at 0x004524A1 and returns.
+// The object lives in ESI, so the body is compiled in the native-LTCG cluster
+// build_support/layout/ltcg/dtor_release_4223d0.json whose array-walking synthetic caller establishes
+// that convention.
+
+extern "C" void Cleanup3(void* object);
+extern "C" void __cdecl crt_free_startup(void* block);
+
+struct Releasable {
+    unsigned char unknown_0000[0x04];
+};
+
+__declspec(noinline) void Releasable_004223d0_Release(Releasable* object);
+
+#pragma code_seg(".text$01rel")
+void Releasable_004223d0_Release(Releasable* object) {
+    if (object != 0) {
+        Cleanup3(object);
+        crt_free_startup(object);
+    }
+}
+#pragma code_seg()

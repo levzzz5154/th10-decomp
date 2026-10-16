@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
   "name": "player_animation_frame",
-  "source": "src/game/bullet/player_animation_advance_frame_004074b0.cpp",
+  "source": "src/game/bullet/player_animation_advance_frame.cpp",
   "driver": "build_support/layout/ltcg/player_animation_frame_context.cpp",
   "headers": [
-    "include/th10/game/player_motion_helpers_004074b0_004076a0.hpp",
+    "include/th10/game/player_motion_helpers.hpp",
     "include/th10/math/timer.hpp",
     "include/th10/math/angle.hpp"
   ],

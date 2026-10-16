@@ -8,23 +8,23 @@ struct ChainNode {
     void* block;
     ChainNode* next;
 };
-struct Bucket_00419040 {
+struct Bucket2 {
     ChainNode* head;
     unsigned int reserved_004[2];
 };
-struct Manager_00419040 {
+struct Manager3 {
     SchedulerTaskPair tasks;
     unsigned char reserved_010[0x0C];
-    Bucket_00419040 primary[8];
-    Bucket_00419040 secondary[8];
+    Bucket2 primary[8];
+    Bucket2 secondary[8];
     int keys[10];
     __declspec(noinline) void ClearBuckets();
 };
 
 typedef char CleanupTaskPairExtent[sizeof(SchedulerTaskPair)==0x10 ? 1 : -1];
-typedef char CleanupBucketExtent[sizeof(Bucket_00419040)==12 ? 1 : -1];
-typedef char CleanupPrimaryOffset[offsetof(Manager_00419040,primary)==0x1C ? 1 : -1];
-typedef char CleanupSecondaryOffset[offsetof(Manager_00419040,secondary)==0x7C ? 1 : -1];
-typedef char CleanupKeysOffset[offsetof(Manager_00419040,keys)==0xDC ? 1 : -1];
+typedef char CleanupBucketExtent[sizeof(Bucket2)==12 ? 1 : -1];
+typedef char CleanupPrimaryOffset[offsetof(Manager3,primary)==0x1C ? 1 : -1];
+typedef char CleanupSecondaryOffset[offsetof(Manager3,secondary)==0x7C ? 1 : -1];
+typedef char CleanupKeysOffset[offsetof(Manager3,keys)==0xDC ? 1 : -1];
 
 #endif

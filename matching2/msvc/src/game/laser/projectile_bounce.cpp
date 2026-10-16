@@ -1,8 +1,8 @@
-#include "th10/game/laser_spawn_0041c510.hpp"
+#include "th10/game/laser_spawn.hpp"
 #include "th10/platform/sound_queue.hpp"
 
 extern "C" float flt_neg192, flt_192, flt_0, flt_448, flt_pi;
-extern "C" float __stdcall Angle_Normalize_0044bc70(float value);
+extern "C" float __stdcall Angle_Normalize2(float value);
 
 struct BounceVector2 {
     float x, y;
@@ -18,7 +18,7 @@ struct BounceSpawnParameters : LaserSpawnParameters {
     float width;
     unsigned char reserved_448[0x600 - 0x448];
 };
-struct LineLaserBounce_0041cfd0 {
+struct LineLaserBounce2 {
     virtual void Slot00() = 0;
     virtual void Slot01() = 0;
     virtual void Slot02() = 0;
@@ -48,20 +48,20 @@ struct LineLaserBounce_0041cfd0 {
     int sound_id;
     unsigned char reserved_410[0x424 - 0x410];
     BounceSpawnParameters parameters;  // +0x424
-    LaserSprite_0041c510 beam;          // +0x600
-    LaserSprite_0041c510 flare;         // +0x9AC
+    LaserSprite2 beam;          // +0x600
+    LaserSprite2 flare;         // +0x9AC
 };
 typedef char BounceParametersSize[sizeof(BounceSpawnParameters) == 0x1DC ? 1 : -1];
-typedef char BounceLineLaserSize[sizeof(LineLaserBounce_0041cfd0) == 0xD58 ? 1 : -1];
-typedef char BouncePositionOffset[offsetof(LineLaserBounce_0041cfd0, position) == 0x24 ? 1 : -1];
-typedef char BounceFlagsOffset[offsetof(LineLaserBounce_0041cfd0, flags) == 0x404 ? 1 : -1];
-typedef char BounceParametersOffset[offsetof(LineLaserBounce_0041cfd0, parameters) == 0x424 ? 1 : -1];
+typedef char BounceLineLaserSize[sizeof(LineLaserBounce2) == 0xD58 ? 1 : -1];
+typedef char BouncePositionOffset[offsetof(LineLaserBounce2, position) == 0x24 ? 1 : -1];
+typedef char BounceFlagsOffset[offsetof(LineLaserBounce2, flags) == 0x404 ? 1 : -1];
+typedef char BounceParametersOffset[offsetof(LineLaserBounce2, parameters) == 0x424 ? 1 : -1];
 // 0x0041CFD0: virtual slot 15 of the line-laser table at 0x0046DA60.
 // Test the next position before reflecting. The inclusive outer test can
 // queue the sound when merely touching a lower boundary; reflection uses
 // strict lower bounds. Either reflection clears the pending bounce flags.
 #pragma code_seg(".text$a09bounce")
-void LineLaserBounce_0041cfd0::Bounce() {
+void LineLaserBounce2::Bounce() {
     Vector3 next;
     reinterpret_cast<BounceVector2*>(&next)->SetPolar(angle, speed);
     next.x += position.x;
@@ -74,7 +74,7 @@ void LineLaserBounce_0041cfd0::Bounce() {
             g_sound_manager.Queue(sound_id, 0);
         if (next.x < flt_neg192 || next.x >= flt_192) {
             parameters.position = next;
-            parameters.angle = Angle_Normalize_0044bc70(-angle - flt_pi);
+            parameters.angle = Angle_Normalize2(-angle - flt_pi);
             parameters.width = width;
             reflected = 1;
             parameters.SpawnIn(g_laser_manager, 0);

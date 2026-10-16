@@ -6,19 +6,19 @@
 #include "th10/render/animation_stop_run.hpp"
 
 // Interface of 0x004497D0 (src/core/sprtlib/animation_manager_find_child_by_script_index.cpp).
-struct AnimationRef_004497d0 {
+struct AnimationRef2 {
     int value;
-    AnimationRef_004497d0(int value) : value(value) {}
+    AnimationRef2(int value) : value(value) {}
 };
-struct AnimationHandle_004497d0 {
+struct AnimationHandle15 {
     AnimationScriptId id;
-    __declspec(noinline) AnimationRef_004497d0 FindChildRef(int script_id);
+    __declspec(noinline) AnimationRef2 FindChildRef(int script_id);
 };
 
 #pragma code_seg(".text$47dispatchz3")
-__declspec(noinline) AnimationRef_004497d0 __fastcall Title_FindAnimationSlotChild(
+__declspec(noinline) AnimationRef2 __fastcall Title_FindAnimationSlotChild(
         int slot, Title* state, int script_id) {
-    return reinterpret_cast<AnimationHandle_004497d0*>(&AnimationSlots(state)[slot])
+    return reinterpret_cast<AnimationHandle15*>(&AnimationSlots(state)[slot])
         ->FindChildRef(script_id);
 }
 #pragma code_seg()

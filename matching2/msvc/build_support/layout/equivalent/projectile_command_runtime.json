@@ -1,0 +1,288 @@
+{
+  "schema_version": 1,
+  "name": "projectile_command_runtime2",
+  "region": "asm_FUN_00406d90_00406d90",
+  "sources": [
+    "src/game/bullet/projectile_command_runtime.cpp"
+  ],
+  "entry_symbol": "?Tick@ProjectileCommandRuntime@@QAEXXZ",
+  "function": "?Tick@ProjectileCommandRuntime@@QAEXXZ",
+  "code_bytes": 1456,
+  "absolute_symbols": {
+    "__ftol2": {
+      "address": "0x00463B2C",
+      "kind": "code"
+    },
+    "__fltused": {
+      "address": "0x00000000",
+      "kind": "data"
+    },
+    "_g_player": {
+      "address": "0x00477834",
+      "kind": "data"
+    },
+    "_g_bullet_manager": {
+      "address": "0x004776F0",
+      "kind": "data"
+    },
+    "_g_sound_manager": {
+      "address": "0x00492590",
+      "kind": "data"
+    },
+    "_g_bullet_script_first": {
+      "address": "0x00474170",
+      "kind": "data"
+    },
+    "_flt_neg990": {
+      "address": "0x00470B50",
+      "kind": "data"
+    },
+    "_flt_990": {
+      "address": "0x00470CCC",
+      "kind": "data"
+    },
+    "_flt_neg999": {
+      "address": "0x00470CC8",
+      "kind": "data"
+    },
+    "_g_game_speed": {
+      "address": "0x00476F78",
+      "kind": "data"
+    },
+    "_flt_0_5": {
+      "address": "0x00470B0C",
+      "kind": "data"
+    },
+    "_flt_2pi": {
+      "address": "0x00470B14",
+      "kind": "data"
+    },
+    "_flt_pi": {
+      "address": "0x00470B18",
+      "kind": "data"
+    },
+    "_flt_4": {
+      "address": "0x00470C40",
+      "kind": "data"
+    },
+    "_g_rng": {
+      "address": "0x004918B0",
+      "kind": "data"
+    },
+    "?OutsideBounds@PlayfieldPoint@@QBEHMM@Z": {
+      "address": "0x00401000",
+      "kind": "code"
+    },
+    "?CreateOffset@AnimationResourceFile@@QAE?AUAnimationRef@@HPBUVector3@@@Z": {
+      "address": "0x00401000",
+      "kind": "code"
+    },
+    "_flt_0": {
+      "address": "0x00470B04",
+      "kind": "data"
+    },
+    "_flt_pi_2": {
+      "address": "0x00470B94",
+      "kind": "data"
+    },
+    "_g_sound_priority": {
+      "address": "0x004749CE",
+      "kind": "data"
+    },
+    "_flt_5_2083335": {
+      "address": "0x00470B20",
+      "kind": "data"
+    },
+    "_EnemyGridScanLeaf": {
+      "address": "0x004524A1",
+      "kind": "code"
+    },
+    "?SetScorePolar@ScoreGameplayPolarVector@@QAEPAU1@MM@Z": {
+      "address": "0x00408750",
+      "kind": "code"
+    },
+    "_EntityInitTail_00404f30": {
+      "address": "0x00401EF1",
+      "kind": "code"
+    },
+    "_g_sprt_ctrl": {
+      "address": "0x00491C10",
+      "kind": "data"
+    },
+    "_asm_FUN_0043ee30_0043ee30@4": {
+      "address": "0x0043EE30",
+      "kind": "code"
+    }
+  },
+  "bindings": {
+    "?SetSchedulerValue@PlayerSchedulerRecord@@QAEXH@Z": "0x00405410",
+    "?AngleFromPoint@Player@@QAEMPBM@Z": "0x00426660",
+    "?SetScorePolar@ScoreGameplayPolarVector@@QAEPAU1@MM@Z": "0x00408750",
+    "?Queue@SoundQueue@@QAEHHH@Z": "0x0043DC90",
+    "?QueuePan@SoundQueue@@QAEXHM@Z": "0x0043DD10",
+    "?Entity_StartScript@@YGXPAUAnimationResourceFile@@PAUEntity@@H@Z": "0x00404F30",
+    "?Activate@PlayerCollisionRecord@@QAEHXZ": "0x00408030",
+    "?EnemyGrid_ScanCells2@@YGHPAUProjectilePattern@@PAUProjectileManager2@@@Z": "0x004073E0",
+    "?SpawnPatternCell2@@YGHPAUProjectilePattern@@PAUProjectileManager2@@HHM@Z": "0x004067D0"
+  },
+  "base_index_order": 0,
+  "differences": [
+    {
+      "class": "evaluation-order",
+      "offset": "0x23e",
+      "retail": [],
+      "model": [
+        "mov eax,DWORD PTR [ebp+0x6c0]"
+      ]
+    },
+    {
+      "class": "evaluation-order",
+      "offset": "0x244",
+      "retail": [
+        "mov eax,DWORD PTR [ebp+0x6c0]"
+      ],
+      "model": []
+    },
+    {
+      "class": "evaluation-order",
+      "offset": "0x251",
+      "retail": [],
+      "model": [
+        "mov DWORD PTR [ebp+0x6c0],eax"
+      ]
+    },
+    {
+      "class": "evaluation-order",
+      "offset": "0x271",
+      "retail": [
+        "mov DWORD PTR [ebp+0x6c0],eax"
+      ],
+      "model": []
+    },
+    {
+      "class": "evaluation-order",
+      "offset": "0x3f2",
+      "retail": [],
+      "model": [
+        "mov DWORD PTR [esp+0x1c],ecx"
+      ]
+    },
+    {
+      "class": "evaluation-order",
+      "offset": "0x3f9",
+      "retail": [
+        "mov DWORD PTR [esp+0x1c],ecx"
+      ],
+      "model": []
+    },
+    {
+      "class": "evaluation-order",
+      "offset": "0x3ff",
+      "retail": [
+        "mov ebx,eax"
+      ],
+      "model": []
+    },
+    {
+      "class": "evaluation-order",
+      "offset": "0x413",
+      "retail": [],
+      "model": [
+        "mov ebx,eax",
+        "mov WORD PTR [esp+0x12],cx"
+      ]
+    },
+    {
+      "class": "code-shape",
+      "offset": "0x423",
+      "retail": [
+        "mov WORD PTR [esp+0x12],cx"
+      ],
+      "model": [
+        "mov WORD PTR [esp+0x204],ax"
+      ]
+    },
+    {
+      "class": "code-shape",
+      "offset": "0x42a",
+      "retail": [
+        "mov WORD PTR [esp+0x204],ax"
+      ],
+      "model": [
+        "mov DWORD PTR [esp+0x28],ecx"
+      ]
+    },
+    {
+      "class": "stack-slot-order",
+      "offset": "0x438",
+      "retail": [
+        "mov DWORD PTR [esp+0x28],ecx"
+      ],
+      "model": [
+        "mov DWORD PTR [esp+0x2c],eax"
+      ]
+    },
+    {
+      "class": "evaluation-order",
+      "offset": "0x44d",
+      "retail": [],
+      "model": [
+        "mov WORD PTR [esp+0x206],cx"
+      ]
+    },
+    {
+      "class": "evaluation-order",
+      "offset": "0x450",
+      "retail": [
+        "mov WORD PTR [esp+0x206],cx",
+        "mov ecx,DWORD PTR [esi+0x4]",
+        "mov DWORD PTR [esp+0x2c],eax",
+        "mov eax,DWORD PTR [esi]"
+      ],
+      "model": []
+    },
+    {
+      "class": "evaluation-order",
+      "offset": "0x468",
+      "retail": [],
+      "model": [
+        "mov eax,DWORD PTR [esi+0x4]"
+      ]
+    },
+    {
+      "class": "code-shape",
+      "offset": "0x46e",
+      "retail": [
+        "mov DWORD PTR [esp+0x24],ecx",
+        "mov DWORD PTR [esp+0x20],eax"
+      ],
+      "model": [
+        "mov DWORD PTR [esp+0x24],eax",
+        "mov ecx,DWORD PTR [esi]",
+        "mov DWORD PTR [esp+0x20],ecx"
+      ]
+    },
+    {
+      "class": "evaluation-order",
+      "offset": "0x521",
+      "retail": [],
+      "model": [
+        "mov DWORD PTR [ebp+0x7c4],eax"
+      ]
+    },
+    {
+      "class": "evaluation-order",
+      "offset": "0x541",
+      "retail": [
+        "mov DWORD PTR [ebp+0x7c4],eax"
+      ],
+      "model": []
+    }
+  ],
+  "context_sources": [
+    "build_support/contexts/equivalent/game/context/projectile_spawn_cell_start_script.cpp",
+    "build_support/contexts/equivalent/game/context/projectile_command_scan_cells.cpp"
+  ],
+  "note": "reference/recovery_notes/projectile_command_runtime_00406d90_2026_10_13.md",
+  "listed_branch_targets": true
+}

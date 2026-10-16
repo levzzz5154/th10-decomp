@@ -17,5 +17,5 @@
 // native-LTCG child ABI probes; no complete readable candidate matched.
 // next_lever=first recover the full opcode hook/state cluster and the actual
 // dispatcher caller edges, then remeasure the complete body.
-// 0x0044E1A0..0x0044E1D7: FUN_0044e1a0
+// 0x0044E1A0..0x0044E1D7: FUN24
 // Naked body preserves the retail register/stack ABI.

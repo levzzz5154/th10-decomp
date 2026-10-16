@@ -1,4 +1,4 @@
-#include "th10/game/pause_result_open_004231d0/dispatcher_contract.hpp"
+#include "th10/game/pause_result_open/dispatcher_contract.hpp"
 #include "th10/math/timer.hpp"
 #include "th10/game/player.hpp"
 
@@ -47,7 +47,7 @@ extern "C" TriggerPlayer* g_card;
 extern "C" SoundQueue g_sound_manager;
 struct AnimationResourceFile;
 struct AnimationObjectFile;
-extern "C" void __stdcall LoadScript_0043e710(
+extern "C" void __stdcall LoadScript2(
     AnimationResourceFile*, AnimationObjectFile*, int);
 
 typedef char CheckTriggerAnimation[offsetof(TriggerAnimationField, animation) == 0x14 ? 1 : -1];
@@ -89,7 +89,7 @@ extern "C" __declspec(noinline) void __stdcall Player_Hit(Player* player) {
     if (g_game && !(g_game->flags & 0x200))
         g_sound_manager.Queue(4, 0);
     target->activation_timer.Set(6);
-    LoadScript_0043e710(reinterpret_cast<AnimationResourceFile*>(target->resource),
+    LoadScript2(reinterpret_cast<AnimationResourceFile*>(target->resource),
         reinterpret_cast<AnimationObjectFile*>(&target->animation), 0);
     TriggerPlayer* state = g_card;
     if (state->elapsed_frames >= 60) {

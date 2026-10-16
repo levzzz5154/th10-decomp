@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "name": "acc_00404f20",
+  "source": "src/unreferenced/unassigned_404f20.cpp",
+  "driver": "build_support/layout/ltcg/acc_00404f20_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "cluster",
+  "functions": [
+    {
+      "name": "ObjectAccessor_00404f20_ClearValue",
+      "symbol": "?ClearValue@ObjectAccessor_00404f20@@QAEXXZ",
+      "section": ".text$01accessor",
+      "address": "0x00404F20",
+      "size": 8,
+      "actual_abi": "object in EAX"
+    }
+  ],
+  "context": {
+    "symbol": "?AccessorCompilerContext@@YGHPAPAUObjectAccessor_00404f20@@H@Z",
+    "section": ".text$03context",
+    "address": "0x00404F30",
+    "size": 34,
+    "description": "Synthetic caller; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 16160
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x00404F28",
+      "size": 8
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [],
+  "additional_sources": [],
+  "included_sources": []
+}

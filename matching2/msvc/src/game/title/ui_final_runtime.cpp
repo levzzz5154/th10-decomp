@@ -12,12 +12,12 @@
 // title-menu cluster (build_support/layout/ltcg/difficulty_select_update.json)
 // for the bodies of the routines it calls.
 #include "th10/game/title_menu.hpp"
-#include "th10/game/difficulty_select_update_00430320.hpp"
-#include "th10/render/resource_registrar_0043e460.hpp"
+#include "th10/game/difficulty_select_update.hpp"
+#include "th10/render/resource_registrar.hpp"
 #include <math.h>
 
 extern "C" void* g_sprt_ctrl;
-extern "C" GameThread_0040c540* g_ascii_manager;
+extern "C" GameThread6* g_ascii_manager;
 extern "C" SoundQueue g_sound_manager;
 extern "C" unsigned int g_input_keys_held;
 extern "C" unsigned short recovery_music_repeat;
@@ -59,7 +59,7 @@ static __forceinline void MusicSetTreeFrame(RecoveryMusicVm* object, unsigned sh
     }
 }
 
-static __forceinline void MusicResetTimer(RecoveryTimer_0040bd80* timer) {
+static __forceinline void MusicResetTimer(RecoveryTimer2* timer) {
     if (!(timer->flags & 1u)) {
         timer->current = 0;
         timer->previous = -999999;
@@ -164,7 +164,7 @@ __declspec(noinline) int __stdcall TitleMusicRoom(Title* room) {
     void* handle;
     int remaining;
     int index;
-    AnimationManager_0043e460* requests;
+    AnimationManager9* requests;
 
     switch (room->phase) {
     case 0:
@@ -298,7 +298,7 @@ __declspec(noinline) int __stdcall TitleMusicRoom(Title* room) {
             room->displayed_track = room->cursor.selection;
             room->preview_cursor = 0;
             MusicResetTimer(&room->timer);
-            requests = reinterpret_cast<AnimationManager_0043e460*>(&g_sound_manager);
+            requests = reinterpret_cast<AnimationManager9*>(&g_sound_manager);
             if (!recovery_music_player[0x1D892 + room->displayed_track]
                     && !room->preview_armed) {
                 if (recovery_music_mode & 0x10u)

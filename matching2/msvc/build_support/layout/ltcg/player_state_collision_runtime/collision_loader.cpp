@@ -1,7 +1,7 @@
 #include <string.h>
 #include "collision.hpp"
 
-struct AnimationManager_0043e710 {
+struct AnimationManager10 {
     unsigned char reserved_00[0x4C];
     int script_tick_counter;                   // +0x4C
 };
@@ -38,7 +38,7 @@ void* AnimationResourceFile::LoadScript(Entity* object, int index) {
     uint32_t* flag_word = &object->AnimationFlags();
     *flag_word &= ~1u;
     asm_FUN_0043ee30_0043ee30(object);
-    ++static_cast<AnimationManager_0043e710*>(g_sprt_ctrl)->script_tick_counter;
+    ++static_cast<AnimationManager10*>(g_sprt_ctrl)->script_tick_counter;
     return g_sprt_ctrl;
 }
 #pragma code_seg()

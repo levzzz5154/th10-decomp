@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "copy_triple",
-  "source": "src/unreferenced/FUN_00405130_00405130.cpp",
+  "source": "src/unreferenced/FUN.cpp_405130.cpp",
   "driver": "build_support/layout/ltcg/copy_triple_context.cpp",
   "headers": [
     "include/th10/types.hpp"

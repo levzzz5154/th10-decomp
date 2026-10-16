@@ -9,7 +9,7 @@
 
 struct ManagerOwned;
 
-struct Manager_00422220 {
+struct Manager4 {
     SchedulerTaskPair tasks;                    // +0x000 (tasks at +0x08, +0x0C)
     unsigned char unknown_010[0x1DC - 0x10];
     int animation_id;                           // +0x1DC
@@ -21,7 +21,7 @@ extern "C" void __stdcall ManagerOwned_Destroy(ManagerOwned* owned);
 extern "C" void* g_pause;
 
 #pragma code_seg(".text$00hbstartupzm")
-extern "C" __declspec(noinline) int __stdcall Manager_Release(Manager_00422220* manager) {
+extern "C" __declspec(noinline) int __stdcall Manager_Release(Manager4* manager) {
     RemoveScheduledTaskPair(&manager->tasks);
     for (int i = 0; i < 25; ++i) {
         ManagerOwned* owned = manager->owned[i];

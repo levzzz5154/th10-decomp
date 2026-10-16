@@ -28,13 +28,13 @@
 
 // The twelve-byte position record handed to the animation manager (the same
 // record 0x00448D50 fills into the object at +0x340).
-struct AnimationPosition_00448d50 {
+struct AnimationPosition {
     float x;
     float y;
     float z;
 };
 
-struct GameThread_0040c540 {
+struct GameThread6 {
     unsigned char reserved_0000[0x8994];
     void* animation_resource;                       // +0x8994
     unsigned char reserved_8998[0x89A4 - 0x8998];
@@ -46,11 +46,11 @@ struct GameThread_0040c540 {
 // 0x00448D50; the cluster driver carries its compiled body as an ABI anchor.
 void** __stdcall AnimationManager_CreatePositionedPrimary(
     void* resource, void** out, int index,
-    const AnimationPosition_00448d50* position);
+    const AnimationPosition* position);
 
 __declspec(noinline)
-void* GameThread_0040c540::EnsureAnimationResource(float x, float y) {
-    AnimationPosition_00448d50 position;
+void* GameThread6::EnsureAnimationResource(float x, float y) {
+    AnimationPosition position;
     position.x = x;
     position.y = y;
     position.z = 0.0f;

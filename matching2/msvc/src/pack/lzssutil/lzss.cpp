@@ -141,7 +141,7 @@ unsigned char* __stdcall Lzss_Compress(const unsigned char* in, int inSize, int*
     }
 
 #pragma code_seg(".text$lzss03_decompress")
-extern "C" unsigned char* __stdcall DecompressDatLzss_00435dc0(
+extern "C" unsigned char* __stdcall DecompressDatLzss2(
     const unsigned char* in, int inSize, unsigned char* out, unsigned int outSize) {
     const unsigned char* inCursor;
     unsigned char* outCursor;

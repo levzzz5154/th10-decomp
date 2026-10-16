@@ -5,8 +5,8 @@
 // source order that reproduces retail's.
 #include "th10/platform/native_font_start.hpp"
 #pragma code_seg(".text$a06surface")
-bool __stdcall FontSurface_Create(GdiSurface_00436a30* surface,int width,int height,int format) {
-    ReleaseSurface_00436a30(surface);
+bool __stdcall FontSurface_Create(GdiSurface2* surface,int width,int height,int format) {
+    ReleaseSurface2(surface);
     FontBitmapV4 bitmap;
     memset(&bitmap,0,sizeof(bitmap));
     unsigned int index=0;

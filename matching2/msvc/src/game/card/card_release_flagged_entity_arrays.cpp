@@ -30,7 +30,7 @@ extern "C" __declspec(noinline) int __cdecl asm_FUN_004451c0_004451c0(
 #include "th10/game/card_runtime.hpp"
 
 #pragma code_seg(".text$001arrays")
-int CardRuntime_004091c0::ReleaseFlaggedEntityArrays() {
+int CardRuntime::ReleaseFlaggedEntityArrays() {
     if (release_flag_378C & 1) {
         for (int i = 0; i < 8; ++i) {
             asm_FUN_004451c0_004451c0(g_sprt_ctrl,

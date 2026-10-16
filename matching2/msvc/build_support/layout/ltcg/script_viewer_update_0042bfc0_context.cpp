@@ -4,7 +4,7 @@
 // carry their own section names because the originals' sort out of address
 // order when combined.
 #include "th10/script/ecl_children.hpp"
-#include "script_vm_00450560.hpp"
+#include "script_vm.hpp"
 #include "../../../src/game/spttest/spt_test_update.cpp"
 
 extern "C" void __cdecl crt_free(void* memory);
@@ -30,7 +30,7 @@ unsigned short SptTestInput::MaskActive(unsigned short mask) {
 
 // 0x0042BAD0
 #pragma code_seg(".text$a3names")
-void SptTest_0042be20::ClearScriptNames() {
+void SptTest2::ClearScriptNames() {
     if (script_names) {
         for (int i = 0; i < script_count; ++i) {
             if (script_names[i]) {
@@ -130,7 +130,7 @@ inline ScriptVm::ScriptVm()
 #pragma code_seg(".text$c5create")
 SptTestResource* ScriptParser::CreateVm(const char* name) {
     ScriptVm* vm = new ScriptVm;
-    vm->table = reinterpret_cast<ScriptTable_00450470*>(this);
+    vm->table = reinterpret_cast<ScriptTable2*>(this);
     vm->current->instruction = vm->table->Resolve(name);
     vm->current->time = 0;
     return reinterpret_cast<SptTestResource*>(vm);
@@ -139,6 +139,6 @@ SptTestResource* ScriptParser::CreateVm(const char* name) {
 
 #pragma code_seg(".text$b3context")
 void* __stdcall SptTestUpdateCompilerContext() {
-    return reinterpret_cast<void*>(SptTest_UpdateTask_0042c580);
+    return reinterpret_cast<void*>(SptTest_UpdateTask2);
 }
 #pragma code_seg()

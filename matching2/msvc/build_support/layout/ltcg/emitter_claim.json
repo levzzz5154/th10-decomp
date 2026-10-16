@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "name": "emitter_claim_00421c00",
+  "source": "src/unreferenced/unassigned_421c00.cpp",
+  "driver": "build_support/layout/ltcg/emitter_claim_00421c00_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "Slot claim with the object in EAX, the mode in EDX and eight stack arguments (RET 0x20); the id stays on the stack beside seven floats. Nothing in retail calls this body.",
+  "functions": [
+    {
+      "name": "EmitterSlot_00421c00_Claim",
+      "symbol": "?Claim@EmitterSlot@@QAEHHHMMMMMMM@Z",
+      "section": ".text$01accessor",
+      "address": "0x00421C00",
+      "size": 74,
+      "actual_abi": "object in EAX; mode in EDX; id and seven floats on the stack; RET 0x20"
+    }
+  ],
+  "context": {
+    "symbol": "?Ctx@@YGHPAPAUEmitterSlot@@HHHM@Z",
+    "section": ".text$03context",
+    "address": "0x00421C60",
+    "size": 73,
+    "description": "Synthetic array-walking caller that establishes the observed register convention; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 134144
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x00421C4A",
+      "size": 22
+    }
+  ],
+  "constants": [],
+  "roots": [],
+  "absolute_symbols": [
+    {
+      "symbol": "__fltused",
+      "address": "0x00000000",
+      "kind": "metadata"
+    }
+  ],
+  "included_sources": []
+}

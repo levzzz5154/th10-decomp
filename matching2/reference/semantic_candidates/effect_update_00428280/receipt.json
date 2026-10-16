@@ -71,7 +71,7 @@
   "production_source_or_manifest_changed": false,
   "structural_sources_sha256": {
     "include/th10/game/entity.hpp": "5947ee3d028eb94daa460db1e5dd592b30bb8ffda2fb85311a864f0a84f641ad",
-    "include/th10/game/pause_result_open_004231d0/player/player_state.hpp": "7e94caf46785a6ca84a1ae85eb1c80647e8cab2946d60b26864b82ec93ed0bd8"
+    "include/th10/game/pause_result_open/player/player_state.hpp": "7e94caf46785a6ca84a1ae85eb1c80647e8cab2946d60b26864b82ec93ed0bd8"
   },
   "prior_saved_result": {
     "native_extent": 858,

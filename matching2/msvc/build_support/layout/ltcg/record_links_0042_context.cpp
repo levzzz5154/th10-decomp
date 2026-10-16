@@ -3,9 +3,9 @@
 #pragma code_seg(".text$07context")
 extern "C" int __stdcall RecordLinksCompilerContext(void** items, int count) {
     for (int index = 0; index < count; ++index)
-        Init_0042aae0(0, (RecordInit_0042aae0*)items[index]);
+        Init13(0, (RecordInit*)items[index]);
     for (int index = 0; index < count; ++index)
-        Init_0043bc20(0, (RecordInit_0043bc20*)items[index]);
+        Init14(0, (RecordInit2*)items[index]);
     for (int index = 0; index < count; ++index)
         ((ListHolder*)items[index])->Clear();
     return 0;

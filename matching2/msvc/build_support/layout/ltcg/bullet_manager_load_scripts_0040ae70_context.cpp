@@ -7,8 +7,8 @@ Effect *Effect_Create();
 extern "C" void *__cdecl Bomb_Create(void);
 extern "C" int __stdcall asm_Recovery_InstallPairClearFlags_0041ad90(void *pair);
 extern "C" void *__cdecl LaserManager_Create(void);
-struct ScoreManager_0041c100;
-ScoreManager_0041c100 *InitializeManager(ScoreManager_0041c100 *manager);
+struct ScoreManager2;
+ScoreManager2 *InitializeManager(ScoreManager2 *manager);
 
 struct RawState;
 extern "C" int __stdcall EclView_RegisterTasks(RawState *state);
@@ -86,7 +86,7 @@ int __stdcall BulletManagerLoadScriptsCompilerContext(
     }
     for (int index = 0; index < count; ++index) {
         if (InitializeManager(
-                (ScoreManager_0041c100 *)slots[index]))
+                (ScoreManager2 *)slots[index]))
             ++created;
     }
     for (int index = 0; index < count; ++index) {

@@ -45,7 +45,7 @@ static __forceinline void ReplayManagerStandIn_Unregister(void* task) {
 
 // With every callee-saved register busy the receiver stays on the stack.
 #pragma code_seg(".text$03dtor")
-ReplayManager_004296f0::~ReplayManager_004296f0() {
+ReplayManager::~ReplayManager() {
     void** tasks = reinterpret_cast<void**>(reserved_000);
     ReplayManagerStandIn_Unregister(tasks[2]);
     ReplayManagerStandIn_Unregister(tasks[3]);
@@ -54,7 +54,7 @@ ReplayManager_004296f0::~ReplayManager_004296f0() {
 // Both arguments are consumed before the first call, so they arrive in EAX
 // and ECX; the task in ESI and its priority in EDI leave EBX to the receiver.
 #pragma code_seg(".text$01start")
-int ReplayManager_004296f0::Start(int start_mode, const char* replay_path) {
+int ReplayManager::Start(int start_mode, const char* replay_path) {
     mode = start_mode;
     *reinterpret_cast<const char**>(reserved_1c0) = replay_path;
     if (start_mode != 0)
@@ -73,6 +73,6 @@ int ReplayManager_004296f0::Start(int start_mode, const char* replay_path) {
 
 #pragma code_seg(".text$05context")
 int __stdcall ReplayManagerStartCompilerContext(int start_mode, const char* replay_path) {
-    return ReplayManager_Create_00429610(start_mode, replay_path) != 0;
+    return ReplayManager_Create2(start_mode, replay_path) != 0;
 }
 #pragma code_seg()

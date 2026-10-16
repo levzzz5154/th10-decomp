@@ -1,0 +1,11 @@
+struct RuntimeException4 {
+    RuntimeException4* Destroy(unsigned char flags);
+};
+extern "C" void __fastcall asm_FUN_004623de_004623de(RuntimeException4*);
+extern "C" void __cdecl asm_free_004524a1(void*);
+RuntimeException4* RuntimeException4::Destroy(unsigned char flags) {
+    asm_FUN_004623de_004623de(this);
+    if (flags & 1)
+        asm_free_004524a1(this);
+    return this;
+}

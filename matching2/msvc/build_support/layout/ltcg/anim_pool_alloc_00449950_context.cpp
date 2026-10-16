@@ -1,5 +1,5 @@
 // Compiler context and ABI anchor only; none of these bytes enter the image.
-#include "../../contexts/legacy/render/fun_00449950_00449950.cpp"
+#include "../../contexts/legacy/render/fun.cpp"
 #include <string.h>
 
 // ABI anchor (placed at 0x00401DE0, never exported): the landed Entity_Init
@@ -7,7 +7,7 @@
 // allocator's heap path calls.  0x00401DE0 takes its entity in EDX with the
 // first fastcall slot unread, and no C++ declaration on MSVC 13.10 produces
 // that call site - only a visible body makes the pass drop the dead ECX setup.
-// The bytes are identical to build_support/contexts/legacy/game/entity_initialize_00401de0.cpp and must
+// The bytes are identical to build_support/contexts/legacy/game/entity_initialize.cpp and must
 // stay so; the layout's gap places the section at the retail address, so the
 // allocator's own `call 0x401de0` bakes retail's displacement unpatched.
 #pragma code_seg(".text$01anchor")

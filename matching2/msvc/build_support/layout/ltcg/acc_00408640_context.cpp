@@ -1,8 +1,8 @@
 // Compiler context only; never selected as recovered game code.
-#include "../../../src/unreferenced/unassigned_00408640.cpp"
+#include "../../../src/unreferenced/unassigned_408640.cpp"
 
 #pragma code_seg(".text$03context")
-int __stdcall AccessorCompilerContext(ObjectAccessor_00408640** items, Vec3_00408640* other) {
+int __stdcall AccessorCompilerContext(ObjectAccessor_00408640** items, Vec312* other) {
     int n = 4;
     float t = 0.0f;
     while (n--) t += (*items++)->LengthSq();

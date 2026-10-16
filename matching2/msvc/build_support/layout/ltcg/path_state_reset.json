@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "name": "path_state_reset_00417800",
+  "source": "src/game/front/path_state_reset.cpp",
+  "driver": "build_support/layout/ltcg/path_state_reset_00417800_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "Path-state reset compiled with native LTCG so its object pointer arrives in EAX, matching the retail __usercall entry convention.",
+  "functions": [
+    {
+      "name": "PathState_00417800_Reset",
+      "symbol": "?Reset@PathState@@QAEHXZ",
+      "section": ".text$01path",
+      "address": "0x00417800",
+      "size": 58,
+      "actual_abi": "this in EAX; integer result in EAX; plain RET"
+    }
+  ],
+  "context": {
+    "symbol": "?PathStateReset00417800CompilerContext@@YGHPAPAUPathState@@H@Z",
+    "section": ".text$03context",
+    "address": "0x00417840",
+    "size": 36,
+    "description": "Synthetic array-processing caller that establishes the observed EAX object convention; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 92160
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x0041783A",
+      "size": 6
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_g_game_speed",
+      "address": "0x00476F78",
+      "kind": "data"
+    }
+  ],
+  "included_sources": []
+}

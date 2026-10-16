@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "name": "reopen_00436970",
+  "source": "src/unreferenced/unassigned_436970.cpp",
+  "driver": "build_support/layout/ltcg/reopen_00436970_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "reopen_00436970",
+  "functions": [
+    {
+      "name": "Record_00436970_Reopen",
+      "symbol": "?Reopen@Record4@@QAEXXZ",
+      "section": ".text$01accessor",
+      "address": "0x00436970",
+      "size": 75,
+      "actual_abi": "argument in EAX"
+    }
+  ],
+  "context": {
+    "symbol": "?ReopenContext_00436970@@YGHPAPAURecord4@@H@Z",
+    "section": ".text$03context",
+    "address": "0x004369D0",
+    "size": 37,
+    "description": "Synthetic caller; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 219504
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x004369BB",
+      "size": 16
+    }
+  ],
+  "constants": [],
+  "roots": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_imp_DeleteObject",
+      "address": "0x00466030",
+      "kind": "data"
+    },
+    {
+      "symbol": "_imp_CreateFontA",
+      "address": "0x00466034",
+      "kind": "data"
+    }
+  ],
+  "included_sources": []
+}

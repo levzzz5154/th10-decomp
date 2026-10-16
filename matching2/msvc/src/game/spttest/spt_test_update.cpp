@@ -6,7 +6,7 @@
 #include "th10/game/spt_test_update.hpp"
 
 #pragma code_seg(".text$b1update")
-int SptTest_0042be20::Update() {
+int SptTest2::Update() {
     SptTestFindData find;
     switch (state) {
     case 4:
@@ -96,7 +96,7 @@ int SptTest_0042be20::Update() {
 #pragma code_seg()
 
 #pragma code_seg(".text$b2task")
-int __fastcall SptTest_UpdateTask_0042c580(SptTest_0042be20* viewer) {
+int __fastcall SptTest_UpdateTask2(SptTest2* viewer) {
     return viewer->Update();
 }
 #pragma code_seg()

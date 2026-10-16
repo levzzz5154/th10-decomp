@@ -12,12 +12,12 @@
 extern "C" int __stdcall AnmVm_Run(AnmManagerVm* vm);
 
 #pragma code_seg(".text$01a_primarytask")
-extern "C" int __fastcall AnmManager_UpdatePrimaryTask_004485d0(AnmManager* manager) {
+extern "C" int __fastcall AnmManager_UpdatePrimaryTask2(AnmManager* manager) {
     return manager->UpdatePrimary();
 }
 
 #pragma code_seg(".text$01c_secondarytask")
-extern "C" int __fastcall AnmManager_UpdateSecondaryTask_004485e0(AnmManager* manager) {
+extern "C" int __fastcall AnmManager_UpdateSecondaryTask2(AnmManager* manager) {
     return manager->UpdateSecondary();
 }
 

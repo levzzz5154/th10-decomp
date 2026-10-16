@@ -1,5 +1,5 @@
 #include "th10/game/ui_thread_host.hpp"
-#include "th10/game/pause_result_open_004231d0/dispatcher_contract.hpp"
+#include "th10/game/pause_result_open/dispatcher_contract.hpp"
 
 // The three marker animations, also released by the queued cleanup at 0x00421070.
 extern "C" DispatcherRef g_queued_cleanup_a;
@@ -59,7 +59,7 @@ struct AnimationManagerView {
 // 0x00421180 (369 bytes): create and place the markers, then give the
 // animation manager its full-screen default view if none is selected.
 #pragma code_seg(".text$00421180_fn")
-extern "C" void __stdcall GameUi_ShowMarkers_00421180(
+extern "C" void __stdcall GameUi_ShowMarkers2(
         GameUiThreadHost* host, const DispatcherVec3* position) {
     CreateMarkersOnce(host, position);
     AnimationManagerView* view = reinterpret_cast<AnimationManagerView*>(g_sprt_ctrl);

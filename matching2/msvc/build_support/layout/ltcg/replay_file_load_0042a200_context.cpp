@@ -1,16 +1,16 @@
 // Compiler context and ABI anchors only; none of these bytes enter the image.
-#include "../../../src/game/replay/replay_file_load_0042a200.cpp"
+#include "../../../src/game/replay/replay_file_load.cpp"
 
 extern "C" int __cdecl ReplayFileLoadEscape(void* pointer, int value);
 
 // A caller that keeps the manager live across calls.
 #pragma inline_depth(0)
 #pragma code_seg(".text$00a1context")
-extern "C" int __stdcall ReplayFileLoadContext(ReplayManager_0042a6a0** managers, const char** names,
+extern "C" int __stdcall ReplayFileLoadContext(ReplayManager2** managers, const char** names,
                                                int count) {
     int total = 0;
     for (int index = 0; index < count; ++index) {
-        ReplayManager_0042a6a0* manager = managers[index];
+        ReplayManager2* manager = managers[index];
         total += ReplayFileLoadEscape(manager, index);
         total += manager->LoadFile(names[index]);
         total += ReplayFileLoadEscape(manager->summary, total);
@@ -20,14 +20,14 @@ extern "C" int __stdcall ReplayFileLoadContext(ReplayManager_0042a6a0** managers
 #pragma code_seg()
 #pragma inline_depth()
 
-// The body of 0x0044B790 (src/core/zunlib/file_read_shared_0044b790.cpp), which
+// The body of 0x0044B790 (src/core/zunlib/file_read_shared.cpp), which
 // takes its size in EDI.
 extern "C" int (__stdcall* imp_CloseHandle)(void* handle);
 extern "C" int (__stdcall* imp_ReadFile)(void* handle, void* buffer, unsigned int size, unsigned int* read,
                                           void* overlapped);
 extern "C" void* g_file_write_handle;
 #pragma code_seg(".text$08eshared")
-__declspec(noinline) void* __stdcall ReadShared_0044b790(unsigned int size) {
+__declspec(noinline) void* __stdcall ReadShared2(unsigned int size) {
     unsigned int read;
     if (g_file_write_handle == (void*)-1) return 0;
     void* buffer = malloc(size);

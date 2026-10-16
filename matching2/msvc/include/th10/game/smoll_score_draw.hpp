@@ -82,4 +82,4 @@ extern FloatingTextRenderState g_application;
 // arrives in ESI.
 __declspec(noinline) int __stdcall FloatingText_DrawEntity(SprtCtrlBatchView* manager, FloatingTextSprite* entity);
 }
-int __fastcall SmollScore_DrawTask_0042b9b0(SmollScoreDrawView* pool);
+int __fastcall SmollScore_DrawTask2(SmollScoreDrawView* pool);

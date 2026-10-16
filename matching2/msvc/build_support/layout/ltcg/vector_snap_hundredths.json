@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "name": "vector_snap_hundredths_0044c590",
+  "source": "src/unreferenced/FUN.cpp_44c590.cpp",
+  "driver": "build_support/layout/ltcg/vector_snap_hundredths_0044c590_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "?SnapToHundredths@Vector25@@QAEXXZ compiled with native LTCG.",
+  "functions": [
+    {
+      "name": "vector_snap_hundredths_0044c590",
+      "symbol": "?SnapToHundredths@Vector25@@QAEXXZ",
+      "section": ".text$01accessor",
+      "address": "0x0044C590",
+      "size": 57,
+      "actual_abi": "private LTCG convention"
+    }
+  ],
+  "context": {
+    "symbol": "?Ctx@@YGXPAPAUVector25@@H@Z",
+    "section": ".text$zzcontext",
+    "address": "0x0044C5F0",
+    "size": 39,
+    "description": "Synthetic caller that establishes the observed register convention; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$0000",
+      "address": "0x00401000",
+      "size": 308624
+    },
+    {
+      "section": ".text$01accessorz",
+      "address": "0x0044C5C9",
+      "size": 39
+    }
+  ],
+  "constants": [],
+  "roots": [],
+  "absolute_symbols": [
+    {
+      "symbol": "__fltused",
+      "address": "0x00000000",
+      "kind": "metadata"
+    },
+    {
+      "symbol": "_floor",
+      "address": "0x00452FF0",
+      "kind": "relative_code"
+    }
+  ],
+  "constant_aliases": [
+    {
+      "symbol": "__real@42c80000",
+      "address": "0x00470B44",
+      "value": 100.0
+    },
+    {
+      "symbol": "__real@3c23d70a",
+      "address": "0x00470B00",
+      "value": 0.009999999776482582
+    }
+  ],
+  "included_sources": []
+}

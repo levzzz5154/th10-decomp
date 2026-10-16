@@ -1,4 +1,4 @@
-#include "th10/game/enemy_script_bind_0040d830.hpp"
+#include "th10/game/enemy_script_bind.hpp"
 
 extern "C" int __cdecl strcmp(const char*, const char*);
 #pragma intrinsic(strcmp)

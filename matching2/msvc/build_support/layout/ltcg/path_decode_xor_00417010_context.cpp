@@ -1,5 +1,5 @@
 // Compiler context only; never selected as recovered game code.
-#include "../../../src/game/front/path_decode_xor_00417010.cpp"
+#include "../../../src/game/front/path_decode_xor.cpp"
 
 void __stdcall PathDecodeSink_00417040(const char* text);
 

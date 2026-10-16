@@ -3,7 +3,7 @@
 // Native LTCG must earn position in EDI with resource/out/index on the stack.
 #include "th10/render/animation_public_callers.hpp"
 
-extern "C" __declspec(noinline) void __stdcall LoadScript_0043e710(
+extern "C" __declspec(noinline) void __stdcall LoadScript2(
     AnimationResourceFile* resource, AnimationObjectFile* object, int index);
 
 // Retail reads these existing single-precision data cells; do not substitute
@@ -20,7 +20,7 @@ __declspec(noinline) void** __stdcall ItemAnimation_CreateOffset(
     object->position.x = position->x + flt_224;
     object->position.y = position->y + flt_16;
     object->position.z = position->z;
-    LoadScript_0043e710(static_cast<AnimationResourceFile*>(resource),
+    LoadScript2(static_cast<AnimationResourceFile*>(resource),
         reinterpret_cast<AnimationObjectFile*>(object),index);
     asm_AnimationManager_RegisterPrimaryBack_004489d0(g_sprt_ctrl, out, object);
     return out;

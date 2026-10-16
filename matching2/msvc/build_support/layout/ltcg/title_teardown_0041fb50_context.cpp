@@ -1,5 +1,5 @@
-#include "title_teardown_0041fb50/title_teardown_dependencies.hpp"
-#include "title_teardown_0041fb50/message_teardown_helpers.cpp"
+#include "title_teardown/title_teardown_dependencies.hpp"
+#include "title_teardown/message_teardown_helpers.cpp"
 
 #pragma code_seg(".text$01entity")
 inline TitleAnimation_00401FF0::~TitleAnimation_00401FF0() {
@@ -17,14 +17,14 @@ inline Loading_0044C130::~Loading_0044C130() {
 #pragma code_seg()
 
 #pragma code_seg(".text$02pair")
-extern "C" __declspec(noinline) int __cdecl ReleasePair_0041f930() {
-    AnimationResource_00447810** slot = reinterpret_cast<AnimationResource_00447810**>(&g_sprt_ctrl->banks[6]);
+extern "C" __declspec(noinline) int __cdecl ReleasePair2() {
+    AnimationResource6** slot = reinterpret_cast<AnimationResource6**>(&g_sprt_ctrl->banks[6]);
     if (*slot) {
         (*slot)->Release();
         crt_free_startup(*slot);
         *slot = 0;
     }
-    slot = reinterpret_cast<AnimationResource_00447810**>(&g_sprt_ctrl->banks[7]);
+    slot = reinterpret_cast<AnimationResource6**>(&g_sprt_ctrl->banks[7]);
     if (*slot) {
         (*slot)->Release();
         crt_free_startup(*slot);
@@ -35,7 +35,7 @@ extern "C" __declspec(noinline) int __cdecl ReleasePair_0041f930() {
 #pragma code_seg()
 
 #include "../../../src/game/loading/loading_release.cpp"
-#include "title_teardown_0041fb50/title_encrypt.cpp"
+#include "title_teardown/title_encrypt.cpp"
 
 extern "C" void __stdcall Game_Destroy(void*);
 extern "C" void __stdcall ReleaseGlobalScript_0042cb60(void*);
@@ -56,5 +56,5 @@ void Recovery_ReleaseGlobalStates() {
 }
 #pragma code_seg()
 
-#include "title_teardown_0041fb50/manager_remove.cpp"
-#include "title_teardown_0041fb50/manager_entity_init.cpp"
+#include "title_teardown/manager_remove.cpp"
+#include "title_teardown/manager_entity_init.cpp"

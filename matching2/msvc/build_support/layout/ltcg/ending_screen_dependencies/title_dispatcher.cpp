@@ -1,5 +1,5 @@
 // Complete readable caller baseline. Unselected; private leaf ABIs require LTCG.
-#include "th10/game/ending_screen_0042d300.hpp"
+#include "th10/game/ending_screen.hpp"
 #include "th10/render/animation_resource_removal.hpp"
 #include <stdlib.h>
 
@@ -37,7 +37,7 @@ extern "C" {
     extern char g_replay_path[];
     extern unsigned char g_stage_routes[];
     extern unsigned char* g_stage_route_current;
-    extern GameThread_0040c540* g_ascii_manager;
+    extern GameThread6* g_ascii_manager;
     extern float flt_0_99, flt_1_01, flt_1;
 }
 // These declarations describe logical inputs, not promises about retail ABI.
@@ -162,10 +162,10 @@ __declspec(noinline) int __stdcall Title_DispatchUpdate(
             TitleMode12(room);
             break;
         }
-        EndingScreen_Update_0042d300(room);
+        EndingScreen_Update2(room);
         break;
     }
-    case 1: EndingScreen_Update_0042d300(room); break;
+    case 1: EndingScreen_Update2(room); break;
     case 2: MarkTitleCallback(room); TitleMainMenu(room); break;
     case 3:
         g_main_state = (~(g_app_flags >> 12) & 1) | 2;

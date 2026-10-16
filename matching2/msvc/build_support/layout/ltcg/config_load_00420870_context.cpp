@@ -1,5 +1,5 @@
 // Compiler context and ABI anchors only; none of these bytes enter the image.
-#include "../../../src/game/mother/config_load_00420870.cpp"
+#include "../../../src/game/mother/config_load.cpp"
 #include <stdarg.h>
 
 extern "C" int __cdecl ConfigLoadEscape(void* pointer, int value);
@@ -7,7 +7,7 @@ extern "C" int __cdecl ConfigLoadEscape(void* pointer, int value);
 // A caller that keeps the path live beside the application object.
 #pragma inline_depth(0)
 #pragma code_seg(".text$0040a000_context")
-extern "C" int __stdcall ConfigLoadContext(GameApp_00420870** apps, const char** paths, int count) {
+extern "C" int __stdcall ConfigLoadContext(GameApp2** apps, const char** paths, int count) {
     int total = 0;
     for (int index = 0; index < count; ++index) {
         const char* path = paths[index];
@@ -70,7 +70,7 @@ __declspec(noinline) int __stdcall File_WriteWholeFile(const char* path, const v
 }
 
 // The bodies of the two log appenders (src/core/zunlib/text_log.cpp and
-// text_log_append_line_0044b8e0.cpp).
+// text_log_append_line.cpp).
 extern "C" int __cdecl asm_vsprintf_004524a6(char* buffer, const char* format, char* arguments);
 struct ConfigLoadCriticalSection { unsigned char storage[24]; };
 extern "C" {
@@ -80,7 +80,7 @@ extern ConfigLoadCriticalSection g_text_log_lock;
 extern unsigned char g_text_log_lock_depth;
 }
 #pragma code_seg(".text$00i_append")
-__declspec(noinline) char* TextLog_00420870::Append(char* format, ...) {
+__declspec(noinline) char* TextLog3::Append(char* format, ...) {
     char staging[0x2000];
     va_list arguments;
     va_start(arguments, format);
@@ -99,7 +99,7 @@ __declspec(noinline) char* TextLog_00420870::Append(char* format, ...) {
     return format;
 }
 #pragma code_seg(".text$00j_line")
-__declspec(noinline) char* TextLog_00420870::AppendLine(char* format, ...) {
+__declspec(noinline) char* TextLog3::AppendLine(char* format, ...) {
     char buffer[512];
     va_list va;
     va_start(va, format);

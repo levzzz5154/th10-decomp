@@ -6,7 +6,7 @@
 // each timer reset together before the next timer flag is read.
 extern "C" float g_game_speed;
 
-struct Player_00405be0 {
+struct Player2 {
     unsigned char unknown_0000[0x3F8];
     int link_1_previous;       // +0x3F8
     int link_1_current;        // +0x3FC
@@ -25,7 +25,7 @@ struct Player_00405be0 {
 };
 
 #pragma code_seg(".text$00breset")
-void Player_00405be0::ResetSchedulerLinks() {
+void Player2::ResetSchedulerLinks() {
     unsigned short* record = &marker;
     record[0] = 0;
     if ((link_1_flags & 1) == 0) {

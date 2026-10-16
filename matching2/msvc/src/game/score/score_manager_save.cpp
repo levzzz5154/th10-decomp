@@ -5,7 +5,7 @@
 // packed stream. Returns -1 when there is nothing to save or the file cannot
 // be opened; in the second case both work buffers are leaked, as in retail.
 #include <stddef.h>
-#include "th10/game/score_archive_0042b1e0.hpp"
+#include "th10/game/score_archive.hpp"
 #include <string.h>
 extern "C" __declspec(dllimport) int __stdcall CloseHandle(void* handle);
 extern "C" __declspec(dllimport) int __stdcall WriteFile(void* handle, const void* buffer, unsigned long size, unsigned long* written, void* overlapped);

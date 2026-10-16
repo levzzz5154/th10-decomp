@@ -15,7 +15,7 @@ inline SptTestWorker::~SptTestWorker() {
 #pragma code_seg()
 
 #pragma code_seg(".text$01names")
-void SptTest_0042be20::ClearScriptNames() {
+void SptTest2::ClearScriptNames() {
     if (script_names) {
         for (int i = 0; i < script_count; ++i) {
             if (script_names[i]) {
@@ -33,7 +33,7 @@ void SptTest_0042be20::ClearScriptNames() {
 #pragma code_seg()
 
 #pragma code_seg(".text$03dtor")
-SptTest_0042be20::~SptTest_0042be20() {
+SptTest2::~SptTest2() {
     ClearScriptNames();
     SchedulerTask* task = update_task;
     FuncCtrl* scheduler = static_cast<FuncCtrl*>(g_func_ctrl);

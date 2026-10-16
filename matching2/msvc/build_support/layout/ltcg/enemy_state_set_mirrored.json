@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "enemy_state_set_mirrored",
-  "source": "src/unreferenced/FUN_0040cde0_0040cde0.cpp",
+  "source": "src/unreferenced/FUN.cpp_40cde0.cpp",
   "driver": "build_support/layout/ltcg/enemy_state_set_mirrored_context.cpp",
   "headers": [],
   "image_base": "0x00400000",
@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "EnemyState_SetMirrored",
-      "symbol": "?SetMirrored@EnemyState_0040cde0@@QAEXXZ",
+      "symbol": "?SetMirrored@EnemyState2@@QAEXXZ",
       "section": ".text$01mirror",
       "address": "0x0040CDE0",
       "size": 8,
@@ -17,7 +17,7 @@
     }
   ],
   "context": {
-    "symbol": "?SetMirroredCompilerContext@@YGHPAPAUEnemyState_0040cde0@@H@Z",
+    "symbol": "?SetMirroredCompilerContext@@YGHPAPAUEnemyState2@@H@Z",
     "section": ".text$03context",
     "address": "0x0040CDF0",
     "size": 39,

@@ -16,8 +16,8 @@
 // manager's cursor advances past the slot, wrapping to the first record when
 // the next one is already leaving. Returns nonzero only when the pool is full.
 #include <string.h>
-#include "th10/game/enemy_grid_scan_004073e0.hpp"
-#include "th10/game/projectile_spawn_runtime_004067d0.hpp"
+#include "th10/game/enemy_grid_scan.hpp"
+#include "th10/game/projectile_spawn_runtime.hpp"
 #include "th10/game/entity_script_start.hpp"
 #include "th10/math/angle.hpp"
 #include "th10/math/rng.hpp"
@@ -49,8 +49,8 @@ __forceinline static void SpawnRecord_Light(ProjectileSpawnRecord* record, Vec3&
 }
 
 #pragma code_seg(".text$004067d0_fn")
-int __stdcall SpawnPatternCell_004067d0(ProjectilePattern* pattern,
-                                        ProjectileManager_004073e0* manager_view,
+int __stdcall SpawnPatternCell2(ProjectilePattern* pattern,
+                                        ProjectileManager2* manager_view,
                                         int column, int row, float aim) {
     ProjectileSpawnManager* const manager =
         reinterpret_cast<ProjectileSpawnManager*>(manager_view);

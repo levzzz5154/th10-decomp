@@ -7,25 +7,25 @@
 
 extern "C" {
 // These pages take the menu on the stack.
-int __stdcall TitleMenu_DrawReplayBrowser_00431ba0(TitleDrawView* menu);
-int __stdcall TitleMenu_DrawScoreEntry_00433230(TitleDrawView* menu);
-int __stdcall TitleMenu_DrawReplaySave_00433b30(TitleDrawView* menu);
+int __stdcall TitleMenu_DrawReplayBrowser2(TitleDrawView* menu);
+int __stdcall TitleMenu_DrawScoreEntry2(TitleDrawView* menu);
+int __stdcall TitleMenu_DrawReplaySave2(TitleDrawView* menu);
 }
 
 #pragma code_seg(".text$03dispatch")
 int TitleDrawView::DrawOverlay() {
     switch (page) {
     case 12:
-        TitleMenu_DrawReplayBrowser_00431ba0(this);
+        TitleMenu_DrawReplayBrowser2(this);
         return 1;
     case 11:
         DrawScoreRows();
         return 1;
     case 15:
-        TitleMenu_DrawScoreEntry_00433230(this);
+        TitleMenu_DrawScoreEntry2(this);
         return 1;
     case 16:
-        TitleMenu_DrawReplaySave_00433b30(this);
+        TitleMenu_DrawReplaySave2(this);
         return 1;
     case 9:
         DrawPracticeRows();

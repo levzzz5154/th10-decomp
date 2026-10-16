@@ -33,7 +33,7 @@ extern "C" int __stdcall TitleEffectsAdvance(TitleEffectState* state) {
     }
     if (state->interface_ready == 1) {
         AnimationScriptId* cached = &((TitleGameThread*)g_ascii_manager)->cached_animation_handle;
-        AnimationPosition_00448d50 position(480.0f,392.0f,0.0f);
+        AnimationPosition position(480.0f,392.0f,0.0f);
         if (cached->value == 0) {
             int handle;
             AnimationScriptId* result = (AnimationScriptId*)AnimationManager_CreatePositionedPrimary(

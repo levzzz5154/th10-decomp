@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
   "name": "misc_private_abi_wave22",
-  "source": "src/unreferenced/unassigned_00421c70.cpp",
+  "source": "src/unreferenced/unassigned_421c70.cpp",
   "additional_sources": [
-    "src/unreferenced/unassigned_0042c7e0.cpp"
+    "src/unreferenced/unassigned_42c7e0.cpp"
   ],
   "driver": "build_support/layout/ltcg/misc_private_abi_wave22_context.cpp",
   "headers": [],
@@ -17,7 +17,7 @@
       "address": "0x00421C70",
       "size": 25,
       "actual_abi": "table in EDI; slot index in ESI; plain RET",
-      "source": "src/unreferenced/unassigned_00421c70.cpp"
+      "source": "src/unreferenced/unassigned_421c70.cpp"
     },
     {
       "name": "AnimationTable_HasSlot",
@@ -26,7 +26,7 @@
       "address": "0x0042C7E0",
       "size": 26,
       "actual_abi": "table in EAX; slot index in ECX; boolean result in EAX; plain RET",
-      "source": "src/unreferenced/unassigned_0042c7e0.cpp"
+      "source": "src/unreferenced/unassigned_42c7e0.cpp"
     }
   ],
   "anchors": [

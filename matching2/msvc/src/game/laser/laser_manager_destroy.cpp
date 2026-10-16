@@ -5,20 +5,20 @@
 // task register first.
 #include "th10/game/scheduler_remove_locked.hpp"
 
-struct LaserListNode_0041c1c0 {
+struct LaserListNode2 {
     virtual void Reserved0();
     virtual void Reserved1();
     virtual void Reserved2();
     virtual void Reserved3();
     virtual void Finalize();
-    LaserListNode_0041c1c0* prev;  // +0x04
-    LaserListNode_0041c1c0* next;  // +0x08
+    LaserListNode2* prev;  // +0x04
+    LaserListNode2* next;  // +0x08
 };
 
 struct LaserManagerDestroyView {
     SchedulerTaskPair tasks;              // +0x00 (tasks at +0x08, +0x0C)
     unsigned char unknown_010[8];
-    LaserListNode_0041c1c0* entries;         // +0x18
+    LaserListNode2* entries;         // +0x18
 };
 
 extern "C" void* g_laser_manager;
@@ -27,9 +27,9 @@ extern "C" void* g_laser_manager;
 extern "C" __declspec(noinline) void __stdcall LaserManager_Destroy(
         LaserManagerDestroyView* object) {
     RemoveScheduledTaskPair(&object->tasks);
-    LaserListNode_0041c1c0* entry = object->entries;
+    LaserListNode2* entry = object->entries;
     while (entry) {
-        LaserListNode_0041c1c0* next = entry->next;
+        LaserListNode2* next = entry->next;
         entry->Finalize();
         entry->prev->next = entry->next;
         if (entry->next)

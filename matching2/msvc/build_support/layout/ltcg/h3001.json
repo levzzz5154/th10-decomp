@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "name": "h3001_0041c880",
+  "source": "src/unreferenced/FUN.cpp_41c880.cpp",
+  "driver": "build_support/layout/ltcg/h3001_0041c880_context.cpp",
+  "headers": [
+    "build_support/include/asm_symbols.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Native-LTCG ABI experiment for the private EAX receiver and stack arguments at 0x0041C880.",
+  "functions": [
+    {
+      "name": "ScoreRecords_0041c880_Walk",
+      "symbol": "_asm_FUN_0041c880_0041c880@12",
+      "section": ".text$01target",
+      "address": "0x0041C880",
+      "size": 54,
+      "actual_abi": "receiver in private EAX; integer/struct stack arguments; stdcall callee cleanup"
+    }
+  ],
+  "context": {
+    "symbol": "H3001Context_0041c880",
+    "section": ".text$03context",
+    "address": "0x00465d00",
+    "size": 20,
+    "description": "Synthetic caller used only to establish the internal receiver and argument allocation."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 112768
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x0041C8B6",
+      "size": 300106
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [],
+  "roots": [],
+  "included_sources": []
+}

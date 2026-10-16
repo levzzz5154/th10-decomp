@@ -1,5 +1,5 @@
 #include "th10/source_views/device_reset_24c334_0.hpp"
-extern "C" __declspec(noinline) void __cdecl DeviceReset_004391f0() {
+extern "C" __declspec(noinline) void __cdecl DeviceReset2() {
     char filename[256];
     if (g_d3d_device->methods->Present(g_d3d_device,0,0,0,0)<0) {
         g_sprt_ctrl->ReleaseTargets();

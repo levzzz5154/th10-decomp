@@ -5,11 +5,11 @@
 #include "th10/game/spt_test.hpp"
 #include "th10/game/game_thread_queue_native.hpp"
 
-extern "C" GameThread_00401530* g_ascii_manager;
+extern "C" GameThread2* g_ascii_manager;
 
 #pragma code_seg(".text$05draw")
-int SptTest_0042be20::Draw() {
-    Vec3_00401530 position = {0.0f, 0.0f, 0.0f};
+int SptTest2::Draw() {
+    Vec32 position = {0.0f, 0.0f, 0.0f};
     AsciiManager_AddFormattedMarked(g_ascii_manager, &position, "Spt Test\n");
     switch (state) {
     case 1:
@@ -42,7 +42,7 @@ int SptTest_0042be20::Draw() {
         break;
     case 3: {
         g_ascii_manager->current_4c = 0xFFA0A0A0;
-        Vec3_00401530 status_position = {32.0f, 16.0f, 0.0f};
+        Vec32 status_position = {32.0f, 16.0f, 0.0f};
         AsciiManager_AddFormattedMarked(g_ascii_manager, &status_position, "Pos %.3d %.3d", int(position_x), int(position_y));
         g_ascii_manager->current_4c = 0xFFFFFFFF;
         break;
@@ -53,7 +53,7 @@ int SptTest_0042be20::Draw() {
 #pragma code_seg()
 
 #pragma code_seg(".text$06task")
-int __fastcall SptTest_DrawTask_0042c590(SptTest_0042be20* viewer) {
+int __fastcall SptTest_DrawTask2(SptTest2* viewer) {
     return viewer->Draw();
 }
 #pragma code_seg()

@@ -1,0 +1,99 @@
+{
+  "schema_version": 1,
+  "name": "enemy_timer_sweep",
+  "source": "src/game/enemy/enemy_ctrl_update.cpp",
+  "driver": "build_support/layout/ltcg/enemy_timer_sweep_0040d750_context.cpp",
+  "headers": [
+    "include/th10/game/enemy_timer_sweep.hpp",
+    "include/th10/core/func_ctrl.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Enemy list sweep and frame-timer tick with the manager in EDI, together with its ECX scheduler callback.",
+  "functions": [
+    {
+      "name": "EnemyTimerSweep",
+      "symbol": "?Sweep@EnemyCtrlSweepView@@QAEHXZ",
+      "section": ".text$01sweep",
+      "address": "0x0040D750",
+      "actual_abi": "manager in EDI; plain RET",
+      "size": 166
+    },
+    {
+      "name": "EnemyTimerSweep_Task",
+      "symbol": "?EnemyCtrl_OnUpdate@@YIHPAUEnemyCtrlSweepView@@@Z",
+      "section": ".text$02task",
+      "address": "0x0040D810",
+      "actual_abi": "context in ECX; moved to EDI around the call",
+      "size": 10
+    }
+  ],
+  "context": {
+    "symbol": "?EnemyTimerSweepCompilerContext@@YGPAUSchedulerTask@@PAU1@PAUEnemyCtrlSweepView@@@Z",
+    "section": ".text$03context",
+    "address": "0x0040D820",
+    "size": 21,
+    "description": "Synthetic callback publisher; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00before",
+      "address": 4198400,
+      "size": 51024
+    },
+    {
+      "section": ".text$01sweepz",
+      "address": 4249590,
+      "size": 26
+    },
+    {
+      "section": ".text$02taskz",
+      "address": 4249626,
+      "size": 6
+    },
+    {
+      "section": ".text$03contextz",
+      "address": 4249653,
+      "size": 403403
+    },
+    {
+      "section": ".rdata",
+      "address": 4653056,
+      "size": 2812
+    }
+  ],
+  "constants": [
+    {
+      "symbol": "__real@3f800000",
+      "address": "0x00470AFC",
+      "value": 1.0
+    }
+  ],
+  "absolute_symbols": [
+    {
+      "symbol": "_EnemyUpdate@4",
+      "address": "0x0040DC80",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?g_frame_timer_normal_lower@@3MA",
+      "address": "0x00470B68",
+      "kind": "data"
+    },
+    {
+      "symbol": "?g_frame_timer_normal_upper@@3MA",
+      "address": "0x00470B64",
+      "kind": "data"
+    },
+    {
+      "symbol": "__ftol2",
+      "address": "0x00463B2C",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__fltused",
+      "address": "0x00000000",
+      "kind": "metadata"
+    }
+  ],
+  "included_sources": []
+}

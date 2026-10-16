@@ -6,20 +6,20 @@
 void __fastcall AnimationManager_SetStopFrame(unsigned short frame, AnimationLookupContext* context,
                                               AnimationScriptId id);
 
-struct AnimationChild_00449820;
-struct AnimationHandle_00449820 {
-    __declspec(noinline) AnimationChild_00449820* FindChild(int script_id);
+struct AnimationChild2;
+struct AnimationHandle16 {
+    __declspec(noinline) AnimationChild2* FindChild(int script_id);
 };
 
-struct AnimationRef_004497d0 {
+struct AnimationRef2 {
     int value;
-    AnimationRef_004497d0(int value) : value(value) {}
+    AnimationRef2(int value) : value(value) {}
 };
-struct AnimationHandle_004497d0 {
-    __declspec(noinline) AnimationRef_004497d0 FindChildRef(int script_id);
+struct AnimationHandle15 {
+    __declspec(noinline) AnimationRef2 FindChildRef(int script_id);
 };
 
-struct AnimationHandle_004243f0 {
+struct AnimationHandle7 {
     __declspec(noinline) void StopAtFrame6();
 };
 
@@ -38,7 +38,7 @@ struct AnimationRunHandle {
 struct Title;
 void __fastcall Title_DispatchAnimationSlot(int slot, Title* state);
 void __fastcall Title_DispatchAnimationSlotSecondary(int slot, Title* state);
-AnimationRef_004497d0 __fastcall Title_FindAnimationSlotChild(int slot, Title* state,
+AnimationRef2 __fastcall Title_FindAnimationSlotChild(int slot, Title* state,
                                                                 int script_id);
 
 #pragma code_seg(".text$80context")
@@ -48,14 +48,14 @@ int __stdcall StopAtFrameCompilerContext(AnimationHandle* handles, int count,
         handles->StopAtFrame1();
         handles->StopAtFrame2();
         handles->StopAtFrame3();
-        reinterpret_cast<AnimationHandle_00449470*>(handles)->SetStopFrame(
+        reinterpret_cast<AnimationHandle11*>(handles)->SetStopFrame(
             *reinterpret_cast<unsigned short*>(states));
         AnimationManager_SetStopFrame(*reinterpret_cast<unsigned short*>(states),
             reinterpret_cast<AnimationLookupContext*>(states),
             *reinterpret_cast<AnimationScriptId*>(handles));
-        reinterpret_cast<AnimationHandle_004243f0*>(handles)->StopAtFrame6();
-        reinterpret_cast<AnimationHandle_00449820*>(handles)->FindChild(count);
-        reinterpret_cast<AnimationHandle_004497d0*>(handles)->FindChildRef(count);
+        reinterpret_cast<AnimationHandle7*>(handles)->StopAtFrame6();
+        reinterpret_cast<AnimationHandle16*>(handles)->FindChild(count);
+        reinterpret_cast<AnimationHandle15*>(handles)->FindChildRef(count);
         Title_DispatchAnimationSlot(count, reinterpret_cast<Title*>(states));
         Title_DispatchAnimationSlotSecondary(count, reinterpret_cast<Title*>(states));
         reinterpret_cast<AnimationRunHandle*>(handles)->SetStopFrameAndRun(

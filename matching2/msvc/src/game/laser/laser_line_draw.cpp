@@ -1,7 +1,7 @@
 // 0x0041D7C0: LineLaser::Draw (vtable 0x0046DA60 slot 0x0C): place and draw
 // the beam and origin-flare VMs.
 // Public ECX scheduler receiver. The render dispatcher is the real definition
-// co-compiled in anm_batch_flush_00442f50, giving it ECX manager / EAX entity.
+// co-compiled in anm_batch_flush2, giving it ECX manager / EAX entity.
 // Explicit subobject views preserve the retail load/store ordering; the
 // offsetof checks below tie every view to the actual embedded field layout.
 #include "th10/render/quad_batch.hpp"

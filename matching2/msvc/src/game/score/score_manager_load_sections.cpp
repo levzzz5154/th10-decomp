@@ -7,11 +7,11 @@
 // discarded as a whole. In every case the manager ends up owning a file
 // header to save with: the loaded one, or a fresh empty one.
 #include <string.h>
-#include "th10/game/score_archive_manager_0042ae60.hpp"
+#include "th10/game/score_archive_manager.hpp"
 extern "C" void *__cdecl asm_malloc_00452706(unsigned int);
 extern "C" void __cdecl asm_free_00452422(void *);
 unsigned char * __stdcall Dat_Decrypt(unsigned char *,int,unsigned char,unsigned char,int,int);
-unsigned char *__stdcall DecompressDatLzss_00435dc0(unsigned char *,int,unsigned char *,unsigned int);
+unsigned char *__stdcall DecompressDatLzss2(unsigned char *,int,unsigned char *,unsigned int);
 #pragma code_seg(".text$04b")
 int ScoreArchiveManager::LoadSections() {
     if (file) {
@@ -20,7 +20,7 @@ int ScoreArchiveManager::LoadSections() {
             Dat_Decrypt(packed, file->compressed_size, 0xAC, 0x35, 0x10, file->compressed_size);
             packed = (unsigned char*)(file + 1);
             sections = (unsigned char*)asm_malloc_00452706(file->decompressed_size * 4);
-            DecompressDatLzss_00435dc0(packed, file->compressed_size, sections, file->decompressed_size);
+            DecompressDatLzss2(packed, file->compressed_size, sections, file->decompressed_size);
             int remaining = file->decompressed_size;
             ScoreSectionHeader* section = (ScoreSectionHeader*)sections;
             while (remaining > 0) {

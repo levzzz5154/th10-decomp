@@ -5,7 +5,7 @@ extern "C" void* g_func_ctrl;
 extern "C" void* g_ending;
 extern "C" int g_screen_effects_frozen;
 inline void ReleaseEndingBank(int index) {
-    AnimationResource_00447810*& bank = reinterpret_cast<AnimationResource_00447810*&>(g_sprt_ctrl->banks[index]);
+    AnimationResource6*& bank = reinterpret_cast<AnimationResource6*&>(g_sprt_ctrl->banks[index]);
     if (bank) {
         bank->Release();
         crt_free_startup(bank);

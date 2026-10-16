@@ -3,4 +3,4 @@
 // into a section that sorts at its retail address here. Never selected from
 // this cluster.
 #define code_seg(name) code_seg(".text$00449950_fn")
-#include "../result_open_00423370/allocate.cpp"
+#include "../result_open/allocate.cpp"

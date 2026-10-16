@@ -19,7 +19,7 @@
     },
     {
       "name": "DecompressDatLzss",
-      "symbol": "_DecompressDatLzss_00435dc0@16",
+      "symbol": "_DecompressDatLzss2@16",
       "section": ".text$lzss03_decompress",
       "address": "0x00435DC0",
       "size": 475,
@@ -156,7 +156,7 @@
   ],
   "roots": [
     "?Lzss_InitEncoder@@YGXXZ",
-    "_DecompressDatLzss_00435dc0@16"
+    "_DecompressDatLzss2@16"
   ],
   "included_sources": []
 }

@@ -23,7 +23,7 @@ extern char* g_bgm_format_data;              // BGM format table
 extern unsigned char g_sound_flags;      // sound option flags
 extern char str_text_init_failed[];             // "error : 文字の初期化に失敗しました"
 extern char str_bgm_init_failed[];             // "error : BGM の初期化に失敗しました"
-extern TextLog_0044b810 g_log;
+extern TextLog4 g_log;
 extern WaveSoundManager g_wave_sound_manager;
 
 void* __fastcall Recovery_LoadCachedResource(int index, void* cache, const char* name);
@@ -31,7 +31,7 @@ void* __stdcall AsciiManager_Create();
 char* __stdcall Archive_LoadFile(const char* name, int* out_size, int from_disk);
 }
 int __stdcall asm_File_ProbeExists_0044b4d0(const char* name);
-void __stdcall ScoreManager_Create_0042af20();
+void __stdcall ScoreManager_Create2();
 
 // Everything the title screen itself needs; -1 when any of it is missing.
 static __forceinline int LoadTitleScreenAssets(LoadingView* title) {
@@ -71,7 +71,7 @@ __declspec(noinline) int __fastcall Loading_LoadAssets(LoadingView* owner) {
     }
     owner->LoadStartupResources();
     title->primary_task->reserved_flags |= 1u;
-    ScoreManager_Create_0042af20();
+    ScoreManager_Create2();
     return 0;
 }
 #pragma code_seg()

@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
   "name": "temporary_track_native",
-  "source": "src/unreferenced/FUN_0043ac90_0043ac90.cpp",
+  "source": "src/unreferenced/FUN.cpp_43ac90.cpp",
   "driver": "build_support/layout/ltcg/temporary_track_context.cpp",
   "headers": [
-    "include/th10/platform/temporary_track_0043ac90.hpp",
+    "include/th10/platform/temporary_track.hpp",
     "include/th10/platform/midi_sequencer.hpp",
     "include/th10/platform/archive_file.hpp"
   ],
@@ -26,7 +26,7 @@
   "anchors": [
     {
       "name": "LoadTrack",
-      "symbol": "?LoadTrack@SoundManager_0043a9b0@@QAEHHPBD@Z",
+      "symbol": "?LoadTrack@SoundManager2@@QAEHHPBD@Z",
       "section": ".text$10loadtrack",
       "address": "0x43a9b0",
       "size": 116
@@ -47,7 +47,7 @@
     },
     {
       "name": "MidiStop",
-      "symbol": "?MidiStop@SoundManager_0043a9b0@@QAEXXZ",
+      "symbol": "?MidiStop@SoundManager2@@QAEXXZ",
       "section": ".text$50stop",
       "address": "0x43ae20",
       "size": 81
@@ -61,7 +61,7 @@
     },
     {
       "name": "Append",
-      "symbol": "?Append@TextLog_0044b810@@QAAPADPADZZ",
+      "symbol": "?Append@TextLog4@@QAAPADPADZZ",
       "section": ".text$70append",
       "address": "0x44b810",
       "size": 201

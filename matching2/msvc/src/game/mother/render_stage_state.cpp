@@ -1,6 +1,6 @@
 #include "th10/source_views/fun_a1dd06_0.hpp"
 #include "th10/source_views/fun_a1dd06_1.hpp"
-int RenderStageState_00439390::EnableFog() {
+int RenderStageState4::EnableFog() {
     if (fog_enabled != 1) {
         g_sprt_ctrl->Flush();
         RenderDevice* dev = device;
@@ -15,7 +15,7 @@ int RenderStageState_00439390::EnableFog() {
 #include "th10/source_views/fun_a1dd06_0.hpp"
 #include "th10/source_views/fun_a1dd06_1.hpp"
 #include "th10/source_views/fun_a1dd06_2.hpp"
-int RenderStageState_00439390::DisableFog() {
+int RenderStageState4::DisableFog() {
     if (fog_enabled) {
         g_sprt_ctrl->Flush();
         RenderDevice* dev = device;
@@ -31,7 +31,7 @@ int RenderStageState_00439390::DisableFog() {
 #include "th10/source_views/fun_a1dd06_1.hpp"
 #include "th10/source_views/fun_a1dd06_2.hpp"
 #include "th10/source_views/fun_a1dd06_3.hpp"
-int RenderStageState_00439390::EnableDepthWrite() {
+int RenderStageState4::EnableDepthWrite() {
     if (depth_write_enabled != 1) {
         g_sprt_ctrl->Flush();
         RenderDevice* dev = device;
@@ -48,7 +48,7 @@ int RenderStageState_00439390::EnableDepthWrite() {
 #include "th10/source_views/fun_a1dd06_2.hpp"
 #include "th10/source_views/fun_a1dd06_3.hpp"
 #include "th10/source_views/fun_a1dd06_4.hpp"
-int RenderStageState_00439390::DisableDepthWrite() {
+int RenderStageState4::DisableDepthWrite() {
     if (depth_write_enabled) {
         g_sprt_ctrl->Flush();
         RenderDevice* dev = device;
@@ -66,7 +66,7 @@ int RenderStageState_00439390::DisableDepthWrite() {
 #include "th10/source_views/fun_a1dd06_3.hpp"
 #include "th10/source_views/fun_a1dd06_4.hpp"
 #include "th10/source_views/fun_a1dd06_5.hpp"
-int __stdcall RenderStageState_SetRenderState(RenderStageState_00439390* stage,
+int __stdcall RenderStageState_SetRenderState(RenderStageState4* stage,
                                               unsigned int state, unsigned int value) {
     g_sprt_ctrl->Flush();
     return stage->device->State(state, value);

@@ -3,7 +3,7 @@
 
 #pragma code_seg(".text$03context")
 extern "C" __declspec(noinline) int __stdcall PlayerResetSchedulerLinksContext(
-        Player_00405be0** players, int count) {
+        Player2** players, int count) {
     while (count--) {
         (*players++)->ResetSchedulerLinks();
     }

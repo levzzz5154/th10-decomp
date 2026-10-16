@@ -1,5 +1,5 @@
 // Genuine 0x004491C0 lookup body; compiler ABI anchor, not selected code.
-#include "th10/render/animation_validate_handle_00449450.hpp"
+#include "th10/render/animation_validate_handle.hpp"
 
 struct AnimationLookupEntry_00449450 {
     AnimationLookupEntry_00449450* object;
@@ -13,8 +13,8 @@ struct AnimationLookupContext {
 };
 
 #pragma code_seg(".text$01find")
-void* __fastcall AnimationManager_00449450::Find(
-        AnimationLookupContext* context, AnimationScriptId_00449450 id) {
+void* __fastcall AnimationManager15::Find(
+        AnimationLookupContext* context, AnimationScriptId2 id) {
     if (!id.value)
         return 0;
     for (AnimationLookupEntry_00449450* node = context->primary_bucket;

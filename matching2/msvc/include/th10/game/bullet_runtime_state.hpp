@@ -2,7 +2,7 @@
 #define TH10_BULLET_RUNTIME_STATE_HPP
 #include "th10/game/player.hpp"
 #include <stddef.h>
-#include "th10/game/field_contact_004266b0.hpp"
+#include "th10/game/field_contact.hpp"
 #include "th10/game/player_wrap.hpp"
 #include "th10/game/bullet_runtime_deceleration.hpp"
 struct MotionVector3 {
@@ -56,12 +56,12 @@ extern "C" BulletAnimationResourceSource* g_bullet_manager;
 struct ProjectileCommandRuntime {
     __declspec(noinline) void Tick();
 };
-struct AnimationPosition_00448db0 {
+struct AnimationPosition2 {
     float x, y, z;
 };
 __declspec(noinline) void** __stdcall
 AnimationManager_CreateScreenPositionedPrimary(void*, void**, int,
-                                                        const AnimationPosition_00448db0*);
+                                                        const AnimationPosition2*);
 extern "C" int __stdcall RunAnimationVm(void*);
 extern "C" __declspec(noinline) int __stdcall BulletRuntimeTick(BulletRuntimeState*);
 #endif

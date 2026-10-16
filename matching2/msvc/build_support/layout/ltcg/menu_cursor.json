@@ -126,7 +126,7 @@
       "address": "0x004243C0",
       "size": 13,
       "actual_abi": "step in EAX; cursor at [ESP+4]; passes the cursor in EAX and the step on the stack to 0x0044BEA0; RET 4",
-      "source": "src/unreferenced/menu_cursor_step_004243c0.cpp"
+      "source": "src/unreferenced/menu_cursor_step.cpp"
     },
     {
       "name": "StepMenuCursorBack_004243d0",
@@ -135,7 +135,7 @@
       "address": "0x004243D0",
       "size": 15,
       "actual_abi": "step in EAX; cursor at [ESP+4]; negates the step and passes the cursor in EAX to 0x0044BEA0; RET 4",
-      "source": "src/unreferenced/menu_cursor_step_004243c0.cpp"
+      "source": "src/unreferenced/menu_cursor_step.cpp"
     }
   ],
   "context": {
@@ -215,7 +215,7 @@
   "constants": [],
   "absolute_symbols": [],
   "additional_sources": [
-    "src/unreferenced/menu_cursor_step_004243c0.cpp"
+    "src/unreferenced/menu_cursor_step.cpp"
   ],
   "owned_includes": {
     "src/game/title/menu_cursor.cpp": "src/game/eclview/menu_cursor.cpp",

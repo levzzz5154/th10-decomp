@@ -14,8 +14,8 @@ struct Float3 {
 static __forceinline Float3 operator+(const Float3& a, const Float3& b) {
     return Float3(a.x + b.x, a.y + b.y, a.z + b.z);
 }
-extern "C" Float3 g_zero_vector_00491c14;
-extern "C" Float2 g_zero_vector2_00491c20;
+extern "C" Float3 g_zero_vector3f;
+extern "C" Float2 g_zero_vector22;
 extern "C" Float3 g_camera_offset;
 extern "C" float g_game_speed;
 extern "C" int g_difficulty;
@@ -29,7 +29,7 @@ struct RngState {
     // A random angle in [-pi, pi).
     __forceinline float NextAngle() { return NextFloatSigned() * 3.1415927f; }
 };
-extern "C" RngState g_effect_rng_004918b0;
+extern "C" RngState g_effect_rng2;
 
 struct FrameTimer {
     int previous;
@@ -37,7 +37,7 @@ struct FrameTimer {
     float elapsed;
     const float* speed;
     unsigned int flags;
-    __declspec(noinline) void Set_00405410(int value);
+    __declspec(noinline) void Set2(int value);
 };
 
 struct Float3Interp {
@@ -45,14 +45,14 @@ struct Float3Interp {
     FrameTimer timer;
     int end_time;
     int mode;
-    __declspec(noinline) void Restart_004050d0();
+    __declspec(noinline) void Restart2();
 };
 struct Float2Interp {
     Float2 initial, goal, control_1, control_2;
     FrameTimer timer;
     int end_time;
     int mode;
-    __declspec(noinline) void Restart_00412db0();
+    __declspec(noinline) void Restart3();
 };
 
 struct EnemyMotion {
@@ -82,19 +82,19 @@ struct AnmVm {
 struct AnmLoaded;
 struct AnmHandle {
     int id;
-    __declspec(noinline) void Release_00449630();
-    __declspec(noinline) void Show_004495e0();
-    __declspec(noinline) void Hide_00449590();
+    __declspec(noinline) void Release2();
+    __declspec(noinline) void Show2();
+    __declspec(noinline) void Hide2();
 };
 __declspec(noinline) AnmHandle* __stdcall Anm_CreateFront(AnmLoaded* anm, AnmHandle* out, int script, int layer);
 __declspec(noinline) AnmHandle* __stdcall Anm_CreateBack(AnmLoaded* anm, AnmHandle* out, int script, int layer);
-__declspec(noinline) AnmVm* __stdcall Anm_Resolve_00449450(AnmHandle* handle);
-__declspec(noinline) Float3* __stdcall OffsetPoint_00418810(const Float3* point);
+__declspec(noinline) AnmVm* __stdcall Anm_Resolve2(AnmHandle* handle);
+__declspec(noinline) Float3* __stdcall OffsetPoint2(const Float3* point);
 
-struct RenderStageState { __declspec(noinline) void SelectStage_00401d20(int index); };
+struct RenderStageState { __declspec(noinline) void SelectStage2(int index); };
 extern "C" RenderStageState g_application;
 extern "C" unsigned char g_projection_matrix[], g_projection_view_matrix[], g_projection_world_matrix[], g_enemy_project_viewport[];
-extern "C" Float3* __stdcall D3DXVec3Project_0045218e(Float3* out, const Float3* vector, const void* viewport,
+extern "C" Float3* __stdcall D3DXVec3Project2(Float3* out, const Float3* vector, const void* viewport,
                                                       const void* projection, const void* view, const void* world);
 
 struct EnemySpawn {
@@ -132,8 +132,8 @@ struct Shooter {
     __declspec(noinline) int Shoot(BulletManager* manager);
 };
 struct BulletManager {
-    __declspec(noinline) int Sweep_00408210(int convert);
-    __declspec(noinline) int Check_00408100(const Float3* point, float radius, int spawn_item, int filter);
+    __declspec(noinline) int Sweep2(int convert);
+    __declspec(noinline) int Check2(const Float3* point, float radius, int spawn_item, int filter);
 };
 extern "C" BulletManager* g_bullet_manager;
 
@@ -167,17 +167,17 @@ struct BeamLaserParams : LaserParams {
     short type, color;      // +0x40
     unsigned int flags;     // +0x44
     ShooterEx ex[18];       // +0x48
-    __declspec(noinline) BeamLaserParams* Construct_0040cf40();
+    __declspec(noinline) BeamLaserParams* Construct2();
     __forceinline BeamLaserParams() { memset(this, 0, sizeof(*this)); f2c = 8.0f; }
     struct Raw {};
     __forceinline BeamLaserParams(Raw) {}
 };
 struct LaserManager {
-    __declspec(noinline) int Spawn_0041c510(const LaserParams* params, int kind);
-    __declspec(noinline) int Cleanup_0041c850(int value);
-    __declspec(noinline) Laser* FindById_0040cf90(int id);
-    __declspec(noinline) int Evaluate_0041c800(const Float3* point, float radius, int flag);
-    __declspec(noinline) int MarkEligible_0041c7d0();
+    __declspec(noinline) int Spawn2(const LaserParams* params, int kind);
+    __declspec(noinline) int Cleanup2(int value);
+    __declspec(noinline) Laser* FindById2(int id);
+    __declspec(noinline) int Evaluate2(const Float3* point, float radius, int flag);
+    __declspec(noinline) int MarkEligible2();
 };
 extern "C" LaserManager* g_laser_manager;
 
@@ -203,7 +203,7 @@ struct Gui {
     LifeMarker markers[4];      // +0x9E94
     unsigned char unknown_9eb4[4];
     struct GuiMessage* message; // +0x9EB8
-    __declspec(noinline) void CreateScoreDisplay_00415db0(int stage);
+    __declspec(noinline) void CreateScoreDisplay2(int stage);
     __forceinline void SetMarker(int index, int full, float amount, int value) {
         markers[index].value = value;
         markers[index].ratio = amount / (float)full;
@@ -224,17 +224,17 @@ extern "C" Player* g_player;
 struct Card {
     unsigned char unknown_0000[0x378C];
     unsigned int flags;         // +0x378C
-    __declspec(noinline) void End_00409c00();
+    __declspec(noinline) void End2();
     __declspec(noinline) void StopAnimation();
 };
 extern "C" Card* g_card;
 __declspec(noinline) void __stdcall Card_Start(Card* card, int id, const char* name, int time, int unused);
 
-struct SoundQueue { __declspec(noinline) void QueuePan_0043dd10(int sound, float pan); };
+struct SoundQueue { __declspec(noinline) void QueuePan2(int sound, float pan); };
 extern "C" SoundQueue g_sound_manager;
 struct ScoreState { int fields[20]; };
 extern "C" ScoreState g_globals;
-__declspec(noinline) void __stdcall Score_SetMode_00412ed0(ScoreState* state, int mode);
+__declspec(noinline) void __stdcall Score_SetMode2(ScoreState* state, int mode);
 __declspec(noinline) void* __stdcall Screen_Create(int priority, int mode, int a, int b, int c, int d);
 
 struct Enemy;
@@ -300,10 +300,10 @@ struct Enemy {
     ResourceSlot slots[8];          // +0x1458
     EnemyFull* ecl;                 // +0x14D8
 
-    __declspec(noinline) int Execute_0040e770();
-    __declspec(noinline) float FloatValue_00412aa0(int selector, float value);
+    __declspec(noinline) int Execute2();
+    __declspec(noinline) float FloatValue2(int selector, float value);
     __declspec(noinline) int IntArg(int selector);
-    __declspec(noinline) int* IntDest_00412a10(int selector);
+    __declspec(noinline) int* IntDest2(int selector);
     int Int(int selector);
     float Float(int selector);
     int IntValue(int selector, int value);

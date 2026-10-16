@@ -1,8 +1,8 @@
 // Compiler context only; never selected as recovered game code.
-#include "../../../src/unreferenced/unassigned_00404e90.cpp"
+#include "../../../src/unreferenced/unassigned_404e90.cpp"
 #pragma code_seg(".text$03context")
 int __stdcall IsValueAt0004AtLeastContext_00404e90(
-        FieldComparison_00404e90** items, int* values, int count) {
+        FieldComparison** items, int* values, int count) {
     int total = 0;
     for (int index = 0; index < count; ++index)
         total += items[index]->IsValueAt0004AtLeast(values[index]);

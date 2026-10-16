@@ -1,8 +1,8 @@
 // Compiler context only; never selected as recovered game code.
-#include "../../../src/unreferenced/unassigned_0044c260.cpp"
+#include "../../../src/unreferenced/unassigned_44c260.cpp"
 
 #pragma code_seg(".text$03context")
-extern "C" int __stdcall PolarUpdateContext_0044c260(PolarMotion_0044c260** items, int count) {
+extern "C" int __stdcall PolarUpdateContext_0044c260(PolarMotion2** items, int count) {
     while (count--) {
         PolarMotion_0044c260_Update(*items++);
     }

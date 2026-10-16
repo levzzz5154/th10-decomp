@@ -1,7 +1,7 @@
 // Compiler context and ABI anchors only; none of these bytes enter the image.
-#include "../../../src/unreferenced/FUN_00448fb0_00448fb0.cpp"
+#include "../../../src/unreferenced/FUN.cpp_448fb0.cpp"
 
-extern "C" void* __cdecl operator_new_00452493(unsigned int size);
+extern "C" void* __cdecl operator_new2(unsigned int size);
 extern "C" void* __cdecl Entity_Constructor_00402050(void* entity);
 extern "C" void __cdecl Entity_Init_00401de0(void* unused, void* entity);
 extern "C" void __cdecl asm_AnimationObject_LoadScriptTail_0043ee30(void* object);
@@ -24,7 +24,7 @@ extern "C" __declspec(noinline) void* __cdecl asm_FUN_00449950_00449950(void* ma
         index = NextPoolIndex_00449950(index);
         *(unsigned int*)(bytes + 0x3AD068) = index;
         if (bytes[0x3AC068 + index] != 0) {
-            unsigned char* allocated = (unsigned char*)operator_new_00452493(0x3AC);
+            unsigned char* allocated = (unsigned char*)operator_new2(0x3AC);
             if (allocated == 0) return 0;
             Entity_Constructor_00402050(allocated);
             Entity_Init_00401de0(0, allocated);
@@ -109,18 +109,18 @@ extern "C" __declspec(noinline) void** __cdecl asm_AnimationManager_RegisterSeco
 }
 #pragma code_seg()
 
-struct AnimationPosition_00449010;
-__declspec(noinline) void** __stdcall AnimationManager_CreateScreenPositionedSecondaryBack(void*, void**, int, const AnimationPosition_00449010*);
+struct AnimationPosition6;
+__declspec(noinline) void** __stdcall AnimationManager_CreateScreenPositionedSecondaryBack(void*, void**, int, const AnimationPosition6*);
 
 #pragma code_seg(".text$09context")
 int __stdcall PositionedSecondaryBackContext(void** resources, void*** outs, int* indexes,
-                                       const AnimationPosition_00448fb0** positions,
+                                       const AnimationPosition5** positions,
                                        int count) {
     for (int i = 0; i < count; ++i) {
         AnimationManager_CreateSecondaryBack(resources[i], outs[i], indexes[i], 15);
         AnimationManager_CreatePositionedSecondaryBack(resources[i], outs[i], indexes[i],
                                                           positions[i]);
-        AnimationManager_CreateScreenPositionedSecondaryBack(resources[i], outs[i], indexes[i], (const AnimationPosition_00449010*)positions[i]);
+        AnimationManager_CreateScreenPositionedSecondaryBack(resources[i], outs[i], indexes[i], (const AnimationPosition6*)positions[i]);
     }
     return count;
 }

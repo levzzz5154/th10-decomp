@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "animation_public_callers",
-  "source": "src/unreferenced/FUN_0040b1b0_0040b1b0.cpp",
+  "source": "src/unreferenced/FUN.cpp_40b1b0.cpp",
   "additional_sources": [],
   "included_sources": [
     "build_support/layout/ltcg/animation_public_callers_anchors.cpp"
@@ -17,7 +17,7 @@
   "functions": [
     {
       "name": "AnimationCreateWithCallbacks",
-      "symbol": "_AnimationCreateWithCallbacks_0040b1b0@28",
+      "symbol": "_AnimationCreateWithCallbacks2@28",
       "section": ".text$03callbacks",
       "address": "0x0040B1B0",
       "size": 147,
@@ -48,7 +48,7 @@
     },
     {
       "name": "PositionedCreator",
-      "symbol": "?AnimationManager_CreatePositionedPrimary@@YGPAPAXPAXPAPAXHPBUAnimationPosition_00448d50@@@Z",
+      "symbol": "?AnimationManager_CreatePositionedPrimary@@YGPAPAXPAXPAPAXHPBUAnimationPosition@@@Z",
       "section": ".text$11position",
       "address": "0x00448D50",
       "size": 95
@@ -69,7 +69,7 @@
     }
   ],
   "roots": [
-    "_AnimationCreateWithCallbacks_0040b1b0@28"
+    "_AnimationCreateWithCallbacks2@28"
   ],
   "context": {
     "symbol": "_AnimationPublicCallersContext@36",

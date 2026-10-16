@@ -1,14 +1,14 @@
 {
   "schema_version": 1,
   "name": "animation_register_secondary_front_00448b40",
-  "source": "src/render/animation_manager_register_secondary_front_00448b40.cpp",
+  "source": "src/render/animation_manager_register_secondary_front.cpp",
   "driver": "layout/ltcg/animation_register_secondary_front_00448b40_context.cpp",
   "image_base": "0x00400000",
   "description": "Complete primary-front registrar with synthetic single-object creation caller; only its 112-byte native body is selected.",
   "headers": [
     "include/th10/game/player_hud_animations.hpp",
     "include/th10/game/entity.hpp",
-    "include/th10/game/pause_result_open_004231d0/open_animation.hpp",
+    "include/th10/game/pause_result_open/open_animation.hpp",
     "include/th10/types.hpp"
   ],
   "functions": [
@@ -44,7 +44,7 @@
     "layout/ltcg/animation_register_secondary_front_00448b40_allocate.cpp"
   ],
   "included_sources": [
-    "layout/ltcg/result_open_00423370/allocate.cpp"
+    "layout/ltcg/result_open/allocate.cpp"
   ],
   "absolute_symbols": [
     {

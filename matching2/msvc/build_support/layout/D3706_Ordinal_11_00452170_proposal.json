@@ -1,10 +1,10 @@
 {
   "regions": [
     {
-      "source": "build_support/imports/Ordinal_11_00452170.cpp",
+      "source": "build_support/imports/Ordinal_11.cpp",
       "address": "0x00452170",
       "name": "semantic_Ordinal_11_00452170",
-      "symbol": "_Ordinal_11_00452170@12",
+      "symbol": "_Ordinal_112@12",
       "size": 6,
       "relocations": [
         {

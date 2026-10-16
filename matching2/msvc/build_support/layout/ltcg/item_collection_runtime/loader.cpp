@@ -43,7 +43,7 @@ struct AnimationResourceFile {
     int loading;                               // +0x124
 };
 
-struct AnimationManager_0043e710 {
+struct AnimationManager10 {
     unsigned char reserved_00[0x4C];
     int script_tick_counter;                   // +0x4C
 };
@@ -51,12 +51,12 @@ struct AnimationManager_0043e710 {
 extern "C" void* g_sprt_ctrl;
 extern "C" float g_game_speed;
 extern "C" void __stdcall asm_FUN_0043ee30_0043ee30(Entity* object);
-extern "C" void* __stdcall LoadScript_0043e710(AnimationResourceFile* resource,
+extern "C" void* __stdcall LoadScript2(AnimationResourceFile* resource,
                                              AnimationObjectFile* object,
                                              int index);
 
 #pragma code_seg(".text$f0043e710F")
-__declspec(noinline) void* __stdcall LoadScript_0043e710(
+__declspec(noinline) void* __stdcall LoadScript2(
     AnimationResourceFile* resource, AnimationObjectFile* object,
     int index) {
     void* script = resource->scripts[index];
@@ -86,7 +86,7 @@ __declspec(noinline) void* __stdcall LoadScript_0043e710(
     uint32_t* flag_word = &object->AnimationFlags();
     *flag_word &= ~1u;
     asm_FUN_0043ee30_0043ee30(object);
-    ++static_cast<AnimationManager_0043e710*>(g_sprt_ctrl)->script_tick_counter;
+    ++static_cast<AnimationManager10*>(g_sprt_ctrl)->script_tick_counter;
     return g_sprt_ctrl;
 }
 #pragma code_seg()

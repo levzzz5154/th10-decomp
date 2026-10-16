@@ -1072,8 +1072,8 @@
         "configure.cpp": "14331c2821ec79ff3b8b51ff4dcc814802439f0d911b839f5951fd0d99eba864",
         "create.cpp": "89b547d0ae7fb9abc1bcf6625e542f16f443e0e242043b00e2dd7b7128571cd4",
         "dependencies.cpp": "310a0338f7753f3fb20a31f7692d5daf665d67fcac21e3078d66e66a819fa1e7",
-        "include/th10/game/item_spawn_0041bb00.hpp": "f4a7aad3bcd868d49ee49445d7dbeef4e82085b8f996f9b952adbc84e04a3cd7",
-        "include/th10/game/line_effect_sweeps_0041e260_0041f400.hpp": "273e904d5a3e3b07c73b06ccdc06077d488d82fbb52b8955505ff5f62b3b9910",
+        "include/th10/game/item_spawn.hpp": "f4a7aad3bcd868d49ee49445d7dbeef4e82085b8f996f9b952adbc84e04a3cd7",
+        "include/th10/game/line_effect_sweeps.hpp": "273e904d5a3e3b07c73b06ccdc06077d488d82fbb52b8955505ff5f62b3b9910",
         "loader.cpp": "726a5481b43ee6e04c6a956bf9d1a8d5f6225e7fe3f875d39d95b158e8922759",
         "runtime_graph.cpp": "42721eb8b91843d6e37fc699e5c64b9415172dd8e9d26422898ead0e0f56ace5"
       },
@@ -1177,8 +1177,8 @@
         "convert.cpp": "6b074fd401f2a399cdc8d5f7dcd984d97479f0627727f98a723f231f417afaf4",
         "create.cpp": "89b547d0ae7fb9abc1bcf6625e542f16f443e0e242043b00e2dd7b7128571cd4",
         "dependencies.cpp": "310a0338f7753f3fb20a31f7692d5daf665d67fcac21e3078d66e66a819fa1e7",
-        "include/th10/game/item_spawn_0041bb00.hpp": "1093407cc6d39230d3558e780abaf3f51788d68ab027cabf89615bb08e75c438",
-        "include/th10/game/line_effect_sweeps_0041e260_0041f400.hpp": "273e904d5a3e3b07c73b06ccdc06077d488d82fbb52b8955505ff5f62b3b9910",
+        "include/th10/game/item_spawn.hpp": "1093407cc6d39230d3558e780abaf3f51788d68ab027cabf89615bb08e75c438",
+        "include/th10/game/line_effect_sweeps.hpp": "273e904d5a3e3b07c73b06ccdc06077d488d82fbb52b8955505ff5f62b3b9910",
         "loader.cpp": "726a5481b43ee6e04c6a956bf9d1a8d5f6225e7fe3f875d39d95b158e8922759",
         "runtime_graph.cpp": "4a44f664e5866c0ccb8a1e5ec98fd90cba64541f39f32251cbc80a41682d95c4"
       },

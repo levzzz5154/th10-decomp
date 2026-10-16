@@ -1,5 +1,5 @@
 #include <string.h>
-#include "../../../build_support/include/contexts/game/marktext_dispatcher_context/recovery_script_executor_0040bd80.hpp"
+#include "../../../build_support/include/contexts/game/marktext_dispatcher_context/recovery_script_executor.hpp"
 // Every mutable game global below is re-read from memory at each use in the
 // retail image: the manager, owner and game-thread pointers are reassigned by
 // init/teardown paths, the key-state masks by the window procedure and the
@@ -10,7 +10,7 @@ __declspec(noinline) void* __cdecl RecoveryValidateHandle(RecoveryHandle* handle
 #define MANAGER (*(void* const volatile*)&g_sprt_ctrl)
 extern "C" RecoveryScriptOwner* g_ending;
 #define OWNER (*(RecoveryScriptOwner* const volatile*)&g_ending)
-extern "C" GameThread_0040c540* g_ascii_manager;
+extern "C" GameThread6* g_ascii_manager;
 
 
 // The key-state mask is written asynchronously by the window procedure and by
@@ -53,7 +53,7 @@ static __forceinline void CreateModeSlotAnimation(
             state->command->arguments[2], 15));
 }
 
-extern "C" __declspec(noinline) int __stdcall RecoveryScript_Execute_0040bd80(RecoveryScriptState* state) {
+extern "C" __declspec(noinline) int __stdcall RecoveryScript_Execute2(RecoveryScriptState* state) {
     void* output_records[3];
     const unsigned int flags = state->flags;
     if (flags & 4u)
@@ -142,7 +142,7 @@ extern "C" __declspec(noinline) int __stdcall RecoveryScript_Execute_0040bd80(Re
             break;
         case 7:
             g_ascii_manager->EnsureAnimationResource(480.0f, 392.0f);
-            reinterpret_cast<AnimationManager_004477d0*>(MANAGER)->ClearResourceSlot(state->command->arguments[0] + 29);
+            reinterpret_cast<AnimationManager13*>(MANAGER)->ClearResourceSlot(state->command->arguments[0] + 29);
             state->background_data = reinterpret_cast<const unsigned char*>(state->command) + 8;
             state->flags |= 4u;
             state->worker.Start(state, recovery_background_thread);

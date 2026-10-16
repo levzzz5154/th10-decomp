@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "archive_find_size_native",
-  "source": "src/pack/arcmngr/dat_archive_find_size_00434ef0.cpp",
+  "source": "src/pack/arcmngr/dat_archive_find_size.cpp",
   "driver": "build_support/layout/ltcg/archive_find_size_native_context.cpp",
   "headers": [
     "include/th10/archive/dat_archive_types.hpp",

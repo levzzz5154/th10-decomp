@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "file_interface_install",
-  "source": "src/unreferenced/FUN_004356c0_004356c0.cpp",
+  "source": "src/unreferenced/FUN.cpp_4356c0.cpp",
   "driver": "build_support/layout/ltcg/file_interface_install_context.cpp",
   "headers": [],
   "image_base": "0x00400000",
@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "FileInterface_InstallVtable",
-      "symbol": "?InstallVtable@FileInterface_004356c0@@QAEXXZ",
+      "symbol": "?InstallVtable@FileInterface2@@QAEXXZ",
       "section": ".text$01install",
       "address": "0x004356C0",
       "size": 7,
@@ -17,7 +17,7 @@
     }
   ],
   "context": {
-    "symbol": "?InstallVtableCompilerContext@@YGHPAPAUFileInterface_004356c0@@H@Z",
+    "symbol": "?InstallVtableCompilerContext@@YGHPAPAUFileInterface2@@H@Z",
     "section": ".text$03context",
     "address": "0x004356D0",
     "size": 39,

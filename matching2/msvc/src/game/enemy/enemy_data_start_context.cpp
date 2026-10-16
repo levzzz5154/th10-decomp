@@ -12,10 +12,10 @@ float g_score_default_speed = 1.0f;
 extern "C" {
 Player* g_player;
 Bomb* g_bomb;
-GameThread_0040dc80* g_card;
-Gui_0040dc80* g_front;
-AnimationManager_0040dc80* g_sprt_ctrl;
-ScoreState_0040dc80 g_globals;
+GameThread7* g_card;
+Gui2* g_front;
+AnimationManager3* g_sprt_ctrl;
+ScoreState2 g_globals;
 SoundQueue g_sound_manager;
 int g_enemy_hittable;
 PolarVec3 g_enemy_scroll;
@@ -56,44 +56,44 @@ void FrameTimer::Advance(float delta) {
 }
 
 // src/core/sprtlib/animation_manager_find.cpp
-struct AnimationNode_0040dc80 {
-    AnimationNode_0040dc80* object;
-    AnimationNode_0040dc80* next;
+struct AnimationNode4 {
+    AnimationNode4* object;
+    AnimationNode4* next;
     unsigned char reserved_08[0x0C];
-    AnimationNode_0040dc80* children;
+    AnimationNode4* children;
     int children_flagged;
     unsigned char reserved_1c[0x324];
     PolarVec3 position;                  // +0x340
 };
-struct AnimationManager_0040dc80 {
+struct AnimationManager3 {
     unsigned char reserved[0x72DAD4];
-    AnimationNode_0040dc80* primary_bucket;
+    AnimationNode4* primary_bucket;
     int reserved_2;
-    AnimationNode_0040dc80* secondary_bucket;
+    AnimationNode4* secondary_bucket;
 };
-Animation_0040dc80* __fastcall AnimationFinder::Find(
-        AnimationManager_0040dc80* manager, ScriptChangeHandle id) {
+Animation2* __fastcall AnimationFinder::Find(
+        AnimationManager3* manager, ScriptChangeHandle id) {
     if (!id.id)
         return 0;
-    for (AnimationNode_0040dc80* node = manager->primary_bucket; node != 0; node = node->next)
+    for (AnimationNode4* node = manager->primary_bucket; node != 0; node = node->next)
         if (*(int*)node->object == id.id)
-            return (Animation_0040dc80*)node->object;
-    for (AnimationNode_0040dc80* node = manager->secondary_bucket; node != 0; node = node->next)
+            return (Animation2*)node->object;
+    for (AnimationNode4* node = manager->secondary_bucket; node != 0; node = node->next)
         if (*(int*)node->object == id.id)
-            return (Animation_0040dc80*)node->object;
+            return (Animation2*)node->object;
     return 0;
 }
 
 // src/core/sprtlib/animation_manager_set_translated_position.cpp
 void __fastcall SetAnimationTranslatedPosition(
-        AnimationManager_0040dc80* manager, const PolarVec3* position, ScriptChangeHandle id) {
-    AnimationNode_0040dc80* entry = (AnimationNode_0040dc80*)AnimationManager_Find(manager, id);
+        AnimationManager3* manager, const PolarVec3* position, ScriptChangeHandle id) {
+    AnimationNode4* entry = (AnimationNode4*)AnimationManager_Find(manager, id);
     if (entry != 0) {
         entry->position.x = position->x + 224.0f;
         entry->position.y = position->y + 16.0f;
         entry->position.z = position->z;
         if (!entry->children_flagged) {
-            for (AnimationNode_0040dc80* child = entry->children; child; child = child->next) {
+            for (AnimationNode4* child = entry->children; child; child = child->next) {
                 PolarVec3* destination = &child->object->position;
                 destination->x = position->x + 224.0f;
                 destination->y = position->y + 16.0f;
@@ -105,19 +105,19 @@ void __fastcall SetAnimationTranslatedPosition(
 
 // src/game/laser/laser_manager.cpp
 void __fastcall Animation_SetPosition(
-        AnimationManager_0040dc80* manager, const PolarVec3* position, ScriptChangeHandle id) {
-    AnimationNode_0040dc80* object = (AnimationNode_0040dc80*)AnimationManager_Find(manager, id);
+        AnimationManager3* manager, const PolarVec3* position, ScriptChangeHandle id) {
+    AnimationNode4* object = (AnimationNode4*)AnimationManager_Find(manager, id);
     if (object != 0) {
         object->position = *position;
         if (object->children_flagged == 0)
-            for (AnimationNode_0040dc80* child = object->children; child != 0; child = child->next)
+            for (AnimationNode4* child = object->children; child != 0; child = child->next)
                 child->object->position = *position;
     }
 }
 
 // src/core/sprtlib/animation_handle_change_script.cpp
 void ScriptChangeHandle::ChangeScript(int index) {
-    Animation_0040dc80* object = AnimationManager_Find(g_sprt_ctrl, *this);
+    Animation2* object = AnimationManager_Find(g_sprt_ctrl, *this);
     if (object) ext_call(object, index);
 }
 
@@ -166,21 +166,21 @@ void EnemyRecord::ResetScript() {
     *(void**)(self + 0x101C) = this;
     *(int*)(self + 0x1018) = -1;
     *(int*)(self + 0x1020) = 0;
-    current = (ScriptFrame_0040dc80*)(self + 0x8);
+    current = (ScriptFrame*)(self + 0x8);
     *(void**)(self + 0x1030) = self + 0x8;
     *(void**)(self + 0x1034) = 0;
     *(void**)(self + 0x1038) = 0;
 }
 
 // src/script/sptlib/final_script_runtime.cpp
-int ScriptTable_00450470::Resolve(const char* name) {
+int ScriptTable2::Resolve(const char* name) {
     int low = 0;
     int high = this->count;
     if (--high >= 0) {
-        const ScriptEntry_00450470* entries = this->entries;
+        const ScriptEntry3* entries = this->entries;
         do {
             const int middle = low + (high - low) / 2;
-            const ScriptEntry_00450470* entry = &entries[middle];
+            const ScriptEntry3* entry = &entries[middle];
             const int order = strcmp(name, entry->name);
             if (order == 0)
                 return static_cast<int>(entry->value) + 16;
@@ -193,9 +193,9 @@ int ScriptTable_00450470::Resolve(const char* name) {
     return 0;
 }
 
-// src/script/sptlib/fun_00450700.cpp
+// src/script/sptlib/fun.cpp_450700.cpp
 int __fastcall BindName(const char* name, EnemyRecord* record) {
-    ScriptTable_00450470* script_table = record->table;
+    ScriptTable2* script_table = record->table;
     record->table = script_table;
     record->current->instruction = script_table->Resolve(name);
     record->current->time = 0;
@@ -226,7 +226,7 @@ int __fastcall FieldContact(
     return 1;
 }
 
-// src/core/sound/sound_queue_pan_0043dd10.cpp
+// src/core/sound/sound_queue_pan.cpp
 void SoundQueue::QueuePan(int sound_id, float pan) {
     int priority = g_sound_priority[sound_id * 4];
     int request = int(pan * (1000.0f / 192.0f));

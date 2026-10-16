@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "name": "reverse_dword_bytes_0043a700",
+  "source": "src/core/midilib/midi_reverse_dword_bytes.cpp",
+  "driver": "build_support/layout/ltcg/reverse_dword_bytes_0043a700_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "Dword byte reversal compiled with native LTCG, which keeps the address-taken stack argument and a separate result word.",
+  "functions": [
+    {
+      "name": "ReverseDwordBytes",
+      "symbol": "?ReverseDwordBytes@@YGII@Z",
+      "section": ".text$01swap",
+      "address": "0x0043A700",
+      "size": 37,
+      "actual_abi": "dword on stack; result in EAX; RET 4"
+    }
+  ],
+  "context": {
+    "symbol": "?ReverseDwordCompilerContext@@YGHPAIH@Z",
+    "section": ".text$03context",
+    "address": "0x0043A730",
+    "size": 39,
+    "description": "Synthetic array-processing caller; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 235264
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x0043A725",
+      "size": 11
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [],
+  "included_sources": []
+}

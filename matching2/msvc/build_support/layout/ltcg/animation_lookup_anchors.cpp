@@ -37,7 +37,7 @@ __declspec(noinline) void* __fastcall AnimationManager_Find(
 #pragma code_seg()
 
 #pragma code_seg(".text$04setflag")
-__declspec(noinline) void* __fastcall AnimationManager_SetFlag_004492a0(
+__declspec(noinline) void* __fastcall AnimationManager_SetFlag2(
         AnimationLookupContext* context, AnimationScriptId id) {
     AnimationLookupAnchorEntry* entry =
         (AnimationLookupAnchorEntry*)AnimationManager_Find(context, id);

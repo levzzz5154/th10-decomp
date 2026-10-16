@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "name": "ecl_holder_resolve_float_00412a70",
+  "source": "src/unreferenced/FUN.cpp_412a70.cpp",
+  "driver": "build_support/layout/ltcg/ecl_holder_resolve_float_00412a70_context.cpp",
+  "headers": [
+    "include/th10/script/ecl_float_destination.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Forward a float-variable lookup to the ECL VM of the object at +0x14D8; compiled with native LTCG with the lookup at 0x00450070.",
+  "functions": [
+    {
+      "name": "ecl_holder_resolve_float_00412a70",
+      "symbol": "?ResolveFloatDestination@EclHolder@@QAEPAMH@Z",
+      "section": ".text$01_",
+      "address": "0x00412A70",
+      "size": 14,
+      "actual_abi": "holder in EAX; index in ECX; tail-jumps to 0x00450070 with the VM in EAX"
+    }
+  ],
+  "context": {
+    "symbol": "?Ctx@@YGMPAPAUEclHolder@@H@Z",
+    "section": ".text$zzcontext",
+    "address": "0x004500F0",
+    "size": 68,
+    "description": "Synthetic caller that establishes the observed register convention; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 72304
+    },
+    {
+      "section": ".text$01_z",
+      "address": "0x00412A7E",
+      "size": 251378
+    },
+    {
+      "section": ".text$01accessorz",
+      "address": "0x004500CD",
+      "size": 35
+    }
+  ],
+  "constants": [],
+  "roots": [],
+  "absolute_symbols": [
+    {
+      "symbol": "__fltused",
+      "address": "0x00000000",
+      "kind": "metadata"
+    },
+    {
+      "symbol": "__ftol2",
+      "address": "0x00463B2C",
+      "kind": "relative_code"
+    }
+  ],
+  "included_sources": [
+    "src/script/sptcmd/ecl_resolve_float_destination.cpp"
+  ],
+  "anchors": [
+    {
+      "name": "EclVm_ResolveFloatDestination_abi_anchor",
+      "symbol": "?ResolveFloatDestination@EclVm3@@QAEPAMH@Z",
+      "section": ".text$01accessor",
+      "address": "0x00450070",
+      "size": 93
+    }
+  ]
+}

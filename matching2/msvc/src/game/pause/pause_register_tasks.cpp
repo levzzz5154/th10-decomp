@@ -3,7 +3,7 @@
 // timer at zero. Native LTCG passes the state in EBX.
 //
 // The including driver selects the code section.
-#include "th10/game/timer_state_00422360.hpp"
+#include "th10/game/timer_state.hpp"
 
 extern "C" {
 SchedulerTask* __stdcall SchedulerTask_Create(TaskRoutine callback);

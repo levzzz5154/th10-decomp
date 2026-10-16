@@ -8,7 +8,7 @@
 
 struct AnimationObjectFile;
 struct AnimationResourceFile;
-extern "C" void* __stdcall LoadScript_0043e710(AnimationResourceFile* resource,
+extern "C" void* __stdcall LoadScript2(AnimationResourceFile* resource,
                                              AnimationObjectFile* object,
                                              int index);
 
@@ -22,6 +22,6 @@ __declspec(noinline) void __stdcall Entity_StartScript(
     EntityTail(entity)->layer_3a1 = 0x10;
     EntityTail(entity)->layer_3a0 = 0x10;
     entity->ScriptIndex() = static_cast<int16_t>(script);
-    LoadScript_0043e710(resource, reinterpret_cast<AnimationObjectFile*>(entity), script);
+    LoadScript2(resource, reinterpret_cast<AnimationObjectFile*>(entity), script);
 }
 #pragma code_seg()

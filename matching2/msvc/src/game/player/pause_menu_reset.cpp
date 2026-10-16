@@ -13,7 +13,7 @@ struct PauseFrameTimer {
     const float* speed;
     unsigned int flags;
 };
-struct PauseState_00424d90 {
+struct PauseState2 {
     unsigned char reserved_000[0x458];
     int state;
     unsigned char reserved_45c[4];
@@ -22,8 +22,8 @@ struct PauseState_00424d90 {
     int animation_handle;
 };
 typedef char PauseFrameTimerSize[sizeof(PauseFrameTimer)==0x14?1:-1];
-typedef char PauseResetTimerOffset[offsetof(PauseState_00424d90,timers)==0x460?1:-1];
-typedef char PauseResetHandleOffset[offsetof(PauseState_00424d90,animation_handle)==0x329c?1:-1];
+typedef char PauseResetTimerOffset[offsetof(PauseState2,timers)==0x460?1:-1];
+typedef char PauseResetHandleOffset[offsetof(PauseState2,animation_handle)==0x329c?1:-1];
 
 struct PauseAnimationRecord {
     unsigned int flags;
@@ -56,7 +56,7 @@ extern int pause_active_count;
 }
 
 #pragma code_seg(".text$03pause")
-extern "C" __declspec(noinline) void __stdcall ReplayPauseReset(PauseState_00424d90* owner) {
+extern "C" __declspec(noinline) void __stdcall ReplayPauseReset(PauseState2* owner) {
     int* state=&owner->state;
     state[0]=1;
     unsigned int flags=owner->timers[0].flags;

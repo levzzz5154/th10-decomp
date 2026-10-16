@@ -1,8 +1,8 @@
 // Compiler context only; never selected as recovered game code.
-#include "../../../src/unreferenced/unassigned_00438940.cpp"
+#include "../../../src/unreferenced/unassigned_438940.cpp"
 
 #pragma code_seg(".text$03context")
-int __stdcall RegionCompilerContext(Object_00438940** items, int count) {
+int __stdcall RegionCompilerContext(Object16** items, int count) {
     while (count--) {
         (*items++)->Init();
     }

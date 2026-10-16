@@ -17,7 +17,7 @@ struct GameFrame;
 int GameFrameAdvance(GameFrame* frame);
 extern "C" GameFrame g_main_window;
 
-struct RenderStageState_00405300 {
+struct RenderStageState2 {
     unsigned char reserved_000[0x388];
     __declspec(noinline) void SelectDefaultStage(int index);
 };
@@ -26,7 +26,7 @@ struct RenderStageState_00405300 {
 // _004091c0.cpp) is kept alive by the call below - deliberately not by a `roots`
 // entry, which would pin its declared __thiscall ABI.  Retail enters that body
 // with the state in EBX, the private receiver its caller 0x00409270 supplies.
-struct CardRuntime_004091c0 {
+struct CardRuntime {
     unsigned char reserved_0000[0x378C];
     unsigned char release_flag_378C;
     unsigned char reserved_378D[0x400];
@@ -36,7 +36,7 @@ struct CardRuntime_004091c0 {
 
 // 0x00420C90/0x00420D10/0x00420D50 have no retail caller; these calls keep the
 // switches in the link without pinning their EDI receiver.
-struct RenderStageState_00439390 {
+struct RenderStageState4 {
     __declspec(noinline) int EnableFog();
     __declspec(noinline) int EnableDepthWrite();
     __declspec(noinline) int DisableDepthWrite();
@@ -62,12 +62,12 @@ int __stdcall RenderBatchContext(const ScreenRect** rects, const unsigned int* c
         GameFrameAdvance(&g_main_window);
     }
     g_application.SelectStage(0);
-    ((RenderStageState_00405300*)&g_application)->SelectDefaultStage(0);
+    ((RenderStageState2*)&g_application)->SelectDefaultStage(0);
     // keeps the 0x004091C0 model in the link without pinning its receiver
-    ((CardRuntime_004091c0*)&g_application)->ReleaseFlaggedEntityArrays();
-    count += ((RenderStageState_00439390*)&g_application)->EnableFog();
-    count += ((RenderStageState_00439390*)&g_application)->EnableDepthWrite();
-    count += ((RenderStageState_00439390*)&g_application)->DisableDepthWrite();
+    ((CardRuntime*)&g_application)->ReleaseFlaggedEntityArrays();
+    count += ((RenderStageState4*)&g_application)->EnableFog();
+    count += ((RenderStageState4*)&g_application)->EnableDepthWrite();
+    count += ((RenderStageState4*)&g_application)->DisableDepthWrite();
     return count;
 }
 #pragma code_seg()
@@ -75,7 +75,7 @@ int __stdcall RenderBatchContext(const ScreenRect** rects, const unsigned int* c
 extern "C" void __cdecl crt_free_startup(void* memory);
 
 #pragma code_seg(".text$06b01anchor")
-extern "C" __declspec(noinline) int EntityDraw_00443080(RenderEntity* entity, SprtCtrlBatchView* manager) {
+extern "C" __declspec(noinline) int EntityDraw(RenderEntity* entity, SprtCtrlBatchView* manager) {
     int a = (int)entity->flags;
     int b = (int)entity->strip_count;
     crt_free_startup(entity);
@@ -129,7 +129,7 @@ extern "C" __declspec(noinline) int FadedQuadDraw(SprtCtrlBatchView* manager, Re
 
 
 #pragma code_seg(".text$04ap")
-extern "C" __declspec(noinline) void SyncRenderState_004423e0(
+extern "C" __declspec(noinline) void SyncRenderState2(
         SprtCtrlBatchView* manager, RenderEntity* entity) {
     int a = (int)entity->flags;
     crt_free_startup((void*)1);

@@ -3,9 +3,9 @@
   "name": "frame_timer",
   "source": "src/game/background/frame_timer_tick.cpp",
   "additional_sources": [
-    "src/game/background/player_set_scheduler_value_00405410.cpp",
+    "src/game/background/player_set_scheduler_value.cpp",
     "src/core/screen/updates.cpp",
-    "src/game/game/recovery_decay_counter_00418a00.cpp",
+    "src/game/game/recovery_decay_counter.cpp",
     "src/game/enemy/replay_progress.cpp"
   ],
   "driver": "build_support/layout/ltcg/frame_timer_context.cpp",
@@ -40,7 +40,7 @@
     },
     {
       "name": "PlayerSchedulerRecord_SetSchedulerValue",
-      "source": "src/game/background/player_set_scheduler_value_00405410.cpp",
+      "source": "src/game/background/player_set_scheduler_value.cpp",
       "symbol": "?SetSchedulerValue@PlayerSchedulerRecord@@QAEXH@Z",
       "section": ".text$03scheduler",
       "address": "0x00405410",
@@ -58,7 +58,7 @@
     },
     {
       "name": "ScoreState_DecayGauge",
-      "source": "src/game/game/recovery_decay_counter_00418a00.cpp",
+      "source": "src/game/game/recovery_decay_counter.cpp",
       "symbol": "?DecayGauge@ScoreState@@QAEXXZ",
       "section": ".text$04zdecay",
       "address": "0x00418A00",

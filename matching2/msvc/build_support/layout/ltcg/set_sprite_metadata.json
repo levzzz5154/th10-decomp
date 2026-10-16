@@ -8,7 +8,7 @@
   "constants": [],
   "absolute_symbols": [],
   "name": "set_sprite_metadata",
-  "source": "src/unreferenced/FUN_00401d10_00401d10.cpp",
+  "source": "src/unreferenced/FUN.cpp_401d10.cpp",
   "driver": "build_support/layout/ltcg/set_sprite_metadata_context.cpp",
   "description": "Entity sprite-metadata store compiled with native LTCG so the internal register convention (entity in EAX, pointer in ECX) matches retail.",
   "functions": [

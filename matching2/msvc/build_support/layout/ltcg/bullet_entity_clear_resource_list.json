@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "name": "bullet_entity_clear_resource_list",
+  "source": "src/game/enemy/bullet_entity_clear_resource_list.cpp",
+  "driver": "build_support/layout/ltcg/bullet_entity_clear_resource_list_0040c6e0_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "Bullet resource-record cleanup compiled with native LTCG so the entity pointer arrives in EAX.",
+  "functions": [
+    {
+      "name": "BulletEntity_ClearResourceList",
+      "symbol": "?ClearResourceList@BulletEntity3@@QAEXXZ",
+      "section": ".text$01clear",
+      "address": "0x0040C6E0",
+      "size": 45,
+      "actual_abi": "entity in EAX; plain RET"
+    }
+  ],
+  "context": {
+    "symbol": "?BulletEntityClearResourceListCompilerContext@@YGHPAPAUBulletEntity3@@H@Z",
+    "section": ".text$03context",
+    "address": "0x0040C710",
+    "size": 36,
+    "description": "Synthetic array-walking caller that establishes the observed register convention; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 46816
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x0040C70D",
+      "size": 3
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_crt_free_startup",
+      "address": "0x004524A1",
+      "kind": "relative_code"
+    }
+  ],
+  "included_sources": []
+}

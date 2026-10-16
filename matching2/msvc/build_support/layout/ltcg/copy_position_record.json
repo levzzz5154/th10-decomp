@@ -1,17 +1,17 @@
 {
   "schema_version": 1,
   "name": "copy_position_record",
-  "source": "src/core/sprtlib/animation_manager_copy_position_record_00447940.cpp",
+  "source": "src/core/sprtlib/animation_manager_copy_position_record.cpp",
   "driver": "build_support/layout/ltcg/copy_position_record_context.cpp",
   "headers": [
-    "include/th10/render/animation_position_record_00447940.hpp"
+    "include/th10/render/animation_position_record.hpp"
   ],
   "image_base": "0x00400000",
   "description": "Typed record copy and UV scaling.",
   "functions": [
     {
-      "name": "CopyPositionRecord_00447940",
-      "symbol": "?CopyPositionRecord_00447940@@YGXHPAUAnimationPositionManager@@PBUAnimationPositionRecord@@@Z",
+      "name": "CopyPositionRecord2",
+      "symbol": "?CopyPositionRecord2@@YGXHPAUAnimationPositionManager@@PBUAnimationPositionRecord@@@Z",
       "section": ".text$01copy",
       "address": "0x00447940",
       "size": 143,

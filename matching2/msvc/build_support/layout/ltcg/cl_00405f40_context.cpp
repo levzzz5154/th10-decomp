@@ -1,11 +1,11 @@
 // Compiler context only; never selected as recovered game code.
-#include "../../../src/unreferenced/unassigned_00405f40.cpp"
+#include "../../../src/unreferenced/unassigned_405f40.cpp"
 
 extern "C" void __cdecl opaque_release_004492a0(void* item);
 extern "C" char* g_sprt_ctrl;
 
 #pragma code_seg(".text$03anchor")
-__declspec(noinline) void AnimationResource_00405f40::Release() {
+__declspec(noinline) void AnimationResource2::Release() {
     if (resource_108 == 0) {
         crt_free_startup(this);
         return;
@@ -37,7 +37,7 @@ __declspec(noinline) void AnimationResource_00405f40::Release() {
 int __stdcall ReleaseContext_00405f40(int count) {
     int total = 0;
     for (int i = 0; i < count; ++i) {
-        total += ReleaseCachedResource_00405f40();
+        total += ReleaseCachedResource();
     }
     return total;
 }

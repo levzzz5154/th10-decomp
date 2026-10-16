@@ -11,8 +11,8 @@
 // model is verified through the equivalent-recovery layout
 // build_support/layout/equivalent/projectile_command_runtime_00406d90.json.
 #include <string.h>
-#include "th10/game/projectile_spawn_runtime_004067d0.hpp"
-#include "th10/game/enemy_grid_scan_004073e0.hpp"
+#include "th10/game/projectile_spawn_runtime.hpp"
+#include "th10/game/enemy_grid_scan.hpp"
 #include "th10/platform/sound_queue.hpp"
 
 // The vanishing activation 0x00408030, whose receiver retail keeps in ESI;
@@ -184,9 +184,9 @@ void ProjectileCommandRuntime::Tick() {
             pattern.x_base = command->value_a;
             pattern.field_204 = -1;
             memcpy(pattern.commands, record.commands, sizeof(record.commands));
-            EnemyGrid_ScanCells_004073e0(
+            EnemyGrid_ScanCells2(
                 reinterpret_cast<ProjectilePattern*>(pattern_words),
-                reinterpret_cast<ProjectileManager_004073e0*>(g_bullet_manager));
+                reinterpret_cast<ProjectileManager2*>(g_bullet_manager));
             ++record.command_index;
             if (vanish == 0)
                 continue;

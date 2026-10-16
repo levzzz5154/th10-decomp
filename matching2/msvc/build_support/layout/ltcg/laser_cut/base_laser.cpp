@@ -1,9 +1,9 @@
-#include "th10/game/laser_spawn_0041c510.hpp"
+#include "th10/game/laser_spawn.hpp"
 extern "C" unsigned char g_laser_vtable;
 extern "C" unsigned char g_game_speed;
 #pragma code_seg(".text$f0041c030F")
 __declspec(noinline) LaserBase *__fastcall
-LaserBase_Construct_0041c030(void *, LaserBase *self) {
+LaserBase_Construct2(void *, LaserBase *self) {
     self->vtable = &g_laser_vtable;
     // The clear goes through a typed pointer: the plain member form makes MSVC
     // schedule the read-modify-write ahead of the vtable store, which no longer

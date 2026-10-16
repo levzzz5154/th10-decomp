@@ -1,11 +1,11 @@
 // Compiler context only; never selected as recovered game code.
-#include "../../../src/unreferenced/FUN_004356c0_004356c0.cpp"
+#include "../../../src/unreferenced/FUN.cpp_4356c0.cpp"
 
 #pragma code_seg(".text$03context")
-int __stdcall InstallVtableCompilerContext(FileInterface_004356c0** objects, int count) {
-    FileInterface_004356c0** cursor = objects;
+int __stdcall InstallVtableCompilerContext(FileInterface2** objects, int count) {
+    FileInterface2** cursor = objects;
     while (count--) {
-        FileInterface_004356c0* object = *cursor++;
+        FileInterface2* object = *cursor++;
         object->InstallVtable();
         object->InstallVtable();
     }

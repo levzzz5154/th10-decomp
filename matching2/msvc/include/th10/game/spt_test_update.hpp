@@ -58,4 +58,4 @@ inline void SptTest_Select(MenuCursor& cursor, int index) {
         cursor.selection = 0;
 }
 
-int __fastcall SptTest_UpdateTask_0042c580(SptTest_0042be20* viewer);
+int __fastcall SptTest_UpdateTask2(SptTest2* viewer);

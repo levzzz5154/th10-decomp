@@ -199,7 +199,7 @@ struct WaveSoundManager {
     int Initialize(void* window);
 };
 
-struct TextLog_0044b810 {
+struct TextLog4 {
     char text[0x2000];
     char* cursor;
     unsigned char dirty;
@@ -231,8 +231,8 @@ typedef char WavePendingMustBe5230[offsetof(WaveSoundManager, pending_wave) == 0
 
 extern "C" {
     extern volatile int g_sound_shutdown_state;
-    extern TextLog_0044b810 g_wave_error_log;
-    int __fastcall SoundWave_LoadPending_0043d390(int index, WaveSoundManager*, const char* filename);
+    extern TextLog4 g_wave_error_log;
+    int __fastcall SoundWave_LoadPending2(int index, WaveSoundManager*, const char* filename);
     void __stdcall Sound_StopMusicWorker(WaveSoundManager*);
     int __stdcall SoundStream_Start(CommandSoundStream*, unsigned int priority, unsigned int flags);
     int __stdcall MusicCursor_Rewind(MusicReadCursor*, unsigned char loop_start);

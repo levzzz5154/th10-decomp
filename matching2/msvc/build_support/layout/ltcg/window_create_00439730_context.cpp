@@ -1,5 +1,5 @@
 // Compiler context only; never selected as recovered game code.
-#include "../../../src/core/main/window_create_00439730.cpp"
+#include "../../../src/core/main/window_create.cpp"
 
 extern "C" int __cdecl WindowCreateEscape(void* pointer, int value);
 
@@ -11,7 +11,7 @@ extern "C" int __stdcall WindowCreateContext(HINSTANCE* instances, int count) {
     for (int index = 0; index < count; ++index) {
         HINSTANCE instance = instances[index];
         total += WindowCreateEscape(instance, index);
-        if (CreateGameWindow_00439730(instance) != 0)
+        if (CreateGameWindow2(instance) != 0)
             total += WindowCreateEscape(instance, total);
         total += WindowCreateEscape(g_main_window.window, index);
     }

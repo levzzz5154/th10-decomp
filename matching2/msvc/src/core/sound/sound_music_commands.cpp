@@ -1,7 +1,7 @@
 // 0x0043DDF0: run the music command queue and the pending sound effects.
 #include "../../../build_support/layout/ltcg/sound_interfaces_dependencies/sound_wave_types.hpp"
 #include "th10/app/supervisor.hpp"
-#include "th10/platform/sound_fade_0044d4e0.hpp"
+#include "th10/platform/sound_fade.hpp"
 #include <string.h>
 
 struct SoundEffectSetting {
@@ -12,7 +12,7 @@ struct SoundEffectSetting {
 struct PathName {
     int FindBasenameSlot(void* owner);
 };
-struct PlatformInterfaceState_0044D5D0 {
+struct PlatformInterfaceState4 {
     int InvokeConfigured();
 };
 struct PlatformStreamRecord;
@@ -34,7 +34,7 @@ __declspec(dllimport) int __stdcall CloseHandle(void* handle);
 extern WaveSoundManager g_wave_sound_manager;
 extern SoundEffectSetting g_sound_effect_settings[];
 int __stdcall SoundStream_Restart(SoundStreamingState* stream);
-int __stdcall SoundStream_RecreateBuffers_0044cf20(SoundStreamingState* stream);
+int __stdcall SoundStream_RecreateBuffers2(SoundStreamingState* stream);
 int __stdcall SoundStreamFill(SoundStream* stream, WaveSecondaryBuffer* buffer,
     unsigned int repeat);
 int __stdcall SoundStreamStart(SoundStream* stream, unsigned int priority, unsigned int flags);
@@ -71,7 +71,7 @@ top:
         switch (command->kind) {
         case 8:
             if (music_stream)
-                reinterpret_cast<PlatformInterfaceState_0044D4E0*>(music_stream)
+                reinterpret_cast<PlatformInterfaceState2*>(music_stream)
                     ->SetOperationDeadline(volume_a);
             break;
 
@@ -98,7 +98,7 @@ top:
                 } else if (command->step == 1) {
                     if (static_cast<SoundStreamingState*>(music_stream)->servicing)
                         goto done;
-                    SoundStream_RecreateBuffers_0044cf20(
+                    SoundStream_RecreateBuffers2(
                         static_cast<SoundStreamingState*>(music_stream));
                     goto advance;
                 } else if (command->step == 2) {
@@ -214,7 +214,7 @@ top:
                 if (static_cast<SoundStreamingState*>(music_stream)->servicing)
                     goto done;
                 if (music_stream)
-                    reinterpret_cast<PlatformInterfaceState_0044D5D0*>(music_stream)
+                    reinterpret_cast<PlatformInterfaceState4*>(music_stream)
                         ->InvokeConfigured();
             }
             break;

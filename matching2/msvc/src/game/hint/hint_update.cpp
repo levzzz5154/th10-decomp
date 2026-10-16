@@ -10,7 +10,7 @@
 // cluster build_support/layout/ltcg/recovery_mark_text_and_dispatcher.json.
 #include <math.h>
 
-#include "th10/game/indicator_animation_lookup_00419120.hpp"
+#include "th10/game/indicator_animation_lookup.hpp"
 #include "th10/game/player.hpp"
 
 extern "C" int recovery_indicator_owner;   // current stage tag

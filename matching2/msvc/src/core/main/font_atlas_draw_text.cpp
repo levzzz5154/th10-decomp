@@ -10,7 +10,7 @@
 // Copy a rectangle of the atlas to the top surface of a texture.
 static __forceinline void CopyAtlasToTexture(FontTexture* texture, const FontAtlasRect* destination,
                                              const FontAtlasRect* source) {
-    FontSurface_00437fe0* surface;
+    FontSurface2* surface;
     texture->methods->GetSurfaceLevel(texture, 0, &surface);
     D3DXLoadSurfaceFromMemory(surface, 0, destination, g_font_atlas_surface.pixels, g_font_atlas_surface.format,
                                        g_font_atlas_surface.pitch, 0, source, 4, 0);

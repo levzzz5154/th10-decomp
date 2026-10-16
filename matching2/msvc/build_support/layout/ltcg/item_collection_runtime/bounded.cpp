@@ -43,7 +43,7 @@ __declspec(noinline) int LineEffectSweep::CreateSegmentsInBounds(int spawn_items
                 position_output->x = point.x + 224.0f;
                 position_output->y = animation_y;
                 position_output->z = point.z;
-                LoadScript_0043e710(
+                LoadScript2(
                     static_cast<AnimationResourceFile*>(resource),
                     reinterpret_cast<AnimationObjectFile*>(animation), script);
                 void* handle;

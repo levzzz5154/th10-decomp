@@ -1,8 +1,8 @@
 // Compiler context only; its bytes are not recovered game code.
-#include "../../../src/unreferenced/unassigned_004087a0.cpp"
+#include "../../../src/unreferenced/unassigned_4087a0.cpp"
 
 #pragma code_seg(".text$03context")
-int __stdcall Ctx(AnmVm_004087a0** items, int count, float value) {
+int __stdcall Ctx(AnmVm6** items, int count, float value) {
     while (count--) (*items++)->SetRotationZ(value);
     return 0;
 }

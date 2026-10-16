@@ -1,22 +1,22 @@
 #ifndef TH10_BULLET_RUNTIME_ACTIONS_HPP
 #define TH10_BULLET_RUNTIME_ACTIONS_HPP
 
-#include "th10/game/player_motion_helpers_004074b0_004076a0.hpp"
-#include "th10/game/player_homing_00407ef0.hpp"
+#include "th10/game/player_motion_helpers.hpp"
+#include "th10/game/player_homing.hpp"
 
-struct EffectVector3_00407560 {
+struct EffectVector3 {
     float x;
     float y;
     float z;
 
-    EffectVector3_00407560(float x_value, float y_value, float z_value)
+    EffectVector3(float x_value, float y_value, float z_value)
         : x(x_value), y(y_value), z(z_value) {}
 
-    EffectVector3_00407560 operator*(float scale) const {
-        return EffectVector3_00407560(x * scale, y * scale, z * scale);
+    EffectVector3 operator*(float scale) const {
+        return EffectVector3(x * scale, y * scale, z * scale);
     }
 
-    EffectVector3_00407560& operator+=(const EffectVector3_00407560& value) {
+    EffectVector3& operator+=(const EffectVector3& value) {
         x += value.x;
         y += value.y;
         z += value.z;
@@ -26,9 +26,9 @@ struct EffectVector3_00407560 {
 
 // 0x00407560..0x00407690: accelerate the enemy's velocity and auxiliary
 // motion until the duration expires, then advance the frame timer.
-struct EffectAccel_00407560 {
+struct EffectAccel2 {
     unsigned char reserved_000[0x3C0];
-    EffectVector3_00407560 velocity; // +0x3C0
+    EffectVector3 velocity; // +0x3C0
     unsigned char reserved_3cc[0x0C];
     float auxiliary; // +0x3D8
     unsigned char reserved_3dc[8];
@@ -43,7 +43,7 @@ struct EffectAccel_00407560 {
     unsigned int timer_flags;     // +0x658
     float auxiliary_acceleration; // +0x65C
     unsigned char reserved_660[4];
-    EffectVector3_00407560 acceleration; // +0x664
+    EffectVector3 acceleration; // +0x664
     int duration;                        // +0x670
 
     __declspec(noinline) void Update();

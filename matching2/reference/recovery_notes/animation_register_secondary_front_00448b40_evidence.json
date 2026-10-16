@@ -9,16 +9,16 @@
   "instruction_bytes_changed": 0,
   "reference_bytes_used_for_build": false,
   "inputs": {
-    "layout/ltcg/animation_register_secondary_front_00448b40.json": "42585f382849c656a385405c2c226a3b024d99e12471df9eb44be18c3997a5f9",
-    "src/render/animation_manager_register_secondary_front_00448b40.cpp": "b41bc368ce0620dc74cbe3fceafb43f9a117c518f485f237f5f0be42dbf4b30c",
+    "layout/ltcg/animation_register_secondary_front.json": "42585f382849c656a385405c2c226a3b024d99e12471df9eb44be18c3997a5f9",
+    "src/render/animation_manager_register_secondary_front.cpp": "b41bc368ce0620dc74cbe3fceafb43f9a117c518f485f237f5f0be42dbf4b30c",
     "layout/ltcg/animation_register_secondary_front_00448b40_context.cpp": "6b7d00dacfa854455509db420ce2757e5dbe638e145016e90489557a41c8133c",
     "include/th10/game/player_hud_animations.hpp": "a273bc8c28587ca8864e5eea205fba8ed474cd17f753278234e8c1203fd0698f",
     "include/th10/game/entity.hpp": "5947ee3d028eb94daa460db1e5dd592b30bb8ffda2fb85311a864f0a84f641ad",
-    "include/th10/game/pause_result_open_004231d0/open_animation.hpp": "83b3bb63bd1894900bb44d2677fcc642024fe245077f23b26f0db6a2f4b0824f",
+    "include/th10/game/pause_result_open/open_animation.hpp": "83b3bb63bd1894900bb44d2677fcc642024fe245077f23b26f0db6a2f4b0824f",
     "include/th10/types.hpp": "16f441397e5c33f60de63af3bc2cd4ccd6935ef11acb3f7744b678c667d79957",
     "layout/ltcg/animation_register_secondary_front_00448b40_body.cpp": "1de06b341a0a4f5dcca29ad065eaff2ed17c291b6ca1a9aae3d2efb4699a3774",
     "layout/ltcg/animation_register_secondary_front_00448b40_allocate.cpp": "64af56abbf82fd93c5994025eb1b940ca8d329367f3ce81990c49f16d0bd302e",
-    "layout/ltcg/result_open_00423370/allocate.cpp": "b7e9504b2e838c2695bd09a6c96d61e74cf86dde1960979a3aca58695be9a8aa"
+    "layout/ltcg/result_open/allocate.cpp": "b7e9504b2e838c2695bd09a6c96d61e74cf86dde1960979a3aca58695be9a8aa"
   },
   "ordinary_verification": {
     "0x409280": {

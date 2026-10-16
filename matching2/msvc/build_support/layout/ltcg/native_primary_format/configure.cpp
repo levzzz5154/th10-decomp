@@ -6,7 +6,7 @@ int NativeDeviceOwner::Configure(void* window, unsigned int level, unsigned shor
         current->methods->release(current);
         device=0;
     }
-    int result=Ordinal_11_00452170(0,&device,0);
+    int result=Ordinal_112(0,&device,0);
     if (result>=0) {
         current=device;
         result=current->methods->set_cooperative_level(current,window,level);

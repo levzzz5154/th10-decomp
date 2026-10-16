@@ -1,8 +1,8 @@
 // Compiler context only; never selected as recovered game code.
-#include "../../../src/unreferenced/unassigned_0043aa30.cpp"
+#include "../../../src/unreferenced/unassigned_43aa30.cpp"
 
 #pragma code_seg(".text$03context")
-int __stdcall RegionCompilerContext(Object_0043aa30** items, int count, int index) {
+int __stdcall RegionCompilerContext(Object28** items, int count, int index) {
     while (count--) {
         (*items++)->Release(index);
     }
