@@ -29,7 +29,7 @@ from the retail assembly of those regions.
 | 0x0044A190 joystick binding reader (2026-10-14) | 833 | 251/282 identical, th06-style `&buttons` helpers |
 | 0x00426F70 familiar refresh (2026-10-14) | 2,520 | 641/643 identical, 1 operand-order hunk |
 | 0x0040BD80 script executor (2026-10-14) | 1,568 | 400/444 identical, 28 classified hunks |
-| 0x00415E90 result dispatcher (2026-10-14) | 4,480 | 873/1147 identical, 138 classified hunks (structural 121/143); see front_script_tick_00415e90_accepted note |
+| 0x00415E90 result dispatcher (2026-10-14, raised 2026-10-16) | 4,480 | 1144/1147 identical, 3 classified hunks (stage 7 clear-count difficulty in ESI); see front_script_tick_00415e90_1144_2026_10_16 note |
 | 0x00414900 front HUD update (2026-10-14) | 3,836 | 1064/1089 identical, 22 classified hunks (structural 25) |
 | 0x004067D0 projectile cell spawner (2026-10-14) | 1,472 | 327/354 identical, 17 classified hunks (structural 24); two semantic fixes (lit step only for shaped bullets, one-record cursor advance) |
 | 0x00406D90 projectile command Tick (2026-10-14) | 1,604 | 323/337 identical, 17 classified hunks; StartScript seam fixed after a replay crash (was 302/337), see accepted note |

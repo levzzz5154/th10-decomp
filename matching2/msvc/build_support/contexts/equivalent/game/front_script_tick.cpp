@@ -22,8 +22,10 @@ static DispatcherMusicRecord* MusicRecord() { return g_stage_route_current; }
 // through the returned pointer.
 __declspec(noinline) int* __stdcall DispatcherCreateAt(
     AnimationBank* resource, int* out, int script_index, int render_bucket);
+// The resource is a named local: retail allocates it apart from the
+// rotating expression temporaries.
 #define CREATE_INTO(target, resource, script) \
-    { int created; target = *DispatcherCreateAt(resource, &created, script, 15); }
+    { AnimationBank* bank = resource; int created; target = *DispatcherCreateAt(bank, &created, script, 15); }
 
 // Preserve the manager and resolved animation across the decode call, as the
 // actual caller does. A failed lookup clears the handle, but SetText is still
@@ -49,6 +51,24 @@ static __forceinline void BlankText(ResultDispatcherState* state, DispatcherHand
     animation->MarkText(manager, state->text_parameters[state->text_side], " ");
 }
 
+// Opcode 13 selects two child sprites from the boss resource. Retail reads the
+// resource before the operand for each call, so it is assigned first.
+#define SELECT_PAIR(c1, k1, c2, k2) { \
+    AnimationBank* resource = g_enemy_ctrl->resource; \
+    state->right_portrait.FindChildRef(c1).SelectResourceSprite(resource, state->command->first_operand + k1); \
+    resource = g_enemy_ctrl->resource; \
+    state->right_portrait.FindChildRef(c2).SelectResourceSprite(resource, state->command->first_operand + k2); }
+
+// 0x004492F0 with its retail parameter order: the position is evaluated
+// before the id is pushed.
+__declspec(noinline) void __stdcall SetAnimationPosition(
+    AnimationLookupContext* context, AnimationScriptId id, const DispatcherVec3* position);
+
+// Bit 0 of the walker flags: the command stream may be skipped with the shot key.
+struct DispatcherFlagBits {
+    unsigned skippable : 1;
+};
+
 #pragma code_seg(".text$00415e90_fn")
 extern "C" __declspec(noinline) int __stdcall
 ResultDispatcher2(ResultDispatcherState* state) {
@@ -68,8 +88,7 @@ ResultDispatcher2(ResultDispatcherState* state) {
         timer->previous = frame - 1;
         timer->elapsed = static_cast<float>(frame);
     }
-    if (state->timer.current >= (int)state->command->frame) {
-        do {
+    while (state->timer.current >= (int)state->command->frame) {
             switch (state->command->opcode) {
             case 14:
                 DecodeAndSetText(state, &state->first_text);
@@ -149,9 +168,9 @@ ResultDispatcher2(ResultDispatcherState* state) {
                 state->left_portrait.StopAtFrame2();
                 AnimationLookupContext* context = reinterpret_cast<AnimationLookupContext*>(g_sprt_ctrl);
                 state->text_side = 0;
-                DispatcherSetPosition(&state->text_positions[0], context, state->first_text.id);
-                DispatcherSetPosition(&state->text_positions[state->text_side], context,
-                    state->second_text.id);
+                SetAnimationPosition(context, state->first_text.id, &state->text_positions[0]);
+                SetAnimationPosition(context, state->second_text.id,
+                    &state->text_positions[state->text_side]);
                 state->alternate_text = 0;
                 break;
             }
@@ -160,15 +179,15 @@ ResultDispatcher2(ResultDispatcherState* state) {
                 state->right_portrait.StopAtFrame2();
                 AnimationLookupContext* context = reinterpret_cast<AnimationLookupContext*>(g_sprt_ctrl);
                 state->text_side = 1;
-                DispatcherSetPosition(&state->text_positions[1], context, state->first_text.id);
-                DispatcherSetPosition(&state->text_positions[state->text_side], context,
-                    state->second_text.id);
+                SetAnimationPosition(context, state->first_text.id, &state->text_positions[1]);
+                SetAnimationPosition(context, state->second_text.id,
+                    &state->text_positions[state->text_side]);
                 state->alternate_text = 0;
                 break;
             }
             case 9:
-                state->flags ^= (static_cast<unsigned char>(state->command->first_operand) ^
-                    state->flags) & 1;
+                reinterpret_cast<DispatcherFlagBits*>(&state->flags)->skippable =
+                    static_cast<unsigned char>(state->command->first_operand);
                 break;
             case 12:
                 switch (g_globals_character) {
@@ -191,60 +210,60 @@ ResultDispatcher2(ResultDispatcherState* state) {
                 case 1:
                     switch (g_globals_character) {
                     case 0:
-                        state->right_portrait.FindChildRef(24).SelectResourceSprite(g_enemy_ctrl->resource, state->command->first_operand + 0xf); state->right_portrait.FindChildRef(27).SelectResourceSprite(g_enemy_ctrl->resource, state->command->first_operand + 0x17);
+                        SELECT_PAIR(24, 0xf, 27, 0x17)
                         break;
                     case 1:
-                        state->right_portrait.FindChildRef(24).SelectResourceSprite(g_enemy_ctrl->resource, state->command->first_operand + 0xf); state->right_portrait.FindChildRef(27).SelectResourceSprite(g_enemy_ctrl->resource, state->command->first_operand + 0x17);
+                        SELECT_PAIR(24, 0xf, 27, 0x17)
                         break;
                     }
                     break;
                 case 2:
                     switch (g_globals_character) {
                     case 0:
-                        state->right_portrait.FindChildRef(24).SelectResourceSprite(g_enemy_ctrl->resource, state->command->first_operand + 0x15); state->right_portrait.FindChildRef(27).SelectResourceSprite(g_enemy_ctrl->resource, state->command->first_operand + 0x1e);
+                        SELECT_PAIR(24, 0x15, 27, 0x1e)
                         break;
                     case 1:
-                        state->right_portrait.FindChildRef(24).SelectResourceSprite(g_enemy_ctrl->resource, state->command->first_operand + 0x15); state->right_portrait.FindChildRef(27).SelectResourceSprite(g_enemy_ctrl->resource, state->command->first_operand + 0x1e);
+                        SELECT_PAIR(24, 0x15, 27, 0x1e)
                         break;
                     }
                     break;
                 case 3:
                     switch (g_globals_character) {
                     case 0:
-                        state->right_portrait.FindChildRef(24).SelectResourceSprite(g_enemy_ctrl->resource, state->command->first_operand + 0x22); state->right_portrait.FindChildRef(27).SelectResourceSprite(g_enemy_ctrl->resource, state->command->first_operand + 0x2b);
+                        SELECT_PAIR(24, 0x22, 27, 0x2b)
                         break;
                     case 1:
-                        state->right_portrait.FindChildRef(24).SelectResourceSprite(g_enemy_ctrl->resource, state->command->first_operand + 0x22); state->right_portrait.FindChildRef(27).SelectResourceSprite(g_enemy_ctrl->resource, state->command->first_operand + 0x2b);
+                        SELECT_PAIR(24, 0x22, 27, 0x2b)
                         break;
                     }
                     break;
                 case 4:
                     switch (g_globals_character) {
                     case 0:
-                        state->right_portrait.FindChildRef(24).SelectResourceSprite(g_enemy_ctrl->resource, state->command->first_operand + 0x25); state->right_portrait.FindChildRef(27).SelectResourceSprite(g_enemy_ctrl->resource, state->command->first_operand + 0x2e);
+                        SELECT_PAIR(24, 0x25, 27, 0x2e)
                         break;
                     case 1:
-                        state->right_portrait.FindChildRef(24).SelectResourceSprite(g_enemy_ctrl->resource, state->command->first_operand + 0x25); state->right_portrait.FindChildRef(27).SelectResourceSprite(g_enemy_ctrl->resource, state->command->first_operand + 0x2e);
+                        SELECT_PAIR(24, 0x25, 27, 0x2e)
                         break;
                     }
                     break;
                 case 5:
                     switch (g_globals_character) {
                     case 0:
-                        state->right_portrait.FindChildRef(24).SelectResourceSprite(g_enemy_ctrl->resource, state->command->first_operand + 0x16); state->right_portrait.FindChildRef(27).SelectResourceSprite(g_enemy_ctrl->resource, state->command->first_operand + 0x1f);
+                        SELECT_PAIR(24, 0x16, 27, 0x1f)
                         break;
                     case 1:
-                        state->right_portrait.FindChildRef(24).SelectResourceSprite(g_enemy_ctrl->resource, state->command->first_operand + 0x16); state->right_portrait.FindChildRef(27).SelectResourceSprite(g_enemy_ctrl->resource, state->command->first_operand + 0x1f);
+                        SELECT_PAIR(24, 0x16, 27, 0x1f)
                         break;
                     }
                     break;
                 case 6:
                     switch (g_globals_character) {
                     case 0:
-                        state->right_portrait.FindChildRef(28).SelectResourceSprite(g_enemy_ctrl->resource, state->command->first_operand + 0x30); state->right_portrait.FindChildRef(31).SelectResourceSprite(g_enemy_ctrl->resource, state->command->first_operand + 0x39);
+                        SELECT_PAIR(28, 0x30, 31, 0x39)
                         break;
                     case 1:
-                        state->right_portrait.FindChildRef(28).SelectResourceSprite(g_enemy_ctrl->resource, state->command->first_operand + 0x30); state->right_portrait.FindChildRef(31).SelectResourceSprite(g_enemy_ctrl->resource, state->command->first_operand + 0x39);
+                        SELECT_PAIR(28, 0x30, 31, 0x39)
                         break;
                     }
                     break;
@@ -252,19 +271,19 @@ ResultDispatcher2(ResultDispatcherState* state) {
                     if (state->variant < 1) {
                         switch (g_globals_character) {
                         case 0:
-                            state->right_portrait.FindChildRef(33).SelectResourceSprite(g_enemy_ctrl->resource, state->command->first_operand + 0x44); state->right_portrait.FindChildRef(36).SelectResourceSprite(g_enemy_ctrl->resource, state->command->first_operand + 0x4d);
+                            SELECT_PAIR(33, 0x44, 36, 0x4d)
                             break;
                         case 1:
-                            state->right_portrait.FindChildRef(33).SelectResourceSprite(g_enemy_ctrl->resource, state->command->first_operand + 0x44); state->right_portrait.FindChildRef(36).SelectResourceSprite(g_enemy_ctrl->resource, state->command->first_operand + 0x4d);
+                            SELECT_PAIR(33, 0x44, 36, 0x4d)
                             break;
                         }
                     } else {
                         switch (g_globals_character) {
                         case 0:
-                            state->right_portrait.FindChildRef(24).SelectResourceSprite(g_enemy_ctrl->resource, state->command->first_operand + 0x2e); state->right_portrait.FindChildRef(27).SelectResourceSprite(g_enemy_ctrl->resource, state->command->first_operand + 0x37);
+                            SELECT_PAIR(24, 0x2e, 27, 0x37)
                             break;
                         case 1:
-                            state->right_portrait.FindChildRef(24).SelectResourceSprite(g_enemy_ctrl->resource, state->command->first_operand + 0x2e); state->right_portrait.FindChildRef(27).SelectResourceSprite(g_enemy_ctrl->resource, state->command->first_operand + 0x37);
+                            SELECT_PAIR(24, 0x2e, 27, 0x37)
                             break;
                         }
                     }
@@ -362,36 +381,39 @@ ResultDispatcher2(ResultDispatcherState* state) {
                         g_globals.AddScore(g_globals_power * 400000);
                         break;
                     }
-                    if (g_replay->replay_mode == 1) {
+                    // The replay branch is the else arm so both copies sit
+                    // out of line and merge, as in retail.
+                    if (g_replay->replay_mode != 1) {
+                        Screen_Create(0x31, 5, 0x78, 0, 0, 0);
+                        DispatcherStageState* stage = StageState();
+                        stage->result_phase = 0;
+                        stage->flags |= 0x10;
+                        int* count = ClearCount();
+                        if (*count < 99999)
+                            ++*count;
+                    } else {
                         SetInputMode(&g_application, 4);
-                        break;
                     }
-                    Screen_Create(0x31, 5, 0x78, 0, 0, 0);
-                    DispatcherStageState* stage = StageState();
-                    stage->result_phase = 0;
-                    stage->flags |= 0x10;
-                    int* count = ClearCount();
-                    if (*count < 99999)
-                        ++*count;
                 } else if (g_globals_stage == 7) {
                     StageState()->flags |= 0x20;
                     g_globals.AddScore(g_globals_gauge * 1000);
                     g_globals.AddScore(g_globals_lives * 40000000);
                     g_globals.AddScore(g_globals_power * 400000);
-                    if (g_replay->replay_mode == 1) {
+                    if (g_replay->replay_mode != 1) {
+                        g_pause->OpenResult();
+                        int* count = ClearCount();
+                        if (*count < 99999)
+                            ++*count;
+                    } else {
                         SetInputMode(&g_application, 4);
-                        break;
                     }
-                    g_pause->OpenResult();
-                    int* count = ClearCount();
-                    if (*count < 99999)
-                        ++*count;
                 } else {
                     DispatcherStageState* stage = StageState();
+                    int* transition = &stage->transition_animation.value;
                     DispatcherRemoveAnimation(reinterpret_cast<AnimationLookupContext*>(g_sprt_ctrl),
                         stage->transition_animation);
-                    stage->transition_animation.value = 0;
-                    CREATE_INTO(stage->transition_animation.value, stage->resource, 0x4C)
+                    *transition = 0;
+                    { int created; *transition = *DispatcherCreateAt(stage->resource, &created, 0x4C, 15); }
                     SetInputMode(&g_application, 11);
                     reinterpret_cast<DispatcherRankState*>(&g_globals)->AdvanceLevel();
                 }
@@ -413,7 +435,6 @@ ResultDispatcher2(ResultDispatcherState* state) {
             state->command = reinterpret_cast<DispatcherCommand*>(
                 reinterpret_cast<unsigned char*>(state->command) +
                 4 + state->command->operand_size);
-        } while (state->timer.current >= (int)state->command->frame);
     }
     state->timer.Tick();
     return 0;

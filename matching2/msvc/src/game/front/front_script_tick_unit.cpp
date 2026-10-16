@@ -5,9 +5,23 @@
 #include "../../../build_support/layout/ltcg/result_open/dispatcher_handle_helpers.cpp"
 #include "../../../build_support/layout/ltcg/result_open/dispatcher_animation_helpers.cpp"
 #include "../../../build_support/layout/ltcg/result_open/dispatcher_input_mode.cpp"
+
+// 0x004492F0 in the parameter order the walker calls it with.
+#pragma code_seg(".text$004492f0_at")
+void __stdcall SetAnimationPosition(
+        AnimationLookupContext* context, AnimationScriptId id, const DispatcherVec3* position) {
+    DispatcherPositionObject* object = reinterpret_cast<DispatcherPositionObject*>(
+        AnimationManager_Find(context, id));
+    if (object) {
+        object->position = *position;
+        if (!object->children_flagged)
+            for (DispatcherPositionLink* child = object->children; child; child = child->next)
+                child->object->position = *position;
+    }
+}
+#pragma code_seg()
 #include "../../../build_support/layout/ltcg/result_open/frame_timer.cpp"
 #include "../../../build_support/layout/ltcg/result_open/path_decode_xor.cpp"
-#include "../../../build_support/layout/ltcg/result_open/score_bookkeeping.cpp"
 #include "../../../build_support/layout/ltcg/result_open/animation_manager_queue_resource.cpp"
 #include "../../../build_support/layout/ltcg/result_open/animation_object_configure_from_resource.cpp"
 #include "../../../build_support/layout/ltcg/result_open/recovery_mark_text_and_dispatcher.cpp"
