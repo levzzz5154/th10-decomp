@@ -6120,7 +6120,7 @@ extern "C" unsigned char g_back_camera_3;
 extern "C" unsigned char g_back_camera_4;
 extern "C" unsigned char g_back_camera_5;
 extern "C" unsigned char g_back_camera_6;
-extern "C" unsigned char g_front_camera;
+extern "C" unsigned char g_back_camera_7;
 extern "C" unsigned char data_00491d98;
 extern "C" unsigned char data_00491d9c;
 extern "C" unsigned char g_anm_vm_time_a;

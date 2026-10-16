@@ -58646,7 +58646,7 @@
     "_g_back_camera_4": "0x00491D88",
     "_g_back_camera_5": "0x00491D8C",
     "_g_back_camera_6": "0x00491D90",
-    "_g_front_camera": "0x00491D94",
+    "_g_back_camera_7": "0x00491D94",
     "_data_00491d98": "0x00491D98",
     "_data_00491d9c": "0x00491D9C",
     "_g_anm_vm_time_a": "0x00491DA0",
