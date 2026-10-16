@@ -84,3 +84,14 @@ The game-file boundaries, including the info/query leaves before constructors:
 
 Compiler-generated unwind bodies at the end of `.text` follow their parent
 function's owner rather than the numerical ranges above.
+
+## File naming
+
+Source, header and build-support files drop the `_00XXXXXX` address suffix
+wherever the plain name is unambiguous. The suffix stays where it is the
+unit's identity: the two replay-manager creation clusters
+(`replay_manager_create_00429610`, `replay_manager_create_004296f0`), the
+second recovery-script caller view (`recovery_script_executor_caller_00433ef0`)
+against the first (`recovery_script_executor_caller.cpp`), and the
+unrecovered scratch functions in `unreferenced/` (`fun_*`, `unassigned_*`,
+`thunk_*`) whose only name is their address.
