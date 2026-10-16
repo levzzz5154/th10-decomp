@@ -2,7 +2,8 @@
 
 The goal is readable C++ that compiles to a byte-exact `th10.exe`.
 Development happens on `main`. Every game region is recovered C++; the default
-build contains no inline assembly. 74.6% of the bytes are byte-exact; the rest
+build contains no inline assembly. 74.6% of the bytes are byte-exact (97.7%
+counting the identical instructions of equivalent regions); the rest
 are *equivalent recoveries* (below), which `make EXACT=1` swaps back to their
 retail assembly to produce the bit-identical executable.
 
@@ -79,7 +80,9 @@ prints its differences and what keeps it out. The gate does not prove that a
 call site loads the registers its callee expects, so a model's link context
 must carry the callee bodies that give retail's private conventions;
 `make abi-check` catches the cases where it does not. Progress reports
-them on their own line and gives the byte-exact share separately.
+them on their own line and gives the byte-exact share separately, plus an
+accounting share that credits each equivalent region with its fraction of
+identical instructions (weighted by region bytes, so an estimate).
 `python3 matching2/tools/matching/equivalence.py --record` prints the current
 differences when preparing a layout.
 

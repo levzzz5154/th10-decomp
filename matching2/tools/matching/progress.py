@@ -52,8 +52,14 @@ def summarize(regions, equivalent=()):
             "bytes": {kind: sizes[kind] for kind in REPORTED}}
 
 
-def recovered(summary):
-    """Share of the game's own code (C++ plus remaining assembly) that has C++ source."""
+def recovered(summary, equivalent=None):
+    """Share of the game's own code (C++ plus remaining assembly) that has C++ source.
+
+    ``equivalent`` is the build's list of equivalence reports. When given, the
+    line adds an accounting share that credits each equivalent region with the
+    fraction of its instructions that are identical to retail (weighted by the
+    region's bytes, so an estimate rather than a byte count).
+    """
     code = ("semantic", "equivalent", "asm")
     total_regions = sum(summary["regions"][kind] for kind in code)
     total_bytes = sum(summary["bytes"][kind] for kind in code)
@@ -62,7 +68,10 @@ def recovered(summary):
     exact = summary["bytes"]["semantic"]
     return (f"Recovered: {100 * size / total_bytes:.1f}% of bytes ({size:,} of {total_bytes:,}), "
             f"{100 * regions / total_regions:.1f}% of regions ({regions:,} of {total_regions:,}); "
-            f"byte-exact alone {100 * exact / total_bytes:.1f}% of bytes")
+            f"byte-exact alone {100 * exact / total_bytes:.1f}% of bytes"
+            + ("" if equivalent is None else
+               f", {100 * (exact + sum(item['bytes'] * item['identical'] / item['instructions'] for item in equivalent if item['instructions'])) / total_bytes:.1f}%"
+               " counting identical instructions of equivalent regions"))
 
 
 def main():

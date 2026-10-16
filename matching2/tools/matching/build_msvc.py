@@ -455,7 +455,7 @@ def main():
     print(f"Remaining assembly: {summary['regions'].get('asm', 0):,} regions / {summary['bytes']['asm']:,} bytes.")
     print(f"Toolkit runtime library: {summary['regions']['library']:,} regions / {summary['bytes']['library']:,} bytes.")
     print(f"Embedded .text data: {summary['bytes']['data']:,} bytes; padding: {summary['bytes']['padding']:,} bytes.")
-    print(recovered(summary))
+    print(recovered(summary, equivalent))
     print(output / 'th10.exe')
 
 

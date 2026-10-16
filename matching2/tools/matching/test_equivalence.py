@@ -253,6 +253,9 @@ class EquivalenceTests(unittest.TestCase):
                                             'library': 0, 'data': 0, 'padding': 0})
         self.assertIn('80.0% of bytes', recovered(summary))
         self.assertIn('byte-exact alone 30.0%', recovered(summary))
+        reports = [{'bytes': 50, 'identical': 3, 'instructions': 5}]
+        self.assertIn('60.0% counting identical instructions', recovered(summary, reports))
+        self.assertNotIn('counting', recovered(summary))
         with self.assertRaises(ValueError):
             summarize(regions, [{'region': 'a', 'layout': 'x.json'}])
         with self.assertRaises(ValueError):
