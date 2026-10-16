@@ -29,3 +29,15 @@ Validation: the named equivalence probe reports 22 of 22 instructions
 identical and zero recorded differences. Both `make` and `make EXACT=1`
 passed after integration with the MIDI tick recovery; the latter verified
 all 487936 executable bytes.
+
+## 2026-10-17: the four bytes stay parked
+
+The queue's "single shared return versus early returns" reshapes were
+re-tested on the renamed model (`goto`-join shared return, `&&`-chain single
+exit, inline-helper body, null-path-first orders): every variant reproduces
+the identical 68-byte body with the same four `rel8` bytes, the branches
+picking the second identical `ret`. This matches `0042a3e0_wave16.md`, which
+compiled ~2,200 variants across source spellings, 39 compiler flags and the
+native-LTCG path and proved the four bytes are not source-controllable: the
+compiler always gives the shared "return 1" label to the `mov eax,1` epilogue
+copy instead of the `mov eax,6` one. Region stays equivalent.

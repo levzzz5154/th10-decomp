@@ -59,3 +59,24 @@ equivalent rather than shipped with it.
   gets the retail ESI convention by itself;
 - backspace on an empty name is a `break` out of the switch, which also skips
   the confirm sound and the cancel test.
+
+## 2026-10-17: operand-order sweep, still parked
+
+The recorded idea that the operand order or computation order in the source
+could pick the base/index order was tested against `equivalence.py --record`
+(each variant one build):
+
+- `&save->name[0]` / `&g_score->last_name[0]` index form at both strcpy sites;
+- named destination/source pointer locals around each call, in both
+  declaration orders (which one is computed first);
+- dropping the named `header` pointer local (the 0x004250B0 lever) — that one
+  keeps the model at base/index 2 and adds 10 other differences;
+- dropping the `grid` pointer local — no change.
+
+None moved a single instruction. A diagnostic hand-written byte loop replaces
+both swaps (base/index 0) but of course loses the compiler's inlined `strcpy`
+shape that the other 397 matched instructions are built from, which confirms
+the two stores are decided entirely inside the expansion by the temp-id hash
+wrap at 1024 (see `msvc-c2-operand-order-mechanism`). The only measured mover
+remains the pre-optimizer symbol count (86 no-op inline calls = +64 = the
+function byte-exact); that padding is not source, so the region stays parked.
