@@ -1,9 +1,10 @@
 // 0x00437750: blend the software font atlas into a locked surface.
 //
 // The atlas holds text drawn through GDI in one of three pixel formats; the
-// surface must have the same format. Retail never calls this function, so its
-// private register convention (row in EAX, atlas in EDX, column in ECX) is
-// reproduced with a direct caller.
+// surface must have the same format. Retail never calls this function; its
+// private register convention (row in EAX, atlas in EDX, column in ECX) comes
+// from the direct caller in the LTCG cluster
+// build_support/layout/ltcg/font_atlas_blend.json.
 //
 // Byte-identical to retail. In the 4-bit path the high nibble is stored first
 // and the low nibble is blended against the stored byte (whose low nibble is
@@ -52,18 +53,6 @@ struct FontAtlas2 {
 
 char FontAtlas_BlendToSurface(FontAtlas2* atlas, int column, int row,
                                        FontSurface* surface, int width, int height);
-
-// Compiler entry only: a direct caller, so the compiler picks the private
-// register homes.
-extern "C" __declspec(noinline) int __stdcall FontAtlasBlendEntry(FontAtlas2** atlases,
-                                                                  FontSurface** surfaces, int count) {
-    int result = 0;
-    while (count--) {
-        FontAtlas2* atlas = *atlases++;
-        result = FontAtlas_BlendToSurface(atlas, count, count, *surfaces++, atlas->width, atlas->height);
-    }
-    return result;
-}
 
 char FontAtlas_BlendToSurface(FontAtlas2* atlas, int column, int row,
                                        FontSurface* surface, int width, int height) {

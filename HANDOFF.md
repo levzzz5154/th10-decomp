@@ -6,7 +6,7 @@
 
 `make` is green. `make EXACT=1` produces the bit-identical executable.
 Progress: **100.0% of .text bytes recovered (322,064 of 322,064), 2,322 of
-2,322 regions; zero inline-assembly regions in the default build.** 74.0% of
+2,322 regions; zero inline-assembly regions in the default build.** 74.6% of
 the bytes are byte-exact C++; the rest are gated equivalent recoveries
 (`equivalence.py`). `make EXACT=1` still rebuilds the bit-identical executable
 from the retail assembly of those regions.
@@ -122,6 +122,10 @@ its recorded differences.
   residual was the manager load written at the top instead of after the volume
   block; the promotion clones the difficulty cluster with the equivalent rig's
   real callee bodies as anchors (see its exact note).
+  Font atlas blend 0x437750 and D3D initialize 0x439890 were already
+  byte-identical equivalents and are promoted too; GameMain 0x438AD0 is
+  byte-identical but needs an exception-handling cluster (see
+  byte_identical_equivalents_promoted_2026_10_16 note).
   The laser interpreter 0x0041CA80 went byte-exact once its model was made
   semantically right (a missing case, a reversed ternary, a shared `++pc`):
   verify a parked model's semantics against retail before blaming c2.

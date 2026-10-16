@@ -30197,13 +30197,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00437750_00437750",
-      "source": "build_support/exact/core/main/font_surface_blend.cpp",
-      "symbol": "_asm_FUN_00437750_00437750",
+      "name": "semantic_FontAtlas_BlendToSurface_00437750",
+      "source": "src/core/main/font_atlas_blend.cpp",
+      "symbol": "?FontAtlas_BlendToSurface@@YGDPAUFontAtlas2@@HHPAUFontSurface@@HH@Z",
       "address": "0x00437750",
       "size": 645,
-      "kind": "asm",
-      "owner": "0x00437750"
+      "kind": "semantic",
+      "owner": "0x00437750",
+      "previous_record": {
+        "name": "asm_FUN_00437750_00437750",
+        "source": "build_support/exact/core/main/font_surface_blend.cpp",
+        "symbol": "_asm_FUN_00437750_00437750",
+        "address": "0x00437750",
+        "size": 645,
+        "kind": "asm",
+        "owner": "0x00437750"
+      }
     },
     {
       "name": "text_padding_004379d5",
@@ -31620,13 +31629,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00439890_00439890",
-      "source": "build_support/exact/core/main/d3d_init.cpp",
-      "symbol": "_asm_FUN_00439890_00439890",
+      "name": "semantic_D3DInitialize_00439890",
+      "source": "src/core/main/d3d_initialize.cpp",
+      "symbol": "?D3DInitialize@@YGHXZ",
       "address": "0x00439890",
       "size": 1159,
-      "kind": "asm",
-      "owner": "0x00439890"
+      "kind": "semantic",
+      "owner": "0x00439890",
+      "previous_record": {
+        "name": "asm_FUN_00439890_00439890",
+        "source": "build_support/exact/core/main/d3d_init.cpp",
+        "symbol": "_asm_FUN_00439890_00439890",
+        "address": "0x00439890",
+        "size": 1159,
+        "kind": "asm",
+        "owner": "0x00439890"
+      }
     },
     {
       "name": "text_padding_00439d17",
@@ -60324,8 +60342,6 @@
     "?BuildSpellList@TitleDrawView@@QAEHXZ": "0x00432690"
   },
   "translation_units": [
-    "build_support/exact/core/main/d3d_init.cpp",
-    "build_support/exact/core/main/font_surface_blend.cpp",
     "build_support/exact/core/main/fun.cpp",
     "build_support/exact/core/main/game_main.cpp",
     "build_support/exact/core/main/transparent_pixel_fill.cpp",
@@ -62285,7 +62301,9 @@
     "src/unreferenced/unassigned_members_b_0044.cpp",
     "src/unreferenced/unassigned_records_0044.cpp",
     "src/unreferenced/vec2_scale.cpp",
-    "src/unreferenced/zero_returns.cpp"
+    "src/unreferenced/zero_returns.cpp",
+    "src/core/main/font_atlas_blend.cpp",
+    "src/core/main/d3d_initialize.cpp"
   ],
   "notes": [
     "Every executable body is compiled from C++; unported bodies use MSVC inline assembly.",
@@ -63272,7 +63290,9 @@
     "build_support/layout/ltcg/player_state_collision_genuine.json",
     "build_support/layout/ltcg/laser_cut.json",
     "build_support/layout/ltcg/title_spell_list.json",
-    "build_support/layout/ltcg/midi_event_parser.json"
+    "build_support/layout/ltcg/midi_event_parser.json",
+    "build_support/layout/ltcg/font_atlas_blend.json",
+    "build_support/layout/ltcg/d3d_initialize.json"
   ],
   "coff_aliases": {
     "lib/libcmt.lib/build/intel/mt_obj/exsup3.obj": {
@@ -64298,10 +64318,6 @@
       "layout": "build_support/layout/equivalent/projectile_point_count.json"
     },
     {
-      "region": "asm_FUN_00437750_00437750",
-      "layout": "build_support/layout/equivalent/font_atlas_blend.json"
-    },
-    {
       "region": "asm_FUN_00436da0_00436da0",
       "layout": "build_support/layout/equivalent/font_atlas_fill_transparent.json"
     },
@@ -64324,10 +64340,6 @@
     {
       "region": "asm_GameMain_00438ad0",
       "layout": "build_support/layout/equivalent/game_main.json"
-    },
-    {
-      "region": "asm_FUN_00439890_00439890",
-      "layout": "build_support/layout/equivalent/d3d_initialize.json"
     },
     {
       "region": "asm_FUN_00433ef0_00433ef0",

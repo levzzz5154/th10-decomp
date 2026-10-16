@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "name": "font_atlas_blend",
+  "source": "src/core/main/font_atlas_blend.cpp",
+  "driver": "build_support/layout/ltcg/font_atlas_blend_00437750_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "Software font atlas blend; row in EAX, atlas in EDX, column in ECX from a direct caller (retail has no caller).",
+  "functions": [
+    {
+      "name": "FontAtlas_BlendToSurface",
+      "symbol": "?FontAtlas_BlendToSurface@@YGDPAUFontAtlas2@@HHPAUFontSurface@@HH@Z",
+      "section": ".text$01blend",
+      "address": "0x00437750",
+      "size": 645,
+      "actual_abi": "row in EAX, atlas in EDX, column in ECX; surface, width, height on the stack"
+    }
+  ],
+  "context": {
+    "symbol": "_FontAtlasBlendEntry@12",
+    "section": ".text$03context",
+    "address": "0x004379E0",
+    "size": 69,
+    "description": "Synthetic array-walking caller that establishes the private register convention; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 223056
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x004379D5",
+      "size": 11
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [],
+  "included_sources": []
+}

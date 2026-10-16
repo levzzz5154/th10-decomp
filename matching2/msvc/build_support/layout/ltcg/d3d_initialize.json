@@ -1,0 +1,253 @@
+{
+  "schema_version": 1,
+  "name": "d3d_initialize",
+  "source": "src/core/main/d3d_initialize.cpp",
+  "driver": "build_support/layout/ltcg/d3d_initialize_00439890_context.cpp",
+  "headers": [
+    "include/th10/app/application.hpp",
+    "include/th10/game/large_initialization_state.hpp",
+    "include/th10/render/direct3d9_interfaces.hpp",
+    "include/th10/platform/text_log.hpp",
+    "include/th10/platform/thread_sync.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Direct3D device creation 0x00439890 with the real text-log appenders it calls; the function is a whole-program root, as retail calls it from the frame loop.",
+  "functions": [
+    {
+      "name": "D3DInitialize",
+      "symbol": "?D3DInitialize@@YGHXZ",
+      "section": ".text$00439890_fn",
+      "address": "0x00439890",
+      "size": 1159,
+      "actual_abi": "no arguments; public stdcall convention (rooted); result in EAX"
+    }
+  ],
+  "anchors": [
+    {
+      "name": "TextLog::Append",
+      "symbol": "?Append@TextLog4@@QAAPADPADZZ",
+      "section": ".text$0044b810_fn",
+      "address": "0x0044B810",
+      "size": 201
+    },
+    {
+      "name": "TextLog::AppendLine",
+      "symbol": "?AppendLine@TextLog5@@QAAPADPADZZ",
+      "section": ".text$0044b8e0_fn",
+      "address": "0x0044B8E0",
+      "size": 201
+    }
+  ],
+  "context": {
+    "symbol": "_RigEntry@8",
+    "section": ".text$0044b9b0_context",
+    "address": "0x0044B9B0",
+    "size": 8,
+    "description": "Synthetic entry so the whole-program link sees a caller; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00401000_gap",
+      "address": "0x00401000",
+      "size": 231568
+    },
+    {
+      "section": ".text$00439d17_gap",
+      "address": "0x00439D17",
+      "size": 72441
+    },
+    {
+      "section": ".text$0044b8d9_gap",
+      "address": "0x0044B8D9",
+      "size": 7
+    },
+    {
+      "section": ".text$0044b9a9_gap",
+      "address": "0x0044B9A9",
+      "size": 7
+    }
+  ],
+  "constants": [],
+  "constant_aliases": [
+    {
+      "symbol": "__real@43700000",
+      "address": "0x00470BFC",
+      "value": 240.0
+    }
+  ],
+  "data_aliases": [
+    {
+      "symbol": "__real@3fd0c15240000000",
+      "address": "0x00470C00",
+      "bytes": "0000004052c1d03f"
+    }
+  ],
+  "absolute_symbols": [
+    {
+      "symbol": "__fltused",
+      "address": "0x00000000",
+      "kind": "metadata"
+    },
+    {
+      "symbol": "__chkstk",
+      "address": "0x00458EC0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "@__security_check_cookie@4",
+      "address": "0x00458EA5",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "___security_cookie",
+      "address": "0x00473660",
+      "kind": "data"
+    },
+    {
+      "symbol": "?ApplyDefaultViewport@@YGHI@Z",
+      "address": "0x0043BCD0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?g_thread_synchronization@@3UThreadSynchronization@@A",
+      "address": "0x00401000",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_Renderer_ApplyDeviceDefaults",
+      "address": "0x00439D20",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__imp__EnterCriticalSection@4",
+      "address": "0x004660B0",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__LeaveCriticalSection@4",
+      "address": "0x004660B4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_asm_D3DXMatrixLookAtLH_00452194@16",
+      "address": "0x00452194",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_asm_D3DXMatrixPerspectiveFovLH_0045219a@20",
+      "address": "0x0045219A",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_asm_vsprintf_004524a6",
+      "address": "0x004524A6",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_str_no_a8r8g8b8",
+      "address": "0x0046F3C0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_str_no_512_textures",
+      "address": "0x0046F408",
+      "kind": "data"
+    },
+    {
+      "symbol": "_str_no_texop_add",
+      "address": "0x0046F458",
+      "kind": "data"
+    },
+    {
+      "symbol": "_str_running_tnl_hal",
+      "address": "0x0046F4A8",
+      "kind": "data"
+    },
+    {
+      "symbol": "_str_running_hal",
+      "address": "0x0046F4C4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_str_running_ref",
+      "address": "0x0046F4D8",
+      "kind": "data"
+    },
+    {
+      "symbol": "_str_d3d_init_failed",
+      "address": "0x0046F514",
+      "kind": "data"
+    },
+    {
+      "symbol": "_str_no_async_present",
+      "address": "0x0046F54C",
+      "kind": "data"
+    },
+    {
+      "symbol": "_str_refresh_rate_unchangeable",
+      "address": "0x0046F584",
+      "kind": "data"
+    },
+    {
+      "symbol": "_str_no_hal",
+      "address": "0x0046F5AC",
+      "kind": "data"
+    },
+    {
+      "symbol": "_str_no_tnl_hal",
+      "address": "0x0046F5CC",
+      "kind": "data"
+    },
+    {
+      "symbol": "_str_trying_vsync_async",
+      "address": "0x0046F5F0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_str_trying_60hz",
+      "address": "0x0046F614",
+      "kind": "data"
+    },
+    {
+      "symbol": "_str_first_run_32bit",
+      "address": "0x0046F640",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_log",
+      "address": "0x00474F70",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_application",
+      "address": "0x00491C28",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_text_log_lock",
+      "address": "0x004922BC",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_text_log_lock_depth",
+      "address": "0x0049231F",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_main_window",
+      "address": "0x004924F0",
+      "kind": "data"
+    }
+  ],
+  "additional_sources": [
+    "build_support/layout/ltcg/d3d_initialize_dependencies/text_log.cpp",
+    "build_support/layout/ltcg/d3d_initialize_dependencies/text_log_append_line.cpp"
+  ],
+  "included_sources": [
+    "src/core/zunlib/text_log.cpp",
+    "src/core/zunlib/text_log_append_line.cpp"
+  ],
+  "roots": [
+    "?D3DInitialize@@YGHXZ"
+  ]
+}

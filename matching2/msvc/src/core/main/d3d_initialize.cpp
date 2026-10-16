@@ -8,7 +8,8 @@
 // textures can be used. Returns 1 when no device could be created.
 //
 // Written from the retail instructions block by block and linked against the
-// recovered sources of the two log writers (the layout's context_sources).
+// recovered sources of the two log writers (anchors of the LTCG cluster
+// build_support/layout/ltcg/d3d_initialize.json).
 #include "th10/app/application.hpp"
 #include "th10/platform/text_log.hpp"
 #include <math.h>
@@ -195,8 +196,3 @@ reference:
     return 0;
 }
 #pragma code_seg()
-
-// The link's entry: a caller for the whole-program link to see.
-extern "C" int __stdcall RigEntry(void* instance, int show) {
-    return D3DInitialize();
-}

@@ -87,7 +87,7 @@ The f0 cluster manifest pointed at the 610 driver after the move — fixed.
   0x42E5A0 became byte-exact)
 - `make EXACT=1`: SHA-256 `2f14760b6fbbf575…`
 - Recovered: 100.0% of bytes (322,064 of 322,064), 100.0% of regions
-  (2,322 of 2,322); byte-exact alone 74.0% (72.7% at the end of the plan).
+  (2,322 of 2,322); byte-exact alone 74.6% (72.7% at the end of the plan).
 - `callsite_abi.py` passes (run through `.venv`).
 - All 129 unit tests pass; `git diff --check` clean.
 
