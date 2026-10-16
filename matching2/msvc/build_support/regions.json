@@ -31273,13 +31273,22 @@
       "owner": "0x00438ACF"
     },
     {
-      "name": "asm_GameMain_00438ad0",
-      "source": "build_support/exact/core/main/game_main.cpp",
-      "symbol": "_asm_GameMain_00438ad0",
+      "name": "semantic_GameMain_00438ad0",
+      "source": "src/core/main/game_main.cpp",
+      "symbol": "?GameMain2@@YGHPAX0PADH@Z",
       "address": "0x00438AD0",
       "size": 1389,
-      "kind": "asm",
-      "owner": "0x00438AD0"
+      "kind": "semantic",
+      "owner": "0x00438AD0",
+      "previous_record": {
+        "name": "asm_GameMain_00438ad0",
+        "source": "build_support/exact/core/main/game_main.cpp",
+        "symbol": "_asm_GameMain_00438ad0",
+        "address": "0x00438AD0",
+        "size": 1389,
+        "kind": "asm",
+        "owner": "0x00438AD0"
+      }
     },
     {
       "name": "text_padding_0043903d",
@@ -60343,7 +60352,6 @@
   },
   "translation_units": [
     "build_support/exact/core/main/fun.cpp",
-    "build_support/exact/core/main/game_main.cpp",
     "build_support/exact/core/main/transparent_pixel_fill.cpp",
     "build_support/exact/core/midilib/midi_sequencer.cpp",
     "build_support/exact/core/screen/shake_update.cpp",
@@ -62303,7 +62311,8 @@
     "src/unreferenced/vec2_scale.cpp",
     "src/unreferenced/zero_returns.cpp",
     "src/core/main/font_atlas_blend.cpp",
-    "src/core/main/d3d_initialize.cpp"
+    "src/core/main/d3d_initialize.cpp",
+    "src/core/main/game_main.cpp"
   ],
   "notes": [
     "Every executable body is compiled from C++; unported bodies use MSVC inline assembly.",
@@ -63292,7 +63301,8 @@
     "build_support/layout/ltcg/title_spell_list.json",
     "build_support/layout/ltcg/midi_event_parser.json",
     "build_support/layout/ltcg/font_atlas_blend.json",
-    "build_support/layout/ltcg/d3d_initialize.json"
+    "build_support/layout/ltcg/d3d_initialize.json",
+    "build_support/layout/ltcg/game_main.json"
   ],
   "coff_aliases": {
     "lib/libcmt.lib/build/intel/mt_obj/exsup3.obj": {
@@ -64338,10 +64348,6 @@
       "layout": "build_support/layout/equivalent/enemy_data_start.json"
     },
     {
-      "region": "asm_GameMain_00438ad0",
-      "layout": "build_support/layout/equivalent/game_main.json"
-    },
-    {
       "region": "asm_FUN_00433ef0_00433ef0",
       "layout": "build_support/layout/equivalent/ui_final_runtime.json"
     },
@@ -64451,7 +64457,6 @@
     "src/core/zunlib/asm_file_probe_exists.cpp": "build_support/layout/units/file_581343.cpp",
     "src/core/zunlib/platform_get_os_version_code.cpp": "build_support/layout/units/process_00435c.cpp",
     "src/core/zwave/platform_invoke_interface.cpp": "build_support/layout/units/process_00435c.cpp",
-    "build_support/exact/core/main/game_main.cpp": "build_support/layout/units/window_exact.cpp",
     "src/core/main/save_system_settings.cpp": "build_support/layout/units/window_exact.cpp",
     "build_support/exact/script/sptcmd/ecl_core_interpreter.cpp": "build_support/layout/units/ecl_core_interpreter_exact.cpp",
     "src/script/sptcmd/resolve_integer.cpp": "build_support/layout/units/ecl_core_interpreter_exact.cpp"

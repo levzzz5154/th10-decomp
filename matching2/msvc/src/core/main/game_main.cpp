@@ -339,8 +339,3 @@ close_pass:
     return 0;
 }
 #pragma code_seg()
-
-// The link's entry: the one caller the whole-program link sees.
-extern "C" int __stdcall RigEntry(void* instance, int show) {
-    return GameMain2(instance, 0, 0, show);
-}

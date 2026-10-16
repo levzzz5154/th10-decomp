@@ -1,4 +1,4 @@
-# th10 decompilation handoff — 2026-10-16
+# th10 decompilation handoff — 2026-10-17
 
 ## Where the project stands
 
@@ -7,13 +7,13 @@
   changes whenever a shipped equivalent model changes.
 - **100.0% of game code recovered** (322,064 of 322,064 bytes, 2,322 of 2,322
   regions); no inline assembly in the default build.
-- **74.6% byte-exact C++** (2,285 regions), **97.7%** counting the identical
-  instructions of the 37 equivalent regions.
+- **75.0% byte-exact C++** (2,286 regions), **97.7%** counting the identical
+  instructions of the 36 equivalent regions.
 - `callsite_abi.py`, the 129 unit tests and `git diff --check` pass.
 
 ![Project status](docs/status.png)
 
-## Equivalent recoveries (37)
+## Equivalent recoveries (36)
 
 Instruction counts from the 2026-10-16 build; each layout's `note` points at
 its recovery note in `matching2/reference/recovery_notes/`.
@@ -47,7 +47,6 @@ its recovery note in `matching2/reference/recovery_notes/`.
 | 0x00433EF0 | `ui_final_runtime` | 2,796 | 694/741 | 31 | 0 |
 | 0x00436DA0 | `font_atlas_fill_transparent` | 946 | 284/316 | 16 | 0 |
 | 0x00437FE0 | `font_atlas_draw_text` | 509 | 117/166 | 44 | 0 |
-| 0x00438AD0 | `game_main` | 1,389 | 404/404 | 0 | 0 |
 | 0x0043AF30 | `midi_tick` | 473 | 143/146 | 1 | 0 |
 | 0x0043C550 | `camera_shake` | 439 | 133/134 | 2 | 0 |
 | 0x0043E8B0 | `animation_change_script` | 287 | 51/66 | 9 | 0 |
@@ -58,10 +57,11 @@ its recovery note in `matching2/reference/recovery_notes/`.
 | 0x0044E1A0 | `ecl_core_interpreter` | 7,020 | 1,679/1,790 | 12 | 96 |
 | 0x00450220 | `ecl_name_table` | 589 | 181/198 | 13 | 0 |
 
-Byte-identical already but not promoted: `game_main` (0x00438AD0). Its three
-`/EHsc` callees must stay visible, so its cluster needs the exception
-machinery (`title_teardown.json` pattern); see
-`byte_identical_equivalents_promoted_2026_10_16.md`.
+Promoted since: `game_main` (0x00438AD0) is byte-exact through its LTCG
+cluster `layout/ltcg/game_main.json` (2026-10-17); its three `/EHsc` callees
+are shaped stand-ins, because an ordinary non-`/GL` context cannot give them
+their private stack-receiver conventions. See
+`game_main_00438ad0_exact_2026_10_17.md`.
 
 ## How to continue
 
@@ -124,6 +124,9 @@ machinery (`title_teardown.json` pattern); see
 
 ## History
 
+- 2026-10-17: 0x00438AD0 GameMain promoted to exact (its LTCG cluster keeps
+  fourteen real callee bodies as anchors and shapes stand-ins for the three
+  `/EHsc` ones); byte-exact rises to 75.0%.
 - 2026-10-16: 0x0042E5A0 options label refresh made byte-exact; font atlas
   blend 0x00437750 and D3D initialize 0x00439890 promoted; 0x00415E90 result
   dispatcher raised to 1,144/1,147.
