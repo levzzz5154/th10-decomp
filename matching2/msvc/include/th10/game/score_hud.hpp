@@ -112,7 +112,7 @@ struct HudGameState {
     int reserved_44[3];
     int continues;                // 0x00474C90
     int high_score_continues;     // 0x00474C94
-    int field_58;                 // 0x00474C98
+    int rank;                     // 0x00474C98 (g_rank)
     int next_extend;                 // 0x00474C9C
     HudFlagWord flags;           // 0x00474CA0
     int reserved_64[2];

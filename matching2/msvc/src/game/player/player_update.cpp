@@ -207,9 +207,9 @@ extern "C" __declspec(noinline) int __stdcall Player_Update(Player* player) {
 
     if (!g_front->script && g_enemy_ctrl && g_enemy_ctrl->enabled &&
             player->state_timer.current % 60 == 0) {
-        ++g_globals.field_58;
-        if (g_globals.field_58 > 1024) g_globals.field_58 = 1024;
-        else if (g_globals.field_58 < -1024) g_globals.field_58 = -1024;
+        ++g_globals.rank;
+        if (g_globals.rank > 1024) g_globals.rank = 1024;
+        else if (g_globals.rank < -1024) g_globals.rank = -1024;
     }
     if (!g_front->script && g_enemy_ctrl && g_enemy_ctrl->enabled)
         player->UpdateShooting();

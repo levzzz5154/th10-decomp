@@ -26,7 +26,7 @@ extern "C" int __stdcall DifficultySelectUpdateCompilerContext(
     objects[3] = &g_input_keys_held;
     objects[4] = &g_globals_shot_type;
     objects[5] = &g_title_practice_selection;
-    objects[6] = &g_practice_difficulty;
+    objects[6] = &g_globals_initial_lives;
     objects[7] = g_keyboard_state;
     objects[8] = &g_main_state;
     objects[9] = &application_state;

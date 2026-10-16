@@ -4,7 +4,7 @@
 
 extern "C" {
 extern int g_title_practice_selection;               // practice stage selected last time
-extern int g_practice_difficulty;               // number key held when practice starts
+extern int g_globals_initial_lives;             // number key held when practice starts; 0 means 9 lives, n means n-1
 extern unsigned char g_keyboard_state[256];    // keyboard snapshot
 }
 

@@ -1805,7 +1805,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_g_practice_difficulty",
+      "symbol": "_g_globals_initial_lives",
       "address": "0x00474CAC",
       "kind": "data"
     },

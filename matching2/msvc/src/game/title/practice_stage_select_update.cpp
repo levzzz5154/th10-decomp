@@ -63,27 +63,27 @@ __declspec(noinline) int __stdcall TitleMode9(Title* room) {
                 g_sound_manager.Queue(10, 0);
             }
             g_title_practice_selection = cursor->selection;
-            g_practice_difficulty = 0;
+            g_globals_initial_lives = 0;
             if (Input_UpdateKeyboardState(g_keyboard_state) == 0) {
-                if (g_keyboard_state['1'] & 0x80) g_practice_difficulty = 1;
-                else if (g_keyboard_state['2'] & 0x80) g_practice_difficulty = 2;
-                else if (g_keyboard_state['3'] & 0x80) g_practice_difficulty = 3;
-                else if (g_keyboard_state['4'] & 0x80) g_practice_difficulty = 4;
-                else if (g_keyboard_state['5'] & 0x80) g_practice_difficulty = 5;
-                else if (g_keyboard_state['6'] & 0x80) g_practice_difficulty = 6;
-                else if (g_keyboard_state['7'] & 0x80) g_practice_difficulty = 7;
-                else if (g_keyboard_state['8'] & 0x80) g_practice_difficulty = 8;
-                else if (g_keyboard_state['9'] & 0x80) g_practice_difficulty = 9;
+                if (g_keyboard_state['1'] & 0x80) g_globals_initial_lives = 1;
+                else if (g_keyboard_state['2'] & 0x80) g_globals_initial_lives = 2;
+                else if (g_keyboard_state['3'] & 0x80) g_globals_initial_lives = 3;
+                else if (g_keyboard_state['4'] & 0x80) g_globals_initial_lives = 4;
+                else if (g_keyboard_state['5'] & 0x80) g_globals_initial_lives = 5;
+                else if (g_keyboard_state['6'] & 0x80) g_globals_initial_lives = 6;
+                else if (g_keyboard_state['7'] & 0x80) g_globals_initial_lives = 7;
+                else if (g_keyboard_state['8'] & 0x80) g_globals_initial_lives = 8;
+                else if (g_keyboard_state['9'] & 0x80) g_globals_initial_lives = 9;
             } else {
-                if (g_keyboard_state[2] & 0x80) g_practice_difficulty = 1;
-                else if (g_keyboard_state[3] & 0x80) g_practice_difficulty = 2;
-                else if (g_keyboard_state[4] & 0x80) g_practice_difficulty = 3;
-                else if (g_keyboard_state[5] & 0x80) g_practice_difficulty = 4;
-                else if (g_keyboard_state[6] & 0x80) g_practice_difficulty = 5;
-                else if (g_keyboard_state[7] & 0x80) g_practice_difficulty = 6;
-                else if (g_keyboard_state[8] & 0x80) g_practice_difficulty = 7;
-                else if (g_keyboard_state[9] & 0x80) g_practice_difficulty = 8;
-                else if (g_keyboard_state[10] & 0x80) g_practice_difficulty = 9;
+                if (g_keyboard_state[2] & 0x80) g_globals_initial_lives = 1;
+                else if (g_keyboard_state[3] & 0x80) g_globals_initial_lives = 2;
+                else if (g_keyboard_state[4] & 0x80) g_globals_initial_lives = 3;
+                else if (g_keyboard_state[5] & 0x80) g_globals_initial_lives = 4;
+                else if (g_keyboard_state[6] & 0x80) g_globals_initial_lives = 5;
+                else if (g_keyboard_state[7] & 0x80) g_globals_initial_lives = 6;
+                else if (g_keyboard_state[8] & 0x80) g_globals_initial_lives = 7;
+                else if (g_keyboard_state[9] & 0x80) g_globals_initial_lives = 8;
+                else if (g_keyboard_state[10] & 0x80) g_globals_initial_lives = 9;
             }
         }
         break;

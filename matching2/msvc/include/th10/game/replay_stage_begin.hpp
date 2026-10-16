@@ -27,7 +27,7 @@ struct GameState2 {
     int reserved_44[3];
     int continues;                // 0x00474C90
     int field_54;
-    int field_58;                 // 0x00474C98
+    int rank;                     // 0x00474C98 (g_rank)
     int field_5c;                 // 0x00474C9C
 
     // 0x00418B80 (recovered as ScoreState::SetGauge).

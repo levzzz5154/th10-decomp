@@ -197,7 +197,7 @@ __declspec(noinline) int ReplayManager::Start(int start_mode, const char* replay
         stage_record->gauge = g_globals.gauge;
         stage_record->gauge_frame = g_globals.gauge_timer.current;
         stage_record->field_1c = g_globals.field_30;
-        stage_record->field_20 = g_globals.field_58;
+        stage_record->field_20 = g_globals.rank;
         stage_record->continues = g_globals.continues;
         ((ReplayConfigBlock*)summary)->continues = g_globals.continues;
 
@@ -255,7 +255,7 @@ __declspec(noinline) int ReplayManager::Start(int start_mode, const char* replay
         ((ScoreState*)0x00474C40)->SetGauge(stage_record->gauge * 10);
         ((EmbeddedTimerState*)0x00474C40)->SetCountdown(stage_record->gauge_frame);
         g_globals.field_30 = stage_record->field_1c;
-        g_globals.field_58 = stage_record->field_20;
+        g_globals.rank = stage_record->field_20;
         g_globals.continues = stage_record->continues;
         g_globals.field_5c =
             ((ReplayNode*)nodes)[g_globals.stage].stage->field_1b8;

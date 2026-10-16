@@ -5877,7 +5877,7 @@ extern "C" unsigned char data_00474c9c;
 extern "C" unsigned char g_globals_flags;
 extern "C" unsigned char g_title_idle_frames;
 extern "C" unsigned char g_title_demo_index;
-extern "C" unsigned char g_practice_difficulty;
+extern "C" unsigned char g_globals_initial_lives;
 extern "C" unsigned char g_font_texture_id;
 extern "C" unsigned char g_font_texture_size;
 extern "C" unsigned char g_font_texture_format;

@@ -124,7 +124,7 @@ extern "C" __declspec(noinline) int __stdcall Game_Initialize(Game* context) {
             }
         }
         g_globals.field_5c = 0;
-        g_globals.field_58 = (static_cast<unsigned char>(g_globals.flags) & 8) ? -512 : 0;
+        g_globals.rank = (static_cast<unsigned char>(g_globals.flags) & 8) ? -512 : 0;
     } else {
         if (g_globals.score > g_globals.high_score)
             g_globals.high_score = g_globals.score;

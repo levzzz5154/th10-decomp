@@ -53,11 +53,21 @@ on `main`, tree clean.
 - `asm_*` (1,246 uses), `ObjectAccessor_*` (560 distinct accessor sites),
   `semantic_import_thunk_*` (96) and `reserved_00000000`/`unknown_00000000`
   byte-run placeholders: build machinery and padding markers, not game names.
-- Data globals the evidence conflicts on or nothing writes:
-  0x474C98 was resolved as `g_rank`; the handoff-earlier skips
-  0x474C98/0x477848 etc. are now named or absorbed into
-  `g_stage_routes`/`g_stage_route_current`. No `data_00XXXXXX` identifier
-  remains in src/, include/ or build_support.
+- The four globals once skipped for conflicting evidence are all named now:
+  - 0x474C98 `g_rank`: MoF's hidden rank. It rises by 1 every 60 frames
+    (PlayerStateUpdate), drops 0x80 per bomb and 0x400 in SpellTimeout, is
+    clamped to ±0x400, saved per replay stage, and ECL instructions 422/423
+    and the shooter-speed interpolation read it. The `field_58` members of
+    the g_globals struct views are renamed `rank` to match.
+  - 0x474CAC `g_globals_initial_lives` (first named `g_practice_difficulty`,
+    which was wrong): PracticeStageSelect_Update stores the number key held at
+    practice start (0–9), and game_initialize turns it into lives (0 → 9,
+    n → n-1), matching the views' `initial_lives` member.
+  - 0x477848 `g_stage_route_current` and 0x4776E4 `g_background_prev`:
+    named by the overnight pass; not re-reviewed.
+  No `data_00XXXXXX` identifier remains in src/, include/ or build_support.
+- `callsite_abi_reviewed.json` is keyed by equivalent cluster name; renaming
+  a cluster means renaming its key there too, or the ABI check fails again.
 
 ## Fixed at the end
 

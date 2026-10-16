@@ -28,7 +28,7 @@ void ReplayManager2::FinishStage() {
             record->gauge = g_globals.gauge;
             record->gauge_frame = g_globals.gauge_timer.current;
             record->field_1c = g_globals.field_30;
-            record->field_20 = g_globals.field_58;
+            record->field_20 = g_globals.rank;
             record->continues = g_globals.continues;
         }
         Player* player = g_player;

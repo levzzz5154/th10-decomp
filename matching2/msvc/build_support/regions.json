@@ -58346,7 +58346,7 @@
     "_g_globals_flags": "0x00474CA0",
     "_g_title_idle_frames": "0x00474CA4",
     "_g_title_demo_index": "0x00474CA8",
-    "_g_practice_difficulty": "0x00474CAC",
+    "_g_globals_initial_lives": "0x00474CAC",
     "_g_font_atlas_surface": "0x00474CB0",
     "_g_font_texture_id": "0x00474DB0",
     "_g_font_texture_size": "0x00474DBC",

@@ -53,7 +53,7 @@ struct PlayerScoreGauge {
     int shot_type;
     int lives;
     unsigned char reserved_34[0x58 - 0x34];
-    int field_58;
+    int rank;                         // 0x00474C98 (g_rank)
     __declspec(noinline) void AddWithMinimum(int amount);
 };
 extern "C" PlayerScoreGauge g_globals;

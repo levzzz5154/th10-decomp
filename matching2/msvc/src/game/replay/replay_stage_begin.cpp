@@ -32,7 +32,7 @@ void ReplayManager2::BeginStage() {
         g_globals.SetGauge(stage->gauge * 10);
         g_globals.gauge_timer.Set(stage->gauge_frame);
         g_globals.field_30 = stage->field_1c;
-        g_globals.field_58 = stage->field_20;
+        g_globals.rank = stage->field_20;
         g_globals.continues = stage->continues;
         g_globals.field_5c = nodes[g_globals.stage].stage->field_1b8;
     }
