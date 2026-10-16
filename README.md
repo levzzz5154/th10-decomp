@@ -2,7 +2,7 @@
 
 The goal is readable C++ that compiles to a byte-exact `th10.exe`.
 Development happens on `main`. Every game region is recovered C++; the default
-build contains no inline assembly. 72.7% of the bytes are byte-exact; the rest
+build contains no inline assembly. 74.6% of the bytes are byte-exact; the rest
 are *equivalent recoveries* (below), which `make EXACT=1` swaps back to their
 retail assembly to produce the bit-identical executable.
 
@@ -82,6 +82,14 @@ must carry the callee bodies that give retail's private conventions;
 them on their own line and gives the byte-exact share separately.
 `python3 matching2/tools/matching/equivalence.py --record` prints the current
 differences when preparing a layout.
+
+An equivalent model with no recorded differences can still differ from retail
+in its bytes, because the gate accepts a branch to an identical copy of the
+same tail. Once the relocated model matches retail byte for byte, it is
+promoted: an LTCG cluster under `build_support/layout/ltcg/` selects it with the
+model's context as anchors, its region becomes `semantic`, and the equivalent
+layout and assembly are removed. See
+[the 0x0042E5A0 promotion](matching2/reference/recovery_notes/options_label_refresh_0042e5a0_exact_2026_10_16.md).
 
 The build is incremental by default. Each compiled unit is kept in a
 content-addressed cache under `matching2/build/msvc/cache/`, keyed by the
