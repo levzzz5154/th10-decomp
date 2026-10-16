@@ -1,0 +1,2218 @@
+{
+  "schema_version": 1,
+  "name": "options_label_refresh",
+  "source": "src/game/title/options_label_refresh.cpp",
+  "driver": "build_support/layout/ltcg/options_label_refresh_0042e5a0_context.cpp",
+  "headers": [
+    "include/th10/game/character_select_update.hpp",
+    "include/th10/game/difficulty_select_update.hpp",
+    "include/th10/game/ending_screen.hpp",
+    "include/th10/game/entity_movement_slot.hpp",
+    "include/th10/game/game_thread_queue_native.hpp",
+    "include/th10/game/menu_cursor.hpp",
+    "include/th10/game/options_update.hpp",
+    "include/th10/game/practice_stage_select_update.hpp",
+    "include/th10/game/recovery_script_executor.hpp",
+    "include/th10/game/recovery_script_executor_ascii_anchors.hpp",
+    "include/th10/game/recovery_script_executor_caller.hpp",
+    "include/th10/game/title_menu.hpp",
+    "include/th10/game/recovery_script_executor_text_anchors.hpp",
+    "include/th10/game/recovery_script_executor_text_sibling_anchors.hpp",
+    "include/th10/game/replay_save_update.hpp",
+    "include/th10/game/replay_select_update.hpp",
+    "build_support/include/contexts/game/right_aligned_text_context/archive_callers.hpp",
+    "build_support/include/contexts/game/right_aligned_text_context/archive_file.hpp",
+    "build_support/include/contexts/game/right_aligned_text_context/entity_movement_slot.hpp",
+    "build_support/include/contexts/game/right_aligned_text_context/recovery_mark_text_and_dispatcher.hpp",
+    "build_support/include/contexts/game/right_aligned_text_context/recovery_script_executor.hpp",
+    "build_support/include/contexts/game/right_aligned_text_context/recovery_script_executor_ascii_anchors.hpp",
+    "build_support/include/contexts/game/right_aligned_text_context/recovery_script_executor_caller.hpp",
+    "build_support/include/contexts/game/right_aligned_text_context/scheduler.hpp",
+    "build_support/include/contexts/game/right_aligned_text_context/sound_queue.hpp",
+    "build_support/include/contexts/game/right_aligned_text_context/timer.hpp",
+    "build_support/include/contexts/game/right_aligned_text_context/worker.hpp",
+    "include/th10/core/func_ctrl.hpp",
+    "include/th10/game/score_file.hpp",
+    "include/th10/game/shot_type_select_update.hpp",
+    "include/th10/game/spell_record_update.hpp",
+    "include/th10/game/title_main_menu_update.hpp",
+    "include/th10/game/title_draw.hpp",
+    "include/th10/math/timer.hpp",
+    "include/th10/platform/archive_callers.hpp",
+    "include/th10/platform/archive_file.hpp",
+    "include/th10/platform/sound_queue.hpp",
+    "include/th10/platform/thread_sync.hpp",
+    "include/th10/platform/windows_types.hpp",
+    "include/th10/platform/worker.hpp",
+    "include/th10/render/animation_resource_removal.hpp",
+    "include/th10/render/animation_stop_frame_handle.hpp",
+    "include/th10/render/animation_stop_run.hpp",
+    "include/th10/game/options_label_refresh.hpp",
+    "include/th10/render/resource_registrar.hpp",
+    "include/th10/render/animation_object.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "The options label refresh 0x0042E5A0 with its real options-screen caller, the difficulty cluster context and the real resource-queue and sprite-configuration bodies; only the refresh is selected.",
+  "functions": [
+    {
+      "name": "RefreshOptions",
+      "symbol": "?RefreshOptions2@@YGXPAUTitle@@@Z",
+      "section": ".text$0042e5a0_fn",
+      "address": "0x0042E5A0",
+      "size": 3999,
+      "actual_abi": "room in EDI from the options screen 0x0042D920; no result, plain RET"
+    }
+  ],
+  "anchors": [
+    {
+      "name": "DifficultySelect_Update",
+      "symbol": "?TitleMode6@@YGHPAUTitle@@@Z",
+      "section": ".text$00430320_fn",
+      "address": "0x00430320",
+      "size": 888
+    },
+    {
+      "name": "CharacterSelect_Update",
+      "symbol": "?TitleMode7@@YGHPAUTitle@@@Z",
+      "section": ".text$004306a0_fn",
+      "address": "0x004306A0",
+      "size": 956
+    },
+    {
+      "name": "ShotTypeSelect_Update",
+      "symbol": "?TitleMode8@@YGHPAUTitle@@@Z",
+      "section": ".text$00430a60_fn",
+      "address": "0x00430A60",
+      "size": 1424
+    },
+    {
+      "name": "PracticeStageSelect_Update",
+      "symbol": "?TitleMode9@@YGHPAUTitle@@@Z",
+      "section": ".text$00430ff0_fn",
+      "address": "0x00430FF0",
+      "size": 1052
+    },
+    {
+      "name": "TitleMainMenu_Update",
+      "symbol": "?TitleMainMenu@@YGHPAUTitle@@@Z",
+      "section": ".text$0042d420_fn",
+      "address": "0x0042D420",
+      "size": 1280
+    },
+    {
+      "name": "ReplaySelect_Update",
+      "symbol": "?TitleMode12@@YGHPAUTitle@@@Z",
+      "section": ".text$004315c0_fn",
+      "address": "0x004315C0",
+      "size": 1492
+    },
+    {
+      "name": "SpellRecord_Update",
+      "symbol": "?TitleMode11@@YGHPAUTitle@@@Z",
+      "section": ".text$00431ee0_fn",
+      "address": "0x00431EE0",
+      "size": 1968
+    },
+    {
+      "name": "Options_Update",
+      "symbol": "?TitleOptions@@YGHPAUTitle@@@Z",
+      "section": ".text$0042d920_fn",
+      "address": "0x0042D920",
+      "size": 3188
+    },
+    {
+      "name": "RecoveryTimer_Set",
+      "symbol": "?Set@RecoveryTimer2@@QAEXH@Z",
+      "address": "0x00405410",
+      "size": 57,
+      "section": ".text$00405410_fn"
+    },
+    {
+      "name": "RecoveryTimer_Advance",
+      "symbol": "?Advance@RecoveryTimer2@@QAEXM@Z",
+      "address": "0x0044BF40",
+      "size": 88,
+      "section": ".text$0044bf40_fn"
+    },
+    {
+      "name": "RecoveryLookup_Find",
+      "symbol": "?Find@RecoveryLookup@@QAIPAXPAURecoveryLookupContext@@URecoveryScriptId@@@Z",
+      "address": "0x004491C0",
+      "size": 73,
+      "section": ".text$004491c0_fn"
+    },
+    {
+      "name": "RecoveryLookup_SetFlag",
+      "symbol": "?SetFlag@RecoveryLookup@@QAIPAXPAURecoveryLookupContext@@H@Z",
+      "address": "0x004492A0",
+      "size": 66,
+      "section": ".text$004492a0_fn"
+    },
+    {
+      "name": "RecoveryLookup_Validate",
+      "symbol": "?Validate@RecoveryLookup@@QAAPAXPAURecoveryHandle@@@Z",
+      "address": "0x00449450",
+      "size": 21,
+      "section": ".text$00449450_fn"
+    },
+    {
+      "name": "RecoveryHandle_Stop2",
+      "symbol": "?StopAtFrame2@RecoveryHandle@@QAEXXZ",
+      "address": "0x0040C480",
+      "size": 65,
+      "section": ".text$0040c480_fn"
+    },
+    {
+      "name": "RecoveryHandle_Stop3",
+      "symbol": "?StopAtFrame3@RecoveryHandle@@QAEXXZ",
+      "address": "0x0040C4D0",
+      "size": 65,
+      "section": ".text$0040c4d0_fn"
+    },
+    {
+      "name": "RecoveryHandle_Remove",
+      "symbol": "?MarkForRemoval@RecoveryHandle@@QAEXXZ",
+      "address": "0x00449630",
+      "size": 21,
+      "section": ".text$00449630_fn"
+    },
+    {
+      "name": "RecoveryDecodePath",
+      "symbol": "?RecoveryDecodePath@@YGPADPBE@Z",
+      "section": ".text$00417010_fn",
+      "address": "0x00417010",
+      "size": 41
+    },
+    {
+      "name": "RecoveryDispatchText2",
+      "symbol": "?RecoveryDispatchText2@@YGXPAURecoveryTextResource@@HPBDPAXHIH@Z",
+      "section": ".text$004479d0_fn",
+      "address": "0x004479D0",
+      "size": 127
+    },
+    {
+      "name": "RecoveryAscii_Create",
+      "symbol": "_RecoveryAscii_Create@24",
+      "section": ".text$0043c8b0_fn",
+      "address": "0x0043C8B0",
+      "size": 88
+    },
+    {
+      "name": "RecoveryAscii_Register",
+      "symbol": "_RecoveryAscii_Register@28",
+      "section": ".text$0043c970_fn",
+      "address": "0x0043C970",
+      "size": 396
+    },
+    {
+      "name": "FuncCtrl_RegisterPrimary",
+      "symbol": "_FuncCtrl_RegisterPrimary@12",
+      "section": ".text$00449ae0_ascii_anchor",
+      "address": "0x00449AE0",
+      "size": 131
+    },
+    {
+      "name": "FuncCtrl_RegisterSecondary",
+      "symbol": "_FuncCtrl_RegisterSecondary@12",
+      "section": ".text$00449b70_ascii_anchor",
+      "address": "0x00449B70",
+      "size": 131
+    },
+    {
+      "name": "RecoveryAsciiRegisterPrimary_0044a000",
+      "symbol": "_RecoveryAsciiRegisterPrimary_0044a000@12",
+      "section": ".text$0044a000_ascii_anchor",
+      "address": "0x0044A000",
+      "size": 43
+    },
+    {
+      "name": "RecoveryAsciiRegisterSecondary_0044a030",
+      "symbol": "_RecoveryAsciiRegisterSecondary_0044a030@12",
+      "section": ".text$0044a030_ascii_anchor",
+      "address": "0x0044A030",
+      "size": 43
+    },
+    {
+      "name": "FullHelper_0040b480",
+      "symbol": "?LoadAsset@@YGPADPBDPAUAssetBuffer@@@Z",
+      "section": ".text$0040b480_fn",
+      "address": "0x0040B480",
+      "size": 106
+    },
+    {
+      "name": "FullHelper_0040c540",
+      "symbol": "?EnsureAnimationResource@GameThread6@@QAEPAXMM@Z",
+      "section": ".text$0040c540_fn",
+      "address": "0x0040C540",
+      "size": 75
+    },
+    {
+      "name": "FullHelper_004477d0",
+      "symbol": "?ClearResourceSlot@AnimationManager13@@QAEXH@Z",
+      "section": ".text$004477d0_fn",
+      "address": "0x004477D0",
+      "size": 55
+    },
+    {
+      "name": "FullHelper_00447810",
+      "symbol": "?Release@AnimationResource6@@QAEXXZ",
+      "section": ".text$00447810_fn",
+      "address": "0x00447810",
+      "size": 242
+    },
+    {
+      "name": "FullHelper_004493e0",
+      "symbol": "?MarkResourceForRemoval@SprtCtrl@@QAEXPAX@Z",
+      "section": ".text$004493e0_fn",
+      "address": "0x004493E0",
+      "size": 92
+    },
+    {
+      "name": "FullHelper_00448d00",
+      "symbol": "?AnimationManager_CreatePrimaryBack@@YGPAPAXPAXPAPAXHH@Z",
+      "section": ".text$00448d00_fn",
+      "address": "0x00448D00",
+      "size": 73
+    },
+    {
+      "name": "FullHelper_0043dc90",
+      "symbol": "?Queue@SoundQueue@@QAEHHH@Z",
+      "section": ".text$0043dc90_fn",
+      "address": "0x0043DC90",
+      "size": 123
+    },
+    {
+      "name": "FullHelper_0044c1c0",
+      "symbol": "?Start@PlatformWorker@@QAEXPAXP6GI0@Z@Z",
+      "section": ".text$0044c1c0_fn",
+      "address": "0x0044C1C0",
+      "size": 56
+    },
+    {
+      "name": "FullHelper_0044c150",
+      "symbol": "?Stop@PlatformWorker@@QAEXXZ",
+      "section": ".text$0044c150_fn",
+      "address": "0x0044C150",
+      "size": 101
+    },
+    {
+      "name": "FullHelper_0044b360",
+      "symbol": "_Archive_LoadFile@12",
+      "section": ".text$0044b360_fn",
+      "address": "0x0044B360",
+      "size": 360
+    },
+    {
+      "name": "AnmPool",
+      "symbol": "_asm_FUN_00449950_00449950",
+      "section": ".text$00449950_fn",
+      "address": "0x00449950",
+      "size": 171
+    },
+    {
+      "name": "AnmScriptLoad",
+      "symbol": "_asm_AnimationObject_LoadScript_0043e710",
+      "section": ".text$0043e710_fn",
+      "address": "0x0043E710",
+      "size": 207
+    },
+    {
+      "name": "AnmPrimaryRegister",
+      "symbol": "_asm_AnimationManager_RegisterPrimaryBack_004489d0",
+      "section": ".text$004489d0_fn",
+      "address": "0x004489D0",
+      "size": 103
+    },
+    {
+      "name": "AnmPositionedCreate",
+      "symbol": "?AnimationManager_CreatePositionedPrimary@@YGPAPAXPAXPAPAXHPBUAnimationPosition@@@Z",
+      "section": ".text$00448d50_fn",
+      "address": "0x00448D50",
+      "size": 95
+    },
+    {
+      "name": "RecoveryPlayerAnimationCreate",
+      "symbol": "?RecoveryPlayerAnimationCreate@@YGPAPAXPAXPAPAXHPBUHintPosition@@@Z",
+      "section": ".text$00448db0_fn",
+      "address": "0x00448DB0",
+      "size": 118
+    },
+    {
+      "name": "Initialise",
+      "symbol": "?Initialise@EntityMovementSlot@@QAEXPBUMovementPair@@0HE@Z",
+      "section": ".text$0041ab70_fn",
+      "address": "0x0041AB70",
+      "size": 136
+    },
+    {
+      "name": "HintVm_FormatRightAligned",
+      "symbol": "?FormatRightAligned@HintVm@@QAAXPAXZZ",
+      "section": ".text$00447ae0_fn",
+      "address": "0x00447AE0",
+      "size": 204
+    },
+    {
+      "name": "HintVm_FormatCentered",
+      "symbol": "?FormatCentered@HintVm@@QAAXPAXZZ",
+      "section": ".text$00447bb0_fn",
+      "address": "0x00447BB0",
+      "size": 194
+    },
+    {
+      "name": "RecoveryMusicStopHandle",
+      "symbol": "?RecoveryMusicStopHandle@@YGXPAURecoveryHandle@@@Z",
+      "section": ".text$00409e50_fn",
+      "address": "0x00409E50",
+      "size": 65
+    },
+    {
+      "name": "RecoveryMusicRoom_DisableTimerWithOwner",
+      "symbol": "?DisableTimerWithOwner@Title@@QAEXH@Z",
+      "section": ".text$0042c5c0_fn",
+      "address": "0x0042C5C0",
+      "size": 83
+    },
+    {
+      "name": "RecoveryMusicRoom_SetTimerTarget",
+      "symbol": "?SetTimerTarget@Title@@QAEXH@Z",
+      "section": ".text$0042c620_fn",
+      "address": "0x0042C620",
+      "size": 80
+    },
+    {
+      "name": "RecoveryMusicSkipLine_004349e0",
+      "symbol": "?RecoveryMusicSkipLine_004349e0@@YGPADPADPAH@Z",
+      "section": ".text$004349e0_fn",
+      "address": "0x004349E0",
+      "size": 59
+    },
+    {
+      "name": "RecoveryMusicExtractLine_00434a20",
+      "symbol": "?RecoveryMusicExtractLine_00434a20@@YGPADPAD0PAH@Z",
+      "section": ".text$00434a20_fn",
+      "address": "0x00434A20",
+      "size": 90
+    },
+    {
+      "name": "RecoveryMusicVm_InitializeTransition",
+      "symbol": "?InitializeTransition@RecoveryMusicVm@@QAEXPBURecoveryMusicVector@@0HE@Z",
+      "section": ".text$00434a80_fn",
+      "address": "0x00434A80",
+      "size": 206
+    },
+    {
+      "name": "RecoveryMusicResourceQueue_RegisterResource_standin",
+      "symbol": "?RegisterResource@RecoveryMusicResourceQueue@@QAEPADPBDHH@Z",
+      "section": ".text$00401000_fn",
+      "address": "0x00401000",
+      "size": 76
+    },
+    {
+      "name": "MenuCursor_PopSelection",
+      "symbol": "?PopSelection@MenuCursor@@QAEXXZ",
+      "section": ".text$0044be70_fn",
+      "address": "0x0044BE70",
+      "size": 47
+    },
+    {
+      "name": "MenuCursor_Advance",
+      "symbol": "?Advance@MenuCursor@@QAEHH@Z",
+      "section": ".text$0044bea0_fn",
+      "address": "0x0044BEA0",
+      "size": 128
+    },
+    {
+      "name": "RecoveryScript_Execute",
+      "symbol": "_RecoveryScript_Execute2@4",
+      "section": ".text$0040bd80_fn",
+      "address": "0x0040BD80",
+      "size": 1500
+    },
+    {
+      "name": "HintLink_Drain",
+      "symbol": "?Drain@HintLink@@QAEHPAUHintUpdateView@@H@Z",
+      "section": ".text$00419120_fn",
+      "address": "0x00419120",
+      "size": 1343
+    },
+    {
+      "name": "Title_UpdateMusicRoom",
+      "symbol": "_Title_UpdateMusicRoom@4",
+      "section": ".text$00433ef0_fn",
+      "address": "0x00433EF0",
+      "size": 2764
+    },
+    {
+      "name": "RecoveryTextVm::MarkText",
+      "symbol": "?MarkText@RecoveryTextVm@@QAAXPAXZZ",
+      "section": ".text$00447a50_fn",
+      "address": "0x00447A50",
+      "size": 141
+    },
+    {
+      "name": "RecoveryMusicRoom_ClearAnimationSlot",
+      "symbol": "?ClearAnimationSlot@Title@@QAEXH@Z",
+      "section": ".text$0042c6d0_fn",
+      "address": "0x0042C6D0",
+      "size": 83
+    },
+    {
+      "name": "RecoveryMusicRoom_SetSlotFrame",
+      "symbol": "?SetSlotFrame@Title@@QAEXHF@Z",
+      "section": ".text$0042c770_fn",
+      "address": "0x0042C770",
+      "size": 65
+    },
+    {
+      "name": "RecoveryMusicInstallSlot",
+      "symbol": "?RecoveryMusicInstallSlot@@YGXPAUTitle@@H@Z",
+      "section": ".text$0042c670_fn",
+      "address": "0x0042C670",
+      "size": 95
+    },
+    {
+      "name": "?Title_DispatchUpdate@@YGHPAUTitle@@@Z",
+      "symbol": "?Title_DispatchUpdate@@YGHPAUTitle@@@Z",
+      "section": ".text$0042cdf0_fn",
+      "address": 4378096,
+      "size": 1088
+    },
+    {
+      "name": "EndingScreen_Update",
+      "symbol": "?EndingScreen_Update2@@YGHPAUTitle@@@Z",
+      "section": ".text$0042d300_fn",
+      "address": "0x0042D300",
+      "size": 288
+    },
+    {
+      "name": "AnimationManager_SetStopFrameAndRun",
+      "symbol": "?AnimationManager_SetStopFrameAndRun@@YIXGPAURecoveryLookupContext@@URecoveryScriptId@@@Z",
+      "address": "0x00449250",
+      "size": 76,
+      "section": ".text$00449250_fn"
+    },
+    {
+      "name": "AnimationSlotOwner_RestartSlot",
+      "symbol": "?RestartSlot@TitleAnimationSlotView@@QAEXH@Z",
+      "address": "0x0042C750",
+      "size": 27,
+      "section": ".text$0042c750_fn"
+    },
+    {
+      "name": "AnimationHandle_SetStopFrame",
+      "symbol": "?SetStopFrame@AnimationHandle11@@QAEXG@Z",
+      "address": "0x00449470",
+      "size": 65,
+      "section": ".text$00449470_fn"
+    },
+    {
+      "name": "AnimationHandle_FindChildRef",
+      "symbol": "?FindChildRef@AnimationHandle15@@QAE?AUAnimationRef2@@H@Z",
+      "address": "0x004497D0",
+      "size": 70,
+      "section": ".text$004497d0_fn"
+    },
+    {
+      "name": "KeyRepeatState_InputMaskActive",
+      "symbol": "?InputMaskActive@KeyRepeatState@@QAEHG@Z",
+      "address": "0x0040ACE0",
+      "size": 33,
+      "section": ".text$0040ace0_fn"
+    },
+    {
+      "name": "UpdateBoundedCounter",
+      "symbol": "?UpdateBoundedCounter@@YIIIPAI@Z",
+      "address": "0x0040AD20",
+      "size": 33,
+      "section": ".text$0040ad20_fn"
+    },
+    {
+      "name": "MenuCursor_PushSelection",
+      "symbol": "?PushSelection@MenuCursor@@QAEXXZ",
+      "address": "0x0044BE20",
+      "size": 66,
+      "section": ".text$0044be20_fn"
+    },
+    {
+      "name": "AnimationHandle_ClearFlag",
+      "symbol": "?ClearFlag@AnimationHandle12@@QAEXXZ",
+      "address": "0x004495E0",
+      "size": 67,
+      "section": ".text$004495e0_fn"
+    },
+    {
+      "name": "Input_UpdateKeyboardState",
+      "symbol": "?Input_UpdateKeyboardState@@YGHPAE@Z",
+      "address": "0x0044B010",
+      "size": 103,
+      "section": ".text$0044b010_fn"
+    },
+    {
+      "name": "ScoreFile_HasAnyClear",
+      "symbol": "?HasAnyClear@ScoreFileProgress@@QAEHXZ",
+      "address": "0x0042C850",
+      "size": 69,
+      "section": ".text$0042c850_fn"
+    },
+    {
+      "name": "CountOfDifficulty",
+      "symbol": "?SpellCards_CountOfDifficulty@@YGHH@Z",
+      "address": "0x004088C0",
+      "size": 75,
+      "section": ".text$004088c0_fn"
+    },
+    {
+      "name": "UnlockAllStages",
+      "symbol": "?UnlockAllStages2@@YGXPAUGameProgress3@@@Z",
+      "address": "0x0042C8C0",
+      "size": 93,
+      "section": ".text$0042c8c0_fn"
+    },
+    {
+      "name": "BuildSpellList",
+      "symbol": "?BuildSpellList@TitleDrawView@@QAEHXZ",
+      "address": "0x00432690",
+      "size": 850,
+      "section": ".text$00432690_fn"
+    },
+    {
+      "name": "StopSlot",
+      "symbol": "?StopSlot@TitleAnimationSlotView@@QAEXH@Z",
+      "address": "0x0042C730",
+      "size": 27,
+      "section": ".text$0042c730_fn"
+    },
+    {
+      "name": "SelectSprite",
+      "symbol": "?SelectSprite@SpriteHandle@@QAEXH@Z",
+      "address": "0x00449670",
+      "size": 36,
+      "section": ".text$00449670_fn"
+    },
+    {
+      "name": "AnimationManager_RegisterResource",
+      "symbol": "?RegisterResource@AnimationManager9@@QAEPADPBDHH@Z",
+      "section": ".text$0043e460_fn",
+      "address": "0x0043E460",
+      "size": 104
+    },
+    {
+      "name": "Resource_ConfigureObject",
+      "symbol": "?ConfigureObject@Resource2@@QAEHPAUAnimationObject3@@H@Z",
+      "section": ".text$0043e5a0_fn",
+      "address": "0x0043E5A0",
+      "size": 356
+    }
+  ],
+  "context": {
+    "symbol": "_DifficultySelectUpdateCompilerContext@24",
+    "section": ".text$0040a000_context",
+    "address": "0x0040A000",
+    "size": 134,
+    "description": "Synthetic unselected compiler context invoking the executor, indicator drain, music-room update and title dispatcher, and taking the address of the difficulty, character and key state objects."
+  },
+  "gaps": [
+    {
+      "section": ".text$0040104c_gap",
+      "address": "0x0040104C",
+      "size": 17348
+    },
+    {
+      "section": ".text$00405449_gap",
+      "address": "0x00405449",
+      "size": 13431
+    },
+    {
+      "section": ".text$0040890b_gap",
+      "address": "0x0040890B",
+      "size": 5445
+    },
+    {
+      "section": ".text$00409e91_gap",
+      "address": "0x00409E91",
+      "size": 367
+    },
+    {
+      "section": ".text$0040a086_gap",
+      "address": "0x0040A086",
+      "size": 3162
+    },
+    {
+      "section": ".text$0040ad01_gap",
+      "address": "0x0040AD01",
+      "size": 31
+    },
+    {
+      "section": ".text$0040ad41_gap",
+      "address": "0x0040AD41",
+      "size": 1855
+    },
+    {
+      "section": ".text$0040b4ea_gap",
+      "address": "0x0040B4EA",
+      "size": 2198
+    },
+    {
+      "section": ".text$0040c35c_gap",
+      "address": "0x0040C35C",
+      "size": 292
+    },
+    {
+      "section": ".text$0040c4c1_gap",
+      "address": "0x0040C4C1",
+      "size": 15
+    },
+    {
+      "section": ".text$0040c511_gap",
+      "address": "0x0040C511",
+      "size": 47
+    },
+    {
+      "section": ".text$0040c58b_gap",
+      "address": "0x0040C58B",
+      "size": 43653
+    },
+    {
+      "section": ".text$00417039_gap",
+      "address": "0x00417039",
+      "size": 8423
+    },
+    {
+      "section": ".text$0041965f_gap",
+      "address": "0x0041965F",
+      "size": 5393
+    },
+    {
+      "section": ".text$0041abf8_gap",
+      "address": "0x0041ABF8",
+      "size": 72136
+    },
+    {
+      "section": ".text$0042c613_gap",
+      "address": "0x0042C613",
+      "size": 13
+    },
+    {
+      "section": ".text$0042c6cf_gap",
+      "address": "0x0042C6CF",
+      "size": 1
+    },
+    {
+      "section": ".text$0042c723_gap",
+      "address": "0x0042C723",
+      "size": 13
+    },
+    {
+      "section": ".text$0042c74b_gap",
+      "address": "0x0042C74B",
+      "size": 5
+    },
+    {
+      "section": ".text$0042c76b_gap",
+      "address": "0x0042C76B",
+      "size": 5
+    },
+    {
+      "section": ".text$0042c7b1_gap",
+      "address": "0x0042C7B1",
+      "size": 159
+    },
+    {
+      "section": ".text$0042c895_gap",
+      "address": "0x0042C895",
+      "size": 43
+    },
+    {
+      "section": ".text$0042c91d_gap",
+      "address": "0x0042C91D",
+      "size": 1235
+    },
+    {
+      "section": ".text$0042d230_gap",
+      "address": "0x0042D230",
+      "size": 208
+    },
+    {
+      "section": ".text$0042e594_gap",
+      "address": "0x0042E594",
+      "size": 12
+    },
+    {
+      "section": ".text$0042f53f_gap",
+      "address": "0x0042F53F",
+      "size": 3553
+    },
+    {
+      "section": ".text$00430698_gap",
+      "address": "0x00430698",
+      "size": 8
+    },
+    {
+      "section": ".text$00430a5c_gap",
+      "address": "0x00430A5C",
+      "size": 4
+    },
+    {
+      "section": ".text$0043140c_gap",
+      "address": "0x0043140C",
+      "size": 436
+    },
+    {
+      "section": ".text$00431b94_gap",
+      "address": "0x00431B94",
+      "size": 844
+    },
+    {
+      "section": ".text$004329e2_gap",
+      "address": "0x004329E2",
+      "size": 5390
+    },
+    {
+      "section": ".text$004349bc_gap",
+      "address": "0x004349BC",
+      "size": 36
+    },
+    {
+      "section": ".text$00434a1b_gap",
+      "address": "0x00434A1B",
+      "size": 5
+    },
+    {
+      "section": ".text$00434a7a_gap",
+      "address": "0x00434A7A",
+      "size": 6
+    },
+    {
+      "section": ".text$00434b4e_gap",
+      "address": "0x00434B4E",
+      "size": 32098
+    },
+    {
+      "section": ".text$0043c908_gap",
+      "address": "0x0043C908",
+      "size": 104
+    },
+    {
+      "section": ".text$0043cafc_gap",
+      "address": "0x0043CAFC",
+      "size": 4500
+    },
+    {
+      "section": ".text$0043dd0b_gap",
+      "address": "0x0043DD0B",
+      "size": 1877
+    },
+    {
+      "section": ".text$0043e4c8_gap",
+      "address": "0x0043E4C8",
+      "size": 216
+    },
+    {
+      "section": ".text$0043e704_gap",
+      "address": "0x0043E704",
+      "size": 12
+    },
+    {
+      "section": ".text$0043e7df_gap",
+      "address": "0x0043E7DF",
+      "size": 36849
+    },
+    {
+      "section": ".text$00447807_gap",
+      "address": "0x00447807",
+      "size": 9
+    },
+    {
+      "section": ".text$00447902_gap",
+      "address": "0x00447902",
+      "size": 206
+    },
+    {
+      "section": ".text$00447a4f_gap",
+      "address": "0x00447A4F",
+      "size": 1
+    },
+    {
+      "section": ".text$00447add_gap",
+      "address": "0x00447ADD",
+      "size": 3
+    },
+    {
+      "section": ".text$00447bac_gap",
+      "address": "0x00447BAC",
+      "size": 4
+    },
+    {
+      "section": ".text$00447c72_gap",
+      "address": "0x00447C72",
+      "size": 3422
+    },
+    {
+      "section": ".text$00448a37_gap",
+      "address": "0x00448A37",
+      "size": 713
+    },
+    {
+      "section": ".text$00448d49_gap",
+      "address": "0x00448D49",
+      "size": 7
+    },
+    {
+      "section": ".text$00448daf_gap",
+      "address": "0x00448DAF",
+      "size": 1
+    },
+    {
+      "section": ".text$00448e26_gap",
+      "address": "0x00448E26",
+      "size": 922
+    },
+    {
+      "section": ".text$00449209_gap",
+      "address": "0x00449209",
+      "size": 71
+    },
+    {
+      "section": ".text$0044929c_gap",
+      "address": "0x0044929C",
+      "size": 4
+    },
+    {
+      "section": ".text$004492e2_gap",
+      "address": "0x004492E2",
+      "size": 254
+    },
+    {
+      "section": ".text$0044943c_gap",
+      "address": "0x0044943C",
+      "size": 20
+    },
+    {
+      "section": ".text$00449465_gap",
+      "address": "0x00449465",
+      "size": 11
+    },
+    {
+      "section": ".text$004494b1_gap",
+      "address": "0x004494B1",
+      "size": 303
+    },
+    {
+      "section": ".text$00449623_gap",
+      "address": "0x00449623",
+      "size": 13
+    },
+    {
+      "section": ".text$00449645_gap",
+      "address": "0x00449645",
+      "size": 43
+    },
+    {
+      "section": ".text$00449694_gap",
+      "address": "0x00449694",
+      "size": 316
+    },
+    {
+      "section": ".text$00449816_gap",
+      "address": "0x00449816",
+      "size": 314
+    },
+    {
+      "section": ".text$004499fb_gap",
+      "address": "0x004499FB",
+      "size": 229
+    },
+    {
+      "section": ".text$00449b63_gap",
+      "address": "0x00449B63",
+      "size": 13
+    },
+    {
+      "section": ".text$00449bf3_gap",
+      "address": "0x00449BF3",
+      "size": 1037
+    },
+    {
+      "section": ".text$0044a02b_gap",
+      "address": "0x0044A02B",
+      "size": 5
+    },
+    {
+      "section": ".text$0044a05b_gap",
+      "address": "0x0044A05B",
+      "size": 4021
+    },
+    {
+      "section": ".text$0044b077_gap",
+      "address": "0x0044B077",
+      "size": 745
+    },
+    {
+      "section": ".text$0044b4c8_gap",
+      "address": "0x0044B4C8",
+      "size": 2392
+    },
+    {
+      "section": ".text$0044be62_gap",
+      "address": "0x0044BE62",
+      "size": 14
+    },
+    {
+      "section": ".text$0044be9f_gap",
+      "address": "0x0044BE9F",
+      "size": 1
+    },
+    {
+      "section": ".text$0044bf20_gap",
+      "address": "0x0044BF20",
+      "size": 32
+    },
+    {
+      "section": ".text$0044bf98_gap",
+      "address": "0x0044BF98",
+      "size": 440
+    },
+    {
+      "section": ".text$0044c1b5_gap",
+      "address": "0x0044C1B5",
+      "size": 11
+    }
+  ],
+  "constants": [],
+  "constant_aliases": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_recovery_decoded_path_00497d40",
+      "address": "0x00497D40",
+      "kind": "data"
+    },
+    {
+      "symbol": "_recovery_vsprintf",
+      "address": "0x004524A6",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_recovery_draw_shadowed@24",
+      "address": "0x00437DB0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_recovery_draw_unshadowed@24",
+      "address": "0x00437FE0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__ftol2",
+      "address": "0x00463B2C",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "___security_cookie",
+      "address": "0x00473660",
+      "kind": "data"
+    },
+    {
+      "symbol": "__fltused",
+      "address": "0x00000000",
+      "kind": "metadata"
+    },
+    {
+      "symbol": "??2@YAPAXI@Z",
+      "address": "0x00452493",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_SchedulerTask_Create@4",
+      "address": "0x00449ED0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_g_func_ctrl",
+      "address": "0x00491BE4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_RecoveryAsciiFrameSpeed_00476f78",
+      "address": "0x00476F78",
+      "kind": "data"
+    },
+    {
+      "symbol": "?g_thread_synchronization@@3UThreadSynchronization@@A",
+      "address": "0x00492274",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__EnterCriticalSection@4",
+      "address": "0x004660B0",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__LeaveCriticalSection@4",
+      "address": "0x004660B4",
+      "kind": "data"
+    },
+    {
+      "symbol": "@RecoveryAsciiBasicTick_0043bd40@4",
+      "address": "0x0043bd40",
+      "kind": "data"
+    },
+    {
+      "symbol": "@RecoveryAsciiDraw0_0043c1a0@4",
+      "address": "0x0043c1a0",
+      "kind": "data"
+    },
+    {
+      "symbol": "@RecoveryAsciiTick1_0043c550@4",
+      "address": "0x0043c550",
+      "kind": "data"
+    },
+    {
+      "symbol": "@RecoveryAsciiTick2_0043c230@4",
+      "address": "0x0043c230",
+      "kind": "data"
+    },
+    {
+      "symbol": "@RecoveryAsciiDraw2_0043c2c0@4",
+      "address": "0x0043c2c0",
+      "kind": "data"
+    },
+    {
+      "symbol": "@RecoveryAsciiTick4_0043c460@4",
+      "address": "0x0043c460",
+      "kind": "data"
+    },
+    {
+      "symbol": "@RecoveryAsciiDraw4_0043c500@4",
+      "address": "0x0043c500",
+      "kind": "data"
+    },
+    {
+      "symbol": "@RecoveryAsciiTick6_0043c310@4",
+      "address": "0x0043c310",
+      "kind": "data"
+    },
+    {
+      "symbol": "@RecoveryAsciiDraw6_0043c3c0@4",
+      "address": "0x0043c3c0",
+      "kind": "data"
+    },
+    {
+      "symbol": "@RecoveryAsciiDraw7_0043c410@4",
+      "address": "0x0043c410",
+      "kind": "data"
+    },
+    {
+      "symbol": "@RecoveryAsciiTick8_0043c710@4",
+      "address": "0x0043c710",
+      "kind": "data"
+    },
+    {
+      "symbol": "@RecoveryAsciiRemove_0043c870@4",
+      "address": "0x0043c870",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_sprt_ctrl",
+      "address": "0x00491C10",
+      "kind": "data"
+    },
+    {
+      "symbol": "_operator_new2",
+      "address": "0x00452493",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_Entity_Constructor_00402050",
+      "address": "0x00402050",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_Entity_Init_00401de0",
+      "address": "0x00401DE0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_asm_AnimationObject_LoadScriptTail_0043ee30",
+      "address": "0x0043EE30",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_crt_free",
+      "address": "0x00452422",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_crt_free_startup",
+      "address": "0x004524A1",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?platform_worker_vtable@@3DA",
+      "address": "0x004703E4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_asm_beginthreadex_00453683",
+      "address": "0x00453683",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__imp__WaitForSingleObject@8",
+      "address": "0x0046611C",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__Sleep@4",
+      "address": "0x004660AC",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__CloseHandle@4",
+      "address": "0x004660CC",
+      "kind": "data"
+    },
+    {
+      "symbol": "_Game_LoadThread",
+      "address": "0x00417C70",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_key_bindings_current",
+      "address": "0x00474E88",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_d3d_device",
+      "address": "0x00491C30",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_game",
+      "address": "0x00477810",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_application",
+      "address": "0x00491C28",
+      "kind": "data"
+    },
+    {
+      "symbol": "?InitializeObject@AnimationBank@@QAEPAXPAXH@Z",
+      "address": "0x00449870",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_g_archive",
+      "address": "0x00497990",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00497994",
+      "address": "0x00497994",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_file_lock_depth",
+      "address": "0x0049231e",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_file_lock",
+      "address": "0x004922a4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_imp_EnterCriticalSection",
+      "address": "0x004660b0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_imp_LeaveCriticalSection",
+      "address": "0x004660b4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_imp_CreateFileA",
+      "address": "0x004660c4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_imp_CloseHandle",
+      "address": "0x004660cc",
+      "kind": "data"
+    },
+    {
+      "symbol": "_imp_ReadFile",
+      "address": "0x004660d0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_imp_GetFileSize",
+      "address": "0x004660d8",
+      "kind": "data"
+    },
+    {
+      "symbol": "_asm_strrchr_00452930",
+      "address": "0x00452930",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_asm_stricmp_0046054e",
+      "address": "0x0046054e",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_asm_malloc_00452706",
+      "address": "0x00452706",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?Read@ArchiveReader@@QAEPADPBXPAD@Z",
+      "address": "0x00434DD0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_g_recovery_script_path",
+      "address": "0x00497C38",
+      "kind": "data"
+    },
+    {
+      "symbol": "?Parse@ScriptFileLoader@@QAEHPAD@Z",
+      "address": "0x00450220",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_imp_GetModuleFileNameA",
+      "address": "0x004660DC",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_executable_checksum",
+      "address": "0x00492380",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_executable_size",
+      "address": "0x00492384",
+      "kind": "data"
+    },
+    {
+      "symbol": "_str_string_format",
+      "address": "0x0046E1C8",
+      "kind": "data"
+    },
+    {
+      "symbol": "_ProbeFileExists@4",
+      "address": "0x0044B4D0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_dbl_pi_4",
+      "address": "0x00470C50",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_music_room_commands",
+      "address": "0x0047476C",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_music_room_easings",
+      "address": "0x00474778",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_music_room_variable_map",
+      "address": "0x00491BF4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_music_room_callback_map",
+      "address": "0x00491BF8",
+      "kind": "data"
+    },
+    {
+      "symbol": "_asm_vsprintf_004524a6",
+      "address": "0x004524A6",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__chkstk",
+      "address": "0x00458EC0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_g_text_log_lock",
+      "address": "0x004922BC",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_text_log_lock_depth",
+      "address": "0x0049231F",
+      "kind": "data"
+    },
+    {
+      "symbol": "@LoadCachedResource@12",
+      "address": "0x00447280",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_malloc",
+      "address": "0x00452706",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_g_stage_route_current",
+      "address": "0x00477848",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_globals_score",
+      "address": "0x00474C44",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_globals_character",
+      "address": "0x00474C68",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_next_stage_buffer",
+      "address": "0x00491BE8",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_game_speed",
+      "address": "0x00476F78",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_log",
+      "address": "0x00474F70",
+      "kind": "data"
+    },
+    {
+      "symbol": "_str_data_corrupted",
+      "address": "0x0046CB68",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_sound_priority",
+      "address": "0x004749CE",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_sound_manager",
+      "address": "0x00492590",
+      "kind": "data"
+    },
+    {
+      "symbol": "_flt_0_99",
+      "address": "0x00470B68",
+      "kind": "data"
+    },
+    {
+      "symbol": "_flt_1_01",
+      "address": "0x00470B64",
+      "kind": "data"
+    },
+    {
+      "symbol": "?SetPolar@DecelerationVector2@@QAEXMM@Z",
+      "address": "0x0041F800",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?SetPolar@BulletDecelerationVector2@@QAEXMM@Z",
+      "address": "0x00408750",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_g_player",
+      "address": "0x00477834",
+      "kind": "data"
+    },
+    {
+      "symbol": "_flt_0",
+      "address": "0x00470B04",
+      "kind": "data"
+    },
+    {
+      "symbol": "?Angle_NormalizeSum@@YGMMM@Z",
+      "address": "0x0044BC10",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_flt_neg192",
+      "address": "0x00470B40",
+      "kind": "data"
+    },
+    {
+      "symbol": "_flt_192",
+      "address": "0x00470B3C",
+      "kind": "data"
+    },
+    {
+      "symbol": "_flt_448",
+      "address": "0x00470B38",
+      "kind": "data"
+    },
+    {
+      "symbol": "_flt_pi",
+      "address": "0x00470B18",
+      "kind": "data"
+    },
+    {
+      "symbol": "_flt_neg384",
+      "address": "0x00470B58",
+      "kind": "data"
+    },
+    {
+      "symbol": "_flt_384",
+      "address": "0x00470B54",
+      "kind": "data"
+    },
+    {
+      "symbol": "_flt_neg990",
+      "address": "0x00470B50",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_ending",
+      "address": "0x00477700",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_ascii_manager",
+      "address": "0x004776E0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_input_keys_raw",
+      "address": "0x00474E30",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_input_keys_held",
+      "address": "0x00474E36",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_globals_difficulty",
+      "address": "0x00474C74",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_screen_effects_frozen",
+      "address": "0x004918A4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_recovery_script_empty_text",
+      "address": "0x0046CFD4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_recovery_script_special_music",
+      "address": "0x0046CFC4",
+      "kind": "data"
+    },
+    {
+      "symbol": "?g_frame_timer_normal_lower@@3MA",
+      "address": "0x00470B68",
+      "kind": "data"
+    },
+    {
+      "symbol": "?g_frame_timer_normal_upper@@3MA",
+      "address": "0x00470B64",
+      "kind": "data"
+    },
+    {
+      "symbol": "_recovery_replace_extension@8",
+      "address": "0x00420A90",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_recovery_play_dummy@8",
+      "address": "0x00420B10",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_recovery_play_random_voice@4",
+      "address": "0x00420C30",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_recovery_background_thread@4",
+      "address": "0x0040C3A0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_recovery_indicator_owner",
+      "address": "0x00474C84",
+      "kind": "data"
+    },
+    {
+      "symbol": "_recovery_indicator_eight_00470bd0",
+      "address": "0x00470BD0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_recovery_indicator_one_00470afc",
+      "address": "0x00470AFC",
+      "kind": "data"
+    },
+    {
+      "symbol": "_recovery_indicator_two_00470b08",
+      "address": "0x00470B08",
+      "kind": "data"
+    },
+    {
+      "symbol": "_recovery_indicator_fifteen_00470c08",
+      "address": "0x00470C08",
+      "kind": "data"
+    },
+    {
+      "symbol": "_recovery_indicator_three_halves_00470ca8",
+      "address": "0x00470CA8",
+      "kind": "data"
+    },
+    {
+      "symbol": "_recovery_indicator_half_00470b0c",
+      "address": "0x00470B0C",
+      "kind": "data"
+    },
+    {
+      "symbol": "_recovery_indicator_three_quarters_00470ce4",
+      "address": "0x00470CE4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_recovery_indicator_free",
+      "address": "0x004524A1",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_recovery_indicator_x_origin_00470b4c",
+      "address": "0x00470B4C",
+      "kind": "data"
+    },
+    {
+      "symbol": "_recovery_indicator_y_origin_00470b48",
+      "address": "0x00470B48",
+      "kind": "data"
+    },
+    {
+      "symbol": "_recovery_music_repeat",
+      "address": "0x00474E34",
+      "kind": "data"
+    },
+    {
+      "symbol": "_recovery_music_player",
+      "address": "0x0047783C",
+      "kind": "data"
+    },
+    {
+      "symbol": "_recovery_music_mode",
+      "address": "0x00491D78",
+      "kind": "data"
+    },
+    {
+      "symbol": "_recovery_music_preview_resource",
+      "address": "0x00491FEC",
+      "kind": "data"
+    },
+    {
+      "symbol": "_recovery_music_row_y_00470c80",
+      "address": "0x00470C80",
+      "kind": "data"
+    },
+    {
+      "symbol": "_recovery_music_row_step_00470ca0",
+      "address": "0x00470CA0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_recovery_music_jump_threshold_00470c64",
+      "address": "0x00470C64",
+      "kind": "data"
+    },
+    {
+      "symbol": "_recovery_music_selected_offset_00470c98",
+      "address": "0x00470C98",
+      "kind": "data"
+    },
+    {
+      "symbol": "_recovery_music_defaults",
+      "address": "0x00491C14",
+      "kind": "data"
+    },
+    {
+      "symbol": "_recovery_music_locked_format",
+      "address": "0x0046ECF4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_recovery_music_comment_file",
+      "address": "0x0046ED14",
+      "kind": "data"
+    },
+    {
+      "symbol": "_recovery_music_dummy",
+      "address": "0x0046DF98",
+      "kind": "data"
+    },
+    {
+      "symbol": "_recovery_music_restore_bgm",
+      "address": "0x0046F018",
+      "kind": "data"
+    },
+    {
+      "symbol": "_recovery_music_preview_table",
+      "address": "0x00476FD8",
+      "kind": "data"
+    },
+    {
+      "symbol": "_flt_1",
+      "kind": "data",
+      "address": 4655868
+    },
+    {
+      "symbol": "?TitleDispatchGame@@YGXXZ",
+      "kind": "relative_code",
+      "address": 4328448
+    },
+    {
+      "symbol": "_g_app_flags",
+      "kind": "data",
+      "address": 4792308
+    },
+    {
+      "symbol": "?TitlePlayMusic@@YGXHH@Z",
+      "kind": "relative_code",
+      "address": 4328208
+    },
+    {
+      "symbol": "?TitleSetMusicFile@@YGXHPBD@Z",
+      "kind": "relative_code",
+      "address": 4328080
+    },
+    {
+      "symbol": "?TitleNameEntry@@YGHPAUTitle@@@Z",
+      "kind": "relative_code",
+      "address": 4402352
+    },
+    {
+      "symbol": "?TitleReleaseDemo@@YGXPAUDemoFile@@@Z",
+      "kind": "relative_code",
+      "address": 4363424
+    },
+    {
+      "symbol": "_g_menu_difficulty_saved",
+      "kind": "data",
+      "address": 4672632
+    },
+    {
+      "symbol": "_g_globals_shot_type",
+      "kind": "data",
+      "address": 4672620
+    },
+    {
+      "symbol": "_g_stage_routes",
+      "kind": "data",
+      "address": 4671368
+    },
+    {
+      "symbol": "_g_main_state",
+      "kind": "data",
+      "address": 4792248
+    },
+    {
+      "symbol": "_g_globals_stage_shown",
+      "kind": "data",
+      "address": 4672640
+    },
+    {
+      "symbol": "_g_globals_stage",
+      "kind": "data",
+      "address": 4672636
+    },
+    {
+      "symbol": "?TitleLoadDemo@@YGPAUDemoFile@@PBD@Z",
+      "kind": "relative_code",
+      "address": 4364016
+    },
+    {
+      "symbol": "_g_title_demo_paths",
+      "kind": "data",
+      "address": 4681720
+    },
+    {
+      "symbol": "_g_title_demo_index",
+      "kind": "data",
+      "address": 4672680
+    },
+    {
+      "symbol": "_g_globals_flags",
+      "kind": "data",
+      "address": 4672672
+    },
+    {
+      "symbol": "_g_title_idle_frames",
+      "kind": "data",
+      "address": 4672676
+    },
+    {
+      "symbol": "?TitleSaveInputHistory_0044be20@@YGXXZ",
+      "kind": "relative_code",
+      "address": 4505120
+    },
+    {
+      "symbol": "_RunAnimationVm@4",
+      "address": "0x0043EE30",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_application_state",
+      "address": "0x00491C00",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_joystick_buttons",
+      "address": "0x00497BB0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_pad_devices",
+      "address": "0x00491C3C",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__joyGetPosEx@8",
+      "address": "0x00466280",
+      "kind": "data"
+    },
+    {
+      "symbol": "?TitleMenuFlow@@YGHPAUTitle@@@Z",
+      "address": "0x0042F540",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_g_score",
+      "address": "0x0047783C",
+      "kind": "data"
+    },
+    {
+      "symbol": "?Music_FadeOut@@YGHM@Z",
+      "address": "0x00420C30",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_g_title_practice_selection",
+      "address": "0x00491C08",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_globals_initial_lives",
+      "address": "0x00474CAC",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_keyboard_state",
+      "address": "0x00497AA8",
+      "kind": "data"
+    },
+    {
+      "symbol": "?g_input_enabled@@3HA",
+      "address": "0x004924FC",
+      "kind": "data"
+    },
+    {
+      "symbol": "?g_input_mode@@3IA",
+      "address": "0x00491FF4",
+      "kind": "data"
+    },
+    {
+      "symbol": "?g_keyboard_device@@3PAUKeyboardDevice@@A",
+      "address": "0x00491C38",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__GetKeyboardState@4",
+      "address": "0x00466208",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_title_replay_selection",
+      "address": "0x00491C04",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_main_mode_request",
+      "address": "0x00491C00",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_replay_path",
+      "address": "0x00477710",
+      "kind": "data"
+    },
+    {
+      "symbol": "_sprintf",
+      "address": "0x00452AE8",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__mkdir",
+      "address": "0x00452ABC",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__chdir",
+      "address": "0x00453111",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_free",
+      "address": "0x004524A1",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__imp__FindFirstFileA@8",
+      "address": "0x004660A0",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__FindNextFileA@8",
+      "address": "0x004660A4",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__FindClose@4",
+      "address": "0x004660A8",
+      "kind": "data"
+    },
+    {
+      "symbol": "@__security_check_cookie@4",
+      "address": "0x00458EA5",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?ReplayFile_Open@@YGPAUReplayFile@@PBD@Z",
+      "address": "0x004296F0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?ReplayFile_Destroy@@YGXPAUReplayFile@@@Z",
+      "address": "0x004294A0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_time2",
+      "address": "0x00452B71",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?ReplayFile_Save@@YIXPAUReplayFile@@PBD1@Z",
+      "address": "0x00429B60",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?Music_Load2@@YGHHPBD@Z",
+      "address": "0x00420A90",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?Music_Play2@@YGHHH@Z",
+      "address": "0x00420B10",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_g_replay",
+      "address": "0x00477838",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_name_entry_grid",
+      "address": "0x004746D8",
+      "kind": "data"
+    },
+    {
+      "symbol": "?TitleMode16@@YGHPAUTitle@@@Z",
+      "address": "0x00433570",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?g_spell_difficulty@@3QBCB",
+      "address": "0x004743C0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_spell_difficulty",
+      "address": "0x004743C0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_keys_current",
+      "address": "0x00497E90",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_keys_previous",
+      "address": "0x00497D90",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_spell_seq_keys",
+      "address": "0x004979A8",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_spell_seq_progress",
+      "address": "0x004979A4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_spell_seq_elapsed",
+      "address": "0x004979A0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_spell_seq_codes",
+      "address": "0x0046EF10",
+      "kind": "data"
+    },
+    {
+      "symbol": "_NamedCardFormat",
+      "address": "0x46eef8",
+      "kind": "data"
+    },
+    {
+      "symbol": "_MaskedCardFormat",
+      "address": "0x46eebc",
+      "kind": "data"
+    },
+    {
+      "symbol": "_EmptyCardText",
+      "address": "0x46cfd4",
+      "kind": "data"
+    },
+    {
+      "symbol": "?AtInterval@FrameCounterPair@@QAEHH@Z",
+      "address": "0x00427C70",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?SelectResourceSprite_0043e5a0@@YIXPAXH@Z",
+      "address": "0x0043E5A0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?RegisterResource_0043e460_eax@@YIXHPBD@Z",
+      "address": "0x0043E460",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_g_options_music_volume",
+      "address": "0x00497854",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_options_music_attenuation",
+      "address": "0x0049785C",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_options_sound_volume",
+      "address": "0x00497858",
+      "kind": "data"
+    },
+    {
+      "symbol": "_str_set_vol",
+      "address": "0x0046ECE8",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_music_volume",
+      "address": "0x00491D68",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_effect_volume",
+      "address": "0x00491D69",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_key_bindings",
+      "address": "0x00491D4C",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_fps",
+      "address": "0x00477708",
+      "kind": "data"
+    },
+    {
+      "symbol": "_flt_0_01",
+      "address": "0x00470B00",
+      "kind": "data"
+    },
+    {
+      "symbol": "_flt_neg5000",
+      "address": "0x00470B80",
+      "kind": "data"
+    },
+    {
+      "symbol": "?RegisterResource_0043e460_eax@@YIXHPBDHH@Z",
+      "address": "0x0043E460",
+      "kind": "relative_code"
+    }
+  ],
+  "additional_sources": [
+    "build_support/layout/ltcg/options_label_refresh_dependencies/recovery_script_executor_text_anchors.cpp",
+    "build_support/layout/ltcg/options_label_refresh_dependencies/recovery_script_executor_core_anchors.cpp",
+    "build_support/layout/ltcg/options_label_refresh_dependencies/recovery_script_executor_ascii_anchors.cpp",
+    "build_support/layout/ltcg/options_label_refresh_dependencies/recovery_script_executor_anchor.cpp",
+    "build_support/layout/ltcg/options_label_refresh_dependencies/recovery_script_executor_anchor_40c540.cpp",
+    "build_support/layout/ltcg/options_label_refresh_dependencies/recovery_script_executor_anchor_4477d0.cpp",
+    "build_support/layout/ltcg/options_label_refresh_dependencies/recovery_script_executor_anchor_447810.cpp",
+    "build_support/layout/ltcg/options_label_refresh_dependencies/recovery_script_executor_anchor_4493e0.cpp",
+    "build_support/layout/ltcg/options_label_refresh_dependencies/recovery_script_executor_anchor_448d00.cpp",
+    "build_support/layout/ltcg/options_label_refresh_dependencies/recovery_script_executor_anchor_43dc90.cpp",
+    "build_support/layout/ltcg/options_label_refresh_dependencies/recovery_script_executor_anchor_44c1c0.cpp",
+    "build_support/layout/ltcg/options_label_refresh_dependencies/recovery_script_executor_anchor_44c150.cpp",
+    "build_support/layout/ltcg/options_label_refresh_dependencies/recovery_script_executor_anchor_44b360.cpp",
+    "build_support/layout/ltcg/options_label_refresh_dependencies/recovery_script_executor_creation_anchors.cpp",
+    "build_support/layout/ltcg/options_label_refresh_dependencies/recovery_script_executor_caller.cpp",
+    "build_support/layout/ltcg/options_label_refresh_dependencies/recovery_script_executor_indicator_anchors.cpp",
+    "build_support/layout/ltcg/options_label_refresh_dependencies/recovery_script_executor_text_sibling_anchors.cpp",
+    "build_support/layout/ltcg/options_label_refresh_dependencies/recovery_script_executor_caller_433ef0.cpp",
+    "build_support/layout/ltcg/options_label_refresh_dependencies/script_executor.cpp",
+    "build_support/layout/ltcg/options_label_refresh_dependencies/install_slot.cpp",
+    "build_support/layout/ltcg/options_label_refresh_dependencies/title_dispatcher.cpp",
+    "build_support/layout/ltcg/options_label_refresh_dependencies/animation_run_anchors.cpp",
+    "build_support/layout/ltcg/options_label_refresh_dependencies/animation_stop_frame_anchor.cpp",
+    "build_support/layout/ltcg/options_label_refresh_dependencies/animation_find_child_anchor.cpp",
+    "build_support/layout/ltcg/options_label_refresh_dependencies/input_and_cursor_anchors.cpp",
+    "build_support/layout/ltcg/options_label_refresh_dependencies/animation_clear_flag_anchor.cpp",
+    "build_support/layout/ltcg/options_label_refresh_dependencies/keyboard_state_anchor.cpp",
+    "build_support/layout/ltcg/options_label_refresh_dependencies/score_progress_anchor.cpp",
+    "build_support/layout/ltcg/options_label_refresh_dependencies/title_main_menu_update.cpp",
+    "build_support/layout/ltcg/options_label_refresh_dependencies/character_select_update.cpp",
+    "build_support/layout/ltcg/options_label_refresh_dependencies/shot_type_select_update.cpp",
+    "build_support/layout/ltcg/options_label_refresh_dependencies/practice_stage_select_update.cpp",
+    "build_support/layout/ltcg/options_label_refresh_dependencies/replay_select_update.cpp",
+    "build_support/layout/ltcg/options_label_refresh_dependencies/spell_record_anchors.cpp",
+    "build_support/layout/ltcg/options_label_refresh_dependencies/spell_record_update.cpp",
+    "build_support/layout/ltcg/options_label_refresh_dependencies/spell_list_anchor.cpp",
+    "build_support/layout/ltcg/options_label_refresh_dependencies/options_anchors.cpp",
+    "build_support/layout/ltcg/options_label_refresh_dependencies/options_update.cpp",
+    "build_support/layout/ltcg/options_label_refresh_dependencies/register_resource_anchor.cpp",
+    "build_support/layout/ltcg/options_label_refresh_dependencies/configure_object_anchor.cpp"
+  ],
+  "roots": [],
+  "included_sources": [
+    "build_support/layout/ltcg/difficulty_select_update_dependencies/recovery_script_executor_text_anchors.cpp",
+    "build_support/layout/ltcg/difficulty_select_update_dependencies/recovery_script_executor_core_anchors.cpp",
+    "build_support/layout/ltcg/difficulty_select_update_dependencies/recovery_script_executor_ascii_anchors.cpp",
+    "build_support/layout/ltcg/difficulty_select_update_dependencies/recovery_script_executor_anchor.cpp",
+    "build_support/layout/ltcg/difficulty_select_update_dependencies/recovery_script_executor_anchor_40c540.cpp",
+    "build_support/layout/ltcg/difficulty_select_update_dependencies/recovery_script_executor_anchor_4477d0.cpp",
+    "build_support/layout/ltcg/difficulty_select_update_dependencies/recovery_script_executor_anchor_447810.cpp",
+    "build_support/layout/ltcg/difficulty_select_update_dependencies/recovery_script_executor_anchor_4493e0.cpp",
+    "build_support/layout/ltcg/difficulty_select_update_dependencies/recovery_script_executor_anchor_448d00.cpp",
+    "build_support/layout/ltcg/difficulty_select_update_dependencies/recovery_script_executor_anchor_43dc90.cpp",
+    "build_support/layout/ltcg/difficulty_select_update_dependencies/recovery_script_executor_anchor_44c1c0.cpp",
+    "build_support/layout/ltcg/difficulty_select_update_dependencies/recovery_script_executor_anchor_44c150.cpp",
+    "build_support/layout/ltcg/difficulty_select_update_dependencies/recovery_script_executor_anchor_44b360.cpp",
+    "build_support/layout/ltcg/difficulty_select_update_dependencies/recovery_script_executor_creation_anchors.cpp",
+    "build_support/layout/ltcg/difficulty_select_update_dependencies/recovery_script_executor_caller.cpp",
+    "build_support/layout/ltcg/difficulty_select_update_dependencies/recovery_script_executor_indicator_anchors.cpp",
+    "build_support/layout/ltcg/difficulty_select_update_dependencies/recovery_script_executor_text_sibling_anchors.cpp",
+    "build_support/layout/ltcg/difficulty_select_update_dependencies/recovery_script_executor_caller_433ef0.cpp",
+    "build_support/layout/ltcg/difficulty_select_update_dependencies/script_executor.cpp",
+    "build_support/layout/ltcg/difficulty_select_update_dependencies/install_slot.cpp",
+    "build_support/layout/ltcg/difficulty_select_update_dependencies/title_dispatcher.cpp",
+    "build_support/layout/ltcg/difficulty_select_update_dependencies/animation_run_anchors.cpp",
+    "build_support/layout/ltcg/difficulty_select_update_dependencies/animation_stop_frame_anchor.cpp",
+    "build_support/layout/ltcg/difficulty_select_update_dependencies/animation_find_child_anchor.cpp",
+    "build_support/layout/ltcg/difficulty_select_update_dependencies/input_and_cursor_anchors.cpp",
+    "build_support/layout/ltcg/difficulty_select_update_dependencies/animation_clear_flag_anchor.cpp",
+    "build_support/layout/ltcg/difficulty_select_update_dependencies/keyboard_state_anchor.cpp",
+    "build_support/layout/ltcg/difficulty_select_update_dependencies/score_progress_anchor.cpp",
+    "src/game/title/title_main_menu_update.cpp",
+    "src/game/title/character_select_update.cpp",
+    "src/game/title/shot_type_select_update.cpp",
+    "src/game/title/practice_stage_select_update.cpp",
+    "src/game/title/replay_select_update.cpp",
+    "build_support/layout/ltcg/difficulty_select_update_dependencies/spell_record_anchors.cpp",
+    "src/game/title/spell_record_update.cpp",
+    "build_support/layout/ltcg/difficulty_select_update_dependencies/spell_list_anchor.cpp",
+    "build_support/layout/ltcg/difficulty_select_update_dependencies/options_anchors.cpp",
+    "src/game/title/options_update.cpp",
+    "build_support/layout/ltcg/ending_screen_dependencies/title_dispatcher.cpp",
+    "build_support/layout/ltcg/recovery_script_executor_anchor.cpp",
+    "build_support/layout/ltcg/recovery_script_executor_anchor_40c540.cpp",
+    "build_support/layout/ltcg/recovery_script_executor_anchor_43dc90.cpp",
+    "build_support/layout/ltcg/recovery_script_executor_anchor_4477d0.cpp",
+    "build_support/layout/ltcg/recovery_script_executor_anchor_447810.cpp",
+    "build_support/layout/ltcg/recovery_script_executor_anchor_448d00.cpp",
+    "build_support/layout/ltcg/recovery_script_executor_anchor_4493e0.cpp",
+    "build_support/layout/ltcg/recovery_script_executor_anchor_44b360.cpp",
+    "build_support/layout/ltcg/recovery_script_executor_anchor_44c150.cpp",
+    "build_support/layout/ltcg/recovery_script_executor_anchor_44c1c0.cpp",
+    "build_support/layout/ltcg/recovery_script_executor_ascii_anchors.cpp",
+    "build_support/layout/ltcg/recovery_script_executor_caller.cpp",
+    "build_support/layout/ltcg/recovery_script_executor_caller_433ef0.cpp",
+    "build_support/layout/ltcg/recovery_script_executor_core_anchors.cpp",
+    "build_support/layout/ltcg/recovery_script_executor_creation_anchors.cpp",
+    "build_support/layout/ltcg/recovery_script_executor_indicator_anchors.cpp",
+    "build_support/layout/ltcg/recovery_script_executor_text_anchors.cpp",
+    "build_support/layout/ltcg/recovery_script_executor_text_sibling_anchors.cpp",
+    "src/game/title/ending_screen.cpp",
+    "src/game/title/game_progress_unlock_all_stages.cpp",
+    "src/game/eclview/input_mask_active.cpp",
+    "src/game/title/recovery_animation_slot_frames.cpp",
+    "src/game/title/recovery_install_animation_slot.cpp",
+    "build_support/contexts/legacy/game/recovery_script_executor.cpp",
+    "src/game/title/title_spell_list.cpp",
+    "src/core/sprtlib/animation_manager_find_child_by_script_index.cpp",
+    "src/core/sprtlib/animation_manager_set_stop_frame_and_run.cpp",
+    "src/core/sprtlib/animation_manager_set_stop_frame_from_handle_retail.cpp",
+    "src/core/sprtanim/animation_manager_register_resource.cpp",
+    "src/core/sprtanim/animation_object_configure_from_resource.cpp",
+    "src/game/title/difficulty_select_update.cpp",
+    "build_support/layout/ltcg/difficulty_select_update_00430320_context.cpp"
+  ],
+  "data_aliases": [
+    {
+      "symbol": "??_C@_0BA@GKFGEHJO@bgm?1th10_02?4wav?$AA@",
+      "address": 4648984,
+      "bytes": "62676d2f746831305f30322e77617600",
+      "reference_scope": "compiled_graph"
+    },
+    {
+      "symbol": "??_C@_03LOJJKLGJ@?4?4?1?$AA@",
+      "address": 4648936,
+      "bytes": "2e2e2f00",
+      "reference_scope": "compiled_graph"
+    },
+    {
+      "symbol": "??_C@_0BA@KODLGIPH@th10_ud?$DP?$DP?$DP?$DP?4rpy?$AA@",
+      "address": 4648940,
+      "bytes": "746831305f75643f3f3f3f2e72707900",
+      "reference_scope": "compiled_graph"
+    },
+    {
+      "symbol": "??_C@_06HOJHLELG@replay?$AA@",
+      "address": 4646480,
+      "bytes": "7265706c617900",
+      "reference_scope": "compiled_graph"
+    },
+    {
+      "symbol": "??_C@_0O@PLEGECMF@th10_?$CF?42d?4rpy?$AA@",
+      "address": 4645064,
+      "bytes": "746831305f252e32642e72707900",
+      "reference_scope": "compiled_graph"
+    }
+  ]
+}

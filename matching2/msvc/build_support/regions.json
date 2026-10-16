@@ -26887,13 +26887,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0042e5a0_0042e5a0",
-      "source": "build_support/exact/game/title/fun.cpp",
-      "symbol": "_asm_FUN_0042e5a0_0042e5a0",
+      "name": "semantic_RefreshOptions_0042e5a0",
+      "source": "src/game/title/options_label_refresh.cpp",
+      "symbol": "?RefreshOptions2@@YGXPAUTitle@@@Z",
       "address": "0x0042E5A0",
       "size": 3999,
-      "kind": "asm",
-      "owner": "0x0042E5A0"
+      "kind": "semantic",
+      "owner": "0x0042E5A0",
+      "previous_record": {
+        "name": "asm_FUN_0042e5a0_0042e5a0",
+        "source": "build_support/exact/game/title/fun.cpp",
+        "symbol": "_asm_FUN_0042e5a0_0042e5a0",
+        "address": "0x0042E5A0",
+        "size": 3999,
+        "kind": "asm",
+        "owner": "0x0042E5A0"
+      }
     },
     {
       "name": "text_padding_0042f53f",
@@ -60343,7 +60352,6 @@
     "build_support/exact/game/replay/replay_large_runtime.cpp",
     "build_support/exact/game/replay/replay_manager_on_frame_step.cpp",
     "build_support/exact/game/replay/replay_runtime_bootstrap.cpp",
-    "build_support/exact/game/title/fun.cpp",
     "build_support/exact/game/title/name_entry.cpp",
     "build_support/exact/game/title/replay_menu_runtime.cpp",
     "build_support/exact/game/title/title_menu_runtime.cpp",
@@ -61380,6 +61388,7 @@
     "src/game/title/menu_cursor.cpp",
     "src/game/title/menu_flow_updates.cpp",
     "src/game/title/music_requests_set_volume.cpp",
+    "src/game/title/options_label_refresh.cpp",
     "src/game/title/options_update.cpp",
     "src/game/title/practice_stage_select_update.cpp",
     "src/game/title/progress.cpp",
@@ -62994,6 +63003,7 @@
     "build_support/layout/ltcg/ending_screen.json",
     "build_support/layout/ltcg/key_config_update.json",
     "build_support/layout/ltcg/difficulty_select_update.json",
+    "build_support/layout/ltcg/options_label_refresh.json",
     "build_support/layout/ltcg/recovery_mark_text_and_dispatcher.json",
     "build_support/layout/ltcg/right_aligned_text.json",
     "build_support/layout/ltcg/animation_bucket_tasks.json",
@@ -64338,10 +64348,6 @@
     {
       "region": "asm_FUN_004247f0_004247f0",
       "layout": "build_support/layout/equivalent/player_reset_block_initialize.json"
-    },
-    {
-      "region": "asm_FUN_0042e5a0_0042e5a0",
-      "layout": "build_support/layout/equivalent/options_label_refresh.json"
     },
     {
       "region": "asm_FUN_0041afd0_0041afd0",

@@ -83,10 +83,11 @@ The f0 cluster manifest pointed at the 610 driver after the move — fixed.
 
 - `make`: SHA-256 `19efafbd58a4e4c0…` (at the end of the readability plan; the
   default build changed to `5e5ed1847e8f2139…` on 2026-10-16 when the 0x415E90
-  equivalent model improved to 1,144/1,147)
+  equivalent model improved to 1,144/1,147, then to `4f5f4b69b9e28067…` when
+  0x42E5A0 became byte-exact)
 - `make EXACT=1`: SHA-256 `2f14760b6fbbf575…`
 - Recovered: 100.0% of bytes (322,064 of 322,064), 100.0% of regions
-  (2,322 of 2,322); byte-exact alone 72.7%.
+  (2,322 of 2,322); byte-exact alone 74.0% (72.7% at the end of the plan).
 - `callsite_abi.py` passes (run through `.venv`).
 - All 129 unit tests pass; `git diff --check` clean.
 

@@ -1,14 +1,10 @@
 // 0x0042E5A0: rebuild every option-screen label from the current volumes.
-// Equivalent C++ model of asm_FUN_0042e5a0_0042e5a0; the exact build keeps the
-// assembly region because the retail body receives the music room in EDI (a
-// private register convention no declaration can name) and MSVC's LTCG
-// tie-breaks the label walks and call argument setup in ways the readable
-// structure below does not reproduce byte-for-byte (see the layout's recorded
-// differences).
-//
-// The complete refresh is linked with its genuine options callers and the
-// real resource-configuration and registration bodies. That lets LTCG derive
-// retail's EDI room receiver, EAX object/queue receivers and plain RET.
+// Byte-exact through the LTCG cluster
+// build_support/layout/ltcg/options_label_refresh.json: the refresh is linked
+// with its genuine options caller 0x0042D920 and the real resource-queue
+// (0x0043E460) and sprite-configuration (0x0043E5A0) bodies. That lets LTCG
+// derive retail's EDI room receiver, EAX object/queue receivers and plain RET.
+// The manager pointer is loaded after the volume block, where retail loads it.
 //
 // Per label the retail code walks slot 1's children for the script id, takes
 // the found child's own id (or 0 when the walk fails) and looks that id up in
@@ -123,8 +119,6 @@ static __forceinline void ShowDigit(
 #pragma code_seg(".text$0042e5a0_fn")
 __declspec(noinline) void __stdcall RefreshOptions2(
     Title* room) {
-    RecoveryLookupContext* manager =
-        reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl);
     g_options_music_volume = g_key_bindings.music_volume;
 
     // The request queue records "bgm/th10_02.wav" for resource 8; the retail
@@ -137,6 +131,9 @@ __declspec(noinline) void __stdcall RefreshOptions2(
         g_options_music_attenuation = MusicAttenuation(g_options_music_volume);
     else
         g_options_music_attenuation = -10000;
+
+    RecoveryLookupContext* manager =
+        reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl);
 
     // The twelve digit labels are drawn unconditionally with the current
     // volume's sprites: hundreds, tens, ones of the large font, then the small.

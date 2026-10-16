@@ -6,7 +6,7 @@
 
 `make` is green. `make EXACT=1` produces the bit-identical executable.
 Progress: **100.0% of .text bytes recovered (322,064 of 322,064), 2,322 of
-2,322 regions; zero inline-assembly regions in the default build.** 72.7% of
+2,322 regions; zero inline-assembly regions in the default build.** 74.0% of
 the bytes are byte-exact C++; the rest are gated equivalent recoveries
 (`equivalence.py`). `make EXACT=1` still rebuilds the bit-identical executable
 from the retail assembly of those regions.
@@ -16,7 +16,7 @@ from the retail assembly of those regions.
 | Region | Bytes | Verdict |
 | --- | ---: | --- |
 | 0x004247F0 player reset block init | 1,435 | 285/314 identical, 24 hunks |
-| 0x0042E5A0 options label refresh | 3,999 | 1174/1204 identical, 40 hunks |
+| 0x0042E5A0 options label refresh | 3,999 | **byte-exact (2026-10-16)**: LTCG cluster `options_label_refresh.json`; see options_label_refresh_0042e5a0_exact_2026_10_16 note |
 | 0x0041AFD0 item update | 2,320 | 448/601 identical, 84 hunks |
 | 0x00422660 result rows renderer | 1,062 | 286/288 identical, 3 hunks |
 | 0x00417C80 manager teardown | 1,105 | 283/309 identical, 18 hunks |
@@ -118,6 +118,10 @@ its recorded differences.
   The joystick reader went 156 -> 16 by writing it in the decompiled th06
   controller's shape (button helpers through `&buttons`): check sibling
   Touhou decomps for a function's original shape before tracing c2.
+  The options label refresh 0x0042E5A0 went byte-exact (2026-10-16): the one
+  residual was the manager load written at the top instead of after the volume
+  block; the promotion clones the difficulty cluster with the equivalent rig's
+  real callee bodies as anchors (see its exact note).
   The laser interpreter 0x0041CA80 went byte-exact once its model was made
   semantically right (a missing case, a reversed ternary, a shared `++pc`):
   verify a parked model's semantics against retail before blaming c2.

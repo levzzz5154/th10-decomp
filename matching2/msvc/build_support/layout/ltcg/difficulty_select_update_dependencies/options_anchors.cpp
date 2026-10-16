@@ -3,7 +3,8 @@
 // bodies (the maintained forms are
 // src/game/title/title_dispatch_animation_slot.cpp and
 // src/core/sprtlib/animation_manager_select_sprite_from_current_resource.cpp),
-// and a stand-in for the label refresh 0x0042E5A0, which is still assembly.
+// and a stand-in for the label refresh 0x0042E5A0, whose complete body the
+// options_label_refresh cluster selects (TH10_FULL_OPTIONS_REFRESH).
 #include "th10/game/options_update.hpp"
 
 struct SpriteVm_00449670 {

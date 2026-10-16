@@ -138,7 +138,12 @@ void RecoveryMusicVm::InitializeTransition(
     target_transition = *target;
     MusicResetTimer(&transition_timer);
 }
-#pragma code_seg(".text$0043e460_fn")
+// A cluster that places the retail-convention queue body at 0x0043E460 itself
+// parks this stand-in elsewhere through TH10_MUSIC_QUEUE_REGISTER_SECTION.
+#ifndef TH10_MUSIC_QUEUE_REGISTER_SECTION
+#define TH10_MUSIC_QUEUE_REGISTER_SECTION ".text$0043e460_fn"
+#endif
+#pragma code_seg(TH10_MUSIC_QUEUE_REGISTER_SECTION)
 char* RecoveryMusicResourceQueue::RegisterResource(
         const char* name, int kind, int parameter) {
     unsigned char* bytes = reinterpret_cast<unsigned char*>(this);
