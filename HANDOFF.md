@@ -1,74 +1,95 @@
-> Readability checkpoint (2026-10-16): steps 5/6 are done and verified; see [TH10_READABILITY_HANDOFF.md](TH10_READABILITY_HANDOFF.md). Older source paths below predate the build_support migration.
-
-# th10 decompilation handoff — 2026-10-14
+# th10 decompilation handoff — 2026-10-16
 
 ## Where the project stands
 
-`make` is green. `make EXACT=1` produces the bit-identical executable.
-Progress: **100.0% of .text bytes recovered (322,064 of 322,064), 2,322 of
-2,322 regions; zero inline-assembly regions in the default build.** 74.6% of
-the bytes are byte-exact C++; the rest are gated equivalent recoveries
-(`equivalence.py`). `make EXACT=1` still rebuilds the bit-identical executable
-from the retail assembly of those regions.
+- `make` is green and `make EXACT=1` produces the bit-identical executable
+  (SHA-256 `2f14760b6fbbf575…`). The default build is `4f5f4b69b9e28067…`; it
+  changes whenever a shipped equivalent model changes.
+- **100.0% of game code recovered** (322,064 of 322,064 bytes, 2,322 of 2,322
+  regions); no inline assembly in the default build.
+- **74.6% byte-exact C++** (2,285 regions), **97.7%** counting the identical
+  instructions of the 37 equivalent regions.
+- `callsite_abi.py`, the 129 unit tests and `git diff --check` pass.
 
-### Accepted this campaign (all equivalent recoveries)
+![Project status](docs/status.png)
 
-| Region | Bytes | Verdict |
-| --- | ---: | --- |
-| 0x004247F0 player reset block init | 1,435 | 285/314 identical, 24 hunks |
-| 0x0042E5A0 options label refresh | 3,999 | **byte-exact (2026-10-16)**: LTCG cluster `options_label_refresh.json`; see options_label_refresh_0042e5a0_exact_2026_10_16 note |
-| 0x0041AFD0 item update | 2,320 | 448/601 identical, 84 hunks |
-| 0x00422660 result rows renderer | 1,062 | 286/288 identical, 3 hunks |
-| 0x00417C80 manager teardown | 1,105 | 283/309 identical, 18 hunks |
-| 0x00428F60 replay runtime bootstrap | 1,344 | 387/389 identical, 3 hunks |
-| 0x004465B0 texture transparent fill | 1,463 | 365/499 identical, 80 hunks |
-| 0x00429B60 replay save/serialize | 1,681 | 408/535 identical, classified |
-| 0x004236F0 replay submenu | 3,260 | 751/923 identical, 80 hunks |
-| 0x0041A200 SaveHints | 2,247 | 693/741 identical, 9 audited rebases |
-| 0x0044DF70 StartChild (2026-10-14) | 550 | 144/165 identical, 21 classified |
-| 0x0044A190 joystick binding reader (2026-10-14) | 833 | 251/282 identical, th06-style `&buttons` helpers |
-| 0x00426F70 familiar refresh (2026-10-14) | 2,520 | 641/643 identical, 1 operand-order hunk |
-| 0x0040BD80 script executor (2026-10-14) | 1,568 | 400/444 identical, 28 classified hunks |
-| 0x00415E90 result dispatcher (2026-10-14, raised 2026-10-16) | 4,480 | 1144/1147 identical, 3 classified hunks (stage 7 clear-count difficulty in ESI); see front_script_tick_00415e90_1144_2026_10_16 note |
-| 0x00414900 front HUD update (2026-10-14) | 3,836 | 1064/1089 identical, 22 classified hunks (structural 25) |
-| 0x004067D0 projectile cell spawner (2026-10-14) | 1,472 | 327/354 identical, 17 classified hunks (structural 24); two semantic fixes (lit step only for shaped bullets, one-record cursor advance) |
-| 0x00406D90 projectile command Tick (2026-10-14) | 1,604 | 323/337 identical, 17 classified hunks; StartScript seam fixed after a replay crash (was 302/337), see accepted note |
+## Equivalent recoveries (37)
 
-Tooling added: `equivalence.py` audited call-target rebases (explicit
-bindings only, verified callee bytes only, recorded, 6 new gate tests,
-full suite green, all registered recoveries re-verified unchanged).
+Instruction counts from the 2026-10-16 build; each layout's `note` points at
+its recovery note in `matching2/reference/recovery_notes/`.
 
-## Runtime validation (2026-10-14)
+| Address | Layout | Bytes | Identical | Recorded diffs | Base/index |
+| --- | --- | ---: | ---: | ---: | ---: |
+| 0x004067D0 | `projectile_spawn_cell` | 1,472 | 327/354 | 17 | 0 |
+| 0x00406D90 | `projectile_command_runtime` | 1,604 | 323/337 | 17 | 0 |
+| 0x004084A0 | `projectile_point_count` | 370 | 120/126 | 5 | 0 |
+| 0x0040BD80 | `recovery_script_executor` | 1,568 | 400/444 | 28 | 0 |
+| 0x0040DC80 | `enemy_data_start` | 2,412 | 668/671 | 3 | 0 |
+| 0x0040E770 | `enemy_execute` | 14,416 | 3,174/3,926 | 143 | 0 |
+| 0x00414900 | `front_hud_update` | 3,836 | 1,064/1,089 | 22 | 0 |
+| 0x00415E90 | `front_script_tick` | 4,480 | 1,144/1,147 | 3 | 0 |
+| 0x00417C80 | `manager_teardown` | 1,105 | 291/309 | 15 | 0 |
+| 0x0041A200 | `hint_save` | 2,247 | 693/741 | 16 | 0 |
+| 0x0041AFD0 | `item_update` | 2,320 | 494/601 | 64 | 0 |
+| 0x0041DD80 | `laser_circle_trim` | 1,238 | 260/345 | 57 | 0 |
+| 0x0041EB00 | `laser_rectangle_split` | 1,171 | 313/316 | 2 | 0 |
+| 0x0041EFA0 | `laser_circle_split` | 1,108 | 241/302 | 47 | 0 |
+| 0x00422660 | `result_rows` | 1,062 | 286/288 | 3 | 0 |
+| 0x004236F0 | `replay_submenu` | 3,260 | 753/908 | 78 | 1 |
+| 0x004247F0 | `player_reset_block_initialize` | 1,435 | 285/314 | 24 | 0 |
+| 0x00426F70 | `familiar_refresh` | 2,520 | 641/643 | 1 | 0 |
+| 0x00428F60 | `replay_runtime_bootstrap` | 1,344 | 387/389 | 3 | 0 |
+| 0x00429B60 | `replay_save` | 1,681 | 408/535 | 78 | 0 |
+| 0x0042A3E0 | `replay_frame_step` | 68 | 22/22 | 0 | 0 |
+| 0x0042CDF0 | `title_dispatcher` | 1,128 | 279/291 | 9 | 0 |
+| 0x00432CB0 | `name_entry_update` | 1,400 | 368/378 | 10 | 0 |
+| 0x00433570 | `replay_save_update` | 1,460 | 397/399 | 0 | 2 |
+| 0x00433EF0 | `ui_final_runtime` | 2,796 | 694/741 | 31 | 0 |
+| 0x00436DA0 | `font_atlas_fill_transparent` | 946 | 284/316 | 16 | 0 |
+| 0x00437FE0 | `font_atlas_draw_text` | 509 | 117/166 | 44 | 0 |
+| 0x00438AD0 | `game_main` | 1,389 | 404/404 | 0 | 0 |
+| 0x0043AF30 | `midi_tick` | 473 | 143/146 | 1 | 0 |
+| 0x0043C550 | `camera_shake` | 439 | 133/134 | 2 | 0 |
+| 0x0043E8B0 | `animation_change_script` | 287 | 51/66 | 9 | 0 |
+| 0x0043EE30 | `anm_vm_tick` | 9,964 | 2,709/2,755 | 23 | 0 |
+| 0x004465B0 | `anm_texture_fill_transparent` | 1,463 | 365/499 | 80 | 0 |
+| 0x0044A190 | `joystick_poll` | 833 | 251/282 | 10 | 0 |
+| 0x0044DF70 | `ecl_start_child` | 550 | 144/165 | 21 | 0 |
+| 0x0044E1A0 | `ecl_core_interpreter` | 7,020 | 1,679/1,790 | 12 | 96 |
+| 0x00450220 | `ecl_name_table` | 589 | 181/198 | 13 | 0 |
 
-The default build was played and traced. Every failure found was a seam between
-a model and the unchanged retail code around it, never wrong game logic:
-helper register conventions (item update 0x41AFD0, projectile Tick 0x406D90),
-a missing `ret 4` (teardown 0x417C80), the options refresh ABI (0x42E5A0) and
-extraction extents (hint save, replay save, replay submenu jump table). All are
-fixed in C++; see `equivalent_runtime_failures_2026_10_14.md`.
+Byte-identical already but not promoted: `game_main` (0x00438AD0). Its three
+`/EHsc` callees must stay visible, so its cluster needs the exception
+machinery (`title_teardown.json` pattern); see
+`byte_identical_equivalents_promoted_2026_10_16.md`.
 
-- `make abi-check` (`tools/matching/callsite_abi.py`) compares the provenance
-  of every register argument a model passes to retail callees with retail's
-  call sites; reviewed equal-value cases live in `callsite_abi_reviewed.json`.
-  Run it after accepting or changing any equivalent model.
-- `make behavior-check` adds the Unicorn differentials (item update 473/473,
-  replay submenu 48/48); `BEHAVIOR_PYTHON` names a venv with unicorn 2.1.4.
-- `matching2/tests/replay_sync/` (README inside) traces a replay in retail and
-  in the build. Replays th10_04, th10_05 and th10_14 from the user's install
-  were identical to retail for every frame. Under this Wine setup retail itself
-  drifts from the recordings late in those runs; compare against retail's trace.
-- Runtime work happens in `matching2/build/behavior/` (copied game files,
+## How to continue
+
+- **Promote what already matches.** Compare a model's relocated bytes with
+  retail, not only the gate's verdict (it accepts branches to identical tail
+  copies). The recipe is in
+  `options_label_refresh_0042e5a0_exact_2026_10_16.md`.
+- **Per region:** read its recovery note (each ends with what is left and
+  the levers already tried), measure with
+  `equivalence.py --layout build_support/layout/equivalent/<name>.json`, and
+  compare retail and model listings side by side.
+- **Fix context before the body.** Earlier "impossible" allocator residuals
+  were closed by changing the cluster context (real callee bodies,
+  escaped-global structs, callee parameter order/convention, opaque callees
+  where retail reloads `this`), not the function body.
+- **Check the semantics and sibling decomps first.** The laser interpreter
+  0x0041CA80 went byte-exact once its model was made semantically right; the
+  joystick reader went 156 → 16 differences in the th06 decomp's shape.
+- **After changing any shipped model:** re-record its differences with
+  reviewed classes (never dedupe the lists), run `make`, `make EXACT=1`,
+  `make abi-check`, the unit tests, and, for gameplay code, a
+  `matching2/tests/replay_sync/` replay.
+- **Runtime work** happens in `matching2/build/behavior/` (copied game files,
   separate Wine prefixes `wineprefix`/`wineprefix2`, Xvfb :91/:92). Never kill
   the default Wine server: the MSVC toolchain uses it.
-- Known stale tests: 8 cases in `tools/matching/test_ltcg_cluster.py`
-  (`NativeDataAliasReferenceTests`) fail with `KeyError: 'anchor_roots'`; their
-  fixture specs predate that manifest key.
-
-## Inline assembly
-
-None left in the default build. The next step towards byte-exactness is
-turning equivalent recoveries into exact ones: each has a recovery note with
-its recorded differences.
+- The c2 tracers live in `matching2/reference/compiler_traces/` (usage line at
+  the top of each); they replay a recorded compile/link command from the
+  model's work directory.
 
 ## What was learned about the compiler (the reusable assets)
 
@@ -101,57 +122,13 @@ its recorded differences.
    `scratch/eclstart/` and was deleted with the scratch trees on 2026-10-14;
    it has to be rebuilt for a future wine upgrade.
 
-## How to continue
+## History
 
-- Per region: read its recovery note in `matching2/reference/recovery_notes/`
-  (every note ends with "next levers" and a resumption recipe). Probe loops are
-  rebuilt in a fresh `scratch/<name>/msvc/` per the playbook
-  (`local://th10-conversion-playbook.md`); the old scratch trees were deleted
-  on 2026-10-14.
-- Workflow, gates, conventions: repo README + the playbook.
-- Gate measurements of the existing drafts (real `equivalence.py --layout`,
-  2026-10-14; older cluster-probe diff counts did not match the gate):
-  front HUD 875/1089; front_script_tick and the
-  projectile layouts do not link. StartChild went 76 -> 21 through source
-  shape (in-loop strength-reduced IVs, volatile re-read of a split param,
-  post-loop param copy); see its 2026-10-14 note for the method.
-  The joystick reader went 156 -> 16 by writing it in the decompiled th06
-  controller's shape (button helpers through `&buttons`): check sibling
-  Touhou decomps for a function's original shape before tracing c2.
-  The options label refresh 0x0042E5A0 went byte-exact (2026-10-16): the one
-  residual was the manager load written at the top instead of after the volume
-  block; the promotion clones the difficulty cluster with the equivalent rig's
-  real callee bodies as anchors (see its exact note).
-  Font atlas blend 0x437750 and D3D initialize 0x439890 were already
-  byte-identical equivalents and are promoted too; GameMain 0x438AD0 is
-  byte-identical but needs an exception-handling cluster (see
-  byte_identical_equivalents_promoted_2026_10_16 note).
-  The laser interpreter 0x0041CA80 went byte-exact once its model was made
-  semantically right (a missing case, a reversed ternary, a shared `++pc`):
-  verify a parked model's semantics against retail before blaming c2.
-  The familiar refresh 0x00426F70 went 309 -> 641/643 the same way
-  (re-transcribed: wrong count field, if-chains that were switches, the
-  record view at the true 0x98 base +0x32A0) plus the escaped game-counters
-  struct; see its 2026-10-14 accepted note. Only one commutative-add operand
-  order separates it from byte-exact.
-  The script executor 0x0040BD80 went 305 -> 400/444 by fixing *context*
-  conventions, not the body: the ASCII factory's real shape (wiping ctor +
-  member Configure) put draw priority in EBX; handle validation 0x449450 is a
-  free function (retail pushes no receiver); a case-8 handle pointer; index
-  loops with plain manager reads. Equivalent-only context copies live in
-  `matching2/msvc/equivalent/game/context/` so registered clusters stay intact.
-- Treat "proven not source-steerable" verdicts as "not found yet": earlier
-  "impossible" allocator residuals were closed by changing cluster context
-  (real callee bodies, escaped-global structs, callee parameter order/convention),
-  not the function body.
-- The two most promising continuations: (a) the projectile pair — 4 of 6
-  structural blockers solved in the last two sessions, both extents green,
-  the byte gate is close; (b) finishing the scope ladder (fix the batched
-  harness's header collisions) — if a 100+-TU scope flips any parked
-  region's allocation, the mega-cluster endgame opens for all of them.
-- Scratch trees are disposable; everything needed to resume is in the
-  real tree (models, manifests, notes) plus the documented probe commands.
-  The c2 tracers live in `matching2/reference/compiler_traces/regalloc/`
-  (usage line at the top of each). The HUD pair probe scripts
-  (`tools_hudpair_*.py`, `prologue_test.py`) lived in `scratch/hudpair/` and
-  were deleted on 2026-10-14 (the HUD update is accepted).
+- 2026-10-16: 0x0042E5A0 options label refresh made byte-exact; font atlas
+  blend 0x00437750 and D3D initialize 0x00439890 promoted; 0x00415E90 result
+  dispatcher raised to 1,144/1,147.
+- 2026-10-16: readability plan completed (globals, identifiers and files named
+  by owner); see `matching2/reference/readability_plan_2026_10_16.md`.
+- 2026-10-14: last inline-assembly regions replaced by equivalent recoveries;
+  runtime validation and `make abi-check` added
+  (`equivalent_runtime_failures_2026_10_14.md`).

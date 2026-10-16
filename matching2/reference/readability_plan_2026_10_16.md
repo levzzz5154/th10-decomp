@@ -1,4 +1,4 @@
-# TH10 readability handoff — 2026-10-16 (final)
+# TH10 readability plan — completed 2026-10-16 (archived handoff)
 
 Steps 1–6 of the readability plan are complete and verified. HEAD `3595801d`
 on `main`, tree clean.

@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#16131c"/>
+      <stop offset="1" stop-color="#211a1f"/>
+    </linearGradient>
+    <linearGradient id="exact" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#e8743b"/>
+      <stop offset="1" stop-color="#f29a4a"/>
+    </linearGradient>
+    <pattern id="hatch" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <rect width="8" height="8" fill="#3a2f2c"/>
+      <rect width="3" height="8" fill="#5a463d"/>
+    </pattern>
+  </defs>
+
+  <rect width="1200" height="675" fill="url(#bg)"/>
+
+  <g font-family="Fira Sans, DejaVu Sans, sans-serif">
+    <text x="64" y="92" font-size="20" fill="#f29a4a" letter-spacing="3" font-weight="600">MATCHING DECOMPILATION · STATUS 2026-10-16</text>
+    <text x="64" y="142" font-size="46" fill="#f4ede6" font-weight="700">Touhou 10 ~ Mountain of Faith</text>
+    <text x="64" y="180" font-size="21" fill="#b6aaa3">th10.exe rebuilt from readable C++ with the original toolchain: MSVC 7.1 (c2 13.10.6030), /LTCG</text>
+
+    <!-- headline numbers -->
+    <g transform="translate(64 232)">
+      <rect width="336" height="150" rx="14" fill="#ffffff" fill-opacity="0.04" stroke="#ffffff" stroke-opacity="0.08"/>
+      <text x="24" y="78" font-size="64" font-weight="700" fill="#f4ede6">100%</text>
+      <text x="24" y="114" font-size="19" fill="#d8cdc6">of game code recovered as C++</text>
+      <text x="24" y="138" font-size="15" fill="#8f837c">no inline assembly in the default build</text>
+    </g>
+    <g transform="translate(432 232)">
+      <rect width="336" height="150" rx="14" fill="#e8743b" fill-opacity="0.10" stroke="#e8743b" stroke-opacity="0.45"/>
+      <text x="24" y="78" font-size="64" font-weight="700" fill="#f29a4a">74.6%</text>
+      <text x="24" y="114" font-size="19" fill="#d8cdc6">byte-exact C++</text>
+      <text x="24" y="138" font-size="15" fill="#8f837c">2,285 functions identical to retail</text>
+    </g>
+    <g transform="translate(800 232)">
+      <rect width="336" height="150" rx="14" fill="#ffffff" fill-opacity="0.04" stroke="#ffffff" stroke-opacity="0.08"/>
+      <text x="24" y="78" font-size="64" font-weight="700" fill="#f4ede6">97.7%</text>
+      <text x="24" y="114" font-size="19" fill="#d8cdc6">counting identical instructions</text>
+      <text x="24" y="138" font-size="15" fill="#8f837c">of the 37 near-match functions</text>
+    </g>
+
+    <!-- bar -->
+    <text x="64" y="428" font-size="16" fill="#b6aaa3">322,064 bytes of game code in 2,322 regions (CRT/library excluded)</text>
+    <g transform="translate(64 442)">
+      <rect width="1072" height="34" rx="8" fill="#2c2427"/>
+      <!-- exact 74.55% => 799.2 ; equivalent identical 23.18% => 248.5 ; rest 24.3 -->
+      <path d="M8,0 H799 V34 H8 A8,8 0 0 1 0,26 V8 A8,8 0 0 1 8,0 Z" fill="url(#exact)"/>
+      <rect x="799" width="248.5" height="34" fill="#a85a35"/>
+      <path d="M1047.5,0 H1064 A8,8 0 0 1 1072,8 V26 A8,8 0 0 1 1064,34 H1047.5 Z" fill="url(#hatch)"/>
+    </g>
+    <g font-size="15" fill="#d8cdc6" transform="translate(64 504)">
+      <rect y="-12" width="14" height="14" rx="3" fill="#f29a4a"/>
+      <text x="22" y="0">byte-exact C++</text>
+      <rect x="170" y="-12" width="14" height="14" rx="3" fill="#a85a35"/>
+      <text x="192" y="0">equivalent C++, identical instructions</text>
+      <rect x="490" y="-12" width="14" height="14" rx="3" fill="url(#hatch)"/>
+      <text x="512" y="0">remaining register / ordering differences (~2.3%)</text>
+    </g>
+
+    <!-- facts -->
+    <g font-size="17" fill="#d8cdc6" transform="translate(64 560)">
+      <circle cx="5" cy="-5" r="4" fill="#f29a4a"/>
+      <text x="20" y="0"><tspan font-family="DejaVu Sans Mono, monospace" fill="#f4ede6">make EXACT=1</tspan> → bit-identical th10.exe (SHA-256 verified)</text>
+      <circle cx="5" cy="27" r="4" fill="#f29a4a"/>
+      <text x="20" y="32">Retail replays run frame-identical on the C++ build</text>
+      <circle cx="585" cy="-5" r="4" fill="#f29a4a"/>
+      <text x="600" y="0">1,800 source files · ~82k lines of C++</text>
+      <circle cx="585" cy="27" r="4" fill="#f29a4a"/>
+      <text x="600" y="32">Every near-match difference recorded, checked each build</text>
+    </g>
+
+    <line x1="64" y1="622" x2="1136" y2="622" stroke="#ffffff" stroke-opacity="0.08"/>
+    <text x="64" y="650" font-size="16" fill="#8f837c">github.com/levzzz5154/th10-decomp</text>
+    <text x="1136" y="650" font-size="16" fill="#8f837c" text-anchor="end">numbers from <tspan font-family="DejaVu Sans Mono, monospace">make</tspan></text>
+  </g>
+</svg>
