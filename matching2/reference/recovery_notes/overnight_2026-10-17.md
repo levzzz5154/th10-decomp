@@ -20,6 +20,7 @@ that retail disagrees with itself about).
 | 0x0043E8B0 `animation_change_script` | 22 | 14 | **improved** | `(flags \| 8) & ~0x200u` removes the shared 0x200 register candidate (script 44 vs flags 32): every register now matches retail; 64 of 66 instructions, the two recorded differences are the `and`/`xor` opcode and the update's position around the `fmul` |
 | 0x0043C550 `camera_shake` | 27 | 27 | parked | the `fidiv`-versus-RNG pick order survives the conversion-local, temp-class and RNG-advance-placement levers (each adds the x87 operand-order hunk or shifts registers); needs the scheduler priority trace |
 | 0x00415E90 `front_script_tick` | 25 | 25 | parked | named difficulty/stage locals at the clear count disturb the register allocation (9 and 36 hunks vs 3); the residual is the ChoosePhysReg -1 ESI preference the trace identified |
+| 0x00422660 `result_rows` | 44 | 44 | parked | the pointer-store edge lever leaves the counter loads above the color store: their +32 load priority outranks a one-point store edge; needs the scheduler trace |
 
 ## Byte-exact share
 
@@ -52,7 +53,8 @@ Recovered: 100.0% of bytes (322,064 of 322,064), 100.0% of regions (2,322 of 2,3
 ## Remaining queue
 
 Re-measure before continuing (shared-context fixes move other regions):
-`result_rows` (44) upward. The register-allocator regions carry their tracers:
+`ecl_core_interpreter` (116) upward. The register-allocator regions carry
+their tracers:
 `animation_change_script` needs the xor form worth three more priority points,
 `camera_shake` the scheduler trace for the fidiv/RNG pick, `front_script_tick`
 the ChoosePhysReg owner of the -1 ESI preference, `laser_rectangle_split` the
