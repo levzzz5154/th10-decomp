@@ -41,3 +41,27 @@ addresses, and the 439-byte extent, is checked without another allowance.
 The equivalence tool and compiler flags are unchanged. The focused production
 equivalence probe passes; full gates are run with the surrounding recovery
 batch.
+
+## 2026-10-17: the fidiv position sweep, still parked
+
+The queue's "inlined RNG ordered differently around a fidiv" was re-attacked
+with the x87 and scheduler levers. Everything tried leaves the model at 133 of
+134 with the same two `evaluation-order` hunks (the FIDIV at +0xB6 where
+retail has it at +0xCE):
+
+- the 0x004452F0 conversion shape on either operand (`(float)delta` as a
+  named local, the product split into named locals, both conversions named):
+  each moves the fidiv earlier and adds the `fld`/`fadd` operand-order hunk at
+  +0x48 (130-131 of 134); naming the divisor conversion replaces the `fidiv`
+  by `fild`/`fdivp` outright (124 of 134);
+- the +-one-temp-class shapes near the amount statement (a named `elapsed`
+  local, a second `limit` local, a named dropped RNG advance): unchanged;
+- moving the discarded `ShakeRandom()` advance before the amount computation
+  (RNG order preserved, the amount is RNG-free): shifts the whole register
+  assignment to EDI (119 of 134).
+
+The residual is the list scheduler's per-cycle pick between the x87 FIDIV and
+the integer RNG chain (`msvc-c2-list-scheduler-priority`: priority = path +
+successors + 32-if-load, ties by sequence number). Closing it needs the
+scheduler trace (`compiler_traces/scheduler/`) to compute which priority must
+change by one and which dependency edge produces it. Region stays equivalent.
