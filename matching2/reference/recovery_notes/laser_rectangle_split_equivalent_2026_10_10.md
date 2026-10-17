@@ -36,3 +36,18 @@ epilogue. The sibling circle split at 0x0041EFA0 has the same retail idiom.
 The equivalence build links the cluster's sources in cluster order and keeps
 the other cutters as link roots (`roots` in the layout), so the item spawn and
 the other shared callees get the same private conventions as in the cluster.
+
+## 2026-10-17: the second-reference lever and its trade-off
+
+The queue's `test`/`je` versus `xor`/`cmp` residual was re-attacked through the
+SpillObvious rule in `msvc-c2-immediate-register-candidates`: the hit-count
+piece is spilled because the `if` is its only reference and a compare adds no
+benefit count. Since `hit_count` only ever increments, a redundant second test
+(`hit_count != 0 && hit_count >= 0`, or `!= -1`) is semantically identical and
+does give the piece its second reference: the EAX `test` form appears. But
+every such form then loses the tail: the model gains an extra `jl` at +0x2B2
+and drops retail's `lea ebx,[ebx+0x0]` at +0x2BA (two instructions, 4 bytes).
+`count >= hit_count` as the second reference adds a third hunk; the self-def
+forms move nothing. This is the documented trade-off ("shows the EAX form but
+loses the later zero piece"); closing it needs the SpillObvious trace to see
+which piece takes EAX at +0x2BA. Region stays equivalent.
