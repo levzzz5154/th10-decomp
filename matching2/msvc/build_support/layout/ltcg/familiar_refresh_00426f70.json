@@ -1,0 +1,212 @@
+{
+ "schema_version": 1,
+ "name": "familiar_refresh_00426f70",
+ "source": "src/game/player/familiar_refresh.cpp",
+ "driver": "build_support/layout/ltcg/familiar_refresh_00426f70_context.cpp",
+ "included_sources": [
+  "build_support/contexts/legacy/game/familiar_refresh.cpp",
+  "build_support/layout/ltcg/familiar_refresh_dependencies/entity_init.cpp"
+ ],
+ "headers": [
+  "include/th10/game/card_animations.hpp",
+  "include/th10/game/entity.hpp",
+  "include/th10/game/familiar_refresh.hpp",
+  "include/th10/render/animation_stop_frame_handle.hpp",
+  "include/th10/types.hpp"
+ ],
+ "image_base": "0x00400000",
+ "description": "Familiar refresh 0x00426F70 with its five recovered schedule/animation callee bodies visible and the counters-escape context entry; byte-exact in all 2,520 bytes.",
+ "functions": [
+  {
+   "name": "PlayerRefreshOptions",
+   "symbol": "_Player_RefreshOptions@4",
+   "section": ".text$00426f70_fn",
+   "address": "0x00426F70",
+   "size": 2520,
+   "actual_abi": "public stdcall with the player record; void result"
+  }
+ ],
+ "anchors": [
+  {
+   "name": "?Entity_Init@@YGXPAUEntity@@@Z",
+   "symbol": "?Entity_Init@@YGXPAUEntity@@@Z",
+   "section": ".text$00401de0_init",
+   "address": "0x00401DE0",
+   "size": 273
+  },
+  {
+   "name": "?RegisterPrimaryBack@AnimationLists@@QAE?AUAnimationRef@@PAUEntity@@@Z",
+   "symbol": "?RegisterPrimaryBack@AnimationLists@@QAE?AUAnimationRef@@PAUEntity@@@Z",
+   "section": ".text$004489d0_fn",
+   "address": "0x004489D0",
+   "size": 118
+  },
+  {
+   "name": "_asm_AnimationManager_RegisterPrimaryFront_00448a50",
+   "symbol": "_asm_AnimationManager_RegisterPrimaryFront_00448a50",
+   "section": ".text$00448a50_front",
+   "address": "0x00448A50",
+   "size": 97
+  },
+  {
+   "name": "?AnimationManager_CreatePrimaryFront@@YGPAPAXPAXPAPAXHH@Z",
+   "symbol": "?AnimationManager_CreatePrimaryFront@@YGPAPAXPAXPAPAXHH@Z",
+   "section": ".text$00448e30_create",
+   "address": "0x00448E30",
+   "size": 73
+  },
+  {
+   "name": "?Find@SprtCtrl@@QAIPAXPAUAnimationLookupContext@@UAnimationScriptId@@@Z",
+   "symbol": "?Find@SprtCtrl@@QAIPAXPAUAnimationLookupContext@@UAnimationScriptId@@@Z",
+   "section": ".text$004491c0_find",
+   "address": "0x004491C0",
+   "size": 73
+  },
+  {
+   "name": "?SetStopFrame@AnimationHandle11@@QAEXG@Z",
+   "symbol": "?SetStopFrame@AnimationHandle11@@QAEXG@Z",
+   "section": ".text$00449470_stop",
+   "address": "0x00449470",
+   "size": 65
+  },
+  {
+   "name": "?Allocate@AnimationPool@@QAEPAUEntity@@XZ",
+   "symbol": "?Allocate@AnimationPool@@QAEPAUEntity@@XZ",
+   "section": ".text$00449950_allocate",
+   "address": "0x00449950",
+   "size": 161
+  }
+ ],
+ "context": {
+  "symbol": "_FamiliarRefreshEscape@0",
+  "section": ".text$00401000_ctx",
+  "address": "0x00401000",
+  "size": 6,
+  "description": "The counters-escape helper and link entry; not recovered game code."
+ },
+ "gaps": [
+  {
+   "section": ".text$00401000_ctxz",
+   "address": "0x00401006",
+   "size": 3546
+  },
+  {
+   "section": ".text$00401de0_initz",
+   "address": "0x00401EF1",
+   "size": 151679
+  },
+  {
+   "section": ".text$00426f70_fnz",
+   "address": "0x00427948",
+   "size": 135304
+  },
+  {
+   "section": ".text$004489d0_fnz",
+   "address": "0x00448A46",
+   "size": 10
+  },
+  {
+   "section": ".text$00448a50_frontz",
+   "address": "0x00448AB1",
+   "size": 895
+  },
+  {
+   "section": ".text$00448e30_createz",
+   "address": "0x00448E79",
+   "size": 839
+  },
+  {
+   "section": ".text$004491c0_findz",
+   "address": "0x00449209",
+   "size": 615
+  },
+  {
+   "section": ".text$00449470_stopz",
+   "address": "0x004494B1",
+   "size": 1183
+  },
+  {
+   "section": ".text$00449950_allocatez",
+   "address": "0x004499F1",
+   "size": 115215
+  }
+ ],
+ "constants": [],
+ "absolute_symbols": [
+  {
+   "symbol": "_g_sprt_ctrl",
+   "address": "0x00491C10",
+   "kind": "data"
+  },
+  {
+   "symbol": "_data_00476f7c",
+   "address": "0x00476F7C",
+   "kind": "data"
+  },
+  {
+   "symbol": "_g_player",
+   "address": "0x00477834",
+   "kind": "data"
+  },
+  {
+   "symbol": "_flt_100",
+   "address": "0x00470B44",
+   "kind": "data"
+  },
+  {
+   "symbol": "?InitializeObject@AnimationBank@@QAEXPAUEntity@@H@Z",
+   "address": "0x00449870",
+   "kind": "relative_code"
+  },
+  {
+   "symbol": "__ftol2",
+   "address": "0x00463B2C",
+   "kind": "relative_code"
+  },
+  {
+   "symbol": "??2@YAPAXI@Z",
+   "address": "0x00452493",
+   "kind": "relative_code"
+  },
+  {
+   "symbol": "?Entity_Constructor@@YIPAUEntity@@PAU1@@Z",
+   "address": "0x00402050",
+   "kind": "relative_code"
+  },
+  {
+   "symbol": "?PlayerOption_FollowTrail@@YIHPAUPlayerOption@@@Z",
+   "address": "0x00427950",
+   "kind": "data"
+  },
+  {
+   "symbol": "?PlaybackState_OnSwitch@@YIHPAUPlaybackState@@@Z",
+   "address": "0x00427AD0",
+   "kind": "data"
+  },
+  {
+   "symbol": "__fltused",
+   "address": "0x00000000",
+   "kind": "metadata"
+  },
+  {
+   "symbol": "_g_globals_score",
+   "address": "0x00474C44",
+   "kind": "data"
+  },
+  {
+   "symbol": "_g_globals_power",
+   "address": "0x00474C48",
+   "kind": "data"
+  }
+ ],
+ "roots": [
+  "_Player_RefreshOptions@4"
+ ],
+ "additional_sources": [
+  "build_support/layout/ltcg/familiar_refresh_dependencies/allocate.cpp",
+  "build_support/layout/ltcg/familiar_refresh_dependencies/register_primary_back.cpp",
+  "build_support/layout/ltcg/familiar_refresh_dependencies/create_primary_front.cpp",
+  "build_support/layout/ltcg/familiar_refresh_dependencies/find.cpp",
+  "build_support/layout/ltcg/familiar_refresh_dependencies/set_stop_frame.cpp"
+ ]
+}

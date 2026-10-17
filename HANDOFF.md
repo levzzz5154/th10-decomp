@@ -7,13 +7,13 @@
   changes whenever a shipped equivalent model changes.
 - **100.0% of game code recovered** (322,064 of 322,064 bytes, 2,322 of 2,322
   regions); no inline assembly in the default build.
-- **75.0% byte-exact C++** (2,286 regions), **97.7%** counting the identical
-  instructions of the 36 equivalent regions.
+- **75.8% byte-exact C++** (2,287 regions), **97.7%** counting the identical
+  instructions of the 35 equivalent regions.
 - `callsite_abi.py`, the 129 unit tests and `git diff --check` pass.
 
 ![Project status](docs/status.png)
 
-## Equivalent recoveries (36)
+## Equivalent recoveries (35)
 
 Instruction counts from the 2026-10-16 build; each layout's `note` points at
 its recovery note in `matching2/reference/recovery_notes/`.
@@ -37,7 +37,6 @@ its recovery note in `matching2/reference/recovery_notes/`.
 | 0x00422660 | `result_rows` | 1,062 | 286/288 | 3 | 0 |
 | 0x004236F0 | `replay_submenu` | 3,260 | 753/908 | 78 | 1 |
 | 0x004247F0 | `player_reset_block_initialize` | 1,435 | 285/314 | 24 | 0 |
-| 0x00426F70 | `familiar_refresh` | 2,520 | 641/643 | 1 | 0 |
 | 0x00428F60 | `replay_runtime_bootstrap` | 1,344 | 387/389 | 3 | 0 |
 | 0x00429B60 | `replay_save` | 1,681 | 408/535 | 78 | 0 |
 | 0x0042A3E0 | `replay_frame_step` | 68 | 22/22 | 0 | 0 |
@@ -60,8 +59,11 @@ its recovery note in `matching2/reference/recovery_notes/`.
 Promoted since: `game_main` (0x00438AD0) is byte-exact through its LTCG
 cluster `layout/ltcg/game_main.json` (2026-10-17); its three `/EHsc` callees
 are shaped stand-ins, because an ordinary non-`/GL` context cannot give them
-their private stack-receiver conventions. See
-`game_main_00438ad0_exact_2026_10_17.md`.
+their private stack-receiver conventions (`game_main_00438ad0_exact_2026_10_17.md`).
+`familiar_refresh` (0x00426F70) is byte-exact through
+`layout/ltcg/familiar_refresh_00426f70.json`: one scaled-row accessor at the
+carried offset gives the x-pair loads retail's temporary parity
+(`familiar_refresh_00426f70_exact_2026_10_17.md`).
 
 ## How to continue
 
@@ -126,7 +128,8 @@ their private stack-receiver conventions. See
 
 - 2026-10-17: 0x00438AD0 GameMain promoted to exact (its LTCG cluster keeps
   fourteen real callee bodies as anchors and shapes stand-ins for the three
-  `/EHsc` ones); byte-exact rises to 75.0%.
+  `/EHsc` ones); 0x00426F70 familiar refresh made byte-exact (a scaled-row
+  accessor at the carried offset) and promoted; byte-exact rises to 75.8%.
 - 2026-10-16: 0x0042E5A0 options label refresh made byte-exact; font atlas
   blend 0x00437750 and D3D initialize 0x00439890 promoted; 0x00415E90 result
   dispatcher raised to 1,144/1,147.

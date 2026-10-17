@@ -1,14 +1,5 @@
-// Equivalent recovery of the familiar refresh (0x00426F70); the readable
-// model is the LTCG cluster source included below. One commutative add in
-// the third shot-type column loads its operands in the other order (recorded
-// in build_support/layout/equivalent/familiar_refresh.json).
+// Recovered byte-exact at 0x00426F70; the readable model is the LTCG cluster
+// source included below. The third shot-type column's commutative add keeps
+// retail's operand order through the scaled-row accessor at the carried
+// offset, which gives the x-pair's loads the right temporary parity.
 #include "../../../build_support/contexts/legacy/game/familiar_refresh.cpp"
-
-// Compiler context only; never selected as recovered game code. The game
-// counters are one object whose address is handed around elsewhere, which is
-// what makes the refresh reload the character and shot type after stores.
-#pragma code_seg(".text$02entry")
-extern "C" void* __stdcall FamiliarRefreshEscape() {
-    return &g_globals_score;
-}
-#pragma code_seg()

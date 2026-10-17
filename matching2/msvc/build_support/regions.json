@@ -22642,13 +22642,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00426f70_00426f70",
-      "source": "build_support/exact/game/player/gameplay_final_runtime.cpp",
-      "symbol": "_asm_FUN_00426f70_00426f70",
+      "name": "semantic_PlayerRefreshOptions_00426f70",
+      "source": "src/game/player/familiar_refresh.cpp",
+      "symbol": "_Player_RefreshOptions@4",
       "address": "0x00426F70",
       "size": 2520,
-      "kind": "asm",
-      "owner": "0x00426F70"
+      "kind": "semantic",
+      "owner": "0x00426F70",
+      "previous_record": {
+        "name": "asm_FUN_00426f70_00426f70",
+        "source": "build_support/exact/game/player/gameplay_final_runtime.cpp",
+        "symbol": "_asm_FUN_00426f70_00426f70",
+        "address": "0x00426F70",
+        "size": 2520,
+        "kind": "asm",
+        "owner": "0x00426F70"
+      }
     },
     {
       "name": "text_padding_00427948",
@@ -60371,7 +60380,6 @@
     "build_support/exact/game/item/manager_factories.cpp",
     "build_support/exact/game/laser/laser_segment_cut.cpp",
     "build_support/exact/game/pause/main_menu_dispatch.cpp",
-    "build_support/exact/game/player/gameplay_final_runtime.cpp",
     "build_support/exact/game/player/player_runtime_init.cpp",
     "build_support/exact/game/replay/replay_large_runtime.cpp",
     "build_support/exact/game/replay/replay_manager_on_frame_step.cpp",
@@ -62312,7 +62320,8 @@
     "src/unreferenced/zero_returns.cpp",
     "src/core/main/font_atlas_blend.cpp",
     "src/core/main/d3d_initialize.cpp",
-    "src/core/main/game_main.cpp"
+    "src/core/main/game_main.cpp",
+    "src/game/player/familiar_refresh.cpp"
   ],
   "notes": [
     "Every executable body is compiled from C++; unported bodies use MSVC inline assembly.",
@@ -63302,7 +63311,8 @@
     "build_support/layout/ltcg/midi_event_parser.json",
     "build_support/layout/ltcg/font_atlas_blend.json",
     "build_support/layout/ltcg/d3d_initialize.json",
-    "build_support/layout/ltcg/game_main.json"
+    "build_support/layout/ltcg/game_main.json",
+    "build_support/layout/ltcg/familiar_refresh_00426f70.json"
   ],
   "coff_aliases": {
     "lib/libcmt.lib/build/intel/mt_obj/exsup3.obj": {
@@ -64406,10 +64416,6 @@
     {
       "region": "asm_FUN_0044a190_0044a190",
       "layout": "build_support/layout/equivalent/joystick_poll.json"
-    },
-    {
-      "region": "asm_FUN_00426f70_00426f70",
-      "layout": "build_support/layout/equivalent/familiar_refresh.json"
     },
     {
       "region": "asm_FUN_0040bd80_0040bd80",

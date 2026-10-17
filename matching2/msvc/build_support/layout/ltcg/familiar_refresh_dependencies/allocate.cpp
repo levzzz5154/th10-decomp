@@ -1,6 +1,6 @@
 // Complete 4096-entry pool allocator at 0x00449950, manager ESI and Entity* result EAX.
 #include "th10/game/entity.hpp"
-#include "../player_initialize_dependencies/entity_init.cpp"
+#include "entity_init.cpp"
 
 void* __cdecl operator new(unsigned int size);
 Entity* __fastcall Entity_Constructor(Entity* self);

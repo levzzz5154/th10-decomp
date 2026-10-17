@@ -101,6 +101,9 @@ static __forceinline int SpawnFamiliar(PlayerFamiliarRuntime* player,
     return SpawnOrbitAnimation(script, resource, object).value;
 }
 
+static __forceinline const FamiliarOffsetTable* Rows(
+        PlayerFamiliarRuntime* player) { return player->offsets; }
+
 #pragma code_seg(".text$00426f70_fn")
 extern "C" __declspec(noinline) void __stdcall Player_RefreshOptions(
         PlayerFamiliarRuntime* player) {
@@ -254,7 +257,7 @@ extern "C" __declspec(noinline) void __stdcall Player_RefreshOptions(
                 // playback switch callback runs it, stopped at frame 3 in the
                 // alternate mode.
                 ScaleOffset(&player->familiars[i].carried,
-                            &player->offsets->carried[data_00476f7c[desired] + i]);
+                            &Rows(player)->carried[data_00476f7c[desired] + i]);
                 if (!player->alternate || player->familiars[i].state == 0) {
                     player->familiars[i].position =
                         player->familiars[i].carried + player->anchor;
