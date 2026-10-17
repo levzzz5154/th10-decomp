@@ -23,29 +23,31 @@ that retail disagrees with itself about).
 | 0x00422660 `result_rows` | 44 | 44 | parked | the pointer-store edge lever leaves the counter loads above the color store: their +32 load priority outranks a one-point store edge; needs the scheduler trace |
 | 0x0044E1A0 `ecl_core_interpreter` | 116 | 116 | parked | the stack-slot pair traced (colour k = frame 0x1c+k*4; the top slots are inlined-helper params whose LTCG identities the plain-cl traces cannot pin); next: weight-probe one helper parameter at a time |
 | 0x0044A190 `joystick_poll` | 157 | 157 | parked | named-local and goto-loop levers canonicalize; frame lever needs a struct whose colour lands below `info` |
-| 0x0042CDF0 `title_dispatcher` | 167 | 167 | parked |
-| 0x00417C80 `manager_teardown` | 179 | 179 | parked |
-| 0x00406D90 `projectile_command_runtime` | 184 | 184 | parked |
-| 0x004247F0 `player_reset_block_initialize` | 217 | 217 | parked |
-| 0x004084A0 `projectile_point_count` | 281 | 281 | parked |
-| 0x0044DF70 `ecl_start_child` | 285 | 285 | parked |
-| 0x00437FE0 `font_atlas_draw_text` | 328 | 328 | parked |
-| 0x00450220 `ecl_name_table` | 366 | 366 | parked |
-| 0x0041EFA0 `laser_circle_split` | 407 | 407 | parked |
-| 0x0040BD80 `recovery_script_executor` | 505 | 505 | parked |
-| 0x00428F60 `replay_runtime_bootstrap` | 507 | 507 | parked |
-| 0x00436DA0 `font_atlas_fill_transparent` | 550 | 550 | parked |
-| 0x00414900 `front_hud_update` | 684 | 684 | parked |
-| 0x0041DD80 `laser_circle_trim` | 870 | 870 | parked |
-| 0x00432CB0 `name_entry_update` | 1090 | 1090 | parked |
-| 0x004067D0 `projectile_spawn_cell` | 1162 | 1162 | parked |
-| 0x004465B0 `anm_texture_fill_transparent` | 1245 | 1245 | parked |
-| 0x00429B60 `replay_save` | 1471 | 1471 | parked |
-| 0x00433EF0 `ui_final_runtime` | 1640 | 1640 | parked |
-| 0x0041A200 `hint_save` | 1683 | 1683 | parked |
-| 0x0041AFD0 `item_update` | 1991 | 1991 | parked |
-| 0x004236F0 `replay_submenu` | 2088 | 2088 | parked | the documented tie-breaks and block placements; the `lea`/`add` form is the same unsteerable addressing-mode decision | the four documented families (register contest, x87 scheduling, frame colours, merged tails) | the cursor's no-initializer and `long`-type candidates both leave the 16 hunks; the non-inlined walk helper remains | the zero-candidate family in reverse (model shares the zero, retail materializes); the type-split is one candidate per the memory's rule | the declared-local order and loop-split spellings both overshoot (79 hunks); the colour allocation follows the memory's weight rule, not declaration order | the shared-zero candidate contest (retail ESI zero vs immediates); the parameter-order lever doesn't transfer through the COM ABI | the five named residuals sit at the end of their documented lever chains | the forceinline-helper out-target spelling joins three negatives on the memory's unsolved 0x432CB0 entry | the three families of the parked rectangle/circle notes (register contest, walk scheduling, merged tails); no new lever | the byte-exact 0x4489D0 wrap spelling transplanted through the `lists` pointer overshoots (26 hunks); sibling context differs | packing-sequence scheduling + the zero-compare family (retail uses the zero register, reverse of ecl_start_child) | the two short store encodings shift the whole tail (3 instruction hunks but 507 bytes); pointer/flat-index spellings all keep them | case-order and goto-advance survivor levers inert (distinct-argument merge, not the duplicate-block shape) | the `count` EDX/EDI ChoosePhysReg tie (31 hunks) needs the Spillcosts K numbers; source sweep already exhausted | single-count copy block confirms the note's trade (40 hunks); head candidates need the measured Spillcosts K | one function-wide register substitution across the fifteen branches; needs the SpillCosts/ChoosePhysReg trace | temporary-compare form overshoots (26 hunks); zero-register compare + Riscify scratch rotation need the pre-Riscify dump | declared-then-assigned y leaves the x87 asymmetry (y memory, x on stack) untouched; shared with 0x00408210 | multiply operand order canonicalizes (memory-operand products); retail's per-statement reload is the CSE decision | the pointer-store edge on the timer-flags store overshoots (18 hunks); residual is the link-phase scheduling from addendum 14/15 | the branchless ternary rewritten as an if/else tail-merged call clears the instruction hunks but the region's differing bytes stay 179 (the byte gate, not the instruction verdict); reverted | x87 operand swap is register-register only; pointer-store edge leaves the schedule unchanged |
+| 0x0042CDF0 `title_dispatcher` | 167 | 167 | parked | x87 operand swap is register-register only; pointer-store edge leaves the schedule unchanged |
+| 0x00417C80 `manager_teardown` | 179 | 179 | parked | the if/else tail-merged call clears the ternary instruction hunks but the differing bytes stay 179 (the byte gate, not the instruction verdict); reverted |
+| 0x00406D90 `projectile_command_runtime` | 184 | 184 | parked | the pointer-store edge on the timer-flags store overshoots (18 hunks); residual is the link-phase scheduling of note addendum 14/15 |
+| 0x004247F0 `player_reset_block_initialize` | 217 | 217 | parked | multiply operand order canonicalizes (memory-operand products, per the operand-order memory); retail per-statement reload is the CSE decision |
+| 0x004084A0 `projectile_point_count` | 281 | 281 | parked | declared-then-assigned y leaves the x87 asymmetry (y memory, x on stack) untouched; shared with 0x00408210 |
+| 0x0044DF70 `ecl_start_child` | 285 | 285 | parked | temporary-compare form overshoots (26 hunks); zero-register compare + Riscify rotation need the pre-Riscify dump |
+| 0x00437FE0 `font_atlas_draw_text` | 328 | 328 | parked | one function-wide register substitution across the fifteen branches; needs the SpillCosts/ChoosePhysReg trace |
+| 0x00450220 `ecl_name_table` | 366 | 366 | parked | single-count copy block confirms the note's trade (40 hunks); head candidates need the measured Spillcosts K |
+| 0x0041EFA0 `laser_circle_split` | 407 | 407 | parked | the count EDX/EDI ChoosePhysReg tie (31 of 47 hunks) needs the Spillcosts K numbers; source sweep exhausted |
+| 0x0040BD80 `recovery_script_executor` | 505 | 505 | parked | case-order and goto-advance survivor levers inert (distinct-argument merge, not the duplicate-block shape) |
+| 0x00428F60 `replay_runtime_bootstrap` | 507 | 507 | parked | the two short store encodings shift the whole tail (3 instruction hunks but 507 bytes); pointer/flat-index spellings all keep them |
+| 0x00436DA0 `font_atlas_fill_transparent` | 550 | 550 | parked | packing-sequence scheduling + the zero-compare family (retail uses the zero register, reverse of ecl_start_child) |
+| 0x00414900 `front_hud_update` | 684 | 684 | parked | the byte-exact 0x4489D0 wrap spelling transplanted through the lists pointer overshoots (26 hunks); sibling context differs |
+| 0x0041DD80 `laser_circle_trim` | 870 | 870 | parked | the three families of the parked rectangle/circle notes (register contest, walk scheduling, merged tails); no new lever |
+| 0x00432CB0 `name_entry_update` | 1090 | 1090 | parked | the forceinline-helper out-target spelling joins three negatives on the memory unsolved 0x432CB0 entry |
+| 0x004067D0 `projectile_spawn_cell` | 1162 | 1162 | parked | the five named residuals sit at the end of their documented lever chains |
+| 0x004465B0 `anm_texture_fill_transparent` | 1245 | 1245 | parked | the shared-zero candidate contest (retail ESI zero vs immediates); the parameter-order lever does not transfer through the COM ABI |
+| 0x00429B60 `replay_save` | 1471 | 1471 | parked | the declared-local order and loop-split spellings both overshoot (79 hunks); the colour allocation follows the weight rule, not declaration order |
+| 0x00433EF0 `ui_final_runtime` | 1640 | 1640 | parked | the zero-candidate family in reverse (model shares the zero, retail materializes); the type-split is one candidate per the memory rule |
+| 0x0041A200 `hint_save` | 1683 | 1683 | parked | the cursor's no-initializer and long-type candidates both leave the 16 hunks; the non-inlined walk helper remains |
+| 0x0041AFD0 `item_update` | 1991 | 1991 | parked | the four documented families (register contest, x87 scheduling, frame colours, merged tails) |
+| 0x004236F0 `replay_submenu` | 2088 | 2088 | parked | the documented tie-breaks and block placements; the `lea`/`add` form is the same unsteerable addressing-mode decision |
 
+| 0x0043EE30 `anm_vm_tick` | 8185 | 8185 | parked | the Riscify scratch rotations (pre-Riscify dump is the route) and the switch-order write after the loop-spelling sweep |
+| 0x0040E770 `enemy_execute` | 12139 | 12139 | parked | the open items of its note (dead frame bytes, cross-case tail merges, the 0x11D x87 copy) each need their own tracing session |
 ## Byte-exact share
 
 100.0% of game code remains recovered (322,064 of 322,064 bytes, 2,322 of
