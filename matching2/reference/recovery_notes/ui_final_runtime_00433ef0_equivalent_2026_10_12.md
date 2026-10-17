@@ -64,3 +64,18 @@ Dominated by two compiler choices the source cannot spell differently:
 The phase dispatch compiles to the same jump-table shape (the model's table
 at model offset 2528 with entries matching the case order); the tail
 comparison bridges the retail table at 0x004349CC with the model's.
+
+## 2026-10-17: zero-candidate family named; parked
+
+The residual is the `msvc-c2-immediate-register-candidates` family in
+reverse of `anm_texture_fill_transparent`: here the model shares the zero in
+EBX/ESI (`push ebx`, `cmp eax,ebx`) where retail materializes the immediate
+at every site (`push 0x0`, `test eax,eax`). The memory's lever is to stop
+the zero being shared in the blocks where it competes (an immediate becomes
+a candidate only at the second same-value same-type use), but the candidate
+spellings that split a type without changing bytes (signed vs unsigned vs
+pointer zero) are all one candidate per the memory's own rule, so the split
+has to come from the value paths themselves. The 24 register-choice hunks
+are the frame-slot/short-lived-value contest of the note's residual 2.
+
+Region stays equivalent (1640 differing bytes).
