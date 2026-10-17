@@ -702,3 +702,16 @@ new: two independent stores to the scratch vector in the other order).
 
 `tools/matching/callsite_abi.py` (`make abi-check`) now checks every model's
 calls into retail code for this class of mismatch.
+
+## 2026-10-17: the timer-flags scheduling pair probed; parked
+
+The residual17 hunks are the scheduling pair around the frame-timer
+first-use block (`timer_6b0.flags`, the +0x6C0 field): the model loads the
+flags six bytes early and stores them thirty-two bytes late relative to
+retail. The `msvc-c2-pointer-store-adds-scheduler-edge` lever on the store
+(`unsigned int* timer_flags = &record.timer_6b0.flags; *timer_flags |= 1u;`)
+overshoots to 18 hunks. No other statement order in the block moves the pair.
+
+Region stays equivalent (184 differing bytes). The residual is the
+link-phase scheduling the note's addendum 14/15 already identified; the
+next lever is the anchor-inlined IL trace there.

@@ -24,7 +24,8 @@ that retail disagrees with itself about).
 | 0x0044E1A0 `ecl_core_interpreter` | 116 | 116 | parked | the stack-slot pair traced (colour k = frame 0x1c+k*4; the top slots are inlined-helper params whose LTCG identities the plain-cl traces cannot pin); next: weight-probe one helper parameter at a time |
 | 0x0044A190 `joystick_poll` | 157 | 157 | parked | named-local and goto-loop levers canonicalize; frame lever needs a struct whose colour lands below `info` |
 | 0x0042CDF0 `title_dispatcher` | 167 | 167 | parked |
-| 0x00417C80 `manager_teardown` | 179 | 179 | parked | the branchless ternary rewritten as an if/else tail-merged call clears the instruction hunks but the region's differing bytes stay 179 (the byte gate, not the instruction verdict); reverted | x87 operand swap is register-register only; pointer-store edge leaves the schedule unchanged |
+| 0x00417C80 `manager_teardown` | 179 | 179 | parked |
+| 0x00406D90 `projectile_command_runtime` | 184 | 184 | parked | the pointer-store edge on the timer-flags store overshoots (18 hunks); residual is the link-phase scheduling from addendum 14/15 | the branchless ternary rewritten as an if/else tail-merged call clears the instruction hunks but the region's differing bytes stay 179 (the byte gate, not the instruction verdict); reverted | x87 operand swap is register-register only; pointer-store edge leaves the schedule unchanged |
 
 ## Byte-exact share
 
