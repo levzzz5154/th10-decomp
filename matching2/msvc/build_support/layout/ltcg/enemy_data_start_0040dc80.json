@@ -1,0 +1,431 @@
+{
+ "schema_version": 1,
+ "name": "enemy_data_start_0040dc80",
+ "source": "src/game/enemy/enemy_data_start.cpp",
+ "driver": "build_support/layout/ltcg/enemy_data_start_0040dc80_context.cpp",
+ "included_sources": [
+  "src/game/background/vec3_interpolator.cpp",
+  "src/game/enemy/trajectory_interpolator.cpp"
+ ],
+ "headers": [
+  "include/script_resolver.hpp",
+  "include/th10/game/bomb.hpp",
+  "include/th10/game/enemy_data_start.hpp",
+  "include/th10/game/entity.hpp",
+  "include/th10/game/player.hpp",
+  "include/th10/game/polar_motion.hpp",
+  "include/th10/math/interpolator.hpp",
+  "include/th10/math/interpolator_step.hpp",
+  "include/th10/math/timer.hpp",
+  "include/th10/math/trajectory_vector.hpp",
+  "include/th10/math/vector.hpp",
+  "include/th10/platform/sound_queue.hpp",
+  "include/th10/runtime/game/enemy/enemy_data_start_context.hpp",
+  "include/th10/script/ecl_children.hpp",
+  "include/th10/types.hpp"
+ ],
+ "image_base": "0x00400000",
+ "description": "Enemy data start 0x0040DC80 with its fifteen recovered helper bodies visible and the RigEntry context entry; byte-exact in all 2,412 bytes.",
+ "functions": [
+  {
+   "name": "EnemyDataStart",
+   "symbol": "_EnemyDataStart@4",
+   "section": ".text$0040dc80_fn",
+   "address": "0x0040DC80",
+   "size": 2412,
+   "actual_abi": "public stdcall with one enemy record; int result"
+  }
+ ],
+ "anchors": [
+  {
+   "name": "?Step@?$Interpolator@UVec3@@@@QAE?AUVec3@@XZ",
+   "symbol": "?Step@?$Interpolator@UVec3@@@@QAE?AUVec3@@XZ",
+   "section": ".text$00404610_fn",
+   "address": "0x00404610",
+   "size": 888
+  },
+  {
+   "name": "?ClearResourceList@EnemyRecord@@QAEXXZ",
+   "symbol": "?ClearResourceList@EnemyRecord@@QAEXXZ",
+   "section": ".text$0040c6e0_clr",
+   "address": "0x0040C6E0",
+   "size": 45
+  },
+  {
+   "name": "?ResetScript@EnemyRecord@@QAEXXZ",
+   "symbol": "?ResetScript@EnemyRecord@@QAEXXZ",
+   "section": ".text$0040c730_rst",
+   "address": "0x0040C730",
+   "size": 71
+  },
+  {
+   "name": "?Step@?$Interpolator@UTrajectoryVec2@@@@QAE?AUTrajectoryVec2@@XZ",
+   "symbol": "?Step@?$Interpolator@UTrajectoryVec2@@@@QAE?AUTrajectoryVec2@@XZ",
+   "section": ".text$00412ac0_fn",
+   "address": "0x00412AC0",
+   "size": 653
+  },
+  {
+   "name": "?FieldContact@@YIHPBUPolarVec3@@PAUPlayer@@PBUVec2@@@Z",
+   "symbol": "?FieldContact@@YIHPBUPolarVec3@@PAUPlayer@@PBUVec2@@@Z",
+   "section": ".text$004266b0_fld",
+   "address": "0x004266B0",
+   "size": 322
+  },
+  {
+   "name": "?QueuePan@SoundQueue@@QAEXHM@Z",
+   "symbol": "?QueuePan@SoundQueue@@QAEXHM@Z",
+   "section": ".text$0043dd10_pan",
+   "address": "0x0043DD10",
+   "size": 149
+  },
+  {
+   "name": "?Find@AnimationFinder@@QAIPAUAnimation2@@PAUAnimationManager3@@UScriptChangeHandle@@@Z",
+   "symbol": "?Find@AnimationFinder@@QAIPAUAnimation2@@PAUAnimationManager3@@UScriptChangeHandle@@@Z",
+   "section": ".text$004491c0_find",
+   "address": "0x004491C0",
+   "size": 73
+  },
+  {
+   "name": "?Animation_SetPosition@@YIXPAUAnimationManager3@@PBUPolarVec3@@UScriptChangeHandle@@@Z",
+   "symbol": "?Animation_SetPosition@@YIXPAUAnimationManager3@@PBUPolarVec3@@UScriptChangeHandle@@@Z",
+   "section": ".text$004492f0_setp",
+   "address": "0x004492F0",
+   "size": 90
+  },
+  {
+   "name": "?SetAnimationTranslatedPosition@@YIXPAUAnimationManager3@@PBUPolarVec3@@UScriptChangeHandle@@@Z",
+   "symbol": "?SetAnimationTranslatedPosition@@YIXPAUAnimationManager3@@PBUPolarVec3@@UScriptChangeHandle@@@Z",
+   "section": ".text$00449350_sett",
+   "address": "0x00449350",
+   "size": 111
+  },
+  {
+   "name": "?ChangeScript@ScriptChangeHandle@@QAEXH@Z",
+   "symbol": "?ChangeScript@ScriptChangeHandle@@QAEXH@Z",
+   "section": ".text$004496d0_chg",
+   "address": "0x004496D0",
+   "size": 32
+  },
+  {
+   "name": "?Advance@FrameTimer@@QAEXM@Z",
+   "symbol": "?Advance@FrameTimer@@QAEXM@Z",
+   "section": ".text$0044bf40_fta",
+   "address": "0x0044BF40",
+   "size": 88
+  },
+  {
+   "name": "?Advance@PolarMotion@@QAEXXZ",
+   "symbol": "?Advance@PolarMotion@@QAEXXZ",
+   "section": ".text$0044c2a0_pma",
+   "address": "0x0044C2A0",
+   "size": 171
+  },
+  {
+   "name": "_EclVm_TickChildren@8",
+   "symbol": "_EclVm_TickChildren@8",
+   "section": ".text$0044fd10_tck",
+   "address": "0x0044FD10",
+   "size": 148
+  },
+  {
+   "name": "?Resolve@ScriptTable2@@QAEHPBD@Z",
+   "symbol": "?Resolve@ScriptTable2@@QAEHPBD@Z",
+   "section": ".text$00450470_rsl",
+   "address": "0x00450470",
+   "size": 136
+  },
+  {
+   "name": "?BindName@@YIHPAUEnemyRecord@@PBD@Z",
+   "symbol": "?BindName@@YIHPAUEnemyRecord@@PBD@Z",
+   "section": ".text$00450700_bnd",
+   "address": "0x00450700",
+   "size": 30
+  }
+ ],
+ "context": {
+  "symbol": "_RigEntry@8",
+  "section": ".text$0040dc00_ctx",
+  "address": "0x0040DC00",
+  "size": 46,
+  "description": "The link's entry: a caller for the whole-program link to see; not recovered game code."
+ },
+ "gaps": [
+  {
+   "section": ".text$00000000_gap",
+   "address": "0x00401000",
+   "size": 13840
+  },
+  {
+   "section": ".text$00404610_fnz",
+   "address": "0x00404988",
+   "size": 32088
+  },
+  {
+   "section": ".text$0040c6e0_clrz",
+   "address": "0x0040C70D",
+   "size": 35
+  },
+  {
+   "section": ".text$0040c730_rstz",
+   "address": "0x0040C777",
+   "size": 5257
+  },
+  {
+   "section": ".text$0040dc00_ctxz",
+   "address": "0x0040DC2E",
+   "size": 82
+  },
+  {
+   "section": ".text$0040dc80_fnz",
+   "address": "0x0040E5EC",
+   "size": 17620
+  },
+  {
+   "section": ".text$00412ac0_fnz",
+   "address": "0x00412D4D",
+   "size": 80227
+  },
+  {
+   "section": ".text$004266b0_fldz",
+   "address": "0x004267F2",
+   "size": 95518
+  },
+  {
+   "section": ".text$0043dd10_panz",
+   "address": "0x0043DDA5",
+   "size": 46107
+  },
+  {
+   "section": ".text$004491c0_findz",
+   "address": "0x00449209",
+   "size": 231
+  },
+  {
+   "section": ".text$004492f0_setpz",
+   "address": "0x0044934A",
+   "size": 6
+  },
+  {
+   "section": ".text$00449350_settz",
+   "address": "0x004493BF",
+   "size": 785
+  },
+  {
+   "section": ".text$004496d0_chgz",
+   "address": "0x004496F0",
+   "size": 10320
+  },
+  {
+   "section": ".text$0044bf40_ftaz",
+   "address": "0x0044BF98",
+   "size": 776
+  },
+  {
+   "section": ".text$0044c2a0_pmaz",
+   "address": "0x0044C34B",
+   "size": 14789
+  },
+  {
+   "section": ".text$0044fd10_tckz",
+   "address": "0x0044FDA4",
+   "size": 1740
+  },
+  {
+   "section": ".text$00450470_rslz",
+   "address": "0x004504F8",
+   "size": 520
+  },
+  {
+   "section": ".text$00450700_bndz",
+   "address": "0x0045071E",
+   "size": 87266
+  }
+ ],
+ "constants": [],
+ "data_aliases": [
+  {
+   "symbol": "__real@3f000000",
+   "address": "0x00470B0C",
+   "bytes": "00000000"
+  },
+  {
+   "symbol": "__real@3f800000",
+   "address": "0x00470AFC",
+   "bytes": "00000000"
+  },
+  {
+   "symbol": "__real@00000000",
+   "address": "0x00470B04",
+   "bytes": "00000000"
+  },
+  {
+   "symbol": "__real@c3400000",
+   "address": "0x00470B40",
+   "bytes": "00000000"
+  },
+  {
+   "symbol": "__real@43400000",
+   "address": "0x00470B3C",
+   "bytes": "00000000"
+  },
+  {
+   "symbol": "__real@43e00000",
+   "address": "0x00470B38",
+   "bytes": "00000000"
+  },
+  {
+   "symbol": "__real@bdcccccd",
+   "address": "0x00470D30",
+   "bytes": "00000000"
+  },
+  {
+   "symbol": "__real@3dcccccd",
+   "address": "0x00470C18",
+   "bytes": "00000000"
+  }
+ ],
+ "absolute_symbols": [
+  {
+   "symbol": "__fltused",
+   "address": "0x00000000",
+   "kind": "metadata"
+  },
+  {
+   "symbol": "__ftol2",
+   "address": "0x00463B2C",
+   "kind": "relative_code"
+  },
+  {
+   "symbol": "?SetPolar@PolarVec3@@QAEPAU1@MM@Z",
+   "address": "0x0044C5D0",
+   "kind": "relative_code"
+  },
+  {
+   "symbol": "_Angle_Normalize2@4",
+   "address": "0x0044BC70",
+   "kind": "relative_code"
+  },
+  {
+   "symbol": "?AdvanceSlots@EnemyRecord@@QAEPBDXZ",
+   "address": "0x004127A0",
+   "kind": "relative_code"
+  },
+  {
+   "symbol": "?AddScore@ScoreState2@@QAEXH@Z",
+   "address": "0x00409D90",
+   "kind": "relative_code"
+  },
+  {
+   "symbol": "?Enemy_ReleaseOnDeath@@YGHPAUEnemyRecord@@@Z",
+   "address": "0x0040E5F0",
+   "kind": "relative_code"
+  },
+  {
+   "symbol": "?Sweep@PlayerDamage@@QAEHPAUPlayer@@PBUPolarVec3@@PBUVec2@@@Z",
+   "address": "0x00428630",
+   "kind": "relative_code"
+  },
+  {
+   "symbol": "?EvaluateCurve2@@YGMIMM@Z",
+   "address": "0x0044C350",
+   "kind": "relative_code"
+  },
+  {
+   "symbol": "_ext_call@8",
+   "address": "0x00426CF0",
+   "kind": "relative_code"
+  },
+  {
+   "symbol": "_ext_free",
+   "address": "0x004524A1",
+   "kind": "relative_code"
+  },
+  {
+   "symbol": "_ext_run@8",
+   "address": "0x0044E1A0",
+   "kind": "relative_code"
+  },
+  {
+   "symbol": "_floor",
+   "address": "0x00463A30",
+   "kind": "relative_code"
+  },
+  {
+   "symbol": "_g_sound_priority",
+   "address": "0x004749CE",
+   "kind": "data"
+  },
+  {
+   "symbol": "?BindName@@YIHPBDPAUEnemyRecord@@@Z",
+   "address": "0x00450700",
+   "kind": "data"
+  },
+  {
+   "symbol": "?g_frame_timer_normal_lower@@3MA",
+   "address": "0x00470B68",
+   "kind": "data"
+  },
+  {
+   "symbol": "?g_frame_timer_normal_upper@@3MA",
+   "address": "0x00470B64",
+   "kind": "data"
+  },
+  {
+   "symbol": "?g_score_default_speed@@3MA",
+   "address": "0x00476F78",
+   "kind": "data"
+  },
+  {
+   "symbol": "_g_bomb",
+   "address": "0x004776EC",
+   "kind": "data"
+  },
+  {
+   "symbol": "_g_globals",
+   "address": "0x00474C40",
+   "kind": "data"
+  },
+  {
+   "symbol": "_g_enemy_hittable",
+   "address": "0x00474C50",
+   "kind": "data"
+  },
+  {
+   "symbol": "_g_sprt_ctrl",
+   "address": "0x00491C10",
+   "kind": "data"
+  },
+  {
+   "symbol": "_g_player",
+   "address": "0x00477834",
+   "kind": "data"
+  },
+  {
+   "symbol": "_g_front",
+   "address": "0x0047770C",
+   "kind": "data"
+  },
+  {
+   "symbol": "_g_enemy_scroll",
+   "address": "0x00491E6C",
+   "kind": "data"
+  },
+  {
+   "symbol": "_g_card",
+   "address": "0x004776F4",
+   "kind": "data"
+  },
+  {
+   "symbol": "_g_sound_manager",
+   "address": "0x00492590",
+   "kind": "data"
+  }
+ ],
+ "roots": [],
+ "additional_sources": [
+  "src/game/enemy/enemy_data_start_context.cpp",
+  "build_support/layout/ltcg/enemy_data_start_dependencies/vec3_interpolator.cpp",
+  "build_support/layout/ltcg/enemy_data_start_dependencies/trajectory_interpolator.cpp"
+ ]
+}

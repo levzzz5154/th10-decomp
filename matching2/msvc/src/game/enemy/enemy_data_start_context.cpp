@@ -6,20 +6,22 @@
 #include <string.h>
 #include "th10/math/interpolator_step.hpp"
 
-float g_frame_timer_normal_lower = 0.99f;
-float g_frame_timer_normal_upper = 1.01f;
-float g_score_default_speed = 1.0f;
+// The counters and managers are the game's own objects at their retail
+// addresses; the cluster binds them absolutely.
 extern "C" {
-Player* g_player;
-Bomb* g_bomb;
-GameThread7* g_card;
-Gui2* g_front;
-AnimationManager3* g_sprt_ctrl;
-ScoreState2 g_globals;
-SoundQueue g_sound_manager;
-int g_enemy_hittable;
-PolarVec3 g_enemy_scroll;
+extern Player* g_player;
+extern Bomb* g_bomb;
+extern GameThread7* g_card;
+extern Gui2* g_front;
+extern AnimationManager3* g_sprt_ctrl;
+extern ScoreState2 g_globals;
+extern SoundQueue g_sound_manager;
+extern int g_enemy_hittable;
+extern PolarVec3 g_enemy_scroll;
 }
+extern float g_frame_timer_normal_lower;
+extern float g_frame_timer_normal_upper;
+extern float g_score_default_speed;
 
 extern "C" short g_sound_priority[];
 extern "C" void __stdcall ext_call(void* a, int b);
@@ -27,10 +29,12 @@ extern "C" void __cdecl ext_free(void* memory);
 extern "C" int __stdcall ext_run(EclChildState* state, float delta);
 
 // src/game/background/vec3_interpolator.cpp, src/game/enemy/trajectory_interpolator.cpp
-template struct Interpolator<Vec3>;
-template struct Interpolator<TrajectoryVec2>;
+// The two Interpolator Step bodies come from their own recovered sources
+// (wrappers in the cluster layout): template members take the section in
+// effect at the end of the file, so they cannot share this translation unit.
 
 // src/core/zunlib/polar_motion_advance.cpp
+#pragma code_seg(".text$0044c2a0_pma")
 void PolarMotion::Advance() {
     PolarVec3 offset;
     if ((flags & 1) == 0) {
@@ -45,6 +49,7 @@ void PolarMotion::Advance() {
 }
 
 // build_support/layout/units/frame_timer_ef24e7.cpp
+#pragma code_seg(".text$0044bf40_fta")
 void FrameTimer::Advance(float delta) {
     previous = current;
     if (*speed > g_frame_timer_normal_lower && *speed < g_frame_timer_normal_upper) {
@@ -71,6 +76,7 @@ struct AnimationManager3 {
     int reserved_2;
     AnimationNode4* secondary_bucket;
 };
+#pragma code_seg(".text$004491c0_find")
 Animation2* __fastcall AnimationFinder::Find(
         AnimationManager3* manager, ScriptChangeHandle id) {
     if (!id.id)
@@ -85,6 +91,7 @@ Animation2* __fastcall AnimationFinder::Find(
 }
 
 // src/core/sprtlib/animation_manager_set_translated_position.cpp
+#pragma code_seg(".text$00449350_sett")
 void __fastcall SetAnimationTranslatedPosition(
         AnimationManager3* manager, const PolarVec3* position, ScriptChangeHandle id) {
     AnimationNode4* entry = (AnimationNode4*)AnimationManager_Find(manager, id);
@@ -104,6 +111,7 @@ void __fastcall SetAnimationTranslatedPosition(
 }
 
 // src/game/laser/laser_manager.cpp
+#pragma code_seg(".text$004492f0_setp")
 void __fastcall Animation_SetPosition(
         AnimationManager3* manager, const PolarVec3* position, ScriptChangeHandle id) {
     AnimationNode4* object = (AnimationNode4*)AnimationManager_Find(manager, id);
@@ -116,12 +124,14 @@ void __fastcall Animation_SetPosition(
 }
 
 // src/core/sprtlib/animation_handle_change_script.cpp
+#pragma code_seg(".text$004496d0_chg")
 void ScriptChangeHandle::ChangeScript(int index) {
     Animation2* object = AnimationManager_Find(g_sprt_ctrl, *this);
     if (object) ext_call(object, index);
 }
 
 // src/script/sptcmd/ecl_vm_children.cpp
+#pragma code_seg(".text$0044fd10_tck")
 extern "C" __declspec(noinline) int __stdcall EclVm_TickChildren(EclChildOwner* owner, float delta) {
     EclChildNode* node = &owner->children;
     int first = 1;
@@ -147,6 +157,7 @@ struct ResourceRecord {
     void* resource;
     ResourceRecord* next;
 };
+#pragma code_seg(".text$0040c6e0_clr")
 void EnemyRecord::ClearResourceList() {
     ResourceRecord* record = *(ResourceRecord**)((unsigned char*)this + 0x1034);
     while (record != 0) {
@@ -158,6 +169,7 @@ void EnemyRecord::ClearResourceList() {
 }
 
 // src/game/enemy/ecl_record_reset.cpp
+#pragma code_seg(".text$0040c730_rst")
 void EnemyRecord::ResetScript() {
     unsigned char* self = (unsigned char*)this;
     *(float*)(self + 0x8) = 0.0f;
@@ -173,6 +185,7 @@ void EnemyRecord::ResetScript() {
 }
 
 // src/script/sptlib/final_script_runtime.cpp
+#pragma code_seg(".text$00450470_rsl")
 int ScriptTable2::Resolve(const char* name) {
     int low = 0;
     int high = this->count;
@@ -194,7 +207,8 @@ int ScriptTable2::Resolve(const char* name) {
 }
 
 // src/script/sptlib/fun.cpp_450700.cpp
-int __fastcall BindName(const char* name, EnemyRecord* record) {
+#pragma code_seg(".text$00450700_bnd")
+int __fastcall BindName(EnemyRecord* record, const char* name) {
     ScriptTable2* script_table = record->table;
     record->table = script_table;
     record->current->instruction = script_table->Resolve(name);
@@ -203,6 +217,7 @@ int __fastcall BindName(const char* name, EnemyRecord* record) {
 }
 
 // src/game/player/field_contact.cpp
+#pragma code_seg(".text$004266b0_fld")
 int __fastcall FieldContact(
         const PolarVec3* position, Player* player, const Vec2* size) {
     const Vec2* low = (const Vec2*)((unsigned char*)player + 0x404);
@@ -227,6 +242,7 @@ int __fastcall FieldContact(
 }
 
 // src/core/sound/sound_queue_pan.cpp
+#pragma code_seg(".text$0043dd10_pan")
 void SoundQueue::QueuePan(int sound_id, float pan) {
     int priority = g_sound_priority[sound_id * 4];
     int request = int(pan * (1000.0f / 192.0f));
@@ -250,9 +266,4 @@ void SoundQueue::QueuePan(int sound_id, float pan) {
         ++counts[slot];
     }
 }
-
-extern "C" int __stdcall RigEntry(EnemyTick** enemies, int count) {
-    int total = 0;
-    for (int i = 0; i < count; ++i) total += EnemyDataStart(enemies[i]);
-    return total;
-}
+#pragma code_seg()

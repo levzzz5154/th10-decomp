@@ -44,7 +44,7 @@ extern PolarVec3 g_enemy_scroll;          // the scroll applied to unscrolled en
 }
 
 // 0x00450700: restart the record's script at a named entry.
-__declspec(noinline) int __fastcall BindName(const char* name, EnemyRecord* record);
+__declspec(noinline) int __fastcall BindName(EnemyRecord* record, const char* name);
 // 0x0040E5F0: the death effects; nonzero when the enemy is gone.
 __declspec(noinline) int __stdcall Enemy_ReleaseOnDeath(EnemyRecord* record);
 // 0x004266B0: touch the player.

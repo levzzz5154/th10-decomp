@@ -135,7 +135,7 @@ extern "C" __declspec(noinline) int __stdcall EnemyDataStart(EnemyTick* enemy) {
             if (entry) {
                 enemy->record->ClearResourceList();
                 enemy->record->ResetScript();
-                BindName(entry, enemy->record);
+                BindName(enemy->record, entry);
                 float delta = *enemy->clock.speed;
                 if (EclVm_TickChildren(reinterpret_cast<EclChildOwner*>(enemy->record), delta))
                     return -1;

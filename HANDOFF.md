@@ -7,13 +7,13 @@
   changes whenever a shipped equivalent model changes.
 - **100.0% of game code recovered** (322,064 of 322,064 bytes, 2,322 of 2,322
   regions); no inline assembly in the default build.
-- **75.9% byte-exact C++** (2,288 regions), **97.7%** counting the identical
-  instructions of the 34 equivalent regions.
+- **76.7% byte-exact C++** (2,289 regions), **97.7%** counting the identical
+  instructions of the 33 equivalent regions.
 - `callsite_abi.py`, the 129 unit tests and `git diff --check` pass.
 
 ![Project status](docs/status.png)
 
-## Equivalent recoveries (34)
+## Equivalent recoveries (33)
 
 Instruction counts from the 2026-10-16 build; each layout's `note` points at
 its recovery note in `matching2/reference/recovery_notes/`.
@@ -24,7 +24,6 @@ its recovery note in `matching2/reference/recovery_notes/`.
 | 0x00406D90 | `projectile_command_runtime` | 1,604 | 323/337 | 17 | 0 |
 | 0x004084A0 | `projectile_point_count` | 370 | 120/126 | 5 | 0 |
 | 0x0040BD80 | `recovery_script_executor` | 1,568 | 400/444 | 28 | 0 |
-| 0x0040DC80 | `enemy_data_start` | 2,412 | 668/671 | 3 | 0 |
 | 0x0040E770 | `enemy_execute` | 14,416 | 3,174/3,926 | 143 | 0 |
 | 0x00414900 | `front_hud_update` | 3,836 | 1,064/1,089 | 22 | 0 |
 | 0x00415E90 | `front_script_tick` | 4,480 | 1,144/1,147 | 3 | 0 |
@@ -65,7 +64,10 @@ carried offset gives the x-pair loads retail's temporary parity
 (`familiar_refresh_00426f70_exact_2026_10_17.md`). `midi_tick` (0x0043AF30) is
 byte-exact through `layout/ltcg/midi_tick_0043af30.json`: the track element
 pointer written as `&table[index]` keeps retail's named-value order
-(`midi_tick_0043af30_exact_2026_10_17.md`).
+(`midi_tick_0043af30_exact_2026_10_17.md`). `enemy_data_start` (0x0040DC80) is
+byte-exact through `layout/ltcg/enemy_data_start_0040dc80.json`: permuting the
+BindName helper's parameters fixes the result register and the argument load
+order (`enemy_data_start_0040dc80_exact_2026_10_17.md`).
 
 ## How to continue
 
@@ -132,8 +134,9 @@ pointer written as `&table[index]` keeps retail's named-value order
   fourteen real callee bodies as anchors and shapes stand-ins for the three
   `/EHsc` ones); 0x00426F70 familiar refresh made byte-exact (a scaled-row
   accessor at the carried offset) and promoted; 0x0043AF30 midi tick made
-  byte-exact (the `&table[index]` element pointer) and promoted; byte-exact
-  rises to 75.9%.
+  byte-exact (the `&table[index]` element pointer) and promoted; 0x0040DC80
+  enemy data start made byte-exact (BindName parameter order) and promoted;
+  byte-exact rises to 76.7%.
 - 2026-10-16: 0x0042E5A0 options label refresh made byte-exact; font atlas
   blend 0x00437750 and D3D initialize 0x00439890 promoted; 0x00415E90 result
   dispatcher raised to 1,144/1,147.

@@ -10885,13 +10885,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0040dc80_0040dc80",
-      "source": "build_support/exact/game/enemy/bullet_99a1d5.cpp",
-      "symbol": "_asm_FUN_0040dc80_0040dc80",
+      "name": "semantic_EnemyDataStart_0040dc80",
+      "source": "src/game/enemy/enemy_data_start.cpp",
+      "symbol": "_EnemyDataStart@4",
       "address": "0x0040DC80",
       "size": 2412,
-      "kind": "asm",
-      "owner": "0x0040DC80"
+      "kind": "semantic",
+      "owner": "0x0040DC80",
+      "previous_record": {
+        "name": "asm_FUN_0040dc80_0040dc80",
+        "source": "build_support/exact/game/enemy/bullet_99a1d5.cpp",
+        "symbol": "_asm_FUN_0040dc80_0040dc80",
+        "address": "0x0040DC80",
+        "size": 2412,
+        "kind": "asm",
+        "owner": "0x0040DC80"
+      }
     },
     {
       "name": "text_padding_0040e5ec",
@@ -60379,7 +60388,6 @@
     "build_support/exact/game/bullet/enemy_projectile_spawn.cpp",
     "build_support/exact/game/bullet/projectile_command_runtime.cpp",
     "build_support/exact/game/ending/event_script_runtime.cpp",
-    "build_support/exact/game/enemy/bullet_99a1d5.cpp",
     "build_support/exact/game/enemy/ecl_vm.cpp",
     "build_support/exact/game/front/fun.cpp_414900.cpp",
     "build_support/exact/game/front/fun.cpp_415e90.cpp",
@@ -62330,7 +62338,8 @@
     "src/core/main/d3d_initialize.cpp",
     "src/core/main/game_main.cpp",
     "src/game/player/familiar_refresh.cpp",
-    "src/core/midilib/midi_tick.cpp"
+    "src/core/midilib/midi_tick.cpp",
+    "src/game/enemy/enemy_data_start.cpp"
   ],
   "notes": [
     "Every executable body is compiled from C++; unported bodies use MSVC inline assembly.",
@@ -63322,7 +63331,8 @@
     "build_support/layout/ltcg/d3d_initialize.json",
     "build_support/layout/ltcg/game_main.json",
     "build_support/layout/ltcg/familiar_refresh_00426f70.json",
-    "build_support/layout/ltcg/midi_tick_0043af30.json"
+    "build_support/layout/ltcg/midi_tick_0043af30.json",
+    "build_support/layout/ltcg/enemy_data_start_0040dc80.json"
   ],
   "coff_aliases": {
     "lib/libcmt.lib/build/intel/mt_obj/exsup3.obj": {
@@ -64358,10 +64368,6 @@
     {
       "region": "asm_FUN_00432cb0_00432cb0",
       "layout": "build_support/layout/equivalent/name_entry_update.json"
-    },
-    {
-      "region": "asm_FUN_0040dc80_0040dc80",
-      "layout": "build_support/layout/equivalent/enemy_data_start.json"
     },
     {
       "region": "asm_FUN_00433ef0_00433ef0",
