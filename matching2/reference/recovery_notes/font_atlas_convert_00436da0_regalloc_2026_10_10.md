@@ -275,3 +275,16 @@ result in EAX), but blue is then an ordinary candidate of the count's
 priority, takes ESI and is never stored. Retail has that form with blue in
 memory (`shr edx,1; mov [esp+20h],edx; mov cl,[esp+20h]`). Mixing the forms per
 channel, `/= 2`, and `>> 1` inside the cast do not get there.
+
+## 2026-10-17: state reviewed; parked
+
+The16 hunks are the packing-sequence scheduling the note's channel sweep
+already characterised (`shr`/`and`/`movzx` per-channel forms with the blue
+candidate question) plus the zero-compare family (retail `xor ebx,ebx`/`cmp
+eax,ebx` where the model has `test eax,eax` — the reverse of
+`ecl_start_child`'s residual, so the same c2 rule applies from the other
+side: the compared value must be a register variable for the zero register
+to appear). The note's conclusion that the halving keeps blue from being a
+byte-flagged candidate stands.
+
+Region stays equivalent (550 differing bytes).
