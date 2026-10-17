@@ -132,3 +132,18 @@ callees retail calls and names exactly the image addresses retail names.
 
 `matching2/msvc/regions.json` is unchanged; `src/game/manager_teardown.cpp`
 still carries the naked region for the exact link.
+
+## 2026-10-17: the branchless ternary probed; parked
+
+The resource-index ternary (`(g_sound_flags & 0x10u) ? 4 : 3`) rewritten as
+an `if`/`else` with the `RegisterResource` call in both arms (the retail
+`test`/`je`/`push` tail-merged shape) removes the three code-shape
+instruction hunks and adds only the two-byte trailing artifact. Measured
+with the real byte gate afterwards: **the region's differing bytes are
+unchanged at 179** — the ternary area still differs at the byte level even
+where the instruction text matches, exactly the case the instruction verdict
+hides. Reverted: the change is instruction-level churn with no byte benefit.
+
+Region stays equivalent (179 differing bytes). The byte residuals sit in the
+evaluation-order runs (+0x3f0..+0x436) and the block-order pair; they need
+the c2 list-scheduler trace before another source sweep.
