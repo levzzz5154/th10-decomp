@@ -47,3 +47,26 @@ differences.
 None for the equivalence route.  A byte-exact recovery would additionally
 need c2 to reproduce the retail scheduling; the model keeps the readable
 semantics either way.
+
+## 2026-10-17: the residual nine hunks probed; parked
+
+The layout now records 9 hunks (the 2026-10-12 text above predates the
+improvement to 279/291). Probed each shape against the documented levers,
+each measured with `equivalence.py --layout`:
+
+- The x87 `fld`/`fadd` operand order at +0x401 (`elapsed += *speed` versus
+  `elapsed = *speed + elapsed`) compiles byte-identically: the
+  `msvc-c2-oper-order-mechanismism` rule holds (the operand swap moves
+  codegen only register-register, both operands here are memory).
+- The `g_main_state = 12` store versus the `difficulty` load (hunks +0xc9 to
+  +0xf2): making either side go through a pointer local (the
+  `msvc-c2-pointer-store-adds-scheduler-edge` lever) leaves the schedule
+  unchanged in both directions.
+- The `switch (title->mode) { case 1: case 2: }` head (hunks +0x6..+0x10) as
+  an unsigned range test overshoots to 28 hunks.
+- The +0x7e `mov edi,edi` versus `lea ecx,[ecx]` filler is the same
+  head-position family as the joystick poll loop head.
+
+Region stays equivalent (167 differing bytes). The scheduling and
+head-alignment residuals need the c2 list-scheduler trace
+(`msvc-c2-list-scheduler-priority`) before another source sweep.
