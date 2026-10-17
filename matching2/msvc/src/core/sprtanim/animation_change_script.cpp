@@ -10,7 +10,7 @@ void __stdcall ChangeAnimationScript(ScriptChangeResource* resource, Entity* obj
     object->ScriptResource() = resource;
     if (flags & 0x200) {
         float scale = object->scale_x * -1.0f;
-        flags = (flags | 8) ^ 0x200;
+        flags = (flags | 8) & ~0x200u;
         object->AnimationFlags() = flags;
         object->scale_x = scale;
     }

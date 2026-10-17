@@ -163,3 +163,21 @@ at +0x1C, per-block refs at +0x18, priority at +0x0C).
 ## Ordinary-type follow-up, 2026-10-04
 
 Eight new controls rule out copied/constructed flag value types, script pointer records and reference-returning flag operators: all five ordinary 287-byte bodies are identical and remain 32 bytes from retail after removing the old volatile scale read. Boolean predicates and typed index parameters change extent or ABI. See `script_change_ordinary_type_controls_2026_10_04.md` and the preserved native measurements. No replacement was promoted.
+
+## 2026-10-17: the and-form shipped, register contest closed
+
+The `(flags | 8) & ~0x200u` form is applied: it removes the shared 0x200
+candidate exactly as the c2 trace predicted (script 44 against flags 32) and
+every register now matches retail. The model is 64 of 66 instructions; the two
+recorded differences are the flag update itself (`and edi,0FFFFFDFFh` where
+retail has `xor edi,200h`, valid because the `if (flags & 0x200)` guard has
+the bit set) and its position before the `fmul` where retail follows it.
+
+New shapes tried first, all leaving the priorities at 44/42 and the xor form
+in place: the typed-constant sharing lever (`0x200u`, `(unsigned short)0x200`
+on either side, the 0x43B110 rule — integral promotion erases the width
+difference), redundant `if (!script) return;` tests in the live-through blocks
+(the null test is always folded), duplicate stores in the stores block, a
+second local from the same member, and the statement-order swap around the
+`fmul` in both forms. The `xor` needs a source that is worth three more points
+to script (or keeps the 0x200 unshared); none of the spellings does that.

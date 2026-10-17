@@ -8,7 +8,7 @@
 - **100.0% of game code recovered** (322,064 of 322,064 bytes, 2,322 of 2,322
   regions); no inline assembly in the default build.
 - **76.7% byte-exact C++** (2,289 regions), **97.7%** counting the identical
-  instructions of the 33 equivalent regions.
+  instructions of the 33 equivalent regions (97.8% in the 2026-10-17 build).
 - `callsite_abi.py`, the 129 unit tests and `git diff --check` pass.
 
 ![Project status](docs/status.png)
@@ -46,7 +46,7 @@ its recovery note in `matching2/reference/recovery_notes/`.
 | 0x00436DA0 | `font_atlas_fill_transparent` | 946 | 284/316 | 16 | 0 |
 | 0x00437FE0 | `font_atlas_draw_text` | 509 | 117/166 | 44 | 0 |
 | 0x0043C550 | `camera_shake` | 439 | 133/134 | 2 | 0 |
-| 0x0043E8B0 | `animation_change_script` | 287 | 51/66 | 9 | 0 |
+| 0x0043E8B0 | `animation_change_script` | 287 | 64/66 | 2 | 0 |
 | 0x0043EE30 | `anm_vm_tick` | 9,964 | 2,709/2,755 | 23 | 0 |
 | 0x004465B0 | `anm_texture_fill_transparent` | 1,463 | 365/499 | 80 | 0 |
 | 0x0044A190 | `joystick_poll` | 833 | 251/282 | 10 | 0 |
@@ -136,7 +136,8 @@ order (`enemy_data_start_0040dc80_exact_2026_10_17.md`).
   accessor at the carried offset) and promoted; 0x0043AF30 midi tick made
   byte-exact (the `&table[index]` element pointer) and promoted; 0x0040DC80
   enemy data start made byte-exact (BindName parameter order) and promoted;
-  byte-exact rises to 76.7%.
+  0x0043E8B0 animation change script raised to 64/66 (the shared 0x200
+  candidate removed, every register right); byte-exact rises to 76.7%.
 - 2026-10-16: 0x0042E5A0 options label refresh made byte-exact; font atlas
   blend 0x00437750 and D3D initialize 0x00439890 promoted; 0x00415E90 result
   dispatcher raised to 1,144/1,147.
