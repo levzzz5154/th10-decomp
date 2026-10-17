@@ -3,7 +3,7 @@
 ## Where the project stands
 
 - `make` is green and `make EXACT=1` produces the bit-identical executable
-  (SHA-256 `2f14760b6fbbf575…`). The default build is `4f5f4b69b9e28067…`; it
+  (SHA-256 `2f14760b6fbbf575…`). The default build is `17c8406224574979…`; it
   changes whenever a shipped equivalent model changes.
 - **100.0% of game code recovered** (322,064 of 322,064 bytes, 2,322 of 2,322
   regions); no inline assembly in the default build.
