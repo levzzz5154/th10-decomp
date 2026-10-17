@@ -47,3 +47,15 @@ table instruction cannot gain one in the model (commit 1ef091c3).
 None for the equivalence route.  A byte-exact recovery would additionally
 need c2 to reproduce retail's register contest for `count` and the tail
 merges; the model keeps the readable semantics either way.
+
+## 2026-10-17: register-contest state reviewed; parked
+
+The 31 register-choice hunks are the note's residual 1 (the `count`
+EDX-versus-EDI contest, with `hit_count`/`resource`/`bank` following the same
+swap): one ChoosePhysReg tie decision, the same family as
+`font_atlas_draw_text`'s substitution table. The note's verdict ("None for
+the equivalence route") was reached after the source lever sweep; the
+`msvc-c2-what-adds-a-register-candidate` K shapes need the Spillcosts numbers
+for this function's blocks before one can be chosen.
+
+Region stays equivalent (407 differing bytes).
