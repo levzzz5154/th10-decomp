@@ -53,3 +53,20 @@ Measured with the real gate (`equivalence.py --layout`), not the cluster probe.
 - `CmdCanEnregImmed` excludes `cmp reg, 0` on a temporary from that candidate,
   but a compare of a register *variable* against 0 is rewritten to use the
   zero register when a zero piece is live.
+
+## 2026-10-17: the zero-register compare lever probed; parked
+
+The five code-shape hunks are the note's own c2 fact: a compare of a
+register *variable* against 0 is rewritten to the zero register, a temporary
+keeps `test`. Moving the pop check's `cursor` compare onto a temporary
+(`if (stack->cursor - 4 >= 0)` with the local assigned inside) overshoots to
+26 hunks: the split loads and the loop scratch rotation change with it. The
+eight register-choice hunks are the `msvc-c2-riscify-scratch-registers`
+rotation (round-robin scratch assignment scanned backwards), which needs the
+pre-Riscify dump before a source lever can be chosen.
+
+Also recorded: the gate's structural-differences budget already rejects this
+model at 18.2% coverage (budget 12.5%), so every future variant must clear
+that gate too.
+
+Region stays equivalent (285 differing bytes).
