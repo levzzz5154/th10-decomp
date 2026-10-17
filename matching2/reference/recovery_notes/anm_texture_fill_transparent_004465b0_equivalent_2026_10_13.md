@@ -87,3 +87,17 @@ for per-variant byte diffs and an instruction-stream differ over
 `find_differences` for classification. See also
 `anm_texture_fill_transparent_004465b0_2026_10_10.md` (the earlier LTCG rig
 state) and `font_atlas_convert_00436da0_regalloc_2026_10_10.md`.
+
+## 2026-10-17: register-contest route named; parked
+
+The 68 register-choice hunks are the shared-zero candidate contest the
+`msvc-c2-immediate-register-candidates` memory describes: retail keeps the
+zero in ESI (`xor esi,esi; push esi` / `cmp eax,esi`) where the model emits
+the immediate (`push 0x0` / `test eax,eax`). The memory's rule applies from
+the other side — adding zero stores does not fix it (the EBP cost/benefit
+step turns them back into immediates); the route is to find why the other
+candidates cannot take ESI. The documented 0x405750 lever (callee parameter
+order) does not transfer directly here: the callees are COM methods with
+ABI-fixed parameters.
+
+Region stays equivalent (1245 differing bytes).
