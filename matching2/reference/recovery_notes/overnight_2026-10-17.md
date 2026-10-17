@@ -26,7 +26,8 @@ that retail disagrees with itself about).
 | 0x0042CDF0 `title_dispatcher` | 167 | 167 | parked |
 | 0x00417C80 `manager_teardown` | 179 | 179 | parked |
 | 0x00406D90 `projectile_command_runtime` | 184 | 184 | parked |
-| 0x004247F0 `player_reset_block_initialize` | 217 | 217 | parked | multiply operand order canonicalizes (memory-operand products); retail's per-statement reload is the CSE decision | the pointer-store edge on the timer-flags store overshoots (18 hunks); residual is the link-phase scheduling from addendum 14/15 | the branchless ternary rewritten as an if/else tail-merged call clears the instruction hunks but the region's differing bytes stay 179 (the byte gate, not the instruction verdict); reverted | x87 operand swap is register-register only; pointer-store edge leaves the schedule unchanged |
+| 0x004247F0 `player_reset_block_initialize` | 217 | 217 | parked |
+| 0x004084A0 `projectile_point_count` | 281 | 281 | parked | declared-then-assigned y leaves the x87 asymmetry (y memory, x on stack) untouched; shared with 0x00408210 | multiply operand order canonicalizes (memory-operand products); retail's per-statement reload is the CSE decision | the pointer-store edge on the timer-flags store overshoots (18 hunks); residual is the link-phase scheduling from addendum 14/15 | the branchless ternary rewritten as an if/else tail-merged call clears the instruction hunks but the region's differing bytes stay 179 (the byte gate, not the instruction verdict); reverted | x87 operand swap is register-register only; pointer-store edge leaves the schedule unchanged |
 
 ## Byte-exact share
 

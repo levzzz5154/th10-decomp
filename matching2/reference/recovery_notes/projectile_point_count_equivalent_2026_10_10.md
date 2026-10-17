@@ -50,3 +50,16 @@ Next lever if this is revisited: find what makes the compiler treat the two
 y values as memory while x stays an x87 candidate; the sibling sweep at
 0x00408210 shows the same asymmetry (half width on the stack, half height
 spilled to `[esp+8]`), so solving one should solve the other.
+
+## 2026-10-17: declared-then-assigned y lever probed; parked
+
+The `msvc-declared-then-assigned-result-keeps-float-locals` form applied to
+the corner y computation (`float half_y; half_y = size.y * 0.5f;`) leaves
+the five code-shape hunks unchanged: the y values are array-element stores
+the compiler forwards over, not declared locals whose assignment shape
+selects the memory home. Consistent with the note's "a store through a
+genuinely variable index makes the whole array memory, x included" — the
+asymmetry (y in memory, x on the x87 stack) is still the unexplained
+residual shared with 0x00408210.
+
+Region stays equivalent (281 differing bytes).
