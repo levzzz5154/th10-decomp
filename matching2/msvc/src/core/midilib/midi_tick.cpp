@@ -104,7 +104,8 @@ void MidiTickState::Tick() {
             continue;
         any_active = 1;
         do {
-            MidiTrack* track = CurrentTrack(sequencer, index);
+            MidiTrack* table = reinterpret_cast<MidiTrack* volatile&>(sequencer.tracks);
+            MidiTrack* track = &table[index];
             // Retail CDQ followed by unsigned high/low compares: negative
             // event times become large unsigned values, rather than due events.
             if (static_cast<unsigned __int64>(
@@ -182,15 +183,3 @@ void MidiSequencer::ResetTracks() {
     }
 }
 #pragma code_seg()
-
-// An escaping method pointer keeps Tick's public ECX receiver boundary.
-typedef void (MidiTickState::*MidiTickMethod)();
-MidiTickMethod volatile MidiTickEntry = &MidiTickState::Tick;
-#pragma code_seg(".text$07context")
-extern "C" int __stdcall MidiTickContext(MidiTickState** sequences, int* adjustments, int count) {
-    for (int index = 0; index < count; ++index) {
-        (sequences[index]->*MidiTickEntry)();
-        sequences[index]->ApplyChannelVolumes(adjustments[index]);
-    }
-    return count;
-}

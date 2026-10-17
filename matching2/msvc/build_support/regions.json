@@ -32443,13 +32443,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0043af30_0043af30",
-      "source": "build_support/exact/core/midilib/midi_sequencer.cpp",
-      "symbol": "_asm_FUN_0043af30_0043af30",
+      "name": "semantic_MidiTickStateTick_0043af30",
+      "source": "src/core/midilib/midi_tick.cpp",
+      "symbol": "?Tick@MidiTickState@@QAEXXZ",
       "address": "0x0043AF30",
       "size": 473,
-      "kind": "asm",
-      "owner": "0x0043AF30"
+      "kind": "semantic",
+      "owner": "0x0043AF30",
+      "previous_record": {
+        "name": "asm_FUN_0043af30_0043af30",
+        "source": "build_support/exact/core/midilib/midi_sequencer.cpp",
+        "symbol": "_asm_FUN_0043af30_0043af30",
+        "address": "0x0043AF30",
+        "size": 473,
+        "kind": "asm",
+        "owner": "0x0043AF30"
+      }
     },
     {
       "name": "text_padding_0043b109",
@@ -60362,7 +60371,6 @@
   "translation_units": [
     "build_support/exact/core/main/fun.cpp",
     "build_support/exact/core/main/transparent_pixel_fill.cpp",
-    "build_support/exact/core/midilib/midi_sequencer.cpp",
     "build_support/exact/core/screen/shake_update.cpp",
     "build_support/exact/core/sprtanim/animation_object_change_script.cpp",
     "build_support/exact/core/sprtanim/anm_vm_tick.cpp",
@@ -62321,7 +62329,8 @@
     "src/core/main/font_atlas_blend.cpp",
     "src/core/main/d3d_initialize.cpp",
     "src/core/main/game_main.cpp",
-    "src/game/player/familiar_refresh.cpp"
+    "src/game/player/familiar_refresh.cpp",
+    "src/core/midilib/midi_tick.cpp"
   ],
   "notes": [
     "Every executable body is compiled from C++; unported bodies use MSVC inline assembly.",
@@ -63312,7 +63321,8 @@
     "build_support/layout/ltcg/font_atlas_blend.json",
     "build_support/layout/ltcg/d3d_initialize.json",
     "build_support/layout/ltcg/game_main.json",
-    "build_support/layout/ltcg/familiar_refresh_00426f70.json"
+    "build_support/layout/ltcg/familiar_refresh_00426f70.json",
+    "build_support/layout/ltcg/midi_tick_0043af30.json"
   ],
   "coff_aliases": {
     "lib/libcmt.lib/build/intel/mt_obj/exsup3.obj": {
@@ -64308,10 +64318,6 @@
     {
       "region": "asm_FUN_0040e770_0040e770",
       "layout": "build_support/layout/equivalent/enemy_execute.json"
-    },
-    {
-      "region": "asm_FUN_0043af30_0043af30",
-      "layout": "build_support/layout/equivalent/midi_tick.json"
     },
     {
       "region": "ReplayManager_OnFrameStep",

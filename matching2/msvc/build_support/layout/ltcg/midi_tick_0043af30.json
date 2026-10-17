@@ -1,0 +1,119 @@
+{
+ "schema_version": 1,
+ "name": "midi_tick_0043af30",
+ "source": "src/core/midilib/midi_tick.cpp",
+ "driver": "build_support/layout/ltcg/midi_tick_0043af30_context.cpp",
+ "included_sources": [],
+ "headers": [
+  "include/th10/platform/midi_sequencer.hpp"
+ ],
+ "image_base": "0x00400000",
+ "description": "Midi tick 0x0043AF30 with its reset and channel-volume bodies visible and the escaping-method-pointer context entry; byte-exact in all 473 bytes.",
+ "functions": [
+  {
+   "name": "MidiTickStateTick",
+   "symbol": "?Tick@MidiTickState@@QAEXXZ",
+   "section": ".text$03tick",
+   "address": "0x0043AF30",
+   "size": 473,
+   "actual_abi": "public thiscall with the tick state in ECX; void result"
+  }
+ ],
+ "anchors": [
+  {
+   "name": "?ResetTracks@MidiSequencer@@QAEXXZ",
+   "symbol": "?ResetTracks@MidiSequencer@@QAEXXZ",
+   "section": ".text$01reset",
+   "address": "0x0043ACE0",
+   "size": 132
+  },
+  {
+   "name": "?ApplyChannelVolumes@MidiTickState@@QAEXH@Z",
+   "symbol": "?ApplyChannelVolumes@MidiTickState@@QAEXH@Z",
+   "section": ".text$05volume",
+   "address": "0x0043B7A0",
+   "size": 140
+  }
+ ],
+ "context": {
+  "symbol": "_MidiTickContext@12",
+  "section": ".text$07context",
+  "address": "0x0043B850",
+  "size": 69,
+  "description": "Method-pointer dispatch entry; not recovered game code."
+ },
+ "gaps": [
+  {
+   "section": ".text$00gap",
+   "address": "0x00401000",
+   "size": 236768
+  },
+  {
+   "section": ".text$02gap",
+   "address": "0x0043AD64",
+   "size": 460
+  },
+  {
+   "section": ".text$04gap",
+   "address": "0x0043B109",
+   "size": 1687
+  },
+  {
+   "section": ".text$06gap",
+   "address": "0x0043B82C",
+   "size": 36
+  },
+  {
+   "section": ".text$08gap",
+   "address": "0x0043B895",
+   "size": 172907
+  }
+ ],
+ "constants": [],
+ "data_aliases": [
+  {
+   "symbol": "__real@3f800000",
+   "address": "0x00470AFC",
+   "bytes": "0000803f"
+  },
+  {
+   "symbol": "__real@43000000",
+   "address": "0x00470BF4",
+   "bytes": "00000043"
+  }
+ ],
+ "absolute_symbols": [
+  {
+   "symbol": "_IatTickMidiOutShortMsg",
+   "address": "0x00466298",
+   "kind": "data"
+  },
+  {
+   "symbol": "__ftol2",
+   "address": "0x00463B2C",
+   "kind": "relative_code"
+  },
+  {
+   "symbol": "__fltused",
+   "address": "0x00000000",
+   "kind": "metadata"
+  },
+  {
+   "symbol": "__allmul",
+   "address": "0x00456640",
+   "kind": "relative_code"
+  },
+  {
+   "symbol": "__aulldiv",
+   "address": "0x00456B80",
+   "kind": "relative_code"
+  },
+  {
+   "symbol": "_ProcessMidiEvent2@8",
+   "address": "0x0043B110",
+   "kind": "relative_code"
+  }
+ ],
+ "roots": [],
+ "additional_sources": []
+}

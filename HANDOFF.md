@@ -7,13 +7,13 @@
   changes whenever a shipped equivalent model changes.
 - **100.0% of game code recovered** (322,064 of 322,064 bytes, 2,322 of 2,322
   regions); no inline assembly in the default build.
-- **75.8% byte-exact C++** (2,287 regions), **97.7%** counting the identical
-  instructions of the 35 equivalent regions.
+- **75.9% byte-exact C++** (2,288 regions), **97.7%** counting the identical
+  instructions of the 34 equivalent regions.
 - `callsite_abi.py`, the 129 unit tests and `git diff --check` pass.
 
 ![Project status](docs/status.png)
 
-## Equivalent recoveries (35)
+## Equivalent recoveries (34)
 
 Instruction counts from the 2026-10-16 build; each layout's `note` points at
 its recovery note in `matching2/reference/recovery_notes/`.
@@ -46,7 +46,6 @@ its recovery note in `matching2/reference/recovery_notes/`.
 | 0x00433EF0 | `ui_final_runtime` | 2,796 | 694/741 | 31 | 0 |
 | 0x00436DA0 | `font_atlas_fill_transparent` | 946 | 284/316 | 16 | 0 |
 | 0x00437FE0 | `font_atlas_draw_text` | 509 | 117/166 | 44 | 0 |
-| 0x0043AF30 | `midi_tick` | 473 | 143/146 | 1 | 0 |
 | 0x0043C550 | `camera_shake` | 439 | 133/134 | 2 | 0 |
 | 0x0043E8B0 | `animation_change_script` | 287 | 51/66 | 9 | 0 |
 | 0x0043EE30 | `anm_vm_tick` | 9,964 | 2,709/2,755 | 23 | 0 |
@@ -63,7 +62,10 @@ their private stack-receiver conventions (`game_main_00438ad0_exact_2026_10_17.m
 `familiar_refresh` (0x00426F70) is byte-exact through
 `layout/ltcg/familiar_refresh_00426f70.json`: one scaled-row accessor at the
 carried offset gives the x-pair loads retail's temporary parity
-(`familiar_refresh_00426f70_exact_2026_10_17.md`).
+(`familiar_refresh_00426f70_exact_2026_10_17.md`). `midi_tick` (0x0043AF30) is
+byte-exact through `layout/ltcg/midi_tick_0043af30.json`: the track element
+pointer written as `&table[index]` keeps retail's named-value order
+(`midi_tick_0043af30_exact_2026_10_17.md`).
 
 ## How to continue
 
@@ -129,7 +131,9 @@ carried offset gives the x-pair loads retail's temporary parity
 - 2026-10-17: 0x00438AD0 GameMain promoted to exact (its LTCG cluster keeps
   fourteen real callee bodies as anchors and shapes stand-ins for the three
   `/EHsc` ones); 0x00426F70 familiar refresh made byte-exact (a scaled-row
-  accessor at the carried offset) and promoted; byte-exact rises to 75.8%.
+  accessor at the carried offset) and promoted; 0x0043AF30 midi tick made
+  byte-exact (the `&table[index]` element pointer) and promoted; byte-exact
+  rises to 75.9%.
 - 2026-10-16: 0x0042E5A0 options label refresh made byte-exact; font atlas
   blend 0x00437750 and D3D initialize 0x00439890 promoted; 0x00415E90 result
   dispatcher raised to 1,144/1,147.
