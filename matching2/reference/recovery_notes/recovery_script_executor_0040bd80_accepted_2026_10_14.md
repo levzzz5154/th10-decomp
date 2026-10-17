@@ -46,3 +46,17 @@ building unchanged.
 - Cases 13 and 14 share their factory tail. Retail places case 13 first and
   jumps forward; the model places case 14 first.
 - The flags `or 4` in case 7 uses EDX vs ECX.
+
+## 2026-10-17: case-tail survivor levers probed; parked
+
+The case 13/14 factory-tail placement (block-order hunk) does not move on the
+documented survivor levers: swapping the case labels in source (the
+switch-case-order lever) and ending the cases with `goto advance` to a shared
+label (the screenshot-capture survivor flip) both leave the 28 hunks
+identical — the two calls take different arguments, so the tail is a real
+merge of two distinct blocks, not the duplicated-block shape those levers
+target.
+
+Region stays equivalent (505 differing bytes). The register-choice and
+evaluation-order residuals are the same SpillCosts/scheduler families as the
+other parked regions.
