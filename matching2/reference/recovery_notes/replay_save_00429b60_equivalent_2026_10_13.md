@@ -166,3 +166,16 @@ the call resolves through the binding.
    or re-classify the equivalence hunks (`register-choice`,
    `stack-slot-order`, `evaluation-order`, `code-shape`) and re-measure
    the draft against the 12.5%/33% budgets.
+
+## 2026-10-17: next lever 1 probed both ways; parked
+
+The declared-local order lever was tried exactly as written: the locals
+declared in retail's slot-map order (`link | count | total | written | last |
+user_written | remainder | first | manager | stage | path`) gives 79 hunks,
+one worse than the shipped 78; adding the loop split (`link` for the counting
+loop, `link2` for the two write loops, per the map's `i/link` pair) is also
+79. The two stack-slot shares are therefore not recoverable by declaration
+order alone — consistent with the `msvc-c2-stack-slot-order-by-reference-weight`
+finding that declaration order does not drive the colour allocation.
+
+Region stays equivalent (1471 differing bytes).
