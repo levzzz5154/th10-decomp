@@ -93,3 +93,17 @@ block that is not the kept count (+4 and -1), or one in a loop block the names
 cursor only lives through (-2 or more per block). Tools: the regalloc tracers
 work on a one-entry commands file holding the plain `cl.exe /c /O2 /Gz /MT
 /Gy /G6 /GF /GS /Zl` command.
+
+## 2026-10-17: the single-count copy block probed; parked
+
+The `Next` recipe's trade was confirmed exactly as predicted: the single
+count spelling (`memcpy(entries, old, sizeof(ScriptSub) * kept)`) fixes the
+copy block's seven differences but drops the old pointer's EBP and overshoots
+to 40 hunks. Adding the two head-block candidates the recipe calls for
+(`int fc_a = file_count; int fc_b = file_count;` each feeding one store, the
+`msvc-c2-what-adds-a-register-candidate` merged-late expression shape) moves
+the totals the wrong way (47 hunks): the head K values are not the pair the
+recipe assumes without the Spillcosts numbers.
+
+Region stays equivalent (366 differing bytes). The next step is unchanged:
+trace Spillcosts once and pick the candidate shape from the measured K table.
