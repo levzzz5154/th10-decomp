@@ -56,3 +56,16 @@ The loop exit's duplicated `return 1` epilogue (block-order), the operand order
 of `velocity * scale`, `flags |= 1` as a register round trip instead of `or`
 on memory, the position of the aim term in the case 2/3 and case 4/5 sums,
 and one push/store swap before the angle call.
+
+## 2026-10-17: state reviewed; parked
+
+The 17 hunks are the five recorded residuals the list above names (the
+duplicated return epilogue's block order, the `velocity * scale` operand
+order, the `flags |= 1` register round trip, the aim-term position in the
+case 2/3 and 4/5 sums, and the push/store swap before the angle call). Each
+already sits at the end of a documented lever chain: the operand order is
+the memory-operand canonicalization, the aim-term position is the x87
+schedule, and the flags round trip is the load/or/store split the model
+needs for its other constraints.
+
+Region stays equivalent (1162 differing bytes).
