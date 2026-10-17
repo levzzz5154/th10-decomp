@@ -86,3 +86,14 @@ restructured with semantics-preserving spellings: case reordering, value-identic
 π/2 immediate (retail materializes `0x3FC90FDB` instead of loading `0x00470B94`),
 float-argument box helper, and the label-based loop tail. The volatile Z displacement
 and the stored-Y read that guard retail's binary32 boundaries are unchanged.
+
+## 2026-10-17: state reviewed; parked
+
+The 64 hunks (down from the recorded 84) are the same families the class
+list names: the register contest (25, the idle-constant/player/slot/argument
+staging), the x87 product scheduling (19), the frame colours (8, the 0x2c
+against retail 0x58 — the stack-slot weight rule again), and the merged
+tails (6 branch-target). Each is a trace-guided lever family already
+documented; no new source spelling applies.
+
+Region stays equivalent (1991 differing bytes).
