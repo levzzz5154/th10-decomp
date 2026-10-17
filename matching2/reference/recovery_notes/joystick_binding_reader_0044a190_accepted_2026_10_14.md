@@ -73,3 +73,26 @@ disassembly), and prefer whole-shape hypotheses from the sibling games' known
 source over register-allocator tracing: the c2 traces explained *why* EAX was
 unavailable to the caps base (its live range reached the return-value chain
 through the unshared Y loads), but the fix was a source shape.
+
+## 2026-10-17: named-local and goto-loop levers probed; parked
+
+Probed the residual trio against the documented compiler levers, each measured
+with `equivalence.py --layout` (~1.4 s/build):
+
+- The Y low threshold as a named local (`unsigned int ylow = ...;` and with a
+  named `ypos` too) compiles byte-identically to the inline expression:
+  the single-use value is folded back, so the temp-register-rotation lever
+  (named locals land in long-lived registers like retail's EBX) cannot fire.
+- An 8-byte `DeadZone {x, y}` local with dead stores is removed outright; the
+  note's live-field struct and by-value parameter forms were not re-run since
+  the note records both move the allocation.
+- The retry loop as `retry: ... if (again) goto retry;` (the memory's
+  `jmp`-over-padding form) compiles byte-identically to the `while` spelling;
+  the inverted top-tested `goto` form (`retry: if (hr != X) return; ...`) does
+  move codegen but overshoots to 12 hunks (the loop back-edge becomes a single
+  `jl` and the function tail gains 13 `int3` bytes).
+
+Region stays equivalent (157 differing bytes). The frame-shape lever still
+needs a struct form whose colour lands below `info` without shifting the
+rgbButtons array; the stackpack colour mechanics
+(`msvc-c2-stack-slot-order-by-reference-weight`) are the route.
