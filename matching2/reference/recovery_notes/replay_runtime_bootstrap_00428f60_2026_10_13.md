@@ -87,3 +87,24 @@ inside the `replay_manager_create_00429610` cluster — the two store encodings
 are the only residual — but the scheduler Materialises the node base before
 the cursor/count stores under every source shape tried, so the equivalent
 path is the one landed here.
+
+## 2026-10-17: store-encoding spellings probed; parked
+
+The two recorded store encodings were probed again from the byte side: the
+region's 507 differing bytes run from the first store (the byte runs start at
+the store pair and continue to the region tail), so the two `mov [eax+disp]`
+short forms shift every following instruction. Inlining the node pointer
+behind the stores and the flat dword-index spelling
+(`((unsigned int*)nodes)[stage*9+N]`) both keep the short encodings (the
+hunks merely move); re-reading `g_globals.stage` at each store adds an
+unbound-symbol reference the layout would have to bind.
+
+Region stays equivalent (507 differing bytes). The remaining lever is the
+one the note names: an addressing-mode decision in c2 that no source
+spelling has been found to steer.
+
+## Byte-side note for future attempts
+
+The instruction verdict reports only 3 hunks here while 507 bytes differ:
+the encodings' length difference shifts the whole tail. Any future variant
+must be measured with the byte script, not the hunk count.
