@@ -43,3 +43,16 @@ The work-directory-keeping variant (`equivalence_keep.py`, env
 unbound constant references; the candidate keeps its two alignment locals
 from this session's first experiment (they changed nothing measurable for
 the trim, but were present during validation).
+
+## 2026-10-17: state reviewed; parked
+
+The 57 hunks are the same three families the parked rectangle/circle notes
+describe: the hit-counter/resource/bank register contest (20), the
+sample-walk and run-spawn scheduling (34), and the two merged walk tails
+(2, recorded via `listed_branch_targets`). No new lever applies: the
+register contest needs the Spillcosts/ChoosePhysReg numbers for these
+blocks, and the walk-tail merge is the distinct-argument shape the
+tail-merge survivor levers do not move (as `recovery_script_executor`
+re-confirmed this session).
+
+Region stays equivalent (870 differing bytes).
