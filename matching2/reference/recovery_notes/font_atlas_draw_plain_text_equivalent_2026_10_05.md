@@ -78,3 +78,15 @@ python3 matching2/tests/font_atlas_draw_plain_text_differential.py
 The local run used
 `matching2/build/lzss-compressor-recovery/venv/bin/python`. The full normal
 and exact image gates are run after integration.
+
+## 2026-10-17: register-family state reviewed; parked
+
+The 37 register-choice hunks are the substitution table above (size EBP/EDI,
+import pointer EBX/EBP, previous object slot/EBX) repeated across the fifteen
+font-selection branches: one function-wide register-assignment difference,
+not fifteen independent ones. The documented route is the SpillCosts /
+ChoosePhysReg trace (`msvc-c2-spillcosts-priority` traces the address from a
+failing region), which needs its own tracing session; no source spelling was
+tried this pass to avoid disturbing the four reviewed non-register hunks.
+
+Region stays equivalent (328 differing bytes).
