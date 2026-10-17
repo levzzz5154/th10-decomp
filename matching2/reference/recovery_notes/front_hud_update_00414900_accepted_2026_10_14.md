@@ -50,3 +50,15 @@ weight is 25. The parked model stood at 502.
 - The sequence-slot clear stores (`slots[k] = 0`) are scheduled one load
   later.
 - Two `fadd` operand orders and a `test byte [mem]` loaded into `cl` first.
+
+## 2026-10-17: the standalone 0x4489D0 spelling probed; parked
+
+The wrap spelling of the byte-exact sibling 0x004489D0
+(`animation_manager_register_primary_back.cpp`: `++next_id; if (next_id == 0)
+++next_id;` with the field incremented in place) was transplanted here
+through the `lists` pointer: 26 hunks, worse than the shipped 22. The
+sibling's register context (the direct member on `this`) is not this
+function's (`AnimationListSet* lists`), consistent with the note's six-form
+result.
+
+Region stays equivalent (684 differing bytes).
