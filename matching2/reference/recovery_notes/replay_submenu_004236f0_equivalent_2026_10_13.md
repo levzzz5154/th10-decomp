@@ -116,3 +116,14 @@ and the security cookie bind at their retail addresses. The pooled literals
 The scratch lab lives under `scratch/submenu_004236f0/` (reflink copy; the
 schema-2 cluster manifest tried there was removed after the equivalent path
 succeeded).
+
+## 2026-10-17: state reviewed; parked
+
+The 78 hunks are the tie-breaks and reviewed block placements the class list
+names (the scratch-register renames, the block-order tail placements, the
+`lea`-versus-`add` child-lookup id and the dispatch chains). The
+`lea [eax+disp]` against `add reg,disp` form is the same addressing-mode
+decision `replay_runtime_bootstrap` re-confirmed this session as
+unsteerable from source spelling.
+
+Region stays equivalent (2088 differing bytes).
