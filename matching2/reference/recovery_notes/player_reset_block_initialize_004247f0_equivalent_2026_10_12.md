@@ -40,3 +40,16 @@ never stored, versus retail reloading it through ECX into [esp+0x4c]).
   (the same lever as every blocked region), or extend the equivalence tool
   to compare a declared shorter model extent against a retail prefix with
   the remainder justified — a large tool change.
+
+## 2026-10-17: multiply operand order canonicalized; parked
+
+The ten x87 operand-order hunks (`fld [esi+0xN]; fmul [0x470b44]` in retail
+versus the hoisted `fld [0x470b44]` plus `fmul [esi+0xN]` in the model, the
+four `(int)(field*flt_100)` bound words) do not move when the multiplies are
+spelled `flt_100*field`: the compiler canonicalizes the memory-operand
+product either way, exactly the `msvc-c2-oper-order-mechanism` rule (the
+swap moves codegen only register-register). Retail's per-statement global
+reload is the CSE decision, not the source operand order.
+
+Region stays equivalent (217 differing bytes). The scheduling lever named in
+the note above remains the route.
