@@ -148,3 +148,41 @@ possible source of the shift and nothing more.
   pops and will depend on the same numbering; that has not been checked. Any
   function whose only mismatch is commutative operand order is the same
   problem.
+
+## 2026-10-17: the stack-slot pair traced; parked
+
+All 12 remaining hunks are the swapped slot pair (`stack-slot-order` class,
+base/index 96): two locals sit in each other's slots across two blocks
+(the model's `[esp+0x24]` where retail has `[esp+0x20]` and vice versa, plus
+the `[esp+0x28]`/`[esp+0x2c]` pair).
+
+Ran the documented `stackpack/trace_stackcolors_cl.py` tracer on the unit and
+on a combined unit+context TU (so the `EclVm::FloatValue`/`IntValue` inlining
+shows). Findings:
+
+- The colour→offset map is confirmed: `colorElemental`'s return is the colour
+  index x4 and colour k lands at frame offset 0x1c + k*4, so the four heaviest
+  elements are exactly the hunks' `0x20/0x24/0x28/0x2c` slots.
+- The allocation order is the `colorElemental` **call** order, which is not the
+  descending-weight list order: the combined trace starts with the
+  inlined-helper symbols (`_operand_offset` w4, `_popped` w3, `_value` w2,
+  an unnamed temp w2) before the per-case `_a`/`_b` locals (w7, w6, ...). The
+  inlined `FloatValue`'s address-taken `value` parameter is one of the top
+  slots; the model's swap pairs an inlined-helper slot with a case-local slot.
+- The first four elements of the unit-only trace are `_a` (w7), `_b` (w6),
+  `_b` (w6) and an unnamed temp (w6), all conflicting with nearly everything
+  (the address-taken out-pointer targets), so almost no colour sharing is
+  possible; the ordering is driven purely by the call order and weights.
+
+Not tried: changing the reference counts (the memory's "reuse one variable for
+two roles", "split a role", "change which copy a later read comes from" levers)
+on the specific inlined-helper parameters, because the four swapped elements
+could not be pinned to named source locals: the plain-cl traces cannot see the
+LTCG inlining of the same four slots at once (the combined TU inlines under
+plain cl but the rig inlines under /GL /LTCG, and the helper bodies in the
+context TU differ in what each inlines). Next step if picked up: trace the rig's
+actual LTCG cluster (the c2.dll symbols via the OptCmpHashVal route in the
+2026-10-02 note above) or weight-probe one candidate helper parameter at a
+time with the 7-second `equivalence.py` check as the oracle.
+
+Region stays equivalent (116 differing bytes).
