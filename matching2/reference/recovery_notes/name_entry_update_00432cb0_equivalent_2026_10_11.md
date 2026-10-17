@@ -56,3 +56,16 @@ to EBX and is wrong.
   call after the chain gives the usual order;
 - `InsertScore` only keeps its retail body when the game counters object
   0x00474C44 has its address taken in the link.
+
+## 2026-10-17: the forceinline-helper out-target spelling probed; parked
+
+The `msvc-c2-stack-slot-order-by-reference-weight` "locals in dead parameter
+slots" lever (the out-target declared inside a `__forceinline` helper with
+its lookup, use and release all in the helper, so its bounded lifetime can
+take the dead argument slot where retail has `push ecx`) was transplanted
+from 0x437FE0: the 10 hunks are unchanged. This joins the memory's 0x432CB0
+entry ("scope, view-pointer and temporary-object spellings do nothing") as a
+fourth negative: the helper spelling too.
+
+Region stays equivalent (1090 differing bytes). The ColorStackElements dump
+the memory names remains the route.
