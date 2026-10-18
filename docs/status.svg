@@ -36,7 +36,7 @@
     </g>
     <g transform="translate(800 232)">
       <rect width="336" height="150" rx="14" fill="#ffffff" fill-opacity="0.04" stroke="#ffffff" stroke-opacity="0.08"/>
-      <text x="24" y="78" font-size="64" font-weight="700" fill="#f4ede6">99.3%</text>
+      <text x="24" y="78" font-size="64" font-weight="700" fill="#f4ede6">99.4%</text>
       <text x="24" y="114" font-size="19" fill="#d8cdc6">counting identical instructions</text>
       <text x="24" y="138" font-size="15" fill="#8f837c">of the 22 near-match functions</text>
     </g>

@@ -292,3 +292,25 @@ to ECX. Retail's pick order (member EAX, manager ECX, deref EDX) therefore
 needs either the member's entry to precede the global's in one expression
 (no spelling reached this) or the manager candidate in ECX with the deref's
 pick skipping it.
+
+### 2026-10-19 (round 2): 1,287 -> 32 bytes
+
+`variant.py` `733/741 instructions, 8 hunks, 32 differing bytes, tail 0`; the
+layout records eight `evaluation-order` differences. Four honest spelling
+changes closed the 1,255-byte gap:
+
+1. `UiFinalTransition` is declared `(self, base, target, mode, flag)` and
+   called `(object, &object->position, &position, 4, 0)` — the base/target lea
+   pair then picks retail's registers (base EDX, target ECX).
+2. `UiFinalFind`'s id argument is written as
+   `*reinterpret_cast<RecoveryScriptId*>(&value)` at all three sites instead of
+   a named `RecoveryScriptId id = {...}` — the folded lvalue keeps the head's
+   `mov eax,ds / mov eax,[eax+...]` coalescing.
+3. The `MusicFind`/`MusicCreateInPlace` id temp is used in place (no
+   `created_value` copy) while the store still uses `created_value`.
+4. The preview path keeps the resource pointer and deref result as separate
+   named locals (`void* resource`, `void** result`).
+
+The remaining 32 bytes are eight fixed-length register/scheduler hunks at
+0x121, 0x2dd–0x2ea, 0x37d–0x384, 0x702–0x709 and 0x84c: same instruction
+multiset, different register assignment or hoist position.

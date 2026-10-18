@@ -6,7 +6,7 @@
   (SHA-256 `2f14760b6fbbf575…`, verified after every promotion).
 - **100.0% of game code recovered** (322,064 of 322,064 bytes, 2,322 of 2,322
   regions); no inline assembly in the default build.
-- **83.4% byte-exact C++** (2,309 regions), **99.3%** counting the identical
+- **83.4% byte-exact C++** (2,309 regions), **99.4%** counting the identical
   instructions of the 22 equivalent regions.
 - `callsite_abi.py`, the 129 unit tests and `git diff --check` pass.
 
@@ -58,7 +58,7 @@ the decoded mechanisms).
 | 0x0042A3E0 | `replay_frame_step` | 68 | 22/22 | 0 | 0 |
 | 0x0042CDF0 | `title_dispatcher` | 1,128 | 285/291 | 5 | 0 |
 | 0x00432CB0 | `name_entry_update` | 1,400 | 368/378 | 10 | 0 |
-| 0x00433EF0 | `ui_final_runtime` | 2,796 | 702/741 | 21 | 0 |
+| 0x00433EF0 | `ui_final_runtime` | 2,796 | 733/741 | 8 | 0 |
 | 0x00436DA0 | `font_atlas_fill_transparent` | 946 | 285/316 | 16 | 0 |
 | 0x0043C550 | `camera_shake` | 439 | 133/134 | 2 | 0 |
 | 0x0043EE30 | `anm_vm_tick` | 9,964 | 2,730/2,755 | 13 | 0 |
@@ -389,6 +389,10 @@ matter most for the parked regions:
   the compiler emits the switch tables inside the contribution, so the region
   is declared at 1,604 bytes rather than its 1,456-byte code extent.
   Byte-exact 82.9% -> 83.4%; 21 equivalent regions remain.
+- 2026-10-19: `projectile_spawn_cell` 0x004067D0 closes byte-exact: writing
+  its lit-step scale as the literal `4.0f` instead of the external `flt_4`
+  gives the operand a different symbol class, so the operand hash orders the
+  three products as retail does.
 - 2026-10-18 (round 2): a second 23-region campaign closes and promotes two
   more — `front_hud_update` 0x00414900 (16 bytes: the two `fadd` operand
   orders flip once the addends are written as literals, which gives them the
@@ -396,7 +400,13 @@ matter most for the parked regions:
   `projectile_command_runtime` 0x00406D90 (84 bytes: the 0x210-byte scan
   buffer moved into its `case 0x400000` block, then the store order
   `rows, y_tail, flags, x_base, x_spacing` and `command_index` after
-  `y_head`). Byte-exact rises 81.7% → 82.9%; 22 equivalent regions remain.
+  `y_head`). Byte-exact rises 81.7% → 83.4%; 21 equivalent regions remain.
+  The same round cut the parked residuals: `ui_final_runtime` 1,287 → 32
+  bytes (call-site argument permutation, folded id lvalues, in-place
+  `MusicCreateInPlace` temp), `laser_rectangle_split` 14 → 1 byte (nested
+  guard keeps the counter in EAX for the zero test), `replay_save` 43 → 29
+  hunks, `enemy_execute` 53 → 46 hunks, `recovery_script_executor` 35 → 34
+  bytes.
   The round's negative results are recorded in the per-region notes with the
   mechanisms that pin them: `camera_shake` (FP true-dependency builder cannot
   produce retail's ready cycle 24), `replay_frame_step` (label forwarding),
