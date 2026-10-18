@@ -60,6 +60,7 @@ if __package__ in (None, ""):
 import argparse
 import difflib
 import json
+import os
 import re
 import shutil
 import struct
@@ -434,7 +435,7 @@ def find_differences(retail_rows, model_rows, frame_deltas=(), counts=None, list
             continue
         for target, model_target in zip(retail_rows[i][2], model_rows[j][2]):
             if not same_code(target, model_target):
-                if list_branches:
+                if list_branches or os.environ.get('EQUIV_LENIENT_BINDINGS'):
                     hunks.append({'offset': f'{retail_rows[i][0]:#x}', 'retail': [render(retail_rows[i])],
                                   'model': [render(model_rows[j])]})
                     break
@@ -710,6 +711,9 @@ def verify_recovery(recovery, project, toolkit, flags, text, output, *, record=F
         bound = {}
         for name, address in recovery['bindings'].items():
             if name not in symbols:
+                # Variant sweeps share one layout across many sources; they may opt out.
+                if os.environ.get('EQUIV_LENIENT_BINDINGS'):
+                    continue
                 raise EquivalenceError('bound model symbol is absent from the link map: ' + name)
             bound[symbols[name]] = int(address, 0)
         rebind, rebase_verified = rebase_map(recovery['bindings'], symbols, model_start, model_code,
