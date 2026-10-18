@@ -844,3 +844,65 @@ Best hypothesis unchanged: c2's may-alias WAR edges between the escaped
 pattern buffer and the `[esi]` command loads are absent in retail's IL, and
 the register-choice swaps cascade from those schedules. A c2-level alias
 trace (or retail's exact IL text) is required to proceed.
+
+## 2026-10-18 (round 2): the pattern buffer's declaration scope — 84 bytes → EXACT
+
+State: `variant.py` `*EXACT*` (337/337 instructions, 0 differing code bytes,
+0 tail bytes); `equivalence.py` `"differences": []`, `"not_equivalent": []`,
+`base_index_order: 0`, `frame_offset: 0`, code 1604/1604. The region is a
+candidate for promotion to `semantic`.
+
+### The lever
+
+`unsigned int pattern_words[132];` moved from function scope into the
+`case 0x400000` block. That alone took the residual 84 → 70 bytes, and the
+rest followed from two statement-order changes that only became available
+once the buffer was case-scoped:
+
+1. **Buffer declared inside the case block.** With function scope the frame
+   slot is live across the whole loop, so c2's alias/priority bookkeeping for
+   the escaped buffer covered every block of the walk and pinned the three
+   store groups to the old interleave. Case scope makes the slot live only in
+   the 0x400000 block: the `mov eax,[esi+8]` value_c load then schedules
+   *before* the z store (retail's order at 0x3f6/0x3f9 — the pair that had been
+   inverted since round 1). →70.
+2. **`flags` stored before `x_spacing`/`x_base`** (`rows, y_tail, flags,
+   x_base, x_spacing`), which reproduces retail's tail exactly
+   (`mov [esp+0x20c],edx` before `mov [esp+0x24],ecx`). →53 →43 with
+   `flags, x_base, x_spacing`.
+3. **`pattern.command_index = word & 0xFF` moved after `pattern.y_head`**
+   (`layout, colour, script_offset, y_head, command_index, columns`). This
+   is what closed the last 41 bytes: it puts the `and eax,0xff` +
+   `mov [esp+0x218],eax` pair after the `xor ecx,ecx` / layout / colour /
+   `movsx cx` group, exactly retail's 0x3fd–0x423, and the zero value then
+   lands in ECX (retail) instead of EAX, which cascades into
+   `movsx cx,[esi+9]` and `mov WORD [esp+0x12],cx`.
+
+Store order now (retail = model, verified byte-identical):
+`position x/y/z, value_c, layout, colour, script_offset(movsx cx), y_head,
+command_index(masked), columns, y_tail, flags, x_base, x_spacing, field_204`.
+
+### What the earlier hypothesis got wrong
+
+Round 1 parked this on "c2's may-alias WAR edges between the escaped pattern
+buffer and the `[esi]` command loads are absent in retail's IL". The edge set
+is the same in both; the difference is *which block* the buffer's slot and its
+alias bookkeeping belong to. Declaring the buffer in the case (its only user)
+is an honest source statement of that scope, and it re-scheduled the block
+without removing any alias edge.
+
+### Ruled out this round (measured)
+
+- Splitting the position copy (component stores, `Vec2` head, named `Vec3`
+  source/destination, `memcpy`): 463–490 bytes — c2 folds the `lea
+  ecx,[ebp+0x3b4]` base away and address-CSEs the copy; the `Vec3` struct copy
+  is required for retail's shared source base.
+- Copy moved after the value_c/word reads or after the zero stores: 140 bytes.
+- Moving `command_index`/layout/colour later than the columns store: 412–427.
+- `flags`→`x_spacing`→`x_base` (the round-1 order) on the case-scoped base: 70;
+  `x_spacing, x_base, flags`: 60.
+- The buffer as a real `ProjectileBlueprint` local (`{}`, `memset`): /GS cookie
+  link failure (a struct local with an array member arms the cookie; the word
+  buffer does not), so the word-array spelling stays.
+- `static` buffer, destination-pointer copy, named zero local, script short
+  local, `unsigned short`/`int` rows: 41–505 bytes, no improvement.

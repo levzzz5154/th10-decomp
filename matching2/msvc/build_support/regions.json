@@ -13722,13 +13722,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00414900_00414900",
-      "source": "build_support/exact/game/front/fun.cpp_414900.cpp",
-      "symbol": "_asm_FUN_00414900_00414900",
+      "name": "semantic_FrontHudUpdate_00414900",
+      "source": "src/game/front/front_hud_update.cpp",
+      "symbol": "?FrontHudUpdate@@YGHPAUFrontUpdateView@@@Z",
       "address": "0x00414900",
       "size": 3836,
-      "kind": "asm",
-      "owner": "0x00414900"
+      "kind": "semantic",
+      "owner": "0x00414900",
+      "previous_record": {
+        "name": "asm_FUN_00414900_00414900",
+        "source": "build_support/exact/game/front/fun.cpp_414900.cpp",
+        "symbol": "_asm_FUN_00414900_00414900",
+        "address": "0x00414900",
+        "size": 3836,
+        "kind": "asm",
+        "owner": "0x00414900"
+      }
     },
     {
       "name": "text_padding_004157fc",
@@ -60478,7 +60487,6 @@
     "build_support/exact/game/bullet/projectile_command_runtime.cpp",
     "build_support/exact/game/ending/event_script_runtime.cpp",
     "build_support/exact/game/enemy/ecl_vm.cpp",
-    "build_support/exact/game/front/fun.cpp_414900.cpp",
     "build_support/exact/game/item/manager_factories.cpp",
     "build_support/exact/game/laser/laser_segment_cut.cpp",
     "build_support/layout/ltcg/large_player_dependencies/runtime.cpp",
@@ -62430,7 +62438,8 @@
     "src/game/hint/hint_save.cpp",
     "src/game/front/front_script_tick_unit.cpp",
     "src/core/main/font_atlas_draw_text.cpp",
-    "src/game/pause/replay_submenu_update.cpp"
+    "src/game/pause/replay_submenu_update.cpp",
+    "src/game/front/front_hud_update.cpp"
   ],
   "notes": [
     "Every executable body is compiled from C++; unported bodies use MSVC inline assembly.",
@@ -63433,7 +63442,8 @@
     "build_support/layout/ltcg/front_script_tick_00415e90.json",
     "build_support/layout/ltcg/font_atlas_draw_text_00437fe0.json",
     "build_support/layout/ltcg/replay_submenu_004236f0.json",
-    "build_support/layout/ltcg/player_reset_block_initialize_004247f0.json"
+    "build_support/layout/ltcg/player_reset_block_initialize_004247f0.json",
+    "build_support/layout/ltcg/front_hud_update_00414900.json"
   ],
   "coff_aliases": {
     "lib/libcmt.lib/build/intel/mt_obj/exsup3.obj": {
@@ -64497,10 +64507,6 @@
     {
       "region": "asm_FUN_0040bd80_0040bd80",
       "layout": "build_support/layout/equivalent/recovery_script_executor.json"
-    },
-    {
-      "region": "asm_FUN_00414900_00414900",
-      "layout": "build_support/layout/equivalent/front_hud_update.json"
     },
     {
       "region": "asm_FUN_00406d90_00406d90",

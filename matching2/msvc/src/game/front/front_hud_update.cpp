@@ -245,7 +245,7 @@ __declspec(noinline) int __stdcall FrontHudUpdate(
         front->gauge_value_9e8c = gauge_value;
         front->gauge_ratio_9e88 = (float)gauge_value / (float)body->gauge_range_2400;
         if (front->gauge_ratio_9e88 > front->gauge_disp_9e84) {
-            front->gauge_disp_9e84 = front->gauge_disp_9e84 + flt_0_025;
+            front->gauge_disp_9e84 = front->gauge_disp_9e84 + 0.025f;
         }
         if (front->gauge_disp_9e84 > front->gauge_ratio_9e88) {
             *(int*)&front->gauge_disp_9e84 = *(int*)&front->gauge_ratio_9e88;
@@ -469,7 +469,7 @@ __declspec(noinline) int __stdcall FrontHudUpdate(
                 }
                 // The boss bank tick and its fade-in window.
                 AnmVm_Run(&front->objects[22]);
-                front->objects[22].y_340 = body->boss_y_1068 + flt_224;
+                front->objects[22].y_340 = body->boss_y_1068 + 224.0f;
                 front->objects[22].height_344 = 480.0f;
                 float offset = (float)fabs(
                     body->boss_y_1068 - g_player->position.x);

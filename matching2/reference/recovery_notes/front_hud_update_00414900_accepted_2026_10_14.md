@@ -136,3 +136,32 @@ Conclusion: the two pairs' operand order is decided by tied hash classes whose
 tie-break ("the existing order") is invariant under operand swaps, operand kinds
 (temp/local/global/param), helper indirection, and first-mention/creation-order
 hoists. Parked as two recorded `operand-order` differences (4 instructions).
+
+### 2026-10-18 (round 2): literal addends close both pairs — EXACT
+
+`variant.py` `*EXACT*` (1,089/1,089 instructions, 0 differing code bytes, 0
+tail); `equivalence.py` `"differences": []`, `"not_equivalent": []`,
+`base_index_order: 0`, `frame_offset: 0`.
+
+The closing lever is the **spelling of the two float addends**: `flt_0_025`
+and `flt_224` are replaced by the literals `0.025f` and `224.0f`.
+
+    front->gauge_disp_9e84 = front->gauge_disp_9e84 + 0.025f;
+    front->objects[22].y_340 = body->boss_y_1068 + 224.0f;
+
+Why it works: the operand-hash rule (`msvc-c2-operand-order-mechanism`) gives a
+compiler float literal (`__real@...`) a *different symbol class* from an
+external `float` object, so the hash comparison against the member load no
+longer ties; the literal sorts as the second operand and the emitter produces
+retail's `fld [member]; fadd [literal]`. With the extern symbol the two hashes
+are equal and the tie-break keeps the model's order — which is exactly the
+invariance the 2026-10-18 bounded pass measured for every source spelling.
+
+The layout gains the two compiler-literal bindings the literals resolve to:
+`__real@3ccccccd` → `0x00470CF8` and `__real@43600000` → `0x00470B4C`.
+`differences` is now `[]`.
+
+Ruled out earlier this round (measured, all 16 bytes): source operand swaps,
+`+=`/`a = b + a` forms, named value locals, reversed declaration orders,
+operator/ctor spellings, nested casts, named pointer locals and their removal,
+statement reorders, dead locals, global declaration-order changes.

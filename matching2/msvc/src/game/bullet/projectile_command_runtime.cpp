@@ -54,12 +54,6 @@ __forceinline static float SpawnCommand_AimAngle(ProjectileSpawnRecord& record,
 #pragma code_seg(".text$00406d90_fn")
 void ProjectileCommandRuntime::Tick() {
     ProjectileSpawnRecord& record = *reinterpret_cast<ProjectileSpawnRecord*>(this);
-    // The 0x210-byte scan request (a ProjectileBlueprint) built by
-    // command 0x400000; a word buffer, as retail's frame has no /GS cookie.
-    // No __declspec(align(8)): explicit over-alignment marks the function for
-    // the /GL pass, which then keeps EBX free in every direct callee and the
-    // sound queue loses its sound id register (retail's frame is aligned anyway).
-    unsigned int pattern_words[132];
     while (record.command_index < 18) {
         const int index = record.command_index;
         SpawnCommandRecord* command = &record.commands[index];
@@ -165,7 +159,13 @@ void ProjectileCommandRuntime::Tick() {
                 ->SetSchedulerValue(command->value_c);
             break;
         case 0x400000: {
-            // A grid spawn: this record and the next one describe the command->
+            // A grid spawn: this record and the next one describe the command.
+            // The 0x210-byte scan request below is a word buffer, as retail's
+            // frame has no /GS cookie. No __declspec(align(8)): explicit
+            // over-alignment marks the function for the /GL pass, which then
+            // keeps EBX free in every direct callee and the sound queue loses
+            // its sound id register (retail's frame is aligned anyway).
+            unsigned int pattern_words[132];
             memset(pattern_words, 0, sizeof(pattern_words));
             ProjectileBlueprint& pattern =
                 *reinterpret_cast<ProjectileBlueprint*>(pattern_words);
@@ -174,23 +174,23 @@ void ProjectileCommandRuntime::Tick() {
             const int word = command->value_c;
             pattern.layout = 0;
             pattern.colour = 0;
-            pattern.command_index = word & 0xFF;
             pattern.script_offset = reinterpret_cast<const signed char*>(&command->value_c)[1];
             pattern.y_head = command->value_a;
+            pattern.command_index = word & 0xFF;
             pattern.columns = (short)command->value_d;
             const unsigned int tail_b =
                 *reinterpret_cast<const unsigned int*>(&command->value_b);
             ++command;
             record.command_index = index + 1;
-            // The value hoists and the row/flag/x_spacing/flag order below pin
+            // The value hoists and the row/y_tail/flag/store order below pin
             // the list scheduler's store interleave to retail's emission order.
             const short rows_v = (short)command->value_c;
             const unsigned int flags_v = (unsigned int)command->value_d;
             pattern.rows = rows_v;
             *reinterpret_cast<unsigned int*>(&pattern.y_tail) = tail_b;
-            pattern.x_spacing = command->value_b;
             pattern.flags = flags_v;
             pattern.x_base = command->value_a;
+            pattern.x_spacing = command->value_b;
             pattern.field_204 = -1;
             memcpy(pattern.commands, record.commands, sizeof(record.commands));
             EnemyGrid_ScanCells2(

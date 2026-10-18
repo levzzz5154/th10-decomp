@@ -6,8 +6,8 @@
   (SHA-256 `2f14760b6fbbf575…`, verified after every promotion).
 - **100.0% of game code recovered** (322,064 of 322,064 bytes, 2,322 of 2,322
   regions); no inline assembly in the default build.
-- **81.7% byte-exact C++** (2,306 regions), **99.2%** counting the identical
-  instructions of the 23 equivalent regions.
+- **82.9% byte-exact C++** (2,308 regions), **99.2%** counting the identical
+  instructions of the 22 equivalent regions.
 - `callsite_abi.py`, the 129 unit tests and `git diff --check` pass.
 
 ![Project status](docs/status.png)
@@ -38,7 +38,7 @@ show the original source's symbol/temp populations cannot be reconstructed by
 any honest spelling — those parks are recorded with the decoded mechanism and
 the ruled-out inventory, not left open.
 
-## Equivalent recoveries (23)
+## Equivalent recoveries (22)
 
 Current measurements; each layout's `note` points at its recovery note in
 `matching2/reference/recovery_notes/` (all have dated 2026-10-18 sections with
@@ -47,10 +47,8 @@ the decoded mechanisms).
 | Address | Layout | Bytes | Identical | Recorded diffs | Swaps |
 | --- | --- | ---: | ---: | ---: | ---: |
 | 0x004067D0 | `projectile_spawn_cell` | 1,472 | 348/354 | 1 | 0 |
-| 0x00406D90 | `projectile_command_runtime` | 1,604 | 322/337 | 9 | 0 |
 | 0x0040BD80 | `recovery_script_executor` | 1,568 | 428/444 | 8 | 0 |
 | 0x0040E770 | `enemy_execute` | 14,416 | 3,808/3,926 | 53 | 0 |
-| 0x00414900 | `front_hud_update` | 3,836 | 1,085/1,089 | 2 | 0 |
 | 0x0041DD80 | `laser_circle_trim` | 1,238 | 274/345 | 53 | 0 |
 | 0x0041EB00 | `laser_rectangle_split` | 1,171 | 315/316 | 2 | 0 |
 | 0x0041EFA0 | `laser_circle_split` | 1,108 | 236/302 | 47 | 0 |
@@ -384,6 +382,26 @@ matter most for the parked regions:
 
 ## History
 
+- 2026-10-18 (round 2): a second 23-region campaign closes and promotes two
+  more — `front_hud_update` 0x00414900 (16 bytes: the two `fadd` operand
+  orders flip once the addends are written as literals, which gives them the
+  compiler-literal symbol class instead of an external `float` symbol) and
+  `projectile_command_runtime` 0x00406D90 (84 bytes: the 0x210-byte scan
+  buffer moved into its `case 0x400000` block, then the store order
+  `rows, y_tail, flags, x_base, x_spacing` and `command_index` after
+  `y_head`). Byte-exact rises 81.7% → 82.9%; 22 equivalent regions remain.
+  The round's negative results are recorded in the per-region notes with the
+  mechanisms that pin them: `camera_shake` (FP true-dependency builder cannot
+  produce retail's ready cycle 24), `replay_frame_step` (label forwarding),
+  `ecl_core_interpreter` (stack-colour pair order), `ecl_name_table`
+  (copy-block candidate), `laser_rectangle_split` (zero materialisation vs
+  the guard compare), `replay_runtime_bootstrap` (address-CSE use set),
+  `font_atlas_fill_transparent` (piece granularity), `joystick_poll`
+  (ChoosePhysReg class order), `anm_vm_tick` (strip rotation vs select phi),
+  `ecl_start_child`, `laser_circle_split`/`_trim` (K accounting),
+  `recovery_script_executor`, `name_entry_update` (zero-reference colour-0
+  element), `item_update`, `anm_texture_fill_transparent`, `replay_save`,
+  `enemy_execute`, `title_dispatcher`, `ui_final_runtime`.
 - 2026-10-18: the parallel campaign (31 region agents + Ghidra semantic
   audits + c2 tracer archaeology) promotes EIGHT regions to byte-exact —
   manager_teardown 0x00417C80, projectile_point_count 0x004084A0, hint_save
