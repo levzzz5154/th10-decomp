@@ -4,14 +4,16 @@
 #pragma code_seg(".text$01change")
 void __stdcall ChangeAnimationScript(ScriptChangeResource* resource, Entity* object, int index) {
     void* script = resource->scripts[index];
-    if (!script || resource->loading) return;
+    // The slot expression is written twice on purpose: load-merged to the one
+    // register read, it reproduces the retail register allocation (see the
+    // script-change equivalence note).
+    if (!script || !resource->scripts[index] || resource->loading) return;
     object->ScriptIndex() = (short)index;
     unsigned int flags = object->AnimationFlags();
     object->ScriptResource() = resource;
     if (flags & 0x200) {
         float scale = object->scale_x * -1.0f;
-        flags = (flags | 8) & ~0x200u;
-        object->AnimationFlags() = flags;
+        object->AnimationFlags() = (flags | 8) ^ 0x200u;
         object->scale_x = scale;
     }
     object->end_marker = 7;

@@ -28,6 +28,13 @@ int __stdcall AnmVm::Tick(AnmVm* vm) {
     if (vm->pending_interrupt != 0) goto interrupt;
     while ((ins = vm->pc)->time <= vm->time.current) {
         switch (ins->id) {
+        case -1:
+        case 1:
+            vm->visible = 0;
+        case 2:
+            vm->pc = 0;
+            g_game_speed = saved_speed;
+            return 1;
         case 86:
             vm->f29 = IARG(0);
             break;
@@ -93,14 +100,20 @@ int __stdcall AnmVm::Tick(AnmVm* vm) {
                 continue;
             }
             break;
-        case 61:
-            vm->flags = vm->flags ^ 0x200 | 8;
+        case 61: {
+            unsigned int f = vm->flags ^ 0x200 | 8;
+            vm->flags = f;
             vm->scale.x = vm->scale.x * -1.0f;
+            vm->flags = f;
             break;
-        case 62:
-            vm->flags = vm->flags ^ 0x400 | 8;
+        }
+        case 62: {
+            unsigned int f = vm->flags ^ 0x400 | 8;
+            vm->flags = f;
             vm->scale.y = vm->scale.y * -1.0f;
+            vm->flags = f;
             break;
+        }
         case 49:
             vm->rotation.x = FARG(0);
             vm->rotation.y = FARG(1);
@@ -239,8 +252,15 @@ int __stdcall AnmVm::Tick(AnmVm* vm) {
             break;
         }
         case 60: {
-            Float2 goal(FARG(2), FARG(3));
-            vm->StartScale(&vm->scale, &goal, IARG(0), ins->b[4]);
+            float gy = FARG(3);
+            int time;
+            if (ins->var_mask & 1)
+                time = vm->IntVar(ins->i[0]);
+            else
+                time = ins->i[0];
+            float gx = FARG(2);
+            Float2 goal(gx, gy);
+            vm->StartScale(&vm->scale, &goal, time, ins->b[4]);
             vm->scaled = 1;
             break;
         }
@@ -501,13 +521,6 @@ int __stdcall AnmVm::Tick(AnmVm* vm) {
             }
             break;
         }
-        case -1:
-        case 1:
-            vm->visible = 0;
-        case 2:
-            vm->pc = 0;
-            g_game_speed = saved_speed;
-            return 1;
         }
         vm->pc = (AnmInstr*)((char*)ins + ins->size);
     }
@@ -580,13 +593,13 @@ done:
     }
     if (vm->alpha2_interp.end_time != 0) vm->alpha2 = vm->alpha2_interp.Evaluate();
     if (vm->type == 9) {
-        int count = vm->int_vars[0] - 1;
+        int i = vm->int_vars[0] - 1;
         AnmVertex* vertex = vm->strip;
         float angle = vm->rotation.z;
         float v = 0.0f;
-        float angle_step = 6.2831855f / (float)count;
-        float v_step = (float)vm->int_vars[1] / (float)count;
-        for (int i = count; i > 0; --i) {
+        float angle_step = 6.2831855f / (float)(vm->int_vars[0] - 1);
+        float v_step = (float)vm->int_vars[1] / (float)(vm->int_vars[0] - 1);
+        for (; i > 0; --i) {
             vertex->w = 1.0f;
             vertex->color = *(unsigned int*)&vm->blue;
             vertex->u = vm->sprite->u0 + vm->uv_scroll.x;

@@ -18,8 +18,6 @@ struct ConfigureResource_00404f30 {
 extern "C" __declspec(noinline) void __stdcall LoadScript2(
     AnimationResourceFile* resource, AnimationObjectFile* object, int index);
 
-struct ItemConfiguredEntity_00404f30 : Entity { __declspec(noinline) void Configure(int,ConfigureResource_00404f30); };
-
 // A three-float constructor expresses the temporary materialized by the
 // retail compiler before each vector assignment. The retail body reuses
 // a 12-byte stack temporary; the fields themselves are ordinary floats.
@@ -31,10 +29,17 @@ struct ConfigureVector_00404f30 : Vector3 {
     }
 };
 
+// The receiver is an explicit LAST parameter on purpose.  A caller's argument
+// setup order follows the callee's declared parameter order
+// (msvc-ltcg-callee-param-order-sets-caller-load-order), and retail's callers
+// materialize the receiver's lea before the resource push.  The modelled
+// caller's call bakes the retail register convention (receiver ESI, index EAX,
+// resource on the stack), as an ABI anchor must.
 #pragma code_seg(".text$a01body")
-__declspec(noinline) void ItemConfiguredEntity_00404f30::Configure(
-        int index,ConfigureResource_00404f30 resource) {
-    Entity* entity=this;
+__declspec(noinline) void __stdcall ConfigureItemEntity_00404f30(
+        int index,ConfigureResource_00404f30 resource,
+        ItemConfiguredEntity_00404f30* entity_view) {
+    Entity* entity=reinterpret_cast<Entity*>(entity_view);
     Entity_Init(0, entity);
     entity->position = ConfigureVector_00404f30(0.0f, 0.0f, 0.0f);
     entity->base_position = ConfigureVector_00404f30(0.0f, 0.0f, 0.0f);

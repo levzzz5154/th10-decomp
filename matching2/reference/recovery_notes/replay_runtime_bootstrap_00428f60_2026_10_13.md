@@ -108,3 +108,19 @@ spelling has been found to steer.
 The instruction verdict reports only 3 hunks here while 507 bytes differ:
 the encodings' length difference shifts the whole tail. Any future variant
 must be measured with the byte script, not the hunk count.
+
+## 2026-10-18: addressing-mode mechanism solved; region stays parked
+
+The residual is the c2 disp-less-base address CSE: store targets are
+address-values sharing one node with the pair's pointer (trace: succ22=10,
+`lea` picked 3rd → hoisted before the stores, 507 differing bytes); retail's
+node has only the pair as uses (stores fold as chains, `lea` sits before the
+pair). ~70 spellings measured by bytes across the model and a plain-cl repro:
+every single-expression spelling keeps the hoisted `lea`; every
+split-expression spelling is canonicalised (×36 ≡ ×9×4) into the
+registered-index families (`shl eax,2` / `[eax+ebx*1+disp]` /
+`lea eax,[ebx+edx*4]`+disps). `_ReadWriteBarrier`, volatile
+stores/loads/pointers, field-pointer slots, param-field slots, disp-in-base,
+helper accessors, reference aliases, second assignments and statement
+reordering all ruled out. Scheduler mechanism rule:
+`msvc-c2-address-cse-use-set-def-placement`.

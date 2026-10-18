@@ -1,0 +1,541 @@
+{
+  "schema_version": 1,
+  "name": "player_reset_block_initialize_004247f0",
+  "source": "build_support/layout/ltcg/large_player_dependencies/runtime.cpp",
+  "driver": "build_support/layout/ltcg/player_reset_block_initialize_004247f0_context.cpp",
+  "included_sources": [
+    "build_support/contexts/legacy/game/player_reset.cpp",
+    "build_support/layout/ltcg/large_player_dependencies/configure.cpp",
+    "build_support/layout/ltcg/large_player_dependencies/script.cpp",
+    "build_support/layout/ltcg/large_player_dependencies/parameter.cpp",
+    "build_support/layout/ltcg/large_player_dependencies/archive.cpp",
+    "build_support/layout/ltcg/large_player_dependencies/logger.cpp",
+    "build_support/layout/ltcg/large_player_dependencies/scheduler.cpp",
+    "build_support/layout/ltcg/large_player_dependencies/callback.cpp",
+    "build_support/layout/ltcg/large_player_dependencies/menu.cpp",
+    "build_support/layout/ltcg/large_player_dependencies/caller.cpp",
+    "src/game/player/recovery_create_large_resource_state.cpp"
+  ],
+  "headers": [
+    "include/th10/game/large_player_native.hpp",
+    "include/th10/game/menu_cursor.hpp",
+    "include/th10/game/entity.hpp",
+    "include/th10/types.hpp",
+    "include/th10/platform/archive_callers.hpp",
+    "include/th10/platform/archive_file.hpp",
+    "include/th10/platform/text_log.hpp",
+    "include/th10/platform/thread_sync.hpp",
+    "include/th10/core/func_ctrl.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "PlayerResetBlock::Initialize 0x004247F0 (1,435 bytes) with the large_player callee-anchor graph and its factory caller as compiler context, so each callee keeps the register convention retail uses.",
+  "functions": [
+    {
+      "name": "PlayerResetBlock_Initialize",
+      "symbol": "?Initialize@PlayerResetBlock@@QAEHXZ",
+      "section": ".text$a07body",
+      "address": "0x004247F0",
+      "size": 1435,
+      "actual_abi": "private convention: receiver ESI caller-saved EBX in the body; RET"
+    }
+  ],
+  "anchors": [
+    {
+      "name": "Configure",
+      "symbol": "?ConfigureItemEntity_00404f30@@YGXHUConfigureResource_00404f30@@PAUItemConfiguredEntity_00404f30@@@Z",
+      "section": ".text$a01body",
+      "address": "0x404F30",
+      "size": 204
+    },
+    {
+      "name": "ParameterLoad",
+      "symbol": "?Load@ParameterLoader@@QAEHPBD@Z",
+      "section": ".text$a11body",
+      "address": "0x426520",
+      "size": 229
+    },
+    {
+      "name": "ScriptLoad",
+      "symbol": "_LoadScript2@12",
+      "section": ".text$a13body",
+      "address": "0x43e710",
+      "size": 203
+    },
+    {
+      "name": "Primary",
+      "symbol": "_FuncCtrl_RegisterPrimary@12",
+      "section": ".text$a15body",
+      "address": "0x449ae0",
+      "size": 131
+    },
+    {
+      "name": "Secondary",
+      "symbol": "_FuncCtrl_RegisterSecondary@12",
+      "section": ".text$a17body",
+      "address": "0x449b70",
+      "size": 131
+    },
+    {
+      "name": "CallbackCreate",
+      "symbol": "_LargePlayerCallbackCreate@4",
+      "section": ".text$a19body",
+      "address": "0x449ed0",
+      "size": 74
+    },
+    {
+      "name": "Archive",
+      "symbol": "_Archive_LoadFile@12",
+      "section": ".text$a21body",
+      "address": "0x44b360",
+      "size": 360
+    },
+    {
+      "name": "Logger",
+      "symbol": "?Append@TextLog4@@QAAPADPADZZ",
+      "section": ".text$a23body",
+      "address": "0x44b810",
+      "size": 201
+    },
+    {
+      "name": "Menu",
+      "symbol": "?Advance@MenuCursor@@QAEHH@Z",
+      "section": ".text$a25body",
+      "address": "0x0044BEA0",
+      "size": 128
+    },
+    {
+      "name": "Factory",
+      "symbol": "?Create6@@YAPAUPlayerResetBlock@@XZ",
+      "section": ".text$a09body",
+      "address": "0x425020",
+      "size": 69
+    },
+    {
+      "name": "Reset",
+      "symbol": "??0PlayerResetBlock@@QAE@XZ",
+      "section": ".text$a05body",
+      "address": "0x4246c0",
+      "size": 244
+    }
+  ],
+  "context": {
+    "symbol": "_PlayerResetInitializeContext@8",
+    "section": ".text$a03body",
+    "address": "0x0040A350",
+    "size": 120,
+    "description": "The retail factory caller chain plus the escaping selection words; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00before",
+      "address": 4198400,
+      "size": 16176
+    },
+    {
+      "section": ".text$a01bodyz",
+      "address": 4214780,
+      "size": 21332
+    },
+    {
+      "section": ".text$a03bodyz",
+      "address": 4236232,
+      "size": 107256
+    },
+    {
+      "section": ".text$a05bodyz",
+      "address": 4343732,
+      "size": 60
+    },
+    {
+      "section": ".text$a07bodyz",
+      "address": 4345227,
+      "size": 661
+    },
+    {
+      "section": ".text$a09bodyz",
+      "address": 4345957,
+      "size": 5307
+    },
+    {
+      "section": ".text$a11bodyz",
+      "address": 4351493,
+      "size": 98571
+    },
+    {
+      "section": ".text$a13bodyz",
+      "address": 4450267,
+      "size": 45829
+    },
+    {
+      "section": ".text$a15bodyz",
+      "address": 4496227,
+      "size": 13
+    },
+    {
+      "section": ".text$a17bodyz",
+      "address": 4496371,
+      "size": 733
+    },
+    {
+      "section": ".text$a19bodyz",
+      "address": 4497178,
+      "size": 5190
+    },
+    {
+      "section": ".text$a21bodyz",
+      "address": 4502728,
+      "size": 840
+    },
+    {
+      "section": ".text$a23bodyz",
+      "address": 4503769,
+      "size": 1479
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_LargePlayerCleanup@4",
+      "address": "0x424ed0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_LargePlayerRefresh@4",
+      "address": "0x426f70",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "@LargePlayerTick@4",
+      "address": "0x426500",
+      "kind": "data"
+    },
+    {
+      "symbol": "@LargePlayerDraw@4",
+      "address": "0x426510",
+      "kind": "data"
+    },
+    {
+      "symbol": "?Recovery_LoadCachedResource@@YIPAUCachedResource@@HPAXPBD@Z",
+      "address": "0x447280",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "??2@YAPAXI@Z",
+      "address": "0x452493",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "??3@YAXPAX@Z",
+      "address": "0x4524a1",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_Create3",
+      "address": "0x406060",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_Create2",
+      "address": "0x4056b0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_Create5",
+      "address": "0x41aed0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_Create7",
+      "address": "0x42b660",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_Create4",
+      "address": "0x414830",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_EnemyCtrl_Create@4",
+      "address": "0x40d6b0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_asm_FUN_0043ee30_0043ee30@4",
+      "address": "0x43ee30",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__ftol2",
+      "address": "0x463b2c",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__fltused",
+      "address": "0x0",
+      "kind": "metadata"
+    },
+    {
+      "symbol": "_asm_strrchr_00452930",
+      "address": "0x452930",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_asm_stricmp_0046054e",
+      "address": "0x46054e",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_asm_malloc_00452706",
+      "address": "0x452706",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_asm_vsprintf_004524a6",
+      "address": "0x4524a6",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__imp__EnterCriticalSection@4",
+      "address": "0x4660b0",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__LeaveCriticalSection@4",
+      "address": "0x4660b4",
+      "kind": "data"
+    },
+    {
+      "symbol": "@__security_check_cookie@4",
+      "address": "0x458ea5",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "___security_cookie",
+      "address": "0x473660",
+      "kind": "data"
+    },
+    {
+      "symbol": "___CxxFrameHandler",
+      "address": "0x46276d",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_memset",
+      "address": "0x45bed0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_strlen",
+      "address": "0x456720",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_strcpy",
+      "address": "0x45bd80",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_str_player_data_missing",
+      "address": "0x46e3ec",
+      "kind": "data"
+    },
+    {
+      "symbol": "_str_pl01_anm",
+      "address": "0x46e420",
+      "kind": "data"
+    },
+    {
+      "symbol": "_str_pl00_anm",
+      "address": "0x46e42c",
+      "kind": "data"
+    },
+    {
+      "symbol": "_flt_0_5",
+      "address": "0x470b0c",
+      "kind": "data"
+    },
+    {
+      "symbol": "_flt_100",
+      "address": "0x470b44",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_globals_character",
+      "address": "0x474c68",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_globals_shot_type",
+      "address": "0x474c6c",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_log",
+      "address": "0x474f70",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_game_speed",
+      "address": "0x476f78",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00476fa0",
+      "address": "0x476fa0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00476fa8",
+      "address": "0x476fa8",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00476fb0",
+      "address": "0x476fb0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00476fb8",
+      "address": "0x476fb8",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00476fc0",
+      "address": "0x476fc0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_func_ctrl",
+      "address": "0x491be4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_player_parameter_file",
+      "address": "0x491bf0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_sprt_ctrl",
+      "address": "0x491c10",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_player",
+      "address": "0x477834",
+      "kind": "data"
+    },
+    {
+      "symbol": "_imp_EnterCriticalSection",
+      "address": "0x4660b0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_imp_LeaveCriticalSection",
+      "address": "0x4660b4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_imp_CreateFileA",
+      "address": "0x4660c4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_imp_CloseHandle",
+      "address": "0x4660cc",
+      "kind": "data"
+    },
+    {
+      "symbol": "_imp_ReadFile",
+      "address": "0x4660d0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_imp_GetFileSize",
+      "address": "0x4660d8",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_file_lock",
+      "address": "0x4922a4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_file_lock_depth",
+      "address": "0x49231e",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_archive",
+      "address": "0x497990",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00497994",
+      "address": "0x497994",
+      "kind": "data"
+    },
+    {
+      "symbol": "_dbl_pi_4",
+      "address": "0x470c50",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_music_room_commands",
+      "address": "0x47476c",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_music_room_easings",
+      "address": "0x474778",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_music_room_variable_map",
+      "address": "0x491bf4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_music_room_callback_map",
+      "address": "0x491bf8",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_enemy_ctrl",
+      "address": "0x477704",
+      "kind": "data"
+    },
+    {
+      "symbol": "?Entity_Init@@YIXPAXPAUEntity@@@Z",
+      "address": "0x401de0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?g_thread_synchronization@@3UThreadSynchronization@@A",
+      "address": "0x492274",
+      "kind": "data"
+    },
+    {
+      "symbol": "?Read@ArchiveReader@@QAEPADPBXPAD@Z",
+      "address": "0x434dd0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__chkstk",
+      "address": "0x00458EC0",
+      "kind": "relative_code"
+    }
+  ],
+  "constant_aliases": [
+    {
+      "symbol": "__real@3f000000",
+      "address": "0x470B0C",
+      "value": 0.5
+    },
+    {
+      "symbol": "__real@42c80000",
+      "address": "0x470B44",
+      "value": 100.0
+    }
+  ],
+  "exceptions": true
+}

@@ -51,13 +51,20 @@ struct AnimationListNode {
     AnimationListNode* previous;
 };
 
+struct AnimationRef {
+    unsigned int value;
+    AnimationRef() {}
+    AnimationRef(unsigned int value_) : value(value_) {}
+    unsigned int operator++() { return ++value; }
+    bool operator==(unsigned int other) const { return value == other; }
+};
 struct AnimationLists {
     unsigned char reserved[0x72DAD4];
     AnimationListNode* primary_head;
     AnimationListNode* primary_tail;
     AnimationListNode* secondary_head;
     unsigned char reserved_72dae0[0x732454 - 0x72DAE0];
-    unsigned int next_id;
+    AnimationRef next_id;
 };
 
 // The lookup walk the retail body inlines at every user.
@@ -126,6 +133,11 @@ __forceinline void FlagTreeFlags(unsigned int handle) {
     }
 }
 
+__forceinline void FlagAndClearSlot(unsigned int& slot) {
+    FlagTreeFlags(slot);
+    slot = 0;
+}
+
 // Register one fresh object and return its new handle.
 inline unsigned int RegisterFreshObject(Entity* object, FrontUpdateView* front) {
     AnimationListNode* node = (AnimationListNode*)&object->manager_node_animation;
@@ -146,14 +158,12 @@ inline unsigned int RegisterFreshObject(Entity* object, FrontUpdateView* front) 
         node->previous = tail;
     }
     lists->primary_tail = node;
-    unsigned int id = lists->next_id + 1;
-    lists->next_id = id;
-    if (id == 0) {
-        ++id;
-        lists->next_id = id;
+    ++lists->next_id;
+    if (lists->next_id == 0) {
+        ++lists->next_id;
     }
-    object->animation_handle = (int)lists->next_id;
-    return lists->next_id;
+    object->animation_handle = (int)lists->next_id.value;
+    return lists->next_id.value;
 }
 
 }  // namespace
@@ -361,18 +371,12 @@ __declspec(noinline) int __stdcall FrontHudUpdate(
         } else {
           runtime = (SequenceRuntime*)front->sequence_9eb8;
           if (runtime != 0) {
-            FlagTreeFlags(runtime->slots[0]);
-            runtime->slots[0] = 0;
-            FlagTreeFlags(runtime->slots[1]);
-            runtime->slots[1] = 0;
-            FlagTreeFlags(runtime->slots[2]);
-            runtime->slots[2] = 0;
-            FlagTreeFlags(runtime->slots[3]);
-            runtime->slots[3] = 0;
-            FlagTreeFlags(runtime->slots[4]);
-            runtime->slots[4] = 0;
-            FlagTreeFlags(runtime->slots[5]);
-            runtime->slots[5] = 0;
+            FlagAndClearSlot(runtime->slots[0]);
+            FlagAndClearSlot(runtime->slots[1]);
+            FlagAndClearSlot(runtime->slots[2]);
+            FlagAndClearSlot(runtime->slots[3]);
+            FlagAndClearSlot(runtime->slots[4]);
+            FlagAndClearSlot(runtime->slots[5]);
             FrontFree(runtime);
           }
             front->sequence_9eb8 = 0;
@@ -414,8 +418,8 @@ __declspec(noinline) int __stdcall FrontHudUpdate(
             unsigned int gate_flags = body->flags_2480;
             if ((~(gate_flags >> 4) & 1) != 0 && (~gate_flags & 1) != 0) {
                 unsigned char* state = (unsigned char*)g_card;
-                unsigned int flags = front->flags_9eb4;
                 if (state[0x378C] & 1) {
+                    unsigned int flags = front->flags_9eb4;
                     unsigned int lane = (flags >> 1) & 3;
                     if (lane == 0) {
                         if (body->gate_frame_2404 < 0x7D0) {
@@ -439,6 +443,7 @@ __declspec(noinline) int __stdcall FrontHudUpdate(
                         }
                     }
                 } else {
+                    unsigned int flags = front->flags_9eb4;
                     unsigned int lane = (flags >> 1) & 3;
                     if (lane == 0) {
                         if (body->gate_frame_2404 < 0x2BC) {
@@ -464,8 +469,8 @@ __declspec(noinline) int __stdcall FrontHudUpdate(
                 }
                 // The boss bank tick and its fade-in window.
                 AnmVm_Run(&front->objects[22]);
-                front->objects[22].height_344 = 480.0f;
                 front->objects[22].y_340 = body->boss_y_1068 + flt_224;
+                front->objects[22].height_344 = 480.0f;
                 float offset = (float)fabs(
                     body->boss_y_1068 - g_player->position.x);
                 if (offset >= dbl_64) {

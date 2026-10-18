@@ -41,10 +41,12 @@ struct AnimationBank {
 extern "C" int __stdcall recovery_replace_extension(int selector, const char* path);
 extern "C" int __stdcall recovery_play_dummy(int selector, int slot);
 
+extern "C" void* __fastcall UiFinalFind(void* lookup,
+    RecoveryLookupContext* context, RecoveryScriptId id);
 static __forceinline RecoveryMusicVm* MusicFind(unsigned int handle) {
     RecoveryScriptId id = { static_cast<int>(handle) };
     return static_cast<RecoveryMusicVm*>(
-        reinterpret_cast<RecoveryLookup*>(g_sprt_ctrl)->Find(
+        UiFinalFind(g_sprt_ctrl,
             reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl), id));
 }
 
@@ -83,8 +85,9 @@ static __forceinline void MusicSelect(MenuCursor& cursor, int index) {
 // 0x0042C670, 0x004349E0, 0x00434A20: defined in their own sources.
 void __stdcall RecoveryMusicInstallSlot(Title* room, int index);
 char* __stdcall StageText_SkipLine(char* cursor, int* remaining);
-char* __stdcall StageText_ExtractLine(char* cursor, char* destination, int* remaining);
+extern "C" char* __stdcall UiFinalExtractLine(int* remaining, char* destination, char* cursor);
 void __stdcall RecoveryMusicStopHandle(RecoveryHandle* handle);
+extern "C" void __stdcall UiFinalTransition(RecoveryMusicVm* self, const RecoveryMusicVector* target, const RecoveryMusicVector* base, int mode, unsigned char flag);
 
 // The body of 0x00448D00, where the whole-program link expanded it in place.
 static __forceinline void** MusicCreateInPlace(void* resource, void** out, int script, int bucket) {
@@ -101,7 +104,7 @@ static __forceinline void** MusicCreateInPlace(void* resource, void** out, int s
 static __forceinline RecoveryMusicVm* MusicValidateInPlace(RecoveryHandle* handle) {
     RecoveryScriptId id = { static_cast<int>(handle->value) };
     RecoveryMusicVm* object = static_cast<RecoveryMusicVm*>(
-        reinterpret_cast<RecoveryLookup*>(g_sprt_ctrl)->Find(
+        UiFinalFind(g_sprt_ctrl,
             reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl), id));
     if (object == 0)
         handle->value = 0;
@@ -187,11 +190,10 @@ __declspec(noinline) int __stdcall TitleMusicRoom(Title* room) {
                 if (*text == '#' || *text != '@') {
                     text = StageText_SkipLine(text, &remaining);
                 } else {
-                    text = StageText_ExtractLine(text + 1, room->titles[tracks], &remaining);
-                    text = StageText_ExtractLine(text, room->comments[tracks], &remaining);
+                    text = UiFinalExtractLine(&remaining, room->titles[tracks], text + 1);
+                    text = UiFinalExtractLine(&remaining, room->comments[tracks], text);
                     for (int row = 0; row < 8; ++row)
-                        text = StageText_ExtractLine(text, room->preview_lines[tracks][row],
-                                                     &remaining);
+                        text = UiFinalExtractLine(&remaining, room->preview_lines[tracks][row], text);
                     ++tracks;
                 }
             }
@@ -217,9 +219,12 @@ __declspec(noinline) int __stdcall TitleMusicRoom(Title* room) {
                 if (index >= room->parsed_track_count)
                     break;
                 void* created;
-                room->row_handles[index].value = reinterpret_cast<unsigned int>(
+                unsigned int created_value = reinterpret_cast<unsigned int>(
                     *MusicCreateInPlace(room->animation_resource, &created, index + 173, 15));
-                RecoveryMusicVm* object = MusicValidateInPlace(&room->row_handles[index]);
+                room->row_handles[index].value = created_value;
+                RecoveryMusicVm* object = MusicFind(created_value);
+                if (object == 0)
+                    room->row_handles[index].value = 0;
                 RecoveryTextVm* text = reinterpret_cast<RecoveryTextVm*>(object);
                 if (recovery_music_player[0x1D892 + index])
                     text->MarkText(g_sprt_ctrl, 0xFFFFFFu,
@@ -233,7 +238,7 @@ __declspec(noinline) int __stdcall TitleMusicRoom(Title* room) {
                     object->flags |= 2u;
                 if (index == room->cursor.selection)
                     position.x = static_cast<float>(position.x - 4.0);
-                object->InitializeTransition(&object->position, &position, 4, 0);
+                UiFinalTransition(object, &position, &object->position, 4, 0);
                 if (index == room->cursor.selection)
                     position.x = static_cast<float>(position.x + 4.0);
                 position.y = position.y + 20.0f;
@@ -281,7 +286,7 @@ __declspec(noinline) int __stdcall TitleMusicRoom(Title* room) {
                     position.x = static_cast<float>(position.x - 4.0);
                 // A row that is near its place slides to it; one far away jumps.
                 if (fabs(object->position.y - position.y) < 40.0f)
-                    object->InitializeTransition(&object->position, &position, 4, 0);
+                    UiFinalTransition(object, &position, &object->position, 4, 0);
                 else
                     object->position = position;
                 if (index == room->cursor.selection)

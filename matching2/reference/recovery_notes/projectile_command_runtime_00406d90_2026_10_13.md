@@ -715,3 +715,132 @@ overshoots to 18 hunks. No other statement order in the block moves the pair.
 Region stays equivalent (184 differing bytes). The residual is the
 link-phase scheduling the note's addendum 14/15 already identified; the
 next lever is the anchor-inlined IL trace there.
+
+## 2026-10-17: scheduler trace captured; the pair is pinned before the epilogue
+
+`compiler_traces/scheduler/trace_scheduler.py` on the link command
+`prepare.py` regenerates (`build/experiments/allocator_oracle_2026_10_17/
+projectile_command_runtime2/`, 4,451 lines, 45 graphs, 215 picks). Decoding
+`static = (path + succ22) << 10 + bonus`:
+
+| `fl` | bonus | count |
+| --- | ---: | ---: |
+| `04`, `05` | `32` | 38 (memory reads) |
+| `03` | `8192` | 8 |
+| `00`, `01`, `08`, `09`, `21` | `0` | 169 |
+
+The eight `fl=03` nodes all carry `path=3 succ=1` and `prio=8392704`, and in
+graph after graph they are picked **second-to-last**, immediately before the
+`fl=21` node that closes every graph. So the flag at +0x6C0 and the store pair
+sit in a region whose tail is pinned by a node whose successor is the
+epilogue; reshaping the statement order cannot move them, which is what every
+sweep so far has observed. The residual is unchanged.
+
+## 2026-10-18: timer-flags and pattern-block scheduling — 184 → 84 bytes
+
+Four levers closed 100 of the 184 residual bytes (the model now compiles
+322/337 instructions identical to retail; the 84 remaining bytes are three
+scheduling groups inside the case-0x400000 body):
+
+1. **`flags |= 1u` LAST in both timer init blocks.** The Ghidra decompile of
+   retail shows the init block stores `current, previous, elapsed, speed` and
+   only then `flags |= 1` — the model had the RMW first. Store emission order
+   in this block is c2's list-scheduler tie-break (equal priority → lower IL
+   seq), so the statement order alone closed both the 0x6B0 and 0x7B4 blocks
+   (184 → 130 bytes).
+2. **Pointer store on `field_6c4`** (`float* fall_slot = &record.field_6c4;
+   *fall_slot = …ternary…;`). The x87 `fstp [ebp+0x6c4]` store got the
+   may-alias edge to the flags load (`mov eax,[ebp+0x6c0]`), pinning the load
+   after the store — retail's order (the "load hoisted across an x87 store"
+   family). →124.
+3. **Integer-bitcast `tail_b` temp with the y_tail store after `rows`** — the
+   y_tail value is read as `unsigned int` bits of `command->value_b` before
+   `++command` and stored late via `reinterpret_cast<unsigned int*>` (a float
+   temp round-trips through x87 and produces `fld/fstp` instead of retail's
+   `mov [esp+0x2c],eax`). →105 →94.
+4. **Statement-order fixes in the pattern build**: `pattern.command_index`
+   before `script_offset`; the `rows_v`/`flags_v` value hoists; `y_head`
+   before `columns`; `flags` store after `x_spacing` store. →87 →86 →84.
+
+### Ruled out (with evidence)
+
+- Pointer stores/loads on the pattern fields (pointer local *and* a helper
+  with a pointer parameter): byte-identical codegen — the constant addresses
+  fold back to member stores, no alias edge appears.
+- Volatile timer-flags storage: 777–814 bytes (wrecks the block).
+- Named float temporary between the `fstp` and the flags load: no-op alone.
+- Vec3 component-wise / pointer-component spellings: 480–487 bytes — the
+  `lea ecx,[ebp+0x3b4]` shared-address load shape breaks.
+- Type-pun removal (deriving `ProjectileCommandRuntime` from
+  `ProjectileSpawnRecord`; pattern as a typed pointer): byte-identical — the
+  buffer↔record aliasing is escape/provenance-based, not TBAA.
+- Indexed accesses (`record.commands[index].x` instead of `command->x`):
+  1309 bytes — destroys the `add esi,0x18` addressing shape.
+- `__restrict`: C4235, not supported in this product.
+- `memcpy`/`memset` replaced by copy/zero loops: byte-identical.
+- The retail-implied tail IL (flags value first, etc.): 381–424 bytes.
+- ~250 statement permutations in 21 batches (uniform random 417+, biased
+  128+; all single/double adjacent swaps plateau at 84).
+- The timer-flags pointer-RMW spelling (`*timer_flags |= 1u`) reproduces the
+  2026-10-17 overshoot (178 / 810–831), confirming that dead lever.
+
+### Remaining 84 bytes and the WAR-edge hypothesis
+
+Three instruction groups remain (all in the case-0x400000 body):
+
+1. `0x3f6-0x400`: the position.z store (`mov [esp+0x1c],ecx`) vs the
+   value_c load (`mov eax,[esi+8]`) and the vanish copy (`mov ebx,eax`) vs
+   `xor ecx,ecx`. The copy and the xor **tie at priority 51200**
+   ((path 42 + succ 8) vs (41 + 9)); the tie-break is lower IL seq, which
+   currently favors the copy.
+2. `0x40e-0x438`: `movsx cx,[esi+9]` (retail) vs `movsx ax` (model) and its
+   placement after the command_index store.
+3. `0x449-0x474`: the tail register set (retail rows→CX, flags→EDX, xsp→ECX,
+   x_base→EAX; model rows→DX, flags→ECX, xsp→EAX, x_base→ECX) with the
+   load/store interleave.
+
+Link-phase scheduler trace (winedbg+gdb on the /LTCG link; instrumented
+`trace_scheduler.py` copy dumping node opcodes; the region is one 52-pick
+graph mapped 1:1 to the block's 52 instructions) shows the model's buffer
+stores carry memory anti-dependency (WAR) edges to the `[esi]` command loads
+(`mov [esp+0x1c],ecx → mov eax,[esi+8]`, `rows store → flags load`, etc.).
+The pattern buffer escapes (`memset`, `memcpy`, `ScanCells2` take its
+address), so c2 treats its stores as may-aliasing every pointer load.
+Retail's emission order (value_c load before the z store; `movsx` before the
+command_index store; `mov ecx,[esi+4]` before the y_tail store) implies those
+WAR edges are **absent** in retail's IL. The register-choice swaps are
+downstream of the same schedules (a register is chosen by what is free at the
+schedule point; e.g. retail's late y_tail store keeps its value live in EAX
+across the x_spacing load, forcing that load into ECX).
+
+### 2026-10-18 follow-up: the WAR-edge hypothesis made testable — both routes negative
+
+1. **Escape shape.** `memset`/`memcpy` replaced by zero/copy loops: the
+   compiled code is byte-identical (the loops are recognized as memops and
+   expand to the same `rep stos`/`rep movsl`), and combining the loop
+   spelling with every schedule-shifting lever (script-first, the y_tail
+   reorder, split decls) reproduces the loop-free results exactly (98, 86,
+   84) — the alias edge set is unchanged, so the edges are not keyed on the
+   memset/memcpy call nodes. `__restrict` is unavailable (C4235 in this
+   product). The `ScanCells2` call takes the buffer address unconditionally
+   (its signature is already typed; its body is a visible context source), so
+   the buffer's escape cannot be removed.
+2. **IL-seq of the copy/xor tie.** All 23 orderings of the
+   `{vanish, word, layout, colour}` statements: best 84 (word-first), the
+   zero-first orderings are catastrophic (135+) because the value_c load's
+   IL moves past the position stores and re-blocks. Split declarations
+   (`unsigned int vanish;` earlier + `vanish = …;` at the original site;
+   same for `word`) are byte-identical — the def nodes keep their seq.
+   A hoisted zero local (`const short zero = 0; pattern.layout = zero;
+   pattern.colour = zero;`) is byte-identical as well — the `xor ecx,ecx`
+   node is created at the store statements regardless of where the value is
+   defined.
+
+Conclusion: the 84-byte residual (3 groups: the z-store/value_c-load and
+copy/xor swaps at 0x3f6-0x400, the `movsx` placement/register pair at
+0x40e-0x438, the tail register set at 0x449-0x474) is parked as
+source-unreachable with the tested lever families (~265 variants measured).
+Best hypothesis unchanged: c2's may-alias WAR edges between the escaped
+pattern buffer and the `[esi]` command loads are absent in retail's IL, and
+the register-choice swaps cascade from those schedules. A c2-level alias
+trace (or retail's exact IL text) is required to proceed.

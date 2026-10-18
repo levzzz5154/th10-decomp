@@ -45,12 +45,12 @@ void AnmTexture::FillTransparentPixels() {
             for (unsigned int j = 0; j < desc.width; j++) {
                 if (c[5] == 0) {
                     // Order matters: this spelling is what retail's zero
-                    // initialisation schedule reproduces (n first, then the
-                    // sums, with the blue sum last into its register).
-                    n = 0;
+                    // initialisation schedule reproduces (the sums first,
+                    // n last).
                     sum[0] = 0;
                     sum[2] = 0;
                     sum[1] = 0;
+                    n = 0;
                     if (j > 0 && c[1] != 0) {
                         sum[1] = c[-1];
                         sum[0] = c[0];
@@ -102,16 +102,16 @@ void AnmTexture::FillTransparentPixels() {
                 (unsigned char*)locked.bits + locked.pitch * i);
             for (unsigned int j = 0; j < desc.width; j++) {
                 if (p->a == 0) {
-                    // Same load-bearing order as the 8888 kernel above.
-                    n = 0;
                     sum[0] = 0;
                     sum[2] = 0;
                     sum[1] = 0;
+                    n = 1;
                     if (j > 0 && p[-1].a != 0) {
                         sum[0] = p[-1].r;
                         sum[1] = p[-1].g;
                         sum[2] = p[-1].b;
-                        n = 1;
+                    } else {
+                        n = 0;
                     }
                     if (j < desc.width - 1 && p[1].a != 0) {
                         sum[0] += p[1].r;
@@ -157,16 +157,16 @@ void AnmTexture::FillTransparentPixels() {
                 (unsigned char*)locked.bits + locked.pitch * i);
             for (unsigned int j = 0; j < desc.width; j++) {
                 if (p->a == 0) {
-                    // Same load-bearing order as the 8888 kernel above.
-                    n = 0;
                     sum[0] = 0;
                     sum[2] = 0;
                     sum[1] = 0;
+                    n = 1;
                     if (j > 0 && p[-1].a != 0) {
                         sum[0] = p[-1].r;
                         sum[1] = p[-1].g;
                         sum[2] = p[-1].b;
-                        n = 1;
+                    } else {
+                        n = 0;
                     }
                     if (j < desc.width - 1 && p[1].a != 0) {
                         sum[0] += p[1].r;

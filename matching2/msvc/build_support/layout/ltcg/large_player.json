@@ -51,7 +51,7 @@
   "anchors": [
     {
       "name": "Configure",
-      "symbol": "?Configure@ItemConfiguredEntity_00404f30@@QAEXHUConfigureResource_00404f30@@@Z",
+      "symbol": "?ConfigureItemEntity_00404f30@@YGXHUConfigureResource_00404f30@@PAUItemConfiguredEntity_00404f30@@@Z",
       "address": "0x404f30",
       "size": 204,
       "section": ".text$a01body"

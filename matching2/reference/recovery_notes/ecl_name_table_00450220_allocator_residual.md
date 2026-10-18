@@ -127,3 +127,23 @@ move this function's home assignment; only the source shape does.
    away from landing: `symbol ?Parse@ScriptFileLoader@@QAEHPAD@Z`,
    `src/script/ecl_name_table.cpp`, `0x00450220`, 589 bytes, section
    `.text$02names`.
+
+## 2026-10-17: the three named candidates are negative
+
+All three were tried, measured with the byte script against the baseline
+181/198, 366 differing bytes:
+
+| variant | identical | hunks | differing bytes |
+| --- | --- | ---: | ---: |
+| baseline | 181/198 | 13 | 366 |
+| `double-test-old` (`if (old) { if (previous) crt_free(previous); }`) | 181/198 | 13 | 366 |
+| `bool-flag` (loop-carried, read in the merge body) | 140/198 | 33 | 290 |
+| `short-counters` (`unsigned short` locals for `sub_count`/`chunk_size`) | 147/198 | 27 | 559 |
+| `char-flag` (loop-carried `char`, read in the merge body) | 112/198 | 36 | 292 |
+| `shorts-plus-flag` | 104/198 | 36 | 526 |
+
+The explicit second test around `free` is folded away entirely (byte-identical
+to baseline), so the `test ebp,ebp` pair retail keeps is not reproduced by
+restating the test. Both flag shapes and both counter-local shapes are drafts,
+well below baseline. The residual stays the EDX/ECX rotation and the merge
+loop's tail. Region stays equivalent.

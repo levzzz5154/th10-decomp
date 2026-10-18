@@ -111,8 +111,10 @@ static __forceinline int UpdateIdleDemo(TitlePrefix* title) {
             g_main_state = 12;
             DemoHeader* header = file->header;
             g_globals_score.character = header->character;
-            g_globals_score.menu_difficulty = g_globals_score.difficulty;
+            // Evaluation order matters: the shot load runs before the save of
+            // the old difficulty, which fixes the scratch-register rotation.
             g_globals_score.shot = header->shot;
+            g_globals_score.menu_difficulty = g_globals_score.difficulty;
             g_globals_score.difficulty = header->difficulty;
             TitleReleaseDemo(file);
             free(file);

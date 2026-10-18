@@ -1,192 +1,190 @@
 {
-  "schema_version": 1,
-  "name": "font_atlas_fill_transparent_00436da0",
-  "region": "asm_FUN_00436da0_00436da0",
-  "sources": [
-    "src/core/main/font_atlas_fill_transparent.cpp"
-  ],
-  "entry_symbol": "?FontAtlas_FillTransparentPixels@@YGDPAUFontAtlas@@I@Z",
-  "function": "?FontAtlas_FillTransparentPixels@@YGDPAUFontAtlas@@I@Z",
-  "code_bytes": 946,
-  "absolute_symbols": {},
-  "bindings": {},
-  "base_index_order": 0,
-  "differences": [
-    {
-      "class": "code-shape",
-      "offset": "0x17e",
-      "retail": [
-        "mov edx,DWORD PTR [esp+0x20]",
-        "shr ecx,1",
-        "and cl,0xf",
-        "shr ebx,1",
-        "shr edx,1",
-        "movzx ax,cl"
-      ],
-      "model": [
-        "mov eax,DWORD PTR [esp+0x20]"
-      ]
-    },
-    {
-      "class": "code-shape",
-      "offset": "0x197",
-      "retail": [
-        "and bl,0xf",
-        "mov DWORD PTR [esp+0x20],edx",
-        "movzx cx,bl"
-      ],
-      "model": [
-        "shr ecx,1"
-      ]
-    },
-    {
-      "class": "code-shape",
-      "offset": "0x1a7",
-      "retail": [
-        "shl eax,0x4",
-        "or eax,ecx",
-        "mov cl,BYTE PTR [esp+0x20]",
-        "shl eax,0x4",
-        "and edx,0xf00f",
-        "or eax,edx",
-        "and cl,0xf",
-        "movzx dx,cl",
-        "and eax,0xfff0",
-        "or eax,edx",
-        "mov WORD PTR [edi],ax"
-      ],
-      "model": [
-        "and ecx,0xf",
-        "shr ebx,1",
-        "shl ecx,0x4",
-        "and ebx,0xf",
-        "or ecx,ebx",
-        "shr eax,1",
-        "shl ecx,0x4",
-        "and edx,0xf000",
-        "or ecx,edx",
-        "and eax,0xf",
-        "or ecx,eax",
-        "mov WORD PTR [edi],cx"
-      ]
-    },
-    {
-      "class": "code-shape",
-      "offset": "0x20d",
-      "retail": [
-        "xor ebx,ebx"
-      ],
-      "model": []
-    },
-    {
-      "class": "code-shape",
-      "offset": "0x211",
-      "retail": [
-        "cmp eax,ebx"
-      ],
-      "model": [
-        "test eax,eax",
-        "lea ecx,[ebp-0x2]"
-      ]
-    },
-    {
-      "class": "alignment-padding",
-      "offset": "0x21d",
-      "retail": [
-        "lea ecx,[ecx+0x0]"
-      ],
-      "model": []
-    },
-    {
-      "class": "code-shape",
-      "offset": "0x228",
-      "retail": [
-        "cmp edi,ebx"
-      ],
-      "model": [
-        "test edi,edi"
-      ]
-    },
-    {
-      "class": "code-shape",
-      "offset": "0x234",
-      "retail": [
-        "lea ecx,[ebp-0x2]",
-        "jmp L+0x240"
-      ],
-      "model": []
-    },
-    {
-      "class": "code-shape",
-      "offset": "0x240",
-      "retail": [
-        "cmp BYTE PTR [ecx+0x5],0x0"
-      ],
-      "model": [
-        "mov bl,BYTE PTR [ecx+0x5]",
-        "test bl,bl"
-      ]
-    },
-    {
-      "class": "code-shape",
-      "offset": "0x24c",
-      "retail": [],
-      "model": [
-        "xor ebx,ebx"
-      ]
-    },
-    {
-      "class": "code-shape",
-      "offset": "0x24e",
-      "retail": [
-        "mov DWORD PTR [esp+0x20],ebx",
-        "mov DWORD PTR [esp+0x1c],ebx"
-      ],
-      "model": [
-        "mov DWORD PTR [esp+0x1c],esi",
-        "mov DWORD PTR [esp+0x20],esi"
-      ]
-    },
-    {
-      "class": "evaluation-order",
-      "offset": "0x369",
-      "retail": [
-        "mov BYTE PTR [ecx+0x4],bl"
-      ],
-      "model": []
-    },
-    {
-      "class": "evaluation-order",
-      "offset": "0x373",
-      "retail": [],
-      "model": [
-        "mov BYTE PTR [ecx+0x4],bl"
-      ]
-    },
-    {
-      "class": "code-shape",
-      "offset": "0x37a",
-      "retail": [
-        "xor ebx,ebx"
-      ],
-      "model": []
-    },
-    {
-      "class": "evaluation-order",
-      "offset": "0x382",
-      "retail": [],
-      "model": [
-        "add ecx,0x4"
-      ]
-    },
-    {
-      "class": "evaluation-order",
-      "offset": "0x385",
-      "retail": [
-        "add ecx,0x4"
-      ],
-      "model": []
-    }
-  ],
-  "note": "reference/recovery_notes/font_atlas_convert_00436da0_regalloc_2026_10_10.md"
+ "schema_version": 1,
+ "name": "font_atlas_fill_transparent_00436da0",
+ "region": "asm_FUN_00436da0_00436da0",
+ "sources": [
+  "src/core/main/font_atlas_fill_transparent.cpp"
+ ],
+ "entry_symbol": "?FontAtlas_FillTransparentPixels@@YGDPAUFontAtlas@@I@Z",
+ "function": "?FontAtlas_FillTransparentPixels@@YGDPAUFontAtlas@@I@Z",
+ "code_bytes": 946,
+ "absolute_symbols": {},
+ "bindings": {},
+ "base_index_order": 0,
+ "differences": [
+  {
+   "class": "code-shape",
+   "offset": "0x17e",
+   "retail": [
+    "mov edx,DWORD PTR [esp+0x20]",
+    "shr ecx,1",
+    "and cl,0xf",
+    "shr ebx,1",
+    "shr edx,1",
+    "movzx ax,cl"
+   ],
+   "model": [
+    "mov eax,DWORD PTR [esp+0x20]"
+   ]
+  },
+  {
+   "class": "code-shape",
+   "offset": "0x197",
+   "retail": [
+    "and bl,0xf",
+    "mov DWORD PTR [esp+0x20],edx",
+    "movzx cx,bl"
+   ],
+   "model": [
+    "shr ecx,1"
+   ]
+  },
+  {
+   "class": "code-shape",
+   "offset": "0x1a7",
+   "retail": [
+    "shl eax,0x4",
+    "or eax,ecx",
+    "mov cl,BYTE PTR [esp+0x20]",
+    "shl eax,0x4",
+    "and edx,0xf00f",
+    "or eax,edx",
+    "and cl,0xf",
+    "movzx dx,cl",
+    "and eax,0xfff0",
+    "or eax,edx",
+    "mov WORD PTR [edi],ax"
+   ],
+   "model": [
+    "and ecx,0xf",
+    "shr ebx,1",
+    "shl ecx,0x4",
+    "and ebx,0xf",
+    "or ecx,ebx",
+    "shr eax,1",
+    "shl ecx,0x4",
+    "and edx,0xf000",
+    "or ecx,edx",
+    "and eax,0xf",
+    "or ecx,eax",
+    "mov WORD PTR [edi],cx"
+   ]
+  },
+  {
+   "class": "code-shape",
+   "offset": "0x20d",
+   "retail": [
+    "xor ebx,ebx"
+   ],
+   "model": []
+  },
+  {
+   "class": "code-shape",
+   "offset": "0x211",
+   "retail": [
+    "cmp eax,ebx"
+   ],
+   "model": [
+    "test eax,eax",
+    "lea ecx,[ebp-0x2]"
+   ]
+  },
+  {
+   "class": "alignment-padding",
+   "offset": "0x21d",
+   "retail": [
+    "lea ecx,[ecx+0x0]"
+   ],
+   "model": []
+  },
+  {
+   "class": "code-shape",
+   "offset": "0x228",
+   "retail": [
+    "cmp edi,ebx"
+   ],
+   "model": [
+    "test edi,edi"
+   ]
+  },
+  {
+   "class": "code-shape",
+   "offset": "0x234",
+   "retail": [
+    "lea ecx,[ebp-0x2]",
+    "jmp L+0x240"
+   ],
+   "model": []
+  },
+  {
+   "class": "code-shape",
+   "offset": "0x240",
+   "retail": [
+    "cmp BYTE PTR [ecx+0x5],0x0"
+   ],
+   "model": [
+    "mov bl,BYTE PTR [ecx+0x5]",
+    "test bl,bl"
+   ]
+  },
+  {
+   "class": "code-shape",
+   "offset": "0x24a",
+   "retail": [],
+   "model": [
+    "xor ebx,ebx"
+   ]
+  },
+  {
+   "class": "register-choice",
+   "offset": "0x258",
+   "retail": [
+    "cmp BYTE PTR [ecx+0x1],0x0"
+   ],
+   "model": [
+    "cmp BYTE PTR [ecx+0x1],bl"
+   ]
+  },
+  {
+   "class": "evaluation-order",
+   "offset": "0x369",
+   "retail": [
+    "mov BYTE PTR [ecx+0x4],bl"
+   ],
+   "model": []
+  },
+  {
+   "class": "evaluation-order",
+   "offset": "0x373",
+   "retail": [],
+   "model": [
+    "mov BYTE PTR [ecx+0x4],bl"
+   ]
+  },
+  {
+   "class": "code-shape",
+   "offset": "0x37a",
+   "retail": [
+    "xor ebx,ebx"
+   ],
+   "model": []
+  },
+  {
+   "class": "evaluation-order",
+   "offset": "0x382",
+   "retail": [],
+   "model": [
+    "add ecx,0x4"
+   ]
+  },
+  {
+   "class": "evaluation-order",
+   "offset": "0x385",
+   "retail": [
+    "add ecx,0x4"
+   ],
+   "model": []
+  }
+ ],
+ "note": "reference/recovery_notes/font_atlas_convert_00436da0_regalloc_2026_10_10.md"
 }

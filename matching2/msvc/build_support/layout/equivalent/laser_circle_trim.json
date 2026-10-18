@@ -212,7 +212,7 @@
         "mov DWORD PTR [esp+0x48],ebx",
         "mov DWORD PTR [esp+0x4c],esi",
         "mov DWORD PTR [esp+0x54],edx",
-        "mov DWORD PTR [esp+0x44],edi"
+        "mov DWORD PTR [esp+0x34],edi"
       ]
     },
     {
@@ -226,42 +226,54 @@
       ]
     },
     {
-      "class": "evaluation-order",
-      "offset": "0x7e",
-      "retail": [],
-      "model": [
-        "fstp DWORD PTR [esp+0x2c]",
-        "mov edx,DWORD PTR [esp+0x2c]",
-        "fld DWORD PTR [esp+0x24]",
-        "mov DWORD PTR [esp+0x14],edx",
-        "fadd DWORD PTR [esi+0x4]"
-      ]
-    },
-    {
-      "class": "code-shape",
-      "offset": "0x86",
+      "class": "register-choice",
+      "offset": "0x82",
       "retail": [
-        "fld DWORD PTR [esp+0x24]",
-        "mov DWORD PTR [esp+0x14],eax",
-        "fadd DWORD PTR [esi+0x4]"
+        "mov eax,DWORD PTR [esp+0x30]"
       ],
       "model": [
-        "fld DWORD PTR [esp+0x28]",
-        "mov DWORD PTR [esp+0x18],eax",
-        "fadd DWORD PTR [esi+0x8]"
+        "mov edx,DWORD PTR [esp+0x30]"
       ]
     },
     {
-      "class": "evaluation-order",
-      "offset": "0x99",
+      "class": "register-choice",
+      "offset": "0x8a",
       "retail": [
-        "fld DWORD PTR [esp+0x28]",
-        "mov DWORD PTR [esp+0x18],ecx",
-        "fadd DWORD PTR [esi+0x8]",
-        "fstp DWORD PTR [esp+0x38]",
+        "mov DWORD PTR [esp+0x14],eax"
+      ],
+      "model": [
+        "mov DWORD PTR [esp+0x14],edx"
+      ]
+    },
+    {
+      "class": "register-choice",
+      "offset": "0x95",
+      "retail": [
+        "mov ecx,DWORD PTR [esp+0x34]"
+      ],
+      "model": [
+        "mov eax,DWORD PTR [esp+0x34]"
+      ]
+    },
+    {
+      "class": "register-choice",
+      "offset": "0x9d",
+      "retail": [
+        "mov DWORD PTR [esp+0x18],ecx"
+      ],
+      "model": [
+        "mov DWORD PTR [esp+0x18],eax"
+      ]
+    },
+    {
+      "class": "register-choice",
+      "offset": "0xa8",
+      "retail": [
         "mov eax,DWORD PTR [esp+0x38]"
       ],
-      "model": []
+      "model": [
+        "mov ecx,DWORD PTR [esp+0x38]"
+      ]
     },
     {
       "class": "register-choice",
@@ -305,25 +317,13 @@
       ]
     },
     {
-      "class": "stack-slot-order",
-      "offset": "0x11c",
-      "retail": [
-        "mov ecx,DWORD PTR [esp+0x2c]"
-      ],
-      "model": [
-        "mov ecx,DWORD PTR [esp+0x3c]"
-      ]
-    },
-    {
       "class": "register-choice",
       "offset": "0x126",
       "retail": [
-        "mov BYTE PTR [esp+edx*1+0x238],0x1",
-        "mov DWORD PTR [esp+0x2c],ecx"
+        "mov BYTE PTR [esp+edx*1+0x238],0x1"
       ],
       "model": [
-        "mov BYTE PTR [esp+edi*1+0x238],0x1",
-        "mov DWORD PTR [esp+0x3c],ecx"
+        "mov BYTE PTR [esp+edi*1+0x238],0x1"
       ]
     },
     {
@@ -338,7 +338,7 @@
       ]
     },
     {
-      "class": "evaluation-order",
+      "class": "code-shape",
       "offset": "0x1bf",
       "retail": [
         "mov edi,DWORD PTR [ecx+0x458]"
@@ -346,11 +346,11 @@
       "model": []
     },
     {
-      "class": "evaluation-order",
+      "class": "code-shape",
       "offset": "0x1c9",
       "retail": [],
       "model": [
-        "mov DWORD PTR [esp+0x38],eax"
+        "mov DWORD PTR [esp+0x3c],eax"
       ]
     },
     {
@@ -387,7 +387,7 @@
         "fstp DWORD PTR [esi+0x340]",
         "mov DWORD PTR [esi+0x348],ecx",
         "fld DWORD PTR [esp+0x18]",
-        "mov ecx,DWORD PTR [esp+0x38]",
+        "mov ecx,DWORD PTR [esp+0x3c]",
         "fadd DWORD PTR ds:0x470b48",
         "mov eax,esi"
       ]
@@ -438,21 +438,11 @@
       ]
     },
     {
-      "class": "evaluation-order",
-      "offset": "0x287",
-      "retail": [
-        "mov eax,DWORD PTR [esp+0x2c]"
-      ],
-      "model": [
-        "mov eax,DWORD PTR [esp+0x3c]"
-      ]
-    },
-    {
-      "class": "evaluation-order",
+      "class": "code-shape",
       "offset": "0x28d",
       "retail": [],
       "model": [
-        "mov DWORD PTR [esp+0x38],edi"
+        "mov DWORD PTR [esp+0x3c],edi"
       ]
     },
     {
@@ -493,46 +483,6 @@
       ],
       "model": [
         "mov ecx,DWORD PTR [esp+0x40]"
-      ]
-    },
-    {
-      "class": "stack-slot-order",
-      "offset": "0x2ee",
-      "retail": [
-        "fstp DWORD PTR [esp+0x34]"
-      ],
-      "model": [
-        "fstp DWORD PTR [esp+0x30]"
-      ]
-    },
-    {
-      "class": "stack-slot-order",
-      "offset": "0x2f8",
-      "retail": [
-        "fstp DWORD PTR [esp+0x38]"
-      ],
-      "model": [
-        "fstp DWORD PTR [esp+0x34]"
-      ]
-    },
-    {
-      "class": "stack-slot-order",
-      "offset": "0x300",
-      "retail": [
-        "fld DWORD PTR [esp+0x34]"
-      ],
-      "model": [
-        "fld DWORD PTR [esp+0x30]"
-      ]
-    },
-    {
-      "class": "stack-slot-order",
-      "offset": "0x30a",
-      "retail": [
-        "fld DWORD PTR [esp+0x38]"
-      ],
-      "model": [
-        "fld DWORD PTR [esp+0x34]"
       ]
     },
     {
@@ -580,7 +530,7 @@
       ]
     },
     {
-      "class": "register-choice",
+      "class": "branch-target",
       "offset": "0x36e",
       "retail": [
         "jl L+0x360"
@@ -600,7 +550,7 @@
       ]
     },
     {
-      "class": "register-choice",
+      "class": "branch-target",
       "offset": "0x3ae",
       "retail": [
         "jp L+0x3c0"
@@ -610,7 +560,7 @@
       ]
     },
     {
-      "class": "register-choice",
+      "class": "branch-target",
       "offset": "0x3b4",
       "retail": [
         "jmp L+0x3c0"
@@ -628,7 +578,7 @@
         "cmp ebx,edx"
       ],
       "model": [
-        "mov edi,DWORD PTR [esp+0x38]",
+        "mov edi,DWORD PTR [esp+0x3c]",
         "mov ecx,DWORD PTR [esp+0x40]",
         "nop",
         "cmp ebx,edi"
@@ -706,7 +656,7 @@
       ]
     },
     {
-      "class": "code-shape",
+      "class": "evaluation-order",
       "offset": "0x45a",
       "retail": [
         "fld st(1)",
@@ -719,42 +669,45 @@
     },
     {
       "class": "register-choice",
-      "offset": "0x474",
+      "offset": "0x478",
       "retail": [
-        "fstp DWORD PTR [esp+0x34]",
         "mov eax,DWORD PTR [esp+0x34]",
         "mov DWORD PTR [esp+0x5c],eax"
       ],
       "model": [
-        "fstp DWORD PTR [esp+0x30]",
-        "mov edx,DWORD PTR [esp+0x30]",
+        "mov edx,DWORD PTR [esp+0x34]",
         "mov DWORD PTR [esp+0x5c],edx"
       ]
     },
     {
-      "class": "evaluation-order",
-      "offset": "0x48a",
-      "retail": [],
+      "class": "register-choice",
+      "offset": "0x48e",
+      "retail": [
+        "mov ecx,DWORD PTR [esp+0x38]"
+      ],
       "model": [
-        "fstp DWORD PTR [esp+0x34]",
-        "mov eax,DWORD PTR [esp+0x34]",
-        "fld DWORD PTR [esp+0x54]",
-        "mov DWORD PTR [esp+0x60],eax",
-        "fadd DWORD PTR [esp+0x20]"
+        "mov eax,DWORD PTR [esp+0x38]"
       ]
     },
     {
-      "class": "code-shape",
-      "offset": "0x492",
+      "class": "register-choice",
+      "offset": "0x496",
       "retail": [
-        "fld DWORD PTR [esp+0x54]",
-        "mov DWORD PTR [esp+0x60],ecx",
-        "fadd DWORD PTR [esp+0x20]",
-        "fstp DWORD PTR [esp+0x3c]",
+        "mov DWORD PTR [esp+0x60],ecx"
+      ],
+      "model": [
+        "mov DWORD PTR [esp+0x60],eax"
+      ]
+    },
+    {
+      "class": "register-choice",
+      "offset": "0x4a2",
+      "retail": [
         "mov edx,DWORD PTR [esp+0x3c]",
         "mov DWORD PTR [esp+0x64],edx"
       ],
       "model": [
+        "mov ecx,DWORD PTR [esp+0x3c]",
         "mov DWORD PTR [esp+0x64],ecx"
       ]
     },
@@ -766,21 +719,11 @@
         "cmp ebx,edx"
       ],
       "model": [
-        "cmp ebx,DWORD PTR [esp+0x38]"
+        "cmp ebx,DWORD PTR [esp+0x3c]"
       ]
     },
     {
-      "class": "evaluation-order",
-      "offset": "0x4c2",
-      "retail": [
-        "mov eax,DWORD PTR [esp+0x2c]"
-      ],
-      "model": [
-        "mov eax,DWORD PTR [esp+0x3c]"
-      ]
-    },
-    {
-      "class": "evaluation-order",
+      "class": "alignment-padding",
       "offset": "0x4d3",
       "retail": [],
       "model": [

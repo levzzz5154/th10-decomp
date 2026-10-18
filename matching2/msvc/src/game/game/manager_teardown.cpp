@@ -23,13 +23,16 @@
 // reaches EnsureAnimationResource in ESI, the positioned-primary creation
 // gets the position record in EDI, the enemy manager reaches Destroy in EAX,
 // the score record reaches IncrementCappedCount in EAX, the resource
-// registrar takes the manager in EAX and the name in EDX, and the side panel
-// reaches ReleaseStageParts in EBX. Only a native /LTCG link that can see the
-// callees' bodies assigns those registers, so the region is compiled in the
-// cluster build_support/layout/ltcg/manager_state_release.json, whose driver and
+// registrar takes the manager in EAX and the name in EDX, the side panel
+// reaches ReleaseStageParts in EBX, and the scheduler remove takes the task
+// in ECX and the scheduler in EDX, loading ECX first at the call. Only a
+// native /LTCG link that can see the callees' bodies assigns those registers,
+// so the region is compiled in the cluster
+// build_support/layout/ltcg/manager_state_release.json, whose driver and
 // anchor sources carry a compiled body for each of them, placed at the retail
 // address and never exported as recovered code.
 #include "th10/game/manager_teardown.hpp"
+#include "th10/app/supervisor.hpp"
 #include "th10/game/enemy_ctrl.hpp"
 #include "th10/core/func_ctrl.hpp"
 #include "th10/platform/thread_sync.hpp"
@@ -82,7 +85,7 @@ struct ReplayTaskPairOwner {
     TaskFlagRecord* node_1CC;              // +0x1CC
 };
 
-#pragma code_seg(".text$9release")
+#pragma code_seg(".text$05release")
 extern "C" __declspec(noinline)
 void __stdcall Game_Destroy(Game* state) {
     // The score archive owns the run's record file; flush it first. Retail
@@ -95,7 +98,7 @@ void __stdcall Game_Destroy(Game* state) {
     // The replay-session flag; the branch below reads it back.
     unsigned char replay_bit = 2;
 
-    if (g_main_state == 10) {
+    if (g_supervisor.next_state == 10) {
         // Retail runs the animation fetch inline in this first mode arm (the
         // only inlined Ensure instance) and out of line everywhere else. The
         // handle is reached through the loaded game-thread value, so the
@@ -107,23 +110,26 @@ void __stdcall Game_Destroy(Game* state) {
         position.z = 0.0f;
         if (*handle_slot == 0) {
             void* slot_handle;
+            // Named local: the expression temporary rotates the call's
+            // argument registers one step away from retail's.
+            void* anim_resource = g_ascii_manager->animation_resource;
             void** slot = AnimationManager_CreatePositionedPrimary(
-                g_ascii_manager->animation_resource, &slot_handle, 6, &position);
+                anim_resource, &slot_handle, 6, &position);
             *handle_slot = *slot;
         }
         if (g_globals_stage_shown == g_globals_stage)
             g_globals_flags |= 1u;
-    } else if (g_main_state == 0xB) {
+    } else if (g_supervisor.next_state == 0xB) {
         GameThread6* thread = g_ascii_manager;
         thread->EnsureAnimationResource(224.0f, 416.0f);
         g_globals_flags |= replay_bit;
-    } else if (g_main_state == 4) {
+    } else if (g_supervisor.next_state == 4) {
         GameThread6* thread = g_ascii_manager;
         thread->EnsureAnimationResource(480.0f, 392.0f);
-    } else if (g_main_state == 0xF) {
+    } else if (g_supervisor.next_state == 0xF) {
         GameThread6* thread = g_ascii_manager;
         thread->EnsureAnimationResource(480.0f, 392.0f);
-    } else if (g_main_state == 0xD) {
+    } else if (g_supervisor.next_state == 0xD) {
         GameThread6* thread = g_ascii_manager;
         thread->EnsureAnimationResource(480.0f, 392.0f);
         if (g_globals_stage_shown != g_globals_stage) {
@@ -135,7 +141,7 @@ void __stdcall Game_Destroy(Game* state) {
 
     if (!(g_globals_flags & replay_bit)) {
         // Full teardown of every per-session manager object.
-        if (g_main_state != 0xE && g_main_state != 0xF) {
+        if (g_supervisor.next_state != 0xE && g_supervisor.next_state != 0xF) {
             void* replay_manager = g_replay;
             if (replay_manager) {
                 ManagerOwned_Destroy(replay_manager);
@@ -221,15 +227,17 @@ void __stdcall Game_Destroy(Game* state) {
     }
 
     // 0x00417F80: with the run still active (flag bits 0 or 3) the enemy
-    // manager is cleared in place; otherwise it is destroyed and freed.
-    if (g_globals_flags & 9u) {
-        EnemyCtrl_Clear2(g_enemy_ctrl);
-    } else {
+    // manager is cleared in place; otherwise it is destroyed and freed. The
+    // negative spelling puts the destroy path on the fallthrough, which is
+    // how retail lays the two blocks out.
+    if (!(g_globals_flags & 9u)) {
         EnemyCtrl* enemies = g_enemy_ctrl;
         if (enemies) {
             enemies->Destroy();
             crt_free_startup(enemies);
         }
+    } else {
+        EnemyCtrl_Clear2(g_enemy_ctrl);
     }
     void* bullet_release = g_effect;
     if (bullet_release) {
@@ -248,20 +256,23 @@ void __stdcall Game_Destroy(Game* state) {
     }
 
     // Unhook the manager state's two scheduler tasks under the scheduler lock.
+    // The scheduler is re-read before each removal: the locked remove may
+    // republish it, exactly as retail's two loads show.
     FuncCtrl* scheduler = g_func_ctrl;
     SchedulerTask* primary = state->task_008;
     if (primary) {
         EnterCriticalSection(&g_thread_synchronization.critical_sections[0]);
         ++g_thread_synchronization.scheduler_lock_depth;
-        FuncCtrl_RemoveTask(primary, scheduler);
+        FuncCtrl_Remove(scheduler, primary);
         LeaveCriticalSection(&g_thread_synchronization.critical_sections[0]);
         --g_thread_synchronization.scheduler_lock_depth;
     }
+    scheduler = g_func_ctrl;
     SchedulerTask* secondary = state->task_00C;
     if (secondary) {
         EnterCriticalSection(&g_thread_synchronization.critical_sections[0]);
         ++g_thread_synchronization.scheduler_lock_depth;
-        FuncCtrl_RemoveTask(secondary, scheduler);
+        FuncCtrl_Remove(scheduler, secondary);
         LeaveCriticalSection(&g_thread_synchronization.critical_sections[0]);
         --g_thread_synchronization.scheduler_lock_depth;
     }
@@ -271,9 +282,12 @@ void __stdcall Game_Destroy(Game* state) {
     if (!(g_globals_flags & 0x22u)) {
         // Re-register the shared animation resource for the next run; the
         // resource index is 4 when the extra-content flag is set. Retail
-        // hands the registrar its manager in EAX and the name in EDX.
-        g_sound_manager.RegisterResource(
-            str_dummy, (g_sound_flags & 0x10u) ? 4 : 3, 0);
+        // hands the registrar its manager in EAX and the name in EDX, and
+        // one call per arm is what tail-merges into its test/je/push shape.
+        if (g_sound_flags & 0x10u)
+            g_sound_manager.RegisterResource(str_dummy, 4, 0);
+        else
+            g_sound_manager.RegisterResource(str_dummy, 3, 0);
     }
 
     // The frame gate opens for the next scene and the mode bias records

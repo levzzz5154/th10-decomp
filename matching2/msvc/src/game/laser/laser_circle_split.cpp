@@ -18,7 +18,9 @@ int CircleSplitLaser::Split(const CutVector* center,float radius,int spawn_items
  step.z=0.0f;
  step.SetPolar(angle,6.0f);
  CutVector point;
- point=step+position;
+ CutVector* sp=&step;
+ CutVector* pp=&position;
+ point=*sp+*pp;
  point.z=0.0f;
  step*=2.0f;
  radius*=radius;
@@ -33,7 +35,7 @@ int CircleSplitLaser::Split(const CutVector* center,float radius,int spawn_items
     if (spawn_items && !sample_position->IsPartiallyOutside(32.0f,32.0f)) {
      g_item_manager->Spawn(sample_position,8,-1,-1.5707963705062866f,0.6f);
     }
-    int index=script*2+17;
+    int index=GetScript()+GetScript()+17;
     void* resource=static_cast<CutAnimationBank*>(g_laser_manager)->line_animation;
     reinterpret_cast<CutAnimationResource*>(resource)->CreateOffset(index,&point);
    }

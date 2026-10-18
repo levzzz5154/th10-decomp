@@ -4900,13 +4900,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_004084a0_004084a0",
-      "source": "build_support/exact/unreferenced/FUN.cpp",
-      "symbol": "_asm_FUN_004084a0_004084a0",
+      "name": "semantic_ProjectileManager_CountNearPoint_004084a0",
+      "source": "src/game/bullet/projectile_point_count.cpp",
+      "symbol": "?CountNearPoint@ProjectileManager@@QAEHPBUVec3@@M@Z",
       "address": "0x004084A0",
       "size": 370,
-      "kind": "asm",
-      "owner": "0x004084A0"
+      "kind": "semantic",
+      "owner": "0x004084A0",
+      "previous_record": {
+        "name": "asm_FUN_004084a0_004084a0",
+        "source": "build_support/exact/unreferenced/FUN.cpp",
+        "symbol": "_asm_FUN_004084a0_004084a0",
+        "address": "0x004084A0",
+        "size": 370,
+        "kind": "asm",
+        "owner": "0x004084A0"
+      }
     },
     {
       "name": "text_padding_00408612",
@@ -13868,13 +13877,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00415e90_00415e90",
-      "source": "build_support/exact/game/front/fun.cpp_415e90.cpp",
-      "symbol": "_asm_FUN_00415e90_00415e90",
+      "name": "semantic_ResultDispatcher2_00415e90",
+      "source": "src/game/front/front_script_tick_unit.cpp",
+      "symbol": "_ResultDispatcher2@4",
       "address": "0x00415E90",
       "size": 4480,
-      "kind": "asm",
-      "owner": "0x00415E90"
+      "kind": "semantic",
+      "owner": "0x00415E90",
+      "previous_record": {
+        "name": "asm_FUN_00415e90_00415e90",
+        "source": "build_support/exact/game/front/fun.cpp_415e90.cpp",
+        "symbol": "_asm_FUN_00415e90_00415e90",
+        "address": "0x00415E90",
+        "size": 4480,
+        "kind": "asm",
+        "owner": "0x00415E90"
+      }
     },
     {
       "name": "semantic_Path_DecodeXor_00417010",
@@ -14776,13 +14794,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00417c80_00417c80",
-      "source": "build_support/exact/game/game/game_destroy.cpp",
-      "symbol": "_asm_FUN_00417c80_00417c80",
+      "name": "semantic_Game_Destroy_00417c80",
+      "source": "src/game/game/manager_teardown.cpp",
+      "symbol": "_Game_Destroy@4",
       "address": "0x00417C80",
       "size": 1105,
-      "kind": "asm",
-      "owner": "0x00417C80"
+      "kind": "semantic",
+      "owner": "0x00417C80",
+      "previous_record": {
+        "name": "asm_FUN_00417c80_00417c80",
+        "source": "build_support/exact/game/game/game_destroy.cpp",
+        "symbol": "_asm_FUN_00417c80_00417c80",
+        "address": "0x00417C80",
+        "size": 1105,
+        "kind": "asm",
+        "owner": "0x00417C80"
+      }
     },
     {
       "name": "text_padding_004180d1",
@@ -16247,13 +16274,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0041a200_0041a200",
-      "source": "build_support/exact/game/hint/score_save.cpp",
-      "symbol": "_asm_FUN_0041a200_0041a200",
+      "name": "semantic_SaveHints_0041a200",
+      "source": "src/game/hint/hint_save.cpp",
+      "symbol": "_SaveHints@8",
       "address": "0x0041A200",
       "size": 2247,
-      "kind": "asm",
-      "owner": "0x0041A200"
+      "kind": "semantic",
+      "owner": "0x0041A200",
+      "previous_record": {
+        "name": "asm_FUN_0041a200_0041a200",
+        "source": "build_support/exact/game/hint/score_save.cpp",
+        "symbol": "_asm_FUN_0041a200_0041a200",
+        "address": "0x0041A200",
+        "size": 2247,
+        "kind": "asm",
+        "owner": "0x0041A200"
+      }
     },
     {
       "name": "text_padding_0041aac7",
@@ -21293,13 +21329,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00422660_00422660",
-      "source": "build_support/exact/game/pause/main_menu_dispatch.cpp",
-      "symbol": "_asm_FUN_00422660_00422660",
+      "name": "semantic_ResultScreen_DrawRows_00422660",
+      "source": "src/game/pause/result_rows.cpp",
+      "symbol": "_ResultScreen_DrawRows@4",
       "address": "0x00422660",
       "size": 1062,
-      "kind": "asm",
-      "owner": "0x00422660"
+      "kind": "semantic",
+      "owner": "0x00422660",
+      "previous_record": {
+        "name": "asm_FUN_00422660_00422660",
+        "source": "build_support/exact/game/pause/main_menu_dispatch.cpp",
+        "symbol": "_asm_FUN_00422660_00422660",
+        "address": "0x00422660",
+        "size": 1062,
+        "kind": "asm",
+        "owner": "0x00422660"
+      }
     },
     {
       "name": "text_padding_00422a86",
@@ -21538,13 +21583,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_004236f0_004236f0",
-      "source": "build_support/exact/game/pause/main_menu_dispatch.cpp",
-      "symbol": "_asm_FUN_004236f0_004236f0",
+      "name": "semantic_SubmenuUpdate_004236f0",
+      "source": "src/game/pause/replay_submenu_update.cpp",
+      "symbol": "_SubmenuUpdate@4",
       "address": "0x004236F0",
       "size": 3260,
-      "kind": "asm",
-      "owner": "0x004236F0"
+      "kind": "semantic",
+      "owner": "0x004236F0",
+      "previous_record": {
+        "name": "asm_FUN_004236f0_004236f0",
+        "source": "build_support/exact/game/pause/main_menu_dispatch.cpp",
+        "symbol": "_asm_FUN_004236f0_004236f0",
+        "address": "0x004236F0",
+        "size": 3260,
+        "kind": "asm",
+        "owner": "0x004236F0"
+      }
     },
     {
       "name": "text_padding_004243ac",
@@ -22156,13 +22210,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_004247f0_004247f0",
-      "source": "build_support/exact/game/player/player_runtime_init.cpp",
-      "symbol": "_asm_FUN_004247f0_004247f0",
+      "name": "semantic_PlayerResetBlock_Initialize_004247f0",
+      "source": "build_support/layout/ltcg/large_player_dependencies/runtime.cpp",
+      "symbol": "?Initialize@PlayerResetBlock@@QAEHXZ",
       "address": "0x004247F0",
       "size": 1435,
-      "kind": "asm",
-      "owner": "0x004247F0"
+      "kind": "semantic",
+      "owner": "0x004247F0",
+      "previous_record": {
+        "name": "asm_FUN_004247f0_004247f0",
+        "source": "build_support/exact/game/player/player_runtime_init.cpp",
+        "symbol": "_asm_FUN_004247f0_004247f0",
+        "address": "0x004247F0",
+        "size": 1435,
+        "kind": "asm",
+        "owner": "0x004247F0"
+      }
     },
     {
       "name": "text_padding_00424d8b",
@@ -27289,13 +27352,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00433570_00433570",
-      "source": "build_support/exact/game/title/replay_menu_runtime.cpp",
-      "symbol": "_asm_FUN_00433570_00433570",
+      "name": "semantic_TitleReplaySaveUpdate_00433570",
+      "source": "src/game/title/replay_save_update.cpp",
+      "symbol": "?TitleMode16@@YGHPAUTitle@@@Z",
       "address": "0x00433570",
       "size": 1460,
-      "kind": "asm",
-      "owner": "0x00433570"
+      "kind": "semantic",
+      "owner": "0x00433570",
+      "previous_record": {
+        "name": "asm_FUN_00433570_00433570",
+        "source": "build_support/exact/game/title/replay_menu_runtime.cpp",
+        "symbol": "_asm_FUN_00433570_00433570",
+        "address": "0x00433570",
+        "size": 1460,
+        "kind": "asm",
+        "owner": "0x00433570"
+      }
     },
     {
       "name": "text_padding_00433b24",
@@ -30345,13 +30417,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00437fe0_00437fe0",
-      "source": "build_support/exact/core/main/fun.cpp",
-      "symbol": "_asm_FUN_00437fe0_00437fe0",
+      "name": "semantic_FontAtlas_DrawPlainText_00437fe0",
+      "source": "src/core/main/font_atlas_draw_text.cpp",
+      "symbol": "?FontAtlas_DrawPlainText@@YGXPBUFontAtlasRect@@HHIPBDPAUFontTexture@@@Z",
       "address": "0x00437FE0",
       "size": 509,
-      "kind": "asm",
-      "owner": "0x00437FE0"
+      "kind": "semantic",
+      "owner": "0x00437FE0",
+      "previous_record": {
+        "name": "asm_FUN_00437fe0_00437fe0",
+        "source": "build_support/exact/core/main/fun.cpp",
+        "symbol": "_asm_FUN_00437fe0_00437fe0",
+        "address": "0x00437FE0",
+        "size": 509,
+        "kind": "asm",
+        "owner": "0x00437FE0"
+      }
     },
     {
       "name": "text_padding_004381dd",
@@ -34420,13 +34501,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_AnimationObject_ChangeScript_0043e8b0",
-      "source": "build_support/exact/core/sprtanim/animation_object_change_script.cpp",
-      "symbol": "_asm_AnimationObject_ChangeScript_0043e8b0",
+      "name": "semantic_ChangeAnimationScript_0043e8b0",
+      "source": "src/core/sprtanim/animation_change_script.cpp",
+      "symbol": "_ChangeAnimationScript@12",
       "address": "0x0043E8B0",
       "size": 287,
-      "kind": "asm",
-      "owner": "0x0043E8B0"
+      "kind": "semantic",
+      "owner": "0x0043E8B0",
+      "previous_record": {
+        "name": "asm_AnimationObject_ChangeScript_0043e8b0",
+        "source": "build_support/exact/core/sprtanim/animation_object_change_script.cpp",
+        "symbol": "_asm_AnimationObject_ChangeScript_0043e8b0",
+        "address": "0x0043E8B0",
+        "size": 287,
+        "kind": "asm",
+        "owner": "0x0043E8B0"
+      }
     },
     {
       "name": "text_padding_0043e9cf",
@@ -60378,10 +60468,9 @@
     "?BuildSpellList@TitleDrawView@@QAEHXZ": "0x00432690"
   },
   "translation_units": [
-    "build_support/exact/core/main/fun.cpp",
     "build_support/exact/core/main/transparent_pixel_fill.cpp",
     "build_support/exact/core/screen/shake_update.cpp",
-    "build_support/exact/core/sprtanim/animation_object_change_script.cpp",
+    "src/core/sprtanim/animation_change_script.cpp",
     "build_support/exact/core/sprtanim/anm_vm_tick.cpp",
     "build_support/exact/core/sprtlib/transparent_pixel_fill_locked.cpp",
     "build_support/exact/core/zunlib/joystick_poll.cpp",
@@ -60390,24 +60479,18 @@
     "build_support/exact/game/ending/event_script_runtime.cpp",
     "build_support/exact/game/enemy/ecl_vm.cpp",
     "build_support/exact/game/front/fun.cpp_414900.cpp",
-    "build_support/exact/game/front/fun.cpp_415e90.cpp",
-    "build_support/exact/game/game/game_destroy.cpp",
-    "build_support/exact/game/hint/score_save.cpp",
     "build_support/exact/game/item/manager_factories.cpp",
     "build_support/exact/game/laser/laser_segment_cut.cpp",
-    "build_support/exact/game/pause/main_menu_dispatch.cpp",
-    "build_support/exact/game/player/player_runtime_init.cpp",
+    "build_support/layout/ltcg/large_player_dependencies/runtime.cpp",
     "build_support/exact/game/replay/replay_large_runtime.cpp",
     "build_support/exact/game/replay/replay_manager_on_frame_step.cpp",
     "build_support/exact/game/replay/replay_runtime_bootstrap.cpp",
     "build_support/exact/game/title/name_entry.cpp",
-    "build_support/exact/game/title/replay_menu_runtime.cpp",
     "build_support/exact/game/title/title_menu_runtime.cpp",
     "build_support/exact/game/title/ui_final_runtime.cpp",
     "build_support/exact/script/sptcmd/ecl_core_interpreter.cpp",
     "build_support/exact/script/sptcmd/ecl_vm_start_child_retail.cpp",
     "build_support/exact/script/sptlib/ecl_name_table.cpp",
-    "build_support/exact/unreferenced/FUN.cpp",
     "lib/libc.lib/build/intel/st_obj/a_cmp.obj",
     "lib/libc.lib/build/intel/st_obj/getqloc.obj",
     "lib/libc.lib/build/intel/st_obj/setlocal.obj",
@@ -60552,6 +60635,8 @@
     "lib/libcpmt.lib/build/intel/mt_obj/cerr.obj",
     "lib/libcpmt.lib/build/intel/mt_obj/ios.obj",
     "lib/libcpmt.lib/build/intel/mt_obj/string.obj",
+    "src/game/pause/result_rows.cpp",
+    "src/game/title/replay_save_update.cpp",
     "src/static_init/archive_array_exit.cpp",
     "src/static_init/archive_array_init.cpp",
     "src/static_init/archive_exit.cpp",
@@ -62339,7 +62424,13 @@
     "src/core/main/game_main.cpp",
     "src/game/player/familiar_refresh.cpp",
     "src/core/midilib/midi_tick.cpp",
-    "src/game/enemy/enemy_data_start.cpp"
+    "src/game/enemy/enemy_data_start.cpp",
+    "src/game/game/manager_teardown.cpp",
+    "src/game/bullet/projectile_point_count.cpp",
+    "src/game/hint/hint_save.cpp",
+    "src/game/front/front_script_tick_unit.cpp",
+    "src/core/main/font_atlas_draw_text.cpp",
+    "src/game/pause/replay_submenu_update.cpp"
   ],
   "notes": [
     "Every executable body is compiled from C++; unported bodies use MSVC inline assembly.",
@@ -63165,6 +63256,7 @@
     "build_support/layout/ltcg/ecl_tick_children.json",
     "build_support/layout/ltcg/embedded_child_lookup.json",
     "build_support/layout/ltcg/script_change.json",
+    "build_support/layout/ltcg/animation_change_script_0043e8b0.json",
     "build_support/layout/ltcg/animation_array_tick.json",
     "build_support/layout/ltcg/script_table_sweep.json",
     "build_support/layout/ltcg/indexed_flags.json",
@@ -63332,7 +63424,16 @@
     "build_support/layout/ltcg/game_main.json",
     "build_support/layout/ltcg/familiar_refresh_00426f70.json",
     "build_support/layout/ltcg/midi_tick_0043af30.json",
-    "build_support/layout/ltcg/enemy_data_start_0040dc80.json"
+    "build_support/layout/ltcg/enemy_data_start_0040dc80.json",
+    "build_support/layout/ltcg/result_rows.json",
+    "build_support/layout/ltcg/replay_save_update.json",
+    "build_support/layout/ltcg/manager_state_release.json",
+    "build_support/layout/ltcg/projectile_point_count_004084a0.json",
+    "build_support/layout/ltcg/hint_save_0041a200.json",
+    "build_support/layout/ltcg/front_script_tick_00415e90.json",
+    "build_support/layout/ltcg/font_atlas_draw_text_00437fe0.json",
+    "build_support/layout/ltcg/replay_submenu_004236f0.json",
+    "build_support/layout/ltcg/player_reset_block_initialize_004247f0.json"
   ],
   "coff_aliases": {
     "lib/libcmt.lib/build/intel/mt_obj/exsup3.obj": {
@@ -64338,20 +64439,8 @@
       "layout": "build_support/layout/equivalent/camera_shake.json"
     },
     {
-      "region": "asm_AnimationObject_ChangeScript_0043e8b0",
-      "layout": "build_support/layout/equivalent/animation_change_script.json"
-    },
-    {
-      "region": "asm_FUN_00437fe0_00437fe0",
-      "layout": "build_support/layout/equivalent/font_atlas_draw_text.json"
-    },
-    {
       "region": "asm_FUN_0041eb00_0041eb00",
       "layout": "build_support/layout/equivalent/laser_rectangle_split.json"
-    },
-    {
-      "region": "asm_FUN_004084a0_004084a0",
-      "layout": "build_support/layout/equivalent/projectile_point_count.json"
     },
     {
       "region": "asm_FUN_00436da0_00436da0",
@@ -64360,10 +64449,6 @@
     {
       "region": "asm_FUN_00450220_00450220",
       "layout": "build_support/layout/equivalent/ecl_name_table.json"
-    },
-    {
-      "region": "asm_FUN_00433570_00433570",
-      "layout": "build_support/layout/equivalent/replay_save_update.json"
     },
     {
       "region": "asm_FUN_00432cb0_00432cb0",
@@ -64386,16 +64471,8 @@
       "layout": "build_support/layout/equivalent/laser_circle_trim.json"
     },
     {
-      "region": "asm_FUN_004247f0_004247f0",
-      "layout": "build_support/layout/equivalent/player_reset_block_initialize.json"
-    },
-    {
       "region": "asm_FUN_0041afd0_0041afd0",
       "layout": "build_support/layout/equivalent/item_update.json"
-    },
-    {
-      "region": "asm_FUN_00422660_00422660",
-      "layout": "build_support/layout/equivalent/result_rows.json"
     },
     {
       "region": "asm_FUN_00428f60_00428f60",
@@ -64406,20 +64483,8 @@
       "layout": "build_support/layout/equivalent/anm_texture_fill_transparent.json"
     },
     {
-      "region": "asm_FUN_00417c80_00417c80",
-      "layout": "build_support/layout/equivalent/manager_teardown.json"
-    },
-    {
       "region": "asm_FUN_00429b60_00429b60",
       "layout": "build_support/layout/equivalent/replay_save.json"
-    },
-    {
-      "region": "asm_FUN_004236f0_004236f0",
-      "layout": "build_support/layout/equivalent/replay_submenu.json"
-    },
-    {
-      "region": "asm_FUN_0041a200_0041a200",
-      "layout": "build_support/layout/equivalent/hint_save.json"
     },
     {
       "region": "asm_EclVm_StartChildRetail_0044df70",
@@ -64432,10 +64497,6 @@
     {
       "region": "asm_FUN_0040bd80_0040bd80",
       "layout": "build_support/layout/equivalent/recovery_script_executor.json"
-    },
-    {
-      "region": "asm_FUN_00415e90_00415e90",
-      "layout": "build_support/layout/equivalent/front_script_tick.json"
     },
     {
       "region": "asm_FUN_00414900_00414900",

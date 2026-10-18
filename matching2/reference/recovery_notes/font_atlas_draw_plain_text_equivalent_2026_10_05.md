@@ -90,3 +90,95 @@ failing region), which needs its own tracing session; no source spelling was
 tried this pass to avoid disturbing the four reviewed non-register hunks.
 
 Region stays equivalent (328 differing bytes).
+
+## 2026-10-18: byte-exact — the link context was the register contest
+
+All 509 bytes match; `equivalence.py` reports `differences: []`,
+`not_equivalent: []`, `base_index_order: 0`, `frame_offset: 0`. The model
+source is unchanged from 2026-10-05. The lever is the build context.
+
+`msvc-ltcg-direct-caller-changes-codegen` records that a function measured as
+the rig's `entry_symbol` is compiled as if reached only by address, that an
+internal function with a direct caller loads its stack parameters in the entry
+block, and that "priorities shift by a few points when the context changes, so
+re-check register contests after the switch". A Spillcosts/ChoosePhysReg trace
+of the parked model put `size` at priority 66 and the `SelectObject` import
+pointer at 73. The import pointer is therefore placed first and takes EBP: the
+shared zero immediate is a single-register rival on EBX (its early piece is the
+strlen loop's byte compare) and repels that register with 100*f40. `size` is
+then forced to EBX and the whole substitution table in the 2026-10-17 section
+follows. Retail's layout is the opposite placement: `size` first, taking EBP,
+the import pointer forced to EBX, `previous` finding no register and landing in
+the dead size-argument slot, and the surface output moving to the dead colour
+slot. Forcing the import pointer to EBX at its ChoosePhysReg decision
+(diagnostic only, never selected by the build) reproduced retail's layout for
+the entire function, which named the target exactly.
+
+The fix is `build_support/contexts/equivalent/font_atlas_draw_text_context.cpp`,
+a forwarding stub that calls `FontAtlas_DrawPlainText` directly, listed in the
+layout's `context_sources` with `entry_symbol` `_FontAtlasDrawTextContext@24`
+(the checker locates the region through `function`, so the link entry is free
+to be the context, as in the midi tick cluster). With a direct caller the body
+compiles as an internal function and the priorities move as the rule predicts.
+
+Ruled out, byte-gated on the 328-byte baseline and the 28-byte intermediate
+that the volatile probe produced:
+
+- `void* volatile previous`, `*(void**)&size` slot aliasing and address-taken
+  `previous`: forcing `previous` to memory clears 300 of 328 bytes and leaves
+  only the size/import-pointer pair swapped; the qualifier is not needed once
+  the context is right.
+- Clamp spellings (ternary, separate clamped local, `<= 16`, `< 18`, the
+  sibling's volatile reload, a `__forceinline` clamp helper): 318/328/329
+  differing bytes or no movement; the compare/def form is canonical.
+- The expression-written-twice and named-local families (`size + size`, hoisted
+  `size * 2`, counts restated at the call sites, named colour/x/length locals,
+  two locals read from the same member): each folds back to the same IR.
+- Zero-immediate type splits (`(char)0`, `0L`, `0u` at the TextOutA y, at the
+  source-rect stores and at the D3DX arguments): constants canonicalise.
+- `__forceinline` helper wraps around the restores, the SelectObject trio and
+  the size arithmetic, in both parameter orders: pure-computation helpers fold
+  away and the SelectObject wrappers regress to 153 differing bytes.
+- Address-taken size/font/length, `CopyAtlasToTexture` parameter reordering,
+  row_count/bottom hoisting and the ternary font chain: no movement.
+
+# 2026-10-18: promoted to an exact recovery (LTCG cluster)
+
+The equivalent recovery is replaced by the native-LTCG cluster
+`build_support/layout/ltcg/font_atlas_draw_text_00437fe0.json`. The model
+source is unchanged; the cluster keeps the direct-caller context edge that
+closed the register contest (the 2026-10-18 section above), now as the
+cluster's compiler context: `build_support/layout/ltcg/font_atlas_draw_text_00437fe0_context.cpp`
+includes the model source and calls `FontAtlas_DrawPlainText` directly from
+`_FontAtlasDrawTextContext@24` in `.text$03context`, so the native /LTCG link
+compiles the body as an internal function with a direct caller and the
+Spillcosts priorities stay where retail's are.
+
+Cluster facts (measured from the native `cluster.map`, `native-*` run):
+
+| contribution | section | address | bytes |
+| --- | --- | --- | --- |
+| `FillRgb444` (anchor, compiled through the model's `resource_file.cpp` include) | `.text$01accessor` | 0x00436CA0 | 72 |
+| `FontAtlas_DrawPlainText` (selected) | `.text$02text` | 0x00437FE0 | 509 |
+| `_FontAtlasDrawTextContext@24` (compiler context, not selected) | `.text$03context` | 0x004381E0 | 42 |
+
+Zero-filled gaps `.text$00before` (0x35CA0), `.text$01accessorz` (0x12F8) and
+`.text$02textz` (3) absorb the space and the COMDAT alignment slack; the
+context's first declared size (48) was corrected to its measured 42. The
+`FillRgb444` anchor exists so the modelled call bakes the retail displacement;
+its established unit `src/core/main/resource_file.cpp` stays intact
+(`included_sources`). The absolute symbols bind the import thunks, the atlas
+globals, `InvertAlpha`, `FontAtlas_Convert` and `D3DXLoadSurfaceFromMemory` at
+their retail addresses, as in the equivalent layout.
+
+regions.json cutover: the region record becomes
+`semantic_FontAtlas_DrawPlainText_00437fe0` (previous_record kept), the model
+source joins `translation_units`, the asm owner
+`build_support/exact/core/main/fun.cpp` is deleted (it owned only this
+region), the equivalent_recoveries entry and the equivalent layout are gone,
+and the cluster is registered in `ltcg_clusters`.
+
+Gates: `probe.py --source src/core/main/font_atlas_draw_text.cpp` reports
+EXACT for the 509-byte body; `test_ltcg_cluster.py` (60) and
+`test_equivalence.py` (27) pass; the full `build_msvc.py` run requires the
+linked `.text` to match retail's SHA-256.

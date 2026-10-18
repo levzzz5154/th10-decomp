@@ -164,7 +164,7 @@
   "base_index_order": 0,
   "differences": [
     {
-      "class": "code-shape",
+      "class": "evaluation-order",
       "offset": "0x25",
       "retail": [
         "mov DWORD PTR [esp+0x40],ecx",
@@ -195,7 +195,7 @@
       ]
     },
     {
-      "class": "register-choice",
+      "class": "stack-slot-order",
       "offset": "0x5b",
       "retail": [
         "mov DWORD PTR [esp+0x30],edx",
@@ -308,47 +308,43 @@
     },
     {
       "class": "code-shape",
-      "offset": "0x1b3",
+      "offset": "0x1ac",
       "retail": [
+        "movsx ebx,WORD PTR [esi+0x466]",
         "mov ecx,DWORD PTR ds:0x47781c"
       ],
       "model": [
         "mov edx,DWORD PTR ds:0x47781c",
+        "mov bx,WORD PTR [esi+0x466]",
         "mov eax,DWORD PTR [edx+0x458]"
       ]
     },
     {
-      "class": "evaluation-order",
+      "class": "code-shape",
       "offset": "0x1bf",
       "retail": [
-        "mov edi,DWORD PTR [ecx+0x458]"
+        "mov edi,DWORD PTR [ecx+0x458]",
+        "lea ebx,[ebx+ebx*1+0x11]"
       ],
-      "model": []
-    },
-    {
-      "class": "evaluation-order",
-      "offset": "0x1c9",
-      "retail": [],
       "model": [
         "mov DWORD PTR [esp+0x2c],eax"
       ]
     },
     {
-      "class": "register-choice",
+      "class": "evaluation-order",
       "offset": "0x1ce",
       "retail": [
         "mov edx,DWORD PTR [esp+0x18]"
       ],
-      "model": [
-        "mov ecx,DWORD PTR [esp+0x18]"
-      ]
+      "model": []
     },
     {
       "class": "evaluation-order",
-      "offset": "0x1d8",
+      "offset": "0x1d6",
       "retail": [],
       "model": [
-        "fadd DWORD PTR ds:0x470b4c"
+        "fadd DWORD PTR ds:0x470b4c",
+        "mov ecx,DWORD PTR [esp+0x18]"
       ]
     },
     {
@@ -361,19 +357,30 @@
     },
     {
       "class": "evaluation-order",
-      "offset": "0x1ef",
+      "offset": "0x1e9",
       "retail": [],
       "model": [
         "fstp DWORD PTR [esi+0x340]",
-        "mov DWORD PTR [esi+0x348],ecx",
-        "fld DWORD PTR [esp+0x14]",
-        "mov ecx,DWORD PTR [esp+0x2c]",
+        "fld DWORD PTR [esp+0x14]"
+      ]
+    },
+    {
+      "class": "code-shape",
+      "offset": "0x1ef",
+      "retail": [],
+      "model": [
         "fadd DWORD PTR ds:0x470b48",
+        "movsx edx,bx",
+        "movsx eax,bx",
+        "fstp DWORD PTR [esi+0x344]",
+        "mov DWORD PTR [esi+0x348],ecx",
+        "mov ecx,DWORD PTR [esp+0x2c]",
+        "lea ebx,[edx+eax*1+0x11]",
         "mov eax,esi"
       ]
     },
     {
-      "class": "evaluation-order",
+      "class": "code-shape",
       "offset": "0x1f6",
       "retail": [
         "fstp DWORD PTR [esi+0x340]",
@@ -381,12 +388,13 @@
         "fld DWORD PTR [esp+0x14]",
         "mov ecx,edi",
         "fadd DWORD PTR ds:0x470b48",
-        "mov DWORD PTR [esi+0x348],edx"
+        "mov DWORD PTR [esi+0x348],edx",
+        "fstp DWORD PTR [esi+0x344]"
       ],
       "model": []
     },
     {
-      "class": "evaluation-order",
+      "class": "register-choice",
       "offset": "0x22c",
       "retail": [
         "mov edx,DWORD PTR [esp+0x2c]"
@@ -394,7 +402,7 @@
       "model": []
     },
     {
-      "class": "code-shape",
+      "class": "operand-order",
       "offset": "0x234",
       "retail": [
         "fld DWORD PTR [esp+0x10]",
@@ -421,12 +429,26 @@
       ]
     },
     {
-      "class": "evaluation-order",
-      "offset": "0x289",
-      "retail": [],
+      "class": "code-shape",
+      "offset": "0x283",
+      "retail": [
+        "mov eax,DWORD PTR [esp+0x28]",
+        "test eax,eax"
+      ],
       "model": [
+        "mov ecx,DWORD PTR [esp+0x28]",
+        "xor eax,eax",
+        "cmp ecx,eax",
         "mov DWORD PTR [esp+0x2c],edi"
       ]
+    },
+    {
+      "class": "code-shape",
+      "offset": "0x28f",
+      "retail": [
+        "xor eax,eax"
+      ],
+      "model": []
     },
     {
       "class": "register-choice",
@@ -442,9 +464,12 @@
       "class": "code-shape",
       "offset": "0x297",
       "retail": [
-        "jmp L+0x2a0"
+        "jmp L+0x2a0",
+        "lea esp,[esp+0x0]"
       ],
-      "model": []
+      "model": [
+        "nop"
+      ]
     },
     {
       "class": "register-choice",
@@ -547,18 +572,6 @@
       ]
     },
     {
-      "class": "code-shape",
-      "offset": "0x39e",
-      "retail": [
-        "fld DWORD PTR [esp+0x24]",
-        "fmul st,st(2)"
-      ],
-      "model": [
-        "fld st(1)",
-        "fmul DWORD PTR [esp+0x24]"
-      ]
-    },
-    {
       "class": "register-choice",
       "offset": "0x3bc",
       "retail": [
@@ -567,9 +580,9 @@
         "mov eax,DWORD PTR [esi+0x3c]"
       ],
       "model": [
-        "mov edx,DWORD PTR [esp+0x34]",
-        "mov DWORD PTR [esp+0x54],edx",
-        "mov edx,DWORD PTR [esi+0x3c]"
+        "mov ecx,DWORD PTR [esp+0x34]",
+        "mov DWORD PTR [esp+0x54],ecx",
+        "mov ecx,DWORD PTR [esi+0x3c]"
       ]
     },
     {
@@ -579,7 +592,7 @@
         "mov DWORD PTR [esp+0x60],eax"
       ],
       "model": [
-        "mov DWORD PTR [esp+0x60],edx"
+        "mov DWORD PTR [esp+0x60],ecx"
       ]
     },
     {
@@ -590,8 +603,8 @@
         "mov WORD PTR [esp+0x7a],ax"
       ],
       "model": [
-        "mov dx,WORD PTR [esi+0x466]",
-        "mov WORD PTR [esp+0x7a],dx"
+        "mov cx,WORD PTR [esi+0x466]",
+        "mov WORD PTR [esp+0x7a],cx"
       ]
     },
     {
@@ -601,7 +614,7 @@
         "mov ecx,DWORD PTR [esp+0x38]"
       ],
       "model": [
-        "mov eax,DWORD PTR [esp+0x38]"
+        "mov edx,DWORD PTR [esp+0x38]"
       ]
     },
     {
@@ -611,7 +624,7 @@
         "mov DWORD PTR [esp+0x58],ecx"
       ],
       "model": [
-        "mov DWORD PTR [esp+0x58],eax"
+        "mov DWORD PTR [esp+0x58],edx"
       ]
     },
     {
@@ -622,8 +635,8 @@
         "mov DWORD PTR [esp+0x70],ecx"
       ],
       "model": [
-        "mov eax,DWORD PTR [esi+0x44]",
-        "mov DWORD PTR [esp+0x70],eax"
+        "mov edx,DWORD PTR [esi+0x44]",
+        "mov DWORD PTR [esp+0x70],edx"
       ]
     },
     {
@@ -634,8 +647,8 @@
         "mov DWORD PTR [esp+0x5c],edx"
       ],
       "model": [
-        "mov ecx,DWORD PTR [esp+0x3c]",
-        "mov DWORD PTR [esp+0x5c],ecx"
+        "mov eax,DWORD PTR [esp+0x3c]",
+        "mov DWORD PTR [esp+0x5c],eax"
       ]
     },
     {
@@ -646,8 +659,8 @@
         "mov WORD PTR [esp+0x78],dx"
       ],
       "model": [
-        "mov cx,WORD PTR [esi+0x464]",
-        "mov WORD PTR [esp+0x78],cx"
+        "mov ax,WORD PTR [esi+0x464]",
+        "mov WORD PTR [esp+0x78],ax"
       ]
     }
   ],

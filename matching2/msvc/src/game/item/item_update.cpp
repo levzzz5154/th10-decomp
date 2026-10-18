@@ -39,13 +39,14 @@ static __forceinline void IntegrateItem(ItemMotionY* motion) {
 
 // Express rejection tests, so unordered coordinates follow the same branch
 // as retail's x87 comparisons rather than failing a positive <= chain.
-static __forceinline bool OutsideItemBox(float point_x,float point_y,const PlayerBox& box) {
-    return box.min.x>point_x || box.min.y>point_y ||
-        box.max.x<point_x || box.max.y<point_y;
+static __forceinline bool OutsideItemBox(float min_x,float min_y,float max_x,float max_y,const PlayerBox& box) {
+    return box.min.x>min_x || box.min.y>min_y ||
+        box.max.x<max_x || box.max.y<max_y;
 }
 
 #pragma code_seg(".text$00update")
 extern "C" __declspec(noinline) int __stdcall ItemManager_UpdateItems(ItemSpawnManager* manager) {
+    ItemRunState& run=g_globals;
     const int idle=0;
     int convert_items=idle;
     manager->special_count=idle;
@@ -74,17 +75,8 @@ extern "C" __declspec(noinline) int __stdcall ItemManager_UpdateItems(ItemSpawnM
                 motion->state=3;
                 goto seek_player;
             }
-            // Keep the planar products through the additions, as retail's
-            // x87 path does; the Z displacement crosses a float store.
-            {
-                double dx=static_cast<double>(g_game_speed)*motion->velocity.x;
-                double dy=static_cast<double>(g_game_speed)*motion->velocity.y;
-                volatile float dz=g_game_speed*motion->velocity.z;
-                motion->position().x=static_cast<float>(motion->position().x+dx);
-                motion->position().y=static_cast<float>(motion->position().y+dy);
-                motion->position().z+=dz;
-            }
-            motion->velocity.y+=g_game_speed*flt_0_03;
+            IntegrateItem(motion);
+            motion->velocity.y+=flt_0_03*g_game_speed;
             if (motion->velocity.y>=flt_0) motion->velocity.x=0.0f;
             if (motion->velocity.y>flt_2) motion->velocity.y=2.0f;
             // Retail tests the stored binary32 position, after discarding
@@ -96,7 +88,7 @@ extern "C" __declspec(noinline) int __stdcall ItemManager_UpdateItems(ItemSpawnM
             }
         } else if (motion->state==2) {
             IntegrateItem(motion);
-            motion->velocity.y+=g_game_speed*flt_0_03;
+            motion->velocity.y+=flt_0_03*g_game_speed;
             if (motion->velocity.y>=flt_0) {
                 player=g_player;
                 motion->magnet_speed=player->shot_type->item_seek_speed;
@@ -111,8 +103,8 @@ extern "C" __declspec(noinline) int __stdcall ItemManager_UpdateItems(ItemSpawnM
             }
             player=g_player;
         } else if (motion->state==3) {
-            player=g_player;
         seek_player:
+            player=g_player;
             float dx=player->position.x-motion->position().x;
             float dy=player->position.y-motion->position_y;
             float angle;
@@ -120,7 +112,10 @@ extern "C" __declspec(noinline) int __stdcall ItemManager_UpdateItems(ItemSpawnM
             else angle=static_cast<float>(atan2(static_cast<double>(dy),static_cast<double>(dx)));
             motion->velocity.SetPolar(angle,motion->magnet_speed);
             IntegrateItem(motion);
-            if (motion->magnet_speed<flt_12) motion->magnet_speed+=flt_0_2;
+            if (motion->magnet_speed<flt_12) {
+                float speed=motion->magnet_speed;
+                motion->magnet_speed=speed+flt_0_2;
+            }
             if (player->state==4) {
                 motion->state=seeking;
                 motion->velocity.x=0.0f;
@@ -130,7 +125,10 @@ extern "C" __declspec(noinline) int __stdcall ItemManager_UpdateItems(ItemSpawnM
             Player* target=g_player;
             motion->velocity.SetPolar(target->AngleFromPoint(&motion->position().x),motion->magnet_speed);
             IntegrateItem(motion);
-            if (motion->magnet_speed<flt_12) motion->magnet_speed+=flt_0_2;
+            if (motion->magnet_speed<flt_12) {
+                float speed=motion->magnet_speed;
+                motion->magnet_speed=speed+flt_0_2;
+            }
             int player_state=target->state;
             player=g_player;
             if (player_state==4) {
@@ -143,7 +141,14 @@ extern "C" __declspec(noinline) int __stdcall ItemManager_UpdateItems(ItemSpawnM
         }
 
         if (player->state!=2) {
-            if (!OutsideItemBox(motion->position().x,motion->position().y,player->item_collect_box)) {
+            Vector3 min_point;
+            Vector3 max_point;
+            min_point.x=motion->position_x();
+            min_point.y=motion->position_y;
+            max_point.x=motion->position_x();
+            max_point.y=motion->position_y;
+            Vector3* point=&motion->position();
+            if (!OutsideItemBox(min_point.x,min_point.y,max_point.x,max_point.y,player->item_collect_box)) {
                 switch (motion->kind) {
                 case 1: case 10: {
                     int changed=g_globals.AddPower(1);
@@ -151,41 +156,42 @@ extern "C" __declspec(noinline) int __stdcall ItemManager_UpdateItems(ItemSpawnM
                     g_front->SetPowerDigits(power/20,(power%20)*100/20);
                     if (changed) {
                         Player_RefreshOptions(g_player);
-                        g_smoll_score->Spawn(-1,&motion->position(),0xFFFFFF40u);
-                        g_sound_manager.QueuePan(29,motion->position().x);
+                        g_smoll_score->Spawn(-1,point,0xFFFFFF40u);
+                        g_sound_manager.QueuePan(29,point->x);
                         if (g_globals.power>=100) convert_items=1;
                         g_globals.AdjustPower(12);
                     } else {
-                        g_smoll_score->Spawn(g_globals.power/2,&motion->position(),0xFFFF4040u);
+                        g_smoll_score->Spawn(g_globals.power/2,point,0xFFFF4040u);
                     }
-                    g_globals.AdvanceGaugeTimer(60);
+                    run.AdvanceGaugeTimer(60);
                     break;
                 }
                 case 2: {
+                    int gauge=g_globals.gauge;
                     int value, adjustment;
                     if (player->position.y<flt_144) {
-                        value=g_globals.gauge*10;
+                        value=gauge*10;
                         value-=value%10;
-                        g_smoll_score->Spawn(value,&motion->position(),0xFFFFFF00u);
+                        g_smoll_score->Spawn(value,point,0xFFFFFF00u);
                         adjustment=8;
                     } else {
-                        int penalty=static_cast<int>((player->position.y-flt_144)*flt_0_003289474*
-                            (g_globals.gauge*0.5f-flt_5000));
-                        value=g_globals.gauge*10/2-penalty;
+                        float scaled=(player->position.y-flt_144)*flt_0_003289474;
+                        int penalty=static_cast<int>(scaled*(g_globals.gauge*0.5f-flt_5000));
+                        value=gauge*10/2-penalty;
                         value-=value%10;
-                        g_smoll_score->Spawn(value,&motion->position(),0xFFFFFFFFu);
+                        g_smoll_score->Spawn(value,point,0xFFFFFFFFu);
                         adjustment=1;
                     }
                     g_globals.AdjustPower(adjustment);
-                    g_globals.AddScore(value);
+                    run.AddScore(value);
                     g_globals.AdvanceGaugeTimer(100);
                     break;
                 }
                 case 5: {
                     int value=g_globals.gauge*10;
-                    g_smoll_score->Spawn(value,&motion->position(),0xFFFFFF00u);
+                    g_smoll_score->Spawn(value,point,0xFFFFFF00u);
                     g_globals.AdjustPower(8);
-                    g_globals.AddScore(value);
+                    run.AddScore(value);
                     g_globals.AdvanceGaugeTimer(100);
                     break;
                 }
@@ -196,20 +202,20 @@ extern "C" __declspec(noinline) int __stdcall ItemManager_UpdateItems(ItemSpawnM
                     case 2: value=8000; break;
                     case 3: case 4: value=10000; break;
                     }
-                    g_smoll_score->Spawn(value,&motion->position(),0xFF00FF00u);
+                    g_smoll_score->Spawn(value,point,0xFF00FF00u);
                     g_globals.AddGauge(value);
-                    g_globals.AdvanceGaugeTimer(120);
+                    run.AdvanceGaugeTimer(120);
                     break;
                 }
                 case 8:
                     g_globals.AddGauge(10);
-                    g_globals.AdvanceGaugeTimer(3);
-                    g_globals.AddScore(10);
+                    run.AdvanceGaugeTimer(3);
+                    run.AddScore(10);
                     break;
                 case 9:
-                    g_smoll_score->Spawn(100,&motion->position(),0xFF00FF00u);
+                    g_smoll_score->Spawn(100,point,0xFF00FF00u);
                     g_globals.AddGauge(100);
-                    g_globals.AdvanceGaugeTimer(60);
+                    run.AdvanceGaugeTimer(60);
                     break;
                 case 4: case 11: {
                     int changed=g_globals.AddPower(20);
@@ -217,14 +223,14 @@ extern "C" __declspec(noinline) int __stdcall ItemManager_UpdateItems(ItemSpawnM
                     g_front->SetPowerDigits(power/20,(power%20)*100/20);
                     if (changed) {
                         Player_RefreshOptions(g_player);
-                        g_sound_manager.QueuePan(29,motion->position().x);
-                        g_smoll_score->Spawn(-1,&motion->position(),0xFFFFFF40u);
+                        g_sound_manager.QueuePan(29,point->x);
+                        g_smoll_score->Spawn(-1,point,0xFFFFFF40u);
                         g_globals.AdjustPower(24);
                         if (g_globals.power>=100) convert_items=1;
                     } else {
-                        g_smoll_score->Spawn(g_globals.power/2,&motion->position(),0xFFFF4040u);
+                        g_smoll_score->Spawn(g_globals.power/2,point,0xFFFF4040u);
                     }
-                    g_globals.AdvanceGaugeTimer(20);
+                    run.AdvanceGaugeTimer(20);
                     break;
                 }
                 case 7:
@@ -238,8 +244,9 @@ extern "C" __declspec(noinline) int __stdcall ItemManager_UpdateItems(ItemSpawnM
             }
             if (motion->state!=4 && motion->state!=3) {
                 unsigned int focused=g_input&4;
-                bool magnet=(focused && !OutsideItemBox(motion->position().x,motion->position().y,player->focused_item_attract_box)) ||
-                    (!focused && !OutsideItemBox(motion->position().x,motion->position().y,player->item_attract_box));
+                short focused2=focused;
+                bool magnet=(focused && !OutsideItemBox(min_point.x,min_point.y,max_point.x,max_point.y,player->focused_item_attract_box)) ||
+                    (!focused2 && !OutsideItemBox(min_point.x,min_point.y,max_point.x,max_point.y,player->item_attract_box));
                 if (magnet) {
                     motion->state=4;
                     motion->magnet_speed=player->shot_type->item_seek_speed*flt_0_33333334;

@@ -14,10 +14,9 @@
 // dispatcher and the real bodies of its leaves
 // (build_support/layout/ltcg/difficulty_select_update.json).
 //
-// Equivalent recovery: the two inlined name copies encode [diff+walk] where
-// retail has [walk+diff].  The order follows compiler symbol numbers the
-// image does not record (reference/recovery_notes/
-// replay_save_update_00433570_equivalent_2026_10_11.md).
+// Byte-exact native LTCG recovery. Named menu predicates preserve the
+// compiler symbol ordering used by both inlined name copies; see
+// reference/recovery_notes/replay_save_update_00433570_exact_2026_10_17.md.
 #include "th10/game/replay_save_update.hpp"
 
 // Select an item, clamped to the last one when the menu has items.
@@ -46,18 +45,24 @@ __declspec(noinline) int __stdcall TitleMode16(Title* room) {
         }
         RecoveryMusicInstallSlot(room, 105);
         room->SetTimerTarget(1);
-    case 1:
-        if (room->timer.current > 6)
+    case 1: {
+        const bool opening_delay_done = (room->timer.current > 6);
+        if (opening_delay_done)
             room->SetTimerTarget(2);
         break;
+    }
     case 2: {
         MenuCursor* cursor = &room->cursor;
         cursor->previous_selection = cursor->selection;
-        if ((short)g_input_keys_raw.InputMaskActive(0x10)) cursor->Advance(-1);
-        if ((short)g_input_keys_raw.InputMaskActive(0x20)) cursor->Advance(1);
-        if (cursor->previous_selection != cursor->selection)
+        const bool slot_up = ((short)g_input_keys_raw.InputMaskActive(0x10));
+        if (slot_up) cursor->Advance(-1);
+        const bool slot_down = ((short)g_input_keys_raw.InputMaskActive(0x20));
+        if (slot_down) cursor->Advance(1);
+        const bool slot_changed = (cursor->previous_selection != cursor->selection);
+        if (slot_changed)
             g_sound_manager.Queue(12, 0);
-        if (g_input_keys_held & 0xa) {
+        const bool cancel_slot = (g_input_keys_held & 0xa);
+        if (cancel_slot) {
             room->SetTimerTarget(4);
             g_sound_manager.Queue(11, 0);
         } else if (g_input_keys_held & 0x1001) {
@@ -71,11 +76,13 @@ __declspec(noinline) int __stdcall TitleMode16(Title* room) {
             (*header)->stage = 8;
             strcpy(save->name, g_score->last_name);
             save->name_length = 0;
-            if (strcmp(save->name, "        ") != 0)
+            const bool has_previous_name = (strcmp(save->name, "        ") != 0);
+            if (has_previous_name)
                 grid->Advance(-1);
             int length;
             for (length = 8; length > 0; --length) {
-                if (save->name[length - 1] != ' ')
+                const bool has_name_character = (save->name[length - 1] != ' ');
+                if (has_name_character)
                     break;
             }
             save->name_length = length;
@@ -87,27 +94,36 @@ __declspec(noinline) int __stdcall TitleMode16(Title* room) {
     case 3: {
         MenuCursor* grid = &save->grid;
         grid->previous_selection = grid->selection;
-        if ((short)g_input_keys_raw.InputMaskActive(0x10)) grid->Advance(-13);
-        if ((short)g_input_keys_raw.InputMaskActive(0x20)) grid->Advance(13);
-        if ((short)g_input_keys_raw.InputMaskActive(0x40)) {
-            if (grid->selection % 13 != 0)
+        const bool grid_up = ((short)g_input_keys_raw.InputMaskActive(0x10));
+        if (grid_up) grid->Advance(-13);
+        const bool grid_down = ((short)g_input_keys_raw.InputMaskActive(0x20));
+        if (grid_down) grid->Advance(13);
+        const bool grid_left = ((short)g_input_keys_raw.InputMaskActive(0x40));
+        if (grid_left) {
+            const bool can_move_left = (grid->selection % 13 != 0);
+            if (can_move_left)
                 grid->Advance(-1);
             else
                 grid->Advance(12);
         }
-        if ((short)g_input_keys_raw.InputMaskActive(0x80)) {
-            if (grid->selection % 13 != 12)
+        const bool grid_right = ((short)g_input_keys_raw.InputMaskActive(0x80));
+        if (grid_right) {
+            const bool can_move_right = (grid->selection % 13 != 12);
+            if (can_move_right)
                 grid->Advance(1);
             else
                 grid->Advance(-12);
         }
-        if (grid->previous_selection != grid->selection)
+        const bool grid_changed = (grid->previous_selection != grid->selection);
+        if (grid_changed)
             g_sound_manager.Queue(12, 0);
-        if (g_input_keys_held & 0x1001) {
+        const bool confirm_character = (g_input_keys_held & 0x1001);
+        if (confirm_character) {
             const char* characters = g_name_entry_grid;
             int count = strlen(characters);
             int cell = grid->selection;
-            if (cell < count - 3) {
+            const bool is_character = (cell < count - 3);
+            if (is_character) {
                 if (save->name_length < 8) {
                     save->name[save->name_length] = characters[cell];
                     ++save->name_length;

@@ -1,197 +1,176 @@
 {
-  "schema_version": 1,
-  "name": "ecl_core_interpreter2",
-  "region": "asm_FUN_0044e1a0_0044e1a0",
-  "sources": [
-    "src/script/sptcmd/ecl_core_interpreter.cpp",
-    "src/script/sptcmd/ecl_core_interpreter_context.cpp"
-  ],
-  "entry_symbol": "_RigEntry@8",
-  "function": "?Run@EclVm@@QAEHM@Z",
-  "code_bytes": 6692,
-  "absolute_symbols": {
-    "_malloc": {
-      "address": "0x00452706",
-      "kind": "code"
-    },
-    "_free": {
-      "address": "0x00452422",
-      "kind": "code"
-    },
-    "_strchr": {
-      "address": "0x00452730",
-      "kind": "code"
-    },
-    "__ftol2": {
-      "address": "0x00463B2C",
-      "kind": "code"
-    },
-    "?SetPolar@EclPolar@@QAEPAU1@MM@Z": {
-      "address": "0x004501B0",
-      "kind": "code"
-    },
-    "?Angle_Normalize@@YGMM@Z": {
-      "address": "0x0044BC70",
-      "kind": "code"
-    },
-    "?Resolve@ScriptTable@@QAEHPBD@Z": {
-      "address": "0x00450470",
-      "kind": "code"
-    },
-    "_operator_new_child": {
-      "address": "0x00452493",
-      "kind": "code"
-    },
-    "__fltused": {
-      "address": "0x00009876",
-      "kind": "data"
-    }
+ "schema_version": 1,
+ "name": "ecl_core_interpreter2",
+ "region": "asm_FUN_0044e1a0_0044e1a0",
+ "sources": [
+  "src/script/sptcmd/ecl_core_interpreter.cpp",
+  "src/script/sptcmd/ecl_core_interpreter_context.cpp"
+ ],
+ "entry_symbol": "_RigEntry@8",
+ "function": "?Run@EclVm@@QAEHM@Z",
+ "code_bytes": 6692,
+ "absolute_symbols": {
+  "_malloc": {
+   "address": "0x00452706",
+   "kind": "code"
   },
-  "bindings": {
-    "?Pop@EclStack@@QAEHXZ": "0x004506D0",
-    "?Push@EclStack@@QAEHH@Z": "0x00450690",
-    "?Write@EclStack@@QAEHDIPBX@Z": "0x004505B0",
-    "?FindVariable@EclOwner@@QAEPAUEclNode@@H@Z": "0x00450160",
-    "?ResetVariableBindings@EclOwner@@QAEXXZ": "0x00450190",
-    "?IntDest@EclVm@@QAEPAHH@Z": "0x00450030",
-    "?FloatDest@EclVm@@QAEPAMH@Z": "0x00450070",
-    "?FloatOperand@EclVm@@QAEMH@Z": "0x0044FE40",
-    "?FloatValue@EclVm@@SGMHPAU1@M@Z": "0x0044FF80",
-    "?IntOperand@EclVm@@QAEHH@Z": "0x0044FDB0",
-    "?IntValue@EclVm@@QAEHHH@Z": "0x0044FF00",
-    "?Start@EclVm@@QAEHRAU1@H@Z": "0x0044DF70",
-    "?SpawnChild@EclOwner@@QAEHHH@Z": "0x004500D0",
-    "__real@00000000": "0x00470B04",
-    "_flt_0": "0x00470B04",
-    "_flt_neg1": "0x00470B60"
+  "_free": {
+   "address": "0x00452422",
+   "kind": "code"
   },
-  "base_index_order": 96,
-  "differences": [
-    {
-      "class": "stack-slot-order",
-      "offset": "0x403",
-      "retail": [
-        "mov DWORD PTR [esp+0x20],ecx"
-      ],
-      "model": [
-        "mov DWORD PTR [esp+0x24],ecx"
-      ]
-    },
-    {
-      "class": "stack-slot-order",
-      "offset": "0x413",
-      "retail": [
-        "fld DWORD PTR [esp+0x20]"
-      ],
-      "model": [
-        "fld DWORD PTR [esp+0x24]"
-      ]
-    },
-    {
-      "class": "stack-slot-order",
-      "offset": "0x41c",
-      "retail": [
-        "mov DWORD PTR [esp+0x20],eax"
-      ],
-      "model": [
-        "mov DWORD PTR [esp+0x24],eax"
-      ]
-    },
-    {
-      "class": "stack-slot-order",
-      "offset": "0x427",
-      "retail": [
-        "mov ebx,DWORD PTR [esp+0x20]",
-        "lea eax,[esp+0x20]"
-      ],
-      "model": [
-        "mov ebx,DWORD PTR [esp+0x24]",
-        "lea eax,[esp+0x24]"
-      ]
-    },
-    {
-      "class": "stack-slot-order",
-      "offset": "0x438",
-      "retail": [
-        "mov DWORD PTR [esp+0x28],ebx"
-      ],
-      "model": [
-        "mov DWORD PTR [esp+0x2c],ebx"
-      ]
-    },
-    {
-      "class": "stack-slot-order",
-      "offset": "0x4a2",
-      "retail": [
-        "mov DWORD PTR [esp+0x24],edx"
-      ],
-      "model": [
-        "mov DWORD PTR [esp+0x20],edx"
-      ]
-    },
-    {
-      "class": "stack-slot-order",
-      "offset": "0x4a8",
-      "retail": [
-        "fld DWORD PTR [esp+0x24]"
-      ],
-      "model": [
-        "fld DWORD PTR [esp+0x20]"
-      ]
-    },
-    {
-      "class": "stack-slot-order",
-      "offset": "0x4b1",
-      "retail": [
-        "mov DWORD PTR [esp+0x24],eax",
-        "mov ebx,DWORD PTR [esp+0x24]"
-      ],
-      "model": [
-        "mov DWORD PTR [esp+0x20],eax",
-        "mov ebx,DWORD PTR [esp+0x20]"
-      ]
-    },
-    {
-      "class": "stack-slot-order",
-      "offset": "0x4bd",
-      "retail": [
-        "lea ecx,[esp+0x24]"
-      ],
-      "model": [
-        "lea ecx,[esp+0x20]"
-      ]
-    },
-    {
-      "class": "stack-slot-order",
-      "offset": "0x4ca",
-      "retail": [
-        "mov DWORD PTR [esp+0x2c],ebx"
-      ],
-      "model": [
-        "mov DWORD PTR [esp+0x28],ebx"
-      ]
-    },
-    {
-      "class": "operand-order",
-      "offset": "0x1951",
-      "retail": [],
-      "model": [
-        "mov edx,DWORD PTR [esp+0x18]"
-      ]
-    },
-    {
-      "class": "operand-order",
-      "offset": "0x1954",
-      "retail": [
-        "mov edx,DWORD PTR [esp+0x18]",
-        "add edx,eax",
-        "mov dl,BYTE PTR [edx+ecx*1+0x14]"
-      ],
-      "model": [
-        "add edx,ecx",
-        "mov dl,BYTE PTR [edx+eax*1+0x14]"
-      ]
-    }
-  ],
-  "note": "reference/recovery_notes/ecl_core_interpreter_0044e1a0_2026_10_02.md"
+  "_strchr": {
+   "address": "0x00452730",
+   "kind": "code"
+  },
+  "__ftol2": {
+   "address": "0x00463B2C",
+   "kind": "code"
+  },
+  "?SetPolar@EclPolar@@QAEPAU1@MM@Z": {
+   "address": "0x004501B0",
+   "kind": "code"
+  },
+  "?Angle_Normalize@@YGMM@Z": {
+   "address": "0x0044BC70",
+   "kind": "code"
+  },
+  "?Resolve@ScriptTable@@QAEHPBD@Z": {
+   "address": "0x00450470",
+   "kind": "code"
+  },
+  "_operator_new_child": {
+   "address": "0x00452493",
+   "kind": "code"
+  },
+  "__fltused": {
+   "address": "0x00009876",
+   "kind": "data"
+  }
+ },
+ "bindings": {
+  "?Pop@EclStack@@QAEHXZ": "0x004506D0",
+  "?Push@EclStack@@QAEHH@Z": "0x00450690",
+  "?Write@EclStack@@QAEHDIPBX@Z": "0x004505B0",
+  "?FindVariable@EclOwner@@QAEPAUEclNode@@H@Z": "0x00450160",
+  "?ResetVariableBindings@EclOwner@@QAEXXZ": "0x00450190",
+  "?IntDest@EclVm@@QAEPAHH@Z": "0x00450030",
+  "?FloatDest@EclVm@@QAEPAMH@Z": "0x00450070",
+  "?FloatOperand@EclVm@@QAEMH@Z": "0x0044FE40",
+  "?FloatValue@EclVm@@SGMHPAU1@M@Z": "0x0044FF80",
+  "?IntOperand@EclVm@@QAEHH@Z": "0x0044FDB0",
+  "?IntValue@EclVm@@QAEHHH@Z": "0x0044FF00",
+  "?Start@EclVm@@QAEHRAU1@H@Z": "0x0044DF70",
+  "?SpawnChild@EclOwner@@QAEHHH@Z": "0x004500D0",
+  "__real@00000000": "0x00470B04",
+  "_flt_0": "0x00470B04",
+  "_flt_neg1": "0x00470B60"
+ },
+ "base_index_order": 9,
+ "differences": [
+  {
+   "class": "stack-slot-order",
+   "offset": "0x403",
+   "retail": [
+    "mov DWORD PTR [esp+0x20],ecx"
+   ],
+   "model": [
+    "mov DWORD PTR [esp+0x24],ecx"
+   ]
+  },
+  {
+   "class": "stack-slot-order",
+   "offset": "0x413",
+   "retail": [
+    "fld DWORD PTR [esp+0x20]"
+   ],
+   "model": [
+    "fld DWORD PTR [esp+0x24]"
+   ]
+  },
+  {
+   "class": "stack-slot-order",
+   "offset": "0x41c",
+   "retail": [
+    "mov DWORD PTR [esp+0x20],eax"
+   ],
+   "model": [
+    "mov DWORD PTR [esp+0x24],eax"
+   ]
+  },
+  {
+   "class": "stack-slot-order",
+   "offset": "0x427",
+   "retail": [
+    "mov ebx,DWORD PTR [esp+0x20]",
+    "lea eax,[esp+0x20]"
+   ],
+   "model": [
+    "mov ebx,DWORD PTR [esp+0x24]",
+    "lea eax,[esp+0x24]"
+   ]
+  },
+  {
+   "class": "stack-slot-order",
+   "offset": "0x438",
+   "retail": [
+    "mov DWORD PTR [esp+0x28],ebx"
+   ],
+   "model": [
+    "mov DWORD PTR [esp+0x2c],ebx"
+   ]
+  },
+  {
+   "class": "stack-slot-order",
+   "offset": "0x4a2",
+   "retail": [
+    "mov DWORD PTR [esp+0x24],edx"
+   ],
+   "model": [
+    "mov DWORD PTR [esp+0x20],edx"
+   ]
+  },
+  {
+   "class": "stack-slot-order",
+   "offset": "0x4a8",
+   "retail": [
+    "fld DWORD PTR [esp+0x24]"
+   ],
+   "model": [
+    "fld DWORD PTR [esp+0x20]"
+   ]
+  },
+  {
+   "class": "stack-slot-order",
+   "offset": "0x4b1",
+   "retail": [
+    "mov DWORD PTR [esp+0x24],eax",
+    "mov ebx,DWORD PTR [esp+0x24]"
+   ],
+   "model": [
+    "mov DWORD PTR [esp+0x20],eax",
+    "mov ebx,DWORD PTR [esp+0x20]"
+   ]
+  },
+  {
+   "class": "stack-slot-order",
+   "offset": "0x4bd",
+   "retail": [
+    "lea ecx,[esp+0x24]"
+   ],
+   "model": [
+    "lea ecx,[esp+0x20]"
+   ]
+  },
+  {
+   "class": "stack-slot-order",
+   "offset": "0x4ca",
+   "retail": [
+    "mov DWORD PTR [esp+0x2c],ebx"
+   ],
+   "model": [
+    "mov DWORD PTR [esp+0x28],ebx"
+   ]
+  }
+ ],
+ "note": "reference/recovery_notes/ecl_core_interpreter_0044e1a0_2026_10_02.md"
 }

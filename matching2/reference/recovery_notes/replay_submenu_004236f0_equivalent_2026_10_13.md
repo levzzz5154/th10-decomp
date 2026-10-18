@@ -127,3 +127,169 @@ decision `replay_runtime_bootstrap` re-confirmed this session as
 unsteerable from source spelling.
 
 Region stays equivalent (2088 differing bytes).
+
+## 2026-10-18: two real levers; base/index swap closed; 2088 -> 1686 differing bytes
+
+The single base/index swap was the state-C save column's second name copy
+(retail `mov BYTE PTR [edx+eax*1],cl`, base = the `dst-src` stride, against the
+model's `[eax+edx*1]`, base = the walking source pointer). It is now closed
+together with 400 more bytes by three source levers, none of them codegen
+tricks. The registered gate passes again: 3,252 of 3,260 bytes used, 769 of
+908 instructions identical (was 753), 0 base/index swaps (was 1), 0
+frame-offset, 139 instructions in 72 recorded differences (was 171 in 80);
+1,678 code bytes + 8 tail bytes differ (was 2,080 + 8).
+
+1. **Per-branch summary reference (state A confirm, `g_replay->summary`).**
+   The model bound `ReplayHeaderView*& summary` once before the branch, so c2
+   materialised `&g_replay->summary` before the field load and shared it across
+   both arms. Declaring the reference inside each arm reproduces retail's
+   per-arm shape: the folded `[esi+0x18]` load first, the `add esi,0x18`
+   materialisation after the call for the reload. Six recorded hunks around
+   0x447..0x48c close (-399 bytes) and the register allocation downstream
+   improves. This is the "named element pointer" observation of
+   `msvc-c2-operand-order-mechanism` from the other side: the named pointer
+   keeps the materialised order, the folded per-use form defers it.
+
+2. **Copy #1 of the save column spelled as a two-pointer walk.**
+   `strcpy(slot, state->name)` is strength-reduced by c2 into a walk+diff loop
+   (`[walk+diff]` store); retail's copy #1 is the plain `*d++ = *s++` walk.
+   Spelling it `while ((*dst_walk++ = *src_walk++)) {}` matches retail's loop
+   (identical instructions 760 -> 768). The indexed form
+   (`for ((slot[i] = name[i]) != 0)`) is even closer instruction-wise (767
+   identical, only 1,591 differing bytes) but grows the body to 3,264 bytes
+   against the 3,260-byte region: "a draft may be measured while it is still
+   too long; it cannot be built in". Kept as a measured draft only.
+
+3. **35 named menu predicates steer the symbol window.** The swap itself is
+   decided by `OptCmpHashVal` over the two address temporaries of the inlined
+   copy-#2 store (rule `msvc-c2-operand-order-mechanism`, the 0x00433570
+   `[walk + diff]` case). Naming existing menu conditions as used `bool`
+   locals at their original evaluation points (the `replay_save_update`
+   2026-10-17 recipe; case-level declarations wrapped in a scope so no case
+   label skips an initialisation) flips the comparison into retail's order.
+   Window measured over 48 candidate predicates: on this model the source-order
+   prefix 35..37, 40 and 44..48 give the retail order, 34 or fewer do not -
+   non-monotonic, as expected from the id wrap. Every predicate is
+   codegen-neutral alone: all 48 measured singly leave every byte unchanged.
+
+Ruled out with evidence (2026-10-18):
+
+- copy-#2 respellings (indexed, pointer, split while) on the per-branch base:
+  all +108 to +121 bytes; retail's copy #2 is the `strcpy` walk+diff shape and
+  only its base/index order was wrong.
+- naming the state-7 ranking-gate predicate (initialised or
+  declared-then-assigned): perturbs the stage/mode/subslot addressing chain,
+  +790 bytes and four new hunks. Every other predicate is byte-neutral alone.
+- `SubmenuCursor` held as a reference instead of a pointer local (cases 8-12,
+  rows and list): byte-identical, the ESI/EBX cursor-pointer contest does not
+  move with that spelling. The 34 remaining register-choice hunks
+  (scratch-register renames, the EBX `0x1`/`0xA` materialisations) stay, per
+  the HANDOFF table, unresponsive to symbol count; they need per-block
+  ChoosePhysReg work (`compiler_tracers/regalloc/`).
+- the `lea [eax+disp]` vs `add reg,disp` child-lookup id remains closed
+  (2026-10-17 review), not retried.
+
+Remaining (all 72 recorded in the layout, classes kept from the reviewed set):
+the state-B/C shared length-bump/clamp block placements and the state-C cancel
+region (block-order), the state-D `sub eax,0` + dec chain (code-shape), the
+strlen/selection load orders (evaluation-order), 34 register-choice renames
+and two alignment fillers. The 8 differing tail bytes are the state-D jump
+table: the model's pre-table code is 3,220 bytes against retail's 3,228, so
+the 8-entry table lands 8 bytes early and its last entries fall in the tail.
+Closing that needs eight bytes of code growth at source level; every naming
+set measured holds the extent constant at 3,252.
+
+## 2026-10-18: byte-exact — 908/908 instructions, 0 recorded differences
+
+Final spelling `final14` (sandbox /tmp/campaign/replay_menu): `variant.py`
+`final14  908/908  0  0  0  0  *EXACT*`; registered
+`equivalence.py --name replay_submenu`: `3,260 of 3,260 bytes used, 908 of 908
+instructions identical, 0 base/index swaps, 0 frame-offset, 0 instructions in 0
+recorded differences`, exit 0. Layout: `"differences": []`,
+`base_index_order: 0`, no `frame_shift`. Campaign total: 2,088 -> 0 differing
+code bytes (753 -> 908 identical instructions).
+
+**The lever that closed the last two hunks** (`lea ebx,[eax+0x7c]` vs
+`add ebx,0x7c` @0x22f and the `mov eax` vs `mov ebx` load @0x226): the
+second-assignment form of `msvc-c2-field-address-pointer-forwarding` — the
+child-lookup id is re-derived at its two live points:
+
+    int id = rows->selection;
+    state->background.FindChildRef(id + 0x7C).StopAtFrame6();
+    ... the setup calls ...
+    id = rows->selection;
+    switch (id) {
+
+A single-assignment `id` is forwarded into the add (one coalesced candidate:
+`mov ebx,[ebp+0x24]` + `add ebx,0x7c`); the second assignment stops the
+forwarding, `id` stays its own register candidate and the add materialises as
+retail's `lea ebx,[eax+0x7c]` from the EAX load. The switch re-derives the
+selection exactly as retail's second `[ebp+0x24]` load at 0x26e.
+
+Also measured exact on the same base (sweep of 20 spellings, `v_end1.py`): the
+same re-derivation with the two assignments before the use (`a2`), through two
+lvalues `rows->selection` / `state->rows.selection` (`a3`, `a3b`), with the
+second assignment immediately before the add (`a4`), and the constant-true
+re-read copy-block lever (`d1` `if ((base == base) ? true : true)`,
+`d2` `if ((base == rows->selection) ? true : true)`, `d3` the ternary as the
+Queue argument `(base == rows->selection) ? 10 : 10`) — all 908/908.
+
+**Ruled out on final13** (the closed-2026-10-17 verdict's four spellings stay
+dead, and the new mechanisms measure as follows):
+- forwarded single-assignment forms — named id, flipped operand order,
+  two-step `+=` accumulate, split constant `0x40+0x3C`, named `off` — the
+  folded class of the forwarding rule; all keep `add ebx,0x7c`;
+- scoped pointer ranges (b1: `rows` dying before the confirm block with folded
+  `state->rows.` uses, b2: add-only scoped pointer, b3: surviving add+switch
+  pointer): 906/908, the same 3 bytes;
+- receiver/base first-mentions (c1 statement-scope `SubHandle4* bg` = no move;
+  c2 early receiver = 842/908 / 2,732 bytes, the whole dispatch perturbs;
+  c3 base first-mention with three uses = 874/908 / 766 bytes);
+- conditional self-assignment `if (id != rows->selection) id = rows->selection;`
+  (7 hunks / 26 bytes) and the ternary-on-the-argument form `d4` (7 / 26) —
+  both emit the compare;
+- multi-use named reference `int& sel` (h4) and single-use (h5), self-compare
+  argument form `d5`: no move, the same 3 bytes.
+
+## 2026-10-18: promotion rehearsal — the region ships as a native-LTCG cluster
+
+Sandbox cutover (`/tmp/campaign/replay_menu`, `spec.json` +
+`adopt_promotion.py` + `regions_edit_spec.json`), reference artifacts
+`/tmp/campaign/{mgr_teardown,point_count,hint,front_tick,font_draw,anim_change}/`:
+
+- Cluster `build_support/layout/ltcg/replay_submenu_004236f0.json`
+  (schema 1): the model `src/game/pause/replay_submenu_update.cpp` selects
+  `_SubmenuUpdate@4` at 0x004236F0, complete contribution 3,260 bytes
+  (`.text$02h`, code 3,228 + the 32-byte state-D jump table). 18 ABI anchors
+  place the scoped private-ABI bodies at their retail addresses (their
+  compiled contributions equal the declared sizes exactly: 57/65/37/33/65/
+  28/89/65/18/123/73/65/67/67/70/66/47/128). Compiler context
+  `_ReplaySubmenuContext_004236f0@8` = a synthetic record-walking caller at
+  0x004243B0 (16-aligned, 39 bytes, measured from cluster.map after a 48-byte
+  first guess was rejected), never exported. The two pooled string literals
+  bind at their retail .rdata addresses as data aliases.
+- The key-repeat mask body needed a scoped copy
+  (`build_support/layout/ltcg/replay_submenu/mask.cpp`): the maintained
+  `src/game/eclview/input_mask_active.cpp` declares its own record type and
+  cannot share the cluster's translation unit (C2011 redefinition).
+- regions.json: region record `asm_FUN_004236f0_004236f0` ->
+  `semantic_SubmenuUpdate_004236f0` (previous_record kept, source the model);
+  `translation_units` swaps the asm owner for the model; `ltcg_clusters` += the
+  cluster; `equivalent_recoveries` drops the entry; asm owner
+  `build_support/exact/game/pause/main_menu_dispatch.cpp`, the equivalent
+  layout, the stub `src/game/pause/replay_submenu_stub.cpp`, the old
+  `build_support/contexts/legacy/game/replay_submenu_update.cpp` and the old
+  equivalent context cluster JSON deleted.
+- Gates: `probe.py --source src/game/pause/replay_submenu_update.cpp`:
+  `0x004236f0 3260 bytes _SubmenuUpdate@4 EXACT`; full
+  `build_msvc.py --project .../msvc --jobs 8 --verify oracle`: 1,656
+  maintained sources, 0 failures, **the whole .text (412,672 bytes) hashes to
+  `c1acff416da826334c29a19fa89cd7a094626eb36c32afe7950f705a55f56998` =
+  `regions.json` `text_sha256` = retail**; "Remaining assembly: 0 regions /
+  0 bytes"; "Recovered: 100.0% of bytes... byte-exact alone 78.5% of bytes"
+  (was 77.5% before this promotion). `build_msvc.py --exact`: "Whole EXE
+  exact: 487,936 bytes", `th10.exe` SHA-256
+  `2f14760b6fbbf57549541583283badb9a19a4222b90f0a146d5aa17f01dc9040`
+  = retail. Tests: test_ltcg_cluster 60 OK,
+  test_equivalence 27 OK, test_source_ownership / test_gcc_llvm_backend /
+  test_project_paths OK.

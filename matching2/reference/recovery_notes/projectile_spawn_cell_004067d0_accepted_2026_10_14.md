@@ -69,3 +69,46 @@ schedule, and the flags round trip is the load/or/store split the model
 needs for its other constraints.
 
 Region stays equivalent (1162 differing bytes).
+
+## 2026-10-18: residual chains closed down to the product operands
+
+15 of the 17 hunks are gone (1,150 differing bytes -> 24; 348/354 identical;
+the body now fills the 1,472-byte region exactly and the tail is clean).
+
+Levers that closed bytes, in order:
+
+- **Scan loop as `do { ... } while (attempts < 2000);`** with the post-loop
+  `if (attempts >= 2000) return 1;`: the loop-exit test now falls into its own
+  return-1 epilogue copy and the break join keeps the second copy, matching
+  retail's duplicated epilogues (hunk @0xe2, 735 bytes left).
+- **`record->flags |= 1u` written after the timer_3f8 block**, the two timer
+  resets through one `int*` words view per timer (configure.cpp spelling,
+  block order [1][2][0] and [0][1][2]), and the record flag/state updates
+  through pointer locals before the timer checks: the RMW folds to
+  `or [mem],1` and the may-alias edges keep the timer flag loads behind the
+  stores (hunks @0x2af-@0x306, 164 -> 80 bytes).
+- **Per-statement `x +=` accumulation** in the case 2/3 and 4/5 sums (the same
+  rounded operation sequence as the left-associated sum) plus `const float
+  half_step = flt_pi / cols;` as its own statement: retail's x87 evaluation
+  order returns (hunks @0x1bd-@0x213, 80 -> 33 bytes).
+- **`(void)&flt_4;` early in the function**: orders flt_4's symbol among the
+  function's temporaries and unpicks the hoisted constant load before the
+  `state = 2` store (33 -> 24 bytes).
+
+Ruled out (all bit-identical to their base, ~110 spellings): operand source
+swaps in the Vec3 operator; accessor/operator/ctor spellings; pointer,
+reference and named locals at the use; statement-split products; helper
+parameter shapes (order, ref/value, extra params); extern declaration order;
+first-use permutations; empty loops and other code that emits nothing; dead
+references to any global except flt_4; live-across pointer locals; member
+accessors at five earlier positions.
+
+Remaining: 1 hunk at 0x49f (24 bytes). The lit step's three products
+`record->velocity.{x,y,z} * flt_4` load the constant first
+(`fld ds:0x470c40; fmul [ebp+0x3cN]`) where retail loads the component first
+(`fld [ebp+0x3cN]; fmul ds:0x470c40`). The operand order is canonicalised
+from symbol classes (OptHashNode `0x10008 + ((id & 7) << 13)` on the load
+bases; the product pairs share flt_4's low-numbered symbol against the
+components' late address temporaries) and no source spelling moved it. This
+is the same family as the open x87 memory-operand swaps
+(projectile_point_count, 0x00408210).

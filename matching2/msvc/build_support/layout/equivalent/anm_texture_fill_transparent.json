@@ -365,31 +365,23 @@
     },
     {
       "offset": "0x9b",
-      "retail": [
-        "mov DWORD PTR [esp+0x2c],esi",
-        "mov DWORD PTR [esp+0x28],esi"
-      ],
-      "model": [],
-      "class": "register-choice"
-    },
-    {
-      "offset": "0xa9",
       "retail": [],
       "model": [
-        "mov DWORD PTR [esp+0x2c],ebx",
-        "mov DWORD PTR [esp+0x28],ebx"
+        "xor esi,esi",
+        "xor ebx,ebx",
+        "test eax,eax"
       ],
-      "class": "register-choice"
+      "class": "evaluation-order"
     },
     {
-      "offset": "0xab",
+      "offset": "0xa3",
       "retail": [
-        "cmp BYTE PTR [ecx+0x1],0x0"
+        "xor ebx,ebx",
+        "xor esi,esi",
+        "test eax,eax"
       ],
-      "model": [
-        "cmp BYTE PTR [ecx+0x1],bl"
-      ],
-      "class": "register-choice"
+      "model": [],
+      "class": "evaluation-order"
     },
     {
       "offset": "0x1bd",
@@ -444,8 +436,7 @@
         "mov DWORD PTR [esp+0x18],eax"
       ],
       "model": [
-        "jmp L+0x200",
-        "lea ecx,[ecx+0x0]",
+        "lea esp,[esp+0x0]",
         "mov esi,DWORD PTR [esp+0x20]",
         "mov edi,eax",
         "imul edi,DWORD PTR [esp+0x1c]",
@@ -462,9 +453,9 @@
         "jbe L+0x398"
       ],
       "model": [
-        "jbe L+0x38f"
+        "jbe L+0x391"
       ],
-      "class": "register-choice"
+      "class": "code-shape"
     },
     {
       "offset": "0x220",
@@ -477,14 +468,6 @@
       "class": "register-choice"
     },
     {
-      "offset": "0x22c",
-      "retail": [],
-      "model": [
-        "xor ebp,ebp"
-      ],
-      "class": "register-choice"
-    },
-    {
       "offset": "0x22e",
       "retail": [
         "xor edi,edi",
@@ -493,19 +476,10 @@
       ],
       "model": [
         "test esi,esi",
-        "mov DWORD PTR [esp+0x2c],ebx"
+        "mov DWORD PTR [esp+0x2c],ebx",
+        "mov ebp,0x1"
       ],
       "class": "register-choice"
-    },
-    {
-      "offset": "0x236",
-      "retail": [
-        "jbe L+0x25f"
-      ],
-      "model": [
-        "jbe L+0x25f"
-      ],
-      "class": "evaluation-order"
     },
     {
       "offset": "0x238",
@@ -516,16 +490,6 @@
         "mov ax,WORD PTR [edi-0x2]"
       ],
       "class": "register-choice"
-    },
-    {
-      "offset": "0x23e",
-      "retail": [
-        "jns L+0x25f"
-      ],
-      "model": [
-        "jns L+0x25f"
-      ],
-      "class": "evaluation-order"
     },
     {
       "offset": "0x240",
@@ -552,9 +516,10 @@
       "model": [
         "and eax,0x1f",
         "mov DWORD PTR [esp+0x2c],eax",
-        "mov ebp,0x1"
+        "jmp L+0x261",
+        "xor ebp,ebp"
       ],
-      "class": "register-choice"
+      "class": "code-shape"
     },
     {
       "offset": "0x264",
@@ -739,13 +704,13 @@
       "model": [
         "jb L+0x200"
       ],
-      "class": "register-choice"
+      "class": "code-shape"
     },
     {
       "offset": "0x394",
       "retail": [],
       "model": [
-        "jmp L+0x564"
+        "jmp L+0x566"
       ],
       "class": "code-shape"
     },
@@ -792,7 +757,6 @@
         "mov DWORD PTR [esp+0x18],eax"
       ],
       "model": [
-        "jmp L+0x3c0",
         "lea ecx,[ecx+0x0]",
         "mov esi,DWORD PTR [esp+0x20]",
         "mov edi,eax",
@@ -810,9 +774,9 @@
         "jbe L+0x55c"
       ],
       "model": [
-        "jbe L+0x553"
+        "jbe L+0x555"
       ],
-      "class": "register-choice"
+      "class": "code-shape"
     },
     {
       "offset": "0x3df",
@@ -828,14 +792,6 @@
       "class": "code-shape"
     },
     {
-      "offset": "0x3ec",
-      "retail": [],
-      "model": [
-        "xor ebp,ebp"
-      ],
-      "class": "register-choice"
-    },
-    {
       "offset": "0x3ee",
       "retail": [
         "xor edi,edi",
@@ -844,19 +800,10 @@
       ],
       "model": [
         "test esi,esi",
-        "mov DWORD PTR [esp+0x2c],ebx"
+        "mov DWORD PTR [esp+0x2c],ebx",
+        "mov ebp,0x1"
       ],
       "class": "register-choice"
-    },
-    {
-      "offset": "0x3f6",
-      "retail": [
-        "jbe L+0x420"
-      ],
-      "model": [
-        "jbe L+0x420"
-      ],
-      "class": "evaluation-order"
     },
     {
       "offset": "0x3f8",
@@ -867,16 +814,6 @@
         "mov ax,WORD PTR [edi-0x2]"
       ],
       "class": "register-choice"
-    },
-    {
-      "offset": "0x3ff",
-      "retail": [
-        "je L+0x420"
-      ],
-      "model": [
-        "je L+0x420"
-      ],
-      "class": "evaluation-order"
     },
     {
       "offset": "0x401",
@@ -903,9 +840,10 @@
       "model": [
         "and eax,0xf",
         "mov DWORD PTR [esp+0x2c],eax",
-        "mov ebp,0x1"
+        "jmp L+0x422",
+        "xor ebp,ebp"
       ],
-      "class": "register-choice"
+      "class": "code-shape"
     },
     {
       "offset": "0x425",
@@ -1090,7 +1028,7 @@
       "model": [
         "jb L+0x3c0"
       ],
-      "class": "register-choice"
+      "class": "code-shape"
     },
     {
       "offset": "0x558",
@@ -1126,9 +1064,7 @@
       "retail": [
         "lea ecx,[ecx+0x0]"
       ],
-      "model": [
-        "mov edi,edi"
-      ],
+      "model": [],
       "class": "register-choice"
     },
     {
@@ -1137,7 +1073,7 @@
         "L+0x3ae"
       ],
       "model": [
-        "L+0x3a5"
+        "L+0x3a7"
       ],
       "class": "register-choice"
     }

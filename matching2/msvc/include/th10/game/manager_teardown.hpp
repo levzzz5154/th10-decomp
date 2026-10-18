@@ -64,9 +64,11 @@ extern "C" {
 // Game flags (bit 0x2 marks a replay/recovery session; bit 0x1 the stage end;
 // bit 0x8 the practice fail counter).
 extern unsigned int g_globals_flags;
-// Requested application mode (10 = stage 4, 0xB extra stage, 4/0xF stage 1,
-// 0xD practice, 0xE/0xF ...).
-extern int g_main_state;
+// The requested application mode (10 = stage 4, 0xB extra stage, 4/0xF
+// stage 1, 0xD practice, 0xE/0xF ...) is read through the application state
+// block's next_state member (th10/app/supervisor.hpp, +0x3B8). The block's
+// address escapes, so the read may alias the teardown's pointer stores and
+// stays behind them, which is the order retail emits.
 // Shared score-animation speed, reset to 1.0 for the next run.
 extern float g_score_default_speed;
 // The run's score record; the capped fail counter sits at +0x50.

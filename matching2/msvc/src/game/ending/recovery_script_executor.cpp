@@ -6,7 +6,9 @@
 // input recorder. Volatile-qualified lvalue reads keep the plain externs' ODR
 // intact while matching the retail reloads.
 extern "C" void* g_sprt_ctrl;
-__declspec(noinline) void* __cdecl RecoveryValidateHandle(RecoveryHandle* handle);
+__declspec(noinline) RecoveryTextVm* __cdecl RecoveryValidateHandle(RecoveryHandle* handle);
+__declspec(noinline) void* __fastcall RecoverySetFlag(RecoveryLookupContext* context, int id);
+__declspec(noinline) char* __stdcall LoadAsset(AssetBuffer* buffer, const char* name);
 #define MANAGER (*(void* const volatile*)&g_sprt_ctrl)
 extern "C" RecoveryScriptOwner* g_ending;
 #define OWNER (*(RecoveryScriptOwner* const volatile*)&g_ending)
@@ -90,7 +92,9 @@ extern "C" __declspec(noinline) int __stdcall RecoveryScript_Execute2(RecoverySc
                 state->text_handles[0].StopAtFrame2();
                 ++state->text_ring_position;
             } else {
-                static_cast<RecoveryTextVm*>(RecoveryValidateHandle(&state->text_handles[state->text_ring_position]))->MarkText(g_sprt_ctrl, state->color, RecoveryDecodePath(reinterpret_cast<const unsigned char*>(command) + 4));
+                const char* else_text = RecoveryDecodePath(reinterpret_cast<const unsigned char*>(command) + 4);
+                unsigned int else_color = state->color;
+                RecoveryValidateHandle(&state->text_handles[state->text_ring_position])->MarkText(g_sprt_ctrl, else_color, else_text);
                 state->text_handles[state->text_ring_position].StopAtFrame2();
                 ++state->text_ring_position;
                 if (state->text_ring_position >= 5)
@@ -143,8 +147,8 @@ extern "C" __declspec(noinline) int __stdcall RecoveryScript_Execute2(RecoverySc
         case 7:
             g_ascii_manager->EnsureAnimationResource(480.0f, 392.0f);
             reinterpret_cast<AnimationManager13*>(MANAGER)->ClearResourceSlot(state->command->arguments[0] + 29);
-            state->background_data = reinterpret_cast<const unsigned char*>(state->command) + 8;
             state->flags |= 4u;
+            state->background_data = reinterpret_cast<const unsigned char*>(state->command) + 8;
             state->worker.Start(state, recovery_background_thread);
             state->command = NextRecoveryCommand(state->command);
             return 0;
@@ -152,7 +156,7 @@ extern "C" __declspec(noinline) int __stdcall RecoveryScript_Execute2(RecoverySc
             void* record;
             unsigned int* handle = &state->animation_handles[command->arguments[0]];
             RecoveryLookup* manager = reinterpret_cast<RecoveryLookup*>(MANAGER);
-            manager->SetFlag(reinterpret_cast<RecoveryLookupContext*>(manager), static_cast<int>(*handle));
+            RecoverySetFlag(reinterpret_cast<RecoveryLookupContext*>(manager), static_cast<int>(*handle));
             *handle = 0;
             state->animation_handles[state->command->arguments[0]] =
                 reinterpret_cast<unsigned int>(*AnimationManager_CreatePrimaryBack(
@@ -189,11 +193,12 @@ extern "C" __declspec(noinline) int __stdcall RecoveryScript_Execute2(RecoverySc
             state->flags &= ~1u;
             break;
         case 12: {
+            RecoveryLookup* manager = reinterpret_cast<RecoveryLookup*>(g_sprt_ctrl);
             for (int i = 0; i < 5; ++i) {
-                reinterpret_cast<RecoveryLookup*>(g_sprt_ctrl)->SetFlag(reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl), static_cast<int>(state->text_handles[i].value));
+                RecoverySetFlag(reinterpret_cast<RecoveryLookupContext*>(manager), static_cast<int>(state->text_handles[i].value));
                 state->text_handles[i].value = 0;
             }
-            char* loaded = LoadAsset(reinterpret_cast<const char*>(state->command) + 4, reinterpret_cast<AssetBuffer*>(OWNER));
+            char* loaded = LoadAsset(reinterpret_cast<AssetBuffer*>(OWNER), reinterpret_cast<const char*>(state->command) + 4);
             if (loaded == 0)
                 return -1;
             memset(state, 0, sizeof(*state));

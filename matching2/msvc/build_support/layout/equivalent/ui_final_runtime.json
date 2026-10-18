@@ -1,1342 +1,1253 @@
 {
-  "schema_version": 1,
-  "name": "ui_final_runtime_00433ef0",
-  "region": "asm_FUN_00433ef0_00433ef0",
-  "sources": [
-    "src/game/title/ui_final_runtime.cpp"
-  ],
-  "context_cluster": "build_support/layout/ltcg/difficulty_select_update.json",
-  "entry_symbol": "_DifficultySelectUpdateCompilerContext@24",
-  "function": "?TitleMusicRoom@@YGHPAUTitle@@@Z",
-  "code_bytes": 2780,
-  "absolute_symbols": {
-    "_recovery_decoded_path_00497d40": {
-      "address": "0x00497D40",
-      "kind": "data"
-    },
-    "_recovery_vsprintf": {
-      "address": "0x004524A6",
-      "kind": "code"
-    },
-    "_recovery_draw_shadowed@24": {
-      "address": "0x00437DB0",
-      "kind": "code"
-    },
-    "_recovery_draw_unshadowed@24": {
-      "address": "0x00437FE0",
-      "kind": "code"
-    },
-    "__ftol2": {
-      "address": "0x00463B2C",
-      "kind": "code"
-    },
-    "___security_cookie": {
-      "address": "0x00473660",
-      "kind": "data"
-    },
-    "__fltused": {
-      "address": "0x00000000",
-      "kind": "data"
-    },
-    "??2@YAPAXI@Z": {
-      "address": "0x00452493",
-      "kind": "code"
-    },
-    "_SchedulerTask_Create@4": {
-      "address": "0x00449ED0",
-      "kind": "code"
-    },
-    "_g_func_ctrl": {
-      "address": "0x00491BE4",
-      "kind": "data"
-    },
-    "_RecoveryAsciiFrameSpeed_00476f78": {
-      "address": "0x00476F78",
-      "kind": "data"
-    },
-    "?g_thread_synchronization@@3UThreadSynchronization@@A": {
-      "address": "0x00492274",
-      "kind": "data"
-    },
-    "__imp__EnterCriticalSection@4": {
-      "address": "0x004660B0",
-      "kind": "data"
-    },
-    "__imp__LeaveCriticalSection@4": {
-      "address": "0x004660B4",
-      "kind": "data"
-    },
-    "@RecoveryAsciiBasicTick_0043bd40@4": {
-      "address": "0x0043bd40",
-      "kind": "data"
-    },
-    "@RecoveryAsciiDraw0_0043c1a0@4": {
-      "address": "0x0043c1a0",
-      "kind": "data"
-    },
-    "@RecoveryAsciiTick1_0043c550@4": {
-      "address": "0x0043c550",
-      "kind": "data"
-    },
-    "@RecoveryAsciiTick2_0043c230@4": {
-      "address": "0x0043c230",
-      "kind": "data"
-    },
-    "@RecoveryAsciiDraw2_0043c2c0@4": {
-      "address": "0x0043c2c0",
-      "kind": "data"
-    },
-    "@RecoveryAsciiTick4_0043c460@4": {
-      "address": "0x0043c460",
-      "kind": "data"
-    },
-    "@RecoveryAsciiDraw4_0043c500@4": {
-      "address": "0x0043c500",
-      "kind": "data"
-    },
-    "@RecoveryAsciiTick6_0043c310@4": {
-      "address": "0x0043c310",
-      "kind": "data"
-    },
-    "@RecoveryAsciiDraw6_0043c3c0@4": {
-      "address": "0x0043c3c0",
-      "kind": "data"
-    },
-    "@RecoveryAsciiDraw7_0043c410@4": {
-      "address": "0x0043c410",
-      "kind": "data"
-    },
-    "@RecoveryAsciiTick8_0043c710@4": {
-      "address": "0x0043c710",
-      "kind": "data"
-    },
-    "@RecoveryAsciiRemove_0043c870@4": {
-      "address": "0x0043c870",
-      "kind": "data"
-    },
-    "_g_sprt_ctrl": {
-      "address": "0x00491C10",
-      "kind": "data"
-    },
-    "_operator_new2": {
-      "address": "0x00452493",
-      "kind": "code"
-    },
-    "_Entity_Constructor_00402050": {
-      "address": "0x00402050",
-      "kind": "code"
-    },
-    "_Entity_Init_00401de0": {
-      "address": "0x00401DE0",
-      "kind": "code"
-    },
-    "_asm_AnimationObject_LoadScriptTail_0043ee30": {
-      "address": "0x0043EE30",
-      "kind": "code"
-    },
-    "_crt_free": {
-      "address": "0x00452422",
-      "kind": "code"
-    },
-    "_crt_free_startup": {
-      "address": "0x004524A1",
-      "kind": "code"
-    },
-    "?platform_worker_vtable@@3DA": {
-      "address": "0x004703E4",
-      "kind": "data"
-    },
-    "_asm_beginthreadex_00453683": {
-      "address": "0x00453683",
-      "kind": "code"
-    },
-    "__imp__WaitForSingleObject@8": {
-      "address": "0x0046611C",
-      "kind": "data"
-    },
-    "__imp__Sleep@4": {
-      "address": "0x004660AC",
-      "kind": "data"
-    },
-    "__imp__CloseHandle@4": {
-      "address": "0x004660CC",
-      "kind": "data"
-    },
-    "_Game_LoadThread": {
-      "address": "0x00417C70",
-      "kind": "data"
-    },
-    "_g_key_bindings_current": {
-      "address": "0x00474E88",
-      "kind": "data"
-    },
-    "_g_d3d_device": {
-      "address": "0x00491C30",
-      "kind": "data"
-    },
-    "_g_game": {
-      "address": "0x00477810",
-      "kind": "data"
-    },
-    "_g_application": {
-      "address": "0x00491C28",
-      "kind": "data"
-    },
-    "?InitializeObject@AnimationBank@@QAEPAXPAXH@Z": {
-      "address": "0x00449870",
-      "kind": "code"
-    },
-    "_g_archive": {
-      "address": "0x00497990",
-      "kind": "data"
-    },
-    "_data_00497994": {
-      "address": "0x00497994",
-      "kind": "data"
-    },
-    "_g_file_lock_depth": {
-      "address": "0x0049231e",
-      "kind": "data"
-    },
-    "_g_file_lock": {
-      "address": "0x004922a4",
-      "kind": "data"
-    },
-    "_imp_EnterCriticalSection": {
-      "address": "0x004660b0",
-      "kind": "data"
-    },
-    "_imp_LeaveCriticalSection": {
-      "address": "0x004660b4",
-      "kind": "data"
-    },
-    "_imp_CreateFileA": {
-      "address": "0x004660c4",
-      "kind": "data"
-    },
-    "_imp_CloseHandle": {
-      "address": "0x004660cc",
-      "kind": "data"
-    },
-    "_imp_ReadFile": {
-      "address": "0x004660d0",
-      "kind": "data"
-    },
-    "_imp_GetFileSize": {
-      "address": "0x004660d8",
-      "kind": "data"
-    },
-    "_asm_strrchr_00452930": {
-      "address": "0x00452930",
-      "kind": "code"
-    },
-    "_asm_stricmp_0046054e": {
-      "address": "0x0046054e",
-      "kind": "code"
-    },
-    "_asm_malloc_00452706": {
-      "address": "0x00452706",
-      "kind": "code"
-    },
-    "?Read@ArchiveReader@@QAEPADPBXPAD@Z": {
-      "address": "0x00434DD0",
-      "kind": "code"
-    },
-    "_g_recovery_script_path": {
-      "address": "0x00497C38",
-      "kind": "data"
-    },
-    "?Parse@ScriptFileLoader@@QAEHPAD@Z": {
-      "address": "0x00450220",
-      "kind": "code"
-    },
-    "_imp_GetModuleFileNameA": {
-      "address": "0x004660DC",
-      "kind": "data"
-    },
-    "_g_executable_checksum": {
-      "address": "0x00492380",
-      "kind": "data"
-    },
-    "_g_executable_size": {
-      "address": "0x00492384",
-      "kind": "data"
-    },
-    "_str_string_format": {
-      "address": "0x0046E1C8",
-      "kind": "data"
-    },
-    "_ProbeFileExists@4": {
-      "address": "0x0044B4D0",
-      "kind": "code"
-    },
-    "_dbl_pi_4": {
-      "address": "0x00470C50",
-      "kind": "data"
-    },
-    "_g_music_room_commands": {
-      "address": "0x0047476C",
-      "kind": "data"
-    },
-    "_g_music_room_easings": {
-      "address": "0x00474778",
-      "kind": "data"
-    },
-    "_g_music_room_variable_map": {
-      "address": "0x00491BF4",
-      "kind": "data"
-    },
-    "_g_music_room_callback_map": {
-      "address": "0x00491BF8",
-      "kind": "data"
-    },
-    "_asm_vsprintf_004524a6": {
-      "address": "0x004524A6",
-      "kind": "code"
-    },
-    "__chkstk": {
-      "address": "0x00458EC0",
-      "kind": "code"
-    },
-    "_g_text_log_lock": {
-      "address": "0x004922BC",
-      "kind": "data"
-    },
-    "_g_text_log_lock_depth": {
-      "address": "0x0049231F",
-      "kind": "data"
-    },
-    "@LoadCachedResource@12": {
-      "address": "0x00447280",
-      "kind": "code"
-    },
-    "_malloc": {
-      "address": "0x00452706",
-      "kind": "code"
-    },
-    "_g_stage_route_current": {
-      "address": "0x00477848",
-      "kind": "data"
-    },
-    "_g_globals_score": {
-      "address": "0x00474C44",
-      "kind": "data"
-    },
-    "_g_globals_character": {
-      "address": "0x00474C68",
-      "kind": "data"
-    },
-    "_g_next_stage_buffer": {
-      "address": "0x00491BE8",
-      "kind": "data"
-    },
-    "_g_game_speed": {
-      "address": "0x00476F78",
-      "kind": "data"
-    },
-    "_g_log": {
-      "address": "0x00474F70",
-      "kind": "data"
-    },
-    "_str_data_corrupted": {
-      "address": "0x0046CB68",
-      "kind": "data"
-    },
-    "_g_sound_priority": {
-      "address": "0x004749CE",
-      "kind": "data"
-    },
-    "_g_sound_manager": {
-      "address": "0x00492590",
-      "kind": "data"
-    },
-    "_flt_0_99": {
-      "address": "0x00470B68",
-      "kind": "data"
-    },
-    "_flt_1_01": {
-      "address": "0x00470B64",
-      "kind": "data"
-    },
-    "?SetPolar@DecelerationVector2@@QAEXMM@Z": {
-      "address": "0x0041F800",
-      "kind": "code"
-    },
-    "?SetPolar@BulletDecelerationVector2@@QAEXMM@Z": {
-      "address": "0x00408750",
-      "kind": "code"
-    },
-    "_g_player": {
-      "address": "0x00477834",
-      "kind": "data"
-    },
-    "_flt_0": {
-      "address": "0x00470B04",
-      "kind": "data"
-    },
-    "?Angle_NormalizeSum@@YGMMM@Z": {
-      "address": "0x0044BC10",
-      "kind": "code"
-    },
-    "_flt_neg192": {
-      "address": "0x00470B40",
-      "kind": "data"
-    },
-    "_flt_192": {
-      "address": "0x00470B3C",
-      "kind": "data"
-    },
-    "_flt_448": {
-      "address": "0x00470B38",
-      "kind": "data"
-    },
-    "_flt_pi": {
-      "address": "0x00470B18",
-      "kind": "data"
-    },
-    "_flt_neg384": {
-      "address": "0x00470B58",
-      "kind": "data"
-    },
-    "_flt_384": {
-      "address": "0x00470B54",
-      "kind": "data"
-    },
-    "_flt_neg990": {
-      "address": "0x00470B50",
-      "kind": "data"
-    },
-    "_g_ending": {
-      "address": "0x00477700",
-      "kind": "data"
-    },
-    "_g_ascii_manager": {
-      "address": "0x004776E0",
-      "kind": "data"
-    },
-    "_g_input_keys_raw": {
-      "address": "0x00474E30",
-      "kind": "data"
-    },
-    "_g_input_keys_held": {
-      "address": "0x00474E36",
-      "kind": "data"
-    },
-    "_g_globals_difficulty": {
-      "address": "0x00474C74",
-      "kind": "data"
-    },
-    "_g_screen_effects_frozen": {
-      "address": "0x004918A4",
-      "kind": "data"
-    },
-    "_recovery_script_empty_text": {
-      "address": "0x0046CFD4",
-      "kind": "data"
-    },
-    "_recovery_script_special_music": {
-      "address": "0x0046CFC4",
-      "kind": "data"
-    },
-    "?g_frame_timer_normal_lower@@3MA": {
-      "address": "0x00470B68",
-      "kind": "data"
-    },
-    "?g_frame_timer_normal_upper@@3MA": {
-      "address": "0x00470B64",
-      "kind": "data"
-    },
-    "_recovery_replace_extension@8": {
-      "address": "0x00420A90",
-      "kind": "code"
-    },
-    "_recovery_play_dummy@8": {
-      "address": "0x00420B10",
-      "kind": "code"
-    },
-    "_recovery_play_random_voice@4": {
-      "address": "0x00420C30",
-      "kind": "code"
-    },
-    "_recovery_background_thread@4": {
-      "address": "0x0040C3A0",
-      "kind": "data"
-    },
-    "_recovery_indicator_owner": {
-      "address": "0x00474C84",
-      "kind": "data"
-    },
-    "_recovery_indicator_eight_00470bd0": {
-      "address": "0x00470BD0",
-      "kind": "data"
-    },
-    "_recovery_indicator_one_00470afc": {
-      "address": "0x00470AFC",
-      "kind": "data"
-    },
-    "_recovery_indicator_two_00470b08": {
-      "address": "0x00470B08",
-      "kind": "data"
-    },
-    "_recovery_indicator_fifteen_00470c08": {
-      "address": "0x00470C08",
-      "kind": "data"
-    },
-    "_recovery_indicator_three_halves_00470ca8": {
-      "address": "0x00470CA8",
-      "kind": "data"
-    },
-    "_recovery_indicator_half_00470b0c": {
-      "address": "0x00470B0C",
-      "kind": "data"
-    },
-    "_recovery_indicator_three_quarters_00470ce4": {
-      "address": "0x00470CE4",
-      "kind": "data"
-    },
-    "_recovery_indicator_free": {
-      "address": "0x004524A1",
-      "kind": "code"
-    },
-    "_recovery_indicator_x_origin_00470b4c": {
-      "address": "0x00470B4C",
-      "kind": "data"
-    },
-    "_recovery_indicator_y_origin_00470b48": {
-      "address": "0x00470B48",
-      "kind": "data"
-    },
-    "_recovery_music_repeat": {
-      "address": "0x00474E34",
-      "kind": "data"
-    },
-    "_recovery_music_player": {
-      "address": "0x0047783C",
-      "kind": "data"
-    },
-    "_recovery_music_mode": {
-      "address": "0x00491D78",
-      "kind": "data"
-    },
-    "_recovery_music_preview_resource": {
-      "address": "0x00491FEC",
-      "kind": "data"
-    },
-    "_recovery_music_row_y_00470c80": {
-      "address": "0x00470C80",
-      "kind": "data"
-    },
-    "_recovery_music_row_step_00470ca0": {
-      "address": "0x00470CA0",
-      "kind": "data"
-    },
-    "_recovery_music_jump_threshold_00470c64": {
-      "address": "0x00470C64",
-      "kind": "data"
-    },
-    "_recovery_music_selected_offset_00470c98": {
-      "address": "0x00470C98",
-      "kind": "data"
-    },
-    "_recovery_music_defaults": {
-      "address": "0x00491C14",
-      "kind": "data"
-    },
-    "_recovery_music_locked_format": {
-      "address": "0x0046ECF4",
-      "kind": "data"
-    },
-    "_recovery_music_comment_file": {
-      "address": "0x0046ED14",
-      "kind": "data"
-    },
-    "_recovery_music_dummy": {
-      "address": "0x0046DF98",
-      "kind": "data"
-    },
-    "_recovery_music_restore_bgm": {
-      "address": "0x0046F018",
-      "kind": "data"
-    },
-    "_recovery_music_preview_table": {
-      "address": "0x00476FD8",
-      "kind": "data"
-    },
-    "_flt_1": {
-      "address": "0x00470AFC",
-      "kind": "data"
-    },
-    "?TitleDispatchGame@@YGXXZ": {
-      "address": "0x00420C00",
-      "kind": "code"
-    },
-    "_g_app_flags": {
-      "address": "0x00491FF4",
-      "kind": "data"
-    },
-    "?TitlePlayMusic@@YGXHH@Z": {
-      "address": "0x00420B10",
-      "kind": "code"
-    },
-    "?TitleSetMusicFile@@YGXHPBD@Z": {
-      "address": "0x00420A90",
-      "kind": "code"
-    },
-    "?TitleNameEntry@@YGHPAUTitle@@@Z": {
-      "address": "0x00432CB0",
-      "kind": "code"
-    },
-    "?TitleReleaseDemo@@YGXPAUDemoFile@@@Z": {
-      "address": "0x004294A0",
-      "kind": "code"
-    },
-    "_g_menu_difficulty_saved": {
-      "address": "0x00474C78",
-      "kind": "data"
-    },
-    "_g_globals_shot_type": {
-      "address": "0x00474C6C",
-      "kind": "data"
-    },
-    "_g_stage_routes": {
-      "address": "0x00474788",
-      "kind": "data"
-    },
-    "_g_main_state": {
-      "address": "0x00491FB8",
-      "kind": "data"
-    },
-    "_g_globals_stage_shown": {
-      "address": "0x00474C80",
-      "kind": "data"
-    },
-    "_g_globals_stage": {
-      "address": "0x00474C7C",
-      "kind": "data"
-    },
-    "?TitleLoadDemo@@YGPAUDemoFile@@PBD@Z": {
-      "address": "0x004296F0",
-      "kind": "code"
-    },
-    "_g_title_demo_paths": {
-      "address": "0x00476FF8",
-      "kind": "data"
-    },
-    "_g_title_demo_index": {
-      "address": "0x00474CA8",
-      "kind": "data"
-    },
-    "_g_globals_flags": {
-      "address": "0x00474CA0",
-      "kind": "data"
-    },
-    "_g_title_idle_frames": {
-      "address": "0x00474CA4",
-      "kind": "data"
-    },
-    "?TitleSaveInputHistory_0044be20@@YGXXZ": {
-      "address": "0x0044BE20",
-      "kind": "code"
-    },
-    "_RunAnimationVm@4": {
-      "address": "0x0043EE30",
-      "kind": "code"
-    },
-    "_g_key_bindings": {
-      "address": "0x00491D4C",
-      "kind": "data"
-    },
-    "_g_joystick_buttons": {
-      "address": "0x00497BB0",
-      "kind": "data"
-    },
-    "_g_pad_devices": {
-      "address": "0x00491C3C",
-      "kind": "data"
-    },
-    "__imp__joyGetPosEx@8": {
-      "address": "0x00466280",
-      "kind": "data"
-    },
-    "?TitleMenuFlow@@YGHPAUTitle@@@Z": {
-      "address": "0x0042F540",
-      "kind": "code"
-    },
-    "_g_score": {
-      "address": "0x0047783C",
-      "kind": "data"
-    },
-    "?Music_FadeOut@@YGHM@Z": {
-      "address": "0x00420C30",
-      "kind": "code"
-    },
-    "_g_title_practice_selection": {
-      "address": "0x00491C08",
-      "kind": "data"
-    },
-    "_g_globals_initial_lives": {
-      "address": "0x00474CAC",
-      "kind": "data"
-    },
-    "_g_keyboard_state": {
-      "address": "0x00497AA8",
-      "kind": "data"
-    },
-    "?g_input_enabled@@3HA": {
-      "address": "0x004924FC",
-      "kind": "data"
-    },
-    "?g_input_mode@@3IA": {
-      "address": "0x00491FF4",
-      "kind": "data"
-    },
-    "?g_keyboard_device@@3PAUKeyboardDevice@@A": {
-      "address": "0x00491C38",
-      "kind": "data"
-    },
-    "__imp__GetKeyboardState@4": {
-      "address": "0x00466208",
-      "kind": "data"
-    },
-    "_g_title_replay_selection": {
-      "address": "0x00491C04",
-      "kind": "data"
-    },
-    "_g_main_mode_request": {
-      "address": "0x00491C00",
-      "kind": "data"
-    },
-    "_g_replay_path": {
-      "address": "0x00477710",
-      "kind": "data"
-    },
-    "_sprintf": {
-      "address": "0x00452AE8",
-      "kind": "code"
-    },
-    "__mkdir": {
-      "address": "0x00452ABC",
-      "kind": "code"
-    },
-    "__chdir": {
-      "address": "0x00453111",
-      "kind": "code"
-    },
-    "_free": {
-      "address": "0x004524A1",
-      "kind": "code"
-    },
-    "__imp__FindFirstFileA@8": {
-      "address": "0x004660A0",
-      "kind": "data"
-    },
-    "__imp__FindNextFileA@8": {
-      "address": "0x004660A4",
-      "kind": "data"
-    },
-    "__imp__FindClose@4": {
-      "address": "0x004660A8",
-      "kind": "data"
-    },
-    "@__security_check_cookie@4": {
-      "address": "0x00458EA5",
-      "kind": "code"
-    },
-    "?ReplayFile_Open@@YGPAUReplayFile@@PBD@Z": {
-      "address": "0x004296F0",
-      "kind": "code"
-    },
-    "?ReplayFile_Destroy@@YGXPAUReplayFile@@@Z": {
-      "address": "0x004294A0",
-      "kind": "code"
-    },
-    "_time2": {
-      "address": "0x00452B71",
-      "kind": "code"
-    },
-    "?ReplayFile_Save@@YIXPAUReplayFile@@PBD1@Z": {
-      "address": "0x00429B60",
-      "kind": "code"
-    },
-    "?Music_Load2@@YGHHPBD@Z": {
-      "address": "0x00420A90",
-      "kind": "code"
-    },
-    "?Music_Play2@@YGHHH@Z": {
-      "address": "0x00420B10",
-      "kind": "code"
-    },
-    "_g_replay": {
-      "address": "0x00477838",
-      "kind": "data"
-    },
-    "_g_name_entry_grid": {
-      "address": "0x004746D8",
-      "kind": "data"
-    },
-    "?g_spell_difficulty@@3QBCB": {
-      "address": "0x004743C0",
-      "kind": "data"
-    },
-    "_g_spell_difficulty": {
-      "address": "0x004743C0",
-      "kind": "data"
-    },
-    "_g_keys_current": {
-      "address": "0x00497E90",
-      "kind": "data"
-    },
-    "_g_keys_previous": {
-      "address": "0x00497D90",
-      "kind": "data"
-    },
-    "_g_spell_seq_keys": {
-      "address": "0x004979A8",
-      "kind": "data"
-    },
-    "_g_spell_seq_progress": {
-      "address": "0x004979A4",
-      "kind": "data"
-    },
-    "_g_spell_seq_elapsed": {
-      "address": "0x004979A0",
-      "kind": "data"
-    },
-    "_g_spell_seq_codes": {
-      "address": "0x0046EF10",
-      "kind": "data"
-    },
-    "_NamedCardFormat": {
-      "address": "0x0046EEF8",
-      "kind": "data"
-    },
-    "_MaskedCardFormat": {
-      "address": "0x0046EEBC",
-      "kind": "data"
-    },
-    "_EmptyCardText": {
-      "address": "0x0046CFD4",
-      "kind": "data"
-    },
-    "_application_state": {
-      "address": "0x00491C00",
-      "kind": "data"
-    },
-    "_str_set_vol": {
-      "address": "0x0046ECE8",
-      "kind": "data"
-    },
-    "_g_options_music_volume": {
-      "address": "0x00497854",
-      "kind": "data"
-    },
-    "?SelectResourceSprite_0043e5a0@@YIXPAXH@Z": {
-      "address": "0x0043E5A0",
-      "kind": "code"
-    },
-    "?AtInterval@FrameCounterPair@@QAEHH@Z": {
-      "address": "0x00427C70",
-      "kind": "code"
-    },
-    "_g_options_sound_volume": {
-      "address": "0x00497858",
-      "kind": "data"
-    },
-    "_g_options_music_attenuation": {
-      "address": "0x0049785C",
-      "kind": "data"
-    },
-    "_g_music_requests": {
-      "address": "0x00492590",
-      "kind": "data"
-    },
-    "_g_config_flags": {
-      "address": "0x00491D78",
-      "kind": "data"
-    },
-    "_g_music_progress": {
-      "address": "0x0047783C",
-      "kind": "data"
-    },
-    "_data_00470ca0": {
-      "address": "0x00470CA0",
-      "kind": "data"
-    },
-    "_data_00470c80": {
-      "address": "0x00470C80",
-      "kind": "data"
-    },
-    "_data_0046ecf4": {
-      "address": "0x0046ECF4",
-      "kind": "data"
-    },
-    "_StageText_SkipLine@8": {
-      "address": "0x004349E0",
-      "kind": "code"
-    },
-    "_StageText_ExtractLine@12": {
-      "address": "0x00434A20",
-      "kind": "code"
-    },
-    "?Initialize@StageText@@QAEXPBUStageTextVector@@0HE@Z": {
-      "address": "0x00434A80",
-      "kind": "code"
-    },
-    "?TitleMode16@@YGHPAUTitle@@@Z": {
-      "address": "0x00433570",
-      "kind": "code"
-    },
-    "_data_00470c98": {
-      "address": "0x00470C98",
-      "kind": "data"
-    },
-    "_flt_40": {
-      "address": "0x00470C64",
-      "kind": "data"
-    },
-    "_str_dummy": {
-      "address": "0x0046DF98",
-      "kind": "data"
-    }
+ "schema_version": 1,
+ "name": "ui_final_runtime_00433ef0",
+ "region": "asm_FUN_00433ef0_00433ef0",
+ "sources": [
+  "src/game/title/ui_final_runtime.cpp"
+ ],
+ "context_cluster": "build_support/layout/ltcg/difficulty_select_update.json",
+ "entry_symbol": "_DifficultySelectUpdateCompilerContext@24",
+ "function": "?TitleMusicRoom@@YGHPAUTitle@@@Z",
+ "code_bytes": 2780,
+ "absolute_symbols": {
+  "_recovery_decoded_path_00497d40": {
+   "address": "0x00497D40",
+   "kind": "data"
   },
-  "bindings": {
-    "?Set@RecoveryTimer2@@QAEXH@Z": "0x00405410",
-    "?Advance@RecoveryTimer2@@QAEXM@Z": "0x0044BF40",
-    "?Find@RecoveryLookup@@QAIPAXPAURecoveryLookupContext@@URecoveryScriptId@@@Z": "0x004491C0",
-    "?SetFlag@RecoveryLookup@@QAIPAXPAURecoveryLookupContext@@H@Z": "0x004492A0",
-    "?Validate@RecoveryLookup@@QAAPAXPAURecoveryHandle@@@Z": "0x00449450",
-    "?StopAtFrame2@RecoveryHandle@@QAEXXZ": "0x0040C480",
-    "?StopAtFrame3@RecoveryHandle@@QAEXXZ": "0x0040C4D0",
-    "?MarkForRemoval@RecoveryHandle@@QAEXXZ": "0x00449630",
-    "?RecoveryDecodePath@@YGPADPBE@Z": "0x00417010",
-    "?RecoveryDispatchText2@@YGXPAURecoveryTextResource@@HPBDPAXHIH@Z": "0x004479D0",
-    "_RecoveryAscii_Create@24": "0x0043C8B0",
-    "_RecoveryAscii_Register@28": "0x0043C970",
-    "_FuncCtrl_RegisterPrimary@12": "0x00449AE0",
-    "_FuncCtrl_RegisterSecondary@12": "0x00449B70",
-    "_RecoveryAsciiRegisterPrimary_0044a000@12": "0x0044A000",
-    "_RecoveryAsciiRegisterSecondary_0044a030@12": "0x0044A030",
-    "?LoadAsset@@YGPADPBDPAUAssetBuffer@@@Z": "0x0040B480",
-    "?EnsureAnimationResource@GameThread6@@QAEPAXMM@Z": "0x0040C540",
-    "?ClearResourceSlot@AnimationManager13@@QAEXH@Z": "0x004477D0",
-    "?Release@AnimationResource6@@QAEXXZ": "0x00447810",
-    "?MarkResourceForRemoval@SprtCtrl@@QAEXPAX@Z": "0x004493E0",
-    "?AnimationManager_CreatePrimaryBack@@YGPAPAXPAXPAPAXHH@Z": "0x00448D00",
-    "?Queue@SoundQueue@@QAEHHH@Z": "0x0043DC90",
-    "?Start@PlatformWorker@@QAEXPAXP6GI0@Z@Z": "0x0044C1C0",
-    "?Stop@PlatformWorker@@QAEXXZ": "0x0044C150",
-    "_Archive_LoadFile@12": "0x0044B360",
-    "_asm_FUN_00449950_00449950": "0x00449950",
-    "_asm_AnimationObject_LoadScript_0043e710": "0x0043E710",
-    "_asm_AnimationManager_RegisterPrimaryBack_004489d0": "0x004489D0",
-    "?AnimationManager_CreatePositionedPrimary@@YGPAPAXPAXPAPAXHPBUAnimationPosition@@@Z": "0x00448D50",
-    "?RecoveryPlayerAnimationCreate@@YGPAPAXPAXPAPAXHPBUHintPosition@@@Z": "0x00448DB0",
-    "?Initialise@EntityMovementSlot@@QAEXPBUMovementPair@@0HE@Z": "0x0041AB70",
-    "?FormatRightAligned@HintVm@@QAAXPAXZZ": "0x00447AE0",
-    "?FormatCentered@HintVm@@QAAXPAXZZ": "0x00447BB0",
-    "?RecoveryMusicStopHandle@@YGXPAURecoveryHandle@@@Z": "0x00409E50",
-    "?DisableTimerWithOwner@Title@@QAEXH@Z": "0x0042C5C0",
-    "?SetTimerTarget@Title@@QAEXH@Z": "0x0042C620",
-    "?RecoveryMusicSkipLine_004349e0@@YGPADPADPAH@Z": "0x004349E0",
-    "?RecoveryMusicExtractLine_00434a20@@YGPADPAD0PAH@Z": "0x00434A20",
-    "?InitializeTransition@RecoveryMusicVm@@QAEXPBURecoveryMusicVector@@0HE@Z": "0x00434A80",
-    "?RegisterResource@RecoveryMusicResourceQueue@@QAEPADPBDHH@Z": "0x0043E460",
-    "?PopSelection@MenuCursor@@QAEXXZ": "0x0044BE70",
-    "?Advance@MenuCursor@@QAEHH@Z": "0x0044BEA0",
-    "_RecoveryScript_Execute2@4": "0x0040BD80",
-    "?Drain@HintLink@@QAEHPAUHintUpdateView@@H@Z": "0x00419120",
-    "?MarkText@RecoveryTextVm@@QAAXPAXZZ": "0x00447A50",
-    "?ClearAnimationSlot@Title@@QAEXH@Z": "0x0042C6D0",
-    "?SetSlotFrame@Title@@QAEXHF@Z": "0x0042C770",
-    "?RecoveryMusicInstallSlot@@YGXPAUTitle@@H@Z": "0x0042C670",
-    "?Title_DispatchUpdate@@YGHPAUTitle@@@Z": "0x0042CDF0",
-    "?EndingScreen_Update2@@YGHPAUTitle@@@Z": "0x0042D300",
-    "?AnimationManager_SetStopFrameAndRun@@YIXGPAURecoveryLookupContext@@URecoveryScriptId@@@Z": "0x00449250",
-    "?RestartSlot@TitleAnimationSlotView@@QAEXH@Z": "0x0042C750",
-    "?SetStopFrame@AnimationHandle11@@QAEXG@Z": "0x00449470",
-    "?FindChildRef@AnimationHandle15@@QAE?AUAnimationRef2@@H@Z": "0x004497D0",
-    "?InputMaskActive@KeyRepeatState@@QAEHG@Z": "0x0040ACE0",
-    "?UpdateBoundedCounter@@YIIIPAI@Z": "0x0040AD20",
-    "?PushSelection@MenuCursor@@QAEXXZ": "0x0044BE20",
-    "?ClearFlag@AnimationHandle12@@QAEXXZ": "0x004495E0",
-    "?Input_UpdateKeyboardState@@YGHPAE@Z": "0x0044B010",
-    "?HasAnyClear@ScoreFileProgress@@QAEHXZ": "0x0042C850",
-    "?TitleMode6@@YGHPAUTitle@@@Z": "0x00430320",
-    "?TitleMode7@@YGHPAUTitle@@@Z": "0x004306A0",
-    "?TitleMode8@@YGHPAUTitle@@@Z": "0x00430A60",
-    "?TitleMode9@@YGHPAUTitle@@@Z": "0x00430FF0",
-    "?TitleMainMenu@@YGHPAUTitle@@@Z": "0x0042D420",
-    "?TitleMode12@@YGHPAUTitle@@@Z": "0x004315C0",
-    "??_C@_0BA@GKFGEHJO@bgm?1th10_02?4wav?$AA@": "0x0046F018",
-    "??_C@_03LOJJKLGJ@?4?4?1?$AA@": "0x0046EFE8",
-    "??_C@_0BA@KODLGIPH@th10_ud?$DP?$DP?$DP?$DP?4rpy?$AA@": "0x0046EFEC",
-    "??_C@_06HOJHLELG@replay?$AA@": "0x0046E650",
-    "??_C@_0O@PLEGECMF@th10_?$CF?42d?4rpy?$AA@": "0x0046E0C8",
-    "?TitleMode11@@YGHPAUTitle@@@Z": "0x00431EE0",
-    "?SpellCards_CountOfDifficulty@@YGHH@Z": "0x004088C0",
-    "?UnlockAllStages2@@YGXPAUGameProgress3@@@Z": "0x0042C8C0",
-    "?BuildSpellList@TitleDrawView@@QAEHXZ": "0x00432690",
-    "?StopSlot@TitleAnimationSlotView@@QAEXH@Z": "0x0042C770",
-    "?TitleOptions@@YGHPAUTitle@@@Z": "0x0042D920",
-    "__real@3f800000": "0x00470AFC",
-    "__real@4f800000": "0x00470B98",
-    "__real@00000000": "0x00470B04",
-    "?RefreshOptions2@@YGXPAUTitle@@@Z": "0x0042E5A0",
-    "?SelectSprite@SpriteHandle@@QAEXH@Z": "0x00449670",
-    "_Title_UpdateMusicRoom@4": "0x00433EF0",
-    "?StageText_ExtractLine@@YGPADPAD0PAH@Z": "0x00434A20",
-    "?StageText_SkipLine@@YGPADPADPAH@Z": "0x004349E0",
-    "?MusicValidate@@YGPAURecoveryMusicVm@@PAURecoveryHandle@@@Z": "0x00449450",
-    "?RegisterResource@AnimationManager9@@QAEPADPBDHH@Z": "0x0043E460",
-    "__real@41a00000": "0x00470CA0",
-    "__real@42c00000": "0x00470C80",
-    "__real@4010000000000000": "0x00470C98",
-    "__real@42200000": "0x00470C64"
+  "_recovery_vsprintf": {
+   "address": "0x004524A6",
+   "kind": "code"
   },
-  "base_index_order": 0,
-  "differences": [
-    {
-      "class": "register-choice",
-      "offset": "0x70",
-      "retail": [
-        "mov ecx,DWORD PTR ds:0x4776e0",
-        "mov eax,DWORD PTR [ecx+0x8994]"
-      ],
-      "model": [
-        "mov eax,ds:0x4776e0",
-        "mov ecx,DWORD PTR [eax+0x8994]"
-      ]
-    },
-    {
-      "class": "register-choice",
-      "offset": "0x80",
-      "retail": [
-        "push eax"
-      ],
-      "model": [
-        "push ecx"
-      ]
-    },
-    {
-      "class": "alignment-padding",
-      "offset": "0xea",
-      "retail": [
-        "lea ebx,[ebx+0x0]"
-      ],
-      "model": [
-        "lea esp,[esp+0x0]"
-      ]
-    },
-    {
-      "class": "evaluation-order",
-      "offset": "0xfc",
-      "retail": [],
-      "model": [
-        "mov ecx,DWORD PTR [esp+0x10]",
-        "push ecx"
-      ]
-    },
-    {
-      "class": "evaluation-order",
-      "offset": "0xff",
-      "retail": [
-        "mov eax,DWORD PTR [esp+0x10]",
-        "push eax"
-      ],
-      "model": []
-    },
-    {
-      "class": "register-choice",
-      "offset": "0x10d",
-      "retail": [
-        "mov ecx,DWORD PTR [esp+0x14]",
-        "push ecx"
-      ],
-      "model": [
-        "mov edx,DWORD PTR [esp+0x14]",
-        "push edx"
-      ]
-    },
-    {
-      "class": "register-choice",
-      "offset": "0x185",
-      "retail": [
-        "lea edx,[ebp+0x664]"
-      ],
-      "model": [
-        "lea eax,[ebp+0x664]"
-      ]
-    },
-    {
-      "class": "register-choice",
-      "offset": "0x197",
-      "retail": [
-        "mov DWORD PTR [esp+0x30],edx"
-      ],
-      "model": [
-        "mov DWORD PTR [esp+0x30],eax"
-      ]
-    },
-    {
-      "class": "register-choice",
-      "offset": "0x1a0",
-      "retail": [
-        "mov eax,ds:0x491fec"
-      ],
-      "model": [
-        "mov ecx,DWORD PTR ds:0x491fec"
-      ]
-    },
-    {
-      "class": "register-choice",
-      "offset": "0x1ab",
-      "retail": [
-        "mov DWORD PTR [esp+0x18],eax"
-      ],
-      "model": [
-        "mov DWORD PTR [esp+0x18],ecx"
-      ]
-    },
-    {
-      "class": "code-shape",
-      "offset": "0x1b6",
-      "retail": [
-        "or DWORD PTR [ebx+0x35c],0x40000000",
-        "lea ecx,[edi+0x27]",
-        "push ecx"
-      ],
-      "model": [
-        "mov ecx,DWORD PTR [ebx+0x35c]",
-        "or ecx,0x40000000",
-        "lea edx,[edi+0x27]",
-        "push edx",
-        "mov DWORD PTR [ebx+0x35c],ecx"
-      ]
-    },
-    {
-      "class": "register-choice",
-      "offset": "0x1e8",
-      "retail": [
-        "mov edx,DWORD PTR [esp+0x14]",
-        "mov DWORD PTR [eax],edx"
-      ],
-      "model": [
-        "mov ecx,DWORD PTR [esp+0x14]",
-        "mov DWORD PTR [eax],ecx"
-      ]
-    },
-    {
-      "class": "code-shape",
-      "offset": "0x282",
-      "retail": [],
-      "model": [
-        "jmp L+0x290",
-        "lea ecx,[ecx+0x0]"
-      ]
-    },
-    {
-      "class": "evaluation-order",
-      "offset": "0x2e4",
-      "retail": [
-        "mov edx,ecx",
-        "push edx",
-        "mov edx,esi"
-      ],
-      "model": []
-    },
-    {
-      "class": "evaluation-order",
-      "offset": "0x2eb",
-      "retail": [],
-      "model": [
-        "mov eax,ecx",
-        "push eax"
-      ]
-    },
-    {
-      "class": "register-choice",
-      "offset": "0x2f6",
-      "retail": [
-        "mov eax,DWORD PTR [esp+0x30]",
-        "mov DWORD PTR [eax],ebx",
-        "mov ecx,DWORD PTR ds:0x47783c",
-        "mov al,BYTE PTR [ecx+edi*1+0x1d892]",
-        "test al,al"
-      ],
-      "model": [
-        "mov edx,DWORD PTR [esp+0x30]",
-        "mov DWORD PTR [edx],eax",
-        "mov eax,ds:0x47783c",
-        "mov cl,BYTE PTR [eax+edi*1+0x1d892]",
-        "test cl,cl"
-      ]
-    },
-    {
-      "class": "register-choice",
-      "offset": "0x30d",
-      "retail": [
-        "mov edx,DWORD PTR [esp+0x18]",
-        "push edx"
-      ],
-      "model": [
-        "mov ecx,DWORD PTR [esp+0x18]",
-        "push ecx"
-      ]
-    },
-    {
-      "class": "register-choice",
-      "offset": "0x324",
-      "retail": [
-        "lea eax,[edi+0x1]",
-        "push eax"
-      ],
-      "model": [
-        "lea edx,[edi+0x1]",
-        "push edx"
-      ]
-    },
-    {
-      "class": "evaluation-order",
-      "offset": "0x37d",
-      "retail": [],
-      "model": [
-        "push 0x4"
-      ]
-    },
-    {
-      "class": "evaluation-order",
-      "offset": "0x383",
-      "retail": [
-        "push 0x4"
-      ],
-      "model": []
-    },
-    {
-      "class": "code-shape",
-      "offset": "0x693",
-      "retail": [
-        "mov edx,DWORD PTR [ebx]",
-        "push edx"
-      ],
-      "model": [
-        "mov edi,edi",
-        "mov eax,DWORD PTR [ebx]"
-      ]
-    },
-    {
-      "class": "evaluation-order",
-      "offset": "0x69c",
-      "retail": [],
-      "model": [
-        "push eax"
-      ]
-    },
-    {
-      "class": "evaluation-order",
-      "offset": "0x6ed",
-      "retail": [],
-      "model": [
-        "lea edx,[esi+0x334]"
-      ]
-    },
-    {
-      "class": "evaluation-order",
-      "offset": "0x702",
-      "retail": [
-        "lea edx,[esi+0x334]"
-      ],
-      "model": []
-    },
-    {
-      "class": "code-shape",
-      "offset": "0x717",
-      "retail": [
-        "mov ecx,DWORD PTR [esp+0x20]",
-        "mov edx,DWORD PTR [esp+0x24]",
-        "lea eax,[esi+0x334]",
-        "mov DWORD PTR [eax],ecx",
-        "mov ecx,DWORD PTR [esp+0x28]",
-        "mov DWORD PTR [eax+0x4],edx",
-        "mov DWORD PTR [eax+0x8],ecx"
-      ],
-      "model": [
-        "mov eax,DWORD PTR [esp+0x20]",
-        "mov ecx,DWORD PTR [esp+0x24]",
-        "mov DWORD PTR [edx],eax",
-        "mov eax,DWORD PTR [esp+0x28]",
-        "mov DWORD PTR [edx+0x4],ecx",
-        "mov DWORD PTR [edx+0x8],eax"
-      ]
-    },
-    {
-      "class": "register-choice",
-      "offset": "0x74a",
-      "retail": [
-        "xor edx,edx"
-      ],
-      "model": [
-        "xor ecx,ecx"
-      ]
-    },
-    {
-      "class": "register-choice",
-      "offset": "0x754",
-      "retail": [
-        "setne dl"
-      ],
-      "model": [
-        "setne cl"
-      ]
-    },
-    {
-      "class": "register-choice",
-      "offset": "0x75e",
-      "retail": [
-        "add edx,0x2",
-        "mov WORD PTR [esi+0x304],dx"
-      ],
-      "model": [
-        "add ecx,0x2",
-        "mov WORD PTR [esi+0x304],cx"
-      ]
-    },
-    {
-      "class": "branch-target",
-      "offset": "0x771",
-      "retail": [
-        "jl L+0x693"
-      ],
-      "model": [
-        "jl L+0x6a0"
-      ]
-    },
-    {
-      "class": "alignment-padding",
-      "offset": "0x79e",
-      "retail": [
-        "mov edi,edi"
-      ],
-      "model": []
-    },
-    {
-      "class": "alignment-padding",
-      "offset": "0x7ca",
-      "retail": [
-        "lea ebx,[ebx+0x0]"
-      ],
-      "model": [
-        "nop"
-      ]
-    }
-  ],
-  "note": "reference/recovery_notes/ui_final_runtime_00433ef0_equivalent_2026_10_12.md",
-  "roots": [
-    "?TitleMusicRoom@@YGHPAUTitle@@@Z"
-  ],
-  "listed_branch_targets": true,
-  "context_sources": [
-    "src/game/title/stage_text_extract_line.cpp",
-    "src/game/title/stage_text_skip_line.cpp",
-    "src/core/sprtanim/animation_manager_register_resource.cpp"
-  ]
+  "_recovery_draw_shadowed@24": {
+   "address": "0x00437DB0",
+   "kind": "code"
+  },
+  "_recovery_draw_unshadowed@24": {
+   "address": "0x00437FE0",
+   "kind": "code"
+  },
+  "__ftol2": {
+   "address": "0x00463B2C",
+   "kind": "code"
+  },
+  "___security_cookie": {
+   "address": "0x00473660",
+   "kind": "data"
+  },
+  "__fltused": {
+   "address": "0x00000000",
+   "kind": "data"
+  },
+  "??2@YAPAXI@Z": {
+   "address": "0x00452493",
+   "kind": "code"
+  },
+  "_SchedulerTask_Create@4": {
+   "address": "0x00449ED0",
+   "kind": "code"
+  },
+  "_g_func_ctrl": {
+   "address": "0x00491BE4",
+   "kind": "data"
+  },
+  "_RecoveryAsciiFrameSpeed_00476f78": {
+   "address": "0x00476F78",
+   "kind": "data"
+  },
+  "?g_thread_synchronization@@3UThreadSynchronization@@A": {
+   "address": "0x00492274",
+   "kind": "data"
+  },
+  "__imp__EnterCriticalSection@4": {
+   "address": "0x004660B0",
+   "kind": "data"
+  },
+  "__imp__LeaveCriticalSection@4": {
+   "address": "0x004660B4",
+   "kind": "data"
+  },
+  "@RecoveryAsciiBasicTick_0043bd40@4": {
+   "address": "0x0043bd40",
+   "kind": "data"
+  },
+  "@RecoveryAsciiDraw0_0043c1a0@4": {
+   "address": "0x0043c1a0",
+   "kind": "data"
+  },
+  "@RecoveryAsciiTick1_0043c550@4": {
+   "address": "0x0043c550",
+   "kind": "data"
+  },
+  "@RecoveryAsciiTick2_0043c230@4": {
+   "address": "0x0043c230",
+   "kind": "data"
+  },
+  "@RecoveryAsciiDraw2_0043c2c0@4": {
+   "address": "0x0043c2c0",
+   "kind": "data"
+  },
+  "@RecoveryAsciiTick4_0043c460@4": {
+   "address": "0x0043c460",
+   "kind": "data"
+  },
+  "@RecoveryAsciiDraw4_0043c500@4": {
+   "address": "0x0043c500",
+   "kind": "data"
+  },
+  "@RecoveryAsciiTick6_0043c310@4": {
+   "address": "0x0043c310",
+   "kind": "data"
+  },
+  "@RecoveryAsciiDraw6_0043c3c0@4": {
+   "address": "0x0043c3c0",
+   "kind": "data"
+  },
+  "@RecoveryAsciiDraw7_0043c410@4": {
+   "address": "0x0043c410",
+   "kind": "data"
+  },
+  "@RecoveryAsciiTick8_0043c710@4": {
+   "address": "0x0043c710",
+   "kind": "data"
+  },
+  "@RecoveryAsciiRemove_0043c870@4": {
+   "address": "0x0043c870",
+   "kind": "data"
+  },
+  "_g_sprt_ctrl": {
+   "address": "0x00491C10",
+   "kind": "data"
+  },
+  "_operator_new2": {
+   "address": "0x00452493",
+   "kind": "code"
+  },
+  "_Entity_Constructor_00402050": {
+   "address": "0x00402050",
+   "kind": "code"
+  },
+  "_Entity_Init_00401de0": {
+   "address": "0x00401DE0",
+   "kind": "code"
+  },
+  "_asm_AnimationObject_LoadScriptTail_0043ee30": {
+   "address": "0x0043EE30",
+   "kind": "code"
+  },
+  "_crt_free": {
+   "address": "0x00452422",
+   "kind": "code"
+  },
+  "_crt_free_startup": {
+   "address": "0x004524A1",
+   "kind": "code"
+  },
+  "?platform_worker_vtable@@3DA": {
+   "address": "0x004703E4",
+   "kind": "data"
+  },
+  "_asm_beginthreadex_00453683": {
+   "address": "0x00453683",
+   "kind": "code"
+  },
+  "__imp__WaitForSingleObject@8": {
+   "address": "0x0046611C",
+   "kind": "data"
+  },
+  "__imp__Sleep@4": {
+   "address": "0x004660AC",
+   "kind": "data"
+  },
+  "__imp__CloseHandle@4": {
+   "address": "0x004660CC",
+   "kind": "data"
+  },
+  "_Game_LoadThread": {
+   "address": "0x00417C70",
+   "kind": "data"
+  },
+  "_g_key_bindings_current": {
+   "address": "0x00474E88",
+   "kind": "data"
+  },
+  "_g_d3d_device": {
+   "address": "0x00491C30",
+   "kind": "data"
+  },
+  "_g_game": {
+   "address": "0x00477810",
+   "kind": "data"
+  },
+  "_g_application": {
+   "address": "0x00491C28",
+   "kind": "data"
+  },
+  "?InitializeObject@AnimationBank@@QAEPAXPAXH@Z": {
+   "address": "0x00449870",
+   "kind": "code"
+  },
+  "_g_archive": {
+   "address": "0x00497990",
+   "kind": "data"
+  },
+  "_data_00497994": {
+   "address": "0x00497994",
+   "kind": "data"
+  },
+  "_g_file_lock_depth": {
+   "address": "0x0049231e",
+   "kind": "data"
+  },
+  "_g_file_lock": {
+   "address": "0x004922a4",
+   "kind": "data"
+  },
+  "_imp_EnterCriticalSection": {
+   "address": "0x004660b0",
+   "kind": "data"
+  },
+  "_imp_LeaveCriticalSection": {
+   "address": "0x004660b4",
+   "kind": "data"
+  },
+  "_imp_CreateFileA": {
+   "address": "0x004660c4",
+   "kind": "data"
+  },
+  "_imp_CloseHandle": {
+   "address": "0x004660cc",
+   "kind": "data"
+  },
+  "_imp_ReadFile": {
+   "address": "0x004660d0",
+   "kind": "data"
+  },
+  "_imp_GetFileSize": {
+   "address": "0x004660d8",
+   "kind": "data"
+  },
+  "_asm_strrchr_00452930": {
+   "address": "0x00452930",
+   "kind": "code"
+  },
+  "_asm_stricmp_0046054e": {
+   "address": "0x0046054e",
+   "kind": "code"
+  },
+  "_asm_malloc_00452706": {
+   "address": "0x00452706",
+   "kind": "code"
+  },
+  "?Read@ArchiveReader@@QAEPADPBXPAD@Z": {
+   "address": "0x00434DD0",
+   "kind": "code"
+  },
+  "_g_recovery_script_path": {
+   "address": "0x00497C38",
+   "kind": "data"
+  },
+  "?Parse@ScriptFileLoader@@QAEHPAD@Z": {
+   "address": "0x00450220",
+   "kind": "code"
+  },
+  "_imp_GetModuleFileNameA": {
+   "address": "0x004660DC",
+   "kind": "data"
+  },
+  "_g_executable_checksum": {
+   "address": "0x00492380",
+   "kind": "data"
+  },
+  "_g_executable_size": {
+   "address": "0x00492384",
+   "kind": "data"
+  },
+  "_str_string_format": {
+   "address": "0x0046E1C8",
+   "kind": "data"
+  },
+  "_ProbeFileExists@4": {
+   "address": "0x0044B4D0",
+   "kind": "code"
+  },
+  "_dbl_pi_4": {
+   "address": "0x00470C50",
+   "kind": "data"
+  },
+  "_g_music_room_commands": {
+   "address": "0x0047476C",
+   "kind": "data"
+  },
+  "_g_music_room_easings": {
+   "address": "0x00474778",
+   "kind": "data"
+  },
+  "_g_music_room_variable_map": {
+   "address": "0x00491BF4",
+   "kind": "data"
+  },
+  "_g_music_room_callback_map": {
+   "address": "0x00491BF8",
+   "kind": "data"
+  },
+  "_asm_vsprintf_004524a6": {
+   "address": "0x004524A6",
+   "kind": "code"
+  },
+  "__chkstk": {
+   "address": "0x00458EC0",
+   "kind": "code"
+  },
+  "_g_text_log_lock": {
+   "address": "0x004922BC",
+   "kind": "data"
+  },
+  "_g_text_log_lock_depth": {
+   "address": "0x0049231F",
+   "kind": "data"
+  },
+  "@LoadCachedResource@12": {
+   "address": "0x00447280",
+   "kind": "code"
+  },
+  "_malloc": {
+   "address": "0x00452706",
+   "kind": "code"
+  },
+  "_g_stage_route_current": {
+   "address": "0x00477848",
+   "kind": "data"
+  },
+  "_g_globals_score": {
+   "address": "0x00474C44",
+   "kind": "data"
+  },
+  "_g_globals_character": {
+   "address": "0x00474C68",
+   "kind": "data"
+  },
+  "_g_next_stage_buffer": {
+   "address": "0x00491BE8",
+   "kind": "data"
+  },
+  "_g_game_speed": {
+   "address": "0x00476F78",
+   "kind": "data"
+  },
+  "_g_log": {
+   "address": "0x00474F70",
+   "kind": "data"
+  },
+  "_str_data_corrupted": {
+   "address": "0x0046CB68",
+   "kind": "data"
+  },
+  "_g_sound_priority": {
+   "address": "0x004749CE",
+   "kind": "data"
+  },
+  "_g_sound_manager": {
+   "address": "0x00492590",
+   "kind": "data"
+  },
+  "_flt_0_99": {
+   "address": "0x00470B68",
+   "kind": "data"
+  },
+  "_flt_1_01": {
+   "address": "0x00470B64",
+   "kind": "data"
+  },
+  "?SetPolar@DecelerationVector2@@QAEXMM@Z": {
+   "address": "0x0041F800",
+   "kind": "code"
+  },
+  "?SetPolar@BulletDecelerationVector2@@QAEXMM@Z": {
+   "address": "0x00408750",
+   "kind": "code"
+  },
+  "_g_player": {
+   "address": "0x00477834",
+   "kind": "data"
+  },
+  "_flt_0": {
+   "address": "0x00470B04",
+   "kind": "data"
+  },
+  "?Angle_NormalizeSum@@YGMMM@Z": {
+   "address": "0x0044BC10",
+   "kind": "code"
+  },
+  "_flt_neg192": {
+   "address": "0x00470B40",
+   "kind": "data"
+  },
+  "_flt_192": {
+   "address": "0x00470B3C",
+   "kind": "data"
+  },
+  "_flt_448": {
+   "address": "0x00470B38",
+   "kind": "data"
+  },
+  "_flt_pi": {
+   "address": "0x00470B18",
+   "kind": "data"
+  },
+  "_flt_neg384": {
+   "address": "0x00470B58",
+   "kind": "data"
+  },
+  "_flt_384": {
+   "address": "0x00470B54",
+   "kind": "data"
+  },
+  "_flt_neg990": {
+   "address": "0x00470B50",
+   "kind": "data"
+  },
+  "_g_ending": {
+   "address": "0x00477700",
+   "kind": "data"
+  },
+  "_g_ascii_manager": {
+   "address": "0x004776E0",
+   "kind": "data"
+  },
+  "_g_input_keys_raw": {
+   "address": "0x00474E30",
+   "kind": "data"
+  },
+  "_g_input_keys_held": {
+   "address": "0x00474E36",
+   "kind": "data"
+  },
+  "_g_globals_difficulty": {
+   "address": "0x00474C74",
+   "kind": "data"
+  },
+  "_g_screen_effects_frozen": {
+   "address": "0x004918A4",
+   "kind": "data"
+  },
+  "_recovery_script_empty_text": {
+   "address": "0x0046CFD4",
+   "kind": "data"
+  },
+  "_recovery_script_special_music": {
+   "address": "0x0046CFC4",
+   "kind": "data"
+  },
+  "?g_frame_timer_normal_lower@@3MA": {
+   "address": "0x00470B68",
+   "kind": "data"
+  },
+  "?g_frame_timer_normal_upper@@3MA": {
+   "address": "0x00470B64",
+   "kind": "data"
+  },
+  "_recovery_replace_extension@8": {
+   "address": "0x00420A90",
+   "kind": "code"
+  },
+  "_recovery_play_dummy@8": {
+   "address": "0x00420B10",
+   "kind": "code"
+  },
+  "_recovery_play_random_voice@4": {
+   "address": "0x00420C30",
+   "kind": "code"
+  },
+  "_recovery_background_thread@4": {
+   "address": "0x0040C3A0",
+   "kind": "data"
+  },
+  "_recovery_indicator_owner": {
+   "address": "0x00474C84",
+   "kind": "data"
+  },
+  "_recovery_indicator_eight_00470bd0": {
+   "address": "0x00470BD0",
+   "kind": "data"
+  },
+  "_recovery_indicator_one_00470afc": {
+   "address": "0x00470AFC",
+   "kind": "data"
+  },
+  "_recovery_indicator_two_00470b08": {
+   "address": "0x00470B08",
+   "kind": "data"
+  },
+  "_recovery_indicator_fifteen_00470c08": {
+   "address": "0x00470C08",
+   "kind": "data"
+  },
+  "_recovery_indicator_three_halves_00470ca8": {
+   "address": "0x00470CA8",
+   "kind": "data"
+  },
+  "_recovery_indicator_half_00470b0c": {
+   "address": "0x00470B0C",
+   "kind": "data"
+  },
+  "_recovery_indicator_three_quarters_00470ce4": {
+   "address": "0x00470CE4",
+   "kind": "data"
+  },
+  "_recovery_indicator_free": {
+   "address": "0x004524A1",
+   "kind": "code"
+  },
+  "_recovery_indicator_x_origin_00470b4c": {
+   "address": "0x00470B4C",
+   "kind": "data"
+  },
+  "_recovery_indicator_y_origin_00470b48": {
+   "address": "0x00470B48",
+   "kind": "data"
+  },
+  "_recovery_music_repeat": {
+   "address": "0x00474E34",
+   "kind": "data"
+  },
+  "_recovery_music_player": {
+   "address": "0x0047783C",
+   "kind": "data"
+  },
+  "_recovery_music_mode": {
+   "address": "0x00491D78",
+   "kind": "data"
+  },
+  "_recovery_music_preview_resource": {
+   "address": "0x00491FEC",
+   "kind": "data"
+  },
+  "_recovery_music_row_y_00470c80": {
+   "address": "0x00470C80",
+   "kind": "data"
+  },
+  "_recovery_music_row_step_00470ca0": {
+   "address": "0x00470CA0",
+   "kind": "data"
+  },
+  "_recovery_music_jump_threshold_00470c64": {
+   "address": "0x00470C64",
+   "kind": "data"
+  },
+  "_recovery_music_selected_offset_00470c98": {
+   "address": "0x00470C98",
+   "kind": "data"
+  },
+  "_recovery_music_defaults": {
+   "address": "0x00491C14",
+   "kind": "data"
+  },
+  "_recovery_music_locked_format": {
+   "address": "0x0046ECF4",
+   "kind": "data"
+  },
+  "_recovery_music_comment_file": {
+   "address": "0x0046ED14",
+   "kind": "data"
+  },
+  "_recovery_music_dummy": {
+   "address": "0x0046DF98",
+   "kind": "data"
+  },
+  "_recovery_music_restore_bgm": {
+   "address": "0x0046F018",
+   "kind": "data"
+  },
+  "_recovery_music_preview_table": {
+   "address": "0x00476FD8",
+   "kind": "data"
+  },
+  "_flt_1": {
+   "address": "0x00470AFC",
+   "kind": "data"
+  },
+  "?TitleDispatchGame@@YGXXZ": {
+   "address": "0x00420C00",
+   "kind": "code"
+  },
+  "_g_app_flags": {
+   "address": "0x00491FF4",
+   "kind": "data"
+  },
+  "?TitlePlayMusic@@YGXHH@Z": {
+   "address": "0x00420B10",
+   "kind": "code"
+  },
+  "?TitleSetMusicFile@@YGXHPBD@Z": {
+   "address": "0x00420A90",
+   "kind": "code"
+  },
+  "?TitleNameEntry@@YGHPAUTitle@@@Z": {
+   "address": "0x00432CB0",
+   "kind": "code"
+  },
+  "?TitleReleaseDemo@@YGXPAUDemoFile@@@Z": {
+   "address": "0x004294A0",
+   "kind": "code"
+  },
+  "_g_menu_difficulty_saved": {
+   "address": "0x00474C78",
+   "kind": "data"
+  },
+  "_g_globals_shot_type": {
+   "address": "0x00474C6C",
+   "kind": "data"
+  },
+  "_g_stage_routes": {
+   "address": "0x00474788",
+   "kind": "data"
+  },
+  "_g_main_state": {
+   "address": "0x00491FB8",
+   "kind": "data"
+  },
+  "_g_globals_stage_shown": {
+   "address": "0x00474C80",
+   "kind": "data"
+  },
+  "_g_globals_stage": {
+   "address": "0x00474C7C",
+   "kind": "data"
+  },
+  "?TitleLoadDemo@@YGPAUDemoFile@@PBD@Z": {
+   "address": "0x004296F0",
+   "kind": "code"
+  },
+  "_g_title_demo_paths": {
+   "address": "0x00476FF8",
+   "kind": "data"
+  },
+  "_g_title_demo_index": {
+   "address": "0x00474CA8",
+   "kind": "data"
+  },
+  "_g_globals_flags": {
+   "address": "0x00474CA0",
+   "kind": "data"
+  },
+  "_g_title_idle_frames": {
+   "address": "0x00474CA4",
+   "kind": "data"
+  },
+  "?TitleSaveInputHistory_0044be20@@YGXXZ": {
+   "address": "0x0044BE20",
+   "kind": "code"
+  },
+  "_RunAnimationVm@4": {
+   "address": "0x0043EE30",
+   "kind": "code"
+  },
+  "_g_key_bindings": {
+   "address": "0x00491D4C",
+   "kind": "data"
+  },
+  "_g_joystick_buttons": {
+   "address": "0x00497BB0",
+   "kind": "data"
+  },
+  "_g_pad_devices": {
+   "address": "0x00491C3C",
+   "kind": "data"
+  },
+  "__imp__joyGetPosEx@8": {
+   "address": "0x00466280",
+   "kind": "data"
+  },
+  "?TitleMenuFlow@@YGHPAUTitle@@@Z": {
+   "address": "0x0042F540",
+   "kind": "code"
+  },
+  "_g_score": {
+   "address": "0x0047783C",
+   "kind": "data"
+  },
+  "?Music_FadeOut@@YGHM@Z": {
+   "address": "0x00420C30",
+   "kind": "code"
+  },
+  "_g_title_practice_selection": {
+   "address": "0x00491C08",
+   "kind": "data"
+  },
+  "_g_globals_initial_lives": {
+   "address": "0x00474CAC",
+   "kind": "data"
+  },
+  "_g_keyboard_state": {
+   "address": "0x00497AA8",
+   "kind": "data"
+  },
+  "?g_input_enabled@@3HA": {
+   "address": "0x004924FC",
+   "kind": "data"
+  },
+  "?g_input_mode@@3IA": {
+   "address": "0x00491FF4",
+   "kind": "data"
+  },
+  "?g_keyboard_device@@3PAUKeyboardDevice@@A": {
+   "address": "0x00491C38",
+   "kind": "data"
+  },
+  "__imp__GetKeyboardState@4": {
+   "address": "0x00466208",
+   "kind": "data"
+  },
+  "_g_title_replay_selection": {
+   "address": "0x00491C04",
+   "kind": "data"
+  },
+  "_g_main_mode_request": {
+   "address": "0x00491C00",
+   "kind": "data"
+  },
+  "_g_replay_path": {
+   "address": "0x00477710",
+   "kind": "data"
+  },
+  "_sprintf": {
+   "address": "0x00452AE8",
+   "kind": "code"
+  },
+  "__mkdir": {
+   "address": "0x00452ABC",
+   "kind": "code"
+  },
+  "__chdir": {
+   "address": "0x00453111",
+   "kind": "code"
+  },
+  "_free": {
+   "address": "0x004524A1",
+   "kind": "code"
+  },
+  "__imp__FindFirstFileA@8": {
+   "address": "0x004660A0",
+   "kind": "data"
+  },
+  "__imp__FindNextFileA@8": {
+   "address": "0x004660A4",
+   "kind": "data"
+  },
+  "__imp__FindClose@4": {
+   "address": "0x004660A8",
+   "kind": "data"
+  },
+  "@__security_check_cookie@4": {
+   "address": "0x00458EA5",
+   "kind": "code"
+  },
+  "?ReplayFile_Open@@YGPAUReplayFile@@PBD@Z": {
+   "address": "0x004296F0",
+   "kind": "code"
+  },
+  "?ReplayFile_Destroy@@YGXPAUReplayFile@@@Z": {
+   "address": "0x004294A0",
+   "kind": "code"
+  },
+  "_time2": {
+   "address": "0x00452B71",
+   "kind": "code"
+  },
+  "?ReplayFile_Save@@YIXPAUReplayFile@@PBD1@Z": {
+   "address": "0x00429B60",
+   "kind": "code"
+  },
+  "?Music_Load2@@YGHHPBD@Z": {
+   "address": "0x00420A90",
+   "kind": "code"
+  },
+  "?Music_Play2@@YGHHH@Z": {
+   "address": "0x00420B10",
+   "kind": "code"
+  },
+  "_g_replay": {
+   "address": "0x00477838",
+   "kind": "data"
+  },
+  "_g_name_entry_grid": {
+   "address": "0x004746D8",
+   "kind": "data"
+  },
+  "?g_spell_difficulty@@3QBCB": {
+   "address": "0x004743C0",
+   "kind": "data"
+  },
+  "_g_spell_difficulty": {
+   "address": "0x004743C0",
+   "kind": "data"
+  },
+  "_g_keys_current": {
+   "address": "0x00497E90",
+   "kind": "data"
+  },
+  "_g_keys_previous": {
+   "address": "0x00497D90",
+   "kind": "data"
+  },
+  "_g_spell_seq_keys": {
+   "address": "0x004979A8",
+   "kind": "data"
+  },
+  "_g_spell_seq_progress": {
+   "address": "0x004979A4",
+   "kind": "data"
+  },
+  "_g_spell_seq_elapsed": {
+   "address": "0x004979A0",
+   "kind": "data"
+  },
+  "_g_spell_seq_codes": {
+   "address": "0x0046EF10",
+   "kind": "data"
+  },
+  "_NamedCardFormat": {
+   "address": "0x0046EEF8",
+   "kind": "data"
+  },
+  "_MaskedCardFormat": {
+   "address": "0x0046EEBC",
+   "kind": "data"
+  },
+  "_EmptyCardText": {
+   "address": "0x0046CFD4",
+   "kind": "data"
+  },
+  "_application_state": {
+   "address": "0x00491C00",
+   "kind": "data"
+  },
+  "_str_set_vol": {
+   "address": "0x0046ECE8",
+   "kind": "data"
+  },
+  "_g_options_music_volume": {
+   "address": "0x00497854",
+   "kind": "data"
+  },
+  "?SelectResourceSprite_0043e5a0@@YIXPAXH@Z": {
+   "address": "0x0043E5A0",
+   "kind": "code"
+  },
+  "?AtInterval@FrameCounterPair@@QAEHH@Z": {
+   "address": "0x00427C70",
+   "kind": "code"
+  },
+  "_g_options_sound_volume": {
+   "address": "0x00497858",
+   "kind": "data"
+  },
+  "_g_options_music_attenuation": {
+   "address": "0x0049785C",
+   "kind": "data"
+  },
+  "_g_music_requests": {
+   "address": "0x00492590",
+   "kind": "data"
+  },
+  "_g_config_flags": {
+   "address": "0x00491D78",
+   "kind": "data"
+  },
+  "_g_music_progress": {
+   "address": "0x0047783C",
+   "kind": "data"
+  },
+  "_data_00470ca0": {
+   "address": "0x00470CA0",
+   "kind": "data"
+  },
+  "_data_00470c80": {
+   "address": "0x00470C80",
+   "kind": "data"
+  },
+  "_data_0046ecf4": {
+   "address": "0x0046ECF4",
+   "kind": "data"
+  },
+  "_StageText_SkipLine@8": {
+   "address": "0x004349E0",
+   "kind": "code"
+  },
+  "_StageText_ExtractLine@12": {
+   "address": "0x00434A20",
+   "kind": "code"
+  },
+  "?Initialize@StageText@@QAEXPBUStageTextVector@@0HE@Z": {
+   "address": "0x00434A80",
+   "kind": "code"
+  },
+  "?TitleMode16@@YGHPAUTitle@@@Z": {
+   "address": "0x00433570",
+   "kind": "code"
+  },
+  "_data_00470c98": {
+   "address": "0x00470C98",
+   "kind": "data"
+  },
+  "_flt_40": {
+   "address": "0x00470C64",
+   "kind": "data"
+  },
+  "_str_dummy": {
+   "address": "0x0046DF98",
+   "kind": "data"
+  }
+ },
+ "bindings": {
+  "?Set@RecoveryTimer2@@QAEXH@Z": "0x00405410",
+  "?Advance@RecoveryTimer2@@QAEXM@Z": "0x0044BF40",
+  "?Find@RecoveryLookup@@QAIPAXPAURecoveryLookupContext@@URecoveryScriptId@@@Z": "0x004491C0",
+  "?SetFlag@RecoveryLookup@@QAIPAXPAURecoveryLookupContext@@H@Z": "0x004492A0",
+  "?Validate@RecoveryLookup@@QAAPAXPAURecoveryHandle@@@Z": "0x00449450",
+  "?StopAtFrame2@RecoveryHandle@@QAEXXZ": "0x0040C480",
+  "?StopAtFrame3@RecoveryHandle@@QAEXXZ": "0x0040C4D0",
+  "?MarkForRemoval@RecoveryHandle@@QAEXXZ": "0x00449630",
+  "?RecoveryDecodePath@@YGPADPBE@Z": "0x00417010",
+  "?RecoveryDispatchText2@@YGXPAURecoveryTextResource@@HPBDPAXHIH@Z": "0x004479D0",
+  "_RecoveryAscii_Create@24": "0x0043C8B0",
+  "_RecoveryAscii_Register@28": "0x0043C970",
+  "_FuncCtrl_RegisterPrimary@12": "0x00449AE0",
+  "_FuncCtrl_RegisterSecondary@12": "0x00449B70",
+  "_RecoveryAsciiRegisterPrimary_0044a000@12": "0x0044A000",
+  "_RecoveryAsciiRegisterSecondary_0044a030@12": "0x0044A030",
+  "?LoadAsset@@YGPADPBDPAUAssetBuffer@@@Z": "0x0040B480",
+  "?EnsureAnimationResource@GameThread6@@QAEPAXMM@Z": "0x0040C540",
+  "?ClearResourceSlot@AnimationManager13@@QAEXH@Z": "0x004477D0",
+  "?Release@AnimationResource6@@QAEXXZ": "0x00447810",
+  "?MarkResourceForRemoval@SprtCtrl@@QAEXPAX@Z": "0x004493E0",
+  "?AnimationManager_CreatePrimaryBack@@YGPAPAXPAXPAPAXHH@Z": "0x00448D00",
+  "?Queue@SoundQueue@@QAEHHH@Z": "0x0043DC90",
+  "?Start@PlatformWorker@@QAEXPAXP6GI0@Z@Z": "0x0044C1C0",
+  "?Stop@PlatformWorker@@QAEXXZ": "0x0044C150",
+  "_Archive_LoadFile@12": "0x0044B360",
+  "_asm_FUN_00449950_00449950": "0x00449950",
+  "_asm_AnimationObject_LoadScript_0043e710": "0x0043E710",
+  "_asm_AnimationManager_RegisterPrimaryBack_004489d0": "0x004489D0",
+  "?AnimationManager_CreatePositionedPrimary@@YGPAPAXPAXPAPAXHPBUAnimationPosition@@@Z": "0x00448D50",
+  "?RecoveryPlayerAnimationCreate@@YGPAPAXPAXPAPAXHPBUHintPosition@@@Z": "0x00448DB0",
+  "?Initialise@EntityMovementSlot@@QAEXPBUMovementPair@@0HE@Z": "0x0041AB70",
+  "?FormatRightAligned@HintVm@@QAAXPAXZZ": "0x00447AE0",
+  "?FormatCentered@HintVm@@QAAXPAXZZ": "0x00447BB0",
+  "?RecoveryMusicStopHandle@@YGXPAURecoveryHandle@@@Z": "0x00409E50",
+  "?DisableTimerWithOwner@Title@@QAEXH@Z": "0x0042C5C0",
+  "?SetTimerTarget@Title@@QAEXH@Z": "0x0042C620",
+  "?RecoveryMusicSkipLine_004349e0@@YGPADPADPAH@Z": "0x004349E0",
+  "?RecoveryMusicExtractLine_00434a20@@YGPADPAD0PAH@Z": "0x00434A20",
+  "?InitializeTransition@RecoveryMusicVm@@QAEXPBURecoveryMusicVector@@0HE@Z": "0x00434A80",
+  "?RegisterResource@RecoveryMusicResourceQueue@@QAEPADPBDHH@Z": "0x0043E460",
+  "?PopSelection@MenuCursor@@QAEXXZ": "0x0044BE70",
+  "?Advance@MenuCursor@@QAEHH@Z": "0x0044BEA0",
+  "_RecoveryScript_Execute2@4": "0x0040BD80",
+  "?Drain@HintLink@@QAEHPAUHintUpdateView@@H@Z": "0x00419120",
+  "?MarkText@RecoveryTextVm@@QAAXPAXZZ": "0x00447A50",
+  "?ClearAnimationSlot@Title@@QAEXH@Z": "0x0042C6D0",
+  "?SetSlotFrame@Title@@QAEXHF@Z": "0x0042C770",
+  "?RecoveryMusicInstallSlot@@YGXPAUTitle@@H@Z": "0x0042C670",
+  "?Title_DispatchUpdate@@YGHPAUTitle@@@Z": "0x0042CDF0",
+  "?EndingScreen_Update2@@YGHPAUTitle@@@Z": "0x0042D300",
+  "?AnimationManager_SetStopFrameAndRun@@YIXGPAURecoveryLookupContext@@URecoveryScriptId@@@Z": "0x00449250",
+  "?RestartSlot@TitleAnimationSlotView@@QAEXH@Z": "0x0042C750",
+  "?SetStopFrame@AnimationHandle11@@QAEXG@Z": "0x00449470",
+  "?FindChildRef@AnimationHandle15@@QAE?AUAnimationRef2@@H@Z": "0x004497D0",
+  "?InputMaskActive@KeyRepeatState@@QAEHG@Z": "0x0040ACE0",
+  "?UpdateBoundedCounter@@YIIIPAI@Z": "0x0040AD20",
+  "?PushSelection@MenuCursor@@QAEXXZ": "0x0044BE20",
+  "?ClearFlag@AnimationHandle12@@QAEXXZ": "0x004495E0",
+  "?Input_UpdateKeyboardState@@YGHPAE@Z": "0x0044B010",
+  "?HasAnyClear@ScoreFileProgress@@QAEHXZ": "0x0042C850",
+  "?TitleMode6@@YGHPAUTitle@@@Z": "0x00430320",
+  "?TitleMode7@@YGHPAUTitle@@@Z": "0x004306A0",
+  "?TitleMode8@@YGHPAUTitle@@@Z": "0x00430A60",
+  "?TitleMode9@@YGHPAUTitle@@@Z": "0x00430FF0",
+  "?TitleMainMenu@@YGHPAUTitle@@@Z": "0x0042D420",
+  "?TitleMode12@@YGHPAUTitle@@@Z": "0x004315C0",
+  "??_C@_0BA@GKFGEHJO@bgm?1th10_02?4wav?$AA@": "0x0046F018",
+  "??_C@_03LOJJKLGJ@?4?4?1?$AA@": "0x0046EFE8",
+  "??_C@_0BA@KODLGIPH@th10_ud?$DP?$DP?$DP?$DP?4rpy?$AA@": "0x0046EFEC",
+  "??_C@_06HOJHLELG@replay?$AA@": "0x0046E650",
+  "??_C@_0O@PLEGECMF@th10_?$CF?42d?4rpy?$AA@": "0x0046E0C8",
+  "?TitleMode11@@YGHPAUTitle@@@Z": "0x00431EE0",
+  "?SpellCards_CountOfDifficulty@@YGHH@Z": "0x004088C0",
+  "?UnlockAllStages2@@YGXPAUGameProgress3@@@Z": "0x0042C8C0",
+  "?BuildSpellList@TitleDrawView@@QAEHXZ": "0x00432690",
+  "?StopSlot@TitleAnimationSlotView@@QAEXH@Z": "0x0042C770",
+  "?TitleOptions@@YGHPAUTitle@@@Z": "0x0042D920",
+  "__real@3f800000": "0x00470AFC",
+  "__real@4f800000": "0x00470B98",
+  "__real@00000000": "0x00470B04",
+  "?RefreshOptions2@@YGXPAUTitle@@@Z": "0x0042E5A0",
+  "?SelectSprite@SpriteHandle@@QAEXH@Z": "0x00449670",
+  "_Title_UpdateMusicRoom@4": "0x00433EF0",
+  "?StageText_SkipLine@@YGPADPADPAH@Z": "0x004349E0",
+  "?MusicValidate@@YGPAURecoveryMusicVm@@PAURecoveryHandle@@@Z": "0x00449450",
+  "?RegisterResource@AnimationManager9@@QAEPADPBDHH@Z": "0x0043E460",
+  "__real@41a00000": "0x00470CA0",
+  "__real@42c00000": "0x00470C80",
+  "__real@4010000000000000": "0x00470C98",
+  "__real@42200000": "0x00470C64",
+  "_UiFinalExtractLine@12": "0x00434A20",
+  "@UiFinalFind@12": "0x004491C0",
+  "_UiFinalTransition@20": "0x00434A80"
+ },
+ "base_index_order": 0,
+ "differences": [
+  {
+   "offset": "0x70",
+   "retail": [
+    "mov ecx,DWORD PTR ds:0x4776e0",
+    "mov eax,DWORD PTR [ecx+0x8994]"
+   ],
+   "model": [
+    "mov eax,ds:0x4776e0",
+    "mov ecx,DWORD PTR [eax+0x8994]"
+   ],
+   "class": "register-choice"
+  },
+  {
+   "offset": "0x80",
+   "retail": [
+    "push eax"
+   ],
+   "model": [
+    "push ecx"
+   ],
+   "class": "register-choice"
+  },
+  {
+   "offset": "0xea",
+   "retail": [
+    "lea ebx,[ebx+0x0]"
+   ],
+   "model": [
+    "lea esp,[esp+0x0]"
+   ],
+   "class": "alignment-padding"
+  },
+  {
+   "offset": "0x121",
+   "retail": [],
+   "model": [
+    "mov ecx,eax"
+   ],
+   "class": "evaluation-order"
+  },
+  {
+   "offset": "0x125",
+   "retail": [
+    "mov ecx,eax"
+   ],
+   "model": [],
+   "class": "evaluation-order"
+  },
+  {
+   "offset": "0x2dc",
+   "retail": [
+    "mov ecx,DWORD PTR [esp+0x10]",
+    "mov eax,DWORD PTR [esp+0x30]",
+    "mov edx,ecx",
+    "push edx",
+    "mov edx,esi",
+    "mov DWORD PTR [eax],ecx"
+   ],
+   "model": [
+    "mov eax,DWORD PTR [esp+0x10]",
+    "mov ecx,DWORD PTR [esp+0x30]",
+    "push eax",
+    "mov DWORD PTR [ecx],eax"
+   ],
+   "class": "code-shape"
+  },
+  {
+   "offset": "0x2f6",
+   "retail": [
+    "mov eax,DWORD PTR [esp+0x30]",
+    "mov DWORD PTR [eax],ebx",
+    "mov ecx,DWORD PTR ds:0x47783c",
+    "mov al,BYTE PTR [ecx+edi*1+0x1d892]",
+    "test al,al"
+   ],
+   "model": [
+    "mov edx,DWORD PTR [esp+0x30]",
+    "mov DWORD PTR [edx],eax",
+    "mov eax,ds:0x47783c",
+    "mov cl,BYTE PTR [eax+edi*1+0x1d892]",
+    "test cl,cl"
+   ],
+   "class": "register-choice"
+  },
+  {
+   "offset": "0x30d",
+   "retail": [
+    "mov edx,DWORD PTR [esp+0x18]",
+    "push edx"
+   ],
+   "model": [
+    "mov ecx,DWORD PTR [esp+0x18]",
+    "push ecx"
+   ],
+   "class": "register-choice"
+  },
+  {
+   "offset": "0x324",
+   "retail": [
+    "lea eax,[edi+0x1]",
+    "push eax"
+   ],
+   "model": [
+    "lea edx,[edi+0x1]",
+    "push edx"
+   ],
+   "class": "register-choice"
+  },
+  {
+   "offset": "0x37d",
+   "retail": [
+    "lea edx,[ebx+0x334]"
+   ],
+   "model": [],
+   "class": "evaluation-order"
+  },
+  {
+   "offset": "0x385",
+   "retail": [
+    "lea ecx,[esp+0x28]"
+   ],
+   "model": [
+    "lea ecx,[ebx+0x334]",
+    "lea edx,[esp+0x28]"
+   ],
+   "class": "evaluation-order"
+  },
+  {
+   "offset": "0x693",
+   "retail": [
+    "mov edx,DWORD PTR [ebx]",
+    "push edx"
+   ],
+   "model": [
+    "mov edi,edi",
+    "mov eax,DWORD PTR [ebx]"
+   ],
+   "class": "code-shape"
+  },
+  {
+   "offset": "0x69c",
+   "retail": [],
+   "model": [
+    "push eax"
+   ],
+   "class": "evaluation-order"
+  },
+  {
+   "offset": "0x702",
+   "retail": [
+    "lea edx,[esi+0x334]"
+   ],
+   "model": [],
+   "class": "evaluation-order"
+  },
+  {
+   "offset": "0x70a",
+   "retail": [
+    "lea ecx,[esp+0x28]"
+   ],
+   "model": [
+    "lea ecx,[esi+0x334]",
+    "lea edx,[esp+0x28]"
+   ],
+   "class": "evaluation-order"
+  },
+  {
+   "offset": "0x717",
+   "retail": [
+    "mov ecx,DWORD PTR [esp+0x20]",
+    "mov edx,DWORD PTR [esp+0x24]",
+    "lea eax,[esi+0x334]",
+    "mov DWORD PTR [eax],ecx",
+    "mov ecx,DWORD PTR [esp+0x28]",
+    "mov DWORD PTR [eax+0x4],edx",
+    "mov DWORD PTR [eax+0x8],ecx"
+   ],
+   "model": [
+    "mov eax,DWORD PTR [esp+0x20]",
+    "mov ecx,DWORD PTR [esp+0x24]",
+    "lea edx,[esi+0x334]",
+    "mov DWORD PTR [edx],eax",
+    "mov eax,DWORD PTR [esp+0x28]",
+    "mov DWORD PTR [edx+0x4],ecx",
+    "mov DWORD PTR [edx+0x8],eax"
+   ],
+   "class": "code-shape"
+  },
+  {
+   "offset": "0x74a",
+   "retail": [
+    "xor edx,edx"
+   ],
+   "model": [
+    "xor ecx,ecx"
+   ],
+   "class": "register-choice"
+  },
+  {
+   "offset": "0x754",
+   "retail": [
+    "setne dl"
+   ],
+   "model": [
+    "setne cl"
+   ],
+   "class": "register-choice"
+  },
+  {
+   "offset": "0x75e",
+   "retail": [
+    "add edx,0x2",
+    "mov WORD PTR [esi+0x304],dx"
+   ],
+   "model": [
+    "add ecx,0x2",
+    "mov WORD PTR [esi+0x304],cx"
+   ],
+   "class": "register-choice"
+  },
+  {
+   "offset": "0x771",
+   "retail": [
+    "jl L+0x693"
+   ],
+   "model": [
+    "jl L+0x690"
+   ],
+   "class": "branch-target"
+  },
+  {
+   "offset": "0x79e",
+   "retail": [
+    "mov edi,edi"
+   ],
+   "model": [
+    "jmp L+0x7a0",
+    "lea ecx,[ecx+0x0]"
+   ],
+   "class": "code-shape"
+  }
+ ],
+ "note": "reference/recovery_notes/ui_final_runtime_00433ef0_equivalent_2026_10_12.md",
+ "roots": [
+  "?TitleMusicRoom@@YGHPAUTitle@@@Z"
+ ],
+ "listed_branch_targets": true,
+ "context_sources": [
+  "src/game/title/stage_text_extract_line.cpp",
+  "src/game/title/stage_text_skip_line.cpp",
+  "src/core/sprtanim/animation_manager_register_resource.cpp",
+  "build_support/contexts/equivalent/game/context/ui_final_stage_text.cpp"
+ ]
 }

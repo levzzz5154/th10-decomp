@@ -69,3 +69,79 @@ fourth negative: the helper spelling too.
 
 Region stays equivalent (1090 differing bytes). The ColorStackElements dump
 the memory names remains the route.
+
+## 2026-10-17: the stackpack tracer fixed, and what it shows
+
+The named route was attempted directly:
+`compiler_traces/stackpack/trace_stackcolors_cl.py` on
+`src/game/title/name_entry_update.cpp`. It initially produced only
+`ERR error('No registers.')`. The compile itself was fine (a 5,363-byte
+`.obj`); the failure was that `hbreak *0x1076953f` was armed at script start,
+before `c2.dll` was mapped, so gdb parked it ("Temporarily disabling
+breakpoints for unloaded shared library c2.dll") and never re-armed it before
+`cl.exe` exited.
+
+That is fixed in the tracer: it now runs with `set stop-on-solib-events 1`
+until `c2.dll` appears in `gdb.objfiles()`, and only then arms the
+breakpoints. Verified working — `src/game/laser/laser_rectangle_split.cpp`
+produces a 295-line dump with named elements, weights and conflict sets.
+
+With the tracer working, this unit still reaches no `colorElemental` call at
+all, so its six `stack-slot-order` hunks cannot be read from a colour dump
+here; the `msvc-c2-stack-slot-order-by-reference-weight` mechanics remain the
+route, but only for units whose compile reaches the colour pass.
+
+## 2026-10-17: the `push ecx` dead slot measured; the lever folds away
+
+The residual read instruction by instruction is sharper than the class list
+suggests. Retail's prologue has `push ecx` — a dead argument slot, 4 bytes of
+frame — and four `pop ecx` on its exits; the model emits none of them. The
+rest is the frame home at +0x6a (`lea edi,[esp+0x1c]` against `[esp+0x20]`),
+three filler placements, and `mov edi,edi` against `nop`.
+
+The "locals in dead parameter slots" lever was tried six ways, measured with
+the byte script against the baseline 368/378, 10 hunks, 1,082 differing bytes,
+8 tail bytes:
+
+| variant | result |
+| --- | --- |
+| `slot-local`, `slot-helper`, `slot-pointer`, `slot-dead`, `slot-two`, `slot-beside-handle` | all 368/378, 10 hunks, 1,082 bytes — identical to baseline |
+
+Every form folds away entirely, so no declaration of ordinary state produces
+the `push ecx`/`pop ecx` pair. A survey found the same pattern in 39 hunks
+across 10 regions (`enemy_execute` 8, `anm_vm_tick` 7,
+`name_entry_update`/`recovery_script_executor`/`ui_final_runtime` 5), so this
+is a class, not a quirk of this function — and in each case it is the
+compiler's choice to keep an argument slot, not a source declaration.
+
+The alignment fillers are the same story: `lea ebx,[ebx+0x0]` against
+`lea esp,[esp+0x0]` is only the filler's register, and the pair at +0x349 /
++0x454 is the same filler one block earlier or later. Region stays
+equivalent.
+
+## 2026-10-18: frame mechanism fully solved; parked on the zero-traffic escape
+
+The `push ecx`/`pop ecx`x4 single-slot frame idiom is fully explained: the
+slot is the handle's home (`lea edi,[esp+0x1c]` = entry-4), opened by a
+SECOND function-scope kind-4 (address-taken) local that conflicts with the
+handle as a separate stack element. Proven against exact siblings
+(TitleMode6/TitleMode11) with a calibrated stack-colour probe harness
+(trace_build.py / trace_all.py / probe_elements.py, ~22 s per element list):
+a kind-4 local whose address escapes transitively (stored into a member a
+later real call reads, or passed as a real call's pointer argument) and whose
+range covers the creation window [0x432d1a, 0x432d1e] reproduces retail's
+prologue and handle lea byte-for-byte (outspan2 / s1 / helperstore probes).
+
+Conflict-rule facts (measured): kind-4 locals conflict with the handle as
+separate elements; kind-3 temps and kind-5 params do not even with
+overlapping ranges; dropped-argument and immediate-dereference "escapes" do
+not create elements; union/struct aggregates are ONE element; recycled
+strcpy/free-list temps shift symbol ids but never widen their range across
+the window; a parameter or receiver written after a call gets the GameMain
+EAX-to-ESI promotion, not a spill.
+
+Open item: the zero-traffic spelling of the second local's escape + read —
+every construction adds an lea/store/reload retail's image does not have, and
+no existing store's operand list has room for the local's address. Region
+stays at baseline (1,082 differing bytes). Probe corpus in
+/tmp/campaign/name_entry/.

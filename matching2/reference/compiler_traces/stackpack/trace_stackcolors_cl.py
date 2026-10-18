@@ -50,6 +50,19 @@ def colors(why):
         w = [u32(e+o) for o in range(0, 0x1c, 4)]
         out.write('  color[%d] size=%d weight=%d class=%d\n' % (k, w[2], w[3], w[6] & 0xff))
     out.flush()
+# c2.dll is not mapped yet when the debug session attaches, so a breakpoint on
+# one of its addresses is parked ("Temporarily disabling breakpoints for
+# unloaded shared library") and never re-armed before cl.exe exits.  Wait for
+# the module to load before arming.
+gdb.execute('set stop-on-solib-events 1')
+for _ in range(200):
+    try:
+        gdb.execute('continue')
+    except gdb.error:
+        break
+    if any('c2.dll' in (m.filename or '') for m in gdb.objfiles()):
+        break
+gdb.execute('set stop-on-solib-events 0')
 gdb.execute('hbreak *0x1076953f')
 armed = False; n_alloc = 0
 for event in range(4000):

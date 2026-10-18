@@ -69,7 +69,7 @@ void PanelSlot::Release() {
     SidePanelReleaseBarrier(this);
     SidePanelReleaseBarrier(this);
 }
-#pragma code_seg(".text$8resource")
+#pragma code_seg(".text$08resource")
 void PanelResource2::Release() {
     void** entry = reinterpret_cast<void**>(this);
     do {
@@ -102,13 +102,13 @@ void FrontStagePartsView::ReleaseStageParts() {
     }
     stage_buffer = 0;
 }
-#pragma code_seg(".text$8zzincr")
+#pragma code_seg(".text$05zzincr")
 void ScoreState::IncrementCappedCount() {
     ++capped_count;
     if (capped_count >= 10)
         capped_count = 9;
 }
-#pragma code_seg(".text$8reg")
+#pragma code_seg(".text$07reg")
 char* AnimationManager9::RegisterResource(const char* name, int resource, int parameter) {
     int index = 0;
     for (; index < 31; ++index) {

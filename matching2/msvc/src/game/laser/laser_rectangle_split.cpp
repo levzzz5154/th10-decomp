@@ -38,7 +38,7 @@ int CutLaser::CutRectangle(const CutVector* center,const CutVector* size,int spa
    progress+=12.0f;
    ++count;
   }
-  if (hit_count) {
+  if (hit_count != 0 && hit_count >= 0) {
    int cursor=0;
 
    while (cursor<count && cut[cursor]) ++cursor;

@@ -3,6 +3,12 @@
 #include <string.h>
 #include <stddef.h>
 #define PlayerReset_ClearFlag(address) do { unsigned int* flag = (address); *flag &= ~1u; } while (0)
+// The resource handle Configure takes by value, and the entity view the slot
+// forwards to; configure.cpp carries the full definitions.
+#ifndef TH10_CONFIGURE_00404F30_ARGUMENT_DEFINED
+#define TH10_CONFIGURE_00404F30_ARGUMENT_DEFINED
+struct ConfigureResource_00404f30 { void* value; };
+#endif
 struct PlayerResetSlot {
     char pad_000[0x6C];
     unsigned field_06C;
@@ -65,7 +71,13 @@ struct PlayerIndicatorRecord6c {
     unsigned char reserved_58[0x14];
 };
 struct PlayerResetBlock {
-    unsigned char reserved_000[0x14];
+    // The three leading words are ordinary typed members: the resource handle
+    // is passed to Configure as the stored struct itself, and typed fields let
+    // the compiler prove the nearby stores cannot alias the handle load.
+    unsigned char reserved_000[0x8];
+    unsigned int word_08;
+    unsigned int word_0c;
+    ConfigureResource_00404f30 resource_handle;
     PlayerResetSlot slot;
     unsigned char reserved_3c0[0x460-0x3c0];
     PlayerTimerRecord14 timer_460;

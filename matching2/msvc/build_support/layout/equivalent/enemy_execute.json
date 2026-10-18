@@ -208,16 +208,6 @@
   "differences": [
     {
       "class": "code-shape",
-      "offset": "0x6",
-      "retail": [
-        "sub esp,0x2c4"
-      ],
-      "model": [
-        "sub esp,0x2b4"
-      ]
-    },
-    {
-      "class": "code-shape",
       "offset": "0x630",
       "retail": [
         "mov ecx,DWORD PTR ds:0x477704",
@@ -232,16 +222,6 @@
       "model": [
         "mov eax,ds:0x477704",
         "mov ecx,DWORD PTR [eax+edx*4+0x30]"
-      ]
-    },
-    {
-      "class": "evaluation-order",
-      "offset": "0x63e",
-      "retail": [
-        "lea edi,[esp+0x50]"
-      ],
-      "model": [
-        "lea edi,[esp+0x18]"
       ]
     },
     {
@@ -285,7 +265,7 @@
         "push 0x6",
         "push eax",
         "push edx",
-        "lea edi,[esp+0x18]",
+        "lea edi,[esp+0x1c]",
         "call 0x448d00",
         "jmp L+0x6b5"
       ]
@@ -311,16 +291,6 @@
       ]
     },
     {
-      "class": "evaluation-order",
-      "offset": "0x8aa",
-      "retail": [
-        "lea edi,[esp+0x58]"
-      ],
-      "model": [
-        "lea edi,[esp+0x38]"
-      ]
-    },
-    {
       "class": "register-choice",
       "offset": "0x8b3",
       "retail": [
@@ -333,25 +303,21 @@
       ]
     },
     {
-      "class": "code-shape",
-      "offset": "0x8f8",
+      "class": "stack-slot-order",
+      "offset": "0x8fe",
       "retail": [
-        "mov eax,DWORD PTR [ebx+0x1444]",
-        "mov edx,DWORD PTR [ebx+0xe8]",
-        "or eax,0x1000",
-        "mov DWORD PTR [ebx+0x1444],eax"
+        "mov edx,DWORD PTR [ebx+0xe8]"
       ],
       "model": [
-        "or DWORD PTR [ebx+0x1444],0x1000"
+        "mov ecx,DWORD PTR [ebx+0xe8]"
       ]
     },
     {
-      "class": "evaluation-order",
+      "class": "code-shape",
       "offset": "0x91f",
       "retail": [],
       "model": [
-        "mov eax,DWORD PTR [ebx+0xe8]",
-        "mov DWORD PTR [ebx+0xec],eax"
+        "mov DWORD PTR [ebx+0xec],ecx"
       ]
     },
     {
@@ -364,363 +330,21 @@
     },
     {
       "class": "code-shape",
-      "offset": "0x960",
+      "offset": "0x972",
       "retail": [
-        "mov edx,DWORD PTR [ebx+0xf4]",
-        "mov eax,DWORD PTR [ebx+0xe8]",
-        "mov ecx,DWORD PTR ds:0x477704",
         "mov eax,DWORD PTR [ecx+eax*4+0x30]"
       ],
-      "model": [
-        "mov ecx,DWORD PTR [ebx+0xf4]",
-        "mov edx,DWORD PTR [ebx+0xe8]",
-        "mov eax,ds:0x477704"
-      ]
+      "model": []
     },
     {
       "class": "code-shape",
-      "offset": "0x978",
+      "offset": "0x97c",
       "retail": [
-        "add edx,0x5",
-        "push edx",
         "push eax"
       ],
       "model": [
-        "add ecx,0x5",
-        "push ecx",
-        "mov ecx,DWORD PTR [eax+edx*4+0x30]",
-        "push ecx"
-      ]
-    },
-    {
-      "class": "evaluation-order",
-      "offset": "0x97d",
-      "retail": [
-        "lea edi,[esp+0x54]"
-      ],
-      "model": [
-        "lea edi,[esp+0x38]"
-      ]
-    },
-    {
-      "class": "register-choice",
-      "offset": "0x986",
-      "retail": [
-        "mov eax,DWORD PTR [eax]",
-        "mov DWORD PTR [esi],eax"
-      ],
-      "model": [
-        "mov edx,DWORD PTR [eax]",
-        "mov DWORD PTR [esi],edx"
-      ]
-    },
-    {
-      "class": "register-choice",
-      "offset": "0xa1b",
-      "retail": [
-        "mov ecx,DWORD PTR [esp+0x18]",
-        "mov DWORD PTR [esi],ecx"
-      ],
-      "model": [
-        "mov eax,DWORD PTR [esp+0x14]",
-        "mov DWORD PTR [esi],eax"
-      ]
-    },
-    {
-      "class": "register-choice",
-      "offset": "0xa4e",
-      "retail": [
-        "mov edx,DWORD PTR [esp+0x24]"
-      ],
-      "model": [
-        "mov ecx,DWORD PTR [esp+0x20]"
-      ]
-    },
-    {
-      "class": "register-choice",
-      "offset": "0xa5c",
-      "retail": [
-        "mov eax,DWORD PTR [esp+0x28]"
-      ],
-      "model": [
-        "mov edx,DWORD PTR [esp+0x24]"
-      ]
-    },
-    {
-      "class": "code-shape",
-      "offset": "0xa66",
-      "retail": [
-        "mov DWORD PTR [ebx],edx",
-        "mov DWORD PTR [ebx+0x4],eax"
-      ],
-      "model": [
-        "mov DWORD PTR [ebx],ecx",
-        "mov DWORD PTR [ebx+0x4],edx",
-        "fstp DWORD PTR [esp+0x28]",
-        "mov eax,DWORD PTR [esp+0x28]",
-        "mov DWORD PTR [ebx+0x8],eax"
-      ]
-    },
-    {
-      "class": "code-shape",
-      "offset": "0xa6d",
-      "retail": [
-        "fstp DWORD PTR [esp+0x2c]",
-        "mov ecx,DWORD PTR [esp+0x2c]",
-        "mov DWORD PTR [ebx+0x8],ecx"
-      ],
-      "model": []
-    },
-    {
-      "class": "code-shape",
-      "offset": "0xb57",
-      "retail": [
-        "mov eax,ds:0x491c14",
-        "lea edx,[esi+0x18]",
-        "mov DWORD PTR [edx],eax",
-        "mov ecx,DWORD PTR ds:0x491c18",
-        "mov DWORD PTR [edx+0x4],ecx",
-        "mov eax,ds:0x491c1c",
-        "mov DWORD PTR [edx+0x8],eax"
-      ],
-      "model": []
-    },
-    {
-      "class": "code-shape",
-      "offset": "0xb78",
-      "retail": [
-        "lea ecx,[esi+0x24]"
-      ],
-      "model": [
-        "lea ecx,[esi+0x18]"
-      ]
-    },
-    {
-      "class": "code-shape",
-      "offset": "0xb8e",
-      "retail": [],
-      "model": [
-        "mov ecx,DWORD PTR ds:0x491c14",
-        "lea eax,[esi+0x24]",
-        "mov DWORD PTR [eax],ecx",
-        "mov edx,DWORD PTR ds:0x491c18",
-        "mov DWORD PTR [eax+0x4],edx",
-        "mov ecx,DWORD PTR ds:0x491c1c",
-        "mov DWORD PTR [eax+0x8],ecx"
-      ]
-    },
-    {
-      "class": "register-choice",
-      "offset": "0xbab",
-      "retail": [
-        "mov eax,edi",
-        "mov edx,DWORD PTR [eax]",
-        "mov ecx,esi",
-        "mov DWORD PTR [ecx],edx",
-        "mov edx,DWORD PTR [eax+0x4]",
-        "mov DWORD PTR [ecx+0x4],edx",
-        "mov eax,DWORD PTR [eax+0x8]",
-        "mov DWORD PTR [ecx+0x8],eax"
-      ],
-      "model": [
-        "mov edx,edi",
-        "mov ecx,DWORD PTR [edx]",
-        "mov eax,esi",
-        "mov DWORD PTR [eax],ecx",
-        "mov ecx,DWORD PTR [edx+0x4]",
-        "mov DWORD PTR [eax+0x4],ecx",
-        "mov edx,DWORD PTR [edx+0x8]",
-        "mov DWORD PTR [eax+0x8],edx"
-      ]
-    },
-    {
-      "class": "code-shape",
-      "offset": "0xbf7",
-      "retail": [],
-      "model": [
-        "mov ecx,DWORD PTR [esp+0x20]",
-        "lea eax,[esi+0xc]",
-        "mov DWORD PTR [eax],ecx",
-        "fstp DWORD PTR [esp+0x24]"
-      ]
-    },
-    {
-      "class": "code-shape",
-      "offset": "0xbfb",
-      "retail": [
-        "lea ecx,[esi+0xc]",
-        "mov DWORD PTR [ecx],edx",
-        "fstp DWORD PTR [esp+0x28]",
-        "mov eax,DWORD PTR [esp+0x28]",
-        "mov DWORD PTR [ecx+0x4],eax"
-      ],
-      "model": [
-        "mov DWORD PTR [eax+0x4],edx"
-      ]
-    },
-    {
-      "class": "code-shape",
-      "offset": "0xc13",
-      "retail": [
-        "mov edx,DWORD PTR [esp+0x2c]"
-      ],
-      "model": [
-        "mov ecx,DWORD PTR [esp+0x28]",
-        "mov DWORD PTR [eax+0x8],ecx"
-      ]
-    },
-    {
-      "class": "code-shape",
-      "offset": "0xc19",
-      "retail": [
-        "mov DWORD PTR [ecx+0x8],edx"
-      ],
-      "model": []
-    },
-    {
-      "class": "evaluation-order",
-      "offset": "0xc6c",
-      "retail": [
-        "fstp DWORD PTR [esp+0x18]"
-      ],
-      "model": [
-        "fstp DWORD PTR [esp+0x10]"
-      ]
-    },
-    {
-      "class": "register-choice",
-      "offset": "0xcb2",
-      "retail": [
-        "mov eax,DWORD PTR [esp+0x1c]",
-        "push eax"
-      ],
-      "model": [
-        "mov edx,DWORD PTR [esp+0xc]",
+        "mov edx,DWORD PTR [ecx+eax*4+0x30]",
         "push edx"
-      ]
-    },
-    {
-      "class": "evaluation-order",
-      "offset": "0xcbd",
-      "retail": [
-        "fld DWORD PTR [esp+0x18]"
-      ],
-      "model": [
-        "fld DWORD PTR [esp+0x10]"
-      ]
-    },
-    {
-      "class": "register-choice",
-      "offset": "0xcce",
-      "retail": [
-        "mov ecx,DWORD PTR [esp+0x18]",
-        "mov DWORD PTR [esi+0x18],ecx"
-      ],
-      "model": [
-        "mov eax,DWORD PTR [esp+0x10]",
-        "mov DWORD PTR [esi+0x18],eax"
-      ]
-    },
-    {
-      "class": "branch-target",
-      "offset": "0xd58",
-      "retail": [
-        "jne L+0xd94"
-      ],
-      "model": [
-        "jne L+0xd9e"
-      ]
-    },
-    {
-      "class": "evaluation-order",
-      "offset": "0xd60",
-      "retail": [
-        "fld DWORD PTR [esp+0x1c]"
-      ],
-      "model": []
-    },
-    {
-      "class": "branch-target",
-      "offset": "0xd67",
-      "retail": [
-        "je L+0xd97"
-      ],
-      "model": [
-        "je L+0xd94"
-      ]
-    },
-    {
-      "class": "evaluation-order",
-      "offset": "0xd69",
-      "retail": [],
-      "model": [
-        "fld DWORD PTR [esp+0x18]",
-        "push ecx"
-      ]
-    },
-    {
-      "class": "evaluation-order",
-      "offset": "0xd6f",
-      "retail": [
-        "push ecx"
-      ],
-      "model": []
-    },
-    {
-      "class": "code-shape",
-      "offset": "0xd87",
-      "retail": [],
-      "model": [
-        "fstp DWORD PTR [esp+0xc]"
-      ]
-    },
-    {
-      "class": "branch-target",
-      "offset": "0xd87",
-      "retail": [
-        "jmp L+0xd97"
-      ],
-      "model": [
-        "jmp L+0xda5"
-      ]
-    },
-    {
-      "class": "code-shape",
-      "offset": "0xd94",
-      "retail": [
-        "fld DWORD PTR [edi+0x1c]",
-        "fstp DWORD PTR [esp+0x10]"
-      ],
-      "model": [
-        "mov ecx,DWORD PTR [esp+0x18]",
-        "mov DWORD PTR [esp+0xc],ecx",
-        "jmp L+0xda5",
-        "mov edx,DWORD PTR [edi+0x1c]",
-        "mov DWORD PTR [esp+0xc],edx"
-      ]
-    },
-    {
-      "class": "code-shape",
-      "offset": "0xdac",
-      "retail": [
-        "fld DWORD PTR [esp+0x18]",
-        "fstp DWORD PTR [esp+0x14]"
-      ],
-      "model": [
-        "mov eax,DWORD PTR [esp+0x14]",
-        "mov DWORD PTR [esp+0x10],eax"
-      ]
-    },
-    {
-      "class": "code-shape",
-      "offset": "0xdb6",
-      "retail": [
-        "fld DWORD PTR [edi+0x18]",
-        "fstp DWORD PTR [esp+0x14]"
-      ],
-      "model": [
-        "mov ecx,DWORD PTR [edi+0x18]",
-        "mov DWORD PTR [esp+0x10],ecx"
       ]
     },
     {
@@ -743,16 +367,7 @@
       "retail": [],
       "model": [
         "mov edx,DWORD PTR [ebx+0x13c4]",
-        "mov DWORD PTR [esp+0xc],edx"
-      ]
-    },
-    {
-      "class": "code-shape",
-      "offset": "0x15f1",
-      "retail": [],
-      "model": [
-        "jmp L+0x1600",
-        "lea ecx,[ecx+0x0]"
+        "mov DWORD PTR [esp+0x10],edx"
       ]
     },
     {
@@ -772,12 +387,44 @@
       "model": []
     },
     {
-      "class": "block-order",
-      "offset": "0x1909",
+      "class": "code-shape",
+      "offset": "0x1992",
       "retail": [
-        "mov eax,ds:0x477704",
-        "push eax",
-        "call 0x40e6a0",
+        "jmp L+0x31dc",
+        "mov eax,DWORD PTR [edx+0x4]",
+        "mov ecx,0x3"
+      ],
+      "model": [
+        "mov ecx,0x1",
+        "call 0x44fe40"
+      ]
+    },
+    {
+      "class": "code-shape",
+      "offset": "0x199f",
+      "retail": [
+        "jmp L+0x31e1"
+      ],
+      "model": [
+        "jmp L+0x3503"
+      ]
+    },
+    {
+      "class": "code-shape",
+      "offset": "0x19a9",
+      "retail": [
+        "jmp L+0x3199"
+      ],
+      "model": [
+        "mov eax,DWORD PTR [edx+0x4]",
+        "call 0x44fe40",
+        "fstp DWORD PTR [esp+0x10]",
+        "mov ebx,DWORD PTR [ebx+0x14d8]",
+        "mov eax,DWORD PTR [ebx+0x4]",
+        "xor ecx,ecx",
+        "call 0x450070",
+        "mov edx,DWORD PTR [esp+0x10]",
+        "mov DWORD PTR [eax],edx",
         "xor eax,eax",
         "pop edi",
         "pop esi",
@@ -788,98 +435,6 @@
         "mov esp,ebp",
         "pop ebp",
         "ret"
-      ],
-      "model": []
-    },
-    {
-      "class": "block-order",
-      "offset": "0x1942",
-      "retail": [],
-      "model": [
-        "jmp L+0x193b",
-        "push 0x2",
-        "jmp L+0x193b",
-        "push 0x3",
-        "jmp L+0x193b",
-        "push 0x4"
-      ]
-    },
-    {
-      "class": "block-order",
-      "offset": "0x196e",
-      "retail": [
-        "push 0x2",
-        "jmp L+0x1942",
-        "push 0x3",
-        "jmp L+0x1942",
-        "push 0x4",
-        "jmp L+0x1942"
-      ],
-      "model": []
-    },
-    {
-      "class": "code-shape",
-      "offset": "0x198f",
-      "retail": [],
-      "model": [
-        "mov ecx,0x1"
-      ]
-    },
-    {
-      "class": "code-shape",
-      "offset": "0x1992",
-      "retail": [],
-      "model": [
-        "call 0x44fe40",
-        "jmp L+0x347b",
-        "mov eax,DWORD PTR [edx+0x4]",
-        "mov ecx,0x2"
-      ]
-    },
-    {
-      "class": "branch-target",
-      "offset": "0x1992",
-      "retail": [
-        "jmp L+0x31dc"
-      ],
-      "model": [
-        "jmp L+0x3134"
-      ]
-    },
-    {
-      "class": "code-shape",
-      "offset": "0x199f",
-      "retail": [],
-      "model": [
-        "call 0x44fe40"
-      ]
-    },
-    {
-      "class": "branch-target",
-      "offset": "0x199f",
-      "retail": [
-        "jmp L+0x31e1"
-      ],
-      "model": [
-        "jmp L+0x347b"
-      ]
-    },
-    {
-      "class": "code-shape",
-      "offset": "0x19a4",
-      "retail": [],
-      "model": [
-        "mov eax,DWORD PTR [edx+0x4]"
-      ]
-    },
-    {
-      "class": "branch-target",
-      "offset": "0x19a9",
-      "retail": [
-        "jmp L+0x3199"
-      ],
-      "model": [
-        "jmp L+0x3134"
       ]
     },
     {
@@ -891,13 +446,13 @@
       ]
     },
     {
-      "class": "branch-target",
+      "class": "code-shape",
       "offset": "0x19b6",
       "retail": [
         "jmp L+0x31e1"
       ],
       "model": [
-        "jmp L+0x347b"
+        "jmp L+0x3503"
       ]
     },
     {
@@ -914,86 +469,6 @@
         "mov WORD PTR [edx+0x4ba],ax",
         "xor eax,eax"
       ]
-    },
-    {
-      "class": "code-shape",
-      "offset": "0x1aa8",
-      "retail": [],
-      "model": [
-        "fld DWORD PTR [ebx+0x2c]"
-      ]
-    },
-    {
-      "class": "code-shape",
-      "offset": "0x1ab5",
-      "retail": [
-        "fld DWORD PTR [ebx+ecx*4]",
-        "fadd DWORD PTR [ebx+0x2c]"
-      ],
-      "model": [
-        "fadd DWORD PTR [ebx+ecx*4]"
-      ]
-    },
-    {
-      "class": "code-shape",
-      "offset": "0x1aca",
-      "retail": [],
-      "model": [
-        "fstp DWORD PTR [esp+0x24]",
-        "fld DWORD PTR [ebx+ecx*4+0x8]"
-      ]
-    },
-    {
-      "class": "code-shape",
-      "offset": "0x1acd",
-      "retail": [
-        "fstp DWORD PTR [esp+0x28]"
-      ],
-      "model": [
-        "fadd DWORD PTR [ebx+0x34]"
-      ]
-    },
-    {
-      "class": "code-shape",
-      "offset": "0x1ad4",
-      "retail": [
-        "fld DWORD PTR [ecx+0x8]"
-      ],
-      "model": []
-    },
-    {
-      "class": "code-shape",
-      "offset": "0x1add",
-      "retail": [
-        "fadd DWORD PTR [ebx+0x34]"
-      ],
-      "model": []
-    },
-    {
-      "class": "code-shape",
-      "offset": "0x1ae4",
-      "retail": [],
-      "model": [
-        "fstp DWORD PTR [esp+0x28]"
-      ]
-    },
-    {
-      "class": "code-shape",
-      "offset": "0x1ae8",
-      "retail": [
-        "fstp DWORD PTR [esp+0x2c]"
-      ],
-      "model": [
-        "fld DWORD PTR ds:0x470b04"
-      ]
-    },
-    {
-      "class": "code-shape",
-      "offset": "0x1af3",
-      "retail": [
-        "fld DWORD PTR ds:0x470b04"
-      ],
-      "model": []
     },
     {
       "class": "evaluation-order",
@@ -1028,45 +503,21 @@
       "model": []
     },
     {
-      "class": "evaluation-order",
-      "offset": "0x1cf1",
-      "retail": [],
-      "model": [
-        "lea esi,[eax+ebx*1]"
-      ]
-    },
-    {
-      "class": "evaluation-order",
-      "offset": "0x1cf3",
+      "class": "code-shape",
+      "offset": "0x1fe4",
       "retail": [
-        "lea esi,[eax+ebx*1]"
-      ],
-      "model": []
-    },
-    {
-      "class": "evaluation-order",
-      "offset": "0x1cfb",
-      "retail": [],
-      "model": [
-        "push 0x2"
-      ]
-    },
-    {
-      "class": "evaluation-order",
-      "offset": "0x1d0b",
-      "retail": [
-        "push 0x2"
+        "fstp DWORD PTR [esi+0x2dc]",
+        "mov ebx,DWORD PTR [ebx+0x14d8]",
+        "mov eax,DWORD PTR [ebx+0x4]"
       ],
       "model": []
     },
     {
       "class": "code-shape",
-      "offset": "0x1e45",
+      "offset": "0x1ff8",
       "retail": [
-        "mov ebx,DWORD PTR [ebx+0x14d8]",
-        "mov edx,DWORD PTR [ebx+0x4]",
-        "call 0x44fdb0",
-        "mov WORD PTR [esi+0x4ba],ax",
+        "call 0x44fe40",
+        "fstp DWORD PTR [esi+0x2e0]",
         "xor eax,eax",
         "pop edi",
         "pop esi",
@@ -1079,72 +530,17 @@
         "ret"
       ],
       "model": [
-        "jmp L+0x1d18"
+        "jmp L+0x1ce1"
       ]
     },
     {
       "class": "code-shape",
-      "offset": "0x1e99",
-      "retail": [],
-      "model": [
-        "mov edx,DWORD PTR [ebx+0x14d8]",
-        "lea esi,[eax+ebx*1]",
-        "mov eax,DWORD PTR [edx+0x4]",
-        "jl L+0x1fe4",
-        "mov ecx,0x3",
-        "call 0x44fe40",
-        "mov ecx,0x4"
-      ]
-    },
-    {
-      "class": "branch-target",
-      "offset": "0x1e99",
-      "retail": [
-        "jmp L+0x1fc8"
-      ],
-      "model": [
-        "jmp L+0x1ff3"
-      ]
-    },
-    {
-      "class": "code-shape",
-      "offset": "0x1fc8",
-      "retail": [
-        "mov edx,DWORD PTR [ebx+0x14d8]",
-        "lea esi,[eax+ebx*1]",
-        "mov eax,DWORD PTR [edx+0x4]",
-        "jl L+0x1c98",
-        "mov ecx,0x3"
-      ],
-      "model": [
-        "jmp L+0x1e8f",
-        "mov ecx,0x1"
-      ]
-    },
-    {
-      "class": "code-shape",
-      "offset": "0x1fe4",
-      "retail": [],
-      "model": [
-        "mov ecx,0x2"
-      ]
-    },
-    {
-      "class": "code-shape",
-      "offset": "0x1ff3",
-      "retail": [
-        "mov ecx,0x4"
-      ],
-      "model": []
-    },
-    {
-      "class": "evaluation-order",
       "offset": "0x207e",
       "retail": [],
       "model": [
-        "fld DWORD PTR [esp+0x14]",
+        "fld DWORD PTR [esp+0x18]",
         "imul esi,esi,0x210",
-        "fsub DWORD PTR [esp+0xc]"
+        "fsub DWORD PTR [esp+0x10]"
       ]
     },
     {
@@ -1165,11 +561,11 @@
       "model": []
     },
     {
-      "class": "evaluation-order",
+      "class": "code-shape",
       "offset": "0x20ad",
       "retail": [],
       "model": [
-        "fsub DWORD PTR [esp+0x2c]"
+        "fsub DWORD PTR [esp+0x30]"
       ]
     },
     {
@@ -1183,234 +579,19 @@
     },
     {
       "class": "code-shape",
-      "offset": "0x2110",
+      "offset": "0x257c",
       "retail": [],
       "model": [
-        "mov ecx,DWORD PTR [ebx+0x14d8]",
-        "mov edx,DWORD PTR [ecx+0x4]",
-        "lea esi,[eax+ebx*1]",
-        "jl L+0x1d08",
-        "push 0x3",
-        "call 0x44fdb0",
-        "push 0x4"
-      ]
-    },
-    {
-      "class": "branch-target",
-      "offset": "0x2110",
-      "retail": [
-        "jmp L+0x2233"
-      ],
-      "model": [
-        "jmp L+0x1d11"
+        "add esi,0x18"
       ]
     },
     {
       "class": "code-shape",
-      "offset": "0x2233",
+      "offset": "0x2581",
       "retail": [
-        "mov ecx,DWORD PTR [ebx+0x14d8]",
-        "mov edx,DWORD PTR [ecx+0x4]",
-        "lea esi,[eax+ebx*1]",
-        "jl L+0x227d",
-        "push 0x3",
-        "call 0x44fdb0",
-        "mov WORD PTR [esi+0x4b8],ax",
-        "mov ebx,DWORD PTR [ebx+0x14d8]",
-        "mov edx,DWORD PTR [ebx+0x4]",
-        "push 0x4",
-        "call 0x44fdb0",
-        "mov WORD PTR [esi+0x4ba],ax",
-        "xor eax,eax",
-        "pop edi",
-        "pop esi",
-        "pop ebx",
-        "mov ecx,DWORD PTR [esp+0x2c0]",
-        "xor ecx,ebp",
-        "call 0x458ea5",
-        "mov esp,ebp",
-        "pop ebp",
-        "ret",
-        "push 0x1",
-        "call 0x44fdb0",
-        "mov WORD PTR [esi+0x4b8],ax",
-        "mov ebx,DWORD PTR [ebx+0x14d8]",
-        "mov edx,DWORD PTR [ebx+0x4]",
-        "push 0x2",
-        "call 0x44fdb0",
-        "mov WORD PTR [esi+0x4ba],ax",
-        "xor eax,eax",
-        "pop edi",
-        "pop esi",
-        "pop ebx",
-        "mov ecx,DWORD PTR [esp+0x2c0]",
-        "xor ecx,ebp",
-        "call 0x458ea5",
-        "mov esp,ebp",
-        "pop ebp",
-        "ret"
-      ],
-      "model": [
-        "jmp L+0x2118"
-      ]
-    },
-    {
-      "class": "code-shape",
-      "offset": "0x243d",
-      "retail": [
-        "mov ecx,DWORD PTR [ebx+0x14d8]",
-        "mov edx,DWORD PTR [ecx+0x4]",
-        "lea edi,[esi+eax*1]",
-        "lea eax,[edi+edi*2]"
-      ],
-      "model": [
-        "add eax,esi",
-        "lea eax,[eax+eax*2]",
-        "lea esi,[ebx+eax*8+0x2e4]",
-        "mov eax,DWORD PTR [ebx+0x14d8]",
-        "mov edx,DWORD PTR [eax+0x4]"
-      ]
-    },
-    {
-      "class": "code-shape",
-      "offset": "0x244e",
-      "retail": [
-        "lea esi,[ebx+eax*8]"
+        "add esi,0x18"
       ],
       "model": []
-    },
-    {
-      "class": "code-shape",
-      "offset": "0x2456",
-      "retail": [
-        "mov DWORD PTR [esi+0x2f8],eax"
-      ],
-      "model": [
-        "mov DWORD PTR [esi+0x14],eax"
-      ]
-    },
-    {
-      "class": "code-shape",
-      "offset": "0x246c",
-      "retail": [
-        "mov DWORD PTR [esi+0x2f4],eax"
-      ],
-      "model": [
-        "mov DWORD PTR [esi+0x10],eax"
-      ]
-    },
-    {
-      "class": "code-shape",
-      "offset": "0x2482",
-      "retail": [
-        "mov DWORD PTR [esi+0x2ec],eax"
-      ],
-      "model": [
-        "mov DWORD PTR [esi+0x8],eax"
-      ]
-    },
-    {
-      "class": "code-shape",
-      "offset": "0x2498",
-      "retail": [
-        "mov DWORD PTR [esi+0x2f0],eax"
-      ],
-      "model": [
-        "mov DWORD PTR [esi+0xc],eax"
-      ]
-    },
-    {
-      "class": "code-shape",
-      "offset": "0x24b1",
-      "retail": [
-        "fstp DWORD PTR [esi+0x2e4]",
-        "mov eax,DWORD PTR [ebx+0x14d8]",
-        "mov eax,DWORD PTR [eax+0x4]"
-      ],
-      "model": [
-        "fstp DWORD PTR [esi]",
-        "mov ebx,DWORD PTR [ebx+0x14d8]",
-        "mov eax,DWORD PTR [ebx+0x4]"
-      ]
-    },
-    {
-      "class": "code-shape",
-      "offset": "0x24ca",
-      "retail": [
-        "lea ecx,[edi+edi*2+0x5d]",
-        "fstp DWORD PTR [ebx+ecx*8]"
-      ],
-      "model": [
-        "fstp DWORD PTR [esi+0x4]"
-      ]
-    },
-    {
-      "class": "register-choice",
-      "offset": "0x2576",
-      "retail": [
-        "mov edx,DWORD PTR [ebx+0x14d8]"
-      ],
-      "model": [
-        "mov ecx,DWORD PTR [ebx+0x14d8]"
-      ]
-    },
-    {
-      "class": "register-choice",
-      "offset": "0x2587",
-      "retail": [
-        "mov DWORD PTR [eax+edx*1],esi"
-      ],
-      "model": [
-        "mov DWORD PTR [eax+ecx*1],esi"
-      ]
-    },
-    {
-      "class": "register-choice",
-      "offset": "0x25de",
-      "retail": [
-        "mov ecx,DWORD PTR [ebx+0x2c]",
-        "push ecx"
-      ],
-      "model": [
-        "mov edx,DWORD PTR [ebx+0x2c]",
-        "push edx"
-      ]
-    },
-    {
-      "class": "code-shape",
-      "offset": "0x2689",
-      "retail": [
-        "mov edx,DWORD PTR ds:0x477704",
-        "push edx"
-      ],
-      "model": [
-        "mov eax,ds:0x477704",
-        "push eax"
-      ]
-    },
-    {
-      "class": "code-shape",
-      "offset": "0x26ac",
-      "retail": [
-        "mov eax,ds:0x47770c",
-        "mov eax,DWORD PTR [eax+0x9eb8]"
-      ],
-      "model": [
-        "mov ecx,DWORD PTR ds:0x47770c",
-        "mov eax,DWORD PTR [ecx+0x9eb8]"
-      ]
-    },
-    {
-      "class": "register-choice",
-      "offset": "0x26e2",
-      "retail": [
-        "mov ecx,DWORD PTR ds:0x477704",
-        "mov eax,DWORD PTR [ecx+0x10]"
-      ],
-      "model": [
-        "mov edx,DWORD PTR ds:0x477704",
-        "mov eax,DWORD PTR [edx+0x10]"
-      ]
     },
     {
       "class": "code-shape",
@@ -1432,27 +613,27 @@
       ],
       "model": [
         "test ecx,ecx",
-        "mov DWORD PTR [esp+0x2c],ecx"
+        "mov DWORD PTR [esp+0x30],ecx"
+      ]
+    },
+    {
+      "class": "block-order",
+      "offset": "0x271c",
+      "retail": [],
+      "model": [
+        "jle L+0x2768",
+        "lea ecx,[esp+0x248]",
+        "sub esi,ecx"
       ]
     },
     {
       "class": "code-shape",
       "offset": "0x271c",
-      "retail": [],
-      "model": [
-        "jle L+0x26e8",
-        "lea ecx,[esp+0x238]",
-        "sub esi,ecx"
-      ]
-    },
-    {
-      "class": "evaluation-order",
-      "offset": "0x271c",
       "retail": [
         "mov DWORD PTR [esp+0x30],esi"
       ],
       "model": [
-        "mov DWORD PTR [esp+0xc],esi"
+        "mov DWORD PTR [esp+0x10],esi"
       ]
     },
     {
@@ -1465,36 +646,9 @@
         "mov DWORD PTR [esp+0x10],ecx",
         "nop"
       ],
-      "model": []
-    },
-    {
-      "class": "code-shape",
-      "offset": "0x2734",
-      "retail": [
-        "lea esi,[esp+edi*1+0x248]"
-      ],
       "model": [
-        "lea esi,[esp+edi*1+0x238]"
-      ]
-    },
-    {
-      "class": "code-shape",
-      "offset": "0x2a0c",
-      "retail": [
-        "fld DWORD PTR [ebx+0x1344]"
-      ],
-      "model": [
-        "fld DWORD PTR [ebx+0x2c]"
-      ]
-    },
-    {
-      "class": "code-shape",
-      "offset": "0x2a14",
-      "retail": [
-        "fadd DWORD PTR [ebx+0x2c]"
-      ],
-      "model": [
-        "fadd DWORD PTR [ebx+0x1344]"
+        "jmp L+0x2740",
+        "lea ecx,[ecx+0x0]"
       ]
     },
     {
@@ -1506,21 +660,13 @@
       ]
     },
     {
-      "class": "branch-target",
+      "class": "code-shape",
       "offset": "0x315f",
       "retail": [
         "jmp L+0x31e1"
       ],
       "model": [
-        "jmp L+0x347b"
-      ]
-    },
-    {
-      "class": "code-shape",
-      "offset": "0x316b",
-      "retail": [],
-      "model": [
-        "jle L+0x1981"
+        "jmp L+0x3503"
       ]
     },
     {
@@ -1529,51 +675,74 @@
       "retail": [
         "jg L+0x31e1"
       ],
-      "model": []
-    },
-    {
-      "class": "code-shape",
-      "offset": "0x3192",
-      "retail": [],
       "model": [
-        "jge L+0x198e",
-        "cmp eax,0xfffffe70",
-        "mov eax,DWORD PTR [edx+0x4]"
-      ]
-    },
-    {
-      "class": "branch-target",
-      "offset": "0x3192",
-      "retail": [
-        "jl L+0x31d2"
-      ],
-      "model": [
-        "jl L+0x3132"
-      ]
-    },
-    {
-      "class": "code-shape",
-      "offset": "0x3194",
-      "retail": [
-        "mov ecx,0x2",
-        "mov eax,DWORD PTR [edx+0x4]"
-      ],
-      "model": [
-        "mov ecx,0x1",
-        "call 0x44fe40",
-        "jmp L+0x347b",
-        "xor ecx,ecx"
+        "jg L+0x19ab"
       ]
     },
     {
       "class": "block-order",
-      "offset": "0x31d2",
+      "offset": "0x3170",
+      "retail": [],
+      "model": [
+        "call 0x44fe40"
+      ]
+    },
+    {
+      "class": "code-shape",
+      "offset": "0x3170",
       "retail": [
-        "cmp eax,0xfffffe70",
+        "jmp L+0x319c"
+      ],
+      "model": [
+        "jmp L+0x3503"
+      ]
+    },
+    {
+      "class": "code-shape",
+      "offset": "0x3187",
+      "retail": [
+        "jge L+0x1997"
+      ],
+      "model": [
+        "jl L+0x31bc",
         "mov eax,DWORD PTR [edx+0x4]",
-        "jl L+0x3217",
-        "mov ecx,0x1",
+        "mov ecx,0x3",
         "call 0x44fe40",
+        "jmp L+0x3503"
+      ]
+    },
+    {
+      "class": "code-shape",
+      "offset": "0x3199",
+      "retail": [
+        "mov eax,DWORD PTR [edx+0x4]",
+        "call 0x44fe40",
+        "fstp DWORD PTR [esp+0x10]",
+        "mov ebx,DWORD PTR [ebx+0x14d8]",
+        "mov eax,DWORD PTR [ebx+0x4]",
+        "xor ecx,ecx",
+        "call 0x450070",
+        "mov edx,DWORD PTR [esp+0x10]",
+        "mov DWORD PTR [eax],edx",
+        "xor eax,eax",
+        "pop edi",
+        "pop esi",
+        "pop ebx",
+        "mov ecx,DWORD PTR [esp+0x2c0]",
+        "xor ecx,ebp",
+        "call 0x458ea5",
+        "mov esp,ebp",
+        "pop ebp",
+        "ret"
+      ],
+      "model": [
+        "jmp L+0x19a8"
+      ]
+    },
+    {
+      "class": "code-shape",
+      "offset": "0x31e6",
+      "retail": [
         "mov ebx,DWORD PTR [ebx+0x14d8]",
         "fstp DWORD PTR [esp+0x10]",
         "mov eax,DWORD PTR [ebx+0x4]",
@@ -1590,178 +759,29 @@
         "call 0x458ea5",
         "mov esp,ebp",
         "pop ebp",
-        "ret",
-        "xor ecx,ecx",
-        "jmp L+0x319c"
-      ],
-      "model": []
-    },
-    {
-      "class": "evaluation-order",
-      "offset": "0x3291",
-      "retail": [],
-      "model": [
-        "xor ecx,ecx"
-      ]
-    },
-    {
-      "class": "code-shape",
-      "offset": "0x3296",
-      "retail": [
-        "jge L+0x3348",
-        "xor ecx,ecx"
-      ],
-      "model": [
-        "jl L+0x3217",
-        "mov eax,ebx",
-        "call 0x412a10",
-        "mov esi,eax",
-        "mov ecx,0x2",
-        "mov eax,ebx",
-        "call 0x412a00",
-        "mov DWORD PTR [esi],eax",
-        "xor eax,eax",
-        "pop edi",
-        "pop esi",
-        "pop ebx",
-        "mov ecx,DWORD PTR [esp+0x2b0]",
-        "xor ecx,ebp",
-        "call 0x458ea5",
-        "mov esp,ebp",
-        "pop ebp",
-        "ret"
-      ]
-    },
-    {
-      "class": "evaluation-order",
-      "offset": "0x32aa",
-      "retail": [],
-      "model": [
-        "xor ecx,ecx"
-      ]
-    },
-    {
-      "class": "evaluation-order",
-      "offset": "0x32ac",
-      "retail": [
-        "xor ecx,ecx"
-      ],
-      "model": []
-    },
-    {
-      "class": "evaluation-order",
-      "offset": "0x32d3",
-      "retail": [],
-      "model": [
-        "xor ecx,ecx"
-      ]
-    },
-    {
-      "class": "evaluation-order",
-      "offset": "0x32da",
-      "retail": [
-        "xor ecx,ecx"
-      ],
-      "model": []
-    },
-    {
-      "class": "evaluation-order",
-      "offset": "0x3311",
-      "retail": [
-        "xor ecx,ecx"
-      ],
-      "model": []
-    },
-    {
-      "class": "code-shape",
-      "offset": "0x3348",
-      "retail": [
-        "xor ecx,ecx"
-      ],
-      "model": []
-    },
-    {
-      "class": "code-shape",
-      "offset": "0x3378",
-      "retail": [
-        "xor ecx,ecx"
-      ],
-      "model": []
-    },
-    {
-      "class": "code-shape",
-      "offset": "0x338c",
-      "retail": [
-        "mov esi,eax"
-      ],
-      "model": []
-    },
-    {
-      "class": "code-shape",
-      "offset": "0x3393",
-      "retail": [
-        "mov eax,ebx",
-        "call 0x412a00",
-        "mov DWORD PTR [esi],eax",
-        "xor eax,eax",
-        "pop edi",
-        "pop esi",
-        "pop ebx",
-        "mov ecx,DWORD PTR [esp+0x2c0]",
-        "xor ecx,ebp",
-        "call 0x458ea5",
-        "mov esp,ebp",
-        "pop ebp",
         "ret"
       ],
       "model": [
-        "jmp L+0x3225"
+        "jmp L+0x3503"
       ]
     },
     {
       "class": "code-shape",
-      "offset": "0x34ea",
-      "retail": [
-        "mov esi,DWORD PTR ds:0x477834"
-      ],
-      "model": []
-    },
-    {
-      "class": "code-shape",
-      "offset": "0x34f8",
-      "retail": [
-        "add esi,0x3c0"
-      ],
-      "model": []
-    },
-    {
-      "class": "code-shape",
-      "offset": "0x350d",
-      "retail": [
-        "mov edi,DWORD PTR ds:0x477834"
-      ],
-      "model": []
-    },
-    {
-      "class": "code-shape",
-      "offset": "0x351b",
-      "retail": [
-        "add edi,0x3c0"
-      ],
-      "model": []
-    },
-    {
-      "class": "code-shape",
-      "offset": "0x3526",
-      "retail": [
-        "fsubr DWORD PTR [edi+0x4]",
-        "fld DWORD PTR [esi]"
-      ],
+      "offset": "0x3253",
+      "retail": [],
       "model": [
-        "mov eax,ds:0x477834",
-        "fsubr DWORD PTR [eax+0x3c4]",
-        "fld DWORD PTR [eax+0x3c0]"
+        "fld DWORD PTR [esp+0x30]",
+        "fsub DWORD PTR [esp+0x10]"
       ]
+    },
+    {
+      "class": "code-shape",
+      "offset": "0x325f",
+      "retail": [
+        "fld DWORD PTR [esp+0x30]",
+        "fsub DWORD PTR [esp+0x10]"
+      ],
+      "model": []
     },
     {
       "class": "code-shape",
@@ -1771,17 +791,17 @@
       ],
       "model": [
         "mov ebx,DWORD PTR [ebx+0x14d8]",
-        "fstp DWORD PTR [esp+0xc]",
+        "fstp DWORD PTR [esp+0x10]",
         "mov eax,DWORD PTR [ebx+0x4]",
         "xor ecx,ecx",
         "call 0x450070",
-        "mov ecx,DWORD PTR [esp+0xc]",
+        "mov ecx,DWORD PTR [esp+0x10]",
         "mov DWORD PTR [eax],ecx",
         "xor eax,eax",
         "pop edi",
         "pop esi",
         "pop ebx",
-        "mov ecx,DWORD PTR [esp+0x2b0]",
+        "mov ecx,DWORD PTR [esp+0x2c0]",
         "xor ecx,ebp",
         "call 0x458ea5",
         "mov esp,ebp",
@@ -1810,16 +830,6 @@
       "model": [
         "lea ecx,[ecx+0x0]"
       ]
-    },
-    {
-      "class": "branch-target",
-      "offset": "table+0x280",
-      "retail": [
-        "L+0x3194"
-      ],
-      "model": [
-        "L+0x198e"
-      ]
     }
   ],
   "note": "reference/recovery_notes/enemy_execute_0040e770_2026_10_03.md",
@@ -1828,7 +838,7 @@
       4,
       16
     ],
-    "count": 457
+    "count": 0
   },
   "listed_branch_targets": true
 }

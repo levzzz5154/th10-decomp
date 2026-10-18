@@ -66,7 +66,7 @@ def main():
     for key in ('exceptions', 'native_data', 'anchors', 'included_sources', 'roots', 'additional_sources', 'data_aliases', 'constant_aliases'):
         if spec.get(key):
             layout[key] = spec[key]
-    layout_name = 'layout/ltcg/' + spec['name'] + '.json'
+    layout_name = 'build_support/layout/ltcg/' + spec['name'] + '.json'
     (ROOT / layout_name).write_text(json.dumps(layout, indent=2) + '\n')
     units = manifest['translation_units']
     still_used = {r['source'] for r in manifest['regions']}

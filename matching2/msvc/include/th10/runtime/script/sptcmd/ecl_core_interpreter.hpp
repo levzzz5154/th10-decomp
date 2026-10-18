@@ -40,24 +40,40 @@ struct EclStack {
     __declspec(noinline) int Pop();
     __declspec(noinline) int Write(char type, unsigned int size, const void* source);
 
+    // Named raw words and conversions also preserve native temporary ordering.
     // The raw pop reports success so the typed pops can consume the tag
     // word only when a value was actually taken.
     __forceinline bool PopRaw(void* out) {
-        if (sp - 4 >= 0) { sp -= 4; *(int*)out = *(int*)&data[sp]; return true; }
+        if (sp - 4 >= 0) {
+            sp -= 4;
+            int offset = sp;
+            const int* source = (const int*)(data + offset);
+            int* destination = (int*)out;
+            int value = *source;
+            *destination = value;
+            return true;
+        }
         return false;
     }
     __forceinline void PopInt(int* out) {
         if (PopRaw(out)) {
             sp -= 4;
             char tag = data[sp];
-            if (tag == 'f') *out = (int)*(float*)out;
+            if (tag == 'f') {
+                float source_value = *(float*)out;
+                *out = (int)source_value;
+            }
         }
     }
     __forceinline void PopFloat(float* out) {
         if (PopRaw(out)) {
             sp -= 4;
             char tag = data[sp];
-            if (tag == 'f') {} else if (tag == 'i') *out = (float)*(int*)out;
+            if (tag == 'f') {} else if (tag == 'i') {
+                int source_value = *(int*)out;
+                float converted = (float)source_value;
+                *out = converted;
+            }
         }
     }
 };

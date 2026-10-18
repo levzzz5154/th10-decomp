@@ -490,7 +490,7 @@
   "base_index_order": 0,
   "differences": [
     {
-      "class": "code-shape",
+      "class": "operand-order",
       "offset": "0x222",
       "retail": [
         "fld DWORD PTR [edi+0x9e84]",
@@ -502,199 +502,15 @@
       ]
     },
     {
-      "class": "block-order",
-      "offset": "0x5ff",
-      "retail": [
-        "mov ecx,DWORD PTR [esi+0x732454]",
-        "inc ecx",
-        "mov eax,ecx",
-        "test eax,eax",
-        "mov DWORD PTR [esi+0x732454],ecx",
-        "jne L+0x619"
-      ],
-      "model": [
-        "mov eax,DWORD PTR [esi+0x732454]"
-      ]
-    },
-    {
-      "class": "block-order",
-      "offset": "0x619",
-      "retail": [],
-      "model": [
-        "jne L+0x618",
-        "mov DWORD PTR [esi+0x732454],0x1"
-      ]
-    },
-    {
-      "class": "alignment-padding",
-      "offset": "0x63f",
-      "retail": [
-        "nop"
-      ],
-      "model": [
-        "mov edi,edi"
-      ]
-    },
-    {
-      "class": "block-order",
-      "offset": "0x6c8",
-      "retail": [
-        "mov ecx,DWORD PTR [esi+0x732454]",
-        "inc ecx",
-        "mov eax,ecx",
-        "test eax,eax",
-        "mov DWORD PTR [esi+0x732454],ecx",
-        "jne L+0x6e2"
-      ],
-      "model": [
-        "mov eax,DWORD PTR [esi+0x732454]"
-      ]
-    },
-    {
-      "class": "block-order",
-      "offset": "0x6e2",
-      "retail": [],
-      "model": [
-        "jne L+0x6e1",
-        "mov DWORD PTR [esi+0x732454],0x1"
-      ]
-    },
-    {
-      "class": "block-order",
-      "offset": "0x70c",
-      "retail": [
-        "lea esp,[esp+0x0]"
-      ],
-      "model": [
-        "jmp L+0x710",
-        "lea ecx,[ecx+0x0]"
-      ]
-    },
-    {
-      "class": "evaluation-order",
-      "offset": "0x92f",
-      "retail": [
-        "mov DWORD PTR [ebx+0x40],0x0"
-      ],
-      "model": []
-    },
-    {
-      "class": "evaluation-order",
-      "offset": "0x93b",
-      "retail": [],
-      "model": [
-        "mov DWORD PTR [ebx+0x40],0x0"
-      ]
-    },
-    {
-      "class": "evaluation-order",
-      "offset": "0x9a1",
-      "retail": [
-        "mov DWORD PTR [ebx+0x44],0x0"
-      ],
-      "model": []
-    },
-    {
-      "class": "evaluation-order",
-      "offset": "0x9ad",
-      "retail": [],
-      "model": [
-        "mov DWORD PTR [ebx+0x44],0x0"
-      ]
-    },
-    {
-      "class": "evaluation-order",
-      "offset": "0xa1f",
-      "retail": [
-        "mov DWORD PTR [ebx+0x48],0x0"
-      ],
-      "model": []
-    },
-    {
-      "class": "evaluation-order",
-      "offset": "0xa2b",
-      "retail": [],
-      "model": [
-        "mov DWORD PTR [ebx+0x48],0x0"
-      ]
-    },
-    {
-      "class": "evaluation-order",
-      "offset": "0xa91",
-      "retail": [
-        "mov DWORD PTR [ebx+0x4c],0x0"
-      ],
-      "model": []
-    },
-    {
-      "class": "evaluation-order",
-      "offset": "0xa9d",
-      "retail": [],
-      "model": [
-        "mov DWORD PTR [ebx+0x4c],0x0"
-      ]
-    },
-    {
-      "class": "evaluation-order",
-      "offset": "0xb0f",
-      "retail": [
-        "mov DWORD PTR [ebx+0x50],0x0"
-      ],
-      "model": []
-    },
-    {
-      "class": "evaluation-order",
-      "offset": "0xb1b",
-      "retail": [],
-      "model": [
-        "mov DWORD PTR [ebx+0x50],0x0"
-      ]
-    },
-    {
-      "class": "code-shape",
-      "offset": "0xceb",
-      "retail": [
-        "test BYTE PTR [edx+0x378c],0x1"
-      ],
-      "model": [
-        "mov cl,BYTE PTR [edx+0x378c]"
-      ]
-    },
-    {
-      "class": "code-shape",
-      "offset": "0xcf8",
-      "retail": [],
-      "model": [
-        "test cl,0x1"
-      ]
-    },
-    {
-      "class": "code-shape",
+      "class": "operand-order",
       "offset": "0xdda",
       "retail": [
         "fld DWORD PTR [esi+0x1068]",
         "fadd DWORD PTR ds:0x470b4c"
       ],
       "model": [
-        "fld DWORD PTR ds:0x470b4c"
-      ]
-    },
-    {
-      "class": "code-shape",
-      "offset": "0xdf6",
-      "retail": [],
-      "model": [
+        "fld DWORD PTR ds:0x470b4c",
         "fadd DWORD PTR [esi+0x1068]"
-      ]
-    },
-    {
-      "class": "alignment-padding",
-      "offset": "0xedd",
-      "retail": [
-        "lea ecx,[ecx+0x0]"
-      ],
-      "model": [
-        "nop"
       ]
     }
   ],

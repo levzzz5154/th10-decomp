@@ -1,0 +1,111 @@
+{
+  "schema_version": 1,
+  "name": "animation_change_script_0043e8b0",
+  "source": "src/core/sprtanim/animation_change_script.cpp",
+  "included_sources": [
+    "src/core/sprtlib/animation_handle_change_script.cpp",
+    "build_support/layout/ltcg/script_change_find_anchor.cpp"
+  ],
+  "driver": "build_support/layout/ltcg/animation_change_script_0043e8b0_context.cpp",
+  "headers": [
+    "include/th10/render/animation_script_change.hpp",
+    "include/th10/game/entity.hpp",
+    "include/th10/types.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "The animation object script changer 0x0043E8B0 (287 bytes) with its real caller (the exact handle wrapper 0x004496D0), the real lookup anchor 0x004491C0 and the synthetic array-walking entry; only the changer is selected. The doubled slot read in the guard is what keeps the script pointer ahead of the flag word at the register decision, as retail has it.",
+  "functions": [
+    {
+      "name": "ChangeAnimationScript",
+      "symbol": "_ChangeAnimationScript@12",
+      "section": ".text$01change",
+      "address": "0x0043E8B0",
+      "size": 287,
+      "actual_abi": "resource EDX, object EAX, index ECX, plain RET"
+    }
+  ],
+  "context": {
+    "symbol": "_ScriptChangeCompilerContext@12",
+    "section": ".text$07context",
+    "address": "0x00449700",
+    "size": 49,
+    "description": "Synthetic array-walking caller; unselected compiler context, zero credit."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 252080
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x0043E9CF",
+      "size": 42993
+    },
+    {
+      "section": ".text$04layout",
+      "address": "0x00449209",
+      "size": 1223
+    },
+    {
+      "section": ".text$06layout",
+      "address": "0x004496F4",
+      "size": 12
+    },
+    {
+      "section": ".rdata",
+      "address": "0x0044A000",
+      "size": 158560
+    }
+  ],
+  "constants": [
+    {
+      "symbol": "__real@bf800000",
+      "address": "0x00470B60",
+      "value": -1.0
+    }
+  ],
+  "absolute_symbols": [
+    {
+      "symbol": "_g_sprt_ctrl",
+      "address": "0x00491C10",
+      "kind": "data"
+    },
+    {
+      "symbol": "_flt_neg1",
+      "address": "0x00470B60",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_game_speed",
+      "address": "0x00476F78",
+      "kind": "data"
+    },
+    {
+      "symbol": "_RunChangeScriptVm@4",
+      "address": "0x0043EE30",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__fltused",
+      "address": "0",
+      "kind": "metadata"
+    }
+  ],
+  "anchors": [
+    {
+      "name": "ScriptChangeHandle_ChangeScript",
+      "symbol": "?ChangeScript@ScriptChangeHandle@@QAEXH@Z",
+      "section": ".text$05wrapper",
+      "address": "0x004496D0",
+      "size": 36
+    },
+    {
+      "name": "ScriptChangeFind",
+      "symbol": "?Find@ScriptChangeManager@@QAIPAUEntity@@PAUScriptChangeContext@@UScriptChangeId@@@Z",
+      "section": ".text$03find",
+      "address": "0x004491C0",
+      "size": 73
+    }
+  ]
+}

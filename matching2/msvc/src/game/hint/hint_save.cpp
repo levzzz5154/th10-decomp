@@ -84,6 +84,9 @@ extern "C" __declspec(noinline) int __stdcall SaveHints(Manager3* manager,
         asm_sprintf_00452ae8(buffer, str_hint_version_format, str_hint_version);
         WriteShared2(buffer, strlen(buffer));
 
+        // The eight stage lists, walked as ChainNode chains. Each step keeps the
+        // successor in `next` before the tip is written; the walk advances through
+        // `entry` on both paths so the shared loop test sees the successor.
         stage = 0;
         slot = manager->secondary;
         do {
@@ -93,12 +96,15 @@ extern "C" __declspec(noinline) int __stdcall SaveHints(Manager3* manager,
                 do {
                     next = entry->next;
                     HintData* tip = static_cast<HintData*>(entry->block);
-                    if (tip->selection != 0) {
-                        if (rows == 0)
+                    if (tip->selection == 0) {
+                        entry = next;
+                    } else {
+                        if (rows == 0) {
                             asm_sprintf_00452ae8(buffer, str_hint_rule_short);
-                        WriteHintLine(buffer, strlen(buffer));
-                        asm_sprintf_00452ae8(buffer, str_hint_stage_format, stage);
-                        WriteHintLine(buffer, strlen(buffer));
+                            WriteHintLine(buffer, strlen(buffer));
+                            asm_sprintf_00452ae8(buffer, str_hint_stage_format, stage);
+                            WriteHintLine(buffer, strlen(buffer));
+                        }
                         asm_sprintf_00452ae8(buffer, str_hint_tips, stage);
                         WriteHintLine(buffer, strlen(buffer));
                         if (tip->selection > 0)
@@ -133,9 +139,9 @@ extern "C" __declspec(noinline) int __stdcall SaveHints(Manager3* manager,
                         WriteHintLine(buffer, strlen(buffer));
                         if (++rows >= 0xff)
                             break;
+                        entry = next;
                     }
-                    entry = next;
-                } while (entry != 0);
+                } while (next != 0);
                 if (rows != 0) {
                     asm_sprintf_00452ae8(buffer, str_hint_stage_end);
                     WriteHintLine(buffer, strlen(buffer));

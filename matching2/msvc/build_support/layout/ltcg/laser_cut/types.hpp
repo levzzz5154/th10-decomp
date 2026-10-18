@@ -60,6 +60,7 @@ struct CutLaser {
  float total_length;
  unsigned char reserved_448[0x464-0x448];
  short type,script;
+ short GetScript() const {return script;}
  __declspec(noinline) virtual int CutRectangle(const CutVector* center,const CutVector* size,int spawn_items);
  __declspec(noinline) virtual int CutCircle(const CutVector* center,float radius,int spawn_items);
 };

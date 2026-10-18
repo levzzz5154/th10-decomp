@@ -107,3 +107,96 @@ recipe assumes without the Spillcosts numbers.
 
 Region stays equivalent (366 differing bytes). The next step is unchanged:
 trace Spillcosts once and pick the candidate shape from the measured K table.
+
+# ecl_name_table 0x00450220 — note addendum (2026-10-18)
+
+Stage this section into `matching2/reference/recovery_notes/ecl_name_table_00450220_equivalent_2026_10_11.md`
+(or the layout's `note` file) on integration.
+
+## 2026-10-18: register contest closed; 4 hunks remain (head name_count rotation)
+
+State: 194/198 identical, 4 hunks, 23 differing bytes (was 181/198, 13 hunks,
+366 bytes). Layout `differences` re-recorded to the 4-hunk set (classes:
+`evaluation-order` x1, `register-choice` x3); `base_index_order` 0, no
+frame_shift; strict check `not_equivalent: []`. Final model:
+`msvc/src/script/sptlib/ecl_name_table.cpp` (single-count kept + the `sub`
+candidate, see below).
+
+### The EBP lever (the register contest)
+
+Retail gives EBP to the old-table pointer. The contest is ChoosePhysReg
+placement order over Spillcosts priority; names wins ties (lower candidate
+number), so old must be strictly ahead. Measured at the EBP decision
+(trace_choose_physreg.py on the sandbox compile):
+
+| source shape | names | old |
+| --- | --- | --- |
+| single count (kept = name_count - sub_count) | 69 | 66 |
+| + offsets local (row-3 shape) | 71 | 70 |
+| + sub candidate in the copy block (final) | 68 | 70 |
+| shipped double count (temp + kept-copy) | 68 | 70 |
+| + hoisted count in the guard (sub_local) | 58 | 66 |
+
+Priority formula, validated across ten variants:
+  old   = 4*K(head) + 4*K(copy) + 2*K(free)
+  names = 2*K(head) + SUM(refs*K*w over its six ref blocks) - SUM(K*w live-through)
+
+One candidate added to a block: old gains refs_old(b)*w(b); names gains
+refs_names(b)*w(b) if referenced there, else loses w(b). So the copy block is
+the (+4, -1) lever and each head candidate is (+4, +2).
+
+The working shape (K(copy) 5 -> 6):
+
+    } else {
+        int sub = files[file_count]->sub_count;
+        int kept = name_count - sub;
+        memcpy(entries, old, sizeof(ScriptSub) * kept);
+        if (previous) crt_free((sub == files[file_count]->sub_count) ? previous : previous);
+
+`sub` re-read in the free condition is a constant-true consistency check that
+keeps `sub` as a copy-block register candidate (its def plus a real use); the
+use must not be a foldable identity (xor/sub self, &0, *0, comma all fold away
+and lose the candidacy) and must not be a named copy (propagated). kept's def
+stays a real computation so it keeps its cross-block register piece (the
+jmp-over-reload at the merge top, the `lea ecx,[edx+edx]` copy length, the
+store-before-rep-movs order all follow automatically).
+
+### The head-rotation trade-off (the two levers are coupled)
+
+The final 4 hunks are the head's `name_count` load only:
+retail 0x261 `mov edx,[ebx+0x8]` immediately after the chunk_size load (EDX);
+model 0x52 `mov ecx,[ebx+0x8]`, deferred past the pushes, data lea and sub load
+(ECX), with `add/mov eax/mov [ebx+8]` following in the same register.
+
+Mechanism (msvc-c2-list-scheduler-priority + msvc-c2-temp-register-rotation-named-local):
+the load is a rotation temporary; in ECX an anti-edge from the data-lea's
+chunk_size ECX reference pins it behind that node, in EDX (retail) the only
+earlier reference is long dead and the +32 load bonus hoists it above the
+pushes. The rotation is one step off because materialising the `sub` compare in
+the copy block allocates one extra single-use expression temporary, and
+RegAssign's cursor runs over the whole function.
+
+Trade-off proof (measured): with the second `sub` reference removed
+(`int sub = ...; int kept = name_count - sub;` alone, or kept reading the
+member), the head is EXACT (mov edx,[ebx+0x8] at 0x261) but K(copy) falls back
+to 5 and the flip is lost (names 69 > old 66, 40 hunks). With any second
+reference kept (nine compare spellings tested: ==0, !=0, >=0, >-1, ==sub, ==2,
+==4, !=-1, ==0x10000, byte-cast, multi-and), the flip holds at 4 hunks / 23
+bytes but the head rotation stays off. So the copy-block candidate and the head
+rotation are coupled through the temp count; closing the last 23 bytes needs
+either a reference form that allocates no temporary, or a compensating temp
+removal elsewhere in the function.
+
+### Ruled out (evidence in /tmp/campaign/ecl_name/STATUS.md)
+
+free-block named-local shapes; third/fourth `entries` loads (merged away);
+head double-load pairs (fc_a/fc_b 47, name/chunk/sub pairs 0-change, total/na/nb
+0-change, slot pair 45, fa/fb pair 45); offsets doubled (names priority explodes
+to 119 - wrong direction); C++ reference aliases (frame grows 0x10 -> 0x14);
+double-count orderings (dbl_rev/D4/r1-r4/t1 collapse to the shipped
+temp+copy = 13/366, or break the memcpy fold into shl/shr + rep movsb);
+shift-loop use-then-copy (j-shape: code grows 15 bytes -> "short branch leaves
+the function"; field-copy spelling: the address recomputes, +15 bytes);
+use-then-copy into names/kept/index (folded away or wrong block);
+operand-order sweeps (7 shapes, 0 change); `count + merged` IV bound (41);
+sub-expression splits and statement reorders (0 change or 41-45).

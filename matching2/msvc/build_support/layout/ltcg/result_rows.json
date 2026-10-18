@@ -1,0 +1,230 @@
+{
+  "schema_version": 1,
+  "name": "result_rows",
+  "source": "src/game/pause/result_rows.cpp",
+  "driver": "build_support/layout/ltcg/result_rows_context.cpp",
+  "included_sources": [
+    "build_support/layout/ltcg/result_rows/append.cpp",
+    "build_support/layout/ltcg/result_rows/formatted.cpp"
+  ],
+  "headers": [
+    "include/th10/game/game_thread_queue_native.hpp",
+    "include/th10/game/result_rows.hpp",
+    "include/th10/game/title_draw.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Result rows with escaping run-selection words; all 1062 bytes exact. Formatter and queue-writer bodies derive the private position argument convention.",
+  "functions": [
+    {
+      "name": "ResultScreenDrawRows",
+      "symbol": "_ResultScreen_DrawRows@4",
+      "section": ".text$04rows",
+      "address": "0x00422660",
+      "size": 1062,
+      "actual_abi": "stdcall, result-menu pointer on stack, EAX result, RET 4"
+    }
+  ],
+  "anchors": [
+    {
+      "name": "?AsciiManager_AddString@@YGXPAUGameThread2@@PBDPBUVec32@@@Z",
+      "symbol": "?AsciiManager_AddString@@YGXPAUGameThread2@@PBDPBUVec32@@@Z",
+      "section": ".text$01append",
+      "address": "0x401530",
+      "size": 132
+    },
+    {
+      "name": "?AsciiManager_AddFormatted@@YAXPAUGameThread2@@PBUVec32@@PBDZZ",
+      "symbol": "?AsciiManager_AddFormatted@@YAXPAUGameThread2@@PBUVec32@@PBDZZ",
+      "section": ".text$02bformatted",
+      "address": "0x401630",
+      "size": 85
+    }
+  ],
+  "context": {
+    "symbol": "_ResultRowsSelectionEscape@4",
+    "section": ".text$00context",
+    "address": "0x00401000",
+    "size": 20,
+    "description": "Makes both selection-word addresses escape, reproducing the retail alias context; never exported."
+  },
+  "gaps": [
+    {
+      "section": ".text$00contextz",
+      "address": "0x401014",
+      "size": 1308
+    },
+    {
+      "section": ".text$01appendz",
+      "address": "0x4015b4",
+      "size": 124
+    },
+    {
+      "section": ".text$02cformattedz",
+      "address": "0x401685",
+      "size": 135131
+    }
+  ],
+  "constants": [],
+  "constant_aliases": [
+    {
+      "symbol": "__real@41700000",
+      "address": "0x470C08",
+      "value": 15.0
+    },
+    {
+      "symbol": "__real@41900000",
+      "address": "0x470C0C",
+      "value": 18.0
+    },
+    {
+      "symbol": "__real@3dcccccd",
+      "address": "0x470C18",
+      "value": 0.10000000149011612
+    },
+    {
+      "symbol": "__real@42800000",
+      "address": "0x470BC8",
+      "value": 64.0
+    },
+    {
+      "symbol": "__real@43600000",
+      "address": "0x470B4C",
+      "value": 224.0
+    },
+    {
+      "symbol": "__real@42c00000",
+      "address": "0x470C80",
+      "value": 96.0
+    }
+  ],
+  "absolute_symbols": [
+    {
+      "symbol": "@__security_check_cookie@4",
+      "address": "0x458EA5",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_DrawNameEntry2@16",
+      "address": "0x4224C0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "___security_cookie",
+      "address": "0x473660",
+      "kind": "data"
+    },
+    {
+      "symbol": "__fltused",
+      "address": "0x0",
+      "kind": "metadata"
+    },
+    {
+      "symbol": "_str_score_row_unplayed_format",
+      "address": "0x46E0E8",
+      "kind": "data"
+    },
+    {
+      "symbol": "_str_score_row_format",
+      "address": "0x46E108",
+      "kind": "data"
+    },
+    {
+      "symbol": "_str_score_ranking_title",
+      "address": "0x46E12C",
+      "kind": "data"
+    },
+    {
+      "symbol": "_str_ranking_row_format",
+      "address": "0x46E148",
+      "kind": "data"
+    },
+    {
+      "symbol": "_str_ranking_row_empty_format",
+      "address": "0x46E174",
+      "kind": "data"
+    },
+    {
+      "symbol": "_str_ranking_row_named_format",
+      "address": "0x46E19C",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_shot_names",
+      "address": "0x4746DC",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_difficulty_names",
+      "address": "0x4746F4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_difficulty_initials",
+      "address": "0x474708",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_stage_names_long",
+      "address": "0x47471C",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_stage_names_short",
+      "address": "0x474744",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00474c68_char",
+      "address": "0x474C6C",
+      "kind": "data"
+    },
+    {
+      "symbol": "_data_00474c68_shot",
+      "address": "0x474C68",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_globals_difficulty",
+      "address": "0x474C74",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_globals_stage",
+      "address": "0x474C7C",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_ascii_manager",
+      "address": "0x4776E0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_replay",
+      "address": "0x477838",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_score",
+      "address": "0x47783C",
+      "kind": "data"
+    },
+    {
+      "symbol": "_localtime",
+      "address": "0x452BAA",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_strcpy",
+      "address": "0x45BD80",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_vsprintf",
+      "address": "0x4524A6",
+      "kind": "relative_code"
+    }
+  ],
+  "roots": [
+    "_ResultScreen_DrawRows@4"
+  ]
+}

@@ -144,6 +144,173 @@ unchanged at 179** — the ternary area still differs at the byte level even
 where the instruction text matches, exactly the case the instruction verdict
 hides. Reverted: the change is instruction-level churn with no byte benefit.
 
-Region stays equivalent (179 differing bytes). The byte residuals sit in the
+Region stays equivalent (179 differing bytes).
+
+## 2026-10-17: the temp-rotation lever fixes the register rotation
+
+`msvc-c2-temp-register-rotation-named-local` names this residual exactly:
+"same instructions, but from some call on every reloaded pointer is one
+register further (ECX/EDX where retail has EAX/ECX)", with the fix being to
+name the first diverging call's argument. Applied here to
+`AnimationManager_CreatePositionedPrimary(g_ascii_manager->animation_resource,
+&slot_handle, 6, &position)`, against the baseline 291/309, 15 hunks, 179
+differing bytes:
+
+| variant | identical | hunks | differing bytes |
+| --- | --- | ---: | ---: |
+| baseline | 291/309 | 15 | 179 |
+| **`name-arg`** (`void* anim_resource = …` before the call) | **294/309** | **12** | **175** |
+| `name-both-args`, `name-at-scope` | 294/309 | 12 | 175 |
+| `name-slot-arg` (only the stack address named) | 291/309 | 15 | 179 |
+| `inline-the-local` | — | — | a branch retargets |
+
+Naming the resource argument removes the first three hunks (@0x68, @0x70,
+@0x75) outright — the `mov eax,[ecx+0x8994]` / `lea ecx,[esp+0x14]` / `push`
+triple now matches retail register for register. The residual starts at
+@0x81, a load-position difference, and @0x307, a block-order pair. Naming
+only the stack-address argument does nothing, so it is the *expression*
+argument that advances the rotation, as the rule says.
+
+This is the first lever this pass has found that removes hunks outright on a
+register-choice region. It is not landed: 12 hunks remain and shipping it
+would mean re-recording the whole difference list. The next session should
+start from `name-arg` and work the remaining @0x81 and @0x307. Region stays
+equivalent. The byte residuals sit in the
 evaluation-order runs (+0x3f0..+0x436) and the block-order pair; they need
 the c2 list-scheduler trace before another source sweep.
+
+## 2026-10-18: byte-exact — the head rotation, the tail shift and the escaped block
+
+The region is now byte-identical: `variant.py` reports `*EXACT*` (309/309
+instructions, 0 differing bytes, 0 tail bytes) and `equivalence.py --layout`
+reports `"differences": []`, `"not_equivalent": []`, `base_index_order: 0`,
+`frame_offset: 0`. All 15 recorded hunks closed with six levers; the last
+difference was closed by the escaped-aggregate lever (item 6).
+
+1. **`name-arg` landed** (the 2026-10-17 probe, unlanded until now): naming
+   the positioned-primary creation's resource argument (`void* anim_resource =
+   g_ascii_manager->animation_resource;`) fixes the head's register rotation —
+   `mov eax,[ecx+0x8994]` / `lea ecx,[esp+0x14]` / retail push order return
+   as recorded.
+2. **The tail shift was a transcription bug**: retail re-reads `g_func_ctrl`
+   (0x00491BE4) before *each* removal block (`mov edi,[0x491be4]` at
+   0x418005 and again at 0x418045 — the locked remove may republish it). The
+   model read it once and reused the register, and the missing 6-byte load
+   shifted everything from +0x3c5 to the epilogue. Re-spelling the second read
+   (`scheduler = g_func_ctrl;`) collapses that entire recorded run. This is
+   what the old note called "the evaluation-order runs (+0x3f0..+0x436)".
+3. **The enemy if/else inverted** (`if (!(g_globals_flags & 9u)) { destroy }
+   else { EnemyCtrl_Clear2(...) }`): the negative condition puts the destroy
+   path on the fallthrough and the Clear call block after it — retail's block
+   order (c2 lays the branch fallthrough first, so the old spelling's
+   then-block-on-fallthrough placed Clear first).
+4. **The resource-index ternary spelled as an `if`/`else` with one
+   `RegisterResource` call per arm** yields retail's tail-merged
+   `test byte [0x491d78],0x10 / je / push 4 / jmp / push 3` shape. The
+   2026-10-17 probe's "differing bytes unchanged" verdict was an artifact of
+   the tail shift (item 2) masking the area; on the fixed tail the same
+   spelling closes the code-shape hunks and their byte shift.
+5. **`FuncCtrl_Remove` compiled in-link** (the driver now includes
+   `src/core/zunlib/scheduler_tasks.cpp` under `TH10_SCHEDULER_REMOVE_ONLY`;
+   the layout binds `_FuncCtrl_Remove@8` to 0x00449F60 — verified by the
+   semantic region `semantic_FuncCtrl_Remove_00449f60` — and drops the same
+   symbol from `absolute_symbols` so the compiled body can define it). The
+   whole-program pass then derives the private convention (task in ECX, the
+   scheduler in EDX) and, as the func_ctrl.hpp note says, loads ECX first at
+   the call: both `mov ecx,esi`/`mov edx,edi` pairs emit in retail order. The
+   bare `__fastcall FuncCtrl_RemoveTask` spelling loads EDX first. This is the
+   same in-link body spelling the sibling teardown clusters use.
+6. **The escaped-aggregate lever closed the last difference** (@0x81, 7 bytes
+   at 0x81-0x87): retail stores the created handle (`mov [esi],edx`) before
+   the mode reload (`mov eax,[0x491fb8]`), the model reversed them. The two
+   are independent scheduler nodes (the load carries the +32 bonus) unless the
+   store may alias the loaded global. Reading the mode through the application
+   state block — `g_supervisor.next_state` (0x00491FB8 = Supervisor +0x3B8,
+   `th10/app/supervisor.hpp`) — and letting the block's address escape in the
+   context driver (`if (count < 0) states[0] = &g_supervisor;`) forces the
+   store first. This is exactly the `msvc-escaped-global-struct-aliasing`
+   symptom "a store of a call result placed after the next global load where
+   retail stores first".
+
+Ruled out, with measurements:
+
+- `name-arg` alone: 175 differing bytes / 12 hunks (confirms the 2026-10-17
+  probe); `reload-assign` alone: 119 bytes; both together: 115.
+- `reload-assign` vs `reload-local` (a second named local): byte-identical —
+  any spelling of the per-block re-read works.
+- `enemy-goto` (`if (c) goto clear; ...; goto done; clear: ...`): does not
+  flip the block order (179 bytes on base, 44 with the other levers); only the
+  inverted condition does.
+- The ternary→if/else rewrite alone keeps bytes at 179 while clearing three
+  instruction hunks (re-confirms the overnight finding) — it pays only after
+  item 2.
+- `sup-noesc`: supervisor member reads without the address escape keep the
+  7-byte residual unchanged — membership alone is not the lever, the escape
+  is. The `esc-cond`, `esc-star` and `esc-uncond` escape spellings are
+  byte-identical; the kept one is the guarded `if (count < 0)`.
+- The scheduler trace was not needed in the end: the "heavy node pinned
+  second-to-last before the epilogue" residual was the missing reload and the
+  per-site move order, both transcription/ABI questions.
+
+Files touched: the model, its header (the stale `g_main_state` extern is
+replaced by a note pointing at the supervisor view), the cluster driver
+(scheduler-remove body + address escape) and this layout (bindings gains
+`_FuncCtrl_Remove@8`, `absolute_symbols` drops it and gains `_g_supervisor`,
+`differences` is empty again). Region is byte-exact.
+
+## 2026-10-18: promoted to exact — the region moves to the manager_state_release cluster
+
+`semantic_Game_Destroy_00417c80` (`_Game_Destroy@4`, 0x00417C80, 1105 bytes)
+is now a native-LTCG region of
+`build_support/layout/ltcg/manager_state_release.json`; the assembly carrier
+`build_support/exact/game/game/game_destroy.cpp` and the equivalent layout are
+deleted. `build_msvc.py` links the whole .text to retail SHA-256
+(`c1acff41…f56998`), `probe.py --source src/game/game/manager_teardown.cpp`
+reports `0x00417c80  1105 bytes  _Game_Destroy@4  EXACT`, and both tool test
+suites pass (60 + 27 tests).
+
+Cluster-side mechanics, for the next promotion of this shape:
+
+- **Schema 1 compiles the selected source only through the driver**: the
+  driver now includes `manager_teardown.cpp` first (after
+  `score_manager_save.cpp`/`animation_resource_lazy_fetch.cpp`, whose bodies
+  the driver already carries). The lazy-fetch body brings the shared type
+  declarations, so the driver defines
+  `TH10_MANAGER_TEARDOWN_SHARED_TYPES_EXTERNAL` before the model include —
+  exactly the contract the teardown header documents.
+- **Section names order the link**: COFF concatenates `.text$…` sections
+  lexically, so the contribution names must sort in retail-address order. The
+  renamed pragmas: `Game_Destroy` `.text$05release` (was `$9release`),
+  `IncrementCappedCount` `.text$05zzincr`, `RegisterResource` `.text$07reg`,
+  `AnimationObject_LoadScript` `.text$07zzload`,
+  `PanelResource2::Release` `.text$08resource`,
+  `RegisterPrimaryBack` `.text$08zregback`,
+  `CreatePositionedPrimary` `.text$08zsetprim`,
+  `PoolAllocator` `.text$08zspool`; gap sections are the preceding
+  contribution's name plus `z` (first gap `.text$00gap`), keeping the
+  title_teardown naming discipline. The four shared-source sections
+  (`.text$01lazy`, `.text$02b`, `.text$06score`, `.text$70remove`) were left
+  untouched and already sort in address order.
+- **Measured contribution sizes** (the loader requires each declared size to
+  equal the compiled contribution; these are this link's actuals):
+  `Game_Destroy` 1105, `EnemyCtrl_Destroy` **289** (the old anchor said 305 —
+  stale), `ScoreArchive_Save` 567, `FuncCtrl_Remove` 114 (new anchor at
+  0x00449F60 in `.text$70remove`, the scheduler-remove body from
+  `scheduler_tasks.cpp`), and the compiler context
+  `_ManagerReleaseContext_00417c80@8` **54** (was 39; the supervisor-escape
+  line costs 15 bytes).
+- **Wrappers keep ownership clean**: `enemy_ctrl_destroy.cpp` is compiled
+  through the new one-line wrapper
+  `build_support/layout/ltcg/manager_state_release/destroy_body.cpp` (it owns
+  the 0x0040D530 region, which would otherwise collide with the cluster's
+  function/ownership check) and is listed in `included_sources` beside
+  `scheduler_tasks.cpp`. `CreatePositionedPrimary`'s anchor symbol was stale
+  (an old four-argument spelling) and now carries the model's real mangled
+  name.
+- `regions.json`: the region record converts with `previous_record`, the
+  cluster joins `ltcg_clusters`, `translation_units` swaps the carrier for
+  `src/game/game/manager_teardown.cpp`, and the `equivalent_recoveries` entry
+  goes. The stale `symbols` aliases for the old asm name stay, as in the
+  enemy_data_start promotion.
+
+Region is exact.

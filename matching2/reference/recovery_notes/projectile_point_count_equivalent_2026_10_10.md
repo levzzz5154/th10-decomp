@@ -63,3 +63,75 @@ asymmetry (y in memory, x on the x87 stack) is still the unexplained
 residual shared with 0x00408210.
 
 Region stays equivalent (281 differing bytes).
+
+## 2026-10-17: the x87 storage levers tested negative
+
+HANDOFF's frame_timer lever ("volatile on storage forces retail's x87 operand
+order") was applied here directly, plus four ways to force the y values through
+memory. Eleven variants, measured with the byte script:
+
+- `volatile` on the whole `corner` array does not compile (it cannot bind to
+  the distance helper's `const Vec3&`); `volatile` on a named y local gives
+  87/126, a draft far worse than baseline;
+- a `volatile Vec3*` alias over the array (all accesses, or the y stores only)
+  either fails to link or lands at 114/126;
+- `_ReadWriteBarrier()` fences after/between the stores need `<intrin.h>`,
+  which this unit does not include, and the aggregate-store spelling fails
+  because `Vec3` has user-defined constructors;
+- naming the two y values, reading them back, and reloading explicitly all
+  reproduce the baseline exactly (120/126, 5 hunks, 281 differing bytes).
+
+So the residual is not the assignment shape: retail's stores land in memory and
+the model's stay on the x87 stack, and none of the storage-visibility levers
+move that. The asymmetry noted above (y in memory, x on the x87 stack) is still
+unexplained. Region stays equivalent.
+
+## 2026-10-18: byte-exact — re-derived corner[2].y and its statement position
+
+The residual x87 y-in-memory/x-on-stack asymmetry is closed: 126/126
+instructions, 370/370 bytes, `equivalence.py` reports `differences: []`,
+`not_equivalent: []`, `base_index_order: 0`, `frame_offset: 0`. Two source
+shapes do it, both about corner[2].y:
+
+- `corner[2].y = record->position.y - record->size.y * 0.5f + record->size.y;`
+  re-derives the halved difference instead of reading `corner[1].y` (or the
+  `corner[2].y = corner[1].y` copy then `+=`). The shared extended value is
+  consumed in place by the add (`fst DWORD PTR [esp+0x18]` keeps it, `fxch
+  st(1); fadd [ecx+0x4]` eats it), so the first distance reloads the stored
+  float (`fsub DWORD PTR [esp+0x18]`) exactly like retail. The old spellings
+  kept the value on the x87 stack for both uses — that was the residual.
+- That statement sits between the `corner[3].y = corner[0].y` copy and
+  `corner[0].y -= record->size.y`. There the scheduler emits the corner[0].y
+  store pair (`fst [esp+0xc]; fstp [esp+0x30]`) before the corner[2].y add and
+  reloads the rounded corner[0].y for the adjustment (`fld [esp+0xc]`). In any
+  other position the two independent blocks swap (256 differing bytes) or the
+  corner[0].y store sinks past the adjustment.
+
+Ruled out with byte counts (variant.py sweeps, ~130 spellings):
+
+- Statement order of the defs/copies/adjustments in every permutation except
+  the winning one: 256–296 differing bytes; `corner[2].y` first or last-but-one
+  swaps the two blocks, `corner[2].y` adjacent to the corner[1].y def does not
+  help.
+- `* 0.5f` vs `/ 2.0f`, `/ 2`, named `float`/`double` half locals,
+  declared-then-assigned halves and result ys: 281–286, no movement (the
+  double-constant family was already ruled out on 2026-10-10: it forces the
+  store/reload but with a qword constant and a rounded corner[2].y; the
+  `__real@3f000000` binding must be replaced to even measure it, since the
+  model then emits `__real@3fe0000000000000`).
+- Sibling 0x00408210 transplant spellings (operand-swapped high sides, block
+  groups): 281.
+- Block boundaries (`for (int i = 0; i < 0; ++i) {}`) at each gap: either the
+  281 baseline or the 256 block-swap, never the target order.
+- Pointer stores / `SetY(float*, float)` helpers on each y store (scheduler-edge
+  lever): no movement (256/3 hunks unchanged).
+- Named square temporaries and `dx`/`dy` locals in the distance helper
+  (unchanged 281), vector/refs element spellings (281), loop-scope array
+  declaration (281).
+
+Partial levers found on the way (kept here because they name the mechanism):
+volatile reads of the corner y in the distance helper force the missing stores
+to materialize (49 differing bytes — everything aligned, only in-place x87
+choices wrong), and a volatile-ref or `*(volatile float*)&corner[0].y` adjust
+fixes the corner[0].y store pair on its own. Neither is needed by the final
+spelling; the re-derived expression achieves both shapes from plain C++.

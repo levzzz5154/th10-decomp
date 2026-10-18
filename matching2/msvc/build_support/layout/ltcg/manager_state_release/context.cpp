@@ -6,6 +6,16 @@
 // (the same modelling the lazy-animation-fetch cluster carries).
 #include "../../../../src/game/score/score_manager_save.cpp"
 #include "../../../../src/game/ending/animation_resource_lazy_fetch.cpp"
+// The lazy-fetch body above brings the shared type declarations the teardown
+// header would otherwise duplicate in this unit.
+#define TH10_MANAGER_TEARDOWN_SHARED_TYPES_EXTERNAL
+#include "../../../../src/game/game/manager_teardown.cpp"
+#include "th10/app/supervisor.hpp"
+// The scheduler-remove body walks in link too, so the whole-program pass
+// derives its private convention (task in ECX, the scheduler in EDX) and
+// loads ECX first at every call, as retail's remove sequences do.
+#define TH10_SCHEDULER_REMOVE_ONLY
+#include "../../../../src/core/zunlib/scheduler_tasks.cpp"
 
 // Bindings for everything the models below call.
 extern "C" void* g_sprt_ctrl;
@@ -24,7 +34,7 @@ static unsigned int NextPoolIndex_00449950(unsigned int index) {
 
 // The animation-manager pool allocator modelled only for its argument shape.
 // These bytes are never selected as recovered code.
-#pragma code_seg(".text$8alloc")
+#pragma code_seg(".text$08zspool")
 extern "C" __declspec(noinline) void* __cdecl asm_FUN_00449950_00449950(void* manager) {
     unsigned char* bytes = (unsigned char*)manager;
     unsigned int index = *(unsigned int*)(bytes + 0x3AD068);
@@ -52,7 +62,7 @@ extern "C" __declspec(noinline) void* __cdecl asm_FUN_00449950_00449950(void* ma
 #pragma code_seg()
 
 // The script loader modelled only for its argument shape.
-#pragma code_seg(".text$8zzload")
+#pragma code_seg(".text$07zzload")
 extern "C" __declspec(noinline) void __cdecl asm_AnimationObject_LoadScript_0043e710(
         void* resource, void* object, int index) {
     unsigned char* res = (unsigned char*)resource;
@@ -109,7 +119,7 @@ struct AnmListManager_00448d50 {
     int next_id;
 };
 
-#pragma code_seg(".text$8regprimary")
+#pragma code_seg(".text$08zregback")
 extern "C" __declspec(noinline) void** __cdecl asm_AnimationManager_RegisterPrimaryBack_004489d0(
         void* manager, void** out, void* entity) {
     unsigned char* m = (unsigned char*)manager;
@@ -147,7 +157,7 @@ struct AnimationObject6 {
     unsigned int flags_035c;                        // +0x35C
 };
 
-#pragma code_seg(".text$8primary")
+#pragma code_seg(".text$08zsetprim")
 __declspec(noinline)
 void** __stdcall AnimationManager_CreatePositionedPrimary(
     void* resource, void** out, int index,
@@ -164,10 +174,10 @@ void** __stdcall AnimationManager_CreatePositionedPrimary(
 #pragma code_seg()
 
 #pragma code_seg(".text$8context")
-struct Game;
-extern "C" void __stdcall Game_Destroy(Game* state);
-
 extern "C" int __stdcall ManagerReleaseContext_00417c80(void** states, int count) {
+    // The application state block's address escapes to the caller here: the
+    // teardown's pointer stores must then assume they alias its members.
+    if (count < 0) states[0] = (void*)&g_supervisor;
     for (int index = 0; index < count; ++index)
         Game_Destroy((Game*)states[index]);
     return 0;

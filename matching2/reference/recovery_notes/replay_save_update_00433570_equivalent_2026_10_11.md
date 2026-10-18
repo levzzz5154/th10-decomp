@@ -80,3 +80,78 @@ the two stores are decided entirely inside the expansion by the temp-id hash
 wrap at 1024 (see `msvc-c2-operand-order-mechanism`). The only measured mover
 remains the pre-optimizer symbol count (86 no-op inline calls = +64 = the
 function byte-exact); that padding is not source, so the region stays parked.
+
+## 2026-10-17: the symbol window is measured exactly, and genuine source cannot reach it
+
+`OptCmpHashVal` gives a temporary `0x10000 + ((id << 6) & 0xFFFF)`, and the
+larger hash becomes the first operand. Retail's difference temp must hash
+*below* the walked pointer (ids 176/338), which needs its id 42+ above the
+model's 982/999. From that, the admissible growth is `K` in [25, 41] for one
+store and `K >= 42` for both — so the target is not "more symbols", it is one
+specific window.
+
+The symbol table grows in slabs of 32, which is why the measured response
+plateaus rather than climbing:
+
+| declarations added to the 25 named constants | result |
+| --- | --- |
+| 2–16 with an initialiser | 398/399, one swap left |
+| 18–24 with an initialiser | 399/399, byte-exact |
+| 16–32 uninitialised (`int x;`) | 398/399 — contributes nothing |
+| 8–16 `const` with an initialiser | 398/399 |
+| 24–32 `const` with an initialiser | 399/399, byte-exact |
+
+Only *expression-valued* declarations move the count; bare declarations fold
+away first. Naming the handler's 25 magic numbers is genuine source and lands
+**one of the two** stores (398/399, one differing byte) — a real improvement
+over the recorded two swaps, but not a promotion. Adding the genuine field
+names on top (`phase`, `name`, `last_name`, `cells`, `name_length`,
+`item_count`, `cursor_selection`, `keys_held`) changes the addressing and
+destroys the match (a branch retargets).
+
+So the region needs roughly 64 more symbols than any readable spelling of this
+code produces. `ida/th10.exe.c` and `ghidra_augmented/functions/00433570.c`
+agree statement for statement with the model — nothing is missing from the
+body — and the `.rdata` allocation logs are one per `new` site (`title.cpp:153
+TitleInf`), of which this handler has none. The declarations that produced
+retail's symbol count emitted no instructions and left no structural trace, so
+they are not recoverable from the binary. Reaching 64 takes 24 invented
+expression-valued declarations (`const unsigned probe_N = room->phase + N`),
+which is padding. Region stays equivalent.
+
+## 2026-10-17: the free-list levers tested; the catalogue's verdict stands
+
+`msvc-inlined-strcpy-walked-pointer-free-list` gives a lever the symbol-count
+route does not: the walked pointer is set by *recycled* temp ids, so changing
+what is freed just before each inlined `strcpy` should flip it without
+touching the symbol total. Six shapes measured against the baseline 397/399,
+2 base/index swaps, 0 recorded hunks, 2 differing bytes:
+
+| variant | result |
+| --- | --- |
+| `capture-preceding-result` | 395/399, 3 hunks, 936 bytes — worse |
+| `forwarder-before-site1` | 390/399, 9 hunks, 973 bytes — worse |
+| `six-arg-forwarder` | 383/399, 14 hunks, 943 bytes — worse |
+| `forwarder-before-both`, `forwarder-before-site2`, `two-calls-one-statement` | a branch retargets |
+
+None flips the two `SIB` bytes. That agrees with
+`msvc-c2-operand-order-mechanism`, which documents this exact region and says:
+when ids sit a few dozen below 1024 and both copies are swapped, **stop
+sweeping — park as equivalent**. The free-list rule solved 0x00419960 because
+that site's ids were near the wrap; here they are not, so the recycle history
+cannot reach the window either.
+
+Combined with the symbol-count work, this region's two bytes are closed off
+from every documented route: neither the total count nor the free-list
+recycling can push the loop temp into the wrap window. Region stays
+equivalent.
+
+## 2026-10-17: promoted using named menu predicates
+
+The conclusion that genuine used source cannot reach the symbol window was
+too strong. Naming existing conditions (at their original evaluation points)
+adds the required symbols without unused declarations or altered code. Twelve
+named predicates fix one SIB byte; sixteen fix both. The complete 1,460-byte
+body is now native byte-exact and selected by `layout/ltcg/replay_save_update.json`.
+See `replay_save_update_00433570_exact_2026_10_17.md` for the implementation
+and native-cluster evidence.

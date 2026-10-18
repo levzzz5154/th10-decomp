@@ -62,3 +62,77 @@ function's (`AnimationListSet* lists`), consistent with the note's six-form
 result.
 
 Region stays equivalent (684 differing bytes).
+
+## 2026-10-18: three semantic/codegen families closed; two operand-order residuals recorded
+
+Measured 22 hunks / 684 differing bytes -> **2 hunks / 16 differing bytes,
+1,085 of 1,089 instructions identical**. The layout records the two residuals as
+`operand-order`. `equivalence.py --name front_hud_update_00414900` passes:
+0 base/index swaps, 0 frame-offset, `not_equivalent: []`.
+
+### Levers that closed the differences
+
+- **Next-id wrap (6 hunks: the two sites plus three rel8 targets and two pads).**
+  The 0x4489D0 spelling only works here with a *value-returning* wrapper:
+  `struct AnimationRef { unsigned value; unsigned operator++() { return ++value; }
+  bool operator==(unsigned) const; }` as the `next_id` member, wrap text
+  `++lists->next_id; if (lists->next_id == 0) ++lists->next_id;`, tail reads
+  `lists->next_id.value` (retail reloads twice). The value-returning `operator++`
+  is what makes c2 copy the increment into the return register and test/inc the
+  copy (`mov eax,ecx / test eax,eax / inc eax`), while the wrapper member access
+  keeps the guard from constant-folding to `mov [mem],1`. The literal sibling
+  spelling (reference-returning `operator++`) gives 18 hunks / 555 bytes here;
+  plain-unsigned forms (named copy, `old + 2` guard, memory re-reads, field
+  pointers) all fold the guard. This closes the note's "six source forms" residual
+  and confirms the overnight finding: the spelling is right, its interaction with
+  this region's `AnimationLists* lists` context needed the value-returning variant.
+- **Sequence-slot clears (5 hunks, 0x92f..0xb1b).** Clear through a reference
+  helper (`FlagAndClearSlot(unsigned int& slot)`) or per-slot pointer locals; the
+  store then keeps the alias edge and stays before the next slot's load. Plain
+  member stores hoist after the next load; an array pointer form folds back.
+- **Gate-word test (0xceb/0xcf8 + ~450 bytes of displaced branch displacements
+  plus the 0xedd pad).** Load `front->flags_9eb4` *inside both* lane branches
+  instead of once before the test. CSE merges the two loads after the byte test,
+  the test fuses to `test BYTE PTR [edx+0x378c],0x1` and the knock-on pad at
+  0xedd reverts to retail's `lea ecx,[ecx+0x0]`.
+- **St5 (shape only):** writing the `y_340` store before the `height_344` store
+  merges the boss-fade hunk pair into one recorded difference; the pair stays open.
+
+### Ruled out for the remaining residuals (both `fld A; fadd B` operand order)
+
+The gauge ramp (`front->gauge_disp_9e84 + flt_0_025`, 0x222) and the boss fade
+(`body->boss_y_1068 + flt_224`, 0xdda) load the constant first; retail loads the
+member first. Measured unchanged by: source operand swaps (`a + b` vs `b + a`
+byte-identical), `+=` vs `a = b + a`, named value locals (at/around the statement,
+chained, reversed declaration order), pointer/reference locals and their removal,
+value/pointer/reference inline helpers in either parameter order, value-returning
+accessors, nested casts/muls/adds (these shift the two frame-ramp pairs PB/PD with
+period 3 but never PA/PC), dead code, extern declaration order, split reused
+pointer locals (`seq`, `runtime`), statement reorders (only relocate the hunk),
+bitfield/typed/direct test forms. The operandsort tracers show the two ramp pairs
+are hash-sorted via OptCmpHashVal while these two never appear there; the pairs
+are immune to every global shift, consistent with tied hash classes where "a tie
+keeps the existing order". The remaining lever class is a relative movement of the
+two operands' creation order that no constructed spelling produced.
+
+### 2026-10-18 late: bounded creation-order pass on the two operand-order pairs — negative; parked at 16 bytes
+
+Following the campaign's node-creation-order levers (title_dispatcher's rotation,
+ui_final's temp-creation swap), 14 byte-gated variants hoisted the operands'
+first mentions: the constant local `float step = flt_0_025;` at function start,
+at the gauge-block start, immediately before the comparing `if`, and inside the
+ramp block; the field load `float d = front->gauge_disp_9e84;` hoisted the same
+ways, both declaration orders, with the compare on the local or on the memory
+read; the mirrors for the boss fade (`float y`/`float k` between the `height_344`
+store and the `y_340` store, both orders; `float anchor = flt_224` at function
+start); and both sites together. None changed either pair's operand order.
+Function-start hoists additionally break the two frame-ramp pairs (23 hunks);
+statement-adjacent hoists break them mildly (3-4 hunks, 23-27 bytes) or are
+byte-identical. Correction to the entry above: the st3 if-block swap does NOT
+flip the gauge pair — it relocates the same `fld [const]; fadd [member]` order to
+the moved block (measured hunk at 0x247 with the const-first order intact).
+
+Conclusion: the two pairs' operand order is decided by tied hash classes whose
+tie-break ("the existing order") is invariant under operand swaps, operand kinds
+(temp/local/global/param), helper indirection, and first-mention/creation-order
+hoists. Parked as two recorded `operand-order` differences (4 instructions).

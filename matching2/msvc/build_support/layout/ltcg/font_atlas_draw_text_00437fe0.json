@@ -1,0 +1,180 @@
+{
+  "schema_version": 1,
+  "name": "font_atlas_draw_text_00437fe0",
+  "source": "src/core/main/font_atlas_draw_text.cpp",
+  "driver": "build_support/layout/ltcg/font_atlas_draw_text_00437fe0_context.cpp",
+  "headers": [
+    "include/th10/runtime/core/main/font_atlas_draw_text.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "The plain atlas text draw with its synthetic direct caller, so the whole-program link keeps the same register priorities as retail's called body; byte-exact in all 509 bytes.",
+  "functions": [
+    {
+      "name": "FontAtlas_DrawPlainText",
+      "actual_abi": "public stdcall: destination, x, size, color, text and texture on the stack; RET 24",
+      "symbol": "?FontAtlas_DrawPlainText@@YGXPBUFontAtlasRect@@HHIPBDPAUFontTexture@@@Z",
+      "section": ".text$02text",
+      "address": "0x00437FE0",
+      "size": 509
+    }
+  ],
+  "context": {
+    "symbol": "_FontAtlasDrawTextContext@24",
+    "section": ".text$03context",
+    "address": "0x004381E0",
+    "size": 42,
+    "description": "Synthetic forwarding caller; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00before",
+      "address": 4198400,
+      "size": 220320
+    },
+    {
+      "section": ".text$01accessorz",
+      "address": 4418792,
+      "size": 4856
+    },
+    {
+      "section": ".text$02textz",
+      "address": 4424157,
+      "size": 3
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "__fltused",
+      "address": "0x00000000",
+      "kind": "metadata"
+    },
+    {
+      "symbol": "_g_font_atlas_surface",
+      "address": "0x00474CB0",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__SelectObject@8",
+      "address": "0x0046602C",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__SetBkMode@8",
+      "address": "0x0046601C",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__SetTextColor@8",
+      "address": "0x00466018",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__TextOutA@20",
+      "address": "0x00466014",
+      "kind": "data"
+    },
+    {
+      "symbol": "?InvertAlpha@FontAtlas3@@QAEDH@Z",
+      "address": "0x00437160",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_FontAtlas_Convert@8",
+      "address": "0x00436DA0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_D3DXLoadSurfaceFromMemory@40",
+      "address": "0x004521A6",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_g_font_height_60",
+      "address": "0x00491868",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_font_height_58",
+      "address": "0x0049186C",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_font_height_56",
+      "address": "0x00491870",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_font_height_54",
+      "address": "0x00491874",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_font_height_52",
+      "address": "0x00491878",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_font_height_50",
+      "address": "0x0049187C",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_font_height_48",
+      "address": "0x00491880",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_font_height_46",
+      "address": "0x00491884",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_font_height_44",
+      "address": "0x00491888",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_font_height_42",
+      "address": "0x0049188C",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_font_height_40",
+      "address": "0x00491890",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_font_height_38",
+      "address": "0x00491894",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_font_height_36",
+      "address": "0x00491898",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_font_height_34",
+      "address": "0x0049189C",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_font_height_32",
+      "address": "0x004918A0",
+      "kind": "data"
+    }
+  ],
+  "anchors": [
+    {
+      "name": "FillRgb444",
+      "symbol": "?FillRgb444@@YGXPAUSurface@@I@Z",
+      "section": ".text$01accessor",
+      "address": "0x00436CA0",
+      "size": 72
+    }
+  ],
+  "included_sources": [
+    "src/core/main/resource_file.cpp"
+  ]
+}

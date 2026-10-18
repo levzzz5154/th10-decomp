@@ -388,9 +388,12 @@ ResultDispatcher2(ResultDispatcherState* state) {
                         DispatcherStageState* stage = StageState();
                         stage->result_phase = 0;
                         stage->flags |= 0x10;
-                        int* count = ClearCount();
-                        if (*count < 99999)
-                            ++*count;
+                        // The count expression is written out twice: the
+                        // second write-out is what keeps the difficulty load
+                        // in the temporaries' rotation at both copies, as in
+                        // retail.
+                        if (*ClearCount() < 99999)
+                            ++*ClearCount();
                     } else {
                         SetInputMode(&g_application, 4);
                     }
@@ -401,9 +404,12 @@ ResultDispatcher2(ResultDispatcherState* state) {
                     g_globals.AddScore(g_globals_power * 400000);
                     if (g_replay->replay_mode != 1) {
                         g_pause->OpenResult();
-                        int* count = ClearCount();
-                        if (*count < 99999)
-                            ++*count;
+                        // The count expression is written out twice: the
+                        // second write-out is what keeps the difficulty load
+                        // in the temporaries' rotation at both copies, as in
+                        // retail.
+                        if (*ClearCount() < 99999)
+                            ++*ClearCount();
                     } else {
                         SetInputMode(&g_application, 4);
                     }

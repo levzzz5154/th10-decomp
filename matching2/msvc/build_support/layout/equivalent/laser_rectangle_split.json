@@ -163,23 +163,18 @@
   "base_index_order": 0,
   "differences": [
     {
-      "class": "register-choice",
-      "offset": "0x2a2",
-      "retail": [
-        "mov eax,DWORD PTR [esp+0x30]",
-        "test eax,eax"
-      ],
+      "class": "code-shape",
+      "offset": "0x2b2",
+      "retail": [],
       "model": [
-        "mov ecx,DWORD PTR [esp+0x30]",
-        "xor eax,eax",
-        "cmp ecx,eax"
+        "jl L+0x478"
       ]
     },
     {
-      "class": "register-choice",
-      "offset": "0x2b2",
+      "class": "alignment-padding",
+      "offset": "0x2ba",
       "retail": [
-        "xor eax,eax"
+        "lea ebx,[ebx+0x0]"
       ],
       "model": []
     }

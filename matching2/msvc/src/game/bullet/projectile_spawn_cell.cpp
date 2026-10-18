@@ -58,7 +58,11 @@ int __stdcall SpawnPatternCell2(ProjectilePattern* pattern,
         reinterpret_cast<const ProjectileBlueprint*>(pattern);
     ProjectileSpawnRecord* record = manager->current;
     int attempts = 0;
-    for (;;) {
+    // Taking the scale's address here orders flt_4's symbol among the
+    // function's early temporaries; the lit step's product operands are
+    // canonicalised from those symbol classes.
+    (void)&flt_4;
+    do {
         if (record->state == 0)
             break;
         ++record;
@@ -81,15 +85,14 @@ int __stdcall SpawnPatternCell2(ProjectilePattern* pattern,
         if (record->state == 5)
             record = manager->records;
         attempts += 5;
-        if (attempts < 2000)
-            continue;
-        return 1;
-    }
+    } while (attempts < 2000);
     if (attempts >= 2000)
         return 1;
 
     // Grid aim: interpolate the vertical pair between rows, then place the
-    // column inside the row by the layout's formula.
+    // column inside the row by the layout's formula.  Each sum accumulates
+    // one addend per statement, which keeps the x87 evaluation order equal
+    // to the addends' order.
     float x = 0.0f;
     float y;
     if (blueprint->rows > 1) {
@@ -117,16 +120,19 @@ int __stdcall SpawnPatternCell2(ProjectilePattern* pattern,
         x = aim;
         // fallthrough
     case 3:
-        x = (float)column * flt_2pi / (float)blueprint->columns + x +
-            row * blueprint->x_spacing + blueprint->x_base;
+        x += (float)column * flt_2pi / (float)blueprint->columns;
+        x += row * blueprint->x_spacing;
+        x += blueprint->x_base;
         break;
     case 4:
         x = aim;
         // fallthrough
     case 5: {
-        x = x + flt_pi / (float)blueprint->columns +
-            (float)column * flt_2pi / (float)blueprint->columns +
-            row * blueprint->x_spacing + blueprint->x_base;
+        const float half_step = flt_pi / (float)blueprint->columns;
+        x += half_step;
+        x += (float)column * flt_2pi / (float)blueprint->columns;
+        x += row * blueprint->x_spacing;
+        x += blueprint->x_base;
         break;
     }
     case 6:
@@ -147,8 +153,12 @@ int __stdcall SpawnPatternCell2(ProjectilePattern* pattern,
         break;
     }
 
-    record->flags |= 1u;
-    record->state = 1;
+    // The record's flag and state words are updated through pointers so the
+    // scheduler keeps the timer flag loads behind these stores, as retail.
+    unsigned int* const fp = &record->flags;
+    unsigned short* const sp = &record->state;
+    *fp |= 1u;
+    *sp = 1;
     if (!(record->timer_3f8.flags & 1u)) {
         record->timer_3f8.current = 0;
         record->timer_3f8.previous = -999999;
@@ -156,9 +166,12 @@ int __stdcall SpawnPatternCell2(ProjectilePattern* pattern,
         record->timer_3f8.speed = &g_game_speed;
         record->timer_3f8.flags |= 1u;
     }
-    record->timer_3f8.current = 0;
-    record->timer_3f8.elapsed = 0.0f;
-    record->timer_3f8.previous = -1;
+    // The first three timer words are reset together through one int view;
+    // this shared view preserves their retail store order.
+    int* timer3f8_words = reinterpret_cast<int*>(&record->timer_3f8);
+    timer3f8_words[1] = 0;
+    timer3f8_words[2] = 0;
+    timer3f8_words[0] = -1;
     if (!(record->timer_40c.flags & 1u)) {
         record->timer_40c.current = 0;
         record->timer_40c.previous = -999999;
@@ -166,9 +179,10 @@ int __stdcall SpawnPatternCell2(ProjectilePattern* pattern,
         record->timer_40c.speed = &g_game_speed;
         record->timer_40c.flags |= 1u;
     }
-    record->timer_40c.current = 0;
-    record->timer_40c.elapsed = 0.0f;
-    record->timer_40c.previous = -1;
+    int* timer40c_words = reinterpret_cast<int*>(&record->timer_40c);
+    timer40c_words[0] = -1;
+    timer40c_words[1] = 0;
+    timer40c_words[2] = 0;
     record->fall_speed_3d8 = y;
     record->angle_3e4 = Angle_NormalizeSum(x, 0.0f);
     Vec3& position = record->position;

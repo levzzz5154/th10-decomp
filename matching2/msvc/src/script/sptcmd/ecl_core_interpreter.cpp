@@ -117,107 +117,137 @@ int EclVm::Run(float delta) {
                 break;
             }
             case 50: {
-                int a; PopInt(&a);
-                int b; PopInt(&b);
-                b = b + a;
-                stack.Write('i', 4, &b);
+                int right_storage; PopInt(&right_storage);
+                int left_storage; PopInt(&left_storage);
+                const int left_operand = left_storage;
+                const int right_operand = right_storage;
+                left_storage = left_operand + right_operand;
+                stack.Write('i', 4, &left_storage);
                 break;
             }
             case 52: {
-                int a; PopInt(&a);
-                int b; PopInt(&b);
-                b = b - a;
-                stack.Write('i', 4, &b);
+                int right_storage; PopInt(&right_storage);
+                int left_storage; PopInt(&left_storage);
+                const int left_operand = left_storage;
+                const int right_operand = right_storage;
+                left_storage = left_operand - right_operand;
+                stack.Write('i', 4, &left_storage);
                 break;
             }
             case 54: {
-                int a; PopInt(&a);
-                int b; PopInt(&b);
-                b = b * a;
-                stack.Write('i', 4, &b);
+                int right_storage; PopInt(&right_storage);
+                int left_storage; PopInt(&left_storage);
+                const int left_operand = left_storage;
+                const int right_operand = right_storage;
+                left_storage = left_operand * right_operand;
+                stack.Write('i', 4, &left_storage);
                 break;
             }
             case 56: {
-                int a; PopInt(&a);
-                int b; PopInt(&b);
-                b = b / a;
-                stack.Write('i', 4, &b);
+                int right_storage; PopInt(&right_storage);
+                int left_storage; PopInt(&left_storage);
+                const int left_operand = left_storage;
+                const int right_operand = right_storage;
+                left_storage = left_operand / right_operand;
+                stack.Write('i', 4, &left_storage);
                 break;
             }
             case 58: {
-                int a; PopInt(&a);
-                int b; PopInt(&b);
-                b = b % a;
-                stack.Write('i', 4, &b);
+                int right_storage; PopInt(&right_storage);
+                int left_storage; PopInt(&left_storage);
+                const int left_operand = left_storage;
+                const int right_operand = right_storage;
+                left_storage = left_operand % right_operand;
+                stack.Write('i', 4, &left_storage);
                 break;
             }
             case 51: {
-                float a; PopFloat(&a);
-                float b; PopFloat(&b);
-                b = b + a;
-                stack.Write('f', 4, &b);
+                float right_storage; PopFloat(&right_storage);
+                float left_storage; PopFloat(&left_storage);
+                const float left_operand = left_storage;
+                const float right_operand = right_storage;
+                left_storage = left_operand + right_operand;
+                stack.Write('f', 4, &left_storage);
                 break;
             }
             case 53: {
-                float a; PopFloat(&a);
-                float b; PopFloat(&b);
-                b = b - a;
-                stack.Write('f', 4, &b);
+                float right_storage; PopFloat(&right_storage);
+                float left_storage; PopFloat(&left_storage);
+                const float left_operand = left_storage;
+                const float right_operand = right_storage;
+                left_storage = left_operand - right_operand;
+                stack.Write('f', 4, &left_storage);
                 break;
             }
             case 55: {
-                float a; PopFloat(&a);
-                float b; PopFloat(&b);
-                b = b * a;
-                stack.Write('f', 4, &b);
+                float right_storage; PopFloat(&right_storage);
+                float left_storage; PopFloat(&left_storage);
+                const float left_operand = left_storage;
+                const float right_operand = right_storage;
+                left_storage = left_operand * right_operand;
+                stack.Write('f', 4, &left_storage);
                 break;
             }
             case 57: {
-                float a; PopFloat(&a);
-                float b; PopFloat(&b);
-                b = b / a;
-                stack.Write('f', 4, &b);
+                float right_storage; PopFloat(&right_storage);
+                float left_storage; PopFloat(&left_storage);
+                const float left_operand = left_storage;
+                const float right_operand = right_storage;
+                left_storage = left_operand / right_operand;
+                stack.Write('f', 4, &left_storage);
                 break;
             }
             case 59: {
-                int a; PopInt(&a);
-                int b; PopInt(&b);
-                int r = b == a;
+                int right_storage; PopInt(&right_storage);
+                int left_storage; PopInt(&left_storage);
+                const int left_operand = left_storage;
+                const int right_operand = right_storage;
+                int r = left_operand == right_operand;
                 stack.Write('i', 4, &r);
                 break;
             }
             case 61: {
-                int a; PopInt(&a);
-                int b; PopInt(&b);
-                int r = b != a;
+                int right_storage; PopInt(&right_storage);
+                int left_storage; PopInt(&left_storage);
+                const int left_operand = left_storage;
+                const int right_operand = right_storage;
+                int r = left_operand != right_operand;
                 stack.Write('i', 4, &r);
                 break;
             }
             case 63: {
-                int a; PopInt(&a);
-                int b; PopInt(&b);
-                int r = b < a;
+                int right_storage; PopInt(&right_storage);
+                int left_storage; PopInt(&left_storage);
+                const int left_operand = left_storage;
+                const int right_operand = right_storage;
+                int r = left_operand < right_operand;
                 stack.Write('i', 4, &r);
                 break;
             }
             case 65: {
-                int a; PopInt(&a);
-                int b; PopInt(&b);
-                int r = b <= a;
+                int right_storage; PopInt(&right_storage);
+                int left_storage; PopInt(&left_storage);
+                const int left_operand = left_storage;
+                const int right_operand = right_storage;
+                int r = left_operand <= right_operand;
                 stack.Write('i', 4, &r);
                 break;
             }
             case 67: {
-                int a; PopInt(&a);
-                int b; PopInt(&b);
-                int r = b > a;
+                int right_storage; PopInt(&right_storage);
+                int left_storage; PopInt(&left_storage);
+                const int left_operand = left_storage;
+                const int right_operand = right_storage;
+                int r = left_operand > right_operand;
                 stack.Write('i', 4, &r);
                 break;
             }
             case 69: {
-                int a; PopInt(&a);
-                int b; PopInt(&b);
-                int r = b >= a;
+                int right_storage; PopInt(&right_storage);
+                int left_storage; PopInt(&left_storage);
+                const int left_operand = left_storage;
+                const int right_operand = right_storage;
+                int r = left_operand >= right_operand;
                 stack.Write('i', 4, &r);
                 break;
             }
@@ -228,44 +258,56 @@ int EclVm::Run(float delta) {
                 break;
             }
             case 60: {
-                float a; PopFloat(&a);
-                float b; PopFloat(&b);
-                int r = (b == a) ? 1 : 0;
+                float right_storage; PopFloat(&right_storage);
+                float left_storage; PopFloat(&left_storage);
+                const float left_operand = left_storage;
+                const float right_operand = right_storage;
+                int r = (left_operand == right_operand) ? 1 : 0;
                 stack.Write('i', 4, &r);
                 break;
             }
             case 62: {
                 float a; PopFloat(&a);
                 float b; PopFloat(&b);
-                int r = (b != a) ? 1 : 0;
+                const float left_operand = b;
+                const float right_operand = a;
+                                int r = (left_operand != right_operand) ? 1 : 0;
                 stack.Write('i', 4, &r);
                 break;
             }
             case 64: {
                 float a; PopFloat(&a);
                 float b; PopFloat(&b);
-                int r = (b < a) ? 1 : 0;
+                const float left_operand = b;
+                const float right_operand = a;
+                                int r = (left_operand < right_operand) ? 1 : 0;
                 stack.Write('i', 4, &r);
                 break;
             }
             case 66: {
                 float a; PopFloat(&a);
                 float b; PopFloat(&b);
-                int r = (b <= a) ? 1 : 0;
+                const float left_operand = b;
+                const float right_operand = a;
+                                int r = (left_operand <= right_operand) ? 1 : 0;
                 stack.Write('i', 4, &r);
                 break;
             }
             case 68: {
                 float a; PopFloat(&a);
                 float b; PopFloat(&b);
-                int r = (b > a) ? 1 : 0;
+                const float left_operand = b;
+                const float right_operand = a;
+                                int r = (left_operand > right_operand) ? 1 : 0;
                 stack.Write('i', 4, &r);
                 break;
             }
             case 70: {
                 float a; PopFloat(&a);
                 float b; PopFloat(&b);
-                int r = (b >= a) ? 1 : 0;
+                const float left_operand = b;
+                const float right_operand = a;
+                                int r = (left_operand >= right_operand) ? 1 : 0;
                 stack.Write('i', 4, &r);
                 break;
             }

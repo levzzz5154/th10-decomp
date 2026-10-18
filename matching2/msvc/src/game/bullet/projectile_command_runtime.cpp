@@ -102,14 +102,17 @@ void ProjectileCommandRuntime::Tick() {
         case 0x100:
             record.motion_flags |= cmd;
             record.field_6c8 = SpawnCommand_AimAngle(record, command->value_a);
-            record.field_6c4 = command->value_b > flt_neg999
+            {
+            float* fall_slot = &record.field_6c4;
+            *fall_slot = command->value_b > flt_neg999
                 ? command->value_b : record.fall_speed_3d8;
+            }
             if (!(record.timer_6b0.flags & 1u)) {
-                record.timer_6b0.flags |= 1u;
                 record.timer_6b0.current = 0;
                 record.timer_6b0.previous = -999999;
                 record.timer_6b0.elapsed = 0.0f;
                 record.timer_6b0.speed = &g_game_speed;
+                record.timer_6b0.flags |= 1u;
             }
             record.timer_6b0.current = 0;
             record.timer_6b0.elapsed = 0.0f;
@@ -171,16 +174,22 @@ void ProjectileCommandRuntime::Tick() {
             const int word = command->value_c;
             pattern.layout = 0;
             pattern.colour = 0;
-            pattern.script_offset = reinterpret_cast<const signed char*>(&command->value_c)[1];
             pattern.command_index = word & 0xFF;
-            pattern.columns = (short)command->value_d;
+            pattern.script_offset = reinterpret_cast<const signed char*>(&command->value_c)[1];
             pattern.y_head = command->value_a;
-            pattern.y_tail = command->value_b;
+            pattern.columns = (short)command->value_d;
+            const unsigned int tail_b =
+                *reinterpret_cast<const unsigned int*>(&command->value_b);
             ++command;
             record.command_index = index + 1;
-            pattern.rows = (short)command->value_c;
-            pattern.flags = (unsigned int)command->value_d;
+            // The value hoists and the row/flag/x_spacing/flag order below pin
+            // the list scheduler's store interleave to retail's emission order.
+            const short rows_v = (short)command->value_c;
+            const unsigned int flags_v = (unsigned int)command->value_d;
+            pattern.rows = rows_v;
+            *reinterpret_cast<unsigned int*>(&pattern.y_tail) = tail_b;
             pattern.x_spacing = command->value_b;
+            pattern.flags = flags_v;
             pattern.x_base = command->value_a;
             pattern.field_204 = -1;
             memcpy(pattern.commands, record.commands, sizeof(record.commands));
@@ -205,11 +214,11 @@ void ProjectileCommandRuntime::Tick() {
             record.field_7c8 = command->value_a;
             record.field_7cc = command->value_b;
             if (!(record.timer_7b4.flags & 1u)) {
-                record.timer_7b4.flags |= 1u;
                 record.timer_7b4.current = 0;
                 record.timer_7b4.previous = -999999;
                 record.timer_7b4.elapsed = 0.0f;
                 record.timer_7b4.speed = &g_game_speed;
+                record.timer_7b4.flags |= 1u;
             }
             record.timer_7b4.current = 0;
             record.timer_7b4.elapsed = 0.0f;

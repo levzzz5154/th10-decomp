@@ -73,7 +73,6 @@ int __fastcall ReplaySaveManager::Save(const char* file_name, const char* name) 
     int count;
     int total;
     int written;
-    unsigned int user_written;
     int remainder;
     ReplayPoolLink2* link;
     char path[0x100];
@@ -121,16 +120,16 @@ int __fastcall ReplaySaveManager::Save(const char* file_name, const char* name) 
         }
     }
 
-    manager->summary->stage_count = count;
-    manager->summary->score = g_globals_score;
     double scaled = g_fps->measured / g_fps->budget * flt_100;
     manager->summary->slow_rate = flt_100 - scaled;
+    manager->summary->score = g_globals_score;
+    manager->summary->stage_count = count;
 
     // Pack the summary, the stage records and the pools into one buffer.
     unsigned char* buffer = (unsigned char*)asm_malloc_00452706(total);
     memcpy(buffer, manager->summary, 0x64);
     total = 0x64;
-    for (stage = 0; stage < 8; stage++) {
+    for (stage = 0, written = 8; written != 0; stage++, written--) {
         if (manager->stage_data[stage]) {
             memcpy(buffer + total, manager->stage_data[stage], 0x1C4);
             total += 0x1C4;
@@ -150,19 +149,19 @@ int __fastcall ReplaySaveManager::Save(const char* file_name, const char* name) 
     // Compress, then run both cipher passes; the keys and block sizes are the
     // ones the replay loader expects.
     unsigned char* packed = Lzss_Compress(buffer, total, &written);
+    int sent = written;
     asm_free_00452422(buffer);
-    Dat_Encrypt(packed, written, 0x3D, 0x7A, 0x80, written);
-    Dat_Encrypt(packed, written, 0xAA, 0xE1, 0x400, written);
+    Dat_Encrypt(packed, sent, 0x3D, 0x7A, 0x80, sent);
+    Dat_Encrypt(packed, sent, 0xAA, 0xE1, 0x400, sent);
 
     manager->header->size = total;
-    manager->header->packed_size = written;
+    manager->header->packed_size = sent;
     manager->header->packed_end = manager->header->packed_size + 0x24;
 
     asm_File_OpenSharedWrite_0044b620(path);
     if (g_file_write_handle != (void*)-1) {
         int (__stdcall* write_file)(void*, const void*, unsigned int, unsigned int*, void*) =
             imp_WriteFile;
-        int sent = written;
         write_file(g_file_write_handle, manager->header, 0x24, (unsigned int*)&written, 0);
         if (written != 0x24) {
             File_CloseShared();
@@ -217,8 +216,8 @@ int __fastcall ReplaySaveManager::Save(const char* file_name, const char* name) 
     }
     chunk->size = (unsigned int)(out - (char*)chunk);
     if (g_file_write_handle != (void*)-1) {
-        imp_WriteFile(g_file_write_handle, chunk, (unsigned int)(out - (char*)chunk), &user_written, 0);
-        if ((unsigned int)(out - (char*)chunk) != user_written) {
+        imp_WriteFile(g_file_write_handle, chunk, (unsigned int)(out - (char*)chunk), (unsigned int*)&last, 0);
+        if ((unsigned int)(out - (char*)chunk) != (unsigned int)last) {
             File_CloseShared();
         }
     }
@@ -235,8 +234,8 @@ int __fastcall ReplaySaveManager::Save(const char* file_name, const char* name) 
     }
     chunk->size = (unsigned int)(out - (char*)chunk);
     if (g_file_write_handle != (void*)-1) {
-        imp_WriteFile(g_file_write_handle, chunk, (unsigned int)(out - (char*)chunk), &user_written, 0);
-        if ((unsigned int)(out - (char*)chunk) != user_written) {
+        imp_WriteFile(g_file_write_handle, chunk, (unsigned int)(out - (char*)chunk), (unsigned int*)&last, 0);
+        if ((unsigned int)(out - (char*)chunk) != (unsigned int)last) {
             File_CloseShared();
         }
     }

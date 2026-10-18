@@ -63,7 +63,7 @@ int TrimLaser::TrimCircle(const CutVector* center,float radius,int spawn_items) 
    if (length>18.0f) {
     parameters.length=length;
     traveled=removed;
-   } else {retired=1;goto done;}
+   } else {retired=1;return hit_count;}
   }
   int first_run=0;
   while (cursor<count && !cut[cursor]) {++cursor;++first_run;}

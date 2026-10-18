@@ -169,41 +169,11 @@
  "base_index_order": 0,
  "differences": [
   {
-   "class": "evaluation-order",
-   "offset": "0x0",
-   "retail": [
-    "sub esp,0x124"
-   ],
-   "model": [
-    "sub esp,0x12c"
-   ]
-  },
-  {
    "class": "alignment-padding",
    "offset": "0x10",
    "retail": [],
    "model": [
     "mov esi,ecx"
-   ]
-  },
-  {
-   "class": "stack-slot-order",
-   "offset": "0x10",
-   "retail": [
-    "mov DWORD PTR [esp+0x12c],eax"
-   ],
-   "model": [
-    "mov DWORD PTR [esp+0x134],eax"
-   ]
-  },
-  {
-   "class": "register-choice",
-   "offset": "0x17",
-   "retail": [
-    "mov eax,DWORD PTR [esp+0x134]"
-   ],
-   "model": [
-    "mov eax,DWORD PTR [esp+0x13c]"
    ]
   },
   {
@@ -227,17 +197,7 @@
    "model": [
     "mov edi,edx",
     "mov edx,DWORD PTR [esi+0x18]",
-    "mov DWORD PTR [esp+0x24],esi"
-   ]
-  },
-  {
-   "class": "stack-slot-order",
-   "offset": "0x30",
-   "retail": [
-    "mov DWORD PTR [esp+0x1c],ebp"
-   ],
-   "model": [
-    "mov DWORD PTR [esp+0x30],ebp"
+    "mov DWORD PTR [esp+0x28],esi"
    ]
   },
   {
@@ -251,7 +211,7 @@
    ]
   },
   {
-   "class": "evaluation-order",
+   "class": "register-choice",
    "offset": "0x68",
    "retail": [
     "push esi"
@@ -262,32 +222,12 @@
   },
   {
    "class": "register-choice",
-   "offset": "0x69",
-   "retail": [
-    "lea edx,[esp+0x38]"
-   ],
-   "model": [
-    "lea edx,[esp+0x40]"
-   ]
-  },
-  {
-   "class": "register-choice",
    "offset": "0x7d",
    "retail": [
     "lea ecx,[edi+0x40]"
    ],
    "model": [
     "lea ecx,[esi+0x40]"
-   ]
-  },
-  {
-   "class": "stack-slot-order",
-   "offset": "0x80",
-   "retail": [
-    "mov DWORD PTR [esp+0x14],ebp"
-   ],
-   "model": [
-    "mov DWORD PTR [esp+0x18],ebp"
    ]
   },
   {
@@ -311,7 +251,7 @@
    ]
   },
   {
-   "class": "evaluation-order",
+   "class": "register-choice",
    "offset": "0xbe",
    "retail": [
     "test esi,esi"
@@ -321,17 +261,7 @@
    ]
   },
   {
-   "class": "stack-slot-order",
-   "offset": "0xc0",
-   "retail": [
-    "mov DWORD PTR [esp+0x1c],eax"
-   ],
-   "model": [
-    "mov DWORD PTR [esp+0x30],eax"
-   ]
-  },
-  {
-   "class": "register-choice",
+   "class": "evaluation-order",
    "offset": "0xd0",
    "retail": [
     "mov ecx,DWORD PTR [esi]",
@@ -346,7 +276,7 @@
    ]
   },
   {
-   "class": "register-choice",
+   "class": "evaluation-order",
    "offset": "0xeb",
    "retail": [
     "mov eax,DWORD PTR [ecx+0x6274]",
@@ -364,7 +294,7 @@
    ]
   },
   {
-   "class": "register-choice",
+   "class": "evaluation-order",
    "offset": "0xf9",
    "retail": [
     "lea ebx,[ebx+edx*1-0x5464]",
@@ -386,7 +316,7 @@
    ]
   },
   {
-   "class": "register-choice",
+   "class": "evaluation-order",
    "offset": "0x122",
    "retail": [
     "sub eax,ecx",
@@ -398,7 +328,7 @@
    ]
   },
   {
-   "class": "register-choice",
+   "class": "evaluation-order",
    "offset": "0x12c",
    "retail": [
     "add ecx,eax",
@@ -430,21 +360,11 @@
     "mov edi,DWORD PTR [esp+0x28]"
    ],
    "model": [
-    "mov esi,DWORD PTR [esp+0x24]"
+    "mov esi,DWORD PTR [esp+0x28]"
    ]
   },
   {
-   "class": "stack-slot-order",
-   "offset": "0x162",
-   "retail": [
-    "inc DWORD PTR [esp+0x14]"
-   ],
-   "model": [
-    "inc DWORD PTR [esp+0x18]"
-   ]
-  },
-  {
-   "class": "register-choice",
+   "class": "evaluation-order",
    "offset": "0x182",
    "retail": [
     "mov edx,DWORD PTR [edi+0x18]",
@@ -453,17 +373,10 @@
     "mov ecx,DWORD PTR [edi+0x18]",
     "mov edx,DWORD PTR ds:0x474c44"
    ],
-   "model": [
-    "mov ecx,DWORD PTR [esi+0x18]",
-    "mov edx,DWORD PTR [esp+0x18]",
-    "mov DWORD PTR [ecx+0x4c],edx",
-    "mov eax,DWORD PTR [esi+0x18]",
-    "mov ecx,DWORD PTR ds:0x474c44",
-    "mov DWORD PTR [eax+0x10],ecx"
-   ]
+   "model": []
   },
   {
-   "class": "alignment-padding",
+   "class": "evaluation-order",
    "offset": "0x19a",
    "retail": [
     "mov DWORD PTR [ecx+0x10],edx"
@@ -471,29 +384,36 @@
    "model": []
   },
   {
-   "class": "alignment-padding",
+   "class": "evaluation-order",
    "offset": "0x1a0",
    "retail": [],
    "model": [
-    "mov edx,DWORD PTR [esi+0x18]"
+    "mov ecx,DWORD PTR [esi+0x18]"
    ]
   },
   {
-   "class": "alignment-padding",
+   "class": "evaluation-order",
    "offset": "0x1a3",
    "retail": [
     "mov eax,DWORD PTR [edi+0x18]"
    ],
-   "model": []
+   "model": [
+    "mov eax,ds:0x474c44"
+   ]
   },
   {
-   "class": "register-choice",
+   "class": "evaluation-order",
    "offset": "0x1b3",
    "retail": [
     "fstp DWORD PTR [eax+0x48]"
    ],
    "model": [
-    "fstp DWORD PTR [edx+0x48]"
+    "fstp DWORD PTR [ecx+0x48]",
+    "mov edx,DWORD PTR [esi+0x18]",
+    "mov DWORD PTR [edx+0x10],eax",
+    "mov ecx,DWORD PTR [esi+0x18]",
+    "mov edx,DWORD PTR [esp+0x14]",
+    "mov DWORD PTR [ecx+0x4c],edx"
    ]
   },
   {
@@ -507,15 +427,15 @@
    ]
   },
   {
-   "class": "alignment-padding",
+   "class": "evaluation-order",
    "offset": "0x1c0",
    "retail": [],
    "model": [
-    "mov eax,DWORD PTR [esp+0x28]"
+    "mov eax,DWORD PTR [esp+0x2c]"
    ]
   },
   {
-   "class": "register-choice",
+   "class": "evaluation-order",
    "offset": "0x1c9",
    "retail": [
     "mov ecx,DWORD PTR [esp+0x2c]",
@@ -528,7 +448,7 @@
    ]
   },
   {
-   "class": "alignment-padding",
+   "class": "evaluation-order",
    "offset": "0x1da",
    "retail": [],
    "model": [
@@ -536,57 +456,29 @@
    ]
   },
   {
-   "class": "stack-slot-order",
-   "offset": "0x1da",
-   "retail": [
-    "mov DWORD PTR [esp+0x14],ebp"
-   ],
-   "model": [
-    "mov DWORD PTR [esp+0x18],ebp"
-   ]
-  },
-  {
-   "class": "alignment-padding",
+   "class": "evaluation-order",
    "offset": "0x1e3",
    "retail": [],
    "model": [
-    "mov DWORD PTR [esp+0x10],ecx"
+    "mov DWORD PTR [esp+0x14],0x8",
+    "mov DWORD PTR [esp+0x18],ecx"
    ]
   },
   {
-   "class": "stack-slot-order",
-   "offset": "0x1e3",
-   "retail": [
-    "mov DWORD PTR [esp+0x2c],eax"
-   ],
-   "model": [
-    "mov DWORD PTR [esp+0x34],eax"
-   ]
-  },
-  {
-   "class": "stack-slot-order",
+   "class": "evaluation-order",
    "offset": "0x1e7",
    "retail": [
-    "mov DWORD PTR [esp+0x18],0x8"
-   ],
-   "model": [
-    "mov DWORD PTR [esp+0x2c],0x8"
-   ]
-  },
-  {
-   "class": "alignment-padding",
-   "offset": "0x1ef",
-   "retail": [
+    "mov DWORD PTR [esp+0x18],0x8",
     "nop"
    ],
    "model": []
   },
   {
-   "class": "alignment-padding",
+   "class": "evaluation-order",
    "offset": "0x1fa",
    "retail": [],
    "model": [
-    "mov eax,DWORD PTR [esp+0x10]"
+    "mov eax,DWORD PTR [esp+0x18]"
    ]
   },
   {
@@ -609,256 +501,43 @@
    "model": []
   },
   {
-   "class": "register-choice",
-   "offset": "0x238",
-   "retail": [
-    "mov edx,DWORD PTR [esp+0x14]"
-   ],
-   "model": [
-    "mov edx,DWORD PTR [esp+0x18]"
-   ]
-  },
-  {
-   "class": "register-choice",
-   "offset": "0x27f",
-   "retail": [
-    "mov ebp,DWORD PTR [esp+0x14]"
-   ],
-   "model": [
-    "mov ebp,DWORD PTR [esp+0x18]"
-   ]
-  },
-  {
    "class": "alignment-padding",
    "offset": "0x28d",
    "retail": [
     "lea ecx,[ecx+0x0]"
    ],
-   "model": []
-  },
-  {
-   "class": "register-choice",
-   "offset": "0x2b2",
-   "retail": [
-    "mov ebp,DWORD PTR [esp+0x14]"
-   ],
    "model": [
-    "mov ebp,DWORD PTR [esp+0x18]"
-   ]
-  },
-  {
-   "class": "register-choice",
-   "offset": "0x2d1",
-   "retail": [
-    "mov eax,DWORD PTR [esp+0x2c]"
-   ],
-   "model": [
-    "mov eax,DWORD PTR [esp+0x34]"
-   ]
-  },
-  {
-   "class": "register-choice",
-   "offset": "0x2d9",
-   "retail": [
-    "mov ecx,DWORD PTR [esp+0x18]"
-   ],
-   "model": [
-    "mov ecx,DWORD PTR [esp+0x2c]"
-   ]
-  },
-  {
-   "class": "stack-slot-order",
-   "offset": "0x2e4",
-   "retail": [
-    "mov DWORD PTR [esp+0x2c],eax"
-   ],
-   "model": [
-    "mov DWORD PTR [esp+0x34],eax"
-   ]
-  },
-  {
-   "class": "stack-slot-order",
-   "offset": "0x2ec",
-   "retail": [
-    "mov DWORD PTR [esp+0x18],ecx"
-   ],
-   "model": [
-    "mov DWORD PTR [esp+0x2c],ecx"
+    "nop"
    ]
   },
   {
    "class": "evaluation-order",
-   "offset": "0x303",
-   "retail": [
-    "mov edi,eax"
-   ],
+   "offset": "0x302",
+   "retail": [],
    "model": [
-    "mov esi,eax"
+    "mov esi,DWORD PTR [esp+0x14]"
    ]
   },
   {
-   "class": "register-choice",
+   "class": "evaluation-order",
    "offset": "0x30a",
    "retail": [
     "mov esi,DWORD PTR [esp+0x1c]"
    ],
-   "model": [
-    "mov eax,DWORD PTR [esp+0x18]"
-   ]
-  },
-  {
-   "class": "evaluation-order",
-   "offset": "0x311",
-   "retail": [
-    "push esi"
-   ],
-   "model": [
-    "push eax"
-   ]
-  },
-  {
-   "class": "alignment-padding",
-   "offset": "0x319",
-   "retail": [],
-   "model": [
-    "push eax"
-   ]
-  },
-  {
-   "class": "alignment-padding",
-   "offset": "0x31a",
-   "retail": [
-    "push edi"
-   ],
    "model": []
   },
   {
-   "class": "register-choice",
-   "offset": "0x322",
+   "class": "operand-order",
+   "offset": "0x3b6",
    "retail": [
-    "push esi"
-   ],
-   "model": [
-    "mov eax,DWORD PTR [esp+0x14]",
-    "push eax"
-   ]
-  },
-  {
-   "class": "alignment-padding",
-   "offset": "0x32d",
-   "retail": [],
-   "model": [
-    "push eax"
-   ]
-  },
-  {
-   "class": "alignment-padding",
-   "offset": "0x32e",
-   "retail": [
-    "push edi"
-   ],
-   "model": []
-  },
-  {
-   "class": "register-choice",
-   "offset": "0x343",
-   "retail": [
-    "mov DWORD PTR [ecx+0x1c],esi"
-   ],
-   "model": [
-    "mov edx,DWORD PTR [esp+0x14]",
-    "mov DWORD PTR [ecx+0x1c],edx"
-   ]
-  },
-  {
-   "class": "register-choice",
-   "offset": "0x349",
-   "retail": [
-    "mov edx,DWORD PTR [eax+0x1c]",
-    "add edx,0x24",
-    "mov DWORD PTR [eax+0xc],edx",
-    "lea eax,[esp+0x30]",
-    "push eax"
-   ],
-   "model": [
-    "mov ecx,DWORD PTR [eax+0x1c]",
-    "lea edx,[esp+0x38]",
-    "add ecx,0x24",
-    "push edx",
-    "mov DWORD PTR [eax+0xc],ecx"
-   ]
-  },
-  {
-   "class": "register-choice",
-   "offset": "0x369",
-   "retail": [
-    "mov ebx,DWORD PTR ds:0x4660d4"
-   ],
-   "model": [
-    "mov edi,DWORD PTR ds:0x4660d4",
-    "mov ebx,DWORD PTR [esp+0x14]"
-   ]
-  },
-  {
-   "class": "evaluation-order",
-   "offset": "0x37a",
-   "retail": [
-    "call ebx"
-   ],
-   "model": [
-    "call edi"
-   ]
-  },
-  {
-   "class": "alignment-padding",
-   "offset": "0x3b1",
-   "retail": [],
-   "model": [
-    "push ebx"
-   ]
-  },
-  {
-   "class": "alignment-padding",
-   "offset": "0x3b2",
-   "retail": [
-    "push edi"
-   ],
-   "model": []
-  },
-  {
-   "class": "register-choice",
-   "offset": "0x3b4",
-   "retail": [
-    "call ebx",
     "cmp esi,DWORD PTR [esp+0x18]"
    ],
    "model": [
-    "call edi",
-    "cmp DWORD PTR [esp+0x14],ebx"
+    "cmp DWORD PTR [esp+0x14],esi"
    ]
   },
   {
    "class": "evaluation-order",
-   "offset": "0x3da",
-   "retail": [
-    "test edi,edi"
-   ],
-   "model": [
-    "test esi,esi"
-   ]
-  },
-  {
-   "class": "evaluation-order",
-   "offset": "0x3de",
-   "retail": [
-    "push edi"
-   ],
-   "model": [
-    "push esi"
-   ]
-  },
-  {
-   "class": "alignment-padding",
    "offset": "0x419",
    "retail": [],
    "model": [
@@ -867,7 +546,7 @@
    ]
   },
   {
-   "class": "alignment-padding",
+   "class": "evaluation-order",
    "offset": "0x41e",
    "retail": [
     "add esi,eax",
@@ -876,37 +555,23 @@
    "model": []
   },
   {
-   "class": "register-choice",
-   "offset": "0x4f1",
-   "retail": [
-    "mov edx,DWORD PTR [esp+0x1c]"
-   ],
+   "class": "evaluation-order",
+   "offset": "0x4ed",
+   "retail": [],
    "model": [
-    "mov edx,DWORD PTR [esp+0x30]"
-   ]
-  },
-  {
-   "class": "register-choice",
-   "offset": "0x58e",
-   "retail": [
-    "lea edx,[esp+0x20]"
-   ],
-   "model": [
-    "lea edx,[esp+0x2c]"
-   ]
-  },
-  {
-   "class": "register-choice",
-   "offset": "0x59c",
-   "retail": [
-    "cmp esi,DWORD PTR [esp+0x1c]"
-   ],
-   "model": [
-    "cmp esi,DWORD PTR [esp+0x28]"
+    "mov edx,DWORD PTR [esp+0x20]"
    ]
   },
   {
    "class": "evaluation-order",
+   "offset": "0x4f1",
+   "retail": [
+    "mov edx,DWORD PTR [esp+0x1c]"
+   ],
+   "model": []
+  },
+  {
+   "class": "register-choice",
    "offset": "0x5e9",
    "retail": [
     "mov eax,esi",
@@ -919,7 +584,7 @@
    ]
   },
   {
-   "class": "evaluation-order",
+   "class": "register-choice",
    "offset": "0x5fe",
    "retail": [
     "mov ecx,0x4",
@@ -940,22 +605,12 @@
     "push edx"
    ],
    "model": [
-    "lea ecx,[esp+0x2c]",
+    "lea ecx,[esp+0x24]",
     "push ecx"
    ]
   },
   {
    "class": "register-choice",
-   "offset": "0x626",
-   "retail": [
-    "cmp esi,DWORD PTR [esp+0x1c]"
-   ],
-   "model": [
-    "cmp esi,DWORD PTR [esp+0x28]"
-   ]
-  },
-  {
-   "class": "evaluation-order",
    "offset": "0x62c",
    "retail": [
     "mov eax,ds:0x474c38",
@@ -967,37 +622,33 @@
    ]
   },
   {
-   "class": "register-choice",
-   "offset": "0x678",
-   "retail": [
-    "mov ecx,DWORD PTR [esp+0x120]"
-   ],
+   "class": "alignment-padding",
+   "offset": "0x68e",
+   "retail": [],
    "model": [
-    "mov ecx,DWORD PTR [esp+0x128]"
-   ]
-  },
-  {
-   "class": "evaluation-order",
-   "offset": "0x688",
-   "retail": [
-    "add esp,0x124"
-   ],
-   "model": [
-    "add esp,0x12c"
+    "int3",
+    "int3",
+    "int3",
+    "int3",
+    "int3",
+    "int3",
+    "int3",
+    "int3",
+    "int3",
+    "int3",
+    "int3",
+    "int3"
    ]
   }
  ],
  "note": "reference/recovery_notes/replay_save_00429b60_equivalent_2026_10_13.md",
  "frame_shift": {
   "deltas": [
-   4,
-   8,
-   12,
-   16,
-   20,
-   24
+   -8,
+   -4,
+   4
   ],
-  "count": 17
+  "count": 31
  },
  "roots": [
   "?ReplaySaveCompilerContext_00429b60@@YGHPAUReplaySaveManager@@PBD1@Z"

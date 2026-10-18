@@ -99,10 +99,8 @@ char __stdcall FontAtlas_FillTransparentPixels(FontAtlas* atlas, unsigned int ro
         for (i = 0; i < rows; i++) {
             for (j = 0; j < (unsigned int)atlas->width; j++) {
                 if (c[5] == 0) {
-                    sum[0] = 0;
-                    sum[1] = 0;
-                    sum[2] = 0;
                     n = 0;
+                    sum[1] = sum[2] = sum[0] = 0;
                     if (j > 0 && c[1] != 0) {
                         sum[0] = c[0];
                         sum[1] = c[-1];

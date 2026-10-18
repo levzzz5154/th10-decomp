@@ -102,258 +102,123 @@
   "base_index_order": 0,
   "differences": [
     {
-      "class": "register-choice",
-      "offset": "0x446",
-      "retail": [
-        "mov eax,DWORD PTR [ebp+0x35c]"
-      ],
-      "model": [
-        "mov edx,DWORD PTR [ebp+0x35c]"
-      ]
-    },
-    {
-      "class": "register-choice",
-      "offset": "0x455",
-      "retail": [
-        "xor eax,0x200",
-        "or eax,0x8",
-        "mov DWORD PTR [ebp+0x35c],eax"
-      ],
-      "model": [
-        "xor edx,0x200",
-        "or edx,0x8",
-        "mov DWORD PTR [ebp+0x35c],edx"
-      ]
-    },
-    {
-      "class": "register-choice",
-      "offset": "0x4b4",
-      "retail": [
-        "mov edx,DWORD PTR [ebx+0x8]",
-        "push edx"
-      ],
-      "model": [
-        "mov ecx,DWORD PTR [ebx+0x8]",
-        "push ecx"
-      ]
-    },
-    {
-      "class": "register-choice",
-      "offset": "0x4ce",
-      "retail": [
-        "mov eax,DWORD PTR [ebx+0xc]",
-        "push eax"
-      ],
-      "model": [
-        "mov edx,DWORD PTR [ebx+0xc]",
-        "push edx"
-      ]
-    },
-    {
-      "class": "register-choice",
-      "offset": "0x4e8",
-      "retail": [
-        "mov ecx,DWORD PTR [ebx+0x10]",
-        "push ecx"
-      ],
-      "model": [
-        "mov eax,DWORD PTR [ebx+0x10]",
-        "push eax"
-      ]
-    },
-    {
-      "class": "register-choice",
-      "offset": "0x524",
-      "retail": [
-        "mov edx,DWORD PTR [ebx+0x8]",
-        "push edx"
-      ],
-      "model": [
-        "mov ecx,DWORD PTR [ebx+0x8]",
-        "push ecx"
-      ]
-    },
-    {
-      "class": "register-choice",
-      "offset": "0x53e",
-      "retail": [
-        "mov eax,DWORD PTR [ebx+0xc]",
-        "push eax"
-      ],
-      "model": [
-        "mov edx,DWORD PTR [ebx+0xc]",
-        "push edx"
-      ]
-    },
-    {
-      "class": "register-choice",
-      "offset": "0x558",
-      "retail": [
-        "mov ecx,DWORD PTR [ebx+0x10]",
-        "push ecx"
-      ],
-      "model": [
-        "mov eax,DWORD PTR [ebx+0x10]",
-        "push eax"
-      ]
-    },
-    {
-      "class": "register-choice",
-      "offset": "0x594",
-      "retail": [
-        "mov edx,DWORD PTR [ebx+0x8]",
-        "push edx"
-      ],
-      "model": [
-        "mov ecx,DWORD PTR [ebx+0x8]",
-        "push ecx"
-      ]
-    },
-    {
-      "class": "register-choice",
-      "offset": "0x5ae",
-      "retail": [
-        "mov eax,DWORD PTR [ebx+0xc]",
-        "push eax"
-      ],
-      "model": [
-        "mov edx,DWORD PTR [ebx+0xc]",
-        "push edx"
-      ]
-    },
-    {
-      "class": "evaluation-order",
-      "offset": "0xf53",
+      "offset": "0xf24",
       "retail": [],
       "model": [
-        "mov eax,DWORD PTR [ebx+0x8]"
-      ]
-    },
-    {
-      "class": "evaluation-order",
-      "offset": "0xf55",
-      "retail": [
-        "mov eax,DWORD PTR [ebx+0x8]"
+        "test BYTE PTR [ebx+0x6],0x1",
+        "je L+0xf38",
+        "mov eax,DWORD PTR [ebx+0x8]",
+        "mov ecx,ebp",
+        "call 0x43ec70",
+        "mov edi,eax",
+        "jmp L+0xf3b",
+        "mov edi,DWORD PTR [ebx+0x8]"
       ],
-      "model": []
+      "class": "block-order"
     },
     {
-      "class": "code-shape",
-      "offset": "0xf5f",
+      "offset": "0xf48",
       "retail": [
+        "mov DWORD PTR [esp+0x108],eax",
+        "test BYTE PTR [ebx+0x6],0x1",
+        "je L+0xf63",
+        "mov eax,DWORD PTR [ebx+0x8]",
+        "mov ecx,ebp",
+        "call 0x43ec70",
         "mov esi,eax",
         "jmp L+0xf66",
         "mov esi,DWORD PTR [ebx+0x8]"
       ],
-      "model": []
+      "model": [],
+      "class": "block-order"
     },
     {
-      "class": "evaluation-order",
-      "offset": "0xf6e",
+      "offset": "0xf6b",
       "retail": [],
       "model": [
-        "push ecx",
-        "push eax",
-        "lea ecx,[esp+0x10c]"
-      ]
-    },
-    {
-      "class": "evaluation-order",
-      "offset": "0xf70",
-      "retail": [
-        "push ecx",
-        "push esi",
-        "lea ecx,[esp+0x10c]"
+        "mov DWORD PTR [esp+0x108],eax"
       ],
-      "model": []
+      "class": "evaluation-order"
     },
     {
-      "class": "block-order",
-      "offset": "0x1fcc",
+      "offset": "0xf71",
       "retail": [
-        "and DWORD PTR [ebp+0x35c],0xfffffffe",
-        "mov eax,DWORD PTR [esp+0xa4]",
-        "pop edi",
-        "pop esi",
-        "mov DWORD PTR [ebp+0x390],0x0",
-        "pop ebx",
-        "mov ds:0x476f78,eax",
-        "mov eax,0x1",
-        "pop ebp",
-        "add esp,0xfc",
-        "ret 0x4"
+        "push esi"
       ],
-      "model": []
+      "model": [
+        "push edi"
+      ],
+      "class": "register-choice"
     },
     {
-      "class": "evaluation-order",
       "offset": "0x2005",
       "retail": [],
       "model": [
         "push 0xbf800000"
-      ]
+      ],
+      "class": "evaluation-order"
     },
     {
-      "class": "evaluation-order",
       "offset": "0x2008",
       "retail": [
         "push 0xbf800000"
       ],
-      "model": []
+      "model": [],
+      "class": "evaluation-order"
     },
     {
-      "class": "block-order",
-      "offset": "0x2052",
-      "retail": [],
-      "model": [
-        "and DWORD PTR [ebp+0x35c],0xfffffffe",
-        "mov eax,DWORD PTR [esp+0xa4]",
-        "pop edi",
-        "pop esi",
-        "mov DWORD PTR [ebp+0x390],0x0",
-        "pop ebx",
-        "mov ds:0x476f78,eax",
-        "mov eax,0x1",
-        "pop ebp",
-        "add esp,0xfc",
-        "ret 0x4"
-      ]
-    },
-    {
-      "class": "register-choice",
-      "offset": "0x234b",
+      "offset": "0x235e",
       "retail": [
-        "lea esi,[eax-0x1]",
-        "test esi,esi",
-        "mov DWORD PTR [esp+0x28],esi"
+        "mov ecx,DWORD PTR [ebp+0x2c]"
       ],
       "model": [
-        "dec eax",
-        "test eax,eax",
-        "mov DWORD PTR [esp+0x28],eax"
-      ]
+        "mov eax,DWORD PTR [ebp+0x2c]"
+      ],
+      "class": "register-choice"
     },
     {
-      "class": "register-choice",
-      "offset": "0x2391",
-      "retail": [],
-      "model": [
-        "mov esi,eax"
-      ]
-    },
-    {
-      "class": "alignment-padding",
-      "offset": "0x2393",
+      "offset": "0x2369",
       "retail": [
-        "lea esp,[esp+0x0]",
-        "lea ebx,[ebx+0x0]"
+        "mov DWORD PTR [esp+0x2c],ecx"
       ],
       "model": [
-        "lea ecx,[ecx+0x0]"
-      ]
+        "mov DWORD PTR [esp+0x2c],eax"
+      ],
+      "class": "register-choice"
     },
     {
-      "class": "operand-order",
+      "offset": "0x23a7",
+      "retail": [
+        "mov edx,DWORD PTR [ebp+0x2fc]",
+        "mov DWORD PTR [ebx+0x10],edx",
+        "mov eax,DWORD PTR [ebp+0x394]",
+        "fld DWORD PTR [eax+0x20]"
+      ],
+      "model": [
+        "mov ecx,DWORD PTR [ebp+0x2fc]",
+        "mov DWORD PTR [ebx+0x10],ecx",
+        "mov edx,DWORD PTR [ebp+0x394]",
+        "fld DWORD PTR [edx+0x20]"
+      ],
+      "class": "register-choice"
+    },
+    {
+      "offset": "0x2433",
+      "retail": [
+        "mov ecx,DWORD PTR [ebp+0x2fc]",
+        "mov DWORD PTR [ebx+0x10],ecx",
+        "mov eax,DWORD PTR [ebp+0x394]",
+        "fld DWORD PTR [eax+0x28]"
+      ],
+      "model": [
+        "mov eax,DWORD PTR [ebp+0x2fc]",
+        "mov DWORD PTR [ebx+0x10],eax",
+        "mov ecx,DWORD PTR [ebp+0x394]",
+        "fld DWORD PTR [ecx+0x28]"
+      ],
+      "class": "register-choice"
+    },
+    {
       "offset": "0x2498",
       "retail": [
         "fld DWORD PTR [ebp+0x33c]",
@@ -362,7 +227,28 @@
       "model": [
         "fld DWORD PTR [ebp+0x348]",
         "fadd DWORD PTR [ebp+0x33c]"
-      ]
+      ],
+      "class": "operand-order"
+    },
+    {
+      "offset": "0x2557",
+      "retail": [
+        "mov ecx,DWORD PTR [esp+0xa4]"
+      ],
+      "model": [
+        "mov edx,DWORD PTR [esp+0xa4]"
+      ],
+      "class": "register-choice"
+    },
+    {
+      "offset": "0x2561",
+      "retail": [
+        "mov DWORD PTR ds:0x476f78,ecx"
+      ],
+      "model": [
+        "mov DWORD PTR ds:0x476f78,edx"
+      ],
+      "class": "register-choice"
     }
   ],
   "note": "reference/recovery_notes/anm_vm_tick_0043ee30_2026_10_02.md"

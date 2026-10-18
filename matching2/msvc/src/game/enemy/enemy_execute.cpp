@@ -19,6 +19,7 @@ static __forceinline float SquaredLength(float x, float y) { return x * x + y * 
 static __forceinline float DistanceSquared(const Float3& a, const Float3& b) { return SquaredLength(a.x - b.x, a.y - b.y); }
 
 int Enemy::Execute2() {
+    AnmHandle h3[3];
     EclInstr* ins = (*(EclVm* const volatile*)&ecl->active)->instr;
     switch (ins->id) {
     case 0x109:
@@ -126,8 +127,7 @@ int Enemy::Execute2() {
         int script = IOP(1);
         anm[slot].Release2();
         if (script < 0) break;
-        AnmHandle handle;
-        anm[slot] = *Anm_CreateFront(g_enemy_ctrl->anm[anm_file], &handle, IOP(1), 5);
+        anm[slot] = *Anm_CreateFront(g_enemy_ctrl->anm[anm_file], &h3[0], IOP(1), 5);
         if (slot == 0) {
             anm_main_script = IOP(1);
             anm_main_file = anm_file;
@@ -179,8 +179,7 @@ int Enemy::Execute2() {
         int slot = IOP(0);
         int script = IOP(1);
         anm[slot].Release2();
-        AnmHandle handle;
-        anm[slot] = *Anm_CreateFront(g_enemy_ctrl->anm[anm_file], &handle, script, 5);
+        anm[slot] = *Anm_CreateFront(g_enemy_ctrl->anm[anm_file], &h3[2], script, 5);
         AnmVm* vm = Anm_Resolve2(&anm[slot]);
         if (slot == 0) {
             hitbox_width = vm->sprite_width * vm->scale.y;
@@ -188,7 +187,7 @@ int Enemy::Execute2() {
         }
         if (flags & 0x10) anm[slot].Show2();
         if (slot == 0) {
-            flags |= 0x1000;
+            (volatile unsigned int&)flags |= 0x1000;
             anm_base_script = script;
             anm_main_script = script;
             anm_main_file = anm_file;
@@ -199,8 +198,7 @@ int Enemy::Execute2() {
     case 0x10d: {
         int slot = IOP(0);
         anm[slot].Release2();
-        AnmHandle handle;
-        anm[slot] = *Anm_CreateFront(g_enemy_ctrl->anm[anm_file], &handle, anm_base_script + 5, 5);
+        anm[slot] = *Anm_CreateFront(g_enemy_ctrl->anm[anm_file], &h3[1], anm_base_script + 5, 5);
         AnmVm* vm = Anm_Resolve2(&anm[slot]);
         if (slot == 0) {
             hitbox_width = vm->sprite_width * vm->scale.y;
@@ -250,14 +248,15 @@ int Enemy::Execute2() {
     case 0x11c:
     case 0x11e: {
         EnemyMotion* motion = ins->id == 0x11c ? &absolute : &relative;
-        Float2 polar;
-        polar.x = FOP(0);
-        polar.y = FOP(1);
-        if (polar.x > UNSET) {
-            if (flags & 0x800) polar.x = Angle_Normalize(1.5707964f - Angle_Normalize(polar.x - 1.5707964f));
-            Motion_SetAngle(motion, polar.x);
+        float px;
+        float py;
+        px = FOP(0);
+        py = FOP(1);
+        if (px > UNSET) {
+            if (flags & 0x800) px = Angle_Normalize(1.5707964f - Angle_Normalize(px - 1.5707964f));
+            Motion_SetAngle(motion, px);
         }
-        if (polar.y > UNSET) motion->speed = polar.y;
+        if (py > UNSET) motion->speed = py;
         motion->flags &= ~1u;
         return 0;
     }
@@ -270,8 +269,16 @@ int Enemy::Execute2() {
         interp->mode = IOP(1);
         Float2 goal;
         if (interp->mode != 7) {
-            goal.x = angle > UNSET ? ((flags & 0x800) ? Angle_Normalize(1.5707964f - Angle_Normalize(angle - 1.5707964f)) : angle) : motion->angle;
-            goal.y = speed > UNSET ? speed : motion->speed;
+            {
+                float gx;
+                gx = angle > UNSET ? ((flags & 0x800) ? Angle_Normalize(1.5707964f - Angle_Normalize(angle - 1.5707964f)) : angle) : motion->angle;
+                goal.x = gx;
+            }
+            {
+                float gy;
+                gy = speed > UNSET ? speed : motion->speed;
+                goal.y = gy;
+            }
         } else {
             if (angle > UNSET) goal.x = angle;
             else goal.x = 0.0f;
@@ -489,20 +496,20 @@ int Enemy::Execute2() {
         return 0;
     case 0x163:
         switch (g_difficulty) {
-        case 0: *IntDest2(0) = IOP(1); return 0;
-        case 1: *IntDest2(0) = IOP(2); return 0;
-        case 2: *IntDest2(0) = IOP(3); return 0;
+        case 0: *IntDest2(0) = IOP(1); goto done2;
+        case 1: *IntDest2(0) = IOP(2); goto done2;
+        case 2: *IntDest2(0) = IOP(3); goto done2;
         case 3:
-        case 4: *IntDest2(0) = IOP(4); return 0;
+        case 4: *IntDest2(0) = IOP(4); goto done2;
         }
         break;
     case 0x164:
         switch (g_difficulty) {
-        case 0: *FloatDest(0) = FOP(1); return 0;
-        case 1: *FloatDest(0) = FOP(2); return 0;
-        case 2: *FloatDest(0) = FOP(3); return 0;
-        case 3: *FloatDest(0) = FOP(4); return 0;
-        case 4: *FloatDest(0) = FOP(4); return 0;
+        case 0: *FloatDest(0) = FOP(1); goto done;
+        case 1: *FloatDest(0) = FOP(2); goto done;
+        case 2: *FloatDest(0) = FOP(3); goto done;
+        case 3: *FloatDest(0) = FOP(4); goto done;
+        case 4: *FloatDest(0) = FOP(4); goto done;
         }
         break;
     case 0x190: {
@@ -589,14 +596,14 @@ int Enemy::Execute2() {
         else if (g_difficulty == 2) value = IOP(7);
         else value = IOP(8);
         shooters[index].count_2 = value;
-        return 0;
+        goto done;
     }
     case 0x1a6: {
         int index = IOP(0);
         if (g_rank >= 0x200) {
             shooters[index].speed_1 = FOP(5);
             shooters[index].speed_2 = FOP(6);
-            return 0;
+            goto done;
         }
         if (g_rank >= -0x200) {
             shooters[index].speed_1 = FOP(3);
@@ -605,7 +612,7 @@ int Enemy::Execute2() {
             shooters[index].speed_1 = FOP(1);
             shooters[index].speed_2 = FOP(2);
         }
-        return 0;
+        goto done;
     }
     case 0x1a7: {
         int index = IOP(0);
@@ -648,7 +655,7 @@ int Enemy::Execute2() {
         if (g_rank >= 0x200) {
             shooters[index].count_1 = IOP(5);
             shooters[index].count_2 = IOP(6);
-            return 0;
+            goto done2;
         }
         if (g_rank >= -0x200) {
             shooters[index].count_1 = IOP(3);
@@ -657,24 +664,24 @@ int Enemy::Execute2() {
             shooters[index].count_1 = IOP(1);
             shooters[index].count_2 = IOP(2);
         }
-        return 0;
+        goto done2;
     }
     case 0x1aa: {
         int index = IOP(0);
         if (g_rank >= 600) {
             shooters[index].count_1 = IOP(9);
             shooters[index].count_2 = IOP(10);
-            return 0;
+            goto done;
         }
         if (g_rank >= 200) {
             shooters[index].count_1 = IOP(7);
             shooters[index].count_2 = IOP(8);
-            return 0;
+            goto done;
         }
         if (g_rank >= -200) {
             shooters[index].count_1 = IOP(5);
             shooters[index].count_2 = IOP(6);
-            return 0;
+            goto done;
         }
         if (g_rank >= -600) {
             shooters[index].count_1 = IOP(3);
@@ -683,7 +690,7 @@ int Enemy::Execute2() {
             shooters[index].count_1 = IOP(1);
             shooters[index].count_2 = IOP(2);
         }
-        return 0;
+        goto done;
     }
     case 0x1ab: {
         int index = IOP(0);
@@ -693,7 +700,7 @@ int Enemy::Execute2() {
         int high_2 = IOP(4);
         shooters[index].count_1 = (high_1 - low_1) * (g_rank + 1024) / 2048 + low_1;
         shooters[index].count_2 = (high_2 - low_2) * (g_rank + 1024) / 2048 + low_2;
-        return 0;
+        goto done;
     }
     case 0x197: {
         int index = IOP(0);
@@ -709,13 +716,12 @@ int Enemy::Execute2() {
     case 0x199: {
         int index = IOP(0);
         int entry = IOP(1);
-        ShooterEx* ex = &shooters[index].ex[entry];
-        ex->f = IOP(2);
-        ex->e = IOP(3);
-        ex->c = IOP(4);
-        ex->d = IOP(5);
-        ex->a = FOP(6);
-        ex->b = FOP(7);
+        shooters[index].ex[entry].f = IOP(2);
+        shooters[index].ex[entry].e = IOP(3);
+        shooters[index].ex[entry].c = IOP(4);
+        shooters[index].ex[entry].d = IOP(5);
+        shooters[index].ex[entry].a = FOP(6);
+        shooters[index].ex[entry].b = FOP(7);
         return 0;
     }
     case 0x14d:
@@ -913,26 +919,26 @@ int Enemy::Execute2() {
         if (g_rank >= 0x200) *FloatDest(0) = FOP(2);
         else if (g_rank > -0x200) *FloatDest(0) = FOP(0);
         else *FloatDest(0) = FOP(0);
-        return 0;
+        goto done;
     case 0x15e:
         if (g_rank >= 600) {
             *FloatDest(0) = FOP(4);
-            return 0;
+            goto done2;
         }
         if (g_rank >= 200) {
             *FloatDest(0) = FOP(3);
-            return 0;
+            goto done2;
         }
         if (g_rank >= -200) {
             *FloatDest(0) = FOP(2);
-            return 0;
+            goto done2;
         }
         if (g_rank >= -400) {
             *FloatDest(0) = FOP(1);
         } else {
             *FloatDest(0) = FOP(0);
         }
-        return 0;
+        goto done2;
     case 0x15f: {
         float low = FOP(1);
         float high = FOP(2);
@@ -943,26 +949,26 @@ int Enemy::Execute2() {
         if (g_rank >= 0x200) *IntDest2(0) = IntArg(2);
         else if (g_rank > -0x200) *IntDest2(0) = IntArg(0);
         else *IntDest2(0) = IntArg(0);
-        return 0;
+        goto done;
     case 0x161:
         if (g_rank >= 600) {
             *IntDest2(0) = IntArg(4);
-            return 0;
+            goto done;
         }
         if (g_rank >= 200) {
             *IntDest2(0) = IntArg(3);
-            return 0;
+            goto done;
         }
         if (g_rank >= -200) {
             *IntDest2(0) = IntArg(2);
-            return 0;
+            goto done;
         }
         if (g_rank >= -400) {
             *IntDest2(0) = IntArg(1);
         } else {
             *IntDest2(0) = IntArg(0);
         }
-        return 0;
+        goto done;
     case 0x162: {
         int low = IntArg(1);
         int high = IntArg(2);
@@ -984,9 +990,13 @@ int Enemy::Execute2() {
     case 0x16f:
         g_game_speed = FOP(0);
         return 0;
-    case 0x1ae:
-        *FloatDest(0) = (float)atan2(g_player->position.y - FOP(2), g_player->position.x - FOP(1));
-        return 0;
+    case 0x1ae: {
+        const Float3* p1 = &g_player->position;
+        float t1 = FOP(1);
+        const Float3* p2 = &g_player->position;
+        *FloatDest(0) = (float)atan2(p2->y - FOP(2), p1->x - t1);
+        goto done;
+    }
     case 0x170: {
         float wait;
         if (g_difficulty == 0) wait = (float)IntArg(0);
@@ -997,5 +1007,9 @@ int Enemy::Execute2() {
         break;
     }
     }
+// done2 keeps its own (first) label: the tail merge picks its survivor per label,
+// which is what puts 0x1ab's copy where retail keeps it.
+done2:
+done:
     return 0;
 }

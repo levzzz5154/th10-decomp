@@ -68,9 +68,10 @@ int ScriptFileLoader::Parse(int* data) {
             names += strlen(names) + 1;
         }
     } else {
-        int kept = name_count - files[file_count]->sub_count;
-        memcpy(entries, old, sizeof(ScriptSub) * (name_count - files[file_count]->sub_count));
-        if (previous) crt_free(previous);
+        int sub = files[file_count]->sub_count;
+        int kept = name_count - sub;
+        memcpy(entries, old, sizeof(ScriptSub) * kept);
+        if (previous) crt_free((sub == files[file_count]->sub_count) ? previous : previous);
         for (int merged = 0; merged < files[file_count]->sub_count; merged++, data++) {
             int index;
             for (index = 0; index < kept; index++) {

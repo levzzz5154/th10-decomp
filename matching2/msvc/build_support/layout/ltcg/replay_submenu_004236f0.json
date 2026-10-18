@@ -1,0 +1,448 @@
+{
+  "schema_version": 1,
+  "name": "replay_submenu_004236f0",
+  "source": "src/game/pause/replay_submenu_update.cpp",
+  "driver": "build_support/layout/ltcg/replay_submenu_004236f0_context.cpp",
+  "headers": [
+    "include/th10/game/replay_submenu/state.hpp",
+    "include/th10/game/menu_cursor.hpp",
+    "include/th10/game/name_entry_prepare.hpp",
+    "include/th10/game/replay_manager_create.hpp",
+    "include/th10/game/score_table_insert.hpp",
+    "include/th10/core/func_ctrl.hpp",
+    "include/th10/platform/thread_sync.hpp",
+    "include/th10/game/replay_pool_append.hpp",
+    "build_support/layout/ltcg/replay_submenu/animation.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "The replay/result submenu dispatch compiled beside its scoped private-ABI dependency bodies (each anchored at its retail address) and a synthetic record-walking caller, so the native LTCG link assigns the callee registers retail uses; byte-exact in all 3,260 bytes.",
+  "functions": [
+    {
+      "name": "SubmenuUpdate",
+      "symbol": "_SubmenuUpdate@4",
+      "section": ".text$02h",
+      "address": "0x004236F0",
+      "size": 3260,
+      "actual_abi": "result-screen record on the stack, plain RET 4"
+    }
+  ],
+  "context": {
+    "symbol": "_ReplaySubmenuContext_004236f0@8",
+    "section": ".text$02i",
+    "address": "0x004243B0",
+    "size": 39,
+    "description": "Synthetic record-walking caller; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00a",
+      "address": 4198400,
+      "size": 17424
+    },
+    {
+      "section": ".text$00bz",
+      "address": 4215881,
+      "size": 18951
+    },
+    {
+      "section": ".text$00dz",
+      "address": 4234897,
+      "size": 3583
+    },
+    {
+      "section": ".text$00fz",
+      "address": 4238517,
+      "size": 43
+    },
+    {
+      "section": ".text$01maskz",
+      "address": 4238593,
+      "size": 6095
+    },
+    {
+      "section": ".text$02bz",
+      "address": 4244753,
+      "size": 88655
+    },
+    {
+      "section": ".text$02dz",
+      "address": 4333436,
+      "size": 5524
+    },
+    {
+      "section": ".text$02fz",
+      "address": 4339049,
+      "size": 391
+    },
+    {
+      "section": ".text$02hz",
+      "address": 4342700,
+      "size": 4
+    },
+    {
+      "section": ".text$02iz",
+      "address": 4342743,
+      "size": 25
+    },
+    {
+      "section": ".text$02jz",
+      "address": 4342833,
+      "size": 21375
+    },
+    {
+      "section": ".text$02lz",
+      "address": 4364226,
+      "size": 83150
+    },
+    {
+      "section": ".text$02nz",
+      "address": 4447499,
+      "size": 46261
+    },
+    {
+      "section": ".text$02pz",
+      "address": 4493833,
+      "size": 615
+    },
+    {
+      "section": ".text$02rz",
+      "address": 4494513,
+      "size": 223
+    },
+    {
+      "section": ".text$02tz",
+      "address": 4494803,
+      "size": 13
+    },
+    {
+      "section": ".text$02vz",
+      "address": 4494883,
+      "size": 429
+    },
+    {
+      "section": ".text$02xz",
+      "address": 4495382,
+      "size": 9738
+    },
+    {
+      "section": ".text$02zz",
+      "address": 4505186,
+      "size": 14
+    },
+    {
+      "section": ".text$03bz",
+      "address": 4505247,
+      "size": 1
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "__fltused",
+      "address": "0x00000000",
+      "kind": "metadata"
+    },
+    {
+      "symbol": "___security_cookie",
+      "address": "0x00473660",
+      "kind": "data"
+    },
+    {
+      "symbol": "@__security_check_cookie@4",
+      "address": "0x00458EA5",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_g_input_keys_raw",
+      "address": "0x00474E30",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_input_keys_held",
+      "address": "0x00474E36",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_globals_flags",
+      "address": "0x00474CA0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_globals_character",
+      "address": "0x00474C68",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_globals_shot_type",
+      "address": "0x00474C6C",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_globals_difficulty",
+      "address": "0x00474C74",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_globals_stage",
+      "address": "0x00474C7C",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_globals_score",
+      "address": "0x00474C44",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_globals",
+      "address": "0x00474C40",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_front",
+      "address": "0x0047770C",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_application",
+      "address": "0x00491C28",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_main_state",
+      "address": "0x00491FB8",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_sound_manager",
+      "address": "0x00492590",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_sound_priority",
+      "address": "0x004749CE",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_sprt_ctrl",
+      "address": "0x00491C10",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_name_entry_grid",
+      "address": "0x004746D8",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_score",
+      "address": "0x0047783C",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_replay",
+      "address": "0x00477838",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_game_speed",
+      "address": "0x00476F78",
+      "kind": "data"
+    },
+    {
+      "symbol": "?PrepareNameEntry@@YGXPAUNameEntryMenu@@@Z",
+      "address": "0x00423570",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?ReplayManager_Create3@@YGPAUReplayManager@@PBD@Z",
+      "address": "0x004296F0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?UpdateBoundedCounter@@YIIIPAI@Z",
+      "address": "0x0040AD20",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_asm_sprintf_00452ae8",
+      "address": "0x00452AE8",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_asm_FID_conflict___time32_00452b71",
+      "address": "0x00452B71",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_asm_free_004524a1",
+      "address": "0x004524A1",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_ReplayManager_Destroy2@4",
+      "address": "0x004294A0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "@asm_FUN_00429b60_00429b60@12",
+      "address": "0x00429B60",
+      "kind": "relative_code"
+    }
+  ],
+  "anchors": [
+    {
+      "name": "SubSchedulerRecord_SetSchedulerValue",
+      "symbol": "?SetSchedulerValue@SubSchedulerRecord@@QAEXH@Z",
+      "section": ".text$00b",
+      "address": "0x00405410",
+      "size": 57
+    },
+    {
+      "name": "SubHandle4_StopAtFrame1",
+      "symbol": "?StopAtFrame1@SubHandle4@@QAEXXZ",
+      "section": ".text$00d",
+      "address": "0x00409E50",
+      "size": 65
+    },
+    {
+      "name": "SubSetInputMode",
+      "symbol": "?SubSetInputMode@@YGXPAUInputState@@H@Z",
+      "section": ".text$00f",
+      "address": "0x0040AC90",
+      "size": 37
+    },
+    {
+      "name": "KeyRepeatState_InputMaskActive",
+      "symbol": "?InputMaskActive@KeyRepeatState@@QAEHG@Z",
+      "section": ".text$01mask",
+      "address": "0x0040ACE0",
+      "size": 33
+    },
+    {
+      "name": "SubHandle4_StopAtFrame3",
+      "symbol": "?StopAtFrame3@SubHandle4@@QAEXXZ",
+      "section": ".text$02b",
+      "address": "0x0040C4D0",
+      "size": 65
+    },
+    {
+      "name": "SubUpdateFrameMaximum",
+      "symbol": "?SubUpdateFrameMaximum@@YGHPAUGameStateFrameState@@@Z",
+      "section": ".text$02d",
+      "address": "0x00421F60",
+      "size": 28
+    },
+    {
+      "name": "SubTimedState_InitializeTimedState",
+      "symbol": "?InitializeTimedState@SubTimedState@@QAEXXZ",
+      "section": ".text$02f",
+      "address": "0x00423510",
+      "size": 89
+    },
+    {
+      "name": "SubRef4_StopAtFrame6",
+      "symbol": "?StopAtFrame6@SubRef4@@QAEXXZ",
+      "section": ".text$02j",
+      "address": "0x004243F0",
+      "size": 65
+    },
+    {
+      "name": "SubPlatformResource_Destroy",
+      "symbol": "?SubPlatformResource_Destroy@@YGXPAUPlatformResource@@@Z",
+      "section": ".text$02l",
+      "address": "0x004297B0",
+      "size": 18
+    },
+    {
+      "name": "SubSoundQueue_Queue",
+      "symbol": "?Queue@SubSoundQueue@@QAEHHH@Z",
+      "section": ".text$02n",
+      "address": "0x0043DC90",
+      "size": 123
+    },
+    {
+      "name": "SubAnimFind",
+      "symbol": "?SubAnimFind_004236f0@@YIPAXPAUAnimationLookupContext@@UAnimationScriptId@@@Z",
+      "section": ".text$02p",
+      "address": "0x004491C0",
+      "size": 73
+    },
+    {
+      "name": "SubHandle4_SetStopFrame",
+      "symbol": "?SetStopFrame@SubHandle4@@QAEXF@Z",
+      "section": ".text$02r",
+      "address": "0x00449470",
+      "size": 65
+    },
+    {
+      "name": "SubAnimNode_SetFlag",
+      "symbol": "?SetFlag@SubAnimNode@@QAEXXZ",
+      "section": ".text$02t",
+      "address": "0x00449590",
+      "size": 67
+    },
+    {
+      "name": "SubAnimNode_ClearFlag",
+      "symbol": "?ClearFlag@SubAnimNode@@QAEXXZ",
+      "section": ".text$02v",
+      "address": "0x004495E0",
+      "size": 67
+    },
+    {
+      "name": "SubHandle4_FindChildRef",
+      "symbol": "?FindChildRef@SubHandle4@@QAE?AUSubRef4@@H@Z",
+      "section": ".text$02x",
+      "address": "0x004497D0",
+      "size": 70
+    },
+    {
+      "name": "SubmenuCursor_PushSelection",
+      "symbol": "?PushSelection@SubmenuCursor@@QAEXXZ",
+      "section": ".text$02z",
+      "address": "0x0044BE20",
+      "size": 66
+    },
+    {
+      "name": "SubmenuCursor_PopSelection",
+      "symbol": "?PopSelection@SubmenuCursor@@QAEXXZ",
+      "section": ".text$03b",
+      "address": "0x0044BE70",
+      "size": 47
+    },
+    {
+      "name": "SubmenuCursor_Advance",
+      "symbol": "?Advance@SubmenuCursor@@QAEHH@Z",
+      "section": ".text$03d",
+      "address": "0x0044BEA0",
+      "size": 128
+    }
+  ],
+  "included_sources": [
+    "build_support/layout/ltcg/replay_submenu/find.cpp",
+    "build_support/layout/ltcg/replay_submenu/setstop.cpp",
+    "build_support/layout/ltcg/replay_submenu/child.cpp",
+    "build_support/layout/ltcg/replay_submenu/mark6.cpp",
+    "build_support/layout/ltcg/replay_submenu/stop3.cpp",
+    "build_support/layout/ltcg/replay_submenu/stop1.cpp",
+    "build_support/layout/ltcg/replay_submenu/nodeflag.cpp",
+    "build_support/layout/ltcg/replay_submenu/inputmode.cpp",
+    "build_support/layout/ltcg/replay_submenu/timer.cpp",
+    "build_support/layout/ltcg/replay_submenu/queue.cpp",
+    "build_support/layout/ltcg/replay_submenu/cursor.cpp",
+    "build_support/layout/ltcg/replay_submenu/frame.cpp",
+    "build_support/layout/ltcg/replay_submenu/timed.cpp",
+    "build_support/layout/ltcg/replay_submenu/destroy.cpp",
+    "build_support/layout/ltcg/replay_submenu/mask.cpp"
+  ],
+  "data_aliases": [
+    {
+      "symbol": "??_C@_08GGFKNFHG@?5?5?5?5?5?5?5?5?$AA@",
+      "address": "0x0046E354",
+      "bytes": "202020202020202000"
+    },
+    {
+      "symbol": "??_C@_0O@PLEGECMF@th10_?$CF?42d?4rpy?$AA@",
+      "address": "0x0046E0C8",
+      "bytes": "746831305f252e32642e72707900"
+    }
+  ]
+}

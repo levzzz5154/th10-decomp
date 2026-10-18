@@ -14,15 +14,21 @@
     "include/th10/game/enemy_ctrl.hpp",
     "include/th10/game/enemy_manager_dependencies.hpp",
     "include/th10/render/resource_registrar.hpp",
-    "include/th10/render/animation_resource_removal.hpp"
+    "include/th10/render/animation_resource_removal.hpp",
+    "include/th10/app/supervisor.hpp",
+    "include/th10/game/entity.hpp",
+    "include/th10/game/player.hpp",
+    "include/th10/types.hpp"
   ],
   "included_sources": [
     "src/game/score/score_manager_save.cpp",
-    "src/game/ending/animation_resource_lazy_fetch.cpp"
+    "src/game/ending/animation_resource_lazy_fetch.cpp",
+    "src/core/zunlib/scheduler_tasks.cpp",
+    "src/game/enemy/enemy_ctrl_destroy.cpp"
   ],
   "additional_sources": [
     "build_support/layout/ltcg/manager_state_release/anchors.cpp",
-    "src/game/enemy/enemy_ctrl_destroy.cpp"
+    "build_support/layout/ltcg/manager_state_release/destroy_body.cpp"
   ],
   "image_base": "0x00400000",
   "description": "The manager-state teardown compiled with native LTCG beside the score-archive flush, the game-thread animation fetch, the enemy-manager destroy and models of every private-register callee, so each callee receives the register retail uses.",
@@ -30,9 +36,9 @@
     {
       "name": "Game_Destroy",
       "symbol": "_Game_Destroy@4",
-      "section": ".text$9release",
+      "section": ".text$05release",
       "address": "0x00417C80",
-      "size": 1103,
+      "size": 1105,
       "actual_abi": "manager state at [ESP+8]; plain RET 4"
     }
   ],
@@ -40,7 +46,7 @@
     "symbol": "_ManagerReleaseContext_00417c80@8",
     "section": ".text$8context",
     "address": "0x0044C200",
-    "size": 39,
+    "size": 54,
     "description": "Synthetic state-array walker; not recovered game code."
   },
   "anchors": [
@@ -56,7 +62,7 @@
       "symbol": "?Destroy@EnemyCtrl@@QAEXXZ",
       "section": ".text$02b",
       "address": "0x0040D530",
-      "size": 305
+      "size": 289
     },
     {
       "name": "PanelSlot_Release",
@@ -75,7 +81,7 @@
     {
       "name": "IncrementCappedCount",
       "symbol": "?IncrementCappedCount@ScoreState@@QAEXXZ",
-      "section": ".text$8zzincr",
+      "section": ".text$05zzincr",
       "address": "0x00418A90",
       "size": 20
     },
@@ -89,116 +95,128 @@
     {
       "name": "RegisterResource",
       "symbol": "?RegisterResource@AnimationManager9@@QAEPADPBDHH@Z",
-      "section": ".text$8reg",
+      "section": ".text$07reg",
       "address": "0x0043E460",
       "size": 104
     },
     {
       "name": "PanelResource_Release",
       "symbol": "?Release@PanelResource2@@QAEXXZ",
-      "section": ".text$8resource",
+      "section": ".text$08resource",
       "address": "0x00447810",
       "size": 35
     },
     {
       "name": "CreatePositionedPrimary",
-      "symbol": "?AnimationManager_CreatePositionedPrimary@@YGPAPAXPAUAnimationManager_00448d50@@PAXMM@Z",
-      "section": ".text$8primary",
+      "symbol": "?AnimationManager_CreatePositionedPrimary@@YGPAPAXPAXPAPAXHPBUAnimationPosition@@@Z",
+      "section": ".text$08zsetprim",
       "address": "0x00448D50",
       "size": 95
     },
     {
       "name": "AnimationObject_LoadScript",
       "symbol": "_asm_AnimationObject_LoadScript_0043e710",
-      "section": ".text$8zzload",
+      "section": ".text$07zzload",
       "address": "0x0043E710",
       "size": 207
     },
     {
       "name": "RegisterPrimaryBack",
       "symbol": "_asm_AnimationManager_RegisterPrimaryBack_004489d0",
-      "section": ".text$8regprimary",
+      "section": ".text$08zregback",
       "address": "0x004489D0",
       "size": 103
     },
     {
       "name": "PoolAllocator",
       "symbol": "_asm_FUN_00449950_00449950",
-      "section": ".text$8alloc",
+      "section": ".text$08zspool",
       "address": "0x00449950",
       "size": 171
+    },
+    {
+      "name": "SchedulerRemove",
+      "symbol": "_FuncCtrl_Remove@8",
+      "section": ".text$70remove",
+      "address": "0x00449F60",
+      "size": 114
     }
   ],
   "gaps": [
     {
-      "section": ".text$00a_gap",
+      "section": ".text$00gap",
       "address": "0x00401000",
       "size": 46400
     },
     {
-      "section": ".text$01z_gap",
+      "section": ".text$01lazyz",
       "address": "0x0040C58B",
       "size": 4005
     },
     {
-      "section": ".text$02z_gap",
-      "address": "0x0040D661",
-      "size": 24671
+      "section": ".text$02bz",
+      "address": "0x0040D651",
+      "size": 24687
     },
     {
-      "section": ".text$03z_gap",
+      "section": ".text$03slotz",
       "address": "0x004136D0",
       "size": 3744
     },
     {
-      "section": ".text$04z_gap",
+      "section": ".text$04panelz",
       "address": "0x004145E9",
       "size": 13975
     },
     {
-      "section": ".text$05z_gap",
-      "address": "0x004180CF",
-      "size": 2497
+      "section": ".text$05releasez",
+      "address": "0x004180D1",
+      "size": 2495
     },
     {
-      "section": ".text$05zzzmid",
+      "section": ".text$05zzincrz",
       "address": "0x00418AA4",
       "size": 75580
     },
     {
-      "section": ".text$06z_gap",
+      "section": ".text$06scorez",
       "address": "0x0042B417",
       "size": 77897
     },
     {
-      "section": ".text$07z_gap",
+      "section": ".text$07regz",
       "address": "0x0043E4C8",
       "size": 584
     },
     {
-      "section": ".text$07zzzmid",
+      "section": ".text$07zzloadz",
       "address": "0x0043E7DF",
       "size": 36913
     },
     {
-      "section": ".text$08z_gap",
+      "section": ".text$08resourcez",
       "address": "0x00447833",
       "size": 4509
     },
     {
-      "section": ".text$09z_gap",
+      "section": ".text$08zregbackz",
       "address": "0x00448A37",
       "size": 793
     },
     {
-      "section": ".text$10z_gap",
+      "section": ".text$08zsetprimz",
       "address": "0x00448DAF",
       "size": 2977
     },
     {
-      "section": ".text$11z_gap",
+      "section": ".text$08zspoolz",
       "address": "0x004499FB",
-      "size": 10245
+      "size": 1381
+    },
+    {
+      "section": ".text$70removez",
+      "address": "0x00449FD2",
+      "size": 8750
     }
   ],
   "constants": [],
@@ -285,11 +303,6 @@
     },
     {
       "symbol": "@FuncCtrl_RemoveTask@8",
-      "address": "0x00449F60",
-      "kind": "relative_code"
-    },
-    {
-      "symbol": "_FuncCtrl_Remove@8",
       "address": "0x00449F60",
       "kind": "relative_code"
     },
@@ -591,6 +604,11 @@
     {
       "symbol": "_flags_byte_00474ca0",
       "address": "0x00474CA0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_supervisor",
+      "address": "0x00491C00",
       "kind": "data"
     }
   ],

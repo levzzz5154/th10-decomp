@@ -42,8 +42,8 @@ extern const char str_ranking_row_empty_format[];    // "No.%.2d -------- --/--/
 extern const char str_ranking_row_named_format[];    // "No.%.2d %s %.2d/%.2d/%.2d %s %s %s"
 }
 
-// Plain-int views of the run's selection words; reading them as ints keeps
-// the retail load order against the color store of the ranking loop.
+// Run-selection words. Their addresses escape in the compiler context, as
+// members of the global game state do in the complete program.
 extern "C" int data_00474c68_shot;    // 0x00474C68
 extern "C" int data_00474c68_char;    // 0x00474C6C
 

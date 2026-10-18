@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "name": "projectile_point_count_004084a0",
+  "source": "src/game/bullet/projectile_point_count.cpp",
+  "driver": "build_support/layout/ltcg/projectile_point_count_004084a0_context.cpp",
+  "headers": [
+    "include/th10/game/projectile_manager.hpp",
+    "include/th10/math/vector.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "The projectile point count with its private register convention from the ProjectilePointCountEntry context caller; byte-exact in all 370 bytes.",
+  "functions": [
+    {
+      "name": "ProjectileManager_CountNearPoint",
+      "actual_abi": "manager in ECX; point in EDI; radius on the stack; RET 4",
+      "symbol": "?CountNearPoint@ProjectileManager@@QAEHPBUVec3@@M@Z",
+      "section": ".text$f004084a0F",
+      "address": "0x004084A0",
+      "size": 370
+    }
+  ],
+  "context": {
+    "symbol": "_ProjectilePointCountEntry@16",
+    "section": ".text$f00408400F",
+    "address": "0x00408400",
+    "size": 56,
+    "description": "Synthetic array caller, not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00before",
+      "address": 4198400,
+      "size": 29696
+    },
+    {
+      "section": ".text$f00408400Fz",
+      "address": 4228152,
+      "size": 104
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "__fltused",
+      "address": "0x00000000",
+      "kind": "metadata"
+    }
+  ],
+  "constant_aliases": [
+    {
+      "symbol": "__real@3f000000",
+      "address": "0x00470B0C",
+      "value": 0.5
+    },
+    {
+      "symbol": "__real@41000000",
+      "address": "0x00470BD0",
+      "value": 8.0
+    },
+    {
+      "symbol": "__real@41800000",
+      "address": "0x00470B48",
+      "value": 16.0
+    },
+    {
+      "symbol": "__real@42000000",
+      "address": "0x00470BCC",
+      "value": 32.0
+    },
+    {
+      "symbol": "__real@42800000",
+      "address": "0x00470BC8",
+      "value": 64.0
+    }
+  ]
+}

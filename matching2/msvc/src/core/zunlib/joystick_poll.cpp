@@ -12,9 +12,10 @@
 //
 // Retail passes `buttons` in ECX (the LTCG private convention derived from
 // this stack signature by the synthetic caller below) and pops `set` and
-// `pad` (RET 8). Remaining differences (one scheduling detail of the Y
-// threshold, the loop-alignment filler and the frame size) are recorded in
-// build_support/layout/equivalent/joystick_poll.json; see
+// `pad` (RET 8). Remaining differences (the Y threshold's register
+// scheduling, one DirectInput scratch register and the loop-alignment
+// filler) are recorded in build_support/layout/equivalent/joystick_poll.json;
+// see
 // reference/recovery_notes/joystick_binding_reader_0044a190_accepted_2026_10_14.md.
 #include <string.h>
 
@@ -85,30 +86,37 @@ static unsigned int SetButtonFromDirectInputJoystate(unsigned short* out, short 
 }
 
 unsigned short __stdcall ReadPad(unsigned short buttons, int set, int pad) {
+    // The axis working values live in the same stack record as the JOYINFOEX
+    // block, which is what reproduces retail's frame (the record's leading
+    // words fill the slot below `info`).
+    struct State {
+        unsigned int deadzone;
+        unsigned int ymid;
+        JoyInfoEx info;
+    } st;
     InputBinding* binding = &g_input_keys_raw[set];
     if ((g_app_flags & 0x400) == 0) {
-        JoyInfoEx info;
-        memset(&info, 0, sizeof(info));
-        info.dwSize = sizeof(info);
-        info.dwFlags = 0xff;                      // JOY_RETURNALL
-        if (joyGetPosEx(pad != 0, &info) != 0) return buttons;
-        SetButtonFromControllerInputs(&buttons, binding->shot, 1, info.dwButtons);
-        SetButtonFromControllerInputs(&buttons, binding->bomb, 2, info.dwButtons);
-        SetButtonFromControllerInputs(&buttons, binding->pause, 8, info.dwButtons);
-        SetButtonFromControllerInputs(&buttons, binding->focus, 4, info.dwButtons);
-        SetButtonFromControllerInputs(&buttons, binding->skip, 0x100, info.dwButtons);
+        memset(&st.info, 0, sizeof(st.info));
+        st.info.dwSize = sizeof(st.info);
+        st.info.dwFlags = 0xff;                      // JOY_RETURNALL
+        if (joyGetPosEx(pad != 0, &st.info) != 0) return buttons;
+        SetButtonFromControllerInputs(&buttons, binding->shot, 1, st.info.dwButtons);
+        SetButtonFromControllerInputs(&buttons, binding->bomb, 2, st.info.dwButtons);
+        SetButtonFromControllerInputs(&buttons, binding->pause, 8, st.info.dwButtons);
+        SetButtonFromControllerInputs(&buttons, binding->focus, 4, st.info.dwButtons);
+        SetButtonFromControllerInputs(&buttons, binding->skip, 0x100, st.info.dwButtons);
 
-        unsigned int deadzone = (g_joystick_caps[pad].wXmax - g_joystick_caps[pad].wXmin) / 4;
-        buttons |= JOYSTICK_BUTTON_PRESSED(0x80, info.dwXpos,
-                                           JOYSTICK_MIDPOINT(g_joystick_caps[pad].wXmin, g_joystick_caps[pad].wXmax) + deadzone);
-        buttons |= JOYSTICK_BUTTON_PRESSED_INVERT(0x40, info.dwXpos,
-                                                  JOYSTICK_MIDPOINT(g_joystick_caps[pad].wXmin, g_joystick_caps[pad].wXmax) - deadzone);
+        st.deadzone = (g_joystick_caps[pad].wXmax - g_joystick_caps[pad].wXmin) / 4;
+        buttons |= JOYSTICK_BUTTON_PRESSED(0x80, st.info.dwXpos,
+                                           JOYSTICK_MIDPOINT(g_joystick_caps[pad].wXmin, g_joystick_caps[pad].wXmax) + st.deadzone);
+        buttons |= JOYSTICK_BUTTON_PRESSED_INVERT(0x40, st.info.dwXpos,
+                                                  JOYSTICK_MIDPOINT(g_joystick_caps[pad].wXmin, g_joystick_caps[pad].wXmax) - st.deadzone);
         unsigned int ymax = g_joystick_caps[pad].wYmax;
-        deadzone = (ymax - g_joystick_caps[pad].wYmin) / 4;
-        buttons |= JOYSTICK_BUTTON_PRESSED(0x20, info.dwYpos,
-                                           JOYSTICK_MIDPOINT(g_joystick_caps[pad].wYmin, ymax) + deadzone);
-        buttons |= JOYSTICK_BUTTON_PRESSED_INVERT(0x10, info.dwYpos,
-                                                  JOYSTICK_MIDPOINT(g_joystick_caps[pad].wYmin, ymax) - deadzone);
+        st.deadzone = (ymax - g_joystick_caps[pad].wYmin) / 4;
+        st.ymid = JOYSTICK_MIDPOINT(g_joystick_caps[pad].wYmin, ymax);
+        buttons |= JOYSTICK_BUTTON_PRESSED(0x20, st.info.dwYpos, st.ymid + st.deadzone);
+        buttons |= JOYSTICK_BUTTON_PRESSED_INVERT(0x10, st.info.dwYpos,
+                                                  JOYSTICK_MIDPOINT(g_joystick_caps[pad].wYmin, ymax) - st.deadzone);
         return buttons;
     }
 
