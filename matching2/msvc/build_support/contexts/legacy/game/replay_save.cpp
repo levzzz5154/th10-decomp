@@ -110,11 +110,9 @@ int __fastcall ReplaySaveManager::Save(const char* file_name, const char* name) 
             for (link = manager->pools[stage].next; link; link = link->next) {
                 total += (link->pool->input_cursor - link->pool->input_records) * 6
                     + (int)(link->pool->state_cursor - link->pool->state_records);
-                manager->stage_data[stage]->input_count +=
-                    link->pool->input_cursor - link->pool->input_records;
-                manager->stage_data[stage]->data_size +=
-                    (link->pool->input_cursor - link->pool->input_records) * 6
+                manager->stage_data[stage]->data_size += (link->pool->input_cursor - link->pool->input_records) * 6
                     + (int)(link->pool->state_cursor - link->pool->state_records);
+                manager->stage_data[stage]->input_count += link->pool->input_cursor - link->pool->input_records;
             }
             count++;
         }

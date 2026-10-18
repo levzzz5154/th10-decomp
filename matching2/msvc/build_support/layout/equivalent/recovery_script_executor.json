@@ -717,13 +717,12 @@
   },
   {
    "class": "evaluation-order",
-   "offset": "0x114",
-   "retail": [
-    "mov ecx,DWORD PTR [ebp+0x78]"
-   ],
+   "offset": "0x117",
+   "retail": [],
    "model": [
-    "mov ecx,DWORD PTR [ebp+0x7c]",
-    "mov edx,DWORD PTR [ebp+0x78]"
+    "mov edx,DWORD PTR ds:0x491c10",
+    "lea esi,[ebp+ecx*4+0x40]",
+    "mov ecx,DWORD PTR [ebp+0x7c]"
    ]
   },
   {
@@ -736,9 +735,7 @@
    ],
    "model": [
     "push ecx",
-    "mov ecx,DWORD PTR ds:0x491c10",
-    "push ecx",
-    "lea esi,[ebp+edx*4+0x40]"
+    "push edx"
    ]
   },
   {

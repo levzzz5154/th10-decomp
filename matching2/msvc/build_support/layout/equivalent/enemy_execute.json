@@ -225,52 +225,6 @@
       ]
     },
     {
-      "class": "code-shape",
-      "offset": "0x6b6",
-      "retail": [
-        "jmp L+0x6eb",
-        "mov edx,DWORD PTR [edx+0x4]",
-        "push 0x0",
-        "call 0x44fdb0",
-        "mov esi,eax",
-        "mov eax,DWORD PTR [ebx+0x14d8]",
-        "mov edx,DWORD PTR [eax+0x4]",
-        "push 0x1",
-        "call 0x44fdb0",
-        "mov ecx,DWORD PTR ds:0x477704",
-        "mov edx,DWORD PTR [ecx+esi*4+0x30]",
-        "push 0x6",
-        "push eax",
-        "push edx",
-        "lea edi,[esp+0x1c]",
-        "call 0x448d00"
-      ],
-      "model": []
-    },
-    {
-      "class": "block-order",
-      "offset": "0x737",
-      "retail": [],
-      "model": [
-        "mov edx,DWORD PTR [edx+0x4]",
-        "push 0x0",
-        "call 0x44fdb0",
-        "mov esi,eax",
-        "mov eax,DWORD PTR [ebx+0x14d8]",
-        "mov edx,DWORD PTR [eax+0x4]",
-        "push 0x1",
-        "call 0x44fdb0",
-        "mov ecx,DWORD PTR ds:0x477704",
-        "mov edx,DWORD PTR [ecx+esi*4+0x30]",
-        "push 0x6",
-        "push eax",
-        "push edx",
-        "lea edi,[esp+0x1c]",
-        "call 0x448d00",
-        "jmp L+0x6b5"
-      ]
-    },
-    {
       "class": "register-choice",
       "offset": "0x8a2",
       "retail": [
@@ -313,20 +267,14 @@
       ]
     },
     {
-      "class": "code-shape",
-      "offset": "0x91f",
-      "retail": [],
-      "model": [
-        "mov DWORD PTR [ebx+0xec],ecx"
-      ]
-    },
-    {
-      "class": "evaluation-order",
+      "class": "register-choice",
       "offset": "0x929",
       "retail": [
         "mov DWORD PTR [ebx+0xec],edx"
       ],
-      "model": []
+      "model": [
+        "mov DWORD PTR [ebx+0xec],ecx"
+      ]
     },
     {
       "class": "code-shape",
@@ -387,72 +335,46 @@
       "model": []
     },
     {
-      "class": "code-shape",
+      "class": "register-choice",
+      "offset": "0x198f",
+      "retail": [
+        "mov eax,DWORD PTR [edx+0x4]"
+      ],
+      "model": [
+        "mov ecx,0x1"
+      ]
+    },
+    {
+      "class": "register-choice",
       "offset": "0x1992",
       "retail": [
-        "jmp L+0x31dc",
-        "mov eax,DWORD PTR [edx+0x4]",
-        "mov ecx,0x3"
+        "jmp L+0x31dc"
       ],
       "model": [
-        "mov ecx,0x1",
-        "call 0x44fe40"
+        "jmp L+0x314c"
       ]
     },
     {
-      "class": "code-shape",
-      "offset": "0x199f",
+      "class": "branch-target",
+      "offset": "0x1997",
       "retail": [
-        "jmp L+0x31e1"
-      ],
-      "model": [
-        "jmp L+0x3503"
-      ]
-    },
-    {
-      "class": "code-shape",
-      "offset": "0x19a9",
-      "retail": [
-        "jmp L+0x3199"
-      ],
-      "model": [
         "mov eax,DWORD PTR [edx+0x4]",
-        "call 0x44fe40",
-        "fstp DWORD PTR [esp+0x10]",
-        "mov ebx,DWORD PTR [ebx+0x14d8]",
-        "mov eax,DWORD PTR [ebx+0x4]",
-        "xor ecx,ecx",
-        "call 0x450070",
-        "mov edx,DWORD PTR [esp+0x10]",
-        "mov DWORD PTR [eax],edx",
-        "xor eax,eax",
-        "pop edi",
-        "pop esi",
-        "pop ebx",
-        "mov ecx,DWORD PTR [esp+0x2c0]",
-        "xor ecx,ebp",
-        "call 0x458ea5",
-        "mov esp,ebp",
-        "pop ebp",
-        "ret"
-      ]
+        "mov ecx,0x3",
+        "jmp L+0x31e1",
+        "mov ecx,0x4",
+        "jmp L+0x3199",
+        "mov eax,DWORD PTR [edx+0x4]"
+      ],
+      "model": []
     },
     {
-      "class": "code-shape",
-      "offset": "0x19b6",
-      "retail": [],
-      "model": [
-        "call 0x44fe40"
-      ]
-    },
-    {
-      "class": "code-shape",
+      "class": "register-choice",
       "offset": "0x19b6",
       "retail": [
         "jmp L+0x31e1"
       ],
       "model": [
-        "jmp L+0x3503"
+        "jmp L+0x314c"
       ]
     },
     {
@@ -503,35 +425,59 @@
       "model": []
     },
     {
-      "class": "code-shape",
-      "offset": "0x1fe4",
+      "class": "branch-target",
+      "offset": "0x1e81",
       "retail": [
-        "fstp DWORD PTR [esi+0x2dc]",
-        "mov ebx,DWORD PTR [ebx+0x14d8]",
-        "mov eax,DWORD PTR [ebx+0x4]"
+        "cmp ecx,0x200",
+        "jge L+0x1f6a",
+        "imul eax,eax,0x210",
+        "cmp ecx,0xfffffe00",
+        "jmp L+0x1fc8",
+        "mov edx,DWORD PTR [edx+0x4]",
+        "push 0x0",
+        "call 0x44fdb0",
+        "mov ecx,DWORD PTR ds:0x474c98"
       ],
       "model": []
     },
     {
-      "class": "code-shape",
-      "offset": "0x1ff8",
+      "class": "register-choice",
+      "offset": "0x1fd4",
       "retail": [
-        "call 0x44fe40",
-        "fstp DWORD PTR [esi+0x2e0]",
-        "xor eax,eax",
-        "pop edi",
-        "pop esi",
-        "pop ebx",
-        "mov ecx,DWORD PTR [esp+0x2c0]",
-        "xor ecx,ebp",
-        "call 0x458ea5",
-        "mov esp,ebp",
-        "pop ebp",
-        "ret"
+        "jl L+0x1c98"
       ],
       "model": [
-        "jmp L+0x1ce1"
+        "jl L+0x1fcd"
       ]
+    },
+    {
+      "class": "branch-target",
+      "offset": "0x1fe4",
+      "retail": [],
+      "model": [
+        "mov ecx,0x4",
+        "jmp L+0x1fdc",
+        "mov edx,DWORD PTR [edx+0x4]",
+        "push 0x0",
+        "call 0x44fdb0",
+        "mov ecx,DWORD PTR ds:0x474c98",
+        "cmp ecx,0x200",
+        "jge L+0x1f26",
+        "imul eax,eax,0x210",
+        "cmp ecx,0xfffffe00",
+        "jmp L+0x1f84",
+        "mov ecx,0x1",
+        "call 0x44fe40",
+        "mov ecx,0x2"
+      ]
+    },
+    {
+      "class": "code-shape",
+      "offset": "0x1ff3",
+      "retail": [
+        "mov ecx,0x4"
+      ],
+      "model": []
     },
     {
       "class": "code-shape",
@@ -595,127 +541,48 @@
     },
     {
       "class": "code-shape",
-      "offset": "0x270b",
+      "offset": "0x272f",
       "retail": [
-        "lea ecx,[esi+0x20]",
-        "mov esi,DWORD PTR [esi+0x1c]"
-      ],
-      "model": [
-        "mov ecx,DWORD PTR [esi+0x1c]",
-        "add esi,0x20"
-      ]
-    },
-    {
-      "class": "code-shape",
-      "offset": "0x2713",
-      "retail": [
-        "test esi,esi"
-      ],
-      "model": [
-        "test ecx,ecx",
-        "mov DWORD PTR [esp+0x30],ecx"
-      ]
-    },
-    {
-      "class": "block-order",
-      "offset": "0x271c",
-      "retail": [],
-      "model": [
-        "jle L+0x2768",
-        "lea ecx,[esp+0x248]",
-        "sub esi,ecx"
-      ]
-    },
-    {
-      "class": "code-shape",
-      "offset": "0x271c",
-      "retail": [
-        "mov DWORD PTR [esp+0x30],esi"
-      ],
-      "model": [
-        "mov DWORD PTR [esp+0x10],esi"
-      ]
-    },
-    {
-      "class": "code-shape",
-      "offset": "0x2720",
-      "retail": [
-        "jle L+0x2758",
-        "lea esi,[esp+0x248]",
-        "sub ecx,esi",
-        "mov DWORD PTR [esp+0x10],ecx",
         "nop"
       ],
-      "model": [
-        "jmp L+0x2740",
-        "lea ecx,[ecx+0x0]"
-      ]
+      "model": []
     },
     {
-      "class": "code-shape",
-      "offset": "0x315f",
-      "retail": [],
-      "model": [
-        "call 0x44fe40"
-      ]
-    },
-    {
-      "class": "code-shape",
-      "offset": "0x315f",
+      "class": "register-choice",
+      "offset": "0x3155",
       "retail": [
-        "jmp L+0x31e1"
+        "jl L+0x3164"
       ],
       "model": [
-        "jmp L+0x3503"
+        "jl L+0x3185"
       ]
     },
     {
-      "class": "code-shape",
-      "offset": "0x316e",
-      "retail": [
-        "jg L+0x31e1"
-      ],
-      "model": [
-        "jg L+0x19ab"
-      ]
-    },
-    {
-      "class": "block-order",
-      "offset": "0x3170",
-      "retail": [],
-      "model": [
-        "call 0x44fe40"
-      ]
-    },
-    {
-      "class": "code-shape",
-      "offset": "0x3170",
-      "retail": [
-        "jmp L+0x319c"
-      ],
-      "model": [
-        "jmp L+0x3503"
-      ]
-    },
-    {
-      "class": "code-shape",
-      "offset": "0x3187",
-      "retail": [
-        "jge L+0x1997"
-      ],
-      "model": [
-        "jl L+0x31bc",
-        "mov eax,DWORD PTR [edx+0x4]",
-        "mov ecx,0x3",
-        "call 0x44fe40",
-        "jmp L+0x3503"
-      ]
-    },
-    {
-      "class": "code-shape",
-      "offset": "0x3199",
+      "class": "branch-target",
+      "offset": "0x3157",
       "retail": [
         "mov eax,DWORD PTR [edx+0x4]",
+        "mov ecx,0x2",
+        "jmp L+0x31e1",
+        "xor ecx,ecx",
+        "cmp eax,0xfffffe00",
+        "mov eax,DWORD PTR [edx+0x4]",
+        "jg L+0x31e1",
+        "jmp L+0x319c",
+        "mov eax,ds:0x474c98",
+        "cmp eax,0x258",
+        "jge L+0x19a4",
+        "cmp eax,0xc8",
+        "jge L+0x1997",
+        "cmp eax,0xffffff38",
+        "jl L+0x31d2"
+      ],
+      "model": []
+    },
+    {
+      "class": "branch-target",
+      "offset": "0x319c",
+      "retail": [
         "call 0x44fe40",
         "fstp DWORD PTR [esp+0x10]",
         "mov ebx,DWORD PTR [ebx+0x14d8]",
@@ -733,23 +600,30 @@
         "call 0x458ea5",
         "mov esp,ebp",
         "pop ebp",
-        "ret"
+        "ret",
+        "cmp eax,0xfffffe70",
+        "mov eax,DWORD PTR [edx+0x4]",
+        "jl L+0x3217",
+        "mov ecx,0x1"
       ],
-      "model": [
-        "jmp L+0x19a8"
-      ]
+      "model": []
     },
     {
-      "class": "code-shape",
-      "offset": "0x31e6",
-      "retail": [
-        "mov ebx,DWORD PTR [ebx+0x14d8]",
+      "class": "branch-target",
+      "offset": "0x3219",
+      "retail": [],
+      "model": [
+        "cmp eax,0xfffffe00",
+        "mov eax,DWORD PTR [edx+0x4]",
+        "jle L+0x314f",
+        "call 0x44fe40",
         "fstp DWORD PTR [esp+0x10]",
+        "mov ebx,DWORD PTR [ebx+0x14d8]",
         "mov eax,DWORD PTR [ebx+0x4]",
         "xor ecx,ecx",
         "call 0x450070",
-        "mov ecx,DWORD PTR [esp+0x10]",
-        "mov DWORD PTR [eax],ecx",
+        "mov edx,DWORD PTR [esp+0x10]",
+        "mov DWORD PTR [eax],edx",
         "xor eax,eax",
         "pop edi",
         "pop esi",
@@ -759,10 +633,28 @@
         "call 0x458ea5",
         "mov esp,ebp",
         "pop ebp",
-        "ret"
-      ],
-      "model": [
-        "jmp L+0x3503"
+        "ret",
+        "mov eax,ds:0x474c98",
+        "cmp eax,0x258",
+        "jl L+0x31dd",
+        "mov eax,DWORD PTR [edx+0x4]",
+        "mov ecx,0x4",
+        "jmp L+0x3191",
+        "cmp eax,0xc8",
+        "jl L+0x31ee",
+        "mov ecx,0x3",
+        "jmp L+0x314c",
+        "cmp eax,0xffffff38",
+        "jl L+0x31ff",
+        "mov eax,DWORD PTR [edx+0x4]",
+        "mov ecx,0x2",
+        "jmp L+0x3191",
+        "cmp eax,0xfffffe70",
+        "mov eax,DWORD PTR [edx+0x4]",
+        "jl L+0x3213",
+        "mov ecx,0x1",
+        "jmp L+0x314f",
+        "xor ecx,ecx"
       ]
     },
     {
@@ -784,32 +676,6 @@
       "model": []
     },
     {
-      "class": "code-shape",
-      "offset": "0x3531",
-      "retail": [
-        "jmp L+0x31e6"
-      ],
-      "model": [
-        "mov ebx,DWORD PTR [ebx+0x14d8]",
-        "fstp DWORD PTR [esp+0x10]",
-        "mov eax,DWORD PTR [ebx+0x4]",
-        "xor ecx,ecx",
-        "call 0x450070",
-        "mov ecx,DWORD PTR [esp+0x10]",
-        "mov DWORD PTR [eax],ecx",
-        "xor eax,eax",
-        "pop edi",
-        "pop esi",
-        "pop ebx",
-        "mov ecx,DWORD PTR [esp+0x2c0]",
-        "xor ecx,ebp",
-        "call 0x458ea5",
-        "mov esp,ebp",
-        "pop ebp",
-        "ret"
-      ]
-    },
-    {
       "class": "register-choice",
       "offset": "0x3597",
       "retail": [
@@ -828,17 +694,50 @@
         "nop"
       ],
       "model": [
-        "lea ecx,[ecx+0x0]"
+        "mov edi,edi"
+      ]
+    },
+    {
+      "class": "branch-target",
+      "offset": "table+0xe8",
+      "retail": [
+        "L+0x3172"
+      ],
+      "model": [
+        "L+0x31c7"
+      ]
+    },
+    {
+      "class": "branch-target",
+      "offset": "table+0x280",
+      "retail": [
+        "L+0x3194"
+      ],
+      "model": [
+        "L+0x31f5"
+      ]
+    },
+    {
+      "class": "branch-target",
+      "offset": "table+0x284",
+      "retail": [
+        "L+0x1997"
+      ],
+      "model": [
+        "L+0x31e4"
+      ]
+    },
+    {
+      "class": "branch-target",
+      "offset": "table+0x288",
+      "retail": [
+        "L+0x19a4"
+      ],
+      "model": [
+        "L+0x31d3"
       ]
     }
   ],
   "note": "reference/recovery_notes/enemy_execute_0040e770_2026_10_03.md",
-  "frame_shift": {
-    "deltas": [
-      4,
-      16
-    ],
-    "count": 0
-  },
   "listed_branch_targets": true
 }

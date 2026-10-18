@@ -6,7 +6,7 @@
   (SHA-256 `2f14760b6fbbf575…`, verified after every promotion).
 - **100.0% of game code recovered** (322,064 of 322,064 bytes, 2,322 of 2,322
   regions); no inline assembly in the default build.
-- **82.9% byte-exact C++** (2,308 regions), **99.2%** counting the identical
+- **82.9% byte-exact C++** (2,308 regions), **99.3%** counting the identical
   instructions of the 22 equivalent regions.
 - `callsite_abi.py`, the 129 unit tests and `git diff --check` pass.
 
@@ -47,14 +47,14 @@ the decoded mechanisms).
 | Address | Layout | Bytes | Identical | Recorded diffs | Swaps |
 | --- | --- | ---: | ---: | ---: | ---: |
 | 0x004067D0 | `projectile_spawn_cell` | 1,472 | 348/354 | 1 | 0 |
-| 0x0040BD80 | `recovery_script_executor` | 1,568 | 428/444 | 8 | 0 |
-| 0x0040E770 | `enemy_execute` | 14,416 | 3,808/3,926 | 53 | 0 |
+| 0x0040BD80 | `recovery_script_executor` | 1,568 | 429/444 | 8 | 0 |
+| 0x0040E770 | `enemy_execute` | 14,416 | 3,832/3,926 | 46 | 0 |
 | 0x0041DD80 | `laser_circle_trim` | 1,238 | 274/345 | 53 | 0 |
 | 0x0041EB00 | `laser_rectangle_split` | 1,171 | 315/316 | 2 | 0 |
 | 0x0041EFA0 | `laser_circle_split` | 1,108 | 236/302 | 47 | 0 |
 | 0x0041AFD0 | `item_update` | 2,320 | 549/601 | 33 | 0 |
 | 0x00428F60 | `replay_runtime_bootstrap` | 1,344 | 387/389 | 3 | 0 |
-| 0x00429B60 | `replay_save` | 1,681 | 433/535 | 43 | 0 |
+| 0x00429B60 | `replay_save` | 1,681 | 447/535 | 29 | 0 |
 | 0x0042A3E0 | `replay_frame_step` | 68 | 22/22 | 0 | 0 |
 | 0x0042CDF0 | `title_dispatcher` | 1,128 | 285/291 | 5 | 0 |
 | 0x00432CB0 | `name_entry_update` | 1,400 | 368/378 | 10 | 0 |
