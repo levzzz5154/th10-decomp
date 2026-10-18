@@ -988,18 +988,6 @@
    "model": [
     "lea ecx,[ecx+0x0]"
    ]
-  },
-  {
-   "class": "operand-order",
-   "offset": "0x401",
-   "retail": [
-    "fld DWORD PTR [ecx]",
-    "fadd DWORD PTR [ebx+0x2b8]"
-   ],
-   "model": [
-    "fld DWORD PTR [ebx+0x2b8]",
-    "fadd DWORD PTR [ecx]"
-   ]
   }
  ],
  "note": "reference/recovery_notes/title_dispatcher_0042cdf0_equivalent_2026_10_12.md",

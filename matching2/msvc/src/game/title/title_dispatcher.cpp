@@ -166,7 +166,9 @@ __declspec(noinline) int __stdcall TitleDispatcher_Model(
         }
         g_globals_score.flags &= ~0x20u;
         if (transition == 0) {
-            room->DisableTimerWithOwner(1);
+            // transition is 0 here; the sum (one more expression temporary)
+            // puts the closing timer add's fld/fadd in retail's order.
+            room->DisableTimerWithOwner(transition + 1);
             g_main_mode_request = 1;
         } else if (transition == 1) {
             if (g_globals_score.difficulty == 4)

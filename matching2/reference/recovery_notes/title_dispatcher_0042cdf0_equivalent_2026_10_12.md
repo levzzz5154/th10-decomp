@@ -257,3 +257,16 @@ of each build):
   the f40 update is the only remaining surface and is not reachable from
   source spellings that keep the required bytes. Head family recorded as a
   proven blocker; the range head (285/291, 123 bytes) stands.
+
+## 2026-10-19 (later): the x87 pair closes with one expression temporary
+
+The closing timer add at +0x401 (`fld [ecx]` / `fadd [ebx+0x2b8]`, recorded as
+`operand-order`) is not immune after all. Writing the `transition == 0` arm's
+call as `room->DisableTimerWithOwner(transition + 1)` (transition is 0 there)
+adds one expression temporary and puts the pair in retail's order: 285/291,
+123 bytes -> 287/291, 116 bytes; the head family is unchanged. Any one of
+`transition + 1` for the 2 in the `transition == 1` arm, `transition + 10` for
+the 12 or `transition + 12` for the 15 does the same; doing all four flips it
+back (123). This is the temp-parity lever of `msvc-c2-operand-order-mechanism`.
+The `if (mode == 1 || mode == 2)` head with all those combinations and with
+unsigned/short/char compares of 2 stays at 912-914 bytes.
