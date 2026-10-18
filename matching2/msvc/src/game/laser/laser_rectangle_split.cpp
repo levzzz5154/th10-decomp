@@ -38,7 +38,11 @@ int CutLaser::CutRectangle(const CutVector* center,const CutVector* size,int spa
    progress+=12.0f;
    ++count;
   }
-  if (hit_count != 0 && hit_count >= 0) {
+  // Retail tests the counter twice: a zero test that keeps it in EAX, then
+  // the sign test the merge needs. Collapsing the two into one condition
+  // makes the compiler enregister the zero for both compares.
+  if (hit_count) {
+   if (hit_count > 0) {
    int cursor=0;
 
    while (cursor<count && cut[cursor]) ++cursor;
@@ -67,6 +71,7 @@ int CutLaser::CutRectangle(const CutVector* center,const CutVector* size,int spa
     params.script=script;
     params.total_length=total_length-start*12.0f;
     params.SpawnIn(g_laser_manager,0);
+   }
    }
   }
  }

@@ -50,7 +50,7 @@ the decoded mechanisms).
 | 0x0040BD80 | `recovery_script_executor` | 1,568 | 429/444 | 8 | 0 |
 | 0x0040E770 | `enemy_execute` | 14,416 | 3,832/3,926 | 46 | 0 |
 | 0x0041DD80 | `laser_circle_trim` | 1,238 | 274/345 | 53 | 0 |
-| 0x0041EB00 | `laser_rectangle_split` | 1,171 | 315/316 | 2 | 0 |
+| 0x0041EB00 | `laser_rectangle_split` | 1,171 | 315/316 | 1 | 0 |
 | 0x0041EFA0 | `laser_circle_split` | 1,108 | 236/302 | 47 | 0 |
 | 0x0041AFD0 | `item_update` | 2,320 | 549/601 | 33 | 0 |
 | 0x00428F60 | `replay_runtime_bootstrap` | 1,344 | 387/389 | 3 | 0 |

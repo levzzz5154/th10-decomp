@@ -164,19 +164,13 @@
   "differences": [
     {
       "class": "code-shape",
-      "offset": "0x2b2",
-      "retail": [],
-      "model": [
-        "jl L+0x478"
-      ]
-    },
-    {
-      "class": "alignment-padding",
-      "offset": "0x2ba",
+      "offset": "0x2ac",
       "retail": [
-        "lea ebx,[ebx+0x0]"
+        "je L+0x478"
       ],
-      "model": []
+      "model": [
+        "jle L+0x478"
+      ]
     }
   ],
   "note": "reference/recovery_notes/laser_rectangle_split_equivalent_2026_10_10.md",

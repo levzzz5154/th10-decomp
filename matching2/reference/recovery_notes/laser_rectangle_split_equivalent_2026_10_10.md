@@ -206,3 +206,32 @@ SpillObvious second reference to hit_count without emitting a second branch
 that keeps the compare immediate without the chain. Region stays equivalent;
 staged for integration: the chain-ge0 model and the layout differences
 (`code-shape` 0x2b2, `alignment-padding` 0x2ba).
+
+### 2026-10-19 (round 2): 14 bytes -> 1
+
+`variant.py` `315/316 instructions, 1 differing byte at 0x2ad`; the layout
+records one `code-shape` difference at 0x2ac (`je L+0x478` against
+`jle L+0x478`).
+
+The closing shape is a nested guard on the same counter,
+
+    if (hit_count) {
+     if (hit_count > 0) {
+      int cursor=0;
+      ...
+
+A single `if (hit_count)`, `if (hit_count != 0)`, `if (hit_count > 0)`,
+`if (hit_count >= 1)` or any `!= 0 && >= 0` conjunction regresses to the
+14-byte form: with one condition the front end enregisters the zero for both
+the guard compare and the loop-entry compare (`mov ecx,[esp+0x30];
+xor eax,eax; cmp ecx,eax`), while retail's guard is `mov eax,[esp+0x30];
+test eax,eax` with the zero materialised after the branch. The second
+(nested) condition keeps the counter in EAX for the guard, which reproduces
+retail's `test eax,eax`; c2 then merges the two conditions into one compare
+whose failure set is `<= 0`, i.e. `jle` — the single remaining byte.
+
+The residual is `msvc-c2-immediate-register-candidates`: the zero is
+enregistered because the guard compare and the loop compare share it, and no
+honest spelling measured (nested duplicates, copies, pointer reloads,
+unsigned/`>=1` forms, cursor placement, `for` loops, do/while, ternaries)
+keeps `test eax,eax` with a `je` failure set.
