@@ -6,7 +6,7 @@ into a byte-exact `th10.exe`.
 ![Project status](docs/status.png)
 
 Every game function is recovered as C++ and the default build contains no
-inline assembly. 82.9% of the game code bytes are byte-exact C++ (99.3%
+inline assembly. 83.4% of the game code bytes are byte-exact C++ (99.3%
 counting the identical instructions of the remaining functions). The rest are
 *equivalent recoveries* (below): C++ that differs from retail only by recorded,
 reviewed compiler choices. `make EXACT=1` swaps those back to their retail
@@ -29,7 +29,7 @@ The output is `matching2/build/msvc/th10.exe`. Every build ends with a line
 like
 
 ```
-Recovered: 100.0% of bytes (322,064 of 322,064), 100.0% of regions (2,322 of 2,322); byte-exact alone 82.9% of bytes, 99.3% counting identical instructions of equivalent regions
+Recovered: 100.0% of bytes (322,064 of 322,064), 100.0% of regions (2,322 of 2,322); byte-exact alone 83.4% of bytes, 99.3% counting identical instructions of equivalent regions
 ```
 
 The last share credits each equivalent region with its fraction of identical

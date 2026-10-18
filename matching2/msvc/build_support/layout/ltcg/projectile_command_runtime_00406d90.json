@@ -1,0 +1,310 @@
+{
+  "schema_version": 1,
+  "name": "projectile_command_runtime_00406d90",
+  "source": "src/game/bullet/projectile_command_runtime.cpp",
+  "driver": "build_support/layout/ltcg/projectile_command_runtime_00406d90_context.cpp",
+  "headers": [
+    "include/th10/game/enemy_grid_scan.hpp",
+    "include/th10/game/entity.hpp",
+    "include/th10/game/entity_script_start.hpp",
+    "include/th10/game/player.hpp",
+    "include/th10/game/projectile_spawn_runtime.hpp",
+    "include/th10/math/timer.hpp",
+    "include/th10/math/vector.hpp",
+    "include/th10/platform/sound_queue.hpp",
+    "include/th10/types.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "The projectile command interpreter 0x00406D90 with the whole recovered callee graph the equivalent model measured, each compiled body in its own retail section: byte-exact in all 1,604 bytes (1,456 code plus the 148-byte jump tables the compiler emits inside the same contribution). The 0x00401DE0 initialiser stand-in is the link entry; the interpreter is rooted so the link keeps it without inventing a caller.",
+  "functions": [
+    {
+      "name": "ProjectileCommandRuntime_Tick",
+      "symbol": "?Tick@ProjectileCommandRuntime@@QAEXXZ",
+      "section": ".text$00406d90_fn",
+      "address": "0x00406D90",
+      "size": 1604,
+      "actual_abi": "thiscall: record in ECX, no stack arguments, RET 0"
+    }
+  ],
+  "context": {
+    "symbol": "?Entity_Init@@YIXPAXPAUEntity@@@Z",
+    "section": ".text$00401de0_fn",
+    "address": "0x00401DE0",
+    "size": 23,
+    "description": "The 0x00401DE0 initialiser stand-in, the link entry: it gives the whole-program pass the entity initialiser the script starter calls. Compiled context, never selected as recovered code."
+  },
+  "roots": [
+    "?Tick@ProjectileCommandRuntime@@QAEXXZ"
+  ],
+  "anchors": [
+    {
+      "name": "Entity_StartScript",
+      "symbol": "?Entity_StartScript@@YGXPAUAnimationResourceFile@@PAUEntity@@H@Z",
+      "section": ".text$00404f30_fn",
+      "address": "0x00404F30",
+      "size": 204
+    },
+    {
+      "name": "PlayerSchedulerRecord_SetSchedulerValue",
+      "symbol": "?SetSchedulerValue@PlayerSchedulerRecord@@QAEXH@Z",
+      "section": ".text$00405410_s",
+      "address": "0x00405410",
+      "size": 57
+    },
+    {
+      "name": "SpawnPatternCell",
+      "symbol": "?SpawnPatternCell2@@YGHPAUProjectilePattern@@PAUProjectileManager2@@HHM@Z",
+      "section": ".text$004067d0_fn",
+      "address": "0x004067D0",
+      "size": 170
+    },
+    {
+      "name": "EnemyGrid_ScanCells",
+      "symbol": "?EnemyGrid_ScanCells2@@YGHPAUProjectilePattern@@PAUProjectileManager2@@@Z",
+      "section": ".text$004073e0_fn",
+      "address": "0x004073E0",
+      "size": 194
+    },
+    {
+      "name": "PlayerCollisionRecord_Activate",
+      "symbol": "?Activate@PlayerCollisionRecord@@QAEHXZ",
+      "section": ".text$00408030_s",
+      "address": "0x00408030",
+      "size": 202
+    },
+    {
+      "name": "Player_AngleFromPoint",
+      "symbol": "?AngleFromPoint@Player@@QAEMPBM@Z",
+      "section": ".text$00426660_s",
+      "address": "0x00426660",
+      "size": 67
+    },
+    {
+      "name": "SoundQueue_Queue",
+      "symbol": "?Queue@SoundQueue@@QAEHHH@Z",
+      "section": ".text$0043dc90_s",
+      "address": "0x0043DC90",
+      "size": 123
+    },
+    {
+      "name": "SoundQueue_QueuePan",
+      "symbol": "?QueuePan@SoundQueue@@QAEXHM@Z",
+      "section": ".text$a05pan",
+      "address": "0x0043DD10",
+      "size": 149
+    },
+    {
+      "name": "AnimationObject_LoadScript",
+      "symbol": "_LoadScript2@12",
+      "section": ".text$zz_0043e710",
+      "address": "0x0043E710",
+      "size": 203
+    }
+  ],
+  "gaps": [
+    {
+      "section": ".text$00401000_gap",
+      "address": 4198400,
+      "size": 3552
+    },
+    {
+      "section": ".text$00401df7_gap",
+      "address": 4201975,
+      "size": 12601
+    },
+    {
+      "section": ".text$00404ffc_gap",
+      "address": 4214780,
+      "size": 1044
+    },
+    {
+      "section": ".text$00405449_gap",
+      "address": 4215881,
+      "size": 4999
+    },
+    {
+      "section": ".text$0040687a_gap",
+      "address": 4221050,
+      "size": 1302
+    },
+    {
+      "section": ".text$004073d4_gap",
+      "address": 4223956,
+      "size": 12
+    },
+    {
+      "section": ".text$004074a2_gap",
+      "address": 4224162,
+      "size": 2958
+    },
+    {
+      "section": ".text$004080fa_gap",
+      "address": 4227322,
+      "size": 124262
+    },
+    {
+      "section": ".text$004266a3_gap",
+      "address": 4351651,
+      "size": 95725
+    },
+    {
+      "section": ".text$0043dd0b_gap",
+      "address": 4447499,
+      "size": 5
+    },
+    {
+      "section": ".text$zz_0043dda5_gap",
+      "address": 4447653,
+      "size": 2411
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "?CreateOffset@AnimationResourceFile@@QAE?AUAnimationRef@@HPBUVector3@@@Z",
+      "address": "0x00401000",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?OutsideBounds@PlayfieldPoint@@QBEHMM@Z",
+      "address": "0x00401000",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?SetScorePolar@ScoreGameplayPolarVector@@QAEPAU1@MM@Z",
+      "address": "0x00408750",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_EnemyGridScanLeaf",
+      "address": "0x004524A1",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_EntityInitTail_00404f30",
+      "address": "0x00401EF1",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__fltused",
+      "address": "0x00000000",
+      "kind": "metadata"
+    },
+    {
+      "symbol": "__ftol2",
+      "address": "0x00463B2C",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_asm_FUN_0043ee30_0043ee30@4",
+      "address": "0x0043EE30",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_flt_0",
+      "address": "0x00470B04",
+      "kind": "data"
+    },
+    {
+      "symbol": "_flt_0_5",
+      "address": "0x00470B0C",
+      "kind": "data"
+    },
+    {
+      "symbol": "_flt_2pi",
+      "address": "0x00470B14",
+      "kind": "data"
+    },
+    {
+      "symbol": "_flt_4",
+      "address": "0x00470C40",
+      "kind": "data"
+    },
+    {
+      "symbol": "_flt_5_2083335",
+      "address": "0x00470B20",
+      "kind": "data"
+    },
+    {
+      "symbol": "_flt_990",
+      "address": "0x00470CCC",
+      "kind": "data"
+    },
+    {
+      "symbol": "_flt_neg990",
+      "address": "0x00470B50",
+      "kind": "data"
+    },
+    {
+      "symbol": "_flt_neg999",
+      "address": "0x00470CC8",
+      "kind": "data"
+    },
+    {
+      "symbol": "_flt_pi",
+      "address": "0x00470B18",
+      "kind": "data"
+    },
+    {
+      "symbol": "_flt_pi_2",
+      "address": "0x00470B94",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_bullet_manager",
+      "address": "0x004776F0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_bullet_script_first",
+      "address": "0x00474170",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_game_speed",
+      "address": "0x00476F78",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_player",
+      "address": "0x00477834",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_rng",
+      "address": "0x004918B0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_sound_manager",
+      "address": "0x00492590",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_sound_priority",
+      "address": "0x004749CE",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_sprt_ctrl",
+      "address": "0x00491C10",
+      "kind": "data"
+    }
+  ],
+  "included_sources": [
+    "build_support/layout/ltcg/enemy_grid_scan_anchors.cpp",
+    "build_support/layout/ltcg/enemy_grid_scan_dependencies/sound_pan.cpp",
+    "build_support/layout/ltcg/player_initialize_dependencies/sound_pan.cpp",
+    "build_support/layout/ltcg/projectile_spawn_runtime/activate.cpp",
+    "build_support/layout/ltcg/projectile_spawn_runtime/angle_from_point.cpp",
+    "build_support/layout/ltcg/projectile_spawn_runtime/queue.cpp",
+    "build_support/layout/ltcg/projectile_spawn_runtime/scheduler_set.cpp",
+    "src/core/sprtanim/animation_object_load_script.cpp",
+    "src/game/background/entity_start_script.cpp",
+    "src/game/bullet/enemy_grid_scan.cpp"
+  ],
+  "additional_sources": [
+    "build_support/layout/ltcg/projectile_command_runtime_00406d90_entities.cpp",
+    "build_support/layout/ltcg/projectile_command_runtime_00406d90_scan.cpp"
+  ]
+}

@@ -906,3 +906,17 @@ without removing any alias edge.
   buffer does not), so the word-array spelling stays.
 - `static` buffer, destination-pointer copy, named zero local, script short
   local, `unsigned short`/`int` rows: 41–505 bytes, no improvement.
+
+## 2026-10-19: promoted to semantic
+
+The model is byte-exact in all 1,604 bytes through
+`layout/ltcg/projectile_command_runtime_00406d90.json`; the closing lever was
+the case-scoped `pattern_words[132]` buffer plus the store order
+`rows, y_tail, flags, x_base, x_spacing` and `command_index` after `y_head`
+(round 2). The cluster's per-function context splits the two merged `zz_`
+sections so the nine callee bodies are anchored at their retail addresses; the
+equivalent layout and the 841-line asm body are deleted.
+
+The earlier "why this region cannot go semantic" argument is superseded: the
+compiler emits the switch tables inside the contribution, so the cluster's
+declared size is 1,604 (code + tables), not the 1,456-byte code extent.

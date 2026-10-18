@@ -30,9 +30,9 @@
     </g>
     <g transform="translate(432 232)">
       <rect width="336" height="150" rx="14" fill="#e8743b" fill-opacity="0.10" stroke="#e8743b" stroke-opacity="0.45"/>
-      <text x="24" y="78" font-size="64" font-weight="700" fill="#f29a4a">82.9%</text>
+      <text x="24" y="78" font-size="64" font-weight="700" fill="#f29a4a">83.4%</text>
       <text x="24" y="114" font-size="19" fill="#d8cdc6">byte-exact C++</text>
-      <text x="24" y="138" font-size="15" fill="#8f837c">2,308 functions identical to retail</text>
+      <text x="24" y="138" font-size="15" fill="#8f837c">2,309 functions identical to retail</text>
     </g>
     <g transform="translate(800 232)">
       <rect width="336" height="150" rx="14" fill="#ffffff" fill-opacity="0.04" stroke="#ffffff" stroke-opacity="0.08"/>
@@ -46,9 +46,9 @@
     <g transform="translate(64 442)">
       <rect width="1072" height="34" rx="8" fill="#2c2427"/>
       <!-- Widths from current region sizes and equivalent instruction counts. -->
-      <path d="M8,0 H888.5 V34 H8 A8,8 0 0 1 0,26 V8 A8,8 0 0 1 8,0 Z" fill="url(#exact)"/>
-      <rect x="888.5" width="174.9" height="34" fill="#a85a35"/>
-      <path d="M1063.4,0 H1064 A8,8 0 0 1 1072,8 V26 A8,8 0 0 1 1064,34 H1063.4 Z" fill="url(#hatch)"/>
+      <path d="M8,0 H894.0 V34 H8 A8,8 0 0 1 0,26 V8 A8,8 0 0 1 8,0 Z" fill="url(#exact)"/>
+      <rect x="894.0" width="170.5" height="34" fill="#a85a35"/>
+      <path d="M1064.5,0 H1064 A8,8 0 0 1 1072,8 V26 A8,8 0 0 1 1064,34 H1064.5 Z" fill="url(#hatch)"/>
     </g>
     <g font-size="15" fill="#d8cdc6" transform="translate(64 504)">
       <rect y="-12" width="14" height="14" rx="3" fill="#f29a4a"/>

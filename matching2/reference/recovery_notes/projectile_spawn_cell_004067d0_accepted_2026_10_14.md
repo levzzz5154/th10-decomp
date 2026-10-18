@@ -112,3 +112,29 @@ bases; the product pairs share flt_4's low-numbered symbol against the
 components' late address temporaries) and no source spelling moved it. This
 is the same family as the open x87 memory-operand swaps
 (projectile_point_count, 0x00408210).
+
+### 2026-10-19: the addend as a literal — EXACT
+
+`variant.py` `*EXACT*` (354/354 instructions, 0 differing code bytes, 0 tail);
+`equivalence.py` `"differences": []`, `"not_equivalent": []`,
+`base_index_order: 0`, `frame_offset: 0`.
+
+The closing lever is the same one that closed `front_hud_update` the same day:
+**write the scale as a literal** in the lit step,
+
+    const Vec3 shift = record->velocity * 4.0f;
+
+instead of `* flt_4` (an external `float` at 0x470C40). The compiler then pools
+its own `__real@40800000`, which has a different symbol class from an extern
+object, so the operand hash no longer ties and the emitter produces retail's
+`fld [component]; fmul ds:0x470C40` order for all three products. The layout
+gains the binding `__real@40800000` -> `0x00470C40`; `differences` is `[]`.
+
+Ruled out before this (all bit-identical, ~110 spellings): operand source
+swaps, accessor/operator/ctor spellings, pointer/reference/named locals at the
+use, statement-split products, helper parameter shapes, extern declaration
+order, first-use permutations, empty loops, dead references to other globals,
+live-across pointer locals, and member accessors at five earlier positions.
+The lesson recorded for the remaining x87 parks: an extern `float` operand can
+always be replaced by its literal, which changes the symbol class the operand
+hash sorts on.

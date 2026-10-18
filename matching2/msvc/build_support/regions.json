@@ -4499,13 +4499,22 @@
       "owner": "0x004067D0"
     },
     {
-      "name": "asm_FUN_00406d90_00406d90",
-      "source": "build_support/exact/game/bullet/projectile_command_runtime.cpp",
-      "symbol": "_asm_FUN_00406d90_00406d90",
+      "name": "semantic_ProjectileCommandRuntime_Tick_00406d90",
+      "source": "src/game/bullet/projectile_command_runtime.cpp",
+      "symbol": "?Tick@ProjectileCommandRuntime@@QAEXXZ",
       "address": "0x00406D90",
       "size": 1604,
-      "kind": "asm",
-      "owner": "0x00406D90"
+      "kind": "semantic",
+      "owner": "0x00406D90",
+      "previous_record": {
+        "name": "asm_FUN_00406d90_00406d90",
+        "source": "build_support/exact/game/bullet/projectile_command_runtime.cpp",
+        "symbol": "_asm_FUN_00406d90_00406d90",
+        "address": "0x00406D90",
+        "size": 1604,
+        "kind": "asm",
+        "owner": "0x00406D90"
+      }
     },
     {
       "name": "text_padding_004073d4",
@@ -60484,7 +60493,6 @@
     "build_support/exact/core/sprtlib/transparent_pixel_fill_locked.cpp",
     "build_support/exact/core/zunlib/joystick_poll.cpp",
     "build_support/exact/game/bullet/enemy_projectile_spawn.cpp",
-    "build_support/exact/game/bullet/projectile_command_runtime.cpp",
     "build_support/exact/game/ending/event_script_runtime.cpp",
     "build_support/exact/game/enemy/ecl_vm.cpp",
     "build_support/exact/game/item/manager_factories.cpp",
@@ -62439,7 +62447,8 @@
     "src/game/front/front_script_tick_unit.cpp",
     "src/core/main/font_atlas_draw_text.cpp",
     "src/game/pause/replay_submenu_update.cpp",
-    "src/game/front/front_hud_update.cpp"
+    "src/game/front/front_hud_update.cpp",
+    "src/game/bullet/projectile_command_runtime.cpp"
   ],
   "notes": [
     "Every executable body is compiled from C++; unported bodies use MSVC inline assembly.",
@@ -63443,7 +63452,8 @@
     "build_support/layout/ltcg/font_atlas_draw_text_00437fe0.json",
     "build_support/layout/ltcg/replay_submenu_004236f0.json",
     "build_support/layout/ltcg/player_reset_block_initialize_004247f0.json",
-    "build_support/layout/ltcg/front_hud_update_00414900.json"
+    "build_support/layout/ltcg/front_hud_update_00414900.json",
+    "build_support/layout/ltcg/projectile_command_runtime_00406d90.json"
   ],
   "coff_aliases": {
     "lib/libcmt.lib/build/intel/mt_obj/exsup3.obj": {
@@ -64507,10 +64517,6 @@
     {
       "region": "asm_FUN_0040bd80_0040bd80",
       "layout": "build_support/layout/equivalent/recovery_script_executor.json"
-    },
-    {
-      "region": "asm_FUN_00406d90_00406d90",
-      "layout": "build_support/layout/equivalent/projectile_command_runtime.json"
     },
     {
       "region": "asm_FUN_004067d0_004067d0",

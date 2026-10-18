@@ -170,31 +170,11 @@
   "?SpawnPatternCell2@@YGHPAUProjectilePattern@@PAUProjectileManager2@@HHM@Z": "0x004067D0",
   "?Tick@ProjectileCommandRuntime@@QAEXXZ": "0x00406D90",
   "?Rng_NextFloat@@YIMPAURngState@@@Z": "0x0044BB20",
-  "?Angle_NormalizeSum@@YGMMM@Z": "0x0044BC10"
+  "?Angle_NormalizeSum@@YGMMM@Z": "0x0044BC10",
+  "__real@40800000": "0x00470C40"
  },
  "base_index_order": 0,
- "differences": [
-  {
-   "class": "code-shape",
-   "offset": "0x49f",
-   "retail": [
-    "fld DWORD PTR [ebp+0x3c0]",
-    "fmul DWORD PTR ds:0x470c40",
-    "fld DWORD PTR [ebp+0x3c4]",
-    "fmul DWORD PTR ds:0x470c40",
-    "fld DWORD PTR [ebp+0x3c8]",
-    "fmul DWORD PTR ds:0x470c40"
-   ],
-   "model": [
-    "fld DWORD PTR ds:0x470c40",
-    "fmul DWORD PTR [ebp+0x3c0]",
-    "fld DWORD PTR ds:0x470c40",
-    "fmul DWORD PTR [ebp+0x3c4]",
-    "fld DWORD PTR ds:0x470c40",
-    "fmul DWORD PTR [ebp+0x3c8]"
-   ]
-  }
- ],
+ "differences": [],
  "context_sources": [
   "build_support/contexts/equivalent/game/context/projectile_spawn_cell_start_script.cpp",
   "build_support/contexts/equivalent/game/context/projectile_spawn_cell_scan_cells.cpp",

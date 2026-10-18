@@ -40,9 +40,12 @@ __forceinline static float Rng_RangeFloat(RngState* state, float range) {
 }
 
 // A shaped bullet is lit at once and steps back by one frame of its velocity.
+// The scale is written as a literal on purpose: a compiler float literal has a
+// different symbol class from the external flt_4, and the operand hash then
+// orders each product as retail does (`fld component; fmul ds:0x470c40`).
 __forceinline static void SpawnRecord_Light(ProjectileSpawnRecord* record, Vec3& position) {
     record->state = 2;
-    const Vec3 shift = record->velocity * flt_4;
+    const Vec3 shift = record->velocity * 4.0f;
     position.x -= shift.x;
     position.y -= shift.y;
     position.z -= shift.z;
@@ -58,10 +61,6 @@ int __stdcall SpawnPatternCell2(ProjectilePattern* pattern,
         reinterpret_cast<const ProjectileBlueprint*>(pattern);
     ProjectileSpawnRecord* record = manager->current;
     int attempts = 0;
-    // Taking the scale's address here orders flt_4's symbol among the
-    // function's early temporaries; the lit step's product operands are
-    // canonicalised from those symbol classes.
-    (void)&flt_4;
     do {
         if (record->state == 0)
             break;

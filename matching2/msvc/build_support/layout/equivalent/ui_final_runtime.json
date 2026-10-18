@@ -995,248 +995,78 @@
   "@UiFinalFind@12": "0x004491C0",
   "_UiFinalTransition@20": "0x00434A80"
  },
- "base_index_order": 0,
+ "base_index_order": 1,
  "differences": [
   {
-   "offset": "0x70",
-   "retail": [
-    "mov ecx,DWORD PTR ds:0x4776e0",
-    "mov eax,DWORD PTR [ecx+0x8994]"
-   ],
-   "model": [
-    "mov eax,ds:0x4776e0",
-    "mov ecx,DWORD PTR [eax+0x8994]"
-   ],
-   "class": "register-choice"
-  },
-  {
-   "offset": "0x80",
-   "retail": [
-    "push eax"
-   ],
-   "model": [
-    "push ecx"
-   ],
-   "class": "register-choice"
-  },
-  {
-   "offset": "0xea",
-   "retail": [
-    "lea ebx,[ebx+0x0]"
-   ],
-   "model": [
-    "lea esp,[esp+0x0]"
-   ],
-   "class": "alignment-padding"
-  },
-  {
+   "class": "evaluation-order",
    "offset": "0x121",
    "retail": [],
    "model": [
     "mov ecx,eax"
-   ],
-   "class": "evaluation-order"
+   ]
   },
   {
+   "class": "evaluation-order",
    "offset": "0x125",
    "retail": [
     "mov ecx,eax"
    ],
-   "model": [],
-   "class": "evaluation-order"
+   "model": []
   },
   {
+   "class": "evaluation-order",
    "offset": "0x2dc",
    "retail": [
     "mov ecx,DWORD PTR [esp+0x10]",
     "mov eax,DWORD PTR [esp+0x30]",
-    "mov edx,ecx",
-    "push edx",
-    "mov edx,esi",
-    "mov DWORD PTR [eax],ecx"
+    "mov edx,ecx"
    ],
    "model": [
     "mov eax,DWORD PTR [esp+0x10]",
     "mov ecx,DWORD PTR [esp+0x30]",
-    "push eax",
-    "mov DWORD PTR [ecx],eax"
-   ],
-   "class": "code-shape"
+    "mov DWORD PTR [ecx],eax",
+    "mov edx,DWORD PTR [eax]"
+   ]
   },
   {
-   "offset": "0x2f6",
+   "class": "evaluation-order",
+   "offset": "0x2e9",
    "retail": [
-    "mov eax,DWORD PTR [esp+0x30]",
-    "mov DWORD PTR [eax],ebx",
-    "mov ecx,DWORD PTR ds:0x47783c",
-    "mov al,BYTE PTR [ecx+edi*1+0x1d892]",
-    "test al,al"
+    "mov DWORD PTR [eax],ecx"
    ],
-   "model": [
-    "mov edx,DWORD PTR [esp+0x30]",
-    "mov DWORD PTR [edx],eax",
-    "mov eax,ds:0x47783c",
-    "mov cl,BYTE PTR [eax+edi*1+0x1d892]",
-    "test cl,cl"
-   ],
-   "class": "register-choice"
+   "model": []
   },
   {
-   "offset": "0x30d",
-   "retail": [
-    "mov edx,DWORD PTR [esp+0x18]",
-    "push edx"
-   ],
-   "model": [
-    "mov ecx,DWORD PTR [esp+0x18]",
-    "push ecx"
-   ],
-   "class": "register-choice"
-  },
-  {
-   "offset": "0x324",
-   "retail": [
-    "lea eax,[edi+0x1]",
-    "push eax"
-   ],
-   "model": [
-    "lea edx,[edi+0x1]",
-    "push edx"
-   ],
-   "class": "register-choice"
-  },
-  {
+   "class": "evaluation-order",
    "offset": "0x37d",
-   "retail": [
-    "lea edx,[ebx+0x334]"
-   ],
-   "model": [],
-   "class": "evaluation-order"
-  },
-  {
-   "offset": "0x385",
-   "retail": [
-    "lea ecx,[esp+0x28]"
-   ],
-   "model": [
-    "lea ecx,[ebx+0x334]",
-    "lea edx,[esp+0x28]"
-   ],
-   "class": "evaluation-order"
-  },
-  {
-   "offset": "0x693",
-   "retail": [
-    "mov edx,DWORD PTR [ebx]",
-    "push edx"
-   ],
-   "model": [
-    "mov edi,edi",
-    "mov eax,DWORD PTR [ebx]"
-   ],
-   "class": "code-shape"
-  },
-  {
-   "offset": "0x69c",
    "retail": [],
    "model": [
-    "push eax"
-   ],
-   "class": "evaluation-order"
+    "push 0x4"
+   ]
   },
   {
+   "class": "evaluation-order",
+   "offset": "0x383",
+   "retail": [
+    "push 0x4"
+   ],
+   "model": []
+  },
+  {
+   "class": "evaluation-order",
    "offset": "0x702",
-   "retail": [
-    "lea edx,[esi+0x334]"
-   ],
-   "model": [],
-   "class": "evaluation-order"
+   "retail": [],
+   "model": [
+    "push 0x4"
+   ]
   },
   {
-   "offset": "0x70a",
+   "class": "evaluation-order",
+   "offset": "0x708",
    "retail": [
-    "lea ecx,[esp+0x28]"
+    "push 0x4"
    ],
-   "model": [
-    "lea ecx,[esi+0x334]",
-    "lea edx,[esp+0x28]"
-   ],
-   "class": "evaluation-order"
-  },
-  {
-   "offset": "0x717",
-   "retail": [
-    "mov ecx,DWORD PTR [esp+0x20]",
-    "mov edx,DWORD PTR [esp+0x24]",
-    "lea eax,[esi+0x334]",
-    "mov DWORD PTR [eax],ecx",
-    "mov ecx,DWORD PTR [esp+0x28]",
-    "mov DWORD PTR [eax+0x4],edx",
-    "mov DWORD PTR [eax+0x8],ecx"
-   ],
-   "model": [
-    "mov eax,DWORD PTR [esp+0x20]",
-    "mov ecx,DWORD PTR [esp+0x24]",
-    "lea edx,[esi+0x334]",
-    "mov DWORD PTR [edx],eax",
-    "mov eax,DWORD PTR [esp+0x28]",
-    "mov DWORD PTR [edx+0x4],ecx",
-    "mov DWORD PTR [edx+0x8],eax"
-   ],
-   "class": "code-shape"
-  },
-  {
-   "offset": "0x74a",
-   "retail": [
-    "xor edx,edx"
-   ],
-   "model": [
-    "xor ecx,ecx"
-   ],
-   "class": "register-choice"
-  },
-  {
-   "offset": "0x754",
-   "retail": [
-    "setne dl"
-   ],
-   "model": [
-    "setne cl"
-   ],
-   "class": "register-choice"
-  },
-  {
-   "offset": "0x75e",
-   "retail": [
-    "add edx,0x2",
-    "mov WORD PTR [esi+0x304],dx"
-   ],
-   "model": [
-    "add ecx,0x2",
-    "mov WORD PTR [esi+0x304],cx"
-   ],
-   "class": "register-choice"
-  },
-  {
-   "offset": "0x771",
-   "retail": [
-    "jl L+0x693"
-   ],
-   "model": [
-    "jl L+0x690"
-   ],
-   "class": "branch-target"
-  },
-  {
-   "offset": "0x79e",
-   "retail": [
-    "mov edi,edi"
-   ],
-   "model": [
-    "jmp L+0x7a0",
-    "lea ecx,[ecx+0x0]"
-   ],
-   "class": "code-shape"
+   "model": []
   }
  ],
  "note": "reference/recovery_notes/ui_final_runtime_00433ef0_equivalent_2026_10_12.md",

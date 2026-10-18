@@ -1,5 +1,4 @@
-// 0x00406D90, equivalent-recovery model: run one batch of a spawned
-// projectile's command script.
+// 0x00406D90: run one batch of a spawned projectile's command script.
 //
 // The record arrives in ECX. Up to eighteen commands are executed per call;
 // each command is a 24-byte record whose id selects the scheduler flag, timer,
@@ -7,9 +6,10 @@
 // word of zero stops it once motion flags are set, and the 0x80000000 id just
 // advances.
 //
-// The region covers the code and its two switch tables (1604 bytes); this
-// model is verified through the equivalent-recovery layout
-// build_support/layout/equivalent/projectile_command_runtime.json.
+// The region covers the code and its two switch tables (1604 bytes); the
+// body is byte-exact through the native LTCG cluster
+// build_support/layout/ltcg/projectile_command_runtime_00406d90.json, whose
+// per-function context gives every callee its retail section and address.
 #include <string.h>
 #include "th10/game/projectile_spawn_runtime.hpp"
 #include "th10/game/enemy_grid_scan.hpp"

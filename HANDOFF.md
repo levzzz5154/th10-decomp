@@ -6,7 +6,7 @@
   (SHA-256 `2f14760b6fbbf575…`, verified after every promotion).
 - **100.0% of game code recovered** (322,064 of 322,064 bytes, 2,322 of 2,322
   regions); no inline assembly in the default build.
-- **82.9% byte-exact C++** (2,308 regions), **99.3%** counting the identical
+- **83.4% byte-exact C++** (2,309 regions), **99.3%** counting the identical
   instructions of the 22 equivalent regions.
 - `callsite_abi.py`, the 129 unit tests and `git diff --check` pass.
 
@@ -38,7 +38,7 @@ show the original source's symbol/temp populations cannot be reconstructed by
 any honest spelling — those parks are recorded with the decoded mechanism and
 the ruled-out inventory, not left open.
 
-## Equivalent recoveries (22)
+## Equivalent recoveries (21)
 
 Current measurements; each layout's `note` points at its recovery note in
 `matching2/reference/recovery_notes/` (all have dated 2026-10-18 sections with
@@ -382,6 +382,13 @@ matter most for the parked regions:
 
 ## History
 
+- 2026-10-19: `projectile_command_runtime` 0x00406D90 is promoted after the
+  round-2 model closed byte-exact. The promotion needed a cluster that compiles
+  the model's nine callee bodies from their own sources (splitting the two
+  merged `zz_` context sections) so each is anchored at its retail address;
+  the compiler emits the switch tables inside the contribution, so the region
+  is declared at 1,604 bytes rather than its 1,456-byte code extent.
+  Byte-exact 82.9% -> 83.4%; 21 equivalent regions remain.
 - 2026-10-18 (round 2): a second 23-region campaign closes and promotes two
   more — `front_hud_update` 0x00414900 (16 bytes: the two `fadd` operand
   orders flip once the addends are written as literals, which gives them the

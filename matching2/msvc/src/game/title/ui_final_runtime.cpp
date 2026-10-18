@@ -87,7 +87,7 @@ void __stdcall RecoveryMusicInstallSlot(Title* room, int index);
 char* __stdcall StageText_SkipLine(char* cursor, int* remaining);
 extern "C" char* __stdcall UiFinalExtractLine(int* remaining, char* destination, char* cursor);
 void __stdcall RecoveryMusicStopHandle(RecoveryHandle* handle);
-extern "C" void __stdcall UiFinalTransition(RecoveryMusicVm* self, const RecoveryMusicVector* target, const RecoveryMusicVector* base, int mode, unsigned char flag);
+extern "C" void __stdcall UiFinalTransition(RecoveryMusicVm* self, const RecoveryMusicVector* base, const RecoveryMusicVector* target, int mode, unsigned char flag);
 
 // The body of 0x00448D00, where the whole-program link expanded it in place.
 static __forceinline void** MusicCreateInPlace(void* resource, void** out, int script, int bucket) {
@@ -102,10 +102,10 @@ static __forceinline void** MusicCreateInPlace(void* resource, void** out, int s
 }
 // The body of 0x00449450, likewise.
 static __forceinline RecoveryMusicVm* MusicValidateInPlace(RecoveryHandle* handle) {
-    RecoveryScriptId id = { static_cast<int>(handle->value) };
     RecoveryMusicVm* object = static_cast<RecoveryMusicVm*>(
         UiFinalFind(g_sprt_ctrl,
-            reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl), id));
+            reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl),
+            *reinterpret_cast<RecoveryScriptId*>(&handle->value)));
     if (object == 0)
         handle->value = 0;
     return object;
@@ -174,11 +174,13 @@ __declspec(noinline) int __stdcall TitleMusicRoom(Title* room) {
         if (room->timer.current == 1) {
             room->cursor.item_count = 6;
             MusicSelect(room->cursor, 0);
-            if (MusicFind(room->animation_slots[95]) == 0) {
+            if (UiFinalFind(g_sprt_ctrl,
+                            reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl),
+                            *reinterpret_cast<RecoveryScriptId*>(&room->animation_slots[95])) == 0) {
                 RecoveryMusicInstallSlot(room, 95);
-                room->fallback_handle.value = reinterpret_cast<unsigned int>(
-                    *AnimationManager_CreatePrimaryBack(
-                        g_ascii_manager->animation_resource, &handle, 8, 15));
+                void* resource = g_ascii_manager->animation_resource;
+                void** result = AnimationManager_CreatePrimaryBack(resource, &handle, 8, 15);
+                room->fallback_handle.value = reinterpret_cast<unsigned int>(*result);
             }
             RecoveryMusicInstallSlot(room, 103);
             int tracks = 0;
@@ -222,7 +224,10 @@ __declspec(noinline) int __stdcall TitleMusicRoom(Title* room) {
                 unsigned int created_value = reinterpret_cast<unsigned int>(
                     *MusicCreateInPlace(room->animation_resource, &created, index + 173, 15));
                 room->row_handles[index].value = created_value;
-                RecoveryMusicVm* object = MusicFind(created_value);
+                RecoveryMusicVm* object = static_cast<RecoveryMusicVm*>(
+                    UiFinalFind(g_sprt_ctrl,
+                        reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl),
+                        *reinterpret_cast<RecoveryScriptId*>(created)));
                 if (object == 0)
                     room->row_handles[index].value = 0;
                 RecoveryTextVm* text = reinterpret_cast<RecoveryTextVm*>(object);
@@ -238,7 +243,7 @@ __declspec(noinline) int __stdcall TitleMusicRoom(Title* room) {
                     object->flags |= 2u;
                 if (index == room->cursor.selection)
                     position.x = static_cast<float>(position.x - 4.0);
-                UiFinalTransition(object, &position, &object->position, 4, 0);
+                UiFinalTransition(object, &object->position, &position, 4, 0);
                 if (index == room->cursor.selection)
                     position.x = static_cast<float>(position.x + 4.0);
                 position.y = position.y + 20.0f;
@@ -286,7 +291,7 @@ __declspec(noinline) int __stdcall TitleMusicRoom(Title* room) {
                     position.x = static_cast<float>(position.x - 4.0);
                 // A row that is near its place slides to it; one far away jumps.
                 if (fabs(object->position.y - position.y) < 40.0f)
-                    UiFinalTransition(object, &position, &object->position, 4, 0);
+                    UiFinalTransition(object, &object->position, &position, 4, 0);
                 else
                     object->position = position;
                 if (index == room->cursor.selection)
