@@ -138,3 +138,19 @@ live-across pointer locals, and member accessors at five earlier positions.
 The lesson recorded for the remaining x87 parks: an extern `float` operand can
 always be replaced by its literal, which changes the symbol class the operand
 hash sorts on.
+
+## 2026-10-19: promoted to semantic
+
+The model is byte-exact over all 1,472 bytes and now links as
+`layout/ltcg/projectile_spawn_cell_004067d0.json`. Two requirements keep the
+/GL register convention at retail:
+
+- the angle context TU is `build_support/layout/units/angle_4872c8.cpp` (the
+  unit wrapper), not `angle_normalize.cpp`: including only the latter drops
+  `WrappedAngleDifference` from the /GL program and the spawner drifts by 64
+  bytes;
+- `roots` stays empty. Rooting the selected symbol passes `/INCLUDE:`, marks
+  the body externally visible and makes /GL choose a stack convention, which
+  shrinks the contribution to 1,460 bytes.
+
+The equivalent layout, its two context TUs and the asm body are deleted.

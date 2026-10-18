@@ -1,0 +1,358 @@
+{
+  "schema_version": 1,
+  "name": "projectile_spawn_cell_004067d0",
+  "image_base": 4194304,
+  "description": "The projectile grid-cell spawner 0x004067D0 with the whole recovered callee graph the equivalent model measured, each compiled body in its own retail section: byte-exact in all 1,472 bytes (1,416 code plus the 56-byte switch table the compiler emits inside the same contribution). The scanner reaches the spawner through the 0x0044BC6E link entry, so the link keeps the spawner without inventing a retail caller.",
+  "source": "src/game/bullet/projectile_spawn_cell.cpp",
+  "driver": "build_support/layout/ltcg/projectile_spawn_cell_004067d0_context.cpp",
+  "additional_sources": [
+    "build_support/layout/ltcg/projectile_spawn_cell_004067d0_script.cpp",
+    "build_support/layout/ltcg/projectile_spawn_cell_004067d0_grid.cpp",
+    "build_support/layout/ltcg/projectile_spawn_cell_004067d0_rng.cpp",
+    "build_support/layout/ltcg/projectile_spawn_cell_004067d0_angle.cpp"
+  ],
+  "included_sources": [
+    "build_support/layout/ltcg/enemy_grid_scan_dependencies/sound_pan.cpp",
+    "build_support/layout/ltcg/player_initialize_dependencies/sound_pan.cpp",
+    "build_support/layout/units/angle_4872c8.cpp",
+    "src/core/sprtanim/animation_object_load_script.cpp",
+    "src/core/zunlib/angle_normalize.cpp",
+    "src/core/zunlib/rng.cpp",
+    "src/game/background/entity_start_script.cpp",
+    "src/game/bullet/enemy_grid_scan.cpp",
+    "src/game/bullet/wrapped_angle_difference.cpp"
+  ],
+  "headers": [
+    "include/th10/game/enemy_grid_scan.hpp",
+    "include/th10/game/entity.hpp",
+    "include/th10/game/entity_script_start.hpp",
+    "include/th10/game/player.hpp",
+    "include/th10/game/projectile_spawn_runtime.hpp",
+    "include/th10/math/angle.hpp",
+    "include/th10/math/rng.hpp",
+    "include/th10/math/timer.hpp",
+    "include/th10/math/vector.hpp",
+    "include/th10/platform/sound_queue.hpp",
+    "include/th10/source_views/angle_4872c8_0.hpp",
+    "include/th10/source_views/angle_4872c8_1.hpp",
+    "include/th10/source_views/angle_4872c8_2.hpp",
+    "include/th10/types.hpp"
+  ],
+  "functions": [
+    {
+      "name": "SpawnPatternCell2",
+      "symbol": "?SpawnPatternCell2@@YGHPAUProjectilePattern@@PAUProjectileManager2@@HHM@Z",
+      "section": ".text$004067d0_fn",
+      "address": "0x004067D0",
+      "size": 1472,
+      "actual_abi": "stdcall; blueprint in EBX, manager/column/row/aim on the stack, RET 12"
+    }
+  ],
+  "context": {
+    "symbol": "_ProjectileSpawnCellContext@12",
+    "section": ".text$zz_entry",
+    "address": "0x44bc70",
+    "size": 50,
+    "description": "stdcall link entry on the grid scanner; it is never exported as recovered code."
+  },
+  "anchors": [
+    {
+      "name": "Entity_Init",
+      "symbol": "?Entity_Init@@YIXPAXPAUEntity@@@Z",
+      "section": ".text$00401de0_fn",
+      "address": "0x401de0",
+      "size": 23
+    },
+    {
+      "name": "Entity_StartScript",
+      "symbol": "?Entity_StartScript@@YGXPAUAnimationResourceFile@@PAUEntity@@H@Z",
+      "section": ".text$00404f30_fn",
+      "address": "0x404f30",
+      "size": 202
+    },
+    {
+      "name": "EnemyGrid_ScanCells2",
+      "symbol": "?EnemyGrid_ScanCells2@@YGHPAUProjectilePattern@@PAUProjectileManager2@@@Z",
+      "section": ".text$004073e0_fn",
+      "address": "0x4073e0",
+      "size": 194
+    },
+    {
+      "name": "QueuePan_SoundQueue",
+      "symbol": "?QueuePan@SoundQueue@@QAEXHM@Z",
+      "section": ".text$0043dd10_fn",
+      "address": "0x43dd10",
+      "size": 149
+    },
+    {
+      "name": "LoadScript2_12",
+      "symbol": "_LoadScript2@12",
+      "section": ".text$0043e710_fn",
+      "address": "0x43e710",
+      "size": 203
+    },
+    {
+      "name": "Rng_NextFloat",
+      "symbol": "?Rng_NextFloat@@YIMPAURngState@@@Z",
+      "section": ".text$0044bb20_fn",
+      "address": "0x44bb20",
+      "size": 109
+    },
+    {
+      "name": "Angle_NormalizeSum",
+      "symbol": "?Angle_NormalizeSum@@YGMMM@Z",
+      "section": ".text$0044bc10_fn",
+      "address": "0x44bc10",
+      "size": 94
+    }
+  ],
+  "gaps": [
+    {
+      "section": ".text$00401000_gap",
+      "address": "0x401000",
+      "size": 3552
+    },
+    {
+      "section": ".text$00401df7_gap",
+      "address": "0x401df7",
+      "size": 12601
+    },
+    {
+      "section": ".text$00404ffa_gap",
+      "address": "0x404ffa",
+      "size": 6102
+    },
+    {
+      "section": ".text$00406d90_gap",
+      "address": "0x406d90",
+      "size": 1616
+    },
+    {
+      "section": ".text$004074a2_gap",
+      "address": "0x4074a2",
+      "size": 223342
+    },
+    {
+      "section": ".text$0043dda5_gap",
+      "address": "0x43dda5",
+      "size": 2411
+    },
+    {
+      "section": ".text$0043e7db_gap",
+      "address": "0x43e7db",
+      "size": 54085
+    },
+    {
+      "section": ".text$0044bb8d_gap",
+      "address": "0x44bb8d",
+      "size": 131
+    },
+    {
+      "section": ".text$0044bc6e_gap",
+      "address": "0x44bc6e",
+      "size": 2
+    }
+  ],
+  "constants": [],
+  "constant_aliases": [
+    {
+      "symbol": "__real@40800000",
+      "address": "0x00470C40",
+      "value": 4.0
+    }
+  ],
+  "data_aliases": [],
+  "absolute_symbols": [
+    {
+      "symbol": "__ftol2",
+      "address": "0x00463B2C",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__fltused",
+      "address": "0x00000000",
+      "kind": "metadata"
+    },
+    {
+      "symbol": "_g_player",
+      "address": "0x00477834",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_bullet_manager",
+      "address": "0x004776F0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_sound_manager",
+      "address": "0x00492590",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_bullet_script_first",
+      "address": "0x00474170",
+      "kind": "data"
+    },
+    {
+      "symbol": "_flt_neg990",
+      "address": "0x00470B50",
+      "kind": "data"
+    },
+    {
+      "symbol": "_flt_990",
+      "address": "0x00470CCC",
+      "kind": "data"
+    },
+    {
+      "symbol": "_flt_neg999",
+      "address": "0x00470CC8",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_game_speed",
+      "address": "0x00476F78",
+      "kind": "data"
+    },
+    {
+      "symbol": "_flt_0_5",
+      "address": "0x00470B0C",
+      "kind": "data"
+    },
+    {
+      "symbol": "_flt_2pi",
+      "address": "0x00470B14",
+      "kind": "data"
+    },
+    {
+      "symbol": "_flt_pi",
+      "address": "0x00470B18",
+      "kind": "data"
+    },
+    {
+      "symbol": "_flt_4",
+      "address": "0x00470C40",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_rng",
+      "address": "0x004918B0",
+      "kind": "data"
+    },
+    {
+      "symbol": "?OutsideBounds@PlayfieldPoint@@QBEHMM@Z",
+      "address": "0x00401000",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?CreateOffset@AnimationResourceFile@@QAE?AUAnimationRef@@HPBUVector3@@@Z",
+      "address": "0x00401000",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_flt_0",
+      "address": "0x00470B04",
+      "kind": "data"
+    },
+    {
+      "symbol": "_flt_pi_2",
+      "address": "0x00470B94",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_sound_priority",
+      "address": "0x004749CE",
+      "kind": "data"
+    },
+    {
+      "symbol": "_flt_5_2083335",
+      "address": "0x00470B20",
+      "kind": "data"
+    },
+    {
+      "symbol": "_EnemyGridScanLeaf",
+      "address": "0x004524A1",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?SetScorePolar@ScoreGameplayPolarVector@@QAEPAU1@MM@Z",
+      "address": "0x00408750",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?Tick@ProjectileCommandRuntime@@QAEXXZ",
+      "address": "0x00406D90",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_RunAnimationVm@4",
+      "address": "0x0043EE30",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_flt_neg1",
+      "address": "0x00470B60",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_bullet_death_selector",
+      "address": "0x004742C0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_bullet_death_animation",
+      "address": "0x0047432C",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_bullet_speed_per_colour",
+      "address": "0x004741E0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_bullet_field_per_colour",
+      "address": "0x00474250",
+      "kind": "data"
+    },
+    {
+      "symbol": "?DAT4@@3MA",
+      "address": "0x00470B18",
+      "kind": "data"
+    },
+    {
+      "symbol": "?DAT2@@3MA",
+      "address": "0x00470B10",
+      "kind": "data"
+    },
+    {
+      "symbol": "?DAT3@@3MA",
+      "address": "0x00470B14",
+      "kind": "data"
+    },
+    {
+      "symbol": "___security_cookie",
+      "address": "0x00473660",
+      "kind": "data"
+    },
+    {
+      "symbol": "@__security_check_cookie@4",
+      "address": "0x00458EA5",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_EntityInitTail_00404f30",
+      "address": "0x00401EF1",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_g_sprt_ctrl",
+      "address": "0x00491C10",
+      "kind": "data"
+    },
+    {
+      "symbol": "_asm_FUN_0043ee30_0043ee30@4",
+      "address": "0x0043EE30",
+      "kind": "relative_code"
+    }
+  ],
+  "roots": []
+}

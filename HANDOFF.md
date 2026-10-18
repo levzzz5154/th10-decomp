@@ -6,7 +6,7 @@
   (SHA-256 `2f14760b6fbbf575…`, verified after every promotion).
 - **100.0% of game code recovered** (322,064 of 322,064 bytes, 2,322 of 2,322
   regions); no inline assembly in the default build.
-- **83.4% byte-exact C++** (2,309 regions), **99.4%** counting the identical
+- **83.8% byte-exact C++** (2,310 regions), **99.3%** counting the identical
   instructions of the 22 equivalent regions.
 - `callsite_abi.py`, the 129 unit tests and `git diff --check` pass.
 
@@ -38,7 +38,7 @@ show the original source's symbol/temp populations cannot be reconstructed by
 any honest spelling — those parks are recorded with the decoded mechanism and
 the ruled-out inventory, not left open.
 
-## Equivalent recoveries (21)
+## Equivalent recoveries (20)
 
 Current measurements; each layout's `note` points at its recovery note in
 `matching2/reference/recovery_notes/` (all have dated 2026-10-18 sections with
@@ -46,7 +46,6 @@ the decoded mechanisms).
 
 | Address | Layout | Bytes | Identical | Recorded diffs | Swaps |
 | --- | --- | ---: | ---: | ---: | ---: |
-| 0x004067D0 | `projectile_spawn_cell` | 1,472 | 348/354 | 1 | 0 |
 | 0x0040BD80 | `recovery_script_executor` | 1,568 | 429/444 | 8 | 0 |
 | 0x0040E770 | `enemy_execute` | 14,416 | 3,832/3,926 | 46 | 0 |
 | 0x0041DD80 | `laser_circle_trim` | 1,238 | 274/345 | 53 | 0 |
