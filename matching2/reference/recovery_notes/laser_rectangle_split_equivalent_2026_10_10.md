@@ -244,3 +244,4 @@ The psearch sweep crossed 5 outer guards (`hit_count`, `!= 0`, `(unsigned)`, `(u
 - `if (hit_count == 0) goto done;` and its unsigned variant also give the 14-byte form.
 - `return 0` / `return hit_count` early exits give 466 bytes.
 - Also 2026-10-19: switch forms of the guard all give the 14-byte form, as do a ternary goto and a named `bool any`. The switch forms tried were `switch (hit_count) { case 0: goto done; }`, a `case 0: break; default:` body, and a switch nested in the `if`.
+- Also 2026-10-19: `*(volatile int*)&hit_count` in the guard, in any position, forces the counter's home to memory for the whole function: 24-34 hunks. Ruled out.
