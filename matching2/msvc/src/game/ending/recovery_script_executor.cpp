@@ -7,6 +7,7 @@
 // intact while matching the retail reloads.
 extern "C" void* g_sprt_ctrl;
 __declspec(noinline) RecoveryTextVm* __cdecl RecoveryValidateHandle(RecoveryHandle* handle);
+__declspec(noinline) void __cdecl RecoveryMarkText(void* manager, RecoveryTextVm* vm, ...);
 __declspec(noinline) void* __fastcall RecoverySetFlag(RecoveryLookupContext* context, int id);
 __declspec(noinline) char* __stdcall LoadAsset(AssetBuffer* buffer, const char* name);
 #define MANAGER (*(void* const volatile*)&g_sprt_ctrl)
@@ -93,9 +94,10 @@ extern "C" __declspec(noinline) int __stdcall RecoveryScript_Execute2(RecoverySc
                 ++state->text_ring_position;
             } else {
                 const char* else_text = RecoveryDecodePath(reinterpret_cast<const unsigned char*>(command) + 4);
-                RecoveryHandle* else_handle = &state->text_handles[state->text_ring_position];
                 unsigned int else_color = state->color;
-                RecoveryValidateHandle(else_handle)->MarkText(g_sprt_ctrl, else_color, else_text);
+                // Writer with the object as its second argument: retail validates
+                // the handle between the color push and the manager load.
+                RecoveryMarkText(g_sprt_ctrl, RecoveryValidateHandle(&state->text_handles[state->text_ring_position]), else_color, else_text);
                 state->text_handles[state->text_ring_position].StopAtFrame2();
                 ++state->text_ring_position;
                 if (state->text_ring_position >= 5)

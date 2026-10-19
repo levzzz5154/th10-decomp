@@ -50,10 +50,15 @@ def _run(item):
     originals = _state['originals']
     for path in list(originals):
         if path not in files:
-            (copy / path).write_text(originals.pop(path))
+            body = originals.pop(path)
+            if body is None:
+                (copy / path).unlink(missing_ok=True)  # a file the variant added
+            else:
+                (copy / path).write_text(body)
     for path, body in files.items():
         if path not in originals:
-            originals[path] = (copy / path).read_text()
+            target = copy / path
+            originals[path] = target.read_text() if target.exists() else None
         (copy / path).write_text(body)
     try:
         row = measure(_state['layout'], copy, _state['output'], _state['config'], _state['text'])

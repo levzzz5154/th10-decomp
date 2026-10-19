@@ -249,3 +249,40 @@ two-locals-same-member, constant-true re-reads at real call arguments and
 branch conditions, double write-outs) folds away or collapses the function.
 Same class as laser_circle_split's literal-pair K gap and ecl_name_table's
 rotation coupling.
+
+## 2026-10-19: the else branch's argument order (34 → 18 bytes)
+
+Retail's case-3 else branch pushes the text, pushes the color, calls the
+handle validation (0x449450), and only then loads and pushes `g_sprt_ctrl`.
+A `__cdecl` member `vm->MarkText(manager, color, text)` evaluates the
+receiver as its hidden leftmost argument, so the model loaded the manager
+before the validate call. Retail's order is that of a callee shaped
+`(manager, vm, color, format, ...)`, evaluated right to left.
+
+Landed: an equivalent-only stand-in `RecoveryMarkText(void* manager,
+RecoveryTextVm* vm, ...)` in the new context file
+`build_support/contexts/equivalent/game/context/recovery_script_executor_marktext.cpp`,
+bound to 0x00447A50 next to the real member. Only the else site calls it;
+the two Find sites keep `object->MarkText` (switching them changes nothing).
+Points:
+
+- The body builds its va_list from `&manager`. A first draft used
+  `va_start(args, vm)`, which takes vm's address, so LTCG pushed vm instead
+  of passing it in ESI (1,320 bytes). From `&manager`, vm goes to ESI like
+  the member's receiver and the call site matches.
+- A non-varargs `(manager, vm, color, format)` stand-in gets the manager
+  in EDX (1,329 bytes).
+- Writing the handle inline in the validate argument (no `else_handle`
+  local) gives 22 → 18 bytes.
+
+Tried with no effect: a stdcall validate, validate as a member of a derived
+handle, inline/forceinline/reference accessors for the manager, comma
+spellings (worse), text/color/handle inline-or-local in every combination
+with the old member call, and reusing the loop's `handle` variable (or a
+named `first` pointer) for the `text_handles[0]` block.
+
+Left (18 bytes in 7 hunks):
+
+- 0xc8..0xfd: the EBX/EDI handle-pointer/manager swap parked above.
+- 0x114/0x117: the color load is scheduled before the text push, so it takes
+  ECX where retail reuses EAX.

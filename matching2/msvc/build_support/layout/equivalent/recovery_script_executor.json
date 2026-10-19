@@ -29,7 +29,8 @@
   "src/game/hint/hint_update.cpp",
   "src/game/hint/hint_on_update.cpp",
   "build_support/contexts/equivalent/game/context/recovery_script_executor_validate.cpp",
-  "build_support/contexts/equivalent/game/context/recovery_script_executor_setflag.cpp"
+  "build_support/contexts/equivalent/game/context/recovery_script_executor_setflag.cpp",
+  "build_support/contexts/equivalent/game/context/recovery_script_executor_marktext.cpp"
  ],
  "entry_symbol": "_RecoveryMarkTextDispatcherCompilerContext@20",
  "function": "_RecoveryScript_Execute2@4",
@@ -648,6 +649,7 @@
   "?SetSlotFrame@Title@@QAEXHG@Z": "0x0042C770",
   "?RecoveryDispatchText2@@YGXPAURecoveryTextResource@@PAXHHIPBDH@Z": "0x004479D0",
   "?MarkText@RecoveryTextVm@@QAAXPAXZZ": "0x00447A50",
+  "?RecoveryMarkText@@YAXPAXPAURecoveryTextVm@@ZZ": "0x00447A50",
   "?Drain@HintLink@@QAEHPAUHintUpdateView@@H@Z": "0x00419120",
   "__real@3f800000": "0x00470AFC",
   "??_C@_0BA@HHNJPIP@bgm?1th10_13?4wav?$AA@": "0x0046CFC4",
@@ -717,33 +719,21 @@
   },
   {
    "class": "evaluation-order",
-   "offset": "0x117",
+   "offset": "0x114",
    "retail": [],
    "model": [
-    "mov edx,DWORD PTR ds:0x491c10",
-    "lea esi,[ebp+ecx*4+0x40]",
-    "mov ecx,DWORD PTR [ebp+0x7c]"
-   ]
-  },
-  {
-   "class": "evaluation-order",
-   "offset": "0x118",
-   "retail": [
-    "mov eax,DWORD PTR [ebp+0x7c]",
+    "mov ecx,DWORD PTR [ebp+0x7c]",
     "push eax",
-    "lea esi,[ebp+ecx*4+0x40]"
-   ],
-   "model": [
-    "push ecx",
-    "push edx"
+    "push ecx"
    ]
   },
   {
    "class": "evaluation-order",
-   "offset": "0x125",
+   "offset": "0x117",
    "retail": [
-    "mov edx,DWORD PTR ds:0x491c10",
-    "push edx"
+    "push eax",
+    "mov eax,DWORD PTR [ebp+0x7c]",
+    "push eax"
    ],
    "model": []
   }
