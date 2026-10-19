@@ -516,9 +516,9 @@ int Enemy::Execute2() {
     case 0x190: {
         int index = IOP(0);
         memset(&shooters[index], 0, sizeof(Shooter));
+        shooters[index].angle_1 = 0.0f;
         shooters[index].count_1 = 1;
         shooters[index].count_2 = 1;
-        shooters[index].angle_1 = 0.0f;
         shooters[index].speed_1 = 2.0f;
         shooters[index].sound = 7;
         shooters[index].sound_2 = 0x18;
