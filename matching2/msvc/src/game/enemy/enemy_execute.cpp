@@ -128,7 +128,7 @@ int Enemy::Execute2() {
         int script = IOP(1);
         anm[slot].Release2();
         if (script < 0) break;
-        anm[slot] = *Anm_CreateFront(g_enemy_ctrl->anm[anm_file], &h3[0], IOP(1), 5);
+        anm[slot] = *Anm_CreateFront(g_enemy_ctrl->Anm(anm_file), &h3[0], IOP(1), 5);
         if (slot == 0) {
             anm_main_script = IOP(1);
             anm_main_file = anm_file;
@@ -144,7 +144,7 @@ int Enemy::Execute2() {
     case 0x107: {
         int file = IOP(0);
         AnmHandle handle;
-        Anm_CreateFront(g_enemy_ctrl->anm[file], &handle, IOP(1), 6);
+        Anm_CreateFront(g_enemy_ctrl->Anm(file), &handle, IOP(1), 6);
         AnmVm* vm = Anm_Resolve2(&handle);
         if (!(flags & 0x40000)) vm->offset = *OffsetPoint2(&position);
         else vm->offset = position;
@@ -162,13 +162,13 @@ int Enemy::Execute2() {
     case 0x108: {
         int file = IOP(0);
         AnmHandle handle;
-        Anm_CreateFront(g_enemy_ctrl->anm[file], &handle, IOP(1), 6);
+        Anm_CreateFront(g_enemy_ctrl->Anm(file), &handle, IOP(1), 6);
         return 0;
     }
     case 0x111: {
         int file = IOP(0);
         AnmHandle handle;
-        Anm_CreateFront(g_enemy_ctrl->anm[file], &handle, IOP(1), 6);
+        Anm_CreateFront(g_enemy_ctrl->Anm(file), &handle, IOP(1), 6);
         AnmVm* vm = Anm_Resolve2(&handle);
         if (!(flags & 0x40000)) vm->offset = *OffsetPoint2(&position);
         else vm->offset = position;
@@ -415,7 +415,7 @@ int Enemy::Execute2() {
         return 0;
     }
     case 0x15b:
-        g_front->SetMarker(IOP(0), max_life, FOP(1), IOP(2));
+        g_front->SetMarker(IOP(0), MaxLife(), FOP(1), IOP(2));
         return 0;
     case 0x140:
         fb0 = FOP(0);

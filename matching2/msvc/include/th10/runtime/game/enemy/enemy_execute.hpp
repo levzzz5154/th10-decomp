@@ -242,6 +242,9 @@ struct EnemyCtrl {
     unsigned char unknown_00[0x10];
     EnemyFull* boss[8];         // +0x10
     AnmLoaded* anm[8];          // +0x30
+    // Read through an accessor at the effect-creation sites: the argument
+    // is then evaluated into a temporary before the pushes, as in retail.
+    AnmLoaded* Anm(int file) const { return anm[file]; }
 };
 extern "C" EnemyCtrl* g_enemy_ctrl;
 __declspec(noinline) void __stdcall EnemyCtrl_SweepDeaths(EnemyCtrl* manager);
@@ -308,6 +311,9 @@ struct Enemy {
     int IntValue(int selector, int value);
     float* FloatDest(int selector);
     __forceinline void SetSpread(float x, float y) { drops.spread_x = x; drops.spread_y = y; }
+    // An accessor, not the field: as an argument it is evaluated in its
+    // right-to-left slot like the operand calls around it.
+    int MaxLife() const { return max_life; }
 };
 
 struct EnemyFull : EclOwner {
