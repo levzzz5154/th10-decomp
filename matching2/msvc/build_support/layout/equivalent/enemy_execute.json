@@ -148,8 +148,8 @@
     "?EnemyCtrl_Spawn@@YGPAUEnemyFull@@PBUEnemySpawn@@PAUEnemyCtrl@@PBD@Z": "0x0040CFB0",
     "?EnemyCtrl_SweepDeaths@@YGXPAUEnemyCtrl@@@Z": "0x0040E6A0",
     "?Enemy_BindSlot@@YGXPAUEnemyFull@@HHHPBD@Z": "0x00412720",
-    "?Drops_Flush@@YGXPBUFloat3@@PAUItemDrops@@@Z": "0x0040C9A0",
-    "?Shoot@Shooter@@QAEHPAUBulletManager@@@Z": "0x004073E0",
+    "?Drops_Flush@@YGXPAUItemDrops@@PBUFloat3@@@Z": "0x0040C9A0",
+    "?ShooterShoot@@YGHPAUBulletManager@@PAUShooter@@@Z": "0x004073E0",
     "?Sweep2@BulletManager@@QAEHH@Z": "0x00408210",
     "?Check2@BulletManager@@QAEHPBUFloat3@@MHH@Z": "0x00408100",
     "?Cleanup2@LaserManager@@QAEHH@Z": "0x0041C850",
@@ -319,22 +319,6 @@
       ]
     },
     {
-      "class": "evaluation-order",
-      "offset": "0x172e",
-      "retail": [],
-      "model": [
-        "lea edi,[ebx+0x13cc]"
-      ]
-    },
-    {
-      "class": "evaluation-order",
-      "offset": "0x1731",
-      "retail": [
-        "lea edi,[ebx+0x13cc]"
-      ],
-      "model": []
-    },
-    {
       "class": "register-choice",
       "offset": "0x198f",
       "retail": [
@@ -391,22 +375,6 @@
         "mov WORD PTR [edx+0x4ba],ax",
         "xor eax,eax"
       ]
-    },
-    {
-      "class": "evaluation-order",
-      "offset": "0x1b48",
-      "retail": [],
-      "model": [
-        "push ecx"
-      ]
-    },
-    {
-      "class": "evaluation-order",
-      "offset": "0x1b4e",
-      "retail": [
-        "push ecx"
-      ],
-      "model": []
     },
     {
       "class": "evaluation-order",

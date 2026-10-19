@@ -367,27 +367,33 @@ __declspec(noinline) void __stdcall Rig_Scatter(const Float3* position, ItemDrop
     }
     memset(&drops->items[1], 0, 44);
 }
-void __stdcall Drops_Flush(const Float3* position, ItemDrops* drops) {
+// Declared drops-first: the caller then forms the position address before the
+// drops address, as retail does. The private convention still takes the
+// position in EAX and the drops in EDI.
+void __stdcall Drops_Flush(ItemDrops* drops, const Float3* position) {
     if (drops->items[0] > 0) ext_spawn_item(g_item_manager, position, drops->items[0], -1, -1.5707964f, 2.2f);
     Rig_Scatter(position, drops);
     drops->items[0] = 0;
 }
 
 // ---- bullets, lasers ----
-int Shooter::Shoot(BulletManager* manager) {
-    float dx = g_player->position.x - position.x;
-    float dy = g_player->position.y - position.y;
+// Shooter::Shoot as Execute2's 0x191 case calls it: the shooter is the second
+// parameter, so right-to-left evaluation forms its address before loading
+// the bullet manager, as retail does (`lea eax,[edx+0x2c4]` before the push).
+__declspec(noinline) int __stdcall ShooterShoot(BulletManager* manager, Shooter* shooter) {
+    float dx = g_player->position.x - shooter->position.x;
+    float dy = g_player->position.y - shooter->position.y;
     float angle;
     if (dy == 0.0f && dx == 0.0f) angle = 1.5707964f;
     else angle = (float)atan2(dy, dx);
-    for (int j = 0; j < count_2; ++j) {
-        for (int i = 0; i < count_1; ++i) {
+    for (int j = 0; j < shooter->count_2; ++j) {
+        for (int i = 0; i < shooter->count_1; ++i) {
             if (ext_shoot(manager, i, j, angle)) goto done;
         }
     }
 done:
-    if (flags & 0x400) ((RigCamera*)g_player)->Apply();
-    if (flags & 0x200) g_sound_manager.QueuePan2(sound, position.x);
+    if (shooter->flags & 0x400) ((RigCamera*)g_player)->Apply();
+    if (shooter->flags & 0x200) g_sound_manager.QueuePan2(shooter->sound, shooter->position.x);
     return 0;
 }
 int BulletManager::Sweep2(int convert) {
@@ -698,7 +704,7 @@ extern "C" int __stdcall RigEntry(Enemy** enemies, int count) {
     Card** cards = (Card**)enemies;
     int n = count;
     while (n--) (*cards++)->End2();
-    Drops_Flush((Float3*)enemies[0], (ItemDrops*)enemies[1]);
+    Drops_Flush((ItemDrops*)enemies[1], (Float3*)enemies[0]);
     EnemyCtrl_SweepDeaths((EnemyCtrl*)enemies[3]);
     Screen_Create(43, 5, 60, 0, 0, 0);
     g_bullet_manager->Sweep2(count);

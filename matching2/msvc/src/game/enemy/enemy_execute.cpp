@@ -17,6 +17,7 @@ static __forceinline Float3 operator-(const Float3& a, const Float3& b) {
 
 static __forceinline float SquaredLength(float x, float y) { return x * x + y * y; }
 static __forceinline float DistanceSquared(const Float3& a, const Float3& b) { return SquaredLength(a.x - b.x, a.y - b.y); }
+__declspec(noinline) int __stdcall ShooterShoot(BulletManager* manager, Shooter* shooter);
 
 int Enemy::Execute2() {
     AnmHandle h3[3];
@@ -452,7 +453,7 @@ int Enemy::Execute2() {
         SetSpread(FOP(0), FOP(1));
         return 0;
     case 0x149:
-        Drops_Flush(&position, &drops);
+        Drops_Flush(&drops, &position);
         return 0;
     case 0x14a: {
         int kind = IOP(0);
@@ -535,7 +536,7 @@ int Enemy::Execute2() {
         if (shoot_range_squared != 0.0f) {
             if (!(shoot_range_squared <= DistanceSquared(shooters[index].position, g_player->position))) break;
         }
-        shooters[index].Shoot(g_bullet_manager);
+        ShooterShoot(g_bullet_manager, &shooters[index]);
         return 0;
     }
     case 0x192: {

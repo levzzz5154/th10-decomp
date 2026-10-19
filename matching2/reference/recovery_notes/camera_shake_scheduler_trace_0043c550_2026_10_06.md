@@ -52,3 +52,19 @@ issue pairing, preferably against a source-grounded candidate or another exact
 retail FIDIV/FMUL window. A source change must still reproduce the complete
 439-byte contribution under the shared compiler contract before promotion.
 No compiler-output instruction move was made or accepted.
+
+## 2026-10-19: what the residual needs (re-trace of the current model)
+
+Re-traced with `capture_equivalent.py` + `scheduler/trace_scheduler.py`. In
+the 0x6E region the model picks `fidiv [esp+0x8]` (seq 8) at cycle 18. Its
+only predecessor is the `fmul [esi+0x38]` (seq 7, cycle 15, latency 3). Retail
+emits it in the cycle of `lea edx,[eax*4]` (seq 27, cycle 23), so retail's
+fidiv was ready about 5 cycles later. fidiv is on the x87 unit, so priority
+against the integer chain cannot move it. Only a later ready time can.
+Store→load memory edges in this graph have latency 0–1, so aliasing would
+give at most cycle 18. Spellings tried with no change: amount with
+`/(float)limit`, a re-read divisor, operand and association swaps, an inline
+delta, a declared-then-assigned amount, inline lerp/reached helpers with
+reference parameters, and an explicitly address-taken `limit`. Computing
+amount after the first RNG step makes the fmul wait for the seed store (277
+bytes). Open: which predecessor or latency gives retail's fidiv ready time 23.

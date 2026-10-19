@@ -129,7 +129,6 @@ struct Shooter {
     int sound;              // +0x200
     int sound_2;            // +0x204
     unsigned char unknown_208[8];
-    __declspec(noinline) int Shoot(BulletManager* manager);
 };
 struct BulletManager {
     __declspec(noinline) int Sweep2(int convert);
@@ -186,7 +185,7 @@ struct ItemDrops {
     float spread_x;         // +0x34
     float spread_y;         // +0x38
 };
-__declspec(noinline) void __stdcall Drops_Flush(const Float3* position, ItemDrops* drops);
+__declspec(noinline) void __stdcall Drops_Flush(ItemDrops* drops, const Float3* position);
 
 struct ResourceSlot {
     int id;
