@@ -50,62 +50,49 @@
   "base_index_order": 0,
   "differences": [
     {
+      "class": "register-choice",
+      "offset": "0x147",
+      "retail": [],
+      "model": [
+        "mov ebx,DWORD PTR [esp+0x20]"
+      ]
+    },
+    {
+      "class": "register-choice",
       "offset": "0x15a",
       "retail": [
         "mov ebx,edi",
         "add ebx,edx"
       ],
       "model": [
-        "mov eax,DWORD PTR [eax+0x4918e4]",
+        "mov eax,edi",
         "add eax,edx",
         "shr eax,1"
-      ],
-      "class": "register-choice"
+      ]
     },
     {
+      "class": "register-choice",
       "offset": "0x165",
       "retail": [
         "shr ebx,1",
         "sub ebx,ecx",
         "mov eax,ebx",
-        "mov ebx,DWORD PTR [esp+0x20]",
-        "cmp ebx,eax"
+        "mov ebx,DWORD PTR [esp+0x20]"
       ],
       "model": [
-        "sub eax,ecx",
-        "add edi,edx",
-        "mov edx,DWORD PTR [esp+0x20]",
-        "shr edi,1",
-        "cmp edx,eax"
-      ],
-      "class": "register-choice"
+        "sub eax,ecx"
+      ]
     },
     {
-      "offset": "0x173",
-      "retail": [
-        "add edi,edx",
-        "shr edi,1"
-      ],
-      "model": [],
-      "class": "evaluation-order"
-    },
-    {
-      "offset": "0x17c",
-      "retail": [
-        "cmp edi,ebx"
-      ],
-      "model": [
-        "cmp edi,edx"
-      ],
-      "class": "register-choice"
-    },
-    {
+      "class": "code-shape",
       "offset": "0x1cb",
       "retail": [
-        "jmp L+0x1d0"
+        "jmp L+0x1d0",
+        "lea ecx,[ecx+0x0]"
       ],
-      "model": [],
-      "class": "code-shape"
+      "model": [
+        "lea esp,[esp+0x0]"
+      ]
     }
   ],
   "note": "reference/recovery_notes/joystick_binding_reader_0044a190_accepted_2026_10_14.md",

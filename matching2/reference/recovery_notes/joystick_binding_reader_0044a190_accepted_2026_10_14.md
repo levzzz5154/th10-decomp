@@ -262,3 +262,7 @@ midpoint must present as a candidate (not a rotation temporary) before
 ChoosePhysReg, or its contest with the `dwYpos` load for EBX must flip. The
 regalloc tracer (`trace_choose_physreg.py`, cmds.json from the plain `cl`
 line) dumps the contest per candidate.
+
+## 2026-10-19: dead `st.ymid` store removed (5 -> 4 differences)
+
+A 12-spelling sweep over the Y block was run. It varied named `ymin`/`ymax` locals, `st.ymid` reuse, and the 0x20/0x10 order. Only dropping the `st.ymid` assignment moved anything; nothing else reads that store. Both Y tests now use `JOYSTICK_MIDPOINT(wYmin, ymax)` directly, which gives 274/282 identical. The remaining hunks are still one EBX decision: the model holds `[esp+0x20]` in EBX early, while retail computes the midpoint in EBX. The 0x1cb hunk is the retail `jmp` plus its padding.

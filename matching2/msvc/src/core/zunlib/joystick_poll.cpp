@@ -113,10 +113,8 @@ unsigned short __stdcall ReadPad(unsigned short buttons, int set, int pad) {
                                                   JOYSTICK_MIDPOINT(g_joystick_caps[pad].wXmin, g_joystick_caps[pad].wXmax) - st.deadzone);
         unsigned int ymax = g_joystick_caps[pad].wYmax;
         st.deadzone = (ymax - g_joystick_caps[pad].wYmin) / 4;
-        st.ymid = JOYSTICK_MIDPOINT(g_joystick_caps[pad].wYmin, ymax);
-        buttons |= JOYSTICK_BUTTON_PRESSED(0x20, st.info.dwYpos, st.ymid + st.deadzone);
-        buttons |= JOYSTICK_BUTTON_PRESSED_INVERT(0x10, st.info.dwYpos,
-                                                  JOYSTICK_MIDPOINT(g_joystick_caps[pad].wYmin, ymax) - st.deadzone);
+        buttons |= JOYSTICK_BUTTON_PRESSED(0x20, st.info.dwYpos, JOYSTICK_MIDPOINT(g_joystick_caps[pad].wYmin, ymax) + st.deadzone);
+        buttons |= JOYSTICK_BUTTON_PRESSED_INVERT(0x10, st.info.dwYpos, JOYSTICK_MIDPOINT(g_joystick_caps[pad].wYmin, ymax) - st.deadzone);
         return buttons;
     }
 
