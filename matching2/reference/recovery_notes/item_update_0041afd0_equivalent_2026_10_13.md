@@ -256,3 +256,20 @@ close and the +0x814 store-order hunk shrinks to one moved store. 549 -> 555
 of 601 identical, 33 -> 31 hunks, 900 -> 894 differing bytes. Found with
 `tools/matching/literal_sweep.py`; the replay_sync run of replay 1 stays
 identical to retail's trace (11,745 frames).
+
+## 2026-10-19: gauge reads (case 2), blocked by the size gate
+
+Retail reads `g_globals.gauge` inside each arm of case 2 (`mov eax,ds:0x474c4c`
+at +0x4ED and +0x532, plus the `fild` in the else arm). The model hoists
+`int gauge = g_globals.gauge;` into EBX before the `position.y < 144` test
+(+0x4E0). Writing the first arm as
+`int scaled = g_globals.gauge * 10; value = scaled - scaled % 10;` and the
+else arm as `g_globals.gauge * 10 / 2 - penalty` closes all three hunks
+(557/601 identical, 29 hunks; `value = g_globals.gauge*10` without the named
+temporary loads straight into EBX). It also flips the +0x870 `fld/fadd` pair
+(temp parity), and the body becomes 2,324 bytes against the region's
+2,320, so the size gate fails. The shipped model was 4 bytes shorter at the
+gauge (one 6-byte EBX load against retail's two 5-byte EAX loads). That
+offset the 4 bytes the zero-register family (EDI against retail's ECX, the
++0xA..+0x15B hunks) costs. The gauge fix can ship only together with the
+zero-register fix.

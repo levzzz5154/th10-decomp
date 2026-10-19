@@ -235,3 +235,11 @@ enregistered because the guard compare and the loop compare share it, and no
 honest spelling measured (nested duplicates, copies, pointer reloads,
 unsigned/`>=1` forms, cursor placement, `for` loops, do/while, ternaries)
 keeps `test eax,eax` with a `je` failure set.
+
+### 2026-10-19: 47 more guard spellings, no change
+
+The psearch sweep crossed 5 outer guards (`hit_count`, `!= 0`, `(unsigned)`, `(unsigned) > 0u`, `< 0 || > 0`) with 8 inner ones (unsigned `> 0u`/`>= 1u`/`!= 0u`, `!= 0`, the two `||` orders, `!(== 0)`, `>= 0 || < 0`), plus single-guard and goto/early-return forms.
+- The best result is still 1 byte at 0x2ad. The merged compare takes the inner relation: an unsigned inner gives `jbe` instead of `je`.
+- An inner `!= 0` is folded as redundant, which brings back the 14-byte form.
+- `if (hit_count == 0) goto done;` and its unsigned variant also give the 14-byte form.
+- `return 0` / `return hit_count` early exits give 466 bytes.

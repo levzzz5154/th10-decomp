@@ -518,3 +518,7 @@ The remaining differences are a symbol-population gap: the SIB window is
 exactly characterised (above) and needs clean-knob wobble +94 beyond anything
 honest source constructs produced in ~2,500 measured states; the home pair is
 an allocation-order artifact of retail's original symbol count.
+
+## 2026-10-19: hoisted home declarations do not move the tie
+
+Cases 50 and 52 had their `left_storage` homes replaced by function-, loop- or switch-scope locals. Four orders were tried at each of the three scopes: 52 only, 50 only, 52 declared first, 50 declared first. All 12 variants are byte-identical to the shipped form (1769/1790, 21 bytes). The home ids come from c2's element-record allocation, not from c1 declaration order.
