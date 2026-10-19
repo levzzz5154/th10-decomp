@@ -266,3 +266,11 @@ line) dumps the contest per candidate.
 ## 2026-10-19: dead `st.ymid` store removed (5 -> 4 differences)
 
 A 12-spelling sweep over the Y block was run. It varied named `ymin`/`ymax` locals, `st.ymid` reuse, and the 0x20/0x10 order. Only dropping the `st.ymid` assignment moved anything; nothing else reads that store. Both Y tests now use `JOYSTICK_MIDPOINT(wYmin, ymax)` directly, which gives 274/282 identical. The remaining hunks are still one EBX decision: the model holds `[esp+0x20]` in EBX early, while retail computes the midpoint in EBX. The 0x1cb hunk is the retail `jmp` plus its padding.
+
+### 2026-10-19 (later): 40 more Y-block spellings
+
+The X block matches retail. In the Y block, retail loads `wYmin` into EDI and `wYmax` into EDX once each. It builds the `mid - deadzone` threshold in EBX, copies it to EAX, and only then loads `dwYpos` into EBX. The model loads `dwYpos` into EBX early, at the tail of the X block, and builds the threshold in EAX.
+
+Sweep: ymin/ymax each as a local or a caps read, the 0x20 or 0x10 test first, and named `ylow`/`yhigh` threshold locals (none, either one, or both in either order).
+- The best is the shipped form: 4 hunks, 274/282.
+- Named thresholds are folded back to the same code.
