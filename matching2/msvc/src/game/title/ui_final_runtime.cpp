@@ -224,12 +224,7 @@ __declspec(noinline) int __stdcall TitleMusicRoom(Title* room) {
                 unsigned int created_value = reinterpret_cast<unsigned int>(
                     *MusicCreateInPlace(room->animation_resource, &created, index + 173, 15));
                 room->row_handles[index].value = created_value;
-                RecoveryMusicVm* object = static_cast<RecoveryMusicVm*>(
-                    UiFinalFind(g_sprt_ctrl,
-                        reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl),
-                        *reinterpret_cast<RecoveryScriptId*>(created)));
-                if (object == 0)
-                    room->row_handles[index].value = 0;
+                RecoveryMusicVm* object = MusicValidateInPlace(&room->row_handles[index]);
                 RecoveryTextVm* text = reinterpret_cast<RecoveryTextVm*>(object);
                 if (recovery_music_player[0x1D892 + index])
                     text->MarkText(g_sprt_ctrl, 0xFFFFFFu,

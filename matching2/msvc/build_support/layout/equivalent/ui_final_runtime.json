@@ -1015,29 +1015,6 @@
   },
   {
    "class": "evaluation-order",
-   "offset": "0x2dc",
-   "retail": [
-    "mov ecx,DWORD PTR [esp+0x10]",
-    "mov eax,DWORD PTR [esp+0x30]",
-    "mov edx,ecx"
-   ],
-   "model": [
-    "mov eax,DWORD PTR [esp+0x10]",
-    "mov ecx,DWORD PTR [esp+0x30]",
-    "mov DWORD PTR [ecx],eax",
-    "mov edx,DWORD PTR [eax]"
-   ]
-  },
-  {
-   "class": "evaluation-order",
-   "offset": "0x2e9",
-   "retail": [
-    "mov DWORD PTR [eax],ecx"
-   ],
-   "model": []
-  },
-  {
-   "class": "evaluation-order",
    "offset": "0x37d",
    "retail": [],
    "model": [

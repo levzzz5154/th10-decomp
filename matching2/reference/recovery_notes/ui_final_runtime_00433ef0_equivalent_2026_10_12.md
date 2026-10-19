@@ -314,3 +314,17 @@ changes closed the 1,255-byte gap:
 The remaining 32 bytes are eight fixed-length register/scheduler hunks at
 0x121, 0x2dd–0x2ea, 0x37d–0x384, 0x702–0x709 and 0x84c: same instruction
 multiset, different register assignment or hoist position.
+
+### 2026-10-19 (round 3): semantic fix in the title-row loop, 32 -> 23 bytes
+
+The round-2 model passed `*reinterpret_cast<RecoveryScriptId*>(created)` to
+the find in the row loop: that reads memory *at* the new handle's value
+(model `mov edx,[eax]; push edx`), where retail passes the handle value
+itself (`mov edx,ecx; push edx`). The gate accepted it as an
+`evaluation-order` hunk. The loop now calls the existing
+`MusicValidateInPlace(&room->row_handles[index])` (the inlined body of
+0x00449450: find by the stored field, clear it on a miss), which is what the
+retail bytes show: 733 -> 737 of 741 identical, 8 -> 6 hunks, 32 -> 23 bytes;
+the two hunks at +0x2DC/+0x2E9 are gone. Spelling the value correctly any
+other way (`&created`, `created_value`, a named id, `MusicFind(...)`, a
+re-read of the stored field) costs 1,178 bytes.
