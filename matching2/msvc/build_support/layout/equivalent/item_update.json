@@ -171,6 +171,15 @@
     }
   },
   "bindings": {
+    "__real@00000000": "0x470b04",
+    "__real@43000000": "0x470bf4",
+    "__real@3e4ccccd": "0x470c38",
+    "__real@3eaaaaab": "0x470cc4",
+    "__real@3b579436": "0x470cd0",
+    "__real@43100000": "0x470cd4",
+    "__real@41400000": "0x470cd8",
+    "__real@3cf5c28f": "0x470cdc",
+    "__real@459c4000": "0x470ce0",
     "__real@3f800000": "0x00470AFC",
     "__real@3f000000": "0x00470B0C",
     "?Entity_StartScript@@YGXPAUAnimationResourceFile@@PAUEntity@@H@Z": "0x00404F30",
@@ -368,18 +377,6 @@
       ]
     },
     {
-      "class": "operand-order",
-      "offset": "0x2ba",
-      "retail": [
-        "fld DWORD PTR [ebp+0x38]",
-        "fadd DWORD PTR ds:0x470c38"
-      ],
-      "model": [
-        "fld DWORD PTR ds:0x470c38",
-        "fadd DWORD PTR [ebp+0x38]"
-      ]
-    },
-    {
       "class": "code-shape",
       "offset": "0x2c6",
       "retail": [
@@ -462,18 +459,6 @@
       ]
     },
     {
-      "class": "operand-order",
-      "offset": "0x342",
-      "retail": [
-        "fld DWORD PTR [ebp+0x38]",
-        "fadd DWORD PTR ds:0x470c38"
-      ],
-      "model": [
-        "fld DWORD PTR ds:0x470c38",
-        "fadd DWORD PTR [ebp+0x38]"
-      ]
-    },
-    {
       "class": "code-shape",
       "offset": "0x34e",
       "retail": [
@@ -530,21 +515,16 @@
       "offset": "0x814",
       "retail": [],
       "model": [
-        "fld DWORD PTR ds:0x470cc4",
         "mov DWORD PTR [ebp+0x2c],0x4"
       ]
     },
     {
       "class": "evaluation-order",
-      "offset": "0x81a",
+      "offset": "0x81d",
       "retail": [
-        "fld DWORD PTR [ecx+0x8]",
-        "mov DWORD PTR [ebp+0x2c],0x4",
-        "fmul DWORD PTR ds:0x470cc4"
+        "mov DWORD PTR [ebp+0x2c],0x4"
       ],
-      "model": [
-        "fmul DWORD PTR [ecx+0x8]"
-      ]
+      "model": []
     }
   ],
   "note": "reference/recovery_notes/item_update_0041afd0_equivalent_2026_10_13.md",

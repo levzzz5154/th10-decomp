@@ -245,3 +245,14 @@ forms (int literals, int puns, per-block zero defs — all inert), the
 named-argument rotation at SetPolar (propagates away), the state-variable
 split without stream alignment (adds 4 bytes), the hoisted velocity pointer
 (2,100+ bytes).
+
+## 2026-10-19: float constants as literals
+
+Writing every float constant of `item_update.cpp` as a literal instead of the
+address-named externs (`flt_0_2`, `flt_12`, `flt_0_33333334`, ...) reads the
+same retail cells through `__real@` bindings and changes their symbol class:
+the two `fld [ebp+0x38]` / `fadd 0.2f` operand-order hunks at +0x2BA/+0x342
+close and the +0x814 store-order hunk shrinks to one moved store. 549 -> 555
+of 601 identical, 33 -> 31 hunks, 900 -> 894 differing bytes. Found with
+`tools/matching/literal_sweep.py`; the replay_sync run of replay 1 stays
+identical to retail's trace (11,745 frames).

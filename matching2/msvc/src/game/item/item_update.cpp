@@ -69,15 +69,15 @@ extern "C" __declspec(noinline) int __stdcall ItemManager_UpdateItems(ItemSpawnM
         Player* player;
         if (motion->state==seeking) {
             player=g_player;
-            if ((player->state!=2 && player->state!=4 && player->position.y<flt_128) ||
+            if ((player->state!=2 && player->state!=4 && player->position.y<128.0f) ||
                 g_bomb->active!=idle) {
                 motion->magnet_speed=player->shot_type->item_seek_speed;
                 motion->state=3;
                 goto seek_player;
             }
             IntegrateItem(motion);
-            motion->velocity.y+=flt_0_03*g_game_speed;
-            if (motion->velocity.y>=flt_0) motion->velocity.x=0.0f;
+            motion->velocity.y+=0.03f*g_game_speed;
+            if (motion->velocity.y>=0.0f) motion->velocity.x=0.0f;
             if (motion->velocity.y>flt_2) motion->velocity.y=2.0f;
             // Retail tests the stored binary32 position, after discarding
             // the extended result of the planar addition.
@@ -88,8 +88,8 @@ extern "C" __declspec(noinline) int __stdcall ItemManager_UpdateItems(ItemSpawnM
             }
         } else if (motion->state==2) {
             IntegrateItem(motion);
-            motion->velocity.y+=flt_0_03*g_game_speed;
-            if (motion->velocity.y>=flt_0) {
+            motion->velocity.y+=0.03f*g_game_speed;
+            if (motion->velocity.y>=0.0f) {
                 player=g_player;
                 motion->magnet_speed=player->shot_type->item_seek_speed;
                 motion->state=3;
@@ -108,13 +108,13 @@ extern "C" __declspec(noinline) int __stdcall ItemManager_UpdateItems(ItemSpawnM
             float dx=player->position.x-motion->position().x;
             float dy=player->position.y-motion->position_y;
             float angle;
-            if (dy==flt_0 && dx==flt_0) angle=1.5707963705062866f;
+            if (dy==0.0f && dx==0.0f) angle=1.5707963705062866f;
             else angle=static_cast<float>(atan2(static_cast<double>(dy),static_cast<double>(dx)));
             motion->velocity.SetPolar(angle,motion->magnet_speed);
             IntegrateItem(motion);
-            if (motion->magnet_speed<flt_12) {
+            if (motion->magnet_speed<12.0f) {
                 float speed=motion->magnet_speed;
-                motion->magnet_speed=speed+flt_0_2;
+                motion->magnet_speed=speed+0.2f;
             }
             if (player->state==4) {
                 motion->state=seeking;
@@ -125,9 +125,9 @@ extern "C" __declspec(noinline) int __stdcall ItemManager_UpdateItems(ItemSpawnM
             Player* target=g_player;
             motion->velocity.SetPolar(target->AngleFromPoint(&motion->position().x),motion->magnet_speed);
             IntegrateItem(motion);
-            if (motion->magnet_speed<flt_12) {
+            if (motion->magnet_speed<12.0f) {
                 float speed=motion->magnet_speed;
-                motion->magnet_speed=speed+flt_0_2;
+                motion->magnet_speed=speed+0.2f;
             }
             int player_state=target->state;
             player=g_player;
@@ -169,14 +169,14 @@ extern "C" __declspec(noinline) int __stdcall ItemManager_UpdateItems(ItemSpawnM
                 case 2: {
                     int gauge=g_globals.gauge;
                     int value, adjustment;
-                    if (player->position.y<flt_144) {
+                    if (player->position.y<144.0f) {
                         value=gauge*10;
                         value-=value%10;
                         g_smoll_score->Spawn(value,point,0xFFFFFF00u);
                         adjustment=8;
                     } else {
-                        float scaled=(player->position.y-flt_144)*flt_0_003289474;
-                        int penalty=static_cast<int>(scaled*(g_globals.gauge*0.5f-flt_5000));
+                        float scaled=(player->position.y-144.0f)*0.0032894737f;
+                        int penalty=static_cast<int>(scaled*(g_globals.gauge*0.5f-5e+03f));
                         value=gauge*10/2-penalty;
                         value-=value%10;
                         g_smoll_score->Spawn(value,point,0xFFFFFFFFu);
@@ -249,7 +249,7 @@ extern "C" __declspec(noinline) int __stdcall ItemManager_UpdateItems(ItemSpawnM
                     (!focused2 && !OutsideItemBox(min_point.x,min_point.y,max_point.x,max_point.y,player->item_attract_box));
                 if (magnet) {
                     motion->state=4;
-                    motion->magnet_speed=player->shot_type->item_seek_speed*flt_0_33333334;
+                    motion->magnet_speed=player->shot_type->item_seek_speed*0.33333334f;
                 }
             }
         }
