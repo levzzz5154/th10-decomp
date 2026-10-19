@@ -102,6 +102,7 @@
   "base_index_order": 0,
   "differences": [
     {
+      "class": "block-order",
       "offset": "0xf24",
       "retail": [],
       "model": [
@@ -113,10 +114,10 @@
         "mov edi,eax",
         "jmp L+0xf3b",
         "mov edi,DWORD PTR [ebx+0x8]"
-      ],
-      "class": "block-order"
+      ]
     },
     {
+      "class": "block-order",
       "offset": "0xf48",
       "retail": [
         "mov DWORD PTR [esp+0x108],eax",
@@ -129,64 +130,48 @@
         "jmp L+0xf66",
         "mov esi,DWORD PTR [ebx+0x8]"
       ],
-      "model": [],
-      "class": "block-order"
+      "model": []
     },
     {
+      "class": "evaluation-order",
       "offset": "0xf6b",
       "retail": [],
       "model": [
         "mov DWORD PTR [esp+0x108],eax"
-      ],
-      "class": "evaluation-order"
+      ]
     },
     {
+      "class": "register-choice",
       "offset": "0xf71",
       "retail": [
         "push esi"
       ],
       "model": [
         "push edi"
-      ],
-      "class": "register-choice"
+      ]
     },
     {
-      "offset": "0x2005",
-      "retail": [],
-      "model": [
-        "push 0xbf800000"
-      ],
-      "class": "evaluation-order"
-    },
-    {
-      "offset": "0x2008",
-      "retail": [
-        "push 0xbf800000"
-      ],
-      "model": [],
-      "class": "evaluation-order"
-    },
-    {
+      "class": "register-choice",
       "offset": "0x235e",
       "retail": [
         "mov ecx,DWORD PTR [ebp+0x2c]"
       ],
       "model": [
         "mov eax,DWORD PTR [ebp+0x2c]"
-      ],
-      "class": "register-choice"
+      ]
     },
     {
+      "class": "register-choice",
       "offset": "0x2369",
       "retail": [
         "mov DWORD PTR [esp+0x2c],ecx"
       ],
       "model": [
         "mov DWORD PTR [esp+0x2c],eax"
-      ],
-      "class": "register-choice"
+      ]
     },
     {
+      "class": "register-choice",
       "offset": "0x23a7",
       "retail": [
         "mov edx,DWORD PTR [ebp+0x2fc]",
@@ -199,10 +184,10 @@
         "mov DWORD PTR [ebx+0x10],ecx",
         "mov edx,DWORD PTR [ebp+0x394]",
         "fld DWORD PTR [edx+0x20]"
-      ],
-      "class": "register-choice"
+      ]
     },
     {
+      "class": "register-choice",
       "offset": "0x2433",
       "retail": [
         "mov ecx,DWORD PTR [ebp+0x2fc]",
@@ -215,10 +200,10 @@
         "mov DWORD PTR [ebx+0x10],eax",
         "mov ecx,DWORD PTR [ebp+0x394]",
         "fld DWORD PTR [ecx+0x28]"
-      ],
-      "class": "register-choice"
+      ]
     },
     {
+      "class": "operand-order",
       "offset": "0x2498",
       "retail": [
         "fld DWORD PTR [ebp+0x33c]",
@@ -227,28 +212,27 @@
       "model": [
         "fld DWORD PTR [ebp+0x348]",
         "fadd DWORD PTR [ebp+0x33c]"
-      ],
-      "class": "operand-order"
+      ]
     },
     {
+      "class": "register-choice",
       "offset": "0x2557",
       "retail": [
         "mov ecx,DWORD PTR [esp+0xa4]"
       ],
       "model": [
         "mov edx,DWORD PTR [esp+0xa4]"
-      ],
-      "class": "register-choice"
+      ]
     },
     {
+      "class": "register-choice",
       "offset": "0x2561",
       "retail": [
         "mov DWORD PTR ds:0x476f78,ecx"
       ],
       "model": [
         "mov DWORD PTR ds:0x476f78,edx"
-      ],
-      "class": "register-choice"
+      ]
     }
   ],
   "note": "reference/recovery_notes/anm_vm_tick_0043ee30_2026_10_02.md"

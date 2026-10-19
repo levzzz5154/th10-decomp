@@ -153,7 +153,10 @@ int __stdcall AnmVm::Tick(AnmVm* vm) {
         case 63:
             if (vm->pending_interrupt == 0) {
                 vm->stopped = 1;
-                goto rewind;
+                // Both stop paths step the timer back themselves; the late
+                // tail merge joins them, with retail's receiver-then-push order.
+                vm->time.Advance(-1.0f);
+                goto done;
             }
         interrupt: {
             AnmInstr* cursor = vm->script;
@@ -167,7 +170,10 @@ int __stdcall AnmVm::Tick(AnmVm* vm) {
             vm->pending_interrupt = 0;
             vm->stopped = 0;
             if (cursor->id != 64) {
-                if (fallback == 0) goto rewind;
+                if (fallback == 0) {
+                    vm->time.Advance(-1.0f);
+                    goto done;
+                }
                 cursor = fallback;
             }
             vm->saved_time = vm->time;
@@ -525,8 +531,6 @@ int __stdcall AnmVm::Tick(AnmVm* vm) {
         vm->pc = (AnmInstr*)((char*)ins + ins->size);
     }
     goto done;
-rewind:
-    vm->time.Advance(-1.0f);
 done:
     if (vm->angular_velocity.x != 0.0f) {
         vm->rotation.x = Angle_NormalizeSum(vm->rotation.x, g_game_speed * vm->angular_velocity.x);
