@@ -286,3 +286,14 @@ Left (18 bytes in 7 hunks):
 - 0xc8..0xfd: the EBX/EDI handle-pointer/manager swap parked above.
 - 0x114/0x117: the color load is scheduled before the text push, so it takes
   ECX where retail reuses EAX.
+
+## 2026-10-19 (later): case 3 post-loop block (0xc8-0x117), 25 spellings, no movement
+
+The model swaps retail's registers here: manager in EDI and `&text_handles[0]` in EBX, where retail has EBX and EDI. Retail also loads color into EDX before pushing the text pointer. None of these moved the result off 431/444 with 7 hunks:
+- An inline `ScriptColor()` accessor at either site.
+- An inline `state->color` in the else call (420/444, worse).
+- Named `first` handle pointers, before or after `manager`.
+- Reusing the loop's `handle` variable (`handle = state->text_handles`), or `handle -= 5` (worse).
+- The `RecoveryMarkText` stand-in in place of the member call, with inline or named text/color.
+
+Pointer forwarding folds every named pointer back to the same IL, so the swap is a ChoosePhysReg tie that these spellings don't reach.
