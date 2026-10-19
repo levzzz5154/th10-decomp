@@ -147,3 +147,11 @@ The residual is one register contest with downstream consequences:
   (K 7 -> 9 gives 4 x 9 x 2 = 72 > 71). The K/refs spellings tried this session
   (second references, named helper parameters, statement orders) all folded
   away before Spillcosts.
+
+## 2026-10-19: count vs resource register contest, no gain
+
+The `xor edx,edx` at +0x50 and the `cmp ebx,edx` family are `count`, not a constant zero.
+- Retail keeps `count` in memory during the sample loop (`mov edx,[esp+0x44]; inc edx`), holds `line_animation` in EDI across the Allocate call, and uses EDX for `count` in the cursor loops.
+- The model keeps `count` in EDI and spills the resource to `[esp+0x3c]`.
+
+Six spellings of the resource read (before/after `index`, after Allocate, inline in the LoadScript2 argument, a named bank pointer) leave `count` in EDI. They give 53-86 hunks (baseline 53).
