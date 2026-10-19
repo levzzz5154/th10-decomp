@@ -328,3 +328,25 @@ retail bytes show: 733 -> 737 of 741 identical, 8 -> 6 hunks, 32 -> 23 bytes;
 the two hunks at +0x2DC/+0x2E9 are gone. Spelling the value correctly any
 other way (`&created`, `created_value`, a named id, `MusicFind(...)`, a
 re-read of the stored field) costs 1,178 bytes.
+
+### 2026-10-19 (round 3, cont.): stand-in parameter orders, 23 -> 1 byte
+
+Both remaining scheduler families were argument-load orders steered by the
+equivalent-only stand-ins in `ui_final_stage_text.cpp`
+(`msvc-ltcg-callee-param-order-sets-caller-load-order`). Measured over all
+orders with `tools/matching/psearch.py`:
+
+* `UiFinalExtractLine(destination, cursor, remaining)` (was remaining,
+  destination, cursor): closes the `lea edi` / `mov ecx,eax` pair at +0x121.
+  Three of the six orders keep 23 bytes or better, the other three cost 2,270.
+* `UiFinalTransition(self, mode, base, target, flag)` (was self, base,
+  target, mode, flag): closes both `push 4` / `lea edx` pairs (+0x37D,
+  +0x702). Eight of the 120 orders reach this state.
+
+Now 740/741 identical, no recorded differences; only the base/index swap
+`mov al,[edx+ecx+0x1d892]` (retail `[ecx+edx+...]`, the
+`recovery_music_player[0x1D892 + room->displayed_track]` read at +0x84A)
+remains, layout `base_index_order: 1`. Unchanged across 67 spellings: index
+order, pointer/accessor/named-track locals, the `requests` local moved or
+removed, a selection temporary, and loop-scoped `index`/case-scoped
+`position` locals.

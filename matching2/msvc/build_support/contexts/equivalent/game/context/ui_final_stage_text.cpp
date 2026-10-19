@@ -2,7 +2,7 @@
 // parameter order steers the order in which the music-room model loads the
 // arguments, without touching the shared stage-text sources or their cluster.
 #pragma code_seg(".text$01uifinalextract")
-extern "C" __declspec(noinline) char* __stdcall UiFinalExtractLine(int* remaining, char* destination, char* cursor) {
+extern "C" __declspec(noinline) char* __stdcall UiFinalExtractLine(char* destination, char* cursor, int* remaining) {
     char* end = cursor;
     while (*end != '\n') {
         if (*end == '\r')
@@ -66,9 +66,9 @@ static void UiFinalResetTimer(RecoveryTimer2* timer) {
     timer->previous = -1;
 }
 extern "C" __declspec(noinline) void __stdcall UiFinalTransition(RecoveryMusicVm* self,
+        int mode,
         const RecoveryMusicVector* target,
         const RecoveryMusicVector* base,
-        int mode,
         unsigned char flag) {
     self->transition_mode = mode;
     const RecoveryMusicVector& defaults = recovery_music_defaults;

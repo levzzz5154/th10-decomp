@@ -996,56 +996,7 @@
   "_UiFinalTransition@20": "0x00434A80"
  },
  "base_index_order": 1,
- "differences": [
-  {
-   "class": "evaluation-order",
-   "offset": "0x121",
-   "retail": [],
-   "model": [
-    "mov ecx,eax"
-   ]
-  },
-  {
-   "class": "evaluation-order",
-   "offset": "0x125",
-   "retail": [
-    "mov ecx,eax"
-   ],
-   "model": []
-  },
-  {
-   "class": "evaluation-order",
-   "offset": "0x37d",
-   "retail": [],
-   "model": [
-    "push 0x4"
-   ]
-  },
-  {
-   "class": "evaluation-order",
-   "offset": "0x383",
-   "retail": [
-    "push 0x4"
-   ],
-   "model": []
-  },
-  {
-   "class": "evaluation-order",
-   "offset": "0x702",
-   "retail": [],
-   "model": [
-    "push 0x4"
-   ]
-  },
-  {
-   "class": "evaluation-order",
-   "offset": "0x708",
-   "retail": [
-    "push 0x4"
-   ],
-   "model": []
-  }
- ],
+ "differences": [],
  "note": "reference/recovery_notes/ui_final_runtime_00433ef0_equivalent_2026_10_12.md",
  "roots": [
   "?TitleMusicRoom@@YGHPAUTitle@@@Z"
