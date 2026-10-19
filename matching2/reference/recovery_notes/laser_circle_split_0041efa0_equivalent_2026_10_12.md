@@ -177,3 +177,11 @@ rotation (@0x1b3-0x1f6), the padding lea registers (@0xeb/@0x299).
 
 Ruled out on the new parity: kept-total tail copies, dead-branch second uses,
 bank/sample_position locals (all flat at 394).
+
+### 2026-10-19: entry zero stores and origin copy, no gain
+
+Retail stores one zero local from the memset's EAX (`mov [esp+0x2c],eax`) and the others from EDX. The model uses EDI for all of them.
+- All 24 orders of `hit_count`/`count`/`progress`/`step.z` after the memset, with `step` declared first, stay at 47 hunks.
+  - The best (`hit_count, count, step, step.z, progress`) is 385 bytes against 394, but only because one EDI store moves inside the 0x5b hunk. Not shipped.
+- The nested `if (hit_count > 0)` guard from laser_rectangle_split: 50 hunks.
+- Origin copy spellings: `origin = position`, through a pointer, a Vector3 assignment (all unchanged); field-wise or the 3-float constructor (52 hunks).
