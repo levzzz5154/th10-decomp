@@ -6,8 +6,8 @@
   (SHA-256 `2f14760b6fbbf575…`, verified after every promotion).
 - **100.0% of game code recovered** (322,064 of 322,064 bytes, 2,322 of 2,322
   regions); no inline assembly in the default build.
-- **83.8% byte-exact C++** (2,310 regions), **99.3%** counting the identical
-  instructions of the 22 equivalent regions.
+- **83.8% byte-exact C++** (2,302 regions), **99.3%** counting the identical
+  instructions of the 20 equivalent regions.
 - `callsite_abi.py`, the 129 unit tests and `git diff --check` pass.
 
 ![Project status](docs/status.png)
