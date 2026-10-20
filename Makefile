@@ -1,6 +1,8 @@
 .DEFAULT_GOAL := build
 PYTHON ?= python3
-BEHAVIOR_PYTHON ?= $(PYTHON)
+# Use the Unicorn venv from the README when it exists.
+BEHAVIOR_VENV := matching2/build/behavior-venv/bin/python
+BEHAVIOR_PYTHON ?= $(if $(wildcard $(BEHAVIOR_VENV)),$(BEHAVIOR_VENV),$(PYTHON))
 MSVC_ARGS ?=
 # EXACT=1 builds equivalent regions from their assembly: the bit-identical executable.
 ifdef EXACT

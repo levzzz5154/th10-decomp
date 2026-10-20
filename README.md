@@ -165,7 +165,7 @@ Three checks cover that:
   ```sh
   python3 -m venv matching2/build/behavior-venv
   matching2/build/behavior-venv/bin/pip install unicorn==2.1.4
-  make behavior-check BEHAVIOR_PYTHON=matching2/build/behavior-venv/bin/python
+  make behavior-check   # picks up the venv automatically
   ```
 
 * `matching2/tests/replay_sync/` plays a replay in retail and in the build under
