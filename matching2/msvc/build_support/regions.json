@@ -24462,13 +24462,22 @@
       "kind": "padding"
     },
     {
-      "name": "ReplayManager_OnFrameStep",
-      "source": "build_support/exact/game/replay/replay_manager_on_frame_step.cpp",
-      "symbol": "_ReplayManager_OnFrameStep",
+      "name": "semantic_ReplayManager_OnFrameStep",
+      "source": "src/game/replay/replay_frame_step.cpp",
+      "symbol": "?Check@ReplayFrameStep@@QAEHXZ",
       "address": "0x0042A3E0",
       "size": 68,
-      "kind": "asm",
-      "owner": "0x0042A3E0"
+      "kind": "semantic",
+      "owner": "0x0042A3E0",
+      "previous_record": {
+        "name": "ReplayManager_OnFrameStep",
+        "source": "build_support/exact/game/replay/replay_manager_on_frame_step.cpp",
+        "symbol": "_ReplayManager_OnFrameStep",
+        "address": "0x0042A3E0",
+        "size": 68,
+        "kind": "asm",
+        "owner": "0x0042A3E0"
+      }
     },
     {
       "name": "text_padding_0042a424",
@@ -60504,6 +60513,7 @@
     "?BuildSpellList@TitleDrawView@@QAEHXZ": "0x00432690"
   },
   "translation_units": [
+    "src/game/replay/replay_frame_step.cpp",
     "build_support/exact/core/main/transparent_pixel_fill.cpp",
     "build_support/exact/core/screen/shake_update.cpp",
     "src/core/sprtanim/animation_change_script.cpp",
@@ -60516,7 +60526,6 @@
     "build_support/exact/game/laser/laser_segment_cut.cpp",
     "build_support/layout/ltcg/large_player_dependencies/runtime.cpp",
     "build_support/exact/game/replay/replay_large_runtime.cpp",
-    "build_support/exact/game/replay/replay_manager_on_frame_step.cpp",
     "build_support/exact/game/replay/replay_runtime_bootstrap.cpp",
     "build_support/exact/game/title/name_entry.cpp",
     "build_support/exact/game/title/title_menu_runtime.cpp",
@@ -64469,10 +64478,6 @@
     {
       "region": "asm_FUN_0040e770_0040e770",
       "layout": "build_support/layout/equivalent/enemy_execute.json"
-    },
-    {
-      "region": "ReplayManager_OnFrameStep",
-      "layout": "build_support/layout/equivalent/replay_frame_step.json"
     },
     {
       "region": "ScreenShake_Update",
