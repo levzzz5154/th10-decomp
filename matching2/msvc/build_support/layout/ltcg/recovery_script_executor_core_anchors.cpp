@@ -24,7 +24,12 @@ void RecoveryTimer2::Advance(float delta) {
         elapsed += delta * *speed;
     current = int(elapsed);
 }
-#pragma code_seg(".text$004491c0_fn")
+// A cluster that places another lookup body at these retail addresses parks
+// these through TH10_LOOKUP_FIND_SECTION and TH10_LOOKUP_VALIDATE_SECTION.
+#ifndef TH10_LOOKUP_FIND_SECTION
+#define TH10_LOOKUP_FIND_SECTION ".text$004491c0_fn"
+#endif
+#pragma code_seg(TH10_LOOKUP_FIND_SECTION)
 void* __fastcall RecoveryLookup::Find(RecoveryLookupContext* context, RecoveryScriptId id) {
     if (!id.value)
         return 0;
@@ -48,7 +53,10 @@ void* __fastcall RecoveryLookup::SetFlag(RecoveryLookupContext* context, int id)
     }
     return node;
 }
-#pragma code_seg(".text$00449450_fn")
+#ifndef TH10_LOOKUP_VALIDATE_SECTION
+#define TH10_LOOKUP_VALIDATE_SECTION ".text$00449450_fn"
+#endif
+#pragma code_seg(TH10_LOOKUP_VALIDATE_SECTION)
 void* __cdecl RecoveryLookup::Validate(RecoveryHandle* handle) {
     RecoveryScriptId id = { static_cast<int>(handle->value) };
     void* object = Find(reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl), id);

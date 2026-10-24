@@ -8,9 +8,9 @@
 // spoiler warning and wants a second confirm), cancel leaves through phase 3,
 // which removes the screen and returns to the main menu.
 //
-// Written from the retail instructions block by block; linked with the
-// title-menu cluster (build_support/layout/ltcg/difficulty_select_update.json)
-// for the bodies of the routines it calls.
+// Written from the retail instructions block by block. Byte-exact through
+// build_support/layout/ltcg/title_music_room.json, which links it with the
+// title-menu cluster for the bodies of the routines it calls.
 #include "th10/game/title_menu.hpp"
 #include "th10/game/difficulty_select_update.hpp"
 #include "th10/render/resource_registrar.hpp"
@@ -161,7 +161,7 @@ static __forceinline void MusicRevealLine(Title* room) {
     }
 }
 
-#pragma code_seg(".text$00433ef0_model")
+#pragma code_seg(".text$00433ef0_fn")
 __declspec(noinline) int __stdcall TitleMusicRoom(Title* room) {
     RecoveryMusicVector position;
     void* handle;
@@ -184,8 +184,8 @@ __declspec(noinline) int __stdcall TitleMusicRoom(Title* room) {
             }
             RecoveryMusicInstallSlot(room, 103);
             int tracks = 0;
-            char* text = Archive_LoadFile(recovery_music_comment_file, &remaining, 0);
-            room->file_buffer = text;
+            room->file_buffer = Archive_LoadFile(recovery_music_comment_file, &remaining, 0);
+            char* text = room->file_buffer;
             if (text == 0)
                 goto leave_room;
             while (remaining > 0) {
@@ -360,8 +360,8 @@ leave_room:
     return 0;
 }
 
-// Context for the checking link: stand-in for 0x00449450, which the
-// whole-program link passes its handle in ESI.
+// Cluster context: stand-in for 0x00449450, which the whole-program link
+// passes its handle in ESI.
 #pragma code_seg(".text$00449450_model")
 __declspec(noinline) RecoveryMusicVm* __stdcall MusicValidate(
         RecoveryHandle* handle) {

@@ -30,7 +30,7 @@
     },
     "llvm_mc": {
       "path": "/usr/bin/llvm-mc",
-      "sha256": "bba45da0c1b09df344127809f9adf7d55a03571b3a0ec2975a1e58d808917d96"
+      "sha256": "011de083cac77e1e8ba389cb2327dbbb0c0e4ac20f1bde6b5dd18f8f03b429c6"
     },
     "host_cxx": {
       "path": "/usr/bin/g++",

@@ -1,7 +1,7 @@
-// Equivalent-only stand-in for the stage-text line reader (0x00434A20) whose
-// parameter order steers the order in which the music-room model loads the
+// Cluster-only stand-in for the stage-text line reader (0x00434A20) whose
+// parameter order steers the order in which the music room loads the
 // arguments, without touching the shared stage-text sources or their cluster.
-#pragma code_seg(".text$01uifinalextract")
+#pragma code_seg(".text$00434a20_fn")
 extern "C" __declspec(noinline) char* __stdcall UiFinalExtractLine(char* destination, char* cursor, int* remaining) {
     char* end = cursor;
     while (*end != '\n') {
@@ -30,10 +30,11 @@ extern "C" __declspec(noinline) char* __stdcall UiFinalExtractLine(char* destina
 }
 #pragma code_seg()
 
-// Equivalent-only stand-in for the two-list lookup (0x004491C0) whose parameter
-// order steers the order in which the music-room model loads the arguments.
+// Cluster-only stand-in for the two-list lookup (0x004491C0) whose parameter
+// order steers the order in which the music room loads the arguments.
 #include "th10/game/recovery_script_executor.hpp"
 #include "th10/game/title_menu.hpp"
+#pragma code_seg(".text$004491c0_fn")
 extern "C" __declspec(noinline) void* __fastcall UiFinalFind(
         void* lookup, RecoveryLookupContext* context, RecoveryScriptId id) {
     RecoveryLookupNode* node;
@@ -49,8 +50,8 @@ extern "C" __declspec(noinline) void* __fastcall UiFinalFind(
     return 0;
 }
 
-// Equivalent-only stand-in for the transition setup (0x00434A80) whose parameter
-// order steers the order in which the music-room model loads the arguments.
+// Cluster-only stand-in for the transition setup (0x00434A80) whose parameter
+// order steers the order in which the music room loads the arguments.
 extern "C" float g_game_speed;
 extern "C" RecoveryMusicVector recovery_music_defaults;
 static void UiFinalResetTimer(RecoveryTimer2* timer) {
@@ -65,6 +66,7 @@ static void UiFinalResetTimer(RecoveryTimer2* timer) {
     timer->elapsed = 0;
     timer->previous = -1;
 }
+#pragma code_seg(".text$00434a80_fn")
 extern "C" __declspec(noinline) void __stdcall UiFinalTransition(RecoveryMusicVm* self,
         int mode,
         const RecoveryMusicVector* target,
@@ -79,3 +81,4 @@ extern "C" __declspec(noinline) void __stdcall UiFinalTransition(RecoveryMusicVm
     self->target_transition = *target;
     UiFinalResetTimer(&self->transition_timer);
 }
+#pragma code_seg()

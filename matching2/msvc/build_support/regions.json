@@ -27431,13 +27431,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00433ef0_00433ef0",
-      "source": "build_support/exact/game/title/ui_final_runtime.cpp",
-      "symbol": "_asm_FUN_00433ef0_00433ef0",
+      "name": "semantic_Title_UpdateMusicRoom_00433ef0",
+      "source": "src/game/title/ui_final_runtime.cpp",
+      "symbol": "?TitleMusicRoom@@YGHPAUTitle@@@Z",
       "address": "0x00433EF0",
       "size": 2796,
-      "kind": "asm",
-      "owner": "0x00433EF0"
+      "kind": "semantic",
+      "owner": "0x00433EF0",
+      "previous_record": {
+        "name": "asm_FUN_00433ef0_00433ef0",
+        "source": "build_support/exact/game/title/ui_final_runtime.cpp",
+        "symbol": "_asm_FUN_00433ef0_00433ef0",
+        "address": "0x00433EF0",
+        "size": 2796,
+        "kind": "asm",
+        "owner": "0x00433EF0"
+      }
     },
     {
       "name": "text_padding_004349dc",
@@ -60511,7 +60520,7 @@
     "build_support/exact/game/replay/replay_runtime_bootstrap.cpp",
     "build_support/exact/game/title/name_entry.cpp",
     "build_support/exact/game/title/title_menu_runtime.cpp",
-    "build_support/exact/game/title/ui_final_runtime.cpp",
+    "src/game/title/ui_final_runtime.cpp",
     "build_support/exact/script/sptcmd/ecl_core_interpreter.cpp",
     "build_support/exact/script/sptcmd/ecl_vm_start_child_retail.cpp",
     "build_support/exact/script/sptlib/ecl_name_table.cpp",
@@ -62481,6 +62490,7 @@
     }
   ],
   "ltcg_clusters": [
+    "build_support/layout/ltcg/title_music_room.json",
     "build_support/layout/ltcg/laser_script_run.json",
     "build_support/layout/ltcg/projectile_clear_region.json",
     "build_support/layout/ltcg/effect_ring_build.json",
@@ -64483,10 +64493,6 @@
     {
       "region": "asm_FUN_00432cb0_00432cb0",
       "layout": "build_support/layout/equivalent/name_entry_update.json"
-    },
-    {
-      "region": "asm_FUN_00433ef0_00433ef0",
-      "layout": "build_support/layout/equivalent/ui_final_runtime.json"
     },
     {
       "region": "asm_FUN_0042cdf0_0042cdf0",

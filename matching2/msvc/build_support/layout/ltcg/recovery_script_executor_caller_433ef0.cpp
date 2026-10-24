@@ -81,7 +81,12 @@ void Title::DisableTimerWithOwner(int owner) {
 #pragma code_seg()
 // 0x0042C670: src/game/title/recovery_install_animation_slot_0042c670.cpp.
 void __stdcall RecoveryMusicInstallSlot(Title* room, int index);
-#pragma code_seg(".text$004349e0_fn")
+// A cluster that places another body at these retail addresses parks the
+// stand-ins below through the TH10_MUSIC_*_SECTION macros.
+#ifndef TH10_MUSIC_SKIP_LINE_SECTION
+#define TH10_MUSIC_SKIP_LINE_SECTION ".text$004349e0_fn"
+#endif
+#pragma code_seg(TH10_MUSIC_SKIP_LINE_SECTION)
 __declspec(noinline) char* __stdcall RecoveryMusicSkipLine_004349e0(char* cursor, int* remaining) {
     while (*cursor != '\n' && *cursor != '\r') {
         if (*remaining == 0)
@@ -99,7 +104,10 @@ __declspec(noinline) char* __stdcall RecoveryMusicSkipLine_004349e0(char* cursor
     }
     return cursor;
 }
-#pragma code_seg(".text$00434a20_fn")
+#ifndef TH10_MUSIC_EXTRACT_LINE_SECTION
+#define TH10_MUSIC_EXTRACT_LINE_SECTION ".text$00434a20_fn"
+#endif
+#pragma code_seg(TH10_MUSIC_EXTRACT_LINE_SECTION)
 __declspec(noinline) char* __stdcall RecoveryMusicExtractLine_00434a20(
         char* cursor, char* destination, int* remaining) {
     char* end = cursor;
@@ -125,7 +133,10 @@ __declspec(noinline) char* __stdcall RecoveryMusicExtractLine_00434a20(
     }
     return end;
 }
-#pragma code_seg(".text$00434a80_fn")
+#ifndef TH10_MUSIC_TRANSITION_SECTION
+#define TH10_MUSIC_TRANSITION_SECTION ".text$00434a80_fn"
+#endif
+#pragma code_seg(TH10_MUSIC_TRANSITION_SECTION)
 void RecoveryMusicVm::InitializeTransition(
         const RecoveryMusicVector* base,
         const RecoveryMusicVector* target, int mode, unsigned char flag) {
@@ -211,7 +222,10 @@ static __forceinline unsigned int MusicRegisterObject(void* resource, int script
     return reinterpret_cast<unsigned int>(handle);
 }
 
-#pragma code_seg(".text$00433ef0_fn")
+#ifndef TH10_MUSIC_ROOM_SECTION
+#define TH10_MUSIC_ROOM_SECTION ".text$00433ef0_fn"
+#endif
+#pragma code_seg(TH10_MUSIC_ROOM_SECTION)
 extern "C" __declspec(noinline) int __stdcall Title_UpdateMusicRoom(
         Title* room) {
     switch (room->phase) {
