@@ -18561,13 +18561,23 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0041eb00_0041eb00",
-      "source": "build_support/exact/game/laser/laser_segment_cut.cpp",
-      "symbol": "_asm_FUN_0041eb00_0041eb00",
+      "name": "semantic_CutLaser_CutRectangle_0041eb00",
+      "source": "src/game/laser/laser_rectangle_split.cpp",
+      "symbol": "?CutRectangle@CutLaser@@UAEHPBUCutVector@@0H@Z",
       "address": "0x0041EB00",
       "size": 1171,
-      "kind": "asm",
-      "owner": "0x0041EB00"
+      "kind": "semantic",
+      "owner": "0x0041EB00",
+      "previous_record": {
+        "name": "asm_FUN_0041eb00_0041eb00",
+        "source": "build_support/exact/game/laser/laser_segment_cut.cpp",
+        "symbol": "_asm_FUN_0041eb00_0041eb00",
+        "address": "0x0041EB00",
+        "size": 1171,
+        "kind": "asm",
+        "owner": "0x0041EB00"
+      },
+      "section": ".text$f0041eb00F"
     },
     {
       "name": "text_padding_0041ef93",
@@ -18578,13 +18588,23 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0041efa0_0041efa0",
-      "source": "build_support/exact/game/laser/laser_segment_cut.cpp",
-      "symbol": "_asm_FUN_0041efa0_0041efa0",
+      "name": "semantic_CutLaser_CutCircle_0041efa0",
+      "source": "src/game/laser/laser_circle_split.cpp",
+      "symbol": "?CutCircle@CutLaser@@UAEHPBUCutVector@@MH@Z",
       "address": "0x0041EFA0",
       "size": 1108,
-      "kind": "asm",
-      "owner": "0x0041EFA0"
+      "kind": "semantic",
+      "owner": "0x0041EFA0",
+      "previous_record": {
+        "name": "asm_FUN_0041efa0_0041efa0",
+        "source": "build_support/exact/game/laser/laser_segment_cut.cpp",
+        "symbol": "_asm_FUN_0041efa0_0041efa0",
+        "address": "0x0041EFA0",
+        "size": 1108,
+        "kind": "asm",
+        "owner": "0x0041EFA0"
+      },
+      "section": ".text$f0041efa0F"
     },
     {
       "name": "text_padding_0041f3f4",
@@ -60523,6 +60543,8 @@
     "?BuildSpellList@TitleDrawView@@QAEHXZ": "0x00432690"
   },
   "translation_units": [
+    "src/game/laser/laser_circle_split.cpp",
+    "src/game/laser/laser_rectangle_split.cpp",
     "src/game/laser/laser_circle_trim.cpp",
     "src/game/replay/replay_frame_step.cpp",
     "build_support/exact/core/main/transparent_pixel_fill.cpp",
@@ -60534,7 +60556,6 @@
     "build_support/exact/game/ending/event_script_runtime.cpp",
     "build_support/exact/game/enemy/ecl_vm.cpp",
     "build_support/exact/game/item/manager_factories.cpp",
-    "build_support/exact/game/laser/laser_segment_cut.cpp",
     "build_support/layout/ltcg/large_player_dependencies/runtime.cpp",
     "build_support/exact/game/replay/replay_large_runtime.cpp",
     "build_support/exact/game/replay/replay_runtime_bootstrap.cpp",
@@ -64495,10 +64516,6 @@
       "layout": "build_support/layout/equivalent/camera_shake.json"
     },
     {
-      "region": "asm_FUN_0041eb00_0041eb00",
-      "layout": "build_support/layout/equivalent/laser_rectangle_split.json"
-    },
-    {
       "region": "asm_FUN_00436da0_00436da0",
       "layout": "build_support/layout/equivalent/font_atlas_fill_transparent.json"
     },
@@ -64513,10 +64530,6 @@
     {
       "region": "asm_FUN_0042cdf0_0042cdf0",
       "layout": "build_support/layout/equivalent/title_dispatcher.json"
-    },
-    {
-      "region": "asm_FUN_0041efa0_0041efa0",
-      "layout": "build_support/layout/equivalent/laser_circle_split.json"
     },
     {
       "region": "asm_FUN_0041afd0_0041afd0",

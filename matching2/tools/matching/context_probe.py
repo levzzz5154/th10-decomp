@@ -8,7 +8,7 @@ measures unregistered draft layouts under layout/equivalent/, so this writes a
 draft per context variant and reports the byte-difference count for each.
 
 Usage:
-    python3 context_probe.py --layout laser_rectangle_split [--dry-run]
+    python3 context_probe.py --layout camera_shake [--dry-run]
 """
 import argparse
 import json

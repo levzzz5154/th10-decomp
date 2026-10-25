@@ -1,11 +1,11 @@
 {
   "schema_version": 1,
   "context": {
-    "symbol": "?CutCircle@CutLaser@@UAEHPBUCutVector@@MH@Z",
-    "section": ".text$f0041efa0F",
-    "address": "0x41efa0",
-    "size": 1108,
-    "description": "Unrecovered sibling used as the link entry; compiler context only."
+    "symbol": "?SetPolar@ItemPolarVelocity2@@QAEPAU1@MM@Z",
+    "section": ".text$f0041beb0F",
+    "address": "0x41beb0",
+    "size": 30,
+    "description": "The item polar-velocity setter, an unselected callee used as the link entry; compiler context only."
   },
   "name": "laser_cut",
   "source": "src/game/laser/laser_rectangle_trim.cpp",
@@ -22,7 +22,7 @@
     "build_support/layout/ltcg/laser_cut/bounds.cpp",
     "src/game/laser/laser_rectangle_split.cpp",
     "src/game/laser/laser_circle_trim.cpp",
-    "build_support/layout/ltcg/laser_cut/circle_cut.cpp",
+    "src/game/laser/laser_circle_split.cpp",
     "build_support/layout/ltcg/laser_cut/cut_polar.cpp"
   ],
   "included_sources": [],
@@ -55,16 +55,27 @@
       "section": ".text$f0041dd80F",
       "address": "0x41dd80",
       "size": 1238
-    }
-  ],
-  "anchors": [
+    },
     {
       "name": "function_0041eb00",
+      "actual_abi": "virtual thiscall; three stack arguments; RET 12",
       "symbol": "?CutRectangle@CutLaser@@UAEHPBUCutVector@@0H@Z",
+      "source": "src/game/laser/laser_rectangle_split.cpp",
       "section": ".text$f0041eb00F",
       "address": "0x41eb00",
       "size": 1171
     },
+    {
+      "name": "function_0041efa0",
+      "actual_abi": "virtual thiscall; three stack arguments; RET 12",
+      "symbol": "?CutCircle@CutLaser@@UAEHPBUCutVector@@MH@Z",
+      "source": "src/game/laser/laser_circle_split.cpp",
+      "section": ".text$f0041efa0F",
+      "address": "0x41efa0",
+      "size": 1108
+    }
+  ],
+  "anchors": [
     {
       "name": "function_0041bb00",
       "symbol": "?Spawn@ItemSpawnManager@@QAEHPBUVector3@@HHMM@Z",
@@ -106,13 +117,6 @@
       "section": ".text$f00449950F",
       "address": "0x449950",
       "size": 165
-    },
-    {
-      "name": "function_0041beb0",
-      "symbol": "?SetPolar@ItemPolarVelocity2@@QAEPAU1@MM@Z",
-      "section": ".text$f0041beb0F",
-      "address": "0x41beb0",
-      "size": 30
     },
     {
       "name": "function_0041c510",
@@ -157,13 +161,11 @@
       "size": 36
     }
   ],
-  "anchor_roots": [
-    "?CutRectangle@CutLaser@@UAEHPBUCutVector@@0H@Z",
-    "?SetPolar@ItemPolarVelocity2@@QAEPAU1@MM@Z"
-  ],
   "roots": [
     "?TrimRectangle@TrimLaser@@UAEHPBUCutVector@@0H@Z",
-    "?TrimCircle@TrimLaser@@UAEHPBUCutVector@@MH@Z"
+    "?TrimCircle@TrimLaser@@UAEHPBUCutVector@@MH@Z",
+    "?CutRectangle@CutLaser@@UAEHPBUCutVector@@0H@Z",
+    "?CutCircle@CutLaser@@UAEHPBUCutVector@@MH@Z"
   ],
   "gaps": [
     {
@@ -410,7 +412,7 @@
       "kind": "metadata"
     }
   ],
-  "description": "The four laser cutters with their real item-spawn, animation-creation and laser-spawn callees. Selected cutters are byte-exact; the remaining cutters and callees are compiler context only.",
+  "description": "The four laser cutters with their real item-spawn, animation-creation and laser-spawn callees. All four cutters are selected and byte-exact; the callees are compiler context only.",
   "constant_aliases": [
     {
       "symbol": "__real@3f000000",

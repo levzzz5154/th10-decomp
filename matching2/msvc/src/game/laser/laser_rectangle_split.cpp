@@ -1,13 +1,16 @@
 // 0041EB00: remove rectangularly selected samples and spawn each surviving run.
+// The two counters are declared before the origin copy (retail zeroes their
+// homes from EDX next to the SetPolar call), and the run loop is guarded by
+// a single hit_count test.
 #include "../../../build_support/layout/ltcg/laser_cut/types.hpp"
 #include <string.h>
 #pragma code_seg(".text$f0041eb00F")
 int CutLaser::CutRectangle(const CutVector* center,const CutVector* size,int spawn_items) {
+ int hit_count=0;
+ int count=0;
  CutVector origin=position;
  char cut[256];
  memset(cut,0,sizeof(cut));
- int hit_count=0;
- int count=0;
  float progress=6.0f;
  CutVector high;high=(*size)*0.5f;
  CutVector low;low=(*center)-high;
@@ -38,11 +41,7 @@ int CutLaser::CutRectangle(const CutVector* center,const CutVector* size,int spa
    progress+=12.0f;
    ++count;
   }
-  // Retail tests the counter twice: a zero test that keeps it in EAX, then
-  // the sign test the merge needs. Collapsing the two into one condition
-  // makes the compiler enregister the zero for both compares.
   if (hit_count) {
-   if (hit_count > 0) {
    int cursor=0;
 
    while (cursor<count && cut[cursor]) ++cursor;
@@ -71,7 +70,6 @@ int CutLaser::CutRectangle(const CutVector* center,const CutVector* size,int spa
     params.script=script;
     params.total_length=total_length-start*12.0f;
     params.SpawnIn(g_laser_manager,0);
-   }
    }
   }
  }
