@@ -42,18 +42,36 @@ def node(n, depth=0):
             s+=' sym#%d/%d' % (u32(v+0x1c), u32(v+4)&0xff)
         else: s+=' %x' % v
     return s+')'
+def cstr(a, n=120):
+    # Read a C string without crossing into an unmapped page: a 120-byte read
+    # near a page end fails although the string itself is readable.
+    b=b''
+    for i in range(0, n, 8):
+        try: chunk=inf.read_memory(a+i, 8).tobytes()
+        except Exception:
+            chunk=b''
+            for j in range(8):
+                try: chunk+=inf.read_memory(a+i+j, 1).tobytes()
+                except Exception: break
+        b+=chunk
+        if b'\0' in chunk or len(chunk)<8: break
+    return b.split(b'\0')[0]
 names={}
 fnames={}
 def fname():
+    # c2 reuses the function record at [0x108ab128] for the next function, so
+    # the cache is keyed by the record and the name pointer it holds, and a
+    # failed read is not cached (it once hid TrimCircle 0x41DD80 entirely).
     fn=u32(0x108ab128)
-    if fn not in fnames:
+    key=(fn, u32(fn) if fn else 0)
+    if key not in fnames:
         try:
-            pp=u32(u32(fn)+4)
-            s=inf.read_memory(pp,120).tobytes().split(b'\0')[0]
-            if s and all(32<=x<127 for x in s): fnames[fn]=s.decode()
-            else: fnames[fn]=inf.read_memory(u32(pp),120).tobytes().split(b'\0')[0].decode()
-        except Exception: fnames[fn]='?'
-    return fnames[fn]
+            pp=u32(key[1]+4)
+            s=cstr(pp)
+            if s and all(32<=x<127 for x in s): fnames[key]=s.decode()
+            else: fnames[key]=cstr(u32(pp)).decode()
+        except Exception: return '?'
+    return fnames[key]
 gdb.execute('hbreak *0x107948bc')
 bp=[b for b in gdb.breakpoints()][-1]
 # skip quickly through other functions: ignore counts in chunks

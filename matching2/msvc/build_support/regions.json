@@ -18386,13 +18386,23 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0041dd80_0041dd80",
-      "source": "build_support/exact/game/laser/laser_segment_cut.cpp",
-      "symbol": "_asm_FUN_0041dd80_0041dd80",
+      "name": "semantic_TrimLaser_TrimCircle_0041dd80",
+      "source": "src/game/laser/laser_circle_trim.cpp",
+      "symbol": "?TrimCircle@TrimLaser@@UAEHPBUCutVector@@MH@Z",
       "address": "0x0041DD80",
       "size": 1238,
-      "kind": "asm",
-      "owner": "0x0041DD80"
+      "kind": "semantic",
+      "owner": "0x0041DD80",
+      "previous_record": {
+        "name": "asm_FUN_0041dd80_0041dd80",
+        "source": "build_support/exact/game/laser/laser_segment_cut.cpp",
+        "symbol": "_asm_FUN_0041dd80_0041dd80",
+        "address": "0x0041DD80",
+        "size": 1238,
+        "kind": "asm",
+        "owner": "0x0041DD80"
+      },
+      "section": ".text$f0041dd80F"
     },
     {
       "name": "text_padding_0041e256",
@@ -60513,6 +60523,7 @@
     "?BuildSpellList@TitleDrawView@@QAEHXZ": "0x00432690"
   },
   "translation_units": [
+    "src/game/laser/laser_circle_trim.cpp",
     "src/game/replay/replay_frame_step.cpp",
     "build_support/exact/core/main/transparent_pixel_fill.cpp",
     "build_support/exact/core/screen/shake_update.cpp",
@@ -64506,10 +64517,6 @@
     {
       "region": "asm_FUN_0041efa0_0041efa0",
       "layout": "build_support/layout/equivalent/laser_circle_split.json"
-    },
-    {
-      "region": "asm_FUN_0041dd80_0041dd80",
-      "layout": "build_support/layout/equivalent/laser_circle_trim.json"
     },
     {
       "region": "asm_FUN_0041afd0_0041afd0",

@@ -21,8 +21,9 @@
     "build_support/layout/ltcg/laser_cut/base_laser.cpp",
     "build_support/layout/ltcg/laser_cut/bounds.cpp",
     "src/game/laser/laser_rectangle_split.cpp",
-    "build_support/layout/ltcg/laser_cut/circle_trim.cpp",
-    "build_support/layout/ltcg/laser_cut/circle_cut.cpp"
+    "src/game/laser/laser_circle_trim.cpp",
+    "build_support/layout/ltcg/laser_cut/circle_cut.cpp",
+    "build_support/layout/ltcg/laser_cut/cut_polar.cpp"
   ],
   "included_sources": [],
   "headers": [
@@ -45,6 +46,15 @@
       "section": ".text$f0041d880F",
       "address": "0x41d880",
       "size": 1269
+    },
+    {
+      "name": "function_0041dd80",
+      "actual_abi": "virtual thiscall; three stack arguments; RET 12",
+      "symbol": "?TrimCircle@TrimLaser@@UAEHPBUCutVector@@MH@Z",
+      "source": "src/game/laser/laser_circle_trim.cpp",
+      "section": ".text$f0041dd80F",
+      "address": "0x41dd80",
+      "size": 1238
     }
   ],
   "anchors": [
@@ -54,13 +64,6 @@
       "section": ".text$f0041eb00F",
       "address": "0x41eb00",
       "size": 1171
-    },
-    {
-      "name": "function_0041dd80",
-      "symbol": "?TrimCircle@TrimLaser@@UAEHPBUCutVector@@MH@Z",
-      "section": ".text$f0041dd80F",
-      "address": "0x41dd80",
-      "size": 1237
     },
     {
       "name": "function_0041bb00",
@@ -145,15 +148,22 @@
       "section": ".text$f0041f7a0F",
       "address": "0x41f7a0",
       "size": 91
+    },
+    {
+      "name": "function_0041f800",
+      "symbol": "?SetPolar@CutVector@@QAEPAU1@MM@Z",
+      "section": ".text$f0041f800F",
+      "address": "0x41f800",
+      "size": 36
     }
   ],
   "anchor_roots": [
     "?CutRectangle@CutLaser@@UAEHPBUCutVector@@0H@Z",
-    "?TrimCircle@TrimLaser@@UAEHPBUCutVector@@MH@Z",
     "?SetPolar@ItemPolarVelocity2@@QAEPAU1@MM@Z"
   ],
   "roots": [
-    "?TrimRectangle@TrimLaser@@UAEHPBUCutVector@@0H@Z"
+    "?TrimRectangle@TrimLaser@@UAEHPBUCutVector@@0H@Z",
+    "?TrimCircle@TrimLaser@@UAEHPBUCutVector@@MH@Z"
   ],
   "gaps": [
     {
@@ -203,8 +213,8 @@
     },
     {
       "section": ".text$f0041eb00A",
-      "address": "0x41e255",
-      "size": 2219
+      "address": "0x41e256",
+      "size": 2218
     },
     {
       "section": ".text$f0041efa0A",
@@ -217,9 +227,14 @@
       "size": 940
     },
     {
-      "section": ".text$f0043e710A",
+      "section": ".text$f0041f800A",
       "address": "0x41f7fb",
-      "size": 126741
+      "size": 5
+    },
+    {
+      "section": ".text$f0043e710A",
+      "address": "0x41f824",
+      "size": 126700
     },
     {
       "section": ".text$f004489d0A",
@@ -335,11 +350,6 @@
       "kind": "data"
     },
     {
-      "symbol": "?SetPolar@CutVector@@QAEPAU1@MM@Z",
-      "address": "0x41f800",
-      "kind": "relative_code"
-    },
-    {
       "symbol": "_data_00473660",
       "address": "0x473660",
       "kind": "data"
@@ -421,6 +431,21 @@
       "symbol": "__real@41900000",
       "address": "0x00470C0C",
       "value": 18.0
+    },
+    {
+      "symbol": "__real@42000000",
+      "address": "0x00470BCC",
+      "value": 32.0
+    },
+    {
+      "symbol": "__real@43600000",
+      "address": "0x00470B4C",
+      "value": 224.0
+    },
+    {
+      "symbol": "__real@41800000",
+      "address": "0x00470B48",
+      "value": 16.0
     }
   ]
 }

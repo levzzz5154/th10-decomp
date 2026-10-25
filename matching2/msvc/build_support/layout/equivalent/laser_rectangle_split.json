@@ -86,10 +86,6 @@
       "address": "0x00470B38",
       "kind": "data"
     },
-    "?SetPolar@CutVector@@QAEPAU1@MM@Z": {
-      "address": "0x41f800",
-      "kind": "code"
-    },
     "_data_00473660": {
       "address": "0x473660",
       "kind": "data"
@@ -158,7 +154,8 @@
     "__real@3f000000": "0x00470B0C",
     "__real@41400000": "0x00470CD8",
     "__real@40c00000": "0x00470D1C",
-    "__real@41900000": "0x00470C0C"
+    "__real@41900000": "0x00470C0C",
+    "?SetPolar@CutVector@@QAEPAU1@MM@Z": "0x0041F800"
   },
   "base_index_order": 0,
   "differences": [

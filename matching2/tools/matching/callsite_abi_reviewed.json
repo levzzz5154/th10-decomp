@@ -14,9 +14,6 @@
   "laser_circle_split_0041efa0": {
     "0x43e710": "resource [[0x47781C]+0x458] spilled to [esp+0x2c] and reloaded into ECX; retail keeps it in EDI"
   },
-  "laser_circle_trim_0041dd80": {
-    "0x43e710": "resource [[0x47781C]+0x458] spilled to a stack slot and reloaded into ECX; retail keeps it in EDI"
-  },
   "manager_teardown2": {
     "0x43e460": "both load EAX = 0x492590; retail's load sits before a branch the scan does not follow"
   },

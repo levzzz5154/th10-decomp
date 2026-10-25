@@ -1,16 +1,28 @@
-// 0041DD80: trim selected line-laser samples and preserve surviving runs.
-#include "types.hpp"
+// 0041DD80: trim the line-laser samples inside a circle and respawn the surviving runs.
+// The twin of TrimRectangle (0041D880); only the hit test and the inlined
+// sample-mark animation differ.
+//
+// Three spellings decide retail's x87 operand order and scheduling:
+// - the sample is read only through `sample`: a direct point.x/point.y
+//   reference creates the point field symbols early, and then the loop's
+//   point += step loads step first (as TrimRectangle does in retail);
+// - the run position is start * step (scalar first), unlike the cursor
+//   advance step * cursor;
+// - render_bucket is cleared through a pointer, which orders the store right
+//   after the flags store.
+#include "../../../build_support/layout/ltcg/laser_cut/types.hpp"
 #include <string.h>
+static inline CutVector operator*(float factor,const CutVector& v) {
+ return CutVector(factor*v.x,factor*v.y,factor*v.z);
+}
 #pragma code_seg(".text$f0041dd80F")
 int TrimLaser::TrimCircle(const CutVector* center,float radius,int spawn_items) {
+ int hit_count=0;
+ int count=0;
  CutVector origin=position;
  char cut[256];
  memset(cut,0,sizeof(cut));
- int hit_count=0;
- int count=0;
  float progress=6.0f;
- CutVector align_a;
- CutVector align_b;
  CutVector step;
  step.z=0.0f;
  step.SetPolar(angle,6.0f);
@@ -21,25 +33,25 @@ int TrimLaser::TrimCircle(const CutVector* center,float radius,int spawn_items) 
  radius*=radius;
  {
   while (progress+6.0f<=length) {
-   float dy=center->y-point.y;
-   float dx=center->x-point.x;
+   CutVector* sample=&point;
+   float dy=center->y-sample->y;
+   float dx=center->x-sample->x;
    if (!(dx*dx+dy*dy>radius)) {
     cut[count]=1;
     ++hit_count;
-    if (spawn_items && !(point.x+32.0f<=-192.0f) &&
-        !(point.x-32.0f>=192.0f) && !(point.y+32.0f<=flt_0) &&
-        !(point.y-32.0f>=448.0f)) {
-     g_item_manager->Spawn(&point,8,-1,-1.5707963705062866f,0.6f);
+    if (spawn_items && !sample->IsPartiallyOutside(32.0f,32.0f)) {
+     g_item_manager->Spawn(sample,8,-1,-1.5707963705062866f,0.6f);
     }
     int index=parameters.script*2+17;
     void* resource=static_cast<CutAnimationBank*>(g_laser_manager)->line_animation;
     Entity* object=static_cast<AnimationPool*>(g_sprt_ctrl)->Allocate();
     unsigned int flags=object->flags_35C;
     object->flags_35C=flags|0x40000000u;
-    object->render_bucket=0;
-    object->position.x=point.x+224.0f;
-    object->position.z=point.z;
-    object->position.y=point.y+16.0f;
+    int* bucket=&object->render_bucket;
+    *bucket=0;
+    object->position.x=sample->x+224.0f;
+    object->position.z=sample->z;
+    object->position.y=sample->y+16.0f;
     LoadScript2(static_cast<AnimationResourceFile*>(resource),
         reinterpret_cast<AnimationObjectFile*>(object),index);
     static_cast<CutAnimationLists*>(g_sprt_ctrl)->RegisterPrimaryBack(object);
@@ -83,7 +95,7 @@ int TrimLaser::TrimCircle(const CutVector* center,float radius,int spawn_items) 
    params.length_limit=run_length;
    params.length=run_length;
    if (run_length>18.0f) {
-    params.position=origin+step*static_cast<float>(start);
+    params.position=origin+static_cast<float>(start)*step;
     params.SpawnIn(g_laser_manager,0);
    }
   }
