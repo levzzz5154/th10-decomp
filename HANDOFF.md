@@ -1,4 +1,4 @@
-# th10 decompilation handoff — 2026-10-18
+# th10 decompilation handoff — 2026-10-25
 
 ## Where the project stands
 
@@ -6,11 +6,22 @@
   (SHA-256 `2f14760b6fbbf575…`, verified after every promotion).
 - **100.0% of game code recovered** (322,064 of 322,064 bytes, 2,322 of 2,322
   regions); no inline assembly in the default build.
-- **83.8% byte-exact C++** (2,302 regions), **99.3%** counting the identical
-  instructions of the 20 equivalent regions.
+- **85.8% byte-exact C++** (2,307 regions), **99.5%** counting the identical
+  instructions of the 15 equivalent regions.
 - `callsite_abi.py`, the 129 unit tests and `git diff --check` pass.
 
 ![Project status](docs/status.png)
+
+## The 2026-10-25 campaign
+
+Five equivalent regions (6,381 bytes) were promoted to byte-exact C++:
+`ui_final_runtime`, `replay_frame_step`, `laser_circle_trim`,
+`laser_rectangle_split`, and `laser_circle_split`. Byte-exact coverage rose
+from 83.8% to 85.8%; 15 equivalent regions remain. The replay callback uses
+`_ReadWriteBarrier`; the laser cluster uses a C++ SetPolar context stand-in.
+Details and validation are in the dated recovery notes. The name-table
+investigation and Riscify tracer record further compiler findings without a
+promotion.
 
 ## The 2026-10-18 campaign (this document's previous edition was 2026-10-17)
 
@@ -38,31 +49,25 @@ show the original source's symbol/temp populations cannot be reconstructed by
 any honest spelling — those parks are recorded with the decoded mechanism and
 the ruled-out inventory, not left open.
 
-## Equivalent recoveries (20)
+## Equivalent recoveries (15)
 
-Current measurements; each layout's `note` points at its recovery note in
-`matching2/reference/recovery_notes/` (all have dated 2026-10-18 sections with
-the decoded mechanisms).
+Measurements from the 2026-10-25 build; each layout's `note` points at its
+recovery note in `matching2/reference/recovery_notes/`.
 
 | Address | Layout | Bytes | Identical | Recorded diffs | Swaps |
 | --- | --- | ---: | ---: | ---: | ---: |
-| 0x0040BD80 | `recovery_script_executor` | 1,568 | 429/444 | 8 | 0 |
-| 0x0040E770 | `enemy_execute` | 14,416 | 3,832/3,926 | 46 | 0 |
-| 0x0041DD80 | `laser_circle_trim` | 1,238 | 274/345 | 53 | 0 |
-| 0x0041EB00 | `laser_rectangle_split` | 1,171 | 315/316 | 1 | 0 |
-| 0x0041EFA0 | `laser_circle_split` | 1,108 | 236/302 | 47 | 0 |
-| 0x0041AFD0 | `item_update` | 2,320 | 549/601 | 33 | 0 |
+| 0x0040BD80 | `recovery_script_executor` | 1,568 | 431/444 | 7 | 0 |
+| 0x0040E770 | `enemy_execute` | 14,416 | 3,842/3,926 | 38 | 0 |
+| 0x0041AFD0 | `item_update` | 2,320 | 555/601 | 31 | 0 |
 | 0x00428F60 | `replay_runtime_bootstrap` | 1,344 | 387/389 | 3 | 0 |
 | 0x00429B60 | `replay_save` | 1,681 | 447/535 | 29 | 0 |
-| 0x0042A3E0 | `replay_frame_step` | 68 | 22/22 | 0 | 0 |
-| 0x0042CDF0 | `title_dispatcher` | 1,128 | 285/291 | 5 | 0 |
+| 0x0042CDF0 | `title_dispatcher` | 1,128 | 287/291 | 4 | 0 |
 | 0x00432CB0 | `name_entry_update` | 1,400 | 368/378 | 10 | 0 |
-| 0x00433EF0 | `ui_final_runtime` | 2,796 | 733/741 | 8 | 0 |
 | 0x00436DA0 | `font_atlas_fill_transparent` | 946 | 285/316 | 16 | 0 |
 | 0x0043C550 | `camera_shake` | 439 | 133/134 | 2 | 0 |
-| 0x0043EE30 | `anm_vm_tick` | 9,964 | 2,730/2,755 | 13 | 0 |
+| 0x0043EE30 | `anm_vm_tick` | 9,964 | 2,731/2,755 | 11 | 0 |
 | 0x004465B0 | `anm_texture_fill_transparent` | 1,463 | 369/499 | 73 | 0 |
-| 0x0044A190 | `joystick_poll` | 833 | 271/282 | 5 | 0 |
+| 0x0044A190 | `joystick_poll` | 833 | 274/282 | 4 | 0 |
 | 0x0044DF70 | `ecl_start_child` | 550 | 144/165 | 21 | 0 |
 | 0x0044E1A0 | `ecl_core_interpreter` | 7,020 | 1,769/1,790 | 10 | 9 |
 | 0x00450220 | `ecl_name_table` | 589 | 194/198 | 4 | 0 |
