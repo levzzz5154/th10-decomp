@@ -26877,13 +26877,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0042cdf0_0042cdf0",
-      "source": "build_support/exact/game/title/title_menu_runtime.cpp",
-      "symbol": "_asm_FUN_0042cdf0_0042cdf0",
+      "name": "semantic_Title_Dispatch_0042cdf0",
+      "source": "src/game/title/title_dispatcher.cpp",
+      "symbol": "?TitleDispatcher@@YGHPAUTitle@@@Z",
       "address": "0x0042CDF0",
       "size": 1128,
-      "kind": "asm",
-      "owner": "0x0042CDF0"
+      "kind": "semantic",
+      "owner": "0x0042CDF0",
+      "previous_record": {
+        "name": "asm_FUN_0042cdf0_0042cdf0",
+        "source": "build_support/exact/game/title/title_menu_runtime.cpp",
+        "symbol": "_asm_FUN_0042cdf0_0042cdf0",
+        "address": "0x0042CDF0",
+        "size": 1128,
+        "kind": "asm",
+        "owner": "0x0042CDF0"
+      }
     },
     {
       "name": "text_padding_0042d258",
@@ -60543,6 +60552,7 @@
     "?BuildSpellList@TitleDrawView@@QAEHXZ": "0x00432690"
   },
   "translation_units": [
+    "src/game/title/title_dispatcher.cpp",
     "src/game/laser/laser_circle_split.cpp",
     "src/game/laser/laser_rectangle_split.cpp",
     "src/game/laser/laser_circle_trim.cpp",
@@ -60560,7 +60570,6 @@
     "build_support/exact/game/replay/replay_large_runtime.cpp",
     "build_support/exact/game/replay/replay_runtime_bootstrap.cpp",
     "build_support/exact/game/title/name_entry.cpp",
-    "build_support/exact/game/title/title_menu_runtime.cpp",
     "src/game/title/ui_final_runtime.cpp",
     "build_support/exact/script/sptcmd/ecl_core_interpreter.cpp",
     "build_support/exact/script/sptcmd/ecl_vm_start_child_retail.cpp",
@@ -62531,6 +62540,7 @@
     }
   ],
   "ltcg_clusters": [
+    "build_support/layout/ltcg/title_dispatcher.json",
     "build_support/layout/ltcg/title_music_room.json",
     "build_support/layout/ltcg/laser_script_run.json",
     "build_support/layout/ltcg/projectile_clear_region.json",
@@ -64526,10 +64536,6 @@
     {
       "region": "asm_FUN_00432cb0_00432cb0",
       "layout": "build_support/layout/equivalent/name_entry_update.json"
-    },
-    {
-      "region": "asm_FUN_0042cdf0_0042cdf0",
-      "layout": "build_support/layout/equivalent/title_dispatcher.json"
     },
     {
       "region": "asm_FUN_0041afd0_0041afd0",

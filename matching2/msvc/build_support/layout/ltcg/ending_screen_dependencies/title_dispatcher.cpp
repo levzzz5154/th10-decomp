@@ -72,7 +72,10 @@ static __forceinline void MarkTitleCallback(Title* room) {
     reinterpret_cast<TitlePrefix*>(room)->callback->flags |= 2;
 }
 
-#pragma code_seg(".text$0042cdf0_fn")
+#ifndef TH10_TITLE_DISPATCH_SECTION
+#define TH10_TITLE_DISPATCH_SECTION ".text$0042cdf0_fn"
+#endif
+#pragma code_seg(TH10_TITLE_DISPATCH_SECTION)
 __declspec(noinline) int __stdcall Title_DispatchUpdate(
         Title* room) {
     TitlePrefix* title = reinterpret_cast<TitlePrefix*>(room);

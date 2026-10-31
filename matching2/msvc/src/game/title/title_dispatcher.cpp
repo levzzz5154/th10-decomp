@@ -1,9 +1,6 @@
 // 0x0042CDF0..0x0042D257: the title screen's per-frame dispatcher: the idle
 // counter that starts a demo replay, then the handler of the current mode.
-//
-// A draft measured with `equivalence.py --layout`; it is linked beside the
-// title cluster's own dispatcher stand-in, which the exact handlers depend
-// on and which stays untouched.
+// Built in the title_dispatcher LTCG cluster, whose driver adds its caller.
 #include "th10/game/ending_screen.hpp"
 #include "th10/render/animation_resource_removal.hpp"
 #include <stdlib.h>
@@ -93,7 +90,7 @@ static __forceinline void MarkTitleCallback(Title* room) {
 // Count the idle frames of the title and the main menu; after 900 of them
 // set up the next demo replay.  Returns how the title is to be entered.
 static __forceinline int UpdateIdleDemo(TitlePrefix* title) {
-    switch (title->mode) { case 1: case 2:
+    if (title->mode == 1 || title->mode == 2) {
         ++g_globals_score.idle_frames;
         if ((g_input_keys_raw & 0x160b) != 0) {
             g_globals_score.idle_frames = 0;
@@ -126,8 +123,8 @@ static __forceinline int UpdateIdleDemo(TitlePrefix* title) {
     return g_main_mode_request;
 }
 
-#pragma code_seg(".text$0042cdf0_model")
-__declspec(noinline) int __stdcall TitleDispatcher_Model(
+#pragma code_seg(".text$0042cdf0_fn")
+__declspec(noinline) int __stdcall TitleDispatcher(
         Title* room) {
     TitlePrefix* title = reinterpret_cast<TitlePrefix*>(room);
     int transition = UpdateIdleDemo(title);
@@ -175,9 +172,8 @@ __declspec(noinline) int __stdcall TitleDispatcher_Model(
                 SetSelection(&room->cursor, 1);
             room->DisableTimerWithOwner(2);
             RecoveryMusicInstallSlot(room, 91);
-            MarkTitleCallback(room);
-            TitleMainMenu(room);
-            break;
+            // Entering the main menu shares mode 2's handler call.
+            goto main_menu;
         } else if (transition == 2) {
             MenuCursor* cursor = &room->cursor;
             room->cursor.item_count = 10;
@@ -195,7 +191,7 @@ __declspec(noinline) int __stdcall TitleDispatcher_Model(
         break;
     }
     case 1: EndingScreen_Update2(room); break;
-    case 2: MarkTitleCallback(room); TitleMainMenu(room); break;
+    case 2: main_menu: MarkTitleCallback(room); TitleMainMenu(room); break;
     case 4: TitleOptions(room); break;
     case 5: TitleMenuFlow(room); break;
     case 3:
@@ -222,16 +218,4 @@ __declspec(noinline) int __stdcall TitleDispatcher_Model(
     return 1;
 }
 
-
-// The dispatcher's one caller (0x0042D2E0), and the game state as one object
-// whose address escapes in the whole program.
-struct TitleModel {
-    __declspec(noinline) int Update();
-};
-int TitleModel::Update() {
-    return TitleDispatcher_Model(reinterpret_cast<Title*>(this));
-}
-extern "C" void __stdcall TitleDispatcherEscape(void** objects) {
-    objects[0] = &g_globals_score;
-}
 #pragma code_seg()

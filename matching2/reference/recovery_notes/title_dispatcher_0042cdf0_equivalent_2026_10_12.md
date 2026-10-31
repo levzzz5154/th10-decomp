@@ -270,3 +270,8 @@ the 12 or `transition + 12` for the 15 does the same; doing all four flips it
 back (123). This is the temp-parity lever of `msvc-c2-operand-order-mechanism`.
 The `if (mode == 1 || mode == 2)` head with all those combinations and with
 unsigned/short/char compares of 2 stays at 912-914 bytes.
+
+## 2026-11-01: superseded — byte-exact
+
+The "proven blocker" above was a duplicated tail in the model, not a c2
+limit. See `title_dispatcher_0042cdf0_exact_2026_11_01.md`.
