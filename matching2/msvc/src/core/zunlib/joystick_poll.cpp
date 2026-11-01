@@ -1,22 +1,30 @@
-// Equivalent recovery of the joystick binding reader (0x0044A190): ORs the
-// buttons and axes of game pad `pad` into the action word `buttons`, using
-// the bindings of binding set `set` (shot, bomb, focus, pause and skip are pad
-// button numbers; negative means unbound). Without the DirectInput flag
-// (0x400) the pad is read through winmm's joyGetPosEx and its axes are
-// compared against the quarter-range dead zone of the cached JOYCAPS; with
-// it, the DirectInput device is polled (re-acquired up to 400 times after
-// DIERR_INPUTLOST) and its axes are compared against the configured
-// thresholds. The shape follows the th06 controller reader: the button
-// helpers write through a pointer to `buttons`, which is what keeps the
-// action word a stack parameter until it is promoted to ESI.
+// Joystick binding reader (0x0044A190): ORs the buttons and axes of game pad
+// `pad` into the action word `buttons`, using the bindings of binding set `set`
+// (shot, bomb, focus, pause and skip are pad button numbers; negative means
+// unbound). Without the DirectInput flag (0x400) the pad is read through
+// winmm's joyGetPosEx and its axes are compared against the quarter-range dead
+// zone of the cached JOYCAPS; with it, the DirectInput device is polled
+// (re-acquired up to 400 times after DIERR_INPUTLOST) and its axes are compared
+// against the configured thresholds. The shape follows the th06 controller
+// reader (Controller::GetControllerInput): the button helpers write through a
+// pointer to `buttons`, which is what keeps the action word a stack parameter
+// until it is promoted to ESI.
 //
-// Retail passes `buttons` in ECX (the LTCG private convention derived from
-// this stack signature by the synthetic caller below) and pops `set` and
-// `pad` (RET 8). Remaining differences (the Y threshold's register
-// scheduling, one DirectInput scratch register and the loop-alignment
-// filler) are recorded in build_support/layout/equivalent/joystick_poll.json;
-// see
-// reference/recovery_notes/joystick_binding_reader_0044a190_accepted_2026_10_14.md.
+// The winmm axis tests are th06's: plain `info`/`deadzone` locals, the
+// cached caps read directly at every use, and the Y tests written with the
+// midpoint threshold on the side th06 puts it. The 8 bytes below `info` in
+// retail's frame are the spill slot of the low Y threshold (computed in EBX,
+// which the Y position needs). The Y dead zone is spelled as the negated
+// min-minus-max difference, which is what loads wYmin first and schedules the
+// low threshold's sum ahead of the dead zone, as retail does.
+//
+// Retail passes `buttons` in ECX and pops `set` and `pad` (RET 8): the LTCG
+// private convention the whole-program pass derives from this stack signature
+// for a direct caller (the three retail callers at 0x0044A8B8, 0x0044AC96 and
+// 0x0044AFEA push pad 0 and the set and load ECX). The exact build compiles
+// this file through build_support/layout/ltcg/joystick_poll_context.cpp,
+// whose synthetic caller supplies that call. See
+// reference/recovery_notes/joystick_poll_0044a190_exact_2026_11_01.md.
 #include <string.h>
 
 struct JoyInfoEx {                    // JOYINFOEX
@@ -86,35 +94,30 @@ static unsigned int SetButtonFromDirectInputJoystate(unsigned short* out, short 
 }
 
 unsigned short __stdcall ReadPad(unsigned short buttons, int set, int pad) {
-    // The axis working values live in the same stack record as the JOYINFOEX
-    // block, which is what reproduces retail's frame (the record's leading
-    // words fill the slot below `info`).
-    struct State {
-        unsigned int deadzone;
-        unsigned int ymid;
-        JoyInfoEx info;
-    } st;
+    JoyInfoEx info;
+    unsigned int deadzone;
     InputBinding* binding = &g_input_keys_raw[set];
     if ((g_app_flags & 0x400) == 0) {
-        memset(&st.info, 0, sizeof(st.info));
-        st.info.dwSize = sizeof(st.info);
-        st.info.dwFlags = 0xff;                      // JOY_RETURNALL
-        if (joyGetPosEx(pad != 0, &st.info) != 0) return buttons;
-        SetButtonFromControllerInputs(&buttons, binding->shot, 1, st.info.dwButtons);
-        SetButtonFromControllerInputs(&buttons, binding->bomb, 2, st.info.dwButtons);
-        SetButtonFromControllerInputs(&buttons, binding->pause, 8, st.info.dwButtons);
-        SetButtonFromControllerInputs(&buttons, binding->focus, 4, st.info.dwButtons);
-        SetButtonFromControllerInputs(&buttons, binding->skip, 0x100, st.info.dwButtons);
+        memset(&info, 0, sizeof(info));
+        info.dwSize = sizeof(info);
+        info.dwFlags = 0xff;                         // JOY_RETURNALL
+        if (joyGetPosEx(pad != 0, &info) != 0) return buttons;
+        SetButtonFromControllerInputs(&buttons, binding->shot, 1, info.dwButtons);
+        SetButtonFromControllerInputs(&buttons, binding->bomb, 2, info.dwButtons);
+        SetButtonFromControllerInputs(&buttons, binding->pause, 8, info.dwButtons);
+        SetButtonFromControllerInputs(&buttons, binding->focus, 4, info.dwButtons);
+        SetButtonFromControllerInputs(&buttons, binding->skip, 0x100, info.dwButtons);
 
-        st.deadzone = (g_joystick_caps[pad].wXmax - g_joystick_caps[pad].wXmin) / 4;
-        buttons |= JOYSTICK_BUTTON_PRESSED(0x80, st.info.dwXpos,
-                                           JOYSTICK_MIDPOINT(g_joystick_caps[pad].wXmin, g_joystick_caps[pad].wXmax) + st.deadzone);
-        buttons |= JOYSTICK_BUTTON_PRESSED_INVERT(0x40, st.info.dwXpos,
-                                                  JOYSTICK_MIDPOINT(g_joystick_caps[pad].wXmin, g_joystick_caps[pad].wXmax) - st.deadzone);
-        unsigned int ymax = g_joystick_caps[pad].wYmax;
-        st.deadzone = (ymax - g_joystick_caps[pad].wYmin) / 4;
-        buttons |= JOYSTICK_BUTTON_PRESSED(0x20, st.info.dwYpos, JOYSTICK_MIDPOINT(g_joystick_caps[pad].wYmin, ymax) + st.deadzone);
-        buttons |= JOYSTICK_BUTTON_PRESSED_INVERT(0x10, st.info.dwYpos, JOYSTICK_MIDPOINT(g_joystick_caps[pad].wYmin, ymax) - st.deadzone);
+        deadzone = (g_joystick_caps[pad].wXmax - g_joystick_caps[pad].wXmin) / 4;
+        buttons |= JOYSTICK_BUTTON_PRESSED(0x80, info.dwXpos,
+                                           JOYSTICK_MIDPOINT(g_joystick_caps[pad].wXmin, g_joystick_caps[pad].wXmax) + deadzone);
+        buttons |= JOYSTICK_BUTTON_PRESSED_INVERT(0x40, info.dwXpos,
+                                                  JOYSTICK_MIDPOINT(g_joystick_caps[pad].wXmin, g_joystick_caps[pad].wXmax) - deadzone);
+        deadzone = -(g_joystick_caps[pad].wYmin - g_joystick_caps[pad].wYmax) / 4;
+        buttons |= JOYSTICK_BUTTON_PRESSED_INVERT(0x20, JOYSTICK_MIDPOINT(g_joystick_caps[pad].wYmin, g_joystick_caps[pad].wYmax) + deadzone,
+                                                  info.dwYpos);
+        buttons |= JOYSTICK_BUTTON_PRESSED_INVERT(0x10, info.dwYpos,
+                                                  JOYSTICK_MIDPOINT(g_joystick_caps[pad].wYmin, g_joystick_caps[pad].wYmax) - deadzone);
         return buttons;
     }
 
@@ -141,11 +144,3 @@ unsigned short __stdcall ReadPad(unsigned short buttons, int set, int pad) {
     buttons |= JOYSTICK_BUTTON_PRESSED(0x20, js.lY, g_joystick_y_threshold);
     return buttons;
 }
-
-// Compiler context only; never selected as recovered game code. A direct
-// caller lets the whole-program pass move `buttons` into ECX as retail does.
-#pragma code_seg(".text$02entry")
-extern "C" int __stdcall JoystickPollEntry(unsigned short buttons, int set, int pad) {
-    return ReadPad(buttons, set, pad);
-}
-#pragma code_seg()

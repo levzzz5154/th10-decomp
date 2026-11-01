@@ -40164,13 +40164,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0044a190_0044a190",
-      "source": "build_support/exact/core/zunlib/joystick_poll.cpp",
-      "symbol": "_asm_FUN_0044a190_0044a190",
+      "name": "semantic_ReadPad_0044a190",
+      "source": "src/core/zunlib/joystick_poll.cpp",
+      "symbol": "?ReadPad@@YGGGHH@Z",
       "address": "0x0044A190",
       "size": 833,
-      "kind": "asm",
-      "owner": "0x0044A190"
+      "kind": "semantic",
+      "owner": "0x0044A190",
+      "previous_record": {
+        "name": "asm_FUN_0044a190_0044a190",
+        "source": "build_support/exact/core/zunlib/joystick_poll.cpp",
+        "symbol": "_asm_FUN_0044a190_0044a190",
+        "address": "0x0044A190",
+        "size": 833,
+        "kind": "asm",
+        "owner": "0x0044A190"
+      }
     },
     {
       "name": "text_padding_0044a4d1",
@@ -60561,6 +60570,7 @@
     "?BuildSpellList@TitleDrawView@@QAEHXZ": "0x00432690"
   },
   "translation_units": [
+    "src/core/zunlib/joystick_poll.cpp",
     "src/core/sprtanim/anm_vm_tick.cpp",
     "src/game/title/title_dispatcher.cpp",
     "src/game/laser/laser_circle_split.cpp",
@@ -60571,7 +60581,6 @@
     "build_support/exact/core/screen/shake_update.cpp",
     "src/core/sprtanim/animation_change_script.cpp",
     "build_support/exact/core/sprtlib/transparent_pixel_fill_locked.cpp",
-    "build_support/exact/core/zunlib/joystick_poll.cpp",
     "build_support/exact/game/ending/event_script_runtime.cpp",
     "build_support/exact/game/enemy/ecl_vm.cpp",
     "build_support/exact/game/item/manager_factories.cpp",
@@ -62549,6 +62558,7 @@
     }
   ],
   "ltcg_clusters": [
+    "build_support/layout/ltcg/joystick_poll.json",
     "build_support/layout/ltcg/anm_vm_tick.json",
     "build_support/layout/ltcg/title_dispatcher.json",
     "build_support/layout/ltcg/title_music_room.json",
@@ -64562,10 +64572,6 @@
     {
       "region": "asm_EclVm_StartChildRetail_0044df70",
       "layout": "build_support/layout/equivalent/ecl_start_child.json"
-    },
-    {
-      "region": "asm_FUN_0044a190_0044a190",
-      "layout": "build_support/layout/equivalent/joystick_poll.json"
     },
     {
       "region": "asm_FUN_0040bd80_0040bd80",

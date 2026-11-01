@@ -1,0 +1,87 @@
+{
+  "schema_version": 1,
+  "name": "joystick_poll_0044a190",
+  "source": "src/core/zunlib/joystick_poll.cpp",
+  "driver": "build_support/layout/ltcg/joystick_poll_context.cpp",
+  "headers": [],
+  "image_base": "0x00400000",
+  "description": "Joystick binding reader compiled with native LTCG under a synthetic direct caller, so the whole-program pass passes the action word in ECX as retail does.",
+  "functions": [
+    {
+      "name": "ReadPad",
+      "symbol": "?ReadPad@@YGGGHH@Z",
+      "section": ".text$01read",
+      "address": "0x0044A190",
+      "size": 833,
+      "actual_abi": "buttons in ECX; set and pad on the stack; action word in AX; RET 8"
+    }
+  ],
+  "context": {
+    "symbol": "_JoystickPollEntry@12",
+    "section": ".text$03context",
+    "address": "0x0044A4E0",
+    "size": 25,
+    "description": "Synthetic direct caller that establishes the private ECX convention; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00layout",
+      "address": "0x00401000",
+      "size": 299408
+    },
+    {
+      "section": ".text$02layout",
+      "address": "0x0044A4D1",
+      "size": 15
+    }
+  ],
+  "constants": [],
+  "absolute_symbols": [
+    {
+      "symbol": "_g_input_keys_raw",
+      "address": "0x00474E30",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_joystick_caps",
+      "address": "0x004918B8",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_pad_devices",
+      "address": "0x00491C3C",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_joystick_x_threshold",
+      "address": "0x00491D5E",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_joystick_y_threshold",
+      "address": "0x00491D60",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_app_flags",
+      "address": "0x00491FF4",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__joyGetPosEx@8",
+      "address": "0x00466280",
+      "kind": "data"
+    },
+    {
+      "symbol": "___security_cookie",
+      "address": "0x00473660",
+      "kind": "data"
+    },
+    {
+      "symbol": "@__security_check_cookie@4",
+      "address": "0x00458EA5",
+      "kind": "relative_code"
+    }
+  ],
+  "included_sources": []
+}

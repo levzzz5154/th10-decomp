@@ -274,3 +274,8 @@ The X block matches retail. In the Y block, retail loads `wYmin` into EDI and `w
 Sweep: ymin/ymax each as a local or a caps read, the 0x20 or 0x10 test first, and named `ylow`/`yhigh` threshold locals (none, either one, or both in either order).
 - The best is the shipped form: 4 hunks, 274/282.
 - Named thresholds are folded back to the same code.
+
+## Superseded (2026-11-01)
+
+The region is now byte-exact; see
+`joystick_poll_0044a190_exact_2026_11_01.md`.
