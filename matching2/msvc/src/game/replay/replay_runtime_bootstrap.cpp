@@ -1,6 +1,5 @@
 // 0x00428F60..0x0042949F: ReplayManager::Start — the replay
-// runtime's bootstrap, recovered as an equivalent C++ body (see the layout
-// named in build_support/regions.json's equivalent_recoveries).
+// runtime's bootstrap.
 //
 // Mode 0 builds the recording runtime: it publishes the manager, drops the
 // current stage's old input pools, appends a fresh 0x6284-byte page,
@@ -17,12 +16,11 @@
 //
 // The entry has no ordinary prototype: the factory at 0x00429610 homes the
 // receiver in EBX, the mode in EAX and the path in ECX. That agreement only
-// exists inside a native /LTCG link, so this body is measured with the
-// replay manager start cluster's compiler context (the driver and the
-// factory compiled beside it); the loader, the two pool helpers, the
-// configuration defaults, the frame timer and the secondary scheduler
-// registration are stand-in bodies in that context whose calls bake to the
-// real retail addresses.
+// exists inside a native /LTCG link, so this body is built in the cluster
+// build_support/layout/ltcg/replay_runtime_bootstrap.json beside its
+// compiler context (the factory and stand-in bodies for the loader, the two
+// pool helpers, the configuration defaults, the frame timer and both
+// scheduler registrations, whose calls bake to the real retail addresses).
 #include <string.h>
 #include "th10/game/replay_manager_create.hpp"
 #include "th10/game/replay_stage_begin.hpp"
@@ -173,22 +171,13 @@ __declspec(noinline) int ReplayManager::Start(int start_mode, const char* replay
             memcpy(((ReplayConfigBlock*)summary)->profile_mirror,
                    (char*)g_game + 0x24, 0x34);
 
-        // The flag word's heap-owned bit follows the configuration word's low
-        // bit, and the boss-gauge counters only clear while the configuration
-        // word is set. The barriers keep each store next to its load the way
-        // retail schedules them, and the gauge test re-reads the configuration
-        // word through its retail address so the compare is a fresh memory
-        // read (the parity line above consumed the loaded copy).
+        // The record keeps the configuration word's low bit, and the position
+        // pair is only cleared while the configuration word is set.
         stage_record->stage = (short)g_globals.stage;
-        _ReadWriteBarrier();
         stage_record->seed = g_rng.seed;
-        _ReadWriteBarrier();
-        int config_word = g_stage_flags;
         g_rng.generation = 0;
-        _ReadWriteBarrier();
-        stage_record->flag = stage_record->flag ^ ((stage_record->flag ^ config_word) & 1);
-        _ReadWriteBarrier();
-        if (*(int *)0x00491FC4 != 0) {  // fresh read; see the note above
+        stage_record->flag = g_stage_flags;
+        if (g_stage_flags != 0) {
             stage_record->player_position.x = 0;
             stage_record->player_position.y = 0;
         }
@@ -228,11 +217,8 @@ __declspec(noinline) int ReplayManager::Start(int start_mode, const char* replay
 
         memcpy((char*)g_game + 0x24, (char*)summary + 0x14, 0x34);
 
-        // Each node is nine dwords. The rewind goes through the dword view of
-        // the node array: retail addresses the cursor and count stores through
-        // the scaled stage index (ebx+edx*4+disp) and only materialises the
-        // node pointer for the cursor_end pair, so the array view keeps that
-        // shape (the layout records the two stores' refolded encodings).
+        // Each node is nine dwords; the rewind goes through the dword view of
+        // the node array and the cursor_end pair through the node itself.
         const int stage = g_globals.stage;
         unsigned int (*node_view)[9] = (unsigned int (*)[9])nodes;
         node_view[stage][1] = node_view[stage][0];
@@ -247,9 +233,7 @@ __declspec(noinline) int ReplayManager::Start(int start_mode, const char* replay
         g_globals.difficulty = ((ReplayConfigBlock*)summary)->difficulty;
 
         g_rng.seed = stage_record->seed;
-        _ReadWriteBarrier();
         g_rng.generation = 0;
-        _ReadWriteBarrier();
         g_globals.score = stage_record->score;
         g_globals.word_08 = stage_record->word_10;
         ((ScoreState*)0x00474C40)->SetGauge(stage_record->gauge * 10);

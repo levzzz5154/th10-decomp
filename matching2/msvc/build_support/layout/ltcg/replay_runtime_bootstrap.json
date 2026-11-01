@@ -1,0 +1,296 @@
+{
+  "schema_version": 1,
+  "name": "replay_runtime_bootstrap",
+  "source": "src/game/replay/replay_runtime_bootstrap.cpp",
+  "driver": "build_support/layout/ltcg/replay_runtime_bootstrap/driver.cpp",
+  "additional_sources": [
+    "build_support/layout/ltcg/replay_runtime_bootstrap/context.cpp"
+  ],
+  "included_sources": [
+    "src/game/replay/replay_manager_create_00429610.cpp"
+  ],
+  "headers": [
+    "include/th10/game/replay_manager_create.hpp",
+    "include/th10/core/func_ctrl.hpp",
+    "include/th10/platform/thread_sync.hpp",
+    "include/th10/game/replay_pool_append.hpp",
+    "include/th10/game/replay_stage_begin.hpp",
+    "include/th10/math/rng.hpp",
+    "include/th10/math/timer.hpp",
+    "include/th10/game/player.hpp",
+    "include/th10/game/entity.hpp",
+    "include/th10/types.hpp",
+    "include/th10/game/linked_pool_append.hpp",
+    "include/th10/game/large_initialization_state.hpp",
+    "include/th10/game/score.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "The replay runtime bootstrap ReplayManager::Start 0x00428F60 in the link its former equivalent layout measured: the body, then its compiler context (the factory 0x00429610 parked, the stand-in callees at their retail addresses, and the rooted escape of the generator state and the configuration word). Only the bootstrap is selected.",
+  "exceptions": false,
+  "functions": [
+    {
+      "name": "ReplayManager_Start",
+      "symbol": "?Start@ReplayManager@@QAEHHPBD@Z",
+      "section": ".text$00428f60_fn",
+      "address": "0x00428F60",
+      "size": 1344,
+      "actual_abi": "receiver in EBX, mode in EAX, path in ECX from the factory 0x00429610; integer result in EAX, plain RET"
+    }
+  ],
+  "anchors": [
+    {
+      "name": "GameConfigInitializeDefaultsStandIn",
+      "symbol": "?GameConfig_InitializeDefaults@@YIDHPAUGameConfig@@@Z",
+      "section": ".text$00418c40_fn",
+      "address": "0x00418C40",
+      "size": 125
+    },
+    {
+      "name": "ReplayLoaderStandIn",
+      "symbol": "?ReplayManager_LoadFile2@@YGHPAUReplayManager@@PBD@Z",
+      "section": ".text$0042a200_fn",
+      "address": "0x0042A200",
+      "size": 52
+    },
+    {
+      "name": "FrameTimerStandIn",
+      "symbol": "?SetCountdown@EmbeddedTimerState@@QAEXH@Z",
+      "section": ".text$0042a930_fn",
+      "address": "0x0042A930",
+      "size": 59
+    },
+    {
+      "name": "PoolPageAppendStandIn",
+      "symbol": "?AppendPage@PoolOwner@@QAEPAUPoolLink@@H@Z",
+      "section": ".text$0042aa50_fn",
+      "address": "0x0042AA50",
+      "size": 139
+    },
+    {
+      "name": "ReplayPoolClearStandIn",
+      "symbol": "_ReplayPool_Clear@8",
+      "section": ".text$0042ab20_fn",
+      "address": "0x0042AB20",
+      "size": 93
+    },
+    {
+      "name": "SchedulerRegisterPrimaryStandIn",
+      "symbol": "_FuncCtrl_RegisterPrimary@12",
+      "section": ".text$00449ae0_fn",
+      "address": "0x00449AE0",
+      "size": 131
+    },
+    {
+      "name": "SchedulerRegisterSecondaryStandIn",
+      "symbol": "_FuncCtrl_RegisterSecondary@12",
+      "section": ".text$00449b70_fn",
+      "address": "0x00449B70",
+      "size": 131
+    },
+    {
+      "name": "RngEscapeContext",
+      "symbol": "_ReplayBootstrapRngEscape@4",
+      "section": ".text$00401020_park",
+      "address": "0x00401020",
+      "size": 20
+    },
+    {
+      "name": "FactoryContext",
+      "symbol": "?ReplayManager_Create2@@YGPAUReplayManager@@HPBD@Z",
+      "section": ".text$00401040_park",
+      "address": "0x00401040",
+      "size": 111
+    },
+    {
+      "name": "DestructorStandIn",
+      "symbol": "??1ReplayManager@@QAE@XZ",
+      "section": ".text$004010b0_park",
+      "address": "0x004010B0",
+      "size": 165
+    }
+  ],
+  "anchor_roots": [
+    "?ReplayManager_Create2@@YGPAUReplayManager@@HPBD@Z",
+    "_ReplayBootstrapRngEscape@4"
+  ],
+  "roots": [],
+  "context": {
+    "symbol": "?ReplayManagerStartCompilerContext@@YGHHPBD@Z",
+    "section": ".text$00401000_park",
+    "address": "0x00401000",
+    "size": 24,
+    "description": "Synthetic caller; not recovered game code."
+  },
+  "gaps": [
+    {
+      "section": ".text$00401018_gap",
+      "address": "0x00401018",
+      "size": 8
+    },
+    {
+      "section": ".text$00401034_gap",
+      "address": "0x00401034",
+      "size": 12
+    },
+    {
+      "section": ".text$004010af_gap",
+      "address": "0x004010AF",
+      "size": 1
+    },
+    {
+      "section": ".text$00401155_gap",
+      "address": "0x00401155",
+      "size": 97003
+    },
+    {
+      "section": ".text$00418cbd_gap",
+      "address": "0x00418CBD",
+      "size": 66211
+    },
+    {
+      "section": ".text$004294a0_gap",
+      "address": "0x004294A0",
+      "size": 3424
+    },
+    {
+      "section": ".text$0042a234_gap",
+      "address": "0x0042A234",
+      "size": 1788
+    },
+    {
+      "section": ".text$0042a96b_gap",
+      "address": "0x0042A96B",
+      "size": 229
+    },
+    {
+      "section": ".text$0042aadb_gap",
+      "address": "0x0042AADB",
+      "size": 69
+    },
+    {
+      "section": ".text$0042ab7d_gap",
+      "address": "0x0042AB7D",
+      "size": 126819
+    },
+    {
+      "section": ".text$00449b63_gap",
+      "address": "0x00449B63",
+      "size": 13
+    }
+  ],
+  "constants": [],
+  "constant_aliases": [],
+  "data_aliases": [],
+  "absolute_symbols": [
+    {
+      "symbol": "??2@YAPAXI@Z",
+      "address": "0x00452493",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "??3@YAXPAX@Z",
+      "address": "0x004524A1",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__fltused",
+      "address": "0x00000000",
+      "kind": "metadata"
+    },
+    {
+      "symbol": "_memset",
+      "address": "0x0045BED0",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_free",
+      "address": "0x004524A1",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_strcpy",
+      "address": "0x0045BD80",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?SetGauge@ScoreState@@QAEXH@Z",
+      "address": "0x00418B80",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_g_globals",
+      "address": "0x00474C40",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_game",
+      "address": "0x00477810",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_replay",
+      "address": "0x00477838",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_key_bindings_current",
+      "address": "0x00474E88",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_game_speed",
+      "address": "0x00476F78",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_rng",
+      "address": "0x004918B0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_stage_flags",
+      "address": "0x00491FC4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_func_ctrl",
+      "address": "0x00491BE4",
+      "kind": "data"
+    },
+    {
+      "symbol": "?g_thread_synchronization@@3UThreadSynchronization@@A",
+      "address": "0x00492274",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__EnterCriticalSection@4",
+      "address": "0x004660B0",
+      "kind": "data"
+    },
+    {
+      "symbol": "__imp__LeaveCriticalSection@4",
+      "address": "0x004660B4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_ReplayManagerStandIn_Remove@8",
+      "address": "0x00449F60",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_ReplayManagerStandIn_Load@4",
+      "address": "0x0042A400",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "??0ReplayManagerNode@@QAE@XZ",
+      "address": "0x0042AC20",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "??1ReplayManagerNode@@QAE@XZ",
+      "address": "0x0042AC60",
+      "kind": "relative_code"
+    }
+  ]
+}

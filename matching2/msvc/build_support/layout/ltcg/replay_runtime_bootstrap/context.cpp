@@ -1,17 +1,26 @@
-// Compiler context only; never compared as recovered game code. Compiled
-// beside the equivalent replay bootstrap body so the whole-program /LTCG pass
-// derives the register conventions retail uses at its edges: the factory at
-// 0x00429610 homes the bootstrap's receiver in EBX with the mode in EAX and
+// Compiler context only; never selected as recovered game code. Compiled
+// beside the replay bootstrap body (driver.cpp) so the whole-program /LTCG
+// pass derives the register conventions retail uses at its edges: the factory
+// at 0x00429610 homes the bootstrap's receiver in EBX with the mode in EAX and
 // the path in ECX, and the loader, pool, timer, configuration and scheduler
 // helpers keep the private conventions their retail callers use. The
-// bootstrap's own Start definition is NOT here; the model supplies it.
+// bootstrap's own Start definition is NOT here; driver.cpp supplies it.
+//
+// The stand-ins the bootstrap calls sit at their retail addresses (the call
+// displacements are baked); the factory, its destructor, the escape and the
+// link entry are parked at the start of the image.
 #include <string.h>
 #include <stdlib.h>
 #include "th10/core/func_ctrl.hpp"
 #include "th10/game/linked_pool_append.hpp"
 #include "th10/game/large_initialization_state.hpp"
 #include "th10/platform/thread_sync.hpp"
-#include "../../../src/game/replay/replay_manager_create_00429610.cpp"
+#include "th10/game/replay_stage_begin.hpp"
+// The factory, parked: the bootstrap does not call it.
+#define code_seg(name) code_seg(".text$00401040_park")
+#include "../../../../src/game/replay/replay_manager_create_00429610.cpp"
+#undef code_seg
+#pragma code_seg()
 
 // C linkage: calls the compiler knows cannot throw, so the stand-in
 // destructor needs no unwind state for the node array.
@@ -20,7 +29,7 @@ extern "C" int __stdcall ReplayManagerStandIn_Load(const char* path);
 extern "C" char g_key_bindings_current[];
 extern "C" float g_game_speed;
 
-// Same shape the equivalent body declares; the member definition lands here.
+// Same shape the bootstrap body declares; the member definition lands here.
 struct EmbeddedTimerState {
     unsigned char unknown_00[0x14];
     int target_14;
@@ -44,6 +53,7 @@ static __forceinline void ReplayManagerStandIn_Unregister(void* task) {
 }
 
 // With every callee-saved register busy the receiver stays on the stack.
+#pragma code_seg(".text$004010b0_park")
 ReplayManager::~ReplayManager() {
     void** tasks = reinterpret_cast<void**>(reserved_000);
     ReplayManagerStandIn_Unregister(tasks[2]);
@@ -52,6 +62,7 @@ ReplayManager::~ReplayManager() {
 
 // The path's address is taken, which keeps it on the stack; the receiver is
 // needed after the call and arrives in ESI, like the real loader's.
+#pragma code_seg(".text$0042a200_fn")
 __declspec(noinline) int ReplayManager_LoadFile2(
         ReplayManager* manager, const char* replay_path) {
     strcpy(manager->path, replay_path);
@@ -62,6 +73,7 @@ __declspec(noinline) int ReplayManager_LoadFile2(
 
 // The frame countdown timer; the receiver is the containing score-state
 // object and arrives in EAX at the retail call site.
+#pragma code_seg(".text$0042a930_fn")
 void EmbeddedTimerState::SetCountdown(int frames) {
     if ((this->flags_24 & 1) == 0) {
         this->current_18 = 0;
@@ -76,6 +88,7 @@ void EmbeddedTimerState::SetCountdown(int frames) {
 }
 
 // The pool page append; the slot arrives in ESI and the owner is pushed.
+#pragma code_seg(".text$0042aa50_fn")
 PoolLink* PoolOwner::AppendPage(int slot) {
     PoolLink* link = &(new PoolPage)->link;
     PoolLink* tail = &lists[slot];
@@ -91,6 +104,7 @@ PoolLink* PoolOwner::AppendPage(int slot) {
 }
 
 // Complete list release; the stage arrives in EAX and the lists in ECX.
+#pragma code_seg(".text$0042ab20_fn")
 extern "C" __declspec(noinline) void __stdcall
 ReplayPool_Clear(ReplayPoolLists* lists, int stage) {
     ReplayPoolLink2* current = lists->stages[stage].next;
@@ -110,6 +124,7 @@ ReplayPool_Clear(ReplayPoolLists* lists, int stage) {
 
 // The game-configuration defaults; the block pointer is the only live
 // argument and lands in EDX, with the unused fastcall slot never loaded.
+#pragma code_seg(".text$00418c40_fn")
 char __fastcall GameConfig_InitializeDefaults(int unused, GameConfig* config) {
     memset(config, 0, 0x34);
     config->field_1a = 0;
@@ -131,6 +146,7 @@ char __fastcall GameConfig_InitializeDefaults(int unused, GameConfig* config) {
 
 // The task arrives in ESI and its priority in EDI; only the scheduler is
 // pushed, exactly as at the bootstrap's retail call sites.
+#pragma code_seg(".text$00449ae0_fn")
 extern "C" __declspec(noinline) int __stdcall FuncCtrl_RegisterPrimary(
         FuncCtrl* scheduler, SchedulerTask* task, int priority) {
     int result = 0;
@@ -150,6 +166,7 @@ extern "C" __declspec(noinline) int __stdcall FuncCtrl_RegisterPrimary(
     return result;
 }
 
+#pragma code_seg(".text$00449b70_fn")
 extern "C" __declspec(noinline) int __stdcall FuncCtrl_RegisterSecondary(
         FuncCtrl* scheduler, SchedulerTask* task, int priority) {
     int result = 0;
@@ -169,7 +186,20 @@ extern "C" __declspec(noinline) int __stdcall FuncCtrl_RegisterSecondary(
     return result;
 }
 
-#pragma code_seg(".text$05context")
+// The generator state's and the configuration word's addresses escape in
+// retail (the RNG helpers take the generator as their receiver; the word is a
+// field of the application object at 0x00491C28), so the whole-program pass
+// must not assume a pointer store or load cannot reach them; this rooted
+// public helper gives the bootstrap the same aliasing facts. Without it the
+// stage-input rewind, the seed restore and the record fill schedule
+// differently from retail.
+#pragma code_seg(".text$00401020_park")
+extern "C" void __stdcall ReplayBootstrapRngEscape(void** objects) {
+    objects[0] = &g_rng;
+    objects[1] = &g_stage_flags;
+}
+
+#pragma code_seg(".text$00401000_park")
 int __stdcall ReplayManagerStartCompilerContext(int start_mode, const char* replay_path) {
     return ReplayManager_Create2(start_mode, replay_path) != 0;
 }

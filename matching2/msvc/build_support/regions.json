@@ -24180,13 +24180,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00428f60_00428f60",
-      "source": "build_support/exact/game/replay/replay_runtime_bootstrap.cpp",
-      "symbol": "_asm_FUN_00428f60_00428f60",
+      "name": "semantic_ReplayManager_Start_00428f60",
+      "source": "src/game/replay/replay_runtime_bootstrap.cpp",
+      "symbol": "?Start@ReplayManager@@QAEHHPBD@Z",
       "address": "0x00428F60",
       "size": 1344,
-      "kind": "asm",
-      "owner": "0x00428F60"
+      "kind": "semantic",
+      "owner": "0x00428F60",
+      "previous_record": {
+        "name": "asm_FUN_00428f60_00428f60",
+        "source": "build_support/exact/game/replay/replay_runtime_bootstrap.cpp",
+        "symbol": "_asm_FUN_00428f60_00428f60",
+        "address": "0x00428F60",
+        "size": 1344,
+        "kind": "asm",
+        "owner": "0x00428F60"
+      }
     },
     {
       "name": "semantic_ReplayManager_Destroy_004294a0",
@@ -60570,6 +60579,7 @@
     "?BuildSpellList@TitleDrawView@@QAEHXZ": "0x00432690"
   },
   "translation_units": [
+    "src/game/replay/replay_runtime_bootstrap.cpp",
     "src/core/zunlib/joystick_poll.cpp",
     "src/core/sprtanim/anm_vm_tick.cpp",
     "src/game/title/title_dispatcher.cpp",
@@ -60586,7 +60596,6 @@
     "build_support/exact/game/item/manager_factories.cpp",
     "build_support/layout/ltcg/large_player_dependencies/runtime.cpp",
     "build_support/exact/game/replay/replay_large_runtime.cpp",
-    "build_support/exact/game/replay/replay_runtime_bootstrap.cpp",
     "build_support/exact/game/title/name_entry.cpp",
     "src/game/title/ui_final_runtime.cpp",
     "build_support/exact/script/sptcmd/ecl_core_interpreter.cpp",
@@ -62558,6 +62567,7 @@
     }
   ],
   "ltcg_clusters": [
+    "build_support/layout/ltcg/replay_runtime_bootstrap.json",
     "build_support/layout/ltcg/joystick_poll.json",
     "build_support/layout/ltcg/anm_vm_tick.json",
     "build_support/layout/ltcg/title_dispatcher.json",
@@ -64556,10 +64566,6 @@
     {
       "region": "asm_FUN_0041afd0_0041afd0",
       "layout": "build_support/layout/equivalent/item_update.json"
-    },
-    {
-      "region": "asm_FUN_00428f60_00428f60",
-      "layout": "build_support/layout/equivalent/replay_runtime_bootstrap.json"
     },
     {
       "region": "asm_FUN_004465b0_004465b0",

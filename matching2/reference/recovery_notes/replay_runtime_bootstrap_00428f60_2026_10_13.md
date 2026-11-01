@@ -124,3 +124,8 @@ stores/loads/pointers, field-pointer slots, param-field slots, disp-in-base,
 helper accessors, reference aliases, second assignments and statement
 reordering all ruled out. Scheduler mechanism rule:
 `msvc-c2-address-cse-use-set-def-placement`.
+
+## Superseded (2026-11-01)
+
+The region is now byte-exact; the barriers were the residual, not the
+addressing mode. See `replay_runtime_bootstrap_00428f60_exact_2026_11_01.md`.
