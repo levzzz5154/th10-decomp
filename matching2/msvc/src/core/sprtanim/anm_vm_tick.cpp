@@ -1,8 +1,9 @@
-// Equivalent recovery of the ANM VM tick at 0x0043EE30. The default build
-// compiles this into the executable once tools/matching/equivalence.py has
-// checked that it differs from the exact bytes only as recorded in
-// build_support/layout/equivalent/anm_vm_tick.json. The inline assembly in
-// build_support/exact/core/sprtanim/anm_vm_tick.cpp supplies those exact bytes and `make EXACT=1`.
+// 0x0043EE30..0x0044151B: the ANM VM interpreter. Runs every instruction of
+// the VM's script that is due at the current frame, then advances the
+// interpolators and the script clock. Returns 1 when the script has ended.
+//
+// Built in the anm_vm_tick LTCG cluster, which compiles the callee bodies
+// beside it so the whole-program link derives retail's private conventions.
 #include "th10/runtime/core/sprtanim/anm_vm_tick.hpp"
 #pragma intrinsic(sin, cos, tan, acos, atan, fmod, memcpy)
 
@@ -19,6 +20,8 @@ static __forceinline void AttachChild(AnmVm* vm, AnmHandle* handle) {
 }
 
 static __forceinline Float3 operator+(const Float3& a, const Float3& b) { return Float3(a.x + b.x, a.y + b.y, a.z + b.z); }
+static __forceinline Float3& operator+=(Float3& a, const Float3& b) { a.x += b.x; a.y += b.y; a.z += b.z; return a; }
+#pragma code_seg(".text$0043ee30_fn")
 int __stdcall AnmVm::Tick(AnmVm* vm) {
     if (vm->pc == 0) return 1;
     if (vm->paused) return 0;
@@ -258,15 +261,9 @@ int __stdcall AnmVm::Tick(AnmVm* vm) {
             break;
         }
         case 60: {
-            float gy = FARG(3);
-            int time;
-            if (ins->var_mask & 1)
-                time = vm->IntVar(ins->i[0]);
-            else
-                time = ins->i[0];
-            float gx = FARG(2);
-            Float2 goal(gx, gy);
-            vm->StartScale(&vm->scale, &goal, time, ins->b[4]);
+            Float2 goal(FARG(2), FARG(3));
+            int time = IARG(0);
+            vm->StartScale(time, ins->b[4], &vm->scale, &goal);
             vm->scaled = 1;
             break;
         }
@@ -597,38 +594,28 @@ done:
     }
     if (vm->alpha2_interp.end_time != 0) vm->alpha2 = vm->alpha2_interp.Evaluate();
     if (vm->type == 9) {
-        int i = vm->int_vars[0] - 1;
+        int count = vm->int_vars[0];
         AnmVertex* vertex = vm->strip;
         float angle = vm->rotation.z;
         float v = 0.0f;
-        float angle_step = 6.2831855f / (float)(vm->int_vars[0] - 1);
-        float v_step = (float)vm->int_vars[1] / (float)(vm->int_vars[0] - 1);
-        for (; i > 0; --i) {
+        float angle_step = 6.2831855f / (float)(count - 1);
+        float v_step = (float)vm->int_vars[1] / (float)(count - 1);
+        for (int i = 0; i < count - 1; ++i) {
             vertex->w = 1.0f;
             vertex->color = *(unsigned int*)&vm->blue;
             vertex->u = vm->sprite->u0 + vm->uv_scroll.x;
             vertex->v = v + vm->uv_scroll.y;
             vertex->SetPolar(angle, vm->scale.x * 0.5f + vm->scale.y);
-            vertex->z = 0.0f;
-            {
-                Float3 origin = vm->offset + vm->position;
-                vertex->position_xy.x += origin.x;
-                vertex->position_xy.y += origin.y;
-                vertex->z = origin.z;
-            }
+            vertex->position.z = 0.0f;
+            vertex->position += vm->offset + vm->position;
             ++vertex;
             vertex->w = 1.0f;
             vertex->color = *(unsigned int*)&vm->blue;
             vertex->u = vm->sprite->u1 + vm->uv_scroll.x;
             vertex->v = v + vm->uv_scroll.y;
             vertex->SetPolar(angle, vm->scale.y - vm->scale.x * 0.5f);
-            vertex->z = 0.0f;
-            {
-                Float3 origin = vm->offset + vm->position;
-                vertex->position_xy.x += origin.x;
-                vertex->position_xy.y += origin.y;
-                vertex->z = origin.z;
-            }
+            vertex->position.z = 0.0f;
+            vertex->position += vm->offset + vm->position;
             ++vertex;
             v += v_step;
             angle = Angle_NormalizeSum(angle, angle_step);
@@ -642,3 +629,4 @@ done:
     g_game_speed = saved_speed;
     return 0;
 }
+#pragma code_seg()

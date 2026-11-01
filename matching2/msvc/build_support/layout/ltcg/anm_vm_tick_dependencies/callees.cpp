@@ -1,22 +1,22 @@
-// Link context for the 0x0043EE30 equivalent recovery: models of the helpers it
-// calls and of a caller, so the checking LTCG link derives the same private
-// register conventions as retail. Only AnmVm::Tick is compared.
+// Compiler context of the ANM VM tick 0x0043EE30 (never selected as recovered
+// code): models of the helpers it calls and a caller, the link's entry, so the
+// whole-program link derives retail's private register conventions. Each body
+// Tick calls sits at its retail address (the call displacements are baked);
+// the others are parked at the start of the image. StartScale (0x0041AB70)
+// keeps the parameter order Tick's case 60 needs, not the order of the real
+// EntityMovementSlot::Initialise. The game's globals (g_game_speed and the
+// others the header declares) are bound at their retail addresses.
 #include "th10/runtime/core/sprtanim/anm_vm_tick.hpp"
 
-float g_game_speed = 1.0f;
-float flt_0 = 0.0f;
-Float3 g_zero_vector;
-Float3 g_scroll_step;
-RngState g_replay_rng;
-RngState g_effect_rng;
 extern "C" float g_back_camera[12];
 extern "C" void* g_sprt_ctrl;
 extern "C" void* __cdecl ext_alloc_vm(void* manager);
 extern "C" AnmHandle* __cdecl ext_register(int which, void* manager, AnmHandle* out, void* vm);
 extern "C" void* __fastcall ext_find(void* context, int id);
 extern "C" int __stdcall ext_ring(AnmVm* vm);
-float g_pi = 3.1415927f, g_tau = 6.2831855f, g_neg_pi = -3.1415927f;
+extern float g_pi, g_tau, g_neg_pi;  // 0x00470B18, 0x00470B14, 0x00470B10
 
+#pragma code_seg(".text$00405410_fn")
 void FrameTimer::Set(int value) {
     if (!(flags & 1)) {
         current = 0;
@@ -29,6 +29,7 @@ void FrameTimer::Set(int value) {
     previous = value - 1;
     elapsed = (float)value;
 }
+#pragma code_seg(".text$0044bf40_fn")
 void FrameTimer::Advance(float delta) {
     previous = current;
     if (*speed > 0.99f && *speed < 1.01f) {
@@ -38,6 +39,7 @@ void FrameTimer::Advance(float delta) {
     }
     current = int(elapsed);
 }
+#pragma code_seg(".text$00428dd0_fn")
 void FrameTimer::Decrement(int count) { Advance(float(-count)); }
 
 static __forceinline unsigned short NextWord(RngState* s) {
@@ -47,17 +49,20 @@ static __forceinline unsigned short NextWord(RngState* s) {
     ++s->generation;
     return s->seed;
 }
+#pragma code_seg(".text$0043cb80_fn")
 unsigned int RngState::NextModulo(unsigned int modulus) {
     if (modulus == 0) return 0;
     unsigned short high = NextWord(this);
     unsigned short low = NextWord(this);
     return ((unsigned int)high << 16 | low) % modulus;
 }
+#pragma code_seg(".text$0044bb20_fn")
 float RngState::NextFloat() {
     unsigned short high = NextWord(this);
     unsigned short low = NextWord(this);
     return ((unsigned int)high << 16 | low) * (1.0f / 4294967296.0f);
 }
+#pragma code_seg(".text$0044bc10_fn")
 float __stdcall Angle_NormalizeSum(float angle, float delta) {
     float sum = angle + delta;
     int iterations = 0;
@@ -83,6 +88,7 @@ static __forceinline void Restart(FrameTimer* timer) {
     timer->elapsed = 0;
     timer->previous = -1;
 }
+#pragma code_seg(".text$004050d0_fn")
 void Float3Interp::Restart() { ::Restart(&timer); }
 
 float __stdcall EvaluateCurve(unsigned int mode, float numerator, float denominator);
@@ -94,6 +100,7 @@ static __forceinline Float2 operator-(const Float2& a, const Float2& b) { return
 static __forceinline Float2 operator*(const Float2& a, float t) { return Float2(a.x * t, a.y * t); }
 static __forceinline Int3 operator+(const Int3& a, const Int3& b) { return Int3(a.r + b.r, a.g + b.g, a.b + b.b); }
 static __forceinline Int3 operator-(const Int3& a, const Int3& b) { return Int3(a.r - b.r, a.g - b.g, a.b - b.b); }
+#pragma code_seg(".text$00401000_park")
 __declspec(noinline) Int3 Int3::operator*(float t) const { return Int3(int(r * t), int(g * t), int(b * t)); }
 static __forceinline int Scale(int a, float t) { return int(a * t); }
 #define EVAL(T, MUL) \
@@ -121,10 +128,15 @@ static __forceinline int Scale(int a, float t) { return int(a * t); }
     } \
     return MUL((goal - initial), EvaluateCurve(mode, timer.elapsed, (float)end_time)) + initial;
 #define OPMUL(a, t) ((a) * (t))
+#pragma code_seg(".text$00404610_fn")
 Float3 Float3Interp::Evaluate() { EVAL(Float3, OPMUL) }
+#pragma code_seg(".text$00441600_fn")
 Int3 ColorInterp::Evaluate() { EVAL(Int3, OPMUL) }
+#pragma code_seg(".text$00441950_fn")
 int IntInterp::Evaluate() { EVAL(int, Scale) }
+#pragma code_seg(".text$00441ad0_fn")
 Float2 Float2Interp::Evaluate() { EVAL(Float2, OPMUL) }
+#pragma code_seg(".text$00401040_park")
 float __stdcall EvaluateCurve(unsigned int mode, float numerator, float denominator) {
     float ratio = numerator / denominator;
     float x;
@@ -139,6 +151,7 @@ float __stdcall EvaluateCurve(unsigned int mode, float numerator, float denomina
     default: return ratio;
     }
 }
+#pragma code_seg(".text$00413200_fn")
 void __stdcall List_InsertAfter(ListNode* position, ListNode* node) {
     if (position->next != 0) {
         node->next = position->next;
@@ -157,10 +170,15 @@ void __stdcall List_InsertAfter(ListNode* position, ListNode* node) {
         ext_register(which, g_sprt_ctrl, out, vm); \
         return out; \
     }
+#pragma code_seg(".text$00448d00_fn")
 CREATE(Anm_CreatePrimaryBack, 0)
+#pragma code_seg(".text$00448e30_fn")
 CREATE(Anm_CreatePrimaryFront, 1)
+#pragma code_seg(".text$00448f60_fn")
 CREATE(Anm_CreateSecondaryBack, 2)
+#pragma code_seg(".text$00449090_fn")
 CREATE(Anm_CreateSecondaryFront, 3)
+#pragma code_seg(".text$00449450_fn")
 AnmVm* __stdcall Anm_Resolve(AnmHandle* handle) {
     AnmVm* vm = (AnmVm*)ext_find(g_sprt_ctrl, (int)handle->value);
     if (vm == 0) handle->value = 0;
@@ -188,6 +206,7 @@ struct SpriteObject {
     unsigned char reserved_386[0x394 - 0x386];
     unsigned char* record;
 };
+#pragma code_seg(".text$0043e5a0_fn")
 int AnmLoaded::SetSprite(AnmVm* vm, int index) {
     SpriteObject* object = (SpriteObject*)vm;
     unsigned char* res = reinterpret_cast<unsigned char*>(this);
@@ -208,6 +227,7 @@ int AnmLoaded::SetSprite(AnmVm* vm, int index) {
     object->block_copy = object->block_a;
     return 0;
 }
+#pragma code_seg(".text$0043ec70_fn")
 int AnmVm::IntVar(int id) {
     switch (id - 10000) {
     case 0: return int_vars[0];
@@ -223,6 +243,7 @@ int AnmVm::IntVar(int id) {
     default: return id;
     }
 }
+#pragma code_seg(".text$0043eac0_fn")
 float AnmVm::FloatVar(float id) {
     switch ((int)id) {
     case 10000: return (float)int_vars[0];
@@ -247,6 +268,7 @@ float AnmVm::FloatVar(float id) {
     default: return id;
     }
 }
+#pragma code_seg(".text$0043eda0_fn")
 int* __stdcall Anm_IntRef(int* value, AnmVm* vm, int index, unsigned short mask) {
     unsigned char* object = (unsigned char*)vm;
     if (((1u << index) & mask) != 0) {
@@ -261,6 +283,7 @@ int* __stdcall Anm_IntRef(int* value, AnmVm* vm, int index, unsigned short mask)
     }
     return value;
 }
+#pragma code_seg(".text$0043ed00_fn")
 float* __stdcall Anm_FloatRef(AnmVm* vm, int index, float* value, unsigned short mask) {
     unsigned char* object = (unsigned char*)vm;
     if (((1u << index) & mask) != 0) {
@@ -276,6 +299,7 @@ float* __stdcall Anm_FloatRef(AnmVm* vm, int index, float* value, unsigned short
     }
     return value;
 }
+#pragma code_seg(".text$00442300_fn")
 void AnmVm::StartAlpha(int end_time, unsigned char mode, unsigned char initial, unsigned char goal) {
     alpha_interp.control_1 = 0;
     alpha_interp.control_2 = 0;
@@ -285,6 +309,7 @@ void AnmVm::StartAlpha(int end_time, unsigned char mode, unsigned char initial, 
     alpha_interp.goal = goal;
     ::Restart(&alpha_interp.timer);
 }
+#pragma code_seg(".text$00441f50_fn")
 void AnmVm::StartAlpha2(int end_time, unsigned char mode, unsigned char initial, unsigned char goal) {
     alpha2_interp.end_time = end_time;
     alpha2_interp.mode = mode;
@@ -304,15 +329,19 @@ void AnmVm::StartAlpha2(int end_time, unsigned char mode, unsigned char initial,
         member.goal = to; \
         ::Restart(&member.timer); \
     }
+#pragma code_seg(".text$00442220_fn")
 STARTCOLOR(StartColor, color_interp)
+#pragma code_seg(".text$00442050_fn")
 STARTCOLOR(StartColor2, color2_interp)
-void AnmVm::StartScale(const Float2* initial, const Float2* goal, int end_time, unsigned char mode) {
+#pragma code_seg(".text$0041ab70_fn")
+void AnmVm::StartScale(int end_time, unsigned char mode, const Float2* initial, const Float2* goal) {
     scale_interp.end_time = end_time;
     scale_interp.mode = mode;
     scale_interp.initial = *initial;
     scale_interp.goal = *goal;
     ::Restart(&scale_interp.timer);
 }
+#pragma code_seg(".text$00441ef0_fn")
 AnmVertex* AnmVertex::SetPolar(float angle, float radius) {
     __asm {
         mov eax, this
@@ -324,13 +353,23 @@ AnmVertex* AnmVertex::SetPolar(float angle, float radius) {
         fstp dword ptr [eax + 4]
     }
 }
+#pragma code_seg(".text$004452f0_fn")
 void AnmVm::InitRing() {
     int count = int_vars[0];
     for (int i = 0; i < count; ++i) strip[i].w = (float)ext_ring(this);
 }
 
+// The game's vectors are objects with constructors whose addresses escape in
+// the whole program (retail re-reads them after each store into a VM).
+#pragma code_seg(".text$00401120_park")
+extern "C" void __stdcall AnmVmTickEscape(void** objects) {
+    objects[0] = &g_zero_vector;
+    objects[1] = &g_scroll_step;
+}
+#pragma code_seg(".text$004010f0_park")
 extern "C" int __stdcall RigEntry(AnmVm** vms, int count) {
     int total = 0;
     for (int i = 0; i < count; ++i) total += AnmVm::Tick(vms[i]);
     return total;
 }
+#pragma code_seg()

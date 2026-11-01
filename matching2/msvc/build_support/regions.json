@@ -34733,13 +34733,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0043ee30_0043ee30",
-      "source": "build_support/exact/core/sprtanim/anm_vm_tick.cpp",
-      "symbol": "_asm_FUN_0043ee30_0043ee30",
+      "name": "semantic_AnmVm_Tick_0043ee30",
+      "source": "src/core/sprtanim/anm_vm_tick.cpp",
+      "symbol": "?Tick@AnmVm@@SGHPAU1@@Z",
       "address": "0x0043EE30",
       "size": 9964,
-      "kind": "asm",
-      "owner": "0x0043EE30"
+      "kind": "semantic",
+      "owner": "0x0043EE30",
+      "previous_record": {
+        "name": "asm_FUN_0043ee30_0043ee30",
+        "source": "build_support/exact/core/sprtanim/anm_vm_tick.cpp",
+        "symbol": "_asm_FUN_0043ee30_0043ee30",
+        "address": "0x0043EE30",
+        "size": 9964,
+        "kind": "asm",
+        "owner": "0x0043EE30"
+      }
     },
     {
       "name": "text_padding_0044151c",
@@ -60552,6 +60561,7 @@
     "?BuildSpellList@TitleDrawView@@QAEHXZ": "0x00432690"
   },
   "translation_units": [
+    "src/core/sprtanim/anm_vm_tick.cpp",
     "src/game/title/title_dispatcher.cpp",
     "src/game/laser/laser_circle_split.cpp",
     "src/game/laser/laser_rectangle_split.cpp",
@@ -60560,7 +60570,6 @@
     "build_support/exact/core/main/transparent_pixel_fill.cpp",
     "build_support/exact/core/screen/shake_update.cpp",
     "src/core/sprtanim/animation_change_script.cpp",
-    "build_support/exact/core/sprtanim/anm_vm_tick.cpp",
     "build_support/exact/core/sprtlib/transparent_pixel_fill_locked.cpp",
     "build_support/exact/core/zunlib/joystick_poll.cpp",
     "build_support/exact/game/ending/event_script_runtime.cpp",
@@ -62540,6 +62549,7 @@
     }
   ],
   "ltcg_clusters": [
+    "build_support/layout/ltcg/anm_vm_tick.json",
     "build_support/layout/ltcg/title_dispatcher.json",
     "build_support/layout/ltcg/title_music_room.json",
     "build_support/layout/ltcg/laser_script_run.json",
@@ -64512,10 +64522,6 @@
     {
       "region": "asm_FUN_0044e1a0_0044e1a0",
       "layout": "build_support/layout/equivalent/ecl_core_interpreter.json"
-    },
-    {
-      "region": "asm_FUN_0043ee30_0043ee30",
-      "layout": "build_support/layout/equivalent/anm_vm_tick.json"
     },
     {
       "region": "asm_FUN_0040e770_0040e770",

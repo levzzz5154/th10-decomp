@@ -1,0 +1,564 @@
+{
+ "schema_version": 1,
+ "name": "anm_vm_tick",
+ "source": "src/core/sprtanim/anm_vm_tick.cpp",
+ "driver": "build_support/layout/ltcg/anm_vm_tick_context.cpp",
+ "headers": [
+  "include/th10/runtime/core/sprtanim/anm_vm_tick.hpp"
+ ],
+ "image_base": "0x00400000",
+ "description": "The ANM VM tick 0x0043EE30 with the models of its 29 compiled callees visible (each at its retail address), the RigEntry context entry and an escape of the game vectors, in the two-unit link it was recovered against; byte-exact in all 9,964 bytes.",
+ "functions": [
+  {
+   "name": "AnmVm::Tick",
+   "symbol": "?Tick@AnmVm@@SGHPAU1@@Z",
+   "section": ".text$0043ee30_fn",
+   "address": "0x0043EE30",
+   "size": 9964,
+   "actual_abi": "public stdcall with the VM on the stack (RET 4); int result in EAX"
+  }
+ ],
+ "anchors": [
+  {
+   "name": "?Set@FrameTimer@@QAEXH@Z",
+   "symbol": "?Set@FrameTimer@@QAEXH@Z",
+   "section": ".text$00405410_fn",
+   "address": "0x00405410",
+   "size": 57
+  },
+  {
+   "name": "?Advance@FrameTimer@@QAEXM@Z",
+   "symbol": "?Advance@FrameTimer@@QAEXM@Z",
+   "section": ".text$0044bf40_fn",
+   "address": "0x0044BF40",
+   "size": 88
+  },
+  {
+   "name": "?Decrement@FrameTimer@@QAEXH@Z",
+   "symbol": "?Decrement@FrameTimer@@QAEXH@Z",
+   "section": ".text$00428dd0_fn",
+   "address": "0x00428DD0",
+   "size": 20
+  },
+  {
+   "name": "?NextModulo@RngState@@QAEII@Z",
+   "symbol": "?NextModulo@RngState@@QAEII@Z",
+   "section": ".text$0043cb80_fn",
+   "address": "0x0043CB80",
+   "size": 88
+  },
+  {
+   "name": "?NextFloat@RngState@@QAEMXZ",
+   "symbol": "?NextFloat@RngState@@QAEMXZ",
+   "section": ".text$0044bb20_fn",
+   "address": "0x0044BB20",
+   "size": 109
+  },
+  {
+   "name": "?Angle_NormalizeSum@@YGMMM@Z",
+   "symbol": "?Angle_NormalizeSum@@YGMMM@Z",
+   "section": ".text$0044bc10_fn",
+   "address": "0x0044BC10",
+   "size": 94
+  },
+  {
+   "name": "?Restart@Float3Interp@@QAEXXZ",
+   "symbol": "?Restart@Float3Interp@@QAEXXZ",
+   "section": ".text$004050d0_fn",
+   "address": "0x004050D0",
+   "size": 50
+  },
+  {
+   "name": "??DInt3@@QBE?AU0@M@Z",
+   "symbol": "??DInt3@@QBE?AU0@M@Z",
+   "section": ".text$00401000_park",
+   "address": "0x00401000",
+   "size": 56
+  },
+  {
+   "name": "?Evaluate@Float3Interp@@QAE?AUFloat3@@XZ",
+   "symbol": "?Evaluate@Float3Interp@@QAE?AUFloat3@@XZ",
+   "section": ".text$00404610_fn",
+   "address": "0x00404610",
+   "size": 779
+  },
+  {
+   "name": "?Evaluate@ColorInterp@@QAE?AUInt3@@XZ",
+   "symbol": "?Evaluate@ColorInterp@@QAE?AUInt3@@XZ",
+   "section": ".text$00441600_fn",
+   "address": "0x00441600",
+   "size": 782
+  },
+  {
+   "name": "?Evaluate@IntInterp@@QAEHXZ",
+   "symbol": "?Evaluate@IntInterp@@QAEHXZ",
+   "section": ".text$00441950_fn",
+   "address": "0x00441950",
+   "size": 373
+  },
+  {
+   "name": "?Evaluate@Float2Interp@@QAE?AUFloat2@@XZ",
+   "symbol": "?Evaluate@Float2Interp@@QAE?AUFloat2@@XZ",
+   "section": ".text$00441ad0_fn",
+   "address": "0x00441AD0",
+   "size": 584
+  },
+  {
+   "name": "?EvaluateCurve@@YGMIMM@Z",
+   "symbol": "?EvaluateCurve@@YGMIMM@Z",
+   "section": ".text$00401040_park",
+   "address": "0x00401040",
+   "size": 172
+  },
+  {
+   "name": "?List_InsertAfter@@YGXPAUListNode@@0@Z",
+   "symbol": "?List_InsertAfter@@YGXPAUListNode@@0@Z",
+   "section": ".text$00413200_fn",
+   "address": "0x00413200",
+   "size": 23
+  },
+  {
+   "name": "?Anm_CreatePrimaryBack@@YGPAUAnmHandle@@PAUAnmLoaded@@PAU1@HH@Z",
+   "symbol": "?Anm_CreatePrimaryBack@@YGPAUAnmHandle@@PAUAnmLoaded@@PAU1@HH@Z",
+   "section": ".text$00448d00_fn",
+   "address": "0x00448D00",
+   "size": 80
+  },
+  {
+   "name": "?Anm_CreatePrimaryFront@@YGPAUAnmHandle@@PAUAnmLoaded@@PAU1@HH@Z",
+   "symbol": "?Anm_CreatePrimaryFront@@YGPAUAnmHandle@@PAUAnmLoaded@@PAU1@HH@Z",
+   "section": ".text$00448e30_fn",
+   "address": "0x00448E30",
+   "size": 80
+  },
+  {
+   "name": "?Anm_CreateSecondaryBack@@YGPAUAnmHandle@@PAUAnmLoaded@@PAU1@HH@Z",
+   "symbol": "?Anm_CreateSecondaryBack@@YGPAUAnmHandle@@PAUAnmLoaded@@PAU1@HH@Z",
+   "section": ".text$00448f60_fn",
+   "address": "0x00448F60",
+   "size": 80
+  },
+  {
+   "name": "?Anm_CreateSecondaryFront@@YGPAUAnmHandle@@PAUAnmLoaded@@PAU1@HH@Z",
+   "symbol": "?Anm_CreateSecondaryFront@@YGPAUAnmHandle@@PAUAnmLoaded@@PAU1@HH@Z",
+   "section": ".text$00449090_fn",
+   "address": "0x00449090",
+   "size": 80
+  },
+  {
+   "name": "?Anm_Resolve@@YGPAUAnmVm@@PAUAnmHandle@@@Z",
+   "symbol": "?Anm_Resolve@@YGPAUAnmVm@@PAUAnmHandle@@@Z",
+   "section": ".text$00449450_fn",
+   "address": "0x00449450",
+   "size": 20
+  },
+  {
+   "name": "?SetSprite@AnmLoaded@@QAEHPAUAnmVm@@H@Z",
+   "symbol": "?SetSprite@AnmLoaded@@QAEHPAUAnmVm@@H@Z",
+   "section": ".text$0043e5a0_fn",
+   "address": "0x0043E5A0",
+   "size": 356
+  },
+  {
+   "name": "?IntVar@AnmVm@@QAEHH@Z",
+   "symbol": "?IntVar@AnmVm@@QAEHH@Z",
+   "section": ".text$0043ec70_fn",
+   "address": "0x0043EC70",
+   "size": 144
+  },
+  {
+   "name": "?FloatVar@AnmVm@@QAEMM@Z",
+   "symbol": "?FloatVar@AnmVm@@QAEMM@Z",
+   "section": ".text$0043eac0_fn",
+   "address": "0x0043EAC0",
+   "size": 296
+  },
+  {
+   "name": "?Anm_IntRef@@YGPAHPAHPAUAnmVm@@HG@Z",
+   "symbol": "?Anm_IntRef@@YGPAHPAHPAUAnmVm@@HG@Z",
+   "section": ".text$0043eda0_fn",
+   "address": "0x0043EDA0",
+   "size": 132
+  },
+  {
+   "name": "?Anm_FloatRef@@YGPAMPAUAnmVm@@HPAMG@Z",
+   "symbol": "?Anm_FloatRef@@YGPAMPAUAnmVm@@HPAMG@Z",
+   "section": ".text$0043ed00_fn",
+   "address": "0x0043ED00",
+   "size": 156
+  },
+  {
+   "name": "?StartAlpha@AnmVm@@QAEXHEEE@Z",
+   "symbol": "?StartAlpha@AnmVm@@QAEXHEEE@Z",
+   "section": ".text$00442300_fn",
+   "address": "0x00442300",
+   "size": 130
+  },
+  {
+   "name": "?StartAlpha2@AnmVm@@QAEXHEEE@Z",
+   "symbol": "?StartAlpha2@AnmVm@@QAEXHEEE@Z",
+   "section": ".text$00441f50_fn",
+   "address": "0x00441F50",
+   "size": 116
+  },
+  {
+   "name": "?StartColor@AnmVm@@QAEXPBE0HE@Z",
+   "symbol": "?StartColor@AnmVm@@QAEXPBE0HE@Z",
+   "section": ".text$00442220_fn",
+   "address": "0x00442220",
+   "size": 208
+  },
+  {
+   "name": "?StartColor2@AnmVm@@QAEXPBE0HE@Z",
+   "symbol": "?StartColor2@AnmVm@@QAEXPBE0HE@Z",
+   "section": ".text$00442050_fn",
+   "address": "0x00442050",
+   "size": 208
+  },
+  {
+   "name": "?StartScale@AnmVm@@QAEXHEPBUFloat2@@0@Z",
+   "symbol": "?StartScale@AnmVm@@QAEXHEPBUFloat2@@0@Z",
+   "section": ".text$0041ab70_fn",
+   "address": "0x0041AB70",
+   "size": 136
+  },
+  {
+   "name": "?SetPolar@AnmVertex@@QAEPAU1@MM@Z",
+   "symbol": "?SetPolar@AnmVertex@@QAEPAU1@MM@Z",
+   "section": ".text$00441ef0_fn",
+   "address": "0x00441EF0",
+   "size": 30
+  },
+  {
+   "name": "?InitRing@AnmVm@@QAEXXZ",
+   "symbol": "?InitRing@AnmVm@@QAEXXZ",
+   "section": ".text$004452f0_fn",
+   "address": "0x004452F0",
+   "size": 50
+  },
+  {
+   "name": "_AnmVmTickEscape@4",
+   "symbol": "_AnmVmTickEscape@4",
+   "section": ".text$00401120_park",
+   "address": "0x00401120",
+   "size": 20
+  }
+ ],
+ "context": {
+  "symbol": "_RigEntry@8",
+  "section": ".text$004010f0_park",
+  "address": "0x004010F0",
+  "size": 46,
+  "description": "The link's entry: a caller for the whole-program link to see; not recovered game code."
+ },
+ "gaps": [
+  {
+   "section": ".text$00401038_gap",
+   "address": "0x00401038",
+   "size": 8
+  },
+  {
+   "section": ".text$004010ec_gap",
+   "address": "0x004010EC",
+   "size": 4
+  },
+  {
+   "section": ".text$0040111e_gap",
+   "address": "0x0040111E",
+   "size": 2
+  },
+  {
+   "section": ".text$00401134_gap",
+   "address": "0x00401134",
+   "size": 13532
+  },
+  {
+   "section": ".text$0040491b_gap",
+   "address": "0x0040491B",
+   "size": 1973
+  },
+  {
+   "section": ".text$00405102_gap",
+   "address": "0x00405102",
+   "size": 782
+  },
+  {
+   "section": ".text$00405449_gap",
+   "address": "0x00405449",
+   "size": 56759
+  },
+  {
+   "section": ".text$00413217_gap",
+   "address": "0x00413217",
+   "size": 31065
+  },
+  {
+   "section": ".text$0041abf8_gap",
+   "address": "0x0041ABF8",
+   "size": 57816
+  },
+  {
+   "section": ".text$00428de4_gap",
+   "address": "0x00428DE4",
+   "size": 81308
+  },
+  {
+   "section": ".text$0043cbd8_gap",
+   "address": "0x0043CBD8",
+   "size": 6600
+  },
+  {
+   "section": ".text$0043e704_gap",
+   "address": "0x0043E704",
+   "size": 956
+  },
+  {
+   "section": ".text$0043ebe8_gap",
+   "address": "0x0043EBE8",
+   "size": 136
+  },
+  {
+   "section": ".text$0043ed9c_gap",
+   "address": "0x0043ED9C",
+   "size": 4
+  },
+  {
+   "section": ".text$0043ee24_gap",
+   "address": "0x0043EE24",
+   "size": 12
+  },
+  {
+   "section": ".text$0044151c_gap",
+   "address": "0x0044151C",
+   "size": 228
+  },
+  {
+   "section": ".text$0044190e_gap",
+   "address": "0x0044190E",
+   "size": 66
+  },
+  {
+   "section": ".text$00441ac5_gap",
+   "address": "0x00441AC5",
+   "size": 11
+  },
+  {
+   "section": ".text$00441d18_gap",
+   "address": "0x00441D18",
+   "size": 472
+  },
+  {
+   "section": ".text$00441f0e_gap",
+   "address": "0x00441F0E",
+   "size": 66
+  },
+  {
+   "section": ".text$00441fc4_gap",
+   "address": "0x00441FC4",
+   "size": 140
+  },
+  {
+   "section": ".text$00442120_gap",
+   "address": "0x00442120",
+   "size": 256
+  },
+  {
+   "section": ".text$004422f0_gap",
+   "address": "0x004422F0",
+   "size": 16
+  },
+  {
+   "section": ".text$00442382_gap",
+   "address": "0x00442382",
+   "size": 12142
+  },
+  {
+   "section": ".text$00445322_gap",
+   "address": "0x00445322",
+   "size": 14814
+  },
+  {
+   "section": ".text$00448d50_gap",
+   "address": "0x00448D50",
+   "size": 224
+  },
+  {
+   "section": ".text$00448e80_gap",
+   "address": "0x00448E80",
+   "size": 224
+  },
+  {
+   "section": ".text$00448fb0_gap",
+   "address": "0x00448FB0",
+   "size": 224
+  },
+  {
+   "section": ".text$004490e0_gap",
+   "address": "0x004490E0",
+   "size": 880
+  },
+  {
+   "section": ".text$00449464_gap",
+   "address": "0x00449464",
+   "size": 9916
+  },
+  {
+   "section": ".text$0044bb8d_gap",
+   "address": "0x0044BB8D",
+   "size": 131
+  },
+  {
+   "section": ".text$0044bc6e_gap",
+   "address": "0x0044BC6E",
+   "size": 722
+  }
+ ],
+ "constants": [],
+ "constant_aliases": [
+  {
+   "symbol": "__real@00000000",
+   "address": "0x00470B04",
+   "value": 0.0
+  },
+  {
+   "symbol": "__real@3f000000",
+   "address": "0x00470B0C",
+   "value": 0.5
+  },
+  {
+   "symbol": "__real@3f7d70a4",
+   "address": "0x00470B68",
+   "value": 0.9900000095367432
+  },
+  {
+   "symbol": "__real@3f800000",
+   "address": "0x00470AFC",
+   "value": 1.0
+  },
+  {
+   "symbol": "__real@3f8147ae",
+   "address": "0x00470B64",
+   "value": 1.0099999904632568
+  },
+  {
+   "symbol": "__real@40c90fdb",
+   "address": "0x00470B14",
+   "value": 6.2831854820251465
+  },
+  {
+   "symbol": "__real@bf800000",
+   "address": "0x00470B60",
+   "value": -1.0
+  }
+ ],
+ "data_aliases": [],
+ "absolute_symbols": [
+  {
+   "symbol": "__ftol2",
+   "address": "0x00463B2C",
+   "kind": "relative_code"
+  },
+  {
+   "symbol": "__fltused",
+   "address": "0x00000000",
+   "kind": "metadata"
+  },
+  {
+   "symbol": "_ext_alloc_vm",
+   "address": "0x00401000",
+   "kind": "relative_code"
+  },
+  {
+   "symbol": "_ext_register",
+   "address": "0x00401000",
+   "kind": "relative_code"
+  },
+  {
+   "symbol": "@ext_find@8",
+   "address": "0x00401000",
+   "kind": "relative_code"
+  },
+  {
+   "symbol": "_ext_ring@4",
+   "address": "0x00401000",
+   "kind": "relative_code"
+  },
+  {
+   "symbol": "_g_back_camera",
+   "address": "0x00491D7C",
+   "kind": "data"
+  },
+  {
+   "symbol": "_g_sprt_ctrl",
+   "address": "0x00491C10",
+   "kind": "data"
+  },
+  {
+   "symbol": "_malloc",
+   "address": "0x00452706",
+   "kind": "relative_code"
+  },
+  {
+   "symbol": "__CIfmod",
+   "address": "0x00463BBA",
+   "kind": "relative_code"
+  },
+  {
+   "symbol": "__CIacos",
+   "address": "0x00463BF0",
+   "kind": "relative_code"
+  },
+  {
+   "symbol": "_g_game_speed",
+   "address": "0x00476F78",
+   "kind": "data"
+  },
+  {
+   "symbol": "_flt_0",
+   "address": "0x00470B04",
+   "kind": "data"
+  },
+  {
+   "symbol": "_g_zero_vector",
+   "address": "0x00491C14",
+   "kind": "data"
+  },
+  {
+   "symbol": "_g_scroll_step",
+   "address": "0x00491E6C",
+   "kind": "data"
+  },
+  {
+   "symbol": "_g_replay_rng",
+   "address": "0x004918A8",
+   "kind": "data"
+  },
+  {
+   "symbol": "_g_effect_rng",
+   "address": "0x004918B0",
+   "kind": "data"
+  },
+  {
+   "symbol": "?g_pi@@3MA",
+   "address": "0x00470B18",
+   "kind": "data"
+  },
+  {
+   "symbol": "?g_tau@@3MA",
+   "address": "0x00470B14",
+   "kind": "data"
+  },
+  {
+   "symbol": "?g_neg_pi@@3MA",
+   "address": "0x00470B10",
+   "kind": "data"
+  }
+ ],
+ "roots": [],
+ "anchor_roots": [
+  "_AnmVmTickEscape@4"
+ ],
+ "additional_sources": [
+  "build_support/layout/ltcg/anm_vm_tick_dependencies/callees.cpp"
+ ]
+}

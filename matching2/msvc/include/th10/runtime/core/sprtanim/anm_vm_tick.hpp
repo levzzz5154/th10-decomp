@@ -1,4 +1,4 @@
-// Types for the 0x0043EE30 equivalent recovery (ANM VM tick).
+// Types of the ANM VM tick 0x0043EE30 and of the callees it is compiled with.
 #pragma once
 #include <stddef.h>
 #include <stdlib.h>
@@ -122,8 +122,7 @@ struct AnmSprite {
 };
 
 struct AnmVertex {
-    Float2 position_xy;
-    float z;
+    Float3 position;
     float w;
     unsigned int color;
     float u, v;
@@ -226,7 +225,9 @@ struct AnmVm {
     __declspec(noinline) void StartAlpha2(int end_time, unsigned char mode, unsigned char initial, unsigned char goal);  // 0x00441F50
     __declspec(noinline) void StartColor(const unsigned char* initial, const unsigned char* goal, int end_time, unsigned char mode);   // 0x00442220
     __declspec(noinline) void StartColor2(const unsigned char* initial, const unsigned char* goal, int end_time, unsigned char mode);  // 0x00442050
-    __declspec(noinline) void StartScale(const Float2* initial, const Float2* goal, int end_time, unsigned char mode);                // 0x0041AB70
+    // 0x0041AB70 stores the fields in this order; callers evaluate their
+    // arguments in declaration order, which case 60 of Tick depends on.
+    __declspec(noinline) void StartScale(int end_time, unsigned char mode, const Float2* initial, const Float2* goal);                // 0x0041AB70
     __declspec(noinline) void InitRing();                    // 0x004452F0
 
     static int __stdcall Tick(AnmVm* vm);                    // 0x0043EE30
