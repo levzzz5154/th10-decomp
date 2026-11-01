@@ -200,3 +200,9 @@ the function"; field-copy spelling: the address recomputes, +15 bytes);
 use-then-copy into names/kept/index (folded away or wrong block);
 operand-order sweeps (7 shapes, 0 change); `count + merged` IV bound (41);
 sub-expression splits and statement reorders (0 change or 41-45).
+
+## 2026-11-01: superseded — byte-exact
+
+The count update through a reference (`AddCount(int&, int)`) keeps the size's
+`shl`, and a free naming both table locals keeps the old table in EBP. See
+`ecl_name_table_00450220_exact_2026_11_01.md`.

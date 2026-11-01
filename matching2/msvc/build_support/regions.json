@@ -43434,13 +43434,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00450220_00450220",
-      "source": "build_support/exact/script/sptlib/ecl_name_table.cpp",
-      "symbol": "_asm_FUN_00450220_00450220",
+      "name": "semantic_ScriptFileLoader_Parse_00450220",
+      "source": "src/script/sptlib/ecl_name_table.cpp",
+      "symbol": "?Parse@ScriptFileLoader@@UAEHPAH@Z",
       "address": "0x00450220",
       "size": 589,
-      "kind": "asm",
-      "owner": "0x00450220"
+      "kind": "semantic",
+      "owner": "0x00450220",
+      "previous_record": {
+        "name": "asm_FUN_00450220_00450220",
+        "source": "build_support/exact/script/sptlib/ecl_name_table.cpp",
+        "symbol": "_asm_FUN_00450220_00450220",
+        "address": "0x00450220",
+        "size": 589,
+        "kind": "asm",
+        "owner": "0x00450220"
+      }
     },
     {
       "name": "text_padding_0045046d",
@@ -60597,6 +60606,7 @@
     "?BuildSpellList@TitleDrawView@@QAEHXZ": "0x00432690"
   },
   "translation_units": [
+    "src/script/sptlib/ecl_name_table.cpp",
     "src/game/ending/recovery_script_executor.cpp",
     "src/game/replay/replay_save.cpp",
     "src/game/replay/replay_runtime_bootstrap.cpp",
@@ -60618,7 +60628,6 @@
     "src/game/title/ui_final_runtime.cpp",
     "build_support/exact/script/sptcmd/ecl_core_interpreter.cpp",
     "build_support/exact/script/sptcmd/ecl_vm_start_child_retail.cpp",
-    "build_support/exact/script/sptlib/ecl_name_table.cpp",
     "lib/libc.lib/build/intel/st_obj/a_cmp.obj",
     "lib/libc.lib/build/intel/st_obj/getqloc.obj",
     "lib/libc.lib/build/intel/st_obj/setlocal.obj",
@@ -64574,10 +64583,6 @@
     {
       "region": "asm_FUN_00436da0_00436da0",
       "layout": "build_support/layout/equivalent/font_atlas_fill_transparent.json"
-    },
-    {
-      "region": "asm_FUN_00450220_00450220",
-      "layout": "build_support/layout/equivalent/ecl_name_table.json"
     },
     {
       "region": "asm_FUN_00432cb0_00432cb0",

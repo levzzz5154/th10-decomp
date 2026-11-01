@@ -1,9 +1,4 @@
-// Equivalent recovery of the script name table loader at 0x00450220. The
-// default build compiles this into the executable once
-// tools/matching/equivalence.py has checked that it differs from the exact
-// bytes only as recorded in build_support/layout/equivalent/ecl_name_table.json.
-// The inline assembly in build_support/exact/script/sptlib/ecl_name_table.cpp supplies those exact
-// bytes and `make EXACT=1`.
+// Script name table loader at 0x00450220.
 //
 // Registers one script file: checks its header, grows the table of named
 // subroutines and inserts the file's names so the table stays sorted.
@@ -27,17 +22,21 @@ struct ScriptHeader {
     unsigned short sub_count;
 };
 
+// Vtable at 0x0046D0F0: Parse, then LoadChunks.
 struct ScriptFileLoader {
-    virtual void Reserved();
+    virtual int Parse(int* data);
     virtual void LoadChunks(char* chunks);
     int file_count;
     int name_count;
     ScriptHeader* files[32];
     ScriptSub* entries;
-    __declspec(noinline) int Parse(int* data);
 };
 typedef char ScriptFileLoader_entries_offset[offsetof(ScriptFileLoader, entries) == 0x8c ? 1 : -1];
 typedef char ScriptHeader_sub_count_offset[offsetof(ScriptHeader, sub_count) == 0x10 ? 1 : -1];
+
+// The count is grown through a reference, so the allocation size reads the
+// stored count back (retail's `shl` on a fresh copy) instead of reusing the sum.
+static __forceinline void AddCount(int& count, int n) { count += n; }
 
 // The parameter arrives as the file and is then reused as the cursor over the
 // file's table of subroutine offsets, as its stack home shows.
@@ -54,11 +53,12 @@ int ScriptFileLoader::Parse(int* data) {
     }
     data = (int*)((char*)files[file_count] + files[file_count]->chunk_size + 0x24);
     const char* names = (const char*)(data + files[file_count]->sub_count);
-    // Retail tests the old table twice; one variable makes the compiler drop
-    // the second test.
+    // Both locals hold the table being replaced. Retail tests it again before
+    // freeing it; the compiler keeps that second test only when it reads a
+    // second variable.
     ScriptSub* old = entries;
     ScriptSub* previous = entries;
-    name_count += files[file_count]->sub_count;
+    AddCount(name_count, files[file_count]->sub_count);
     unsigned int size = name_count * sizeof(ScriptSub);
     entries = (ScriptSub*)entry_malloc(size);
     if (old == 0) {
@@ -71,7 +71,9 @@ int ScriptFileLoader::Parse(int* data) {
         int sub = files[file_count]->sub_count;
         int kept = name_count - sub;
         memcpy(entries, old, sizeof(ScriptSub) * kept);
-        if (previous) crt_free((sub == files[file_count]->sub_count) ? previous : previous);
+        // Frees the old table (old == previous). Naming both pointers in the
+        // call is what leaves `old`, not `names`, in EBP as in retail.
+        if (previous) crt_free((old == previous) ? old : previous);
         for (int merged = 0; merged < files[file_count]->sub_count; merged++, data++) {
             int index;
             for (index = 0; index < kept; index++) {

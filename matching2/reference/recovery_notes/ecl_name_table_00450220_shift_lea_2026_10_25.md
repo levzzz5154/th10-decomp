@@ -96,3 +96,9 @@ touched `names` moves the frame: 109). `ent/v25.py` has those. Tools:
 Still open: a source form whose reload of `name_count` Gopt cannot forward
 (a kill between the store and the reload that emits no code), with one
 `sub_count` load.
+
+## 2026-11-01: superseded — byte-exact
+
+The count update through a reference (`AddCount(int&, int)`) keeps the size's
+`shl`, and a free naming both table locals keeps the old table in EBP. See
+`ecl_name_table_00450220_exact_2026_11_01.md`.
