@@ -24432,13 +24432,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00429b60_00429b60",
-      "source": "build_support/exact/game/replay/replay_large_runtime.cpp",
-      "symbol": "_asm_FUN_00429b60_00429b60",
+      "name": "semantic_ReplaySaveManager_Save_00429b60",
+      "source": "src/game/replay/replay_save.cpp",
+      "symbol": "?Save@ReplaySaveManager@@QAIHPBD0@Z",
       "address": "0x00429B60",
       "size": 1681,
-      "kind": "asm",
-      "owner": "0x00429B60"
+      "kind": "semantic",
+      "owner": "0x00429B60",
+      "previous_record": {
+        "name": "asm_FUN_00429b60_00429b60",
+        "source": "build_support/exact/game/replay/replay_large_runtime.cpp",
+        "symbol": "_asm_FUN_00429b60_00429b60",
+        "address": "0x00429B60",
+        "size": 1681,
+        "kind": "asm",
+        "owner": "0x00429B60"
+      }
     },
     {
       "name": "text_padding_0042a1f1",
@@ -60579,6 +60588,7 @@
     "?BuildSpellList@TitleDrawView@@QAEHXZ": "0x00432690"
   },
   "translation_units": [
+    "src/game/replay/replay_save.cpp",
     "src/game/replay/replay_runtime_bootstrap.cpp",
     "src/core/zunlib/joystick_poll.cpp",
     "src/core/sprtanim/anm_vm_tick.cpp",
@@ -60595,7 +60605,6 @@
     "build_support/exact/game/enemy/ecl_vm.cpp",
     "build_support/exact/game/item/manager_factories.cpp",
     "build_support/layout/ltcg/large_player_dependencies/runtime.cpp",
-    "build_support/exact/game/replay/replay_large_runtime.cpp",
     "build_support/exact/game/title/name_entry.cpp",
     "src/game/title/ui_final_runtime.cpp",
     "build_support/exact/script/sptcmd/ecl_core_interpreter.cpp",
@@ -62567,6 +62576,7 @@
     }
   ],
   "ltcg_clusters": [
+    "build_support/layout/ltcg/replay_save.json",
     "build_support/layout/ltcg/replay_runtime_bootstrap.json",
     "build_support/layout/ltcg/joystick_poll.json",
     "build_support/layout/ltcg/anm_vm_tick.json",
@@ -64570,10 +64580,6 @@
     {
       "region": "asm_FUN_004465b0_004465b0",
       "layout": "build_support/layout/equivalent/anm_texture_fill_transparent.json"
-    },
-    {
-      "region": "asm_FUN_00429b60_00429b60",
-      "layout": "build_support/layout/equivalent/replay_save.json"
     },
     {
       "region": "asm_EclVm_StartChildRetail_0044df70",

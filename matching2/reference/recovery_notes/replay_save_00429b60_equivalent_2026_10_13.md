@@ -510,3 +510,11 @@ all fold or perturb. Residual: the bottom-five slot permutation (31
 frame-offset instructions) + the ESI/EDI this-piece swap. Unblocked path: the
 c2 regalloc/ChoosePhysReg tracer for the this-piece K/priority (the winedbg
 hardware-breakpoint attach is the missing fine signal).
+
+## 2026-11-01: superseded — byte-exact
+
+The frame residual above was a model error, not a c2 limit: a block-scoped
+compressor out-parameter, the summary stores in retail order through an
+escaped `g_globals_score`, a `__forceinline` shared-file writer and dllimport
+Win32 declarations make it byte-exact. See
+`replay_save_00429b60_exact_2026_11_01.md`.
