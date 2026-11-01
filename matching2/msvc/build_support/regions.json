@@ -33433,13 +33433,22 @@
       "kind": "padding"
     },
     {
-      "name": "ScreenShake_Update",
-      "source": "build_support/exact/core/screen/shake_update.cpp",
-      "symbol": "_ScreenShake_Update",
+      "name": "semantic_LinearShakeUpdate_0043c550",
+      "source": "src/core/screen/camera_shake.cpp",
+      "symbol": "@LinearShakeUpdate@4",
       "address": "0x0043C550",
       "size": 439,
-      "kind": "asm",
-      "owner": "0x0043C550"
+      "kind": "semantic",
+      "owner": "0x0043C550",
+      "previous_record": {
+        "name": "ScreenShake_Update",
+        "source": "build_support/exact/core/screen/shake_update.cpp",
+        "symbol": "_ScreenShake_Update",
+        "address": "0x0043C550",
+        "size": 439,
+        "kind": "asm",
+        "owner": "0x0043C550"
+      }
     },
     {
       "name": "text_padding_0043c707",
@@ -60606,6 +60615,7 @@
     "?BuildSpellList@TitleDrawView@@QAEHXZ": "0x00432690"
   },
   "translation_units": [
+    "src/core/screen/camera_shake.cpp",
     "src/script/sptlib/ecl_name_table.cpp",
     "src/game/ending/recovery_script_executor.cpp",
     "src/game/replay/replay_save.cpp",
@@ -60618,7 +60628,6 @@
     "src/game/laser/laser_circle_trim.cpp",
     "src/game/replay/replay_frame_step.cpp",
     "build_support/exact/core/main/transparent_pixel_fill.cpp",
-    "build_support/exact/core/screen/shake_update.cpp",
     "src/core/sprtanim/animation_change_script.cpp",
     "build_support/exact/core/sprtlib/transparent_pixel_fill_locked.cpp",
     "build_support/exact/game/enemy/ecl_vm.cpp",
@@ -64575,10 +64584,6 @@
     {
       "region": "asm_FUN_0040e770_0040e770",
       "layout": "build_support/layout/equivalent/enemy_execute.json"
-    },
-    {
-      "region": "ScreenShake_Update",
-      "layout": "build_support/layout/equivalent/camera_shake.json"
     },
     {
       "region": "asm_FUN_00436da0_00436da0",

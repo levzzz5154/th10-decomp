@@ -12,7 +12,7 @@
 //   mode 8     envelope camera shake             update 0x0043C710
 //
 // Files in this folder follow the compile units: updates.cpp and draws.cpp
-// (two native-LTCG clusters), dim_update.cpp, shake_update.cpp, flash_draw.cpp.
+// (two native-LTCG clusters), dim_update.cpp, camera_shake.cpp, flash_draw.cpp.
 #include "th10/core/screen.hpp"
 
 // 0x0043C970..0x0043CAFB: screen fade/pulse/shake selector and its nine-way

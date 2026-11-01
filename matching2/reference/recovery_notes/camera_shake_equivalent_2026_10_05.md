@@ -273,3 +273,8 @@ that the priority arithmetic would otherwise allow. The next lead is a
 graph-level one — find what c2 construct yields a LIVE op-0x269-class node
 in an x87 value's data path (or an anti/output edge into the fidiv that
 the model's source lacks) — and verify with the t30 oracle before sweeping.
+
+## 2026-11-01: superseded — byte-exact
+
+Rounding the product to float and naming it before the divide places the
+fidiv as retail does. See `camera_shake_0043c550_exact_2026_11_01.md`.

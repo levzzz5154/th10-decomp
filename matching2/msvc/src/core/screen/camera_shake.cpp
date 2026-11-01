@@ -1,7 +1,9 @@
-// Camera shake task: advance its timer, interpolate amplitude, and choose
-// independently signed offsets through the game's 16-bit random recurrence.
+// 0x0043C550: the linear camera shake, update task of screen effect mode 1.
+// Advances its timer, interpolates the amplitude, and picks independently
+// signed offsets with the game's 16-bit random recurrence.
 #include "th10/core/screen.hpp"
-extern unsigned g_shake_cancel;
+extern "C" unsigned g_screen_effects_frozen;
+// The game RNG (g_rng); this task reads the seed as one 32-bit word.
 struct ShakeRngStorage {
     union {
         unsigned int seed_storage;
@@ -18,19 +20,17 @@ struct ShakeRngStorage {
     }
 };
 typedef char ShakeRngStorage_size[sizeof(ShakeRngStorage)==8?1:-1];
-extern ShakeRngStorage g_camera_shake_rng;
-extern float g_camera_shake_x, g_camera_shake_y;
-extern float g_timer_unit_low, g_timer_unit_high;
+extern "C" ShakeRngStorage g_rng;
+extern "C" float g_screen_shake_x, g_screen_shake_y;
 static __forceinline unsigned ShakeRandom() {
-    unsigned short next = g_camera_shake_rng.NextWord();
+    unsigned short next = g_rng.NextWord();
     return (unsigned)next | ((unsigned)next << 16);
 }
-#pragma code_seg(".text$00camera")
 extern "C" __declspec(noinline) int __fastcall LinearShakeUpdate(void* context) {
     Screen* self = static_cast<Screen*>(context);
-    if (g_shake_cancel) return 7;
+    if (g_screen_effects_frozen) return 7;
     self->timer.previous = (unsigned)self->timer.current;
-    if (*self->timer.speed > g_timer_unit_low && *self->timer.speed < g_timer_unit_high) {
+    if (*self->timer.speed > g_frame_timer_normal_lower && *self->timer.speed < g_frame_timer_normal_upper) {
         self->timer.current = (int)((unsigned)self->timer.current + 1u);
         self->timer.elapsed += 1.0f;
     } else {
@@ -41,27 +41,22 @@ extern "C" __declspec(noinline) int __fastcall LinearShakeUpdate(void* context) 
     if (self->timer.current >= limit) return 7;
     int start = self->parameter20;
     int delta = (int)((unsigned)self->parameter24 - (unsigned)start);
-    float amount = (float)delta * self->timer.elapsed / limit + start;
+    // The product is rounded to float and named before the divide: that is
+    // the placement retail's code shows, with the fidiv late, inside the
+    // second random draw.
+    float scaled = (float)((float)delta * self->timer.elapsed);
+    float amount = scaled / limit + start;
     ShakeRandom();
     switch (ShakeRandom() % 3u) {
-    case 0: g_camera_shake_x = 0.0f; break;
-    case 1: g_camera_shake_x = amount; break;
-    case 2: g_camera_shake_x = -amount; break;
+    case 0: g_screen_shake_x = 0.0f; break;
+    case 1: g_screen_shake_x = amount; break;
+    case 2: g_screen_shake_x = -amount; break;
     }
     ShakeRandom();
     switch (ShakeRandom() % 3u) {
-    case 0: g_camera_shake_y = 0.0f; break;
-    case 1: g_camera_shake_y = amount; break;
-    case 2: g_camera_shake_y = -amount; break;
+    case 0: g_screen_shake_y = 0.0f; break;
+    case 1: g_screen_shake_y = amount; break;
+    case 2: g_screen_shake_y = -amount; break;
     }
     return 1;
-}
-
-#pragma code_seg()
-
-// Compiler entry only: the real selector stores this callback's address.
-typedef int (__fastcall *CameraShakeCallback)(void*);
-CameraShakeCallback volatile CameraShakeEntryCallback = LinearShakeUpdate;
-extern "C" int __stdcall CameraShakeEntry(void* context) {
-    return CameraShakeEntryCallback(context);
 }
