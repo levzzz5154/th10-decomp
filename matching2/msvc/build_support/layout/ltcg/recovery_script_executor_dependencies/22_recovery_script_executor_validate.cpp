@@ -1,7 +1,7 @@
 // Handle validation at 0x00449450 as the executor sees it: a free function
 // with the handle in ESI. Retail pushes no receiver for this call, so the
 // manager-member spelling of the shared context does not fit here.
-#include "../../../../include/contexts/game/marktext_dispatcher_context/recovery_script_executor.hpp"
+#include "../../../include/contexts/game/marktext_dispatcher_context/recovery_script_executor.hpp"
 
 extern "C" void* g_sprt_ctrl;
 

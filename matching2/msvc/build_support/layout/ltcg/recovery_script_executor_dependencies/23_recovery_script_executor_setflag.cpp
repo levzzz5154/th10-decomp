@@ -13,8 +13,8 @@
 //    declared parameter order sets the order callers load the arguments, and
 //    retail's caller loads the name first.
 #include <string.h>
-#include "../../../../include/contexts/game/marktext_dispatcher_context/recovery_script_executor.hpp"
-#include "../../../../include/contexts/game/marktext_dispatcher_context/archive_callers.hpp"
+#include "../../../include/contexts/game/marktext_dispatcher_context/recovery_script_executor.hpp"
+#include "../../../include/contexts/game/marktext_dispatcher_context/archive_callers.hpp"
 
 extern "C" void* g_sprt_ctrl;
 extern "C" char g_recovery_script_path[];

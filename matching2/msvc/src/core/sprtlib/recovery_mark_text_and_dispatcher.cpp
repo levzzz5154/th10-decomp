@@ -45,7 +45,12 @@ void __stdcall RecoveryDispatchText2(
 }
 #pragma code_seg()
 
-#pragma code_seg(".text$00447a50_fn")
+// A cluster that places another text writer at 0x00447A50 parks this one
+// through TH10_MARK_TEXT_SECTION.
+#ifndef TH10_MARK_TEXT_SECTION
+#define TH10_MARK_TEXT_SECTION ".text$00447a50_fn"
+#endif
+#pragma code_seg(TH10_MARK_TEXT_SECTION)
 void __cdecl RecoveryTextVm::MarkText(
     void* manager, ...) {
     char buffer[128];

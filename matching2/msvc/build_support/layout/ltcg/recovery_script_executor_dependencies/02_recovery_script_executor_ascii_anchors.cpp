@@ -1,8 +1,8 @@
 // Compiler-only full semantic anchors for the executor's ASCII factory call.
 // Every helper retains its complete retail behavior; none is a selected region.
 #include <string.h>
-#include "../../../../include/contexts/game/marktext_dispatcher_context/recovery_script_executor_ascii_anchors.hpp"
-#include "../../../../include/contexts/game/marktext_dispatcher_context/thread_sync.hpp"
+#include "../../../include/contexts/game/marktext_dispatcher_context/recovery_script_executor_ascii_anchors.hpp"
+#include "../../../include/contexts/game/marktext_dispatcher_context/thread_sync.hpp"
 
 extern "C" {
 extern FuncCtrl* g_func_ctrl;

@@ -36,7 +36,12 @@ void* __fastcall RecoveryLookup::Find(RecoveryLookupContext* context, RecoverySc
             return node->object;
     return 0;
 }
-#pragma code_seg(".text$004492a0_fn")
+// A cluster that places another body at these retail addresses parks these
+// through TH10_LOOKUP_SETFLAG_SECTION and TH10_LOOKUP_VALIDATE_SECTION.
+#ifndef TH10_LOOKUP_SETFLAG_SECTION
+#define TH10_LOOKUP_SETFLAG_SECTION ".text$004492a0_fn"
+#endif
+#pragma code_seg(TH10_LOOKUP_SETFLAG_SECTION)
 void* __fastcall RecoveryLookup::SetFlag(RecoveryLookupContext* context, int id) {
     RecoveryScriptId script_id = { id };
     RecoveryLookupNode* node = static_cast<RecoveryLookupNode*>(Find(context, script_id));
@@ -48,7 +53,10 @@ void* __fastcall RecoveryLookup::SetFlag(RecoveryLookupContext* context, int id)
     }
     return node;
 }
-#pragma code_seg(".text$00449450_fn")
+#ifndef TH10_LOOKUP_VALIDATE_SECTION
+#define TH10_LOOKUP_VALIDATE_SECTION ".text$00449450_fn"
+#endif
+#pragma code_seg(TH10_LOOKUP_VALIDATE_SECTION)
 void* __cdecl RecoveryLookup::Validate(RecoveryHandle* handle) {
     RecoveryScriptId id = { static_cast<int>(handle->value) };
     void* object = Find(reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl), id);

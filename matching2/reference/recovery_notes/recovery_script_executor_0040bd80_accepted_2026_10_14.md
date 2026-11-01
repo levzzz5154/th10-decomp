@@ -297,3 +297,7 @@ The model swaps retail's registers here: manager in EDI and `&text_handles[0]` i
 - The `RecoveryMarkText` stand-in in place of the member call, with inline or named text/color.
 
 Pointer forwarding folds every named pointer back to the same IL, so the swap is a ChoosePhysReg tie that these spellings don't reach.
+
+## 2026-11-01: superseded — byte-exact
+
+See `recovery_script_executor_0040bd80_exact_2026_11_01.md`.

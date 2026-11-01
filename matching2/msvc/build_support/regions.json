@@ -8204,13 +8204,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0040bd80_0040bd80",
-      "source": "build_support/exact/game/ending/event_script_runtime.cpp",
-      "symbol": "_asm_FUN_0040bd80_0040bd80",
+      "name": "semantic_RecoveryScript_Execute_0040bd80",
+      "source": "src/game/ending/recovery_script_executor.cpp",
+      "symbol": "_RecoveryScript_Execute2@4",
       "address": "0x0040BD80",
       "size": 1568,
-      "kind": "asm",
-      "owner": "0x0040BD80"
+      "kind": "semantic",
+      "owner": "0x0040BD80",
+      "previous_record": {
+        "name": "asm_FUN_0040bd80_0040bd80",
+        "source": "build_support/exact/game/ending/event_script_runtime.cpp",
+        "symbol": "_asm_FUN_0040bd80_0040bd80",
+        "address": "0x0040BD80",
+        "size": 1568,
+        "kind": "asm",
+        "owner": "0x0040BD80"
+      }
     },
     {
       "name": "semantic_Stage_ReloadAnmThread_0040c3a0",
@@ -60588,6 +60597,7 @@
     "?BuildSpellList@TitleDrawView@@QAEHXZ": "0x00432690"
   },
   "translation_units": [
+    "src/game/ending/recovery_script_executor.cpp",
     "src/game/replay/replay_save.cpp",
     "src/game/replay/replay_runtime_bootstrap.cpp",
     "src/core/zunlib/joystick_poll.cpp",
@@ -60601,7 +60611,6 @@
     "build_support/exact/core/screen/shake_update.cpp",
     "src/core/sprtanim/animation_change_script.cpp",
     "build_support/exact/core/sprtlib/transparent_pixel_fill_locked.cpp",
-    "build_support/exact/game/ending/event_script_runtime.cpp",
     "build_support/exact/game/enemy/ecl_vm.cpp",
     "build_support/exact/game/item/manager_factories.cpp",
     "build_support/layout/ltcg/large_player_dependencies/runtime.cpp",
@@ -62576,6 +62585,7 @@
     }
   ],
   "ltcg_clusters": [
+    "build_support/layout/ltcg/recovery_script_executor.json",
     "build_support/layout/ltcg/replay_save.json",
     "build_support/layout/ltcg/replay_runtime_bootstrap.json",
     "build_support/layout/ltcg/joystick_poll.json",
@@ -64584,10 +64594,6 @@
     {
       "region": "asm_EclVm_StartChildRetail_0044df70",
       "layout": "build_support/layout/equivalent/ecl_start_child.json"
-    },
-    {
-      "region": "asm_FUN_0040bd80_0040bd80",
-      "layout": "build_support/layout/equivalent/recovery_script_executor.json"
     }
   ],
   "compilation_units": {
